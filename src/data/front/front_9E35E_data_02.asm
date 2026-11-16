@@ -3,10 +3,10 @@ bits 32
 %include "hockey.inc"
 section s_16CFF8 progbits alloc noexec write align=1
 extern str_HAVEIT, str_WANTIT
-global dword_16CFF8, dword_16D23C, dword_16D250, off_16D254, off_16D258, unk_16CFFC
-dword_16CFF8:
+global TeamSelectSparkleCount, dword_16D23C, dword_16D250, off_16D254, off_16D258, TeamSelectArtBase
+TeamSelectSparkleCount:
         db 00h,00h,00h,00h
-unk_16CFFC:
+TeamSelectArtBase:
         db 04h,01h,00h,00h,04Ah,00h,00h,00h,07Ah,01h,00h,00h,04Ah,00h,00h,00h
         db 07Dh,01h,00h,00h,05Ch,00h,00h,00h,04h,01h,00h,00h,05Ch,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h

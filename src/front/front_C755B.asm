@@ -14,11 +14,11 @@ extern str_RWON, str_CEOF, str_CEON, str_DEOF, str_DEON, str_SROF, str_SRON, str
 extern str_GRON, str_SLOF, str_SLON, str_GLOF, str_GLON, str_POB1, str_PBOF, str_STSP
 extern str_STSG, str_AN02d, str_CreatePlrMenu, str_CreatePlrRegion, str_00008, str_NAON, str_JNON, str_JNOF
 extern str_PBON, str_HEON, str_HEOF, str_WEON, str_WEOF, str_AGON, str_AGOF, str_Aiplayers
-extern str_Statplayers, str_Statgoalies, byte_1ACF62, byte_1ACF63, byte_1ACF69, byte_1AD23E, byte_1AD457, byte_1AD458
-extern byte_1AD45E, byte_1AD739, byte_1C6040, byte_1CC240, dword_16D668, dword_16D66C, dword_16D670, dword_16D674
+extern str_Statplayers, str_Statgoalies, SeasonUserHuman, SeasonUserActive, SeasonUserLocked, SeasonCreated, PlayoffUserHuman, PlayoffUserActive
+extern PlayoffUserLocked, PlayoffStarted, byte_1C6040, byte_1CC240, dword_16D668, dword_16D66C, dword_16D670, dword_16D674
 extern dword_16D678, dword_16D67C, dword_16D680, str_Punct_InitRosterScreen, str_X_InitRosterScreen, str_7_SetupRosterLists, str_I_SetupRosterLists, str_Punct_DrawRosterList
 extern str_X_DrawRosterList, dword_16D6AC, str_X_SetupRosterLists, dword_16D6B4, str_X_ShowRosterLogo, dword_16D6BC, dword_16D6C0, dword_16DA9C
-extern GameSettings, SeasonUserTeam, GameOptionFlags, SeasonActive, dword_1AD226, dword_1AD6AB, dword_1C5E74, dword_1CC18C
+extern GameSettings, SeasonUserTeam, GameOptionFlags, SeasonActive, SeasonDefaultUser, PlayoffTeams, dword_1C5E74, dword_1CC18C
 extern dword_1CC19C, dword_1CC1AC, dword_1CC1BC, dword_1CC1C0, dword_1CC1C4, dword_1CC1C8, dword_1CC1CC, dword_1CC1D0
 extern dword_1CC1D4, dword_1CC1D8, dword_1CC1DC, dword_1CC1E0, dword_1CC1E4, dword_1CC1E8, dword_1CC1EC, dword_1CC1F0
 extern dword_1CC1F4, dword_1CC1F8, dword_1CC1FC, dword_1CC200, dword_1CC204, dword_1CC208, dword_1CC20C, dword_1CC210
@@ -756,7 +756,7 @@ SetRosterMode:
         pop edx
         ret
 .2:
-        cmp byte [byte_1AD23E], 0
+        cmp byte [SeasonCreated], 0
         je short .5
         mov eax, 1
         pop edx
@@ -764,7 +764,7 @@ SetRosterMode:
 .3:
         cmp edx, byte 20h
         jne short .6
-        cmp byte [byte_1AD739], 0
+        cmp byte [PlayoffStarted], 0
         je short .4
         mov dword [dword_1CC230], 10h
         mov eax, 2
@@ -1041,7 +1041,7 @@ LoadRosterData:
         add ecx, eax
         cmp dword [byte ebp-018h], byte 1
         jne short .7
-        cmp byte [dword ebx+byte_1ACF69], 0
+        cmp byte [dword ebx+SeasonUserLocked], 0
         je short .4
         mov eax, dword [dword_1CC2AC]
         or byte [byte edi+eax+06Ah], 4
@@ -1051,9 +1051,9 @@ LoadRosterData:
         and byte [byte edi+eax+06Ah], 0FBh
 .5:
         imul ebx, esi, byte 1Ch
-        cmp byte [dword ebx+byte_1ACF63], 1
+        cmp byte [dword ebx+SeasonUserActive], 1
         jne short .6
-        cmp byte [dword ebx+byte_1ACF62], 1
+        cmp byte [dword ebx+SeasonUserHuman], 1
         je short .6
         imul eax, esi, dword 32C6h
         mov edx, dword [dword_1CC2AC]
@@ -1067,9 +1067,9 @@ LoadRosterData:
 .7:
         mov eax, dword [dword_1CC2AC]
         and byte [byte edi+eax+06Ah], 0FBh
-        cmp byte [dword ebx+byte_1AD458], 1
+        cmp byte [dword ebx+PlayoffUserActive], 1
         jne short .8
-        cmp byte [dword ebx+byte_1AD457], 1
+        cmp byte [dword ebx+PlayoffUserHuman], 1
         jne near .2
 .8:
         imul edx, esi, dword 32C6h
@@ -1583,7 +1583,7 @@ InitRosterData:
         jmp near DrawRatingBars_158
 .9:
         mov dword [dword_1CC1C8], 0FFFFFFFFh
-        mov eax, dword [dword_1AD226]
+        mov eax, dword [SeasonDefaultUser]
         mov edx, 0FFFFFFFFh
         mov dword [dword_1CC1C4], eax
         xor eax, eax
@@ -1591,16 +1591,16 @@ InitRosterData:
         cmp eax, dword [dword_1CC1C4]
         je short .12
         imul ebx, eax, byte 1Ch
-        cmp byte [dword ebx+byte_1ACF63], 1
+        cmp byte [dword ebx+SeasonUserActive], 1
         jne short .12
         test edx, edx
         jge short .11
         mov edx, eax
 .11:
         imul ebx, eax, byte 1Ch
-        cmp byte [dword ebx+byte_1ACF62], 1
+        cmp byte [dword ebx+SeasonUserHuman], 1
         je short .12
-        cmp byte [dword ebx+byte_1ACF69], 0
+        cmp byte [dword ebx+SeasonUserLocked], 0
         je short .12
         mov dword [dword_1CC2B0], 1
         mov dword [dword_1CC1C8], eax
@@ -1627,10 +1627,10 @@ InitRosterData:
         mov dword [dword_1CC2B0], 0
 .17:
         imul eax, dword [dword_1CC1C4], byte 1Ch
-        cmp byte [dword eax+byte_1ACF69], 0
+        cmp byte [dword eax+SeasonUserLocked], 0
         je short .18
         imul eax, dword [dword_1CC1C8], byte 1Ch
-        cmp byte [dword eax+byte_1ACF69], 0
+        cmp byte [dword eax+SeasonUserLocked], 0
         je short .18
         mov dword [dword_1CC2B0], 1
         jmp short .19
@@ -1660,7 +1660,7 @@ InitRosterData:
         mov edx, ecx
 .22:
         imul ebx, eax, byte 1Ch
-        cmp byte [dword ebx+byte_1AD458], 1
+        cmp byte [dword ebx+PlayoffUserActive], 1
         jne short .25
         test edx, edx
         jge short .23
@@ -1672,9 +1672,9 @@ InitRosterData:
         mov ecx, eax
 .24:
         imul ebx, eax, byte 1Ch
-        cmp byte [dword ebx+byte_1AD457], 1
+        cmp byte [dword ebx+PlayoffUserHuman], 1
         je short .25
-        cmp byte [dword ebx+byte_1AD45E], 0
+        cmp byte [dword ebx+PlayoffUserLocked], 0
         je short .25
         mov dword [dword_1CC1C4], eax
         jmp short .26
@@ -1697,11 +1697,11 @@ InitRosterData:
         cmp eax, dword [dword_1CC1C4]
         je short .30
         imul ebx, eax, byte 1Ch
-        cmp byte [dword ebx+byte_1AD458], 1
+        cmp byte [dword ebx+PlayoffUserActive], 1
         jne short .30
-        cmp byte [dword ebx+byte_1AD457], 1
+        cmp byte [dword ebx+PlayoffUserHuman], 1
         je short .30
-        cmp byte [dword ebx+byte_1AD45E], 0
+        cmp byte [dword ebx+PlayoffUserLocked], 0
         je short .30
         mov dword [dword_1CC1C8], eax
         jmp short .31
@@ -2646,7 +2646,7 @@ ShowRosterLogo:
         mov edx, dword [dword_1CC1C4]
         cmp dword [dword_1CC230], byte 1Ah
         jge short .1
-        mov edx, dword [nosplit edx*4+dword_1AD6AB]
+        mov edx, dword [nosplit edx*4+PlayoffTeams]
 .1:
         mov eax, dword [dword_1CC214]
         lea ebx, [byte ebp-020h]
@@ -2657,7 +2657,7 @@ ShowRosterLogo:
         mov edx, dword [dword_1CC1C8]
         cmp dword [dword_1CC230], byte 1Ah
         jge short .2
-        mov edx, dword [nosplit edx*4+dword_1AD6AB]
+        mov edx, dword [nosplit edx*4+PlayoffTeams]
 .2:
         mov eax, dword [dword_1CC214]
         lea ebx, [byte ebp-020h]
@@ -3375,7 +3375,7 @@ LoadRosterArt:
 .1:
         cmp dword [dword_1CC230], byte 1Ah
         jge short .2
-        mov eax, dword [nosplit ebx*4+dword_1AD6AB]
+        mov eax, dword [nosplit ebx*4+PlayoffTeams]
         jmp short .3
 .2:
         mov eax, ebx
@@ -4333,14 +4333,14 @@ RedrawRosterScreen:
         cmp dword [byte ebp-04h], byte 1
         jne short .6
         imul ecx, dword [dword_1CC1C4], byte 1Ch
-        cmp byte [dword ecx+byte_1ACF69], 0
+        cmp byte [dword ecx+SeasonUserLocked], 0
         je short .6
         imul eax, dword [dword_1CC1C8], byte 1Ch
-        cmp byte [dword eax+byte_1ACF69], 0
+        cmp byte [dword eax+SeasonUserLocked], 0
         je short .6
-        cmp byte [dword ecx+byte_1ACF63], 1
+        cmp byte [dword ecx+SeasonUserActive], 1
         je short .4
-        cmp byte [dword eax+byte_1ACF63], 1
+        cmp byte [dword eax+SeasonUserActive], 1
         je short .4
 .6:
         mov dword [dword_1CC2B0], 0

@@ -2,250 +2,199 @@
 bits 32
 %include "hockey.inc"
 section s_1C8AA4 nobits alloc noexec write align=1
-global dword_1C8AA4, dword_1C8AA8, dword_1C8AAC, dword_1C8AB0, dword_1C8AB4, dword_1C8AF8, dword_1C8AFC, dword_1C8B44
-global dword_1C8B90, dword_1C8B94, dword_1C8BE4, dword_1C8BE8, dword_1C8BEC, dword_1C8BF0, dword_1C8BF4, dword_1C8BF8
-global dword_1C8BFC, dword_1C8C00, dword_1C8C04, dword_1C8C08, dword_1C8C0C, dword_1C8C34, dword_1C8C4C, dword_1C8C60
-global dword_1C8C64, dword_1C8C68, dword_1C8C6C, dword_1C8C70, dword_1C8C74, dword_1C8C78, dword_1C8C7C, dword_1C8C80
-global dword_1C8C84, dword_1C8C88, dword_1C8C8C, dword_1C8C90, dword_1C8C94, dword_1C8C98, dword_1C8CB4, dword_1C8CB8
-global dword_1C8CBC, dword_1C8CCC, dword_1C8CD0, dword_1C8CFC, dword_1C8D00, dword_1C8D04, dword_1C8D08, dword_1C8D0C
-global dword_1C8D10, dword_1C8D14, dword_1C8D18, dword_1C8D1C, dword_1C8D20, dword_1C8D2C, dword_1C8D3C, dword_1C8D40
-global dword_1C8D4C, dword_1C8D50, dword_1C8D54, dword_1C8D58, dword_1C8D5C, dword_1C8D60, dword_1C8D6C, dword_1C8D74
-global dword_1C8D78, dword_1C8D7C, dword_1C8D8C, dword_1C8D90, dword_1C8D94, dword_1C8D98, dword_1C8D9C, dword_1C8DA0
-global dword_1C8DA4, dword_1C8DA8, dword_1C8DAC, dword_1C8DB0, dword_1C8DB4, dword_1C8DB8, dword_1C8DBC, dword_1C8DC0
-global dword_1C8DC4, dword_1C8DC8, dword_1C8DCC, dword_1C8DD0, dword_1C8DD4, dword_1C8DD8, dword_1C8DDC, dword_1C8DE0
-global dword_1C8DE4, dword_1C8DE8, dword_1C8DEC, dword_1C8DF0, dword_1C8DF4, dword_1C8DF8, dword_1C8DFC, dword_1C8E00
-global dword_1C8E04, dword_1C8E08, dword_1C8E0C, dword_1C8E10, dword_1C8E14, dword_1C8E18, dword_1C8E1C, dword_1C8E20
-global dword_1C8E24, dword_1C8E28, dword_1C8E2C, dword_1C8E30, dword_1C8E34, dword_1C8E38, dword_1C8E3C, dword_1C8E40
-global dword_1C8E44, dword_1C8E48, word_1C8CD4, word_1C8CEC
-dword_1C8AA4:
+global LinesGridX, LinesGridHeaderArt, LinesGridHeaderPtr, LinesGridLabelPtr, LinesForwardList, LinesForwardListShapes, LinesForwardGrid, LinesDefenceList
+global LinesDefenceListShapes, LinesDefenceGrid, LinesHighlightShape, LinesForwardShape, LinesForwardStatKeys
+global LinesIntroShapes, LinesSparkleShapes, LinesDefenceKeyBase
+global LinesDefenceStatKeys
+global RatingMeterFrame, RatingMeterShapes
+global LinesIntroSpeech, LinesCardX, LinesCardY, LinesCardLayout
+
+
+global LinesCellBitmap, LinesPopupMenu
+global LinesIntroBitmap, LinesSwitchShape, LinesCellArt, EditLinesMode, LinesGridRowY
+global LinesPopupBitmap, LinesLastSpeech, LinesIntroTeam, LinesSparkleFrame, RatingMeterLevel, LinesListTop, LinesIntroDone
+global LinesTitleText, LinesSparkleTimer, LinesSparkleIndex, LinesTeamText, LinesForwardCount, LinesDefenceCount, LinesGridColumn, LinesTextScroll
+global LinesTextLine, LinesTextPos, LinesTextLength, LinesGridRow, LinesForwardChoice, LinesSpecialChoice, LinesScreenBitmap, LinesIntroArt
+global EditLinesTeam, LinesCircleShape, LinesArtFile, LinesCardBitmap, LinesOvalShape, LinesLogoBitmap, LinesSwapShape, LinesFontFile
+global LinesShapeFile, EditLinesPage, LinesSlotPositions, LinesGridSlotIds
+LinesGridX:
         resb 4
-dword_1C8AA8:
+LinesGridHeaderArt:
         resb 4
-dword_1C8AAC:
+LinesGridHeaderPtr:
         resb 4
-dword_1C8AB0:
+LinesGridLabelPtr:
         resb 4
-dword_1C8AB4:
+LinesForwardList:
         resb 68
-dword_1C8AF8:
+LinesForwardListShapes:
         resb 4
-dword_1C8AFC:
+LinesForwardGrid:
         resb 72
-dword_1C8B44:
+LinesDefenceList:
         resb 76
-dword_1C8B90:
+LinesDefenceListShapes:
         resb 4
-dword_1C8B94:
+LinesDefenceGrid:
         resb 80
-dword_1C8BE4:
+LinesHighlightShape:
         resb 4
-dword_1C8BE8:
+LinesForwardShape:
         resb 4
-dword_1C8BEC:
+LinesForwardStatKeys:
         resb 4
-dword_1C8BF0:
         resb 4
-dword_1C8BF4:
         resb 4
-dword_1C8BF8:
         resb 4
-dword_1C8BFC:
         resb 4
-dword_1C8C00:
         resb 4
-dword_1C8C04:
         resb 4
-dword_1C8C08:
         resb 4
-dword_1C8C0C:
         resb 40
-dword_1C8C34:
+LinesIntroShapes:
         resb 24
-dword_1C8C4C:
+LinesSparkleShapes:
         resb 20
-dword_1C8C60:
+LinesDefenceKeyBase:
         resb 4
-dword_1C8C64:
+LinesDefenceStatKeys:
         resb 4
-dword_1C8C68:
         resb 4
-dword_1C8C6C:
         resb 4
-dword_1C8C70:
         resb 4
-dword_1C8C74:
         resb 4
-dword_1C8C78:
         resb 4
-dword_1C8C7C:
         resb 4
-dword_1C8C80:
         resb 4
-dword_1C8C84:
         resb 4
-dword_1C8C88:
         resb 4
-dword_1C8C8C:
         resb 4
-dword_1C8C90:
         resb 4
-dword_1C8C94:
         resb 4
-dword_1C8C98:
         resb 28
-dword_1C8CB4:
+RatingMeterFrame:
         resb 4
-dword_1C8CB8:
+RatingMeterShapes:
         resb 4
-dword_1C8CBC:
+LinesIntroSpeech:
         resb 16
-dword_1C8CCC:
+LinesCardX:
         resb 4
-dword_1C8CD0:
+LinesCardY:
         resb 4
-word_1C8CD4:
+LinesSlotPositions:
         resb 24
-word_1C8CEC:
+LinesGridSlotIds:
         resb 16
-dword_1C8CFC:
+LinesCardLayout:
         resb 4
-dword_1C8D00:
         resb 4
-dword_1C8D04:
         resb 4
-dword_1C8D08:
         resb 4
-dword_1C8D0C:
         resb 4
-dword_1C8D10:
         resb 4
-dword_1C8D14:
         resb 4
-dword_1C8D18:
         resb 4
-dword_1C8D1C:
         resb 4
-dword_1C8D20:
         resb 12
-dword_1C8D2C:
         resb 16
-dword_1C8D3C:
         resb 4
-dword_1C8D40:
         resb 12
-dword_1C8D4C:
         resb 4
-dword_1C8D50:
         resb 4
-dword_1C8D54:
         resb 4
-dword_1C8D58:
         resb 4
-dword_1C8D5C:
         resb 4
-dword_1C8D60:
         resb 12
-dword_1C8D6C:
         resb 8
-dword_1C8D74:
         resb 4
-dword_1C8D78:
         resb 4
-dword_1C8D7C:
         resb 16
-dword_1C8D8C:
         resb 4
-dword_1C8D90:
         resb 4
-dword_1C8D94:
         resb 4
-dword_1C8D98:
         resb 4
-dword_1C8D9C:
+LinesCellBitmap:
         resb 4
-dword_1C8DA0:
+LinesPopupMenu:
         resb 4
-dword_1C8DA4:
+LinesIntroBitmap:
         resb 4
-dword_1C8DA8:
+LinesSwitchShape:
         resb 4
-dword_1C8DAC:
+LinesCellArt:
         resb 4
-dword_1C8DB0:
+EditLinesMode:
         resb 4
-dword_1C8DB4:
+LinesGridRowY:
         resb 4
-dword_1C8DB8:
         resb 4
-dword_1C8DBC:
         resb 4
-dword_1C8DC0:
         resb 4
-dword_1C8DC4:
         resb 4
-dword_1C8DC8:
+LinesPopupBitmap:
         resb 4
-dword_1C8DCC:
+LinesLastSpeech:
         resb 4
-dword_1C8DD0:
+LinesIntroTeam:
         resb 4
-dword_1C8DD4:
+LinesSparkleFrame:
         resb 4
-dword_1C8DD8:
+RatingMeterLevel:
         resb 4
-dword_1C8DDC:
+LinesListTop:
         resb 4
-dword_1C8DE0:
+LinesIntroDone:
         resb 4
-dword_1C8DE4:
+LinesTitleText:
         resb 4
-dword_1C8DE8:
+LinesSparkleTimer:
         resb 4
-dword_1C8DEC:
+LinesSparkleIndex:
         resb 4
-dword_1C8DF0:
+LinesTeamText:
         resb 4
-dword_1C8DF4:
+LinesForwardCount:
         resb 4
-dword_1C8DF8:
+LinesDefenceCount:
         resb 4
-dword_1C8DFC:
+LinesGridColumn:
         resb 4
-dword_1C8E00:
+LinesTextScroll:
         resb 4
-dword_1C8E04:
+LinesTextLine:
         resb 4
-dword_1C8E08:
+LinesTextPos:
         resb 4
-dword_1C8E0C:
+LinesTextLength:
         resb 4
-dword_1C8E10:
+LinesGridRow:
         resb 4
-dword_1C8E14:
+LinesForwardChoice:
         resb 4
-dword_1C8E18:
+LinesSpecialChoice:
         resb 4
-dword_1C8E1C:
+LinesScreenBitmap:
         resb 4
-dword_1C8E20:
+LinesIntroArt:
         resb 4
-dword_1C8E24:
+EditLinesTeam:
         resb 4
-dword_1C8E28:
+LinesCircleShape:
         resb 4
-dword_1C8E2C:
+LinesArtFile:
         resb 4
-dword_1C8E30:
+LinesCardBitmap:
         resb 4
-dword_1C8E34:
+LinesOvalShape:
         resb 4
-dword_1C8E38:
+LinesLogoBitmap:
         resb 4
-dword_1C8E3C:
+LinesSwapShape:
         resb 4
-dword_1C8E40:
+LinesFontFile:
         resb 4
-dword_1C8E44:
+LinesShapeFile:
         resb 4
-dword_1C8E48:
+EditLinesPage:
         resb 4

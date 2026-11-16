@@ -6,17 +6,17 @@ extern str_00004, str_HOM1, str_HOM2, str_AWY1, str_AWY2, str_Menu3, str_03dB, s
 extern str_011R3, str_012R2, str_013R2, str_11SR3, str_12SR2, str_13SR2, str_SW002, str_SWL2
 extern str_SWL3, str_01LL, str_02LL, str_03LL, str_01LR, str_02LR, str_03LR, str_01RL
 extern str_02RL, str_03RL, str_01RR, str_02RR, str_03RR, str_012R013R014R12SR13SR14SRS, str_SW00SW01SW02SW03SW04SW05S, str_1
-extern str_0001, str_0002, dword_16CFF8, dword_16D23C, dword_16D250, dword_16D76C, dword_16DA9C, GameOptionFlags
-extern TeamSelectFlags, SeasonFileName, dword_1C86FC, dword_1C8E4C, dword_1C8E50, dword_1C8E54, dword_1C8E58, dword_1C8E5C
-extern dword_1C8E60, dword_1C8E64, dword_1C8E88, dword_1C8E8C, dword_1C8E90, dword_1C8E94, dword_1C8E98, dword_1C8E9C
-extern dword_1C8F4C, dword_1C93D4, dword_1C93D8, PickIndexEntryScreen_393, PickIndexEntryScreen_3A4, PickIndexEntryScreen_3B5, PickIndexEntryScreen_470, PickIndexEntryScreen_4D9
+extern str_0001, str_0002, TeamSelectSparkleCount, dword_16D23C, dword_16D250, dword_16D76C, dword_16DA9C, GameOptionFlags
+extern TeamSelectFlags, SeasonFileName, ExhibitionData, HomePanelTick, TeamSelectSoundOn, TeamSelectDrawn, HomePanelShapes, AwayPanelShapes
+extern AwayPanelTick, TeamSelectValues, HomePanelLayer, AwayPanelLayer, TeamSelectItems, TeamSelectTargets, HomePanelPos, AwayPanelPos
+extern IndexSoundMode, dword_1C93D4, dword_1C93D8, PickIndexEntryScreen_393, PickIndexEntryScreen_3A4, PickIndexEntryScreen_3B5, PickIndexEntryScreen_470, PickIndexEntryScreen_4D9
 extern PickIndexEntryScreen_4EE, rand_, sprintf_, BlitShape2, BlitArt, PresentScreen, FindShape, FindShapeList
 extern SetScreenTarget, SecondsToSamples, WaitSoundTime, PlayMenuSfx, StopAllSfx, PlaySfx, LoadDataFile, DrawScreenBackground
 extern FadeInScreen, ShowScreen, ExitScreen, SetRegionRect, DrawTeamLogoBanner, DrawProgressBar, WipeScreen, ShowLinkMessage
 extern HideLinkBox, ShowPopupScreen, InitMenuItems, RunMenu, RunScrollList, GetLangText, LinkTransferSetup, SeasonSetupScreen
 extern LoadExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, PickDemoTeams, ClearLinkAbort, ServiceIdle, LinkSendBlock, LinkReceiveBlock
-extern AllocMemBlock, FreeMemBlock, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, tickcount, unk_16CFFC
-extern GlobalSetVersion, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, TeamSelectMode, word_1C8EA0, word_1C8EA2
+extern AllocMemBlock, FreeMemBlock, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, tickcount, TeamSelectArtBase
+extern GlobalSetVersion, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, TeamSelectMode, AwayPanelTeam, HomePanelTeam
 global jpt_9E8E8, jpt_9F6DD, DrawHomeTeamPanel_1C9, DrawHomeTeamPanel_1EC, TeamSelectScreen_7BE, TeamSelectScreen_7CF, TeamSelectScreen_7E0, TeamSelectScreen_7FC
 global TeamSelectScreen_815, TeamSelectScreen_8C4, TeamSelectScreen_918, TeamSelectScreen_94F, TeamSelectScreen_A05, TeamSelectScreen_A43, TeamSelectScreen_ACB, TeamSelectScreen_B55
 global TeamSelectScreen_B61, DrawHomeTeamPanel, DrawAwayTeamPanel, TeamSelectSparkle, TeamSelectScreen, IndexScreenSound, str_Punct_PickIndexEntry, unk_9F611
@@ -34,72 +34,72 @@ DrawHomeTeamPanel:
         push edi
         enter 4, 0
         mov esi, eax
-        push dword [dword_1C8E88]
+        push dword [HomePanelLayer]
         call SetDrawTarget
         add esp, byte 4
         push byte 0FFFFFFB3h
         push byte 0FFFFFFC0h
         push str_00004
-        push dword [dword_1C8E5C]
+        push dword [AwayPanelShapes]
         call FindShape
         add esp, byte 8
         push eax
         call DrawArt
         add esp, byte 0Ch
         push str_HOM1
-        push dword [dword_1C8E58]
+        push dword [HomePanelShapes]
         call FindShape
         movsx eax, word [byte eax+0Eh]
         add esp, byte 8
         sub eax, byte 4Dh
         push eax
         push str_HOM1
-        push dword [dword_1C8E58]
+        push dword [HomePanelShapes]
         call FindShape
         movsx eax, word [byte eax+0Ch]
         add esp, byte 8
         sub eax, byte 40h
         push eax
         push str_HOM1
-        push dword [dword_1C8E58]
+        push dword [HomePanelShapes]
         call FindShape
         add esp, byte 8
         push eax
         call DrawArt
         add esp, byte 0Ch
-        cmp dword [dword_1C8E54], byte 0
+        cmp dword [TeamSelectDrawn], byte 0
         jne short .1
         call SetScreenTarget
         jmp short .2
 .1:
-        push dword [dword_1C8E54]
+        push dword [TeamSelectDrawn]
         call SetDrawTarget
         add esp, byte 4
 .2:
         push byte 4Dh
-        mov eax, dword [dword_1C8E88]
+        mov eax, dword [HomePanelLayer]
         push byte 40h
         push dword [byte eax+02Ch]
         call DrawArt
         add esp, byte 0Ch
-        cmp dword [dword_1C8E54], byte 0
+        cmp dword [TeamSelectDrawn], byte 0
         jne short .3
         call PresentScreen
 .3:
         mov eax, dword [tickcount]
-        push dword [dword_1C8E88]
-        mov dword [dword_1C8E4C], eax
+        push dword [HomePanelLayer]
+        mov dword [HomePanelTick], eax
         call SetDrawTarget
         add esp, byte 4
         push byte 0
         push byte 0
         push str_HOM2
-        push dword [dword_1C8E58]
+        push dword [HomePanelShapes]
         call FindShape
         add esp, byte 8
         push eax
         call DrawArt
-        mov word [word_1C8EA2], si
+        mov word [HomePanelTeam], si
         imul esi, dword 194Fh
         mov eax, dword [dword_16D250]
         add esp, byte 0Ch
@@ -119,12 +119,12 @@ DrawHomeTeamPanel:
         push eax
         push byte 0FFFFFFB0h
         push str_00004
-        push dword [dword_1C8E5C]
+        push dword [AwayPanelShapes]
         call FindShape
         add esp, byte 8
         push eax
         call DrawArt
-        mov eax, dword [dword_1C86FC]
+        mov eax, dword [ExhibitionData]
         add eax, 0DF4h
         add eax, esi
         add esp, byte 0Ch
@@ -146,12 +146,12 @@ DrawHomeTeamPanel:
         call DrawProgressBar
         cmp esi, byte 6
         jl short .4
-        cmp dword [dword_1C8E54], byte 0
+        cmp dword [TeamSelectDrawn], byte 0
         jne short .5
         call SetScreenTarget
         jmp short .6
 .5:
-        push dword [dword_1C8E54]
+        push dword [TeamSelectDrawn]
         call SetDrawTarget
         add esp, byte 4
 .6:
@@ -161,7 +161,7 @@ DrawHomeTeamPanel_1C9:
         push dword [byte edi+02Ch]
         call DrawArt
         add esp, byte 0Ch
-        cmp dword [dword_1C8E54], byte 0
+        cmp dword [TeamSelectDrawn], byte 0
         jne short .7
         call PresentScreen
 .7:
@@ -190,73 +190,73 @@ DrawAwayTeamPanel:
         push ebp
         mov ebp, esp
         push eax
-        push dword [dword_1C8E8C]
+        push dword [AwayPanelLayer]
         call SetDrawTarget
         add esp, byte 4
         push byte 0FFFFFFB3h
         push dword 0FFFFFE77h
         push str_00004
-        push dword [dword_1C8E5C]
+        push dword [AwayPanelShapes]
         call FindShape
         add esp, byte 8
         push eax
         call DrawArt
         add esp, byte 0Ch
         push str_AWY1
-        push dword [dword_1C8E58]
+        push dword [HomePanelShapes]
         call FindShape
         movsx eax, word [byte eax+0Eh]
         add esp, byte 8
         sub eax, byte 4Dh
         push eax
         push str_AWY1
-        push dword [dword_1C8E58]
+        push dword [HomePanelShapes]
         call FindShape
         movsx eax, word [byte eax+0Ch]
         add esp, byte 8
         sub eax, 189h
         push eax
         push str_AWY1
-        push dword [dword_1C8E58]
+        push dword [HomePanelShapes]
         call FindShape
         add esp, byte 8
         push eax
         call DrawArt
         add esp, byte 0Ch
-        cmp dword [dword_1C8E54], byte 0
+        cmp dword [TeamSelectDrawn], byte 0
         jne short .1
         call SetScreenTarget
         jmp short .2
 .1:
-        push dword [dword_1C8E54]
+        push dword [TeamSelectDrawn]
         call SetDrawTarget
         add esp, byte 4
 .2:
         push byte 4Dh
-        mov eax, dword [dword_1C8E8C]
+        mov eax, dword [AwayPanelLayer]
         push dword 189h
         push dword [byte eax+02Ch]
         call DrawArt
         add esp, byte 0Ch
-        cmp dword [dword_1C8E54], byte 0
+        cmp dword [TeamSelectDrawn], byte 0
         jne short .3
         call PresentScreen
 .3:
         mov eax, dword [tickcount]
-        push dword [dword_1C8E8C]
-        mov dword [dword_1C8E60], eax
+        push dword [AwayPanelLayer]
+        mov dword [AwayPanelTick], eax
         call SetDrawTarget
         add esp, byte 4
         push byte 0
         push byte 0
         push str_AWY2
-        push dword [dword_1C8E58]
+        push dword [HomePanelShapes]
         call FindShape
         add esp, byte 8
         push eax
         call DrawArt
         mov eax, dword [byte ebp-04h]
-        mov word [word_1C8EA0], ax
+        mov word [AwayPanelTeam], ax
         mov eax, dword [dword_16D250]
         add esp, byte 0Ch
         add eax, byte 7
@@ -275,7 +275,7 @@ DrawAwayTeamPanel:
         push eax
         push dword 0FFFFFE5Eh
         push str_00004
-        push dword [dword_1C8E5C]
+        push dword [AwayPanelShapes]
         call FindShape
         add esp, byte 8
         push eax
@@ -285,7 +285,7 @@ DrawAwayTeamPanel:
 .4:
         imul edx, dword [byte ebp-04h], dword 194Fh
         push byte 1
-        mov eax, dword [dword_1C86FC]
+        mov eax, dword [ExhibitionData]
         mov ecx, 6
         add eax, edx
         mov ebx, 8Fh
@@ -299,12 +299,12 @@ DrawAwayTeamPanel:
         call DrawProgressBar
         cmp esi, byte 6
         jl short .4
-        cmp dword [dword_1C8E54], byte 0
+        cmp dword [TeamSelectDrawn], byte 0
         jne short .5
         call SetScreenTarget
         jmp short .6
 .5:
-        push dword [dword_1C8E54]
+        push dword [TeamSelectDrawn]
         call SetDrawTarget
         add esp, byte 4
 .6:
@@ -332,15 +332,15 @@ TeamSelectSparkle:
         mov eax, ebx
         shl eax, 2
         shl ecx, 2
-        mov edx, dword [dword eax+dword_1C8E94]
-        mov ecx, dword [dword ecx+dword_1C8E64]
+        mov edx, dword [dword eax+TeamSelectTargets]
+        mov ecx, dword [dword ecx+TeamSelectValues]
         mov dword [edx], ecx
         lea edx, [byte ebx+02h]
         imul edx, byte 52h
-        mov ecx, dword [dword_1C8E90]
+        mov ecx, dword [TeamSelectItems]
         cmp dword [byte ecx+edx+04h], byte 1
         jne short .2
-        mov eax, dword [dword eax+dword_1C8E94]
+        mov eax, dword [dword eax+TeamSelectTargets]
         push dword [eax]
         mov esi, 1
         call BlitShape2
@@ -351,30 +351,30 @@ TeamSelectSparkle:
         jl short .1
         test esi, esi
         je short .3
-        cmp dword [dword_1C8E50], byte 0
+        cmp dword [TeamSelectSoundOn], byte 0
         jne short .3
         mov eax, 309h
         call PlaySfx
-        mov dword [dword_1C8E50], 1
+        mov dword [TeamSelectSoundOn], 1
 .3:
         test esi, esi
         jne short .4
-        cmp dword [dword_1C8E50], byte 0
+        cmp dword [TeamSelectSoundOn], byte 0
         je short .4
         mov eax, 309h
         call PlayMenuSfx
-        mov dword [dword_1C8E50], esi
+        mov dword [TeamSelectSoundOn], esi
 .4:
-        movsx eax, word [word_1C8EA2]
-        inc dword [dword_16CFF8]
+        movsx eax, word [HomePanelTeam]
+        inc dword [TeamSelectSparkleCount]
         cmp eax, byte 0FFFFFFFFh
         je near .5
         mov eax, dword [tickcount]
-        mov edx, dword [dword_1C8E4C]
+        mov edx, dword [HomePanelTick]
         add edx, byte 32h
         cmp eax, edx
         jl short .5
-        push dword [dword_1C8E88]
+        push dword [HomePanelLayer]
         call SetDrawTarget
         add esp, byte 4
         push dword 0B333h
@@ -383,33 +383,33 @@ TeamSelectSparkle:
         push byte 6Ah
         push byte 57h
         push str_HOM2
-        push dword [dword_1C8E58]
+        push dword [HomePanelShapes]
         call FindShape
         mov edx, 0Ch
-        mov ebx, dword [dword_1C8E88]
-        movsx esi, word [word_1C8EA2]
+        mov ebx, dword [HomePanelLayer]
+        movsx esi, word [HomePanelTeam]
         add esp, byte 8
         mov ecx, eax
         mov eax, esi
         call DrawTeamLogoBanner
         call SetScreenTarget
         push byte 4Dh
-        mov eax, dword [dword_1C8E88]
+        mov eax, dword [HomePanelLayer]
         push byte 40h
         push dword [byte eax+02Ch]
         call DrawArt
-        mov word [word_1C8EA2], 0FFFFh
+        mov word [HomePanelTeam], 0FFFFh
         add esp, byte 0Ch
 .5:
-        movsx eax, word [word_1C8EA0]
+        movsx eax, word [AwayPanelTeam]
         cmp eax, byte 0FFFFFFFFh
         je near .6
         mov eax, dword [tickcount]
-        mov edx, dword [dword_1C8E60]
+        mov edx, dword [AwayPanelTick]
         add edx, byte 32h
         cmp eax, edx
         jl short .6
-        push dword [dword_1C8E8C]
+        push dword [AwayPanelLayer]
         call SetDrawTarget
         add esp, byte 4
         push dword 0B333h
@@ -418,22 +418,22 @@ TeamSelectSparkle:
         push byte 6Ah
         push byte 5Fh
         push str_AWY2
-        push dword [dword_1C8E58]
+        push dword [HomePanelShapes]
         call FindShape
         mov edx, 0Ch
-        mov ebx, dword [dword_1C8E8C]
-        movsx esi, word [word_1C8EA0]
+        mov ebx, dword [AwayPanelLayer]
+        movsx esi, word [AwayPanelTeam]
         add esp, byte 8
         mov ecx, eax
         mov eax, esi
         call DrawTeamLogoBanner
         call SetScreenTarget
         push byte 4Dh
-        mov eax, dword [dword_1C8E8C]
+        mov eax, dword [AwayPanelLayer]
         push dword 189h
         push dword [byte eax+02Ch]
         call DrawArt
-        mov word [word_1C8EA0], 0FFFFh
+        mov word [AwayPanelTeam], 0FFFFh
         add esp, byte 0Ch
 .6:
         pop esi
@@ -475,22 +475,22 @@ TeamSelectScreen:
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [byte ebp+07Eh], eax
-        cmp dword [dword_1C86FC], byte 0
+        cmp dword [ExhibitionData], byte 0
         je short .1
         cmp dword [dword_16DA9C], byte 0
         jne short .3
 .1:
-        cmp dword [dword_1C86FC], byte 0
+        cmp dword [ExhibitionData], byte 0
         je short .2
-        mov eax, dword_1C86FC
+        mov eax, ExhibitionData
         call FreeExhibitionFile
 .2:
-        mov eax, dword_1C86FC
+        mov eax, ExhibitionData
         call LoadExhibitionFile
         test eax, eax
         jne short .3
         call ResetExhibitionFile
-        mov eax, dword_1C86FC
+        mov eax, ExhibitionData
         call LoadExhibitionFile
 .3:
         cmp dword [dword_16D76C], byte 0
@@ -521,7 +521,7 @@ TeamSelectScreen:
         mov dword [byte ebp+076h], eax
         mov eax, dword [byte ebp+07Eh]
         mov ecx, 0FFFFFFFFh
-        mov dword [dword_1C8E90], eax
+        mov dword [TeamSelectItems], eax
         mov edx, eax
         mov eax, 0Dh
         mov ebx, 0FFFFFFFBh
@@ -541,7 +541,7 @@ TeamSelectScreen:
         xor edx, edx
         mov eax, 2Ch
         call LoadDataFile
-        mov dword [dword_1C8E5C], eax
+        mov dword [AwayPanelShapes], eax
         mov eax, 3
         xor edx, edx
         call SecondsToSamples
@@ -549,7 +549,7 @@ TeamSelectScreen:
         mov eax, 2Dh
         xor ebx, ebx
         call LoadDataFile
-        mov dword [dword_1C8E58], eax
+        mov dword [HomePanelShapes], eax
 .6:
         push ebx
         push str_03dB
@@ -559,7 +559,7 @@ TeamSelectScreen:
         add esp, byte 0Ch
         lea eax, [byte ebp+05Eh]
         push eax
-        push dword [dword_1C8E5C]
+        push dword [AwayPanelShapes]
         call FindShape
         add esp, byte 8
         push ebx
@@ -571,7 +571,7 @@ TeamSelectScreen:
         add esp, byte 0Ch
         lea eax, [byte ebp+05Eh]
         push eax
-        push dword [dword_1C8E5C]
+        push dword [AwayPanelShapes]
         inc ebx
         call FindShape
         add esp, byte 8
@@ -588,7 +588,7 @@ TeamSelectScreen:
         add esp, byte 0Ch
         lea eax, [byte ebp+05Eh]
         push eax
-        push dword [dword_1C8E58]
+        push dword [HomePanelShapes]
         call FindShape
         add esp, byte 8
         push ebx
@@ -600,7 +600,7 @@ TeamSelectScreen:
         add esp, byte 0Ch
         lea eax, [byte ebp+05Eh]
         push eax
-        push dword [dword_1C8E58]
+        push dword [HomePanelShapes]
         inc ebx
         call FindShape
         add esp, byte 8
@@ -615,19 +615,19 @@ TeamSelectScreen:
         push byte 0
         push dword 0D8h
         push dword 0BAh
-        mov dword [dword_1C8E88], eax
+        mov dword [HomePanelLayer], eax
         call CreateBitmap
         add esp, byte 0Ch
         push str_00004
-        push dword [dword_1C8E5C]
-        mov dword [dword_1C8E8C], eax
+        push dword [AwayPanelShapes]
+        mov dword [AwayPanelLayer], eax
         call FindShape
         add esp, byte 8
         mov edi, dword [byte ebp+07Eh]
         push str_00004
         mov esi, eax
         mov dword [byte ebp+06Eh], eax
-        push dword [dword_1C8E58]
+        push dword [HomePanelShapes]
         mov ebx, esi
         call FindShape
         mov ecx, 52h
@@ -653,133 +653,133 @@ TeamSelectScreen:
         rep movsb
         push str_011R3
         mov dword [dword eax+03D8h], 0Ch
-        push dword [dword_1C8E58]
+        push dword [HomePanelShapes]
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+07Eh]
         push str_012R2
         mov dword [dword edx+0BEh], eax
-        push dword [dword_1C8E58]
+        push dword [HomePanelShapes]
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+07Eh]
         push str_013R2
         mov dword [dword edx+0C2h], eax
-        push dword [dword_1C8E58]
+        push dword [HomePanelShapes]
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+07Eh]
         push str_11SR3
         mov dword [dword edx+0C6h], eax
         lea eax, [dword edx+0C2h]
-        push dword [dword_1C8E58]
-        mov dword [dword_1C8E94], eax
+        push dword [HomePanelShapes]
+        mov dword [TeamSelectTargets], eax
         call FindShape
         mov edx, dword [byte ebp+07Eh]
         add esp, byte 8
         mov dword [dword edx+0110h], eax
         push str_12SR2
-        push dword [dword_1C8E58]
+        push dword [HomePanelShapes]
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+07Eh]
         push str_13SR2
         mov dword [dword edx+0114h], eax
-        push dword [dword_1C8E58]
+        push dword [HomePanelShapes]
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+07Eh]
         push str_SW002
         mov dword [dword edx+0118h], eax
         lea eax, [dword edx+0114h]
-        push dword [dword_1C8E58]
-        mov dword [dword_1C8E98], eax
+        push dword [HomePanelShapes]
+        mov dword [HomePanelPos], eax
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+07Eh]
         push str_SWL2
         mov dword [dword edx+0162h], eax
-        push dword [dword_1C8E58]
+        push dword [HomePanelShapes]
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+07Eh]
         push str_SWL3
         mov dword [dword edx+0166h], eax
-        push dword [dword_1C8E58]
+        push dword [HomePanelShapes]
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+07Eh]
         push str_01LL
         mov dword [dword edx+016Ah], eax
         lea eax, [dword edx+0166h]
-        push dword [dword_1C8E5C]
-        mov dword [dword_1C8E9C], eax
+        push dword [AwayPanelShapes]
+        mov dword [AwayPanelPos], eax
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+07Eh]
         push str_02LL
         mov dword [dword edx+01B4h], eax
-        push dword [dword_1C8E5C]
+        push dword [AwayPanelShapes]
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+07Eh]
         push str_03LL
         mov dword [dword edx+01B8h], eax
-        push dword [dword_1C8E5C]
+        push dword [AwayPanelShapes]
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+07Eh]
         push str_01LR
         mov dword [dword edx+01BCh], eax
-        push dword [dword_1C8E5C]
+        push dword [AwayPanelShapes]
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+07Eh]
         push str_02LR
         mov dword [dword edx+0206h], eax
-        push dword [dword_1C8E5C]
+        push dword [AwayPanelShapes]
         call FindShape
         mov edx, dword [byte ebp+07Eh]
         add esp, byte 8
         mov dword [dword edx+020Ah], eax
         push str_03LR
-        push dword [dword_1C8E5C]
+        push dword [AwayPanelShapes]
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+07Eh]
         push str_01RL
         mov dword [dword edx+020Eh], eax
-        push dword [dword_1C8E5C]
+        push dword [AwayPanelShapes]
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+07Eh]
         push str_02RL
         mov dword [dword edx+0258h], eax
-        push dword [dword_1C8E5C]
+        push dword [AwayPanelShapes]
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+07Eh]
         push str_03RL
         mov dword [dword edx+025Ch], eax
-        push dword [dword_1C8E5C]
+        push dword [AwayPanelShapes]
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+07Eh]
         push str_01RR
         mov dword [dword edx+0260h], eax
-        push dword [dword_1C8E5C]
+        push dword [AwayPanelShapes]
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+07Eh]
         push str_02RR
         mov dword [dword edx+02AAh], eax
-        push dword [dword_1C8E5C]
+        push dword [AwayPanelShapes]
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+07Eh]
         push str_03RR
         mov dword [dword edx+02AEh], eax
-        push dword [dword_1C8E5C]
+        push dword [AwayPanelShapes]
         call FindShape
         mov edx, dword [byte ebp+07Eh]
         mov dword [dword edx+02B2h], eax
@@ -795,17 +795,17 @@ TeamSelectScreen:
         mov dword [dword ebx+034Eh], edx
         add esp, byte 8
         mov eax, dword [dword ebp+eax*4-0C2h]
-        push dword_1C8E64
+        push TeamSelectValues
         mov dword [dword ebx+0356h], eax
         push str_012R013R014R12SR13SR14SRS
         mov dword [dword ebx+0352h], eax
-        push dword [dword_1C8E58]
+        push dword [HomePanelShapes]
         call FindShapeList
         add esp, byte 0Ch
         lea eax, [byte ebp-0Eh]
         push eax
         push str_SW00SW01SW02SW03SW04SW05S
-        push dword [dword_1C8E58]
+        push dword [HomePanelShapes]
         mov ebx, 2
         call FindShapeList
         add esp, byte 0Ch
@@ -822,7 +822,7 @@ TeamSelectScreen:
         shl edx, 6
         sub edx, 80h
         mov dword [byte eax+010h], 4
-        add edx, unk_16CFFC
+        add edx, TeamSelectArtBase
         inc ebx
         mov dword [byte eax+014h], edx
         cmp ebx, byte 0Bh
@@ -837,7 +837,7 @@ TeamSelectScreen:
         add esp, byte 0Ch
         push eax
         mov esi, eax
-        mov dword [dword_1C8E54], eax
+        mov dword [TeamSelectDrawn], eax
         call SetDrawTarget
         add esp, byte 4
         push dword [byte ebp+06Eh]
@@ -847,7 +847,7 @@ TeamSelectScreen:
         call BlitShape2
         add esp, byte 4
         push str_1
-        push dword [dword_1C8E58]
+        push dword [HomePanelShapes]
         call FindShape
         add esp, byte 8
         push eax
@@ -871,11 +871,11 @@ TeamSelectScreen:
         call DrawAwayTeamPanel
         mov eax, dword [tickcount]
         sub eax, byte 32h
-        mov dword [dword_1C8E4C], eax
+        mov dword [HomePanelTick], eax
         mov eax, dword [tickcount]
         sub eax, byte 32h
-        push dword [dword_1C8E88]
-        mov dword [dword_1C8E60], eax
+        push dword [HomePanelLayer]
+        mov dword [AwayPanelTick], eax
         call SetDrawTarget
         add esp, byte 4
         push dword 0B333h
@@ -884,11 +884,11 @@ TeamSelectScreen:
         push byte 6Ah
         push byte 57h
         push str_0001
-        push dword [dword_1C8E5C]
+        push dword [AwayPanelShapes]
         call FindShape
         mov edx, 0Ch
-        mov ebx, dword [dword_1C8E88]
-        movsx edi, word [word_1C8EA2]
+        mov ebx, dword [HomePanelLayer]
+        movsx edi, word [HomePanelTeam]
         add esp, byte 8
         mov ecx, eax
         mov eax, edi
@@ -897,13 +897,13 @@ TeamSelectScreen:
         call SetDrawTarget
         add esp, byte 4
         push byte 4Dh
-        mov eax, dword [dword_1C8E88]
+        mov eax, dword [HomePanelLayer]
         push byte 40h
         push dword [byte eax+02Ch]
         call DrawArt
         add esp, byte 0Ch
-        push dword [dword_1C8E8C]
-        mov word [word_1C8EA2], 0FFFFh
+        push dword [AwayPanelLayer]
+        mov word [HomePanelTeam], 0FFFFh
         call SetDrawTarget
         add esp, byte 4
         push dword 0B333h
@@ -912,11 +912,11 @@ TeamSelectScreen:
         push byte 6Ah
         push byte 5Fh
         push str_0002
-        push dword [dword_1C8E5C]
+        push dword [AwayPanelShapes]
         call FindShape
         mov edx, 0Ch
-        mov ebx, dword [dword_1C8E8C]
-        movsx edi, word [word_1C8EA0]
+        mov ebx, dword [AwayPanelLayer]
+        movsx edi, word [AwayPanelTeam]
         add esp, byte 8
         mov ecx, eax
         mov eax, edi
@@ -925,13 +925,13 @@ TeamSelectScreen:
         call SetDrawTarget
         add esp, byte 4
         push byte 4Dh
-        mov eax, dword [dword_1C8E8C]
+        mov eax, dword [AwayPanelLayer]
         push dword 189h
         push dword [byte eax+02Ch]
         call DrawArt
         add esp, byte 0Ch
-        mov word [word_1C8EA0], 0FFFFh
-        mov dword [dword_1C8E54], 0
+        mov word [AwayPanelTeam], 0FFFFh
+        mov dword [TeamSelectDrawn], 0
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte esi+02Ch]
         call WipeScreen
@@ -1001,9 +1001,9 @@ TeamSelectScreen_815:
         mov eax, dword [dword ebp+ebx*4-0C2h]
         mov dword [dword ecx+0356h], eax
         mov dword [dword ecx+0352h], eax
-        mov eax, dword [dword_1C8E60]
+        mov eax, dword [AwayPanelTick]
         mov dword [byte ebp+076h], ebx
-        mov dword [dword_1C8E4C], eax
+        mov dword [HomePanelTick], eax
         jmp near TeamSelectScreen_94F.23
 TeamSelectScreen_8C4:
         dec dword [byte ebp+07Ah]
@@ -1194,16 +1194,16 @@ TeamSelectScreen_B61:
         call ExitScreen
         jmp near TeamSelectScreen_94F.23
 .32:
-        push dword [dword_1C8E5C]
+        push dword [AwayPanelShapes]
         call FreeMemBlock
         add esp, byte 4
-        push dword [dword_1C8E58]
+        push dword [HomePanelShapes]
         call FreeMemBlock
         add esp, byte 4
-        push dword [dword_1C8E88]
+        push dword [HomePanelLayer]
         call FreeBitmap
         add esp, byte 4
-        push dword [dword_1C8E8C]
+        push dword [AwayPanelLayer]
         call FreeBitmap
         add esp, byte 4
         push dword [byte ebp+07Eh]
@@ -1211,7 +1211,7 @@ TeamSelectScreen_B61:
         add esp, byte 4
         cmp dword [byte ebp+072h], byte 19h
         jne short .33
-        mov eax, dword [dword_1C86FC]
+        mov eax, dword [ExhibitionData]
         call LinkTransferSetup
 .33:
         cmp dword [byte ebp+066h], byte 1
@@ -1228,7 +1228,7 @@ TeamSelectScreen_B61:
         movsx ebx, word [byte ebp+076h]
         movsx edx, word [byte ebp+07Ah]
         mov ecx, SeasonFileName
-        mov eax, dword [dword_1C86FC]
+        mov eax, dword [ExhibitionData]
         call PickDemoTeams
 .36:
         cmp dword [dword_16DA9C], byte 0
@@ -1276,7 +1276,7 @@ TeamSelectScreen_B61:
         cmp dword [byte ebp+066h], byte 1
         jne short .41
 .40:
-        mov eax, dword_1C86FC
+        mov eax, ExhibitionData
         call FreeExhibitionFile
 .41:
         mov eax, dword [byte ebp+072h]
@@ -1305,7 +1305,7 @@ IndexScreenSound:
         push ecx
         push edx
         xor edx, edx
-        cmp dword [dword_1C8F4C], byte 1
+        cmp dword [IndexSoundMode], byte 1
         jne short .1
         call rand_
         mov ebx, 3

@@ -7581,6 +7581,13 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 168E7C,PacketSize,dword_168E7C,new,low,packet size (400),src/data/engine/faceoff_2_data_02.asm
 168E80,StandingsColumns,dword_168E80,new,low,standings columns,src/data/engine/faceoff_2_data_02.asm
 168F58,PlayoffColumns,dword_168F58,new,low,playoff table columns,src/data/engine/faceoff_2_data_02.asm
+168FB8,NewSeasonTeamOrderSmall,dword_168FB8,new,low,"new season team order, small league",src/data/front/front_8E997_data_02.asm
+168FD0,NewSeasonTeamOrderLarge,dword_168FD0,new,low,"new season team order, large league",src/data/front/front_8E997_data_02.asm
+169004,NewSeasonTeamOrderMid,dword_169004,new,low,"new season team order, middle league",src/data/front/front_8E997_data_02.asm
+169038,NewSeasonBannerTeams,byte_169038,new,low,team per new season banner,src/data/front/front_8E997_data_02.asm
+169054,SeasonStartYears,word_169054,new,low,season start year per season length,src/data/front/front_8E997_data_02.asm
+169066,SeasonMonthDays,word_169066,new,low,season month start days,src/data/front/front_8E997_data_02.asm
+16908A,SeasonGameDayOffsets,dword_16908A,new,low,day offset per season game slot,src/data/front/front_8E997_data_02.asm
 1690AE,str_Punct_DrawSeasonGamePanel,word_1690AE,new,high,"string ""\t""",src/data/front/front_8E997_data_02.asm
 1690D2,SeasonPanelText,dword_1690D2,new,low,text id per season panel field,src/data/engine/engine_3812E_data_02.asm
 1690EE,MatchupLogoIds,dword_1690EE,new,low,logo per matchup,src/data/engine/engine_3812E_data_02.asm
@@ -7794,9 +7801,42 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 16CCF8,ConnectRetry,word_16CCF8,new,low,connect screen retry flag,src/data/front/front_845E4_data_02.asm
 16CCFA,ModemSettingsChanged,dword_16CCFA,new,low,set when modem settings changed,src/data/front/front_845E4_data_02.asm
 16CCFE,NetworkGameReady,dword_16CCFE,new,low,set when a network game is ready,src/data/front/front_845E4_data_02.asm
+16CD02,MenuLinkWordPad,dword_16CD02,new,low,low half of the dword read for the link flag,src/data/front/front_845E4_data_02.asm
+16CD04,MenuLinkActive,word_16CD04,new,low,set when the menu is driven over a link,src/data/front/front_845E4_data_02.asm
+16CD08,MenuMouseX,dword_16CD08,new,low,menu mouse x,src/data/front/front_845E4_data_02.asm
+16CD0C,MenuMouseY,dword_16CD0C,new,low,menu mouse y,src/data/front/front_845E4_data_02.asm
+16CD10,MenuMouseButtons,dword_16CD10,new,low,menu mouse buttons,src/data/front/front_845E4_data_02.asm
+16CD14,MenuStartSelection,dword_16CD14,new,low,selection the next menu starts on (-1 none),src/data/front/front_845E4_data_02.asm
+16CD18,MenuBitmapReady,dword_16CD18,new,low,set once the menu bitmaps exist,src/data/front/front_845E4_data_02.asm
+16CD1C,MenuMouseMode,dword_16CD1C,new,low,menu mouse mode,src/data/front/front_845E4_data_02.asm
+16CD20,MenuViewSaved,word_16CD20,new,low,set while the menu view is saved,src/data/front/front_845E4_data_02.asm
+16CD22,MenuClipActive,word_16CD22,new,low,set while the menu clip rectangle is used,src/data/front/front_845E4_data_02.asm
+16CD24,MenuInputDelay,dword_16CD24,new,low,tick before menu input is read,src/data/front/front_845E4_data_02.asm
+16CD28,MenuViewCallback,dword_16CD28,new,low,routine called when the menu view is restored,src/data/front/front_845E4_data_02.asm
+16CD2C,MenuRepeatTick,dword_16CD2C,new,low,tick of the next menu key repeat,src/data/front/front_845E4_data_02.asm
+16CD30,MenuLinkKey,dword_16CD30,new,low,menu key sent over the link,src/data/front/front_845E4_data_02.asm
 16CD34,str_3_LoadLangText,dword_16CD34,new,high,"string ""3""",src/data/front/front_845E4_data_02.asm
+16CD40,LangTextFiles,dword_16CD40,new,low,language text file per language,src/data/front/front_845E4_data_02.asm
+16CD4C,ErrorTextPtr,dword_16CD4C,new,low,text returned when a language string is missing,src/data/front/front_845E4_data_02.asm
+16CD50,LangTextLoaded,dword_16CD50,new,low,set once language text is loaded,src/data/front/front_845E4_data_02.asm
+16CD54,LangTextHandle,dword_16CD54,new,low,language text data handle,src/data/front/front_845E4_data_02.asm
+16CD58,LinkTransferReady,dword_16CD58,new,low,set once the link transfer is set up,src/data/front/front_845E4_data_02.asm
 16CD60,str_F_NewSeasonScreen,dword_16CD60,new,high,"string ""F""",src/data/front/front_845E4_data_02.asm
+16CD64,NewSeasonArtOffsets,dword_16CD64,new,low,new season screen art offsets,src/data/front/front_845E4_data_02.asm
+16CDC8,PlayoffTreeTimer,dword_16CDC8,new,low,playoff tree animation timer,src/data/front/front_93005_data_02.asm
+16CDCC,PlayoffSeedOrder,byte_16CDCC,new,low,playoff seed per slot,src/data/front/front_93005_data_02.asm
+16CDD0,PlayoffFormatTeams,dword_16CDD0,new,low,teams per playoff format,src/data/front/front_93005_data_02.asm
+16CDD8,PlayoffDefaultTeams,dword_16CDD8,new,low,default team per playoff slot,src/data/front/front_93005_data_02.asm
+16CDDC,PlayoffSlotTeams,dword_16CDDC,new,low,team per playoff slot,src/data/front/front_93005_data_02.asm
+16CDFC,PlayoffSlotLogos,dword_16CDFC,new,low,league logo per playoff slot,src/data/front/front_93005_data_02.asm
+16CE1C,PlayoffEditCursor,dword_16CE1C,new,low,playoff team name edit cursor,src/data/front/front_93005_data_02.asm
+16CE20,PlayoffTreeLayout,unk_16CE20,new,low,default playoff tree slot layout,src/data/front/front_93005_data_02.asm
+16CF18,PlayoffRoundShown,dword_16CF18,new,low,set per playoff round when it is drawn,src/data/front/front_93005_data_02.asm
+16CF98,LinesArtDigits,byte_16CF98,new,low,digit per lines art set,src/data/front/front_93005_data_02.asm
 16CFBC,str_Punct_LoadLinesArt,dword_16CFBC,new,high,"string ""\r""",src/data/front/front_93005_data_02.asm
+16CFF4,LinesSoundPlayed,dword_16CFF4,new,low,set once the lines intro sound plays,src/data/front/front_93005_data_02.asm
+16CFF8,TeamSelectSparkleCount,dword_16CFF8,new,low,team select sparkle counter,src/data/front/front_9E35E_data_02.asm
+16CFFC,TeamSelectArtBase,unk_16CFFC,new,low,team select art base,src/data/front/front_9E35E_data_02.asm
 16D26A,str_S_RunLinkGameScreens,unk_16D26A,new,high,"string ""s""",src/data/front/front_A3280_data_02.asm
 16D504,str_E_BuildHistoryList,dword_16D504,new,high,"string ""e""",src/data/front/front_B1E1D_data_02.asm
 16D65F,str_None,asc_16D65F,new,high,"string ""None""",src/data/front/front_B1E1D_data_02.asm
@@ -9048,6 +9088,53 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1ACF3E,SeasonPhase,dword_1ACF3E,new,low,season phase (2 = all-star break),src/data/engine/engine_3812E_bss_02.asm
 1ACF42,PlayoffRounds,dword_1ACF42,new,low,playoff rounds,src/data/engine/engine_3812E_bss_02.asm
 1ACF46,SeasonActive,dword_1ACF46,new,low,season running,src/data/engine/engine_3812E_bss_02.asm
+1ACF4A,NewSeasonUserCount,dword_1ACF4A,new,low,number of human users in the new season,src/data/front/front_8E997_bss_01.asm
+1ACF4E,SeasonUserRecords,unk_1ACF4E,new,low,"season user records (28 bytes each, name first)",src/data/front/front_8E997_bss_01.asm
+1ACF62,SeasonUserHuman,byte_1ACF62,new,low,season user record: human controlled flag,src/data/front/front_8E997_bss_01.asm
+1ACF63,SeasonUserActive,byte_1ACF63,new,low,season user record: active flag,src/data/front/front_8E997_bss_01.asm
+1ACF65,SeasonUserReplay,dword_1ACF65,new,low,season user record: saved replay id,src/data/front/front_8E997_bss_01.asm
+1ACF69,SeasonUserLocked,byte_1ACF69,new,low,"season user record: locked flag, then the rest of the season data",src/data/front/front_8E997_bss_01.asm
+1AD226,SeasonDefaultUser,dword_1AD226,new,low,default season user index,src/data/front/front_8E997_bss_01.asm
+1AD22A,SeasonRandomSeed,dword_1AD22A,new,low,season random seed,src/data/front/front_8E997_bss_01.asm
+1AD22E,SeasonFilePath,unk_1AD22E,new,low,season file path,src/data/front/front_8E997_bss_01.asm
+1AD236,SeasonStatsPath,unk_1AD236,new,low,season stats file path,src/data/front/front_8E997_bss_01.asm
+1AD23E,SeasonCreated,byte_1AD23E,new,low,set once the season is created,src/data/front/front_8E997_bss_01.asm
+1AD240,SeasonLastHome,word_1AD240,new,low,home team of the last season game,src/data/front/front_8E997_bss_01.asm
+1AD242,SeasonLastAway,word_1AD242,new,low,away team of the last season game,src/data/front/front_8E997_bss_01.asm
+1AD244,SeasonScheduleData,dword_1AD244,new,low,season schedule data,src/data/front/front_8E997_bss_01.asm
+1AD248,SeasonScheduleOffset,dword_1AD248,new,low,season schedule offset,src/data/front/front_8E997_bss_01.asm
+1AD24C,SeasonScheduleSize,dword_1AD24C,new,low,season schedule size,src/data/front/front_8E997_bss_01.asm
+1AD250,PlayoffSettings,unk_1AD250,new,low,playoff settings block,src/data/front/front_8E997_bss_01.asm
+1AD251,PlayoffOptionBits,dword_1AD251,new,low,playoff option bit fields,src/data/front/front_8E997_bss_01.asm
+1AD252,PlayoffOptionFlags,byte_1AD252,new,low,playoff option flags,src/data/front/front_8E997_bss_01.asm
+1AD255,PlayoffIndexSettings,unk_1AD255,new,low,playoff index entry settings,src/data/front/front_8E997_bss_01.asm
+1AD35D,PlayoffIndexFlags,unk_1AD35D,new,low,playoff index flags,src/data/front/front_8E997_bss_01.asm
+1AD437,PlayoffRoundBits,dword_1AD437,new,low,playoff round bit fields,src/data/front/front_8E997_bss_01.asm
+1AD443,PlayoffUserRecords,unk_1AD443,new,low,"playoff user records (28 bytes each, name first)",src/data/front/front_8E997_bss_01.asm
+1AD457,PlayoffUserHuman,byte_1AD457,new,low,playoff user record: human controlled flag,src/data/front/front_8E997_bss_01.asm
+1AD458,PlayoffUserActive,byte_1AD458,new,low,playoff user record: active flag,src/data/front/front_8E997_bss_01.asm
+1AD45A,PlayoffUserReplay,dword_1AD45A,new,low,playoff user record: saved replay id,src/data/front/front_8E997_bss_01.asm
+1AD45E,PlayoffUserLocked,byte_1AD45E,new,low,"playoff user record: locked flag, then the rest of the playoff data",src/data/front/front_8E997_bss_01.asm
+1AD603,PlayoffName,unk_1AD603,new,low,playoff name,src/data/front/front_8E997_bss_01.asm
+1AD62B,PlayoffFileHandle,dword_1AD62B,new,low,playoff file handle,src/data/front/front_8E997_bss_01.asm
+1AD62F,PlayoffTeamNames,dword_1AD62F,new,low,playoff team name per slot,src/data/front/front_8E997_bss_01.asm
+1AD68F,PlayoffRecordWins,word_1AD68F,new,low,playoff record wins,src/data/front/front_8E997_bss_01.asm
+1AD693,PlayoffRecordLosses,word_1AD693,new,low,playoff record losses,src/data/front/front_8E997_bss_01.asm
+1AD69F,PlayoffCurrentRound,dword_1AD69F,new,low,playoff current round,src/data/front/front_8E997_bss_01.asm
+1AD6A3,PlayoffFinalRound,dword_1AD6A3,new,low,playoff final round,src/data/front/front_8E997_bss_01.asm
+1AD6A7,GameRecordIds,dword_1AD6A7,new,low,game record id per stats slot,src/data/front/front_8E997_bss_01.asm
+1AD6AB,PlayoffTeams,dword_1AD6AB,new,low,playoff team per slot,src/data/front/front_8E997_bss_01.asm
+1AD6AF,PlayoffOpponents,dword_1AD6AF,new,low,playoff opponent per slot,src/data/front/front_8E997_bss_01.asm
+1AD70F,PlayoffRoundMatch,dword_1AD70F,new,low,playoff round of the user match,src/data/front/front_8E997_bss_01.asm
+1AD71B,PlayoffSeriesMatch,dword_1AD71B,new,low,playoff series of the user match,src/data/front/front_8E997_bss_01.asm
+1AD71F,PlayoffFinalHome,dword_1AD71F,new,low,playoff final home team,src/data/front/front_8E997_bss_01.asm
+1AD723,PlayoffFinalAway,dword_1AD723,new,low,playoff final away team,src/data/front/front_8E997_bss_01.asm
+1AD727,PlayoffGameCount,dword_1AD727,new,low,playoff games played,src/data/front/front_8E997_bss_01.asm
+1AD72B,PlayoffRound,byte_1AD72B,new,low,playoff round,src/data/front/front_8E997_bss_01.asm
+1AD739,PlayoffStarted,byte_1AD739,new,low,set once the playoffs start,src/data/front/front_8E997_bss_01.asm
+1AD73A,PlayoffStatsPath,unk_1AD73A,new,low,playoff stats file path,src/data/front/front_8E997_bss_01.asm
+1AD742,PlayoffUserIndex,byte_1AD742,new,low,playoff user index,src/data/front/front_8E997_bss_01.asm
+1AD743,PlayoffRandomSeed,dword_1AD743,new,low,playoff random seed,src/data/front/front_8E997_bss_01.asm
 1AD748,ModelNamePtrs,dword_1AD748,new,low,model name pointers,src/data/front/front_48D70_bss_01.asm
 1AD7C0,ModelNames,unk_1AD7C0,new,low,model names,src/data/front/front_48D70_bss_01.asm
 1ADBF8,FrameDrawList,dword_1ADBF8,new,low,objects drawn this frame,src/data/front/front_48D70_bss_01.asm
@@ -9580,6 +9667,181 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1C834A,ModemSpeed,word_1C834A,new,low,modem speed choice,src/data/front/front_845E4_bss_01.asm
 1C834C,ModemInitString,unk_1C834C,new,low,modem init string,src/data/front/front_845E4_bss_01.asm
 1C8360,ModemPhoneNumber,unk_1C8360,new,low,modem phone number,src/data/front/front_845E4_bss_01.asm
+1C8388,ModemDialCommand,unk_1C8388,new,low,modem dial command,src/data/front/front_868CD_bss_01.asm
+1C83B0,PhonebookData,dword_1C83B0,new,low,phonebook data,src/data/front/front_868CD_bss_01.asm
+1C83B4,NetworkGameFlags,byte_1C83B4,new,low,network game flags,src/data/front/front_868CD_bss_01.asm
+1C83B8,NetworkGameNumber,word_1C83B8,new,low,network game number,src/data/front/front_868CD_bss_01.asm
+1C83BA,NetworkGameName,unk_1C83BA,new,low,network game name,src/data/front/front_868CD_bss_01.asm
+1C83D0,MenuSavedMouseMode,dword_1C83D0,new,low,menu mouse mode saved with the view,src/data/front/front_868CD_bss_01.asm
+1C83D4,MenuLastButtons,dword_1C83D4,new,low,menu mouse buttons last frame,src/data/front/front_868CD_bss_01.asm
+1C83D8,MenuRemoteItem,dword_1C83D8,new,low,menu item under the remote cursor,src/data/front/front_868CD_bss_01.asm
+1C83DC,MenuButtons,dword_1C83DC,new,low,menu mouse buttons this frame,src/data/front/front_868CD_bss_01.asm
+1C83E0,RemoteMouseButtons,dword_1C83E0,new,low,remote player mouse buttons,src/data/front/front_868CD_bss_01.asm
+1C83E4,RemoteLastButtons,dword_1C83E4,new,low,remote player mouse buttons last frame,src/data/front/front_868CD_bss_01.asm
+1C83E8,RemoteLastMouseY,dword_1C83E8,new,low,remote player mouse y last frame,src/data/front/front_868CD_bss_01.asm
+1C83EC,RemoteLastMouseX,dword_1C83EC,new,low,remote player mouse x last frame,src/data/front/front_868CD_bss_01.asm
+1C83F0,RemoteMouseX,dword_1C83F0,new,low,remote player mouse x,src/data/front/front_868CD_bss_01.asm
+1C83F4,RemoteMouseY,dword_1C83F4,new,low,remote player mouse y,src/data/front/front_868CD_bss_01.asm
+1C83F8,MenuSavedRemoteArt,dword_1C83F8,new,low,saved remote cursor art,src/data/front/front_868CD_bss_01.asm
+1C83FC,MenuLocalItem,dword_1C83FC,new,low,menu item under the local cursor,src/data/front/front_868CD_bss_01.asm
+1C8400,MenuLastMouseY,dword_1C8400,new,low,menu mouse y last frame,src/data/front/front_868CD_bss_01.asm
+1C8404,MenuLastMouseX,dword_1C8404,new,low,menu mouse x last frame,src/data/front/front_868CD_bss_01.asm
+1C8408,MenuSavedCursorArt,dword_1C8408,new,low,saved local cursor art,src/data/front/front_868CD_bss_01.asm
+1C840C,MenuRemoteLayer,dword_1C840C,new,low,remote cursor draw layer,src/data/front/front_868CD_bss_01.asm
+1C8410,MenuLocalCursorY,dword_1C8410,new,low,local cursor y,src/data/front/front_868CD_bss_01.asm
+1C8414,MenuLocalCursorX,dword_1C8414,new,low,local cursor x,src/data/front/front_868CD_bss_01.asm
+1C8418,MenuItemLeaveFunc,dword_1C8418,new,low,menu item leave routine,src/data/front/front_868CD_bss_01.asm
+1C841C,MenuLocalLayer,dword_1C841C,new,low,local cursor draw layer,src/data/front/front_868CD_bss_01.asm
+1C8420,MenuViewTop,dword_1C8420,new,low,menu view top,src/data/front/front_868CD_bss_01.asm
+1C8424,MenuViewBottom,dword_1C8424,new,low,menu view bottom,src/data/front/front_868CD_bss_01.asm
+1C8428,MenuItemEnterFunc,dword_1C8428,new,low,menu item enter routine,src/data/front/front_868CD_bss_01.asm
+1C842C,MenuViewLeft,dword_1C842C,new,low,menu view left,src/data/front/front_868CD_bss_01.asm
+1C8430,MenuViewRight,dword_1C8430,new,low,menu view right,src/data/front/front_868CD_bss_01.asm
+1C8434,MenuRemoteCursorY,dword_1C8434,new,low,remote cursor y,src/data/front/front_868CD_bss_01.asm
+1C8438,MenuRemoteCursorX,dword_1C8438,new,low,remote cursor x,src/data/front/front_868CD_bss_01.asm
+1C843C,MenuItemHoverFunc,dword_1C843C,new,low,menu item hover routine,src/data/front/front_868CD_bss_01.asm
+1C8440,MenuBitmap,dword_1C8440,new,low,menu bitmap,src/data/front/front_868CD_bss_01.asm
+1C8444,MenuBitmapPixels,dword_1C8444,new,low,menu bitmap pixels,src/data/front/front_868CD_bss_01.asm
+1C8448,MenuRemoteCursorArt,dword_1C8448,new,low,remote cursor art,src/data/front/front_868CD_bss_01.asm
+1C844C,MenuCursorArt,dword_1C844C,new,low,local cursor art,src/data/front/front_868CD_bss_01.asm
+1C8450,MenuScreenCopy,dword_1C8450,new,low,copy of the menu screen,src/data/front/front_868CD_bss_01.asm
+1C8454,MenuCursorPixels,dword_1C8454,new,low,local cursor pixels,src/data/front/front_868CD_bss_01.asm
+1C84D8,StandingsGoalsFor,dword_1C84D8,new,low,"goals for per team, for the standings sort",src/data/front/front_8E997_bss_02.asm
+1C8540,SeasonSparkleShapes,dword_1C8540,new,low,season menu sparkle shapes,src/data/front/front_8E997_bss_02.asm
+1C8568,StandingsTies,dword_1C8568,new,low,"ties per team, for the standings sort",src/data/front/front_8E997_bss_02.asm
+1C85D0,SeasonMenuShapeLists,dword_1C85D0,new,low,season menu shape lists,src/data/front/front_8E997_bss_02.asm
+1C85DC,NewSeasonShapes,unk_1C85DC,new,low,new season screen shapes,src/data/front/front_8E997_bss_02.asm
+1C85E8,SeasonNameShapes,unk_1C85E8,new,low,season name shapes,src/data/front/front_8E997_bss_02.asm
+1C85F4,SeasonRecordShapes,unk_1C85F4,new,low,season record shapes,src/data/front/front_8E997_bss_02.asm
+1C8600,SeasonGameShapes,unk_1C8600,new,low,season game shapes,src/data/front/front_8E997_bss_02.asm
+1C860C,SeasonDateShapes,unk_1C860C,new,low,season date shapes,src/data/front/front_8E997_bss_02.asm
+1C8618,StandingsWins,dword_1C8618,new,low,"wins per team, for the standings sort",src/data/front/front_8E997_bss_02.asm
+1C8680,StandingsGoalsAgainst,dword_1C8680,new,low,"goals against per team, for the standings sort",src/data/front/front_8E997_bss_02.asm
+1C86E8,StandingsSortKey,dword_1C86E8,new,low,standings sort key,src/data/front/front_8E997_bss_02.asm
+1C86EC,SeasonSparkleSoundOn,dword_1C86EC,new,low,set once the season menu sparkle sound plays,src/data/front/front_8E997_bss_02.asm
+1C86F0,SeasonMenuItems,dword_1C86F0,new,low,season menu items,src/data/front/front_8E997_bss_02.asm
+1C86F4,StandingsBuffer,dword_1C86F4,new,low,standings screen buffer,src/data/front/front_8E997_bss_02.asm
+1C86F8,NewSeasonItems,dword_1C86F8,new,low,new season screen items,src/data/front/front_8E997_bss_02.asm
+1C86FC,ExhibitionData,dword_1C86FC,new,low,exhibition file data,src/data/front/front_8E997_bss_02.asm
+1C8700,SeasonTypeCode,byte_1C8700,new,low,season type letter,src/data/front/front_8E997_bss_02.asm
+1C8704,PlayoffTreeSlotX,dword_1C8704,new,low,playoff tree slot x (pairs with the y list),src/data/front/front_93005_bss_01.asm
+1C8708,PlayoffTreeSlotY,dword_1C8708,new,low,playoff tree slot y,src/data/front/front_93005_bss_01.asm
+1C87FC,PlayoffSlotCustom,byte_1C87FC,new,low,set per playoff slot when the team name was edited,src/data/front/front_93005_bss_01.asm
+1C8804,PlayoffSlotNamed,byte_1C8804,new,low,set per playoff slot once its name is filled in,src/data/front/front_93005_bss_01.asm
+1C880C,PlayoffSlotNames,byte_1C880C,new,low,playoff slot team names (30 bytes each),src/data/front/front_93005_bss_01.asm
+1C89EC,PlayoffShapeLists,dword_1C89EC,new,low,playoff screen shape lists,src/data/front/front_93005_bss_01.asm
+1C89F8,PlayoffRoundShapes,unk_1C89F8,new,low,playoff round shapes,src/data/front/front_93005_bss_01.asm
+1C8A04,PlayoffStatShapes,unk_1C8A04,new,low,playoff stat table shapes,src/data/front/front_93005_bss_01.asm
+1C8A10,PlayoffTeamRecordShapes,unk_1C8A10,new,low,playoff team record shapes,src/data/front/front_93005_bss_01.asm
+1C8A1C,PlayoffSeriesShapes,unk_1C8A1C,new,low,playoff series record shapes,src/data/front/front_93005_bss_01.asm
+1C8A28,PlayoffScheduleShapes,unk_1C8A28,new,low,playoff schedule shapes,src/data/front/front_93005_bss_01.asm
+1C8A34,PlayoffSetupShapes,dword_1C8A34,new,low,playoff setup shapes,src/data/front/front_93005_bss_01.asm
+1C8A54,PlayoffLogoArt,dword_1C8A54,new,low,playoff league logo art per slot,src/data/front/front_93005_bss_01.asm
+1C8A74,PlayoffTreeLayer,dword_1C8A74,new,low,playoff tree draw layer,src/data/front/front_93005_bss_01.asm
+1C8A78,PlayoffTreeArt,dword_1C8A78,new,low,playoff tree art,src/data/front/front_93005_bss_01.asm
+1C8A7C,PlayoffTreeData,dword_1C8A7C,new,low,playoff tree data,src/data/front/front_93005_bss_01.asm
+1C8A80,PlayoffTreeLogos,dword_1C8A80,new,low,playoff tree team logos,src/data/front/front_93005_bss_01.asm
+1C8A84,PlayoffMenuBuffer,dword_1C8A84,new,low,playoff menu buffer,src/data/front/front_93005_bss_01.asm
+1C8A88,PlayoffSetupArt,dword_1C8A88,new,low,playoff setup art,src/data/front/front_93005_bss_01.asm
+1C8A8C,PlayoffTeamCount,dword_1C8A8C,new,low,teams in the chosen playoff format,src/data/front/front_93005_bss_01.asm
+1C8A90,PlayoffFormat,dword_1C8A90,new,low,chosen playoff format,src/data/front/front_93005_bss_01.asm
+1C8A94,PlayoffSparkleSoundOn,dword_1C8A94,new,low,set once the playoff sparkle sound plays,src/data/front/front_93005_bss_01.asm
+1C8A98,PlayoffNameFont,dword_1C8A98,new,low,playoff team name font,src/data/front/front_93005_bss_01.asm
+1C8A9C,PlayoffSetupItems,dword_1C8A9C,new,low,playoff setup items,src/data/front/front_93005_bss_01.asm
+1C8AA0,PlayoffTeamFont,dword_1C8AA0,new,low,playoff team font,src/data/front/front_93005_bss_01.asm
+1C8AA4,LinesGridX,dword_1C8AA4,new,low,lines grid draw x,src/data/front/front_9623E_bss_01.asm
+1C8AA8,LinesGridHeaderArt,dword_1C8AA8,new,low,lines grid header art,src/data/front/front_9623E_bss_01.asm
+1C8AAC,LinesGridHeaderPtr,dword_1C8AAC,new,low,next lines grid header entry,src/data/front/front_9623E_bss_01.asm
+1C8AB0,LinesGridLabelPtr,dword_1C8AB0,new,low,next lines grid label entry,src/data/front/front_9623E_bss_01.asm
+1C8AB4,LinesForwardList,dword_1C8AB4,new,low,forward lines scroll list,src/data/front/front_9623E_bss_01.asm
+1C8AF8,LinesForwardListShapes,dword_1C8AF8,new,low,forward lines list shapes (indexed from the list end),src/data/front/front_9623E_bss_01.asm
+1C8AFC,LinesForwardGrid,dword_1C8AFC,new,low,forward lines grid scroll list,src/data/front/front_9623E_bss_01.asm
+1C8B44,LinesDefenceList,dword_1C8B44,new,low,defence lines scroll list,src/data/front/front_9623E_bss_01.asm
+1C8B90,LinesDefenceListShapes,dword_1C8B90,new,low,defence lines list shapes (indexed from the list end),src/data/front/front_9623E_bss_01.asm
+1C8B94,LinesDefenceGrid,dword_1C8B94,new,low,defence lines grid scroll list,src/data/front/front_9623E_bss_01.asm
+1C8BE4,LinesHighlightShape,dword_1C8BE4,new,low,lines highlight shape,src/data/front/front_9623E_bss_01.asm
+1C8BE8,LinesForwardShape,dword_1C8BE8,new,low,forward lines shape (also the slot before the forward stat keys),src/data/front/front_9623E_bss_01.asm
+1C8BEC,LinesForwardStatKeys,dword_1C8BEC,97PC,low,forward lines stat keys,src/data/front/front_9623E_bss_01.asm
+1C8C34,LinesIntroShapes,dword_1C8C34,new,low,lines intro shapes,src/data/front/front_9623E_bss_01.asm
+1C8C4C,LinesSparkleShapes,dword_1C8C4C,new,low,lines intro sparkle shapes,src/data/front/front_9623E_bss_01.asm
+1C8C60,LinesDefenceKeyBase,dword_1C8C60,new,low,slot before the defence stat keys (the table is indexed from 1),src/data/front/front_9623E_bss_01.asm
+1C8C64,LinesDefenceStatKeys,dword_1C8C64,97PC,low,defence lines stat keys,src/data/front/front_9623E_bss_01.asm
+1C8CB4,RatingMeterFrame,dword_1C8CB4,new,low,rating meter frame,src/data/front/front_9623E_bss_01.asm
+1C8CB8,RatingMeterShapes,dword_1C8CB8,new,low,rating meter shapes,src/data/front/front_9623E_bss_01.asm
+1C8CBC,LinesIntroSpeech,dword_1C8CBC,new,low,lines intro speech per team,src/data/front/front_9623E_bss_01.asm
+1C8CCC,LinesCardX,dword_1C8CCC,new,low,lines card x,src/data/front/front_9623E_bss_01.asm
+1C8CD0,LinesCardY,dword_1C8CD0,new,low,lines card y,src/data/front/front_9623E_bss_01.asm
+1C8CD4,LinesSlotPositions,word_1C8CD4,new,low,lines slot positions,src/data/front/front_9623E_bss_01.asm
+1C8CEC,LinesGridSlotIds,word_1C8CEC,new,low,lines grid slot ids,src/data/front/front_9623E_bss_01.asm
+1C8CFC,LinesCardLayout,dword_1C8CFC,97PC,low,lines card layout: rating bar positions and sizes per card slot,src/data/front/front_9623E_bss_01.asm
+1C8D9C,LinesCellBitmap,dword_1C8D9C,new,low,lines cell bitmap,src/data/front/front_9623E_bss_01.asm
+1C8DA0,LinesPopupMenu,dword_1C8DA0,new,low,lines popup menu,src/data/front/front_9623E_bss_01.asm
+1C8DA4,LinesIntroBitmap,dword_1C8DA4,new,low,lines intro bitmap,src/data/front/front_9623E_bss_01.asm
+1C8DA8,LinesSwitchShape,dword_1C8DA8,new,low,lines switch shape,src/data/front/front_9623E_bss_01.asm
+1C8DAC,LinesCellArt,dword_1C8DAC,new,low,lines cell art,src/data/front/front_9623E_bss_01.asm
+1C8DB0,EditLinesMode,dword_1C8DB0,new,low,edit lines mode,src/data/front/front_9623E_bss_01.asm
+1C8DB4,LinesGridRowY,dword_1C8DB4,97PC,low,lines grid row y positions,src/data/front/front_9623E_bss_01.asm
+1C8DC8,LinesPopupBitmap,dword_1C8DC8,new,low,lines popup bitmap,src/data/front/front_9623E_bss_01.asm
+1C8DCC,LinesLastSpeech,dword_1C8DCC,new,low,last lines intro speech picked,src/data/front/front_9623E_bss_01.asm
+1C8DD0,LinesIntroTeam,dword_1C8DD0,new,low,team shown in the lines intro,src/data/front/front_9623E_bss_01.asm
+1C8DD4,LinesSparkleFrame,dword_1C8DD4,new,low,lines sparkle frame,src/data/front/front_9623E_bss_01.asm
+1C8DD8,RatingMeterLevel,dword_1C8DD8,new,low,rating meter level,src/data/front/front_9623E_bss_01.asm
+1C8DDC,LinesListTop,dword_1C8DDC,new,low,lines list top row,src/data/front/front_9623E_bss_01.asm
+1C8DE0,LinesIntroDone,dword_1C8DE0,new,low,set once the lines intro finishes,src/data/front/front_9623E_bss_01.asm
+1C8DE4,LinesTitleText,dword_1C8DE4,new,low,lines title text,src/data/front/front_9623E_bss_01.asm
+1C8DE8,LinesSparkleTimer,dword_1C8DE8,new,low,lines sparkle timer,src/data/front/front_9623E_bss_01.asm
+1C8DEC,LinesSparkleIndex,dword_1C8DEC,new,low,lines sparkle index,src/data/front/front_9623E_bss_01.asm
+1C8DF0,LinesTeamText,dword_1C8DF0,new,low,lines team text,src/data/front/front_9623E_bss_01.asm
+1C8DF4,LinesForwardCount,dword_1C8DF4,new,low,forward lines count,src/data/front/front_9623E_bss_01.asm
+1C8DF8,LinesDefenceCount,dword_1C8DF8,new,low,defence lines count,src/data/front/front_9623E_bss_01.asm
+1C8DFC,LinesGridColumn,dword_1C8DFC,new,low,lines grid column,src/data/front/front_9623E_bss_01.asm
+1C8E00,LinesTextScroll,dword_1C8E00,new,low,lines text scroll,src/data/front/front_9623E_bss_01.asm
+1C8E04,LinesTextLine,dword_1C8E04,new,low,lines text line,src/data/front/front_9623E_bss_01.asm
+1C8E08,LinesTextPos,dword_1C8E08,new,low,lines text position,src/data/front/front_9623E_bss_01.asm
+1C8E0C,LinesTextLength,dword_1C8E0C,new,low,lines text length,src/data/front/front_9623E_bss_01.asm
+1C8E10,LinesGridRow,dword_1C8E10,new,low,lines grid row,src/data/front/front_9623E_bss_01.asm
+1C8E14,LinesForwardChoice,dword_1C8E14,new,low,chosen forward line,src/data/front/front_9623E_bss_01.asm
+1C8E18,LinesSpecialChoice,dword_1C8E18,new,low,chosen special team line,src/data/front/front_9623E_bss_01.asm
+1C8E1C,LinesScreenBitmap,dword_1C8E1C,new,low,lines screen bitmap,src/data/front/front_9623E_bss_01.asm
+1C8E20,LinesIntroArt,dword_1C8E20,new,low,lines intro art,src/data/front/front_9623E_bss_01.asm
+1C8E24,EditLinesTeam,dword_1C8E24,new,low,team being edited on the lines screen,src/data/front/front_9623E_bss_01.asm
+1C8E28,LinesCircleShape,dword_1C8E28,new,low,lines circle shape,src/data/front/front_9623E_bss_01.asm
+1C8E2C,LinesArtFile,dword_1C8E2C,new,low,lines art file,src/data/front/front_9623E_bss_01.asm
+1C8E30,LinesCardBitmap,dword_1C8E30,new,low,lines card bitmap,src/data/front/front_9623E_bss_01.asm
+1C8E34,LinesOvalShape,dword_1C8E34,new,low,lines oval shape,src/data/front/front_9623E_bss_01.asm
+1C8E38,LinesLogoBitmap,dword_1C8E38,new,low,lines team logo bitmap,src/data/front/front_9623E_bss_01.asm
+1C8E3C,LinesSwapShape,dword_1C8E3C,new,low,lines swap shape,src/data/front/front_9623E_bss_01.asm
+1C8E40,LinesFontFile,dword_1C8E40,new,low,lines font file,src/data/front/front_9623E_bss_01.asm
+1C8E44,LinesShapeFile,dword_1C8E44,new,low,lines shape file,src/data/front/front_9623E_bss_01.asm
+1C8E48,EditLinesPage,dword_1C8E48,new,low,edit lines page,src/data/front/front_9623E_bss_01.asm
+1C8E4C,HomePanelTick,dword_1C8E4C,new,low,tick of the last home panel update,src/data/front/front_9E35E_bss_01.asm
+1C8E50,TeamSelectSoundOn,dword_1C8E50,new,low,set once the team select sound plays,src/data/front/front_9E35E_bss_01.asm
+1C8E54,TeamSelectDrawn,dword_1C8E54,new,low,set once the team select screen is drawn,src/data/front/front_9E35E_bss_01.asm
+1C8E58,HomePanelShapes,dword_1C8E58,new,low,home team panel shapes,src/data/front/front_9E35E_bss_01.asm
+1C8E5C,AwayPanelShapes,dword_1C8E5C,new,low,away team panel shapes,src/data/front/front_9E35E_bss_01.asm
+1C8E60,AwayPanelTick,dword_1C8E60,new,low,tick of the last away panel update,src/data/front/front_9E35E_bss_01.asm
+1C8E64,TeamSelectValues,dword_1C8E64,new,low,team select item values,src/data/front/front_9E35E_bss_01.asm
+1C8E88,HomePanelLayer,dword_1C8E88,new,low,home team panel draw layer,src/data/front/front_9E35E_bss_01.asm
+1C8E8C,AwayPanelLayer,dword_1C8E8C,new,low,away team panel draw layer,src/data/front/front_9E35E_bss_01.asm
+1C8E90,TeamSelectItems,dword_1C8E90,new,low,team select items,src/data/front/front_9E35E_bss_01.asm
+1C8E94,TeamSelectTargets,dword_1C8E94,new,low,team select item value targets,src/data/front/front_9E35E_bss_01.asm
+1C8E98,HomePanelPos,dword_1C8E98,new,low,home team panel position,src/data/front/front_9E35E_bss_01.asm
+1C8E9C,AwayPanelPos,dword_1C8E9C,new,low,away team panel position,src/data/front/front_9E35E_bss_01.asm
+1C8EA0,AwayPanelTeam,word_1C8EA0,new,low,team shown on the away panel,src/data/front/front_9E35E_bss_01.asm
+1C8EA2,HomePanelTeam,word_1C8EA2,new,low,team shown on the home panel,src/data/front/front_9E35E_bss_01.asm
+1C8EA4,IndexPickChoice,dword_1C8EA4,new,low,index entry picked,src/data/front/front_9E35E_bss_01.asm
+1C8EB4,IndexItemType,dword_1C8EB4,new,low,index item type,src/data/front/front_9E35E_bss_01.asm
+1C8EB8,IndexItemValue,dword_1C8EB8,new,low,index item value,src/data/front/front_9E35E_bss_01.asm
+1C8EF6,IndexItemTemplate,dword_1C8EF6,new,low,index item template,src/data/front/front_9E35E_bss_01.asm
+1C8F4C,IndexSoundMode,dword_1C8F4C,new,low,index screen sound mode,src/data/front/front_9E35E_bss_01.asm
+1C8F58,IndexDialogType,dword_1C8F58,new,low,index dialog type,src/data/front/front_9F6F5_bss_01.asm
+1C8F5C,IndexDialogText,dword_1C8F5C,new,low,index dialog text,src/data/front/front_9F6F5_bss_01.asm
+1C8F62,IndexDialogShape,dword_1C8F62,new,low,index dialog shape,src/data/front/front_9F6F5_bss_01.asm
+1C8F66,IndexDialogFrame,dword_1C8F66,new,low,index dialog frame,src/data/front/front_9F6F5_bss_01.asm
+1C8F6A,IndexDialogBack,dword_1C8F6A,new,low,index dialog back,src/data/front/front_9F6F5_bss_01.asm
+1C8F6E,IndexDialogWidth,dword_1C8F6E,new,low,index dialog width,src/data/front/front_9F6F5_bss_01.asm
+1C8F72,IndexDialogHeight,dword_1C8F72,new,low,index dialog height,src/data/front/front_9F6F5_bss_01.asm
+1C8F9A,IndexListBox,unk_1C8F9A,new,low,index list box,src/data/front/front_9F6F5_bss_01.asm
 1CD1E0,InputRecordRing,unk_1CD1E0,96PC,high,96 PC InputRecordRing (97: 5 records of 14h bytes),src/data/front/front_DA66D_bss_01.asm
 1CD24C,HotKeyFlags,word_1CD24C,new,medium,"the record's flag word (pause and hot keys), from PollControllers",src/data/front/front_DA66D_bss_01.asm
 1CF0DC,memlist1,,95PC,medium,NHL95PC EDA08 (refset): referenced by the same 2 matched functions,

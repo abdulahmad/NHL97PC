@@ -18,7 +18,7 @@ extern str_Refcalls, str_Refambi, str_Fight, str_Cup2, str_Puck3, str_Stickheel,
 extern str_Rhand, str_Lshldr, str_Rshldr, str_ANIMSVIV, str_MIRROR, str_SCALED, str_LOOP, str_MASTER
 extern str_SLAVE, str_FADING, str_4da, str_ANIMSTAT, str_AiconsViv, str_Cross, str_ANIMSVIV2, awtmstruct
 extern MoveContactFlags, IdentityRemap, PuckArrowColors, PenaltyPending, NearestPlayer, gmode, PuckFlags, PlayFlags
-extern holdreset, PadStates, PlayerControlFlags, byte_1AD72B, TeamColorSet, ModelLoadedFlags, TeamModelFlags, SeatModelCount
+extern holdreset, PadStates, PlayerControlFlags, PlayoffRound, TeamColorSet, ModelLoadedFlags, TeamModelFlags, SeatModelCount
 extern SeatModelFlag, CameraStateRecords, MoveFlags, chkprogress, F32_50_DrawPlayerModel, F32_200, F32_neg30, F32_20_DrawPlayerMarkers
 extern F32_neg20_DrawPlayerMarkers, F32_30, F32_65536_LoadFaceTexture, F32_4096, F32_464, F32_65536_BeginOffscreenRender, F32_65536_SetPortraitProjection, F32_2_CameraSplinePoint
 extern F32_3_CameraSplinePoint, F32_3_CameraEasePoint, F32_2_CameraEasePoint, F32_2_SetCameraTarget, F32_3_SetCameraTarget, F32_2_UpdateCameraMotion, F32_3_UpdateCameraMotion, F32_neg10_PlaySkateSounds
@@ -51,7 +51,7 @@ extern ClockDataTicks, ClockDataRate, ClockDataBase, CupCelebrationActive, dword
 extern ViewCenterY, str_D_ProjectPointsPersp, ShotState, LastTouchPlayer, PassFrom, PassTo, PuckHitFlag, ZoneTargetX
 extern RefPlayer, SlotPlayers, bholdtimer, GameObjects, PlayerUpdateFlags, PlayerUpdateTable, HmSkaterCount, HmTeamData
 extern HmScore, AwSkaterCount, AwTeamData, AwScore, ViewPixelWidth, ViewPixelHeight, GameSettings, GameOptionFlags
-extern dword_1AD437, dword_1AD69F, dword_1AD6A3, ArenaArchive, RinkLineArt, ModelSlotTable, MarkerPoints
+extern PlayoffRoundBits, PlayoffCurrentRound, PlayoffFinalRound, ArenaArchive, RinkLineArt, ModelSlotTable, MarkerPoints
 extern MarkerPoints, DrawFuncTable, DrawPartCount
 extern DrawSortList, CommonArt, StickModels, StickArt, GoalieStickModels, GoalieStickArt, PuckArrowArt, SkateArt
 extern GloveArt, HelmetArt, PadArt, ShadowArt, PlayerModelData, SeatModelSlots, HeadArt, BodyArt
@@ -46126,11 +46126,11 @@ CupCelebration:
         call IsPlayoffGame
         test eax, eax
         je near .3
-        cmp byte [byte_1AD72B], 3
+        cmp byte [PlayoffRound], 3
         jne near .3
-        mov eax, dword [dword_1AD437]
+        mov eax, dword [PlayoffRoundBits]
         and eax, byte 7
-        mov ecx, dword [dword_1AD69F]
+        mov ecx, dword [PlayoffCurrentRound]
         shr eax, 1
         cmp eax, ecx
         jne short .2
@@ -46151,7 +46151,7 @@ CupCelebration:
         pop ebx
         ret
 .2:
-        cmp eax, dword [dword_1AD6A3]
+        cmp eax, dword [PlayoffFinalRound]
         jne short .3
         movsx ebx, dx
         mov eax, ebx

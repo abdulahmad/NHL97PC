@@ -2,31 +2,31 @@
 bits 32
 %include "hockey.inc"
 section s_168FB8 progbits alloc noexec write align=1
-global byte_169038, dword_168FB8, dword_168FD0, dword_169004, dword_16908A, word_169054, word_169066, str_Punct_DrawSeasonGamePanel
-dword_168FB8:
+global NewSeasonBannerTeams, NewSeasonTeamOrderSmall, NewSeasonTeamOrderLarge, NewSeasonTeamOrderMid, SeasonGameDayOffsets, SeasonStartYears, SeasonMonthDays, str_Punct_DrawSeasonGamePanel
+NewSeasonTeamOrderSmall:
         db 03h,00h,00h,00h,0Ch,00h,00h,00h,00h,00h,00h,00h,03h,00h,00h,00h
         db 08h,00h,00h,00h,0Bh,00h,00h,00h
-dword_168FD0:
+NewSeasonTeamOrderLarge:
         db 015h,00h,00h,00h,018h,00h,00h,00h,05h,00h,00h,00h,04h,00h,00h,00h
         db 06h,00h,00h,00h,07h,00h,00h,00h,014h,00h,00h,00h,017h,00h,00h,00h
         db 012h,00h,00h,00h,01h,00h,00h,00h,02h,00h,00h,00h,0Ah,00h,00h,00h
         db 0Ch,00h,00h,00h
-dword_169004:
+NewSeasonTeamOrderMid:
         db 010h,00h,00h,00h,013h,00h,00h,00h,09h,00h,00h,00h,0Dh,00h,00h,00h
         db 0Eh,00h,00h,00h,0Fh,00h,00h,00h,011h,00h,00h,00h,016h,00h,00h,00h
         db 019h,00h,00h,00h,07h,00h,00h,00h,06h,00h,00h,00h,06h,00h,00h,00h
         db 07h,00h,00h,00h
-byte_169038:
+NewSeasonBannerTeams:
         db 00h,03h,08h,0Bh,015h,018h,05h,04h,06h,07h,014h,017h,012h,063h,01h,02h
         db 0Ah,0Ch,010h,013h,063h,09h,0Dh,0Eh,0Fh,011h,016h,019h
-word_169054:
+SeasonStartYears:
         db 0CBh,07h,0CBh,07h,0CBh,07h,0CCh,07h,0CCh,07h,0CCh,07h,0CCh,07h,0CCh,07h
         db 0CCh,07h
-word_169066:
+SeasonMonthDays:
         db 01Fh,00h,00h,00h,01Eh,00h,00h,00h,01Fh,00h,00h,00h,01Fh,00h,00h,00h
         db 01Dh,00h,00h,00h,01Fh,00h,00h,00h,01Eh,00h,00h,00h,01Fh,00h,00h,00h
         db 01Eh,00h,00h,00h
-dword_16908A:
+SeasonGameDayOffsets:
         db 00h,00h,00h,00h,03h,00h,00h,00h,05h,00h,00h,00h,01h,00h,00h,00h
         db 04h,00h,00h,00h,05h,00h,00h,00h,01h,00h,00h,00h,03h,00h,00h,00h
         db 06h,00h,00h,00h

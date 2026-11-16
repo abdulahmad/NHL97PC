@@ -5,9 +5,9 @@ section s_D3112 progbits alloc exec nowrite align=1
 extern str_Hros, str_Vros, str_Blurb, str_STAR, str_FIR1, str_FDPD, str_FIRD, str_000010
 extern str_DOOR, str_TXT1, str_TRM1, str_TITL13, str_LOGO02dFSH2, str_LOGO7, str_LOGO28FSH, str_SS12
 extern str_SDD, str_SDDD, str_SSS2, str_SS13, str_SSS3, str_Roster4, str_SVsSDDD, str_SDSD2
-extern byte_1AD742, byte_1C6040, byte_1CC8B4, PlayoffColumns, dword_16D744, dword_16D748, dword_16D74C, dword_16D750
-extern MenuScreenBitmap, GameSettings, SeasonUserTeam, GameOptionFlags, SeasonActive, dword_1ACF65, dword_1AD226, dword_1AD437
-extern dword_1AD62F, dword_1AD6AB, dword_1CC7D8, dword_1CC828, dword_1CC860, dword_1CC864, dword_1CC8A0, jpt_D3102
+extern PlayoffUserIndex, byte_1C6040, byte_1CC8B4, PlayoffColumns, dword_16D744, dword_16D748, dword_16D74C, dword_16D750
+extern MenuScreenBitmap, GameSettings, SeasonUserTeam, GameOptionFlags, SeasonActive, SeasonUserReplay, SeasonDefaultUser, PlayoffRoundBits
+extern PlayoffTeamNames, PlayoffTeams, dword_1CC7D8, dword_1CC828, dword_1CC860, dword_1CC864, dword_1CC8A0, jpt_D3102
 extern memset_, rand_, sprintf_, str_EASports, str_TXTD, strcpy_, BlitConverted, BlitArt
 extern BlitShape, PresentScreen, FindShape, OpenArtArchiveErr, DrawShapeBlended, ConvertArtNew, DrawSpriteScaledBy, SetScreenTarget
 extern IsAllStarDay, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx, PaEvent, ResetStreamAudio, LoadDataFile
@@ -199,7 +199,7 @@ PreGameRostersScreen:
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
         shr eax, 1Ah
-        cmp eax, dword [nosplit esi*4+dword_1AD6AB]
+        cmp eax, dword [nosplit esi*4+PlayoffTeams]
         jne short .8
         mov edx, esi
         mov eax, dword [SeasonUserTeam]
@@ -213,7 +213,7 @@ PreGameRostersScreen:
         mov eax, dword [byte eax+01h]
         shl eax, 6
         shr eax, 1Ah
-        cmp eax, dword [nosplit esi*4+dword_1AD6AB]
+        cmp eax, dword [nosplit esi*4+PlayoffTeams]
         jne short .9
         mov edx, esi
         mov eax, dword [SeasonUserTeam]
@@ -1091,7 +1091,7 @@ DrawRosterPlayerInfo:
         mov edx, dword [byte esi+01h]
         shl edx, 0Ch
         shr edx, 1Ah
-        cmp edx, dword [nosplit ebx*4+dword_1AD6AB]
+        cmp edx, dword [nosplit ebx*4+PlayoffTeams]
         jne short .4
         mov dword [byte ebp+06Ah], ebx
 .4:
@@ -2072,8 +2072,8 @@ MatchupAnnouncement:
         jne near .12
         cmp dword [SeasonActive], byte 0
         jne near .12
-        imul esi, dword [dword_1AD226], byte 1Ch
-        mov esi, dword [dword esi+dword_1ACF65]
+        imul esi, dword [SeasonDefaultUser], byte 1Ch
+        mov esi, dword [dword esi+SeasonUserReplay]
         jmp short .4
 .1:
         jne short .6
@@ -2094,7 +2094,7 @@ MatchupAnnouncement:
         add eax, ebx
         movsx ecx, byte [eax]
         lea ebx, [byte edx+01h]
-        cmp ecx, dword [dword_1AD226]
+        cmp ecx, dword [SeasonDefaultUser]
         jne short .7
         mov cl, byte [byte eax+02h]
         cmp cl, byte [byte eax+03h]
@@ -2107,7 +2107,7 @@ MatchupAnnouncement:
         jmp short .3
 .7:
         movsx ecx, byte [byte eax+01h]
-        cmp ecx, dword [dword_1AD226]
+        cmp ecx, dword [SeasonDefaultUser]
         jne short .4
         mov cl, byte [byte eax+02h]
         cmp cl, byte [byte eax+03h]
@@ -2131,7 +2131,7 @@ MatchupAnnouncement:
         jne near .32
         lea eax, [byte ebp-0Ch]
         push eax
-        push dword [dword_1AD226]
+        push dword [SeasonDefaultUser]
         push dword 0B0000005h
         call PaEvent
         add esp, byte 0Ch
@@ -2146,11 +2146,11 @@ MatchupAnnouncement:
         cmp dword [SeasonActive], byte 0
         je near .32
 .13:
-        movzx esi, byte [byte_1AD742]
+        movzx esi, byte [PlayoffUserIndex]
         xor eax, eax
 .14:
-        mov edx, dword [nosplit eax*4+dword_1AD6AB]
-        cmp edx, dword [nosplit esi*4+dword_1AD6AB]
+        mov edx, dword [nosplit eax*4+PlayoffTeams]
+        cmp edx, dword [nosplit esi*4+PlayoffTeams]
         jne short .15
         mov ebx, eax
 .15:
@@ -2168,11 +2168,11 @@ MatchupAnnouncement:
 .16:
         lea edx, [byte ebx+01h]
 .17:
-        mov ecx, dword [dword_1AD437]
+        mov ecx, dword [PlayoffRoundBits]
         and ecx, byte 7
-        mov eax, dword [nosplit ebx*4+dword_1AD62F]
+        mov eax, dword [nosplit ebx*4+PlayoffTeamNames]
         shr ecx, 1
-        mov edx, dword [nosplit edx*4+dword_1AD62F]
+        mov edx, dword [nosplit edx*4+PlayoffTeamNames]
         cmp eax, ecx
         jne short .20
         cmp ebx, byte 18h
@@ -2184,10 +2184,10 @@ MatchupAnnouncement:
         push eax
         push byte 5
 .19:
-        push dword [nosplit ebx*4+dword_1AD6AB]
+        push dword [nosplit ebx*4+PlayoffTeams]
         jmp near .31
 .20:
-        mov esi, dword [dword_1AD437]
+        mov esi, dword [PlayoffRoundBits]
         and esi, byte 7
         shr esi, 1
         cmp eax, esi
@@ -2202,7 +2202,7 @@ MatchupAnnouncement:
         push byte 6
         jmp short .19
 .22:
-        mov esi, dword [dword_1AD437]
+        mov esi, dword [PlayoffRoundBits]
         and esi, byte 7
         shr esi, 1
         cmp eax, esi
@@ -2225,7 +2225,7 @@ MatchupAnnouncement:
         push byte 8
         jmp short .19
 .26:
-        mov ecx, dword [dword_1AD437]
+        mov ecx, dword [PlayoffRoundBits]
         and ecx, byte 7
         shr ecx, 1
         shl ebx, 2
@@ -2235,7 +2235,7 @@ MatchupAnnouncement:
         push eax
         push byte 7
 .27:
-        push dword [dword ebx+dword_1AD6AB]
+        push dword [dword ebx+PlayoffTeams]
         jmp short .31
 .28:
         cmp eax, edx
@@ -2254,7 +2254,7 @@ MatchupAnnouncement:
         push edx
         push eax
         push byte 2
-        push dword [dword ebx+dword_1AD6AB]
+        push dword [dword ebx+PlayoffTeams]
 .31:
         push dword 0B0000006h
         call PaEvent

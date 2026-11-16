@@ -2,25 +2,25 @@
 bits 32
 %include "hockey.inc"
 section s_16CDC8 progbits alloc noexec write align=1
-global byte_16CDCC, byte_16CF98, dword_16CDC8, dword_16CDD0, dword_16CDD8, dword_16CDDC, dword_16CDFC, dword_16CE1C
-global dword_16CF18, str_Punct_LoadLinesArt, dword_16CFF4, unk_16CE20
-dword_16CDC8:
+global PlayoffSeedOrder, LinesArtDigits, PlayoffTreeTimer, PlayoffFormatTeams, PlayoffDefaultTeams, PlayoffSlotTeams, PlayoffSlotLogos, PlayoffEditCursor
+global PlayoffRoundShown, str_Punct_LoadLinesArt, LinesSoundPlayed, PlayoffTreeLayout
+PlayoffTreeTimer:
         db 00h,00h,00h,00h
-byte_16CDCC:
+PlayoffSeedOrder:
         db 01h,08h,02h,07h
-dword_16CDD0:
+PlayoffFormatTeams:
         db 03h,06h,04h,05h,01h,08h,02h,07h
-dword_16CDD8:
+PlayoffDefaultTeams:
         db 03h,06h,04h,05h
-dword_16CDDC:
+PlayoffSlotTeams:
         db 07h,00h,00h,00h,012h,00h,00h,00h,05h,00h,00h,00h,018h,00h,00h,00h
         db 04h,00h,00h,00h,03h,00h,00h,00h,017h,00h,00h,00h,014h,00h,00h,00h
-dword_16CDFC:
+PlayoffSlotLogos:
         db 011h,00h,00h,00h,016h,00h,00h,00h,013h,00h,00h,00h,019h,00h,00h,00h
         db 0Fh,00h,00h,00h,0Ch,00h,00h,00h,09h,00h,00h,00h,01h,00h,00h,00h
-dword_16CE1C:
+PlayoffEditCursor:
         db 05h,00h,00h,00h
-unk_16CE20:
+PlayoffTreeLayout:
         db 01Ah,00h,00h,00h,017h,00h,00h,00h,01Ah,00h,00h,00h,039h,00h,00h,00h
         db 01Ah,00h,00h,00h,06Bh,00h,00h,00h,01Ah,00h,00h,00h,08Dh,00h,00h,00h
         db 01Ah,00h,00h,00h,0BFh,00h,00h,00h,01Ah,00h,00h,00h,0E1h,00h,00h,00h
@@ -37,7 +37,7 @@ unk_16CE20:
         db 0AFh,03h,00h,00h,092h,00h,00h,00h,0AFh,03h,00h,00h,0B4h,00h,00h,00h
         db 0Ah,02h,00h,00h,09Fh,00h,00h,00h,09h,03h,00h,00h,09Fh,00h,00h,00h
         db 09Ah,02h,00h,00h,054h,01h,00h,00h
-dword_16CF18:
+PlayoffRoundShown:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 01h,00h,00h,00h,01h,00h,00h,00h,01h,00h,00h,00h,01h,00h,00h,00h
@@ -46,7 +46,7 @@ dword_16CF18:
         db 01h,00h,00h,00h,01h,00h,00h,00h,01h,00h,00h,00h,01h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,01h,00h,00h,00h,01h,00h,00h,00h
         db 00h,00h,00h,00h,01h,00h,00h,00h,01h,00h,00h,00h,01h,00h,00h,00h
-byte_16CF98:
+LinesArtDigits:
         db 00h,00h,00h,00h,01h,00h,00h,00h,04h,00h,00h,00h,03h,00h,00h,00h
         db 08h,00h,00h,00h,05h,00h,00h,00h,06h,00h,00h,00h,07h,00h,00h,00h
         db 02h,00h,00h,00h
@@ -55,5 +55,5 @@ str_Punct_LoadLinesArt:
         db 07h,00h,00h,00h,03h,00h,00h,00h,0Bh,00h,00h,00h,01h,00h,00h,00h
         db 08h,00h,00h,00h,00h,00h,00h,00h,09h,00h,00h,00h,02h,00h,00h,00h
         db 0Ch,00h,00h,00h,05h,00h,00h,00h
-dword_16CFF4:
+LinesSoundPlayed:
         db 00h,00h,00h,00h

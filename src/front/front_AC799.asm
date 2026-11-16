@@ -22,7 +22,7 @@ extern str_RS09RS11RS11, str_RS22, str_RS21, str_RS20, str_RS21RS22RS23, str_RS2
 extern str_RS25RS26RS27, str_RS30, str_RS29, str_RS28, str_RS29RS30RS31, str_RS38, str_RS37, str_RS36
 extern str_RS37RS38RS39, str_LB02d2, str_LH02d, str_LH26, str_TTL0, str_SDDSDD, str_SD02dSD02d, str_SD02dSDD
 extern str_SDDSD2, str_CSS, FrontEndExit, byte_1C6040, StatsMenuDrawn, StandingsColumns, StatsMenuMode, dword_16D400
-extern dword_16D404, dword_16DA9C, MenuScreenBitmap, GameSettings, SeasonActive, dword_1AD6AB, dword_1C5EEC, dword_1C95C8
+extern dword_16D404, dword_16DA9C, MenuScreenBitmap, GameSettings, SeasonActive, PlayoffTeams, dword_1C5EEC, dword_1C95C8
 extern dword_1C95CC, dword_1C95D0, dword_1C95D4, dword_1C95D8, dword_1C95DC, dword_1C95E0, dword_1C95E4, dword_1C95E8
 extern dword_1C95EC, dword_1C95F0, dword_1C95F4, dword_1C95F8, dword_1C95FC, dword_1C9600, dword_1C9610, dword_1C9614
 extern dword_1C9618, dword_1C961C, dword_1C9620, dword_1C9624, dword_1C9628, fclose_, fopen_, fprintf_
@@ -37,7 +37,7 @@ extern ScrollDown, FreeScrollList, SetScrollBarPos, ScrollToMouse, RunScrollList
 extern FreeDbBlock, FindTeamRecord, FindPlayerRecord, OpenLeagueFile, FindGameRecord, FindPlayerStat, FindTeamStat, ServiceIdle
 extern LinkSyncMenu, LinkSyncScreen, AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, DrawArt, CreateBitmap
 extern SetDrawTarget, ClearScreen, str_D_ExportStatTable, str_S_ExportStatTable, str_Punct_WriteCsvLine, str_Rt, str_Wt, str_Punct_ExportStatTable
-extern unk_16623E, str_Punct_StatsTablesScreen, str_Ai, unk_16D7FC, unk_16D804, unk_1AD22E, unk_1AD236, unk_1AD73A
+extern unk_16623E, str_Punct_StatsTablesScreen, str_Ai, unk_16D7FC, unk_16D804, SeasonFilePath, SeasonStatsPath, PlayoffStatsPath
 extern unk_1C5F4A, unk_1C5F9C, unk_1C5FEE, word_16D408, word_1C962C
 global jpt_ACD96, jpt_AD11D, jpt_ADBD6, jpt_AF064, AllocStatTable_2AA, SortStatTable_301, SortStatTable_303, SortStatTable_310
 global SortStatTable_321, SortStatTable_323, SortStatTable_36B, DrawStatTableRows_2A9, DrawStatTableRows_2C4, DrawStatTableRows_2ED, DrawStatTableRows_34B, DrawStatTableRows_36C
@@ -2152,13 +2152,13 @@ TeamStatsScreen:
         cmp eax, byte 20h
         jne short .2
         mov dword [dword_16D404], 1
-        mov dword [byte ebp+066h], unk_1AD73A
+        mov dword [byte ebp+066h], PlayoffStatsPath
         jmp short .4
 .2:
-        mov dword [byte ebp+06Ah], unk_1AD22E
+        mov dword [byte ebp+06Ah], SeasonFilePath
         cmp dword [SeasonActive], byte 0
         je short .3
-        mov dword [byte ebp+066h], unk_1AD236
+        mov dword [byte ebp+066h], SeasonStatsPath
 .3:
         mov dword [dword_16D404], 0
 .4:
@@ -3655,13 +3655,13 @@ StatsTablesScreen:
         cmp eax, byte 20h
         jne short .5
         mov dword [dword_16D404], 1
-        mov dword [byte ebp+04Ah], unk_1AD73A
+        mov dword [byte ebp+04Ah], PlayoffStatsPath
         jmp short .7
 .5:
-        mov dword [byte ebp+042h], unk_1AD22E
+        mov dword [byte ebp+042h], SeasonFilePath
         cmp dword [SeasonActive], byte 0
         je short .6
-        mov dword [byte ebp+04Ah], unk_1AD236
+        mov dword [byte ebp+04Ah], SeasonStatsPath
         jmp short .7
 .6:
         mov dword [dword_16D404], 0
@@ -3711,7 +3711,7 @@ StatsTablesScreen:
         jmp short .12
 .11:
         mov eax, dword [dword_16D400]
-        push dword [nosplit eax*4+dword_1AD6AB]
+        push dword [nosplit eax*4+PlayoffTeams]
 .12:
         push str_LOGO02dFSH
         lea eax, [byte ebp-036h]
@@ -4138,7 +4138,7 @@ StatsTablesScreen:
         cmp dword [dword_16D400], byte 0FFFFFFFFh
         je short .36
         mov eax, dword [dword_16D400]
-        mov eax, dword [nosplit eax*4+dword_1AD6AB]
+        mov eax, dword [nosplit eax*4+PlayoffTeams]
         mov dword [dword_16D400], eax
 .36:
         mov dword [dword_16D404], 0
@@ -4169,7 +4169,7 @@ StatsTablesScreen:
         xor edx, edx
         jmp short .40
 .38:
-        mov eax, dword [nosplit ebx*4+dword_1AD6AB]
+        mov eax, dword [nosplit ebx*4+PlayoffTeams]
         cmp eax, dword [dword_16D400]
         jne short .39
         mov edx, 1
@@ -4461,7 +4461,7 @@ StatsTablesScreen_D0E:
 .58:
         cmp dword [dword_16D404], byte 0
         je short .59
-        push dword [nosplit ebx*4+dword_1AD6AB]
+        push dword [nosplit ebx*4+PlayoffTeams]
         jmp short .60
 .59:
         push ebx
@@ -4482,7 +4482,7 @@ StatsTablesScreen_D0E:
         add esp, byte 8
         cmp dword [dword_16D404], byte 0
         je short .61
-        push dword [dword eax+dword_1AD6AB]
+        push dword [dword eax+PlayoffTeams]
         jmp short .62
 .61:
         push ebx
@@ -4613,7 +4613,7 @@ StatsTablesScreen_D0E:
         cmp dword [dword_16D404], byte 0
         je short .74
         mov eax, dword [dword_16D400]
-        push dword [nosplit eax*4+dword_1AD6AB]
+        push dword [nosplit eax*4+PlayoffTeams]
         jmp short .75
 .74:
         push dword [dword_16D400]
@@ -4634,7 +4634,7 @@ StatsTablesScreen_D0E:
         cmp dword [dword_16D404], byte 0
         je short .76
         mov eax, dword [dword_16D400]
-        push dword [nosplit eax*4+dword_1AD6AB]
+        push dword [nosplit eax*4+PlayoffTeams]
         jmp short .77
 .76:
         push dword [dword_16D400]
@@ -4687,7 +4687,7 @@ StatsTablesScreen_D0E:
         cmp dword [dword_16D404], byte 0
         je short .82
         mov eax, dword [dword_16D400]
-        push dword [nosplit eax*4+dword_1AD6AB]
+        push dword [nosplit eax*4+PlayoffTeams]
         jmp short .83
 .82:
         push dword [dword_16D400]
@@ -4708,7 +4708,7 @@ StatsTablesScreen_D0E:
         cmp dword [dword_16D404], byte 0
         je short .84
         mov eax, dword [dword_16D400]
-        push dword [nosplit eax*4+dword_1AD6AB]
+        push dword [nosplit eax*4+PlayoffTeams]
         jmp short .85
 .84:
         push dword [dword_16D400]
@@ -5009,7 +5009,7 @@ StatsTablesScreen_D0E:
         jmp short .102
 .101:
         mov eax, dword [dword_16D400]
-        push dword [nosplit eax*4+dword_1AD6AB]
+        push dword [nosplit eax*4+PlayoffTeams]
 .102:
         push str_LOGO02dFSH
         lea eax, [byte ebp-036h]

@@ -8,10 +8,10 @@ extern str_NEUERBENUTZER, str_DD02d, str_LocalNdx, str_User, str_DDD5, str_DD3, 
 extern str_Upp, str_Upk, str_Exrec, str_Seasrec, str_Plyrec, str_Urating, str_Uso, str_Ucups
 extern str_BACK7, str_TITL8, str_UL2d, str_UL08, str_UL09, str_UL10, str_UL00, str_UL01
 extern str_UL02, str_UL04, str_UL05, str_UL06, str_ULA0, str_ULA1, str_ULA2, str_ULA3
-extern str_ULA4, str_ULA5, byte_1AD72B, byte_1C55A4, byte_1C55A5, byte_1C55A6, byte_1C55A7, byte_1C55A8
+extern str_ULA4, str_ULA5, PlayoffRound, byte_1C55A4, byte_1C55A5, byte_1C55A6, byte_1C55A7, byte_1C55A8
 extern byte_1CA9D8, PlayoffColumns, StatsMenuMode, dword_16D400, dword_16D440, dword_16D444, dword_16D448, dword_16D44C
-extern dword_16D454, dword_16DA9C, MenuScreenBitmap, GameSettings, GameOptionFlags, SeasonActive, dword_1AD251, dword_1AD437
-extern dword_1AD69F, dword_1AD6A3, dword_1AD70F, dword_1AD71B, dword_1C5DE4, dword_1C9630, dword_1C9634, dword_1C9660
+extern dword_16D454, dword_16DA9C, MenuScreenBitmap, GameSettings, GameOptionFlags, SeasonActive, PlayoffOptionBits, PlayoffRoundBits
+extern PlayoffCurrentRound, PlayoffFinalRound, PlayoffRoundMatch, PlayoffSeriesMatch, dword_1C5DE4, dword_1C9630, dword_1C9634, dword_1C9660
 extern dword_1C9664, dword_1C967A, dword_1C967E, dword_1C9686, dword_1C968A, dword_1C96C2, dword_1C96C6, dword_1C96CC
 extern dword_1C96D0, dword_1C96D4, dword_1C96D8, dword_1C96DC, dword_1C9714, dword_1C9718, dword_1C971E, dword_1C9722
 extern dword_1C9726, dword_1C972A, dword_1C972E, dword_1C9766, dword_1C976A, dword_1C9770, dword_1C9774, dword_1C9778
@@ -32,7 +32,7 @@ extern SortStatTable, DrawStatTableRows, DrawStatTableArt, ExportStatTable, Open
 extern SaveUserRecord, LoadUserRecord, DeleteUserRecord, ServiceIdle, LinkSyncMenu, LinkSyncScreen, WaitForOtherComputer, AllocMemBlock
 extern FreeMemBlock, MakeColor, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, MeasureText, tickcount
 extern str_D_ParseUserName, str_S_DrawUserName, unk_16661B, unk_166648, unk_1C5F4A, unk_1C9704, unk_1C9756, unk_1C989E
-extern unk_B1DF1, unk_B1DFD, unk_B1E09, unk_B1E11, word_16D450, word_1AD68F, word_1AD693, word_1C3413
+extern unk_B1DF1, unk_B1DFD, unk_B1E09, unk_B1E11, word_16D450, PlayoffRecordWins, PlayoffRecordLosses, word_1C3413
 extern word_1C5536, word_1C55A2
 global jpt_B234C, jpt_B41D3, NewUser_C7, NewUser_C8, UserLogScreen_71B, UserLogScreen_77D, UserLogScreen_884, UserLogScreen_89E
 global UserLogScreen_8BB, UserLogScreen_8CA, UserRecordsScreen_95C, UserRecordsScreen_96D, UserRecordsScreen_9B4, UserRecordsScreen_A7F, UserRecordsScreen_A92, UserRecordsScreen_A9E
@@ -1908,42 +1908,42 @@ UpdateUserRecords:
 .43:
         cmp ebx, byte 2
         jne near .49
-        cmp byte [byte_1AD72B], 2
+        cmp byte [PlayoffRound], 2
         jne near .49
         mov eax, 0FFFFFFFFh
         cmp word [byte ebp+07Ah], byte 0
         je short .45
         cmp ecx, dword [byte ebp+06Eh]
         jge short .45
-        mov eax, dword [dword_1AD251]
+        mov eax, dword [PlayoffOptionBits]
         shl eax, 0Ch
         shr eax, 1Ah
-        cmp eax, dword [dword_1AD70F]
+        cmp eax, dword [PlayoffRoundMatch]
         jne short .46
 .44:
-        mov ax, word [word_1AD693]
+        mov ax, word [PlayoffRecordLosses]
         jmp short .47
 .45:
         cmp word [byte ebp+07Ah], byte 0
         jne short .47
         cmp ecx, dword [byte ebp+06Eh]
         jge short .47
-        mov eax, dword [dword_1AD251]
+        mov eax, dword [PlayoffOptionBits]
         shl eax, 6
         shr eax, 1Ah
-        cmp eax, dword [dword_1AD70F]
+        cmp eax, dword [PlayoffRoundMatch]
         je short .44
 .46:
-        mov ax, word [word_1AD68F]
+        mov ax, word [PlayoffRecordWins]
 .47:
         inc eax
         cwde
         lea edx, [eax+eax]
-        mov eax, dword [dword_1AD437]
+        mov eax, dword [PlayoffRoundBits]
         and eax, byte 7
         cmp edx, eax
         jbe short .49
-        mov eax, dword [dword_1AD251]
+        mov eax, dword [PlayoffOptionBits]
         shl eax, 0Ch
         shr eax, 1Ah
         cmp dword [nosplit eax*4+PlayoffColumns], byte 3
@@ -1955,38 +1955,38 @@ UpdateUserRecords:
 .49:
         cmp ebx, byte 2
         jne near .54
-        cmp byte [byte_1AD72B], 3
+        cmp byte [PlayoffRound], 3
         jne near .54
         mov eax, 0FFFFFFFFh
         cmp word [byte ebp+07Ah], byte 0
         je short .51
         cmp ecx, dword [byte ebp+06Eh]
         jge short .51
-        mov eax, dword [dword_1AD251]
+        mov eax, dword [PlayoffOptionBits]
         shl eax, 0Ch
         shr eax, 1Ah
-        cmp eax, dword [dword_1AD71B]
+        cmp eax, dword [PlayoffSeriesMatch]
         jne short .52
 .50:
-        mov ax, word [dword_1AD69F]
+        mov ax, word [PlayoffCurrentRound]
         jmp short .53
 .51:
         cmp word [byte ebp+07Ah], byte 0
         jne short .53
         cmp ecx, dword [byte ebp+06Eh]
         jge short .53
-        mov eax, dword [dword_1AD251]
+        mov eax, dword [PlayoffOptionBits]
         shl eax, 6
         shr eax, 1Ah
-        cmp eax, dword [dword_1AD71B]
+        cmp eax, dword [PlayoffSeriesMatch]
         je short .50
 .52:
-        mov ax, word [dword_1AD6A3]
+        mov ax, word [PlayoffFinalRound]
 .53:
         inc eax
         cwde
         lea edx, [eax+eax]
-        mov eax, dword [dword_1AD437]
+        mov eax, dword [PlayoffRoundBits]
         and eax, byte 7
         cmp edx, eax
         jbe short .54

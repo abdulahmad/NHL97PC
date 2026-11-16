@@ -7,10 +7,10 @@ extern str_OFF0, str_SL02d, str_LB02d, str_LY02d, str_MB01MB02MB03, str_MB05MB06
 extern str_TITL2, str_GMT1, str_BOTM, str_LB00, str_LB07, str_MB02, str_MB01, str_MB00
 extern str_MB06, str_MB05, str_MB04, str_MB10, str_MB09, str_MB08, str_BACK4, str_SY02d
 extern str_SY00, str_SY01, str_SY02, str_SY03, str_SY04, str_SY05, str_SY06, str_GL00
-extern str_GR00, str_Mous3, str_DATAREPLAYNDX, FrontEndExit, MenuOptionFlags, LinkMenuCursor, IndexMenuCursor, byte_1AD742
+extern str_GR00, str_Mous3, str_DATAREPLAYNDX, FrontEndExit, MenuOptionFlags, LinkMenuCursor, IndexMenuCursor, PlayoffUserIndex
 extern byte_1C6040, MainMenuAnimEnd, MainMenuAnimDone, StatsMenuDrawn, byte_1CA9D8, byte_1CBB8C, MainMenuSelection, MainMenuFirstShow
-extern MainMenuAnimStop, StatsMenuMode, dword_16CD58, dword_16D76C, dword_16DA9C, MenuScreenBitmap, GameSettings, GameOptionFlags
-extern dword_1AD226, dword_1AD6A7, dword_1C5DE0, dword_1C5DE4, dword_1C8268, MainMenuAnimFrames, MainMenuAnimTimer, MainMenuAnimFrame
+extern MainMenuAnimStop, StatsMenuMode, LinkTransferReady, dword_16D76C, dword_16DA9C, MenuScreenBitmap, GameSettings, GameOptionFlags
+extern SeasonDefaultUser, GameRecordIds, dword_1C5DE0, dword_1C5DE4, dword_1C8268, MainMenuAnimFrames, MainMenuAnimTimer, MainMenuAnimFrame
 extern MainMenuAnimStart, MainMenuAnimRate, MainMenuAnimShape, MainMenuAnimMode, MainMenuAnimX, MainMenuAnimY, MainMenuAnimArt, MainMenuAnimBack
 extern MainMenuAnimLogo, MainMenuAnimTitle, MainMenuAnimCursor, MainMenuAnimItems, MainMenuAnimPanel, MainMenuAnimSprites, MainMenuButtons, MainMenuChoice
 extern MainMenuAnimTick, MainMenuCursor, MainMenuWindow, MainMenuAnimRunning, MainMenuResult, MainMenuScreenArt, SeasonMenuExit, dword_1C94E8
@@ -449,7 +449,7 @@ MainMenuScreen:
         movsd
         push str_Menu
         mov dword [byte ebp+04Eh], 2
-        mov dword [dword_16CD58], 0
+        mov dword [LinkTransferReady], 0
         call AllocMemBlock
         add esp, byte 0Ch
         push byte 0
@@ -1568,7 +1568,7 @@ RunGameScreens:
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .18
-        mov eax, dword [dword_1AD226]
+        mov eax, dword [SeasonDefaultUser]
         mov ebx, 0Ch
 .17:
         call FindSeasonReplay
@@ -1579,7 +1579,7 @@ RunGameScreens:
 .18:
         cmp eax, byte 20h
         jne near .8
-        movzx eax, byte [byte_1AD742]
+        movzx eax, byte [PlayoffUserIndex]
         mov ebx, 0Dh
         jmp short .17
 .19:
@@ -1593,7 +1593,7 @@ RunGameScreens:
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .24
-        mov eax, dword [dword_1AD226]
+        mov eax, dword [SeasonDefaultUser]
 .21:
         call FindSeasonReplay
         test eax, eax
@@ -1607,7 +1607,7 @@ RunGameScreens:
 .24:
         cmp eax, byte 20h
         jne short .25
-        movzx eax, byte [byte_1AD742]
+        movzx eax, byte [PlayoffUserIndex]
         jmp short .21
 .25:
         cmp dword [dword_1C5DE0], byte 0
@@ -1761,7 +1761,7 @@ RunStatsMenu:
         inc ecx
         call FindGameRecord
         movsx edx, word [dword ebp-0C4Dh]
-        mov dword [nosplit ecx*4+dword_1AD6A7], edx
+        mov dword [nosplit ecx*4+GameRecordIds], edx
         cmp ecx, byte 10h
         jl short .1
         lea eax, [byte ebp-04h]

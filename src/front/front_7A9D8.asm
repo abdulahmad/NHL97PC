@@ -4,10 +4,10 @@ bits 32
 section s_7A9D8 progbits alloc exec nowrite align=1
 extern str_Roster, str_SS2, str_VIDEO, str_AUDSTRMHACK, str_ATE1Q0X4F1, str_Punct2, str_LogoNames, str_Logo02dQfs
 extern str_Mous2, str_Remo2, str_CHK1, str_X1, str_CB00, str_CB01, str_BACK2, str_LOGO2
-extern atoi_, ScheduleDivisionFlags, FrontEndExit, byte_1ACF63, byte_1AD458, ScheduleWeekDays, ScheduleMonthDays, str_1_BuildSeasonSchedule
+extern atoi_, ScheduleDivisionFlags, FrontEndExit, SeasonUserActive, PlayoffUserActive, ScheduleWeekDays, ScheduleMonthDays, str_1_BuildSeasonSchedule
 extern ScheduleMonthLengths, ScheduleGameCounts, ScheduleHomeCounts, MovieFileHandle, MovieFileOffset, ModemResultCount, ModemLastResult, dword_16CB74
 extern dword_16DA9C, str_D_UpdateFrameRate, DrawDestBuffer, DrawDestPitch, DrawDestOffset, BackBufferWidth, BackBufferHeight, MovieWidth
-extern GameSettings, SeasonUserTeam, SeasonActive, dword_1AD22A, dword_1AD244, dword_1AD248, dword_1AD24C, MovieFrameCount
+extern GameSettings, SeasonUserTeam, SeasonActive, SeasonRandomSeed, SeasonScheduleData, SeasonScheduleOffset, SeasonScheduleSize, MovieFrameCount
 extern MovieFrameShown, MovieAudioStream, MovieLastFrame, MovieEndReached, MovieFlags, MovieFrameIndex, MovieAudioDone, MovieFramesAhead
 extern MovieSkippable, MovieState, MovieSkipped, MovieNextFrame, MovieVideoDone, MovieStartTick, MoviePageFlip, MovieSoundChannel
 extern MovieChunkTag, MovieVideoBuffer, MovieDropCount, MovieHasAudio, MovieStreamBuffer, MovieChunkSize, MovieChunkData, MovieCdStream
@@ -43,9 +43,9 @@ BuildSeasonSchedule:
         push esi
         push edi
         enter 2ECh, 0
-        mov eax, dword [dword_1AD22A]
+        mov eax, dword [SeasonRandomSeed]
         and eax, 0FFCFFCh
-        mov dword [dword_1AD24C], 0
+        mov dword [SeasonScheduleSize], 0
         call srand_
         mov eax, dword [SeasonUserTeam]
         movsx eax, word [eax]
@@ -360,7 +360,7 @@ BuildSeasonSchedule:
         cmp eax, dword [byte ebp-08h]
         jg near .5
         lea edi, [byte ebp-038h]
-        mov esi, dword_1AD244
+        mov esi, SeasonScheduleData
         mov dword [byte ebp-08h], 0
         movsd
         movsd
@@ -597,7 +597,7 @@ BuildSeasonSchedule:
         movsd
         inc dword [byte ebp-034h]
         mov dl, byte [byte ebp-034h]
-        sub dl, byte [dword_1AD248]
+        sub dl, byte [SeasonScheduleOffset]
         mov byte [dword eax+0D12h], dl
         cmp dword [dword_16DA9C], byte 0
         je short .57
@@ -613,7 +613,7 @@ BuildSeasonSchedule:
         call AddPlayerStat
 .58:
         mov dword [byte ebp-010h], 1
-        inc dword [dword_1AD24C]
+        inc dword [SeasonScheduleSize]
 .59:
         inc ecx
 .60:
@@ -710,7 +710,7 @@ UpdateTeamLines:
         lea edx, [byte ebp-048h]
         lea edi, [byte ebp-020h]
         mov eax, ebx
-        mov esi, dword_1AD244
+        mov esi, SeasonScheduleData
         call FindPlayerStat
         mov eax, dword [byte ebp-018h]
         movsd
@@ -822,12 +822,12 @@ UpdateTeamLines:
         cmp dword [SeasonActive], byte 0
         jne short .13
         imul eax, ecx, byte 1Ch
-        cmp byte [dword eax+byte_1ACF63], 0
+        cmp byte [dword eax+SeasonUserActive], 0
         jne short .15
         jmp short .14
 .13:
         imul eax, ecx, byte 1Ch
-        cmp byte [dword eax+byte_1AD458], 0
+        cmp byte [dword eax+PlayoffUserActive], 0
         jne short .15
 .14:
         mov dword [byte ebp-0Ch], 1
@@ -913,7 +913,7 @@ UpdateTeamLines:
         je short .20
         lea edi, [byte ebp-020h]
         and byte [dword eax+0D09h], 0FAh
-        mov esi, dword_1AD244
+        mov esi, SeasonScheduleData
         or byte [dword eax+0D09h], 1
         movsd
         movsd
@@ -1047,12 +1047,12 @@ BuildRosterLines:
         cmp dword [SeasonActive], byte 0
         jne short .11
         imul eax, ebx, byte 1Ch
-        cmp byte [dword eax+byte_1ACF63], 0
+        cmp byte [dword eax+SeasonUserActive], 0
         jne short .13
         jmp short .12
 .11:
         imul eax, ebx, byte 1Ch
-        cmp byte [dword eax+byte_1AD458], 0
+        cmp byte [dword eax+PlayoffUserActive], 0
         jne short .13
 .12:
         mov ecx, 1
@@ -1138,7 +1138,7 @@ BuildRosterLines:
         je short .18
         lea edi, [byte ebp-010h]
         and byte [dword eax+0D09h], 0FAh
-        mov esi, dword_1AD244
+        mov esi, SeasonScheduleData
         or byte [dword eax+0D09h], 1
         movsd
         movsd
@@ -1312,12 +1312,12 @@ CheckLeagueInjuries:
         cmp dword [SeasonActive], byte 0
         jne short .4
         imul ebx, byte 1Ch
-        cmp byte [dword ebx+byte_1ACF63], 0
+        cmp byte [dword ebx+SeasonUserActive], 0
         jne short .6
         jmp short .5
 .4:
         imul ebx, byte 1Ch
-        cmp byte [dword ebx+byte_1AD458], 0
+        cmp byte [dword ebx+PlayoffUserActive], 0
         jne short .6
 .5:
         mov esi, 1

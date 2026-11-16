@@ -9,10 +9,10 @@ extern str_ALST, str_CDD, str_SDSD, str_LOCK, str_PANL, str_DMAN, str_HIST, str_
 extern str_BKH, str_BKD, str_SFX4S, str_AUDSTREAM, str_CROWDCRD, str_GAMEDATAAUDPBP3TSF, str_MENU, str_S02dASF
 extern str_TEMP, str_SAUDPBP3TSF, str_KTSF, str_SAUDPBP2VIV, str_CBANK03dDAT, str_TEAM04dDAT, AudioStreamChannel, QuantizeByte
 extern QuantizeTable, RemapTable, IdentityRemap, gmode, OverlayMask, FadePalCurrent, FadePalBytes, FadePalTarget
-extern FadePalTargetG, FadePalTargetBytes, MusicTrackTable, SfxOptions, MusicOptions, byte_1ACF62, byte_1ACF63, byte_1AD457
-extern byte_1AD458, byte_1AD742, BoxSeatSlot, BoxSeatFlags, MoveFlags, PeriodHomeTeam, PeriodAwayTeam, byte_1C6040
+extern FadePalTargetG, FadePalTargetBytes, MusicTrackTable, SfxOptions, MusicOptions, SeasonUserHuman, SeasonUserActive, PlayoffUserHuman
+extern PlayoffUserActive, PlayoffUserIndex, BoxSeatSlot, BoxSeatFlags, MoveFlags, PeriodHomeTeam, PeriodAwayTeam, byte_1C6040
 extern F32_10_RefDodgePuck, F32_3_RefDodgePuck, F32_15, F32_0p0666667, F32_0p5_RefDodgePuck, F32_144_PokeCheckAnim, F32_336, F32_192_TryBodyCheck
-extern F32_144_TryBodyCheck, F32_98, F32_42, dword_16908A, SeasonPanelText, MatchupLogoIds, str_G_DrawLockedGame, MatchupLogoPos
+extern F32_144_TryBodyCheck, F32_98, F32_42, SeasonGameDayOffsets, SeasonPanelText, MatchupLogoIds, str_G_DrawLockedGame, MatchupLogoPos
 extern str_Punct_DrawLockedGame, str_O_FaceoffStanceMove, str_C_FaceoffSwipeAnim, str_U_FaceoffDrawAnim, ViewBorderColor, ViewBorderRows, StreamBlockCount, StreamBlockSize
 extern StreamTimeout, CdStreamFilled, CdStreamUsed, StreamState, AudioStreamFlags, MusicState, MusicTrack, MusicRestart
 extern MusicPaused, MusicTime, MusicStreamPos, MusicVolumeLevel, MusicFeedCount, MusicStartTime, MusicLength, MusicHandle
@@ -32,7 +32,7 @@ extern SpeechReqHead, SpeechReqTail, SpeechRequests, SpeechPlaying, SfxChannelId
 extern SfxBankPtrs, SfxBankNames, GameAudioState, SfxBankData, SfxBankSizes, GameSoundsOn, SpeechQueueRead, SpeechQueueWrite
 extern SpeechClipIndex, SpeechBankHandle, SpeechClipTable, SpeechQueueClipId, SpeechQueueDelay, SpeechQueueStage, SpeechQueuePriority, SpeechQueueTime
 extern SpeechBanksLoaded, SpeechRequestId, SpeechRequestA, SpeechRequestB, GameSettings, AudioOptions, SeasonUserTeam, GameOptionFlags
-extern SeasonPhase, SeasonActive, dword_1ACF65, dword_1AD226, dword_1AD45A, dword_1AD6AB, ReplayPlaying, CameraStateRecords
+extern SeasonPhase, SeasonActive, SeasonUserReplay, SeasonDefaultUser, PlayoffUserReplay, PlayoffTeams, ReplayPlaying, CameraStateRecords
 extern CameraStateRecords, BoxSeatPlayer, BoxSeatTeam, BenchSeats, SeatTable, StrideSpeeds, BoxAnimFrames
 extern DodgeScale, BoxAnimIndex, SeasonFileName, dword_1C5E74, hypot_, jpt_380E6, jpt_38102, jpt_3811A
 extern memcpy_, PtrPuckZone, PtrPuckFlags, SfxBankNameTable, SfxGroupTable, F64_neg3p14159_GoToBoxAnim, F64_0p2_RefDodgePuck, F64_6p28319_ReachForPuckAnim
@@ -63,10 +63,10 @@ extern AllocMemBlock, FreeMemBlock, MemFreeSize, ZeroMem, FillMem, addtimer, Rem
 extern WaitTicks, OpenResourceArchive, CurrentArchiveName, MakeColor, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget
 extern ClearScreen, FillRectColor, SetTextColors, SetFocalLength, SetProjectionCenter, tickcount, str_D_DrawSeasonGamePanel, StreamReadBuf
 extern str_16, str_8, DisplayViewRecords, DirtySpans, OverlayMaskBase, RinkPalette, FadePalCount, PaletteRanges
-extern unk_1AD22E, BoxSeats, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, word_169054, word_169066, str_Punct_DrawSeasonGamePanel
+extern SeasonFilePath, BoxSeats, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, SeasonStartYears, SeasonMonthDays, str_Punct_DrawSeasonGamePanel
 extern SparkleTimer, SfxBankLoaded, MusicBlock, MusicStopRequest, SfxVolumeScale, SfxVolumeWord, MusicVolumeScale, SeasonDate
 extern SeasonLastGame, FadePalStepR, FadePalStepG, FadePalSteps, FadeAccumR, FadeAccumG, FadeAccumB, FadeAccumNext
-extern FadeAccumLast, FadeAccums, SpeechQueuePrio, word_1AD240, word_1AD242, AllStarDay
+extern FadeAccumLast, FadeAccums, SpeechQueuePrio, SeasonLastHome, SeasonLastAway, AllStarDay
 global jpt_3EF24, jpt_40D68, jpt_40DCC, jpt_40E30, jpt_40EA4, SeasonGameScreen_13F, SeasonGameScreen_14D, SeasonGameScreen_17B
 global SeasonGameScreen_182, SeasonGameScreen_1DA, SeasonGameScreen_1E3, SeasonGameScreen_1EC, SeasonGameScreen_1F3, SeasonGameScreen_238, SeasonGameScreen_2B1, SeasonGameScreen_2CF
 global SeasonGameScreen_3D3, SeasonGameScreen_3DF, SeasonGameScreen_3EB, InitSeasonGameScreen_472, FindUserOpponent_14D, FindUserOpponent_14E, AnimateSparkle_6B, FadePaletteStep_FC
@@ -315,10 +315,10 @@ SeasonGameScreen_2CF:
         cmp dword [SeasonPlayedFlag], byte 0
         je short .12
         movzx ax, byte [PeriodHomeTeam]
-        mov word [word_1AD240], ax
+        mov word [SeasonLastHome], ax
         movzx ax, byte [PeriodAwayTeam]
         mov dword [SeasonPlayedFlag], 0
-        mov word [word_1AD242], ax
+        mov word [SeasonLastAway], ax
         jmp short .13
 .12:
         mov eax, 1
@@ -424,12 +424,12 @@ SetSeasonUserTeam:
         jne short .2
         cmp dword [SeasonActive], byte 0
         jne short .2
-        mov eax, dword [dword_1AD226]
+        mov eax, dword [SeasonDefaultUser]
 .1:
         mov dword [SeasonUserIndex], eax
         jmp near .7
 .2:
-        movzx eax, byte [byte_1AD742]
+        movzx eax, byte [PlayoffUserIndex]
         mov dword [SeasonUserIndex], eax
         mov eax, dword [GameSettings]
         and eax, byte 70h
@@ -441,8 +441,8 @@ SetSeasonUserTeam:
         jle short .3
         mov eax, dword [SeasonUserIndex]
         shl eax, 2
-        mov ebx, dword [dword eax+dword_1AD6AB]
-        cmp ebx, dword [dword_1AD226]
+        mov ebx, dword [dword eax+PlayoffTeams]
+        cmp ebx, dword [SeasonDefaultUser]
         jne short .3
         mov dword [SeasonHomeTeam], ebx
         mov eax, edx
@@ -450,7 +450,7 @@ SetSeasonUserTeam:
         pop ebx
         ret
 .3:
-        mov eax, dword [dword_1AD226]
+        mov eax, dword [SeasonDefaultUser]
         xor edx, edx
         jmp short .1
 .4:
@@ -462,7 +462,7 @@ SetSeasonUserTeam:
         mov dword [SeasonUserIndex], 0
 .6:
         mov eax, dword [SeasonUserIndex]
-        mov eax, dword [nosplit eax*4+dword_1AD6AB]
+        mov eax, dword [nosplit eax*4+PlayoffTeams]
 .7:
         mov dword [SeasonHomeTeam], eax
         mov eax, edx
@@ -826,7 +826,7 @@ TeamHasGamesLeft:
         and edx, byte 70h
         cmp edx, byte 10h
         jne short .2
-        cmp word [word_1AD240], byte 0
+        cmp word [SeasonLastHome], byte 0
         jge short .2
 .1:
         mov eax, 1
@@ -1108,10 +1108,10 @@ DrawGameScoreLine:
         push ebx
         call DrawArt
         add esp, byte 0Ch
-        movsx eax, word [word_1AD242]
+        movsx eax, word [SeasonLastAway]
         push eax
         mov eax, 24Bh
-        movsx edx, word [word_1AD240]
+        movsx edx, word [SeasonLastHome]
         call GetLangText
         push eax
         push edx
@@ -1214,10 +1214,10 @@ FindUserOpponent:
         cmp dword [SeasonActive], byte 0
         jne short .11
         imul eax, dword [SeasonUserIndex], byte 1Ch
-        test byte [dword eax+byte_1ACF62], 1
+        test byte [dword eax+SeasonUserHuman], 1
         jne short .9
         imul eax, ecx, byte 1Ch
-        test byte [dword eax+byte_1ACF62], 1
+        test byte [dword eax+SeasonUserHuman], 1
         je short .10
 .9:
         mov dword [SeasonOpponent], 1
@@ -1226,16 +1226,16 @@ FindUserOpponent:
         movsx ebx, word [SeasonLastGame]
         cmp edx, ebx
         jge short FindUserOpponent_14D
-        test byte [dword eax+byte_1ACF63], 1
+        test byte [dword eax+SeasonUserActive], 1
         je short FindUserOpponent_14D
         mov dword [SeasonOpponent], 2
         jmp short FindUserOpponent_14D
 .11:
         imul eax, dword [SeasonUserIndex], byte 1Ch
-        test byte [dword eax+byte_1AD457], 1
+        test byte [dword eax+PlayoffUserHuman], 1
         jne short .12
         imul eax, ecx, byte 1Ch
-        test byte [dword eax+byte_1AD457], 1
+        test byte [dword eax+PlayoffUserHuman], 1
         je short .13
 .12:
         mov dword [SeasonOpponent], 3
@@ -1244,7 +1244,7 @@ FindUserOpponent:
         movsx ebx, word [SeasonLastGame]
         cmp edx, ebx
         jge short FindUserOpponent_14D
-        test byte [dword eax+byte_1AD458], 1
+        test byte [dword eax+PlayoffUserActive], 1
         je short FindUserOpponent_14D
         mov dword [SeasonOpponent], 4
 FindUserOpponent_14D:
@@ -1322,7 +1322,7 @@ DrawLockedGame:
         cmp dword [SeasonActive], byte 0
         je short .2
 .1:
-        mov eax, dword [nosplit eax*4+dword_1AD6AB]
+        mov eax, dword [nosplit eax*4+PlayoffTeams]
 .2:
         pop edx
         ret
@@ -1346,14 +1346,14 @@ DrawSeasonGamePanel:
         jne short .3
         cmp dword [SeasonActive], byte 0
         je short .3
-        movzx eax, byte [byte_1AD742]
+        movzx eax, byte [PlayoffUserIndex]
         mov dword [SeasonUserIndex], eax
         test eax, eax
         jl short .1
         cmp eax, byte 10h
         jge short .1
-        mov eax, dword [nosplit eax*4+dword_1AD6AB]
-        cmp eax, dword [dword_1AD226]
+        mov eax, dword [nosplit eax*4+PlayoffTeams]
+        cmp eax, dword [SeasonDefaultUser]
         jne short .1
         mov dword [byte ebp-010h], 1
         jmp short .2
@@ -1363,7 +1363,7 @@ DrawSeasonGamePanel:
         cmp dword [SeasonPanelShown], byte 0
         jne short .3
         mov edx, SeasonPanelShown
-        mov eax, unk_1AD22E
+        mov eax, SeasonFilePath
         call OpenLeagueFile
         test eax, eax
         jne short .3
@@ -1393,9 +1393,9 @@ DrawSeasonGamePanel:
         inc eax
         mov ebx, 1
         movsx edx, ax
-        movsx eax, word [nosplit esi*2+word_169054]
+        movsx eax, word [nosplit esi*2+SeasonStartYears]
         call DaysToYear
-        mov bx, word [nosplit esi*4+word_169066]
+        mov bx, word [nosplit esi*4+SeasonMonthDays]
         mov edx, eax
         add ebx, eax
         cmp dword [SeasonPlayedFlag], byte 0
@@ -1428,7 +1428,7 @@ DrawSeasonGamePanel:
         movsx edx, ax
         mov eax, dword [SeasonGameIndex]
         mov ebx, 1
-        movsx eax, word [nosplit eax*2+word_169054]
+        movsx eax, word [nosplit eax*2+SeasonStartYears]
         xor edi, edi
         call DaysToYear
         mov dword [byte ebp-04h], eax
@@ -1667,7 +1667,7 @@ DrawSeasonGamePanel:
         call SetTextColor
 .30:
         mov eax, dword [SeasonGameIndex]
-        mov eax, dword [nosplit eax*4+dword_16908A]
+        mov eax, dword [nosplit eax*4+SeasonGameDayOffsets]
         add eax, esi
         cdq
         idiv ebx
@@ -1733,7 +1733,7 @@ DrawSeasonGamePanel:
         mov ebx, eax
         jmp short .33
 .32:
-        mov ebx, dword [nosplit edx*4+dword_1AD6AB]
+        mov ebx, dword [nosplit edx*4+PlayoffTeams]
 .33:
         push dword 40FF80h
         jmp short .37
@@ -1744,7 +1744,7 @@ DrawSeasonGamePanel:
         cmp dword [SeasonActive], byte 0
         je short .36
 .35:
-        mov edx, dword [nosplit eax*4+dword_1AD6AB]
+        mov edx, dword [nosplit eax*4+PlayoffTeams]
 .36:
         push dword 0FF4040h
         mov ebx, edx
@@ -1894,7 +1894,7 @@ DrawSeasonGamePanel:
         mov edx, dword [byte ebp-0Ch]
         mov eax, dword [byte ebp-028h]
         call DrawAllStarLogo
-        cmp word [word_1AD240], byte 0
+        cmp word [SeasonLastHome], byte 0
         jl short .52
         mov ebx, dword [byte ebp-01Ch]
         mov edx, dword [byte ebp-0Ch]
@@ -1921,7 +1921,7 @@ DrawSeasonGamePanel:
         add esp, byte 14h
 .53:
         mov eax, dword [SeasonGameIndex]
-        cmp esi, dword [nosplit eax*4+word_169066]
+        cmp esi, dword [nosplit eax*4+SeasonMonthDays]
         jl near .31
         push dword 198h
         push byte 0
@@ -1945,10 +1945,10 @@ DrawSeasonGamePanel:
 ;-----------------------------------------------------------------------------
 SetPlayedTeams:
         movzx ax, byte [PeriodHomeTeam]
-        mov word [word_1AD240], ax
+        mov word [SeasonLastHome], ax
         movzx ax, byte [PeriodAwayTeam]
         mov dword [SeasonPlayedFlag], 0
-        mov word [word_1AD242], ax
+        mov word [SeasonLastAway], ax
         ret
 ;-----------------------------------------------------------------------------
 ; IsAllStarDay                                    39824  97 PC, low confidence
@@ -2014,10 +2014,10 @@ StartNextSeasonGame:
         jne short .2
         cmp dword [SeasonActive], byte 0
         jne short .2
-        mov esi, dword [dword_1AD226]
+        mov esi, dword [SeasonDefaultUser]
         jmp short .3
 .2:
-        movzx esi, byte [byte_1AD742]
+        movzx esi, byte [PlayoffUserIndex]
 .3:
         mov eax, dword [SeasonUserTeam]
         shl esi, 3
@@ -2041,7 +2041,7 @@ StartNextSeasonGame:
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .5
-        cmp word [word_1AD240], byte 0
+        cmp word [SeasonLastHome], byte 0
         jge short .5
         movsx edx, word [byte ebp-04h]
         mov eax, dword [SeasonUserTeam]
@@ -2092,7 +2092,7 @@ StartNextSeasonGame:
         shl ebx, 4
         mov edx, dword [byte edx+020h]
         movsx edx, byte [edx+ebx]
-        mov edx, dword [nosplit edx*4+dword_1AD6AB]
+        mov edx, dword [nosplit edx*4+PlayoffTeams]
         mov eax, dword [GameOptionFlags]
         and edx, byte 3Fh
         and dword [byte eax+01h], 0FFF03FFFh
@@ -2103,7 +2103,7 @@ StartNextSeasonGame:
         shl ebx, 4
         mov edx, dword [byte edx+020h]
         movsx edx, byte [byte edx+ebx+01h]
-        mov edx, dword [nosplit edx*4+dword_1AD6AB]
+        mov edx, dword [nosplit edx*4+PlayoffTeams]
 .7:
         mov eax, dword [GameOptionFlags]
         and edx, byte 3Fh
@@ -2116,15 +2116,15 @@ StartNextSeasonGame:
         jne short .8
         cmp dword [SeasonActive], byte 0
         jne short .8
-        imul eax, dword [dword_1AD226], byte 1Ch
+        imul eax, dword [SeasonDefaultUser], byte 1Ch
         movsx edx, word [byte ebp-04h]
-        mov dword [dword eax+dword_1ACF65], edx
+        mov dword [dword eax+SeasonUserReplay], edx
         jmp short .9
 .8:
-        movzx eax, byte [byte_1AD742]
+        movzx eax, byte [PlayoffUserIndex]
         imul eax, byte 1Ch
         movsx edx, word [byte ebp-04h]
-        mov dword [dword eax+dword_1AD45A], edx
+        mov dword [dword eax+PlayoffUserReplay], edx
 .9:
         movsx edx, word [byte ebp-04h]
         mov eax, dword [SeasonUserTeam]

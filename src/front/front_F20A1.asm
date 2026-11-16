@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_F20A1 progbits alloc exec nowrite align=1
 extern SortCords, __CHP, str_Mous6, str_Remo4, str_D02dD, str_D02dD2, str_CB0D, str_CB002
-extern str_Chat, str_SS15, str_D4, IntermissionActive, gmode, MusicOptions, DetailLevel, byte_1AD23E
+extern str_Chat, str_SS15, str_D4, IntermissionActive, gmode, MusicOptions, DetailLevel, SeasonCreated
 extern PeriodHomeTeam, PeriodAwayTeam, F32_3_DrawPauseButton, F32_4_DrawPauseButton, F32_3_DrawMenuItem, F32_4_DrawMenuItem, F32_12_DrawPauseButtons, F32_100_DrawPauseButtons
 extern F32_155, F32_10_DrawPauseButtons, F32_165, F32_129, F32_117, F32_105, F32_141, F32_153
 extern F32_178, F32_40_PickEditLinesTeam, F32_130, F32_0p5_PickEditLinesTeam, F32_55, F32_150, F32_50_PickEditLinesTeam, F32_10_PickEditLinesTeam
@@ -5783,7 +5783,7 @@ RulesMenu:
         push byte 0
         call DrawTextAligned
         add esp, byte 10h
-        cmp byte [byte_1AD23E], 0
+        cmp byte [SeasonCreated], 0
         je short .43
         mov eax, 0F8h
         call SetTextColor
@@ -5849,7 +5849,7 @@ RulesMenu:
         push byte 0
         call DrawTextAligned
         add esp, byte 10h
-        cmp byte [byte_1AD23E], 0
+        cmp byte [SeasonCreated], 0
         je short .44
         mov eax, dword [dword_1CEFB8]
         call SetTextColor

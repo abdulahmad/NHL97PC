@@ -6,14 +6,14 @@ extern SetClipWindow, str_BACK14, str_TITL14, str_LB02d6, str_AB025, str_AB015, 
 extern str_AB045, str_AB035, str_FRAM, str_000011, str_FART5, str_DSS4, str_D02d4, str_D01d3
 extern str_SSDD3, byte_16E264, byte_1CD7A9, byte_1CD7B3, byte_1CD7B4, byte_1CD7FC, byte_1CD7FD, byte_1CD7FE
 extern byte_1CD85E, byte_1CDA5F, byte_1CDC60, byte_1CDDFF, byte_1CDE61, dword_16E1AC, dword_16E22C, MenuScreenBitmap
-extern seed, GameSettings, SeasonUserTeam, dword_1AD62F, dword_1AD6AB, dword_1AD71B, dword_1AD71F, dword_1AD723
+extern seed, GameSettings, SeasonUserTeam, PlayoffTeamNames, PlayoffTeams, PlayoffSeriesMatch, PlayoffFinalHome, PlayoffFinalAway
 extern dword_1C5E74, dword_1CD760, dword_1CD764, dword_1CD768, dword_1CD76C, dword_1CD770, dword_1CD774, dword_1CD778
 extern dword_1CD77C, dword_1CD780, dword_1CD784, dword_1CD7DF, off_16E174, sprintf_, strcpy_, BlitArt
 extern BlitShape, PresentScreen, FindShape, FindShapeQuiet, OpenArtArchive, OpenArtArchiveErr, DrawShapeBlended, ConvertArtNew
 extern SetScreenTarget, SecondsToSamples, WaitSoundTime, OpenDataLibrary, DrawShadowBox, DrawScreenBackground, SetTextColor, DrawTextAligned
 extern LoadTeamLogo, FreeLogoArt, InitMenuItems, GetLangText, InitListBox, InitShapeListBox, FreeDbBlock, FindTeamRecord
 extern FindPlayerRecord, OpenLeagueFile, FindGameRecord, FindTeamStat, ServiceIdle, FreeMemBlock, FillMem, MakeColor
-extern DrawArt, SetDrawTarget, str_D_DrawSeasonIntro, unk_16E1E4, str_Punct_BuildSeasonIntro, unk_1AD22E, unk_1AD443, unk_1C5F4A
+extern DrawArt, SetDrawTarget, str_D_DrawSeasonIntro, unk_16E1E4, str_Punct_BuildSeasonIntro, SeasonFilePath, PlayoffUserRecords, unk_1C5F4A
 extern unk_1C5F9C, unk_1CD78C, unk_1CD7FA, unk_1CD833, unk_1CD8DE, unk_1CD989, unk_1CDA34, unk_1CDADF
 extern unk_1CDB8A, unk_1CDC35, unk_1CDCE0, unk_1CDD8F, unk_1CDDFD, unk_1CDE36, unk_1CE03B, unk_1CE0A9
 extern seed, word_1CD788, word_1CD78A, word_1CD7CD, word_1CD7CF, word_1CD7D1, word_1CD7D3, word_1CD7D5
@@ -60,7 +60,7 @@ BuildSeasonIntro:
         cmp eax, byte 10h
         jne near .23
         mov edx, dword_1CD778
-        mov eax, unk_1AD22E
+        mov eax, SeasonFilePath
         mov dword [byte ebp+076h], 0
         call OpenLeagueFile
         call ServiceIdle
@@ -321,16 +321,16 @@ BuildSeasonIntro:
         je near .32
         call ServiceIdle
         mov eax, dword [byte ebp+076h]
-        mov edx, dword [dword_1AD71B]
+        mov edx, dword [PlayoffSeriesMatch]
         shl eax, 2
         mov dword [byte ebp+07Eh], 0
-        cmp edx, dword [dword eax+dword_1AD6AB]
+        cmp edx, dword [dword eax+PlayoffTeams]
         jne short .25
         mov dword [byte ebp+07Eh], 0Bh
         jmp short .26
 .25:
-        mov edx, dword [dword_1AD71F]
-        cmp edx, dword [dword eax+dword_1AD6AB]
+        mov edx, dword [PlayoffFinalHome]
+        cmp edx, dword [dword eax+PlayoffTeams]
         jne short .26
         mov dword [byte ebp+07Eh], 0Ch
 .26:
@@ -338,7 +338,7 @@ BuildSeasonIntro:
         jle short .27
         imul eax, dword [byte ebp+07Eh], dword 0ABh
         mov edx, dword [byte ebp+076h]
-        mov dx, word [nosplit edx*4+dword_1AD6AB]
+        mov dx, word [nosplit edx*4+PlayoffTeams]
         lea esi, [dword ebp-019CEh]
         mov word [dword eax+word_1CD788], dx
         mov edx, dword [byte ebp+076h]
@@ -353,10 +353,10 @@ BuildSeasonIntro:
 .27:
         mov eax, dword [byte ebp+076h]
         shl eax, 2
-        mov edx, dword [dword_1AD723]
-        cmp edx, dword [dword eax+dword_1AD6AB]
+        mov edx, dword [PlayoffFinalAway]
+        cmp edx, dword [dword eax+PlayoffTeams]
         jne near .32
-        mov ax, word [dword eax+dword_1AD6AB]
+        mov ax, word [dword eax+PlayoffTeams]
         lea esi, [dword ebp-019CEh]
         mov word [word_1CE037], ax
         mov eax, dword [byte ebp+076h]
@@ -381,7 +381,7 @@ BuildSeasonIntro:
         call FindTeamStat
         call ServiceIdle
         lea edx, [byte ebp+02Eh]
-        mov ebx, dword [nosplit ebx*4+dword_1AD6AB]
+        mov ebx, dword [nosplit ebx*4+PlayoffTeams]
         cmp word [byte ebp+046h], byte 0
         jle short .30
         cmp byte [byte_1CDE61], 0
@@ -973,8 +973,8 @@ SeasonIntroPage:
         jmp short .6
 .4:
         movsx ecx, word [byte ebp-04h]
-        mov ecx, dword [nosplit ecx*4+dword_1AD6AB]
-        cmp ecx, dword [nosplit eax*4+dword_1AD6AB]
+        mov ecx, dword [nosplit ecx*4+PlayoffTeams]
+        cmp ecx, dword [nosplit eax*4+PlayoffTeams]
         jne short .5
         mov esi, eax
         jmp short .7
@@ -1683,11 +1683,11 @@ DrawSeasonIntro:
         add esp, byte 4
         call SetTextColor
         mov eax, dword [byte ebp-010h]
-        push dword [nosplit eax*4+dword_1AD62F]
+        push dword [nosplit eax*4+PlayoffTeamNames]
         mov eax, dword [byte ebp-0Ch]
-        push dword [nosplit eax*4+dword_1AD62F]
+        push dword [nosplit eax*4+PlayoffTeamNames]
         imul eax, dword [byte ebp-018h], byte 1Ch
-        add eax, unk_1AD443
+        add eax, PlayoffUserRecords
         push eax
         mov eax, 1A3h
         call GetLangText

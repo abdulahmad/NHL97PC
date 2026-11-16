@@ -2,18 +2,18 @@
 bits 32
 %include "hockey.inc"
 section s_AB240 progbits alloc exec nowrite align=1
-extern str_Xferdata, str_Replaybuf2, str_Gdata, str_Ros2, str_SEXHIBITNDX, str_EXHIBITNDX2, str_Saverepl, byte_1ACF63
-extern byte_1AD458, byte_1AD72B, byte_1AD739, byte_1AD742, PlayoffColumns, dword_16D2CC, dword_16D2EC, dword_16D30C
+extern str_Xferdata, str_Replaybuf2, str_Gdata, str_Ros2, str_SEXHIBITNDX, str_EXHIBITNDX2, str_Saverepl, SeasonUserActive
+extern PlayoffUserActive, PlayoffRound, PlayoffStarted, PlayoffUserIndex, PlayoffColumns, dword_16D2CC, dword_16D2EC, dword_16D30C
 extern dword_16D34C, dword_16D350, dword_16D360, dword_16DA9C, dword_16E464, GameSettings, SeasonUserTeam, PlayoffRounds
-extern SeasonActive, dword_1ACF65, dword_1AD226, dword_1AD22A, dword_1AD437, dword_1AD45A, dword_1AD62F, dword_1AD6AB
-extern dword_1AD6AF, dword_1AD727, dword_1AD743, SeasonFileName, ReplayIndexHandle, dword_1C5DA8, dword_1CEFB0, dword_1CEFB4
+extern SeasonActive, SeasonUserReplay, SeasonDefaultUser, SeasonRandomSeed, PlayoffRoundBits, PlayoffUserReplay, PlayoffTeamNames, PlayoffTeams
+extern PlayoffOpponents, PlayoffGameCount, PlayoffRandomSeed, SeasonFileName, ReplayIndexHandle, dword_1C5DA8, dword_1CEFB0, dword_1CEFB4
 extern memcpy_, sprintf_, DosFileInfo, MakeDirPath, SaveReplayHeader, SimulateGame, UpdateTeamLines, CheckLeagueInjuries
 extern EditFileName, ShowWorkingBox, UpdateWorkingBox, HideWorkingBox, NameIndexNew, NameIndexLoad, NameIndexFree, LoadNameIndex
 extern GetLangText, SortStandings, SeasonSettingsPath, PlayoffSettingsPath, AllocCrusherBuffers, FreeTransferBuffers, CopyToTransfer, LinkSendData
 extern LinkReceiveData, AppendToTransfer, KeysEqual, OpenGameDatabase, CloseGameDatabase, DaysToYear, CreateExhibitionFile, WriteLeagueHeader
 extern StartSeasonGame, SaveExhibitionResult, SaveSeasonResult, FindGameRecord, UpdateGameRecord, AddReplayIndexEntry, FindReplayIndexEntry, OpenReplayFile
 extern ClearLinkAbort, LinkSendBlock, LinkReceiveBlock, AllocMemBlock, FreeMemBlock, ZeroMem, SelectFont, unk_16D7F4
-extern unk_1ACF4E, unk_1AD236, unk_1AD443, AllStarDay
+extern SeasonUserRecords, SeasonStatsPath, PlayoffUserRecords, AllStarDay
 global SendGameResult_32D, SaveGameResults_B2F, SaveGameResults_B30, SendGameResult, SaveGameResults, AdvanceSeasonDate, FinishLeagueGame, SaveReplayFile
 global WriteReplayFile, ReplayNameToKey, ClearReplayEntry
 ;-----------------------------------------------------------------------------
@@ -51,11 +51,11 @@ SendGameResult:
         add eax, edx
         movsx edx, byte [eax]
         imul edx, byte 1Ch
-        cmp byte [dword edx+byte_1ACF63], 1
+        cmp byte [dword edx+SeasonUserActive], 1
         je short .3
         movsx eax, byte [byte eax+01h]
         imul eax, byte 1Ch
-        cmp byte [dword eax+byte_1ACF63], 1
+        cmp byte [dword eax+SeasonUserActive], 1
         je short .3
 .2:
         mov eax, dword [GameSettings]
@@ -69,11 +69,11 @@ SendGameResult:
         add eax, edx
         movsx edx, byte [eax]
         imul edx, byte 1Ch
-        cmp byte [dword edx+byte_1AD458], 1
+        cmp byte [dword edx+PlayoffUserActive], 1
         je short .3
         movsx eax, byte [byte eax+01h]
         imul eax, byte 1Ch
-        cmp byte [dword eax+byte_1AD458], 1
+        cmp byte [dword eax+PlayoffUserActive], 1
         jne near .22
 .3:
         mov esi, dword [byte ebp-08h]
@@ -302,11 +302,11 @@ SaveGameResults:
         add eax, edx
         movsx ecx, byte [eax]
         imul ecx, byte 1Ch
-        cmp byte [dword ecx+byte_1ACF63], 1
+        cmp byte [dword ecx+SeasonUserActive], 1
         je short .2
         movsx eax, byte [byte eax+01h]
         imul eax, byte 1Ch
-        cmp byte [dword eax+byte_1ACF63], 1
+        cmp byte [dword eax+SeasonUserActive], 1
         jne near .8
 .2:
         mov ecx, dword [byte ebp+07Ah]
@@ -339,7 +339,7 @@ SaveGameResults:
         mov eax, dword [byte eax+020h]
         movsx eax, byte [ecx+eax]
         imul eax, byte 1Ch
-        cmp byte [dword eax+byte_1ACF63], 1
+        cmp byte [dword eax+SeasonUserActive], 1
         je short .3
         mov eax, dword [byte ebp+06Ah]
         call UpdateGameRecord
@@ -360,7 +360,7 @@ SaveGameResults:
         mov eax, dword [byte eax+020h]
         movsx eax, byte [byte ebx+eax+01h]
         imul eax, byte 1Ch
-        cmp byte [dword eax+byte_1ACF63], 1
+        cmp byte [dword eax+SeasonUserActive], 1
         je short .4
         mov eax, dword [byte ebp+06Ah]
         call UpdateGameRecord
@@ -388,11 +388,11 @@ SaveGameResults:
         add eax, edx
         movsx ecx, byte [eax]
         imul ecx, byte 1Ch
-        cmp byte [dword ecx+byte_1AD458], 1
+        cmp byte [dword ecx+PlayoffUserActive], 1
         je short .6
         movsx eax, byte [byte eax+01h]
         imul eax, byte 1Ch
-        cmp byte [dword eax+byte_1AD458], 1
+        cmp byte [dword eax+PlayoffUserActive], 1
         jne short .8
 .6:
         mov ecx, dword [byte ebp+07Ah]
@@ -462,11 +462,11 @@ SaveGameResults:
         add eax, edx
         movsx ecx, byte [eax]
         imul ecx, byte 1Ch
-        cmp byte [dword ecx+byte_1ACF63], 1
+        cmp byte [dword ecx+SeasonUserActive], 1
         je short .13
         movsx eax, byte [byte eax+01h]
         imul eax, byte 1Ch
-        cmp byte [dword eax+byte_1ACF63], 1
+        cmp byte [dword eax+SeasonUserActive], 1
         jne short .14
 .13:
         mov edx, dword [byte ebp+07Ah]
@@ -528,11 +528,11 @@ SaveGameResults:
         add eax, edx
         movsx ecx, byte [eax]
         imul ecx, byte 1Ch
-        cmp byte [dword ecx+byte_1ACF63], 0
+        cmp byte [dword ecx+SeasonUserActive], 0
         jne near .26
         movsx ecx, byte [byte eax+01h]
         imul ecx, byte 1Ch
-        cmp byte [dword ecx+byte_1ACF63], 0
+        cmp byte [dword ecx+SeasonUserActive], 0
         jne near .26
         movsx eax, byte [byte eax+02h]
         cmp eax, byte 0FFFFFFFFh
@@ -601,11 +601,11 @@ SaveGameResults:
         add eax, edx
         movsx edx, byte [eax]
         imul ecx, edx, byte 1Ch
-        cmp byte [dword ecx+byte_1AD458], 0
+        cmp byte [dword ecx+PlayoffUserActive], 0
         jne near .26
         movsx ecx, byte [byte eax+01h]
         imul ecx, byte 1Ch
-        cmp byte [dword ecx+byte_1AD458], 0
+        cmp byte [dword ecx+PlayoffUserActive], 0
         jne near .26
         movsx eax, byte [byte eax+02h]
         cmp eax, byte 0FFFFFFFFh
@@ -682,25 +682,25 @@ SaveGameResults:
         mov dword [byte ebp+076h], 0FFFFFFFFh
         cmp dword [byte ebp+062h], byte 0
         je near .41
-        mov eax, dword [dword_1AD22A]
+        mov eax, dword [SeasonRandomSeed]
         mov dword [byte ebp+07Ah], 0
-        mov dword [dword_1AD743], eax
+        mov dword [PlayoffRandomSeed], eax
 .29:
         mov eax, dword [byte ebp+07Ah]
-        mov dword [nosplit eax*4+dword_1AD6AB], 0FFFFFFFFh
+        mov dword [nosplit eax*4+PlayoffTeams], 0FFFFFFFFh
         inc dword [byte ebp+07Ah]
-        mov dword [nosplit eax*4+dword_1AD62F], 0
+        mov dword [nosplit eax*4+PlayoffTeamNames], 0
         cmp dword [byte ebp+07Ah], byte 1Fh
         jl short .29
-        mov dword [dword_1AD727], 0
-        mov byte [byte_1AD72B], 0
-        mov byte [byte_1AD739], 1
+        mov dword [PlayoffGameCount], 0
+        mov byte [PlayoffRound], 0
+        mov byte [PlayoffStarted], 1
         lea edx, [byte ebp+03Ah]
         mov eax, dword [PlayoffRounds]
-        and byte [dword_1AD437], 0F8h
+        and byte [PlayoffRoundBits], 0F8h
         and eax, byte 7
         mov ebx, dword [SeasonUserTeam]
-        or dword [dword_1AD437], eax
+        or dword [PlayoffRoundBits], eax
         lea eax, [byte ebp+01Eh]
         mov dword [byte ebp+07Ah], 0
         call SortStandings
@@ -716,8 +716,8 @@ SaveGameResults:
         jge short .31
         mov eax, dword [byte ebp+05Ah]
         imul edi, dword [nosplit eax*4+dword_16D2CC], byte 1Ch
-        lea esi, [dword esi+unk_1ACF4E]
-        lea edi, [dword edi+unk_1AD443]
+        lea esi, [dword esi+SeasonUserRecords]
+        lea edi, [dword edi+PlayoffUserRecords]
         movsd
         movsd
         movsd
@@ -726,7 +726,7 @@ SaveGameResults:
         movsd
         movsd
         mov esi, dword [nosplit eax*4+dword_16D2CC]
-        mov dword [nosplit esi*4+dword_1AD6AB], ecx
+        mov dword [nosplit esi*4+PlayoffTeams], ecx
         mov ecx, dword [SeasonUserTeam]
         mov ebx, dword [byte ecx+014h]
         add edx, ebx
@@ -742,8 +742,8 @@ SaveGameResults:
         jge short .33
         mov eax, dword [byte ebp+05Eh]
         imul edi, dword [nosplit eax*4+dword_16D2EC], byte 1Ch
-        lea esi, [dword esi+unk_1ACF4E]
-        lea edi, [dword edi+unk_1AD443]
+        lea esi, [dword esi+SeasonUserRecords]
+        lea edi, [dword edi+PlayoffUserRecords]
         movsd
         movsd
         movsd
@@ -752,7 +752,7 @@ SaveGameResults:
         movsd
         movsd
         mov esi, dword [nosplit eax*4+dword_16D2EC]
-        mov dword [nosplit esi*4+dword_1AD6AB], ecx
+        mov dword [nosplit esi*4+PlayoffTeams], ecx
         mov ecx, dword [SeasonUserTeam]
         mov ecx, dword [byte ecx+014h]
         add ecx, edx
@@ -802,7 +802,7 @@ SaveGameResults:
         mov eax, dword [byte eax+020h]
         inc dl
         mov byte [byte ecx+eax+01h], dl
-        movzx ax, byte [byte_1AD72B]
+        movzx ax, byte [PlayoffRound]
         imul esi, eax, byte 0Eh
         mov ebx, 1
         mov edx, 5
@@ -830,7 +830,7 @@ SaveGameResults:
         mov eax, dword [byte eax+020h]
         add dl, 9
         mov byte [byte ecx+eax+041h], dl
-        movzx ax, byte [byte_1AD72B]
+        movzx ax, byte [PlayoffRound]
         imul edi, eax, byte 0Eh
         jmp near .39
 .38:
@@ -849,7 +849,7 @@ SaveGameResults:
         mov eax, dword [byte eax+020h]
         inc dl
         mov byte [ecx+eax], dl
-        movzx si, byte [byte_1AD72B]
+        movzx si, byte [PlayoffRound]
         imul esi, byte 0Eh
         mov ebx, 1
         mov edx, 5
@@ -877,7 +877,7 @@ SaveGameResults:
         mov eax, dword [byte eax+020h]
         add dl, 9
         mov byte [byte ecx+eax+040h], dl
-        movzx di, byte [byte_1AD72B]
+        movzx di, byte [PlayoffRound]
         imul edi, byte 0Eh
 .39:
         mov ebx, 1
@@ -897,11 +897,11 @@ SaveGameResults:
         jl near .36
         inc dword [byte ebp+07Ah]
 .40:
-        mov eax, dword [dword_1AD437]
+        mov eax, dword [PlayoffRoundBits]
         and eax, byte 7
         cmp eax, dword [byte ebp+07Ah]
         ja near .35
-        mov byte [byte_1AD739], 1
+        mov byte [PlayoffStarted], 1
         mov eax, dword [byte ebp+056h]
         mov dword [SeasonActive], 1
         mov dword [SeasonUserTeam], eax
@@ -924,7 +924,7 @@ SaveGameResults:
         add ecx, edx
         movsx esi, byte [ecx]
         imul esi, byte 1Ch
-        cmp byte [dword esi+byte_1AD458], 1
+        cmp byte [dword esi+PlayoffUserActive], 1
         jne short .44
         movsx edx, byte [byte ecx+02h]
         cmp edx, byte 0FFFFFFFFh
@@ -938,7 +938,7 @@ SaveGameResults:
         add ecx, edx
         movsx esi, byte [byte ecx+01h]
         imul esi, byte 1Ch
-        cmp byte [dword esi+byte_1AD458], 1
+        cmp byte [dword esi+PlayoffUserActive], 1
         jne short .45
         movsx edx, byte [byte ecx+02h]
         cmp edx, byte 0FFFFFFFFh
@@ -962,7 +962,7 @@ SaveGameResults:
         cmp dword [byte ebp+07Ah], byte 10h
         jl short .48
 .49:
-        cmp byte [byte_1AD72B], 4
+        cmp byte [PlayoffRound], 4
         je near .59
         test eax, eax
         jne near .59
@@ -1025,7 +1025,7 @@ SaveGameResults:
         add ecx, edx
         movsx esi, byte [ecx]
         imul esi, byte 1Ch
-        cmp byte [dword esi+byte_1AD458], 1
+        cmp byte [dword esi+PlayoffUserActive], 1
         jne short .56
         movsx edx, byte [byte ecx+02h]
         cmp edx, byte 0FFFFFFFFh
@@ -1039,7 +1039,7 @@ SaveGameResults:
         add ecx, edx
         movsx esi, byte [byte ecx+01h]
         imul esi, byte 1Ch
-        cmp byte [dword esi+byte_1AD458], 1
+        cmp byte [dword esi+PlayoffUserActive], 1
         jne short .57
         movsx edx, byte [byte ecx+02h]
         cmp edx, byte 0FFFFFFFFh
@@ -1059,7 +1059,7 @@ SaveGameResults:
         cmp dword [byte ebp+062h], byte 0
         je short .60
         mov esi, dword [SeasonUserTeam]
-        mov edi, unk_1AD236
+        mov edi, SeasonStatsPath
         lea esi, [byte esi+04h]
         movsd
         movsd
@@ -1098,7 +1098,7 @@ AdvanceSeasonDate:
         push edi
         enter 30h, 0
         mov dword [byte ebp-0Ch], 0
-        cmp byte [byte_1AD72B], 4
+        cmp byte [PlayoffRound], 4
         jne short .1
         mov eax, 1
         jmp near SendGameResult_32D
@@ -1138,22 +1138,22 @@ AdvanceSeasonDate:
         mov dword [byte ebp-04h], esi
 .6:
         mov eax, dword [byte ebp-04h]
-        movzx ecx, byte [byte_1AD72B]
+        movzx ecx, byte [PlayoffRound]
         mov eax, dword [nosplit eax*4+dword_16D30C]
         xor ebx, ebx
         mov ecx, dword [nosplit ecx*4+dword_16D34C]
-        mov edx, dword [nosplit eax*4+dword_1AD6AB]
+        mov edx, dword [nosplit eax*4+PlayoffTeams]
         jmp short .9
 .7:
         mov eax, ecx
         shl eax, 2
-        cmp edx, dword [dword eax+dword_1AD6AB]
+        cmp edx, dword [dword eax+PlayoffTeams]
         jne short .8
-        mov edi, dword [dword_1AD437]
+        mov edi, dword [PlayoffRoundBits]
         and edi, byte 7
         shr edi, 1
         inc edi
-        mov eax, dword [dword eax+dword_1AD62F]
+        mov eax, dword [dword eax+PlayoffTeamNames]
         cmp eax, edi
         jne short .8
         mov ebx, dword [byte ebp-018h]
@@ -1162,11 +1162,11 @@ AdvanceSeasonDate:
         mov eax, dword [dword ebx+eax*4+dword_16D360]
         inc esi
         mov ebx, 1
-        mov dword [nosplit eax*4+dword_1AD6AB], edx
+        mov dword [nosplit eax*4+PlayoffTeams], edx
 .8:
         inc ecx
 .9:
-        movzx eax, byte [byte_1AD72B]
+        movzx eax, byte [PlayoffRound]
         mov dword [byte ebp-018h], eax
         cmp ecx, dword [nosplit eax*4+dword_16D350]
         jge short .10
@@ -1176,7 +1176,7 @@ AdvanceSeasonDate:
         inc dword [byte ebp-04h]
         cmp dword [byte ebp-04h], byte 10h
         jl near .6
-        mov al, byte [byte_1AD72B]
+        mov al, byte [PlayoffRound]
         cmp al, 1
         jb short .11
         jbe short .12
@@ -1200,7 +1200,7 @@ AdvanceSeasonDate:
         mov dword [byte ebp-01Ch], 1
         mov dword [byte ebp-08h], 1Ch
 .14:
-        cmp byte [byte_1AD72B], 3
+        cmp byte [PlayoffRound], 3
         je near .25
         mov eax, dword [byte ebp-08h]
         mov dword [byte ebp-04h], eax
@@ -1209,14 +1209,14 @@ AdvanceSeasonDate:
         xor ecx, ecx
 .16:
         mov eax, dword [byte ebp-04h]
-        mov edx, dword [nosplit ecx*4+dword_1AD6AB]
-        cmp edx, dword [nosplit eax*4+dword_1AD6AB]
+        mov edx, dword [nosplit ecx*4+PlayoffTeams]
+        cmp edx, dword [nosplit eax*4+PlayoffTeams]
         jne short .17
         mov dword [byte ebp-014h], ecx
 .17:
         mov eax, dword [byte ebp-04h]
-        mov edx, dword [nosplit ecx*4+dword_1AD6AB]
-        cmp edx, dword [nosplit eax*4+dword_1AD6AF]
+        mov edx, dword [nosplit ecx*4+PlayoffTeams]
+        cmp edx, dword [nosplit eax*4+PlayoffOpponents]
         jne short .18
         mov dword [byte ebp-010h], ecx
 .18:
@@ -1276,7 +1276,7 @@ AdvanceSeasonDate:
         mov dl, byte [byte ebp-010h]
         mov byte [esi+eax], dl
 .22:
-        movzx ax, byte [byte_1AD72B]
+        movzx ax, byte [PlayoffRound]
         inc eax
         imul edi, eax, byte 0Eh
         mov ebx, 1
@@ -1296,7 +1296,7 @@ AdvanceSeasonDate:
         mov word [byte esi+eax+06h], 730h
         inc ecx
 .23:
-        mov eax, dword [dword_1AD437]
+        mov eax, dword [PlayoffRoundBits]
         and eax, byte 7
         cmp ecx, eax
         jb near .19
@@ -1309,7 +1309,7 @@ AdvanceSeasonDate:
         jg near .15
 .25:
         mov eax, dword [SeasonUserTeam]
-        inc byte [byte_1AD72B]
+        inc byte [PlayoffRound]
         call WriteLeagueHeader
 .26:
         cmp dword [byte ebp-0Ch], byte 0
@@ -1335,12 +1335,12 @@ FinishLeagueGame:
         jne short .1
         cmp dword [SeasonActive], byte 0
         jne short .1
-        imul eax, dword [dword_1AD226], byte 1Ch
+        imul eax, dword [SeasonDefaultUser], byte 1Ch
         mov edi, SeasonFileName
         mov esi, unk_16D7F4
         xor ebx, ebx
         xor edx, edx
-        mov ecx, dword [dword eax+dword_1ACF65]
+        mov ecx, dword [dword eax+SeasonUserReplay]
         mov eax, SeasonFileName
         movsd
         movsd
@@ -1358,11 +1358,11 @@ FinishLeagueGame:
         call CheckLeagueInjuries
         jmp short .2
 .1:
-        movzx eax, byte [byte_1AD742]
+        movzx eax, byte [PlayoffUserIndex]
         imul eax, byte 1Ch
         xor ebx, ebx
         xor edx, edx
-        mov ecx, dword [dword eax+dword_1AD45A]
+        mov ecx, dword [dword eax+PlayoffUserReplay]
         mov eax, SeasonFileName
         call AddReplayIndexEntry
         mov eax, dword [SeasonUserTeam]
@@ -1406,20 +1406,20 @@ SaveReplayFile:
         jl short .3
         xor eax, eax
 .4:
-        mov ecx, dword [nosplit eax*4+dword_1AD6AB]
-        cmp ecx, dword [nosplit ebx*4+dword_1AD6AB]
+        mov ecx, dword [nosplit eax*4+PlayoffTeams]
+        cmp ecx, dword [nosplit ebx*4+PlayoffTeams]
         jne short .5
         mov esi, eax
 .5:
         inc eax
         cmp eax, byte 1Eh
         jl short .4
-        inc dword [nosplit esi*4+dword_1AD62F]
-        mov edx, dword [dword_1AD437]
+        inc dword [nosplit esi*4+PlayoffTeamNames]
+        mov edx, dword [PlayoffRoundBits]
         and edx, byte 7
         shr edx, 1
         inc edx
-        cmp edx, dword [nosplit esi*4+dword_1AD62F]
+        cmp edx, dword [nosplit esi*4+PlayoffTeamNames]
         jne short .10
         xor eax, eax
         jmp short .9
@@ -1567,13 +1567,13 @@ SaveReplayFile:
         jne short .19
         cmp dword [SeasonActive], byte 0
         jne short .19
-        imul eax, dword [dword_1AD226], byte 1Ch
-        mov edx, dword [dword eax+dword_1ACF65]
+        imul eax, dword [SeasonDefaultUser], byte 1Ch
+        mov edx, dword [dword eax+SeasonUserReplay]
         jmp short .20
 .19:
-        movzx eax, byte [byte_1AD742]
+        movzx eax, byte [PlayoffUserIndex]
         imul eax, byte 1Ch
-        mov edx, dword [dword eax+dword_1AD45A]
+        mov edx, dword [dword eax+PlayoffUserReplay]
 .20:
         call WriteReplayFile
         mov eax, dword [SeasonUserTeam]

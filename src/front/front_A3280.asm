@@ -12,12 +12,12 @@ extern str_BOTM2, str_TITL7, str_1TOP3, str_2TOP3, str_3TOP3, str_1BOT3, str_2BO
 extern str_GS08, str_GS09, str_PlayerStats, str_GS04, str_GS05, str_D01d, str_00, str_BoxScores
 extern str_SD4, str_GS24, str_GS25, str_GS20, str_GS21, str_GS16, str_GS17, str_GS12
 extern str_GS13, str_CDCS, str_GS02d, str_S6, str_S7, str_DSSDSSSSD02d, str_SSSSSSSD02d, str_Logo02dQfs2
-extern str_UnpackLogo, str_LOGO5, str_DEBUG, byte_16D27A, byte_16D2A2, MenuOptionFlags, ControlSetupFlags, byte_1AD742
+extern str_UnpackLogo, str_LOGO5, str_DEBUG, byte_16D27A, byte_16D2A2, MenuOptionFlags, ControlSetupFlags, PlayoffUserIndex
 extern PeriodHomeTeam, PeriodAwayTeam, byte_1C559C, byte_1C559D, byte_1C559E, byte_1C559F, byte_1C55A4, byte_1C55A5
 extern byte_1C55A6, byte_1C55A7, byte_1C55A8, byte_1C55A9, byte_1C55AA, byte_1C55AB, byte_1C6040, byte_1C944A
 extern byte_1C944C, byte_1C9472, GripDriverPtr, dword_16D29E, dword_16D2A8, dword_16D2B8, dword_16D2BC, dword_16D93A
-extern dword_16DA9C, dword_16E464, dword_16E468, GameRunning, GameSettings, GameOptionFlags, SeasonActive, dword_1AD62F
-extern dword_1AD6AB, SeasonFileName, ThreeStarsCount, ThreeStarsList, HomeRosterData, dword_1C351E, dword_1C3522
+extern dword_16DA9C, dword_16E464, dword_16E468, GameRunning, GameSettings, GameOptionFlags, SeasonActive, PlayoffTeamNames
+extern PlayoffTeams, SeasonFileName, ThreeStarsCount, ThreeStarsList, HomeRosterData, dword_1C351E, dword_1C3522
 extern AwayRosterData, dword_1C5DE0, dword_1C5DE4, dword_1C5E74, dword_1C93F0, dword_1C9410, dword_1C9430
 extern dword_1C9473, dword_1C94A4, dword_1C94A8, dword_1C94B4, dword_1C94B8, dword_1C94BC, dword_1C94C0, dword_1C94C4
 extern dword_1C94C8, dword_1C94CC, dword_1C94D0, dword_1C94D4, dword_1C94D8, dword_1C94DC, dword_1C94E0, dword_1C94E4
@@ -3798,11 +3798,11 @@ PlayArenaAnnouncement:
         push byte 2
         jmp short .3
 .6:
-        movzx ecx, byte [byte_1AD742]
+        movzx ecx, byte [PlayoffUserIndex]
         xor eax, eax
 .7:
-        mov edx, dword [nosplit eax*4+dword_1AD6AB]
-        cmp edx, dword [nosplit ecx*4+dword_1AD6AB]
+        mov edx, dword [nosplit eax*4+PlayoffTeams]
+        cmp edx, dword [nosplit ecx*4+PlayoffTeams]
         jne short .8
         mov ebx, eax
 .8:
@@ -3852,7 +3852,7 @@ PlayArenaAnnouncement:
 .16:
         lea eax, [byte ebx+01h]
 .17:
-        mov edi, dword [nosplit eax*4+dword_1AD62F]
+        mov edi, dword [nosplit eax*4+PlayoffTeamNames]
         mov eax, dword [GameOptionFlags]
         mov edx, dword [byte eax+01h]
         shl edx, 0Ch
@@ -3861,7 +3861,7 @@ PlayArenaAnnouncement:
         shl eax, 6
         push edx
         shr eax, 1Ah
-        mov ebx, dword [nosplit ebx*4+dword_1AD62F]
+        mov ebx, dword [nosplit ebx*4+PlayoffTeamNames]
         push eax
         lea eax, [ebx+edi]
         push ecx

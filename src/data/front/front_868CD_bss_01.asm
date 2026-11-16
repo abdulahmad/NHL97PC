@@ -2,86 +2,86 @@
 bits 32
 %include "hockey.inc"
 section s_1C8388 nobits alloc noexec write align=1
-global byte_1C83B4, dword_1C83B0, dword_1C83D0, dword_1C83D4, dword_1C83D8, dword_1C83DC, dword_1C83E0, dword_1C83E4
-global dword_1C83E8, dword_1C83EC, dword_1C83F0, dword_1C83F4, dword_1C83F8, dword_1C83FC, dword_1C8400, dword_1C8404
-global dword_1C8408, dword_1C840C, dword_1C8410, dword_1C8414, dword_1C8418, dword_1C841C, dword_1C8420, dword_1C8424
-global dword_1C8428, dword_1C842C, dword_1C8430, dword_1C8434, dword_1C8438, dword_1C843C, dword_1C8440, dword_1C8444
-global dword_1C8448, dword_1C844C, dword_1C8450, dword_1C8454, unk_1C8388, unk_1C83BA, word_1C83B8
-unk_1C8388:
+global NetworkGameFlags, PhonebookData, MenuSavedMouseMode, MenuLastButtons, MenuRemoteItem, MenuButtons, RemoteMouseButtons, RemoteLastButtons
+global RemoteLastMouseY, RemoteLastMouseX, RemoteMouseX, RemoteMouseY, MenuSavedRemoteArt, MenuLocalItem, MenuLastMouseY, MenuLastMouseX
+global MenuSavedCursorArt, MenuRemoteLayer, MenuLocalCursorY, MenuLocalCursorX, MenuItemLeaveFunc, MenuLocalLayer, MenuViewTop, MenuViewBottom
+global MenuItemEnterFunc, MenuViewLeft, MenuViewRight, MenuRemoteCursorY, MenuRemoteCursorX, MenuItemHoverFunc, MenuBitmap, MenuBitmapPixels
+global MenuRemoteCursorArt, MenuCursorArt, MenuScreenCopy, MenuCursorPixels, ModemDialCommand, NetworkGameName, NetworkGameNumber
+ModemDialCommand:
         resb 40
-dword_1C83B0:
+PhonebookData:
         resb 4
-byte_1C83B4:
+NetworkGameFlags:
         resb 4
-word_1C83B8:
+NetworkGameNumber:
         resb 2
-unk_1C83BA:
+NetworkGameName:
         resb 22
-dword_1C83D0:
+MenuSavedMouseMode:
         resb 4
-dword_1C83D4:
+MenuLastButtons:
         resb 4
-dword_1C83D8:
+MenuRemoteItem:
         resb 4
-dword_1C83DC:
+MenuButtons:
         resb 4
-dword_1C83E0:
+RemoteMouseButtons:
         resb 4
-dword_1C83E4:
+RemoteLastButtons:
         resb 4
-dword_1C83E8:
+RemoteLastMouseY:
         resb 4
-dword_1C83EC:
+RemoteLastMouseX:
         resb 4
-dword_1C83F0:
+RemoteMouseX:
         resb 4
-dword_1C83F4:
+RemoteMouseY:
         resb 4
-dword_1C83F8:
+MenuSavedRemoteArt:
         resb 4
-dword_1C83FC:
+MenuLocalItem:
         resb 4
-dword_1C8400:
+MenuLastMouseY:
         resb 4
-dword_1C8404:
+MenuLastMouseX:
         resb 4
-dword_1C8408:
+MenuSavedCursorArt:
         resb 4
-dword_1C840C:
+MenuRemoteLayer:
         resb 4
-dword_1C8410:
+MenuLocalCursorY:
         resb 4
-dword_1C8414:
+MenuLocalCursorX:
         resb 4
-dword_1C8418:
+MenuItemLeaveFunc:
         resb 4
-dword_1C841C:
+MenuLocalLayer:
         resb 4
-dword_1C8420:
+MenuViewTop:
         resb 4
-dword_1C8424:
+MenuViewBottom:
         resb 4
-dword_1C8428:
+MenuItemEnterFunc:
         resb 4
-dword_1C842C:
+MenuViewLeft:
         resb 4
-dword_1C8430:
+MenuViewRight:
         resb 4
-dword_1C8434:
+MenuRemoteCursorY:
         resb 4
-dword_1C8438:
+MenuRemoteCursorX:
         resb 4
-dword_1C843C:
+MenuItemHoverFunc:
         resb 4
-dword_1C8440:
+MenuBitmap:
         resb 4
-dword_1C8444:
+MenuBitmapPixels:
         resb 4
-dword_1C8448:
+MenuRemoteCursorArt:
         resb 4
-dword_1C844C:
+MenuCursorArt:
         resb 4
-dword_1C8450:
+MenuScreenCopy:
         resb 4
-dword_1C8454:
+MenuCursorPixels:
         resb 132

@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_789F0 progbits alloc exec nowrite align=1
 extern PeriodHomeTeam, PeriodAwayTeam, HomeRosterData, byte_1C347D, AwayRosterData, byte_1C55A0, str_D_SimulateGame, SimGameResult
-extern SeasonUserTeam, GameOptionFlags, dword_1AD22A, dword_1AD743, PaEventValue, ThreeStarsCount, dword_1C34E3, dword_1C351E
+extern SeasonUserTeam, GameOptionFlags, SeasonRandomSeed, PlayoffRandomSeed, PaEventValue, ThreeStarsCount, dword_1C34E3, dword_1C351E
 extern memset_, rand_, srand_, RandomCrowdDelay, PlayerOverall, FindPlayerRecord, FindGameRecord, FindPlayerStat
 extern ReadTeamStats, ServiceIdle, ZeroMem, unk_16D7FC, unk_16D804, AutoLineData, unk_1C347F, unk_78930
 extern HomeRosterData, word_1C3415, word_1C3417, word_1C3419, word_1C3427
@@ -27,10 +27,10 @@ SimulateGame:
         movsd
         test edx, edx
         jne short .1
-        add eax, dword [dword_1AD22A]
+        add eax, dword [SeasonRandomSeed]
         jmp short .2
 .1:
-        add eax, dword [dword_1AD743]
+        add eax, dword [PlayoffRandomSeed]
 .2:
         call srand_
         call ServiceIdle

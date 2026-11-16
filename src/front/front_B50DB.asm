@@ -15,9 +15,9 @@ extern str_SC02, str_SC01, str_SC00, str_SC01SC02SC03, str_SC10, str_SC09, str_S
 extern str_SC06, str_SC05, str_SC04, str_SC05SC06SC07, str_SC14, str_SC13, str_SC12, str_SC13SC14SC15
 extern str_SC18, str_SC17, str_SC16, str_SC17SC18SC19, str_SC30, str_SC29, str_SC28, str_SC29SC30SC31
 extern str_AB08, str_AB07, str_AB06, str_AB11, str_AB10, str_AB09, str_SC09SC10SC11, str_Rroster
-extern str_Lroster, str_POWR2, str_01d02d, FrontEndExit, byte_1AD739, byte_1C6040, StatsMenuDrawn, byte_1CAEC8
+extern str_Lroster, str_POWR2, str_01d02d, FrontEndExit, PlayoffStarted, byte_1C6040, StatsMenuDrawn, byte_1CAEC8
 extern StatsMenuMode, dword_16D400, dword_16D404, dword_16D454, dword_16D458, dword_16D45C, dword_16D470, dword_16D484
-extern dword_16D4B0, dword_16D4D4, dword_16DA9C, MenuScreenBitmap, GameSettings, SeasonActive, dword_1AD6AB, dword_1C5EEC
+extern dword_16D4B0, dword_16D4D4, dword_16DA9C, MenuScreenBitmap, GameSettings, SeasonActive, PlayoffTeams, dword_1C5EEC
 extern dword_1CAA00, dword_1CAB00, dword_1CAC00, dword_1CACDC, dword_1CAD28, dword_1CAD2C, dword_1CAD38, dword_1CAD48
 extern dword_1CAE24, dword_1CAE28, dword_1CAE2C, dword_1CAE34, dword_1CAE6C, dword_1CAE70, dword_1CAE74, dword_1CAE78
 extern dword_1CAE7C, dword_1CAE80, dword_1CAE84, dword_1CAE88, dword_1CAE8C, dword_1CAE90, dword_1CAE94, dword_1CAE98
@@ -36,7 +36,7 @@ extern VideoOptionsScreen, KeysEqual, FreeDbBlock, AgeFromBirthDate, FindTeamRec
 extern FindPlayerStat, FindTeamStat, ServiceIdle, LinkSyncMenu, LinkSyncScreen, AllocMemBlock, FreeMemBlock, MakeColor
 extern FreeBitmap, DrawShapeCore, DrawShapeAtOwnPos, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, tickcount
 extern str_Ai_PlayerStatsScreen, str_Rp, str_D_DrawPlayerRatings, str_0_DrawPlayerStatsText, str_S_DrawPlayerBio, str_Wt_ExportPlayerCard, str_Punct_ExportPlayerCard, unk_166948
-extern unk_16D7FC, unk_16D804, unk_1AD22E, unk_1AD236, unk_1AD73A, unk_1C5F4A, unk_1C5F9C, unk_1C5FEE
+extern unk_16D7FC, unk_16D804, SeasonFilePath, SeasonStatsPath, PlayoffStatsPath, unk_1C5F4A, unk_1C5F9C, unk_1C5FEE
 extern unk_1CA9DC, unk_1CAADC, unk_1CABDC, unk_1CACE8, unk_1CACF4, unk_1CAD00, unk_1CAD24
 global jpt_B585D, jpt_B6B27, jpt_B6B53, jpt_B6B7F, jpt_B6BAB, jpt_B6BD7, jpt_B6BFB, jpt_B6C1F
 global jpt_B6C43, jpt_B7214, jpt_B724C, jpt_B7758, jpt_B7790, jpt_B77B4, jpt_B77E0, jpt_B780C
@@ -570,7 +570,7 @@ DrawStatsCardPage:
         movzx eax, byte [eax]
         push byte 4Bh
         mov ecx, dword [byte esi+02Ch]
-        mov eax, dword [nosplit eax*4+dword_1AD6AB]
+        mov eax, dword [nosplit eax*4+PlayoffTeams]
         jmp short .19
 .18:
         push dword 6B85h
@@ -714,18 +714,18 @@ PlayerStatsScreen:
         cmp eax, byte 20h
         jne short .3
         lea edx, [byte ebp+032h]
-        mov eax, unk_1AD73A
+        mov eax, PlayoffStatsPath
         call OpenLeagueFile
         mov dword [dword_16D404], 1
         jmp short .5
 .3:
         lea edx, [byte ebp+032h]
-        mov eax, unk_1AD22E
+        mov eax, SeasonFilePath
         call OpenLeagueFile
         cmp dword [SeasonActive], byte 0
         je short .5
         lea edx, [byte ebp+02Eh]
-        mov eax, unk_1AD236
+        mov eax, SeasonStatsPath
 .4:
         call OpenLeagueFile
 .5:
@@ -1346,7 +1346,7 @@ PlayerStatsScreen_9DB:
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .35
-        push dword [nosplit ebx*4+dword_1AD6AB]
+        push dword [nosplit ebx*4+PlayoffTeams]
         jmp short .36
 .35:
         push ebx
@@ -1369,7 +1369,7 @@ PlayerStatsScreen_9DB:
         add esp, byte 8
         cmp edx, byte 20h
         jne short .37
-        push dword [dword eax+dword_1AD6AB]
+        push dword [dword eax+PlayoffTeams]
         jmp short .38
 .37:
         push ebx
@@ -4451,7 +4451,7 @@ DrawPlayerRatingsPage:
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .28
-        cmp byte [byte_1AD739], 0
+        cmp byte [PlayoffStarted], 0
         je short .28
         push dword 6B85h
         push byte 0
@@ -4464,7 +4464,7 @@ DrawPlayerRatingsPage:
         movzx eax, byte [eax]
         push byte 41h
         mov ecx, dword [byte esi+02Ch]
-        mov eax, dword [nosplit eax*4+dword_1AD6AB]
+        mov eax, dword [nosplit eax*4+PlayoffTeams]
         jmp short .29
 .28:
         push dword 6B85h
@@ -4550,7 +4550,7 @@ DrawPlayerRatingsPage:
         add esp, byte 0Ch
         cmp eax, byte 20h
         jne short .32
-        cmp byte [byte_1AD739], 0
+        cmp byte [PlayoffStarted], 0
         je short .32
         push dword 0E666h
         push byte 0
@@ -4560,7 +4560,7 @@ DrawPlayerRatingsPage:
         mov eax, dword [dword_1CAB00]
         push byte 7Dh
         mov ecx, dword [byte ebx+02Ch]
-        mov eax, dword [nosplit eax*4+dword_1AD6AB]
+        mov eax, dword [nosplit eax*4+PlayoffTeams]
         jmp short .33
 .32:
         push dword 0E666h
@@ -4815,7 +4815,7 @@ DrawPlayerRatingsPage:
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .44
-        cmp byte [byte_1AD739], 0
+        cmp byte [PlayoffStarted], 0
         je short .44
         push dword 6B85h
         push byte 0
@@ -4828,7 +4828,7 @@ DrawPlayerRatingsPage:
         movzx eax, byte [eax]
         push dword 0B9h
         mov ecx, dword [byte esi+02Ch]
-        mov eax, dword [nosplit eax*4+dword_1AD6AB]
+        mov eax, dword [nosplit eax*4+PlayoffTeams]
         jmp short .45
 .44:
         push dword 6B85h
@@ -4914,7 +4914,7 @@ DrawPlayerRatingsPage:
         add esp, byte 0Ch
         cmp eax, byte 20h
         jne short .48
-        cmp byte [byte_1AD739], 0
+        cmp byte [PlayoffStarted], 0
         je short .48
         push dword 0E666h
         push byte 0
@@ -4924,7 +4924,7 @@ DrawPlayerRatingsPage:
         mov eax, dword [dword_1CAC00]
         push byte 69h
         mov ecx, dword [byte ebx+02Ch]
-        mov eax, dword [nosplit eax*4+dword_1AD6AB]
+        mov eax, dword [nosplit eax*4+PlayoffTeams]
         jmp short .49
 .48:
         push dword 0E666h
@@ -5043,16 +5043,16 @@ PlayerRatingsScreen:
         cmp eax, byte 20h
         jne short .3
         lea edx, [byte ebp+01Ah]
-        mov eax, unk_1AD73A
+        mov eax, PlayoffStatsPath
         call OpenLeagueFile
         mov dword [dword_16D404], 1
         jmp short .5
 .3:
         lea edx, [byte ebp+01Ah]
-        mov eax, unk_1AD22E
+        mov eax, SeasonFilePath
         call OpenLeagueFile
         lea edx, [byte ebp+016h]
-        mov eax, unk_1AD236
+        mov eax, SeasonStatsPath
 .4:
         call OpenLeagueFile
 .5:
@@ -6229,7 +6229,7 @@ PlayerRatingsScreen_11E4:
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .71
-        cmp byte [byte_1AD739], 0
+        cmp byte [PlayoffStarted], 0
         jne short .73
 .71:
         mov eax, dword [GameSettings]
@@ -6388,10 +6388,10 @@ PlayerRatingsScreen_13F5:
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .93
-        cmp byte [byte_1AD739], 0
+        cmp byte [PlayoffStarted], 0
         je short .93
         mov eax, dword [dword_16D400]
-        push dword [nosplit eax*4+dword_1AD6AB]
+        push dword [nosplit eax*4+PlayoffTeams]
 .92:
         push str_LB02d3
         lea eax, [byte ebp+0Eh]
@@ -6482,9 +6482,9 @@ PlayerRatingsScreen_15C2:
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .103
-        cmp byte [byte_1AD739], 0
+        cmp byte [PlayoffStarted], 0
         je short .103
-        push dword [nosplit ebx*4+dword_1AD6AB]
+        push dword [nosplit ebx*4+PlayoffTeams]
         jmp short .104
 .103:
         push ebx
@@ -6507,9 +6507,9 @@ PlayerRatingsScreen_15C2:
         add esp, byte 8
         cmp edx, byte 20h
         jne short .105
-        cmp byte [byte_1AD739], 0
+        cmp byte [PlayoffStarted], 0
         je short .105
-        push dword [dword eax+dword_1AD6AB]
+        push dword [dword eax+PlayoffTeams]
         jmp short .106
 .105:
         push ebx
@@ -6686,10 +6686,10 @@ PlayerRatingsScreen_180D:
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .124
-        cmp byte [byte_1AD739], 0
+        cmp byte [PlayoffStarted], 0
         je short .124
         mov eax, dword [dword_16D400]
-        push dword [nosplit eax*4+dword_1AD6AB]
+        push dword [nosplit eax*4+PlayoffTeams]
 .123:
         push str_LB02d3
         lea eax, [byte ebp+0Eh]
@@ -6789,10 +6789,10 @@ PlayerRatingsScreen_1964:
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .136
-        cmp byte [byte_1AD739], 0
+        cmp byte [PlayoffStarted], 0
         je short .136
         mov eax, dword [dword_16D454]
-        push dword [nosplit eax*4+dword_1AD6AB]
+        push dword [nosplit eax*4+PlayoffTeams]
 .135:
         push str_LB02d3
         lea eax, [byte ebp+0Eh]
@@ -6885,9 +6885,9 @@ PlayerRatingsScreen_1B34:
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .147
-        cmp byte [byte_1AD739], 0
+        cmp byte [PlayoffStarted], 0
         je short .147
-        push dword [nosplit ebx*4+dword_1AD6AB]
+        push dword [nosplit ebx*4+PlayoffTeams]
         jmp short .148
 .147:
         push ebx
@@ -6910,9 +6910,9 @@ PlayerRatingsScreen_1B34:
         add esp, byte 8
         cmp edx, byte 20h
         jne short .149
-        cmp byte [byte_1AD739], 0
+        cmp byte [PlayoffStarted], 0
         je short .149
-        push dword [dword eax+dword_1AD6AB]
+        push dword [dword eax+PlayoffTeams]
         jmp short .150
 .149:
         push ebx
@@ -7061,10 +7061,10 @@ PlayerRatingsScreen_1D11:
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .164
-        cmp byte [byte_1AD739], 0
+        cmp byte [PlayoffStarted], 0
         je short .164
         mov eax, dword [dword_16D454]
-        push dword [nosplit eax*4+dword_1AD6AB]
+        push dword [nosplit eax*4+PlayoffTeams]
 .163:
         push str_LB02d3
         lea eax, [byte ebp+0Eh]
@@ -7341,7 +7341,7 @@ PlayerRatingsScreen_2040:
         and eax, byte 70h
         cmp eax, byte 20h
         jne near PlayerRatingsScreen.48
-        cmp byte [byte_1AD739], 0
+        cmp byte [PlayoffStarted], 0
         je near PlayerRatingsScreen.48
 .188:
         push dword [dword ebp-01CBEh]
@@ -7553,7 +7553,7 @@ BuildPlayerStats:
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .7
-        cmp byte [byte_1AD739], 0
+        cmp byte [PlayoffStarted], 0
         je short .7
         imul ecx, ebx, byte 3Dh
         call ServiceIdle
@@ -7573,7 +7573,7 @@ BuildPlayerStats:
         je short .9
         cmp eax, byte 20h
         jne short .8
-        cmp byte [byte_1AD739], 0
+        cmp byte [PlayoffStarted], 0
         je short .9
 .8:
         test byte [GameSettings], 70h
@@ -7704,7 +7704,7 @@ BuildPlayerStats:
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .24
-        cmp byte [byte_1AD739], 0
+        cmp byte [PlayoffStarted], 0
         je short .24
         imul edi, ebx, byte 3Dh
         call ServiceIdle
@@ -7723,7 +7723,7 @@ BuildPlayerStats:
         je short .26
         cmp eax, byte 20h
         jne short .25
-        cmp byte [byte_1AD739], 0
+        cmp byte [PlayoffStarted], 0
         je short .26
 .25:
         test byte [GameSettings], 70h
@@ -7853,7 +7853,7 @@ BuildPlayerStats:
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .41
-        cmp byte [byte_1AD739], 0
+        cmp byte [PlayoffStarted], 0
         je short .41
         imul edi, ebx, byte 3Dh
         call ServiceIdle
@@ -7872,7 +7872,7 @@ BuildPlayerStats:
         je short .43
         cmp eax, byte 20h
         jne short .42
-        cmp byte [byte_1AD739], 0
+        cmp byte [PlayoffStarted], 0
         je short .43
 .42:
         test byte [GameSettings], 70h
@@ -8002,7 +8002,7 @@ BuildPlayerStats:
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .58
-        cmp byte [byte_1AD739], 0
+        cmp byte [PlayoffStarted], 0
         je short .58
         imul ecx, ebx, byte 3Dh
         call ServiceIdle
@@ -8022,7 +8022,7 @@ BuildPlayerStats:
         je short .60
         cmp eax, byte 20h
         jne short .59
-        cmp byte [byte_1AD739], 0
+        cmp byte [PlayoffStarted], 0
         je short .60
 .59:
         test byte [GameSettings], 70h
@@ -8354,13 +8354,13 @@ DrawPlayerRatings:
         mov dword [byte ebp-0Ch], 0
 .2:
         mov edx, dword [byte ebp-0Ch]
-        mov edx, dword [nosplit edx*4+dword_1AD6AB]
+        mov edx, dword [nosplit edx*4+PlayoffTeams]
         cmp edx, dword [dword_1CAB00]
         jne short .3
         mov eax, dword [byte ebp-0Ch]
 .3:
         mov edx, dword [byte ebp-0Ch]
-        mov edx, dword [nosplit edx*4+dword_1AD6AB]
+        mov edx, dword [nosplit edx*4+PlayoffTeams]
         cmp edx, dword [dword_1CAC00]
         jne short .4
         mov edx, dword [byte ebp-0Ch]

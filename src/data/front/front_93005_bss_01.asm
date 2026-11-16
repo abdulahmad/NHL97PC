@@ -2,57 +2,57 @@
 bits 32
 %include "hockey.inc"
 section s_1C8704 nobits alloc noexec write align=1
-global byte_1C87FC, byte_1C8804, byte_1C880C, dword_1C8704, dword_1C8708, dword_1C89EC, dword_1C8A34, dword_1C8A54
-global dword_1C8A74, dword_1C8A78, dword_1C8A7C, dword_1C8A80, dword_1C8A84, dword_1C8A88, dword_1C8A8C, dword_1C8A90
-global dword_1C8A94, dword_1C8A98, dword_1C8A9C, dword_1C8AA0, unk_1C89F8, unk_1C8A04, unk_1C8A10, unk_1C8A1C
-global unk_1C8A28
-dword_1C8704:
+global PlayoffSlotCustom, PlayoffSlotNamed, PlayoffSlotNames, PlayoffTreeSlotX, PlayoffTreeSlotY, PlayoffShapeLists, PlayoffSetupShapes, PlayoffLogoArt
+global PlayoffTreeLayer, PlayoffTreeArt, PlayoffTreeData, PlayoffTreeLogos, PlayoffMenuBuffer, PlayoffSetupArt, PlayoffTeamCount, PlayoffFormat
+global PlayoffSparkleSoundOn, PlayoffNameFont, PlayoffSetupItems, PlayoffTeamFont, PlayoffRoundShapes, PlayoffStatShapes, PlayoffTeamRecordShapes, PlayoffSeriesShapes
+global PlayoffScheduleShapes
+PlayoffTreeSlotX:
         resb 4
-dword_1C8708:
+PlayoffTreeSlotY:
         resb 244
-byte_1C87FC:
+PlayoffSlotCustom:
         resb 8
-byte_1C8804:
+PlayoffSlotNamed:
         resb 8
-byte_1C880C:
+PlayoffSlotNames:
         resb 480
-dword_1C89EC:
+PlayoffShapeLists:
         resb 12
-unk_1C89F8:
+PlayoffRoundShapes:
         resb 12
-unk_1C8A04:
+PlayoffStatShapes:
         resb 12
-unk_1C8A10:
+PlayoffTeamRecordShapes:
         resb 12
-unk_1C8A1C:
+PlayoffSeriesShapes:
         resb 12
-unk_1C8A28:
+PlayoffScheduleShapes:
         resb 12
-dword_1C8A34:
+PlayoffSetupShapes:
         resb 32
-dword_1C8A54:
+PlayoffLogoArt:
         resb 32
-dword_1C8A74:
+PlayoffTreeLayer:
         resb 4
-dword_1C8A78:
+PlayoffTreeArt:
         resb 4
-dword_1C8A7C:
+PlayoffTreeData:
         resb 4
-dword_1C8A80:
+PlayoffTreeLogos:
         resb 4
-dword_1C8A84:
+PlayoffMenuBuffer:
         resb 4
-dword_1C8A88:
+PlayoffSetupArt:
         resb 4
-dword_1C8A8C:
+PlayoffTeamCount:
         resb 4
-dword_1C8A90:
+PlayoffFormat:
         resb 4
-dword_1C8A94:
+PlayoffSparkleSoundOn:
         resb 4
-dword_1C8A98:
+PlayoffNameFont:
         resb 4
-dword_1C8A9C:
+PlayoffSetupItems:
         resb 4
-dword_1C8AA0:
+PlayoffTeamFont:
         resb 4

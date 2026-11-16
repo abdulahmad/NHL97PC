@@ -25,7 +25,7 @@ extern PaEvent, LoadDataFile, OpenDataLibrary, LoadLogoNames, FreeTempArt, DrawS
 extern ExitScreen, SetTextColor, DrawTextAligned, WipeScreen, DrawPortrait, TintPortrait, InitMenuItems, RunMenu
 extern ReadTeamStats, ServiceIdle, AllocMemBlock, FreeMemBlock, OpenResourceArchive, MakeColor, FreeBitmap, DrawArt
 extern DrawShape, CreateBitmap, SetDrawTarget, ClearScreen, tickcount, str_D_DrawMatchupStats, unk_16D7FC, unk_16D804
-extern unk_1AD22E, unk_1AD236, unk_1AD73A, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, str_Xx00xx01xx02xx03xx10xx11xx12, str_G0LWC0RWLDRD
+extern SeasonFilePath, SeasonStatsPath, PlayoffStatsPath, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, str_Xx00xx01xx02xx03xx10xx11xx12, str_G0LWC0RWLDRD
 extern word_1C340D, word_1C5530
 global jpt_D1917, jpt_D3102, LayoutMatchupLeft_1E9, PreGameMatchupScreen_4E0, PreGameMatchupScreen_4EC, PreGameMatchupScreen_516, PreGameMatchupScreen_522, PreGameMatchupScreen_658
 global PreGameStatsPanel_4DF, PreGameStatsPanel_4E0, LayoutMatchupLeft, LayoutMatchupRight, PreGameMatchupScreen, DrawMatchupStats, DrawPlayerPortrait, DrawMatchupPlayer
@@ -1435,7 +1435,7 @@ PreGameStatsPanel:
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .7
-        mov ebx, unk_1AD22E
+        mov ebx, SeasonFilePath
         mov edx, dword [dword_1CC7A4]
         mov eax, dword [dword_1CC7D0]
         add edx, 2DCh
@@ -1443,12 +1443,12 @@ PreGameStatsPanel:
         call ReadMatchupStats
         cmp dword [SeasonActive], byte 0
         je short .9
-        mov ebx, unk_1AD236
+        mov ebx, SeasonStatsPath
         jmp short .8
 .7:
         cmp eax, byte 20h
         jne short .9
-        mov ebx, unk_1AD73A
+        mov ebx, PlayoffStatsPath
 .8:
         mov edx, dword [dword_1CC7A4]
         mov eax, dword [dword_1CC7D0]

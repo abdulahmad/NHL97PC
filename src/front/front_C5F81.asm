@@ -5,8 +5,8 @@ section s_C5F81 progbits alloc exec nowrite align=1
 extern str_00007, str_ON00, str_OF00, str_MA00, str_AUOO, str_5000, str_1000, str_2000
 extern str_NA00, str_10IL, str_102L, str_103L, str_ONDL, str_OFDL, str_MADL, str_AUDL
 extern str_50DL, str_20DL, str_NADL, str_OFF, str_LX002, str_LC002, str_LX0D2, str_LC0D2
-extern str_BALL, byte_1AD23E, byte_1AD252, byte_1AD739, byte_1C6040, dword_16D664, MenuScreenBitmap, GameSettings
-extern GameOptionFlags, dword_1AD251, dword_1C5DE4, dword_1CBB94, dword_1CBB98, dword_1CBBA4, dword_1CBBB4, dword_1CBBC4
+extern str_BALL, SeasonCreated, PlayoffOptionFlags, PlayoffStarted, byte_1C6040, dword_16D664, MenuScreenBitmap, GameSettings
+extern GameOptionFlags, PlayoffOptionBits, dword_1C5DE4, dword_1CBB94, dword_1CBB98, dword_1CBBA4, dword_1CBBB4, dword_1CBBC4
 extern dword_1CBBD4, dword_1CBBE4, dword_1CBBE8, dword_1CBBEC, dword_1CBBF0, dword_1CBBF4, dword_1CBC04, dword_1CBC14
 extern dword_1CBC1C, dword_1CBC28, dword_1CBC2C, dword_1CBC32, dword_1CBC36, dword_1CBC3A, dword_1CBC3E, dword_1CBC42
 extern dword_1CBC46, dword_1CBC7A, dword_1CBC7E, dword_1CBC84, dword_1CBC88, dword_1CBC8C, dword_1CBC90, dword_1CBC94
@@ -931,14 +931,14 @@ SeasonSetupScreen:
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .28
-        cmp byte [byte_1AD23E], 0
+        cmp byte [SeasonCreated], 0
         jne short .29
 .28:
         mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .31
-        cmp byte [byte_1AD739], 0
+        cmp byte [PlayoffStarted], 0
         je short .31
 .29:
         test byte [byte ebp+07Dh], 0C0h
@@ -1118,45 +1118,45 @@ SeasonSetupScreen_F19:
         cmp word [dword ebp-03C8h], byte 3
         jne near .42
         mov eax, dword [byte ebp+07Dh]
-        and byte [dword_1AD251], 0F8h
+        and byte [PlayoffOptionBits], 0F8h
         and eax, byte 7
-        or dword [dword_1AD251], eax
+        or dword [PlayoffOptionBits], eax
         mov eax, dword [byte ebp+07Dh]
-        and byte [dword_1AD251], 0F7h
+        and byte [PlayoffOptionBits], 0F7h
         and eax, byte 8
-        or dword [dword_1AD251], eax
+        or dword [PlayoffOptionBits], eax
         mov eax, dword [byte ebp+07Dh]
-        and byte [dword_1AD251], 0EFh
+        and byte [PlayoffOptionBits], 0EFh
         and eax, byte 10h
-        or dword [dword_1AD251], eax
+        or dword [PlayoffOptionBits], eax
         mov eax, dword [byte ebp+07Dh]
-        and byte [dword_1AD251], 0DFh
+        and byte [PlayoffOptionBits], 0DFh
         and eax, byte 20h
-        or dword [dword_1AD251], eax
+        or dword [PlayoffOptionBits], eax
         mov eax, dword [byte ebp+07Dh]
-        and byte [dword_1AD251], 3Fh
+        and byte [PlayoffOptionBits], 3Fh
         and eax, 0C0h
-        or dword [dword_1AD251], eax
+        or dword [PlayoffOptionBits], eax
         mov eax, dword [byte ebp+07Dh]
-        and byte [byte_1AD252], 0FEh
+        and byte [PlayoffOptionFlags], 0FEh
         and eax, 100h
-        or dword [dword_1AD251], eax
+        or dword [PlayoffOptionBits], eax
         mov eax, dword [byte ebp+07Dh]
-        and byte [byte_1AD252], 0FDh
+        and byte [PlayoffOptionFlags], 0FDh
         and eax, 200h
-        or dword [dword_1AD251], eax
+        or dword [PlayoffOptionBits], eax
         mov eax, dword [byte ebp+07Dh]
-        and byte [byte_1AD252], 0FBh
+        and byte [PlayoffOptionFlags], 0FBh
         and eax, 400h
-        or dword [dword_1AD251], eax
+        or dword [PlayoffOptionBits], eax
         mov eax, dword [byte ebp+07Dh]
-        and byte [byte_1AD252], 0E7h
+        and byte [PlayoffOptionFlags], 0E7h
         and eax, 1800h
-        or dword [dword_1AD251], eax
+        or dword [PlayoffOptionBits], eax
         mov eax, dword [byte ebp+07Dh]
-        and byte [byte_1AD252], 0DFh
+        and byte [PlayoffOptionFlags], 0DFh
         and eax, 2000h
-        or dword [dword_1AD251], eax
+        or dword [PlayoffOptionBits], eax
 .42:
         mov edi, 1
         jmp short .47
@@ -1229,14 +1229,14 @@ SeasonSetupScreen_11A7:
         jne short .55
         cmp eax, byte 10h
         jne short .54
-        cmp byte [byte_1AD23E], 0
+        cmp byte [SeasonCreated], 0
         jne near SeasonSetupScreen_E65
 .54:
         mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .55
-        cmp byte [byte_1AD739], 0
+        cmp byte [PlayoffStarted], 0
         jne near SeasonSetupScreen_E65
 .55:
         mov eax, dword [byte ebp+07Dh]
@@ -1254,14 +1254,14 @@ SeasonSetupScreen_11A7:
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .56
-        cmp byte [byte_1AD23E], 0
+        cmp byte [SeasonCreated], 0
         jne short .57
 .56:
         mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .58
-        cmp byte [byte_1AD739], 0
+        cmp byte [PlayoffStarted], 0
         je short .58
 .57:
         and byte [byte ebp+07Dh], 3Fh
@@ -1289,14 +1289,14 @@ SeasonSetupScreen_11A7:
 SeasonSetupScreen_1264:
         cmp eax, byte 10h
         jne short .63
-        cmp byte [byte_1AD23E], 0
+        cmp byte [SeasonCreated], 0
         jne near SeasonSetupScreen_E65
 .63:
         mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .64
-        cmp byte [byte_1AD739], 0
+        cmp byte [PlayoffStarted], 0
         jne near SeasonSetupScreen_E65
 .64:
         test byte [byte ebp+07Eh], 1
@@ -1313,14 +1313,14 @@ SeasonSetupScreen_1264:
 SeasonSetupScreen_12B6:
         cmp eax, byte 10h
         jne short .67
-        cmp byte [byte_1AD23E], 0
+        cmp byte [SeasonCreated], 0
         jne near SeasonSetupScreen_E65
 .67:
         mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .68
-        cmp byte [byte_1AD739], 0
+        cmp byte [PlayoffStarted], 0
         jne near SeasonSetupScreen_E65
 .68:
         test byte [byte ebp+07Eh], 4
@@ -1337,14 +1337,14 @@ SeasonSetupScreen_12B6:
 SeasonSetupScreen_1308:
         cmp eax, byte 10h
         jne short .71
-        cmp byte [byte_1AD23E], 0
+        cmp byte [SeasonCreated], 0
         jne near SeasonSetupScreen_E65
 .71:
         mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .72
-        cmp byte [byte_1AD739], 0
+        cmp byte [PlayoffStarted], 0
         jne near SeasonSetupScreen_E65
 .72:
         mov eax, dword [byte ebp+07Dh]
