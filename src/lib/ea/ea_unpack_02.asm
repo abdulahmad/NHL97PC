@@ -8,8 +8,8 @@ extern dword_1DCF28, dword_1DCF2C, dword_1DCF30, dword_1DCF34, dword_1DCF38, dwo
 extern dword_1DD398, dword_1DD39C, dword_1DD3A0, dword_1DD3A4, dword_1DD3A8, dword_1DD3AC, dword_1DD3B0, dword_1DD3B4
 extern jpt_12C300_24, memset_, sub_1073B0, sub_1073BC, sub_1073C0, sub_107988, ReadBlasterPort, AudioEnter
 extern AudioLeaveCheck, sub_12AB6C, sub_12AD27, sub_12BE3C, StartChannel, MixNoise, UpdateChannels, SetChannelCount
-extern sub_136100, sub_136210, sub_1365EC, sub_1366D8, sub_136D2C, sub_13701C, sub_137022, sub_1371FB
-extern sub_137247, TimerCalibrate, TimerRestore, TimerSetRate, IrqAck, sub_FAAB4, FreeMemBlock, word_1DD388
+extern GusGetEnvConfig, GusProbePort, GusOpen, GusClose, GusMemAlloc, GusStopStream, GusStreamBusy, GusServiceStream
+extern GusStartStream, TimerCalibrate, TimerRestore, TimerSetRate, IrqAck, sub_FAAB4, FreeMemBlock, word_1DD388
 extern word_1DD38A
 global jpt_127FC0, sub_127FD0_B3, sub_127FD0_F0, sub_127FD0_FD, sub_127FD0_124, sub_127FD0_1B0, sub_127D70, sub_127DB4
 global sub_127FD0, sub_128280, sub_1282A0, sub_128680, sub_1286F0, sub_128734, sub_128878, sub_128880
@@ -932,7 +932,7 @@ sub_128680:
 sub_1286F0:
         push edx
         mov eax, word_1DD388
-        call sub_136100
+        call GusGetEnvConfig
         test eax, eax
         jne short .1
         mov eax, 0FFFFFFFDh
@@ -943,7 +943,7 @@ sub_1286F0:
         mov edx, 1
         mov ax, word [word_1DD38A]
         mov dword [dword_172BE4], edx
-        call sub_136210
+        call GusProbePort
         test eax, eax
         jne short .2
         mov eax, 0FFFFFFFEh
@@ -995,7 +995,7 @@ sub_128734:
         cmp dword [dword_172BE4], byte 0
         jne short .4
         mov eax, word_1DD388
-        call sub_136100
+        call GusGetEnvConfig
         test eax, eax
         jne short .3
         mov eax, 0FFFFFFFDh
@@ -1008,7 +1008,7 @@ sub_128734:
 .4:
         xor eax, eax
         mov ax, word [word_1DD38A]
-        call sub_136210
+        call GusProbePort
         test eax, eax
         jne short .5
         mov eax, 0FFFFFFFEh
@@ -1034,7 +1034,7 @@ sub_128734:
         mov byte [byte_1DD38C], 5
 .8:
         mov eax, word_1DD388
-        call sub_1365EC
+        call GusOpen
         test eax, eax
         je short .9
         mov eax, 0FFFFFFFBh
@@ -1046,13 +1046,13 @@ sub_128734:
         mov ebp, 1
         mov eax, 1004h
         mov dword [dword_172BDC], ebp
-        call sub_136D2C
+        call GusMemAlloc
         push dword 1000h
         push eax
         mov dword [dword_1DD390], eax
         mov eax, dword [dword_1DD394]
         push eax
-        call sub_137247
+        call GusStartStream
         add esp, byte 0Ch
 .10:
         xor eax, eax
@@ -1083,7 +1083,7 @@ sub_128880:
         ret
 .1:
         mov eax, word_1DD388
-        call sub_136100
+        call GusGetEnvConfig
         test eax, eax
         jne short .2
         mov eax, 0FFFFFFFDh
@@ -1093,7 +1093,7 @@ sub_128880:
         mov edx, 1
         mov ax, word [word_1DD38A]
         mov dword [dword_172BE4], edx
-        call sub_136210
+        call GusProbePort
         test eax, eax
         jne short .3
         mov eax, 0FFFFFFFEh
@@ -1129,14 +1129,14 @@ sub_1288F8:
         cmp dword [dword_172BDC], byte 0
         je short .1
         xor ebx, ebx
-        call sub_1366D8
+        call GusClose
         mov dword [dword_172BE4], ebx
         mov dword [dword_172BE8], ebx
         mov dword [dword_172BDC], ebx
 .1:
         cmp dword [dword_172BE0], byte 0
         je short .2
-        call sub_13701C
+        call GusStopStream
         mov ebp, dword [dword_172BE0]
         push ebp
         call FreeMemBlock
@@ -1158,7 +1158,7 @@ sub_128948:
         push edx
         cmp dword [dword_172BDC], byte 0
         je short .1
-        call sub_137022
+        call GusStreamBusy
         test eax, eax
         je short .1
         mov edx, dword [dword_19A75C]
@@ -1169,7 +1169,7 @@ sub_128948:
         push eax
         call sub_12AD27
         add esp, byte 8
-        call sub_1371FB
+        call GusServiceStream
 .1:
         pop edx
         pop ecx

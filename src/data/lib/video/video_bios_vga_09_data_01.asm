@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_19C840 progbits alloc noexec write align=1
 extern __fpatan_chk_160, __fpatan_chk_16B, __fpatan_chk_178, __fpatan_chk_18B, __fpatan_chk_1A0, __fpatan_chk_1B3, __fpatan_chk_1C8, __fpatan_chk_1DB
-extern sub_136C84, sub_13A69C
+extern GusSizeDram, GusInitDma
 global byte_19C840, dword_19C8C8, dword_19C8CC, kaufmfont, off_19C894, qword_19C858, qword_19C860, qword_19C870
 global qword_19C884, tbyte_19C878, tbyte_19C8B4, tbyte_19C8BE, tbyte_19C8D0, tbyte_19C8DA, tbyte_19C8E4, tbyte_19C8EE
 global tbyte_19C8F8, tbyte_19C902, tbyte_19C90C, unk_19CA1C
@@ -69,8 +69,8 @@ tbyte_19C90C:
         db 035h,0C2h,068h,021h,0A2h,0DAh,0Fh,0C9h,0FEh,03Fh,00h,00h,00h,00h,00h,00h
 unk_19CA1C:
         db 00h,00h
-        dd sub_136C84
+        dd GusSizeDram
         db 00h,00h
-        dd sub_13A69C
+        dd GusInitDma
 kaufmfont:
         db 00h,00h,00h,00h,00h,00h,00h

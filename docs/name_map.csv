@@ -3083,6 +3083,28 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 135FA0,__math87_err_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 13601B,__math1err_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 136025,__math2err_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+136100,GusGetEnvConfig,sub_136100,new,low,"reads the ULTRASND environment variable and parses base port, DMA channels and IRQs into the card config",src/lib/sound/snd_gus_sdk_01.asm
+136210,GusProbePort,sub_136210,new,low,writes test bytes to a card port and reads them back; returns whether a card answers at that base,src/lib/sound/snd_gus_sdk_01.asm
+136270,GusStopDmaAndTimers,sub_136270,new,low,"clears the card's DMA control, timer control and sampling control registers",src/lib/sound/snd_gus_sdk_01.asm
+136350,GusUnhookIrqs,sub_136350,new,low,restores the original interrupt vectors and masks for the card's one or two IRQ lines,src/lib/sound/snd_gus_sdk_01.asm
+136370,GusHookIrqs,sub_136370,new,low,"installs the card's wave IRQ handler and, when it uses a second line, the MIDI IRQ handler",src/lib/sound/snd_gus_sdk_01.asm
+1363A0,GusOpenCard,sub_1363A0,new,low,"sets the base port, clears callbacks and IRQ state, resets the voices and hooks the IRQs",src/lib/sound/snd_gus_sdk_01.asm
+136450,GusStopAllVoices,sub_136450,new,low,stops every active voice and ramps its volume down to silence,src/lib/sound/snd_gus_sdk_01.asm
+1365EC,GusOpen,sub_1365EC,new,low,"reference-counted card open: probes the port, opens the card, sets the IRQ/DMA latches and runs the init table",src/lib/sound/snd_gus_sdk_01.asm
+1366D8,GusClose,sub_1366D8,new,low,"drops the open count and, on the last close, stops voices, clears DMA and timers and unhooks the IRQs",src/lib/sound/snd_gus_sdk_01.asm
+13673C,GusSetIrqDmaLatches,sub_13673C,new,low,programs the card's IRQ and DMA latch registers from the configured channels,src/lib/sound/snd_gus_sdk_01.asm
+1368D0,GusResetVoices,sub_1368D0,new,low,resets the synthesizer with the given number of active voices (clamped to 14..32) and silences each one,src/lib/sound/snd_gus_sdk_01.asm
+136C10,GusPokeBlock,sub_136C10,new,low,writes a 16-byte block into card memory one byte at a time,src/lib/sound/snd_gus_sdk_01.asm
+136C4C,GusPeekBlock,sub_136C4C,new,low,reads a 16-byte block from card memory one byte at a time,src/lib/sound/snd_gus_sdk_01.asm
+136C84,GusSizeDram,sub_136C84,new,low,tests each 256K bank of card memory and records how much memory the card has,src/lib/sound/snd_gus_sdk_01.asm
+136D2C,GusMemAlloc,sub_136D2C,new,low,allocates a 32-byte aligned block of card memory from the free list kept in card memory,src/lib/sound/snd_gus_sdk_01.asm
+13701C,GusStopStream,sub_13701C,new,low,stops the streaming voices,src/lib/sound/snd_gus_sdk_01.asm
+137022,GusStreamBusy,sub_137022,new,low,returns non-zero while either streaming channel is still playing,src/lib/sound/snd_gus_sdk_01.asm
+13702E,GusRefillStreamChannel,sub_13702E,new,low,copies the next half buffer of a streaming channel into card memory,src/lib/sound/snd_gus_sdk_01.asm
+1370E4,GusStreamVoiceIrq,sub_1370E4,new,low,voice interrupt callback for the streaming voices: flips the loop point and flags the half that needs refilling,src/lib/sound/snd_gus_sdk_01.asm
+1371FB,GusServiceStream,sub_1371FB,new,low,refills every streaming channel that its voice interrupt flagged,src/lib/sound/snd_gus_sdk_01.asm
+137247,GusStartStream,sub_137247,new,low,"sets up the double-buffered stream in card memory, loads both halves and starts the looping voices",src/lib/sound/snd_gus_sdk_01.asm
+13786C,GusStopStreamVoices,sub_13786C,new,low,stops both streaming voices and clears the stream state,src/lib/sound/snd_gus_sdk_01.asm
 13794C,TimerCalibrate,sub_13794C,new,low,calibrates the timer,src/lib/sound/snd_hw_sb.asm
 137966,TimerRestore,sub_137966,new,low,restores the timer,src/lib/sound/snd_hw_sb.asm
 137981,TimerSetRate,sub_137981,new,low,sets the timer rate,src/lib/sound/snd_hw_sb.asm
@@ -3139,8 +3161,42 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 13969A,_matherr_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 1396C9,outp_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 1396D3,inp_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+1396E0,GusSetupDmaChannel,sub_1396E0,new,low,"fills the port table of an ISA DMA channel (mask, mode, clear, address, count and page registers)",src/lib/sound/snd_gus_sdk_02.asm
+13976C,GusProgramDma,sub_13976C,new,low,"programs an ISA DMA channel with the buffer address, length and transfer mode",src/lib/sound/snd_gus_sdk_02.asm
+13988C,GusMaskDma,sub_13988C,new,low,masks an ISA DMA channel; followed by the DMA count read and DOS file helpers of the toolkit,src/lib/sound/snd_gus_sdk_02.asm
+1399B4,GusSetVect,sub_1399B4,new,low,sets a protected-mode interrupt vector,src/lib/sound/snd_gus_sdk_02.asm
+1399C0,GusGetVect,sub_1399C0,new,low,reads a protected-mode interrupt vector,src/lib/sound/snd_gus_sdk_02.asm
+1399CC,GusHookIrq,sub_1399CC,new,low,"saves the old vector of an IRQ line, installs the new handler and unmasks the line",src/lib/sound/snd_gus_sdk_02.asm
+139A6C,GusUnhookIrq,sub_139A6C,new,low,masks an IRQ line and restores its saved vector,src/lib/sound/snd_gus_sdk_02.asm
+139AF4,GusSendEoi,sub_139AF4,new,low,sends end-of-interrupt to the interrupt controller(s) for an IRQ line,src/lib/sound/snd_gus_sdk_02.asm
+139B20,GusWaveIrqHandler,sub_139B20,new,low,hardware handler for the card's wave IRQ: services it now or defers it while the card is busy,src/lib/sound/snd_gus_sdk_02.asm
+139B9C,GusMidiIrqHandler,sub_139B9C,new,low,hardware handler for the card's MIDI IRQ line,src/lib/sound/snd_gus_sdk_02.asm
+139C21,GusDelay,sub_139C21,new,low,waits a few port reads so the card can settle between register writes,src/lib/sound/snd_gus_sdk_02.asm
+139C35,GusSetBasePort,sub_139C35,new,low,checks a base port (210h..260h) and moves the card's port table to it,src/lib/sound/snd_gus_sdk_02.asm
+139C80,GusClearIrqState,sub_139C80,new,low,clears the pending IRQ flags and the critical-section depth,src/lib/sound/snd_gus_sdk_02.asm
+139C93,GusEnterCritical,sub_139C93,new,low,raises the critical-section depth so card interrupts are deferred,src/lib/sound/snd_gus_sdk_02.asm
+139CBA,GusLeaveCritical,sub_139CBA,new,low,"lowers the critical-section depth and, at zero, services interrupts that came in meanwhile",src/lib/sound/snd_gus_sdk_02.asm
+139CF0,GusClearCallbacks,sub_139CF0,new,low,clears every interrupt callback slot,src/lib/sound/snd_gus_sdk_02.asm
+139D4C,GusClaimCallback,sub_139D4C,new,low,stores a callback in a slot when the slot is free or the callback is being cleared,src/lib/sound/snd_gus_sdk_02.asm
+139D74,GusClaimVoiceCallback,sub_139D74,new,low,stores a voice callback in a slot when the slot is free or the callback is being cleared,src/lib/sound/snd_gus_sdk_02.asm
+139D9C,GusSetDmaCallbacks,sub_139D9C,new,low,sets the DMA-done callbacks; returns 8 when they are already taken,src/lib/sound/snd_gus_sdk_02.asm
+139DD4,GusSetVoiceCallbacks,sub_139DD4,new,low,"sets the wave, volume and timer callbacks; returns 8 when they are already taken",src/lib/sound/snd_gus_sdk_02.asm
+139EE8,GusMidiIrqService,sub_139EE8,new,low,reads the MIDI status and calls the MIDI transmit or receive callbacks,src/lib/sound/snd_gus_sdk_02.asm
+139F70,GusReadIrqSource,sub_139F70,new,low,reads the card's IRQ status register and services MIDI interrupts on a shared line,src/lib/sound/snd_gus_sdk_02.asm
+139FAC,GusServiceIrq,sub_139FAC,new,low,"services every pending card interrupt: DMA done, timers, voice wave and volume ends",src/lib/sound/snd_gus_sdk_02.asm
 13A241,inpw_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+13A24C,GusRunInitTable,sub_13A24C,new,low,calls each entry of the toolkit's init table in priority order until one fails,src/lib/sound/snd_gus_sdk_02.asm
 13A2B7,outpw_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+13A2D0,GusPeek,sub_13A2D0,new,low,reads one byte of card memory,src/lib/sound/snd_gus_sdk_02.asm
+13A34C,GusPoke,sub_13A34C,new,low,writes one byte of card memory,src/lib/sound/snd_gus_sdk_02.asm
+13A3CC,GusPokeFill,sub_13A3CC,new,low,writes a run of bytes (optionally sign-flipped) into card memory through the register ports,src/lib/sound/snd_gus_sdk_02.asm
+13A4A4,GusTestDramBank,sub_13A4A4,new,low,writes and reads back test bytes to check whether a bank of card memory exists,src/lib/sound/snd_gus_sdk_02.asm
+13A650,GusInitPlayDma,sub_13A650,new,low,sets up the playback DMA channel when one is configured,src/lib/sound/snd_gus_sdk_02.asm
+13A674,GusInitRecordDma,sub_13A674,new,low,sets up the record DMA channel when one is configured,src/lib/sound/snd_gus_sdk_02.asm
+13A69C,GusInitDma,sub_13A69C,new,low,init table entry: sets up both DMA channels and claims the DMA-done callback,src/lib/sound/snd_gus_sdk_02.asm
+13A6F8,GusStartDramDma,sub_13A6F8,new,low,starts one chunk of a DMA transfer from main memory into card memory,src/lib/sound/snd_gus_sdk_02.asm
+13A7AC,GusDownload,sub_13A7AC,new,low,"copies a buffer into card memory by DMA (with a filler run), refusing while another transfer runs",src/lib/sound/snd_gus_sdk_02.asm
+13A8BC,GusDramDmaDone,sub_13A8BC,new,low,DMA-done callback: starts the next chunk of a download or ends the transfer,src/lib/sound/snd_gus_sdk_02.asm
 13AB04,__int23_handler_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 13AB99,__int_ctrl_break_handler_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 13AC11,__DPMI_hosted_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
