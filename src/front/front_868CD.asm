@@ -38,8 +38,8 @@ global sub_87B57_126A, sub_87B57_1292, sub_87B57_12BA, sub_87B57_12E2, sub_88EDC
 global sub_8907B_8F6, sub_8907B_92B, sub_8907B_9BB, sub_8907B_A1E, sub_8907B_A96, sub_8907B_B19, sub_8907B_B3D, sub_8A81B_2BB
 global sub_8A81B_2C0, sub_8A81B_2C3, sub_8A81B_2C4, sub_8AAE5_64C, sub_8AAE5_654, sub_8BDCF_35, sub_868CD, sub_86936
 global sub_869BB, sub_86A45, sub_86A96, sub_86AFA, sub_86B73, sub_86BD0, sub_86CB1, sub_87523
-global sub_8769F, sub_8781C, sub_8793E, sub_87B57, sub_88EDC, sub_88FD8, sub_8907B, sub_89CD6
-global sub_8A81B, sub_8AAE5, sub_8B145, sub_8BA36, sub_8BDCF, sub_8BE23, sub_8BE60, sub_8BEF8
+global sub_8769F, sub_8781C, sub_8793E, ModemSettingsScreen, sub_88EDC, sub_88FD8, NetworkGamesScreen, sub_89CD6
+global sub_8A81B, sub_8AAE5, sub_8B145, sub_8BA36, RunNetworkConnect, RunModemConnect, sub_8BE60, sub_8BEF8
 global InitMenuItems, sub_8BFA0
 ;-----------------------------------------------------------------------------
 ; sub_868CD                                                       868CD  97 PC
@@ -1500,9 +1500,11 @@ jpt_87AF7:
         dd sub_87B57_11E3
         dd sub_87B57_12E2
 ;-----------------------------------------------------------------------------
-; sub_87B57                                                       87B57  97 PC
+; ModemSettingsScreen                             87B57  96 PC, low confidence
+; The modem settings screen (PICKS): modem type ("Generic Hayes-Compatible"
+; ...), COM port and IRQ (01%d0, 02%d0, 0%d00), tone / pulse dialing
 ;-----------------------------------------------------------------------------
-sub_87B57:
+ModemSettingsScreen:
         push ebx
         push ecx
         push edx
@@ -2194,11 +2196,17 @@ sub_87B57:
         add esp, byte 8
         mov dword [dword ebp-0740h], eax
         jmp near sub_87B57_11E3
+;-----------------------------------------------------------------------------
+; sub_87B57_AE3                                                   8863A  97 PC
+;-----------------------------------------------------------------------------
 sub_87B57_AE3:
         call sub_7EEB0
 .22:
         mov dword [byte ebp-028h], 1
         jmp near sub_87B57_11E3
+;-----------------------------------------------------------------------------
+; sub_87B57_AF4                                                   8864B  97 PC
+;-----------------------------------------------------------------------------
 sub_87B57_AF4:
         call sub_7EDF0
         mov edx, byte_1C833C
@@ -2324,6 +2332,9 @@ sub_87B57_AF4:
 .32:
         call sub_83850
         jmp near sub_87B57_AE3.22
+;-----------------------------------------------------------------------------
+; sub_87B57_CC6                                                   8881D  97 PC
+;-----------------------------------------------------------------------------
 sub_87B57_CC6:
         mov ecx, dword [byte ebp-038h]
         lea edx, [dword ebp-0E18h]
@@ -2349,6 +2360,9 @@ sub_87B57_CC6:
 .33:
         mov word [word_1C8342], ax
         jmp near sub_87B57_11E3
+;-----------------------------------------------------------------------------
+; sub_87B57_D31                                                   88888  97 PC
+;-----------------------------------------------------------------------------
 sub_87B57_D31:
         mov eax, dword [byte ebp-038h]
         lea edx, [dword ebp-0E18h]
@@ -2359,6 +2373,9 @@ sub_87B57_D31:
         mov eax, dword [byte ebp-038h]
         mov ax, word [nosplit eax*2+dword_16DAC0]
         jmp short sub_87B57_CC6.33
+;-----------------------------------------------------------------------------
+; sub_87B57_D5E                                                   888B5  97 PC
+;-----------------------------------------------------------------------------
 sub_87B57_D5E:
         cmp dword [byte ebp-03Ch], byte 0
         jne short .34
@@ -2430,6 +2447,9 @@ sub_87B57_D5E:
         mov eax, dword [byte ebp-04h]
         call sub_8793E
         jmp near sub_87B57_E6E.42
+;-----------------------------------------------------------------------------
+; sub_87B57_E4D                                                   889A4  97 PC
+;-----------------------------------------------------------------------------
 sub_87B57_E4D:
         push byte 0
         mov eax, 163h
@@ -2440,6 +2460,9 @@ sub_87B57_E4D:
         mov eax, unk_1C834C
         call sub_7FE38
         jmp short sub_87B57_D5E.35
+;-----------------------------------------------------------------------------
+; sub_87B57_E6E                                                   889C5  97 PC
+;-----------------------------------------------------------------------------
 sub_87B57_E6E:
         inc word [word_1C834A]
         movsx eax, word [word_1C834A]
@@ -2517,6 +2540,9 @@ sub_87B57_E6E:
 .42:
         call sub_1013FC
         jmp near sub_87B57_11E3
+;-----------------------------------------------------------------------------
+; sub_87B57_F7C                                                   88AD3  97 PC
+;-----------------------------------------------------------------------------
 sub_87B57_F7C:
         push byte 0
         mov eax, 164h
@@ -2539,6 +2565,9 @@ sub_87B57_F7C:
         push unk_165330
         push dword 12Ah
         jmp short sub_87B57_E6E.41
+;-----------------------------------------------------------------------------
+; sub_87B57_FCE                                                   88B25  97 PC
+;-----------------------------------------------------------------------------
 sub_87B57_FCE:
         push byte 0
         mov eax, 165h
@@ -2560,6 +2589,9 @@ sub_87B57_FCE:
         push unk_165330
         push dword 14Bh
         jmp near sub_87B57_E6E.41
+;-----------------------------------------------------------------------------
+; sub_87B57_1020                                                  88B77  97 PC
+;-----------------------------------------------------------------------------
 sub_87B57_1020:
         cmp word [word_1C8348], byte 0
         je short .44
@@ -2633,6 +2665,9 @@ sub_87B57_1020:
         call DrawTextAligned
         add esp, byte 10h
         jmp near sub_87B57_E6E.42
+;-----------------------------------------------------------------------------
+; sub_87B57_112C                                                  88C83  97 PC
+;-----------------------------------------------------------------------------
 sub_87B57_112C:
         cmp word [word_1C8346], byte 0
         sete al
@@ -2657,6 +2692,9 @@ sub_87B57_112C:
         mov ebx, asc_165467
         push asc_16545D
         jmp short .49
+;-----------------------------------------------------------------------------
+; sub_87B57_1184                                                  88CDB  97 PC
+;-----------------------------------------------------------------------------
 sub_87B57_1184:
         push asc_16546C
         push dword [byte ebp-018h]
@@ -2696,6 +2734,9 @@ sub_87B57_11E3:
         ja short sub_87B57_11E3
         mov eax, dword [byte ebp-038h]
         jmp dword [nosplit cs:eax*4+jpt_87AF7]
+;-----------------------------------------------------------------------------
+; sub_87B57_121D                                                  88D74  97 PC
+;-----------------------------------------------------------------------------
 sub_87B57_121D:
         push asc_165485
         push dword [byte ebp-018h]
@@ -2714,6 +2755,9 @@ sub_87B57_121D:
         add esp, byte 8
         push asc_165471
         jmp near sub_87B57_1184.51
+;-----------------------------------------------------------------------------
+; sub_87B57_126A                                                  88DC1  97 PC
+;-----------------------------------------------------------------------------
 sub_87B57_126A:
         mov ecx, 9
         lea edx, [dword ebp-0E18h]
@@ -2722,6 +2766,9 @@ sub_87B57_126A:
         call sub_8781C
         mov word [word_1C8344], 9
         jmp near sub_87B57_11E3
+;-----------------------------------------------------------------------------
+; sub_87B57_1292                                                  88DE9  97 PC
+;-----------------------------------------------------------------------------
 sub_87B57_1292:
         mov ecx, 0Ah
         lea edx, [dword ebp-0E18h]
@@ -2730,6 +2777,9 @@ sub_87B57_1292:
         call sub_8781C
         mov word [word_1C8344], 0Ah
         jmp near sub_87B57_11E3
+;-----------------------------------------------------------------------------
+; sub_87B57_12BA                                                  88E11  97 PC
+;-----------------------------------------------------------------------------
 sub_87B57_12BA:
         mov ecx, 0Ch
         lea edx, [dword ebp-0E18h]
@@ -2738,6 +2788,9 @@ sub_87B57_12BA:
         call sub_8781C
         mov word [word_1C8344], 0Ch
         jmp near sub_87B57_11E3
+;-----------------------------------------------------------------------------
+; sub_87B57_12E2                                                  88E39  97 PC
+;-----------------------------------------------------------------------------
 sub_87B57_12E2:
         mov dword [byte ebp-028h], 0
         jmp near sub_87B57_11E3
@@ -2944,9 +2997,10 @@ jpt_89053:
         dd sub_8907B_B3D
         dd sub_8907B_8F6
 ;-----------------------------------------------------------------------------
-; sub_8907B                                                       8907B  97 PC
+; NetworkGamesScreen                              8907B  97 PC, low confidence
+; The network game list screen (TPB0-TPB5, SERVLIST)
 ;-----------------------------------------------------------------------------
-sub_8907B:
+NetworkGamesScreen:
         push ebx
         push ecx
         push edx
@@ -3341,11 +3395,17 @@ sub_8907B:
         ja near sub_8907B_B3D.25
         mov eax, dword [byte ebp-038h]
         jmp dword [nosplit cs:eax*4+jpt_89053]
+;-----------------------------------------------------------------------------
+; sub_8907B_646                                                   896C1  97 PC
+;-----------------------------------------------------------------------------
 sub_8907B_646:
         call sub_7EEB0
 .9:
         mov dword [byte ebp-04h], 1
         jmp near sub_8907B_8F6
+;-----------------------------------------------------------------------------
+; sub_8907B_657                                                   896D2  97 PC
+;-----------------------------------------------------------------------------
 sub_8907B_657:
         call sub_7EDF0
         cmp dword [byte ebp-03Ch], byte 0
@@ -3495,6 +3555,9 @@ sub_8907B_657:
 .20:
         call sub_83850
         jmp near sub_8907B_646.9
+;-----------------------------------------------------------------------------
+; sub_8907B_880                                                   898FB  97 PC
+;-----------------------------------------------------------------------------
 sub_8907B_880:
         push byte 0
         mov eax, 166h
@@ -3535,7 +3598,7 @@ sub_8907B_8F6:
         cmp eax, byte 0FFFFFFFFh
         jne near sub_8907B_B3D.30
         cmp dword [byte ebp-03Ch], byte 0Ah
-        jge near sub_8907B.7
+        jge near NetworkGamesScreen.7
         push byte 3
         lea eax, [byte ebp-038h]
         mov ebx, 0FFFFFFFFh
@@ -3544,7 +3607,10 @@ sub_8907B_8F6:
         mov eax, dword [byte ebp-03Ch]
         xor ecx, ecx
         add eax, byte 0Bh
-        jmp near sub_8907B.8
+        jmp near NetworkGamesScreen.8
+;-----------------------------------------------------------------------------
+; sub_8907B_92B                                                   899A6  97 PC
+;-----------------------------------------------------------------------------
 sub_8907B_92B:
         push asc_1654CA
         push dword [byte ebp-030h]
@@ -3579,6 +3645,9 @@ sub_8907B_92B:
         add esp, byte 8
         mov dword [dword ebp-0C4Ch], eax
         jmp near sub_8907B_8F6
+;-----------------------------------------------------------------------------
+; sub_8907B_9BB                                                   89A36  97 PC
+;-----------------------------------------------------------------------------
 sub_8907B_9BB:
         push asc_1654C0
         push dword [byte ebp-030h]
@@ -3602,6 +3671,9 @@ sub_8907B_9BB:
         add esp, byte 8
         push asc_1654CF
         jmp near sub_8907B_92B.22
+;-----------------------------------------------------------------------------
+; sub_8907B_A1E                                                   89A99  97 PC
+;-----------------------------------------------------------------------------
 sub_8907B_A1E:
         cmp dword [dword ebp-0144h], byte 0
         jle near sub_8907B_8F6
@@ -3635,6 +3707,9 @@ sub_8907B_A1E:
         xor edx, edx
         call DrawScrollBar
         jmp near sub_8907B_8F6
+;-----------------------------------------------------------------------------
+; sub_8907B_A96                                                   89B11  97 PC
+;-----------------------------------------------------------------------------
 sub_8907B_A96:
         lea eax, [dword ebp-0168h]
         xor edx, edx
@@ -3669,6 +3744,9 @@ sub_8907B_A96:
         mov eax, dword [dword ebp-0144h]
         mov dword [byte ebp-028h], eax
         jmp near sub_8907B_8F6
+;-----------------------------------------------------------------------------
+; sub_8907B_B19                                                   89B94  97 PC
+;-----------------------------------------------------------------------------
 sub_8907B_B19:
         mov eax, dword [byte ebp-03Ch]
         sub eax, byte 0Ah
@@ -3678,6 +3756,9 @@ sub_8907B_B19:
         xor edx, edx
         call sub_8DE68
         jmp near sub_8907B_A1E.23
+;-----------------------------------------------------------------------------
+; sub_8907B_B3D                                                   89BB8  97 PC
+;-----------------------------------------------------------------------------
 sub_8907B_B3D:
         mov dword [byte ebp-04h], 0
         jmp near sub_8907B_8F6
@@ -6322,28 +6403,33 @@ sub_8BA36:
         push dword [byte ebp-018h]
         jmp near sub_8A81B_2BB
 ;-----------------------------------------------------------------------------
-; sub_8BDCF                                                       8BDCF  97 PC
+; RunNetworkConnect                               8BDCF  97 PC, low confidence
+; From RunFrontEnd (18h): the network (IPX) game list first, then the modem
+; settings screen, until connected or back
 ;-----------------------------------------------------------------------------
-sub_8BDCF:
+RunNetworkConnect:
         push edx
         call sub_8BA36
         xor edx, edx
 .1:
         test edx, edx
         jne short sub_8BDCF_35
-        call sub_8907B
+        call NetworkGamesScreen
         mov edx, eax
         test eax, eax
         jne short .2
         call sub_8AAE5
         and byte [byte_1AC8C6], 0FEh
-        call sub_87B57
+        call ModemSettingsScreen
         mov edx, eax
 .2:
         test edx, edx
         jne short .1
         call sub_8B145
         jmp short .1
+;-----------------------------------------------------------------------------
+; sub_8BDCF_35                                                    8BE04  97 PC
+;-----------------------------------------------------------------------------
 sub_8BDCF_35:
         mov dword [dword_16CCFA], 0
         mov dword [dword_16CCFE], 0
@@ -6351,22 +6437,24 @@ sub_8BDCF_35:
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_8BE23                                                       8BE23  97 PC
+; RunModemConnect                                 8BE23  97 PC, low confidence
+; From RunFrontEnd: the modem settings screen first, then the network game
+; list, until connected or back
 ;-----------------------------------------------------------------------------
-sub_8BE23:
+RunModemConnect:
         push edx
         call sub_8A81B
         xor edx, edx
 .1:
         test edx, edx
         jne short sub_8BDCF_35
-        call sub_87B57
+        call ModemSettingsScreen
         mov edx, eax
         test eax, eax
         jne short .2
         call sub_8B145
         or byte [byte_1AC8C6], 1
-        call sub_8907B
+        call NetworkGamesScreen
         mov edx, eax
 .2:
         test edx, edx

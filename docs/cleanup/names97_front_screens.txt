@@ -29,3 +29,8 @@ sub_C48A2 OptionsScreen {confidence=low} the options screen (ON0%d / OF0%d toggl
 sub_F0339 ControlSetupScreen {source=96PC,confidence=low} 96 PC ControlSetupScreen: (mode) the control set-up screen (KMB%d keyboard / mouse buttons, TB00-TB03, GLW%d)
 sub_D3112 PreGameRostersScreen {confidence=low} game screen 13h before play: the home and visitor rosters ("hros" / "vros"), the "blurb" and the star players (STAR, FIR1, F%dP%d)
 sub_D1927 PreGameMatchupScreen {source=96PC,confidence=low} 96 PC PreGameMatchupScreen: game screen 14h before play: the matchup with the left / right team pictures (%03dL.FSH / %03dR.FSH), PANL, team and player stats
+sub_85D1D RunStatsMenu {source=96PC,confidence=medium} 96 PC RunStatsMenu: from the main menu (RunFrontEnd 2), the season menus and the play-offs: loads the season's stats and runs the stats screens
+sub_8BE23 RunModemConnect {confidence=low} from RunFrontEnd: the modem settings screen first, then the network game list, until connected or back
+sub_8BDCF RunNetworkConnect {confidence=low} from RunFrontEnd (18h): the network (IPX) game list first, then the modem settings screen, until connected or back
+sub_87B57 ModemSettingsScreen {source=96PC,confidence=low} 96 PC ModemSettingsScreen: the modem settings screen (CP00-CP10 buttons, "Generic Hayes-Compatible" default)
+sub_8907B NetworkGamesScreen {confidence=low} the network game list screen (TPB0-TPB5, SERVLIST)

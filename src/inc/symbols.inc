@@ -934,7 +934,7 @@
 ;  84954  sub_845E4_370                            front/front_845E4.asm                        1
 ;  84B55  MainMenuScreen                           front/front_845E4.asm                        1
 ;  85A15  RunGameScreens                           front/front_845E4.asm                        1
-;  85D1D  sub_85D1D                                front/front_845E4.asm                        3
+;  85D1D  RunStatsMenu                             front/front_845E4.asm                        3
 ;  86300  NameIndexNew                             front/front_845E4.asm                        6
 ;  86368  NameIndexLoad                            front/front_845E4.asm                        6
 ;  86424  NameIndexSave                            front/front_845E4.asm                        3
@@ -947,8 +947,8 @@
 ;  867F0  sub_867F0                                front/front_845E4.asm                        1
 ;  86878  sub_86878                                front/front_845E4.asm                        1
 ;  86AFA  sub_86AFA                                front/front_868CD.asm                        1
-;  8BDCF  sub_8BDCF                                front/front_868CD.asm                        1
-;  8BE23  sub_8BE23                                front/front_868CD.asm                        1
+;  8BDCF  RunNetworkConnect                        front/front_868CD.asm                        1
+;  8BE23  RunModemConnect                          front/front_868CD.asm                        1
 ;  8BE60  sub_8BE60                                front/front_868CD.asm                        4
 ;  8BEF8  sub_8BEF8                                front/front_868CD.asm                        4
 ;  8BF54  InitMenuItems                            front/front_868CD.asm                        26

@@ -23,7 +23,7 @@ extern sub_101390, sub_1013AC, sub_1013CC, sub_1013FC, sub_101429, sub_102C30, s
 extern sub_11B0D0, sub_13C164, sub_3812E, sub_415A0, sub_419B0, sub_419B8, StopAllSfx, PlaySfx
 extern MakeDirPath, LoadDataFile, sub_7A9D8, sub_7BB27, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70
 extern SetRegionRect, sub_7F0D8, DrawTextAligned, sub_7F5A4, sub_7FE38, sub_80AB8, sub_80BBC, sub_81650
-extern sub_81678, sub_81D1C, sub_835BC, sub_83C08, sub_85D1D, NameIndexNew, NameIndexLoad, NameIndexFree
+extern sub_81678, sub_81D1C, sub_835BC, sub_83C08, RunStatsMenu, NameIndexNew, NameIndexLoad, NameIndexFree
 extern sub_86500, sub_867D4, InitMenuItems, sub_8BFAC, sub_8DBAC, sub_8DE10, DrawScrollBar, sub_8DE68
 extern sub_8DE7E, sub_8DEAC, GetLangText, PlayoffTreeScreen, AllocCrusherBuffers, sub_A2F31, sub_A2F52, sub_A2F78
 extern sub_A3048, sub_A3116, sub_C6064, RosterScreen, sub_D49BE, sub_DA7D6, sub_DB75E, sub_DB763
@@ -1711,7 +1711,7 @@ RunSeasonMenus:
 .11:
         mov edx, 0Ch
         mov byte [byte_16CCF0], 0
-        call sub_85D1D
+        call RunStatsMenu
         jmp short .7
 .12:
         call sub_3812E

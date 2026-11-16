@@ -190,12 +190,17 @@ address,name,auto_name,source,confidence,evidence,file
 7FEC4,EditText,sub_7FEC4,96PC,medium,"NHL96PC EditText 197ED: same 394h text buffer, eax/edx/ebx/ecx + stack args, reads keys (sub_FBE40) and handles backspace/enter; called by every name entry through sub_7FE38/sub_7FE4C",src/front/main/main.asm
 84B55,MainMenuScreen,sub_84B55,96PC,medium,"96 PC MainMenuScreen: the main menu (""menu"", MB01-MB11 buttons, PIC%d%c pictures); checks which of EXHIBIT / SEASON / PLAYOFF.NDX exist; returns the next screen",src/front/front_845E4.asm
 85A15,RunGameScreens,sub_85A15,new,low,"(screen): from RunFrontEnd, runs the game set-up screens by number (team select 4, pick saves 5/7/9, new season 6, new play-offs 8, season 0Ch, play-offs 0Dh, edit lines 0Fh/10h, play 15h, post-game 16h/17h, roster 19h) until one returns to the main menu",src/front/front_845E4.asm
+85D1D,RunStatsMenu,sub_85D1D,96PC,medium,"96 PC RunStatsMenu: from the main menu (RunFrontEnd 2), the season menus and the play-offs: loads the season's stats and runs the stats screens",src/front/front_845E4.asm
 86300,NameIndexNew,sub_86300,96PC,medium,NHL96PC 19384 (similar 0.93): mnemonic similarity 0.93 over 34 instructions,src/front/front_845E4.asm
 86368,NameIndexLoad,sub_86368,96PC,medium,NHL96PC 193E8 (sem 1.00): C:2120; C:1834; C:2265; C:1833,src/front/front_845E4.asm
 86424,NameIndexSave,sub_86424,96PC,medium,NHL96PC 19491 (sem 1.00): C:2514; R:1135; C:1834; C:2265,src/front/front_845E4.asm
 864C4,NameIndexFree,sub_864C4,96PC,medium,NHL96PC 19522 (similar 0.82): mnemonic similarity 0.82 over 25 instructions,src/front/front_845E4.asm
 86644,NameIndexRemove,sub_86644,96PC,medium,NHL96PC 19659 (sem 1.00): S:NAMEINDEX; D:165310; K:2C093; C:1858,src/front/front_845E4.asm
 86754,NameIndexPath,sub_86754,96PC,medium,NHL96PC 19731 (sem 0.94): D:16531C; C:1834; C:2265; C:1833,src/front/front_845E4.asm
+87B57,ModemSettingsScreen,sub_87B57,96PC,low,"96 PC ModemSettingsScreen: the modem settings screen (CP00-CP10 buttons, ""Generic Hayes-Compatible"" default)",src/front/front_868CD.asm
+8907B,NetworkGamesScreen,sub_8907B,new,low,"the network game list screen (TPB0-TPB5, SERVLIST)",src/front/front_868CD.asm
+8BDCF,RunNetworkConnect,sub_8BDCF,new,low,"from RunFrontEnd (18h): the network (IPX) game list first, then the modem settings screen, until connected or back",src/front/front_868CD.asm
+8BE23,RunModemConnect,sub_8BE23,new,low,"from RunFrontEnd: the modem settings screen first, then the network game list, until connected or back",src/front/front_868CD.asm
 8BF54,InitMenuItems,sub_8BF54,96PC,medium,NHL96PC 64721 (similar 0.81): mnemonic similarity 0.81 over 32 instructions,src/front/front_868CD.asm
 8DE19,DrawScrollBar,sub_8DE19,96PC,medium,"96 PC DrawScrollBar, same structure",src/front/front_8BFAC.asm
 8DE9D,SetScrollBarPos,sub_8DE9D,96PC,low,"96 PC SetScrollBarPos, the call after DrawScrollBar at the same places",src/front/front_8BFAC.asm

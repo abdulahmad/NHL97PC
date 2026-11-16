@@ -23,7 +23,7 @@ extern sub_101324, sub_101340, sub_101390, sub_1013AC, sub_1013CC, sub_1013FC, s
 extern sub_11A318, sub_11B094, sub_11B0D0, sub_13C164, sub_3812E, sub_415A0, sub_415F8, sub_419B0
 extern sub_419B8, StopAllSfx, PlaySfx, MakeDirPath, LoadDataFileLib, LoadDataFile, sub_7E860, sub_7EDF0
 extern sub_7EEB0, sub_7EF70, SetRegionRect, sub_7F0D8, DrawTextAligned, sub_7F5A4, sub_7FE38, sub_80B28
-extern sub_80BBC, sub_81650, sub_81678, sub_81D1C, sub_83C08, sub_85D1D, NameIndexNew, NameIndexLoad
+extern sub_80BBC, sub_81650, sub_81678, sub_81D1C, sub_83C08, RunStatsMenu, NameIndexNew, NameIndexLoad
 extern NameIndexFree, sub_86500, sub_867D4, InitMenuItems, sub_8BFAC, sub_8DF1F, GetLangText, StandingsScreen
 extern sub_9279A, sub_9281C, sub_92FE9, sub_C6064, RosterScreen, sub_DB75E, sub_DB763, sub_DC653
 extern sub_DCFA4, sub_DD2DE, sub_DD61F, sub_DE3CF, sub_DE5A3, sub_E036F, sub_E0415, sub_E0B75
@@ -2090,7 +2090,7 @@ RunPlayoffMenus:
         jmp short .5
 .7:
         mov byte [byte_16CCF0], 0
-        call sub_85D1D
+        call RunStatsMenu
         jmp short .4
 .8:
         call StandingsScreen

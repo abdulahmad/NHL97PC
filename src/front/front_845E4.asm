@@ -34,7 +34,7 @@ global sub_845E4_370, sub_845E4_50B, sub_84B55_911, sub_84B55_999, sub_84B55_A17
 global sub_84B55_A68, sub_84B55_A79, sub_84B55_A82, sub_84B55_A94, sub_84B55_A9D, sub_84B55_AAF, sub_84B55_AB8, sub_84B55_BA5
 global sub_84B55_BBD, sub_84B55_BC6, sub_84B55_BD5, sub_84B55_BDE, sub_84B55_BED, sub_84B55_BF6, sub_84B55_C76, sub_84B55_CFF
 global sub_84B55_DDB, sub_84B55_DF1, sub_85D1D_6E, sub_85D1D_82, sub_85D1D_9E, sub_85D1D_A5, sub_85D1D_AC, sub_85D1D_B3
-global sub_85D1D_BA, sub_85D1D_C1, sub_845E4, MainMenuScreen, RunGameScreens, sub_85D1D, sub_85E1E, NameIndexNew
+global sub_85D1D_BA, sub_85D1D_C1, sub_845E4, MainMenuScreen, RunGameScreens, RunStatsMenu, sub_85E1E, NameIndexNew
 global NameIndexLoad, NameIndexSave, NameIndexFree, sub_86500, NameIndexRemove, sub_86718, NameIndexPath, sub_867D4
 global sub_867F0, sub_86878
 ;-----------------------------------------------------------------------------
@@ -1803,9 +1803,11 @@ jpt_85CFD:
         dd sub_85D1D_B3
         dd sub_85D1D_9E
 ;-----------------------------------------------------------------------------
-; sub_85D1D                                                       85D1D  97 PC
+; RunStatsMenu                                 85D1D  96 PC, medium confidence
+; From the main menu, the season menus and the play-offs: runs the team stats
+; and player stats screens, frees their tables after
 ;-----------------------------------------------------------------------------
-sub_85D1D:
+RunStatsMenu:
         push ebx
         push ecx
         push edx
@@ -1837,6 +1839,9 @@ sub_85D1D:
         call sub_DB75E
         and byte [dword_1AC814], 8Fh
         jmp short sub_85D1D_82.4
+;-----------------------------------------------------------------------------
+; sub_85D1D_6E                                                    85D8B  97 PC
+;-----------------------------------------------------------------------------
 sub_85D1D_6E:
         call sub_85E1E
         mov ebx, eax
@@ -1847,6 +1852,9 @@ sub_85D1D_6E:
 .2:
         mov esi, eax
         jmp short sub_85D1D_82.4
+;-----------------------------------------------------------------------------
+; sub_85D1D_82                                                    85D9F  97 PC
+;-----------------------------------------------------------------------------
 sub_85D1D_82:
         call sub_ADBE6
 .3:
@@ -1858,21 +1866,39 @@ sub_85D1D_82:
         cmp eax, byte 7
         ja short .4
         jmp dword [nosplit cs:eax*4+jpt_85CFD]
+;-----------------------------------------------------------------------------
+; sub_85D1D_9E                                                    85DBB  97 PC
+;-----------------------------------------------------------------------------
 sub_85D1D_9E:
         call sub_AF074
         jmp short sub_85D1D_82.3
+;-----------------------------------------------------------------------------
+; sub_85D1D_A5                                                    85DC2  97 PC
+;-----------------------------------------------------------------------------
 sub_85D1D_A5:
         call sub_C0F5D
         jmp short sub_85D1D_82.3
+;-----------------------------------------------------------------------------
+; sub_85D1D_AC                                                    85DC9  97 PC
+;-----------------------------------------------------------------------------
 sub_85D1D_AC:
         call sub_B5891
         jmp short sub_85D1D_82.3
+;-----------------------------------------------------------------------------
+; sub_85D1D_B3                                                    85DD0  97 PC
+;-----------------------------------------------------------------------------
 sub_85D1D_B3:
         call sub_BD621
         jmp short sub_85D1D_82.3
+;-----------------------------------------------------------------------------
+; sub_85D1D_BA                                                    85DD7  97 PC
+;-----------------------------------------------------------------------------
 sub_85D1D_BA:
         call sub_B418C
         jmp short sub_85D1D_82.3
+;-----------------------------------------------------------------------------
+; sub_85D1D_C1                                                    85DDE  97 PC
+;-----------------------------------------------------------------------------
 sub_85D1D_C1:
         movzx ebx, byte [byte_16CCF0]
         xor edx, edx
