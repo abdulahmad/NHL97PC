@@ -79,7 +79,7 @@ extern MusicStreamTick, WaitMusicEnd, ServiceSpeechQueue, sub_480CC, sub_4880C, 
 extern LoadRinkLines, LoadRinkModel, FreeRinkModel, sub_5475C, sub_55110, sub_55FE4, sub_560AC, sub_56464
 extern sub_56740, LoadGoalieMask, LoadGameModels, SetupTeamModels, FreeGameModels, UpdateViewMatrix, ScaleModelLods, SetModelExtraFlags
 extern DrawPlayersSorted, DrawIceMarkers, DrawPlayerNames, DrawPuckArrow, NoOpDraw, ReplaySoundAllowed, ProjectRinkPoints, LoadAiIcons
-extern FreeCameraDebug, PlayMovie, sub_842F4, ClearLinkAbort, ServiceIdle, AllocMemBlock, FreeMemBlock, ZeroMem
+extern FreeCameraDebug, PlayMovie, ShowLoadingBar, ClearLinkAbort, ServiceIdle, AllocMemBlock, FreeMemBlock, ZeroMem
 extern WaitTicks, sub_FC330, sub_FC410, sub_FC4BC, sub_FCC40, sub_FD954, DrawTextAt, SetTextColors
 extern IntsToFloats, FloatsToInts, ScaleFloatsToInts, VecMulMat, TransformVecs, VecAdd, AddVecs, VecDistance
 extern SetViewScale, ProjectCoord, ProjectCoordInt, ProjectPoints, ProjectPointsWithZ, ProjectPointsToScreen, tickcount, unk_1611B4
@@ -3681,7 +3681,7 @@ InitGameGraphics:
         xor edx, edx
         mov eax, 3Ch
         mov dword [dword_1ADC84], edx
-        call sub_842F4
+        call ShowLoadingBar
         call ServiceIdle
         call InitPaletteManager
         mov eax, str_Render
@@ -3703,14 +3703,14 @@ InitGameGraphics:
         call AddPaletteRange
         mov dword [dword_1ADC94], eax
         mov eax, 41h
-        call sub_842F4
+        call ShowLoadingBar
         mov edx, dword [byte ebp+03Ch]
         mov eax, dword [byte ebp+038h]
         call LoadRinkModel
         mov eax, 0FFFFFFFFh
         call OpenArenaArchive
         mov eax, 46h
-        call sub_842F4
+        call ShowLoadingBar
         call ServiceIdle
         push dword 0FF000000h
         call sub_FC4BC
@@ -3732,14 +3732,14 @@ InitGameGraphics:
         mov eax, dword [byte ebp+02Ch]
         call LoadGameModels
         mov eax, 4Bh
-        call sub_842F4
+        call ShowLoadingBar
         call ServiceIdle
         mov edx, dword [dword_16AF34]
         xor eax, eax
         call LoadGoalieMask
         call ServiceIdle
         mov eax, 50h
-        call sub_842F4
+        call ShowLoadingBar
         mov eax, 1
         mov edx, dword [dword_16AF38]
         call LoadGoalieMask
@@ -3779,7 +3779,7 @@ InitGameGraphics:
         mov eax, str_Puck
         call AddModelName
         mov eax, 55h
-        call sub_842F4
+        call ShowLoadingBar
         call ServiceIdle
         call QuantizeAllRanges
         mov eax, 0FFh
@@ -3788,7 +3788,7 @@ InitGameGraphics:
         call LoadRinkLines
         mov eax, 5Ah
         xor edx, edx
-        call sub_842F4
+        call ShowLoadingBar
         call LoadAiIcons
         call InitCamera
         mov eax, 19h
@@ -3799,7 +3799,7 @@ InitGameGraphics:
         call ServiceIdle
         mov eax, 5Fh
         mov edi, 0FFFFFFFFh
-        call sub_842F4
+        call ShowLoadingBar
         mov dword [dword_16AF30], edi
         add esp, byte 0Ch
         pop ebp

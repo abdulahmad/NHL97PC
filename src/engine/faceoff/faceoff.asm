@@ -30,7 +30,7 @@ extern SetCrowdMood, CommentaryEvent, LoadDataFileLib, LoadDataFile, InitGameGra
 extern DrawGameFrame, RedrawGameView, TriggerCameraFlashes, PeriodOver, sub_52E28, sub_55000, FreeReplayBuffer, ResetReplayBuffer
 extern InitReplayBuffer, ReplayHasFrames, ReplayFreeFrames, ReplayRecordTick, ReplayPauseRecording, ReplayRecordFinal, ReplaySetupObjects, UpdateGameDisplay
 extern InitAnimPoints, FreeAnimTables, UpdateAllPoses, SetAnimClock, FreeAnimStates, AllocAnimStates, GameOver, CheckIntermission
-extern DoGameFrame, SetTextColor, sub_81678, ShowLoadingScreen, sub_842E8, sub_842F4, LoadLangText, FreeLangText
+extern DoGameFrame, SetTextColor, SetNormalText, ShowLoadingScreen, ClearMenuGameFlag, ShowLoadingBar, LoadLangText, FreeLangText
 extern sub_AA498, LoadGameLogos, sub_AB0A6, sub_B2F49, RunReplay, FadeOut, OpenGameDatabase, CloseGameDatabase
 extern LoadExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, PickDemoTeams, StartInputRecording, ResetInputState, IsInputRecording, StopInputRecording
 extern InputRecordAvail, TakeInputRecord, ServiceIdle, LinkSyncGame, sub_F1FF8, sub_F207F, sub_F30A0, sub_F30D7
@@ -2946,7 +2946,7 @@ PlayGame:
         mov eax, 34h
         call AllocAnimStates
         mov eax, 3Ch
-        call sub_842F4
+        call ShowLoadingBar
         xor eax, eax
         call SetAnimClock
         xor eax, eax
@@ -2985,7 +2985,7 @@ PlayGame:
         mov eax, 0C350h
         call InitReplayBuffer
         mov eax, 64h
-        call sub_842F4
+        call ShowLoadingBar
         cmp dword [dword_16DA9C], byte 0
         je near .10
         mov eax, 2Eh
@@ -2996,7 +2996,7 @@ PlayGame:
         mov eax, 2Fh
         call LoadDataFileLib
         mov dword [dword_1C5EF4], eax
-        call sub_81678
+        call SetNormalText
         push byte 0FFFFFFFFh
         call sub_FC4BC
         add esp, byte 4
@@ -3035,7 +3035,7 @@ PlayGame:
         add esp, byte 4
         mov dword [dword_1C5EF4], ebx
 .10:
-        call sub_842E8
+        call ClearMenuGameFlag
         call InitGameVideo
         call LoadGameLogos
         call SetGameBrightness
@@ -3266,7 +3266,7 @@ RunDemoGame:
         call CloseGameDatabase
         call InitGameAudio
         mov eax, 37h
-        call sub_842F4
+        call ShowLoadingBar
         xor eax, eax
         call PlayGame
         call sub_AB0A6

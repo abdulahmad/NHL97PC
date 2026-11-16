@@ -16,8 +16,8 @@ extern str_CRD2, str_Nhll, str_Nhlp, str_Pl0, str_Pl1, strlen_, sub_1008CC, Blit
 extern BlitArt, BlitShape, sub_1013FC, FindShape, sub_101584, sub_103298, IsKeyDown, ConvertArtXY
 extern sub_11BED4, SetScreenTarget, WaitRetraceEdges, RunDemoGame, SecondsToSamples, WaitSoundTime, ChkMenuMusic, PauseMusic
 extern MusicPlaying, RequestMusicStop, WaitMusicEnd, ArenaFileName, StopAllSfx, PlaySfx, PlayScreenMovie, MakeDataPath
-extern LoadDataFile, sub_7E860, sub_7EDF0, SetRegionRect, SetTextColor, DrawTextAligned, sub_80BBC, sub_81650
-extern sub_81678, sub_81D1C, sub_823F0, sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, AllocClearBlock
+extern LoadDataFile, DrawScreenBackground, FadeInScreen, SetRegionRect, SetTextColor, DrawTextAligned, WipeScreen, SetHighlightText
+extern SetNormalText, DrawStatTable, DrawPortrait, ShowPopupScreen, InitMenuItems, sub_8BFAC, sub_8DF1F, AllocClearBlock
 extern FreePtr, CopyBytesOk, CopyAndClear, ZeroBytesOk, CompareKeyBytes, FileCreate, FileOpen, FileSeek
 extern FileReadRecord, FileWriteRecord, FileClose, ServiceIdle, sub_F9496, sub_F94BC, AllocMemBlock, FreeMemBlock
 extern sub_FBE40, sub_FBE5D, sub_FC330, MakeColor, FreeBitmap, sub_FCEEC, sub_FCF84, DrawArt
@@ -139,7 +139,7 @@ GoalieMaskIntro:
         mov eax, dword [byte esp+010h]
         xor edx, edx
         mov eax, dword [byte eax+02Ch]
-        call sub_80BBC
+        call WipeScreen
         mov edx, dword [byte esp+010h]
         push edx
         call FreeBitmap
@@ -870,7 +870,7 @@ GoalieMaskScreen:
         mov ecx, ebp
         mov edx, esi
         mov ebx, dword [dword esp+0564h]
-        call sub_823F0
+        call DrawPortrait
         call SetScreenTarget
         mov eax, dword [byte edi+02Ch]
         push eax
@@ -1007,7 +1007,7 @@ GoalieMaskScreen:
         add esp, byte 8
         mov edx, esi
         mov ecx, 14h
-        call sub_7E860
+        call DrawScreenBackground
         mov eax, esp
         mov ebx, str_BB00
         mov esi, unk_1C5F4A
@@ -1020,7 +1020,7 @@ GoalieMaskScreen:
         mov eax, unk_1CCF4A
         mov dword [dword_1CCEF8], edx
         mov edx, dword [dword esp+0574h]
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [byte esp+040h]
         push eax
         mov ecx, str_BB05
@@ -1028,7 +1028,7 @@ GoalieMaskScreen:
         push str_BB04
         mov edx, dword [dword esp+0574h]
         mov eax, unk_1CCF9C
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword esp+080h]
         push eax
         mov ecx, str_BB09
@@ -1036,7 +1036,7 @@ GoalieMaskScreen:
         push str_BB08
         mov edx, dword [dword esp+0574h]
         mov eax, unk_1CCFEE
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword esp+0C0h]
         push eax
         mov ecx, str_AB014
@@ -1044,7 +1044,7 @@ GoalieMaskScreen:
         push str_AB024
         mov edx, dword [dword esp+0568h]
         mov eax, unk_1CD040
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword esp+0100h]
         push eax
         mov ecx, str_AB044
@@ -1052,7 +1052,7 @@ GoalieMaskScreen:
         push str_AB054
         mov edx, dword [dword esp+0568h]
         mov eax, unk_1CD092
-        call sub_81D1C
+        call DrawStatTable
         mov eax, dword [dword esp+0468h]
         mov dword [dword_1CD0FE], eax
         mov eax, dword [dword esp+03ECh]
@@ -1097,13 +1097,13 @@ GoalieMaskScreen:
         jmp dword [nosplit cs:eax*4+jpt_D5460]
 GoalieMaskScreen_715:
         mov ecx, 1
-        call sub_7EDF0
+        call FadeInScreen
         mov dword [dword esp+0578h], ecx
         jmp near GoalieMaskScreen_FF0.13
 GoalieMaskScreen_72B:
         mov eax, unk_1CCF4A
         mov ebx, dword [dword esp+0568h]
-        call sub_83C08
+        call ShowPopupScreen
         push ebx
         call SetDrawTarget
         add esp, byte 4
@@ -1204,7 +1204,7 @@ GoalieMaskScreen_72B:
         mov ecx, ebx
         mov edx, edi
         mov ebx, esi
-        call sub_823F0
+        call DrawPortrait
         call SetScreenTarget
         mov eax, dword [dword esp+0568h]
         mov edx, dword [byte eax+02Ch]
@@ -1215,7 +1215,7 @@ GoalieMaskScreen_72B:
 GoalieMaskScreen_89F:
         mov eax, unk_1CCF9C
         mov ecx, dword [dword esp+0568h]
-        call sub_83C08
+        call ShowPopupScreen
         push ecx
         call SetDrawTarget
         add esp, byte 4
@@ -1316,7 +1316,7 @@ GoalieMaskScreen_89F:
         mov ecx, ebx
         mov edx, esi
         mov ebx, edi
-        call sub_823F0
+        call DrawPortrait
         call SetScreenTarget
         mov eax, dword [dword esp+0568h]
         mov edx, dword [byte eax+02Ch]
@@ -1326,7 +1326,7 @@ GoalieMaskScreen_89F:
         jmp near GoalieMaskScreen_FF0.12
 GoalieMaskScreen_A13:
         mov eax, unk_1CCFEE
-        call sub_83C08
+        call ShowPopupScreen
         mov eax, dword [dword esp+0568h]
         push eax
         call SetDrawTarget
@@ -1429,7 +1429,7 @@ GoalieMaskScreen_A13:
         mov ecx, ebx
         mov edx, esi
         mov ebx, edi
-        call sub_823F0
+        call DrawPortrait
         call SetScreenTarget
         mov eax, dword [dword esp+0568h]
         mov ebx, dword [byte eax+02Ch]
@@ -1583,7 +1583,7 @@ GoalieMaskScreen_B89:
         add esp, byte 8
         mov edx, edi
         mov ecx, dword [dword esp+0564h]
-        call sub_823F0
+        call DrawPortrait
         call SetScreenTarget
         mov eax, dword [dword esp+0568h]
         mov esi, dword [byte eax+02Ch]
@@ -1741,7 +1741,7 @@ GoalieMaskScreen_DBB:
         mov ecx, ebx
         mov edx, edi
         mov ebx, dword [dword esp+0564h]
-        call sub_823F0
+        call DrawPortrait
         call SetScreenTarget
         mov eax, dword [dword esp+0568h]
         mov edx, dword [byte eax+02Ch]
@@ -1914,7 +1914,7 @@ GoalieMaskScreen_FF0:
         mov ecx, ebx
         mov edx, edi
         mov ebx, dword [dword esp+0564h]
-        call sub_823F0
+        call DrawPortrait
         call SetScreenTarget
         mov eax, dword [dword esp+0568h]
         mov ebx, dword [byte eax+02Ch]
@@ -3040,10 +3040,10 @@ CreditsScreen:
         call SetScreenTarget
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte esi+02Ch]
-        call sub_80BBC
+        call WipeScreen
         call sub_1013FC
 .3:
-        call sub_81650
+        call SetHighlightText
         push byte 0
         push byte 32h
         push byte 32h
@@ -3163,7 +3163,7 @@ CreditsScreen:
         call SetScreenTarget
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte ebx+02Ch]
-        call sub_80BBC
+        call WipeScreen
         call sub_1013FC
         push ebx
         call FreeBitmap
@@ -3213,7 +3213,7 @@ CreditsScreen:
         add esp, byte 4
         mov dword [dword_1CCEE8], esi
         mov dword [dword_1CCEEC], esi
-        call sub_81650
+        call SetHighlightText
         push str_CRD2
         mov ebp, dword [dword esp+06B5Ch]
         xor bh, bh
@@ -3381,7 +3381,7 @@ CreditsScreen:
         call FindShape
         add esp, byte 8
         mov edx, esi
-        call sub_7E860
+        call DrawScreenBackground
         cmp word [dword esp+06B70h], byte 0
         jne near .23
         lea edx, [byte ebp-01h]
@@ -3425,7 +3425,7 @@ CreditsScreen:
         je near .18
 .23:
         call sub_1013FC
-        call sub_81678
+        call SetNormalText
         push edi
         call FreeBitmap
         add esp, byte 4

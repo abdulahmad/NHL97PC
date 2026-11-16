@@ -19,8 +19,8 @@ extern str_NAMEINDEX, str_backslash3, strcat_, strcmp_, strcpy_, strlen_, bcopy,
 extern BlitShape2, BlitArt, BlitShape, sub_1013FC, FindShape, sub_101584, sub_102B94, Random32
 extern sub_106DA0, sub_10AED0, sub_110D70, ConvertArtXY, FindShapeList, sub_11B104, SetScreenTarget, SecondsToSamples
 extern WaitSoundTime, ChkMenuMusic, PauseMusic, RequestMusicStop, WaitMusicEnd, ArenaFileName, PlayMenuSfx, StopAllSfx
-extern PlaySfx, MakeDataPath, LoadDataFile, OpenDataLibrary, sub_7DA28, sub_7E52C, sub_7E860, sub_7EDF0
-extern sub_7EEB0, sub_7EF70, SetRegionRect, sub_7F5A4, sub_80BBC, sub_81468, sub_81D1C, sub_83C08
+extern PlaySfx, MakeDataPath, LoadDataFile, OpenDataLibrary, ShadeShape, DrawShadowBox, DrawScreenBackground, FadeInScreen
+extern ShowScreen, ExitScreen, SetRegionRect, ShowMessageBox, WipeScreen, DrawEntryRow, DrawStatTable, ShowPopupScreen
 extern InitMenuItems, sub_8BFAC, sub_8D6E8, sub_8D910, sub_8E2EE, GetLangText, RunNewSeason, RunSeasonMenus
 extern sub_9279A, RunNewPlayoffs, RunPlayoffMenus, EditLinesScreen, TeamSelectScreen, PickIndexEntryScreen, sub_A4B7D, PostGameScreen
 extern GameStatsScreen, PlayMenuGame, sub_AC369, TeamStatsScreen, sub_AF074, sub_B418C, PlayerStatsScreen, PlayerRatingsScreen
@@ -384,7 +384,7 @@ sub_845E4_370:
         push ebx
         mov edx, dword [byte edx+02Ch]
         mov ebx, 10h
-        call sub_7DA28
+        call ShadeShape
         call SetScreenTarget
         push byte 46h
         mov eax, dword [dword_1C8330]
@@ -735,7 +735,7 @@ MainMenuScreen:
         add esp, byte 4
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte edi+02Ch]
-        call sub_80BBC
+        call WipeScreen
         push edi
         call FreeBitmap
         add esp, byte 4
@@ -763,7 +763,7 @@ MainMenuScreen:
         add esp, byte 8
         mov edx, eax
         mov ecx, 52h
-        call sub_7E860
+        call DrawScreenBackground
         mov edi, dword [dword_1C8320]
         rep movsb
         mov eax, dword [dword_1C8320]
@@ -793,7 +793,7 @@ MainMenuScreen:
         mov eax, dword [dword_1C8320]
         mov ebx, ecx
         add eax, 0A4h
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-0176h]
         push eax
         mov ecx, str_LB07
@@ -802,7 +802,7 @@ MainMenuScreen:
         mov eax, dword [dword_1C8320]
         mov ebx, ecx
         add eax, 0F6h
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-0136h]
         push eax
         mov ecx, str_MB01
@@ -811,7 +811,7 @@ MainMenuScreen:
         mov eax, dword [dword_1C8320]
         mov edx, dword [byte ebp+076h]
         add eax, 148h
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-0F6h]
         push eax
         mov ecx, str_MB05
@@ -820,7 +820,7 @@ MainMenuScreen:
         mov eax, dword [dword_1C8320]
         mov edx, dword [byte ebp+076h]
         add eax, 19Ah
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-0B6h]
         push eax
         mov ecx, str_MB09
@@ -829,7 +829,7 @@ MainMenuScreen:
         mov eax, dword [dword_1C8320]
         mov edx, dword [byte ebp+076h]
         add eax, 1ECh
-        call sub_81D1C
+        call DrawStatTable
         mov eax, dword [byte ebp+07Ah]
         push byte 0
         movsx eax, word [byte eax+06h]
@@ -1072,7 +1072,7 @@ MainMenuScreen:
         mov dword [dword_1C82A4], eax
         jmp near MainMenuScreen_CFF.48
 MainMenuScreen_911:
-        call sub_7EEB0
+        call ShowScreen
         cmp dword [dword_16DA9C], byte 0
         je near MainMenuScreen_999.27
         push byte 1
@@ -1081,7 +1081,7 @@ MainMenuScreen_911:
         mov edx, 2
         xor ebx, ebx
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
         test eax, eax
         je short MainMenuScreen_999
         call ClearLinkAbort
@@ -1136,7 +1136,7 @@ MainMenuScreen_999:
         mov eax, 201h
         xor ecx, ecx
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
         cmp ax, 3
         ja near MainMenuScreen_CFF.48
         movzx eax, ax
@@ -1151,7 +1151,7 @@ MainMenuScreen_A2F:
         mov dword [byte ebp+07Eh], 0
         jmp near MainMenuScreen_CFF.48
 MainMenuScreen_A3B:
-        call sub_7EDF0
+        call FadeInScreen
         mov edx, dword [dword_16CCC4]
         cmp edx, byte 5
         ja near MainMenuScreen_CFF.48
@@ -1329,7 +1329,7 @@ MainMenuScreen_BF6:
 MainMenuScreen_C76:
         mov eax, dword [dword_1C8320]
         add eax, 148h
-        call sub_83C08
+        call ShowPopupScreen
         cmp dword [dword_16DA9C], byte 0
         je short .44
         push byte 1
@@ -1338,7 +1338,7 @@ MainMenuScreen_C76:
         mov edx, 2
         xor ebx, ebx
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
         test eax, eax
         je short .43
         call ClearLinkAbort
@@ -1368,7 +1368,7 @@ MainMenuScreen_CFF:
         add eax, 19Ah
         mov dword [byte ebp+07Eh], 2
 .47:
-        call sub_83C08
+        call ShowPopupScreen
 .48:
         cmp dword [byte ebp+04Eh], byte 2
         je short .49
@@ -1420,7 +1420,7 @@ MainMenuScreen_DDB:
         mov dword [byte ebp+07Eh], 0Ah
         jmp near MainMenuScreen_CFF.47
 MainMenuScreen_DF1:
-        call sub_7EF70
+        call ExitScreen
         mov dword [byte ebp+04Eh], 2
         jmp near MainMenuScreen_CFF.48
 .50:
@@ -1890,7 +1890,7 @@ sub_85E1E:
         mov edx, 10h
         xor ebx, ebx
         mov dword [byte ebp+076h], 0FFFFFFFFh
-        call sub_7E52C
+        call DrawShadowBox
         cmp dword [dword_16CCF1], byte 0
         jne short .1
         push byte 0
@@ -1949,7 +1949,7 @@ sub_85E1E:
         mov eax, dword [byte ebp+06Ah]
         lea edi, [dword ebp-0412h]
         mov esi, unk_1C5EF8
-        call sub_81468
+        call DrawEntryRow
         mov ecx, 52h
         lea eax, [dword ebp-0182h]
         mov edx, dword [byte ebp+072h]
@@ -1960,7 +1960,7 @@ sub_85E1E:
         lea eax, [dword ebp-03C0h]
         mov ebx, ecx
         mov dword [dword ebp-0412h], 0
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-0142h]
         push eax
         mov ecx, str_SY01
@@ -1968,7 +1968,7 @@ sub_85E1E:
         push str_SY01
         mov ebx, ecx
         lea eax, [dword ebp-036Eh]
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-0102h]
         push eax
         mov ecx, str_SY02
@@ -1976,7 +1976,7 @@ sub_85E1E:
         push str_SY02
         mov ebx, ecx
         lea eax, [dword ebp-031Ch]
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-0C2h]
         push eax
         mov ecx, str_SY03
@@ -1984,7 +1984,7 @@ sub_85E1E:
         push str_SY03
         mov ebx, ecx
         lea eax, [dword ebp-02CAh]
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-082h]
         push eax
         mov ecx, str_SY04
@@ -1992,7 +1992,7 @@ sub_85E1E:
         push str_SY04
         mov ebx, ecx
         lea eax, [dword ebp-0278h]
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [byte ebp-042h]
         push eax
         mov ecx, str_SY05
@@ -2000,7 +2000,7 @@ sub_85E1E:
         push str_SY05
         mov ebx, ecx
         lea eax, [dword ebp-0226h]
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [byte ebp-02h]
         push eax
         mov ecx, str_SY06
@@ -2008,7 +2008,7 @@ sub_85E1E:
         push str_SY06
         mov ebx, ecx
         lea eax, [dword ebp-01D4h]
-        call sub_81D1C
+        call DrawStatTable
         xor ebx, ebx
 .4:
         lea esi, [byte ebx+01h]
@@ -2142,7 +2142,7 @@ sub_85E1E:
         xor ecx, ecx
         xor ebx, ebx
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
 .13:
         cmp dword [byte ebp+076h], byte 6Ah
         jne near .5

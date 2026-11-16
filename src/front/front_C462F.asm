@@ -25,7 +25,7 @@ extern dword_1CB9B0, dword_1CB9FE, dword_1CBA02, dword_1CBA50, dword_1CBA54, dwo
 extern dword_1CBAF8, dword_1CBB46, dword_1CBB4A, dword_1CBB88, dword_1CBB8D, rand_, sprintf_, BlitShape2
 extern sub_1013FC, FindShape, sub_10FAC, ConvertArtXY, SetScreenTarget, SetMusicVolume, SetSfxVolume, SecondsToSamples
 extern WaitSoundTime, ChkMenuMusic, PauseMusic, RequestMusicStop, WaitMusicEnd, ArenaFileName, PlayMenuSfx, PlaySfx
-extern LoadDataFile, sub_7E860, sub_7EDF0, SetRegionRect, SetTextColor, DrawTextAligned, sub_80BBC, sub_83C08
+extern LoadDataFile, DrawScreenBackground, FadeInScreen, SetRegionRect, SetTextColor, DrawTextAligned, WipeScreen, ShowPopupScreen
 extern InitMenuItems, sub_8BFAC, DetailLevelScreen, FreeMemBlock, sub_FB4D4, MakeColor, FreeBitmap, sub_FCEEC
 extern DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, FillRectCorners, unk_166C97, unk_1C5F4A, unk_1CB148
 extern unk_1CB1EC, unk_1CB23E, word_1684BE
@@ -431,7 +431,7 @@ OptionsScreen:
         mov edx, ebx
         mov eax, ebx
         mov ecx, 52h
-        call sub_7E860
+        call DrawScreenBackground
         push str_MB003
         rep movsb
         push dword [byte ebp+06Eh]
@@ -1105,7 +1105,7 @@ OptionsScreen:
         mov eax, dword [byte ebp+05Eh]
         mov edx, 1
         mov eax, dword [byte eax+02Ch]
-        call sub_80BBC
+        call WipeScreen
         push dword [byte ebp+05Eh]
         call FreeBitmap
         add esp, byte 4
@@ -1152,13 +1152,13 @@ OptionsScreen:
         mov dword [dword_1CBB88], eax
         jmp near OptionsScreen_14BA
 OptionsScreen_F0A:
-        call sub_7EDF0
+        call FadeInScreen
         mov dword [byte ebp+07Ah], 1
         mov dword [byte ebp+066h], 1Ah
         jmp near OptionsScreen_14BA
 OptionsScreen_F22:
         mov eax, unk_1CB1EC
-        call sub_83C08
+        call ShowPopupScreen
         or byte [byte_1AC81A], 2
         and dword [dword_1AC819], 0FFFE03FFh
         or dword [dword_1AC819], 19000h
@@ -1255,13 +1255,13 @@ OptionsScreen_F22:
 OptionsScreen_10AA:
         mov eax, unk_1CB23E
         mov edx, dword [byte ebp+06Eh]
-        call sub_83C08
+        call ShowPopupScreen
         mov eax, dword [byte ebp+072h]
         mov ebx, dword [byte ebp+06Ah]
         call DetailLevelScreen
         mov edx, ebx
         mov eax, ebx
-        call sub_7E860
+        call DrawScreenBackground
         jmp near OptionsScreen_14BA
 OptionsScreen_10D0:
         test byte [byte_1AC81A], 2

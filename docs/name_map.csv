@@ -1128,12 +1128,71 @@ address,name,auto_name,source,confidence,evidence,file
 7CE9E,RunFrontEnd,sub_7CE9E,96PC,medium,"96 PC RunFrontEnd: the front end, from main_: picks the front-end music, shows the title, then runs the screen with the current number (main menu, game screens 4-9 through RunGameScreens, credits, ...) until quit",src/front/front_7A9D8.asm
 7CF94,TitleScreen,sub_7CF94,new,low,"the title screen at front-end start (BACK, LOGO) with its PA announcement",src/front/front_7A9D8.asm
 7D059,main_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+7D539,CheckDiskSpace,sub_7D539,new,low,checks the free space on the current drive,src/front/main/main.asm
+7D830,DrawShadedButton,sub_7D830,new,low,draws a button into a work bitmap with shading,src/front/main/main.asm
+7D92C,DrawShadedField,sub_7D92C,new,low,draws a text field into a work bitmap with shading,src/front/main/main.asm
+7DA28,ShadeShape,sub_7DA28,new,low,draws a shape darkened or lightened in high colour modes,src/front/main/main.asm
+7DFC0,DrawShadedLogo,sub_7DFC0,new,low,draws a logo with a shaded backing in high colour modes,src/front/main/main.asm
+7E52C,DrawShadowBox,sub_7E52C,new,low,darkens a box behind menu text in high colour modes,src/front/main/main.asm
+7E860,DrawScreenBackground,sub_7E860,new,low,draws a menu screen background and title bar,src/front/main/main.asm
+7EDF0,FadeInScreen,sub_7EDF0,new,low,copies the drawn screen to the display (fade in),src/front/main/main.asm
+7EEB0,ShowScreen,sub_7EEB0,new,low,copies the drawn screen to the display,src/front/main/main.asm
+7EF70,ExitScreen,sub_7EF70,new,low,leaves a menu screen with its sound and waits for the other computer,src/front/main/main.asm
 7F028,SetRegionRect,sub_7F028,new,low,"(region, x, y, w, h): stores the rectangle twice (x0, y0, x1, y1)",src/front/main/main.asm
+7F04C,DrawEditBox,sub_7F04C,new,low,draws the box of a text edit field,src/front/main/main.asm
 7F0D8,SetTextColor,sub_7F0D8,new,low,(pixel colour): builds the font colour tables (sub_FE180) for text drawn next with DrawTextAligned; cached on the last colour,src/front/main/main.asm
 7F16C,DrawTextAligned,sub_7F16C,new,low,"(align, x, y, ..., format, ...): sprintf-style text drawn left (0), centred (1) or right (2) of x",src/front/main/main.asm
+7F29C,DrawFrameBox,sub_7F29C,new,low,draws a framed box,src/front/main/main.asm
+7F5A4,ShowMessageBox,sub_7F5A4,new,low,shows a message box and waits for a key,src/front/main/main.asm
+7F5B8,ShowMessageBoxNoWait,sub_7F5B8,new,low,shows a message box,src/front/main/main.asm
+7F5CC,MessageBox,sub_7F5CC,new,low,draws and runs a message box,src/front/main/main.asm
+7FE38,EditTextField,sub_7FE38,new,low,edits a text field,src/front/main/main.asm
+7FE4C,EditFileName,sub_7FE4C,new,low,edits a file name field,src/front/main/main.asm
+7FE60,InitKeyCharMap,sub_7FE60,new,low,builds the key to character map used by text editing,src/front/main/main.asm
 7FEC4,EditText,sub_7FEC4,96PC,medium,"NHL96PC EditText 197ED: same 394h text buffer, eax/edx/ebx/ecx + stack args, reads keys (sub_FBE40) and handles backspace/enter; called by every name entry through sub_7FE38/sub_7FE4C",src/front/main/main.asm
 80758,LoadTeamLogo,sub_80758,new,low,"(team): frees the last one and loads a team's logo art (LOGO, unpacked into an ""UNPACKLOGO"" block)",src/front/main/main.asm
+80808,FreeLogoArt,sub_80808,new,low,frees the loaded logo art,src/front/main/main.asm
+80828,DrawTeamBanner,sub_80828,new,low,draws a team banner with its logo,src/front/main/main.asm
+80A38,DrawMatchBanner,sub_80A38,new,low,draws the banner for a match,src/front/main/main.asm
+80AB8,DrawTeamLogoBanner,sub_80AB8,new,low,loads a team logo and draws its banner,src/front/main/main.asm
+80B28,DrawProgressBar,sub_80B28,new,low,draws a progress bar,src/front/main/main.asm
+80BBC,WipeScreen,sub_80BBC,new,low,plays the screen change sound and wipes to the new screen,src/front/main/main.asm
+80F48,DrawRosterPanelBox,sub_80F48,new,low,draws a roster panel box,src/front/main/main.asm
+81114,DrawEntryList,sub_81114,new,low,draws a list of entries,src/front/main/main.asm
+81468,DrawEntryRow,sub_81468,new,low,draws one entry row,src/front/main/main.asm
+815F8,FindColorRange,sub_815F8,new,low,finds the colour range that holds a colour,src/front/main/main.asm
+81650,SetHighlightText,sub_81650,new,low,sets the highlighted text colours,src/front/main/main.asm
+81678,SetNormalText,sub_81678,new,low,sets the normal text colours,src/front/main/main.asm
+816A4,PoundsToKg,sub_816A4,new,low,converts a weight in pounds to kilograms,src/front/main/main.asm
+816BC,InchesToCm,sub_816BC,new,low,converts a height in inches to centimetres,src/front/main/main.asm
+816E8,PlayerBioScreen,sub_816E8,new,low,shows a player's biography,src/front/main/main.asm
+81D1C,DrawStatTable,sub_81D1C,new,low,draws a table of stats,src/front/main/main.asm
+821CC,DrawPortraitRow,sub_821CC,new,low,draws one row of a portrait,src/front/main/main.asm
+823F0,DrawPortrait,sub_823F0,new,low,draws a portrait with its palette,src/front/main/main.asm
+82FB8,ShowStatScreen,sub_82FB8,new,low,copies a stats screen to the display,src/front/main/main.asm
+830D4,DrawStatHeader,sub_830D4,new,low,draws the header of a stats table,src/front/main/main.asm
+83314,ShowWorkingBox,sub_83314,new,low,"shows the ""working"" box",src/front/main/main.asm
+83334,DrawWorkingBox,sub_83334,new,low,"draws the ""working"" box",src/front/main/main.asm
+834EC,UpdateWorkingBox,sub_834EC,new,low,"updates the progress bar of the ""working"" box",src/front/main/main.asm
+83558,HideWorkingBox,sub_83558,new,low,"hides the ""working"" box",src/front/main/main.asm
+835AC,ShowLinkWait,sub_835AC,new,low,shows the link waiting box,src/front/main/main.asm
+835BC,ShowLinkMessage,sub_835BC,new,low,shows a link message box,src/front/main/main.asm
+835CC,DrawLinkBox,sub_835CC,new,low,draws a link message box,src/front/main/main.asm
+83850,HideLinkBox,sub_83850,new,low,hides the link message box,src/front/main/main.asm
+838A8,DrawHighlightBar,sub_838A8,new,low,draws a highlight bar in high colour modes,src/front/main/main.asm
+83BF4,WaitShortDelay,sub_83BF4,new,low,waits ten timer ticks,src/front/main/main.asm
+83C08,ShowPopupScreen,sub_83C08,new,low,shows a popup screen with a sound,src/front/main/main.asm
+83D4C,DrawStatsBackground,sub_83D4C,new,low,draws the stats screen background,src/front/main/main.asm
+84024,FreeStatsBitmap,sub_84024,new,low,frees the stats screen bitmap,src/front/main/main.asm
+84068,ShowStatsScreen,sub_84068,new,low,copies the stats screen to the display,src/front/main/main.asm
+840F8,SaveStatsScreen,sub_840F8,new,low,saves the stats screen to a bitmap,src/front/main/main.asm
+84138,RestoreStatsScreen,sub_84138,new,low,restores the stats screen and changes the music,src/front/main/main.asm
+84170,DrawListHighlight,sub_84170,new,low,draws a highlighted list entry,src/front/main/main.asm
 84204,ShowLoadingScreen,sub_84204,new,medium,"from PlayMenuGame and RunDemoGame: loads a picture and draws ""Loading..."" before the game",src/front/main/main.asm
+842E8,ClearMenuGameFlag,sub_842E8,new,low,clears the menu game flag,src/front/main/main.asm
+842F4,ShowLoadingBar,sub_842F4,new,low,shows the loading progress bar,src/front/main/main.asm
+84330,TintPortrait,sub_84330,new,low,tints a portrait in high colour modes,src/front/main/main.asm
+84570,ChangeMenuMusic,sub_84570,new,low,picks and starts new menu music,src/front/main/main.asm
 84B55,MainMenuScreen,sub_84B55,96PC,medium,"96 PC MainMenuScreen: the main menu (""menu"", MB01-MB11 buttons, PIC%d%c pictures); checks which of EXHIBIT / SEASON / PLAYOFF.NDX exist; returns the next screen",src/front/front_845E4.asm
 85A15,RunGameScreens,sub_85A15,new,low,"(screen): from RunFrontEnd, runs the game set-up screens by number (team select 4, pick saves 5/7/9, new season 6, new play-offs 8, season 0Ch, play-offs 0Dh, edit lines 0Fh/10h, play 15h, post-game 16h/17h, roster 19h) until one returns to the main menu",src/front/front_845E4.asm
 85D1D,RunStatsMenu,sub_85D1D,96PC,medium,"96 PC RunStatsMenu: from the main menu (RunFrontEnd 2), the season menus and the play-offs: loads the season's stats and runs the stats screens",src/front/front_845E4.asm
@@ -1230,26 +1289,104 @@ C3594,RunOptionsScreens,sub_C3594,new,low,from RunFrontEnd (0Ah): runs the optio
 C36CA,DetailLevelScreen,sub_C36CA,new,low,"the front end detail level panel (On / Off for crowd, ice logos, ice texture, boards, glass, names, benches), from OptionsScreen",src/front/front_C0F5D.asm
 C48A2,OptionsScreen,sub_C48A2,new,low,"the options screen (ON0%d / OF0%d toggles, MB0%d buttons, BOTM)",src/front/front_C462F.asm
 C755B,RosterScreen,sub_C755B,96PC,low,"96 PC RosterScreen: the roster screen (""roster menu"" / ""roster regions"")",src/front/front_C755B.asm
+C7CA4,GetRosterPlayerNumber,sub_C7CA4,new,low,returns the jersey number of a roster slot,src/front/front_C755B.asm
+C7CE8,PlayRosterSound,sub_C7CE8,new,low,plays a roster screen sound and builds its message,src/front/front_C755B.asm
+C7EAE,SetRosterMode,sub_C7EAE,new,low,sets the roster screen mode from the game mode flags,src/front/front_C755B.asm
 C7F31,LoadRosterInfoAnim,sub_C7F31,new,low,"roster screen: loads ""rosinfo!.ana""",src/front/front_C755B.asm
 C7FBC,FreeRosterInfoAnim,sub_C7FBC,new,low,"roster screen: frees the ""rosinfo!.ana"" animation",src/front/front_C755B.asm
 C800C,AllocRosterInfo,sub_C800C,new,low,"allocates the ""rosPlrInfo"" and ""seasRosArray"" tables of the roster screen",src/front/front_C755B.asm
+C80C8,SkaterOverall,sub_C80C8,new,low,works out a skater's overall rating from the rating bytes,src/front/front_C755B.asm
+C8127,GoalieOverall,sub_C8127,new,low,works out a goalie's overall rating from the rating bytes,src/front/front_C755B.asm
+C817F,LoadRosterData,sub_C817F,new,low,"loads a team's roster, players and stats",src/front/front_C755B.asm
 C885D,InitRosterData,sub_C885D,new,low,"roster screen: allocates ""deletion indices"" and ""roster player info"" and fills them (sub_C817F)",src/front/front_C755B.asm
+C8BEE,FreeRosterData,sub_C8BEE,new,low,frees the roster data,src/front/front_C755B.asm
+C8C90,DrawRosterRow,sub_C8C90,new,low,draws one row of the roster list,src/front/front_C755B.asm
 C8EDC,DrawRosterList,sub_C8EDC,new,low,"roster screen: the ""Team Roster"" / ""Additional Players"" lists",src/front/front_C755B.asm
+C9757,DrawRosterLogo,sub_C9757,new,low,draws the team logo on the roster screen,src/front/front_C755B.asm
+C97FF,ShowRosterLogo,sub_C97FF,new,low,shows the team logo panel,src/front/front_C755B.asm
+C98B1,DrawRosterTitle,sub_C98B1,new,low,draws the roster screen title,src/front/front_C755B.asm
+C9A45,CreateRosterPanel,sub_C9A45,new,low,creates the roster panel bitmap,src/front/front_C755B.asm
+C9AEE,FreeRosterPanel,sub_C9AEE,new,low,frees the roster panel bitmap,src/front/front_C755B.asm
 C9B24,InitRosterScreen,sub_C9B24,new,low,"from RosterScreen: loads the roster screen art (LoadDataFile 1Ch; BACK, TITL) and draws its panels",src/front/front_C755B.asm
 C9D84,FreeRosterScreen,sub_C9D84,new,low,from RosterScreen: frees the roster screen art once (dword_16D680 guard),src/front/front_C755B.asm
+C9DDF,DrawRosterPanel,sub_C9DDF,new,low,draws the roster panel,src/front/front_C755B.asm
+C9F18,SetupRosterLists,sub_C9F18,new,low,sets up the roster list boxes,src/front/front_C755B.asm
+CA206,LoadRosterArt,sub_CA206,new,low,loads the roster screen art,src/front/front_C755B.asm
+CA2A7,SetRosterButtons,sub_CA2A7,new,low,sets up the roster buttons,src/front/front_C755B.asm
+CA44C,InitListBox,sub_CA44C,new,low,sets up a list box,src/front/front_C755B.asm
+CA49A,DrawPlayerCard,sub_CA49A,new,low,draws the player card,src/front/front_C755B.asm
+CA758,DrawPlayerCardText,sub_CA758,new,low,draws the text of the player card,src/front/front_C755B.asm
+CAA0F,DrawRosterDetails,sub_CAA0F,new,low,draws the details of the selected player,src/front/front_C755B.asm
+CABF2,SetRosterArrows,sub_CABF2,new,low,sets up the roster scroll arrows,src/front/front_C755B.asm
+CACE0,RedrawRosterScreen,sub_CACE0,new,low,redraws the whole roster screen,src/front/front_C755B.asm
 CB041,CheckRosterInjuries,sub_CB041,new,low,"roster: the ""Roster Violation: %c. %s is injured."" check",src/front/front_C755B.asm
+CB192,GetPlayerStatLine,sub_CB192,new,low,returns a player's stat line,src/front/front_C755B.asm
 CB216,ShowTradeRejected,sub_CB216,new,low,"roster screen: ""Rejected by %s.""",src/front/front_C755B.asm
 CB324,CheckRosterLimits,sub_CB324,new,low,"roster: the minimum / maximum roster and goalie count checks (""Roster Violation: %s must have..."")",src/front/front_C755B.asm
 CB6D5,CheckRegularRosterLimits,sub_CB6D5,new,low,roster: the non-injured minimum and regular / additional roster maximum checks,src/front/front_C755B.asm
+CB9C9,RosterTradeScreen,sub_CB9C9,new,low,runs the trade part of the roster screen,src/front/front_C755B.asm
+CBCD9,FindFreeRosterSlot,sub_CBCD9,new,low,finds a free slot in the roster,src/front/front_C755B.asm
+CBDD0,FindRosterSlot,sub_CBDD0,new,low,finds a player's slot in the roster,src/front/front_C755B.asm
+CBECB,SwapRosterPlayers,sub_CBECB,new,low,swaps two players between rosters,src/front/front_C755B.asm
+CBFBA,ComparePlayersForTrade,sub_CBFBA,new,low,compares two players for a trade,src/front/front_C755B.asm
+CC1CA,RateTrade,sub_CC1CA,new,low,rates a proposed trade,src/front/front_C755B.asm
+CC3AD,TradeValue,sub_CC3AD,new,low,works out a player's trade value,src/front/front_C755B.asm
+CCB24,TradeNeedBonus,sub_CCB24,new,low,adds the bonus for a position the team needs,src/front/front_C755B.asm
+CCC30,ApplyTrade,sub_CCC30,new,low,applies a trade to both rosters,src/front/front_C755B.asm
+CCF2E,CountRosterPositions,sub_CCF2E,new,low,counts the players by position,src/front/front_C755B.asm
+CD037,ClearPlayerRecord,sub_CD037,new,low,clears a player record,src/front/front_C755B.asm
+CD13A,DrawJerseyPreview,sub_CD13A,new,low,draws the jersey preview,src/front/front_C755B.asm
 CD272,JerseyScreen,sub_CD272,new,low,"the jersey screen (""jersey menu"" / ""jersey menu regions"")",src/front/front_C755B.asm
+CD7B7,ClampRosterScroll,sub_CD7B7,new,low,keeps the roster scroll position in range,src/front/front_C755B.asm
+CD7F3,RosterEditScreen,sub_CD7F3,new,low,runs the roster editing screen,src/front/front_C755B.asm
+CDBE5,FormatTradeMessage,sub_CDBE5,new,low,formats the trade message,src/front/front_C755B.asm
+CDC8B,FindTradedPlayer,sub_CDC8B,new,low,finds a traded player,src/front/front_C755B.asm
+CDD99,RebuildLinesAfterTrade,sub_CDD99,new,low,rebuilds the lines after a roster change,src/front/front_C755B.asm
+CDEEA,FindLineSlot,sub_CDEEA,new,low,finds a slot in the lines,src/front/front_C755B.asm
+CDF39,FixLinesAfterTrade,sub_CDF39,new,low,fixes the lines after a trade,src/front/front_C755B.asm
+CE111,RemoveFromLines,sub_CE111,new,low,removes a player from the lines,src/front/front_C755B.asm
+CE178,UpdateRosterCounts,sub_CE178,new,low,updates the roster counts,src/front/front_C755B.asm
+CE3F2,RosterCreatePlayer,sub_CE3F2,new,low,opens the create player screen from the roster screen,src/front/front_C755B.asm
+CE53C,ReleasePlayer,sub_CE53C,new,low,releases a player from the roster,src/front/front_C755B.asm
+CE730,CompareShorts,sub_CE730,new,low,compares two 16-bit values (sort helper),src/front/front_C755B.asm
+CE73B,SaveTrades,sub_CE73B,new,low,saves the trades to the league,src/front/front_C755B.asm
+CEBC0,ResetExhibitionRosters,sub_CEBC0,new,low,resets the exhibition rosters,src/front/front_C755B.asm
+CEC15,ShowCreatePlayerHelp,sub_CEC15,new,low,shows the create player help line,src/front/front_C755B.asm
 CEC58,DrawCreatePlayerName,sub_CEC58,new,low,"create player screen: the name panel (NAM1, ""%c. %s"")",src/front/front_C755B.asm
+CED89,DrawCreatePlayerPanel,sub_CED89,new,low,draws the create player panel,src/front/front_C755B.asm
 CEE20,DrawCreatePlayerPosition,sub_CEE20,new,low,"from CreatePlayerScreen: the position buttons (GO / LW / RW / CE, ON / OF art)",src/front/front_C755B.asm
 CEEEA,DrawCreatePlayerHand,sub_CEEEA,new,low,"from CreatePlayerScreen: the shoots / catches buttons (SR / SL skater, GR / GL goalie, ON / OF art)",src/front/front_C755B.asm
+CEF6E,DrawCreatePlayerLabel,sub_CEF6E,new,low,draws a create player label,src/front/front_C755B.asm
 CF005,DrawCreatePlayerHeight,sub_CF005,new,low,"create player screen: the height field (""%d feet %d inches"")",src/front/front_C755B.asm
 CF0CD,DrawCreatePlayerWeight,sub_CF0CD,new,low,"create player screen: the weight field (""%d pounds"")",src/front/front_C755B.asm
+CF162,DrawCreatePlayerAge,sub_CF162,new,low,draws the created player's age,src/front/front_C755B.asm
+CF1FF,DrawRatingBarSlot,sub_CF1FF,new,low,draws one rating bar slot,src/front/front_C755B.asm
+CF255,DrawRatingBars,sub_CF255,new,low,draws the rating bars,src/front/front_C755B.asm
+CF3B3,DrawRatingValues,sub_CF3B3,new,low,draws the rating values,src/front/front_C755B.asm
+CF626,DrawRatingPanel,sub_CF626,new,low,draws the rating panel,src/front/front_C755B.asm
+CF6A3,DrawCreatePlayerField,sub_CF6A3,new,low,draws a create player field,src/front/front_C755B.asm
+CF70F,DrawCreatePlayerText,sub_CF70F,new,low,draws a create player text line,src/front/front_C755B.asm
+CF73D,DrawCreatePlayerNameLine,sub_CF73D,new,low,draws the created player's name,src/front/front_C755B.asm
 CF749,CreatePlayerScreen,sub_CF749,96PC,medium,"96 PC CreatePlayerScreen: the create player screen (""create plr menu"" / ""create plr region""), from the roster screens",src/front/front_C755B.asm
+CFFAB,DrawRatingBar,sub_CFFAB,new,low,draws one rating bar,src/front/front_C755B.asm
+D0098,InitShapeListBox,sub_D0098,new,low,sets up a list box with its shapes,src/front/front_C755B.asm
+D00F1,SetupCreatePlayerLists,sub_D00F1,new,low,sets up the create player list boxes,src/front/front_C755B.asm
 D0397,InitCreatePlayerScreen,sub_D0397,new,low,"from CreatePlayerScreen: menu items and art (TITL, NA / JN name and jersey buttons, LoadDataFile)",src/front/front_C755B.asm
+D096D,NewSkaterRecord,sub_D096D,new,low,fills a new skater record,src/front/front_C755B.asm
+D0ABE,NewGoalieRecord,sub_D0ABE,new,low,fills a new goalie record,src/front/front_C755B.asm
+D0BD8,PlayerOverall,sub_D0BD8,new,low,works out a player's overall rating,src/front/front_C755B.asm
+D0C88,RemoveListEntry,sub_D0C88,new,low,removes an entry from a list,src/front/front_C755B.asm
 D0D56,CompareFirstDword,sub_D0D56,new,medium,"qsort compare: the first dword of the two entries, ascending",src/front/front_C755B.asm
+D0D71,CompareTeamGoalsFor,sub_D0D71,new,low,"sort helper: compares the first team stat (goals for, probably)",src/front/front_C755B.asm
+D0D8E,CompareTeamGoalsAgainst,sub_D0D8E,new,low,"sort helper: compares the second team stat (goals against, probably)",src/front/front_C755B.asm
+D0DAB,CompareTeamPowerPlay,sub_D0DAB,new,low,"sort helper: compares the third team stat (power play, probably)",src/front/front_C755B.asm
+D0DC8,CompareTeamPenaltyKill,sub_D0DC8,new,low,"sort helper: compares the fourth team stat (penalty kill, probably)",src/front/front_C755B.asm
+D0DE5,CompareTeamShots,sub_D0DE5,new,low,"sort helper: compares the fifth team stat (shots, probably)",src/front/front_C755B.asm
+D0E02,ComparePlayerGoals,sub_D0E02,new,low,sort helper: compares players by goals (probably),src/front/front_C755B.asm
+D0E21,ComparePlayerAssists,sub_D0E21,new,low,sort helper: compares players by assists (probably),src/front/front_C755B.asm
+D0E40,CompareGoalieAverage,sub_D0E40,new,low,sort helper: compares goalies by games and save rate,src/front/front_C755B.asm
+D0E81,ComparePlayerOffence,sub_D0E81,new,low,sort helper: compares players by their offence ratings,src/front/front_C755B.asm
+D0EBE,ComparePlayerDefence,sub_D0EBE,new,low,sort helper: compares players by their defence ratings,src/front/front_C755B.asm
 D0F07,BuildTradePlayerLists,sub_D0F07,new,low,"from the roster screen (sub_CE73B): allocates and sorts ""aiplayers"", ""statplayers"" and ""statgoalies"" (qsort with sub_D0D56-sub_D0EBE)",src/front/front_C755B.asm
 D1927,PreGameMatchupScreen,sub_D1927,96PC,low,"96 PC PreGameMatchupScreen: game screen 14h before play: the matchup with the left / right team pictures (%03dL.FSH / %03dR.FSH), PANL, team and player stats",src/front/front_D15FB.asm
 D230A,DrawPlayerPortrait,sub_D230A,new,low,"pre-game: the player's portrait (0%02d.FSH, NOFACE.FSH, ""Portrait not found"") and ""#%d  %s %s""",src/front/front_D15FB.asm

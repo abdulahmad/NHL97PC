@@ -11,8 +11,8 @@ extern dword_1AD62F, dword_1AD6AB, dword_1CC7D8, dword_1CC828, dword_1CC860, dwo
 extern memset_, rand_, sprintf_, str_EASports, str_TXTD, strcpy_, sub_101324, BlitArt
 extern BlitShape, sub_1013FC, FindShape, sub_101584, sub_101EAC, sub_102B94, sub_10CD98, SetScreenTarget
 extern IsAllStarDay, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx, PaEvent, ResetStreamAudio, LoadDataFile
-extern OpenDataLibrary, sub_7B84B, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, SetTextColor, DrawTextAligned
-extern sub_80BBC, sub_80F48, sub_83BF4, InitMenuItems, sub_8BFAC, GetLangText, sub_D306F, KeysEqual
+extern OpenDataLibrary, sub_7B84B, DrawScreenBackground, FadeInScreen, ShowScreen, ExitScreen, SetTextColor, DrawTextAligned
+extern WipeScreen, DrawRosterPanelBox, WaitShortDelay, InitMenuItems, sub_8BFAC, GetLangText, sub_D306F, KeysEqual
 extern FreeDbBlock, AgeFromBirthDate, FindTeamRecord, FindPlayerRecord, OpenLeagueFile, FindGameRecord, LoadExhibitionFile, FreeExhibitionFile
 extern AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, tickcount
 extern unk_1670CF, unk_16711C, unk_167124, unk_167128, unk_167130, unk_167138, unk_16713C, unk_167144
@@ -319,7 +319,7 @@ PreGameRostersScreen:
         push edx
         mov eax, dword [nosplit esi*4+dword_1CC8A0]
         mov edx, dword [byte ebp+066h]
-        call sub_80F48
+        call DrawRosterPanelBox
         push dword [byte ebp+04Eh]
         mov eax, dword [byte ebp+06Ah]
         push dword [byte ebp+04Ah]
@@ -348,7 +348,7 @@ PreGameRostersScreen:
         push eax
         mov dword [byte ebp+04Ah], eax
         mov eax, dword [nosplit esi*4+dword_1CC8A0]
-        call sub_80F48
+        call DrawRosterPanelBox
         push dword [byte ebp+04Eh]
         mov eax, dword [byte ebp+06Ah]
         push dword [byte ebp+04Ah]
@@ -455,7 +455,7 @@ PreGameRostersScreen:
         add esp, byte 8
         mov edx, esi
         mov esi, unk_1C5F4A
-        call sub_7E860
+        call DrawScreenBackground
         rep movsb
         mov ecx, 52h
         lea edi, [byte ebp-07Ah]
@@ -693,7 +693,7 @@ PreGameRostersScreen:
         add esp, byte 0Ch
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte edi+02Ch]
-        call sub_80BBC
+        call WipeScreen
         push edi
         call FreeBitmap
         add esp, byte 4
@@ -900,7 +900,7 @@ PreGameRostersScreen:
         call BlitArt
         add esp, byte 0Ch
         mov eax, 2
-        call sub_83BF4
+        call WaitShortDelay
         push ebx
         inc esi
         call FreeBitmap
@@ -925,15 +925,15 @@ PreGameRostersScreen_B6A:
         mov eax, dword [byte ebp+046h]
         jmp dword [nosplit cs:eax*4+jpt_D3102]
 PreGameRostersScreen_BA7:
-        call sub_7EDF0
+        call FadeInScreen
         mov dword [byte ebp+056h], 14h
         jmp short PreGameRostersScreen_B6A
 PreGameRostersScreen_BB5:
-        call sub_7EEB0
+        call ShowScreen
         mov dword [byte ebp+056h], 0Eh
         jmp short PreGameRostersScreen_B6A
 PreGameRostersScreen_BC3:
-        call sub_7EF70
+        call ExitScreen
         jmp short PreGameRostersScreen_B6A
 .32:
         push dword [byte ebp+07Ah]

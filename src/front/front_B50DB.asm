@@ -26,10 +26,10 @@ extern dword_1CAEBC, dword_1CAEC0, dword_1CAEC4, dword_1CAFF4, fclose_, fopen_, 
 extern qword_16695B, rand_, sprintf_, strcat_, strcpy_, sub_101324, BlitShape2, BlitArt
 extern sub_1013FC, FindShape, sub_101560, sub_101584, sub_101EAC, sub_102B94, sub_102C10, sub_10CD98
 extern ConvertArtInPlace, ConvertArtXY, FindShapeList, sub_11BD90, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples
-extern WaitSoundTime, PlayMenuSfx, StopAllSfx, PlaySfx, PlayScreenMovie, LoadDataFile, OpenDataLibrary, sub_7E860
-extern sub_7EDF0, sub_7EF70, SetRegionRect, sub_7F04C, SetTextColor, DrawTextAligned, sub_7F5A4, sub_80AB8
-extern sub_80B28, sub_80BBC, sub_815F8, sub_81650, sub_81678, sub_816A4, sub_816BC, sub_81D1C
-extern sub_82FB8, sub_835BC, sub_83850, sub_83D4C, sub_84024, sub_84068, sub_84330, sub_84570
+extern WaitSoundTime, PlayMenuSfx, StopAllSfx, PlaySfx, PlayScreenMovie, LoadDataFile, OpenDataLibrary, DrawScreenBackground
+extern FadeInScreen, ExitScreen, SetRegionRect, DrawEditBox, SetTextColor, DrawTextAligned, ShowMessageBox, DrawTeamLogoBanner
+extern DrawProgressBar, WipeScreen, FindColorRange, SetHighlightText, SetNormalText, PoundsToKg, InchesToCm, DrawStatTable
+extern ShowStatScreen, ShowLinkMessage, HideLinkBox, DrawStatsBackground, FreeStatsBitmap, ShowStatsScreen, TintPortrait, ChangeMenuMusic
 extern InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E, SetScrollBarPos
 extern sub_8DEAC, sub_8DF1F, sub_8E6AF, GetLangText, sub_AD678, sub_AD6D6, sub_B4F87, sub_B5031
 extern sub_BDB25, KeysEqual, FreeDbBlock, AgeFromBirthDate, FindTeamRecord, FindPlayerRecord, OpenLeagueFile, FindGameRecord
@@ -360,7 +360,7 @@ sub_B50DB:
         add esp, byte 8
         mov edx, 8
         mov ebx, eax
-        call sub_815F8
+        call FindColorRange
         call SetScreenTarget
         push dword [dword_16E46C]
         push ebx
@@ -454,7 +454,7 @@ sub_B50DB:
         mov edx, dword [byte edi+02Ch]
         mov eax, dword [byte eax+02Ch]
         xor ebx, ebx
-        call sub_84330
+        call TintPortrait
         call SetScreenTarget
 .16:
         mov eax, ebx
@@ -584,7 +584,7 @@ sub_B50DB:
         push byte 4Bh
         movzx eax, byte [eax]
 .19:
-        call sub_80AB8
+        call DrawTeamLogoBanner
         call SetScreenTarget
         push str_MTR1
         push dword [dword_1CAE6C]
@@ -677,7 +677,7 @@ PlayerStatsScreen:
         call MakeColor
         add esp, byte 4
         call SetTextColor
-        call sub_81650
+        call SetHighlightText
         push byte 0
         push dword 42Ah
         mov dword [dword_1CAEBC], 0
@@ -694,11 +694,11 @@ PlayerStatsScreen:
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [byte ebp+06Eh], eax
-        call sub_81678
+        call SetNormalText
         mov eax, 1E4h
         call GetLangText
-        call sub_835BC
-        call sub_81650
+        call ShowLinkMessage
+        call SetHighlightText
         cmp byte [byte_16CCF0], 0
         je short .2
         lea edx, [byte ebp+032h]
@@ -905,12 +905,12 @@ PlayerStatsScreen:
         mov edx, ebx
         mov eax, ebx
         mov esi, unk_1C5F4A
-        call sub_7E860
+        call DrawScreenBackground
         mov ebx, 1A9h
         mov edx, 1F4h
         mov eax, dword [byte ebp+076h]
         mov ecx, 52h
-        call sub_83D4C
+        call DrawStatsBackground
         mov edi, dword [dword_1CAEAC]
         rep movsb
         mov eax, dword [dword_1CAEAC]
@@ -936,7 +936,7 @@ PlayerStatsScreen:
         mov eax, dword [dword_1CAEAC]
         mov ecx, str_PP13
         add eax, byte 52h
-        call sub_81D1C
+        call DrawStatTable
         push dword_1CACDC
         push str_PP13PP14PP15
         push dword [byte ebp+07Ah]
@@ -951,7 +951,7 @@ PlayerStatsScreen:
         mov eax, dword [dword_1CAEAC]
         mov ebx, ecx
         add eax, 19Ah
-        call sub_81D1C
+        call DrawStatTable
         cmp dword [dword_16D400], byte 0FFFFFFFFh
         jne short .15
         push str_LB262
@@ -1011,7 +1011,7 @@ PlayerStatsScreen:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [byte ebp+07Ah]
         add eax, 1ECh
-        call sub_81D1C
+        call DrawStatTable
         push unk_1CACE8
         push str_PP05PP06PP07
         push dword [byte ebp+07Ah]
@@ -1026,7 +1026,7 @@ PlayerStatsScreen:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [byte ebp+07Ah]
         add eax, 23Eh
-        call sub_81D1C
+        call DrawStatTable
         push unk_1CACF4
         push str_PP21PP22PP23
         push dword [byte ebp+07Ah]
@@ -1041,7 +1041,7 @@ PlayerStatsScreen:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [byte ebp+07Ah]
         add eax, 290h
-        call sub_81D1C
+        call DrawStatTable
         push unk_1CAD00
         push str_PP01PP02PP03
         push dword [byte ebp+07Ah]
@@ -1056,7 +1056,7 @@ PlayerStatsScreen:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [dword_1CAE6C]
         add eax, 2E2h
-        call sub_81D1C
+        call DrawStatTable
         mov eax, dword [byte ebp+06Eh]
         add eax, 180h
         push eax
@@ -1066,7 +1066,7 @@ PlayerStatsScreen:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [dword_1CAE6C]
         add eax, 334h
-        call sub_81D1C
+        call DrawStatTable
         push dword [byte ebp+04Eh]
         call SetDrawTarget
         add esp, byte 4
@@ -1103,20 +1103,20 @@ PlayerStatsScreen:
         call BlitShape2
         add esp, byte 4
         call sub_1013FC
-        call sub_83850
+        call HideLinkBox
         cmp dword [dword_16CCF1], byte 0
         je short .22
         mov eax, dword [byte ebp+04Eh]
         mov ebx, 10h
         mov edx, dword [dword_16CCF1]
         mov eax, dword [byte eax+02Ch]
-        call sub_82FB8
+        call ShowStatScreen
         jmp short .23
 .22:
         mov eax, dword [byte ebp+04Eh]
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte eax+02Ch]
-        call sub_80BBC
+        call WipeScreen
 .23:
         push dword [byte ebp+04Eh]
         call FreeBitmap
@@ -1310,13 +1310,13 @@ PlayerStatsScreen:
         mov ebx, dword [byte ebp+036h]
         jmp dword [nosplit cs:ebx*4+jpt_B585D]
 PlayerStatsScreen_975:
-        call sub_7EDF0
+        call FadeInScreen
         mov dword [byte ebp+056h], 1Ah
         jmp near PlayerStatsScreen_DC7.64
 PlayerStatsScreen_986:
-        call sub_81678
-        call sub_7EF70
-        call sub_81650
+        call SetNormalText
+        call ExitScreen
+        call SetHighlightText
         jmp near PlayerStatsScreen_DC7.64
 PlayerStatsScreen_99A:
         mov dword [byte ebp+056h], 64h
@@ -1492,7 +1492,7 @@ PlayerStatsScreen_B94:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [byte ebp+07Ah]
         add eax, 1ECh
-        call sub_81D1C
+        call DrawStatTable
         push unk_1CACE8
         push str_PP09PP10PP11
 .47:
@@ -1508,7 +1508,7 @@ PlayerStatsScreen_B94:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [byte ebp+07Ah]
         add eax, 1ECh
-        call sub_81D1C
+        call DrawStatTable
         push unk_1CACE8
         push str_PP05PP06PP07
         jmp short .47
@@ -1525,7 +1525,7 @@ PlayerStatsScreen_C43:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [byte ebp+07Ah]
         add eax, 23Eh
-        call sub_81D1C
+        call DrawStatTable
         push unk_1CACF4
         push str_PP21PP22PP23
         jmp short PlayerStatsScreen_B94.47
@@ -1537,7 +1537,7 @@ PlayerStatsScreen_C43:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [byte ebp+07Ah]
         add eax, 23Eh
-        call sub_81D1C
+        call DrawStatTable
         push unk_1CACF4
         push str_PP17PP18PP19
         jmp near PlayerStatsScreen_B94.47
@@ -1849,13 +1849,13 @@ PlayerStatsScreen_10AA:
         jl short .76
         jmp near PlayerStatsScreen_DC7.61
 PlayerStatsScreen_1114:
-        call sub_84068
+        call ShowStatsScreen
         cmp dword [dword_16DA9C], byte 0
         sete al
         movzx edx, al
         mov eax, dword [byte ebp+072h]
         call PlayScreenMovie
-        call sub_84570
+        call ChangeMenuMusic
         call SetScreenTarget
         push dword [byte ebp+042h]
         call BlitShape2
@@ -1936,14 +1936,14 @@ PlayerStatsScreen_1114:
 .83:
         mov eax, unk_1CAD24
         call sub_8DE7E
-        call sub_81678
+        call SetNormalText
         cmp byte [byte_1C6040], 0
         je short .84
         cmp byte [byte_1C8338], 0
         je short .84
         call LoadFrontEndSfx
 .84:
-        call sub_84024
+        call FreeStatsBitmap
         mov eax, dword [byte ebp+056h]
         lea esp, [dword ebp+082h]
         pop ebp
@@ -2696,11 +2696,11 @@ DrawPlayerBio:
         add esp, byte 1Ch
         jmp near .4
 .3:
-        call sub_816A4
+        call PoundsToKg
         mov ecx, eax
         mov eax, ebx
         mov edi, 64h
-        call sub_816BC
+        call InchesToCm
         mov ebx, eax
         cdq
         idiv edi
@@ -2946,7 +2946,7 @@ DrawPlayerBio_383:
         push eax
         add edx, byte 1Ah
         mov eax, 0CCh
-        call sub_80B28
+        call DrawProgressBar
         mov eax, dword [byte ebp+062h]
         add eax, 174h
         call GetLangText
@@ -3018,7 +3018,7 @@ DrawPlayerBio_45F:
         push eax
         add edx, byte 1Ah
         mov eax, 0CCh
-        call sub_80B28
+        call DrawProgressBar
         mov eax, dword [byte ebp+05Eh]
         add eax, 1A4h
         call GetLangText
@@ -3196,7 +3196,7 @@ ExportPlayerCard:
         xor ecx, ecx
         xor ebx, ebx
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
         jmp near ExportPlayerCard_956.52
 .3:
         mov eax, dword [byte ebp+05Eh]
@@ -4284,7 +4284,7 @@ sub_B829B:
         add esp, byte 8
         mov edx, 10h
         mov edi, eax
-        call sub_815F8
+        call FindColorRange
         cmp byte [byte_1C6040], 0
         jne short .21
         push dword [dword_16E46C]
@@ -4367,7 +4367,7 @@ sub_B829B:
         add esp, byte 10h
         mov edx, dword [byte edx+02Ch]
         mov eax, dword [byte eax+02Ch]
-        call sub_84330
+        call TintPortrait
 .23:
         call SetScreenTarget
         xor ebx, ebx
@@ -4476,7 +4476,7 @@ sub_B829B:
         push byte 41h
         movzx eax, byte [eax]
 .29:
-        call sub_80AB8
+        call DrawTeamLogoBanner
         call SetScreenTarget
         push str_MN00
         push dword [dword_1CAE6C]
@@ -4570,7 +4570,7 @@ sub_B829B:
         mov ebx, esi
         mov ecx, dword [byte esi+02Ch]
 .33:
-        call sub_80AB8
+        call DrawTeamLogoBanner
         call SetScreenTarget
         push str_MN00
         push dword [dword_1CAE6C]
@@ -4639,7 +4639,7 @@ sub_B829B:
         add esp, byte 8
         mov edx, 10h
         mov edi, eax
-        call sub_815F8
+        call FindColorRange
         cmp byte [byte_1C6040], 0
         jne short .37
         push dword [dword_16E46C]
@@ -4722,7 +4722,7 @@ sub_B829B:
         add esp, byte 10h
         mov edx, dword [byte edx+02Ch]
         mov eax, dword [byte eax+02Ch]
-        call sub_84330
+        call TintPortrait
 .39:
         call SetScreenTarget
         xor ebx, ebx
@@ -4840,7 +4840,7 @@ sub_B829B:
         push dword 0B9h
         movzx eax, byte [eax]
 .45:
-        call sub_80AB8
+        call DrawTeamLogoBanner
         call SetScreenTarget
         push str_MN04
         push dword [dword_1CAE6C]
@@ -4934,7 +4934,7 @@ sub_B829B:
         mov ebx, esi
         mov ecx, dword [byte esi+02Ch]
 .49:
-        call sub_80AB8
+        call DrawTeamLogoBanner
         call SetScreenTarget
         push str_MN04
         push dword [dword_1CAE6C]
@@ -5004,7 +5004,7 @@ PlayerRatingsScreen:
         je short .1
         call MusicEnabled
 .1:
-        call sub_81650
+        call SetHighlightText
         push byte 0FFFFFFFFh
         call MakeColor
         add esp, byte 4
@@ -5021,11 +5021,11 @@ PlayerRatingsScreen:
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [dword_1CAEAC], eax
-        call sub_81678
+        call SetNormalText
         mov eax, 1E4h
         call GetLangText
-        call sub_835BC
-        call sub_81650
+        call ShowLinkMessage
+        call SetHighlightText
         cmp dword [dword ebp-01CBEh], byte 0
         je short .2
         lea edx, [byte ebp+01Ah]
@@ -5290,7 +5290,7 @@ PlayerRatingsScreen:
         mov edx, edi
         mov eax, edi
         mov ecx, 52h
-        call sub_7E860
+        call DrawScreenBackground
         mov edi, dword [dword_1CAEAC]
         rep movsb
         mov eax, dword [dword_1CAEAC]
@@ -5310,7 +5310,7 @@ PlayerRatingsScreen:
         mov eax, dword [dword_1CAEAC]
         mov ecx, str_SC01
         add eax, byte 52h
-        call sub_81D1C
+        call DrawStatTable
         push dword_1CACDC
         push str_SC01SC02SC03
         push dword [byte ebp+062h]
@@ -5326,7 +5326,7 @@ PlayerRatingsScreen:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [byte ebp+062h]
         add eax, 0A4h
-        call sub_81D1C
+        call DrawStatTable
         push unk_1CACE8
         push str_SC08SC09SC10
         jmp short .26
@@ -5339,7 +5339,7 @@ PlayerRatingsScreen:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [byte ebp+062h]
         add eax, 0A4h
-        call sub_81D1C
+        call DrawStatTable
         push unk_1CACE8
         push str_SC05SC06SC07
 .26:
@@ -5356,7 +5356,7 @@ PlayerRatingsScreen:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [byte ebp+06Eh]
         add eax, 0F6h
-        call sub_81D1C
+        call DrawStatTable
         push unk_1CACF4
         push str_SC13SC14SC15
         jmp short .29
@@ -5371,7 +5371,7 @@ PlayerRatingsScreen:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [byte ebp+06Eh]
         add eax, 0F6h
-        call sub_81D1C
+        call DrawStatTable
         push unk_1CACF4
         push str_SC17SC18SC19
         jmp short .29
@@ -5384,7 +5384,7 @@ PlayerRatingsScreen:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [byte ebp+06Eh]
         add eax, 0F6h
-        call sub_81D1C
+        call DrawStatTable
         push unk_1CACF4
         push str_SC29SC30SC31
 .29:
@@ -5399,7 +5399,7 @@ PlayerRatingsScreen:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [dword_1CAE6C]
         add eax, 19Ah
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-022Ah]
         push eax
         mov ecx, str_LH262
@@ -5408,7 +5408,7 @@ PlayerRatingsScreen:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [dword_1CAE6C]
         add eax, 1ECh
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-01EAh]
         push eax
         mov ecx, str_AB043
@@ -5417,7 +5417,7 @@ PlayerRatingsScreen:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [dword_1CAE6C]
         add eax, 23Eh
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-01AAh]
         push eax
         mov ecx, str_AB07
@@ -5426,7 +5426,7 @@ PlayerRatingsScreen:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [dword_1CAE6C]
         add eax, 290h
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-016Ah]
         push eax
         mov ecx, str_LH262
@@ -5435,7 +5435,7 @@ PlayerRatingsScreen:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [dword_1CAE6C]
         add eax, 2E2h
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-012Ah]
         push eax
         mov ecx, str_AB10
@@ -5444,7 +5444,7 @@ PlayerRatingsScreen:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [dword_1CAE6C]
         add eax, 334h
-        call sub_81D1C
+        call DrawStatTable
         mov eax, dword [dword_1CAEAC]
         mov eax, dword [dword eax+0206h]
         push byte 0
@@ -5644,7 +5644,7 @@ PlayerRatingsScreen:
         mov eax, unk_1CABDC
         xor ebx, ebx
         call SetScrollBarPos
-        call sub_83850
+        call HideLinkBox
         push dword [byte ebp+04Eh]
         call SetDrawTarget
         add esp, byte 4
@@ -5660,13 +5660,13 @@ PlayerRatingsScreen:
         mov ebx, 10h
         mov edx, dword [dword_16CCF1]
         mov eax, dword [byte eax+02Ch]
-        call sub_82FB8
+        call ShowStatScreen
         jmp short .41
 .40:
         mov eax, dword [byte ebp+04Eh]
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte eax+02Ch]
-        call sub_80BBC
+        call WipeScreen
 .41:
         push dword [byte ebp+04Eh]
         call FreeBitmap
@@ -5890,13 +5890,13 @@ PlayerRatingsScreen:
         mov ebx, dword [byte ebp+01Eh]
         jmp dword [nosplit cs:ebx*4+jpt_B8F8B]
 PlayerRatingsScreen_D1D:
-        call sub_7EDF0
+        call FadeInScreen
         mov dword [byte ebp+052h], 1Ah
         jmp near PlayerRatingsScreen_2040.186
 PlayerRatingsScreen_D2E:
-        call sub_81678
-        call sub_7EF70
-        call sub_81650
+        call SetNormalText
+        call ExitScreen
+        call SetHighlightText
         jmp near PlayerRatingsScreen_2040.186
 PlayerRatingsScreen_D42:
         mov dword [byte ebp+052h], 64h
@@ -5919,7 +5919,7 @@ PlayerRatingsScreen_D4E:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [byte ebp+06Eh]
         add eax, 0A4h
-        call sub_81D1C
+        call DrawStatTable
         push unk_1CACE8
         push str_SC05SC06SC07
         push dword [byte ebp+06Eh]
@@ -5958,7 +5958,7 @@ PlayerRatingsScreen_D4E:
         push str_AB023
         add eax, 19Ah
         mov dword [dword_1CAEB0], 0FFFFFFFFh
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-022Ah]
         push eax
         mov ecx, str_LH262
@@ -5967,7 +5967,7 @@ PlayerRatingsScreen_D4E:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [dword_1CAE6C]
         add eax, 1ECh
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-01EAh]
         push eax
         mov ecx, str_AB043
@@ -5976,7 +5976,7 @@ PlayerRatingsScreen_D4E:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [dword_1CAE6C]
         add eax, 23Eh
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-01AAh]
         push eax
         mov ecx, str_AB07
@@ -5985,7 +5985,7 @@ PlayerRatingsScreen_D4E:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [dword_1CAE6C]
         add eax, 290h
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-016Ah]
         push eax
         mov ecx, str_LH262
@@ -5994,7 +5994,7 @@ PlayerRatingsScreen_D4E:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [dword_1CAE6C]
         add eax, 2E2h
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-012Ah]
         push eax
         mov ecx, str_AB10
@@ -6003,7 +6003,7 @@ PlayerRatingsScreen_D4E:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [dword_1CAE6C]
         add eax, 334h
-        call sub_81D1C
+        call DrawStatTable
         cmp dword [dword_16D400], byte 0FFFFFFFFh
         jne short .53
         push str_LB262
@@ -6126,7 +6126,7 @@ PlayerRatingsScreen_D4E:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [byte ebp+06Eh]
         add eax, 0A4h
-        call sub_81D1C
+        call DrawStatTable
         push unk_1CACE8
         push str_SC09SC10SC11
         push dword [byte ebp+06Eh]
@@ -6264,7 +6264,7 @@ PlayerRatingsScreen_11E4:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [byte ebp+06Eh]
         add eax, 0F6h
-        call sub_81D1C
+        call DrawStatTable
         push unk_1CACF4
         push str_SC13SC14SC15
         push dword [byte ebp+06Eh]
@@ -6282,7 +6282,7 @@ PlayerRatingsScreen_11E4:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [byte ebp+06Eh]
         add eax, 0F6h
-        call sub_81D1C
+        call DrawStatTable
         push unk_1CACF4
         push str_SC17SC18SC19
         push dword [byte ebp+06Eh]
@@ -6298,7 +6298,7 @@ PlayerRatingsScreen_11E4:
         mov eax, dword [dword_1CAEAC]
         mov edx, dword [byte ebp+06Eh]
         add eax, 0F6h
-        call sub_81D1C
+        call DrawStatTable
         push unk_1CACF4
         push str_SC29SC30SC31
         push dword [byte ebp+06Eh]
@@ -7446,7 +7446,7 @@ PlayerRatingsScreen_21FD:
         push edi
         call FreeBitmap
         add esp, byte 4
-        call sub_81678
+        call SetNormalText
         cmp byte [byte_1C6040], 0
         je short .195
         cmp byte [byte_1C8338], 0
@@ -8176,7 +8176,7 @@ sub_BBC3A:
         push eax
         movsx ecx, word [byte esi+04h]
         mov eax, 8
-        call sub_7F04C
+        call DrawEditBox
         cmp dword [dword_1CAEA0], byte 0
         je short .5
         cmp dword [byte ebp+076h], byte 0
@@ -8617,7 +8617,7 @@ sub_BBE01_3AD:
         push eax
         add edx, byte 5
         mov eax, ebx
-        call sub_80B28
+        call DrawProgressBar
 .33:
         cmp esi, byte 0FFFFFFFFh
         je short .34
@@ -8639,7 +8639,7 @@ sub_BBE01_3AD:
         push eax
         add edx, byte 5
         mov eax, 127h
-        call sub_80B28
+        call DrawProgressBar
 .34:
         inc dword [byte ebp-0Ch]
         add dword [byte ebp-010h], byte 0Fh
@@ -8937,7 +8937,7 @@ sub_BBE01_769:
         push eax
         add edx, byte 5
         mov eax, ebx
-        call sub_80B28
+        call DrawProgressBar
 .68:
         cmp esi, byte 0FFFFFFFFh
         je short .69
@@ -8959,7 +8959,7 @@ sub_BBE01_769:
         push eax
         add edx, byte 5
         mov eax, 127h
-        call sub_80B28
+        call DrawProgressBar
 .69:
         inc dword [byte ebp-0Ch]
         add dword [byte ebp-010h], byte 0Fh
@@ -8998,7 +8998,7 @@ sub_BBE01_769:
         mov dword [byte ebp-044h], eax
         mov edx, eax
         mov eax, ebx
-        call sub_80B28
+        call DrawProgressBar
         push dword [byte ebp-048h]
         push dword 122h
         push str_POWR2
@@ -9016,7 +9016,7 @@ sub_BBE01_769:
         push eax
         mov edx, dword [byte ebp-044h]
         mov eax, 127h
-        call sub_80B28
+        call DrawProgressBar
         mov eax, dword [byte ebp-0Ch]
         add eax, 1FBh
         call GetLangText

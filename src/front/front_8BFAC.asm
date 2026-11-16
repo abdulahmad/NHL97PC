@@ -14,7 +14,7 @@ extern dword_1C8420, dword_1C8424, dword_1C8428, dword_1C842C, dword_1C8430, dwo
 extern dword_1C8444, dword_1C8448, dword_1C844C, dword_1C8454, RunNewSeason_DD, RunNewSeason_E6, RunNewSeason_EF, RunNewSeason_F8
 extern RunNewSeason_16F, RunNewSeason_17B, RunNewSeason_187, RunNewSeason_193, off_16E4E0, qword_165550, qword_165558, qword_165568
 extern BlitArt, sub_1013CC, sub_1013FC, FindShape, sub_1097F0, ConvertArtXY, SetScreenTarget, PlaySfx
-extern LoadDataFileHandle, SetRegionRect, sub_835AC, sub_835BC, sub_83850, InitMenuItems, ClearLinkAbort, ServiceIdle
+extern LoadDataFileHandle, SetRegionRect, ShowLinkWait, ShowLinkMessage, HideLinkBox, InitMenuItems, ClearLinkAbort, ServiceIdle
 extern ResetLinkStats, SyncLinkGame, FreeMemBlock, MakeColor, SetViewRect, FreeBitmap, DrawArt, CreateBitmap
 extern SetDrawTarget, ClearScreen, sub_FDC68, tickcount, word_16CD04, word_16CD20, word_16CD22
 global jpt_8E977, jpt_8E987, sub_8D956_223, sub_8DBAC_1F5, sub_8DBAC_220, sub_8BFAC, sub_8D5C0, sub_8D6B4
@@ -354,12 +354,12 @@ sub_8BFAC:
         je short .34
         mov eax, 237h
         call GetLangText
-        call sub_835BC
+        call ShowLinkMessage
         jmp short .35
 .34:
         mov eax, 76h
         call GetLangText
-        call sub_835AC
+        call ShowLinkWait
 .35:
         push dword_1C83E0
         push dword_1C83F4
@@ -379,7 +379,7 @@ sub_8BFAC:
         mov dword [byte esp+014h], edx
         test bx, bx
         jne short .37
-        call sub_83850
+        call HideLinkBox
 .37:
         mov eax, dword [tickcount]
         add eax, byte 1Eh

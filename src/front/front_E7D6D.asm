@@ -10,8 +10,8 @@ extern seed, dword_1AC814, dword_1AC940, dword_1AD62F, dword_1AD6AB, dword_1AD71
 extern dword_1C5E74, dword_1CD760, dword_1CD764, dword_1CD768, dword_1CD76C, dword_1CD770, dword_1CD774, dword_1CD778
 extern dword_1CD77C, dword_1CD780, dword_1CD784, dword_1CD7DF, off_16E174, sprintf_, strcpy_, BlitArt
 extern BlitShape, sub_1013FC, FindShape, FindShapeQuiet, sub_101560, sub_101584, sub_101EAC, sub_102B94
-extern SetScreenTarget, SecondsToSamples, WaitSoundTime, OpenDataLibrary, sub_7E52C, sub_7E860, SetTextColor, DrawTextAligned
-extern LoadTeamLogo, sub_80808, InitMenuItems, GetLangText, sub_CA44C, sub_D0098, FreeDbBlock, FindTeamRecord
+extern SetScreenTarget, SecondsToSamples, WaitSoundTime, OpenDataLibrary, DrawShadowBox, DrawScreenBackground, SetTextColor, DrawTextAligned
+extern LoadTeamLogo, FreeLogoArt, InitMenuItems, GetLangText, InitListBox, InitShapeListBox, FreeDbBlock, FindTeamRecord
 extern FindPlayerRecord, OpenLeagueFile, FindGameRecord, FindTeamStat, ServiceIdle, FreeMemBlock, FillMem, MakeColor
 extern DrawArt, SetDrawTarget, unk_167731, unk_16E1E4, unk_16E21C, unk_1AD22E, unk_1AD443, unk_1C5F4A
 extern unk_1C5F9C, unk_1CD78C, unk_1CD7FA, unk_1CD833, unk_1CD8DE, unk_1CD989, unk_1CDA34, unk_1CDADF
@@ -791,7 +791,7 @@ sub_E8660:
         mov dword [byte eax+01Ah], edx
         mov edx, 280h
         inc esi
-        call sub_CA44C
+        call InitListBox
         cmp esi, byte 5
         jl short .1
         push dword [dword_1CD764]
@@ -818,7 +818,7 @@ sub_E8660:
         mov ebx, eax
         mov edx, eax
         mov ecx, 52h
-        call sub_7E860
+        call DrawScreenBackground
         rep movsb
         mov eax, dword [byte ebp-014h]
         mov ecx, 52h
@@ -870,7 +870,7 @@ sub_E8660:
         movsx edx, word [byte eax+0Ch]
         mov eax, dword [dword_1CD760]
         add eax, 0A4h
-        call sub_CA44C
+        call InitListBox
         mov esi, dword [dword_1CD770]
         mov eax, dword [dword_1CD780]
         shl esi, 2
@@ -893,14 +893,14 @@ sub_E8660:
         mov edx, dword [dword_1CD760]
         mov eax, dword [dword_1CD784]
         add edx, 0F6h
-        call sub_D0098
+        call InitShapeListBox
         push str_AB055
         mov ecx, str_AB045
         mov ebx, str_AB035
         mov edx, dword [dword_1CD760]
         mov eax, dword [dword_1CD784]
         add edx, 148h
-        call sub_D0098
+        call InitShapeListBox
         xor eax, eax
         call sub_E8923
         leave
@@ -1142,7 +1142,7 @@ sub_E8923:
         push dword 0F2h
         mov edx, 18h
         mov eax, dword [byte eax+02Ch]
-        call sub_7E52C
+        call DrawShadowBox
         imul ebx, edi, dword 0ABh
         mov eax, word_1CD788
         add eax, ebx
@@ -1557,14 +1557,14 @@ sub_E8923:
         call sub_101EAC
         add esp, byte 10h
         mov ebx, 17Dh
-        call sub_80808
+        call FreeLogoArt
         push dword 115h
         mov ecx, 64h
         mov eax, dword [dword_1CD764]
         push dword 0F2h
         mov edx, 18h
         mov eax, dword [byte eax+02Ch]
-        call sub_7E52C
+        call DrawShadowBox
         imul ebx, edi, dword 0ABh
         mov esi, 68h
         cmp edi, byte 9

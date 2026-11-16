@@ -17,7 +17,7 @@ extern dword_1CE542, dword_1CEF9C, dword_1CEFA0, dword_1CEFB0, dword_1CEFB4, dwo
 extern str_TR0D, strlen_, bcopy, sub_101324, BlitShape2, BlitArt, BlitShape, sub_1013FC
 extern FindShape, sub_10FE58, CreateBitmapForArt, IsKeyDown, ConvertArtXY, ConvertArtKeepPos, sub_11BDC0, sub_11FAAC
 extern SetScreenTarget, CameraNoop, SecondsToSamples, WaitSoundTime, PlayMenuSfx, StopAllSfx, PlaySfx, LoadDataFileLib
-extern sub_7E860, sub_7EDF0, sub_7EF70, SetRegionRect, SetTextColor, DrawTextAligned, sub_7F5B8, sub_80BBC
+extern DrawScreenBackground, FadeInScreen, ExitScreen, SetRegionRect, SetTextColor, DrawTextAligned, ShowMessageBoxNoWait, WipeScreen
 extern sub_86AFA, InitMenuItems, sub_8BFAC, GetLangText, ServiceIdle, WaitForOtherComputer, GetKeyName, sub_F20A1
 extern sub_F22AF, DrawPauseClock, FreeMemBlock, sub_FC4BC, MakeColor, FreeBitmap, sub_FCF84, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, tickcount, unk_167A1A, unk_16D992, unk_1AC8E4
@@ -194,7 +194,7 @@ ShowReservedKey:
         push byte 1
         lea eax, [byte ebp-064h]
         xor esi, esi
-        call sub_7F5B8
+        call ShowMessageBoxNoWait
 .14:
         movsx eax, di
         cmp eax, byte 0FFFFFFFFh
@@ -307,7 +307,7 @@ sub_EE8BB:
         add esp, byte 4
         xor edx, edx
         mov eax, dword [byte eax+02Ch]
-        call sub_80BBC
+        call WipeScreen
         push dword [byte ebp-08h]
         call FreeBitmap
         jmp near .8
@@ -3037,7 +3037,7 @@ ControlSetupScreen:
         mov ebx, eax
         mov edx, eax
         mov ecx, 52h
-        call sub_7E860
+        call DrawScreenBackground
         rep movsb
         mov dword [dword_1CE32C], 0
         cmp word [dword ebp-063Ah], byte 0
@@ -3139,7 +3139,7 @@ ControlSetupScreen:
         mov eax, dword [byte ebp+066h]
         jmp dword [nosplit cs:eax*4+jpt_F031D]
 ControlSetupScreen_B8D:
-        call sub_7EDF0
+        call FadeInScreen
         push byte 58h
         push unk_1AC8E4
         lea eax, [dword ebp-0B6h]
@@ -3148,7 +3148,7 @@ ControlSetupScreen_B8D:
         call bcopy
         jmp near ControlSetupScreen_C3A.38
 ControlSetupScreen_BB1:
-        call sub_7EF70
+        call ExitScreen
         call WaitForOtherComputer
         jmp near ControlSetupScreen_F11.42
 ControlSetupScreen_BC0:

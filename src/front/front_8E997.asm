@@ -21,9 +21,9 @@ extern dword_1C86FC, dword_1C8A8C, dword_1C8A90, dword_1C94E8, jpt_8E977, jpt_8E
 extern qsort_, rand_, sprintf_, srand_, strcat_, strcpy_, strlen_, BlitShape2
 extern BlitArt, BlitShape, sub_1013CC, sub_1013FC, FindShape, Random32, sub_10AED0, FindShapeList
 extern sub_11B0D0, SetScreenTarget, SeasonGameScreen, MusicEnabled, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx
-extern MakeDirPath, LoadDataFile, sub_7A9D8, sub_7BB27, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70
-extern SetRegionRect, SetTextColor, DrawTextAligned, sub_7F5A4, sub_7FE38, sub_80AB8, sub_80BBC, sub_81650
-extern sub_81678, sub_81D1C, sub_835BC, sub_83C08, RunStatsMenu, NameIndexNew, NameIndexLoad, NameIndexFree
+extern MakeDirPath, LoadDataFile, sub_7A9D8, sub_7BB27, DrawScreenBackground, FadeInScreen, ShowScreen, ExitScreen
+extern SetRegionRect, SetTextColor, DrawTextAligned, ShowMessageBox, EditTextField, DrawTeamLogoBanner, WipeScreen, SetHighlightText
+extern SetNormalText, DrawStatTable, ShowLinkMessage, ShowPopupScreen, RunStatsMenu, NameIndexNew, NameIndexLoad, NameIndexFree
 extern sub_86500, sub_867D4, InitMenuItems, sub_8BFAC, sub_8DBAC, sub_8DE10, DrawScrollBar, sub_8DE68
 extern sub_8DE7E, sub_8DEAC, GetLangText, PlayoffTreeScreen, AllocCrusherBuffers, sub_A2F31, sub_A2F52, LinkSendData
 extern LinkReceiveData, sub_A3116, sub_C6064, RosterScreen, sub_D49BE, KeysEqual, FreeDbBlock, DaysToYear
@@ -79,7 +79,7 @@ RunNewSeason:
         call GetLangText
         mov ebx, eax
         mov eax, unk_1ACF12
-        call sub_7FE38
+        call EditTextField
         test eax, eax
         je near RunNewSeason_F8
         mov eax, 6
@@ -97,7 +97,7 @@ RunNewSeason:
         mov eax, 5
         mov edx, 4
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
         mov edi, eax
         lea ebx, [byte eax-01h]
         mov dword [dword_1ACF3E], ebx
@@ -136,7 +136,7 @@ RunNewSeason_F8:
         mov eax, 9
         mov edx, 5
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
         mov edi, eax
         test eax, eax
         jne short .5
@@ -354,7 +354,7 @@ NewSeasonScreen:
         mov edx, esi
         mov eax, esi
         mov ecx, 52h
-        call sub_7E860
+        call DrawScreenBackground
         mov edi, dword [dword_1C86F8]
         mov esi, unk_1C5EF8
         rep movsb
@@ -526,7 +526,7 @@ NewSeasonScreen:
         mov ebx, dword [dword ebx+ebp-0B4h]
         push byte 2Dh
         movzx eax, byte [dword eax+byte_169038]
-        call sub_80AB8
+        call DrawTeamLogoBanner
         push dword [byte ebp-03Ch]
         call SetDrawTarget
         add esp, byte 4
@@ -543,7 +543,7 @@ NewSeasonScreen:
         mov eax, dword [byte ebp-03Ch]
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte eax+02Ch]
-        call sub_80BBC
+        call WipeScreen
         push dword [byte ebp-03Ch]
         xor esi, esi
         call FreeBitmap
@@ -619,7 +619,7 @@ NewSeasonScreen:
         mov dword [byte ebp-038h], edx
         movzx eax, byte [dword edx+byte_169038]
         mov edx, 20h
-        call sub_80AB8
+        call DrawTeamLogoBanner
         mov eax, dword [byte ebp-044h]
         mov eax, dword [dword eax+dword_16CD64]
         push dword 5999h
@@ -634,7 +634,7 @@ NewSeasonScreen:
         mov ebx, dword [dword edi+ebp-0E8h]
         push byte 2Dh
         movzx eax, byte [dword eax+byte_169038]
-        call sub_80AB8
+        call DrawTeamLogoBanner
         push dword [dword edi+ebp-0E8h]
         call SetDrawTarget
         add esp, byte 4
@@ -746,11 +746,11 @@ NewSeasonScreen:
         je short .15
         jmp near .33
 .14:
-        call sub_7EEB0
+        call ShowScreen
         mov dword [byte ebp-02Ch], 1
         jmp short .12
 .15:
-        call sub_7EDF0
+        call FadeInScreen
         mov dword [dword_1ACF4A], 0
         xor esi, esi
 .16:
@@ -770,7 +770,7 @@ NewSeasonScreen:
         lea ebx, [byte ebp-04Ch]
         mov edx, ecx
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
         jmp near .12
 .18:
         mov eax, dword [dword ebp-04ECh]
@@ -778,12 +778,12 @@ NewSeasonScreen:
         call CreateSeason
         jmp near .12
 .19:
-        call sub_7EF70
+        call ExitScreen
         jmp near .12
 .20:
         mov eax, dword [dword_1C86F8]
         add eax, 520h
-        call sub_83C08
+        call ShowPopupScreen
         mov eax, 2
         call sub_C6064
         jmp near .12
@@ -791,7 +791,7 @@ NewSeasonScreen:
         mov eax, dword [dword_1C86F8]
         add eax, 572h
         mov dword [byte ebp-02Ch], 19h
-        call sub_83C08
+        call ShowPopupScreen
         jmp near .12
 .22:
         xor byte [byte ebp-024h], 1
@@ -857,7 +857,7 @@ NewSeasonScreen:
         mov edx, ebx
         mov eax, ebx
         xor esi, esi
-        call sub_7E860
+        call DrawScreenBackground
 .25:
         cmp esi, byte 7
         jge short .26
@@ -948,7 +948,7 @@ NewSeasonScreen:
         mov dword [byte ebp-028h], edx
         movzx eax, byte [dword edx+byte_169038]
         mov edx, 10h
-        call sub_80AB8
+        call DrawTeamLogoBanner
         mov eax, dword [dword edi+dword_16CD64]
         push dword 5999h
         sub eax, dword [byte ebp-0Ch]
@@ -962,7 +962,7 @@ NewSeasonScreen:
         mov ebx, dword [byte ebx+ebp-080h]
         push byte 2Dh
         movzx eax, byte [dword eax+byte_169038]
-        call sub_80AB8
+        call DrawTeamLogoBanner
         mov eax, dword [dword edi+dword_16CD64]
         push dword 5999h
         sub eax, dword [byte ebp-0Ch]
@@ -976,7 +976,7 @@ NewSeasonScreen:
         mov ebx, dword [dword ebx+ebp-0E8h]
         push byte 2Dh
         movzx eax, byte [dword eax+byte_169038]
-        call sub_80AB8
+        call DrawTeamLogoBanner
         mov eax, dword [byte ebp-028h]
         movzx eax, byte [dword eax+byte_169038]
         imul eax, byte 1Ch
@@ -1023,7 +1023,7 @@ NewSeasonScreen:
         mov ebx, dword [dword ebx+ebp-0E8h]
         push byte 2Dh
         movzx eax, byte [dword eax+byte_169038]
-        call sub_80AB8
+        call DrawTeamLogoBanner
         mov eax, dword [byte ebp-010h]
         push dword [dword eax+ebp-0E8h]
         call SetDrawTarget
@@ -1102,7 +1102,7 @@ NewSeasonScreen:
         mov dword [byte ebp-040h], ebx
         mov ebx, eax
         mov eax, dword [byte ebp-040h]
-        call sub_7FE38
+        call EditTextField
         mov eax, dword [byte ebp-040h]
         call strlen_
         imul ebx, dword [byte ebp-048h], byte 52h
@@ -1147,7 +1147,7 @@ NewSeasonScreen:
         push byte 2Dh
         mov edx, 20h
         mov eax, edi
-        call sub_80AB8
+        call DrawTeamLogoBanner
         push byte 0FFFFFFFFh
         call MakeColor
         add esp, byte 4
@@ -1782,7 +1782,7 @@ SeasonMenuScreen:
         push esi
         push edi
         enter 9C0h, 0
-        call sub_81650
+        call SetHighlightText
         mov dword [byte ebp-02Ch], 0FFFFFFFFh
         mov dword [byte ebp-024h], 3
         mov byte [byte ebp-010h], 0
@@ -1888,7 +1888,7 @@ SeasonMenuScreen:
         mov edx, ebx
         mov eax, ebx
         mov esi, unk_1C5EF8
-        call sub_7E860
+        call DrawScreenBackground
         mov edi, dword [dword_1C86F0]
         rep movsb
         mov eax, dword [dword_1C86F0]
@@ -1915,7 +1915,7 @@ SeasonMenuScreen:
         mov eax, dword [dword_1C86F0]
         mov ecx, str_SD01
         add eax, 0A4h
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-0980h]
         push eax
         mov ecx, str_RL01
@@ -1924,7 +1924,7 @@ SeasonMenuScreen:
         mov eax, dword [dword_1C86F0]
         mov edx, dword [byte ebp-018h]
         add eax, 0F6h
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-0940h]
         push eax
         mov ecx, str_SN01
@@ -1933,7 +1933,7 @@ SeasonMenuScreen:
         mov eax, dword [dword_1C86F0]
         mov edx, dword [byte ebp-018h]
         add eax, 148h
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-0900h]
         push eax
         mov ecx, str_SR01
@@ -1942,7 +1942,7 @@ SeasonMenuScreen:
         mov eax, dword [dword_1C86F0]
         mov edx, dword [byte ebp-018h]
         add eax, 19Ah
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-08C0h]
         push eax
         mov ecx, str_SG01
@@ -1951,7 +1951,7 @@ SeasonMenuScreen:
         mov eax, dword [dword_1C86F0]
         mov edx, dword [byte ebp-018h]
         add eax, 1ECh
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-0880h]
         push eax
         mov ecx, str_DT01
@@ -1960,7 +1960,7 @@ SeasonMenuScreen:
         mov eax, dword [dword_1C86F0]
         mov edx, dword [byte ebp-018h]
         add eax, 23Eh
-        call sub_81D1C
+        call DrawStatTable
         cmp dword [byte ebp-024h], byte 3
         jne short .5
         lea eax, [dword ebp-01C0h]
@@ -1979,7 +1979,7 @@ SeasonMenuScreen:
         mov eax, dword [dword_1C86F0]
         mov edx, dword [byte ebp-018h]
         add eax, 0AE4h
-        call sub_81D1C
+        call DrawStatTable
         xor esi, esi
 .7:
         cmp dword [nosplit esi*4+dword_168E80], byte 1
@@ -2367,7 +2367,7 @@ SeasonMenuScreen:
         jl short .32
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte edi+02Ch]
-        call sub_80BBC
+        call WipeScreen
 .33:
         mov eax, dword [byte ebp-01Ch]
         call sub_926BD
@@ -2408,11 +2408,11 @@ SeasonMenuScreen:
 .37:
         cmp dword [byte ebp-040h], byte 0
         jne near .79
-        call sub_7EEB0
+        call ShowScreen
         mov dword [byte ebp-02Ch], 1
         jmp near .34
 .38:
-        call sub_7EDF0
+        call FadeInScreen
         imul eax, dword [dword_1AD226], byte 1Ch
         cmp byte [dword eax+byte_1ACF62], 1
         jne short .41
@@ -2424,25 +2424,25 @@ SeasonMenuScreen:
         xor ebx, ebx
 .40:
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
         jmp near .34
 .41:
         mov dword [byte ebp-02Ch], 1Ch
         jmp near .34
 .42:
-        call sub_7EF70
+        call ExitScreen
         jmp near .34
 .43:
         mov eax, dword [dword_1C86F0]
         add eax, 0A4h
         mov dword [byte ebp-02Ch], 1Dh
 .44:
-        call sub_83C08
+        call ShowPopupScreen
         jmp near .34
 .45:
         mov eax, dword [dword_1C86F0]
         add eax, 0F6h
-        call sub_83C08
+        call ShowPopupScreen
         mov eax, 2
         call sub_C6064
         jmp near .34
@@ -2470,7 +2470,7 @@ SeasonMenuScreen:
         xor ebx, ebx
         mov edx, ecx
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
         jmp near .33
 .49:
         cmp byte [dword eax+byte_1ACF62], 0
@@ -2532,7 +2532,7 @@ SeasonMenuScreen:
         mov edx, 2
         mov eax, dword [byte ebp-034h]
         xor ebx, ebx
-        call sub_7F5A4
+        call ShowMessageBox
         test eax, eax
         je near .34
         mov byte [byte ebp-014h], 1
@@ -2705,7 +2705,7 @@ SeasonMenuScreen:
         mov ebx, eax
         mov edx, eax
         mov dword [byte ebp-01Ch], eax
-        call sub_7E860
+        call DrawScreenBackground
         lea eax, [dword ebp-01C0h]
         push eax
         mov ecx, str_EC01
@@ -2714,7 +2714,7 @@ SeasonMenuScreen:
         mov eax, dword [dword_1C86F0]
         mov edx, dword [byte ebp-018h]
         add eax, 0AE4h
-        call sub_81D1C
+        call DrawStatTable
         push edi
         call SetDrawTarget
         add esp, byte 4
@@ -2751,7 +2751,7 @@ SeasonMenuScreen:
         mov ebx, eax
         mov edx, eax
         mov dword [byte ebp-01Ch], eax
-        call sub_7E860
+        call DrawScreenBackground
         lea eax, [dword ebp-01C0h]
         push eax
         mov ecx, str_WC01
@@ -2760,7 +2760,7 @@ SeasonMenuScreen:
         mov eax, dword [dword_1C86F0]
         mov edx, dword [byte ebp-018h]
         add eax, 0AE4h
-        call sub_81D1C
+        call DrawStatTable
         push edi
         call SetDrawTarget
         add esp, byte 4
@@ -3083,7 +3083,7 @@ StandingsScreen:
         lea edx, [byte ebp+022h]
         mov eax, unk_1AD22E
         call OpenLeagueFile
-        call sub_81650
+        call SetHighlightText
         mov ebx, dword [byte ebp+022h]
         lea edx, [byte ebp-0Ah]
         lea eax, [byte ebp-026h]
@@ -3142,7 +3142,7 @@ StandingsScreen:
         mov edx, ebx
         mov eax, ebx
         mov esi, unk_1C5F4A
-        call sub_7E860
+        call DrawScreenBackground
         mov eax, 13h
         mov edx, dword [dword_1C86F4]
         mov ecx, 52h
@@ -3599,7 +3599,7 @@ StandingsScreen_718:
         mov eax, dword [byte ebp+066h]
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte eax+02Ch]
-        call sub_80BBC
+        call WipeScreen
         jmp short .36
 .35:
         call SetScreenTarget
@@ -3632,11 +3632,11 @@ StandingsScreen_718:
 .37:
         cmp dword [byte ebp+01Eh], byte 0
         ja short .39
-        call sub_7EDF0
+        call FadeInScreen
         mov dword [byte ebp+026h], 1Ah
         jmp near StandingsScreen.18
 .38:
-        call sub_7EF70
+        call ExitScreen
         jmp near StandingsScreen.18
 .39:
         cmp dword [byte ebp+05Eh], byte 3
@@ -3709,7 +3709,7 @@ StandingsScreen_718:
         mov ebx, dword [byte ebp+072h]
         mov edx, ebx
         mov eax, ebx
-        call sub_7E860
+        call DrawScreenBackground
         lea eax, [dword ebp-01F6h]
         call sub_8DE7E
         push byte 0
@@ -3749,7 +3749,7 @@ StandingsScreen_718:
         mov dword [byte ebp+06Eh], eax
         jmp near StandingsScreen.18
 .46:
-        call sub_81678
+        call SetNormalText
         lea eax, [dword ebp-01F6h]
         call sub_8DE7E
         push dword [byte ebp+04Eh]
@@ -4741,7 +4741,7 @@ LinkTransferSetup:
         je near .34
         mov eax, 227h
         call GetLangText
-        call sub_835BC
+        call ShowLinkMessage
         call ClearLinkAbort
         test eax, eax
         je near .4

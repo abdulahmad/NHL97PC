@@ -25,7 +25,7 @@ extern MakeDirPath, LoadDataFileLib, LoadDataFile, InitGameGraphics, InitGameVid
 extern RestoreSavedPalette, ResetReplayBuffer, InitReplayBuffer, IsReplayRecording, ReplayFreeFrames, ReplayCmdPlay, ReplayCmdStop, ReplayCmdRewind
 extern ReplayCmdForward, ReplayPlayFrames, ReplayCamFollow, ReplayCamFree, StartInstantReplay, EndInstantReplay, PlaySavedReplay, ReplayFramesLeft
 extern ReplayCurrentFrame, ReplaySetupObjects, LoadReplayHeader, LoadReplayData, InitAnimPoints, FreeAnimTables, SetAnimClock, FreeAnimStates
-extern AllocAnimStates, InitFrontEnd, FreeFrontEnd, SetRegionRect, SetTextColor, DrawTextAligned, sub_7FE4C, sub_81650
+extern AllocAnimStates, InitFrontEnd, FreeFrontEnd, SetRegionRect, SetTextColor, DrawTextAligned, EditFileName, SetHighlightText
 extern NameIndexNew, NameIndexLoad, NameIndexSave, NameIndexFree, sub_86500, NameIndexRemove, NameIndexPath, sub_8BE60
 extern sub_8BEF8, InitMenuItems, sub_8BFAC, sub_8D5C0, sub_8D6B4, sub_8D6E8, sub_8D910, LoadLangTextB
 extern GetLangText, FreeLangText, sub_A0867, sub_AC69C, sub_AC6EB, sub_AC73E, OpenGameDatabase, CloseGameDatabase
@@ -407,7 +407,7 @@ sub_BDB25:
         call ClearScreen
         add esp, byte 4
         call sub_1013FC
-        call sub_81650
+        call SetHighlightText
         call FreeFrontEnd
         cmp dword [dword_16CCF1], byte 0
         je short .1
@@ -3257,7 +3257,7 @@ SaveReplay:
         mov ecx, esi
         mov ebx, eax
         lea eax, [byte ebp+07Eh]
-        call sub_7FE4C
+        call EditFileName
         test eax, eax
         je near .3
         cmp esi, byte 2

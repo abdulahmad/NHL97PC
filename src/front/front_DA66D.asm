@@ -39,10 +39,10 @@ extern sub_10FAC, IsKeyDown, ConvertArtXY, ConvertArtKeepPos, sub_11B104, sub_11
 extern sub_11C41C, sub_11D2D0, sub_11D364, sub_11D508, sub_11D5C0, sub_11D690, sub_11D780, sub_11D8D8
 extern sub_11DA0C, sub_11DE04, sub_11F850, sub_11F8D0, SetScreenTarget, sub_14140, InitPacketLink, ShutdownPacketLink
 extern PacketLinkSend, ClosePacketLink, SecondsToSamples, WaitSoundTime, ChkMenuMusic, PauseMusic, RequestMusicStop, WaitMusicEnd
-extern ArenaFileName, StopAllSfx, PlaySfx, ServiceBackgroundAudio, LoadDataFile, sub_7DFC0, sub_7E860, sub_7EDF0
-extern sub_7EF70, SetRegionRect, sub_7F04C, SetTextColor, DrawTextAligned, sub_7F29C, sub_7F5A4, sub_7F5B8
-extern sub_80BBC, sub_81D1C, sub_83314, sub_834EC, sub_83558, sub_835AC, sub_835BC, sub_83850
-extern sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, GetLangText, AllocPageStack, FreeDbPages, OpenDbFile
+extern ArenaFileName, StopAllSfx, PlaySfx, ServiceBackgroundAudio, LoadDataFile, DrawShadedLogo, DrawScreenBackground, FadeInScreen
+extern ExitScreen, SetRegionRect, DrawEditBox, SetTextColor, DrawTextAligned, DrawFrameBox, ShowMessageBox, ShowMessageBoxNoWait
+extern WipeScreen, DrawStatTable, ShowWorkingBox, UpdateWorkingBox, HideWorkingBox, ShowLinkWait, ShowLinkMessage, HideLinkBox
+extern ShowPopupScreen, InitMenuItems, sub_8BFAC, sub_8DF1F, GetLangText, AllocPageStack, FreeDbPages, OpenDbFile
 extern CloseDbFile, AddIndexKey, DeleteIndexKey, FindIndexKey, FindLastKey, FindFirstKey, NextIndexKey, PrevIndexKey
 extern BuildKeyFromLong, BuildKeyFromString, KeyToLong, sub_E7D6D, sub_E8660, sub_E8923, sub_F9A88, AllocMemBlock
 extern sub_FAAB4, FreeMemBlock, ZeroMem, sub_FBE40, addtimer, sub_FC008, WaitTicks, MakeColor
@@ -3709,7 +3709,7 @@ CreateExhibitionFile:
         inc edx
         inc edx
         call GetLangText
-        call sub_83314
+        call ShowWorkingBox
 .2:
         movsx eax, word [byte ebp-01Ah]
         cmp eax, dword [byte ebp+076h]
@@ -3719,7 +3719,7 @@ CreateExhibitionFile:
         mov ecx, dword [byte ebp+072h]
         inc eax
         xor esi, esi
-        call sub_834EC
+        call UpdateWorkingBox
 .3:
         mov eax, dword [byte ebp-022h]
         movsx eax, word [eax]
@@ -3750,7 +3750,7 @@ CreateExhibitionFile:
 .6:
         mov eax, dword [dword ebp+08Eh]
         call FreePtr
-        call sub_83558
+        call HideWorkingBox
 .7:
         xor eax, eax
         jmp near CreateExhibitionFile_325
@@ -3829,7 +3829,7 @@ CreateExhibitionFile:
         mov ebx, 14h
         inc eax
         mov edx, dword [byte ebp+07Ah]
-        call sub_834EC
+        call UpdateWorkingBox
         mov eax, dword [byte ebp+06Ah]
         call FileWriteRecord
         mov edx, eax
@@ -3886,7 +3886,7 @@ CreateExhibitionFile:
         movsx eax, word [byte ebp-01Ah]
         inc eax
         inc eax
-        call sub_834EC
+        call UpdateWorkingBox
         mov eax, dword [byte ebp+07Ah]
         lea edx, [byte ebp+03Eh]
         add eax, byte 4
@@ -3909,7 +3909,7 @@ CreateExhibitionFile_30F:
 CreateExhibitionFile_319:
         call FreePtr
 CreateExhibitionFile_31E:
-        call sub_83558
+        call HideWorkingBox
         mov eax, edx
 CreateExhibitionFile_325:
         lea esp, [byte ebp+07Eh]
@@ -4010,7 +4010,7 @@ CreatePlayoffFile:
         inc edx
         inc edx
         call GetLangText
-        call sub_83314
+        call ShowWorkingBox
 .6:
         movsx eax, word [byte ebp-01Eh]
         cmp eax, dword [byte ebp+076h]
@@ -4020,7 +4020,7 @@ CreatePlayoffFile:
         mov ecx, dword [byte ebp+072h]
         inc eax
         xor esi, esi
-        call sub_834EC
+        call UpdateWorkingBox
 .7:
         mov eax, dword [byte ebp+06Ah]
         movsx eax, word [eax]
@@ -4050,7 +4050,7 @@ CreatePlayoffFile:
         jne short .10
         mov eax, dword [dword ebp+08Eh]
         call FreePtr
-        call sub_83558
+        call HideWorkingBox
         jmp near .1
 .10:
         mov edx, dword [byte ebp+06Eh]
@@ -4083,7 +4083,7 @@ CreatePlayoffFile:
         call FreePtr
         mov eax, dword [dword ebp+08Eh]
         call FreePtr
-        call sub_83558
+        call HideWorkingBox
         jmp near .3
 .11:
         inc dword [byte ebp+076h]
@@ -4137,7 +4137,7 @@ CreatePlayoffFile:
         mov ebx, 14h
         inc eax
         mov edx, dword [byte ebp+07Ah]
-        call sub_834EC
+        call UpdateWorkingBox
         mov eax, dword [byte ebp+066h]
         call FileWriteRecord
         mov edx, eax
@@ -4193,7 +4193,7 @@ CreatePlayoffFile:
         je near CreateExhibitionFile_30F
         movsx eax, word [byte ebp-01Eh]
         inc eax
-        call sub_834EC
+        call UpdateWorkingBox
         mov eax, dword [byte ebp+07Ah]
         lea edx, [byte ebp+03Ah]
         add eax, byte 4
@@ -4288,7 +4288,7 @@ CreatePlayoffSchedule:
         inc edx
         inc edx
         call GetLangText
-        call sub_83314
+        call ShowWorkingBox
 .2:
         movsx eax, word [byte ebp-026h]
         cmp eax, dword [byte ebp+06Eh]
@@ -4298,7 +4298,7 @@ CreatePlayoffSchedule:
         mov ecx, dword [byte ebp+06Ah]
         inc eax
         xor esi, esi
-        call sub_834EC
+        call UpdateWorkingBox
 .3:
         mov eax, dword [byte ebp+062h]
         movsx eax, word [eax]
@@ -4331,7 +4331,7 @@ CreatePlayoffSchedule:
         call FreePtr
         mov eax, dword [dword ebp+086h]
         call FreePtr
-        call sub_83558
+        call HideWorkingBox
 .7:
         xor eax, eax
         jmp near FindRecordByKey_1BC
@@ -4413,7 +4413,7 @@ CreatePlayoffSchedule:
         mov ebx, 14h
         inc eax
         mov edx, dword [byte ebp+072h]
-        call sub_834EC
+        call UpdateWorkingBox
         mov eax, dword [byte ebp+05Eh]
         call FileWriteRecord
         mov edx, eax
@@ -4470,7 +4470,7 @@ CreatePlayoffSchedule:
         movsx eax, word [byte ebp-026h]
         inc eax
         inc eax
-        call sub_834EC
+        call UpdateWorkingBox
         mov eax, dword [byte ebp+072h]
         lea edx, [byte ebp+032h]
         add eax, byte 4
@@ -4491,7 +4491,7 @@ CreatePlayoffSchedule:
         mov eax, dword [dword ebp+086h]
         call FreePtr
 .18:
-        call sub_83558
+        call HideWorkingBox
         mov eax, edx
         jmp near FindRecordByKey_1BC
 ;-----------------------------------------------------------------------------
@@ -4617,7 +4617,7 @@ CreateSeasonFile:
         inc edx
         inc edx
         call GetLangText
-        call sub_83314
+        call ShowWorkingBox
 .6:
         mov eax, dword [byte ebp+076h]
         movsx eax, word [eax]
@@ -4628,7 +4628,7 @@ CreateSeasonFile:
         mov ecx, dword [byte ebp+07Ah]
         mov eax, edi
         mov edx, dword [byte ebp-012h]
-        call sub_834EC
+        call UpdateWorkingBox
         mov ebx, esi
         push dword [dword ebp+08Eh]
         mov eax, esi
@@ -4637,7 +4637,7 @@ CreateSeasonFile:
         jne short .7
         mov eax, dword [byte ebp-016h]
         call FreePtr
-        call sub_83558
+        call HideWorkingBox
         jmp near .1
 .7:
         mov esi, edi
@@ -4667,7 +4667,7 @@ CreateSeasonFile:
         mov ebx, 14h
         inc eax
         mov edx, dword [byte ebp+07Ah]
-        call sub_834EC
+        call UpdateWorkingBox
         mov eax, dword [byte ebp+072h]
         call FileWriteRecord
         mov edx, eax
@@ -4725,7 +4725,7 @@ CreateSeasonFile:
         movsx eax, word [eax]
         inc eax
         inc eax
-        call sub_834EC
+        call UpdateWorkingBox
         mov eax, dword [byte ebp+07Ah]
         lea edx, [byte ebp+046h]
         add eax, byte 4
@@ -4874,7 +4874,7 @@ CreateSeasonSchedule:
         inc edx
         inc edx
         call GetLangText
-        call sub_83314
+        call ShowWorkingBox
 .7:
         mov eax, dword [byte ebp+072h]
         movsx eax, word [eax]
@@ -4885,7 +4885,7 @@ CreateSeasonSchedule:
         mov ecx, dword [byte ebp+07Eh]
         mov eax, edi
         mov edx, dword [byte ebp+076h]
-        call sub_834EC
+        call UpdateWorkingBox
         push unk_16D7F4
         mov ebx, esi
         mov eax, esi
@@ -4894,7 +4894,7 @@ CreateSeasonSchedule:
         jne short .8
         mov eax, dword [byte ebp+07Ah]
         call FreePtr
-        call sub_83558
+        call HideWorkingBox
         jmp near .2
 .8:
         mov esi, edi
@@ -4924,7 +4924,7 @@ CreateSeasonSchedule:
         mov ebx, 14h
         inc eax
         mov edx, dword [byte ebp+07Eh]
-        call sub_834EC
+        call UpdateWorkingBox
         mov eax, dword [byte ebp+06Eh]
         call FileWriteRecord
         mov edx, eax
@@ -4982,7 +4982,7 @@ CreateSeasonSchedule:
         movsx eax, word [eax]
         inc eax
         inc eax
-        call sub_834EC
+        call UpdateWorkingBox
         mov eax, dword [byte ebp+07Eh]
         lea edx, [byte ebp+042h]
         add eax, byte 4
@@ -5006,7 +5006,7 @@ CreateSeasonSchedule:
 .16:
         call FreePtr
 .17:
-        call sub_83558
+        call HideWorkingBox
         mov eax, edx
 CreateSeasonSchedule_2F0:
         lea esp, [dword ebp+082h]
@@ -5129,7 +5129,7 @@ CreateSeasonSchedule_2F0:
         inc edx
         inc edx
         call GetLangText
-        call sub_83314
+        call ShowWorkingBox
 .23:
         mov eax, dword [byte ebp+07Ah]
         movsx eax, word [eax]
@@ -5139,7 +5139,7 @@ CreateSeasonSchedule_2F0:
         mov ecx, dword [byte ebp+07Eh]
         lea eax, [byte esi+01h]
         mov edx, dword [byte ebp+07Ah]
-        call sub_834EC
+        call UpdateWorkingBox
         mov ebx, esi
         mov eax, esi
         call BuildSeasonRecords
@@ -5154,7 +5154,7 @@ CreateSeasonSchedule_2F0:
         je short .26
         mov eax, dword [byte ebp+076h]
         call FreePtr
-        call sub_83558
+        call HideWorkingBox
         jmp near .18
 .26:
         mov eax, dword [byte ebp+07Eh]
@@ -5181,7 +5181,7 @@ CreateSeasonSchedule_2F0:
         mov ebx, 14h
         inc eax
         mov edx, dword [byte ebp+07Eh]
-        call sub_834EC
+        call UpdateWorkingBox
         mov eax, dword [byte ebp+072h]
         call FileWriteRecord
         mov edx, eax
@@ -5239,7 +5239,7 @@ CreateSeasonSchedule_2F0:
         movsx eax, word [eax]
         inc eax
         inc eax
-        call sub_834EC
+        call UpdateWorkingBox
         mov eax, dword [byte ebp+07Eh]
         lea edx, [byte ebp+046h]
         add eax, byte 4
@@ -12749,10 +12749,10 @@ LinkTimerOn:
         jne short .3
         cmp dword [dword_16E46C], byte 8
         je short .1
-        call sub_835BC
+        call ShowLinkMessage
         jmp short .2
 .1:
-        call sub_835AC
+        call ShowLinkWait
 .2:
         mov dword [dword_16DAC8], 1
 .3:
@@ -12769,7 +12769,7 @@ LinkTimerOff:
         cmp dword [dword_16DAC8], byte 0
         je short .1
         xor ebx, ebx
-        call sub_83850
+        call HideLinkBox
         mov dword [dword_16DAC8], ebx
 .1:
         pop ebx
@@ -12876,10 +12876,10 @@ SyncLinkGame:
         jne short .8
         cmp dword [dword_16E46C], byte 8
         je short .4
-        call sub_835BC
+        call ShowLinkMessage
         jmp short .7
 .4:
-        call sub_835AC
+        call ShowLinkWait
         jmp short .7
 .5:
         mov eax, 76h
@@ -12890,10 +12890,10 @@ SyncLinkGame:
         jne short .8
         cmp dword [dword_16E46C], byte 8
         je short .6
-        call sub_835BC
+        call ShowLinkMessage
         jmp short .7
 .6:
-        call sub_835AC
+        call ShowLinkWait
 .7:
         mov dword [dword_16DAC8], 1
 .8:
@@ -12919,7 +12919,7 @@ SyncLinkGame:
         je short .10
         je short .10
         xor esi, esi
-        call sub_83850
+        call HideLinkBox
         mov dword [dword_16DAC8], esi
 .10:
         mov eax, dword [tickcount]
@@ -13146,7 +13146,7 @@ StartNetworkLink:
         mov edx, ecx
         xor ebx, ebx
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
         xor eax, eax
         add esp, 100h
         pop ebp
@@ -13189,7 +13189,7 @@ StartNetworkLink:
         mov eax, 239h
         mov dword [dword esp+0FCh], edx
         call GetLangText
-        call sub_835BC
+        call ShowLinkMessage
         mov edx, dword [dword_16DAA4]
         mov ebx, ResendLinkPacket
         push edx
@@ -13199,14 +13199,14 @@ StartNetworkLink:
         test eax, eax
         jne short .5
         call ShutdownPacketLink
-        call sub_83850
+        call HideLinkBox
         push byte 0
         mov eax, 23Ah
         mov ecx, 1
         xor ebx, ebx
         mov edx, ecx
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
         xor eax, eax
         add esp, 100h
         pop ebp
@@ -13269,14 +13269,14 @@ StartNetworkLink:
         mov eax, dword [dword esp+0FCh]
         cmp ax, word [word_16DAB8]
         jne short .11
-        call sub_83850
+        call HideLinkBox
         push byte 0
         mov eax, 23Bh
         mov ecx, 1
         xor ebx, ebx
         mov edx, ecx
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
         call CloseNetSession
         call ShutdownPacketLink
         xor eax, eax
@@ -13289,7 +13289,7 @@ StartNetworkLink:
         pop ebx
         ret
 .11:
-        call sub_83850
+        call HideLinkBox
 .12:
         xor ebx, ebx
         mov ecx, 1
@@ -13365,7 +13365,7 @@ NetDisconnect:
         cmp dword [dword_16DA9C], byte 0
         je short .3
         mov eax, str_Disconnecting
-        call sub_835BC
+        call ShowLinkMessage
         cmp dword [dword_1CD2A8], byte 0
         je short .1
         call CloseNetConnection
@@ -13384,7 +13384,7 @@ NetDisconnect:
         call sub_F9A88
         add esp, byte 4
         xor esi, esi
-        call sub_83850
+        call HideLinkBox
         call ShutdownPacketLink
         mov dword [dword_16DA9C], esi
 .3:
@@ -13420,11 +13420,11 @@ LinkHandshake:
         cmp dword [dword_16E46C], byte 8
         je short .1
         mov eax, ebx
-        call sub_835BC
+        call ShowLinkMessage
         jmp short .2
 .1:
         mov eax, ebx
-        call sub_835AC
+        call ShowLinkWait
 .2:
         mov dword [dword_16DAC8], 1
 .3:
@@ -13486,11 +13486,11 @@ LinkHandshake:
         cmp dword [dword_16E46C], byte 8
         je short .6
         mov eax, ebx
-        call sub_835BC
+        call ShowLinkMessage
         jmp short .7
 .6:
         mov eax, ebx
-        call sub_835AC
+        call ShowLinkWait
 .7:
         mov dword [dword_16DAC8], 1
         jmp near .4
@@ -13528,11 +13528,11 @@ LinkHandshake:
         cmp dword [dword_16E46C], byte 8
         je short .11
         mov eax, ebx
-        call sub_835BC
+        call ShowLinkMessage
         jmp short .12
 .11:
         mov eax, ebx
-        call sub_835AC
+        call ShowLinkWait
 .12:
         mov dword [dword_16DAC8], 1
         jmp near .9
@@ -13570,11 +13570,11 @@ LinkHandshake:
         cmp dword [dword_16E46C], byte 8
         je short .16
         mov eax, ebx
-        call sub_835BC
+        call ShowLinkMessage
         jmp short .17
 .16:
         mov eax, ebx
-        call sub_835AC
+        call ShowLinkWait
 .17:
         mov dword [dword_16DAC8], 1
         jmp near .14
@@ -13621,11 +13621,11 @@ LinkHandshake:
         cmp dword [dword_16E46C], byte 8
         je short .21
         mov eax, ebx
-        call sub_835BC
+        call ShowLinkMessage
         jmp short .22
 .21:
         mov eax, ebx
-        call sub_835AC
+        call ShowLinkWait
 .22:
         mov dword [dword_16DAC8], 1
         jmp near .19
@@ -13635,7 +13635,7 @@ LinkHandshake:
         je short .24
         je short .24
         xor ecx, ecx
-        call sub_83850
+        call HideLinkBox
         mov dword [dword_16DAC8], ecx
 .24:
         add esp, byte 8
@@ -14911,10 +14911,10 @@ WaitForOtherComputer:
         jne short .34
         cmp dword [dword_16E46C], byte 8
         je short .30
-        call sub_835BC
+        call ShowLinkMessage
         jmp short .33
 .30:
-        call sub_835AC
+        call ShowLinkWait
         jmp short .33
 .31:
         cmp edi, str_WaitingForOtherComputer
@@ -14924,11 +14924,11 @@ WaitForOtherComputer:
         cmp ecx, ecx
         je short .32
         mov eax, str_WaitingForOtherComputer
-        call sub_835BC
+        call ShowLinkMessage
         jmp short .33
 .32:
         mov eax, str_WaitingForOtherComputer
-        call sub_835AC
+        call ShowLinkWait
 .33:
         mov dword [dword_16DAC8], 1
 .34:
@@ -14951,7 +14951,7 @@ WaitForOtherComputer:
         je short .36
         je short .36
         xor edx, edx
-        call sub_83850
+        call HideLinkBox
         mov dword [dword_16DAC8], edx
 .36:
         mov eax, dword [tickcount]
@@ -16503,7 +16503,7 @@ ChooseNetworkGameScreen:
         push esi
         mov eax, 3
         xor edx, edx
-        call sub_7F04C
+        call DrawEditBox
         mov edx, dword [dword_1CF548]
         lea eax, [nosplit edx*8+00h]
         add eax, edx
@@ -16513,12 +16513,12 @@ ChooseNetworkGameScreen:
         mov eax, 7
         sub ebx, edx
         mov edx, 14h
-        call sub_7F04C
+        call DrawEditBox
         mov ebx, 190h
         mov ecx, esi
         xor edx, edx
         xor eax, eax
-        call sub_7F29C
+        call DrawFrameBox
         push byte 0FFFFFFFFh
         call MakeColor
         add esp, byte 4
@@ -16677,7 +16677,7 @@ ChooseNetworkGameScreen:
         push edi
         mov edx, dword [byte edx+02Ch]
         mov dword [byte esp+04Ch], eax
-        call sub_7DFC0
+        call DrawShadedLogo
         jmp short .3
 .2:
         push ebp
@@ -16728,7 +16728,7 @@ ChooseNetworkGameScreen:
         push edi
         mov edx, dword [byte edx+02Ch]
         mov dword [byte esp+050h], eax
-        call sub_7DFC0
+        call DrawShadedLogo
         jmp short .5
 .4:
         push ebp
@@ -17457,7 +17457,7 @@ JoinNetworkGame:
         mov eax, 22Ch
         mov edx, ecx
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
         xor eax, eax
         add esp, byte 5Ch
         pop ebp
@@ -17467,7 +17467,7 @@ JoinNetworkGame:
 .2:
         mov eax, 160h
         call GetLangText
-        call sub_835BC
+        call ShowLinkMessage
         cmp dword [dword_16E140], byte 0
         jne short .5
 .3:
@@ -17481,7 +17481,7 @@ JoinNetworkGame:
         push unk_1CD480
         call sub_11DA0C
         add esp, byte 4
-        call sub_83850
+        call HideLinkBox
         xor eax, eax
         add esp, byte 5Ch
         pop ebp
@@ -17500,7 +17500,7 @@ JoinNetworkGame:
         movsd
         movsd
         movsd
-        call sub_83850
+        call HideLinkBox
         push byte 0
         push unk_1CD480
         call sub_11D8D8
@@ -17516,7 +17516,7 @@ JoinNetworkGame:
         mov eax, 22Dh
         mov edx, ecx
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
         xor eax, eax
         add esp, byte 5Ch
         pop ebp
@@ -17545,7 +17545,7 @@ JoinNetworkGame:
         mov ebx, edi
         mov edx, ecx
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
 .8:
         test esi, esi
         je short .7
@@ -17575,7 +17575,7 @@ JoinNetworkGame:
         mov eax, 22Fh
         mov edx, ecx
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
         xor eax, eax
         add esp, byte 5Ch
         pop ebp
@@ -17790,7 +17790,7 @@ OptionsAnimScreen:
         xor ecx, ecx
         xor ebx, ebx
         call GetLangText
-        call sub_7F5B8
+        call ShowMessageBoxNoWait
         jmp short .1
 .3:
         mov dword [dword_16E144], eax
@@ -17955,7 +17955,7 @@ OptionsAnimScreen:
         call sub_1013FC
         mov edx, ebx
         mov eax, ebx
-        call sub_7E860
+        call DrawScreenBackground
         mov edx, unk_1CD6AC
         mov eax, 2
         mov ecx, str_MB014
@@ -17968,7 +17968,7 @@ OptionsAnimScreen:
         push str_MB023
         mov eax, unk_1CD6AC
         mov esi, unk_1C5F4A
-        call sub_81D1C
+        call DrawStatTable
         mov ecx, 52h
         rep movsb
         mov dword [byte ebp+072h], 0
@@ -17993,18 +17993,18 @@ OptionsAnimScreen:
 .10:
         mov eax, unk_1CD6AC
         mov edx, 1
-        call sub_83C08
+        call ShowPopupScreen
         xor ecx, ecx
         push byte 1
         mov eax, 1AFh
         xor ebx, ebx
         call GetLangText
-        call sub_7F5B8
+        call ShowMessageBoxNoWait
         movzx eax, word [dword_16E144]
         call sub_10A68
         jmp short .9
 .11:
-        call sub_7EDF0
+        call FadeInScreen
         mov esi, 1
         jmp short .9
 .12:
@@ -18084,14 +18084,14 @@ SeasonIntroScreen:
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte eax+02Ch]
         xor esi, esi
-        call sub_80BBC
+        call WipeScreen
         jmp near SeasonIntroScreen_DB.2
 SeasonIntroScreen_C6:
-        call sub_7EDF0
+        call FadeInScreen
         inc esi
         jmp near SeasonIntroScreen_DB.2
 SeasonIntroScreen_D1:
-        call sub_7EF70
+        call ExitScreen
         jmp near SeasonIntroScreen_DB.2
 SeasonIntroScreen_DB:
         imul eax, byte 52h

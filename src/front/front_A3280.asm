@@ -31,13 +31,13 @@ extern bcopy, BlitArt, BlitShape, sub_1013FC, FindShape, FindShapeQuiet, sub_101
 extern sub_102B94, sub_102C10, Random32, sub_106D80, sub_106F64, sub_106F94, sub_110D70, CreateBitmapDefault
 extern ConvertArtXY, ConvertArtKeepPos, sub_13B50, sub_13B98, SetScreenTarget, PlayGame, SetPlayedTeams, IsAllStarDay
 extern InitGameAudio, MusicEnabled, LoadFrontEndSfx, InitGameSounds, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx
-extern PaEvent, ResetStreamAudio, LoadDataFileLib, LoadDataFile, OpenDataLibrary, InitFrontEnd, FreeFrontEnd, sub_7DA28
-extern sub_7DFC0, sub_7E52C, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, SetTextColor, DrawTextAligned
-extern sub_7F29C, LoadTeamLogo, sub_80808, sub_80A38, sub_80AB8, sub_80BBC, sub_81650, sub_81678
-extern sub_823F0, sub_83C08, ShowLoadingScreen, sub_842F4, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10
+extern PaEvent, ResetStreamAudio, LoadDataFileLib, LoadDataFile, OpenDataLibrary, InitFrontEnd, FreeFrontEnd, ShadeShape
+extern DrawShadedLogo, DrawShadowBox, DrawScreenBackground, FadeInScreen, ShowScreen, ExitScreen, SetTextColor, DrawTextAligned
+extern DrawFrameBox, LoadTeamLogo, FreeLogoArt, DrawMatchBanner, DrawTeamLogoBanner, WipeScreen, SetHighlightText, SetNormalText
+extern DrawPortrait, ShowPopupScreen, ShowLoadingScreen, ShowLoadingBar, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10
 extern DrawScrollBar, sub_8DE68, sub_8DE7E, sub_8DEAC, LoadLangTextB, GetLangText, FreeLangText, sub_8E870
 extern sub_A3136, sub_A31DE, AllocStatTable, sub_ACA49, sub_ACAE5, sub_ACAF2, sub_ACB0E, sub_ACB21
-extern sub_ACDAE, sub_AD151, sub_AD62E, UserLogScreen, sub_CA44C, sub_D0098, InitSlotTable, InitLinkSettings
+extern sub_ACDAE, sub_AD151, sub_AD62E, UserLogScreen, InitListBox, InitShapeListBox, InitSlotTable, InitLinkSettings
 extern ClearLinkAbort, ServiceIdle, LinkSyncMenu, LinkSyncScreen, LinkSendBlock, LinkReceiveBlock, sub_EE8AC, AllocMemBlock
 extern FreeMemBlock, ZeroMem, sub_FC330, MakeColor, sub_FCC40, FreeBitmap, sub_FCEEC, sub_FCF84
 extern DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, MeasureText, tickcount, unk_165EA0, unk_166010
@@ -2131,7 +2131,7 @@ sub_A4B7D_112:
         mov dword [nosplit esi*4+dword_1C94A4], eax
         cmp esi, byte 3
         jl short .9
-        call sub_81678
+        call SetNormalText
         mov word [word_1C94EE], 4
         xor esi, esi
         jmp short .12
@@ -2566,7 +2566,7 @@ sub_A4B7D_112:
         add esp, byte 8
         mov ecx, ebx
         mov ebx, dword [byte ebp-08h]
-        call sub_80A38
+        call DrawMatchBanner
         jmp short .48
 .47:
         push dword 8CCCh
@@ -2581,7 +2581,7 @@ sub_A4B7D_112:
         mov ecx, dword [byte ecx+02Ch]
         push byte 68h
         shr eax, 1Ah
-        call sub_80AB8
+        call DrawTeamLogoBanner
 .48:
         mov eax, dword [dword_1AC944]
         mov edx, dword [byte eax+01h]
@@ -2602,7 +2602,7 @@ sub_A4B7D_112:
         add esp, byte 8
         mov ecx, ebx
         mov ebx, dword [byte ebp-08h]
-        call sub_80A38
+        call DrawMatchBanner
         jmp short .50
 .49:
         push dword 8CCCh
@@ -2617,7 +2617,7 @@ sub_A4B7D_112:
         mov ecx, dword [byte ecx+02Ch]
         push dword 216h
         shr eax, 1Ah
-        call sub_80AB8
+        call DrawTeamLogoBanner
 .50:
         push dword [byte ebp-08h]
         call SetDrawTarget
@@ -3315,7 +3315,7 @@ sub_A4B7D_112:
         add esp, byte 0Ch
         mov ebx, eax
         mov edx, eax
-        call sub_7E860
+        call DrawScreenBackground
         push dword [byte ebp-08h]
         call SetDrawTarget
         imul eax, dword [dword_1C94DC], byte 3
@@ -3501,7 +3501,7 @@ sub_A4B7D_112:
         mov eax, dword [byte ebp-08h]
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte eax+02Ch]
-        call sub_80BBC
+        call WipeScreen
         mov eax, 3
         call SecondsToSamples
         call WaitSoundTime
@@ -3561,7 +3561,7 @@ sub_A4B7D_112:
         add eax, edx
         mov dword [byte ebp-010h], 0Fh
 .80:
-        call sub_83C08
+        call ShowPopupScreen
         jmp near .88
 .81:
         lea ebx, [byte eax+01h]
@@ -3575,14 +3575,14 @@ sub_A4B7D_112:
         lea edx, [byte eax+02h]
         cmp edx, dword [byte ebp-024h]
         jne short .83
-        call sub_7EEB0
+        call ShowScreen
         mov dword [byte ebp-010h], 1Ah
         jmp short .88
 .83:
         lea edx, [byte eax+03h]
         cmp edx, dword [byte ebp-024h]
         jne short .84
-        call sub_7EDF0
+        call FadeInScreen
         mov dword [byte ebp-010h], 13h
         jmp short .88
 .84:
@@ -3610,7 +3610,7 @@ sub_A4B7D_112:
         add eax, byte 6
         cmp eax, dword [byte ebp-024h]
         jne short .88
-        call sub_7EF70
+        call ExitScreen
 .88:
         cmp dword [byte ebp-010h], byte 0FFFFFFFFh
         je near .76
@@ -3691,7 +3691,7 @@ sub_A4B7D_112:
         push dword [dword_1C94BC]
         call FreeMemBlock
         add esp, byte 4
-        call sub_81678
+        call SetNormalText
         push dword [dword_1C94E0]
         call FreeMemBlock
         add esp, byte 4
@@ -3968,7 +3968,7 @@ PostGameScreen:
         push str_GS00
         mov esi, eax
         mov eax, dword [dword_1C959C]
-        call sub_D0098
+        call InitShapeListBox
         test byte [dword_1AC814], 70h
         jne near .4
         mov edx, 1
@@ -3983,13 +3983,13 @@ PostGameScreen:
         push eax
         sar ecx, 10h
         lea eax, [dword esp+0FAh]
-        call sub_CA44C
+        call InitListBox
         push str_RM00
         mov ecx, str_RM01
         mov ebx, str_RM00
         lea edx, [dword esp+014Ch]
         mov eax, dword [dword_1C959C]
-        call sub_D0098
+        call InitShapeListBox
         mov eax, dword [dword esp+0162h]
         mov ecx, dword [dword esp+0162h]
         mov ebx, 1BDh
@@ -4000,7 +4000,7 @@ PostGameScreen:
         push eax
         sar ecx, 10h
         lea eax, [dword esp+014Ch]
-        call sub_CA44C
+        call InitListBox
         mov ecx, 4
         mov ebx, str_RM00
         mov edx, dword_1C9524
@@ -4018,7 +4018,7 @@ PostGameScreen:
         push eax
         sar ecx, 10h
         lea eax, [dword esp+0FAh]
-        call sub_CA44C
+        call InitListBox
         xor eax, eax
         mov dword [dword_1C9594], eax
 .5:
@@ -4123,7 +4123,7 @@ PostGameScreen:
         call CreateBitmap
         add esp, byte 0Ch
         mov ebp, eax
-        call sub_81678
+        call SetNormalText
         push byte 0FFFFFFFFh
         call MakeColor
         xor edi, edi
@@ -4306,7 +4306,7 @@ PostGameScreen:
         xor ecx, ecx
         mov edx, dword [byte edx+02Ch]
 .18:
-        call sub_7DA28
+        call ShadeShape
 .19:
         mov eax, dword [dword esp+056Ch]
         push eax
@@ -4358,7 +4358,7 @@ PostGameScreen:
         sar ecx, 10h
         sar ebx, 10h
         mov edx, dword [byte edx+02Ch]
-        call sub_823F0
+        call DrawPortrait
         call ServiceIdle
         push str_BTM2
         mov edx, dword [dword_1C95A4]
@@ -4376,7 +4376,7 @@ PostGameScreen:
         sar ecx, 10h
         sar ebx, 10h
         mov edx, dword [byte edx+02Ch]
-        call sub_823F0
+        call DrawPortrait
         mov ebx, dword [dword esp+0568h]
         call ServiceIdle
         push ebx
@@ -4389,7 +4389,7 @@ PostGameScreen:
         mov ebx, dword [byte ebx+0Ah]
         mov edx, dword [byte edx+02Ch]
         sar ebx, 10h
-        call sub_823F0
+        call DrawPortrait
         call ServiceIdle
         mov eax, dword [dword esp+0120h]
         sub eax, byte 11h
@@ -4454,7 +4454,7 @@ PostGameScreen:
         mov ebx, eax
         mov edx, eax
         mov esi, unk_1C5F4A
-        call sub_7E860
+        call DrawScreenBackground
         rep movsd
         movsw
         mov ebx, 1
@@ -4469,7 +4469,7 @@ PostGameScreen:
         mov dword [dword esp+0A4h], ecx
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte eax+02Ch]
-        call sub_80BBC
+        call WipeScreen
         mov esi, dword [dword_1C9558]
         push esi
         call FreeBitmap
@@ -4528,7 +4528,7 @@ PostGameScreen:
         push ebp
         mov edx, 0Ch
         mov eax, dword [byte eax+02Ch]
-        call sub_7E52C
+        call DrawShadowBox
         cmp word [dword edi+word_1C94F8], byte 0
         jne short .24
         mov eax, dword [dword_1AC944]
@@ -4560,14 +4560,14 @@ PostGameScreen:
         sar ecx, 1
         mov edx, dword [byte edx+02Ch]
         add edi, byte 8
-        call sub_7DFC0
-        call sub_80808
+        call DrawShadedLogo
+        call FreeLogoArt
         mov ecx, 76h
         mov ebx, ebp
         xor edx, edx
         xor eax, eax
         add esi, byte 4
-        call sub_7F29C
+        call DrawFrameBox
         mov ebx, dword [dword esp+0564h]
         mov eax, dword [dword esp+0564h]
         inc ebx
@@ -4593,24 +4593,24 @@ PostGameScreen:
         ja short PostGameScreen_B71.27
         jmp dword [nosplit cs:eax*4+jpt_A6680]
 PostGameScreen_B39:
-        call sub_7EDF0
+        call FadeInScreen
         mov ebx, 1Ah
         mov esi, edi
         mov dword [dword esp+0578h], ebx
         jmp short PostGameScreen_B71.27
 PostGameScreen_B4E:
-        call sub_7EF70
+        call ExitScreen
         jmp short PostGameScreen_B71.27
 PostGameScreen_B55:
         lea eax, [dword esp+0F6h]
         mov edx, 17h
-        call sub_83C08
+        call ShowPopupScreen
         mov esi, edi
         mov dword [dword esp+0578h], edx
         jmp short PostGameScreen_B71.27
 PostGameScreen_B71:
         lea eax, [dword esp+0148h]
-        call sub_83C08
+        call ShowPopupScreen
         call sub_A7C90
         mov eax, 15h
         mov esi, edi
@@ -5699,7 +5699,7 @@ GameStatsScreen:
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte eax+02Ch]
         xor ebp, ebp
-        call sub_80BBC
+        call WipeScreen
 .1:
         cmp dword [dword_1C955C], byte 1
         je short .2
@@ -5738,7 +5738,7 @@ GameStatsScreen:
         mov edx, ecx
         jmp dword [nosplit cs:edx*4+jpt_A7D7C]
 GameStatsScreen_143:
-        call sub_7EEB0
+        call ShowScreen
         inc ebp
         jmp near GameStatsScreen_39D.16
 GameStatsScreen_14E:
@@ -5746,7 +5746,7 @@ GameStatsScreen_14E:
         push edx
         call FreeBitmap
         add esp, byte 4
-        call sub_7EF70
+        call ExitScreen
         push byte 0
         push dword 1E0h
         push dword 280h
@@ -5765,7 +5765,7 @@ GameStatsScreen_14E:
 GameStatsScreen_19A:
         imul eax, ecx, byte 52h
         add eax, esi
-        call sub_83C08
+        call ShowPopupScreen
         cmp dword [dword_1C955C], byte 1
         jne short .5
         mov eax, dword [dword_1C9548]
@@ -6021,7 +6021,7 @@ InitGameStatsScreen:
         push dword 0B333h
         call sub_101EAC
         add esp, byte 10h
-        call sub_80808
+        call FreeLogoArt
         mov eax, dword [dword_1AC944]
         mov eax, dword [byte eax+01h]
         shl eax, 6
@@ -6055,7 +6055,7 @@ InitGameStatsScreen:
         push dword 0B333h
         call sub_101EAC
         add esp, byte 10h
-        call sub_80808
+        call FreeLogoArt
         mov eax, 5Dh
         mov edx, dword [dword_1C9584]
         call InitMenuItems
@@ -6134,7 +6134,7 @@ InitGameStatsScreen:
         mov ebx, eax
         mov edx, eax
         mov ecx, 14h
-        call sub_7E860
+        call DrawScreenBackground
         mov edi, dword [dword_1C9584]
         rep movsd
         movsw
@@ -6319,7 +6319,7 @@ sub_A8524:
         mov ebx, 1E0h
         mov dword [byte eax+01Ah], edx
         mov edx, 280h
-        call sub_CA44C
+        call InitListBox
         pop edx
         pop ecx
         pop ebx
@@ -6395,7 +6395,7 @@ GameStatsPlayersPage:
         mov dword [byte eax+01Ah], ebx
         mov ebx, 1E0h
         add esi, byte 52h
-        call sub_CA44C
+        call InitListBox
         cmp esi, 1ECh
         jne short .5
         xor eax, eax
@@ -6420,7 +6420,7 @@ GameStatsPlayersPage:
         mov dword [byte eax+01Ah], ebx
         mov ebx, 1E0h
         add esi, byte 52h
-        call sub_CA44C
+        call InitListBox
         cmp esi, 1DCAh
         jne short .7
         mov eax, dword [dword_1C9584]
@@ -6433,7 +6433,7 @@ GameStatsPlayersPage:
         mov ebx, 1E0h
         mov dword [byte eax+01Ah], edx
         mov edx, 280h
-        call sub_CA44C
+        call InitListBox
         mov eax, dword [dword_1C9584]
         add eax, 23Eh
         mov dword [byte eax+022h], 0
@@ -6444,13 +6444,13 @@ GameStatsPlayersPage:
         mov ebx, 1E0h
         mov dword [byte eax+01Ah], edx
         mov edx, 280h
-        call sub_CA44C
+        call InitListBox
         cmp dword [dword_1C955C], byte 0
         jle short .8
-        call sub_81650
+        call SetHighlightText
         jmp short .9
 .8:
-        call sub_81678
+        call SetNormalText
 .9:
         mov eax, dword [dword_1C955C]
         mov esi, 13h
@@ -6510,7 +6510,7 @@ GameStatsPlayersPage:
         mov edx, dword [dword_1C9584]
         mov eax, dword [dword_1C9580]
         add edx, 0A4h
-        call sub_D0098
+        call InitShapeListBox
         mov eax, dword [dword_1C9584]
         mov ecx, dword [dword eax+0BEh]
         shl esi, 4
@@ -6523,7 +6523,7 @@ GameStatsPlayersPage:
         sar ecx, 10h
         mov edx, 104h
         add esi, byte 14h
-        call sub_CA44C
+        call InitListBox
         mov ecx, 4Ah
         push esi
         mov ebx, 28h
@@ -6531,12 +6531,12 @@ GameStatsPlayersPage:
         push dword 230h
         mov edx, 14h
         mov eax, dword [byte eax+02Ch]
-        call sub_7E52C
+        call DrawShadowBox
         mov ebx, 230h
         mov edx, 4Ch
         mov eax, 28h
         mov ecx, esi
-        call sub_7F29C
+        call DrawFrameBox
         call DrawTeamGameStats
         mov edx, dword [dword_1C9568]
         push edx
@@ -6606,7 +6606,7 @@ GameStatsPlayersPage:
         mov eax, dword [dword_1C9580]
         add edx, 0A4h
         mov dword [dword_1C958C], ebp
-        call sub_D0098
+        call InitShapeListBox
         mov eax, 1
         call sub_A9800
         pop ebp
@@ -6671,7 +6671,7 @@ GameStatsPlayersPage:
         mov edx, dword [dword_1C9584]
         mov eax, dword [dword_1C9580]
         add edx, 0A4h
-        call sub_D0098
+        call InitShapeListBox
         mov edx, dword [dword_1C9584]
         mov eax, dword [dword edx+0BEh]
         mov ebx, dword [byte eax+04h]
@@ -6682,7 +6682,7 @@ GameStatsPlayersPage:
         push ebx
         mov edx, 104h
         mov ebx, 1B4h
-        call sub_CA44C
+        call InitListBox
         call DrawScoringSummary
         mov ebx, esi
         mov dword [dword_1C9570], eax
@@ -6714,7 +6714,7 @@ GameStatsPlayersPage:
         mov dword [byte eax+01Ah], ebx
         mov ebx, 1E0h
         add esi, byte 52h
-        call sub_CA44C
+        call InitListBox
         cmp esi, 1ECh
         jne short .20
 .21:
@@ -7255,7 +7255,7 @@ sub_A91AC:
         push byte 0
         mov eax, esi
         mov edx, dword [byte edx+02Ch]
-        call sub_7DFC0
+        call DrawShadedLogo
         mov esi, dword [dword_1C9510]
         mov esi, dword [byte esi+02Ch]
         mov eax, dword [byte esi+04h]
@@ -7278,7 +7278,7 @@ sub_A91AC:
         push byte 0
         mov eax, esi
         mov edx, dword [byte edx+02Ch]
-        call sub_7DFC0
+        call DrawShadedLogo
         pop esi
         pop edx
         pop ecx
@@ -7349,7 +7349,7 @@ DrawScoringSummary:
         push dword 278h
         mov ebx, 4
         mov eax, dword [byte eax+02Ch]
-        call sub_7E52C
+        call DrawShadowBox
         mov ebx, dword [dword_1C9568]
         push ebx
         call SetDrawTarget
@@ -7358,7 +7358,7 @@ DrawScoringSummary:
         add esp, byte 4
         mov eax, 4
         mov ecx, esi
-        call sub_7F29C
+        call DrawFrameBox
         push byte 0
         push edi
         push dword 23Ah
@@ -7844,7 +7844,7 @@ sub_A9800:
         mov eax, dword [dword_1C9580]
         shl esi, 6
 .2:
-        call sub_D0098
+        call InitShapeListBox
         shr esi, 1Ah
         mov eax, esi
         call LoadTeamLogo
@@ -7862,8 +7862,8 @@ sub_A9800:
         push byte 0
         xor ecx, ecx
         mov edx, dword [byte edx+02Ch]
-        call sub_7DFC0
-        call sub_80808
+        call DrawShadedLogo
+        call FreeLogoArt
         push dword 12Ch
         mov ecx, 54h
         mov ebx, 0Ah
@@ -7871,7 +7871,7 @@ sub_A9800:
         push dword 26Ch
         mov edx, 14h
         mov eax, dword [byte eax+02Ch]
-        call sub_7E52C
+        call DrawShadowBox
         mov ebx, dword [dword_1C9568]
         push ebx
         call SetDrawTarget
@@ -7880,7 +7880,7 @@ sub_A9800:
         add esp, byte 4
         mov edx, 54h
         mov eax, 0Ah
-        call sub_7F29C
+        call DrawFrameBox
 .3:
         cmp dword [dword_1C958C], byte 0
         jne short .4
@@ -7896,7 +7896,7 @@ sub_A9800:
         mov edx, dword [dword_1C9584]
         mov eax, dword [dword_1C9580]
         add edx, 23Eh
-        call sub_D0098
+        call InitShapeListBox
         mov eax, dword [dword_1C9584]
         add eax, 0F6h
         mov dword [byte eax+022h], 0
@@ -7907,7 +7907,7 @@ sub_A9800:
         mov ebx, 1E0h
         mov dword [byte eax+01Ah], edx
         mov edx, 280h
-        call sub_CA44C
+        call InitListBox
         mov eax, dword [dword_1C9584]
         add eax, 148h
         mov dword [byte eax+022h], 0
@@ -7918,7 +7918,7 @@ sub_A9800:
         mov ebx, 1E0h
         mov dword [byte eax+01Ah], edx
         mov edx, 280h
-        call sub_CA44C
+        call InitListBox
         mov eax, dword [dword_1C9584]
         add eax, 19Ah
         mov dword [byte eax+022h], 0
@@ -7929,7 +7929,7 @@ sub_A9800:
         mov ebx, 1E0h
         mov dword [byte eax+01Ah], edx
         mov edx, 280h
-        call sub_CA44C
+        call InitListBox
         mov ebx, 0A4h
 .6:
         mov eax, dword [dword_1C9584]
@@ -10004,7 +10004,7 @@ PlayMenuGame:
         mov eax, dword_16D93A
         call sub_EE8AC
         mov eax, 37h
-        call sub_842F4
+        call ShowLoadingBar
         mov dword [dword_16D2B8], 1
         mov eax, dword [dword_1C5DE0]
         mov dword [dword_16D2BC], 0

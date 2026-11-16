@@ -53,10 +53,10 @@ extern NetCollide, NetCollide2, ChkBodyContact, InitSpeechBanks, OpenSpeechFile,
 extern ServiceBackgroundAudio, MakeDataPath, LoadDataFile, OpenDataLibrary, sub_52D4C, sub_55648, sub_5696C, sub_56A08
 extern sub_56CD0, sub_56CE4, sub_56CF8, sub_56D0C, SetObjectHidden, ClearModelSlots, ReplaySoundAllowed, MarkPaletteDirty
 extern GetStickBladePos, SetSPA, SetSPAInPlace, ResetAnimTimer, PickSkateAnim, EndMove, AdvanceMoveAnim, StepMove
-extern SteerAndAccel, LimitSkateSpeed, PickSaveAnim, SaveDirection, GetAnimId, sub_789F0, sub_7B15D, sub_7DFC0
-extern sub_7E52C, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, SetTextColor, DrawTextAligned, sub_7F29C
-extern sub_7F5A4, LoadTeamLogo, sub_80808, sub_80BBC, sub_81650, sub_842F4, InitMenuItems, sub_8BFAC
-extern sub_8DF1F, GetLangText, sub_99DAC, sub_AC369, sub_D0098, FreeDbBlock, DaysToYear, FindNextSeasonGame
+extern SteerAndAccel, LimitSkateSpeed, PickSaveAnim, SaveDirection, GetAnimId, sub_789F0, sub_7B15D, DrawShadedLogo
+extern DrawShadowBox, DrawScreenBackground, FadeInScreen, ShowScreen, ExitScreen, SetTextColor, DrawTextAligned, DrawFrameBox
+extern ShowMessageBox, LoadTeamLogo, FreeLogoArt, WipeScreen, SetHighlightText, ShowLoadingBar, InitMenuItems, sub_8BFAC
+extern sub_8DF1F, GetLangText, sub_99DAC, sub_AC369, InitShapeListBox, FreeDbBlock, DaysToYear, FindNextSeasonGame
 extern OpenLeagueFile, StartSeasonGame, FindGameRecord, UpdateGameRecord, FileExists, FileCreate, FileSeek, FileReadRecord
 extern FileWriteRecord, FileClose, ServiceIdle, BuildAllStarTeams, sub_F9496, sub_F94BC, sub_F99C0, sub_F9A28
 extern AllocMemBlock, FreeMemBlock, sub_FB4D4, ZeroMem, FillMem, addtimer, sub_FC008, sub_FC290
@@ -176,15 +176,15 @@ SeasonGameScreen:
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte eax+02Ch]
         xor edi, edi
-        call sub_80BBC
+        call WipeScreen
         jmp short SeasonGameScreen_182.6
 SeasonGameScreen_13F:
-        call sub_7EEB0
+        call ShowScreen
         mov esi, 1Ah
         mov edi, ecx
         jmp short SeasonGameScreen_182.6
 SeasonGameScreen_14D:
-        call sub_7EDF0
+        call FadeInScreen
         mov edi, ecx
         cmp dword [dword_19ED18], byte 0
         je short .4
@@ -207,7 +207,7 @@ SeasonGameScreen_182:
         xor ecx, ecx
         xor ebx, ebx
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
 .6:
         test edi, edi
         jne near SeasonGameScreen_3EB.17
@@ -234,7 +234,7 @@ SeasonGameScreen_1E3:
         mov eax, 24Eh
         jmp short SeasonGameScreen_182.5
 SeasonGameScreen_1EC:
-        call sub_7EF70
+        call ExitScreen
         jmp short SeasonGameScreen_182.6
 SeasonGameScreen_1F3:
         cmp dword [dword_19ED4C], byte 0
@@ -521,7 +521,7 @@ InitSeasonGameScreen:
         mov ebx, eax
         mov edx, eax
         mov ecx, 52h
-        call sub_7E860
+        call DrawScreenBackground
         rep movsb
         mov eax, dword [byte ebp-018h]
         mov ecx, 52h
@@ -542,28 +542,28 @@ InitSeasonGameScreen:
         mov dword [dword eax+0A4h], 2
         mov ecx, str_AB01
         mov eax, dword [dword_19ED70]
-        call sub_D0098
+        call InitShapeListBox
         push str_BH00
         mov edx, dword [byte ebp-018h]
         mov ecx, str_BH00
         mov ebx, str_BT00
         mov eax, dword [dword_19ED44]
         add edx, 148h
-        call sub_D0098
+        call InitShapeListBox
         push str_AB05
         mov edx, dword [byte ebp-018h]
         mov ecx, str_AB04
         mov ebx, str_AB03
         mov eax, dword [dword_19ED70]
         add edx, 19Ah
-        call sub_D0098
+        call InitShapeListBox
         push str_SIM0
         mov edx, dword [byte ebp-018h]
         mov ecx, str_SIM0
         mov eax, dword [dword_19ED44]
         add edx, 1ECh
         mov ebx, ecx
-        call sub_D0098
+        call InitShapeListBox
         push str_SIM0
         lea eax, [byte ebp-014h]
         push eax
@@ -700,7 +700,7 @@ InitSeasonGameScreen:
         push byte 5Ah
         mov edx, 14h
         mov eax, dword [byte eax+02Ch]
-        call sub_7E52C
+        call DrawShadowBox
         push dword 40FF80h
         call MakeColor
         add esp, byte 4
@@ -730,8 +730,8 @@ InitSeasonGameScreen:
         add esp, byte 10h
         mov eax, 6Ch
         mov dword [byte ebp-04h], 0
-        call sub_7F29C
-        call sub_81650
+        call DrawFrameBox
+        call SetHighlightText
 .7:
         imul eax, dword [byte ebp-04h], byte 52h
         add eax, dword [byte ebp-018h]
@@ -773,7 +773,7 @@ InitSeasonGameScreen:
         call sub_101EAC
         add esp, byte 10h
         inc dword [byte ebp-04h]
-        call sub_80808
+        call FreeLogoArt
         cmp dword [byte ebp-04h], byte 1Ah
         jl short .9
         push dword [dword_19ED10]
@@ -923,7 +923,7 @@ DrawMatchupLogo:
         push byte 0
         mov ebx, 10h
         mov eax, dword [byte eax+02Ch]
-        call sub_7DFC0
+        call DrawShadedLogo
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
@@ -965,7 +965,7 @@ DrawAllStarLogo:
         push byte 2
         mov edx, dword [byte eax+02Ch]
         mov eax, esi
-        call sub_7DFC0
+        call DrawShadedLogo
         push esi
         call FreeMemBlock
         add esp, byte 4
@@ -13895,7 +13895,7 @@ InitGameAudio:
         mov eax, 1
         call FreeSfxBank
         mov eax, 2
-        call sub_842F4
+        call ShowLoadingBar
         cmp dword [dword_169254], byte 0FFFFFFFFh
         jne short .3
         call sub_47EA4
@@ -13912,7 +13912,7 @@ InitGameAudio:
         call ServiceIdle
         mov eax, 5
         mov dword [dword_169254], ebx
-        call sub_842F4
+        call ShowLoadingBar
         call ServiceIdle
         mov eax, 3
         call LoadSfxBank
@@ -13922,7 +13922,7 @@ InitGameAudio:
         mov dword [dword_169214], eax
         call ServiceIdle
         mov eax, 0Ch
-        call sub_842F4
+        call ShowLoadingBar
         cmp dword [dword_169220], byte 0
         je short .4
         cmp dword [dword_16921C], byte 0
@@ -13945,7 +13945,7 @@ InitGameAudio:
 .7:
         call ServiceIdle
         mov eax, 0Fh
-        call sub_842F4
+        call ShowLoadingBar
         mov eax, 5
         call LoadSfxBank
         test eax, eax
@@ -13996,7 +13996,7 @@ InitGameAudio:
 .11:
         call ServiceIdle
         mov eax, 12h
-        call sub_842F4
+        call ShowLoadingBar
         cmp byte [byte esp+050h], 0
         je short .12
         lea eax, [byte esp+050h]
@@ -14027,7 +14027,7 @@ InitGameAudio:
         call SetMusicVolume
         call ServiceIdle
         mov eax, 32h
-        call sub_842F4
+        call ShowLoadingBar
 .16:
         add esp, 0A0h
         pop ebp
@@ -16769,7 +16769,7 @@ LoadTeamSpeech:
 .12:
         mov dword [byte esp+058h], eax
         mov eax, 19h
-        call sub_842F4
+        call ShowLoadingBar
         push esi
         push str_TEAM04dDAT
         lea eax, [byte esp+070h]

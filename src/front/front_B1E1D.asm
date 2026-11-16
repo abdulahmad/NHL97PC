@@ -23,8 +23,8 @@ extern dword_1CAEA8, dword_1CAEB8, rand_, sprintf_, sscanf_, str_D02d2, str_Logb
 extern str_Ulstreak, str_Uname, str_Uopp, str_Upts, str_Urate, str_Usort, str_Ustreak, str_Uteam
 extern strcmp_, strcpy_, strlen_, BlitShape2, BlitArt, BlitShape, sub_1013FC, FindShape
 extern sub_102B94, ConvertArtXY, SetScreenTarget, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx, MakeDirPath
-extern LoadDataFile, sub_7DFC0, sub_7E860, sub_7EDF0, sub_7EF70, SetRegionRect, SetTextColor, DrawTextAligned
-extern sub_7F5B8, sub_7FE38, sub_80BBC, sub_81650, sub_81678, sub_823F0, sub_82FB8, sub_83C08
+extern LoadDataFile, DrawShadedLogo, DrawScreenBackground, FadeInScreen, ExitScreen, SetRegionRect, SetTextColor, DrawTextAligned
+extern ShowMessageBoxNoWait, EditTextField, WipeScreen, SetHighlightText, SetNormalText, DrawPortrait, ShowStatScreen, ShowPopupScreen
 extern NameIndexNew, NameIndexLoad, NameIndexSave, NameIndexFree, sub_86500, NameIndexRemove, sub_86718, NameIndexPath
 extern sub_867D4, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E
 extern SetScrollBarPos, sub_8DEAC, GetLangText, AllocStatTable, sub_ACA49, sub_ACAE5, sub_ACAF2, sub_ACB0E
@@ -235,7 +235,7 @@ DeleteUser:
         push byte 1
         xor ebx, ebx
         lea eax, [byte ebp+02Eh]
-        call sub_7F5B8
+        call ShowMessageBoxNoWait
         test eax, eax
         je near .5
         mov edx, edi
@@ -301,7 +301,7 @@ DeleteUser:
         xor ecx, ecx
         xor ebx, ebx
         call GetLangText
-        call sub_7F5B8
+        call ShowMessageBoxNoWait
 .5:
         xor eax, eax
 .6:
@@ -332,7 +332,7 @@ sub_B211C:
         mov ebx, eax
         lea eax, [byte ebp-02Ch]
         mov edi, 1
-        call sub_7FE38
+        call EditTextField
         test eax, eax
         je near .3
         lea eax, [byte ebp-02Ch]
@@ -355,7 +355,7 @@ sub_B211C:
         xor ecx, ecx
         xor ebx, ebx
         call GetLangText
-        call sub_7F5B8
+        call ShowMessageBoxNoWait
         xor edi, edi
         jmp short .3
 .1:
@@ -379,7 +379,7 @@ sub_B211C:
         xor ecx, ecx
         xor ebx, ebx
         call GetLangText
-        call sub_7F5B8
+        call ShowMessageBoxNoWait
 .3:
         mov eax, edi
 sub_B211C_C7:
@@ -723,7 +723,7 @@ UserLogScreen:
         push byte 0
         mov edx, dword [byte ebx+02Ch]
         mov ebx, 10h
-        call sub_7DFC0
+        call DrawShadedLogo
         jmp short .3
 .2:
         mov eax, dword [byte ebp+05Eh]
@@ -754,7 +754,7 @@ UserLogScreen:
         mov edx, dword [byte eax+02Ch]
         mov eax, dword [byte ebx+ebp+0Eh]
         xor ebx, ebx
-        call sub_823F0
+        call DrawPortrait
 .3:
         movsx eax, word [byte ebp+07Eh]
         mov ebx, eax
@@ -785,7 +785,7 @@ UserLogScreen:
         push byte 0
         mov edx, dword [byte ebx+02Ch]
         mov ebx, 10h
-        call sub_7DFC0
+        call DrawShadedLogo
         jmp short .5
 .4:
         mov eax, dword [byte ebp+056h]
@@ -816,7 +816,7 @@ UserLogScreen:
         mov edx, dword [byte eax+02Ch]
         mov eax, dword [byte ebx+ebp-016h]
         xor ebx, ebx
-        call sub_823F0
+        call DrawPortrait
 .5:
         call sub_1013FC
         inc dword [byte ebp+07Eh]
@@ -1148,7 +1148,7 @@ UserLogScreen_77D:
         xor ecx, ecx
         xor ebx, ebx
         call GetLangText
-        call sub_7F5B8
+        call ShowMessageBoxNoWait
         jmp near UserLogScreen_8CA.35
 .25:
         imul edx, dword [byte ebp+066h], byte 21h
@@ -1292,7 +1292,7 @@ UserLogScreen_8CA:
         xor ecx, ecx
         xor ebx, ebx
         call GetLangText
-        call sub_7F5B8
+        call ShowMessageBoxNoWait
 .33:
         cmp dword [byte ebp+06Ah], byte 0
         jne short .35
@@ -2045,7 +2045,7 @@ LoadUserRecords:
         xor ecx, ecx
         xor ebx, ebx
         call GetLangText
-        call sub_7F5B8
+        call ShowMessageBoxNoWait
         xor eax, eax
         jmp near sub_B211C_C7
 .2:
@@ -3098,12 +3098,12 @@ UserRecordsScreen:
         mov edx, dword [dword_16CCF1]
         mov eax, dword [byte ebx+02Ch]
         mov ebx, 10h
-        call sub_82FB8
+        call ShowStatScreen
         jmp short .4
 .3:
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte ebx+02Ch]
-        call sub_80BBC
+        call WipeScreen
 .4:
         call sub_1013FC
         push edi
@@ -3112,7 +3112,7 @@ UserRecordsScreen:
         add esp, byte 4
         mov edx, esi
         mov eax, esi
-        call sub_7E860
+        call DrawScreenBackground
         mov eax, dword [byte ebp-0Ch]
         mov eax, dword [byte eax+02Ch]
         mov word [byte eax+0Ch], 0Ah
@@ -3288,7 +3288,7 @@ UserRecordsScreen:
         xor ecx, ecx
         xor ebx, ebx
         call GetLangText
-        call sub_7F5B8
+        call ShowMessageBoxNoWait
         mov eax, 1
         mov edx, dword [dword_16D440]
         call NameIndexFree
@@ -3407,7 +3407,7 @@ UserRecordsScreen:
         call MakeColor
         add esp, byte 4
         call SetTextColor
-        call sub_81650
+        call SetHighlightText
         lea eax, [dword ebp-02A0h]
         call sub_AD151
         call SetScreenTarget
@@ -3433,7 +3433,7 @@ UserRecordsScreen:
         mov ebx, dword [byte ebp-038h]
         jmp dword [nosplit cs:ebx*4+jpt_B41D3]
 UserRecordsScreen_95C:
-        call sub_7EDF0
+        call FadeInScreen
 .8:
         mov dword [byte ebp-014h], 1Ah
         jmp near UserRecordsScreen_AA5.15
@@ -3457,7 +3457,7 @@ UserRecordsScreen_96D:
         jmp near UserRecordsScreen_AA5.15
 UserRecordsScreen_9B4:
         mov eax, unk_1C9704
-        call sub_83C08
+        call ShowPopupScreen
         cmp dword [byte ebp-040h], byte 0FFFFFFFFh
         jne short .11
         mov eax, dword_16D440
@@ -3500,7 +3500,7 @@ UserRecordsScreen_9B4:
         push dword [byte ebp-028h]
         lea eax, [dword ebp-02A0h]
         call sub_B3B5D
-        call sub_81650
+        call SetHighlightText
         lea eax, [dword ebp-02A0h]
         call sub_AD151
         call SetScreenTarget
@@ -3512,10 +3512,10 @@ UserRecordsScreen_9B4:
 UserRecordsScreen_A7F:
         mov eax, unk_1C9756
         mov dword [byte ebp-014h], 64h
-        call sub_83C08
+        call ShowPopupScreen
         jmp short UserRecordsScreen_AA5.15
 UserRecordsScreen_A92:
-        call sub_7EF70
+        call ExitScreen
         call WaitForOtherComputer
         jmp short UserRecordsScreen_AA5.15
 UserRecordsScreen_A9E:
@@ -3532,7 +3532,7 @@ UserRecordsScreen_AA5:
         lea eax, [dword ebp-02A0h]
         sub edx, byte 7
         call sub_ACDAE
-        call sub_81650
+        call SetHighlightText
         lea eax, [dword ebp-02A0h]
         call sub_AD151
         call SetScreenTarget
@@ -3540,7 +3540,7 @@ UserRecordsScreen_AA5:
         call sub_AD62E
         call sub_1013FC
 .15:
-        call sub_81678
+        call SetNormalText
         jmp near UserRecordsScreen.7
 .16:
         lea eax, [dword ebp-02A0h]

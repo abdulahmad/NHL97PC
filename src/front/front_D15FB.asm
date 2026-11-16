@@ -21,8 +21,8 @@ extern dword_1CC7C8, dword_1CC7CC, dword_1CC7D0, dword_1CC7D4, dword_1CC7D8, dwo
 extern PreGameRostersScreen_BB5, PreGameRostersScreen_BC3, memset_, rand_, sprintf_, strcpy_, BlitShape2, BlitArt
 extern BlitShape, sub_1013FC, FindShape, FindShapeQuiet, sub_101560, sub_101584, Random32, ConvertArtXY
 extern FindShapeList, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, PlayMenuSfx, PlaySfx
-extern PaEvent, LoadDataFile, OpenDataLibrary, LoadLogoNames, sub_7CB8C, sub_7E860, sub_7EDF0, sub_7EEB0
-extern sub_7EF70, SetTextColor, DrawTextAligned, sub_80BBC, sub_823F0, sub_84330, InitMenuItems, sub_8BFAC
+extern PaEvent, LoadDataFile, OpenDataLibrary, LoadLogoNames, sub_7CB8C, DrawScreenBackground, FadeInScreen, ShowScreen
+extern ExitScreen, SetTextColor, DrawTextAligned, WipeScreen, DrawPortrait, TintPortrait, InitMenuItems, sub_8BFAC
 extern ReadTeamStats, ServiceIdle, AllocMemBlock, FreeMemBlock, sub_FC330, MakeColor, FreeBitmap, DrawArt
 extern DrawShape, CreateBitmap, SetDrawTarget, ClearScreen, tickcount, unk_166FF4, unk_16D7FC, unk_16D804
 extern unk_1AD22E, unk_1AD236, unk_1AD73A, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_D15D1, unk_D15EE
@@ -319,7 +319,7 @@ PreGameMatchupScreen:
         call FindShape
         add esp, byte 8
         mov edx, esi
-        call sub_7E860
+        call DrawScreenBackground
         mov ecx, 52h
         lea edi, [dword ebp-094h]
         mov esi, unk_1C5EF8
@@ -476,7 +476,7 @@ PreGameMatchupScreen:
         mov eax, dword [dword_1CC7BC]
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte eax+02Ch]
-        call sub_80BBC
+        call WipeScreen
         push dword [dword_1CC7BC]
         call FreeBitmap
         add esp, byte 4
@@ -613,7 +613,7 @@ PreGameMatchupScreen_522:
         xor edx, edx
         jmp near PreGameMatchupScreen.4
 .14:
-        call sub_7EEB0
+        call ShowScreen
         mov dword [byte ebp+07Ah], 13h
         mov dword [byte ebp+076h], 1
 .15:
@@ -642,11 +642,11 @@ PreGameMatchupScreen_522:
         je short .18
         jmp short .16
 .17:
-        call sub_7EDF0
+        call FadeInScreen
         mov dword [byte ebp+07Ah], 15h
         jmp short .15
 .18:
-        call sub_7EF70
+        call ExitScreen
         jmp short .16
 .19:
         push byte 0
@@ -1076,13 +1076,13 @@ DrawPlayerPortrait:
         add esp, byte 0Ch
         mov edx, dword [byte edx+02Ch]
         mov eax, dword [byte eax+02Ch]
-        call sub_84330
+        call TintPortrait
         mov eax, dword [dword ebx+dword_1CC5B0]
         xor ecx, ecx
         mov edx, dword [byte eax+02Ch]
         xor ebx, ebx
         mov eax, dword [byte ebp-08h]
-        call sub_823F0
+        call DrawPortrait
         jmp short .5
 .4:
         mov dword [byte ebp-04h], eax

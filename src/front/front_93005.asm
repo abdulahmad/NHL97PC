@@ -21,9 +21,9 @@ extern EditLinesScreen_18C, EditLinesScreen_2C7, EditLinesScreen_49D, EditLinesS
 extern memcpy_, memset_, rand_, sprintf_, srand_, strcat_, strcpy_, strlen_
 extern sub_101324, BlitShape2, BlitArt, BlitShape, sub_1013CC, sub_1013FC, FindShape, sub_10AED0
 extern ConvertArtXY, FindShapeList, sub_11B0D0, SetScreenTarget, SeasonGameScreen, MusicEnabled, LoadFrontEndSfx, SecondsToSamples
-extern WaitSoundTime, StopAllSfx, PlaySfx, MakeDirPath, LoadDataFileLib, LoadDataFile, sub_7E860, sub_7EDF0
-extern sub_7EEB0, sub_7EF70, SetRegionRect, SetTextColor, DrawTextAligned, sub_7F5A4, sub_7FE38, sub_80B28
-extern sub_80BBC, sub_81650, sub_81678, sub_81D1C, sub_83C08, RunStatsMenu, NameIndexNew, NameIndexLoad
+extern WaitSoundTime, StopAllSfx, PlaySfx, MakeDirPath, LoadDataFileLib, LoadDataFile, DrawScreenBackground, FadeInScreen
+extern ShowScreen, ExitScreen, SetRegionRect, SetTextColor, DrawTextAligned, ShowMessageBox, EditTextField, DrawProgressBar
+extern WipeScreen, SetHighlightText, SetNormalText, DrawStatTable, ShowPopupScreen, RunStatsMenu, NameIndexNew, NameIndexLoad
 extern NameIndexFree, sub_86500, sub_867D4, InitMenuItems, sub_8BFAC, sub_8DF1F, GetLangText, StandingsScreen
 extern sub_9279A, LinkTransferSetup, sub_92FE9, sub_C6064, RosterScreen, FreeDbBlock, DaysToYear, FindTeamRecord
 extern MakeLeagueKeyBase, CreatePlayoffFile, CreatePlayoffSchedule, OpenLeagueFile, WriteLeagueHeader, FindGameRecord, UpdateGameRecord, MakeStandingsKey
@@ -368,7 +368,7 @@ sub_93005:
         xor ecx, ecx
         xor ebx, ebx
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
 .19:
         call SetScreenTarget
         lea esp, [dword ebp+082h]
@@ -472,7 +472,7 @@ RunNewPlayoffs:
         call GetLangText
         mov ebx, eax
         mov eax, unk_1AD603
-        call sub_7FE38
+        call EditTextField
         test eax, eax
         je short .3
         mov eax, 0Ah
@@ -493,7 +493,7 @@ RunNewPlayoffs:
         mov eax, 9
         mov edx, 5
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
         mov edi, eax
         test eax, eax
         jne short .4
@@ -674,7 +674,7 @@ PlayoffSetupScreen:
         mov ebx, eax
         mov edx, eax
         mov ecx, 52h
-        call sub_7E860
+        call DrawScreenBackground
         mov edi, dword [dword_1C8A9C]
         rep movsb
         mov eax, dword [dword_1C8A9C]
@@ -701,7 +701,7 @@ PlayoffSetupScreen:
         mov eax, dword [dword_1C8A9C]
         mov ecx, str_OVON
         add eax, 0A4h
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-015Ah]
         push eax
         mov ecx, str_12SR
@@ -710,7 +710,7 @@ PlayoffSetupScreen:
         mov eax, dword [dword_1C8A9C]
         mov edx, dword [byte ebp+07Eh]
         add eax, 0B36h
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-011Ah]
         push eax
         mov ecx, str_012R
@@ -719,7 +719,7 @@ PlayoffSetupScreen:
         mov eax, dword [dword_1C8A9C]
         mov edx, dword [byte ebp+07Eh]
         add eax, 0B88h
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-0DAh]
         push eax
         mov ecx, str_LAON
@@ -728,7 +728,7 @@ PlayoffSetupScreen:
         mov eax, dword [dword_1C8A9C]
         mov edx, dword [byte ebp+07Eh]
         add eax, 0BDAh
-        call sub_81D1C
+        call DrawStatTable
         lea eax, [dword ebp-09Ah]
         mov ecx, str_RAON
         mov ebx, str_RAOF
@@ -738,7 +738,7 @@ PlayoffSetupScreen:
         push str_RAON
         add eax, 0C2Ch
         xor esi, esi
-        call sub_81D1C
+        call DrawStatTable
 .1:
         push byte 0
         push byte 28h
@@ -958,7 +958,7 @@ PlayoffSetupScreen:
         mov eax, dword [byte ebp+07Ah]
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte eax+02Ch]
-        call sub_80BBC
+        call WipeScreen
 .4:
         cmp dword [byte ebp+072h], byte 0FFFFFFFFh
         jne near .22
@@ -990,7 +990,7 @@ PlayoffSetupScreen:
 .6:
         cmp dword [byte ebp+056h], byte 0
         jne near .21
-        call sub_7EEB0
+        call ShowScreen
         mov dword [byte ebp+072h], 1
         jmp near .4
 .7:
@@ -1005,7 +1005,7 @@ PlayoffSetupScreen:
         jl short .8
         cmp dword [byte ebp+06Ah], byte 0
         je short .10
-        call sub_7EDF0
+        call FadeInScreen
         mov eax, dword_1AC940
         call FreeDbBlock
         mov eax, dword [dword ebp-099Eh]
@@ -1019,10 +1019,10 @@ PlayoffSetupScreen:
         xor ebx, ebx
         mov edx, ecx
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
         jmp near .4
 .11:
-        call sub_7EF70
+        call ExitScreen
         jmp near .4
 .12:
         cmp dword [byte ebp+056h], byte 26h
@@ -1132,12 +1132,12 @@ PlayoffSetupScreen:
         mov eax, dword [dword_1C8A9C]
         add eax, 0B36h
         mov dword [byte ebp+072h], 19h
-        call sub_83C08
+        call ShowPopupScreen
         jmp near .4
 .20:
         mov eax, dword [dword_1C8A9C]
         add eax, 0B88h
-        call sub_83C08
+        call ShowPopupScreen
         mov eax, 3
         call sub_C6064
         jmp near .4
@@ -1598,7 +1598,7 @@ sub_945A7:
         add edi, byte_1C880C
         mov ebx, eax
         mov eax, edi
-        call sub_7FE38
+        call EditTextField
         test eax, eax
         je short .2
         mov eax, edi
@@ -1644,7 +1644,7 @@ sub_94643:
         enter 24h, 0
         mov esi, eax
         mov dword [byte ebp-04h], edx
-        call sub_81650
+        call SetHighlightText
         cmp byte [dword esi+byte_1C87FC], 1
         jne short .1
         push byte 0FFFFFFFFh
@@ -1732,7 +1732,7 @@ sub_94643:
         push eax
         mov edx, 17h
         mov eax, 2
-        call sub_80B28
+        call DrawProgressBar
         cmp dword [byte ebp-04h], byte 0
         jne short .7
         call SetScreenTarget
@@ -1815,7 +1815,7 @@ sub_94643:
         push eax
         mov edx, 17h
         mov eax, 9Dh
-        call sub_80B28
+        call DrawProgressBar
         cmp dword [byte ebp-04h], byte 0
         jne short .14
         call SetScreenTarget
@@ -1838,7 +1838,7 @@ sub_94643:
         push edi
         call FreeBitmap
         add esp, byte 4
-        call sub_81678
+        call SetNormalText
         jmp near sub_945A7_96
 ;-----------------------------------------------------------------------------
 ; sub_948B7                                                       948B7  97 PC
@@ -2214,7 +2214,7 @@ PlayoffTreeScreen:
         add esp, byte 8
         mov edx, eax
         mov ecx, 52h
-        call sub_7E860
+        call DrawScreenBackground
         mov edi, dword [dword_1C8A7C]
         rep movsb
         mov eax, dword [dword_1C8A7C]
@@ -2355,7 +2355,7 @@ PlayoffTreeScreen:
         mov eax, dword [dword_1C8A7C]
         mov edx, dword [byte ebp+076h]
         add eax, 148h
-        call sub_81D1C
+        call DrawStatTable
         push unk_1C8A04
         push str_02ST03ST04ST
         push dword [byte ebp+076h]
@@ -2371,7 +2371,7 @@ PlayoffTreeScreen:
         mov eax, dword [dword_1C8A7C]
         mov edx, dword [byte ebp+076h]
         add eax, 0A4h
-        call sub_81D1C
+        call DrawStatTable
         push dword_1C89EC
         push str_02DE03DE04DE
         push dword [byte ebp+076h]
@@ -2385,7 +2385,7 @@ PlayoffTreeScreen:
         mov eax, dword [dword_1C8A7C]
         mov edx, dword [byte ebp+076h]
         add eax, 0F6h
-        call sub_81D1C
+        call DrawStatTable
         push unk_1C89F8
         push str_02RU03RU04RU
         push dword [byte ebp+076h]
@@ -2399,7 +2399,7 @@ PlayoffTreeScreen:
         mov eax, dword [dword_1C8A7C]
         mov edx, dword [byte ebp+076h]
         add eax, 19Ah
-        call sub_81D1C
+        call DrawStatTable
         push unk_1C8A10
         push str_02TR03TR04TR
         push dword [byte ebp+076h]
@@ -2413,7 +2413,7 @@ PlayoffTreeScreen:
         mov eax, dword [dword_1C8A7C]
         mov edx, dword [byte ebp+076h]
         add eax, 1ECh
-        call sub_81D1C
+        call DrawStatTable
         push unk_1C8A1C
         push str_02SR03SR04SR
         push dword [byte ebp+076h]
@@ -2433,7 +2433,7 @@ PlayoffTreeScreen:
         mov eax, dword [dword_1C8A7C]
         mov edx, dword [byte ebp+076h]
         add eax, 0A4h
-        call sub_81D1C
+        call DrawStatTable
         push dword_1C89EC
         push str_02AW03AW04AW
         push dword [byte ebp+076h]
@@ -2452,7 +2452,7 @@ PlayoffTreeScreen:
         mov eax, dword [dword_1C8A7C]
         mov edx, dword [byte ebp+076h]
         add eax, 23Eh
-        call sub_81D1C
+        call DrawStatTable
         push unk_1C8A28
         push str_02SD03SD04SD
         push dword [byte ebp+076h]
@@ -2639,7 +2639,7 @@ PlayoffTreeScreen:
 .21:
         call DrawTextAligned
         add esp, byte 10h
-        call sub_81678
+        call SetNormalText
         imul eax, dword [byte ebp+07Eh], byte 1Ch
         cmp byte [dword eax+byte_1AD458], 1
         jne near .30
@@ -2727,7 +2727,7 @@ PlayoffTreeScreen:
         mov edx, dword [byte ebp+07Eh]
         add edx, byte 8
         imul edx, byte 52h
-        call sub_81678
+        call SetNormalText
         push byte 14h
         mov ebx, dword [dword_1C8A7C]
         mov ecx, dword [nosplit esi*8+dword_1C8704]
@@ -2983,7 +2983,7 @@ PlayoffTreeScreen:
         add esp, byte 0Ch
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte eax+02Ch]
-        call sub_80BBC
+        call WipeScreen
         push dword [byte ebp+05Eh]
         call FreeBitmap
         add esp, byte 4
@@ -2998,11 +2998,11 @@ PlayoffTreeScreen:
 .47:
         cmp dword [byte ebp+04Eh], byte 0
         jne near .81
-        call sub_7EEB0
+        call ShowScreen
         mov dword [byte ebp+06Eh], 1
         jmp near .78
 .48:
-        call sub_7EDF0
+        call FadeInScreen
         movzx eax, byte [byte_1AD742]
         imul eax, byte 1Ch
         cmp byte [dword eax+byte_1AD457], 1
@@ -3017,13 +3017,13 @@ PlayoffTreeScreen:
         xor ecx, ecx
         xor ebx, ebx
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
         jmp near .78
 .51:
         mov dword [byte ebp+06Eh], 1Ch
         jmp near .78
 .52:
-        call sub_7EF70
+        call ExitScreen
         jmp near .78
 .53:
         cmp byte [byte_1AD72B], 4
@@ -3032,7 +3032,7 @@ PlayoffTreeScreen:
         add eax, 0A4h
         mov dword [byte ebp+06Eh], 1Eh
 .54:
-        call sub_83C08
+        call ShowPopupScreen
         jmp near .78
 .55:
         mov eax, 7Fh
@@ -3079,7 +3079,7 @@ PlayoffTreeScreen:
         mov edx, 2
         lea eax, [byte ebp-05Eh]
         xor ebx, ebx
-        call sub_7F5A4
+        call ShowMessageBox
         test eax, eax
         je near .78
         mov dword [byte ebp+052h], 1
@@ -3158,7 +3158,7 @@ PlayoffTreeScreen:
 .66:
         call DrawTextAligned
         add esp, byte 10h
-        call sub_81678
+        call SetNormalText
         call SetScreenTarget
         mov edx, dword [nosplit esi*8+dword_1C8708]
         add edx, byte 30h
@@ -3220,7 +3220,7 @@ PlayoffTreeScreen:
 .71:
         mov eax, dword [dword_1C8A7C]
         add eax, 0F6h
-        call sub_83C08
+        call ShowPopupScreen
         mov eax, 3
         call sub_C6064
         jmp near .78
@@ -3238,7 +3238,7 @@ PlayoffTreeScreen:
         xor ebx, ebx
         mov edx, ecx
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
         jmp short .77
 .74:
         movzx eax, byte [byte_1AD742]

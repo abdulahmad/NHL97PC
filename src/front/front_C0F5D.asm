@@ -16,11 +16,11 @@ extern dword_1CB0E0, dword_1CB0E4, dword_1CB0E8, dword_1CB0EC, dword_1CB0F0, dwo
 extern dword_1CB100, dword_1CB104, dword_1CBB88, off_16D5F7, sprintf_, strcat_, strcpy_, strlen_
 extern BlitShape2, BlitArt, BlitShape, sub_1013FC, FindShape, sub_101EAC, sub_102C10, Random32
 extern sub_106D80, sub_106F64, sub_106F94, ConvertArtXY, ConvertArtKeepPos, sub_11BDC0, SetScreenTarget, MusicEnabled
-extern LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx, LoadDataFile, OpenDataLibrary, sub_7DA28
-extern sub_7DFC0, sub_7E52C, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, SetRegionRect, SetTextColor
-extern DrawTextAligned, sub_7F29C, LoadTeamLogo, sub_80808, sub_80BBC, sub_81650, sub_81678, sub_83C08
+extern LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx, LoadDataFile, OpenDataLibrary, ShadeShape
+extern DrawShadedLogo, DrawShadowBox, DrawScreenBackground, FadeInScreen, ShowScreen, ExitScreen, SetRegionRect, SetTextColor
+extern DrawTextAligned, DrawFrameBox, LoadTeamLogo, FreeLogoArt, WipeScreen, SetHighlightText, SetNormalText, ShowPopupScreen
 extern InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E, sub_8DEAC
-extern sub_8DF1F, GetLangText, OptionsScreen, sub_CA44C, sub_D0098, ServiceIdle, LinkSyncMenu, LinkSyncScreen
+extern sub_8DF1F, GetLangText, OptionsScreen, InitListBox, InitShapeListBox, ServiceIdle, LinkSyncMenu, LinkSyncScreen
 extern OptionsAnimScreen, ControlSetupScreen, AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, sub_FCEEC, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, tickcount, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C
 global jpt_C36A2, sub_C0F5D_60E, sub_C1577_73D, sub_C1577_73E, sub_C2633_42, DetailLevelScreen_A25, DetailLevelScreen_A36, DetailLevelScreen_A93
@@ -66,7 +66,7 @@ sub_C0F5D:
         lea eax, [byte ebp+026h]
         mov dword [dword_1CB0F8], 0
         mov dword [dword_1CB074], eax
-        call sub_81650
+        call SetHighlightText
         push byte 0FFFFFFFFh
         call MakeColor
         add esp, byte 4
@@ -97,7 +97,7 @@ sub_C0F5D:
         xor edx, edx
         mov eax, dword [byte eax+02Ch]
         xor esi, esi
-        call sub_80BBC
+        call WipeScreen
         jmp near .9
 .2:
         push byte 3
@@ -188,21 +188,21 @@ sub_C0F5D:
         mov eax, 27h
         jmp near .3
 .10:
-        call sub_7EEB0
+        call ShowScreen
         mov edi, 1Ah
         mov esi, ebx
         jmp short .9
 .11:
-        call sub_81678
-        call sub_7EF70
-        call sub_81650
+        call SetNormalText
+        call ExitScreen
+        call SetHighlightText
         jmp short .9
 .12:
         lea edx, [dword ebp-019E6h]
         mov edi, 64h
         add eax, edx
         mov esi, ebx
-        call sub_83C08
+        call ShowPopupScreen
         jmp short .9
 .13:
         cmp dword [dword_1CB0C4], byte 0
@@ -218,7 +218,7 @@ sub_C0F5D:
         add esp, byte 4
         xor edx, edx
         mov eax, dword [byte eax+02Ch]
-        call sub_80BBC
+        call WipeScreen
         cmp dword [dword_1CB0F8], byte 0
         je short .14
         lea eax, [dword ebp-0216h]
@@ -347,7 +347,7 @@ sub_C0F5D:
         push edx
         jmp near .7
 .25:
-        call sub_81678
+        call SetNormalText
         cmp dword [dword_1CB08C], byte 0
         je short .26
         mov dword [dword_1CB08C], 0
@@ -443,7 +443,7 @@ sub_C1577:
         call sub_101EAC
         add esp, byte 10h
         inc dword [byte ebp-04h]
-        call sub_80808
+        call FreeLogoArt
         cmp dword [byte ebp-04h], byte 1Ah
         jl short .1
         push str_POPM
@@ -514,7 +514,7 @@ sub_C1577:
         xor ebx, ebx
         mov eax, dword [dword_1CB0E0]
         xor edx, edx
-        call sub_CA44C
+        call InitListBox
         push dword [dword_1CB0E8]
         call SetDrawTarget
         add esp, byte 4
@@ -570,7 +570,7 @@ sub_C1577:
         add esp, byte 8
         mov ebx, eax
         mov edx, eax
-        call sub_7E860
+        call DrawScreenBackground
         mov esi, dword [dword_1CB0E0]
         mov ecx, 52h
         lea edi, [dword esi+0334h]
@@ -591,7 +591,7 @@ sub_C1577:
         mov edx, dword [dword_1CB0E0]
         mov eax, dword [dword_1CB0FC]
         add edx, 0A4h
-        call sub_D0098
+        call InitShapeListBox
         push str_LB003
         mov ecx, str_LD00
         mov ebx, str_LB003
@@ -599,7 +599,7 @@ sub_C1577:
         mov eax, dword [dword_1CB104]
         add edx, 148h
         mov dword [byte ebp-04h], 0
-        call sub_D0098
+        call InitShapeListBox
 .3:
         push dword [byte ebp-04h]
         push str_LB02d4
@@ -701,7 +701,7 @@ sub_C1577:
         push byte 0
         xor ecx, ecx
         mov eax, dword [byte eax+02Ch]
-        call sub_7DFC0
+        call DrawShadedLogo
         mov eax, dword [dword_1CB0BC]
         push dword [eax+esi*4]
         call SetDrawTarget
@@ -741,7 +741,7 @@ sub_C1577:
         mov eax, dword [dword_1CB0E8]
         mov ebx, 8
         mov eax, dword [byte eax+02Ch]
-        call sub_7DA28
+        call ShadeShape
         mov eax, dword [dword_1CB0BC]
         mov eax, dword [eax+esi*4]
         mov edx, dword [dword_1CB0C8]
@@ -2313,7 +2313,7 @@ sub_C2A49:
         push str_MB042
         add edx, 0F6h
         mov ebx, ecx
-        call sub_D0098
+        call InitShapeListBox
         jmp near sub_C1577_73D
 ;-----------------------------------------------------------------------------
 ; sub_C2BB2                                                       C2BB2  97 PC
@@ -2442,7 +2442,7 @@ sub_C2BB2:
         xor ebx, ebx
         add eax, 0F6h
         mov edi, 7
-        call sub_CA44C
+        call InitListBox
 .5:
         imul esi, edi, byte 52h
         mov ebx, dword [dword_1CB0E0]
@@ -2459,7 +2459,7 @@ sub_C2BB2:
         xor ebx, ebx
         add eax, esi
         inc edi
-        call sub_CA44C
+        call InitListBox
         cmp edi, byte 9
         jle short .5
         jmp near sub_C1577_73D
@@ -2889,7 +2889,7 @@ sub_C32B0:
         add eax, edx
         mov edx, 2BCh
         inc esi
-        call sub_CA44C
+        call InitListBox
         cmp esi, byte 0Ah
         jl short .1
         mov dword [dword_1CB0F8], 0
@@ -2913,7 +2913,7 @@ sub_C32B0:
         push edx
         mov edx, 0Ch
         mov eax, dword [byte eax+02Ch]
-        call sub_7E52C
+        call DrawShadowBox
         mov eax, dword [dword_1CB0C0]
         push byte 0
         movsx edx, word [byte eax+06h]
@@ -3161,7 +3161,7 @@ DetailLevelScreen:
         enter 5B4h, 0
         mov edi, eax
         mov dword [byte ebp-0Ch], edx
-        call sub_81678
+        call SetNormalText
         mov eax, 3
         call SecondsToSamples
         call WaitSoundTime
@@ -3321,7 +3321,7 @@ DetailLevelScreen:
         add esp, byte 4
         xor edx, edx
         xor eax, eax
-        call sub_7F29C
+        call DrawFrameBox
         mov eax, 1F9h
         call GetLangText
         push eax
@@ -3344,7 +3344,7 @@ DetailLevelScreen:
         add esp, byte 4
         xor edx, edx
         xor eax, eax
-        call sub_7F29C
+        call DrawFrameBox
         mov eax, 1FAh
         call GetLangText
         push eax
@@ -3897,7 +3897,7 @@ DetailLevelScreen:
         add esp, byte 8
         mov edx, esi
         mov ecx, 52h
-        call sub_7E860
+        call DrawScreenBackground
         push byte 0
         lea edi, [dword ebp-05B4h]
         mov esi, unk_1C5F4A
@@ -3917,7 +3917,7 @@ DetailLevelScreen:
         add esp, byte 0Ch
         jmp near DetailLevelScreen_A93.31
 DetailLevelScreen_A25:
-        call sub_7EDF0
+        call FadeInScreen
         mov dword [byte ebp-08h], 1
         jmp near DetailLevelScreen_B18
 DetailLevelScreen_A36:

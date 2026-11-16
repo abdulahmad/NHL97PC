@@ -21,7 +21,7 @@ extern RosterScreen_246, RosterScreen_2EC, RosterScreen_3B9, RosterScreen_42C, R
 extern RosterScreen_5AB, RosterScreen_5AF, RosterScreen_5CF, RosterScreen_5D3, RosterScreen_604, RosterScreen_615, RosterScreen_624, RosterScreen_65B
 extern RosterScreen_66C, rand_, sprintf_, BlitShape2, BlitArt, BlitShape, sub_1013FC, FindShape
 extern sub_102B94, ConvertArtXY, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, StopAllSfx
-extern PlaySfx, LoadDataFile, sub_7DFC0, SetRegionRect, InitMenuItems, sub_8BFAC, ServiceIdle, FreeMemBlock
+extern PlaySfx, LoadDataFile, DrawShadedLogo, SetRegionRect, InitMenuItems, sub_8BFAC, ServiceIdle, FreeMemBlock
 extern FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, tickcount, unk_1ACB44, unk_1ACD2B, unk_1CBC18
 extern unk_C5ED2
 global jpt_C6038, jpt_C750B, sub_C5F81_B1, sub_C6064_E65, sub_C6064_EB8, sub_C6064_F19, sub_C6064_1135, sub_C6064_115B
@@ -524,7 +524,7 @@ sub_C6064:
         push byte 0
         mov edx, dword [byte edx+02Ch]
         mov dword [dword ebp+02E8h], eax
-        call sub_7DFC0
+        call DrawShadedLogo
         jmp short .6
 .5:
         mov eax, dword [dword ebp+02F0h]
@@ -572,7 +572,7 @@ sub_C6064:
         push byte 0
         mov edx, dword [byte edx+02Ch]
         mov dword [dword ebp+02ECh], eax
-        call sub_7DFC0
+        call DrawShadedLogo
         jmp short .8
 .7:
         dec ebx

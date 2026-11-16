@@ -8,7 +8,7 @@ extern dword_16D34C, dword_16D350, dword_16D360, dword_16DA9C, dword_16E464, dwo
 extern dword_1ACF46, dword_1ACF65, dword_1AD226, dword_1AD22A, dword_1AD437, dword_1AD45A, dword_1AD62F, dword_1AD6AB
 extern dword_1AD6AF, dword_1AD727, dword_1AD743, dword_1C1334, dword_1C1338, dword_1C5DA8, dword_1CEFB0, dword_1CEFB4
 extern memcpy_, sprintf_, sub_10AED0, MakeDirPath, SaveReplayHeader, sub_789F0, sub_7B15D, sub_7B88D
-extern sub_7FE4C, sub_83314, sub_834EC, sub_83558, NameIndexNew, NameIndexLoad, NameIndexFree, sub_86500
+extern EditFileName, ShowWorkingBox, UpdateWorkingBox, HideWorkingBox, NameIndexNew, NameIndexLoad, NameIndexFree, sub_86500
 extern GetLangText, sub_91D7F, SeasonSettingsPath, PlayoffSettingsPath, AllocCrusherBuffers, sub_A2F31, sub_A2F52, LinkSendData
 extern LinkReceiveData, sub_A3116, KeysEqual, OpenGameDatabase, CloseGameDatabase, DaysToYear, CreateExhibitionFile, WriteLeagueHeader
 extern StartSeasonGame, SaveExhibitionResult, SaveSeasonResult, FindGameRecord, UpdateGameRecord, AddReplayIndexEntry, FindReplayIndexEntry, OpenReplayFile
@@ -37,7 +37,7 @@ sub_AB240:
         mov eax, 227h
         mov dword [byte ebp-08h], 0
         call GetLangText
-        call sub_83314
+        call ShowWorkingBox
         jmp near .23
 .1:
         mov edx, dword [dword_1AC814]
@@ -234,16 +234,16 @@ sub_AB240:
         cmp dword [dword_1ACF46], byte 0
         je short .21
 .20:
-        call sub_83558
+        call HideWorkingBox
         call sub_AB573
         mov eax, dword [dword_1AC940]
         movsx edx, word [byte eax+02h]
         mov eax, 227h
         call GetLangText
-        call sub_83314
+        call ShowWorkingBox
 .21:
         mov eax, dword [byte ebp-08h]
-        call sub_834EC
+        call UpdateWorkingBox
 .22:
         inc dword [byte ebp-08h]
 .23:
@@ -251,7 +251,7 @@ sub_AB240:
         movsx edx, word [byte eax+02h]
         cmp edx, dword [byte ebp-08h]
         jg near .1
-        call sub_83558
+        call HideWorkingBox
         call sub_AB573
         push dword [byte ebp-04h]
         call FreeMemBlock
@@ -543,12 +543,12 @@ sub_AB573:
         sub edx, eax
         mov eax, 236h
         call GetLangText
-        call sub_83314
+        call ShowWorkingBox
         jmp short .22
 .21:
         mov eax, dword [byte ebp+07Ah]
         sub eax, dword [byte ebp+076h]
-        call sub_834EC
+        call UpdateWorkingBox
 .22:
         mov esi, dword [byte ebp+07Ah]
         mov eax, dword [dword_1AC940]
@@ -618,12 +618,12 @@ sub_AB573:
         sub edx, eax
         mov eax, 236h
         call GetLangText
-        call sub_83314
+        call ShowWorkingBox
         jmp short .25
 .24:
         mov eax, dword [byte ebp+07Ah]
         sub eax, dword [byte ebp+076h]
-        call sub_834EC
+        call UpdateWorkingBox
 .25:
         mov esi, dword [byte ebp+07Ah]
         mov eax, dword [dword_1AC940]
@@ -675,7 +675,7 @@ sub_AB573:
         jle near .20
         cmp dword [byte ebp+076h], byte 0FFFFFFFFh
         je short .28
-        call sub_83558
+        call HideWorkingBox
 .28:
         mov dword [byte ebp+076h], 0FFFFFFFFh
         cmp dword [byte ebp+062h], byte 0
@@ -985,12 +985,12 @@ sub_AB573:
         sub edx, eax
         mov eax, 236h
         call GetLangText
-        call sub_83314
+        call ShowWorkingBox
         jmp short .52
 .51:
         mov eax, dword [byte ebp+07Ah]
         sub eax, dword [byte ebp+076h]
-        call sub_834EC
+        call UpdateWorkingBox
 .52:
         movsx edx, word [byte ebp+07Ah]
         mov ebx, dword_1C1334
@@ -1066,7 +1066,7 @@ sub_AB573:
 .60:
         cmp dword [byte ebp+076h], byte 0FFFFFFFFh
         je short .61
-        call sub_83558
+        call HideWorkingBox
 .61:
         push dword [byte ebp+06Ah]
         call FreeMemBlock
@@ -1489,7 +1489,7 @@ sub_AC41B:
         call GetLangText
         mov ebx, eax
         lea eax, [byte ebp+05Eh]
-        call sub_7FE4C
+        call EditFileName
         test eax, eax
         jne short .15
         jmp short .14
@@ -1501,7 +1501,7 @@ sub_AC41B:
         call GetLangText
         mov ebx, eax
         lea eax, [byte ebp+05Eh]
-        call sub_7FE4C
+        call EditFileName
         test eax, eax
         jne short .15
 .14:

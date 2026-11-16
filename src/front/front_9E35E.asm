@@ -11,9 +11,9 @@ extern dword_1ACB45, dword_1C1334, dword_1C86FC, dword_1C8E4C, dword_1C8E50, dwo
 extern dword_1C8E60, dword_1C8E64, dword_1C8E88, dword_1C8E8C, dword_1C8E90, dword_1C8E94, dword_1C8E98, dword_1C8E9C
 extern dword_1C8F4C, dword_1C93D4, dword_1C93D8, PickIndexEntryScreen_393, PickIndexEntryScreen_3A4, PickIndexEntryScreen_3B5, PickIndexEntryScreen_470, PickIndexEntryScreen_4D9
 extern PickIndexEntryScreen_4EE, rand_, sprintf_, BlitShape2, BlitArt, sub_1013FC, FindShape, FindShapeList
-extern SetScreenTarget, SecondsToSamples, WaitSoundTime, PlayMenuSfx, StopAllSfx, PlaySfx, LoadDataFile, sub_7E860
-extern sub_7EDF0, sub_7EEB0, sub_7EF70, SetRegionRect, sub_80AB8, sub_80B28, sub_80BBC, sub_835BC
-extern sub_83850, sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, GetLangText, LinkTransferSetup, sub_C6064
+extern SetScreenTarget, SecondsToSamples, WaitSoundTime, PlayMenuSfx, StopAllSfx, PlaySfx, LoadDataFile, DrawScreenBackground
+extern FadeInScreen, ShowScreen, ExitScreen, SetRegionRect, DrawTeamLogoBanner, DrawProgressBar, WipeScreen, ShowLinkMessage
+extern HideLinkBox, ShowPopupScreen, InitMenuItems, sub_8BFAC, sub_8DF1F, GetLangText, LinkTransferSetup, sub_C6064
 extern LoadExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, PickDemoTeams, ClearLinkAbort, ServiceIdle, LinkSendBlock, LinkReceiveBlock
 extern AllocMemBlock, FreeMemBlock, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, tickcount, unk_16CFFC
 extern unk_1ACB44, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, word_1ACB47, word_1C8EA0, word_1C8EA2
@@ -143,7 +143,7 @@ DrawHomeTeamPanel:
         push eax
         mov eax, ebx
         inc esi
-        call sub_80B28
+        call DrawProgressBar
         cmp esi, byte 6
         jl short .4
         cmp dword [dword_1C8E54], byte 0
@@ -296,7 +296,7 @@ DrawAwayTeamPanel:
         sub edx, dword [dword_16D23C]
         xor eax, eax
         inc esi
-        call sub_80B28
+        call DrawProgressBar
         cmp esi, byte 6
         jl short .4
         cmp dword [dword_1C8E54], byte 0
@@ -390,7 +390,7 @@ sub_9E723:
         add esp, byte 8
         mov ecx, eax
         mov eax, esi
-        call sub_80AB8
+        call DrawTeamLogoBanner
         call SetScreenTarget
         push byte 4Dh
         mov eax, dword [dword_1C8E88]
@@ -425,7 +425,7 @@ sub_9E723:
         add esp, byte 8
         mov ecx, eax
         mov eax, esi
-        call sub_80AB8
+        call DrawTeamLogoBanner
         call SetScreenTarget
         push byte 4Dh
         mov eax, dword [dword_1C8E8C]
@@ -635,7 +635,7 @@ TeamSelectScreen:
         mov edx, esi
         mov eax, esi
         mov esi, unk_1C5EF8
-        call sub_7E860
+        call DrawScreenBackground
         rep movsb
         mov eax, dword [byte ebp+07Eh]
         mov ecx, 52h
@@ -891,7 +891,7 @@ TeamSelectScreen:
         add esp, byte 8
         mov ecx, eax
         mov eax, edi
-        call sub_80AB8
+        call DrawTeamLogoBanner
         push esi
         call SetDrawTarget
         add esp, byte 4
@@ -919,7 +919,7 @@ TeamSelectScreen:
         add esp, byte 8
         mov ecx, eax
         mov eax, edi
-        call sub_80AB8
+        call DrawTeamLogoBanner
         push esi
         call SetDrawTarget
         add esp, byte 4
@@ -933,23 +933,23 @@ TeamSelectScreen:
         mov dword [dword_1C8E54], 0
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte esi+02Ch]
-        call sub_80BBC
+        call WipeScreen
         push esi
         call FreeBitmap
         add esp, byte 4
         jmp near TeamSelectScreen_94F.23
 TeamSelectScreen_7BE:
-        call sub_7EEB0
+        call ShowScreen
         mov dword [byte ebp+072h], 1
         jmp near TeamSelectScreen_94F.23
 TeamSelectScreen_7CF:
-        call sub_7EDF0
+        call FadeInScreen
         mov dword [byte ebp+072h], 0Eh
         jmp near TeamSelectScreen_94F.23
 TeamSelectScreen_7E0:
         mov eax, dword [byte ebp+07Eh]
         add eax, 0A4h
-        call sub_83C08
+        call ShowPopupScreen
         mov eax, 1
         call sub_C6064
         jmp near TeamSelectScreen_94F.23
@@ -957,7 +957,7 @@ TeamSelectScreen_7FC:
         mov eax, dword [byte ebp+07Eh]
         add eax, 0F6h
         mov dword [byte ebp+072h], 19h
-        call sub_83C08
+        call ShowPopupScreen
         jmp near TeamSelectScreen_94F.23
 TeamSelectScreen_815:
         mov eax, 30Bh
@@ -1190,7 +1190,7 @@ TeamSelectScreen_B55:
         mov dword [byte ebp+072h], 15h
         jmp near TeamSelectScreen_94F.23
 TeamSelectScreen_B61:
-        call sub_7EF70
+        call ExitScreen
         jmp near TeamSelectScreen_94F.23
 .32:
         push dword [dword_1C8E5C]
@@ -1238,11 +1238,11 @@ TeamSelectScreen_B61:
         mov eax, 227h
         mov edx, 4A78h
         call GetLangText
-        call sub_835BC
+        call ShowLinkMessage
         xor ebx, ebx
         mov eax, dword_1C1334
         call LinkSendBlock
-        call sub_83850
+        call HideLinkBox
 .37:
         cmp dword [dword_16DA9C], byte 0
         je short .38
@@ -1252,11 +1252,11 @@ TeamSelectScreen_B61:
         mov eax, 227h
         mov edx, 4A78h
         call GetLangText
-        call sub_835BC
+        call ShowLinkMessage
         xor ebx, ebx
         mov eax, dword_1C1334
         call LinkReceiveBlock
-        call sub_83850
+        call HideLinkBox
 .38:
         mov eax, dword [byte ebp+07Ah]
         and eax, byte 3Fh

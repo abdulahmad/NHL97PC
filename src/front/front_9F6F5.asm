@@ -15,9 +15,9 @@ extern dword_1C93C8, dword_1C93CC, dword_1C93D8, dword_1C93DC, dword_1C93E0, dwo
 extern off_16D254, off_16D258, rand_, sprintf_, strcat_, strcmp_, strcpy_, strlen_
 extern sub_101324, BlitShape2, BlitArt, BlitShape, sub_1013FC, FindShape, sub_106D80, sub_107098
 extern ConvertArtXY, sub_11B0D0, sub_11B98E, sub_11B9A0, sub_11BA08, sub_11BA50, SetScreenTarget, SecondsToSamples
-extern WaitSoundTime, StopAllSfx, PlaySfx, MakeDirPath, LoadDataFile, sub_7EDF0, sub_7EEB0, SetRegionRect
-extern sub_7F04C, SetTextColor, DrawTextAligned, sub_7F5A4, sub_81114, sub_81650, sub_83314, sub_834EC
-extern sub_83558, sub_835BC, sub_83850, NameIndexNew, NameIndexLoad, NameIndexSave, NameIndexFree, sub_86500
+extern WaitSoundTime, StopAllSfx, PlaySfx, MakeDirPath, LoadDataFile, FadeInScreen, ShowScreen, SetRegionRect
+extern DrawEditBox, SetTextColor, DrawTextAligned, ShowMessageBox, DrawEntryList, SetHighlightText, ShowWorkingBox, UpdateWorkingBox
+extern HideWorkingBox, ShowLinkMessage, HideLinkBox, NameIndexNew, NameIndexLoad, NameIndexSave, NameIndexFree, sub_86500
 extern NameIndexRemove, NameIndexPath, sub_867D4, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, DrawScrollBar
 extern sub_8DE68, sub_8DE7E, sub_8DEAC, sub_8E6AF, GetLangText, sub_9F671, sub_AB240, sub_AC6EB
 extern sub_AC73E, KeysEqual, FindPlayerRecord, UpdatePlayerRecord, OpenLeagueFile, WriteLeagueHeader, FindGameRecord, UpdateGameRecord
@@ -53,7 +53,7 @@ PickIndexEntryScreen:
         mov eax, 8
         xor ebx, ebx
         xor edx, edx
-        call sub_7F04C
+        call DrawEditBox
         call sub_1013FC
         push byte 0
         push dword 140h
@@ -202,7 +202,7 @@ PickIndexEntryScreen:
         push byte 1Eh
         mov ebx, 230h
         mov edx, eax
-        call sub_81114
+        call DrawEntryList
         mov eax, dword [byte ebp+07Eh]
         cmp dword [byte eax+066h], byte 0Ah
         jle short .10
@@ -285,12 +285,12 @@ PickIndexEntryScreen:
         call sub_1013FC
         jmp near PickIndexEntryScreen_470.21
 PickIndexEntryScreen_393:
-        call sub_7EEB0
+        call ShowScreen
 .13:
         mov dword [byte ebp+072h], 1
         jmp near PickIndexEntryScreen_470.21
 PickIndexEntryScreen_3A4:
-        call sub_7EDF0
+        call FadeInScreen
         mov dword [byte ebp+072h], 1Bh
         jmp near PickIndexEntryScreen_470.21
 PickIndexEntryScreen_3B5:
@@ -2152,7 +2152,7 @@ sub_A12CD:
         add esp, byte 0Ch
         mov edx, 24h
         mov edi, eax
-        call sub_81650
+        call SetHighlightText
         mov eax, esi
         call sub_A2F52
         movsx edx, word [esi]
@@ -2460,7 +2460,7 @@ sub_A12CD:
         mov eax, 227h
         movsx edx, word [byte esi+02h]
         call GetLangText
-        call sub_83314
+        call ShowWorkingBox
         cmp dword [byte ebp-0Ch], byte 0
         je short .30
         cmp dword [dword_1ACF46], byte 0
@@ -2471,7 +2471,7 @@ sub_A12CD:
 .31:
         mov eax, dword [byte ebp-04h]
         mov ebx, dword [byte ebp-04h]
-        call sub_834EC
+        call UpdateWorkingBox
         shl ebx, 4
         mov eax, dword [byte esi+020h]
         add eax, ebx
@@ -2582,7 +2582,7 @@ sub_A12CD:
         cmp eax, dword [byte ebp-04h]
         jg near .31
 .41:
-        call sub_83558
+        call HideWorkingBox
         push dword [dword_1C93CC]
         call FreeMemBlock
         add esp, byte 4
@@ -2614,7 +2614,7 @@ sub_A1961:
         call AllocMemBlock
         add esp, byte 0Ch
         mov esi, eax
-        call sub_81650
+        call SetHighlightText
         xor eax, eax
         mov ebx, 24h
         call LinkReceiveData
@@ -2966,7 +2966,7 @@ sub_A1961:
         mov eax, 227h
         movsx edx, word [byte ebp+054h]
         call GetLangText
-        call sub_83314
+        call ShowWorkingBox
         cmp dword [dword ebp-04B4Eh], byte 0
         je short .30
         cmp dword [dword_1ACF46], byte 0
@@ -2976,7 +2976,7 @@ sub_A1961:
         jmp near .38
 .31:
         mov eax, edi
-        call sub_834EC
+        call UpdateWorkingBox
         mov ecx, edi
         mov eax, dword [byte ebp+072h]
         shl ecx, 4
@@ -3091,7 +3091,7 @@ sub_A1961:
         add eax, dword [byte ebp+072h]
         mov dword [byte eax+08h], 0FFCh
 .40:
-        call sub_83558
+        call HideWorkingBox
         push dword [dword_1C93CC]
         call FreeMemBlock
         add esp, byte 4
@@ -3221,7 +3221,7 @@ sub_A219A:
         xor ecx, ecx
         xor ebx, ebx
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
         mov eax, 1
         jmp near sub_A219A_6FD
 .15:
@@ -3743,7 +3743,7 @@ sub_A289E:
         xor ecx, ecx
         xor ebx, ebx
         call GetLangText
-        call sub_7F5A4
+        call ShowMessageBox
         mov eax, 1
         jmp near sub_A219A_6FD
 .11:
@@ -4213,14 +4213,14 @@ LinkSendData:
         mov esi, eax
         mov eax, 236h
         call GetLangText
-        call sub_835BC
+        call ShowLinkMessage
         xor ecx, ecx
         mov ebx, dword [dword_1C93C8]
         mov edx, dword [dword_1C93C4]
         mov eax, dword [dword_1C93CC]
         call sub_EDDAC
         mov ecx, eax
-        call sub_83850
+        call HideLinkBox
         push ecx
         push unk_165E4A
         lea eax, [byte ebp-014h]
@@ -4242,25 +4242,25 @@ LinkSendData:
         cmp ecx, 1F4h
         jle short .2
         mov eax, 227h
-        mov ebx, sub_834EC
+        mov ebx, UpdateWorkingBox
         mov edx, ecx
         call GetLangText
-        call sub_83314
+        call ShowWorkingBox
         mov eax, dword [dword_1C93C8]
         mov edx, ecx
         call LinkSendBlock
-        call sub_83558
+        call HideWorkingBox
         jmp short LinkSendData_BB.3
 .2:
         mov eax, 227h
         call GetLangText
-        call sub_835BC
+        call ShowLinkMessage
         mov edx, ecx
         xor ebx, ebx
         mov eax, dword [dword_1C93C8]
         call LinkSendBlock
 LinkSendData_BB:
-        call sub_83850
+        call HideLinkBox
 .3:
         mov dword [dword_1C93C4], 0
         leave
@@ -4285,7 +4285,7 @@ LinkReceiveData:
         jne short .1
         mov eax, 236h
         call GetLangText
-        call sub_835BC
+        call ShowLinkMessage
 .1:
         mov edx, 0Ah
         lea eax, [byte ebp-020h]
@@ -4293,7 +4293,7 @@ LinkReceiveData:
         call LinkReceiveBlock
         test esi, esi
         jne short .2
-        call sub_83850
+        call HideLinkBox
 .2:
         lea eax, [byte ebp-020h]
         call atoi_
@@ -4310,28 +4310,28 @@ LinkReceiveData:
         jge short .4
         mov eax, 227h
         call GetLangText
-        call sub_835BC
+        call ShowLinkMessage
         mov edx, ecx
         xor ebx, ebx
         mov eax, dword [dword_1C93C8]
         call LinkReceiveBlock
-        call sub_83850
+        call HideLinkBox
         jmp short .5
 .4:
         mov eax, 227h
-        mov ebx, sub_834EC
+        mov ebx, UpdateWorkingBox
         mov edx, ecx
         call GetLangText
-        call sub_83314
+        call ShowWorkingBox
         mov eax, dword [dword_1C93C8]
         mov edx, ecx
         call LinkReceiveBlock
-        call sub_83558
+        call HideWorkingBox
 .5:
         mov eax, 236h
         mov edx, unk_1C93D0
         call GetLangText
-        call sub_835BC
+        call ShowLinkMessage
         mov ebx, dword [dword_1C93CC]
         mov eax, dword [dword_1C93C8]
         call sub_ED6C8

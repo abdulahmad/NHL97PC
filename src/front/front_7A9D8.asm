@@ -20,7 +20,7 @@ extern BuildVideoGammaTable, DecodeVideoChunk, CreateBitmapDefault, ResetFrameRa
 extern SerialFlushTx, SerialWaitTxEmpty, LoadNameFile, SetScreenTarget, OpenStreamBuffer, delstream, CdStreamStart, CdStreamOpenSecondary
 extern CdStreamService, CdStreamNextPacket, CdStreamFreePacket, StreamReady, SecondsToSamples, WaitSoundTime, ChkMenuMusic, PauseMusic
 extern RequestMusicStop, WaitMusicEnd, ArenaFileName, PaEvent, MakeDataPath, LoadDataFileLib, LoadDataFile, WriteGlobalSet
-extern sub_7F5A4, sub_80BBC, sub_81678, MainMenuScreen, RunGameScreens, RunStatsMenu, RunNetworkConnect, RunModemConnect
+extern ShowMessageBox, WipeScreen, SetNormalText, MainMenuScreen, RunGameScreens, RunStatsMenu, RunNetworkConnect, RunModemConnect
 extern sub_8BE60, sub_8BEF8, sub_8BFA0, LoadLangText, GetLangText, FreeLangText, sub_9CFD3, sub_9D333
 extern RunOptionsScreens, GoalieMaskScreen, CreditsScreen, KeysEqual, OpenGameDatabase, CloseGameDatabase, FindPlayerRecord, FindGameRecord
 extern UpdateGameRecord, AddPlayerStat, AddPlayerStatAt, FindPlayerStat, UpdatePlayerStat, ClearLinkAbort, ServiceIdle, sub_F9650
@@ -1439,7 +1439,7 @@ sub_7B88D:
         lea eax, [byte ebp-042h]
         xor ecx, ecx
         xor ebx, ebx
-        call sub_7F5A4
+        call ShowMessageBox
 .19:
         inc edi
         cmp edi, byte 3
@@ -3081,7 +3081,7 @@ InitFrontEnd:
         mov eax, 3
         call SecondsToSamples
         call WaitSoundTime
-        call sub_81678
+        call SetNormalText
         push str_Remo2
         push dword [dword_1C5DE4]
         call FindShape
@@ -3381,7 +3381,7 @@ TitleScreen:
         add esp, byte 4
         mov eax, dword [byte ebx+02Ch]
         xor edx, edx
-        call sub_80BBC
+        call WipeScreen
         push ebx
         call FreeBitmap
         add esp, byte 4
