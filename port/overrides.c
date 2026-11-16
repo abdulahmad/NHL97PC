@@ -73,6 +73,25 @@ void host_set_deadline(uint32_t ticks)
 /* Spinning on tickcount in host code deadlocks on Windows: plat_kick_game only delivers IRQs when EIP is in the game image, so
  * the PIT handler never runs and WaitTicks(1) at the end of a TGV (PlayTGV) hangs forever. That matched "freeze after Pioneer /
  * freeze when skipping EA or Pioneer". Allow the kick while we wait, and sleep so the main thread can raise the timer and poll input. */
+/* Waiting in the host for the game's clock. The timer interrupt has to reach the game thread meanwhile. It used to be put into
+ * the thread wherever it was (host_allow_irq), also inside a Windows system call (the sleep): there the changed context was now
+ * and then lost, the interrupt counted as taken but its handler never ran, and no interrupt came again (the clock stopped for
+ * good: the intro hung in WaitTickDeadline, the start of an online test hung on one side). Now the thread sleeps while nothing is
+ * pending and, while an interrupt is, spins in host_safe_spin: a pause loop of a few instructions with no system call, where
+ * plat_kick_game may put an interrupt at any instruction. */
+__asm__(".text\n\t.globl " SYM("host_safe_spin") "\n" SYM("host_safe_spin") ":\n\t"
+        "1:\n\tpause\n\tdecl %ecx\n\tjnz 1b\n\tret\n\t"
+        ".globl " SYM("host_safe_spin_end") "\n" SYM("host_safe_spin_end") ":\n\tnop\n");
+void host_wait_until(volatile uint32_t *count, uint32_t until)
+{
+    while ((int32_t)(*count - until) < 0) {
+        if (irq_deliverable()) {
+            uint32_t n = 4000;                    /* a few hundred microseconds: the main thread kicks about every millisecond */
+            __asm__ volatile("call " SYM("host_safe_spin") : "+c"(n) : : "memory", "cc");
+        } else plat_sleep_ms(1);
+    }
+}
+
 void host_wait_ticks(uint32_t ticks)
 {
     uint32_t *count = (uint32_t *)GAME_ADDR(ORIG_TICKCOUNT);
@@ -80,9 +99,7 @@ void host_wait_ticks(uint32_t ticks)
     if (intro_skip) ticks = 0;
     until = *count + ticks;
     if (netplay_vtime_wait(until, 0)) return;   /* online: the clock is the steps' (netplay.c) */
-    host_allow_irq = 1;
-    while ((int32_t)(*count - until) < 0) plat_sleep_ms(1);
-    host_allow_irq = 0;
+    host_wait_until(count, until);
 }
 
 /* WaitTickDeadline: wait for the deadline SetTickDeadline set (the CD audio's 5-tick pauses, the disk speed test) */
@@ -91,9 +108,7 @@ void host_wait_deadline(void)
     uint32_t *count = (uint32_t *)GAME_ADDR(ORIG_TICKCOUNT);
     uint32_t until = *(uint32_t *)GAME_ADDR(ORIG_TICKDEADLINE);
     if (netplay_vtime_wait(until, 0)) return;
-    host_allow_irq = 1;
-    while ((int32_t)(*count - until) < 0) plat_sleep_ms(1);
-    host_allow_irq = 0;
+    host_wait_until(count, until);
 }
 
 /* TickDeadlinePassed: 1 once tickcount has reached the deadline (unsigned, as the original's sbb), else 0. The callers spin on it
