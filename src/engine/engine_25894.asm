@@ -33,8 +33,8 @@ extern StartPass, AIPassDecision, ChkAIShoot, AvgLineEnergy, CompLine, ChkShoot,
 extern AddPenalty, AddPenalty2, EndPenaltyShot, SetPlayerTarget, SetSlotPlayer, doplayeracc, PickBoxSeat, FreeBoxSeat
 extern MoveBoxToBenchSeat, SitDownAnim, StandUpAnim, GoToBoxAnim, LeaveBoxAnim, RefDodgePuck, QueueMusicRestart, MusicPlaying
 extern PlaySfxOr, PlaySfxVolume, SetCrowdMood, CommentaryEvent, PaEvent, TriggerCameraFlashes, PeriodOver, IsCameraOnPuck
-extern SetCameraMode, EndCrowdReaction, UpdateScoreboardPos, UpdateScoreboardSpin, sub_55648, SetPenaltyBoxDoor, sub_56AE4, sub_56CD0
-extern sub_56CE4, sub_56CF8, sub_572D4, sub_57304, SetupPlayerModel, BuildCupPatchArt, DrawJerseyLettering, LoadCupArt
+extern SetCameraMode, EndCrowdReaction, UpdateScoreboardPos, UpdateScoreboardSpin, GetSeatPos, SetPenaltyBoxDoor, SetTeamColours, SetFaceMouth
+extern SetFaceExpression, SetFaceBlink, CupFaceTextures, SetModelSlotValue, SetupPlayerModel, BuildCupPatchArt, DrawJerseyLettering, LoadCupArt
 extern ClearObjectHidden, SetSPA, ResetAnimTimer, PickSkateAnim, FaceoffPuckDrop, SetSkateSpeedFromRating, StartWhistleStop, ObjectFramePos
 extern PuckBounceOffPlayer, GoalLinePuckTest, UpdatePuckCarrier, GoalJudgeTest, RandomPuckSpin, StopObject, StartOneTimerAnim, StartPuckReceiveAnim
 extern RefAtDotAnim, RefFaceoffAnim, RefGoalPaAnim, RefWhistleAnim, RefSignalAnim, RefGoalLineAnim, PuckDeflect, CupCelebration
@@ -2194,13 +2194,13 @@ StartScoreCelebration:
         call SetSPA
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CE4
+        call SetFaceExpression
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CD0
+        call SetFaceMouth
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CF8
+        call SetFaceBlink
         pop ecx
         pop ebx
         ret
@@ -3846,7 +3846,7 @@ asspenalty:
         test ah, 40h
         setne al
         and eax, 0FFh
-        call sub_55648
+        call GetSeatPos
         mov edx, eax
         mov ecx, eax
         mov eax, ebx
@@ -3921,13 +3921,13 @@ asspenalty:
         call PenaltyCameraScene
         mov edx, 1
         mov eax, dword [dword ebx+0F2h]
-        call sub_56CE4
+        call SetFaceExpression
         mov edx, 1
         mov eax, dword [dword ebx+0F2h]
-        call sub_56CD0
+        call SetFaceMouth
         mov eax, dword [dword ebx+0F2h]
         xor edx, edx
-        call sub_56CF8
+        call SetFaceBlink
 .6:
         fild word [byte ebx+06h]
         fstp dword [byte esp+08h]
@@ -4092,7 +4092,7 @@ assepen:
         test cl, 40h
         setne al
         and eax, 0FFh
-        call sub_55648
+        call GetSeatPos
         fild dword [eax]
         fadd dword [dword_1606AC]
         fstp dword [byte ebx+020h]
@@ -4327,7 +4327,7 @@ ResetFaceoffAssigns:
         mov eax, dword [off_168D04]
         mov edx, 1
         mov eax, dword [dword eax+0F2h]
-        call sub_56CF8
+        call SetFaceBlink
 .7:
         pop edx
         ret
@@ -4359,7 +4359,7 @@ assrefpenshot:
         mov eax, dword [off_168D04]
         mov edx, 1
         mov eax, dword [dword eax+0F2h]
-        call sub_56CF8
+        call SetFaceBlink
 .1:
         mov ch, byte [dword ebx+0C0h]
         or ch, 20h
@@ -5329,7 +5329,7 @@ assreffollow:
         mov eax, dword [off_168D04]
         mov edx, 1
         mov eax, dword [dword eax+0F2h]
-        call sub_56CF8
+        call SetFaceBlink
 .6:
         mov eax, ebx
         call RefDodgePuck
@@ -5417,7 +5417,7 @@ assrefdrop:
         mov eax, dword [off_168D04]
         mov edx, 1
         mov eax, dword [dword eax+0F2h]
-        call sub_56CF8
+        call SetFaceBlink
 .2:
         cmp word [word_19CBBE], byte 0
         jg short .3
@@ -5579,7 +5579,7 @@ assrefatdot:
         mov eax, dword [off_168D04]
         mov edx, 1
         mov eax, dword [dword eax+0F2h]
-        call sub_56CF8
+        call SetFaceBlink
 .2:
         and byte [dword ebx+0C1h], 0EFh
         mov ah, byte [dword ebx+0BFh]
@@ -6078,7 +6078,7 @@ assstanley:
         xor eax, eax
         mov edx, esi
         mov al, byte [dword ecx+0A4h]
-        call sub_572D4
+        call CupFaceTextures
         lea edx, [byte edi+08h]
         xor ebx, ebx
         xor eax, eax
@@ -6104,7 +6104,7 @@ assstanley:
         xor eax, eax
         mov al, byte [byte_19DAD4]
         push dword 3F800000h
-        call sub_57304
+        call SetModelSlotValue
         xor eax, eax
         call LoadCupArt
         mov edx, dword [dword_19DADE]
@@ -7159,13 +7159,13 @@ PuckHitsGoalie:
         jae short .13
         mov edx, 2
         mov eax, dword [dword ecx+0F2h]
-        call sub_56CE4
+        call SetFaceExpression
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CD0
+        call SetFaceMouth
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
-        call sub_56CF8
+        call SetFaceBlink
         mov eax, dword [off_168CFC]
         fld dword [byte eax+038h]
         fmul dword [dword_160733]
@@ -10050,17 +10050,17 @@ puckfaceoff2:
         xor ebx, ebx
         mov edx, 0FFFFFFFFh
         mov eax, dword [dword ecx+0F2h]
-        call sub_56AE4
+        call SetTeamColours
         and byte [dword ecx+0C0h], 7Fh
         xor edx, edx
         mov eax, dword [dword ecx+0F2h]
-        call sub_56CE4
+        call SetFaceExpression
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
-        call sub_56CD0
+        call SetFaceMouth
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CF8
+        call SetFaceBlink
         mov ax, word [dword ecx+0A9h]
         test ax, ax
         jl near .27

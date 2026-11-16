@@ -21,7 +21,7 @@ extern SerialFlushTx, SerialWaitTxEmpty, LoadNameFile, SetScreenTarget, OpenStre
 extern CdStreamService, CdStreamNextPacket, CdStreamFreePacket, StreamReady, SecondsToSamples, WaitSoundTime, ChkMenuMusic, PauseMusic
 extern RequestMusicStop, WaitMusicEnd, ArenaFileName, PaEvent, MakeDataPath, LoadDataFileLib, LoadDataFile, WriteGlobalSet
 extern ShowMessageBox, WipeScreen, SetNormalText, MainMenuScreen, RunGameScreens, RunStatsMenu, RunNetworkConnect, RunModemConnect
-extern sub_8BE60, sub_8BEF8, sub_8BFA0, LoadLangText, GetLangText, FreeLangText, sub_9CFD3, sub_9D333
+extern sub_8BE60, sub_8BEF8, sub_8BFA0, LoadLangText, GetLangText, FreeLangText, SortRosterByRating, BuildAutoLines
 extern RunOptionsScreens, GoalieMaskScreen, CreditsScreen, KeysEqual, OpenGameDatabase, CloseGameDatabase, FindPlayerRecord, FindGameRecord
 extern UpdateGameRecord, AddPlayerStat, AddPlayerStatAt, FindPlayerStat, UpdatePlayerStat, ClearLinkAbort, ServiceIdle, sub_F9650
 extern AllocMemBlock, sub_FAAB4, FreeMemBlock, sub_FBE40, WaitTicks, sub_FC330, MakeColor, FreeBitmap
@@ -841,9 +841,9 @@ sub_7B15D:
         cmp dword [byte ebp-0Ch], byte 0
         je near sub_7A9D8_77E
         mov eax, dword [byte ebp-074h]
-        call sub_9CFD3
+        call SortRosterByRating
         mov eax, dword [byte ebp-074h]
-        call sub_9D333
+        call BuildAutoLines
         jmp near sub_7A9D8_77E
 .17:
         cmp dword [byte ebp-0Ch], byte 0
@@ -1065,9 +1065,9 @@ sub_7B4E4:
         test ecx, ecx
         je near sub_7A9D8_77E
         mov eax, dword [byte ebp-014h]
-        call sub_9CFD3
+        call SortRosterByRating
         mov eax, dword [byte ebp-014h]
-        call sub_9D333
+        call BuildAutoLines
         jmp near sub_7A9D8_77E
 .15:
         test ecx, ecx
@@ -1452,7 +1452,7 @@ sub_7B88D:
         cmp dword [byte ebp+076h], byte 0
         je short .21
         lea eax, [dword ebp-01A4Eh]
-        call sub_9D333
+        call BuildAutoLines
         lea eax, [dword ebp-01A4Eh]
         call UpdateGameRecord
 .21:

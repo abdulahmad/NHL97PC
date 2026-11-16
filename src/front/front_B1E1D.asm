@@ -569,7 +569,7 @@ jpt_B234C:
         dd UserLogScreen_8BB
 ;-----------------------------------------------------------------------------
 ; UserLogScreen                                   B2364  97 PC, low confidence
-; The "User Log" list (LoadUserList), from the remote user screen sub_A3280
+; The "User Log" list (LoadUserList), from the remote user screen LinkGameSetup
 ;-----------------------------------------------------------------------------
 UserLogScreen:
         push esi

@@ -37,7 +37,7 @@ extern ChkMenuMusic, QueueMusicRestart, PauseMusic, ResumeMusic, RequestMusicSto
 extern PaEvent, ResetStreamAudio, LoadDataFile, InitGameGraphics, InitGameVideo, FreeGameGraphics, DrawGameFrame, RedrawGameView
 extern TriggerCameraFlashes, RestoreSavedPalette, ReplayHasFrames, UpdateGameDisplay, UpdateAllPoses, InitFrontEnd, FreeFrontEnd, SetRegionRect
 extern SetTextColor, DrawTextAligned, sub_8BE60, sub_8BEF8, InitMenuItems, sub_8BFA0, sub_8BFAC, sub_8D6E0
-extern LoadLangTextB, GetLangText, FreeLangText, EditLinesScreen, GameStatsScreen, LoadGameLogos, sub_AB0A6, RunReplay
+extern LoadLangTextB, GetLangText, FreeLangText, EditLinesScreen, GameStatsScreen, LoadGameLogos, FreeGameText, RunReplay
 extern FadePalette, FadeOut, OpenGameDatabase, CloseGameDatabase, ServiceIdle, SyncLinkGame, LinkSyncMenu, LinkSyncScreen
 extern WaitForOtherComputer, sub_F1FF8, FreeMemBlock, sub_FC330, sub_FC4BC, sub_FCC40, FreeBitmap, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, MeasureText, DrawTextAt, SetTextColors, DrawTextBoxedAt
@@ -2912,7 +2912,7 @@ PauseMenu_29A:
         call sub_8BEF8
         movsx eax, si
         call sub_F48C2
-        call sub_AB0A6
+        call FreeGameText
         call InitFrontEnd
         call RequestMusicStop
         test bx, bx
@@ -3050,7 +3050,7 @@ PauseMenu_4EF:
         call sub_8BEF8
         mov eax, edx
         call sub_F48C2
-        call sub_AB0A6
+        call FreeGameText
         call InitFrontEnd
         call RequestMusicStop
         call GameStatsScreen

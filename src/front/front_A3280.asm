@@ -46,20 +46,21 @@ extern unk_1C5F9C, unk_1C94F4, word_1684BE, word_16D25C, word_16D25E, word_16D26
 extern word_16D29C, word_16D2A6, word_16D2AC, word_16D2B0, word_16D2B2, word_16D2B4, word_19CB96, gameover
 extern word_1C1348, word_1C55A2, word_1C9448, word_1C9450, word_1C9470, word_1C94EC, word_1C94EE, word_1C94F0
 extern word_1C94F6, word_1C94F8, word_1C94FA, word_1C95AC, word_1C95AE
-global jpt_A3B51, jpt_A4B35, jpt_A4B4D, jpt_A4B65, jpt_A6680, jpt_A7D7C, sub_A3280_8CA, sub_A3280_8CB
-global sub_A3B69_29, sub_A3B69_CC, sub_A3B69_166, sub_A3B69_1EE, sub_A3B69_2BB, sub_A4B7D_30, sub_A4B7D_112, sub_A4B7D_1971
-global PostGameScreen_B39, PostGameScreen_B4E, PostGameScreen_B55, PostGameScreen_B71, sub_A72C8_AC, DrawThreeStarStats_4A8, sub_A7AD0_E4, sub_A7AD0_14E
+global jpt_A3B51, jpt_A4B35, jpt_A4B4D, jpt_A4B65, jpt_A6680, jpt_A7D7C, LinkGameSetup_8CA, LinkGameSetup_8CB
+global LinkSetupCursor_29, LinkSetupCursor_CC, LinkSetupCursor_166, LinkSetupCursor_1EE, LinkSetupCursor_2BB, RunLinkGameScreens_30, RunLinkGameScreens_112, RunLinkGameScreens_1971
+global PostGameScreen_B39, PostGameScreen_B4E, PostGameScreen_B55, PostGameScreen_B71, StarBonus_AC, DrawThreeStarStats_4A8, ThreeStarsFlash_E4, ThreeStarsFlash_14E
 global GameStatsScreen_143, GameStatsScreen_14E, GameStatsScreen_19A, GameStatsScreen_205, GameStatsScreen_24A, GameStatsScreen_294, GameStatsScreen_2D9, GameStatsScreen_39D
-global sub_A3280, sub_A3B69, sub_A3E2B, sub_A405E, sub_A4164, sub_A4A5C, sub_A4B7D, sub_A64FC
-global PostGameScreen, sub_A728C, sub_A72C8, sub_A7380, DrawThreeStarStats, sub_A79EC, sub_A7AD0, sub_A7C40
-global sub_A7C90, GameStatsScreen, InitGameStatsScreen, sub_A8480, sub_A8524, GameStatsPlayersPage, DrawTeamGameStats, sub_A8E84
-global sub_A91AC, DrawScoringSummary, sub_A9504, sub_A9640, sub_A9800, sub_A9A10, sub_AA170, sub_AA274
-global sub_AA498, sub_AA4BC, sub_AA588, sub_AA650, sub_AA710, sub_AA774, sub_AA7EC, sub_AA850
-global sub_AA8B4, sub_AA92C, sub_AAA51, GoalTypeSuffix, FormatGoalLine, LoadGameLogos, sub_AB0A6, PlayMenuGame
+global LinkGameSetup, LinkSetupCursor, DrawLinkSetupItem, DrawLinkSetupStatus, LinkSetupScreen, LinkSetupSound, RunLinkGameScreens, PlayArenaAnnouncement
+global PostGameScreen, StarScore, StarBonus, PickThreeStars, DrawThreeStarStats, ThreeStarsSound, ThreeStarsFlash, LoadThreeStarsArt
+global ClearThreeStars, GameStatsScreen, InitGameStatsScreen, FreeGameStats, InitGameStatsList, GameStatsPlayersPage, DrawTeamGameStats, DrawTeamStatLine
+global DrawScoringLogo, DrawScoringSummary, ShowGameStatsPage, FormatPlayerStatLine, DrawPlayerStatsPage, BuildPlayerStatsTable, GameStatsSound, GameStatsAnim
+global ResetScoringLog, LogGoal, LogPenalty, LogPeriodEnd, FirstScoringEntry, NextScoringEntry, FirstPenaltyEntry, NextPenaltyEntry
+global PeriodEntryCount, ScoringEntryText, NoScoringEntry, GoalTypeSuffix, FormatGoalLine, LoadGameLogos, FreeGameText, PlayMenuGame
 ;-----------------------------------------------------------------------------
-; sub_A3280                                                       A3280  97 PC
+; LinkGameSetup                                   A3280  97 PC, low confidence
+; Runs the setup screens of a link game
 ;-----------------------------------------------------------------------------
-sub_A3280:
+LinkGameSetup:
         push ebx
         push ecx
         push edx
@@ -792,9 +793,9 @@ sub_A3280:
         push dword [byte ebp-030h]
         call FreeBitmap
         add esp, byte 4
-sub_A3280_8CA:
+LinkGameSetup_8CA:
         leave
-sub_A3280_8CB:
+LinkGameSetup_8CB:
         pop edi
         pop esi
         pop edx
@@ -802,16 +803,17 @@ sub_A3280_8CB:
         pop ebx
         ret
 jpt_A3B51:
-        dd sub_A3B69_29
-        dd sub_A3B69_2BB
-        dd sub_A3B69_CC
-        dd sub_A3B69_166
-        dd sub_A3B69_166
-        dd sub_A3B69_1EE
+        dd LinkSetupCursor_29
+        dd LinkSetupCursor_2BB
+        dd LinkSetupCursor_CC
+        dd LinkSetupCursor_166
+        dd LinkSetupCursor_166
+        dd LinkSetupCursor_1EE
 ;-----------------------------------------------------------------------------
-; sub_A3B69                                                       A3B69  97 PC
+; LinkSetupCursor                                 A3B69  97 PC, low confidence
+; Moves the cursor of the link setup screen
 ;-----------------------------------------------------------------------------
-sub_A3B69:
+LinkSetupCursor:
         push ebx
         push ecx
         push edx
@@ -823,17 +825,17 @@ sub_A3B69:
         mov al, dl
         and al, 7
         cmp al, 5
-        ja near sub_A3B69_2BB
+        ja near LinkSetupCursor_2BB
         movzx eax, al
         jmp dword [nosplit cs:eax*4+jpt_A3B51]
-sub_A3B69_29:
+LinkSetupCursor_29:
         test byte [byte_16D2A2], 1
         jne short .2
         and dl, 0F8h
 .1:
         or byte [byte_16D2A2], 1
         or dl, 2
-        jmp near sub_A3B69_2BB
+        jmp near LinkSetupCursor_2BB
 .2:
         test byte [byte_16D2A2], 2
         jne short .4
@@ -848,7 +850,7 @@ sub_A3B69_29:
         or eax, ebx
         or byte [byte_16D2A2], 2
         mov dl, al
-        jmp near sub_A3B69_2BB
+        jmp near LinkSetupCursor_2BB
 .4:
         mov eax, 3
 .5:
@@ -863,7 +865,7 @@ sub_A3B69_29:
         jmp short .5
 .6:
         cmp eax, dword [dword_16D29E]
-        jg near sub_A3B69_2BB
+        jg near LinkSetupCursor_2BB
         and dl, 0F8h
 .7:
         dec eax
@@ -876,8 +878,8 @@ sub_A3B69_29:
         and dl, 87h
         or dword [byte_16D2A2], eax
         or dl, dh
-        jmp near sub_A3B69_2BB
-sub_A3B69_CC:
+        jmp near LinkSetupCursor_2BB
+LinkSetupCursor_CC:
         test byte [byte_16D2A2], 2
         jne short .8
         test byte [byte_1AC93C], 1
@@ -921,10 +923,10 @@ sub_A3B69_CC:
         movsx eax, bx
         imul eax, byte 7
         cmp dl, byte [dword eax+byte_1C9472]
-        je near sub_A3B69_2BB
+        je near LinkSetupCursor_2BB
         and byte [byte_16D2A2], 0FEh
-        jmp near sub_A3B69_2BB
-sub_A3B69_166:
+        jmp near LinkSetupCursor_2BB
+LinkSetupCursor_166:
         mov eax, 3
 .12:
         cmp eax, dword [dword_16D29E]
@@ -963,10 +965,10 @@ sub_A3B69_166:
         movsx eax, bx
         imul eax, byte 7
         cmp dl, byte [dword eax+byte_1C9472]
-        je near sub_A3B69_2BB
+        je near LinkSetupCursor_2BB
         and byte [byte_16D2A2], 0FDh
-        jmp near sub_A3B69_2BB
-sub_A3B69_1EE:
+        jmp near LinkSetupCursor_2BB
+LinkSetupCursor_1EE:
         xor ebx, ebx
 .16:
         mov al, dl
@@ -1002,15 +1004,15 @@ sub_A3B69_1EE:
         cmp eax, dword [dword_16D29E]
         jg short .20
         mov dl, dh
-        jmp near sub_A3B69_29.7
+        jmp near LinkSetupCursor_29.7
 .20:
         test byte [byte_16D2A2], 1
         jne short .21
         mov dl, dh
-        jmp near sub_A3B69_29.1
+        jmp near LinkSetupCursor_29.1
 .21:
         test byte [byte_16D2A2], 2
-        je near sub_A3B69_29.3
+        je near LinkSetupCursor_29.3
         mov eax, 3
 .22:
         lea ecx, [byte ebx+03h]
@@ -1026,7 +1028,7 @@ sub_A3B69_1EE:
 .23:
         add ebx, byte 3
         cmp eax, ebx
-        jg short sub_A3B69_2BB
+        jg short LinkSetupCursor_2BB
         and dl, 0F8h
         dec eax
         or dl, 5
@@ -1038,7 +1040,7 @@ sub_A3B69_1EE:
         and dl, 87h
         or dword [byte_16D2A2], eax
         or dl, dh
-sub_A3B69_2BB:
+LinkSetupCursor_2BB:
         mov al, dl
         pop esi
         pop edx
@@ -1046,9 +1048,10 @@ sub_A3B69_2BB:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_A3E2B                                                       A3E2B  97 PC
+; DrawLinkSetupItem                               A3E2B  97 PC, low confidence
+; Draws a link setup item
 ;-----------------------------------------------------------------------------
-sub_A3E2B:
+DrawLinkSetupItem:
         push ebx
         push ecx
         push edx
@@ -1190,9 +1193,10 @@ sub_A3E2B:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_A405E                                                       A405E  97 PC
+; DrawLinkSetupStatus                             A405E  97 PC, low confidence
+; Draws the link setup status
 ;-----------------------------------------------------------------------------
-sub_A405E:
+DrawLinkSetupStatus:
         push ebx
         push ecx
         push edx
@@ -1252,7 +1256,7 @@ sub_A405E:
 .1:
         mov ax, word [ebx]
         mov word [word_1C94EC], ax
-        jmp near sub_A3280_8CA
+        jmp near LinkGameSetup_8CA
 .2:
         cmp dword [byte ebp-08h], byte 4
         jge short .3
@@ -1267,11 +1271,12 @@ sub_A405E:
 .4:
         mov ax, word [ebx]
         mov word [word_1C94F0], ax
-        jmp near sub_A3280_8CA
+        jmp near LinkGameSetup_8CA
 ;-----------------------------------------------------------------------------
-; sub_A4164                                                       A4164  97 PC
+; LinkSetupScreen                                 A4164  97 PC, low confidence
+; Runs the link setup screen
 ;-----------------------------------------------------------------------------
-sub_A4164:
+LinkSetupScreen:
         push ebx
         push ecx
         push esi
@@ -1319,7 +1324,7 @@ sub_A4164:
 .3:
         movsx edx, si
         mov eax, edx
-        call sub_A3B69
+        call LinkSetupCursor
         mov cl, al
         imul eax, edx, byte 7
         mov byte [dword eax+byte_1C9472], cl
@@ -1494,9 +1499,9 @@ sub_A4164:
         movsx ebx, si
         imul ebx, byte 7
         mov eax, dword [dword_1C94CC]
-        mov dword [byte edi+eax+046h], sub_A405E
+        mov dword [byte edi+eax+046h], DrawLinkSetupStatus
         mov eax, dword [dword_1C94CC]
-        mov dword [byte edi+eax+04Eh], sub_A4164
+        mov dword [byte edi+eax+04Eh], LinkSetupScreen
         mov eax, dword [dword_1C94CC]
         or byte [byte edi+eax+032h], 2
         mov eax, dword [dword ebx+dword_1C9473]
@@ -1639,9 +1644,9 @@ sub_A4164:
         mov edx, dword [dword_1C94CC]
         mov dword [byte edx+eax+02Ah], ecx
         mov edx, dword [dword_1C94CC]
-        mov dword [byte edx+eax+046h], sub_A405E
+        mov dword [byte edx+eax+046h], DrawLinkSetupStatus
         mov edx, dword [dword_1C94CC]
-        mov dword [byte edx+eax+04Eh], sub_A4164
+        mov dword [byte edx+eax+04Eh], LinkSetupScreen
         mov edx, dword [dword_1C94CC]
         or byte [byte edx+eax+032h], 2
         mov edx, dword [dword_1C94CC]
@@ -1686,7 +1691,7 @@ sub_A4164:
 .34:
         movsx edx, si
         mov eax, edx
-        call sub_A3B69
+        call LinkSetupCursor
         mov cl, al
         imul eax, edx, byte 7
         mov byte [dword eax+byte_1C9472], cl
@@ -1861,9 +1866,9 @@ sub_A4164:
         movsx ebx, si
         imul ebx, byte 7
         mov eax, dword [dword_1C94CC]
-        mov dword [byte edi+eax+046h], sub_A405E
+        mov dword [byte edi+eax+046h], DrawLinkSetupStatus
         mov eax, dword [dword_1C94CC]
-        mov dword [byte edi+eax+04Eh], sub_A4164
+        mov dword [byte edi+eax+04Eh], LinkSetupScreen
         mov eax, dword [dword_1C94CC]
         or byte [byte edi+eax+032h], 2
         mov eax, dword [dword ebx+dword_1C9473]
@@ -1900,7 +1905,7 @@ sub_A4164:
 .51:
         mov word [word_1C94EC], 0FFFFh
 .52:
-        call sub_A3E2B
+        call DrawLinkSetupItem
         leave
         pop edi
         pop esi
@@ -1908,9 +1913,10 @@ sub_A4164:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_A4A5C                                                       A4A5C  97 PC
+; LinkSetupSound                                  A4A5C  97 PC, low confidence
+; Plays a link setup sound
 ;-----------------------------------------------------------------------------
-sub_A4A5C:
+LinkSetupSound:
         push ebx
         push ecx
         push edx
@@ -1919,7 +1925,7 @@ sub_A4A5C:
         mov eax, dword [tickcount]
         xor edx, edx
         cmp eax, dword [dword_16D2A8]
-        jle near sub_A3280_8CB
+        jle near LinkGameSetup_8CB
         mov edi, 3
         imul esi, dword [dword_1C94DC], byte 3
         jmp short .3
@@ -1964,37 +1970,38 @@ sub_A4A5C:
         mov word [word_16D2AC], 1
 .4:
         test dx, dx
-        jne near sub_A3280_8CB
+        jne near LinkGameSetup_8CB
         cmp word [word_16D2AC], byte 0
-        je near sub_A3280_8CB
+        je near LinkGameSetup_8CB
         call StopAllSfx
         mov word [word_16D2AC], dx
-        jmp near sub_A3280_8CB
+        jmp near LinkGameSetup_8CB
 jpt_A4B35:
-        dd sub_A4B7D_30
-        dd sub_A4B7D_30
-        dd sub_A4B7D_30
-        dd sub_A4B7D_30
-        dd sub_A4B7D_30
-        dd sub_A4B7D_30
+        dd RunLinkGameScreens_30
+        dd RunLinkGameScreens_30
+        dd RunLinkGameScreens_30
+        dd RunLinkGameScreens_30
+        dd RunLinkGameScreens_30
+        dd RunLinkGameScreens_30
 jpt_A4B4D:
-        dd sub_A4B7D_112
-        dd sub_A4B7D_112
-        dd sub_A4B7D_112
-        dd sub_A4B7D_112
-        dd sub_A4B7D_112
-        dd sub_A4B7D_112
+        dd RunLinkGameScreens_112
+        dd RunLinkGameScreens_112
+        dd RunLinkGameScreens_112
+        dd RunLinkGameScreens_112
+        dd RunLinkGameScreens_112
+        dd RunLinkGameScreens_112
 jpt_A4B65:
-        dd sub_A4B7D_1971
-        dd sub_A4B7D_1971
-        dd sub_A4B7D_1971
-        dd sub_A4B7D_1971
-        dd sub_A4B7D_1971
-        dd sub_A4B7D_1971
+        dd RunLinkGameScreens_1971
+        dd RunLinkGameScreens_1971
+        dd RunLinkGameScreens_1971
+        dd RunLinkGameScreens_1971
+        dd RunLinkGameScreens_1971
+        dd RunLinkGameScreens_1971
 ;-----------------------------------------------------------------------------
-; sub_A4B7D                                                       A4B7D  97 PC
+; RunLinkGameScreens                              A4B7D  97 PC, low confidence
+; Runs the screens of a link game
 ;-----------------------------------------------------------------------------
-sub_A4B7D:
+RunLinkGameScreens:
         push ebx
         push ecx
         push edx
@@ -2009,12 +2016,12 @@ sub_A4B7D:
         and al, 7
         movzx edi, al
         cmp edi, byte 5
-        ja short sub_A4B7D_30
+        ja short RunLinkGameScreens_30
         jmp dword [nosplit cs:edi*4+jpt_A4B35]
-sub_A4B7D_30:
+RunLinkGameScreens_30:
         inc esi
         cmp esi, byte 8
-        jl short sub_A4B7D.1
+        jl short RunLinkGameScreens.1
         cmp byte [byte_1C6040], 0
         je short .2
         call MusicEnabled
@@ -2069,12 +2076,12 @@ sub_A4B7D_30:
         and al, 7
         movzx edi, al
         cmp edi, byte 5
-        ja short sub_A4B7D_112
+        ja short RunLinkGameScreens_112
         jmp dword [nosplit cs:edi*4+jpt_A4B4D]
-sub_A4B7D_112:
+RunLinkGameScreens_112:
         inc esi
         cmp esi, byte 8
-        jl short sub_A4B7D_30.6
+        jl short RunLinkGameScreens_30.6
         cmp dword [dword_16DA9C], byte 0
         je short .8
         call ClearLinkAbort
@@ -2971,9 +2978,9 @@ sub_A4B7D_112:
         mov eax, dword [dword_1C94CC]
         or byte [byte ebx+eax+032h], 2
         mov eax, dword [dword_1C94CC]
-        mov dword [byte ebx+eax+046h], sub_A405E
+        mov dword [byte ebx+eax+046h], DrawLinkSetupStatus
         mov eax, dword [dword_1C94CC]
-        mov dword [byte ebx+eax+04Eh], sub_A4164
+        mov dword [byte ebx+eax+04Eh], LinkSetupScreen
         jmp short .67
 .66:
         mov eax, dword [dword_1C94CC]
@@ -3294,7 +3301,7 @@ sub_A4B7D_112:
         add eax, edx
         mov edx, dword [byte eax+054h]
         mov dword [byte eax+05Ch], edx
-        call sub_A3E2B
+        call DrawLinkSetupItem
         imul eax, dword [dword_1C94DC], dword 0F6h
         mov edx, dword [dword_1C94CC]
         push dword [byte edx+eax+02Ah]
@@ -3508,13 +3515,13 @@ sub_A4B7D_112:
         cmp dword [dword_1C94E8], byte 0
         je short .76
         mov dword [dword_1C94E8], 0
-        call sub_A64FC
+        call PlayArenaAnnouncement
 .76:
         push byte 3
         lea eax, [byte ebp-024h]
         push eax
         imul eax, dword [dword_1C94DC], byte 3
-        mov ecx, sub_A4A5C
+        mov ecx, LinkSetupSound
         mov ebx, 0FFFFFFFFh
         add eax, byte 6
         mov edx, dword [dword_1C94CC]
@@ -3545,7 +3552,7 @@ sub_A4B7D_112:
         mov ebx, 3
         cdq
         idiv ebx
-        call sub_A3280
+        call LinkGameSetup
         call LinkSyncMenu
         jmp near .88
 .78:
@@ -3710,18 +3717,19 @@ sub_A4B7D_112:
         and al, 7
         movzx edi, al
         cmp edi, byte 5
-        ja short sub_A4B7D_1971
+        ja short RunLinkGameScreens_1971
         jmp dword [nosplit cs:edi*4+jpt_A4B65]
-sub_A4B7D_1971:
+RunLinkGameScreens_1971:
         inc esi
         cmp esi, byte 8
-        jl short sub_A4B7D_112.99
+        jl short RunLinkGameScreens_112.99
         mov eax, dword [byte ebp-010h]
-        jmp near sub_A3280_8CA
+        jmp near LinkGameSetup_8CA
 ;-----------------------------------------------------------------------------
-; sub_A64FC                                                       A64FC  97 PC
+; PlayArenaAnnouncement                           A64FC  97 PC, low confidence
+; Plays an arena announcement
 ;-----------------------------------------------------------------------------
-sub_A64FC:
+PlayArenaAnnouncement:
         push ebx
         push ecx
         push edx
@@ -3864,7 +3872,7 @@ sub_A64FC:
         push dword 0B0000003h
         call PaEvent
         add esp, byte 18h
-        jmp near sub_A3280_8CB
+        jmp near LinkGameSetup_8CB
 jpt_A6680:
         dd PostGameScreen_B39
         dd PostGameScreen_B4E
@@ -4005,7 +4013,7 @@ PostGameScreen:
         mov ebx, str_RM00
         mov edx, dword_1C9524
         mov eax, dword [dword_1C959C]
-        call sub_A7C40
+        call LoadThreeStarsArt
         jmp short .5
 .4:
         mov eax, dword [dword esp+0110h]
@@ -4026,7 +4034,7 @@ PostGameScreen:
         mov ebx, str_GS00
         mov edx, dword_1C9514
         mov eax, dword [dword_1C959C]
-        call sub_A7C40
+        call LoadThreeStarsArt
         push byte 0
         push dword 1E0h
         push dword 280h
@@ -4053,7 +4061,7 @@ PostGameScreen:
         call OpenDataLibrary
         lea eax, [dword esp+0290h]
         lea edx, [dword esp+0290h]
-        call sub_A7380
+        call PickThreeStars
         mov eax, unk_1C94F4
         mov ebp, 0C4h
         call memmove_
@@ -4611,7 +4619,7 @@ PostGameScreen_B55:
 PostGameScreen_B71:
         lea eax, [dword esp+0148h]
         call ShowPopupScreen
-        call sub_A7C90
+        call ClearThreeStars
         mov eax, 15h
         mov esi, edi
         mov dword [dword esp+0578h], eax
@@ -4652,9 +4660,10 @@ PostGameScreen_B71:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_A728C                                                       A728C  97 PC
+; StarScore                                       A728C  97 PC, low confidence
+; Works out the score for picking the three stars
 ;-----------------------------------------------------------------------------
-sub_A728C:
+StarScore:
         push ebx
         push ecx
         push edx
@@ -4683,9 +4692,10 @@ sub_A728C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_A72C8                                                       A72C8  97 PC
+; StarBonus                                       A72C8  97 PC, low confidence
+; Adds the bonus for picking the three stars
 ;-----------------------------------------------------------------------------
-sub_A72C8:
+StarBonus:
         push ebx
         push ecx
         push edx
@@ -4760,7 +4770,7 @@ sub_A72C8:
         pop ebx
         ret
         db 090h
-sub_A72C8_AC:
+StarBonus_AC:
         movsx eax, word [eax]
         movsx edx, word [edx]
         sub edx, eax
@@ -4768,9 +4778,10 @@ sub_A72C8_AC:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_A7380                                                       A7380  97 PC
+; PickThreeStars                                  A7380  97 PC, low confidence
+; Picks the three stars of the game
 ;-----------------------------------------------------------------------------
-sub_A7380:
+PickThreeStars:
         push ebx
         push ecx
         push edx
@@ -4786,7 +4797,7 @@ sub_A7380:
 .1:
         mov eax, esi
         add ecx, byte 8
-        call sub_A728C
+        call StarScore
         mov word [byte ecx-04h], 0
         mov word [byte ecx-02h], 0
         inc ebx
@@ -4808,7 +4819,7 @@ sub_A7380:
 .3:
         mov eax, esi
         add ecx, byte 8
-        call sub_A728C
+        call StarScore
         mov word [byte ecx-04h], 1
         mov word [byte ecx-02h], 0
         inc ebx
@@ -4830,7 +4841,7 @@ sub_A7380:
 .5:
         mov eax, esi
         add ecx, byte 8
-        call sub_A72C8
+        call StarBonus
         mov word [byte ecx-04h], 0
         mov word [byte ecx-02h], 1
         inc ebx
@@ -4852,7 +4863,7 @@ sub_A7380:
 .7:
         mov eax, esi
         add ecx, byte 8
-        call sub_A72C8
+        call StarBonus
         mov word [byte ecx-04h], 1
         mov word [byte ecx-02h], 1
         inc ebx
@@ -4880,7 +4891,7 @@ sub_A7380:
         cmp ebx, byte 38h
         jl short .9
 .10:
-        mov ecx, sub_A72C8_AC
+        mov ecx, StarBonus_AC
         mov ebx, 8
         mov edx, esi
         mov eax, edi
@@ -5301,10 +5312,10 @@ DrawThreeStarStats:
         ret
         db 08Dh,040h,00h
 DrawThreeStarStats_4A8:
-        call sub_A79EC
+        call ThreeStarsSound
         cmp dword [dword_1C9594], byte 0
         je near .25
-        call sub_A7AD0
+        call ThreeStarsFlash
         nop
 .25:
         push ebx
@@ -5316,17 +5327,18 @@ DrawThreeStarStats_4A8:
         mov edx, dword [dword eax+019Eh]
         xor ebx, ebx
         test edx, edx
-        je near sub_A7AD0_E4
+        je near ThreeStarsFlash_E4
         cmp dword [dword_1C9574], byte 0
-        je near sub_A7AD0_14E
+        je near ThreeStarsFlash_14E
         mov dword [dword_1C9574], ebx
         mov ebx, 1
-        jmp near sub_A7AD0_14E
+        jmp near ThreeStarsFlash_14E
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_A79EC                                                       A79EC  97 PC
+; ThreeStarsSound                                 A79EC  97 PC, low confidence
+; Plays a three stars sound
 ;-----------------------------------------------------------------------------
-sub_A79EC:
+ThreeStarsSound:
         push ebx
         push ecx
         push edx
@@ -5397,9 +5409,10 @@ sub_A79EC:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_A7AD0                                                       A7AD0  97 PC
+; ThreeStarsFlash                                 A7AD0  97 PC, low confidence
+; Flashes the three stars
 ;-----------------------------------------------------------------------------
-sub_A7AD0:
+ThreeStarsFlash:
         push ebx
         push ecx
         push edx
@@ -5469,27 +5482,27 @@ sub_A7AD0:
         pop ecx
         pop ebx
         ret
-sub_A7AD0_E4:
+ThreeStarsFlash_E4:
         cmp dword [dword eax+01F0h], byte 0
         je short .6
         cmp dword [dword_1C9574], byte 1
-        je short sub_A7AD0_14E
+        je short ThreeStarsFlash_14E
         mov ebp, 1
         mov ebx, ebp
         mov dword [dword_1C9574], ebp
-        jmp short sub_A7AD0_14E
+        jmp short ThreeStarsFlash_14E
 .6:
         cmp dword [dword eax+0242h], byte 0
         je short .7
         cmp dword [dword_1C9574], byte 2
-        je short sub_A7AD0_14E
+        je short ThreeStarsFlash_14E
         mov esi, 2
         mov ebx, 1
         mov dword [dword_1C9574], esi
-        jmp short sub_A7AD0_14E
+        jmp short ThreeStarsFlash_14E
 .7:
         cmp dword [dword_1C9574], byte 0
-        jl short sub_A7AD0_14E
+        jl short ThreeStarsFlash_14E
         mov ebp, 0FFFFFFFFh
         mov eax, dword [dword_1C9558]
         mov dword [dword_1C9574], ebp
@@ -5497,7 +5510,7 @@ sub_A7AD0_E4:
         push edx
         call BlitShape
         add esp, byte 4
-sub_A7AD0_14E:
+ThreeStarsFlash_14E:
         test ebx, ebx
         je short .8
         mov eax, dword [dword_1C9574]
@@ -5514,9 +5527,10 @@ sub_A7AD0_14E:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_A7C40                                                       A7C40  97 PC
+; LoadThreeStarsArt                               A7C40  97 PC, low confidence
+; Loads the three stars art
 ;-----------------------------------------------------------------------------
-sub_A7C40:
+LoadThreeStarsArt:
         push esi
         push edi
         push ebp
@@ -5560,9 +5574,10 @@ sub_A7C40:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_A7C90                                                       A7C90  97 PC
+; ClearThreeStars                                 A7C90  97 PC, low confidence
+; Clears the three stars
 ;-----------------------------------------------------------------------------
-sub_A7C90:
+ClearThreeStars:
         push ebx
         push ecx
         push edx
@@ -5705,7 +5720,7 @@ GameStatsScreen:
         je short .2
         push byte 3
         lea eax, [dword esp+0400h]
-        mov ecx, sub_AA170
+        mov ecx, GameStatsSound
         mov ebx, 0FFFFFFFFh
         push eax
         mov edx, esi
@@ -5716,7 +5731,7 @@ GameStatsScreen:
         jne short .3
         push byte 3
         lea eax, [dword esp+0400h]
-        mov ecx, sub_AA274
+        mov ecx, GameStatsAnim
         mov ebx, 0FFFFFFFFh
         push eax
         mov edx, esi
@@ -5725,7 +5740,7 @@ GameStatsScreen:
 .3:
         push byte 3
         lea eax, [dword esp+0400h]
-        mov ecx, sub_AA274
+        mov ecx, GameStatsAnim
         mov ebx, 0FFFFFFFFh
         push eax
         mov edx, esi
@@ -5808,7 +5823,7 @@ GameStatsScreen_205:
         cmp eax, byte 2
         jne short .7
         xor eax, eax
-        call sub_A9504
+        call ShowGameStatsPage
 .7:
         mov edi, dword [dword_1C957C]
         mov edi, dword [byte edi+024h]
@@ -5830,7 +5845,7 @@ GameStatsScreen_24A:
         cmp eax, byte 2
         jne short .8
         xor eax, eax
-        call sub_A9504
+        call ShowGameStatsPage
 .8:
         mov edi, dword [dword_1C957C]
         mov edi, dword [byte edi+024h]
@@ -5850,7 +5865,7 @@ GameStatsScreen_294:
         cmp eax, byte 2
         jne short .9
         xor eax, eax
-        call sub_A9504
+        call ShowGameStatsPage
 .9:
         mov edi, dword [dword_1C957C]
         mov edi, dword [byte edi+024h]
@@ -5901,7 +5916,7 @@ GameStatsScreen_2D9:
         mov eax, dword [dword_1C9548]
         call sub_ACA49
         mov eax, 1
-        call sub_A9800
+        call DrawPlayerStatsPage
         mov eax, dword [dword_1C9548]
         call sub_AD151
         call SetScreenTarget
@@ -5921,7 +5936,7 @@ GameStatsScreen_39D:
         mov eax, dword [dword_1C9548]
         call sub_ACA49
         xor eax, eax
-        call sub_A9800
+        call DrawPlayerStatsPage
         mov eax, dword [dword_1C9548]
         call sub_AD151
         call SetScreenTarget
@@ -5959,7 +5974,7 @@ GameStatsScreen_39D:
         call sub_ACA49
 .17:
         mov edi, dword [dword esp+0400h]
-        call sub_A8480
+        call FreeGameStats
         push edi
         call FreeMemBlock
         add esp, byte 4
@@ -6160,9 +6175,10 @@ InitGameStatsScreen:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_A8480                                                       A8480  97 PC
+; FreeGameStats                                   A8480  97 PC, low confidence
+; Frees the game stats screen
 ;-----------------------------------------------------------------------------
-sub_A8480:
+FreeGameStats:
         push ebx
         push ecx
         push edx
@@ -6223,9 +6239,10 @@ sub_A8480:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_A8524                                                       A8524  97 PC
+; InitGameStatsList                               A8524  97 PC, low confidence
+; Sets up the game stats list
 ;-----------------------------------------------------------------------------
-sub_A8524:
+InitGameStatsList:
         push esi
         push edi
         push ebp
@@ -6505,7 +6522,7 @@ GameStatsPlayersPage:
         xor eax, eax
         mov ecx, str_GS09
         mov dword [dword_1C9578], eax
-        call sub_A91AC
+        call DrawScoringLogo
         push str_GS08
         mov edx, dword [dword_1C9584]
         mov eax, dword [dword_1C9580]
@@ -6608,7 +6625,7 @@ GameStatsPlayersPage:
         mov dword [dword_1C958C], ebp
         call InitShapeListBox
         mov eax, 1
-        call sub_A9800
+        call DrawPlayerStatsPage
         pop ebp
         pop edi
         pop esi
@@ -6694,7 +6711,7 @@ GameStatsPlayersPage:
         push byte 10h
         mov ecx, eax
         mov eax, 262h
-        call sub_A8524
+        call InitGameStatsList
         mov edx, dword [dword_1C9568]
         mov eax, dword [dword_1C957C]
         call DrawScrollBar
@@ -6741,7 +6758,7 @@ GameStatsPlayersPage:
         cmp ebx, 1ECh
         jne short .22
         mov eax, dword [dword_1C9568]
-        call sub_A9504
+        call ShowGameStatsPage
 .24:
         pop ebp
         pop edi
@@ -6782,7 +6799,7 @@ DrawTeamGameStats:
         mov ecx, 13h
         mov ebx, 5Ah
         inc esi
-        call sub_A8E84
+        call DrawTeamStatLine
         cmp esi, byte 2
         jl short .1
         mov eax, 12Ah
@@ -6937,9 +6954,10 @@ DrawTeamGameStats:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_A8E84                                                       A8E84  97 PC
+; DrawTeamStatLine                                A8E84  97 PC, low confidence
+; Draws a team stats line
 ;-----------------------------------------------------------------------------
-sub_A8E84:
+DrawTeamStatLine:
         push esi
         push edi
         push ebp
@@ -7225,9 +7243,10 @@ sub_A8E84:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_A91AC                                                       A91AC  97 PC
+; DrawScoringLogo                                 A91AC  97 PC, low confidence
+; Draws the logo in the scoring summary
 ;-----------------------------------------------------------------------------
-sub_A91AC:
+DrawScoringLogo:
         push ebx
         push ecx
         push edx
@@ -7298,7 +7317,7 @@ DrawScoringSummary:
         push edi
         push ebp
         sub esp, byte 10h
-        call sub_A91AC
+        call DrawScoringLogo
         push byte 0FFFFFFFFh
         call MakeColor
         add esp, byte 4
@@ -7323,10 +7342,10 @@ DrawScoringSummary:
 .3:
         movsx edx, di
         mov eax, edx
-        call sub_AA7EC
+        call FirstPenaltyEntry
         add ebp, eax
         mov eax, edx
-        call sub_AA92C
+        call ScoringEntryText
         test eax, eax
         jle short .4
         add ebp, eax
@@ -7431,7 +7450,7 @@ DrawScoringSummary:
         add esp, byte 10h
 .10:
         movsx eax, di
-        call sub_AA850
+        call NextPenaltyEntry
         add esi, 80h
         test eax, eax
         je short .12
@@ -7444,7 +7463,7 @@ DrawScoringSummary:
         add edx, esi
         call GoalTypeSuffix
         movsx eax, di
-        call sub_AA8B4
+        call PeriodEntryCount
         add esi, 80h
         jmp short .11
 .12:
@@ -7464,7 +7483,7 @@ DrawScoringSummary:
         mov dword [esp], eax
         movsx eax, di
         add esi, 80h
-        call sub_AA710
+        call FirstScoringEntry
         mov edx, eax
         mov ebx, eax
         test eax, eax
@@ -7486,7 +7505,7 @@ DrawScoringSummary:
         add edx, esi
         call FormatGoalLine
         movsx eax, di
-        call sub_AA774
+        call NextScoringEntry
         add esi, 80h
         mov ebx, eax
         test eax, eax
@@ -7528,9 +7547,10 @@ DrawScoringSummary:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_A9504                                                       A9504  97 PC
+; ShowGameStatsPage                               A9504  97 PC, low confidence
+; Shows a game stats page
 ;-----------------------------------------------------------------------------
-sub_A9504:
+ShowGameStatsPage:
         push ebx
         push ecx
         push edx
@@ -7657,9 +7677,10 @@ sub_A9504:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_A9640                                                       A9640  97 PC
+; FormatPlayerStatLine                            A9640  97 PC, low confidence
+; Formats a player stats line
 ;-----------------------------------------------------------------------------
-sub_A9640:
+FormatPlayerStatLine:
         push ebx
         push ecx
         push edx
@@ -7810,9 +7831,10 @@ sub_A9640:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_A9800                                                       A9800  97 PC
+; DrawPlayerStatsPage                             A9800  97 PC, low confidence
+; Draws the player stats page
 ;-----------------------------------------------------------------------------
-sub_A9800:
+DrawPlayerStatsPage:
         push ebx
         push ecx
         push edx
@@ -7948,7 +7970,7 @@ sub_A9800:
         add ebx, byte 52h
         cmp ebx, 23Eh
         jne short .6
-        call sub_A9A10
+        call BuildPlayerStatsTable
         pop ebp
         pop edi
         pop esi
@@ -7958,9 +7980,10 @@ sub_A9800:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_A9A10                                                       A9A10  97 PC
+; BuildPlayerStatsTable                           A9A10  97 PC, low confidence
+; Builds the player stats table
 ;-----------------------------------------------------------------------------
-sub_A9A10:
+BuildPlayerStatsTable:
         push ebx
         push ecx
         push edx
@@ -7968,7 +7991,7 @@ sub_A9A10:
         push edi
         push ebp
         sub esp, byte 1Ch
-        call sub_A9640
+        call FormatPlayerStatLine
         cmp dword [dword_1C9564], byte 0
         jne short .1
         mov dword [byte esp+04h], unk_1C135C
@@ -8477,9 +8500,10 @@ sub_A9A10:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_AA170                                                       AA170  97 PC
+; GameStatsSound                                  AA170  97 PC, low confidence
+; Plays a game stats sound
 ;-----------------------------------------------------------------------------
-sub_AA170:
+GameStatsSound:
         push ebx
         push ecx
         push edx
@@ -8566,9 +8590,10 @@ sub_AA170:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_AA274                                                       AA274  97 PC
+; GameStatsAnim                                   AA274  97 PC, low confidence
+; Animates the game stats screen
 ;-----------------------------------------------------------------------------
-sub_AA274:
+GameStatsAnim:
         push ebx
         push ecx
         push edx
@@ -8739,9 +8764,10 @@ sub_AA274:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_AA498                                                       AA498  97 PC
+; ResetScoringLog                                 AA498  97 PC, low confidence
+; Clears the scoring log
 ;-----------------------------------------------------------------------------
-sub_AA498:
+ResetScoringLog:
         push ebx
         push edx
         mov ebx, 0FFFFFFFFh
@@ -8754,9 +8780,10 @@ sub_AA498:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_AA4BC                                                       AA4BC  97 PC
+; LogGoal                                         AA4BC  97 PC, low confidence
+; Adds a goal to the scoring log
 ;-----------------------------------------------------------------------------
-sub_AA4BC:
+LogGoal:
         push esi
         push edi
         sub esp, byte 0Ch
@@ -8812,9 +8839,10 @@ sub_AA4BC:
         pop esi
         ret 0Ch
 ;-----------------------------------------------------------------------------
-; sub_AA588                                                       AA588  97 PC
+; LogPenalty                                      AA588  97 PC, low confidence
+; Adds a penalty to the scoring log
 ;-----------------------------------------------------------------------------
-sub_AA588:
+LogPenalty:
         push esi
         push edi
         sub esp, byte 0Ch
@@ -8869,9 +8897,10 @@ sub_AA588:
         ret 8
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_AA650                                                       AA650  97 PC
+; LogPeriodEnd                                    AA650  97 PC, low confidence
+; Adds the end of a period to the scoring log
 ;-----------------------------------------------------------------------------
-sub_AA650:
+LogPeriodEnd:
         push ebx
         push ecx
         push esi
@@ -8933,9 +8962,10 @@ sub_AA650:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_AA710                                                       AA710  97 PC
+; FirstScoringEntry                               AA710  97 PC, low confidence
+; Returns the first entry of the scoring log
 ;-----------------------------------------------------------------------------
-sub_AA710:
+FirstScoringEntry:
         push ebx
         push ecx
         push edx
@@ -8983,9 +9013,10 @@ sub_AA710:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_AA774                                                       AA774  97 PC
+; NextScoringEntry                                AA774  97 PC, low confidence
+; Returns the next entry of the scoring log
 ;-----------------------------------------------------------------------------
-sub_AA774:
+NextScoringEntry:
         push ebx
         push ecx
         push edx
@@ -9038,9 +9069,10 @@ sub_AA774:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_AA7EC                                                       AA7EC  97 PC
+; FirstPenaltyEntry                               AA7EC  97 PC, low confidence
+; Returns the first penalty in the scoring log
 ;-----------------------------------------------------------------------------
-sub_AA7EC:
+FirstPenaltyEntry:
         push ebx
         push ecx
         push edx
@@ -9096,9 +9128,10 @@ sub_AA7EC:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_AA850                                                       AA850  97 PC
+; NextPenaltyEntry                                AA850  97 PC, low confidence
+; Returns the next penalty in the scoring log
 ;-----------------------------------------------------------------------------
-sub_AA850:
+NextPenaltyEntry:
         push ebx
         push ecx
         push edx
@@ -9146,9 +9179,10 @@ sub_AA850:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_AA8B4                                                       AA8B4  97 PC
+; PeriodEntryCount                                AA8B4  97 PC, low confidence
+; Returns the number of entries in a period
 ;-----------------------------------------------------------------------------
-sub_AA8B4:
+PeriodEntryCount:
         push ebx
         push ecx
         push edx
@@ -9201,9 +9235,10 @@ sub_AA8B4:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_AA92C                                                       AA92C  97 PC
+; ScoringEntryText                                AA92C  97 PC, low confidence
+; Formats a scoring log entry
 ;-----------------------------------------------------------------------------
-sub_AA92C:
+ScoringEntryText:
         push ebx
         push ecx
         push edx
@@ -9345,15 +9380,16 @@ sub_AA92C:
         db 08Dh,040h,00h
         mov ax, word [word_1C55A2]
         test ax, ax
-        jle short sub_AAA51
+        jle short NoScoringEntry
         cwde
         mov al, byte [nosplit eax*8+byte_1C559E]
         and eax, 0FFh
         ret
 ;-----------------------------------------------------------------------------
-; sub_AAA51                                                       AAA51  97 PC
+; NoScoringEntry                                  AAA51  97 PC, low confidence
+; Returns -1 (no entry)
 ;-----------------------------------------------------------------------------
-sub_AAA51:
+NoScoringEntry:
         mov eax, 0FFFFFFFFh
         ret
         db 090h
@@ -9917,9 +9953,10 @@ LoadGameLogos:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_AB0A6                                                       AB0A6  97 PC
+; FreeGameText                                    AB0A6  97 PC, low confidence
+; Frees the game text and art
 ;-----------------------------------------------------------------------------
-sub_AB0A6:
+FreeGameText:
         push ecx
         push edx
         call FreeLangText

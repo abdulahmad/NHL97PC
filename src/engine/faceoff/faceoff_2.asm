@@ -28,9 +28,9 @@ extern QueueOverlayPanel, ClearOverlayWindows, FightCameraScene, SetFightCameraR
 extern LineChangeCommentary, assreplace, assinsert, assexit, ChkPokeOrCheck, Setplass, Goal, CreditPass
 extern CarrierInShotArea, CanReceivePass, StartPass, checkob, AssignControlSlots, ResetFaceoffAssigns, CompLine, StartFaceoffLineChange
 extern FaceoffSwipeAnim, FaceoffDrawAnim, ReachForPuckAnim, DoCheckButton, PlaySfxOr, PlaySfxVolume, SetCrowdMood, CommentaryEvent
-extern PaEvent, ResetRenderTimers, sub_56CD0, sub_56CE4, sub_56CF8, PickSkateAnim, SetSkateSpeedFromRating, StartWhistleStop
+extern PaEvent, ResetRenderTimers, SetFaceMouth, SetFaceExpression, SetFaceBlink, PickSkateAnim, SetSkateSpeedFromRating, StartWhistleStop
 extern ShotAnimFrames, ObjectFramePos, StopObject, StartShotAnim, StartOneTimerAnim, StartWristShotAnim, StartFightPunch, StartFightBlock
-extern StartFightGrab, StartFightPull, StartFightAnim, SetAnimFrame, RequestPauseMenu, clockcont_0, sub_AA588, sub_F9A88
+extern StartFightGrab, StartFightPull, StartFightAnim, SetAnimFrame, RequestPauseMenu, clockcont_0, LogPenalty, sub_F9A88
 extern sub_FAAB4, FreeMemBlock, FillMem, addtimer, sub_FC008, WaitTicks, unk_19CA98, unk_19D474
 extern unk_19D4A6, unk_19D4D8, unk_19D50A, unk_19D56E, unk_19D5A0, unk_19D5D2, unk_19D668, unk_19E060
 extern unk_19ECC8, unk_19ECE4, unk_1C135C, unk_1C347F, vecdist, vtoa, word_1686D6, word_168E2C
@@ -591,13 +591,13 @@ ChkPenaltyCall:
         add esp, byte 10h
         mov edx, 2
         mov eax, dword [dword ecx+0F2h]
-        call sub_56CE4
+        call SetFaceExpression
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CD0
+        call SetFaceMouth
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
-        call sub_56CF8
+        call SetFaceBlink
         xor eax, eax
         mov al, byte [dword ecx+0A4h]
         xor ebx, ebx
@@ -6453,7 +6453,7 @@ InProgress:
         mov eax, dword [gsp]
         sar edx, 10h
         sar eax, 10h
-        call sub_AA588
+        call LogPenalty
 .19:
         movsx eax, si
         lea eax, [eax+eax*2]

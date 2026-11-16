@@ -27,11 +27,11 @@ extern ResetSceneCamera, SelectCameraView, ToggleCameraFollow, EndOpeningCamera,
 extern SetupAutoLines, InitGameLines, AddPenalty, SetPlayerTarget, InitPadSlots, DebugRestoreEnergy, ResetPlayerCounters, SetViewSize
 extern SetViewOrigin, SetRinkDetail, FadeGamePalette, InitGameAudio, InitGameSounds, QueueMusicRestart, WaitMusicEnd, SetAmbientVolume
 extern SetCrowdMood, CommentaryEvent, LoadDataFileLib, LoadDataFile, InitGameGraphics, InitGameVideo, ResetRenderTimers, FreeGameGraphics
-extern DrawGameFrame, RedrawGameView, TriggerCameraFlashes, PeriodOver, sub_52E28, sub_55000, FreeReplayBuffer, ResetReplayBuffer
+extern DrawGameFrame, RedrawGameView, TriggerCameraFlashes, PeriodOver, UpdateRinkPalette, LoadOpeningArt, FreeReplayBuffer, ResetReplayBuffer
 extern InitReplayBuffer, ReplayHasFrames, ReplayFreeFrames, ReplayRecordTick, ReplayPauseRecording, ReplayRecordFinal, ReplaySetupObjects, UpdateGameDisplay
 extern InitAnimPoints, FreeAnimTables, UpdateAllPoses, SetAnimClock, FreeAnimStates, AllocAnimStates, GameOver, CheckIntermission
 extern DoGameFrame, SetTextColor, SetNormalText, ShowLoadingScreen, ClearMenuGameFlag, ShowLoadingBar, LoadLangText, FreeLangText
-extern sub_AA498, LoadGameLogos, sub_AB0A6, sub_B2F49, RunReplay, FadeOut, OpenGameDatabase, CloseGameDatabase
+extern ResetScoringLog, LoadGameLogos, FreeGameText, sub_B2F49, RunReplay, FadeOut, OpenGameDatabase, CloseGameDatabase
 extern LoadExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, PickDemoTeams, StartInputRecording, ResetInputState, IsInputRecording, StopInputRecording
 extern InputRecordAvail, TakeInputRecord, ServiceIdle, LinkSyncGame, sub_F1FF8, sub_F207F, sub_F30A0, sub_F30D7
 extern PauseMenu, sub_F9650, sub_F9789, sub_F9869, AllocMemBlock, FreeMemBlock, sub_FBE40, sub_FC290
@@ -730,7 +730,7 @@ OpeningSequence:
         mov eax, 7AEh
         call TriggerCameraFlashes
         xor eax, eax
-        call sub_55000
+        call LoadOpeningArt
         cmp word [word_19CC24], byte 0
         je short .4
         mov eax, dword [word_19CC26]
@@ -800,7 +800,7 @@ BeginGame:
         shl ecx, 10h
         add eax, ecx
         mov edx, esi
-        call sub_52E28
+        call UpdateRinkPalette
         call sub_11574
         call OpeningSequence
         test eax, eax
@@ -2981,7 +2981,7 @@ PlayGame:
         push byte 0
         call sub_FC330
         add esp, byte 4
-        call sub_AA498
+        call ResetScoringLog
         mov eax, 0C350h
         call InitReplayBuffer
         mov eax, 64h
@@ -3269,7 +3269,7 @@ RunDemoGame:
         call ShowLoadingBar
         xor eax, eax
         call PlayGame
-        call sub_AB0A6
+        call FreeGameText
         xor eax, eax
         call InitGameSounds
         call sub_F9650

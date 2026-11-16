@@ -715,11 +715,51 @@ address,name,auto_name,source,confidence,evidence,file
 52648,LoadTeamLogoShape,sub_52648,new,low,loads a team logo,src/front/front_48D70.asm
 526EC,LoadTeamLogoCopy,sub_526EC,new,low,loads a copy of a team logo,src/front/front_48D70.asm
 52770,LoadLogos,sub_52770,new,low,"game graphics: loads ""logos.fsh"" (LOGOS, blogos) and the ice / board logo shapes (LoadBoardLogo, L%02d...)",src/front/front_52770.asm
+52A44,BuildIcePalette,sub_52A44,new,low,builds the ice colour palette,src/front/front_52770.asm
+52BEC,BlendRangeColours,sub_52BEC,new,low,blends the colours of a palette range,src/front/front_52770.asm
+52CA0,DimRangeColours,sub_52CA0,new,low,dims a palette range,src/front/front_52770.asm
+52CE0,BrightenRangeColours,sub_52CE0,new,low,brightens a palette range,src/front/front_52770.asm
+52D4C,BuildRinkPalette,sub_52D4C,new,low,builds the rink palette,src/front/front_52770.asm
+52E14,SetRinkPalette,sub_52E14,new,low,sets the rink palette,src/front/front_52770.asm
+52E28,UpdateRinkPalette,sub_52E28,new,low,updates the rink palette (lighting),src/front/front_52770.asm
 52E8C,LoadRinkLines,sub_52E8C,new,low,"from InitGameGraphics: the rink line and board shapes (boardback, crease, flatboards, fat red / blue lines, glassline, top / bottom boards)",src/front/front_52770.asm
+53260,SetupRinkModel,sub_53260,new,low,sets up the rink model and crowd,src/front/front_52770.asm
 53314,LoadRinkModel,sub_53314,new,low,"from InitGameGraphics: the rink model from arena.viv (rink, stands, floor, score, puck, nets, goals, extents, lights, glass, boards)",src/front/front_52770.asm
 5454C,FreeRinkModel,sub_5454C,96PC,medium,NHL96PC 2751C (sem 1.00): D:1B10E8; C:1863,src/front/front_52770.asm
+5475C,SetRinkTransform,sub_5475C,new,low,sets the rink transform,src/front/front_52770.asm
+54794,DrawRinkBackground,sub_54794,new,low,draws the rink background,src/front/front_52770.asm
+54A8C,DrawRinkSurface,sub_54A8C,new,low,draws the rink surface and markings,src/front/front_52770.asm
+55000,LoadOpeningArt,sub_55000,new,low,loads the opening sequence art,src/front/front_52770.asm
+55110,DrawRinkOverlay,sub_55110,new,low,draws the rink overlay,src/front/front_52770.asm
+55228,DrawBenchModels,sub_55228,new,low,draws the players on the bench,src/front/front_52770.asm
 552E0,DrawBenchSide,sub_552E0,96PC,medium,NHL96PC 27F20 (sem 0.71): C:2080; C:2285; D:1B105C; C:2079,src/front/front_52770.asm
+55648,GetSeatPos,sub_55648,new,low,returns the position of a seat,src/front/front_52770.asm
+55670,SetBoxDoor,sub_55670,new,low,opens or closes a penalty box door,src/front/front_52770.asm
 5585C,SetPenaltyBoxDoor,sub_5585C,96PC,medium,"96 PC SetPenaltyBoxDoor: (team, open) sets a penalty box door's state (dword_1B0A80) and starts its animation when it opens",src/front/front_52770.asm
+5586C,SetBoxDoorState,sub_5586C,new,low,sets the state of the penalty box door,src/front/front_52770.asm
+55894,DrawBenchRow,sub_55894,new,low,draws a row of the bench,src/front/front_52770.asm
+55B14,DrawBenchSection,sub_55B14,new,low,draws a section of the bench,src/front/front_52770.asm
+55FE4,DrawRinkPass,sub_55FE4,new,low,draws the rink for the frame,src/front/front_52770.asm
+560AC,DrawNearSide,sub_560AC,new,low,draws the near side of the rink,src/front/front_52770.asm
+56464,DrawFarSide,sub_56464,new,low,draws the far side of the rink,src/front/front_52770.asm
+56740,SaveViewOrigin,sub_56740,new,low,saves the view origin,src/front/front_52770.asm
+56798,ShapePixelSize,sub_56798,new,low,returns the pixel size of a shape,src/front/front_52770.asm
+567B0,DrawShadowShape,sub_567B0,new,low,draws a shadow shape,src/front/front_52770.asm
+568CC,ModelViewDepth,sub_568CC,new,low,works out the view depth of a model,src/front/front_52770.asm
+56908,DrawPortraitModels,sub_56908,new,low,draws the models for a portrait,src/front/front_52770.asm
+5696C,AddSeatModel,sub_5696C,new,low,adds a seat model,src/front/front_52770.asm
+56A08,FindSeatModel,sub_56A08,new,low,finds a seat model,src/front/front_52770.asm
+56A84,PickMarkerShape,sub_56A84,new,low,picks the marker shape,src/front/front_52770.asm
+56AE4,SetTeamColours,sub_56AE4,new,low,sets the team colours in the palette,src/front/front_52770.asm
+56B98,FaceDistance,sub_56B98,new,low,works out the distance for a face texture,src/front/front_52770.asm
+56CD0,SetFaceMouth,sub_56CD0,new,low,sets the face mouth morph and marks the model dirty,src/front/front_52770.asm
+56CE4,SetFaceExpression,sub_56CE4,new,low,sets the face expression morph and marks the model dirty,src/front/front_52770.asm
+56CF8,SetFaceBlink,sub_56CF8,new,low,sets the face blink morph and marks the model dirty,src/front/front_52770.asm
+56D0C,SetModelHeading,sub_56D0C,new,low,sets the heading of a model,src/front/front_52770.asm
+56DDC,BuildFaceTextures,sub_56DDC,new,low,builds the face textures,src/front/front_52770.asm
+57298,RefreshFaceTextures,sub_57298,new,low,refreshes the face textures,src/front/front_52770.asm
+572D4,CupFaceTextures,sub_572D4,new,low,builds the face textures for the cup celebration,src/front/front_52770.asm
+57304,SetModelSlotValue,sub_57304,new,low,sets a model slot value,src/front/front_52770.asm
 57324,SetupPlayerModel,sub_57324,new,low,"builds a player's 3D model: jersey, number and team textures for one roster slot",src/front/front_57324.asm
 57504,LayoutJerseyNumber,sub_57504,new,low,lays out the digits of a jersey number on the back and sleeve texture,src/front/front_57324.asm
 576EC,BuildCupPatchArt,sub_576EC,new,low,builds the championship patch art for the jersey,src/front/front_57324.asm
@@ -1237,14 +1277,62 @@ address,name,auto_name,source,confidence,evidence,file
 96019,PlayoffSettingsPath,sub_96019,new,low,"(n, buf): the play-off file names ""%sSEAS%d.PLY"" / ""%sPLAY%d.SET""",src/front/front_93005.asm
 9623E,EditLinesScreen,sub_9623E,96PC,medium,"96 PC EditLinesScreen: (team, line) the edit lines screen (""edit lines menu"" / ""edit lines regions"")",src/front/front_9623E.asm
 96B32,InitEditLinesScreen,sub_96B32,new,low,"from EditLinesScreen: creates its bitmap and menu items and draws the title and line art (TITL, STKL, STCR, ...)",src/front/front_9623E.asm
+96E85,LayoutLinesCard,sub_96E85,new,low,lays out the player card of the lines screen,src/front/front_9623E.asm
+97228,DrawLinesCardLogo,sub_97228,new,low,draws the team logo on the lines player card,src/front/front_9623E.asm
+9732A,EditLinesSetup,sub_9732A,new,low,loads the art and data of the edit lines screen,src/front/front_9623E.asm
 97AE7,AllocTempGameTeam,sub_97AE7,new,low,"edit lines: allocates the ""temp game team"" block and draws the arena button (SW00, AR%02d)",src/front/front_9623E.asm
 97C32,FreeEditLinesScreen,sub_97C32,new,low,from EditLinesScreen when it leaves: frees its bitmaps and blocks,src/front/front_9623E.asm
+97D16,CopyTeamRoster,sub_97D16,new,low,copies a team roster into the temporary game team,src/front/front_9623E.asm
+97F7F,CountHealthyPlayers,sub_97F7F,new,low,counts the healthy players in the lines,src/front/front_9623E.asm
+980B3,LoadLinesForTeam,sub_980B3,new,low,loads the lines of one team,src/front/front_9623E.asm
+981EE,HomePlayerRecord,sub_981EE,new,low,returns the home team record of a roster slot,src/front/front_9623E.asm
+98231,AwayPlayerRecord,sub_98231,new,low,returns the away team record of a roster slot,src/front/front_9623E.asm
 98274,LoadEditLinesRoster,sub_98274,new,low,"edit lines: allocates and fills the ""roster"" table for the team",src/front/front_9623E.asm
+984D3,FindPlayerInLines,sub_984D3,new,low,finds a player in the lines,src/front/front_9623E.asm
 98642,EditLinesGridScreen,sub_98642,new,low,"from EditLinesScreen: the line grid (Player Status, ESD, PP, PK, L1-L4, D1-D3, 5PP1 ... 3PK2 columns)",src/front/front_9623E.asm
 99992,DrawScoringLines,sub_99992,new,low,"edit lines grid: the ""Scoring Line %d"" rows (SL%02d)",src/front/front_9623E.asm
+99CC5,DrawLinesCell,sub_99CC5,new,low,draws one cell of the lines grid,src/front/front_9623E.asm
+99D40,DrawLinesGridArt,sub_99D40,new,low,draws the art of the lines grid,src/front/front_9623E.asm
+99DAC,FillStatBar,sub_99DAC,new,low,fills a stat bar,src/front/front_9623E.asm
+99E41,DrawLinesGridHeader,sub_99E41,new,low,draws the header of the lines grid,src/front/front_9623E.asm
+9A0EC,DrawForwardLines,sub_9A0EC,new,low,draws the forward lines grid,src/front/front_9623E.asm
+9A389,DrawDefenceLines,sub_9A389,new,low,draws the defence pairs grid,src/front/front_9623E.asm
+9A603,DrawSpecialLines,sub_9A603,new,low,draws the special teams lines grid,src/front/front_9623E.asm
 9A89E,DrawPlayerLines,sub_9A89E,new,low,"edit lines: ""%s %s is currently on these lines:"" for the highlighted player",src/front/front_9623E.asm
 9AADF,DrawPlayerHealth,sub_9AADF,new,low,"edit lines grid: the player's health (""Healthy"" or days out, ""%s %s -"")",src/front/front_9623E.asm
+9AC57,DrawLinesScreen,sub_9AC57,new,low,draws the edit lines screen,src/front/front_9623E.asm
+9B25A,SetLinesListPos,sub_9B25A,new,low,sets the lines list position,src/front/front_9623E.asm
+9B2A8,DrawLinesLabel,sub_9B2A8,new,low,draws a label of the lines screen,src/front/front_9623E.asm
+9B39F,InitLinesLabelList,sub_9B39F,new,low,sets up the list box of a lines label,src/front/front_9623E.asm
+9B418,InitLinesList,sub_9B418,new,low,sets up the lines list box,src/front/front_9623E.asm
+9B45C,DrawLinesPlayerCard,sub_9B45C,new,low,draws the lines screen player card,src/front/front_9623E.asm
+9B4AA,DrawLinesCardDetails,sub_9B4AA,new,low,draws the details on the lines player card,src/front/front_9623E.asm
+9BAC1,DrawRatingMeter,sub_9BAC1,new,low,draws a rating meter,src/front/front_9623E.asm
+9BB40,DrawRatingMeterArt,sub_9BB40,new,low,draws the art of a rating meter,src/front/front_9623E.asm
+9BBDF,RatingMeterColour,sub_9BBDF,new,low,picks the colour of a rating meter,src/front/front_9623E.asm
+9BC01,DrawRatingMeters,sub_9BC01,new,low,draws the rating meters,src/front/front_9623E.asm
+9BDA1,DrawCardRatings,sub_9BDA1,new,low,draws the ratings on the lines player card,src/front/front_9623E.asm
+9C3BF,LoadLinesArt,sub_9C3BF,new,low,loads the lines screen art,src/front/front_9623E.asm
 9C573,LoadEditLinesArt,sub_9C573,new,low,edit lines: opens the art library and loads the FART / LOGO pictures,src/front/front_9623E.asm
+9C7B7,ShowLinesIntro,sub_9C7B7,new,low,shows the lines screen intro,src/front/front_9623E.asm
+9C924,DrawLinesIntroText,sub_9C924,new,low,draws the lines intro text,src/front/front_9623E.asm
+9CCB1,LinesIntroSound,sub_9CCB1,new,low,plays a random lines intro sound,src/front/front_9623E.asm
+9CD63,LinesIntroSparkle,sub_9CD63,new,low,draws a random sparkle on the lines intro,src/front/front_9623E.asm
+9CE1D,ShowLinesPopup,sub_9CE1D,new,low,shows a lines screen popup,src/front/front_9623E.asm
+9CF95,CompareByRating,sub_9CF95,new,low,sort helper: compares two entries by rating,src/front/front_9623E.asm
+9CFA2,CompareGoalieFirst,sub_9CFA2,new,low,sort helper: puts goalies first,src/front/front_9623E.asm
+9CFD3,SortRosterByRating,sub_9CFD3,new,low,sorts a roster by rating,src/front/front_9623E.asm
+9D2D0,ClearAndBuildLines,sub_9D2D0,new,low,clears and builds the lines,src/front/front_9623E.asm
+9D333,BuildAutoLines,sub_9D333,new,low,builds the lines automatically from the ratings,src/front/front_9623E.asm
+9D822,SortLinesCandidates,sub_9D822,new,low,sorts the candidates for the lines,src/front/front_9623E.asm
+9D903,ClearLineSlots,sub_9D903,new,low,clears the line slots,src/front/front_9623E.asm
+9DA9D,IsInLines,sub_9DA9D,new,low,returns whether a player is already in the lines,src/front/front_9623E.asm
+9DACE,FindBestForSlot,sub_9DACE,new,low,finds the best player for a line slot,src/front/front_9623E.asm
+9DB3C,FindBestCenter,sub_9DB3C,new,low,finds the best centre for a line,src/front/front_9623E.asm
+9DBD5,FindBestWinger,sub_9DBD5,new,low,finds the best winger for a line,src/front/front_9623E.asm
+9DC7B,FindBestDefence,sub_9DC7B,new,low,finds the best defenceman for a pair,src/front/front_9623E.asm
+9DD65,FillLineSlots,sub_9DD65,new,low,fills the line slots,src/front/front_9623E.asm
+9DEC2,FillAllLines,sub_9DEC2,new,low,fills all the lines,src/front/front_9623E.asm
 9E35E,DrawHomeTeamPanel,sub_9E35E,96PC,low,96 PC DrawHomeTeamPanel: the home team's panel on the team select screen (HOM1 / HOM2),src/front/front_9E35E.asm
 9E550,DrawAwayTeamPanel,sub_9E550,new,low,"the away team's panel on the team select screen (AWY1 / AWY2), as DrawHomeTeamPanel",src/front/front_9E35E.asm
 9E91C,TeamSelectScreen,sub_9E91C,96PC,medium,"96 PC TeamSelectScreen: the exhibition team select screen (HOM1/HOM2, AWY1/AWY2, team ranks); returns the next screen",src/front/front_9E35E.asm
@@ -1252,16 +1340,53 @@ address,name,auto_name,source,confidence,evidence,file
 A2EF0,AllocCrusherBuffers,sub_A2EF0,new,low,"allocates the ""CRUSHER"" (493E0h) and ""CRUSHER pack"" (186A0h) buffers used to pack data sent to the other computer",src/front/front_9F6F5.asm
 A2F78,LinkSendData,sub_A2F78,new,low,"link games: ""Please wait... / Transferring data..."", sends a block to the other computer (LinkSendBlock)",src/front/front_9F6F5.asm
 A3048,LinkReceiveData,sub_A3048,new,low,"link games: ""Please wait... / Transferring data..."", receives a block from the other computer (LinkReceiveBlock, atoi of its size)",src/front/front_9F6F5.asm
+A3280,LinkGameSetup,sub_A3280,new,low,runs the setup screens of a link game,src/front/front_A3280.asm
+A3B69,LinkSetupCursor,sub_A3B69,new,low,moves the cursor of the link setup screen,src/front/front_A3280.asm
+A3E2B,DrawLinkSetupItem,sub_A3E2B,new,low,draws a link setup item,src/front/front_A3280.asm
+A405E,DrawLinkSetupStatus,sub_A405E,new,low,draws the link setup status,src/front/front_A3280.asm
+A4164,LinkSetupScreen,sub_A4164,new,low,runs the link setup screen,src/front/front_A3280.asm
+A4A5C,LinkSetupSound,sub_A4A5C,new,low,plays a link setup sound,src/front/front_A3280.asm
+A4B7D,RunLinkGameScreens,sub_A4B7D,new,low,runs the screens of a link game,src/front/front_A3280.asm
+A64FC,PlayArenaAnnouncement,sub_A64FC,new,low,plays an arena announcement,src/front/front_A3280.asm
 A6690,PostGameScreen,sub_A6690,new,low,"the post-game screen (NHL0 / NHLP, FLR1/2, T3S2, GS00/GS01, RM00/RM01), alternating with GameStatsScreen",src/front/front_A3280.asm
+A728C,StarScore,sub_A728C,new,low,works out the score for picking the three stars,src/front/front_A3280.asm
+A72C8,StarBonus,sub_A72C8,new,low,adds the bonus for picking the three stars,src/front/front_A3280.asm
+A7380,PickThreeStars,sub_A7380,new,low,picks the three stars of the game,src/front/front_A3280.asm
 A74F4,DrawThreeStarStats,sub_A74F4,new,low,"post-game: one star's stat lines (goals, assists, shots, +/-, hits, penalty minutes; goalie saves and save percentage; three star points)",src/front/front_A3280.asm
+A79EC,ThreeStarsSound,sub_A79EC,new,low,plays a three stars sound,src/front/front_A3280.asm
+A7AD0,ThreeStarsFlash,sub_A7AD0,new,low,flashes the three stars,src/front/front_A3280.asm
+A7C40,LoadThreeStarsArt,sub_A7C40,new,low,loads the three stars art,src/front/front_A3280.asm
+A7C90,ClearThreeStars,sub_A7C90,new,low,clears the three stars,src/front/front_A3280.asm
 A7D9C,GameStatsScreen,sub_A7D9C,96PC,medium,"96 PC GameStatsScreen: the game statistics screen (""gameStatMenu"" / ""gameStatRegn"")",src/front/front_A3280.asm
 A8204,InitGameStatsScreen,sub_A8204,new,low,"from GameStatsScreen: creates its bitmap and menu items and loads its art (LoadDataFile; BACK, BOTM)",src/front/front_A3280.asm
+A8480,FreeGameStats,sub_A8480,new,low,frees the game stats screen,src/front/front_A3280.asm
+A8524,InitGameStatsList,sub_A8524,new,low,sets up the game stats list,src/front/front_A3280.asm
 A8694,GameStatsPlayersPage,sub_A8694,new,low,"from GameStatsScreen: the ""player stats"" page (GS buttons, the three stars' tops 1TOP-3BOT)",src/front/front_A3280.asm
 A8C5C,DrawTeamGameStats,sub_A8C5C,new,low,"game stats: the team comparison rows (score, shots, power play, breakaways, one timers, faceoffs, body checks, passing...)",src/front/front_A3280.asm
+A8E84,DrawTeamStatLine,sub_A8E84,new,low,draws a team stats line,src/front/front_A3280.asm
+A91AC,DrawScoringLogo,sub_A91AC,new,low,draws the logo in the scoring summary,src/front/front_A3280.asm
 A9240,DrawScoringSummary,sub_A9240,new,low,"game stats: the scoring and penalty summary by period (""No scoring."", ""Penalties - none"")",src/front/front_A3280.asm
+A9504,ShowGameStatsPage,sub_A9504,new,low,shows a game stats page,src/front/front_A3280.asm
+A9640,FormatPlayerStatLine,sub_A9640,new,low,formats a player stats line,src/front/front_A3280.asm
+A9800,DrawPlayerStatsPage,sub_A9800,new,low,draws the player stats page,src/front/front_A3280.asm
+A9A10,BuildPlayerStatsTable,sub_A9A10,new,low,builds the player stats table,src/front/front_A3280.asm
+AA170,GameStatsSound,sub_AA170,new,low,plays a game stats sound,src/front/front_A3280.asm
+AA274,GameStatsAnim,sub_AA274,new,low,animates the game stats screen,src/front/front_A3280.asm
+AA498,ResetScoringLog,sub_AA498,new,low,clears the scoring log,src/front/front_A3280.asm
+AA4BC,LogGoal,sub_AA4BC,new,low,adds a goal to the scoring log,src/front/front_A3280.asm
+AA588,LogPenalty,sub_AA588,new,low,adds a penalty to the scoring log,src/front/front_A3280.asm
+AA650,LogPeriodEnd,sub_AA650,new,low,adds the end of a period to the scoring log,src/front/front_A3280.asm
+AA710,FirstScoringEntry,sub_AA710,new,low,returns the first entry of the scoring log,src/front/front_A3280.asm
+AA774,NextScoringEntry,sub_AA774,new,low,returns the next entry of the scoring log,src/front/front_A3280.asm
+AA7EC,FirstPenaltyEntry,sub_AA7EC,new,low,returns the first penalty in the scoring log,src/front/front_A3280.asm
+AA850,NextPenaltyEntry,sub_AA850,new,low,returns the next penalty in the scoring log,src/front/front_A3280.asm
+AA8B4,PeriodEntryCount,sub_AA8B4,new,low,returns the number of entries in a period,src/front/front_A3280.asm
+AA92C,ScoringEntryText,sub_AA92C,new,low,formats a scoring log entry,src/front/front_A3280.asm
+AAA51,NoScoringEntry,sub_AAA51,new,low,returns -1 (no entry),src/front/front_A3280.asm
 AAA58,GoalTypeSuffix,sub_AAA58,new,low,"the scoring summary goal suffix: "" (en/pp)"", "" (pp)"", "" (en/sh)"", "" (sh)"", "" (en)""",src/front/front_A3280.asm
 AAC7C,FormatGoalLine,sub_AAC7C,new,low,"scoring summary: one goal line ""%s %s (%s%s%s%s%s) %d:%02d""",src/front/front_A3280.asm
 AADEF,LoadGameLogos,sub_AADEF,new,low,"from PlayGame: the in-game language text (LoadLangTextB) and the team logos ""logo%02d.qfs""",src/front/front_A3280.asm
+AB0A6,FreeGameText,sub_AB0A6,new,low,frees the game text and art,src/front/front_A3280.asm
 AB0E8,PlayMenuGame,sub_AB0E8,96PC,medium,"96 PC PlayMenuGame: plays a game started from the menus: frees the front end, InitGameAudio, PlayGame, then back to the front end",src/front/front_A3280.asm
 AC799,AllocStatTable,sub_AC799,new,low,"allocates the ""statthingy"" list tables (flags, columns, sort, names, alpha, string sort) for a stats list",src/front/front_AC799.asm
 ADBE6,TeamStatsScreen,sub_ADBE6,96PC,low,"from RunStatsMenu: the team stats screen (""pts"", ""pppct"", ""pkpct"", ""avgt"", ""high""; ""menu"" / ""reg""; SetTeamStatColumns), as 96 PC TeamStatsScreen",src/front/front_AC799.asm
@@ -1611,12 +1736,43 @@ E9370,randomd0,,96PC,medium,NHL96PC 61A18 (similar): mnemonic similarity 0.97 ov
 E93D0,vtoa,,96PC,high,NHL96PC 61A78 (exact): 39 instructions,
 E9429,BuildAllStarTeams,sub_E9429,new,low,"from the season code: sets up the two All-Star teams (InitAllStarTeams, AllocAllStarRosters, PickAllStarPlayers)",src/front/front_E9429.asm
 E947A,AllStarScreen,sub_E947A,new,low,"from RunSeasonMenus: the All-Star screen (conference pages WC00 / EC00, player lists, BAK0 / BAK1)",src/front/front_E9429.asm
+E9CB5,AllStarSound,sub_E9CB5,new,low,plays an all-star screen sound,src/front/front_E9429.asm
 E9E9B,InitAllStarScreen,sub_E9E9B,new,low,"from AllStarScreen: loads its art and sets up the menu items (BAK0, TITL, LB%02d, AR%02d)",src/front/front_E9429.asm
+EA52D,FreeAllStarScreen,sub_EA52D,new,low,frees the all-star screen,src/front/front_E9429.asm
 EA5B1,DrawAllStarConference,sub_EA5B1,new,low,from AllStarScreen: draws the conference page (WC00 / WC01 or EC00 / EC01 art) and its player list (DrawAllStarList),src/front/front_E9429.asm
+EA64E,ShowAllStarArt,sub_EA64E,new,low,shows the all-star art,src/front/front_E9429.asm
+EA6EB,DrawAllStarHighlight,sub_EA6EB,new,low,draws the all-star highlight,src/front/front_E9429.asm
+EA7CF,DrawAllStarTeam,sub_EA7CF,new,low,draws an all-star team,src/front/front_E9429.asm
+EAE9A,DrawAllStarSlot,sub_EAE9A,new,low,draws an all-star slot,src/front/front_E9429.asm
+EAF08,DrawAllStarSelection,sub_EAF08,new,low,draws the all-star selection,src/front/front_E9429.asm
 EB175,DrawAllStarList,sub_EB175,new,low,"all-star screen: the ""Forwards"" / ""Defence"" / ""Goalies"" lists",src/front/front_E9429.asm
+EB840,LoadAllStarLogo,sub_EB840,new,low,loads the all-star logo,src/front/front_E9429.asm
+EB8DA,LoadAllStarArt,sub_EB8DA,new,low,loads the all-star art,src/front/front_E9429.asm
+EBA9B,AllStarNextTeam,sub_EBA9B,new,low,switches to the next all-star team,src/front/front_E9429.asm
+EBB68,AllStarPrevTeam,sub_EBB68,new,low,switches to the previous all-star team,src/front/front_E9429.asm
+EBC19,AllStarNextSlot,sub_EBC19,new,low,moves to the next all-star slot,src/front/front_E9429.asm
+EBC45,AllStarPrevSlot,sub_EBC45,new,low,moves to the previous all-star slot,src/front/front_E9429.asm
+EBC70,ClearAllStarPicks,sub_EBC70,new,low,clears the all-star picks,src/front/front_E9429.asm
+EBCFA,AllStarPicksDone,sub_EBCFA,new,low,returns whether the all-star picks are complete,src/front/front_E9429.asm
+EBD54,FindAllStarPick,sub_EBD54,new,low,finds an all-star pick,src/front/front_E9429.asm
+EBD8C,FindFreeAllStarSlot,sub_EBD8C,new,low,finds a free all-star slot,src/front/front_E9429.asm
+EBDC3,AllStarPickTaken,sub_EBDC3,new,low,returns whether a player is already picked,src/front/front_E9429.asm
+EBEDA,AllStarPickPlayer,sub_EBEDA,new,low,picks a player for the all-star team,src/front/front_E9429.asm
+EBFCE,AllStarAddPick,sub_EBFCE,new,low,adds an all-star pick,src/front/front_E9429.asm
+EC19E,AllStarRemovePick,sub_EC19E,new,low,removes an all-star pick,src/front/front_E9429.asm
+EC34D,AllStarTogglePick,sub_EC34D,new,low,picks or removes an all-star player,src/front/front_E9429.asm
+EC4DB,AllStarSlotPosition,sub_EC4DB,new,low,returns the position of an all-star slot,src/front/front_E9429.asm
+EC588,CompareAllStarGoalie,sub_EC588,new,low,sort helper: goalies first for the all-star picks,src/front/front_E9429.asm
+EC60D,CompareAllStarKey,sub_EC60D,new,low,sort helper: compares all-star picks by key,src/front/front_E9429.asm
+EC671,AddAllStarCandidate,sub_EC671,new,low,adds an all-star candidate,src/front/front_E9429.asm
+EC82C,PickAllStarCandidates,sub_EC82C,new,low,picks the all-star candidates,src/front/front_E9429.asm
 ECA57,PickAllStarPlayers,sub_ECA57,new,low,"allocates ""all star player info"" / ""all star goalie info"", sorts the season's players and goalies (qsort) and picks the All-Stars",src/front/front_E9429.asm
 ECF20,InitAllStarTeams,sub_ECF20,new,low,"names the two teams ""West All Stars"" / ""East All Stars"" and clears them",src/front/front_E9429.asm
 ED01F,AllocAllStarRosters,sub_ED01F,new,low,"allocates the ""all star rosters"", ""all star airecs"", ""all star raw plrs"" and ""all star statrecs"" blocks and fills them from the season database",src/front/front_E9429.asm
+ED3C1,DrawAllStarPickList,sub_ED3C1,new,low,draws the list of all-star picks,src/front/front_E9429.asm
+ED6C8,LinkReceiveChunk,sub_ED6C8,new,low,receives a data chunk over the link,src/front/front_E9429.asm
+ED8E8,LinkSendChunk,sub_ED8E8,new,low,sends a data chunk over the link,src/front/front_E9429.asm
+EDDAC,LinkSendFile,sub_EDDAC,new,low,sends a file over the link,src/front/front_E9429.asm
 EE0F7,GetKeyName,sub_EE0F7,new,medium,"(scan code, buf): copies the key's name (""Escape"", ""Backspace"", ""Left Shift""..., ""<NONE>"") for the control setup screen",src/front/front_E9429.asm
 EE69C,ShowReservedKey,sub_EE69C,new,low,"control setup: ""The %s key is reserved for a system function. Please choose another.""",src/front/front_EE69C.asm
 F0339,ControlSetupScreen,sub_F0339,96PC,low,"96 PC ControlSetupScreen: (mode) the control set-up screen (KMB%d keyboard / mouse buttons, TB00-TB03, GLW%d)",src/front/front_EE69C.asm

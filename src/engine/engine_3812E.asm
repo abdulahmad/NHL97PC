@@ -50,13 +50,13 @@ extern sub_107B70, sub_107CB0, sub_107D30, sub_107D70, sub_107E74, sub_107F48, s
 extern sub_10815C, sub_1081B0, sub_108640, sub_1086BF, sub_108CE8, sub_1091E0, sub_109210, sub_109250
 extern sub_1092B0, sub_109352, sub_109384, sub_109417, sub_109545, sub_10955B, SetScreenTarget, TryPokePuck
 extern NetCollide, NetCollide2, ChkBodyContact, InitSpeechBanks, OpenSpeechFile, sub_47D70, sub_47EA4, ShutdownSound
-extern ServiceBackgroundAudio, MakeDataPath, LoadDataFile, OpenDataLibrary, sub_52D4C, sub_55648, sub_5696C, sub_56A08
-extern sub_56CD0, sub_56CE4, sub_56CF8, sub_56D0C, SetObjectHidden, ClearModelSlots, ReplaySoundAllowed, MarkPaletteDirty
+extern ServiceBackgroundAudio, MakeDataPath, LoadDataFile, OpenDataLibrary, BuildRinkPalette, GetSeatPos, AddSeatModel, FindSeatModel
+extern SetFaceMouth, SetFaceExpression, SetFaceBlink, SetModelHeading, SetObjectHidden, ClearModelSlots, ReplaySoundAllowed, MarkPaletteDirty
 extern GetStickBladePos, SetSPA, SetSPAInPlace, ResetAnimTimer, PickSkateAnim, EndMove, AdvanceMoveAnim, StepMove
 extern SteerAndAccel, LimitSkateSpeed, PickSaveAnim, SaveDirection, GetAnimId, sub_789F0, sub_7B15D, DrawShadedLogo
 extern DrawShadowBox, DrawScreenBackground, FadeInScreen, ShowScreen, ExitScreen, SetTextColor, DrawTextAligned, DrawFrameBox
 extern ShowMessageBox, LoadTeamLogo, FreeLogoArt, WipeScreen, SetHighlightText, ShowLoadingBar, InitMenuItems, sub_8BFAC
-extern sub_8DF1F, GetLangText, sub_99DAC, sub_AC369, InitShapeListBox, FreeDbBlock, DaysToYear, FindNextSeasonGame
+extern sub_8DF1F, GetLangText, FillStatBar, sub_AC369, InitShapeListBox, FreeDbBlock, DaysToYear, FindNextSeasonGame
 extern OpenLeagueFile, StartSeasonGame, FindGameRecord, UpdateGameRecord, FileExists, FileCreate, FileSeek, FileReadRecord
 extern FileWriteRecord, FileClose, ServiceIdle, BuildAllStarTeams, sub_F9496, sub_F94BC, sub_F99C0, sub_F9A28
 extern AllocMemBlock, FreeMemBlock, sub_FB4D4, ZeroMem, FillMem, addtimer, sub_FC008, sub_FC290
@@ -1289,7 +1289,7 @@ DrawLockedGame:
         mov eax, dword [byte ebp-04h]
         sub edx, byte 3
         sub eax, byte 3
-        call sub_99DAC
+        call FillStatBar
         cmp dword [dword_19ED14], byte 0
         je near InitSeasonGameScreen_472
         push str_LOCK
@@ -2357,7 +2357,7 @@ GetSeatPosition:
         push ecx
         sub esp, byte 8
         mov ecx, edx
-        call sub_55648
+        call GetSeatPos
         fild dword [eax]
         fstp dword [ebx]
         fild dword [byte eax+04h]
@@ -2445,7 +2445,7 @@ PickBoxSeat:
         movsx eax, byte [byte ecx+02h]
         test eax, eax
         jl short .3
-        call sub_56A08
+        call FindSeatModel
         cmp esi, byte 2
         jne short .2
         mov byte [byte ecx+02h], 0FFh
@@ -2458,7 +2458,7 @@ PickBoxSeat:
         call GetSeatPosition
         mov eax, esp
         mov edx, ebp
-        call sub_5696C
+        call AddSeatModel
         mov byte [byte ecx+02h], al
 .3:
         movsx eax, byte [ecx]
@@ -2551,7 +2551,7 @@ FreeBoxSeat:
         test bl, bl
         jl short .1
         movsx eax, bl
-        call sub_56A08
+        call FindSeatModel
 .1:
         mov eax, esi
         shl eax, 7
@@ -2595,7 +2595,7 @@ FreeBoxSeat:
         call GetSeatPosition
         mov eax, esp
         mov edx, esi
-        call sub_5696C
+        call AddSeatModel
         mov byte [byte ecx+02h], al
         jmp near .8
 .4:
@@ -2603,7 +2603,7 @@ FreeBoxSeat:
         movsx eax, byte [byte ecx+02h]
         test eax, eax
         jl short .5
-        call sub_56A08
+        call FindSeatModel
         mov ebx, esp
         mov edx, dword [ecx]
         mov eax, esi
@@ -2611,7 +2611,7 @@ FreeBoxSeat:
         call GetSeatPosition
         mov eax, esp
         mov edx, esi
-        call sub_5696C
+        call AddSeatModel
         mov byte [byte ecx+02h], al
 .5:
         mov eax, dword [byte esp+014h]
@@ -2707,7 +2707,7 @@ PickBenchSeat:
         call GetSeatPosition
         mov eax, esp
         mov edx, ecx
-        call sub_5696C
+        call AddSeatModel
         mov byte [edi], 0FFh
         mov byte [byte edi+02h], al
 .1:
@@ -2745,7 +2745,7 @@ PickBenchSeat:
         test ch, ch
         jl short .3
         movsx eax, ch
-        call sub_56A08
+        call FindSeatModel
         mov byte [byte edx+02h], 0FFh
 .3:
         add esp, byte 10h
@@ -2781,7 +2781,7 @@ MoveBoxToBenchSeat:
         test ah, ah
         jl near .9
         movsx eax, ah
-        call sub_56A08
+        call FindSeatModel
         mov byte [byte edx+02h], 0FFh
         mov eax, dword [dword esi+dword_19CB6D]
         sar eax, 18h
@@ -2823,7 +2823,7 @@ MoveBoxToBenchSeat:
         call GetSeatPosition
         mov eax, esp
         mov edx, esi
-        call sub_5696C
+        call AddSeatModel
         mov byte [byte ecx+02h], al
         jmp near .7
 .3:
@@ -2831,7 +2831,7 @@ MoveBoxToBenchSeat:
         movsx eax, byte [byte ecx+02h]
         test eax, eax
         jl short .4
-        call sub_56A08
+        call FindSeatModel
         mov ebx, esp
         mov edx, dword [ecx]
         mov eax, esi
@@ -2839,7 +2839,7 @@ MoveBoxToBenchSeat:
         call GetSeatPosition
         mov eax, esp
         mov edx, esi
-        call sub_5696C
+        call AddSeatModel
         mov byte [byte ecx+02h], al
 .4:
         mov eax, dword [byte esp+0Ch]
@@ -2917,7 +2917,7 @@ FaceoffStanceMove:
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
 .2:
-        call sub_56CD0
+        call SetFaceMouth
 .3:
         test byte [byte ebx+01Ch], 80h
         je short .5
@@ -2930,7 +2930,7 @@ FaceoffStanceMove:
         and byte [dword ecx+0BFh], 0DFh
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
-        call sub_56CD0
+        call SetFaceMouth
         mov eax, ebx
         call ResetAnimTimer
         and byte [dword ecx+0BFh], 0DFh
@@ -3334,16 +3334,16 @@ ShoutMove:
         test edx, edx
         jne short .1
         mov eax, ebx
-        call sub_56CE4
+        call SetFaceExpression
         mov eax, ebx
         xor edx, edx
-        call sub_56CD0
+        call SetFaceMouth
         mov eax, ebx
         xor edx, edx
-        call sub_56CF8
+        call SetFaceBlink
         mov edx, 1
         mov eax, ebx
-        call sub_56CF8
+        call SetFaceBlink
 .1:
         test byte [byte ecx+04h], 3
         jne short .4
@@ -3358,19 +3358,19 @@ ShoutMove:
         mov edx, 1
         mov eax, ebx
 .3:
-        call sub_56CD0
+        call SetFaceMouth
 .4:
         test byte [byte ecx+01Ch], 80h
         je short .5
         mov eax, ebx
         xor edx, edx
-        call sub_56CE4
+        call SetFaceExpression
         mov eax, ebx
         xor edx, edx
-        call sub_56CD0
+        call SetFaceMouth
         mov eax, ebx
         xor edx, edx
-        call sub_56CF8
+        call SetFaceBlink
         mov edx, dword [dword esi+0EEh]
         mov bl, byte [byte edx+031h]
         and bl, 0FEh
@@ -3847,14 +3847,14 @@ GoToBoxAnim:
         call SetObjectHidden
         xor ebx, ebx
         mov eax, dword [dword ecx+0F2h]
-        call sub_56D0C
+        call SetModelHeading
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
         xor ebx, ebx
-        call sub_56D0C
+        call SetModelHeading
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
-        call sub_56CE4
+        call SetFaceExpression
         call ClearModelSlots
         add esp, byte 8
         pop edx
@@ -7263,7 +7263,7 @@ RefreshOverlayWindow:
 ;-----------------------------------------------------------------------------
 SetRinkDetail:
         mov dword [dword_1A8E60], eax
-        jmp near sub_52D4C
+        jmp near BuildRinkPalette
         db 00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
 ; FadePaletteStep                                 3D030  97 PC, low confidence
