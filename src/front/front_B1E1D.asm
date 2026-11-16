@@ -19,7 +19,7 @@ extern UserCupsPopup, UserRatingPopupFields
 extern UserRatingPopupFields, UserStreakPopupFields
 extern UserRecordList, UserNameColumn, UserRateColumn, UserPointsColumn, UserGoalsForColumn, UserGoalsAgainstColumn, UserPowerPlayColumn, UserPenaltyKillColumn
 extern UserRatingColumn, UserShutoutColumn, UserStreakColumn, UserLongStreakColumn, UserTeamColumn, UserOpponentColumn, UserSortColumn, UserCupsTable
-extern dword_1CAEA8, dword_1CAEB8, rand_, sprintf_, sscanf_, str_D02d2, str_Logbook, str_Logname
+extern PlayerStatRecords, GoalieStatRecords, rand_, sprintf_, sscanf_, str_D02d2, str_Logbook, str_Logname
 extern str_Ulstreak, str_Uname, str_Uopp, str_Upts, str_Urate, str_Usort, str_Ustreak, str_Uteam
 extern strcmp_, strcpy_, strlen_, BlitShape2, BlitArt, BlitShape, PresentScreen, FindShape
 extern ConvertArtNew, ConvertArtXY, SetScreenTarget, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx, MakeDirPath
@@ -3724,7 +3724,7 @@ CompareStatColumn:
         push esi
         mov ebx, eax
         mov ecx, edx
-        mov esi, dword [dword_1CAEA8]
+        mov esi, dword [PlayerStatRecords]
         add esi, dword [ebx]
         xor eax, eax
         movzx esi, byte [esi]
@@ -3733,7 +3733,7 @@ CompareStatColumn:
         jne short .1
         mov edx, 1
 .1:
-        mov esi, dword [dword_1CAEA8]
+        mov esi, dword [PlayerStatRecords]
         add esi, dword [ecx]
         movzx esi, byte [esi]
         cmp esi, dword [StatsColumn]
@@ -3750,7 +3750,7 @@ CompareStatColumn:
 .3:
         imul edx, dword [ecx], dword 0BCh
         imul esi, dword [ebx], dword 0BCh
-        mov eax, dword [dword_1CAEB8]
+        mov eax, dword [GoalieStatRecords]
         add edx, eax
         add eax, esi
         add edx, byte 8
@@ -3760,7 +3760,7 @@ CompareStatColumn:
         je short .4
         imul edx, dword [ecx], dword 0BCh
         imul ebx, dword [ebx], dword 0BCh
-        mov eax, dword [dword_1CAEB8]
+        mov eax, dword [GoalieStatRecords]
         add edx, eax
         add eax, ebx
         add edx, byte 8
@@ -3769,7 +3769,7 @@ CompareStatColumn:
 .4:
         imul edx, dword [ecx], dword 0BCh
         imul ebx, dword [ebx], dword 0BCh
-        mov eax, dword [dword_1CAEB8]
+        mov eax, dword [GoalieStatRecords]
         add edx, eax
         add eax, ebx
         add edx, byte 18h
@@ -3790,7 +3790,7 @@ CompareRatingColumn:
         push esi
         mov ebx, eax
         mov ecx, edx
-        mov esi, dword [dword_1CAEA8]
+        mov esi, dword [PlayerStatRecords]
         add esi, dword [ebx]
         xor eax, eax
         movzx esi, byte [esi]
@@ -3799,7 +3799,7 @@ CompareRatingColumn:
         jne short .1
         mov edx, 1
 .1:
-        mov esi, dword [dword_1CAEA8]
+        mov esi, dword [PlayerStatRecords]
         add esi, dword [ecx]
         movzx esi, byte [esi]
         cmp esi, dword [RatingsColumn]
@@ -3816,7 +3816,7 @@ CompareRatingColumn:
 .3:
         imul edx, dword [ecx], dword 0BCh
         imul esi, dword [ebx], dword 0BCh
-        mov eax, dword [dword_1CAEB8]
+        mov eax, dword [GoalieStatRecords]
         add edx, eax
         add eax, esi
         add edx, byte 8
@@ -3826,7 +3826,7 @@ CompareRatingColumn:
         je short .4
         imul edx, dword [ecx], dword 0BCh
         imul ebx, dword [ebx], dword 0BCh
-        mov eax, dword [dword_1CAEB8]
+        mov eax, dword [GoalieStatRecords]
         add edx, eax
         add eax, ebx
         add edx, byte 8
@@ -3835,7 +3835,7 @@ CompareRatingColumn:
 .4:
         imul edx, dword [ecx], dword 0BCh
         imul ebx, dword [ebx], dword 0BCh
-        mov eax, dword [dword_1CAEB8]
+        mov eax, dword [GoalieStatRecords]
         add edx, eax
         add eax, ebx
         add edx, byte 18h

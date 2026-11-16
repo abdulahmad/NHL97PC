@@ -6529,6 +6529,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 16692D,str_20sD,asc_16692D,new,high,"string "" %20s  %d """,src/data/front/front_B50DB_data_01.asm
 166938,str_20sD2,asc_166938,new,high,"string "" %20s  %d    """,src/data/front/front_B50DB_data_01.asm
 166946,str_Punct_ExportPlayerCard,unk_166946,new,high,"string "" """,src/data/front/front_B50DB_data_01.asm
+166948,CardExportSeparator,unk_166948,new,low,separator written between exported card fields,src/data/front/front_B50DB_data_01.asm
 16694A,str_MN02d2,asc_16694A,new,high,"string ""MN%02d""",src/data/front/front_B50DB_data_01.asm
 166951,str_MN00,asc_166951,new,high,"string ""MN00""",src/data/front/front_B50DB_data_01.asm
 166956,str_MN04,asc_166956,new,high,"string ""MN04""",src/data/front/front_B50DB_data_01.asm
@@ -10033,6 +10034,136 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1CA9D4,UserCupsTable,dword_1CA9D4,new,low,user cups table,src/data/front/front_B1E1D_bss_01.asm
 1CA9D8,StatsMenuChoice,byte_1CA9D8,new,low,stats menu choice,src/data/front/front_B1E1D_bss_01.asm
 1CA9DC,RatingsScrollBar,unk_1CA9DC,new,low,player ratings scroll bar,src/data/front/front_B50DB_bss_01.asm
+1CAA00,RatingsListFont,dword_1CAA00,new,low,player ratings list font,src/data/front/front_B50DB_bss_01.asm
+1CAADC,RatingsSkaterList,unk_1CAADC,new,low,player ratings skater scroll list,src/data/front/front_B50DB_bss_01.asm
+1CAB00,RatingsSkaterRow,dword_1CAB00,new,low,player ratings skater row,src/data/front/front_B50DB_bss_01.asm
+1CABDC,RatingsGoalieList,unk_1CABDC,new,low,player ratings goalie scroll list,src/data/front/front_B50DB_bss_01.asm
+1CAC00,RatingsGoalieRow,dword_1CAC00,new,low,player ratings goalie row,src/data/front/front_B50DB_bss_01.asm
+1CACDC,PlayerStatsShapeLists,dword_1CACDC,new,low,player stats shape lists,src/data/front/front_B50DB_bss_01.asm
+1CACE8,PlayerStatsPageShapes,unk_1CACE8,new,low,player stats page shapes,src/data/front/front_B50DB_bss_01.asm
+1CACF4,PlayerStatsArrowShapes,unk_1CACF4,new,low,player stats arrow shapes,src/data/front/front_B50DB_bss_01.asm
+1CAD00,PlayerStatsTitleShapes,unk_1CAD00,new,low,player stats title shapes,src/data/front/front_B50DB_bss_01.asm
+1CAD24,StatsCardList,unk_1CAD24,new,low,stats card scroll list,src/data/front/front_B50DB_bss_01.asm
+1CAD28,StatsCardBackArt,dword_1CAD28,new,low,stats card back art,src/data/front/front_B50DB_bss_01.asm
+1CAD2C,StatsCardFrameArt,dword_1CAD2C,new,low,stats card frame art,src/data/front/front_B50DB_bss_01.asm
+1CAD38,StatsCardPortrait,dword_1CAD38,new,low,stats card portrait,src/data/front/front_B50DB_bss_01.asm
+1CAD48,StatsCardRow,dword_1CAD48,new,low,stats card row,src/data/front/front_B50DB_bss_01.asm
+1CAE24,RatingsSoundPlayed,dword_1CAE24,new,low,set once the ratings sound plays,src/data/front/front_B50DB_bss_01.asm
+1CAE28,RatingsShapeCount,dword_1CAE28,new,low,player ratings shape count,src/data/front/front_B50DB_bss_01.asm
+1CAE2C,RatingsShapes,dword_1CAE2C,new,low,player ratings shapes,src/data/front/front_B50DB_bss_01.asm
+1CAE34,RatingsTeamShapes,dword_1CAE34,new,low,player ratings shapes per team,src/data/front/front_B50DB_bss_01.asm
+1CAE6C,RatingsShapeFile,dword_1CAE6C,new,low,player ratings shape file,src/data/front/front_B50DB_bss_01.asm
+1CAE70,RatingsSkaterShown,dword_1CAE70,new,low,skater shown on the ratings page,src/data/front/front_B50DB_bss_01.asm
+1CAE74,RatingsSkaterTick,dword_1CAE74,new,low,tick of the skater portrait change,src/data/front/front_B50DB_bss_01.asm
+1CAE78,StatsCardBitmap,dword_1CAE78,new,low,stats card bitmap,src/data/front/front_B50DB_bss_01.asm
+1CAE7C,StatsCardShown,dword_1CAE7C,new,low,player shown on the stats card,src/data/front/front_B50DB_bss_01.asm
+1CAE80,RatingsGoalieOrder,dword_1CAE80,new,low,goalie order on the ratings page,src/data/front/front_B50DB_bss_01.asm
+1CAE84,RatingsSkaterOrder,dword_1CAE84,new,low,skater order on the ratings page,src/data/front/front_B50DB_bss_01.asm
+1CAE88,RatingsSkaterBitmap,dword_1CAE88,new,low,skater portrait bitmap,src/data/front/front_B50DB_bss_01.asm
+1CAE8C,RatingsGoalieBitmap,dword_1CAE8C,new,low,goalie portrait bitmap,src/data/front/front_B50DB_bss_01.asm
+1CAE90,RatingsSkaterLast,dword_1CAE90,new,low,skater shown last frame,src/data/front/front_B50DB_bss_01.asm
+1CAE94,RatingsSkaterDrawn,dword_1CAE94,new,low,set once the skater portrait is drawn,src/data/front/front_B50DB_bss_01.asm
+1CAE98,StatsCardTick,dword_1CAE98,new,low,tick of the stats card change,src/data/front/front_B50DB_bss_01.asm
+1CAE9C,RatingsGoalieTick,dword_1CAE9C,new,low,tick of the goalie portrait change,src/data/front/front_B50DB_bss_01.asm
+1CAEA0,RatingsPageDrawn,dword_1CAEA0,new,low,set once the ratings page is drawn,src/data/front/front_B50DB_bss_01.asm
+1CAEA4,RatingsGoalieDrawn,dword_1CAEA4,new,low,set once the goalie portrait is drawn,src/data/front/front_B50DB_bss_01.asm
+1CAEA8,PlayerStatRecords,dword_1CAEA8,new,low,player stat records,src/data/front/front_B50DB_bss_01.asm
+1CAEAC,RatingsTeam,dword_1CAEAC,new,low,team shown on the ratings page,src/data/front/front_B50DB_bss_01.asm
+1CAEB0,RatingsGoalieShown,dword_1CAEB0,new,low,goalie shown on the ratings page,src/data/front/front_B50DB_bss_01.asm
+1CAEB4,RatingsCompact,dword_1CAEB4,new,low,set for the compact ratings layout,src/data/front/front_B50DB_bss_01.asm
+1CAEB8,GoalieStatRecords,dword_1CAEB8,new,low,goalie stat records (188 bytes each),src/data/front/front_B50DB_bss_01.asm
+1CAEBC,StatsCardDrawn,dword_1CAEBC,new,low,set once the stats card is drawn,src/data/front/front_B50DB_bss_01.asm
+1CAEC0,RatingsGoalieLast,dword_1CAEC0,new,low,goalie shown last frame,src/data/front/front_B50DB_bss_01.asm
+1CAEC4,StatsCardPlayer,dword_1CAEC4,new,low,player on the stats card,src/data/front/front_B50DB_bss_01.asm
+1CAEC8,RatingsTeamSide,byte_1CAEC8,new,low,team side shown on the ratings page,src/data/front/front_B50DB_bss_01.asm
+1CAECC,ReplayMenuX,dword_1CAECC,new,low,replay menu x,src/data/front/front_BD62C_bss_01.asm
+1CAED0,ReplayControlsX,dword_1CAED0,new,low,replay controls x,src/data/front/front_BD62C_bss_01.asm
+1CAED4,ReplayCameraX,dword_1CAED4,new,low,replay camera panel x,src/data/front/front_BD62C_bss_01.asm
+1CAED8,ReplaySaveX,dword_1CAED8,new,low,replay save panel x,src/data/front/front_BD62C_bss_01.asm
+1CAEDC,ReplayMenuY,dword_1CAEDC,new,low,replay menu y,src/data/front/front_BD62C_bss_01.asm
+1CAEE0,ReplayControlsY,dword_1CAEE0,new,low,replay controls y,src/data/front/front_BD62C_bss_01.asm
+1CAEE4,ReplayCameraY,dword_1CAEE4,new,low,replay camera panel y,src/data/front/front_BD62C_bss_01.asm
+1CAEE8,ReplaySaveY,dword_1CAEE8,new,low,replay save panel y,src/data/front/front_BD62C_bss_01.asm
+1CAEEC,ReplayMenuShape,dword_1CAEEC,new,low,replay menu shape,src/data/front/front_BD62C_bss_01.asm
+1CAEF0,ReplayControlsShape,dword_1CAEF0,new,low,replay controls shape,src/data/front/front_BD62C_bss_01.asm
+1CAEF4,ReplayCameraShape,dword_1CAEF4,new,low,replay camera panel shape,src/data/front/front_BD62C_bss_01.asm
+1CAEF8,ReplaySaveShape,dword_1CAEF8,new,low,replay save panel shape,src/data/front/front_BD62C_bss_01.asm
+1CAEFC,ReplaySavedPanelModes,unk_1CAEFC,new,low,panel modes saved while the replay runs,src/data/front/front_BD62C_bss_01.asm
+1CAF3C,ReplayIndexData,unk_1CAF3C,new,low,replay index data,src/data/front/front_BD62C_bss_01.asm
+1CAF8C,ReplayMenuResult,dword_1CAF8C,new,low,replay menu result,src/data/front/front_BD62C_bss_01.asm
+1CAF94,ReplayRemoteShape,dword_1CAF94,new,low,replay remote shape,src/data/front/front_BD62C_bss_01.asm
+1CAF98,ReplayBitmap,dword_1CAF98,new,low,replay bitmap,src/data/front/front_BD62C_bss_01.asm
+1CAF9C,ReplayLoadBuffer,dword_1CAF9C,new,low,replay load buffer,src/data/front/front_BD62C_bss_01.asm
+1CAFA4,ReplayFont,dword_1CAFA4,new,low,replay text font,src/data/front/front_BD62C_bss_01.asm
+1CAFA8,ReplayMenuBitmap,dword_1CAFA8,new,low,replay menu bitmap,src/data/front/front_BD62C_bss_01.asm
+1CAFAC,ReplaySpeedText,dword_1CAFAC,new,low,replay speed text per speed,src/data/front/front_BD62C_bss_01.asm
+1CAFDC,ReplayPlayText,dword_1CAFDC,new,low,replay play text,src/data/front/front_BD62C_bss_01.asm
+1CAFE0,ReplayPauseText,dword_1CAFE0,new,low,replay pause text,src/data/front/front_BD62C_bss_01.asm
+1CAFE4,ReplayRecordText,dword_1CAFE4,new,low,replay record text,src/data/front/front_BD62C_bss_01.asm
+1CAFE8,ReplayStopText,dword_1CAFE8,new,low,replay stop text,src/data/front/front_BD62C_bss_01.asm
+1CAFEC,ReplayCameraText,dword_1CAFEC,new,low,replay camera text,src/data/front/front_BD62C_bss_01.asm
+1CAFF0,ReplaySpeed,dword_1CAFF0,new,low,replay speed,src/data/front/front_BD62C_bss_01.asm
+1CAFF4,ReplayRecordingOn,dword_1CAFF4,new,low,set while replay recording is on,src/data/front/front_BD62C_bss_01.asm
+1CAFF8,ReplayMenuItems,dword_1CAFF8,new,low,replay menu items,src/data/front/front_BD62C_bss_01.asm
+1CAFFC,ReplayLastFrame,dword_1CAFFC,new,low,replay frame shown last,src/data/front/front_BD62C_bss_01.asm
+1CB000,ReplayStartFrame,dword_1CB000,new,low,first replay frame,src/data/front/front_BD62C_bss_01.asm
+1CB004,ReplayButtonLit,byte_1CB004,new,low,set per replay button while lit,src/data/front/front_BD62C_bss_01.asm
+1CB014,HistoryTextX,dword_1CB014,new,low,history text x,src/data/front/front_C0F5D_bss_01.asm
+1CB018,HistoryTextY,dword_1CB018,new,low,history text y,src/data/front/front_C0F5D_bss_01.asm
+1CB064,HistoryDotShape,dword_1CB064,new,low,history dot shape,src/data/front/front_C0F5D_bss_01.asm
+1CB068,HistoryArrowShape,dword_1CB068,new,low,history arrow shape,src/data/front/front_C0F5D_bss_01.asm
+1CB06C,HistoryArrowLitShape,dword_1CB06C,new,low,history lit arrow shape,src/data/front/front_C0F5D_bss_01.asm
+1CB070,HistoryArrowEndShape,dword_1CB070,new,low,history arrow end shape,src/data/front/front_C0F5D_bss_01.asm
+1CB074,HistoryHighlightText,dword_1CB074,new,low,history highlight text style,src/data/front/front_C0F5D_bss_01.asm
+1CB078,HistoryShineList,dword_1CB078,new,low,history trophy shine list,src/data/front/front_C0F5D_bss_01.asm
+1CB07C,HistorySparkleFrame,dword_1CB07C,new,low,history sparkle frame,src/data/front/front_C0F5D_bss_01.asm
+1CB080,HistorySelectedTeam,dword_1CB080,new,low,history selected team,src/data/front/front_C0F5D_bss_01.asm
+1CB084,HistoryTrophyIndex,dword_1CB084,new,low,history trophy index,src/data/front/front_C0F5D_bss_01.asm
+1CB088,HistoryDetailsOpen,dword_1CB088,new,low,set while the history details show,src/data/front/front_C0F5D_bss_01.asm
+1CB08C,HistoryTextBuffer,dword_1CB08C,new,low,history text buffer,src/data/front/front_C0F5D_bss_01.asm
+1CB090,HistorySoundOn,dword_1CB090,new,low,history sound enabled,src/data/front/front_C0F5D_bss_01.asm
+1CB094,HistoryLineLimit,dword_1CB094,new,low,history text line width limit,src/data/front/front_C0F5D_bss_01.asm
+1CB098,HistoryTextBitmap,dword_1CB098,new,low,history text bitmap,src/data/front/front_C0F5D_bss_01.asm
+1CB09C,HistoryLineCount,dword_1CB09C,new,low,history text line count,src/data/front/front_C0F5D_bss_01.asm
+1CB0A0,HistoryTextList,dword_1CB0A0,new,low,history text list,src/data/front/front_C0F5D_bss_01.asm
+1CB0A4,HistoryShineFrame,dword_1CB0A4,new,low,history trophy shine frame,src/data/front/front_C0F5D_bss_01.asm
+1CB0A8,HistoryLastTeam,dword_1CB0A8,new,low,history team shown last,src/data/front/front_C0F5D_bss_01.asm
+1CB0AC,HistoryPopupBitmap,dword_1CB0AC,new,low,history popup bitmap,src/data/front/front_C0F5D_bss_01.asm
+1CB0B0,HistoryShineTimer,dword_1CB0B0,new,low,history trophy shine timer,src/data/front/front_C0F5D_bss_01.asm
+1CB0B4,HistoryTrophyTick,dword_1CB0B4,new,low,tick of the next history trophy frame,src/data/front/front_C0F5D_bss_01.asm
+1CB0B8,HistorySparkleTimer,dword_1CB0B8,new,low,history sparkle timer,src/data/front/front_C0F5D_bss_01.asm
+1CB0BC,HistoryTrophyList,dword_1CB0BC,new,low,history trophy list,src/data/front/front_C0F5D_bss_01.asm
+1CB0C0,HistoryBackShape,dword_1CB0C0,new,low,history back shape,src/data/front/front_C0F5D_bss_01.asm
+1CB0C4,HistoryPopupOpen,dword_1CB0C4,new,low,set while the history popup shows,src/data/front/front_C0F5D_bss_01.asm
+1CB0C8,HistoryTeamShape,dword_1CB0C8,new,low,history team shape,src/data/front/front_C0F5D_bss_01.asm
+1CB0CC,HistoryDetailsTop,dword_1CB0CC,new,low,history details list top,src/data/front/front_C0F5D_bss_01.asm
+1CB0D0,HistoryShineOn,dword_1CB0D0,new,low,history trophy shine enabled,src/data/front/front_C0F5D_bss_01.asm
+1CB0D4,HistoryTrophyState,dword_1CB0D4,new,low,history trophy animation state,src/data/front/front_C0F5D_bss_01.asm
+1CB0D8,HistoryLastSpeech,dword_1CB0D8,new,low,last history speech picked,src/data/front/front_C0F5D_bss_01.asm
+1CB0DC,HistoryTrophyRow,dword_1CB0DC,new,low,history trophy row,src/data/front/front_C0F5D_bss_01.asm
+1CB0E0,HistoryEntryList,dword_1CB0E0,new,low,history entry list,src/data/front/front_C0F5D_bss_01.asm
+1CB0E4,HistoryArtList,dword_1CB0E4,new,low,history art list,src/data/front/front_C0F5D_bss_01.asm
+1CB0E8,HistoryScreenBitmap,dword_1CB0E8,new,low,history screen bitmap,src/data/front/front_C0F5D_bss_01.asm
+1CB0EC,HistoryArtTop,dword_1CB0EC,new,low,history art list top,src/data/front/front_C0F5D_bss_01.asm
+1CB0F0,HistoryDetailsList,dword_1CB0F0,new,low,history details list,src/data/front/front_C0F5D_bss_01.asm
+1CB0F4,HistoryArtChoice,dword_1CB0F4,new,low,history art choice,src/data/front/front_C0F5D_bss_01.asm
+1CB0F8,HistoryTextShown,dword_1CB0F8,new,low,set once the history text is drawn,src/data/front/front_C0F5D_bss_01.asm
+1CB0FC,HistoryBackBitmap,dword_1CB0FC,new,low,history back bitmap,src/data/front/front_C0F5D_bss_01.asm
+1CB100,HistoryDetailsChoice,dword_1CB100,new,low,history details choice,src/data/front/front_C0F5D_bss_01.asm
+1CB104,HistoryShapeFile,dword_1CB104,new,low,history shape file,src/data/front/front_C0F5D_bss_01.asm
+1CB108,OptionsButtonShapes,dword_1CB108,new,low,options button shapes,src/data/front/front_C0F5D_bss_01.asm
+1CB10C,OptionsSoundShapes,dword_1CB10C,new,low,options sound shapes,src/data/front/front_C0F5D_bss_01.asm
+1CB11C,OptionsMusicShapes,dword_1CB11C,new,low,options music shapes,src/data/front/front_C462F_bss_01.asm
+1CB128,OptionsButtonOff,dword_1CB128,new,low,options button off shape,src/data/front/front_C462F_bss_01.asm
+1CB12C,OptionsButtonOnShapes,dword_1CB12C,new,low,options button on shapes,src/data/front/front_C462F_bss_01.asm
+1CB130,OptionsButtonLit,dword_1CB130,new,low,options button lit shape,src/data/front/front_C462F_bss_01.asm
+1CB138,OptionsLabelShapes,dword_1CB138,new,low,options label shapes,src/data/front/front_C462F_bss_01.asm
+1CB13C,OptionsButtonDownShapes,dword_1CB13C,new,low,options button down shapes,src/data/front/front_C462F_bss_01.asm
+1CB140,OptionsButtonDownLit,dword_1CB140,new,low,options button down lit shape,src/data/front/front_C462F_bss_01.asm
+1CB148,OptionsMenuItems,unk_1CB148,97PC,low,options screen menu item records (82 bytes each),src/data/front/front_C462F_bss_01.asm
+1CBB88,OptionsAnimChoice,dword_1CBB88,new,low,options animation choice,src/data/front/front_C462F_bss_01.asm
+1CBB8C,OptionsMenuChoice,byte_1CBB8C,new,low,options menu choice,src/data/front/front_C462F_bss_01.asm
+1CBB8D,OptionsSoundPlayed,dword_1CBB8D,new,low,set once the options sound plays,src/data/front/front_C462F_bss_01.asm
 1CD1E0,InputRecordRing,unk_1CD1E0,96PC,high,96 PC InputRecordRing (97: 5 records of 14h bytes),src/data/front/front_DA66D_bss_01.asm
 1CD24C,HotKeyFlags,word_1CD24C,new,medium,"the record's flag word (pause and hot keys), from PollControllers",src/data/front/front_DA66D_bss_01.asm
 1CF0DC,memlist1,,95PC,medium,NHL95PC EDA08 (refset): referenced by the same 2 matched functions,

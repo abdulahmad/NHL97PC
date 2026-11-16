@@ -2,99 +2,99 @@
 bits 32
 %include "hockey.inc"
 section s_1CB014 nobits alloc noexec write align=1
-global dword_1CB014, dword_1CB018, dword_1CB064, dword_1CB068, dword_1CB06C, dword_1CB070, dword_1CB074, dword_1CB078
-global dword_1CB07C, dword_1CB080, dword_1CB084, dword_1CB088, dword_1CB08C, dword_1CB090, dword_1CB094, dword_1CB098
-global dword_1CB09C, dword_1CB0A0, dword_1CB0A4, dword_1CB0A8, dword_1CB0AC, dword_1CB0B0, dword_1CB0B4, dword_1CB0B8
-global dword_1CB0BC, dword_1CB0C0, dword_1CB0C4, dword_1CB0C8, dword_1CB0CC, dword_1CB0D0, dword_1CB0D4, dword_1CB0D8
-global dword_1CB0DC, dword_1CB0E0, dword_1CB0E4, dword_1CB0E8, dword_1CB0EC, dword_1CB0F0, dword_1CB0F4, dword_1CB0F8
-global dword_1CB0FC, dword_1CB100, dword_1CB104, dword_1CB108, dword_1CB10C
-dword_1CB014:
+global HistoryTextX, HistoryTextY, HistoryDotShape, HistoryArrowShape, HistoryArrowLitShape, HistoryArrowEndShape, HistoryHighlightText, HistoryShineList
+global HistorySparkleFrame, HistorySelectedTeam, HistoryTrophyIndex, HistoryDetailsOpen, HistoryTextBuffer, HistorySoundOn, HistoryLineLimit, HistoryTextBitmap
+global HistoryLineCount, HistoryTextList, HistoryShineFrame, HistoryLastTeam, HistoryPopupBitmap, HistoryShineTimer, HistoryTrophyTick, HistorySparkleTimer
+global HistoryTrophyList, HistoryBackShape, HistoryPopupOpen, HistoryTeamShape, HistoryDetailsTop, HistoryShineOn, HistoryTrophyState, HistoryLastSpeech
+global HistoryTrophyRow, HistoryEntryList, HistoryArtList, HistoryScreenBitmap, HistoryArtTop, HistoryDetailsList, HistoryArtChoice, HistoryTextShown
+global HistoryBackBitmap, HistoryDetailsChoice, HistoryShapeFile, OptionsButtonShapes, OptionsSoundShapes
+HistoryTextX:
         resb 4
-dword_1CB018:
+HistoryTextY:
         resb 76
-dword_1CB064:
+HistoryDotShape:
         resb 4
-dword_1CB068:
+HistoryArrowShape:
         resb 4
-dword_1CB06C:
+HistoryArrowLitShape:
         resb 4
-dword_1CB070:
+HistoryArrowEndShape:
         resb 4
-dword_1CB074:
+HistoryHighlightText:
         resb 4
-dword_1CB078:
+HistoryShineList:
         resb 4
-dword_1CB07C:
+HistorySparkleFrame:
         resb 4
-dword_1CB080:
+HistorySelectedTeam:
         resb 4
-dword_1CB084:
+HistoryTrophyIndex:
         resb 4
-dword_1CB088:
+HistoryDetailsOpen:
         resb 4
-dword_1CB08C:
+HistoryTextBuffer:
         resb 4
-dword_1CB090:
+HistorySoundOn:
         resb 4
-dword_1CB094:
+HistoryLineLimit:
         resb 4
-dword_1CB098:
+HistoryTextBitmap:
         resb 4
-dword_1CB09C:
+HistoryLineCount:
         resb 4
-dword_1CB0A0:
+HistoryTextList:
         resb 4
-dword_1CB0A4:
+HistoryShineFrame:
         resb 4
-dword_1CB0A8:
+HistoryLastTeam:
         resb 4
-dword_1CB0AC:
+HistoryPopupBitmap:
         resb 4
-dword_1CB0B0:
+HistoryShineTimer:
         resb 4
-dword_1CB0B4:
+HistoryTrophyTick:
         resb 4
-dword_1CB0B8:
+HistorySparkleTimer:
         resb 4
-dword_1CB0BC:
+HistoryTrophyList:
         resb 4
-dword_1CB0C0:
+HistoryBackShape:
         resb 4
-dword_1CB0C4:
+HistoryPopupOpen:
         resb 4
-dword_1CB0C8:
+HistoryTeamShape:
         resb 4
-dword_1CB0CC:
+HistoryDetailsTop:
         resb 4
-dword_1CB0D0:
+HistoryShineOn:
         resb 4
-dword_1CB0D4:
+HistoryTrophyState:
         resb 4
-dword_1CB0D8:
+HistoryLastSpeech:
         resb 4
-dword_1CB0DC:
+HistoryTrophyRow:
         resb 4
-dword_1CB0E0:
+HistoryEntryList:
         resb 4
-dword_1CB0E4:
+HistoryArtList:
         resb 4
-dword_1CB0E8:
+HistoryScreenBitmap:
         resb 4
-dword_1CB0EC:
+HistoryArtTop:
         resb 4
-dword_1CB0F0:
+HistoryDetailsList:
         resb 4
-dword_1CB0F4:
+HistoryArtChoice:
         resb 4
-dword_1CB0F8:
+HistoryTextShown:
         resb 4
-dword_1CB0FC:
+HistoryBackBitmap:
         resb 4
-dword_1CB100:
+HistoryDetailsChoice:
         resb 4
-dword_1CB104:
+HistoryShapeFile:
         resb 4
-dword_1CB108:
+OptionsButtonShapes:
         resb 4
-dword_1CB10C:
+OptionsSoundShapes:
         resb 16

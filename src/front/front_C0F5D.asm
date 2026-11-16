@@ -7,13 +7,13 @@ extern str_ARED, str_MB022, str_MB012, str_MB002, str_LB003, str_LD00, str_LB02d
 extern str_LTL0, str_CSV, str_HistoryCsv, str_MNTR2, str_MB042, str_MB02d, str_1TOP5, str_2TOP5
 extern str_3TOP5, str_1BOT5, str_2BOT5, str_3BOT5, str_BAK0, str_BAK1, str_BOTM3, str_BACK10
 extern str_TTL12, str_BOT1, str_TTL02, str_None, HistoryTeamFlags, MusicOptions, DetailLevel, byte_1C6040
-extern byte_1CBB8C, str_E_BuildHistoryList, HistoryEntries, dword_16DA9C, AudioOptions, dword_1C5DE4, dword_1C5E74, dword_1CB014
-extern dword_1CB018, dword_1CB064, dword_1CB068, dword_1CB06C, dword_1CB070, dword_1CB074, dword_1CB078, dword_1CB07C
-extern dword_1CB080, dword_1CB084, dword_1CB088, dword_1CB08C, dword_1CB090, dword_1CB094, dword_1CB098, dword_1CB09C
-extern dword_1CB0A0, dword_1CB0A4, dword_1CB0A8, dword_1CB0AC, dword_1CB0B0, dword_1CB0B4, dword_1CB0B8, dword_1CB0BC
-extern dword_1CB0C0, dword_1CB0C4, dword_1CB0C8, dword_1CB0CC, dword_1CB0D0, dword_1CB0D4, dword_1CB0D8, dword_1CB0DC
-extern dword_1CB0E0, dword_1CB0E4, dword_1CB0E8, dword_1CB0EC, dword_1CB0F0, dword_1CB0F4, dword_1CB0F8, dword_1CB0FC
-extern dword_1CB100, dword_1CB104, dword_1CBB88, HistoryCsvNames, sprintf_, strcat_, strcpy_, strlen_
+extern OptionsMenuChoice, str_E_BuildHistoryList, HistoryEntries, dword_16DA9C, AudioOptions, dword_1C5DE4, dword_1C5E74, HistoryTextX
+extern HistoryTextY, HistoryDotShape, HistoryArrowShape, HistoryArrowLitShape, HistoryArrowEndShape, HistoryHighlightText, HistoryShineList, HistorySparkleFrame
+extern HistorySelectedTeam, HistoryTrophyIndex, HistoryDetailsOpen, HistoryTextBuffer, HistorySoundOn, HistoryLineLimit, HistoryTextBitmap, HistoryLineCount
+extern HistoryTextList, HistoryShineFrame, HistoryLastTeam, HistoryPopupBitmap, HistoryShineTimer, HistoryTrophyTick, HistorySparkleTimer, HistoryTrophyList
+extern HistoryBackShape, HistoryPopupOpen, HistoryTeamShape, HistoryDetailsTop, HistoryShineOn, HistoryTrophyState, HistoryLastSpeech, HistoryTrophyRow
+extern HistoryEntryList, HistoryArtList, HistoryScreenBitmap, HistoryArtTop, HistoryDetailsList, HistoryArtChoice, HistoryTextShown, HistoryBackBitmap
+extern HistoryDetailsChoice, HistoryShapeFile, OptionsAnimChoice, HistoryCsvNames, sprintf_, strcat_, strcpy_, strlen_
 extern BlitShape2, BlitArt, BlitShape, PresentScreen, FindShape, DrawShapeBlended, ResetClipWindow, Random32
 extern LoadFileAlloc, UnpackShared, UnpackedSize, ConvertArtXY, ConvertArtKeepPos, DrawShadowRect, SetScreenTarget, MusicEnabled
 extern LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx, LoadDataFile, OpenDataLibrary, ShadeShape
@@ -45,28 +45,28 @@ HistoryScreen:
         call MusicEnabled
 .1:
         lea eax, [dword ebp-019E6h]
-        mov dword [dword_1CB0E0], eax
+        mov dword [HistoryEntryList], eax
         lea eax, [dword ebp-0216h]
-        mov dword [dword_1CB0CC], 0
-        mov dword [dword_1CB0F0], eax
+        mov dword [HistoryDetailsTop], 0
+        mov dword [HistoryDetailsList], eax
         lea eax, [byte ebp-042h]
-        mov dword [dword_1CB07C], 0
-        mov dword [dword_1CB0E4], eax
+        mov dword [HistorySparkleFrame], 0
+        mov dword [HistoryArtList], eax
         lea eax, [dword ebp-0AAh]
-        mov dword [dword_1CB0B8], 0
-        mov dword [dword_1CB0EC], eax
+        mov dword [HistorySparkleTimer], 0
+        mov dword [HistoryArtTop], eax
         lea eax, [dword ebp-0116h]
-        mov dword [dword_1CB0B0], 0
-        mov dword [dword_1CB0BC], eax
+        mov dword [HistoryShineTimer], 0
+        mov dword [HistoryTrophyList], eax
         lea eax, [dword ebp-03A6h]
-        mov dword [dword_1CB0A4], 0
-        mov dword [dword_1CB0A0], eax
+        mov dword [HistoryShineFrame], 0
+        mov dword [HistoryTextList], eax
         lea eax, [byte ebp+056h]
-        mov dword [dword_1CB0D0], 1
-        mov dword [dword_1CB078], eax
+        mov dword [HistoryShineOn], 1
+        mov dword [HistoryShineList], eax
         lea eax, [byte ebp+026h]
-        mov dword [dword_1CB0F8], 0
-        mov dword [dword_1CB074], eax
+        mov dword [HistoryTextShown], 0
+        mov dword [HistoryHighlightText], eax
         call SetHighlightText
         push byte 0FFFFFFFFh
         call MakeColor
@@ -78,7 +78,7 @@ HistoryScreen:
         call WaitSoundTime
         mov eax, 26h
         call LoadDataFile
-        mov dword [dword_1CB104], eax
+        mov dword [HistoryShapeFile], eax
         mov eax, 3
         xor edx, edx
         call SecondsToSamples
@@ -88,13 +88,13 @@ HistoryScreen:
         push byte 0
         push dword 1E0h
         push dword 280h
-        mov dword [dword_1CB0FC], eax
+        mov dword [HistoryBackBitmap], eax
         call CreateBitmap
         add esp, byte 0Ch
-        mov dword [dword_1CB0E8], eax
+        mov dword [HistoryScreenBitmap], eax
         lea eax, [dword ebp-0D66h]
         call DrawHistoryScreen
-        mov eax, dword [dword_1CB0E8]
+        mov eax, dword [HistoryScreenBitmap]
         xor edx, edx
         mov eax, dword [byte eax+02Ch]
         xor esi, esi
@@ -139,35 +139,35 @@ HistoryScreen:
 .6:
         cmp dword [byte ebp+07Eh], byte 0
         ja near .11
-        cmp dword [dword_1CB0C4], byte 0
+        cmp dword [HistoryPopupOpen], byte 0
         jne near .9
-        cmp dword [dword_1CB088], byte 0
+        cmp dword [HistoryDetailsOpen], byte 0
         je short .9
         lea eax, [dword ebp-0160Eh]
-        mov dword [dword_1CB088], 0
+        mov dword [HistoryDetailsOpen], 0
         call FindHistoryTeam
         call SetScreenTarget
-        mov eax, dword [dword_1CB0C8]
+        mov eax, dword [HistoryTeamShape]
         movsx edx, word [byte eax+0Eh]
         movsx eax, word [byte eax+06h]
         add eax, edx
         push eax
-        mov eax, dword [dword_1CB0C8]
+        mov eax, dword [HistoryTeamShape]
         movsx eax, word [byte eax+0Eh]
         push eax
-        mov eax, dword [dword_1CB0C8]
+        mov eax, dword [HistoryTeamShape]
         movsx edx, word [byte eax+0Ch]
         movsx eax, word [byte eax+04h]
         add eax, edx
         push eax
-        mov eax, dword [dword_1CB0C8]
+        mov eax, dword [HistoryTeamShape]
         movsx eax, word [byte eax+0Ch]
         push eax
 .7:
         call SetClipWindow
         add esp, byte 10h
         push byte 0
-        mov eax, dword [dword_1CB0E8]
+        mov eax, dword [HistoryScreenBitmap]
         push byte 0
         push dword [byte eax+02Ch]
         call BlitArt
@@ -178,7 +178,7 @@ HistoryScreen:
 .9:
         test esi, esi
         jne near .25
-        cmp dword [dword_1CB0C4], byte 0
+        cmp dword [HistoryPopupOpen], byte 0
         jne near .2
         push byte 3
         lea eax, [byte ebp+07Eh]
@@ -206,36 +206,36 @@ HistoryScreen:
         call ShowPopupScreen
         jmp short .9
 .13:
-        cmp dword [dword_1CB0C4], byte 0
+        cmp dword [HistoryPopupOpen], byte 0
         je short .9
         call DrawHistoryList
-        push dword [dword_1CB0E8]
-        mov dword [dword_1CB0C4], 0
+        push dword [HistoryScreenBitmap]
+        mov dword [HistoryPopupOpen], 0
         call SetDrawTarget
         add esp, byte 4
-        push dword [dword_1CB0C0]
+        push dword [HistoryBackShape]
         call BlitShape
-        mov eax, dword [dword_1CB0E8]
+        mov eax, dword [HistoryScreenBitmap]
         add esp, byte 4
         xor edx, edx
         mov eax, dword [byte eax+02Ch]
         call WipeScreen
-        cmp dword [dword_1CB0F8], byte 0
+        cmp dword [HistoryTextShown], byte 0
         je short .14
         lea eax, [dword ebp-0216h]
         call FreeScrollList
-        mov dword [dword_1CB0F8], 0
+        mov dword [HistoryTextShown], 0
 .14:
-        push dword [dword_1CB098]
+        push dword [HistoryTextBitmap]
         call FreeBitmap
         add esp, byte 4
-        push dword [dword_1CB08C]
-        mov dword [dword_1CB098], 0
+        push dword [HistoryTextBuffer]
+        mov dword [HistoryTextBitmap], 0
         call FreeMemBlock
-        mov dword [dword_1CB08C], 0
+        mov dword [HistoryTextBuffer], 0
         add esp, byte 4
         lea eax, [dword ebp-0160Eh]
-        mov dword [dword_1CB088], 0
+        mov dword [HistoryDetailsOpen], 0
         call FindHistoryTeam
         jmp near .9
 .15:
@@ -246,17 +246,17 @@ HistoryScreen:
         add ecx, dword [dword eax+ebp-019BCh]
         lea edx, [byte ebx+0Ah]
         push ecx
-        mov ebx, dword [dword_1CB0E8]
+        mov ebx, dword [HistoryScreenBitmap]
         push edx
         push dword [byte ebx+02Ch]
         mov edx, 0Ah
-        push dword [dword_1CB0EC]
+        push dword [HistoryArtTop]
         mov ebx, dword [dword eax+ebp-019C0h]
-        push dword [dword_1CB0E4]
+        push dword [HistoryArtList]
         mov eax, 1Ah
         call RunScrollList
         mov ebx, eax
-        cmp eax, dword [dword_1CB0F4]
+        cmp eax, dword [HistoryArtChoice]
         je near .9
         test eax, eax
         jl near .9
@@ -269,9 +269,9 @@ HistoryScreen:
         call ShowHistoryDetails
         jmp near .9
 .17:
-        cmp dword [dword_1CB0C4], byte 0
+        cmp dword [HistoryPopupOpen], byte 0
         je near .9
-        cmp dword [dword_1CB0F8], byte 0
+        cmp dword [HistoryTextShown], byte 0
         je near .9
         lea eax, [dword ebp-0216h]
         xor edx, edx
@@ -282,42 +282,42 @@ HistoryScreen:
         call DrawHistoryText
         jmp near .9
 .20:
-        cmp dword [dword_1CB0C4], byte 0
+        cmp dword [HistoryPopupOpen], byte 0
         je near .9
-        cmp dword [dword_1CB0F8], byte 0
+        cmp dword [HistoryTextShown], byte 0
         je near .9
         mov ebx, eax
         xor edx, edx
         lea eax, [dword ebp-0216h]
         call ScrollToMouse
-        mov eax, dword [dword_1CB100]
+        mov eax, dword [HistoryDetailsChoice]
         cmp eax, dword [dword ebp-01F2h]
         je near .9
         mov eax, dword [dword ebp-01F2h]
-        mov dword [dword_1CB100], eax
+        mov dword [HistoryDetailsChoice], eax
         jmp short .19
 .21:
-        cmp dword [dword_1CB0C4], byte 0
+        cmp dword [HistoryPopupOpen], byte 0
         je near .9
-        cmp dword [dword_1CB0F8], byte 0
+        cmp dword [HistoryTextShown], byte 0
         je near .9
         lea eax, [dword ebp-0216h]
         xor edx, edx
         call ScrollDown
         jmp short .18
 .22:
-        cmp dword [dword_1CB0C4], byte 0
+        cmp dword [HistoryPopupOpen], byte 0
         jne near .9
         lea eax, [dword ebp-0160Eh]
-        mov dword [dword_1CB088], 1
+        mov dword [HistoryDetailsOpen], 1
         call FindHistoryTeam
         call SetScreenTarget
-        push dword [dword_1CB0C8]
+        push dword [HistoryTeamShape]
         call BlitShape
         add esp, byte 4
         jmp near .8
 .23:
-        cmp dword [dword_1CB0C4], byte 0
+        cmp dword [HistoryPopupOpen], byte 0
         jne near .9
         cmp dword [byte ebp+07Eh], byte 0Ch
         jl short .24
@@ -329,13 +329,13 @@ HistoryScreen:
         mov eax, ebx
         jmp near .16
 .24:
-        cmp dword [dword_1CB088], byte 0
+        cmp dword [HistoryDetailsOpen], byte 0
         je near .9
         lea eax, [dword ebp-0160Eh]
-        mov dword [dword_1CB088], 0
+        mov dword [HistoryDetailsOpen], 0
         call FindHistoryTeam
         call SetScreenTarget
-        mov eax, dword [dword_1CB0C8]
+        mov eax, dword [HistoryTeamShape]
         movsx edx, word [byte eax+0Eh]
         movsx ebx, word [byte eax+06h]
         add ebx, edx
@@ -349,44 +349,44 @@ HistoryScreen:
         jmp near .7
 .25:
         call SetNormalText
-        cmp dword [dword_1CB08C], byte 0
+        cmp dword [HistoryTextBuffer], byte 0
         je short .26
-        mov dword [dword_1CB08C], 0
+        mov dword [HistoryTextBuffer], 0
 .26:
-        cmp dword [dword_1CB0C4], byte 0
+        cmp dword [HistoryPopupOpen], byte 0
         je short .27
-        cmp dword [dword_1CB0F8], byte 0
+        cmp dword [HistoryTextShown], byte 0
         je short .27
         lea eax, [dword ebp-0216h]
         call FreeScrollList
-        mov dword [dword_1CB0F8], 0
+        mov dword [HistoryTextShown], 0
 .27:
-        cmp dword [dword_1CB098], byte 0
+        cmp dword [HistoryTextBitmap], byte 0
         je short .28
-        push dword [dword_1CB098]
+        push dword [HistoryTextBitmap]
         call FreeBitmap
         add esp, byte 4
 .28:
         mov dword [byte ebp+07Eh], 0
 .29:
         mov eax, dword [byte ebp+07Eh]
-        mov edx, dword [dword_1CB0BC]
+        mov edx, dword [HistoryTrophyList]
         push dword [edx+eax*4]
         call FreeBitmap
         inc dword [byte ebp+07Eh]
         add esp, byte 4
         cmp dword [byte ebp+07Eh], byte 1Bh
         jl short .29
-        push dword [dword_1CB0AC]
+        push dword [HistoryPopupBitmap]
         call FreeBitmap
         add esp, byte 4
-        push dword [dword_1CB0E8]
+        push dword [HistoryScreenBitmap]
         call FreeBitmap
         add esp, byte 4
-        push dword [dword_1CB104]
+        push dword [HistoryShapeFile]
         call FreeMemBlock
         add esp, byte 4
-        push dword [dword_1CB0FC]
+        push dword [HistoryBackBitmap]
         call FreeMemBlock
         add esp, byte 4
         cmp byte [byte_1C6040], 0
@@ -410,10 +410,10 @@ DrawHistoryScreen:
         push edi
         enter 10h, 0
         mov esi, eax
-        mov dword [dword_1CB0C4], 0
-        mov dword [dword_1CB098], 0
+        mov dword [HistoryPopupOpen], 0
+        mov dword [HistoryTextBitmap], 0
         mov dword [byte ebp-04h], 0
-        mov dword [dword_1CB088], 0
+        mov dword [HistoryDetailsOpen], 0
 .1:
         push byte 0
         push byte 50h
@@ -421,10 +421,10 @@ DrawHistoryScreen:
         mov ebx, dword [byte ebp-04h]
         call CreateBitmap
         mov edx, eax
-        mov eax, dword [dword_1CB0BC]
+        mov eax, dword [HistoryTrophyList]
         mov dword [eax+ebx*4], edx
         add esp, byte 0Ch
-        mov eax, dword [dword_1CB0BC]
+        mov eax, dword [HistoryTrophyList]
         push dword [eax+ebx*4]
         call SetDrawTarget
         add esp, byte 4
@@ -449,10 +449,10 @@ DrawHistoryScreen:
         cmp dword [byte ebp-04h], byte 1Ah
         jl short .1
         push str_POPM
-        push dword [dword_1CB104]
+        push dword [HistoryShapeFile]
         call FindShape
         add esp, byte 8
-        mov dword [dword_1CB0C8], eax
+        mov dword [HistoryTeamShape], eax
         push byte 0
         movsx edx, word [byte eax+06h]
         push edx
@@ -461,85 +461,85 @@ DrawHistoryScreen:
         mov ebx, dword [byte ebp-04h]
         call CreateBitmap
         mov edx, eax
-        mov eax, dword [dword_1CB0BC]
+        mov eax, dword [HistoryTrophyList]
         mov dword [eax+ebx*4], edx
         add esp, byte 0Ch
-        mov eax, dword [dword_1CB0BC]
+        mov eax, dword [HistoryTrophyList]
         push dword [eax+ebx*4]
         call SetDrawTarget
         add esp, byte 4
         push byte 0
         push byte 0
-        push dword [dword_1CB0C8]
+        push dword [HistoryTeamShape]
         call BlitArt
-        mov eax, dword [dword_1CB0BC]
+        mov eax, dword [HistoryTrophyList]
         mov eax, dword [eax+ebx*4]
-        mov edx, dword [dword_1CB0C8]
+        mov edx, dword [HistoryTeamShape]
         mov eax, dword [byte eax+02Ch]
         mov dx, word [byte edx+0Ch]
         mov word [byte eax+0Ch], dx
-        mov eax, dword [dword_1CB0BC]
+        mov eax, dword [HistoryTrophyList]
         mov eax, dword [eax+ebx*4]
-        mov edx, dword [dword_1CB0C8]
+        mov edx, dword [HistoryTeamShape]
         mov eax, dword [byte eax+02Ch]
         mov dx, word [byte edx+0Eh]
         add esp, byte 0Ch
         mov word [byte eax+0Eh], dx
         mov eax, 27h
-        mov edx, dword [dword_1CB0E0]
+        mov edx, dword [HistoryEntryList]
         mov dword [byte ebp-04h], 0
         call InitMenuItems
 .2:
         imul eax, dword [byte ebp-04h], byte 52h
         mov ebx, dword [byte ebp-04h]
         shl ebx, 6
-        mov edx, dword [dword_1CB0E0]
+        mov edx, dword [HistoryEntryList]
         add ebx, esi
         inc dword [byte ebp-04h]
         mov dword [byte edx+eax+014h], ebx
         cmp dword [byte ebp-04h], byte 27h
         jl short .2
-        mov eax, dword [dword_1CB0E0]
+        mov eax, dword [HistoryEntryList]
         mov dword [byte eax+022h], 0
         mov edx, dword [byte eax+022h]
-        mov eax, dword [dword_1CB0E0]
+        mov eax, dword [HistoryEntryList]
         mov dword [byte eax+01Eh], edx
-        mov eax, dword [dword_1CB0E0]
+        mov eax, dword [HistoryEntryList]
         mov dword [byte eax+01Ah], edx
-        mov eax, dword [dword_1CB0E0]
+        mov eax, dword [HistoryEntryList]
         mov dword [byte eax+026h], 0
         mov edx, dword [byte eax+026h]
-        mov eax, dword [dword_1CB0E0]
+        mov eax, dword [HistoryEntryList]
         push dword 1E0h
         mov ecx, 280h
         mov dword [byte eax+026h], edx
         xor ebx, ebx
-        mov eax, dword [dword_1CB0E0]
+        mov eax, dword [HistoryEntryList]
         xor edx, edx
         call InitListBox
-        push dword [dword_1CB0E8]
+        push dword [HistoryScreenBitmap]
         call SetDrawTarget
         add esp, byte 4
         push str_BACK9
-        push dword [dword_1CB104]
+        push dword [HistoryShapeFile]
         call FindShape
         add esp, byte 8
         push eax
         call BlitShape
         add esp, byte 4
         push str_TITL10
-        push dword [dword_1CB0FC]
+        push dword [HistoryBackBitmap]
         call FindShape
         add esp, byte 8
         push eax
         call BlitShape
         add esp, byte 4
         push str_MAP0
-        push dword [dword_1CB104]
+        push dword [HistoryShapeFile]
         call FindShape
         add esp, byte 8
         push eax
-        mov dword [dword_1CB0C0], eax
+        mov dword [HistoryBackShape], eax
         call BlitShape
         add esp, byte 4
         push byte 0
@@ -548,57 +548,57 @@ DrawHistoryScreen:
         call CreateBitmap
         add esp, byte 0Ch
         push str_BDOT
-        push dword [dword_1CB104]
-        mov dword [dword_1CB0AC], eax
+        push dword [HistoryShapeFile]
+        mov dword [HistoryPopupBitmap], eax
         call FindShape
         add esp, byte 8
         push str_RDOT
-        push dword [dword_1CB104]
-        mov dword [dword_1CB064], eax
+        push dword [HistoryShapeFile]
+        mov dword [HistoryDotShape], eax
         call FindShape
         add esp, byte 8
-        mov dword [dword_1CB068], eax
+        mov dword [HistoryArrowShape], eax
         push str_ARRW
-        push dword [dword_1CB104]
+        push dword [HistoryShapeFile]
         call FindShape
         add esp, byte 8
         push str_ARED
-        push dword [dword_1CB104]
-        mov dword [dword_1CB06C], eax
+        push dword [HistoryShapeFile]
+        mov dword [HistoryArrowLitShape], eax
         call FindShape
-        mov dword [dword_1CB070], eax
-        mov eax, dword [dword_1CB0E8]
+        mov dword [HistoryArrowEndShape], eax
+        mov eax, dword [HistoryScreenBitmap]
         mov eax, dword [byte eax+02Ch]
         add esp, byte 8
         mov ebx, eax
         mov edx, eax
         call DrawScreenBackground
-        mov esi, dword [dword_1CB0E0]
+        mov esi, dword [HistoryEntryList]
         mov ecx, 52h
         lea edi, [dword esi+0334h]
         mov esi, unk_1C5EF8
         rep movsb
-        mov eax, dword [dword_1CB0E0]
+        mov eax, dword [HistoryEntryList]
         mov dword [dword eax+0334h], 0Ah
-        mov esi, dword [dword_1CB0E0]
+        mov esi, dword [HistoryEntryList]
         mov ecx, 52h
         lea edi, [byte esi+052h]
         mov esi, unk_1C5F9C
         rep movsb
-        mov eax, dword [dword_1CB0E0]
+        mov eax, dword [HistoryEntryList]
         push str_MB022
         mov ebx, str_MB002
         mov dword [byte eax+052h], 1
         mov ecx, str_MB012
-        mov edx, dword [dword_1CB0E0]
-        mov eax, dword [dword_1CB0FC]
+        mov edx, dword [HistoryEntryList]
+        mov eax, dword [HistoryBackBitmap]
         add edx, 0A4h
         call InitShapeListBox
         push str_LB003
         mov ecx, str_LD00
         mov ebx, str_LB003
-        mov edx, dword [dword_1CB0E0]
-        mov eax, dword [dword_1CB104]
+        mov edx, dword [HistoryEntryList]
+        mov eax, dword [HistoryShapeFile]
         add edx, 148h
         mov dword [byte ebp-04h], 0
         call InitShapeListBox
@@ -611,34 +611,34 @@ DrawHistoryScreen:
         add esp, byte 0Ch
         lea eax, [byte ebp-010h]
         push eax
-        push dword [dword_1CB104]
+        push dword [HistoryShapeFile]
         mov ebx, dword [byte ebp-04h]
         call FindShape
         mov edx, eax
-        mov eax, dword [dword_1CB0E4]
+        mov eax, dword [HistoryArtList]
         add esp, byte 8
         mov dword [eax+ebx*4], edx
         lea eax, [byte ebp-010h]
         push eax
-        push dword [dword_1CB104]
+        push dword [HistoryShapeFile]
         mov byte [byte ebp-0Fh], 44h
         call FindShape
         mov edx, eax
-        mov eax, dword [dword_1CB0EC]
+        mov eax, dword [HistoryArtTop]
         inc dword [byte ebp-04h]
         add esp, byte 8
         mov dword [eax+ebx*4], edx
         cmp dword [byte ebp-04h], byte 1Ah
         jl short .3
-        mov eax, dword [dword_1CB0E0]
+        mov eax, dword [HistoryEntryList]
         add eax, 3D8h
         mov dword [byte ebp-04h], 0
         call BuildHistoryList
-        mov dword [dword_1CB0A8], 0FFFFFFFFh
-        mov dword [dword_1CB080], 0FFFFFFFFh
+        mov dword [HistoryLastTeam], 0FFFFFFFFh
+        mov dword [HistorySelectedTeam], 0FFFFFFFFh
 .4:
         imul eax, dword [byte ebp-04h], byte 52h
-        mov edx, dword [dword_1CB0E0]
+        mov edx, dword [HistoryEntryList]
         add eax, edx
         cmp dword [byte eax+01Ah], byte 0
         je short .5
@@ -651,15 +651,15 @@ DrawHistoryScreen:
         inc dword [byte ebp-04h]
         cmp dword [byte ebp-04h], byte 0Ch
         jl short .4
-        mov dword [dword_1CB0DC], 0
+        mov dword [HistoryTrophyRow], 0
         mov dword [byte ebp-04h], 0
-        mov dword [dword_1CB084], 0
+        mov dword [HistoryTrophyIndex], 0
 .6:
         mov eax, dword [byte ebp-04h]
         mov edi, dword [nosplit eax*8+str_E_BuildHistoryList]
         mov eax, dword [nosplit eax*8+HistoryEntries]
         sub eax, byte 28h
-        push dword [dword_1CB0AC]
+        push dword [HistoryPopupBitmap]
         mov dword [byte ebp-08h], eax
         call SetDrawTarget
         mov eax, dword [byte ebp-08h]
@@ -670,14 +670,14 @@ DrawHistoryScreen:
         mov eax, edi
         neg eax
         push eax
-        mov eax, dword [dword_1CB0E8]
+        mov eax, dword [HistoryScreenBitmap]
         push dword [byte eax+02Ch]
         call BlitArt
         mov eax, dword [byte ebp-04h]
         add esp, byte 0Ch
         cmp byte [dword eax+HistoryTeamFlags], 1
         jne short .7
-        mov eax, dword [dword_1CB0C8]
+        mov eax, dword [HistoryTeamShape]
         movsx edx, word [byte eax+0Eh]
         sub edx, dword [byte ebp-08h]
         push edx
@@ -688,7 +688,7 @@ DrawHistoryScreen:
         call BlitArt
         add esp, byte 0Ch
 .7:
-        mov edx, dword [dword_1CB0AC]
+        mov edx, dword [HistoryPopupBitmap]
         mov edx, dword [byte edx+02Ch]
         movsx eax, word [byte edx+06h]
         push eax
@@ -696,7 +696,7 @@ DrawHistoryScreen:
         push eax
         push byte 0
         mov esi, dword [byte ebp-04h]
-        mov eax, dword [dword_1CB0BC]
+        mov eax, dword [HistoryTrophyList]
         push byte 0
         mov ebx, 14h
         mov eax, dword [eax+esi*4]
@@ -704,20 +704,20 @@ DrawHistoryScreen:
         xor ecx, ecx
         mov eax, dword [byte eax+02Ch]
         call DrawShadedLogo
-        mov eax, dword [dword_1CB0BC]
+        mov eax, dword [HistoryTrophyList]
         push dword [eax+esi*4]
         call SetDrawTarget
         add esp, byte 4
         push byte 0
-        mov eax, dword [dword_1CB0AC]
+        mov eax, dword [HistoryPopupBitmap]
         push byte 0
         push dword [byte eax+02Ch]
         call BlitArt
-        mov eax, dword [dword_1CB0BC]
+        mov eax, dword [HistoryTrophyList]
         mov eax, dword [eax+esi*4]
         mov eax, dword [byte eax+02Ch]
         mov word [byte eax+0Ch], di
-        mov eax, dword [dword_1CB0BC]
+        mov eax, dword [HistoryTrophyList]
         mov eax, dword [eax+esi*4]
         inc dword [byte ebp-04h]
         mov eax, dword [byte eax+02Ch]
@@ -726,7 +726,7 @@ DrawHistoryScreen:
         mov word [byte eax+0Eh], dx
         cmp dword [byte ebp-04h], byte 1Ah
         jl near .6
-        mov eax, dword [dword_1CB0C8]
+        mov eax, dword [HistoryTeamShape]
         movsx edx, word [byte eax+06h]
         push edx
         movsx edx, word [byte eax+04h]
@@ -735,33 +735,33 @@ DrawHistoryScreen:
         movsx ecx, word [byte eax+0Ch]
         push byte 0
         movsx edx, word [byte eax+0Eh]
-        mov eax, dword [dword_1CB0BC]
+        mov eax, dword [HistoryTrophyList]
         push byte 0
         mov eax, dword [eax+esi*4]
         push edx
         mov edx, dword [byte eax+02Ch]
-        mov eax, dword [dword_1CB0E8]
+        mov eax, dword [HistoryScreenBitmap]
         mov ebx, 8
         mov eax, dword [byte eax+02Ch]
         call ShadeShape
-        mov eax, dword [dword_1CB0BC]
+        mov eax, dword [HistoryTrophyList]
         mov eax, dword [eax+esi*4]
-        mov edx, dword [dword_1CB0C8]
+        mov edx, dword [HistoryTeamShape]
         mov eax, dword [byte eax+02Ch]
         mov dx, word [byte edx+0Ch]
         mov word [byte eax+0Ch], dx
-        mov eax, dword [dword_1CB0BC]
+        mov eax, dword [HistoryTrophyList]
         mov eax, dword [eax+esi*4]
-        mov edx, dword [dword_1CB0C8]
+        mov edx, dword [HistoryTeamShape]
         mov eax, dword [byte eax+02Ch]
         mov dx, word [byte edx+0Eh]
         mov dword [byte ebp-04h], 2
         mov word [byte eax+0Eh], dx
         mov ebx, 7
-        mov dword [dword_1CB014], 0Ah
-        mov dword [dword_1CB018], 5Ah
+        mov dword [HistoryTextX], 0Ah
+        mov dword [HistoryTextY], 5Ah
 .8:
-        mov eax, dword [dword_1CB0C0]
+        mov eax, dword [HistoryBackShape]
         mov edx, dword [byte ebp-04h]
         movsx eax, word [byte eax+04h]
         dec edx
@@ -773,7 +773,7 @@ DrawHistoryScreen:
         mov eax, dword [byte ebp-04h]
         add edx, 0BEh
         inc dword [byte ebp-04h]
-        mov dword [nosplit eax*4+dword_1CB014], edx
+        mov dword [nosplit eax*4+HistoryTextX], edx
         cmp dword [byte ebp-04h], byte 0Ah
         jl short .8
         push str_FNL0
@@ -789,20 +789,20 @@ DrawHistoryScreen:
         lea eax, [byte ebp-010h]
         push eax
         mov byte [byte ebp-0Eh], 4Ch
-        push dword [dword_1CB104]
+        push dword [HistoryShapeFile]
         mov ebx, dword [byte ebp-04h]
         call FindShape
         mov edx, eax
-        mov eax, dword [dword_1CB078]
+        mov eax, dword [HistoryShineList]
         add esp, byte 8
         mov dword [eax+ebx*4], edx
         lea eax, [byte ebp-010h]
         push eax
-        push dword [dword_1CB104]
+        push dword [HistoryShapeFile]
         mov byte [byte ebp-0Eh], 52h
         call FindShape
         mov edx, eax
-        mov eax, dword [dword_1CB078]
+        mov eax, dword [HistoryShineList]
         inc dword [byte ebp-04h]
         add esp, byte 8
         mov dword [byte eax+ebx*4+014h], edx
@@ -822,44 +822,44 @@ DrawHistoryScreen:
         push eax
         mov byte [byte ebp-0Fh], 54h
         mov byte [byte ebp-0Eh], 4Ch
-        push dword [dword_1CB104]
+        push dword [HistoryShapeFile]
         mov ebx, dword [byte ebp-04h]
         call FindShape
         mov edx, eax
-        mov eax, dword [dword_1CB074]
+        mov eax, dword [HistoryHighlightText]
         add esp, byte 8
         mov dword [eax+ebx*4], edx
         lea eax, [byte ebp-010h]
         push eax
-        push dword [dword_1CB104]
+        push dword [HistoryShapeFile]
         mov byte [byte ebp-0Eh], 52h
         call FindShape
         mov edx, eax
-        mov eax, dword [dword_1CB074]
+        mov eax, dword [HistoryHighlightText]
         add esp, byte 8
         mov dword [byte eax+ebx*4+018h], edx
         lea eax, [byte ebp-010h]
         push eax
         mov byte [byte ebp-0Fh], 42h
-        push dword [dword_1CB104]
+        push dword [HistoryShapeFile]
         mov byte [byte ebp-0Eh], 4Ch
         call FindShape
         mov edx, eax
-        mov eax, dword [dword_1CB074]
+        mov eax, dword [HistoryHighlightText]
         add esp, byte 8
         mov dword [byte eax+ebx*4+0Ch], edx
         lea eax, [byte ebp-010h]
         push eax
-        push dword [dword_1CB104]
+        push dword [HistoryShapeFile]
         mov byte [byte ebp-0Eh], 52h
         call FindShape
-        mov edx, dword [dword_1CB074]
+        mov edx, dword [HistoryHighlightText]
         inc dword [byte ebp-04h]
         add esp, byte 8
         mov dword [byte edx+ebx*4+024h], eax
         cmp dword [byte ebp-04h], byte 3
         jl near .10
-        push dword [dword_1CB0E8]
+        push dword [HistoryScreenBitmap]
         call SetDrawTarget
         add esp, byte 4
         push dword 198h
@@ -867,20 +867,20 @@ DrawHistoryScreen:
         push dword 280h
         push byte 0
         call SetClipWindow
-        mov eax, dword [dword_1CB074]
+        mov eax, dword [HistoryHighlightText]
         add esp, byte 10h
         push dword [eax]
         call BlitShape
-        mov eax, dword [dword_1CB074]
+        mov eax, dword [HistoryHighlightText]
         add esp, byte 4
         push dword [byte eax+0Ch]
         call BlitShape
         add esp, byte 4
         call ResetClipWindow
-        mov eax, dword [dword_1CB074]
+        mov eax, dword [HistoryHighlightText]
         push dword [byte eax+018h]
         call BlitShape
-        mov eax, dword [dword_1CB074]
+        mov eax, dword [HistoryHighlightText]
         add esp, byte 4
         push dword [byte eax+024h]
         call BlitShape
@@ -907,7 +907,7 @@ FindHistoryTeam:
         xor eax, eax
 .1:
         movzx edx, byte [dword eax+HistoryTeamFlags]
-        cmp edx, dword [dword_1CB088]
+        cmp edx, dword [HistoryDetailsOpen]
         jne short .6
         xor ebx, ebx
         jmp short .5
@@ -1653,27 +1653,27 @@ ShowHistoryArt:
         push ecx
         mov ebx, edx
         mov edx, eax
-        mov dword [dword_1CB0F4], eax
-        mov eax, dword [dword_1CB0E4]
+        mov dword [HistoryArtChoice], eax
+        mov eax, dword [HistoryArtList]
         shl edx, 2
         add eax, edx
-        mov edx, dword [dword_1CB0E0]
+        mov edx, dword [HistoryEntryList]
         mov eax, dword [eax]
         mov dword [dword edx+0162h], eax
-        mov eax, dword [dword_1CB0F4]
-        mov edx, dword [dword_1CB0EC]
+        mov eax, dword [HistoryArtChoice]
+        mov edx, dword [HistoryArtTop]
         shl eax, 2
         add edx, eax
-        mov eax, dword [dword_1CB0E0]
+        mov eax, dword [HistoryEntryList]
         mov edx, dword [edx]
         mov dword [dword eax+016Ah], edx
-        mov eax, dword [dword_1CB0E0]
+        mov eax, dword [HistoryEntryList]
         mov dword [dword eax+0166h], edx
         test ebx, ebx
         je short .1
         call SetScreenTarget
 .1:
-        mov eax, dword [dword_1CB0E0]
+        mov eax, dword [HistoryEntryList]
         push dword [dword eax+0172h]
         push dword [dword eax+016Eh]
         push dword [dword eax+0162h]
@@ -1725,7 +1725,7 @@ ExportHistoryCsv:
         add esp, byte 0Ch
         push eax
         push ebx
-        mov dword [dword_1CB08C], eax
+        mov dword [HistoryTextBuffer], eax
         call UnpackShared
         add esp, byte 8
         push ebx
@@ -1735,7 +1735,7 @@ ExportHistoryCsv:
         xor eax, eax
         jmp short .3
 .1:
-        mov esi, dword [dword_1CB08C]
+        mov esi, dword [HistoryTextBuffer]
         lea ecx, [byte eax+01h]
         cmp byte [esi+eax], 0Dh
         jne short .2
@@ -1753,14 +1753,14 @@ ExportHistoryCsv:
 .3:
         cmp eax, ebx
         jl short .1
-        mov eax, dword [dword_1CB0A0]
-        mov edx, dword [dword_1CB08C]
+        mov eax, dword [HistoryTextList]
+        mov edx, dword [HistoryTextBuffer]
         mov dword [eax], edx
         mov edx, 1
         xor eax, eax
         jmp short .7
 .4:
-        mov ecx, dword [dword_1CB08C]
+        mov ecx, dword [HistoryTextBuffer]
         add ecx, eax
         lea esi, [byte eax+01h]
         cmp byte [ecx], 0Dh
@@ -1769,15 +1769,15 @@ ExportHistoryCsv:
         mov byte [ecx], 0
         cmp esi, ebx
         jge short .7
-        mov ecx, dword [dword_1CB08C]
+        mov ecx, dword [HistoryTextBuffer]
         cmp byte [ecx+esi], 0
         jne short .5
         lea eax, [byte esi+01h]
 .5:
         cmp eax, ebx
         jge short .7
-        mov edi, dword [dword_1CB08C]
-        mov ecx, dword [dword_1CB0A0]
+        mov edi, dword [HistoryTextBuffer]
+        mov ecx, dword [HistoryTextList]
         mov esi, edx
         add edi, eax
         inc edx
@@ -1788,9 +1788,9 @@ ExportHistoryCsv:
 .7:
         cmp eax, ebx
         jl short .4
-        mov eax, dword [dword_1CB08C]
+        mov eax, dword [HistoryTextBuffer]
         mov byte [ebx+eax], 0
-        mov eax, dword [dword_1CB0A0]
+        mov eax, dword [HistoryTextList]
         mov ebx, edx
         mov dword [eax+ebx*4], 0
         mov eax, edx
@@ -1808,19 +1808,19 @@ HistoryLineWidth:
         mov esi, 0FFFFFFFFh
 .1:
         inc esi
-        mov eax, dword [dword_1CB0A0]
+        mov eax, dword [HistoryTextList]
         mov edx, esi
         mov eax, dword [eax+edx*4]
         call strlen_
         mov ecx, eax
-        mov eax, dword [dword_1CB0A0]
+        mov eax, dword [HistoryTextList]
         xor ebx, ebx
         mov eax, dword [eax+edx*4]
         lea edx, [byte ebp-040h]
         call WrapHistoryText
         cmp byte [byte ebp-040h], 48h
         je short .2
-        cmp esi, dword [dword_1CB094]
+        cmp esi, dword [HistoryLineLimit]
         jl short .1
 .2:
         lea eax, [byte esi+01h]
@@ -2009,9 +2009,9 @@ DrawHistoryText:
         push edi
         enter 60h, 0
         push eax
-        push dword [dword_1CB098]
+        push dword [HistoryTextBitmap]
         call SetDrawTarget
-        mov ebx, dword [dword_1CB0C0]
+        mov ebx, dword [HistoryBackShape]
         movsx eax, word [byte ebx+0Eh]
         add esp, byte 4
         neg eax
@@ -2020,7 +2020,7 @@ DrawHistoryText:
         neg eax
         mov dword [byte ebp-018h], 0Ah
         push eax
-        mov eax, dword [dword_1CB0E8]
+        mov eax, dword [HistoryScreenBitmap]
         mov esi, 8
         mov dword [byte ebp-01Ch], 12h
         push dword [byte eax+02Ch]
@@ -2029,11 +2029,11 @@ DrawHistoryText:
         add esp, byte 0Ch
 .1:
         inc edi
-        mov eax, dword [dword_1CB0A0]
+        mov eax, dword [HistoryTextList]
         mov ebx, edi
         mov eax, dword [eax+ebx*4]
         call strlen_
-        mov edx, dword [dword_1CB0A0]
+        mov edx, dword [HistoryTextList]
         mov dword [byte ebp-0Ch], eax
         mov edx, dword [edx+ebx*4]
         mov ecx, eax
@@ -2045,12 +2045,12 @@ DrawHistoryText:
         mov ebx, eax
         cmp byte [byte ebp-060h], 48h
         je short .2
-        cmp edi, dword [dword_1CB094]
+        cmp edi, dword [HistoryLineLimit]
         jl short .1
 .2:
         cmp byte [byte ebp-060h], 48h
         jne near .7
-        mov eax, dword [dword_1CB0A0]
+        mov eax, dword [HistoryTextList]
         mov edx, edi
         mov ecx, dword [byte ebp-0Ch]
         mov eax, dword [eax+edx*4]
@@ -2060,7 +2060,7 @@ DrawHistoryText:
         mov ebx, eax
         jmp short .6
 .3:
-        mov edx, dword [dword_1CB0A0]
+        mov edx, dword [HistoryTextList]
         mov eax, edi
         mov ecx, dword [byte ebp-0Ch]
         mov eax, dword [edx+eax*4]
@@ -2076,13 +2076,13 @@ DrawHistoryText:
         jge short .4
         push edx
         push esi
-        push dword [dword eax+dword_1CB014]
+        push dword [dword eax+HistoryTextX]
         push byte 0
         jmp short .5
 .4:
         push edx
         push esi
-        push dword [dword eax+dword_1CB014]
+        push dword [dword eax+HistoryTextX]
         push byte 2
 .5:
         call DrawTextAligned
@@ -2095,7 +2095,7 @@ DrawHistoryText:
         call MakeColor
         add esp, byte 4
         push eax
-        mov eax, dword [dword_1CB098]
+        mov eax, dword [HistoryTextBitmap]
         mov eax, dword [byte eax+02Ch]
         mov edx, dword [byte ebp-018h]
         movsx eax, word [byte eax+04h]
@@ -2120,13 +2120,13 @@ DrawHistoryText:
         add eax, edi
         shl eax, 2
         mov dword [byte ebp-014h], eax
-        mov eax, dword [dword_1CB0A0]
+        mov eax, dword [HistoryTextList]
         add eax, dword [byte ebp-014h]
         mov eax, dword [eax]
         call strlen_
         mov dword [byte ebp-010h], eax
         mov dword [byte ebp-0Ch], eax
-        mov eax, dword [dword_1CB0A0]
+        mov eax, dword [HistoryTextList]
         lea edx, [byte ebp-060h]
         add eax, dword [byte ebp-014h]
         xor ebx, ebx
@@ -2136,7 +2136,7 @@ DrawHistoryText:
         mov ebx, eax
         cmp byte [byte ebp-060h], 49h
         jne near .13
-        mov eax, dword [dword_1CB0A0]
+        mov eax, dword [HistoryTextList]
         add eax, dword [byte ebp-014h]
         mov ecx, dword [byte ebp-010h]
         lea edx, [byte ebp-060h]
@@ -2148,7 +2148,7 @@ DrawHistoryText:
 .9:
         mov eax, dword [byte ebp-064h]
         add eax, dword [byte ebp-08h]
-        mov edx, dword [dword_1CB0A0]
+        mov edx, dword [HistoryTextList]
         add eax, edi
         mov ecx, dword [byte ebp-0Ch]
         mov eax, dword [edx+eax*4]
@@ -2162,14 +2162,14 @@ DrawHistoryText:
         lea edx, [byte ebp-060h]
         push edx
         push esi
-        push dword [dword eax+dword_1CB014]
+        push dword [dword eax+HistoryTextX]
         push byte 0
         jmp short .11
 .10:
         lea edx, [byte ebp-060h]
         push edx
         push esi
-        push dword [dword eax+dword_1CB014]
+        push dword [dword eax+HistoryTextX]
         push byte 2
 .11:
         call DrawTextAligned
@@ -2185,23 +2185,23 @@ DrawHistoryText:
         cmp dword [byte ebp-08h], byte 11h
         jge short .15
         mov eax, dword [byte ebp-08h]
-        cmp eax, dword [dword_1CB09C]
+        cmp eax, dword [HistoryLineCount]
         jl near .8
 .15:
         call SetScreenTarget
-        mov eax, dword [dword_1CB0C0]
+        mov eax, dword [HistoryBackShape]
         movsx edx, word [byte eax+0Eh]
         push edx
         movsx eax, word [byte eax+0Ch]
         push eax
-        mov eax, dword [dword_1CB098]
+        mov eax, dword [HistoryTextBitmap]
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
         call PresentScreen
-        cmp dword [dword_1CB0F8], byte 0
+        cmp dword [HistoryTextShown], byte 0
         je near DrawHistoryScreen_73D
-        mov eax, dword [dword_1CB0F0]
+        mov eax, dword [HistoryDetailsList]
         xor edx, edx
         call DrawScrollBar
         jmp near DrawHistoryScreen_73D
@@ -2217,12 +2217,12 @@ DrawHistoryPopup:
         push edi
         enter 10h, 0
         push str_MNTR2
-        push dword [dword_1CB104]
+        push dword [HistoryShapeFile]
         call FindShape
         add esp, byte 8
         push str_MB042
         mov ebx, eax
-        push dword [dword_1CB0FC]
+        push dword [HistoryBackBitmap]
         mov esi, eax
         call FindShape
         add esp, byte 8
@@ -2280,7 +2280,7 @@ DrawHistoryPopup:
         push eax
         movsx eax, word [byte esi+0Ch]
         neg eax
-        mov edi, dword [dword_1CB0E8]
+        mov edi, dword [HistoryScreenBitmap]
         push eax
         push dword [byte edi+02Ch]
         call BlitArt
@@ -2319,8 +2319,8 @@ DrawHistoryPopup:
         call FreeBitmap
         mov ecx, str_MB042
         add esp, byte 4
-        mov edx, dword [dword_1CB0E0]
-        mov eax, dword [dword_1CB0FC]
+        mov edx, dword [HistoryEntryList]
+        mov eax, dword [HistoryBackBitmap]
         push str_MB042
         add edx, 0F6h
         mov ebx, ecx
@@ -2338,12 +2338,12 @@ DrawHistoryList:
         push edi
         enter 10h, 0
         push str_MNTR2
-        push dword [dword_1CB104]
+        push dword [HistoryShapeFile]
         call FindShape
         add esp, byte 8
         push str_MB042
         mov ebx, eax
-        push dword [dword_1CB0FC]
+        push dword [HistoryBackBitmap]
         mov esi, eax
         call FindShape
         add esp, byte 8
@@ -2401,7 +2401,7 @@ DrawHistoryList:
         push eax
         movsx eax, word [byte esi+0Ch]
         neg eax
-        mov ebx, dword [dword_1CB0E8]
+        mov ebx, dword [HistoryScreenBitmap]
         push eax
         push dword [byte ebx+02Ch]
         call BlitArt
@@ -2439,35 +2439,35 @@ DrawHistoryList:
         add esp, byte 4
         push dword [byte ebp-08h]
         call FreeBitmap
-        mov ebx, dword [dword_1CB0E0]
+        mov ebx, dword [HistoryEntryList]
         mov dword [dword ebx+0118h], 0
         mov eax, dword [dword ebx+0118h]
-        mov ebx, dword [dword_1CB0E0]
+        mov ebx, dword [HistoryEntryList]
         mov dword [dword ebx+0114h], eax
         mov ecx, 2
-        mov ebx, dword [dword_1CB0E0]
+        mov ebx, dword [HistoryEntryList]
         add esp, byte 4
         mov edx, 2BCh
         mov dword [dword ebx+0110h], eax
         push byte 2
-        mov eax, dword [dword_1CB0E0]
+        mov eax, dword [HistoryEntryList]
         xor ebx, ebx
         add eax, 0F6h
         mov edi, 7
         call InitListBox
 .5:
         imul esi, edi, byte 52h
-        mov ebx, dword [dword_1CB0E0]
+        mov ebx, dword [HistoryEntryList]
         mov dword [byte esi+ebx+022h], 0
         mov eax, dword [byte esi+ebx+022h]
-        mov ebx, dword [dword_1CB0E0]
+        mov ebx, dword [HistoryEntryList]
         mov dword [byte esi+ebx+01Eh], eax
-        mov ebx, dword [dword_1CB0E0]
+        mov ebx, dword [HistoryEntryList]
         push byte 2
         mov ecx, 2
         mov dword [byte esi+ebx+01Ah], eax
         mov edx, 2BCh
-        mov eax, dword [dword_1CB0E0]
+        mov eax, dword [HistoryEntryList]
         xor ebx, ebx
         add eax, esi
         inc edi
@@ -2484,7 +2484,7 @@ DrawHistoryTrophy:
         push ecx
         push edx
         push esi
-        mov ecx, dword [dword_1CB0E0]
+        mov ecx, dword [HistoryEntryList]
         xor eax, eax
         xor ebx, ebx
 .1:
@@ -2492,33 +2492,33 @@ DrawHistoryTrophy:
         imul edx, byte 52h
         cmp dword [byte ecx+edx+04h], byte 0
         jle short .2
-        cmp eax, dword [dword_1CB080]
+        cmp eax, dword [HistorySelectedTeam]
         je short .3
         inc ebx
-        mov dword [dword_1CB080], eax
+        mov dword [HistorySelectedTeam], eax
         jmp short .3
 .2:
         inc eax
         cmp eax, byte 1Bh
         jl short .1
 .3:
-        cmp dword [dword_1CB080], byte 0
+        cmp dword [HistorySelectedTeam], byte 0
         jl short .4
-        mov eax, dword [dword_1CB080]
+        mov eax, dword [HistorySelectedTeam]
         add eax, byte 0Ch
         imul eax, byte 52h
-        mov edx, dword [dword_1CB0E0]
+        mov edx, dword [HistoryEntryList]
         cmp dword [byte edx+eax+04h], byte 0
         jne short .4
-        mov dword [dword_1CB080], 0FFFFFFFFh
+        mov dword [HistorySelectedTeam], 0FFFFFFFFh
 .4:
-        mov eax, dword [dword_1CB0A8]
-        cmp eax, dword [dword_1CB080]
+        mov eax, dword [HistoryLastTeam]
+        cmp eax, dword [HistorySelectedTeam]
         je short .7
         test eax, eax
         jl short .6
         mov edx, eax
-        mov eax, dword [dword_1CB0BC]
+        mov eax, dword [HistoryTrophyList]
         mov eax, dword [eax+edx*4]
         mov eax, dword [byte eax+02Ch]
         movsx edx, word [byte eax+0Eh]
@@ -2534,31 +2534,31 @@ DrawHistoryTrophy:
         call SetClipWindow
         add esp, byte 10h
         push byte 0
-        mov eax, dword [dword_1CB0E8]
+        mov eax, dword [HistoryScreenBitmap]
         push byte 0
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        cmp dword [dword_1CB088], byte 0
+        cmp dword [HistoryDetailsOpen], byte 0
         je short .5
-        push dword [dword_1CB0C8]
+        push dword [HistoryTeamShape]
         call BlitShape
         add esp, byte 4
 .5:
         call ResetClipWindow
 .6:
-        mov eax, dword [dword_1CB080]
-        mov dword [dword_1CB0A8], eax
+        mov eax, dword [HistorySelectedTeam]
+        mov dword [HistoryLastTeam], eax
 .7:
         test ebx, ebx
         je short .9
-        cmp dword [dword_1CB080], byte 1Ah
+        cmp dword [HistorySelectedTeam], byte 1Ah
         jge short .8
-        mov eax, dword [dword_1CB080]
+        mov eax, dword [HistorySelectedTeam]
         xor edx, edx
         call ShowHistoryArt
 .8:
-        mov eax, dword [dword_1CB0C0]
+        mov eax, dword [HistoryBackShape]
         movsx edx, word [byte eax+0Eh]
         movsx ebx, word [byte eax+06h]
         add ebx, edx
@@ -2570,8 +2570,8 @@ DrawHistoryTrophy:
         push eax
         push edx
         call SetClipWindow
-        mov eax, dword [dword_1CB080]
-        mov edx, dword [dword_1CB0BC]
+        mov eax, dword [HistorySelectedTeam]
+        mov edx, dword [HistoryTrophyList]
         add esp, byte 10h
         mov eax, dword [edx+eax*4]
         push dword [byte eax+02Ch]
@@ -2581,20 +2581,20 @@ DrawHistoryTrophy:
 .9:
         mov eax, dword [tickcount]
         mov esi, eax
-        cmp eax, dword [dword_1CB084]
+        cmp eax, dword [HistoryTrophyIndex]
         jle near .13
-        cmp dword [dword_1CB080], byte 0
+        cmp dword [HistorySelectedTeam], byte 0
         jl near .12
-        cmp dword [dword_1CB080], byte 1Bh
+        cmp dword [HistorySelectedTeam], byte 1Bh
         jge near .12
-        cmp dword [dword_1CB0DC], byte 0
+        cmp dword [HistoryTrophyRow], byte 0
         sete al
-        mov ebx, dword [dword_1CB080]
+        mov ebx, dword [HistorySelectedTeam]
         movzx edx, al
         lea eax, [byte ebx+0Ch]
         imul eax, byte 52h
-        mov ecx, dword [dword_1CB0E0]
-        mov dword [dword_1CB0DC], edx
+        mov ecx, dword [HistoryEntryList]
+        mov dword [HistoryTrophyRow], edx
         mov eax, dword [byte ecx+eax+04h]
         test eax, eax
         jle short .12
@@ -2609,7 +2609,7 @@ DrawHistoryTrophy:
         push ebx
         sub eax, byte 4
         push eax
-        push dword [dword edx+dword_1CB06C]
+        push dword [dword edx+HistoryArrowLitShape]
         jmp short .11
 .10:
         mov ebx, dword [dword eax+HistoryEntries]
@@ -2618,13 +2618,13 @@ DrawHistoryTrophy:
         push ebx
         sub eax, byte 4
         push eax
-        push dword [dword edx+dword_1CB064]
+        push dword [dword edx+HistoryDotShape]
 .11:
         call DrawArt
         add esp, byte 0Ch
 .12:
         add esi, byte 1Eh
-        mov dword [dword_1CB084], esi
+        mov dword [HistoryTrophyIndex], esi
 .13:
         call HistoryTrophySound
         call DrawTrophyShine
@@ -2646,16 +2646,16 @@ HistoryTrophySound:
         enter 8, 0
         mov eax, dword [tickcount]
         mov esi, eax
-        cmp eax, dword [dword_1CB0B4]
+        cmp eax, dword [HistoryTrophyTick]
         jle near .3
-        mov edx, dword [dword_1CB0E0]
+        mov edx, dword [HistoryEntryList]
         cmp dword [dword edx+0A8h], byte 1
         jne short .2
         call Random32
         mov ebx, 3
         xor edx, edx
         div ebx
-        cmp edx, dword [dword_1CB0D8]
+        cmp edx, dword [HistoryLastSpeech]
         jl short .1
         inc edx
 .1:
@@ -2663,43 +2663,43 @@ HistoryTrophySound:
         push str_MB02d
         lea eax, [byte ebp-08h]
         push eax
-        mov dword [dword_1CB0D8], edx
+        mov dword [HistoryLastSpeech], edx
         call sprintf_
-        mov edx, dword [dword_1CB0E0]
+        mov edx, dword [HistoryEntryList]
         add esp, byte 0Ch
         push dword [dword edx+0CEh]
         push dword [dword edx+0CAh]
         lea eax, [byte ebp-08h]
         push eax
-        push dword [dword_1CB0FC]
+        push dword [HistoryBackBitmap]
         call FindShape
         add esp, byte 8
         push eax
         add esi, byte 4
         call BlitArt
-        mov dword [dword_1CB0D4], 2
+        mov dword [HistoryTrophyState], 2
         add esp, byte 0Ch
-        mov dword [dword_1CB0B4], esi
+        mov dword [HistoryTrophyTick], esi
         jmp short .3
 .2:
-        cmp dword [dword_1CB0D4], byte 1
+        cmp dword [HistoryTrophyState], byte 1
         jle short .3
-        mov dword [dword_1CB0D4], 0
+        mov dword [HistoryTrophyState], 0
 .3:
-        cmp dword [dword_1CB090], byte 0
+        cmp dword [HistorySoundOn], byte 0
         je short .4
-        cmp dword [dword_1CB0D4], byte 0
+        cmp dword [HistoryTrophyState], byte 0
         jne short .4
         call StopAllSfx
-        mov dword [dword_1CB090], 0
+        mov dword [HistorySoundOn], 0
 .4:
-        cmp dword [dword_1CB090], byte 0
+        cmp dword [HistorySoundOn], byte 0
         jne near HistoryLineWidth_42
-        cmp dword [dword_1CB0D4], byte 0
+        cmp dword [HistoryTrophyState], byte 0
         je near HistoryLineWidth_42
         mov eax, 309h
         call PlaySfx
-        mov dword [dword_1CB090], 1
+        mov dword [HistorySoundOn], 1
         jmp near HistoryLineWidth_42
 ;-----------------------------------------------------------------------------
 ; AnimateHistoryTrophy                            C3088  97 PC, low confidence
@@ -2713,44 +2713,44 @@ AnimateHistoryTrophy:
         enter 8, 0
         mov eax, dword [tickcount]
         mov esi, eax
-        cmp eax, dword [dword_1CB0B4]
+        cmp eax, dword [HistoryTrophyTick]
         jle near .3
-        mov eax, dword [dword_1CB0E0]
+        mov eax, dword [HistoryEntryList]
         cmp dword [dword eax+0FAh], byte 1
         jne short .2
         call Random32
         mov ebx, 3
         xor edx, edx
         div ebx
-        cmp edx, dword [dword_1CB0D8]
+        cmp edx, dword [HistoryLastSpeech]
         jl short .1
         inc edx
 .1:
-        mov dword [dword_1CB0D8], edx
+        mov dword [HistoryLastSpeech], edx
         add edx, byte 4
         push edx
         push str_MB02d
         lea eax, [byte ebp-08h]
         push eax
         call sprintf_
-        mov eax, dword [dword_1CB0E0]
+        mov eax, dword [HistoryEntryList]
         add esp, byte 0Ch
         push dword [dword eax+0120h]
         push dword [dword eax+011Ch]
         lea eax, [byte ebp-08h]
         push eax
-        push dword [dword_1CB0FC]
+        push dword [HistoryBackBitmap]
         call FindShape
         add esp, byte 8
         push eax
         add esi, byte 4
         call BlitArt
-        mov dword [dword_1CB0D4], 1
+        mov dword [HistoryTrophyState], 1
         add esp, byte 0Ch
-        mov dword [dword_1CB0B4], esi
+        mov dword [HistoryTrophyTick], esi
         jmp short .3
 .2:
-        mov dword [dword_1CB0D4], 0
+        mov dword [HistoryTrophyState], 0
 .3:
         call HistoryTrophySound
         call DrawTrophyShine
@@ -2766,46 +2766,46 @@ DrawTrophyShine:
         push edx
         mov eax, dword [tickcount]
         mov ebx, eax
-        cmp eax, dword [dword_1CB0A4]
+        cmp eax, dword [HistoryShineFrame]
         jbe short .3
-        cmp dword [dword_1CB0CC], byte 4
+        cmp dword [HistoryDetailsTop], byte 4
         jbe short .1
-        mov dword [dword_1CB0CC], 0
+        mov dword [HistoryDetailsTop], 0
 .1:
-        mov edx, dword [dword_1CB0CC]
-        mov eax, dword [dword_1CB078]
+        mov edx, dword [HistoryDetailsTop]
+        mov eax, dword [HistoryShineList]
         push dword [eax+edx*4]
         call BlitShape
-        inc dword [dword_1CB0CC]
+        inc dword [HistoryDetailsTop]
         add esp, byte 4
-        cmp dword [dword_1CB0CC], byte 4
+        cmp dword [HistoryDetailsTop], byte 4
         jbe short .2
-        mov dword [dword_1CB0CC], 0
+        mov dword [HistoryDetailsTop], 0
 .2:
         lea eax, [byte ebx+0Ch]
-        mov dword [dword_1CB0A4], eax
+        mov dword [HistoryShineFrame], eax
 .3:
-        cmp ebx, dword [dword_1CB0B0]
+        cmp ebx, dword [HistoryShineTimer]
         jbe short .7
-        cmp dword [dword_1CB0D0], byte 5
+        cmp dword [HistoryShineOn], byte 5
         jb short .4
-        cmp dword [dword_1CB0D0], byte 9
+        cmp dword [HistoryShineOn], byte 9
         jbe short .5
 .4:
-        mov dword [dword_1CB0D0], 5
+        mov dword [HistoryShineOn], 5
 .5:
-        mov edx, dword [dword_1CB0D0]
-        mov eax, dword [dword_1CB078]
+        mov edx, dword [HistoryShineOn]
+        mov eax, dword [HistoryShineList]
         push dword [eax+edx*4]
         call BlitShape
-        inc dword [dword_1CB0D0]
+        inc dword [HistoryShineOn]
         add esp, byte 4
-        cmp dword [dword_1CB0D0], byte 9
+        cmp dword [HistoryShineOn], byte 9
         jbe short .6
-        mov dword [dword_1CB0D0], 5
+        mov dword [HistoryShineOn], 5
 .6:
         add ebx, byte 0Eh
-        mov dword [dword_1CB0B0], ebx
+        mov dword [HistoryShineTimer], ebx
 .7:
         pop edx
         pop ecx
@@ -2823,7 +2823,7 @@ DrawTrophySparkle:
         mov eax, dword [tickcount]
         mov ebx, eax
         mov esi, eax
-        cmp eax, dword [dword_1CB0B8]
+        cmp eax, dword [HistorySparkleTimer]
         jbe short .1
         push dword 198h
         push byte 0
@@ -2836,7 +2836,7 @@ DrawTrophySparkle:
         xor edx, edx
         div ecx
         mov eax, edx
-        mov edx, dword [dword_1CB074]
+        mov edx, dword [HistoryHighlightText]
         push dword [edx+eax*4]
         call BlitShape
         add esp, byte 4
@@ -2847,16 +2847,16 @@ DrawTrophySparkle:
         div ecx
         add edx, ebx
         add edx, byte 0Ch
-        mov dword [dword_1CB0B8], edx
+        mov dword [HistorySparkleTimer], edx
 .1:
-        cmp esi, dword [dword_1CB07C]
+        cmp esi, dword [HistorySparkleFrame]
         jbe short .2
         call Random32
         mov ebx, 6
         xor edx, edx
         div ebx
         mov eax, edx
-        mov edx, dword [dword_1CB074]
+        mov edx, dword [HistoryHighlightText]
         push dword [byte edx+eax*4+018h]
         call BlitShape
         add esp, byte 4
@@ -2866,7 +2866,7 @@ DrawTrophySparkle:
         div ebx
         add edx, esi
         add edx, byte 0Ch
-        mov dword [dword_1CB07C], edx
+        mov dword [HistorySparkleFrame], edx
 .2:
         pop esi
         pop edx
@@ -2884,25 +2884,25 @@ ShowHistoryDetails:
         push esi
         push edi
         mov edi, eax
-        cmp dword [dword_1CB098], byte 0
+        cmp dword [HistoryTextBitmap], byte 0
         je near .4
-        cmp dword [dword_1CB0F8], byte 0
+        cmp dword [HistoryTextShown], byte 0
         je short .2
-        mov eax, dword [dword_1CB0F0]
+        mov eax, dword [HistoryDetailsList]
         mov esi, 7
         call FreeScrollList
 .1:
         imul edx, esi, byte 52h
-        mov eax, dword [dword_1CB0E0]
+        mov eax, dword [HistoryEntryList]
         mov dword [byte edx+eax+022h], 0
         mov ebx, dword [byte edx+eax+022h]
-        mov eax, dword [dword_1CB0E0]
+        mov eax, dword [HistoryEntryList]
         mov dword [byte edx+eax+01Eh], ebx
-        mov eax, dword [dword_1CB0E0]
+        mov eax, dword [HistoryEntryList]
         push byte 2
         mov dword [byte edx+eax+01Ah], ebx
         mov ecx, 2
-        mov eax, dword [dword_1CB0E0]
+        mov eax, dword [HistoryEntryList]
         xor ebx, ebx
         add eax, edx
         mov edx, 2BCh
@@ -2910,29 +2910,29 @@ ShowHistoryDetails:
         call InitListBox
         cmp esi, byte 0Ah
         jl short .1
-        mov dword [dword_1CB0F8], 0
+        mov dword [HistoryTextShown], 0
 .2:
-        cmp dword [dword_1CB08C], byte 0
+        cmp dword [HistoryTextBuffer], byte 0
         je short .3
-        push dword [dword_1CB08C]
+        push dword [HistoryTextBuffer]
         call FreeMemBlock
         add esp, byte 4
 .3:
-        mov dword [dword_1CB08C], 0
+        mov dword [HistoryTextBuffer], 0
         jmp short .5
 .4:
-        mov eax, dword [dword_1CB0C0]
+        mov eax, dword [HistoryBackShape]
         movsx edx, word [byte eax+06h]
         movsx ecx, word [byte eax+0Eh]
         movsx ebx, word [byte eax+0Ch]
         push edx
         movsx edx, word [byte eax+04h]
-        mov eax, dword [dword_1CB0E8]
+        mov eax, dword [HistoryScreenBitmap]
         push edx
         mov edx, 0Ch
         mov eax, dword [byte eax+02Ch]
         call DrawShadowBox
-        mov eax, dword [dword_1CB0C0]
+        mov eax, dword [HistoryBackShape]
         push byte 0
         movsx edx, word [byte eax+06h]
         push edx
@@ -2940,21 +2940,21 @@ ShowHistoryDetails:
         push eax
         call CreateBitmap
         add esp, byte 0Ch
-        mov dword [dword_1CB098], eax
+        mov dword [HistoryTextBitmap], eax
 .5:
         mov eax, edi
         call ExportHistoryCsv
-        mov dword [dword_1CB094], eax
+        mov dword [HistoryLineLimit], eax
         call HistoryLineWidth
-        mov edx, dword [dword_1CB094]
+        mov edx, dword [HistoryLineLimit]
         sub edx, eax
-        mov dword [dword_1CB09C], edx
+        mov dword [HistoryLineCount], edx
         cmp edx, byte 11h
         jle near .6
-        mov dword [dword_1CB0F8], 1
+        mov dword [HistoryTextShown], 1
         push byte 0
-        mov eax, dword [dword_1CB0C0]
-        mov dword [dword_1CB100], 0
+        mov eax, dword [HistoryBackShape]
+        mov dword [HistoryDetailsChoice], 0
         push byte 0
         movsx edx, word [byte eax+06h]
         push edx
@@ -2965,58 +2965,58 @@ ShowHistoryDetails:
         add eax, edx
         sub eax, byte 14h
         push eax
-        mov eax, dword [dword_1CB0E8]
+        mov eax, dword [HistoryScreenBitmap]
         mov ecx, 11h
-        mov ebx, dword [dword_1CB09C]
+        mov ebx, dword [HistoryLineCount]
         push dword [byte eax+02Ch]
-        mov edx, dword [dword_1CB0E0]
+        mov edx, dword [HistoryEntryList]
         push byte 0
         add edx, 23Eh
-        mov eax, dword [dword_1CB0F0]
+        mov eax, dword [HistoryDetailsList]
         call InitScrollList
-        mov eax, dword [dword_1CB0C0]
+        mov eax, dword [HistoryBackShape]
         movsx edx, word [byte eax+0Ch]
         movsx eax, word [byte eax+04h]
         add edx, eax
-        mov eax, dword [dword_1CB0E0]
+        mov eax, dword [HistoryEntryList]
         sub edx, byte 14h
         mov dword [dword eax+0264h], edx
-        mov eax, dword [dword_1CB0C0]
+        mov eax, dword [HistoryBackShape]
         movsx edx, word [byte eax+0Eh]
-        mov eax, dword [dword_1CB0E0]
+        mov eax, dword [HistoryEntryList]
         push str_1TOP5
         mov dword [dword eax+0268h], edx
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
         mov edx, eax
-        mov eax, dword [dword_1CB0E0]
+        mov eax, dword [HistoryEntryList]
         push str_2TOP5
         mov dword [dword eax+0258h], edx
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
         mov edx, eax
-        mov eax, dword [dword_1CB0E0]
+        mov eax, dword [HistoryEntryList]
         push str_3TOP5
         mov dword [dword eax+025Ch], edx
         push dword [dword_1C5DE4]
         call FindShape
         mov edx, eax
-        mov eax, dword [dword_1CB0E0]
+        mov eax, dword [HistoryEntryList]
         mov dword [dword eax+0260h], edx
-        mov eax, dword [dword_1CB0C0]
+        mov eax, dword [HistoryBackShape]
         movsx edx, word [byte eax+0Ch]
         movsx eax, word [byte eax+04h]
         add edx, eax
-        mov eax, dword [dword_1CB0E0]
+        mov eax, dword [HistoryEntryList]
         sub edx, byte 14h
         mov dword [dword eax+0308h], edx
-        mov eax, dword [dword_1CB0C0]
+        mov eax, dword [HistoryBackShape]
         movsx ebx, word [byte eax+0Eh]
         movsx eax, word [byte eax+06h]
         add ebx, eax
-        mov eax, dword [dword_1CB0E0]
+        mov eax, dword [HistoryEntryList]
         mov edx, dword [dword eax+0258h]
         movsx edx, word [byte edx+06h]
         sub ebx, edx
@@ -3027,36 +3027,36 @@ ShowHistoryDetails:
         call FindShape
         add esp, byte 8
         mov edx, eax
-        mov eax, dword [dword_1CB0E0]
+        mov eax, dword [HistoryEntryList]
         push str_2BOT5
         mov dword [dword eax+02FCh], edx
         push dword [dword_1C5DE4]
         call FindShape
         add esp, byte 8
         mov edx, eax
-        mov eax, dword [dword_1CB0E0]
+        mov eax, dword [HistoryEntryList]
         push str_3BOT5
         mov dword [dword eax+0300h], edx
         push dword [dword_1C5DE4]
         call FindShape
         mov edx, eax
-        mov eax, dword [dword_1CB0E0]
+        mov eax, dword [HistoryEntryList]
         add esp, byte 8
         mov dword [dword eax+0304h], edx
         jmp short .7
 .6:
-        mov eax, dword [dword_1CB0F0]
-        mov dword [dword_1CB0F8], 0
+        mov eax, dword [HistoryDetailsList]
+        mov dword [HistoryTextShown], 0
         mov dword [byte eax+024h], 0
 .7:
-        cmp dword [dword_1CB0C4], byte 0
+        cmp dword [HistoryPopupOpen], byte 0
         jne short .8
         call DrawHistoryPopup
 .8:
-        mov eax, dword [dword_1CB0F0]
+        mov eax, dword [HistoryDetailsList]
         mov eax, dword [byte eax+024h]
         call DrawHistoryText
-        mov dword [dword_1CB0C4], 1
+        mov dword [HistoryPopupOpen], 1
         jmp near DrawHistoryScreen_73E
 ;-----------------------------------------------------------------------------
 ; RunOptionsScreens                               C3594  97 PC, low confidence
@@ -3079,7 +3079,7 @@ RunOptionsScreens:
         jmp short .7
 .3:
         je short .4
-        cmp byte [byte_1CBB8C], 2
+        cmp byte [OptionsMenuChoice], 2
         jne short .4
         call OptionsScreen
         mov edx, eax
@@ -3114,7 +3114,7 @@ RunOptionsScreens:
         mov eax, 1
         jmp short .6
 .10:
-        mov eax, dword [dword_1CBB88]
+        mov eax, dword [OptionsAnimChoice]
         call OptionsAnimScreen
         jmp short .7
 .11:

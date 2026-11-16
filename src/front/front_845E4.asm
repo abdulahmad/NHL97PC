@@ -8,7 +8,7 @@ extern str_TITL2, str_GMT1, str_BOTM, str_LB00, str_LB07, str_MB02, str_MB01, st
 extern str_MB06, str_MB05, str_MB04, str_MB10, str_MB09, str_MB08, str_BACK4, str_SY02d
 extern str_SY00, str_SY01, str_SY02, str_SY03, str_SY04, str_SY05, str_SY06, str_GL00
 extern str_GR00, str_Mous3, str_DATAREPLAYNDX, FrontEndExit, MenuOptionFlags, LinkMenuCursor, IndexMenuCursor, PlayoffUserIndex
-extern byte_1C6040, MainMenuAnimEnd, MainMenuAnimDone, StatsMenuDrawn, StatsMenuChoice, byte_1CBB8C, MainMenuSelection, MainMenuFirstShow
+extern byte_1C6040, MainMenuAnimEnd, MainMenuAnimDone, StatsMenuDrawn, StatsMenuChoice, OptionsMenuChoice, MainMenuSelection, MainMenuFirstShow
 extern MainMenuAnimStop, StatsMenuMode, LinkTransferReady, dword_16D76C, dword_16DA9C, MenuScreenBitmap, GameSettings, GameOptionFlags
 extern SeasonDefaultUser, GameRecordIds, dword_1C5DE0, dword_1C5DE4, dword_1C8268, MainMenuAnimFrames, MainMenuAnimTimer, MainMenuAnimFrame
 extern MainMenuAnimStart, MainMenuAnimRate, MainMenuAnimShape, MainMenuAnimMode, MainMenuAnimX, MainMenuAnimY, MainMenuAnimArt, MainMenuAnimBack
@@ -1410,7 +1410,7 @@ MainMenuScreen_CFF:
         mov edx, dword [MainMenuCursor]
         add eax, byte 7
         call RunMenu
-        mov byte [byte_1CBB8C], al
+        mov byte [OptionsMenuChoice], al
         cmp dword [byte ebp+04Eh], byte 7
         ja near .48
         mov eax, dword [byte ebp+04Eh]

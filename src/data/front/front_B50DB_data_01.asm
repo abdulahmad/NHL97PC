@@ -16,7 +16,7 @@ global str_SC05, str_SC04, str_SC05SC06SC07, str_SC14, str_SC13, str_SC12, str_S
 global str_SC17, str_SC16, str_SC17SC18SC19, str_SC30, str_SC29, str_SC28, str_SC29SC30SC31, str_AB08
 global str_AB07, str_AB06, str_AB11, str_AB10, str_AB09, str_SC09SC10SC11, str_Rroster, str_Lroster
 global str_POWR2, str_01d02d, F64_0p9_DrawPlayerRatingsPage, str_Ai_PlayerStatsScreen, str_Rp, str_D_DrawPlayerRatings, str_0_DrawPlayerStatsText, str_S_DrawPlayerBio
-global str_Wt_ExportPlayerCard, str_Punct_ExportPlayerCard, unk_166948
+global str_Wt_ExportPlayerCard, str_Punct_ExportPlayerCard, CardExportSeparator
 str_MTRD:
         db 04Dh,054h,052h,025h,064h,00h
 str_MTR1:
@@ -166,7 +166,7 @@ str_20sD2:
         db 09h,025h,032h,030h,073h,09h,09h,025h,064h,0Ah,0Ah,0Ah,0Ah,00h
 str_Punct_ExportPlayerCard:
         db 020h,00h
-unk_166948:
+CardExportSeparator:
         db 0Ah,00h
 str_MN02d2:
         db 04Dh,04Eh,025h,030h,032h,064h,00h
