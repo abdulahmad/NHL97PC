@@ -9,10 +9,10 @@ extern str_Punct11, str_YouMustFirstUseTheSETUPPr, str_SystemBeforeRunningHOCKEY
 extern str_NHL97MustBeInstalledAndRu, str_CDFILEIVIV, str_BitteLegenSieDieNHL97CDIn, str_PleaseInsertTheNHL97CDROM, str_CHK12, str_X12, str_CB003, str_CHKD
 extern str_XD2, str_CB02d, str_N, str_E, str_W, str_S14, str_NW, str_NE
 extern str_SW, str_SE, str_LX02d, str_LC02d, str_UNPACKLOGO, str_LOGO8, str_LX004, str_LC004
-extern str_DisD, str_REL1, str_RELD, str_Ldn2, ShadeTable, byte_1AC818, byte_1AC81B, byte_1C1267
+extern str_DisD, str_REL1, str_RELD, str_Ldn2, ShadeTable, StartupFlag, byte_1AC81B, byte_1C1267
 extern byte_1C6040, close_, dword_16AEB4, dword_16CAB0, dword_16CAB4, str_Punct_DrawScreenBackground, dword_16CAF4, dword_16CB78
 extern dword_16CB7C, dword_16CB80, dword_16DA9C, dword_16E464, dword_16E468, MenuScreenBitmap, DebugMode, ScreenWidth
-extern ExitHandler, KbdHandlerInstalled, dword_1AC814, dword_1C5DAC, dword_1C5DB0, dword_1C5DB4, dword_1C5DDC, dword_1C5DE4
+extern ExitHandler, KbdHandlerInstalled, GameSettings, dword_1C5DAC, dword_1C5DB0, dword_1C5DB4, dword_1C5DDC, dword_1C5DE4
 extern dword_1C5DE8, dword_1C5E74, dword_1C5E78, dword_1C5E7C, dword_1C5E80, dword_1C5E84, dword_1C5EA0, dword_1C5EA4
 extern dword_1C5EA8, dword_1C5EC4, dword_1C5EC8, dword_1C5ECC, dword_1C5ED0, dword_1C5EEC, dword_1C5EF0, dword_1C5EF4
 extern dword_1C5F08, dword_1C5F0C, dword_1C5F12, dword_1C5F16, dword_1C5F1A, dword_1C5F1E, dword_1C5F22, dword_1C5F26
@@ -227,7 +227,7 @@ main_:
         add esp, byte 4
         cmp eax, 4C4B40h
         jge short .8
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 0Ch
         cmp eax, byte 8
         jne short .5
@@ -255,7 +255,7 @@ main_:
         add esp, byte 4
         test eax, eax
         jne short .12
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 0Ch
         cmp eax, byte 8
         jne short .9
@@ -291,7 +291,7 @@ main_:
         push str_Punct_main_
         mov byte [byte_1C1267], 0
         call printf_
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 0Ch
         add esp, byte 4
         cmp eax, byte 8
@@ -362,7 +362,7 @@ main_:
         call LoadJoystickConfig
         call AllocStaticBuffer
         mov edx, 1
-        movsx eax, byte [byte_1AC818]
+        movsx eax, byte [StartupFlag]
         call OpenAudioStream
         call RunIntro
         call LoadMainSfxBank
@@ -3995,7 +3995,7 @@ EditText:
         mov dword [DrawGlyphFn], edi
         call SetTextColor
 .1:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 0Ch
         cmp eax, byte 8
         jne short .2

@@ -4,20 +4,20 @@ bits 32
 section s_25894 progbits alloc exec nowrite align=1
 extern AllInPlace, GiveControl, IF@ATAN2, IF@DFMOD, SortCords, __CHP, str_Cuppal, awtmstruct
 extern byte_19CB70, byte_19CB74, byte_19CB7E, byte_19CB8A, byte_19CB8B, byte_19CBC2, byte_19CBC8, byte_19CBCA
-extern byte_19CBCC, byte_19CBFC, byte_19DAD4, byte_19DAD6, byte_19DAEF, byte_19EAC6, byte_19EBD2, changeplayer
+extern byte_19CBCC, byte_19CBFC, byte_19DAD4, byte_19DAD6, PlayerControlFlags, HmPlayerFlags, AwPlayerFlags, changeplayer
 extern F32_144, F32_96, F32_144_assleavebox, F32_48_assleavebox, F32_144_asspsclear, F32_96_asspsclear, F32_96_assleaveice, F32_144_asspenalty
 extern F32_96_asspenalty, F32_40, F32_96_assrefpenshot, F32_96_assrefsignal, F32_96_assrefwhistle, F32_96_assrefgoalline, F32_96_assrefdrop, F32_3
 extern F32_0p25, F32_7, F32_0p125, F32_0p125_KnockPuckAway, F32_48_PuckHitsGoalie, F32_0p25_PuckHitsGoalie, F32_0p166667_PuckHitsGoalie, F32_0p333333
 extern F32_3_PuckHitsGoalie, F32_0p142857, F32_7_PuckPlayerContact, F32_0p125_PuckPlayerContact, F32_0p5_pucknorm_body, F32_neg1872, F32_neg1152, F32_neg1392_pucknorm_body
-extern str_Punct_assintrostand, dword_168AA4, dword_168AA8, dword_168B14, dword_19CB38, dword_19CB48, dword_19CB54, dword_19CB66
+extern str_Punct_assintrostand, IntroLineX, IntroLineY, IntroLineCount, dword_19CB38, dword_19CB48, dword_19CB54, dword_19CB66
 extern dword_19CB6A, dword_19CBAA, penshottimer, dword_19CBE8, dword_19CBF8, dword_19CC00, dword_19CC02, dword_19CC12
-extern dword_19CC58, dword_19CC9C, dword_19CCA0, dword_19CCA4, dword_19CCC2, dword_19D39C, dword_19D3A0, dword_19D3A4
-extern dword_19DA50, dword_19DA58, dword_19DA94, dword_19DADE, dword_19DB12, dword_19DC60, dword_19DC68, dword_19E290
-extern dword_19E298, dword_19EAAE, dword_19EBB0, dword_19EBBA, dword_19ECBC, dword_1AC814, dword_1AC944, dword_1B8FA0
+extern dword_19CC58, dword_19CC9C, dword_19CCA0, dword_19CCA4, dword_19CCC2, StanleyPlayer, FaceoffPuckX, FaceoffPuckY
+extern dword_19DA50, dword_19DA58, dword_19DA94, PuckCarrierPos, PuckPathTable, HomeTeamRecord, AwayTeamRecord
+extern AwayTeamRecord, HmAssignPlayer, HmGoalieOnIce, AwAssignPlayer, AwGoalieOnIce, GameSettings, dword_1AC944, dword_1B8FA0
 extern dword_1B9CA4, dword_1B9CAC, dword_1BAAF8, dword_1BAB00, dword_1BF060, dword_1BF068, hmtmstruct, hypot_
 extern off_168CD8, off_168CE0, off_168CE8, off_168CF0, off_168CFC, off_168D04, off_168D08, off_168D0C
 extern F64_neg12, F64_1435, F64_3312, F64_720, F64_240, F64_2040, F64_4800, F64_0p01_DeflectPuck
-extern F64_6p28319_DeflectPuck, F64_3p14159_DeflectPuck, F64_neg6p28319_DeflectPuck, F64_neg3p14159_DeflectPuck, qword_160713, F64_0p00277778, F64_24, F64_6p28319_PuckHitsGoalie
+extern F64_6p28319_DeflectPuck, F64_3p14159_DeflectPuck, F64_neg6p28319_DeflectPuck, F64_neg3p14159_DeflectPuck, F64_DeflectScale, F64_0p00277778, F64_24, F64_6p28319_PuckHitsGoalie
 extern F64_0p00277778_PuckHitsGoalie, F64_20, F64_3p14159_PuckToStick, F64_0p00555556, F64_neg0p698132, F64_0p698132, F64_0p5_PuckToStick, F64_6p28319_PuckToStick
 extern F64_neg6p28319_PuckToStick, F64_neg3p14159_PuckToStick, F64_0p0174533, F64_5p49779, F64_12, F64_4272_ChkDelayedOffside, F64_2, F64_6p28319_PuckPlayerContact
 extern F64_0p00277778_PuckPlayerContact, F64_neg12_a2offsides, F64_1440, F64_4272_a2touchpuck, F64_neg12_PuckIChk, F64_4276, F64_12_PuckIChk, F64_neg4276
@@ -38,14 +38,14 @@ extern SetFaceExpression, SetFaceBlink, CupFaceTextures, SetModelSlotValue, Setu
 extern ClearObjectHidden, SetSPA, ResetAnimTimer, PickSkateAnim, FaceoffPuckDrop, SetSkateSpeedFromRating, StartWhistleStop, ObjectFramePos
 extern PuckBounceOffPlayer, GoalLinePuckTest, UpdatePuckCarrier, GoalJudgeTest, RandomPuckSpin, StopObject, StartOneTimerAnim, StartPuckReceiveAnim
 extern RefAtDotAnim, RefFaceoffAnim, RefGoalPaAnim, RefWhistleAnim, RefSignalAnim, RefGoalLineAnim, PuckDeflect, CupCelebration
-extern FadePalette, FadeOut, AllocMemBlock, FreeMemBlock, KbdIdleCall, unk_19E060, vtoa, word_168A4C
-extern word_168A4E, word_168A68, word_168A6A, word_19CB60, word_19CB64, word_19CB68, word_19CB82, word_19CB84
+extern FadePalette, FadeOut, AllocMemBlock, FreeMemBlock, KbdIdleCall, HomeTeamRecord, vtoa, OnsideOffsetX
+extern OnsideOffsetY, PuckChaseOffsetX, PuckChaseOffsetY, word_19CB60, word_19CB64, word_19CB68, word_19CB82, word_19CB84
 extern word_19CB8C, word_19CB8E, word_19CB90, word_19CB92, word_19CB94, word_19CB96, word_19CB98, word_19CB9A
 extern word_19CB9C, word_19CB9E, gameover, word_19CBAC, word_19CBAE, word_19CBB4, word_19CBB6, gsp
 extern gameclock, word_19CBBC, word_19CBBE, word_19CBC0, word_19CBD6, word_19CBD8, word_19CBDA, word_19CBDC
 extern penshotmode, word_19CBE0, penshotlive, word_19CBE6, word_19CBEA, word_19CBEC, word_19CBEE, word_19CBF2
-extern word_19CBF4, word_19CC04, word_19CC24, word_19CC26, word_19CC2C, word_19CC2E, word_19DAD9, word_19EABE
-extern word_19EBCA
+extern word_19CBF4, word_19CC04, word_19CC24, word_19CC26, word_19CC2C, word_19CC2E, word_19DAD9, HmPlayersInBox
+extern AwPlayersInBox
 global jpt_2B4B4, PlayerPastLine_D1, PuckToStick_424, PuckToStick_43B, PuckToStick_452, PuckToStick_469, PlayerPastLine, checkob
 global GetLowestPen, chk4lc, SkateOnside, SkateToEndBoards, asspuckc, ChkDefenseSwitch, ChasePuck, assnearest
 global StartScoreCelebration, assscore, ChkPullGoalieLate, assbench, PutBoxPlayerOnBench, ReleaseBoxToBench, assleavebox, asspsclear
@@ -288,8 +288,8 @@ GetLowestPen:
         push esi
         push edi
         sub esp, byte 4
-        mov dx, word [word_19EBCA]
-        mov ax, word [word_19EABE]
+        mov dx, word [AwPlayersInBox]
+        mov ax, word [HmPlayersInBox]
         sub eax, edx
         test ax, ax
         jle short .1
@@ -531,7 +531,7 @@ chk4lc:
 ;-----------------------------------------------------------------------------
 ; SkateOnside                                     25D40  97 PC, low confidence
 ; Offside warning on (byte_19CBCA 80h): send the player to his onside spot
-; (word_168A4C table by formation, mirrored by team), speed 25
+; (OnsideOffsetX table by formation, mirrored by team), speed 25
 ;-----------------------------------------------------------------------------
 SkateOnside:
         push ebx
@@ -545,8 +545,8 @@ SkateOnside:
         mov word [word_19CB68], ax
         mov eax, dword [dword_19CB66]
         sar eax, 10h
-        mov bx, word [nosplit eax*2+word_168A4E]
-        mov ax, word [nosplit eax*2+word_168A4C]
+        mov bx, word [nosplit eax*2+OnsideOffsetY]
+        mov ax, word [nosplit eax*2+OnsideOffsetX]
         mov word [regd1], bx
         mov word [word_19CB68], ax
         test byte [dword edx+0BFh], 80h
@@ -890,8 +890,8 @@ asspuckc:
         mov word [word_19CB68], ax
         mov eax, dword [dword_19CB66]
         sar eax, 10h
-        mov dx, word [nosplit eax*2+word_168A6A]
-        mov ax, word [nosplit eax*2+word_168A68]
+        mov dx, word [nosplit eax*2+PuckChaseOffsetY]
+        mov ax, word [nosplit eax*2+PuckChaseOffsetX]
         mov word [regd1], dx
         mov word [word_19CB68], ax
         test byte [dword ebx+0BFh], 80h
@@ -1150,7 +1150,7 @@ ChkDefenseSwitch:
 ;-----------------------------------------------------------------------------
 ; ChasePuck                                       264CC  97 PC, low confidence
 ; From assnearest: aims the player at the puck (or its carrier) plus its
-; velocity lead, speed by skill level (dword_1AC814 bits 7-8)
+; velocity lead, speed by skill level (GameSettings bits 7-8)
 ;-----------------------------------------------------------------------------
 ChasePuck:
         push ebx
@@ -1214,12 +1214,12 @@ ChasePuck:
         mov dword [byte eax+018h], 0
         mov eax, edx
         call SetSkateSpeedFromRating
-        test word [dword_1AC814], 180h
+        test word [GameSettings], 180h
         jne short .3
         mov dword [esp], 43020000h
         jmp short .5
 .3:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, 180h
         cmp eax, 80h
         jne short .4
@@ -2330,10 +2330,10 @@ assscore:
 .8:
         test byte [dword ebx+0BFh], 40h
         je short .9
-        mov eax, dword [dword_19E290]
+        mov eax, dword [AwayTeamRecord+20h]
         jmp short .10
 .9:
-        mov eax, dword [dword_19DC60]
+        mov eax, dword [HomeTeamRecord+20h]
 .10:
         mov dword [byte esp+08h], eax
         mov eax, dword [byte esp+08h]
@@ -2341,10 +2341,10 @@ assscore:
         mov dword [esp], eax
         test dl, 40h
         je short .11
-        mov eax, dword [dword_19E298]
+        mov eax, dword [AwayTeamRecord+28h]
         jmp short .12
 .11:
-        mov eax, dword [dword_19DC68]
+        mov eax, dword [HomeTeamRecord+28h]
 .12:
         mov dword [byte esp+04h], eax
         mov eax, dword [byte esp+04h]
@@ -3268,7 +3268,7 @@ AssignControlSlots:
         mov eax, SortCords
         jmp short .3
 .2:
-        mov eax, unk_19E060
+        mov eax, HomeTeamRecord+420h
 .3:
         mov edx, edi
 .4:
@@ -5742,17 +5742,17 @@ assintroline:
         mov eax, dword [dword esi+0FAh]
         cmp dword [byte eax+018h], 43700000h
         jge short .3
-        inc dword [dword_168B14]
+        inc dword [IntroLineCount]
 .3:
-        cmp dword [dword_168B14], byte 0Eh
+        cmp dword [IntroLineCount], byte 0Eh
         jl short .4
         xor edi, edi
-        mov dword [dword_168B14], edi
+        mov dword [IntroLineCount], edi
 .4:
-        mov edx, dword [dword_168B14]
-        mov eax, dword [nosplit edx*8+dword_168AA4]
+        mov edx, dword [IntroLineCount]
+        mov eax, dword [nosplit edx*8+IntroLineX]
         mov dword [byte esp+04h], eax
-        mov eax, dword [nosplit edx*8+dword_168AA8]
+        mov eax, dword [nosplit edx*8+IntroLineY]
         mov dword [esp], eax
         mov eax, dword [byte esi+0Ch]
         mov edx, dword [esp]
@@ -6027,13 +6027,13 @@ assstanley:
         push eax
         push dword 100h
         push byte 0
-        mov dword [dword_19D39C], eax
+        mov dword [StanleyPlayer], eax
         call GetPaletteRange
         add esp, byte 0Ch
         mov eax, 3
         call FadeOut
-        mov eax, dword [dword_19EBBA]
-        mov edx, dword [dword_19EAAE]
+        mov eax, dword [AwAssignPlayer]
+        mov edx, dword [HmAssignPlayer]
         sar eax, 10h
         sar edx, 10h
         sub edx, eax
@@ -6058,7 +6058,7 @@ assstanley:
         mov ecx, SortCords
         jmp short .2
 .1:
-        mov ecx, unk_19E060
+        mov ecx, HomeTeamRecord+420h
 .2:
         xor ebp, ebp
 .3:
@@ -6107,15 +6107,15 @@ assstanley:
         call SetModelSlotValue
         xor eax, eax
         call LoadCupArt
-        mov edx, dword [dword_19DADE]
+        mov edx, dword [PuckCarrierPos]
         sar edx, 18h
         add edx, SortCords
         mov eax, 20h
         mov byte [dword edx+0B2h], al
-        mov al, byte [byte_19DAEF]
+        mov al, byte [PlayerControlFlags]
         or al, 2
         mov ecx, SortCords
-        mov byte [byte_19DAEF], al
+        mov byte [PlayerControlFlags], al
         mov eax, 11EBh
         xor edx, edx
         call TriggerCameraFlashes
@@ -6154,10 +6154,10 @@ assstanley:
         cmp dword [byte eax+060h], 270Bh
         jne short .6
         mov ebx, 3
-        mov edx, dword [dword_19D39C]
+        mov edx, dword [StanleyPlayer]
         xor eax, eax
         call FadePalette
-        mov ebx, dword [dword_19D39C]
+        mov ebx, dword [StanleyPlayer]
         push ebx
         call FreeMemBlock
         add esp, byte 4
@@ -6297,14 +6297,14 @@ PlayerGetsPuck:
         jne short .7
         mov eax, 8
         call SetCrowdMood
-        mov ebx, dword [dword_19D3A0]
-        mov eax, dword [dword_19D3A4]
+        mov ebx, dword [FaceoffPuckX]
+        mov eax, dword [FaceoffPuckY]
         jmp short .8
 .7:
         mov eax, 6
         call SetCrowdMood
-        mov ebx, dword [dword_19D3A4]
-        mov eax, dword [dword_19D3A0]
+        mov ebx, dword [FaceoffPuckY]
+        mov eax, dword [FaceoffPuckX]
 .8:
         mov ecx, dword [off_168CFC]
         mov esi, dword [byte ecx+05Ah]
@@ -6556,7 +6556,7 @@ DeflectPuck:
         sub eax, byte 0Fh
         mov dword [byte esp+0Ch], eax
         fild dword [byte esp+0Ch]
-        fmul qword [qword_160713]
+        fmul qword [F64_DeflectScale]
         fmul qword [F64_0p00277778]
         fld dword [byte edx+040h]
         fxch
@@ -6742,14 +6742,14 @@ PuckHitsPlayer:
         je short .4
         test byte [dword ebx+0BFh], 8
         jne short .4
-        test word [dword_1AC814], 180h
+        test word [GameSettings], 180h
         jne short .2
         mov esi, dword [dword_19CB66]
         sar esi, 10h
         mov ebp, 6
         jmp short .3
 .2:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, 180h
         cmp eax, 80h
         jne short .4
@@ -6764,7 +6764,7 @@ PuckHitsPlayer:
         add eax, esi
         mov word [word_19CB68], ax
 .4:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, 180h
         cmp eax, 100h
         jne short .5
@@ -6940,7 +6940,7 @@ PuckHitsGoalie:
         cmp ax, dx
         je near .6
 .2:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, 180h
         cmp eax, 100h
         jne short .3
@@ -7012,7 +7012,7 @@ PuckHitsGoalie:
         mov eax, dword [off_168CFC]
         cmp byte [dword eax+0CEh], 0
         jne near .14
-        test word [dword_1AC814], 180h
+        test word [GameSettings], 180h
         jne short .7
         mov eax, 0Ah
         call randomd0
@@ -7026,7 +7026,7 @@ PuckHitsGoalie:
         fistp dword [byte ebp-04h]
         jmp short .9
 .7:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, 180h
         cmp eax, 80h
         jne short .8
@@ -7814,14 +7814,14 @@ PuckPlayerContact:
         xor edx, edx
         neg eax
         mov dl, byte [dword ecx+0CBh]
-        mov di, word [dword_1AC814]
+        mov di, word [GameSettings]
         add eax, edx
         test di, 180h
         jne short .4
         add eax, byte 0Ah
         jmp short .5
 .4:
-        mov edx, dword [dword_1AC814]
+        mov edx, dword [GameSettings]
         and edx, 180h
         cmp edx, 80h
         jne short .5
@@ -7832,7 +7832,7 @@ PuckPlayerContact:
         mov edx, ebx
         shl edx, 5
         add edx, ebx
-        test byte [nosplit edx*8+byte_19DAEF], 8
+        test byte [nosplit edx*8+PlayerControlFlags], 8
         jne short .6
         add eax, byte 5
 .6:
@@ -8322,7 +8322,7 @@ a2touchpuck:
         shl eax, 5
         add eax, edx
         mov edi, dword [dword_19CB48]
-        mov dl, byte [nosplit eax*8+byte_19DAEF]
+        mov dl, byte [nosplit eax*8+PlayerControlFlags]
         push edi
         test dl, 40h
         setne al
@@ -8400,7 +8400,7 @@ a2touchpuck:
         shl eax, 5
         add eax, edx
         mov esi, dword [dword_19CB48]
-        mov dl, byte [nosplit eax*8+byte_19DAEF]
+        mov dl, byte [nosplit eax*8+PlayerControlFlags]
         push esi
         test dl, 40h
         setne al
@@ -8436,8 +8436,8 @@ a2touchpuck:
         mov eax, dword [off_168CF0]
         cmp byte [eax], 0
         jl short .12
-        mov dx, word [word_19EBCA]
-        mov ax, word [word_19EABE]
+        mov dx, word [AwPlayersInBox]
+        mov ax, word [HmPlayersInBox]
         sub eax, edx
         mov word [word_19CB68], ax
         test byte [dword ecx+0BFh], 40h
@@ -8876,10 +8876,10 @@ MarkTwoLinePlayers:
         test byte [byte_19CBC2], 2
         je short .1
         mov ebx, SortCords
-        mov ecx, unk_19E060
+        mov ecx, HomeTeamRecord+420h
         jmp short .2
 .1:
-        mov ebx, unk_19E060
+        mov ebx, HomeTeamRecord+420h
         mov ecx, SortCords
 .2:
         mov eax, dword [off_168CE8]
@@ -9390,19 +9390,19 @@ pucknorm_body:
         jne near .49
         cmp word [word_19CBF4], byte 0
         jne near .49
-        mov eax, dword [dword_19EBB0]
+        mov eax, dword [HmGoalieOnIce]
         sar eax, 10h
         mov edx, eax
         shl edx, 5
         add edx, eax
-        cmp dword [nosplit edx*8+dword_19DB12], 1E0h
+        cmp dword [nosplit edx*8+PuckPathTable], 1E0h
         jle near .49
-        mov eax, dword [dword_19ECBC]
+        mov eax, dword [AwGoalieOnIce]
         sar eax, 10h
         mov edx, eax
         shl edx, 5
         add edx, eax
-        cmp dword [nosplit edx*8+dword_19DB12], 1E0h
+        cmp dword [nosplit edx*8+PuckPathTable], 1E0h
         jle near .49
         mov edx, dword [dword_19CB48]
         push edx
@@ -9764,7 +9764,7 @@ puckfaceoff2:
         xor esi, ebx
         call RemoveOverlayPanel
         mov al, byte [byte_19CBCA]
-        mov dl, byte [byte_19EBD2]
+        mov dl, byte [AwPlayerFlags]
         mov byte [byte_19CB8A], ch
         mov dword [dword_19CC58], ebx
         mov dword [dword_19CB38], ebx
@@ -9774,17 +9774,17 @@ puckfaceoff2:
         and dl, 0EFh
         mov byte [byte_19CBCA], al
         mov word [word_19CB94], cx
-        mov byte [byte_19EBD2], dl
+        mov byte [AwPlayerFlags], dl
         xor eax, eax
         mov dh, byte [byte_19CBCA]
         xor eax, ebx
         or dh, 5
         mov word [word_19CBF2], ax
-        mov ah, byte [byte_19EAC6]
+        mov ah, byte [HmPlayerFlags]
         mov ebx, 0FFFFFFFFh
         and ah, 0EFh
         mov byte [byte_19CBCA], dh
-        mov byte [byte_19EAC6], ah
+        mov byte [HmPlayerFlags], ah
         mov ax, word [word_19CBBE]
         mov dx, word [penshotmode]
         mov word [word_19CBB6], ax
@@ -10098,7 +10098,7 @@ puckfaceoff2:
         mov eax, dword [dword eax+0108h]
         add eax, 0A3h
         add eax, edx
-        mov dword [dword_19D3A4], eax
+        mov dword [FaceoffPuckY], eax
         jmp short .26
 .23:
         mov eax, dword [dword ecx+0FEh]
@@ -10108,7 +10108,7 @@ puckfaceoff2:
         imul ebx, eax, dword 125h
         lea eax, [dword edx+0A3h]
         add eax, ebx
-        mov dword [dword_19D3A0], eax
+        mov dword [FaceoffPuckX], eax
         jmp short .26
 .24:
         mov edx, dword [dword ecx+0AEh]
@@ -10232,7 +10232,7 @@ puckfaceoff2:
         movsx edx, si
         cmp bx, ax
         jne short .32
-        mov eax, unk_19E060
+        mov eax, HomeTeamRecord+420h
         jmp short .33
 .32:
         mov eax, SortCords
@@ -10290,9 +10290,9 @@ puckfaceoff2:
         mov ebx, dword [dword_19CB48]
         push ebx
         push eax
-        mov ecx, dword [dword_19D3A4]
+        mov ecx, dword [FaceoffPuckY]
         push ecx
-        mov esi, dword [dword_19D3A0]
+        mov esi, dword [FaceoffPuckX]
         push esi
         push dword 0A0000018h
         call CommentaryEvent

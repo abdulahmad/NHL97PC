@@ -5,10 +5,10 @@ section s_15AC2 progbits alloc exec nowrite align=1
 extern IF@ATAN2, IF@DFMOD, IF@DPOW, SortCords, __CHP, str_2d02d, str_DXD, str_Doubled
 extern str_Interlaced, str_Normal, str_SDSS, str_SS, str_SSS, str_DSS, str_SDSS2, str_SSD
 extern str_SSDD, str_SD, str_SDCS, str_Punct, str_2d01d, str_SD2, str_CHASE, str_THRILLCAMTm
-extern str_USERCHASE, str_IntroD3cp, str_ArenaViv, str_DDD, awtmstruct, byte_1687B4, byte_16892C, byte_16892D
-extern byte_16892E, byte_16892F, byte_168930, byte_1689BC, byte_1689C0, byte_1689E4, byte_19CA30, byte_19CA31
-extern byte_19CB7E, byte_19CBC2, byte_19CBC8, byte_19CBCA, byte_19CBCC, byte_19D01C, byte_19DAD5, byte_19DAD6
-extern byte_19DAEF, byte_19EAC6, byte_19EB54, byte_19EB55, byte_19EBD2, byte_19EC60, byte_19EC61, byte_1C135A
+extern str_USERCHASE, str_IntroD3cp, str_ArenaViv, str_DDD, awtmstruct, CameraFlagsByte, GoalSceneActive, ReplayCameraActive
+extern FaceoffDropScene, CameraScenesOn, IntermissionActive, FightSceneActive, PlayerAssignOrder, FaceoffSpotIndex, byte_19CA30, byte_19CA31
+extern byte_19CB7E, byte_19CBC2, byte_19CBC8, byte_19CBCA, byte_19CBCC, PanelNameBuf, byte_19DAD5, byte_19DAD6
+extern PlayerControlFlags, HmPlayerFlags, HmCoachOffense, HmCoachDefense, AwPlayerFlags, AwCoachOffense, AwCoachDefense, byte_1C135A
 extern byte_1C135B, F32_0p5, F32_65536, F32_100, F32_2000, F32_500, F32_neg500, F32_neg1800
 extern F32_neg4000, F32_neg1000, F32_neg500_UpdateCameraView, F32_neg2000, F32_neg0p000147059, F32_0p000232558, F32_0p000357143, F32_neg0p000188679
 extern F32_20, F32_10_UpdateCameraView, F32_neg10, F32_neg1050, F32_neg1000_UpdateCameraZoom, F32_neg4600, F32_neg4100, F32_1340
@@ -19,25 +19,25 @@ extern F32_neg700_MenuOrbitScene, F32_neg200, F32_neg300, F32_neg750, F32_750, F
 extern F32_50, F32_0p001, F32_80, F32_6, F32_neg2000_ReplayCamMove, F32_neg4800_ReplayCamMove, F32_4272, F32_1392
 extern F32_neg4272, F32_neg1392, F32_10_CanReachPuck, F32_24, F32_neg3984, F32_neg4272_InCrease, F32_4272_InCrease, F32_1272
 extern F32_4032, F32_768, F32_192, F32_48, F32_0p166667, CameraSceneId, dword_1686BA, dword_1686C0
-extern dword_1686D2, dword_1686E6, dword_16875E, dword_1687B8, dword_168934, dword_16893C, dword_16AF5C, dword_16B168
+extern dword_1686D2, dword_1686E6, PenaltyNameIds, F32_CameraNear, PenaltySceneYaw, PenaltySceneDist, dword_16AF5C, dword_16B168
 extern dword_16E464, dword_16E468, ScreenWidth, dword_19CB48, dword_19CB4C, dword_19CB50, dword_19CB5A, dword_19CB5E
 extern dword_19CB62, dword_19CB66, dword_19CB6A, dword_19CB7B, dword_19CBAA, penshottimer, dword_19CD10, dword_19CD14
-extern dword_19CD20, dword_19CD24, dword_19CD28, dword_19CD2C, dword_19CD30, dword_19CD34, dword_19D004, dword_19D008
-extern dword_19D00C, dword_19D010, dword_19D014, dword_19D018, dword_19D020, dword_19D024, dword_19D034, dword_19D038
-extern dword_19D03C, dword_19D040, dword_19D044, dword_19D048, dword_19D058, dword_19D068, dword_19D06C, dword_19D070
-extern dword_19D074, dword_19D078, dword_19D07C, dword_19D080, dword_19D084, dword_19D088, dword_19D08C, dword_19D090
-extern dword_19D094, dword_19D098, dword_19D09C, dword_19D0C8, dword_19D0CC, dword_19D0D0, dword_19D0D4, dword_19D0D8
-extern dword_19D0DC, dword_19D0E4, dword_19D0E8, dword_19D0EC, dword_19D134, dword_19D138, dword_19D188, dword_19D18C
-extern dword_19D190, dword_19D194, dword_19D198, dword_19D19C, dword_19D1A0, dword_19D1A4, dword_19D1A8, dword_19D1B8
-extern dword_19D1BC, dword_19D1CC, dword_19D1D4, dword_19D1D8, dword_19D1DC, dword_19D1E0, dword_19D1E4, dword_19D1E8
-extern dword_19D334, dword_19D338, dword_19D340, dword_19D344, dword_19D348, dword_19D364, dword_19D368, dword_19D36C
-extern dword_19D370, dword_19D374, dword_19D378, dword_19D37C, dword_19D380, dword_19D384, dword_19D388, dword_19D38C
-extern dword_19D390, dword_19D394, dword_19D398, dword_19D3A8, dword_19DAD3, dword_19DADD, dword_19EBB8, dword_19ECC4
-extern dword_1A8E80, dword_1AC814, dword_1AC944, dword_1B10DC, dword_1B1410, dword_1B141C, dword_1B8FA0, dword_1B905F
+extern dword_19CD20, dword_19CD24, dword_19CD28, dword_19CD2C, dword_19CD30, dword_19CD34, ScorePanelHome, ScorePanelAway
+extern ScorePanelValues, AwayPanelValue, ClockShownSeconds, ClockShownMinutes, FightSceneTimer, FightSceneState, ReplayCamTarget, ReplayCamYaw
+extern ReplayCamPitch, PenShotSceneTimer, PenShotSceneState, MenuOrbitAngle, SceneStepCount, SceneSavedView, OpeningCamFrame, OpeningCamActive
+extern OpeningCamData, OpeningCamFrames, PenaltyCamDistance, PenaltyCamTimer, CameraSceneFunc, CameraSceneStep, CameraSceneArg, CameraDebugMarks
+extern CameraDebugOn, CameraDebugMask, CameraDebugLimit, CameraViewX, CameraViewY, CameraViewZ, CameraMode, CameraFocus
+extern CameraViewSel, CameraTargetObj, CameraTargetPtr, CameraViewTable, CameraPathCount, CameraTargetPoints, CameraPos, CameraOrbitBase
+extern CameraHeading, CameraElevation, CameraOrbitSpeed, CameraZoom, CameraLookAt, CameraHeight, CameraFocusVec, CameraPathTime
+extern CameraPathVec, CameraViewPair, CameraViewNear, CameraViewFar, SplineIndex, SplineCount, SplineStep, SplinePoints
+extern CameraDistance, CameraAngles, CameraFov, CameraFovTarget, CameraViewParams, CameraLag, CameraSpeed, CameraFollowObj
+extern TargetPointObj, CameraSceneCenter, CameraSceneYaw, CameraSceneDist, CameraTracking, ActiveCameraScene, CameraPathActive, CameraDebugText
+extern TargetVecX, TargetVecY, TargetVecZ, PassTargetAngle, dword_19DAD3, dword_19DADD, HmScore, AwScore
+extern ViewSizeIndex, GameSettings, dword_1AC944, dword_1B10DC, dword_1B1410, dword_1B141C, dword_1B8FA0, dword_1B905F
 extern dword_1B9063, dword_1B9067, dword_1B906B, dword_1B906F, dword_1B9077, dword_1B907B, dword_1B907F, dword_1B9083
 extern dword_1B9087, dword_1B908B, dword_1B908F, dword_1B9093, dword_1B9CA4, dword_1B9CAC, dword_1C95B0, dword_1C95B4
 extern dword_1C95BC, dword_1C95C4, TextAlign, TextColorTable, TextColor, DrawGlyphFn, ProjOffsetX, ProjOffsetY
-extern hmtmstruct, hypot_, DrawGlyph_494, off_168772, off_16877E, off_168CD8, off_168CE0, off_168CE8
+extern hmtmstruct, hypot_, DrawGlyph_494, OverlayPanelFuncs, ClockPanelFunc, off_168CD8, off_168CE0, off_168CE8
 extern off_168CF0, off_168CFC, off_168D04, off_168D08, off_168D0C, F64_0p000333333, F64_1p2_UpdateCameraView, F64_neg0p000454545
 extern F64_neg0p000357143, F64_neg99p9, F64_0p785398, F64_0p0004, F64_3, F64_10, F64_8, F64_neg4
 extern F64_neg0p7536, F64_1371p5, F64_4, F64_0p7536, F64_0p38, F64_2p5, F64_0p45, F64_0p85
@@ -62,20 +62,20 @@ extern FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, DrawShapeS
 extern FillRect, MeasureText, DrawTextAt, SetTextColors, DrawTextBoxedAt, FillRectCorners, MatRotY, MatTranspose
 extern VecMulMat, VecAdd, VecSub, VecDistance, VecLength, VecScale, VecNormalizeTo, ProjectPointInt
 extern tickcount, unk_158E2, unk_15932, unk_15982, unk_159D2, unk_15A22, unk_15A72, str_S_DrawPenaltyPanel
-extern str_Punct_DrawGoalScorerPanel, unk_1601F1, unk_1601F4, unk_1687BC, unk_1687C8, unk_1687D4, unk_1687E0, unk_1687EC
-extern unk_1687F8, unk_168810, unk_16881C, unk_168828, unk_168834, unk_168840, unk_16884C, unk_168858
-extern unk_168864, unk_168870, unk_16887C, unk_168888, unk_168894, unk_1688A0, unk_1688AC, unk_1688B8
-extern unk_16897C, unk_1689AC, unk_1689FC, unk_168A24, unk_16AF14, DebugTagStr, SplineCoefs, unk_19CF8C
-extern unk_19D028, unk_19D04C, unk_19D05C, unk_19D0A4, unk_19D214, unk_19D298, unk_19D31C, unk_19D328
-extern unk_19E060, unk_1B0AD0, unk_1B0AE8, unk_1B1090, unk_1B9038, unk_1B92AB, vecdist, vtoa
-extern str_D_ChangeViewSize, word_1689BE, word_1689C8, word_1689CA, word_19C628, word_19C62A, word_19CB34, word_19CB36
+extern str_Punct_DrawGoalScorerPanel, str_CommaSpace, str_CloseParen, CameraViewDefs
+extern CameraViewDefs
+extern CameraViewDefs
+extern IntermissionCamPath, IntermissionTimes, ExtraAttackerSpots, ExtraAttackerFlags, unk_16AF14, DebugTagStr, SplineCoefs, OverlayPanelQueue
+extern ReplayCamPos, MenuCamPos, MenuCamTarget, CameraPathPoints, SplineCoefsX, SplineCoefsY, CameraEye, CameraCenter
+extern HomeTeamRecord, unk_1B0AD0, unk_1B0AE8, unk_1B1090, unk_1B9038, unk_1B92AB, vecdist, vtoa
+extern str_D_ChangeViewSize, FightCameraReady, FaceoffSpotX, FaceoffSpotY, word_19C628, word_19C62A, word_19CB34, word_19CB36
 extern word_19CB5C, word_19CB60, word_19CB64, word_19CB68, word_19CB82, word_19CB84, word_19CB86, word_19CB8C
 extern word_19CB8E, word_19CB90, word_19CB92, word_19CB94, word_19CB96, word_19CB98, word_19CB9A, word_19CB9C
 extern word_19CB9E, gameover, word_19CBA2, word_19CBA4, word_19CBA6, word_19CBA8, word_19CBAC, word_19CBAE
 extern word_19CBB2, word_19CBB4, word_19CBB6, gsp, gameclock, word_19CBBC, word_19CBBE, word_19CBC0
 extern word_19CBD6, word_19CBD8, word_19CBDA, word_19CBDC, penshotmode, word_19CBE0, penshotlive, word_19CBE6
-extern word_19CBEA, word_19CBEE, word_19CBF4, word_19CC24, word_19CC26, word_19CC50, word_19DAD9, word_19E109
-extern word_19EABE, word_19EAC0, word_19EBCA, word_19EBCC
+extern word_19CBEA, word_19CBEE, word_19CBF4, word_19CC24, word_19CC26, word_19CC50, word_19DAD9, HomeTeamRecord
+extern HmPlayersInBox, HmLineState, AwPlayersInBox, AwLineState
 global jpt_19604, jpt_19F18, jpt_1A304, jpt_1A680, jpt_1A708, jpt_1B9C4, jpt_1F03C, PrevVideoModeKey_20A
 global PrevVideoModeKey_20E, PrevVideoModeKey_216, PrevVideoModeKey_217, DrawMessagePanel_15D, DrawMessagePanel_15F, DrawPenaltyPanel_26F, DrawSpecialTeamsPanel, DrawPenaltyShotPanel_48E
 global DrawPenaltyShotPanel_49A, DrawPenaltyShotPanel_4D7, DrawPowerPlayClock_18E, UpdateCameraView_28, UpdateCameraView_54, UpdateCameraView_AC, UpdateCameraView_11B, UpdateCameraView_1AC
@@ -148,7 +148,7 @@ ChangeViewSize:
         cdq
         idiv ebx
         mov ebx, eax
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         test byte [byte eax+04h], 2
         je short .3
         sar ebx, 1
@@ -163,7 +163,7 @@ ChangeViewSize:
         LD sub, eax, edx
         sar eax, 1
         sub edi, eax
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         mov dword [byte ebp-04h], eax
         mov eax, dword [dword_16E468]
         cdq
@@ -182,14 +182,14 @@ ChangeViewSize:
         sar eax, 1
         sub esi, eax
 .5:
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         mov dword [dword_19CD28], ecx
         mov dword [dword_19CD2C], ebx
         mov dword [dword_19CD20], edi
         mov edx, ecx
         mov dword [dword_19CD24], esi
         call SetViewSize
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         mov ebx, esi
         mov edx, edi
         call SetViewOrigin
@@ -209,7 +209,7 @@ SetViewWindow:
         idiv ebx
         mov ebx, dword [dword_16E468]
         sub ebx, eax
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         mov ecx, dword [dword_16E464]
         test byte [byte eax+04h], 2
         je short .1
@@ -217,12 +217,12 @@ SetViewWindow:
 .1:
         mov dword [dword_19CD20], 0
         mov dword [dword_19CD24], 0
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         mov dword [dword_19CD28], ecx
         mov edx, ecx
         mov dword [dword_19CD2C], ebx
         call SetViewSize
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         xor ebx, ebx
         xor edx, edx
         call SetViewOrigin
@@ -258,16 +258,16 @@ PrevVideoModeKey:
         mov dword [dword_19CD14], eax
         cmp eax, 100h
         jl short .1
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         call SetViewInterlaced
         mov dword [dword_19CD30], 1
         jmp short .2
 .1:
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         call ClearViewInterlaced
         mov dword [dword_19CD30], 0
 .2:
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         call ShowView
         movsx ebx, word [str_D_ChangeViewSize]
         mov eax, dword [dword_16E464]
@@ -282,7 +282,7 @@ PrevVideoModeKey:
         cdq
         idiv ebx
         mov ebx, eax
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         mov dword [dword_19CD34], 0
         test byte [byte eax+04h], 2
         je short .3
@@ -298,7 +298,7 @@ PrevVideoModeKey:
         LD sub, eax, edx
         sar eax, 1
         sub edi, eax
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         mov dword [byte ebp-04h], eax
         mov eax, dword [dword_16E468]
         cdq
@@ -317,14 +317,14 @@ PrevVideoModeKey:
         sar eax, 1
         sub esi, eax
 .5:
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         mov dword [dword_19CD28], ecx
         mov dword [dword_19CD2C], ebx
         mov dword [dword_19CD20], edi
         mov edx, ecx
         mov dword [dword_19CD24], esi
         call SetViewSize
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         mov ebx, esi
         mov edx, edi
         call SetViewOrigin
@@ -337,41 +337,41 @@ PrevVideoModeKey:
 .7:
         call SelectFont
         add esp, byte 4
-        test byte [byte_19EAC6], 2
+        test byte [HmPlayerFlags], 2
         je short .8
         movsx eax, word [word_19CB36]
         push eax
         push byte 0
         push byte 9
         call QueueOverlayPanel
-        mov dword [dword_19D004], 0FFFFFFFFh
+        mov dword [ScorePanelHome], 0FFFFFFFFh
         add esp, byte 0Ch
 .8:
-        test byte [byte_19EBD2], 2
+        test byte [AwPlayerFlags], 2
         je near PrevVideoModeKey_20A
         movsx eax, word [word_19CB34]
         push eax
         push byte 0
         push byte 0Ah
         call QueueOverlayPanel
-        mov dword [dword_19D008], 0FFFFFFFFh
+        mov dword [ScorePanelAway], 0FFFFFFFFh
         add esp, byte 0Ch
         jmp short PrevVideoModeKey_20A
 .9:
         cmp dword [dword_19CD34], byte 0
         je short .10
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         mov dword [dword_19CD30], 0
         call ClearViewInterlaced
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         mov dword [dword_19CD34], 0
         call ShowView
         jmp short PrevVideoModeKey_20A
 .10:
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         mov dword [dword_19CD30], 1
         call SetViewInterlaced
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         mov dword [dword_19CD34], 1
         call HideView
 PrevVideoModeKey_20A:
@@ -419,9 +419,9 @@ NextVideoModeKey:
         mov dword [dword_19CD10], eax
         mov eax, dword [byte ebp-014h]
         mov dword [dword_19CD14], eax
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         call ClearViewInterlaced
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         mov dword [dword_19CD30], 0
         call ShowView
         movsx ebx, word [str_D_ChangeViewSize]
@@ -437,7 +437,7 @@ NextVideoModeKey:
         cdq
         idiv ebx
         mov ebx, eax
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         mov dword [dword_19CD34], 0
         test byte [byte eax+04h], 2
         je short .3
@@ -457,7 +457,7 @@ NextVideoModeKey:
         cdq
         LD sub, eax, edx
         sar eax, 1
-        mov edi, dword [dword_1A8E80]
+        mov edi, dword [ViewSizeIndex]
         mov dword [byte ebp-04h], esi
         mov esi, eax
         test byte [byte edi+04h], 2
@@ -476,11 +476,11 @@ NextVideoModeKey:
         mov dword [dword_19CD2C], ebx
         mov edx, ecx
         mov dword [dword_19CD20], eax
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         mov dword [dword_19CD24], esi
         call SetViewSize
         mov edx, dword [byte ebp-04h]
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         mov ebx, esi
         call SetViewOrigin
         cmp dword [dword_16E468], 12Ch
@@ -492,37 +492,37 @@ NextVideoModeKey:
 .7:
         call SelectFont
         add esp, byte 4
-        test byte [byte_19EAC6], 2
+        test byte [HmPlayerFlags], 2
         je short .8
         movsx eax, word [word_19CB36]
         push eax
         push byte 0
         push byte 9
         call QueueOverlayPanel
-        mov dword [dword_19D004], 0FFFFFFFFh
+        mov dword [ScorePanelHome], 0FFFFFFFFh
         add esp, byte 0Ch
 .8:
-        test byte [byte_19EBD2], 2
+        test byte [AwPlayerFlags], 2
         je near PrevVideoModeKey_20A
         movsx eax, word [word_19CB34]
         push eax
         push byte 0
         push byte 0Ah
         call QueueOverlayPanel
-        mov dword [dword_19D008], 0FFFFFFFFh
+        mov dword [ScorePanelAway], 0FFFFFFFFh
         add esp, byte 0Ch
         jmp near PrevVideoModeKey_20A
 .9:
         cmp dword [dword_19CD34], byte 0
         je short .10
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         call ShowView
         mov dword [dword_19CD34], 0
         jmp near PrevVideoModeKey_20A
 .10:
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         call HideView
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         mov dword [dword_19CD34], 1
         call SetViewInterlaced
         mov dword [dword_19CD30], 1
@@ -535,22 +535,22 @@ NextVideoModeKey:
 ApplyDisplayFlags:
         cmp dword [dword_19CD30], byte 0
         je short .1
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         call SetViewInterlaced
         jmp short .2
 .1:
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         call ClearViewInterlaced
 .2:
         cmp dword [dword_19CD34], byte 0
         je short .3
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         jmp near HideView
 .3:
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         jmp near ShowView
         push edx
-        mov eax, unk_19CF8C
+        mov eax, OverlayPanelQueue
         xor edx, edx
 .4:
         cmp dword [eax], byte 0
@@ -574,7 +574,7 @@ RemoveOverlayPanel:
         push esi
         push edi
         mov edi, eax
-        mov ebx, unk_19CF8C
+        mov ebx, OverlayPanelQueue
         xor esi, esi
 .1:
         cmp dword [ebx], byte 0
@@ -1479,8 +1479,8 @@ GetPlayerPanelName:
         imul eax, dword 125h
         mov al, byte [dword edx+eax+01D5Ah]
 .2:
-        mov byte [byte_19D01C], al
-        mov eax, byte_19D01C
+        mov byte [PanelNameBuf], al
+        mov eax, PanelNameBuf
         pop edx
         ret
 .3:
@@ -1858,7 +1858,7 @@ DrawPenaltyPanel:
         je short .1
         movsx eax, dx
         sar eax, 1
-        mov eax, dword [nosplit eax*4+dword_16875E]
+        mov eax, dword [nosplit eax*4+PenaltyNameIds]
         call GetLangText
         push eax
         push str_S_DrawPenaltyPanel
@@ -1930,7 +1930,7 @@ DrawPenaltyPanel:
         push eax
         movsx eax, dx
         sar eax, 1
-        mov eax, dword [nosplit eax*4+dword_16875E]
+        mov eax, dword [nosplit eax*4+PenaltyNameIds]
         call GetLangText
         push eax
         push str_SS
@@ -2114,8 +2114,8 @@ DrawSpecialTeamsPanel:
         lea edi, [byte ebp+02Eh]
         mov esi, unk_15982
         rep movsd
-        movsx eax, word [word_19EABE]
-        movsx ebx, word [word_19EBCA]
+        movsx eax, word [HmPlayersInBox]
+        movsx ebx, word [AwPlayersInBox]
         sub eax, ebx
         mov ebx, eax
         je near DrawPenaltyShotPanel_4D7
@@ -2520,7 +2520,7 @@ DrawPeriodPanel:
         add esp, byte 10h
         movzx eax, byte [byte_1C135B]
         push eax
-        mov eax, dword [dword_19ECC4]
+        mov eax, dword [AwScore]
         call TeamNameField
         push eax
         push str_SD
@@ -2530,7 +2530,7 @@ DrawPeriodPanel:
         add esp, byte 10h
         movzx eax, byte [byte_1C135A]
         push eax
-        mov eax, dword [dword_19EBB8]
+        mov eax, dword [HmScore]
         call TeamNameField
         push eax
         push str_SD
@@ -2588,10 +2588,10 @@ DrawGoalScorerPanel:
         mov dword [byte edx+08h], eax
         cmp word [byte ebp+07Ah], byte 0
         je short .1
-        mov eax, dword [dword_19ECC4]
+        mov eax, dword [AwScore]
         jmp short .2
 .1:
-        mov eax, dword [dword_19EBB8]
+        mov eax, dword [HmScore]
 .2:
         mov ecx, eax
         cmp di, byte 19h
@@ -2700,7 +2700,7 @@ DrawGoalScorerPanel:
         call strcat_
         test si, si
         jl short .18
-        mov edx, unk_1601F1
+        mov edx, str_CommaSpace
         lea eax, [byte ebp+02Ah]
         call strcat_
         cmp si, byte 19h
@@ -2727,7 +2727,7 @@ DrawGoalScorerPanel:
         lea eax, [byte ebp+02Ah]
         call strcat_
 .18:
-        mov edx, unk_1601F4
+        mov edx, str_CloseParen
         lea eax, [byte ebp+02Ah]
         call strcat_
         imul eax, dword [dword_16E468], byte 5Ah
@@ -2782,20 +2782,20 @@ DrawGameClock:
         cmp word [gameclock], byte 3Ch
         jle short .1
         movsx eax, word [gameclock]
-        cmp eax, dword [dword_19D018]
+        cmp eax, dword [ClockShownMinutes]
         je near PrevVideoModeKey_216
 .1:
         cmp word [gameclock], byte 3Dh
         jge short .2
         movsx eax, word [word_19CBBC]
-        cmp eax, dword [dword_19D014]
+        cmp eax, dword [ClockShownSeconds]
         je near PrevVideoModeKey_216
 .2:
         movsx eax, word [gameclock]
-        mov dword [dword_19D018], eax
+        mov dword [ClockShownMinutes], eax
         movsx eax, word [word_19CBBC]
         push ebx
-        mov dword [dword_19D014], eax
+        mov dword [ClockShownSeconds], eax
         call SetDrawTarget
         add esp, byte 4
         cmp dword [dword_16E468], 12Ch
@@ -2890,9 +2890,9 @@ DrawPowerPlayClock:
         enter 14h, 0
         mov ebx, eax
         movsx eax, word [gameclock]
-        cmp eax, dword [dword_19D018]
+        cmp eax, dword [ClockShownMinutes]
         je near DrawPowerPlayClock_18E
-        mov dword [dword_19D018], eax
+        mov dword [ClockShownMinutes], eax
         call GetLowestPen
         movsx esi, ax
         test esi, esi
@@ -3015,7 +3015,7 @@ DrawPowerPlayClock_18E:
         ret
 ;-----------------------------------------------------------------------------
 ; DrawClockPanel                                  17DC0  96 PC, low confidence
-; The clock panel (overlay kind table off_16877E entry 0): removes panels
+; The clock panel (overlay kind table ClockPanelFunc entry 0): removes panels
 ; 300h / 700h and draws the clock (DrawGameClock)
 ;-----------------------------------------------------------------------------
 DrawClockPanel:
@@ -3049,11 +3049,11 @@ DrawClockPanel:
         push dword 0FEh
         call ClearScreen
         mov dword [byte esi+08h], edi
-        mov dword [dword_19D018], 0FFFFFFFFh
+        mov dword [ClockShownMinutes], 0FFFFFFFFh
         add esp, byte 4
         mov eax, dword [esi]
         call DrawGameClock
-        mov dword [dword_19D018], 0FFFFFFFFh
+        mov dword [ClockShownMinutes], 0FFFFFFFFh
         cmp dword [dword_1B8FA0], byte 0
         je short .1
         cmp dword [dword_19CD30], byte 0
@@ -3137,7 +3137,7 @@ PowerPlayPanel:
         push ebx
         push byte 0
         push byte 0
-        mov dword [dword_19D018], 0
+        mov dword [ClockShownMinutes], 0
         call FillRect
         imul eax, dword [dword_16E468], byte 0Ah
         mov ecx, 190h
@@ -3217,20 +3217,20 @@ UpdateScoreboardPanel:
         mov eax, edx
         shl eax, 2
         movsx edx, word [gameclock]
-        cmp edx, dword [dword eax+dword_19D004]
+        cmp edx, dword [dword eax+ScorePanelHome]
         jne short .1
         mov ecx, dword [byte ebp-08h]
         movsx edx, word [nosplit ecx*2+word_19CB34]
-        cmp edx, dword [dword eax+dword_19D00C]
+        cmp edx, dword [dword eax+ScorePanelValues]
         je near .57
 .1:
         mov eax, dword [byte ebp-08h]
         movsx edx, word [gameclock]
-        mov dword [nosplit eax*4+dword_19D004], edx
+        mov dword [nosplit eax*4+ScorePanelHome], edx
         movsx edx, word [nosplit eax*2+word_19CB34]
-        movsx esi, word [word_19EBCA]
-        mov dword [nosplit eax*4+dword_19D00C], edx
-        movsx eax, word [word_19EABE]
+        movsx esi, word [AwPlayersInBox]
+        mov dword [nosplit eax*4+ScorePanelValues], edx
+        movsx eax, word [HmPlayersInBox]
         sub eax, esi
         mov esi, eax
         call SetOverlayFont
@@ -3864,7 +3864,7 @@ HomeTeamPanel:
         push dword 3DCCCCCDh
 .4:
         call DrawPanelArtScaled
-        mov dword [dword_19D00C], 0FFFFFFFFh
+        mov dword [ScorePanelValues], 0FFFFFFFFh
         xor edx, edx
         mov eax, dword [esi]
         call UpdateScoreboardPanel
@@ -3955,7 +3955,7 @@ AwayTeamPanel:
 .4:
         call DrawPanelArtScaled
         mov dword [byte esi+08h], ebx
-        mov dword [dword_19D010], 0FFFFFFFFh
+        mov dword [AwayPanelValue], 0FFFFFFFFh
         mov edx, 1
         mov eax, dword [esi]
         call UpdateScoreboardPanel
@@ -4362,7 +4362,7 @@ QueueOverlayPanel:
         enter 4, 0
         cmp dword [dword_1B8FA0], byte 0
         jne near DrawPowerPlayClock_18E
-        mov eax, unk_19CF8C
+        mov eax, OverlayPanelQueue
         xor edx, edx
 .1:
         cmp dword [eax], byte 0
@@ -4380,13 +4380,13 @@ QueueOverlayPanel:
         mov dword [byte ebp-04h], edx
         mov edx, dword [byte ebp+018h]
         shl edx, 2
-        cmp dword [dword edx+off_168772], byte 0
+        cmp dword [dword edx+OverlayPanelFuncs], byte 0
         je short .3
         lea ecx, [byte ebp-04h]
         mov esi, edx
         mov ebx, dword [byte ebp+01Ch]
         mov edx, dword [byte ebp+018h]
-        call dword [dword esi+off_168772]
+        call dword [dword esi+OverlayPanelFuncs]
 .3:
         mov dword [byte ebp-04h], 0
         jmp near DrawPowerPlayClock_18E
@@ -4400,7 +4400,7 @@ OpenFreeOverlay:
         push ecx
         push edx
         enter 4, 0
-        mov eax, unk_19CF8C
+        mov eax, OverlayPanelQueue
         xor edx, edx
 .1:
         cmp dword [eax], byte 0
@@ -4417,7 +4417,7 @@ OpenFreeOverlay:
         mov edx, 3
         mov dword [byte eax+04h], 0FFFFFFFFh
         xor ebx, ebx
-        call dword [off_16877E]
+        call dword [ClockPanelFunc]
 .3:
         leave
         pop edx
@@ -4426,7 +4426,7 @@ OpenFreeOverlay:
         ret
 ;-----------------------------------------------------------------------------
 ; ClearOverlayWindows                          18E35  97 PC, medium confidence
-; Removes and frees all ten game overlay windows (unk_19CF8C),
+; Removes and frees all ten game overlay windows (OverlayPanelQueue),
 ; RemoveOverlayWindow on each
 ;-----------------------------------------------------------------------------
 ClearOverlayWindows:
@@ -4434,7 +4434,7 @@ ClearOverlayWindows:
         push ecx
         push edx
         push esi
-        mov ebx, unk_19CF8C
+        mov ebx, OverlayPanelQueue
         xor esi, esi
 .1:
         cmp dword [ebx], byte 0
@@ -4464,7 +4464,7 @@ ClearOverlayWindows:
 RefreshOverlayWindows:
         push ebx
         push edx
-        mov edx, unk_19CF8C
+        mov edx, OverlayPanelQueue
         xor ebx, ebx
 .1:
         cmp dword [edx], byte 0
@@ -4525,8 +4525,8 @@ ChkPowerPlayPanel:
         push ebx
         push ecx
         push edx
-        movsx eax, word [word_19EBCA]
-        movsx ebx, word [word_19EABE]
+        movsx eax, word [AwPlayersInBox]
+        movsx ebx, word [HmPlayersInBox]
         sub ebx, eax
         je short .1
         movsx eax, word [gameclock]
@@ -4653,7 +4653,7 @@ DrawGameOverlays:
         call ChkShowStatsPanel
         mov dword [byte ebp-04h], 0
         mov dword [byte ebp-08h], 0
-        mov ebx, unk_19CF8C
+        mov ebx, OverlayPanelQueue
         xor esi, esi
 .1:
         cmp dword [ebx], byte 0
@@ -4740,7 +4740,7 @@ IsOverlayShown:
         push ebx
         push edx
         mov ebx, eax
-        mov eax, unk_19CF8C
+        mov eax, OverlayPanelQueue
         xor edx, edx
 .1:
         cmp dword [eax], byte 0
@@ -4838,7 +4838,7 @@ GetCameraTarget:
         mov edx, esp
         lea ebx, [byte esp+030h]
         call VecMulMat
-        mov ebx, dword_19D390
+        mov ebx, TargetVecX
         mov edx, dword_1B905F
         lea eax, [byte esp+03Ch]
         call VecSub
@@ -4869,12 +4869,12 @@ GetCameraTarget:
         lea eax, [byte esp+030h]
         push eax
         push dword [byte esp+060h]
-        mov ebx, dword_19D390
+        mov ebx, TargetVecX
         call VecScale
         mov edx, eax
         lea eax, [byte esp+03Ch]
         call VecAdd
-        mov eax, dword_19D390
+        mov eax, TargetVecX
         add esp, byte 68h
         pop ebp
         pop edi
@@ -4925,7 +4925,7 @@ GetCameraTarget:
         pop ebx
         ret
 .8:
-        mov eax, dword_19D374
+        mov eax, CameraSceneCenter
         add esp, byte 68h
         pop ebp
         pop edi
@@ -4960,8 +4960,8 @@ GetCameraTarget:
 .11:
         mov ebx, 43480000h
         mov edx, 0C4FF0000h
-        mov dword [dword_19D394], ebx
-        mov dword [dword_19D390], edx
+        mov dword [TargetVecY], ebx
+        mov dword [TargetVecX], edx
         jne short .12
         mov dword [byte esp+054h], 0FFFFFE0Ch
         jmp short .13
@@ -4969,8 +4969,8 @@ GetCameraTarget:
         mov dword [byte esp+054h], 1F4h
 .13:
         fild dword [byte esp+054h]
-        mov eax, dword_19D390
-        fstp dword [dword_19D398]
+        mov eax, TargetVecX
+        fstp dword [TargetVecZ]
         add esp, byte 68h
         pop ebp
         pop edi
@@ -4982,8 +4982,8 @@ GetCameraTarget:
 .14:
         mov ebp, 43480000h
         mov edi, 44FF0000h
-        mov dword [dword_19D394], ebp
-        mov dword [dword_19D390], edi
+        mov dword [TargetVecY], ebp
+        mov dword [TargetVecX], edi
         cmp eax, byte 16h
         jne short .15
         mov dword [byte esp+058h], 0FFFFFE0Ch
@@ -4992,8 +4992,8 @@ GetCameraTarget:
         mov dword [byte esp+058h], 1F4h
 .16:
         fild dword [byte esp+058h]
-        mov eax, dword_19D390
-        fstp dword [dword_19D398]
+        mov eax, TargetVecX
+        fstp dword [TargetVecZ]
         add esp, byte 68h
         pop ebp
         pop edi
@@ -5005,10 +5005,10 @@ GetCameraTarget:
 .17:
         mov ecx, 45228000h
         xor edx, edx
-        mov eax, dword_19D390
-        mov dword [dword_19D390], edx
-        mov dword [dword_19D394], ecx
-        mov dword [dword_19D398], edx
+        mov eax, TargetVecX
+        mov dword [TargetVecX], edx
+        mov dword [TargetVecY], ecx
+        mov dword [TargetVecZ], edx
         add esp, byte 68h
         pop ebp
         pop edi
@@ -5045,15 +5045,15 @@ GetCameraTarget:
         lea ebx, [byte eax-02h]
         lea eax, [nosplit ebx*4+00h]
         sub eax, ebx
-        mov edi, dword_19D390
+        mov edi, TargetVecX
         lea esi, [nosplit eax*4+unk_1B0AD0]
         movsd
         movsd
         movsd
-        fld dword [dword_19D394]
+        fld dword [TargetVecY]
         fadd dword [F32_100]
-        mov eax, dword_19D390
-        fstp dword [dword_19D394]
+        mov eax, TargetVecX
+        fstp dword [TargetVecY]
         add esp, byte 68h
         pop ebp
         pop edi
@@ -5063,7 +5063,7 @@ GetCameraTarget:
         pop ebx
         ret
 .21:
-        mov ebp, dword [dword_19D0E4]
+        mov ebp, dword [CameraTargetObj]
         xor ebx, ebx
         xor esi, esi
         mov dword [byte esp+050h], ebx
@@ -5074,23 +5074,23 @@ GetCameraTarget:
         jle short .24
         xor ecx, ecx
 .22:
-        mov eax, dword [dword ecx+dword_19D0E8]
+        mov eax, dword [dword ecx+CameraTargetPtr]
         call GetCameraTarget
         test eax, eax
         je short .23
         lea ebx, [byte esp+024h]
         push ebx
-        push dword [dword ecx+dword_19D138]
+        push dword [dword ecx+CameraTargetPoints]
         call VecScale
         lea ebx, [byte esp+048h]
         mov edx, eax
         lea eax, [byte esp+048h]
         call VecAdd
         fld dword [byte esp+064h]
-        fadd dword [dword ecx+dword_19D138]
+        fadd dword [dword ecx+CameraTargetPoints]
         fstp dword [byte esp+064h]
 .23:
-        mov ebp, dword [dword_19D0E4]
+        mov ebp, dword [CameraTargetObj]
         inc esi
         add ecx, byte 4
         cmp esi, ebp
@@ -5098,7 +5098,7 @@ GetCameraTarget:
 .24:
         fld1
         fdiv dword [byte esp+064h]
-        push dword_19D390
+        push TargetVecX
         sub esp, byte 4
         lea eax, [byte esp+050h]
         fstp dword [esp]
@@ -5166,7 +5166,7 @@ GetTargetPoint:
         je short .8
         jmp short .9
 .4:
-        mov eax, dword [dword_19D370]
+        mov eax, dword [TargetPointObj]
         mov dword [edx], eax
         mov eax, 1
         pop ebx
@@ -5202,7 +5202,7 @@ GetTargetPoint:
         push esi
         push edi
         mov esi, eax
-        mov eax, dword [dword_19D380]
+        mov eax, dword [CameraTracking]
         call GetCameraTarget
         test eax, eax
         je short .11
@@ -5250,7 +5250,7 @@ UpdateCameraView:
         ja near UpdateCameraView_8D3
         jmp dword [nosplit cs:edx*4+jpt_19604]
 UpdateCameraView_28:
-        cmp dword [dword_19D380], byte 0
+        cmp dword [CameraTracking], byte 0
         je near UpdateCameraView_8D3
         lea ebx, [dword ecx+0FCh]
         lea edx, [dword ecx+0108h]
@@ -5264,7 +5264,7 @@ UpdateCameraView_28:
         pop ebx
         ret
 UpdateCameraView_54:
-        cmp dword [dword_19D380], byte 0
+        cmp dword [CameraTracking], byte 0
         je near UpdateCameraView_8D3
         lea edx, [dword ecx+0E4h]
         lea ebx, [dword esp+0CCh]
@@ -5286,7 +5286,7 @@ UpdateCameraView_54:
         pop ebx
         ret
 UpdateCameraView_AC:
-        cmp dword [dword_19D380], byte 0
+        cmp dword [CameraTracking], byte 0
         je near UpdateCameraView_8D3
         lea ebx, [dword ecx+0FCh]
         lea edx, [dword ecx+0108h]
@@ -5312,41 +5312,41 @@ UpdateCameraView_AC:
         pop ebx
         ret
 UpdateCameraView_11B:
-        mov edx, dword [dword_19D1E0]
+        mov edx, dword [SplineCount]
         sub edx, byte 1Eh
         cmp eax, edx
         jl short .2
-        mov ebx, dword [dword_19D1DC]
-        mov eax, dword [dword_19D1E4]
+        mov ebx, dword [SplineIndex]
+        mov eax, dword [SplineStep]
         cmp eax, ebx
         jge short .1
-        mov esi, dword [dword_19D1E0]
-        mov eax, dword [nosplit eax*4+dword_19D1E8]
-        mov edx, dword [dword_19D1E4]
+        mov esi, dword [SplineCount]
+        mov eax, dword [nosplit eax*4+SplinePoints]
+        mov edx, dword [SplineStep]
         add esi, eax
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
-        mov ebx, unk_19D298
+        mov ebx, SplineCoefsY
         shl eax, 2
         add ebx, eax
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
-        mov edx, unk_19D214
+        mov edx, SplineCoefsX
         shl eax, 2
         add edx, eax
         mov eax, esi
-        mov dword [dword_19D1E0], esi
+        mov dword [SplineCount], esi
         call SetCameraSplineTarget
-        inc dword [dword_19D1E4]
+        inc dword [SplineStep]
         jmp short .3
 .1:
         xor ecx, ecx
-        mov dword [dword_19D0C8], ecx
+        mov dword [CameraViewX], ecx
         jmp short .3
 .2:
-        sub dword [dword_19D1E0], eax
+        sub dword [SplineCount], eax
 .3:
-        mov edi, dword_19D1A0
+        mov edi, CameraLookAt
         mov esi, dword_1B905F
         movsd
         movsd
@@ -5360,12 +5360,12 @@ UpdateCameraView_11B:
         ret
 UpdateCameraView_1AC:
         lea edx, [dword esp+0150h]
-        mov eax, dword [dword_19D380]
+        mov eax, dword [CameraTracking]
         call GetTargetPoint
         test eax, eax
         je near UpdateCameraView_8D3
         xor esi, esi
-        mov eax, dword [dword_19D1B8]
+        mov eax, dword [CameraPathTime]
         mov dword [dword esp+013Ch], esi
         mov dword [dword esp+0138h], esi
         mov dword [dword esp+0140h], eax
@@ -5401,7 +5401,7 @@ UpdateCameraView_1AC:
         ret
 UpdateCameraView_272:
         lea edx, [dword esp+014Ch]
-        mov eax, dword [dword_19D380]
+        mov eax, dword [CameraTracking]
         call GetTargetPoint
         test eax, eax
         je near UpdateCameraView_8D3
@@ -5409,9 +5409,9 @@ UpdateCameraView_272:
         lea ebx, [dword esp+0F0h]
         lea edx, [byte esp+024h]
         xor esi, esi
-        mov eax, dword [dword_19D1B8]
+        mov eax, dword [CameraPathTime]
         mov dword [dword esp+0A0h], esi
-        fadd dword [dword_19D1BC]
+        fadd dword [CameraPathVec]
         mov dword [dword esp+0A4h], eax
         fstp dword [dword esp+014Ch]
         push dword [dword esp+014Ch]
@@ -5421,15 +5421,15 @@ UpdateCameraView_272:
         lea eax, [dword esp+09Ch]
         call VecMulMat
         lea ebx, [dword esp+0F0h]
-        mov edx, dword_19D188
+        mov edx, CameraPos
         lea eax, [dword esp+0F0h]
         call VecAdd
         mov eax, dword [dword esp+0F0h]
         fld dword [dword_1B9063]
-        mov dword [dword_19D1A0], eax
+        mov dword [CameraLookAt], eax
         mov eax, dword [dword esp+0F8h]
-        fstp dword [dword_19D1A4]
-        mov dword [dword_19D1A8], eax
+        fstp dword [CameraHeight]
+        mov dword [CameraFocusVec], eax
         mov esp, ebp
         pop ebp
         pop edi
@@ -5438,7 +5438,7 @@ UpdateCameraView_272:
         pop ebx
         ret
 UpdateCameraView_326:
-        mov eax, dword [dword_19D0E8]
+        mov eax, dword [CameraTargetPtr]
         call GetCameraTarget
         test eax, eax
         je near UpdateCameraView_8D3
@@ -5447,7 +5447,7 @@ UpdateCameraView_326:
         movsd
         movsd
         movsd
-        mov eax, dword [dword_19D0EC]
+        mov eax, dword [CameraViewTable]
         call GetCameraTarget
         test eax, eax
         je near UpdateCameraView_8D3
@@ -5464,12 +5464,12 @@ UpdateCameraView_326:
         fld dword [dword esp+0D8h]
         call IF@ATAN2
         sub esp, byte 4
-        fadd dword [dword_19D1BC]
+        fadd dword [CameraPathVec]
         lea eax, [byte esp+070h]
         fstp dword [esp]
         call MatRotY
         fld dword [dword esp+0E0h]
-        fld dword [dword_19D1B8]
+        fld dword [CameraPathTime]
         xor eax, eax
         fstp qword [dword esp+0144h]
         mov dword [dword esp+0124h], eax
@@ -5491,15 +5491,15 @@ UpdateCameraView_326:
         lea eax, [dword esp+0120h]
         call VecMulMat
         lea ebx, [dword esp+0114h]
-        mov edx, dword_19D188
+        mov edx, CameraPos
         lea eax, [dword esp+0114h]
         call VecAdd
         mov eax, dword [dword esp+0114h]
         fld dword [dword_1B9063]
-        mov dword [dword_19D1A0], eax
+        mov dword [CameraLookAt], eax
         mov eax, dword [dword esp+011Ch]
-        fstp dword [dword_19D1A4]
-        mov dword [dword_19D1A8], eax
+        fstp dword [CameraHeight]
+        mov dword [CameraFocusVec], eax
         mov esp, ebp
         pop ebp
         pop edi
@@ -5508,7 +5508,7 @@ UpdateCameraView_326:
         pop ebx
         ret
 UpdateCameraView_461:
-        mov eax, dword [dword_19D0E8]
+        mov eax, dword [CameraTargetPtr]
         call GetCameraTarget
         test eax, eax
         je near UpdateCameraView_8D3
@@ -5517,7 +5517,7 @@ UpdateCameraView_461:
         movsd
         movsd
         movsd
-        mov eax, dword [dword_19D0EC]
+        mov eax, dword [CameraViewTable]
         call GetCameraTarget
         test eax, eax
         je near UpdateCameraView_8D3
@@ -5533,8 +5533,8 @@ UpdateCameraView_461:
         fld dword [dword esp+0B0h]
         fld dword [dword esp+0A8h]
         call IF@ATAN2
-        fadd dword [dword_19D1BC]
-        fld dword [dword_1687B8]
+        fadd dword [CameraPathVec]
+        fld dword [F32_CameraNear]
         fxch
         fstp dword [dword esp+0160h]
         fcomp qword [F64_neg99p9]
@@ -5542,9 +5542,9 @@ UpdateCameraView_461:
         sahf
         jne short .5
         mov eax, dword [dword esp+0160h]
-        mov dword [dword_1687B8], eax
+        mov dword [F32_CameraNear], eax
 .5:
-        fld dword [dword_1687B8]
+        fld dword [F32_CameraNear]
         fsub dword [dword esp+0160h]
         fldz
         fxch
@@ -5570,16 +5570,16 @@ UpdateCameraView_461:
         push dword [dword esp+0160h]
         call MatRotY
         mov eax, dword [dword esp+0160h]
-        mov dword [dword_1687B8], eax
+        mov dword [F32_CameraNear], eax
         jmp short .9
 .8:
         lea eax, [byte esp+048h]
-        push dword [dword_1687B8]
+        push dword [F32_CameraNear]
         call MatRotY
 .9:
         lea edx, [byte esp+048h]
         xor ebx, ebx
-        mov eax, dword [dword_19D1B8]
+        mov eax, dword [CameraPathTime]
         mov dword [dword esp+094h], ebx
         mov dword [dword esp+090h], ebx
         mov dword [dword esp+098h], eax
@@ -5587,15 +5587,15 @@ UpdateCameraView_461:
         lea eax, [dword esp+090h]
         call VecMulMat
         lea ebx, [dword esp+0E4h]
-        mov edx, dword_19D188
+        mov edx, CameraPos
         lea eax, [dword esp+0E4h]
         call VecAdd
         mov eax, dword [dword esp+0E4h]
         fld dword [dword_1B9063]
-        mov dword [dword_19D1A0], eax
+        mov dword [CameraLookAt], eax
         mov eax, dword [dword esp+0ECh]
-        fstp dword [dword_19D1A4]
-        mov dword [dword_19D1A8], eax
+        fstp dword [CameraHeight]
+        mov dword [CameraFocusVec], eax
         mov esp, ebp
         pop ebp
         pop edi
@@ -5604,7 +5604,7 @@ UpdateCameraView_461:
         pop ebx
         ret
 UpdateCameraView_5F0:
-        mov ah, byte [byte_1687B4]
+        mov ah, byte [CameraFlagsByte]
         lea esi, [dword ecx+0108h]
         test ah, ah
         jne near .11
@@ -5683,7 +5683,7 @@ UpdateCameraView_5F0:
         movsd
         movsd
 .14:
-        cmp dword [dword_19D380], byte 0
+        cmp dword [CameraTracking], byte 0
         je short .15
         lea ebx, [dword ecx+0FCh]
         lea edx, [dword esp+0C0h]
@@ -5790,7 +5790,7 @@ UpdateCameraView_7F5:
         movsd
         movsd
 .21:
-        cmp dword [dword_19D380], byte 0
+        cmp dword [CameraTracking], byte 0
         je short UpdateCameraView_8D3
         lea ebx, [dword ecx+0FCh]
         lea edx, [dword esp+0C0h]
@@ -5840,7 +5840,7 @@ UpdateCameraZoom_21:
         jle short .2
         mov dword [dword esi+0FCh], 44834000h
 .2:
-        cmp byte [byte_1687B4], 0
+        cmp byte [CameraFlagsByte], 0
         jne near .5
         fld dword [dword esi+0104h]
         fcomp dword [F32_neg4600]
@@ -6117,7 +6117,7 @@ UpdateCameraTrack:
         sub esp, byte 54h
         and esp, byte 0FFFFFFF8h
         mov ecx, eax
-        cmp dword [dword_19D380], byte 0
+        cmp dword [CameraTracking], byte 0
         je near UpdateCameraTrack_2D2
         mov eax, dword [byte eax+02Ch]
         cmp eax, byte 5
@@ -6460,7 +6460,7 @@ jpt_1A708:
         dd SetCameraView_1EF
 ;-----------------------------------------------------------------------------
 ; SetCameraView                                1A740  97 PC, medium confidence
-; (camera, view 0-0Dh): fills a camera record (unk_19D0A4) with the view's
+; (camera, view 0-0Dh): fills a camera record (CameraPathPoints) with the view's
 ; name (GetLangText) and settings
 ;-----------------------------------------------------------------------------
 SetCameraView:
@@ -6476,20 +6476,20 @@ SetCameraView_16:
         call GetLangText
         mov edx, eax
         mov eax, ebx
-        mov esi, unk_1687BC
+        mov esi, CameraViewDefs
         call strcpy_
         lea edi, [dword ebx+0108h]
         mov dword [byte ebx+024h], 2
         movsd
         movsd
         movsd
-        mov esi, unk_1687C8
+        mov esi, CameraViewDefs+0Ch
         lea edi, [dword ebx+0278h]
         mov dword [byte ebx+028h], 1
         movsd
         movsd
         movsd
-        mov esi, unk_1687D4
+        mov esi, CameraViewDefs+18h
         lea edi, [dword ebx+0284h]
         movsd
         movsd
@@ -6511,20 +6511,20 @@ SetCameraView_AF:
         call GetLangText
         mov edx, eax
         mov eax, ebx
-        mov esi, unk_1687E0
+        mov esi, CameraViewDefs+24h
         call strcpy_
         lea edi, [dword ebx+0108h]
         mov dword [byte ebx+024h], 2
         movsd
         movsd
         movsd
-        mov esi, unk_1687EC
+        mov esi, CameraViewDefs+30h
         lea edi, [dword ebx+0278h]
         mov dword [byte ebx+028h], 1
         movsd
         movsd
         movsd
-        mov esi, unk_1687F8
+        mov esi, CameraViewDefs+3Ch
         lea edi, [dword ebx+0284h]
         movsd
         movsd
@@ -6547,20 +6547,20 @@ SetCameraView_14F:
         call GetLangText
         mov edx, eax
         mov eax, ebx
-        mov esi, unk_1687E0
+        mov esi, CameraViewDefs+24h
         call strcpy_
         lea edi, [dword ebx+0108h]
         mov dword [byte ebx+024h], 2
         movsd
         movsd
         movsd
-        mov esi, unk_168810
+        mov esi, CameraViewDefs+54h
         lea edi, [dword ebx+0278h]
         mov dword [byte ebx+028h], 1
         movsd
         movsd
         movsd
-        mov esi, unk_16881C
+        mov esi, CameraViewDefs+60h
         lea edi, [dword ebx+0284h]
         movsd
         movsd
@@ -6583,13 +6583,13 @@ SetCameraView_1EF:
         call strcpy_
         mov dword [byte ebx+024h], 1
         mov dword [dword ebx+0114h], 453B8000h
-        mov esi, unk_168834
+        mov esi, CameraViewDefs+78h
         lea edi, [dword ebx+0278h]
         mov dword [byte ebx+028h], 1
         movsd
         movsd
         movsd
-        mov esi, unk_168840
+        mov esi, CameraViewDefs+84h
         lea edi, [dword ebx+0284h]
         movsd
         movsd
@@ -6611,13 +6611,13 @@ SetCameraView_25A:
         call strcpy_
         mov dword [byte ebx+024h], 1
         mov dword [dword ebx+0114h], 451C4000h
-        mov esi, unk_16884C
+        mov esi, CameraViewDefs+090h
         lea edi, [dword ebx+0278h]
         mov dword [byte ebx+028h], 1
         movsd
         movsd
         movsd
-        mov esi, unk_168858
+        mov esi, CameraViewDefs+09Ch
         lea edi, [dword ebx+0284h]
         movsd
         movsd
@@ -6636,20 +6636,20 @@ SetCameraView_2CE:
         call GetLangText
         mov edx, eax
         mov eax, ebx
-        mov esi, unk_168864
+        mov esi, CameraViewDefs+0A8h
         call strcpy_
         lea edi, [dword ebx+0108h]
         mov dword [byte ebx+024h], 0Dh
         movsd
         movsd
         movsd
-        mov esi, unk_168870
+        mov esi, CameraViewDefs+0B4h
         lea edi, [dword ebx+0278h]
         mov dword [byte ebx+028h], 1
         movsd
         movsd
         movsd
-        mov esi, unk_16887C
+        mov esi, CameraViewDefs+0C0h
         lea edi, [dword ebx+0284h]
         movsd
         movsd
@@ -6672,20 +6672,20 @@ SetCameraView_36E:
         call GetLangText
         mov edx, eax
         mov eax, ebx
-        mov esi, unk_1688B8
+        mov esi, CameraViewDefs+0FCh
         call strcpy_
         lea edi, [dword ebx+0108h]
         mov dword [byte ebx+024h], 2
         movsd
         movsd
         movsd
-        mov esi, unk_168888
+        mov esi, CameraViewDefs+0CCh
         lea edi, [dword ebx+0278h]
         mov dword [byte ebx+028h], 1
         movsd
         movsd
         movsd
-        mov esi, unk_168894
+        mov esi, CameraViewDefs+0D8h
         lea edi, [dword ebx+0284h]
         movsd
         movsd
@@ -6708,20 +6708,20 @@ SetCameraView_40E:
         call GetLangText
         mov edx, eax
         mov eax, ebx
-        mov esi, unk_1688B8
+        mov esi, CameraViewDefs+0FCh
         call strcpy_
         lea edi, [dword ebx+0108h]
         mov dword [byte ebx+024h], 2
         movsd
         movsd
         movsd
-        mov esi, unk_1688A0
+        mov esi, CameraViewDefs+0E4h
         lea edi, [dword ebx+0278h]
         mov dword [byte ebx+028h], 1
         movsd
         movsd
         movsd
-        mov esi, unk_1688AC
+        mov esi, CameraViewDefs+0F0h
         lea edi, [dword ebx+0284h]
         movsd
         movsd
@@ -6744,7 +6744,7 @@ SetCameraView_4AE:
         call GetLangText
         mov edx, eax
         mov eax, ebx
-        mov esi, unk_168828
+        mov esi, CameraViewDefs+6Ch
         call strcpy_
         lea edi, [dword ebx+0108h]
         mov dword [byte ebx+024h], 0Ch
@@ -6767,7 +6767,7 @@ SetCameraView_4AE:
         ret
 SetCameraView_532:
         mov edx, str_THRILLCAMTm
-        mov edi, dword_19D1A0
+        mov edi, CameraLookAt
         mov esi, dword_1B905F
         call strcpy_
         fld dword [dword_1B906B]
@@ -6778,17 +6778,17 @@ SetCameraView_532:
         movsd
         xor edx, edx
         fxch st2
-        fstp dword [dword_19D340]
-        fstp dword [dword_19D344]
-        fstp dword [dword_19D36C]
-        mov dword [dword_19D0D0], edx
-        mov dword [dword_19D0C8], edx
-        mov dword [dword_19D0CC], edx
-        mov dword [dword_19D0D4], edx
-        mov dword [dword_19D0D8], edx
-        mov dword [dword_19D1CC], edx
-        mov dword [dword_19D1D4], edx
-        mov dword [dword_19D1D8], edx
+        fstp dword [CameraFov]
+        fstp dword [CameraFovTarget]
+        fstp dword [CameraFollowObj]
+        mov dword [CameraViewZ], edx
+        mov dword [CameraViewX], edx
+        mov dword [CameraViewY], edx
+        mov dword [CameraMode], edx
+        mov dword [CameraFocus], edx
+        mov dword [CameraViewPair], edx
+        mov dword [CameraViewNear], edx
+        mov dword [CameraViewFar], edx
         pop edi
         pop esi
         pop ebx
@@ -6796,7 +6796,7 @@ SetCameraView_532:
 SetCameraView_5A5:
         mov edx, str_USERCHASE
         call strcpy_
-        mov edx, dword_19D188
+        mov edx, CameraPos
         mov eax, dword_1B905F
         mov dword [byte ebx+024h], 1
         call VecDistance
@@ -6939,18 +6939,18 @@ SetCameraSpline:
         jle near .4
         xor ebx, ebx
         mov edx, 7
-        mov dword [dword_19D0CC], ebx
-        mov dword [dword_19D0C8], edx
+        mov dword [CameraViewY], ebx
+        mov dword [CameraViewX], edx
         cmp eax, byte 0Ah
         jle short .1
         mov ebp, 0Ah
 .1:
-        mov ebx, unk_19D298
+        mov ebx, SplineCoefsY
         push ecx
         mov edx, esi
         mov eax, ebp
         mov ecx, dword [byte esp+04h]
-        mov dword [dword_19D1DC], ebp
+        mov dword [SplineIndex], ebp
         call BuildSplinePath
         xor eax, eax
         test ebp, ebp
@@ -6959,10 +6959,10 @@ SetCameraSpline:
         mov edx, esi
 .2:
         mov esi, dword [ebx]
-        mov dword [nosplit eax*4+dword_19D1E8], esi
+        mov dword [nosplit eax*4+SplinePoints], esi
         imul esi, eax, byte 0Ch
         add ebx, byte 4
-        lea edi, [dword esi+unk_19D214]
+        lea edi, [dword esi+SplineCoefsX]
         mov esi, edx
         inc eax
         add edx, byte 0Ch
@@ -6974,14 +6974,14 @@ SetCameraSpline:
 .3:
         mov eax, dword [esp]
         mov eax, dword [eax]
-        mov dword [dword_19D1E0], eax
+        mov dword [SplineCount], eax
         mov eax, dword [esp]
-        mov ebx, unk_19D298
-        mov edx, unk_19D214
+        mov ebx, SplineCoefsY
+        mov edx, SplineCoefsX
         mov eax, dword [eax]
         mov ecx, 1
         call SetCameraSplineTarget
-        mov dword [dword_19D1E4], ecx
+        mov dword [SplineStep], ecx
 .4:
         add esp, byte 4
         pop ebp
@@ -6994,10 +6994,10 @@ SetCameraSpline:
         push edi
         sub esp, byte 4
         mov dword [esp], edx
-        mov edi, dword_19D1A0
+        mov edi, CameraLookAt
         xor edx, edx
         mov esi, eax
-        mov dword [dword_19D0C8], edx
+        mov dword [CameraViewX], edx
         mov ebx, dword [esp]
         movsd
         movsd
@@ -7025,7 +7025,7 @@ SetCameraSpline:
         db 090h
 ;-----------------------------------------------------------------------------
 ; SetCameraHeight                                 1AF4C  97 PC, low confidence
-; Sets the camera height (dword_19D1A4), at once or eased over frames
+; Sets the camera height (CameraHeight), at once or eased over frames
 ;-----------------------------------------------------------------------------
 SetCameraHeight:
         push ebx
@@ -7033,8 +7033,8 @@ SetCameraHeight:
         mov edx, dword [byte esp+010h]
         mov eax, dword [byte esp+0Ch]
         xor ebx, ebx
-        mov dword [dword_19D1A4], eax
-        mov dword [dword_19D0CC], ebx
+        mov dword [CameraHeight], eax
+        mov dword [CameraViewY], ebx
         test edx, edx
         jle short .1
         push byte 0
@@ -7056,7 +7056,7 @@ SetCameraHeight:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; SetCameraFocus                                  1AF90  97 PC, low confidence
-; Sets the camera focus x / z (dword_19D1A0, dword_19D1A8), at once or eased
+; Sets the camera focus x / z (CameraLookAt, CameraFocusVec), at once or eased
 ;-----------------------------------------------------------------------------
 SetCameraFocus:
         push ebx
@@ -7064,10 +7064,10 @@ SetCameraFocus:
         mov ebx, dword [byte esp+014h]
         mov eax, dword [byte esp+0Ch]
         xor edx, edx
-        mov dword [dword_19D1A0], eax
+        mov dword [CameraLookAt], eax
         mov eax, dword [byte esp+010h]
-        mov dword [dword_19D0C8], edx
-        mov dword [dword_19D1A8], eax
+        mov dword [CameraViewX], edx
+        mov dword [CameraFocusVec], eax
         test ebx, ebx
         jle short .1
         push byte 0
@@ -7085,7 +7085,7 @@ SetCameraFocus:
         ret 0Ch
 .1:
         mov ebx, 4
-        mov edx, dword_19D1A0
+        mov edx, CameraLookAt
         xor eax, eax
         call SnapCamera
         pop edx
@@ -7096,8 +7096,8 @@ SetCameraFocus:
         mov edx, dword [byte esp+010h]
         mov eax, dword [byte esp+0Ch]
         xor ebx, ebx
-        mov dword [dword_19D36C], eax
-        mov dword [dword_19D0D8], ebx
+        mov dword [CameraFollowObj], eax
+        mov dword [CameraFocus], ebx
         test edx, edx
         jle short .2
         push byte 0
@@ -7119,7 +7119,7 @@ SetCameraFocus:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; SetCameraPathPoint                              1B034  97 PC, low confidence
-; Sets the camera path point (dword_19D340, dword_19D344), at once or eased
+; Sets the camera path point (CameraFov, CameraFovTarget), at once or eased
 ;-----------------------------------------------------------------------------
 SetCameraPathPoint:
         push ebx
@@ -7127,10 +7127,10 @@ SetCameraPathPoint:
         mov ebx, dword [byte esp+014h]
         mov eax, dword [byte esp+0Ch]
         xor edx, edx
-        mov dword [dword_19D340], eax
+        mov dword [CameraFov], eax
         mov eax, dword [byte esp+010h]
-        mov dword [dword_19D0D0], edx
-        mov dword [dword_19D344], eax
+        mov dword [CameraViewZ], edx
+        mov dword [CameraFovTarget], eax
         test ebx, ebx
         jle short .1
         mov eax, dword [byte esp+0Ch]
@@ -7158,7 +7158,7 @@ SetCameraPathPoint:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; StartCameraPath                                 1B09C  97 PC, low confidence
-; (path, ticks): starts a camera path (dword_19D380) for the game camera
+; (path, ticks): starts a camera path (CameraTracking) for the game camera
 ;-----------------------------------------------------------------------------
 StartCameraPath:
         push ebx
@@ -7174,24 +7174,24 @@ StartCameraPath:
         je near .5
 .1:
         mov edx, 1
-        mov dword [dword_19D380], ebx
+        mov dword [CameraTracking], ebx
         mov eax, ebx
-        mov dword [dword_19D0D0], edx
+        mov dword [CameraViewZ], edx
         call GetCameraTarget
         test eax, eax
         je short .2
-        mov edi, dword_19D188
+        mov edi, CameraPos
         mov esi, eax
         movsd
         movsd
         movsd
 .2:
-        mov eax, unk_19D0A4
+        mov eax, CameraPathPoints
         call UpdateCameraTrack
         test ecx, ecx
         jle short .3
-        fld dword [dword_19D340]
-        fld dword [dword_19D344]
+        fld dword [CameraFov]
+        fld dword [CameraFovTarget]
         mov eax, 3
         fxch
         fstp dword [dword_1B9087]
@@ -7204,9 +7204,9 @@ StartCameraPath:
         jmp short .4
 .3:
         push byte 4
-        push dword [dword_19D344]
+        push dword [CameraFovTarget]
         xor eax, eax
-        push dword [dword_19D340]
+        push dword [CameraFov]
         call BuildCameraMatrix
 .4:
         mov eax, 1
@@ -7223,11 +7223,11 @@ StartCameraPath:
         mov ecx, dword [byte esp+01Ch]
         mov ebx, eax
         mov edx, 8
-        mov eax, unk_19D0A4
+        mov eax, CameraPathPoints
         call SetCameraView
         mov edx, 8
         mov esi, 3
-        mov dword [dword_19D388], edx
+        mov dword [CameraPathActive], edx
         mov edx, ecx
         mov eax, ecx
         sar edx, 1Fh
@@ -7239,10 +7239,10 @@ StartCameraPath:
         je short .6
         mov eax, dword [byte esp+014h]
         mov ebx, 8
-        mov dword [dword_19D1B8], eax
+        mov dword [CameraPathTime], eax
         mov eax, dword [byte esp+018h]
-        mov dword [dword_19D0C8], ebx
-        mov dword [dword_19D1BC], eax
+        mov dword [CameraViewX], ebx
+        mov dword [CameraPathVec], eax
 .6:
         pop esi
         pop edx
@@ -7252,13 +7252,13 @@ StartCameraPath:
         db 090h
         push edx
         mov eax, dword [byte esp+08h]
-        mov dword [dword_19D1B8], eax
+        mov dword [CameraPathTime], eax
         mov eax, dword [byte esp+0Ch]
         mov edx, 0Ah
-        mov dword [dword_19D1BC], eax
+        mov dword [CameraPathVec], eax
         mov eax, dword [byte esp+010h]
-        mov dword [dword_19D0C8], edx
-        mov dword [dword_19D1CC], eax
+        mov dword [CameraViewX], edx
+        mov dword [CameraViewPair], eax
         pop edx
         ret 0Ch
         db 090h
@@ -7279,9 +7279,9 @@ SetCameraPathPoints:
         fdivrp
         mov ebx, 14h
         mov ecx, 1
-        mov dword [dword_19D0E4], eax
-        mov dword [dword_19D380], ebx
-        mov dword [dword_19D0D0], ecx
+        mov dword [CameraTargetObj], eax
+        mov dword [CameraTracking], ebx
+        mov dword [CameraViewZ], ecx
         fstp dword [esp]
         test eax, eax
         jle short .2
@@ -7291,10 +7291,10 @@ SetCameraPathPoints:
 .1:
         add eax, byte 4
         mov ebx, dword [edx]
-        mov dword [dword eax+dword_19D0E4], ebx
+        mov dword [dword eax+CameraTargetObj], ebx
         mov ebx, dword [esp]
         add edx, byte 4
-        mov dword [dword eax+dword_19D134], ebx
+        mov dword [dword eax+CameraPathCount], ebx
         cmp eax, ecx
         jl short .1
 .2:
@@ -7317,13 +7317,13 @@ SetCameraPathPoints:
         mov ebx, 14h
         mov eax, dword [byte ebp+010h]
         mov ecx, 5
-        mov dword [dword_19D1D4], eax
+        mov dword [CameraViewNear], eax
         mov eax, dword [byte ebp+014h]
-        mov dword [dword_19D380], ebx
-        mov dword [dword_19D1D8], eax
+        mov dword [CameraTracking], ebx
+        mov dword [CameraViewFar], eax
         mov eax, dword [byte esp+04h]
-        mov dword [dword_19D0D0], ecx
-        mov dword [dword_19D0E4], eax
+        mov dword [CameraViewZ], ecx
+        mov dword [CameraTargetObj], eax
         fstp dword [esp]
         test eax, eax
         jle short .4
@@ -7333,10 +7333,10 @@ SetCameraPathPoints:
 .3:
         add eax, byte 4
         mov ebx, dword [edx]
-        mov dword [dword eax+dword_19D0E4], ebx
+        mov dword [dword eax+CameraTargetObj], ebx
         mov ebx, dword [esp]
         add edx, byte 4
-        mov dword [dword eax+dword_19D134], ebx
+        mov dword [dword eax+CameraPathCount], ebx
         cmp eax, ecx
         jl short .3
 .4:
@@ -7355,16 +7355,16 @@ SetCameraPathPoints:
         mov dword [esp], eax
         mov dword [byte esp+04h], edx
         mov edx, 8
-        mov eax, unk_19D0A4
+        mov eax, CameraPathPoints
         xor ebx, ebx
         call SetCameraView
         push byte 0
         mov edx, 8
         push dword 442F0000h
         mov eax, 1
-        mov dword [dword_19D0CC], ebx
-        mov dword [dword_19D1A4], ecx
-        mov dword [dword_19D388], edx
+        mov dword [CameraViewY], ebx
+        mov dword [CameraHeight], ecx
+        mov dword [CameraPathActive], edx
         mov edx, 190h
         mov ebx, dword [byte esp+028h]
         call SetCameraTarget
@@ -7375,10 +7375,10 @@ SetCameraPathPoints:
         je short .5
         mov eax, dword [byte esp+018h]
         mov esi, 9
-        mov dword [dword_19D1B8], eax
+        mov dword [CameraPathTime], eax
         mov eax, dword [byte esp+01Ch]
-        mov dword [dword_19D0C8], esi
-        mov dword [dword_19D1BC], eax
+        mov dword [CameraViewX], esi
+        mov dword [CameraPathVec], eax
 .5:
         add esp, byte 8
         pop esi
@@ -7400,16 +7400,16 @@ FightCameraStart:
         mov dword [esp], eax
         mov dword [byte esp+04h], edx
         mov edx, 8
-        mov eax, unk_19D0A4
+        mov eax, CameraPathPoints
         xor ebx, ebx
         call SetCameraView
         push byte 0
         mov edx, 8
         push dword 442F0000h
         mov eax, 1
-        mov dword [dword_19D0CC], ebx
-        mov dword [dword_19D1A4], ecx
-        mov dword [dword_19D388], edx
+        mov dword [CameraViewY], ebx
+        mov dword [CameraHeight], ecx
+        mov dword [CameraPathActive], edx
         mov edx, 190h
         mov ebx, dword [byte esp+02Ch]
         call SetCameraTarget
@@ -7421,11 +7421,11 @@ FightCameraStart:
         mov edi, 3
         mov eax, dword [byte esp+01Ch]
         mov esi, 0Bh
-        mov dword [dword_19D0CC], edi
-        mov dword [dword_19D1B8], eax
+        mov dword [CameraViewY], edi
+        mov dword [CameraPathTime], eax
         mov eax, dword [byte esp+020h]
-        mov dword [dword_19D0C8], esi
-        mov dword [dword_19D1BC], eax
+        mov dword [CameraViewX], esi
+        mov dword [CameraPathVec], eax
 .1:
         add esp, byte 8
         pop edi
@@ -7442,9 +7442,9 @@ FightCameraStart:
 ResetSceneCamera:
         push edx
         mov edx, 8
-        mov eax, unk_19D0A4
+        mov eax, CameraPathPoints
         call SetCameraView
-        mov dword [dword_19D388], 8
+        mov dword [CameraPathActive], 8
         pop edx
         ret
 ;-----------------------------------------------------------------------------
@@ -7462,27 +7462,27 @@ SelectCameraView:
         mov esi, 0Ah
         sar edx, 1Fh
         idiv esi
-        mov eax, unk_19D0A4
-        mov dword [dword_19D388], edx
+        mov eax, CameraPathPoints
+        mov dword [CameraPathActive], edx
         call SetCameraView
-        cmp byte [byte_1687B4], 0
+        cmp byte [CameraFlagsByte], 0
         je short .1
-        mov eax, unk_19D0A4
+        mov eax, CameraPathPoints
         call DampCameraMotion
 .1:
         test ecx, ecx
         jle near .3
-        mov edx, dword [dword_19D0DC]
+        mov edx, dword [CameraViewSel]
         xor eax, eax
         call UpdateGameCamera
         xor ebx, ebx
-        fld dword [dword_19D1A0]
-        fld dword [dword_19D1A4]
-        fld dword [dword_19D1A8]
-        fld dword [dword_19D340]
-        fld dword [dword_19D344]
-        fld dword [dword_19D348]
-        fld dword [dword_19D36C]
+        fld dword [CameraLookAt]
+        fld dword [CameraHeight]
+        fld dword [CameraFocusVec]
+        fld dword [CameraFov]
+        fld dword [CameraFovTarget]
+        fld dword [CameraViewParams]
+        fld dword [CameraFollowObj]
         fxch st6
         fstp dword [dword_1B907B]
         fxch st4
@@ -7505,12 +7505,12 @@ SelectCameraView:
         mov edx, 4
         xor eax, eax
         xor ebx, ebx
-        mov dword [dword_19D0DC], edx
+        mov dword [CameraViewSel], edx
         call UpdateGameCamera
-        mov dword [dword_19D0DC], ebx
+        mov dword [CameraViewSel], ebx
         call SetCameraMode
 .4:
-        mov edx, unk_19D0A4
+        mov edx, CameraPathPoints
         mov eax, unk_1B9038
         call strcpy_
         pop esi
@@ -7534,55 +7534,55 @@ UpdateGameCamera:
         mov ebp, edx
         fld dword [dword_1B906B]
         fld dword [dword_1B906F]
-        mov edi, dword_19D194
+        mov edi, CameraElevation
         mov esi, dword_1B905F
         fld dword [dword_1B9077]
         movsd
         movsd
         movsd
-        mov eax, dword [dword_19D380]
+        mov eax, dword [CameraTracking]
         fxch st2
-        fstp dword [dword_19D334]
-        fstp dword [dword_19D338]
-        fstp dword [dword_19D364]
+        fstp dword [CameraDistance]
+        fstp dword [CameraAngles]
+        fstp dword [CameraLag]
         call GetCameraTarget
         test eax, eax
         je short .1
-        mov edi, dword_19D188
+        mov edi, CameraPos
         mov esi, eax
         movsd
         movsd
         movsd
 .1:
-        mov eax, unk_19D0A4
+        mov eax, CameraPathPoints
         mov edx, ecx
         call UpdateCameraView
         mov ebx, ebp
-        mov eax, unk_19D0A4
-        mov edx, dword_19D1A0
+        mov eax, CameraPathPoints
+        mov edx, CameraLookAt
         call UpdateCameraZoom
         mov eax, ecx
         call SnapCamera
-        mov eax, unk_19D0A4
+        mov eax, CameraPathPoints
         call UpdateCameraTrack
-        mov eax, unk_19D0A4
+        mov eax, CameraPathPoints
         call EaseCameraAngles
         push ebp
-        push dword [dword_19D344]
+        push dword [CameraFovTarget]
         mov eax, ecx
-        push dword [dword_19D340]
+        push dword [CameraFov]
         call BuildCameraMatrix
-        mov eax, dword [dword_19D0D8]
+        mov eax, dword [CameraFocus]
         test eax, eax
         jbe short .2
         cmp eax, byte 3
         jne short .2
-        mov eax, dword [dword_19D368]
-        mov dword [dword_19D36C], eax
+        mov eax, dword [CameraSpeed]
+        mov dword [CameraFollowObj], eax
 .2:
         push ebp
         mov eax, ecx
-        push dword [dword_19D36C]
+        push dword [CameraFollowObj]
         call UpdateCameraProjection
         pop ebp
         pop edi
@@ -7662,28 +7662,28 @@ ToggleCameraFollow:
         push ebx
         push ecx
         push edx
-        mov eax, unk_19D0A4
+        mov eax, CameraPathPoints
         call DampCameraMotion
-        cmp dword [dword_19D388], byte 3
+        cmp dword [CameraPathActive], byte 3
         jne short .1
-        fld dword [dword_19D19C]
-        fsub dword [dword_19D190]
+        fld dword [CameraZoom]
+        fsub dword [CameraHeading]
         fmul dword [F32_2]
-        fsubr dword [dword_19D19C]
-        fstp dword [dword_19D19C]
+        fsubr dword [CameraZoom]
+        fstp dword [CameraZoom]
 .1:
         mov ebx, 4
         xor eax, eax
         xor ecx, ecx
         mov edx, ebx
-        mov dword [dword_19D0DC], ebx
+        mov dword [CameraViewSel], ebx
         call UpdateGameCamera
-        mov dword [dword_19D0DC], ecx
+        mov dword [CameraViewSel], ecx
         call SetCameraMode
-        mov ah, byte [byte_1687B4]
+        mov ah, byte [CameraFlagsByte]
         test ah, ah
         sete al
-        mov byte [byte_1687B4], al
+        mov byte [CameraFlagsByte], al
         pop edx
         pop ecx
         pop ebx
@@ -7702,13 +7702,13 @@ InitCamera:
         push edi
         mov edx, 1
         lea esi, [byte esp+010h]
-        mov edi, unk_19D31C
-        mov dword [dword_19D0CC], edx
+        mov edi, CameraEye
+        mov dword [CameraViewY], edx
         movsd
         movsd
         movsd
         lea esi, [byte esp+01Ch]
-        mov edi, unk_19D328
+        mov edi, CameraCenter
         movsd
         movsd
         movsd
@@ -7727,7 +7727,7 @@ DrawCameraDebugMarks:
         push edi
         push ebp
         sub esp, byte 8
-        test dword [dword_19D098], 7FFFFFFFh
+        test dword [CameraDebugMask], 7FFFFFFFh
         je near .1
         push dword 0FF00AA00h
         call MatchColor
@@ -7792,9 +7792,9 @@ DrawCameraDebugMarks:
         ret
         push ecx
         push edx
-        cmp eax, dword [dword_19D09C]
+        cmp eax, dword [CameraDebugLimit]
         jne short .3
-        cmp dword [dword_19D090], byte 0
+        cmp dword [CameraDebugMarks], byte 0
         je short .2
         push dword 0FFAA0000h
         call MatchColor
@@ -7833,14 +7833,14 @@ RunCameraScene:
         push ebx
         push edx
         mov ebx, eax
-        cmp dword [dword_19D384], byte 0
+        cmp dword [ActiveCameraScene], byte 0
         je short .1
         test eax, eax
         je short .1
-        add dword [dword_19D08C], eax
-        call dword [dword_19D084]
+        add dword [CameraSceneArg], eax
+        call dword [CameraSceneFunc]
 .1:
-        mov edx, dword [dword_19D0DC]
+        mov edx, dword [CameraViewSel]
         mov eax, ebx
         call UpdateGameCamera
         pop edx
@@ -7867,16 +7867,16 @@ CanStartCameraScene:
         test eax, eax
         jne short .1
         mov bl, 1
-        mov dword [dword_19D384], eax
+        mov dword [ActiveCameraScene], eax
         xor dh, dh
         mov eax, 1
-        mov byte [byte_16892F], bl
-        mov byte [byte_1687B4], dh
+        mov byte [CameraScenesOn], bl
+        mov byte [CameraFlagsByte], dh
         pop edx
         pop ebx
         ret
 .1:
-        cmp byte [byte_16892D], 0
+        cmp byte [ReplayCameraActive], 0
         jne short .6
         cmp eax, byte 7
         jne short .2
@@ -7884,17 +7884,17 @@ CanStartCameraScene:
         test byte [byte edx+02h], 20h
         jne short .6
 .2:
-        cmp byte [byte_168930], 0
+        cmp byte [IntermissionActive], 0
         je short .3
         cmp eax, byte 7
         je short .6
 .3:
-        cmp byte [byte_16892F], 0
+        cmp byte [CameraScenesOn], 0
         je short .4
         cmp eax, byte 1
         jne short .6
 .4:
-        cmp dword [dword_19D384], byte 0
+        cmp dword [ActiveCameraScene], byte 0
         je short .5
         movsx edx, bx
         cmp eax, edx
@@ -7919,10 +7919,10 @@ SetCameraSceneFunc:
         push edx
         mov ecx, 1
         xor edx, edx
-        mov dword [dword_19D084], eax
-        mov dword [dword_19D088], edx
-        mov dword [dword_19D384], ecx
-        mov dword [dword_19D08C], edx
+        mov dword [CameraSceneFunc], eax
+        mov dword [CameraSceneStep], edx
+        mov dword [ActiveCameraScene], ecx
+        mov dword [CameraSceneArg], edx
         pop edx
         pop ecx
         ret
@@ -7940,7 +7940,7 @@ PenaltyCameraDistance:
         mov ebp, esp
         sub esp, byte 0Ch
         and esp, byte 0FFFFFFF8h
-        mov edx, dword [dword_19D080]
+        mov edx, dword [PenaltyCamTimer]
         mov eax, edx
         shl eax, 4
         sub eax, edx
@@ -7955,7 +7955,7 @@ PenaltyCameraDistance:
         jmp short .4
 .1:
         fld dword [F32_2040_PenaltyCameraDistance]
-        fild dword [dword_19D07C]
+        fild dword [PenaltyCamDistance]
         fsubr dword [byte eax+08h]
         fxch
         fsub dword [eax]
@@ -8005,7 +8005,7 @@ PenaltySceneStep:
         push esi
         push edi
         push ebp
-        mov eax, dword [dword_19D088]
+        mov eax, dword [CameraSceneStep]
         cmp eax, byte 3
         ja near PenaltySceneStep_108.1
         jmp dword [nosplit cs:eax*4+jpt_1B9C4]
@@ -8021,13 +8021,13 @@ PenaltySceneStep_1C:
         mov edx, 190h
         xor ecx, ecx
         mov eax, 1
-        mov dword [dword_19D0CC], ecx
-        mov dword [dword_19D1A4], esi
+        mov dword [CameraViewY], ecx
+        mov dword [CameraHeight], esi
         call SetCameraTarget
-        mov ebp, dword [dword_19D088]
+        mov ebp, dword [CameraSceneStep]
         inc ebp
-        mov dword [dword_19D08C], ecx
-        mov dword [dword_19D088], ebp
+        mov dword [CameraSceneArg], ecx
+        mov dword [CameraSceneStep], ebp
         pop ebp
         pop edi
         pop esi
@@ -8036,20 +8036,20 @@ PenaltySceneStep_1C:
         pop ebx
         ret
 PenaltySceneStep_73:
-        cmp dword [dword_19D08C], 0C8h
+        cmp dword [CameraSceneArg], 0C8h
         jl near PenaltySceneStep_108.1
-        mov edx, dword [dword_19D07C]
+        mov edx, dword [PenaltyCamDistance]
         lea eax, [nosplit edx*4+00h]
         push dword 190h
         sub eax, edx
-        push dword [nosplit eax*4+dword_16893C]
-        push dword [nosplit eax*4+dword_168934]
+        push dword [nosplit eax*4+PenaltySceneDist]
+        push dword [nosplit eax*4+PenaltySceneYaw]
         call SetCameraFocus
-        mov ebx, dword [dword_19D088]
+        mov ebx, dword [CameraSceneStep]
         xor edx, edx
         inc ebx
-        mov dword [dword_19D08C], edx
-        mov dword [dword_19D088], ebx
+        mov dword [CameraSceneArg], edx
+        mov dword [CameraSceneStep], ebx
         pop ebp
         pop edi
         pop esi
@@ -8058,18 +8058,18 @@ PenaltySceneStep_73:
         pop ebx
         ret
 PenaltySceneStep_C6:
-        cmp dword [dword_19D08C], 190h
+        cmp dword [CameraSceneArg], 190h
         jl short PenaltySceneStep_108.1
         mov edx, 8
-        mov eax, unk_19D0A4
+        mov eax, CameraPathPoints
         mov esi, 8
         call SetCameraView
         xor edi, edi
-        mov ebp, dword [dword_19D088]
-        mov dword [dword_19D388], esi
+        mov ebp, dword [CameraSceneStep]
+        mov dword [CameraPathActive], esi
         inc ebp
-        mov dword [dword_19D08C], edi
-        mov dword [dword_19D088], ebp
+        mov dword [CameraSceneArg], edi
+        mov dword [CameraSceneStep], ebp
         pop ebp
         pop edi
         pop esi
@@ -8078,14 +8078,14 @@ PenaltySceneStep_C6:
         pop ebx
         ret
 PenaltySceneStep_108:
-        cmp dword [dword_19D08C], 190h
+        cmp dword [CameraSceneArg], 190h
         jl short .1
         mov eax, FaceoffSweepStep
         mov ebx, 0BF490FDBh
         call SetCameraSceneFunc
         xor edx, edx
         mov eax, 0FFFFFFFFh
-        mov dword [dword_19D058], ebx
+        mov dword [SceneStepCount], ebx
         mov ebx, 32h
         call FadeGamePalette
 .1:
@@ -8114,20 +8114,20 @@ PenaltyCameraScene:
         je short .1
         mov esi, PenaltySceneStep
         mov edi, 1
-        mov eax, unk_19D0A4
+        mov eax, CameraPathPoints
         mov ebp, 8
-        mov dword [dword_19D080], ebx
-        mov dword [dword_19D07C], edx
+        mov dword [PenaltyCamTimer], ebx
+        mov dword [PenaltyCamDistance], edx
         xor edx, edx
-        mov dword [dword_19D084], esi
-        mov dword [dword_19D08C], edx
-        mov dword [dword_19D088], edx
+        mov dword [CameraSceneFunc], esi
+        mov dword [CameraSceneArg], edx
+        mov dword [CameraSceneStep], edx
         mov edx, 8
-        mov dword [dword_19D384], edi
+        mov dword [ActiveCameraScene], edi
         call SetCameraView
         mov edx, 12Ch
         lea eax, [byte ebx+04h]
-        mov dword [dword_19D388], ebp
+        mov dword [CameraPathActive], ebp
         call StartCameraPath
         mov dword [dword_16AF5C], edi
         call DrawClockOverlay
@@ -8148,36 +8148,36 @@ IntermissionSceneStep:
         push edx
         push esi
         push edi
-        mov eax, dword [dword_19D088]
+        mov eax, dword [CameraSceneStep]
         test eax, eax
         jbe short .1
         cmp eax, byte 1
         je short .2
         jmp short .3
 .1:
-        cmp dword [dword_19D08C], 3E8h
+        cmp dword [CameraSceneArg], 3E8h
         jl short .3
         mov ecx, 1
-        mov ebx, unk_1689AC
-        mov edx, unk_16897C
+        mov ebx, IntermissionTimes
+        mov edx, IntermissionCamPath
         mov eax, 4
         call SetCameraSpline
-        mov edi, dword [dword_19D088]
+        mov edi, dword [CameraSceneStep]
         xor esi, esi
         inc edi
-        mov dword [dword_19D08C], esi
-        mov dword [dword_19D088], edi
+        mov dword [CameraSceneArg], esi
+        mov dword [CameraSceneStep], edi
         jmp short .3
 .2:
-        cmp dword [dword_19D08C], 0C80h
+        cmp dword [CameraSceneArg], 0C80h
         jl short .3
-        mov ebx, unk_1689AC
-        mov edx, unk_16897C
+        mov ebx, IntermissionTimes
+        mov edx, IntermissionCamPath
         mov ecx, eax
         mov eax, 4
         call SetCameraSpline
         xor ebx, ebx
-        mov dword [dword_19D08C], ebx
+        mov dword [CameraSceneArg], ebx
 .3:
         pop edi
         pop esi
@@ -8199,7 +8199,7 @@ IntermissionCameraScene:
         push ebp
         sub esp, byte 4
         mov edx, 8
-        mov eax, unk_19D0A4
+        mov eax, CameraPathPoints
         mov esi, IntermissionSceneStep
         mov edi, 1
         mov ebp, 4B0h
@@ -8208,19 +8208,19 @@ IntermissionCameraScene:
         xor ecx, ecx
         mov edx, 8
         mov eax, 11h
-        mov dword [dword_19D08C], ebx
-        mov dword [dword_19D088], ebx
-        mov dword [dword_19D084], esi
-        mov dword [dword_19D384], edi
-        mov edi, dword_19D1A0
-        mov dword [dword_19D388], edx
+        mov dword [CameraSceneArg], ebx
+        mov dword [CameraSceneStep], ebx
+        mov dword [CameraSceneFunc], esi
+        mov dword [ActiveCameraScene], edi
+        mov edi, CameraLookAt
+        mov dword [CameraPathActive], edx
         mov edx, 1F4h
-        mov esi, unk_16897C
+        mov esi, IntermissionCamPath
         call StartCameraPath
-        mov edx, unk_16897C
+        mov edx, IntermissionCamPath
         mov eax, 1
         mov dword [esp], ebp
-        mov dword [dword_19D0C8], ebx
+        mov dword [CameraViewX], ebx
         mov ebx, esp
         movsd
         movsd
@@ -8243,17 +8243,17 @@ EndOpeningCamera:
         push ebx
         push ecx
         push edx
-        cmp dword [dword_19D070], byte 0
+        cmp dword [OpeningCamActive], byte 0
         je short .1
-        mov ebx, dword [dword_19D06C]
+        mov ebx, dword [OpeningCamFrame]
         push ebx
         call FreeMemBlock
         add esp, byte 4
         xor eax, eax
         xor ecx, ecx
         call LoadOpeningArt
-        mov dword [dword_19D384], ecx
-        mov dword [dword_19D070], ecx
+        mov dword [ActiveCameraScene], ecx
+        mov dword [OpeningCamActive], ecx
 .1:
         pop edx
         pop ecx
@@ -8274,37 +8274,37 @@ OpeningCameraStep:
         mov ebp, esp
         sub esp, byte 2Ch
         and esp, byte 0FFFFFFF8h
-        fild dword [dword_19D08C]
+        fild dword [CameraSceneArg]
         fmul qword [F64_30]
         fmul qword [F64_0p01_OpeningCameraStep]
         fst dword [byte esp+018h]
         push eax
         fistp dword [esp]
         pop eax
-        mov edx, dword [dword_19D074]
+        mov edx, dword [OpeningCamData]
         mov dword [byte esp+01Ch], eax
         cmp eax, edx
         jl short .1
-        cmp dword [dword_19D070], byte 0
+        cmp dword [OpeningCamActive], byte 0
         je near .7
-        mov eax, dword [dword_19D06C]
+        mov eax, dword [OpeningCamFrame]
         push eax
         call FreeMemBlock
         add esp, byte 4
         xor eax, eax
         xor edx, edx
         call LoadOpeningArt
-        mov dword [dword_19D384], edx
-        mov dword [dword_19D070], edx
+        mov dword [ActiveCameraScene], edx
+        mov dword [OpeningCamActive], edx
         jmp near .7
 .1:
         mov edx, eax
         shl eax, 2
         sub eax, edx
-        mov edx, dword [dword_19D078]
+        mov edx, dword [OpeningCamFrames]
         shl eax, 3
         add edx, eax
-        mov eax, dword [dword_19D074]
+        mov eax, dword [OpeningCamData]
         mov ebx, dword [byte esp+01Ch]
         dec eax
         cmp eax, ebx
@@ -8394,8 +8394,8 @@ OpeningCameraStep:
         mov ebx, 4
         mov edx, esp
         xor ecx, ecx
-        mov edi, dword_19D1A0
-        mov dword [dword_19D0C8], ecx
+        mov edi, CameraLookAt
+        mov dword [CameraViewX], ecx
         xor eax, eax
         movsd
         movsd
@@ -8409,9 +8409,9 @@ OpeningCameraStep:
         mov eax, dword [byte esp+018h]
         mov edx, 6
         push eax
-        mov dword [dword_19D36C], eax
+        mov dword [CameraFollowObj], eax
         xor eax, eax
-        mov dword [dword_19D0D8], ecx
+        mov dword [CameraFocus], ecx
         call UpdateCameraMotion
 .7:
         mov esp, ebp
@@ -8436,11 +8436,11 @@ LoadOpeningCamera:
         push ebp
         sub esp, byte 14h
         mov edx, 8
-        mov eax, unk_19D0A4
+        mov eax, CameraPathPoints
         call SetCameraView
         mov edx, 8
         mov eax, 1
-        mov dword [dword_19D388], edx
+        mov dword [CameraPathActive], edx
         call LoadOpeningArt
         push byte 1
         push str_IntroD3cp
@@ -8455,26 +8455,26 @@ LoadOpeningCamera:
         push eax
         call LoadResourceDataShared
         add esp, byte 8
-        mov dword [dword_19D06C], eax
+        mov dword [OpeningCamFrame], eax
         xor eax, eax
         mov ebx, 1
         call SetArtArchive
-        mov edx, dword [dword_19D06C]
+        mov edx, dword [OpeningCamFrame]
         mov edi, OpeningCameraStep
         lea eax, [byte edx+04h]
         mov ebp, ebx
-        mov dword [dword_19D078], eax
+        mov dword [OpeningCamFrames], eax
         xor ecx, ecx
         mov eax, dword [edx]
-        mov edx, dword [dword_19D078]
-        mov dword [dword_19D074], eax
-        mov dword [dword_19D070], ebx
-        mov dword [dword_19D08C], ecx
-        mov dword [dword_19D088], ecx
-        mov dword [dword_19D084], edi
-        mov dword [dword_19D384], ebx
-        mov dword [dword_19D0C8], ecx
-        mov edi, dword_19D1A0
+        mov edx, dword [OpeningCamFrames]
+        mov dword [OpeningCamData], eax
+        mov dword [OpeningCamActive], ebx
+        mov dword [CameraSceneArg], ecx
+        mov dword [CameraSceneStep], ecx
+        mov dword [CameraSceneFunc], edi
+        mov dword [ActiveCameraScene], ebx
+        mov dword [CameraViewX], ecx
+        mov edi, CameraLookAt
         mov esi, edx
         mov ebx, 4
         xor eax, eax
@@ -8482,20 +8482,20 @@ LoadOpeningCamera:
         movsd
         movsd
         call SnapCamera
-        mov edx, dword [dword_19D078]
+        mov edx, dword [OpeningCamFrames]
         push ecx
         push dword [byte edx+010h]
         push dword [byte edx+0Ch]
         call SetCameraPathPoint
-        mov eax, dword [dword_19D078]
+        mov eax, dword [OpeningCamFrames]
         mov ebx, ebp
         push byte 4
         mov eax, dword [byte eax+014h]
         mov edx, 6
         push eax
-        mov dword [dword_19D36C], eax
+        mov dword [CameraFollowObj], eax
         xor eax, eax
-        mov dword [dword_19D0D8], ecx
+        mov dword [CameraFocus], ecx
         call UpdateCameraMotion
         mov dword [dword_16AF5C], ebx
         call DrawClockOverlay
@@ -8520,7 +8520,7 @@ FightSceneStep:
         push esi
         push edi
         push ebp
-        mov eax, dword [dword_19D088]
+        mov eax, dword [CameraSceneStep]
         cmp eax, byte 1
         jb short .1
         jbe near .2
@@ -8530,14 +8530,14 @@ FightSceneStep:
 .1:
         test eax, eax
         jne near .4
-        cmp word [word_1689BE], byte 0
+        cmp word [FightCameraReady], byte 0
         je near .4
         mov edx, 64h
-        mov edi, dword_19D374
-        mov dword [dword_19D08C], eax
+        mov edi, CameraSceneCenter
+        mov dword [CameraSceneArg], eax
         inc eax
-        mov esi, dword_19D188
-        mov dword [dword_19D088], eax
+        mov esi, CameraPos
+        mov dword [CameraSceneStep], eax
         mov eax, 12h
         movsd
         movsd
@@ -8553,8 +8553,8 @@ FightSceneStep:
         mov edx, 1F4h
         push dword 457A0000h
         mov eax, 1
-        mov dword [dword_19D0CC], esi
-        mov dword [dword_19D1A4], edi
+        mov dword [CameraViewY], esi
+        mov dword [CameraHeight], edi
         call SetCameraTarget
         pop ebp
         pop edi
@@ -8564,21 +8564,21 @@ FightSceneStep:
         pop ebx
         ret
 .2:
-        cmp dword [dword_19D08C], 1F4h
+        cmp dword [CameraSceneArg], 1F4h
         jl near .4
         mov edi, 43FA0000h
         mov eax, 44FF0000h
         mov edx, 190h
         xor ebp, ebp
-        mov dword [dword_19D378], edi
-        mov dword [dword_19D374], eax
+        mov dword [CameraSceneYaw], edi
+        mov dword [CameraSceneCenter], eax
         mov eax, 12h
-        mov dword [dword_19D37C], ebp
+        mov dword [CameraSceneDist], ebp
         call StartCameraPath
-        mov ebx, dword [dword_19D088]
+        mov ebx, dword [CameraSceneStep]
         inc ebx
-        mov dword [dword_19D08C], ebp
-        mov dword [dword_19D088], ebx
+        mov dword [CameraSceneArg], ebp
+        mov dword [CameraSceneStep], ebx
         pop ebp
         pop edi
         pop esi
@@ -8587,7 +8587,7 @@ FightSceneStep:
         pop ebx
         ret
 .3:
-        cmp dword [dword_19D08C], 0C8h
+        cmp dword [CameraSceneArg], 0C8h
         jl short .4
         push dword 1F4h
         push byte 0
@@ -8599,8 +8599,8 @@ FightSceneStep:
         xor ebx, ebx
         push dword 43FA0000h
         mov eax, 1
-        mov dword [dword_19D0CC], ebx
-        mov dword [dword_19D1A4], ecx
+        mov dword [CameraViewY], ebx
+        mov dword [CameraHeight], ecx
         call SetCameraTarget
 .4:
         pop ebp
@@ -8628,7 +8628,7 @@ FightCameraScene:
         test eax, eax
         je near .6
         mov edx, 8
-        mov eax, unk_19D0A4
+        mov eax, CameraPathPoints
         mov ebp, FightSceneStep
         call SetCameraView
         add ecx, byte 4
@@ -8636,39 +8636,39 @@ FightCameraScene:
         xor esi, esi
         mov edx, 8
         mov eax, 1
-        mov dword [dword_19D08C], esi
-        mov dword [dword_19D088], esi
-        mov dword [dword_19D084], ebp
-        mov dword [dword_19D020], ecx
-        mov dword [dword_19D388], edx
+        mov dword [CameraSceneArg], esi
+        mov dword [CameraSceneStep], esi
+        mov dword [CameraSceneFunc], ebp
+        mov dword [FightSceneTimer], ecx
+        mov dword [CameraPathActive], edx
         xor edx, edx
-        mov dword [dword_19D024], ebx
-        mov word [word_1689BE], dx
-        mov edx, dword [dword_19D188]
-        mov dword [dword_19D384], eax
+        mov dword [FightSceneState], ebx
+        mov word [FightCameraReady], dx
+        mov edx, dword [CameraPos]
+        mov dword [ActiveCameraScene], eax
         cmp edx, 44C08000h
         jg short .1
-        cmp dword [dword_19D190], 45866000h
+        cmp dword [CameraHeading], 45866000h
         jle short .2
 .1:
-        mov byte [byte_1689BC], 1
+        mov byte [FightSceneActive], 1
         jmp short .3
 .2:
         xor ah, ah
-        mov byte [byte_1689BC], ah
+        mov byte [FightSceneActive], ah
 .3:
-        cmp byte [byte_1689BC], 0
+        cmp byte [FightSceneActive], 0
         jne short .4
         push dword 1F4h
-        mov edx, dword [dword_19D024]
+        mov edx, dword [FightSceneState]
         push dword 0BFC90FDBh
         jmp short .5
 .4:
         push dword 1F4h
-        mov edx, dword [dword_19D024]
+        mov edx, dword [FightSceneState]
         push dword 0C096CBE4h
 .5:
-        mov eax, dword [dword_19D020]
+        mov eax, dword [FightSceneTimer]
         push dword 447A0000h
         call FightCameraStart
         push byte 0
@@ -8677,8 +8677,8 @@ FightCameraScene:
         mov edx, 1F4h
         xor ecx, ecx
         mov eax, 1
-        mov dword [dword_19D0CC], ecx
-        mov dword [dword_19D1A4], esi
+        mov dword [CameraViewY], ecx
+        mov dword [CameraHeight], esi
         call SetCameraTarget
 .6:
         pop ebp
@@ -8692,7 +8692,7 @@ FightCameraScene:
 ; Marks the fight camera as in place
 ;-----------------------------------------------------------------------------
 SetFightCameraReady:
-        mov word [word_1689BE], 1
+        mov word [FightCameraReady], 1
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
@@ -8702,9 +8702,9 @@ SetFightCameraReady:
 SceneReturnToView:
         push ebx
         push edx
-        cmp dword [dword_19D08C], byte 64h
+        cmp dword [CameraSceneArg], byte 64h
         jle short .1
-        mov eax, dword [dword_19D068]
+        mov eax, dword [SceneSavedView]
         xor edx, edx
         mov ebx, 64h
         call SelectCameraView
@@ -8712,7 +8712,7 @@ SceneReturnToView:
         mov eax, 0FFFFFFFFh
         call FadeGamePalette
         xor ebx, ebx
-        mov dword [dword_19D384], ebx
+        mov dword [ActiveCameraScene], ebx
 .1:
         pop edx
         pop ebx
@@ -8728,13 +8728,13 @@ SceneReturnToView:
         xor edx, edx
         mov esi, 1
         call FadeGamePalette
-        mov dword [dword_19D068], ecx
-        mov dword [dword_19D384], esi
+        mov dword [SceneSavedView], ecx
+        mov dword [ActiveCameraScene], esi
         xor edx, edx
         mov ecx, SceneReturnToView
-        mov dword [dword_19D08C], edx
-        mov dword [dword_19D088], edx
-        mov dword [dword_19D084], ecx
+        mov dword [CameraSceneArg], edx
+        mov dword [CameraSceneStep], edx
+        mov dword [CameraSceneFunc], ecx
         pop esi
         pop edx
         pop ecx
@@ -8752,14 +8752,14 @@ FaceoffCameraScene:
         call CanStartCameraScene
         test eax, eax
         je short .1
-        cmp byte [byte_16892C], 0
+        cmp byte [GoalSceneActive], 0
         jne short .1
         mov edx, 8
-        mov eax, unk_19D0A4
+        mov eax, CameraPathPoints
         call SetCameraView
         mov edx, 8
         mov eax, 18h
-        mov dword [dword_19D388], edx
+        mov dword [CameraPathActive], edx
         mov edx, 0C8h
         mov ebx, 1
         call StartCameraPath
@@ -8779,7 +8779,7 @@ FaceoffSceneStep:
         push esi
         push edi
         push ebp
-        cmp dword [dword_19D08C], 258h
+        cmp dword [CameraSceneArg], 258h
         jl short .1
         push byte 0
         mov ebx, 0Ah
@@ -8790,15 +8790,15 @@ FaceoffSceneStep:
         push dword 442F0000h
         mov edx, 190h
         xor ebp, ebp
-        mov dword [dword_19D0C8], ebx
-        mov dword [dword_19D1B8], ecx
-        mov dword [dword_19D1BC], esi
-        mov dword [dword_19D1CC], edi
-        mov dword [dword_19D1A4], eax
+        mov dword [CameraViewX], ebx
+        mov dword [CameraPathTime], ecx
+        mov dword [CameraPathVec], esi
+        mov dword [CameraViewPair], edi
+        mov dword [CameraHeight], eax
         mov eax, 1
-        mov dword [dword_19D0CC], ebp
+        mov dword [CameraViewY], ebp
         call SetCameraTarget
-        mov dword [dword_19D384], ebp
+        mov dword [ActiveCameraScene], ebp
 .1:
         pop ebp
         pop edi
@@ -8829,16 +8829,16 @@ FaceoffCloseupScene:
         xor edx, edx
         mov esi, 1
         lea edi, [byte esp+018h]
-        mov dword [dword_19D08C], edx
-        mov dword [dword_19D088], edx
-        mov dword [dword_19D084], ecx
-        mov dword [dword_19D384], esi
+        mov dword [CameraSceneArg], edx
+        mov dword [CameraSceneStep], edx
+        mov dword [CameraSceneFunc], ecx
+        mov dword [ActiveCameraScene], esi
         call GetCameraTarget
         mov esi, eax
         movsd
         movsd
         movsd
-        fld dword [dword_19D19C]
+        fld dword [CameraZoom]
         mov esi, 9
         fcomp dword [F32_neg1000_FaceoffCloseupScene]
         fnstsw ax
@@ -8868,7 +8868,7 @@ FaceoffCloseupScene:
         mov dword [byte esp+04h], edx
         mov dword [byte esp+0Ch], eax
         mov dword [byte esp+010h], ebx
-        mov dword [dword_19D370], ecx
+        mov dword [TargetPointObj], ecx
         fxch st2
         fadd dword [F32_neg1000_FaceoffCloseupScene]
         fxch
@@ -8917,7 +8917,7 @@ FaceoffCloseupScene:
         fstp dword [byte esp+014h]
         mov eax, 40490FDBh
         fstp dword [esp]
-        mov dword [dword_19D370], eax
+        mov dword [TargetPointObj], eax
 .4:
         lea ebx, [byte esp+024h]
         mov edx, esp
@@ -8925,7 +8925,7 @@ FaceoffCloseupScene:
         xor ecx, ecx
         call SetCameraSpline
         mov eax, esi
-        mov edi, dword_19D374
+        mov edi, CameraSceneCenter
         call GetCameraTarget
         mov esi, eax
         mov edx, 0C8h
@@ -8955,7 +8955,7 @@ FaceoffSweepStep:
         push edi
         push ebp
         sub esp, byte 18h
-        mov eax, dword [dword_19D088]
+        mov eax, dword [CameraSceneStep]
         cmp eax, byte 1
         jb short .1
         jbe near .2
@@ -8965,7 +8965,7 @@ FaceoffSweepStep:
 .1:
         test eax, eax
         jne near .4
-        cmp dword [dword_19D08C], byte 64h
+        cmp dword [CameraSceneArg], byte 64h
         jl near .4
         mov esi, 0C5188000h
         mov edi, 43480000h
@@ -8980,27 +8980,27 @@ FaceoffSweepStep:
         mov dword [esp], eax
         mov dword [byte esp+04h], edx
         mov edx, 8
-        mov eax, unk_19D0A4
+        mov eax, CameraPathPoints
         mov esi, 1
         mov edi, 447A0000h
         call SetCameraView
         xor ebp, ebp
         mov eax, 10h
-        mov dword [dword_19D388], ecx
-        mov dword [dword_19D0C8], esi
+        mov dword [CameraPathActive], ecx
+        mov dword [CameraViewX], esi
         xor edx, edx
-        mov dword [dword_19D1B8], edi
+        mov dword [CameraPathTime], edi
         call StartCameraPath
         mov eax, 442F0000h
         push byte 4
-        mov edi, unk_19D31C
+        mov edi, CameraEye
         mov edx, esi
         push dword 442F0000h
-        mov dword [dword_19D1A4], eax
+        mov dword [CameraHeight], eax
         xor eax, eax
-        mov dword [dword_19D0CC], ebp
+        mov dword [CameraViewY], ebp
         call UpdateCameraMotion
-        mov dword [dword_19D0CC], esi
+        mov dword [CameraViewY], esi
         lea esi, [byte esp+0Ch]
         mov dword [byte esp+08h], ebx
         movsd
@@ -9008,17 +9008,17 @@ FaceoffSweepStep:
         movsd
         mov ebx, 64h
         mov esi, esp
-        mov edi, unk_19D328
+        mov edi, CameraCenter
         mov edx, 10000h
         mov eax, 0FFFFFFFFh
         movsd
         movsd
         movsd
         call FadeGamePalette
-        mov ecx, dword [dword_19D088]
+        mov ecx, dword [CameraSceneStep]
         inc ecx
-        mov dword [dword_19D08C], ebp
-        mov dword [dword_19D088], ecx
+        mov dword [CameraSceneArg], ebp
+        mov dword [CameraSceneStep], ecx
         add esp, byte 18h
         pop ebp
         pop edi
@@ -9028,21 +9028,21 @@ FaceoffSweepStep:
         pop ebx
         ret
 .2:
-        cmp dword [dword_19D08C], byte 64h
+        cmp dword [CameraSceneArg], byte 64h
         jl near .4
         push byte 0
         mov eax, 451C4000h
         push dword 451C4000h
         mov edx, 7D0h
         xor ebp, ebp
-        mov dword [dword_19D1A4], eax
+        mov dword [CameraHeight], eax
         mov eax, 1
-        mov dword [dword_19D0CC], ebp
+        mov dword [CameraViewY], ebp
         call SetCameraTarget
-        mov ebx, dword [dword_19D088]
+        mov ebx, dword [CameraSceneStep]
         inc ebx
-        mov dword [dword_19D08C], ebp
-        mov dword [dword_19D088], ebx
+        mov dword [CameraSceneArg], ebp
+        mov dword [CameraSceneStep], ebx
         add esp, byte 18h
         pop ebp
         pop edi
@@ -9052,22 +9052,22 @@ FaceoffSweepStep:
         pop ebx
         ret
 .3:
-        cmp dword [dword_19D08C], 258h
+        cmp dword [CameraSceneArg], 258h
         jl short .4
         push dword 7D0h
-        push dword [dword_19D190]
+        push dword [CameraHeading]
         mov ecx, 458CA000h
-        push dword [dword_19D188]
+        push dword [CameraPos]
         mov edx, 7D0h
         call SetCameraFocus
         push byte 0
         xor ebx, ebx
         push dword 458CA000h
         mov eax, 1
-        mov dword [dword_19D0CC], ebx
-        mov dword [dword_19D1A4], ecx
+        mov dword [CameraViewY], ebx
+        mov dword [CameraHeight], ecx
         call SetCameraTarget
-        mov dword [dword_19D384], ebx
+        mov dword [ActiveCameraScene], ebx
 .4:
         add esp, byte 18h
         pop ebp
@@ -9089,11 +9089,11 @@ FaceoffSweepStep:
         mov ebx, 32h
         xor edx, edx
         mov eax, 0FFFFFFFFh
-        mov dword [dword_19D08C], edx
-        mov dword [dword_19D088], edx
-        mov dword [dword_19D084], ecx
-        mov dword [dword_19D384], esi
-        mov dword [dword_19D058], edi
+        mov dword [CameraSceneArg], edx
+        mov dword [CameraSceneStep], edx
+        mov dword [CameraSceneFunc], ecx
+        mov dword [ActiveCameraScene], esi
+        mov dword [SceneStepCount], edi
         call FadeGamePalette
         pop edi
         pop esi
@@ -9125,7 +9125,7 @@ FaceoffSweepScene:
         movsd
         movsd
         mov dword [byte esp+08h], ecx
-        fcomp dword [dword_19D19C]
+        fcomp dword [CameraZoom]
         fnstsw ax
         sahf
         jbe short .1
@@ -9184,9 +9184,9 @@ FaceoffCameraScene2:
         mov ebx, 2
         sar edx, 1Fh
         idiv ebx
-        cmp dword [dword_19D19C], 44FA0000h
+        cmp dword [CameraZoom], 44FA0000h
         jge short .3
-        fld dword [dword_19D19C]
+        fld dword [CameraZoom]
         fcomp dword [F32_neg2000_FaceoffCameraScene2]
         fnstsw ax
         sahf
@@ -9206,7 +9206,7 @@ FaceoffCameraScene2:
         call SetCameraSceneFunc
         xor edx, edx
         mov eax, 0FFFFFFFFh
-        mov dword [dword_19D058], ecx
+        mov dword [SceneStepCount], ecx
         call FadeGamePalette
         jmp short .4
 .3:
@@ -9230,31 +9230,31 @@ MenuCameraScene:
         push esi
         push edi
         mov edx, 8
-        mov eax, unk_19D0A4
+        mov eax, CameraPathPoints
         mov ecx, 3F060A92h
-        mov edi, dword_19D1A0
-        mov esi, unk_19D04C
+        mov edi, CameraLookAt
+        mov esi, MenuCamPos
         call SetCameraView
         xor ebx, ebx
         mov edx, 8
         push byte 4
-        mov dword [dword_19D0D8], ebx
+        mov dword [CameraFocus], ebx
         xor eax, eax
         push dword 3F060A92h
-        mov dword [dword_19D388], edx
+        mov dword [CameraPathActive], edx
         mov edx, 6
-        mov dword [dword_19D36C], ecx
+        mov dword [CameraFollowObj], ecx
         call UpdateCameraMotion
-        mov edx, unk_19D04C
-        mov dword [dword_19D0C8], ebx
+        mov edx, MenuCamPos
+        mov dword [CameraViewX], ebx
         xor eax, eax
         mov ebx, 4
         movsd
         movsd
         movsd
         call SnapCamera
-        mov edi, dword_19D374
-        mov esi, unk_19D05C
+        mov edi, CameraSceneCenter
+        mov esi, MenuCamTarget
         mov eax, 12h
         xor edx, edx
         movsd
@@ -9279,15 +9279,15 @@ MenuOrbitStep:
         push edi
         push ebp
         sub esp, byte 10h
-        mov eax, dword [dword_19D048]
+        mov eax, dword [MenuOrbitAngle]
         mov edx, eax
         sar edx, 1Fh
         LD sub, eax, edx
         sar eax, 1
-        cmp eax, dword [dword_19D08C]
+        cmp eax, dword [CameraSceneArg]
         jg near .6
         mov ebx, 4541C000h
-        fld dword [dword_19D19C]
+        fld dword [CameraZoom]
         mov dword [byte esp+04h], ebx
         fcomp dword [F32_neg400]
         fnstsw ax
@@ -9299,7 +9299,7 @@ MenuOrbitStep:
         mov dword [esp], ecx
         jmp short .4
 .1:
-        cmp dword [dword_19D19C], 43C80000h
+        cmp dword [CameraZoom], 43C80000h
         jle short .2
         mov ebx, 44AF0000h
         mov edx, 43C80000h
@@ -9308,7 +9308,7 @@ MenuOrbitStep:
         jmp short .4
 .2:
         fldz
-        fcomp dword [dword_19D194]
+        fcomp dword [CameraElevation]
         fnstsw ax
         sahf
         jbe short .3
@@ -9324,26 +9324,26 @@ MenuOrbitStep:
         mov dword [esp], esi
 .4:
         mov esi, esp
-        mov edi, unk_19D04C
+        mov edi, MenuCamPos
         mov eax, 11h
         movsd
         movsd
         movsd
         call GetCameraTarget
         mov esi, eax
-        mov eax, dword [dword_19D048]
+        mov eax, dword [MenuOrbitAngle]
         mov edx, eax
         sar edx, 1Fh
         LD sub, eax, edx
         sar eax, 1
-        mov edi, unk_19D05C
+        mov edi, MenuCamTarget
         movsd
         movsd
         movsd
         xor edi, edi
         mov esi, esp
-        mov dword [dword_19D0C8], edi
-        mov edi, dword_19D1A0
+        mov dword [CameraViewX], edi
+        mov edi, CameraLookAt
         movsd
         movsd
         movsd
@@ -9389,26 +9389,26 @@ MenuOrbitScene:
         xor edx, edx
         xor eax, eax
         push dword 3F060A92h
-        mov dword [dword_19D0D8], edx
+        mov dword [CameraFocus], edx
         mov edx, 6
-        mov dword [dword_19D36C], ecx
+        mov dword [CameraFollowObj], ecx
         call UpdateCameraMotion
         test ebx, ebx
         je near .1
         mov edi, MenuOrbitStep
         mov ebp, 1
         mov edx, 8
-        mov eax, unk_19D0A4
+        mov eax, CameraPathPoints
         xor ecx, ecx
-        mov dword [dword_19D048], ebx
-        mov dword [dword_19D08C], ecx
-        mov dword [dword_19D088], ecx
-        mov dword [dword_19D084], edi
-        mov dword [dword_19D384], ebp
+        mov dword [MenuOrbitAngle], ebx
+        mov dword [CameraSceneArg], ecx
+        mov dword [CameraSceneStep], ecx
+        mov dword [CameraSceneFunc], edi
+        mov dword [ActiveCameraScene], ebp
         call SetCameraView
         mov eax, 8
         mov edx, ebx
-        mov dword [dword_19D388], eax
+        mov dword [CameraPathActive], eax
         mov eax, 11h
         shl edx, 2
         call GetCameraTarget
@@ -9419,20 +9419,20 @@ MenuOrbitScene:
         shl edx, 2
         LD sbb, eax, edx
         sar eax, 2
-        mov edi, dword_19D374
+        mov edi, CameraSceneCenter
         movsd
         movsd
         movsd
-        fld dword [dword_19D378]
-        fld dword [dword_19D374]
+        fld dword [CameraSceneYaw]
+        fld dword [CameraSceneCenter]
         fadd dword [F32_neg200]
         fxch
         fadd dword [F32_neg300]
         fxch
-        fstp dword [dword_19D374]
+        fstp dword [CameraSceneCenter]
         mov edx, eax
         mov eax, 12h
-        fstp dword [dword_19D378]
+        fstp dword [CameraSceneYaw]
         call StartCameraPath
         add esp, byte 0Ch
         pop ebp
@@ -9444,21 +9444,21 @@ MenuOrbitScene:
         ret
 .1:
         mov edx, 8
-        mov eax, unk_19D0A4
+        mov eax, CameraPathPoints
         mov esi, 8
         mov edi, 43FA0000h
         mov ebp, 4541C000h
         mov ebx, 4
         call SetCameraView
         mov eax, 0C47A0000h
-        mov dword [dword_19D388], esi
+        mov dword [CameraPathActive], esi
         mov dword [esp], edi
         mov dword [byte esp+04h], ebp
         xor edx, edx
         mov esi, esp
-        mov edi, dword_19D1A0
+        mov edi, CameraLookAt
         mov dword [byte esp+08h], eax
-        mov dword [dword_19D0C8], edx
+        mov dword [CameraViewX], edx
         mov edx, esp
         xor eax, eax
         movsd
@@ -9466,7 +9466,7 @@ MenuOrbitScene:
         movsd
         call SnapCamera
         mov eax, 11h
-        mov edi, dword_19D374
+        mov edi, CameraSceneCenter
         call GetCameraTarget
         mov esi, eax
         mov ebx, 447A0000h
@@ -9475,24 +9475,24 @@ MenuOrbitScene:
         movsd
         movsd
         mov eax, 12h
-        fld dword [dword_19D374]
-        fld dword [dword_19D378]
+        fld dword [CameraSceneCenter]
+        fld dword [CameraSceneYaw]
         mov esi, esp
-        mov edi, unk_19D04C
-        mov dword [dword_19D37C], ebx
+        mov edi, MenuCamPos
+        mov dword [CameraSceneDist], ebx
         fxch
         fadd dword [F32_neg1000_MenuOrbitScene]
         fxch
         fadd dword [F32_neg700_MenuOrbitScene]
         fxch
-        fstp dword [dword_19D374]
-        fstp dword [dword_19D378]
+        fstp dword [CameraSceneCenter]
+        fstp dword [CameraSceneYaw]
         call StartCameraPath
         movsd
         movsd
         movsd
-        mov edi, unk_19D05C
-        mov esi, dword_19D374
+        mov edi, MenuCamTarget
+        mov esi, CameraSceneCenter
         movsd
         movsd
         movsd
@@ -9512,7 +9512,7 @@ PenShotSceneStep:
         push ebx
         push ecx
         push edx
-        cmp dword [dword_19D08C], 1F4h
+        cmp dword [CameraSceneArg], 1F4h
         jl short .1
         push byte 0
         mov ecx, 447A0000h
@@ -9520,8 +9520,8 @@ PenShotSceneStep:
         mov edx, 258h
         xor ebx, ebx
         mov eax, 1
-        mov dword [dword_19D0CC], ebx
-        mov dword [dword_19D1A4], ecx
+        mov dword [CameraViewY], ebx
+        mov dword [CameraHeight], ecx
         call SetCameraTarget
 .1:
         pop edx
@@ -9547,17 +9547,17 @@ PenaltyShotCameraScene:
         mov edi, PenShotSceneStep
         mov ebp, 1
         mov eax, dword [penshottimer]
-        mov dword [dword_19D040], ebx
+        mov dword [PenShotSceneTimer], ebx
         add edx, byte 4
         xor ecx, ecx
         sar eax, 10h
-        mov dword [dword_19D08C], ecx
-        mov dword [dword_19D088], ecx
-        mov dword [dword_19D084], edi
-        mov dword [dword_19D384], ebp
+        mov dword [CameraSceneArg], ecx
+        mov dword [CameraSceneStep], ecx
+        mov dword [CameraSceneFunc], edi
+        mov dword [ActiveCameraScene], ebp
         add ebx, byte 2
         mov dword [byte esp+04h], edx
-        mov dword [dword_19D044], eax
+        mov dword [PenShotSceneState], eax
         mov dword [esp], ebx
         call ResetSceneCamera
         push dword 190h
@@ -9571,9 +9571,9 @@ PenaltyShotCameraScene:
         je short .1
         mov edx, 3FA00000h
         mov eax, 9
-        mov dword [dword_19D1BC], ecx
-        mov dword [dword_19D1B8], edx
-        mov dword [dword_19D0C8], eax
+        mov dword [CameraPathVec], ecx
+        mov dword [CameraPathTime], edx
+        mov dword [CameraViewX], eax
 .1:
         push byte 0
         mov esi, 451C4000h
@@ -9582,8 +9582,8 @@ PenaltyShotCameraScene:
         mov eax, 1
         xor ecx, ecx
         mov edi, 1
-        mov dword [dword_19D0CC], ecx
-        mov dword [dword_19D1A4], esi
+        mov dword [CameraViewY], ecx
+        mov dword [CameraHeight], esi
         call SetCameraTarget
         mov dword [CameraSceneId], edi
 .2:
@@ -9602,18 +9602,18 @@ PenaltyShotCameraScene:
 EndPenShotScene:
         push ebx
         push edx
-        mov eax, dword [dword_19D040]
+        mov eax, dword [PenShotSceneTimer]
         add eax, byte 2
-        mov dword [dword_19D020], eax
-        mov eax, dword [dword_19D044]
+        mov dword [FightSceneTimer], eax
+        mov eax, dword [PenShotSceneState]
         mov ebx, 12Ch
         add eax, byte 4
-        mov edx, dword_19D020
-        mov dword [dword_19D024], eax
+        mov edx, FightSceneTimer
+        mov dword [FightSceneState], eax
         mov eax, 2
         call SetCameraPathPoints
         xor edx, edx
-        mov dword [dword_19D384], edx
+        mov dword [ActiveCameraScene], edx
         pop edx
         pop ebx
         ret
@@ -9639,7 +9639,7 @@ GoalSceneStep:
         movsd
         movsd
         movsd
-        cmp dword [dword_19D08C], 2BCh
+        cmp dword [CameraSceneArg], 2BCh
         jl short .1
         push byte 0
         mov ecx, 451C4000h
@@ -9648,22 +9648,22 @@ GoalSceneStep:
         mov eax, 1
         mov esi, 1
         xor ebx, ebx
-        mov edi, unk_19D31C
-        mov dword [dword_19D0CC], ebx
-        mov dword [dword_19D1A4], ecx
+        mov edi, CameraEye
+        mov dword [CameraViewY], ebx
+        mov dword [CameraHeight], ecx
         call SetCameraTarget
-        mov dword [dword_19D0CC], esi
+        mov dword [CameraViewY], esi
         lea esi, [byte esp+0Ch]
         movsd
         movsd
         movsd
         mov esi, esp
-        mov edi, unk_19D328
+        mov edi, CameraCenter
         xor ah, ah
         movsd
         movsd
         movsd
-        mov byte [byte_16892C], ah
+        mov byte [GoalSceneActive], ah
 .1:
         add esp, byte 18h
         pop edi
@@ -9704,12 +9704,12 @@ GoalCameraScene:
         mov ah, 1
         xor ecx, ecx
         add ebx, byte 4
-        mov dword [dword_19D08C], ecx
-        mov dword [dword_19D088], ecx
-        mov dword [dword_19D084], edi
-        mov dword [dword_19D384], ebp
+        mov dword [CameraSceneArg], ecx
+        mov dword [CameraSceneStep], ecx
+        mov dword [CameraSceneFunc], edi
+        mov dword [ActiveCameraScene], ebp
         mov cl, byte [byte_19CBC2]
-        mov byte [byte_16892C], ah
+        mov byte [GoalSceneActive], ah
         test cl, 2
         je short .1
         test edx, edx
@@ -9722,12 +9722,12 @@ GoalCameraScene:
         and eax, 0FFh
         lea ecx, [byte eax+02h]
         mov edx, 8
-        mov eax, unk_19D0A4
+        mov eax, CameraPathPoints
         call SetCameraView
         mov eax, 8
         mov dword [byte esp+018h], ecx
         mov dword [byte esp+01Ch], ebx
-        mov dword [dword_19D388], eax
+        mov dword [CameraPathActive], eax
         call ResetSceneCamera
         push dword 190h
         lea edx, [byte esp+01Ch]
@@ -9741,19 +9741,19 @@ GoalCameraScene:
         mov ebx, 3F99999Ah
         mov edx, 9
         xor ecx, ecx
-        mov dword [dword_19D1B8], ebx
-        mov dword [dword_19D1BC], ecx
-        mov dword [dword_19D0C8], edx
+        mov dword [CameraPathTime], ebx
+        mov dword [CameraPathVec], ecx
+        mov dword [CameraViewX], edx
 .2:
         mov esi, 1
-        mov edi, unk_19D31C
-        mov dword [dword_19D0CC], esi
+        mov edi, CameraEye
+        mov dword [CameraViewY], esi
         lea esi, [byte esp+0Ch]
         movsd
         movsd
         movsd
         mov esi, esp
-        mov edi, unk_19D328
+        mov edi, CameraCenter
         movsd
         movsd
         movsd
@@ -9775,7 +9775,7 @@ FaceoffDropSceneStep:
         push edx
         push edi
         push ebp
-        mov eax, dword [dword_19D088]
+        mov eax, dword [CameraSceneStep]
         cmp eax, byte 1
         jb short .1
         jbe near .2
@@ -9789,18 +9789,18 @@ FaceoffDropSceneStep:
 .1:
         test eax, eax
         jne near .6
-        cmp dword [dword_19D08C], 96h
+        cmp dword [CameraSceneArg], 96h
         jl near .6
-        mov dword [dword_19D08C], eax
+        mov dword [CameraSceneArg], eax
         inc eax
         mov edx, 8
-        mov dword [dword_19D088], eax
-        mov eax, unk_19D0A4
+        mov dword [CameraSceneStep], eax
+        mov eax, CameraPathPoints
         mov ebp, 8
         call SetCameraView
         mov eax, 1
         xor edx, edx
-        mov dword [dword_19D388], ebp
+        mov dword [CameraPathActive], ebp
         call StartCameraPath
         mov eax, dword [dword_1686BA]
         xor edx, edx
@@ -9817,17 +9817,17 @@ FaceoffDropSceneStep:
         pop ebx
         ret
 .2:
-        cmp dword [dword_19D08C], byte 1Eh
+        cmp dword [CameraSceneArg], byte 1Eh
         jl near .6
-        cmp dword [dword_19D388], byte 4
+        cmp dword [CameraPathActive], byte 4
         jge short .3
         push byte 4
         mov edx, 3E800000h
         xor eax, eax
         push dword 3E800000h
-        mov dword [dword_19D36C], edx
+        mov dword [CameraFollowObj], edx
         mov edx, 6
-        mov dword [dword_19D0D8], eax
+        mov dword [CameraFocus], eax
         jmp short .4
 .3:
         mov ebp, 3F000000h
@@ -9836,27 +9836,27 @@ FaceoffDropSceneStep:
         xor edi, edi
         xor eax, eax
         push dword 3F000000h
-        mov dword [dword_19D0D8], edi
-        mov dword [dword_19D36C], ebp
+        mov dword [CameraFocus], edi
+        mov dword [CameraFollowObj], ebp
 .4:
         call UpdateCameraMotion
         mov edx, 8
-        mov eax, unk_19D0A4
+        mov eax, CameraPathPoints
         mov ebx, 8
         call SetCameraView
         mov edx, 10000h
         mov eax, 0FFFFFFFFh
-        mov dword [dword_19D388], ebx
+        mov dword [CameraPathActive], ebx
         mov ebx, 64h
         call FadeGamePalette
-        inc dword [dword_19D088]
+        inc dword [CameraSceneStep]
         pop ebp
         pop edi
         pop edx
         pop ebx
         ret
 .5:
-        cmp byte [byte_16892E], 0
+        cmp byte [FaceoffDropScene], 0
         je short .6
         mov eax, 1
         xor edx, edx
@@ -9869,8 +9869,8 @@ FaceoffDropSceneStep:
         xor ebx, ebx
         mov dword [CameraSceneId], edx
         xor dl, dl
-        mov dword [dword_19D384], ebx
-        mov byte [byte_16892E], dl
+        mov dword [ActiveCameraScene], ebx
+        mov byte [FaceoffDropScene], dl
 .6:
         pop ebp
         pop edi
@@ -9893,12 +9893,12 @@ FaceoffDropCameraScene:
         je near .3
         xor ah, ah
         mov edx, 8
-        mov byte [byte_168930], ah
-        mov byte [byte_16892E], ah
-        mov eax, unk_19D0A4
+        mov byte [IntermissionActive], ah
+        mov byte [FaceoffDropScene], ah
+        mov eax, CameraPathPoints
         call SetCameraView
-        mov dword [dword_19D388], 8
-        cmp byte [byte_16892F], 0
+        mov dword [CameraPathActive], 8
+        cmp byte [CameraScenesOn], 0
         je short .1
         mov eax, dword [dword_1AC944]
         test byte [byte eax+02h], 20h
@@ -9912,12 +9912,12 @@ FaceoffDropCameraScene:
         mov esi, FaceoffDropSceneStep
         xor bh, bh
         mov edi, 1
-        mov byte [byte_16892F], bh
-        mov dword [dword_19D084], esi
+        mov byte [CameraScenesOn], bh
+        mov dword [CameraSceneFunc], esi
         xor ebx, ebx
-        mov dword [dword_19D384], edi
-        mov dword [dword_19D08C], ebx
-        mov dword [dword_19D088], ebx
+        mov dword [ActiveCameraScene], edi
+        mov dword [CameraSceneArg], ebx
+        mov dword [CameraSceneStep], ebx
 .3:
         pop edi
         pop esi
@@ -9953,13 +9953,13 @@ PenaltyCallSceneStep:
         push edi
         sub esp, byte 10h
         mov edi, esp
-        mov esi, dword_19D188
+        mov esi, CameraPos
         movsd
         movsd
         movsd
-        cmp dword [dword_19D08C], 0C8h
+        cmp dword [CameraSceneArg], 0C8h
         jl near .3
-        fld dword [dword_19D19C]
+        fld dword [CameraZoom]
         fcomp dword [byte esp+08h]
         fnstsw ax
         sahf
@@ -9976,10 +9976,10 @@ PenaltyCallSceneStep:
         mov esi, esp
         mov edx, esp
         mov eax, 1
-        mov edi, dword_19D1A0
+        mov edi, CameraLookAt
         xor ecx, ecx
         mov dword [byte esp+0Ch], ebx
-        mov dword [dword_19D0C8], ecx
+        mov dword [CameraViewX], ecx
         lea ebx, [byte esp+0Ch]
         movsd
         movsd
@@ -9991,10 +9991,10 @@ PenaltyCallSceneStep:
         mov edx, 190h
         xor esi, esi
         mov eax, 1
-        mov dword [dword_19D0CC], esi
-        mov dword [dword_19D1A4], edi
+        mov dword [CameraViewY], esi
+        mov dword [CameraHeight], edi
         call SetCameraTarget
-        mov dword [dword_19D384], esi
+        mov dword [ActiveCameraScene], esi
 .3:
         add esp, byte 10h
         pop edi
@@ -10021,18 +10021,18 @@ PenaltyCallCameraScene:
         je short .1
         mov esi, PenaltyCallSceneStep
         mov edi, 1
-        mov eax, unk_19D0A4
+        mov eax, CameraPathPoints
         xor edx, edx
         mov ebp, 8
-        mov dword [dword_19D08C], edx
-        mov dword [dword_19D088], edx
-        mov dword [dword_19D084], esi
+        mov dword [CameraSceneArg], edx
+        mov dword [CameraSceneStep], edx
+        mov dword [CameraSceneFunc], esi
         mov edx, 8
-        mov dword [dword_19D384], edi
+        mov dword [ActiveCameraScene], edi
         call SetCameraView
         mov edx, 0C8h
         lea eax, [byte ebx+04h]
-        mov dword [dword_19D388], ebp
+        mov dword [CameraPathActive], ebp
         call StartCameraPath
 .1:
         pop ebp
@@ -10047,7 +10047,7 @@ PenaltyCallCameraScene:
 ; Sets the flag that ends the faceoff camera scene
 ;-----------------------------------------------------------------------------
 SetFaceoffEndFlag:
-        mov byte [byte_16892E], 1
+        mov byte [FaceoffDropScene], 1
         ret
 ;-----------------------------------------------------------------------------
 ; ReplayCameraOn                                  1D1DC  97 PC, low confidence
@@ -10057,9 +10057,9 @@ ReplayCameraOn:
         push edx
         mov ah, 1
         xor edx, edx
-        mov byte [byte_16892D], ah
+        mov byte [ReplayCameraActive], ah
         mov eax, 1
-        mov dword [dword_19D384], edx
+        mov dword [ActiveCameraScene], edx
         call StartCameraPath
         mov eax, dword [dword_1686BA]
         xor edx, edx
@@ -10075,7 +10075,7 @@ ReplayCameraOff:
         push edx
         xor ah, ah
         xor edx, edx
-        mov byte [byte_16892D], ah
+        mov byte [ReplayCameraActive], ah
         mov eax, 1
         call StartCameraPath
         mov eax, dword [dword_1686BA]
@@ -10085,8 +10085,8 @@ ReplayCameraOff:
         pop edx
         ret
         db 08Bh,0C0h
-        add dword [dword_19D08C], eax
-        call dword [dword_19D084]
+        add dword [CameraSceneArg], eax
+        call dword [CameraSceneFunc]
         ret
         db 08Dh,040h,00h
         push ebx
@@ -10139,7 +10139,7 @@ ReplayCameraOff:
         ret
 ;-----------------------------------------------------------------------------
 ; DrawCameraDebug                                 1D2A8  97 PC, low confidence
-; From DrawGameFrame when dword_19D094 is set: draws the camera target and
+; From DrawGameFrame when CameraDebugOn is set: draws the camera target and
 ; prints its "(%d,%d,%d)" position
 ;-----------------------------------------------------------------------------
 DrawCameraDebug:
@@ -10150,10 +10150,10 @@ DrawCameraDebug:
         push edi
         push ebp
         sub esp, byte 5Ch
-        cmp dword [dword_19D094], byte 0
+        cmp dword [CameraDebugOn], byte 0
         je near .4
         lea edi, [byte esp+028h]
-        mov esi, dword_19D374
+        mov esi, CameraSceneCenter
         mov edx, dword_1B905F
         xor ebx, ebx
         movsd
@@ -10169,9 +10169,9 @@ DrawCameraDebug:
         call VecMulMat
         cmp dword [byte esp+048h], 42C80000h
         jl near .4
-        cmp dword [dword_19D380], byte 12h
+        cmp dword [CameraTracking], byte 12h
         jne short .1
-        cmp dword [dword_19D034], byte 0FFFFFFFFh
+        cmp dword [ReplayCamTarget], byte 0FFFFFFFFh
         je short .2
 .1:
         push dword 0FF00AA00h
@@ -10187,7 +10187,7 @@ DrawCameraDebug:
         push eax
         push byte 0
         call DrawCameraPath
-        cmp dword [dword_19D38C], byte 0
+        cmp dword [CameraDebugText], byte 0
         je near .4
         lea edx, [byte esp+04Ch]
         lea eax, [byte esp+040h]
@@ -10275,13 +10275,13 @@ DrawCameraDebug:
         push edx
         push esi
         push edi
-        mov eax, dword [dword_19D380]
+        mov eax, dword [CameraTracking]
         mov edx, 1
         call GetCameraTarget
-        mov dword [dword_19D094], edx
+        mov dword [CameraDebugOn], edx
         test eax, eax
         je short .5
-        mov edi, dword_19D374
+        mov edi, CameraSceneCenter
         mov esi, eax
         movsd
         movsd
@@ -10294,7 +10294,7 @@ DrawCameraDebug:
         db 08Bh,0C0h
         push edx
         xor edx, edx
-        mov dword [dword_19D094], edx
+        mov dword [CameraDebugOn], edx
         pop edx
         ret
         db 090h
@@ -10310,20 +10310,20 @@ ReplayCamFollowMode:
         push edi
         mov edx, 3
         mov ecx, 1
-        mov eax, dword [dword_19D380]
+        mov eax, dword [CameraTracking]
         xor ebx, ebx
-        mov dword [dword_19D0CC], edx
-        mov dword [dword_19D0C8], ebx
-        mov dword [dword_19D0D0], ecx
-        mov dword [dword_19D0D4], ebx
-        mov dword [dword_19D0DC], ebx
-        mov dword [dword_19D03C], ebx
-        mov dword [dword_19D038], ebx
+        mov dword [CameraViewY], edx
+        mov dword [CameraViewX], ebx
+        mov dword [CameraViewZ], ecx
+        mov dword [CameraMode], ebx
+        mov dword [CameraViewSel], ebx
+        mov dword [ReplayCamPitch], ebx
+        mov dword [ReplayCamYaw], ebx
         call GetCameraTarget
-        mov dword [dword_19D094], ecx
+        mov dword [CameraDebugOn], ecx
         test eax, eax
         je short .1
-        mov edi, dword_19D374
+        mov edi, CameraSceneCenter
         mov esi, eax
         movsd
         movsd
@@ -10333,7 +10333,7 @@ ReplayCamFollowMode:
         mov eax, 12h
         mov ebx, 0FFFFFFFFh
         call StartCameraPath
-        mov dword [dword_19D034], ebx
+        mov dword [ReplayCamTarget], ebx
         pop edi
         pop esi
         pop edx
@@ -10387,8 +10387,8 @@ ReplayCamDrag:
         fmul st1
         fxch st2
         fmulp
-        fld dword [dword_19D038]
-        fld dword [dword_19D03C]
+        fld dword [ReplayCamYaw]
+        fld dword [ReplayCamPitch]
         fxch st3
         fsubr st1
         fxch st2
@@ -10402,63 +10402,63 @@ ReplayCamDrag:
         fmul qword [F64_0p714286]
         xor edi, edi
         fxch
-        fstp dword [dword_19D038]
-        fst dword [dword_19D03C]
-        fld dword [dword_19D038]
-        fadd dword [dword_19D374]
+        fstp dword [ReplayCamYaw]
+        fst dword [ReplayCamPitch]
+        fld dword [ReplayCamYaw]
+        fadd dword [CameraSceneCenter]
         fxch
-        fadd dword [dword_19D37C]
+        fadd dword [CameraSceneDist]
         fxch
-        fstp dword [dword_19D374]
-        mov ecx, dword [dword_19D374]
-        fstp dword [dword_19D37C]
+        fstp dword [CameraSceneCenter]
+        mov ecx, dword [CameraSceneCenter]
+        fstp dword [CameraSceneDist]
         cmp ecx, 44FA0000h
         jle short .1
         mov eax, 44FA0000h
-        fld dword [dword_19D038]
-        mov dword [dword_19D374], eax
+        fld dword [ReplayCamYaw]
+        mov dword [CameraSceneCenter], eax
         fchs
         fmul qword [F64_0p2]
         jmp short .2
 .1:
-        fld dword [dword_19D374]
+        fld dword [CameraSceneCenter]
         fcomp dword [F32_neg2000_ReplayCamDrag]
         fnstsw ax
         sahf
         jae short .3
-        fld dword [dword_19D038]
+        fld dword [ReplayCamYaw]
         mov esi, 0C4FA0000h
         fchs
         fmul qword [F64_0p2]
-        mov dword [dword_19D374], esi
+        mov dword [CameraSceneCenter], esi
 .2:
-        fstp dword [dword_19D038]
+        fstp dword [ReplayCamYaw]
 .3:
-        cmp dword [dword_19D37C], 45960000h
+        cmp dword [CameraSceneDist], 45960000h
         jle short .4
-        fld dword [dword_19D03C]
+        fld dword [ReplayCamPitch]
         mov esi, 45960000h
         fchs
         fmul qword [F64_0p2]
-        mov dword [dword_19D37C], esi
+        mov dword [CameraSceneDist], esi
         jmp short .5
 .4:
-        fld dword [dword_19D37C]
+        fld dword [CameraSceneDist]
         fcomp dword [F32_neg4800]
         fnstsw ax
         sahf
         jae short .6
-        fld dword [dword_19D03C]
+        fld dword [ReplayCamPitch]
         mov ecx, 0C5960000h
         fchs
         fmul qword [F64_0p2]
-        mov dword [dword_19D37C], ecx
+        mov dword [CameraSceneDist], ecx
 .5:
-        fstp dword [dword_19D03C]
+        fstp dword [ReplayCamPitch]
 .6:
         xor eax, eax
-        mov edx, dword [dword_19D380]
-        mov dword [dword_19D378], eax
+        mov edx, dword [CameraTracking]
+        mov dword [CameraSceneYaw], eax
         cmp edx, byte 12h
         jne near .19
         xor ebx, ebx
@@ -10482,7 +10482,7 @@ ReplayCamDrag:
         test eax, eax
         je near .18
         fld dword [edx]
-        fsub dword [dword_19D374]
+        fsub dword [CameraSceneCenter]
         fabs
         fcomp qword [F64_100]
         fnstsw ax
@@ -10492,7 +10492,7 @@ ReplayCamDrag:
         jmp short .11
 .9:
         fld dword [byte edx+08h]
-        fsub dword [dword_19D37C]
+        fsub dword [CameraSceneDist]
         fabs
         fcomp qword [F64_100]
         fnstsw ax
@@ -10505,11 +10505,11 @@ ReplayCamDrag:
 .11:
         test edx, edx
         je near .18
-        fld dword [dword_19D37C]
+        fld dword [CameraSceneDist]
         fsub dword [byte esi+08h]
         sub esp, byte 8
         fstp qword [esp]
-        fld dword [dword_19D374]
+        fld dword [CameraSceneCenter]
         fsub dword [esi]
         sub esp, byte 8
         fstp qword [esp]
@@ -10518,55 +10518,55 @@ ReplayCamDrag:
         fnstsw ax
         sahf
         ja near .19
-        cmp ebx, dword [dword_19D034]
+        cmp ebx, dword [ReplayCamTarget]
         je near .19
-        mov edi, dword_19D374
-        mov dword [dword_19D034], ebx
+        mov edi, CameraSceneCenter
+        mov dword [ReplayCamTarget], ebx
         movsd
         movsd
         movsd
         xor esi, esi
-        mov edi, dword [dword_19D038]
-        mov dword [dword_19D378], esi
+        mov edi, dword [ReplayCamYaw]
+        mov dword [CameraSceneYaw], esi
         cmp edi, 42480000h
         jle short .12
-        fld dword [dword_19D038]
+        fld dword [ReplayCamYaw]
         fadd dword [F32_neg50]
-        fstp dword [dword_19D038]
+        fstp dword [ReplayCamYaw]
         jmp short .14
 .12:
-        fld dword [dword_19D038]
+        fld dword [ReplayCamYaw]
         fcomp dword [F32_neg50]
         fnstsw ax
         sahf
         jae short .13
-        fld dword [dword_19D038]
+        fld dword [ReplayCamYaw]
         fadd dword [F32_50]
-        fstp dword [dword_19D038]
+        fstp dword [ReplayCamYaw]
         jmp short .14
 .13:
-        mov dword [dword_19D038], esi
+        mov dword [ReplayCamYaw], esi
 .14:
-        cmp dword [dword_19D03C], 42480000h
+        cmp dword [ReplayCamPitch], 42480000h
         jle short .15
-        fld dword [dword_19D03C]
+        fld dword [ReplayCamPitch]
         fadd dword [F32_neg50]
-        fstp dword [dword_19D03C]
+        fstp dword [ReplayCamPitch]
         jmp short .17
 .15:
-        fld dword [dword_19D03C]
+        fld dword [ReplayCamPitch]
         fcomp dword [F32_neg50]
         fnstsw ax
         sahf
         jae short .16
-        fld dword [dword_19D03C]
+        fld dword [ReplayCamPitch]
         fadd dword [F32_50]
-        fstp dword [dword_19D03C]
+        fstp dword [ReplayCamPitch]
         mov edi, ebx
         jmp short .19
 .16:
         xor ecx, ecx
-        mov dword [dword_19D03C], ecx
+        mov dword [ReplayCamPitch], ecx
 .17:
         mov edi, ebx
         jmp short .19
@@ -10579,7 +10579,7 @@ ReplayCamDrag:
         jle short .20
         mov esi, 0FFFFFFFFh
         mov edi, esi
-        mov dword [dword_19D034], esi
+        mov dword [ReplayCamTarget], esi
 .20:
         mov eax, edi
         mov esp, ebp
@@ -10598,15 +10598,15 @@ ReplayCamRestorePath:
         push ebx
         push edx
         xor edx, edx
-        mov ebx, dword [dword_19D034]
-        mov dword [dword_19D094], edx
+        mov ebx, dword [ReplayCamTarget]
+        mov dword [CameraDebugOn], edx
         cmp ebx, byte 0FFFFFFFFh
         je short .1
         mov edx, 64h
         mov eax, ebx
         call StartCameraPath
 .1:
-        mov dword [dword_19D034], 0FFFFFFFFh
+        mov dword [ReplayCamTarget], 0FFFFFFFFh
         pop edx
         pop ebx
         ret
@@ -10626,20 +10626,20 @@ ReplayCamOrbitMode:
         mov ebp, 1
         xor edx, edx
         mov eax, 5
-        mov dword [dword_19D03C], edx
-        mov dword [dword_19D038], edx
-        mov dword [dword_19D0C8], edx
-        mov dword [dword_19D0CC], esi
-        mov dword [dword_19D0D4], edx
-        mov dword [dword_19D0DC], eax
-        mov eax, dword [dword_19D380]
-        mov dword [dword_19D0D0], ebp
+        mov dword [ReplayCamPitch], edx
+        mov dword [ReplayCamYaw], edx
+        mov dword [CameraViewX], edx
+        mov dword [CameraViewY], esi
+        mov dword [CameraMode], edx
+        mov dword [CameraViewSel], eax
+        mov eax, dword [CameraTracking]
+        mov dword [CameraViewZ], ebp
         call GetCameraTarget
         test eax, eax
         jne short .1
         mov eax, 12h
         call StartCameraPath
-        mov eax, dword [dword_19D380]
+        mov eax, dword [CameraTracking]
         call GetCameraTarget
 .1:
         test eax, eax
@@ -10649,18 +10649,18 @@ ReplayCamOrbitMode:
         mov eax, dword_1B905F
         call VecSub
         call VecLength
-        fstp dword [dword_19D1B8]
+        fstp dword [CameraPathTime]
         jmp short .3
 .2:
-        mov dword [dword_19D1B8], 447A0000h
+        mov dword [CameraPathTime], 447A0000h
 .3:
-        mov eax, dword [dword_19D380]
+        mov eax, dword [CameraTracking]
         mov ebx, 1
         call GetCameraTarget
-        mov dword [dword_19D094], ebx
+        mov dword [CameraDebugOn], ebx
         test eax, eax
         je short .4
-        mov edi, dword_19D374
+        mov edi, CameraSceneCenter
         mov esi, eax
         movsd
         movsd
@@ -10685,11 +10685,11 @@ ReplayCamOrbit:
         sub esp, byte 64h
         mov ecx, eax
         mov ebx, edx
-        mov edx, dword_19D188
-        mov eax, dword_19D194
+        mov edx, CameraPos
+        mov eax, CameraElevation
         call VecDistance
-        fld dword [dword_19D198]
-        fsub dword [dword_19D18C]
+        fld dword [CameraOrbitSpeed]
+        fsub dword [CameraOrbitBase]
         fdiv st1
         mov edx, ecx
         lea eax, [nosplit edx*4+00h]
@@ -10706,8 +10706,8 @@ ReplayCamOrbit:
         fxch
         fstp dword [byte esp+060h]
         fmul dword [byte esp+060h]
-        fadd dword [dword_19D038]
-        fstp dword [dword_19D038]
+        fadd dword [ReplayCamYaw]
+        fstp dword [ReplayCamYaw]
         fcomp qword [F64_0p1]
         fnstsw ax
         sahf
@@ -10715,7 +10715,7 @@ ReplayCamOrbit:
         test ebx, ebx
         jg short .1
         xor edx, edx
-        mov dword [dword_19D03C], edx
+        mov dword [ReplayCamPitch], edx
         jmp short .2
 .1:
         lea eax, [nosplit ebx*4+00h]
@@ -10724,12 +10724,12 @@ ReplayCamOrbit:
         mov dword [byte esp+044h], eax
         fild dword [byte esp+044h]
         fmul dword [byte esp+060h]
-        fsubr dword [dword_19D03C]
-        fstp dword [dword_19D03C]
+        fsubr dword [ReplayCamPitch]
+        fstp dword [ReplayCamPitch]
 .2:
         fld dword [byte esp+060h]
         fmul dword [F32_80]
-        fld dword [dword_19D038]
+        fld dword [ReplayCamYaw]
         fxch
         fstp dword [byte esp+050h]
         fcomp dword [byte esp+050h]
@@ -10739,7 +10739,7 @@ ReplayCamOrbit:
         mov eax, dword [byte esp+050h]
         jmp short .4
 .3:
-        fld dword [dword_19D038]
+        fld dword [ReplayCamYaw]
         fld dword [byte esp+050h]
         fchs
         fstp dword [byte esp+04Ch]
@@ -10749,11 +10749,11 @@ ReplayCamOrbit:
         jae short .5
         mov eax, dword [byte esp+04Ch]
 .4:
-        mov dword [dword_19D038], eax
+        mov dword [ReplayCamYaw], eax
 .5:
         fld dword [byte esp+060h]
         fmul dword [F32_80]
-        fld dword [dword_19D03C]
+        fld dword [ReplayCamPitch]
         fxch
         fstp dword [byte esp+054h]
         fcomp dword [byte esp+054h]
@@ -10763,7 +10763,7 @@ ReplayCamOrbit:
         mov eax, dword [byte esp+054h]
         jmp short .7
 .6:
-        fld dword [dword_19D03C]
+        fld dword [ReplayCamPitch]
         fld dword [byte esp+054h]
         fchs
         fstp dword [byte esp+048h]
@@ -10773,69 +10773,69 @@ ReplayCamOrbit:
         jae short .8
         mov eax, dword [byte esp+048h]
 .7:
-        mov dword [dword_19D03C], eax
+        mov dword [ReplayCamPitch], eax
 .8:
         fld dword [byte esp+060h]
         fmul dword [F32_6]
-        fld dword [dword_19D038]
+        fld dword [ReplayCamYaw]
         fxch
         fstp dword [byte esp+058h]
         fcomp dword [byte esp+058h]
         fnstsw ax
         sahf
         jbe short .9
-        fld dword [dword_19D038]
+        fld dword [ReplayCamYaw]
         fsub dword [byte esp+058h]
-        fstp dword [dword_19D038]
+        fstp dword [ReplayCamYaw]
         jmp short .11
 .9:
         fld dword [byte esp+058h]
         fchs
-        fcomp dword [dword_19D038]
+        fcomp dword [ReplayCamYaw]
         fnstsw ax
         sahf
         jbe short .10
-        fld dword [dword_19D038]
+        fld dword [ReplayCamYaw]
         fadd dword [byte esp+058h]
-        fstp dword [dword_19D038]
+        fstp dword [ReplayCamYaw]
         jmp short .11
 .10:
         xor ebx, ebx
-        mov dword [dword_19D038], ebx
+        mov dword [ReplayCamYaw], ebx
 .11:
         fld dword [byte esp+060h]
         fmul dword [F32_6]
-        fld dword [dword_19D03C]
+        fld dword [ReplayCamPitch]
         fxch
         fstp dword [byte esp+05Ch]
         fcomp dword [byte esp+05Ch]
         fnstsw ax
         sahf
         jbe short .12
-        fld dword [dword_19D03C]
+        fld dword [ReplayCamPitch]
         fsub dword [byte esp+05Ch]
-        fstp dword [dword_19D03C]
+        fstp dword [ReplayCamPitch]
         jmp short .14
 .12:
         fld dword [byte esp+05Ch]
         fchs
-        fcomp dword [dword_19D03C]
+        fcomp dword [ReplayCamPitch]
         fnstsw ax
         sahf
         jbe short .13
-        fld dword [dword_19D03C]
+        fld dword [ReplayCamPitch]
         fadd dword [byte esp+05Ch]
-        fstp dword [dword_19D03C]
+        fstp dword [ReplayCamPitch]
         jmp short .14
 .13:
         xor ecx, ecx
-        mov dword [dword_19D03C], ecx
+        mov dword [ReplayCamPitch], ecx
 .14:
         mov edx, esp
-        mov eax, dword [dword_19D038]
+        mov eax, dword [ReplayCamYaw]
         lea ebx, [byte esp+024h]
         mov dword [byte esp+030h], eax
-        mov eax, dword [dword_19D03C]
+        mov eax, dword [ReplayCamPitch]
         xor esi, esi
         mov dword [byte esp+034h], eax
         mov eax, unk_1B92AB
@@ -10849,18 +10849,18 @@ ReplayCamOrbit:
         mov eax, dword_1B905F
         call VecAdd
         lea ebx, [byte esp+030h]
-        mov edx, dword_19D188
+        mov edx, CameraPos
         lea eax, [byte esp+030h]
         call VecSub
         lea eax, [byte esp+030h]
         push eax
-        mov ebx, dword_19D1A0
-        push dword [dword_19D1B8]
+        mov ebx, CameraLookAt
+        push dword [CameraPathTime]
         lea edx, [byte esp+038h]
         call VecNormalizeTo
-        mov eax, dword_19D188
+        mov eax, CameraPos
         call VecAdd
-        mov eax, dword [dword_19D380]
+        mov eax, dword [CameraTracking]
         xor edx, edx
         call StartCameraPath
         add esp, byte 64h
@@ -10876,8 +10876,8 @@ ReplayCamOrbit:
 ReplayCamStop:
         push edx
         xor edx, edx
-        mov dword [dword_19D094], edx
-        mov dword [dword_19D0DC], edx
+        mov dword [CameraDebugOn], edx
+        mov dword [CameraViewSel], edx
         pop edx
         ret
         db 08Dh,040h,00h
@@ -10893,15 +10893,15 @@ ReplayCamFreeMode:
         xor eax, eax
         mov ebx, 3
         call StartCameraPath
-        mov eax, dword_19D374
-        mov dword [dword_19D0CC], ebx
+        mov eax, CameraSceneCenter
+        mov dword [CameraViewY], ebx
         xor edx, edx
         mov ebx, esp
-        mov dword [dword_19D0D4], edx
-        mov dword [dword_19D0C8], edx
+        mov dword [CameraMode], edx
+        mov dword [CameraViewX], edx
         mov edx, dword_1B905F
         call VecSub
-        mov ebx, unk_19D028
+        mov ebx, ReplayCamPos
         mov edx, unk_1B92AB
         mov eax, esp
         call VecMulMat
@@ -10923,8 +10923,8 @@ ReplayCamTurn:
         mov dword [byte esp+050h], eax
         fild dword [byte esp+050h]
         fmul qword [F64_0p01_ReplayCamTurn]
-        fsubr dword [dword_19D344]
-        fst dword [dword_19D344]
+        fsubr dword [CameraFovTarget]
+        fst dword [CameraFovTarget]
         fst qword [byte esp+048h]
         fcomp qword [F64_3p14159_ReplayCamTurn]
         fnstsw ax
@@ -10942,9 +10942,9 @@ ReplayCamTurn:
         fld qword [byte esp+048h]
         fadd qword [F64_6p28319_ReplayCamTurn]
 .2:
-        fstp dword [dword_19D344]
+        fstp dword [CameraFovTarget]
 .3:
-        fld dword [dword_19D344]
+        fld dword [CameraFovTarget]
         sub esp, byte 4
         fchs
         fstp dword [esp]
@@ -10965,7 +10965,7 @@ ReplayCamTurn:
         lea eax, [byte esp+030h]
         fstp dword [byte esp+038h]
         call VecMulMat
-        mov ebx, dword_19D1A0
+        mov ebx, CameraLookAt
         lea edx, [byte esp+024h]
         mov eax, ebx
         call VecAdd
@@ -10987,38 +10987,38 @@ ReplayCamMove:
         lea ebx, [byte esp+024h]
         call MatTranspose
         mov edx, esp
-        mov eax, unk_19D028
+        mov eax, ReplayCamPos
         call VecMulMat
-        mov ebx, dword_19D374
+        mov ebx, CameraSceneCenter
         mov edx, dword_1B905F
         lea eax, [byte esp+024h]
         call VecAdd
         xor edx, edx
-        mov ebx, dword [dword_19D374]
-        mov dword [dword_19D378], edx
+        mov ebx, dword [CameraSceneCenter]
+        mov dword [CameraSceneYaw], edx
         cmp ebx, 44FA0000h
         jle short .1
-        mov dword [dword_19D374], 44FA0000h
+        mov dword [CameraSceneCenter], 44FA0000h
         jmp short .2
 .1:
-        fld dword [dword_19D374]
+        fld dword [CameraSceneCenter]
         fcomp dword [F32_neg2000_ReplayCamMove]
         fnstsw ax
         sahf
         jae short .2
-        mov dword [dword_19D374], 0C4FA0000h
+        mov dword [CameraSceneCenter], 0C4FA0000h
 .2:
-        cmp dword [dword_19D37C], 45960000h
+        cmp dword [CameraSceneDist], 45960000h
         jle short .3
-        mov dword [dword_19D37C], 45960000h
+        mov dword [CameraSceneDist], 45960000h
         jmp short .4
 .3:
-        fld dword [dword_19D37C]
+        fld dword [CameraSceneDist]
         fcomp dword [F32_neg4800_ReplayCamMove]
         fnstsw ax
         sahf
         jae short .4
-        mov dword [dword_19D37C], 0C5960000h
+        mov dword [CameraSceneDist], 0C5960000h
 .4:
         add esp, byte 30h
         pop edx
@@ -11036,18 +11036,18 @@ ReplayCamZoomMode:
         push edi
         sub esp, byte 0Ch
         mov ebx, 3
-        mov esi, dword [dword_19D380]
+        mov esi, dword [CameraTracking]
         xor edx, edx
-        mov dword [dword_19D0CC], ebx
-        mov dword [dword_19D0C8], edx
-        mov dword [dword_19D0D4], edx
+        mov dword [CameraViewY], ebx
+        mov dword [CameraViewX], edx
+        mov dword [CameraMode], edx
         test esi, esi
         jne short .1
         mov edx, 64h
         mov eax, 12h
         call StartCameraPath
 .1:
-        mov eax, dword [dword_19D380]
+        mov eax, dword [CameraTracking]
         mov ebx, esp
         call GetCameraTarget
         mov edx, eax
@@ -11055,13 +11055,13 @@ ReplayCamZoomMode:
         mov edi, 1
         call VecSub
         call VecLength
-        mov eax, dword [dword_19D380]
-        fstp dword [dword_19D1B8]
+        mov eax, dword [CameraTracking]
+        fstp dword [CameraPathTime]
         call GetCameraTarget
-        mov dword [dword_19D094], edi
+        mov dword [CameraDebugOn], edi
         test eax, eax
         je short .2
-        mov edi, dword_19D374
+        mov edi, CameraSceneCenter
         mov esi, eax
         movsd
         movsd
@@ -11085,34 +11085,34 @@ ReplayCamZoom:
         lea eax, [nosplit edx*4+00h]
         add eax, edx
         shl eax, 3
-        mov edx, dword [dword_19D380]
+        mov edx, dword [CameraTracking]
         mov dword [byte esp+03Ch], eax
         test edx, edx
         je short .3
         fild dword [byte esp+03Ch]
-        fadd dword [dword_19D1B8]
-        fstp dword [dword_19D1B8]
-        mov esi, dword [dword_19D1B8]
+        fadd dword [CameraPathTime]
+        fstp dword [CameraPathTime]
+        mov esi, dword [CameraPathTime]
         cmp esi, 43E10000h
         jge short .1
-        mov dword [dword_19D1B8], 43E10000h
+        mov dword [CameraPathTime], 43E10000h
         jmp short .2
 .1:
         cmp esi, 461C3C00h
         jle short .2
-        mov dword [dword_19D1B8], 461C3C00h
+        mov dword [CameraPathTime], 461C3C00h
 .2:
         lea ebx, [byte esp+024h]
-        mov edx, dword_19D188
+        mov edx, CameraPos
         mov eax, dword_1B905F
         call VecSub
         lea eax, [byte esp+024h]
         push eax
-        mov ebx, dword_19D1A0
-        push dword [dword_19D1B8]
+        mov ebx, CameraLookAt
+        push dword [CameraPathTime]
         lea edx, [byte esp+02Ch]
         call VecNormalizeTo
-        mov eax, dword_19D188
+        mov eax, CameraPos
         jmp short .4
 .3:
         fild dword [byte esp+03Ch]
@@ -11126,7 +11126,7 @@ ReplayCamZoom:
         mov edx, esp
         lea eax, [byte esp+024h]
         call VecMulMat
-        mov ebx, dword_19D1A0
+        mov ebx, CameraLookAt
         lea edx, [byte esp+030h]
         mov eax, dword_1B905F
 .4:
@@ -11143,7 +11143,7 @@ ReplayCamZoom:
 ReplayCamClearFlag:
         push edx
         xor edx, edx
-        mov dword [dword_19D094], edx
+        mov dword [CameraDebugOn], edx
         pop edx
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -11325,7 +11325,7 @@ ShotChanceCommentary:
         mov eax, edx
         shl eax, 5
         add eax, edx
-        test byte [nosplit eax*8+byte_19DAEF], 80h
+        test byte [nosplit eax*8+PlayerControlFlags], 80h
         setne al
         mov edx, eax
         mov cx, word [word_19CBB4]
@@ -12341,12 +12341,12 @@ ChkPokeOrCheck:
         and eax, byte 7
         cmp eax, byte 3
         jge near .31
-        test word [dword_1AC814], 180h
+        test word [GameSettings], 180h
         jne short .25
         mov edx, 19h
         jmp short .27
 .25:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, 180h
         cmp eax, 80h
         jne short .26
@@ -13636,7 +13636,7 @@ asscoverdefo:
 ;-----------------------------------------------------------------------------
 ; Setplass                                       1FB6C  94G, medium confidence
 ; 94G Setplass: sets the player's starting assignment by position from the
-; list byte_1689C0 (goalie 2, defence 3, wings 4, centre 5), after
+; list PlayerAssignOrder (goalie 2, defence 3, wings 4, centre 5), after
 ; SwapPosition
 ;-----------------------------------------------------------------------------
 Setplass:
@@ -13668,7 +13668,7 @@ Setplass:
         call SwapPosition
         mov eax, dword [dword ebx+0A7h]
         sar eax, 10h
-        mov al, byte [dword eax+byte_1689C0]
+        mov al, byte [dword eax+PlayerAssignOrder]
         mov edx, dword [dword ebx+0AEh]
         sar edx, 18h
         mov byte [dword edx+ebx+0B2h], al
@@ -13989,15 +13989,15 @@ FaceoffSpotPosition:
         mov edx, dword [dword_19CB6A]
         sar ebx, 10h
         sar edx, 10h
-        mov dl, byte [dword edx+ebx+byte_1689E4]
+        mov dl, byte [dword edx+ebx+FaceoffSpotIndex]
         xor dh, dh
         mov word [word_19CB60], dx
         add edx, edx
         mov word [word_19CB60], dx
         mov edx, dword [dword_19CB5E]
         sar edx, 10h
-        mov bx, word [nosplit edx*2+word_1689C8]
-        mov dx, word [nosplit edx*2+word_1689CA]
+        mov bx, word [nosplit edx*2+FaceoffSpotX]
+        mov dx, word [nosplit edx*2+FaceoffSpotY]
         mov word [word_19CB68], bx
         mov word [regd1], dx
         test byte [dword esi+0BFh], 80h
@@ -14380,8 +14380,8 @@ Endfaceoff:
         cmp word [dword ebx+0A9h], byte 4
         jne short .2
 .3:
-        mov ecx, unk_19E060
-        mov ax, word [word_19E109]
+        mov ecx, HomeTeamRecord+420h
+        mov ax, word [HomeTeamRecord+4C9h]
         xor esi, esi
         cmp ax, 4
         je short .5
@@ -14920,7 +14920,7 @@ ChkTeamPlayerFlag:
         je short .5
         test ax, ax
         je short .1
-        mov eax, unk_19E060
+        mov eax, HomeTeamRecord+420h
         jmp short .2
 .1:
         mov eax, SortCords
@@ -15701,67 +15701,67 @@ Goal:
         mov word [word_19CBA6], bx
         cmp edx, byte 0FFFFFFFDh
         jge short .80
-        cmp byte [byte_19EB54], 1
+        cmp byte [HmCoachOffense], 1
         jbe short .80
         cmp word [word_19CC24], byte 0
         jne short .80
-        mov cl, byte [word_19EAC0]
+        mov cl, byte [HmLineState]
         test cl, 1
         jne short .80
         mov ch, cl
         xor ch, 1
-        mov byte [word_19EAC0], ch
+        mov byte [HmLineState], ch
 .80:
         movsx edx, ax
         cmp edx, byte 0FFFFFFFFh
         jge short .81
-        mov dl, byte [byte_19EB54]
+        mov dl, byte [HmCoachOffense]
         cmp dl, 1
         jbe short .81
         mov dh, dl
         dec dh
-        mov byte [byte_19EB54], dh
+        mov byte [HmCoachOffense], dh
 .81:
         cmp ax, 1
         jge short .82
-        mov bl, byte [byte_19EB55]
+        mov bl, byte [HmCoachDefense]
         cmp bl, 1
         jbe short .82
         mov bh, bl
         dec bh
-        mov byte [byte_19EB55], bh
+        mov byte [HmCoachDefense], bh
 .82:
         cmp ax, 3
         jle short .83
-        cmp byte [byte_19EC60], 1
+        cmp byte [AwCoachOffense], 1
         jbe short .83
         cmp word [word_19CC26], byte 0
         jne short .83
-        mov ch, byte [word_19EBCC]
+        mov ch, byte [AwLineState]
         test ch, 1
         jne short .83
         mov dl, ch
         xor dl, 1
-        mov byte [word_19EBCC], dl
+        mov byte [AwLineState], dl
 .83:
         cmp ax, 1
         jle short .84
-        mov dh, byte [byte_19EC60]
+        mov dh, byte [AwCoachOffense]
         cmp dh, 1
         jbe short .84
         mov bl, dh
         dec bl
-        mov byte [byte_19EC60], bl
+        mov byte [AwCoachOffense], bl
 .84:
         cwde
         cmp eax, byte 0FFFFFFFFh
         jle short .85
-        mov bh, byte [byte_19EC61]
+        mov bh, byte [AwCoachDefense]
         cmp bh, 1
         jbe short .85
         mov cl, bh
         dec cl
-        mov byte [byte_19EC61], cl
+        mov byte [AwCoachDefense], cl
 .85:
         call UpdateCoachModes
 .86:
@@ -15983,7 +15983,7 @@ FindCreasePlayer:
         je short .5
         test ax, ax
         je short .1
-        mov eax, unk_19E060
+        mov eax, HomeTeamRecord+420h
         jmp short .2
 .1:
         mov eax, SortCords
@@ -17023,11 +17023,11 @@ assextra4:
         jne short .2
 .1:
         mov bx, word [word_19CB64]
-        mov edi, unk_1689FC
+        mov edi, ExtraAttackerSpots
         mov word [regd1], bx
         jmp short .3
 .2:
-        mov edi, unk_168A24
+        mov edi, ExtraAttackerFlags
         mov word [regd1], si
 .3:
         test byte [dword edx+0BFh], 80h
@@ -20291,7 +20291,7 @@ TargetInAngle:
         jle short .1
         sub eax, 10000h
 .1:
-        mov edx, dword [dword_19D3A8]
+        mov edx, dword [PassTargetAngle]
         sub edx, eax
         mov eax, edx
         cmp edx, 8000h
@@ -20387,14 +20387,14 @@ AIPassDecision:
 .5:
         mov eax, dword [dword esi+0EAh]
         add eax, 8000h
-        mov dword [dword_19D3A8], eax
+        mov dword [PassTargetAngle], eax
         cmp eax, 8000h
         jle short .6
         sub eax, 10000h
-        mov dword [dword_19D3A8], eax
+        mov dword [PassTargetAngle], eax
 .6:
         mov ecx, dword [byte ebp+00h]
-        mov eax, dword [dword_19D3A8]
+        mov eax, dword [PassTargetAngle]
         sar ecx, 10h
         sub eax, ecx
         mov ecx, eax

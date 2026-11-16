@@ -2,197 +2,197 @@
 bits 32
 %include "hockey.inc"
 section s_19CF8C nobits alloc noexec write align=1
-global byte_19D01C, dword_19D004, dword_19D008, dword_19D00C, dword_19D010, dword_19D014, dword_19D018, dword_19D020
-global dword_19D024, dword_19D034, dword_19D038, dword_19D03C, dword_19D040, dword_19D044, dword_19D048, dword_19D058
-global dword_19D068, dword_19D06C, dword_19D070, dword_19D074, dword_19D078, dword_19D07C, dword_19D080, dword_19D084
-global dword_19D088, dword_19D08C, dword_19D090, dword_19D094, dword_19D098, dword_19D09C, dword_19D0C8, dword_19D0CC
-global dword_19D0D0, dword_19D0D4, dword_19D0D8, dword_19D0DC, dword_19D0E4, dword_19D0E8, dword_19D0EC, dword_19D134
-global dword_19D138, dword_19D188, dword_19D18C, dword_19D190, dword_19D194, dword_19D198, dword_19D19C, dword_19D1A0
-global dword_19D1A4, dword_19D1A8, dword_19D1B8, dword_19D1BC, dword_19D1CC, dword_19D1D4, dword_19D1D8, dword_19D1DC
-global dword_19D1E0, dword_19D1E4, dword_19D1E8, dword_19D334, dword_19D338, dword_19D340, dword_19D344, dword_19D348
-global dword_19D364, dword_19D368, dword_19D36C, dword_19D370, dword_19D374, dword_19D378, dword_19D37C, dword_19D380
-global dword_19D384, dword_19D388, dword_19D38C, dword_19D390, dword_19D394, dword_19D398, dword_19D39C, dword_19D3A0
-global dword_19D3A4, dword_19D3A8, unk_19CF8C, unk_19D028, unk_19D04C, unk_19D05C, unk_19D0A4, unk_19D214
-global unk_19D298, unk_19D31C, unk_19D328
-unk_19CF8C:
+global PanelNameBuf, ScorePanelHome, ScorePanelAway, ScorePanelValues, AwayPanelValue, ClockShownSeconds, ClockShownMinutes, FightSceneTimer
+global FightSceneState, ReplayCamTarget, ReplayCamYaw, ReplayCamPitch, PenShotSceneTimer, PenShotSceneState, MenuOrbitAngle, SceneStepCount
+global SceneSavedView, OpeningCamFrame, OpeningCamActive, OpeningCamData, OpeningCamFrames, PenaltyCamDistance, PenaltyCamTimer, CameraSceneFunc
+global CameraSceneStep, CameraSceneArg, CameraDebugMarks, CameraDebugOn, CameraDebugMask, CameraDebugLimit, CameraViewX, CameraViewY
+global CameraViewZ, CameraMode, CameraFocus, CameraViewSel, CameraTargetObj, CameraTargetPtr, CameraViewTable, CameraPathCount
+global CameraTargetPoints, CameraPos, CameraOrbitBase, CameraHeading, CameraElevation, CameraOrbitSpeed, CameraZoom, CameraLookAt
+global CameraHeight, CameraFocusVec, CameraPathTime, CameraPathVec, CameraViewPair, CameraViewNear, CameraViewFar, SplineIndex
+global SplineCount, SplineStep, SplinePoints, CameraDistance, CameraAngles, CameraFov, CameraFovTarget, CameraViewParams
+global CameraLag, CameraSpeed, CameraFollowObj, TargetPointObj, CameraSceneCenter, CameraSceneYaw, CameraSceneDist, CameraTracking
+global ActiveCameraScene, CameraPathActive, CameraDebugText, TargetVecX, TargetVecY, TargetVecZ, StanleyPlayer, FaceoffPuckX
+global FaceoffPuckY, PassTargetAngle, OverlayPanelQueue, ReplayCamPos, MenuCamPos, MenuCamTarget, CameraPathPoints, SplineCoefsX
+global SplineCoefsY, CameraEye, CameraCenter
+OverlayPanelQueue:
         resb 120
-dword_19D004:
+ScorePanelHome:
         resb 4
-dword_19D008:
+ScorePanelAway:
         resb 4
-dword_19D00C:
+ScorePanelValues:
         resb 4
-dword_19D010:
+AwayPanelValue:
         resb 4
-dword_19D014:
+ClockShownSeconds:
         resb 4
-dword_19D018:
+ClockShownMinutes:
         resb 4
-byte_19D01C:
+PanelNameBuf:
         resb 4
-dword_19D020:
+FightSceneTimer:
         resb 4
-dword_19D024:
+FightSceneState:
         resb 4
-unk_19D028:
+ReplayCamPos:
         resb 12
-dword_19D034:
+ReplayCamTarget:
         resb 4
-dword_19D038:
+ReplayCamYaw:
         resb 4
-dword_19D03C:
+ReplayCamPitch:
         resb 4
-dword_19D040:
+PenShotSceneTimer:
         resb 4
-dword_19D044:
+PenShotSceneState:
         resb 4
-dword_19D048:
+MenuOrbitAngle:
         resb 4
-unk_19D04C:
+MenuCamPos:
         resb 12
-dword_19D058:
+SceneStepCount:
         resb 4
-unk_19D05C:
+MenuCamTarget:
         resb 12
-dword_19D068:
+SceneSavedView:
         resb 4
-dword_19D06C:
+OpeningCamFrame:
         resb 4
-dword_19D070:
+OpeningCamActive:
         resb 4
-dword_19D074:
+OpeningCamData:
         resb 4
-dword_19D078:
+OpeningCamFrames:
         resb 4
-dword_19D07C:
+PenaltyCamDistance:
         resb 4
-dword_19D080:
+PenaltyCamTimer:
         resb 4
-dword_19D084:
+CameraSceneFunc:
         resb 4
-dword_19D088:
+CameraSceneStep:
         resb 4
-dword_19D08C:
+CameraSceneArg:
         resb 4
-dword_19D090:
+CameraDebugMarks:
         resb 4
-dword_19D094:
+CameraDebugOn:
         resb 4
-dword_19D098:
+CameraDebugMask:
         resb 4
-dword_19D09C:
+CameraDebugLimit:
         resb 8
-unk_19D0A4:
+CameraPathPoints:
         resb 36
-dword_19D0C8:
+CameraViewX:
         resb 4
-dword_19D0CC:
+CameraViewY:
         resb 4
-dword_19D0D0:
+CameraViewZ:
         resb 4
-dword_19D0D4:
+CameraMode:
         resb 4
-dword_19D0D8:
+CameraFocus:
         resb 4
-dword_19D0DC:
+CameraViewSel:
         resb 8
-dword_19D0E4:
+CameraTargetObj:
         resb 4
-dword_19D0E8:
+CameraTargetPtr:
         resb 4
-dword_19D0EC:
+CameraViewTable:
         resb 72
-dword_19D134:
+CameraPathCount:
         resb 4
-dword_19D138:
+CameraTargetPoints:
         resb 80
-dword_19D188:
+CameraPos:
         resb 4
-dword_19D18C:
+CameraOrbitBase:
         resb 4
-dword_19D190:
+CameraHeading:
         resb 4
-dword_19D194:
+CameraElevation:
         resb 4
-dword_19D198:
+CameraOrbitSpeed:
         resb 4
-dword_19D19C:
+CameraZoom:
         resb 4
-dword_19D1A0:
+CameraLookAt:
         resb 4
-dword_19D1A4:
+CameraHeight:
         resb 4
-dword_19D1A8:
+CameraFocusVec:
         resb 16
-dword_19D1B8:
+CameraPathTime:
         resb 4
-dword_19D1BC:
+CameraPathVec:
         resb 16
-dword_19D1CC:
+CameraViewPair:
         resb 8
-dword_19D1D4:
+CameraViewNear:
         resb 4
-dword_19D1D8:
+CameraViewFar:
         resb 4
-dword_19D1DC:
+SplineIndex:
         resb 4
-dword_19D1E0:
+SplineCount:
         resb 4
-dword_19D1E4:
+SplineStep:
         resb 4
-dword_19D1E8:
+SplinePoints:
         resb 44
-unk_19D214:
+SplineCoefsX:
         resb 132
-unk_19D298:
+SplineCoefsY:
         resb 132
-unk_19D31C:
+CameraEye:
         resb 12
-unk_19D328:
+CameraCenter:
         resb 12
-dword_19D334:
+CameraDistance:
         resb 4
-dword_19D338:
+CameraAngles:
         resb 8
-dword_19D340:
+CameraFov:
         resb 4
-dword_19D344:
+CameraFovTarget:
         resb 4
-dword_19D348:
+CameraViewParams:
         resb 28
-dword_19D364:
+CameraLag:
         resb 4
-dword_19D368:
+CameraSpeed:
         resb 4
-dword_19D36C:
+CameraFollowObj:
         resb 4
-dword_19D370:
+TargetPointObj:
         resb 4
-dword_19D374:
+CameraSceneCenter:
         resb 4
-dword_19D378:
+CameraSceneYaw:
         resb 4
-dword_19D37C:
+CameraSceneDist:
         resb 4
-dword_19D380:
+CameraTracking:
         resb 4
-dword_19D384:
+ActiveCameraScene:
         resb 4
-dword_19D388:
+CameraPathActive:
         resb 4
-dword_19D38C:
+CameraDebugText:
         resb 4
-dword_19D390:
+TargetVecX:
         resb 4
-dword_19D394:
+TargetVecY:
         resb 4
-dword_19D398:
+TargetVecZ:
         resb 4
-dword_19D39C:
+StanleyPlayer:
         resb 4
-dword_19D3A0:
+FaceoffPuckX:
         resb 4
-dword_19D3A4:
+FaceoffPuckY:
         resb 4
-dword_19D3A8:
+PassTargetAngle:
         resb 4

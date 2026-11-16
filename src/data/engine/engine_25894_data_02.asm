@@ -2,24 +2,24 @@
 bits 32
 %include "hockey.inc"
 section s_168A4C progbits alloc noexec write align=1
-global str_Punct_assintrostand, dword_168AA4, dword_168AA8, dword_168B14, dword_168B18, dword_168B1C, word_168A4C, word_168A4E
-global word_168A68, word_168A6A
-word_168A4C:
+global str_Punct_assintrostand, IntroLineX, IntroLineY, IntroLineCount, ShotTargetX, ShotTargetY, OnsideOffsetX, OnsideOffsetY
+global PuckChaseOffsetX, PuckChaseOffsetY
+OnsideOffsetX:
         db 00h,00h
-word_168A4E:
+OnsideOffsetY:
         db 0B0h,010h,0F8h,0F8h,080h,0FBh,08h,07h,080h,0FBh,0F8h,0F8h,00h,00h,00h,00h
         db 0F0h,00h,08h,07h,00h,00h,00h,00h,010h,0FFh
-word_168A68:
+PuckChaseOffsetX:
         db 00h,00h
-word_168A6A:
+PuckChaseOffsetY:
         db 0B0h,010h,0F8h,0F8h,060h,06h,08h,07h,060h,06h,0F8h,0F8h,0F0h,0Ch,00h,00h
         db 0F0h,0Ch,08h,07h,0F0h,0Ch,00h,00h,0E0h,0Dh
 str_Punct_assintrostand:
         db 05Fh,00h,00h,00h,060h,00h,00h,00h,01h,01h,00h,00h,0D1h,00h,00h,00h
         db 0D0h,00h,00h,00h,0D5h,00h,00h,00h,0D3h,00h,00h,00h,0D2h,00h,00h,00h
-dword_168AA4:
+IntroLineX:
         db 0C8h,0FBh,0FFh,0FFh
-dword_168AA8:
+IntroLineY:
         db 090h,0FAh,0FFh,0FFh,0B8h,0FCh,0FFh,0FFh,010h,0F3h,0FFh,0FFh,068h,01h,00h,00h
         db 030h,0F1h,0FFh,0FFh,098h,0FEh,0FFh,0FFh,030h,0F1h,0FFh,0FFh,048h,03h,00h,00h
         db 010h,0F3h,0FFh,0FFh,038h,04h,00h,00h,090h,0FAh,0FFh,0FFh,038h,04h,00h,00h
@@ -27,11 +27,11 @@ dword_168AA8:
         db 0F0h,0Ch,00h,00h,098h,0FEh,0FFh,0FFh,0D0h,0Eh,00h,00h,068h,01h,00h,00h
         db 0D0h,0Eh,00h,00h,0B8h,0FCh,0FFh,0FFh,0F0h,0Ch,00h,00h,0C8h,0FBh,0FFh,0FFh
         db 070h,05h,00h,00h,0C8h,0FBh,0FFh,0FFh,00h,00h,00h,00h
-dword_168B14:
+IntroLineCount:
         db 00h,00h,00h,00h
-dword_168B18:
+ShotTargetX:
         db 00h,00h,00h,00h
-dword_168B1C:
+ShotTargetY:
         db 0C0h,00h,00h,00h,090h,00h,00h,00h,0C0h,00h,00h,00h,090h,00h,00h,00h
         db 060h,00h,00h,00h,090h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,070h,0FFh,0FFh,0FFh,00h,00h,00h,00h,070h,0FFh,0FFh,0FFh

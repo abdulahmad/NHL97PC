@@ -10,7 +10,7 @@ extern str_C100, str_C200, str_C201, str_C210, str_C211, str_C300, str_C301, str
 extern str_C303, str_C310, str_C311, str_C312, str_C313, str_C320, str_C321, str_C322
 extern str_C323, str_C330, str_C331, str_C332, str_C333, str_GLASS, str_ArenaViv2, str_Zamtrack
 extern str_Netback, str_Netfrnt, str_BlogoDC, str_L02da, str_L02db, str_L02dc, str_L02dC, IdentityRemap
-extern byte_1AC638, byte_1AC818, byte_1AC81A, byte_1AC81B, byte_1AC948, byte_1AC95B, byte_1AEDED, byte_1AEDEE
+extern MusicTrackTable, StartupFlag, byte_1AC81A, byte_1AC81B, byte_1AC948, byte_1AC95B, byte_1AEDED, byte_1AEDEE
 extern byte_1AEDEF, F32_neg4264, F32_neg2040, F32_65536_ScaleLineWidth, F32_65536_InitRinkView, F32_600, F32_6_BuildRinkGeometry, F32_10_BuildRinkGeometry
 extern F32_14, F32_4, F32_8, dword_1691A8, dword_1691AC, dword_1691AE, dword_1691B0, dword_1691B8
 extern dword_1691BC, dword_1691C0, dword_1691C4, dword_1691C8, dword_1691CC, dword_1691D0, dword_1691D4, dword_1691D8
@@ -18,8 +18,8 @@ extern dword_1691E0, dword_169224, dword_169228, dword_16922C, dword_169230, dwo
 extern dword_169264, dword_169278, dword_16927A, dword_16927C, dword_16927E, dword_169280, dword_169844, dword_1698AF
 extern dword_169996, dword_16AEB4, dword_16AF30, dword_16AF34, dword_16AF38, dword_16AF3C, dword_16AF48, dword_16AF54
 extern dword_16AF68, dword_16B164, dword_16B168, dword_16DA9C, dword_16E464, dword_16E468, str_Punct_DrawRinkSurface, F32_1p0_View
-extern RinkLineWidth, ViewCenterY, str_D_ProjectPointsPersp, CameraSinYaw, CameraCosYaw, CameraFlags, SinTable, dword_1AC790
-extern dword_1AC794, dword_1AC798, dword_1AC79C, dword_1AC810, dword_1AC814, dword_1AC819, dword_1AC944, dword_1AD748
+extern RinkLineWidth, ViewCenterY, str_D_ProjectPointsPersp, CameraSinYaw, CameraCosYaw, CameraFlags, SinTable, SpeechStreamBuf
+extern SpeechStreamLen, SpeechStreamRead, SpeechStreamEnd, GlobalSetData, GameSettings, dword_1AC819, dword_1AC944, dword_1AD748
 extern dword_1ADBF8, dword_1ADC70, dword_1ADC74, dword_1ADC78, dword_1ADC7C, dword_1ADC80, dword_1ADC84, dword_1ADC88
 extern dword_1ADC8C, dword_1ADC90, dword_1ADC94, dword_1ADC98, dword_1ADC9C, dword_1ADCA8, dword_1ADCB8, dword_1ADCC0
 extern dword_1ADCC8, dword_1ADCD0, dword_1ADCD8, dword_1ADCE4, dword_1ADCE8, dword_1ADCF4, dword_1ADD00, dword_1ADD0C
@@ -84,7 +84,7 @@ extern WaitTicks, OpenResourceArchive, CurrentArchiveName, MatchColor, SelectFon
 extern IntsToFloats, FloatsToInts, ScaleFloatsToInts, VecMulMat, TransformVecs, VecAdd, AddVecs, VecDistance
 extern SetViewScale, ProjectCoord, ProjectCoordInt, ProjectPoints, ProjectPointsWithZ, ProjectPointsToScreen, tickcount, str_Punct_MakeDataPath
 extern unk_169848, unk_1698A2, str_X_SetArtArchive, unk_16AF14, unk_16AF6C, unk_16B084, unk_16B0E4, unk_16B144
-extern unk_16B16C, DebugTagStr, unk_1AC7DC, unk_1AC95D, unk_1ACB44, unk_1AD7C0, unk_1ADCA0, unk_1ADD38
+extern unk_16B16C, DebugTagStr, DataFilePath, unk_1AC95D, unk_1ACB44, unk_1AD7C0, unk_1ADCA0, unk_1ADD38
 extern unk_1ADD40, unk_1ADD58, unk_1ADD60, unk_1ADD78, unk_1ADDE4, unk_1ADEF8, unk_1ADF38, unk_1ADFF8
 extern unk_1AE028, unk_1AE058, unk_1AE0B8, unk_1AE118, unk_1AE278, unk_1AE588, unk_1AE688, unk_1AE6D0
 extern unk_1AE748, unk_1AE7C0, unk_1AE808, unk_1AE850, unk_1AE8B0, unk_1AE910, unk_1AE9B8, unk_1AE9E8
@@ -1169,7 +1169,7 @@ PaEvent_967:
         call SayPaClip
         cmp dword [ecx], byte 0
         jne short .86
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 0Ch
         cmp eax, byte 8
         je short .86
@@ -1192,7 +1192,7 @@ PaEvent_967:
         mov eax, dword [byte esp+02Ch]
         cmp dword [eax], byte 0
         jne short .87
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 0Ch
         cmp eax, byte 8
         je short .87
@@ -1211,7 +1211,7 @@ PaEvent_967:
         mov eax, dword [byte esp+030h]
         cmp dword [eax], byte 0
         jne near PaEvent_14CD
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 0Ch
         cmp eax, byte 8
         je near PaEvent_14CD
@@ -1235,7 +1235,7 @@ PaEvent_967:
         mov eax, dword [byte esp+02Ch]
         cmp dword [eax], byte 0
         jne near PaEvent_14CD
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 0Ch
         cmp eax, byte 8
         je near PaEvent_14CD
@@ -1336,7 +1336,7 @@ PaEvent_967:
         mov eax, 2
         add edx, byte 6Ah
         call SayPaClip
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         mov ebx, dword [byte esp+04h]
         and eax, byte 0Ch
         test ebx, ebx
@@ -1355,7 +1355,7 @@ PaEvent_967:
         call SayPaClip
         cmp dword [ecx], byte 0
         jne short .103
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 0Ch
         cmp eax, byte 8
         je short .103
@@ -1822,7 +1822,7 @@ PaEvent_967:
         call SayPaClip
         cmp dword [ecx], byte 0
         jne short .155
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 0Ch
         cmp eax, byte 8
         je short .155
@@ -1853,7 +1853,7 @@ PaEvent_967:
         mov eax, dword [byte esp+02Ch]
         cmp dword [eax], byte 0
         jne short .157
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 0Ch
         cmp eax, byte 8
         je short .157
@@ -1972,20 +1972,20 @@ ResetStreamAudio:
         mov ebx, dword [byte edx+eax+012h]
         mov eax, dword [byte edx+eax+016h]
         add ebx, eax
-        mov dword [dword_1AC794], ebx
+        mov dword [SpeechStreamLen], ebx
         mov eax, ebx
-        cmp eax, dword [dword_1AC798]
+        cmp eax, dword [SpeechStreamRead]
         jne short .3
-        mov eax, dword [dword_1AC790]
-        mov dword [dword_1AC798], eax
+        mov eax, dword [SpeechStreamBuf]
+        mov dword [SpeechStreamRead], eax
         jmp short .4
 .3:
-        cmp eax, dword [dword_1AC79C]
+        cmp eax, dword [SpeechStreamEnd]
         jne short .5
-        mov eax, dword [dword_1AC790]
-        mov dword [dword_1AC79C], esi
+        mov eax, dword [SpeechStreamBuf]
+        mov dword [SpeechStreamEnd], esi
 .4:
-        mov dword [dword_1AC794], eax
+        mov dword [SpeechStreamLen], eax
 .5:
         mov eax, dword [dword_16927A]
         sar eax, 10h
@@ -2062,20 +2062,20 @@ ResetStreamAudio:
         je short .13
         mov eax, dword [byte edx+016h]
         add ebx, eax
-        mov ecx, dword [dword_1AC798]
-        mov dword [dword_1AC794], ebx
+        mov ecx, dword [SpeechStreamRead]
+        mov dword [SpeechStreamLen], ebx
         cmp ebx, ecx
         jne short .11
-        mov eax, dword [dword_1AC790]
-        mov dword [dword_1AC798], eax
+        mov eax, dword [SpeechStreamBuf]
+        mov dword [SpeechStreamRead], eax
         jmp short .12
 .11:
-        cmp ebx, dword [dword_1AC79C]
+        cmp ebx, dword [SpeechStreamEnd]
         jne short .13
-        mov eax, dword [dword_1AC790]
-        mov dword [dword_1AC79C], esi
+        mov eax, dword [SpeechStreamBuf]
+        mov dword [SpeechStreamEnd], esi
 .12:
-        mov dword [dword_1AC794], eax
+        mov dword [SpeechStreamLen], eax
 .13:
         mov edx, dword [dword_16927C]
         sar edx, 10h
@@ -2186,7 +2186,7 @@ CloseMusicStream:
         shl edx, 4
         xor ah, ah
         mov bx, word [word_1691B6]
-        mov byte [dword edx+byte_1AC638], ah
+        mov byte [dword edx+MusicTrackTable], ah
         mov edx, dword [dword_1691AE]
         dec ebx
         sar edx, 10h
@@ -2348,7 +2348,7 @@ FeedMusicStream_4B:
         add eax, ebx
         shl eax, 4
         add esp, byte 0Ch
-        add eax, byte_1AC638
+        add eax, MusicTrackTable
         push eax
         push edx
         call CdStreamQueue
@@ -2665,7 +2665,7 @@ MakeDataPath:
         mov ecx, edx
         imul esi, edx, byte 15h
         mov byte [eax], 0
-        mov edx, dword [dword_1AC814]
+        mov edx, dword [GameSettings]
         and edx, byte 3
         mov eax, edx
         add esi, str_X_SetArtArchive
@@ -2716,17 +2716,17 @@ MakeDataPath_62:
         lea eax, [ebx+edx]
         cmp byte [eax], 24h
         jne short .7
-        test byte [dword_1AC814], 0Ch
+        test byte [GameSettings], 0Ch
         jne short .5
         mov byte [eax], 45h
 .5:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 0Ch
         cmp eax, byte 4
         jne short .6
         mov byte [edx+ebx], 46h
 .6:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 0Ch
         cmp eax, byte 8
         jne short .7
@@ -2801,17 +2801,17 @@ MakeDataPath_132:
         lea eax, [ebx+edx]
         cmp byte [eax], 24h
         jne short .19
-        test byte [dword_1AC814], 0Ch
+        test byte [GameSettings], 0Ch
         jne short .17
         mov byte [eax], 45h
 .17:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 0Ch
         cmp eax, byte 4
         jne short .18
         mov byte [edx+ebx], 46h
 .18:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 0Ch
         cmp eax, byte 8
         jne short .19
@@ -2837,7 +2837,7 @@ jpt_4AD42:
         mov ebx, eax
         imul edx, byte 15h
         mov byte [eax], 0
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         mov ecx, unk_1698A2
         and eax, byte 3
         add ecx, edx
@@ -2883,17 +2883,17 @@ jpt_4AD42:
         lea eax, [ebx+ecx]
         cmp byte [eax], 24h
         jne short .11
-        test byte [dword_1AC814], 0Ch
+        test byte [GameSettings], 0Ch
         jne short .9
         mov byte [eax], 45h
 .9:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 0Ch
         cmp eax, byte 4
         jne short .10
         mov byte [ecx+ebx], 46h
 .10:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 0Ch
         cmp eax, byte 8
         jne short .11
@@ -2921,7 +2921,7 @@ MakeDirPath:
         mov byte [eax], 0
         test ebx, ebx
         je short .1
-        test byte [dword_1AC814], 3
+        test byte [GameSettings], 3
         je short .1
         mov edx, dword [dword_16AEB4]
         call strcat_
@@ -2956,7 +2956,7 @@ jpt_4AE54:
         imul edx, byte 0FFFFFFEBh
         mov ebx, unk_1698A2
         add ebx, edx
-        mov edx, dword [dword_1AC814]
+        mov edx, dword [GameSettings]
         and edx, byte 3
         cmp edx, byte 3
         ja short .7
@@ -3012,17 +3012,17 @@ jpt_4AE54:
 .11:
         cmp byte [byte edx+ebp-028h], 24h
         jne short .14
-        test byte [dword_1AC814], 0Ch
+        test byte [GameSettings], 0Ch
         jne short .12
         mov byte [byte edx+ebp-028h], 45h
 .12:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 0Ch
         cmp eax, byte 4
         jne short .13
         mov byte [byte edx+ebp-028h], 46h
 .13:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 0Ch
         cmp eax, byte 8
         jne short .14
@@ -3043,11 +3043,11 @@ jpt_4AE54:
         push ecx
         mov ebx, edx
         mov edx, eax
-        mov eax, unk_1AC7DC
+        mov eax, DataFilePath
         call MakeDataPath
         call ServiceIdle
         push ebx
-        push unk_1AC7DC
+        push DataFilePath
         call LoadFileAlloc
 jpt_4AE54_137:
         add esp, byte 8
@@ -3068,66 +3068,66 @@ LoadDataFileHandle:
         push ecx
         mov ebx, edx
         mov edx, eax
-        mov eax, unk_1AC7DC
+        mov eax, DataFilePath
         call MakeDataPath
         call ServiceIdle
         push ebx
-        push unk_1AC7DC
+        push DataFilePath
         call LoadFileAllocQuiet
         jmp short jpt_4AE54_137
         push ebx
         push ecx
         mov ebx, edx
         mov edx, eax
-        mov eax, unk_1AC7DC
+        mov eax, DataFilePath
         call MakeDataPath
         call ServiceIdle
         push ebx
-        push unk_1AC7DC
+        push DataFilePath
         call LoadFileInto
         jmp short jpt_4AE54_137
         push ebx
         push ecx
         mov ebx, edx
         mov edx, eax
-        mov eax, unk_1AC7DC
+        mov eax, DataFilePath
         call MakeDataPath
         call ServiceIdle
         push ebx
-        push unk_1AC7DC
+        push DataFilePath
         call LoadFileIntoQuiet
         jmp short jpt_4AE54_137
         push ebx
         push ecx
         mov ebx, edx
         mov edx, eax
-        mov eax, unk_1AC7DC
+        mov eax, DataFilePath
         call MakeDataPath
         call ServiceIdle
         push ebx
-        push unk_1AC7DC
+        push DataFilePath
         call LoadFileToBlockShared
         jmp near jpt_4AE54_137
         push ebx
         push ecx
         mov ebx, edx
         mov edx, eax
-        mov eax, unk_1AC7DC
+        mov eax, DataFilePath
         call MakeDataPath
         call ServiceIdle
         push ebx
-        push unk_1AC7DC
+        push DataFilePath
         call LoadFileToBlockPlain
         jmp near jpt_4AE54_137
         push ebx
         push ecx
         mov ebx, edx
         mov edx, eax
-        mov eax, unk_1AC7DC
+        mov eax, DataFilePath
         call MakeDataPath
         call ServiceIdle
         push ebx
-        push unk_1AC7DC
+        push DataFilePath
         call ReadWholeFile
         jmp near jpt_4AE54_137
 ;-----------------------------------------------------------------------------
@@ -3140,44 +3140,44 @@ LoadDataFileLib:
         push ecx
         mov ebx, edx
         mov edx, eax
-        mov eax, unk_1AC7DC
+        mov eax, DataFilePath
         call MakeDataPath
         call ServiceIdle
         push ebx
-        push unk_1AC7DC
+        push DataFilePath
         call LoadResourceDataShared
         jmp near jpt_4AE54_137
         push ebx
         push ecx
         mov ebx, edx
         mov edx, eax
-        mov eax, unk_1AC7DC
+        mov eax, DataFilePath
         call MakeDataPath
         call ServiceIdle
         push ebx
-        push unk_1AC7DC
+        push DataFilePath
         call LoadResourceData
         jmp near jpt_4AE54_137
         push ebx
         push ecx
         mov ebx, edx
         mov edx, eax
-        mov eax, unk_1AC7DC
+        mov eax, DataFilePath
         call MakeDataPath
         call ServiceIdle
         push ebx
-        push unk_1AC7DC
+        push DataFilePath
         call LoadResourceBlockShared
         jmp near jpt_4AE54_137
         push ebx
         push ecx
         mov ebx, edx
         mov edx, eax
-        mov eax, unk_1AC7DC
+        mov eax, DataFilePath
         call MakeDataPath
         call ServiceIdle
         push ebx
-        push unk_1AC7DC
+        push DataFilePath
         call LoadResourceBlock
         jmp near jpt_4AE54_137
 ;-----------------------------------------------------------------------------
@@ -3190,11 +3190,11 @@ LoadDataFile:
         push ecx
         mov ebx, edx
         mov edx, eax
-        mov eax, unk_1AC7DC
+        mov eax, DataFilePath
         call MakeDataPath
         call ServiceIdle
         push ebx
-        push unk_1AC7DC
+        push DataFilePath
         call OpenArtArchiveErr
         jmp near jpt_4AE54_137
 ;-----------------------------------------------------------------------------
@@ -3206,33 +3206,33 @@ LoadDataFileFlag0:
         push ecx
         mov ebx, edx
         mov edx, eax
-        mov eax, unk_1AC7DC
+        mov eax, DataFilePath
         call MakeDataPath
         call ServiceIdle
         push ebx
-        push unk_1AC7DC
+        push DataFilePath
         call OpenArtArchive
         jmp near jpt_4AE54_137
         push ebx
         push ecx
         mov ebx, edx
         mov edx, eax
-        mov eax, unk_1AC7DC
+        mov eax, DataFilePath
         call MakeDataPath
         call ServiceIdle
         push ebx
-        push unk_1AC7DC
+        push DataFilePath
         call LoadDataFileErr
         jmp near jpt_4AE54_137
         push ebx
         push ecx
         mov ebx, edx
         mov edx, eax
-        mov eax, unk_1AC7DC
+        mov eax, DataFilePath
         call MakeDataPath
         call ServiceIdle
         push ebx
-        push unk_1AC7DC
+        push DataFilePath
         call LoadDataFileNoErr
         jmp near jpt_4AE54_137
 ;-----------------------------------------------------------------------------
@@ -3243,10 +3243,10 @@ OpenDataLibrary:
         push ecx
         push edx
         mov edx, eax
-        mov eax, unk_1AC7DC
+        mov eax, DataFilePath
         call MakeDataPath
         call ServiceIdle
-        push unk_1AC7DC
+        push DataFilePath
         call OpenResourceArchive
         add esp, byte 4
         call ServiceIdle
@@ -3285,18 +3285,18 @@ SetArtArchive:
         call stricmp_
         test eax, eax
         jne short .3
-        mov eax, unk_1AC7DC
+        mov eax, DataFilePath
         mov edx, ebx
         call MakeDataPath
         call ServiceIdle
-        push unk_1AC7DC
+        push DataFilePath
         call OpenResourceArchive
         add esp, byte 4
         call ServiceIdle
         mov edx, ebx
-        mov eax, unk_1AC7DC
+        mov eax, DataFilePath
         call MakeDataPath
-        push unk_1AC7DC
+        push DataFilePath
         call DosFileInfo
         mov ecx, 1
         add esp, byte 4
@@ -3423,12 +3423,12 @@ LoadStartupData:
         test ecx, ecx
         je near .5
         mov ebx, 130h
-        mov eax, dword_1AC810
+        mov eax, GlobalSetData
         mov edx, ecx
         call memcpy_
-        cmp dword [dword_1AC810], 16059h
+        cmp dword [GlobalSetData], 16059h
         jne short .4
-        cmp byte [byte_1AC818], 0
+        cmp byte [StartupFlag], 0
         jne short .3
         and dword [dword_1AC819], 0FFE9FFFDh
 .3:
@@ -3481,7 +3481,7 @@ WriteGlobalSet:
         call openhandle
         add esp, byte 10h
         push dword 130h
-        push dword_1AC810
+        push GlobalSetData
         push dword [byte ebp-04h]
         call DosWriteFile
         add esp, byte 0Ch

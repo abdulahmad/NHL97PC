@@ -6,8 +6,8 @@ extern __CHK, str_CarrySS, str_GKSF, str_SPEECH, byte_1C135A, byte_1C135B, dword
 extern dword_169244, dword_169248, dword_169250, dword_169254, dword_169258, dword_16925C, dword_169260, dword_169264
 extern dword_16926C, dword_169274, dword_169278, dword_16927A, dword_16927C, dword_16927E, dword_169280, dword_169288
 extern dword_1697B4, dword_16981C, dword_169820, dword_1AC4F0, dword_1AC4F4, dword_1AC4F8, dword_1AC4FC, dword_1AC500
-extern dword_1AC504, dword_1AC5C8, dword_1AC5D0, dword_1AC78C, dword_1AC790, dword_1AC794, dword_1AC798, dword_1AC79C
-extern dword_1AC7A0, dword_1AC814, dword_1AC944, dword_1B8FA0, jpt_45A64, jpt_45B20, jpt_45B38, jpt_45B60
+extern dword_1AC504, dword_1AC5C8, dword_1AC5D0, SpeechFileHandle, SpeechStreamBuf, SpeechStreamLen, SpeechStreamRead, SpeechStreamEnd
+extern SpeechStreamClip, GameSettings, dword_1AC944, dword_1B8FA0, jpt_45A64, jpt_45B20, jpt_45B38, jpt_45B60
 extern jpt_45B70, jpt_45B84, jpt_45BC0, jpt_45BD8, PaEvent_4D6, PaEvent_4EC, PaEvent_502, PaEvent_518
 extern PaEvent_536, PaEvent_572, PaEvent_5AE, PaEvent_5D6, PaEvent_5FE, PaEvent_64E, PaEvent_69E, PaEvent_745
 extern PaEvent_7FF, PaEvent_87E, PaEvent_8CF, PaEvent_8F5, PaEvent_91B, PaEvent_941, PaEvent_967, PaEvent_14CD
@@ -2726,7 +2726,7 @@ OpenSpeechFile:
         mov ecx, eax
         shl ecx, 4
         add ecx, eax
-        mov eax, dword [dword_1AC78C]
+        mov eax, dword [SpeechFileHandle]
         shl ecx, 2
         add eax, ecx
         cmp dword [eax], byte 0
@@ -2734,11 +2734,11 @@ OpenSpeechFile:
         add eax, byte 8
         mov edx, dword [nosplit ebx*4+dword_16926C]
         call MakeDataPath
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 0Ch
         cmp eax, byte 8
         jne short .3
-        mov eax, dword [dword_1AC78C]
+        mov eax, dword [SpeechFileHandle]
         add eax, ecx
         mov dl, byte [byte eax+08h]
         add eax, byte 8
@@ -2754,7 +2754,7 @@ OpenSpeechFile:
         mov eax, ebx
         shl eax, 4
         add eax, ebx
-        mov edx, dword [dword_1AC78C]
+        mov edx, dword [SpeechFileHandle]
         shl eax, 2
         add eax, edx
         mov edx, str_GKSF
@@ -2771,7 +2771,7 @@ OpenSpeechFile:
         mov eax, ebx
         shl eax, 4
         add eax, ebx
-        mov edx, dword [dword_1AC78C]
+        mov edx, dword [SpeechFileHandle]
         shl eax, 2
         add eax, edx
         add eax, byte 8
@@ -2793,7 +2793,7 @@ OpenSpeechFile:
         shl eax, 4
         add esp, byte 8
         add ebx, eax
-        mov eax, dword [dword_1AC78C]
+        mov eax, dword [SpeechFileHandle]
         shl ebx, 2
         push byte 4
         add eax, ebx
@@ -2801,7 +2801,7 @@ OpenSpeechFile:
         mov eax, dword [byte esp+010h]
         push eax
         call DosReadFile
-        mov eax, dword [dword_1AC78C]
+        mov eax, dword [SpeechFileHandle]
         add esp, byte 0Ch
         mov eax, dword [ebx+eax]
         push byte 20h
@@ -2809,9 +2809,9 @@ OpenSpeechFile:
         push eax
         push str_SPEECH
         call AllocMemBlock
-        mov edx, dword [dword_1AC78C]
+        mov edx, dword [SpeechFileHandle]
         mov dword [byte edx+ebx+04h], eax
-        mov eax, dword [dword_1AC78C]
+        mov eax, dword [SpeechFileHandle]
         add ebx, eax
         mov eax, dword [ebx]
         add esp, byte 0Ch
@@ -2852,17 +2852,17 @@ FreeSpeechBuffers:
         mov ebx, eax
         shl eax, 4
         add ebx, eax
-        mov eax, dword [dword_1AC78C]
+        mov eax, dword [SpeechFileHandle]
         shl ebx, 2
         add eax, ebx
         cmp dword [eax], byte 0
         je short .1
         mov dword [eax], 0
-        mov eax, dword [dword_1AC78C]
+        mov eax, dword [SpeechFileHandle]
         mov ecx, dword [byte ebx+eax+04h]
         push ecx
         call FreeMemBlock
-        mov eax, dword [dword_1AC78C]
+        mov eax, dword [SpeechFileHandle]
         add esp, byte 4
         mov dword [byte ebx+eax+04h], 0
 .1:
@@ -2896,7 +2896,7 @@ PickPaClip:
         mov ecx, eax
         shl eax, 4
         add ecx, eax
-        mov eax, dword [dword_1AC78C]
+        mov eax, dword [SpeechFileHandle]
         shl ecx, 2
         add eax, ecx
         mov edi, dword [eax]
@@ -2923,7 +2923,7 @@ PickPaClip:
         mov eax, dword [byte eax+04h]
         mov eax, dword [eax+edx*4]
         mov dword [ebx], eax
-        mov eax, dword [dword_1AC78C]
+        mov eax, dword [SpeechFileHandle]
         mov eax, dword [byte ecx+eax+04h]
         mov ebp, dword [ebx]
         mov eax, dword [byte eax+edx*4+04h]
@@ -3005,13 +3005,13 @@ InitSpeechStream:
         call ZeroMem
         mov eax, dword [dword_169258]
         add esp, byte 8
-        mov dword [dword_1AC7A0], ebx
+        mov dword [SpeechStreamClip], ebx
         xor ecx, ecx
-        mov dword [dword_1AC790], eax
-        mov dword [dword_1AC798], eax
-        mov dword [dword_1AC794], eax
+        mov dword [SpeechStreamBuf], eax
+        mov dword [SpeechStreamRead], eax
+        mov dword [SpeechStreamLen], eax
         add eax, ebx
-        mov dword [dword_1AC79C], ecx
+        mov dword [SpeechStreamEnd], ecx
         mov dword [dword_16925C], eax
         call SpeechBufferSize
         mov ebx, eax
@@ -3019,7 +3019,7 @@ InitSpeechStream:
         lea edx, [eax+ebx]
         mov dword [dword_169278], edx
         lea ebx, [dword edx+0330h]
-        mov dword [dword_1AC78C], ebx
+        mov dword [SpeechFileHandle], ebx
         call RegisterStreamBank
         mov dword [dword_169264], eax
         mov eax, dword [dword_16922E]
@@ -3073,7 +3073,7 @@ ShutdownSound:
         push byte 14h
         mov dword [dword_169258], esi
         mov dword [dword_16925C], esi
-        push dword_1AC790
+        push SpeechStreamBuf
         mov dword [dword_169278], esi
         mov dword [dword_169264], ebx
         call ZeroMem
@@ -3168,17 +3168,17 @@ ServiceSpeechStream:
         add edx, edx
         cmp dword [byte edx+eax+02h], byte 0
         jne near .7
-        mov ecx, dword [dword_1AC794]
-        mov eax, dword [dword_1AC798]
+        mov ecx, dword [SpeechStreamLen]
+        mov eax, dword [SpeechStreamRead]
         cmp eax, ecx
         jge short .1
         mov edx, ecx
         sub edx, eax
         jmp short .2
 .1:
-        mov edx, dword [dword_1AC7A0]
-        mov eax, dword [dword_1AC790]
-        mov esi, dword [dword_1AC798]
+        mov edx, dword [SpeechStreamClip]
+        mov eax, dword [SpeechStreamBuf]
+        mov esi, dword [SpeechStreamRead]
         mov ebx, ecx
         add edx, eax
         sub ebx, eax
@@ -3199,7 +3199,7 @@ ServiceSpeechStream:
         mov ebp, dword [byte eax+016h]
         cmp edx, ebp
         jl near .7
-        mov eax, dword_1AC790
+        mov eax, SpeechStreamBuf
         mov edx, ebp
         call RingBufferSpace
         mov edx, dword [dword_16927E]
@@ -3222,7 +3222,7 @@ ServiceSpeechStream:
         mov edx, eax
         shl eax, 4
         add eax, edx
-        mov edx, dword [dword_1AC78C]
+        mov edx, dword [SpeechFileHandle]
         shl eax, 2
         add eax, edx
         add eax, byte 8
@@ -3487,21 +3487,21 @@ ServiceSpeechStream:
         add ecx, ecx
         mov eax, dword [byte ecx+eax+012h]
         add eax, edx
-        mov ecx, dword [dword_1AC798]
-        mov dword [dword_1AC794], eax
+        mov ecx, dword [SpeechStreamRead]
+        mov dword [SpeechStreamLen], eax
         cmp eax, ecx
         jne short .17
-        mov eax, dword [dword_1AC790]
-        mov dword [dword_1AC798], eax
-        mov dword [dword_1AC794], eax
+        mov eax, dword [SpeechStreamBuf]
+        mov dword [SpeechStreamRead], eax
+        mov dword [SpeechStreamLen], eax
         jmp short .18
 .17:
-        cmp eax, dword [dword_1AC79C]
+        cmp eax, dword [SpeechStreamEnd]
         jne short .18
-        mov eax, dword [dword_1AC790]
+        mov eax, dword [SpeechStreamBuf]
         xor edi, edi
-        mov dword [dword_1AC794], eax
-        mov dword [dword_1AC79C], edi
+        mov dword [SpeechStreamLen], eax
+        mov dword [SpeechStreamEnd], edi
 .18:
         mov ecx, dword [dword_16927A]
         sar ecx, 10h

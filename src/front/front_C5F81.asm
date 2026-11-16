@@ -5,7 +5,7 @@ section s_C5F81 progbits alloc exec nowrite align=1
 extern str_00007, str_ON00, str_OF00, str_MA00, str_AUOO, str_5000, str_1000, str_2000
 extern str_NA00, str_10IL, str_102L, str_103L, str_ONDL, str_OFDL, str_MADL, str_AUDL
 extern str_50DL, str_20DL, str_NADL, str_OFF, str_LX002, str_LC002, str_LX0D2, str_LC0D2
-extern str_BALL, byte_1AD23E, byte_1AD252, byte_1AD739, byte_1C6040, dword_16D664, MenuScreenBitmap, dword_1AC814
+extern str_BALL, byte_1AD23E, byte_1AD252, byte_1AD739, byte_1C6040, dword_16D664, MenuScreenBitmap, GameSettings
 extern dword_1AC944, dword_1AD251, dword_1C5DE4, dword_1CBB94, dword_1CBB98, dword_1CBBA4, dword_1CBBB4, dword_1CBBC4
 extern dword_1CBBD4, dword_1CBBE4, dword_1CBBE8, dword_1CBBEC, dword_1CBBF0, dword_1CBBF4, dword_1CBC04, dword_1CBC14
 extern dword_1CBC1C, dword_1CBC28, dword_1CBC2C, dword_1CBC32, dword_1CBC36, dword_1CBC3A, dword_1CBC3E, dword_1CBC42
@@ -927,14 +927,14 @@ SeasonSetupScreen:
         add ebx, byte 79h
         add edx, 12Bh
         call SetRegionRect
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .28
         cmp byte [byte_1AD23E], 0
         jne short .29
 .28:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .31
@@ -1018,7 +1018,7 @@ SeasonSetupScreen_E65:
         call RunMenu
         cmp dword [dword ebp+02D8h], byte 0Ah
         ja near SeasonSetupScreen_139E.79
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         mov edx, dword [dword ebp+02D8h]
         and eax, byte 70h
         jmp dword [nosplit cs:edx*4+jpt_C6038]
@@ -1232,7 +1232,7 @@ SeasonSetupScreen_11A7:
         cmp byte [byte_1AD23E], 0
         jne near SeasonSetupScreen_E65
 .54:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .55
@@ -1250,14 +1250,14 @@ SeasonSetupScreen_11A7:
         or dword [byte ebp+07Dh], edx
         cmp eax, byte 3
         jb short .59
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .56
         cmp byte [byte_1AD23E], 0
         jne short .57
 .56:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .58
@@ -1292,7 +1292,7 @@ SeasonSetupScreen_1264:
         cmp byte [byte_1AD23E], 0
         jne near SeasonSetupScreen_E65
 .63:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .64
@@ -1316,7 +1316,7 @@ SeasonSetupScreen_12B6:
         cmp byte [byte_1AD23E], 0
         jne near SeasonSetupScreen_E65
 .67:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .68
@@ -1340,7 +1340,7 @@ SeasonSetupScreen_1308:
         cmp byte [byte_1AD23E], 0
         jne near SeasonSetupScreen_E65
 .71:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .72

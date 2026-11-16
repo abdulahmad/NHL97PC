@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_168B60 progbits alloc noexec write align=1
-extern SortCords, hmtmstruct, unk_19E060, unk_19E690, unk_19E798, unk_19E79E, unk_19E7A2, unk_19E7A6
-extern unk_19E7A8, unk_19E7AC, unk_19E7B0, unk_19E840, unk_19E8A0, unk_19E9A8
+extern SortCords, hmtmstruct, HomeTeamRecord, AwayTeamRecord
+extern AwayTeamRecord, HomeIcePlayers, AwayIcePlayers
 global byte_168B60, byte_168B69, byte_168C04, byte_168E50, dword_168B66, dword_168D20, dword_168D8E, dword_168DA4
 global dword_168DCC, dword_168E70, dword_168E74, dword_168E7C, dword_168E80, dword_168F58, off_168CD8, off_168CE0
 global off_168CE8, off_168CEC, off_168CF0, off_168CFC, off_168D04, off_168D08, off_168D0C, unk_168C38
@@ -40,28 +40,28 @@ unk_168C38:
         db 00h,00h,00h,00h,00h,00h,00h,00h,041h,00h,01h,00h,00h,00h,00h,00h
         db 050h,0EFh,00h,00h,00h,00h,00h,00h,00h,00h,0B0h,010h,00h,00h,00h,00h
 off_168CD8:
-        dd unk_19E79E
-        dd unk_19E7A8
+        dd AwayTeamRecord+52Eh
+        dd AwayTeamRecord+538h
 off_168CE0:
-        dd unk_19E7A2
-        dd unk_19E7AC
+        dd AwayTeamRecord+532h
+        dd AwayTeamRecord+53Ch
 off_168CE8:
-        dd unk_19E7A6
+        dd AwayTeamRecord+536h
 off_168CEC:
-        dd unk_19E7B0
+        dd AwayTeamRecord+540h
 off_168CF0:
-        dd unk_19E840
+        dd AwayTeamRecord+5D0h
         dd SortCords
-        dd unk_19E060
+        dd HomeTeamRecord+420h
 off_168CFC:
-        dd unk_19E798
+        dd AwayTeamRecord+528h
         db 00h,00h,00h,00h
 off_168D04:
-        dd unk_19E690
+        dd AwayTeamRecord+420h
 off_168D08:
-        dd unk_19E8A0
+        dd HomeIcePlayers
 off_168D0C:
-        dd unk_19E9A8
+        dd AwayIcePlayers
         dd hmtmstruct
         dd hmtmstruct
 word_168D18:

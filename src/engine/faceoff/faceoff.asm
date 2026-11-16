@@ -6,7 +6,7 @@ extern CountTeamSlots, SetupTeamForIntermission, SortCords, __CHK, __CHP, __STOS
 extern str_RPEVENT2, str_WaitingForOtherComputer2, str_WarteAufAnderenComputer, str_BREAKIN, str_BREAKOUT, awtmstruct, byte_19C3E0, byte_19CB70
 extern byte_19CB71, byte_19CB74, byte_19CB75, byte_19CB7E, byte_19CB7F, byte_19CB8A, byte_19CB8B, byte_19CBC2
 extern byte_19CBC8, byte_19CBCA, byte_19CBCC, byte_19CBFC, byte_19CCC6, byte_19CD05, byte_19CD8C, byte_19CD9D
-extern byte_19DAF1, byte_1AC81B, byte_1AC81C, byte_1AC81D, byte_1C135A, byte_1C135B, byte_1C6040, clearteams
+extern PlayerControlRest, byte_1AC81B, byte_1AC81C, byte_1AC81D, byte_1C135A, byte_1C135B, byte_1C6040, clearteams
 extern F32_10, F32_neg8, F32_neg8_StickReachZ, dword_16862E, dword_168630, dword_1686BA, dword_1686C0, F32_62
 extern F32_54, F32_0p8, dword_1686D0, dword_1686DC, InGameMenuRequest, dword_1686E2, dword_16AF3C, dword_16AF40
 extern dword_16AF44, dword_16AF48, dword_16AF4C, dword_16AF50, dword_16AF54, dword_16AF58, dword_16AF5C, dword_16C6BC
@@ -16,7 +16,7 @@ extern dword_19CBD0, penshottimer, dword_19CBE8, dword_19CBF8, dword_19CC00, dwo
 extern dword_19CC9C, dword_19CCA0, dword_19CCA4, dword_19CCA8, dword_19CD08, dword_19CD0C, dword_19CD10, dword_19CD14
 extern dword_19CD18, dword_19CD1C, dword_19CD20, dword_19CD24, dword_19CD28, dword_19CD2C, dword_19CD30, dword_19CD34
 extern dword_19CD40, dword_19CD44, dword_19CD48, dword_19CD4C, dword_19CD50, dword_19CD54, dword_19CD88, dword_19CDA0
-extern dword_19CDA5, dword_19DA50, dword_1A8E80, dword_1AC814, dword_1AC819, dword_1AC835, dword_1AC944, dword_1B1404
+extern dword_19CDA5, dword_19DA50, ViewSizeIndex, GameSettings, dword_1AC819, dword_1AC835, dword_1AC944, dword_1B1404
 extern dword_1B1410, dword_1B1464, dword_1B8578, dword_1B8F4C, dword_1B8FA0, dword_1B8FA4, dword_1B906F, dword_1C1334
 extern dword_1C1346, dword_1C5DE4, dword_1C5EF4, hmtmstruct, memcpy_, off_168CE8, off_168CF0, off_168CFC
 extern off_168D04, off_168D08, off_168D0C, F64_0p000244141, F64_1p2, F64_neg8, F64_0p5, F64_50
@@ -36,7 +36,7 @@ extern LoadExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, PickDemoTeam
 extern InputRecordAvail, TakeInputRecord, ServiceIdle, LinkSyncGame, SetupPauseArt, CleanupPauseArt, OpenInGameMenu, LoadGameMenuText
 extern PauseMenu, InitVideoModeList, GetVideoModeList, PickVideoMode, AllocMemBlock, FreeMemBlock, KbdGetKey, TicksSinceLast
 extern OpenResourceArchive, MatchColor, SetViewRect, DebugSetLine, tickcount, unk_1600A4, unk_16AED4, unk_19CDA4
-extern unk_19DC40, unk_19E270, unk_19E588, unk_1AC821, CrowdChantTable, word_1686BC, word_1686D4, word_1686D6
+extern HomeTeamRecord, AwayTeamRecord, unk_1AC821, CrowdChantTable, word_1686BC, word_1686D4, word_1686D6
 extern word_1686D8, word_1686DA, str_D_ChangeViewSize, word_19C3D8, word_19C3DA, word_19C3DC, word_19C3DE, word_19C3EC
 extern word_19C3EE, word_19C3F0, word_19C3F2, word_19CA90, word_19CA92, word_19CA94, word_19CA96, word_19CB16
 extern word_19CB28, word_19CB2A, word_19CB2C, word_19CB2E, word_19CB34, word_19CB36, word_19CB5C, word_19CB60
@@ -47,8 +47,8 @@ extern word_19CBA8, word_19CBAC, word_19CBAE, word_19CBB0, word_19CBB2, word_19C
 extern gameclock, word_19CBBC, word_19CBBE, word_19CBC0, word_19CBD4, word_19CBD6, word_19CBD8, word_19CBDA
 extern word_19CBDC, penshotmode, word_19CBE0, penshotlive, word_19CBE6, word_19CBEA, word_19CBEC, word_19CBEE
 extern word_19CBF0, word_19CBF2, word_19CBF4, word_19CC04, word_19CC24, word_19CC26, word_19CC28, word_19CC2A
-extern word_19CC2C, word_19CC50, word_19CC52, word_19CCC4, word_19CD9C, word_19CDA7, word_19DAD9, word_19DCFA
-extern word_19E32A, word_1C3415, word_1C3417, word_1C5538, word_1C553A
+extern word_19CC2C, word_19CC50, word_19CC52, word_19CCC4, word_19CD9C, word_19CDA7, word_19DAD9, HomeTeamRecord
+extern AwayTeamRecord, word_1C3415, word_1C3417, word_1C5538, word_1C553A
 global AllInPlace, Intermission, StartGame, InitGameVars, RunOpeningFrames, PlaceOpeningPlayers, OpeningSequence, BeginGame
 global EndGameCleanup, GetPlayerJerseyNumber, LinkSideFlags, ClearLinkCounters, PickGameEvents, SpeedScaleAligned, SpeedScale, ReachScale
 global GoalieReachFactor, PlayerReachFactor, StickReachX, StickReachY, StickReachZ, CheckLineChangeKeys, RunSimFrames, JoystickAxisScale
@@ -557,7 +557,7 @@ PlaceOpeningPlayers:
         setne al
         and eax, 0FFh
         add eax, 100h
-        mov ebx, unk_19E588
+        mov ebx, AwayTeamRecord+318h
         cwde
         xor ecx, ecx
         call StartCrowdMusic
@@ -738,10 +738,10 @@ OpeningSequence:
         sar eax, 10h
         mov edx, 0FFFFFFFFh
         mov word [nosplit eax*2+word_19CC04], cx
-        mov eax, unk_19DC40
+        mov eax, HomeTeamRecord
         call SetPlayerTarget
         mov ax, word [word_19CC28]
-        mov word [word_19DCFA], ax
+        mov word [HomeTeamRecord+0BAh], ax
 .4:
         cmp word [word_19CC26], byte 0
         je short .5
@@ -750,10 +750,10 @@ OpeningSequence:
         sar eax, 10h
         mov edx, 0FFFFFFFFh
         mov word [nosplit eax*2+word_19CC04], di
-        mov eax, unk_19E270
+        mov eax, AwayTeamRecord
         call SetPlayerTarget
         mov ax, word [word_19CC2A]
-        mov word [word_19E32A], ax
+        mov word [AwayTeamRecord+0BAh], ax
 .5:
         mov eax, ebx
         pop edi
@@ -830,7 +830,7 @@ EndGameCleanup:
 .1:
         imul eax, edx, dword 108h
         inc edx
-        and byte [dword eax+byte_19DAF1], 0FEh
+        and byte [dword eax+PlayerControlRest], 0FEh
         cmp edx, byte 10h
         jl short .1
         pop edx
@@ -956,7 +956,7 @@ PickGameEvents:
         mov ecx, 0Ah
         jmp short .4
 .3:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .4
@@ -1061,12 +1061,12 @@ SpeedScaleAligned:
         mov ebp, esp
         sub esp, byte 4
         and esp, byte 0FFFFFFF8h
-        test word [dword_1AC814], 180h
+        test word [GameSettings], 180h
         jne short .1
         mov dword [esp], 3F4CCCCDh
         jmp short .3
 .1:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, 180h
         cmp eax, 80h
         jne short .2
@@ -1092,12 +1092,12 @@ SpeedScaleAligned:
 SpeedScale:
         push eax
         sub esp, byte 4
-        test word [dword_1AC814], 180h
+        test word [GameSettings], 180h
         jne short .1
         mov dword [esp], 3F4CCCCDh
         jmp short .3
 .1:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, 180h
         cmp eax, 80h
         jne short .2
@@ -1123,12 +1123,12 @@ SpeedScale:
 ReachScale:
         push eax
         sub esp, byte 4
-        test word [dword_1AC814], 180h
+        test word [GameSettings], 180h
         jne short .1
         mov dword [esp], 3F4CCCCDh
         jmp short .3
 .1:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, 180h
         cmp eax, 80h
         jne short .2
@@ -1398,7 +1398,7 @@ RunSimFrames:
         jne near .5
         cmp word [gameover], byte 0
         jne near .5
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         mov dl, byte [word_19CD9C]
         and eax, byte 70h
         test dl, 1
@@ -2152,7 +2152,7 @@ HandleGameKeys:
         mov dword [dword_19CD50], eax
         test eax, eax
         je near .14
-        mov edx, dword [dword_1AC814]
+        mov edx, dword [GameSettings]
         and edx, byte 70h
         cmp edx, byte 40h
         je near .14
@@ -2498,7 +2498,7 @@ GameLoop:
         je short .15
         cmp word [word_19CBB2], byte 0
         jne short .15
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 40h
         je short .15
@@ -2515,7 +2515,7 @@ GameLoop:
         mov edi, dword [dword_19CB58]
         test edi, edi
         jne near .20
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 40h
         je short .20
@@ -2543,7 +2543,7 @@ GameLoop:
         call StartInputRecording
         jmp near .2
 .20:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 40h
         jne near .2
@@ -2559,7 +2559,7 @@ GameLoop:
 .22:
         cmp dword [dword_19CB58], byte 1
         jne short .23
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 40h
         je short .23
@@ -2863,7 +2863,7 @@ SetGameBrightness:
         sar edx, 1Fh
         idiv ebx
         mov ebx, eax
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         test byte [byte eax+04h], 2
         je short .3
         sar ebx, 1
@@ -2885,7 +2885,7 @@ SetGameBrightness:
         sar edx, 1Fh
         LD sub, eax, edx
         sar eax, 1
-        mov ebp, dword [dword_1A8E80]
+        mov ebp, dword [ViewSizeIndex]
         mov dh, byte [byte ebp+04h]
         mov esi, eax
         test dh, 2
@@ -2900,14 +2900,14 @@ SetGameBrightness:
         sar eax, 1
         sub esi, eax
 .5:
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         mov dword [dword_19CD28], ecx
         mov dword [dword_19CD2C], ebx
         mov dword [dword_19CD20], edi
         mov edx, ecx
         mov dword [dword_19CD24], esi
         call SetViewSize
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         mov ebx, esi
         mov edx, edi
         call SetViewOrigin
@@ -3017,7 +3017,7 @@ PlayGame:
         call MatchColor
         add esp, byte 4
         call SetTextColor
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         shl eax, 1Ch
         shr eax, 1Eh
         cmp eax, byte 1
@@ -3136,16 +3136,16 @@ RunDemoGame:
         push edi
         push ebp
         sub esp, byte 8
-        mov esi, dword [dword_1AC814]
+        mov esi, dword [GameSettings]
         mov edi, dword [byte_1AC81D]
         call WaitMusicEnd
         call OpenGameDatabase
-        mov ah, byte [dword_1AC814]
+        mov ah, byte [GameSettings]
         and ah, 8Fh
         mov dl, ah
-        mov byte [dword_1AC814], ah
+        mov byte [GameSettings], ah
         or dl, 40h
-        mov byte [dword_1AC814], dl
+        mov byte [GameSettings], dl
         mov dh, byte [byte_1AC81D]
         and dh, 0F0h
         mov eax, esp
@@ -3267,7 +3267,7 @@ RunDemoGame:
         call MatchColor
         add esp, byte 4
         call SetTextColor
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         shl eax, 1Ch
         shr eax, 1Eh
         call LoadLangText
@@ -3289,21 +3289,21 @@ RunDemoGame:
         xor eax, eax
         call InitGameSounds
         call InitVideoModeList
-        mov cl, byte [dword_1AC814]
+        mov cl, byte [GameSettings]
         mov eax, esi
         and cl, 8Fh
         and eax, byte 7
-        mov byte [dword_1AC814], cl
+        mov byte [GameSettings], cl
         shl eax, 4
         mov ch, byte [byte_1AC81D]
-        mov edx, dword [dword_1AC814]
+        mov edx, dword [GameSettings]
         and ch, 0F0h
         or edx, eax
         mov byte [byte_1AC81D], ch
         mov eax, edi
         mov ebx, dword [byte_1AC81D]
         and eax, byte 0Fh
-        mov dword [dword_1AC814], edx
+        mov dword [GameSettings], edx
         or ebx, eax
         mov ecx, dword [dword_19CB58]
         mov dword [byte_1AC81D], ebx

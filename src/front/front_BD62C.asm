@@ -8,7 +8,7 @@ extern str_S12, str_NOIS, str_ARWD, byte_19CBC2, byte_1C6040, byte_1CB004, F32_0
 extern F32_0p005_DrawReplayTimeline, F32_0p003125_DrawReplayTimeline, F32_0p003125_PickReplayScreen, F32_0p005_PickReplayScreen, F32_0p003125_DrawReplayEntry, F32_0p005_DrawReplayEntry, F32_0p003125_ReplayMenuScreen, F32_0p005_ReplayMenuScreen
 extern dword_1686C0, InGameMenuRequest, dword_16CCF1, dword_16D500, dword_16DA9C, dword_16E464, dword_16E468, MenuScreenBitmap
 extern VideoModeCount, QuantizePalette, dword_19CD10, dword_19CD14, dword_19CD20, dword_19CD24, dword_19CD28, dword_19CD2C
-extern dword_19CD30, dword_19CD34, dword_19CD4C, dword_19CD54, dword_1A8E80, dword_1AC814, dword_1AC944, dword_1B1B64
+extern dword_19CD30, dword_19CD34, dword_19CD4C, dword_19CD54, ViewSizeIndex, GameSettings, dword_1AC944, dword_1B1B64
 extern dword_1B8F4C, dword_1C1334, dword_1C1338, dword_1C5DA4, dword_1C5DE4, dword_1C5E78, dword_1C5EF4, dword_1C95B4
 extern dword_1C95BC, dword_1CAECC, dword_1CAED0, dword_1CAED4, dword_1CAED8, dword_1CAEDC, dword_1CAEE0, dword_1CAEE4
 extern dword_1CAEE8, dword_1CAEEC, dword_1CAEF0, dword_1CAEF4, dword_1CAEF8, dword_1CAF8C, dword_1CAF90, dword_1CAF94
@@ -128,10 +128,10 @@ RunReplay:
         mov dword [dword_19CD10], eax
         mov eax, dword [byte ebp-018h]
         mov dword [dword_19CD14], eax
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         call ClearViewInterlaced
         mov dword [dword_19CD30], 0
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         call ShowView
         movsx ebx, word [str_D_ChangeViewSize]
         mov eax, dword [dword_16E464]
@@ -160,7 +160,7 @@ RunReplay:
         cdq
         LD sub, eax, edx
         sar eax, 1
-        mov esi, dword [dword_1A8E80]
+        mov esi, dword [ViewSizeIndex]
         mov dword [dword_19CD34], 0
         mov dword [byte ebp-04h], eax
         test byte [byte esi+04h], 2
@@ -176,14 +176,14 @@ RunReplay:
         mov esi, dword [byte ebp-04h]
         sub esi, eax
 .2:
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         mov dword [dword_19CD28], ecx
         mov dword [dword_19CD2C], ebx
         mov dword [dword_19CD20], edi
         mov edx, ecx
         mov dword [dword_19CD24], esi
         call SetViewSize
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         mov ebx, esi
         mov edx, edi
         call SetViewOrigin
@@ -200,9 +200,9 @@ RunReplay:
         mov dword [dword_19CD10], eax
         mov eax, dword [byte ebp-018h]
         mov dword [dword_19CD14], eax
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         call ClearViewInterlaced
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         mov dword [dword_19CD30], 0
         call ShowView
         movsx ebx, word [str_D_ChangeViewSize]
@@ -232,7 +232,7 @@ RunReplay:
         cdq
         LD sub, eax, edx
         sar eax, 1
-        mov esi, dword [dword_1A8E80]
+        mov esi, dword [ViewSizeIndex]
         mov dword [dword_19CD34], 0
         mov dword [byte ebp-08h], eax
         test byte [byte esi+04h], 2
@@ -248,7 +248,7 @@ RunReplay:
         mov esi, dword [byte ebp-08h]
         sub esi, eax
 .4:
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         mov dword [dword_19CD28], ecx
         mov dword [dword_19CD2C], ebx
         mov dword [dword_19CD20], edi
@@ -256,7 +256,7 @@ RunReplay:
         mov dword [dword_19CD24], esi
         call SetViewSize
         mov ecx, 10h
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         mov ebx, esi
         mov edx, edi
         mov edi, dword_19CD10
@@ -510,7 +510,7 @@ VideoOptionsScreen:
         add esp, byte 10h
         mov eax, dword [byte eax+02Ch]
         call CreateMenuBitmap
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         shl eax, 1Ch
         shr eax, 1Eh
         xor edx, edx

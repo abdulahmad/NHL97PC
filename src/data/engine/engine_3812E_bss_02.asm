@@ -2,87 +2,87 @@
 bits 32
 %include "hockey.inc"
 section s_1AC5F0 nobits alloc noexec write align=1
-global byte_1AC638, byte_1AC818, byte_1AC81A, byte_1AC81B, byte_1AC81C, byte_1AC81D, byte_1AC8C6, byte_1AC93C
+global MusicTrackTable, StartupFlag, byte_1AC81A, byte_1AC81B, byte_1AC81C, byte_1AC81D, byte_1AC8C6, byte_1AC93C
 global byte_1AC948, byte_1AC95B, byte_1ACA65, byte_1ACA66, byte_1ACA6A, byte_1ACC50, byte_1ACC51, byte_1ACC55
-global byte_1ACD2D, dword_1AC5F0, dword_1AC604, dword_1AC608, dword_1AC620, dword_1AC778, dword_1AC77C, dword_1AC780
-global dword_1AC784, dword_1AC788, dword_1AC78C, dword_1AC790, dword_1AC794, dword_1AC798, dword_1AC79C, dword_1AC7A0
-global dword_1AC7A4, dword_1AC7A8, dword_1AC7AC, dword_1AC7B0, dword_1AC7B4, dword_1AC7B8, dword_1AC7BC, dword_1AC7C0
-global dword_1AC7C4, dword_1AC7C8, dword_1AC7CC, dword_1AC7D0, dword_1AC7D2, dword_1AC7D4, dword_1AC7D6, dword_1AC810
-global dword_1AC814, dword_1AC819, dword_1AC835, dword_1AC8AD, dword_1AC940, dword_1AC944, dword_1ACB45, dword_1ACF3A
-global dword_1ACF3E, dword_1ACF42, dword_1ACF46, unk_1AC7DC, unk_1AC821, unk_1AC839, unk_1AC8E4, unk_1AC95D
-global unk_1AC962, unk_1ACB44, unk_1ACB49, unk_1ACD2B, unk_1ACD30, unk_1ACE38, unk_1ACF12, word_1AC7D8
+global byte_1ACD2D, SfxBankNames, GameAudioState, SfxBankData, SfxBankSizes, PlayerCallLast, PlayerCallTime, GameSoundsOn
+global SpeechQueueRead, SpeechQueueWrite, SpeechFileHandle, SpeechStreamBuf, SpeechStreamLen, SpeechStreamRead, SpeechStreamEnd, SpeechStreamClip
+global SpeechChainCount, SpeechClipIndex, SpeechBankHandle, SpeechClipTable, SpeechQueueClipId, SpeechQueueDelay, SpeechQueueStage, SpeechQueuePriority
+global SpeechQueueTime, SpeechBanksLoaded, SpeechBankList, SpeechChainLen, SpeechRequestId, SpeechRequestA, SpeechRequestB, GlobalSetData
+global GameSettings, dword_1AC819, dword_1AC835, dword_1AC8AD, dword_1AC940, dword_1AC944, dword_1ACB45, dword_1ACF3A
+global dword_1ACF3E, dword_1ACF42, dword_1ACF46, DataFilePath, unk_1AC821, unk_1AC839, unk_1AC8E4, unk_1AC95D
+global unk_1AC962, unk_1ACB44, unk_1ACB49, unk_1ACD2B, unk_1ACD30, unk_1ACE38, unk_1ACF12, SpeechQueuePrio
 global word_1AC8B1, word_1ACB47
-dword_1AC5F0:
+SfxBankNames:
         resb 20
-dword_1AC604:
+GameAudioState:
         resb 4
-dword_1AC608:
+SfxBankData:
         resb 24
-dword_1AC620:
+SfxBankSizes:
         resb 24
-byte_1AC638:
+MusicTrackTable:
         resb 320
-dword_1AC778:
+PlayerCallLast:
         resb 4
-dword_1AC77C:
+PlayerCallTime:
         resb 4
-dword_1AC780:
+GameSoundsOn:
         resb 4
-dword_1AC784:
+SpeechQueueRead:
         resb 4
-dword_1AC788:
+SpeechQueueWrite:
         resb 4
-dword_1AC78C:
+SpeechFileHandle:
         resb 4
-dword_1AC790:
+SpeechStreamBuf:
         resb 4
-dword_1AC794:
+SpeechStreamLen:
         resb 4
-dword_1AC798:
+SpeechStreamRead:
         resb 4
-dword_1AC79C:
+SpeechStreamEnd:
         resb 4
-dword_1AC7A0:
+SpeechStreamClip:
         resb 4
-dword_1AC7A4:
+SpeechChainCount:
         resb 4
-dword_1AC7A8:
+SpeechClipIndex:
         resb 4
-dword_1AC7AC:
+SpeechBankHandle:
         resb 4
-dword_1AC7B0:
+SpeechClipTable:
         resb 4
-dword_1AC7B4:
+SpeechQueueClipId:
         resb 4
-dword_1AC7B8:
+SpeechQueueDelay:
         resb 4
-dword_1AC7BC:
+SpeechQueueStage:
         resb 4
-dword_1AC7C0:
+SpeechQueuePriority:
         resb 4
-dword_1AC7C4:
+SpeechQueueTime:
         resb 4
-dword_1AC7C8:
+SpeechBanksLoaded:
         resb 4
-dword_1AC7CC:
+SpeechBankList:
         resb 4
-dword_1AC7D0:
+SpeechChainLen:
         resb 2
-dword_1AC7D2:
+SpeechRequestId:
         resb 2
-dword_1AC7D4:
+SpeechRequestA:
         resb 2
-dword_1AC7D6:
+SpeechRequestB:
         resb 2
-word_1AC7D8:
+SpeechQueuePrio:
         resb 4
-unk_1AC7DC:
+DataFilePath:
         resb 52
-dword_1AC810:
+GlobalSetData:
         resb 4
-dword_1AC814:
+GameSettings:
         resb 4
-byte_1AC818:
+StartupFlag:
         resb 1
 dword_1AC819:
         resb 1

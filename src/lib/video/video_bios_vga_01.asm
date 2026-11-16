@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_102BB8 progbits alloc exec nowrite align=1
-extern RemapTable, ScreenWidth, ClipBottom, ClipTopRow, ClipLeftCol, ClipRight, ScreenHeight, RandState0
-extern RandState1, RandState2, RandState3, RandState4, RandIndex
+extern RemapTable, ScreenWidth, ClipBottom, ClipTopRow, ClipLeftCol, ClipRight, ScreenHeight, RandState
+extern RandState, RandIndex
 global SetClipWindow, ResetClipWindow, Random32, SeedRandom, SetRemapTable, GetRemapTable
 ;-----------------------------------------------------------------------------
 ; SetClipWindow                               102BB8  96 PC, medium confidence
@@ -57,32 +57,32 @@ ResetClipWindow:
 ;-----------------------------------------------------------------------------
 ; Random32                                    102C30  97 PC, medium confidence
 ; Returns a pseudo-random dword (multi-word add-with-carry generator,
-; RandState0-790)
+; RandState-790)
 ;-----------------------------------------------------------------------------
 Random32:
         mov eax, dword [RandIndex]
-        add eax, dword [RandState4]
-        mov dword [RandState4], eax
-        adc eax, dword [RandState3]
-        mov dword [RandState3], eax
-        adc eax, dword [RandState2]
-        mov dword [RandState2], eax
-        adc eax, dword [RandState1]
-        mov dword [RandState1], eax
-        adc eax, dword [RandState0]
+        add eax, dword [RandState+10h]
+        mov dword [RandState+10h], eax
+        adc eax, dword [RandState+0Ch]
+        mov dword [RandState+0Ch], eax
+        adc eax, dword [RandState+8]
+        mov dword [RandState+8], eax
+        adc eax, dword [RandState+4]
+        mov dword [RandState+4], eax
+        adc eax, dword [RandState]
         inc dword [RandIndex]
         jne short .1
-        inc dword [RandState4]
+        inc dword [RandState+10h]
         jne short .1
-        inc dword [RandState3]
+        inc dword [RandState+0Ch]
         jne short .1
-        inc dword [RandState2]
+        inc dword [RandState+8]
         jne short .1
-        inc dword [RandState1]
+        inc dword [RandState+4]
         db 075h, .1-($+2)
         db 040h                                 ; insn: inc eax
 .1:
-        mov dword [RandState0], eax
+        mov dword [RandState], eax
         ret
 ;-----------------------------------------------------------------------------
 ; SeedRandom                                     102C96  97 PC, low confidence
@@ -93,15 +93,15 @@ SeedRandom:
         LD mov, ebp, esp
         mov eax, dword [byte ebp+08h]
         add eax, 0F22D0E56h
-        mov dword [RandState0], eax
+        mov dword [RandState], eax
         add eax, 96041893h
-        mov dword [RandState1], eax
+        mov dword [RandState+4], eax
         add eax, 3DF3B646h
-        mov dword [RandState2], eax
+        mov dword [RandState+8], eax
         add eax, 40DDE76Dh
-        mov dword [RandState3], eax
+        mov dword [RandState+0Ch], eax
         add eax, 97327AE1h
-        mov dword [RandState4], eax
+        mov dword [RandState+10h], eax
         add eax, 0D1A9FBE7h
         mov dword [RandIndex], eax
         leave

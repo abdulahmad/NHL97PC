@@ -64,7 +64,7 @@
 #define SYM____env_mask        0x199C44u   /* data/lib/watcom/watcom_clib_26_data_01.asm */
 #define SYM_seed               0x19CBC4u   /* data/engine/faceoff_data_03.asm */
 #define SYM_SortCords          0x19DA30u   /* data/engine/faceoff_2_bss_01.asm */
-#define SYM_dword_1AC810       0x1AC810u   /* data/engine/engine_3812E_bss_02.asm */
+#define SYM_GlobalSetData      0x1AC810u   /* data/engine/engine_3812E_bss_02.asm */
 #define SYM_unk_1ACB44         0x1ACB44u   /* data/engine/engine_3812E_bss_02.asm */
 #define SYM_InputRecordRing    0x1CD1E0u   /* data/front/front_DA66D_bss_01.asm */
 #define SYM_HotKeyFlags        0x1CD24Cu   /* data/front/front_DA66D_bss_01.asm */

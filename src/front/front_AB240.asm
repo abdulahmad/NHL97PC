@@ -4,7 +4,7 @@ bits 32
 section s_AB240 progbits alloc exec nowrite align=1
 extern str_Xferdata, str_Replaybuf2, str_Gdata, str_Ros2, str_SEXHIBITNDX, str_EXHIBITNDX2, str_Saverepl, byte_1ACF63
 extern byte_1AD458, byte_1AD72B, byte_1AD739, byte_1AD742, dword_168F58, dword_16D2CC, dword_16D2EC, dword_16D30C
-extern dword_16D34C, dword_16D350, dword_16D360, dword_16DA9C, dword_16E464, dword_1AC814, dword_1AC940, dword_1ACF42
+extern dword_16D34C, dword_16D350, dword_16D360, dword_16DA9C, dword_16E464, GameSettings, dword_1AC940, dword_1ACF42
 extern dword_1ACF46, dword_1ACF65, dword_1AD226, dword_1AD22A, dword_1AD437, dword_1AD45A, dword_1AD62F, dword_1AD6AB
 extern dword_1AD6AF, dword_1AD727, dword_1AD743, dword_1C1334, dword_1C1338, dword_1C5DA8, dword_1CEFB0, dword_1CEFB4
 extern memcpy_, sprintf_, DosFileInfo, MakeDirPath, SaveReplayHeader, SimulateGame, UpdateTeamLines, CheckLeagueInjuries
@@ -41,7 +41,7 @@ SendGameResult:
         call ShowWorkingBox
         jmp near .23
 .1:
-        mov edx, dword [dword_1AC814]
+        mov edx, dword [GameSettings]
         and edx, byte 70h
         cmp edx, byte 10h
         jne short .2
@@ -58,7 +58,7 @@ SendGameResult:
         cmp byte [dword eax+byte_1ACF63], 1
         je short .3
 .2:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         jne near .22
@@ -228,7 +228,7 @@ SendGameResult:
         movsd
         movsd
 .19:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         je short .20
@@ -434,7 +434,7 @@ SaveGameResults:
         mov eax, dword [byte ebp+07Ah]
         mov dword [byte ebp+072h], eax
 .9:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .10
@@ -443,7 +443,7 @@ SaveGameResults:
         inc dword [byte ebp+07Ah]
 .11:
         mov eax, dword [dword_1AC940]
-        mov edx, dword [dword_1AC814]
+        mov edx, dword [GameSettings]
         movsx ebx, word [byte eax+02h]
         and edx, byte 70h
         cmp ebx, dword [byte ebp+07Ah]
@@ -515,7 +515,7 @@ SaveGameResults:
         mov dword [byte ebp+07Ah], 0
         jmp near .27
 .20:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         jne near .23
@@ -906,7 +906,7 @@ SaveGameResults:
         mov dword [dword_1ACF46], 1
         mov dword [dword_1AC940], eax
 .41:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         je short .42
@@ -1329,7 +1329,7 @@ FinishLeagueGame:
         push ebp
         mov ebp, esp
         push eax
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .1
@@ -1471,7 +1471,7 @@ SaveReplayFile:
         sub ebp, 8Eh
         call OpenGameDatabase
         xor esi, esi
-        test byte [dword_1AC814], 70h
+        test byte [GameSettings], 70h
         jne near .18
         cmp dword [dword_16E464], 140h
         je short .11
@@ -1561,7 +1561,7 @@ SaveReplayFile:
         call NameIndexFree
         jmp short .21
 .18:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .19

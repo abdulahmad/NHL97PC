@@ -7,20 +7,20 @@ extern DrawGoalScorerPanel, DrawClockPanel, PowerPlayPanel, HomeTeamPanel, AwayT
 extern str_OFFST, str_RELTV, unk_160228, str_PUCK, unk_160238, unk_160240, str_PLYR0, str_SCORE
 extern str_USER, str_ZAMB, str_MULTI, str_PEN0, str_PEN1, str_BNCH0, str_BNCH1, str_CENTR
 extern str_CIRC1, str_CIRC2, str_CIRC3, str_CIRC4, str_DOT1, str_DOT2, str_DOT3, str_DOT4
-global byte_1687B4, byte_16892C, byte_16892D, byte_16892E, byte_16892F, byte_168930, byte_1689BC, byte_1689C0
-global byte_1689E4, dword_16875E, dword_1687B8, dword_168934, dword_16893C, off_168772, off_16877E, unk_1687BC
-global unk_1687C8, unk_1687D4, unk_1687E0, unk_1687EC, unk_1687F8, unk_168810, unk_16881C, unk_168828
-global unk_168834, unk_168840, unk_16884C, unk_168858, unk_168864, unk_168870, unk_16887C, unk_168888
-global unk_168894, unk_1688A0, unk_1688AC, unk_1688B8, unk_16897C, unk_1689AC, unk_1689FC, unk_168A24
-global word_1689BE, word_1689C8, word_1689CA
-dword_16875E:
+global CameraFlagsByte, GoalSceneActive, ReplayCameraActive, FaceoffDropScene, CameraScenesOn, IntermissionActive, FightSceneActive, PlayerAssignOrder
+global FaceoffSpotIndex, PenaltyNameIds, F32_CameraNear, PenaltySceneYaw, PenaltySceneDist, OverlayPanelFuncs, ClockPanelFunc, CameraViewDefs
+
+
+global IntermissionCamPath, IntermissionTimes, ExtraAttackerSpots, ExtraAttackerFlags
+global FightCameraReady, FaceoffSpotX, FaceoffSpotY
+PenaltyNameIds:
         db 01Dh,00h,00h,00h,01Eh,00h,00h,00h,01Fh,00h,00h,00h,020h,00h,00h,00h
         db 021h,00h,00h,00h
-off_168772:
+OverlayPanelFuncs:
         dd DrawMessagePanel
         dd DrawVideoModePanel
         dd DrawVideoModePanel
-off_16877E:
+ClockPanelFunc:
         dd DrawClockPanel
         dd DrawPenaltyPanel
         dd DrawGoalScorerPanel
@@ -35,52 +35,32 @@ off_16877E:
         dd DrawPeriodPanel
         dd PowerPlayPanel
         db 00h,00h
-byte_1687B4:
+CameraFlagsByte:
         db 00h,00h,00h,00h
-dword_1687B8:
+F32_CameraNear:
         db 0CDh,0CCh,0C7h,0C2h
-unk_1687BC:
+CameraViewDefs:
         db 00h,00h,00h,00h,00h,0C0h,05Ah,045h,00h,0C0h,0Fh,0C5h
-unk_1687C8:
         db 00h,00h,00h,00h,00h,080h,0BBh,045h,00h,080h,0AAh,0C5h
-unk_1687D4:
         db 00h,00h,00h,00h,00h,080h,0BBh,045h,00h,0C0h,028h,044h
-unk_1687E0:
         db 00h,00h,00h,00h,00h,0C0h,05Ah,045h,00h,080h,03Bh,0C5h
-unk_1687EC:
         db 00h,00h,075h,0C4h,00h,0C0h,05Ah,045h,00h,0E8h,0B2h,0C5h
-unk_1687F8:
         db 00h,00h,075h,044h,00h,0C0h,05Ah,045h,00h,00h,016h,0C3h,00h,00h,00h,00h
         db 00h,040h,01Ch,045h,00h,00h,0FAh,0C4h
-unk_168810:
         db 00h,00h,075h,0C4h,00h,040h,01Ch,045h,00h,0A8h,0ACh,0C5h
-unk_16881C:
         db 00h,00h,075h,044h,00h,040h,01Ch,045h,00h,00h,016h,044h
-unk_168828:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,080h,0BBh,0C4h
-unk_168834:
         db 00h,00h,07Ah,0C5h,00h,00h,07Ah,044h,00h,00h,048h,0C3h
-unk_168840:
         db 00h,00h,07Ah,045h,00h,080h,0BBh,044h,00h,00h,048h,043h
-unk_16884C:
         db 00h,00h,0FAh,0C4h,00h,00h,02Fh,044h,00h,040h,09Ch,0C5h
-unk_168858:
         db 00h,00h,0FAh,044h,00h,00h,02Fh,044h,00h,040h,09Ch,045h
-unk_168864:
         db 00h,00h,00h,00h,00h,00h,048h,044h,00h,080h,0BBh,0C4h
-unk_168870:
         db 00h,0C0h,0DAh,0C4h,00h,00h,048h,044h,00h,0E0h,0ABh,0C5h
-unk_16887C:
         db 00h,0C0h,0DAh,044h,00h,00h,048h,044h,00h,00h,020h,044h
-unk_168888:
         db 00h,00h,07Ah,0C5h,00h,0A0h,08Ch,045h,00h,0C0h,041h,0C5h
-unk_168894:
         db 00h,00h,07Ah,0C5h,00h,0A0h,08Ch,045h,00h,0C0h,041h,045h
-unk_1688A0:
         db 00h,00h,061h,0C5h,00h,080h,0BBh,044h,00h,00h,0E1h,0C4h
-unk_1688AC:
         db 00h,00h,061h,0C5h,00h,080h,0BBh,044h,00h,00h,0E1h,044h
-unk_1688B8:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         dd str_NONE
         dd str_CHASE
@@ -108,48 +88,48 @@ unk_1688B8:
         dd str_DOT2
         dd str_DOT3
         dd str_DOT4
-byte_16892C:
+GoalSceneActive:
         db 00h
-byte_16892D:
+ReplayCameraActive:
         db 00h
-byte_16892E:
+FaceoffDropScene:
         db 01h
-byte_16892F:
+CameraScenesOn:
         db 01h
-byte_168930:
+IntermissionActive:
         db 00h,00h,00h,00h
-dword_168934:
+PenaltySceneYaw:
         db 00h,080h,0C0h,044h,00h,00h,0FAh,043h
-dword_16893C:
+PenaltySceneDist:
         db 00h,00h,0FAh,0C3h,00h,080h,0C0h,044h,00h,00h,0FAh,043h,00h,00h,0FAh,043h
         db 00h,00h,082h,044h,00h,00h,0FAh,043h,00h,00h,0FAh,043h,00h,00h,082h,044h
         db 00h,00h,0FAh,043h,00h,00h,0FAh,0C3h,00h,080h,0C0h,044h,00h,00h,02Fh,044h
         db 00h,00h,0FAh,043h,00h,080h,0C0h,044h,00h,00h,02Fh,044h,00h,00h,0FAh,0C3h
-unk_16897C:
+IntermissionCamPath:
         db 00h,00h,07Ah,0C4h,00h,0C0h,05Ah,045h,00h,00h,07Ah,0C4h,00h,00h,07Ah,0C4h
         db 00h,0C0h,05Ah,045h,00h,00h,07Ah,044h,00h,00h,07Ah,044h,00h,0C0h,05Ah,045h
         db 00h,00h,07Ah,044h,00h,00h,07Ah,044h,00h,0C0h,05Ah,045h,00h,00h,07Ah,0C4h
-unk_1689AC:
+IntermissionTimes:
         db 020h,03h,00h,00h,020h,03h,00h,00h,020h,03h,00h,00h,020h,03h,00h,00h
-byte_1689BC:
+FightSceneActive:
         db 00h,00h
-word_1689BE:
+FightCameraReady:
         db 00h,00h
-byte_1689C0:
+PlayerAssignOrder:
         db 02h,03h,03h,04h,05h,04h,05h,00h
-word_1689C8:
+FaceoffSpotX:
         db 00h,00h
-word_1689CA:
+FaceoffSpotY:
         db 050h,0EFh,02Ch,0FEh,0B4h,0FDh,0D4h,01h,0B4h,0FDh,00h,0FDh,0A0h,0FFh,00h,00h
         db 070h,0FFh,00h,03h,0A0h,0FFh,00h,00h,00h,0FDh
-byte_1689E4:
+FaceoffSpotIndex:
         db 00h,01h,02h,03h,04h,05h,06h,00h,00h,01h,05h,03h,04h,02h,00h,00h
         db 00h,03h,05h,01h,04h,00h,00h,00h
-unk_1689FC:
+ExtraAttackerSpots:
         db 00h,00h,0FCh,03h,0B0h,0F8h,0E0h,01h,00h,00h,0FCh,03h,020h,0FEh,0E0h,01h
         db 00h,00h,0FCh,03h,090h,03h,0E0h,01h,00h,00h,0FCh,03h,0F0h,0Ch,0E0h,01h
         db 00h,00h,0FCh,03h,0F0h,0Ch,0E0h,01h
-unk_168A24:
+ExtraAttackerFlags:
         db 08h,07h,0F0h,00h,0A0h,0F9h,0E0h,01h,08h,07h,0F0h,00h,020h,0FEh,0E0h,01h
         db 08h,07h,0F0h,00h,090h,03h,0E0h,01h,048h,03h,0F0h,00h,0F0h,0Ch,0E0h,01h
         db 038h,04h,0F0h,00h,0F0h,0Fh,0F0h,00h

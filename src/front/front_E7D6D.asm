@@ -6,7 +6,7 @@ extern SetClipWindow, str_BACK14, str_TITL14, str_LB02d6, str_AB025, str_AB015, 
 extern str_AB045, str_AB035, str_FRAM, str_000011, str_FART5, str_DSS4, str_D02d4, str_D01d3
 extern str_SSDD3, byte_16E264, byte_1CD7A9, byte_1CD7B3, byte_1CD7B4, byte_1CD7FC, byte_1CD7FD, byte_1CD7FE
 extern byte_1CD85E, byte_1CDA5F, byte_1CDC60, byte_1CDDFF, byte_1CDE61, dword_16E1AC, dword_16E22C, MenuScreenBitmap
-extern seed, dword_1AC814, dword_1AC940, dword_1AD62F, dword_1AD6AB, dword_1AD71B, dword_1AD71F, dword_1AD723
+extern seed, GameSettings, dword_1AC940, dword_1AD62F, dword_1AD6AB, dword_1AD71B, dword_1AD71F, dword_1AD723
 extern dword_1C5E74, dword_1CD760, dword_1CD764, dword_1CD768, dword_1CD76C, dword_1CD770, dword_1CD774, dword_1CD778
 extern dword_1CD77C, dword_1CD780, dword_1CD784, dword_1CD7DF, off_16E174, sprintf_, strcpy_, BlitArt
 extern BlitShape, PresentScreen, FindShape, FindShapeQuiet, OpenArtArchive, OpenArtArchiveErr, DrawShapeBlended, ConvertArtNew
@@ -53,7 +53,7 @@ BuildSeasonIntro:
         mov dword [byte ebp+06Eh], 0
         mov dword [dword_1CD76C], 4
         mov dword [dword_1CD768], str_Punct_BuildSeasonIntro
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         mov dword [dword_1CD770], 0
         and eax, byte 70h
         mov dword [byte ebp+07Ah], 0

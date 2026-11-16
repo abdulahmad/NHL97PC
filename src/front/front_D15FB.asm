@@ -8,7 +8,7 @@ extern str_ST02d, byte_1C3449, byte_1C344A, byte_1C344B, byte_1C3455, byte_1C345
 extern byte_1C556D, byte_1C556E, byte_1C5578, byte_1C5579, byte_1C55A0, byte_1C6040, byte_1CC8B4, dword_16D6E8
 extern dword_16D6EC, dword_16D6F0, dword_16D6F4, dword_16D6F8, dword_16D6FC, dword_16D700, dword_16D704, dword_16D708
 extern dword_16D71C, dword_16D720, dword_16D724, dword_16D728, dword_16D73C, dword_16D740, dword_16D74C, dword_16D750
-extern dword_1AC814, dword_1AC944, dword_1ACF46, dword_1C13FF, dword_1C309E, dword_1C3522, dword_1C51C1, dword_1CC2C8
+extern GameSettings, dword_1AC944, dword_1ACF46, dword_1C13FF, dword_1C309E, dword_1C3522, dword_1C51C1, dword_1CC2C8
 extern dword_1CC328, dword_1CC32C, dword_1CC330, dword_1CC334, dword_1CC338, dword_1CC33C, dword_1CC340, dword_1CC344
 extern dword_1CC348, dword_1CC34C, dword_1CC4B0, dword_1CC4B4, dword_1CC4B8, dword_1CC4BC, dword_1CC4C0, dword_1CC4C4
 extern dword_1CC4C8, dword_1CC4CC, dword_1CC5B0, dword_1CC5C8, dword_1CC5CC, dword_1CC5D0, dword_1CC5EC, dword_1CC5F0
@@ -43,7 +43,7 @@ LayoutMatchupLeft:
         enter 104h, 0
         mov edi, eax
         mov ebx, edx
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .3
@@ -574,7 +574,7 @@ PreGameMatchupScreen_4E0:
         mov dword [dword_16D740], 1
         jmp short PreGameMatchupScreen_522.13
 PreGameMatchupScreen_4EC:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .10
@@ -1431,7 +1431,7 @@ PreGameStatsPanel:
         add edx, 16Eh
         add eax, 16Eh
         call ReadMatchupStats
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .7

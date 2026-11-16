@@ -5,10 +5,10 @@ section s_10000 progbits alloc exec nowrite align=1
 extern SortCords, __STOSB, _nfree_, _nmalloc_, _searchenv_, str_PATH2, str_JSTICKS, str_DOSJoystick
 extern awtmstruct, GripFlags, byte_16E35C, byte_19C3E0, byte_19C3E6, byte_19C620, byte_19CA30, byte_19CA31
 extern byte_19CB70, byte_19CBC2, byte_19CBC8, byte_19CBCA, byte_19CBCC, byte_19CCAF, byte_19CCC6, byte_19CD05
-extern byte_19D604, byte_19D636, byte_19EB38, byte_19EB5C, byte_19EC44, byte_19EC68, GripDriverPtr, GripDriverData
+extern byte_19D604, byte_19D636, HmPlayerSlots, HmRosterMap, AwPlayerSlots, AwRosterMap, GripDriverPtr, GripDriverData
 extern GripLinked, LinePlayerSlots, LinePlayerOffsets, dword_16E344, dword_16E348, dword_16E34C, dword_16E350, dword_19C3DD
-extern dword_19CB48, penshottimer, dword_19CBE8, dword_19CD54, dword_19CD88, dword_19DA50, dword_19EBB4, dword_19EBB8
-extern dword_19ECC0, dword_19ECC4, dword_1AC814, dword_1AC944, dword_1ACF46, dword_1B1410, dword_1B8FA0, dword_1B9554
+extern dword_19CB48, penshottimer, dword_19CBE8, dword_19CD54, dword_19CD88, dword_19DA50, HmTeamData, HmScore
+extern AwTeamData, AwScore, GameSettings, dword_1AC944, dword_1ACF46, dword_1B1410, dword_1B8FA0, dword_1B9554
 extern dword_1B9558, fclose_, fopen_, fread_, fseek_, ftell_, hmtmstruct, off_168CD8
 extern off_168CE0, off_168CE8, off_168CF0, off_168CFC, off_168D04, F64_0p013, F64_0p01, rand_
 extern randomd0, regd1, str_CGRIP, str_GRIP, str_GRIPGLL, strcat_, strcpy_, GetPlayerJerseyNumber
@@ -17,14 +17,14 @@ extern ResetCoachModes, UpdateCoachModes, EndPenaltyShot, SetPlayerTarget, PickB
 extern RequestMusicStop, MusicFileName, StopAllSfx, SetCrowdMood, CommentaryEvent, PaEvent, SetCameraMode, UpdateRinkPalette
 extern RefreshFaceTextures, SetModelSlotValue, SetupPlayerModel, DrawJerseyLettering, LoadGoalieMask, UpdateFaceTextures, ResetAnimTimer, UpdateGameDisplay
 extern InitPlayerAnims, DoGameFrame, LogPeriodEnd, AllocMemBlock, ZeroMem, CalibrateJoystick, ResetJoystickRange, str_Rb
-extern LinePlayerOrder, unk_168C38, unk_19CCB8, unk_19D5D2, unk_19D668, unk_19D6A0, unk_19DC40, unk_19E060
-extern unk_19E270, unk_1B9520, unk_1C135C, unk_1C347F, GripPortWord, GripSlot, GripReady, CrowdChantTable
+extern LinePlayerOrder, unk_168C38, unk_19CCB8, unk_19D5D2, unk_19D668, unk_19D6A0, HomeTeamRecord
+extern AwayTeamRecord, unk_1B9520, unk_1C135C, unk_1C347F, GripPortWord, GripSlot, GripReady, CrowdChantTable
 extern word_1686D8, word_1686DA, word_168D18, word_19CB28, word_19CB2A, word_19CB5C, word_19CB60, word_19CB64
 extern word_19CB68, word_19CB96, word_19CB98, word_19CBAE, word_19CBB6, gsp, gameclock, word_19CBBC
 extern word_19CBBE, word_19CBC0, word_19CBD4, word_19CBDA, word_19CBDC, penshotmode, word_19CBE0, penshotlive
 extern word_19CBE6, word_19CBF4, word_19CC04, word_19CC24, word_19CC26, word_19CC28, word_19CC2A, word_19CCB2
-extern word_19CCB6, word_19CCBC, word_19CCBE, word_19CCC0, word_19CCC4, word_19DAD9, word_19DAEA, word_19DCFA
-extern word_19E32A, word_19E949, word_19EA51, word_19EAB6, word_19EAC0, word_19EBC2, word_19EBCC
+extern word_19CCB6, word_19CCBC, word_19CCBE, word_19CCC0, word_19CCC4, word_19DAD9, PlayerControlWords, HomeTeamRecord
+extern AwayTeamRecord, HomeIceSlots, AwayIceSlots, HmCounters, HmLineState, AwCounters, AwLineState
 global SetupTeamForIntermission, clearteams, jpt_11318, loc_10000, StartCrowdMusic_26, StartCrowdMusic_4F, StartCrowdMusic_78, StartCrowdMusic_A6
 global forcepldata_E, ReplaceFaceoffPlayers_62, ReplaceFaceoffPlayers_81, GripLinkLibrary, CallGripDriver, LoadGripLibrary, InitGripDriver, LoadJoystickConfig
 global SetupOptionsAnim, DrawOptionsAnimFrame, UpdateOptionsAnim, PickCrowdChant, StartCrowdMusic, RestartGameMusic, forcepldata, SetupFaceoffPlayers
@@ -2018,9 +2018,9 @@ clearteams:
         xor edx, edx
 .1:
         movsx eax, dx
-        mov bl, byte [dword eax+byte_19EB5C]
+        mov bl, byte [dword eax+HmRosterMap]
         mov byte [esp+eax], bl
-        mov bl, byte [dword eax+byte_19EC68]
+        mov bl, byte [dword eax+AwRosterMap]
         inc edx
         mov byte [byte esp+eax+08h], bl
         cmp dx, byte 8
@@ -2039,27 +2039,27 @@ clearteams:
         mov edx, SortCords
         mov ebx, unk_1C135C
         mov ah, 0FFh
-        mov ecx, unk_19E060
+        mov ecx, HomeTeamRecord+420h
         mov esi, unk_1C347F
-        mov dword [dword_19EBB4], edx
-        mov dword [dword_19EBB8], ebx
-        mov byte [byte_19EB38], ah
-        mov dword [dword_19ECC0], ecx
-        mov dword [dword_19ECC4], esi
-        mov byte [byte_19EC44], ah
+        mov dword [HmTeamData], edx
+        mov dword [HmScore], ebx
+        mov byte [HmPlayerSlots], ah
+        mov dword [AwTeamData], ecx
+        mov dword [AwScore], esi
+        mov byte [AwPlayerSlots], ah
         xor edx, edx
         mov ebx, 0FFFFFFFFh
-        mov word [word_19EAC0], dx
-        mov word [word_19EAB6], bx
-        mov word [word_19EBCC], dx
-        mov word [word_19EBC2], bx
+        mov word [HmLineState], dx
+        mov word [HmCounters], bx
+        mov word [AwLineState], dx
+        mov word [AwCounters], bx
 .4:
         movsx eax, dx
         mov bl, byte [esp+eax]
-        mov byte [dword eax+byte_19EB5C], bl
+        mov byte [dword eax+HmRosterMap], bl
         mov bl, byte [byte esp+eax+08h]
         inc edx
-        mov byte [dword eax+byte_19EC68], bl
+        mov byte [dword eax+AwRosterMap], bl
         cmp dx, byte 8
         jl short .4
         add esp, byte 10h
@@ -2232,11 +2232,11 @@ ResetBench:
         db 090h
 ;-----------------------------------------------------------------------------
 ; IsPlayoffGame                                   11984  97 PC, low confidence
-; Game mode check (dword_1AC814 bits 4-6 = 20h, or 10h with dword_1ACF46
+; Game mode check (GameSettings bits 4-6 = 20h, or 10h with dword_1ACF46
 ; set); clockcont_0 and the cup code use it
 ;-----------------------------------------------------------------------------
 IsPlayoffGame:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         je short .1
@@ -3017,8 +3017,8 @@ ResetPlayers:
         mov eax, dword [off_168D04]
         mov edx, 0FFFFFFFFh
         mov byte [dword eax+0CEh], 0
-        mov word [word_19E949], dx
-        mov word [word_19EA51], dx
+        mov word [HomeIceSlots], dx
+        mov word [AwayIceSlots], dx
         mov esp, ebp
         pop ebp
         pop edi
@@ -3064,7 +3064,7 @@ ResetPlayersForPeriod:
         movsx edx, ax
         imul edx, dword 108h
         inc eax
-        mov word [dword edx+word_19DAEA], cx
+        mov word [dword edx+PlayerControlWords], cx
         cmp ax, 10h
         jl short .4
         pop edx
@@ -3589,7 +3589,7 @@ setpersonel:
 ; Returns the period length setting
 ;-----------------------------------------------------------------------------
 PeriodLengthSetting:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         je short .1
@@ -3618,7 +3618,7 @@ PeriodLengthSetting:
         ret
         push ebx
         push edx
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 40h
         jne short .5
@@ -3803,7 +3803,7 @@ ClockTick:
 .8:
         call UpdateCoachModes
 .9:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 40h
         jne short .10
@@ -3850,7 +3850,7 @@ StartPeriod:
         mov word [word_19CB28], dx
         call ResetCoachModes
         call ResetPlayersForPeriod
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 40h
         jne short .2
@@ -3890,10 +3890,10 @@ StartPeriod:
         sar eax, 10h
         mov word [nosplit eax*2+word_19CC04], 2
         mov edx, 0FFFFFFFFh
-        mov eax, unk_19DC40
+        mov eax, HomeTeamRecord
         call SetPlayerTarget
         mov ax, word [word_19CC28]
-        mov word [word_19DCFA], ax
+        mov word [HomeTeamRecord+0BAh], ax
 .5:
         cmp word [word_19CC26], byte 0
         je short .6
@@ -3902,10 +3902,10 @@ StartPeriod:
         sar eax, 10h
         mov edx, 0FFFFFFFFh
         mov word [nosplit eax*2+word_19CC04], cx
-        mov eax, unk_19E270
+        mov eax, AwayTeamRecord
         call SetPlayerTarget
         mov ax, word [word_19CC2A]
-        mov word [word_19E32A], ax
+        mov word [AwayTeamRecord+0BAh], ax
 .6:
         xor esi, esi
         mov ecx, 0FFFFFFFFh

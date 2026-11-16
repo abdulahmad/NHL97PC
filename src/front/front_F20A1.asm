@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_F20A1 progbits alloc exec nowrite align=1
 extern SortCords, __CHP, str_Mous6, str_Remo4, str_D02dD, str_D02dD2, str_CB0D, str_CB002
-extern str_Chat, str_SS15, str_D4, byte_168930, byte_19CBC2, byte_1AC81B, byte_1AC81C, byte_1AD23E
+extern str_Chat, str_SS15, str_D4, IntermissionActive, byte_19CBC2, byte_1AC81B, byte_1AC81C, byte_1AD23E
 extern byte_1C135A, byte_1C135B, F32_3_DrawPauseButton, F32_4_DrawPauseButton, F32_3_DrawMenuItem, F32_4_DrawMenuItem, F32_12_DrawPauseButtons, F32_100_DrawPauseButtons
 extern F32_155, F32_10_DrawPauseButtons, F32_165, F32_129, F32_117, F32_105, F32_141, F32_153
 extern F32_178, F32_40_PickEditLinesTeam, F32_130, F32_0p5_PickEditLinesTeam, F32_55, F32_150, F32_50_PickEditLinesTeam, F32_10_PickEditLinesTeam
@@ -21,8 +21,8 @@ extern F32_36_DetailLevelMenu, F32_53_DetailLevelMenu, F32_87_DetailLevelMenu, F
 extern F32_63, F32_0p005_DetailLevelMenu, F32_0p003125_DetailLevelMenu, F32_55_DetailLevelMenu, F32_40_DetailLevelMenu, F32_100_DetailLevelMenu, F32_85_DetailLevelMenu, F32_25_DetailLevelMenu
 extern dword_1686C0, InGameMenuRequest, dword_16AF3C, dword_16AF40, dword_16AF44, dword_16AF48, dword_16AF50, dword_16AF54
 extern dword_16AF58, dword_16AF5C, dword_16D2BC, dword_16DA9C, dword_16E30C, mousex, mousey, dword_16E464
-extern dword_16E468, QuantizePalette, DrawDestPitch, dword_19CD10, dword_19CD30, dword_19CD54, dword_19D384, dword_1A8E50
-extern dword_1AC364, dword_1AC814, dword_1AC819, dword_1AC944, dword_1ADC88, dword_1B1410, dword_1B1464, dword_1B8578
+extern dword_16E468, QuantizePalette, DrawDestPitch, dword_19CD10, dword_19CD30, dword_19CD54, ActiveCameraScene, ViewSizeChanged
+extern FadeDone, GameSettings, dword_1AC819, dword_1AC944, dword_1ADC88, dword_1B1410, dword_1B1464, dword_1B8578
 extern dword_1C5DE4, dword_1CEF88, dword_1CEF8C, dword_1CEF90, dword_1CEF94, dword_1CEF98, dword_1CEF9C, dword_1CEFA0
 extern dword_1CEFA4, dword_1CEFA8, dword_1CEFB0, dword_1CEFB4, dword_1CEFB8, dword_1CEFBC, PresentFuncInput, F64_65536_LoadPauseArt
 extern F64_0p003125, F64_0p005, F64_200, F64_0p00208333, F64_320, F64_0p0015625, F64_0p003125_PickEditLinesTeam, F64_0p005_PickEditLinesTeam
@@ -1442,7 +1442,7 @@ OpenInGameMenu:
 ;-----------------------------------------------------------------------------
 LoadGameMenuText:
         call FreeLangText
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         shl eax, 1Ch
         shr eax, 1Eh
         call LoadLangTextB
@@ -2917,7 +2917,7 @@ PauseMenu_29A:
         call FreeBitmap
         add esp, byte 4
         call FreeLangText
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         shl eax, 1Ch
         shr eax, 1Eh
         call LoadLangTextB
@@ -3028,7 +3028,7 @@ PauseMenu_29A:
         mov eax, dword [byte ebp+072h]
         call AddOverlayWindow
 .29:
-        mov dword [dword_1A8E50], 1
+        mov dword [ViewSizeChanged], 1
 .30:
         call RedrawGameView
 PauseMenu_4BB:
@@ -3054,7 +3054,7 @@ PauseMenu_4EF:
         call FreeBitmap
         add esp, byte 4
         call FreeLangText
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         shl eax, 1Ch
         shr eax, 1Eh
         movsx edx, si
@@ -3129,7 +3129,7 @@ PauseMenu_640:
         call WaitForOtherComputer
         xor eax, eax
         call MenuOrbitScene
-        mov dword [dword_1A8E50], 1
+        mov dword [ViewSizeChanged], 1
         call RefreshOverlayWindows
         mov eax, dword [dword_1CEFA8]
         mov eax, dword [byte eax+02Ch]
@@ -3151,7 +3151,7 @@ PauseMenu_66D:
         call SecondsToSamples
         call WaitSoundTime
         call DetailLevelMenu
-        mov dword [dword_1A8E50], 1
+        mov dword [ViewSizeChanged], 1
         call RefreshOverlayWindows
         mov eax, dword [dword_1CEFA8]
         mov eax, dword [byte eax+02Ch]
@@ -3168,7 +3168,7 @@ PauseMenu_66D:
         lea eax, [byte ebp-0Ah]
         call FreePauseBitmap
         call FreeLangText
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         shl eax, 1Ch
         shr eax, 1Eh
         call LoadLangTextB
@@ -4068,7 +4068,7 @@ RunPauseIntermission:
         mov edx, dword [byte ebp+07Ah]
         call UpdateScreenRegion
 .8:
-        cmp dword [dword_1AC364], byte 0
+        cmp dword [FadeDone], byte 0
         jne short .8
         mov eax, 1
         mov ebx, 64h
@@ -4107,13 +4107,13 @@ CloseIntermission:
         push dword [dword_1CEFA8]
         call FreeBitmap
         add esp, byte 4
-        mov dword [dword_19D384], 0
+        mov dword [ActiveCameraScene], 0
         call RestoreGameCamera
         test bx, bx
         je short .1
         call ResumeMusic
         call WaitMusicEnd
-        mov byte [byte_168930], 1
+        mov byte [IntermissionActive], 1
 .1:
         cmp esi, byte 2
         je short .2
@@ -5047,7 +5047,7 @@ RulesMenu:
         fxch
         fstp dword [byte ebp-056h]
         fstp dword [byte ebp-05Eh]
-        test byte [dword_1AC814], 70h
+        test byte [GameSettings], 70h
         jne near .33
         mov eax, dword [dword_1AC944]
         test byte [byte eax+02h], 1
@@ -6467,7 +6467,7 @@ RulesMenu_1C04:
         mov dword [dword ebp-05B6h], eax
         jmp near RulesMenu.45
 RulesMenu_1D78:
-        test byte [dword_1AC814], 70h
+        test byte [GameSettings], 70h
         jne near RulesMenu.45
         call SetScreenTarget
         movsx eax, si
@@ -6584,7 +6584,7 @@ RulesMenu_1D78:
         mov dword [dword ebp-0564h], eax
         jmp near RulesMenu.45
 RulesMenu_1F1F:
-        test byte [dword_1AC814], 70h
+        test byte [GameSettings], 70h
         jne near RulesMenu.45
         call SetScreenTarget
         movsx eax, si
@@ -6669,7 +6669,7 @@ RulesMenu_1F1F:
         mov dword [dword ebp-0512h], eax
         jmp near RulesMenu.45
 RulesMenu_2056:
-        test byte [dword_1AC814], 70h
+        test byte [GameSettings], 70h
         jne near RulesMenu.45
         call SetScreenTarget
         movsx eax, si
@@ -6754,7 +6754,7 @@ RulesMenu_2056:
         mov dword [dword ebp-04C0h], eax
         jmp near RulesMenu.45
 RulesMenu_218D:
-        test byte [dword_1AC814], 70h
+        test byte [GameSettings], 70h
         jne near RulesMenu.45
         call SetScreenTarget
         movsx eax, si

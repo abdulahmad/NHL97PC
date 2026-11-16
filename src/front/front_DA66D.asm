@@ -17,7 +17,7 @@ extern dword_16D918, InputRecordStamp, dword_16D93A, dword_16DA9C, dword_16DAA0,
 extern dword_16DAB0, dword_16DAB4, dword_16DAB6, dword_16DABC, str_Punct_ModemSettingsScreen, dword_16DAC4, dword_16DAC8, dword_16DACA
 extern dword_16DAD2, dword_16E124, dword_16E128, dword_16E12A, dword_16E130, dword_16E134, dword_16E138, dword_16E13C
 extern dword_16E140, dword_16E144, mousex, mousey, dword_16E464, dword_16E468, MenuScreenBitmap, IpxPresent
-extern dword_1AC814, dword_1C5DE4, dword_1CD158, dword_1CD15C, dword_1CD160, dword_1CD17C, dword_1CD180, dword_1CD184
+extern GameSettings, dword_1C5DE4, dword_1CD158, dword_1CD15C, dword_1CD160, dword_1CD17C, dword_1CD180, dword_1CD184
 extern dword_1CD188, dword_1CD18C, dword_1CD190, dword_1CD194, dword_1CD198, dword_1CD1AC, dword_1CD1B0, dword_1CD1B4
 extern dword_1CD1B8, dword_1CD244, dword_1CD248, dword_1CD264, dword_1CD268, dword_1CD26C, dword_1CD270, dword_1CD274
 extern dword_1CD278, dword_1CD27C, dword_1CD280, dword_1CD284, dword_1CD288, dword_1CD28C, dword_1CD290, dword_1CD294
@@ -15530,7 +15530,7 @@ IpxInit:
         call DetectWindows
         test eax, eax
         jne short .2
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         shl eax, 1Ch
         shr eax, 1Eh
         mov eax, dword [nosplit eax*4+off_16E0FC]

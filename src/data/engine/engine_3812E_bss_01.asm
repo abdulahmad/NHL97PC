@@ -2,137 +2,137 @@
 bits 32
 %include "hockey.inc"
 section s_19F4F4 nobits alloc noexec write align=1
-global byte_1A0CC2, byte_1A8E89, byte_1A8E8E, byte_1A988C, byte_1A988D, byte_1A988E, dword_19F4F4, dword_19F4F8
-global dword_19F4FC, dword_19FD14, dword_19FD18, dword_1A0CBC, dword_1A0CC0, dword_1A8B48, dword_1A8B60, dword_1A8E48
-global dword_1A8E4C, dword_1A8E50, dword_1A8E54, dword_1A8E58, dword_1A8E5C, dword_1A8E60, dword_1A8E64, dword_1A8E68
-global dword_1A8E6C, dword_1A8E70, dword_1A8E74, dword_1A8E7C, dword_1A8E80, dword_1A8E84, dword_1A8E88, dword_1AC34C
-global dword_1AC350, dword_1AC354, dword_1AC358, dword_1AC35C, dword_1AC360, dword_1AC364, dword_1AC368, dword_1AC36C
-global dword_1AC370, dword_1AC374, dword_1AC378, dword_1AC37C, dword_1AC380, dword_1AC3D8, dword_1AC430, dword_1AC434
-global dword_1AC438, unk_19F548, unk_1A0CB8, unk_1A8D48, unk_1A8E8C, unk_1A9C8C, word_1A928A, word_1A928C
-global word_1A928E, word_1ABD46, word_1ABD48, word_1ABD4A, word_1ABD4C, word_1ABD4E, word_1ABD50
-dword_19F4F4:
+global OverlayMask, FadePalCurrent, FadePalBytes, FadePalTarget, FadePalTargetG, FadePalTargetBytes, SpanSlotNext, SpanSlotStart
+global SpanSlotTable, OverlayRowCount, OverlayRowMask, OverlayWindowFlags, OverlayWindowCount, ScreenRegion, OverlayWindows, GameViewBuffer
+global GameViewPitch, ViewSizeChanged, ViewAspect, DirtySpanCount, OverlayMaskDirty, RinkDetail, GameViewTop, GameViewRows
+global DisplayViewCount, GameViewShown, DisplayViews, OverlayWindowsOpen, ViewSizeIndex, ViewPixelWidth, ViewPixelHeight, FadeFramesLeft
+global FadeActive, FadeFirstEntry, ArtRemapTable, PaletteRangeCount, FadeEntryCount, FadeDone, RangeBlendLevel, FadeStepCount
+global StreamSpeed, CdStreamBuf, StreamHandle, StreamRate, PlayerCallClips, PlayerCallTimes, SpeechReqHead, SpeechReqTail
+global SpeechRequests, DirtySpans, OverlayMaskBase, RinkPalette, FadePalCount, PaletteRanges, FadePalStepR, FadePalStepG
+global FadePalSteps, FadeAccumR, FadeAccumG, FadeAccumB, FadeAccumNext, FadeAccumLast, FadeAccums
+SpanSlotNext:
         resb 4
-dword_19F4F8:
+SpanSlotStart:
         resb 4
-dword_19F4FC:
+SpanSlotTable:
         resb 76
-unk_19F548:
+DirtySpans:
         resb 1996
-dword_19FD14:
+OverlayRowCount:
         resb 4
-dword_19FD18:
+OverlayRowMask:
         resb 4000
-unk_1A0CB8:
+OverlayMaskBase:
         resb 4
-dword_1A0CBC:
+OverlayWindowFlags:
         resb 4
-dword_1A0CC0:
+OverlayWindowCount:
         resb 2
-byte_1A0CC2:
+OverlayMask:
         resb 32390
-dword_1A8B48:
+ScreenRegion:
         resb 24
-dword_1A8B60:
+OverlayWindows:
         resb 488
-unk_1A8D48:
+RinkPalette:
         resb 256
-dword_1A8E48:
+GameViewBuffer:
         resb 4
-dword_1A8E4C:
+GameViewPitch:
         resb 4
-dword_1A8E50:
+ViewSizeChanged:
         resb 4
-dword_1A8E54:
+ViewAspect:
         resb 4
-dword_1A8E58:
+DirtySpanCount:
         resb 4
-dword_1A8E5C:
+OverlayMaskDirty:
         resb 4
-dword_1A8E60:
+RinkDetail:
         resb 4
-dword_1A8E64:
+GameViewTop:
         resb 4
-dword_1A8E68:
+GameViewRows:
         resb 4
-dword_1A8E6C:
+DisplayViewCount:
         resb 4
-dword_1A8E70:
+GameViewShown:
         resb 4
-dword_1A8E74:
+DisplayViews:
         resb 8
-dword_1A8E7C:
+OverlayWindowsOpen:
         resb 4
-dword_1A8E80:
+ViewSizeIndex:
         resb 4
-dword_1A8E84:
+ViewPixelWidth:
         resb 4
-dword_1A8E88:
+ViewPixelHeight:
         resb 1
-byte_1A8E89:
+FadePalCurrent:
         resb 3
-unk_1A8E8C:
+FadePalCount:
         resb 2
-byte_1A8E8E:
+FadePalBytes:
         resb 1020
-word_1A928A:
+FadePalStepR:
         resb 2
-word_1A928C:
+FadePalStepG:
         resb 2
-word_1A928E:
+FadePalSteps:
         resb 1534
-byte_1A988C:
+FadePalTarget:
         resb 1
-byte_1A988D:
+FadePalTargetG:
         resb 1
-byte_1A988E:
+FadePalTargetBytes:
         resb 1022
-unk_1A9C8C:
+PaletteRanges:
         resb 8378
-word_1ABD46:
+FadeAccumR:
         resb 2
-word_1ABD48:
+FadeAccumG:
         resb 2
-word_1ABD4A:
+FadeAccumB:
         resb 2
-word_1ABD4C:
+FadeAccumNext:
         resb 2
-word_1ABD4E:
+FadeAccumLast:
         resb 2
-word_1ABD50:
+FadeAccums:
         resb 1532
-dword_1AC34C:
+FadeFramesLeft:
         resb 4
-dword_1AC350:
+FadeActive:
         resb 4
-dword_1AC354:
+FadeFirstEntry:
         resb 4
-dword_1AC358:
+ArtRemapTable:
         resb 4
-dword_1AC35C:
+PaletteRangeCount:
         resb 4
-dword_1AC360:
+FadeEntryCount:
         resb 4
-dword_1AC364:
+FadeDone:
         resb 4
-dword_1AC368:
+RangeBlendLevel:
         resb 4
-dword_1AC36C:
+FadeStepCount:
         resb 4
-dword_1AC370:
+StreamSpeed:
         resb 4
-dword_1AC374:
+CdStreamBuf:
         resb 4
-dword_1AC378:
+StreamHandle:
         resb 4
-dword_1AC37C:
+StreamRate:
         resb 4
-dword_1AC380:
+PlayerCallClips:
         resb 88
-dword_1AC3D8:
+PlayerCallTimes:
         resb 88
-dword_1AC430:
+SpeechReqHead:
         resb 4
-dword_1AC434:
+SpeechReqTail:
         resb 4
-dword_1AC438:
+SpeechRequests:
         resb 184

@@ -3,19 +3,15 @@ bits 32
 %include "hockey.inc"
 section s_16F77C progbits alloc noexec write align=1
 extern bcopy_, BuildUniformArt_3CC, CopyPalette16, CopyPalette24, CopyPalette32
-global RemapTable, VesaBankShift, RemapByte, IdentityRemap, PuckArrowColors, RandState0, RandState1, RandState2
-global RandState3, RandState4, RandIndex, VesaBank, VesaBankFunc, PaletteReadFunc, VideoModeIndex, ModeTableWidth
+global RemapTable, VesaBankShift, RemapByte, IdentityRemap, PuckArrowColors, RandState
+global RandIndex, VesaBank, VesaBankFunc, PaletteReadFunc, VideoModeIndex, ModeTableWidth
 global ModeTableHeight, ModeTableBpp, ModeTableNumber, VesaModeInfo, VesaWindowActive, RowTableBytes, RowTable, LimbShadeEnabled
 global ViewInterlaced, FrameBlitFuncs
-RandState0:
+RandState:
         db 056h,0Eh,02Dh,0F2h
-RandState1:
         db 0E9h,026h,031h,088h
-RandState2:
         db 02Fh,0DDh,024h,0C6h
-RandState3:
         db 09Ch,0C4h,02h,07h
-RandState4:
         db 07Dh,03Fh,035h,09Eh
 RandIndex:
         db 064h,03Bh,0DFh,06Fh

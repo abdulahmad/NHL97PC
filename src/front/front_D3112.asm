@@ -6,7 +6,7 @@ extern str_Hros, str_Vros, str_Blurb, str_STAR, str_FIR1, str_FDPD, str_FIRD, st
 extern str_DOOR, str_TXT1, str_TRM1, str_TITL13, str_LOGO02dFSH2, str_LOGO7, str_LOGO28FSH, str_SS12
 extern str_SDD, str_SDDD, str_SSS2, str_SS13, str_SSS3, str_Roster4, str_SVsSDDD, str_SDSD2
 extern byte_1AD742, byte_1C6040, byte_1CC8B4, dword_168F58, dword_16D744, dword_16D748, dword_16D74C, dword_16D750
-extern MenuScreenBitmap, dword_1AC814, dword_1AC940, dword_1AC944, dword_1ACF46, dword_1ACF65, dword_1AD226, dword_1AD437
+extern MenuScreenBitmap, GameSettings, dword_1AC940, dword_1AC944, dword_1ACF46, dword_1ACF65, dword_1AD226, dword_1AD437
 extern dword_1AD62F, dword_1AD6AB, dword_1CC7D8, dword_1CC828, dword_1CC860, dword_1CC864, dword_1CC8A0, jpt_D3102
 extern memset_, rand_, sprintf_, str_EASports, str_TXTD, strcpy_, BlitConverted, BlitArt
 extern BlitShape, PresentScreen, FindShape, OpenArtArchiveErr, DrawShapeBlended, ConvertArtNew, DrawSpriteScaledBy, SetScreenTarget
@@ -126,7 +126,7 @@ PreGameRostersScreen:
         call CreateBitmap
         add esp, byte 0Ch
         mov dword [byte ebp+066h], eax
-        test byte [dword_1AC814], 70h
+        test byte [GameSettings], 70h
         jne short .4
         lea eax, [byte ebp+042h]
         call LoadExhibitionFile
@@ -152,7 +152,7 @@ PreGameRostersScreen:
         rep movsb
         jmp near .10
 .4:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         jne near .6
@@ -661,7 +661,7 @@ PreGameRostersScreen:
         jne short .24
         call DrawRosterPlayerInfo
 .24:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         shl eax, 19h
         shr eax, 1Dh
         cmp eax, byte 1
@@ -965,7 +965,7 @@ PreGameRostersScreen_BC3:
         call FreeMemBlock
         add esp, byte 4
         call ResetStreamAudio
-        test byte [dword_1AC814], 70h
+        test byte [GameSettings], 70h
         jne short .35
         lea eax, [byte ebp+042h]
         call FreeExhibitionFile
@@ -1066,13 +1066,13 @@ DrawRosterPlayerInfo:
         mov dword [dword_16D744], edx
         call sprintf_
         add esp, byte 14h
-        test byte [dword_1AC814], 70h
+        test byte [GameSettings], 70h
         je near PreGameRostersScreen_C3F
         xor edi, edi
 .1:
         test edi, edi
         jne near .6
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .2
@@ -1279,7 +1279,7 @@ DrawMatchupHistory:
         shl esi, 6
 .5:
         shr esi, 1Ah
-        test byte [dword_1AC814], 70h
+        test byte [GameSettings], 70h
         jne short .6
         movzx esi, byte [byte eax+06Bh]
         movzx edi, byte [byte eax+06Ah]
@@ -2065,7 +2065,7 @@ MatchupAnnouncement:
         push edx
         push esi
         enter 0Ch, 0
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         xor edx, edx
         cmp eax, byte 10h
@@ -2137,7 +2137,7 @@ MatchupAnnouncement:
         add esp, byte 0Ch
         jmp near .32
 .12:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         je short .13

@@ -18,7 +18,7 @@ extern str_Refcalls, str_Refambi, str_Fight, str_Cup2, str_Puck3, str_Stickheel,
 extern str_Rhand, str_Lshldr, str_Rshldr, str_ANIMSVIV, str_MIRROR, str_SCALED, str_LOOP, str_MASTER
 extern str_SLAVE, str_FADING, str_4da, str_ANIMSTAT, str_AiconsViv, str_Cross, str_ANIMSVIV2, awtmstruct
 extern byte_16C429, IdentityRemap, PuckArrowColors, byte_19CA30, byte_19CB74, byte_19CBC2, byte_19CBC8, byte_19CBCA
-extern byte_19CBCC, byte_19CD8C, byte_19DAEF, byte_1AD72B, byte_1B1378, byte_1B1398, byte_1B8571, byte_1B8580
+extern byte_19CBCC, byte_19CD8C, PlayerControlFlags, byte_1AD72B, byte_1B1378, byte_1B1398, byte_1B8571, byte_1B8580
 extern byte_1B8582, byte_1B9058, byte_1BF670, chkprogress, F32_50_DrawPlayerModel, F32_200, F32_neg30, F32_20_DrawPlayerMarkers
 extern F32_neg20_DrawPlayerMarkers, F32_30, F32_65536_LoadFaceTexture, F32_4096, F32_464, F32_65536_BeginOffscreenRender, F32_65536_SetPortraitProjection, F32_2_CameraSplinePoint
 extern F32_3_CameraSplinePoint, F32_3_CameraEasePoint, F32_2_CameraEasePoint, F32_2_SetCameraTarget, F32_3_SetCameraTarget, F32_2_UpdateCameraMotion, F32_3_UpdateCameraMotion, F32_neg10_PlaySkateSounds
@@ -49,8 +49,8 @@ extern dword_16C3A8, dword_16C3AC, dword_16C3B0, dword_16C3F0, dword_16C54C, dwo
 extern dword_16C574, dword_16C580, dword_16C58C, dword_16C618, dword_16C63C, dword_16C648, F32_7p84727eneg44, F32_0
 extern dword_16C6B0, dword_16C6B4, dword_16C6B8, dword_16C6BC, dword_16E308, GoalieTickData, str_Punct_DrawRinkSurface, F32_50p0_View
 extern ViewCenterY, str_D_ProjectPointsPersp, dword_19CB44, dword_19CB48, dword_19CB4C, dword_19CB50, dword_19CB54, dword_19CB66
-extern dword_19CC00, dword_19CC02, dword_19CC54, dword_19CD54, dword_19DA68, dword_19DA70, dword_19EBAE, dword_19EBB4
-extern dword_19EBB8, dword_19ECBA, dword_19ECC0, dword_19ECC4, dword_1A8E84, dword_1A8E88, dword_1AC814, dword_1AC944
+extern dword_19CC00, dword_19CC02, dword_19CC54, dword_19CD54, dword_19DA68, dword_19DA70, HmSkaterCount, HmTeamData
+extern HmScore, AwSkaterCount, AwTeamData, AwScore, ViewPixelWidth, ViewPixelHeight, GameSettings, dword_1AC944
 extern dword_1AD437, dword_1AD69F, dword_1AD6A3, dword_1ADC88, dword_1ADC90, dword_1B0CFC, dword_1B1258, dword_1B1260
 extern dword_1B1264, dword_1B126C, dword_1B1270, dword_1B1278, dword_1B127C, dword_1B1284, dword_1B1288, dword_1B12FC
 extern dword_1B1300, dword_1B137C, dword_1B1380, dword_1B1384, dword_1B1388, dword_1B138C, dword_1B1390, dword_1B13B0
@@ -176,7 +176,7 @@ extern FreeBitmap, SetDrawTarget, FillPolygon, FillPolygonPoints, FillRectColor,
 extern SetTextColors, ClearIfNaN, FloatsToInts, MatRotX, MatRotY, MatTranspose, MatMul, VecMulMat
 extern TransformVecs, TransformTranslateVecs, VecAdd, VecSub, OffsetVecs, SubVecs, VecCross, VecDistance
 extern VecLength, VecScale, VecDot, PerspectiveScale, ProjectCoord, ProjectPoints, ProjectPointInt, ClipProjectPoints
-extern tickcount, unk_16B534, unk_16B718, unk_16B728, unk_16C338, DebugTagStr, unk_19D6A0, unk_19E060
+extern tickcount, unk_16B534, unk_16B718, unk_16B728, unk_16C338, DebugTagStr, unk_19D6A0, HomeTeamRecord
 extern unk_1ACB44, unk_1B1120, unk_1B13E8, unk_1B73F0, unk_1B7448, unk_1B7BA8, unk_1B85DC, unk_1B8BD0
 extern unk_1B8D88, unk_1B8FA8, unk_1B91AF, unk_1B92AB, unk_1B94E0, unk_1B9520, unk_1B9A58, unk_1B9CF8
 extern unk_1BA510, unk_1BAA88, unk_1BB268, unk_1BBAB8, unk_1BBEE0, unk_1BD680, unk_1BE3A0, unk_1BE4F0
@@ -186,7 +186,7 @@ extern vecdist, word_1686D8, word_19CB64, word_19CB68, word_19CB76, word_19CB78,
 extern word_19CB84, word_19CB92, word_19CB94, word_19CB98, gameover, word_19CBAC, word_19CBAE, word_19CBB0
 extern word_19CBB2, gsp, gameclock, word_19CBBC, word_19CBBE, word_19CBC0, word_19CBD6, word_19CBD8
 extern word_19CBDA, word_19CBF0, word_19CBF2, word_19CBF4, word_19CC04, word_19CC24, word_19CC26, word_19CC28
-extern word_19EBAC, word_19EBB2, word_19ECB8, word_19ECBE
+extern HmActiveCount, HmLineCount, AwActiveCount, AwLineCount
 global jpt_628A8, jpt_62EF8, jpt_633C8, jpt_63A88, jpt_649C0, jpt_64AC0, jpt_657A3, jpt_700A0
 global jpt_73FAC, SetupPlayerModel_CD, SetupPlayerModel_D8, DrawPlayerModel_BC, DrawLeftArmModel_80, DrawRightArmModel_80, DrawRightArmModel_C0, DrawRightArmModel_100
 global DrawRightArmModel_140, DrawRightArmModel_180, ReplayRecordTick_29, ReplayRecordFinal_C, GlideForwardMove_220, GlideForwardMove_230, GlideForwardMove_240, GlideForwardMove_250
@@ -2948,7 +2948,7 @@ UpdateViewMatrix:
         sahf
         ja short .15
         mov eax, dword [dword esp+0148h]
-        fild dword [dword_1A8E84]
+        fild dword [ViewPixelWidth]
         fcomp dword [dword eax+03F8h]
         fnstsw ax
         sahf
@@ -2960,7 +2960,7 @@ UpdateViewMatrix:
         sahf
         ja short .15
         mov eax, dword [dword esp+0148h]
-        fild dword [dword_1A8E88]
+        fild dword [ViewPixelHeight]
         fcomp dword [dword eax+0400h]
         fnstsw ax
         sahf
@@ -3272,7 +3272,7 @@ UpdateViewMatrix:
         fnstsw ax
         sahf
         ja short .26
-        fild dword [dword_1A8E84]
+        fild dword [ViewPixelWidth]
         fcomp dword [dword esi+03F8h]
         fnstsw ax
         sahf
@@ -3282,7 +3282,7 @@ UpdateViewMatrix:
         fnstsw ax
         sahf
         ja short .26
-        fild dword [dword_1A8E88]
+        fild dword [ViewPixelHeight]
         fcomp dword [dword esi+0400h]
         fnstsw ax
         sahf
@@ -7572,7 +7572,7 @@ SaveReplayHeader:
         mov edx, dword [dword_1AC944]
         call memcpy_
 .1:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         shl eax, 17h
         shr eax, 1Eh
         add edi, 1E7h
@@ -7702,17 +7702,17 @@ LoadReplayData:
         mov ebx, 4
         mov eax, esp
         call memcpy_
-        mov dx, word [dword_1AC814]
+        mov dx, word [GameSettings]
         mov eax, dword [esp]
         and edx, 0FE7Fh
         and eax, byte 3
-        mov word [dword_1AC814], dx
+        mov word [GameSettings], dx
         shl eax, 7
-        mov edx, dword [dword_1AC814]
+        mov edx, dword [GameSettings]
         mov ebx, 2
         or edx, eax
         mov eax, word_19CB98
-        mov dword [dword_1AC814], edx
+        mov dword [GameSettings], edx
         lea edx, [dword esi+01EBh]
         call memcpy_
         mov eax, dword [dword_1B8F88]
@@ -7811,14 +7811,14 @@ LoadReplayData:
         cmp edx, byte 10h
         jl near .2
         mov esi, unk_1C135C
-        mov edi, unk_19E060
+        mov edi, HomeTeamRecord+420h
         mov ebp, unk_1C347F
         mov ecx, SortCords
         mov eax, 1
-        mov dword [dword_19EBB8], esi
-        mov dword [dword_19ECC0], edi
-        mov dword [dword_19ECC4], ebp
-        mov dword [dword_19EBB4], ecx
+        mov dword [HmScore], esi
+        mov dword [AwTeamData], edi
+        mov dword [AwScore], ebp
+        mov dword [HmTeamData], ecx
         add esp, byte 8
         pop ebp
         pop edi
@@ -42756,7 +42756,7 @@ PuckDeflect:
         fnstsw ax
         sahf
         ja short .2
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         shl eax, 17h
         shr eax, 1Eh
         fild dword [nosplit eax*4+F32_7p84727eneg44]
@@ -42832,7 +42832,7 @@ PuckDeflect:
         fnstsw ax
         sahf
         ja near .8
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         shl eax, 17h
         shr eax, 1Eh
         fild dword [nosplit eax*4+F32_7p84727eneg44]
@@ -45727,12 +45727,12 @@ updateplayers:
         mov edx, 0FFFFh
         mov dword [dword_19CC54], eax
         xor esi, esi
-        mov word [word_19EBAC], bx
-        mov dword [dword_19EBAE], edx
-        mov word [word_19EBB2], bx
-        mov word [word_19ECB8], bx
-        mov dword [dword_19ECBA], edx
-        mov word [word_19ECBE], bx
+        mov word [HmActiveCount], bx
+        mov dword [HmSkaterCount], edx
+        mov word [HmLineCount], bx
+        mov word [AwActiveCount], bx
+        mov dword [AwSkaterCount], edx
+        mov word [AwLineCount], bx
         mov ebx, SortCords
 .3:
         mov edx, dword [byte ebx+04h]
@@ -46140,7 +46140,7 @@ CupCelebration:
         add eax, ebx
         shl eax, 2
         sub eax, ebx
-        mov eax, dword [nosplit eax*4+dword_19EBB8]
+        mov eax, dword [nosplit eax*4+HmScore]
         mov eax, dword [byte eax+064h]
         sar eax, 10h
         cmp dword [nosplit eax*4+dword_168F58], byte 3
@@ -46159,7 +46159,7 @@ CupCelebration:
         add eax, ebx
         shl eax, 2
         sub eax, ebx
-        mov eax, dword [nosplit eax*4+dword_19EBB8]
+        mov eax, dword [nosplit eax*4+HmScore]
         mov eax, dword [byte eax+064h]
         sar eax, 10h
         cmp dword [nosplit eax*4+dword_168F58], byte 0Ch
@@ -46315,7 +46315,7 @@ clockcont_0:
         jl short .9
         test di, di
         jge short .10
-        mov ecx, unk_19E060
+        mov ecx, HomeTeamRecord+420h
         jmp short .11
 .10:
         mov ecx, SortCords
@@ -46381,7 +46381,7 @@ clockcont_0:
         mov ecx, SortCords
         jmp short .19
 .18:
-        mov ecx, unk_19E060
+        mov ecx, HomeTeamRecord+420h
 .19:
         xor esi, esi
         mov ebp, 15h
@@ -46657,7 +46657,7 @@ PlayCrowdAmbience:
         mov eax, edx
         shl eax, 5
         add eax, edx
-        test byte [nosplit eax*8+byte_19DAEF], 40h
+        test byte [nosplit eax*8+PlayerControlFlags], 40h
         sete al
         mov edx, eax
         mov eax, 6

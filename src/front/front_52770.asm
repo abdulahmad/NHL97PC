@@ -8,7 +8,7 @@ extern str_Boxback, str_B00, str_XD, str_FaceoffD, str_Flash, str_Fla0, str_Fla1
 extern str_Light6, str_BOGIE, str_Front, byte_1B0300, byte_1B1378, byte_1B8580, byte_1B8581, byte_1B8582
 extern dword_16AF40, dword_16AF44, dword_16AF48, dword_16AF4C, dword_16AF50, dword_16AF58, dword_16AF5C, dword_16AF60
 extern dword_16AF64, dword_16AF68, dword_16AF9C, dword_16AFAC, dword_16B174, dword_16B550, dword_16E464, dword_16E468
-extern str_Punct_DrawRinkSurface, ClipLeft, ClipTop, ClipRightEdge, ClipBottomEdge, SinTable, dword_1A8E60, dword_1AC364
+extern str_Punct_DrawRinkSurface, ClipLeft, ClipTop, ClipRightEdge, ClipBottomEdge, SinTable, RinkDetail, FadeDone
 extern dword_1ADC88, dword_1ADC8C, dword_1ADC90, dword_1ADC98, dword_1ADCEC, dword_1ADCF8, dword_1ADD04, dword_1ADD10
 extern dword_1AE3F8, dword_1AF254, dword_1AF2B8, dword_1AFC48, dword_1AFD10, dword_1B0008, dword_1B0018, dword_1B001C
 extern dword_1B0020, dword_1B0024, dword_1B0028, dword_1B0038, dword_1B0068, dword_1B0074, dword_1B0088, dword_1B0208
@@ -58,7 +58,7 @@ extern UpdateScoreboardPos, UpdateScoreboardSpin, LoadNetArt, BuildRinkSides, Lo
 extern DrawPlayersSorted, RenderModelPortrait, RestoreSavedPalette, ReplayRegisterStates, ReplayRegisterObjects, ServiceIdle, AllocMemBlock, FreeMemBlock
 extern OpenResourceArchive, MatchColor, ClearScreen, FillPolygon, FillRect, IntsToFloats, VecMulMat, VecSub
 extern VecDistance, ProjectCoord, ProjectPointsWithZ, tickcount, str_C3, str_C2, str_C1, str_C0
-extern str_L3, str_L2, str_L1, str_L0, str_Fx, unk_16B51C, unk_16B534, unk_1A8D48
+extern str_L3, str_L2, str_L1, str_L0, str_Fx, unk_16B51C, unk_16B534, RinkPalette
 extern unk_1AEDD8, unk_1AEDF0, unk_1AFB38, unk_1B0078, unk_1B0410, unk_1B0510, unk_1B0610, unk_1B0710
 extern unk_1B0850, unk_1B0970, unk_1B0AA8, unk_1B0AE8, unk_1B1068, unk_1B1090, unk_1B1120, unk_1B73F0
 extern unk_1B8583, unk_1B92AB, str_Light
@@ -698,9 +698,9 @@ BuildRinkPalette:
         mov edx, esp
         mov eax, 0E666h
         call BrightenRangeColours
-        mov ebx, unk_1A8D48
+        mov ebx, RinkPalette
         mov edx, esp
-        mov eax, dword [dword_1A8E60]
+        mov eax, dword [RinkDetail]
         call DimRangeColours
         add esp, 300h
         pop edx
@@ -732,7 +732,7 @@ UpdateRinkPalette:
         push esi
         push edi
         mov edi, edx
-        mov edx, dword [dword_1AC364]
+        mov edx, dword [FadeDone]
         mov dword [dword_1B1020], eax
         test edx, edx
         jne short .3

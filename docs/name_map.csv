@@ -3759,6 +3759,8 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1601DB,str_SDCS,asc_1601DB,new,high,"string ""%s - #%d %c. %s""",src/data/engine/engine_15AC2_data_01.asm
 1601EB,str_Punct,asc_1601EB,new,high,"string "" - """,src/data/engine/engine_15AC2_data_01.asm
 1601EF,str_Punct_DrawGoalScorerPanel,unk_1601EF,new,high,"string ""(""",src/data/engine/engine_15AC2_data_01.asm
+1601F1,str_CommaSpace,unk_1601F1,new,low,""", "" separator",src/data/engine/engine_15AC2_data_01.asm
+1601F4,str_CloseParen,unk_1601F4,new,low,""")""",src/data/engine/engine_15AC2_data_01.asm
 1601F6,str_2d01d,asc_1601F6,new,high,"string ""%2d.%01d""",src/data/engine/engine_15AC2_data_01.asm
 1601FF,str_SD2,asc_1601FF,new,high,"string ""%s %d""",src/data/engine/engine_15AC2_data_01.asm
 160208,str_NONE,unk_160208,new,high,"string ""NONE""",src/data/engine/engine_15AC2_data_01.asm
@@ -3963,6 +3965,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 160703,F64_neg3p14159_DeflectPuck,qword_160703,new,high,double constant -3.1415927,src/data/engine/engine_25894_data_01.asm
 16070B,F32_7,dword_16070B,new,high,float constant 7,src/data/engine/engine_25894_data_01.asm
 16070F,F32_0p125,dword_16070F,new,high,float constant 0.125,src/data/engine/engine_25894_data_01.asm
+160713,F64_DeflectScale,qword_160713,new,low,puck deflection scale,src/data/engine/engine_25894_data_01.asm
 16071B,F64_0p00277778,qword_16071B,new,high,double constant 0.002777777778,src/data/engine/engine_25894_data_01.asm
 160723,F32_0p125_KnockPuckAway,dword_160723,new,high,float constant 0.125,src/data/engine/engine_25894_data_01.asm
 160727,F32_48_PuckHitsGoalie,dword_160727,new,high,float constant 48,src/data/engine/engine_25894_data_01.asm
@@ -7512,7 +7515,39 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1686CC,F32_0p8,dword_1686CC,new,high,float constant 0.8000000119,src/data/engine/faceoff_data_01.asm
 1686E0,InGameMenuRequest,dword_1686E0,96PC,high,96 PC InGameMenuRequest,src/data/engine/faceoff_data_01.asm
 1686E4,str_D_ChangeViewSize,word_1686E4,new,high,"string ""d""",src/data/engine/faceoff_data_01.asm
+16875E,PenaltyNameIds,dword_16875E,new,low,text id per penalty type,src/data/engine/engine_15AC2_data_02.asm
+168772,OverlayPanelFuncs,off_168772,new,low,draw routine per overlay panel,src/data/engine/engine_15AC2_data_02.asm
+16877E,ClockPanelFunc,off_16877E,new,low,clock panel draw routine,src/data/engine/engine_15AC2_data_02.asm
+1687B4,CameraFlagsByte,byte_1687B4,new,low,camera flag bits,src/data/engine/engine_15AC2_data_02.asm
+1687B8,F32_CameraNear,dword_1687B8,new,low,camera near plane constant,src/data/engine/engine_15AC2_data_02.asm
+1687BC,CameraViewDefs,unk_1687BC,97PC,low,"camera view definitions (position and target vectors, read by SetCameraView)",src/data/engine/engine_15AC2_data_02.asm
+16892C,GoalSceneActive,byte_16892C,new,low,goal camera scene running,src/data/engine/engine_15AC2_data_02.asm
+16892D,ReplayCameraActive,byte_16892D,new,low,replay camera on,src/data/engine/engine_15AC2_data_02.asm
+16892E,FaceoffDropScene,byte_16892E,new,low,face-off drop scene enabled,src/data/engine/engine_15AC2_data_02.asm
+16892F,CameraScenesOn,byte_16892F,new,low,camera scenes enabled,src/data/engine/engine_15AC2_data_02.asm
+168930,IntermissionActive,byte_168930,new,low,intermission running,src/data/engine/engine_15AC2_data_02.asm
+168934,PenaltySceneYaw,dword_168934,new,low,penalty scene camera yaw per step,src/data/engine/engine_15AC2_data_02.asm
+16893C,PenaltySceneDist,dword_16893C,new,low,penalty scene camera distance per step,src/data/engine/engine_15AC2_data_02.asm
+16897C,IntermissionCamPath,unk_16897C,new,low,intermission camera path,src/data/engine/engine_15AC2_data_02.asm
+1689AC,IntermissionTimes,unk_1689AC,new,low,intermission step times,src/data/engine/engine_15AC2_data_02.asm
+1689BC,FightSceneActive,byte_1689BC,new,low,fight scene running,src/data/engine/engine_15AC2_data_02.asm
+1689BE,FightCameraReady,word_1689BE,new,low,fight camera ready,src/data/engine/engine_15AC2_data_02.asm
+1689C0,PlayerAssignOrder,byte_1689C0,new,low,player assignment order for Setplass,src/data/engine/engine_15AC2_data_02.asm
+1689C8,FaceoffSpotX,word_1689C8,new,low,face-off spot X,src/data/engine/engine_15AC2_data_02.asm
+1689CA,FaceoffSpotY,word_1689CA,new,low,face-off spot Y,src/data/engine/engine_15AC2_data_02.asm
+1689E4,FaceoffSpotIndex,byte_1689E4,new,low,face-off spot per zone,src/data/engine/engine_15AC2_data_02.asm
+1689FC,ExtraAttackerSpots,unk_1689FC,new,low,extra attacker positions for assextra4,src/data/engine/engine_15AC2_data_02.asm
+168A24,ExtraAttackerFlags,unk_168A24,new,low,extra attacker flags for assextra4,src/data/engine/engine_15AC2_data_02.asm
+168A4C,OnsideOffsetX,word_168A4C,new,low,onside skate offset X,src/data/engine/engine_25894_data_02.asm
+168A4E,OnsideOffsetY,word_168A4E,new,low,onside skate offset Y,src/data/engine/engine_25894_data_02.asm
+168A68,PuckChaseOffsetX,word_168A68,new,low,puck chase offset X,src/data/engine/engine_25894_data_02.asm
+168A6A,PuckChaseOffsetY,word_168A6A,new,low,puck chase offset Y,src/data/engine/engine_25894_data_02.asm
 168A84,str_Punct_assintrostand,dword_168A84,new,high,"string ""_""",src/data/engine/engine_25894_data_02.asm
+168AA4,IntroLineX,dword_168AA4,new,low,intro line-up X per player,src/data/engine/engine_25894_data_02.asm
+168AA8,IntroLineY,dword_168AA8,new,low,intro line-up Y per player,src/data/engine/engine_25894_data_02.asm
+168B14,IntroLineCount,dword_168B14,new,low,intro line-up step,src/data/engine/engine_25894_data_02.asm
+168B18,ShotTargetX,dword_168B18,new,low,shot target X,src/data/engine/engine_25894_data_02.asm
+168B1C,ShotTargetY,dword_168B1C,new,low,shot target Y,src/data/engine/engine_25894_data_02.asm
 168E34,str_Punct_InProgress,word_168E34,new,high,"string ""@""",src/data/engine/faceoff_2_data_02.asm
 1690AE,str_Punct_DrawSeasonGamePanel,word_1690AE,new,high,"string ""\t""",src/data/front/front_8E997_data_02.asm
 16910A,str_G_DrawLockedGame,dword_16910A,new,high,"string ""G""",src/data/engine/engine_3812E_data_02.asm
@@ -7703,11 +7738,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 16F5C0,ArtRowFuncs8,off_16F5C0,new,low,row conversion routine per art format (8-bit),src/data/lib/input/input_joystick_misc_05_data_01.asm
 16F684,ArtRowFuncs16,off_16F684,new,low,row conversion routine per art format (16-bit),src/data/lib/input/input_joystick_misc_05_data_01.asm
 16F748,ArtFormatCodes,byte_16F748,new,low,art format code bytes,src/data/lib/input/input_joystick_misc_05_data_01.asm
-16F77C,RandState0,dword_16F77C,new,low,random generator state word 0,src/data/lib/video/video_bios_vga_01_data_01.asm
-16F780,RandState1,dword_16F780,new,low,random generator state word 1,src/data/lib/video/video_bios_vga_01_data_01.asm
-16F784,RandState2,dword_16F784,new,low,random generator state word 2,src/data/lib/video/video_bios_vga_01_data_01.asm
-16F788,RandState3,dword_16F788,new,low,random generator state word 3,src/data/lib/video/video_bios_vga_01_data_01.asm
-16F78C,RandState4,dword_16F78C,new,low,random generator state word 4,src/data/lib/video/video_bios_vga_01_data_01.asm
+16F77C,RandState,dword_16F77C,new,low,random generator state (5 dwords),src/data/lib/video/video_bios_vga_01_data_01.asm
 16F790,RandIndex,dword_16F790,new,low,random generator step counter,src/data/lib/video/video_bios_vga_01_data_01.asm
 16F794,RemapTable,byte_16F794,new,low,colour remap table,src/data/lib/video/video_bios_vga_01_data_01.asm
 16F894,VesaBank,dword_16F894,new,low,current VESA bank,src/data/lib/video/video_bios_vga_01_data_01.asm
@@ -8249,9 +8280,255 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 19CBE2,penshotlive,word_19CBE2,96PC,medium,96 PC penshotlive: a penalty shot is running (ClockTick),src/data/engine/faceoff_data_03.asm
 19CBE4,penshottimer,dword_19CBE4,96PC,medium,96 PC penshottimer: ticks left of the penalty shot,src/data/engine/faceoff_data_03.asm
 19CC14,slotteam,,96PC,medium,NHL96PC 1178D2 (refset): referenced by the same 4 matched functions,
+19CF8C,OverlayPanelQueue,unk_19CF8C,new,low,queued overlay panels,src/data/engine/engine_15AC2_bss_01.asm
+19D004,ScorePanelHome,dword_19D004,new,low,home score shown on the score panel (-1 forces a redraw),src/data/engine/engine_15AC2_bss_01.asm
+19D008,ScorePanelAway,dword_19D008,new,low,away score shown on the score panel (-1 forces a redraw),src/data/engine/engine_15AC2_bss_01.asm
+19D00C,ScorePanelValues,dword_19D00C,new,low,values shown on the score panel,src/data/engine/engine_15AC2_bss_01.asm
+19D010,AwayPanelValue,dword_19D010,new,low,value shown on the away team panel,src/data/engine/engine_15AC2_bss_01.asm
+19D014,ClockShownSeconds,dword_19D014,new,low,game clock seconds last drawn,src/data/engine/engine_15AC2_bss_01.asm
+19D018,ClockShownMinutes,dword_19D018,new,low,game clock minutes last drawn,src/data/engine/engine_15AC2_bss_01.asm
+19D01C,PanelNameBuf,byte_19D01C,new,low,player name buffer for panels,src/data/engine/engine_15AC2_bss_01.asm
+19D020,FightSceneTimer,dword_19D020,new,low,fight camera scene timer,src/data/engine/engine_15AC2_bss_01.asm
+19D024,FightSceneState,dword_19D024,new,low,fight camera scene state,src/data/engine/engine_15AC2_bss_01.asm
+19D028,ReplayCamPos,unk_19D028,new,low,replay free camera position,src/data/engine/engine_15AC2_bss_01.asm
+19D034,ReplayCamTarget,dword_19D034,new,low,replay camera followed object (-1 none),src/data/engine/engine_15AC2_bss_01.asm
+19D038,ReplayCamYaw,dword_19D038,new,low,replay camera yaw,src/data/engine/engine_15AC2_bss_01.asm
+19D03C,ReplayCamPitch,dword_19D03C,new,low,replay camera pitch,src/data/engine/engine_15AC2_bss_01.asm
+19D040,PenShotSceneTimer,dword_19D040,new,low,penalty shot scene timer,src/data/engine/engine_15AC2_bss_01.asm
+19D044,PenShotSceneState,dword_19D044,new,low,penalty shot scene state,src/data/engine/engine_15AC2_bss_01.asm
+19D048,MenuOrbitAngle,dword_19D048,new,low,menu camera orbit angle,src/data/engine/engine_15AC2_bss_01.asm
+19D04C,MenuCamPos,unk_19D04C,new,low,menu camera position,src/data/engine/engine_15AC2_bss_01.asm
+19D058,SceneStepCount,dword_19D058,new,low,camera scene step counter,src/data/engine/engine_15AC2_bss_01.asm
+19D05C,MenuCamTarget,unk_19D05C,new,low,menu camera target point,src/data/engine/engine_15AC2_bss_01.asm
+19D068,SceneSavedView,dword_19D068,new,low,view to return to after a camera scene,src/data/engine/engine_15AC2_bss_01.asm
+19D06C,OpeningCamFrame,dword_19D06C,new,low,opening camera frame,src/data/engine/engine_15AC2_bss_01.asm
+19D070,OpeningCamActive,dword_19D070,new,low,opening camera running,src/data/engine/engine_15AC2_bss_01.asm
+19D074,OpeningCamData,dword_19D074,new,low,opening camera path data,src/data/engine/engine_15AC2_bss_01.asm
+19D078,OpeningCamFrames,dword_19D078,new,low,opening camera frame count,src/data/engine/engine_15AC2_bss_01.asm
+19D07C,PenaltyCamDistance,dword_19D07C,new,low,penalty camera distance,src/data/engine/engine_15AC2_bss_01.asm
+19D080,PenaltyCamTimer,dword_19D080,new,low,penalty camera timer,src/data/engine/engine_15AC2_bss_01.asm
+19D084,CameraSceneFunc,dword_19D084,new,low,camera scene routine,src/data/engine/engine_15AC2_bss_01.asm
+19D088,CameraSceneStep,dword_19D088,new,low,camera scene step routine,src/data/engine/engine_15AC2_bss_01.asm
+19D08C,CameraSceneArg,dword_19D08C,new,low,camera scene argument,src/data/engine/engine_15AC2_bss_01.asm
+19D090,CameraDebugMarks,dword_19D090,new,low,draw camera debug marks,src/data/engine/engine_15AC2_bss_01.asm
+19D094,CameraDebugOn,dword_19D094,new,low,camera debug display on,src/data/engine/engine_15AC2_bss_01.asm
+19D098,CameraDebugMask,dword_19D098,new,low,camera debug mark mask,src/data/engine/engine_15AC2_bss_01.asm
+19D09C,CameraDebugLimit,dword_19D09C,new,low,camera debug mark limit,src/data/engine/engine_15AC2_bss_01.asm
+19D0A4,CameraPathPoints,unk_19D0A4,new,low,camera path control points,src/data/engine/engine_15AC2_bss_01.asm
+19D0C8,CameraViewX,dword_19D0C8,new,low,camera view X,src/data/engine/engine_15AC2_bss_01.asm
+19D0CC,CameraViewY,dword_19D0CC,new,low,camera view Y,src/data/engine/engine_15AC2_bss_01.asm
+19D0D0,CameraViewZ,dword_19D0D0,new,low,camera view Z,src/data/engine/engine_15AC2_bss_01.asm
+19D0D4,CameraMode,dword_19D0D4,new,low,camera mode,src/data/engine/engine_15AC2_bss_01.asm
+19D0D8,CameraFocus,dword_19D0D8,new,low,camera focus object,src/data/engine/engine_15AC2_bss_01.asm
+19D0DC,CameraViewSel,dword_19D0DC,new,low,selected camera view,src/data/engine/engine_15AC2_bss_01.asm
+19D0E4,CameraTargetObj,dword_19D0E4,new,low,camera target object,src/data/engine/engine_15AC2_bss_01.asm
+19D0E8,CameraTargetPtr,dword_19D0E8,new,low,camera target pointer,src/data/engine/engine_15AC2_bss_01.asm
+19D0EC,CameraViewTable,dword_19D0EC,new,low,camera view settings,src/data/engine/engine_15AC2_bss_01.asm
+19D134,CameraPathCount,dword_19D134,new,low,camera path point count,src/data/engine/engine_15AC2_bss_01.asm
+19D138,CameraTargetPoints,dword_19D138,new,low,camera target points,src/data/engine/engine_15AC2_bss_01.asm
+19D188,CameraPos,dword_19D188,new,low,camera position,src/data/engine/engine_15AC2_bss_01.asm
+19D18C,CameraOrbitBase,dword_19D18C,new,low,camera orbit base angle,src/data/engine/engine_15AC2_bss_01.asm
+19D190,CameraHeading,dword_19D190,new,low,camera heading,src/data/engine/engine_15AC2_bss_01.asm
+19D194,CameraElevation,dword_19D194,new,low,camera elevation,src/data/engine/engine_15AC2_bss_01.asm
+19D198,CameraOrbitSpeed,dword_19D198,new,low,camera orbit speed,src/data/engine/engine_15AC2_bss_01.asm
+19D19C,CameraZoom,dword_19D19C,new,low,camera zoom,src/data/engine/engine_15AC2_bss_01.asm
+19D1A0,CameraLookAt,dword_19D1A0,new,low,camera look-at point,src/data/engine/engine_15AC2_bss_01.asm
+19D1A4,CameraHeight,dword_19D1A4,new,low,camera height,src/data/engine/engine_15AC2_bss_01.asm
+19D1A8,CameraFocusVec,dword_19D1A8,new,low,camera focus vector,src/data/engine/engine_15AC2_bss_01.asm
+19D1B8,CameraPathTime,dword_19D1B8,new,low,camera path time,src/data/engine/engine_15AC2_bss_01.asm
+19D1BC,CameraPathVec,dword_19D1BC,new,low,camera path vector,src/data/engine/engine_15AC2_bss_01.asm
+19D1CC,CameraViewPair,dword_19D1CC,new,low,camera view pair,src/data/engine/engine_15AC2_bss_01.asm
+19D1D4,CameraViewNear,dword_19D1D4,new,low,camera near distance,src/data/engine/engine_15AC2_bss_01.asm
+19D1D8,CameraViewFar,dword_19D1D8,new,low,camera far distance,src/data/engine/engine_15AC2_bss_01.asm
+19D1DC,SplineIndex,dword_19D1DC,new,low,camera spline index,src/data/engine/engine_15AC2_bss_01.asm
+19D1E0,SplineCount,dword_19D1E0,new,low,camera spline point count,src/data/engine/engine_15AC2_bss_01.asm
+19D1E4,SplineStep,dword_19D1E4,new,low,camera spline step,src/data/engine/engine_15AC2_bss_01.asm
+19D1E8,SplinePoints,dword_19D1E8,new,low,camera spline points,src/data/engine/engine_15AC2_bss_01.asm
+19D214,SplineCoefsX,unk_19D214,new,low,camera spline X coefficients,src/data/engine/engine_15AC2_bss_01.asm
+19D298,SplineCoefsY,unk_19D298,new,low,camera spline Y coefficients,src/data/engine/engine_15AC2_bss_01.asm
+19D31C,CameraEye,unk_19D31C,new,low,camera eye point,src/data/engine/engine_15AC2_bss_01.asm
+19D328,CameraCenter,unk_19D328,new,low,camera center point,src/data/engine/engine_15AC2_bss_01.asm
+19D334,CameraDistance,dword_19D334,new,low,camera distance,src/data/engine/engine_15AC2_bss_01.asm
+19D338,CameraAngles,dword_19D338,new,low,camera angles,src/data/engine/engine_15AC2_bss_01.asm
+19D340,CameraFov,dword_19D340,new,low,camera field of view,src/data/engine/engine_15AC2_bss_01.asm
+19D344,CameraFovTarget,dword_19D344,new,low,camera field of view target,src/data/engine/engine_15AC2_bss_01.asm
+19D348,CameraViewParams,dword_19D348,new,low,camera view parameters,src/data/engine/engine_15AC2_bss_01.asm
+19D364,CameraLag,dword_19D364,new,low,camera lag,src/data/engine/engine_15AC2_bss_01.asm
+19D368,CameraSpeed,dword_19D368,new,low,camera speed,src/data/engine/engine_15AC2_bss_01.asm
+19D36C,CameraFollowObj,dword_19D36C,new,low,object the camera follows,src/data/engine/engine_15AC2_bss_01.asm
+19D370,TargetPointObj,dword_19D370,new,low,target point object,src/data/engine/engine_15AC2_bss_01.asm
+19D374,CameraSceneCenter,dword_19D374,new,low,camera scene center,src/data/engine/engine_15AC2_bss_01.asm
+19D378,CameraSceneYaw,dword_19D378,new,low,camera scene yaw,src/data/engine/engine_15AC2_bss_01.asm
+19D37C,CameraSceneDist,dword_19D37C,new,low,camera scene distance,src/data/engine/engine_15AC2_bss_01.asm
+19D380,CameraTracking,dword_19D380,new,low,camera tracking on,src/data/engine/engine_15AC2_bss_01.asm
+19D384,ActiveCameraScene,dword_19D384,new,low,camera scene being run,src/data/engine/engine_15AC2_bss_01.asm
+19D388,CameraPathActive,dword_19D388,new,low,camera path running,src/data/engine/engine_15AC2_bss_01.asm
+19D38C,CameraDebugText,dword_19D38C,new,low,camera debug text on,src/data/engine/engine_15AC2_bss_01.asm
+19D390,TargetVecX,dword_19D390,new,low,camera target vector X,src/data/engine/engine_15AC2_bss_01.asm
+19D394,TargetVecY,dword_19D394,new,low,camera target vector Y,src/data/engine/engine_15AC2_bss_01.asm
+19D398,TargetVecZ,dword_19D398,new,low,camera target vector Z,src/data/engine/engine_15AC2_bss_01.asm
+19D39C,StanleyPlayer,dword_19D39C,new,low,player picked by assstanley,src/data/engine/engine_15AC2_bss_01.asm
+19D3A0,FaceoffPuckX,dword_19D3A0,new,low,face-off puck X,src/data/engine/engine_15AC2_bss_01.asm
+19D3A4,FaceoffPuckY,dword_19D3A4,new,low,face-off puck Y,src/data/engine/engine_15AC2_bss_01.asm
+19D3A8,PassTargetAngle,dword_19D3A8,new,low,pass target angle,src/data/engine/engine_15AC2_bss_01.asm
 19DA30,SortCords,,96PC,medium,NHL96PC 16479C (refset): referenced by the same 3 matched functions,
+19DADE,PuckCarrierPos,dword_19DADE,new,low,puck carrier position read by assstanley,src/data/engine/engine_25894_bss_01.asm
+19DAEA,PlayerControlWords,word_19DAEA,new,low,control word per player (8 bytes each),src/data/engine/engine_25894_bss_01.asm
+19DAEF,PlayerControlFlags,byte_19DAEF,new,low,control flags per player (8 bytes each),src/data/engine/engine_25894_bss_01.asm
+19DAF0,PlayerStateFlags,byte_19DAF0,new,low,state flags per player (8 bytes each),src/data/engine/engine_25894_bss_01.asm
+19DAF1,PlayerControlRest,byte_19DAF1,new,low,rest of the per player control records,src/data/engine/engine_25894_bss_01.asm
+19DB12,PuckPathTable,dword_19DB12,new,low,puck path table read by pucknorm_body,src/data/engine/engine_25894_bss_01.asm
+19DC40,HomeTeamRecord,unk_19DC40,97PC,low,home team game record (630h bytes),src/data/engine/engine_25894_bss_01.asm
+19E270,AwayTeamRecord,unk_19E270,97PC,low,away team game record (630h bytes),src/data/engine/engine_25894_bss_01.asm
+19E8A0,HomeIcePlayers,unk_19E8A0,new,low,home players on the ice,src/data/engine/engine_25894_bss_01.asm
+19E949,HomeIceSlots,word_19E949,new,low,home ice slot words,src/data/engine/engine_25894_bss_01.asm
+19E9A8,AwayIcePlayers,unk_19E9A8,new,low,away players on the ice,src/data/engine/engine_25894_bss_01.asm
+19EA51,AwayIceSlots,word_19EA51,new,low,away ice slot words,src/data/engine/engine_25894_bss_01.asm
+19EAAE,HmAssignPlayer,dword_19EAAE,new,low,home team: player picked by assstanley,src/data/engine/engine_25894_bss_01.asm
 19EAB0,hmtmstruct,,96PC,medium,NHL96PC 1656D8 (refset): referenced by the same 3 matched functions,
+19EAB2,HmFaceoffCenter,word_19EAB2,new,low,home team: face-off center,src/data/engine/engine_25894_bss_01.asm
+19EAB4,HmFaceoffWinger,word_19EAB4,new,low,home team: face-off winger,src/data/engine/engine_25894_bss_01.asm
+19EAB6,HmCounters,word_19EAB6,new,low,home team: team counters cleared each game,src/data/engine/engine_25894_bss_01.asm
+19EABE,HmPlayersInBox,word_19EABE,new,low,home team: players in the penalty box,src/data/engine/engine_25894_bss_01.asm
+19EAC0,HmLineState,word_19EAC0,new,low,home team: current line state,src/data/engine/engine_25894_bss_01.asm
+19EAC6,HmPlayerFlags,byte_19EAC6,new,low,home team: flags per roster player,src/data/engine/engine_25894_bss_01.asm
+19EB38,HmPlayerSlots,byte_19EB38,new,low,home team: slot per roster player,src/data/engine/engine_25894_bss_01.asm
+19EB54,HmCoachOffense,byte_19EB54,new,low,home team: coach offense mode,src/data/engine/engine_25894_bss_01.asm
+19EB55,HmCoachDefense,byte_19EB55,new,low,home team: coach defense mode,src/data/engine/engine_25894_bss_01.asm
+19EB56,HmCoachGoalie,byte_19EB56,new,low,home team: coach goalie mode,src/data/engine/engine_25894_bss_01.asm
+19EB57,HmCoachLines,byte_19EB57,new,low,home team: coach line change mode,src/data/engine/engine_25894_bss_01.asm
+19EB58,HmCoachTimer,dword_19EB58,new,low,home team: coach mode timer,src/data/engine/engine_25894_bss_01.asm
+19EB5C,HmRosterMap,byte_19EB5C,new,low,home team: roster index per slot,src/data/engine/engine_25894_bss_01.asm
+19EB7F,HmPlayerEnergy,byte_19EB7F,new,low,home team: energy per roster player,src/data/engine/engine_25894_bss_01.asm
+19EBAA,HmPenaltyPlayer,dword_19EBAA,new,low,home team: player getting the next penalty,src/data/engine/engine_25894_bss_01.asm
+19EBAC,HmActiveCount,word_19EBAC,new,low,home team: players on the ice,src/data/engine/engine_25894_bss_01.asm
+19EBAE,HmSkaterCount,dword_19EBAE,new,low,home team: skaters on the ice,src/data/engine/engine_25894_bss_01.asm
+19EBB0,HmGoalieOnIce,dword_19EBB0,new,low,home team: goalie on the ice,src/data/engine/engine_25894_bss_01.asm
+19EBB2,HmLineCount,word_19EBB2,new,low,home team: lines used,src/data/engine/engine_25894_bss_01.asm
+19EBB4,HmTeamData,dword_19EBB4,new,low,home team: team data pointer,src/data/engine/engine_25894_bss_01.asm
+19EBB8,HmScore,dword_19EBB8,new,low,home team: score,src/data/engine/engine_25894_bss_01.asm
+19EBBA,AwAssignPlayer,dword_19EBBA,new,low,away team: player picked by assstanley,src/data/engine/engine_25894_bss_01.asm
 19EBBC,awtmstruct,,96PC,medium,NHL96PC 16580E (refset): referenced by the same 2 matched functions,
+19EBBE,AwFaceoffCenter,word_19EBBE,new,low,away team: face-off center,src/data/engine/engine_25894_bss_01.asm
+19EBC0,AwFaceoffWinger,word_19EBC0,new,low,away team: face-off winger,src/data/engine/engine_25894_bss_01.asm
+19EBC2,AwCounters,word_19EBC2,new,low,away team: team counters cleared each game,src/data/engine/engine_25894_bss_01.asm
+19EBCA,AwPlayersInBox,word_19EBCA,new,low,away team: players in the penalty box,src/data/engine/engine_25894_bss_01.asm
+19EBCC,AwLineState,word_19EBCC,new,low,away team: current line state,src/data/engine/engine_25894_bss_01.asm
+19EBD2,AwPlayerFlags,byte_19EBD2,new,low,away team: flags per roster player,src/data/engine/engine_25894_bss_01.asm
+19EC44,AwPlayerSlots,byte_19EC44,new,low,away team: slot per roster player,src/data/engine/engine_25894_bss_01.asm
+19EC60,AwCoachOffense,byte_19EC60,new,low,away team: coach offense mode,src/data/engine/engine_25894_bss_01.asm
+19EC61,AwCoachDefense,byte_19EC61,new,low,away team: coach defense mode,src/data/engine/engine_25894_bss_01.asm
+19EC62,AwCoachGoalie,byte_19EC62,new,low,away team: coach goalie mode,src/data/engine/engine_25894_bss_01.asm
+19EC63,AwCoachLines,byte_19EC63,new,low,away team: coach line change mode,src/data/engine/engine_25894_bss_01.asm
+19EC64,AwCoachTimer,dword_19EC64,new,low,away team: coach mode timer,src/data/engine/engine_25894_bss_01.asm
+19EC68,AwRosterMap,byte_19EC68,new,low,away team: roster index per slot,src/data/engine/engine_25894_bss_01.asm
+19EC8B,AwPlayerEnergy,byte_19EC8B,new,low,away team: energy per roster player,src/data/engine/engine_25894_bss_01.asm
+19ECB6,AwPenaltyPlayer,dword_19ECB6,new,low,away team: player getting the next penalty,src/data/engine/engine_25894_bss_01.asm
+19ECB8,AwActiveCount,word_19ECB8,new,low,away team: players on the ice,src/data/engine/engine_25894_bss_01.asm
+19ECBA,AwSkaterCount,dword_19ECBA,new,low,away team: skaters on the ice,src/data/engine/engine_25894_bss_01.asm
+19ECBC,AwGoalieOnIce,dword_19ECBC,new,low,away team: goalie on the ice,src/data/engine/engine_25894_bss_01.asm
+19ECBE,AwLineCount,word_19ECBE,new,low,away team: lines used,src/data/engine/engine_25894_bss_01.asm
+19ECC0,AwTeamData,dword_19ECC0,new,low,away team: team data pointer,src/data/engine/engine_25894_bss_01.asm
+19ECC4,AwScore,dword_19ECC4,new,low,away team: score,src/data/engine/engine_25894_bss_01.asm
+19F4F4,SpanSlotNext,dword_19F4F4,new,low,dirty span slot links,src/data/engine/engine_3812E_bss_01.asm
+19F4F8,SpanSlotStart,dword_19F4F8,new,low,dirty span slot start,src/data/engine/engine_3812E_bss_01.asm
+19F4FC,SpanSlotTable,dword_19F4FC,new,low,dirty span slots,src/data/engine/engine_3812E_bss_01.asm
+19F548,DirtySpans,unk_19F548,new,low,dirty screen spans,src/data/engine/engine_3812E_bss_01.asm
+19FD14,OverlayRowCount,dword_19FD14,new,low,overlay rows,src/data/engine/engine_3812E_bss_01.asm
+19FD18,OverlayRowMask,dword_19FD18,new,low,overlay mask per row,src/data/engine/engine_3812E_bss_01.asm
+1A0CB8,OverlayMaskBase,unk_1A0CB8,new,low,overlay mask buffer,src/data/engine/engine_3812E_bss_01.asm
+1A0CBC,OverlayWindowFlags,dword_1A0CBC,new,low,overlay window flags,src/data/engine/engine_3812E_bss_01.asm
+1A0CC0,OverlayWindowCount,dword_1A0CC0,new,low,overlay window count,src/data/engine/engine_3812E_bss_01.asm
+1A0CC2,OverlayMask,byte_1A0CC2,new,low,overlay mask,src/data/engine/engine_3812E_bss_01.asm
+1A8B48,ScreenRegion,dword_1A8B48,new,low,screen region being refreshed,src/data/engine/engine_3812E_bss_01.asm
+1A8B60,OverlayWindows,dword_1A8B60,new,low,overlay windows,src/data/engine/engine_3812E_bss_01.asm
+1A8D48,RinkPalette,unk_1A8D48,new,low,rink palette,src/data/engine/engine_3812E_bss_01.asm
+1A8E48,GameViewBuffer,dword_1A8E48,new,low,game view back buffer,src/data/engine/engine_3812E_bss_01.asm
+1A8E4C,GameViewPitch,dword_1A8E4C,new,low,game view row pitch,src/data/engine/engine_3812E_bss_01.asm
+1A8E50,ViewSizeChanged,dword_1A8E50,new,low,view size changed,src/data/engine/engine_3812E_bss_01.asm
+1A8E54,ViewAspect,dword_1A8E54,new,low,view aspect ratio,src/data/engine/engine_3812E_bss_01.asm
+1A8E58,DirtySpanCount,dword_1A8E58,new,low,dirty span count,src/data/engine/engine_3812E_bss_01.asm
+1A8E5C,OverlayMaskDirty,dword_1A8E5C,new,low,overlay mask needs rebuilding,src/data/engine/engine_3812E_bss_01.asm
+1A8E60,RinkDetail,dword_1A8E60,new,low,rink detail level,src/data/engine/engine_3812E_bss_01.asm
+1A8E64,GameViewTop,dword_1A8E64,new,low,game view top row,src/data/engine/engine_3812E_bss_01.asm
+1A8E68,GameViewRows,dword_1A8E68,new,low,game view rows,src/data/engine/engine_3812E_bss_01.asm
+1A8E6C,DisplayViewCount,dword_1A8E6C,new,low,display view count,src/data/engine/engine_3812E_bss_01.asm
+1A8E70,GameViewShown,dword_1A8E70,new,low,game view shown,src/data/engine/engine_3812E_bss_01.asm
+1A8E74,DisplayViews,dword_1A8E74,new,low,display views,src/data/engine/engine_3812E_bss_01.asm
+1A8E7C,OverlayWindowsOpen,dword_1A8E7C,new,low,overlay windows open,src/data/engine/engine_3812E_bss_01.asm
+1A8E80,ViewSizeIndex,dword_1A8E80,new,low,view size step,src/data/engine/engine_3812E_bss_01.asm
+1A8E84,ViewPixelWidth,dword_1A8E84,new,low,view width in pixels,src/data/engine/engine_3812E_bss_01.asm
+1A8E88,ViewPixelHeight,dword_1A8E88,new,low,view height in pixels,src/data/engine/engine_3812E_bss_01.asm
+1A8E89,FadePalCurrent,byte_1A8E89,new,low,palette fade: current palette,src/data/engine/engine_3812E_bss_01.asm
+1A8E8C,FadePalCount,unk_1A8E8C,new,low,palette fade: entries,src/data/engine/engine_3812E_bss_01.asm
+1A8E8E,FadePalBytes,byte_1A8E8E,new,low,palette fade: current palette bytes,src/data/engine/engine_3812E_bss_01.asm
+1A928A,FadePalStepR,word_1A928A,new,low,palette fade: red step,src/data/engine/engine_3812E_bss_01.asm
+1A928C,FadePalStepG,word_1A928C,new,low,palette fade: green step,src/data/engine/engine_3812E_bss_01.asm
+1A928E,FadePalSteps,word_1A928E,new,low,palette fade: step per entry,src/data/engine/engine_3812E_bss_01.asm
+1A988C,FadePalTarget,byte_1A988C,new,low,palette fade: target palette,src/data/engine/engine_3812E_bss_01.asm
+1A988D,FadePalTargetG,byte_1A988D,new,low,palette fade: target green,src/data/engine/engine_3812E_bss_01.asm
+1A988E,FadePalTargetBytes,byte_1A988E,new,low,palette fade: target palette bytes,src/data/engine/engine_3812E_bss_01.asm
+1A9C8C,PaletteRanges,unk_1A9C8C,new,low,palette range records,src/data/engine/engine_3812E_bss_01.asm
+1ABD46,FadeAccumR,word_1ABD46,new,low,palette fade: red accumulator,src/data/engine/engine_3812E_bss_01.asm
+1ABD48,FadeAccumG,word_1ABD48,new,low,palette fade: green accumulator,src/data/engine/engine_3812E_bss_01.asm
+1ABD4A,FadeAccumB,word_1ABD4A,new,low,palette fade: blue accumulator,src/data/engine/engine_3812E_bss_01.asm
+1ABD4C,FadeAccumNext,word_1ABD4C,new,low,palette fade: next accumulator,src/data/engine/engine_3812E_bss_01.asm
+1ABD4E,FadeAccumLast,word_1ABD4E,new,low,palette fade: last accumulator,src/data/engine/engine_3812E_bss_01.asm
+1ABD50,FadeAccums,word_1ABD50,new,low,palette fade accumulators,src/data/engine/engine_3812E_bss_01.asm
+1AC34C,FadeFramesLeft,dword_1AC34C,new,low,palette fade frames left,src/data/engine/engine_3812E_bss_01.asm
+1AC350,FadeActive,dword_1AC350,new,low,palette fade running,src/data/engine/engine_3812E_bss_01.asm
+1AC354,FadeFirstEntry,dword_1AC354,new,low,palette fade first entry,src/data/engine/engine_3812E_bss_01.asm
+1AC358,ArtRemapTable,dword_1AC358,new,low,art colour remap table,src/data/engine/engine_3812E_bss_01.asm
+1AC35C,PaletteRangeCount,dword_1AC35C,new,low,palette range count,src/data/engine/engine_3812E_bss_01.asm
+1AC360,FadeEntryCount,dword_1AC360,new,low,palette fade entry count,src/data/engine/engine_3812E_bss_01.asm
+1AC364,FadeDone,dword_1AC364,new,low,palette fade finished,src/data/engine/engine_3812E_bss_01.asm
+1AC368,RangeBlendLevel,dword_1AC368,new,low,palette range blend level,src/data/engine/engine_3812E_bss_01.asm
+1AC36C,FadeStepCount,dword_1AC36C,new,low,palette fade step count,src/data/engine/engine_3812E_bss_01.asm
+1AC370,StreamSpeed,dword_1AC370,new,low,CD stream speed,src/data/engine/engine_3812E_bss_01.asm
+1AC374,CdStreamBuf,dword_1AC374,new,low,CD stream buffer,src/data/engine/engine_3812E_bss_01.asm
+1AC378,StreamHandle,dword_1AC378,new,low,CD stream handle,src/data/engine/engine_3812E_bss_01.asm
+1AC37C,StreamRate,dword_1AC37C,new,low,CD stream rate,src/data/engine/engine_3812E_bss_01.asm
+1AC380,PlayerCallClips,dword_1AC380,new,low,clip per player call,src/data/engine/engine_3812E_bss_01.asm
+1AC3D8,PlayerCallTimes,dword_1AC3D8,new,low,time per player call,src/data/engine/engine_3812E_bss_01.asm
+1AC430,SpeechReqHead,dword_1AC430,new,low,speech request queue head,src/data/engine/engine_3812E_bss_01.asm
+1AC434,SpeechReqTail,dword_1AC434,new,low,speech request queue tail,src/data/engine/engine_3812E_bss_01.asm
+1AC438,SpeechRequests,dword_1AC438,new,low,speech request queue,src/data/engine/engine_3812E_bss_01.asm
+1AC5F0,SfxBankNames,dword_1AC5F0,new,low,sound effect bank names,src/data/engine/engine_3812E_bss_02.asm
+1AC604,GameAudioState,dword_1AC604,new,low,game audio state,src/data/engine/engine_3812E_bss_02.asm
+1AC608,SfxBankData,dword_1AC608,new,low,sound effect bank data,src/data/engine/engine_3812E_bss_02.asm
+1AC620,SfxBankSizes,dword_1AC620,new,low,sound effect bank sizes,src/data/engine/engine_3812E_bss_02.asm
+1AC638,MusicTrackTable,byte_1AC638,new,low,music track records,src/data/engine/engine_3812E_bss_02.asm
+1AC778,PlayerCallLast,dword_1AC778,new,low,last player call,src/data/engine/engine_3812E_bss_02.asm
+1AC77C,PlayerCallTime,dword_1AC77C,new,low,time of the last player call,src/data/engine/engine_3812E_bss_02.asm
+1AC780,GameSoundsOn,dword_1AC780,new,low,game sounds loaded,src/data/engine/engine_3812E_bss_02.asm
+1AC784,SpeechQueueRead,dword_1AC784,new,low,speech queue read position,src/data/engine/engine_3812E_bss_02.asm
+1AC788,SpeechQueueWrite,dword_1AC788,new,low,speech queue write position,src/data/engine/engine_3812E_bss_02.asm
+1AC78C,SpeechFileHandle,dword_1AC78C,new,low,speech file handle,src/data/engine/engine_3812E_bss_02.asm
+1AC790,SpeechStreamBuf,dword_1AC790,new,low,speech stream buffer,src/data/engine/engine_3812E_bss_02.asm
+1AC794,SpeechStreamLen,dword_1AC794,new,low,speech stream length,src/data/engine/engine_3812E_bss_02.asm
+1AC798,SpeechStreamRead,dword_1AC798,new,low,speech stream read position,src/data/engine/engine_3812E_bss_02.asm
+1AC79C,SpeechStreamEnd,dword_1AC79C,new,low,speech stream end,src/data/engine/engine_3812E_bss_02.asm
+1AC7A0,SpeechStreamClip,dword_1AC7A0,new,low,speech stream clip,src/data/engine/engine_3812E_bss_02.asm
+1AC7A4,SpeechChainCount,dword_1AC7A4,new,low,speech chain count,src/data/engine/engine_3812E_bss_02.asm
+1AC7A8,SpeechClipIndex,dword_1AC7A8,new,low,speech clip index,src/data/engine/engine_3812E_bss_02.asm
+1AC7AC,SpeechBankHandle,dword_1AC7AC,new,low,speech bank handle,src/data/engine/engine_3812E_bss_02.asm
+1AC7B0,SpeechClipTable,dword_1AC7B0,new,low,loaded speech clips,src/data/engine/engine_3812E_bss_02.asm
+1AC7B4,SpeechQueueClipId,dword_1AC7B4,new,low,speech queue clip,src/data/engine/engine_3812E_bss_02.asm
+1AC7B8,SpeechQueueDelay,dword_1AC7B8,new,low,speech queue delay,src/data/engine/engine_3812E_bss_02.asm
+1AC7BC,SpeechQueueStage,dword_1AC7BC,new,low,speech queue stage,src/data/engine/engine_3812E_bss_02.asm
+1AC7C0,SpeechQueuePriority,dword_1AC7C0,new,low,speech queue priority,src/data/engine/engine_3812E_bss_02.asm
+1AC7C4,SpeechQueueTime,dword_1AC7C4,new,low,speech queue time,src/data/engine/engine_3812E_bss_02.asm
+1AC7C8,SpeechBanksLoaded,dword_1AC7C8,new,low,speech banks loaded,src/data/engine/engine_3812E_bss_02.asm
+1AC7CC,SpeechBankList,dword_1AC7CC,new,low,speech bank list,src/data/engine/engine_3812E_bss_02.asm
+1AC7D0,SpeechChainLen,dword_1AC7D0,new,low,speech chain length,src/data/engine/engine_3812E_bss_02.asm
+1AC7D2,SpeechRequestId,dword_1AC7D2,new,low,speech request id,src/data/engine/engine_3812E_bss_02.asm
+1AC7D4,SpeechRequestA,dword_1AC7D4,new,low,speech request first clip,src/data/engine/engine_3812E_bss_02.asm
+1AC7D6,SpeechRequestB,dword_1AC7D6,new,low,speech request second clip,src/data/engine/engine_3812E_bss_02.asm
+1AC7D8,SpeechQueuePrio,word_1AC7D8,new,low,speech queue lowest priority,src/data/engine/engine_3812E_bss_02.asm
+1AC7DC,DataFilePath,unk_1AC7DC,new,low,data file path buffer,src/data/engine/engine_3812E_bss_02.asm
+1AC810,GlobalSetData,dword_1AC810,new,low,GLOBAL.SET settings,src/data/engine/engine_3812E_bss_02.asm
+1AC814,GameSettings,dword_1AC814,new,low,game settings flags,src/data/engine/engine_3812E_bss_02.asm
+1AC818,StartupFlag,byte_1AC818,new,low,start up option,src/data/engine/engine_3812E_bss_02.asm
 1CD1E0,InputRecordRing,unk_1CD1E0,96PC,high,96 PC InputRecordRing (97: 5 records of 14h bytes),src/data/front/front_DA66D_bss_01.asm
 1CD24C,HotKeyFlags,word_1CD24C,new,medium,"the record's flag word (pause and hot keys), from PollControllers",src/data/front/front_DA66D_bss_01.asm
 1CF0DC,memlist1,,95PC,medium,NHL95PC EDA08 (refset): referenced by the same 2 matched functions,

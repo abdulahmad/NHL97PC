@@ -17,7 +17,7 @@ extern str_BG00, str_BG01, str_BACK5, str_TITL3, str_LT002, str_LB002, str_RB00,
 extern str_TOP0, str_BOT0, str_LFTD, str_RITD, str_LT0D, str_LB0D, str_RT0D, str_RB0D
 extern str_LFT0, str_RIT0, str_BTTM, byte_1AC8C6, byte_1ACA66, byte_1ACA6A, byte_1ACC51, byte_1ACC55
 extern byte_1C833C, byte_1C83B4, dword_16CCFA, dword_16CCFE, dword_16CD14, dword_16CD18, str_Punct_ModemSettingsScreen, dword_16E464
-extern dword_16E468, MenuScreenBitmap, dword_1AC814, dword_1AC8AD, dword_1C5DE4, dword_1C5F12, dword_1C5F1E, dword_1C5F22
+extern dword_16E468, MenuScreenBitmap, GameSettings, dword_1AC8AD, dword_1C5DE4, dword_1C5F12, dword_1C5F1E, dword_1C5F22
 extern dword_1C5F64, dword_1C5F70, dword_1C5F74, dword_1C83B0, dword_1C8440, dword_1C8444, dword_1C8448, dword_1C844C
 extern dword_1C8450, dword_1C8454, fclose_, fgets_, fread_, fseek_, fwrite_, memcpy_
 extern memset_, sprintf_, strcmp_, strcpy_, strlen_, strstr_, bcopy, BlitConverted
@@ -2223,8 +2223,8 @@ ModemSettingsScreen_AF4:
         lea edx, [byte ebp-03Ch]
         mov eax, unk_1C834C
         call AddPhonebookEntry
-        mov edx, dword [dword_1AC814]
-        mov eax, dword [dword_1AC814]
+        mov edx, dword [GameSettings]
+        mov eax, dword [GameSettings]
         shl edx, 19h
         shl eax, 17h
         shr edx, 1Dh
@@ -2329,14 +2329,14 @@ ModemSettingsScreen_AF4:
         mov eax, dword [byte ebp-040h]
         sar eax, 2
         and eax, byte 7
-        and byte [dword_1AC814], 8Fh
+        and byte [GameSettings], 8Fh
         shl eax, 4
-        or dword [dword_1AC814], eax
+        or dword [GameSettings], eax
         mov eax, dword [byte ebp-040h]
         and eax, byte 3
-        and word [dword_1AC814], 0FE7Fh
+        and word [GameSettings], 0FE7Fh
         shl eax, 7
-        or dword [dword_1AC814], eax
+        or dword [GameSettings], eax
 .32:
         call HideLinkBox
         jmp near ModemSettingsScreen_AE3.22
@@ -3395,11 +3395,11 @@ NetworkGamesScreen_657:
         call strcpy_
         mov eax, dword [byte_1C83B4]
         and byte [dword_1AC8AD], 0FEh
-        mov edx, dword [dword_1AC814]
+        mov edx, dword [GameSettings]
         and eax, byte 1
         shl edx, 19h
         or dword [dword_1AC8AD], eax
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         shr edx, 1Dh
         shl eax, 17h
         shl edx, 2
@@ -3503,14 +3503,14 @@ NetworkGamesScreen_657:
         mov eax, dword [byte ebp-040h]
         sar eax, 2
         and eax, byte 7
-        and byte [dword_1AC814], 8Fh
+        and byte [GameSettings], 8Fh
         shl eax, 4
-        or dword [dword_1AC814], eax
+        or dword [GameSettings], eax
         mov eax, dword [byte ebp-040h]
         and eax, byte 3
-        and word [dword_1AC814], 0FE7Fh
+        and word [GameSettings], 0FE7Fh
         shl eax, 7
-        or dword [dword_1AC814], eax
+        or dword [GameSettings], eax
 .20:
         call HideLinkBox
         jmp near NetworkGamesScreen_646.9

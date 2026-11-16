@@ -7,7 +7,7 @@ global F32_144_asspenalty, F32_96_asspenalty, F32_40, F32_96_assrefpenshot, F32_
 global F32_3, F32_0p25, F32_7, F32_0p125, F32_0p125_KnockPuckAway, F32_48_PuckHitsGoalie, F32_0p25_PuckHitsGoalie, F32_0p166667_PuckHitsGoalie
 global F32_0p333333, F32_3_PuckHitsGoalie, F32_0p142857, F32_7_PuckPlayerContact, F32_0p125_PuckPlayerContact, F32_0p5_pucknorm_body, F32_neg1872, F32_neg1152
 global F32_neg1392_pucknorm_body, F32_40_ChkTiredPlayer, F32_0p01, F64_neg12, F64_1435, F64_3312, F64_720, F64_240
-global F64_2040, F64_4800, F64_0p01_DeflectPuck, F64_6p28319_DeflectPuck, F64_3p14159_DeflectPuck, F64_neg6p28319_DeflectPuck, F64_neg3p14159_DeflectPuck, qword_160713
+global F64_2040, F64_4800, F64_0p01_DeflectPuck, F64_6p28319_DeflectPuck, F64_3p14159_DeflectPuck, F64_neg6p28319_DeflectPuck, F64_neg3p14159_DeflectPuck, F64_DeflectScale
 global F64_0p00277778, F64_24, F64_6p28319_PuckHitsGoalie, F64_0p00277778_PuckHitsGoalie, F64_20, F64_3p14159_PuckToStick, F64_0p00555556, F64_neg0p698132
 global F64_0p698132, F64_0p5_PuckToStick, F64_6p28319_PuckToStick, F64_neg6p28319_PuckToStick, F64_neg3p14159_PuckToStick, F64_0p0174533, F64_5p49779, F64_12
 global F64_4272_ChkDelayedOffside, F64_2, F64_6p28319_PuckPlayerContact, F64_0p00277778_PuckPlayerContact, F64_neg12_a2offsides, F64_1440, F64_4272_a2touchpuck, F64_neg12_PuckIChk
@@ -78,7 +78,7 @@ F32_7:
         db 00h,00h,0E0h,040h
 F32_0p125:
         db 00h,00h,00h,03Eh
-qword_160713:
+F64_DeflectScale:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
 F64_0p00277778:
         db 016h,06Ch,0C1h,016h,06Ch,0C1h,066h,03Fh

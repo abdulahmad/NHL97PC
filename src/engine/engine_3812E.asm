@@ -8,8 +8,8 @@ extern str_AB04, str_AB03, str_SIM0, str_BT02d, str_FAN0, str_LT00, str_Logo02dF
 extern str_ALST, str_CDD, str_SDSD, str_LOCK, str_PANL, str_DMAN, str_HIST, str_MEGAHIST
 extern str_BKH, str_BKD, str_SFX4S, str_AUDSTREAM, str_CROWDCRD, str_GAMEDATAAUDPBP3TSF, str_MENU, str_S02dASF
 extern str_TEMP, str_SAUDPBP3TSF, str_KTSF, str_SAUDPBP2VIV, str_CBANK03dDAT, str_TEAM04dDAT, byte_1691DC, QuantizeByte
-extern QuantizeTable, RemapTable, IdentityRemap, byte_19CBC2, byte_1A0CC2, byte_1A8E89, byte_1A8E8E, byte_1A988C
-extern byte_1A988D, byte_1A988E, byte_1AC638, byte_1AC81A, byte_1AC81B, byte_1ACF62, byte_1ACF63, byte_1AD457
+extern QuantizeTable, RemapTable, IdentityRemap, byte_19CBC2, OverlayMask, FadePalCurrent, FadePalBytes, FadePalTarget
+extern FadePalTargetG, FadePalTargetBytes, MusicTrackTable, byte_1AC81A, byte_1AC81B, byte_1ACF62, byte_1ACF63, byte_1AD457
 extern byte_1AD458, byte_1AD742, byte_1B93DD, byte_1B93DE, byte_1BF670, byte_1C135A, byte_1C135B, byte_1C6040
 extern F32_10_RefDodgePuck, F32_3_RefDodgePuck, F32_15, F32_0p0666667, F32_0p5_RefDodgePuck, F32_144_PokeCheckAnim, F32_336, F32_192_TryBodyCheck
 extern F32_144_TryBodyCheck, F32_98, F32_42, dword_16908A, dword_1690D2, dword_1690EE, str_G_DrawLockedGame, dword_169126
@@ -23,15 +23,15 @@ extern QuantizePalette, DrawDestBuffer, DrawDestPitch, VideoModeNumber, VideoMod
 extern dword_19ED00, dword_19ED10, dword_19ED14, dword_19ED18, dword_19ED1C, dword_19ED20, dword_19ED24, dword_19ED28
 extern dword_19ED2C, dword_19ED30, dword_19ED34, dword_19ED38, dword_19ED3C, dword_19ED40, dword_19ED44, dword_19ED48
 extern dword_19ED4C, dword_19ED50, dword_19ED54, dword_19ED58, dword_19ED5C, dword_19ED60, dword_19ED64, dword_19ED68
-extern dword_19ED6C, dword_19ED70, dword_19F4F4, dword_19F4F8, dword_19F4FC, dword_19FD14, dword_19FD18, dword_1A0CBC
-extern dword_1A0CC0, dword_1A8B48, dword_1A8B60, dword_1A8E48, dword_1A8E4C, dword_1A8E50, dword_1A8E54, dword_1A8E58
-extern dword_1A8E5C, dword_1A8E60, dword_1A8E64, dword_1A8E68, dword_1A8E6C, dword_1A8E70, dword_1A8E74, dword_1A8E7C
-extern dword_1A8E80, dword_1A8E84, dword_1A8E88, dword_1AC34C, dword_1AC350, dword_1AC354, dword_1AC358, dword_1AC35C
-extern dword_1AC360, dword_1AC364, dword_1AC368, dword_1AC36C, dword_1AC370, dword_1AC374, dword_1AC378, dword_1AC37C
-extern dword_1AC430, dword_1AC434, dword_1AC438, dword_1AC4FC, dword_1AC508, dword_1AC50C, dword_1AC510, dword_1AC5D8
-extern dword_1AC5EC, dword_1AC5F0, dword_1AC604, dword_1AC608, dword_1AC620, dword_1AC780, dword_1AC784, dword_1AC788
-extern dword_1AC7A8, dword_1AC7AC, dword_1AC7B0, dword_1AC7B4, dword_1AC7B8, dword_1AC7BC, dword_1AC7C0, dword_1AC7C4
-extern dword_1AC7C8, dword_1AC7D2, dword_1AC7D4, dword_1AC7D6, dword_1AC814, dword_1AC819, dword_1AC940, dword_1AC944
+extern dword_19ED6C, dword_19ED70, SpanSlotNext, SpanSlotStart, SpanSlotTable, OverlayRowCount, OverlayRowMask, OverlayWindowFlags
+extern OverlayWindowCount, ScreenRegion, OverlayWindows, GameViewBuffer, GameViewPitch, ViewSizeChanged, ViewAspect, DirtySpanCount
+extern OverlayMaskDirty, RinkDetail, GameViewTop, GameViewRows, DisplayViewCount, GameViewShown, DisplayViews, OverlayWindowsOpen
+extern ViewSizeIndex, ViewPixelWidth, ViewPixelHeight, FadeFramesLeft, FadeActive, FadeFirstEntry, ArtRemapTable, PaletteRangeCount
+extern FadeEntryCount, FadeDone, RangeBlendLevel, FadeStepCount, StreamSpeed, CdStreamBuf, StreamHandle, StreamRate
+extern SpeechReqHead, SpeechReqTail, SpeechRequests, dword_1AC4FC, dword_1AC508, dword_1AC50C, dword_1AC510, dword_1AC5D8
+extern dword_1AC5EC, SfxBankNames, GameAudioState, SfxBankData, SfxBankSizes, GameSoundsOn, SpeechQueueRead, SpeechQueueWrite
+extern SpeechClipIndex, SpeechBankHandle, SpeechClipTable, SpeechQueueClipId, SpeechQueueDelay, SpeechQueueStage, SpeechQueuePriority, SpeechQueueTime
+extern SpeechBanksLoaded, SpeechRequestId, SpeechRequestA, SpeechRequestB, GameSettings, dword_1AC819, dword_1AC940, dword_1AC944
 extern dword_1ACF3E, dword_1ACF46, dword_1ACF65, dword_1AD226, dword_1AD45A, dword_1AD6AB, dword_1B8FA0, dword_1B905F
 extern dword_1B9067, dword_1B906F, dword_1B93D8, dword_1B93DC, dword_1B93E4, dword_1B93E8, dword_1B9D20, dword_1BAB04
 extern dword_1BB258, dword_1BF17C, dword_1C1334, dword_1C5E74, hypot_, jpt_380E6, jpt_38102, jpt_3811A
@@ -62,11 +62,11 @@ extern FileWriteRecord, FileClose, ServiceIdle, BuildAllStarTeams, FreeVideoBuff
 extern AllocMemBlock, FreeMemBlock, MemFreeSize, ZeroMem, FillMem, addtimer, RemoveTimerCallback, TicksSinceLast
 extern WaitTicks, OpenResourceArchive, CurrentArchiveName, MakeColor, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget
 extern ClearScreen, FillRectColor, SetTextColors, SetFocalLength, SetProjectionCenter, tickcount, str_D_DrawSeasonGamePanel, unk_160B68
-extern str_16, str_8, unk_19ED78, unk_19F548, unk_1A0CB8, unk_1A8D48, unk_1A8E8C, unk_1A9C8C
+extern str_16, str_8, unk_19ED78, DirtySpans, OverlayMaskBase, RinkPalette, FadePalCount, PaletteRanges
 extern unk_1AD22E, unk_1B93E0, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, word_169054, word_169066, str_Punct_DrawSeasonGamePanel
 extern word_16914E, word_1691A4, word_1691B2, word_1691B6, word_169232, word_169234, word_169236, word_19ED74
-extern word_19ED76, word_1A928A, word_1A928C, word_1A928E, word_1ABD46, word_1ABD48, word_1ABD4A, word_1ABD4C
-extern word_1ABD4E, word_1ABD50, word_1AC7D8, word_1AD240, word_1AD242, word_1C1344
+extern word_19ED76, FadePalStepR, FadePalStepG, FadePalSteps, FadeAccumR, FadeAccumG, FadeAccumB, FadeAccumNext
+extern FadeAccumLast, FadeAccums, SpeechQueuePrio, word_1AD240, word_1AD242, word_1C1344
 global jpt_3EF24, jpt_40D68, jpt_40DCC, jpt_40E30, jpt_40EA4, SeasonGameScreen_13F, SeasonGameScreen_14D, SeasonGameScreen_17B
 global SeasonGameScreen_182, SeasonGameScreen_1DA, SeasonGameScreen_1E3, SeasonGameScreen_1EC, SeasonGameScreen_1F3, SeasonGameScreen_238, SeasonGameScreen_2B1, SeasonGameScreen_2CF
 global SeasonGameScreen_3D3, SeasonGameScreen_3DF, SeasonGameScreen_3EB, InitSeasonGameScreen_472, FindUserOpponent_14D, FindUserOpponent_14E, AnimateSparkle_6B, FadePaletteStep_FC
@@ -297,7 +297,7 @@ SeasonGameScreen_2CF:
         add esp, byte 0Ch
         cmp dword [dword_19ED14], byte 0
         jne near .16
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         je short .9
@@ -324,7 +324,7 @@ SeasonGameScreen_2CF:
         mov eax, 1
         call FinishLeagueGame
 .13:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         je short .14
@@ -417,7 +417,7 @@ SeasonGameScreen_3EB:
 SetSeasonUserTeam:
         push ebx
         push edx
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         mov edx, 1
         cmp eax, byte 10h
@@ -431,7 +431,7 @@ SetSeasonUserTeam:
 .2:
         movzx eax, byte [byte_1AD742]
         mov dword [dword_19ED20], eax
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .4
@@ -822,7 +822,7 @@ TeamHasGamesLeft:
         push ecx
         push esi
         mov ecx, edx
-        mov edx, dword [dword_1AC814]
+        mov edx, dword [GameSettings]
         and edx, byte 70h
         cmp edx, byte 10h
         jne short .2
@@ -1207,7 +1207,7 @@ FindUserOpponent:
         jl short .6
         jmp short .5
 .8:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .11
@@ -1315,7 +1315,7 @@ DrawLockedGame:
         add esp, byte 0Ch
         jmp near InitSeasonGameScreen_472
         push edx
-        mov edx, dword [dword_1AC814]
+        mov edx, dword [GameSettings]
         and edx, byte 70h
         cmp edx, byte 10h
         jne short .1
@@ -1339,7 +1339,7 @@ DrawSeasonGamePanel:
         push edi
         enter 28h, 0
         mov ebx, eax
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         mov dword [byte ebp-010h], 1
         cmp eax, byte 10h
@@ -1719,7 +1719,7 @@ DrawSeasonGamePanel:
         add edx, esi
         cmp ebx, edx
         jne near .41
-        mov ebx, dword [dword_1AC814]
+        mov ebx, dword [GameSettings]
         movsx edx, byte [eax]
         and ebx, byte 70h
         cmp edx, dword [dword_19ED20]
@@ -1887,7 +1887,7 @@ DrawSeasonGamePanel:
         add edx, esi
         cmp edx, eax
         jne short .52
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         je short .52
@@ -1955,7 +1955,7 @@ SetPlayedTeams:
 ; In a season: whether today is the All-Star game day; returns 1 if so
 ;-----------------------------------------------------------------------------
 IsAllStarDay:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .1
@@ -1974,7 +1974,7 @@ IsAllStarDay:
 ; Returns the day number of the All-Star game (earlier in a short season)
 ;-----------------------------------------------------------------------------
 GetAllStarDate:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .1
@@ -2007,7 +2007,7 @@ StartNextSeasonGame:
         mov dword [dword_19ED14], 5
         jmp near .11
 .1:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         mov dword [dword_19ED14], 0
         cmp eax, byte 10h
@@ -2037,7 +2037,7 @@ StartNextSeasonGame:
         dec eax
         mov dword [byte ebp-04h], eax
 .4:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .5
@@ -2067,7 +2067,7 @@ StartNextSeasonGame:
         mov eax, dword [byte edx+020h]
         mov ax, word [byte ebx+eax+04h]
         mov word [word_1C1344], ax
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .6
@@ -2110,7 +2110,7 @@ StartNextSeasonGame:
         and word [byte eax+03h], 0FC0Fh
         shl edx, 14h
         or dword [byte eax+01h], edx
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .8
@@ -4832,19 +4832,19 @@ AddDirtySpans:
         mov edi, eax
         mov ebx, edx
         lea ebp, [byte eax+010h]
-        mov edx, dword [dword_1A8E58]
+        mov edx, dword [DirtySpanCount]
         mov eax, dword [byte eax+04h]
-        mov ecx, dword [dword_1A8E58]
+        mov ecx, dword [DirtySpanCount]
         sar eax, 10h
         shl edx, 2
         add eax, ecx
-        add edx, unk_19F548
+        add edx, DirtySpans
         cmp eax, 1F4h
         jle short .1
         mov eax, 1
         jmp near .16
 .1:
-        mov dword [dword_1A8E58], eax
+        mov dword [DirtySpanCount], eax
         test ebx, ebx
         je near .12
         xor esi, esi
@@ -4999,8 +4999,8 @@ InsertSpanSlot:
         lea eax, [nosplit ebx*4+00h]
 .3:
         sub eax, byte 4
-        mov edx, dword [dword eax+dword_19F4F8]
-        mov dword [dword eax+dword_19F4FC], edx
+        mov edx, dword [dword eax+SpanSlotStart]
+        mov dword [dword eax+SpanSlotTable], edx
         cmp eax, ecx
         jg short .3
 .4:
@@ -5043,8 +5043,8 @@ RemoveSpanSlot:
         lea eax, [nosplit ecx*4+00h]
 .3:
         add eax, byte 4
-        mov edx, dword [dword eax+dword_19F4F8]
-        mov dword [dword eax+dword_19F4F4], edx
+        mov edx, dword [dword eax+SpanSlotStart]
+        mov dword [dword eax+SpanSlotNext], edx
         cmp eax, ebx
         jl short .3
 .4:
@@ -5504,7 +5504,7 @@ MergeDirtySpans:
         lea eax, [edx+ebx]
         inc ecx
         sub eax, ebp
-        mov dword [nosplit ecx*4+dword_19F4F4], eax
+        mov dword [nosplit ecx*4+SpanSlotNext], eax
         jmp near .13
 .19:
         cmp eax, ebx
@@ -5535,7 +5535,7 @@ MergeDirtySpans:
         mov dword [byte ebp+08h], ebx
         test byte [byte ebp+0Ah], 4
         je near .14
-        add dword [nosplit ecx*4+dword_19F4F8], edx
+        add dword [nosplit ecx*4+SpanSlotStart], edx
         jmp near .14
 .20:
         mov ebx, edi
@@ -5591,10 +5591,10 @@ MergeDirtySpans:
         je short .21
         mov edx, dword [byte edx+08h]
         shl edx, 0Eh
-        mov eax, dword [nosplit ecx*4+dword_19F4FC]
+        mov eax, dword [nosplit ecx*4+SpanSlotTable]
         shr edx, 16h
         add eax, edx
-        mov dword [nosplit ecx*4+dword_19F4FC], eax
+        mov dword [nosplit ecx*4+SpanSlotTable], eax
 .21:
         lea eax, [nosplit ecx*4+00h]
         sub eax, ecx
@@ -5632,7 +5632,7 @@ MergeDirtySpans:
         mov byte [byte esi+0Ah], dh
         sub eax, dword [byte esp+01Ch]
         mov edx, edi
-        mov dword [nosplit ecx*4+dword_19F4F8], eax
+        mov dword [nosplit ecx*4+SpanSlotStart], eax
         mov eax, edx
         add esp, byte 20h
         pop ebp
@@ -5703,11 +5703,11 @@ RebuildOverlayMask:
         push ebp
         sub esp, byte 58h
         mov dword [byte esp+014h], eax
-        mov ebp, unk_1A0CB8
+        mov ebp, OverlayMaskBase
         xor edx, edx
         mov eax, dword [dword_16E464]
-        mov dword [dword_1A8E68], edx
-        mov dword [dword_1A8E5C], edx
+        mov dword [GameViewRows], edx
+        mov dword [OverlayMaskDirty], edx
         mov dword [byte esp+08h], edx
         mov dword [byte esp+044h], edx
         mov dword [byte esp+04h], eax
@@ -5717,19 +5717,19 @@ RebuildOverlayMask:
         test eax, eax
         jne short .1
         mov ebx, 1
-        mov edx, dword [dword_1A0CC0]
+        mov edx, dword [OverlayWindowCount]
         add ebp, byte 0Ch
         and edx, 0FFFC00FFh
-        mov dword [dword_1A8E68], ebx
-        mov dword [dword_1A0CC0], edx
+        mov dword [GameViewRows], ebx
+        mov dword [OverlayWindowCount], edx
 .1:
         call SetScreenTarget
         mov eax, dword [DrawDestPitch]
         mov esi, dword [DrawDestBuffer]
         mov dword [byte esp+038h], eax
         call PresentScreen
-        mov eax, dword [dword_1A8E80]
-        mov ecx, dword [dword_1A8E74]
+        mov eax, dword [ViewSizeIndex]
+        mov ecx, dword [DisplayViews]
         xor edx, edx
         test ecx, ecx
         jle short .4
@@ -5752,20 +5752,20 @@ RebuildOverlayMask:
         add ebx, byte 10h
         mov dword [byte eax+020h], ebx
 .3:
-        mov edi, dword [dword_1A8E74]
+        mov edi, dword [DisplayViews]
         inc edx
         add eax, byte 28h
         cmp edx, edi
         jl short .2
 .4:
-        mov eax, dword_1A8B48
-        mov ebx, dword [dword_1A8E7C]
+        mov eax, ScreenRegion
+        mov ebx, dword [OverlayWindowsOpen]
         xor edx, edx
         test ebx, ebx
         jle short .6
 .5:
         mov ebx, dword [byte eax+018h]
-        mov ecx, unk_19F548
+        mov ecx, DirtySpans
         shl ebx, 2
         add ecx, ebx
         mov ebx, dword [eax]
@@ -5774,7 +5774,7 @@ RebuildOverlayMask:
         lea ecx, [byte ebx+010h]
         mov dword [byte eax+04h], ecx
         inc edx
-        mov edi, dword [dword_1A8E7C]
+        mov edi, dword [OverlayWindowsOpen]
         add eax, byte 20h
         cmp edx, edi
         jl short .5
@@ -5819,9 +5819,9 @@ RebuildOverlayMask:
         mov dword [byte esp+028h], eax
 .10:
         xor esi, esi
-        mov eax, dword [dword_1A8E74]
+        mov eax, dword [DisplayViews]
         mov dword [byte esp+050h], esi
-        mov esi, dword [dword_1A8E80]
+        mov esi, dword [ViewSizeIndex]
         test eax, eax
         jle near .17
         mov eax, dword [byte esp+024h]
@@ -5889,14 +5889,14 @@ RebuildOverlayMask:
         add ecx, byte 28h
         mov dword [byte esp+050h], ebx
         mov eax, ebx
-        mov ebx, dword [dword_1A8E74]
+        mov ebx, dword [DisplayViews]
         mov dword [byte esp+04Ch], ecx
         cmp eax, ebx
         jl near .11
 .17:
-        mov esi, dword_1A8B48
+        mov esi, ScreenRegion
         xor ecx, ecx
-        mov eax, dword [dword_1A8E7C]
+        mov eax, dword [OverlayWindowsOpen]
         mov dword [byte esp+054h], ecx
         test eax, eax
         jle near .20
@@ -5942,7 +5942,7 @@ RebuildOverlayMask:
         mov dword [byte esi+04h], ebx
 .19:
         mov ecx, dword [byte esp+054h]
-        mov ebx, dword [dword_1A8E7C]
+        mov ebx, dword [OverlayWindowsOpen]
         inc ecx
         add esi, byte 20h
         mov dword [byte esp+054h], ecx
@@ -5974,13 +5974,13 @@ RebuildOverlayMask:
         mov dword [byte eax+04h], ecx
         test bh, 4
         je short .22
-        mov ebx, dword [dword_1A8E5C]
+        mov ebx, dword [OverlayMaskDirty]
         mov ecx, ebx
-        mov ebx, dword [dword esi+dword_19F4F8]
-        mov dword [nosplit ecx*4+dword_19FD18], ebx
+        mov ebx, dword [dword esi+SpanSlotStart]
+        mov dword [nosplit ecx*4+OverlayRowMask], ebx
         mov ebx, ecx
         inc ebx
-        mov dword [dword_1A8E5C], ebx
+        mov dword [OverlayMaskDirty], ebx
 .22:
         mov ebx, dword [byte esp+034h]
         add esi, byte 4
@@ -6005,13 +6005,13 @@ RebuildOverlayMask:
         mov dword [byte eax+04h], ecx
         test bl, 4
         je short .25
-        mov ebx, dword [dword_1A8E5C]
+        mov ebx, dword [OverlayMaskDirty]
         mov ecx, ebx
-        mov ebx, dword [dword esi+dword_19F4F8]
-        mov dword [nosplit ecx*4+dword_19FD18], ebx
+        mov ebx, dword [dword esi+SpanSlotStart]
+        mov dword [nosplit ecx*4+OverlayRowMask], ebx
         mov ebx, ecx
         inc ebx
-        mov dword [dword_1A8E5C], ebx
+        mov dword [OverlayMaskDirty], ebx
 .25:
         mov ebx, dword [byte esp+030h]
         add esi, byte 4
@@ -6020,11 +6020,11 @@ RebuildOverlayMask:
         jl short .24
 .26:
         imul eax, edx, byte 0Ch
-        mov esi, dword [dword_1A8E68]
+        mov esi, dword [GameViewRows]
         add ebp, eax
         add esi, edx
         mov eax, dword [byte esp+024h]
-        mov dword [dword_1A8E68], esi
+        mov dword [GameViewRows], esi
         mov ebx, dword [byte esp+024h]
         mov eax, dword [esp+eax]
         mov ecx, dword [byte esp+ebx+08h]
@@ -6037,10 +6037,10 @@ RebuildOverlayMask:
         cmp eax, ebx
         jge short .27
         and dword [byte ebp+08h], 0FFFC00FFh
-        mov esi, dword [dword_1A8E68]
+        mov esi, dword [GameViewRows]
         inc esi
         add ebp, byte 0Ch
-        mov dword [dword_1A8E68], esi
+        mov dword [GameViewRows], esi
         mov byte [byte ebp+08h], 0
         mov dword [byte ebp+00h], 0
         xor eax, eax
@@ -6069,7 +6069,7 @@ RebuildOverlayMask:
         jl near .7
 .29:
         xor edx, edx
-        mov dword [dword_1A8E6C], edx
+        mov dword [DisplayViewCount], edx
         add esp, byte 58h
         pop ebp
         pop edi
@@ -6194,9 +6194,9 @@ DrawOverlayRows:
         mov ebx, eax
         test dword [byte eax+08h], 3FF00h
         jne short .1
-        mov eax, dword [dword_1A8E4C]
+        mov eax, dword [GameViewPitch]
         lea edx, [byte eax+01h]
-        mov dword [dword_1A8E4C], edx
+        mov dword [GameViewPitch], edx
         call VesaSetBank
         jmp near .8
 .1:
@@ -6210,13 +6210,13 @@ DrawOverlayRows:
         shr eax, 1Fh
         test edx, eax
         je short .2
-        mov eax, dword [dword_1A8E48]
+        mov eax, dword [GameViewBuffer]
         mov ecx, dword [byte ebx+08h]
         mov esi, dword [byte ebx+04h]
         inc eax
         shl ecx, 0Eh
-        mov edx, dword [nosplit eax*4+dword_19FD14]
-        mov dword [dword_1A8E48], eax
+        mov edx, dword [nosplit eax*4+OverlayRowCount]
+        mov dword [GameViewBuffer], eax
         shr ecx, 16h
         mov eax, dword [ebx]
         mov ebx, esi
@@ -6231,13 +6231,13 @@ DrawOverlayRows:
         mov ch, byte [byte ebx+0Ah]
         test ch, 40h
         je short .3
-        mov esi, dword [dword_1A8E48]
+        mov esi, dword [GameViewBuffer]
         mov ecx, dword [byte ebx+08h]
         mov eax, dword [byte ebx+04h]
         inc esi
         shl ecx, 0Eh
-        mov edx, dword [nosplit esi*4+dword_19FD14]
-        mov dword [dword_1A8E48], esi
+        mov edx, dword [nosplit esi*4+OverlayRowCount]
+        mov dword [GameViewBuffer], esi
         shr ecx, 16h
         mov esi, dword [ebx]
         mov ebx, eax
@@ -6252,11 +6252,11 @@ DrawOverlayRows:
 .3:
         test ch, 20h
         je near .8
-        mov eax, dword [dword_1A8E48]
+        mov eax, dword [GameViewBuffer]
         inc eax
         mov ecx, dword [ebx]
-        mov dword [dword_1A8E48], eax
-        mov esi, dword [nosplit eax*4+dword_19FD14]
+        mov dword [GameViewBuffer], eax
+        mov esi, dword [nosplit eax*4+OverlayRowCount]
         mov eax, dword [byte ebx+08h]
         shl eax, 0Eh
         mov edx, dword [byte ebx+04h]
@@ -6285,7 +6285,7 @@ DrawOverlayRows:
 .6:
         test byte [byte ebx+08h], 0FFh
         jne short .7
-        cmp dword [dword_1A8E70], byte 0
+        cmp dword [GameViewShown], byte 0
         je short .7
         mov edx, dword [byte ebx+08h]
         mov edi, dword [byte ebx+04h]
@@ -6321,19 +6321,19 @@ DrawOverlayRows:
         push ecx
         push edx
         push esi
-        mov ecx, dword [dword_1A8E68]
+        mov ecx, dword [GameViewRows]
         xor edx, edx
         xor ebx, ebx
-        mov dword [dword_1A8E48], edx
-        mov dword [dword_1A8E4C], edx
+        mov dword [GameViewBuffer], edx
+        mov dword [GameViewPitch], edx
         test ecx, ecx
         jle short .10
-        mov edx, unk_1A0CB8
+        mov edx, OverlayMaskBase
 .9:
         mov eax, edx
         call DrawOverlayRows
         inc ebx
-        mov esi, dword [dword_1A8E68]
+        mov esi, dword [GameViewRows]
         add edx, byte 0Ch
         cmp ebx, esi
         jl short .9
@@ -6347,7 +6347,7 @@ DrawOverlayRows:
 ;-----------------------------------------------------------------------------
 ; SetVideoMode                                 3C75C  97 PC, medium confidence
 ; (width, height): switches the screen mode when it differs from the current
-; one (dword_1A8E84 x dword_1A8E88)
+; one (ViewPixelWidth x ViewPixelHeight)
 ;-----------------------------------------------------------------------------
 SetVideoMode:
         push ebx
@@ -6358,9 +6358,9 @@ SetVideoMode:
         sub esp, 308h
         mov ebx, eax
         mov esi, edx
-        cmp eax, dword [dword_1A8E84]
+        cmp eax, dword [ViewPixelWidth]
         jne short .1
-        cmp esi, dword [dword_1A8E88]
+        cmp esi, dword [ViewPixelHeight]
         je near .2
 .1:
         mov eax, esp
@@ -6418,10 +6418,10 @@ SetVideoMode:
         fild dword [dword esp+0300h]
         fild dword [dword esp+0304h]
         fdivp
-        mov dword [dword_1A8E50], edi
-        mov dword [dword_1A8E64], edi
-        mov dword [dword_1A8E6C], edi
-        fstp dword [dword_1A8E54]
+        mov dword [ViewSizeChanged], edi
+        mov dword [GameViewTop], edi
+        mov dword [DisplayViewCount], edi
+        fstp dword [ViewAspect]
 .2:
         add esp, 308h
         pop ebp
@@ -6439,7 +6439,7 @@ InitDisplayViews:
         push ebx
         push ecx
         mov ebx, eax
-        mov dword [dword_1A8E74], eax
+        mov dword [DisplayViews], eax
         shl eax, 2
         add eax, ebx
         push edx
@@ -6448,7 +6448,7 @@ InitDisplayViews:
         push str_DMAN
         call AllocMemBlock
         add esp, byte 0Ch
-        mov dword [dword_1A8E80], eax
+        mov dword [ViewSizeIndex], eax
         xor edx, edx
         test ebx, ebx
         jle short .2
@@ -6461,9 +6461,9 @@ InitDisplayViews:
 .2:
         mov edx, 0FFFFFFFFh
         mov ecx, 1
-        mov dword [dword_1A8E84], edx
-        mov dword [dword_1A8E6C], ecx
-        mov dword [dword_1A8E88], edx
+        mov dword [ViewPixelWidth], edx
+        mov dword [DisplayViewCount], ecx
+        mov dword [ViewPixelHeight], edx
         pop ecx
         pop ebx
         ret
@@ -6479,8 +6479,8 @@ FreeDisplayViews:
         push esi
         push edi
         push ebp
-        mov edx, dword [dword_1A8E74]
-        mov edi, dword [dword_1A8E80]
+        mov edx, dword [DisplayViews]
+        mov edi, dword [ViewSizeIndex]
         xor esi, esi
         test edx, edx
         jle short .3
@@ -6488,23 +6488,23 @@ FreeDisplayViews:
 .1:
         test byte [byte edi+04h], 1
         je short .2
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         mov eax, dword [ebx+eax]
         mov dword [byte eax+028h], 0
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         mov ebp, dword [ebx+eax]
         push ebp
         call FreeBitmap
         add esp, byte 4
 .2:
-        mov ecx, dword [dword_1A8E74]
+        mov ecx, dword [DisplayViews]
         add ebx, byte 28h
         inc esi
         add edi, byte 28h
         cmp esi, ecx
         jl short .1
 .3:
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         push eax
         call FreeMemBlock
         add esp, byte 4
@@ -6527,12 +6527,12 @@ AddDisplayView:
         push ebp
         mov edi, eax
         mov ebp, edx
-        mov edx, dword [dword_1A8E74]
-        mov esi, dword [dword_1A8E80]
+        mov edx, dword [DisplayViews]
+        mov esi, dword [ViewSizeIndex]
         xor eax, eax
         test edx, edx
         jle short .2
-        mov ecx, dword [dword_1A8E74]
+        mov ecx, dword [DisplayViews]
 .1:
         test byte [byte esi+04h], 1
         je short .2
@@ -6562,7 +6562,7 @@ AddDisplayView:
         mov eax, esi
         mov edi, 1
         call SetViewSize
-        mov dword [dword_1A8E6C], edi
+        mov dword [DisplayViewCount], edi
         mov eax, esi
         pop ebp
         pop edi
@@ -6584,20 +6584,20 @@ SetViewDrawTarget:
         push edx
         call SetDrawTarget
         mov eax, dword [byte ebx+018h]
-        mov dword [dword_1A8E84], eax
+        mov dword [ViewPixelWidth], eax
         mov eax, dword [byte ebx+01Ch]
-        mov dword [dword_1A8E88], eax
+        mov dword [ViewPixelHeight], eax
         mov ah, byte [byte ebx+04h]
         add esp, byte 4
         test ah, 2
         je short .1
-        fld dword [dword_1A8E54]
+        fld dword [ViewAspect]
         fmul qword [F64_0p5_SetViewDrawTarget]
         sub esp, byte 4
         fstp dword [esp]
         jmp short .2
 .1:
-        push dword [dword_1A8E54]
+        push dword [ViewAspect]
 .2:
         call SetFocalLength
         mov ecx, dword [byte ebx+01Ch]
@@ -6661,8 +6661,8 @@ SetViewSize:
         jl short .1
 .2:
         mov edx, 1
-        mov dword [dword_1A8E50], edx
-        mov dword [dword_1A8E6C], edx
+        mov dword [ViewSizeChanged], edx
+        mov dword [DisplayViewCount], edx
         add esp, byte 4
         pop ebp
         pop edi
@@ -6693,8 +6693,8 @@ SetViewInterlaced:
         call SetViewSize
         mov edx, 1
         mov dword [ViewInterlaced], edx
-        mov dword [dword_1A8E6C], edx
-        mov dword [dword_1A8E50], edx
+        mov dword [DisplayViewCount], edx
+        mov dword [ViewSizeChanged], edx
         call MarkPaletteDirty
 .1:
         pop edx
@@ -6722,7 +6722,7 @@ ClearViewInterlaced:
         xor edx, edx
         mov ebx, 1
         mov dword [ViewInterlaced], edx
-        mov dword [dword_1A8E6C], ebx
+        mov dword [DisplayViewCount], ebx
 .1:
         pop edx
         pop ebx
@@ -6734,7 +6734,7 @@ ClearViewInterlaced:
 ;-----------------------------------------------------------------------------
 HideView:
         or byte [byte eax+04h], 4
-        mov dword [dword_1A8E6C], 1
+        mov dword [DisplayViewCount], 1
         ret
         db 090h
 ;-----------------------------------------------------------------------------
@@ -6748,9 +6748,9 @@ ShowView:
         mov byte [byte eax+04h], dl
         test dl, 2
         je short .1
-        mov dword [dword_1A8E50], 1
+        mov dword [ViewSizeChanged], 1
 .1:
-        mov dword [dword_1A8E6C], 1
+        mov dword [DisplayViewCount], 1
         pop edx
         ret
         db 08Dh,040h,00h
@@ -6769,7 +6769,7 @@ SetViewOrigin:
         mov eax, dword [byte eax+02Ch]
         mov edx, 1
         mov word [byte eax+0Eh], bx
-        mov dword [dword_1A8E6C], edx
+        mov dword [DisplayViewCount], edx
         pop ecx
         ret
         db 08Bh,0C0h
@@ -6784,7 +6784,7 @@ ClearViewBorders:
         push esi
         push edi
         push ebp
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         mov dl, byte [byte eax+04h]
         mov edi, dword [byte eax+01Ch]
         test dl, 2
@@ -6806,14 +6806,14 @@ ClearViewBorders:
         inc esi
         add esp, byte 14h
 .3:
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         cmp esi, dword [byte eax+014h]
         jl short .2
         xor esi, esi
         test edi, edi
         jle near .7
 .4:
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         mov ebx, dword [byte eax+014h]
         add ebx, esi
         test si, 1
@@ -6834,7 +6834,7 @@ ClearViewBorders:
 .5:
         mov ebp, dword [dword_169184]
         push ebp
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         push ebx
         mov edx, dword [byte eax+010h]
         push edx
@@ -6846,7 +6846,7 @@ ClearViewBorders:
         push ecx
         push ebx
         mov ebp, dword [dword_16E464]
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         push ebp
         mov edx, dword [byte eax+018h]
         push ebx
@@ -6860,7 +6860,7 @@ ClearViewBorders:
         cmp esi, edi
         jl short .4
 .7:
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         mov ebx, dword [byte eax+014h]
         mov esi, dword [dword_16E468]
         add ebx, edi
@@ -6901,19 +6901,19 @@ PresentGameView:
         push esi
         push edi
         push ebp
-        cmp dword [dword_1A8E50], byte 0
+        cmp dword [ViewSizeChanged], byte 0
         je short .1
         xor ebx, ebx
         call ClearViewBorders
-        mov dword [dword_1A8E50], ebx
+        mov dword [ViewSizeChanged], ebx
 .1:
-        cmp dword [dword_1A8E7C], byte 0
+        cmp dword [OverlayWindowsOpen], byte 0
         jne short .2
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         test byte [byte eax+04h], 2
         jne short .2
         call SetScreenTarget
-        mov edx, dword [dword_1A8E80]
+        mov edx, dword [ViewSizeIndex]
         mov ebx, dword [byte edx+014h]
         push ebx
         mov ecx, dword [byte edx+010h]
@@ -6926,35 +6926,35 @@ PresentGameView:
         call PresentScreen
         jmp short .5
 .2:
-        cmp dword [dword_1A8E6C], byte 0
+        cmp dword [DisplayViewCount], byte 0
         je short .3
         mov eax, dword [dword_169180]
         call RebuildOverlayMask
 .3:
         mov edi, 1
-        push unk_1A8D48
+        push RinkPalette
         xor ebp, ebp
         xor ebx, ebx
-        mov dword [dword_1A8E70], edi
+        mov dword [GameViewShown], edi
         call SetRemapTable
-        mov edx, dword [dword_1A8E68]
+        mov edx, dword [GameViewRows]
         add esp, byte 4
-        mov dword [dword_1A8E4C], ebp
-        mov dword [dword_1A8E48], ebp
+        mov dword [GameViewPitch], ebp
+        mov dword [GameViewBuffer], ebp
         test edx, edx
         jle short .5
-        mov edx, unk_1A0CB8
+        mov edx, OverlayMaskBase
 .4:
         mov eax, edx
         call DrawOverlayRows
         inc ebx
-        mov edi, dword [dword_1A8E68]
+        mov edi, dword [GameViewRows]
         add edx, byte 0Ch
         cmp ebx, edi
         jl short .4
 .5:
         xor ebp, ebp
-        mov dword [dword_1A8E64], ebp
+        mov dword [GameViewTop], ebp
         pop ebp
         pop edi
         pop esi
@@ -6965,24 +6965,24 @@ PresentGameView:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; AddOverlayWindow                                3CD70  97 PC, low confidence
-; (id, ...): adds an entry to the 32-byte overlay window list (dword_1A8B48,
-; count dword_1A8E7C) and draws it; from every overlay panel and the pause
+; (id, ...): adds an entry to the 32-byte overlay window list (ScreenRegion,
+; count OverlayWindowsOpen) and draws it; from every overlay panel and the pause
 ; menu
 ;-----------------------------------------------------------------------------
 AddOverlayWindow:
         push esi
         push edi
         mov esi, eax
-        mov eax, dword [dword_1A8E7C]
+        mov eax, dword [OverlayWindowsOpen]
         mov edi, eax
         inc eax
         shl edi, 5
-        mov dword [dword_1A8E7C], eax
-        mov eax, dword_1A8B48
+        mov dword [OverlayWindowsOpen], eax
+        mov eax, ScreenRegion
         mov dword [byte edi+eax+08h], esi
         mov dword [byte edi+eax+0Ch], edx
         mov dword [edi+eax], ebx
-        mov edx, dword [dword_1A8E58]
+        mov edx, dword [DirtySpanCount]
         mov dword [byte edi+eax+018h], edx
 .1:
         mov edx, ecx
@@ -6990,11 +6990,11 @@ AddOverlayWindow:
         call AddDirtySpans
         test eax, eax
         je short .2
-        mov eax, dword [dword_1A8B48]
+        mov eax, dword [ScreenRegion]
         call RemoveOverlayWindow
         jmp short .1
 .2:
-        mov dword [dword_1A8E6C], 1
+        mov dword [DisplayViewCount], 1
         pop edi
         pop esi
         ret
@@ -7005,18 +7005,18 @@ AddOverlayWindow:
         push edi
         push ebp
         mov ebp, eax
-        mov edx, dword [dword_1A8E64]
+        mov edx, dword [GameViewTop]
         xor edi, edi
         test edx, edx
         jne near .7
         call SetScreenTarget
-        mov ebx, dword [dword_1A8E68]
+        mov ebx, dword [GameViewRows]
         xor esi, esi
         test ebx, ebx
         jle short .6
         xor ebx, ebx
 .3:
-        mov eax, dword [dword ebx+dword_1A0CC0]
+        mov eax, dword [dword ebx+OverlayWindowCount]
         test eax, 3FF00h
         jne short .4
         mov eax, edi
@@ -7027,20 +7027,20 @@ AddOverlayWindow:
         and eax, 0FFh
         cmp eax, ebp
         jne short .5
-        test byte [dword ebx+byte_1A0CC2], 8
+        test byte [dword ebx+OverlayMask], 8
         je short .5
-        mov eax, dword [dword ebx+dword_1A0CC0]
+        mov eax, dword [dword ebx+OverlayWindowCount]
         mov edx, dword [dword_169184]
         shl eax, 0Eh
         push edx
         shr eax, 16h
         push eax
-        mov ecx, dword [dword ebx+dword_1A0CBC]
+        mov ecx, dword [dword ebx+OverlayWindowFlags]
         push ecx
         call FillMem
         add esp, byte 0Ch
 .5:
-        mov ecx, dword [dword_1A8E68]
+        mov ecx, dword [GameViewRows]
         inc esi
         add ebx, byte 0Ch
         cmp esi, ecx
@@ -7068,20 +7068,20 @@ RemoveOverlayWindow:
         push esi
         push edi
         push ebp
-        mov ebx, dword_1A8B48
-        mov edx, dword [dword_1A8E7C]
+        mov ebx, ScreenRegion
+        mov edx, dword [OverlayWindowsOpen]
         xor ebp, ebp
         test edx, edx
         jle near .8
-        mov ecx, dword [dword_1A8E7C]
+        mov ecx, dword [OverlayWindowsOpen]
 .1:
         cmp eax, dword [ebx]
         jne near .7
         cmp dword [dword_1B8FA0], byte 0
         jne short .2
-        mov dword [dword_1A8E50], 1
+        mov dword [ViewSizeChanged], 1
 .2:
-        mov eax, dword [dword_1A8E58]
+        mov eax, dword [DirtySpanCount]
         mov edx, dword [ebx]
         mov edi, dword [byte ebx+018h]
         mov ecx, dword [byte ebx+018h]
@@ -7090,18 +7090,18 @@ RemoveOverlayWindow:
         sar edx, 10h
         sub eax, ecx
         lea esi, [nosplit edx*4+00h]
-        add edi, unk_19F548
+        add edi, DirtySpans
         sub eax, edx
         add esi, edi
         lea edx, [nosplit eax*4+00h]
         call CopyMemFpu
         mov eax, dword [ebx]
         mov eax, dword [byte eax+04h]
-        mov esi, dword [dword_1A8E58]
+        mov esi, dword [DirtySpanCount]
         sar eax, 10h
         sub esi, eax
-        mov edi, dword [dword_1A8E7C]
-        mov dword [dword_1A8E58], esi
+        mov edi, dword [OverlayWindowsOpen]
+        mov dword [DirtySpanCount], esi
         test edi, edi
         jle short .6
         mov ecx, edi
@@ -7109,14 +7109,14 @@ RemoveOverlayWindow:
         shl ecx, 5
 .3:
         mov esi, dword [byte ebx+018h]
-        cmp esi, dword [dword eax+dword_1A8B60]
+        cmp esi, dword [dword eax+OverlayWindows]
         jge short .4
         mov edx, dword [ebx]
         mov edx, dword [byte edx+04h]
-        mov edi, dword [dword eax+dword_1A8B60]
+        mov edi, dword [dword eax+OverlayWindows]
         sar edx, 10h
         sub edi, edx
-        mov dword [dword eax+dword_1A8B60], edi
+        mov dword [dword eax+OverlayWindows], edi
 .4:
         add eax, byte 20h
         cmp eax, ecx
@@ -7130,14 +7130,14 @@ RemoveOverlayWindow:
         add ebx, byte 20h
         rep movsd
 .6:
-        mov eax, dword [dword_1A8E7C]
+        mov eax, dword [OverlayWindowsOpen]
         dec eax
         cmp ebp, eax
         jl short .5
-        mov ebp, dword [dword_1A8E7C]
+        mov ebp, dword [OverlayWindowsOpen]
         dec ebp
         mov eax, dword [dword_169180]
-        mov dword [dword_1A8E7C], ebp
+        mov dword [OverlayWindowsOpen], ebp
         call RebuildOverlayMask
         pop ebp
         pop edi
@@ -7172,13 +7172,13 @@ UpdateScreenRegion:
         mov ecx, eax
         mov esi, edx
         mov edx, 1
-        mov eax, dword_1A8B48
-        mov edi, dword [dword_1A8E7C]
-        mov dword [dword_1A8E6C], edx
+        mov eax, ScreenRegion
+        mov edi, dword [OverlayWindowsOpen]
+        mov dword [DisplayViewCount], edx
         xor edx, edx
         test edi, edi
         jle short .3
-        mov ebp, dword [dword_1A8E7C]
+        mov ebp, dword [OverlayWindowsOpen]
 .1:
         cmp ecx, dword [eax]
         jne short .2
@@ -7203,7 +7203,7 @@ UpdateScreenRegion:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; RefreshOverlayWindow                            3CFB0  97 PC, low confidence
-; (id): marks the overlay window's cells for redraw (byte_1A0CC2 bit 4); from
+; (id): marks the overlay window's cells for redraw (OverlayMask bit 4); from
 ; DrawGameClock, DrawPowerPlayClock, the pause menu
 ;-----------------------------------------------------------------------------
 RefreshOverlayWindow:
@@ -7214,18 +7214,18 @@ RefreshOverlayWindow:
         push edi
         push ebp
         mov ebx, eax
-        mov edx, dword_1A8B48
-        mov ecx, dword [dword_1A8E7C]
+        mov edx, ScreenRegion
+        mov ecx, dword [OverlayWindowsOpen]
         xor eax, eax
         test ecx, ecx
         jle short .5
-        mov esi, dword [dword_1A8E7C]
+        mov esi, dword [OverlayWindowsOpen]
 .1:
         mov edi, dword [edx]
         inc eax
         cmp ebx, edi
         jne short .4
-        mov ebp, dword [dword_1A8E68]
+        mov ebp, dword [GameViewRows]
         test ebp, ebp
         jle short .5
         lea ebx, [nosplit ebp*4+00h]
@@ -7234,11 +7234,11 @@ RefreshOverlayWindow:
         xor eax, eax
         shl ebx, 2
 .2:
-        mov edx, dword [dword eax+dword_1A0CC0]
+        mov edx, dword [dword eax+OverlayWindowCount]
         and edx, 0FFh
         cmp edx, ecx
         jne short .3
-        or byte [dword eax+byte_1A0CC2], 10h
+        or byte [dword eax+OverlayMask], 10h
 .3:
         add eax, byte 0Ch
         cmp eax, ebx
@@ -7262,7 +7262,7 @@ RefreshOverlayWindow:
 ; Stores the rink detail level and reloads the rink palette
 ;-----------------------------------------------------------------------------
 SetRinkDetail:
-        mov dword [dword_1A8E60], eax
+        mov dword [RinkDetail], eax
         jmp near BuildRinkPalette
         db 00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
@@ -7276,53 +7276,53 @@ FadePaletteStep:
         push esi
         push edi
         push ebp
-        cmp dword [dword_1AC350], byte 0
+        cmp dword [FadeActive], byte 0
         je near .3
         xor esi, esi
-        mov edi, dword [dword_1AC354]
-        mov dword [dword_1AC36C], esi
+        mov edi, dword [FadeFirstEntry]
+        mov dword [FadeStepCount], esi
         test edi, edi
         jle near .2
         lea ecx, [nosplit edi*4+00h]
         xor eax, eax
         xor edx, edx
 .1:
-        mov bx, word [dword eax+word_1A928C]
-        mov si, word [dword eax+word_1ABD4C]
+        mov bx, word [dword eax+FadePalStepG]
+        mov si, word [dword eax+FadeAccumNext]
         add esi, ebx
         xor ebx, ebx
         mov bx, si
-        mov ebp, dword [dword_1AC36C]
+        mov ebp, dword [FadeStepCount]
         sar ebx, 8
-        mov di, word [dword eax+word_1ABD4E]
-        mov byte [dword edx+byte_1A8E8E], bl
-        mov bx, word [dword eax+word_1A928E]
+        mov di, word [dword eax+FadeAccumLast]
+        mov byte [dword edx+FadePalBytes], bl
+        mov bx, word [dword eax+FadePalSteps]
         add eax, byte 6
         add edi, ebx
         xor ebx, ebx
         add edx, byte 4
         mov bx, di
-        mov word [dword eax+word_1ABD46], si
+        mov word [dword eax+FadeAccumR], si
         sar ebx, 8
-        mov si, word [dword eax+word_1ABD4A]
-        mov byte [dword edx+byte_1A8E89], bl
-        mov bx, word [dword eax+word_1A928A]
+        mov si, word [dword eax+FadeAccumB]
+        mov byte [dword edx+FadePalCurrent], bl
+        mov bx, word [dword eax+FadePalStepR]
         inc ebp
         add esi, ebx
         xor ebx, ebx
-        mov dword [dword_1AC36C], ebp
+        mov dword [FadeStepCount], ebp
         mov bx, si
-        mov word [dword eax+word_1ABD48], di
+        mov word [dword eax+FadeAccumG], di
         sar ebx, 8
-        mov word [dword eax+word_1ABD4A], si
-        mov byte [dword edx+dword_1A8E88], bl
+        mov word [dword eax+FadeAccumB], si
+        mov byte [dword edx+ViewPixelHeight], bl
         cmp edx, ecx
         jl near .1
 .2:
-        push unk_1A8E8C
-        mov eax, dword [dword_1AC354]
+        push FadePalCount
+        mov eax, dword [FadeFirstEntry]
         push eax
-        mov edx, dword [dword_1AC360]
+        mov edx, dword [FadeEntryCount]
         push edx
         call WritePaletteRange
         add esp, byte 0Ch
@@ -7334,10 +7334,10 @@ FadePaletteStep:
         pop ebx
         ret
 .3:
-        push byte_1A988C
-        mov ebx, dword [dword_1AC354]
+        push FadePalTarget
+        mov ebx, dword [FadeFirstEntry]
         push ebx
-        mov ecx, dword [dword_1AC360]
+        mov ecx, dword [FadeEntryCount]
         push ecx
         call WritePaletteRange
         add esp, byte 0Ch
@@ -7360,23 +7360,23 @@ PaletteFadeTick:
         push edx
         push edi
         push ebp
-        mov edx, dword [dword_1AC350]
+        mov edx, dword [FadeActive]
         test edx, edx
         jle short .1
-        mov ecx, dword [dword_1AC34C]
+        mov ecx, dword [FadeFramesLeft]
         dec ecx
-        mov dword [dword_1AC34C], ecx
+        mov dword [FadeFramesLeft], ecx
         test ecx, ecx
         jg short .2
         lea edi, [byte edx-01h]
         mov ebp, 5
-        mov dword [dword_1AC350], edi
+        mov dword [FadeActive], edi
         call FadePaletteStep
-        mov dword [dword_1AC34C], ebp
+        mov dword [FadeFramesLeft], ebp
         jmp short .2
 .1:
         xor ebx, ebx
-        mov dword [dword_1AC364], ebx
+        mov dword [FadeDone], ebx
 .2:
         pop ebp
         pop edi
@@ -7398,18 +7398,18 @@ StartPaletteFade:
         mov ebp, eax
         mov edi, edx
         mov esi, ecx
-        mov dword [dword_1AC360], eax
-        mov dword [dword_1AC354], edx
+        mov dword [FadeEntryCount], eax
+        mov dword [FadeFirstEntry], edx
         cmp ecx, byte 1
         jge short .1
         mov esi, 1
 .1:
         lea eax, [nosplit edi*4+00h]
         push eax
-        push byte_1A988C
+        push FadePalTarget
         xor edx, edx
         push ebx
-        mov dword [dword_1AC34C], edx
+        mov dword [FadeFramesLeft], edx
         mov dword [dword esp+040Ch], eax
         call bcopy
         add esp, byte 0Ch
@@ -7428,17 +7428,17 @@ StartPaletteFade:
         xor ah, ah
         mov al, byte [byte esp+ebx+02h]
         shl eax, 8
-        mov word [dword ecx+word_1ABD4C], ax
+        mov word [dword ecx+FadeAccumNext], ax
         xor ah, ah
         mov al, byte [byte esp+ebx+01h]
         shl eax, 8
-        mov word [dword ecx+word_1ABD4E], ax
+        mov word [dword ecx+FadeAccumLast], ax
         xor ah, ah
         mov al, byte [esp+ebx]
         add ecx, byte 6
         shl eax, 8
         add ebx, byte 4
-        mov word [dword ecx+word_1ABD4A], ax
+        mov word [dword ecx+FadeAccumB], ax
         cmp ebx, edx
         jl short .2
 .3:
@@ -7450,28 +7450,28 @@ StartPaletteFade:
 .4:
         xor eax, eax
         xor edx, edx
-        mov al, byte [dword ecx+byte_1A988E]
-        mov dx, word [dword ebx+word_1ABD4C]
+        mov al, byte [dword ecx+FadePalTargetBytes]
+        mov dx, word [dword ebx+FadeAccumNext]
         shl eax, 8
         sub eax, edx
         mov edx, eax
         sar edx, 1Fh
         idiv esi
-        mov word [dword ebx+word_1A928C], ax
+        mov word [dword ebx+FadePalStepG], ax
         xor eax, eax
         xor edx, edx
-        mov al, byte [dword ecx+byte_1A988D]
-        mov dx, word [dword ebx+word_1ABD4E]
+        mov al, byte [dword ecx+FadePalTargetG]
+        mov dx, word [dword ebx+FadeAccumLast]
         shl eax, 8
         sub eax, edx
         mov edx, eax
         sar edx, 1Fh
         idiv esi
-        mov word [dword ebx+word_1A928E], ax
+        mov word [dword ebx+FadePalSteps], ax
         xor eax, eax
         xor edx, edx
-        mov al, byte [dword ecx+byte_1A988C]
-        mov dx, word [dword ebx+word_1ABD50]
+        mov al, byte [dword ecx+FadePalTarget]
+        mov dx, word [dword ebx+FadeAccums]
         shl eax, 8
         sub eax, edx
         mov edx, eax
@@ -7479,12 +7479,12 @@ StartPaletteFade:
         idiv esi
         add ebx, byte 6
         add ecx, byte 4
-        mov word [dword ebx+word_1A928A], ax
+        mov word [dword ebx+FadePalStepR], ax
         cmp ecx, edi
         jl short .4
 .5:
-        mov dword [dword_1AC350], esi
-        mov dword [dword_1AC364], 1
+        mov dword [FadeActive], esi
+        mov dword [FadeDone], 1
         add esp, 404h
         pop ebp
         pop edi
@@ -7508,7 +7508,7 @@ BuildRangePalette:
         add eax, ebx
         shl eax, 2
         sub eax, ebx
-        mov ebx, unk_1A9C8C
+        mov ebx, PaletteRanges
         shl eax, 3
         add ebx, eax
         mov edx, dword [byte ebx+0Ch]
@@ -7581,7 +7581,7 @@ BuildRangePalette:
         cmp esi, eax
         jl near .1
 .2:
-        cmp dword [dword_1AC368], 10000h
+        cmp dword [RangeBlendLevel], 10000h
         jne short .3
         mov ecx, dword [byte ebx+08h]
         lea eax, [byte ebx+014h]
@@ -7620,7 +7620,7 @@ BlendRangePalette:
         add edx, ebx
         shl edx, 2
         sub edx, ebx
-        mov ebx, unk_1A9C8C
+        mov ebx, PaletteRanges
         shl edx, 3
         add ebx, edx
         mov edx, eax
@@ -7685,7 +7685,7 @@ BlendRangePalette:
         cmp eax, dword [byte ebx+0Ch]
         jl short .1
 .2:
-        cmp dword [dword_1AC368], 10000h
+        cmp dword [RangeBlendLevel], 10000h
         jne short .3
         mov edx, dword [byte ebx+08h]
         lea eax, [byte ebx+014h]
@@ -7745,7 +7745,7 @@ CountArtPixels:
         push esi
         call ArtBankEntry
         mov edx, dword [eax]
-        mov ecx, dword [dword_1AC358]
+        mov ecx, dword [ArtRemapTable]
         and edx, 0FFh
         add esp, byte 8
         cmp edx, ecx
@@ -7813,7 +7813,7 @@ RemapArtColors:
         push edi
         call ArtBankEntry
         mov edx, dword [eax]
-        mov ecx, dword [dword_1AC358]
+        mov ecx, dword [ArtRemapTable]
         and edx, 0FFh
         add esp, byte 8
         cmp edx, ecx
@@ -7870,7 +7870,7 @@ RemapArtToRange:
         push esi
         call ArtBankEntry
         mov edx, dword [eax]
-        mov ecx, dword [dword_1AC358]
+        mov ecx, dword [ArtRemapTable]
         and edx, 0FFh
         add esp, byte 8
         cmp edx, ecx
@@ -7954,7 +7954,7 @@ RemapArtRange:
         push esi
         call ArtBankEntry
         mov edx, dword [eax]
-        mov edi, dword [dword_1AC358]
+        mov edi, dword [ArtRemapTable]
         and edx, 0FFh
         add esp, byte 8
         cmp edx, edi
@@ -8117,7 +8117,7 @@ ArtBankHistogram:
         call ArtBankEntry
         mov edx, eax
         mov eax, dword [eax]
-        mov ebx, dword [dword_1AC358]
+        mov ebx, dword [ArtRemapTable]
         and eax, 0FFh
         add esp, byte 8
         cmp eax, ebx
@@ -8162,11 +8162,11 @@ InitPaletteManager:
         push edx
         xor edx, edx
         push byte 8
-        mov dword [dword_1AC35C], edx
+        mov dword [PaletteRangeCount], edx
         call BytesPerPixelForDepth
         add esp, byte 4
         push PaletteFadeTick
-        mov dword [dword_1AC358], eax
+        mov dword [ArtRemapTable], eax
         call addtimer
         add esp, byte 4
         pop edx
@@ -8212,7 +8212,7 @@ AddPaletteRange:
         push ebp
         mov esi, eax
         mov edi, edx
-        mov ecx, dword [dword_1AC35C]
+        mov ecx, dword [PaletteRangeCount]
         mov eax, ecx
         shl eax, 5
         add eax, ecx
@@ -8220,7 +8220,7 @@ AddPaletteRange:
         shl eax, 2
         lea ebp, [byte ebx+01h]
         sub eax, ecx
-        mov ecx, unk_1A9C8C
+        mov ecx, PaletteRanges
         shl eax, 3
         mov edx, esi
         add ecx, eax
@@ -8230,9 +8230,9 @@ AddPaletteRange:
         mov dword [dword ecx+0414h], 0
         mov dword [byte ecx+08h], edi
         mov dword [byte ecx+0Ch], ebp
-        mov eax, dword [dword_1AC35C]
+        mov eax, dword [PaletteRangeCount]
         lea ebx, [byte eax+01h]
-        mov dword [dword_1AC35C], ebx
+        mov dword [PaletteRangeCount], ebx
         pop ebp
         pop edi
         pop esi
@@ -8252,7 +8252,7 @@ LinkRangeHistogram:
         shl eax, 2
         sub eax, edx
         shl eax, 3
-        add eax, unk_1A9C8C
+        add eax, PaletteRanges
         mov dword [byte eax+010h], 1
         mov edx, dword [dword eax+0414h]
         mov dword [dword ebx+0C0Ch], edx
@@ -8287,7 +8287,7 @@ AddArtToRange:
         shl eax, 2
         sub eax, edx
         shl eax, 3
-        add eax, unk_1A9C8C
+        add eax, PaletteRanges
         mov dword [byte eax+010h], 1
         mov edx, dword [dword eax+0414h]
         mov dword [dword ecx+0C0Ch], edx
@@ -8442,7 +8442,7 @@ SetRangeColors:
         add eax, ebx
         shl eax, 2
         sub eax, ebx
-        mov esi, unk_1A9C8C
+        mov esi, PaletteRanges
         shl eax, 3
         add esi, eax
         mov ecx, dword [byte esi+08h]
@@ -8519,7 +8519,7 @@ AddColorTable:
         shl eax, 2
         sub eax, edx
         shl eax, 3
-        add eax, unk_1A9C8C
+        add eax, PaletteRanges
         mov dword [byte eax+010h], 1
         mov edx, dword [dword eax+0414h]
         mov dword [dword ebp+0C0Ch], edx
@@ -8665,7 +8665,7 @@ RemapRangeColors:
         shl eax, 5
         add eax, edx
         shl eax, 2
-        mov ebx, unk_1A9C8C
+        mov ebx, PaletteRanges
         sub eax, edx
         mov edx, edi
         mov ecx, dword [byte ebx+eax*8+0Ch]
@@ -8706,7 +8706,7 @@ RemapArtPixels:
         mov ebp, ecx
         call RemapPixelRange
         mov eax, dword [esi]
-        mov edx, dword [dword_1AC358]
+        mov edx, dword [ArtRemapTable]
         and eax, 0FFh
         add esp, byte 0Ch
         cmp eax, edx
@@ -9100,7 +9100,7 @@ CopyRangePalette:
         add eax, edx
         shl eax, 2
         sub eax, edx
-        mov esi, unk_1A9C8C
+        mov esi, PaletteRanges
         shl eax, 3
         add esi, eax
         mov ecx, dword [byte esi+08h]
@@ -9172,7 +9172,7 @@ QuantizeRange:
         add eax, edx
         shl eax, 2
         sub eax, edx
-        mov esi, unk_1A9C8C
+        mov esi, PaletteRanges
         shl eax, 3
         add esi, eax
         mov ebx, dword [dword esi+0414h]
@@ -9389,14 +9389,14 @@ QuantizeAllRanges:
         push ebx
         push ecx
         push edx
-        mov ebx, dword [dword_1AC35C]
+        mov ebx, dword [PaletteRangeCount]
         xor edx, edx
         test ebx, ebx
         jle short .2
 .1:
         mov eax, edx
         call QuantizeRange
-        mov ecx, dword [dword_1AC35C]
+        mov ecx, dword [PaletteRangeCount]
         inc edx
         cmp edx, ecx
         jl short .1
@@ -9420,7 +9420,7 @@ SetRangePalette:
         shl eax, 2
         sub eax, edx
         shl eax, 3
-        add eax, unk_1A9C8C
+        add eax, PaletteRanges
         mov ebx, dword [byte eax+08h]
         lea edx, [byte eax+014h]
         shl ebx, 2
@@ -9450,10 +9450,10 @@ MergeRangePalettes:
         mov esi, edx
         mov edi, ebx
         mov dword [byte esp+04h], ecx
-        mov ebx, unk_1A9C8C
+        mov ebx, PaletteRanges
         mov ebp, 1
         xor edx, edx
-        mov eax, dword [dword_1AC35C]
+        mov eax, dword [PaletteRangeCount]
         mov dword [byte esp+08h], edx
         mov dword [byte esp+010h], edx
         test eax, eax
@@ -9509,7 +9509,7 @@ MergeRangePalettes:
         add ecx, 418h
         mov dword [byte esp+010h], edx
         mov eax, edx
-        mov edx, dword [dword_1AC35C]
+        mov edx, dword [PaletteRangeCount]
         mov dword [byte esp+0Ch], ecx
         cmp eax, edx
         jl near .1
@@ -9575,7 +9575,7 @@ FadeGamePalette:
         mov ecx, esp
         xor edx, edx
         lea ebx, [dword esp+0400h]
-        mov dword [dword_1AC350], edx
+        mov dword [FadeActive], edx
         lea edx, [dword esp+0404h]
         call MergeRangePalettes
         test eax, eax
@@ -9627,7 +9627,7 @@ FadeGamePalette:
         mov eax, dword [dword esp+0404h]
         call StartPaletteFade
 .3:
-        mov dword [dword_1AC368], esi
+        mov dword [RangeBlendLevel], esi
         add esp, 408h
         pop ebp
         pop edi
@@ -9659,18 +9659,18 @@ InitStreamBuffer:
         mov edx, eax
         shl eax, 5
         sub eax, edx
-        mov dword [dword_1AC374], esi
+        mov dword [CdStreamBuf], esi
         add eax, byte 0Fh
         mov edx, dword [byte esp+018h]
         and eax, 0FFF0h
         sub edx, 90h
-        mov dword [dword_1AC378], esi
+        mov dword [StreamHandle], esi
         sub edx, eax
         mov dword [byte esi+038h], edx
         mov ebx, esi
         mov ecx, dword [dword_16918C]
         lea edx, [dword esi+090h]
-        mov ebp, dword [dword_1AC378]
+        mov ebp, dword [StreamHandle]
         mov eax, edx
         dec ecx
         mov dword [byte ebp+070h], edx
@@ -9960,19 +9960,19 @@ setstreamspeed:
         mov eax, edx
         sar edx, 1Fh
         idiv ecx
-        mov dword [dword_1AC370], eax
+        mov dword [StreamSpeed], eax
         cmp eax, byte 1
         jge short .7
-        mov dword [dword_1AC370], 1
+        mov dword [StreamSpeed], 1
 .7:
         mov eax, 3E80000h
         mov edx, eax
-        mov esi, dword [dword_1AC370]
+        mov esi, dword [StreamSpeed]
         sar edx, 1Fh
         idiv esi
         mov esi, dword [byte esp+010h]
         lea edx, [nosplit ebx*4+00h]
-        mov dword [dword_1AC37C], eax
+        mov dword [StreamRate], eax
         add edx, ebx
         mov eax, dword [byte esp+010h]
         add edx, edx
@@ -10013,7 +10013,7 @@ setstreamspeed:
         add eax, edx
         add eax, eax
         mov dword [dword_169194], eax
-        mov eax, dword [dword_1AC37C]
+        mov eax, dword [StreamRate]
         add esp, byte 24h
         pop ebp
         pop edi
@@ -10036,7 +10036,7 @@ setstreamspeed:
 delstream:
         push ebx
         mov ebx, dword [byte esp+08h]
-        cmp ebx, dword [dword_1AC378]
+        cmp ebx, dword [StreamHandle]
         jne short .1
         push CdStreamService_BB8
         call RemoveTimerCallback
@@ -10054,7 +10054,7 @@ delstream:
         push esi
         push edi
         mov esi, dword [byte esp+010h]
-        mov edx, dword [dword_1AC378]
+        mov edx, dword [StreamHandle]
         cmp esi, edx
         jne short .4
         cmp edx, edx
@@ -10221,11 +10221,11 @@ CdStreamQueue:
         cmp dword [byte esi+074h], byte 0
         je short .2
 .1:
-        mov edx, dword [dword_1AC378]
+        mov edx, dword [StreamHandle]
         mov eax, dword [byte esi+074h]
         mov edx, dword [byte edx+070h]
         mov dword [dword eax+097h], edx
-        mov edx, dword [dword_1AC378]
+        mov edx, dword [StreamHandle]
         mov dword [byte edx+070h], eax
         mov eax, dword [byte esi+074h]
         mov eax, dword [dword eax+097h]
@@ -10318,11 +10318,11 @@ RequestStreamRead:
         cmp dword [byte ebx+074h], byte 0
         je short .2
 .1:
-        mov edx, dword [dword_1AC378]
+        mov edx, dword [StreamHandle]
         mov eax, dword [byte ebx+074h]
         mov edx, dword [byte edx+070h]
         mov dword [dword eax+097h], edx
-        mov edx, dword [dword_1AC378]
+        mov edx, dword [StreamHandle]
         mov dword [byte edx+070h], eax
         mov eax, dword [byte ebx+074h]
         mov eax, dword [dword eax+097h]
@@ -10352,7 +10352,7 @@ RequestStreamRead:
 ;-----------------------------------------------------------------------------
 UpdateMusicStream:
         push ebx
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov edx, dword [byte eax+058h]
         push edx
         mov ebx, dword [byte eax+018h]
@@ -10393,7 +10393,7 @@ CdStreamOpenSecondary:
         mov dword [byte eax+068h], ebx
         mov ebx, dword [byte esp+0Ch]
         mov dword [byte eax+064h], ebx
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         cmp dword [byte eax+06Ch], byte 0
         je short .2
 .1:
@@ -10454,13 +10454,13 @@ CdStreamService:
         push edi
         push ebp
         sub esp, byte 4
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         cmp dword [dword eax+080h], byte 0
         jg near CdStreamService_AC2.58
         mov ebp, 8
         xor edi, edi
 CdStreamService_20:
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov ebx, dword [byte eax+020h]
         cmp ebp, ebx
         jne short .1
@@ -10471,9 +10471,9 @@ CdStreamService_20:
         jne short .2
         mov dword [byte eax+01Ch], 7
 .2:
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov dword [byte eax+020h], edi
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov edx, dword [byte eax+01Ch]
         dec edx
         cmp edx, byte 10h
@@ -10485,28 +10485,28 @@ CdStreamService_5B:
         je short .4
         mov ebx, dword [dword ecx+093h]
         mov dword [byte eax+01Ch], ebx
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov ebx, dword [byte eax+074h]
         mov ebx, dword [dword ebx+097h]
         mov dword [byte eax+074h], ebx
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov dword [byte eax+07Ch], ecx
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov esi, dword [byte eax+074h]
         mov edx, ecx
         cmp edi, esi
         jne short .3
         mov dword [byte eax+078h], esi
 .3:
-        mov ebx, dword [dword_1AC378]
+        mov ebx, dword [StreamHandle]
         mov ecx, dword [dword edx+08Fh]
         mov eax, dword [byte ebx+04Ch]
         add eax, ecx
         mov dword [byte ebx+05Ch], eax
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov eax, dword [byte eax+070h]
         mov dword [dword edx+097h], eax
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov dword [byte eax+070h], edx
         jmp near CdStreamService_20
 .4:
@@ -10518,7 +10518,7 @@ CdStreamService_5B:
         pop ebx
         ret
 CdStreamService_D6:
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov esi, dword [byte eax+018h]
         cmp edi, esi
         je short .5
@@ -10528,7 +10528,7 @@ CdStreamService_D6:
 .5:
         mov eax, esp
         push eax
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         lea edx, [byte eax+054h]
         push edx
         lea edx, [byte eax+04Ch]
@@ -10538,15 +10538,15 @@ CdStreamService_D6:
         mov ebx, dword [byte eax+07Ch]
         push ebx
         call CdOpenStream
-        mov edx, dword [dword_1AC378]
+        mov edx, dword [StreamHandle]
         mov eax, dword [byte edx+04Ch]
         mov ecx, dword [byte edx+054h]
         add eax, ecx
         mov dword [byte edx+050h], eax
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov edx, dword [byte eax+04Ch]
         mov dword [byte eax+05Ch], edx
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov esi, dword [byte eax+01Ch]
         add esp, byte 14h
         cmp esi, byte 1
@@ -10566,7 +10566,7 @@ CdStreamService_14C:
 .7:
         mov eax, esp
         push eax
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         lea edx, [byte eax+054h]
         push edx
         lea edx, [byte eax+04Ch]
@@ -10576,56 +10576,56 @@ CdStreamService_14C:
         mov ebp, dword [byte eax+07Ch]
         push ebp
         call CdOpenStream
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov edx, dword [byte eax+04Ch]
         mov ebx, dword [byte eax+054h]
         add edx, ebx
         mov dword [byte eax+050h], edx
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov edx, dword [byte eax+04Ch]
         mov dword [byte eax+05Ch], edx
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         add esp, byte 14h
         mov dword [byte eax+01Ch], 2
 CdStreamService_1A3:
-        mov eax, dword [dword_1AC378]
-        mov dword [dword_1AC374], eax
+        mov eax, dword [StreamHandle]
+        mov dword [CdStreamBuf], eax
 .8:
-        mov eax, dword [dword_1AC374]
+        mov eax, dword [CdStreamBuf]
         mov edx, dword [eax]
         mov dword [byte eax+014h], edx
-        mov eax, dword [dword_1AC374]
+        mov eax, dword [CdStreamBuf]
         mov dword [byte eax+010h], edx
-        mov eax, dword [dword_1AC374]
+        mov eax, dword [CdStreamBuf]
         mov dword [byte eax+08h], edx
         mov eax, edx
-        mov edx, dword [dword_1AC374]
+        mov edx, dword [CdStreamBuf]
         mov dword [byte edx+0Ch], eax
-        mov eax, dword [dword_1AC374]
+        mov eax, dword [CdStreamBuf]
         mov eax, dword [byte eax+06Ch]
-        mov dword [dword_1AC374], eax
+        mov dword [CdStreamBuf], eax
         test eax, eax
         jne short .8
 CdStreamService_1E3:
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         cmp dword [byte eax+01Ch], byte 2
         jne short .9
         mov edx, dword [byte eax+010h]
         mov dword [byte eax+0Ch], edx
         mov eax, edx
-        mov edx, dword [dword_1AC378]
+        mov edx, dword [StreamHandle]
         mov dword [byte edx+08h], eax
         jmp short .10
 .9:
         mov edx, dword [byte eax+0Ch]
         mov dword [byte eax+08h], edx
 .10:
-        mov edx, dword [dword_1AC378]
+        mov edx, dword [StreamHandle]
         mov eax, edx
         call CdStreamSkipMarks
         mov eax, dword [byte edx+04h]
         mov ebx, dword [byte edx+08h]
-        mov edx, dword [dword_1AC378]
+        mov edx, dword [StreamHandle]
         sub eax, ebx
         cmp eax, dword [byte edx+03Ch]
         jg short .13
@@ -10634,12 +10634,12 @@ CdStreamService_1E3:
         mov eax, dword [byte edx+04h]
         mov esi, dword [byte edx+08h]
         mov edx, eax
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         sub edx, esi
         call CdStreamContigData
         cmp edx, eax
         jne near CdStreamService_AC2.58
-        mov edx, dword [dword_1AC378]
+        mov edx, dword [StreamHandle]
         mov eax, edx
         call CdStreamSkipMarks
         mov eax, dword [byte edx+014h]
@@ -10652,19 +10652,19 @@ CdStreamService_1E3:
 .11:
         xor edx, edx
 .12:
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         cmp edx, dword [byte eax+03Ch]
         jle near CdStreamService_AC2.58
         mov eax, dword [byte eax+0Ch]
         mov dword [eax], 0FFFFFFFFh
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov edx, dword [eax]
         mov dword [byte eax+0Ch], edx
         mov eax, edx
-        mov edx, dword [dword_1AC378]
+        mov edx, dword [StreamHandle]
         mov dword [byte edx+08h], eax
 .13:
-        mov edx, dword [dword_1AC378]
+        mov edx, dword [StreamHandle]
         mov eax, edx
         call CdStreamSkipMarks
         mov eax, dword [byte edx+014h]
@@ -10688,27 +10688,27 @@ CdStreamService_1E3:
         mov eax, dword [byte ebx+014h]
         sub eax, ebp
 .16:
-        mov edx, dword [dword_1AC378]
+        mov edx, dword [StreamHandle]
         cmp eax, dword [byte edx+03Ch]
         jle near CdStreamService_AC2.58
         mov dword [byte edx+01Ch], 3
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov edx, dword [byte eax+0Ch]
         mov dword [byte eax+08h], edx
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov edx, dword [byte eax+05Ch]
         mov dword [byte eax+058h], edx
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov edi, dword [byte eax+058h]
         push edi
         mov ebp, dword [byte eax+018h]
         push ebp
         call CdSeek
-        mov edx, dword [dword_1AC378]
+        mov edx, dword [StreamHandle]
         mov dword [byte edx+060h], eax
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov dword [byte eax+048h], 0
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov edx, dword [dword_169194]
         add esp, byte 8
         mov dword [dword eax+080h], edx
@@ -10721,7 +10721,7 @@ CdStreamService_1E3:
 .17:
         mov edx, edi
 .18:
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov esi, dword [byte eax+048h]
         cmp edx, esi
         jle near CdStreamService_AC2.58
@@ -10731,23 +10731,23 @@ CdStreamService_1E3:
         mov ecx, dword [byte eax+0Ch]
         push ecx
         call bcopy
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov eax, dword [byte eax+0Ch]
         mov dword [eax], 0FFFFFFFFh
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov edx, dword [eax]
         mov dword [byte eax+0Ch], edx
         mov eax, edx
-        mov edx, dword [dword_1AC378]
+        mov edx, dword [StreamHandle]
         mov dword [byte edx+08h], eax
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov edx, dword [byte eax+048h]
         mov esi, dword [byte eax+08h]
         add esi, edx
         add esp, byte 0Ch
         mov dword [byte eax+08h], esi
 .19:
-        mov edx, dword [dword_1AC378]
+        mov edx, dword [StreamHandle]
         mov eax, edx
         call CdStreamSkipMarks
         mov eax, dword [byte edx+014h]
@@ -10772,7 +10772,7 @@ CdStreamService_1E3:
         mov eax, dword [byte ebx+014h]
         sub eax, esi
 .22:
-        mov edx, dword [dword_1AC378]
+        mov edx, dword [StreamHandle]
         mov esi, dword [byte edx+03Ch]
         cmp eax, esi
         jle near CdStreamService_AC2.58
@@ -10781,7 +10781,7 @@ CdStreamService_1E3:
         mov ecx, dword [byte edx+060h]
         mov dword [byte edx+060h], edi
         mov ebx, esi
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         sub ebx, ecx
         mov esi, dword [dword eax+080h]
         mov dword [dword_1691A0], edi
@@ -10796,11 +10796,11 @@ CdStreamService_1E3:
         mov ecx, dword [dword_16919C]
         add edx, eax
         add ecx, ebx
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov dword [dword_169198], edx
         mov dword [dword_16919C], ecx
         mov dword [dword eax+080h], esi
-        mov ecx, dword [dword_1AC378]
+        mov ecx, dword [StreamHandle]
         add esp, byte 0Ch
         mov edx, dword [dword_169190]
         mov eax, dword [byte ecx+03Ch]
@@ -10809,21 +10809,21 @@ CdStreamService_1E3:
         shr eax, 10h
         adc eax, edx
         add dword [dword ecx+080h], eax
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         add dword [byte eax+08h], ebx
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         add dword [byte eax+058h], ebx
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         add dword [byte eax+048h], ebx
 CdStreamService_47A:
-        mov edx, dword [dword_1AC378]
+        mov edx, dword [StreamHandle]
         cmp ebp, dword [byte edx+048h]
         jbe short .23
         mov eax, edx
         call CdStreamSkipMarks
         mov eax, dword [byte edx+04h]
         mov ebx, dword [byte edx+08h]
-        mov edx, dword [dword_1AC378]
+        mov edx, dword [StreamHandle]
         sub eax, ebx
         cmp eax, dword [byte edx+03Ch]
         jg near CdStreamService_1E3.19
@@ -10832,12 +10832,12 @@ CdStreamService_47A:
         mov eax, dword [byte edx+04h]
         mov esi, dword [byte edx+08h]
         mov edx, eax
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         sub edx, esi
         call CdStreamContigData
         cmp edx, eax
         jne near CdStreamService_AC2.58
-        mov edx, dword [dword_1AC378]
+        mov edx, dword [StreamHandle]
         mov eax, edx
         call CdStreamSkipMarks
         mov eax, dword [byte edx+014h]
@@ -10856,28 +10856,28 @@ CdStreamService_47A:
         mov dword [byte edx+01Ch], 7
         jmp near CdStreamService_20
 .24:
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov edx, dword [byte eax+0Ch]
         mov edx, dword [byte edx+04h]
         mov dword [byte eax+044h], edx
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov edx, dword [byte eax+044h]
         mov esi, dword [byte eax+048h]
         sub edx, esi
         mov dword [byte eax+040h], edx
-        mov eax, dword [dword_1AC378]
-        mov dword [dword_1AC374], eax
+        mov eax, dword [StreamHandle]
+        mov dword [CdStreamBuf], eax
 .25:
-        mov eax, dword [dword_1AC374]
+        mov eax, dword [CdStreamBuf]
         mov eax, dword [byte eax+06Ch]
-        mov dword [dword_1AC374], eax
+        mov dword [CdStreamBuf], eax
         cmp edi, eax
         jne short .26
-        mov eax, dword [dword_1AC378]
-        mov dword [dword_1AC374], eax
+        mov eax, dword [StreamHandle]
+        mov dword [CdStreamBuf], eax
         jmp short .27
 .26:
-        mov ebx, dword [dword_1AC378]
+        mov ebx, dword [StreamHandle]
         mov ebx, dword [byte ebx+0Ch]
         mov edx, eax
         mov eax, dword [byte eax+068h]
@@ -10887,15 +10887,15 @@ CdStreamService_47A:
         cmp eax, esi
         jne short .25
 .27:
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         cmp ebp, dword [byte eax+044h]
         jg short .28
-        mov edx, dword [dword_1AC374]
+        mov edx, dword [CdStreamBuf]
         mov eax, dword [byte eax+044h]
         cmp eax, dword [byte edx+038h]
         jle short CdStreamService_595
 .28:
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         cmp edi, dword [byte eax+028h]
         jne short CdStreamService_595
         mov dword [byte eax+01Ch], 0Eh
@@ -10906,16 +10906,16 @@ CdStreamService_47A:
         pop ebx
         ret
 CdStreamService_595:
-        mov esi, dword [dword_1AC378]
-        cmp esi, dword [dword_1AC374]
+        mov esi, dword [StreamHandle]
+        cmp esi, dword [CdStreamBuf]
         je near CdStreamService_74E
         mov dword [byte esi+01Ch], 4
-        mov edx, dword [dword_1AC374]
+        mov edx, dword [CdStreamBuf]
         mov eax, edx
         call CdStreamSkipMarks
         mov eax, dword [byte edx+04h]
         sub eax, dword [byte edx+08h]
-        mov edx, dword [dword_1AC378]
+        mov edx, dword [StreamHandle]
         mov ebx, eax
         mov ecx, dword [byte edx+03Ch]
         mov eax, dword [byte edx+044h]
@@ -10923,18 +10923,18 @@ CdStreamService_595:
         add eax, byte 8
         cmp ebx, eax
         ja short .31
-        mov edx, dword [dword_1AC374]
+        mov edx, dword [CdStreamBuf]
         mov eax, edx
         call CdStreamSkipMarks
         mov eax, dword [byte edx+04h]
         mov esi, dword [byte edx+08h]
         mov edx, eax
-        mov eax, dword [dword_1AC374]
+        mov eax, dword [CdStreamBuf]
         sub edx, esi
         call CdStreamContigData
         cmp edx, eax
         jne near CdStreamService_AC2.58
-        mov edx, dword [dword_1AC374]
+        mov edx, dword [CdStreamBuf]
         mov eax, edx
         call CdStreamSkipMarks
         mov eax, dword [byte edx+014h]
@@ -10945,19 +10945,19 @@ CdStreamService_595:
 .29:
         mov eax, edi
 .30:
-        mov edx, dword [dword_1AC378]
+        mov edx, dword [StreamHandle]
         cmp eax, dword [byte edx+048h]
         jle near CdStreamService_AC2.58
-        mov eax, dword [dword_1AC374]
+        mov eax, dword [CdStreamBuf]
         mov eax, dword [byte eax+0Ch]
         mov dword [eax], 0FFFFFFFFh
-        mov eax, dword [dword_1AC374]
+        mov eax, dword [CdStreamBuf]
         mov edx, dword [eax]
         mov dword [byte eax+0Ch], edx
-        mov eax, dword [dword_1AC374]
+        mov eax, dword [CdStreamBuf]
         mov dword [byte eax+08h], edx
 .31:
-        mov edx, dword [dword_1AC374]
+        mov edx, dword [CdStreamBuf]
         mov eax, edx
         call CdStreamSkipMarks
         mov eax, dword [byte edx+014h]
@@ -10983,7 +10983,7 @@ CdStreamService_595:
         mov edx, dword [byte ebx+014h]
         sub edx, esi
 .34:
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov ebx, dword [byte eax+03Ch]
         add ebx, ebp
         cmp edx, ebx
@@ -10992,45 +10992,45 @@ CdStreamService_595:
         jg short .35
         mov edx, dword [byte eax+048h]
         push edx
-        mov edx, dword [dword_1AC374]
+        mov edx, dword [CdStreamBuf]
         mov ebx, dword [byte edx+0Ch]
         push ebx
         mov ecx, dword [byte eax+0Ch]
         push ecx
         call bcopy
-        mov eax, dword [dword_1AC374]
-        mov ebx, dword [dword_1AC378]
+        mov eax, dword [CdStreamBuf]
+        mov ebx, dword [StreamHandle]
         mov edx, dword [byte eax+0Ch]
         mov esi, dword [byte ebx+048h]
         add edx, esi
         mov dword [byte eax+08h], edx
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov edx, dword [byte eax+0Ch]
         mov dword [byte eax+08h], edx
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         add esp, byte 0Ch
         mov dword [byte eax+048h], edi
         jmp short CdStreamService_74E
 .35:
         mov edx, dword [byte eax+044h]
         push edx
-        mov edx, dword [dword_1AC374]
+        mov edx, dword [CdStreamBuf]
         mov ebx, dword [byte edx+0Ch]
         push ebx
         mov ecx, dword [byte eax+0Ch]
         push ecx
         call bcopy
-        mov eax, dword [dword_1AC374]
-        mov ebx, dword [dword_1AC378]
+        mov eax, dword [CdStreamBuf]
+        mov ebx, dword [StreamHandle]
         mov edx, dword [byte eax+0Ch]
         mov esi, dword [byte ebx+044h]
         add edx, esi
         mov dword [byte eax+08h], edx
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov edx, dword [byte eax+040h]
         neg edx
         mov dword [byte eax+048h], edx
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         add esp, byte 0Ch
         mov edx, dword [byte eax+048h]
         push edx
@@ -11040,38 +11040,38 @@ CdStreamService_595:
         lea edx, [ebx+ecx]
         push edx
         call bcopy
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov edx, dword [byte eax+044h]
         mov esi, dword [byte eax+08h]
         sub esi, edx
         add esp, byte 0Ch
         mov dword [byte eax+08h], esi
 CdStreamService_74E:
-        mov edx, dword [dword_1AC378]
+        mov edx, dword [StreamHandle]
         mov eax, dword [byte edx+040h]
         cmp edi, eax
         jge near CdStreamService_81D
         mov ebx, dword [byte edx+03Ch]
         lea edx, [eax+ebx]
-        mov eax, dword [dword_1AC374]
+        mov eax, dword [CdStreamBuf]
         add edx, byte 8
         call CdStreamSpaceLeft
         cmp eax, edx
         ja near CdStreamService_81D
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov dword [byte eax+01Ch], 5
-        mov edx, dword [dword_1AC374]
+        mov edx, dword [CdStreamBuf]
         mov eax, edx
         call CdStreamSkipMarks
         mov eax, dword [byte edx+04h]
         mov ecx, dword [byte edx+08h]
         mov edx, eax
-        mov eax, dword [dword_1AC374]
+        mov eax, dword [CdStreamBuf]
         sub edx, ecx
         call CdStreamContigData
         cmp edx, eax
         jne near CdStreamService_AC2.58
-        mov edx, dword [dword_1AC374]
+        mov edx, dword [CdStreamBuf]
         mov eax, edx
         call CdStreamSkipMarks
         mov eax, dword [byte edx+014h]
@@ -11082,38 +11082,38 @@ CdStreamService_74E:
 .36:
         mov eax, edi
 .37:
-        mov edx, dword [dword_1AC378]
+        mov edx, dword [StreamHandle]
         mov ecx, dword [byte edx+048h]
         cmp eax, ecx
         jle near CdStreamService_AC2.58
-        mov eax, dword [dword_1AC374]
+        mov eax, dword [CdStreamBuf]
         push ecx
         mov edx, dword [eax]
         push edx
         mov ebx, dword [byte eax+0Ch]
         push ebx
         call bcopy
-        mov eax, dword [dword_1AC374]
+        mov eax, dword [CdStreamBuf]
         mov eax, dword [byte eax+0Ch]
         mov dword [eax], 0FFFFFFFFh
-        mov eax, dword [dword_1AC374]
-        mov edx, dword [dword_1AC378]
+        mov eax, dword [CdStreamBuf]
+        mov edx, dword [StreamHandle]
         mov ebx, dword [eax]
         mov ecx, dword [byte edx+048h]
         add ebx, ecx
         mov dword [byte eax+08h], ebx
-        mov eax, dword [dword_1AC374]
+        mov eax, dword [CdStreamBuf]
         mov edx, dword [eax]
         add esp, byte 0Ch
         mov dword [byte eax+0Ch], edx
 CdStreamService_81D:
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov dword [byte eax+01Ch], 6
 .38:
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         cmp edi, dword [byte eax+040h]
         jge near .42
-        mov edx, dword [dword_1AC374]
+        mov edx, dword [CdStreamBuf]
         mov eax, edx
         call CdStreamSkipMarks
         mov eax, dword [byte edx+014h]
@@ -11138,7 +11138,7 @@ CdStreamService_81D:
         mov eax, dword [byte ebx+014h]
         sub eax, esi
 .41:
-        mov edx, dword [dword_1AC378]
+        mov edx, dword [StreamHandle]
         mov esi, dword [byte edx+03Ch]
         cmp eax, esi
         jle near CdStreamService_AC2.58
@@ -11147,9 +11147,9 @@ CdStreamService_81D:
         mov ecx, dword [byte edx+060h]
         mov dword [byte edx+060h], edi
         mov ebx, esi
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         sub ebx, ecx
-        mov edx, dword [dword_1AC374]
+        mov edx, dword [CdStreamBuf]
         mov esi, dword [dword eax+080h]
         mov dword [dword_1691A0], edi
         push ebx
@@ -11162,10 +11162,10 @@ CdStreamService_81D:
         mov ecx, dword [dword_169198]
         add ecx, eax
         add dword [dword_16919C], ebx
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov dword [dword_169198], ecx
         mov dword [dword eax+080h], esi
-        mov ecx, dword [dword_1AC378]
+        mov ecx, dword [StreamHandle]
         add esp, byte 0Ch
         mov edx, dword [dword_169190]
         mov eax, dword [byte ecx+03Ch]
@@ -11174,58 +11174,58 @@ CdStreamService_81D:
         shr eax, 10h
         adc eax, edx
         add dword [dword ecx+080h], eax
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         add dword [byte eax+058h], ebx
-        mov eax, dword [dword_1AC374]
+        mov eax, dword [CdStreamBuf]
         add dword [byte eax+08h], ebx
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         sub dword [byte eax+040h], ebx
         jmp near .38
 .42:
         mov edx, dword [byte eax+0Ch]
         cmp dword [edx], 6C454353h
         jne short .43
-        mov edx, dword [dword_1AC374]
+        mov edx, dword [CdStreamBuf]
         mov eax, dword [byte eax+044h]
         add dword [byte edx+0Ch], eax
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov dword [byte eax+01Ch], 7
         jmp near CdStreamService_20
 .43:
-        mov edx, dword [dword_1AC374]
+        mov edx, dword [CdStreamBuf]
         mov eax, dword [byte eax+044h]
         add dword [byte edx+0Ch], eax
 CdStreamService_956:
-        mov ebx, dword [dword_1AC378]
-        cmp ebx, dword [dword_1AC374]
+        mov ebx, dword [StreamHandle]
+        cmp ebx, dword [CdStreamBuf]
         je near .50
         mov dword [byte ebx+01Ch], 0Ah
-        mov edx, dword [dword_1AC378]
+        mov edx, dword [StreamHandle]
         cmp dword [byte edx+048h], byte 0
         jne near CdStreamService_AC2
         mov eax, edx
         call CdStreamSkipMarks
         mov ebx, dword [byte edx+04h]
         mov edi, dword [byte edx+08h]
-        mov edx, dword [dword_1AC374]
+        mov edx, dword [CdStreamBuf]
         mov eax, dword [byte edx+08h]
         mov ebp, dword [byte edx+0Ch]
         sub ebx, edi
         sub eax, ebp
         cmp ebx, eax
         jg near .46
-        mov edx, dword [dword_1AC378]
+        mov edx, dword [StreamHandle]
         mov eax, edx
         call CdStreamSkipMarks
         mov eax, dword [byte edx+04h]
         mov ebx, dword [byte edx+08h]
         mov edx, eax
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         sub edx, ebx
         call CdStreamContigData
         cmp edx, eax
         jne near CdStreamService_AC2.58
-        mov edx, dword [dword_1AC378]
+        mov edx, dword [StreamHandle]
         mov eax, edx
         call CdStreamSkipMarks
         mov eax, dword [byte edx+014h]
@@ -11237,22 +11237,22 @@ CdStreamService_956:
 .44:
         xor ebx, ebx
 .45:
-        mov edx, dword [dword_1AC374]
+        mov edx, dword [CdStreamBuf]
         mov eax, dword [byte edx+08h]
         sub eax, dword [byte edx+0Ch]
         cmp ebx, eax
         jle near CdStreamService_AC2.58
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov eax, dword [byte eax+0Ch]
         mov dword [eax], 0FFFFFFFFh
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov edx, dword [eax]
         mov dword [byte eax+0Ch], edx
         mov eax, edx
-        mov edx, dword [dword_1AC378]
+        mov edx, dword [StreamHandle]
         mov dword [byte edx+08h], eax
 .46:
-        mov edx, dword [dword_1AC378]
+        mov edx, dword [StreamHandle]
         mov eax, edx
         call CdStreamSkipMarks
         mov eax, dword [byte edx+014h]
@@ -11276,40 +11276,40 @@ CdStreamService_956:
         mov eax, dword [byte ebx+014h]
         sub eax, edi
 .49:
-        mov ebx, dword [dword_1AC374]
+        mov ebx, dword [CdStreamBuf]
         mov edx, dword [byte ebx+08h]
         sub edx, dword [byte ebx+0Ch]
         cmp eax, edx
         jle near CdStreamService_AC2.58
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov dword [byte eax+048h], edx
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov esi, dword [byte eax+048h]
         push esi
         mov edi, dword [byte eax+0Ch]
-        mov eax, dword [dword_1AC374]
+        mov eax, dword [CdStreamBuf]
         push edi
         mov ebp, dword [byte eax+0Ch]
         push ebp
         call bcopy
-        mov eax, dword [dword_1AC374]
+        mov eax, dword [CdStreamBuf]
         mov edx, dword [byte eax+0Ch]
         mov dword [byte eax+08h], edx
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov edx, dword [byte eax+0Ch]
         add edx, dword [byte eax+048h]
         add esp, byte 0Ch
         mov dword [byte eax+08h], edx
         jmp short CdStreamService_AC2
 .50:
-        mov edx, dword [dword_1AC374]
+        mov edx, dword [CdStreamBuf]
         mov eax, dword [byte edx+08h]
         mov ecx, dword [byte edx+0Ch]
         mov edx, eax
         sub edx, ecx
         mov dword [byte ebx+048h], edx
 CdStreamService_AC2:
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov edx, dword [byte eax+058h]
         mov ecx, dword [byte eax+048h]
         mov esi, dword [byte eax+050h]
@@ -11319,10 +11319,10 @@ CdStreamService_AC2:
         cmp dword [byte eax+074h], byte 0
         jne near .56
         mov dword [byte eax+01Ch], 9
-        mov eax, dword [dword_1AC378]
-        mov dword [dword_1AC374], eax
+        mov eax, dword [StreamHandle]
+        mov dword [CdStreamBuf], eax
 .51:
-        mov edx, dword [dword_1AC374]
+        mov edx, dword [CdStreamBuf]
         mov eax, edx
         call CdStreamSkipMarks
         mov eax, dword [byte edx+014h]
@@ -11346,36 +11346,36 @@ CdStreamService_AC2:
         mov eax, dword [byte ebx+014h]
         sub eax, edi
 .54:
-        mov edx, dword [dword_1AC374]
+        mov edx, dword [CdStreamBuf]
         add eax, dword [byte edx+048h]
         cmp eax, byte 8
         jbe short .58
         mov eax, dword [byte edx+06Ch]
-        mov dword [dword_1AC374], eax
+        mov dword [CdStreamBuf], eax
         test eax, eax
         jne short .51
-        mov eax, dword [dword_1AC378]
-        mov dword [dword_1AC374], eax
+        mov eax, dword [StreamHandle]
+        mov dword [CdStreamBuf], eax
         mov ebx, 8
 .55:
-        mov eax, dword [dword_1AC374]
+        mov eax, dword [CdStreamBuf]
         mov eax, dword [byte eax+0Ch]
         mov dword [eax], 0FFFFFFFDh
-        mov eax, dword [dword_1AC374]
+        mov eax, dword [CdStreamBuf]
         mov eax, dword [byte eax+0Ch]
         mov dword [byte eax+04h], ebx
-        mov eax, dword [dword_1AC374]
+        mov eax, dword [CdStreamBuf]
         add dword [byte eax+0Ch], ebx
-        mov eax, dword [dword_1AC374]
+        mov eax, dword [CdStreamBuf]
         mov edx, dword [byte eax+0Ch]
         mov dword [byte eax+08h], edx
-        mov eax, dword [dword_1AC374]
+        mov eax, dword [CdStreamBuf]
         mov eax, dword [byte eax+06Ch]
-        mov dword [dword_1AC374], eax
+        mov dword [CdStreamBuf], eax
         test eax, eax
         jne short .55
 .56:
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov dword [byte eax+01Ch], 7
         add esp, byte 4
         pop ebp
@@ -11394,7 +11394,7 @@ CdStreamService_AC2:
         ret
         db 090h
 CdStreamService_BB8:
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         sub dword [dword eax+080h], byte 0Ah
         inc dword [dword_1691A0]
         ret
@@ -11670,7 +11670,7 @@ StreamBufferFree:
         pop ebx
         ret
         db 08Bh,0C0h
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         cmp dword [byte eax+01Ch], byte 7
         jne short .9
         cmp dword [byte eax+074h], byte 0
@@ -11693,7 +11693,7 @@ StreamReady:
         pop esi
         ret
 .1:
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         cmp dword [byte eax+01Ch], byte 7
         jne short .2
         cmp dword [byte eax+074h], byte 0
@@ -11719,18 +11719,18 @@ StreamReady:
         pop esi
         ret
         db 08Dh,040h,00h
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov dword [byte eax+02Ch], 1
         ret
         db 08Dh,040h,00h
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov dword [byte eax+02Ch], 0
         ret
         db 08Dh,040h,00h
         push ebx
         mov eax, dword [byte esp+08h]
         mov ebx, dword [byte esp+0Ch]
-        mov edx, dword [dword_1AC378]
+        mov edx, dword [StreamHandle]
         dec ebx
         mov dword [byte edx+070h], eax
         xor edx, edx
@@ -11748,10 +11748,10 @@ StreamReady:
         pop ebx
         ret
         mov edx, dword [byte esp+04h]
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov eax, dword [byte eax+070h]
         mov dword [dword edx+097h], eax
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         mov dword [byte eax+070h], edx
         ret
         db 090h
@@ -11761,7 +11761,7 @@ StreamReady:
 ;-----------------------------------------------------------------------------
 StreamQueueBlock:
         push ebx
-        mov eax, dword [dword_1AC378]
+        mov eax, dword [StreamHandle]
         cmp dword [byte eax+070h], byte 0
         jne short .1
         cmp dword [byte esp+08h], byte 0
@@ -11770,7 +11770,7 @@ StreamQueueBlock:
         pop ebx
         ret
 .1:
-        mov edx, dword [dword_1AC378]
+        mov edx, dword [StreamHandle]
         mov eax, dword [byte edx+070h]
         mov ebx, dword [dword eax+097h]
         mov dword [byte edx+070h], ebx
@@ -13299,17 +13299,17 @@ LoadSfxBank:
         push edx
         lea eax, [byte esp+08h]
         push eax
-        mov dword [dword ebx+dword_1AC608], edx
+        mov dword [dword ebx+SfxBankData], edx
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [dword ebx+dword_1691FC], eax
         mov edx, dword [byte esp+034h]
-        mov dword [dword ebx+dword_1AC620], eax
+        mov dword [dword ebx+SfxBankSizes], eax
         add eax, edx
         mov dword [dword ebx+dword_1AC5D8], eax
         mov eax, 10266h
         call WaitSoundTime
-        mov ecx, dword [dword ebx+dword_1AC620]
+        mov ecx, dword [dword ebx+SfxBankSizes]
         push ecx
         lea eax, [byte esp+028h]
         push eax
@@ -13324,7 +13324,7 @@ LoadSfxBank:
         add esp, byte 4
         mov eax, esi
         mov dword [dword ebx+dword_1691FC], ebp
-        mov dword [dword ebx+dword_1AC608], ebp
+        mov dword [dword ebx+SfxBankData], ebp
         add esp, byte 3Ch
         pop ebp
         pop edi
@@ -13355,7 +13355,7 @@ LoadSfxBank:
         xor edx, edx
         mov eax, esi
         mov dword [dword ebx+dword_1691FC], edx
-        mov dword [dword ebx+dword_1AC608], edx
+        mov dword [dword ebx+SfxBankData], edx
         add esp, byte 3Ch
         pop ebp
         pop edi
@@ -13380,7 +13380,7 @@ LoadSfxBank:
         add esp, byte 4
         mov eax, esi
         mov dword [dword ebx+dword_1691FC], edi
-        mov dword [dword ebx+dword_1AC608], edi
+        mov dword [dword ebx+SfxBankData], edi
         add esp, byte 3Ch
         pop ebp
         pop edi
@@ -13397,9 +13397,9 @@ LoadSfxBank:
         add esp, byte 4
 .26:
         shl edi, 2
-        mov eax, dword_1AC5F0
+        mov eax, SfxBankNames
         mov ebx, dword [dword edi+dword_1AC5D8]
-        mov edx, dword [dword edi+dword_1AC620]
+        mov edx, dword [dword edi+SfxBankSizes]
         add eax, edi
         call RegisterSoundBank
         test eax, eax
@@ -13411,7 +13411,7 @@ LoadSfxBank:
         xor ecx, ecx
         mov eax, esi
         mov dword [dword edi+dword_1691FC], ecx
-        mov dword [dword edi+dword_1AC608], ecx
+        mov dword [dword edi+SfxBankData], ecx
         add esp, byte 3Ch
         pop ebp
         pop edi
@@ -13964,7 +13964,7 @@ InitGameAudio:
         mov dword [dword_169224], eax
         test eax, eax
         je short .9
-        mov ebx, dword [dword_1AC604]
+        mov ebx, dword [GameAudioState]
         mov edx, eax
         mov eax, ebx
         call InitSoundMixer
@@ -14009,7 +14009,7 @@ InitGameAudio:
         add esp, byte 4
         test byte [byte_1AC81B], 8
         je short .15
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 40h
         jne short .14
@@ -14150,7 +14150,7 @@ FreeSfxBank:
         cmp dword [dword ebx+dword_1691FC], byte 0
         je short .1
         call StopBankSounds
-        mov eax, dword [dword ebx+dword_1AC5F0]
+        mov eax, dword [dword ebx+SfxBankNames]
         call UnregisterSoundBank
         mov ecx, dword [dword ebx+dword_1691FC]
         push ecx
@@ -14158,7 +14158,7 @@ FreeSfxBank:
         call FreeMemBlock
         add esp, byte 4
         mov dword [dword ebx+dword_1691FC], esi
-        mov dword [dword ebx+dword_1AC608], esi
+        mov dword [dword ebx+SfxBankData], esi
 .1:
         pop esi
         pop edx
@@ -14283,7 +14283,7 @@ InitGameSounds:
         test edx, edx
         je short .7
         je short .6
-        mov eax, dword_1AC780
+        mov eax, GameSoundsOn
         call FileClose
         mov esi, dword [dword_16923C]
         test esi, esi
@@ -14446,7 +14446,7 @@ ShutdownGameAudio:
         test edx, edx
         je short .8
         je short .7
-        mov eax, dword_1AC780
+        mov eax, GameSoundsOn
         call FileClose
         mov ecx, dword [dword_16923C]
         test ecx, ecx
@@ -14568,7 +14568,7 @@ ChkMenuMusic:
         mov ebx, 50h
         shl eax, 4
         mov edx, ecx
-        add eax, byte_1AC638
+        add eax, MusicTrackTable
         call strncpy_
         mov edx, dword [dword_1691B0]
         sar edx, 10h
@@ -14604,7 +14604,7 @@ StartMusicTrack:
         lea eax, [nosplit ebx*4+00h]
         add eax, ebx
         shl eax, 4
-        add eax, byte_1AC638
+        add eax, MusicTrackTable
         call MakeDataPath
         mov edx, dword [dword_1691B0]
         sar edx, 10h
@@ -14612,7 +14612,7 @@ StartMusicTrack:
         add eax, edx
         shl eax, 4
         mov edx, str_MENU
-        add eax, byte_1AC638
+        add eax, MusicTrackTable
         call strstr_
         test eax, eax
         je short .1
@@ -14660,7 +14660,7 @@ StartMusicTrack:
         mov ebx, 50h
         shl eax, 4
         mov edx, ecx
-        add eax, byte_1AC638
+        add eax, MusicTrackTable
         mov ecx, 4
         call strncpy_
         mov eax, dword [dword_1691B0]
@@ -14696,7 +14696,7 @@ StartMusicTrack:
         lea eax, [nosplit ebx*4+00h]
         add eax, ebx
         shl eax, 4
-        add eax, byte_1AC638
+        add eax, MusicTrackTable
         call MakeDataPath
         mov edx, dword [dword_1691B0]
         sar edx, 10h
@@ -14704,7 +14704,7 @@ StartMusicTrack:
         add eax, edx
         shl eax, 4
         mov edx, str_MENU
-        add eax, byte_1AC638
+        add eax, MusicTrackTable
         call strstr_
         test eax, eax
         je short .7
@@ -15574,14 +15574,14 @@ QueueSpeechRequest:
         push edi
         mov esi, eax
         mov ebx, edx
-        mov ecx, dword [dword_1AC7D2]
+        mov ecx, dword [SpeechRequestId]
         sar ecx, 10h
         lea edx, [byte ecx+01h]
         mov edi, 10h
         mov eax, edx
         sar edx, 1Fh
         idiv edi
-        mov eax, dword [dword_1AC7D6]
+        mov eax, dword [SpeechRequestB]
         sar eax, 10h
         cmp edx, eax
         je short .1
@@ -15589,14 +15589,14 @@ QueueSpeechRequest:
         jge short .1
         lea eax, [nosplit ecx*4+00h]
         sub eax, ecx
-        mov dword [nosplit eax*4+dword_1AC430], esi
-        mov dword [nosplit eax*4+dword_1AC434], ebx
+        mov dword [nosplit eax*4+SpeechReqHead], esi
+        mov dword [nosplit eax*4+SpeechReqTail], ebx
         xor ebx, ebx
         mov ecx, dword [dword_169294]
-        mov dword [nosplit eax*4+dword_1AC438], ebx
+        mov dword [nosplit eax*4+SpeechRequests], ebx
         mov eax, 1
         add ecx, eax
-        mov word [dword_1AC7D4], dx
+        mov word [SpeechRequestA], dx
         mov dword [dword_169294], ecx
         pop edi
         pop esi
@@ -15626,24 +15626,24 @@ ResetSpeechQueue:
         mov ebx, 8000h
         mov dword [dword_169294], edx
         xor edx, edx
-        push dword_1AC430
-        mov word [dword_1AC7D4], dx
-        mov word [word_1AC7D8], dx
-        mov word [dword_1AC7D6], dx
+        push SpeechReqHead
+        mov word [SpeechRequestA], dx
+        mov word [SpeechQueuePrio], dx
+        mov word [SpeechRequestB], dx
         call ZeroMem
-        mov eax, dword [dword_1AC7C8]
+        mov eax, dword [SpeechBanksLoaded]
         add esp, byte 8
-        mov dword [dword_1AC7C4], ebx
+        mov dword [SpeechQueueTime], ebx
         xor ecx, ecx
         xor edx, edx
-        mov dword [dword_1AC7B4], eax
-        mov dword [dword_1AC7BC], eax
-        mov dword [dword_1AC7B8], eax
-        mov eax, dword [dword_1AC780]
-        mov dword [dword_1AC7C0], ecx
+        mov dword [SpeechQueueClipId], eax
+        mov dword [SpeechQueueStage], eax
+        mov dword [SpeechQueueDelay], eax
+        mov eax, dword [GameSoundsOn]
+        mov dword [SpeechQueuePriority], ecx
         call FileSeek
-        mov dword [dword_1AC788], ecx
-        mov dword [dword_1AC784], ecx
+        mov dword [SpeechQueueWrite], ecx
+        mov dword [SpeechQueueRead], ecx
         pop edx
         pop ecx
         pop ebx
@@ -15664,22 +15664,22 @@ ServiceSpeechQueue:
         push ebp
         cmp dword [dword_169294], byte 0
         je near .10
-        cmp dword [dword_1AC784], byte 0
+        cmp dword [SpeechQueueRead], byte 0
         jne near .3
-        mov dx, word [dword_1AC7D4]
-        cmp dx, word [dword_1AC7D6]
+        mov dx, word [SpeechRequestA]
+        cmp dx, word [SpeechRequestB]
         je near .3
-        mov ecx, dword [dword_1AC7B8]
-        mov eax, dword [dword_1AC7BC]
+        mov ecx, dword [SpeechQueueDelay]
+        mov eax, dword [SpeechQueueStage]
         cmp eax, ecx
         jge short .1
         mov edx, ecx
         sub edx, eax
         jmp short .2
 .1:
-        mov edx, dword [dword_1AC7C4]
-        mov eax, dword [dword_1AC7B4]
-        mov esi, dword [dword_1AC7BC]
+        mov edx, dword [SpeechQueueTime]
+        mov eax, dword [SpeechQueueClipId]
+        mov esi, dword [SpeechQueueStage]
         add edx, eax
         sub ecx, eax
         sub edx, esi
@@ -15688,58 +15688,58 @@ ServiceSpeechQueue:
         jge short .2
         mov edx, ecx
 .2:
-        mov ecx, dword [dword_1AC7D4]
+        mov ecx, dword [SpeechRequestA]
         sar ecx, 10h
         lea eax, [nosplit ecx*4+00h]
         sub eax, ecx
         shl eax, 2
-        mov ebp, dword [dword eax+dword_1AC434]
+        mov ebp, dword [dword eax+SpeechReqTail]
         cmp edx, ebp
         jl short .3
-        mov eax, dword_1AC7B4
+        mov eax, SpeechQueueClipId
         mov edx, ebp
         call RingBufferSpace
-        mov ecx, dword [dword_1AC7D4]
+        mov ecx, dword [SpeechRequestA]
         sar ecx, 10h
         mov edx, eax
         lea eax, [nosplit ecx*4+00h]
         sub eax, ecx
         shl eax, 2
-        mov dword [dword eax+dword_1AC438], edx
+        mov dword [dword eax+SpeechRequests], edx
         test edx, edx
         je short .3
-        mov eax, dword [dword eax+dword_1AC434]
-        mov dword [dword_1AC784], eax
+        mov eax, dword [dword eax+SpeechReqTail]
+        mov dword [SpeechQueueRead], eax
 .3:
-        mov ebx, dword [dword_1AC784]
+        mov ebx, dword [SpeechQueueRead]
         test ebx, ebx
         jle near .7
-        mov edx, dword [dword_1AC7D4]
+        mov edx, dword [SpeechRequestA]
         sar edx, 10h
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
         lea edx, [nosplit eax*4+00h]
-        mov eax, dword [dword edx+dword_1AC430]
-        add eax, dword [dword edx+dword_1AC434]
-        mov edi, dword [dword_1AC788]
+        mov eax, dword [dword edx+SpeechReqHead]
+        add eax, dword [dword edx+SpeechReqTail]
+        mov edi, dword [SpeechQueueWrite]
         sub eax, ebx
         cmp eax, edi
         je short .4
-        mov ecx, dword [dword_1AC780]
+        mov ecx, dword [GameSoundsOn]
         mov edx, eax
         mov eax, ecx
         call FileSeek
-        mov edx, dword [dword_1AC7D4]
+        mov edx, dword [SpeechRequestA]
         sar edx, 10h
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
         lea edx, [nosplit eax*4+00h]
-        mov eax, dword [dword edx+dword_1AC430]
-        mov ebx, dword [dword edx+dword_1AC434]
+        mov eax, dword [dword edx+SpeechReqHead]
+        mov ebx, dword [dword edx+SpeechReqTail]
         lea edx, [eax+ebx]
-        mov eax, dword [dword_1AC784]
+        mov eax, dword [SpeechQueueRead]
         sub edx, eax
-        mov dword [dword_1AC788], edx
+        mov dword [SpeechQueueWrite], edx
         jmp near .7
 .4:
         cmp ebx, 800h
@@ -15749,77 +15749,77 @@ ServiceSpeechQueue:
 .5:
         mov ecx, ebx
 .6:
-        mov edx, dword [dword_1AC7D4]
+        mov edx, dword [SpeechRequestA]
         sar edx, 10h
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
         lea edx, [nosplit eax*4+00h]
-        mov ebx, dword [dword_1AC784]
-        mov eax, dword [dword edx+dword_1AC434]
-        mov edx, dword [dword edx+dword_1AC438]
+        mov ebx, dword [SpeechQueueRead]
+        mov eax, dword [dword edx+SpeechReqTail]
+        mov edx, dword [dword edx+SpeechRequests]
         sub eax, ebx
         mov ebx, ecx
         add edx, eax
-        mov eax, dword [dword_1AC780]
+        mov eax, dword [GameSoundsOn]
         call FileReadRecord
-        mov esi, dword [dword_1AC788]
+        mov esi, dword [SpeechQueueWrite]
         add esi, ecx
-        mov edi, dword [dword_1AC784]
-        mov dword [dword_1AC788], esi
+        mov edi, dword [SpeechQueueRead]
+        mov dword [SpeechQueueWrite], esi
         sub edi, ecx
-        mov dword [dword_1AC784], edi
+        mov dword [SpeechQueueRead], edi
         jne short .7
-        mov edx, dword [dword_1AC7D4]
+        mov edx, dword [SpeechRequestA]
         sar edx, 10h
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
-        mov edx, dword [nosplit eax*4+dword_1AC434]
-        mov eax, dword [nosplit eax*4+dword_1AC438]
+        mov edx, dword [nosplit eax*4+SpeechReqTail]
+        mov eax, dword [nosplit eax*4+SpeechRequests]
         call PushSpeechRing
-        mov edx, dword [dword_1AC7D4]
+        mov edx, dword [SpeechRequestA]
         sar edx, 10h
         inc edx
         mov ecx, 10h
         mov eax, edx
         sar edx, 1Fh
         idiv ecx
-        mov word [dword_1AC7D6], dx
+        mov word [SpeechRequestB], dx
 .7:
-        mov bx, word [dword_1AC7D6]
-        cmp bx, word [word_1AC7D8]
+        mov bx, word [SpeechRequestB]
+        cmp bx, word [SpeechQueuePrio]
         je near .10
-        mov edx, dword [dword_1AC7D6]
+        mov edx, dword [SpeechRequestB]
         sar edx, 10h
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
-        mov eax, dword [nosplit eax*4+dword_1AC438]
+        mov eax, dword [nosplit eax*4+SpeechRequests]
         call SpeechRingCount
         test eax, eax
         jne near .10
-        mov edx, dword [dword_1AC7D6]
+        mov edx, dword [SpeechRequestB]
         sar edx, 10h
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
-        mov edx, dword [nosplit eax*4+dword_1AC438]
-        mov eax, dword [nosplit eax*4+dword_1AC434]
+        mov edx, dword [nosplit eax*4+SpeechRequests]
+        mov eax, dword [nosplit eax*4+SpeechReqTail]
         add edx, eax
-        mov ecx, dword [dword_1AC7BC]
-        mov dword [dword_1AC7B8], edx
+        mov ecx, dword [SpeechQueueStage]
+        mov dword [SpeechQueueDelay], edx
         cmp edx, ecx
         jne short .8
-        mov eax, dword [dword_1AC7B4]
-        mov dword [dword_1AC7BC], eax
-        mov dword [dword_1AC7B8], eax
+        mov eax, dword [SpeechQueueClipId]
+        mov dword [SpeechQueueStage], eax
+        mov dword [SpeechQueueDelay], eax
         jmp short .9
 .8:
-        cmp edx, dword [dword_1AC7C0]
+        cmp edx, dword [SpeechQueuePriority]
         jne short .9
-        mov eax, dword [dword_1AC7B4]
+        mov eax, dword [SpeechQueueClipId]
         xor edi, edi
-        mov dword [dword_1AC7B8], eax
-        mov dword [dword_1AC7C0], edi
+        mov dword [SpeechQueueDelay], eax
+        mov dword [SpeechQueuePriority], edi
 .9:
-        mov edx, dword [dword_1AC7D6]
+        mov edx, dword [SpeechRequestB]
         sar edx, 10h
         inc edx
         mov ecx, 10h
@@ -15827,7 +15827,7 @@ ServiceSpeechQueue:
         sar edx, 1Fh
         idiv ecx
         dec dword [dword_169294]
-        mov word [word_1AC7D8], dx
+        mov word [SpeechQueuePrio], dx
 .10:
         pop ebp
         pop edi
@@ -15853,7 +15853,7 @@ FindSpeechClip:
         mov esi, eax
         test eax, eax
         jl short .4
-        mov edx, dword [dword_1AC7A8]
+        mov edx, dword [SpeechClipIndex]
         xor ebx, ebx
         test edx, edx
         je short .4
@@ -16023,7 +16023,7 @@ IsClipLoaded:
         push ebx
         push edx
         mov ebx, eax
-        mov edx, dword [dword_1AC7B0]
+        mov edx, dword [SpeechClipTable]
         xor eax, eax
 .1:
         cmp ebx, dword [dword edx+eax+057Eh]
@@ -16062,7 +16062,7 @@ LoadSpeechClips:
         xor edx, edx
         mov dword [esp], eax
 .1:
-        mov eax, dword [dword_1AC7B0]
+        mov eax, dword [SpeechClipTable]
         lea edi, [nosplit edx*8+00h]
         add eax, edi
         mov ecx, dword [dword eax+057Eh]
@@ -16074,7 +16074,7 @@ LoadSpeechClips:
         jne short .2
         mov edx, dword [byte esp+08h]
         mov dword [dword eax+057Ah], edx
-        mov eax, dword [dword_1AC7B0]
+        mov eax, dword [SpeechClipTable]
         add edi, eax
         mov eax, dword [byte esp+04h]
         mov ecx, dword [dword edi+057Eh]
@@ -16092,7 +16092,7 @@ LoadSpeechClips:
         mov dword [dword eax+057Eh], ebx
         xor eax, eax
 .3:
-        mov edx, dword [dword_1AC7B0]
+        mov edx, dword [SpeechClipTable]
         lea esi, [nosplit eax*8+00h]
         lea ebx, [edx+esi]
         cmp dword [dword ebx+057Eh], byte 0
@@ -16104,13 +16104,13 @@ LoadSpeechClips:
         jne short .4
         mov ebx, ecx
         add dword [dword edx+057Eh], ebx
-        mov edx, dword [dword_1AC7B0]
+        mov edx, dword [SpeechClipTable]
         mov dword [dword edx+esi+057Eh], 0
-        mov edx, dword [dword_1AC7B0]
+        mov edx, dword [SpeechClipTable]
         mov ebx, dword [dword edx+0576h]
         sar ebx, 10h
         mov dword [dword edx+esi+057Ah], ebx
-        mov edx, dword [dword_1AC7B0]
+        mov edx, dword [SpeechClipTable]
         mov word [dword edx+0578h], ax
         mov eax, ebp
 .4:
@@ -16123,16 +16123,16 @@ LoadSpeechClips:
         cmp edx, byte 54h
         jl near .1
         jne short .6
-        mov edx, dword [dword_1AC7B0]
+        mov edx, dword [SpeechClipTable]
         mov eax, dword [dword edx+0576h]
         sar eax, 10h
         shl eax, 3
         mov bx, word [dword edx+eax+057Ah]
         mov word [dword edx+0578h], bx
-        mov edx, dword [dword_1AC7B0]
+        mov edx, dword [SpeechClipTable]
         mov ebx, dword [byte esp+08h]
         mov dword [dword edx+eax+057Ah], ebx
-        mov edx, dword [dword_1AC7B0]
+        mov edx, dword [SpeechClipTable]
         add eax, edx
         mov edx, dword [byte esp+04h]
         mov dword [dword eax+057Eh], edx
@@ -16159,7 +16159,7 @@ LoadClipIfMissing:
         push ebp
         sub esp, byte 4
         mov dword [esp], eax
-        mov edx, dword [dword_1AC7B0]
+        mov edx, dword [SpeechClipTable]
         mov ebx, eax
         xor eax, eax
 .1:
@@ -16179,7 +16179,7 @@ LoadClipIfMissing:
         jmp near .10
 .4:
         mov ebx, 0FFFFFFFFh
-        mov esi, dword [dword_1AC7B0]
+        mov esi, dword [SpeechClipTable]
         xor ecx, ecx
         xor eax, eax
 .5:
@@ -16216,22 +16216,22 @@ LoadClipIfMissing:
         pop ebx
         ret
 .9:
-        mov edx, dword [dword_1AC7B0]
+        mov edx, dword [SpeechClipTable]
         mov ecx, dword [esp]
         mov eax, dword [dword edx+edi+057Ah]
         add ecx, eax
         mov dword [dword edx+edi+057Ah], ecx
-        mov edx, dword [dword_1AC7B0]
+        mov edx, dword [SpeechClipTable]
         mov ecx, dword [esp]
         sub dword [dword edx+edi+057Eh], ecx
-        mov edx, dword [dword_1AC7B0]
+        mov edx, dword [SpeechClipTable]
         add edi, edx
         cmp dword [dword edi+057Eh], byte 0
         jne short .10
         mov edx, dword [dword edx+0576h]
         sar edx, 10h
         mov dword [dword edi+057Ah], edx
-        mov edx, dword [dword_1AC7B0]
+        mov edx, dword [SpeechClipTable]
         mov word [dword edx+0578h], bx
 .10:
         add esp, byte 4
@@ -16274,7 +16274,7 @@ OpenSpeechBanks:
         push eax
         call sprintf_
         add esp, byte 0Ch
-        mov edx, dword_1AC7AC
+        mov edx, SpeechBankHandle
         call ServiceIdle
         lea eax, [byte esp+078h]
         xor esi, esi
@@ -16283,24 +16283,24 @@ OpenSpeechBanks:
         je near .22
         mov ebx, 4
         mov edx, str_KTSF
-        mov eax, dword [dword_1AC7AC]
+        mov eax, dword [SpeechBankHandle]
         call FileWriteRecord
         test eax, eax
         jne short .1
-        mov eax, dword_1AC7AC
+        mov eax, SpeechBankHandle
         call FileClose
         xor eax, eax
         jmp near .22
 .1:
         mov edx, 81Ah
         mov ebx, 4
-        mov eax, dword [dword_1AC7AC]
+        mov eax, dword [SpeechBankHandle]
         mov dword [dword esp+0100h], edx
         lea edx, [dword esp+0100h]
         call FileWriteRecord
         test eax, eax
         jne short .2
-        mov eax, dword_1AC7AC
+        mov eax, SpeechBankHandle
         call FileClose
         xor eax, eax
         add esp, 108h
@@ -16312,13 +16312,13 @@ OpenSpeechBanks:
 .2:
         mov ebx, 0AFh
         lea edx, [dword esp+0100h]
-        mov eax, dword [dword_1AC7AC]
+        mov eax, dword [SpeechBankHandle]
         mov dword [dword esp+0100h], ebx
         mov ebx, 4
         call FileWriteRecord
         test eax, eax
         jne short .3
-        mov eax, dword_1AC7AC
+        mov eax, SpeechBankHandle
         call FileClose
         xor eax, eax
         add esp, 108h
@@ -16330,42 +16330,42 @@ OpenSpeechBanks:
 .3:
         call ServiceIdle
         push dword 81Ah
-        mov ecx, dword [dword_1AC7B0]
+        mov ecx, dword [SpeechClipTable]
         push ecx
         call ZeroMem
-        mov eax, dword [dword_1AC7B0]
+        mov eax, dword [SpeechClipTable]
         mov word [dword eax+02D4h], 0
-        mov eax, dword [dword_1AC7B0]
+        mov eax, dword [SpeechClipTable]
         add esp, byte 8
         mov word [dword eax+02D6h], 0
         mov dword [dword esp+0100h], esi
         mov ebx, 0FFFFFFFFh
 .4:
         imul edx, dword [dword esp+0100h], byte 0Ch
-        mov eax, dword [dword_1AC7B0]
+        mov eax, dword [SpeechClipTable]
         mov dword [dword edx+eax+02D8h], ebx
         mov ebp, dword [dword esp+0100h]
         imul eax, ebp, byte 0Ch
         cmp ebp, byte 37h
         jge short .5
         mov edx, dword [dword esp+0100h]
-        mov ecx, dword [dword_1AC7B0]
+        mov ecx, dword [SpeechClipTable]
         inc edx
         mov word [dword ecx+eax+02DCh], dx
         jmp short .6
 .5:
-        mov edx, dword [dword_1AC7B0]
+        mov edx, dword [SpeechClipTable]
         mov word [dword edx+eax+02DCh], bx
 .6:
         imul eax, dword [dword esp+0100h], byte 0Ch
-        mov edx, dword [dword_1AC7B0]
+        mov edx, dword [SpeechClipTable]
         mov dword [dword edx+eax+02E0h], 0
         mov ebp, dword [dword esp+0100h]
         inc ebp
         mov dword [dword esp+0100h], ebp
         cmp ebp, byte 38h
         jl short .4
-        mov eax, dword [dword_1AC7B0]
+        mov eax, dword [SpeechClipTable]
         xor edx, edx
         mov word [dword eax+0578h], 0
         mov dword [dword esp+0100h], edx
@@ -16375,17 +16375,17 @@ OpenSpeechBanks:
         shl eax, 3
         cmp ebx, byte 53h
         jge short .8
-        mov edx, dword [dword_1AC7B0]
+        mov edx, dword [SpeechClipTable]
         add edx, eax
         lea eax, [byte ebx+01h]
         mov dword [dword edx+057Ah], eax
         jmp short .9
 .8:
-        mov edx, dword [dword_1AC7B0]
+        mov edx, dword [SpeechClipTable]
         mov dword [dword edx+eax+057Ah], 0FFFFFFFFh
 .9:
         mov edx, dword [dword esp+0100h]
-        mov eax, dword [dword_1AC7B0]
+        mov eax, dword [SpeechClipTable]
         mov dword [dword eax+edx*8+057Eh], 0
         mov ecx, dword [dword esp+0100h]
         inc ecx
@@ -16394,12 +16394,12 @@ OpenSpeechBanks:
         jl short .7
         call ServiceIdle
         mov ebx, 81Ah
-        mov edx, dword [dword_1AC7B0]
-        mov eax, dword [dword_1AC7AC]
+        mov edx, dword [SpeechClipTable]
+        mov eax, dword [SpeechBankHandle]
         call FileWriteRecord
         test eax, eax
         jne short .10
-        mov eax, dword_1AC7AC
+        mov eax, SpeechBankHandle
         call FileClose
         xor eax, eax
         add esp, 108h
@@ -16433,7 +16433,7 @@ OpenSpeechBanks:
         xor ecx, ecx
 .12:
         mov edx, dword [dword esp+0100h]
-        mov eax, dword [dword_1AC7B0]
+        mov eax, dword [SpeechClipTable]
         mov dword [eax+edx*4], edi
         mov ebx, dword [dword esp+0100h]
         push ebx
@@ -16444,7 +16444,7 @@ OpenSpeechBanks:
         add esp, byte 0Ch
         call ServiceIdle
         lea eax, [dword esp+0F0h]
-        mov edx, dword [dword_1AC7AC]
+        mov edx, dword [SpeechBankHandle]
         call LoadSpeechBlock
         mov edx, eax
         cmp ecx, ebp
@@ -16456,7 +16456,7 @@ OpenSpeechBanks:
         call ServiceIdle
         test edx, edx
         jne short .14
-        mov eax, dword_1AC7AC
+        mov eax, SpeechBankHandle
         call FileClose
         xor eax, eax
         add esp, 108h
@@ -16497,13 +16497,13 @@ OpenSpeechBanks:
         mov eax, esi
         call dword [dword esp+0104h]
 .17:
-        mov eax, dword [dword_1AC7AC]
+        mov eax, dword [SpeechBankHandle]
         mov ebx, ecx
         mov edx, ebp
         call FileWriteRecord
         test eax, eax
         jne short .18
-        mov eax, dword_1AC7AC
+        mov eax, SpeechBankHandle
         call FileClose
         xor eax, eax
         add esp, 108h
@@ -16524,18 +16524,18 @@ OpenSpeechBanks:
         mov edx, 3405C0h
         mov eax, edi
         call LoadSpeechClips
-        mov eax, dword [dword_1AC7B0]
+        mov eax, dword [SpeechClipTable]
         mov dword [dword eax+02C8h], 0FFFFFFFFh
-        mov edx, dword [dword_1AC7B0]
+        mov edx, dword [SpeechClipTable]
         mov eax, dword [dword eax+02C8h]
         mov dword [dword edx+02BCh], eax
         call ServiceIdle
         mov edx, 0Ch
-        mov eax, dword [dword_1AC7AC]
+        mov eax, dword [SpeechBankHandle]
         call FileSeek
         test eax, eax
         jne short .19
-        mov eax, dword_1AC7AC
+        mov eax, SpeechBankHandle
         call FileClose
         xor eax, eax
         add esp, 108h
@@ -16546,12 +16546,12 @@ OpenSpeechBanks:
         ret
 .19:
         mov ebx, 81Ah
-        mov edx, dword [dword_1AC7B0]
-        mov eax, dword [dword_1AC7AC]
+        mov edx, dword [SpeechClipTable]
+        mov eax, dword [SpeechBankHandle]
         call FileWriteRecord
         test eax, eax
         jne short .20
-        mov eax, dword_1AC7AC
+        mov eax, SpeechBankHandle
         call FileClose
         xor eax, eax
         add esp, 108h
@@ -16566,7 +16566,7 @@ OpenSpeechBanks:
         lea eax, [byte esi+01h]
         call dword [dword esp+0104h]
 .21:
-        mov eax, dword_1AC7AC
+        mov eax, SpeechBankHandle
         call FileClose
         mov eax, 1
 .22:
@@ -16599,19 +16599,19 @@ ResolveSpeechClips:
         call FindSpeechClip
         test eax, eax
         jge short .2
-        mov eax, dword [dword_1AC7B0]
+        mov eax, dword [SpeechClipTable]
         mov edx, dword [dword ebx+eax+02E0h]
         mov eax, dword [dword ebx+eax+02DCh]
         call LoadSpeechClips
-        mov eax, dword [dword_1AC7B0]
+        mov eax, dword [SpeechClipTable]
         mov dword [dword ebx+eax+02D8h], 0FFFFFFFFh
-        mov eax, dword [dword_1AC7B0]
+        mov eax, dword [SpeechClipTable]
         add ebx, eax
         mov ax, word [dword eax+02D6h]
         mov word [dword ebx+02DCh], ax
-        mov eax, dword [dword_1AC7B0]
+        mov eax, dword [SpeechClipTable]
         mov word [dword eax+02D6h], cx
-        mov edx, dword [dword_1AC7B0]
+        mov edx, dword [SpeechClipTable]
         mov bx, word [dword edx+02D4h]
         dec ebx
         mov eax, ecx
@@ -16624,7 +16624,7 @@ ResolveSpeechClips:
         inc ecx
         add ebx, byte 0Ch
 .3:
-        mov eax, dword [dword_1AC7B0]
+        mov eax, dword [SpeechClipTable]
         mov edx, dword [dword eax+02D2h]
         sar edx, 10h
         cmp ecx, edx
@@ -16650,7 +16650,7 @@ LoadTeamSpeech:
         sub esp, byte 78h
         mov ebx, eax
         mov esi, edx
-        mov eax, dword [dword_1AC7B0]
+        mov eax, dword [SpeechClipTable]
         mov edx, dword [dword eax+02BCh]
         test edx, edx
         jl short .1
@@ -16661,15 +16661,15 @@ LoadTeamSpeech:
         mov edx, dword [dword eax+02C4h]
         mov eax, dword [dword eax+02C0h]
         call LoadSpeechClips
-        mov eax, dword [dword_1AC7B0]
+        mov eax, dword [SpeechClipTable]
         mov dword [dword eax+02BCh], 0FFFFFFFFh
-        mov eax, dword [dword_1AC7B0]
+        mov eax, dword [SpeechClipTable]
         mov edx, dword [dword eax+02C8h]
         cmp edx, dword [dword eax+02BCh]
         jne short .1
         mov dword [dword eax+02C8h], 0FFFFFFFFh
 .1:
-        mov eax, dword [dword_1AC7B0]
+        mov eax, dword [SpeechClipTable]
         mov edx, dword [dword eax+02C8h]
         test edx, edx
         jl short .2
@@ -16680,7 +16680,7 @@ LoadTeamSpeech:
         mov edx, dword [dword eax+02D0h]
         mov eax, dword [dword eax+02CCh]
         call LoadSpeechClips
-        mov eax, dword [dword_1AC7B0]
+        mov eax, dword [SpeechClipTable]
         mov dword [dword eax+02C8h], 0FFFFFFFFh
 .2:
         mov edx, 57h
@@ -16706,7 +16706,7 @@ LoadTeamSpeech:
         push byte 0
         jmp near .23
 .3:
-        mov edx, dword [dword_1AC7B0]
+        mov edx, dword [SpeechClipTable]
         mov ebp, dword [dword edx+02BCh]
         mov dword [byte esp+050h], ebx
         cmp ebx, ebp
@@ -16725,7 +16725,7 @@ LoadTeamSpeech:
 .5:
         mov ebx, ecx
 .6:
-        mov edx, dword [dword_1AC7B0]
+        mov edx, dword [SpeechClipTable]
         xor eax, eax
 .7:
         cmp ebx, dword [dword edx+eax+057Eh]
@@ -16745,7 +16745,7 @@ LoadTeamSpeech:
 .10:
         mov eax, ecx
         call LoadClipIfMissing
-        mov ebx, dword [dword_1AC7AC]
+        mov ebx, dword [SpeechBankHandle]
         mov dword [byte esp+054h], eax
         mov edx, eax
         mov eax, ebx
@@ -16764,7 +16764,7 @@ LoadTeamSpeech:
         ret
 .11:
         lea eax, [byte esp+068h]
-        mov edx, dword [dword_1AC7AC]
+        mov edx, dword [SpeechBankHandle]
         call LoadSpeechBlock
 .12:
         mov dword [byte esp+058h], eax
@@ -16794,7 +16794,7 @@ LoadTeamSpeech:
         pop ebx
         ret
 .13:
-        mov edx, dword [dword_1AC7B0]
+        mov edx, dword [SpeechClipTable]
         mov ebx, dword [dword edx+02BCh]
         mov dword [byte esp+05Ch], esi
         cmp esi, ebx
@@ -16815,7 +16815,7 @@ LoadTeamSpeech:
         mov ebx, ecx
         xor ebp, ebp
 .16:
-        mov edx, dword [dword_1AC7B0]
+        mov edx, dword [SpeechClipTable]
         mov eax, ebp
 .17:
         cmp ebx, dword [dword edx+eax+057Eh]
@@ -16835,7 +16835,7 @@ LoadTeamSpeech:
 .20:
         mov eax, ecx
         call LoadClipIfMissing
-        mov ebx, dword [dword_1AC7AC]
+        mov ebx, dword [SpeechBankHandle]
         mov dword [byte esp+060h], eax
         mov edx, eax
         mov eax, ebx
@@ -16854,17 +16854,17 @@ LoadTeamSpeech:
         ret
 .21:
         lea eax, [byte esp+068h]
-        mov edx, dword [dword_1AC7AC]
+        mov edx, dword [SpeechBankHandle]
         call LoadSpeechBlock
 .22:
         mov dword [byte esp+064h], eax
-        mov esi, dword [dword_1AC7B0]
+        mov esi, dword [SpeechClipTable]
         lea edi, [dword esi+02BCh]
         lea esi, [byte esp+050h]
         movsd
         movsd
         movsd
-        mov esi, dword [dword_1AC7B0]
+        mov esi, dword [SpeechClipTable]
         lea edi, [dword esi+02C8h]
         lea esi, [byte esp+05Ch]
         push byte 0

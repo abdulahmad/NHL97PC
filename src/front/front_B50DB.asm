@@ -17,7 +17,7 @@ extern str_SC18, str_SC17, str_SC16, str_SC17SC18SC19, str_SC30, str_SC29, str_S
 extern str_AB08, str_AB07, str_AB06, str_AB11, str_AB10, str_AB09, str_SC09SC10SC11, str_Rroster
 extern str_Lroster, str_POWR2, str_01d02d, byte_16CCF0, byte_1AD739, byte_1C6040, byte_1C8338, byte_1CAEC8
 extern dword_16CCF1, dword_16D400, dword_16D404, dword_16D454, dword_16D458, dword_16D45C, dword_16D470, dword_16D484
-extern dword_16D4B0, dword_16D4D4, dword_16DA9C, MenuScreenBitmap, dword_1AC814, dword_1ACF46, dword_1AD6AB, dword_1C5EEC
+extern dword_16D4B0, dword_16D4D4, dword_16DA9C, MenuScreenBitmap, GameSettings, dword_1ACF46, dword_1AD6AB, dword_1C5EEC
 extern dword_1CAA00, dword_1CAB00, dword_1CAC00, dword_1CACDC, dword_1CAD28, dword_1CAD2C, dword_1CAD38, dword_1CAD48
 extern dword_1CAE24, dword_1CAE28, dword_1CAE2C, dword_1CAE34, dword_1CAE6C, dword_1CAE70, dword_1CAE74, dword_1CAE78
 extern dword_1CAE7C, dword_1CAE80, dword_1CAE84, dword_1CAE88, dword_1CAE8C, dword_1CAE90, dword_1CAE94, dword_1CAE98
@@ -555,7 +555,7 @@ DrawStatsCardPage:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .18
@@ -709,7 +709,7 @@ PlayerStatsScreen:
         mov eax, unk_16D804
         jmp short .4
 .2:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .3
@@ -1342,7 +1342,7 @@ PlayerStatsScreen_9DB:
         xor ebx, ebx
         jmp near .39
 .34:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .35
@@ -1364,7 +1364,7 @@ PlayerStatsScreen_9DB:
         mov eax, ebx
         shl eax, 2
         mov dword [dword eax+ebp-0C2h], edx
-        mov edx, dword [dword_1AC814]
+        mov edx, dword [GameSettings]
         and edx, byte 70h
         add esp, byte 8
         cmp edx, byte 20h
@@ -2673,7 +2673,7 @@ DrawPlayerBio:
         movsx eax, word [byte esi+023h]
         movsx ebx, word [byte esi+021h]
 .2:
-        test byte [dword_1AC814], 0Ch
+        test byte [GameSettings], 0Ch
         jne short .3
         push eax
         mov eax, 0F3h
@@ -4447,7 +4447,7 @@ DrawPlayerRatingsPage:
         call BlitArt
         add esp, byte 0Ch
 .27:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .28
@@ -4545,7 +4545,7 @@ DrawPlayerRatingsPage:
         add esp, byte 8
         push eax
         call DrawShapeCore
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         add esp, byte 0Ch
         cmp eax, byte 20h
@@ -4811,7 +4811,7 @@ DrawPlayerRatingsPage:
         add esp, byte 10h
         call ResetClipWindow
 .43:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .44
@@ -4909,7 +4909,7 @@ DrawPlayerRatingsPage:
         add esp, byte 8
         push eax
         call DrawArt
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         add esp, byte 0Ch
         cmp eax, byte 20h
@@ -5038,7 +5038,7 @@ PlayerRatingsScreen:
         mov eax, unk_16D804
         jmp short .4
 .2:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .3
@@ -6206,7 +6206,7 @@ PlayerRatingsScreen_11E4:
 .67:
         cmp dword [dword ebp-01CBEh], byte 0
         jne short .68
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         je short .68
@@ -6219,20 +6219,20 @@ PlayerRatingsScreen_11E4:
         je short .70
         cmp dword [byte ebp+066h], byte 1
         jne short .70
-        test byte [dword_1AC814], 70h
+        test byte [GameSettings], 70h
         je short .70
         mov dword [byte ebp+066h], 2
 .70:
         cmp dword [dword ebp-01CBEh], byte 0
         jne short .73
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .71
         cmp byte [byte_1AD739], 0
         jne short .73
 .71:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .72
@@ -6331,7 +6331,7 @@ PlayerRatingsScreen_11E4:
 PlayerRatingsScreen_13C2:
         cmp dword [dword ebp-01CBEh], byte 0
         jne short .85
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         jne near PlayerRatingsScreen_2040.186
@@ -6384,7 +6384,7 @@ PlayerRatingsScreen_13F5:
         call SetScrollBarPos
         cmp dword [dword_16D400], byte 0FFFFFFFFh
         je short .94
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .93
@@ -6478,7 +6478,7 @@ PlayerRatingsScreen_15C2:
         xor ebx, ebx
         jmp near .107
 .102:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .103
@@ -6502,7 +6502,7 @@ PlayerRatingsScreen_15C2:
         mov eax, ebx
         shl eax, 2
         mov dword [byte eax+ebp-07Ah], edx
-        mov edx, dword [dword_1AC814]
+        mov edx, dword [GameSettings]
         and edx, byte 70h
         add esp, byte 8
         cmp edx, byte 20h
@@ -6682,7 +6682,7 @@ PlayerRatingsScreen_180D:
         call SetScrollBarPos
         cmp dword [dword_16D400], byte 0FFFFFFFFh
         je short .125
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .124
@@ -6785,7 +6785,7 @@ PlayerRatingsScreen_1964:
         call SetScrollBarPos
         cmp dword [dword_16D454], byte 0FFFFFFFFh
         je short .137
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .136
@@ -6881,7 +6881,7 @@ PlayerRatingsScreen_1B34:
         xor ebx, ebx
         jmp near .151
 .146:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .147
@@ -6905,7 +6905,7 @@ PlayerRatingsScreen_1B34:
         mov eax, ebx
         shl eax, 2
         mov dword [byte eax+ebp-07Ah], edx
-        mov edx, dword [dword_1AC814]
+        mov edx, dword [GameSettings]
         and edx, byte 70h
         add esp, byte 8
         cmp edx, byte 20h
@@ -7057,7 +7057,7 @@ PlayerRatingsScreen_1D11:
         call SetScrollBarPos
         cmp dword [dword_16D454], byte 0FFFFFFFFh
         je short .165
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .164
@@ -7337,7 +7337,7 @@ PlayerRatingsScreen_2040:
 .187:
         cmp dword [dword_16D404], byte 0
         je short .188
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         jne near PlayerRatingsScreen.48
@@ -7489,7 +7489,7 @@ BuildPlayerStats:
         add eax, edx
         lea edx, [dword ebp-01922h]
         call FindGameRecord
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         jne near .5
@@ -7549,7 +7549,7 @@ BuildPlayerStats:
         call ServiceIdle
         mov al, byte [dword ecx+ebp-0C17h]
         mov byte [esi+ebx], al
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .7
@@ -7567,7 +7567,7 @@ BuildPlayerStats:
         call FindTeamStat
         jmp near .20
 .7:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         je short .9
@@ -7576,7 +7576,7 @@ BuildPlayerStats:
         cmp byte [byte_1AD739], 0
         je short .9
 .8:
-        test byte [dword_1AC814], 70h
+        test byte [GameSettings], 70h
         jne near .19
 .9:
         call ServiceIdle
@@ -7700,7 +7700,7 @@ BuildPlayerStats:
         mov eax, dword [dword ebp+08Eh]
         mov dl, byte [dword ecx+ebp-0C17h]
         mov byte [ebx+eax], dl
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .24
@@ -7717,7 +7717,7 @@ BuildPlayerStats:
         call FindTeamStat
         jmp near .37
 .24:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         je short .26
@@ -7726,7 +7726,7 @@ BuildPlayerStats:
         cmp byte [byte_1AD739], 0
         je short .26
 .25:
-        test byte [dword_1AC814], 70h
+        test byte [GameSettings], 70h
         jne near .36
 .26:
         call ServiceIdle
@@ -7849,7 +7849,7 @@ BuildPlayerStats:
         mov eax, dword [dword ebp+08Eh]
         mov dl, byte [dword ecx+ebp-069Dh]
         mov byte [ebx+eax], dl
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .41
@@ -7866,7 +7866,7 @@ BuildPlayerStats:
         call FindTeamStat
         jmp near .54
 .41:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         je short .43
@@ -7875,7 +7875,7 @@ BuildPlayerStats:
         cmp byte [byte_1AD739], 0
         je short .43
 .42:
-        test byte [dword_1AC814], 70h
+        test byte [GameSettings], 70h
         jne near .53
 .43:
         imul ecx, dword [byte ebp+076h], byte 38h
@@ -7998,7 +7998,7 @@ BuildPlayerStats:
         mov eax, dword [dword ebp+08Eh]
         mov dl, byte [dword ecx+ebp-069Dh]
         mov byte [ebx+eax], dl
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .58
@@ -8016,7 +8016,7 @@ BuildPlayerStats:
         call FindTeamStat
         jmp near .71
 .58:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         je short .60
@@ -8025,7 +8025,7 @@ BuildPlayerStats:
         cmp byte [byte_1AD739], 0
         je short .60
 .59:
-        test byte [dword_1AC814], 70h
+        test byte [GameSettings], 70h
         jne near .70
 .60:
         call ServiceIdle
@@ -8347,7 +8347,7 @@ DrawPlayerRatings:
         jne near .8
         cmp dword [dword_1CAEA0], byte 0
         je near .8
-        mov edx, dword [dword_1AC814]
+        mov edx, dword [GameSettings]
         and edx, byte 70h
         cmp edx, byte 20h
         je near .8

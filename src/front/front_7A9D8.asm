@@ -7,7 +7,7 @@ extern str_Mous2, str_Remo2, str_CHK1, str_X1, str_CB00, str_CB01, str_BACK2, st
 extern atoi_, byte_16C914, byte_16CCF0, byte_1ACF63, byte_1AD458, dword_16C734, dword_16C738, str_1_BuildSeasonSchedule
 extern dword_16C760, dword_16C982, dword_16C996, dword_16C9AC, dword_16C9B0, dword_16CAA8, dword_16CAAC, dword_16CB74
 extern dword_16DA9C, str_D_UpdateFrameRate, DrawDestBuffer, DrawDestPitch, DrawDestOffset, BackBufferWidth, BackBufferHeight, MovieWidth
-extern dword_1AC814, dword_1AC940, dword_1ACF46, dword_1AD22A, dword_1AD244, dword_1AD248, dword_1AD24C, dword_1C1200
+extern GameSettings, dword_1AC940, dword_1ACF46, dword_1AD22A, dword_1AD244, dword_1AD248, dword_1AD24C, dword_1C1200
 extern dword_1C1204, dword_1C1208, dword_1C120C, dword_1C1210, dword_1C1214, dword_1C1218, dword_1C121C, dword_1C1220
 extern dword_1C1224, dword_1C1228, dword_1C122C, dword_1C1230, dword_1C1234, dword_1C1238, dword_1C123C, dword_1C1240
 extern dword_1C1244, dword_1C1248, dword_1C124C, dword_1C1250, dword_1C1254, dword_1C1258, dword_1C125C, dword_1C1260
@@ -815,7 +815,7 @@ UpdateTeamLines:
         call KeysEqual
         test eax, eax
         je short .15
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .13
@@ -1040,7 +1040,7 @@ BuildRosterLines:
         call KeysEqual
         test eax, eax
         je short .13
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .11
@@ -1305,7 +1305,7 @@ CheckLeagueInjuries:
         mov dword [byte ebp+07Ah], unk_1C347F
 .3:
         call FindGameRecord
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .4
@@ -3109,7 +3109,7 @@ InitFrontEnd:
         call CreateMenuBitmap
         mov eax, 100h
         call SetMenuSelection
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         shl eax, 1Ch
         shr eax, 1Eh
         call LoadLangText

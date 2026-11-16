@@ -16,7 +16,7 @@ extern str_UnpackLogo, str_LOGO5, str_DEBUG, byte_16D27A, byte_16D2A2, byte_1AC8
 extern byte_1C135A, byte_1C135B, byte_1C559C, byte_1C559D, byte_1C559E, byte_1C559F, byte_1C55A4, byte_1C55A5
 extern byte_1C55A6, byte_1C55A7, byte_1C55A8, byte_1C55A9, byte_1C55AA, byte_1C55AB, byte_1C6040, byte_1C944A
 extern byte_1C944C, byte_1C9472, GripDriverPtr, dword_16D29E, dword_16D2A8, dword_16D2B8, dword_16D2BC, dword_16D93A
-extern dword_16DA9C, dword_16E464, dword_16E468, dword_19CB58, dword_1AC814, dword_1AC944, dword_1ACF46, dword_1AD62F
+extern dword_16DA9C, dword_16E464, dword_16E468, dword_19CB58, GameSettings, dword_1AC944, dword_1ACF46, dword_1AD62F
 extern dword_1AD6AB, dword_1C1334, dword_1C13FB, dword_1C13FF, dword_1C309A, dword_1C309E, dword_1C351E, dword_1C3522
 extern dword_1C51BD, dword_1C51C1, dword_1C5DE0, dword_1C5DE4, dword_1C5E74, dword_1C93F0, dword_1C9410, dword_1C9430
 extern dword_1C9473, dword_1C94A4, dword_1C94A8, dword_1C94B4, dword_1C94B8, dword_1C94BC, dword_1C94C0, dword_1C94C4
@@ -2026,7 +2026,7 @@ RunLinkGameScreens_30:
         je short .2
         call MusicEnabled
 .2:
-        test byte [dword_1AC814], 70h
+        test byte [GameSettings], 70h
         jne short .3
         cmp dword [dword_19CB58], byte 0
         je short .3
@@ -3766,7 +3766,7 @@ PlayArenaAnnouncement:
         push byte 0
         jmp near .18
 .4:
-        test byte [dword_1AC814], 70h
+        test byte [GameSettings], 70h
         jne short .5
         mov eax, dword [dword_1AC944]
         mov edx, dword [byte eax+01h]
@@ -3780,7 +3780,7 @@ PlayArenaAnnouncement:
         push byte 1
         jmp short .3
 .5:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .6
@@ -3977,7 +3977,7 @@ PostGameScreen:
         mov esi, eax
         mov eax, dword [dword_1C959C]
         call InitShapeListBox
-        test byte [dword_1AC814], 70h
+        test byte [GameSettings], 70h
         jne near .4
         mov edx, 1
         mov eax, dword [dword esp+0110h]
@@ -5130,7 +5130,7 @@ DrawThreeStarStats:
         add esp, byte 14h
         add ebx, dword [byte esp+05Ch]
 .14:
-        test byte [dword_1AC814], 70h
+        test byte [GameSettings], 70h
         je near .24
         mov eax, dword [dword esi+0D1h]
         mov edx, dword [dword esi+0D3h]
@@ -5278,7 +5278,7 @@ DrawThreeStarStats:
         add esp, byte 18h
 .22:
         add ebx, dword [byte esp+05Ch]
-        test byte [dword_1AC814], 70h
+        test byte [GameSettings], 70h
         je short .24
         mov eax, dword [dword esi+0DDh]
         mov edx, dword [dword esi+0DFh]
@@ -9740,7 +9740,7 @@ LoadGameLogos:
         push esi
         push edi
         enter 20h, 0
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         shl eax, 1Ch
         shr eax, 1Eh
         xor edx, edx

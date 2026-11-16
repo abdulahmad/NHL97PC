@@ -7,7 +7,7 @@ extern str_DATAEXHIBITNDX2, str_DATASEASONNDX2, str_DATAPLAYOFFNDX2, str_Replayb
 extern str_PLY, str_S5, str_IdlistFfc, str_SharedFfc, str_WHATEVER, str_04d3, str_TRBL, str_TRBR
 extern str_TRLS, str_TRRS, str_TRSE, str_TRSS, str_TRSP, str_PICT, str_Roster3, str_Rosids
 extern str_Rtids, str_Games, str_Ros, str_Lros, str_CRUSHER, str_CRUSHERPack, atoi_, byte_1ACC51
-extern byte_1ACF62, byte_1ACF63, byte_1AD457, byte_1AD458, dword_16CB7C, dword_16DA9C, dword_1AC814, dword_1AC940
+extern byte_1ACF62, byte_1ACF63, byte_1AD457, byte_1AD458, dword_16CB7C, dword_16DA9C, GameSettings, dword_1AC940
 extern dword_1AC944, dword_1ACB45, dword_1ACF3A, dword_1ACF46, dword_1AD244, dword_1AD248, dword_1AD24C, dword_1AD62B
 extern dword_1C1334, dword_1C1338, dword_1C5DA4, dword_1C5DE0, dword_1C8EA4, dword_1C8EB4, dword_1C8EB8, dword_1C8EF6
 extern dword_1C8F58, dword_1C8F5C, dword_1C8F62, dword_1C8F66, dword_1C8F6A, dword_1C8F6E, dword_1C8F72, dword_1C93C4
@@ -1726,7 +1726,7 @@ PickIndexEntry:
         mov dword [byte ebp+072h], eax
         call FindShape
         mov dword [byte ebp+076h], eax
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         shl eax, 19h
         shr eax, 1Dh
         add esp, byte 8

@@ -7,7 +7,7 @@ extern str_SLRT, F32_0p003125, F32_0p005, F32_0p003125_ScrollPosToValue, F32_0p0
 extern F32_0p5_InitScrollTable, F32_14_InitScrollTable, F32_0p5_ScrollToMouse, F32_0p5_SetListSelection, dword_16CD02, dword_16CD08, dword_16CD0C, dword_16CD10
 extern dword_16CD14, dword_16CD18, dword_16CD1C, dword_16CD24, dword_16CD28, dword_16CD2C, dword_16CD30, str_3_LoadLangText
 extern dword_16CD40, dword_16CD4C, dword_16CD50, dword_16CD54, dword_16DA9C, mousex, mousey, dword_16E464
-extern dword_16E468, MenuScreenBitmap, dword_1AC814, dword_1C5DE4, dword_1C83D0, dword_1C83D4, dword_1C83D8, dword_1C83DC
+extern dword_16E468, MenuScreenBitmap, GameSettings, dword_1C5DE4, dword_1C83D0, dword_1C83D4, dword_1C83D8, dword_1C83DC
 extern dword_1C83E0, dword_1C83E4, dword_1C83E8, dword_1C83EC, dword_1C83F0, dword_1C83F4, dword_1C83F8, dword_1C83FC
 extern dword_1C8400, dword_1C8404, dword_1C8408, dword_1C840C, dword_1C8410, dword_1C8414, dword_1C8418, dword_1C841C
 extern dword_1C8420, dword_1C8424, dword_1C8428, dword_1C842C, dword_1C8430, dword_1C8434, dword_1C8438, dword_1C843C
@@ -3475,7 +3475,7 @@ PositionAbbrev:
         push esi
         push edi
         sub esp, byte 4
-        test byte [dword_1AC814], 0Ch
+        test byte [GameSettings], 0Ch
         je near .15
         mov byte [esp], al
         cmp al, 47h

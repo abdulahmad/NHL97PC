@@ -18,7 +18,7 @@ extern str_Statplayers, str_Statgoalies, byte_1ACF62, byte_1ACF63, byte_1ACF69, 
 extern byte_1AD45E, byte_1AD739, byte_1C6040, byte_1CC240, dword_16D668, dword_16D66C, dword_16D670, dword_16D674
 extern dword_16D678, dword_16D67C, dword_16D680, str_Punct_InitRosterScreen, str_X_InitRosterScreen, str_7_SetupRosterLists, str_I_SetupRosterLists, str_Punct_DrawRosterList
 extern str_X_DrawRosterList, dword_16D6AC, str_X_SetupRosterLists, dword_16D6B4, str_X_ShowRosterLogo, dword_16D6BC, dword_16D6C0, dword_16DA9C
-extern dword_1AC814, dword_1AC940, dword_1AC944, dword_1ACF46, dword_1AD226, dword_1AD6AB, dword_1C5E74, dword_1CC18C
+extern GameSettings, dword_1AC940, dword_1AC944, dword_1ACF46, dword_1AD226, dword_1AD6AB, dword_1C5E74, dword_1CC18C
 extern dword_1CC19C, dword_1CC1AC, dword_1CC1BC, dword_1CC1C0, dword_1CC1C4, dword_1CC1C8, dword_1CC1CC, dword_1CC1D0
 extern dword_1CC1D4, dword_1CC1D8, dword_1CC1DC, dword_1CC1E0, dword_1CC1E4, dword_1CC1E8, dword_1CC1EC, dword_1CC1F0
 extern dword_1CC1F4, dword_1CC1F8, dword_1CC1FC, dword_1CC200, dword_1CC204, dword_1CC208, dword_1CC20C, dword_1CC210
@@ -737,14 +737,14 @@ PlayRosterSound:
 ;-----------------------------------------------------------------------------
 SetRosterMode:
         push edx
-        test byte [dword_1AC814], 70h
+        test byte [GameSettings], 70h
         jne short .1
         mov dword [dword_1CC230], 1Ah
         xor eax, eax
         pop edx
         ret
 .1:
-        mov edx, dword [dword_1AC814]
+        mov edx, dword [GameSettings]
         and edx, byte 70h
         cmp edx, byte 10h
         jne short .3
@@ -9623,7 +9623,7 @@ DrawCreatePlayerHeight:
         add esp, byte 4
         call SetTextColor
         movsx esi, word [byte edi+059h]
-        test byte [dword_1AC814], 0Ch
+        test byte [GameSettings], 0Ch
         jne short .1
         mov eax, esi
         mov ecx, 0Ch
@@ -9697,7 +9697,7 @@ DrawCreatePlayerWeight:
         add esp, byte 4
         call SetTextColor
         movsx eax, word [byte edi+05Bh]
-        test byte [dword_1AC814], 0Ch
+        test byte [GameSettings], 0Ch
         je short .1
         call PoundsToKg
 .1:
@@ -10176,7 +10176,7 @@ DrawCreatePlayerField:
         mov edi, edx
         mov esi, ebx
         lea ebx, [byte eax+042h]
-        test byte [dword_1AC814], 0Ch
+        test byte [GameSettings], 0Ch
         jne short .1
         mov eax, ebx
         mov ecx, 0Ch
@@ -10221,7 +10221,7 @@ DrawCreatePlayerField:
 DrawCreatePlayerText:
         push ecx
         add eax, 96h
-        test byte [dword_1AC814], 0Ch
+        test byte [GameSettings], 0Ch
         je short .1
         call PoundsToKg
 .1:

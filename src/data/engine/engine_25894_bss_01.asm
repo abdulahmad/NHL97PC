@@ -2,165 +2,147 @@
 bits 32
 %include "hockey.inc"
 section s_19DADE nobits alloc noexec write align=1
-global awtmstruct, byte_19DAEF, byte_19DAF0, byte_19DAF1, byte_19EAC6, byte_19EB38, byte_19EB54, byte_19EB55
-global byte_19EB56, byte_19EB57, byte_19EB5C, byte_19EB7F, byte_19EBD2, byte_19EC44, byte_19EC60, byte_19EC61
-global byte_19EC62, byte_19EC63, byte_19EC68, byte_19EC8B, dword_19DADE, dword_19DB12, dword_19DC60, dword_19DC68
-global dword_19E290, dword_19E298, dword_19EAAE, dword_19EB58, dword_19EBAA, dword_19EBAE, dword_19EBB0, dword_19EBB4
-global dword_19EBB8, dword_19EBBA, dword_19EC64, dword_19ECB6, dword_19ECBA, dword_19ECBC, dword_19ECC0, dword_19ECC4
-global hmtmstruct, unk_19DC40, unk_19E060, unk_19E270, unk_19E588, unk_19E690, unk_19E798, unk_19E79E
-global unk_19E7A2, unk_19E7A6, unk_19E7A8, unk_19E7AC, unk_19E7B0, unk_19E840, unk_19E8A0, unk_19E9A8
-global word_19DAEA, word_19DCFA, word_19E109, word_19E32A, word_19E949, word_19EA51, word_19EAB2, word_19EAB4
-global word_19EAB6, word_19EABE, word_19EAC0, word_19EBAC, word_19EBB2, word_19EBBE, word_19EBC0, word_19EBC2
-global word_19EBCA, word_19EBCC, word_19ECB8, word_19ECBE
-dword_19DADE:
+global awtmstruct, PlayerControlFlags, PlayerStateFlags, PlayerControlRest, HmPlayerFlags, HmPlayerSlots, HmCoachOffense, HmCoachDefense
+global HmCoachGoalie, HmCoachLines, HmRosterMap, HmPlayerEnergy, AwPlayerFlags, AwPlayerSlots, AwCoachOffense, AwCoachDefense
+global AwCoachGoalie, AwCoachLines, AwRosterMap, AwPlayerEnergy, PuckCarrierPos, PuckPathTable
+global HmAssignPlayer, HmCoachTimer, HmPenaltyPlayer, HmSkaterCount, HmGoalieOnIce, HmTeamData
+global HmScore, AwAssignPlayer, AwCoachTimer, AwPenaltyPlayer, AwSkaterCount, AwGoalieOnIce, AwTeamData, AwScore
+global hmtmstruct, HomeTeamRecord, AwayTeamRecord
+global HomeIcePlayers, AwayIcePlayers
+global PlayerControlWords, HomeIceSlots, AwayIceSlots, HmFaceoffCenter, HmFaceoffWinger
+global HmCounters, HmPlayersInBox, HmLineState, HmActiveCount, HmLineCount, AwFaceoffCenter, AwFaceoffWinger, AwCounters
+global AwPlayersInBox, AwLineState, AwActiveCount, AwLineCount
+PuckCarrierPos:
         resb 12
-word_19DAEA:
+PlayerControlWords:
         resb 5
-byte_19DAEF:
+PlayerControlFlags:
         resb 1
-byte_19DAF0:
+PlayerStateFlags:
         resb 1
-byte_19DAF1:
+PlayerControlRest:
         resb 33
-dword_19DB12:
+PuckPathTable:
         resb 302
-unk_19DC40:
+HomeTeamRecord:
         resb 32
-dword_19DC60:
         resb 8
-dword_19DC68:
         resb 146
-word_19DCFA:
         resb 870
-unk_19E060:
         resb 169
-word_19E109:
         resb 359
-unk_19E270:
+AwayTeamRecord:
         resb 32
-dword_19E290:
         resb 8
-dword_19E298:
         resb 146
-word_19E32A:
         resb 606
-unk_19E588:
         resb 264
-unk_19E690:
         resb 264
-unk_19E798:
         resb 6
-unk_19E79E:
         resb 4
-unk_19E7A2:
         resb 4
-unk_19E7A6:
         resb 2
-unk_19E7A8:
         resb 4
-unk_19E7AC:
         resb 4
-unk_19E7B0:
         resb 144
-unk_19E840:
         resb 96
-unk_19E8A0:
+HomeIcePlayers:
         resb 169
-word_19E949:
+HomeIceSlots:
         resb 95
-unk_19E9A8:
+AwayIcePlayers:
         resb 169
-word_19EA51:
+AwayIceSlots:
         resb 93
-dword_19EAAE:
+HmAssignPlayer:
         resb 2
 hmtmstruct:
         resb 2
-word_19EAB2:
+HmFaceoffCenter:
         resb 2
-word_19EAB4:
+HmFaceoffWinger:
         resb 2
-word_19EAB6:
+HmCounters:
         resb 8
-word_19EABE:
+HmPlayersInBox:
         resb 2
-word_19EAC0:
+HmLineState:
         resb 6
-byte_19EAC6:
+HmPlayerFlags:
         resb 114
-byte_19EB38:
+HmPlayerSlots:
         resb 28
-byte_19EB54:
+HmCoachOffense:
         resb 1
-byte_19EB55:
+HmCoachDefense:
         resb 1
-byte_19EB56:
+HmCoachGoalie:
         resb 1
-byte_19EB57:
+HmCoachLines:
         resb 1
-dword_19EB58:
+HmCoachTimer:
         resb 4
-byte_19EB5C:
+HmRosterMap:
         resb 35
-byte_19EB7F:
+HmPlayerEnergy:
         resb 43
-dword_19EBAA:
+HmPenaltyPlayer:
         resb 2
-word_19EBAC:
+HmActiveCount:
         resb 2
-dword_19EBAE:
+HmSkaterCount:
         resb 2
-dword_19EBB0:
+HmGoalieOnIce:
         resb 2
-word_19EBB2:
+HmLineCount:
         resb 2
-dword_19EBB4:
+HmTeamData:
         resb 4
-dword_19EBB8:
+HmScore:
         resb 2
-dword_19EBBA:
+AwAssignPlayer:
         resb 2
 awtmstruct:
         resb 2
-word_19EBBE:
+AwFaceoffCenter:
         resb 2
-word_19EBC0:
+AwFaceoffWinger:
         resb 2
-word_19EBC2:
+AwCounters:
         resb 8
-word_19EBCA:
+AwPlayersInBox:
         resb 2
-word_19EBCC:
+AwLineState:
         resb 6
-byte_19EBD2:
+AwPlayerFlags:
         resb 114
-byte_19EC44:
+AwPlayerSlots:
         resb 28
-byte_19EC60:
+AwCoachOffense:
         resb 1
-byte_19EC61:
+AwCoachDefense:
         resb 1
-byte_19EC62:
+AwCoachGoalie:
         resb 1
-byte_19EC63:
+AwCoachLines:
         resb 1
-dword_19EC64:
+AwCoachTimer:
         resb 4
-byte_19EC68:
+AwRosterMap:
         resb 35
-byte_19EC8B:
+AwPlayerEnergy:
         resb 43
-dword_19ECB6:
+AwPenaltyPlayer:
         resb 2
-word_19ECB8:
+AwActiveCount:
         resb 2
-dword_19ECBA:
+AwSkaterCount:
         resb 2
-dword_19ECBC:
+AwGoalieOnIce:
         resb 2
-word_19ECBE:
+AwLineCount:
         resb 2
-dword_19ECC0:
+AwTeamData:
         resb 4
-dword_19ECC4:
+AwScore:
         resb 4
