@@ -12,8 +12,9 @@
  * the ticks since the last frame. Its entry is wrapped (before: decide; after: put the camera's true state back, so the game
  * logic between frames never sees a blended one) and that call goes to cam_run.
  *
- * The camera's state: CameraStateRecords (1B9058-1B92D0, the matrix at +253h), the camera variables (19D0A4-19D38C) and the
- * renderer's copies (CameraYaw .. CameraFlags, 170254-170278; F32_ViewAngle 16B72C). A blended frame mixes each float of the two
+ * The camera's state: CameraStateRecords (1B9058-1B92D0, the matrix at +253h), the camera variables (19D0A4-19D38C) and
+ * F32_ViewAngle (16B72C). The renderer's own copies (CameraYaw .. CameraFlags, 170254-170278) are left out: other drawing
+ * writes them every frame at times. A blended frame mixes each float of the two
  * states; integers, pointers and a float that jumped (a cut, an angle wrapping round) take the newer state. */
 #include "host.h"
 #include <SDL.h>
@@ -31,10 +32,10 @@
 #define STEP_TICKS    3
 
 static const struct { uint32_t lo, hi; } cam_regions[] = {
-    { 0x1B9058u, 0x1B92D0u }, { 0x19D0A4u, 0x19D38Cu }, { 0x170254u, 0x170278u }, { 0x16B72Cu, 0x16B730u },
+    { 0x1B9058u, 0x1B92D0u }, { 0x19D0A4u, 0x19D38Cu }, { 0x16B72Cu, 0x16B730u },
 };
 #define NREG (int)(sizeof cam_regions / sizeof *cam_regions)
-#define CAM_BYTES ((0x1B92D0u - 0x1B9058u) + (0x19D38Cu - 0x19D0A4u) + (0x170278u - 0x170254u) + 4u)
+#define CAM_BYTES ((0x1B92D0u - 0x1B9058u) + (0x19D38Cu - 0x19D0A4u) + 4u)
 
 int nh_frames_mode(void);             /* netplay.c: 0 Pentium 100, 1 60 fps, 2 unlocked (the setting or NHL97_FRAMES) */
 int netplay_running(void);
@@ -67,8 +68,6 @@ static const struct { uint32_t lo, hi; } blend_ranges[] = {
     { 0x1B92ABu, 0x1B92CFu },           /*   +253h: the view matrix (3x3) */
     { 0x19D188u, 0x19D1B8u },           /* CameraPos .. CameraFocusVec */
     { 0x19D31Cu, 0x19D348u },           /* CameraEye .. CameraFovTarget */
-    { 0x170254u, 0x17025Cu },           /* CameraYaw, CameraPitch */
-    { 0x170264u, 0x170274u },           /* CameraSinYaw, CameraCosYaw, CameraOriginX, CameraOriginY */
     { 0x16B72Cu, 0x16B730u },           /* F32_ViewAngle */
 };
 static int blend_word[CAM_BYTES / 4];   /* the byte offset in the state of each float to mix, -1 ends */
