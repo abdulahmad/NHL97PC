@@ -2005,7 +2005,7 @@ TeamStatsScreenJumpTable:                       ; jump table for the switch case
 ;-----------------------------------------------------------------------------
 ; TeamStatsScreen                                 ADBE6  96 PC, low confidence
 ; From RunStatsMenu: the team stats screen ("pts", "pppct", "pkpct", "avgt",
-; "high"; "menu" / "reg"; SetTeamStatColumns), as 96 PC TeamStatsScreen
+; "high"; "menu" / "reg"; SetTeamStatColumns)
 ;-----------------------------------------------------------------------------
 TeamStatsScreen:
         push ebx

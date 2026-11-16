@@ -1986,8 +1986,7 @@ DrawPenaltyPanel_26F:
         ret
 ;-----------------------------------------------------------------------------
 ; DrawPenaltyShotPanel                         17158  97 PC, medium confidence
-; Overlay panel kind 8: "Penalty Shot", the shooter "against" the goalie (was
-; the 96 PC carry DrawPlayerNamePanel)
+; Overlay panel kind 8: "Penalty Shot", the shooter "against" the goalie
 ;-----------------------------------------------------------------------------
 DrawPenaltyShotPanel:
         push esi
@@ -11452,7 +11451,7 @@ LineChangeCommentary:
         db 090h
 ;-----------------------------------------------------------------------------
 ; assreplace                                                        1E208  94G
-; 94G assreplace: (player, assignment) replaces the current assignment (+0B2h
+; (player, assignment) replaces the current assignment (+0B2h
 ; list at index +0B1h) and sets the new-assignment flag (+0BFh bit 1)
 ;-----------------------------------------------------------------------------
 assreplace:
@@ -11466,7 +11465,7 @@ assreplace:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; assinsert                                      1E224  94G, medium confidence
-; 94G assinsert: (player, assignment) pushes a new assignment (index - 1)
+; (player, assignment) pushes a new assignment (index - 1)
 ; unless it is already the current one, then as assreplace
 ;-----------------------------------------------------------------------------
 assinsert:
@@ -11490,7 +11489,7 @@ assinsert:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; assexit                                                           1E268  94G
-; 94G assexit: ends the current assignment (index + 1) and sets the
+; ends the current assignment (index + 1) and sets the
 ; new-assignment flag
 ;-----------------------------------------------------------------------------
 assexit:
@@ -12411,7 +12410,7 @@ ChkPokeOrCheck:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; check4bench                                    1EC5C  94G, medium confidence
-; 94G check4bench: whether player a3 should go to the bench; if so assreplace with assbench (17h); 0 when he
+; whether player a3 should go to the bench; if so assreplace with assbench (17h); 0 when he
 ; stays (joystick-controlled, penalty shot, ...)
 ;-----------------------------------------------------------------------------
 check4bench:
@@ -13371,7 +13370,7 @@ asscoverdefd:
 ;-----------------------------------------------------------------------------
 ; asscoverdefo                                    1F7D0  96 PC, low confidence
 ; Assignment 0Fh (given from the Setplass jump table): a forward covering a defence spot; uses SwapPosition
-; and moves on to 10h (asscoverdefd), as 96 PC asscoverdefo / asscoverdefd
+; and moves on to 10h (asscoverdefd) / asscoverdefd
 ;-----------------------------------------------------------------------------
 asscoverdefo:
         push ebx
@@ -13632,7 +13631,7 @@ asscoverdefo:
         ret
 ;-----------------------------------------------------------------------------
 ; Setplass                                       1FB6C  94G, medium confidence
-; 94G Setplass: sets the player's starting assignment by position from the list PlayerAssignOrder (goalie 2,
+; sets the player's starting assignment by position from the list PlayerAssignOrder (goalie 2,
 ; defence 3, wings 4, centre 5), after SwapPosition
 ;-----------------------------------------------------------------------------
 Setplass:
@@ -14332,7 +14331,7 @@ FaceoffSpotPosition:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; Endfaceoff                         20508  94G logic94.asm, medium confidence
-; From puckfaceoff2: decides the faceoff (randomd0 21h / 0Ah as in 96 PC),
+; From puckfaceoff2: decides the faceoff (randomd0 21h / 0Ah),
 ; gives the puck assignment 41h (pucknorm) and the referee 31h (assreffollow)
 ;-----------------------------------------------------------------------------
 Endfaceoff:
@@ -16008,7 +16007,7 @@ FindCreasePlayer:
         ret
 ;-----------------------------------------------------------------------------
 ; assgoalie                                      21B20  94G, medium confidence
-; 94G assgoalie: assignment 2 (Setplass list for the goalie), the goalie AI
+; assignment 2 (Setplass list for the goalie), the goalie AI
 ;-----------------------------------------------------------------------------
 assgoalie:
         push ebx
@@ -17234,8 +17233,8 @@ assextra4:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; assdefo                                           22B8C  94G, low confidence
-; 94G assdefo: assignment 0Bh, defenceman on offence (SwapPosition,
-; assextra4, as 96 PC assdefo)
+; assignment 0Bh, defenceman on offence (SwapPosition,
+; assextra4)
 ;-----------------------------------------------------------------------------
 assdefo:
         push ebx
@@ -17353,7 +17352,7 @@ assdefo:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; asswingo                                          22CEC  94G, low confidence
-; 94G asswingo: assignment 0Ch, winger on offence
+; assignment 0Ch, winger on offence
 ;-----------------------------------------------------------------------------
 asswingo:
         push ebx
@@ -17476,7 +17475,7 @@ asswingo:
         db 090h
 ;-----------------------------------------------------------------------------
 ; asscentero                                        22E70  94G, low confidence
-; 94G asscentero: assignment 0Dh, centre on offence
+; assignment 0Dh, centre on offence
 ;-----------------------------------------------------------------------------
 asscentero:
         push ebx
@@ -18217,7 +18216,7 @@ assextra3:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; assdefd                                        238E8  94G, medium confidence
-; 94G assdefd: assignment 3 (Setplass list for defence), defenceman on
+; assignment 3 (Setplass list for defence), defenceman on
 ; defence
 ;-----------------------------------------------------------------------------
 assdefd:
@@ -18351,7 +18350,7 @@ assdefd:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; asswingd                                       23A78  94G, medium confidence
-; 94G asswingd: assignment 4 (Setplass list for wings), winger on defence
+; assignment 4 (Setplass list for wings), winger on defence
 ;-----------------------------------------------------------------------------
 asswingd:
         push ebx
@@ -18445,7 +18444,7 @@ asswingd:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; asscenterd                                     23B88  94G, medium confidence
-; 94G asscenterd: assignment 5 (Setplass list for the centre), centre on
+; assignment 5 (Setplass list for the centre), centre on
 ; defence
 ;-----------------------------------------------------------------------------
 asscenterd:
@@ -18686,8 +18685,8 @@ asstofaceoff:
         db 090h
 ;-----------------------------------------------------------------------------
 ; assfaceoff                                     23E90  94G, medium confidence
-; 94G assfaceoff: assignment 7, players idle until the faceoff is over
-; (puckfaceoff2 gives it to everyone but the centre, as 94G afaceoff)
+; assignment 7, players idle until the faceoff is over
+; (puckfaceoff2 gives it to everyone but the centre)
 ;-----------------------------------------------------------------------------
 assfaceoff:
         push ebx
@@ -18752,8 +18751,8 @@ assfaceoff:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; assfaceoffpl                                   23F44  94G, medium confidence
-; 94G assfaceoffpl: assignment 8, the faceoff player (puckfaceoff2 gives it
-; to the centre, as 94G afaceoffpl)
+; assignment 8, the faceoff player (puckfaceoff2 gives it
+; to the centre)
 ;-----------------------------------------------------------------------------
 assfaceoffpl:
         push ebx

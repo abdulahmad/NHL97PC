@@ -317,7 +317,7 @@ LineSlotsPtr_33:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; RestoreBenchEnergy                             2E168  94G, medium confidence
-; 94G RestoreBenchEnergy: from periodicevents; every bench player (position
+; from periodicevents; every bench player (position
 ; 8002h) gains 5 energy, capped at 1000h
 ;-----------------------------------------------------------------------------
 RestoreBenchEnergy:
@@ -520,8 +520,8 @@ AvgLineEnergy:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; CompLine                                       2E378  94G, medium confidence
-; 94G CompLine: (team, other team) picks the line for the computer team to
-; change to (0F33h threshold, as 96 PC)
+; (team, other team) picks the line for the computer team to
+; change to (0F33h threshold)
 ;-----------------------------------------------------------------------------
 CompLine:
         push ebx
@@ -1329,7 +1329,7 @@ UpdateCoachModes:
         db 090h
 ;-----------------------------------------------------------------------------
 ; StartFaceoffLineChange                            2EDB8  94G, low confidence
-; 94G StartFaceoffLineChange: starts a team's faceoff line change (once per
+; starts a team's faceoff line change (once per
 ; stoppage: team flag +16h bit 1) when line changes are on
 ;-----------------------------------------------------------------------------
 StartFaceoffLineChange:

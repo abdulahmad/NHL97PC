@@ -2697,7 +2697,7 @@ PauseMenuJumpTable:                             ; jump table for the switch case
         dd PauseMenu_640
 ;-----------------------------------------------------------------------------
 ; PauseMenu                                       F418F  96 PC, low confidence
-; The in-game pause menu loop, from RunInGameMenu (96 PC PauseMenu); runs the
+; The in-game pause menu loop, from RunInGameMenu; runs the
 ; rules, detail level, edit-team and quit choices
 ;-----------------------------------------------------------------------------
 PauseMenu:

@@ -85,7 +85,7 @@ AllInPlace:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; Intermission                   1306C  93G penalty93_2.asm, medium confidence
-; 93G Intermission start: SetupTeamForIntermission and clear the SortCords
+; start: SetupTeamForIntermission and clear the SortCords
 ; positions
 ;-----------------------------------------------------------------------------
 Intermission:
@@ -3124,7 +3124,7 @@ PlayGame:
 ;-----------------------------------------------------------------------------
 ; RunDemoGame                                  15578  96 PC, medium confidence
 ; Attract-mode demo game: seeds rand from the time, InitSlotTable, loads the game, starts InputRecordTimer,
-; SetupDemoGame, GameLoop, then stops the timer and restores the screen; same job as 95 PC RunDemoGame
+; SetupDemoGame, GameLoop, then stops the timer and restores the screen; same job
 ;-----------------------------------------------------------------------------
 RunDemoGame:
         push dword 28h

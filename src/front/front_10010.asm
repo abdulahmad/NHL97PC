@@ -1826,7 +1826,7 @@ RestartGameMusic:
         nop
 ;-----------------------------------------------------------------------------
 ; forcepldata                                    11504  94G, medium confidence
-; 94G forcepldata: (team) faceoffs only: puts each player straight into his
+; (team) faceoffs only: puts each player straight into his
 ; requested position (+0A8h -> +0A9h), assnearest for the centre, setplayer
 ;-----------------------------------------------------------------------------
 forcepldata:
@@ -2174,7 +2174,7 @@ ResetTeamStats:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; ResetBench                                     11908  94G, medium confidence
-; 94G ResetBench (96 PC body): the bench and penalty box state of both teams'
+; the bench and penalty box state of both teams'
 ; rosters
 ;-----------------------------------------------------------------------------
 ResetBench:
@@ -2374,7 +2374,7 @@ RefreshPlayerModel:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; setplayer                                      11B38  94G, medium confidence
-; 94G setplayer: (player, roster index) brings a player onto the ice: pnum
+; (player, roster index) brings a player onto the ice: pnum
 ; (+0A6h), marks him in the team's line table (+50h, 8001h / 8002h)
 ;-----------------------------------------------------------------------------
 setplayer:
@@ -2677,7 +2677,7 @@ setplayer:
         db 090h
 ;-----------------------------------------------------------------------------
 ; reenergizeteam                                 11ED8  94G, medium confidence
-; 94G reenergizeteam (96 PC body): every player's energy back to 1000h
+; every player's energy back to 1000h
 ;-----------------------------------------------------------------------------
 reenergizeteam:
         push ebx
@@ -2709,7 +2709,7 @@ reenergizeteam:
         db 090h
 ;-----------------------------------------------------------------------------
 ; SetupTeamForIntermission       11F10  93G penalty93_2.asm, medium confidence
-; 93G SetupTeamForIntermission: ResetBench, reenergizeteam both teams, tmline
+; ResetBench, reenergizeteam both teams, tmline
 ; 0/3/5 by tmap difference
 ;-----------------------------------------------------------------------------
 SetupTeamForIntermission:
@@ -3455,7 +3455,7 @@ PickLinePlayers:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; setpersonel                                    127D4  94G, medium confidence
-; 94G setpersonel (96 PC body): clears the team's 6 on-ice slots and sets the
+; clears the team's 6 on-ice slots and sets the
 ; personnel
 ;-----------------------------------------------------------------------------
 setpersonel:

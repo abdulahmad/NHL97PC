@@ -1315,7 +1315,7 @@ ChkBodyContact_370:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; checkint                                          2FED8  94G, low confidence
-; 94G checkint: interference: the hit player has no puck and is not the
+; interference: the hit player has no puck and is not the
 ; goalie; AddPenalty 14h by chance
 ;-----------------------------------------------------------------------------
 checkint:
@@ -4351,7 +4351,7 @@ ChkTwoInBox:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
 ; AddPenalty                                     32260  94G, medium confidence
-; 94G AddPenalty: (player, penalty, ...) adds a penalty unless the clock is stopped, a penalty shot is live
+; (player, penalty, ...) adds a penalty unless the clock is stopped, a penalty shot is live
 ; or the rule is off in the options (offsides 5, two-line pass 6 ...); falls through to AddPenalty2
 ;-----------------------------------------------------------------------------
 AddPenalty:
@@ -4426,7 +4426,7 @@ AddPenalty2JumpTable:                           ; jump table for the switch case
         dd AddPenalty2_308
 ;-----------------------------------------------------------------------------
 ; AddPenalty2                                       32340  94G, low confidence
-; 94G AddPenalty2: (player, penalty, ...) a forced penalty: penalty table
+; (player, penalty, ...) a forced penalty: penalty table
 ; PenaltyMinutes, the penalty panel (QueueOverlayPanel)
 ;-----------------------------------------------------------------------------
 AddPenalty2:
@@ -4839,7 +4839,7 @@ AddPenalty2_354:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; Stop4Pen                                       32888  94G, medium confidence
-; 94G Stop4Pen (from checkfornewpen and puckfaceoff): stops the clock (gmode bit 0), sets the faceoff spot
+; (from checkfornewpen and puckfaceoff): stops the clock (gmode bit 0), sets the faceoff spot
 ; from the penalty type, clears the overlays, whistle sound and PA event
 ;-----------------------------------------------------------------------------
 Stop4Pen:
@@ -5050,7 +5050,7 @@ Stop4Pen:
 ;-----------------------------------------------------------------------------
 ; updatepwrplay                                  32B68  94G, medium confidence
 ;
-; The 94G updatepwrplay state part (called from updatepentime here): players on ice home minus away; sets /
+; The power play state part (called from updatepentime here): players on ice home minus away; sets /
 ; clears the power play flag (PlayFlags 20h, 40h visitors) and counts a power play (+20CBh) and a
 ; shorthanded situation (+20BDh) when it starts; no display
 ;-----------------------------------------------------------------------------
@@ -5107,7 +5107,7 @@ updatepwrplay:
         db 090h
 ;-----------------------------------------------------------------------------
 ; chkatop                                        32C04  94G, medium confidence
-; 94G chkatop (attack time stat, once a second from updatepentime): puck y
+; (attack time stat, once a second from updatepentime): puck y
 ; beyond +/-570h credits the attacking team's attack time (+20D7h)
 ;-----------------------------------------------------------------------------
 chkatop:
@@ -5181,7 +5181,7 @@ chkatop:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; releasepl                                                         32CEC  94G
-; 94G releasepl (player's penalty time is up, let him out): first sort object off the ice, one more on the
+; (player's penalty time is up, let him out): first sort object off the ice, one more on the
 ; ice (+0Eh), line-change flags, position from the priority list (LinePickOrderFrom1), Setplass, setplayer
 ;-----------------------------------------------------------------------------
 releasepl:
@@ -5226,7 +5226,7 @@ releasepl:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; PenGoalStuff                                   32D88  94G, medium confidence
-; 94G PenGoalStuff (after a goal): when the scoring team had more players on the ice, releases the first
+; (after a goal): when the scoring team had more players on the ice, releases the first
 ; scored-on player in the box without a coincidental penalty (releasepl)
 ;-----------------------------------------------------------------------------
 PenGoalStuff:
@@ -5433,7 +5433,7 @@ PenGoalStuff:
 ;-----------------------------------------------------------------------------
 ; updatepentime_ut_chk                32FF8  94G penalty94.asm, low confidence
 ; The updatepentime_ut check for one box entry (team, player): when the time is up, the PA event 1Bh and
-; releasepl when the team is short (the NHL95PC updatepentime_ut_chk part)
+; releasepl when the team is short (the short-handed check of updatepentime_ut)
 ;-----------------------------------------------------------------------------
 updatepentime_ut_chk:
         push ebx
@@ -5564,7 +5564,7 @@ updatepentime_ut_chk:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; updatepentime_ut                               3319C  94G, medium confidence
-; 94G updatepentime_ut (team): walks the team's penalty box list, the first
+; (team): walks the team's penalty box list, the first
 ; two entries serving, and counts their time down (updatepentime_ut_chk)
 ;-----------------------------------------------------------------------------
 updatepentime_ut:
@@ -5678,7 +5678,7 @@ updatepentime_ut:
         ret
 ;-----------------------------------------------------------------------------
 ; updatepentime                                  332C0  94G, medium confidence
-; 94G updatepentime (96 PC body): counts the penalty times down, from
+; counts the penalty times down, from
 ; chkprogress
 ;-----------------------------------------------------------------------------
 updatepentime:
@@ -5731,7 +5731,7 @@ updatepentime:
         ret
 ;-----------------------------------------------------------------------------
 ; checkfornewpen                                 33368  94G, medium confidence
-; 94G checkfornewpen (96 PC body), from chkprogress
+;, from chkprogress
 ;-----------------------------------------------------------------------------
 checkfornewpen:
         push ebx
@@ -6202,7 +6202,7 @@ PenaltyPaCode:
         ret
 ;-----------------------------------------------------------------------------
 ; InProgress                                     33950  94G, medium confidence
-; 94G InProgress: the penalty in progress (whistle, box, power play), from
+; the penalty in progress (whistle, box, power play), from
 ; chkprogress after checkfornewpen
 ;-----------------------------------------------------------------------------
 InProgress:
@@ -6935,7 +6935,7 @@ InProgress_96E:
 ;-----------------------------------------------------------------------------
 ; chkprogress                    342C4  93G penalty93_1.asm, medium confidence
 ;
-; 93G chkprogress (fall-through from PenaltyManager): with gmpen (gmode bit 2): Pencntdwn >= 0 ->
+; (fall-through from PenaltyManager): with gmpen (gmode bit 2): Pencntdwn >= 0 ->
 ; chkprogress_go, else InProgress; PC first (clock stopped) calls UpdateTextOverlay and counts Pencntdwn2
 ; down to set gmode2 bit 2
 ;-----------------------------------------------------------------------------
@@ -8070,7 +8070,7 @@ FaceDirFromMotion:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; doplayeracc                                    34EF8  94G, medium confidence
-; 94G doplayeracc: (player, direction 0-7, 8+ = none) the player accelerates
+; (player, direction 0-7, 8+ = none) the player accelerates
 ; toward the direction (x87 heading, FaceDirFromMotion)
 ;-----------------------------------------------------------------------------
 doplayeracc:
@@ -8975,7 +8975,7 @@ OneTimerShot:
         db 090h
 ;-----------------------------------------------------------------------------
 ; doinput                                        358E4  94G, medium confidence
-; 94G doinput (from updateplayers): a human player's pad: line changes,
+; (from updateplayers): a human player's pad: line changes,
 ; skating, pass / shoot / check buttons, control switch
 ;-----------------------------------------------------------------------------
 doinput:
@@ -9973,7 +9973,7 @@ StartFight:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; checkfight                                     365FC  93G, medium confidence
-; NHLPA 93 checkfight: (player a3, player a2) after a hit, with fighting on in the options: counts the hits
+; (player a3, player a2) after a hit, with fighting on in the options: counts the hits
 ; and may start a fight (StartFight); the others get assfwatch (1Dh)
 ;-----------------------------------------------------------------------------
 checkfight:
@@ -10398,7 +10398,7 @@ HumanStickAction:
         ret
 ;-----------------------------------------------------------------------------
 ; assfight                                       36AB0  93G, medium confidence
-; NHLPA 93 assfight: assignment 1Ch (StartFight gives it to both fighters),
+; assignment 1Ch (StartFight gives it to both fighters),
 ; the fighting logic
 ;-----------------------------------------------------------------------------
 assfight:
@@ -10710,7 +10710,7 @@ assfight:
         ret
 ;-----------------------------------------------------------------------------
 ; assfwatch                                      36E34  93G, medium confidence
-; NHLPA 93 assfwatch: assignment 1Dh (checkfight gives it to the others),
+; assignment 1Dh (checkfight gives it to the others),
 ; players watching the fight
 ;-----------------------------------------------------------------------------
 assfwatch:

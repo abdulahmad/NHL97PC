@@ -10948,7 +10948,7 @@ StartNextMove:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; SetSPA                                         5ED80  94G, medium confidence
-; 94G SetSPA: (player, animation 0-17Ch, flags, speed) sets the player's
+; (player, animation 0-17Ch, flags, speed) sets the player's
 ; animation; restarts it unless it is already playing
 ;-----------------------------------------------------------------------------
 SetSPA:
@@ -32229,7 +32229,7 @@ StartFallAnim:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; checkcx                                           6E290  94G, low confidence
-; 94G checkcx: (player a3, player a2, ...) a collision between two players
+; (player a3, player a2, ...) a collision between two players
 ; (x87): bounces, checking animations, interference (checkint), checkfight
 ;-----------------------------------------------------------------------------
 checkcx:
@@ -33778,7 +33778,7 @@ ContactAngle:
         ret
 ;-----------------------------------------------------------------------------
 ; checkplcoll                                       6F604  94G, low confidence
-; 94G checkplcoll: a player's collisions with the other players (checkcx,
+; a player's collisions with the other players (checkcx,
 ; ResolvePlayerContact) and the rest
 ;-----------------------------------------------------------------------------
 checkplcoll:
@@ -45687,7 +45687,7 @@ FreeCameraDebug:
 ;-----------------------------------------------------------------------------
 ; updateplayers                                  77A88  94G, medium confidence
 ; The per-frame player update: reads the joypads (ReadJoy1), runs each object's assignment from
-; AssignFuncTable, collisions and animation, as 94G updateplayers
+; AssignFuncTable, collisions and animation
 ;-----------------------------------------------------------------------------
 updateplayers:
         push ebx
@@ -46047,7 +46047,7 @@ updateplayers:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; GameOver                       77F88  93G hockey93_06.asm, medium confidence
-; Sets gameover (gameover); 96 PC GameOver without its already-over check
+; Sets gameover (gameover); no check for a game that is already over
 ;-----------------------------------------------------------------------------
 GameOver:
         mov word [gameover], 1
@@ -46179,7 +46179,7 @@ CupCelebration:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; clockcont_0                                    780F0  94G, medium confidence
-; 94G clockcont_0 (end of period; also entered from puckfaceoff): puck assinsert 41h, periods 1-2
+; (end of period; also entered from puckfaceoff): puck assinsert 41h, periods 1-2
 ; AddPenalty2 end of period (PA event), later periods score / overtime / cup checks
 ;-----------------------------------------------------------------------------
 clockcont_0:

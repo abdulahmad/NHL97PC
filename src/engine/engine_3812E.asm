@@ -4025,7 +4025,7 @@ RefDodgePuck:
 ;-----------------------------------------------------------------------------
 ; checkgoal                                         3AF30  94G, low confidence
 ; From the MoveFuncTable handler table: the puck against a net; the two net checks (NetCollide /
-; NetCollide2) call Goal, as 93G/94G checkgoal does for the puck
+; NetCollide2) call Goal does for the puck
 ;-----------------------------------------------------------------------------
 checkgoal:
         push ebx
@@ -16254,7 +16254,7 @@ SpeechFileHeader:
 ;-----------------------------------------------------------------------------
 ; OpenSpeechBanks                                 42D50  96 PC, low confidence
 ; Opens the play-by-play speech files (%sAUDPBP3.TSF, KTSF, %sAUDPBP2.VIV,
-; CBANK%03d.DAT), like 96 PC OpenSpeechBanks
+; CBANK%03d.DAT)
 ;-----------------------------------------------------------------------------
 OpenSpeechBanks:
         push dword 128h

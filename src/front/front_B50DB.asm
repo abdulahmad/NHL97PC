@@ -3161,7 +3161,7 @@ ExportGoalieStatJumpTable:                      ; jump table for the switch case
 ;-----------------------------------------------------------------------------
 ; ExportPlayerCard                                B78F4  96 PC, low confidence
 ; Writes the player's card (height, weight, born, birthplace, draft) to a
-; text file, like 96 PC ExportPlayerCard
+; text file
 ;-----------------------------------------------------------------------------
 ExportPlayerCard:
         push esi
