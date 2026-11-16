@@ -6,8 +6,8 @@ extern byte_172BC5, byte_1CFBF2, byte_1CFBF3, byte_1DCF44, byte_1DCF67, byte_1DC
 extern dword_17003C, dword_170040, dword_172AC0, dword_172AC4, dword_1CFBF4, dword_1DCF38, dword_1DCF3E, dword_1DCF3F
 extern dword_1DCF62, off_16FFC8, off_16FFCC, off_16FFD0, off_16FFD4, bcopy, AddExitHandler, DetectSoundCard
 extern ProbeSoundPorts, CloseDigitalAudio, StopChannel, sub_109401, sub_109545, sub_10955B, sub_10A930, sub_121888
-extern sub_128280, sub_1286F0, ReadSoundscapeIni, SoundscapeCodecReady, AudioLeave, SampleFormatSize, sub_12AE02, sub_12AF0F
-extern sub_12AFAB, sub_12B03D, sub_12B061, sub_12BD70, FreeMemBlock, sub_FB618, addtimer, sub_FC008
+extern sub_128280, sub_1286F0, ReadSoundscapeIni, SoundscapeCodecReady, AudioLeave, SampleFormatSize, MixerStartSample, MixerFadeChannel
+extern MixerSetPanVolume, MixerSetPitch, MixerSamplesLeft, ReadLittleEndian, FreeMemBlock, sub_FB618, addtimer, sub_FC008
 extern word_1CFBF0
 global jpt_1074C0, sub_1074E8_B1, sub_1074E8_C2, sub_1074E8_D3, sub_1074E8_E7, sub_1074E8_FB, sub_1074E8_10F, sub_1074E8_123
 global sub_1074E8_135, sub_1074E8_140, sub_1079C4_1, sub_1079C4_7, sub_1079C4_D, sub_1079C4_13, sub_1079C4_19, sub_107000
@@ -530,7 +530,7 @@ sub_1073C0:
         mov ebx, dword [byte ecx+018h]
         push ebx
         push edi
-        call sub_12AE02
+        call MixerStartSample
         add esp, byte 28h
         xor eax, eax
 .8:
@@ -596,7 +596,7 @@ sub_1074E8:
         inc esi
         mov edx, 4
         mov eax, esi
-        call sub_12BD70
+        call ReadLittleEndian
         mov ebx, eax
         add esi, byte 3
 .2:
@@ -610,56 +610,56 @@ sub_1074E8:
 sub_1074E8_B1:
         mov edx, ebx
         mov eax, esi
-        call sub_12BD70
+        call ReadLittleEndian
         mov dword [byte esp+0Ch], eax
         add esi, ebx
         jmp short sub_1074E8.1
 sub_1074E8_C2:
         mov edx, ebx
         mov eax, esi
-        call sub_12BD70
+        call ReadLittleEndian
         mov dword [byte esp+018h], eax
         add esi, ebx
         jmp short sub_1074E8.1
 sub_1074E8_D3:
         mov edx, ebx
         mov eax, esi
-        call sub_12BD70
+        call ReadLittleEndian
         mov dword [byte esp+01Ch], eax
         add esi, ebx
         jmp near sub_1074E8.1
 sub_1074E8_E7:
         mov edx, ebx
         mov eax, esi
-        call sub_12BD70
+        call ReadLittleEndian
         mov dword [byte esp+020h], eax
         add esi, ebx
         jmp near sub_1074E8.1
 sub_1074E8_FB:
         mov edx, ebx
         mov eax, esi
-        call sub_12BD70
+        call ReadLittleEndian
         mov dword [byte esp+014h], eax
         add esi, ebx
         jmp near sub_1074E8.1
 sub_1074E8_10F:
         mov edx, ebx
         mov eax, esi
-        call sub_12BD70
+        call ReadLittleEndian
         mov dword [byte esp+010h], eax
         add esi, ebx
         jmp near sub_1074E8.1
 sub_1074E8_123:
         mov edx, ebx
         mov eax, esi
-        call sub_12BD70
+        call ReadLittleEndian
         mov edi, eax
         add esi, ebx
         jmp near sub_1074E8.1
 sub_1074E8_135:
         mov edx, ebx
         mov eax, esi
-        call sub_12BD70
+        call ReadLittleEndian
         mov ebp, eax
 sub_1074E8_140:
         add esi, ebx
@@ -730,7 +730,7 @@ sub_1074E8_140:
         push ecx
         mov esi, dword [byte esp+02Ch]
         push esi
-        call sub_12AE02
+        call MixerStartSample
         add esp, byte 28h
         xor eax, eax
 .11:
@@ -768,7 +768,7 @@ sub_10770C:
         inc ecx
         mov edx, 4
         mov eax, ecx
-        call sub_12BD70
+        call ReadLittleEndian
         mov ebx, eax
         add ecx, byte 3
 .2:
@@ -784,7 +784,7 @@ sub_10770C:
 .3:
         mov edx, ebx
         mov eax, ecx
-        call sub_12BD70
+        call ReadLittleEndian
         mov ebp, eax
         jmp short .5
 .4:
@@ -825,7 +825,7 @@ sub_107798:
         push eax
         push edx
         push ebx
-        call sub_12AFAB
+        call MixerSetPanVolume
         add esp, byte 0Ch
         xor eax, eax
         pop ecx
@@ -846,7 +846,7 @@ sub_1077D0:
         and eax, 0FFh
         push eax
         push ebx
-        call sub_12AFAB
+        call MixerSetPanVolume
         add esp, byte 0Ch
         xor eax, eax
         pop ecx
@@ -860,7 +860,7 @@ sub_1077F8:
         push ecx
         push edx
         push eax
-        call sub_12AF0F
+        call MixerFadeChannel
         add esp, byte 4
         xor eax, eax
         pop edx
@@ -875,7 +875,7 @@ sub_107808:
         push edx
         mov ebx, eax
         push eax
-        call sub_12B061
+        call MixerSamplesLeft
         add esp, byte 4
         test eax, eax
         jl near .3
@@ -948,7 +948,7 @@ sub_1078AC:
         call SampleFormatSize
         push eax
         push ecx
-        call sub_12B03D
+        call MixerSetPitch
         add esp, byte 8
         xor eax, eax
         pop esi

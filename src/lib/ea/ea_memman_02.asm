@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_1216B0 progbits alloc exec nowrite align=1
 extern GetTicks, TicksSince, byte_172518, dword_16E324, dword_16E338, dword_1724D4, dword_17251B, dword_1CF260
-extern memlist1, off_16E4E0, strncmp_, bcopy, sub_121470, sub_121494, sub_1214A0, sub_1307BC
+extern memlist1, off_16E4E0, strncmp_, bcopy, sub_121470, sub_121494, sub_1214A0, DispatchHotkey
 extern sub_FABB8, sub_FAF70, sub_FAFB0, sub_FB0BC, sub_FB9D8, sub_FBE40, word_172514, word_172516
 extern word_172519
 global sub_1216B0, sub_12175C, sub_121888, sub_12189C
@@ -323,14 +323,14 @@ sub_12189C:
         LD or, ax, ax
         je short .6
         push eax
-        call sub_1307BC
+        call DispatchHotkey
         add esp, byte 4
         ret
         call sub_FBE40
         LD or, ax, ax
         je short .5
         push eax
-        call sub_1307BC
+        call DispatchHotkey
         add esp, byte 4
         ret
 .5:

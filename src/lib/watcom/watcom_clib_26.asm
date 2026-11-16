@@ -13,11 +13,11 @@ extern sub_FBE63, MakeColor, sub_FCC40, FillRect, SetTextColors, FreeTextBuffers
 extern unk_1722C0, unk_172342, word_199A1C, word_199A22
 global _DoINTR_, __HeapManager_expand_, __IOMode_, __InitFiles_, __SetIOMode_, __flushall_, __full_io_exit_, __int386x_
 global __qwrite_, __set_errno_dos_, _dosret0_, _nexpand_, _nmsize_, docloseall_, flushall_, isatty_
-global _nexpand__10, __HeapManager_expand__18F, __HeapManager_expand__1F0, sub_130709_F, sub_131778_8F, sub_130550, sub_13059C, sub_13061C
-global sub_1306A0, sub_130709, sub_13073E, sub_130795, sub_1307BC, sub_130815, sub_130928, sub_13130C
-global sub_1313EE, sub_1313F5, sub_1313FD, sub_131644, sub_131739, sub_131778, sub_13180D, sub_131930
-global sub_13198E, sub_1319D1, sub_131ACB, sub_131DE2, sub_131FD2, sub_131FF9, sub_132058, sub_1320CA
-global sub_132400, unk_1320FE, unlink_
+global _nexpand__10, __HeapManager_expand__18F, __HeapManager_expand__1F0, ClearNumLock_F, ScanStoreCount_8F, IsTextModeWidth, SaveTextScreen, RestoreTextScreen
+global InitTextOutput, ClearNumLock, InstallBreakHandler, RemoveBreakHandler, DispatchHotkey, RegisterHotkey, RasterShapeTriangle, DrawShapeTriangleMapped
+global ScanGetChar, ScanUngetChar, ScanFormat, ScanParseSpec, ScanSkipSpace, ScanStoreCount, ScanChars, ScanStoreInt
+global ScanBuildCharSet, ScanCharSet, ScanFloatField, ScanIntegerField, HexDigitValue, ScanGetCharWidth, IntrLoadSegRegs, IntrLoadRegs
+global FillRectList, unk_1320FE, unlink_
 ;-----------------------------------------------------------------------------
 ; _nexpand_                                                    1301FF  library
 ;-----------------------------------------------------------------------------
@@ -406,9 +406,11 @@ __SetIOMode_:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_130550                                                          130550  
+; IsTextModeWidth                                130550  97 PC, low confidence
+; Returns whether the saved video state is a text mode of 40, 80, 100, 128 or
+; 132 columns
 ;-----------------------------------------------------------------------------
-sub_130550:
+IsTextModeWidth:
         push ebx
         push edx
         push esi
@@ -444,9 +446,11 @@ sub_130550:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_13059C                                                          13059C  
+; SaveTextScreen                                 13059C  97 PC, low confidence
+; Saves the DOS text screen and cursor at start-up so it can be put back on
+; exit
 ;-----------------------------------------------------------------------------
-sub_13059C:
+SaveTextScreen:
         push ebx
         push ecx
         push edx
@@ -457,7 +461,7 @@ sub_13059C:
         call sub_138F20
         mov eax, esp
         xor edi, edi
-        call sub_130550
+        call IsTextModeWidth
         test eax, eax
         je short .1
         mov esi, dword [esp]
@@ -500,9 +504,10 @@ sub_13059C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_13061C                                                          13061C  
+; RestoreTextScreen                              13061C  97 PC, low confidence
+; Puts the saved DOS text screen, video mode and cursor back on exit
 ;-----------------------------------------------------------------------------
-sub_13061C:
+RestoreTextScreen:
         push ebx
         push ecx
         push edx
@@ -557,9 +562,11 @@ sub_13061C:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_1306A0                                                          1306A0  
+; InitTextOutput                                 1306A0  97 PC, low confidence
+; Clears the text output state, sets its default colours and frees old text
+; buffers
 ;-----------------------------------------------------------------------------
-sub_1306A0:
+InitTextOutput:
         push dword 0ACh
         push dword_1CF528
         call ZeroMem
@@ -589,14 +596,16 @@ sub_1306A0:
         call sub_FBE63
         ret
 ;-----------------------------------------------------------------------------
-; sub_130709                                                          130709  
+; ClearNumLock                                   130709  97 PC, low confidence
+; Clears the BIOS Num Lock flag; followed by the real-mode Ctrl-Break stub
+; that calls the installed handler
 ;-----------------------------------------------------------------------------
-sub_130709:
+ClearNumLock:
         and byte [0417h], 0DFh
         call sub_FBE63
         ret
         db 00h,00h
-sub_130709_F:
+ClearNumLock_F:
         sti
         push ebx
         push ecx
@@ -622,9 +631,11 @@ sub_130709_F:
         pop ebx
         iret
 ;-----------------------------------------------------------------------------
-; sub_13073E                                                          13073E  
+; InstallBreakHandler                            13073E  97 PC, low confidence
+; Installs a Ctrl-Break handler through a real-mode callback in DOS memory
+; and registers its removal at exit
 ;-----------------------------------------------------------------------------
-sub_13073E:
+InstallBreakHandler:
         push ebp
         LD mov, ebp, esp
         push ebx
@@ -640,9 +651,9 @@ sub_13073E:
         mov word [word_199A1C], dx
         mov ebx, 24h
         mov dx, cs
-        mov eax, sub_130709_F
+        mov eax, ClearNumLock_F
         call sub_12FFF0
-        push sub_130795
+        push RemoveBreakHandler
         call AddExitHandler
         add esp, byte 4
 .1:
@@ -650,9 +661,10 @@ sub_13073E:
         leave
         ret
 ;-----------------------------------------------------------------------------
-; sub_130795                                                          130795  
+; RemoveBreakHandler                             130795  97 PC, low confidence
+; Frees the DOS memory of the Ctrl-Break callback and clears its selector
 ;-----------------------------------------------------------------------------
-sub_130795:
+RemoveBreakHandler:
         pusha
         mov ebx, 24h
         mov dx, word [word_199A1C]
@@ -665,9 +677,11 @@ sub_130795:
         popa
         ret
 ;-----------------------------------------------------------------------------
-; sub_1307BC                                                          1307BC  
+; DispatchHotkey                                 1307BC  97 PC, low confidence
+; Looks up the handler registered for a key (ASCII or extended scan code) and
+; calls it
 ;-----------------------------------------------------------------------------
-sub_1307BC:
+DispatchHotkey:
         push ebp
         LD mov, ebp, esp
         dec dword [dword_199B2A]
@@ -704,9 +718,10 @@ sub_1307BC:
         leave
         ret
 ;-----------------------------------------------------------------------------
-; sub_130815                                                          130815  
+; RegisterHotkey                                 130815  97 PC, low confidence
+; Stores a handler in the hotkey table (64 slots) and maps a key to it
 ;-----------------------------------------------------------------------------
-sub_130815:
+RegisterHotkey:
         push ebp
         LD mov, ebp, esp
         mov eax, dword [byte ebp+0Ch]
@@ -845,9 +860,11 @@ unlink_:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_130928                                                          130928  
+; RasterShapeTriangle                            130928  97 PC, low confidence
+; Draws one triangle of a shape mapped onto screen coordinates, stepping
+; source and destination edges in fixed point
 ;-----------------------------------------------------------------------------
-sub_130928:
+RasterShapeTriangle:
         push ebx
         push esi
         push edi
@@ -1685,9 +1702,11 @@ sub_130928:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_13130C                                                          13130C  
+; DrawShapeTriangleMapped                        13130C  97 PC, low confidence
+; Converts a source and a destination triangle to 16.16 fixed point and draws
+; the mapped shape triangle
 ;-----------------------------------------------------------------------------
-sub_13130C:
+DrawShapeTriangleMapped:
         push ebx
         sub esp, byte 30h
         mov edx, dword [byte esp+03Ch]
@@ -1746,33 +1765,37 @@ sub_13130C:
         push eax
         mov edx, dword [byte esp+040h]
         push edx
-        call sub_130928
+        call RasterShapeTriangle
         add esp, byte 0Ch
         add esp, byte 30h
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1313EE                                                          1313EE  
+; ScanGetChar                                    1313EE  97 PC, low confidence
+; Calls the scanf input's get-character function
 ;-----------------------------------------------------------------------------
-sub_1313EE:
+ScanGetChar:
         push edx
         mov edx, eax
         call dword [edx]
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1313F5                                                          1313F5  
+; ScanUngetChar                                  1313F5  97 PC, low confidence
+; Calls the scanf input's push-back function
 ;-----------------------------------------------------------------------------
-sub_1313F5:
+ScanUngetChar:
         push ebx
         mov ebx, edx
         call dword [byte ebx+04h]
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1313FD                                                          1313FD  
+; ScanFormat                                     1313FD  97 PC, low confidence
+; Scanf engine: walks the format string, matches literal text and calls the
+; converter of each field
 ;-----------------------------------------------------------------------------
-sub_1313FD:
+ScanFormat:
         push ecx
         push esi
         push edi
@@ -1802,26 +1825,26 @@ sub_1313FD:
         and eax, 0FFh
         je short .2
         mov eax, esi
-        call sub_131739
+        call ScanSkipSpace
         add ebp, eax
         jmp near .28
 .2:
         cmp ebx, byte 25h
         je short .4
         mov eax, esi
-        call sub_1313EE
+        call ScanGetChar
         cmp eax, ebx
         je near .27
 .3:
         test byte [byte esi+010h], 2
         jne near .29
         mov edx, esi
-        call sub_1313F5
+        call ScanUngetChar
         jmp near .29
 .4:
         mov edx, esi
         mov eax, ecx
-        call sub_131644
+        call ScanParseSpec
         xor ebx, ebx
         mov dword [esp], eax
         mov bl, byte [eax]
@@ -1886,7 +1909,7 @@ sub_1313FD:
         mov edx, edi
         mov eax, esi
 .15:
-        call sub_131DE2
+        call ScanIntegerField
         jmp short .24
 .16:
         mov ecx, 1
@@ -1911,23 +1934,23 @@ sub_1313FD:
 .20:
         mov edx, edi
         mov eax, esi
-        call sub_131ACB
+        call ScanFloatField
         jmp short .24
 .21:
         mov edx, edi
         mov eax, esi
-        call sub_13180D
+        call ScanChars
         jmp short .24
 .22:
         mov ebx, esp
         mov edx, edi
         mov eax, esi
-        call sub_1319D1
+        call ScanCharSet
         jmp short .24
 .23:
         mov edx, edi
         mov eax, esi
-        call sub_131778
+        call ScanStoreCount
 .24:
         mov ebx, eax
         test ebx, ebx
@@ -1942,11 +1965,11 @@ sub_1313FD:
         mov ebx, ebp
         mov edx, edi
         mov eax, esi
-        call sub_131930
+        call ScanStoreInt
         jmp short .28
 .26:
         mov eax, esi
-        call sub_1313EE
+        call ScanGetChar
         cmp eax, ebx
         jne near .3
 .27:
@@ -1962,7 +1985,7 @@ sub_1313FD:
         inc dword [esp]
         mov eax, dword [esp]
         mov edx, esi
-        call sub_131644
+        call ScanParseSpec
         mov dword [esp], eax
         mov al, byte [eax]
         and eax, 0FFh
@@ -1971,7 +1994,7 @@ sub_1313FD:
         mov ebx, ebp
         mov edx, edi
         mov eax, esi
-        call sub_131930
+        call ScanStoreInt
 .29:
         cmp dword [byte esp+04h], byte 0
         jne short .30
@@ -1989,9 +2012,11 @@ sub_1313FD:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_131644                                                          131644  
+; ScanParseSpec                                  131644  97 PC, low confidence
+; Parses one scanf field spec: assignment suppression, width and size
+; modifiers
 ;-----------------------------------------------------------------------------
-sub_131644:
+ScanParseSpec:
         push ebx
         push ecx
         push esi
@@ -2097,9 +2122,11 @@ sub_131644:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_131739                                                          131739  
+; ScanSkipSpace                                  131739  97 PC, low confidence
+; Skips white space in the scanf input; returns how many characters were
+; skipped
 ;-----------------------------------------------------------------------------
-sub_131739:
+ScanSkipSpace:
         push ebx
         push edx
         push esi
@@ -2107,7 +2134,7 @@ sub_131739:
         xor esi, esi
 .1:
         mov eax, ebx
-        call sub_1313EE
+        call ScanGetChar
         mov edx, eax
         inc dl
         and edx, 0FFh
@@ -2121,7 +2148,7 @@ sub_131739:
         test byte [byte ebx+010h], 2
         jne short .3
         mov edx, ebx
-        call sub_1313F5
+        call ScanUngetChar
 .3:
         mov eax, esi
         pop esi
@@ -2129,9 +2156,10 @@ sub_131739:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_131778                                                          131778  
+; ScanStoreCount                                 131778  97 PC, low confidence
+; Stores the number of characters read so far for a %n field
 ;-----------------------------------------------------------------------------
-sub_131778:
+ScanStoreCount:
         push ebx
         push ecx
         push esi
@@ -2176,7 +2204,7 @@ sub_131778:
         test edx, edx
         jle short .6
         mov eax, ebx
-        call sub_1313EE
+        call ScanGetChar
         mov dword [esp], eax
         mov al, byte [byte ebx+010h]
         test al, 2
@@ -2199,7 +2227,7 @@ sub_131778:
 .6:
         mov eax, esi
         add esp, byte 4
-sub_131778_8F:
+ScanStoreCount_8F:
         pop es
         pop edi
         pop esi
@@ -2207,9 +2235,10 @@ sub_131778_8F:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_13180D                                                          13180D  
+; ScanChars                                      13180D  97 PC, low confidence
+; Reads a %c or %s field into the caller's buffer
 ;-----------------------------------------------------------------------------
-sub_13180D:
+ScanChars:
         push ebx
         push ecx
         push esi
@@ -2256,7 +2285,7 @@ sub_13180D:
         xor esi, esi
 .6:
         mov eax, ebx
-        call sub_1313EE
+        call ScanGetChar
         mov dword [esp], eax
         mov al, byte [esp]
         inc al
@@ -2299,7 +2328,7 @@ sub_13180D:
         add ecx, eax
 .12:
         mov eax, ebx
-        call sub_131FF9
+        call ScanGetCharWidth
         mov dword [esp], eax
         cmp eax, byte 0FFFFFFFFh
         je short .14
@@ -2313,7 +2342,7 @@ sub_13180D:
 .13:
         mov eax, dword [esp]
         mov edx, ebx
-        call sub_1313F5
+        call ScanUngetChar
 .14:
         test byte [byte ebx+010h], 1
         je short .16
@@ -2330,11 +2359,12 @@ sub_13180D:
 .16:
         mov eax, esi
         add esp, byte 8
-        jmp near sub_131778_8F
+        jmp near ScanStoreCount_8F
 ;-----------------------------------------------------------------------------
-; sub_131930                                                          131930  
+; ScanStoreInt                                   131930  97 PC, low confidence
+; Stores a converted integer into the caller's argument with the field's size
 ;-----------------------------------------------------------------------------
-sub_131930:
+ScanStoreInt:
         push ecx
         push esi
         push edi
@@ -2387,9 +2417,10 @@ sub_131930:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_13198E                                                          13198E  
+; ScanBuildCharSet                               13198E  97 PC, low confidence
+; Builds the 256-bit set of characters from a %[...] scanset
 ;-----------------------------------------------------------------------------
-sub_13198E:
+ScanBuildCharSet:
         push ebx
         push ecx
         push esi
@@ -2424,9 +2455,10 @@ sub_13198E:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1319D1                                                          1319D1  
+; ScanCharSet                                    1319D1  97 PC, low confidence
+; Reads a %[...] field: the longest run of characters in (or not in) the set
 ;-----------------------------------------------------------------------------
-sub_1319D1:
+ScanCharSet:
         push ecx
         push esi
         push edi
@@ -2448,7 +2480,7 @@ sub_1319D1:
 .1:
         mov edx, esp
         mov eax, dword [ebx]
-        call sub_13198E
+        call ScanBuildCharSet
         mov dword [ebx], eax
         mov ah, byte [byte ecx+010h]
         test ah, 1
@@ -2484,7 +2516,7 @@ sub_1319D1:
         test edx, edx
         jbe short .7
         mov eax, ecx
-        call sub_1313EE
+        call ScanGetChar
         mov bl, byte [byte ecx+010h]
         mov dword [byte esp+028h], eax
         test bl, 2
@@ -2506,7 +2538,7 @@ sub_1319D1:
         cmp ebx, ebp
         je short .6
         mov edx, ecx
-        call sub_1313F5
+        call ScanUngetChar
         jmp short .7
 .6:
         inc edi
@@ -2534,9 +2566,10 @@ sub_1319D1:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_131ACB                                                          131ACB  
+; ScanFloatField                                 131ACB  97 PC, low confidence
+; Reads a floating-point field and converts it
 ;-----------------------------------------------------------------------------
-sub_131ACB:
+ScanFloatField:
         push ebx
         push ecx
         push esi
@@ -2551,7 +2584,7 @@ sub_131ACB:
         mov dword [byte esp+060h], edi
 .1:
         mov eax, esi
-        call sub_1313EE
+        call ScanGetChar
         mov dl, al
         inc dl
         movzx ebp, dl
@@ -2578,7 +2611,7 @@ sub_131ACB:
         mov ebp, dword [byte esp+060h]
         mov eax, esi
         mov byte [ebx], cl
-        call sub_131FF9
+        call ScanGetCharWidth
         inc ebx
         inc ebp
         mov ecx, eax
@@ -2620,7 +2653,7 @@ sub_131ACB:
 .7:
         mov eax, esi
         inc edi
-        call sub_131FF9
+        call ScanGetCharWidth
         mov ecx, eax
         cmp eax, byte 0FFFFFFFFh
         je near .21
@@ -2635,7 +2668,7 @@ sub_131ACB:
         jne near .15
         mov eax, esi
         mov byte [ebx], cl
-        call sub_131FF9
+        call ScanGetCharWidth
         inc ebx
         mov ecx, eax
         cmp eax, byte 0FFFFFFFFh
@@ -2661,7 +2694,7 @@ sub_131ACB:
         inc edi
         mov eax, esi
         mov byte [ebx], cl
-        call sub_131FF9
+        call ScanGetCharWidth
         inc ebx
         mov ecx, eax
         cmp eax, byte 0FFFFFFFFh
@@ -2703,7 +2736,7 @@ sub_131ACB:
         inc edi
         mov eax, esi
         mov byte [ebx], cl
-        call sub_131FF9
+        call ScanGetCharWidth
         inc ebx
         mov ecx, eax
         cmp eax, byte 0FFFFFFFFh
@@ -2716,7 +2749,7 @@ sub_131ACB:
         inc edi
         mov eax, esi
         mov byte [ebx], cl
-        call sub_131FF9
+        call ScanGetCharWidth
         inc ebx
         mov ecx, eax
         cmp eax, byte 0FFFFFFFFh
@@ -2735,7 +2768,7 @@ sub_131ACB:
         inc edi
         mov eax, esi
         mov byte [ebx], cl
-        call sub_131FF9
+        call ScanGetCharWidth
         inc ebx
         mov ecx, eax
         cmp eax, byte 0FFFFFFFFh
@@ -2749,7 +2782,7 @@ sub_131ACB:
 .20:
         mov edx, esi
         mov eax, ecx
-        call sub_1313F5
+        call ScanUngetChar
 .21:
         test edi, edi
         jle near .31
@@ -2827,11 +2860,12 @@ sub_131ACB:
         mov eax, edi
         add esp, byte 6Ch
         pop ebp
-        jmp near sub_131778_8F
+        jmp near ScanStoreCount_8F
 ;-----------------------------------------------------------------------------
-; sub_131DE2                                                          131DE2  
+; ScanIntegerField                               131DE2  97 PC, low confidence
+; Reads a signed or unsigned integer field in base 8, 10 or 16
 ;-----------------------------------------------------------------------------
-sub_131DE2:
+ScanIntegerField:
         push esi
         push edi
         push es
@@ -2846,7 +2880,7 @@ sub_131DE2:
         mov dword [esp], edi
 .1:
         mov eax, esi
-        call sub_1313EE
+        call ScanGetChar
         mov ebx, eax
         inc al
         movzx ebp, al
@@ -2877,7 +2911,7 @@ sub_131DE2:
         inc dword [esp]
         mov eax, esi
         mov dword [byte esp+08h], ebx
-        call sub_131FF9
+        call ScanGetCharWidth
         mov ebx, eax
         cmp eax, byte 0FFFFFFFFh
         je near .15
@@ -2888,7 +2922,7 @@ sub_131DE2:
         jne short .7
         mov eax, esi
         mov ecx, 1
-        call sub_131FF9
+        call ScanGetCharWidth
         mov ebx, eax
         cmp eax, byte 0FFFFFFFFh
         je near .15
@@ -2899,7 +2933,7 @@ sub_131DE2:
 .5:
         mov eax, esi
         mov ebp, dword [esp]
-        call sub_131FF9
+        call ScanGetCharWidth
         xor ecx, ecx
         add ebp, byte 2
         mov ebx, eax
@@ -2921,7 +2955,7 @@ sub_131DE2:
         jne short .11
         mov eax, esi
         mov ecx, 1
-        call sub_131FF9
+        call ScanGetCharWidth
         mov ebx, eax
         cmp eax, byte 0FFFFFFFFh
         je near .15
@@ -2932,7 +2966,7 @@ sub_131DE2:
 .9:
         mov eax, esi
         mov ebx, dword [esp]
-        call sub_131FF9
+        call ScanGetCharWidth
         add ebx, byte 2
         xor ecx, ecx
         mov dword [esp], ebx
@@ -2942,14 +2976,14 @@ sub_131DE2:
         je short .15
 .11:
         mov eax, ebx
-        call sub_131FD2
+        call HexDigitValue
         cmp eax, edx
         jge short .12
         imul edi, edx
         add edi, eax
         mov eax, esi
         inc ecx
-        call sub_131FF9
+        call ScanGetCharWidth
         jmp short .10
 .12:
         cmp ebx, byte 3Ah
@@ -2959,11 +2993,11 @@ sub_131DE2:
 .13:
         mov eax, esi
         inc ecx
-        call sub_131FF9
+        call ScanGetCharWidth
         mov ebx, eax
         cmp eax, byte 0FFFFFFFFh
         je short .15
-        call sub_131FD2
+        call HexDigitValue
         cmp eax, edx
         jge short .14
         imul edi, edx
@@ -2972,7 +3006,7 @@ sub_131DE2:
 .14:
         mov edx, esi
         mov eax, ebx
-        call sub_1313F5
+        call ScanUngetChar
 .15:
         cmp dword [byte esp+08h], byte 2Dh
         jne short .16
@@ -3030,9 +3064,10 @@ sub_131DE2:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_131FD2                                                          131FD2  
+; HexDigitValue                                  131FD2  97 PC, low confidence
+; Returns the value of a hex digit, or 16 for a non-digit
 ;-----------------------------------------------------------------------------
-sub_131FD2:
+HexDigitValue:
         cmp eax, byte 30h
         jl short .1
         cmp eax, byte 39h
@@ -3051,9 +3086,11 @@ sub_131FD2:
         mov eax, 10h
         ret
 ;-----------------------------------------------------------------------------
-; sub_131FF9                                                          131FF9  
+; ScanGetCharWidth                               131FF9  97 PC, low confidence
+; Reads one character while the field width allows; returns -1 at the width
+; limit
 ;-----------------------------------------------------------------------------
-sub_131FF9:
+ScanGetCharWidth:
         push ebx
         push edx
         mov edx, eax
@@ -3063,7 +3100,7 @@ sub_131FF9:
         test eax, eax
         je short .1
         mov eax, edx
-        call sub_1313EE
+        call ScanGetChar
         test byte [byte edx+010h], 2
         je short .2
 .1:
@@ -3082,7 +3119,7 @@ __int386x_:
         push ebx
         push ds
         push edx
-        call sub_132058
+        call IntrLoadSegRegs
         push ds
         push edi
         mov ebp, esp
@@ -3106,9 +3143,11 @@ __int386x_:
         pop ebp
         ret
 ;-----------------------------------------------------------------------------
-; sub_132058                                                          132058  
+; IntrLoadSegRegs                                132058  97 PC, low confidence
+; Loads the register set and segment registers for a protected-mode interrupt
+; call
 ;-----------------------------------------------------------------------------
-sub_132058:
+IntrLoadSegRegs:
         lea esi, [esi+esi*2]
         lea eax, [dword cs:esi+unk_1320FE]
         push eax
@@ -3132,7 +3171,7 @@ _DoINTR_:
         push es
         push ds
         push edx
-        call sub_1320CA
+        call IntrLoadRegs
         push ebx
         push ds
         push ebp
@@ -3161,9 +3200,11 @@ _DoINTR_:
         popa
         ret
 ;-----------------------------------------------------------------------------
-; sub_1320CA                                                          1320CA  
+; IntrLoadRegs                                   1320CA  97 PC, low confidence
+; Loads the full register set from a REGPACK and selects the interrupt stub
+; to call
 ;-----------------------------------------------------------------------------
-sub_1320CA:
+IntrLoadRegs:
         and eax, 0FFh
         lea eax, [eax+eax*2]
         lea eax, [dword cs:eax+unk_1320FE]
@@ -3234,9 +3275,10 @@ unk_1320FE:
         db 0F6h,0C3h,0CDh,0F7h,0C3h,0CDh,0F8h,0C3h,0CDh,0F9h,0C3h,0CDh,0FAh,0C3h,0CDh,0FBh
         db 0C3h,0CDh,0FCh,0C3h,0CDh,0FDh,0C3h,0CDh,0FEh,0C3h,0CDh,0FFh,0C3h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_132400                                                          132400  
+; FillRectList                                   132400  97 PC, low confidence
+; Fills each rectangle of a list with its colour
 ;-----------------------------------------------------------------------------
-sub_132400:
+FillRectList:
         push ebx
         push esi
         push edi

@@ -10,7 +10,7 @@ extern dword_1DC9A4, dword_1DC9A8, dword_1DC9AC, dword_1DC9B0, dword_1DC9B4, dwo
 extern dword_1DCAD8, dword_1DCADC, dword_1DCAE0, dword_1DCAE4, dword_1DCAE8, dword_1DCAEC, dword_1DCAF0, dword_1DCAF4
 extern dword_1DCAF8, dword_1DCEC4, dword_1DCED0, dword_1DCED8, dword_1DCEEC, dword_1DCEF0, dword_1DCEF4, dword_1DCEF8
 extern dword_1DCEFC, dword_1DCF08, dword_1DCF0C, dword_1DCF10, dword_1DCF14, dword_1DCF18, dword_1DCF1C, sub_1072B4
-extern sub_107808, sub_128680, AudioEnter, AudioLeaveCheck, sub_12B0B1, IsChannelActive, ScanFloat, word_1DCECC
+extern sub_107808, sub_128680, AudioEnter, AudioLeaveCheck, MixerSamplePosition, IsChannelActive, ScanFloat, word_1DCECC
 extern word_1DCEE8, word_1DCEEA, word_1DCF06
 global ResetGameVars, sub_12CEE1, sub_12CF50, sub_12CF9F, sub_12D0D2, sub_12D13B, sub_12D141, sub_12D150
 global sub_12D1C0, sub_12D210
@@ -341,7 +341,7 @@ sub_12D1C0:
         ret
 .2:
         push eax
-        call sub_12B0B1
+        call MixerSamplePosition
         add esp, byte 4
         mov edx, eax
         call AudioLeaveCheck

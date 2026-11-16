@@ -7,7 +7,7 @@ extern dword_172BDC, dword_172BE0, dword_172BE4, dword_172BE8, dword_172BEC, dwo
 extern dword_1DCF28, dword_1DCF2C, dword_1DCF30, dword_1DCF34, dword_1DCF38, dword_1DD384, dword_1DD390, dword_1DD394
 extern dword_1DD398, dword_1DD39C, dword_1DD3A0, dword_1DD3A4, dword_1DD3A8, dword_1DD3AC, dword_1DD3B0, dword_1DD3B4
 extern jpt_12C300_24, memset_, sub_1073B0, sub_1073BC, sub_1073C0, sub_107988, ReadBlasterPort, AudioEnter
-extern AudioLeaveCheck, sub_12AB6C, sub_12AD27, sub_12BE3C, StartChannel, MixNoise, UpdateChannels, SetChannelCount
+extern AudioLeaveCheck, MixerInit, MixerFillBuffer, PlayPatchNote, StartChannel, MixNoise, UpdateChannels, SetChannelCount
 extern GusGetEnvConfig, GusProbePort, GusOpen, GusClose, GusMemAlloc, GusStopStream, GusStreamBusy, GusServiceStream
 extern GusStartStream, TimerCalibrate, TimerRestore, TimerSetRate, IrqAck, sub_FAAB4, FreeMemBlock, word_1DD388
 extern word_1DD38A
@@ -913,7 +913,7 @@ sub_128680:
         push esi
         mov edi, dword [byte esp+01Ch]
         push edi
-        call sub_12BE3C
+        call PlayPatchNote
         pop ebp
         pop edi
         pop esi
@@ -1110,7 +1110,7 @@ sub_128880:
         push SetChannelCount
         push dword 5622h
         push byte 3
-        call sub_12AB6C
+        call MixerInit
         mov eax, 3
         add esp, byte 0Ch
 .5:
@@ -1167,7 +1167,7 @@ sub_128948:
         push dword 200h
         add eax, edx
         push eax
-        call sub_12AD27
+        call MixerFillBuffer
         add esp, byte 8
         call GusServiceStream
 .1:
@@ -1360,14 +1360,14 @@ sub_1289B8:
         mov al, byte [dword eax+byte_172BF5]
         and eax, 0FFh
         push eax
-        call sub_12AB6C
+        call MixerInit
         add esp, byte 0Ch
         mov edx, dword [dword_1DD39C]
         push edx
         mov ecx, dword [dword_1DD3AC]
         push ecx
         mov esi, eax
-        call sub_12AD27
+        call MixerFillBuffer
         mov edi, dword [dword_1DD39C]
         add esp, byte 8
         mov eax, dword [dword_1DD3AC]
@@ -1375,7 +1375,7 @@ sub_1289B8:
         push edi
         add eax, ebp
         push eax
-        call sub_12AD27
+        call MixerFillBuffer
         add esp, byte 8
         mov eax, dword [dword_1DD3AC]
         push eax
@@ -1462,7 +1462,7 @@ sub_128CA8:
         push ebx
         add eax, edx
         push eax
-        call sub_12AD27
+        call MixerFillBuffer
         add esp, byte 8
 .1:
         pop edx

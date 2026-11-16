@@ -16,8 +16,8 @@ extern dword_1DD434, dword_1DD438, dword_1DD43C, dword_1DD440, dword_1DD444, dwo
 extern dword_1DD454, dword_1DD458, dword_1DD45C, dword_1DD460, dword_1DD464, dword_1DD468, dword_1DD474, dword_1DD478
 extern dword_1DD47C, dword_1DD480, dword_1DD484, dword_1DD488, dword_1DD48C, dword_1DD490, dword_1DD494, dword_1DD498
 extern fclose_, fgets_, fopen_, fseek_, getenv_, unk_137FE1_2, str_WSSDMA, strcmp_
-extern strstr_, strupr_, sub_107798, sub_1077D0, sub_107988, StopChannel, RestoreDS, sub_12AB6C
-extern sub_12AD27, SbReadData, SbWriteDsp, SbMixerWrite, SbMixerRead, SbResetDsp, SbDetectDsp, SbSetRate
+extern strstr_, strupr_, sub_107798, sub_1077D0, sub_107988, StopChannel, RestoreDS, MixerInit
+extern MixerFillBuffer, SbReadData, SbWriteDsp, SbMixerWrite, SbMixerRead, SbResetDsp, SbDetectDsp, SbSetRate
 extern StartChannel, SetChannelCount, DmaMaskChannel, DmaProgram, IrqAck, IrqVector, IrqUnmask, IrqMask
 extern IrqSetHandler, AllocDosDmaBuffer, FreeDosDmaBuffer, SbTimeConstant, SbRateFromConstant, ReturnArg, sub_FAAB4, FreeMemBlock
 extern unk_128990, unk_1289A0, unk_137F46, unk_137F48, unk_137F4A, unk_137FDF, unk_137FE1, unk_140000
@@ -310,7 +310,7 @@ SbDriverInit:
         mov esi, 1
         push byte 4
         mov dword [dword_172C00], esi
-        call sub_12AB6C
+        call MixerInit
         add esp, byte 0Ch
         shl eax, 10h
 .9:
@@ -384,7 +384,7 @@ SbDriverStart:
         push ebx
         add eax, edx
         push eax
-        call sub_12AD27
+        call MixerFillBuffer
         add esp, byte 8
 .1:
         pop edx
@@ -681,7 +681,7 @@ SbProDriverInit:
         mov al, byte [nosplit eax*2+byte_172C14]
         and eax, 0FFh
         push eax
-        call sub_12AB6C
+        call MixerInit
         mov ebx, eax
         add esp, byte 0Ch
         test eax, eax
@@ -793,7 +793,7 @@ SbProDriverStart:
         push ebx
         add eax, edx
         push eax
-        call sub_12AD27
+        call MixerFillBuffer
         add esp, byte 8
 .1:
         pop edx
@@ -815,7 +815,7 @@ SbProSetupDma:
         push edx
         mov ebx, dword [dword_1DD41C]
         push ebx
-        call sub_12AD27
+        call MixerFillBuffer
         mov ecx, dword [dword_1DD3F0]
         add esp, byte 8
         mov eax, dword [dword_1DD41C]
@@ -823,7 +823,7 @@ SbProSetupDma:
         push ecx
         add eax, esi
         push eax
-        call sub_12AD27
+        call MixerFillBuffer
         add esp, byte 8
         mov eax, dword [dword_1DD418]
         mov ebx, unk_137FE1_2
@@ -1174,7 +1174,7 @@ Sb16DriverInit:
         mov al, byte [nosplit eax*4+byte_172C2E]
         and eax, 0FFh
         push eax
-        call sub_12AB6C
+        call MixerInit
         mov ebx, eax
         add esp, byte 0Ch
         test eax, eax
@@ -1306,7 +1306,7 @@ Sb16DriverStart:
         push ebx
         add eax, edx
         push eax
-        call sub_12AD27
+        call MixerFillBuffer
         add esp, byte 8
 .1:
         pop edx
@@ -1360,7 +1360,7 @@ Sb16SetupDma:
         push edx
         mov ebx, dword [dword_1DD464]
         push ebx
-        call sub_12AD27
+        call MixerFillBuffer
         mov ecx, dword [dword_1DD44C]
         add esp, byte 8
         mov eax, dword [dword_1DD464]
@@ -1368,7 +1368,7 @@ Sb16SetupDma:
         push ecx
         add eax, esi
         push eax
-        call sub_12AD27
+        call MixerFillBuffer
         add esp, byte 8
         mov eax, dword [dword_1DD460]
         mov ebx, Sb16AckIrq
@@ -1682,14 +1682,14 @@ SoundscapeDriverInit:
         mov al, byte [nosplit esi*2+byte_172C88]
         and eax, 0FFh
         push eax
-        call sub_12AB6C
+        call MixerInit
         add esp, byte 0Ch
         mov edx, dword [dword_1DD488]
         push edx
         mov ebx, dword [dword_1DD490]
         push ebx
         mov esi, eax
-        call sub_12AD27
+        call MixerFillBuffer
         mov ecx, dword [dword_1DD488]
         add esp, byte 8
         mov eax, dword [dword_1DD490]
@@ -1697,7 +1697,7 @@ SoundscapeDriverInit:
         push ecx
         add eax, edx
         push eax
-        call sub_12AD27
+        call MixerFillBuffer
         add esp, byte 8
         mov ebx, edi
         call SoundscapeSetupCodec
@@ -1768,7 +1768,7 @@ SoundscapeDriverStart:
         push ebx
         add eax, edx
         push eax
-        call sub_12AD27
+        call MixerFillBuffer
         add esp, byte 8
 .1:
         pop edx

@@ -15,7 +15,7 @@ extern off_1721B8, putchar, sprintf_, strncmp_, strncpy_, bcopy, QueueInit, Queu
 extern QueuePeek, QueueTakeTail, QueueTakeHead, QueueFreeAll, QueueCount, QueueFind, QueueAppend, QueuePostBuffer
 extern AddExitHandler, ConvertArtSame, sub_11313C, SerialConfigure, SerialOpen, SerialIsOpen, SerialSetBaud, SerialProgramUart
 extern SerialCarrier, SerialWriteIfRoom, SerialWrite, SerialRxCount, SerialTxFree, SerialFlushTx, SerialRead, SerialFlushRx
-extern sub_11FAD6, sub_120763, sub_123FA8, sub_12F270, sub_13130C, sub_1313FD, OpenPacketLink, ModemReset
+extern sub_11FAD6, sub_120763, sub_123FA8, sub_12F270, DrawShapeTriangleMapped, ScanFormat, OpenPacketLink, ModemReset
 extern ModemHangup, ModemDial, ModemAutoAnswer, ModemWaitConnect, ModemSpeakerOff, sub_F99C0, sub_F9A28, sub_F9A88
 extern AllocMemBlock, sub_FAAB4, FreeMemBlock, ZeroMem, FillMem, addtimer, sub_FC008, WaitTicks
 extern unk_167FA4, unk_172264, unk_17226C, unk_172274, unk_1DA3C4, unk_1DA418, unk_1DA448, unk_1DA464
@@ -952,7 +952,7 @@ FreeArtArchive:
         push ebx
         mov dword [byte esp+018h], edx
         mov dword [byte esp+020h], esi
-        call sub_13130C
+        call DrawShapeTriangleMapped
         add esp, byte 0Ch
         mov edx, 1
         mov dword [esp], edi
@@ -980,7 +980,7 @@ FreeArtArchive:
         push ebx
         movsd
         movsd
-        call sub_13130C
+        call DrawShapeTriangleMapped
         add esp, byte 0Ch
         test ebp, ebp
         je short .2
@@ -1057,7 +1057,7 @@ FreeArtArchive:
         push eax
         push edi
         mov dword [byte esp+03Ch], edx
-        call sub_13130C
+        call DrawShapeTriangleMapped
         add esp, byte 0Ch
         mov edx, 1
         mov eax, dword [byte esp+034h]
@@ -1091,7 +1091,7 @@ FreeArtArchive:
         lea eax, [byte esp+04h]
         push eax
         push edi
-        call sub_13130C
+        call DrawShapeTriangleMapped
         add esp, byte 0Ch
         test ebp, ebp
         je short .4
@@ -1229,7 +1229,7 @@ vsscanf_:
         mov eax, esp
         mov dword [esp], ecx
         mov dword [byte esp+04h], esi
-        call sub_1313FD
+        call ScanFormat
         add esp, byte 14h
         pop esi
         pop ecx

@@ -2844,6 +2844,33 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 12AB04,AudioEnter,sub_12AB04,new,low,enters the audio critical section,src/lib/sound/snd_soundblaster_01.asm
 12AB0C,AudioLeaveCheck,sub_12AB0C,new,low,leaves the audio critical section,src/lib/sound/snd_soundblaster_01.asm
 12AB40,SampleFormatSize,sub_12AB40,new,low,returns the size of a sample format,src/lib/sound/snd_soundblaster_01.asm
+12AB6C,MixerInit,sub_12AB6C,new,low,"builds the volume tables, clears the 16 channels and picks the output routine for the requested sample format",src/lib/watcom/watcom_clib_22.asm
+12AD27,MixerFillBuffer,sub_12AD27,new,low,"mixes all channels into an output buffer, 512 samples at a time",src/lib/watcom/watcom_clib_22.asm
+12AD6A,MixerMixChunk,sub_12AD6A,new,low,mixes up to 512 samples of every playing channel into the accumulator and converts it to output,src/lib/watcom/watcom_clib_22.asm
+12AE02,MixerStartSample,sub_12AE02,new,low,"sets up a channel for a sample: format, length, loop, pitch and volume, and marks it playing",src/lib/watcom/watcom_clib_22.asm
+12AF0F,MixerFadeChannel,sub_12AF0F,new,low,mixes the rest of a channel's current chunk with a fade-out and stops it,src/lib/watcom/watcom_clib_22.asm
+12AFAB,MixerSetPanVolume,sub_12AFAB,new,low,sets a channel's left and right volume from a pan position (0..127) and a volume,src/lib/watcom/watcom_clib_22.asm
+12B03D,MixerSetPitch,sub_12B03D,new,low,sets a channel's playback rate,src/lib/watcom/watcom_clib_22.asm
+12B061,MixerSamplesLeft,sub_12B061,new,low,"returns how many samples a playing channel has left, or -1 for looping or streamed channels",src/lib/watcom/watcom_clib_22.asm
+12B0B1,MixerSamplePosition,sub_12B0B1,new,low,"returns how far a playing channel is into its sample, or -1 for streamed channels",src/lib/watcom/watcom_clib_22.asm
+12B0F2,MixerStopChannel,sub_12B0F2,new,low,marks a channel stopped and calls the end-of-sample callback,src/lib/watcom/watcom_clib_22.asm
+12B110,MixerPickMixRoutine,sub_12B110,new,low,selects the mix loop for a channel from its sample format and the output format,src/lib/watcom/watcom_clib_22.asm
+12B216,MixerChunkLength,sub_12B216,new,low,returns how many output samples a channel can mix before its end or loop point; followed by the loop and stream variants,src/lib/watcom/watcom_clib_22.asm
+12B611,MixerCalcStep,sub_12B611,new,low,converts a pitch to the channel's fixed-point step through the sample,src/lib/watcom/watcom_clib_22.asm
+12B68A,MixerBuildVolumeTables,sub_12B68A,new,low,builds the 128 volume tables that scale each 8-bit sample value,src/lib/watcom/watcom_clib_22.asm
+12B6EC,MixMono8,sub_12B6EC,new,low,mixes an 8-bit mono sample into both accumulator channels,src/lib/watcom/watcom_clib_22.asm
+12B769,MixSample16,sub_12B769,new,low,mixes a 16-bit sample into the accumulator; followed by the other sample format loops,src/lib/watcom/watcom_clib_22.asm
+12BBA1,MixFadeOut8,sub_12BBA1,new,low,mixes an 8-bit sample while ramping both volumes down to silence,src/lib/watcom/watcom_clib_22.asm
+12BC22,MixOutStereo16,sub_12BC22,new,low,clips the accumulator to 16-bit stereo output; followed by the 8-bit and mono variants,src/lib/watcom/watcom_clib_22.asm
+12BCF7,MixOutStereo16Unsigned,sub_12BCF7,new,low,unsupported output format: does nothing,src/lib/watcom/watcom_clib_22.asm
+12BCF8,MixOutStereo8Signed,sub_12BCF8,new,low,unsupported output format: does nothing,src/lib/watcom/watcom_clib_22.asm
+12BCF9,MixOutMono16,sub_12BCF9,new,low,averages the two accumulator channels and clips them to 16-bit mono output,src/lib/watcom/watcom_clib_22.asm
+12BD46,MixOutMono16Unsigned,sub_12BD46,new,low,unsupported output format: does nothing,src/lib/watcom/watcom_clib_22.asm
+12BD47,MixOutMono8Signed,sub_12BD47,new,low,unsupported output format: does nothing,src/lib/watcom/watcom_clib_22.asm
+12BD48,MixerClearAccumulator,sub_12BD48,new,low,clears the 32-bit stereo mix accumulator,src/lib/watcom/watcom_clib_22.asm
+12BD70,ReadLittleEndian,sub_12BD70,new,low,reads an unsigned little-endian value of the given number of bytes,src/lib/watcom/watcom_clib_22.asm
+12BDA0,InitPatchParams,sub_12BDA0,new,low,"sets the default patch parameters (full key and velocity range, centre pan, middle C)",src/lib/watcom/watcom_clib_22.asm
+12BE3C,PlayPatchNote,sub_12BE3C,new,low,"parses a PT patch header's tag list for the region that covers the key and velocity, then starts the sample",src/lib/watcom/watcom_clib_22.asm
 12C604,ParseHexValue,sub_12C604,new,low,parses a hexadecimal setting value,src/lib/sound/snd_soundblaster_02.asm
 12C64C,ParseBlasterEnv,,96PC,medium,NHL96PC CE0A9 (similar): mnemonic similarity 0.86 over 106 instructions,
 12C78C,SbReadData,sub_12C78C,new,low,reads a byte from the Sound Blaster DSP,src/lib/sound/snd_soundblaster_02.asm
@@ -2896,10 +2923,38 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 13046A,__set_errno_dos_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 1304DB,__IOMode_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 130530,__SetIOMode_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+130550,IsTextModeWidth,sub_130550,new,low,"returns whether the saved video state is a text mode of 40, 80, 100, 128 or 132 columns",src/lib/watcom/watcom_clib_26.asm
+13059C,SaveTextScreen,sub_13059C,new,low,saves the DOS text screen and cursor at start-up so it can be put back on exit,src/lib/watcom/watcom_clib_26.asm
+13061C,RestoreTextScreen,sub_13061C,new,low,"puts the saved DOS text screen, video mode and cursor back on exit",src/lib/watcom/watcom_clib_26.asm
+1306A0,InitTextOutput,sub_1306A0,new,low,"clears the text output state, sets its default colours and frees old text buffers",src/lib/watcom/watcom_clib_26.asm
+130709,ClearNumLock,sub_130709,new,low,clears the BIOS Num Lock flag; followed by the real-mode Ctrl-Break stub that calls the installed handler,src/lib/watcom/watcom_clib_26.asm
+13073E,InstallBreakHandler,sub_13073E,new,low,installs a Ctrl-Break handler through a real-mode callback in DOS memory and registers its removal at exit,src/lib/watcom/watcom_clib_26.asm
+130795,RemoveBreakHandler,sub_130795,new,low,frees the DOS memory of the Ctrl-Break callback and clears its selector,src/lib/watcom/watcom_clib_26.asm
+1307BC,DispatchHotkey,sub_1307BC,new,low,looks up the handler registered for a key (ASCII or extended scan code) and calls it,src/lib/watcom/watcom_clib_26.asm
+130815,RegisterHotkey,sub_130815,new,low,stores a handler in the hotkey table (64 slots) and maps a key to it,src/lib/watcom/watcom_clib_26.asm
 13086E,__qwrite_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 1308E2,unlink_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+130928,RasterShapeTriangle,sub_130928,new,low,"draws one triangle of a shape mapped onto screen coordinates, stepping source and destination edges in fixed point",src/lib/watcom/watcom_clib_26.asm
+13130C,DrawShapeTriangleMapped,sub_13130C,new,low,converts a source and a destination triangle to 16.16 fixed point and draws the mapped shape triangle,src/lib/watcom/watcom_clib_26.asm
+1313EE,ScanGetChar,sub_1313EE,new,low,calls the scanf input's get-character function,src/lib/watcom/watcom_clib_26.asm
+1313F5,ScanUngetChar,sub_1313F5,new,low,calls the scanf input's push-back function,src/lib/watcom/watcom_clib_26.asm
+1313FD,ScanFormat,sub_1313FD,new,low,"scanf engine: walks the format string, matches literal text and calls the converter of each field",src/lib/watcom/watcom_clib_26.asm
+131644,ScanParseSpec,sub_131644,new,low,"parses one scanf field spec: assignment suppression, width and size modifiers",src/lib/watcom/watcom_clib_26.asm
+131739,ScanSkipSpace,sub_131739,new,low,skips white space in the scanf input; returns how many characters were skipped,src/lib/watcom/watcom_clib_26.asm
+131778,ScanStoreCount,sub_131778,new,low,stores the number of characters read so far for a %n field,src/lib/watcom/watcom_clib_26.asm
+13180D,ScanChars,sub_13180D,new,low,reads a %c or %s field into the caller's buffer,src/lib/watcom/watcom_clib_26.asm
+131930,ScanStoreInt,sub_131930,new,low,stores a converted integer into the caller's argument with the field's size,src/lib/watcom/watcom_clib_26.asm
+13198E,ScanBuildCharSet,sub_13198E,new,low,builds the 256-bit set of characters from a %[...] scanset,src/lib/watcom/watcom_clib_26.asm
+1319D1,ScanCharSet,sub_1319D1,new,low,reads a %[...] field: the longest run of characters in (or not in) the set,src/lib/watcom/watcom_clib_26.asm
+131ACB,ScanFloatField,sub_131ACB,new,low,reads a floating-point field and converts it,src/lib/watcom/watcom_clib_26.asm
+131DE2,ScanIntegerField,sub_131DE2,new,low,"reads a signed or unsigned integer field in base 8, 10 or 16",src/lib/watcom/watcom_clib_26.asm
+131FD2,HexDigitValue,sub_131FD2,new,low,"returns the value of a hex digit, or 16 for a non-digit",src/lib/watcom/watcom_clib_26.asm
+131FF9,ScanGetCharWidth,sub_131FF9,new,low,reads one character while the field width allows; returns -1 at the width limit,src/lib/watcom/watcom_clib_26.asm
 132020,__int386x_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+132058,IntrLoadSegRegs,sub_132058,new,low,loads the register set and segment registers for a protected-mode interrupt call,src/lib/watcom/watcom_clib_26.asm
 13207D,_DoINTR_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+1320CA,IntrLoadRegs,sub_1320CA,new,low,loads the full register set from a REGPACK and selects the interrupt stub to call,src/lib/watcom/watcom_clib_26.asm
+132400,FillRectList,sub_132400,new,low,fills each rectangle of a list with its colour,src/lib/watcom/watcom_clib_26.asm
 132448,__InitFiles_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 1324BF,__full_io_exit_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 1324D0,docloseall_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
