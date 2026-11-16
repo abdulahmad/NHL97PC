@@ -19,19 +19,19 @@ extern sub_401A0, sub_40258, sub_40298, sub_40380, sub_403C0, sub_40400, sub_404
 extern sub_40574, sub_405F8, sub_40640, sub_40680, sub_40850, sub_44A50, sub_4518C, sub_45628
 extern sub_4564C, sub_45954, sub_45A00, MakeDataPath, sub_E341C, sub_FAA64, sub_FAF34, sub_FB704
 extern tickcount, word_1691A4, word_169268, word_169282, word_169284, word_169824
-global jpt_48D20, jpt_48D50, sub_45BEC_66, sub_45BEC_135, sub_45BEC_2DE, sub_45BEC_36D, sub_45BEC_3F6, sub_45BEC_3FF
-global sub_45BEC_408, sub_45BEC_411, sub_45BEC_41A, sub_45BEC_423, sub_45BEC_48A, sub_45BEC_4E4, sub_45BEC_4ED, sub_45BEC_4F6
-global sub_45BEC_4FF, sub_45BEC_508, sub_45BEC_511, sub_45BEC_51A, sub_45BEC_523, sub_45BEC_52C, sub_45BEC_535, sub_45BEC_58C
-global sub_45BEC_5E2, sub_45BEC_5EB, sub_45BEC_5F4, sub_45BEC_5FD, sub_45BEC_654, sub_45BEC_6D5, sub_45BEC_6E7, sub_45BEC_6F0
-global sub_45BEC_6F9, sub_45BEC_702, sub_45BEC_726, sub_45BEC_7BF, sub_45BEC_831, sub_45BEC_83B, sub_45BEC_847, sub_45BEC_853
-global sub_45BEC_85F, sub_45BEC_868, sub_45BEC_871, sub_45BEC_87A, sub_45BEC_883, sub_45BEC_88C, sub_45BEC_895, sub_45BEC_89E
-global sub_45BEC_8A7, sub_45BEC_8B0, sub_45BEC_8B9, sub_45BEC_8D6, sub_45BEC_96F, sub_45BEC_A08, sub_45BEC_A84, sub_45BEC_B1D
-global sub_45BEC_BB6, sub_45BEC_C68, sub_45BEC_D2A, sub_45BEC_D86, sub_45BEC_E79, sub_45BEC_F12, sub_45BEC_F80, sub_45BEC_F89
-global sub_45BEC_F92, sub_45BEC_F9B, sub_45BEC_FB0, sub_45BEC_FB9, sub_45BEC_FDD, sub_45BEC_1084, sub_45BEC_111C, sub_45BEC_11C5
-global sub_45BEC_1293, sub_45BEC_1500, sub_45BEC_16BA, sub_45BEC_1771, sub_45BEC_17AA, sub_45BEC_17E6, sub_45BEC_1871, sub_45BEC_189C
-global sub_45BEC_18A1, sub_45BEC_18AA, sub_45BEC_18B3, sub_45BEC_18BC, sub_45BEC_1931, sub_45BEC_19C8, sub_45BEC_1A44, sub_45BEC_1B16
-global sub_45BEC_1B57, sub_45BEC_1B97, sub_45BEC_1BF5, sub_45BEC_1C3D, sub_45BEC_1CB2, sub_45BEC_1DD1, sub_45BEC_1E49, sub_45BEC_1ECB
-global sub_45BEC_1F28, sub_45BEC_1F56, sub_45BEC_1FE8, CommentaryEvent, sub_47C08, sub_47D70, sub_47DC8, sub_47E38
+global jpt_48D20, jpt_48D50, CommentaryEvent_66, CommentaryEvent_135, CommentaryEvent_2DE, CommentaryEvent_36D, CommentaryEvent_3F6, CommentaryEvent_3FF
+global CommentaryEvent_408, CommentaryEvent_411, CommentaryEvent_41A, CommentaryEvent_423, CommentaryEvent_48A, CommentaryEvent_4E4, CommentaryEvent_4ED, CommentaryEvent_4F6
+global CommentaryEvent_4FF, CommentaryEvent_508, CommentaryEvent_511, CommentaryEvent_51A, CommentaryEvent_523, CommentaryEvent_52C, CommentaryEvent_535, CommentaryEvent_58C
+global CommentaryEvent_5E2, CommentaryEvent_5EB, CommentaryEvent_5F4, CommentaryEvent_5FD, CommentaryEvent_654, CommentaryEvent_6D5, CommentaryEvent_6E7, CommentaryEvent_6F0
+global CommentaryEvent_6F9, CommentaryEvent_702, CommentaryEvent_726, CommentaryEvent_7BF, CommentaryEvent_831, CommentaryEvent_83B, CommentaryEvent_847, CommentaryEvent_853
+global CommentaryEvent_85F, CommentaryEvent_868, CommentaryEvent_871, CommentaryEvent_87A, CommentaryEvent_883, CommentaryEvent_88C, CommentaryEvent_895, CommentaryEvent_89E
+global CommentaryEvent_8A7, CommentaryEvent_8B0, CommentaryEvent_8B9, CommentaryEvent_8D6, CommentaryEvent_96F, CommentaryEvent_A08, CommentaryEvent_A84, CommentaryEvent_B1D
+global CommentaryEvent_BB6, CommentaryEvent_C68, CommentaryEvent_D2A, CommentaryEvent_D86, CommentaryEvent_E79, CommentaryEvent_F12, CommentaryEvent_F80, CommentaryEvent_F89
+global CommentaryEvent_F92, CommentaryEvent_F9B, CommentaryEvent_FB0, CommentaryEvent_FB9, CommentaryEvent_FDD, CommentaryEvent_1084, CommentaryEvent_111C, CommentaryEvent_11C5
+global CommentaryEvent_1293, CommentaryEvent_1500, CommentaryEvent_16BA, CommentaryEvent_1771, CommentaryEvent_17AA, CommentaryEvent_17E6, CommentaryEvent_1871, CommentaryEvent_189C
+global CommentaryEvent_18A1, CommentaryEvent_18AA, CommentaryEvent_18B3, CommentaryEvent_18BC, CommentaryEvent_1931, CommentaryEvent_19C8, CommentaryEvent_1A44, CommentaryEvent_1B16
+global CommentaryEvent_1B57, CommentaryEvent_1B97, CommentaryEvent_1BF5, CommentaryEvent_1C3D, CommentaryEvent_1CB2, CommentaryEvent_1DD1, CommentaryEvent_1E49, CommentaryEvent_1ECB
+global CommentaryEvent_1F28, CommentaryEvent_1F56, CommentaryEvent_1FE8, CommentaryEvent, sub_47C08, sub_47D70, sub_47DC8, sub_47E38
 global sub_47EA4, ShutdownSound, sub_48030, sub_48080, sub_480CC, sub_486E8, sub_4880C, sub_48864
 global CountRecordGame, RecordPctClip, RecordStreakClips
 ;-----------------------------------------------------------------------------
@@ -54,22 +54,19 @@ CommentaryEvent:
         sub esp, 630h
         sub ebp, byte 7Ah
         cmp word [word_1691A4], byte 0
-        je near sub_45BEC_1FE8.273
+        je near CommentaryEvent_1FE8.273
         mov edx, dword [dword_1B8FA0]
         test edx, edx
-        jne near sub_45BEC_1FE8.273
+        jne near CommentaryEvent_1FE8.273
         cmp dword [dword_169250], byte 0
-        je near sub_45BEC_1FE8.273
+        je near CommentaryEvent_1FE8.273
         mov eax, dword [dword ebp+096h]
         add eax, 5FFFFFFFh
         lea ebx, [dword ebp+09Ah]
         cmp eax, byte 2Eh
-        ja near sub_45BEC_1FE8.272
+        ja near CommentaryEvent_1FE8.272
         jmp dword [nosplit cs:eax*4+jpt_45A64]
-;-----------------------------------------------------------------------------
-; sub_45BEC_66                                                    45C52  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_66:
+CommentaryEvent_66:
         add ebx, byte 4
         mov ecx, dword [byte ebx-04h]
         mov eax, dword [ebx]
@@ -116,7 +113,7 @@ sub_45BEC_66:
         mov eax, ecx
         call sub_4564C
         test eax, eax
-        je near sub_45BEC_1FE8.272
+        je near CommentaryEvent_1FE8.272
         mov eax, dword [byte ebp+06Eh]
         call sub_45A00
         mov dword [byte ebp+03Ah], eax
@@ -142,11 +139,8 @@ sub_45BEC_66:
         mov edx, dword [byte ebp+03Eh]
         mov ebx, dword [byte ebp+042h]
         call sub_3FF9C
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_135                                                   45D21  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_135:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_135:
         add ebx, byte 4
         mov ecx, dword [byte ebx-04h]
         mov eax, dword [ebx]
@@ -292,11 +286,8 @@ sub_45BEC_135:
         mov dword [dword_16981C], eax
         mov eax, dword [byte ebp+03Ah]
         mov dword [dword_169820], eax
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_2DE                                                   45ECA  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_2DE:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_2DE:
         add ebx, byte 4
         mov edi, 5
         mov ecx, dword [byte ebx-04h]
@@ -344,11 +335,8 @@ sub_45BEC_2DE:
         mov ecx, dword [byte ebp+046h]
         mov dword [byte ebp+042h], ebx
         call sub_3FF4C
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_36D                                                   45F59  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_36D:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_36D:
         add ebx, byte 4
         mov ecx, dword [byte ebx-04h]
         mov eax, dword [ebx]
@@ -392,42 +380,24 @@ sub_45BEC_36D:
         sub eax, 3003h
         add ebx, byte 4
         cmp eax, byte 5
-        ja short sub_45BEC_423.27
+        ja short CommentaryEvent_423.27
         jmp dword [nosplit cs:eax*4+jpt_45B20]
-;-----------------------------------------------------------------------------
-; sub_45BEC_3F6                                                   45FE2  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_3F6:
+CommentaryEvent_3F6:
         mov dword [byte ebp+046h], 1
-        jmp short sub_45BEC_423.28
-;-----------------------------------------------------------------------------
-; sub_45BEC_3FF                                                   45FEB  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_3FF:
+        jmp short CommentaryEvent_423.28
+CommentaryEvent_3FF:
         mov dword [byte ebp+046h], 2
-        jmp short sub_45BEC_423.28
-;-----------------------------------------------------------------------------
-; sub_45BEC_408                                                   45FF4  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_408:
+        jmp short CommentaryEvent_423.28
+CommentaryEvent_408:
         mov dword [byte ebp+046h], 3
-        jmp short sub_45BEC_423.28
-;-----------------------------------------------------------------------------
-; sub_45BEC_411                                                   45FFD  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_411:
+        jmp short CommentaryEvent_423.28
+CommentaryEvent_411:
         mov dword [byte ebp+046h], 4
-        jmp short sub_45BEC_423.28
-;-----------------------------------------------------------------------------
-; sub_45BEC_41A                                                   46006  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_41A:
+        jmp short CommentaryEvent_423.28
+CommentaryEvent_41A:
         mov dword [byte ebp+046h], 6
-        jmp short sub_45BEC_423.28
-;-----------------------------------------------------------------------------
-; sub_45BEC_423                                                   4600F  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_423:
+        jmp short CommentaryEvent_423.28
+CommentaryEvent_423:
         mov dword [byte ebp+046h], 7
         jmp short .28
 .27:
@@ -464,11 +434,8 @@ sub_45BEC_423:
         mov edx, dword [byte ebp+03Eh]
         mov dword [byte ebp+042h], ebx
         call sub_3FF4C
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_48A                                                   46076  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_48A:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_48A:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+06Eh], eax
@@ -496,66 +463,36 @@ sub_45BEC_48A:
         mov eax, dword [byte ebp+03Eh]
         sub eax, 4001h
         cmp eax, byte 9
-        ja near sub_45BEC_535.35
+        ja near CommentaryEvent_535.35
         jmp dword [nosplit cs:eax*4+jpt_45B38]
-;-----------------------------------------------------------------------------
-; sub_45BEC_4E4                                                   460D0  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_4E4:
+CommentaryEvent_4E4:
         mov dword [byte ebp+03Eh], 1
-        jmp short sub_45BEC_535.36
-;-----------------------------------------------------------------------------
-; sub_45BEC_4ED                                                   460D9  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_4ED:
+        jmp short CommentaryEvent_535.36
+CommentaryEvent_4ED:
         mov dword [byte ebp+03Eh], 2
-        jmp short sub_45BEC_535.36
-;-----------------------------------------------------------------------------
-; sub_45BEC_4F6                                                   460E2  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_4F6:
+        jmp short CommentaryEvent_535.36
+CommentaryEvent_4F6:
         mov dword [byte ebp+03Eh], 3
-        jmp short sub_45BEC_535.36
-;-----------------------------------------------------------------------------
-; sub_45BEC_4FF                                                   460EB  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_4FF:
+        jmp short CommentaryEvent_535.36
+CommentaryEvent_4FF:
         mov dword [byte ebp+03Eh], 4
-        jmp short sub_45BEC_535.36
-;-----------------------------------------------------------------------------
-; sub_45BEC_508                                                   460F4  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_508:
+        jmp short CommentaryEvent_535.36
+CommentaryEvent_508:
         mov dword [byte ebp+03Eh], 5
-        jmp short sub_45BEC_535.36
-;-----------------------------------------------------------------------------
-; sub_45BEC_511                                                   460FD  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_511:
+        jmp short CommentaryEvent_535.36
+CommentaryEvent_511:
         mov dword [byte ebp+03Eh], 6
-        jmp short sub_45BEC_535.36
-;-----------------------------------------------------------------------------
-; sub_45BEC_51A                                                   46106  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_51A:
+        jmp short CommentaryEvent_535.36
+CommentaryEvent_51A:
         mov dword [byte ebp+03Eh], 7
-        jmp short sub_45BEC_535.36
-;-----------------------------------------------------------------------------
-; sub_45BEC_523                                                   4610F  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_523:
+        jmp short CommentaryEvent_535.36
+CommentaryEvent_523:
         mov dword [byte ebp+03Eh], 8
-        jmp short sub_45BEC_535.36
-;-----------------------------------------------------------------------------
-; sub_45BEC_52C                                                   46118  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_52C:
+        jmp short CommentaryEvent_535.36
+CommentaryEvent_52C:
         mov dword [byte ebp+03Eh], 9
-        jmp short sub_45BEC_535.36
-;-----------------------------------------------------------------------------
-; sub_45BEC_535                                                   46121  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_535:
+        jmp short CommentaryEvent_535.36
+CommentaryEvent_535:
         mov dword [byte ebp+03Eh], 0Ah
         jmp short .36
 .35:
@@ -579,11 +516,8 @@ sub_45BEC_535:
         mov dword [dword ebp-046Ah], ecx
         mov dword [dword ebp-0476h], edi
         call sub_106AA6
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_58C                                                   46178  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_58C:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_58C:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+06Eh], eax
@@ -611,30 +545,18 @@ sub_45BEC_58C:
         mov eax, dword [byte ebp+03Eh]
         sub eax, 5001h
         cmp eax, byte 3
-        ja short sub_45BEC_5FD.41
+        ja short CommentaryEvent_5FD.41
         jmp dword [nosplit cs:eax*4+jpt_45B60]
-;-----------------------------------------------------------------------------
-; sub_45BEC_5E2                                                   461CE  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_5E2:
+CommentaryEvent_5E2:
         mov dword [byte ebp+03Eh], 1
-        jmp short sub_45BEC_5FD.42
-;-----------------------------------------------------------------------------
-; sub_45BEC_5EB                                                   461D7  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_5EB:
+        jmp short CommentaryEvent_5FD.42
+CommentaryEvent_5EB:
         mov dword [byte ebp+03Eh], 2
-        jmp short sub_45BEC_5FD.42
-;-----------------------------------------------------------------------------
-; sub_45BEC_5F4                                                   461E0  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_5F4:
+        jmp short CommentaryEvent_5FD.42
+CommentaryEvent_5F4:
         mov dword [byte ebp+03Eh], 3
-        jmp short sub_45BEC_5FD.42
-;-----------------------------------------------------------------------------
-; sub_45BEC_5FD                                                   461E9  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_5FD:
+        jmp short CommentaryEvent_5FD.42
+CommentaryEvent_5FD:
         mov dword [byte ebp+03Eh], 4
         jmp short .42
 .41:
@@ -658,11 +580,8 @@ sub_45BEC_5FD:
         lea eax, [dword ebp-0566h]
         mov dword [dword ebp-055Ah], ebx
         call sub_106AA6
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_654                                                   46240  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_654:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_654:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+06Eh], eax
@@ -704,37 +623,25 @@ sub_45BEC_654:
         mov eax, dword [byte ebp+042h]
         sub eax, 6001h
         cmp eax, byte 4
-        ja short sub_45BEC_702.48
+        ja short CommentaryEvent_702.48
         jmp dword [nosplit cs:eax*4+jpt_45B70]
-;-----------------------------------------------------------------------------
-; sub_45BEC_6D5                                                   462C1  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_6D5:
+CommentaryEvent_6D5:
         mov eax, dword [byte ebp+062h]
         push dword [eax]
         mov eax, dword [byte ebp+05Eh]
         push dword [eax]
         call sub_45954
         mov dword [byte ebp+042h], eax
-sub_45BEC_6E7:
+CommentaryEvent_6E7:
         mov dword [byte ebp+042h], 4
-        jmp short sub_45BEC_702.49
-;-----------------------------------------------------------------------------
-; sub_45BEC_6F0                                                   462DC  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_6F0:
+        jmp short CommentaryEvent_702.49
+CommentaryEvent_6F0:
         mov dword [byte ebp+042h], 5
-        jmp short sub_45BEC_702.49
-;-----------------------------------------------------------------------------
-; sub_45BEC_6F9                                                   462E5  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_6F9:
+        jmp short CommentaryEvent_702.49
+CommentaryEvent_6F9:
         mov dword [byte ebp+042h], 6
-        jmp short sub_45BEC_702.49
-;-----------------------------------------------------------------------------
-; sub_45BEC_702                                                   462EE  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_702:
+        jmp short CommentaryEvent_702.49
+CommentaryEvent_702:
         mov dword [byte ebp+042h], 7
         jmp short .49
 .48:
@@ -746,11 +653,8 @@ sub_45BEC_702:
         mov edx, dword [byte ebp+03Eh]
         mov eax, dword [byte ebp+03Ah]
         call sub_4006C
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_726                                                   46312  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_726:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_726:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+06Eh], eax
@@ -799,11 +703,8 @@ sub_45BEC_726:
         mov dword [dword ebp-03DAh], ecx
         mov dword [dword ebp-03E6h], edi
         call sub_106AA6
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_7BF                                                   463AB  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_7BF:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_7BF:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+06Eh], eax
@@ -841,97 +742,52 @@ sub_45BEC_7BF:
         mov eax, dword [byte ebp+042h]
         sub eax, 7000h
         cmp eax, byte 0Eh
-        ja near sub_45BEC_8B9.61
+        ja near CommentaryEvent_8B9.61
         jmp dword [nosplit cs:eax*4+jpt_45B84]
-;-----------------------------------------------------------------------------
-; sub_45BEC_831                                                   4641D  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_831:
+CommentaryEvent_831:
         xor esi, esi
         mov dword [byte ebp+042h], esi
-        jmp near sub_45BEC_8B9.61
-;-----------------------------------------------------------------------------
-; sub_45BEC_83B                                                   46427  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_83B:
+        jmp near CommentaryEvent_8B9.61
+CommentaryEvent_83B:
         mov dword [byte ebp+042h], 1
-        jmp near sub_45BEC_8B9.61
-;-----------------------------------------------------------------------------
-; sub_45BEC_847                                                   46433  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_847:
+        jmp near CommentaryEvent_8B9.61
+CommentaryEvent_847:
         mov dword [byte ebp+042h], 2
-        jmp near sub_45BEC_8B9.61
-;-----------------------------------------------------------------------------
-; sub_45BEC_853                                                   4643F  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_853:
+        jmp near CommentaryEvent_8B9.61
+CommentaryEvent_853:
         mov dword [byte ebp+042h], 3
-        jmp near sub_45BEC_8B9.61
-;-----------------------------------------------------------------------------
-; sub_45BEC_85F                                                   4644B  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_85F:
+        jmp near CommentaryEvent_8B9.61
+CommentaryEvent_85F:
         mov dword [byte ebp+042h], 4
-        jmp short sub_45BEC_8B9.61
-;-----------------------------------------------------------------------------
-; sub_45BEC_868                                                   46454  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_868:
+        jmp short CommentaryEvent_8B9.61
+CommentaryEvent_868:
         mov dword [byte ebp+042h], 5
-        jmp short sub_45BEC_8B9.61
-;-----------------------------------------------------------------------------
-; sub_45BEC_871                                                   4645D  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_871:
+        jmp short CommentaryEvent_8B9.61
+CommentaryEvent_871:
         mov dword [byte ebp+042h], 6
-        jmp short sub_45BEC_8B9.61
-;-----------------------------------------------------------------------------
-; sub_45BEC_87A                                                   46466  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_87A:
+        jmp short CommentaryEvent_8B9.61
+CommentaryEvent_87A:
         mov dword [byte ebp+042h], 8
-        jmp short sub_45BEC_8B9.61
-;-----------------------------------------------------------------------------
-; sub_45BEC_883                                                   4646F  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_883:
+        jmp short CommentaryEvent_8B9.61
+CommentaryEvent_883:
         mov dword [byte ebp+042h], 9
-        jmp short sub_45BEC_8B9.61
-;-----------------------------------------------------------------------------
-; sub_45BEC_88C                                                   46478  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_88C:
+        jmp short CommentaryEvent_8B9.61
+CommentaryEvent_88C:
         mov dword [byte ebp+042h], 0Ah
-        jmp short sub_45BEC_8B9.61
-;-----------------------------------------------------------------------------
-; sub_45BEC_895                                                   46481  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_895:
+        jmp short CommentaryEvent_8B9.61
+CommentaryEvent_895:
         mov dword [byte ebp+042h], 0Bh
-        jmp short sub_45BEC_8B9.61
-;-----------------------------------------------------------------------------
-; sub_45BEC_89E                                                   4648A  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_89E:
+        jmp short CommentaryEvent_8B9.61
+CommentaryEvent_89E:
         mov dword [byte ebp+042h], 0Ch
-        jmp short sub_45BEC_8B9.61
-;-----------------------------------------------------------------------------
-; sub_45BEC_8A7                                                   46493  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_8A7:
+        jmp short CommentaryEvent_8B9.61
+CommentaryEvent_8A7:
         mov dword [byte ebp+042h], 0Dh
-        jmp short sub_45BEC_8B9.61
-;-----------------------------------------------------------------------------
-; sub_45BEC_8B0                                                   4649C  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_8B0:
+        jmp short CommentaryEvent_8B9.61
+CommentaryEvent_8B0:
         mov dword [byte ebp+042h], 0Eh
-        jmp short sub_45BEC_8B9.61
-;-----------------------------------------------------------------------------
-; sub_45BEC_8B9                                                   464A5  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_8B9:
+        jmp short CommentaryEvent_8B9.61
+CommentaryEvent_8B9:
         mov dword [byte ebp+042h], 10h
 .61:
         mov ecx, dword [byte ebp+042h]
@@ -939,11 +795,8 @@ sub_45BEC_8B9:
         mov edx, dword [byte ebp+03Eh]
         mov eax, dword [byte ebp+03Ah]
         call sub_400E8
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_8D6                                                   464C2  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_8D6:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_8D6:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+06Eh], eax
@@ -992,11 +845,8 @@ sub_45BEC_8D6:
         mov dword [dword ebp-02EAh], ecx
         mov dword [dword ebp-02F6h], edi
         call sub_106AA6
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_96F                                                   4655B  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_96F:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_96F:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+06Eh], eax
@@ -1045,11 +895,8 @@ sub_45BEC_96F:
         mov dword [dword ebp-01FAh], ecx
         mov dword [dword ebp-0206h], edi
         call sub_106AA6
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_A08                                                   465F4  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_A08:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_A08:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+06Eh], eax
@@ -1092,11 +939,8 @@ sub_45BEC_A08:
         mov eax, dword [byte ebp+03Eh]
         mov dword [byte ebp+042h], ebx
         call sub_401A0
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_A84                                                   46670  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_A84:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_A84:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+06Eh], eax
@@ -1145,11 +989,8 @@ sub_45BEC_A84:
         mov dword [dword ebp-019Ah], ebx
         mov dword [dword ebp-01A6h], edi
         call sub_106AA6
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_B1D                                                   46709  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_B1D:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_B1D:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+06Eh], eax
@@ -1198,11 +1039,8 @@ sub_45BEC_B1D:
         mov dword [dword ebp-02BAh], ebx
         mov dword [dword ebp-02C6h], edi
         call sub_106AA6
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_BB6                                                   467A2  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_BB6:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_BB6:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+06Eh], eax
@@ -1259,18 +1097,15 @@ sub_45BEC_BB6:
         mov ebx, edi
         mov eax, dword [byte ebp+03Eh]
         call sub_40258
-        jmp near sub_45BEC_1FE8.272
+        jmp near CommentaryEvent_1FE8.272
 .99:
         mov ecx, 5
         mov edx, dword [byte ebp+03Ah]
         mov ebx, eax
         mov eax, dword [byte ebp+03Eh]
         call sub_40380
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_C68                                                   46854  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_C68:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_C68:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+06Eh], eax
@@ -1333,18 +1168,15 @@ sub_45BEC_C68:
         mov ecx, eax
         mov eax, dword [byte ebp+03Eh]
         call sub_40298
-        jmp near sub_45BEC_1FE8.272
+        jmp near CommentaryEvent_1FE8.272
 .110:
         mov ecx, 6
         mov edx, dword [byte ebp+03Ah]
         mov ebx, eax
         mov eax, dword [byte ebp+03Eh]
         call sub_40380
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_D2A                                                   46916  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_D2A:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_D2A:
         mov eax, dword [ebx]
         add ebx, byte 4
         cmp eax, 1000h
@@ -1373,11 +1205,8 @@ sub_45BEC_D2A:
         mov dword [dword ebp-0B2h], ebx
         mov dword [dword ebp-0B6h], ecx
         call sub_106AA6
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_D86                                                   46972  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_D86:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_D86:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+03Ah], eax
@@ -1401,14 +1230,14 @@ sub_45BEC_D86:
         mov edx, dword [byte ebp+03Ah]
         mov dword [byte ebp+042h], eax
         test edx, edx
-        jle near sub_45BEC_1FE8.272
+        jle near CommentaryEvent_1FE8.272
         cmp edx, byte 4
-        jge near sub_45BEC_1FE8.272
+        jge near CommentaryEvent_1FE8.272
         mov ecx, dword [byte ebp+03Eh]
         cmp ecx, byte 0FFFFFFFFh
-        jle near sub_45BEC_1FE8.272
+        jle near CommentaryEvent_1FE8.272
         cmp ecx, byte 2
-        jge near sub_45BEC_1FE8.272
+        jge near CommentaryEvent_1FE8.272
         mov edx, 3
         mov edi, dword [byte ebp+03Ah]
         sub edx, edi
@@ -1429,10 +1258,10 @@ sub_45BEC_D86:
         lea eax, [dword ebp-0386h]
         mov dword [dword ebp-037Eh], ecx
         call sub_106AA6
-        jmp near sub_45BEC_1FE8.272
+        jmp near CommentaryEvent_1FE8.272
 .119:
         cmp edi, byte 1
-        jle near sub_45BEC_1FE8.272
+        jle near CommentaryEvent_1FE8.272
         mov ebx, eax
         lea ecx, [byte edx+03h]
         xor eax, eax
@@ -1448,11 +1277,8 @@ sub_45BEC_D86:
         mov dword [dword ebp-040Eh], ecx
         mov dword [dword ebp-0416h], esi
         call sub_106AA6
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_E79                                                   46A65  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_E79:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_E79:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+06Eh], eax
@@ -1501,11 +1327,8 @@ sub_45BEC_E79:
         mov dword [dword ebp-031Ah], ebx
         mov dword [dword ebp-0326h], edi
         call sub_106AA6
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_F12                                                   46AFE  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_F12:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_F12:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+03Ah], eax
@@ -1543,46 +1366,28 @@ sub_45BEC_F12:
         mov eax, dword [byte ebp+03Ah]
         sub eax, 0A001h
         cmp eax, byte 5
-        ja short sub_45BEC_FB9.132
+        ja short CommentaryEvent_FB9.132
         jmp dword [nosplit cs:eax*4+jpt_45BC0]
-;-----------------------------------------------------------------------------
-; sub_45BEC_F80                                                   46B6C  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_F80:
+CommentaryEvent_F80:
         mov dword [byte ebp+03Ah], 1
-        jmp short sub_45BEC_FB9.133
-;-----------------------------------------------------------------------------
-; sub_45BEC_F89                                                   46B75  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_F89:
+        jmp short CommentaryEvent_FB9.133
+CommentaryEvent_F89:
         mov dword [byte ebp+03Ah], 2
-        jmp short sub_45BEC_FB9.133
-;-----------------------------------------------------------------------------
-; sub_45BEC_F92                                                   46B7E  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_F92:
+        jmp short CommentaryEvent_FB9.133
+CommentaryEvent_F92:
         mov dword [byte ebp+03Ah], 3
-        jmp short sub_45BEC_FB9.133
-;-----------------------------------------------------------------------------
-; sub_45BEC_F9B                                                   46B87  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_F9B:
+        jmp short CommentaryEvent_FB9.133
+CommentaryEvent_F9B:
         mov ebx, 4
         mov eax, dword [byte ebp+06Eh]
         mov dword [byte ebp+03Ah], ebx
         call sub_45A00
         mov dword [byte ebp+042h], eax
-        jmp short sub_45BEC_FB9.133
-;-----------------------------------------------------------------------------
-; sub_45BEC_FB0                                                   46B9C  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_FB0:
+        jmp short CommentaryEvent_FB9.133
+CommentaryEvent_FB0:
         mov dword [byte ebp+03Ah], 5
-        jmp short sub_45BEC_FB9.133
-;-----------------------------------------------------------------------------
-; sub_45BEC_FB9                                                   46BA5  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_FB9:
+        jmp short CommentaryEvent_FB9.133
+CommentaryEvent_FB9:
         mov dword [byte ebp+03Ah], 6
         jmp short .133
 .132:
@@ -1594,11 +1399,8 @@ sub_45BEC_FB9:
         mov edx, dword [byte ebp+042h]
         mov eax, dword [byte ebp+03Eh]
         call sub_40380
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_FDD                                                   46BC9  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_FDD:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_FDD:
         mov edi, 0FFFFFFFFh
         mov eax, dword [ebx]
         add ebx, byte 4
@@ -1659,11 +1461,8 @@ sub_45BEC_FDD:
         mov eax, dword [byte ebp+03Eh]
         mov dword [byte ebp+046h], ebx
         call sub_403C0
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_1084                                                  46C70  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_1084:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_1084:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+06Eh], eax
@@ -1715,11 +1514,8 @@ sub_45BEC_1084:
         mov eax, dword [byte ebp+03Eh]
         mov dword [byte ebp+046h], ebx
         call sub_403C0
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_111C                                                  46D08  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_111C:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_111C:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+06Eh], eax
@@ -1777,11 +1573,8 @@ sub_45BEC_111C:
         mov cl, al
         mov eax, dword [byte ebp+03Ah]
         call sub_40440
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_11C5                                                  46DB1  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_11C5:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_11C5:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+03Ah], eax
@@ -1842,7 +1635,7 @@ sub_45BEC_11C5:
         mov eax, dword [dword_1AC5C8]
 .163:
         call sub_40400
-        jmp near sub_45BEC_1FE8.272
+        jmp near CommentaryEvent_1FE8.272
 .164:
         mov ebx, dword [byte ebp+04Ah]
         mov edx, dword [byte ebp+042h]
@@ -1856,11 +1649,8 @@ sub_45BEC_11C5:
         mov eax, dword [dword_1AC5D0]
 .166:
         call sub_40400
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_1293                                                  46E7F  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_1293:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_1293:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+03Ah], eax
@@ -1884,9 +1674,9 @@ sub_45BEC_1293:
         mov esi, dword [byte ebp+03Eh]
         mov dword [byte ebp+042h], eax
         test esi, esi
-        jle near sub_45BEC_1FE8.272
+        jle near CommentaryEvent_1FE8.272
         cmp esi, byte 78h
-        jge near sub_45BEC_1FE8.272
+        jge near CommentaryEvent_1FE8.272
         cmp esi, byte 73h
         jle short .172
         cmp dword [dword_169240], byte 1
@@ -1912,7 +1702,7 @@ sub_45BEC_1293:
         call sub_106AA6
 .171:
         mov dword [dword_169240], 1
-        jmp near sub_45BEC_1FE8.272
+        jmp near CommentaryEvent_1FE8.272
 .172:
         cmp esi, byte 3Ch
         jge short .175
@@ -1941,7 +1731,7 @@ sub_45BEC_1293:
         call sub_106AA6
 .174:
         mov dword [dword_169240], 2
-        jmp near sub_45BEC_1FE8.272
+        jmp near CommentaryEvent_1FE8.272
 .175:
         mov esi, dword [byte ebp+03Eh]
         cmp esi, byte 1Fh
@@ -1972,7 +1762,7 @@ sub_45BEC_1293:
         call sub_106AA6
 .177:
         mov dword [dword_169240], 3
-        jmp near sub_45BEC_1FE8.272
+        jmp near CommentaryEvent_1FE8.272
 .178:
         mov eax, dword [byte ebp+03Eh]
         cmp eax, byte 15h
@@ -2003,13 +1793,13 @@ sub_45BEC_1293:
         call sub_106AA6
 .180:
         mov dword [dword_169240], 4
-        jmp near sub_45BEC_1FE8.272
+        jmp near CommentaryEvent_1FE8.272
 .181:
         mov ebx, dword [byte ebp+03Eh]
         cmp ebx, byte 0Bh
-        jge near sub_45BEC_1FE8.272
+        jge near CommentaryEvent_1FE8.272
         cmp ebx, byte 8
-        jle near sub_45BEC_1FE8.272
+        jle near CommentaryEvent_1FE8.272
         cmp dword [dword_169240], byte 5
         je short .183
         cmp dword [byte ebp+03Ah], byte 3
@@ -2034,11 +1824,8 @@ sub_45BEC_1293:
         call sub_106AA6
 .183:
         mov dword [dword_169240], 5
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_1500                                                  470EC  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_1500:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_1500:
         mov ecx, 0FFFFFFFFh
         mov eax, dword [ebx]
         add ebx, byte 4
@@ -2075,9 +1862,9 @@ sub_45BEC_1500:
         mov edi, dword [byte ebp+042h]
         mov dword [byte ebp+046h], eax
         test edi, edi
-        jle near sub_45BEC_1FE8.272
+        jle near CommentaryEvent_1FE8.272
         cmp edi, byte 78h
-        jge near sub_45BEC_1FE8.272
+        jge near CommentaryEvent_1FE8.272
         mov eax, dword [byte ebp+06Eh]
         call sub_45A00
         mov edx, dword [dword_169244]
@@ -2088,7 +1875,7 @@ sub_45BEC_1500:
         and eax, 0FFh
         jne short .189
         test edx, edx
-        jne near sub_45BEC_1FE8.272
+        jne near CommentaryEvent_1FE8.272
 .189:
         mov ecx, dword [byte ebp+042h]
         cmp ecx, byte 73h
@@ -2105,7 +1892,7 @@ sub_45BEC_1500:
 .190:
         inc esi
         mov dword [dword_169244], esi
-        jmp near sub_45BEC_1FE8.272
+        jmp near CommentaryEvent_1FE8.272
 .191:
         cmp ecx, byte 3Ch
         jge short .193
@@ -2123,7 +1910,7 @@ sub_45BEC_1500:
 .192:
         add esi, byte 2
         mov dword [dword_169244], esi
-        jmp near sub_45BEC_1FE8.272
+        jmp near CommentaryEvent_1FE8.272
 .193:
         mov edx, dword [byte ebp+042h]
         cmp edx, byte 1Fh
@@ -2142,7 +1929,7 @@ sub_45BEC_1500:
 .194:
         add esi, byte 3
         mov dword [dword_169244], esi
-        jmp near sub_45BEC_1FE8.272
+        jmp near CommentaryEvent_1FE8.272
 .195:
         mov ecx, dword [byte ebp+042h]
         cmp ecx, byte 15h
@@ -2161,13 +1948,13 @@ sub_45BEC_1500:
 .196:
         add esi, byte 4
         mov dword [dword_169244], esi
-        jmp near sub_45BEC_1FE8.272
+        jmp near CommentaryEvent_1FE8.272
 .197:
         mov eax, dword [byte ebp+042h]
         cmp eax, byte 0Bh
-        jge near sub_45BEC_1FE8.272
+        jge near CommentaryEvent_1FE8.272
         cmp eax, byte 8
-        jle near sub_45BEC_1FE8.272
+        jle near CommentaryEvent_1FE8.272
         mov ebx, dword [dword_169244]
         add esi, byte 5
         cmp esi, ebx
@@ -2180,11 +1967,8 @@ sub_45BEC_1500:
 .198:
         xor ecx, ecx
         mov dword [dword_169244], ecx
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_16BA                                                  472A6  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_16BA:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_16BA:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+03Ah], eax
@@ -2243,11 +2027,8 @@ sub_45BEC_16BA:
         mov dword [dword ebp-025Ah], edx
         mov dword [dword ebp-0266h], edi
         call sub_106AA6
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_1771                                                  4735D  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_1771:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_1771:
         lea eax, [nosplit edx*4+00h]
 .207:
         add eax, byte 4
@@ -2260,11 +2041,8 @@ sub_45BEC_1771:
         mov dword [dword ebp-0142h], edx
         mov dword [dword ebp-0146h], edi
         call sub_106AA6
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_17AA                                                  47396  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_17AA:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_17AA:
         xor eax, eax
         mov edx, 1
         shl eax, 2
@@ -2279,11 +2057,8 @@ sub_45BEC_17AA:
         mov dword [dword ebp-04D2h], edx
         mov dword [dword ebp-04D6h], ecx
         call sub_106AA6
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_17E6                                                  473D2  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_17E6:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_17E6:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+03Ah], eax
@@ -2329,11 +2104,8 @@ sub_45BEC_17E6:
         mov edx, dword [dword_1AC5D0]
         mov eax, dword [dword_1AC5C8]
         call sub_40574
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_1871                                                  4745D  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_1871:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_1871:
         mov eax, dword [ebx]
         mov dword [byte ebp+06Eh], eax
         call sub_45A00
@@ -2344,36 +2116,21 @@ sub_45BEC_1871:
         sub eax, 0D001h
         add ebx, byte 4
         cmp eax, byte 4
-        ja short sub_45BEC_18BC
+        ja short CommentaryEvent_18BC
         jmp dword [nosplit cs:eax*4+jpt_45BD8]
-;-----------------------------------------------------------------------------
-; sub_45BEC_189C                                                  47488  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_189C:
+CommentaryEvent_189C:
         mov dword [byte ebp+03Eh], edx
-        jmp short sub_45BEC_18BC.215
-;-----------------------------------------------------------------------------
-; sub_45BEC_18A1                                                  4748D  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_18A1:
+        jmp short CommentaryEvent_18BC.215
+CommentaryEvent_18A1:
         mov dword [byte ebp+03Eh], 1
-        jmp short sub_45BEC_18BC.215
-;-----------------------------------------------------------------------------
-; sub_45BEC_18AA                                                  47496  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_18AA:
+        jmp short CommentaryEvent_18BC.215
+CommentaryEvent_18AA:
         mov dword [byte ebp+03Eh], 2
-        jmp short sub_45BEC_18BC.215
-;-----------------------------------------------------------------------------
-; sub_45BEC_18B3                                                  4749F  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_18B3:
+        jmp short CommentaryEvent_18BC.215
+CommentaryEvent_18B3:
         mov dword [byte ebp+03Eh], 4
-        jmp short sub_45BEC_18BC.215
-;-----------------------------------------------------------------------------
-; sub_45BEC_18BC                                                  474A8  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_18BC:
+        jmp short CommentaryEvent_18BC.215
+CommentaryEvent_18BC:
         mov dword [byte ebp+03Eh], 3
 .215:
         mov eax, dword [ebx]
@@ -2408,11 +2165,8 @@ sub_45BEC_18BC:
         lea eax, [dword ebp-0356h]
         mov dword [dword ebp-034Ah], edx
         call sub_106AA6
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_1931                                                  4751D  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_1931:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_1931:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+06Eh], eax
@@ -2463,11 +2217,8 @@ sub_45BEC_1931:
         mov eax, dword [byte ebp+03Eh]
         mov dword [byte ebp+04Ah], ecx
         call sub_405F8
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_19C8                                                  475B4  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_19C8:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_19C8:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+06Eh], eax
@@ -2510,13 +2261,10 @@ sub_45BEC_19C8:
         mov eax, dword [byte ebp+03Eh]
         mov dword [byte ebp+046h], ebx
         call sub_40640
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_1A44                                                  47630  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_1A44:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_1A44:
         cmp dword [dword_169248], byte 0
-        jne near sub_45BEC_1FE8.272
+        jne near CommentaryEvent_1FE8.272
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+06Eh], eax
@@ -2574,13 +2322,10 @@ sub_45BEC_1A44:
         mov eax, dword [dword_1AC4F8]
         mov dword [dword_169248], edi
         call sub_40680
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_1B16                                                  47702  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_1B16:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_1B16:
         cmp dword [dword_169248], byte 0
-        je near sub_45BEC_1FE8.272
+        je near CommentaryEvent_1FE8.272
         mov ebx, 1
         mov esi, dword [dword_1AC500]
         mov ecx, dword [dword_1AC4F4]
@@ -2591,13 +2336,10 @@ sub_45BEC_1B16:
         mov dword [dword_1AC504], ebx
         mov ebx, dword [dword_1AC4F0]
         call sub_40680
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_1B57                                                  47743  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_1B57:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_1B57:
         cmp dword [dword_169248], byte 0
-        je near sub_45BEC_1FE8.272
+        je near CommentaryEvent_1FE8.272
         mov esi, 2
         mov eax, dword [dword_1AC500]
         mov ecx, dword [dword_1AC4F4]
@@ -2608,13 +2350,10 @@ sub_45BEC_1B57:
         mov eax, dword [dword_1AC4F8]
         mov dword [dword_1AC504], esi
         call sub_40680
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_1B97                                                  47783  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_1B97:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_1B97:
         cmp dword [dword_169248], byte 0
-        je near sub_45BEC_1FE8.272
+        je near CommentaryEvent_1FE8.272
         mov edx, dword [dword_1AC500]
         xor ebx, ebx
         xor eax, eax
@@ -2633,11 +2372,8 @@ sub_45BEC_1B97:
         mov dword [dword ebp-022Eh], edx
         mov dword [dword ebp-0236h], esi
         call sub_106AA6
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_1BF5                                                  477E1  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_1BF5:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_1BF5:
         mov eax, dword [ebx]
         mov dword [byte ebp+06Eh], eax
         call sub_45A00
@@ -2656,11 +2392,8 @@ sub_45BEC_1BF5:
         lea eax, [dword ebp-0536h]
         mov dword [dword ebp-0532h], edx
         call sub_106AA6
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_1C3D                                                  47829  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_1C3D:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_1C3D:
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+06Eh], eax
@@ -2696,11 +2429,8 @@ sub_45BEC_1C3D:
         mov dword [dword ebp-016Eh], edx
         mov dword [dword ebp-0176h], esi
         call sub_106AA6
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_1CB2                                                  4789E  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_1CB2:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_1CB2:
         xor eax, eax
         call sub_106CBB
         mov eax, dword [ebx]
@@ -2729,7 +2459,7 @@ sub_45BEC_1CB2:
         lea eax, [dword ebp-0446h]
         mov dword [dword ebp-043Eh], edx
         call sub_106AA6
-        jmp near sub_45BEC_1FE8.272
+        jmp near CommentaryEvent_1FE8.272
 .244:
         mov ebx, 0FFFFFFFFh
         xor eax, eax
@@ -2747,7 +2477,7 @@ sub_45BEC_1CB2:
         mov dword [dword ebp-03AEh], edx
         mov dword [dword ebp-03B6h], esi
         call sub_106AA6
-        jmp near sub_45BEC_1FE8.272
+        jmp near CommentaryEvent_1FE8.272
 .246:
         cmp eax, byte 3
         jle short .247
@@ -2779,11 +2509,8 @@ sub_45BEC_1CB2:
         mov dword [byte ebp-01Ah], ecx
         mov dword [byte ebp-026h], edi
         call sub_106AA6
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_1DD1                                                  479BD  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_1DD1:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_1DD1:
         xor eax, eax
         call sub_106CBB
         lea eax, [dword ebp+09Ah]
@@ -2819,11 +2546,8 @@ sub_45BEC_1DD1:
         lea eax, [dword ebp-086h]
         mov dword [dword ebp-082h], edx
         call sub_106AA6
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_1E49                                                  47A35  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_1E49:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_1E49:
         lea edx, [byte ebx+04h]
         mov eax, dword [byte edx-04h]
         mov dword [byte ebp+03Ah], eax
@@ -2868,11 +2592,8 @@ sub_45BEC_1E49:
         mov eax, dword [byte ebp+03Ah]
         mov dword [byte ebp+046h], edx
         call sub_40850
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_1ECB                                                  47AB7  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_1ECB:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_1ECB:
         lea eax, [byte ebx+04h]
         mov eax, dword [byte eax-04h]
         cmp eax, 1000h
@@ -2901,11 +2622,8 @@ sub_45BEC_1ECB:
         mov dword [dword ebp-0112h], edx
         mov dword [dword ebp-0116h], esi
         call sub_106AA6
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_1F28                                                  47B14  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_1F28:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_1F28:
         xor eax, eax
 .265:
         add eax, byte 4
@@ -2917,11 +2635,8 @@ sub_45BEC_1F28:
         lea eax, [dword ebp-01D6h]
         mov dword [dword ebp-01D6h], ebx
         call sub_106AA6
-        jmp near sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_1F56                                                  47B42  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_1F56:
+        jmp near CommentaryEvent_1FE8.272
+CommentaryEvent_1F56:
         lea edx, [byte ebx+04h]
         mov eax, dword [byte edx-04h]
         mov dword [byte ebp+06Eh], eax
@@ -2966,11 +2681,8 @@ sub_45BEC_1F56:
         mov dword [dword ebp-04FAh], edx
         mov dword [dword ebp-0506h], edi
         call sub_106AA6
-        jmp short sub_45BEC_1FE8.272
-;-----------------------------------------------------------------------------
-; sub_45BEC_1FE8                                                  47BD4  97 PC
-;-----------------------------------------------------------------------------
-sub_45BEC_1FE8:
+        jmp short CommentaryEvent_1FE8.272
+CommentaryEvent_1FE8:
         lea eax, [byte ebx+04h]
         cmp dword [byte eax-04h], byte 0
         je short .270

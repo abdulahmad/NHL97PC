@@ -30,11 +30,11 @@ extern sub_FC330, sub_FCD90, sub_FCEEC, sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FD1
 extern unk_165320, unk_165323, unk_16CCC8, unk_16D804, unk_1AC95D, unk_1AC962, unk_1ACB44, unk_1ACB49
 extern unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C8300, unk_1C830C, unk_845C0
 global jpt_84AF5, jpt_84B15, jpt_84B25, jpt_84B3D, jpt_85CFD, sub_845E4_32E, sub_845E4_344, sub_845E4_35A
-global sub_845E4_370, sub_845E4_50B, sub_84B55_911, sub_84B55_999, sub_84B55_A17, sub_84B55_A23, sub_84B55_A2F, sub_84B55_A3B
-global sub_84B55_A68, sub_84B55_A79, sub_84B55_A82, sub_84B55_A94, sub_84B55_A9D, sub_84B55_AAF, sub_84B55_AB8, sub_84B55_BA5
-global sub_84B55_BBD, sub_84B55_BC6, sub_84B55_BD5, sub_84B55_BDE, sub_84B55_BED, sub_84B55_BF6, sub_84B55_C76, sub_84B55_CFF
-global sub_84B55_DDB, sub_84B55_DF1, sub_85D1D_6E, sub_85D1D_82, sub_85D1D_9E, sub_85D1D_A5, sub_85D1D_AC, sub_85D1D_B3
-global sub_85D1D_BA, sub_85D1D_C1, sub_845E4, MainMenuScreen, RunGameScreens, RunStatsMenu, sub_85E1E, NameIndexNew
+global sub_845E4_370, sub_845E4_50B, MainMenuScreen_911, MainMenuScreen_999, MainMenuScreen_A17, MainMenuScreen_A23, MainMenuScreen_A2F, MainMenuScreen_A3B
+global MainMenuScreen_A68, MainMenuScreen_A79, MainMenuScreen_A82, MainMenuScreen_A94, MainMenuScreen_A9D, MainMenuScreen_AAF, MainMenuScreen_AB8, MainMenuScreen_BA5
+global MainMenuScreen_BBD, MainMenuScreen_BC6, MainMenuScreen_BD5, MainMenuScreen_BDE, MainMenuScreen_BED, MainMenuScreen_BF6, MainMenuScreen_C76, MainMenuScreen_CFF
+global MainMenuScreen_DDB, MainMenuScreen_DF1, RunStatsMenu_6E, RunStatsMenu_82, RunStatsMenu_9E, RunStatsMenu_A5, RunStatsMenu_AC, RunStatsMenu_B3
+global RunStatsMenu_BA, RunStatsMenu_C1, sub_845E4, MainMenuScreen, RunGameScreens, RunStatsMenu, sub_85E1E, NameIndexNew
 global NameIndexLoad, NameIndexSave, NameIndexFree, sub_86500, NameIndexRemove, sub_86718, NameIndexPath, sub_867D4
 global sub_867F0, sub_86878
 ;-----------------------------------------------------------------------------
@@ -400,33 +400,33 @@ sub_845E4_50B:
         pop ebx
         ret
 jpt_84AF5:
-        dd sub_84B55_911
-        dd sub_84B55_A3B
-        dd sub_84B55_AB8
-        dd sub_84B55_BF6
-        dd sub_84B55_C76
-        dd sub_84B55_CFF
-        dd sub_84B55_DDB
-        dd sub_84B55_DF1
+        dd MainMenuScreen_911
+        dd MainMenuScreen_A3B
+        dd MainMenuScreen_AB8
+        dd MainMenuScreen_BF6
+        dd MainMenuScreen_C76
+        dd MainMenuScreen_CFF
+        dd MainMenuScreen_DDB
+        dd MainMenuScreen_DF1
 jpt_84B15:
-        dd sub_84B55_A17
-        dd sub_84B55_A23
-        dd sub_84B55_A2F
-        dd sub_84B55_999
+        dd MainMenuScreen_A17
+        dd MainMenuScreen_A23
+        dd MainMenuScreen_A2F
+        dd MainMenuScreen_999
 jpt_84B25:
-        dd sub_84B55_A68
-        dd sub_84B55_A79
-        dd sub_84B55_A82
-        dd sub_84B55_A94
-        dd sub_84B55_A9D
-        dd sub_84B55_AAF
+        dd MainMenuScreen_A68
+        dd MainMenuScreen_A79
+        dd MainMenuScreen_A82
+        dd MainMenuScreen_A94
+        dd MainMenuScreen_A9D
+        dd MainMenuScreen_AAF
 jpt_84B3D:
-        dd sub_84B55_BA5
-        dd sub_84B55_BBD
-        dd sub_84B55_BC6
-        dd sub_84B55_BD5
-        dd sub_84B55_BDE
-        dd sub_84B55_BED
+        dd MainMenuScreen_BA5
+        dd MainMenuScreen_BBD
+        dd MainMenuScreen_BC6
+        dd MainMenuScreen_BD5
+        dd MainMenuScreen_BDE
+        dd MainMenuScreen_BED
 ;-----------------------------------------------------------------------------
 ; MainMenuScreen                               84B55  96 PC, medium confidence
 ; From RunFrontEnd: the main menu (bkgd, !pal, 8 items, buttons by optflags)
@@ -1070,14 +1070,11 @@ MainMenuScreen:
         call PlaySfx
         mov eax, dword [tickcount]
         mov dword [dword_1C82A4], eax
-        jmp near sub_84B55_CFF.48
-;-----------------------------------------------------------------------------
-; sub_84B55_911                                                   85466  97 PC
-;-----------------------------------------------------------------------------
-sub_84B55_911:
+        jmp near MainMenuScreen_CFF.48
+MainMenuScreen_911:
         call sub_7EEB0
         cmp dword [dword_16DA9C], byte 0
-        je near sub_84B55_999.27
+        je near MainMenuScreen_999.27
         push byte 1
         mov eax, 230h
         mov ecx, 1
@@ -1086,10 +1083,10 @@ sub_84B55_911:
         call GetLangText
         call sub_7F5A4
         test eax, eax
-        je short sub_84B55_999
+        je short MainMenuScreen_999
         call sub_E3410
         test eax, eax
-        jne short sub_84B55_999.26
+        jne short MainMenuScreen_999.26
         mov ebx, 4
 .25:
         lea eax, [byte ebx-04h]
@@ -1111,13 +1108,10 @@ sub_84B55_911:
         mov edx, unk_1AC95D
         mov eax, unk_1ACB44
         call memcpy_
-        jmp short sub_84B55_999.26
-;-----------------------------------------------------------------------------
-; sub_84B55_999                                                   854EE  97 PC
-;-----------------------------------------------------------------------------
-sub_84B55_999:
+        jmp short MainMenuScreen_999.26
+MainMenuScreen_999:
         mov dword [byte ebp+07Eh], 1
-        jmp near sub_84B55_CFF.48
+        jmp near MainMenuScreen_CFF.48
 .26:
         call NetDisconnect
         jmp short .28
@@ -1144,35 +1138,23 @@ sub_84B55_999:
         call GetLangText
         call sub_7F5A4
         cmp ax, 3
-        ja near sub_84B55_CFF.48
+        ja near MainMenuScreen_CFF.48
         movzx eax, ax
         jmp dword [nosplit cs:eax*4+jpt_84B15]
-;-----------------------------------------------------------------------------
-; sub_84B55_A17                                                   8556C  97 PC
-;-----------------------------------------------------------------------------
-sub_84B55_A17:
+MainMenuScreen_A17:
         mov dword [byte ebp+07Eh], 20h
-        jmp near sub_84B55_CFF.48
-;-----------------------------------------------------------------------------
-; sub_84B55_A23                                                   85578  97 PC
-;-----------------------------------------------------------------------------
-sub_84B55_A23:
+        jmp near MainMenuScreen_CFF.48
+MainMenuScreen_A23:
         mov dword [byte ebp+07Eh], 21h
-        jmp near sub_84B55_CFF.48
-;-----------------------------------------------------------------------------
-; sub_84B55_A2F                                                   85584  97 PC
-;-----------------------------------------------------------------------------
-sub_84B55_A2F:
+        jmp near MainMenuScreen_CFF.48
+MainMenuScreen_A2F:
         mov dword [byte ebp+07Eh], 0
-        jmp near sub_84B55_CFF.48
-;-----------------------------------------------------------------------------
-; sub_84B55_A3B                                                   85590  97 PC
-;-----------------------------------------------------------------------------
-sub_84B55_A3B:
+        jmp near MainMenuScreen_CFF.48
+MainMenuScreen_A3B:
         call sub_7EDF0
         mov edx, dword [dword_16CCC4]
         cmp edx, byte 5
-        ja near sub_84B55_CFF.48
+        ja near MainMenuScreen_CFF.48
         mov eax, dword [dword_1AC814]
         and al, 8Fh
         mov ebx, eax
@@ -1180,52 +1162,31 @@ sub_84B55_A3B:
         or bl, 10h
         or cl, 20h
         jmp dword [nosplit cs:edx*4+jpt_84B25]
-;-----------------------------------------------------------------------------
-; sub_84B55_A68                                                   855BD  97 PC
-;-----------------------------------------------------------------------------
-sub_84B55_A68:
+MainMenuScreen_A68:
         mov dword [byte ebp+07Eh], 4
 .29:
         mov dword [dword_1AC814], eax
-        jmp near sub_84B55_CFF.48
-;-----------------------------------------------------------------------------
-; sub_84B55_A79                                                   855CE  97 PC
-;-----------------------------------------------------------------------------
-sub_84B55_A79:
+        jmp near MainMenuScreen_CFF.48
+MainMenuScreen_A79:
         mov dword [byte ebp+07Eh], 5
-        jmp short sub_84B55_A68.29
-;-----------------------------------------------------------------------------
-; sub_84B55_A82                                                   855D7  97 PC
-;-----------------------------------------------------------------------------
-sub_84B55_A82:
+        jmp short MainMenuScreen_A68.29
+MainMenuScreen_A82:
         mov dword [byte ebp+07Eh], 6
 .30:
         mov dword [dword_1AC814], ebx
-        jmp near sub_84B55_CFF.48
-;-----------------------------------------------------------------------------
-; sub_84B55_A94                                                   855E9  97 PC
-;-----------------------------------------------------------------------------
-sub_84B55_A94:
+        jmp near MainMenuScreen_CFF.48
+MainMenuScreen_A94:
         mov dword [byte ebp+07Eh], 7
-        jmp short sub_84B55_A82.30
-;-----------------------------------------------------------------------------
-; sub_84B55_A9D                                                   855F2  97 PC
-;-----------------------------------------------------------------------------
-sub_84B55_A9D:
+        jmp short MainMenuScreen_A82.30
+MainMenuScreen_A9D:
         mov dword [byte ebp+07Eh], 8
 .31:
         mov dword [dword_1AC814], ecx
-        jmp near sub_84B55_CFF.48
-;-----------------------------------------------------------------------------
-; sub_84B55_AAF                                                   85604  97 PC
-;-----------------------------------------------------------------------------
-sub_84B55_AAF:
+        jmp near MainMenuScreen_CFF.48
+MainMenuScreen_AAF:
         mov dword [byte ebp+07Eh], 9
-        jmp short sub_84B55_A9D.31
-;-----------------------------------------------------------------------------
-; sub_84B55_AB8                                                   8560D  97 PC
-;-----------------------------------------------------------------------------
-sub_84B55_AB8:
+        jmp short MainMenuScreen_A9D.31
+MainMenuScreen_AB8:
         xor ebx, ebx
 .32:
         inc ebx
@@ -1282,7 +1243,7 @@ sub_84B55_AB8:
         call sub_8E2EE
         mov dword [byte ebp+062h], eax
         cmp eax, byte 0FFFFFFFFh
-        je near sub_84B55_CFF.48
+        je near MainMenuScreen_CFF.48
         xor ebx, ebx
 .36:
         mov eax, ebx
@@ -1290,10 +1251,10 @@ sub_84B55_AB8:
         shl eax, 2
         mov edx, dword [byte ebp+edx*4-026h]
         cmp edx, dword [byte eax+ebp-076h]
-        jne near sub_84B55_BA5.38
+        jne near MainMenuScreen_BA5.38
         mov dword [dword_16CCC4], ebx
         cmp ebx, byte 5
-        ja short sub_84B55_BA5.38
+        ja short MainMenuScreen_BA5.38
         mov edx, dword [dword_1AC814]
         and dl, 8Fh
         mov esi, edx
@@ -1301,56 +1262,35 @@ sub_84B55_AB8:
         or si, byte 10h
         or cl, 20h
         jmp dword [dword cs:eax+jpt_84B3D]
-;-----------------------------------------------------------------------------
-; sub_84B55_BA5                                                   856FA  97 PC
-;-----------------------------------------------------------------------------
-sub_84B55_BA5:
+MainMenuScreen_BA5:
         mov dword [byte ebp+07Eh], 4
 .37:
         mov dword [dword_1AC814], edx
 .38:
         inc ebx
         cmp ebx, byte 6
-        jl short sub_84B55_AB8.36
-        jmp near sub_84B55_CFF.48
-;-----------------------------------------------------------------------------
-; sub_84B55_BBD                                                   85712  97 PC
-;-----------------------------------------------------------------------------
-sub_84B55_BBD:
+        jl short MainMenuScreen_AB8.36
+        jmp near MainMenuScreen_CFF.48
+MainMenuScreen_BBD:
         mov dword [byte ebp+07Eh], 5
-        jmp short sub_84B55_BA5.37
-;-----------------------------------------------------------------------------
-; sub_84B55_BC6                                                   8571B  97 PC
-;-----------------------------------------------------------------------------
-sub_84B55_BC6:
+        jmp short MainMenuScreen_BA5.37
+MainMenuScreen_BC6:
         mov dword [byte ebp+07Eh], 6
 .39:
         mov dword [dword_1AC814], esi
-        jmp short sub_84B55_BA5.38
-;-----------------------------------------------------------------------------
-; sub_84B55_BD5                                                   8572A  97 PC
-;-----------------------------------------------------------------------------
-sub_84B55_BD5:
+        jmp short MainMenuScreen_BA5.38
+MainMenuScreen_BD5:
         mov dword [byte ebp+07Eh], 7
-        jmp short sub_84B55_BC6.39
-;-----------------------------------------------------------------------------
-; sub_84B55_BDE                                                   85733  97 PC
-;-----------------------------------------------------------------------------
-sub_84B55_BDE:
+        jmp short MainMenuScreen_BC6.39
+MainMenuScreen_BDE:
         mov dword [byte ebp+07Eh], 8
 .40:
         mov dword [dword_1AC814], ecx
-        jmp short sub_84B55_BA5.38
-;-----------------------------------------------------------------------------
-; sub_84B55_BED                                                   85742  97 PC
-;-----------------------------------------------------------------------------
-sub_84B55_BED:
+        jmp short MainMenuScreen_BA5.38
+MainMenuScreen_BED:
         mov dword [byte ebp+07Eh], 9
-        jmp short sub_84B55_BDE.40
-;-----------------------------------------------------------------------------
-; sub_84B55_BF6                                                   8574B  97 PC
-;-----------------------------------------------------------------------------
-sub_84B55_BF6:
+        jmp short MainMenuScreen_BDE.40
+MainMenuScreen_BF6:
         xor ebx, ebx
 .41:
         inc ebx
@@ -1380,16 +1320,13 @@ sub_84B55_BF6:
         mov eax, edx
         call sub_8E2EE
         cmp eax, byte 0FFFFFFFFh
-        je near sub_84B55_CFF.48
+        je near MainMenuScreen_CFF.48
         and eax, byte 3
         and word [dword_1AC814], 0FE7Fh
         shl eax, 7
         or dword [dword_1AC814], eax
-        jmp near sub_84B55_CFF.48
-;-----------------------------------------------------------------------------
-; sub_84B55_C76                                                   857CB  97 PC
-;-----------------------------------------------------------------------------
-sub_84B55_C76:
+        jmp near MainMenuScreen_CFF.48
+MainMenuScreen_C76:
         mov eax, dword [dword_1C8320]
         add eax, 148h
         call sub_83C08
@@ -1425,11 +1362,8 @@ sub_84B55_C76:
         mov dword [byte ebp+07Eh], 3
 .46:
         mov dword [dword_16CCC4], 0FFFFFFFFh
-        jmp short sub_84B55_CFF.48
-;-----------------------------------------------------------------------------
-; sub_84B55_CFF                                                   85854  97 PC
-;-----------------------------------------------------------------------------
-sub_84B55_CFF:
+        jmp short MainMenuScreen_CFF.48
+MainMenuScreen_CFF:
         mov eax, dword [dword_1C8320]
         add eax, 19Ah
         mov dword [byte ebp+07Eh], 2
@@ -1439,7 +1373,7 @@ sub_84B55_CFF:
         cmp dword [byte ebp+04Eh], byte 2
         je short .49
         cmp dword [byte ebp+04Eh], byte 3
-        jne near sub_84B55_DF1.50
+        jne near MainMenuScreen_DF1.50
 .49:
         mov eax, dword [dword_16CCC4]
         mov edx, dword [dword_1C8320]
@@ -1480,21 +1414,15 @@ sub_84B55_CFF:
         ja near .48
         mov eax, dword [byte ebp+04Eh]
         jmp dword [nosplit cs:eax*4+jpt_84AF5]
-;-----------------------------------------------------------------------------
-; sub_84B55_DDB                                                   85930  97 PC
-;-----------------------------------------------------------------------------
-sub_84B55_DDB:
+MainMenuScreen_DDB:
         mov eax, dword [dword_1C8320]
         add eax, 1ECh
         mov dword [byte ebp+07Eh], 0Ah
-        jmp near sub_84B55_CFF.47
-;-----------------------------------------------------------------------------
-; sub_84B55_DF1                                                   85946  97 PC
-;-----------------------------------------------------------------------------
-sub_84B55_DF1:
+        jmp near MainMenuScreen_CFF.47
+MainMenuScreen_DF1:
         call sub_7EF70
         mov dword [byte ebp+04Eh], 2
-        jmp near sub_84B55_CFF.48
+        jmp near MainMenuScreen_CFF.48
 .50:
         push dword [dword_1C832C]
         call sub_FCD90
@@ -1794,14 +1722,14 @@ RunGameScreens:
         pop ebx
         ret
 jpt_85CFD:
-        dd sub_85D1D_6E
-        dd sub_85D1D_82
-        dd sub_85D1D_A5
-        dd sub_85D1D_BA
-        dd sub_85D1D_AC
-        dd sub_85D1D_C1
-        dd sub_85D1D_B3
-        dd sub_85D1D_9E
+        dd RunStatsMenu_6E
+        dd RunStatsMenu_82
+        dd RunStatsMenu_A5
+        dd RunStatsMenu_BA
+        dd RunStatsMenu_AC
+        dd RunStatsMenu_C1
+        dd RunStatsMenu_B3
+        dd RunStatsMenu_9E
 ;-----------------------------------------------------------------------------
 ; RunStatsMenu                                 85D1D  96 PC, medium confidence
 ; From the main menu, the season menus and the play-offs: runs the team stats
@@ -1817,7 +1745,7 @@ RunStatsMenu:
         mov byte [byte_1C8338], 1
         mov esi, 1Ah
         cmp byte [byte_16CCF0], 0
-        je short sub_85D1D_82.4
+        je short RunStatsMenu_82.4
         lea edx, [byte ebp-04h]
         mov eax, unk_16D804
         call sub_DE3CF
@@ -1838,73 +1766,49 @@ RunStatsMenu:
         lea eax, [byte ebp-04h]
         call sub_DB75E
         and byte [dword_1AC814], 8Fh
-        jmp short sub_85D1D_82.4
-;-----------------------------------------------------------------------------
-; sub_85D1D_6E                                                    85D8B  97 PC
-;-----------------------------------------------------------------------------
-sub_85D1D_6E:
+        jmp short RunStatsMenu_82.4
+RunStatsMenu_6E:
         call sub_85E1E
         mov ebx, eax
         cmp eax, byte 1Ah
         jne short .2
         mov ebx, esi
-        jmp short sub_85D1D_82.4
+        jmp short RunStatsMenu_82.4
 .2:
         mov esi, eax
-        jmp short sub_85D1D_82.4
-;-----------------------------------------------------------------------------
-; sub_85D1D_82                                                    85D9F  97 PC
-;-----------------------------------------------------------------------------
-sub_85D1D_82:
+        jmp short RunStatsMenu_82.4
+RunStatsMenu_82:
         call sub_ADBE6
 .3:
         mov ebx, eax
 .4:
         cmp ebx, byte 1Ah
-        je short sub_85D1D_C1.5
+        je short RunStatsMenu_C1.5
         lea eax, [byte ebx-064h]
         cmp eax, byte 7
         ja short .4
         jmp dword [nosplit cs:eax*4+jpt_85CFD]
-;-----------------------------------------------------------------------------
-; sub_85D1D_9E                                                    85DBB  97 PC
-;-----------------------------------------------------------------------------
-sub_85D1D_9E:
+RunStatsMenu_9E:
         call sub_AF074
-        jmp short sub_85D1D_82.3
-;-----------------------------------------------------------------------------
-; sub_85D1D_A5                                                    85DC2  97 PC
-;-----------------------------------------------------------------------------
-sub_85D1D_A5:
+        jmp short RunStatsMenu_82.3
+RunStatsMenu_A5:
         call sub_C0F5D
-        jmp short sub_85D1D_82.3
-;-----------------------------------------------------------------------------
-; sub_85D1D_AC                                                    85DC9  97 PC
-;-----------------------------------------------------------------------------
-sub_85D1D_AC:
+        jmp short RunStatsMenu_82.3
+RunStatsMenu_AC:
         call PlayerStatsScreen
-        jmp short sub_85D1D_82.3
-;-----------------------------------------------------------------------------
-; sub_85D1D_B3                                                    85DD0  97 PC
-;-----------------------------------------------------------------------------
-sub_85D1D_B3:
+        jmp short RunStatsMenu_82.3
+RunStatsMenu_B3:
         call sub_BD621
-        jmp short sub_85D1D_82.3
-;-----------------------------------------------------------------------------
-; sub_85D1D_BA                                                    85DD7  97 PC
-;-----------------------------------------------------------------------------
-sub_85D1D_BA:
+        jmp short RunStatsMenu_82.3
+RunStatsMenu_BA:
         call sub_B418C
-        jmp short sub_85D1D_82.3
-;-----------------------------------------------------------------------------
-; sub_85D1D_C1                                                    85DDE  97 PC
-;-----------------------------------------------------------------------------
-sub_85D1D_C1:
+        jmp short RunStatsMenu_82.3
+RunStatsMenu_C1:
         movzx ebx, byte [byte_16CCF0]
         xor edx, edx
         xor eax, eax
         call PlayerRatingsScreen
-        jmp short sub_85D1D_82.3
+        jmp short RunStatsMenu_82.3
 .5:
         cmp dword [dword_16CCF1], byte 0
         je short .6

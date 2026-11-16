@@ -50,12 +50,12 @@ extern unk_1CEDF0, unk_1CEDFF, unk_1CEE0E, unk_1CEE1D, unk_1CEE2C, unk_1CEE3B, u
 extern unk_1CEE68, unk_1CEE77, unk_1CEE86, unk_1CEE95, unk_1CEEA4, unk_1CEEB3, unk_1CEEC2, unk_1CEED1
 extern unk_1CEEE0, unk_1CEEEF, unk_1CEEFE, unk_1CEF0D, unk_1CEF1C, unk_1CEF2B, unk_1CEF3A, unk_1CEF49
 extern unk_1CEF58, unk_1CEF67, word_16E2EA, word_1C1344, word_1C1348, word_1C13C2, word_1C34E5, word_1C55A2
-global sub_E9429_4B, sub_E9CB5_1E0, sub_EA7CF_68E, sub_EA7CF_6C5, sub_EBD8C_31, sub_ECA57_4C2, sub_ECA57_4C3, BuildAllStarTeams
+global BuildAllStarTeams_4B, sub_E9CB5_1E0, sub_EA7CF_68E, sub_EA7CF_6C5, sub_EBD8C_31, PickAllStarPlayers_4C2, PickAllStarPlayers_4C3, BuildAllStarTeams
 global AllStarScreen, sub_E9CB5, sub_E9E9B, sub_EA52D, sub_EA5B1, sub_EA64E, sub_EA6EB, sub_EA7CF
 global sub_EAE9A, sub_EAF08, sub_EB175, sub_EB840, sub_EB8DA, sub_EBA9B, sub_EBB68, sub_EBC19
 global sub_EBC45, sub_EBC70, sub_EBCFA, sub_EBD54, sub_EBD8C, sub_EBDC3, sub_EBEDA, sub_EBFCE
 global sub_EC19E, sub_EC34D, sub_EC4DB, sub_EC588, sub_EC60D, sub_EC671, sub_EC82C, PickAllStarPlayers
-global InitAllStarTeams, AllocAllStarRosters, sub_ED3C1, sub_ED6C8, sub_ED8E8, sub_EDDAC, sub_EE0F7, unk_EDDEF
+global InitAllStarTeams, AllocAllStarRosters, sub_ED3C1, sub_ED6C8, sub_ED8E8, sub_EDDAC, GetKeyName, unk_EDDEF
 global unk_EDE3F, unk_EDE53, unk_EE053, unk_EE093, unk_EE0E3
 ;-----------------------------------------------------------------------------
 ; BuildAllStarTeams                               E9429  97 PC, low confidence
@@ -80,7 +80,7 @@ BuildAllStarTeams:
         push dword [dword_1CE220]
         call sub_FAF34
         mov eax, 1
-sub_E9429_4B:
+BuildAllStarTeams_4B:
         add esp, byte 4
         pop edx
         pop ecx
@@ -590,7 +590,7 @@ AllStarScreen:
         mov eax, edi
         lea esp, [dword ebp+082h]
         pop ebp
-        jmp near sub_ECA57_4C3
+        jmp near PickAllStarPlayers_4C3
 ;-----------------------------------------------------------------------------
 ; sub_E9CB5                                                       E9CB5  97 PC
 ;-----------------------------------------------------------------------------
@@ -3250,7 +3250,7 @@ sub_EBEDA:
         jl short .16
 .19:
         mov eax, edx
-        jmp near sub_ECA57_4C3
+        jmp near PickAllStarPlayers_4C3
 ;-----------------------------------------------------------------------------
 ; sub_EBFCE                                                       EBFCE  97 PC
 ;-----------------------------------------------------------------------------
@@ -4423,9 +4423,9 @@ PickAllStarPlayers:
         add esp, byte 4
         cmp dword [byte ebp-010h], byte 2
         jl short .25
-sub_ECA57_4C2:
+PickAllStarPlayers_4C2:
         leave
-sub_ECA57_4C3:
+PickAllStarPlayers_4C3:
         pop edi
         pop esi
         pop edx
@@ -4733,7 +4733,7 @@ AllocAllStarRosters:
         cmp ebx, esi
         jl near .8
         call sub_83558
-        jmp near sub_ECA57_4C2
+        jmp near PickAllStarPlayers_4C2
         push ecx
         push edx
         push dword [dword_1CE1E8]
@@ -4747,7 +4747,7 @@ AllocAllStarRosters:
         add esp, byte 4
         push dword [dword_1CE220]
         call sub_FAF34
-        jmp near sub_E9429_4B
+        jmp near BuildAllStarTeams_4B
         push ebx
         push ecx
         push edx
@@ -5755,9 +5755,11 @@ unk_EE0E3:
         db 04h,00h,05h,00h,06h,00h,08h,00h,0Bh,00h,0Ah,00h,09h,00h,07h,00h
         db 02h,00h,03h,00h
 ;-----------------------------------------------------------------------------
-; sub_EE0F7                                                       EE0F7  97 PC
+; GetKeyName                                   EE0F7  97 PC, medium confidence
+; (scan code, buf): copies the key's name ("Escape", "Backspace", "Left
+; Shift"..., "<NONE>") for the control setup screen
 ;-----------------------------------------------------------------------------
-sub_EE0F7:
+GetKeyName:
         push edx
         mov eax, 1C9h
         call GetLangText

@@ -41,9 +41,9 @@ extern unk_1CA9DC, unk_1CAADC, unk_1CABDC, unk_1CACE8, unk_1CACF4, unk_1CAD00, u
 global jpt_B585D, jpt_B6B27, jpt_B6B53, jpt_B6B7F, jpt_B6BAB, jpt_B6BD7, jpt_B6BFB, jpt_B6C1F
 global jpt_B6C43, jpt_B7214, jpt_B724C, jpt_B7758, jpt_B7790, jpt_B77B4, jpt_B77E0, jpt_B780C
 global jpt_B7838, jpt_B7864, jpt_B7888, jpt_B78AC, jpt_B78D0, jpt_B8F8B, jpt_BBD29, jpt_BBD4D
-global jpt_BBD85, jpt_BBDB1, jpt_BBDD5, sub_B50DB_76D, sub_B50DB_776, sub_B50DB_77C, sub_B5891_975, sub_B5891_986
-global sub_B5891_99A, sub_B5891_9A6, sub_B5891_9B7, sub_B5891_9CA, sub_B5891_9DB, sub_B5891_B94, sub_B5891_C43, sub_B5891_CB4
-global sub_B5891_DC7, sub_B5891_10AA, sub_B5891_1114, sub_B6C67_4C, sub_B6C67_53, sub_B6C67_5A, sub_B6C67_61, sub_B6C67_68
+global jpt_BBD85, jpt_BBDB1, jpt_BBDD5, sub_B50DB_76D, sub_B50DB_776, sub_B50DB_77C, PlayerStatsScreen_975, PlayerStatsScreen_986
+global PlayerStatsScreen_99A, PlayerStatsScreen_9A6, PlayerStatsScreen_9B7, PlayerStatsScreen_9CA, PlayerStatsScreen_9DB, PlayerStatsScreen_B94, PlayerStatsScreen_C43, PlayerStatsScreen_CB4
+global PlayerStatsScreen_DC7, PlayerStatsScreen_10AA, PlayerStatsScreen_1114, sub_B6C67_4C, sub_B6C67_53, sub_B6C67_5A, sub_B6C67_61, sub_B6C67_68
 global sub_B6C67_6F, sub_B6C67_76, sub_B6C67_7D, sub_B6C67_84, sub_B6C67_8B, sub_B6C67_92, sub_B6C67_123, sub_B6C67_129
 global sub_B6C67_12F, sub_B6C67_135, sub_B6C67_14B, sub_B6C67_151, sub_B6C67_15A, sub_B6C67_1C0, sub_B6C67_1C9, sub_B6C67_1F4
 global sub_B6C67_200, sub_B6C67_21C, sub_B6C67_225, sub_B6C67_22E, sub_B6C67_237, sub_B6C67_240, sub_B6C67_249, sub_B6C67_252
@@ -53,25 +53,25 @@ global sub_B6C67_376, sub_B6C67_37D, sub_B6C67_384, sub_B6C67_38B, sub_B6C67_392
 global sub_B6C67_430, sub_B6C67_44B, sub_B6C67_451, sub_B6C67_457, sub_B6C67_45D, sub_B6C67_463, sub_B6C67_469, sub_B6C67_46F
 global sub_B6C67_478, sub_B6C67_48D, sub_B6C67_493, sub_B6C67_499, sub_B6C67_49F, sub_B6C67_4A5, sub_B6C67_4AB, sub_B6C67_4B1
 global sub_B6C67_4BA, sub_B6C67_4C3, sub_B6C67_53A, sub_B6C67_540, sub_B6C67_546, sub_B6C67_54C, sub_B6C67_552, sub_B6C67_558
-global sub_B6C67_55E, sub_B6C67_564, sub_B6C67_56A, sub_B7270_328, sub_B7270_32F, sub_B7270_336, sub_B7270_33D, sub_B7270_344
-global sub_B7270_34B, sub_B7270_352, sub_B7270_359, sub_B7270_360, sub_B7270_367, sub_B7270_36E, sub_B7270_375, sub_B7270_37C
-global sub_B7270_383, sub_B7270_427, sub_B7270_42E, sub_B7270_435, sub_B7270_43C, sub_B7270_443, sub_B7270_44A, sub_B7270_451
-global sub_B7270_458, sub_B7270_45F, sub_B7270_4E2, sub_B78F4_2B6, sub_B78F4_2BD, sub_B78F4_2C4, sub_B78F4_2CB, sub_B78F4_2D2
-global sub_B78F4_2D9, sub_B78F4_2E0, sub_B78F4_2E7, sub_B78F4_2EE, sub_B78F4_2F5, sub_B78F4_2FC, sub_B78F4_303, sub_B78F4_30A
-global sub_B78F4_311, sub_B78F4_35D, sub_B78F4_364, sub_B78F4_36B, sub_B78F4_372, sub_B78F4_379, sub_B78F4_380, sub_B78F4_387
-global sub_B78F4_38E, sub_B78F4_395, sub_B78F4_409, sub_B78F4_412, sub_B78F4_41B, sub_B78F4_424, sub_B78F4_42D, sub_B78F4_436
-global sub_B78F4_43F, sub_B78F4_448, sub_B78F4_451, sub_B78F4_45A, sub_B78F4_463, sub_B78F4_4F9, sub_B78F4_4FF, sub_B78F4_505
-global sub_B78F4_50B, sub_B78F4_521, sub_B78F4_527, sub_B78F4_530, sub_B78F4_58E, sub_B78F4_597, sub_B78F4_5C2, sub_B78F4_5CE
-global sub_B78F4_5EA, sub_B78F4_5F3, sub_B78F4_5FC, sub_B78F4_605, sub_B78F4_60E, sub_B78F4_617, sub_B78F4_620, sub_B78F4_628
-global sub_B78F4_631, sub_B78F4_63A, sub_B78F4_643, sub_B78F4_680, sub_B78F4_689, sub_B78F4_68F, sub_B78F4_695, sub_B78F4_69B
-global sub_B78F4_6A1, sub_B78F4_6A7, sub_B78F4_6B4, sub_B78F4_6BA, sub_B78F4_6E2, sub_B78F4_6E8, sub_B78F4_746, sub_B78F4_74F
-global sub_B78F4_758, sub_B78F4_761, sub_B78F4_76A, sub_B78F4_773, sub_B78F4_77C, sub_B78F4_785, sub_B78F4_78E, sub_B78F4_81C
-global sub_B78F4_837, sub_B78F4_83D, sub_B78F4_843, sub_B78F4_849, sub_B78F4_84F, sub_B78F4_855, sub_B78F4_85B, sub_B78F4_864
-global sub_B78F4_879, sub_B78F4_87F, sub_B78F4_885, sub_B78F4_88B, sub_B78F4_891, sub_B78F4_897, sub_B78F4_89D, sub_B78F4_8A6
-global sub_B78F4_8AF, sub_B78F4_926, sub_B78F4_92C, sub_B78F4_932, sub_B78F4_938, sub_B78F4_93E, sub_B78F4_944, sub_B78F4_94A
-global sub_B78F4_950, sub_B78F4_956, sub_B8FDF_D1D, sub_B8FDF_D2E, sub_B8FDF_D42, sub_B8FDF_D4E, sub_B8FDF_11E4, sub_B8FDF_13C2
-global sub_B8FDF_13F5, sub_B8FDF_15C2, sub_B8FDF_180D, sub_B8FDF_1964, sub_B8FDF_1B34, sub_B8FDF_1D11, sub_B8FDF_1E94, sub_B8FDF_1EA5
-global sub_B8FDF_1EB8, sub_B8FDF_1EC9, sub_B8FDF_1F8C, sub_B8FDF_2014, sub_B8FDF_2040, sub_B8FDF_21EA, sub_B8FDF_21FD, sub_BBE01_243
+global sub_B6C67_55E, sub_B6C67_564, sub_B6C67_56A, DrawPlayerBio_328, DrawPlayerBio_32F, DrawPlayerBio_336, DrawPlayerBio_33D, DrawPlayerBio_344
+global DrawPlayerBio_34B, DrawPlayerBio_352, DrawPlayerBio_359, DrawPlayerBio_360, DrawPlayerBio_367, DrawPlayerBio_36E, DrawPlayerBio_375, DrawPlayerBio_37C
+global DrawPlayerBio_383, DrawPlayerBio_427, DrawPlayerBio_42E, DrawPlayerBio_435, DrawPlayerBio_43C, DrawPlayerBio_443, DrawPlayerBio_44A, DrawPlayerBio_451
+global DrawPlayerBio_458, DrawPlayerBio_45F, DrawPlayerBio_4E2, ExportPlayerCard_2B6, ExportPlayerCard_2BD, ExportPlayerCard_2C4, ExportPlayerCard_2CB, ExportPlayerCard_2D2
+global ExportPlayerCard_2D9, ExportPlayerCard_2E0, ExportPlayerCard_2E7, ExportPlayerCard_2EE, ExportPlayerCard_2F5, ExportPlayerCard_2FC, ExportPlayerCard_303, ExportPlayerCard_30A
+global ExportPlayerCard_311, ExportPlayerCard_35D, ExportPlayerCard_364, ExportPlayerCard_36B, ExportPlayerCard_372, ExportPlayerCard_379, ExportPlayerCard_380, ExportPlayerCard_387
+global ExportPlayerCard_38E, ExportPlayerCard_395, ExportPlayerCard_409, ExportPlayerCard_412, ExportPlayerCard_41B, ExportPlayerCard_424, ExportPlayerCard_42D, ExportPlayerCard_436
+global ExportPlayerCard_43F, ExportPlayerCard_448, ExportPlayerCard_451, ExportPlayerCard_45A, ExportPlayerCard_463, ExportPlayerCard_4F9, ExportPlayerCard_4FF, ExportPlayerCard_505
+global ExportPlayerCard_50B, ExportPlayerCard_521, ExportPlayerCard_527, ExportPlayerCard_530, ExportPlayerCard_58E, ExportPlayerCard_597, ExportPlayerCard_5C2, ExportPlayerCard_5CE
+global ExportPlayerCard_5EA, ExportPlayerCard_5F3, ExportPlayerCard_5FC, ExportPlayerCard_605, ExportPlayerCard_60E, ExportPlayerCard_617, ExportPlayerCard_620, ExportPlayerCard_628
+global ExportPlayerCard_631, ExportPlayerCard_63A, ExportPlayerCard_643, ExportPlayerCard_680, ExportPlayerCard_689, ExportPlayerCard_68F, ExportPlayerCard_695, ExportPlayerCard_69B
+global ExportPlayerCard_6A1, ExportPlayerCard_6A7, ExportPlayerCard_6B4, ExportPlayerCard_6BA, ExportPlayerCard_6E2, ExportPlayerCard_6E8, ExportPlayerCard_746, ExportPlayerCard_74F
+global ExportPlayerCard_758, ExportPlayerCard_761, ExportPlayerCard_76A, ExportPlayerCard_773, ExportPlayerCard_77C, ExportPlayerCard_785, ExportPlayerCard_78E, ExportPlayerCard_81C
+global ExportPlayerCard_837, ExportPlayerCard_83D, ExportPlayerCard_843, ExportPlayerCard_849, ExportPlayerCard_84F, ExportPlayerCard_855, ExportPlayerCard_85B, ExportPlayerCard_864
+global ExportPlayerCard_879, ExportPlayerCard_87F, ExportPlayerCard_885, ExportPlayerCard_88B, ExportPlayerCard_891, ExportPlayerCard_897, ExportPlayerCard_89D, ExportPlayerCard_8A6
+global ExportPlayerCard_8AF, ExportPlayerCard_926, ExportPlayerCard_92C, ExportPlayerCard_932, ExportPlayerCard_938, ExportPlayerCard_93E, ExportPlayerCard_944, ExportPlayerCard_94A
+global ExportPlayerCard_950, ExportPlayerCard_956, PlayerRatingsScreen_D1D, PlayerRatingsScreen_D2E, PlayerRatingsScreen_D42, PlayerRatingsScreen_D4E, PlayerRatingsScreen_11E4, PlayerRatingsScreen_13C2
+global PlayerRatingsScreen_13F5, PlayerRatingsScreen_15C2, PlayerRatingsScreen_180D, PlayerRatingsScreen_1964, PlayerRatingsScreen_1B34, PlayerRatingsScreen_1D11, PlayerRatingsScreen_1E94, PlayerRatingsScreen_1EA5
+global PlayerRatingsScreen_1EB8, PlayerRatingsScreen_1EC9, PlayerRatingsScreen_1F8C, PlayerRatingsScreen_2014, PlayerRatingsScreen_2040, PlayerRatingsScreen_21EA, PlayerRatingsScreen_21FD, sub_BBE01_243
 global sub_BBE01_272, sub_BBE01_2A1, sub_BBE01_2D0, sub_BBE01_2FF, sub_BBE01_32E, sub_BBE01_35D, sub_BBE01_385, sub_BBE01_3AD
 global sub_BBE01_4D9, sub_BBE01_515, sub_BBE01_551, sub_BBE01_58D, sub_BBE01_5C9, sub_BBE01_5FF, sub_BBE01_62E, sub_BBE01_65D
 global sub_BBE01_68C, sub_BBE01_6BB, sub_BBE01_6EA, sub_BBE01_719, sub_BBE01_741, sub_BBE01_769, sub_BBE01_99B, sub_BBE01_A38
@@ -79,7 +79,7 @@ global sub_BBE01_AD5, sub_BBE01_B72, sub_BBE01_BFC, sub_BBE01_C99, sub_BBE01_D42
 global sub_BBE01_F6E, sub_BBE01_111B, sub_BBE01_11B8, sub_BBE01_1255, sub_BBE01_12F2, sub_BBE01_138F, sub_BBE01_1426, sub_BBE01_14A9
 global sub_BBE01_152C, sub_BBE01_15AF, sub_BBE01_1713, sub_BBE01_17C0, sub_BBE01_17C9, sub_BBE01_17D2, sub_BBE01_17DB, sub_BBE01_17E4
 global sub_BBE01_17ED, sub_BBE01_17F6, sub_BBE01_17FF, sub_BBE01_1808, sub_BBE01_1811, sub_B50DB, PlayerStatsScreen, sub_B6C67
-global sub_B7270, sub_B78F4, sub_B829B, PlayerRatingsScreen, sub_BB365, sub_BBC3A, sub_BBE01, sub_BD61B
+global DrawPlayerBio, ExportPlayerCard, sub_B829B, PlayerRatingsScreen, sub_BB365, sub_BBC3A, sub_BBE01, sub_BD61B
 global sub_BD621
 ;-----------------------------------------------------------------------------
 ; sub_B50DB                                                       B50DB  97 PC
@@ -626,19 +626,19 @@ sub_B50DB_77C:
         pop ebx
         ret
 jpt_B585D:
-        dd sub_B5891_975
-        dd sub_B5891_99A
-        dd sub_B5891_9A6
-        dd sub_B5891_9B7
-        dd sub_B5891_9CA
-        dd sub_B5891_9DB
-        dd sub_B5891_B94
-        dd sub_B5891_C43
-        dd sub_B5891_CB4
-        dd sub_B5891_DC7
-        dd sub_B5891_10AA
-        dd sub_B5891_986
-        dd sub_B5891_1114
+        dd PlayerStatsScreen_975
+        dd PlayerStatsScreen_99A
+        dd PlayerStatsScreen_9A6
+        dd PlayerStatsScreen_9B7
+        dd PlayerStatsScreen_9CA
+        dd PlayerStatsScreen_9DB
+        dd PlayerStatsScreen_B94
+        dd PlayerStatsScreen_C43
+        dd PlayerStatsScreen_CB4
+        dd PlayerStatsScreen_DC7
+        dd PlayerStatsScreen_10AA
+        dd PlayerStatsScreen_986
+        dd PlayerStatsScreen_1114
 ;-----------------------------------------------------------------------------
 ; PlayerStatsScreen                               B5891  96 PC, low confidence
 ; The player stats screen (StatDBPTRs, "Player #", "+/-", FName, LName,
@@ -1252,7 +1252,7 @@ PlayerStatsScreen:
         jl near .28
         mov eax, 37h
         call OpenDataLibrary
-        jmp near sub_B5891_DC7.64
+        jmp near PlayerStatsScreen_DC7.64
 .31:
         mov edx, dword [dword_1CAE84]
         add eax, edx
@@ -1306,59 +1306,38 @@ PlayerStatsScreen:
         add eax, byte 0Ch
         call sub_8BFAC
         cmp dword [byte ebp+036h], byte 0Ch
-        ja near sub_B5891_DC7.64
+        ja near PlayerStatsScreen_DC7.64
         mov ebx, dword [byte ebp+036h]
         jmp dword [nosplit cs:ebx*4+jpt_B585D]
-;-----------------------------------------------------------------------------
-; sub_B5891_975                                                   B6206  97 PC
-;-----------------------------------------------------------------------------
-sub_B5891_975:
+PlayerStatsScreen_975:
         call sub_7EDF0
         mov dword [byte ebp+056h], 1Ah
-        jmp near sub_B5891_DC7.64
-;-----------------------------------------------------------------------------
-; sub_B5891_986                                                   B6217  97 PC
-;-----------------------------------------------------------------------------
-sub_B5891_986:
+        jmp near PlayerStatsScreen_DC7.64
+PlayerStatsScreen_986:
         call sub_81678
         call sub_7EF70
         call sub_81650
-        jmp near sub_B5891_DC7.64
-;-----------------------------------------------------------------------------
-; sub_B5891_99A                                                   B622B  97 PC
-;-----------------------------------------------------------------------------
-sub_B5891_99A:
+        jmp near PlayerStatsScreen_DC7.64
+PlayerStatsScreen_99A:
         mov dword [byte ebp+056h], 64h
-        jmp near sub_B5891_DC7.64
-;-----------------------------------------------------------------------------
-; sub_B5891_9A6                                                   B6237  97 PC
-;-----------------------------------------------------------------------------
-sub_B5891_9A6:
+        jmp near PlayerStatsScreen_DC7.64
+PlayerStatsScreen_9A6:
         mov eax, unk_1CAD24
         xor edx, edx
         call sub_8DE10
-        jmp near sub_B5891_DC7.64
-;-----------------------------------------------------------------------------
-; sub_B5891_9B7                                                   B6248  97 PC
-;-----------------------------------------------------------------------------
-sub_B5891_9B7:
+        jmp near PlayerStatsScreen_DC7.64
+PlayerStatsScreen_9B7:
         mov ebx, eax
         xor edx, edx
         mov eax, unk_1CAD24
         call sub_8DEAC
-        jmp near sub_B5891_DC7.64
-;-----------------------------------------------------------------------------
-; sub_B5891_9CA                                                   B625B  97 PC
-;-----------------------------------------------------------------------------
-sub_B5891_9CA:
+        jmp near PlayerStatsScreen_DC7.64
+PlayerStatsScreen_9CA:
         mov eax, unk_1CAD24
         xor edx, edx
         call sub_8DE68
-        jmp near sub_B5891_DC7.64
-;-----------------------------------------------------------------------------
-; sub_B5891_9DB                                                   B626C  97 PC
-;-----------------------------------------------------------------------------
-sub_B5891_9DB:
+        jmp near PlayerStatsScreen_DC7.64
+PlayerStatsScreen_9DB:
         xor ebx, ebx
         jmp near .39
 .34:
@@ -1441,7 +1420,7 @@ sub_B5891_9DB:
         call sub_8DF1F
         mov dword [byte ebp+036h], eax
         cmp eax, byte 0FFFFFFFFh
-        je near sub_B5891_DC7.64
+        je near PlayerStatsScreen_DC7.64
         lea edx, [byte eax-01h]
         mov dword [dword_16D400], edx
         mov ebx, dword [dword_1CAEAC]
@@ -1487,11 +1466,8 @@ sub_B5891_9DB:
         mov eax, unk_1CAD24
         xor edx, edx
         call SetScrollBarPos
-        jmp near sub_B5891_DC7.64
-;-----------------------------------------------------------------------------
-; sub_B5891_B94                                                   B6425  97 PC
-;-----------------------------------------------------------------------------
-sub_B5891_B94:
+        jmp near PlayerStatsScreen_DC7.64
+PlayerStatsScreen_B94:
         cmp dword [byte ebp+02Eh], byte 0
         je short .45
         cmp dword [dword_16D404], byte 0
@@ -1523,7 +1499,7 @@ sub_B5891_B94:
         push dword [byte ebp+07Ah]
         call sub_11B094
         add esp, byte 0Ch
-        jmp near sub_B5891_DC7.64
+        jmp near PlayerStatsScreen_DC7.64
 .48:
         push eax
         mov ecx, asc_166806
@@ -1536,10 +1512,7 @@ sub_B5891_B94:
         push unk_1CACE8
         push asc_166810
         jmp short .47
-;-----------------------------------------------------------------------------
-; sub_B5891_C43                                                   B64D4  97 PC
-;-----------------------------------------------------------------------------
-sub_B5891_C43:
+PlayerStatsScreen_C43:
         mov eax, dword [byte ebp+06Eh]
         xor byte [byte ebp+066h], 1
         add eax, 0C0h
@@ -1555,7 +1528,7 @@ sub_B5891_C43:
         call sub_81D1C
         push unk_1CACF4
         push asc_16682C
-        jmp short sub_B5891_B94.47
+        jmp short PlayerStatsScreen_B94.47
 .49:
         push eax
         mov ecx, asc_1668AB
@@ -1567,11 +1540,8 @@ sub_B5891_C43:
         call sub_81D1C
         push unk_1CACF4
         push asc_1668B5
-        jmp near sub_B5891_B94.47
-;-----------------------------------------------------------------------------
-; sub_B5891_CB4                                                   B6545  97 PC
-;-----------------------------------------------------------------------------
-sub_B5891_CB4:
+        jmp near PlayerStatsScreen_B94.47
+PlayerStatsScreen_CB4:
         mov ebx, dword [dword_1CAD48]
         shl ebx, 2
         cmp dword [dword_16DA9C], byte 0
@@ -1595,8 +1565,8 @@ sub_B5891_CB4:
 .50:
         add eax, ecx
         xor ecx, ecx
-        call sub_B78F4
-        jmp near sub_B5891_DC7.64
+        call ExportPlayerCard
+        jmp near PlayerStatsScreen_DC7.64
 .51:
         push eax
         mov eax, dword [dword_1CAE84]
@@ -1651,18 +1621,15 @@ sub_B5891_CB4:
 .54:
         add eax, ecx
         xor ecx, ecx
-        call sub_B78F4
+        call ExportPlayerCard
         call sub_E4218
-        jmp near sub_B5891_DC7.64
+        jmp near PlayerStatsScreen_DC7.64
 .55:
         mov eax, 237h
         call GetLangText
         call sub_E4230
-        jmp near sub_B5891_DC7.64
-;-----------------------------------------------------------------------------
-; sub_B5891_DC7                                                   B6658  97 PC
-;-----------------------------------------------------------------------------
-sub_B5891_DC7:
+        jmp near PlayerStatsScreen_DC7.64
+PlayerStatsScreen_DC7:
         dec dword [dword_16D400]
         cmp dword [dword_16D400], byte 0FFFFFFFEh
         jne short .56
@@ -1734,7 +1701,7 @@ sub_B5891_DC7:
         mov dword [dword eax+01B8h], edx
 .64:
         cmp dword [byte ebp+056h], byte 0FFFFFFFFh
-        jne near sub_B5891_1114.79
+        jne near PlayerStatsScreen_1114.79
         mov dword [byte ebp+072h], 0
         cmp byte [byte_16CCF0], 0
         je near .71
@@ -1816,7 +1783,7 @@ sub_B5891_DC7:
         add ecx, dword [byte ebp+062h]
         add ebx, eax
         mov eax, dword [byte ebp+046h]
-        call sub_B7270
+        call DrawPlayerBio
         mov eax, dword [dword_1CAD48]
         shl eax, 2
         cmp dword [dword_16D404], byte 0
@@ -1848,10 +1815,7 @@ sub_B5891_DC7:
         call sprintf_
         add esp, byte 8
         jmp near .63
-;-----------------------------------------------------------------------------
-; sub_B5891_10AA                                                  B693B  97 PC
-;-----------------------------------------------------------------------------
-sub_B5891_10AA:
+PlayerStatsScreen_10AA:
         mov eax, dword [byte ebp+032h]
         inc dword [dword_16D400]
         movsx eax, word [eax]
@@ -1868,7 +1832,7 @@ sub_B5891_10AA:
         cmp dword [dword_16D400], byte 0FFFFFFFFh
         jne short .75
         mov eax, dword [byte ebp+07Eh]
-        jmp near sub_B5891_DC7.61
+        jmp near PlayerStatsScreen_DC7.61
 .75:
         mov esi, dword [dword_1CAEA8]
         xor ebx, ebx
@@ -1883,11 +1847,8 @@ sub_B5891_10AA:
 .78:
         cmp ebx, dword [byte ebp+07Eh]
         jl short .76
-        jmp near sub_B5891_DC7.61
-;-----------------------------------------------------------------------------
-; sub_B5891_1114                                                  B69A5  97 PC
-;-----------------------------------------------------------------------------
-sub_B5891_1114:
+        jmp near PlayerStatsScreen_DC7.61
+PlayerStatsScreen_1114:
         call sub_84068
         cmp dword [dword_16DA9C], byte 0
         sete al
@@ -1904,7 +1865,7 @@ sub_B5891_1114:
         add esp, byte 4
         mov dword [dword_1CAEBC], 1
         call sub_1013FC
-        jmp near sub_B5891_DC7.64
+        jmp near PlayerStatsScreen_DC7.64
 .79:
         push dword [dword_1CAE6C]
         call sub_FAF34
@@ -2636,34 +2597,35 @@ sub_B6C67_56A:
         pop esi
         ret 8
 jpt_B7214:
-        dd sub_B7270_328
-        dd sub_B7270_32F
-        dd sub_B7270_336
-        dd sub_B7270_33D
-        dd sub_B7270_344
-        dd sub_B7270_34B
-        dd sub_B7270_352
-        dd sub_B7270_359
-        dd sub_B7270_360
-        dd sub_B7270_367
-        dd sub_B7270_36E
-        dd sub_B7270_375
-        dd sub_B7270_37C
-        dd sub_B7270_383
+        dd DrawPlayerBio_328
+        dd DrawPlayerBio_32F
+        dd DrawPlayerBio_336
+        dd DrawPlayerBio_33D
+        dd DrawPlayerBio_344
+        dd DrawPlayerBio_34B
+        dd DrawPlayerBio_352
+        dd DrawPlayerBio_359
+        dd DrawPlayerBio_360
+        dd DrawPlayerBio_367
+        dd DrawPlayerBio_36E
+        dd DrawPlayerBio_375
+        dd DrawPlayerBio_37C
+        dd DrawPlayerBio_383
 jpt_B724C:
-        dd sub_B7270_427
-        dd sub_B7270_42E
-        dd sub_B7270_435
-        dd sub_B7270_43C
-        dd sub_B7270_443
-        dd sub_B7270_44A
-        dd sub_B7270_451
-        dd sub_B7270_458
-        dd sub_B7270_45F
+        dd DrawPlayerBio_427
+        dd DrawPlayerBio_42E
+        dd DrawPlayerBio_435
+        dd DrawPlayerBio_43C
+        dd DrawPlayerBio_443
+        dd DrawPlayerBio_44A
+        dd DrawPlayerBio_451
+        dd DrawPlayerBio_458
+        dd DrawPlayerBio_45F
 ;-----------------------------------------------------------------------------
-; sub_B7270                                                       B7270  97 PC
+; DrawPlayerBio                                   B7270  97 PC, low confidence
+; The player's height, weight, birth and draft lines
 ;-----------------------------------------------------------------------------
-sub_B7270:
+DrawPlayerBio:
         push esi
         push edi
         enter 0A4h, 0
@@ -2893,7 +2855,7 @@ sub_B7270:
 .9:
         mov eax, dword [byte ebp-036h]
         cmp word [byte eax+05Eh], byte 0
-        jle near sub_B7270_45F.18
+        jle near DrawPlayerBio_45F.18
         movsx eax, word [byte eax+05Eh]
         push eax
         mov eax, 170h
@@ -2911,57 +2873,57 @@ sub_B7270:
         push byte 1
         call DrawTextAligned
         add esp, byte 10h
-        jmp near sub_B7270_45F.18
+        jmp near DrawPlayerBio_45F.18
 .10:
         cmp byte [dword ebp+086h], 47h
-        je near sub_B7270_383.14
+        je near DrawPlayerBio_383.14
         mov dword [byte ebp+06Ah], 0
-        jmp near sub_B7270_383.13
+        jmp near DrawPlayerBio_383.13
 .11:
         cmp word [byte ebp+06Ah], byte 0Dh
-        ja near sub_B7270_383.12
+        ja near DrawPlayerBio_383.12
         movzx eax, word [byte ebp+06Ah]
         jmp dword [nosplit cs:eax*4+jpt_B7214]
-sub_B7270_328:
+DrawPlayerBio_328:
         movzx di, byte [byte esi+011h]
-        jmp short sub_B7270_383.12
-sub_B7270_32F:
+        jmp short DrawPlayerBio_383.12
+DrawPlayerBio_32F:
         movzx di, byte [byte esi+012h]
-        jmp short sub_B7270_383.12
-sub_B7270_336:
+        jmp short DrawPlayerBio_383.12
+DrawPlayerBio_336:
         movzx di, byte [byte esi+014h]
-        jmp short sub_B7270_383.12
-sub_B7270_33D:
+        jmp short DrawPlayerBio_383.12
+DrawPlayerBio_33D:
         movzx di, byte [byte esi+015h]
-        jmp short sub_B7270_383.12
-sub_B7270_344:
+        jmp short DrawPlayerBio_383.12
+DrawPlayerBio_344:
         movzx di, byte [byte esi+016h]
-        jmp short sub_B7270_383.12
-sub_B7270_34B:
+        jmp short DrawPlayerBio_383.12
+DrawPlayerBio_34B:
         movzx di, byte [byte esi+018h]
-        jmp short sub_B7270_383.12
-sub_B7270_352:
+        jmp short DrawPlayerBio_383.12
+DrawPlayerBio_352:
         movzx di, byte [byte esi+017h]
-        jmp short sub_B7270_383.12
-sub_B7270_359:
+        jmp short DrawPlayerBio_383.12
+DrawPlayerBio_359:
         movzx di, byte [byte esi+019h]
-        jmp short sub_B7270_383.12
-sub_B7270_360:
+        jmp short DrawPlayerBio_383.12
+DrawPlayerBio_360:
         movzx di, byte [byte esi+01Ah]
-        jmp short sub_B7270_383.12
-sub_B7270_367:
+        jmp short DrawPlayerBio_383.12
+DrawPlayerBio_367:
         movzx di, byte [byte esi+01Bh]
-        jmp short sub_B7270_383.12
-sub_B7270_36E:
+        jmp short DrawPlayerBio_383.12
+DrawPlayerBio_36E:
         movzx di, byte [byte esi+01Ch]
-        jmp short sub_B7270_383.12
-sub_B7270_375:
+        jmp short DrawPlayerBio_383.12
+DrawPlayerBio_375:
         movzx di, byte [byte esi+01Dh]
-        jmp short sub_B7270_383.12
-sub_B7270_37C:
+        jmp short DrawPlayerBio_383.12
+DrawPlayerBio_37C:
         movzx di, byte [byte esi+01Fh]
-        jmp short sub_B7270_383.12
-sub_B7270_383:
+        jmp short DrawPlayerBio_383.12
+DrawPlayerBio_383:
         movzx di, byte [byte esi+020h]
 .12:
         movsx eax, word [byte ebp+06Ah]
@@ -2999,41 +2961,41 @@ sub_B7270_383:
         add esp, byte 10h
 .13:
         cmp word [byte ebp+06Ah], byte 0Eh
-        jl near sub_B7270.11
-        jmp near sub_B7270_45F.18
+        jl near DrawPlayerBio.11
+        jmp near DrawPlayerBio_45F.18
 .14:
         mov dword [byte ebp+06Ah], 0
-        jmp near sub_B7270_45F.17
+        jmp near DrawPlayerBio_45F.17
 .15:
         cmp word [byte ebp+06Ah], byte 8
-        ja short sub_B7270_45F.16
+        ja short DrawPlayerBio_45F.16
         movzx eax, word [byte ebp+06Ah]
         jmp dword [nosplit cs:eax*4+jpt_B724C]
-sub_B7270_427:
+DrawPlayerBio_427:
         movzx di, byte [byte esi+011h]
-        jmp short sub_B7270_45F.16
-sub_B7270_42E:
+        jmp short DrawPlayerBio_45F.16
+DrawPlayerBio_42E:
         movzx di, byte [byte esi+012h]
-        jmp short sub_B7270_45F.16
-sub_B7270_435:
+        jmp short DrawPlayerBio_45F.16
+DrawPlayerBio_435:
         movzx di, byte [byte esi+013h]
-        jmp short sub_B7270_45F.16
-sub_B7270_43C:
+        jmp short DrawPlayerBio_45F.16
+DrawPlayerBio_43C:
         movzx di, byte [byte esi+014h]
-        jmp short sub_B7270_45F.16
-sub_B7270_443:
+        jmp short DrawPlayerBio_45F.16
+DrawPlayerBio_443:
         movzx di, byte [byte esi+015h]
-        jmp short sub_B7270_45F.16
-sub_B7270_44A:
+        jmp short DrawPlayerBio_45F.16
+DrawPlayerBio_44A:
         movzx di, byte [byte esi+016h]
-        jmp short sub_B7270_45F.16
-sub_B7270_451:
+        jmp short DrawPlayerBio_45F.16
+DrawPlayerBio_451:
         movzx di, byte [byte esi+018h]
-        jmp short sub_B7270_45F.16
-sub_B7270_458:
+        jmp short DrawPlayerBio_45F.16
+DrawPlayerBio_458:
         movzx di, byte [byte esi+019h]
-        jmp short sub_B7270_45F.16
-sub_B7270_45F:
+        jmp short DrawPlayerBio_45F.16
+DrawPlayerBio_45F:
         movzx di, byte [byte esi+01Ah]
 .16:
         movsx eax, word [byte ebp+06Ah]
@@ -3071,131 +3033,133 @@ sub_B7270_45F:
         add esp, byte 10h
 .17:
         cmp word [byte ebp+06Ah], byte 9
-        jl near sub_B7270_383.15
+        jl near DrawPlayerBio_383.15
 .18:
         lea esp, [byte ebp+076h]
-sub_B7270_4E2:
+DrawPlayerBio_4E2:
         pop ebp
         pop edi
         pop esi
         ret 0Ch
 jpt_B7758:
-        dd sub_B78F4_2B6
-        dd sub_B78F4_2BD
-        dd sub_B78F4_2C4
-        dd sub_B78F4_2CB
-        dd sub_B78F4_2D2
-        dd sub_B78F4_2D9
-        dd sub_B78F4_2E0
-        dd sub_B78F4_2E7
-        dd sub_B78F4_2EE
-        dd sub_B78F4_2F5
-        dd sub_B78F4_2FC
-        dd sub_B78F4_303
-        dd sub_B78F4_30A
-        dd sub_B78F4_311
+        dd ExportPlayerCard_2B6
+        dd ExportPlayerCard_2BD
+        dd ExportPlayerCard_2C4
+        dd ExportPlayerCard_2CB
+        dd ExportPlayerCard_2D2
+        dd ExportPlayerCard_2D9
+        dd ExportPlayerCard_2E0
+        dd ExportPlayerCard_2E7
+        dd ExportPlayerCard_2EE
+        dd ExportPlayerCard_2F5
+        dd ExportPlayerCard_2FC
+        dd ExportPlayerCard_303
+        dd ExportPlayerCard_30A
+        dd ExportPlayerCard_311
 jpt_B7790:
-        dd sub_B78F4_35D
-        dd sub_B78F4_364
-        dd sub_B78F4_36B
-        dd sub_B78F4_372
-        dd sub_B78F4_379
-        dd sub_B78F4_380
-        dd sub_B78F4_387
-        dd sub_B78F4_38E
-        dd sub_B78F4_395
+        dd ExportPlayerCard_35D
+        dd ExportPlayerCard_364
+        dd ExportPlayerCard_36B
+        dd ExportPlayerCard_372
+        dd ExportPlayerCard_379
+        dd ExportPlayerCard_380
+        dd ExportPlayerCard_387
+        dd ExportPlayerCard_38E
+        dd ExportPlayerCard_395
 jpt_B77B4:
-        dd sub_B78F4_409
-        dd sub_B78F4_412
-        dd sub_B78F4_41B
-        dd sub_B78F4_424
-        dd sub_B78F4_42D
-        dd sub_B78F4_436
-        dd sub_B78F4_43F
-        dd sub_B78F4_448
-        dd sub_B78F4_451
-        dd sub_B78F4_45A
-        dd sub_B78F4_463
+        dd ExportPlayerCard_409
+        dd ExportPlayerCard_412
+        dd ExportPlayerCard_41B
+        dd ExportPlayerCard_424
+        dd ExportPlayerCard_42D
+        dd ExportPlayerCard_436
+        dd ExportPlayerCard_43F
+        dd ExportPlayerCard_448
+        dd ExportPlayerCard_451
+        dd ExportPlayerCard_45A
+        dd ExportPlayerCard_463
 jpt_B77E0:
-        dd sub_B78F4_4F9
-        dd sub_B78F4_4FF
-        dd sub_B78F4_505
-        dd sub_B78F4_50B
-        dd sub_B78F4_521
-        dd sub_B78F4_527
-        dd sub_B78F4_530
-        dd sub_B78F4_58E
-        dd sub_B78F4_597
-        dd sub_B78F4_5C2
-        dd sub_B78F4_5CE
+        dd ExportPlayerCard_4F9
+        dd ExportPlayerCard_4FF
+        dd ExportPlayerCard_505
+        dd ExportPlayerCard_50B
+        dd ExportPlayerCard_521
+        dd ExportPlayerCard_527
+        dd ExportPlayerCard_530
+        dd ExportPlayerCard_58E
+        dd ExportPlayerCard_597
+        dd ExportPlayerCard_5C2
+        dd ExportPlayerCard_5CE
 jpt_B780C:
-        dd sub_B78F4_5EA
-        dd sub_B78F4_5F3
-        dd sub_B78F4_5FC
-        dd sub_B78F4_605
-        dd sub_B78F4_60E
-        dd sub_B78F4_617
-        dd sub_B78F4_620
-        dd sub_B78F4_628
-        dd sub_B78F4_631
-        dd sub_B78F4_63A
-        dd sub_B78F4_643
+        dd ExportPlayerCard_5EA
+        dd ExportPlayerCard_5F3
+        dd ExportPlayerCard_5FC
+        dd ExportPlayerCard_605
+        dd ExportPlayerCard_60E
+        dd ExportPlayerCard_617
+        dd ExportPlayerCard_620
+        dd ExportPlayerCard_628
+        dd ExportPlayerCard_631
+        dd ExportPlayerCard_63A
+        dd ExportPlayerCard_643
 jpt_B7838:
-        dd sub_B78F4_680
-        dd sub_B78F4_689
-        dd sub_B78F4_68F
-        dd sub_B78F4_695
-        dd sub_B78F4_69B
-        dd sub_B78F4_6A1
-        dd sub_B78F4_6A7
-        dd sub_B78F4_6B4
-        dd sub_B78F4_6BA
-        dd sub_B78F4_6E2
-        dd sub_B78F4_6E8
+        dd ExportPlayerCard_680
+        dd ExportPlayerCard_689
+        dd ExportPlayerCard_68F
+        dd ExportPlayerCard_695
+        dd ExportPlayerCard_69B
+        dd ExportPlayerCard_6A1
+        dd ExportPlayerCard_6A7
+        dd ExportPlayerCard_6B4
+        dd ExportPlayerCard_6BA
+        dd ExportPlayerCard_6E2
+        dd ExportPlayerCard_6E8
 jpt_B7864:
-        dd sub_B78F4_746
-        dd sub_B78F4_74F
-        dd sub_B78F4_758
-        dd sub_B78F4_761
-        dd sub_B78F4_76A
-        dd sub_B78F4_773
-        dd sub_B78F4_77C
-        dd sub_B78F4_785
-        dd sub_B78F4_78E
+        dd ExportPlayerCard_746
+        dd ExportPlayerCard_74F
+        dd ExportPlayerCard_758
+        dd ExportPlayerCard_761
+        dd ExportPlayerCard_76A
+        dd ExportPlayerCard_773
+        dd ExportPlayerCard_77C
+        dd ExportPlayerCard_785
+        dd ExportPlayerCard_78E
 jpt_B7888:
-        dd sub_B78F4_81C
-        dd sub_B78F4_837
-        dd sub_B78F4_83D
-        dd sub_B78F4_843
-        dd sub_B78F4_849
-        dd sub_B78F4_84F
-        dd sub_B78F4_855
-        dd sub_B78F4_85B
-        dd sub_B78F4_864
+        dd ExportPlayerCard_81C
+        dd ExportPlayerCard_837
+        dd ExportPlayerCard_83D
+        dd ExportPlayerCard_843
+        dd ExportPlayerCard_849
+        dd ExportPlayerCard_84F
+        dd ExportPlayerCard_855
+        dd ExportPlayerCard_85B
+        dd ExportPlayerCard_864
 jpt_B78AC:
-        dd sub_B78F4_879
-        dd sub_B78F4_87F
-        dd sub_B78F4_885
-        dd sub_B78F4_88B
-        dd sub_B78F4_891
-        dd sub_B78F4_897
-        dd sub_B78F4_89D
-        dd sub_B78F4_8A6
-        dd sub_B78F4_8AF
+        dd ExportPlayerCard_879
+        dd ExportPlayerCard_87F
+        dd ExportPlayerCard_885
+        dd ExportPlayerCard_88B
+        dd ExportPlayerCard_891
+        dd ExportPlayerCard_897
+        dd ExportPlayerCard_89D
+        dd ExportPlayerCard_8A6
+        dd ExportPlayerCard_8AF
 jpt_B78D0:
-        dd sub_B78F4_926
-        dd sub_B78F4_92C
-        dd sub_B78F4_932
-        dd sub_B78F4_938
-        dd sub_B78F4_93E
-        dd sub_B78F4_944
-        dd sub_B78F4_94A
-        dd sub_B78F4_950
-        dd sub_B78F4_956
+        dd ExportPlayerCard_926
+        dd ExportPlayerCard_92C
+        dd ExportPlayerCard_932
+        dd ExportPlayerCard_938
+        dd ExportPlayerCard_93E
+        dd ExportPlayerCard_944
+        dd ExportPlayerCard_94A
+        dd ExportPlayerCard_950
+        dd ExportPlayerCard_956
 ;-----------------------------------------------------------------------------
-; sub_B78F4                                                       B78F4  97 PC
+; ExportPlayerCard                                B78F4  96 PC, low confidence
+; Asks a file name and writes the player's card as text (fopen "wt", "#%d %s
+; %s.")
 ;-----------------------------------------------------------------------------
-sub_B78F4:
+ExportPlayerCard:
         push esi
         push edi
         enter 94h, 0
@@ -3218,7 +3182,7 @@ sub_B78F4:
         mov eax, 1Eh
         call sub_AD6D6
         test eax, eax
-        je near sub_B78F4_956.52
+        je near ExportPlayerCard_956.52
         mov edx, unk_166915
         lea eax, [byte ebp+03Ah]
         call fopen_
@@ -3233,7 +3197,7 @@ sub_B78F4:
         xor ebx, ebx
         call GetLangText
         call sub_7F5A4
-        jmp near sub_B78F4_956.52
+        jmp near ExportPlayerCard_956.52
 .3:
         mov eax, dword [byte ebp+05Eh]
         add eax, byte 8
@@ -3410,53 +3374,53 @@ sub_B78F4:
         call fprintf_
         add esp, byte 8
         cmp dword [byte ebp+062h], byte 47h
-        je near sub_B78F4_311.14
+        je near ExportPlayerCard_311.14
         xor ecx, ecx
 .11:
         cmp ecx, byte 0Dh
-        ja near sub_B78F4_311.13
+        ja near ExportPlayerCard_311.13
         mov eax, ecx
         jmp dword [nosplit cs:eax*4+jpt_B7758]
-sub_B78F4_2B6:
+ExportPlayerCard_2B6:
         movzx ax, byte [byte esi+011h]
-        jmp short sub_B78F4_311.12
-sub_B78F4_2BD:
+        jmp short ExportPlayerCard_311.12
+ExportPlayerCard_2BD:
         movzx ax, byte [byte esi+012h]
-        jmp short sub_B78F4_311.12
-sub_B78F4_2C4:
+        jmp short ExportPlayerCard_311.12
+ExportPlayerCard_2C4:
         movzx ax, byte [byte esi+014h]
-        jmp short sub_B78F4_311.12
-sub_B78F4_2CB:
+        jmp short ExportPlayerCard_311.12
+ExportPlayerCard_2CB:
         movzx ax, byte [byte esi+015h]
-        jmp short sub_B78F4_311.12
-sub_B78F4_2D2:
+        jmp short ExportPlayerCard_311.12
+ExportPlayerCard_2D2:
         movzx ax, byte [byte esi+016h]
-        jmp short sub_B78F4_311.12
-sub_B78F4_2D9:
+        jmp short ExportPlayerCard_311.12
+ExportPlayerCard_2D9:
         movzx ax, byte [byte esi+018h]
-        jmp short sub_B78F4_311.12
-sub_B78F4_2E0:
+        jmp short ExportPlayerCard_311.12
+ExportPlayerCard_2E0:
         movzx ax, byte [byte esi+017h]
-        jmp short sub_B78F4_311.12
-sub_B78F4_2E7:
+        jmp short ExportPlayerCard_311.12
+ExportPlayerCard_2E7:
         movzx ax, byte [byte esi+019h]
-        jmp short sub_B78F4_311.12
-sub_B78F4_2EE:
+        jmp short ExportPlayerCard_311.12
+ExportPlayerCard_2EE:
         movzx ax, byte [byte esi+01Ah]
-        jmp short sub_B78F4_311.12
-sub_B78F4_2F5:
+        jmp short ExportPlayerCard_311.12
+ExportPlayerCard_2F5:
         movzx ax, byte [byte esi+01Bh]
-        jmp short sub_B78F4_311.12
-sub_B78F4_2FC:
+        jmp short ExportPlayerCard_311.12
+ExportPlayerCard_2FC:
         movzx ax, byte [byte esi+01Ch]
-        jmp short sub_B78F4_311.12
-sub_B78F4_303:
+        jmp short ExportPlayerCard_311.12
+ExportPlayerCard_303:
         movzx ax, byte [byte esi+01Dh]
-        jmp short sub_B78F4_311.12
-sub_B78F4_30A:
+        jmp short ExportPlayerCard_311.12
+ExportPlayerCard_30A:
         movzx ax, byte [byte esi+01Fh]
-        jmp short sub_B78F4_311.12
-sub_B78F4_311:
+        jmp short ExportPlayerCard_311.12
+ExportPlayerCard_311:
         movzx ax, byte [byte esi+020h]
 .12:
         mov dword [byte ebp+072h], eax
@@ -3473,40 +3437,40 @@ sub_B78F4_311:
         call fprintf_
         add esp, byte 10h
         cmp ecx, byte 0Eh
-        jl near sub_B78F4.11
-        jmp near sub_B78F4_395.18
+        jl near ExportPlayerCard.11
+        jmp near ExportPlayerCard_395.18
 .14:
         xor ecx, ecx
 .15:
         cmp ecx, byte 8
-        ja short sub_B78F4_395.17
+        ja short ExportPlayerCard_395.17
         mov eax, ecx
         jmp dword [nosplit cs:eax*4+jpt_B7790]
-sub_B78F4_35D:
+ExportPlayerCard_35D:
         movzx ax, byte [byte esi+011h]
-        jmp short sub_B78F4_395.16
-sub_B78F4_364:
+        jmp short ExportPlayerCard_395.16
+ExportPlayerCard_364:
         movzx ax, byte [byte esi+012h]
-        jmp short sub_B78F4_395.16
-sub_B78F4_36B:
+        jmp short ExportPlayerCard_395.16
+ExportPlayerCard_36B:
         movzx ax, byte [byte esi+013h]
-        jmp short sub_B78F4_395.16
-sub_B78F4_372:
+        jmp short ExportPlayerCard_395.16
+ExportPlayerCard_372:
         movzx ax, byte [byte esi+014h]
-        jmp short sub_B78F4_395.16
-sub_B78F4_379:
+        jmp short ExportPlayerCard_395.16
+ExportPlayerCard_379:
         movzx ax, byte [byte esi+015h]
-        jmp short sub_B78F4_395.16
-sub_B78F4_380:
+        jmp short ExportPlayerCard_395.16
+ExportPlayerCard_380:
         movzx ax, byte [byte esi+016h]
-        jmp short sub_B78F4_395.16
-sub_B78F4_387:
+        jmp short ExportPlayerCard_395.16
+ExportPlayerCard_387:
         movzx ax, byte [byte esi+018h]
-        jmp short sub_B78F4_395.16
-sub_B78F4_38E:
+        jmp short ExportPlayerCard_395.16
+ExportPlayerCard_38E:
         movzx ax, byte [byte esi+019h]
-        jmp short sub_B78F4_395.16
-sub_B78F4_395:
+        jmp short ExportPlayerCard_395.16
+ExportPlayerCard_395:
         movzx ax, byte [byte esi+01Ah]
 .16:
         mov dword [byte ebp+072h], eax
@@ -3523,55 +3487,55 @@ sub_B78F4_395:
         call fprintf_
         add esp, byte 10h
         cmp ecx, byte 9
-        jl short sub_B78F4_311.15
+        jl short ExportPlayerCard_311.15
 .18:
         push asc_166929
         push dword [byte ebp+05Ah]
         call fprintf_
         add esp, byte 8
         cmp byte [byte ebp+07Ah], 47h
-        jne near sub_B78F4_6E8.35
+        jne near ExportPlayerCard_6E8.35
         mov ebx, 0Dh
         mov edx, unk_166946
         mov eax, dword [byte ebp+05Ah]
         mov esi, dword [byte ebp+062h]
-        jmp near sub_B78F4_463.21
+        jmp near ExportPlayerCard_463.21
 .19:
         cmp esi, byte 0Ah
-        ja near sub_B78F4_463.20
+        ja near ExportPlayerCard_463.20
         mov eax, esi
         jmp dword [nosplit cs:eax*4+jpt_B77B4]
-sub_B78F4_409:
+ExportPlayerCard_409:
         mov dword [byte ebp+066h], 140h
-        jmp short sub_B78F4_463.20
-sub_B78F4_412:
+        jmp short ExportPlayerCard_463.20
+ExportPlayerCard_412:
         mov dword [byte ebp+066h], 19Bh
-        jmp short sub_B78F4_463.20
-sub_B78F4_41B:
+        jmp short ExportPlayerCard_463.20
+ExportPlayerCard_41B:
         mov dword [byte ebp+066h], 19Ch
-        jmp short sub_B78F4_463.20
-sub_B78F4_424:
+        jmp short ExportPlayerCard_463.20
+ExportPlayerCard_424:
         mov dword [byte ebp+066h], 19Dh
-        jmp short sub_B78F4_463.20
-sub_B78F4_42D:
+        jmp short ExportPlayerCard_463.20
+ExportPlayerCard_42D:
         mov dword [byte ebp+066h], 149h
-        jmp short sub_B78F4_463.20
-sub_B78F4_436:
+        jmp short ExportPlayerCard_463.20
+ExportPlayerCard_436:
         mov dword [byte ebp+066h], 14Ah
-        jmp short sub_B78F4_463.20
-sub_B78F4_43F:
+        jmp short ExportPlayerCard_463.20
+ExportPlayerCard_43F:
         mov dword [byte ebp+066h], 147h
-        jmp short sub_B78F4_463.20
-sub_B78F4_448:
+        jmp short ExportPlayerCard_463.20
+ExportPlayerCard_448:
         mov dword [byte ebp+066h], 148h
-        jmp short sub_B78F4_463.20
-sub_B78F4_451:
+        jmp short ExportPlayerCard_463.20
+ExportPlayerCard_451:
         mov dword [byte ebp+066h], 6Eh
-        jmp short sub_B78F4_463.20
-sub_B78F4_45A:
+        jmp short ExportPlayerCard_463.20
+ExportPlayerCard_45A:
         mov dword [byte ebp+066h], 12Bh
-        jmp short sub_B78F4_463.20
-sub_B78F4_463:
+        jmp short ExportPlayerCard_463.20
+ExportPlayerCard_463:
         mov dword [byte ebp+066h], 0A0h
 .20:
         mov eax, dword [byte ebp+066h]
@@ -3585,13 +3549,13 @@ sub_B78F4_463:
         mov eax, dword [byte ebp+062h]
         add eax, byte 9
         cmp esi, eax
-        jl near sub_B78F4_395.19
+        jl near ExportPlayerCard_395.19
         push unk_166948
         push dword [byte ebp+05Ah]
         call fprintf_
         add esp, byte 8
         cmp byte [byte_16CCF0], 0
-        je near sub_B78F4_643.30
+        je near ExportPlayerCard_643.30
         xor ecx, ecx
 .22:
         lea eax, [dword ecx+0171h]
@@ -3601,40 +3565,40 @@ sub_B78F4_463:
         mov eax, dword [byte ebp+05Ah]
         mov esi, dword [byte ebp+062h]
         call sub_AD678
-        jmp near sub_B78F4_530.27
+        jmp near ExportPlayerCard_530.27
 .23:
         imul eax, ecx, byte 2Eh
         mov edx, esi
         shl edx, 2
         add eax, dword [byte ebp+05Eh]
         cmp dword [dword_16D404], byte 0
-        je near sub_B78F4_5CE.29
+        je near ExportPlayerCard_5CE.29
         cmp esi, byte 0Ah
-        ja near sub_B78F4_530.26
+        ja near ExportPlayerCard_530.26
         jmp dword [dword cs:edx+jpt_B77E0]
-sub_B78F4_4F9:
+ExportPlayerCard_4F9:
         movsx eax, word [byte eax+078h]
-        jmp short sub_B78F4_530.25
-sub_B78F4_4FF:
+        jmp short ExportPlayerCard_530.25
+ExportPlayerCard_4FF:
         movsx eax, word [byte eax+07Ah]
-        jmp short sub_B78F4_530.25
-sub_B78F4_505:
+        jmp short ExportPlayerCard_530.25
+ExportPlayerCard_505:
         movsx eax, word [byte eax+07Ch]
-        jmp short sub_B78F4_530.25
-sub_B78F4_50B:
+        jmp short ExportPlayerCard_530.25
+ExportPlayerCard_50B:
         push unk_1668C5
         lea eax, [byte ebp-016h]
         push eax
         call sprintf_
         add esp, byte 8
-        jmp near sub_B78F4_530.26
-sub_B78F4_521:
+        jmp near ExportPlayerCard_530.26
+ExportPlayerCard_521:
         movsx eax, word [byte eax+07Eh]
-        jmp short sub_B78F4_530.25
-sub_B78F4_527:
+        jmp short ExportPlayerCard_530.25
+ExportPlayerCard_527:
         movsx eax, word [dword eax+080h]
-        jmp short sub_B78F4_530.25
-sub_B78F4_530:
+        jmp short ExportPlayerCard_530.25
+ExportPlayerCard_530:
         mov eax, dword [dword eax+082h]
 .24:
         mov ebx, 3Ch
@@ -3657,19 +3621,19 @@ sub_B78F4_530:
         mov eax, dword [byte ebp+062h]
         add eax, byte 9
         cmp esi, eax
-        jl near sub_B78F4_463.23
+        jl near ExportPlayerCard_463.23
         push unk_166948
         push dword [byte ebp+05Ah]
         inc ecx
         call fprintf_
         add esp, byte 8
         cmp ecx, byte 2
-        jl near sub_B78F4_463.22
-        jmp near sub_B78F4_956.51
-sub_B78F4_58E:
+        jl near ExportPlayerCard_463.22
+        jmp near ExportPlayerCard_956.51
+ExportPlayerCard_58E:
         movsx eax, word [dword eax+086h]
-        jmp short sub_B78F4_530.25
-sub_B78F4_597:
+        jmp short ExportPlayerCard_530.25
+ExportPlayerCard_597:
         movsx edi, word [dword eax+088h]
 .28:
         mov eax, edi
@@ -3686,50 +3650,50 @@ sub_B78F4_597:
         push eax
         call sprintf_
         add esp, byte 10h
-        jmp short sub_B78F4_530.26
-sub_B78F4_5C2:
+        jmp short ExportPlayerCard_530.26
+ExportPlayerCard_5C2:
         movsx eax, word [dword eax+08Ah]
-        jmp near sub_B78F4_530.25
-sub_B78F4_5CE:
+        jmp near ExportPlayerCard_530.25
+ExportPlayerCard_5CE:
         movsx eax, word [dword eax+08Ch]
-        jmp near sub_B78F4_530.25
+        jmp near ExportPlayerCard_530.25
 .29:
         cmp esi, byte 0Ah
-        ja near sub_B78F4_530.26
+        ja near ExportPlayerCard_530.26
         jmp dword [dword cs:edx+jpt_B780C]
-sub_B78F4_5EA:
+ExportPlayerCard_5EA:
         movsx eax, word [byte eax+060h]
-        jmp near sub_B78F4_530.25
-sub_B78F4_5F3:
+        jmp near ExportPlayerCard_530.25
+ExportPlayerCard_5F3:
         movsx eax, word [byte eax+062h]
-        jmp near sub_B78F4_530.25
-sub_B78F4_5FC:
+        jmp near ExportPlayerCard_530.25
+ExportPlayerCard_5FC:
         movsx eax, word [byte eax+064h]
-        jmp near sub_B78F4_530.25
-sub_B78F4_605:
+        jmp near ExportPlayerCard_530.25
+ExportPlayerCard_605:
         movsx eax, word [byte eax+066h]
-        jmp near sub_B78F4_530.25
-sub_B78F4_60E:
+        jmp near ExportPlayerCard_530.25
+ExportPlayerCard_60E:
         movsx eax, word [byte eax+068h]
-        jmp near sub_B78F4_530.25
-sub_B78F4_617:
+        jmp near ExportPlayerCard_530.25
+ExportPlayerCard_617:
         movsx eax, word [byte eax+06Ah]
-        jmp near sub_B78F4_530.25
-sub_B78F4_620:
+        jmp near ExportPlayerCard_530.25
+ExportPlayerCard_620:
         mov eax, dword [byte eax+06Ch]
-        jmp near sub_B78F4_530.24
-sub_B78F4_628:
+        jmp near ExportPlayerCard_530.24
+ExportPlayerCard_628:
         movsx eax, word [byte eax+070h]
-        jmp near sub_B78F4_530.25
-sub_B78F4_631:
+        jmp near ExportPlayerCard_530.25
+ExportPlayerCard_631:
         movsx edi, word [byte eax+072h]
-        jmp near sub_B78F4_597.28
-sub_B78F4_63A:
+        jmp near ExportPlayerCard_597.28
+ExportPlayerCard_63A:
         movsx eax, word [byte eax+074h]
-        jmp near sub_B78F4_530.25
-sub_B78F4_643:
+        jmp near ExportPlayerCard_530.25
+ExportPlayerCard_643:
         movsx eax, word [byte eax+076h]
-        jmp near sub_B78F4_530.25
+        jmp near ExportPlayerCard_530.25
 .30:
         mov eax, 172h
         mov ebx, 0Dh
@@ -3738,40 +3702,40 @@ sub_B78F4_643:
         mov eax, dword [byte ebp+05Ah]
         mov esi, dword [byte ebp+062h]
         call sub_AD678
-        jmp near sub_B78F4_6E8.34
+        jmp near ExportPlayerCard_6E8.34
 .31:
         cmp esi, byte 0Ah
-        ja near sub_B78F4_6E8.33
+        ja near ExportPlayerCard_6E8.33
         mov eax, esi
         jmp dword [nosplit cs:eax*4+jpt_B7838]
-sub_B78F4_680:
+ExportPlayerCard_680:
         movsx eax, word [byte edi+018h]
-        jmp near sub_B78F4_6E8.32
-sub_B78F4_689:
+        jmp near ExportPlayerCard_6E8.32
+ExportPlayerCard_689:
         movsx eax, word [byte edi+01Ah]
-        jmp short sub_B78F4_6E8.32
-sub_B78F4_68F:
+        jmp short ExportPlayerCard_6E8.32
+ExportPlayerCard_68F:
         movsx eax, word [byte edi+01Ch]
-        jmp short sub_B78F4_6E8.32
-sub_B78F4_695:
+        jmp short ExportPlayerCard_6E8.32
+ExportPlayerCard_695:
         movsx eax, word [byte edi+01Eh]
-        jmp short sub_B78F4_6E8.32
-sub_B78F4_69B:
+        jmp short ExportPlayerCard_6E8.32
+ExportPlayerCard_69B:
         movsx eax, word [byte edi+020h]
-        jmp short sub_B78F4_6E8.32
-sub_B78F4_6A1:
+        jmp short ExportPlayerCard_6E8.32
+ExportPlayerCard_6A1:
         movsx eax, word [byte edi+028h]
-        jmp short sub_B78F4_6E8.32
-sub_B78F4_6A7:
+        jmp short ExportPlayerCard_6E8.32
+ExportPlayerCard_6A7:
         mov eax, dword [byte edi+02Ah]
         mov ebx, 3Ch
         cdq
         idiv ebx
-        jmp short sub_B78F4_6E8.32
-sub_B78F4_6B4:
+        jmp short ExportPlayerCard_6E8.32
+ExportPlayerCard_6B4:
         movsx eax, word [byte edi+02Eh]
-        jmp short sub_B78F4_6E8.32
-sub_B78F4_6BA:
+        jmp short ExportPlayerCard_6E8.32
+ExportPlayerCard_6BA:
         movsx ecx, word [byte edi+030h]
         mov eax, ecx
         mov ebx, 64h
@@ -3787,11 +3751,11 @@ sub_B78F4_6BA:
         push eax
         call sprintf_
         add esp, byte 10h
-        jmp short sub_B78F4_6E8.33
-sub_B78F4_6E2:
+        jmp short ExportPlayerCard_6E8.33
+ExportPlayerCard_6E2:
         movsx eax, word [byte edi+032h]
-        jmp short sub_B78F4_6E8.32
-sub_B78F4_6E8:
+        jmp short ExportPlayerCard_6E8.32
+ExportPlayerCard_6E8:
         movsx eax, word [byte edi+034h]
 .32:
         push eax
@@ -3810,44 +3774,44 @@ sub_B78F4_6E8:
         mov eax, dword [byte ebp+062h]
         add eax, byte 9
         cmp esi, eax
-        jl near sub_B78F4_643.31
-        jmp near sub_B78F4_956.50
+        jl near ExportPlayerCard_643.31
+        jmp near ExportPlayerCard_956.50
 .35:
         mov ebx, 0Dh
         mov edx, unk_166946
         mov eax, dword [byte ebp+05Ah]
         mov esi, dword [byte ebp+062h]
-        jmp near sub_B78F4_78E.38
+        jmp near ExportPlayerCard_78E.38
 .36:
         cmp esi, byte 8
-        ja short sub_B78F4_78E.37
+        ja short ExportPlayerCard_78E.37
         mov eax, esi
         jmp dword [nosplit cs:eax*4+jpt_B7864]
-sub_B78F4_746:
+ExportPlayerCard_746:
         mov dword [byte ebp+066h], 140h
-        jmp short sub_B78F4_78E.37
-sub_B78F4_74F:
+        jmp short ExportPlayerCard_78E.37
+ExportPlayerCard_74F:
         mov dword [byte ebp+066h], 141h
-        jmp short sub_B78F4_78E.37
-sub_B78F4_758:
+        jmp short ExportPlayerCard_78E.37
+ExportPlayerCard_758:
         mov dword [byte ebp+066h], 142h
-        jmp short sub_B78F4_78E.37
-sub_B78F4_761:
+        jmp short ExportPlayerCard_78E.37
+ExportPlayerCard_761:
         mov dword [byte ebp+066h], 143h
-        jmp short sub_B78F4_78E.37
-sub_B78F4_76A:
+        jmp short ExportPlayerCard_78E.37
+ExportPlayerCard_76A:
         mov dword [byte ebp+066h], 145h
-        jmp short sub_B78F4_78E.37
-sub_B78F4_773:
+        jmp short ExportPlayerCard_78E.37
+ExportPlayerCard_773:
         mov dword [byte ebp+066h], 146h
-        jmp short sub_B78F4_78E.37
-sub_B78F4_77C:
+        jmp short ExportPlayerCard_78E.37
+ExportPlayerCard_77C:
         mov dword [byte ebp+066h], 144h
-        jmp short sub_B78F4_78E.37
-sub_B78F4_785:
+        jmp short ExportPlayerCard_78E.37
+ExportPlayerCard_785:
         mov dword [byte ebp+066h], 12Bh
-        jmp short sub_B78F4_78E.37
-sub_B78F4_78E:
+        jmp short ExportPlayerCard_78E.37
+ExportPlayerCard_78E:
         mov dword [byte ebp+066h], 159h
 .37:
         mov eax, dword [byte ebp+066h]
@@ -3861,13 +3825,13 @@ sub_B78F4_78E:
         mov eax, dword [byte ebp+062h]
         add eax, byte 9
         cmp esi, eax
-        jl short sub_B78F4_6E8.36
+        jl short ExportPlayerCard_6E8.36
         push unk_166948
         push dword [byte ebp+05Ah]
         call fprintf_
         add esp, byte 8
         cmp byte [byte_16CCF0], 0
-        je near sub_B78F4_8AF.45
+        je near ExportPlayerCard_8AF.45
         xor ecx, ecx
 .39:
         lea eax, [dword ecx+0171h]
@@ -3877,18 +3841,18 @@ sub_B78F4_78E:
         mov eax, dword [byte ebp+05Ah]
         mov esi, dword [byte ebp+062h]
         call sub_AD678
-        jmp near sub_B78F4_8AF.44
+        jmp near ExportPlayerCard_8AF.44
 .40:
         imul eax, ecx, byte 2Eh
         mov edi, esi
         shl edi, 2
         add eax, dword [byte ebp+05Eh]
         cmp dword [dword_16D404], byte 0
-        je short sub_B78F4_864.42
+        je short ExportPlayerCard_864.42
         cmp esi, byte 8
-        ja near sub_B78F4_8AF.43
+        ja near ExportPlayerCard_8AF.43
         jmp dword [dword cs:edi+jpt_B7888]
-sub_B78F4_81C:
+ExportPlayerCard_81C:
         movsx eax, word [byte eax+072h]
 .41:
         push eax
@@ -3897,62 +3861,62 @@ sub_B78F4_81C:
         push eax
         call sprintf_
         add esp, byte 0Ch
-        jmp near sub_B78F4_8AF.43
-sub_B78F4_837:
+        jmp near ExportPlayerCard_8AF.43
+ExportPlayerCard_837:
         movsx eax, word [byte eax+074h]
-        jmp short sub_B78F4_81C.41
-sub_B78F4_83D:
+        jmp short ExportPlayerCard_81C.41
+ExportPlayerCard_83D:
         movsx eax, word [byte eax+076h]
-        jmp short sub_B78F4_81C.41
-sub_B78F4_843:
+        jmp short ExportPlayerCard_81C.41
+ExportPlayerCard_843:
         movsx eax, word [byte eax+078h]
-        jmp short sub_B78F4_81C.41
-sub_B78F4_849:
+        jmp short ExportPlayerCard_81C.41
+ExportPlayerCard_849:
         movsx eax, word [byte eax+07Ah]
-        jmp short sub_B78F4_81C.41
-sub_B78F4_84F:
+        jmp short ExportPlayerCard_81C.41
+ExportPlayerCard_84F:
         movsx eax, word [byte eax+07Ch]
-        jmp short sub_B78F4_81C.41
-sub_B78F4_855:
+        jmp short ExportPlayerCard_81C.41
+ExportPlayerCard_855:
         movsx eax, word [byte eax+07Eh]
-        jmp short sub_B78F4_81C.41
-sub_B78F4_85B:
+        jmp short ExportPlayerCard_81C.41
+ExportPlayerCard_85B:
         movsx eax, word [dword eax+080h]
-        jmp short sub_B78F4_81C.41
-sub_B78F4_864:
+        jmp short ExportPlayerCard_81C.41
+ExportPlayerCard_864:
         movsx eax, word [dword eax+082h]
-        jmp short sub_B78F4_81C.41
+        jmp short ExportPlayerCard_81C.41
 .42:
         cmp esi, byte 8
-        ja short sub_B78F4_8AF.43
+        ja short ExportPlayerCard_8AF.43
         jmp dword [dword cs:edi+jpt_B78AC]
-sub_B78F4_879:
+ExportPlayerCard_879:
         movsx eax, word [byte eax+060h]
-        jmp short sub_B78F4_81C.41
-sub_B78F4_87F:
+        jmp short ExportPlayerCard_81C.41
+ExportPlayerCard_87F:
         movsx eax, word [byte eax+062h]
-        jmp short sub_B78F4_81C.41
-sub_B78F4_885:
+        jmp short ExportPlayerCard_81C.41
+ExportPlayerCard_885:
         movsx eax, word [byte eax+064h]
-        jmp short sub_B78F4_81C.41
-sub_B78F4_88B:
+        jmp short ExportPlayerCard_81C.41
+ExportPlayerCard_88B:
         movsx eax, word [byte eax+066h]
-        jmp short sub_B78F4_81C.41
-sub_B78F4_891:
+        jmp short ExportPlayerCard_81C.41
+ExportPlayerCard_891:
         movsx eax, word [byte eax+068h]
-        jmp short sub_B78F4_81C.41
-sub_B78F4_897:
+        jmp short ExportPlayerCard_81C.41
+ExportPlayerCard_897:
         movsx eax, word [byte eax+06Ah]
-        jmp short sub_B78F4_81C.41
-sub_B78F4_89D:
+        jmp short ExportPlayerCard_81C.41
+ExportPlayerCard_89D:
         movsx eax, word [byte eax+06Ch]
-        jmp near sub_B78F4_81C.41
-sub_B78F4_8A6:
+        jmp near ExportPlayerCard_81C.41
+ExportPlayerCard_8A6:
         movsx eax, word [byte eax+06Eh]
-        jmp near sub_B78F4_81C.41
-sub_B78F4_8AF:
+        jmp near ExportPlayerCard_81C.41
+ExportPlayerCard_8AF:
         movsx eax, word [byte eax+070h]
-        jmp near sub_B78F4_81C.41
+        jmp near ExportPlayerCard_81C.41
 .43:
         mov ebx, 0Dh
         lea edx, [byte ebp-016h]
@@ -3963,15 +3927,15 @@ sub_B78F4_8AF:
         mov eax, dword [byte ebp+062h]
         add eax, byte 9
         cmp esi, eax
-        jl near sub_B78F4_78E.40
+        jl near ExportPlayerCard_78E.40
         push unk_166948
         push dword [byte ebp+05Ah]
         inc ecx
         call fprintf_
         add esp, byte 8
         cmp ecx, byte 2
-        jl near sub_B78F4_78E.39
-        jmp near sub_B78F4_956.51
+        jl near ExportPlayerCard_78E.39
+        jmp near ExportPlayerCard_956.51
 .45:
         mov eax, 172h
         mov ebx, 0Dh
@@ -3980,37 +3944,37 @@ sub_B78F4_8AF:
         mov eax, dword [byte ebp+05Ah]
         mov esi, dword [byte ebp+062h]
         call sub_AD678
-        jmp near sub_B78F4_956.49
+        jmp near ExportPlayerCard_956.49
 .46:
         cmp esi, byte 8
-        ja short sub_B78F4_956.48
+        ja short ExportPlayerCard_956.48
         mov eax, esi
         jmp dword [nosplit cs:eax*4+jpt_B78D0]
-sub_B78F4_926:
+ExportPlayerCard_926:
         movsx eax, word [byte edi+018h]
-        jmp short sub_B78F4_956.47
-sub_B78F4_92C:
+        jmp short ExportPlayerCard_956.47
+ExportPlayerCard_92C:
         movsx eax, word [byte edi+01Ah]
-        jmp short sub_B78F4_956.47
-sub_B78F4_932:
+        jmp short ExportPlayerCard_956.47
+ExportPlayerCard_932:
         movsx eax, word [byte edi+01Ch]
-        jmp short sub_B78F4_956.47
-sub_B78F4_938:
+        jmp short ExportPlayerCard_956.47
+ExportPlayerCard_938:
         movsx eax, word [byte edi+01Eh]
-        jmp short sub_B78F4_956.47
-sub_B78F4_93E:
+        jmp short ExportPlayerCard_956.47
+ExportPlayerCard_93E:
         movsx eax, word [byte edi+020h]
-        jmp short sub_B78F4_956.47
-sub_B78F4_944:
+        jmp short ExportPlayerCard_956.47
+ExportPlayerCard_944:
         movsx eax, word [byte edi+022h]
-        jmp short sub_B78F4_956.47
-sub_B78F4_94A:
+        jmp short ExportPlayerCard_956.47
+ExportPlayerCard_94A:
         movsx eax, word [byte edi+024h]
-        jmp short sub_B78F4_956.47
-sub_B78F4_950:
+        jmp short ExportPlayerCard_956.47
+ExportPlayerCard_950:
         movsx eax, word [byte edi+026h]
-        jmp short sub_B78F4_956.47
-sub_B78F4_956:
+        jmp short ExportPlayerCard_956.47
+ExportPlayerCard_956:
         movsx eax, word [byte edi+028h]
 .47:
         push eax
@@ -4029,7 +3993,7 @@ sub_B78F4_956:
         mov eax, dword [byte ebp+062h]
         add eax, byte 9
         cmp esi, eax
-        jl short sub_B78F4_8AF.46
+        jl short ExportPlayerCard_8AF.46
 .50:
         push unk_166948
         push dword [byte ebp+05Ah]
@@ -4040,7 +4004,7 @@ sub_B78F4_956:
         call fclose_
 .52:
         lea esp, [byte ebp+07Eh]
-        jmp near sub_B7270_4E2
+        jmp near DrawPlayerBio_4E2
 ;-----------------------------------------------------------------------------
 ; sub_B829B                                                       B829B  97 PC
 ;-----------------------------------------------------------------------------
@@ -4990,27 +4954,27 @@ sub_B829B:
         call sub_1013FC
         jmp near sub_B50DB_76D
 jpt_B8F8B:
-        dd sub_B8FDF_D1D
-        dd sub_B8FDF_D42
-        dd sub_B8FDF_D4E
-        dd sub_B8FDF_11E4
-        dd sub_B8FDF_13C2
-        dd sub_B8FDF_13F5
-        dd sub_B8FDF_15C2
-        dd sub_B8FDF_180D
-        dd sub_B8FDF_1964
-        dd sub_B8FDF_1B34
-        dd sub_B8FDF_1D11
-        dd sub_B8FDF_1E94
-        dd sub_B8FDF_1EA5
-        dd sub_B8FDF_1EB8
-        dd sub_B8FDF_1EC9
-        dd sub_B8FDF_1F8C
-        dd sub_B8FDF_2014
-        dd sub_B8FDF_2040
-        dd sub_B8FDF_21EA
-        dd sub_B8FDF_21FD
-        dd sub_B8FDF_D2E
+        dd PlayerRatingsScreen_D1D
+        dd PlayerRatingsScreen_D42
+        dd PlayerRatingsScreen_D4E
+        dd PlayerRatingsScreen_11E4
+        dd PlayerRatingsScreen_13C2
+        dd PlayerRatingsScreen_13F5
+        dd PlayerRatingsScreen_15C2
+        dd PlayerRatingsScreen_180D
+        dd PlayerRatingsScreen_1964
+        dd PlayerRatingsScreen_1B34
+        dd PlayerRatingsScreen_1D11
+        dd PlayerRatingsScreen_1E94
+        dd PlayerRatingsScreen_1EA5
+        dd PlayerRatingsScreen_1EB8
+        dd PlayerRatingsScreen_1EC9
+        dd PlayerRatingsScreen_1F8C
+        dd PlayerRatingsScreen_2014
+        dd PlayerRatingsScreen_2040
+        dd PlayerRatingsScreen_21EA
+        dd PlayerRatingsScreen_21FD
+        dd PlayerRatingsScreen_D2E
 ;-----------------------------------------------------------------------------
 ; PlayerRatingsScreen                             B8FDF  96 PC, low confidence
 ; The player ratings screen (X-tbl, RAT0, HD01 / HD02, ban2, BALL list): a
@@ -5892,7 +5856,7 @@ PlayerRatingsScreen:
         call sub_FD08C
         add esp, byte 0Ch
         mov edi, eax
-        jmp near sub_B8FDF_2040.186
+        jmp near PlayerRatingsScreen_2040.186
 .48:
         push dword [dword ebp-01CBEh]
         push dword [byte ebp+016h]
@@ -5922,34 +5886,22 @@ PlayerRatingsScreen:
         call sub_8BFAC
         mov edx, eax
         cmp dword [byte ebp+01Eh], byte 14h
-        ja near sub_B8FDF_2040.186
+        ja near PlayerRatingsScreen_2040.186
         mov ebx, dword [byte ebp+01Eh]
         jmp dword [nosplit cs:ebx*4+jpt_B8F8B]
-;-----------------------------------------------------------------------------
-; sub_B8FDF_D1D                                                   B9CFC  97 PC
-;-----------------------------------------------------------------------------
-sub_B8FDF_D1D:
+PlayerRatingsScreen_D1D:
         call sub_7EDF0
         mov dword [byte ebp+052h], 1Ah
-        jmp near sub_B8FDF_2040.186
-;-----------------------------------------------------------------------------
-; sub_B8FDF_D2E                                                   B9D0D  97 PC
-;-----------------------------------------------------------------------------
-sub_B8FDF_D2E:
+        jmp near PlayerRatingsScreen_2040.186
+PlayerRatingsScreen_D2E:
         call sub_81678
         call sub_7EF70
         call sub_81650
-        jmp near sub_B8FDF_2040.186
-;-----------------------------------------------------------------------------
-; sub_B8FDF_D42                                                   B9D21  97 PC
-;-----------------------------------------------------------------------------
-sub_B8FDF_D42:
+        jmp near PlayerRatingsScreen_2040.186
+PlayerRatingsScreen_D42:
         mov dword [byte ebp+052h], 64h
-        jmp near sub_B8FDF_2040.186
-;-----------------------------------------------------------------------------
-; sub_B8FDF_D4E                                                   B9D2D  97 PC
-;-----------------------------------------------------------------------------
-sub_B8FDF_D4E:
+        jmp near PlayerRatingsScreen_2040.186
+PlayerRatingsScreen_D4E:
         cmp byte [byte_1C6040], 0
         je short .51
         cmp byte [byte_1C8338], 0
@@ -6164,7 +6116,7 @@ sub_B8FDF_D4E:
         mov ebx, eax
         lea eax, [dword ebp-016Ah]
         call SetRegionRect
-        jmp near sub_B8FDF_2040.186
+        jmp near PlayerRatingsScreen_2040.186
 .61:
         lea eax, [dword ebp-032Ah]
         push eax
@@ -6242,11 +6194,8 @@ sub_B8FDF_D4E:
         mov dword [eax], edx
         cmp ebx, byte 6
         jl short .66
-        jmp near sub_B8FDF_2040.186
-;-----------------------------------------------------------------------------
-; sub_B8FDF_11E4                                                  BA1C3  97 PC
-;-----------------------------------------------------------------------------
-sub_B8FDF_11E4:
+        jmp near PlayerRatingsScreen_2040.186
+PlayerRatingsScreen_11E4:
         inc dword [byte ebp+066h]
         cmp dword [byte ebp+066h], byte 3
         jne short .67
@@ -6375,26 +6324,20 @@ sub_B8FDF_11E4:
         call sub_8E6AF
         mov eax, unk_1CA9DC
         xor ebx, ebx
-        jmp near sub_B8FDF_2040.185
-;-----------------------------------------------------------------------------
-; sub_B8FDF_13C2                                                  BA3A1  97 PC
-;-----------------------------------------------------------------------------
-sub_B8FDF_13C2:
+        jmp near PlayerRatingsScreen_2040.185
+PlayerRatingsScreen_13C2:
         cmp dword [dword ebp-01CBEh], byte 0
         jne short .85
         mov eax, dword [dword_1AC814]
         and eax, byte 70h
         cmp eax, byte 10h
-        jne near sub_B8FDF_2040.186
+        jne near PlayerRatingsScreen_2040.186
         cmp dword [dword_1ACF46], byte 0
-        je near sub_B8FDF_2040.186
+        je near PlayerRatingsScreen_2040.186
 .85:
         xor byte [dword_16D404], 1
-        jmp near sub_B8FDF_2040.186
-;-----------------------------------------------------------------------------
-; sub_B8FDF_13F5                                                  BA3D4  97 PC
-;-----------------------------------------------------------------------------
-sub_B8FDF_13F5:
+        jmp near PlayerRatingsScreen_2040.186
+PlayerRatingsScreen_13F5:
         dec dword [dword_16D400]
         cmp dword [dword_16D400], byte 0FFFFFFFEh
         jne short .86
@@ -6521,17 +6464,14 @@ sub_B8FDF_13F5:
         call SetScrollBarPos
 .100:
         cmp dword [dword_1CAEB4], byte 0
-        jne near sub_B8FDF_2040.186
+        jne near PlayerRatingsScreen_2040.186
         mov edx, dword [dword_1CAB00]
         mov eax, dword [dword_1CAE84]
-        jmp near sub_B8FDF_2040.183
+        jmp near PlayerRatingsScreen_2040.183
 .101:
         mov edx, 9
         jmp short .99
-;-----------------------------------------------------------------------------
-; sub_B8FDF_15C2                                                  BA5A1  97 PC
-;-----------------------------------------------------------------------------
-sub_B8FDF_15C2:
+PlayerRatingsScreen_15C2:
         xor ebx, ebx
         jmp near .107
 .102:
@@ -6692,14 +6632,11 @@ sub_B8FDF_15C2:
         call SetScrollBarPos
 .116:
         cmp dword [dword_1CAEB4], byte 0
-        jne near sub_B8FDF_2040.186
+        jne near PlayerRatingsScreen_2040.186
         mov eax, dword [dword_1CAB00]
         mov edx, dword [dword_1CAE84]
-        jmp near sub_B8FDF_1964.144
-;-----------------------------------------------------------------------------
-; sub_B8FDF_180D                                                  BA7EC  97 PC
-;-----------------------------------------------------------------------------
-sub_B8FDF_180D:
+        jmp near PlayerRatingsScreen_1964.144
+PlayerRatingsScreen_180D:
         mov eax, dword [byte ebp+01Ah]
         inc dword [dword_16D400]
         movsx eax, word [eax]
@@ -6800,11 +6737,8 @@ sub_B8FDF_180D:
         mov dword [dword eax+020Eh], ebx
         mov eax, dword [dword_1CAEAC]
         mov edx, ebx
-        jmp near sub_B8FDF_13F5.98
-;-----------------------------------------------------------------------------
-; sub_B8FDF_1964                                                  BA943  97 PC
-;-----------------------------------------------------------------------------
-sub_B8FDF_1964:
+        jmp near PlayerRatingsScreen_13F5.98
+PlayerRatingsScreen_1964:
         dec dword [dword_16D454]
         cmp dword [dword_16D454], byte 0FFFFFFFEh
         jne short .129
@@ -6931,19 +6865,16 @@ sub_B8FDF_1964:
         call SetScrollBarPos
 .143:
         cmp dword [dword_1CAEB4], byte 0
-        jne near sub_B8FDF_2040.186
+        jne near PlayerRatingsScreen_2040.186
         mov eax, dword [dword_1CAC00]
         mov edx, dword [dword_1CAE80]
 .144:
         shl eax, 2
-        jmp near sub_B8FDF_2040.184
+        jmp near PlayerRatingsScreen_2040.184
 .145:
         mov edx, 9
         jmp short .142
-;-----------------------------------------------------------------------------
-; sub_B8FDF_1B34                                                  BAB13  97 PC
-;-----------------------------------------------------------------------------
-sub_B8FDF_1B34:
+PlayerRatingsScreen_1B34:
         xor ebx, ebx
         jmp near .151
 .146:
@@ -7030,7 +6961,7 @@ sub_B8FDF_1B34:
         call sub_8DF1F
         mov dword [byte ebp+01Eh], eax
         cmp eax, byte 0FFFFFFFFh
-        je near sub_B8FDF_1964.141
+        je near PlayerRatingsScreen_1964.141
         lea edx, [byte eax-01h]
         mov ebx, eax
         mov dword [dword_16D454], edx
@@ -7079,11 +7010,8 @@ sub_B8FDF_1B34:
         mov eax, unk_1CABDC
         xor edx, edx
         call SetScrollBarPos
-        jmp near sub_B8FDF_1964.141
-;-----------------------------------------------------------------------------
-; sub_B8FDF_1D11                                                  BACF0  97 PC
-;-----------------------------------------------------------------------------
-sub_B8FDF_1D11:
+        jmp near PlayerRatingsScreen_1964.141
+PlayerRatingsScreen_1D11:
         mov eax, dword [byte ebp+01Ah]
         inc dword [dword_16D454]
         movsx eax, word [eax]
@@ -7186,43 +7114,31 @@ sub_B8FDF_1D11:
         mov dword [dword eax+0300h], edx
         add esp, byte 8
         cmp dword [dword_1CAEB4], byte 0
-        je near sub_B8FDF_2040.182
+        je near PlayerRatingsScreen_2040.182
         mov edx, dword [dword_1CAC00]
         mov eax, dword [dword_1CAE80]
         shl edx, 2
-        jmp near sub_B8FDF_2040.180
+        jmp near PlayerRatingsScreen_2040.180
 .169:
         mov edx, 9
-        jmp near sub_B8FDF_2040.181
-;-----------------------------------------------------------------------------
-; sub_B8FDF_1E94                                                  BAE73  97 PC
-;-----------------------------------------------------------------------------
-sub_B8FDF_1E94:
+        jmp near PlayerRatingsScreen_2040.181
+PlayerRatingsScreen_1E94:
         xor edx, eax
         mov eax, unk_1CA9DC
         call sub_8DE10
-        jmp near sub_B8FDF_2040.186
-;-----------------------------------------------------------------------------
-; sub_B8FDF_1EA5                                                  BAE84  97 PC
-;-----------------------------------------------------------------------------
-sub_B8FDF_1EA5:
+        jmp near PlayerRatingsScreen_2040.186
+PlayerRatingsScreen_1EA5:
         mov ebx, eax
         xor edx, eax
         mov eax, unk_1CA9DC
         call sub_8DEAC
-        jmp near sub_B8FDF_2040.186
-;-----------------------------------------------------------------------------
-; sub_B8FDF_1EB8                                                  BAE97  97 PC
-;-----------------------------------------------------------------------------
-sub_B8FDF_1EB8:
+        jmp near PlayerRatingsScreen_2040.186
+PlayerRatingsScreen_1EB8:
         xor edx, eax
         mov eax, unk_1CA9DC
         call sub_8DE68
-        jmp near sub_B8FDF_2040.186
-;-----------------------------------------------------------------------------
-; sub_B8FDF_1EC9                                                  BAEA8  97 PC
-;-----------------------------------------------------------------------------
-sub_B8FDF_1EC9:
+        jmp near PlayerRatingsScreen_2040.186
+PlayerRatingsScreen_1EC9:
         xor edx, eax
         mov eax, unk_1CAADC
         call sub_8DE10
@@ -7270,14 +7186,11 @@ sub_B8FDF_1EC9:
         call SetScrollBarPos
 .174:
         mov dword [dword_1CAE70], 0FFFFFFFFh
-        jmp near sub_B8FDF_2040.186
+        jmp near PlayerRatingsScreen_2040.186
 .175:
         mov edx, 9
         jmp short .171
-;-----------------------------------------------------------------------------
-; sub_B8FDF_1F8C                                                  BAF6B  97 PC
-;-----------------------------------------------------------------------------
-sub_B8FDF_1F8C:
+PlayerRatingsScreen_1F8C:
         mov ebx, eax
         xor edx, eax
         mov eax, unk_1CAADC
@@ -7308,28 +7221,22 @@ sub_B8FDF_1F8C:
         call SetScrollBarPos
 .178:
         cmp dword [dword_1CAEB4], byte 0
-        jne near sub_B8FDF_1EC9.174
+        jne near PlayerRatingsScreen_1EC9.174
         mov eax, dword [dword_1CAB00]
         mov edx, dword [dword_1CAE84]
         shl eax, 2
-        jmp near sub_B8FDF_1EC9.173
-;-----------------------------------------------------------------------------
-; sub_B8FDF_2014                                                  BAFF3  97 PC
-;-----------------------------------------------------------------------------
-sub_B8FDF_2014:
+        jmp near PlayerRatingsScreen_1EC9.173
+PlayerRatingsScreen_2014:
         xor edx, eax
         mov eax, unk_1CAADC
         call sub_8DE68
         cmp dword [dword_1CAEB4], byte 0
-        je near sub_B8FDF_1EC9.172
+        je near PlayerRatingsScreen_1EC9.172
         mov eax, dword [dword_1CAB00]
         mov edx, dword [dword_1CAE84]
         shl eax, 2
-        jmp near sub_B8FDF_1EC9.170
-;-----------------------------------------------------------------------------
-; sub_B8FDF_2040                                                  BB01F  97 PC
-;-----------------------------------------------------------------------------
-sub_B8FDF_2040:
+        jmp near PlayerRatingsScreen_1EC9.170
+PlayerRatingsScreen_2040:
         xor edx, eax
         mov eax, unk_1CABDC
         call sub_8DE10
@@ -7347,7 +7254,7 @@ sub_B8FDF_2040:
         je short .182
         mov dword [dword_1CAEB4], 0
         cmp dword [dword_16D458], byte 0
-        je near sub_B8FDF_1D11.169
+        je near PlayerRatingsScreen_1D11.169
         mov edx, 0Eh
 .181:
         mov eax, unk_1CA9DC
@@ -7380,7 +7287,7 @@ sub_B8FDF_2040:
         call SetScrollBarPos
 .186:
         cmp dword [byte ebp+052h], byte 0FFFFFFFFh
-        jne near sub_B8FDF_21FD.189
+        jne near PlayerRatingsScreen_21FD.189
         mov eax, dword [dword_1CAB00]
         mov edx, dword [dword_1CAE84]
         imul ecx, dword [edx+eax*4], dword 0BCh
@@ -7441,23 +7348,17 @@ sub_B8FDF_2040:
         mov edx, dword [byte ebp+06Ah]
         push dword [byte ebp+04Ah]
         jmp near PlayerRatingsScreen.49
-;-----------------------------------------------------------------------------
-; sub_B8FDF_21EA                                                  BB1C9  97 PC
-;-----------------------------------------------------------------------------
-sub_B8FDF_21EA:
+PlayerRatingsScreen_21EA:
         mov ebx, eax
         xor edx, eax
         mov eax, unk_1CABDC
         call sub_8DEAC
-        jmp near sub_B8FDF_1964.141
-;-----------------------------------------------------------------------------
-; sub_B8FDF_21FD                                                  BB1DC  97 PC
-;-----------------------------------------------------------------------------
-sub_B8FDF_21FD:
+        jmp near PlayerRatingsScreen_1964.141
+PlayerRatingsScreen_21FD:
         xor edx, eax
         mov eax, unk_1CABDC
         call sub_8DE68
-        jmp near sub_B8FDF_2040.179
+        jmp near PlayerRatingsScreen_2040.179
 .189:
         push dword [dword_1CAE6C]
         call sub_FAF34

@@ -23,11 +23,11 @@ extern InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, DrawScrollBar, sub_8DE68,
 extern sub_8DF1F, GetLangText, OptionsScreen, sub_CA44C, sub_D0098, sub_E341C, sub_E4218, sub_E4230
 extern sub_E77B1, ControlSetupScreen, sub_FAA64, sub_FAF34, sub_FC510, sub_FCD90, sub_FCEEC, sub_FCFCC
 extern sub_FD08C, sub_FD0F8, sub_FD110, sub_FDD1C, tickcount, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C
-global jpt_C36A2, sub_C0F5D_60E, sub_C1577_73D, sub_C1577_73E, sub_C2633_42, sub_C36CA_A25, sub_C36CA_A36, sub_C36CA_A93
-global sub_C36CA_B18, sub_C36CA_B7E, sub_C36CA_C26, sub_C36CA_C86, sub_C36CA_CE6, sub_C36CA_D46, sub_C0F5D, sub_C1577
+global jpt_C36A2, sub_C0F5D_60E, sub_C1577_73D, sub_C1577_73E, sub_C2633_42, DetailLevelScreen_A25, DetailLevelScreen_A36, DetailLevelScreen_A93
+global DetailLevelScreen_B18, DetailLevelScreen_B7E, DetailLevelScreen_C26, DetailLevelScreen_C86, DetailLevelScreen_CE6, DetailLevelScreen_D46, sub_C0F5D, sub_C1577
 global sub_C1CBB, sub_C1D5B, sub_C23E6, sub_C248B, sub_C250A, sub_C2633, sub_C267B, sub_C271D
 global sub_C27D8, sub_C2A49, sub_C2BB2, sub_C2D94, sub_C2F86, sub_C3088, sub_C3142, sub_C31FE
-global sub_C32B0, RunOptionsScreens, sub_C36CA
+global sub_C32B0, RunOptionsScreens, DetailLevelScreen
 ;-----------------------------------------------------------------------------
 ; sub_C0F5D                                                       C0F5D  97 PC
 ;-----------------------------------------------------------------------------
@@ -3137,20 +3137,22 @@ RunOptionsScreens:
         pop ebx
         ret
 jpt_C36A2:
-        dd sub_C36CA_A25
-        dd sub_C36CA_A36
-        dd sub_C36CA_A93
-        dd sub_C36CA_B7E
-        dd sub_C36CA_C26
-        dd sub_C36CA_C86
-        dd sub_C36CA_CE6
-        dd sub_C36CA_D46
-        dd sub_C36CA_B18
-        dd sub_C36CA_B18
+        dd DetailLevelScreen_A25
+        dd DetailLevelScreen_A36
+        dd DetailLevelScreen_A93
+        dd DetailLevelScreen_B7E
+        dd DetailLevelScreen_C26
+        dd DetailLevelScreen_C86
+        dd DetailLevelScreen_CE6
+        dd DetailLevelScreen_D46
+        dd DetailLevelScreen_B18
+        dd DetailLevelScreen_B18
 ;-----------------------------------------------------------------------------
-; sub_C36CA                                                       C36CA  97 PC
+; DetailLevelScreen                               C36CA  97 PC, low confidence
+; The front end detail level panel (On / Off for crowd, ice logos, ice
+; texture, boards, glass, names, benches), from OptionsScreen
 ;-----------------------------------------------------------------------------
-sub_C36CA:
+DetailLevelScreen:
         push ebx
         push ecx
         push esi
@@ -3912,12 +3914,12 @@ sub_C36CA:
         push dword [byte ebx+02Ch]
         call sub_11A318
         add esp, byte 0Ch
-        jmp near sub_C36CA_A93.31
-sub_C36CA_A25:
+        jmp near DetailLevelScreen_A93.31
+DetailLevelScreen_A25:
         call sub_7EDF0
         mov dword [byte ebp-08h], 1
-        jmp near sub_C36CA_B18
-sub_C36CA_A36:
+        jmp near DetailLevelScreen_B18
+DetailLevelScreen_A36:
         test byte [byte_1AC81B], 20h
         je short .26
         mov eax, dword [byte ebp-038h]
@@ -3942,15 +3944,15 @@ sub_C36CA_A36:
         or byte [byte_1AC81B], 20h
 .27:
         mov dword [dword ebp-0540h], eax
-        jmp short sub_C36CA_A93.30
-sub_C36CA_A93:
+        jmp short DetailLevelScreen_A93.30
+DetailLevelScreen_A93:
         cmp byte [byte_1C6040], 0
         je short .28
         and byte [byte_1AC81B], 0BFh
-        jmp short sub_C36CA_B18
+        jmp short DetailLevelScreen_B18
 .28:
         test byte [byte_1AC81B], 40h
-        je near sub_C36CA_B18.32
+        je near DetailLevelScreen_B18.32
         mov eax, dword [byte ebp-038h]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-04F6h], eax
@@ -3978,9 +3980,9 @@ sub_C36CA_A93:
         add esp, byte 4
 .31:
         call sub_1013FC
-sub_C36CA_B18:
+DetailLevelScreen_B18:
         cmp word [byte ebp-08h], byte 0
-        jne near sub_C36CA_D46.43
+        jne near DetailLevelScreen_D46.43
         push byte 2
         lea eax, [byte ebp-030h]
         mov ebx, 0FFFFFFFFh
@@ -3990,7 +3992,7 @@ sub_C36CA_B18:
         mov eax, 0Ah
         call sub_8BFAC
         cmp dword [byte ebp-030h], byte 9
-        ja short sub_C36CA_B18
+        ja short DetailLevelScreen_B18
         mov eax, dword [byte ebp-030h]
         jmp dword [nosplit cs:eax*4+jpt_C36A2]
 .32:
@@ -4004,14 +4006,14 @@ sub_C36CA_B18:
         mov eax, dword [byte eax+02Ch]
         or byte [byte_1AC81B], 40h
         mov dword [dword ebp-04EEh], eax
-        jmp short sub_C36CA_A93.30
-sub_C36CA_B7E:
+        jmp short DetailLevelScreen_A93.30
+DetailLevelScreen_B7E:
         mov edx, dword [dword_1AC819]
         and edx, 0FEFFFFFFh
         cmp byte [byte_1C6040], 0
         je short .33
         mov dword [dword_1AC819], edx
-        jmp near sub_C36CA_B18
+        jmp near DetailLevelScreen_B18
 .33:
         test byte [byte_1AC81C], 1
         je short .34
@@ -4025,7 +4027,7 @@ sub_C36CA_B7E:
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-049Ch], eax
         mov dword [dword_1AC819], edx
-        jmp near sub_C36CA_A93.30
+        jmp near DetailLevelScreen_A93.30
 .34:
         mov eax, dword [byte ebp-040h]
         mov eax, dword [byte eax+02Ch]
@@ -4045,8 +4047,8 @@ sub_C36CA_B7E:
         mov eax, dword [byte ebp-040h]
         mov eax, dword [byte eax+02Ch]
         or word [byte_1AC81B], 140h
-        jmp near sub_C36CA_A93.29
-sub_C36CA_C26:
+        jmp near DetailLevelScreen_A93.29
+DetailLevelScreen_C26:
         test byte [byte_1AC81C], 2
         je short .35
         mov eax, dword [byte ebp-038h]
@@ -4071,8 +4073,8 @@ sub_C36CA_C26:
         or byte [byte_1AC81C], 2
 .36:
         mov dword [dword ebp-044Ah], eax
-        jmp near sub_C36CA_A93.30
-sub_C36CA_C86:
+        jmp near DetailLevelScreen_A93.30
+DetailLevelScreen_C86:
         test byte [byte_1AC81C], 4
         je short .37
         mov eax, dword [byte ebp-038h]
@@ -4097,8 +4099,8 @@ sub_C36CA_C86:
         or byte [byte_1AC81C], 4
 .38:
         mov dword [dword ebp-03F8h], eax
-        jmp near sub_C36CA_A93.30
-sub_C36CA_CE6:
+        jmp near DetailLevelScreen_A93.30
+DetailLevelScreen_CE6:
         test byte [byte_1AC81C], 8
         je short .39
         mov eax, dword [byte ebp-038h]
@@ -4123,8 +4125,8 @@ sub_C36CA_CE6:
         or byte [byte_1AC81C], 8
 .40:
         mov dword [dword ebp-03A6h], eax
-        jmp near sub_C36CA_A93.30
-sub_C36CA_D46:
+        jmp near DetailLevelScreen_A93.30
+DetailLevelScreen_D46:
         test byte [byte_1AC81C], 20h
         je short .41
         mov eax, dword [byte ebp-038h]
@@ -4149,7 +4151,7 @@ sub_C36CA_D46:
         or byte [byte_1AC81C], 20h
 .42:
         mov dword [dword ebp-0354h], eax
-        jmp near sub_C36CA_A93.30
+        jmp near DetailLevelScreen_A93.30
 .43:
         push dword [byte ebp-014h]
         mov esi, 1

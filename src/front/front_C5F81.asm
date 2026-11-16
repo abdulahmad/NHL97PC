@@ -16,10 +16,10 @@ extern dword_1CBE14, dword_1CBE18, dword_1CBE1E, dword_1CBE2A, dword_1CBE2E, dwo
 extern dword_1CBE7C, dword_1CBE80, dword_1CBEB8, dword_1CBEBC, dword_1CBEC2, dword_1CBECE, dword_1CBED2, dword_1CBF0A
 extern dword_1CBF0E, dword_1CBF14, dword_1CBF20, dword_1CBF24, dword_1CBF5C, dword_1CBF60, dword_1CBF66, dword_1CBF72
 extern dword_1CBF76, dword_1CBFAE, dword_1CBFB2, dword_1CC000, dword_1CC004, dword_1CC052, dword_1CC056, dword_1CC0A4
-extern dword_1CC0A8, dword_1CC0F6, dword_1CC0FA, dword_1CC148, dword_1CC14C, sub_C755B_11C, sub_C755B_157, sub_C755B_172
-extern sub_C755B_246, sub_C755B_2EC, sub_C755B_3B9, sub_C755B_42C, sub_C755B_49B, sub_C755B_4ED, sub_C755B_53E, sub_C755B_596
-extern sub_C755B_5AB, sub_C755B_5AF, sub_C755B_5CF, sub_C755B_5D3, sub_C755B_604, sub_C755B_615, sub_C755B_624, sub_C755B_65B
-extern sub_C755B_66C, rand_, sprintf_, sub_101340, sub_101390, sub_1013AC, sub_1013FC, sub_101429
+extern dword_1CC0A8, dword_1CC0F6, dword_1CC0FA, dword_1CC148, dword_1CC14C, RosterScreen_11C, RosterScreen_157, RosterScreen_172
+extern RosterScreen_246, RosterScreen_2EC, RosterScreen_3B9, RosterScreen_42C, RosterScreen_49B, RosterScreen_4ED, RosterScreen_53E, RosterScreen_596
+extern RosterScreen_5AB, RosterScreen_5AF, RosterScreen_5CF, RosterScreen_5D3, RosterScreen_604, RosterScreen_615, RosterScreen_624, RosterScreen_65B
+extern RosterScreen_66C, rand_, sprintf_, sub_101340, sub_101390, sub_1013AC, sub_1013FC, sub_101429
 extern sub_102B94, sub_11A318, sub_13C164, sub_415A0, sub_415F8, sub_419B0, sub_419B8, StopAllSfx
 extern PlaySfx, LoadDataFile, sub_7DFC0, SetRegionRect, InitMenuItems, sub_8BFAC, sub_E341C, sub_FAF34
 extern sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8, tickcount, unk_1ACB44, unk_1ACD2B, unk_1CBC18
@@ -1450,23 +1450,23 @@ sub_C6064_139E:
         pop ebp
         jmp near sub_C5F81_B1
 jpt_C750B:
-        dd sub_C755B_11C
-        dd sub_C755B_157
-        dd sub_C755B_172
-        dd sub_C755B_246
-        dd sub_C755B_2EC
-        dd sub_C755B_3B9
-        dd sub_C755B_42C
-        dd sub_C755B_49B
-        dd sub_C755B_4ED
-        dd sub_C755B_53E
-        dd sub_C755B_596
-        dd sub_C755B_5AB
-        dd sub_C755B_5AF
-        dd sub_C755B_5CF
-        dd sub_C755B_5D3
-        dd sub_C755B_604
-        dd sub_C755B_615
-        dd sub_C755B_624
-        dd sub_C755B_65B
-        dd sub_C755B_66C
+        dd RosterScreen_11C
+        dd RosterScreen_157
+        dd RosterScreen_172
+        dd RosterScreen_246
+        dd RosterScreen_2EC
+        dd RosterScreen_3B9
+        dd RosterScreen_42C
+        dd RosterScreen_49B
+        dd RosterScreen_4ED
+        dd RosterScreen_53E
+        dd RosterScreen_596
+        dd RosterScreen_5AB
+        dd RosterScreen_5AF
+        dd RosterScreen_5CF
+        dd RosterScreen_5D3
+        dd RosterScreen_604
+        dd RosterScreen_615
+        dd RosterScreen_624
+        dd RosterScreen_65B
+        dd RosterScreen_66C

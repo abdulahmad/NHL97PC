@@ -1,0 +1,26 @@
+sub_F418F PauseMenu {source=96PC,confidence=low} the in-game pause menu loop, from RunInGameMenu (96 PC PauseMenu); runs the rules, detail level, edit-team and quit choices
+sub_F2ADB DrawPauseButtons {source=96PC,confidence=low} draws the pause menu buttons (game text Save Game, Controller Setup, Replay, Rules, Detail Level, Quit Game)
+sub_F30F1 PickEditLinesTeam {confidence=low} the in-game "Edit which team?" box (Home / Away / Cancel)
+sub_F36AC ConfirmQuitGame {confidence=medium} the in-game "Are you sure you want to quit the game?" box (Yes / No)
+sub_F570D RulesMenu {confidence=medium} the in-game rules menu (offside, icing, 2 line pass, line changes, injuries, fighting, penalties, speed game)
+sub_F7BD6 DetailLevelMenu {confidence=medium} the in-game detail level menu (draw crowd, ice logos, ice texture, board advertising, glass, player benches, player names)
+sub_C36CA DetailLevelScreen {confidence=low} the front end detail level panel (On / Off for crowd, ice logos, ice texture, boards, glass, names, benches), from OptionsScreen
+sub_A74F4 DrawThreeStarStats {confidence=low} post-game: one star's stat lines (goals, assists, shots, +/-, hits, penalty minutes; goalie saves and save percentage; three star points)
+sub_A8C5C DrawTeamGameStats {confidence=low} game stats: the team comparison rows (score, shots, power play, breakaways, one timers, faceoffs, body checks, passing...)
+sub_A9240 DrawScoringSummary {confidence=low} game stats: the scoring and penalty summary by period ("No scoring.", "Penalties - none")
+sub_AAA58 GoalTypeSuffix {confidence=low} the scoring summary goal suffix: " (en/pp)", " (pp)", " (en/sh)", " (sh)", " (en)"
+sub_9A89E DrawPlayerLines {confidence=low} edit lines: "%s %s is currently on these lines:" for the highlighted player
+sub_E657C ChooseNetworkGameScreen {confidence=low} network play: the "Choose a game:" list of open games
+sub_86CB1 PhonebookEntryScreen {confidence=low} modem settings: names a phone book entry ("Please enter a name for this phone book entry"), from ModemSettingsScreen
+sub_88EDC DrawNoNetworkServices {confidence=low} network games screen: draws "No Network Services Are Available"
+sub_CB041 CheckRosterInjuries {confidence=low} roster: the "Roster Violation: %c. %s is injured." check
+sub_CB324 CheckRosterLimits {confidence=low} roster: the minimum / maximum roster and goalie count checks ("Roster Violation: %s must have...")
+sub_CB6D5 CheckRegularRosterLimits {confidence=low} roster: the non-injured minimum and regular / additional roster maximum checks
+sub_EE0F7 GetKeyName {confidence=medium} (scan code, buf): copies the key's name ("Escape", "Backspace", "Left Shift"..., "<NONE>") for the control setup screen
+sub_EE69C ShowReservedKey {confidence=low} control setup: "The %s key is reserved for a system function. Please choose another."
+sub_D4225 DrawMatchupNotes {confidence=low} pre-game: the playoff race notes, season series and "last time they met" lines
+sub_B0C05 SetSkaterStatColumns {confidence=low} stats lists: the skater column titles (Team, #, Height, Weight, GP, G, A, P, +/-, PIM, PPG, SHG, Shots...)
+sub_B1248 SetGoalieStatColumns {confidence=low} stats lists: the goalie column titles (GP, Minutes, G.A.A., Shots, S%, GA, SO, ENG...)
+sub_B1922 SetTeamStatColumns {confidence=low} stats lists: the team column titles (GP, W, L, T, points, GF, GA, PPG, PP%, PK%, streaks...)
+sub_B78F4 ExportPlayerCard {source=96PC,confidence=low} writes the player's card (height, weight, born, birthplace, draft) to a text file, like 96 PC ExportPlayerCard
+sub_B7270 DrawPlayerBio {confidence=low} the player's height, weight, birth and draft lines

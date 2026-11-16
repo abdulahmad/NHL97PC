@@ -9,17 +9,17 @@ extern asc_165C8A, asc_165C8F, asc_165C94, asc_165C99, asc_165C9E, asc_165CA3, a
 extern asc_165CF6, asc_165CFB, dword_16CFF8, dword_16D23C, dword_16D250, dword_16D76C, dword_16DA9C, dword_1AC944
 extern dword_1ACB45, dword_1C1334, dword_1C86FC, dword_1C8E4C, dword_1C8E50, dword_1C8E54, dword_1C8E58, dword_1C8E5C
 extern dword_1C8E60, dword_1C8E64, dword_1C8E88, dword_1C8E8C, dword_1C8E90, dword_1C8E94, dword_1C8E98, dword_1C8E9C
-extern dword_1C8F4C, dword_1C93D4, dword_1C93D8, sub_9F6F5_393, sub_9F6F5_3A4, sub_9F6F5_3B5, sub_9F6F5_470, sub_9F6F5_4D9
-extern sub_9F6F5_4EE, rand_, sprintf_, sub_101340, sub_101390, sub_1013FC, sub_101429, sub_11B094
+extern dword_1C8F4C, dword_1C93D4, dword_1C93D8, PickIndexEntryScreen_393, PickIndexEntryScreen_3A4, PickIndexEntryScreen_3B5, PickIndexEntryScreen_470, PickIndexEntryScreen_4D9
+extern PickIndexEntryScreen_4EE, rand_, sprintf_, sub_101340, sub_101390, sub_1013FC, sub_101429, sub_11B094
 extern sub_13C164, sub_419B0, sub_419B8, sub_41F2C, StopAllSfx, PlaySfx, LoadDataFile, sub_7E860
 extern sub_7EDF0, sub_7EEB0, sub_7EF70, SetRegionRect, sub_80AB8, sub_80B28, sub_80BBC, sub_835BC
 extern sub_83850, sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, GetLangText, sub_9281C, sub_C6064
 extern LoadExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, sub_E1744, sub_E3410, sub_E341C, LinkSendBlock, LinkReceiveBlock
 extern sub_FAA64, sub_FAF34, sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8, tickcount, unk_16CFFC
 extern unk_1ACB44, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, word_1ACB47, word_1C8EA0, word_1C8EA2
-global jpt_9E8E8, jpt_9F6DD, sub_9E35E_1C9, sub_9E35E_1EC, sub_9E91C_7BE, sub_9E91C_7CF, sub_9E91C_7E0, sub_9E91C_7FC
-global sub_9E91C_815, sub_9E91C_8C4, sub_9E91C_918, sub_9E91C_94F, sub_9E91C_A05, sub_9E91C_A43, sub_9E91C_ACB, sub_9E91C_B55
-global sub_9E91C_B61, DrawHomeTeamPanel, DrawAwayTeamPanel, sub_9E723, TeamSelectScreen, sub_9F671, unk_9F5F1, unk_9F611
+global jpt_9E8E8, jpt_9F6DD, DrawHomeTeamPanel_1C9, DrawHomeTeamPanel_1EC, TeamSelectScreen_7BE, TeamSelectScreen_7CF, TeamSelectScreen_7E0, TeamSelectScreen_7FC
+global TeamSelectScreen_815, TeamSelectScreen_8C4, TeamSelectScreen_918, TeamSelectScreen_94F, TeamSelectScreen_A05, TeamSelectScreen_A43, TeamSelectScreen_ACB, TeamSelectScreen_B55
+global TeamSelectScreen_B61, DrawHomeTeamPanel, DrawAwayTeamPanel, sub_9E723, TeamSelectScreen, sub_9F671, unk_9F5F1, unk_9F611
 global unk_9F631, unk_9F651
 ;-----------------------------------------------------------------------------
 ; DrawHomeTeamPanel                               9E35E  96 PC, low confidence
@@ -157,7 +157,7 @@ DrawHomeTeamPanel:
 .6:
         push dword [dword_16D23C]
         push byte 50h
-sub_9E35E_1C9:
+DrawHomeTeamPanel_1C9:
         push dword [byte edi+02Ch]
         call sub_FCFCC
         add esp, byte 0Ch
@@ -169,7 +169,7 @@ sub_9E35E_1C9:
         call sub_FCD90
         add esp, byte 4
         leave
-sub_9E35E_1EC:
+DrawHomeTeamPanel_1EC:
         pop edi
         pop esi
         pop edx
@@ -310,7 +310,7 @@ DrawAwayTeamPanel:
 .6:
         push dword [dword_16D23C]
         push dword 1A2h
-        jmp near sub_9E35E_1C9
+        jmp near DrawHomeTeamPanel_1C9
 ;-----------------------------------------------------------------------------
 ; sub_9E723                                                       9E723  97 PC
 ;-----------------------------------------------------------------------------
@@ -441,19 +441,19 @@ sub_9E723:
         pop ebx
         ret
 jpt_9E8E8:
-        dd sub_9E91C_7BE
-        dd sub_9E91C_7CF
-        dd sub_9E91C_7E0
-        dd sub_9E91C_7FC
-        dd sub_9E91C_815
-        dd sub_9E91C_8C4
-        dd sub_9E91C_918
-        dd sub_9E91C_94F
-        dd sub_9E91C_A05
-        dd sub_9E91C_A43
-        dd sub_9E91C_ACB
-        dd sub_9E91C_B55
-        dd sub_9E91C_B61
+        dd TeamSelectScreen_7BE
+        dd TeamSelectScreen_7CF
+        dd TeamSelectScreen_7E0
+        dd TeamSelectScreen_7FC
+        dd TeamSelectScreen_815
+        dd TeamSelectScreen_8C4
+        dd TeamSelectScreen_918
+        dd TeamSelectScreen_94F
+        dd TeamSelectScreen_A05
+        dd TeamSelectScreen_A43
+        dd TeamSelectScreen_ACB
+        dd TeamSelectScreen_B55
+        dd TeamSelectScreen_B61
 ;-----------------------------------------------------------------------------
 ; TeamSelectScreen                             9E91C  96 PC, medium confidence
 ; The exhibition team select screen (arrows ahl / ahr / aal / aar, logos,
@@ -937,44 +937,29 @@ TeamSelectScreen:
         push esi
         call sub_FCD90
         add esp, byte 4
-        jmp near sub_9E91C_94F.23
-;-----------------------------------------------------------------------------
-; sub_9E91C_7BE                                                   9F0DA  97 PC
-;-----------------------------------------------------------------------------
-sub_9E91C_7BE:
+        jmp near TeamSelectScreen_94F.23
+TeamSelectScreen_7BE:
         call sub_7EEB0
         mov dword [byte ebp+072h], 1
-        jmp near sub_9E91C_94F.23
-;-----------------------------------------------------------------------------
-; sub_9E91C_7CF                                                   9F0EB  97 PC
-;-----------------------------------------------------------------------------
-sub_9E91C_7CF:
+        jmp near TeamSelectScreen_94F.23
+TeamSelectScreen_7CF:
         call sub_7EDF0
         mov dword [byte ebp+072h], 0Eh
-        jmp near sub_9E91C_94F.23
-;-----------------------------------------------------------------------------
-; sub_9E91C_7E0                                                   9F0FC  97 PC
-;-----------------------------------------------------------------------------
-sub_9E91C_7E0:
+        jmp near TeamSelectScreen_94F.23
+TeamSelectScreen_7E0:
         mov eax, dword [byte ebp+07Eh]
         add eax, 0A4h
         call sub_83C08
         mov eax, 1
         call sub_C6064
-        jmp near sub_9E91C_94F.23
-;-----------------------------------------------------------------------------
-; sub_9E91C_7FC                                                   9F118  97 PC
-;-----------------------------------------------------------------------------
-sub_9E91C_7FC:
+        jmp near TeamSelectScreen_94F.23
+TeamSelectScreen_7FC:
         mov eax, dword [byte ebp+07Eh]
         add eax, 0F6h
         mov dword [byte ebp+072h], 19h
         call sub_83C08
-        jmp near sub_9E91C_94F.23
-;-----------------------------------------------------------------------------
-; sub_9E91C_815                                                   9F131  97 PC
-;-----------------------------------------------------------------------------
-sub_9E91C_815:
+        jmp near TeamSelectScreen_94F.23
+TeamSelectScreen_815:
         mov eax, 30Bh
         call PlaySfx
         xor ebx, ebx
@@ -1018,11 +1003,8 @@ sub_9E91C_815:
         mov eax, dword [dword_1C8E60]
         mov dword [byte ebp+076h], ebx
         mov dword [dword_1C8E4C], eax
-        jmp near sub_9E91C_94F.23
-;-----------------------------------------------------------------------------
-; sub_9E91C_8C4                                                   9F1E0  97 PC
-;-----------------------------------------------------------------------------
-sub_9E91C_8C4:
+        jmp near TeamSelectScreen_94F.23
+TeamSelectScreen_8C4:
         dec dword [byte ebp+07Ah]
         cmp dword [byte ebp+07Ah], byte 0
         jge short .15
@@ -1044,11 +1026,8 @@ sub_9E91C_8C4:
         mov eax, dword [dword ebp+eax*4-0C2h]
         mov dword [dword ebx+0304h], eax
         mov dword [dword ebx+0300h], eax
-        jmp near sub_9E91C_94F.23
-;-----------------------------------------------------------------------------
-; sub_9E91C_918                                                   9F234  97 PC
-;-----------------------------------------------------------------------------
-sub_9E91C_918:
+        jmp near TeamSelectScreen_94F.23
+TeamSelectScreen_918:
         inc dword [byte ebp+07Ah]
         cmp dword [dword_16D76C], byte 0
         je short .16
@@ -1058,7 +1037,7 @@ sub_9E91C_918:
         mov eax, 21h
 .17:
         cmp eax, dword [byte ebp+07Ah]
-        jne short sub_9E91C_8C4.15
+        jne short TeamSelectScreen_8C4.15
         cmp dword [dword_16D76C], byte 0
         je short .18
         mov eax, 23h
@@ -1067,11 +1046,8 @@ sub_9E91C_918:
         mov eax, 21h
 .19:
         sub dword [byte ebp+07Ah], eax
-        jmp short sub_9E91C_8C4.15
-;-----------------------------------------------------------------------------
-; sub_9E91C_94F                                                   9F26B  97 PC
-;-----------------------------------------------------------------------------
-sub_9E91C_94F:
+        jmp short TeamSelectScreen_8C4.15
+TeamSelectScreen_94F:
         dec dword [byte ebp+076h]
         cmp dword [byte ebp+076h], byte 0
         jge short .22
@@ -1095,7 +1071,7 @@ sub_9E91C_94F:
         mov dword [dword ebx+0352h], eax
 .23:
         cmp dword [byte ebp+072h], byte 0FFFFFFFFh
-        jne near sub_9E91C_B61.32
+        jne near TeamSelectScreen_B61.32
         mov edx, dword [byte ebp+07Ah]
         mov eax, dword [dword_1AC944]
         and edx, byte 3Fh
@@ -1120,10 +1096,7 @@ sub_9E91C_94F:
         ja short .23
         mov eax, dword [byte ebp+066h]
         jmp dword [nosplit cs:eax*4+jpt_9E8E8]
-;-----------------------------------------------------------------------------
-; sub_9E91C_A05                                                   9F321  97 PC
-;-----------------------------------------------------------------------------
-sub_9E91C_A05:
+TeamSelectScreen_A05:
         inc dword [byte ebp+076h]
         cmp dword [dword_16D76C], byte 0
         je short .24
@@ -1133,7 +1106,7 @@ sub_9E91C_A05:
         mov eax, 21h
 .25:
         cmp eax, dword [byte ebp+076h]
-        jne near sub_9E91C_94F.22
+        jne near TeamSelectScreen_94F.22
         cmp dword [dword_16D76C], byte 0
         je short .26
         mov eax, 23h
@@ -1142,11 +1115,8 @@ sub_9E91C_A05:
         mov eax, 21h
 .27:
         sub dword [byte ebp+076h], eax
-        jmp near sub_9E91C_94F.22
-;-----------------------------------------------------------------------------
-; sub_9E91C_A43                                                   9F35F  97 PC
-;-----------------------------------------------------------------------------
-sub_9E91C_A43:
+        jmp near TeamSelectScreen_94F.22
+TeamSelectScreen_A43:
         mov eax, dword [byte ebp+07Eh]
         mov eax, dword [dword eax+0308h]
         push byte 64h
@@ -1171,7 +1141,7 @@ sub_9E91C_A43:
         call sub_8DF1F
         mov ebx, eax
         cmp eax, byte 0FFFFFFFFh
-        je near sub_9E91C_94F.23
+        je near TeamSelectScreen_94F.23
         mov edx, dword [byte ebp+07Eh]
         mov dword [byte ebp+07Ah], eax
         call DrawHomeTeamPanel
@@ -1180,11 +1150,8 @@ sub_9E91C_A43:
         mov eax, dword [dword ebp+ebx*4-0C2h]
         mov dword [dword edx+0304h], eax
         mov dword [dword edx+0300h], eax
-        jmp near sub_9E91C_94F.23
-;-----------------------------------------------------------------------------
-; sub_9E91C_ACB                                                   9F3E7  97 PC
-;-----------------------------------------------------------------------------
-sub_9E91C_ACB:
+        jmp near TeamSelectScreen_94F.23
+TeamSelectScreen_ACB:
         mov eax, dword [byte ebp+07Eh]
         mov eax, dword [dword eax+035Ah]
         push byte 64h
@@ -1209,7 +1176,7 @@ sub_9E91C_ACB:
         call sub_8DF1F
         mov ebx, eax
         cmp eax, byte 0FFFFFFFFh
-        je near sub_9E91C_94F.23
+        je near TeamSelectScreen_94F.23
         mov edx, dword [byte ebp+07Eh]
         mov dword [byte ebp+076h], eax
         call DrawAwayTeamPanel
@@ -1218,19 +1185,13 @@ sub_9E91C_ACB:
         mov eax, dword [dword ebp+ebx*4-0C2h]
         mov dword [dword edx+0356h], eax
         mov dword [dword edx+0352h], eax
-        jmp near sub_9E91C_94F.23
-;-----------------------------------------------------------------------------
-; sub_9E91C_B55                                                   9F471  97 PC
-;-----------------------------------------------------------------------------
-sub_9E91C_B55:
+        jmp near TeamSelectScreen_94F.23
+TeamSelectScreen_B55:
         mov dword [byte ebp+072h], 15h
-        jmp near sub_9E91C_94F.23
-;-----------------------------------------------------------------------------
-; sub_9E91C_B61                                                   9F47D  97 PC
-;-----------------------------------------------------------------------------
-sub_9E91C_B61:
+        jmp near TeamSelectScreen_94F.23
+TeamSelectScreen_B61:
         call sub_7EF70
-        jmp near sub_9E91C_94F.23
+        jmp near TeamSelectScreen_94F.23
 .32:
         push dword [dword_1C8E5C]
         call sub_FAF34
@@ -1320,7 +1281,7 @@ sub_9E91C_B61:
         mov eax, dword [byte ebp+072h]
         lea esp, [dword ebp+082h]
         pop ebp
-        jmp near sub_9E35E_1EC
+        jmp near DrawHomeTeamPanel_1EC
         db 00h,00h,01h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,01h,00h
 unk_9F5F1:
         db 0Ah,00h,00h,00h,0F6h,0FFh,0FFh,0FFh,0Ah,00h,00h,00h,0Ah,00h,00h,00h
@@ -1373,9 +1334,9 @@ sub_9F671:
         pop ebx
         ret
 jpt_9F6DD:
-        dd sub_9F6F5_393
-        dd sub_9F6F5_3A4
-        dd sub_9F6F5_3B5
-        dd sub_9F6F5_470
-        dd sub_9F6F5_4D9
-        dd sub_9F6F5_4EE
+        dd PickIndexEntryScreen_393
+        dd PickIndexEntryScreen_3A4
+        dd PickIndexEntryScreen_3B5
+        dd PickIndexEntryScreen_470
+        dd PickIndexEntryScreen_4D9
+        dd PickIndexEntryScreen_4EE

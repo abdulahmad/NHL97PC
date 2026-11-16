@@ -9,19 +9,19 @@ extern dword_16924C, dword_169250, dword_1697B8, dword_169818, dword_1AC380, dwo
 extern dword_1AC5D0, dword_1AC5D4, dword_1AC778, dword_1AC77C, dword_1AC780, dword_1AC7A4, dword_1AC7A8, dword_1AC7AC
 extern dword_1AC7B0, dword_1AC7C8, dword_1AC7CC, dword_1AC7D0, dword_1AC814, dword_1AC944, dword_1C13FB, dword_1C13FF
 extern dword_1C1403, dword_1C309A, dword_1C309E, dword_1C30A2, dword_1C351E, dword_1C3522, dword_1C3526, dword_1C51BD
-extern dword_1C51C1, dword_1C51C5, dword_1C5DE4, dword_1C5EF4, sub_45BEC_66, sub_45BEC_135, sub_45BEC_2DE, sub_45BEC_36D
-extern sub_45BEC_3F6, sub_45BEC_3FF, sub_45BEC_408, sub_45BEC_411, sub_45BEC_41A, sub_45BEC_423, sub_45BEC_48A, sub_45BEC_4E4
-extern sub_45BEC_4ED, sub_45BEC_4F6, sub_45BEC_4FF, sub_45BEC_508, sub_45BEC_511, sub_45BEC_51A, sub_45BEC_523, sub_45BEC_52C
-extern sub_45BEC_535, sub_45BEC_58C, sub_45BEC_5E2, sub_45BEC_5EB, sub_45BEC_5F4, sub_45BEC_5FD, sub_45BEC_654, sub_45BEC_6D5
-extern sub_45BEC_6E7, sub_45BEC_6F0, sub_45BEC_6F9, sub_45BEC_702, sub_45BEC_726, sub_45BEC_7BF, sub_45BEC_831, sub_45BEC_83B
-extern sub_45BEC_847, sub_45BEC_853, sub_45BEC_85F, sub_45BEC_868, sub_45BEC_871, sub_45BEC_87A, sub_45BEC_883, sub_45BEC_88C
-extern sub_45BEC_895, sub_45BEC_89E, sub_45BEC_8A7, sub_45BEC_8B0, sub_45BEC_8B9, sub_45BEC_8D6, sub_45BEC_96F, sub_45BEC_A08
-extern sub_45BEC_A84, sub_45BEC_B1D, sub_45BEC_BB6, sub_45BEC_C68, sub_45BEC_D2A, sub_45BEC_D86, sub_45BEC_E79, sub_45BEC_F12
-extern sub_45BEC_F80, sub_45BEC_F89, sub_45BEC_F92, sub_45BEC_F9B, sub_45BEC_FB0, sub_45BEC_FB9, sub_45BEC_FDD, sub_45BEC_1084
-extern sub_45BEC_111C, sub_45BEC_11C5, sub_45BEC_1293, sub_45BEC_1500, sub_45BEC_16BA, sub_45BEC_1771, sub_45BEC_17AA, sub_45BEC_17E6
-extern sub_45BEC_1871, sub_45BEC_189C, sub_45BEC_18A1, sub_45BEC_18AA, sub_45BEC_18B3, sub_45BEC_18BC, sub_45BEC_1931, sub_45BEC_19C8
-extern sub_45BEC_1A44, sub_45BEC_1B16, sub_45BEC_1B57, sub_45BEC_1B97, sub_45BEC_1BF5, sub_45BEC_1C3D, sub_45BEC_1CB2, sub_45BEC_1DD1
-extern sub_45BEC_1E49, sub_45BEC_1ECB, sub_45BEC_1F28, sub_45BEC_1F56, sub_45BEC_1FE8, off_169780, off_1697BC, off_169814
+extern dword_1C51C1, dword_1C51C5, dword_1C5DE4, dword_1C5EF4, CommentaryEvent_66, CommentaryEvent_135, CommentaryEvent_2DE, CommentaryEvent_36D
+extern CommentaryEvent_3F6, CommentaryEvent_3FF, CommentaryEvent_408, CommentaryEvent_411, CommentaryEvent_41A, CommentaryEvent_423, CommentaryEvent_48A, CommentaryEvent_4E4
+extern CommentaryEvent_4ED, CommentaryEvent_4F6, CommentaryEvent_4FF, CommentaryEvent_508, CommentaryEvent_511, CommentaryEvent_51A, CommentaryEvent_523, CommentaryEvent_52C
+extern CommentaryEvent_535, CommentaryEvent_58C, CommentaryEvent_5E2, CommentaryEvent_5EB, CommentaryEvent_5F4, CommentaryEvent_5FD, CommentaryEvent_654, CommentaryEvent_6D5
+extern CommentaryEvent_6E7, CommentaryEvent_6F0, CommentaryEvent_6F9, CommentaryEvent_702, CommentaryEvent_726, CommentaryEvent_7BF, CommentaryEvent_831, CommentaryEvent_83B
+extern CommentaryEvent_847, CommentaryEvent_853, CommentaryEvent_85F, CommentaryEvent_868, CommentaryEvent_871, CommentaryEvent_87A, CommentaryEvent_883, CommentaryEvent_88C
+extern CommentaryEvent_895, CommentaryEvent_89E, CommentaryEvent_8A7, CommentaryEvent_8B0, CommentaryEvent_8B9, CommentaryEvent_8D6, CommentaryEvent_96F, CommentaryEvent_A08
+extern CommentaryEvent_A84, CommentaryEvent_B1D, CommentaryEvent_BB6, CommentaryEvent_C68, CommentaryEvent_D2A, CommentaryEvent_D86, CommentaryEvent_E79, CommentaryEvent_F12
+extern CommentaryEvent_F80, CommentaryEvent_F89, CommentaryEvent_F92, CommentaryEvent_F9B, CommentaryEvent_FB0, CommentaryEvent_FB9, CommentaryEvent_FDD, CommentaryEvent_1084
+extern CommentaryEvent_111C, CommentaryEvent_11C5, CommentaryEvent_1293, CommentaryEvent_1500, CommentaryEvent_16BA, CommentaryEvent_1771, CommentaryEvent_17AA, CommentaryEvent_17E6
+extern CommentaryEvent_1871, CommentaryEvent_189C, CommentaryEvent_18A1, CommentaryEvent_18AA, CommentaryEvent_18B3, CommentaryEvent_18BC, CommentaryEvent_1931, CommentaryEvent_19C8
+extern CommentaryEvent_1A44, CommentaryEvent_1B16, CommentaryEvent_1B57, CommentaryEvent_1B97, CommentaryEvent_1BF5, CommentaryEvent_1C3D, CommentaryEvent_1CB2, CommentaryEvent_1DD1
+extern CommentaryEvent_1E49, CommentaryEvent_1ECB, CommentaryEvent_1F28, CommentaryEvent_1F56, CommentaryEvent_1FE8, off_169780, off_1697BC, off_169814
 extern qword_161173, qword_16117B, qword_161183, qword_16118B, rand_, sprintf_, strcmp_, strcpy_
 extern sub_100940, sub_100A68, sub_101429, sub_106036, sub_106D08, sub_1070B0, sub_1086BF, sub_10884C
 extern sub_109775, sub_1097F0, sub_42550, sub_425CC, sub_42910, sub_42960, sub_42C38, sub_42D38
@@ -3008,108 +3008,108 @@ sub_45A3C:
         ret
         db 090h
 jpt_45A64:
-        dd sub_45BEC_135
-        dd sub_45BEC_135
-        dd sub_45BEC_2DE
-        dd sub_45BEC_36D
-        dd sub_45BEC_66
-        dd sub_45BEC_48A
-        dd sub_45BEC_58C
-        dd sub_45BEC_654
-        dd sub_45BEC_726
-        dd sub_45BEC_7BF
-        dd sub_45BEC_8D6
-        dd sub_45BEC_96F
-        dd sub_45BEC_A08
-        dd sub_45BEC_A84
-        dd sub_45BEC_B1D
-        dd sub_45BEC_BB6
-        dd sub_45BEC_C68
-        dd sub_45BEC_D2A
-        dd sub_45BEC_D86
-        dd sub_45BEC_E79
-        dd sub_45BEC_F12
-        dd sub_45BEC_FDD
-        dd sub_45BEC_1084
-        dd sub_45BEC_111C
-        dd sub_45BEC_11C5
-        dd sub_45BEC_1293
-        dd sub_45BEC_1500
-        dd sub_45BEC_16BA
-        dd sub_45BEC_1771
-        dd sub_45BEC_17AA
-        dd sub_45BEC_17E6
-        dd sub_45BEC_1871
-        dd sub_45BEC_1931
-        dd sub_45BEC_19C8
-        dd sub_45BEC_1A44
-        dd sub_45BEC_1B16
-        dd sub_45BEC_1B57
-        dd sub_45BEC_1B97
-        dd sub_45BEC_1BF5
-        dd sub_45BEC_1C3D
-        dd sub_45BEC_1CB2
-        dd sub_45BEC_1DD1
-        dd sub_45BEC_1E49
-        dd sub_45BEC_1ECB
-        dd sub_45BEC_1F28
-        dd sub_45BEC_1F56
-        dd sub_45BEC_1FE8
+        dd CommentaryEvent_135
+        dd CommentaryEvent_135
+        dd CommentaryEvent_2DE
+        dd CommentaryEvent_36D
+        dd CommentaryEvent_66
+        dd CommentaryEvent_48A
+        dd CommentaryEvent_58C
+        dd CommentaryEvent_654
+        dd CommentaryEvent_726
+        dd CommentaryEvent_7BF
+        dd CommentaryEvent_8D6
+        dd CommentaryEvent_96F
+        dd CommentaryEvent_A08
+        dd CommentaryEvent_A84
+        dd CommentaryEvent_B1D
+        dd CommentaryEvent_BB6
+        dd CommentaryEvent_C68
+        dd CommentaryEvent_D2A
+        dd CommentaryEvent_D86
+        dd CommentaryEvent_E79
+        dd CommentaryEvent_F12
+        dd CommentaryEvent_FDD
+        dd CommentaryEvent_1084
+        dd CommentaryEvent_111C
+        dd CommentaryEvent_11C5
+        dd CommentaryEvent_1293
+        dd CommentaryEvent_1500
+        dd CommentaryEvent_16BA
+        dd CommentaryEvent_1771
+        dd CommentaryEvent_17AA
+        dd CommentaryEvent_17E6
+        dd CommentaryEvent_1871
+        dd CommentaryEvent_1931
+        dd CommentaryEvent_19C8
+        dd CommentaryEvent_1A44
+        dd CommentaryEvent_1B16
+        dd CommentaryEvent_1B57
+        dd CommentaryEvent_1B97
+        dd CommentaryEvent_1BF5
+        dd CommentaryEvent_1C3D
+        dd CommentaryEvent_1CB2
+        dd CommentaryEvent_1DD1
+        dd CommentaryEvent_1E49
+        dd CommentaryEvent_1ECB
+        dd CommentaryEvent_1F28
+        dd CommentaryEvent_1F56
+        dd CommentaryEvent_1FE8
 jpt_45B20:
-        dd sub_45BEC_423
-        dd sub_45BEC_3F6
-        dd sub_45BEC_3FF
-        dd sub_45BEC_408
-        dd sub_45BEC_411
-        dd sub_45BEC_41A
+        dd CommentaryEvent_423
+        dd CommentaryEvent_3F6
+        dd CommentaryEvent_3FF
+        dd CommentaryEvent_408
+        dd CommentaryEvent_411
+        dd CommentaryEvent_41A
 jpt_45B38:
-        dd sub_45BEC_4E4
-        dd sub_45BEC_4ED
-        dd sub_45BEC_4F6
-        dd sub_45BEC_4FF
-        dd sub_45BEC_508
-        dd sub_45BEC_511
-        dd sub_45BEC_51A
-        dd sub_45BEC_523
-        dd sub_45BEC_52C
-        dd sub_45BEC_535
+        dd CommentaryEvent_4E4
+        dd CommentaryEvent_4ED
+        dd CommentaryEvent_4F6
+        dd CommentaryEvent_4FF
+        dd CommentaryEvent_508
+        dd CommentaryEvent_511
+        dd CommentaryEvent_51A
+        dd CommentaryEvent_523
+        dd CommentaryEvent_52C
+        dd CommentaryEvent_535
 jpt_45B60:
-        dd sub_45BEC_5E2
-        dd sub_45BEC_5EB
-        dd sub_45BEC_5F4
-        dd sub_45BEC_5FD
+        dd CommentaryEvent_5E2
+        dd CommentaryEvent_5EB
+        dd CommentaryEvent_5F4
+        dd CommentaryEvent_5FD
 jpt_45B70:
-        dd sub_45BEC_6D5
-        dd sub_45BEC_6E7
-        dd sub_45BEC_6F0
-        dd sub_45BEC_6F9
-        dd sub_45BEC_702
+        dd CommentaryEvent_6D5
+        dd CommentaryEvent_6E7
+        dd CommentaryEvent_6F0
+        dd CommentaryEvent_6F9
+        dd CommentaryEvent_702
 jpt_45B84:
-        dd sub_45BEC_831
-        dd sub_45BEC_83B
-        dd sub_45BEC_847
-        dd sub_45BEC_853
-        dd sub_45BEC_85F
-        dd sub_45BEC_868
-        dd sub_45BEC_871
-        dd sub_45BEC_87A
-        dd sub_45BEC_883
-        dd sub_45BEC_88C
-        dd sub_45BEC_895
-        dd sub_45BEC_89E
-        dd sub_45BEC_8A7
-        dd sub_45BEC_8B0
-        dd sub_45BEC_8B9
+        dd CommentaryEvent_831
+        dd CommentaryEvent_83B
+        dd CommentaryEvent_847
+        dd CommentaryEvent_853
+        dd CommentaryEvent_85F
+        dd CommentaryEvent_868
+        dd CommentaryEvent_871
+        dd CommentaryEvent_87A
+        dd CommentaryEvent_883
+        dd CommentaryEvent_88C
+        dd CommentaryEvent_895
+        dd CommentaryEvent_89E
+        dd CommentaryEvent_8A7
+        dd CommentaryEvent_8B0
+        dd CommentaryEvent_8B9
 jpt_45BC0:
-        dd sub_45BEC_F80
-        dd sub_45BEC_F89
-        dd sub_45BEC_F92
-        dd sub_45BEC_F9B
-        dd sub_45BEC_FB0
-        dd sub_45BEC_FB9
+        dd CommentaryEvent_F80
+        dd CommentaryEvent_F89
+        dd CommentaryEvent_F92
+        dd CommentaryEvent_F9B
+        dd CommentaryEvent_FB0
+        dd CommentaryEvent_FB9
 jpt_45BD8:
-        dd sub_45BEC_189C
-        dd sub_45BEC_18A1
-        dd sub_45BEC_18AA
-        dd sub_45BEC_18BC
-        dd sub_45BEC_18B3
+        dd CommentaryEvent_189C
+        dd CommentaryEvent_18A1
+        dd CommentaryEvent_18AA
+        dd CommentaryEvent_18BC
+        dd CommentaryEvent_18B3

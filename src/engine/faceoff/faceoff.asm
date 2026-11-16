@@ -34,7 +34,7 @@ extern sub_78810, sub_7F0D8, sub_81678, sub_84204, sub_842E8, sub_842F4, LoadLan
 extern sub_AA498, sub_AADEF, sub_AB0A6, sub_B2F49, RunReplay, FadeOut, sub_DA7EB, sub_DB6AC
 extern LoadExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, sub_E1744, sub_E304C, sub_E30F4, sub_E3174, sub_E3190
 extern InputRecordAvail, TakeInputRecord, sub_E341C, sub_E4248, sub_F1FF8, sub_F207F, sub_F30A0, sub_F30D7
-extern sub_F418F, sub_F9650, sub_F9789, sub_F9869, sub_FAA64, sub_FAF34, sub_FBE40, sub_FC290
+extern PauseMenu, sub_F9650, sub_F9789, sub_F9869, sub_FAA64, sub_FAF34, sub_FBE40, sub_FC290
 extern sub_FC330, sub_FC4BC, SetViewRect, sub_FC88C, tickcount, unk_1600A4, unk_16AED4, unk_19CDA4
 extern unk_19DC40, unk_19E270, unk_19E588, unk_1AC821, word_1684EC, word_1686BC, word_1686D4, word_1686D6
 extern word_1686D8, word_1686DA, word_1686E4, word_19C3D8, word_19C3DA, word_19C3DC, word_19C3DE, word_19C3EC
@@ -3346,7 +3346,7 @@ RunInGameMenu:
 .4:
         mov eax, 1
 .5:
-        call sub_F418F
+        call PauseMenu
         mov dword [dword_19CB58], eax
 .6:
         call sub_E30F4

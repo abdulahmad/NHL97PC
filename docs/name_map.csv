@@ -211,7 +211,9 @@ address,name,auto_name,source,confidence,evidence,file
 864C4,NameIndexFree,sub_864C4,96PC,medium,NHL96PC 19522 (similar 0.82): mnemonic similarity 0.82 over 25 instructions,src/front/front_845E4.asm
 86644,NameIndexRemove,sub_86644,96PC,medium,NHL96PC 19659 (sem 1.00): S:NAMEINDEX; D:165310; K:2C093; C:1858,src/front/front_845E4.asm
 86754,NameIndexPath,sub_86754,96PC,medium,NHL96PC 19731 (sem 0.94): D:16531C; C:1834; C:2265; C:1833,src/front/front_845E4.asm
+86CB1,PhonebookEntryScreen,sub_86CB1,new,low,"modem settings: names a phone book entry (""Please enter a name for this phone book entry""), from ModemSettingsScreen",src/front/front_868CD.asm
 87B57,ModemSettingsScreen,sub_87B57,96PC,low,"96 PC ModemSettingsScreen: the modem settings screen (CP00-CP10 buttons, ""Generic Hayes-Compatible"" default)",src/front/front_868CD.asm
+88EDC,DrawNoNetworkServices,sub_88EDC,new,low,"network games screen: draws ""No Network Services Are Available""",src/front/front_868CD.asm
 8907B,NetworkGamesScreen,sub_8907B,new,low,"the network game list screen (TPB0-TPB5, SERVLIST)",src/front/front_868CD.asm
 8BDCF,RunNetworkConnect,sub_8BDCF,new,low,"from RunFrontEnd (18h): the network (IPX) game list first, then the modem settings screen, until connected or back",src/front/front_868CD.asm
 8BE23,RunModemConnect,sub_8BE23,new,low,"from RunFrontEnd: the modem settings screen first, then the network game list, until connected or back",src/front/front_868CD.asm
@@ -234,32 +236,47 @@ address,name,auto_name,source,confidence,evidence,file
 94B30,RunPlayoffMenus,sub_94B30,96PC,low,"96 PC RunPlayoffMenus: screen 0Dh, runs the play-off screens (play-off tree, standings, roster) until they leave",src/front/front_93005.asm
 94BDA,PlayoffTreeScreen,sub_94BDA,96PC,low,"96 PC PlayoffTreeScreen: the play-off tree screen (""playoffmenu"", ""pieces"", pan2 / pan6, 01RU, 01SR ...)",src/front/front_93005.asm
 9623E,EditLinesScreen,sub_9623E,96PC,medium,"96 PC EditLinesScreen: (team, line) the edit lines screen (""edit lines menu"" / ""edit lines regions"")",src/front/front_9623E.asm
+9A89E,DrawPlayerLines,sub_9A89E,new,low,"edit lines: ""%s %s is currently on these lines:"" for the highlighted player",src/front/front_9623E.asm
 9E35E,DrawHomeTeamPanel,sub_9E35E,96PC,low,96 PC DrawHomeTeamPanel: the home team's panel on the team select screen (HOM1 / HOM2),src/front/front_9E35E.asm
 9E550,DrawAwayTeamPanel,sub_9E550,new,low,"the away team's panel on the team select screen (AWY1 / AWY2), as DrawHomeTeamPanel",src/front/front_9E35E.asm
 9E91C,TeamSelectScreen,sub_9E91C,96PC,medium,"96 PC TeamSelectScreen: the exhibition team select screen (HOM1/HOM2, AWY1/AWY2, team ranks); returns the next screen",src/front/front_9E35E.asm
 9F6F5,PickIndexEntryScreen,sub_9F6F5,96PC,medium,"96 PC PickIndexEntryScreen: (kind 5/7/9) picks an entry of SEASON / PLAYOFF / EXHIBIT.NDX (DL00-DL03), with new and delete",src/front/front_9F6F5.asm
 A2EF0,AllocCrusherBuffers,sub_A2EF0,new,low,"allocates the ""CRUSHER"" (493E0h) and ""CRUSHER pack"" (186A0h) buffers used to pack data sent to the other computer",src/front/front_9F6F5.asm
 A6690,PostGameScreen,sub_A6690,new,low,"the post-game screen (NHL0 / NHLP, FLR1/2, T3S2, GS00/GS01, RM00/RM01), alternating with GameStatsScreen",src/front/front_A3280.asm
+A74F4,DrawThreeStarStats,sub_A74F4,new,low,"post-game: one star's stat lines (goals, assists, shots, +/-, hits, penalty minutes; goalie saves and save percentage; three star points)",src/front/front_A3280.asm
 A7D9C,GameStatsScreen,sub_A7D9C,96PC,medium,"96 PC GameStatsScreen: the game statistics screen (""gameStatMenu"" / ""gameStatRegn"")",src/front/front_A3280.asm
+A8C5C,DrawTeamGameStats,sub_A8C5C,new,low,"game stats: the team comparison rows (score, shots, power play, breakaways, one timers, faceoffs, body checks, passing...)",src/front/front_A3280.asm
+A9240,DrawScoringSummary,sub_A9240,new,low,"game stats: the scoring and penalty summary by period (""No scoring."", ""Penalties - none"")",src/front/front_A3280.asm
+AAA58,GoalTypeSuffix,sub_AAA58,new,low,"the scoring summary goal suffix: "" (en/pp)"", "" (pp)"", "" (en/sh)"", "" (sh)"", "" (en)""",src/front/front_A3280.asm
 AB0E8,PlayMenuGame,sub_AB0E8,96PC,medium,"96 PC PlayMenuGame: plays a game started from the menus: frees the front end, InitGameAudio, PlayGame, then back to the front end",src/front/front_A3280.asm
+B0C05,SetSkaterStatColumns,sub_B0C05,new,low,"stats lists: the skater column titles (Team, #, Height, Weight, GP, G, A, P, +/-, PIM, PPG, SHG, Shots...)",src/front/front_AC799.asm
+B1248,SetGoalieStatColumns,sub_B1248,new,low,"stats lists: the goalie column titles (GP, Minutes, G.A.A., Shots, S%, GA, SO, ENG...)",src/front/front_AC799.asm
+B1922,SetTeamStatColumns,sub_B1922,new,low,"stats lists: the team column titles (GP, W, L, T, points, GF, GA, PPG, PP%, PK%, streaks...)",src/front/front_AC799.asm
 B1FE9,DeleteUser,sub_B1FE9,96PC,medium,NHL96PC 2A692 (sem 0.62): C:1134; K:3EA; C:1833,src/front/front_B1E1D.asm
 B2258,ScrollUserList,sub_B2258,96PC,medium,NHL96PC 2AB63 (similar 0.93): mnemonic similarity 0.93 over 19 instructions,src/front/front_B1E1D.asm
 B2E5B,LoadUserList,sub_B2E5B,new,low,"loads LOCAL.NDX (creating it when missing) and adds the ""<NO USER>"" / ""<NEW USER>"" entries (German text when the language is German)",src/front/front_B1E1D.asm
 B36D6,LoadUserRecords,sub_B36D6,96PC,low,"96 PC LoadUserRecords: reads every user's record (local.ndx, ""user"") into the tables of the user records screen",src/front/front_B1E1D.asm
 B41EF,UserRecordsScreen,sub_B41EF,96PC,medium,"96 PC UserRecordsScreen: the user records screen: allocates the column tables (uname, urate, upts, ugf, uga, upp, upk, exrec ...), sorts by the picked column",src/front/front_B1E1D.asm
 B5891,PlayerStatsScreen,sub_B5891,96PC,low,"96 PC PlayerStatsScreen: the player stats screen (""pl menu"" / ""pl reg"", sortable ""pl sort"" columns, cursor, team filter), from RunStatsMenu",src/front/front_B50DB.asm
+B7270,DrawPlayerBio,sub_B7270,new,low,"the player's height, weight, birth and draft lines",src/front/front_B50DB.asm
+B78F4,ExportPlayerCard,sub_B78F4,96PC,low,"writes the player's card (height, weight, born, birthplace, draft) to a text file, like 96 PC ExportPlayerCard",src/front/front_B50DB.asm
 B8FDF,PlayerRatingsScreen,sub_B8FDF,96PC,low,"96 PC PlayerRatingsScreen: the player ratings screen, from RunStatsMenu and RosterScreen (as in 96 PC), same list tables as PlayerStatsScreen",src/front/front_B50DB.asm
 BD62C,RunReplay,sub_BD62C,96PC,low,"96 PC RunReplay: RunInGameMenu's replay request: sets up and runs ReplayScreen, then back to the game",src/front/front_BD62C.asm
 BD98B,LoadReplay,sub_BD98B,new,low,"loads a saved replay (""replload"") and sets up the game view and animations for it",src/front/front_BD62C.asm
 BE2A6,ReplayScreen,sub_BE2A6,96PC,low,"96 PC ReplayScreen: the instant replay screen (""replmenu"" / ""replregs"")",src/front/front_BD62C.asm
 BF4F9,PickReplayScreen,sub_BF4F9,new,low,the saved replay list (REPLAY.NDX),src/front/front_BD62C.asm
 C3594,RunOptionsScreens,sub_C3594,new,low,from RunFrontEnd (0Ah): runs the options screen and its control set-up screens (screen numbers 22h-24h) until it returns 1Ah; in a network session only one side may change them,src/front/front_C0F5D.asm
+C36CA,DetailLevelScreen,sub_C36CA,new,low,"the front end detail level panel (On / Off for crowd, ice logos, ice texture, boards, glass, names, benches), from OptionsScreen",src/front/front_C0F5D.asm
 C48A2,OptionsScreen,sub_C48A2,new,low,"the options screen (ON0%d / OF0%d toggles, MB0%d buttons, BOTM)",src/front/front_C462F.asm
 C755B,RosterScreen,sub_C755B,96PC,low,"96 PC RosterScreen: the roster screen (""roster menu"" / ""roster regions"")",src/front/front_C755B.asm
+CB041,CheckRosterInjuries,sub_CB041,new,low,"roster: the ""Roster Violation: %c. %s is injured."" check",src/front/front_C755B.asm
+CB324,CheckRosterLimits,sub_CB324,new,low,"roster: the minimum / maximum roster and goalie count checks (""Roster Violation: %s must have..."")",src/front/front_C755B.asm
+CB6D5,CheckRegularRosterLimits,sub_CB6D5,new,low,roster: the non-injured minimum and regular / additional roster maximum checks,src/front/front_C755B.asm
 CD272,JerseyScreen,sub_CD272,new,low,"the jersey screen (""jersey menu"" / ""jersey menu regions"")",src/front/front_C755B.asm
 CF749,CreatePlayerScreen,sub_CF749,96PC,medium,"96 PC CreatePlayerScreen: the create player screen (""create plr menu"" / ""create plr region""), from the roster screens",src/front/front_C755B.asm
 D1927,PreGameMatchupScreen,sub_D1927,96PC,low,"96 PC PreGameMatchupScreen: game screen 14h before play: the matchup with the left / right team pictures (%03dL.FSH / %03dR.FSH), PANL, team and player stats",src/front/front_D15FB.asm
 D3112,PreGameRostersScreen,sub_D3112,new,low,"game screen 13h before play: the home and visitor rosters (""hros"" / ""vros""), the ""blurb"" and the star players (STAR, FIR1, F%dP%d)",src/front/front_D3112.asm
+D4225,DrawMatchupNotes,sub_D4225,new,low,"pre-game: the playoff race notes, season series and ""last time they met"" lines",src/front/front_D3112.asm
 D67D4,FadePalette,sub_D67D4,96PC,medium,96 PC FadePalette: fades the 300h-byte palette,src/front/front_D4E24.asm
 D68AC,FadeOut,sub_D68AC,96PC,medium,NHL96PC 63A5B (similar 0.91): mnemonic similarity 0.90 over 22 instructions,src/front/front_D4E24.asm
 D6930,RunIntro,sub_D6930,96PC,medium,"96 PC RunIntro: from main_, the intro screens (scr1, scr2, !pl0, !pl1, nhll, nhlp, bkgd) with music",src/front/front_D4E24.asm
@@ -297,6 +314,7 @@ E4838,LinkReceiveBlock,sub_E4838,96PC,low,"96 PC LinkReceiveBlock: (dest, length
 E4908,WaitForOtherComputer,sub_E4908,new,low,"the ""Waiting for other computer"" box: shows it and syncs with the other side",src/front/front_DA66D.asm
 E5A98,IpxInit,sub_E5A98,new,low,"looks for the IPX driver and allocates the ""IPXMEM"" / ""NETWORK"" blocks",src/front/front_DA66D.asm
 E5C78,IpxCloseSocket,,new,low,closes the open IPX socket (sub_11D508) and frees its buffer (dword_16E128); the earlier 95 PC FreeRinkGfx match was wrong (only a mnemonic similarity),src/front/front_DA66D.asm
+E657C,ChooseNetworkGameScreen,sub_E657C,new,low,"network play: the ""Choose a game:"" list of open games",src/front/front_DA66D.asm
 E9370,randomd0,,96PC,medium,NHL96PC 61A18 (similar): mnemonic similarity 0.97 over 34 instructions,
 E93D0,vtoa,,96PC,high,NHL96PC 61A78 (exact): 39 instructions,
 E9429,BuildAllStarTeams,sub_E9429,new,low,"from the season code: sets up the two All-Star teams (InitAllStarTeams, AllocAllStarRosters, PickAllStarPlayers)",src/front/front_E9429.asm
@@ -304,8 +322,16 @@ E947A,AllStarScreen,sub_E947A,new,low,"from RunSeasonMenus: the All-Star screen 
 ECA57,PickAllStarPlayers,sub_ECA57,new,low,"allocates ""all star player info"" / ""all star goalie info"", sorts the season's players and goalies (qsort) and picks the All-Stars",src/front/front_E9429.asm
 ECF20,InitAllStarTeams,sub_ECF20,new,low,"names the two teams ""West All Stars"" / ""East All Stars"" and clears them",src/front/front_E9429.asm
 ED01F,AllocAllStarRosters,sub_ED01F,new,low,"allocates the ""all star rosters"", ""all star airecs"", ""all star raw plrs"" and ""all star statrecs"" blocks and fills them from the season database",src/front/front_E9429.asm
+EE0F7,GetKeyName,sub_EE0F7,new,medium,"(scan code, buf): copies the key's name (""Escape"", ""Backspace"", ""Left Shift""..., ""<NONE>"") for the control setup screen",src/front/front_E9429.asm
+EE69C,ShowReservedKey,sub_EE69C,new,low,"control setup: ""The %s key is reserved for a system function. Please choose another.""",src/front/front_EE69C.asm
 F0339,ControlSetupScreen,sub_F0339,96PC,low,"96 PC ControlSetupScreen: (mode) the control set-up screen (KMB%d keyboard / mouse buttons, TB00-TB03, GLW%d)",src/front/front_EE69C.asm
+F2ADB,DrawPauseButtons,sub_F2ADB,96PC,low,"draws the pause menu buttons (game text Save Game, Controller Setup, Replay, Rules, Detail Level, Quit Game)",src/front/front_F20A1.asm
+F30F1,PickEditLinesTeam,sub_F30F1,new,low,"the in-game ""Edit which team?"" box (Home / Away / Cancel)",src/front/front_F20A1.asm
+F36AC,ConfirmQuitGame,sub_F36AC,new,medium,"the in-game ""Are you sure you want to quit the game?"" box (Yes / No)",src/front/front_F20A1.asm
+F418F,PauseMenu,sub_F418F,96PC,low,"the in-game pause menu loop, from RunInGameMenu (96 PC PauseMenu); runs the rules, detail level, edit-team and quit choices",src/front/front_F20A1.asm
 F5601,FillBox,sub_F5601,96PC,medium,NHL96PC 64103 (similar 0.92): mnemonic similarity 0.92 over 78 instructions,src/front/front_F20A1.asm
+F570D,RulesMenu,sub_F570D,new,medium,"the in-game rules menu (offside, icing, 2 line pass, line changes, injuries, fighting, penalties, speed game)",src/front/front_F20A1.asm
+F7BD6,DetailLevelMenu,sub_F7BD6,new,medium,"the in-game detail level menu (draw crowd, ice logos, ice texture, board advertising, glass, player benches, player names)",src/front/front_F20A1.asm
 F9B40,_searchenv_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 F9C34,strcpy_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 F9C53,strcat_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),

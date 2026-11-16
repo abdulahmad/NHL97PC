@@ -35,9 +35,9 @@ extern sub_FC510, sub_FCD90, sub_FCEEC, sub_FCF84, sub_FCFCC, sub_FD08C, sub_FD0
 extern unk_1657CD, unk_1657CF, unk_16D7F4, unk_16D7FC, unk_1ACB44, unk_1ACD2B, unk_1ACF12, unk_1ACF4E
 extern unk_1AD22E, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C85DC, unk_1C85E8, unk_1C85F4, unk_1C8600
 extern unk_1C860C, word_1AD240, word_1AD242
-global jpt_912BF, sub_8E997_DD, sub_8E997_E6, sub_8E997_EF, sub_8E997_F8, sub_8E997_16F, sub_8E997_17B, sub_8E997_187
-global sub_8E997_193, sub_8EC93_DCB, sub_8EC93_DCE, sub_8FA67_55B, sub_8FA67_561, sub_8FA67_562, sub_912E3_65C, sub_912E3_685
-global sub_912E3_699, sub_912E3_6AD, sub_912E3_6C1, sub_912E3_6DD, sub_912E3_6F4, sub_912E3_70B, sub_912E3_718, sub_91D7F_1EA
+global jpt_912BF, RunNewSeason_DD, RunNewSeason_E6, RunNewSeason_EF, RunNewSeason_F8, RunNewSeason_16F, RunNewSeason_17B, RunNewSeason_187
+global RunNewSeason_193, NewSeasonScreen_DCB, NewSeasonScreen_DCE, CreateSeason_55B, CreateSeason_561, CreateSeason_562, StandingsScreen_65C, StandingsScreen_685
+global StandingsScreen_699, StandingsScreen_6AD, StandingsScreen_6C1, StandingsScreen_6DD, StandingsScreen_6F4, StandingsScreen_70B, StandingsScreen_718, sub_91D7F_1EA
 global RunNewSeason, sub_8EBDF, NewSeasonScreen, CreateSeason, RunSeasonMenus, sub_900AE, SeasonMenuScreen, sub_91289
 global StandingsScreen, sub_91D07, sub_91D1C, sub_91D7F, sub_91F74, sub_925BE, sub_9260A, sub_926BD
 global sub_9279A, sub_9281C, sub_92DB7, sub_92E37, sub_92EE2, sub_92F25, sub_92FE9
@@ -81,7 +81,7 @@ RunNewSeason:
         mov eax, unk_1ACF12
         call sub_7FE38
         test eax, eax
-        je near sub_8E997_F8
+        je near RunNewSeason_F8
         mov eax, 6
         call GetLangText
         mov dword [byte ebp-010h], eax
@@ -102,30 +102,18 @@ RunNewSeason:
         lea ebx, [byte eax-01h]
         mov dword [dword_1ACF3E], ebx
         cmp eax, byte 3
-        ja short sub_8E997_F8.3
+        ja short RunNewSeason_F8.3
         jmp dword [nosplit cs:eax*4+jpt_8E977]
-;-----------------------------------------------------------------------------
-; sub_8E997_DD                                                    8EA74  97 PC
-;-----------------------------------------------------------------------------
-sub_8E997_DD:
+RunNewSeason_DD:
         mov byte [byte_1C8700], 52h
-        jmp short sub_8E997_F8.3
-;-----------------------------------------------------------------------------
-; sub_8E997_E6                                                    8EA7D  97 PC
-;-----------------------------------------------------------------------------
-sub_8E997_E6:
+        jmp short RunNewSeason_F8.3
+RunNewSeason_E6:
         mov byte [byte_1C8700], 32h
-        jmp short sub_8E997_F8.3
-;-----------------------------------------------------------------------------
-; sub_8E997_EF                                                    8EA86  97 PC
-;-----------------------------------------------------------------------------
-sub_8E997_EF:
+        jmp short RunNewSeason_F8.3
+RunNewSeason_EF:
         mov byte [byte_1C8700], 19h
-        jmp short sub_8E997_F8.3
-;-----------------------------------------------------------------------------
-; sub_8E997_F8                                                    8EA8F  97 PC
-;-----------------------------------------------------------------------------
-sub_8E997_F8:
+        jmp short RunNewSeason_F8.3
+RunNewSeason_F8:
         mov esi, 1
 .3:
         cmp esi, byte 6
@@ -157,30 +145,18 @@ sub_8E997_F8:
 .5:
         lea eax, [byte edi-01h]
         cmp eax, byte 3
-        ja short sub_8E997_193.6
+        ja short RunNewSeason_193.6
         jmp dword [nosplit cs:eax*4+jpt_8E987]
-;-----------------------------------------------------------------------------
-; sub_8E997_16F                                                   8EB06  97 PC
-;-----------------------------------------------------------------------------
-sub_8E997_16F:
+RunNewSeason_16F:
         mov dword [dword_1ACF42], 7
-        jmp short sub_8E997_193.6
-;-----------------------------------------------------------------------------
-; sub_8E997_17B                                                   8EB12  97 PC
-;-----------------------------------------------------------------------------
-sub_8E997_17B:
+        jmp short RunNewSeason_193.6
+RunNewSeason_17B:
         mov dword [dword_1ACF42], 5
-        jmp short sub_8E997_193.6
-;-----------------------------------------------------------------------------
-; sub_8E997_187                                                   8EB1E  97 PC
-;-----------------------------------------------------------------------------
-sub_8E997_187:
+        jmp short RunNewSeason_193.6
+RunNewSeason_187:
         mov dword [dword_1ACF42], 3
-        jmp short sub_8E997_193.6
-;-----------------------------------------------------------------------------
-; sub_8E997_193                                                   8EB2A  97 PC
-;-----------------------------------------------------------------------------
-sub_8E997_193:
+        jmp short RunNewSeason_193.6
+RunNewSeason_193:
         mov dword [dword_1ACF42], 1
 .6:
         cmp esi, byte 1
@@ -231,7 +207,7 @@ sub_8E997_193:
         mov eax, dword_1C86FC
         call FreeExhibitionFile
         mov eax, esi
-        jmp near sub_8EC93_DCE
+        jmp near NewSeasonScreen_DCE
 ;-----------------------------------------------------------------------------
 ; sub_8EBDF                                                       8EBDF  97 PC
 ;-----------------------------------------------------------------------------
@@ -1244,13 +1220,13 @@ NewSeasonScreen:
         call sub_FAF34
         add esp, byte 4
         cmp byte [byte_1C6040], 0
-        je short sub_8EC93_DCB
+        je short NewSeasonScreen_DCB
         call sub_415A0
-sub_8EC93_DCB:
+NewSeasonScreen_DCB:
         mov eax, dword [byte ebp-02Ch]
-sub_8EC93_DCE:
+NewSeasonScreen_DCE:
         leave
-        jmp near sub_8FA67_562
+        jmp near CreateSeason_562
 ;-----------------------------------------------------------------------------
 ; CreateSeason                                    8FA67  97 PC, low confidence
 ; Creates the new season: seeds rand from the time, picks a free SEAS%04d.SET
@@ -1638,11 +1614,11 @@ CreateSeason:
         jg near .21
         lea eax, [byte ebp+076h]
         call sub_DB75E
-sub_8FA67_55B:
+CreateSeason_55B:
         lea esp, [dword ebp+082h]
-sub_8FA67_561:
+CreateSeason_561:
         pop ebp
-sub_8FA67_562:
+CreateSeason_562:
         pop edi
         pop esi
         pop edx
@@ -3017,7 +2993,7 @@ SeasonMenuScreen:
         call sub_FCD90
         add esp, byte 4
         call sub_925BE
-        jmp near sub_8EC93_DCB
+        jmp near NewSeasonScreen_DCB
 ;-----------------------------------------------------------------------------
 ; sub_91289                                                       91289  97 PC
 ;-----------------------------------------------------------------------------
@@ -3044,15 +3020,15 @@ sub_91289:
         pop ebx
         ret
 jpt_912BF:
-        dd sub_912E3_65C
-        dd sub_912E3_685
-        dd sub_912E3_699
-        dd sub_912E3_6AD
-        dd sub_912E3_6C1
-        dd sub_912E3_6DD
-        dd sub_912E3_6F4
-        dd sub_912E3_70B
-        dd sub_912E3_718
+        dd StandingsScreen_65C
+        dd StandingsScreen_685
+        dd StandingsScreen_699
+        dd StandingsScreen_6AD
+        dd StandingsScreen_6C1
+        dd StandingsScreen_6DD
+        dd StandingsScreen_6F4
+        dd StandingsScreen_70B
+        dd StandingsScreen_718
 ;-----------------------------------------------------------------------------
 ; StandingsScreen                              912E3  96 PC, medium confidence
 ; The standings screen by conference (1WST, 1EST)
@@ -3392,7 +3368,7 @@ StandingsScreen:
         jl near .6
 .18:
         cmp dword [byte ebp+026h], byte 0FFFFFFFFh
-        jne near sub_912E3_718.46
+        jne near StandingsScreen_718.46
         push dword [byte ebp+066h]
         call sub_FD0F8
         add esp, byte 4
@@ -3468,7 +3444,7 @@ StandingsScreen:
         movzx edx, byte [byte esi+ebp-026h]
         mov eax, dword [nosplit edx*4+dword_168F58]
         cmp eax, dword [byte ebp+05Eh]
-        jne near sub_912E3_718.34
+        jne near StandingsScreen_718.34
         mov eax, dword [byte ebp+07Eh]
         shl eax, 2
         cmp dword [byte ebp+07Eh], byte 8
@@ -3528,12 +3504,9 @@ StandingsScreen:
         mov eax, dword [dword ebp-01D2h]
         add eax, ebx
         cmp eax, byte 8
-        ja near sub_912E3_718.33
+        ja near StandingsScreen_718.33
         jmp dword [nosplit cs:eax*4+jpt_912BF]
-;-----------------------------------------------------------------------------
-; sub_912E3_65C                                                   9193F  97 PC
-;-----------------------------------------------------------------------------
-sub_912E3_65C:
+StandingsScreen_65C:
         movzx eax, byte [byte esi+ebp-026h]
         imul eax, dword 194Fh
         add eax, dword [byte ebp+07Ah]
@@ -3545,38 +3518,26 @@ sub_912E3_65C:
         push eax
         call sprintf_
         add esp, byte 0Ch
-        jmp near sub_912E3_718.33
-;-----------------------------------------------------------------------------
-; sub_912E3_685                                                   91968  97 PC
-;-----------------------------------------------------------------------------
-sub_912E3_685:
+        jmp near StandingsScreen_718.33
+StandingsScreen_685:
         movzx eax, byte [byte esi+ebp-026h]
         imul eax, dword 194Fh
         add eax, dword [byte ebp+07Ah]
         movzx eax, byte [byte eax+050h]
-        jmp short sub_912E3_65C.31
-;-----------------------------------------------------------------------------
-; sub_912E3_699                                                   9197C  97 PC
-;-----------------------------------------------------------------------------
-sub_912E3_699:
+        jmp short StandingsScreen_65C.31
+StandingsScreen_699:
         movzx eax, byte [byte esi+ebp-026h]
         imul eax, dword 194Fh
         add eax, dword [byte ebp+07Ah]
         movzx eax, byte [byte eax+051h]
-        jmp short sub_912E3_65C.31
-;-----------------------------------------------------------------------------
-; sub_912E3_6AD                                                   91990  97 PC
-;-----------------------------------------------------------------------------
-sub_912E3_6AD:
+        jmp short StandingsScreen_65C.31
+StandingsScreen_6AD:
         movzx eax, byte [byte esi+ebp-026h]
         imul eax, dword 194Fh
         add eax, dword [byte ebp+07Ah]
         movzx eax, byte [byte eax+052h]
-        jmp short sub_912E3_65C.31
-;-----------------------------------------------------------------------------
-; sub_912E3_6C1                                                   919A4  97 PC
-;-----------------------------------------------------------------------------
-sub_912E3_6C1:
+        jmp short StandingsScreen_65C.31
+StandingsScreen_6C1:
         movzx eax, byte [byte esi+ebp-026h]
         imul eax, dword 194Fh
         add eax, dword [byte ebp+07Ah]
@@ -3584,36 +3545,24 @@ sub_912E3_6C1:
         movzx eax, byte [byte eax+052h]
         add edx, edx
         add eax, edx
-        jmp short sub_912E3_65C.31
-;-----------------------------------------------------------------------------
-; sub_912E3_6DD                                                   919C0  97 PC
-;-----------------------------------------------------------------------------
-sub_912E3_6DD:
+        jmp short StandingsScreen_65C.31
+StandingsScreen_6DD:
         movzx eax, byte [byte esi+ebp-026h]
         imul eax, dword 194Fh
         add eax, dword [byte ebp+07Ah]
         movsx eax, word [byte eax+063h]
-        jmp near sub_912E3_65C.31
-;-----------------------------------------------------------------------------
-; sub_912E3_6F4                                                   919D7  97 PC
-;-----------------------------------------------------------------------------
-sub_912E3_6F4:
+        jmp near StandingsScreen_65C.31
+StandingsScreen_6F4:
         movzx eax, byte [byte esi+ebp-026h]
         imul eax, dword 194Fh
         add eax, dword [byte ebp+07Ah]
         movsx eax, word [byte eax+065h]
-        jmp near sub_912E3_65C.31
-;-----------------------------------------------------------------------------
-; sub_912E3_70B                                                   919EE  97 PC
-;-----------------------------------------------------------------------------
-sub_912E3_70B:
+        jmp near StandingsScreen_65C.31
+StandingsScreen_70B:
         movzx eax, byte [byte esi+ebp-026h]
         lea edx, [dword ebp-03CAh]
-        jmp short sub_912E3_718.32
-;-----------------------------------------------------------------------------
-; sub_912E3_718                                                   919FB  97 PC
-;-----------------------------------------------------------------------------
-sub_912E3_718:
+        jmp short StandingsScreen_718.32
+StandingsScreen_718:
         movzx eax, byte [byte esi+ebp-026h]
         lea edx, [dword ebp-02E0h]
 .32:
@@ -3826,7 +3775,7 @@ sub_912E3_718:
         push dword [byte ebp+066h]
         call sub_FCD90
         add esp, byte 4
-        jmp near sub_8FA67_55B
+        jmp near CreateSeason_55B
 ;-----------------------------------------------------------------------------
 ; sub_91D07                                                       91D07  97 PC
 ;-----------------------------------------------------------------------------
@@ -4637,7 +4586,7 @@ sub_9260A:
         inc ecx
         cmp ecx, byte 1Ah
         jl short .7
-        jmp near sub_8FA67_562
+        jmp near CreateSeason_562
 ;-----------------------------------------------------------------------------
 ; sub_926BD                                                       926BD  97 PC
 ;-----------------------------------------------------------------------------
@@ -5175,7 +5124,7 @@ sub_9281C:
         jl near .21
 .34:
         lea esp, [dword ebp+092h]
-        jmp near sub_8FA67_561
+        jmp near CreateSeason_561
 ;-----------------------------------------------------------------------------
 ; sub_92DB7                                                       92DB7  97 PC
 ;-----------------------------------------------------------------------------

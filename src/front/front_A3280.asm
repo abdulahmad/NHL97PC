@@ -48,14 +48,14 @@ extern word_1C1348, word_1C55A2, word_1C9448, word_1C9450, word_1C9470, word_1C9
 extern word_1C94F6, word_1C94F8, word_1C94FA, word_1C95AC, word_1C95AE
 global jpt_A3B51, jpt_A4B35, jpt_A4B4D, jpt_A4B65, jpt_A6680, jpt_A7D7C, sub_A3280_8CA, sub_A3280_8CB
 global sub_A3B69_29, sub_A3B69_CC, sub_A3B69_166, sub_A3B69_1EE, sub_A3B69_2BB, sub_A4B7D_30, sub_A4B7D_112, sub_A4B7D_1971
-global sub_A6690_B39, sub_A6690_B4E, sub_A6690_B55, sub_A6690_B71, sub_A72C8_AC, sub_A74F4_4A8, sub_A7AD0_E4, sub_A7AD0_14E
-global sub_A7D9C_143, sub_A7D9C_14E, sub_A7D9C_19A, sub_A7D9C_205, sub_A7D9C_24A, sub_A7D9C_294, sub_A7D9C_2D9, sub_A7D9C_39D
+global PostGameScreen_B39, PostGameScreen_B4E, PostGameScreen_B55, PostGameScreen_B71, sub_A72C8_AC, DrawThreeStarStats_4A8, sub_A7AD0_E4, sub_A7AD0_14E
+global GameStatsScreen_143, GameStatsScreen_14E, GameStatsScreen_19A, GameStatsScreen_205, GameStatsScreen_24A, GameStatsScreen_294, GameStatsScreen_2D9, GameStatsScreen_39D
 global sub_A3280, sub_A3B69, sub_A3E2B, sub_A405E, sub_A4164, sub_A4A5C, sub_A4B7D, sub_A64FC
-global PostGameScreen, sub_A728C, sub_A72C8, sub_A7380, sub_A74F4, sub_A79EC, sub_A7AD0, sub_A7C40
-global sub_A7C90, GameStatsScreen, sub_A8204, sub_A8480, sub_A8524, sub_A8694, sub_A8C5C, sub_A8E84
-global sub_A91AC, sub_A9240, sub_A9504, sub_A9640, sub_A9800, sub_A9A10, sub_AA170, sub_AA274
+global PostGameScreen, sub_A728C, sub_A72C8, sub_A7380, DrawThreeStarStats, sub_A79EC, sub_A7AD0, sub_A7C40
+global sub_A7C90, GameStatsScreen, sub_A8204, sub_A8480, sub_A8524, sub_A8694, DrawTeamGameStats, sub_A8E84
+global sub_A91AC, DrawScoringSummary, sub_A9504, sub_A9640, sub_A9800, sub_A9A10, sub_AA170, sub_AA274
 global sub_AA498, sub_AA4BC, sub_AA588, sub_AA650, sub_AA710, sub_AA774, sub_AA7EC, sub_AA850
-global sub_AA8B4, sub_AA92C, sub_AAA51, sub_AAA58, sub_AAC7C, sub_AADEF, sub_AB0A6, PlayMenuGame
+global sub_AA8B4, sub_AA92C, sub_AAA51, GoalTypeSuffix, sub_AAC7C, sub_AADEF, sub_AB0A6, PlayMenuGame
 ;-----------------------------------------------------------------------------
 ; sub_A3280                                                       A3280  97 PC
 ;-----------------------------------------------------------------------------
@@ -3866,10 +3866,10 @@ sub_A64FC:
         add esp, byte 18h
         jmp near sub_A3280_8CB
 jpt_A6680:
-        dd sub_A6690_B39
-        dd sub_A6690_B4E
-        dd sub_A6690_B55
-        dd sub_A6690_B71
+        dd PostGameScreen_B39
+        dd PostGameScreen_B4E
+        dd PostGameScreen_B55
+        dd PostGameScreen_B71
 ;-----------------------------------------------------------------------------
 ; PostGameScreen                                  A6690  97 PC, low confidence
 ; The post-game screen (NHL0 / NHLP, FLR1/2, T3S2, GS00/GS01, RM00/RM01),
@@ -4571,7 +4571,7 @@ PostGameScreen:
         mov ebx, dword [dword esp+0564h]
         mov eax, dword [dword esp+0564h]
         inc ebx
-        call sub_A74F4
+        call DrawThreeStarStats
         mov dword [dword esp+0564h], ebx
         cmp ebx, byte 3
         jl near .23
@@ -4581,7 +4581,7 @@ PostGameScreen:
 .26:
         lea eax, [dword esp+0560h]
         push ebp
-        mov ecx, sub_A74F4_4A8
+        mov ecx, DrawThreeStarStats_4A8
         mov ebx, 0FFFFFFFFh
         push eax
         lea edx, [byte esp+08h]
@@ -4590,37 +4590,25 @@ PostGameScreen:
         mov eax, dword [dword esp+0560h]
         dec eax
         cmp eax, byte 3
-        ja short sub_A6690_B71.27
+        ja short PostGameScreen_B71.27
         jmp dword [nosplit cs:eax*4+jpt_A6680]
-;-----------------------------------------------------------------------------
-; sub_A6690_B39                                                   A71C9  97 PC
-;-----------------------------------------------------------------------------
-sub_A6690_B39:
+PostGameScreen_B39:
         call sub_7EDF0
         mov ebx, 1Ah
         mov esi, edi
         mov dword [dword esp+0578h], ebx
-        jmp short sub_A6690_B71.27
-;-----------------------------------------------------------------------------
-; sub_A6690_B4E                                                   A71DE  97 PC
-;-----------------------------------------------------------------------------
-sub_A6690_B4E:
+        jmp short PostGameScreen_B71.27
+PostGameScreen_B4E:
         call sub_7EF70
-        jmp short sub_A6690_B71.27
-;-----------------------------------------------------------------------------
-; sub_A6690_B55                                                   A71E5  97 PC
-;-----------------------------------------------------------------------------
-sub_A6690_B55:
+        jmp short PostGameScreen_B71.27
+PostGameScreen_B55:
         lea eax, [dword esp+0F6h]
         mov edx, 17h
         call sub_83C08
         mov esi, edi
         mov dword [dword esp+0578h], edx
-        jmp short sub_A6690_B71.27
-;-----------------------------------------------------------------------------
-; sub_A6690_B71                                                   A7201  97 PC
-;-----------------------------------------------------------------------------
-sub_A6690_B71:
+        jmp short PostGameScreen_B71.27
+PostGameScreen_B71:
         lea eax, [dword esp+0148h]
         call sub_83C08
         call sub_A7C90
@@ -4905,9 +4893,11 @@ sub_A7380:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_A74F4                                                       A74F4  97 PC
+; DrawThreeStarStats                              A74F4  97 PC, low confidence
+; Post-game: one star's stat lines (goals, assists, shots, +/-, hits, penalty
+; minutes; goalie saves and save percentage; three star points)
 ;-----------------------------------------------------------------------------
-sub_A74F4:
+DrawThreeStarStats:
         push ebx
         push ecx
         push edx
@@ -5310,7 +5300,7 @@ sub_A74F4:
         pop ebx
         ret
         db 08Dh,040h,00h
-sub_A74F4_4A8:
+DrawThreeStarStats_4A8:
         call sub_A79EC
         cmp dword [dword_1C9594], byte 0
         je near .25
@@ -5652,14 +5642,14 @@ sub_A7C90:
         pop ebx
         ret
 jpt_A7D7C:
-        dd sub_A7D9C_143
-        dd sub_A7D9C_14E
-        dd sub_A7D9C_19A
-        dd sub_A7D9C_205
-        dd sub_A7D9C_24A
-        dd sub_A7D9C_294
-        dd sub_A7D9C_2D9
-        dd sub_A7D9C_39D
+        dd GameStatsScreen_143
+        dd GameStatsScreen_14E
+        dd GameStatsScreen_19A
+        dd GameStatsScreen_205
+        dd GameStatsScreen_24A
+        dd GameStatsScreen_294
+        dd GameStatsScreen_2D9
+        dd GameStatsScreen_39D
 ;-----------------------------------------------------------------------------
 ; GameStatsScreen                              A7D9C  96 PC, medium confidence
 ; The game statistics screen (BKGD, BANNER, SBACK, page arrows AR00-AR11,
@@ -5744,20 +5734,14 @@ GameStatsScreen:
         call sub_8BFAC
         mov ecx, dword [dword esp+03FCh]
         cmp ecx, byte 7
-        ja near sub_A7D9C_39D.12
+        ja near GameStatsScreen_39D.12
         mov edx, ecx
         jmp dword [nosplit cs:edx*4+jpt_A7D7C]
-;-----------------------------------------------------------------------------
-; sub_A7D9C_143                                                   A7EDF  97 PC
-;-----------------------------------------------------------------------------
-sub_A7D9C_143:
+GameStatsScreen_143:
         call sub_7EEB0
         inc ebp
-        jmp near sub_A7D9C_39D.16
-;-----------------------------------------------------------------------------
-; sub_A7D9C_14E                                                   A7EEA  97 PC
-;-----------------------------------------------------------------------------
-sub_A7D9C_14E:
+        jmp near GameStatsScreen_39D.16
+GameStatsScreen_14E:
         mov edx, dword [dword_1C9568]
         push edx
         call sub_FCD90
@@ -5777,11 +5761,8 @@ sub_A7D9C_14E:
         push ebx
         call sub_11A318
         add esp, byte 0Ch
-        jmp near sub_A7D9C_39D.15
-;-----------------------------------------------------------------------------
-; sub_A7D9C_19A                                                   A7F36  97 PC
-;-----------------------------------------------------------------------------
-sub_A7D9C_19A:
+        jmp near GameStatsScreen_39D.15
+GameStatsScreen_19A:
         imul eax, ecx, byte 52h
         add eax, esi
         call sub_83C08
@@ -5810,18 +5791,15 @@ sub_A7D9C_19A:
         add esp, byte 0Ch
         call sub_1013FC
         cmp dword [dword_1C955C], byte 1
-        jne near sub_A7D9C_39D.16
-        jmp near sub_A7D9C_39D.13
-;-----------------------------------------------------------------------------
-; sub_A7D9C_205                                                   A7FA1  97 PC
-;-----------------------------------------------------------------------------
-sub_A7D9C_205:
+        jne near GameStatsScreen_39D.16
+        jmp near GameStatsScreen_39D.13
+GameStatsScreen_205:
         mov eax, dword [dword_1C957C]
         xor edx, ecx
         call sub_8DE10
         mov eax, dword [dword_1C957C]
         cmp edi, dword [byte eax+024h]
-        je near sub_A7D9C_39D.16
+        je near GameStatsScreen_39D.16
         call sub_13C164
         mov eax, dword [dword_1C955C]
         cmp eax, byte 1
@@ -5834,11 +5812,8 @@ sub_A7D9C_205:
 .7:
         mov edi, dword [dword_1C957C]
         mov edi, dword [byte edi+024h]
-        jmp near sub_A7D9C_39D.15
-;-----------------------------------------------------------------------------
-; sub_A7D9C_24A                                                   A7FE6  97 PC
-;-----------------------------------------------------------------------------
-sub_A7D9C_24A:
+        jmp near GameStatsScreen_39D.15
+GameStatsScreen_24A:
         mov ecx, dword [dword_1C957C]
         mov ebx, eax
         xor edx, edx
@@ -5846,7 +5821,7 @@ sub_A7D9C_24A:
         call sub_8DEAC
         mov eax, dword [dword_1C957C]
         cmp edi, dword [byte eax+024h]
-        je near sub_A7D9C_39D.16
+        je near GameStatsScreen_39D.16
         call sub_13C164
         mov eax, dword [dword_1C955C]
         cmp eax, byte 1
@@ -5859,17 +5834,14 @@ sub_A7D9C_24A:
 .8:
         mov edi, dword [dword_1C957C]
         mov edi, dword [byte edi+024h]
-        jmp near sub_A7D9C_39D.15
-;-----------------------------------------------------------------------------
-; sub_A7D9C_294                                                   A8030  97 PC
-;-----------------------------------------------------------------------------
-sub_A7D9C_294:
+        jmp near GameStatsScreen_39D.15
+GameStatsScreen_294:
         mov eax, dword [dword_1C957C]
         xor edx, ecx
         call sub_8DE68
         mov eax, dword [dword_1C957C]
         cmp edi, dword [byte eax+024h]
-        je near sub_A7D9C_39D.16
+        je near GameStatsScreen_39D.16
         call sub_13C164
         mov eax, dword [dword_1C955C]
         cmp eax, byte 1
@@ -5882,11 +5854,8 @@ sub_A7D9C_294:
 .9:
         mov edi, dword [dword_1C957C]
         mov edi, dword [byte edi+024h]
-        jmp near sub_A7D9C_39D.15
-;-----------------------------------------------------------------------------
-; sub_A7D9C_2D9                                                   A8075  97 PC
-;-----------------------------------------------------------------------------
-sub_A7D9C_2D9:
+        jmp near GameStatsScreen_39D.15
+GameStatsScreen_2D9:
         cmp dword [dword_1C9564], byte 0
         sete al
         and eax, 0FFh
@@ -5943,11 +5912,8 @@ sub_A7D9C_2D9:
         push ebx
         call sub_101390
         add esp, byte 0Ch
-        jmp short sub_A7D9C_39D.14
-;-----------------------------------------------------------------------------
-; sub_A7D9C_39D                                                   A8139  97 PC
-;-----------------------------------------------------------------------------
-sub_A7D9C_39D:
+        jmp short GameStatsScreen_39D.14
+GameStatsScreen_39D:
         cmp dword [dword_1C958C], byte 0
         sete al
         and eax, 0FFh
@@ -6567,7 +6533,7 @@ sub_A8694:
         mov eax, 28h
         mov ecx, esi
         call sub_7F29C
-        call sub_A8C5C
+        call DrawTeamGameStats
         mov edx, dword [dword_1C9568]
         push edx
         mov ebx, 0A4h
@@ -6713,7 +6679,7 @@ sub_A8694:
         mov edx, 104h
         mov ebx, 1B4h
         call sub_CA44C
-        call sub_A9240
+        call DrawScoringSummary
         mov ebx, esi
         mov dword [dword_1C9570], eax
         shl ebx, 4
@@ -6781,9 +6747,11 @@ sub_A8694:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_A8C5C                                                       A8C5C  97 PC
+; DrawTeamGameStats                               A8C5C  97 PC, low confidence
+; Game stats: the team comparison rows (score, shots, power play, breakaways,
+; one timers, faceoffs, body checks, passing...)
 ;-----------------------------------------------------------------------------
-sub_A8C5C:
+DrawTeamGameStats:
         push ebx
         push ecx
         push edx
@@ -7314,9 +7282,11 @@ sub_A91AC:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_A9240                                                       A9240  97 PC
+; DrawScoringSummary                              A9240  97 PC, low confidence
+; Game stats: the scoring and penalty summary by period ("No scoring.",
+; "Penalties - none")
 ;-----------------------------------------------------------------------------
-sub_A9240:
+DrawScoringSummary:
         push ebx
         push ecx
         push edx
@@ -7468,7 +7438,7 @@ sub_A9240:
         mov edx, dword [dword_1C956C]
         mov ebx, ecx
         add edx, esi
-        call sub_AAA58
+        call GoalTypeSuffix
         movsx eax, di
         call sub_AA8B4
         add esi, 80h
@@ -9384,9 +9354,11 @@ sub_AAA51:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_AAA58                                                       AAA58  97 PC
+; GoalTypeSuffix                                  AAA58  97 PC, low confidence
+; The scoring summary goal suffix: " (en/pp)", " (pp)", " (en/sh)", " (sh)",
+; " (en)"
 ;-----------------------------------------------------------------------------
-sub_AAA58:
+GoalTypeSuffix:
         push ecx
         push esi
         push edi

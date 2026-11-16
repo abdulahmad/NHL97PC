@@ -26,13 +26,13 @@ extern dword_1CBAF8, dword_1CBB46, dword_1CBB4A, dword_1CBB88, dword_1CBB8D, ran
 extern sub_1013FC, sub_101429, sub_10FAC, sub_11A318, sub_13C164, sub_414B8, sub_41550, sub_419B0
 extern sub_419B8, sub_41A28, sub_41D18, sub_41DB8, sub_41DD8, ArenaFileName, sub_41F2C, PlaySfx
 extern LoadDataFile, sub_7E860, sub_7EDF0, SetRegionRect, sub_7F0D8, DrawTextAligned, sub_80BBC, sub_83C08
-extern InitMenuItems, sub_8BFAC, sub_C36CA, sub_FAF34, sub_FB4D4, sub_FC510, sub_FCD90, sub_FCEEC
+extern InitMenuItems, sub_8BFAC, DetailLevelScreen, sub_FAF34, sub_FB4D4, sub_FC510, sub_FCD90, sub_FCEEC
 extern sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FD110, sub_FE3D0, unk_166C97, unk_1C5F4A, unk_1CB148
 extern unk_1CB1EC, unk_1CB23E, word_1684BE
-global jpt_C4822, sub_C48A2_F0A, sub_C48A2_F22, sub_C48A2_10AA, sub_C48A2_10D0, sub_C48A2_1125, sub_C48A2_117A, sub_C48A2_11CF
-global sub_C48A2_1285, sub_C48A2_12DA, sub_C48A2_1359, sub_C48A2_136C, sub_C48A2_137F, sub_C48A2_13A6, sub_C48A2_140D, sub_C48A2_1431
-global sub_C48A2_1435, sub_C48A2_1439, sub_C48A2_143D, sub_C48A2_1441, sub_C48A2_1447, sub_C48A2_144D, sub_C48A2_1451, sub_C48A2_147B
-global sub_C48A2_14BA, sub_C48A2_14FE, sub_C48A2_1519, sub_C48A2_1534, sub_C48A2_154F, sub_C48A2_156A, sub_C48A2_1588, sub_C48A2_15A6
+global jpt_C4822, OptionsScreen_F0A, OptionsScreen_F22, OptionsScreen_10AA, OptionsScreen_10D0, OptionsScreen_1125, OptionsScreen_117A, OptionsScreen_11CF
+global OptionsScreen_1285, OptionsScreen_12DA, OptionsScreen_1359, OptionsScreen_136C, OptionsScreen_137F, OptionsScreen_13A6, OptionsScreen_140D, OptionsScreen_1431
+global OptionsScreen_1435, OptionsScreen_1439, OptionsScreen_143D, OptionsScreen_1441, OptionsScreen_1447, OptionsScreen_144D, OptionsScreen_1451, OptionsScreen_147B
+global OptionsScreen_14BA, OptionsScreen_14FE, OptionsScreen_1519, OptionsScreen_1534, OptionsScreen_154F, OptionsScreen_156A, OptionsScreen_1588, OptionsScreen_15A6
 global sub_C462F, sub_C46EA, OptionsScreen, unk_C5ED2
 ;-----------------------------------------------------------------------------
 ; sub_C462F                                                       C462F  97 PC
@@ -207,38 +207,38 @@ sub_C46EA:
         pop ebx
         ret
 jpt_C4822:
-        dd sub_C48A2_14BA
-        dd sub_C48A2_F0A
-        dd sub_C48A2_F22
-        dd sub_C48A2_10AA
-        dd sub_C48A2_10D0
-        dd sub_C48A2_1125
-        dd sub_C48A2_117A
-        dd sub_C48A2_11CF
-        dd sub_C48A2_1285
-        dd sub_C48A2_12DA
-        dd sub_C48A2_1359
-        dd sub_C48A2_136C
-        dd sub_C48A2_137F
-        dd sub_C48A2_14BA
-        dd sub_C48A2_13A6
-        dd sub_C48A2_140D
-        dd sub_C48A2_1451
-        dd sub_C48A2_1431
-        dd sub_C48A2_1435
-        dd sub_C48A2_1439
-        dd sub_C48A2_143D
-        dd sub_C48A2_1441
-        dd sub_C48A2_1447
-        dd sub_C48A2_144D
-        dd sub_C48A2_147B
-        dd sub_C48A2_14FE
-        dd sub_C48A2_1519
-        dd sub_C48A2_1534
-        dd sub_C48A2_154F
-        dd sub_C48A2_156A
-        dd sub_C48A2_1588
-        dd sub_C48A2_15A6
+        dd OptionsScreen_14BA
+        dd OptionsScreen_F0A
+        dd OptionsScreen_F22
+        dd OptionsScreen_10AA
+        dd OptionsScreen_10D0
+        dd OptionsScreen_1125
+        dd OptionsScreen_117A
+        dd OptionsScreen_11CF
+        dd OptionsScreen_1285
+        dd OptionsScreen_12DA
+        dd OptionsScreen_1359
+        dd OptionsScreen_136C
+        dd OptionsScreen_137F
+        dd OptionsScreen_14BA
+        dd OptionsScreen_13A6
+        dd OptionsScreen_140D
+        dd OptionsScreen_1451
+        dd OptionsScreen_1431
+        dd OptionsScreen_1435
+        dd OptionsScreen_1439
+        dd OptionsScreen_143D
+        dd OptionsScreen_1441
+        dd OptionsScreen_1447
+        dd OptionsScreen_144D
+        dd OptionsScreen_147B
+        dd OptionsScreen_14FE
+        dd OptionsScreen_1519
+        dd OptionsScreen_1534
+        dd OptionsScreen_154F
+        dd OptionsScreen_156A
+        dd OptionsScreen_1588
+        dd OptionsScreen_15A6
 ;-----------------------------------------------------------------------------
 ; OptionsScreen                                   C48A2  97 PC, low confidence
 ; The options screen (ON0%d / OF0%d toggles, MB0%d buttons, BOTM)
@@ -1114,7 +1114,7 @@ OptionsScreen:
         add esp, byte 4
         call sub_7F0D8
         cmp word [byte ebp+07Eh], byte 0
-        je near sub_C48A2_14BA
+        je near OptionsScreen_14BA
         push byte 0
         push byte 0Fh
         push byte 23h
@@ -1150,19 +1150,13 @@ OptionsScreen:
         movsx eax, word [byte ebp+ebx*2+01Eh]
 .28:
         mov dword [dword_1CBB88], eax
-        jmp near sub_C48A2_14BA
-;-----------------------------------------------------------------------------
-; sub_C48A2_F0A                                                   C57AC  97 PC
-;-----------------------------------------------------------------------------
-sub_C48A2_F0A:
+        jmp near OptionsScreen_14BA
+OptionsScreen_F0A:
         call sub_7EDF0
         mov dword [byte ebp+07Ah], 1
         mov dword [byte ebp+066h], 1Ah
-        jmp near sub_C48A2_14BA
-;-----------------------------------------------------------------------------
-; sub_C48A2_F22                                                   C57C4  97 PC
-;-----------------------------------------------------------------------------
-sub_C48A2_F22:
+        jmp near OptionsScreen_14BA
+OptionsScreen_F22:
         mov eax, unk_1CB1EC
         call sub_83C08
         or byte [byte_1AC81A], 2
@@ -1257,25 +1251,19 @@ sub_C48A2_F22:
         shr eax, 19h
         call sub_C462F
         mov ecx, 55h
-        jmp near sub_C48A2_147B.50
-;-----------------------------------------------------------------------------
-; sub_C48A2_10AA                                                  C594C  97 PC
-;-----------------------------------------------------------------------------
-sub_C48A2_10AA:
+        jmp near OptionsScreen_147B.50
+OptionsScreen_10AA:
         mov eax, unk_1CB23E
         mov edx, dword [byte ebp+06Eh]
         call sub_83C08
         mov eax, dword [byte ebp+072h]
         mov ebx, dword [byte ebp+06Ah]
-        call sub_C36CA
+        call DetailLevelScreen
         mov edx, ebx
         mov eax, ebx
         call sub_7E860
-        jmp near sub_C48A2_14BA
-;-----------------------------------------------------------------------------
-; sub_C48A2_10D0                                                  C5972  97 PC
-;-----------------------------------------------------------------------------
-sub_C48A2_10D0:
+        jmp near OptionsScreen_14BA
+OptionsScreen_10D0:
         test byte [byte_1AC81A], 2
         je short .37
         mov eax, dword [dword_1CB138]
@@ -1286,7 +1274,7 @@ sub_C48A2_10D0:
         and byte [byte_1AC81A], 0FDh
 .36:
         mov dword [dword_1CB2B2], eax
-        jmp near sub_C48A2_14BA
+        jmp near OptionsScreen_14BA
 .37:
         mov eax, dword [dword_1CB128]
         mov dword [dword_1CB2AA], eax
@@ -1295,10 +1283,7 @@ sub_C48A2_10D0:
         mov eax, dword [dword_1CB130]
         or byte [byte_1AC81A], 2
         jmp short .36
-;-----------------------------------------------------------------------------
-; sub_C48A2_1125                                                  C59C7  97 PC
-;-----------------------------------------------------------------------------
-sub_C48A2_1125:
+OptionsScreen_1125:
         test byte [byte_1AC81B], 4
         je short .39
         mov eax, dword [dword_1CB138]
@@ -1309,7 +1294,7 @@ sub_C48A2_1125:
         and byte [byte_1AC81B], 0FBh
 .38:
         mov dword [dword_1CB304], eax
-        jmp near sub_C48A2_14BA
+        jmp near OptionsScreen_14BA
 .39:
         mov eax, dword [dword_1CB128]
         mov dword [dword_1CB2FC], eax
@@ -1318,10 +1303,7 @@ sub_C48A2_1125:
         mov eax, dword [dword_1CB130]
         or byte [byte_1AC81B], 4
         jmp short .38
-;-----------------------------------------------------------------------------
-; sub_C48A2_117A                                                  C5A1C  97 PC
-;-----------------------------------------------------------------------------
-sub_C48A2_117A:
+OptionsScreen_117A:
         test byte [byte_1AC81B], 10h
         je short .41
         mov eax, dword [dword_1CB138]
@@ -1332,7 +1314,7 @@ sub_C48A2_117A:
         and byte [byte_1AC81B], 0EFh
 .40:
         mov dword [dword_1CB356], eax
-        jmp near sub_C48A2_14BA
+        jmp near OptionsScreen_14BA
 .41:
         mov eax, dword [dword_1CB128]
         mov dword [dword_1CB34E], eax
@@ -1341,10 +1323,7 @@ sub_C48A2_117A:
         mov eax, dword [dword_1CB130]
         or byte [byte_1AC81B], 10h
         jmp short .40
-;-----------------------------------------------------------------------------
-; sub_C48A2_11CF                                                  C5A71  97 PC
-;-----------------------------------------------------------------------------
-sub_C48A2_11CF:
+OptionsScreen_11CF:
         test byte [dword_1AC819], 2
         je short .42
         mov eax, dword [dword_1CB138]
@@ -1355,7 +1334,7 @@ sub_C48A2_11CF:
         and byte [dword_1AC819], 0FDh
         mov dword [dword_1CB3A8], eax
         call sub_41DD8
-        jmp near sub_C48A2_14BA
+        jmp near OptionsScreen_14BA
 .42:
         mov eax, dword [dword_1CB128]
         mov dword [dword_1CB3A0], eax
@@ -1388,11 +1367,8 @@ sub_C48A2_11CF:
         call sub_419B0
         call sub_419B8
         call sub_41DB8
-        jmp near sub_C48A2_14BA
-;-----------------------------------------------------------------------------
-; sub_C48A2_1285                                                  C5B27  97 PC
-;-----------------------------------------------------------------------------
-sub_C48A2_1285:
+        jmp near OptionsScreen_14BA
+OptionsScreen_1285:
         test byte [byte_1AC81B], 2
         je short .44
         mov eax, dword [dword_1CB138]
@@ -1403,7 +1379,7 @@ sub_C48A2_1285:
         and byte [byte_1AC81B], 0FDh
 .43:
         mov dword [dword_1CB3FA], eax
-        jmp near sub_C48A2_14BA
+        jmp near OptionsScreen_14BA
 .44:
         mov eax, dword [dword_1CB128]
         mov dword [dword_1CB3F2], eax
@@ -1412,14 +1388,11 @@ sub_C48A2_1285:
         mov eax, dword [dword_1CB130]
         or byte [byte_1AC81B], 2
         jmp short .43
-;-----------------------------------------------------------------------------
-; sub_C48A2_12DA                                                  C5B7C  97 PC
-;-----------------------------------------------------------------------------
-sub_C48A2_12DA:
+OptionsScreen_12DA:
         cmp byte [byte_1C6040], 0
         je short .45
         and byte [byte_1AC81B], 0F7h
-        jmp near sub_C48A2_14BA
+        jmp near OptionsScreen_14BA
 .45:
         test byte [byte_1AC81B], 8
         je short .47
@@ -1431,13 +1404,13 @@ sub_C48A2_12DA:
         and byte [byte_1AC81B], 0F7h
 .46:
         mov dword [dword_1CB44C], eax
-        jmp near sub_C48A2_14BA
+        jmp near OptionsScreen_14BA
 .47:
         push byte 0
         call sub_FB4D4
         add esp, byte 4
         cmp eax, 600000h
-        jle near sub_C48A2_14BA
+        jle near OptionsScreen_14BA
         mov eax, dword [dword_1CB128]
         mov dword [dword_1CB444], eax
         mov eax, dword [dword_1CB12C]
@@ -1445,37 +1418,25 @@ sub_C48A2_12DA:
         mov eax, dword [dword_1CB130]
         or byte [byte_1AC81B], 8
         jmp short .46
-;-----------------------------------------------------------------------------
-; sub_C48A2_1359                                                  C5BFB  97 PC
-;-----------------------------------------------------------------------------
-sub_C48A2_1359:
+OptionsScreen_1359:
         mov dword [byte ebp+07Ah], 1
         mov dword [byte ebp+066h], 22h
-        jmp near sub_C48A2_14BA
-;-----------------------------------------------------------------------------
-; sub_C48A2_136C                                                  C5C0E  97 PC
-;-----------------------------------------------------------------------------
-sub_C48A2_136C:
+        jmp near OptionsScreen_14BA
+OptionsScreen_136C:
         mov dword [byte ebp+07Ah], 1
         mov dword [byte ebp+066h], 23h
-        jmp near sub_C48A2_14BA
-;-----------------------------------------------------------------------------
-; sub_C48A2_137F                                                  C5C21  97 PC
-;-----------------------------------------------------------------------------
-sub_C48A2_137F:
+        jmp near OptionsScreen_14BA
+OptionsScreen_137F:
         cmp word [byte ebp+07Eh], byte 0
-        je near sub_C48A2_14BA
+        je near OptionsScreen_14BA
         movsx eax, word [byte ebp+076h]
         mov dword [byte ebp+07Ah], 1
         movsx eax, word [byte ebp+eax*2+01Eh]
         mov dword [byte ebp+066h], 24h
         jmp near OptionsScreen.28
-;-----------------------------------------------------------------------------
-; sub_C48A2_13A6                                                  C5C48  97 PC
-;-----------------------------------------------------------------------------
-sub_C48A2_13A6:
+OptionsScreen_13A6:
         cmp word [byte ebp+07Eh], byte 0
-        je near sub_C48A2_14BA
+        je near OptionsScreen_14BA
         dec dword [byte ebp+076h]
         cmp word [byte ebp+076h], byte 0
         jge short .48
@@ -1502,63 +1463,39 @@ sub_C48A2_13A6:
         push byte 1
         call DrawTextAligned
         add esp, byte 14h
-        jmp near sub_C48A2_147B.52
-;-----------------------------------------------------------------------------
-; sub_C48A2_140D                                                  C5CAF  97 PC
-;-----------------------------------------------------------------------------
-sub_C48A2_140D:
+        jmp near OptionsScreen_147B.52
+OptionsScreen_140D:
         cmp word [byte ebp+07Eh], byte 0
-        je near sub_C48A2_14BA
+        je near OptionsScreen_14BA
         inc dword [byte ebp+076h]
         movsx eax, word [byte ebp+07Eh]
         movsx edx, word [byte ebp+076h]
         dec eax
         cmp edx, eax
-        jle short sub_C48A2_13A6.48
+        jle short OptionsScreen_13A6.48
         mov dword [byte ebp+076h], 0
-        jmp short sub_C48A2_13A6.48
-;-----------------------------------------------------------------------------
-; sub_C48A2_1431                                                  C5CD3  97 PC
-;-----------------------------------------------------------------------------
-sub_C48A2_1431:
+        jmp short OptionsScreen_13A6.48
+OptionsScreen_1431:
         or al, 3Ch
-        jmp short sub_C48A2_1451
-;-----------------------------------------------------------------------------
-; sub_C48A2_1435                                                  C5CD7  97 PC
-;-----------------------------------------------------------------------------
-sub_C48A2_1435:
+        jmp short OptionsScreen_1451
+OptionsScreen_1435:
         or al, 78h
-        jmp short sub_C48A2_1451
-;-----------------------------------------------------------------------------
-; sub_C48A2_1439                                                  C5CDB  97 PC
-;-----------------------------------------------------------------------------
-sub_C48A2_1439:
+        jmp short OptionsScreen_1451
+OptionsScreen_1439:
         or al, 0B4h
-        jmp short sub_C48A2_1451
-;-----------------------------------------------------------------------------
-; sub_C48A2_143D                                                  C5CDF  97 PC
-;-----------------------------------------------------------------------------
-sub_C48A2_143D:
+        jmp short OptionsScreen_1451
+OptionsScreen_143D:
         or al, 0F0h
-        jmp short sub_C48A2_1451
-;-----------------------------------------------------------------------------
-; sub_C48A2_1441                                                  C5CE3  97 PC
-;-----------------------------------------------------------------------------
-sub_C48A2_1441:
+        jmp short OptionsScreen_1451
+OptionsScreen_1441:
         or ax, 12Ch
-        jmp short sub_C48A2_1451
-;-----------------------------------------------------------------------------
-; sub_C48A2_1447                                                  C5CE9  97 PC
-;-----------------------------------------------------------------------------
-sub_C48A2_1447:
+        jmp short OptionsScreen_1451
+OptionsScreen_1447:
         or ax, 168h
-        jmp short sub_C48A2_1451
-;-----------------------------------------------------------------------------
-; sub_C48A2_144D                                                  C5CEF  97 PC
-;-----------------------------------------------------------------------------
-sub_C48A2_144D:
+        jmp short OptionsScreen_1451
+OptionsScreen_144D:
         or ax, 190h
-sub_C48A2_1451:
+OptionsScreen_1451:
         mov dword [dword_1AC819], eax
         shl eax, 17h
         shr eax, 19h
@@ -1570,11 +1507,8 @@ sub_C48A2_1451:
         mov ecx, 10Dh
         shl eax, 17h
         mov edx, dword [byte ebp+072h]
-        jmp short sub_C48A2_147B.51
-;-----------------------------------------------------------------------------
-; sub_C48A2_147B                                                  C5D1D  97 PC
-;-----------------------------------------------------------------------------
-sub_C48A2_147B:
+        jmp short OptionsScreen_147B.51
+OptionsScreen_147B:
         call sub_13C164
         and dword [dword_1AC819], 0FFFE03FFh
 .49:
@@ -1594,9 +1528,9 @@ sub_C48A2_147B:
         call sub_C462F
 .52:
         call sub_1013FC
-sub_C48A2_14BA:
+OptionsScreen_14BA:
         cmp word [byte ebp+07Ah], byte 0
-        jne near sub_C48A2_15A6.53
+        jne near OptionsScreen_15A6.53
         push byte 2
         lea eax, [byte ebp+056h]
         mov ecx, sub_C46EA
@@ -1606,67 +1540,46 @@ sub_C48A2_14BA:
         mov eax, 20h
         call sub_8BFAC
         cmp dword [byte ebp+056h], byte 1Fh
-        ja short sub_C48A2_14BA
+        ja short OptionsScreen_14BA
         mov eax, dword [dword_1AC819]
         mov ebx, dword [byte ebp+056h]
         and ax, 0FE03h
         jmp dword [nosplit cs:ebx*4+jpt_C4822]
-;-----------------------------------------------------------------------------
-; sub_C48A2_14FE                                                  C5DA0  97 PC
-;-----------------------------------------------------------------------------
-sub_C48A2_14FE:
+OptionsScreen_14FE:
         call sub_13C164
         and dword [dword_1AC819], 0FFFE03FFh
         or byte [byte_1AC81A], 3Ch
-        jmp near sub_C48A2_147B.49
-;-----------------------------------------------------------------------------
-; sub_C48A2_1519                                                  C5DBB  97 PC
-;-----------------------------------------------------------------------------
-sub_C48A2_1519:
+        jmp near OptionsScreen_147B.49
+OptionsScreen_1519:
         call sub_13C164
         and dword [dword_1AC819], 0FFFE03FFh
         or byte [byte_1AC81A], 78h
-        jmp near sub_C48A2_147B.49
-;-----------------------------------------------------------------------------
-; sub_C48A2_1534                                                  C5DD6  97 PC
-;-----------------------------------------------------------------------------
-sub_C48A2_1534:
+        jmp near OptionsScreen_147B.49
+OptionsScreen_1534:
         call sub_13C164
         and dword [dword_1AC819], 0FFFE03FFh
         or byte [byte_1AC81A], 0B4h
-        jmp near sub_C48A2_147B.49
-;-----------------------------------------------------------------------------
-; sub_C48A2_154F                                                  C5DF1  97 PC
-;-----------------------------------------------------------------------------
-sub_C48A2_154F:
+        jmp near OptionsScreen_147B.49
+OptionsScreen_154F:
         call sub_13C164
         and dword [dword_1AC819], 0FFFE03FFh
         or byte [byte_1AC81A], 0F0h
-        jmp near sub_C48A2_147B.49
-;-----------------------------------------------------------------------------
-; sub_C48A2_156A                                                  C5E0C  97 PC
-;-----------------------------------------------------------------------------
-sub_C48A2_156A:
+        jmp near OptionsScreen_147B.49
+OptionsScreen_156A:
         call sub_13C164
         and dword [dword_1AC819], 0FFFE03FFh
         or dword [dword_1AC819], 12C00h
-        jmp near sub_C48A2_147B.49
-;-----------------------------------------------------------------------------
-; sub_C48A2_1588                                                  C5E2A  97 PC
-;-----------------------------------------------------------------------------
-sub_C48A2_1588:
+        jmp near OptionsScreen_147B.49
+OptionsScreen_1588:
         call sub_13C164
         and dword [dword_1AC819], 0FFFE03FFh
         or dword [dword_1AC819], 16800h
-        jmp near sub_C48A2_147B.49
-;-----------------------------------------------------------------------------
-; sub_C48A2_15A6                                                  C5E48  97 PC
-;-----------------------------------------------------------------------------
-sub_C48A2_15A6:
+        jmp near OptionsScreen_147B.49
+OptionsScreen_15A6:
         call sub_13C164
         and dword [dword_1AC819], 0FFFE03FFh
         or dword [dword_1AC819], 19000h
-        jmp near sub_C48A2_147B.49
+        jmp near OptionsScreen_147B.49
 .53:
         push dword [byte ebp+06Eh]
         call sub_FAF34

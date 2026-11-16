@@ -24,9 +24,9 @@ extern unk_167214, unk_16721C, unk_167220, unk_167228, unk_16722C, unk_167234, u
 extern unk_167240, unk_167244, unk_167250, unk_167260, unk_167264, unk_16726C, unk_16727C, unk_16D7FC
 extern unk_1ACF12, unk_1C135C, unk_1C1382, unk_1C139A, unk_1C347F, unk_1C34A5, unk_1C5EF8, unk_1C5F4A
 extern unk_1C5F9C, unk_D3057, unk_D305F, unk_D3067, word_1C1344
-global jpt_D4215, sub_D3112_B6A, sub_D3112_BA7, sub_D3112_BB5, sub_D3112_BC3, sub_D3112_C3F, sub_D40CF_FB, sub_D40CF_FC
-global sub_D4225_86, sub_D4225_C5, sub_D4225_10F, sub_D4225_14B, PreGameRostersScreen, sub_D3D5D, sub_D3DFA, sub_D40CF
-global sub_D41D1, sub_D4225, sub_D4727, sub_D49BE, sub_D4AAC, unk_D4CB0
+global jpt_D4215, PreGameRostersScreen_B6A, PreGameRostersScreen_BA7, PreGameRostersScreen_BB5, PreGameRostersScreen_BC3, PreGameRostersScreen_C3F, sub_D40CF_FB, sub_D40CF_FC
+global DrawMatchupNotes_86, DrawMatchupNotes_C5, DrawMatchupNotes_10F, DrawMatchupNotes_14B, PreGameRostersScreen, sub_D3D5D, sub_D3DFA, sub_D40CF
+global sub_D41D1, DrawMatchupNotes, sub_D4727, sub_D49BE, sub_D4AAC, unk_D4CB0
 ;-----------------------------------------------------------------------------
 ; PreGameRostersScreen                            D3112  97 PC, low confidence
 ; Game screen 13h before play: the home and visitor rosters ("hros" /
@@ -674,7 +674,7 @@ PreGameRostersScreen:
         call sub_D40CF
         jmp short .27
 .26:
-        call sub_D4225
+        call DrawMatchupNotes
 .27:
         call sub_D41D1
         mov eax, 3
@@ -840,7 +840,7 @@ PreGameRostersScreen:
         call PlaySfx
         call sub_D4AAC
         cmp byte [byte_1CC8B4], 5
-        jne near sub_D3112_B6A
+        jne near PreGameRostersScreen_B6A
         xor esi, esi
 .31:
         mov eax, dword [dword_1CC8A0]
@@ -907,11 +907,11 @@ PreGameRostersScreen:
         add esp, byte 4
         cmp esi, byte 5
         jl near .31
-sub_D3112_B6A:
+PreGameRostersScreen_B6A:
         cmp dword [byte ebp+046h], byte 1
-        je short sub_D3112_BC3.32
+        je short PreGameRostersScreen_BC3.32
         cmp dword [byte ebp+046h], byte 2
-        je short sub_D3112_BC3.32
+        je short PreGameRostersScreen_BC3.32
         push byte 3
         lea eax, [byte ebp+046h]
         mov ecx, sub_D306F
@@ -921,29 +921,20 @@ sub_D3112_B6A:
         mov eax, 4
         call sub_8BFAC
         cmp dword [byte ebp+046h], byte 3
-        ja short sub_D3112_B6A
+        ja short PreGameRostersScreen_B6A
         mov eax, dword [byte ebp+046h]
         jmp dword [nosplit cs:eax*4+jpt_D3102]
-;-----------------------------------------------------------------------------
-; sub_D3112_BA7                                                   D3CB9  97 PC
-;-----------------------------------------------------------------------------
-sub_D3112_BA7:
+PreGameRostersScreen_BA7:
         call sub_7EDF0
         mov dword [byte ebp+056h], 14h
-        jmp short sub_D3112_B6A
-;-----------------------------------------------------------------------------
-; sub_D3112_BB5                                                   D3CC7  97 PC
-;-----------------------------------------------------------------------------
-sub_D3112_BB5:
+        jmp short PreGameRostersScreen_B6A
+PreGameRostersScreen_BB5:
         call sub_7EEB0
         mov dword [byte ebp+056h], 0Eh
-        jmp short sub_D3112_B6A
-;-----------------------------------------------------------------------------
-; sub_D3112_BC3                                                   D3CD5  97 PC
-;-----------------------------------------------------------------------------
-sub_D3112_BC3:
+        jmp short PreGameRostersScreen_B6A
+PreGameRostersScreen_BC3:
         call sub_7EF70
-        jmp short sub_D3112_B6A
+        jmp short PreGameRostersScreen_B6A
 .32:
         push dword [byte ebp+07Ah]
         call sub_FAF34
@@ -980,7 +971,7 @@ sub_D3112_BC3:
         call FreeExhibitionFile
 .35:
         mov eax, dword [byte ebp+056h]
-sub_D3112_C3F:
+PreGameRostersScreen_C3F:
         lea esp, [dword ebp+082h]
         pop ebp
         jmp near sub_D40CF_FC
@@ -1074,7 +1065,7 @@ sub_D3DFA:
         call sprintf_
         add esp, byte 14h
         test byte [dword_1AC814], 70h
-        je near sub_D3112_C3F
+        je near PreGameRostersScreen_C3F
         xor edi, edi
 .1:
         test edi, edi
@@ -1249,7 +1240,7 @@ sub_D3DFA:
         inc edi
         cmp edi, byte 2
         jl near .1
-        jmp near sub_D3112_C3F
+        jmp near PreGameRostersScreen_C3F
 ;-----------------------------------------------------------------------------
 ; sub_D40CF                                                       D40CF  97 PC
 ;-----------------------------------------------------------------------------
@@ -1370,14 +1361,16 @@ sub_D41D1:
         pop ebx
         ret
 jpt_D4215:
-        dd sub_D4225_86
-        dd sub_D4225_C5
-        dd sub_D4225_10F
-        dd sub_D4225_14B
+        dd DrawMatchupNotes_86
+        dd DrawMatchupNotes_C5
+        dd DrawMatchupNotes_10F
+        dd DrawMatchupNotes_14B
 ;-----------------------------------------------------------------------------
-; sub_D4225                                                       D4225  97 PC
+; DrawMatchupNotes                                D4225  97 PC, low confidence
+; Pre-game: the playoff race notes, season series and "last time they met"
+; lines
 ;-----------------------------------------------------------------------------
-sub_D4225:
+DrawMatchupNotes:
         push ebx
         push ecx
         push edx
@@ -1403,7 +1396,7 @@ sub_D4225:
         movzx edi, al
         mov dword [byte ebp-04h], 0
         test edi, edi
-        je near sub_D4225_14B.6
+        je near DrawMatchupNotes_14B.6
         xor esi, esi
 .1:
         test esi, esi
@@ -1420,9 +1413,9 @@ sub_D4225:
 .3:
         dec eax
         cmp eax, byte 3
-        ja near sub_D4225_14B.5
+        ja near DrawMatchupNotes_14B.5
         jmp dword [nosplit cs:eax*4+jpt_D4215]
-sub_D4225_86:
+DrawMatchupNotes_86:
         push byte 0FFFFFFFFh
         call sub_FC510
         mov ecx, eax
@@ -1438,8 +1431,8 @@ sub_D4225_86:
         push eax
         mov ebx, dword [dword_16D744]
         push asc_1670DE
-        jmp near sub_D4225_14B.4
-sub_D4225_C5:
+        jmp near DrawMatchupNotes_14B.4
+DrawMatchupNotes_C5:
         push byte 0FFFFFFFFh
         call sub_FC510
         mov ecx, eax
@@ -1457,8 +1450,8 @@ sub_D4225_C5:
         mov dword [dword_16D744], ebx
         call sprintf_
         add esp, byte 10h
-        jmp near sub_D4225_14B.5
-sub_D4225_10F:
+        jmp near DrawMatchupNotes_14B.5
+DrawMatchupNotes_10F:
         push byte 0FFFFFFFFh
         call sub_FC510
         mov ecx, eax
@@ -1474,8 +1467,8 @@ sub_D4225_10F:
         push eax
         mov ebx, dword [dword_16D744]
         push asc_1670ED
-        jmp short sub_D4225_14B.4
-sub_D4225_14B:
+        jmp short DrawMatchupNotes_14B.4
+DrawMatchupNotes_14B:
         push byte 0FFFFFFFFh
         call sub_FC510
         mov ecx, eax
@@ -1500,7 +1493,7 @@ sub_D4225_14B:
 .5:
         inc esi
         cmp esi, byte 2
-        jl near sub_D4225.1
+        jl near DrawMatchupNotes.1
         jmp near sub_D40CF_FB
 .6:
         push edi

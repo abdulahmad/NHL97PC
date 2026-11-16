@@ -38,15 +38,15 @@ extern sub_FAA64, sub_FAF34, sub_FBE5D, sub_FC510, sub_FCD90, sub_FCFCC, sub_FCF
 extern sub_FD0F8, sub_FD110, sub_FDD1C, sub_FDE44, tickcount, unk_165BAB, unk_165BAE, unk_16D7F4
 extern unk_1C134A, unk_1C1352, unk_1C135C, unk_1C347F, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, word_1C1344
 extern word_1C8CD4, word_1C8CEC
-global jpt_9861E, jpt_9AC47, sub_9623E_17F, sub_9623E_18C, sub_9623E_2C7, sub_9623E_49D, sub_9623E_4C4, sub_9623E_5BA
-global sub_9623E_5EF, sub_9623E_61B, sub_9623E_69D, sub_9623E_8E8, sub_96E85_39D, sub_97D16_203, sub_98642_A49, sub_98642_C5B
-global sub_98642_E82, sub_98642_FA7, sub_98642_1010, sub_98642_1087, sub_98642_10B1, sub_98642_10DB, sub_9A0EC_28A, sub_9A89E_214
-global sub_9A89E_21E, sub_9A89E_234, sub_9A89E_23B, sub_9AC57_2E6, sub_9AC57_309, sub_9AC57_31A, sub_9AC57_32B, sub_9B4AA_16C
+global jpt_9861E, jpt_9AC47, EditLinesScreen_17F, EditLinesScreen_18C, EditLinesScreen_2C7, EditLinesScreen_49D, EditLinesScreen_4C4, EditLinesScreen_5BA
+global EditLinesScreen_5EF, EditLinesScreen_61B, EditLinesScreen_69D, EditLinesScreen_8E8, sub_96E85_39D, sub_97D16_203, sub_98642_A49, sub_98642_C5B
+global sub_98642_E82, sub_98642_FA7, sub_98642_1010, sub_98642_1087, sub_98642_10B1, sub_98642_10DB, sub_9A0EC_28A, DrawPlayerLines_214
+global DrawPlayerLines_21E, DrawPlayerLines_234, DrawPlayerLines_23B, sub_9AC57_2E6, sub_9AC57_309, sub_9AC57_31A, sub_9AC57_32B, sub_9B4AA_16C
 global sub_9B4AA_41B, sub_9B4AA_517, sub_9BAC1_59, sub_9C7B7_FE, sub_9CD63_82, sub_9CD63_88, sub_9CD63_B6, sub_9DACE_66
 global sub_9DACE_68, EditLinesScreen, sub_96B32, sub_96E85, sub_97228, sub_9732A, sub_97AE7, sub_97C32
 global sub_97D16, sub_97F7F, sub_980B3, sub_981EE, sub_98231, sub_98274, sub_984D3, sub_98642
 global sub_99992, sub_99CC5, sub_99D40, sub_99DAC, sub_99E41, sub_9A0EC, sub_9A389, sub_9A603
-global sub_9A89E, sub_9AADF, sub_9AC57, sub_9B25A, sub_9B2A8, sub_9B39F, sub_9B418, sub_9B45C
+global DrawPlayerLines, sub_9AADF, sub_9AC57, sub_9B25A, sub_9B2A8, sub_9B39F, sub_9B418, sub_9B45C
 global sub_9B4AA, sub_9BAC1, sub_9BB40, sub_9BBDF, sub_9BC01, sub_9BDA1, sub_9C3BF, sub_9C573
 global sub_9C7B7, sub_9C924, sub_9CCB1, sub_9CD63, sub_9CE1D, sub_9CF95, sub_9CFA2, sub_9CFD3
 global sub_9D2D0, sub_9D333, sub_9D822, sub_9D903, sub_9DA9D, sub_9DACE, sub_9DB3C, sub_9DBD5
@@ -150,18 +150,12 @@ EditLinesScreen:
 .3:
         call sub_9C7B7
         mov dword [byte ebp+07Eh], 0
-        jmp near sub_9623E_2C7.23
-;-----------------------------------------------------------------------------
-; sub_9623E_17F                                                   963BD  97 PC
-;-----------------------------------------------------------------------------
-sub_9623E_17F:
+        jmp near EditLinesScreen_2C7.23
+EditLinesScreen_17F:
         call sub_7EEB0
         inc dword [byte ebp+07Eh]
-        jmp near sub_9623E_2C7.23
-;-----------------------------------------------------------------------------
-; sub_9623E_18C                                                   963CA  97 PC
-;-----------------------------------------------------------------------------
-sub_9623E_18C:
+        jmp near EditLinesScreen_2C7.23
+EditLinesScreen_18C:
         call sub_7EDF0
         xor edx, edx
         xor ecx, ecx
@@ -261,16 +255,13 @@ sub_9623E_18C:
         call sub_9D333
 .16:
         cmp dword [byte ebp+07Eh], byte 0
-        je near sub_9623E_2C7.23
+        je near EditLinesScreen_2C7.23
         mov edx, dword [byte ebp+07Ah]
         mov eax, edi
         mov dword [byte ebp+072h], 1
         call sub_980B3
-        jmp near sub_9623E_2C7.23
-;-----------------------------------------------------------------------------
-; sub_9623E_2C7                                                   96505  97 PC
-;-----------------------------------------------------------------------------
-sub_9623E_2C7:
+        jmp near EditLinesScreen_2C7.23
+EditLinesScreen_2C7:
         cmp dword [dword_1C8E20], byte 0
         je short .17
         push dword [dword_1C8E20]
@@ -362,7 +353,7 @@ sub_9623E_2C7:
         call sub_9C7B7
 .23:
         cmp dword [byte ebp+07Eh], byte 0
-        jne near sub_9623E_69D.37
+        jne near EditLinesScreen_69D.37
         push byte 0
         lea eax, [byte ebp+066h]
         mov ecx, sub_9C7B7_FE
@@ -372,13 +363,10 @@ sub_9623E_2C7:
         mov eax, 1Eh
         call sub_8BFAC
         cmp dword [byte ebp+066h], byte 8
-        ja near sub_9623E_69D.33
+        ja near EditLinesScreen_69D.33
         mov eax, dword [byte ebp+066h]
         jmp dword [nosplit cs:eax*4+jpt_9621A]
-;-----------------------------------------------------------------------------
-; sub_9623E_49D                                                   966DB  97 PC
-;-----------------------------------------------------------------------------
-sub_9623E_49D:
+EditLinesScreen_49D:
         inc dword [dword_1C8E48]
         cmp dword [dword_1C8E48], byte 3
         jle short .24
@@ -387,11 +375,8 @@ sub_9623E_49D:
         mov edx, 1
         mov eax, esi
         call sub_9AC57
-        jmp short sub_9623E_2C7.23
-;-----------------------------------------------------------------------------
-; sub_9623E_4C4                                                   96702  97 PC
-;-----------------------------------------------------------------------------
-sub_9623E_4C4:
+        jmp short EditLinesScreen_2C7.23
+EditLinesScreen_4C4:
         imul eax, byte 52h
         add eax, esi
         cmp dword [dword_1C8E48], byte 3
@@ -454,7 +439,7 @@ sub_9623E_4C4:
         xor eax, eax
 .28:
         test eax, eax
-        je near sub_9623E_2C7.23
+        je near EditLinesScreen_2C7.23
         imul eax, dword [byte ebp+066h], byte 52h
         add eax, esi
         call sub_9B25A
@@ -463,11 +448,8 @@ sub_9623E_4C4:
         push dword [byte esi+eax+02Ah]
         push dword [byte esi+eax+026h]
         push dword [byte esi+eax+01Ah]
-        jmp near sub_9623E_61B.31
-;-----------------------------------------------------------------------------
-; sub_9623E_5BA                                                   967F8  97 PC
-;-----------------------------------------------------------------------------
-sub_9623E_5BA:
+        jmp near EditLinesScreen_61B.31
+EditLinesScreen_5BA:
         push byte 1
         mov eax, 0C5h
         mov ecx, 1
@@ -476,15 +458,12 @@ sub_9623E_5BA:
         call GetLangText
         call sub_7F5A4
         cmp eax, byte 1
-        jne near sub_9623E_49D.24
+        jne near EditLinesScreen_49D.24
         mov edx, dword [byte ebp+07Ah]
         mov eax, edi
         call sub_98274
-        jmp near sub_9623E_49D.24
-;-----------------------------------------------------------------------------
-; sub_9623E_5EF                                                   9682D  97 PC
-;-----------------------------------------------------------------------------
-sub_9623E_5EF:
+        jmp near EditLinesScreen_49D.24
+EditLinesScreen_5EF:
         call sub_9CE1D
         mov eax, dword [dword_1C8E24]
         mov dl, byte [dword eax+02121h]
@@ -492,11 +471,8 @@ sub_9623E_5EF:
         mov byte [dword eax+02121h], dh
         mov eax, dword [dword_1C8E24]
         mov byte [dword eax+02122h], dl
-        jmp near sub_9623E_49D.24
-;-----------------------------------------------------------------------------
-; sub_9623E_61B                                                   96859  97 PC
-;-----------------------------------------------------------------------------
-sub_9623E_61B:
+        jmp near EditLinesScreen_49D.24
+EditLinesScreen_61B:
         cmp dword [dword_1C8E48], byte 3
         jne short .29
         dec dword [dword_1C8E18]
@@ -527,31 +503,28 @@ sub_9623E_61B:
         mov eax, sub_9B4AA_41B
         call sub_9BC01
         call sub_1013FC
-        jmp near sub_9623E_2C7.23
-;-----------------------------------------------------------------------------
-; sub_9623E_69D                                                   968DB  97 PC
-;-----------------------------------------------------------------------------
-sub_9623E_69D:
+        jmp near EditLinesScreen_2C7.23
+EditLinesScreen_69D:
         cmp dword [dword_1C8E48], byte 3
         jne short .32
         inc dword [dword_1C8E18]
         mov eax, dword [dword_1C8E18]
         cmp eax, dword [dword_1C8DF4]
-        jl short sub_9623E_61B.30
+        jl short EditLinesScreen_61B.30
         mov dword [dword_1C8E18], 0
-        jmp short sub_9623E_61B.30
+        jmp short EditLinesScreen_61B.30
 .32:
         inc dword [dword_1C8E14]
         mov eax, dword [dword_1C8E14]
         cmp eax, dword [dword_1C8DF8]
-        jl short sub_9623E_61B.30
+        jl short EditLinesScreen_61B.30
         mov dword [dword_1C8E14], 0
-        jmp near sub_9623E_61B.30
+        jmp near EditLinesScreen_61B.30
 .33:
         cmp dword [byte ebp+066h], byte 0Ah
-        jl near sub_9623E_2C7.23
+        jl near EditLinesScreen_2C7.23
         cmp dword [byte ebp+066h], byte 1Eh
-        jge near sub_9623E_2C7.23
+        jge near EditLinesScreen_2C7.23
         cmp dword [dword_1C8E48], byte 3
         jne short .34
         cmp dword [byte ebp+066h], byte 0Ch
@@ -563,7 +536,7 @@ sub_9623E_69D:
         mov byte [dword eax+02121h], dl
         mov eax, dword [dword_1C8E24]
         mov byte [dword eax+02122h], dh
-        jmp near sub_9623E_49D.24
+        jmp near EditLinesScreen_49D.24
 .34:
         cmp dword [dword_1C8E20], byte 0
         je short .35
@@ -597,7 +570,7 @@ sub_9623E_69D:
         sub edx, byte 0Ah
         call sub_98642
         cmp byte [byte_1C6040], 0
-        je near sub_9623E_2C7.22
+        je near EditLinesScreen_2C7.22
         push dword [dword_1C8E1C]
         call sub_FCD90
         add esp, byte 4
@@ -626,7 +599,7 @@ sub_9623E_69D:
         mov dword [dword_1C8E3C], eax
         mov eax, esi
         call sub_9AC57
-        jmp near sub_9623E_2C7.22
+        jmp near EditLinesScreen_2C7.22
 .37:
         push dword [dword_1C8DA4]
         call sub_FCD90
@@ -671,7 +644,7 @@ sub_9623E_69D:
         call LoadLogoNames
 .41:
         mov eax, dword [byte ebp+072h]
-sub_9623E_8E8:
+EditLinesScreen_8E8:
         lea esp, [dword ebp+082h]
         pop ebp
         pop edi
@@ -1203,7 +1176,7 @@ sub_96E85:
         mov dword [dword_1C8D08], eax
 sub_96E85_39D:
         leave
-        jmp near sub_9A89E_23B
+        jmp near DrawPlayerLines_23B
 ;-----------------------------------------------------------------------------
 ; sub_97228                                                       97228  97 PC
 ;-----------------------------------------------------------------------------
@@ -1247,7 +1220,7 @@ sub_97228:
         call sub_E341C
         cmp esi, byte 5
         jl short .1
-        jmp near sub_9A89E_23B
+        jmp near DrawPlayerLines_23B
 .5:
         push asc_165B10
         push dword [dword_1C8E44]
@@ -1261,7 +1234,7 @@ sub_97228:
         call sub_1013AC
         add esp, byte 4
         call sub_1013FC
-        jmp near sub_9A89E_23B
+        jmp near DrawPlayerLines_23B
 .6:
         push eax
         call sub_1013AC
@@ -1288,7 +1261,7 @@ sub_97228:
         mov edx, dword [byte ebx+02Ch]
         mov ebx, 10h
         call sub_7DFC0
-        jmp near sub_9A89E_23B
+        jmp near DrawPlayerLines_23B
 ;-----------------------------------------------------------------------------
 ; sub_9732A                                                       9732A  97 PC
 ;-----------------------------------------------------------------------------
@@ -1385,7 +1358,7 @@ sub_9732A:
         add esp, byte 8
         mov dword [dword_1C8E3C], eax
         cmp byte [byte_1C6040], 0
-        jne near sub_9623E_8E8
+        jne near EditLinesScreen_8E8
         push byte 0
         mov eax, dword [dword_1C8DB0]
         push dword [nosplit eax*4+dword_1C5DE8]
@@ -1442,7 +1415,7 @@ sub_9732A:
         call LoadDataFileFlag0
         mov ebx, eax
         test eax, eax
-        je near sub_9623E_8E8
+        je near EditLinesScreen_8E8
         push dword [dword_16E46C]
         push asc_165B2D
         push eax
@@ -1457,7 +1430,7 @@ sub_9732A:
         call sub_FAF34
         add esp, byte 4
         test esi, esi
-        je near sub_9623E_8E8
+        je near EditLinesScreen_8E8
         mov dword [byte ebp+056h], 104h
         mov dword [byte ebp+04Eh], 78h
         mov dword [byte ebp+05Eh], 0CEh
@@ -1932,7 +1905,7 @@ sub_9732A:
         push dword [byte ebp+06Eh]
         call sub_FAF34
         add esp, byte 4
-        jmp near sub_9623E_8E8
+        jmp near EditLinesScreen_8E8
 ;-----------------------------------------------------------------------------
 ; sub_97AE7                                                       97AE7  97 PC
 ;-----------------------------------------------------------------------------
@@ -3702,7 +3675,7 @@ sub_98642:
         cmp dword [dword_1C8E48], byte 3
         je short .21
         mov eax, dword [byte ebp+07Eh]
-        call sub_9A89E
+        call DrawPlayerLines
         mov eax, dword [byte ebp+07Eh]
         call sub_99E41
         jmp short .22
@@ -4283,7 +4256,7 @@ sub_98642_10DB:
         call sub_9A389
         call sub_13C164
         mov eax, dword [byte ebp+07Eh]
-        call sub_9A89E
+        call DrawPlayerLines
         mov eax, dword [byte ebp+07Eh]
         mov edx, dword [byte ebp+07Eh]
         call sub_99E41
@@ -4305,7 +4278,7 @@ sub_98642_10DB:
         call sub_FAF34
         add esp, byte 4
         cmp byte [byte_1C6040], 0
-        jne near sub_9623E_8E8
+        jne near EditLinesScreen_8E8
         mov eax, dword [dword ebp-015Ah]
         xor edx, edx
         call sub_9AC57
@@ -4407,7 +4380,7 @@ sub_98642_10DB:
         add esp, byte 0Ch
         call sub_102C10
         call sub_1013FC
-        jmp near sub_9623E_8E8
+        jmp near EditLinesScreen_8E8
 ;-----------------------------------------------------------------------------
 ; sub_99992                                                       99992  97 PC
 ;-----------------------------------------------------------------------------
@@ -5730,9 +5703,10 @@ sub_9A603:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_9A89E                                                       9A89E  97 PC
+; DrawPlayerLines                                 9A89E  97 PC, low confidence
+; Edit lines: "%s %s is currently on these lines:" for the highlighted player
 ;-----------------------------------------------------------------------------
-sub_9A89E:
+DrawPlayerLines:
         push ebx
         push ecx
         push edx
@@ -5869,7 +5843,7 @@ sub_9A89E:
         call sub_1013AC
         add esp, byte 4
         test ebx, ebx
-        jl short sub_9A89E_21E
+        jl short DrawPlayerLines_21E
         imul ebx, dword 125h
         mov eax, dword [dword_1C8E24]
         add eax, 0A3h
@@ -5895,21 +5869,21 @@ sub_9A89E:
         sub eax, byte 32h
         push eax
         push dword 1D6h
-sub_9A89E_214:
+DrawPlayerLines_214:
         push byte 1
         call DrawTextAligned
         add esp, byte 10h
-sub_9A89E_21E:
+DrawPlayerLines_21E:
         push dword 1E0h
         push byte 0
         push dword 280h
         push byte 0
         call SetClipWindow
         add esp, byte 10h
-sub_9A89E_234:
+DrawPlayerLines_234:
         lea esp, [dword ebp+082h]
         pop ebp
-sub_9A89E_23B:
+DrawPlayerLines_23B:
         pop edi
         pop esi
         pop edx
@@ -5939,7 +5913,7 @@ sub_9AADF:
         call sub_1013AC
         add esp, byte 4
         test esi, esi
-        jl short sub_9A89E_21E
+        jl short DrawPlayerLines_21E
         imul edi, esi, dword 125h
         mov eax, dword [dword_1C8E24]
         add eax, 1D42h
@@ -6020,14 +5994,14 @@ sub_9AADF:
         push byte 1
         call DrawTextAligned
         add esp, byte 18h
-        jmp near sub_9A89E_21E
+        jmp near DrawPlayerLines_21E
 .5:
         mov eax, 0CBh
         call GetLangText
         push eax
         push ebx
         push dword [byte ebp+07Eh]
-        jmp near sub_9A89E_214
+        jmp near DrawPlayerLines_214
 jpt_9AC47:
         dd sub_9AC57_2E6
         dd sub_9AC57_309
@@ -9100,9 +9074,9 @@ sub_9CFD3:
 .12:
         mov eax, dword [byte ebp-04Ah]
         cmp word [dword eax+01281h], byte 3
-        jge near sub_9A89E_234
+        jge near DrawPlayerLines_234
         cmp word [dword eax+018A5h], byte 0
-        jle near sub_9A89E_234
+        jle near DrawPlayerLines_234
         mov dword [byte ebp+07Eh], 0
         mov dword [byte ebp+07Ah], 0
         jmp short .15
@@ -9201,7 +9175,7 @@ sub_9CFD3:
 .23:
         cmp eax, dword [byte ebp+07Eh]
         jg short .19
-        jmp near sub_9A89E_234
+        jmp near DrawPlayerLines_234
 ;-----------------------------------------------------------------------------
 ; sub_9D2D0                                                       9D2D0  97 PC
 ;-----------------------------------------------------------------------------
@@ -9646,7 +9620,7 @@ sub_9D333:
         lea edx, [byte ebp-05Eh]
         mov eax, dword [byte ebp+07Ah]
         call sub_9DEC2
-        jmp near sub_9A89E_234
+        jmp near DrawPlayerLines_234
 ;-----------------------------------------------------------------------------
 ; sub_9D822                                                       9D822  97 PC
 ;-----------------------------------------------------------------------------
@@ -9734,13 +9708,13 @@ sub_9D822:
         mov edx, esi
         sub edx, eax
         cmp edx, byte 1
-        jle near sub_9A89E_23B
+        jle near DrawPlayerLines_23B
         imul eax, byte 6
         mov ecx, sub_9CF95
         mov ebx, 6
         add eax, edi
         call qsort_
-        jmp near sub_9A89E_23B
+        jmp near DrawPlayerLines_23B
 ;-----------------------------------------------------------------------------
 ; sub_9D903                                                       9D903  97 PC
 ;-----------------------------------------------------------------------------

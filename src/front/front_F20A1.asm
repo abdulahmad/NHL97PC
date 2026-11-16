@@ -43,14 +43,14 @@ extern WaitForOtherComputer, sub_F1FF8, sub_FAF34, sub_FC330, sub_FC4BC, sub_FCC
 extern sub_FD08C, sub_FD0F8, sub_FD110, sub_FDD1C, sub_FDE44, sub_FE150, sub_FE180, sub_FE3AC
 extern sub_FE3D0, tickcount, unk_167A4B, word_168D18, word_19CBB0, word_19CBB2, gsp, gameclock
 extern word_19CBBC, word_1C3413, word_1C5536, word_1CEFC0
-global jpt_F4167, jpt_F56E5, jpt_F7BB6, sub_F30F1_5B2, sub_F30F1_5B5, sub_F418F_16C, sub_F418F_26F, sub_F418F_29A
-global sub_F418F_4BB, sub_F418F_4EF, sub_F418F_60A, sub_F418F_62A, sub_F418F_640, sub_F418F_66D, sub_F418F_726, sub_F418F_72C
-global sub_F418F_72D, sub_F570D_1583, sub_F570D_176B, sub_F570D_19CD, sub_F570D_1C04, sub_F570D_1D78, sub_F570D_1F1F, sub_F570D_2056
-global sub_F570D_218D, sub_F570D_22F1, sub_F570D_2464, sub_F7BD6_C81, sub_F7BD6_E31, sub_F7BD6_10E6, sub_F7BD6_12B8, sub_F7BD6_13D7
-global sub_F7BD6_14F6, sub_F7BD6_165B, sub_F7BD6_17B7, sub_F20A1, sub_F22AF, sub_F22ED, sub_F23BF, sub_F2544
-global sub_F272B, sub_F27A4, sub_F2AA0, sub_F2ADB, sub_F30A0, sub_F30D7, sub_F30F1, sub_F36AC
-global sub_F3C43, sub_F3F33, sub_F3FB0, sub_F3FF5, sub_F418F, sub_F48C2, sub_F4978, sub_F4A8F
-global sub_F4B3F, sub_F5219, sub_F558C, FillBox, sub_F570D, sub_F7BD6, sub_F9496
+global jpt_F4167, jpt_F56E5, jpt_F7BB6, PickEditLinesTeam_5B2, PickEditLinesTeam_5B5, PauseMenu_16C, PauseMenu_26F, PauseMenu_29A
+global PauseMenu_4BB, PauseMenu_4EF, PauseMenu_60A, PauseMenu_62A, PauseMenu_640, PauseMenu_66D, PauseMenu_726, PauseMenu_72C
+global PauseMenu_72D, RulesMenu_1583, RulesMenu_176B, RulesMenu_19CD, RulesMenu_1C04, RulesMenu_1D78, RulesMenu_1F1F, RulesMenu_2056
+global RulesMenu_218D, RulesMenu_22F1, RulesMenu_2464, DetailLevelMenu_C81, DetailLevelMenu_E31, DetailLevelMenu_10E6, DetailLevelMenu_12B8, DetailLevelMenu_13D7
+global DetailLevelMenu_14F6, DetailLevelMenu_165B, DetailLevelMenu_17B7, sub_F20A1, sub_F22AF, sub_F22ED, sub_F23BF, sub_F2544
+global sub_F272B, sub_F27A4, sub_F2AA0, DrawPauseButtons, sub_F30A0, sub_F30D7, PickEditLinesTeam, ConfirmQuitGame
+global sub_F3C43, sub_F3F33, sub_F3FB0, sub_F3FF5, PauseMenu, sub_F48C2, sub_F4978, sub_F4A8F
+global sub_F4B3F, sub_F5219, sub_F558C, FillBox, RulesMenu, DetailLevelMenu, sub_F9496
 ;-----------------------------------------------------------------------------
 ; sub_F20A1                                                       F20A1  97 PC
 ;-----------------------------------------------------------------------------
@@ -208,7 +208,7 @@ sub_F20A1:
         call sub_FAF34
         mov dword [dword_1C5DE4], 0
         add esp, byte 4
-        jmp near sub_F30F1_5B5
+        jmp near PickEditLinesTeam_5B5
 ;-----------------------------------------------------------------------------
 ; sub_F22AF                                                       F22AF  97 PC
 ;-----------------------------------------------------------------------------
@@ -679,7 +679,7 @@ sub_F272B:
         imul eax, edx
         cmp ebx, eax
         jl short .2
-        jmp near sub_F30F1_5B5
+        jmp near PickEditLinesTeam_5B5
 ;-----------------------------------------------------------------------------
 ; sub_F27A4                                                       F27A4  97 PC
 ;-----------------------------------------------------------------------------
@@ -960,9 +960,11 @@ sub_F2AA0:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_F2ADB                                                       F2ADB  97 PC
+; DrawPauseButtons                                F2ADB  96 PC, low confidence
+; Draws the pause menu's buttons (qui0 quit, ret0 return, rep0 replay, ctr0
+; controllers, sts0 stats, edt0 edit lines, sav0 save, cht0 chat)
 ;-----------------------------------------------------------------------------
-sub_F2ADB:
+DrawPauseButtons:
         push ebx
         push ecx
         push esi
@@ -1436,9 +1438,10 @@ sub_F30D7:
         call LoadLangTextB
         jmp near sub_8BEF8
 ;-----------------------------------------------------------------------------
-; sub_F30F1                                                       F30F1  97 PC
+; PickEditLinesTeam                               F30F1  97 PC, low confidence
+; The in-game "Edit which team?" box (Home / Away / Cancel)
 ;-----------------------------------------------------------------------------
-sub_F30F1:
+PickEditLinesTeam:
         push ebx
         push ecx
         push edx
@@ -1863,15 +1866,16 @@ sub_F30F1:
 .20:
         cmp word [byte ebp-04h], byte 3
         jl short .17
-sub_F30F1_5B2:
+PickEditLinesTeam_5B2:
         mov eax, dword [byte ebp-040h]
-sub_F30F1_5B5:
+PickEditLinesTeam_5B5:
         leave
-        jmp near sub_F418F_72D
+        jmp near PauseMenu_72D
 ;-----------------------------------------------------------------------------
-; sub_F36AC                                                       F36AC  97 PC
+; ConfirmQuitGame                              F36AC  97 PC, medium confidence
+; The in-game "Are you sure you want to quit the game?" box (Yes / No)
 ;-----------------------------------------------------------------------------
-sub_F36AC:
+ConfirmQuitGame:
         push ebx
         push ecx
         push edx
@@ -2279,7 +2283,7 @@ sub_F36AC:
 .19:
         cmp word [byte ebp-04h], byte 2
         jl short .16
-        jmp near sub_F30F1_5B2
+        jmp near PickEditLinesTeam_5B2
 ;-----------------------------------------------------------------------------
 ; sub_F3C43                                                       F3C43  97 PC
 ;-----------------------------------------------------------------------------
@@ -2491,7 +2495,7 @@ sub_F3C43:
         call sub_419B8
         mov eax, dword [byte ebp-04h]
         mov dword [dword_16AF58], eax
-        jmp near sub_F30F1_5B5
+        jmp near PickEditLinesTeam_5B5
 ;-----------------------------------------------------------------------------
 ; sub_F3F33                                                       F3F33  97 PC
 ;-----------------------------------------------------------------------------
@@ -2559,7 +2563,7 @@ sub_F3FB0:
         mov dword [byte edi+ebx+08h], 0
         cmp esi, byte 0Ah
         jl short .1
-        jmp near sub_F418F_72D
+        jmp near PauseMenu_72D
 ;-----------------------------------------------------------------------------
 ; sub_F3FF5                                                       F3FF5  97 PC
 ;-----------------------------------------------------------------------------
@@ -2584,7 +2588,7 @@ sub_F3FF5:
         movsx eax, word [byte ebp-04h]
         mov edx, dword [byte ebp-014h]
         mov edi, 1
-        call sub_F2ADB
+        call DrawPauseButtons
 .4:
         cmp edi, byte 4
         je near .5
@@ -2664,20 +2668,22 @@ sub_F3FF5:
         pop ecx
         ret
 jpt_F4167:
-        dd sub_F418F_4BB
-        dd sub_F418F_16C
-        dd sub_F418F_26F
-        dd sub_F418F_29A
-        dd sub_F418F_4BB
-        dd sub_F418F_4EF
-        dd sub_F418F_60A
-        dd sub_F418F_62A
-        dd sub_F418F_66D
-        dd sub_F418F_640
+        dd PauseMenu_4BB
+        dd PauseMenu_16C
+        dd PauseMenu_26F
+        dd PauseMenu_29A
+        dd PauseMenu_4BB
+        dd PauseMenu_4EF
+        dd PauseMenu_60A
+        dd PauseMenu_62A
+        dd PauseMenu_66D
+        dd PauseMenu_640
 ;-----------------------------------------------------------------------------
-; sub_F418F                                                       F418F  97 PC
+; PauseMenu                                       F418F  96 PC, low confidence
+; The pause menu (PAUSREG; quit, return, chat ...) with RunMenu, kept in step
+; in a link game (LinkSync)
 ;-----------------------------------------------------------------------------
-sub_F418F:
+PauseMenu:
         push ebx
         push ecx
         push edx
@@ -2695,7 +2701,7 @@ sub_F418F:
         je short .1
         call sub_F3C43
         xor eax, eax
-        jmp near sub_F418F_726
+        jmp near PauseMenu_726
 .1:
         xor edx, edx
         jmp short .3
@@ -2757,7 +2763,7 @@ sub_F418F:
         lea eax, [byte ebp-0Ah]
         movsx edx, si
         call sub_F5219
-        jmp near sub_F418F_4BB
+        jmp near PauseMenu_4BB
 .9:
         push byte 3
         lea eax, [byte ebp+06Eh]
@@ -2770,13 +2776,13 @@ sub_F418F:
         call sub_8BFAC
         mov ebx, eax
         cmp dword [byte ebp+06Eh], byte 9
-        ja near sub_F418F_4BB
+        ja near PauseMenu_4BB
         mov eax, dword [byte ebp+06Eh]
         jmp dword [nosplit cs:eax*4+jpt_F4167]
-sub_F418F_16C:
+PauseMenu_16C:
         call sub_5BE74
         test eax, eax
-        je near sub_F418F_4BB
+        je near PauseMenu_4BB
         lea eax, [byte ebp-0Ah]
         call sub_F3FB0
         call sub_8BEF8
@@ -2835,18 +2841,18 @@ sub_F418F_16C:
         call ApplyDisplayFlags
         mov eax, dword [dword_1CEFBC]
         call sub_4BA00
-        jmp near sub_F418F_29A.30
-sub_F418F_26F:
+        jmp near PauseMenu_29A.30
+PauseMenu_26F:
         mov eax, 3
         call sub_419B0
         call sub_419B8
-        call sub_F570D
+        call RulesMenu
         call sub_18E76
         mov eax, dword [dword_1CEFA8]
         mov eax, dword [byte eax+02Ch]
         call sub_3CFB0
-        jmp near sub_F418F_29A.29
-sub_F418F_29A:
+        jmp near PauseMenu_29A.29
+PauseMenu_29A:
         xor edi, edi
         xor edx, edx
         xor ebx, ebx
@@ -2881,11 +2887,11 @@ sub_F418F_29A:
 .18:
         movsx eax, word [word_1CEFC0]
         mov ebx, 1
-        call sub_F30F1
+        call PickEditLinesTeam
         mov dword [byte ebp+07Eh], eax
         mov edi, ebx
         cmp ax, 2
-        je near sub_F418F_4BB
+        je near PauseMenu_4BB
 .19:
         lea eax, [byte ebp-0Ah]
         call sub_F3FB0
@@ -3010,11 +3016,11 @@ sub_F418F_29A:
         mov dword [dword_1A8E50], 1
 .30:
         call sub_4BCB4
-sub_F418F_4BB:
+PauseMenu_4BB:
         cmp dword [byte ebp+07Ah], byte 0FFFFFFFFh
-        jne near sub_F418F_66D.36
+        jne near PauseMenu_66D.36
         cmp dword [dword_16DA9C], byte 0
-        je near sub_F418F.9
+        je near PauseMenu.9
         push byte 3
         lea eax, [byte ebp+06Eh]
         mov ebx, 0FFFFFFFFh
@@ -3022,8 +3028,8 @@ sub_F418F_4BB:
         push eax
         xor ecx, ecx
         mov eax, 0Ah
-        jmp near sub_F418F.10
-sub_F418F_4EF:
+        jmp near PauseMenu.10
+PauseMenu_4EF:
         lea eax, [byte ebp-0Ah]
         call sub_F3FB0
         mov eax, dword [dword_1CEFA8]
@@ -3092,19 +3098,19 @@ sub_F418F_4EF:
         fxch
         fadd qword [qword_167B79]
         or cl, 8
-        jmp near sub_F418F_29A.28
-sub_F418F_60A:
+        jmp near PauseMenu_29A.28
+PauseMenu_60A:
         movsx eax, word [word_1CEFC0]
-        call sub_F36AC
+        call ConfirmQuitGame
         test eax, eax
-        je near sub_F418F_4BB
+        je near PauseMenu_4BB
         mov dword [byte ebp+07Ah], 2
-        jmp near sub_F418F_4BB
-sub_F418F_62A:
+        jmp near PauseMenu_4BB
+PauseMenu_62A:
         mov dword [byte ebp+07Ah], 0
         mov dword [InGameMenuRequest], 0
-        jmp near sub_F418F_4BB
-sub_F418F_640:
+        jmp near PauseMenu_4BB
+PauseMenu_640:
         call WaitForOtherComputer
         xor eax, eax
         call sub_1C9F0
@@ -3113,8 +3119,8 @@ sub_F418F_640:
         mov eax, dword [dword_1CEFA8]
         mov eax, dword [byte eax+02Ch]
         call sub_3CFB0
-        jmp near sub_F418F_29A.30
-sub_F418F_66D:
+        jmp near PauseMenu_29A.30
+PauseMenu_66D:
         cmp word [word_1CEFC0], byte 2
         je short .33
         push dword [dword_1CEFB0]
@@ -3129,7 +3135,7 @@ sub_F418F_66D:
         mov eax, ebx
         call sub_419B0
         call sub_419B8
-        call sub_F7BD6
+        call DetailLevelMenu
         mov dword [dword_1A8E50], 1
         call sub_18E76
         mov eax, dword [dword_1CEFA8]
@@ -3137,12 +3143,12 @@ sub_F418F_66D:
         call sub_3CFB0
         call sub_4BCB4
         call sub_E4218
-        jmp near sub_F418F_4BB
+        jmp near PauseMenu_4BB
 .35:
         mov eax, 8Fh
         call GetLangText
         call sub_E4230
-        jmp near sub_F418F_4BB
+        jmp near PauseMenu_4BB
 .36:
         lea eax, [byte ebp-0Ah]
         call sub_F3FB0
@@ -3162,11 +3168,11 @@ sub_F418F_66D:
         mov eax, dword [tickcount]
         mov dword [dword_1CEFA4], eax
         mov eax, dword [byte ebp+07Ah]
-sub_F418F_726:
+PauseMenu_726:
         lea esp, [dword ebp+082h]
-sub_F418F_72C:
+PauseMenu_72C:
         pop ebp
-sub_F418F_72D:
+PauseMenu_72D:
         pop edi
         pop esi
         pop edx
@@ -4200,20 +4206,22 @@ FillBox:
         pop esi
         ret 4
 jpt_F56E5:
-        dd sub_F570D_1583
-        dd sub_F570D_176B
-        dd sub_F570D_19CD
-        dd sub_F570D_1C04
-        dd sub_F570D_1D78
-        dd sub_F570D_1F1F
-        dd sub_F570D_2056
-        dd sub_F570D_218D
-        dd sub_F570D_22F1
-        dd sub_F570D_2464
+        dd RulesMenu_1583
+        dd RulesMenu_176B
+        dd RulesMenu_19CD
+        dd RulesMenu_1C04
+        dd RulesMenu_1D78
+        dd RulesMenu_1F1F
+        dd RulesMenu_2056
+        dd RulesMenu_218D
+        dd RulesMenu_22F1
+        dd RulesMenu_2464
 ;-----------------------------------------------------------------------------
-; sub_F570D                                                       F570D  97 PC
+; RulesMenu                                    F570D  97 PC, medium confidence
+; The in-game rules menu (offside, icing, 2 line pass, line changes,
+; injuries, fighting, penalties, speed game)
 ;-----------------------------------------------------------------------------
-sub_F570D:
+RulesMenu:
         push ebx
         push ecx
         push edx
@@ -5850,7 +5858,7 @@ sub_F570D:
         mov esi, eax
 .45:
         cmp word [byte ebp+07Ah], byte 0
-        jne near sub_F570D_2464.77
+        jne near RulesMenu_2464.77
         push byte 3
         lea eax, [dword ebp-092h]
         mov ebx, 0FFFFFFFFh
@@ -5874,7 +5882,7 @@ sub_F570D:
         fstp dword [byte ebp+06Eh]
         fstp dword [byte ebp-042h]
         jmp dword [nosplit cs:eax*4+jpt_F56E5]
-sub_F570D_1583:
+RulesMenu_1583:
         call sub_13C164
         movsx eax, si
         push eax
@@ -6007,8 +6015,8 @@ sub_F570D_1583:
         mov eax, dword [dword ebp-0112h]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-06ACh], eax
-        jmp near sub_F570D.45
-sub_F570D_176B:
+        jmp near RulesMenu.45
+RulesMenu_176B:
         call sub_13C164
         movsx eax, si
         push eax
@@ -6176,8 +6184,8 @@ sub_F570D_176B:
         mov eax, dword [dword ebp-0106h]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-065Ah], eax
-        jmp near sub_F570D.45
-sub_F570D_19CD:
+        jmp near RulesMenu.45
+RulesMenu_19CD:
         call sub_13C164
         movsx eax, si
         push eax
@@ -6333,8 +6341,8 @@ sub_F570D_19CD:
         mov eax, dword [dword ebp-0FAh]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-0608h], eax
-        jmp near sub_F570D.45
-sub_F570D_1C04:
+        jmp near RulesMenu.45
+RulesMenu_1C04:
         call sub_13C164
         movsx eax, si
         push eax
@@ -6435,10 +6443,10 @@ sub_F570D_1C04:
         mov eax, dword [dword ebp-0EEh]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-05B6h], eax
-        jmp near sub_F570D.45
-sub_F570D_1D78:
+        jmp near RulesMenu.45
+RulesMenu_1D78:
         test byte [dword_1AC814], 70h
-        jne near sub_F570D.45
+        jne near RulesMenu.45
         call sub_13C164
         movsx eax, si
         push eax
@@ -6552,10 +6560,10 @@ sub_F570D_1D78:
         mov eax, dword [dword ebp-0E2h]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-0564h], eax
-        jmp near sub_F570D.45
-sub_F570D_1F1F:
+        jmp near RulesMenu.45
+RulesMenu_1F1F:
         test byte [dword_1AC814], 70h
-        jne near sub_F570D.45
+        jne near RulesMenu.45
         call sub_13C164
         movsx eax, si
         push eax
@@ -6637,10 +6645,10 @@ sub_F570D_1F1F:
         mov eax, dword [dword ebp-0D6h]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-0512h], eax
-        jmp near sub_F570D.45
-sub_F570D_2056:
+        jmp near RulesMenu.45
+RulesMenu_2056:
         test byte [dword_1AC814], 70h
-        jne near sub_F570D.45
+        jne near RulesMenu.45
         call sub_13C164
         movsx eax, si
         push eax
@@ -6722,10 +6730,10 @@ sub_F570D_2056:
         mov eax, dword [dword ebp-0CAh]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-04C0h], eax
-        jmp near sub_F570D.45
-sub_F570D_218D:
+        jmp near RulesMenu.45
+RulesMenu_218D:
         test byte [dword_1AC814], 70h
-        jne near sub_F570D.45
+        jne near RulesMenu.45
         call sub_13C164
         movsx eax, si
         push eax
@@ -6818,8 +6826,8 @@ sub_F570D_218D:
         mov eax, dword [dword ebp-0BEh]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-046Eh], eax
-        jmp near sub_F570D.45
-sub_F570D_22F1:
+        jmp near RulesMenu.45
+RulesMenu_22F1:
         call sub_13C164
         movsx eax, si
         push eax
@@ -6926,10 +6934,10 @@ sub_F570D_22F1:
         mov eax, dword [dword ebp-0B2h]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-041Ch], eax
-        jmp near sub_F570D.45
-sub_F570D_2464:
+        jmp near RulesMenu.45
+RulesMenu_2464:
         mov dword [byte ebp+07Ah], 1
-        jmp near sub_F570D.45
+        jmp near RulesMenu.45
 .77:
         call sub_4BCB4
         xor esi, esi
@@ -6947,20 +6955,22 @@ sub_F570D_2464:
 .79:
         cmp si, byte 0Ah
         jl short .78
-        jmp near sub_F418F_726
+        jmp near PauseMenu_726
 jpt_F7BB6:
-        dd sub_F7BD6_C81
-        dd sub_F7BD6_E31
-        dd sub_F7BD6_10E6
-        dd sub_F7BD6_12B8
-        dd sub_F7BD6_13D7
-        dd sub_F7BD6_14F6
-        dd sub_F7BD6_165B
-        dd sub_F7BD6_17B7
+        dd DetailLevelMenu_C81
+        dd DetailLevelMenu_E31
+        dd DetailLevelMenu_10E6
+        dd DetailLevelMenu_12B8
+        dd DetailLevelMenu_13D7
+        dd DetailLevelMenu_14F6
+        dd DetailLevelMenu_165B
+        dd DetailLevelMenu_17B7
 ;-----------------------------------------------------------------------------
-; sub_F7BD6                                                       F7BD6  97 PC
+; DetailLevelMenu                              F7BD6  97 PC, medium confidence
+; The in-game detail level menu (draw crowd, ice logos, ice texture, board
+; advertising, glass, player benches, player names)
 ;-----------------------------------------------------------------------------
-sub_F7BD6:
+DetailLevelMenu:
         push ebx
         push ecx
         push edx
@@ -7910,8 +7920,8 @@ sub_F7BD6:
         call sub_FC4BC
         add esp, byte 4
         mov esi, eax
-        jmp near sub_F7BD6_E31.29
-sub_F7BD6_C81:
+        jmp near DetailLevelMenu_E31.29
+DetailLevelMenu_C81:
         call sub_13C164
         movsx eax, si
         push eax
@@ -8024,8 +8034,8 @@ sub_F7BD6_C81:
         mov eax, dword [dword ebp-08Eh]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-0504h], eax
-        jmp near sub_F7BD6_E31.29
-sub_F7BD6_E31:
+        jmp near DetailLevelMenu_E31.29
+DetailLevelMenu_E31:
         call sub_13C164
         mov eax, dword [dword ebp-08Ah]
         movsx ebx, si
@@ -8184,7 +8194,7 @@ sub_F7BD6_E31:
         mov dword [dword ebp-0460h], eax
 .29:
         cmp word [byte ebp+07Eh], byte 0
-        jne near sub_F7BD6_17B7.42
+        jne near DetailLevelMenu_17B7.42
         push byte 2
         lea eax, [byte ebp-036h]
         mov ebx, 0FFFFFFFFh
@@ -8220,7 +8230,7 @@ sub_F7BD6_E31:
         fstp dword [byte ebp+026h]
         fstp dword [byte ebp+02Ah]
         jmp dword [nosplit cs:eax*4+jpt_F7BB6]
-sub_F7BD6_10E6:
+DetailLevelMenu_10E6:
         call sub_13C164
         mov eax, dword [byte ebp-07Eh]
         movsx ebx, si
@@ -8290,7 +8300,7 @@ sub_F7BD6_10E6:
         mov eax, dword [byte ebp+07Ah]
         movsx edx, ax
         lea eax, [byte ebp-07Eh]
-        jmp near sub_F7BD6_E31.28
+        jmp near DetailLevelMenu_E31.28
 .30:
         push dword [byte ebp+076h]
         push dword [byte ebp+072h]
@@ -8355,8 +8365,8 @@ sub_F7BD6_10E6:
         mov eax, dword [byte ebp+07Ah]
         push dword [byte ebp-06h]
         movsx ebx, ax
-        jmp near sub_F7BD6_E31.27
-sub_F7BD6_12B8:
+        jmp near DetailLevelMenu_E31.27
+DetailLevelMenu_12B8:
         call sub_13C164
         movsx eax, si
         push eax
@@ -8437,8 +8447,8 @@ sub_F7BD6_12B8:
         mov eax, dword [byte ebp-06Ah]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-040Eh], eax
-        jmp near sub_F7BD6_E31.29
-sub_F7BD6_13D7:
+        jmp near DetailLevelMenu_E31.29
+DetailLevelMenu_13D7:
         call sub_13C164
         movsx eax, si
         push eax
@@ -8519,8 +8529,8 @@ sub_F7BD6_13D7:
         mov eax, dword [byte ebp-05Eh]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-03BCh], eax
-        jmp near sub_F7BD6_E31.29
-sub_F7BD6_14F6:
+        jmp near DetailLevelMenu_E31.29
+DetailLevelMenu_14F6:
         call sub_13C164
         movsx eax, si
         push eax
@@ -8626,8 +8636,8 @@ sub_F7BD6_14F6:
         mov eax, dword [byte ebp-052h]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-036Ah], eax
-        jmp near sub_F7BD6_E31.29
-sub_F7BD6_165B:
+        jmp near DetailLevelMenu_E31.29
+DetailLevelMenu_165B:
         call sub_13C164
         movsx eax, si
         push eax
@@ -8730,8 +8740,8 @@ sub_F7BD6_165B:
         mov eax, dword [byte ebp-046h]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-0318h], eax
-        jmp near sub_F7BD6_E31.29
-sub_F7BD6_17B7:
+        jmp near DetailLevelMenu_E31.29
+DetailLevelMenu_17B7:
         cmp dword [dword_16AF50], byte 0
         jne short .39
         cmp dword [dword_16AF54], byte 0
@@ -8777,7 +8787,7 @@ sub_F7BD6_17B7:
         shl eax, 1Dh
         mov dword [byte ebp+07Eh], 1
         or dword [dword_1AC819], eax
-        jmp near sub_F7BD6_E31.29
+        jmp near DetailLevelMenu_E31.29
 .42:
         call sub_4BCB4
         xor esi, esi
@@ -8796,7 +8806,7 @@ sub_F7BD6_17B7:
         cmp si, byte 8
         jl short .43
         lea esp, [dword ebp+086h]
-        jmp near sub_F418F_72C
+        jmp near PauseMenu_72C
 ;-----------------------------------------------------------------------------
 ; sub_F9496                                                       F9496  97 PC
 ;-----------------------------------------------------------------------------

@@ -17,8 +17,8 @@ extern dword_1CC650, dword_1CC654, dword_1CC658, dword_1CC65C, dword_1CC660, dwo
 extern dword_1CC688, dword_1CC6A4, dword_1CC6A8, dword_1CC6AC, dword_1CC6E8, dword_1CC6EC, dword_1CC6F8, dword_1CC6FC
 extern dword_1CC700, dword_1CC78C, dword_1CC790, dword_1CC794, dword_1CC798, dword_1CC79C, dword_1CC7A0, dword_1CC7A4
 extern dword_1CC7A8, dword_1CC7AC, dword_1CC7B0, dword_1CC7B4, dword_1CC7B8, dword_1CC7BC, dword_1CC7C0, dword_1CC7C4
-extern dword_1CC7C8, dword_1CC7CC, dword_1CC7D0, dword_1CC7D4, dword_1CC7D8, dword_1CC8A0, sub_D3112_B6A, sub_D3112_BA7
-extern sub_D3112_BB5, sub_D3112_BC3, memset_, rand_, sprintf_, strcpy_, sub_101340, sub_101390
+extern dword_1CC7C8, dword_1CC7CC, dword_1CC7D0, dword_1CC7D4, dword_1CC7D8, dword_1CC8A0, PreGameRostersScreen_B6A, PreGameRostersScreen_BA7
+extern PreGameRostersScreen_BB5, PreGameRostersScreen_BC3, memset_, rand_, sprintf_, strcpy_, sub_101340, sub_101390
 extern sub_1013AC, sub_1013FC, sub_101429, sub_101430, sub_101560, sub_101584, sub_102C30, sub_11A318
 extern sub_11B094, sub_13C164, sub_415A0, sub_415F8, sub_419B0, sub_419B8, sub_41F2C, PlaySfx
 extern PaEvent, LoadDataFile, OpenDataLibrary, LoadLogoNames, sub_7CB8C, sub_7E860, sub_7EDF0, sub_7EEB0
@@ -27,7 +27,7 @@ extern sub_E0DB7, sub_E341C, sub_FAA64, sub_FAF34, sub_FC330, sub_FC510, sub_FCD
 extern sub_FCFE8, sub_FD08C, sub_FD0F8, sub_FD110, tickcount, unk_166FF4, unk_16D7FC, unk_16D804
 extern unk_1AD22E, unk_1AD236, unk_1AD73A, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_D15D1, unk_D15EE
 extern word_1C340D, word_1C5530
-global jpt_D1917, jpt_D3102, sub_D15FB_1E9, sub_D1927_4E0, sub_D1927_4EC, sub_D1927_516, sub_D1927_522, sub_D1927_658
+global jpt_D1917, jpt_D3102, sub_D15FB_1E9, PreGameMatchupScreen_4E0, PreGameMatchupScreen_4EC, PreGameMatchupScreen_516, PreGameMatchupScreen_522, PreGameMatchupScreen_658
 global sub_D26EE_4DF, sub_D26EE_4E0, sub_D15FB, sub_D17EA, PreGameMatchupScreen, sub_D1F8B, sub_D230A, sub_D24F8
 global sub_D26EE, sub_D2BD4, sub_D2C78, sub_D2CCA, sub_D2D94, sub_D2E1A, sub_D2ED6, sub_D306F
 global unk_D3057, unk_D305F, unk_D3067
@@ -252,10 +252,10 @@ sub_D17EA:
         mov dword [dword_1CC7C0], 0
         jmp near sub_D15FB_1E9
 jpt_D1917:
-        dd sub_D1927_4E0
-        dd sub_D1927_4EC
-        dd sub_D1927_522
-        dd sub_D1927_516
+        dd PreGameMatchupScreen_4E0
+        dd PreGameMatchupScreen_4EC
+        dd PreGameMatchupScreen_522
+        dd PreGameMatchupScreen_516
 ;-----------------------------------------------------------------------------
 ; PreGameMatchupScreen                            D1927  96 PC, low confidence
 ; Pre-game screen 1: the matchup with the home and away pictures (H%07d /
@@ -489,13 +489,13 @@ PreGameMatchupScreen:
         mov eax, dword [dword_1CC7C8]
 .4:
         call sub_D24F8
-        jmp near sub_D1927_522.16
+        jmp near PreGameMatchupScreen_522.16
 .5:
         cmp dword [byte ebp+072h], byte 5
         ja near .9
         mov eax, dword [dword_1CC7C8]
         cmp eax, dword [byte ebp+072h]
-        je near sub_D1927_522.16
+        je near PreGameMatchupScreen_522.16
         imul ebx, eax, byte 1Ch
         imul eax, byte 52h
         mov edx, dword [dword ebx+dword_1CC6E8]
@@ -566,43 +566,31 @@ PreGameMatchupScreen:
         mov eax, dword [dword_16D740]
         mov dword [dword_16D73C], eax
         cmp eax, byte 3
-        ja short sub_D1927_522.12
+        ja short PreGameMatchupScreen_522.12
         jmp dword [nosplit cs:eax*4+jpt_D1917]
-;-----------------------------------------------------------------------------
-; sub_D1927_4E0                                                   D1E07  97 PC
-;-----------------------------------------------------------------------------
-sub_D1927_4E0:
+PreGameMatchupScreen_4E0:
         mov dword [dword_16D740], 1
-        jmp short sub_D1927_522.13
-;-----------------------------------------------------------------------------
-; sub_D1927_4EC                                                   D1E13  97 PC
-;-----------------------------------------------------------------------------
-sub_D1927_4EC:
+        jmp short PreGameMatchupScreen_522.13
+PreGameMatchupScreen_4EC:
         mov eax, dword [dword_1AC814]
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .10
         mov dword [dword_16D740], 2
-        jmp short sub_D1927_522.13
+        jmp short PreGameMatchupScreen_522.13
 .10:
         cmp eax, byte 20h
-        jne short sub_D1927_516
+        jne short PreGameMatchupScreen_516
 .11:
         mov dword [dword_16D740], 3
-        jmp short sub_D1927_522.13
-;-----------------------------------------------------------------------------
-; sub_D1927_516                                                   D1E3D  97 PC
-;-----------------------------------------------------------------------------
-sub_D1927_516:
+        jmp short PreGameMatchupScreen_522.13
+PreGameMatchupScreen_516:
         mov dword [dword_16D740], 0
-        jmp short sub_D1927_522.13
-;-----------------------------------------------------------------------------
-; sub_D1927_522                                                   D1E49  97 PC
-;-----------------------------------------------------------------------------
-sub_D1927_522:
+        jmp short PreGameMatchupScreen_522.13
+PreGameMatchupScreen_522:
         cmp dword [dword_1ACF46], byte 0
-        jne short sub_D1927_4EC.11
-        jmp short sub_D1927_516
+        jne short PreGameMatchupScreen_4EC.11
+        jmp short PreGameMatchupScreen_516
 .12:
         mov dword [dword_16D740], 1
         mov dword [dword_16D73C], 0
@@ -679,7 +667,7 @@ sub_D1927_522:
         call sub_415F8
 .20:
         mov eax, dword [byte ebp+07Ah]
-sub_D1927_658:
+PreGameMatchupScreen_658:
         lea esp, [dword ebp+082h]
         pop ebp
         jmp near sub_D26EE_4E0
@@ -989,7 +977,7 @@ sub_D1F8B:
         push byte 1
         call DrawTextAligned
         add esp, byte 14h
-        jmp near sub_D1927_658
+        jmp near PreGameMatchupScreen_658
 ;-----------------------------------------------------------------------------
 ; sub_D230A                                                       D230A  97 PC
 ;-----------------------------------------------------------------------------
@@ -2032,7 +2020,7 @@ sub_D306F:
         pop ebx
         ret
 jpt_D3102:
-        dd sub_D3112_B6A
-        dd sub_D3112_BA7
-        dd sub_D3112_BB5
-        dd sub_D3112_BC3
+        dd PreGameRostersScreen_B6A
+        dd PreGameRostersScreen_BA7
+        dd PreGameRostersScreen_BB5
+        dd PreGameRostersScreen_BC3
