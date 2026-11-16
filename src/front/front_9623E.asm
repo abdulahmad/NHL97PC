@@ -29,7 +29,7 @@ extern dword_1C8E3C, dword_1C8E40, dword_1C8E44, dword_1C8E48, dword_1CC2AC, dwo
 extern qsort_, sprintf_, strcat_, strcpy_, sub_101390, sub_1013AC, sub_1013FC, sub_101429
 extern sub_101430, sub_101560, sub_102B94, sub_102C10, sub_102C30, sub_106F64, sub_106F94, sub_11A318
 extern sub_13C164, sub_415A0, sub_415F8, sub_419B0, sub_419B8, sub_41F2C, sub_41FA0, sub_41FDC
-extern sub_4B108, sub_4B12D, sub_4B19C, sub_7B84B, sub_7CADA, sub_7CB8C, sub_7DFC0, sub_7E52C
+extern sub_4B108, sub_4B12D, sub_4B19C, sub_7B84B, LoadLogoNames, sub_7CB8C, sub_7DFC0, sub_7E52C
 extern sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, sub_7F0D8, sub_7F16C, sub_7F29C, sub_7F5A4
 extern sub_80BBC, sub_81678, sub_823F0, sub_830D4, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10
 extern sub_8DE68, sub_8DE7E, SetScrollBarPos, sub_8DEAC, sub_8DF1F, sub_8E7E0, sub_8E870, sub_C7EAE
@@ -43,7 +43,7 @@ global sub_9623E_5EF, sub_9623E_61B, sub_9623E_69D, sub_9623E_8E8, sub_96E85_39D
 global sub_98642_E82, sub_98642_FA7, sub_98642_1010, sub_98642_1087, sub_98642_10B1, sub_98642_10DB, sub_9A0EC_28A, sub_9A89E_214
 global sub_9A89E_21E, sub_9A89E_234, sub_9A89E_23B, sub_9AC57_2E6, sub_9AC57_309, sub_9AC57_31A, sub_9AC57_32B, sub_9B4AA_16C
 global sub_9B4AA_41B, sub_9B4AA_517, sub_9BAC1_59, sub_9C7B7_FE, sub_9CD63_82, sub_9CD63_88, sub_9CD63_B6, sub_9DACE_66
-global sub_9DACE_68, sub_9623E, sub_96B32, sub_96E85, sub_97228, sub_9732A, sub_97AE7, sub_97C32
+global sub_9DACE_68, EditLinesScreen, sub_96B32, sub_96E85, sub_97228, sub_9732A, sub_97AE7, sub_97C32
 global sub_97D16, sub_97F7F, sub_980B3, sub_981EE, sub_98231, sub_98274, sub_984D3, sub_98642
 global sub_99992, sub_99CC5, sub_99D40, sub_99DAC, sub_99E41, sub_9A0EC, sub_9A389, sub_9A603
 global sub_9A89E, sub_9AADF, sub_9AC57, sub_9B25A, sub_9B2A8, sub_9B39F, sub_9B418, sub_9B45C
@@ -52,9 +52,12 @@ global sub_9C7B7, sub_9C924, sub_9CCB1, sub_9CD63, sub_9CE1D, sub_9CF95, sub_9CF
 global sub_9D2D0, sub_9D333, sub_9D822, sub_9D903, sub_9DA9D, sub_9DACE, sub_9DB3C, sub_9DBD5
 global sub_9DC7B, sub_9DD65, sub_9DEC2
 ;-----------------------------------------------------------------------------
-; sub_9623E                                                       9623E  97 PC
+; EditLinesScreen                              9623E  96 PC, medium confidence
+; The edit lines screen (bt09 / bh09, slid / slup / sldw scroll, power play
+; bkpp and penalty kill bkpk boxes, jerseys): who plays on each line; returns
+; 2 for a player card
 ;-----------------------------------------------------------------------------
-sub_9623E:
+EditLinesScreen:
         push ebx
         push ecx
         push esi
@@ -148,10 +151,16 @@ sub_9623E:
         call sub_9C7B7
         mov dword [byte ebp+07Eh], 0
         jmp near sub_9623E_2C7.23
+;-----------------------------------------------------------------------------
+; sub_9623E_17F                                                   963BD  97 PC
+;-----------------------------------------------------------------------------
 sub_9623E_17F:
         call sub_7EEB0
         inc dword [byte ebp+07Eh]
         jmp near sub_9623E_2C7.23
+;-----------------------------------------------------------------------------
+; sub_9623E_18C                                                   963CA  97 PC
+;-----------------------------------------------------------------------------
 sub_9623E_18C:
         call sub_7EDF0
         xor edx, edx
@@ -258,6 +267,9 @@ sub_9623E_18C:
         mov dword [byte ebp+072h], 1
         call sub_980B3
         jmp near sub_9623E_2C7.23
+;-----------------------------------------------------------------------------
+; sub_9623E_2C7                                                   96505  97 PC
+;-----------------------------------------------------------------------------
 sub_9623E_2C7:
         cmp dword [dword_1C8E20], byte 0
         je short .17
@@ -363,6 +375,9 @@ sub_9623E_2C7:
         ja near sub_9623E_69D.33
         mov eax, dword [byte ebp+066h]
         jmp dword [nosplit cs:eax*4+jpt_9621A]
+;-----------------------------------------------------------------------------
+; sub_9623E_49D                                                   966DB  97 PC
+;-----------------------------------------------------------------------------
 sub_9623E_49D:
         inc dword [dword_1C8E48]
         cmp dword [dword_1C8E48], byte 3
@@ -373,6 +388,9 @@ sub_9623E_49D:
         mov eax, esi
         call sub_9AC57
         jmp short sub_9623E_2C7.23
+;-----------------------------------------------------------------------------
+; sub_9623E_4C4                                                   96702  97 PC
+;-----------------------------------------------------------------------------
 sub_9623E_4C4:
         imul eax, byte 52h
         add eax, esi
@@ -446,6 +464,9 @@ sub_9623E_4C4:
         push dword [byte esi+eax+026h]
         push dword [byte esi+eax+01Ah]
         jmp near sub_9623E_61B.31
+;-----------------------------------------------------------------------------
+; sub_9623E_5BA                                                   967F8  97 PC
+;-----------------------------------------------------------------------------
 sub_9623E_5BA:
         push byte 1
         mov eax, 0C5h
@@ -460,6 +481,9 @@ sub_9623E_5BA:
         mov eax, edi
         call sub_98274
         jmp near sub_9623E_49D.24
+;-----------------------------------------------------------------------------
+; sub_9623E_5EF                                                   9682D  97 PC
+;-----------------------------------------------------------------------------
 sub_9623E_5EF:
         call sub_9CE1D
         mov eax, dword [dword_1C8E24]
@@ -469,6 +493,9 @@ sub_9623E_5EF:
         mov eax, dword [dword_1C8E24]
         mov byte [dword eax+02122h], dl
         jmp near sub_9623E_49D.24
+;-----------------------------------------------------------------------------
+; sub_9623E_61B                                                   96859  97 PC
+;-----------------------------------------------------------------------------
 sub_9623E_61B:
         cmp dword [dword_1C8E48], byte 3
         jne short .29
@@ -501,6 +528,9 @@ sub_9623E_61B:
         call sub_9BC01
         call sub_1013FC
         jmp near sub_9623E_2C7.23
+;-----------------------------------------------------------------------------
+; sub_9623E_69D                                                   968DB  97 PC
+;-----------------------------------------------------------------------------
 sub_9623E_69D:
         cmp dword [dword_1C8E48], byte 3
         jne short .32
@@ -638,7 +668,7 @@ sub_9623E_69D:
         jl short .40
         call sub_415F8
 .40:
-        call sub_7CADA
+        call LoadLogoNames
 .41:
         mov eax, dword [byte ebp+072h]
 sub_9623E_8E8:

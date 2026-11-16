@@ -33,7 +33,7 @@ extern sub_7EDF0, sub_7EEB0, sub_7EF70, sub_7F0D8, sub_7F16C, sub_7F29C, sub_7F5
 extern sub_80758, sub_80808, sub_80BBC, sub_81650, sub_81678, sub_816A4, sub_816BC, sub_816E8
 extern sub_838A8, sub_83C08, sub_83D4C, sub_84024, sub_84068, sub_84570, InitMenuItems, sub_8BFAC
 extern sub_8D956, sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E, SetScrollBarPos, sub_8DEAC, sub_8DF1F
-extern sub_8E6AF, sub_8E7E0, sub_8E870, sub_92DB7, sub_92E37, sub_92EE2, sub_92F25, sub_9623E
+extern sub_8E6AF, sub_8E7E0, sub_8E870, sub_92DB7, sub_92E37, sub_92EE2, sub_92F25, EditLinesScreen
 extern sub_9D333, sub_B8FDF, sub_DA7D6, sub_DB763, sub_DB7B1, sub_DC653, sub_DCBB0, sub_E036F
 extern sub_E0415, sub_E0841, sub_E0D0F, sub_E12D1, sub_E12EF, sub_FAA64, sub_FAF34, sub_FC510
 extern sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FD110, sub_FDD1C, sub_FDE44, tickcount
@@ -45,7 +45,7 @@ global sub_C755B_5D3, sub_C755B_604, sub_C755B_615, sub_C755B_624, sub_C755B_65B
 global sub_CA49A_2B8, sub_CB216_F7, sub_CB216_100, sub_CB216_102, sub_CB216_108, sub_CB9C9_306, sub_CBCD9_EE, sub_CBFBA_59
 global sub_CBFBA_D9, sub_CBFBA_133, sub_CBFBA_17B, sub_CD7F3_24, sub_CD7F3_AD, sub_CD7F3_1BD, sub_CD7F3_25B, sub_CE111_61
 global sub_CEC58_D4, sub_CEC58_110, sub_CEC58_12B, sub_CED89_83, sub_CED89_8D, sub_CEE20_B1, sub_CF255_152, sub_CF255_157
-global sub_CF255_158, sub_CF70F_20, sub_D096D_146, sub_C755B, sub_C7CA4, sub_C7CE8, sub_C7EAE, sub_C7F31
+global sub_CF255_158, sub_CF70F_20, sub_D096D_146, RosterScreen, sub_C7CA4, sub_C7CE8, sub_C7EAE, sub_C7F31
 global sub_C7FBC, sub_C800C, sub_C80C8, sub_C8127, sub_C817F, sub_C885D, sub_C8BEE, sub_C8C90
 global sub_C8EDC, sub_C9757, sub_C97FF, sub_C98B1, sub_C9A45, sub_C9AEE, sub_C9B24, sub_C9D84
 global sub_C9DDF, sub_C9F18, sub_CA206, sub_CA2A7, sub_CA44C, sub_CA49A, sub_CA758, sub_CAA0F
@@ -60,9 +60,11 @@ global sub_D0ABE, sub_D0BD8, sub_D0C88, sub_D0D56, sub_D0D71, sub_D0D8E, sub_D0D
 global sub_D0DE5, sub_D0E02, sub_D0E21, sub_D0E40, sub_D0E81, sub_D0EBE, sub_D0F07, unk_D15D1
 global unk_D15EE
 ;-----------------------------------------------------------------------------
-; sub_C755B                                                       C755B  97 PC
+; RosterScreen                                    C755B  96 PC, low confidence
+; The roster screen: trades between teams, signing free agents (FREEAGNT.DB),
+; creating players, by team lists (s1__-s4__)
 ;-----------------------------------------------------------------------------
-sub_C755B:
+RosterScreen:
         push ebx
         push ecx
         push edx
@@ -144,6 +146,9 @@ sub_C755B:
         mov eax, dword [byte eax+02Ch]
         call sub_80BBC
         jmp near sub_C755B_66C.29
+;-----------------------------------------------------------------------------
+; sub_C755B_11C                                                   C7677  97 PC
+;-----------------------------------------------------------------------------
 sub_C755B_11C:
         call sub_7EEB0
         cmp dword [dword_1CC2BC], byte 0
@@ -160,12 +165,18 @@ sub_C755B_11C:
 .4:
         inc dword [byte ebp+07Eh]
         jmp near sub_C755B_66C.29
+;-----------------------------------------------------------------------------
+; sub_C755B_157                                                   C76B2  97 PC
+;-----------------------------------------------------------------------------
 sub_C755B_157:
         call sub_7EDF0
         call sub_C9D84
         call sub_CE73B
         mov dword [byte ebp+07Eh], 1
         jmp near sub_C755B_66C.29
+;-----------------------------------------------------------------------------
+; sub_C755B_172                                                   C76CD  97 PC
+;-----------------------------------------------------------------------------
 sub_C755B_172:
         call sub_C9AEE
         push dword [dword_1CC2C4]
@@ -222,6 +233,9 @@ sub_C755B_172:
         cmp ebx, byte 14h
         jl short .5
         jmp near sub_C755B_66C.29
+;-----------------------------------------------------------------------------
+; sub_C755B_246                                                   C77A1  97 PC
+;-----------------------------------------------------------------------------
 sub_C755B_246:
         cmp dword [dword_1CC2B0], byte 0
         je near sub_C755B_66C.29
@@ -256,6 +270,9 @@ sub_C755B_246:
         lea eax, [dword ebp-018Eh]
         call SetScrollBarPos
         jmp near sub_C755B_66C.28
+;-----------------------------------------------------------------------------
+; sub_C755B_2EC                                                   C7847  97 PC
+;-----------------------------------------------------------------------------
 sub_C755B_2EC:
         cmp dword [dword_1CC208], byte 0
         jne near sub_C755B_66C.29
@@ -300,6 +317,9 @@ sub_C755B_2EC:
         call sub_CAA0F
         mov dword [dword_1CC2BC], 1
         jmp near sub_C755B_66C.29
+;-----------------------------------------------------------------------------
+; sub_C755B_3B9                                                   C7914  97 PC
+;-----------------------------------------------------------------------------
 sub_C755B_3B9:
         call sub_83C08
         lea edx, [byte ebp+062h]
@@ -331,7 +351,10 @@ sub_C755B_3B9:
         call sub_C9B24
 .10:
         mov eax, dword [dword_1CC214]
-        jmp near sub_C755B.3
+        jmp near RosterScreen.3
+;-----------------------------------------------------------------------------
+; sub_C755B_42C                                                   C7987  97 PC
+;-----------------------------------------------------------------------------
 sub_C755B_42C:
         xor eax, eax
         call sub_CA2A7
@@ -364,6 +387,9 @@ sub_C755B_42C:
 .12:
         call sub_CABF2
         jmp near sub_C755B_66C.29
+;-----------------------------------------------------------------------------
+; sub_C755B_49B                                                   C79F6  97 PC
+;-----------------------------------------------------------------------------
 sub_C755B_49B:
         mov eax, 1
         call sub_CA2A7
@@ -385,6 +411,9 @@ sub_C755B_49B:
         call sub_8DF1F
         mov edx, 1
         jmp short sub_C755B_42C.11
+;-----------------------------------------------------------------------------
+; sub_C755B_4ED                                                   C7A48  97 PC
+;-----------------------------------------------------------------------------
 sub_C755B_4ED:
         mov ebx, dword [byte eax+01Ah]
         movsx ecx, word [byte ebx+06h]
@@ -412,6 +441,9 @@ sub_C755B_4ED:
         push byte 0
         mov ebx, dword [byte ebp+072h]
         jmp short sub_C755B_596.18
+;-----------------------------------------------------------------------------
+; sub_C755B_53E                                                   C7A99  97 PC
+;-----------------------------------------------------------------------------
 sub_C755B_53E:
         mov ebx, dword [byte eax+01Ah]
         mov edx, dword [byte eax+026h]
@@ -441,6 +473,9 @@ sub_C755B_53E:
         mov ebx, dword [byte ebp+072h]
         mov edx, 1
         jmp short sub_C755B_5AF.20
+;-----------------------------------------------------------------------------
+; sub_C755B_596                                                   C7AF1  97 PC
+;-----------------------------------------------------------------------------
 sub_C755B_596:
         push byte 0FFFFFFFFh
 .17:
@@ -451,9 +486,15 @@ sub_C755B_596:
         push dword [byte ebp+07Ah]
         xor edx, edx
         jmp short sub_C755B_5AF.21
+;-----------------------------------------------------------------------------
+; sub_C755B_5AB                                                   C7B06  97 PC
+;-----------------------------------------------------------------------------
 sub_C755B_5AB:
         push byte 1
         jmp short sub_C755B_596.17
+;-----------------------------------------------------------------------------
+; sub_C755B_5AF                                                   C7B0A  97 PC
+;-----------------------------------------------------------------------------
 sub_C755B_5AF:
         push byte 0FFFFFFFFh
 .19:
@@ -466,9 +507,15 @@ sub_C755B_5AF:
 .21:
         call sub_CACE0
         jmp near sub_C755B_66C.29
+;-----------------------------------------------------------------------------
+; sub_C755B_5CF                                                   C7B2A  97 PC
+;-----------------------------------------------------------------------------
 sub_C755B_5CF:
         push byte 1
         jmp short sub_C755B_5AF.19
+;-----------------------------------------------------------------------------
+; sub_C755B_5D3                                                   C7B2E  97 PC
+;-----------------------------------------------------------------------------
 sub_C755B_5D3:
         lea eax, [dword ebp-028Eh]
         xor edx, edx
@@ -482,17 +529,26 @@ sub_C755B_5D3:
         mov edx, 1
         xor eax, eax
         jmp short sub_C755B_624.25
+;-----------------------------------------------------------------------------
+; sub_C755B_604                                                   C7B5F  97 PC
+;-----------------------------------------------------------------------------
 sub_C755B_604:
         lea eax, [dword ebp-028Eh]
         mov ebx, edx
         xor edx, edx
         call sub_8DEAC
         jmp short sub_C755B_5D3.22
+;-----------------------------------------------------------------------------
+; sub_C755B_615                                                   C7B70  97 PC
+;-----------------------------------------------------------------------------
 sub_C755B_615:
         lea eax, [dword ebp-028Eh]
         xor edx, edx
         call sub_8DE68
         jmp short sub_C755B_5D3.22
+;-----------------------------------------------------------------------------
+; sub_C755B_624                                                   C7B7F  97 PC
+;-----------------------------------------------------------------------------
 sub_C755B_624:
         lea eax, [dword ebp-018Eh]
         xor edx, edx
@@ -509,12 +565,18 @@ sub_C755B_624:
 .25:
         call sub_C8EDC
         jmp short sub_C755B_66C.29
+;-----------------------------------------------------------------------------
+; sub_C755B_65B                                                   C7BB6  97 PC
+;-----------------------------------------------------------------------------
 sub_C755B_65B:
         lea eax, [dword ebp-018Eh]
         mov ebx, edx
         xor edx, edx
         call sub_8DEAC
         jmp short sub_C755B_624.23
+;-----------------------------------------------------------------------------
+; sub_C755B_66C                                                   C7BC7  97 PC
+;-----------------------------------------------------------------------------
 sub_C755B_66C:
         lea eax, [dword ebp-018Eh]
         xor edx, edx
@@ -7568,7 +7630,7 @@ sub_CD7F3_24:
 .1:
         mov eax, 0FFFFFFFFh
         mov edx, dword [nosplit esi*4+dword_1CC1C4]
-        call sub_9623E
+        call EditLinesScreen
         mov edi, eax
         cmp dword [dword_16D668], byte 0
         je short .2

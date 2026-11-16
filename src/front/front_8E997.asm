@@ -25,8 +25,8 @@ extern sub_4AE14, sub_4B108, sub_7A9D8, sub_7BB27, sub_7E860, sub_7EDF0, sub_7EE
 extern sub_7F028, sub_7F0D8, sub_7F16C, sub_7F5A4, sub_7FE38, sub_80AB8, sub_80BBC, sub_81650
 extern sub_81678, sub_81D1C, sub_835BC, sub_83C08, sub_85D1D, NameIndexNew, NameIndexLoad, NameIndexFree
 extern sub_86500, sub_867D4, InitMenuItems, sub_8BFAC, sub_8DBAC, sub_8DE10, DrawScrollBar, sub_8DE68
-extern sub_8DE7E, sub_8DEAC, sub_8E7E0, sub_94BDA, sub_A2EF0, sub_A2F31, sub_A2F52, sub_A2F78
-extern sub_A3048, sub_A3116, sub_C6064, sub_C755B, sub_D49BE, sub_DA7D6, sub_DB75E, sub_DB763
+extern sub_8DE7E, sub_8DEAC, sub_8E7E0, PlayoffTreeScreen, sub_A2EF0, sub_A2F31, sub_A2F52, sub_A2F78
+extern sub_A3048, sub_A3116, sub_C6064, RosterScreen, sub_D49BE, sub_DA7D6, sub_DB75E, sub_DB763
 extern sub_DC653, sub_DCA6C, sub_DCBB0, sub_DCFA4, sub_DD970, sub_DDC4A, sub_DE3CF, sub_DE5A3
 extern sub_E036F, sub_E0415, sub_E0691, sub_E069E, sub_E076B, sub_E0841, sub_E0B75, sub_E0D0F
 extern sub_E117B, sub_E1245, sub_E12D1, sub_E13BF, sub_E13FE, sub_E1563, sub_E167A, sub_E1C19
@@ -38,13 +38,15 @@ extern unk_1C860C, word_1AD240, word_1AD242
 global jpt_912BF, sub_8E997_DD, sub_8E997_E6, sub_8E997_EF, sub_8E997_F8, sub_8E997_16F, sub_8E997_17B, sub_8E997_187
 global sub_8E997_193, sub_8EC93_DCB, sub_8EC93_DCE, sub_8FA67_55B, sub_8FA67_561, sub_8FA67_562, sub_912E3_65C, sub_912E3_685
 global sub_912E3_699, sub_912E3_6AD, sub_912E3_6C1, sub_912E3_6DD, sub_912E3_6F4, sub_912E3_70B, sub_912E3_718, sub_91D7F_1EA
-global sub_8E997, sub_8EBDF, sub_8EC93, sub_8FA67, sub_8FFCF, sub_900AE, sub_90162, sub_91289
-global sub_912E3, sub_91D07, sub_91D1C, sub_91D7F, sub_91F74, sub_925BE, sub_9260A, sub_926BD
+global RunNewSeason, sub_8EBDF, NewSeasonScreen, CreateSeason, RunSeasonMenus, sub_900AE, SeasonMenuScreen, sub_91289
+global StandingsScreen, sub_91D07, sub_91D1C, sub_91D7F, sub_91F74, sub_925BE, sub_9260A, sub_926BD
 global sub_9279A, sub_9281C, sub_92DB7, sub_92E37, sub_92EE2, sub_92F25, sub_92FE9
 ;-----------------------------------------------------------------------------
-; sub_8E997                                                       8E997  97 PC
+; RunNewSeason                                    8E997  97 PC, low confidence
+; Screen 6: sets up a new season (copies the set-up, NewSeasonScreen, roster,
+; import agents)
 ;-----------------------------------------------------------------------------
-sub_8E997:
+RunNewSeason:
         push ebx
         push ecx
         push edx
@@ -102,15 +104,27 @@ sub_8E997:
         cmp eax, byte 3
         ja short sub_8E997_F8.3
         jmp dword [nosplit cs:eax*4+jpt_8E977]
+;-----------------------------------------------------------------------------
+; sub_8E997_DD                                                    8EA74  97 PC
+;-----------------------------------------------------------------------------
 sub_8E997_DD:
         mov byte [byte_1C8700], 52h
         jmp short sub_8E997_F8.3
+;-----------------------------------------------------------------------------
+; sub_8E997_E6                                                    8EA7D  97 PC
+;-----------------------------------------------------------------------------
 sub_8E997_E6:
         mov byte [byte_1C8700], 32h
         jmp short sub_8E997_F8.3
+;-----------------------------------------------------------------------------
+; sub_8E997_EF                                                    8EA86  97 PC
+;-----------------------------------------------------------------------------
 sub_8E997_EF:
         mov byte [byte_1C8700], 19h
         jmp short sub_8E997_F8.3
+;-----------------------------------------------------------------------------
+; sub_8E997_F8                                                    8EA8F  97 PC
+;-----------------------------------------------------------------------------
 sub_8E997_F8:
         mov esi, 1
 .3:
@@ -145,15 +159,27 @@ sub_8E997_F8:
         cmp eax, byte 3
         ja short sub_8E997_193.6
         jmp dword [nosplit cs:eax*4+jpt_8E987]
+;-----------------------------------------------------------------------------
+; sub_8E997_16F                                                   8EB06  97 PC
+;-----------------------------------------------------------------------------
 sub_8E997_16F:
         mov dword [dword_1ACF42], 7
         jmp short sub_8E997_193.6
+;-----------------------------------------------------------------------------
+; sub_8E997_17B                                                   8EB12  97 PC
+;-----------------------------------------------------------------------------
 sub_8E997_17B:
         mov dword [dword_1ACF42], 5
         jmp short sub_8E997_193.6
+;-----------------------------------------------------------------------------
+; sub_8E997_187                                                   8EB1E  97 PC
+;-----------------------------------------------------------------------------
 sub_8E997_187:
         mov dword [dword_1ACF42], 3
         jmp short sub_8E997_193.6
+;-----------------------------------------------------------------------------
+; sub_8E997_193                                                   8EB2A  97 PC
+;-----------------------------------------------------------------------------
 sub_8E997_193:
         mov dword [dword_1ACF42], 1
 .6:
@@ -187,13 +213,13 @@ sub_8E997_193:
         jmp short .9
 .10:
         mov eax, dword [dword_1C86FC]
-        call sub_8EC93
+        call NewSeasonScreen
         mov esi, eax
         jmp short .9
 .11:
         xor eax, eax
         mov esi, 6
-        call sub_C755B
+        call RosterScreen
         cmp dword [dword_16DA9C], byte 0
         jne short .9
         mov eax, dword_1C86FC
@@ -271,9 +297,11 @@ sub_8EBDF:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_8EC93                                                       8EC93  97 PC
+; NewSeasonScreen                              8EC93  96 PC, medium confidence
+; The new season set-up screen (rul1-3, set1-2 buttons, bt01 / bt02): rules
+; and settings, then creates the season
 ;-----------------------------------------------------------------------------
-sub_8EC93:
+NewSeasonScreen:
         push ebx
         push ecx
         push edx
@@ -771,7 +799,7 @@ sub_8EC93:
 .18:
         mov eax, dword [dword ebp-04ECh]
         mov dword [byte ebp-02Ch], 0Ch
-        call sub_8FA67
+        call CreateSeason
         jmp near .12
 .19:
         call sub_7EF70
@@ -1224,9 +1252,11 @@ sub_8EC93_DCE:
         leave
         jmp near sub_8FA67_562
 ;-----------------------------------------------------------------------------
-; sub_8FA67                                                       8FA67  97 PC
+; CreateSeason                                    8FA67  97 PC, low confidence
+; Creates the new season: seeds rand from the time, picks a free SEAS%04d.SET
+; name and adds it to SEASON.NDX
 ;-----------------------------------------------------------------------------
-sub_8FA67:
+CreateSeason:
         push ebx
         push ecx
         push edx
@@ -1620,9 +1650,10 @@ sub_8FA67_562:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_8FFCF                                                       8FFCF  97 PC
+; RunSeasonMenus                                  8FFCF  96 PC, low confidence
+; From RunFrontEnd: loads SEASON.NDX and runs the season screens
 ;-----------------------------------------------------------------------------
-sub_8FFCF:
+RunSeasonMenus:
         push edx
         mov edx, 0Ch
         cmp dword [dword_1C8334], byte 0
@@ -1649,7 +1680,7 @@ sub_8FFCF:
 .5:
         cmp dword [dword_1ACF46], byte 0
         je short .8
-        call sub_94BDA
+        call PlayoffTreeScreen
 .6:
         mov edx, eax
 .7:
@@ -1667,15 +1698,15 @@ sub_8FFCF:
         je short .13
         jmp short .7
 .8:
-        call sub_90162
+        call SeasonMenuScreen
         jmp short .6
 .9:
         mov eax, 1
         mov edx, 0Ch
-        call sub_C755B
+        call RosterScreen
         jmp short .7
 .10:
-        call sub_912E3
+        call StandingsScreen
         jmp short .4
 .11:
         mov edx, 0Ch
@@ -1765,9 +1796,10 @@ sub_900AE:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_90162                                                       90162  97 PC
+; SeasonMenuScreen                                90162  96 PC, low confidence
+; The season menu (stn1-3, sta1-3, bt%02d buttons) of the current season
 ;-----------------------------------------------------------------------------
-sub_90162:
+SeasonMenuScreen:
         push ebx
         push ecx
         push edx
@@ -3022,9 +3054,10 @@ jpt_912BF:
         dd sub_912E3_70B
         dd sub_912E3_718
 ;-----------------------------------------------------------------------------
-; sub_912E3                                                       912E3  97 PC
+; StandingsScreen                              912E3  96 PC, medium confidence
+; The standings screen by conference (1WST, 1EST)
 ;-----------------------------------------------------------------------------
-sub_912E3:
+StandingsScreen:
         push ebx
         push ecx
         push edx
@@ -3497,6 +3530,9 @@ sub_912E3:
         cmp eax, byte 8
         ja near sub_912E3_718.33
         jmp dword [nosplit cs:eax*4+jpt_912BF]
+;-----------------------------------------------------------------------------
+; sub_912E3_65C                                                   9193F  97 PC
+;-----------------------------------------------------------------------------
 sub_912E3_65C:
         movzx eax, byte [byte esi+ebp-026h]
         imul eax, dword 194Fh
@@ -3510,24 +3546,36 @@ sub_912E3_65C:
         call sprintf_
         add esp, byte 0Ch
         jmp near sub_912E3_718.33
+;-----------------------------------------------------------------------------
+; sub_912E3_685                                                   91968  97 PC
+;-----------------------------------------------------------------------------
 sub_912E3_685:
         movzx eax, byte [byte esi+ebp-026h]
         imul eax, dword 194Fh
         add eax, dword [byte ebp+07Ah]
         movzx eax, byte [byte eax+050h]
         jmp short sub_912E3_65C.31
+;-----------------------------------------------------------------------------
+; sub_912E3_699                                                   9197C  97 PC
+;-----------------------------------------------------------------------------
 sub_912E3_699:
         movzx eax, byte [byte esi+ebp-026h]
         imul eax, dword 194Fh
         add eax, dword [byte ebp+07Ah]
         movzx eax, byte [byte eax+051h]
         jmp short sub_912E3_65C.31
+;-----------------------------------------------------------------------------
+; sub_912E3_6AD                                                   91990  97 PC
+;-----------------------------------------------------------------------------
 sub_912E3_6AD:
         movzx eax, byte [byte esi+ebp-026h]
         imul eax, dword 194Fh
         add eax, dword [byte ebp+07Ah]
         movzx eax, byte [byte eax+052h]
         jmp short sub_912E3_65C.31
+;-----------------------------------------------------------------------------
+; sub_912E3_6C1                                                   919A4  97 PC
+;-----------------------------------------------------------------------------
 sub_912E3_6C1:
         movzx eax, byte [byte esi+ebp-026h]
         imul eax, dword 194Fh
@@ -3537,22 +3585,34 @@ sub_912E3_6C1:
         add edx, edx
         add eax, edx
         jmp short sub_912E3_65C.31
+;-----------------------------------------------------------------------------
+; sub_912E3_6DD                                                   919C0  97 PC
+;-----------------------------------------------------------------------------
 sub_912E3_6DD:
         movzx eax, byte [byte esi+ebp-026h]
         imul eax, dword 194Fh
         add eax, dword [byte ebp+07Ah]
         movsx eax, word [byte eax+063h]
         jmp near sub_912E3_65C.31
+;-----------------------------------------------------------------------------
+; sub_912E3_6F4                                                   919D7  97 PC
+;-----------------------------------------------------------------------------
 sub_912E3_6F4:
         movzx eax, byte [byte esi+ebp-026h]
         imul eax, dword 194Fh
         add eax, dword [byte ebp+07Ah]
         movsx eax, word [byte eax+065h]
         jmp near sub_912E3_65C.31
+;-----------------------------------------------------------------------------
+; sub_912E3_70B                                                   919EE  97 PC
+;-----------------------------------------------------------------------------
 sub_912E3_70B:
         movzx eax, byte [byte esi+ebp-026h]
         lea edx, [dword ebp-03CAh]
         jmp short sub_912E3_718.32
+;-----------------------------------------------------------------------------
+; sub_912E3_718                                                   919FB  97 PC
+;-----------------------------------------------------------------------------
 sub_912E3_718:
         movzx eax, byte [byte esi+ebp-026h]
         lea edx, [dword ebp-02E0h]
@@ -3575,7 +3635,7 @@ sub_912E3_718:
         call sub_7F16C
         add esp, byte 10h
         cmp ebx, byte 5
-        jl near sub_912E3.30
+        jl near StandingsScreen.30
         inc dword [byte ebp+07Eh]
         cmp dword [byte ebp+07Eh], byte 9
         jne short .34
@@ -3583,7 +3643,7 @@ sub_912E3_718:
 .34:
         inc esi
         cmp esi, byte 1Ah
-        jl near sub_912E3.22
+        jl near StandingsScreen.22
         mov dword [byte ebp+07Eh], 0
         cmp dword [byte ebp+036h], byte 0
         je short .35
@@ -3625,10 +3685,10 @@ sub_912E3_718:
         ja short .39
         call sub_7EDF0
         mov dword [byte ebp+026h], 1Ah
-        jmp near sub_912E3.18
+        jmp near StandingsScreen.18
 .38:
         call sub_7EF70
-        jmp near sub_912E3.18
+        jmp near StandingsScreen.18
 .39:
         cmp dword [byte ebp+05Eh], byte 3
         jne short .40
@@ -3717,28 +3777,28 @@ sub_912E3_718:
         add edx, 0A4h
         mov dword [byte ebp+06Eh], 0FFFFFFFFh
         call sub_8DBAC
-        jmp near sub_912E3.18
+        jmp near StandingsScreen.18
 .42:
         lea eax, [dword ebp-01F6h]
         xor edx, edx
         call sub_8DE10
-        jmp near sub_912E3.18
+        jmp near StandingsScreen.18
 .43:
         mov ebx, eax
         xor edx, edx
         lea eax, [dword ebp-01F6h]
         call sub_8DEAC
-        jmp near sub_912E3.18
+        jmp near StandingsScreen.18
 .44:
         lea eax, [dword ebp-01F6h]
         xor edx, edx
         call sub_8DE68
-        jmp near sub_912E3.18
+        jmp near StandingsScreen.18
 .45:
         mov eax, dword [byte ebp+01Eh]
         mov eax, dword [dword ebp+eax*4-010Ah]
         mov dword [byte ebp+06Eh], eax
-        jmp near sub_912E3.18
+        jmp near StandingsScreen.18
 .46:
         call sub_81678
         lea eax, [dword ebp-01F6h]

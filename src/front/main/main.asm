@@ -29,7 +29,7 @@ extern sub_101429, sub_101EAC, sub_102B94, sub_102C10, sub_102C30, LoadGripLibra
 extern sub_105808, sub_106F64, sub_106F94, sub_107D30, sub_116428, sub_1164E8, sub_1167AE, sub_1169D4
 extern sub_119BE4, sub_119FDC, sub_11A120, sub_11A318, sub_11A3E0, sub_11ADD0, sub_11ADE8, sub_11B008
 extern sub_13C164, sub_4095C, OpenAudioStream, sub_41870, sub_41A28, sub_41D18, sub_41DB8, ArenaFileName
-extern sub_41FA0, sub_41FDC, sub_4AE14, sub_4B108, sub_4B307, sub_7CE9E, InitMenuItems, sub_8BFAC
+extern sub_41FA0, sub_41FDC, sub_4AE14, sub_4B108, sub_4B307, RunFrontEnd, InitMenuItems, sub_8BFAC
 extern sub_8D956, sub_8DE10, sub_8DE68, sub_8DE7E, SetScrollBarPos, sub_8DEAC, sub_8E7E0, sub_8E840
 extern sub_D6930, AllocStaticBuffer, sub_DB747, sub_E341C, sub_E3A44, sub_E3AB8, sub_E4638, sub_E4838
 extern sub_E4908, FillBox, sub_F9650, sub_FAA64, sub_FAF34, sub_FB4D4, sub_FB704, sub_FB73D
@@ -366,7 +366,7 @@ main_:
         call OpenAudioStream
         call sub_D6930
         call sub_4095C
-        call sub_7CE9E
+        call RunFrontEnd
         call sub_41870
         call sub_DB747
         call sub_1046C

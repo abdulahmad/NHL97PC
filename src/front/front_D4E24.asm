@@ -25,7 +25,7 @@ extern sub_FD08C, sub_FD0F8, sub_FD110, sub_FDD1C, tickcount, unk_1673CC, unk_1C
 extern unk_1CCBB8, unk_1CCF4A, unk_1CCF9C, unk_1CCFEE, unk_1CD040, unk_1CD092, unk_1CD138, unk_D4CB0
 global jpt_D5460, sub_D547C_715, sub_D547C_72B, sub_D547C_89F, sub_D547C_A13, sub_D547C_B89, sub_D547C_DBB, sub_D547C_FF0
 global sub_D4E24, sub_D53A4, sub_D547C, FadePalette, FadeOut, sub_D68E0, sub_D6930, sub_D6D38
-global sub_D6E20, sub_D6FD8, sub_D705C, sub_D70C4, sub_D7A70, sub_D7B64, sub_D7BB0, sub_D7C14
+global sub_D6E20, sub_D6FD8, sub_D705C, CreditsScreen, sub_D7A70, sub_D7B64, sub_D7BB0, sub_D7C14
 global sub_D7C74, sub_D7CD4, sub_D7E08, sub_D7EC8, sub_D8130, sub_D81D8, sub_D8270, sub_D8358
 global sub_D83C0, sub_D8614, sub_D8860, sub_D8944, sub_D8B20, sub_D8CAC, sub_D9614, sub_D9708
 global sub_D9960, sub_D9AB4, sub_D9D74, sub_D9E18, sub_D9ED8, sub_D9FDC, sub_DA020, sub_DA02C
@@ -2808,9 +2808,11 @@ sub_D705C:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_D70C4                                                       D70C4  97 PC
+; CreditsScreen                                   D70C4  97 PC, low confidence
+; From RunFrontEnd: the credits (reads the credits text file, EAC1/EAC2,
+; CRD1/CRD2, QCRD) with the arena music
 ;-----------------------------------------------------------------------------
-sub_D70C4:
+CreditsScreen:
         push ebx
         push ecx
         push edx

@@ -127,8 +127,15 @@ address,name,auto_name,source,confidence,evidence,file
 7C834,ModemReadResult,sub_7C834,96PC,medium,NHL96PC 17906 (sem 1.00): C:2478; C:2221; R:1054,src/front/front_7A9D8.asm
 7C988,ModemSendCommand,sub_7C988,96PC,medium,NHL96PC 17A32 (similar 0.85): mnemonic similarity 0.85 over 63 instructions,src/front/front_7A9D8.asm
 7CA1C,ModemAttention,sub_7CA1C,96PC,medium,NHL96PC 17AC7 (similar 0.86): mnemonic similarity 0.86 over 63 instructions,src/front/front_7A9D8.asm
+7CADA,LoadLogoNames,sub_7CADA,new,low,"loads the ""logo names"" block from the logo%02d.qfs files",src/front/front_7A9D8.asm
+7CBD6,InitFrontEnd,sub_7CBD6,new,low,"front-end start-up (also after a game): input devices (mous / remo), the front-end art and the team logo names",src/front/front_7A9D8.asm
+7CDD8,FreeFrontEnd,sub_7CDD8,new,low,undoes InitFrontEnd and saves GLOBAL.SET (WriteGlobalSet),src/front/front_7A9D8.asm
+7CE9E,RunFrontEnd,sub_7CE9E,96PC,medium,"96 PC RunFrontEnd: the front end, from main_: picks the front-end music, shows the title, then runs the screen with the current number (main menu, game screens 4-9 through RunGameScreens, credits, ...) until quit",src/front/front_7A9D8.asm
+7CF94,TitleScreen,sub_7CF94,new,low,"the title screen at front-end start (BACK, LOGO) with its PA announcement",src/front/front_7A9D8.asm
 7D059,main_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 7FEC4,EditText,sub_7FEC4,96PC,medium,"NHL96PC EditText 197ED: same 394h text buffer, eax/edx/ebx/ecx + stack args, reads keys (sub_FBE40) and handles backspace/enter; called by every name entry through sub_7FE38/sub_7FE4C",src/front/main/main.asm
+84B55,MainMenuScreen,sub_84B55,96PC,medium,"96 PC MainMenuScreen: the main menu (""menu"", MB01-MB11 buttons, PIC%d%c pictures); checks which of EXHIBIT / SEASON / PLAYOFF.NDX exist; returns the next screen",src/front/front_845E4.asm
+85A15,RunGameScreens,sub_85A15,new,low,"(screen): from RunFrontEnd, runs the game set-up screens by number (team select 4, pick saves 5/7/9, new season 6, new play-offs 8, season 0Ch, play-offs 0Dh, edit lines 0Fh/10h, play 15h, post-game 16h/17h, roster 19h) until one returns to the main menu",src/front/front_845E4.asm
 86300,NameIndexNew,sub_86300,96PC,medium,NHL96PC 19384 (similar 0.93): mnemonic similarity 0.93 over 34 instructions,src/front/front_845E4.asm
 86368,NameIndexLoad,sub_86368,96PC,medium,NHL96PC 193E8 (sem 1.00): C:2120; C:1834; C:2265; C:1833,src/front/front_845E4.asm
 86424,NameIndexSave,sub_86424,96PC,medium,NHL96PC 19491 (sem 1.00): C:2514; R:1135; C:1834; C:2265,src/front/front_845E4.asm
@@ -138,10 +145,29 @@ address,name,auto_name,source,confidence,evidence,file
 8BF54,InitMenuItems,sub_8BF54,96PC,medium,NHL96PC 64721 (similar 0.81): mnemonic similarity 0.81 over 32 instructions,src/front/front_868CD.asm
 8DE19,DrawScrollBar,sub_8DE19,96PC,medium,"96 PC DrawScrollBar, same structure",src/front/front_8BFAC.asm
 8DE9D,SetScrollBarPos,sub_8DE9D,96PC,low,"96 PC SetScrollBarPos, the call after DrawScrollBar at the same places",src/front/front_8BFAC.asm
+8E997,RunNewSeason,sub_8E997,new,low,"screen 6: sets up a new season (copies the set-up, NewSeasonScreen, roster, import agents)",src/front/front_8E997.asm
+8EC93,NewSeasonScreen,sub_8EC93,96PC,medium,"96 PC NewSeasonScreen: the new season set-up screen (""newmenu"", TTLW, WC00/WC01, 012R-014R)",src/front/front_8E997.asm
+8FA67,CreateSeason,sub_8FA67,new,low,"creates the new season: seeds rand from the time, picks a free SEAS%04d.SET name and adds it to SEASON.NDX",src/front/front_8E997.asm
+8FFCF,RunSeasonMenus,sub_8FFCF,96PC,low,"96 PC RunSeasonMenus: screen 0Ch, runs the season screens (season menu, standings, play-off tree, roster) until they leave",src/front/front_8E997.asm
+90162,SeasonMenuScreen,sub_90162,96PC,low,"96 PC SeasonMenuScreen: the season menu (""menu"", SD00-SD03, RL00, SN00, SR00 ...)",src/front/front_8E997.asm
+912E3,StandingsScreen,sub_912E3,96PC,medium,"96 PC StandingsScreen: the standings screen (""standmenu"", factoids, BGWS, TTLW)",src/front/front_8E997.asm
+93512,RunNewPlayoffs,sub_93512,new,low,"screen 8: sets up new play-offs (copies the set-up, PlayoffSetupScreen, roster, import agents)",src/front/front_93005.asm
+936BE,PlayoffSetupScreen,sub_936BE,96PC,low,"96 PC PlayoffSetupScreen: the new play-offs screen (""playoffmenu"", TITL, 012R-014R, the option toggles SCOF/SCON ...)",src/front/front_93005.asm
+9401D,CreatePlayoffs,sub_9401D,new,low,creates the new play-offs: picks a free PLAY%04d.SET name and adds it to PLAYOFF.NDX,src/front/front_93005.asm
+94B30,RunPlayoffMenus,sub_94B30,96PC,low,"96 PC RunPlayoffMenus: screen 0Dh, runs the play-off screens (play-off tree, standings, roster) until they leave",src/front/front_93005.asm
+94BDA,PlayoffTreeScreen,sub_94BDA,96PC,low,"96 PC PlayoffTreeScreen: the play-off tree screen (""playoffmenu"", ""pieces"", pan2 / pan6, 01RU, 01SR ...)",src/front/front_93005.asm
+9623E,EditLinesScreen,sub_9623E,96PC,medium,"96 PC EditLinesScreen: (team, line) the edit lines screen (""edit lines menu"" / ""edit lines regions"")",src/front/front_9623E.asm
+9E91C,TeamSelectScreen,sub_9E91C,96PC,medium,"96 PC TeamSelectScreen: the exhibition team select screen (HOM1/HOM2, AWY1/AWY2, team ranks); returns the next screen",src/front/front_9E35E.asm
+9F6F5,PickIndexEntryScreen,sub_9F6F5,96PC,medium,"96 PC PickIndexEntryScreen: (kind 5/7/9) picks an entry of SEASON / PLAYOFF / EXHIBIT.NDX (DL00-DL03), with new and delete",src/front/front_9F6F5.asm
+A6690,PostGameScreen,sub_A6690,new,low,"the post-game screen (NHL0 / NHLP, FLR1/2, T3S2, GS00/GS01, RM00/RM01), alternating with GameStatsScreen",src/front/front_A3280.asm
+A7D9C,GameStatsScreen,sub_A7D9C,96PC,medium,"96 PC GameStatsScreen: the game statistics screen (""gameStatMenu"" / ""gameStatRegn"")",src/front/front_A3280.asm
+AB0E8,PlayMenuGame,sub_AB0E8,96PC,medium,"96 PC PlayMenuGame: plays a game started from the menus: frees the front end, InitGameAudio, PlayGame, then back to the front end",src/front/front_A3280.asm
 B1FE9,DeleteUser,sub_B1FE9,96PC,medium,NHL96PC 2A692 (sem 0.62): C:1134; K:3EA; C:1833,src/front/front_B1E1D.asm
 B2258,ScrollUserList,sub_B2258,96PC,medium,NHL96PC 2AB63 (similar 0.93): mnemonic similarity 0.93 over 19 instructions,src/front/front_B1E1D.asm
+C755B,RosterScreen,sub_C755B,96PC,low,"96 PC RosterScreen: the roster screen (""roster menu"" / ""roster regions"")",src/front/front_C755B.asm
 D67D4,FadePalette,sub_D67D4,96PC,medium,96 PC FadePalette: fades the 300h-byte palette,src/front/front_D4E24.asm
 D68AC,FadeOut,sub_D68AC,96PC,medium,NHL96PC 63A5B (similar 0.91): mnemonic similarity 0.90 over 22 instructions,src/front/front_D4E24.asm
+D70C4,CreditsScreen,sub_D70C4,new,low,"from RunFrontEnd: the credits (reads the credits text file, EAC1/EAC2, CRD1/CRD2, QCRD) with the arena music",src/front/front_D4E24.asm
 DA66D,AllocMediaBuffer,sub_DA66D,new,medium,"allocates the ""MEDIA BUFFER"" (200h paragraphs of DOS memory)",src/front/front_DA66D.asm
 DA713,AllocStaticBuffer,sub_DA713,new,medium,"allocates the ""STATIC BUF"" once (flag word_16D7EC)",src/front/front_DA66D.asm
 E2388,FileDelete,sub_E2388,new,medium,"deletes a file; returns 1, or 0 with the error text ""FILEdelete"" in eax",src/front/front_DA66D.asm

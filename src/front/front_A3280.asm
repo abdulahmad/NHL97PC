@@ -31,7 +31,7 @@ extern sub_100A68, sub_101390, sub_1013AC, sub_1013FC, sub_101429, sub_101430, s
 extern sub_102B94, sub_102C10, sub_102C30, sub_106D80, sub_106F64, sub_106F94, sub_110D70, sub_117338
 extern sub_11A318, sub_11A350, sub_13B50, sub_13B98, sub_13C164, PlayGame, sub_397FD, sub_39824
 extern InitGameAudio, sub_415A0, sub_415F8, sub_41670, sub_419B0, sub_419B8, sub_41FA0, sub_41FDC
-extern PaEvent, sub_4A280, sub_4B074, sub_4B108, sub_4B19C, sub_7CBD6, sub_7CDD8, sub_7DA28
+extern PaEvent, sub_4A280, sub_4B074, sub_4B108, sub_4B19C, InitFrontEnd, FreeFrontEnd, sub_7DA28
 extern sub_7DFC0, sub_7E52C, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, sub_7F0D8, sub_7F16C
 extern sub_7F29C, sub_80758, sub_80808, sub_80A38, sub_80AB8, sub_80BBC, sub_81650, sub_81678
 extern sub_823F0, sub_83C08, sub_84204, sub_842F4, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10
@@ -51,11 +51,11 @@ global sub_A3B69_29, sub_A3B69_CC, sub_A3B69_166, sub_A3B69_1EE, sub_A3B69_2BB, 
 global sub_A6690_B39, sub_A6690_B4E, sub_A6690_B55, sub_A6690_B71, sub_A72C8_AC, sub_A74F4_4A8, sub_A7AD0_E4, sub_A7AD0_14E
 global sub_A7D9C_143, sub_A7D9C_14E, sub_A7D9C_19A, sub_A7D9C_205, sub_A7D9C_24A, sub_A7D9C_294, sub_A7D9C_2D9, sub_A7D9C_39D
 global sub_A3280, sub_A3B69, sub_A3E2B, sub_A405E, sub_A4164, sub_A4A5C, sub_A4B7D, sub_A64FC
-global sub_A6690, sub_A728C, sub_A72C8, sub_A7380, sub_A74F4, sub_A79EC, sub_A7AD0, sub_A7C40
-global sub_A7C90, sub_A7D9C, sub_A8204, sub_A8480, sub_A8524, sub_A8694, sub_A8C5C, sub_A8E84
+global PostGameScreen, sub_A728C, sub_A72C8, sub_A7380, sub_A74F4, sub_A79EC, sub_A7AD0, sub_A7C40
+global sub_A7C90, GameStatsScreen, sub_A8204, sub_A8480, sub_A8524, sub_A8694, sub_A8C5C, sub_A8E84
 global sub_A91AC, sub_A9240, sub_A9504, sub_A9640, sub_A9800, sub_A9A10, sub_AA170, sub_AA274
 global sub_AA498, sub_AA4BC, sub_AA588, sub_AA650, sub_AA710, sub_AA774, sub_AA7EC, sub_AA850
-global sub_AA8B4, sub_AA92C, sub_AAA51, sub_AAA58, sub_AAC7C, sub_AADEF, sub_AB0A6, sub_AB0E8
+global sub_AA8B4, sub_AA92C, sub_AAA51, sub_AAA58, sub_AAC7C, sub_AADEF, sub_AB0A6, PlayMenuGame
 ;-----------------------------------------------------------------------------
 ; sub_A3280                                                       A3280  97 PC
 ;-----------------------------------------------------------------------------
@@ -3871,9 +3871,11 @@ jpt_A6680:
         dd sub_A6690_B55
         dd sub_A6690_B71
 ;-----------------------------------------------------------------------------
-; sub_A6690                                                       A6690  97 PC
+; PostGameScreen                                  A6690  97 PC, low confidence
+; The post-game screen (NHL0 / NHLP, FLR1/2, T3S2, GS00/GS01, RM00/RM01),
+; alternating with GameStatsScreen
 ;-----------------------------------------------------------------------------
-sub_A6690:
+PostGameScreen:
         push ebx
         push ecx
         push edx
@@ -4590,15 +4592,24 @@ sub_A6690:
         cmp eax, byte 3
         ja short sub_A6690_B71.27
         jmp dword [nosplit cs:eax*4+jpt_A6680]
+;-----------------------------------------------------------------------------
+; sub_A6690_B39                                                   A71C9  97 PC
+;-----------------------------------------------------------------------------
 sub_A6690_B39:
         call sub_7EDF0
         mov ebx, 1Ah
         mov esi, edi
         mov dword [dword esp+0578h], ebx
         jmp short sub_A6690_B71.27
+;-----------------------------------------------------------------------------
+; sub_A6690_B4E                                                   A71DE  97 PC
+;-----------------------------------------------------------------------------
 sub_A6690_B4E:
         call sub_7EF70
         jmp short sub_A6690_B71.27
+;-----------------------------------------------------------------------------
+; sub_A6690_B55                                                   A71E5  97 PC
+;-----------------------------------------------------------------------------
 sub_A6690_B55:
         lea eax, [dword esp+0F6h]
         mov edx, 17h
@@ -4606,6 +4617,9 @@ sub_A6690_B55:
         mov esi, edi
         mov dword [dword esp+0578h], edx
         jmp short sub_A6690_B71.27
+;-----------------------------------------------------------------------------
+; sub_A6690_B71                                                   A7201  97 PC
+;-----------------------------------------------------------------------------
 sub_A6690_B71:
         lea eax, [dword esp+0148h]
         call sub_83C08
@@ -4615,7 +4629,7 @@ sub_A6690_B71:
         mov dword [dword esp+0578h], eax
 .27:
         test esi, esi
-        je near sub_A6690.26
+        je near PostGameScreen.26
         xor ebx, ebx
 .28:
         mov ecx, dword [dword ebx+dword_1C954C]
@@ -5647,9 +5661,12 @@ jpt_A7D7C:
         dd sub_A7D9C_2D9
         dd sub_A7D9C_39D
 ;-----------------------------------------------------------------------------
-; sub_A7D9C                                                       A7D9C  97 PC
+; GameStatsScreen                              A7D9C  96 PC, medium confidence
+; The game statistics screen (BKGD, BANNER, SBACK, page arrows AR00-AR11,
+; puck cursor BALL): pages of DrawGameStats, mouse and pad, the modem chat
+; box and sync on a modem game
 ;-----------------------------------------------------------------------------
-sub_A7D9C:
+GameStatsScreen:
         push ebx
         push ecx
         push edx
@@ -5730,10 +5747,16 @@ sub_A7D9C:
         ja near sub_A7D9C_39D.12
         mov edx, ecx
         jmp dword [nosplit cs:edx*4+jpt_A7D7C]
+;-----------------------------------------------------------------------------
+; sub_A7D9C_143                                                   A7EDF  97 PC
+;-----------------------------------------------------------------------------
 sub_A7D9C_143:
         call sub_7EEB0
         inc ebp
         jmp near sub_A7D9C_39D.16
+;-----------------------------------------------------------------------------
+; sub_A7D9C_14E                                                   A7EEA  97 PC
+;-----------------------------------------------------------------------------
 sub_A7D9C_14E:
         mov edx, dword [dword_1C9568]
         push edx
@@ -5755,6 +5778,9 @@ sub_A7D9C_14E:
         call sub_11A318
         add esp, byte 0Ch
         jmp near sub_A7D9C_39D.15
+;-----------------------------------------------------------------------------
+; sub_A7D9C_19A                                                   A7F36  97 PC
+;-----------------------------------------------------------------------------
 sub_A7D9C_19A:
         imul eax, ecx, byte 52h
         add eax, esi
@@ -5786,6 +5812,9 @@ sub_A7D9C_19A:
         cmp dword [dword_1C955C], byte 1
         jne near sub_A7D9C_39D.16
         jmp near sub_A7D9C_39D.13
+;-----------------------------------------------------------------------------
+; sub_A7D9C_205                                                   A7FA1  97 PC
+;-----------------------------------------------------------------------------
 sub_A7D9C_205:
         mov eax, dword [dword_1C957C]
         xor edx, ecx
@@ -5806,6 +5835,9 @@ sub_A7D9C_205:
         mov edi, dword [dword_1C957C]
         mov edi, dword [byte edi+024h]
         jmp near sub_A7D9C_39D.15
+;-----------------------------------------------------------------------------
+; sub_A7D9C_24A                                                   A7FE6  97 PC
+;-----------------------------------------------------------------------------
 sub_A7D9C_24A:
         mov ecx, dword [dword_1C957C]
         mov ebx, eax
@@ -5828,6 +5860,9 @@ sub_A7D9C_24A:
         mov edi, dword [dword_1C957C]
         mov edi, dword [byte edi+024h]
         jmp near sub_A7D9C_39D.15
+;-----------------------------------------------------------------------------
+; sub_A7D9C_294                                                   A8030  97 PC
+;-----------------------------------------------------------------------------
 sub_A7D9C_294:
         mov eax, dword [dword_1C957C]
         xor edx, ecx
@@ -5848,6 +5883,9 @@ sub_A7D9C_294:
         mov edi, dword [dword_1C957C]
         mov edi, dword [byte edi+024h]
         jmp near sub_A7D9C_39D.15
+;-----------------------------------------------------------------------------
+; sub_A7D9C_2D9                                                   A8075  97 PC
+;-----------------------------------------------------------------------------
 sub_A7D9C_2D9:
         cmp dword [dword_1C9564], byte 0
         sete al
@@ -5906,6 +5944,9 @@ sub_A7D9C_2D9:
         call sub_101390
         add esp, byte 0Ch
         jmp short sub_A7D9C_39D.14
+;-----------------------------------------------------------------------------
+; sub_A7D9C_39D                                                   A8139  97 PC
+;-----------------------------------------------------------------------------
 sub_A7D9C_39D:
         cmp dword [dword_1C958C], byte 0
         sete al
@@ -5945,7 +5986,7 @@ sub_A7D9C_39D:
         call sub_1013FC
 .16:
         test ebp, ebp
-        je near sub_A7D9C.1
+        je near GameStatsScreen.1
         cmp dword [dword_1C955C], byte 1
         jne short .17
         mov eax, dword [dword_1C9548]
@@ -9919,9 +9960,14 @@ sub_AB0A6:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_AB0E8                                                       AB0E8  97 PC
+; PlayMenuGame                                 AB0E8  96 PC, medium confidence
+; Plays a game started from the menus: by game mode (optflags bits 4-6:
+; exhibition, season, playoffs, modem) picks the game options block, loads
+; the goal sprites (GloL/GloR or GhiL/GhiR), PlayGame, then saves the result
+; for the mode (season / playoff update, modem end) and runs PostGameScreens;
+; 12h on a modem game
 ;-----------------------------------------------------------------------------
-sub_AB0E8:
+PlayMenuGame:
         push ebx
         push ecx
         push edx
@@ -9973,7 +10019,7 @@ sub_AB0E8:
         call sub_FAF34
         add esp, byte 4
 .4:
-        call sub_7CDD8
+        call FreeFrontEnd
         call InitGameAudio
         mov edx, unk_1AC8E4
         mov eax, dword_16D93A
@@ -10004,7 +10050,7 @@ sub_AB0E8:
         movzx edx, al
         xor eax, eax
         call sub_41670
-        call sub_7CBD6
+        call InitFrontEnd
         mov eax, edx
         pop esi
         pop edx

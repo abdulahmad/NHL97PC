@@ -30,13 +30,15 @@ extern unk_1AD73A, unk_1C5EF8, unk_1C5F4A, unk_1C8F9A, unk_1C93D0, unk_9F5F1, un
 extern unk_9F651, word_1ACB47, word_1AD240, word_1AD242, word_1C13C2, word_1C34E5, word_1C9450, word_1C94EE
 global jpt_A31C6, sub_9F6F5_393, sub_9F6F5_3A4, sub_9F6F5_3B5, sub_9F6F5_470, sub_9F6F5_4D9, sub_9F6F5_4EE, sub_9F6F5_1080
 global sub_A219A_6F3, sub_A219A_6FD, sub_A219A_6FE, sub_A2F78_BB, sub_A31DE_20, sub_A31DE_45, sub_A31DE_50, sub_A31DE_57
-global sub_A31DE_5E, sub_9F6F5, sub_A0784, sub_A0867, sub_A0C74, sub_A12CD, sub_A1961, sub_A219A
+global sub_A31DE_5E, PickIndexEntryScreen, sub_A0784, sub_A0867, sub_A0C74, sub_A12CD, sub_A1961, sub_A219A
 global sub_A289E, sub_A2EF0, sub_A2F31, sub_A2F52, sub_A2F78, sub_A3048, sub_A3116, sub_A3136
 global sub_A31DE
 ;-----------------------------------------------------------------------------
-; sub_9F6F5                                                       9F6F5  97 PC
+; PickIndexEntryScreen                         9F6F5  96 PC, medium confidence
+; Picks an entry of a name index (seasons, exhibition records) from a
+; scrolling list (BALL, ">%s"), with new / delete buttons (BT10-BT12)
 ;-----------------------------------------------------------------------------
-sub_9F6F5:
+PickIndexEntryScreen:
         push ebx
         push ecx
         push edx
@@ -282,15 +284,24 @@ sub_9F6F5:
 .12:
         call sub_1013FC
         jmp near sub_9F6F5_470.21
+;-----------------------------------------------------------------------------
+; sub_9F6F5_393                                                   9FA88  97 PC
+;-----------------------------------------------------------------------------
 sub_9F6F5_393:
         call sub_7EEB0
 .13:
         mov dword [byte ebp+072h], 1
         jmp near sub_9F6F5_470.21
+;-----------------------------------------------------------------------------
+; sub_9F6F5_3A4                                                   9FA99  97 PC
+;-----------------------------------------------------------------------------
 sub_9F6F5_3A4:
         call sub_7EDF0
         mov dword [byte ebp+072h], 1Bh
         jmp near sub_9F6F5_470.21
+;-----------------------------------------------------------------------------
+; sub_9F6F5_3B5                                                   9FAAA  97 PC
+;-----------------------------------------------------------------------------
 sub_9F6F5_3B5:
         lea ebx, [byte ebp+02h]
         mov eax, dword [byte ebp+07Eh]
@@ -346,6 +357,9 @@ sub_9F6F5_3B5:
 .19:
         call sub_11B98E
         jmp near sub_9F6F5_393.13
+;-----------------------------------------------------------------------------
+; sub_9F6F5_470                                                   9FB65  97 PC
+;-----------------------------------------------------------------------------
 sub_9F6F5_470:
         lea eax, [dword ebp-0166h]
         mov ebx, dword [byte ebp+076h]
@@ -375,6 +389,9 @@ sub_9F6F5_470:
         ja short sub_9F6F5_4EE.22
         mov eax, dword [byte ebp+056h]
         jmp dword [nosplit cs:eax*4+jpt_9F6DD]
+;-----------------------------------------------------------------------------
+; sub_9F6F5_4D9                                                   9FBCE  97 PC
+;-----------------------------------------------------------------------------
 sub_9F6F5_4D9:
         lea eax, [dword ebp-0166h]
         xor edx, edx
@@ -382,6 +399,9 @@ sub_9F6F5_4D9:
         call sub_8DEAC
         mov ebx, dword [byte ebp+076h]
         jmp short sub_9F6F5_470.20
+;-----------------------------------------------------------------------------
+; sub_9F6F5_4EE                                                   9FBE3  97 PC
+;-----------------------------------------------------------------------------
 sub_9F6F5_4EE:
         lea eax, [dword ebp-0166h]
         mov ebx, dword [byte ebp+076h]

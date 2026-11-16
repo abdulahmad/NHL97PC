@@ -24,8 +24,8 @@ extern sub_11A318, sub_11B094, sub_11B0D0, sub_13C164, sub_3812E, sub_415A0, sub
 extern sub_419B8, sub_41FA0, sub_41FDC, sub_4AE14, sub_4B074, sub_4B108, sub_7E860, sub_7EDF0
 extern sub_7EEB0, sub_7EF70, sub_7F028, sub_7F0D8, sub_7F16C, sub_7F5A4, sub_7FE38, sub_80B28
 extern sub_80BBC, sub_81650, sub_81678, sub_81D1C, sub_83C08, sub_85D1D, NameIndexNew, NameIndexLoad
-extern NameIndexFree, sub_86500, sub_867D4, InitMenuItems, sub_8BFAC, sub_8DF1F, sub_8E7E0, sub_912E3
-extern sub_9279A, sub_9281C, sub_92FE9, sub_C6064, sub_C755B, sub_DB75E, sub_DB763, sub_DC653
+extern NameIndexFree, sub_86500, sub_867D4, InitMenuItems, sub_8BFAC, sub_8DF1F, sub_8E7E0, StandingsScreen
+extern sub_9279A, sub_9281C, sub_92FE9, sub_C6064, RosterScreen, sub_DB75E, sub_DB763, sub_DC653
 extern sub_DCFA4, sub_DD2DE, sub_DD61F, sub_DE3CF, sub_DE5A3, sub_E036F, sub_E0415, sub_E0B75
 extern sub_E117B, sub_E12D1, sub_E13BF, sub_E3410, sub_E4638, sub_E4838, sub_E7B33, sub_FAA64
 extern sub_FAF34, sub_FC510, sub_FCC40, sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FD110
@@ -33,8 +33,8 @@ extern unk_165A5B, unk_16CE20, unk_16D7FC, unk_1ACB44, unk_1ACD2B, unk_1ACF4E, u
 extern unk_1AD603, unk_1AD73A, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C89F8, unk_1C8A04, unk_1C8A10
 extern unk_1C8A1C, unk_1C8A28
 global jpt_93502, jpt_9621A, sub_93512_F7, sub_93512_100, sub_93512_104, sub_93512_108, sub_93512_1A6, sub_936BE_952
-global sub_936BE_959, sub_945A7_96, sub_945A7_9B, sub_93005, sub_93480, sub_93512, sub_936BE, sub_9401D
-global sub_945A7, sub_94643, sub_948B7, sub_94B30, sub_94BDA, sub_96019, sub_96083, sub_961AA
+global sub_936BE_959, sub_945A7_96, sub_945A7_9B, sub_93005, sub_93480, RunNewPlayoffs, PlayoffSetupScreen, CreatePlayoffs
+global sub_945A7, sub_94643, sub_948B7, RunPlayoffMenus, PlayoffTreeScreen, sub_96019, sub_96083, sub_961AA
 global sub_961E2
 ;-----------------------------------------------------------------------------
 ; sub_93005                                                       93005  97 PC
@@ -432,9 +432,11 @@ jpt_93502:
         dd sub_93512_104
         dd sub_93512_108
 ;-----------------------------------------------------------------------------
-; sub_93512                                                       93512  97 PC
+; RunNewPlayoffs                                  93512  97 PC, low confidence
+; Screen 8: sets up new play-offs (copies the set-up, PlayoffSetupScreen,
+; roster, import agents)
 ;-----------------------------------------------------------------------------
-sub_93512:
+RunNewPlayoffs:
         push ebx
         push ecx
         push edx
@@ -504,15 +506,27 @@ sub_93512:
         mov eax, dword [dword_1AD437]
         and al, 0F8h
         jmp dword [nosplit cs:edx*4+jpt_93502]
+;-----------------------------------------------------------------------------
+; sub_93512_F7                                                    93609  97 PC
+;-----------------------------------------------------------------------------
 sub_93512_F7:
         or byte [dword_1AD437], 7
         jmp short sub_93512_108.6
+;-----------------------------------------------------------------------------
+; sub_93512_100                                                   93612  97 PC
+;-----------------------------------------------------------------------------
 sub_93512_100:
         or al, 5
         jmp short sub_93512_108.5
+;-----------------------------------------------------------------------------
+; sub_93512_104                                                   93616  97 PC
+;-----------------------------------------------------------------------------
 sub_93512_104:
         or al, 3
         jmp short sub_93512_108.5
+;-----------------------------------------------------------------------------
+; sub_93512_108                                                   9361A  97 PC
+;-----------------------------------------------------------------------------
 sub_93512_108:
         or al, 1
 .5:
@@ -544,12 +558,12 @@ sub_93512_108:
         jmp short .8
 .9:
         mov eax, dword [dword_1C86FC]
-        call sub_936BE
+        call PlayoffSetupScreen
         mov esi, eax
         jmp short .8
 .10:
         xor eax, eax
-        call sub_C755B
+        call RosterScreen
         cmp dword [dword_16DA9C], byte 0
         jne short .11
         mov eax, dword_1C86FC
@@ -567,9 +581,11 @@ sub_93512_1A6:
         leave
         jmp near sub_936BE_959
 ;-----------------------------------------------------------------------------
-; sub_936BE                                                       936BE  97 PC
+; PlayoffSetupScreen                              936BE  96 PC, low confidence
+; The new play-offs screen (1GM0, BT00-BT0x): the teams in the tree, name,
+; series length
 ;-----------------------------------------------------------------------------
-sub_936BE:
+PlayoffSetupScreen:
         push ebx
         push ecx
         push edx
@@ -1006,7 +1022,7 @@ sub_936BE:
         call sub_DB75E
         mov eax, dword [dword ebp-099Eh]
         mov dword [byte ebp+072h], 0Dh
-        call sub_9401D
+        call CreatePlayoffs
         jmp near .4
 .10:
         push byte 0
@@ -1181,9 +1197,11 @@ sub_936BE_959:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_9401D                                                       9401D  97 PC
+; CreatePlayoffs                                  9401D  97 PC, low confidence
+; Creates the new play-offs: picks a free PLAY%04d.SET name and adds it to
+; PLAYOFF.NDX
 ;-----------------------------------------------------------------------------
-sub_9401D:
+CreatePlayoffs:
         push ebx
         push ecx
         push edx
@@ -2022,9 +2040,10 @@ sub_948B7:
         mov dword [dword_1C8A94], 0
         jmp near sub_93512_1A6
 ;-----------------------------------------------------------------------------
-; sub_94B30                                                       94B30  97 PC
+; RunPlayoffMenus                                 94B30  96 PC, low confidence
+; From the main menu: loads PLAYOFF.NDX and runs the play-off screens
 ;-----------------------------------------------------------------------------
-sub_94B30:
+RunPlayoffMenus:
         mov eax, 0Dh
         cmp dword [dword_1C8334], byte 0
         je short .5
@@ -2041,11 +2060,11 @@ sub_94B30:
         jbe near .7
         cmp eax, byte 0Dh
         jne short .5
-        call sub_94BDA
+        call PlayoffTreeScreen
         jmp short .5
 .3:
         mov eax, 1
-        call sub_C755B
+        call RosterScreen
 .4:
         mov eax, 0Dh
 .5:
@@ -2074,15 +2093,17 @@ sub_94B30:
         call sub_85D1D
         jmp short .4
 .8:
-        call sub_912E3
+        call StandingsScreen
         jmp short .4
 .9:
         call sub_E7B33
         jmp short .4
 ;-----------------------------------------------------------------------------
-; sub_94BDA                                                       94BDA  97 PC
+; PlayoffTreeScreen                               94BDA  96 PC, low confidence
+; The play-off tree screen (PTOP / PBOT halves, AWD0 awards, choices): series
+; results, play or simulate the next games
 ;-----------------------------------------------------------------------------
-sub_94BDA:
+PlayoffTreeScreen:
         push ebx
         push ecx
         push edx

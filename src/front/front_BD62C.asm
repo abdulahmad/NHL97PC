@@ -25,7 +25,7 @@ extern sub_4AE14, sub_4B074, sub_4B108, sub_4B5C4, sub_4B80C, sub_4B928, sub_4BA
 extern sub_5B4D4, sub_5BD94, InitReplayBuffer, sub_5BE64, sub_5BEB0, sub_5C2CC, sub_5C2F4, sub_5C30C
 extern sub_5C32C, sub_5C34C, sub_5C4CC, sub_5C4E4, sub_5C500, sub_5C584, sub_5C5EC, sub_5C74C
 extern sub_5C75C, sub_5C894, sub_5CAB0, sub_5CACC, InitAnimPoints, sub_65DE8, sub_76E20, sub_77610
-extern AllocAnimStates, sub_7CBD6, sub_7CDD8, sub_7F028, sub_7F0D8, sub_7F16C, sub_7FE4C, sub_81650
+extern AllocAnimStates, InitFrontEnd, FreeFrontEnd, sub_7F028, sub_7F0D8, sub_7F16C, sub_7FE4C, sub_81650
 extern NameIndexNew, NameIndexLoad, NameIndexSave, NameIndexFree, sub_86500, NameIndexRemove, NameIndexPath, sub_8BE60
 extern sub_8BEF8, InitMenuItems, sub_8BFAC, sub_8D5C0, sub_8D6B4, sub_8D6E8, sub_8D910, sub_8E790
 extern sub_8E7E0, sub_8E840, sub_A0867, sub_AC69C, sub_AC6EB, sub_AC73E, sub_DA7EB, sub_DB6AC
@@ -404,7 +404,7 @@ sub_BDB25:
         add esp, byte 4
         call sub_1013FC
         call sub_81650
-        call sub_7CDD8
+        call FreeFrontEnd
         cmp dword [dword_16CCF1], byte 0
         je short .1
         push dword [dword_16CCF1]
@@ -579,7 +579,7 @@ sub_BDB25:
         mov dword [dword_1686C0], 0
         add esp, byte 4
 .3:
-        call sub_7CBD6
+        call InitFrontEnd
         push asc_166A61
         push dword [dword_1C5DE4]
         call sub_101429
@@ -682,7 +682,7 @@ sub_BDB25:
         mov ebx, 2
         mov dword [dword_1C5DE4], 0
         call sub_DA7EB
-        call sub_7CBD6
+        call InitFrontEnd
         call sub_41DD8
         call sub_41D18
         call rand_

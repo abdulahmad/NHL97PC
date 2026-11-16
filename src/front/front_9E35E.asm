@@ -19,7 +19,7 @@ extern sub_FAA64, sub_FAF34, sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8, tickcou
 extern unk_1ACB44, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, word_1ACB47, word_1C8EA0, word_1C8EA2
 global jpt_9E8E8, jpt_9F6DD, sub_9E35E_1C9, sub_9E35E_1EC, sub_9E91C_7BE, sub_9E91C_7CF, sub_9E91C_7E0, sub_9E91C_7FC
 global sub_9E91C_815, sub_9E91C_8C4, sub_9E91C_918, sub_9E91C_94F, sub_9E91C_A05, sub_9E91C_A43, sub_9E91C_ACB, sub_9E91C_B55
-global sub_9E91C_B61, sub_9E35E, sub_9E550, sub_9E723, sub_9E91C, sub_9F671, unk_9F5F1, unk_9F611
+global sub_9E91C_B61, sub_9E35E, sub_9E550, sub_9E723, TeamSelectScreen, sub_9F671, unk_9F5F1, unk_9F611
 global unk_9F631, unk_9F651
 ;-----------------------------------------------------------------------------
 ; sub_9E35E                                                       9E35E  97 PC
@@ -451,9 +451,11 @@ jpt_9E8E8:
         dd sub_9E91C_B55
         dd sub_9E91C_B61
 ;-----------------------------------------------------------------------------
-; sub_9E91C                                                       9E91C  97 PC
+; TeamSelectScreen                             9E91C  96 PC, medium confidence
+; The exhibition team select screen (arrows ahl / ahr / aal / aar, logos,
+; names, ranks); returns the next screen
 ;-----------------------------------------------------------------------------
-sub_9E91C:
+TeamSelectScreen:
         push ebx
         push ecx
         push edx
@@ -932,14 +934,23 @@ sub_9E91C:
         call sub_FCD90
         add esp, byte 4
         jmp near sub_9E91C_94F.23
+;-----------------------------------------------------------------------------
+; sub_9E91C_7BE                                                   9F0DA  97 PC
+;-----------------------------------------------------------------------------
 sub_9E91C_7BE:
         call sub_7EEB0
         mov dword [byte ebp+072h], 1
         jmp near sub_9E91C_94F.23
+;-----------------------------------------------------------------------------
+; sub_9E91C_7CF                                                   9F0EB  97 PC
+;-----------------------------------------------------------------------------
 sub_9E91C_7CF:
         call sub_7EDF0
         mov dword [byte ebp+072h], 0Eh
         jmp near sub_9E91C_94F.23
+;-----------------------------------------------------------------------------
+; sub_9E91C_7E0                                                   9F0FC  97 PC
+;-----------------------------------------------------------------------------
 sub_9E91C_7E0:
         mov eax, dword [byte ebp+07Eh]
         add eax, 0A4h
@@ -947,12 +958,18 @@ sub_9E91C_7E0:
         mov eax, 1
         call sub_C6064
         jmp near sub_9E91C_94F.23
+;-----------------------------------------------------------------------------
+; sub_9E91C_7FC                                                   9F118  97 PC
+;-----------------------------------------------------------------------------
 sub_9E91C_7FC:
         mov eax, dword [byte ebp+07Eh]
         add eax, 0F6h
         mov dword [byte ebp+072h], 19h
         call sub_83C08
         jmp near sub_9E91C_94F.23
+;-----------------------------------------------------------------------------
+; sub_9E91C_815                                                   9F131  97 PC
+;-----------------------------------------------------------------------------
 sub_9E91C_815:
         mov eax, 30Bh
         call sub_41FDC
@@ -998,6 +1015,9 @@ sub_9E91C_815:
         mov dword [byte ebp+076h], ebx
         mov dword [dword_1C8E4C], eax
         jmp near sub_9E91C_94F.23
+;-----------------------------------------------------------------------------
+; sub_9E91C_8C4                                                   9F1E0  97 PC
+;-----------------------------------------------------------------------------
 sub_9E91C_8C4:
         dec dword [byte ebp+07Ah]
         cmp dword [byte ebp+07Ah], byte 0
@@ -1021,6 +1041,9 @@ sub_9E91C_8C4:
         mov dword [dword ebx+0304h], eax
         mov dword [dword ebx+0300h], eax
         jmp near sub_9E91C_94F.23
+;-----------------------------------------------------------------------------
+; sub_9E91C_918                                                   9F234  97 PC
+;-----------------------------------------------------------------------------
 sub_9E91C_918:
         inc dword [byte ebp+07Ah]
         cmp dword [dword_16D76C], byte 0
@@ -1041,6 +1064,9 @@ sub_9E91C_918:
 .19:
         sub dword [byte ebp+07Ah], eax
         jmp short sub_9E91C_8C4.15
+;-----------------------------------------------------------------------------
+; sub_9E91C_94F                                                   9F26B  97 PC
+;-----------------------------------------------------------------------------
 sub_9E91C_94F:
         dec dword [byte ebp+076h]
         cmp dword [byte ebp+076h], byte 0
@@ -1090,6 +1116,9 @@ sub_9E91C_94F:
         ja short .23
         mov eax, dword [byte ebp+066h]
         jmp dword [nosplit cs:eax*4+jpt_9E8E8]
+;-----------------------------------------------------------------------------
+; sub_9E91C_A05                                                   9F321  97 PC
+;-----------------------------------------------------------------------------
 sub_9E91C_A05:
         inc dword [byte ebp+076h]
         cmp dword [dword_16D76C], byte 0
@@ -1110,6 +1139,9 @@ sub_9E91C_A05:
 .27:
         sub dword [byte ebp+076h], eax
         jmp near sub_9E91C_94F.22
+;-----------------------------------------------------------------------------
+; sub_9E91C_A43                                                   9F35F  97 PC
+;-----------------------------------------------------------------------------
 sub_9E91C_A43:
         mov eax, dword [byte ebp+07Eh]
         mov eax, dword [dword eax+0308h]
@@ -1145,6 +1177,9 @@ sub_9E91C_A43:
         mov dword [dword edx+0304h], eax
         mov dword [dword edx+0300h], eax
         jmp near sub_9E91C_94F.23
+;-----------------------------------------------------------------------------
+; sub_9E91C_ACB                                                   9F3E7  97 PC
+;-----------------------------------------------------------------------------
 sub_9E91C_ACB:
         mov eax, dword [byte ebp+07Eh]
         mov eax, dword [dword eax+035Ah]
@@ -1180,9 +1215,15 @@ sub_9E91C_ACB:
         mov dword [dword edx+0356h], eax
         mov dword [dword edx+0352h], eax
         jmp near sub_9E91C_94F.23
+;-----------------------------------------------------------------------------
+; sub_9E91C_B55                                                   9F471  97 PC
+;-----------------------------------------------------------------------------
 sub_9E91C_B55:
         mov dword [byte ebp+072h], 15h
         jmp near sub_9E91C_94F.23
+;-----------------------------------------------------------------------------
+; sub_9E91C_B61                                                   9F47D  97 PC
+;-----------------------------------------------------------------------------
 sub_9E91C_B61:
         call sub_7EF70
         jmp near sub_9E91C_94F.23

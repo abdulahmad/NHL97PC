@@ -21,7 +21,7 @@ extern dword_1CC7C8, dword_1CC7CC, dword_1CC7D0, dword_1CC7D4, dword_1CC7D8, dwo
 extern sub_D3112_BB5, sub_D3112_BC3, memset_, rand_, sprintf_, strcpy_, sub_101340, sub_101390
 extern sub_1013AC, sub_1013FC, sub_101429, sub_101430, sub_101560, sub_101584, sub_102C30, sub_11A318
 extern sub_11B094, sub_13C164, sub_415A0, sub_415F8, sub_419B0, sub_419B8, sub_41F2C, sub_41FDC
-extern PaEvent, sub_4B108, sub_4B19C, sub_7CADA, sub_7CB8C, sub_7E860, sub_7EDF0, sub_7EEB0
+extern PaEvent, sub_4B108, sub_4B19C, LoadLogoNames, sub_7CB8C, sub_7E860, sub_7EDF0, sub_7EEB0
 extern sub_7EF70, sub_7F0D8, sub_7F16C, sub_80BBC, sub_823F0, sub_84330, InitMenuItems, sub_8BFAC
 extern sub_E0DB7, sub_E341C, sub_FAA64, sub_FAF34, sub_FC330, sub_FC510, sub_FCD90, sub_FCFCC
 extern sub_FCFE8, sub_FD08C, sub_FD0F8, sub_FD110, tickcount, unk_166FF4, unk_16D7FC, unk_16D804
@@ -661,7 +661,7 @@ sub_D1927_522:
         je short .20
         cmp byte [byte_1C6040], 0
         je short .20
-        call sub_7CADA
+        call LoadLogoNames
         call sub_415F8
 .20:
         mov eax, dword [byte ebp+07Ah]
