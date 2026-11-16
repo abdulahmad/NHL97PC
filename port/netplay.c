@@ -48,6 +48,8 @@
 #define O_READPADS     SYM_PollControllers     /* the controllers into SlotWords, the hot keys into HotKeyFlags */
 #define O_INITPADS     SYM_InitSlotTable       /* InitSlotTable(eax: the 8 controller set-up bytes): SlotWords' high bytes, the teams */
 #define O_MENU         SYM_RunInGameMenu
+#define O_STREAMSVC    0x3EF68u                /* sub_3EF68, the audio stream service */
+#define O_NEXTCHUNK    0x3FBE4u                /* sub_3FBE4, the stream's next chunk (0: none) */
 #define O_TICK_ISR     SYM_TimerISR            /* has inc dword [tickcount] (FF 05 addr) */
 #define O_CSEED_FN     SYM_GetRandState        /* mov eax, <the C library's rand state> / ret */
 #define D_EASEED       SYM_seed                /* randomd0's state */
@@ -481,6 +483,26 @@ __attribute__((naked)) static void tick_stub(void)
         "1:\n\tincl " SYM("nh_rt_ticks") "\n\tret");
 }
 
+/* The streamed audio (the stream service sub_3EF68 and its "next chunk" sub_3FBE4) is not part of a session. Its buffers and
+ * its state are in the game's memory, so a loaded state takes them back, while the sound card's DMA and the stream file's
+ * position go on: the service then found its stream stopped, or waited for ever (the loop at 3EF88) for an event that had already
+ * happened. In a session (muted anyway: audio.c) the service does nothing and there is never a next chunk. */
+void *nh_svc_cont, *nh_chunk_cont;
+__attribute__((naked)) static void svc_entry(void)       /* sub_3EF68: push ebx, esi, edi, ebp / sub esp, 4 */
+{
+    __asm__ volatile(
+        "cmpl $0, " SYM("nh_sim") "\n\tjne 1f\n\t"
+        "pushl %ebx\n\tpushl %esi\n\tpushl %edi\n\tpushl %ebp\n\tsubl $4, %esp\n\tjmp *" SYM("nh_svc_cont") "\n"
+        "1:\n\tret");
+}
+__attribute__((naked)) static void chunk_entry(void)     /* sub_3FBE4: push ebx, esi / mov eax, [esp+0Ch] */
+{
+    __asm__ volatile(
+        "cmpl $0, " SYM("nh_sim") "\n\tjne 1f\n\t"
+        "pushl %ebx\n\tpushl %esi\n\tmovl 12(%esp), %eax\n\tjmp *" SYM("nh_chunk_cont") "\n"
+        "1:\n\txorl %eax, %eax\n\tret");
+}
+
 static void set_call(uint8_t *p, void *to)
 {
     int32_t rel = (int32_t)((uintptr_t)to - ((uintptr_t)p + 5));
@@ -549,6 +571,15 @@ void netplay_install(void)
     }
     for (i = 0; i < nmenu; i++) set_call(menus[i], (void *)menu_stub);
     set_call(loops[0], (void *)loop_stub);
+    {
+        static const uint8_t svc_head[7] = { 0x53, 0x56, 0x57, 0x55, 0x83, 0xEC, 0x04 }, chunk_head[6] = { 0x53, 0x56, 0x8B, 0x44, 0x24, 0x0C };
+        if (!memcmp(GAME_ADDR(O_STREAMSVC), svc_head, 7) && !memcmp(GAME_ADDR(O_NEXTCHUNK), chunk_head, 6)) {
+            nh_svc_cont = GAME_ADDR(O_STREAMSVC + 7);
+            nh_chunk_cont = GAME_ADDR(O_NEXTCHUNK + 6);
+            patch_jmp(GAME_ADDR(O_STREAMSVC), (void *)svc_entry);
+            patch_jmp(GAME_ADDR(O_NEXTCHUNK), (void *)chunk_entry);
+        } else fprintf(stderr, "online play: the audio stream service is not as expected, not patched\n");
+    }
     nh_ok = 1;
 }
 
