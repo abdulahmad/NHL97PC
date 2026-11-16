@@ -39,7 +39,9 @@ The game addresses the host uses are `SYM_<label>` names of this source tree (`p
   `NHL97_X87DUMMIES=1` keeps the four `fldz` (`port/overrides.c`).
 - The on-screen keyboard opens by itself in `EditText` (7FEC4), the routine every name entry goes through.
 - Not wired yet (96 addresses that 97 has elsewhere): online play (`port/netplay_off.c` stands in; 97's game loop is new, none of
-  96's hook points matched), the sound start-up log, the default `GLOBAL.SET`.
+  96's hook points matched) and the sound start-up log.
+- GLOBAL.SET: when neither the game folder nor `$NHL97_CD` has one, the port writes a real SETUP-written 97 file (magic 16059h, install
+  mode 3, CD at D:\); `NHL97_NO_DEFAULT_SET=1` turns that off.
 
 Escape skips the intro movie (`NHL97_KEYS="20000:Escape"` in tests). `NHL97_VLOG=1` logs, once a second, the video hardware use,
 the tick count and every file open.
