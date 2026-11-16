@@ -24,7 +24,7 @@ extern qword_1607D7, qword_1607DF, qword_1607E7, qword_1607EF, qword_1607F7, qwo
 extern qword_160817, qword_16081F, qword_160827, qword_16082F, qword_160837, qword_16083F, qword_160847, qword_16084F
 extern qword_160857, qword_16085F, qword_160867, qword_16086F, qword_16087B, qword_160883, qword_16088B, qword_16089B
 extern qword_1608A7, randomd0, regd1, slotteam, sub_100700, sub_1008CC, sub_11328, sub_114C4
-extern forcepldata, sub_116B0, ResetBench, setplayer, sub_123A0, setpersonel, sub_12E50, sub_13D50
+extern forcepldata, sub_116B0, ResetBench, setplayer, sub_123A0, setpersonel, ReleaseBoxPlayers, sub_13D50
 extern sub_13DA4, RemoveOverlayPanel, QueueOverlayPanel, StartCameraPath, SelectCameraView, sub_1BB18, sub_1CBD8, sub_1D008
 extern sub_1DEE4, sub_1E184, assreplace, assexit, sub_1E284, sub_1E8B0, check4bench, sub_1F32C
 extern sub_1F4EC, sub_1F538, Setplass, sub_1FF5C, Endfaceoff, sub_20A80, assgoalie, sub_21E98
@@ -48,8 +48,8 @@ extern word_19CBF4, word_19CC04, word_19CC24, word_19CC26, word_19CC2C, word_19C
 extern word_19EBCA
 global jpt_2B4B4, sub_25894_D1, sub_2B4D4_424, sub_2B4D4_43B, sub_2B4D4_452, sub_2B4D4_469, sub_25894, sub_2596C
 global sub_25AEC, sub_25BD0, sub_25D40, sub_25E24, asspuckc, sub_2625C, sub_264CC, assnearest
-global sub_27210, sub_27274, ChkPullGoalieLate, assbench, sub_27A00, sub_27A78, sub_27AD8, asspsclear
-global sub_27F80, sub_27FF0, sub_28110, asseben, sub_2842C, asspenalty, assdopen, assepen
+global sub_27210, assscore, ChkPullGoalieLate, assbench, sub_27A00, sub_27A78, assleavebox, asspsclear
+global sub_27F80, sub_27FF0, sub_28110, asseben, assleaveice, asspenalty, assdopen, assepen
 global sub_28C0C, assrefpenshot, assrefsignal, assrefwhistle, assrefgoalpa, assrefgoalline, assreffollow, assrefdrop
 global assrefatdot, assintrostand, assintroline, asstakeposition, sub_2A3A0, assstanley, sub_2A6B8, sub_2AA50
 global sub_2AC40, sub_2AD18, sub_2AFD8, sub_2B4D4, sub_2B9EC, sub_2BAC0, sub_2BE2C, a2offsides
@@ -2184,9 +2184,12 @@ sub_27210:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_27274                                                       27274  97 PC
+; assscore                                          27274  94G, low confidence
+; Assignment 18h (set by Goal): goal celebration: stops the puck (41h to
+; 40h), a random celebration time, the scorer (word_19CB84) gets one of 5
+; celebrations (sub_27210)
 ;-----------------------------------------------------------------------------
-sub_27274:
+assscore:
         push ebx
         push ecx
         push edx
@@ -2880,9 +2883,12 @@ sub_27A78:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_27AD8                                                       27AD8  97 PC
+; assleavebox                                  27AD8  95 PC, medium confidence
+; Assignment 15h (inserted by ReleaseBoxPlayers): check4bench, skates from the
+; penalty box spot by the side boards (as asspsclear) and brings the released
+; player back on (assreplace 15h, setplayer), as 96 PC assleavebox
 ;-----------------------------------------------------------------------------
-sub_27AD8:
+assleavebox:
         push ebx
         push ecx
         push edx
@@ -3590,9 +3596,11 @@ asseben:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_2842C                                                       2842C  97 PC
+; assleaveice                                  2842C  95 PC, medium confidence
+; Assignment 1Ah (set by InProgress, as in 96 PC): skates to the bench gate
+; by the side boards, changeplayer, then assignment 1 (assbenchwait)
 ;-----------------------------------------------------------------------------
-sub_2842C:
+assleaveice:
         push ebx
         push ecx
         push edx
@@ -4825,7 +4833,7 @@ assrefwhistle:
         mov dword [byte eax+024h], 42FA0000h
         test byte [dword ebx+0C1h], 10h
         jne short .4
-        call sub_12E50
+        call ReleaseBoxPlayers
         mov eax, dword [dword_19CCC2]
         sar eax, 10h
         call sub_11328
@@ -4980,7 +4988,7 @@ assrefgoalpa:
         mov byte [dword ebx+0BFh], dh
         mov dword [dword_19CBF8], esi
         mov dword [byte ebx+060h], 0
-        call sub_12E50
+        call ReleaseBoxPlayers
         mov eax, dword [dword_19CCC2]
         sar eax, 10h
         call sub_11328

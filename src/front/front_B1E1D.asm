@@ -34,10 +34,10 @@ extern sub_FAF34, sub_FC510, sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FDE
 extern unk_1665C8, unk_1665CB, unk_16661B, unk_166648, unk_1C5F4A, unk_1C9704, unk_1C9756, unk_1C989E
 extern unk_B1DF1, unk_B1DFD, unk_B1E09, unk_B1E11, word_16D450, word_1AD68F, word_1AD693, word_1C3413
 extern word_1C5536, word_1C55A2
-global jpt_B234C, jpt_B41D3, sub_B211C_C7, sub_B211C_C8, sub_B2364_71B, sub_B2364_77D, sub_B2364_884, sub_B2364_89E
-global sub_B2364_8BB, sub_B2364_8CA, UserRecordsScreen_95C, UserRecordsScreen_96D, UserRecordsScreen_9B4, UserRecordsScreen_A7F, UserRecordsScreen_A92, UserRecordsScreen_A9E
+global jpt_B234C, jpt_B41D3, sub_B211C_C7, sub_B211C_C8, UserLogScreen_71B, UserLogScreen_77D, UserLogScreen_884, UserLogScreen_89E
+global UserLogScreen_8BB, UserLogScreen_8CA, UserRecordsScreen_95C, UserRecordsScreen_96D, UserRecordsScreen_9B4, UserRecordsScreen_A7F, UserRecordsScreen_A92, UserRecordsScreen_A9E
 global UserRecordsScreen_AA5, sub_B1E1D, sub_B1E9C, sub_B1F4D, DeleteUser, sub_B211C, sub_B21EA, ScrollUserList
-global sub_B228A, sub_B2364, LoadUserList, sub_B2F49, LoadUserRecords, sub_B3A9C, sub_B3B5D, sub_B3F21
+global sub_B228A, UserLogScreen, LoadUserList, sub_B2F49, LoadUserRecords, sub_B3A9C, sub_B3B5D, sub_B3F21
 global sub_B418C, UserRecordsScreen, sub_B4F87, sub_B5031
 ;-----------------------------------------------------------------------------
 ; sub_B1E1D                                                       B1E1D  97 PC
@@ -561,16 +561,17 @@ sub_B228A:
         pop esi
         ret 4
 jpt_B234C:
-        dd sub_B2364_77D
-        dd sub_B2364_71B
-        dd sub_B2364_8CA
-        dd sub_B2364_884
-        dd sub_B2364_89E
-        dd sub_B2364_8BB
+        dd UserLogScreen_77D
+        dd UserLogScreen_71B
+        dd UserLogScreen_8CA
+        dd UserLogScreen_884
+        dd UserLogScreen_89E
+        dd UserLogScreen_8BB
 ;-----------------------------------------------------------------------------
-; sub_B2364                                                       B2364  97 PC
+; UserLogScreen                                   B2364  97 PC, low confidence
+; The "User Log" list (LoadUserList), from the remote user screen sub_A3280
 ;-----------------------------------------------------------------------------
-sub_B2364:
+UserLogScreen:
         push esi
         push edi
         enter 0DDCh, 0
@@ -1052,10 +1053,10 @@ sub_B2364:
         jmp short .11
 .13:
         cmp dword [byte ebp+046h], byte 5
-        ja near sub_B2364_8CA
+        ja near UserLogScreen_8CA
         mov eax, dword [byte ebp+046h]
         jmp dword [nosplit cs:eax*4+jpt_B234C]
-sub_B2364_71B:
+UserLogScreen_71B:
         mov dword [byte ebp+07Ah], 1
         mov dword [byte ebp+06Ah], 1
 .14:
@@ -1084,8 +1085,8 @@ sub_B2364_71B:
         inc dword [byte ebp+07Ah]
         cmp dword [byte ebp+07Ah], byte 9
         jl short .14
-        jmp near sub_B2364_8CA.35
-sub_B2364_77D:
+        jmp near UserLogScreen_8CA.35
+UserLogScreen_77D:
         mov dword [byte ebp+07Ah], 1
 .18:
         cmp dword [byte ebp+07Ah], byte 2
@@ -1114,11 +1115,11 @@ sub_B2364_77D:
         cmp dword [byte ebp+07Ah], byte 9
         jl short .18
         cmp dword [byte ebp+076h], byte 0
-        je near sub_B2364_8CA.27
+        je near UserLogScreen_8CA.27
         cmp dword [byte ebp+076h], byte 1
-        je near sub_B2364_8CA.29
+        je near UserLogScreen_8CA.29
         cmp dword [byte ebp+076h], byte 2
-        jl near sub_B2364_8CA.35
+        jl near UserLogScreen_8CA.35
         mov eax, dword [byte ebp+066h]
         mov ecx, dword [byte ebp+076h]
         mov ebx, dword [dword_1AC944]
@@ -1148,7 +1149,7 @@ sub_B2364_77D:
         xor ebx, ebx
         call GetLangText
         call sub_7F5B8
-        jmp near sub_B2364_8CA.35
+        jmp near UserLogScreen_8CA.35
 .25:
         imul edx, dword [byte ebp+066h], byte 21h
         mov eax, dword [dword_1AC944]
@@ -1165,8 +1166,8 @@ sub_B2364_77D:
         mov eax, dword [byte ebp+04Ah]
         mov dword [byte ebp+06Ah], 1
         call sub_B21EA
-        jmp near sub_B2364_8CA.35
-sub_B2364_884:
+        jmp near UserLogScreen_8CA.35
+UserLogScreen_884:
         lea eax, [dword ebp-015Eh]
         xor edx, edx
         call sub_8DE10
@@ -1174,8 +1175,8 @@ sub_B2364_884:
         push edi
         mov ebx, esi
         call sub_FD0F8
-        jmp near sub_B2364_8CA.34
-sub_B2364_89E:
+        jmp near UserLogScreen_8CA.34
+UserLogScreen_89E:
         mov ebx, dword [byte ebp+05Ah]
         lea eax, [dword ebp-015Eh]
         xor edx, edx
@@ -1183,13 +1184,13 @@ sub_B2364_89E:
         push edi
         call sub_FD0F8
         mov ebx, esi
-        jmp near sub_B2364_8CA.34
-sub_B2364_8BB:
+        jmp near UserLogScreen_8CA.34
+UserLogScreen_8BB:
         lea eax, [dword ebp-015Eh]
         xor edx, edx
         call sub_8DE68
-        jmp short sub_B2364_884.26
-sub_B2364_8CA:
+        jmp short UserLogScreen_884.26
+UserLogScreen_8CA:
         mov eax, dword [dword ebp-013Ah]
         add eax, dword [byte ebp+046h]
         sub eax, byte 7
@@ -1317,7 +1318,7 @@ sub_B2364_8CA:
         call sub_1013FC
 .35:
         cmp dword [byte ebp+06Ah], byte 0
-        je near sub_B2364.9
+        je near UserLogScreen.9
         mov edx, dword [byte ebp+04Ah]
         mov eax, 1
         mov dword [byte ebp+07Eh], 0

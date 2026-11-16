@@ -162,7 +162,7 @@ extern sub_115170, sub_1151A4, sub_115220, sub_1152B0, sub_115318, sub_1153AC, s
 extern sub_115830, sub_1158A0, sub_115B78, sub_115BB0, sub_115BD8, sub_115F98, sub_116050, sub_11984
 extern sub_119A8, setplayer, sub_12A10, Intermission, sub_13D50, sub_13DA4, sub_13EB4, sub_13EF0
 extern sub_13F28, RunSimFrames, ChangeViewSize, SetViewWindow, sub_18DF7, sub_18E35, DrawGameOverlays, StartCameraPath
-extern SelectCameraView, sub_1DFA0, sub_1E014, assreplace, assinsert, sub_1E354, sub_1FBF4, sub_20CB0
+extern SelectCameraView, sub_1DFA0, sub_1E014, assreplace, assinsert, sub_1E354, sub_1FBF4, Goal
 extern sub_218B8, sub_21A4C, sub_2A6B8, sub_2BE2C, a2touchpuck, sub_2DD54, sub_2E11C, sub_2E168
 extern sub_2E208, StartFaceoffLineChange, sub_2F4B8, checkint, AddPenalty, AddPenalty2, EndPenaltyShot, sub_34330
 extern sub_358E4, checkfight, sub_3DA80, sub_3DAC4, sub_3DBCC, sub_3DC2C, sub_3DCBC, sub_3DE08
@@ -24105,7 +24105,7 @@ sub_68378:
         jae short .11
         mov eax, dword [off_168D0C]
         mov esi, 1
-        call sub_20CB0
+        call Goal
         jmp near .16
 .11:
         fld dword [byte ebp-028h]
@@ -24583,7 +24583,7 @@ sub_6889C:
         jae short .11
         mov eax, dword [off_168D08]
         mov esi, 1
-        call sub_20CB0
+        call Goal
         jmp near .16
 .11:
         fld dword [byte ebp-028h]

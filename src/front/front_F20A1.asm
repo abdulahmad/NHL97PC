@@ -49,8 +49,8 @@ global PauseMenu_72D, RulesMenu_1583, RulesMenu_176B, RulesMenu_19CD, RulesMenu_
 global RulesMenu_218D, RulesMenu_22F1, RulesMenu_2464, DetailLevelMenu_C81, DetailLevelMenu_E31, DetailLevelMenu_10E6, DetailLevelMenu_12B8, DetailLevelMenu_13D7
 global DetailLevelMenu_14F6, DetailLevelMenu_165B, DetailLevelMenu_17B7, sub_F20A1, sub_F22AF, sub_F22ED, sub_F23BF, sub_F2544
 global sub_F272B, sub_F27A4, sub_F2AA0, DrawPauseButtons, sub_F30A0, sub_F30D7, PickEditLinesTeam, ConfirmQuitGame
-global sub_F3C43, sub_F3F33, sub_F3FB0, sub_F3FF5, PauseMenu, sub_F48C2, sub_F4978, sub_F4A8F
-global sub_F4B3F, sub_F5219, sub_F558C, FillBox, RulesMenu, DetailLevelMenu, sub_F9496
+global RunIntermission, sub_F3F33, sub_F3FB0, sub_F3FF5, PauseMenu, sub_F48C2, sub_F4978, sub_F4A8F
+global DrawIntermissionTitle, sub_F5219, sub_F558C, FillBox, RulesMenu, DetailLevelMenu, sub_F9496
 ;-----------------------------------------------------------------------------
 ; sub_F20A1                                                       F20A1  97 PC
 ;-----------------------------------------------------------------------------
@@ -2285,9 +2285,11 @@ ConfirmQuitGame:
         jl short .16
         jmp near PickEditLinesTeam_5B2
 ;-----------------------------------------------------------------------------
-; sub_F3C43                                                       F3C43  97 PC
+; RunIntermission                                 F3C43  97 PC, low confidence
+; From PauseMenu: the intermission (fade out, arena PA event 0B0000004h and
+; clip, "Please press a mouse button to continue.....")
 ;-----------------------------------------------------------------------------
-sub_F3C43:
+RunIntermission:
         push ebx
         push ecx
         push edx
@@ -2699,7 +2701,7 @@ PauseMenu:
         call sub_3E5F0
         test byte [byte_19CBC2], 40h
         je short .1
-        call sub_F3C43
+        call RunIntermission
         xor eax, eax
         jmp near PauseMenu_726
 .1:
@@ -2981,7 +2983,7 @@ PauseMenu_29A:
         call sub_F3FF5
         lea eax, [byte ebp-0Ah]
         movsx edx, si
-        call sub_F4B3F
+        call DrawIntermissionTitle
         cmp dword [dword_19CD30], byte 0
         sete al
         movzx eax, al
@@ -3078,7 +3080,7 @@ PauseMenu_4EF:
         call sub_F3FF5
         lea eax, [byte ebp-0Ah]
         movsx edx, si
-        call sub_F4B3F
+        call DrawIntermissionTitle
         cmp dword [dword_19CD30], byte 0
         sete al
         movzx eax, al
@@ -3375,9 +3377,11 @@ sub_F4A8F:
         call sub_41D30
         jmp near sub_41DD8
 ;-----------------------------------------------------------------------------
-; sub_F4B3F                                                       F4B3F  97 PC
+; DrawIntermissionTitle                           F4B3F  97 PC, low confidence
+; Pause / intermission panel title: "Second Intermission", "End of Game",
+; "Beginning of Overtime", "Overtime Intermission"
 ;-----------------------------------------------------------------------------
-sub_F4B3F:
+DrawIntermissionTitle:
         push ebx
         push ecx
         push esi
@@ -3872,7 +3876,7 @@ sub_F5219:
 .1:
         movsx edx, si
         mov eax, ebx
-        call sub_F4B3F
+        call DrawIntermissionTitle
         lea eax, [byte ebp-032h]
         push eax
         mov dword [dword_16AF5C], 1

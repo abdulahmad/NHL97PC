@@ -48,7 +48,7 @@ global sub_80A38, sub_80AB8, sub_80B28, sub_80BBC, sub_80F48, sub_81114, sub_814
 global sub_81650, sub_81678, sub_816A4, sub_816BC, sub_816E8, sub_81D1C, sub_821CC, sub_823F0
 global sub_82FB8, sub_830D4, sub_83314, sub_83334, sub_834EC, sub_83558, sub_835AC, sub_835BC
 global sub_835CC, sub_83850, sub_838A8, sub_83BF4, sub_83C08, sub_83D4C, sub_84024, sub_84068
-global sub_840F8, sub_84138, sub_84170, sub_84204, sub_842E8, sub_842F4, sub_84330, sub_84570
+global sub_840F8, sub_84138, sub_84170, ShowLoadingScreen, sub_842E8, sub_842F4, sub_84330, sub_84570
 global unk_845C0
 ;-----------------------------------------------------------------------------
 ; main_                                                         7D059  library
@@ -9488,9 +9488,11 @@ sub_84170:
         ret 4
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_84204                                                       84204  97 PC
+; ShowLoadingScreen                            84204  97 PC, medium confidence
+; From PlayMenuGame and RunDemoGame: loads a picture and draws "Loading..."
+; before the game
 ;-----------------------------------------------------------------------------
-sub_84204:
+ShowLoadingScreen:
         push ebx
         push ecx
         push edx

@@ -52,7 +52,7 @@ extern unk_1CEEE0, unk_1CEEEF, unk_1CEEFE, unk_1CEF0D, unk_1CEF1C, unk_1CEF2B, u
 extern unk_1CEF58, unk_1CEF67, word_16E2EA, word_1C1344, word_1C1348, word_1C13C2, word_1C34E5, word_1C55A2
 global BuildAllStarTeams_4B, sub_E9CB5_1E0, sub_EA7CF_68E, sub_EA7CF_6C5, sub_EBD8C_31, PickAllStarPlayers_4C2, PickAllStarPlayers_4C3, BuildAllStarTeams
 global AllStarScreen, sub_E9CB5, sub_E9E9B, sub_EA52D, sub_EA5B1, sub_EA64E, sub_EA6EB, sub_EA7CF
-global sub_EAE9A, sub_EAF08, sub_EB175, sub_EB840, sub_EB8DA, sub_EBA9B, sub_EBB68, sub_EBC19
+global sub_EAE9A, sub_EAF08, DrawAllStarList, sub_EB840, sub_EB8DA, sub_EBA9B, sub_EBB68, sub_EBC19
 global sub_EBC45, sub_EBC70, sub_EBCFA, sub_EBD54, sub_EBD8C, sub_EBDC3, sub_EBEDA, sub_EBFCE
 global sub_EC19E, sub_EC34D, sub_EC4DB, sub_EC588, sub_EC60D, sub_EC671, sub_EC82C, PickAllStarPlayers
 global InitAllStarTeams, AllocAllStarRosters, sub_ED3C1, sub_ED6C8, sub_ED8E8, sub_EDDAC, GetKeyName, unk_EDDEF
@@ -343,7 +343,7 @@ AllStarScreen:
         mov edx, 0FFFFFFFFh
 .19:
         mov eax, 1
-        call sub_EB175
+        call DrawAllStarList
         jmp near .34
 .20:
         mov eax, dword [dword_1CE1FC]
@@ -396,7 +396,7 @@ AllStarScreen:
         mov eax, dword [dword_1CE1FC]
         mov dword [nosplit eax*4+dword_1CE0F4], ebx
         mov eax, 1
-        call sub_EB175
+        call DrawAllStarList
         mov eax, dword [dword_1CE1FC]
         shl eax, 2
         cmp dword [dword eax+dword_1CE0F4], byte 0
@@ -1243,7 +1243,7 @@ sub_EA5B1:
         add esp, byte 0Ch
         mov edx, 0FFFFFFFFh
         mov eax, esi
-        call sub_EB175
+        call DrawAllStarList
         mov edx, 0FFFFFFFFh
         mov eax, esi
         call sub_EA7CF
@@ -2071,9 +2071,10 @@ sub_EAF08:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_EB175                                                       EB175  97 PC
+; DrawAllStarList                                 EB175  97 PC, low confidence
+; All-star screen: the "Forwards" / "Defence" / "Goalies" lists
 ;-----------------------------------------------------------------------------
-sub_EB175:
+DrawAllStarList:
         push ebx
         push ecx
         push esi
@@ -2794,7 +2795,7 @@ sub_EBA9B:
         mov edx, dword [dword eax+dword_1CE0F4]
         mov dword [dword eax+dword_1CE0F4], 0FFFFFFFFh
         mov eax, 1
-        call sub_EB175
+        call DrawAllStarList
 .1:
         mov eax, dword [dword_1CE1FC]
         shl eax, 2
@@ -2859,12 +2860,12 @@ sub_EBB68:
         test edx, edx
         jl short .2
         mov eax, 1
-        call sub_EB175
+        call DrawAllStarList
 .2:
         mov eax, dword [dword_1CE1FC]
         mov edx, dword [nosplit eax*4+dword_1CE0F4]
         mov eax, 1
-        call sub_EB175
+        call DrawAllStarList
         mov eax, dword [dword_1CE1FC]
         cmp dword [nosplit eax*4+dword_1CE0F4], byte 13h
         setge al

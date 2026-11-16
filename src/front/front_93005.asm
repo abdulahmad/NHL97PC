@@ -25,7 +25,7 @@ extern sub_419B8, StopAllSfx, PlaySfx, MakeDirPath, LoadDataFileLib, LoadDataFil
 extern sub_7EEB0, sub_7EF70, SetRegionRect, sub_7F0D8, DrawTextAligned, sub_7F5A4, sub_7FE38, sub_80B28
 extern sub_80BBC, sub_81650, sub_81678, sub_81D1C, sub_83C08, RunStatsMenu, NameIndexNew, NameIndexLoad
 extern NameIndexFree, sub_86500, sub_867D4, InitMenuItems, sub_8BFAC, sub_8DF1F, GetLangText, StandingsScreen
-extern sub_9279A, sub_9281C, sub_92FE9, sub_C6064, RosterScreen, sub_DB75E, sub_DB763, sub_DC653
+extern sub_9279A, LinkTransferSetup, sub_92FE9, sub_C6064, RosterScreen, sub_DB75E, sub_DB763, sub_DC653
 extern sub_DCFA4, sub_DD2DE, sub_DD61F, sub_DE3CF, sub_DE5A3, sub_E036F, sub_E0415, sub_E0B75
 extern LoadExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, sub_E3410, LinkSendBlock, LinkReceiveBlock, sub_E7B33, sub_FAA64
 extern sub_FAF34, sub_FC510, sub_FCC40, sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FD110
@@ -531,7 +531,7 @@ RunNewPlayoffs_108:
         cmp dword [dword_16CD58], byte 0
         jne short .8
         mov eax, dword [dword_1C86FC]
-        call sub_9281C
+        call LinkTransferSetup
         mov dword [dword_16CD58], 1
 .8:
         cmp esi, byte 1

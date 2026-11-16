@@ -5,8 +5,8 @@ section s_19C3D8 progbits alloc noexec write align=1
 extern __InitFiles_, __checkIsDBCS_, __chk8087_, __full_io_exit_, __setEFGfmt_, __setenvp_, fini_, init_
 extern puckfaceoff, sub_135D41, asscoverdefd, asscoverdefo, sub_209D0, assbenchwait, assgoalie, assdefo
 extern asswingo, asscentero, assdefd, asswingd, asscenterd, sub_23C98, assfaceoff, assfaceoffpl
-extern sub_244BC, asspuckc, assnearest, sub_27274, assbench, sub_27AD8, asspsclear, sub_28110
-extern asseben, sub_2842C, asspenalty, assdopen, assepen, assrefpenshot, assrefsignal, assrefwhistle
+extern sub_244BC, asspuckc, assnearest, assscore, assbench, assleavebox, asspsclear, sub_28110
+extern asseben, assleaveice, asspenalty, assdopen, assepen, assrefpenshot, assrefsignal, assrefwhistle
 extern assrefgoalpa, assrefgoalline, assreffollow, assrefdrop, assrefatdot, assintrostand, assintroline, asstakeposition
 extern assstanley, pucknorm, puckfaceoff2, sub_30674, assfight, assfwatch, sub_FC210, sub_FC215
 extern sub_FC238
@@ -58,12 +58,12 @@ off_19C3F4:
         dd asspenalty
         dd assdopen
         dd assepen
-        dd sub_27AD8
+        dd assleavebox
         dd asseben
         dd assbench
-        dd sub_27274
+        dd assscore
         dd asspsclear
-        dd sub_2842C
+        dd assleaveice
         dd sub_28110
         dd assfight
         dd assfwatch

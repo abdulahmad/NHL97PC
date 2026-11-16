@@ -101,7 +101,7 @@ global sub_1DD5C, sub_1DDE4, sub_1DEB8, sub_1DEE4, sub_1DFA0, sub_1E014, sub_1E1
 global assinsert, assexit, sub_1E284, sub_1E354, sub_1E4E4, sub_1E7C4, sub_1E810, sub_1E8B0
 global check4bench, SwapPosition, sub_1F32C, sub_1F4EC, sub_1F538, asscoverdefd, asscoverdefo, Setplass
 global sub_1FBF4, sub_1FF5C, Endfaceoff, sub_209CC, sub_209D0, assbenchwait, sub_20A80, sub_20C50
-global sub_20CB0, sub_218B8, sub_21A4C, sub_21AB4, assgoalie, sub_21E98, sub_22050, assextra4
+global Goal, sub_218B8, sub_21A4C, sub_21AB4, assgoalie, sub_21E98, sub_22050, assextra4
 global assdefo, asswingo, asscentero, sub_22FF0, assextra3, assdefd, asswingd, asscenterd
 global sub_23C98, assfaceoff, assfaceoffpl, sub_240D0, sub_24220, sub_244BC, sub_2471C, sub_248E8
 global sub_249F8, sub_24C00, sub_25010, sub_25188, sub_251F0, sub_25730, unk_19178, unk_19180
@@ -14790,9 +14790,13 @@ sub_20C50:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_20CB0                                                       20CB0  97 PC
+; Goal                                         20CB0  95 PC, medium confidence
+; The puck is in a goal: offside goals become AddPenalty / AddPenalty2, the
+; goal and its bookkeeping, the goal commentary (CommentaryEvent), the
+; scorer's team to assscore (18h), the puck to 40h and the referee to 31h;
+; also from DebugKeys
 ;-----------------------------------------------------------------------------
-sub_20CB0:
+Goal:
         push ebx
         push ecx
         push edx

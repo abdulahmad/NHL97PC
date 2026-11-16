@@ -23,14 +23,14 @@ extern off_168D04, off_168D08, off_168D0C, qword_16002C, qword_160034, qword_160
 extern qword_16005C, qword_160064, qword_16006C, qword_160074, rand_, randomd0, regd1, sub_11328
 extern sub_11574, sub_116B0, sub_11808, sub_11984, sub_11F74, sub_12A10, ClockTick, sub_12C2C
 extern sub_12DE8, ChangeViewSize, sub_15C30, sub_15E4D, QueueOverlayPanel, sub_18E35, DrawGameOverlays, StartCameraPath
-extern sub_1B3D8, SelectCameraView, sub_1B67C, sub_1BCA8, LoadOpeningCamera, assreplace, sub_20CB0, sub_2DE94
+extern sub_1B3D8, SelectCameraView, sub_1B67C, sub_1BCA8, LoadOpeningCamera, assreplace, Goal, sub_2DE94
 extern sub_30BD8, sub_31F88, AddPenalty, sub_34330, sub_34950, sub_36370, sub_36754, sub_3CA28
 extern sub_3CB70, sub_3D020, sub_3E5F0, InitGameAudio, sub_41670, sub_41CF0, sub_41DD8, sub_423B4
 extern sub_424CC, CommentaryEvent, LoadDataFileLib, LoadDataFile, sub_4B5C4, sub_4B80C, sub_4B8DC, sub_4B928
 extern sub_4BA00, sub_4BCB4, sub_4C0C4, PeriodOver, sub_52E28, sub_55000, sub_5BD3C, sub_5BD94
 extern InitReplayBuffer, sub_5BE74, sub_5BEB0, sub_5C134, sub_5C160, sub_5C180, sub_5C894, sub_6539C
 extern InitAnimPoints, sub_65DE8, sub_76D3C, sub_76E20, sub_77610, AllocAnimStates, GameOver, sub_77FA8
-extern sub_78810, sub_7F0D8, sub_81678, sub_84204, sub_842E8, sub_842F4, LoadLangText, FreeLangText
+extern sub_78810, sub_7F0D8, sub_81678, ShowLoadingScreen, sub_842E8, sub_842F4, LoadLangText, FreeLangText
 extern sub_AA498, sub_AADEF, sub_AB0A6, sub_B2F49, RunReplay, FadeOut, sub_DA7EB, sub_DB6AC
 extern LoadExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, sub_E1744, sub_E304C, sub_E30F4, sub_E3174, sub_E3190
 extern InputRecordAvail, TakeInputRecord, sub_E341C, sub_E4248, sub_F1FF8, sub_F207F, sub_F30A0, sub_F30D7
@@ -1698,7 +1698,7 @@ DebugKeys:
         mov eax, dword [off_168CE8]
         mov word [eax], 10B0h
         mov eax, dword [off_168D0C]
-        call sub_20CB0
+        call Goal
         jmp near .32
 .12:
         test byte [byte_19CBC2], 2
@@ -1707,7 +1707,7 @@ DebugKeys:
         mov eax, dword [off_168CE8]
         mov word [eax], 0EF50h
         mov eax, dword [off_168D08]
-        call sub_20CB0
+        call Goal
         mov eax, 1
         pop edi
         pop esi
@@ -3255,7 +3255,7 @@ RunDemoGame:
         shl eax, 1Ch
         shr eax, 1Eh
         call LoadLangText
-        call sub_84204
+        call ShowLoadingScreen
         call FreeLangText
         mov ebp, dword [dword_1C5EF4]
         push ebp

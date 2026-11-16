@@ -25,8 +25,8 @@ extern MakeDirPath, LoadDataFile, sub_7A9D8, sub_7BB27, sub_7E860, sub_7EDF0, su
 extern SetRegionRect, sub_7F0D8, DrawTextAligned, sub_7F5A4, sub_7FE38, sub_80AB8, sub_80BBC, sub_81650
 extern sub_81678, sub_81D1C, sub_835BC, sub_83C08, RunStatsMenu, NameIndexNew, NameIndexLoad, NameIndexFree
 extern sub_86500, sub_867D4, InitMenuItems, sub_8BFAC, sub_8DBAC, sub_8DE10, DrawScrollBar, sub_8DE68
-extern sub_8DE7E, sub_8DEAC, GetLangText, PlayoffTreeScreen, AllocCrusherBuffers, sub_A2F31, sub_A2F52, sub_A2F78
-extern sub_A3048, sub_A3116, sub_C6064, RosterScreen, sub_D49BE, sub_DA7D6, sub_DB75E, sub_DB763
+extern sub_8DE7E, sub_8DEAC, GetLangText, PlayoffTreeScreen, AllocCrusherBuffers, sub_A2F31, sub_A2F52, LinkSendData
+extern LinkReceiveData, sub_A3116, sub_C6064, RosterScreen, sub_D49BE, sub_DA7D6, sub_DB75E, sub_DB763
 extern sub_DC653, sub_DCA6C, sub_DCBB0, sub_DCFA4, sub_DD970, sub_DDC4A, sub_DE3CF, sub_DE5A3
 extern sub_E036F, sub_E0415, sub_E0691, sub_E069E, sub_E076B, sub_E0841, sub_E0B75, sub_E0D0F
 extern LoadExhibitionFile, SaveExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, sub_E13FE, sub_E1563, sub_E167A, sub_E1C19
@@ -40,7 +40,7 @@ global RunNewSeason_193, NewSeasonScreen_DCB, NewSeasonScreen_DCE, CreateSeason_
 global StandingsScreen_699, StandingsScreen_6AD, StandingsScreen_6C1, StandingsScreen_6DD, StandingsScreen_6F4, StandingsScreen_70B, StandingsScreen_718, sub_91D7F_1EA
 global RunNewSeason, sub_8EBDF, NewSeasonScreen, CreateSeason, RunSeasonMenus, sub_900AE, SeasonMenuScreen, sub_91289
 global StandingsScreen, sub_91D07, sub_91D1C, sub_91D7F, sub_91F74, sub_925BE, sub_9260A, sub_926BD
-global sub_9279A, sub_9281C, sub_92DB7, sub_92E37, sub_92EE2, sub_92F25, sub_92FE9
+global sub_9279A, LinkTransferSetup, sub_92DB7, sub_92E37, sub_92EE2, sub_92F25, sub_92FE9
 ;-----------------------------------------------------------------------------
 ; RunNewSeason                                    8E997  97 PC, low confidence
 ; Screen 6: sets up a new season (copies the set-up, NewSeasonScreen, roster,
@@ -174,7 +174,7 @@ RunNewSeason_193:
         cmp dword [dword_16CD58], byte 0
         jne short .9
         mov eax, dword [dword_1C86FC]
-        call sub_9281C
+        call LinkTransferSetup
         mov dword [dword_16CD58], 1
 .9:
         cmp esi, byte 1
@@ -4721,9 +4721,11 @@ sub_9279A:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_9281C                                                       9281C  97 PC
+; LinkTransferSetup                               9281C  97 PC, low confidence
+; Link games: from RunNewSeason, RunNewPlayoffs and TeamSelectScreen, swaps
+; the set-up data with the other computer ("Transferring data...")
 ;-----------------------------------------------------------------------------
-sub_9281C:
+LinkTransferSetup:
         push ebx
         push ecx
         push edx
@@ -4763,7 +4765,7 @@ sub_9281C:
 .2:
         mov eax, 1
         mov edx, 4
-        call sub_A2F78
+        call LinkSendData
         call sub_A2F31
         xor ebx, ebx
         lea eax, [byte ebp+07Ah]
@@ -4800,7 +4802,7 @@ sub_9281C:
 .4:
         call AllocCrusherBuffers
         mov eax, 1
-        call sub_A3048
+        call LinkReceiveData
         mov dword [byte ebp+07Ah], 0
 .5:
         imul edx, dword [byte ebp+07Ah], dword 194Fh

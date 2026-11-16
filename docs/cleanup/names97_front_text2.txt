@@ -1,0 +1,9 @@
+sub_84204 ShowLoadingScreen {confidence=medium} from PlayMenuGame and RunDemoGame: loads a picture and draws "Loading..." before the game
+sub_A2F78 LinkSendData {confidence=low} link games: "Please wait... / Transferring data...", sends a block to the other computer (LinkSendBlock)
+sub_A3048 LinkReceiveData {confidence=low} link games: "Please wait... / Transferring data...", receives a block from the other computer (LinkReceiveBlock, atoi of its size)
+sub_9281C LinkTransferSetup {confidence=low} link games: from RunNewSeason, RunNewPlayoffs and TeamSelectScreen, swaps the set-up data with the other computer ("Transferring data...")
+sub_B2364 UserLogScreen {confidence=low} the "User Log" list (LoadUserList), from the remote user screen sub_A3280
+sub_F4B3F DrawIntermissionTitle {confidence=low} pause / intermission panel title: "Second Intermission", "End of Game", "Beginning of Overtime", "Overtime Intermission"
+sub_F3C43 RunIntermission {confidence=low} from PauseMenu: the intermission (fade out, arena PA event 0B0000004h and clip, "Please press a mouse button to continue.....")
+sub_C8EDC DrawRosterList {confidence=low} roster screen: the "Team Roster" / "Additional Players" lists
+sub_EB175 DrawAllStarList {confidence=low} all-star screen: the "Forwards" / "Defence" / "Goalies" lists

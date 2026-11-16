@@ -30,7 +30,7 @@ global forcepldata_E, sub_123A0_62, sub_123A0_81, GripLinkLibrary, sub_102F4, Lo
 global sub_10A68, sub_10CC8, sub_10FAC, sub_1120C, sub_11328, sub_114C4, forcepldata, sub_11574
 global sub_116B0, sub_11808, ResetBench, sub_11984, sub_119A8, setplayer, reenergizeteam, sub_11F74
 global sub_11FB4, sub_12024, sub_12334, sub_123A0, sub_12440, sub_124A4, setpersonel, sub_12970
-global sub_12A10, ClockTick, sub_12C2C, sub_12DE8, sub_12E50, unk_10003
+global sub_12A10, ClockTick, sub_12C2C, sub_12DE8, ReleaseBoxPlayers, unk_10003
 ;-----------------------------------------------------------------------------
 ; loc_10000                                                       10000  97 PC
 ;-----------------------------------------------------------------------------
@@ -3964,9 +3964,11 @@ sub_12DE8:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_12E50                                                       12E50  97 PC
+; ReleaseBoxPlayers                               12E50  97 PC, low confidence
+; At a stoppage (assrefwhistle, assrefgoalpa): players whose penalty is over
+; get assignment 15h (assleavebox) inserted
 ;-----------------------------------------------------------------------------
-sub_12E50:
+ReleaseBoxPlayers:
         push ebx
         push ecx
         push edx

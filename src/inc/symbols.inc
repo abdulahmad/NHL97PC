@@ -27,7 +27,7 @@
 ;  12A70  ClockTick                                front/front_10010.asm                        1
 ;  12C2C  sub_12C2C                                front/front_10010.asm                        1
 ;  12DE8  sub_12DE8                                front/front_10010.asm                        1
-;  12E50  sub_12E50                                front/front_10010.asm                        1
+;  12E50  ReleaseBoxPlayers                        front/front_10010.asm                        1
 ;  1303C  AllInPlace                               engine/faceoff/faceoff.asm                   1
 ;  1306C  Intermission                             engine/faceoff/faceoff.asm                   1
 ;  13AF0  sub_13AF0                                engine/faceoff/faceoff.asm                   1
@@ -139,7 +139,7 @@
 ;  209D0  sub_209D0                                engine/engine_15AC2.asm                      1
 ;  209E0  assbenchwait                             engine/engine_15AC2.asm                      1
 ;  20A80  sub_20A80                                engine/engine_15AC2.asm                      1
-;  20CB0  sub_20CB0                                engine/engine_15AC2.asm                      3
+;  20CB0  Goal                                     engine/engine_15AC2.asm                      3
 ;  218B8  sub_218B8                                engine/engine_15AC2.asm                      1
 ;  21A4C  sub_21A4C                                engine/engine_15AC2.asm                      1
 ;  21B20  assgoalie                                engine/engine_15AC2.asm                      2
@@ -169,14 +169,14 @@
 ;  25AEC  sub_25AEC                                engine/engine_25894.asm                      1
 ;  25F64  asspuckc                                 engine/engine_25894.asm                      1
 ;  265FC  assnearest                               engine/engine_25894.asm                      1
-;  27274  sub_27274                                engine/engine_25894.asm                      1
+;  27274  assscore                                 engine/engine_25894.asm                      1
 ;  275C0  assbench                                 engine/engine_25894.asm                      1
-;  27AD8  sub_27AD8                                engine/engine_25894.asm                      1
+;  27AD8  assleavebox                              engine/engine_25894.asm                      1
 ;  27D10  asspsclear                               engine/engine_25894.asm                      2
 ;  27F80  sub_27F80                                engine/engine_25894.asm                      1
 ;  28110  sub_28110                                engine/engine_25894.asm                      1
 ;  282B8  asseben                                  engine/engine_25894.asm                      1
-;  2842C  sub_2842C                                engine/engine_25894.asm                      1
+;  2842C  assleaveice                              engine/engine_25894.asm                      1
 ;  28698  asspenalty                               engine/engine_25894.asm                      1
 ;  289AC  assdopen                                 engine/engine_25894.asm                      1
 ;  28A08  assepen                                  engine/engine_25894.asm                      1
@@ -294,7 +294,7 @@
 ;  3AC3C  sub_3AC3C                                engine/engine_3812E.asm                      1
 ;  3AD34  sub_3AD34                                engine/engine_3812E.asm                      1
 ;  3AD9C  sub_3AD9C                                engine/engine_3812E.asm                      1
-;  3AF30  sub_3AF30                                engine/engine_3812E.asm                      1
+;  3AF30  checkgoal                                engine/engine_3812E.asm                      1
 ;  3AFDC  sub_3AFDC                                engine/engine_3812E.asm                      1
 ;  3B05C  sub_3B05C                                engine/engine_3812E.asm                      1
 ;  3B09C  sub_3B09C                                engine/engine_3812E.asm                      1
@@ -921,7 +921,7 @@
 ;  840F8  sub_840F8                                front/main/main.asm                          1
 ;  84138  sub_84138                                front/main/main.asm                          1
 ;  84170  sub_84170                                front/main/main.asm                          1
-;  84204  sub_84204                                front/main/main.asm                          2
+;  84204  ShowLoadingScreen                        front/main/main.asm                          2
 ;  842E8  sub_842E8                                front/main/main.asm                          1
 ;  842F4  sub_842F4                                front/main/main.asm                          5
 ;  84330  sub_84330                                front/main/main.asm                          2
@@ -991,7 +991,7 @@
 ;  91D7F  sub_91D7F                                front/front_8E997.asm                        1
 ;  925BE  sub_925BE                                front/front_8E997.asm                        1
 ;  9279A  sub_9279A                                front/front_8E997.asm                        2
-;  9281C  sub_9281C                                front/front_8E997.asm                        2
+;  9281C  LinkTransferSetup                        front/front_8E997.asm                        2
 ;  92DB7  sub_92DB7                                front/front_8E997.asm                        1
 ;  92E37  sub_92E37                                front/front_8E997.asm                        1
 ;  92EE2  sub_92EE2                                front/front_8E997.asm                        1
@@ -1034,8 +1034,8 @@
 ;  A2EF0  AllocCrusherBuffers                      front/front_9F6F5.asm                        2
 ;  A2F31  sub_A2F31                                front/front_9F6F5.asm                        2
 ;  A2F52  sub_A2F52                                front/front_9F6F5.asm                        2
-;  A2F78  sub_A2F78                                front/front_9F6F5.asm                        2
-;  A3048  sub_A3048                                front/front_9F6F5.asm                        2
+;  A2F78  LinkSendData                             front/front_9F6F5.asm                        2
+;  A3048  LinkReceiveData                          front/front_9F6F5.asm                        2
 ;  A3116  sub_A3116                                front/front_9F6F5.asm                        2
 ;  A3136  sub_A3136                                front/front_9F6F5.asm                        1
 ;  A31DE  sub_A31DE                                front/front_9F6F5.asm                        1
@@ -1072,7 +1072,7 @@
 ;  B1DFD  unk_B1DFD                                front/front_AC799.asm                        1
 ;  B1E09  unk_B1E09                                front/front_AC799.asm                        1
 ;  B1E11  unk_B1E11                                front/front_AC799.asm                        1
-;  B2364  sub_B2364                                front/front_B1E1D.asm                        1
+;  B2364  UserLogScreen                            front/front_B1E1D.asm                        1
 ;  B2F49  sub_B2F49                                front/front_B1E1D.asm                        1
 ;  B418C  sub_B418C                                front/front_B1E1D.asm                        1
 ;  B4F87  sub_B4F87                                front/front_B1E1D.asm                        1

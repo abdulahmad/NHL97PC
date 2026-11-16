@@ -25,7 +25,7 @@ extern regd1, slotteam, sub_100940, sub_100A68, sub_100B88, sub_100BC8, sub_100B
 extern sub_100D04, sub_100D8C, sub_100DC4, sub_100E54, sub_100F70, sub_1010E8, sub_101154, sub_1011E8
 extern sub_101220, sub_101230, forcepldata, setplayer, setpersonel, sub_13D50, sub_13EB4, RemoveOverlayPanel
 extern QueueOverlayPanel, sub_18E35, sub_1C108, sub_1C210, sub_1C29C, sub_1C7B4, sub_1CCBC, sub_1D16C
-extern sub_1E184, assreplace, assinsert, assexit, sub_1E8B0, Setplass, sub_20CB0, sub_24220
+extern sub_1E184, assreplace, assinsert, assexit, sub_1E8B0, Setplass, Goal, sub_24220
 extern sub_2471C, sub_248E8, sub_25010, sub_2596C, sub_27F80, sub_28C0C, CompLine, StartFaceoffLineChange
 extern sub_3AAE8, sub_3AB28, sub_3B09C, sub_3B690, PlaySfxOr, PlaySfxVolume, sub_424CC, CommentaryEvent
 extern PaEvent, sub_4B8DC, sub_56CD0, sub_56CE4, sub_56CF8, sub_60F48, sub_650A4, sub_650E8
@@ -828,7 +828,7 @@ sub_2F8D8:
 .2:
         mov eax, dword [off_168D08]
 .3:
-        call sub_20CB0
+        call Goal
         pop esi
         pop edx
         pop ecx
@@ -926,7 +926,7 @@ sub_2FA00:
 .2:
         mov eax, dword [off_168D08]
 .3:
-        call sub_20CB0
+        call Goal
         pop esi
         pop edx
         pop ecx
@@ -1054,7 +1054,7 @@ sub_2FB40:
 .5:
         mov eax, dword [off_168D08]
 .6:
-        call sub_20CB0
+        call Goal
         jmp near sub_2FB40_370.26
 .7:
         xor eax, eax

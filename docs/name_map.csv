@@ -9,6 +9,7 @@ address,name,auto_name,source,confidence,evidence,file
 11F10,SetupTeamForIntermission,,96PC,medium,NHL96PC 4AF89 (similar): mnemonic similarity 0.88 over 32 instructions,
 127D4,setpersonel,sub_127D4,94G,medium,94G setpersonel (96 PC body): clears the team's 6 on-ice slots and sets the personnel,src/front/front_10010.asm
 12A70,ClockTick,sub_12A70,96PC,medium,"96 PC ClockTick: counts the game clock down (word_19CBBA minutes, word_19CBBC seconds) and posts the clock events; from RunSimFrames",src/front/front_10010.asm
+12E50,ReleaseBoxPlayers,sub_12E50,new,low,"at a stoppage (assrefwhistle, assrefgoalpa): players whose penalty is over get assignment 15h (assleavebox) inserted",src/front/front_10010.asm
 1303C,AllInPlace,,96PC,medium,NHL96PC 3ABAE (similar): mnemonic similarity 0.87 over 21 instructions,
 1306C,Intermission,sub_1306C,96PC,medium,"96 PC Intermission: GameOver when gsp is 4, else SetupTeamForIntermission and resets the players for the next period",src/engine/faceoff/faceoff.asm
 130C8,StartGame,sub_130C8,96PC,medium,"96 PC StartGame: CountTeamSlots, clears the game vars and teams, restores the teams and starts the period",src/engine/faceoff/faceoff.asm
@@ -69,6 +70,7 @@ address,name,auto_name,source,confidence,evidence,file
 1FB6C,Setplass,sub_1FB6C,94G,medium,"94G Setplass: sets the player's starting assignment by position from the list byte_1689C0 (goalie 2, defence 3, wings 4, centre 5), after SwapPosition",src/engine/engine_15AC2.asm
 20508,Endfaceoff,sub_20508,96PC,medium,"from puckfaceoff2: decides the faceoff (randomd0 21h / 0Ah as in 96 PC), gives the puck assignment 41h (pucknorm) and the referee 31h (assreffollow)",src/engine/engine_15AC2.asm
 209E0,assbenchwait,sub_209E0,96PC,low,"assignment 1 (set by setpersonel, AddPenalty2): an off-ice player waits at the bench (x -2232 / -4440), check4bench, flags +0C1h",src/engine/engine_15AC2.asm
+20CB0,Goal,sub_20CB0,95PC,medium,"the puck is in a goal: offside goals become AddPenalty / AddPenalty2, the goal and its bookkeeping, the goal commentary (CommentaryEvent), the scorer's team to assscore (18h), the puck to 40h and the referee to 31h; also from DebugKeys",src/engine/engine_15AC2.asm
 21B20,assgoalie,sub_21B20,94G,medium,"94G assgoalie: assignment 2 (Setplass list for the goalie), the goalie AI",src/engine/engine_15AC2.asm
 22828,assextra4,sub_22828,96PC,low,96 PC assextra4 (placeholder name): called from the offence assignments,src/engine/engine_15AC2.asm
 22B8C,assdefo,sub_22B8C,94G,low,"94G assdefo: assignment 0Bh, defenceman on offence (SwapPosition, assextra4, as 96 PC assdefo)",src/engine/engine_15AC2.asm
@@ -82,10 +84,13 @@ address,name,auto_name,source,confidence,evidence,file
 23F44,assfaceoffpl,sub_23F44,94G,medium,"94G assfaceoffpl: assignment 8, the faceoff player (puckfaceoff2 gives it to the centre, as 94G afaceoffpl)",src/engine/engine_15AC2.asm
 25F64,asspuckc,sub_25F64,94G,low,"assignment 9, the computer puck carrier: steps out when its team does not have the puck (off_168CF0), runs its checks on a reaction timer (+56h), and goes to 1Bh when skating in close on the goal",src/engine/engine_25894.asm
 265FC,assnearest,sub_265FC,94G,medium,"94G assnearest: assignment 0Ah (off_19C3F4), the main skater AI (forcepldata gives it to the centre, as in 94G)",src/engine/engine_25894.asm
+27274,assscore,sub_27274,94G,low,"assignment 18h (set by sub_20CB0): goal celebration: stops the puck (41h to 40h), a random celebration time, the scorer (word_19CB84) gets one of 5 celebrations (sub_27210)",src/engine/engine_25894.asm
 27500,ChkPullGoalieLate,sub_27500,96PC,medium,"96 PC ChkPullGoalieLate: (team) third period, last 60 seconds, losing by 1-2 and no goalie pulled yet: pull the goalie (from assbench)",src/engine/engine_25894.asm
 275C0,assbench,sub_275C0,94G,medium,"94G assbench: assignment 17h, skating off to the bench (check4bench gives it); setplayer for the replacement",src/engine/engine_25894.asm
+27AD8,assleavebox,sub_27AD8,96PC,medium,"assignment 15h (inserted by sub_12E50): check4bench, skates from the penalty box spot by the side boards (as asspsclear) and brings the released player back on (assreplace 15h, setplayer), as 96 PC assleavebox",src/engine/engine_25894.asm
 27D10,asspsclear,sub_27D10,96PC,medium,"assignment 19h (from setpersonel): skaters clear to a spot by the side boards (x -1898, y +-2B8h plus a random multiple of 90h) and stop facing the play; 96 PC asspsclear's spot scaled to 97 units",src/engine/engine_25894.asm
 282B8,asseben,sub_282B8,94G,medium,"94G asseben: assignment 16h, coming on from the bench (setplayer gives it for a player from the bench, as in 94G)",src/engine/engine_25894.asm
+2842C,assleaveice,sub_2842C,96PC,medium,"assignment 1Ah (set by InProgress, as in 96 PC): skates to the bench gate by the side boards, changeplayer, then assignment 1 (assbenchwait)",src/engine/engine_25894.asm
 28698,asspenalty,sub_28698,94G,medium,"94G asspenalty: assignment 12h, the penalised player skates to the penalty box (InProgress gives it, as in 94G)",src/engine/engine_25894.asm
 289AC,assdopen,sub_289AC,96PC,low,"96 PC assdopen: assignment 13h, opens the penalty box door (SetPenaltyBoxDoor, sound)",src/engine/engine_25894.asm
 28A08,assepen,sub_28A08,94G,medium,"94G assepen: assignment 14h, leaving the penalty box (setplayer gives it for a player from the box, as in 94G)",src/engine/engine_25894.asm
@@ -133,6 +138,7 @@ address,name,auto_name,source,confidence,evidence,file
 365FC,checkfight,sub_365FC,93G,medium,"NHLPA 93 checkfight: (player a3, player a2) after a hit, with fighting on in the options: counts the hits and may start a fight (StartFight); the others get assfwatch (1Dh)",src/engine/faceoff/faceoff_2.asm
 36AB0,assfight,sub_36AB0,93G,medium,"NHLPA 93 assfight: assignment 1Ch (StartFight gives it to both fighters), the fighting logic",src/engine/faceoff/faceoff_2.asm
 36E34,assfwatch,sub_36E34,93G,medium,"NHLPA 93 assfwatch: assignment 1Dh (checkfight gives it to the others), players watching the fight",src/engine/faceoff/faceoff_2.asm
+3AF30,checkgoal,sub_3AF30,94G,low,"from the off_16BD2C handler table: the puck against a net; the two net checks (sub_2F8D8 / sub_2FA00) call Goal, as 93G/94G checkgoal does for the puck",src/engine/engine_3812E.asm
 3C75C,SetVideoMode,sub_3C75C,new,medium,"(width, height): switches the screen mode when it differs from the current one (dword_1A8E84 x dword_1A8E88)",src/engine/engine_3812E.asm
 3E850,CdStreamOpen,sub_3E850,96PC,medium,"96 PC CdStreamOpen: allocates and opens a CD stream (""CDSTREAM"" block)",src/engine/engine_3812E.asm
 3E904,setstreamspeed,sub_3E904,96PC,medium,"96 PC setstreamspeed (""STREAM"" block), measures the stream's read speed",src/engine/engine_3812E.asm
@@ -215,6 +221,7 @@ address,name,auto_name,source,confidence,evidence,file
 7F028,SetRegionRect,sub_7F028,new,low,"(region, x, y, w, h): stores the rectangle twice (x0, y0, x1, y1)",src/front/main/main.asm
 7F16C,DrawTextAligned,sub_7F16C,new,low,"(align, x, y, ..., format, ...): sprintf-style text drawn left (0), centred (1) or right (2) of x",src/front/main/main.asm
 7FEC4,EditText,sub_7FEC4,96PC,medium,"NHL96PC EditText 197ED: same 394h text buffer, eax/edx/ebx/ecx + stack args, reads keys (sub_FBE40) and handles backspace/enter; called by every name entry through sub_7FE38/sub_7FE4C",src/front/main/main.asm
+84204,ShowLoadingScreen,sub_84204,new,medium,"from PlayMenuGame and RunDemoGame: loads a picture and draws ""Loading..."" before the game",src/front/main/main.asm
 84B55,MainMenuScreen,sub_84B55,96PC,medium,"96 PC MainMenuScreen: the main menu (""menu"", MB01-MB11 buttons, PIC%d%c pictures); checks which of EXHIBIT / SEASON / PLAYOFF.NDX exist; returns the next screen",src/front/front_845E4.asm
 85A15,RunGameScreens,sub_85A15,new,low,"(screen): from RunFrontEnd, runs the game set-up screens by number (team select 4, pick saves 5/7/9, new season 6, new play-offs 8, season 0Ch, play-offs 0Dh, edit lines 0Fh/10h, play 15h, post-game 16h/17h, roster 19h) until one returns to the main menu",src/front/front_845E4.asm
 85D1D,RunStatsMenu,sub_85D1D,96PC,medium,"96 PC RunStatsMenu: from the main menu (RunFrontEnd 2), the season menus and the play-offs: loads the season's stats and runs the stats screens",src/front/front_845E4.asm
@@ -243,6 +250,7 @@ address,name,auto_name,source,confidence,evidence,file
 8FFCF,RunSeasonMenus,sub_8FFCF,96PC,low,"96 PC RunSeasonMenus: screen 0Ch, runs the season screens (season menu, standings, play-off tree, roster) until they leave",src/front/front_8E997.asm
 90162,SeasonMenuScreen,sub_90162,96PC,low,"96 PC SeasonMenuScreen: the season menu (""menu"", SD00-SD03, RL00, SN00, SR00 ...)",src/front/front_8E997.asm
 912E3,StandingsScreen,sub_912E3,96PC,medium,"96 PC StandingsScreen: the standings screen (""standmenu"", factoids, BGWS, TTLW)",src/front/front_8E997.asm
+9281C,LinkTransferSetup,sub_9281C,new,low,"link games: from RunNewSeason, RunNewPlayoffs and TeamSelectScreen, swaps the set-up data with the other computer (""Transferring data..."")",src/front/front_8E997.asm
 93512,RunNewPlayoffs,sub_93512,new,low,"screen 8: sets up new play-offs (copies the set-up, PlayoffSetupScreen, roster, import agents)",src/front/front_93005.asm
 936BE,PlayoffSetupScreen,sub_936BE,96PC,low,"96 PC PlayoffSetupScreen: the new play-offs screen (""playoffmenu"", TITL, 012R-014R, the option toggles SCOF/SCON ...)",src/front/front_93005.asm
 9401D,CreatePlayoffs,sub_9401D,new,low,creates the new play-offs: picks a free PLAY%04d.SET name and adds it to PLAYOFF.NDX,src/front/front_93005.asm
@@ -255,6 +263,8 @@ address,name,auto_name,source,confidence,evidence,file
 9E91C,TeamSelectScreen,sub_9E91C,96PC,medium,"96 PC TeamSelectScreen: the exhibition team select screen (HOM1/HOM2, AWY1/AWY2, team ranks); returns the next screen",src/front/front_9E35E.asm
 9F6F5,PickIndexEntryScreen,sub_9F6F5,96PC,medium,"96 PC PickIndexEntryScreen: (kind 5/7/9) picks an entry of SEASON / PLAYOFF / EXHIBIT.NDX (DL00-DL03), with new and delete",src/front/front_9F6F5.asm
 A2EF0,AllocCrusherBuffers,sub_A2EF0,new,low,"allocates the ""CRUSHER"" (493E0h) and ""CRUSHER pack"" (186A0h) buffers used to pack data sent to the other computer",src/front/front_9F6F5.asm
+A2F78,LinkSendData,sub_A2F78,new,low,"link games: ""Please wait... / Transferring data..."", sends a block to the other computer (LinkSendBlock)",src/front/front_9F6F5.asm
+A3048,LinkReceiveData,sub_A3048,new,low,"link games: ""Please wait... / Transferring data..."", receives a block from the other computer (LinkReceiveBlock, atoi of its size)",src/front/front_9F6F5.asm
 A6690,PostGameScreen,sub_A6690,new,low,"the post-game screen (NHL0 / NHLP, FLR1/2, T3S2, GS00/GS01, RM00/RM01), alternating with GameStatsScreen",src/front/front_A3280.asm
 A74F4,DrawThreeStarStats,sub_A74F4,new,low,"post-game: one star's stat lines (goals, assists, shots, +/-, hits, penalty minutes; goalie saves and save percentage; three star points)",src/front/front_A3280.asm
 A7D9C,GameStatsScreen,sub_A7D9C,96PC,medium,"96 PC GameStatsScreen: the game statistics screen (""gameStatMenu"" / ""gameStatRegn"")",src/front/front_A3280.asm
@@ -267,6 +277,7 @@ B1248,SetGoalieStatColumns,sub_B1248,new,low,"stats lists: the goalie column tit
 B1922,SetTeamStatColumns,sub_B1922,new,low,"stats lists: the team column titles (GP, W, L, T, points, GF, GA, PPG, PP%, PK%, streaks...)",src/front/front_AC799.asm
 B1FE9,DeleteUser,sub_B1FE9,96PC,medium,NHL96PC 2A692 (sem 0.62): C:1134; K:3EA; C:1833,src/front/front_B1E1D.asm
 B2258,ScrollUserList,sub_B2258,96PC,medium,NHL96PC 2AB63 (similar 0.93): mnemonic similarity 0.93 over 19 instructions,src/front/front_B1E1D.asm
+B2364,UserLogScreen,sub_B2364,new,low,"the ""User Log"" list (LoadUserList), from the remote user screen sub_A3280",src/front/front_B1E1D.asm
 B2E5B,LoadUserList,sub_B2E5B,new,low,"loads LOCAL.NDX (creating it when missing) and adds the ""<NO USER>"" / ""<NEW USER>"" entries (German text when the language is German)",src/front/front_B1E1D.asm
 B36D6,LoadUserRecords,sub_B36D6,96PC,low,"96 PC LoadUserRecords: reads every user's record (local.ndx, ""user"") into the tables of the user records screen",src/front/front_B1E1D.asm
 B41EF,UserRecordsScreen,sub_B41EF,96PC,medium,"96 PC UserRecordsScreen: the user records screen: allocates the column tables (uname, urate, upts, ugf, uga, upp, upk, exrec ...), sorts by the picked column",src/front/front_B1E1D.asm
@@ -282,6 +293,7 @@ C3594,RunOptionsScreens,sub_C3594,new,low,from RunFrontEnd (0Ah): runs the optio
 C36CA,DetailLevelScreen,sub_C36CA,new,low,"the front end detail level panel (On / Off for crowd, ice logos, ice texture, boards, glass, names, benches), from OptionsScreen",src/front/front_C0F5D.asm
 C48A2,OptionsScreen,sub_C48A2,new,low,"the options screen (ON0%d / OF0%d toggles, MB0%d buttons, BOTM)",src/front/front_C462F.asm
 C755B,RosterScreen,sub_C755B,96PC,low,"96 PC RosterScreen: the roster screen (""roster menu"" / ""roster regions"")",src/front/front_C755B.asm
+C8EDC,DrawRosterList,sub_C8EDC,new,low,"roster screen: the ""Team Roster"" / ""Additional Players"" lists",src/front/front_C755B.asm
 CB041,CheckRosterInjuries,sub_CB041,new,low,"roster: the ""Roster Violation: %c. %s is injured."" check",src/front/front_C755B.asm
 CB324,CheckRosterLimits,sub_CB324,new,low,"roster: the minimum / maximum roster and goalie count checks (""Roster Violation: %s must have..."")",src/front/front_C755B.asm
 CB6D5,CheckRegularRosterLimits,sub_CB6D5,new,low,roster: the non-injured minimum and regular / additional roster maximum checks,src/front/front_C755B.asm
@@ -332,6 +344,7 @@ E9370,randomd0,,96PC,medium,NHL96PC 61A18 (similar): mnemonic similarity 0.97 ov
 E93D0,vtoa,,96PC,high,NHL96PC 61A78 (exact): 39 instructions,
 E9429,BuildAllStarTeams,sub_E9429,new,low,"from the season code: sets up the two All-Star teams (InitAllStarTeams, AllocAllStarRosters, PickAllStarPlayers)",src/front/front_E9429.asm
 E947A,AllStarScreen,sub_E947A,new,low,"from RunSeasonMenus: the All-Star screen (conference pages WC00 / EC00, player lists, BAK0 / BAK1)",src/front/front_E9429.asm
+EB175,DrawAllStarList,sub_EB175,new,low,"all-star screen: the ""Forwards"" / ""Defence"" / ""Goalies"" lists",src/front/front_E9429.asm
 ECA57,PickAllStarPlayers,sub_ECA57,new,low,"allocates ""all star player info"" / ""all star goalie info"", sorts the season's players and goalies (qsort) and picks the All-Stars",src/front/front_E9429.asm
 ECF20,InitAllStarTeams,sub_ECF20,new,low,"names the two teams ""West All Stars"" / ""East All Stars"" and clears them",src/front/front_E9429.asm
 ED01F,AllocAllStarRosters,sub_ED01F,new,low,"allocates the ""all star rosters"", ""all star airecs"", ""all star raw plrs"" and ""all star statrecs"" blocks and fills them from the season database",src/front/front_E9429.asm
@@ -341,7 +354,9 @@ F0339,ControlSetupScreen,sub_F0339,96PC,low,"96 PC ControlSetupScreen: (mode) th
 F2ADB,DrawPauseButtons,sub_F2ADB,96PC,low,"draws the pause menu buttons (game text Save Game, Controller Setup, Replay, Rules, Detail Level, Quit Game)",src/front/front_F20A1.asm
 F30F1,PickEditLinesTeam,sub_F30F1,new,low,"the in-game ""Edit which team?"" box (Home / Away / Cancel)",src/front/front_F20A1.asm
 F36AC,ConfirmQuitGame,sub_F36AC,new,medium,"the in-game ""Are you sure you want to quit the game?"" box (Yes / No)",src/front/front_F20A1.asm
+F3C43,RunIntermission,sub_F3C43,new,low,"from PauseMenu: the intermission (fade out, arena PA event 0B0000004h and clip, ""Please press a mouse button to continue....."")",src/front/front_F20A1.asm
 F418F,PauseMenu,sub_F418F,96PC,low,"the in-game pause menu loop, from RunInGameMenu (96 PC PauseMenu); runs the rules, detail level, edit-team and quit choices",src/front/front_F20A1.asm
+F4B3F,DrawIntermissionTitle,sub_F4B3F,new,low,"pause / intermission panel title: ""Second Intermission"", ""End of Game"", ""Beginning of Overtime"", ""Overtime Intermission""",src/front/front_F20A1.asm
 F5601,FillBox,sub_F5601,96PC,medium,NHL96PC 64103 (similar 0.92): mnemonic similarity 0.92 over 78 instructions,src/front/front_F20A1.asm
 F570D,RulesMenu,sub_F570D,new,medium,"the in-game rules menu (offside, icing, 2 line pass, line changes, injuries, fighting, penalties, speed game)",src/front/front_F20A1.asm
 F7BD6,DetailLevelMenu,sub_F7BD6,new,medium,"the in-game detail level menu (draw crowd, ice logos, ice texture, board advertising, glass, player benches, player names)",src/front/front_F20A1.asm
