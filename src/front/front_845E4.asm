@@ -17,7 +17,7 @@ extern dword_1C831C, dword_1C8320, dword_1C8324, dword_1C8328, dword_1C832C, dwo
 extern fclose_, fopen_, fputc_, jpt_845CC, memcpy_, memset_, rand_, sprintf_
 extern str_NAMEINDEX, str_backslash3, strcat_, strcmp_, strcpy_, strlen_, bcopy, BlitConverted
 extern BlitShape2, BlitArt, BlitShape, PresentScreen, FindShape, OpenArtArchiveErr, ConvertArtNew, Random32
-extern LoadFileAllocQuiet, sub_10AED0, ProjectModelBounds, ConvertArtXY, FindShapeList, sub_11B104, SetScreenTarget, SecondsToSamples
+extern LoadFileAllocQuiet, DosFileInfo, ProjectModelBounds, ConvertArtXY, FindShapeList, SaveDataFile, SetScreenTarget, SecondsToSamples
 extern WaitSoundTime, ChkMenuMusic, PauseMusic, RequestMusicStop, WaitMusicEnd, ArenaFileName, PlayMenuSfx, StopAllSfx
 extern PlaySfx, MakeDataPath, LoadDataFile, OpenDataLibrary, ShadeShape, DrawShadowBox, DrawScreenBackground, FadeInScreen
 extern ShowScreen, ExitScreen, SetRegionRect, ShowMessageBox, WipeScreen, DrawEntryRow, DrawStatTable, ShowPopupScreen
@@ -26,7 +26,7 @@ extern FindSeasonReplay, RunNewPlayoffs, RunPlayoffMenus, EditLinesScreen, TeamS
 extern GameStatsScreen, PlayMenuGame, FinishLeagueGame, TeamStatsScreen, StatsTablesScreen, RunUserRecords, PlayerStatsScreen, PlayerRatingsScreen
 extern RunVideoOptions, HistoryScreen, RosterScreen, PreGameMatchupScreen, PreGameRostersScreen, FreeDbBlock, OpenLeagueFile, FindGameRecord
 extern ClearLinkAbort, ServiceIdle, NetDisconnect, LinkSendBlock, LinkReceiveBlock, AllocMemBlock, FreeMemBlock, ZeroMem
-extern sub_FC330, FreeBitmap, DrawShapeCore, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, tickcount
+extern OpenResourceArchive, FreeBitmap, DrawShapeCore, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, tickcount
 extern unk_165320, unk_165323, unk_16CCC8, unk_16D804, unk_1AC95D, unk_1AC962, unk_1ACB44, unk_1ACB49
 extern unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C8300, unk_1C830C, unk_845C0
 global jpt_84AF5, jpt_84B15, jpt_84B25, jpt_84B3D, jpt_85CFD, MainMenuAnim_32E, MainMenuAnim_344, MainMenuAnim_35A
@@ -464,21 +464,21 @@ MainMenuScreen:
         push str_DATAEXHIBITNDX
         mov dword [byte ebp+07Eh], 0FFFFFFFFh
         mov edi, eax
-        call sub_10AED0
+        call DosFileInfo
         add esp, byte 4
         test eax, eax
         je short .1
         mov dword [byte ebp+066h], 1
 .1:
         push str_DATASEASONNDX
-        call sub_10AED0
+        call DosFileInfo
         add esp, byte 4
         test eax, eax
         je short .2
         mov dword [byte ebp+072h], 1
 .2:
         push str_DATAPLAYOFFNDX
-        call sub_10AED0
+        call DosFileInfo
         add esp, byte 4
         test eax, eax
         je short .3
@@ -623,7 +623,7 @@ MainMenuScreen:
         add esp, byte 8
         push byte 0
         mov dword [dword_1C82AC], eax
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         mov eax, 3
         call SecondsToSamples
@@ -2095,7 +2095,7 @@ StatsMenuScreen:
         mov dword [byte ebp+076h], eax
 .7:
         push str_DATAREPLAYNDX
-        call sub_10AED0
+        call DosFileInfo
         add esp, byte 4
         test eax, eax
         je short .8
@@ -2371,7 +2371,7 @@ NameIndexSave:
         push ebx
         lea eax, [byte esp+08h]
         push eax
-        call sub_11B104
+        call SaveDataFile
         add esp, byte 0Ch
 .6:
         add esp, byte 64h

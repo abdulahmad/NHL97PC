@@ -6,9 +6,9 @@ extern SetClipWindow, byte_1D1D88, dword_16E670, dword_16E676, dword_16E67A, dwo
 extern dword_16E69C, dword_1D1D30, dword_1D1D34, dword_1D1D38, dword_1D1D3C, dword_1D1D40, dword_1D1D44, dword_1D1D48
 extern dword_1D1D4C, dword_1D1D50, dword_1D1D54, dword_1D1D58, dword_1D1D5C, dword_1D1D60, dword_1D1D64, dword_1D1D68
 extern dword_1D1D6C, dword_1D1D70, dword_1D1D74, dword_1D1D78, dword_1D1D7C, dword_1D1D80, dword_1D1D84, str_AALIAS
-extern FixedLerp, PlotPixel, sub_12D520, AllocMemBlock, sub_FC4BC, FillRect
+extern FixedLerp, PlotPixel, PlotPixelClipped, AllocMemBlock, MatchColor, FillRect
 global BuildAntiAliasTable, ClipLineY, ClipLineX, DrawLineYPlot, DrawLineY, DrawLineXPlot, DrawLineX, DrawFixedLine
-global sub_10C434
+global DrawEllipseSpans
 ;-----------------------------------------------------------------------------
 ; BuildAntiAliasTable                         10B660  96 PC, medium confidence
 ; The AALIAS table (1004h bytes) of blended colours for the 3D view's lines
@@ -42,7 +42,7 @@ BuildAntiAliasTable:
         inc edi
         push eax
         inc edi
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         mov byte [byte edi-04h], al
         mov al, byte [byte esp+018h]
@@ -99,7 +99,7 @@ BuildAntiAliasTable:
         or eax, ebp
         push eax
         inc edi
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         add ebx, byte 3
         mov ecx, dword [esp]
@@ -590,7 +590,7 @@ DrawLineYPlot:
         push edi
         push esi
         shl ebp, 8
-        call sub_12D520
+        call PlotPixelClipped
         add ebp, eax
         mov eax, dword [dword_1D1D70]
         add esp, byte 8
@@ -605,7 +605,7 @@ DrawLineYPlot:
         jle short .6
         push edi
         push ebx
-        call sub_12D520
+        call PlotPixelClipped
         add esp, byte 8
         mov edx, dword [esp]
         shl edx, 8
@@ -643,7 +643,7 @@ DrawLineYPlot:
         push edi
         push esi
         shl ebp, 8
-        call sub_12D520
+        call PlotPixelClipped
         mov ebx, dword [dword_1D1D70]
         add eax, ebp
         add esp, byte 8
@@ -850,7 +850,7 @@ DrawLineXPlot:
         push esi
         push edi
         shl ebp, 8
-        call sub_12D520
+        call PlotPixelClipped
         add ebp, eax
         mov eax, dword [dword_1D1D70]
         add esp, byte 8
@@ -866,7 +866,7 @@ DrawLineXPlot:
         push ebx
         push edi
         shl ebp, 8
-        call sub_12D520
+        call PlotPixelClipped
         add eax, ebp
         mov ebp, dword [dword_1D1D70]
         add esp, byte 8
@@ -901,7 +901,7 @@ DrawLineXPlot:
         jge short .9
         push esi
         push edi
-        call sub_12D520
+        call PlotPixelClipped
         add esp, byte 8
         mov ebx, dword [esp]
         shl ebx, 8
@@ -1245,9 +1245,10 @@ DrawFixedLine:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_10C434                                                          10C434  
+; DrawEllipseSpans                               10C434  97 PC, low confidence
+; Draws the spans of a filled ellipse on the rink
 ;-----------------------------------------------------------------------------
-sub_10C434:
+DrawEllipseSpans:
         push ebx
         push esi
         push edi

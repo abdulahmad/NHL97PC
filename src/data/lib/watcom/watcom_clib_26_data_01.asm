@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_1999A5 progbits alloc noexec write align=1
-extern sub_132863
+extern NoFloatSupport
 global ___env_mask, _environ, byte_199A24, byte_199AA4, dword_1999A5, dword_1999BC, dword_1999C0, dword_199A14
 global dword_199A18, dword_199A1E, dword_199B2A, dword_199B2E, dword_199C38, dword_199C3C, dword_199C48, dword_199C4C
 global off_199C50, off_199C54, unk_1999C4, word_199A1C, word_199A22
@@ -81,6 +81,6 @@ dword_199C48:
 dword_199C4C:
         db 010h,00h,00h,00h
 off_199C50:
-        dd sub_132863
+        dd NoFloatSupport
 off_199C54:
-        dd sub_132863
+        dd NoFloatSupport

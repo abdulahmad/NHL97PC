@@ -24,7 +24,7 @@ extern dword_1CAE7C, dword_1CAE80, dword_1CAE84, dword_1CAE88, dword_1CAE8C, dwo
 extern dword_1CAE9C, dword_1CAEA0, dword_1CAEA4, dword_1CAEA8, dword_1CAEAC, dword_1CAEB0, dword_1CAEB4, dword_1CAEB8
 extern dword_1CAEBC, dword_1CAEC0, dword_1CAEC4, dword_1CAFF4, fclose_, fopen_, fprintf_, qsort_
 extern qword_16695B, rand_, sprintf_, strcat_, strcpy_, BlitConverted, BlitShape2, BlitArt
-extern PresentScreen, FindShape, OpenArtArchive, OpenArtArchiveErr, DrawShapeBlended, ConvertArtNew, sub_102C10, DrawSpriteScaledBy
+extern PresentScreen, FindShape, OpenArtArchive, OpenArtArchiveErr, DrawShapeBlended, ConvertArtNew, ResetClipWindow, DrawSpriteScaledBy
 extern ConvertArtInPlace, ConvertArtXY, FindShapeList, SetFullClip, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples
 extern WaitSoundTime, PlayMenuSfx, StopAllSfx, PlaySfx, PlayScreenMovie, LoadDataFile, OpenDataLibrary, DrawScreenBackground
 extern FadeInScreen, ExitScreen, SetRegionRect, DrawEditBox, SetTextColor, DrawTextAligned, ShowMessageBox, DrawTeamLogoBanner
@@ -4437,7 +4437,7 @@ DrawPlayerRatingsPage:
         push dword 0E666h
         call DrawSpriteScaledBy
         add esp, byte 10h
-        call sub_102C10
+        call ResetClipWindow
         jmp short .27
 .26:
         push byte 0Bh
@@ -4809,7 +4809,7 @@ DrawPlayerRatingsPage:
         push dword 0E666h
         call DrawSpriteScaledBy
         add esp, byte 10h
-        call sub_102C10
+        call ResetClipWindow
 .43:
         mov eax, dword [dword_1AC814]
         and eax, byte 70h

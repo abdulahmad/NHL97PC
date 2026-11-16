@@ -23,7 +23,7 @@ extern BlitShape, PresentScreen, FindShape, FindShapeQuiet, OpenArtArchive, Open
 extern FindShapeList, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, PlayMenuSfx, PlaySfx
 extern PaEvent, LoadDataFile, OpenDataLibrary, LoadLogoNames, FreeTempArt, DrawScreenBackground, FadeInScreen, ShowScreen
 extern ExitScreen, SetTextColor, DrawTextAligned, WipeScreen, DrawPortrait, TintPortrait, InitMenuItems, RunMenu
-extern ReadTeamStats, ServiceIdle, AllocMemBlock, FreeMemBlock, sub_FC330, MakeColor, FreeBitmap, DrawArt
+extern ReadTeamStats, ServiceIdle, AllocMemBlock, FreeMemBlock, OpenResourceArchive, MakeColor, FreeBitmap, DrawArt
 extern DrawShape, CreateBitmap, SetDrawTarget, ClearScreen, tickcount, unk_166FF4, unk_16D7FC, unk_16D804
 extern unk_1AD22E, unk_1AD236, unk_1AD73A, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_D15D1, unk_D15EE
 extern word_1C340D, word_1C5530
@@ -652,7 +652,7 @@ PreGameMatchupScreen_522:
         jmp short .16
 .19:
         push byte 0
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         call FreeMatchupScreen
         push dword [dword_1CC7CC]

@@ -12,7 +12,7 @@ extern jpt_45B70, jpt_45B84, jpt_45BC0, jpt_45BD8, PaEvent_4D6, PaEvent_4EC, PaE
 extern PaEvent_536, PaEvent_572, PaEvent_5AE, PaEvent_5D6, PaEvent_5FE, PaEvent_64E, PaEvent_69E, PaEvent_745
 extern PaEvent_7FF, PaEvent_87E, PaEvent_8CF, PaEvent_8F5, PaEvent_91B, PaEvent_941, PaEvent_967, PaEvent_14CD
 extern rand_, sprintf_, strcat_, RequestSpeechEvent, PlayQueuedSpeech, SetSpeechEnabled, UnregisterSoundBank, DosOpenReadOnly
-extern DosCloseFile, DosReadFile, DosSeekFile, sub_109870, AsyncInit, AsyncClose, AsyncRequestOpen, AsyncRequestSection
+extern DosCloseFile, DosReadFile, DosSeekFile, OpenSpeechStreamFile, AsyncInit, AsyncClose, AsyncRequestOpen, AsyncRequestSection
 extern AsyncStreamStep, AsyncFreeRequest, SpeechBufferSize, RegisterStreamBank, AddStreamSample, ReleaseBankSample, StartSpeechQueue, QueueSpeechClip
 extern SpeechQueueGo, ShutdownSpeechQueue, RingBufferSpace, QueuePassSpeech, QueueShotSpeech, QueuePositionSpeech, QueueHitSpeech, QueuePenaltySpeech
 extern QueueReceiveSpeech, QueueLoosePuckSpeech, QueueCarrySpeech, QueueTeamSpeech, QueueDeflectSpeech, QueuePickupSpeech, QueueFaceoffSpeech, QueuePenaltyEndSpeech
@@ -2959,7 +2959,7 @@ OpenSpeechData:
         push eax
         lea eax, [byte esp+054h]
         push eax
-        call sub_109870
+        call OpenSpeechStreamFile
         add esp, byte 8
         mov ebx, 1
         call ServiceIdle

@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_FA5B8 progbits alloc exec nowrite align=1
 extern str_LOW8s, str_GAP, dword_16E340, dword_1CF0E0, dword_1CF25C, dword_1CF260, memlist1, sprintf_
-extern str_HIGHMEM, strncpy_, PresentScreen, sub_121470, sub_121494, AllocMemBlockEx
+extern str_HIGHMEM, strncpy_, PresentScreen, MemLock, MemUnlock, AllocMemBlockEx
 global AddMemRegion, AddMemRegions, AddHighMemRegion, TrimMemList, MemListEnd, AllocMemBlockFixed, AllocMemBlockMovable, AllocMemBlock
 global AllocMemData, AllocMemBlockFull
 ;-----------------------------------------------------------------------------
@@ -425,7 +425,7 @@ AllocMemBlockFixed:
         test edx, edx
         je short .1
         push edx
-        call sub_121470
+        call MemLock
         add esp, byte 4
 .1:
         push esi
@@ -439,7 +439,7 @@ AllocMemBlockFixed:
         test esi, esi
         je short .2
         push esi
-        call sub_121494
+        call MemUnlock
         add esp, byte 4
 .2:
         mov eax, ebx
@@ -465,7 +465,7 @@ AllocMemBlockMovable:
         test edx, edx
         je short .1
         push edx
-        call sub_121470
+        call MemLock
         add esp, byte 4
 .1:
         push esi
@@ -479,7 +479,7 @@ AllocMemBlockMovable:
         test esi, esi
         je short .2
         push esi
-        call sub_121494
+        call MemUnlock
         add esp, byte 4
 .2:
         mov eax, ebx
@@ -507,7 +507,7 @@ AllocMemBlock:
         test edx, edx
         je short .1
         push edx
-        call sub_121470
+        call MemLock
         add esp, byte 4
 .1:
         push esi
@@ -521,7 +521,7 @@ AllocMemBlock:
         test esi, esi
         je short .2
         push esi
-        call sub_121494
+        call MemUnlock
         add esp, byte 4
 .2:
         mov eax, dword [ebx]
@@ -547,7 +547,7 @@ AllocMemData:
         test edx, edx
         je short .1
         push edx
-        call sub_121470
+        call MemLock
         add esp, byte 4
 .1:
         push ebx
@@ -561,7 +561,7 @@ AllocMemData:
         test esi, esi
         je short .2
         push esi
-        call sub_121494
+        call MemUnlock
         add esp, byte 4
 .2:
         test ebx, ebx
@@ -591,7 +591,7 @@ AllocMemData:
         test edx, edx
         je short .4
         push edx
-        call sub_121470
+        call MemLock
         add esp, byte 4
 .4:
         push ebx
@@ -605,7 +605,7 @@ AllocMemData:
         test esi, esi
         je short .5
         push esi
-        call sub_121494
+        call MemUnlock
         add esp, byte 4
 .5:
         test ebx, ebx
@@ -638,7 +638,7 @@ AllocMemBlockFull:
         test edx, edx
         je short .1
         push edx
-        call sub_121470
+        call MemLock
         add esp, byte 4
 .1:
         mov ecx, dword [byte esp+020h]
@@ -656,7 +656,7 @@ AllocMemBlockFull:
         test eax, eax
         je short .2
         push eax
-        call sub_121494
+        call MemUnlock
         add esp, byte 4
 .2:
         mov eax, ebx

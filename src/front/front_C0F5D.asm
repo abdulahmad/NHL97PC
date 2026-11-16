@@ -14,8 +14,8 @@ extern dword_1CB0A0, dword_1CB0A4, dword_1CB0A8, dword_1CB0AC, dword_1CB0B0, dwo
 extern dword_1CB0C0, dword_1CB0C4, dword_1CB0C8, dword_1CB0CC, dword_1CB0D0, dword_1CB0D4, dword_1CB0D8, dword_1CB0DC
 extern dword_1CB0E0, dword_1CB0E4, dword_1CB0E8, dword_1CB0EC, dword_1CB0F0, dword_1CB0F4, dword_1CB0F8, dword_1CB0FC
 extern dword_1CB100, dword_1CB104, dword_1CBB88, off_16D5F7, sprintf_, strcat_, strcpy_, strlen_
-extern BlitShape2, BlitArt, BlitShape, PresentScreen, FindShape, DrawShapeBlended, sub_102C10, Random32
-extern LoadFileAlloc, sub_106F64, sub_106F94, ConvertArtXY, ConvertArtKeepPos, DrawShadowRect, SetScreenTarget, MusicEnabled
+extern BlitShape2, BlitArt, BlitShape, PresentScreen, FindShape, DrawShapeBlended, ResetClipWindow, Random32
+extern LoadFileAlloc, UnpackShared, UnpackedSize, ConvertArtXY, ConvertArtKeepPos, DrawShadowRect, SetScreenTarget, MusicEnabled
 extern LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx, LoadDataFile, OpenDataLibrary, ShadeShape
 extern DrawShadedLogo, DrawShadowBox, DrawScreenBackground, FadeInScreen, ShowScreen, ExitScreen, SetRegionRect, SetTextColor
 extern DrawTextAligned, DrawFrameBox, LoadTeamLogo, FreeLogoArt, WipeScreen, SetHighlightText, SetNormalText, ShowPopupScreen
@@ -172,7 +172,7 @@ HistoryScreen:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_102C10
+        call ResetClipWindow
 .8:
         call PresentScreen
 .9:
@@ -876,7 +876,7 @@ DrawHistoryScreen:
         push dword [byte eax+0Ch]
         call BlitShape
         add esp, byte 4
-        call sub_102C10
+        call ResetClipWindow
         mov eax, dword [dword_1CB074]
         push dword [byte eax+018h]
         call BlitShape
@@ -1715,7 +1715,7 @@ ExportHistoryCsv:
         add esp, byte 8
         push eax
         mov ebx, eax
-        call sub_106F94
+        call UnpackedSize
         add esp, byte 4
         push byte 0
         push eax
@@ -1726,7 +1726,7 @@ ExportHistoryCsv:
         push eax
         push ebx
         mov dword [dword_1CB08C], eax
-        call sub_106F64
+        call UnpackShared
         add esp, byte 8
         push ebx
         call FreeMemBlock
@@ -2545,7 +2545,7 @@ DrawHistoryTrophy:
         call BlitShape
         add esp, byte 4
 .5:
-        call sub_102C10
+        call ResetClipWindow
 .6:
         mov eax, dword [dword_1CB080]
         mov dword [dword_1CB0A8], eax
@@ -2577,7 +2577,7 @@ DrawHistoryTrophy:
         push dword [byte eax+02Ch]
         call BlitShape
         add esp, byte 4
-        call sub_102C10
+        call ResetClipWindow
 .9:
         mov eax, dword [tickcount]
         mov esi, eax
@@ -2840,7 +2840,7 @@ DrawTrophySparkle:
         push dword [edx+eax*4]
         call BlitShape
         add esp, byte 4
-        call sub_102C10
+        call ResetClipWindow
         call Random32
         mov ecx, 0C8h
         xor edx, edx

@@ -8,8 +8,8 @@ extern byte_199A24, byte_199AA4, byte_1DA4C5, dword_16E318, dword_16E678, dword_
 extern dword_16E698, dword_16E6A0, dword_1999A5, dword_1999C0, dword_199A14, dword_199A18, dword_199A1E, dword_199B2A
 extern dword_199B2E, dword_1CF528, dword_1DA4BC, dword_1DA4C0, dword_1DA8D8, __freefp__39, memset_, off_199C54
 extern str_NotEnoughMemoryTo, str_SaveText, bcopy, AddExitHandler, RestoreDS, SetBlitSource, CopyMappedSpan, BuildSpanOffsets
-extern sub_12FFD8, sub_12FFF0, sub_138F20, sub_138F5A, AllocMemBlockFixed, UnlinkMemBlockLocked, MemDescPtr, ZeroMem
-extern sub_FBE63, MakeColor, SelectFont, FillRect, SetTextColors, FreeTextBuffers, tolower_, unk_16E8A0
+extern DosGetVector, DosSetVector, SaveVideoState, RestoreVideoState, AllocMemBlockFixed, UnlinkMemBlockLocked, MemDescPtr, ZeroMem
+extern KbdPeekKey, MakeColor, SelectFont, FillRect, SetTextColors, FreeTextBuffers, tolower_, unk_16E8A0
 extern unk_1722C0, unk_172342, word_199A1C, word_199A22
 global _DoINTR_, __HeapManager_expand_, __IOMode_, __InitFiles_, __SetIOMode_, __flushall_, __full_io_exit_, __int386x_
 global __qwrite_, __set_errno_dos_, _dosret0_, _nexpand_, _nmsize_, docloseall_, flushall_, isatty_
@@ -458,7 +458,7 @@ SaveTextScreen:
         push edi
         sub esp, byte 10h
         mov eax, esp
-        call sub_138F20
+        call SaveVideoState
         mov eax, esp
         xor edi, edi
         call IsTextModeWidth
@@ -532,7 +532,7 @@ RestoreTextScreen:
         call bcopy
         add esp, byte 0Ch
         mov eax, esp
-        call sub_138F20
+        call SaveVideoState
         mov eax, dword [byte esp+01Ch]
         mov edx, dword [byte esp+04h]
         cmp eax, edx
@@ -540,7 +540,7 @@ RestoreTextScreen:
         mov dword [byte esp+01Ch], edx
 .1:
         lea eax, [byte esp+010h]
-        call sub_138F5A
+        call RestoreVideoState
         push ebp
         add edi, byte 8
         push dword 0B8000h
@@ -593,7 +593,7 @@ InitTextOutput:
         add esp, byte 8
         ret
         or byte [0417h], 20h
-        call sub_FBE63
+        call KbdPeekKey
         ret
 ;-----------------------------------------------------------------------------
 ; ClearNumLock                                   130709  97 PC, low confidence
@@ -602,7 +602,7 @@ InitTextOutput:
 ;-----------------------------------------------------------------------------
 ClearNumLock:
         and byte [0417h], 0DFh
-        call sub_FBE63
+        call KbdPeekKey
         ret
         db 00h,00h
 ClearNumLock_F:
@@ -646,13 +646,13 @@ InstallBreakHandler:
         cmp word [word_199A1C], byte 0
         jne short .1
         mov ebx, 24h
-        call sub_12FFD8
+        call DosGetVector
         mov dword [dword_199A18], eax
         mov word [word_199A1C], dx
         mov ebx, 24h
         mov dx, cs
         mov eax, ClearNumLock_F
-        call sub_12FFF0
+        call DosSetVector
         push RemoveBreakHandler
         call AddExitHandler
         add esp, byte 4
@@ -671,7 +671,7 @@ RemoveBreakHandler:
         mov eax, dword [dword_199A18]
         LD or, dx, dx
         je short .1
-        call sub_12FFF0
+        call DosSetVector
         mov word [word_199A1C], 0
 .1:
         popa

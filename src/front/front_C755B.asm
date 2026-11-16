@@ -26,8 +26,8 @@ extern dword_1CC214, dword_1CC218, dword_1CC21C, dword_1CC220, dword_1CC224, dwo
 extern dword_1CC234, dword_1CC238, dword_1CC23C, dword_1CC2A4, dword_1CC2A8, dword_1CC2AC, dword_1CC2B0, dword_1CC2B4
 extern dword_1CC2B8, dword_1CC2BC, dword_1CC2C0, dword_1CC2C4, jpt_C750B, memmove_, memset_, qsort_
 extern qword_166FC4, sprintf_, str_TR00, strcat_, strcpy_, stricmp_, strlen_, BlitArt
-extern BlitShape, PresentScreen, FindShape, DrawShapeBlended, sub_102C10, Random32, LoadFileAllocQuiet, ConvertArtXY
-extern FindShapeList, sub_11B104, UnlinkJump, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime
+extern BlitShape, PresentScreen, FindShape, DrawShapeBlended, ResetClipWindow, Random32, LoadFileAllocQuiet, ConvertArtXY
+extern FindShapeList, SaveDataFile, UnlinkJump, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime
 extern PlayMenuSfx, PlaySfx, PlayScreenMovie, LoadDataFile, BuildRosterLines, DrawShadedLogo, DrawShadowBox, DrawScreenBackground
 extern FadeInScreen, ShowScreen, ExitScreen, SetTextColor, DrawTextAligned, DrawFrameBox, ShowMessageBox, EditTextField
 extern LoadTeamLogo, FreeLogoArt, WipeScreen, SetHighlightText, SetNormalText, PoundsToKg, InchesToCm, PlayerBioScreen
@@ -841,7 +841,7 @@ FreeRosterInfoAnim:
         push dword [dword_1CC23C]
         push dword [dword_1CC2AC]
         push str_RosinfoAna
-        call sub_11B104
+        call SaveDataFile
         add esp, byte 0Ch
         test eax, eax
         je short FreeRosterInfoAnim_4A
@@ -2091,7 +2091,7 @@ DrawRosterList:
         call DrawTextAligned
         add esp, byte 10h
         inc dword [byte ebp+07Ah]
-        call sub_102C10
+        call ResetClipWindow
 .7:
         imul eax, dword [nosplit edi*4+dword_1CC1C4], dword 32C6h
         mov ecx, dword [dword_1CC2AC]
@@ -2215,7 +2215,7 @@ DrawRosterList:
         call DrawTextAligned
         add esp, byte 10h
         inc dword [byte ebp+07Ah]
-        call sub_102C10
+        call ResetClipWindow
 .14:
         imul eax, dword [nosplit edi*4+dword_1CC1C4], dword 32C6h
         mov ecx, dword [dword_1CC2AC]
@@ -2368,7 +2368,7 @@ DrawRosterList:
         call DrawTextAligned
         add esp, byte 10h
         inc dword [byte ebp+07Ah]
-        call sub_102C10
+        call ResetClipWindow
 .21:
         imul eax, dword [nosplit edi*4+dword_1CC1C4], dword 32C6h
         mov ecx, dword [dword_1CC2AC]
@@ -2546,7 +2546,7 @@ DrawRosterList:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_102C10
+        call ResetClipWindow
         call PresentScreen
 .34:
         imul eax, dword [nosplit edi*4+dword_1CC1C4], dword 32C6h
@@ -3784,7 +3784,7 @@ DrawPlayerCard:
         add esp, byte 0Ch
         call PresentScreen
 .12:
-        call sub_102C10
+        call ResetClipWindow
         mov eax, dword [byte ebp-020h]
 DrawPlayerCard_2B8:
         leave
@@ -4127,7 +4127,7 @@ DrawRosterDetails:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_102C10
+        call ResetClipWindow
         call PresentScreen
         jmp near DrawRatingBars_157
 ;-----------------------------------------------------------------------------
@@ -4422,7 +4422,7 @@ RedrawRosterScreen:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_102C10
+        call ResetClipWindow
         call PresentScreen
 .12:
         leave
@@ -7088,7 +7088,7 @@ DrawJerseyPreview:
         call BlitArt
         add esp, byte 0Ch
         mov dword [dword_1CC1F8], ebx
-        call sub_102C10
+        call ResetClipWindow
 .4:
         inc ebx
         cmp ebx, byte 64h
@@ -7115,7 +7115,7 @@ DrawJerseyPreview:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_102C10
+        call ResetClipWindow
         mov dword [dword_1CC1F8], esi
         jmp near DrawRatingBars_158
 ;-----------------------------------------------------------------------------
@@ -9370,7 +9370,7 @@ DrawCreatePlayerPanel:
         push dword [byte ebp-04h]
         call BlitShape
         add esp, byte 4
-        call sub_102C10
+        call ResetClipWindow
         push dword [byte esi+02Ah]
         push dword [byte esi+026h]
         push dword [byte esi+01Ah]
@@ -9612,7 +9612,7 @@ DrawCreatePlayerHeight:
         push dword [byte ebp-08h]
         call BlitShape
         add esp, byte 4
-        call sub_102C10
+        call ResetClipWindow
         push dword [byte esi+02Ah]
         push dword [byte esi+026h]
         push dword [byte esi+01Ah]
@@ -9686,7 +9686,7 @@ DrawCreatePlayerWeight:
         push dword [byte ebp-08h]
         call BlitShape
         add esp, byte 4
-        call sub_102C10
+        call ResetClipWindow
         push dword [byte esi+02Ah]
         push dword [byte esi+026h]
         push dword [byte esi+01Ah]
@@ -9746,7 +9746,7 @@ DrawCreatePlayerAge:
         push edi
         call BlitShape
         add esp, byte 4
-        call sub_102C10
+        call ResetClipWindow
         push dword [byte esi+02Ah]
         push dword [byte esi+026h]
         push dword [byte esi+01Ah]

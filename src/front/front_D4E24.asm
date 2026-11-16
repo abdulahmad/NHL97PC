@@ -12,7 +12,7 @@ extern dword_16D778, dword_16D77C, dword_16D780, dword_16E454, dword_1CCEB8, dwo
 extern dword_1CCEF0, dword_1CCEF8, dword_1CCEFC, dword_1CCF12, dword_1CCF16, dword_1CCF1E, dword_1CCF22, dword_1CD0F4
 extern dword_1CD0F8, dword_1CD0FE, dword_1CD102, dword_1CD106, dword_1CD10A, dword_1CD10E, fclose_, fgets_
 extern fopen_, memcpy_, memset_, off_16E4E0, rand_, sprintf_, sscanf_, str_CRD1
-extern str_CRD2, str_Nhll, str_Nhlp, str_Pl0, str_Pl1, strlen_, sub_1008CC, BlitShape2
+extern str_CRD2, str_Nhll, str_Nhlp, str_Pl0, str_Pl1, strlen_, GetPaletteRange, BlitShape2
 extern BlitArt, BlitShape, PresentScreen, FindShape, OpenArtArchiveErr, SetGraphicsMode, IsKeyDown, ConvertArtXY
 extern CountFrameTick, SetScreenTarget, WaitRetraceEdges, RunDemoGame, SecondsToSamples, WaitSoundTime, ChkMenuMusic, PauseMusic
 extern MusicPlaying, RequestMusicStop, WaitMusicEnd, ArenaFileName, StopAllSfx, PlaySfx, PlayScreenMovie, MakeDataPath
@@ -20,7 +20,7 @@ extern LoadDataFile, DrawScreenBackground, FadeInScreen, SetRegionRect, SetTextC
 extern SetNormalText, DrawStatTable, DrawPortrait, ShowPopupScreen, InitMenuItems, RunMenu, RunScrollList, AllocClearBlock
 extern FreePtr, CopyBytesOk, CopyAndClear, ZeroBytesOk, CompareKeyBytes, FileCreate, FileOpen, FileSeek
 extern FileReadRecord, FileWriteRecord, FileClose, ServiceIdle, FreeVideoBuffer, AllocGfxFixBuffer, AllocMemBlock, FreeMemBlock
-extern sub_FBE40, sub_FBE5D, sub_FC330, MakeColor, FreeBitmap, DrawShapeCore, DrawShapeAtOwnPos, DrawArt
+extern KbdGetKey, KbdIdleCall, OpenResourceArchive, MakeColor, FreeBitmap, DrawShapeCore, DrawShapeAtOwnPos, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, tickcount, unk_1673CC, unk_1C5F4A, unk_1CC8B8
 extern unk_1CCBB8, unk_1CCF4A, unk_1CCF9C, unk_1CCFEE, unk_1CD040, unk_1CD092, unk_1CD138, unk_D4CB0
 global jpt_D5460, GoalieMaskScreen_715, GoalieMaskScreen_72B, GoalieMaskScreen_89F, GoalieMaskScreen_A13, GoalieMaskScreen_B89, GoalieMaskScreen_DBB, GoalieMaskScreen_FF0
@@ -764,7 +764,7 @@ GoalieMaskScreen:
         call MakeDataPath
         lea eax, [dword esp+0534h]
         push eax
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         push str_MASK0000FSH
         lea eax, [dword esp+0538h]
@@ -1978,7 +1978,7 @@ GoalieMaskScreen_FF0:
         cmp bx, byte 1Fh
         jl short .15
         push byte 0
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         add esp, 580h
         pop ebp
@@ -2033,7 +2033,7 @@ FadePalette:
         push edi
         push dword 100h
         push byte 0
-        call sub_1008CC
+        call GetPaletteRange
         add esp, byte 0Ch
         jmp short .3
 .2:
@@ -2122,7 +2122,7 @@ FadeOut:
         push unk_1CCBB8
         push dword 100h
         push byte 0
-        call sub_1008CC
+        call GetPaletteRange
         add esp, byte 0Ch
         test ebx, ebx
         jne short .1
@@ -2322,7 +2322,7 @@ RunIntro:
         jge short .3
         test esi, esi
         jne short .2
-        call sub_FBE5D
+        call KbdIdleCall
         mov esi, eax
 .2:
         call ServiceIdle
@@ -2384,7 +2384,7 @@ RunIntro:
         jge short .6
         test esi, esi
         jne short .5
-        call sub_FBE5D
+        call KbdIdleCall
         mov esi, eax
 .5:
         call ServiceIdle
@@ -2394,7 +2394,7 @@ RunIntro:
         push dword 100h
         push byte 0
         mov ebx, 1
-        call sub_1008CC
+        call GetPaletteRange
         mov edx, unk_1CCBB8
         add esp, byte 0Ch
         mov eax, ebx
@@ -2420,7 +2420,7 @@ RunIntro:
         je short .9
         test esi, esi
         jne short .8
-        call sub_FBE5D
+        call KbdIdleCall
         mov esi, eax
 .8:
         call ServiceIdle
@@ -2757,7 +2757,7 @@ CreditsKeyPressed:
         je short .3
         mov ebx, 1
 .3:
-        call sub_FBE40
+        call KbdGetKey
         cmp al, 78h
         jne short .4
         xor esi, esi

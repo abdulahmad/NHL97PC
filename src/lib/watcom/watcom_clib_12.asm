@@ -4,11 +4,13 @@ bits 32
 section s_112B84 progbits alloc exec nowrite align=1
 extern dword_17025C, dword_170260, dword_170264, dword_170268, dword_170274, memcpy_, FillSpanRow, unk_1D8AC8
 extern unk_1D8CC8, unk_1D8EC8
-global sub_112B84, sub_112BCC, sub_112DE4, sub_112E80, sub_112F3C
+global PolySideTest, ClipPolyToNear, DrawRinkPolyList, FillTexturedSpan, ClipTexPolyToNear
 ;-----------------------------------------------------------------------------
-; sub_112B84                                                          112B84  
+; PolySideTest                                   112B84  97 PC, low confidence
+; Tells whether a polygon's points are all in front, all behind or across a
+; depth plane
 ;-----------------------------------------------------------------------------
-sub_112B84:
+PolySideTest:
         push ecx
         push esi
         push edi
@@ -47,9 +49,10 @@ sub_112B84:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_112BCC                                                          112BCC  
+; ClipPolyToNear                                 112BCC  97 PC, low confidence
+; Clips a rink polygon against the near plane
 ;-----------------------------------------------------------------------------
-sub_112BCC:
+ClipPolyToNear:
         push ebx
         push esi
         push edi
@@ -60,7 +63,7 @@ sub_112BCC:
         mov ebx, dword [byte esp+02Ch]
         mov edx, ebp
         mov eax, esi
-        call sub_112B84
+        call PolySideTest
         mov dword [esp], esi
         cmp eax, byte 1
         jne short .1
@@ -227,9 +230,10 @@ sub_112BCC:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_112DE4                                                          112DE4  
+; DrawRinkPolyList                               112DE4  97 PC, low confidence
+; Clips and draws a list of rink polygons
 ;-----------------------------------------------------------------------------
-sub_112DE4:
+DrawRinkPolyList:
         push ebx
         push esi
         push edi
@@ -273,7 +277,7 @@ sub_112DE4:
         push eax
         mov edx, dword [dword esp+0320h]
         push edx
-        call sub_112BCC
+        call ClipPolyToNear
         add esp, byte 10h
         add esp, 300h
         pop ebp
@@ -283,9 +287,10 @@ sub_112DE4:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_112E80                                                          112E80  
+; FillTexturedSpan                               112E80  97 PC, low confidence
+; Fills one row of a textured rink polygon
 ;-----------------------------------------------------------------------------
-sub_112E80:
+FillTexturedSpan:
         push ebx
         push esi
         push edi
@@ -356,9 +361,10 @@ sub_112E80:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_112F3C                                                          112F3C  
+; ClipTexPolyToNear                              112F3C  97 PC, low confidence
+; Clips a textured rink polygon against the near plane
 ;-----------------------------------------------------------------------------
-sub_112F3C:
+ClipTexPolyToNear:
         push ebx
         push esi
         push edi
@@ -369,7 +375,7 @@ sub_112F3C:
         mov ebx, dword [byte esp+034h]
         mov edx, ebp
         mov eax, esi
-        call sub_112B84
+        call PolySideTest
         mov dword [esp], esi
         cmp eax, byte 1
         jne short .1
@@ -443,7 +449,7 @@ sub_112F3C:
         lea eax, [byte ecx+08h]
         mov dword [byte esp+04Ch], edx
         mov dword [byte esp+050h], eax
-        call sub_112E80
+        call FillTexturedSpan
         add esp, byte 20h
         mov ecx, dword [byte esp+0Ch]
         inc ecx
@@ -488,7 +494,7 @@ sub_112F3C:
         push eax
         mov dword [byte esp+050h], ecx
         mov dword [byte esp+04Ch], esi
-        call sub_112E80
+        call FillTexturedSpan
         add esp, byte 20h
         mov edi, dword [byte esp+0Ch]
         add edi, byte 2

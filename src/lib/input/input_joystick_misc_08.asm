@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_12D6C4 progbits alloc exec nowrite align=1
 extern byte_16E688, byte_16F794, byte_171C90, dword_16E678, dword_16E67C, dword_16E680, dword_16E684, BlendShapeRows
-extern ConvertArtNew, FixedLerp, sub_12F270, DrawCharMono, DrawCharShadow, DrawCharOutline, DrawCharBold, FreeMemBlock
+extern ConvertArtNew, FixedLerp, SinCosLookup, DrawCharMono, DrawCharShadow, DrawCharOutline, DrawCharBold, FreeMemBlock
 extern unk_1DD4B8, unk_1DD5B8, unk_1DD738, unk_1DD838, unk_1DD938, unk_1DDA38, unk_1DDBB8, unk_1DDD38
 extern unk_1DDEB8, unk_1DDFB8, unk_1DE0B8, unk_1DE1B8, unk_1DE2B8, unk_1DE3B8, unk_1DE4B8, unk_1DE5B8
 global ClipTexPolyLeft_13C, ClipDrawPolyLeft_137, TransposeMatrix, PolyCrossProduct, TexSpanCopy, ClipTexEdgeAtX, ClipTexEdgeAtY, ClipTexPolyLeft
@@ -1218,7 +1218,7 @@ ClipTexPolyBottom:
         push eax
         mov edx, dword [byte esp+01Ch]
         push edx
-        call sub_12F270
+        call SinCosLookup
         mov dword [ebx], 10000h
         mov dword [byte ebx+04h], 0
         mov dword [byte ebx+08h], 0
@@ -1254,7 +1254,7 @@ MakeRotationZ:
         push eax
         mov edx, dword [byte esp+01Ch]
         push edx
-        call sub_12F270
+        call SinCosLookup
         add esp, byte 0Ch
         mov eax, dword [byte esp+04h]
         mov dword [byte ebx+04h], 0
@@ -1285,7 +1285,7 @@ MakeRotationZ:
         push eax
         mov edx, dword [byte esp+01Ch]
         push edx
-        call sub_12F270
+        call SinCosLookup
         add esp, byte 0Ch
         mov eax, dword [byte esp+04h]
         mov dword [ebx], eax

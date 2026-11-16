@@ -4,12 +4,13 @@ bits 32
 section s_FBE40 progbits alloc exec nowrite align=1
 extern GetTicks, TickDeadlinePassed, dword_16E3EC, dword_16E3F4, dword_16E3F8, dword_16E3FC, dword_16E402, dword_16E410
 extern dword_17070C, timercallbacks, dword_1CF28C, dword_1CF290, dword_1CF294, RestoreDS, tickcount, word_1CF28E
-global WaitKey, sub_FBE40, sub_FBE5D, sub_FBE63, sub_FBE78, sub_FBE94, sub_FBF00, TimerISR
+global WaitKey, KbdGetKey, KbdIdleCall, KbdPeekKey, SetKbdIdleHook, KbdFlush, RunTimerCallbacks, TimerISR
 global addtimer
 ;-----------------------------------------------------------------------------
-; sub_FBE40                                                            FBE40  
+; KbdGetKey                                       FBE40  97 PC, low confidence
+; Reads a key from the keyboard, or 0 when none is waiting
 ;-----------------------------------------------------------------------------
-sub_FBE40:
+KbdGetKey:
         mov ah, 1
         call dword [dword_17070C]
         jne short .1
@@ -24,14 +25,16 @@ sub_FBE40:
 .2:
         ret
 ;-----------------------------------------------------------------------------
-; sub_FBE5D                                                            FBE5D  
+; KbdIdleCall                                     FBE5D  97 PC, low confidence
+; Calls the keyboard idle hook
 ;-----------------------------------------------------------------------------
-sub_FBE5D:
+KbdIdleCall:
         jmp dword [dword_16E3EC]
 ;-----------------------------------------------------------------------------
-; sub_FBE63                                                            FBE63  
+; KbdPeekKey                                      FBE63  97 PC, low confidence
+; Returns the next key without removing it, or 0
 ;-----------------------------------------------------------------------------
-sub_FBE63:
+KbdPeekKey:
         mov ah, 1
         call dword [dword_17070C]
         jne short .1
@@ -44,9 +47,10 @@ sub_FBE63:
 .2:
         ret
 ;-----------------------------------------------------------------------------
-; sub_FBE78                                                            FBE78  
+; SetKbdIdleHook                                  FBE78  97 PC, low confidence
+; Sets the keyboard idle hook; followed by the getter
 ;-----------------------------------------------------------------------------
-sub_FBE78:
+SetKbdIdleHook:
         mov eax, dword [byte esp+04h]
         mov dword [dword_16E3EC], eax
         ret
@@ -61,12 +65,13 @@ WaitKey:
         je short WaitKey
         ret
 ;-----------------------------------------------------------------------------
-; sub_FBE94                                                            FBE94  
+; KbdFlush                                        FBE94  97 PC, low confidence
+; Reads keys until none are left; followed by the timed wait for a key
 ;-----------------------------------------------------------------------------
-sub_FBE94:
-        call sub_FBE40
+KbdFlush:
+        call KbdGetKey
         LD or, ax, ax
-        jne short sub_FBE94
+        jne short KbdFlush
         ret
 .1:
         call dword [dword_16E3EC]
@@ -86,7 +91,7 @@ sub_FBE94:
         db 089h,045h,0FCh                       ; insn: mov [ebp-4],eax
 .3:
         LD xor, eax, eax
-        call sub_FBE5D
+        call KbdIdleCall
         LD or, eax, eax
         jne short .4
         call GetTicks
@@ -117,9 +122,10 @@ sub_FBE94:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_FBF00                                                            FBF00  
+; RunTimerCallbacks                               FBF00  97 PC, low confidence
+; Calls every installed timer callback
 ;-----------------------------------------------------------------------------
-sub_FBF00:
+RunTimerCallbacks:
         push edx
         sti
         cld
@@ -194,7 +200,7 @@ TimerISR:
         push ebx
         push ecx
         push edx
-        call sub_FBF00
+        call RunTimerCallbacks
         pop edx
         pop ecx
         pop ebx

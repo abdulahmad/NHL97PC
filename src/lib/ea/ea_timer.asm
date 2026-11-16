@@ -5,11 +5,12 @@ section s_FC008 progbits alloc exec nowrite align=1
 extern __STOSD, _dos_getvect_, _dos_setvect_, str_TIMERSTACK, dword_16E3FC, dword_16E402, dword_16E4B0, dword_16E4B4
 extern dword_16E4C8, timercallbacks, dword_1CF28C, dword_1CF290, dword_1CF294, AddExitHandler, AllocMemBlock, FreeMemBlock
 extern TimerISR, word_16E406
-global RestoreTimer, sub_FC008, sub_FC0F0
+global RestoreTimer, RemoveTimerCallback, InstallTimer
 ;-----------------------------------------------------------------------------
-; sub_FC008                                                            FC008  
+; RemoveTimerCallback                             FC008  97 PC, low confidence
+; Removes a callback from the timer callback table
 ;-----------------------------------------------------------------------------
-sub_FC008:
+RemoveTimerCallback:
         push ebx
         push esi
         mov edx, dword [byte esp+0Ch]
@@ -112,9 +113,10 @@ RestoreTimer:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_FC0F0                                                            FC0F0  
+; InstallTimer                                    FC0F0  97 PC, low confidence
+; Allocates the timer stack, masks the timer and installs the timer interrupt
 ;-----------------------------------------------------------------------------
-sub_FC0F0:
+InstallTimer:
         push ebx
         push esi
         push edi

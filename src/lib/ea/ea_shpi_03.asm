@@ -8,9 +8,9 @@ extern dword_1D2060, dword_1D2064, dword_1D2068, dword_1D206C, dword_1D2070, dwo
 extern dword_1D2088, dword_1D208C, dword_1D2090, dword_1D2094, dword_1D2418, dword_1D241C, dword_1D2420, dword_1D2424
 extern dword_1D2428, dword_1D2430, dword_1D2438, dword_1D243C, dword_1D2440, dword_1D2444, dword_1D2448, dword_1D244C
 extern dword_1D2450, dword_1D2454, dword_1D3350, dword_1D3354, dword_1D3358, dword_1D335C, dword_1D3364, dword_1D3368
-extern strncpy_, strnicmp_, FindShapeQuiet, sub_102EBC, DrawClippedPoly, DrawPolyList, FillSpanRows, sub_112BCC
-extern sub_112F3C, GetModelVertex, TransformModelParts, TransformModelPartsWith, UpdateModelParts, PolyCrossProduct, TexSpanCopy, ClipTexPolyLeft
-extern ClipTexPolyRight, ClipTexPolyTop, ClipTexPolyBottom, sub_FC4BC, FillPolygon, FillRectColor, unk_1D2098, unk_1D3D6C
+extern strncpy_, strnicmp_, FindShapeQuiet, GetPaletteEntries, DrawClippedPoly, DrawPolyList, FillSpanRows, ClipPolyToNear
+extern ClipTexPolyToNear, GetModelVertex, TransformModelParts, TransformModelPartsWith, UpdateModelParts, PolyCrossProduct, TexSpanCopy, ClipTexPolyLeft
+extern ClipTexPolyRight, ClipTexPolyTop, ClipTexPolyBottom, MatchColor, FillPolygon, FillRectColor, unk_1D2098, unk_1D3D6C
 global DrawTileEdgeLeft_24E, SetRinkView, TransformRinkPoints, TransformRinkObject, ProjectRinkObject, DrawRinkPolyStrip, DrawRinkFan, DrawRinkPolys
 global DrawRinkRing, RinkNoOpA, DrawRinkPrimFlat, DrawRinkPrimShaded, DrawRinkPrimTextured, RinkNoOpB, DrawRinkLineFlat, DrawRinkLineShaded
 global DrawRinkLineTextured, DrawIceSpans, SetupTileSpans, DrawTileSpan, DrawTileEdgeLeft, DrawTileEdgeRight, DrawTileTexture, DrawTilePage
@@ -259,7 +259,7 @@ DrawRinkFan:
         push eax
         mov edi, dword [dword esp+02A4h]
         push edi
-        call sub_112BCC
+        call ClipPolyToNear
         add esp, byte 10h
         cmp eax, byte 2
         jle short .3
@@ -373,7 +373,7 @@ DrawRinkRing:
         push eax
         mov ebp, dword [dword esp+02A0h]
         push ebp
-        call sub_112BCC
+        call ClipPolyToNear
         add esp, byte 10h
         cmp eax, byte 2
         jle short .3
@@ -1700,7 +1700,7 @@ DrawTileTexture:
         push edi
         mov dword [byte esp+01Ch], edx
         mov dword [byte esp+014h], edx
-        call sub_112F3C
+        call ClipTexPolyToNear
         add esp, byte 14h
         mov edi, eax
         cmp eax, byte 3
@@ -2158,7 +2158,7 @@ BindModelShapes:
         db 08Bh,0C0h
         mov edx, dword [byte esp+04h]
         push edx
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         ret
         db 08Bh,0C0h
@@ -2174,7 +2174,7 @@ BindModelShapes:
         add ebx, eax
         mov eax, dword [ebx]
         push eax
-        call sub_FC4BC
+        call MatchColor
         mov dword [byte ebx+04h], eax
         mov ah, byte [byte esi+011h]
         add esp, byte 4
@@ -2220,7 +2220,7 @@ UpdateModelInstance:
         mov eax, dword [byte eax+010h]
         push eax
         mov dword [esi], eax
-        call sub_FC4BC
+        call MatchColor
         mov dword [byte esi+04h], eax
         mov ah, byte [byte ebp+011h]
         add esp, byte 4
@@ -2259,7 +2259,7 @@ UpdateModelInstance:
         mov eax, dword [byte esp+018h]
         push eax
         mov dword [ebx], eax
-        call sub_FC4BC
+        call MatchColor
         mov dword [byte ebx+04h], eax
         mov ah, byte [byte esi+011h]
         add esp, byte 4
@@ -2301,7 +2301,7 @@ UpdateModelPart:
         push byte 1
         mov edx, dword [byte esp+01Ch]
         push edx
-        call sub_102EBC
+        call GetPaletteEntries
         add esp, byte 0Ch
         pop esi
         pop ebx

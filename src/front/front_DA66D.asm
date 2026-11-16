@@ -34,8 +34,8 @@ extern fclose_, fopen_, fread_, fseek_, ftell_, fwrite_, int386x_, memcmp_
 extern memcpy_, memset_, off_16D7AC, off_16D7B4, off_16D7DC, off_16D7E0, off_16D7E4, off_16D7E8
 extern off_16E0FC, off_16E4E0, rand_, segread_, slotteam, sprintf_, strcat_, strcmp_
 extern strcpy_, stricmp_, strlen_, strncpy_, bcopy, BlitShape2, BlitArt, BlitShape
-extern PresentScreen, FindShape, ConvertArtNew, FileSizePath, LoadFileToBlockPlain, DetectWindows, SetupOptionsAnim, sub_10AED0
-extern UpdateOptionsAnim, IsKeyDown, ConvertArtXY, ConvertArtKeepPos, sub_11B104, UnlinkJump, StrCopyEnd, OpenSerialPacketLink
+extern PresentScreen, FindShape, ConvertArtNew, FileSizePath, LoadFileToBlockPlain, DetectWindows, SetupOptionsAnim, DosFileInfo
+extern UpdateOptionsAnim, IsKeyDown, ConvertArtXY, ConvertArtKeepPos, SaveDataFile, UnlinkJump, StrCopyEnd, OpenSerialPacketLink
 extern OpenModemPacketLink, NetCopyName, NetOpenSession, NetCloseSession, NetAnnounce, NetJoinGame, NetLeaveGame, NetListGames
 extern NetDisconnectPeer, OpenNetPacketLink, IpxLinkStartup, SetNetCallback, SetScreenTarget, JoystickAxisScale, InitPacketLink, ShutdownPacketLink
 extern PacketLinkSend, ClosePacketLink, SecondsToSamples, WaitSoundTime, ChkMenuMusic, PauseMusic, RequestMusicStop, WaitMusicEnd
@@ -45,7 +45,7 @@ extern WipeScreen, DrawStatTable, ShowWorkingBox, UpdateWorkingBox, HideWorkingB
 extern ShowPopupScreen, InitMenuItems, RunMenu, RunScrollList, GetLangText, AllocPageStack, FreeDbPages, OpenDbFile
 extern CloseDbFile, AddIndexKey, DeleteIndexKey, FindIndexKey, FindLastKey, FindFirstKey, NextIndexKey, PrevIndexKey
 extern BuildKeyFromLong, BuildKeyFromString, KeyToLong, BuildSeasonIntro, SetupSeasonIntro, DrawSeasonIntro, RunIdleHandlers, AllocMemBlock
-extern AllocMemData, FreeMemBlock, ZeroMem, sub_FBE40, addtimer, sub_FC008, WaitTicks, MakeColor
+extern AllocMemData, FreeMemBlock, ZeroMem, KbdGetKey, addtimer, RemoveTimerCallback, WaitTicks, MakeColor
 extern FreeBitmap, DrawShapeAtOwnPos, DrawArt, CreateBitmap, SetDrawTarget, FillRectColor, FillRect, MeasureText
 extern DrawTextAt, FillRectCorners, tickcount, unk_167540, unk_16D7F4, unk_16D7FC, unk_16E110, unk_1C5F4A
 extern unk_1CD19C, InputRecordRing, unk_1CD2BA, unk_1CD2FC, unk_1CD33E, unk_1CD380, unk_1CD408, unk_1CD480
@@ -10074,7 +10074,7 @@ AddReplayIndexEntry:
         push dword [byte ebp+07Eh]
         lea eax, [byte ebp-0Ah]
         push eax
-        call sub_11B104
+        call SaveDataFile
         add esp, byte 0Ch
         test eax, eax
         je near CreateSeasonSchedule_2F0
@@ -10171,7 +10171,7 @@ AddReplayIndexEntry:
         push dword [byte ebp+07Eh]
         lea eax, [byte ebp-0Ah]
         push eax
-        call sub_11B104
+        call SaveDataFile
         add esp, byte 0Ch
         test eax, eax
         je near CreateSeasonSchedule_2F0
@@ -10392,7 +10392,7 @@ RenameReplayIndexEntry:
         push dword [byte ebp-012h]
         lea eax, [byte ebp-06h]
         push eax
-        call sub_11B104
+        call SaveDataFile
         add esp, byte 0Ch
         test eax, eax
         je near BuildSeasonRecords_797
@@ -10879,13 +10879,13 @@ CompareKeyBytes:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; FileExists                                      E2378  97 PC, low confidence
-; (path): 1 when the file exists (sub_10AED0)
+; (path): 1 when the file exists (DosFileInfo)
 ;-----------------------------------------------------------------------------
 FileExists:
         push ecx
         push edx
         push eax
-        call sub_10AED0
+        call DosFileInfo
         add esp, byte 4
         pop edx
         pop ecx
@@ -10901,7 +10901,7 @@ FileDelete:
         push edx
         mov ebx, eax
         push eax
-        call sub_10AED0
+        call DosFileInfo
         add esp, byte 4
         test eax, eax
         je short .2
@@ -11146,7 +11146,7 @@ FileLength:
         sub esp, byte 4
         mov ebx, eax
         push eax
-        call sub_10AED0
+        call DosFileInfo
         add esp, byte 4
         test eax, eax
         je short .1
@@ -12125,7 +12125,7 @@ StopInputTimer:
         push ecx
         push edx
         push InputRecordTimer
-        call sub_FC008
+        call RemoveTimerCallback
         add esp, byte 4
         pop edx
         pop ecx
@@ -12218,7 +12218,7 @@ StopInputRecording:
         cmp dword [dword_16D8A8], byte 0
         jne short .1
         push InputRecordTimer
-        call sub_FC008
+        call RemoveTimerCallback
         add esp, byte 4
         cmp dword [dword_16D8A8], byte 0
         je short .3
@@ -14483,7 +14483,7 @@ WaitForOtherComputer:
         add esp, byte 4
         test eax, eax
         jne short .8
-        call sub_FBE40
+        call KbdGetKey
         cmp eax, byte 1Bh
         jne short .9
 .8:
@@ -14603,7 +14603,7 @@ WaitForOtherComputer:
         add eax, edi
         mov dword [dword esp+0158h], eax
 .14:
-        call sub_FBE40
+        call KbdGetKey
         mov dword [dword esp+0188h], eax
         test eax, eax
         je near .23

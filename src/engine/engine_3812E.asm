@@ -41,11 +41,11 @@ extern qword_160ACC, qword_160AD4, qword_160ADC, qword_160AE4, qword_160AEC, qwo
 extern qword_160B14, qword_160B1C, qword_160B28, qword_160B35, qword_160CF7, qword_160CFF, qword_160D07, qword_160D0F
 extern randomd0, removewindow, sprintf_, str_CDSTREAM, str_SECCDSTREAM, str_STREAM, strcat_, strcmp_
 extern strcpy_, strncpy_, strstr_, bcopy, BlitArt, BlitShape, PresentScreen, FindShape
-extern FindShapeQuiet, OpenArtArchive, DrawShapeBlended, ConvertArtNew, sub_102C10, Random32, sub_102CDC, sub_102D3C
-extern sub_102E0C, sub_102EBC, SetGraphicsMode, WritePaletteRegs, BlitFrameToScreen, WritePaletteRange, ReadPaletteRange, TranslatePixels
+extern FindShapeQuiet, OpenArtArchive, DrawShapeBlended, ConvertArtNew, ResetClipWindow, Random32, SetRemapTable, VesaSetBank
+extern CopyMemFpu, GetPaletteEntries, SetGraphicsMode, WritePaletteRegs, BlitFrameToScreen, WritePaletteRange, ReadPaletteRange, TranslatePixels
 extern ArtBankCount, ArtBankEntry, RemapPixelRange, BytesPerPixelForDepth, BuildInverseTable, CdOpenStream, CdCloseFile, CdRead
 extern CdSeek, DriveLetterIndex, IsCdDrive, AllocCdBuffer, DetectMscdex, RequestSpeechEvent, FileSizePath, LoadFileAllocQuiet
-extern sub_106F7C, sub_106F94, LoadFileToBlockPlain, RegisterSoundBank, UnregisterSoundBank, DetectAudioDriver, DetectAudioHardware, OpenDigitalAudio
+extern UnpackPlain, UnpackedSize, LoadFileToBlockPlain, RegisterSoundBank, UnregisterSoundBank, DetectAudioDriver, DetectAudioHardware, OpenDigitalAudio
 extern CloseDigitalAudio, StartDigitalAudio, DetectWindows, InitSoundMixer, SetMixerVolumes, SetMasterVolume, SetChannelVolume, SetSpeechVolume
 extern StopAllChannels, ResetSoundChannels, SetMusicStreamVolume, CloseSpeechChannels, AudioStreamPosition, ChannelPlaying, StopChannel, PlaySample
 extern PlaySampleVolume, PushSpeechRing, SpeechRingCount, DosOpenReadOnly, DosCloseFile, DosReadFile, SetScreenTarget, TryPokePuck
@@ -59,8 +59,8 @@ extern ShowMessageBox, LoadTeamLogo, FreeLogoArt, WipeScreen, SetHighlightText, 
 extern RunScrollList, GetLangText, FillStatBar, FinishLeagueGame, InitShapeListBox, FreeDbBlock, DaysToYear, FindNextSeasonGame
 extern OpenLeagueFile, StartSeasonGame, FindGameRecord, UpdateGameRecord, FileExists, FileCreate, FileSeek, FileReadRecord
 extern FileWriteRecord, FileClose, ServiceIdle, BuildAllStarTeams, FreeVideoBuffer, AllocGfxFixBuffer, AddIdleHandler, RemoveIdleHandler
-extern AllocMemBlock, FreeMemBlock, MemFreeSize, ZeroMem, FillMem, addtimer, sub_FC008, sub_FC290
-extern WaitTicks, sub_FC330, sub_FC410, MakeColor, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget
+extern AllocMemBlock, FreeMemBlock, MemFreeSize, ZeroMem, FillMem, addtimer, RemoveTimerCallback, TicksSinceLast
+extern WaitTicks, OpenResourceArchive, CurrentArchiveName, MakeColor, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget
 extern ClearScreen, FillRectColor, SetTextColors, SetFocalLength, SetProjectionCenter, tickcount, unk_160A56, unk_160B68
 extern unk_160C94, unk_160C98, unk_19ED78, unk_19F548, unk_1A0CB8, unk_1A8D48, unk_1A8E8C, unk_1A9C8C
 extern unk_1AD22E, unk_1B93E0, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, word_169054, word_169066, word_1690AE
@@ -1937,7 +1937,7 @@ DrawSeasonGamePanel:
         push dword [byte eax+0Ch]
         call BlitShape
         add esp, byte 4
-        call sub_102C10
+        call ResetClipWindow
         jmp near FindUserOpponent_14D
 ;-----------------------------------------------------------------------------
 ; SetPlayedTeams                                  397FD  97 PC, low confidence
@@ -2244,7 +2244,7 @@ AnimateSparkle:
         push dword [edx+eax*4]
         call BlitShape
         add esp, byte 4
-        call sub_102C10
+        call ResetClipWindow
         call Random32
         mov ecx, 12Ch
         xor edx, edx
@@ -6197,7 +6197,7 @@ DrawOverlayRows:
         mov eax, dword [dword_1A8E4C]
         lea edx, [byte eax+01h]
         mov dword [dword_1A8E4C], edx
-        call sub_102D3C
+        call VesaSetBank
         jmp near .8
 .1:
         test byte [byte eax+0Ah], 4
@@ -6292,7 +6292,7 @@ DrawOverlayRows:
         shl edx, 0Eh
         mov esi, dword [ebx]
         shr edx, 16h
-        call sub_102E0C
+        call CopyMemFpu
         pop edi
         pop esi
         pop edx
@@ -6307,7 +6307,7 @@ DrawOverlayRows:
         shl edx, 0Eh
         mov esi, dword [ebx]
         shr edx, 16h
-        call sub_102E0C
+        call CopyMemFpu
         and byte [byte ebx+0Ah], 0EFh
 .8:
         pop edi
@@ -6368,7 +6368,7 @@ SetVideoMode:
         push dword 100h
         push byte 0
         mov edi, 1
-        call sub_102EBC
+        call GetPaletteEntries
         add esp, byte 0Ch
         mov dword [dword_16F8A8], edi
         call SetScreenTarget
@@ -6936,7 +6936,7 @@ PresentGameView:
         xor ebp, ebp
         xor ebx, ebx
         mov dword [dword_1A8E70], edi
-        call sub_102CDC
+        call SetRemapTable
         mov edx, dword [dword_1A8E68]
         add esp, byte 4
         mov dword [dword_1A8E4C], ebp
@@ -7020,7 +7020,7 @@ AddOverlayWindow:
         test eax, 3FF00h
         jne short .4
         mov eax, edi
-        call sub_102D3C
+        call VesaSetBank
         inc edi
         jmp short .5
 .4:
@@ -7094,7 +7094,7 @@ RemoveOverlayWindow:
         sub eax, edx
         add esi, edi
         lea edx, [nosplit eax*4+00h]
-        call sub_102E0C
+        call CopyMemFpu
         mov eax, dword [ebx]
         mov eax, dword [byte eax+04h]
         mov esi, dword [dword_1A8E58]
@@ -8181,7 +8181,7 @@ ShutdownPaletteManager:
         push ecx
         push edx
         push PaletteFadeTick
-        call sub_FC008
+        call RemoveTimerCallback
         add esp, byte 4
         pop edx
         pop ecx
@@ -9912,7 +9912,7 @@ setstreamspeed:
         mov dword [byte esp+02Ch], ecx
         call CdRead
         add esp, byte 0Ch
-        call sub_FC290
+        call TicksSinceLast
         mov ebx, dword [byte esp+010h]
         test ebx, ebx
         jle short .5
@@ -9927,7 +9927,7 @@ setstreamspeed:
         test ebx, ebx
         jg short .4
 .5:
-        call sub_FC290
+        call TicksSinceLast
         mov ebx, eax
         mov eax, dword [byte esp+020h]
         push eax
@@ -9936,7 +9936,7 @@ setstreamspeed:
         push edx
         call CdRead
         add esp, byte 0Ch
-        call sub_FC290
+        call TicksSinceLast
         mov ecx, dword [byte esp+018h]
         push ecx
         mov dword [byte esp+020h], eax
@@ -10039,7 +10039,7 @@ delstream:
         cmp ebx, dword [dword_1AC378]
         jne short .1
         push CdStreamService_BB8
-        call sub_FC008
+        call RemoveTimerCallback
         mov ecx, dword [byte ebx+018h]
         add esp, byte 4
         test ecx, ecx
@@ -10060,7 +10060,7 @@ delstream:
         cmp edx, edx
         jne short .2
         push CdStreamService_BB8
-        call sub_FC008
+        call RemoveTimerCallback
         mov edi, dword [byte esi+018h]
         add esp, byte 4
         test edi, edi
@@ -13080,13 +13080,13 @@ LoadMainSfxBank:
         sub esp, 0A0h
         cmp word [word_1691A4], byte 0
         je near .5
-        call sub_FC410
+        call CurrentArchiveName
         test eax, eax
         je short .1
-        call sub_FC410
+        call CurrentArchiveName
         cmp byte [eax], 0
         je short .1
-        call sub_FC410
+        call CurrentArchiveName
         mov edx, eax
         lea eax, [byte esp+050h]
         call strcpy_
@@ -13100,7 +13100,7 @@ LoadMainSfxBank:
         call MakeDataPath
         mov eax, esp
         push eax
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         mov eax, 1
         call LoadSfxBank
@@ -13114,7 +13114,7 @@ LoadMainSfxBank:
 .3:
         push byte 0
 .4:
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
 .5:
         add esp, 0A0h
@@ -13267,7 +13267,7 @@ LoadSfxBank:
         test eax, eax
         je near .28
         push eax
-        call sub_106F94
+        call UnpackedSize
         jmp short .21
 .20:
         lea eax, [byte esp+014h]
@@ -13341,7 +13341,7 @@ LoadSfxBank:
         mov eax, dword [dword ebx+dword_1AC5D8]
         push eax
         push ebp
-        call sub_106F7C
+        call UnpackPlain
         add esp, byte 8
         test eax, eax
         jne short .25
@@ -13766,13 +13766,13 @@ OpenAudioStream_D8:
         mov eax, 1
         mov dword [dword_169250], edx
         mov dword [dword_169254], eax
-        call sub_FC410
+        call CurrentArchiveName
         test eax, eax
         je short .14
-        call sub_FC410
+        call CurrentArchiveName
         cmp byte [eax], 0
         je short .14
-        call sub_FC410
+        call CurrentArchiveName
         mov edx, eax
         lea eax, [byte esp+050h]
         call strcpy_
@@ -13786,7 +13786,7 @@ OpenAudioStream_D8:
         call MakeDataPath
         mov eax, esp
         push eax
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         xor eax, eax
         call LoadSfxBank
@@ -13798,7 +13798,7 @@ OpenAudioStream_D8:
 .16:
         push byte 0
 .17:
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         mov ebx, 0FFFFFFFFh
         xor eax, eax
@@ -13868,13 +13868,13 @@ InitGameAudio:
         cmp word [word_1691A4], byte 0
         je near .16
         call WaitMusicEnd
-        call sub_FC410
+        call CurrentArchiveName
         test eax, eax
         je short .1
-        call sub_FC410
+        call CurrentArchiveName
         cmp byte [eax], 0
         je short .1
-        call sub_FC410
+        call CurrentArchiveName
         mov edx, eax
         lea eax, [byte esp+050h]
         call strcpy_
@@ -13888,7 +13888,7 @@ InitGameAudio:
         call MakeDataPath
         mov eax, esp
         push eax
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         mov eax, 2
         call FreeSfxBank
@@ -14005,7 +14005,7 @@ InitGameAudio:
 .12:
         push byte 0
 .13:
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         test byte [byte_1AC81B], 8
         je short .15
@@ -14173,13 +14173,13 @@ LoadFrontEndSfx:
         push ecx
         push edx
         sub esp, 0A0h
-        call sub_FC410
+        call CurrentArchiveName
         test eax, eax
         je short .1
-        call sub_FC410
+        call CurrentArchiveName
         cmp byte [eax], 0
         je short .1
-        call sub_FC410
+        call CurrentArchiveName
         mov edx, eax
         lea eax, [byte esp+050h]
         call strcpy_
@@ -14193,7 +14193,7 @@ LoadFrontEndSfx:
         call MakeDataPath
         mov eax, esp
         push eax
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         mov eax, 1
         call LoadSfxBank
@@ -14205,7 +14205,7 @@ LoadFrontEndSfx:
 .3:
         push byte 0
 .4:
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         add esp, 0A0h
         pop edx
@@ -14321,13 +14321,13 @@ InitGameSounds:
         call ServiceIdle
         mov dword [dword_169254], ecx
         call ServiceIdle
-        call sub_FC410
+        call CurrentArchiveName
         test eax, eax
         je short .9
-        call sub_FC410
+        call CurrentArchiveName
         cmp byte [eax], 0
         je short .9
-        call sub_FC410
+        call CurrentArchiveName
         mov edx, eax
         mov eax, esp
         call strcpy_
@@ -14341,7 +14341,7 @@ InitGameSounds:
         call MakeDataPath
         lea eax, [byte esp+050h]
         push eax
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         mov eax, 1
         call LoadSfxBank
@@ -14362,7 +14362,7 @@ InitGameSounds:
 .13:
         push byte 0
 .14:
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         call ServiceIdle
 .15:
@@ -16424,7 +16424,7 @@ OpenSpeechBanks:
         add esp, byte 0Ch
         mov eax, esp
         push eax
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         xor edx, edx
         mov edi, 826h
@@ -16688,7 +16688,7 @@ LoadTeamSpeech:
         call MakeDataPath
         mov eax, esp
         push eax
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         push ebx
         push str_TEAM04dDAT
@@ -16753,7 +16753,7 @@ LoadTeamSpeech:
         test eax, eax
         jne short .11
         push eax
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         add esp, byte 78h
         pop ebp
@@ -16784,7 +16784,7 @@ LoadTeamSpeech:
         test eax, eax
         jg short .13
         push byte 0
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         add esp, byte 78h
         pop ebp
@@ -16843,7 +16843,7 @@ LoadTeamSpeech:
         test eax, eax
         jne short .21
         push eax
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         add esp, byte 78h
         pop ebp
@@ -16872,7 +16872,7 @@ LoadTeamSpeech:
         movsd
         movsd
 .23:
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         add esp, byte 78h
         pop ebp

@@ -2,13 +2,15 @@
 bits 32
 %include "hockey.inc"
 section s_100400 progbits alloc exec nowrite align=1
-extern bcopy, LoadFileCore, sub_106F94, DosReadFile, DosSeekFile, CreateBitmapForMem, CreateBitmapCore, AllocMemBlockFull
+extern bcopy, LoadFileCore, UnpackedSize, DosReadFile, DosSeekFile, CreateBitmapForMem, CreateBitmapCore, AllocMemBlockFull
 extern UnlinkMemBlockLocked, CompactDownLocked, CompactUpLocked, MemDescSize, UnlockMemBlock, LockMemBlock, unpack
-global sub_100400, sub_100498, sub_1004B8, sub_1004F8, sub_100510, sub_100528
+global ReadResourceHeader, LoadResourceDataShared, LoadResourceData, LoadResourceBlockShared, LoadResourceBlock, LoadResourceFile
 ;-----------------------------------------------------------------------------
-; sub_100400                                                          100400  
+; ReadResourceHeader                             100400  97 PC, low confidence
+; Seeks to a resource in a file and reads its first bytes to learn its packed
+; and unpacked size
 ;-----------------------------------------------------------------------------
-sub_100400:
+ReadResourceHeader:
         push ebx
         push esi
         push edi
@@ -46,7 +48,7 @@ sub_100400:
         je short .4
         mov eax, esp
         push eax
-        call sub_106F94
+        call UnpackedSize
         add esp, byte 4
         mov ebx, eax
         test eax, eax
@@ -66,16 +68,17 @@ sub_100400:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_100498                                                          100498  
+; LoadResourceDataShared                         100498  97 PC, low confidence
+; Loads a resource file in shared mode and returns its data pointer
 ;-----------------------------------------------------------------------------
-sub_100498:
+LoadResourceDataShared:
         push ebx
         push byte 1
         mov edx, dword [byte esp+010h]
         push edx
         mov ebx, dword [byte esp+010h]
         push ebx
-        call sub_100528
+        call LoadResourceFile
         add esp, byte 0Ch
         test eax, eax
         je short .1
@@ -85,16 +88,17 @@ sub_100498:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1004B8                                                          1004B8  
+; LoadResourceData                               1004B8  97 PC, low confidence
+; Loads a resource file and returns its data pointer
 ;-----------------------------------------------------------------------------
-sub_1004B8:
+LoadResourceData:
         push ebx
         push byte 0
         mov edx, dword [byte esp+010h]
         push edx
         mov ebx, dword [byte esp+010h]
         push ebx
-        call sub_100528
+        call LoadResourceFile
         add esp, byte 0Ch
         test eax, eax
         je short .1
@@ -110,7 +114,7 @@ sub_1004B8:
         push ebx
         mov ecx, dword [byte esp+010h]
         push ecx
-        call sub_100528
+        call LoadResourceFile
         add esp, byte 0Ch
         test eax, eax
         je short .2
@@ -119,39 +123,43 @@ sub_1004B8:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1004F8                                                          1004F8  
+; LoadResourceBlockShared                        1004F8  97 PC, low confidence
+; Loads a resource file in shared mode and returns its memory block
 ;-----------------------------------------------------------------------------
-sub_1004F8:
+LoadResourceBlockShared:
         push ebx
         push byte 1
         mov edx, dword [byte esp+010h]
         push edx
         mov ebx, dword [byte esp+010h]
         push ebx
-        call sub_100528
+        call LoadResourceFile
         add esp, byte 0Ch
         pop ebx
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_100510                                                          100510  
+; LoadResourceBlock                              100510  97 PC, low confidence
+; Loads a resource file and returns its memory block
 ;-----------------------------------------------------------------------------
-sub_100510:
+LoadResourceBlock:
         push ebx
         push byte 0
         mov edx, dword [byte esp+010h]
         push edx
         mov ebx, dword [byte esp+010h]
         push ebx
-        call sub_100528
+        call LoadResourceFile
         add esp, byte 0Ch
         pop ebx
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_100528                                                          100528  
+; LoadResourceFile                               100528  97 PC, low confidence
+; Loads a file into a memory block and unpacks it in place when it is
+; compressed
 ;-----------------------------------------------------------------------------
-sub_100528:
+LoadResourceFile:
         push ebx
         push esi
         push edi
@@ -176,7 +184,7 @@ sub_100528:
         mov edi, dword [esi]
         push edi
         mov dword [byte esp+010h], eax
-        call sub_106F94
+        call UnpackedSize
         add esp, byte 4
         mov edi, eax
         mov dword [byte esp+08h], eax

@@ -5,8 +5,8 @@ section s_100A68 progbits alloc exec nowrite align=1
 extern str_DtoD, atexit_, byte_16E688, byte_16F748, byte_16FA40, byte_171C90, dword_16E4C8, dword_16E500
 extern dword_16E678, dword_16E67C, dword_16E680, dword_16E684, dword_16E698, dword_16E69C, dword_16E6A0, dword_16F188
 extern dword_16F5AC, dword_16F5B4, dword_1CF5F0, dword_1DA4D0, exit_, off_16F588, off_16F5BC, off_16F5C0
-extern off_16F684, sprintf_, strrchr_, sub_100528, BytesPerPixelForDepth, PlotPixelRGB, sub_12189C, BlitCore
-extern ShapeRowBytes, sub_123FA8, Convert32To565Keyed, Convert32To555Keyed, SwapRedBlue555, Convert32To565, FindPaletteChunk, ExpandPalette6To8
+extern off_16F684, sprintf_, strrchr_, LoadResourceFile, BytesPerPixelForDepth, PlotPixelRGB, FindCachedFile, BlitCore
+extern ShapeRowBytes, StoreBigEndian, Convert32To565Keyed, Convert32To555Keyed, SwapRedBlue555, Convert32To565, FindPaletteChunk, ExpandPalette6To8
 extern CopyPaletteRGB, AllocMemBlock, FreeMemBlock, MakeColor, word_1CF5F4
 global _os_handle, jpt_1015B0, jpt_101980, PacketChecksum_90, FindShapeQuiet_2, BlendPixelMode_30, BlendPixelMode_54, BlendPixelMode_6E
 global BlendPixelMode_94, BlendPixelMode_B9, BlendPixelMode_10C, BlendPixelMode_153, BlendPixelMode_1A6, BlendPixelMode_1BC, BlendPixelMode_204, BlendPixelMode_232
@@ -1406,7 +1406,7 @@ LoadDataFileExt:
 .5:
         mov eax, esp
         push eax
-        call sub_12189C
+        call FindCachedFile
         add esp, byte 4
         test eax, eax
         jne short .6
@@ -1416,7 +1416,7 @@ LoadDataFileExt:
         push ebx
         lea eax, [byte esp+08h]
         push eax
-        call sub_100528
+        call LoadResourceFile
         add esp, byte 0Ch
 .6:
         add esp, 80h
@@ -3612,7 +3612,7 @@ ConvertArtShape:
         push esi
         mov ebx, eax
         mov dword [byte esp+040h], eax
-        call sub_123FA8
+        call StoreBigEndian
         add esp, byte 0Ch
         mov eax, dword [byte esp+020h]
         mov byte [ebx], 0

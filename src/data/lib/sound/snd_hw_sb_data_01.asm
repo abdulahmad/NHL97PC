@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_19A878 progbits alloc noexec write align=1
-extern sub_13B66E
+extern CallMatherr
 global str_NoErrorInXACODECFunctionL, str_InvalidErrorCodeInXACODEC, dword_19A878, dword_19BEB8, dword_19BED8, dword_19BEDC, dword_19BEE0, dword_19BEE4
 global dword_19C008, dword_19C00C, dword_19C010, word_19C018, word_19C01A, word_19C020, word_19C022
 dword_19A878:
@@ -398,7 +398,7 @@ dword_19C008:
 dword_19C00C:
         db 011h,00h,00h,00h
 dword_19C010:
-        dd sub_13B66E
+        dd CallMatherr
         db 00h,00h,00h,00h
 word_19C018:
         db 020h,02h

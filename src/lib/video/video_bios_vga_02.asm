@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_1048BC progbits alloc exec nowrite align=1
-extern byte_16FA3F, dword_16E46C, dword_1DA4D0, sub_FC4BC
+extern byte_16FA3F, dword_16E46C, dword_1DA4D0, MatchColor
 global ReadPaletteRange, TranslatePixels, ArtBankCount, ArtBankEntry, ArtBankEntryInfo, RemapPixelRange, BytesPerPixelForDepth
 ;-----------------------------------------------------------------------------
 ; ReadPaletteRange                               1048BC  97 PC, low confidence
@@ -152,7 +152,7 @@ RemapPixelRange:
         push eax
         add ebx, byte 3
         inc esi
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         mov byte [dword esi+byte_16FA3F], al
         cmp esi, edi

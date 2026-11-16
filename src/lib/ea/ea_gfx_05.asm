@@ -2,12 +2,13 @@
 bits 32
 %include "hockey.inc"
 section s_10AE10 progbits alloc exec nowrite align=1
-extern sub_100400, DosOpenFile, DosCloseFile, DosReadFile, unpack
-global sub_10AE10
+extern ReadResourceHeader, DosOpenFile, DosCloseFile, DosReadFile, unpack
+global ReadWholeFile
 ;-----------------------------------------------------------------------------
-; sub_10AE10                                                          10AE10  
+; ReadWholeFile                                  10AE10  97 PC, low confidence
+; Opens a file, reads it all into memory and closes it
 ;-----------------------------------------------------------------------------
-sub_10AE10:
+ReadWholeFile:
         push ebx
         push esi
         push edi
@@ -36,7 +37,7 @@ sub_10AE10:
         push esi
         mov edi, dword [byte esp+0Ch]
         push edi
-        call sub_100400
+        call ReadResourceHeader
         add esp, byte 10h
         mov esi, eax
         test eax, eax

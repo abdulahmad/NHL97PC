@@ -18,7 +18,7 @@ extern EmuFdivrSt, EmuFldSt, EmuFxch, EmuFtstFxam, EmuSignOps, EmuLogOps, EmuRem
 extern EmuDispatchDBReg, EmuFaddToSt, EmuFmulToSt, EmuFsubrToSt, EmuFsubToSt, EmuFdivrToSt, EmuFdivToSt, EmuFfree
 extern EmuFstSt, EmuFucom, EmuFucomp, EmuFstpSt, EmuFaddp, EmuFmulp, EmuFcompp, EmuFsubrp
 extern EmuFsubp, EmuFdivrp, EmuFdivp, EmuDispatchDFReg
-global __cnvs2d_, forcedecpt_, jpt_1329F0, jpt_132AF0, jpt_132AF0_100, jpt_132AF0_170, sub_132863, unk_132878
+global __cnvs2d_, forcedecpt_, jpt_1329F0, jpt_132AF0, jpt_132AF0_100, jpt_132AF0_170, NoFloatSupport, unk_132878
 global unk_13287C, unk_132880, unk_132882, unk_132884, unk_132886, unk_1328D2, unk_1328D4, unk_1328D8
 global unk_1328DA, unk_132922, unk_132926, unk_132930, unk_132990
 ;-----------------------------------------------------------------------------
@@ -86,9 +86,10 @@ __cnvs2d_:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_132863                                                          132863  
+; NoFloatSupport                                 132863  97 PC, low confidence
+; Reports that floating-point support is not loaded and exits
 ;-----------------------------------------------------------------------------
-sub_132863:
+NoFloatSupport:
         push edx
         mov edx, 1
         mov eax, str_FloatingPointSupportNot

@@ -3,8 +3,8 @@ bits 32
 %include "hockey.inc"
 section s_11FAAC progbits alloc exec nowrite align=1
 extern dword_16E478, dword_16E678, dword_16E67C, dword_16E680, dword_16E684, dword_16F8AC, dword_16F8B0, dword_16F8B4
-extern dword_16F8B8, dword_199C38, dword_199C3C, dword_1CF53C, VesaQueryMode, SetGraphicsMode, BytesPerPixelForDepth, sub_123414
-extern sub_123423, sub_123D38, FillRectList, ZeroMem, FillRectColor, PrepareTextDraw
+extern dword_16F8B8, dword_199C38, dword_199C3C, dword_1CF53C, VesaQueryMode, SetGraphicsMode, BytesPerPixelForDepth, SetupRectFillShaded
+extern SetupRectFill, FillRectSpans, FillRectList, ZeroMem, FillRectColor, PrepareTextDraw
 global jpt_11FDFD, jpt_11FF3D, jpt_120116, FillShadowRect_10, DrawTitleBand_10, DrawTitleBand_27, jpt_11FDFD_38, jpt_11FF3D_3B
 global jpt_120116_22F, SetTextFont, FillShadowRect, DrawTitleBand, FillBandEdges, FillBandRows, FillBandRowsBlend, CountVesaModes
 global FindModeByResolution, SetModeByResolution
@@ -202,12 +202,12 @@ DrawTitleBand_27:
         push ecx
         cmp byte [byte ebp-012h], 0
         je short .13
-        call sub_123423
+        call SetupRectFill
         mov dword [byte ebp-028h], edi
         call FillBandEdges
         jmp short .14
 .13:
-        call sub_123414
+        call SetupRectFillShaded
         mov dword [byte ebp-028h], edi
         call FillBandRows
 .14:
@@ -235,10 +235,10 @@ DrawTitleBand_27:
         push ecx
         cmp byte [byte ebp-012h], 0
         je short .18
-        call sub_123423
+        call SetupRectFill
         jmp short .19
 .18:
-        call sub_123414
+        call SetupRectFillShaded
 .19:
         mov dword [byte ebp-028h], edi
         call FillBandRowsBlend
@@ -1037,7 +1037,7 @@ jpt_120116_22F:
         mov byte [byte ebp-011h], 1
         mov eax, FillRectList
         mov dword [dword_199C38], eax
-        mov eax, sub_123D38
+        mov eax, FillRectSpans
         mov dword [dword_199C3C], eax
         jmp short .51
         push ebp
@@ -1049,7 +1049,7 @@ jpt_120116_22F:
         mov byte [byte ebp-011h], 0
         mov eax, FillRectList
         mov dword [dword_199C38], eax
-        mov eax, sub_123D38
+        mov eax, FillRectSpans
         mov dword [dword_199C3C], eax
 .51:
         lea esi, [byte ebp+010h]

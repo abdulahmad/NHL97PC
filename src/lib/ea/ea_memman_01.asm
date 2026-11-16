@@ -4,8 +4,8 @@ bits 32
 section s_FABB8 progbits alloc exec nowrite align=1
 extern byte_16E354, byte_16E358, byte_16E35C, dword_16E324, dword_16E338, dword_16E33C, dword_16E344, dword_16E348
 extern dword_16E34C, dword_16E350, dword_16E360, dword_1CF0E0, dword_1CF25C, dword_1CF260, dword_1CF264, dword_1CF268
-extern memlist1, strncmp_, strncpy_, bcopy, sub_121470, sub_121494, sub_1214A0, sub_1214D0
-extern sub_12175C
+extern memlist1, strncmp_, strncpy_, bcopy, MemLock, MemUnlock, PathBaseName, SetBlockGuard
+extern FindFreeSpace
 global AllocMemBlockEx, findmemblock, FreeMemBlock, UnlinkMemBlockLocked, UnlinkMemBlock, MergeFreeSpace, FindNamedBlock, CompactDownLocked
 global CompactMemListDown, CompactUpLocked, CompactMemListUp, MemFreeSizeAny, MemFreeSize, LargestFreeSpace, InitMemDescriptors, PushMemDescriptor
 global MemPtrSize, MemDescPtr, MemDescSize, UnlockMemBlock, LockMemBlock, SetMemBlockPurge, ZeroMem, FillMem
@@ -32,7 +32,7 @@ AllocMemBlockEx:
         shl eax, 3
         push edx
         add esi, eax
-        call sub_1214A0
+        call PathBaseName
         add esp, byte 4
         mov dword [byte esp+020h], eax
         test bl, 40h
@@ -137,7 +137,7 @@ AllocMemBlockEx:
         cmp dword [byte esi+014h], byte 0
         je short .10
         push ebp
-        call sub_1214D0
+        call SetBlockGuard
         add esp, byte 4
 .10:
         cmp dword [dword_16E33C], byte 0
@@ -182,7 +182,7 @@ AllocMemBlockEx:
         jmp near .5
 .15:
         push ebx
-        call sub_12175C
+        call FindFreeSpace
         add esp, byte 4
         test eax, eax
         je near .31
@@ -273,7 +273,7 @@ AllocMemBlockEx:
         cmp dword [byte esi+014h], byte 0
         je short .25
         push ebp
-        call sub_1214D0
+        call SetBlockGuard
         add esp, byte 4
 .25:
         cmp dword [dword_16E33C], byte 0
@@ -315,7 +315,7 @@ AllocMemBlockEx:
         jmp near .19
 .30:
         push ebx
-        call sub_12175C
+        call FindFreeSpace
         add esp, byte 4
         test eax, eax
         je short .31
@@ -380,14 +380,14 @@ FreeMemBlock:
         mov ecx, dword [dword_1CF260]
         push ecx
         mov ebx, eax
-        call sub_121470
+        call MemLock
         add esp, byte 4
         push ebx
         call UnlinkMemBlock
         add esp, byte 4
         mov esi, dword [dword_1CF260]
         push esi
-        call sub_121494
+        call MemUnlock
         add esp, byte 4
         pop esi
         pop ebx
@@ -403,7 +403,7 @@ UnlinkMemBlockLocked:
         mov ebx, dword [byte esp+08h]
         mov edx, dword [dword_1CF260]
         push edx
-        call sub_121470
+        call MemLock
         mov edx, dword [byte ebx+024h]
         mov eax, dword [byte ebx+020h]
         add esp, byte 4
@@ -416,7 +416,7 @@ UnlinkMemBlockLocked:
         add esp, byte 4
         mov ebx, dword [dword_1CF260]
         push ebx
-        call sub_121494
+        call MemUnlock
         add esp, byte 4
         pop ebx
         ret
@@ -451,7 +451,7 @@ UnlinkMemBlock:
         mov ecx, dword [dword_1CF260]
         push ecx
         mov ebx, eax
-        call sub_121470
+        call MemLock
         mov ebx, dword [byte ebx+020h]
         mov ah, byte [byte ebx+018h]
         add esp, byte 4
@@ -469,7 +469,7 @@ UnlinkMemBlock:
 .2:
         mov edi, dword [dword_1CF260]
         push edi
-        call sub_121494
+        call MemUnlock
         add esp, byte 4
         pop edi
         pop esi
@@ -479,7 +479,7 @@ UnlinkMemBlock:
         push ebx
         mov edx, dword [dword_1CF260]
         push edx
-        call sub_121470
+        call MemLock
         add esp, byte 4
         mov ebx, dword [byte esp+08h]
         mov ebx, dword [byte ebx+020h]
@@ -503,7 +503,7 @@ UnlinkMemBlock:
 .4:
         mov ebx, dword [dword_1CF260]
         push ebx
-        call sub_121494
+        call MemUnlock
         add esp, byte 4
         pop ebx
         ret
@@ -511,7 +511,7 @@ UnlinkMemBlock:
         push ebx
         mov edx, dword [dword_1CF260]
         push edx
-        call sub_121470
+        call MemLock
         add esp, byte 4
         mov ebx, dword [byte esp+08h]
         push ebx
@@ -520,7 +520,7 @@ UnlinkMemBlock:
         mov ecx, dword [dword_1CF260]
         push ecx
         mov ebx, eax
-        call sub_121494
+        call MemUnlock
         add esp, byte 4
         mov eax, ebx
         pop ebx
@@ -620,7 +620,7 @@ FindNamedBlock:
         shl eax, 3
         push edx
         add edi, eax
-        call sub_1214A0
+        call PathBaseName
         add esp, byte 4
         mov ecx, dword [edi]
         mov ebx, dword [byte edi+04h]
@@ -666,7 +666,7 @@ CompactDownLocked:
         push esi
         mov edx, dword [dword_1CF260]
         push edx
-        call sub_121470
+        call MemLock
         mov eax, dword [dword_16E324]
         add esp, byte 4
         mov ebx, dword [eax]
@@ -677,7 +677,7 @@ CompactDownLocked:
         add esp, byte 8
         mov esi, dword [dword_1CF260]
         push esi
-        call sub_121494
+        call MemUnlock
         add esp, byte 4
         pop esi
         pop ebx
@@ -827,7 +827,7 @@ CompactUpLocked:
         push esi
         mov edx, dword [dword_1CF260]
         push edx
-        call sub_121470
+        call MemLock
         mov eax, dword [dword_16E324]
         add esp, byte 4
         mov ebx, dword [byte eax+04h]
@@ -838,7 +838,7 @@ CompactUpLocked:
         add esp, byte 8
         mov esi, dword [dword_1CF260]
         push esi
-        call sub_121494
+        call MemUnlock
         add esp, byte 4
         pop esi
         pop ebx
@@ -1001,7 +1001,7 @@ MemFreeSizeAny:
         push ebx
         mov edx, dword [dword_1CF260]
         push edx
-        call sub_121470
+        call MemLock
         add esp, byte 4
         push byte 0
         call LargestFreeSpace
@@ -1009,7 +1009,7 @@ MemFreeSizeAny:
         mov ecx, dword [dword_1CF260]
         push ecx
         mov ebx, eax
-        call sub_121494
+        call MemUnlock
         add esp, byte 4
         mov eax, ebx
         pop ebx
@@ -1024,7 +1024,7 @@ MemFreeSize:
         push ebx
         mov edx, dword [dword_1CF260]
         push edx
-        call sub_121470
+        call MemLock
         add esp, byte 4
         mov ebx, dword [byte esp+08h]
         push ebx
@@ -1033,7 +1033,7 @@ MemFreeSize:
         mov ecx, dword [dword_1CF260]
         push ecx
         mov ebx, eax
-        call sub_121494
+        call MemUnlock
         add esp, byte 4
         mov eax, ebx
         pop ebx
@@ -1240,7 +1240,7 @@ LockMemBlock:
         mov ecx, dword [dword_1CF260]
         push ecx
         mov ebx, eax
-        call sub_121470
+        call MemLock
         add esp, byte 4
         mov esi, dword [byte esp+014h]
         push esi
@@ -1249,7 +1249,7 @@ LockMemBlock:
         add esp, byte 8
         mov edi, dword [dword_1CF260]
         push edi
-        call sub_121494
+        call MemUnlock
         add esp, byte 4
         pop edi
         pop esi
@@ -1259,7 +1259,7 @@ LockMemBlock:
         push ebx
         mov edx, dword [dword_1CF260]
         push edx
-        call sub_121470
+        call MemLock
         add esp, byte 4
         mov edx, dword [byte esp+08h]
         mov eax, dword [byte edx+018h]
@@ -1272,7 +1272,7 @@ LockMemBlock:
         mov ecx, dword [dword_1CF260]
         push ecx
         mov dword [byte edx+018h], eax
-        call sub_121494
+        call MemUnlock
         add esp, byte 4
         pop ebx
         ret

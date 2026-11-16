@@ -3,24 +3,31 @@ bits 32
 %include "hockey.inc"
 section s_13C180 progbits alloc exec nowrite align=1
 extern byte_19C840, dword_171E34, qword_19C858, qword_19C860, qword_19C870, tbyte_19C878
-global WaitDisplayRetrace, WaitRetrace, __fprem_chk, fprem1_common, fprem_common, WaitRetrace_2D, sub_13C180, WaitRetraceEdges
-sub_13C180:
+global WaitDisplayRetrace, WaitRetrace, __fprem_chk, fprem1_common, fprem_common, WaitRetrace_2D, ReadPortStable, WaitRetraceEdges
+;-----------------------------------------------------------------------------
+; ReadPortStable                                 13C180  97 PC, low confidence
+; Reads a port twice and returns the bits set in both reads
+;-----------------------------------------------------------------------------
+ReadPortStable:
         in al, dx
         LD mov, ah, al
         in al, dx
         LD and, al, ah
         ret
+;-----------------------------------------------------------------------------
+; WaitRetrace                                 13C187  96 PC, medium confidence
+;-----------------------------------------------------------------------------
 WaitRetrace:
         mov dx, 3DAh
         mov ecx, dword [dword_171E34]
         jmp short .2
 .1:
-        call sub_13C180
+        call ReadPortStable
         test al, 8
         loopne .1
         jecxz WaitRetrace_2D
 .2:
-        call sub_13C180
+        call ReadPortStable
         test al, 8
         loope .2
         jecxz WaitRetrace_2D
@@ -29,42 +36,51 @@ WaitRetrace:
 WaitRetrace_2D:
         mov dword [dword_171E34], 2710h
         ret
+;-----------------------------------------------------------------------------
+; WaitRetraceEdges                                               13C1BF  96 PC
+;-----------------------------------------------------------------------------
 WaitRetraceEdges:
         mov dx, 3DAh
         mov ecx, dword [dword_171E34]
 .1:
-        call sub_13C180
+        call ReadPortStable
         test al, 8
         loopne .1
         jecxz WaitRetrace_2D
 .2:
-        call sub_13C180
+        call ReadPortStable
         test al, 8
         loope .2
         jecxz WaitRetrace_2D
         mov dword [dword_171E34], 186A0h
         ret
+;-----------------------------------------------------------------------------
+; WaitDisplayRetrace                                             13C1EA  96 PC
+;-----------------------------------------------------------------------------
 WaitDisplayRetrace:
         mov dx, 3DAh
         mov ecx, dword [dword_171E34]
 .3:
-        call sub_13C180
+        call ReadPortStable
         test al, 8
         loope .3
         jecxz WaitRetrace_2D
 .4:
-        call sub_13C180
+        call ReadPortStable
         test al, 8
         loopne .4
         jecxz WaitRetrace_2D
         mov dword [dword_171E34], 186A0h
         ret
         mov dx, 3DAh
-        call sub_13C180
+        call ReadPortStable
         and eax, byte 8
         shr eax, 3
         db 0C3h                                 ; insn: ret
         db 00h,00h,00h
+;-----------------------------------------------------------------------------
+; fprem_common                                                 13C228  library
+;-----------------------------------------------------------------------------
 fprem_common:
         push eax
         push ebx
@@ -217,6 +233,9 @@ fprem_common:
         pop ebx
         pop eax
         ret
+;-----------------------------------------------------------------------------
+; __fprem_chk                                                  13C42E  library
+;-----------------------------------------------------------------------------
 __fprem_chk:
         push edx
         sub esp, byte 30h
@@ -276,6 +295,9 @@ __fprem_chk:
         add esp, byte 30h
         pop edx
         ret
+;-----------------------------------------------------------------------------
+; fprem1_common                                                13C4E0  library
+;-----------------------------------------------------------------------------
 fprem1_common:
         push eax
         push ebx

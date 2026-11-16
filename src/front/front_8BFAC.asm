@@ -13,7 +13,7 @@ extern dword_1C8400, dword_1C8404, dword_1C8408, dword_1C840C, dword_1C8410, dwo
 extern dword_1C8420, dword_1C8424, dword_1C8428, dword_1C842C, dword_1C8430, dword_1C8434, dword_1C8438, dword_1C843C
 extern dword_1C8444, dword_1C8448, dword_1C844C, dword_1C8454, RunNewSeason_DD, RunNewSeason_E6, RunNewSeason_EF, RunNewSeason_F8
 extern RunNewSeason_16F, RunNewSeason_17B, RunNewSeason_187, RunNewSeason_193, off_16E4E0, qword_165550, qword_165558, qword_165568
-extern BlitArt, BlitClippedY, PresentScreen, FindShape, sub_1097F0, ConvertArtXY, SetScreenTarget, PlaySfx
+extern BlitArt, BlitClippedY, PresentScreen, FindShape, SumRingRange, ConvertArtXY, SetScreenTarget, PlaySfx
 extern LoadDataFileHandle, SetRegionRect, ShowLinkWait, ShowLinkMessage, HideLinkBox, InitMenuItems, ClearLinkAbort, ServiceIdle
 extern ResetLinkStats, SyncLinkGame, FreeMemBlock, MakeColor, SetViewRect, FreeBitmap, DrawArt, CreateBitmap
 extern SetDrawTarget, ClearScreen, FillRectColor, tickcount, word_16CD04, word_16CD20, word_16CD22
@@ -693,7 +693,7 @@ RunMenu:
         push edx
         mov ecx, dword [dword_16CD08]
         push ecx
-        call sub_1097F0
+        call SumRingRange
         add esp, byte 10h
         test eax, eax
         je near .88
@@ -1021,7 +1021,7 @@ RunMenu:
         push ecx
         mov eax, dword [dword_16CD08]
         push eax
-        call sub_1097F0
+        call SumRingRange
         add esp, byte 10h
         test eax, eax
         je short .94
@@ -1085,7 +1085,7 @@ RunMenu:
         push edx
         mov ecx, dword [dword_1C83F0]
         push ecx
-        call sub_1097F0
+        call SumRingRange
         add esp, byte 10h
         test eax, eax
         je near .117
@@ -1324,7 +1324,7 @@ RunMenu:
         push ecx
         mov eax, dword [dword_1C83F0]
         push eax
-        call sub_1097F0
+        call SumRingRange
         add esp, byte 10h
         test eax, eax
         je short .121

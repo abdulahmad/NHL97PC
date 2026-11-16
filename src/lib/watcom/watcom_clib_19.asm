@@ -7,7 +7,7 @@ extern _curbrk, byte_16E415, byte_16E688, byte_16E689, byte_16F794, byte_16FA40,
 extern dword_16E678, dword_16E67C, dword_16E680, dword_16E684, dword_16E690, dword_16E694, dword_16E698, dword_16E69C
 extern dword_16E6A0, dword_16E718, dword_170704, dword_172524, dword_172564, dword_172674, dword_172678, dword_17267C
 extern dword_1DA8D0, dword_1DA8D4, off_199CDC, off_199CE0, strchr_, strcpy_, stricmp_, strlen_
-extern bcopy, ConvertArtRows, ConvertArtShape, sub_102D3C, FixedLerp, WriteConsoleMessage, FreeMemBlock, unk_1DA4CC
+extern bcopy, ConvertArtRows, ConvertArtShape, VesaSetBank, FixedLerp, WriteConsoleMessage, FreeMemBlock, unk_1DA4CC
 extern unk_1DC118, unk_1DC218, unk_1DC318, unk_1DC418, word_170708, word_172568, word_17256A, word_199CD8
 global __chk8087_, __exit_with_msg_, __fatal_runtime_error_, __init_8087_, __rest_8087_, __save_8087_, __sys_fini_387_emulator, _fpreset_
 global NextTextChar_54, ClipPolyLeft_B8, mem_putc__0, EmuRestoreFpuVector, EmuRestoreRealVector, EmuNoHook, GetArchiveType, GetArchiveHeaderSize
@@ -1098,7 +1098,7 @@ BlitCore:
         shr eax, 10h
         and ecx, 0FFFFh
         mov dword [byte ebp-018h], eax
-        call sub_102D3C
+        call VesaSetBank
 .20:
         mov eax, dword [byte ebp-040h]
         add eax, dword [byte ebp-044h]
@@ -1174,7 +1174,7 @@ BlitCore:
         inc eax
         and ecx, 0FFFFh
         mov dword [byte ebp-018h], eax
-        call sub_102D3C
+        call VesaSetBank
 .27:
         mov edx, dword [byte ebp-08h]
         mov eax, dword [byte ebp-040h]
@@ -1223,7 +1223,7 @@ BlitCore:
         add esi, eax
         mov eax, ecx
         shl edx, 3
-        call sub_102D3C
+        call VesaSetBank
         mov eax, edx
         sar edx, 1Fh
         idiv ebx
@@ -1253,7 +1253,7 @@ BlitCore:
         mov eax, dword [byte ebp-018h]
         add esp, byte 0Ch
         inc eax
-        call sub_102D3C
+        call VesaSetBank
         mov eax, dword [byte ebp-020h]
         push eax
         lea eax, [dword ebp-01460h]
@@ -1269,7 +1269,7 @@ BlitCore:
         mov eax, esi
         call dword [byte ebp-04h]
         mov eax, dword [byte ebp-018h]
-        call sub_102D3C
+        call VesaSetBank
         push edi
         mov ecx, dword [byte ebp-028h]
         push ecx
@@ -1281,7 +1281,7 @@ BlitCore:
         add esp, byte 0Ch
         mov eax, esi
         mov edi, dword [byte ebp-020h]
-        call sub_102D3C
+        call VesaSetBank
         push edi
         mov eax, dword [byte ebp-08h]
         push eax
@@ -1314,7 +1314,7 @@ BlitCore:
         and ecx, 0FFFFh
         mov eax, ebx
         mov dword [byte ebp-018h], ebx
-        call sub_102D3C
+        call VesaSetBank
 .31:
         inc dword [byte ebp-024h]
 .32:

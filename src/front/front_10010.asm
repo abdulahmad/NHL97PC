@@ -16,7 +16,7 @@ extern ShowCameraView, ClearOverlayWindows, ResetSceneCamera, assreplace, assins
 extern ResetCoachModes, UpdateCoachModes, EndPenaltyShot, SetPlayerTarget, PickBenchSeat, ChkMenuMusic, StartMusicTrack, QueueMusicRestart
 extern RequestMusicStop, MusicFileName, StopAllSfx, SetCrowdMood, CommentaryEvent, PaEvent, SetCameraMode, UpdateRinkPalette
 extern RefreshFaceTextures, SetModelSlotValue, SetupPlayerModel, DrawJerseyLettering, LoadGoalieMask, UpdateFaceTextures, ResetAnimTimer, UpdateGameDisplay
-extern InitPlayerAnims, DoGameFrame, LogPeriodEnd, AllocMemBlock, ZeroMem, sub_FB8AE, sub_FBCD8, unk_16000C
+extern InitPlayerAnims, DoGameFrame, LogPeriodEnd, AllocMemBlock, ZeroMem, CalibrateJoystick, ResetJoystickRange, unk_16000C
 extern unk_168574, unk_168C38, unk_19CCB8, unk_19D5D2, unk_19D668, unk_19D6A0, unk_19DC40, unk_19E060
 extern unk_19E270, unk_1B9520, unk_1C135C, unk_1C347F, word_1684BE, word_1684CA, word_1684E8, word_1684EC
 extern word_1686D8, word_1686DA, word_168D18, word_19CB28, word_19CB2A, word_19CB5C, word_19CB60, word_19CB64
@@ -806,7 +806,7 @@ LoadJoystickConfig:
         jge near .19
         jmp near .5
 .14:
-        call sub_FB8AE
+        call CalibrateJoystick
         mov eax, dword [byte_16E35C]
         and eax, byte 0Fh
         cmp eax, byte 0Fh
@@ -814,7 +814,7 @@ LoadJoystickConfig:
         and eax, 0FFh
         inc eax
         push eax
-        call sub_FBCD8
+        call ResetJoystickRange
         mov bh, byte [byte_16E35C]
         add esp, byte 4
         test bh, 3
@@ -955,7 +955,7 @@ SetupOptionsAnim:
         mov edx, dword [dword_1684C0]
         test byte [edx+eax*8], 2
         je near .6
-        call sub_FB8AE
+        call CalibrateJoystick
         mov eax, dword [byte_16E35C]
         and eax, byte 0Fh
         cmp eax, byte 0Fh
@@ -963,7 +963,7 @@ SetupOptionsAnim:
         and eax, 0FFh
         inc eax
         push eax
-        call sub_FBCD8
+        call ResetJoystickRange
         add esp, byte 4
         test bx, bx
         jne near .3
@@ -1377,7 +1377,7 @@ UpdateOptionsAnim:
         je near .16
         test byte [byte_1684C8], 2
         jne short .1
-        call sub_FB8AE
+        call CalibrateJoystick
 .1:
         xor edx, edx
         xor ebp, ebp

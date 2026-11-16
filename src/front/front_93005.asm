@@ -19,8 +19,8 @@ extern dword_1C89EC, dword_1C8A34, dword_1C8A54, dword_1C8A74, dword_1C8A78, dwo
 extern dword_1C8A88, dword_1C8A90, dword_1C8A94, dword_1C8A98, dword_1C8A9C, dword_1C8AA0, dword_1C94E8, EditLinesScreen_17F
 extern EditLinesScreen_18C, EditLinesScreen_2C7, EditLinesScreen_49D, EditLinesScreen_4C4, EditLinesScreen_5BA, EditLinesScreen_5EF, EditLinesScreen_61B, EditLinesScreen_69D
 extern memcpy_, memset_, rand_, sprintf_, srand_, strcat_, strcpy_, strlen_
-extern BlitConverted, BlitShape2, BlitArt, BlitShape, BlitClippedY, PresentScreen, FindShape, sub_10AED0
-extern ConvertArtXY, FindShapeList, sub_11B0D0, SetScreenTarget, SeasonGameScreen, MusicEnabled, LoadFrontEndSfx, SecondsToSamples
+extern BlitConverted, BlitShape2, BlitArt, BlitShape, BlitClippedY, PresentScreen, FindShape, DosFileInfo
+extern ConvertArtXY, FindShapeList, SaveDataFileNew, SetScreenTarget, SeasonGameScreen, MusicEnabled, LoadFrontEndSfx, SecondsToSamples
 extern WaitSoundTime, StopAllSfx, PlaySfx, MakeDirPath, LoadDataFileLib, LoadDataFile, DrawScreenBackground, FadeInScreen
 extern ShowScreen, ExitScreen, SetRegionRect, SetTextColor, DrawTextAligned, ShowMessageBox, EditTextField, DrawProgressBar
 extern WipeScreen, SetHighlightText, SetNormalText, DrawStatTable, ShowPopupScreen, RunStatsMenu, NameIndexNew, NameIndexLoad
@@ -1525,7 +1525,7 @@ CreatePlayoffs:
         add esp, byte 0Ch
         lea eax, [byte ebp+0Eh]
         push eax
-        call sub_10AED0
+        call DosFileInfo
         add esp, byte 4
         test eax, eax
         jne short .21
@@ -1564,7 +1564,7 @@ CreatePlayoffs:
         lea eax, [byte ebp+0Eh]
         push eax
         mov ebx, unk_1AD603
-        call sub_11B0D0
+        call SaveDataFileNew
         add esp, byte 0Ch
         lea edx, [byte ebp-042h]
         mov eax, esi
@@ -3526,7 +3526,7 @@ PlayoffSettingsPath:
         push unk_1AD250
         lea eax, [byte ebp-078h]
         push eax
-        call sub_11B0D0
+        call SaveDataFileNew
         add esp, byte 0Ch
         leave
         pop edx

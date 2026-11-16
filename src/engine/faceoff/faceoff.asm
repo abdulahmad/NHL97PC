@@ -34,8 +34,8 @@ extern DoGameFrame, SetTextColor, SetNormalText, ShowLoadingScreen, ClearMenuGam
 extern ResetScoringLog, LoadGameLogos, FreeGameText, UpdateUserRecords, RunReplay, FadeOut, OpenGameDatabase, CloseGameDatabase
 extern LoadExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, PickDemoTeams, StartInputRecording, ResetInputState, IsInputRecording, StopInputRecording
 extern InputRecordAvail, TakeInputRecord, ServiceIdle, LinkSyncGame, SetupPauseArt, CleanupPauseArt, OpenInGameMenu, LoadGameMenuText
-extern PauseMenu, InitVideoModeList, GetVideoModeList, PickVideoMode, AllocMemBlock, FreeMemBlock, sub_FBE40, sub_FC290
-extern sub_FC330, sub_FC4BC, SetViewRect, DebugSetLine, tickcount, unk_1600A4, unk_16AED4, unk_19CDA4
+extern PauseMenu, InitVideoModeList, GetVideoModeList, PickVideoMode, AllocMemBlock, FreeMemBlock, KbdGetKey, TicksSinceLast
+extern OpenResourceArchive, MatchColor, SetViewRect, DebugSetLine, tickcount, unk_1600A4, unk_16AED4, unk_19CDA4
 extern unk_19DC40, unk_19E270, unk_19E588, unk_1AC821, word_1684EC, word_1686BC, word_1686D4, word_1686D6
 extern word_1686D8, word_1686DA, word_1686E4, word_19C3D8, word_19C3DA, word_19C3DC, word_19C3DE, word_19C3EC
 extern word_19C3EE, word_19C3F0, word_19C3F2, word_19CA90, word_19CA92, word_19CA94, word_19CA96, word_19CB16
@@ -415,7 +415,7 @@ RunOpeningFrames:
 .9:
         test esi, esi
         je near .12
-        call sub_FBE40
+        call KbdGetKey
         mov edx, eax
         test eax, eax
         je short .10
@@ -2148,7 +2148,7 @@ HandleGameKeys:
         push ecx
         push edx
         push edi
-        call sub_FBE40
+        call KbdGetKey
         mov dword [dword_19CD50], eax
         test eax, eax
         je near .14
@@ -2351,7 +2351,7 @@ GameLoop:
         push esi
         push edi
         push ebp
-        call sub_FC290
+        call TicksSinceLast
         push byte 0
         push byte 18h
         push str_RPEVENT2
@@ -2995,7 +2995,7 @@ PlayGame:
         mov dword [dword_1686C0], eax
 .4:
         push byte 0
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         call ResetScoringLog
         mov eax, 0C350h
@@ -3014,7 +3014,7 @@ PlayGame:
         mov dword [dword_1C5EF4], eax
         call SetNormalText
         push byte 0FFFFFFFFh
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         call SetTextColor
         mov eax, dword [dword_1AC814]
@@ -3264,7 +3264,7 @@ RunDemoGame:
         call LoadDataFileLib
         push byte 0FFFFFFFFh
         mov dword [dword_1C5EF4], eax
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         call SetTextColor
         mov eax, dword [dword_1AC814]

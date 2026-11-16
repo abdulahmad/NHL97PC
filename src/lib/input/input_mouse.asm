@@ -5,12 +5,13 @@ section s_FC590 progbits alloc exec nowrite align=1
 extern dword_16E448, mousex, mousey, dword_16E454, dword_16E458, dword_16E45C, dword_16E464, dword_16E468
 extern mouseminx, mouseminy, mousemaxx, mousemaxy, dword_16E614, dword_16E618, dword_16E61C, dword_16E620
 extern dword_16E624, off_16E4D4, off_16E4D8, off_16E4DC, off_16E4E0, AddExitHandler
-global MouseRead, MouseReadMotion, sub_FC590, sub_FC5B6, SetViewRect, sub_FC714, sub_FC71B, sub_FC722
-global sub_FC73E
+global MouseRead, MouseReadMotion, MouseReadButtons, MouseSetSensitivity, SetViewRect, MouseHide, MouseShow, MouseRestoreSensitivity
+global MouseInit
 ;-----------------------------------------------------------------------------
-; sub_FC590                                                            FC590  
+; MouseReadButtons                                FC590  97 PC, low confidence
+; Reads the mouse buttons through the mouse driver
 ;-----------------------------------------------------------------------------
-sub_FC590:
+MouseReadButtons:
         push ebx
         LD xor, eax, eax
         dec dword [dword_16E618]
@@ -25,9 +26,10 @@ sub_FC590:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_FC5B6                                                            FC5B6  
+; MouseSetSensitivity                             FC5B6  97 PC, low confidence
+; Sets the mouse driver's sensitivity
 ;-----------------------------------------------------------------------------
-sub_FC5B6:
+MouseSetSensitivity:
         push ebp
         LD mov, ebp, esp
         push ebx
@@ -148,7 +150,7 @@ MouseReadMotion:
         mov dword [mousex], ecx
         mov dword [mousey], edx
         inc dword [dword_16E618]
-        call sub_FC590
+        call MouseReadButtons
         dec dword [dword_16E618]
         mov dword [dword_16E454], eax
 .5:
@@ -157,21 +159,24 @@ MouseReadMotion:
         inc dword [dword_16E618]
         ret
 ;-----------------------------------------------------------------------------
-; sub_FC714                                                            FC714  
+; MouseHide                                       FC714  97 PC, low confidence
+; Raises the mouse hide count
 ;-----------------------------------------------------------------------------
-sub_FC714:
+MouseHide:
         inc dword [dword_16E458]
         ret
 ;-----------------------------------------------------------------------------
-; sub_FC71B                                                            FC71B  
+; MouseShow                                       FC71B  97 PC, low confidence
+; Lowers the mouse hide count
 ;-----------------------------------------------------------------------------
-sub_FC71B:
+MouseShow:
         dec dword [dword_16E458]
         ret
 ;-----------------------------------------------------------------------------
-; sub_FC722                                                            FC722  
+; MouseRestoreSensitivity                         FC722  97 PC, low confidence
+; Puts back the mouse sensitivity saved at start-up
 ;-----------------------------------------------------------------------------
-sub_FC722:
+MouseRestoreSensitivity:
         pusha
         mov eax, 1Ah
         mov ebx, dword [dword_16E61C]
@@ -181,9 +186,10 @@ sub_FC722:
         popa
         ret
 ;-----------------------------------------------------------------------------
-; sub_FC73E                                                            FC73E  
+; MouseInit                                       FC73E  97 PC, low confidence
+; Resets the mouse driver and records whether a mouse is present
 ;-----------------------------------------------------------------------------
-sub_FC73E:
+MouseInit:
         pusha
         mov dword [dword_16E448], 0
         mov dword [dword_16E458], 0
@@ -215,15 +221,15 @@ sub_FC73E:
         push byte 40h
         push byte 20h
         push byte 20h
-        call sub_FC5B6
-        lea eax, [sub_FC71B]
+        call MouseSetSensitivity
+        lea eax, [MouseShow]
         mov dword [off_16E4D4], eax
         mov dword [off_16E4D8], eax
-        lea eax, [sub_FC714]
+        lea eax, [MouseHide]
         mov dword [off_16E4DC], eax
         lea eax, [MouseReadMotion]
         mov dword [off_16E4E0], eax
-        push sub_FC722
+        push MouseRestoreSensitivity
         call AddExitHandler
         add esp, byte 20h
 .1:

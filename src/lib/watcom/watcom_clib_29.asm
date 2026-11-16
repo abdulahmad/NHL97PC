@@ -6,8 +6,11 @@ extern __fdiv_fpr, _matherr_, byte_16E415, byte_17268C, dword_16841C, dword_19A6
 extern off_19C894, qword_16817C, qword_168418, qword_19C884, tbyte_19C8B4, tbyte_19C8BE, tbyte_19C8D0, tbyte_19C8DA
 extern tbyte_19C8E4, tbyte_19C8EE, tbyte_19C8F8, tbyte_19C902, tbyte_19C90C, unk_135C2D
 global __fpatan_chk, __math1err_, __math2err_, __math87_err_, itoa_, __fpatan_chk_160, __fpatan_chk_16B, __fpatan_chk_178
-global __fpatan_chk_18B, __fpatan_chk_1A0, __fpatan_chk_1B3, __fpatan_chk_1C8, __fpatan_chk_1DB, ltoa_, sub_135D41, ultoa_
+global __fpatan_chk_18B, __fpatan_chk_1A0, __fpatan_chk_1B3, __fpatan_chk_1C8, __fpatan_chk_1DB, ltoa_, CheckPentiumFdiv, ultoa_
 global unk_135CB7, utoa_
+;-----------------------------------------------------------------------------
+; utoa_                                                        135C52  library
+;-----------------------------------------------------------------------------
 utoa_:
         push ecx
         push esi
@@ -46,6 +49,9 @@ utoa_:
         pop esi
         pop ecx
         ret
+;-----------------------------------------------------------------------------
+; itoa_                                                        135C9C  library
+;-----------------------------------------------------------------------------
 itoa_:
         push ecx
         mov ecx, edx
@@ -65,6 +71,9 @@ unk_135CB7:
         db 030h,031h,032h,033h,034h,035h,036h,037h,038h,039h,061h,062h,063h,064h,065h,066h
         db 067h,068h,069h,06Ah,06Bh,06Ch,06Dh,06Eh,06Fh,070h,071h,072h,073h,074h,075h,076h
         db 077h,078h,079h,07Ah,00h
+;-----------------------------------------------------------------------------
+; ultoa_                                                       135CDC  library
+;-----------------------------------------------------------------------------
 ultoa_:
         push ecx
         push esi
@@ -103,6 +112,9 @@ ultoa_:
         pop esi
         pop ecx
         ret
+;-----------------------------------------------------------------------------
+; ltoa_                                                        135D26  library
+;-----------------------------------------------------------------------------
 ltoa_:
         push ecx
         mov ecx, edx
@@ -118,7 +130,11 @@ ltoa_:
         mov eax, ecx
         pop ecx
         ret
-sub_135D41:
+;-----------------------------------------------------------------------------
+; CheckPentiumFdiv                               135D41  97 PC, low confidence
+; Tests for the Pentium FDIV bug and records it
+;-----------------------------------------------------------------------------
+CheckPentiumFdiv:
         sub esp, byte 10h
         mov dword [byte esp+08h], 0C0000000h
         mov dword [byte esp+0Ch], 4150017Eh
@@ -144,6 +160,9 @@ sub_135D41:
         add esp, byte 10h
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
+;-----------------------------------------------------------------------------
+; __fpatan_chk                                                 135DA0  library
+;-----------------------------------------------------------------------------
 __fpatan_chk:
         push eax
         push ecx
@@ -339,6 +358,9 @@ __fpatan_chk_1DB:
         pop ecx
         pop eax
         ret
+;-----------------------------------------------------------------------------
+; __math87_err_                                                135FA0  library
+;-----------------------------------------------------------------------------
 __math87_err_:
         push ebp
         mov ebp, esp
@@ -398,12 +420,18 @@ __math87_err_:
         pop eax
         pop ebp
         ret 0Ch
+;-----------------------------------------------------------------------------
+; __math1err_                                                  13601B  library
+;-----------------------------------------------------------------------------
 __math1err_:
         push ebx
         mov ebx, edx
         call __math2err_
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; __math2err_                                                  136025  library
+;-----------------------------------------------------------------------------
 __math2err_:
         push ebp
         mov ebp, esp

@@ -7,11 +7,12 @@ extern dword_1706CC, dword_170ACC, dword_1712CC, dword_199888, memset_, strncpy_
 extern word_1DE780
 global __checkIsDBCS_, __mbsninc_, __mbvtop_, _mbgetcode_, _mbptov_, _mbscat_, _mbscpy_, _mbsdec_
 global _mbsinc_, _mbsnbcnt_, _mbsnbcpy_, _mbsnccnt_, _mbsncpy_, _mbsnextc_, _mbsninc_, _mbvtop_
-global dos_get_dbcs_lead_table_, _mbscat__34, _mbscpy__B6, sub_12F270
+global dos_get_dbcs_lead_table_, _mbscat__34, _mbscpy__B6, SinCosLookup
 ;-----------------------------------------------------------------------------
-; sub_12F270                                                          12F270  
+; SinCosLookup                                   12F270  97 PC, low confidence
+; Returns the sine and cosine of an angle from the quarter-wave tables
 ;-----------------------------------------------------------------------------
-sub_12F270:
+SinCosLookup:
         push ebx
         mov eax, dword [byte esp+08h]
         mov ebx, dword [byte esp+0Ch]

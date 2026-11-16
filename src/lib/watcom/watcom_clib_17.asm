@@ -3,9 +3,9 @@ bits 32
 %include "hockey.inc"
 section s_121264 progbits alloc exec nowrite align=1
 extern __chktty_, __flushall_, __set_errno_, __set_errno_dos_, _nmalloc_, dword_1CF0E0, dword_1CF260, dword_1DA4C8
-extern getche_, memlist1, sub_123FA8, findmemblock
-global __filbuf_, __fill_buffer_, __ioalloc_, __qread_, fgetc_, sub_121460, sub_121470, sub_121494
-global sub_1214A0, sub_1214D0, sub_12152C
+extern getche_, memlist1, StoreBigEndian, findmemblock
+global __filbuf_, __fill_buffer_, __ioalloc_, __qread_, fgetc_, ResetMemLock, MemLock, MemUnlock
+global PathBaseName, SetBlockGuard, CheckBlockGuards
 ;-----------------------------------------------------------------------------
 ; __ioalloc_                                                   121264  library
 ;-----------------------------------------------------------------------------
@@ -242,18 +242,20 @@ __fill_buffer_:
         ret
         db 00h,00h
 ;-----------------------------------------------------------------------------
-; sub_121460                                                          121460  
+; ResetMemLock                                   121460  97 PC, low confidence
+; Clears the memory lock and returns its address
 ;-----------------------------------------------------------------------------
-sub_121460:
+ResetMemLock:
         xor edx, edx
         mov eax, dword_1DA4C8
         mov dword [dword_1DA4C8], edx
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_121470                                                          121470  
+; MemLock                                        121470  97 PC, low confidence
+; Sets the memory lock; followed by the try-lock
 ;-----------------------------------------------------------------------------
-sub_121470:
+MemLock:
         mov eax, dword [byte esp+04h]
         mov dword [eax], 1
         ret
@@ -268,17 +270,19 @@ sub_121470:
         mov eax, 1
         ret
 ;-----------------------------------------------------------------------------
-; sub_121494                                                          121494  
+; MemUnlock                                      121494  97 PC, low confidence
+; Clears the memory lock
 ;-----------------------------------------------------------------------------
-sub_121494:
+MemUnlock:
         mov eax, dword [byte esp+04h]
         mov dword [eax], 0
         ret
         db 00h
 ;-----------------------------------------------------------------------------
-; sub_1214A0                                                          1214A0  
+; PathBaseName                                   1214A0  97 PC, low confidence
+; Returns the file name part of a path
 ;-----------------------------------------------------------------------------
-sub_1214A0:
+PathBaseName:
         push ebx
         mov eax, dword [byte esp+08h]
         mov bl, byte [eax]
@@ -306,9 +310,11 @@ sub_1214A0:
         ret
         db 00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_1214D0                                                          1214D0  
+; SetBlockGuard                                  1214D0  97 PC, low confidence
+; Marks a block as guarded and writes the guard word at its end; followed by
+; the guard check
 ;-----------------------------------------------------------------------------
-sub_1214D0:
+SetBlockGuard:
         push ebx
         mov eax, dword [byte esp+08h]
         or byte [byte eax+019h], 40h
@@ -318,7 +324,7 @@ sub_1214D0:
         push dword 42454E44h
         add edx, ebx
         push edx
-        call sub_123FA8
+        call StoreBigEndian
         add esp, byte 0Ch
         pop ebx
         ret
@@ -345,9 +351,10 @@ sub_1214D0:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_12152C                                                          12152C  
+; CheckBlockGuards                               12152C  97 PC, low confidence
+; Walks every memory list and checks the guard word of each guarded block
 ;-----------------------------------------------------------------------------
-sub_12152C:
+CheckBlockGuards:
         push ebx
         push esi
         push edi
@@ -402,12 +409,12 @@ sub_12152C:
         ret
         db 08Bh,0C0h
         push byte 1
-        call sub_12152C
+        call CheckBlockGuards
         add esp, byte 4
         ret
         db 090h
         push byte 0
-        call sub_12152C
+        call CheckBlockGuards
         add esp, byte 4
         ret
         db 00h,00h,00h,00h,00h
@@ -420,7 +427,7 @@ sub_12152C:
         mov ecx, dword [dword_1CF260]
         push ecx
         mov ebx, eax
-        call sub_121470
+        call MemLock
         mov eax, dword [byte ebx+018h]
         add esp, byte 4
         and al, 0F8h
@@ -428,7 +435,7 @@ sub_12152C:
         or al, 9
         push esi
         mov dword [byte ebx+018h], eax
-        call sub_121494
+        call MemUnlock
         add esp, byte 4
         mov eax, ebx
         pop esi
@@ -439,7 +446,7 @@ sub_12152C:
         mov ebx, dword [byte esp+08h]
         mov edx, dword [dword_1CF260]
         push edx
-        call sub_121470
+        call MemLock
         mov eax, dword [byte ebx+018h]
         add esp, byte 4
         and al, 0F8h
@@ -447,7 +454,7 @@ sub_12152C:
         or al, 9
         push ecx
         mov dword [byte ebx+018h], eax
-        call sub_121494
+        call MemUnlock
         add esp, byte 4
         mov eax, ebx
         pop ebx
@@ -462,7 +469,7 @@ sub_12152C:
         mov ecx, dword [dword_1CF260]
         push ecx
         mov ebx, eax
-        call sub_121470
+        call MemLock
         mov eax, dword [byte ebx+018h]
         add esp, byte 4
         and al, 0F8h
@@ -472,7 +479,7 @@ sub_12152C:
         or edx, eax
         push esi
         mov dword [byte ebx+018h], edx
-        call sub_121494
+        call MemUnlock
         add esp, byte 4
         mov eax, ebx
         pop esi
@@ -482,7 +489,7 @@ sub_12152C:
         mov ebx, dword [byte esp+08h]
         mov edx, dword [dword_1CF260]
         push edx
-        call sub_121470
+        call MemLock
         mov eax, dword [byte ebx+018h]
         add esp, byte 4
         and al, 0F8h
@@ -492,7 +499,7 @@ sub_12152C:
         or edx, eax
         push ecx
         mov dword [byte ebx+018h], edx
-        call sub_121494
+        call MemUnlock
         add esp, byte 4
         mov eax, ebx
         pop ebx

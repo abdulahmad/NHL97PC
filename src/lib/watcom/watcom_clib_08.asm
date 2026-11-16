@@ -13,7 +13,7 @@ extern dword_1CFAA8, dword_1CFAAC, dword_1CFAB0, dword_1CFAB4, dword_1CFABC, dwo
 extern dword_1CFAD4, dword_1CFAD8, dword_1DC5AC, dword_1DC994, dword_1DC998, dword_1DC99C, dword_1DCAFC, dword_1DCB00
 extern dword_1DCB04, dword_1DCB08, dword_1DCEC0, dword_1DCF20, int386_, int386x_, memset_, segread_
 extern str_Inversetmp, bcopy, Random32, ReadPaletteRange, SpeechBusy, DosOpenFile, DosCloseFile, DosReadFile
-extern DosSeekFile, FindSpeechBank, sub_12189C, ExpandPalette6To8, CopyPaletteRGB, sub_1266FC, AllocMemBlock, AllocMemData
+extern DosSeekFile, FindSpeechBank, FindCachedFile, ExpandPalette6To8, CopyPaletteRGB, CdDirSearch, AllocMemBlock, AllocMemData
 extern AllocMemBlockFull, FreeMemBlock, WaitTicks, tickcount, toupper_, unk_16FB44, unk_1CFAF0, word_1CFA98
 extern word_1CFAB8, word_1CFADE, word_1CFAE0
 global DetectMscdex_1FC, ParseSpeechEvents_86, QueueSpeechEvent_AD, QueueSpeechEvent_AE, strcmp_, strncpy_, InverseTableSlice, InverseTablePass
@@ -1242,7 +1242,7 @@ CdFindFile:
         mov edx, dword [byte esp+0Ch]
         mov ebx, dword [byte esp+010h]
         mov eax, ecx
-        call sub_1266FC
+        call CdDirSearch
         mov edx, eax
         test eax, eax
         je short .1
@@ -3398,7 +3398,7 @@ LoadFileCore:
         mov esi, dword [byte esp+020h]
         mov edi, dword [byte esp+028h]
         push esi
-        call sub_12189C
+        call FindCachedFile
         add esp, byte 4
         mov ebx, eax
         test eax, eax

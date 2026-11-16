@@ -11,8 +11,8 @@ extern dword_1D8028, dword_1D802C, dword_1D8030, dword_1D8034, dword_1D8044, dwo
 extern dword_1D8054, dword_1D8058, dword_1D805C, dword_1D8068, dword_1D806C, dword_1D8070, dword_1D807C, dword_1D808C
 extern dword_1D8090, dword_1D8094, dword_1D8098, dword_1D809C, dword_1D80A0, dword_1D80A4, dword_1D80B0, dword_1D8334
 extern dword_1D8AB4, dword_1D8AB8, dword_1D8ABC, dword_1D8AC0, dword_1D8AC4, memcpy_, off_1706D0, qword_167E9D
-extern qword_167EA5, str_ORIINST, strcat_, strcpy_, strlen_, strnicmp_, sub_1004B8, SetModelFrame
-extern sub_10CF34, UpdateModelInstance, sub_112F3C, DrawPrimList, ResetMorphVerts, FixedSinCos, TexSpanCopy, ClipTexPolyLeft
+extern qword_167EA5, str_ORIINST, strcat_, strcpy_, strlen_, strnicmp_, LoadResourceData, SetModelFrame
+extern TransformVecFull, UpdateModelInstance, ClipTexPolyToNear, DrawPrimList, ResetMorphVerts, FixedSinCos, TexSpanCopy, ClipTexPolyLeft
 extern ClipTexPolyRight, ClipTexPolyTop, ClipTexPolyBottom, MakeRotationZ, DrawShapeTransformed, ClipDrawPolyLeft, ClipDrawPolyRight, ClipDrawPolyTop
 extern ClipDrawPolyBottom, AllocMemBlock, FreeMemBlock, FillMem, VecScale, unk_199738, unk_1D1D20, unk_1D3D6C
 extern unk_1D3D94, unk_1D5B94, unk_1D7994, unk_1D80B4
@@ -151,7 +151,7 @@ LoadModelByName:
         push esi
         lea eax, [byte esp+04h]
         push eax
-        call sub_1004B8
+        call LoadResourceData
         add esp, byte 8
         mov ebx, eax
         test eax, eax
@@ -2698,7 +2698,7 @@ DrawTexturedPoly:
         push ebp
         mov dword [byte esp+02Ch], edx
         mov dword [byte esp+014h], edx
-        call sub_112F3C
+        call ClipTexPolyToNear
         add esp, byte 14h
         mov ebp, eax
         cmp eax, byte 3
@@ -3114,7 +3114,7 @@ DrawFlatPoly:
         push ebp
         mov edi, ebx
         add ebx, byte 0Ch
-        call sub_10CF34
+        call TransformVecFull
         add esp, byte 0Ch
         add ebp, byte 0Ch
         movsd
@@ -3133,7 +3133,7 @@ DrawFlatPoly:
         push esi
         push ebp
         add ebx, byte 0Ch
-        call sub_10CF34
+        call TransformVecFull
         add esp, byte 0Ch
         add ebp, byte 0Ch
         jmp short .3
@@ -3167,7 +3167,7 @@ DrawFlatPoly:
         push ebp
         mov edi, ebx
         add ebx, byte 0Ch
-        call sub_10CF34
+        call TransformVecFull
         add esp, byte 0Ch
         add ebp, byte 0Ch
         movsd
@@ -3186,7 +3186,7 @@ DrawFlatPoly:
         push esi
         push ebp
         add ebx, byte 0Ch
-        call sub_10CF34
+        call TransformVecFull
         add esp, byte 0Ch
         add ebp, byte 0Ch
         jmp short .7

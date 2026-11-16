@@ -24,11 +24,11 @@ extern CommentaryEvent_1A44, CommentaryEvent_1B16, CommentaryEvent_1B57, Comment
 extern CommentaryEvent_1E49, CommentaryEvent_1ECB, CommentaryEvent_1F28, CommentaryEvent_1F56, CommentaryEvent_1FE8, off_169780, off_1697BC, off_169814
 extern qword_161173, qword_16117B, qword_161183, qword_16118B, rand_, sprintf_, strcmp_, strcpy_
 extern SortIndices, bcopy, FindShape, InitSpeechBank, FileSizePath, LoadFileToBlockPlain, CloseSpeechChannels, InitSpeechChannels
-extern RegisterSpeechBank, sub_1097F0, QueueSpeechRequest, ResetSpeechQueue, FindSpeechClip, LoadSpeechBlock, LoadClipIfMissing, SpeechFileHeader
+extern RegisterSpeechBank, SumRingRange, QueueSpeechRequest, ResetSpeechQueue, FindSpeechClip, LoadSpeechBlock, LoadClipIfMissing, SpeechFileHeader
 extern OpenSpeechBanks, ResolveSpeechClips, LoadTeamSpeech, MakeDataPath, MakeDirPath, LoadDataFileLib, LoadDataFile, CheckDiskSpace
 extern SetTextColor, ShowMessageBoxNoWait, SetNormalText, ShowWorkingBox, UpdateWorkingBox, HideWorkingBox, ShowLoadingBar, CreateMenuBitmap
 extern FreeMenuBitmap, FileExists, FileOpen, FileSeek, FileReadRecord, FileWriteRecord, FileClose, FileLength
-extern ServiceIdle, AllocMemBlock, AllocMemData, FreeMemBlock, sub_FC330, sub_FC410, MakeColor, tickcount
+extern ServiceIdle, AllocMemBlock, AllocMemData, FreeMemBlock, OpenResourceArchive, CurrentArchiveName, MakeColor, tickcount
 extern unk_160DD4, unk_160E8C, unk_160FD4, unk_161068, vecdist
 global jpt_45A64, jpt_45B20, jpt_45B38, jpt_45B60, jpt_45B70, jpt_45B84, jpt_45BC0, jpt_45BD8
 global QueueSpeechChain_9C, LoadSpeechBank, QueueSpeechChain, InitSpeechBanks, CloseSpeechFile, SpeechClipLength, SayShotCall, SaySaveCall
@@ -105,7 +105,7 @@ LoadSpeechBank:
         call MakeDataPath
         mov eax, esp
         push eax
-        call sub_FC330
+        call OpenResourceArchive
         mov eax, dword [dword_16923C]
         add esp, byte 4
         mov edx, dword [esi+eax]
@@ -225,7 +225,7 @@ LoadSpeechBank:
         mov word [byte edx+eax*2+04h], 0FFFFh
 .17:
         push byte 0
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
 .18:
         mov edx, dword [byte esp+068h]
@@ -240,7 +240,7 @@ LoadSpeechBank:
         call MakeDataPath
         mov eax, esp
         push eax
-        call sub_FC330
+        call OpenResourceArchive
         mov eax, dword [dword_16923C]
         add esp, byte 4
         mov ecx, dword [ebx+eax]
@@ -264,7 +264,7 @@ LoadSpeechBank:
         mov word [byte ebx+eax+04h], 0FFFFh
 .19:
         push byte 0
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
 .20:
         add esp, byte 70h
@@ -427,13 +427,13 @@ InitSpeechBanks:
 .6:
         xor eax, eax
         mov dword [dword_16923C], eax
-        call sub_FC410
+        call CurrentArchiveName
         test eax, eax
         je short .7
-        call sub_FC410
+        call CurrentArchiveName
         cmp byte [eax], 0
         je short .7
-        call sub_FC410
+        call CurrentArchiveName
         mov edx, eax
         lea eax, [dword esp+0B4h]
         call strcpy_
@@ -673,7 +673,7 @@ InitSpeechBanks:
         call MakeDataPath
         lea eax, [dword esp+0104h]
         push eax
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         push str_EVENTDAT
         call FileSizePath
@@ -1206,7 +1206,7 @@ InitSpeechBanks:
         call MakeDataPath
         lea eax, [dword esp+0104h]
         push eax
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         call ServiceIdle
         push edi
@@ -1446,7 +1446,7 @@ InitSpeechBanks:
 .82:
         push byte 0
 .83:
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         call ServiceIdle
 .84:
@@ -1524,7 +1524,7 @@ SpeechClipLength:
         push edx
         push ebp
         push edi
-        call sub_1097F0
+        call SumRingRange
         add esp, byte 10h
         test eax, eax
         je short .2

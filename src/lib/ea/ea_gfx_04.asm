@@ -5,9 +5,9 @@ section s_107000 progbits alloc exec nowrite align=1
 extern byte_172BC5, byte_1CFBF2, byte_1CFBF3, byte_1DCF44, byte_1DCF67, byte_1DCF68, dword_16E4D0, dword_170038
 extern dword_17003C, dword_170040, dword_172AC0, dword_172AC4, dword_1CFBF4, dword_1DCF38, dword_1DCF3E, dword_1DCF3F
 extern dword_1DCF62, off_16FFC8, off_16FFCC, off_16FFD0, off_16FFD4, bcopy, AddExitHandler, DetectSoundCard
-extern ProbeSoundPorts, CloseDigitalAudio, StopChannel, DosOpenFile, DosCloseFile, DosReadFile, ReleaseBankSample, sub_121888
+extern ProbeSoundPorts, CloseDigitalAudio, StopChannel, DosOpenFile, DosCloseFile, DosReadFile, ReleaseBankSample, FindCachedFileData
 extern LoadSampleHeader, GusDetect, ReadSoundscapeIni, SoundscapeCodecReady, AudioLeave, SampleFormatSize, MixerStartSample, MixerFadeChannel
-extern MixerSetPanVolume, MixerSetPitch, MixerSamplesLeft, ReadLittleEndian, FreeMemBlock, MemPtrSize, addtimer, sub_FC008
+extern MixerSetPanVolume, MixerSetPitch, MixerSamplesLeft, ReadLittleEndian, FreeMemBlock, MemPtrSize, addtimer, RemoveTimerCallback
 extern word_1CFBF0
 global jpt_1074C0, StartPatchSample_B1, StartPatchSample_C2, StartPatchSample_D3, StartPatchSample_E7, StartPatchSample_FB, StartPatchSample_10F, StartPatchSample_123
 global StartPatchSample_135, StartPatchSample_140, SampleRateResults_1, SampleRateResults_7, SampleRateResults_D, SampleRateResults_13, SampleRateResults_19, LoadFileToBlock
@@ -27,7 +27,7 @@ LoadFileToBlock:
         mov esi, dword [byte esp+020h]
         mov edx, dword [byte esp+01Ch]
         push edx
-        call sub_121888
+        call FindCachedFileData
         mov ebx, eax
         add esp, byte 4
         test eax, eax
@@ -428,7 +428,7 @@ CloseAudioDriver:
         cmp dword [dword_170038], byte 0
         je short .1
         push AudioLeave
-        call sub_FC008
+        call RemoveTimerCallback
         xor ebx, ebx
         add esp, byte 4
         mov dword [dword_170038], ebx

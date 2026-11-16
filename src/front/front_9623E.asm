@@ -27,14 +27,14 @@ extern dword_1C8DFC, dword_1C8E00, dword_1C8E04, dword_1C8E08, dword_1C8E0C, dwo
 extern dword_1C8E1C, dword_1C8E20, dword_1C8E24, dword_1C8E28, dword_1C8E2C, dword_1C8E30, dword_1C8E34, dword_1C8E38
 extern dword_1C8E3C, dword_1C8E40, dword_1C8E44, dword_1C8E48, dword_1CC2AC, dword_1CF548, jpt_9621A, memset_
 extern qsort_, sprintf_, strcat_, strcpy_, BlitArt, BlitShape, PresentScreen, FindShape
-extern FindShapeQuiet, OpenArtArchive, ConvertArtNew, sub_102C10, Random32, sub_106F64, sub_106F94, ConvertArtXY
+extern FindShapeQuiet, OpenArtArchive, ConvertArtNew, ResetClipWindow, Random32, UnpackShared, UnpackedSize, ConvertArtXY
 extern SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, PlayMenuSfx, StopAllSfx, PlaySfx
 extern LoadDataFile, LoadDataFileFlag0, OpenDataLibrary, PlayerInjuryDays, LoadLogoNames, FreeTempArt, DrawShadedLogo, DrawShadowBox
 extern DrawScreenBackground, FadeInScreen, ShowScreen, ExitScreen, SetTextColor, DrawTextAligned, DrawFrameBox, ShowMessageBox
 extern WipeScreen, SetNormalText, DrawPortrait, DrawStatHeader, InitMenuItems, RunMenu, InitScrollList, ScrollUp
 extern ScrollDown, FreeScrollList, SetScrollBarPos, ScrollToMouse, RunScrollList, GetLangText, PositionAbbrev, SetRosterMode
 extern SkaterOverall, GoalieOverall, InitListBox, InitShapeListBox, KeysEqual, FindGameRecord, FindPlayerStat, ServiceIdle
-extern AllocMemBlock, FreeMemBlock, sub_FBE5D, MakeColor, FreeBitmap, DrawArt, DrawShape, CreateBitmap
+extern AllocMemBlock, FreeMemBlock, KbdIdleCall, MakeColor, FreeBitmap, DrawArt, DrawShape, CreateBitmap
 extern SetDrawTarget, ClearScreen, FillRect, MeasureText, tickcount, unk_165BAB, unk_165BAE, unk_16D7F4
 extern unk_1C134A, unk_1C1352, unk_1C135C, unk_1C347F, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, word_1C1344
 extern word_1C8CD4, word_1C8CEC
@@ -1367,7 +1367,7 @@ EditLinesSetup:
         push byte 0
         mov eax, dword [dword_1C8DB0]
         push dword [nosplit eax*4+dword_1C5DE8]
-        call sub_106F94
+        call UnpackedSize
         add esp, byte 4
         push eax
         push str_UNPACKLOGOa
@@ -1377,7 +1377,7 @@ EditLinesSetup:
         mov esi, eax
         mov eax, dword [dword_1C8DB0]
         push dword [nosplit eax*4+dword_1C5DE8]
-        call sub_106F64
+        call UnpackShared
         add esp, byte 8
         push str_LOGO3
         push esi
@@ -1549,7 +1549,7 @@ EditLinesSetup:
         mov dword [byte ebp+05Ah], ebx
         mov dword [byte ebp+04Ah], eax
 .14:
-        call sub_FBE5D
+        call KbdIdleCall
         test eax, eax
         jne near .44
         cmp edi, byte 0Ah
@@ -4395,7 +4395,7 @@ EditLinesGridScreen_10DB:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_102C10
+        call ResetClipWindow
         call PresentScreen
         jmp near EditLinesScreen_8E8
 ;-----------------------------------------------------------------------------
@@ -4705,7 +4705,7 @@ DrawLinesCell:
         push dword [byte edi+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_102C10
+        call ResetClipWindow
         push dword 0FF000000h
         call MakeColor
         add esp, byte 4
@@ -5303,7 +5303,7 @@ DrawForwardLines:
         push dword [byte eax+02Ch]
         call BlitShape
         add esp, byte 4
-        call sub_102C10
+        call ResetClipWindow
         call PresentScreen
 DrawForwardLines_28A:
         push byte 0FFFFFFFFh
@@ -6973,7 +6973,7 @@ DrawLinesCardDetails_16C:
         mov eax, dword [byte eax+02Ch]
         call DrawPortrait
 .10:
-        call sub_102C10
+        call ResetClipWindow
 .11:
         cmp dword [byte ebp-028h], byte 0
         jne short .12
@@ -7087,7 +7087,7 @@ DrawLinesCardDetails_41B:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_102C10
+        call ResetClipWindow
         jmp short .17
 .16:
         xor esi, esi
@@ -7149,7 +7149,7 @@ DrawLinesCardDetails_517:
         cdq
         idiv ebx
         mov esi, eax
-        call sub_102C10
+        call ResetClipWindow
         push dword 0FF00h
         call MakeColor
         add esp, byte 4
@@ -8572,7 +8572,7 @@ DrawLinesIntroText:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_102C10
+        call ResetClipWindow
 .16:
         mov eax, dword [dword_1C8E08]
         mov dword [dword_1C8E0C], eax

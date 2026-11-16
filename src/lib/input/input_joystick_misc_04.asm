@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_100674 progbits alloc exec nowrite align=1
-extern sub_100700_91, sub_100700_93, sub_100700_9A, sub_100700_A3, sub_100700_A7, sub_100700_AE, sub_100700_B0, sub_100700_B5
-extern sub_11313C, SinLookup, CosLookup
+extern AngleOfVector_91, AngleOfVector_93, AngleOfVector_9A, AngleOfVector_A3, AngleOfVector_A7, AngleOfVector_AE, AngleOfVector_B0, AngleOfVector_B5
+extern AngleFromDelta, SinLookup, CosLookup
 global jpt_1006E0, vecdist
 ;-----------------------------------------------------------------------------
 ; vecdist                                     100674  96 PC, medium confidence
@@ -14,7 +14,7 @@ vecdist:
         push ebx
         push dword [byte ebp+08h]
         push dword [byte ebp+0Ch]
-        call sub_11313C
+        call AngleFromDelta
         add esp, byte 8
         LD or, eax, eax
         jge short .1
@@ -60,11 +60,11 @@ vecdist:
         ret
         db 00h,00h,00h
 jpt_1006E0:
-        dd sub_100700_B5
-        dd sub_100700_91
-        dd sub_100700_9A
-        dd sub_100700_93
-        dd sub_100700_A3
-        dd sub_100700_B0
-        dd sub_100700_A7
-        dd sub_100700_AE
+        dd AngleOfVector_B5
+        dd AngleOfVector_91
+        dd AngleOfVector_9A
+        dd AngleOfVector_93
+        dd AngleOfVector_A3
+        dd AngleOfVector_B0
+        dd AngleOfVector_A7
+        dd AngleOfVector_AE

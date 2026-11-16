@@ -28,7 +28,7 @@ extern dword_1C9588, dword_1C958C, dword_1C9590, dword_1C9594, dword_1C9598, dwo
 extern dword_1C95A8, dword_1C95AA, dword_1C95B0, dword_1C95B4, dword_1C95B8, dword_1C95BC, dword_1C95C0, dword_1C95C4
 extern dword_1CF548, memcmp_, memmove_, memset_, qsort_, sprintf_, str_DD, strcpy_
 extern bcopy, BlitArt, BlitShape, PresentScreen, FindShape, FindShapeQuiet, OpenArtArchive, DrawShapeBlended
-extern ConvertArtNew, sub_102C10, Random32, LoadFileAlloc, sub_106F64, sub_106F94, ProjectModelBounds, CreateBitmapDefault
+extern ConvertArtNew, ResetClipWindow, Random32, LoadFileAlloc, UnpackShared, UnpackedSize, ProjectModelBounds, CreateBitmapDefault
 extern ConvertArtXY, ConvertArtKeepPos, LinkSideFlags, ClearLinkCounters, SetScreenTarget, PlayGame, SetPlayedTeams, IsAllStarDay
 extern InitGameAudio, MusicEnabled, LoadFrontEndSfx, InitGameSounds, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx
 extern PaEvent, ResetStreamAudio, LoadDataFileLib, LoadDataFile, OpenDataLibrary, InitFrontEnd, FreeFrontEnd, ShadeShape
@@ -39,7 +39,7 @@ extern DrawScrollBar, ScrollDown, FreeScrollList, ScrollToMouse, LoadLangTextB, 
 extern DrawLinkStatusText, ResetLinkSetup, AllocStatTable, FreeStatTable, SetStatCell, SetStatCellFlag, SetStatColumn, SetStatRowWidth
 extern SortStatTable, DrawStatTableRows, DrawStatTableArt, UserLogScreen, InitListBox, InitShapeListBox, InitSlotTable, InitLinkSettings
 extern ClearLinkAbort, ServiceIdle, LinkSyncMenu, LinkSyncScreen, LinkSendBlock, LinkReceiveBlock, CopyControlSettings, AllocMemBlock
-extern FreeMemBlock, ZeroMem, sub_FC330, MakeColor, SelectFont, FreeBitmap, DrawShapeCore, DrawShapeAtOwnPos
+extern FreeMemBlock, ZeroMem, OpenResourceArchive, MakeColor, SelectFont, FreeBitmap, DrawShapeCore, DrawShapeAtOwnPos
 extern DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, MeasureText, tickcount, unk_165EA0, unk_166010
 extern unk_16609C, unk_16D262, unk_16D26A, unk_1AC8E4, unk_1C135C, unk_1C347F, unk_1C5EF8, unk_1C5F4A
 extern unk_1C5F9C, unk_1C94F4, word_1684BE, word_16D25C, word_16D25E, word_16D260, word_16D27E, word_16D28C
@@ -4648,7 +4648,7 @@ PostGameScreen_B71:
         call FreeMemBlock
         add esp, byte 4
         push byte 0
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         mov eax, dword [dword esp+0578h]
         add esp, 584h
@@ -7665,7 +7665,7 @@ ShowGameStatsPage:
         push esi
         call BlitArt
         add esp, byte 0Ch
-        call sub_102C10
+        call ResetClipWindow
         call PresentScreen
 .10:
         pop ebp
@@ -9784,7 +9784,7 @@ LoadGameLogos:
         push byte 0
         push eax
         mov esi, eax
-        call sub_106F94
+        call UnpackedSize
         add esp, byte 4
         push eax
         push str_UnpackLogo
@@ -9793,7 +9793,7 @@ LoadGameLogos:
         push eax
         push esi
         mov ebx, eax
-        call sub_106F64
+        call UnpackShared
         add esp, byte 8
         push byte 0
         push str_LOGO5
@@ -9875,7 +9875,7 @@ LoadGameLogos:
         push byte 0
         push eax
         mov esi, eax
-        call sub_106F94
+        call UnpackedSize
         add esp, byte 4
         push eax
         push str_UnpackLogo
@@ -9884,7 +9884,7 @@ LoadGameLogos:
         push eax
         push esi
         mov ebx, eax
-        call sub_106F64
+        call UnpackShared
         add esp, byte 8
         push byte 0
         push str_LOGO5

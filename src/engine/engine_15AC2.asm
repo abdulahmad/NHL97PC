@@ -47,8 +47,8 @@ extern qword_1604F7, qword_160503, qword_160517, qword_160523, qword_16052B, qwo
 extern qword_160553, qword_16055B, qword_16056C, qword_160588, qword_160590, qword_160598, qword_1605A4, qword_1605AC
 extern qword_1605B4, qword_1605BC, qword_1605C4, qword_1605CC, qword_1605D4, qword_1605DC, qword_1605E4, qword_1605EC
 extern qword_1605F4, qword_160604, qword_160624, qword_160630, qword_160638, qword_160640, qword_160648, qword_160650
-extern qword_160658, rand_, randomd0, regd1, sprintf_, strcat_, strcpy_, sub_100498
-extern sub_100700, sub_1007C0, sub_100830, StartCrowdMusic, RestartGameMusic, SpeedScale, GetLowestPen, TeamLineSlots
+extern qword_160658, rand_, randomd0, regd1, sprintf_, strcat_, strcpy_, LoadResourceDataShared
+extern AngleOfVector, SinInterp, CosInterp, StartCrowdMusic, RestartGameMusic, SpeedScale, GetLowestPen, TeamLineSlots
 extern UpdateCoachModes, ChkShoot, ForceShoot, AddPenalty, AddPenalty2, PenGoalStuff, EndPenaltyShot, FaceDirFromMotion
 extern doplayeracc, ChkOneTimerSpot, ClearLastPasser, OneTimerShot, PickBenchSeat, FaceoffMoveResult, FaceoffSwipeAnim, FaceoffDrawAnim
 extern PokeCheckAnim, AIBodyCheck, SetVideoMode, SetViewSize, SetViewInterlaced, ClearViewInterlaced, HideView, ShowView
@@ -57,7 +57,7 @@ extern ResetRenderTimers, TriggerCameraFlashes, SetCameraMode, GoalCrowdCheer, L
 extern SetCameraTarget, SetCameraPathTarget, SetCameraSplineTarget, UpdateCameraMotion, SnapCamera, BuildCameraMatrix, UpdateCameraProjection, InitCameraParams
 extern SetSPA, ResetAnimTimer, PickSkateAnim, SetSkateSpeedFromRating, StickReach, ObjectFramePos, TryStickTouch, StopObject
 extern StartPassAnim, StartDropPassAnim, StartGoalieSave, StartGoalieStance, GoalieMoves, DrawCameraPath, SetTextColor, DrawTextAligned
-extern GetLangText, LogGoal, DrawClockOverlay, NextVideoMode, PrevVideoMode, FreeMemBlock, sub_FC4BC, SelectFont
+extern GetLangText, LogGoal, DrawClockOverlay, NextVideoMode, PrevVideoMode, FreeMemBlock, MatchColor, SelectFont
 extern FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, DrawShapeScaledBy, FillPolygon, FillRectColor
 extern FillRect, MeasureText, DrawTextAt, SetTextColors, DrawTextBoxedAt, FillRectCorners, MatRotY, MatTranspose
 extern VecMulMat, VecAdd, VecSub, VecDistance, VecLength, VecScale, VecNormalizeTo, ProjectPointInt
@@ -828,7 +828,7 @@ DrawPanelPlayerCard:
         call FillPolygon
         add esp, byte 14h
         push dword 0FF0000AAh
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         push eax
         cmp dword [dword_16E468], 12Ch
@@ -912,7 +912,7 @@ DrawPanelPlayerCard:
         call FillRectColor
         add esp, byte 14h
         push dword 0FF0000AAh
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         push eax
         cmp dword [dword_16E468], 12Ch
@@ -2815,7 +2815,7 @@ DrawGameClock:
 .5:
         push dword 0FEh
         push dword 0FFFFFF50h
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         push eax
         call SetTextColors
@@ -2936,7 +2936,7 @@ DrawPowerPlayClock:
         add esp, byte 14h
         push dword 0FEh
         push dword 0FFFFFF50h
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         push eax
         call SetTextColors
@@ -3356,7 +3356,7 @@ UpdateScoreboardPanel:
 .12:
         push dword 0FFAA0000h
 .13:
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         mov ecx, eax
         imul eax, edi, byte 64h
@@ -3469,7 +3469,7 @@ UpdateScoreboardPanel:
         cmp dword [byte ebp-08h], byte 0
         je near .30
         push byte 0FFFFFFFFh
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         push eax
         cmp dword [dword_16E468], 12Ch
@@ -3547,7 +3547,7 @@ UpdateScoreboardPanel:
         jmp near .37
 .30:
         push byte 0FFFFFFFFh
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         push eax
         cmp dword [dword_16E468], 12Ch
@@ -4596,7 +4596,7 @@ SetOverlayFont:
         cmp dword [dword_1CF538], byte 1
         jne short .4
         push byte 0FFFFFFFFh
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         call SetTextColor
         pop edx
@@ -4605,11 +4605,11 @@ SetOverlayFont:
         ret
 .4:
         push dword 0FFAAAAAAh
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         push eax
         push byte 0FFFFFFFFh
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         push eax
         xor ebx, ebx
@@ -4627,7 +4627,7 @@ SetOverlayFont:
         add eax, edx
         push eax
         inc ebx
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         mov dword [nosplit ebx*4+dword_1CF554], eax
         cmp ebx, byte 10h
@@ -7730,7 +7730,7 @@ DrawCameraDebugMarks:
         test dword [dword_19D098], 7FFFFFFFh
         je near .1
         push dword 0FF00AA00h
-        call sub_FC4BC
+        call MatchColor
         fld dword [dword_1CF5E4]
         fld dword [dword_1CF5E8]
         fld st0
@@ -7755,7 +7755,7 @@ DrawCameraDebugMarks:
         call FillRectColor
         add esp, byte 14h
         push dword 0FF00AA00h
-        call sub_FC4BC
+        call MatchColor
         fld dword [dword_1CF5E4]
         fld dword [dword_1CF5E8]
         fld dword [dword_1CF5E4]
@@ -7797,26 +7797,26 @@ DrawCameraDebugMarks:
         cmp dword [dword_19D090], byte 0
         je short .2
         push dword 0FFAA0000h
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         push eax
         push byte 0FFFFFFFFh
         jmp short .4
 .2:
         push dword 0FF00AA00h
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         push eax
         push byte 0FFFFFFFFh
         jmp short .4
 .3:
         push byte 0FFFFFFFFh
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         push eax
         push dword 0FF000000h
 .4:
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         push eax
         call SetTextColors
@@ -8453,7 +8453,7 @@ LoadOpeningCamera:
         push byte 20h
         lea eax, [byte esp+04h]
         push eax
-        call sub_100498
+        call LoadResourceDataShared
         add esp, byte 8
         mov dword [dword_19D06C], eax
         xor eax, eax
@@ -10179,7 +10179,7 @@ DrawCameraDebug:
 .2:
         push dword 0FFAA0000h
 .3:
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         push eax
         lea eax, [byte esp+02Ch]
@@ -10219,11 +10219,11 @@ DrawCameraDebug:
         call SelectFont
         add esp, byte 4
         push dword 0FF000000h
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         push eax
         push dword 0FF000000h
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         push eax
         call SetTextColors
@@ -10245,11 +10245,11 @@ DrawCameraDebug:
         inc eax
         mov dword [byte esp+050h], ebp
         mov dword [byte esp+054h], eax
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         push eax
         push byte 0FFFFFFFFh
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         push eax
         call SetTextColors
@@ -11560,7 +11560,7 @@ AimAtPuckTarget:
         sar edx, 10h
         sub eax, edx
         push eax
-        call sub_100700
+        call AngleOfVector
         mov dword [byte esp+08h], eax
         add esp, byte 8
         mov eax, dword [dword ebx+0EEh]
@@ -13798,11 +13798,11 @@ GoaliePosTarget:
         sar eax, 10h
         sub edx, eax
         push edx
-        call sub_100700
+        call AngleOfVector
         mov dword [byte esp+010h], eax
         add esp, byte 8
         push eax
-        call sub_1007C0
+        call SinInterp
         add esp, byte 4
         mov edx, eax
         mov eax, edi
@@ -13813,7 +13813,7 @@ GoaliePosTarget:
         add word [word_19CB68], ax
         mov ecx, dword [byte esp+08h]
         push ecx
-        call sub_100830
+        call CosInterp
         add esp, byte 4
         mov edx, eax
         mov eax, edi
@@ -14303,7 +14303,7 @@ FaceoffSpotPosition:
         sar eax, 10h
         sub edx, eax
         push edx
-        call sub_100700
+        call AngleOfVector
         mov dword [byte esp+08h], eax
         add esp, byte 8
         mov eax, dword [dword esi+0EEh]

@@ -31,7 +31,7 @@ extern FaceoffSwipeAnim, FaceoffDrawAnim, ReachForPuckAnim, DoCheckButton, PlayS
 extern PaEvent, ResetRenderTimers, SetFaceMouth, SetFaceExpression, SetFaceBlink, PickSkateAnim, SetSkateSpeedFromRating, StartWhistleStop
 extern ShotAnimFrames, ObjectFramePos, StopObject, StartShotAnim, StartOneTimerAnim, StartWristShotAnim, StartFightPunch, StartFightBlock
 extern StartFightGrab, StartFightPull, StartFightAnim, SetAnimFrame, RequestPauseMenu, clockcont_0, LogPenalty, RunIdleHandlers
-extern AllocMemData, FreeMemBlock, FillMem, addtimer, sub_FC008, WaitTicks, unk_19CA98, unk_19D474
+extern AllocMemData, FreeMemBlock, FillMem, addtimer, RemoveTimerCallback, WaitTicks, unk_19CA98, unk_19D474
 extern unk_19D4A6, unk_19D4D8, unk_19D50A, unk_19D56E, unk_19D5A0, unk_19D5D2, unk_19D668, unk_19E060
 extern unk_19ECC8, unk_19ECE4, unk_1C135C, unk_1C347F, vecdist, vtoa, word_1686D6, word_168E2C
 extern word_168E2E, word_168E34, word_168E60, word_19C3EC, word_19C3EE, word_19C628, word_19C62A, word_19CA90
@@ -11987,7 +11987,7 @@ ShutdownPacketLink:
         jmp short .2
 .3:
         push LinkPoll_24C
-        call sub_FC008
+        call RemoveTimerCallback
         add esp, byte 4
         push unk_19ECE4
         call QueueNoOp

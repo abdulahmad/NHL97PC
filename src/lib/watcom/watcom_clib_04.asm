@@ -4,11 +4,13 @@ bits 32
 section s_FC330 progbits alloc exec nowrite align=1
 extern str_BigfileBuf, byte_16E504, byte_16E688, byte_170124, dword_16E500, dword_17014C, dword_170150, dword_170154
 extern dword_170158, dword_1DA4D0, str_Viv, ArchiveEntryOffsetAt, AllocMemBlock, FreeMemBlock, unk_1DA4CC
-global sub_FC330, sub_FC410, sub_FC420, sub_FC4BC, MakeColor
+global OpenResourceArchive, CurrentArchiveName, FindNearestColor, MatchColor, MakeColor
 ;-----------------------------------------------------------------------------
-; sub_FC330                                                            FC330  
+; OpenResourceArchive                             FC330  97 PC, low confidence
+; Frees the old archive and loads the named resource archive for later
+; lookups
 ;-----------------------------------------------------------------------------
-sub_FC330:
+OpenResourceArchive:
         push ebx
         push esi
         push edi
@@ -103,16 +105,18 @@ sub_FC330:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_FC410                                                            FC410  
+; CurrentArchiveName                              FC410  97 PC, low confidence
+; Returns the name of the open resource archive
 ;-----------------------------------------------------------------------------
-sub_FC410:
+CurrentArchiveName:
         mov eax, byte_170124
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_FC420                                                            FC420  
+; FindNearestColor                                FC420  97 PC, low confidence
+; Searches the palette for the colour nearest to an RGB value
 ;-----------------------------------------------------------------------------
-sub_FC420:
+FindNearestColor:
         push ebx
         push esi
         push edi
@@ -170,9 +174,11 @@ sub_FC420:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_FC4BC                                                            FC4BC  
+; MatchColor                                      FC4BC  97 PC, low confidence
+; Returns the palette index for an RGB value, using the inverse table when
+; there is one
 ;-----------------------------------------------------------------------------
-sub_FC4BC:
+MatchColor:
         push ebx
         mov eax, dword [byte esp+08h]
         cmp dword [dword_16E500], byte 0
@@ -199,7 +205,7 @@ sub_FC4BC:
 .1:
         push eax
         push dword_1DA4D0
-        call sub_FC420
+        call FindNearestColor
         add esp, byte 8
         pop ebx
         ret
@@ -245,7 +251,7 @@ MakeColor:
         jne short .7
 .3:
         push edx
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         pop ebx
         ret

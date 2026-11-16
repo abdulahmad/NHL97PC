@@ -5,11 +5,12 @@ section s_13B740 progbits alloc exec nowrite align=1
 extern __grab_int23_, __grab_int_ctrl_break_, __math1err_, __restore_int23_, __restore_int_ctrl_break_, __set_errno_, __terminate_, dword_19C170
 extern dword_19C178, dword_19C1A4, SignalHookFpu
 global __log87_err_, __sigabort_, __sigfpe_handler_, _chain_intr_, jpt_13B879, raise__2A, raise__3F, raise__4A
-global raise__73, raise__96, raise_, signal_, sub_13B740
+global raise__73, raise__96, raise_, signal_, GusConvertAddr16
 ;-----------------------------------------------------------------------------
-; sub_13B740                                                          13B740  
+; GusConvertAddr16                               13B740  97 PC, low confidence
+; Converts a card memory address for a 16-bit DMA transfer
 ;-----------------------------------------------------------------------------
-sub_13B740:
+GusConvertAddr16:
         push ebp
         mov ebp, esp
         push edx

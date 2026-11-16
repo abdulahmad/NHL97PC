@@ -8,7 +8,7 @@ extern byte_1DE7F0, dword_17259C, dword_19C054, dword_19C0D4, dword_19C0F4, dwor
 extern dword_19C104, dword_19C108, dword_19C10C, dword_19C110, dword_19C114, dword_19C118, dword_19C11C, dword_19C120
 extern dword_19C128, dword_19C12C, dword_19C132, dword_19C138, dword_19C13E, dword_19C144, dword_1DE7D0, dword_1DE7E4
 extern dword_1DE7E8, dword_1DE7EC, inp_, kaufmfont, lseek_, off_171C80, outp_, raise_
-extern RestoreDS, sub_13B740, unk_19CA1C, unk_1DE7A0, unk_1DE7F4, unk_1DF7E4, word_19C018, word_19C01A
+extern RestoreDS, GusConvertAddr16, unk_19CA1C, unk_1DE7A0, unk_1DE7F4, unk_1DF7E4, word_19C018, word_19C01A
 extern word_19C024, word_19C026, word_19C02A, word_19C02C, word_19C02E, word_19C030, word_19C052, word_19C058
 extern word_19C0DC, word_19C130, word_19C136, word_19C13C, word_19C142, word_1DE78C, word_1DE78E, word_1DE792
 extern word_1DE7E0, word_1DE7E2, word_1DE7F1
@@ -1805,7 +1805,7 @@ GusStartDramDma:
         cmp byte [byte_1DE794], 4
         jb short .1
         mov eax, ebx
-        call sub_13B740
+        call GusConvertAddr16
         mov cl, dl
         mov ebx, eax
 .1:
@@ -1824,7 +1824,7 @@ GusStartDramDma:
         cmp byte [byte_1DE796], 4
         jb short .3
         mov eax, ebx
-        call sub_13B740
+        call GusConvertAddr16
         mov cl, dl
 .3:
         or cl, 21h

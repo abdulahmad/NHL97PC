@@ -2,8 +2,11 @@
 bits 32
 %include "hockey.inc"
 section s_13255C progbits alloc exec nowrite align=1
-extern _Extender, _ExtenderSubtype, _STACKTOP, _curbrk, sub_120763
+extern _Extender, _ExtenderSubtype, _STACKTOP, _curbrk, ErrnoPtr
 global __brk_, sbrk_
+;-----------------------------------------------------------------------------
+; sbrk_                                                        13255C  library
+;-----------------------------------------------------------------------------
 sbrk_:
         push ebx
         push ecx
@@ -56,11 +59,11 @@ sbrk_:
 .5:
         test eax, eax
         jne short .10
-        call sub_120763
+        call ErrnoPtr
         mov dword [eax], 5
         jmp short .7
 .6:
-        call sub_120763
+        call ErrnoPtr
         mov dword [eax], 9
 .7:
         mov eax, 0FFFFFFFFh
@@ -89,6 +92,9 @@ sbrk_:
         pop ecx
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; __brk_                                                       132624  library
+;-----------------------------------------------------------------------------
 __brk_:
         push ebx
         push ecx
@@ -140,7 +146,7 @@ __brk_:
         test eax, eax
         jge short .8
 .4:
-        call sub_120763
+        call ErrnoPtr
         mov dword [eax], 5
         mov eax, 0FFFFFFFFh
         jmp short .9

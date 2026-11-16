@@ -4,9 +4,9 @@ bits 32
 section s_FCF84 progbits alloc exec nowrite align=1
 extern byte_16E688, byte_16E689, dword_16E46C, dword_16E670, dword_16E678, dword_16E67C, dword_16E680, dword_16E684
 extern dword_16E690, dword_16E694, dword_16E698, dword_16E69C, dword_16E6A0, dword_1CF29C, dword_1CF2A0, dword_1CF524
-extern dword_1CFCF0, dword_1DA8D8, off_16E87C, ConvertArtSame, sub_102D3C, CreateBitmapEx, BlitCore, SetBlitSource
+extern dword_1CFCF0, dword_1DA8D8, off_16E87C, ConvertArtSame, VesaSetBank, CreateBitmapEx, BlitCore, SetBlitSource
 extern CopyScaledSpan, ShapeRowBytes, BuildSpanOffsets, FillMemFast, RemapPixels, ClipPolyLeft, ClipPolyRight, ClipPolyTop
-extern ClipPolyBottom, sub_123423, sub_123D38, sub_123FCB, FreeMemBlock, FillMemPattern, DrawShapeCore, unk_1CF2A4
+extern ClipPolyBottom, SetupRectFill, FillRectSpans, StoreLittleEndian, FreeMemBlock, FillMemPattern, DrawShapeCore, unk_1CF2A4
 global FillRectColor_48, FillRectColor_5C, FillRectColor_6C, FillRectColor_80, mem_putc_, DrawShapeAtOwnPos, DrawArt, DrawShape
 global CreateBitmap, LoadDrawContext, SetDrawTarget, ClearScreen, DrawScaledRow, DrawShapeScaledCore, DrawShapeScaledFit, DrawShapeScaledBy
 global DrawShapeScaledFlip, BuildPolyEdge, FillPolySpans, FillPolygon, FillPolygonPoints, FillRectColor, FillRowColor, FillRect
@@ -250,7 +250,7 @@ DrawScaledRow:
         shr edi, 10h
         mov eax, edi
         xor edx, edx
-        call sub_102D3C
+        call VesaSetBank
         mov dl, byte [byte_16E688]
         inc edx
         and dl, 0FEh
@@ -284,7 +284,7 @@ DrawScaledRow:
         call CopyScaledSpan
         add esp, byte 0Ch
         lea eax, [byte edi+01h]
-        call sub_102D3C
+        call VesaSetBank
         mov eax, dword [byte esp+01Ch]
         sub eax, ebx
         push eax
@@ -1454,7 +1454,7 @@ FillRectColor:
         push dword [byte ebp+010h]
         push dword [byte ebp+0Ch]
         push dword [byte ebp+08h]
-        call sub_123423
+        call SetupRectFill
         add esp, byte 14h
         LD or, eax, eax
         jne short .1
@@ -1464,7 +1464,7 @@ FillRectColor:
         mov eax, dword [byte ebp+018h]
         mov dword [byte ebx+01Ch], eax
         push ebx
-        call sub_123D38
+        call FillRectSpans
         add esp, byte 4
 .1:
         pop ebx
@@ -1500,7 +1500,7 @@ FillRectColor_80:
         mov edx, dword [dword_1CF524]
         push edx
         push esi
-        call sub_123FCB
+        call StoreLittleEndian
         add esp, byte 0Ch
         add esi, byte 3
         dec ebx

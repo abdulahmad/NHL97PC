@@ -27,7 +27,7 @@ extern dword_1C5DE4, dword_1CEF88, dword_1CEF8C, dword_1CEF90, dword_1CEF94, dwo
 extern dword_1CEFA4, dword_1CEFA8, dword_1CEFB0, dword_1CEFB4, dword_1CEFB8, dword_1CEFBC, off_16E4E0, qword_167A33
 extern qword_167A75, qword_167A7D, qword_167AB1, qword_167AB9, qword_167AC1, qword_167AC9, qword_167AD1, qword_167AD9
 extern qword_167B1D, qword_167B25, qword_167B69, qword_167B79, qword_167B8F, qword_167B9F, qword_167BB3, qword_167BBB
-extern qword_167C27, qword_167C4F, qword_167C57, qword_167CCB, rand_, sprintf_, sscanf_, sub_1008CC
+extern qword_167C27, qword_167C4F, qword_167C57, qword_167CCB, rand_, sprintf_, sscanf_, GetPaletteRange
 extern BlitArt, PresentScreen, FindShape, DrawShapeBlended, ConvertArtNew, TranslatePixels, PrintBoxedText, IsPlayoffGame
 extern RefreshPlayerModel, ConvertArtXY, SaveTextState, RestoreTextState, DrawShadowRect, ResetForIntermission, GetCurrentFont, SetTextFont
 extern DrawTitleBand, RefreshRinkPalette, SetScreenTarget, ChangeViewSize, ApplyDisplayFlags, RemoveOverlayPanel, DrawPanelArtScaled, RefreshOverlayWindows
@@ -39,7 +39,7 @@ extern TriggerCameraFlashes, RestoreSavedPalette, ReplayHasFrames, UpdateGameDis
 extern SetTextColor, DrawTextAligned, CreateMenuBitmap, FreeMenuBitmap, InitMenuItems, SetMenuSelection, RunMenu, SetMenuMode
 extern LoadLangTextB, GetLangText, FreeLangText, EditLinesScreen, GameStatsScreen, LoadGameLogos, FreeGameText, RunReplay
 extern FadePalette, FadeOut, OpenGameDatabase, CloseGameDatabase, ServiceIdle, SyncLinkGame, LinkSyncMenu, LinkSyncScreen
-extern WaitForOtherComputer, SetupPauseArt, FreeMemBlock, sub_FC330, sub_FC4BC, SelectFont, FreeBitmap, DrawArt
+extern WaitForOtherComputer, SetupPauseArt, FreeMemBlock, OpenResourceArchive, MatchColor, SelectFont, FreeBitmap, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, MeasureText, DrawTextAt, SetTextColors, DrawTextBoxedAt
 extern FillRectCorners, tickcount, unk_167A4B, word_168D18, word_19CBB0, word_19CBB2, gsp, gameclock
 extern word_19CBBC, word_1C3413, word_1C5536, word_1CEFC0
@@ -260,7 +260,7 @@ DrawMenuFrame:
         push dword 101010h
         mov dword [byte ebp-04h], eax
         lea ebx, [edx+ecx]
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         push eax
         lea eax, [byte ebx-01h]
@@ -273,7 +273,7 @@ DrawMenuFrame:
         call FillRectCorners
         add esp, byte 14h
         push dword 0B0B0B0h
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         push eax
         lea eax, [byte ebx-02h]
@@ -301,7 +301,7 @@ DrawMenuFrame:
         call FillRectCorners
         add esp, byte 14h
         push dword 0B0B0B0h
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         push eax
         lea eax, [byte ebx-04h]
@@ -316,7 +316,7 @@ DrawMenuFrame:
         call FillRectCorners
         add esp, byte 14h
         push dword 101010h
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         push eax
         sub ebx, byte 5
@@ -407,7 +407,7 @@ DrawPauseButton:
         test esi, esi
         jne short .2
         push dword 0FF0000AAh
-        call sub_FC4BC
+        call MatchColor
         fld dword [byte ebp-0Ch]
         fld dword [byte ebp-020h]
         add esp, byte 4
@@ -567,7 +567,7 @@ DrawMenuItem:
         test bx, bx
         jne short .7
         push dword 0FF0000AAh
-        call sub_FC4BC
+        call MatchColor
         fld dword [byte ebp-014h]
         fld dword [byte ebp-0Ch]
         add esp, byte 4
@@ -666,7 +666,7 @@ DrawPauseDivider:
         add eax, edx
         push eax
         inc ebx
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         mov byte [dword ebx+ebp-0101h], al
         cmp ebx, 0FFh
@@ -699,7 +699,7 @@ DrawPauseClock:
         sub ebp, 0A6h
         mov esi, eax
         push dword 0E0604h
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         mov ebx, eax
         lea eax, [byte ebp-02Eh]
@@ -933,7 +933,7 @@ DrawPauseClock:
         call RestoreTextState
         add esp, byte 4
         push byte 0
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         lea esp, [dword ebp+0A6h]
         pop ebp
@@ -1587,7 +1587,7 @@ PickEditLinesTeam:
         call SetDrawTarget
         add esp, byte 4
         push dword 0FF000000h
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         push eax
         call ClearScreen
@@ -2000,7 +2000,7 @@ ConfirmQuitGame:
         call SetDrawTarget
         add esp, byte 4
         push dword 0FF000000h
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         push eax
         call ClearScreen
@@ -2323,7 +2323,7 @@ RunIntermission:
         push eax
         push dword 100h
         push byte 0
-        call sub_1008CC
+        call GetPaletteRange
         add esp, byte 0Ch
         mov eax, 3
         call FadeOut
@@ -3481,7 +3481,7 @@ DrawIntermissionTitle:
         call DrawTitleBand
         add esp, byte 28h
         push dword 0FF0000AAh
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         push eax
         imul eax, dword [dword_16E464], byte 5Ah
@@ -4273,7 +4273,7 @@ RulesMenu:
         cmp word [word_1CEFC0], byte 2
         je short .1
         push dword 0FF000000h
-        call sub_FC4BC
+        call MatchColor
         fld dword [byte ebp+072h]
         fmul dword [dword_167BCF]
         fld dword [byte ebp+02h]
@@ -4307,7 +4307,7 @@ RulesMenu:
         jmp short .2
 .1:
         push dword 0FF000000h
-        call sub_FC4BC
+        call MatchColor
         fld dword [byte ebp+072h]
         fmul dword [dword_167BCB]
         fld dword [byte ebp+02h]
@@ -5875,7 +5875,7 @@ RulesMenu:
         add esp, byte 10h
         call PresentScreen
         push dword 0FF000000h
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         mov esi, eax
 .45:
@@ -7022,13 +7022,13 @@ DetailLevelMenu:
         cmp word [word_1CEFC0], byte 2
         je short .1
         push dword 0FF000000h
-        call sub_FC4BC
+        call MatchColor
         fld dword [byte ebp+072h]
         fmul dword [dword_167C6B]
         jmp short .2
 .1:
         push dword 0FF000000h
-        call sub_FC4BC
+        call MatchColor
         fld dword [byte ebp+072h]
         fmul dword [dword_167C67]
 .2:
@@ -7939,7 +7939,7 @@ DetailLevelMenu:
         add esp, byte 18h
         call PresentScreen
         push dword 0FF000000h
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         mov esi, eax
         jmp near DetailLevelMenu_E31.29

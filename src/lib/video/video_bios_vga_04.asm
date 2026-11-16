@@ -2,13 +2,14 @@
 bits 32
 %include "hockey.inc"
 section s_121A43 progbits alloc exec nowrite align=1
-extern DispatchHotkey, sub_FBE40
-global sub_121A43
+extern DispatchHotkey, KbdGetKey
+global PollHotkeys
 ;-----------------------------------------------------------------------------
-; sub_121A43                                                          121A43  
+; PollHotkeys                                    121A43  97 PC, low confidence
+; Reads a key and dispatches its hotkey handler
 ;-----------------------------------------------------------------------------
-sub_121A43:
-        call sub_FBE40
+PollHotkeys:
+        call KbdGetKey
         LD or, eax, eax
         je short .1
         push eax

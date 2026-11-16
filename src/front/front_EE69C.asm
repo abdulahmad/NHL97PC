@@ -19,7 +19,7 @@ extern FindShape, SetModelShape, CreateBitmapForArt, IsKeyDown, ConvertArtXY, Co
 extern SetScreenTarget, CameraNoop, SecondsToSamples, WaitSoundTime, PlayMenuSfx, StopAllSfx, PlaySfx, LoadDataFileLib
 extern DrawScreenBackground, FadeInScreen, ExitScreen, SetRegionRect, SetTextColor, DrawTextAligned, ShowMessageBoxNoWait, WipeScreen
 extern SetModemButton, InitMenuItems, RunMenu, GetLangText, ServiceIdle, WaitForOtherComputer, GetKeyName, LoadPauseArt
-extern FreePauseArt, DrawPauseClock, FreeMemBlock, sub_FC4BC, MakeColor, FreeBitmap, DrawShapeAtOwnPos, DrawArt
+extern FreePauseArt, DrawPauseClock, FreeMemBlock, MatchColor, MakeColor, FreeBitmap, DrawShapeAtOwnPos, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, tickcount, unk_167A1A, unk_16D992, unk_1AC8E4
 extern unk_1C5F4A, unk_1CE3D0, unk_1CE422, unk_1CE474, unk_1CEA8A, unk_EDDEF, unk_EDE3F, unk_EDE53
 extern unk_EE053, unk_EE093, unk_EE0E3, word_16E2EC, word_16E2EE, word_16E2F0
@@ -4450,11 +4450,11 @@ SetupPauseArt:
         call SetModelShape
         add esp, byte 0Ch
         push dword 0FFFFFFh
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         push dword 0FFFF00h
         mov dword [dword_1CEFA0], eax
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         mov dword [dword_1CEFB8], eax
         pop edx

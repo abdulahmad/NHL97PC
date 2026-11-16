@@ -3,11 +3,22 @@ bits 32
 %include "hockey.inc"
 section s_FC210 progbits alloc exec nowrite align=1
 extern _STACKLOW, __fatal_runtime_error_, __sys_fini_387_emulator, __sys_init_387_emulator, str_StackOverflow, word_16E418
-global __CHK, __CHP, __GRO, __STK, sub_FC210, sub_FC215, sub_FC238
-sub_FC210:
+global __CHK, __CHP, __GRO, __STK, InitFpuEmulatorEntry, FiniFpuEmulatorEntry, SaveStackSegment
+;-----------------------------------------------------------------------------
+; InitFpuEmulatorEntry                            FC210  97 PC, low confidence
+; Start-up table entry that starts the coprocessor emulator
+;-----------------------------------------------------------------------------
+InitFpuEmulatorEntry:
         jmp near __sys_init_387_emulator
-sub_FC215:
+;-----------------------------------------------------------------------------
+; FiniFpuEmulatorEntry                            FC215  97 PC, low confidence
+; Exit table entry that stops the coprocessor emulator
+;-----------------------------------------------------------------------------
+FiniFpuEmulatorEntry:
         jmp near __sys_fini_387_emulator
+;-----------------------------------------------------------------------------
+; __CHP                                                         FC21A  library
+;-----------------------------------------------------------------------------
 __CHP:
         push eax
         wait
@@ -22,16 +33,29 @@ __CHP:
         lea esp, [byte esp+08h]
         ret
         db 00h
-sub_FC238:
+;-----------------------------------------------------------------------------
+; SaveStackSegment                                FC238  97 PC, low confidence
+; Records the stack segment at start-up
+;-----------------------------------------------------------------------------
+SaveStackSegment:
         o16 mov word [word_16E418], ss
         ret
+;-----------------------------------------------------------------------------
+; __CHK                                                         FC240  library
+;-----------------------------------------------------------------------------
 __CHK:
         xchg eax, dword [byte esp+04h]
         call __STK
         mov eax, dword [byte esp+04h]
         ret 4
+;-----------------------------------------------------------------------------
+; __GRO                                                         FC250  library
+;-----------------------------------------------------------------------------
 __GRO:
         ret 4
+;-----------------------------------------------------------------------------
+; __STK                                                         FC253  library
+;-----------------------------------------------------------------------------
 __STK:
         cmp eax, esp
         jae short .1

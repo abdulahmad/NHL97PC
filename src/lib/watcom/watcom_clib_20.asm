@@ -7,7 +7,7 @@ extern dword_16F5B4, dword_16F5B8, dword_1702CC, dword_19C734, dword_19C738, dwo
 extern dword_1CF52C, dword_1CF548, dword_1CF5B8, dword_1CF5BC, dword_1CF5C0, dword_1CF5F2, dword_1DA4D0, dword_1DC518
 extern dword_1DC51C, dword_1DC520, dword_1DC524, dword_1DC528, dword_1DC5A8, int386x_, itoa_, ltoa_
 extern memlist1, off_16F5BC, off_171C7C, off_199C50, off_19C740, qword_172690, qword_172698, segread_
-extern strncpy_, bcopy, SetTextOrigin, sub_121470, sub_121494, sub_1214D0, AllocMemBlockEx, findmemblock
+extern strncpy_, bcopy, SetTextOrigin, MemLock, MemUnlock, SetBlockGuard, AllocMemBlockEx, findmemblock
 extern CompactMemListDown, CompactMemListUp, PushMemDescriptor, DrawTextRun, tbyte_172680, toupper_, ultoa_, word_1CF5F4
 global FixedPoint_Format_, IF@DACOS, IF@EXP, IF@SQRT, _Full_at_exit_rtn_, __@DEXP, __@DEXP1, __@DSQRT
 global __fdiv_chk, __fdiv_fpr, __fdiv_m64, __fdivp_sti_st, __fdivrp_sti_st, __fpatan_wrap, __pow87_err_, __prtf_
@@ -2679,7 +2679,7 @@ CreateBitmapCore:
         shl eax, 3
         mov ebx, edi
         add esi, eax
-        call sub_121470
+        call MemLock
         add esp, byte 4
         mov eax, dword [byte edi+020h]
         mov ecx, dword [edi]
@@ -2703,7 +2703,7 @@ CreateBitmapCore:
         je short .1
         mov esi, dword [dword_1CF260]
         push esi
-        call sub_121494
+        call MemUnlock
         add esp, byte 4
         jmp near .9
 .1:
@@ -2720,12 +2720,12 @@ CreateBitmapCore:
         cmp dword [byte esi+014h], byte 0
         je short .3
         push ebx
-        call sub_1214D0
+        call SetBlockGuard
         add esp, byte 4
 .3:
         mov esi, dword [dword_1CF260]
         push esi
-        call sub_121494
+        call MemUnlock
         add esp, byte 4
         mov eax, dword [byte esp+020h]
         jmp near .10
@@ -2808,7 +2808,7 @@ CreateBitmapCore:
         add esp, byte 4
         mov eax, dword [dword_1CF260]
         push eax
-        call sub_121494
+        call MemUnlock
         add esp, byte 4
         mov eax, dword [byte esp+020h]
         add esp, byte 8
@@ -2820,7 +2820,7 @@ CreateBitmapCore:
 .8:
         mov eax, dword [dword_1CF260]
         push eax
-        call sub_121494
+        call MemUnlock
         add esp, byte 4
         cmp dword [byte esp+020h], byte 0
         jge short .9

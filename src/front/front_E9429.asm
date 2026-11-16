@@ -20,7 +20,7 @@ extern dword_1CE1C0, dword_1CE1C4, dword_1CE1C8, dword_1CE1CC, dword_1CE1D0, dwo
 extern dword_1CE1E0, dword_1CE1E4, dword_1CE1E8, dword_1CE1EC, dword_1CE1F0, dword_1CE1F4, dword_1CE1F8, dword_1CE1FC
 extern dword_1CE200, dword_1CE204, dword_1CE208, dword_1CE20C, dword_1CE210, dword_1CE214, dword_1CE218, dword_1CE21C
 extern dword_1CE220, memcpy_, memset_, qsort_, sprintf_, strcpy_, BlitArt, BlitShape
-extern PresentScreen, FindShape, DrawShapeBlended, sub_102C10, Random32, ConvertArtXY, AllocNetBuffer, FreeNetBuffer
+extern PresentScreen, FindShape, DrawShapeBlended, ResetClipWindow, Random32, ConvertArtXY, AllocNetBuffer, FreeNetBuffer
 extern ReadBigEndian, WriteBigEndian, SetScreenTarget, GetAllStarDate, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, StopAllSfx
 extern PlaySfx, PlayScreenMovie, LoadDataFile, DrawShadedLogo, DrawScreenBackground, FadeInScreen, ShowScreen, ExitScreen
 extern SetTextColor, DrawTextAligned, ShowMessageBox, LoadTeamLogo, FreeLogoArt, WipeScreen, SetHighlightText, SetNormalText
@@ -1482,7 +1482,7 @@ DrawAllStarTeam:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_102C10
+        call ResetClipWindow
         call PresentScreen
         mov eax, dword [tickcount]
         lea edx, [byte eax+014h]
@@ -1545,7 +1545,7 @@ DrawAllStarTeam:
         call DrawArt
         add esp, byte 0Ch
 .4:
-        call sub_102C10
+        call ResetClipWindow
         mov eax, dword [dword_1CE1FC]
         mov eax, dword [nosplit eax*4+dword_1CE0FC]
         call LoadTeamLogo
@@ -2073,7 +2073,7 @@ DrawAllStarSelection:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_102C10
+        call ResetClipWindow
         call PresentScreen
 .14:
         leave
@@ -2113,7 +2113,7 @@ DrawAllStarList:
         push esi
         call BlitShape
         add esp, byte 4
-        call sub_102C10
+        call ResetClipWindow
         mov eax, dword [dword_1CE1EC]
         cmp dword [dword eax+02AAh], byte 0
         je short .1
@@ -2141,7 +2141,7 @@ DrawAllStarList:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_102C10
+        call ResetClipWindow
         call PresentScreen
         mov eax, dword [tickcount]
         lea edx, [byte eax+014h]
@@ -2170,7 +2170,7 @@ DrawAllStarList:
         push eax
         call BlitShape
         add esp, byte 4
-        call sub_102C10
+        call ResetClipWindow
         mov eax, dword [dword_1CE1FC]
         add eax, byte 1Ah
         call LoadTeamLogo
@@ -2556,7 +2556,7 @@ DrawAllStarList:
         add edi, byte 12h
         cmp esi, byte 3
         jl near .16
-        call sub_102C10
+        call ResetClipWindow
         cmp dword [byte ebp-010h], byte 0
         je near DrawAllStarTeam_6C5
         call SetScreenTarget

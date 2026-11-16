@@ -2,7 +2,11 @@
 bits 32
 %include "hockey.inc"
 section s_121261 progbits alloc exec nowrite align=1
-global sub_121261
-sub_121261:
+global McgaNoWindow
+;-----------------------------------------------------------------------------
+; McgaNoWindow                                   121261  97 PC, low confidence
+; Returns 0: the MCGA screen needs no window
+;-----------------------------------------------------------------------------
+McgaNoWindow:
         xor eax, eax
         ret

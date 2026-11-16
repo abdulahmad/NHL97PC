@@ -4,7 +4,10 @@ bits 32
 section s_121B00 progbits alloc exec nowrite align=1
 extern _Extender, __8087, __hook387, __real87, byte_1725A4, dword_170704, dword_172524, dword_172564
 extern jpt_132AF0_100, jpt_132AF0_170, word_170708, word_17070A, word_172568, word_17256A
-global InitFpuFlags, sub_121BCB, sub_121BE8, sub_121C35
+global InitFpuFlags, MakeFpuGate, HookCoprocessorVector, SetSystemFpuFlag
+;-----------------------------------------------------------------------------
+; InitFpuFlags                                                   121B00  95 PC
+;-----------------------------------------------------------------------------
 InitFpuFlags:
         mov byte [__8087], 3
         mov byte [__real87], 1
@@ -18,11 +21,11 @@ InitFpuFlags:
         add esp, byte 8
         cmp byte [byte_1725A4], 0
         je short .1
-        call sub_121BCB
+        call MakeFpuGate
         o16 mov es, word [word_17070A]
         mov dword [es:ebx], edx
         mov dword [byte es:ebx+04h], ecx
-        call sub_121C35
+        call SetSystemFpuFlag
         jmp short .5
 .1:
         cmp byte [_Extender], 0
@@ -41,7 +44,7 @@ InitFpuFlags:
 .2:
         cmp byte [_Extender], 9
         jne short .3
-        call sub_121BCB
+        call MakeFpuGate
         mov dword [ebx], edx
         mov dword [byte ebx+04h], ecx
         mov eax, 0E02h
@@ -62,10 +65,14 @@ InitFpuFlags:
         call __hook387
         cmp al, 1
         je short .5
-        call sub_121BE8
+        call HookCoprocessorVector
 .5:
         ret
-sub_121BCB:
+;-----------------------------------------------------------------------------
+; MakeFpuGate                                    121BCB  97 PC, low confidence
+; Builds the gate descriptor for the coprocessor-missing handler
+;-----------------------------------------------------------------------------
+MakeFpuGate:
         lea ecx, [jpt_132AF0_170]
         mov dx, cs
         shl edx, 10h
@@ -75,7 +82,11 @@ sub_121BCB:
         shl cx, 0Dh
         or ch, 8Eh
         ret
-sub_121BE8:
+;-----------------------------------------------------------------------------
+; HookCoprocessorVector                          121BE8  97 PC, low confidence
+; Saves and replaces the coprocessor-missing vector through the DOS extender
+;-----------------------------------------------------------------------------
+HookCoprocessorVector:
         mov cl, 7
         mov ax, 2502h
         int 21h
@@ -91,7 +102,7 @@ sub_121BE8:
         lea edx, [jpt_132AF0_100]
         int 21h
         pop ds
-        call sub_121C35
+        call SetSystemFpuFlag
         jmp short .2
 .1:
         lea edx, [jpt_132AF0_170]
@@ -103,7 +114,11 @@ sub_121BE8:
         mov cr0, ecx
 .2:
         ret
-sub_121C35:
+;-----------------------------------------------------------------------------
+; SetSystemFpuFlag                               121C35  97 PC, low confidence
+; Tells the DOS extender that a coprocessor is emulated
+;-----------------------------------------------------------------------------
+SetSystemFpuFlag:
         xor ebx, ebx
         lea edx, [dword_172524]
         mov ax, 2535h

@@ -16,7 +16,7 @@ extern dword_1CAF98, dword_1CAF9C, dword_1CAFA0, dword_1CAFA4, dword_1CAFA8, dwo
 extern dword_1CAFE4, dword_1CAFE8, dword_1CAFEC, dword_1CAFF0, dword_1CAFF4, dword_1CAFF8, dword_1CAFFC, dword_1CB000
 extern off_16D254, off_16D258, qword_166A8D, qword_166AA1, qword_166ACC, qword_166B0F, qword_166B2A, rand_
 extern sprintf_, strcmp_, strcpy_, BlitArt, PresentScreen, FindShape, DrawShapeBlended, SetGraphicsMode
-extern WritePaletteRegs, FreeInverseTable, sub_10AED0, RestartGameMusic, UnlinkJump, ResetPlayers, SetScreenTarget, InitGameDisplay
+extern WritePaletteRegs, FreeInverseTable, DosFileInfo, RestartGameMusic, UnlinkJump, ResetPlayers, SetScreenTarget, InitGameDisplay
 extern ApplyDisplayFlags, ClearOverlayWindows, ReplayCameraOn, ReplayCameraOff, ReplayCamFollowMode, ReplayCamDrag, ReplayCamRestorePath, ReplayCamOrbitMode
 extern ReplayCamOrbit, ReplayCamStop, ReplayCamFreeMode, ReplayCamTurn, ReplayCamMove, ReplayCamZoomMode, ReplayCamZoom, ReplayCamClearFlag
 extern SetVideoMode, SetViewSize, ClearViewInterlaced, ShowView, SetViewOrigin, SetRinkDetail, FadeGamePalette, ChkMenuMusic
@@ -31,7 +31,7 @@ extern FreeMenuBitmap, InitMenuItems, RunMenu, ScrollPosToValue, ResetMouseInput
 extern GetLangText, FreeLangText, LoadIndexFile, WriteReplayFile, ReplayNameToKey, ClearReplayEntry, OpenGameDatabase, CloseGameDatabase
 extern AddReplayIndexEntry, FindReplayIndexEntry, OpenReplayFile, IsInputRecording, StopInputRecording, ClearLinkAbort, LinkSyncMenu, LinkSendBlock
 extern LinkReceiveBlock, WaitForOtherComputer, DrawMenuFrame, FreeVideoBuffer, AllocGfxFixBuffer, GetVideoModeList, PickVideoMode, AllocMemBlock
-extern FreeMemBlock, ZeroMem, sub_FC330, MakeColor, SelectFont, FreeBitmap, DrawArt, CreateBitmap
+extern FreeMemBlock, ZeroMem, OpenResourceArchive, MakeColor, SelectFont, FreeBitmap, DrawArt, CreateBitmap
 extern SetDrawTarget, ClearScreen, FillPolygon, FillRectColor, FillRect, SetTextColors, FillRectCorners, unk_166A8A
 extern unk_171E38, unk_1ACB44, unk_1CAEFC, unk_1CAF3C, word_1686E4
 global jpt_BE037, jpt_BE213, jpt_BE25A, jpt_BE296, jpt_BEC7D, RunReplay_358, RunReplay_359, LoadReplay_194
@@ -528,7 +528,7 @@ VideoOptionsScreen:
         mov dword [dword_1686C0], eax
 .2:
         push byte 0
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         mov eax, dword [dword_1C5EF4]
         push dword 0FF000000h
@@ -3281,7 +3281,7 @@ SaveReplay:
         add esp, byte 0Ch
         lea eax, [byte ebp-022h]
         push eax
-        call sub_10AED0
+        call DosFileInfo
         add esp, byte 4
         test eax, eax
         jne short .1

@@ -58,14 +58,14 @@ extern qword_1613D5, qword_1613DD, qword_16142D, qword_161435, qword_16143D, qwo
 extern sprintf_, str_Botboards, str_Center, str_CrowdD, str_EMPTYFSH, str_FatBlueLines, str_FatRedLines, str_Glass
 extern str_Glassline, str_Gt002d, str_Gt102d, str_Gt202d, str_Gt302d, str_HALFFSH, str_Icelogo, str_STANDSFSH
 extern str_SideD, str_Stands2, str_Topboards, str_WALL, str_Zamboni, str_Zambpath, strcat_, stricmp_
-extern strlen_, strncpy_, ProjectPointFloat, sub_100498, sub_1004B8, sub_1004F8, sub_100510, sub_100700
-extern sub_1007C0, sub_100830, SortIndices, FindShape, LoadDataFileNoErr, LoadDataFileErr, OpenArtArchive, OpenArtArchiveErr
-extern Random32, sub_102CDC, sub_102CF4, WritePaletteRegs, ArtBankEntry, PlayQueuedSpeech, LoadFileAlloc, LoadFileAllocQuiet
+extern strlen_, strncpy_, ProjectPointFloat, LoadResourceDataShared, LoadResourceData, LoadResourceBlockShared, LoadResourceBlock, AngleOfVector
+extern SinInterp, CosInterp, SortIndices, FindShape, LoadDataFileNoErr, LoadDataFileErr, OpenArtArchive, OpenArtArchiveErr
+extern Random32, SetRemapTable, GetRemapTable, WritePaletteRegs, ArtBankEntry, PlayQueuedSpeech, LoadFileAlloc, LoadFileAllocQuiet
 extern LoadFileInto, LoadFileIntoQuiet, LoadFileToBlockShared, LoadFileToBlockPlain, SetSpeechVolume, SetMusicStreamVolume, OpenAudioStreamChannel, CloseAudioStreamChannel
 extern FeedAudioStream, FlushAudioStream, ChannelPlaying, StopChannel, DosCloseFile, DosWriteFile, AsyncResetRequest, AsyncStreamStep
-extern AsyncFreeRequest, ReleaseBankSample, StopSpeechQueue, SpeechQueueState, SetChannelVolumeChecked, sub_10AE10, sub_10AED0, sub_10B000
-extern SetScreenScale, ProjectRinkObjectPoints, DrawRinkObjectPolys, DrawModelSorted, DrawModel, InitModelParts, DrawFixedLine, sub_10C434
-extern AddVec3, SubVec3, ScaleVec3, DrawSpriteScaled, sub_10CF34, DrawSurfacePolys, AllocOverlaySlot, SetOverlayCentre
+extern AsyncFreeRequest, ReleaseBankSample, StopSpeechQueue, SpeechQueueState, SetChannelVolumeChecked, ReadWholeFile, DosFileInfo, BuildReciprocalTable
+extern SetScreenScale, ProjectRinkObjectPoints, DrawRinkObjectPolys, DrawModelSorted, DrawModel, InitModelParts, DrawFixedLine, DrawEllipseSpans
+extern AddVec3, SubVec3, ScaleVec3, DrawSpriteScaled, TransformVecFull, DrawSurfacePolys, AllocOverlaySlot, SetOverlayCentre
 extern AimOverlayModel, SetOverlayPosition, AllocOverlayModel, SetRinkView, TransformRinkPoints, ProjectRinkObject, DrawRinkPolyStrip, DrawRinkFan
 extern DrawRinkPolys, DrawRinkRing, DrawRinkLineFlat, DrawTileTexture, DrawTilePage, FindInstanceShape, BindModelShapes, UpdateModelInstance
 extern SetModelShape, SetModelPartName, LoadModelByName, FreeModelFile, CreateModelInstance, FreeModelInstance, SetModelMatrix, SetModelPosition
@@ -80,7 +80,7 @@ extern LoadRinkLines, LoadRinkModel, FreeRinkModel, SetRinkTransform, DrawRinkOv
 extern SaveViewOrigin, LoadGoalieMask, LoadGameModels, SetupTeamModels, FreeGameModels, UpdateViewMatrix, ScaleModelLods, SetModelExtraFlags
 extern DrawPlayersSorted, DrawIceMarkers, DrawPlayerNames, DrawPuckArrow, NoOpDraw, ReplaySoundAllowed, ProjectRinkPoints, LoadAiIcons
 extern FreeCameraDebug, PlayMovie, ShowLoadingBar, ClearLinkAbort, ServiceIdle, AllocMemBlock, FreeMemBlock, ZeroMem
-extern WaitTicks, sub_FC330, sub_FC410, sub_FC4BC, SelectFont, FillPolygon, DrawTextAt, SetTextColors
+extern WaitTicks, OpenResourceArchive, CurrentArchiveName, MatchColor, SelectFont, FillPolygon, DrawTextAt, SetTextColors
 extern IntsToFloats, FloatsToInts, ScaleFloatsToInts, VecMulMat, TransformVecs, VecAdd, AddVecs, VecDistance
 extern SetViewScale, ProjectCoord, ProjectCoordInt, ProjectPoints, ProjectPointsWithZ, ProjectPointsToScreen, tickcount, unk_1611B4
 extern unk_169848, unk_1698A2, unk_169989, unk_16AF14, unk_16AF6C, unk_16B084, unk_16B0E4, unk_16B144
@@ -2738,7 +2738,7 @@ MakeDataPath_62:
         call strlen_
         cmp edx, eax
         jb short .4
-        call sub_FC410
+        call CurrentArchiveName
         mov ecx, eax
         call ServiceIdle
         mov edx, ebx
@@ -2747,7 +2747,7 @@ MakeDataPath_62:
         test eax, eax
         je short .9
         push ebx
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
 .9:
         mov edx, esi
@@ -2993,7 +2993,7 @@ jpt_4AE54:
         lea eax, [byte ebp-028h]
         mov edx, ebx
         call strcat_
-        call sub_FC410
+        call CurrentArchiveName
         lea edx, [byte ebp-028h]
         mov ebx, eax
         call ServiceIdle
@@ -3004,7 +3004,7 @@ jpt_4AE54:
         lea eax, [byte ebp-028h]
         push eax
 .9:
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
 .10:
         xor edx, edx
@@ -3128,7 +3128,7 @@ LoadDataFileHandle:
         call ServiceIdle
         push ebx
         push unk_1AC7DC
-        call sub_10AE10
+        call ReadWholeFile
         jmp near jpt_4AE54_137
 ;-----------------------------------------------------------------------------
 ; LoadDataFileLib                                 4B074  96 PC, low confidence
@@ -3145,7 +3145,7 @@ LoadDataFileLib:
         call ServiceIdle
         push ebx
         push unk_1AC7DC
-        call sub_100498
+        call LoadResourceDataShared
         jmp near jpt_4AE54_137
         push ebx
         push ecx
@@ -3156,7 +3156,7 @@ LoadDataFileLib:
         call ServiceIdle
         push ebx
         push unk_1AC7DC
-        call sub_1004B8
+        call LoadResourceData
         jmp near jpt_4AE54_137
         push ebx
         push ecx
@@ -3167,7 +3167,7 @@ LoadDataFileLib:
         call ServiceIdle
         push ebx
         push unk_1AC7DC
-        call sub_1004F8
+        call LoadResourceBlockShared
         jmp near jpt_4AE54_137
         push ebx
         push ecx
@@ -3178,7 +3178,7 @@ LoadDataFileLib:
         call ServiceIdle
         push ebx
         push unk_1AC7DC
-        call sub_100510
+        call LoadResourceBlock
         jmp near jpt_4AE54_137
 ;-----------------------------------------------------------------------------
 ; LoadDataFile                                 4B108  96 PC, medium confidence
@@ -3237,7 +3237,7 @@ LoadDataFileFlag0:
         jmp near jpt_4AE54_137
 ;-----------------------------------------------------------------------------
 ; OpenDataLibrary                                 4B19C  97 PC, low confidence
-; (file id): makes the data file the current library (sub_FC330)
+; (file id): makes the data file the current library (OpenResourceArchive)
 ;-----------------------------------------------------------------------------
 OpenDataLibrary:
         push ecx
@@ -3247,7 +3247,7 @@ OpenDataLibrary:
         call MakeDataPath
         call ServiceIdle
         push unk_1AC7DC
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         call ServiceIdle
         pop edx
@@ -3268,7 +3268,7 @@ SetArtArchive:
         test eax, eax
         jne short .1
         push eax
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         pop esi
         pop edx
@@ -3290,14 +3290,14 @@ SetArtArchive:
         call MakeDataPath
         call ServiceIdle
         push unk_1AC7DC
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         call ServiceIdle
         mov edx, ebx
         mov eax, unk_1AC7DC
         call MakeDataPath
         push unk_1AC7DC
-        call sub_10AED0
+        call DosFileInfo
         mov ecx, 1
         add esp, byte 4
 .3:
@@ -3667,7 +3667,7 @@ InitGameGraphics:
         sub esp, byte 0Ch
         mov ebp, eax
         mov dword [dword_1ADC70], eax
-        call sub_10B000
+        call BuildReciprocalTable
         push dword 42C80000h
         call SetViewScale
         push byte 64h
@@ -3713,13 +3713,13 @@ InitGameGraphics:
         call ShowLoadingBar
         call ServiceIdle
         push dword 0FF000000h
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         mov al, byte [dword eax+byte_16FA40]
         and eax, 0FFh
         push eax
         push byte 0FFFFFFFFh
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         mov al, byte [dword eax+byte_16FA40]
         and eax, 0FFh
@@ -4041,7 +4041,7 @@ DrawGameFrame:
         push byte 0
         call Random32
         push eax
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         push eax
         call SetTextColors
@@ -4567,7 +4567,7 @@ DrawCameraFlashes:
         push unk_1B1068
         lea eax, [byte esp+08h]
         push eax
-        call sub_10CF34
+        call TransformVecFull
         mov edx, dword [byte ebx+0Ch]
         add esp, byte 0Ch
         test edx, edx
@@ -6803,7 +6803,7 @@ DrawFaceoffDot:
         push eax
         mov ecx, dword [edx]
         push ecx
-        call sub_10C434
+        call DrawEllipseSpans
         add esp, byte 20h
 .2:
         mov ecx, dword [byte esp+04h]
@@ -8024,14 +8024,14 @@ DrawStandsSide:
         sar eax, 1
         push ebp
         mov dword [byte esp+010h], eax
-        call sub_100700
+        call AngleOfVector
         add esp, byte 8
         mov ebx, eax
         mov eax, dword [esp]
         push eax
         mov edx, dword [byte esp+0Ch]
         push edx
-        call sub_100700
+        call AngleOfVector
         sub ebx, eax
         lea eax, [dword ebx+04000h]
         add esp, byte 8
@@ -8669,7 +8669,7 @@ BuildRinkGeometry:
         mov dword [byte esp+028h], edi
 .10:
         push edi
-        call sub_1007C0
+        call SinInterp
         mov ecx, dword [dword_1B103C]
         add esp, byte 4
         mov edx, eax
@@ -8682,7 +8682,7 @@ BuildRinkGeometry:
         xor eax, eax
         push edi
         mov dword [dword ebx+dword_1AE40C], eax
-        call sub_100830
+        call CosInterp
         mov ecx, dword [dword_1B103C]
         add esp, byte 4
         mov edx, eax
@@ -8710,7 +8710,7 @@ BuildRinkGeometry:
         mov dword [dword_1AE684], edx
 .11:
         push edi
-        call sub_1007C0
+        call SinInterp
         mov ecx, dword [dword_1B1048]
         add esp, byte 4
         mov edx, eax
@@ -8723,7 +8723,7 @@ BuildRinkGeometry:
         mov dword [dword ebx+dword_1ADF98], eax
         push edi
         mov dword [dword ebx+dword_1ADF9C], ecx
-        call sub_100830
+        call CosInterp
         mov ecx, dword [dword_1B1048]
         add esp, byte 4
         mov edx, eax
@@ -8746,7 +8746,7 @@ BuildRinkGeometry:
         xor ebx, ebx
 .12:
         push esi
-        call sub_1007C0
+        call SinInterp
         mov ecx, dword [dword_1B1050]
         add esp, byte 4
         mov edx, eax
@@ -8760,7 +8760,7 @@ BuildRinkGeometry:
         mov dword [dword ebx+dword_1B0CE4], eax
         push esi
         mov dword [dword ebx+dword_1B0CE8], edx
-        call sub_100830
+        call CosInterp
         mov ecx, dword [dword_1B1050]
         add esp, byte 4
         mov edx, eax
@@ -8793,7 +8793,7 @@ BuildRinkGeometry:
         xor ebx, ebx
 .15:
         push esi
-        call sub_1007C0
+        call SinInterp
         add ebx, byte 0Ch
         mov ecx, dword [dword_1B1040]
         add esp, byte 4
@@ -8807,7 +8807,7 @@ BuildRinkGeometry:
         mov dword [dword ebx+dword_1B0C80], eax
         push esi
         mov dword [dword ebx+dword_1B0C7C], edi
-        call sub_100830
+        call CosInterp
         mov ecx, dword [dword_1B1040]
         add esp, byte 4
         mov edx, eax
@@ -10855,7 +10855,7 @@ UpdateGoalLight:
         add esi, edx
         shl esi, 2
         push esi
-        call sub_1007C0
+        call SinInterp
         add esp, byte 4
         mov ebx, eax
         test eax, eax
@@ -10886,17 +10886,17 @@ UpdateGoalLight:
         je near .9
         lea ebp, [dword esi+01999h]
         push ebp
-        call sub_1007C0
+        call SinInterp
         add esp, byte 4
         mov edi, eax
         test eax, eax
         je near .9
         push esi
-        call sub_100830
+        call CosInterp
         add esp, byte 4
         push ebp
         mov esi, eax
-        call sub_100830
+        call CosInterp
         add esp, byte 4
         mov ebp, eax
         test ebx, ebx
@@ -11036,7 +11036,7 @@ DrawGoalLight:
         push eax
         push unk_1B1068
         push dword_1B105C
-        call sub_10CF34
+        call TransformVecFull
         add esp, byte 0Ch
         mov eax, esp
         push eax
@@ -11810,12 +11810,12 @@ DrawGlass:
         test eax, eax
         je short .6
         push unk_1B0410
-        call sub_102CDC
+        call SetRemapTable
         mov eax, dword [dword_1B0FF8]
         jmp short .7
 .6:
         push unk_1B0510
-        call sub_102CDC
+        call SetRemapTable
         mov eax, dword [dword_1B0FFC]
 .7:
         add esp, byte 4
@@ -11838,13 +11838,13 @@ DrawBenchPlayers:
         sub esp, 124h
         mov edx, esp
         push edx
-        call sub_102CF4
+        call GetRemapTable
         add esp, byte 4
         lea edx, [dword esp+0118h]
         push edx
         push unk_1B1068
         push dword_1B105C
-        call sub_10CF34
+        call TransformVecFull
         add esp, byte 0Ch
         mov edx, dword [dword_1B0B9C]
         push edx
@@ -11897,13 +11897,13 @@ DrawBenchPlayers:
         je short .2
         push unk_1B0410
         mov ebp, 1
-        call sub_102CDC
+        call SetRemapTable
         jmp short .3
 .2:
         test ebp, ebp
         je short .4
         push unk_1B0510
-        call sub_102CDC
+        call SetRemapTable
         xor ebp, ebp
 .3:
         add esp, byte 4
@@ -11938,7 +11938,7 @@ DrawBenchPlayers:
 .6:
         mov edx, esp
         push edx
-        call sub_102CDC
+        call SetRemapTable
         add esp, byte 4
         add esp, 124h
         pop ebp
@@ -12110,12 +12110,12 @@ DrawBenches:
         add esp, byte 0Ch
         mov eax, esp
         push eax
-        call sub_102CF4
+        call GetRemapTable
         add esp, byte 4
         push unk_1B0970
         mov edi, dword_1AF2B8
         xor ebp, ebp
-        call sub_102CDC
+        call SetRemapTable
         add esp, byte 4
 .1:
         cmp dword [edi], byte 0
@@ -12230,7 +12230,7 @@ DrawBenches:
         cmp dword [dword_16AF48], byte 0
         je short .11
         push unk_1B0510
-        call sub_102CDC
+        call SetRemapTable
         mov eax, dword [dword_1B0FFC]
         add esp, byte 4
         mov dword [dword_1B0F9C], eax
@@ -12241,7 +12241,7 @@ DrawBenches:
 .11:
         mov eax, esp
         push eax
-        call sub_102CDC
+        call SetRemapTable
         add esp, byte 4
         add esp, 100h
         pop ebp
@@ -12403,7 +12403,7 @@ LoadScoreboardArt:
         mov eax, dword [dword_1B0B20]
         sub eax, ebx
         push eax
-        call sub_100700
+        call AngleOfVector
         mov ecx, eax
         add esp, byte 8
         neg ecx
@@ -12430,7 +12430,7 @@ LoadScoreboardArt:
         push edx
         mov dword [dword_1B0B20], ebp
         mov dword [dword_1B0B28], eax
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
 .1:
         pop ebp
@@ -12537,7 +12537,7 @@ DrawScoreboard:
         mov eax, dword [dword_1B0B20]
         sub eax, ecx
         push eax
-        call sub_100700
+        call AngleOfVector
         mov esi, eax
         mov dword [dword_1B0B60], eax
         neg esi
@@ -12607,7 +12607,7 @@ DrawScoreboard:
         push unk_1B0B3C
         lea eax, [byte esp+014h]
         push eax
-        call sub_10CF34
+        call TransformVecFull
         add esp, byte 0Ch
         push dword_1B0B20
         lea eax, [byte esp+04h]
@@ -13595,14 +13595,14 @@ OpenArenaArchive_2C:
         mov ecx, dword [dword_16AF68]
         push ecx
         push str_EMPTYFSH
-        call sub_10AE10
+        call ReadWholeFile
         add esp, byte 8
         jmp short OpenArenaArchive_7D.2
 OpenArenaArchive_42:
         mov ebx, dword [dword_16AF68]
         push ebx
         push str_HALFFSH
-        call sub_10AE10
+        call ReadWholeFile
         add esp, byte 8
         jmp short OpenArenaArchive_7D.2
 OpenArenaArchive_58:
@@ -13620,7 +13620,7 @@ OpenArenaArchive_7D:
         mov edx, dword [dword_16AF68]
         push edx
         push str_STANDSFSH
-        call sub_10AE10
+        call ReadWholeFile
         mov eax, str_Stands2
         mov ebx, dword [dword_16AF68]
         add esp, byte 8
@@ -13673,7 +13673,7 @@ OpenArenaArchive_7D:
         mov eax, dword [byte edx+eax*4+0Ch]
         push byte 0
         mov dword [dword_1B101C], eax
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         add esp, byte 10h
         pop ebp

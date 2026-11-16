@@ -24,16 +24,16 @@ extern dword_1C8194, dword_1C8198, dword_1C819C, dword_1C81A0, dword_1C81A4, dwo
 extern dword_1C81B4, dword_1C81B8, dword_1C8268, dword_1CF538, dword_1CF548, dword_1CF550, dword_1CF554, dword_1CF5A4
 extern dword_1CF5B0, dword_1CF5B4, dword_1CF5B8, exit_, getcwd_, MainMenuAnim_32E, MainMenuAnim_344, MainMenuAnim_35A
 extern MainMenuAnim_370, memcpy_, open_, printf_, sprintf_, srand_, strcat_, strcpy_
-extern strlen_, sub_1008CC, bcopy, BlitConverted, BlitShape2, BlitArt, BlitShape, PresentScreen
-extern FindShape, DrawShapeBlended, ConvertArtNew, sub_102C10, Random32, LoadGripLibrary, InitGripDriver, LoadJoystickConfig
-extern IsCdDrive, sub_106F64, sub_106F94, DetectWindows, InstallKeyboardHandler, RemoveKeyboardHandler, IsKeyDown, PlotPixelAt
-extern InitMemoryPoolArgs, InitPlatform, InstallErrorHandlers, ConvertArtXY, FormatString, SaveTextState, RestoreTextState, sub_11B008
+extern strlen_, GetPaletteRange, bcopy, BlitConverted, BlitShape2, BlitArt, BlitShape, PresentScreen
+extern FindShape, DrawShapeBlended, ConvertArtNew, ResetClipWindow, Random32, LoadGripLibrary, InitGripDriver, LoadJoystickConfig
+extern IsCdDrive, UnpackShared, UnpackedSize, DetectWindows, InstallKeyboardHandler, RemoveKeyboardHandler, IsKeyDown, PlotPixelAt
+extern InitMemoryPoolArgs, InitPlatform, InstallErrorHandlers, ConvertArtXY, FormatString, SaveTextState, RestoreTextState, TintRect
 extern SetScreenTarget, LoadMainSfxBank, OpenAudioStream, ShutdownGameAudio, ChkMenuMusic, PauseMusic, RequestMusicStop, ArenaFileName
 extern StopAllSfx, PlaySfx, MakeDirPath, LoadDataFile, LoadStartupData, RunFrontEnd, InitMenuItems, RunMenu
 extern InitScrollList, ScrollUp, ScrollDown, FreeScrollList, SetScrollBarPos, ScrollToMouse, GetLangText, FreeLangText
 extern RunIntro, AllocStaticBuffer, InitDbState, ServiceIdle, NetInit, NetShutdown, LinkSendBlock, LinkReceiveBlock
 extern WaitForOtherComputer, FillBox, InitVideoModeList, AllocMemBlock, FreeMemBlock, MemFreeSize, ZeroMem, FillMemPattern
-extern sub_FBE40, sub_FBE94, MakeColor, sub_FC73E, SelectFont, FreeBitmap, DrawShapeAtOwnPos, DrawArt
+extern KbdGetKey, KbdFlush, MakeColor, MouseInit, SelectFont, FreeBitmap, DrawShapeAtOwnPos, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRectColor, FillRect, MeasureText, DrawTextAt, SetTextColors
 extern FillRectCorners, DrawGlyph, tickcount, unk_1643C2, unk_16445A, unk_1644A0, unk_1644EF, unk_1645E7
 extern unk_164636, unk_164686, unk_1646D4, unk_164724, unk_16480B, unk_1648DA, unk_16491D, unk_1649E0
@@ -161,7 +161,7 @@ main_:
         mov eax, 1
         call exit_
 .2:
-        call sub_FC73E
+        call MouseInit
         test eax, eax
         jne short .3
         push str_NHL97RequiresAMouseAMouse
@@ -3974,7 +3974,7 @@ EditText:
         xor ah, ah
         mov dword [dword esp+0680h], edx
         mov byte [dword esp+0684h], ah
-        call sub_FBE94
+        call KbdFlush
         call RemoveKeyboardHandler
         mov ecx, 0Eh
         mov dword [dword esp+0650h], ebx
@@ -4151,14 +4151,14 @@ EditText:
         push eax
         push dword 100h
         push byte 0
-        call sub_1008CC
+        call GetPaletteRange
         add esp, byte 0Ch
         lea eax, [dword esp+0400h]
         push eax
         lea eax, [byte esp+04h]
         push eax
         push dword 8000h
-        call sub_11B008
+        call TintRect
         add esp, byte 0Ch
         xor ebx, ebx
         mov ecx, dword [dword esp+0650h]
@@ -4385,7 +4385,7 @@ EditText:
         add esp, byte 0Ch
         call PresentScreen
 .23:
-        call sub_FBE40
+        call KbdGetKey
         test al, al
         jne short .24
         call ServiceIdle
@@ -4394,7 +4394,7 @@ EditText:
         and eax, 0FFh
         mov al, byte [dword esp+eax+0300h]
         mov byte [dword esp+0684h], al
-        call sub_FBE94
+        call KbdFlush
         cmp byte [dword esp+0684h], 0Dh
         je short .25
         mov eax, 30Ah
@@ -4461,7 +4461,7 @@ EditText:
         call FreeBitmap
         add esp, byte 4
 .31:
-        call sub_FBE40
+        call KbdGetKey
         test eax, eax
         jne short .32
         push byte 1Ch
@@ -4597,7 +4597,7 @@ LoadTeamLogo:
         push byte 0
         mov esi, dword [nosplit ebx*4+dword_1C5DE8]
         push esi
-        call sub_106F94
+        call UnpackedSize
         add esp, byte 4
         push eax
         push str_UNPACKLOGO
@@ -4607,7 +4607,7 @@ LoadTeamLogo:
         mov edi, dword [nosplit ebx*4+dword_1C5DE8]
         push edi
         mov dword [dword_1C5EF0], eax
-        call sub_106F64
+        call UnpackShared
         add esp, byte 8
         push str_LOGO8
         mov ebp, dword [dword_1C5EF0]
@@ -6328,7 +6328,7 @@ PlayerBioScreen_45A:
         push esi
         call BlitArt
         add esp, byte 0Ch
-        call sub_102C10
+        call ResetClipWindow
         push dword 0FF000000h
         call MakeColor
         add esp, byte 4
@@ -8258,14 +8258,14 @@ DrawWorkingBox:
         push eax
         push dword 100h
         push byte 0
-        call sub_1008CC
+        call GetPaletteRange
         add esp, byte 0Ch
         lea eax, [dword esp+0300h]
         push eax
         lea eax, [byte esp+04h]
         push eax
         push dword 8000h
-        call sub_11B008
+        call TintRect
         add esp, byte 0Ch
         mov ebx, dword [dword_1C81B0]
         push ebx
@@ -8536,14 +8536,14 @@ DrawLinkBox:
         push eax
         push dword 100h
         push byte 0
-        call sub_1008CC
+        call GetPaletteRange
         add esp, byte 0Ch
         lea eax, [dword esp+0300h]
         push eax
         lea eax, [byte esp+04h]
         push eax
         push dword 8000h
-        call sub_11B008
+        call TintRect
         add esp, byte 0Ch
         push ebx
         call SetDrawTarget
@@ -9385,7 +9385,7 @@ ShowStatsScreen:
         mov edi, esp
         mov esi, dword_16E670
         rep movsd
-        call sub_FBE94
+        call KbdFlush
         xor esi, esi
         mov ebp, 4
 .1:

@@ -3,8 +3,8 @@ bits 32
 %include "hockey.inc"
 section s_10C8B0 progbits alloc exec nowrite align=1
 extern byte_16E688, byte_16E689, dword_16E678, dword_16E67C, dword_16E680, dword_16E684, dword_16E690, dword_16E694
-extern dword_16E698, dword_16E6A0, dword_1DA8D8, ConvertArtSame, sub_102D3C, SetBlitSource, CopyMappedSpan, ShapeRowBytes
-extern BuildSpanOffsets, sub_12D6A0, FreeMemBlock
+extern dword_16E698, dword_16E6A0, dword_1DA8D8, ConvertArtSame, VesaSetBank, SetBlitSource, CopyMappedSpan, ShapeRowBytes
+extern BuildSpanOffsets, VecLengthOf, FreeMemBlock
 global AddVec3, SubVec3, ScaleVec3, DrawSpriteRow, DrawSpriteScaledCore, DrawSpriteScaledFit, DrawSpriteScaledBy, DrawSpriteScaledFlip
 global DrawSpriteScaled
 ;-----------------------------------------------------------------------------
@@ -121,7 +121,7 @@ ScaleVec3:
         mov dword [byte esp+08h], eax
         mov eax, esp
         push eax
-        call sub_12D6A0
+        call VecLengthOf
         add esp, byte 4
         add esp, byte 0Ch
         pop edi
@@ -144,7 +144,7 @@ DrawSpriteRow:
         shr edi, 10h
         mov eax, edi
         xor edx, edx
-        call sub_102D3C
+        call VesaSetBank
         mov dl, byte [byte_16E688]
         inc edx
         and dl, 0FEh
@@ -178,7 +178,7 @@ DrawSpriteRow:
         call CopyMappedSpan
         add esp, byte 0Ch
         lea eax, [byte edi+01h]
-        call sub_102D3C
+        call VesaSetBank
         mov eax, dword [byte esp+01Ch]
         sub eax, ebx
         push eax

@@ -153,7 +153,7 @@ extern qword_163CA4, qword_163CAC, qword_163CBC, qword_163CC4, qword_163CCC, qwo
 extern qword_163CEC, qword_163CF4, qword_163CFC, qword_163D04, qword_163D0C, qword_163D14, qword_163D1C, qword_163D24
 extern qword_163D2C, qword_163D34, qword_163D44, qword_163D54, qword_163D64, qword_163DA1, qword_163DA9, qword_163DB1
 extern qword_163EF8, rand_, randomd0, regd1, sprintf_, str_Back, str_Uarm, strcpy_
-extern strncmp_, strncpy_, strnicmp_, strupr_, sub_100498, sub_100700, SortIndices, bcopy
+extern strncmp_, strncpy_, strnicmp_, strupr_, LoadResourceDataShared, AngleOfVector, SortIndices, bcopy
 extern BlitShape2, FindShape, OpenArtArchive, OpenArtArchiveErr, Random32, DrawLimbSegment, DrawLimbSegmentFlat, BuildUniformArt
 extern BytesPerPixelForDepth, LoadFileAlloc, ProjectModelPoints, DrawModel, DrawSpriteScaledFlip, FindModelShapeByName, FindInstanceShape, BindModelShapes
 extern UpdateModelInstance, UpdateModelPart, SetModelShape, SetModelShapeWith, LoadModelByName, FreeModelFile, InitModelInstance, CreateModelInstance
@@ -171,7 +171,7 @@ extern ResetStreamAudio, SetArtArchive, RefreshViewDistance, AddModelName, FindM
 extern TriggerCameraFlashes, DrawNetShadows, PeriodOver, IsCameraOnPuck, SetCameraMode, StartCrowdReaction, StartBenchCheer, UpdateScoreboardPos
 extern UpdateScoreboardSpin, ShapePixelSize, DrawShadowShape, ModelViewDepth, DrawPortraitModels, PickMarkerShape, SetTeamColours, SetFaceMouth
 extern SetFaceExpression, SetFaceBlink, SetModelHeading, BuildFaceTextures, LogPeriodEnd, IsReplayRecordingOn, ServiceIdle, AllocMemBlock
-extern AllocMemData, FreeMemBlock, MemFreeSizeAny, ZeroMem, FillMem, sub_FC330, sub_FC4BC, SelectFont
+extern AllocMemData, FreeMemBlock, MemFreeSizeAny, ZeroMem, FillMem, OpenResourceArchive, MatchColor, SelectFont
 extern FreeBitmap, SetDrawTarget, FillPolygon, FillPolygonPoints, FillRectColor, FillRect, MeasureText, DrawTextAt
 extern SetTextColors, ClearIfNaN, FloatsToInts, MatRotX, MatRotY, MatTranspose, MatMul, VecMulMat
 extern TransformVecs, TransformTranslateVecs, VecAdd, VecSub, OffsetVecs, SubVecs, VecCross, VecDistance
@@ -697,7 +697,7 @@ DrawJerseyLettering:
         mov ecx, dword [nosplit edi*4+dword_16B3F4]
         push ecx
         mov ebx, eax
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         push eax
         call SetTextColors
@@ -873,7 +873,7 @@ LoadCupArt:
         add esp, byte 8
         push byte 0
         mov dword [dword esi+06C0h], dword_1B8450
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         pop esi
         pop edx
@@ -999,7 +999,7 @@ LoadGoalieMask:
         cmp edi, ecx
         jne near .3
         push byte 0
-        call sub_FC330
+        call OpenResourceArchive
         xor esi, esi
         add esp, byte 4
         mov dword [dword_1D91CC], esi
@@ -1390,7 +1390,7 @@ LoadPlayerCommonArt:
         call FreeMemBlock
         add esp, byte 4
         push byte 0
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         add esp, byte 4
         pop ebp
@@ -1441,7 +1441,7 @@ LoadUniformArt:
         jne short .1
         push edx
         push str_NumbersFfn
-        call sub_100498
+        call LoadResourceDataShared
         add esp, byte 8
         mov edi, dword [unk_56790]
         push eax
@@ -1456,7 +1456,7 @@ LoadUniformArt:
         mov ecx, SetupPlayerModel_D8
         push str_A2zFfn
         mov dword [dword_1CF5B8], ecx
-        call sub_100498
+        call LoadResourceDataShared
         add esp, byte 8
         mov dword [dword ebx+dword_1B830C], eax
         jmp short .2
@@ -1750,7 +1750,7 @@ LoadUniformArt:
         call FreeMemBlock
         add esp, byte 4
         push byte 0
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         add esp, byte 34h
         pop ebp
@@ -2184,7 +2184,7 @@ LoadGameModels:
         call BuildFaceTextures
         push edi
         mov dword [dword_1D91CC], edi
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         add esp, byte 20h
         pop ebp
@@ -2265,7 +2265,7 @@ SetupTeamModels:
         cmp esi, byte 6
         jl short .5
         push dword 0AF805Dh
-        call sub_FC4BC
+        call MatchColor
         xor esi, esi
         add esp, byte 4
         mov dword [dword_1B854C], eax
@@ -4793,7 +4793,7 @@ RenderModelPortrait:
         push ebx
         mov ecx, dword [esi]
         push ecx
-        call sub_100700
+        call AngleOfVector
         mov dword [byte esp+0Ch], eax
         add esp, byte 8
         mov eax, dword [byte esi+08h]
@@ -4805,7 +4805,7 @@ RenderModelPortrait:
         push eax
         mov ebx, dword [byte esi+04h]
         push ebx
-        call sub_100700
+        call AngleOfVector
         mov dword [byte esp+08h], eax
         add esp, byte 8
         sub esp, byte 4
@@ -5177,7 +5177,7 @@ DrawIceMarkers:
         cmp dword [dword eax+0744h], byte 0
         je short .2
         push byte 0FFFFFFFFh
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         mov edx, eax
         mov eax, ebx
@@ -5300,7 +5300,7 @@ DrawPlayerNames:
         sub esi, eax
         push dword 0FF000000h
         mov dword [byte esp+08h], esi
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         push eax
         call SetTextColors
@@ -5317,7 +5317,7 @@ DrawPlayerNames:
         add esp, byte 0Ch
         push dword 0FFh
         push dword 0FFAAAAAAh
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         push eax
         call SetTextColors
@@ -5370,7 +5370,7 @@ DrawPuckArrow:
         fistp dword [byte esp+0Ch]
         mov edi, dword [byte esp+0Ch]
         push edi
-        call sub_100700
+        call AngleOfVector
         xor edx, edx
         add esp, byte 8
         mov dl, byte [byte_16FA40]
@@ -5440,7 +5440,7 @@ DrawPuckArrow:
         add al, 0F0h
         push byte 0FFFFFFFFh
         mov byte [byte_16FA40], al
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         mov byte [byte_16FA4F], al
         mov ebp, dword [esp]
@@ -5798,7 +5798,7 @@ LoadFaceArt:
         jne short .2
         push byte 0
         mov dword [dword_1D91CC], ebp
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         pop ebp
         pop edi
@@ -6004,7 +6004,7 @@ LoadPlayerFace:
         jmp short .3
 .4:
         push byte 0
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         mov eax, esi
         add esp, byte 20h
@@ -20754,7 +20754,7 @@ InitAnimPoints:
         call LoadRefCallAnims
         call LoadFightAnims
         push byte 0
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         jmp near LoadGoalieAnimFile_168
 ;-----------------------------------------------------------------------------
@@ -45636,7 +45636,7 @@ LoadAiIcons:
         mov dword [dword_1C0EE0], eax
         mov dword [dword_1C0EF0], eax
         mov dword [dword_1C0EFC], eax
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         pop edx
         pop ecx
@@ -45759,7 +45759,7 @@ updateplayers:
         mov dword [dword ebx+0E2h], eax
         mov eax, dword [byte esp+04h]
         push eax
-        call sub_100700
+        call AngleOfVector
         add esp, byte 8
         mov edx, dword [esp]
         sar edx, 2
@@ -46447,7 +46447,7 @@ clockcont_0:
         call SetArtArchive
         call LoadCupAnims
         push byte 0
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         mov eax, 0CCCCh
         mov edx, 44h

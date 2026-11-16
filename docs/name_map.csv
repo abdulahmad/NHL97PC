@@ -2142,30 +2142,55 @@ FB704,ZeroMem,sub_FB704,new,medium,"(ptr, n): fills n bytes with zero (sub_FB73D
 FB71C,FillMem,sub_FB71C,new,medium,"(ptr, n, byte): fills n bytes with a byte value (sub_FB731 spreads it over a dword)",src/lib/ea/ea_memman_01.asm
 FB731,FillMemExpandByte,sub_FB731,new,low,repeats the fill byte across a dword before falling into the fill loop,src/lib/ea/ea_memman_01.asm
 FB73D,FillMemPattern,sub_FB73D,new,low,"fills memory with a byte pattern, using 64-bit FPU stores for long aligned runs",src/lib/ea/ea_memman_01.asm
+FB8AE,CalibrateJoystick,sub_FB8AE,new,low,times the joystick port with the timer chip to calibrate its range,src/lib/input/input_joystick_misc_01.asm
+FB9D8,ReadJoystickPorts,sub_FB9D8,new,low,reads the joystick buttons and axes by timing the port,src/lib/input/input_joystick_misc_01.asm
+FBCD8,ResetJoystickRange,sub_FBCD8,new,low,sets the default joystick centre and range,src/lib/input/input_joystick_misc_01.asm
 FBD60,__STOSB,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FBD97,__STOSD,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FBE03,GetRandState,sub_FBE03,new,high,returns the C library's rand state address,src/lib/watcom/watcom_clib_02.asm
 FBE09,rand_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FBE2D,srand_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+FBE40,KbdGetKey,sub_FBE40,new,low,"reads a key from the keyboard, or 0 when none is waiting",src/lib/input/input_joystick_misc_02.asm
+FBE5D,KbdIdleCall,sub_FBE5D,new,low,calls the keyboard idle hook,src/lib/input/input_joystick_misc_02.asm
+FBE63,KbdPeekKey,sub_FBE63,new,low,"returns the next key without removing it, or 0",src/lib/input/input_joystick_misc_02.asm
+FBE78,SetKbdIdleHook,sub_FBE78,new,low,sets the keyboard idle hook; followed by the getter,src/lib/input/input_joystick_misc_02.asm
 FBE88,WaitKey,,96PC,high,NHL96PC DFF70 (exact): 4 instructions,
+FBE94,KbdFlush,sub_FBE94,new,low,reads keys until none are left; followed by the timed wait for a key,src/lib/input/input_joystick_misc_02.asm
+FBF00,RunTimerCallbacks,sub_FBF00,new,low,calls every installed timer callback,src/lib/input/input_joystick_misc_02.asm
 FBF24,TimerISR,sub_FBF24,96PC,medium,timer interrupt handler: increments tickcount,src/lib/input/input_joystick_misc_02.asm
 FBFDC,addtimer,sub_FBFDC,96PC,medium,96 PC addtimer: adds a timer callback to the 8-entry table,src/lib/input/input_joystick_misc_02.asm
+FC008,RemoveTimerCallback,sub_FC008,new,low,removes a callback from the timer callback table,src/lib/ea/ea_timer.asm
 FC078,RestoreTimer,,96PC,medium,NHL96PC AA6D0 (similar): mnemonic similarity 0.90 over 34 instructions,
+FC0F0,InstallTimer,sub_FC0F0,new,low,"allocates the timer stack, masks the timer and installs the timer interrupt",src/lib/ea/ea_timer.asm
+FC210,InitFpuEmulatorEntry,sub_FC210,new,low,start-up table entry that starts the coprocessor emulator,src/lib/watcom/watcom_clib_03.asm
+FC215,FiniFpuEmulatorEntry,sub_FC215,new,low,exit table entry that stops the coprocessor emulator,src/lib/watcom/watcom_clib_03.asm
 FC21A,__CHP,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+FC238,SaveStackSegment,sub_FC238,new,low,records the stack segment at start-up,src/lib/watcom/watcom_clib_03.asm
 FC240,__CHK,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FC250,__GRO,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FC253,__STK,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FC280,GetTicks,,96PC,medium,NHL96PC DFEB4 (sem): R:2155; R:2830; D:16E3F0,
 FC286,TicksSince,,96PC,medium,NHL96PC DFEBA (sem): R:2824; R:2830; D:16E3F0,
+FC290,TicksSinceLast,sub_FC290,new,low,returns the timer ticks since the last call; followed by the tick reset,src/lib/input/input_joystick_misc_03.asm
 FC2AB,SetTickDeadline,,96PC,high,NHL96PC DFEE1 (exact): 4 instructions,
 FC2BB,WaitTickDeadline,,96PC,high,NHL96PC DFEF1 (exact): 4 instructions,
 FC2C9,TickDeadlinePassed,,96PC,medium,NHL96PC DFEFF (sem): D:16E42C; D:16E3F0,
 FC2D9,WaitTicks,sub_FC2D9,96PC,high,NHL96PC WaitTicks: wait n ticks of tickcount; in 97 it runs the task list (sub_F9A88) while it waits,src/lib/input/input_joystick_misc_03.asm
 FC2FD,memcpy_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+FC330,OpenResourceArchive,sub_FC330,new,low,frees the old archive and loads the named resource archive for later lookups,src/lib/watcom/watcom_clib_04.asm
+FC410,CurrentArchiveName,sub_FC410,new,low,returns the name of the open resource archive,src/lib/watcom/watcom_clib_04.asm
+FC420,FindNearestColor,sub_FC420,new,low,searches the palette for the colour nearest to an RGB value,src/lib/watcom/watcom_clib_04.asm
+FC4BC,MatchColor,sub_FC4BC,new,low,"returns the palette index for an RGB value, using the inverse table when there is one",src/lib/watcom/watcom_clib_04.asm
 FC510,MakeColor,sub_FC510,new,low,"(0RGB): converts a colour to a pixel value for the current pixel depth (byte_16E688: 8, 15 / 16, 24 / 32 bits)",src/lib/watcom/watcom_clib_04.asm
+FC590,MouseReadButtons,sub_FC590,new,low,reads the mouse buttons through the mouse driver,src/lib/input/input_mouse.asm
+FC5B6,MouseSetSensitivity,sub_FC5B6,new,low,sets the mouse driver's sensitivity,src/lib/input/input_mouse.asm
 FC5F8,MouseRead,,95PC,medium,NHL95PC B2DCA (sem): C:2186,
 FC635,SetViewRect,sub_FC635,96PC,high,"NHL96PC SetViewRect: stores the mouse range (min x, min y, max x, max y)",src/lib/input/input_mouse.asm
 FC65F,MouseReadMotion,,96PC,medium,NHL96PC DF9B7 (similar): mnemonic similarity 0.88 over 57 instructions,
+FC714,MouseHide,sub_FC714,new,low,raises the mouse hide count,src/lib/input/input_mouse.asm
+FC71B,MouseShow,sub_FC71B,new,low,lowers the mouse hide count,src/lib/input/input_mouse.asm
+FC722,MouseRestoreSensitivity,sub_FC722,new,low,puts back the mouse sensitivity saved at start-up,src/lib/input/input_mouse.asm
+FC73E,MouseInit,sub_FC73E,new,low,resets the mouse driver and records whether a mouse is present,src/lib/input/input_mouse.asm
 FC804,_dos_getdate_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FC81F,_dos_gettime_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FC88C,DebugSetLine,sub_FC88C,new,low,formats a debug message into one of the on-screen debug lines,src/lib/ea/ea_fileblock_01.asm
@@ -2259,8 +2284,18 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 100282,hypot_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 10029A,IF@DPOW,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 1003CD,PowIntLoop,sub_1003CD,new,low,math library: raises st(0) to an integer power by repeated squaring (used by pow),src/lib/watcom/watcom_clib_06.asm
+100400,ReadResourceHeader,sub_100400,new,low,seeks to a resource in a file and reads its first bytes to learn its packed and unpacked size,src/lib/ea/ea_shpi_01.asm
+100498,LoadResourceDataShared,sub_100498,new,low,loads a resource file in shared mode and returns its data pointer,src/lib/ea/ea_shpi_01.asm
+1004B8,LoadResourceData,sub_1004B8,new,low,loads a resource file and returns its data pointer,src/lib/ea/ea_shpi_01.asm
+1004F8,LoadResourceBlockShared,sub_1004F8,new,low,loads a resource file in shared mode and returns its memory block,src/lib/ea/ea_shpi_01.asm
+100510,LoadResourceBlock,sub_100510,new,low,loads a resource file and returns its memory block,src/lib/ea/ea_shpi_01.asm
+100528,LoadResourceFile,sub_100528,new,low,loads a file into a memory block and unpacks it in place when it is compressed,src/lib/ea/ea_shpi_01.asm
 100674,vecdist,,96PC,medium,NHL96PC E14C8 (similar): mnemonic similarity 0.94 over 42 instructions,
+100700,AngleOfVector,sub_100700,new,low,"returns the angle of a 2D vector in 1024ths of a turn, by octant",src/lib/ea/ea_gfx_03.asm
+1007C0,SinInterp,sub_1007C0,new,low,"returns the sine of a fine angle, interpolating between table entries",src/lib/ea/ea_gfx_03.asm
+100830,CosInterp,sub_100830,new,low,"returns the cosine of a fine angle, interpolating between table entries",src/lib/ea/ea_gfx_03.asm
 1008A2,IF@DFMOD,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+1008CC,GetPaletteRange,sub_1008CC,new,low,reads a range of palette entries from the VGA DAC into a buffer,src/lib/ea/ea_gfx_03.asm
 100940,SortIndices,sub_100940,95PC,medium,"sort library: sort n indices by their keys (n, keys, indices)",src/lib/ea/ea_gfx_03.asm
 100A68,bcopy,sub_100A68,new,medium,"(src, dst, n): copies n bytes, backwards when they overlap (BSD order)",src/lib/input/input_joystick_misc_05.asm
 100AD0,_os_handle,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
@@ -2327,7 +2362,16 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 102B78,ConvertArtSame,sub_102B78,new,low,converts a shape in place,src/lib/input/input_joystick_misc_05.asm
 102B94,ConvertArtNew,sub_102B94,new,low,converts a shape into a new block,src/lib/input/input_joystick_misc_05.asm
 102BB8,SetClipWindow,,96PC,medium,NHL96PC DD760 (similar): mnemonic similarity 0.84 over 21 instructions,
+102C10,ResetClipWindow,sub_102C10,new,low,sets the clip window back to the whole screen,src/lib/video/video_bios_vga_01.asm
 102C30,Random32,sub_102C30,new,medium,"returns a pseudo-random dword (multi-word add-with-carry generator, dword_16F77C-790)",src/lib/video/video_bios_vga_01.asm
+102C96,SeedRandom,sub_102C96,new,low,seeds the random generator state from a value,src/lib/video/video_bios_vga_01.asm
+102CDC,SetRemapTable,sub_102CDC,new,low,copies a 256-entry colour remap table into the current one,src/lib/video/video_bios_vga_01.asm
+102CF4,GetRemapTable,sub_102CF4,new,low,copies the current 256-entry colour remap table out,src/lib/video/video_bios_vga_01.asm
+102D3C,VesaSetBank,sub_102D3C,new,low,switches the VESA bank window when the wanted bank differs,src/lib/video/vesa_banked_blit_01.asm
+102DB2,VesaSetModeCall,sub_102DB2,new,low,calls the VESA BIOS to set a mode,src/lib/video/vesa_banked_blit_01.asm
+102DC5,VgaSetModeNoClear,sub_102DC5,new,low,sets a VGA BIOS mode without clearing video memory,src/lib/video/vesa_banked_blit_01.asm
+102E0C,CopyMemFpu,sub_102E0C,new,low,copies memory in 32-byte chunks with 64-bit FPU loads and stores,src/lib/video/vesa_banked_blit_01.asm
+102EBC,GetPaletteEntries,sub_102EBC,new,low,"reads palette entries through the installed hook, or from the VGA DAC",src/lib/video/vesa_banked_blit_01.asm
 102F40,VesaGetModeInfo,sub_102F40,new,low,asks the VESA BIOS for a mode's information through a DOS memory buffer,src/lib/watcom/watcom_clib_07.asm
 103024,VesaQueryMode,sub_103024,new,low,returns the VESA information for a mode in a stack buffer; followed by the resolution distance helper,src/lib/watcom/watcom_clib_07.asm
 103068,FindClosestMode,sub_103068,new,low,picks the video mode closest to a wanted resolution,src/lib/watcom/watcom_clib_07.asm
@@ -2412,6 +2456,9 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 106DF8,LoadFileIntoQuiet,sub_106DF8,new,low,loads a file into a buffer without the error message,src/lib/watcom/watcom_clib_08.asm
 106E10,LoadFileCore,sub_106E10,new,low,loads a file,src/lib/watcom/watcom_clib_08.asm
 106EC0,unpack,,96PC,medium,NHL96PC AFB88 (sem): C:3143; C:3144; C:3146; R:2562,
+106F64,UnpackShared,sub_106F64,new,low,unpacks compressed data in shared mode,src/lib/ea/ea_unpack_01.asm
+106F7C,UnpackPlain,sub_106F7C,new,low,unpacks compressed data,src/lib/ea/ea_unpack_01.asm
+106F94,UnpackedSize,sub_106F94,new,low,returns the unpacked size from a compressed data header,src/lib/ea/ea_unpack_01.asm
 107000,LoadFileToBlock,sub_107000,new,low,"returns a file already held in a named memory block, or loads it from disk into a new block",src/lib/ea/ea_gfx_04.asm
 107098,LoadFileToBlockShared,sub_107098,new,low,loads a file into a memory block in shared mode,src/lib/ea/ea_gfx_04.asm
 1070B0,LoadFileToBlockPlain,sub_1070B0,new,low,loads a file into a memory block,src/lib/ea/ea_gfx_04.asm
@@ -2489,6 +2536,8 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 10968F,RelocateBankGroups,sub_10968F,new,low,relocates each group table of a speech bank,src/lib/ea/ea_fileio.asm
 1096F2,RelocateBankEntries,sub_1096F2,new,low,relocates each entry table of a speech bank,src/lib/ea/ea_fileio.asm
 109775,RegisterSpeechBank,sub_109775,new,low,"checks a speech bank header, relocates it and stores it in a free slot",src/lib/ea/ea_fileio.asm
+1097F0,SumRingRange,sub_1097F0,new,low,sums a range of entries of a circular table,src/lib/ea/ea_vesa_init.asm
+109870,OpenSpeechStreamFile,sub_109870,new,low,opens the speech data stream on the CD and reads its header,src/lib/ea/ea_vesa_init.asm
 109A74,AsyncInit,sub_109A74,96PC,medium,NHL96PC 1BA4D (sem 0.89): S:ASYNC FILE; D:167E78; K:FFFF800,src/lib/lib_109A74.asm
 109B50,AsyncClose,sub_109B50,96PC,medium,NHL96PC 1BB20 (sem 1.00): C:1905; C:2113,src/lib/lib_109A74.asm
 109C94,AsyncRequestOpen,sub_109C94,96PC,medium,NHL96PC 1BC7A (similar 0.91): mnemonic similarity 0.91 over 54 instructions,src/lib/lib_109A74.asm
@@ -2513,11 +2562,14 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 10AD20,SetChannelVolumeChecked,sub_10AD20,new,low,checks a volume (-1..127) and sets it on an active channel inside the audio critical section,src/lib/lib_109A74.asm
 10ADAA,strlen_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 10ADC3,stricmp_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+10AE10,ReadWholeFile,sub_10AE10,new,low,"opens a file, reads it all into memory and closes it",src/lib/ea/ea_gfx_05.asm
+10AED0,DosFileInfo,sub_10AED0,new,low,"opens a file to learn whether it exists and its size, then closes it",src/lib/watcom/watcom_clib_11.asm
 10AF13,printf_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 10AF38,DetectCPU,,96PC,medium,NHL96PC B32E0 (similar): mnemonic similarity 0.88 over 48 instructions,
 10AFCA,_dos_close_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 10AFD9,_dos_commit_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 10AFE9,_dos_open_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+10B000,BuildReciprocalTable,sub_10B000,new,low,fills the table of fixed-point reciprocals used by the polygon fillers,src/lib/watcom/watcom_clib_11.asm
 10B040,SetRinkMatrix,sub_10B040,new,low,copies the rink view rotation matrix and marks the view as changed,src/lib/ea/ea_gfx_06.asm
 10B060,SetRinkTranslation,sub_10B060,new,low,copies the rink view translation vector,src/lib/ea/ea_gfx_06.asm
 10B074,SetScreenScale,sub_10B074,new,low,sets the screen scale and the matching text scale,src/lib/ea/ea_gfx_06.asm
@@ -2539,6 +2591,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 10BEC0,DrawLineXPlot,sub_10BEC0,96PC,medium,96 PC DrawLineXPlot,src/lib/lib_10B660.asm
 10C07C,DrawLineX,sub_10C07C,96PC,medium,96 PC DrawLineX,src/lib/lib_10B660.asm
 10C1C0,DrawFixedLine,sub_10C1C0,96PC,medium,NHL96PC 87DD6 (similar 0.80): mnemonic similarity 0.80 over 173 instructions,src/lib/lib_10B660.asm
+10C434,DrawEllipseSpans,sub_10C434,new,low,draws the spans of a filled ellipse on the rink,src/lib/lib_10B660.asm
 10C8B0,AddVec3,sub_10C8B0,new,low,adds two 3-component vectors,src/lib/ea/ea_shpi_02.asm
 10C8E8,SubVec3,sub_10C8E8,new,low,subtracts one 3-component vector from another,src/lib/ea/ea_shpi_02.asm
 10C920,ScaleVec3,sub_10C920,new,low,multiplies a 3-component vector by a 16.16 factor,src/lib/ea/ea_shpi_02.asm
@@ -2548,6 +2601,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 10CD98,DrawSpriteScaledBy,sub_10CD98,new,low,scales a sprite by a factor and draws it,src/lib/ea/ea_shpi_02.asm
 10CDE0,DrawSpriteScaledFlip,sub_10CDE0,new,low,"scales a sprite by a factor, mirroring it for negative factors",src/lib/ea/ea_shpi_02.asm
 10CE9C,DrawSpriteScaled,sub_10CE9C,new,low,"draws a scaled sprite, picking the fit, factor or mirrored path",src/lib/ea/ea_shpi_02.asm
+10CF34,TransformVecFull,sub_10CF34,new,low,multiplies a vector by a 3x3 matrix with 64-bit products,src/lib/ea/ea_gfx_07.asm
 10CFB4,SetViewScreenOrigin,sub_10CFB4,new,low,sets the view's screen origin and works out its far corner from the view size,src/lib/input/input_joystick_misc_06.asm
 10CFF7,SetCameraAngles,sub_10CFF7,new,low,converts the camera angles from degrees to 1024ths of a turn and builds the camera rotation,src/lib/input/input_joystick_misc_06.asm
 10D140,ClipSurfEdgeAtX,sub_10D140,new,low,"clips a rink surface polygon edge at a vertical line, interpolating its vertex values",src/lib/input/input_joystick_misc_06.asm
@@ -2635,6 +2689,12 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1129B8,RotateModelPoint,sub_1129B8,new,low,rotates a model point,src/lib/ea/ea_gfx_08.asm
 112A90,FillSpanRow,sub_112A90,new,low,fills a row of a span,src/lib/ea/ea_gfx_08.asm
 112B18,FillSpanRows,sub_112B18,new,low,fills the rows of a span,src/lib/ea/ea_gfx_08.asm
+112B84,PolySideTest,sub_112B84,new,low,"tells whether a polygon's points are all in front, all behind or across a depth plane",src/lib/watcom/watcom_clib_12.asm
+112BCC,ClipPolyToNear,sub_112BCC,new,low,clips a rink polygon against the near plane,src/lib/watcom/watcom_clib_12.asm
+112DE4,DrawRinkPolyList,sub_112DE4,new,low,clips and draws a list of rink polygons,src/lib/watcom/watcom_clib_12.asm
+112E80,FillTexturedSpan,sub_112E80,new,low,fills one row of a textured rink polygon,src/lib/watcom/watcom_clib_12.asm
+112F3C,ClipTexPolyToNear,sub_112F3C,new,low,clips a textured rink polygon against the near plane,src/lib/watcom/watcom_clib_12.asm
+11313C,AngleFromDelta,sub_11313C,new,low,returns the angle of a 2D vector from the ratio of its components,src/lib/video/video_bios_vga_03.asm
 1131E4,strncmp_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 113210,PrimRect,sub_113210,new,low,model renderer: draws a filled rectangle primitive,src/lib/watcom/watcom_clib_13.asm
 11323C,PrimRectDebug,sub_11323C,new,low,model renderer: draws a rectangle primitive in a random colour (debug view),src/lib/watcom/watcom_clib_13.asm
@@ -2806,7 +2866,12 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 11A3E0,FormatString,sub_11A3E0,new,low,"formats a string like printf (numbers, strings, padding) for the text drawing routines",src/lib/watcom/watcom_clib_13.asm
 11ADD0,SaveTextState,sub_11ADD0,new,low,"saves the text drawing state (font, colours, position)",src/lib/watcom/watcom_clib_13.asm
 11ADE8,RestoreTextState,sub_11ADE8,new,low,restores the text drawing state and its colour tables,src/lib/watcom/watcom_clib_13.asm
+11AE10,TintRowPixels,sub_11AE10,new,low,tints one row of pixels by the current colour multipliers,src/lib/ea/ea_debug.asm
+11AFAC,TintRows,sub_11AFAC,new,low,tints each row of a rectangle,src/lib/ea/ea_debug.asm
+11B008,TintRect,sub_11B008,new,low,tints a rectangle of the screen with a colour,src/lib/ea/ea_debug.asm
 11B094,FindShapeList,sub_11B094,new,medium,"(bank, names, out): FindShape for each 4-character name of a list, storing the pointers",src/lib/ea/ea_debug.asm
+11B0D0,SaveDataFileNew,sub_11B0D0,new,low,"saves a memory block to a file, creating it",src/lib/watcom/watcom_clib_14.asm
+11B104,SaveDataFile,sub_11B104,new,low,saves a memory block to a file,src/lib/ea/ea_fileblock_02.asm
 11B1A0,savefileblocka,,96PC,medium,NHL96PC B2374 (similar): mnemonic similarity 0.88 over 55 instructions,
 11B20A,fputc_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 11B2AE,fwrite_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
@@ -2922,6 +2987,8 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 120680,FindModeByResolution,sub_120680,new,low,finds the listed video mode with the given resolution and depth,src/lib/input/input_joystick_misc_07.asm
 12071C,SetModeByResolution,sub_12071C,new,low,finds the video mode with the given resolution and switches to it,src/lib/input/input_joystick_misc_07.asm
 12075C,abs_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+120763,ErrnoPtr,sub_120763,new,low,returns the address of errno,src/lib/watcom/watcom_clib_16.asm
+120769,DosErrnoPtr,sub_120769,new,low,returns the address of the DOS error code,src/lib/watcom/watcom_clib_16.asm
 12076F,access_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 1207AA,getenv_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 12080B,__set_EDOM_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
@@ -2937,6 +3004,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 120A54,lseek_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 120A97,tell_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 120AA8,fflush_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+120AB8,GetPsp,sub_120AB8,new,low,returns the program segment prefix,src/lib/watcom/watcom_clib_16.asm
 120ABE,__close_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 120AF4,__MemAllocator,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 120B9C,__MemFree,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
@@ -2949,16 +3017,31 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 120FE8,__CreateNewNHeap_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 121098,__ExpandDGROUP_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 1211E4,__AdjustAmount_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+121261,McgaNoWindow,sub_121261,new,low,returns 0: the MCGA screen needs no window,src/lib/ea/ea_mcga_window.asm
 121264,__ioalloc_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 1212DB,__qread_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 1212FA,fgetc_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 121383,__filbuf_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 1213B2,__fill_buffer_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+121460,ResetMemLock,sub_121460,new,low,clears the memory lock and returns its address,src/lib/watcom/watcom_clib_17.asm
+121470,MemLock,sub_121470,new,low,sets the memory lock; followed by the try-lock,src/lib/watcom/watcom_clib_17.asm
+121494,MemUnlock,sub_121494,new,low,clears the memory lock,src/lib/watcom/watcom_clib_17.asm
+1214A0,PathBaseName,sub_1214A0,new,low,returns the file name part of a path,src/lib/watcom/watcom_clib_17.asm
+1214D0,SetBlockGuard,sub_1214D0,new,low,marks a block as guarded and writes the guard word at its end; followed by the guard check,src/lib/watcom/watcom_clib_17.asm
+12152C,CheckBlockGuards,sub_12152C,new,low,walks every memory list and checks the guard word of each guarded block,src/lib/watcom/watcom_clib_17.asm
+1216B0,FindMemBlockNamed,sub_1216B0,new,low,returns the block in a memory list whose name matches the file name of a path,src/lib/ea/ea_memman_02.asm
+12175C,FindFreeSpace,sub_12175C,new,low,"finds room for a block in a memory list, from the bottom or the top",src/lib/ea/ea_memman_02.asm
+121888,FindCachedFileData,sub_121888,new,low,returns the data pointer of a file already held in memory,src/lib/ea/ea_memman_02.asm
+12189C,FindCachedFile,sub_12189C,new,low,"returns the memory block that already holds a file, revalidating it",src/lib/ea/ea_memman_02.asm
+121A43,PollHotkeys,sub_121A43,new,low,reads a key and dispatches its hotkey handler,src/lib/video/video_bios_vga_04.asm
 121A56,_dos_setvect_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 121A83,_dos_getvect_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 121AB5,__setEFGfmt_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 121AD0,__sys_init_387_emulator,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 121B00,InitFpuFlags,,95PC,high,NHL95PC 9D352 (callsite): called at the same place of __sys_init_387_emulator,
+121BCB,MakeFpuGate,sub_121BCB,new,low,builds the gate descriptor for the coprocessor-missing handler,src/lib/ea/ea_snap.asm
+121BE8,HookCoprocessorVector,sub_121BE8,new,low,saves and replaces the coprocessor-missing vector through the DOS extender,src/lib/ea/ea_snap.asm
+121C35,SetSystemFpuFlag,sub_121C35,new,low,tells the DOS extender that a coprocessor is emulated,src/lib/ea/ea_snap.asm
 121C55,__sys_fini_387_emulator,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 121CCF,EmuRestoreFpuVector,sub_121CCF,new,low,puts back the original coprocessor-missing vector and CR0 coprocessor bits when the emulator shuts down,src/lib/watcom/watcom_clib_19.asm
 121D0A,EmuRestoreRealVector,sub_121D0A,new,low,restores the saved real-mode vector through the DOS extender,src/lib/watcom/watcom_clib_19.asm
@@ -2995,6 +3078,11 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1231AC,ClipPolyRight,sub_1231AC,new,low,clips a polygon against the right edge of the clip window,src/lib/watcom/watcom_clib_19.asm
 12328C,ClipPolyTop,sub_12328C,new,low,clips a polygon against the top edge of the clip window,src/lib/watcom/watcom_clib_19.asm
 123350,ClipPolyBottom,sub_123350,new,low,clips a polygon against the bottom edge of the clip window,src/lib/watcom/watcom_clib_19.asm
+123414,SetupRectFillShaded,sub_123414,new,low,entry that sets up a rectangle fill with shading,src/lib/video/video_bios_vga_05.asm
+123423,SetupRectFill,sub_123423,new,low,clips a rectangle and fills in its fill description,src/lib/video/video_bios_vga_05.asm
+123D38,FillRectSpans,sub_123D38,new,low,fills the rows of a set-up rectangle,src/lib/video/video_bios_vga_05.asm
+123FA8,StoreBigEndian,sub_123FA8,new,low,"stores a value byte by byte, most significant first",src/lib/video/video_bios_vga_05.asm
+123FCB,StoreLittleEndian,sub_123FCB,new,low,"stores a value byte by byte, least significant first",src/lib/video/video_bios_vga_05.asm
 123FEA,__prtf_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 124389,getprintspecs_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 1244C7,evalflags_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
@@ -3050,7 +3138,13 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 126463,int386_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 126480,SaveTextMode,,96PC,medium,NHL96PC E2484 (similar): mnemonic similarity 0.94 over 15 instructions,
 1264C2,RestoreTextMode,,96PC,medium,NHL96PC E24C4 (similar): mnemonic similarity 0.91 over 68 instructions,
+1265D0,PrefetchMemory,sub_1265D0,new,low,touches a range of memory every cache line to bring it into the cache,src/lib/video/video_bios_vga_06.asm
+126624,PrefetchShape,sub_126624,new,low,touches the pixels of a shape to bring them into the cache,src/lib/video/video_bios_vga_06.asm
+12664C,CopyMemFast,sub_12664C,new,low,copies memory with 64-bit FPU loads and stores,src/lib/video/video_bios_vga_06.asm
+1266FC,CdDirSearch,sub_1266FC,new,low,searches the CD directory for a file name and fills a find record,src/lib/watcom/watcom_clib_21.asm
 1269F5,toupper_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+126A04,RefPackSize,sub_126A04,new,low,returns the unpacked size from a RefPack header,src/lib/watcom/watcom_clib_21.asm
+126B80,RefPackUnpack,sub_126B80,new,low,decompresses RefPack data,src/lib/watcom/watcom_clib_21.asm
 127D70,ExpandBytePair,sub_127D70,new,low,expands one byte of byte-pair coded data through the pair tables (recursive),src/lib/ea/ea_unpack_02.asm
 127DB4,UnpackBytePairs,sub_127DB4,new,low,decompresses byte-pair coded data: reads the pair tables and expands each byte,src/lib/ea/ea_unpack_02.asm
 127FD0,PrepareBankSampleData,sub_127FD0,new,low,reads a sample's header and points the stream functions at its data,src/lib/ea/ea_unpack_02.asm
@@ -3162,6 +3256,10 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 12D24F,file_putc_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 12D260,__fprtf_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 12D2E0,__doserror_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+12D300,ProjectPointsPersp,sub_12D300,new,low,projects a list of view-space points to the screen with perspective,src/lib/watcom/watcom_clib_23.asm
+12D4B8,MultiplyMatrix,sub_12D4B8,new,low,multiplies two 3x3 fixed-point matrices,src/lib/ea/ea_gfx_09.asm
+12D520,PlotPixelClipped,sub_12D520,new,low,plots one pixel when it lies inside the clip window,src/lib/ea/ea_gfx_09.asm
+12D6A0,VecLengthOf,sub_12D6A0,new,low,returns the length of a 3-component vector,src/lib/watcom/watcom_clib_24.asm
 12D6C4,TransposeMatrix,sub_12D6C4,new,low,"transposes a 3x3 matrix, in place or into another matrix",src/lib/input/input_joystick_misc_08.asm
 12D740,PolyCrossProduct,sub_12D740,new,low,returns the 2D cross product of three indexed polygon points (its winding),src/lib/input/input_joystick_misc_08.asm
 12D784,TexSpanCopy,sub_12D784,new,low,draws one span of a texture by stepping 16.16 source coordinates,src/lib/input/input_joystick_misc_08.asm
@@ -3181,6 +3279,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 12EEAC,ClipDrawPolyRight,sub_12EEAC,new,low,clips a drawn polygon against the right edge of the clip window,src/lib/input/input_joystick_misc_08.asm
 12EFE8,ClipDrawPolyTop,sub_12EFE8,new,low,clips a drawn polygon against the top edge of the clip window,src/lib/input/input_joystick_misc_08.asm
 12F12C,ClipDrawPolyBottom,sub_12F12C,new,low,clips a drawn polygon against the bottom edge of the clip window,src/lib/input/input_joystick_misc_08.asm
+12F270,SinCosLookup,sub_12F270,new,low,returns the sine and cosine of an angle from the quarter-wave tables,src/lib/video/video_bios_vga_07.asm
 12F2F1,_mbsnccnt_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 12F32F,_mbsnbcnt_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 12F360,_mbsninc_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
@@ -3201,6 +3300,14 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 12F9E3,__CMain,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 12FA32,__InitRtns,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 12FA7D,__FiniRtns,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+12FACC,PrintScreen,sub_12FACC,new,low,calls the BIOS print-screen interrupt; followed by small screen helpers,src/lib/watcom/watcom_clib_25.asm
+12FB20,ShowKeyMessageBox,sub_12FB20,new,low,"draws a message box, waits for a key and restores the screen",src/lib/ea/ea_kbd_exit.asm
+12FDC8,AskExitGame,sub_12FDC8,new,low,asks Exit Y/N and quits when the player confirms,src/lib/ea/ea_kbd_exit.asm
+12FF9C,ShowPauseMessage,sub_12FF9C,new,low,shows PAUSE - PRESS ANY KEY and waits,src/lib/ea/ea_kbd_exit.asm
+12FFD8,DosGetVector,sub_12FFD8,new,low,reads an interrupt vector through DOS,src/lib/ea/ea_kbd_exit.asm
+12FFF0,DosSetVector,sub_12FFF0,new,low,sets an interrupt vector through DOS,src/lib/ea/ea_kbd_exit.asm
+13000C,CallPreservingRegs,sub_13000C,new,low,"saves the registers, calls the routine and restores them",src/lib/ea/ea_kbd_exit.asm
+13005A,AssertPreserveRegs,sub_13005A,new,low,saves the registers around the assertion report and restores them,src/lib/video/video_bios_vga_08.asm
 1300A8,TgvCopyBlock,sub_1300A8,new,low,movie decoder: copies a block,src/lib/sound/snd_soundblaster_03.asm
 13014C,TgvFillBlock,sub_13014C,new,low,movie decoder: fills a block,src/lib/sound/snd_soundblaster_03.asm
 1301FF,_nexpand_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
@@ -3254,6 +3361,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 13270C,_EFG_Format_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 1327F6,forcedecpt_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 132855,__cnvs2d_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+132863,NoFloatSupport,sub_132863,new,low,reports that floating-point support is not loaded and exits,src/lib/watcom/watcom_clib_28.asm
 132C84,EmuTrapExit,sub_132C84,new,low,x87 emulator: restores the registers and returns from the trap,src/lib/watcom/watcom_emu387.asm
 132DB8,RoundToSingle,sub_132DB8,new,low,x87 emulator: rounds the result to single precision,src/lib/watcom/watcom_emu387.asm
 132DF4,RoundToDouble,sub_132DF4,new,low,x87 emulator: rounds the result to double precision,src/lib/watcom/watcom_emu387.asm
@@ -3422,6 +3530,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 135C9C,itoa_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 135CDC,ultoa_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 135D26,ltoa_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+135D41,CheckPentiumFdiv,sub_135D41,new,low,tests for the Pentium FDIV bug and records it,src/lib/watcom/watcom_clib_29.asm
 135DA0,__fpatan_chk,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 135FA0,__math87_err_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 13601B,__math1err_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
@@ -3491,6 +3600,8 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 138E00,DebugPrintAt,sub_138E00,new,low,prints a debug message at a position,src/lib/sound/snd_pcspeaker.asm
 138EB0,DebugPrintLine,sub_138EB0,new,low,prints a debug line,src/lib/sound/snd_pcspeaker.asm
 138F00,DebugLineCount,sub_138F00,new,low,returns the debug line count,src/lib/sound/snd_pcspeaker.asm
+138F20,SaveVideoState,sub_138F20,new,low,"saves the BIOS video mode, rows, columns and cursor",src/lib/video/vesa_banked_blit_03.asm
+138F5A,RestoreVideoState,sub_138F5A,new,low,restores the saved BIOS video state,src/lib/video/vesa_banked_blit_03.asm
 138F82,__FDFS,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 138FCE,__setenvp_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 1390A2,_SetMaxPrec_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
@@ -3556,9 +3667,14 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 13B207,_Scale_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 13B248,_Scale10V_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 13B365,__cvt_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+13B542,ModfCore,sub_13B542,new,low,splits a double into its integer and fraction parts,src/lib/watcom/watcom_clib_31.asm
+13B5D2,DecimalToInt64,sub_13B5D2,new,low,converts a string of decimal digits to a 64-bit integer,src/lib/watcom/watcom_clib_31.asm
+13B61D,NormalizeDouble,sub_13B61D,new,low,normalises a 64-bit mantissa and exponent into a double,src/lib/watcom/watcom_clib_31.asm
+13B66E,CallMatherr,sub_13B66E,new,low,calls matherr,src/lib/watcom/watcom_clib_31.asm
 13B673,__get_std_stream_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 13B692,fputs_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 13B70E,_dos_read_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+13B740,GusConvertAddr16,sub_13B740,new,low,converts a card memory address for a 16-bit DMA transfer,src/lib/sound/snd_gus_sdk_03.asm
 13B7B5,__sigabort_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 13B7BF,__sigfpe_handler_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 13B7F4,signal_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
@@ -3595,6 +3711,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 13C108,__Intel_hook_init_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 13C160,__Intel_hook_fini_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 13C164,SetScreenTarget,sub_13C164,new,low,makes the screen the draw target again: copies the screen header (dword_16E6A8) to dword_16E670,src/lib/watcom/watcom_clib_32.asm
+13C180,ReadPortStable,sub_13C180,new,low,reads a port twice and returns the bits set in both reads,src/lib/video/video_bios_vga_09.asm
 13C187,WaitRetrace,,96PC,medium,NHL96PC DDE7B (similar): mnemonic similarity 0.88 over 17 instructions,
 13C1BF,WaitRetraceEdges,sub_13C1BF,96PC,high,"NHL96PC WaitRetraceEdges: leave retrace, then wait for it (3DAh bit 3), the same code",src/lib/video/video_bios_vga_09.asm
 13C1EA,WaitDisplayRetrace,,96PC,high,NHL96PC WaitDisplayRetrace: wait for display enable then retrace (3DAh bit 3); label added (the listing had none),src/lib/video/video_bios_vga_09.asm

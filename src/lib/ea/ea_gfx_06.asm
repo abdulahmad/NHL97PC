@@ -4,8 +4,8 @@ bits 32
 section s_10B040 progbits alloc exec nowrite align=1
 extern dword_16E4A8, dword_170218, dword_1D1CF8, dword_1D1CFC, dword_1D1D00, dword_1D1D04, dword_1D1D08, dword_1D1D0C
 extern dword_1D1D10, dword_1D1D14, dword_1D1D2C, off_170278, off_170284, off_170290, off_17029C, off_1702A8
-extern SortIndices, SubVec3, sub_10CF34, SetRinkView, TransformRinkPoints, TransformRinkObject, ProjectRinkObject, DrawRinkPolyStrip
-extern DrawFlatPoly, DrawPolyOutline, CallModelPartFuncs, CallAllPartFuncs, sub_12D300, sub_12D4B8, ProjectPoints, unk_17021C
+extern SortIndices, SubVec3, TransformVecFull, SetRinkView, TransformRinkPoints, TransformRinkObject, ProjectRinkObject, DrawRinkPolyStrip
+extern DrawFlatPoly, DrawPolyOutline, CallModelPartFuncs, CallAllPartFuncs, ProjectPointsPersp, MultiplyMatrix, ProjectPoints, unk_17021C
 extern unk_170240
 global DrawRinkObjectPolys_9B, DrawSortedModelPolys_B8, DrawModelPartPolys_190, SetRinkMatrix, SetRinkTranslation, SetScreenScale, ProjectRinkObjectPoints, ProjectModelPoints
 global DrawRinkObjectPolys, SetModelFrame, DrawSortedModelPolys, DrawModelSorted, DrawModelPartPolys, DrawModelInstance, DrawModel, InitModelParts
@@ -65,7 +65,7 @@ ProjectRinkObjectPoints:
         push ecx
         mov esi, dword [byte ebx+04h]
         push esi
-        call sub_12D300
+        call ProjectPointsPersp
         mov ah, byte [byte ebx+010h]
         add esp, byte 0Ch
         test ah, 40h
@@ -123,7 +123,7 @@ DrawRinkObjectPolys:
         push unk_17021C
         lea eax, [byte ebx+028h]
         push eax
-        call sub_12D4B8
+        call MultiplyMatrix
         mov dl, byte [byte ebx+010h]
         and dl, 0FBh
         add esp, byte 0Ch
@@ -141,7 +141,7 @@ DrawRinkObjectPolys:
         push unk_17021C
         lea eax, [byte esp+014h]
         push eax
-        call sub_10CF34
+        call TransformVecFull
         add esp, byte 0Ch
         mov ecx, dword [byte ebx+07Ch]
         push ecx

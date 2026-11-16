@@ -13,11 +13,11 @@ extern dword_1DA3EC, dword_1DA3F0, dword_1DA3F4, dword_1DA3F8, dword_1DA3FC, dwo
 extern dword_1DA40C, dword_1DA410, dword_1DA414, dword_1DA4D0, fgetc_, int386_, off_172140, off_17216C
 extern off_1721B8, putchar, sprintf_, strncmp_, strncpy_, bcopy, QueueInit, QueueNoOp
 extern QueuePeek, QueueTakeTail, QueueTakeHead, QueueFreeAll, QueueCount, QueueFind, QueueAppend, QueuePostBuffer
-extern AddExitHandler, ConvertArtSame, sub_11313C, SerialConfigure, SerialOpen, SerialIsOpen, SerialSetBaud, SerialProgramUart
+extern AddExitHandler, ConvertArtSame, AngleFromDelta, SerialConfigure, SerialOpen, SerialIsOpen, SerialSetBaud, SerialProgramUart
 extern SerialCarrier, SerialWriteIfRoom, SerialWrite, SerialRxCount, SerialTxFree, SerialFlushTx, SerialRead, SerialFlushRx
-extern FillShadowRect, sub_120763, sub_123FA8, sub_12F270, DrawShapeTriangleMapped, ScanFormat, OpenPacketLink, ModemReset
+extern FillShadowRect, ErrnoPtr, StoreBigEndian, SinCosLookup, DrawShapeTriangleMapped, ScanFormat, OpenPacketLink, ModemReset
 extern ModemHangup, ModemDial, ModemAutoAnswer, ModemWaitConnect, ModemSpeakerOff, AddIdleHandler, RemoveIdleHandler, RunIdleHandlers
-extern AllocMemBlock, AllocMemData, FreeMemBlock, ZeroMem, FillMem, addtimer, sub_FC008, WaitTicks
+extern AllocMemBlock, AllocMemData, FreeMemBlock, ZeroMem, FillMem, addtimer, RemoveTimerCallback, WaitTicks
 extern unk_167FA4, unk_172264, unk_17226C, unk_172274, unk_1DA3C4, unk_1DA418, unk_1DA448, unk_1DA464
 extern unk_1DA466, unk_1DA468, unk_1DA498, unk_1DA4A4, unlink_, word_1DA4A6, word_1DA4A8, word_1DA4AA
 extern word_1DA4AC, word_1DA4AE, word_1DA4B0, word_1DA4B2
@@ -175,7 +175,7 @@ fwrite_:
         je short .6
         test eax, eax
         jne near .10
-        call sub_120763
+        call ErrnoPtr
         mov dword [eax], 0Ch
 .6:
         or byte [byte ebp+0Ch], 20h
@@ -838,7 +838,7 @@ GetFileTimes:
         push eax
         mov edx, dword [byte esp+01Ch]
         push edx
-        call sub_12F270
+        call SinCosLookup
         add esp, byte 0Ch
         mov eax, dword [byte esp+04h]
         mov dword [ebx], eax
@@ -1313,7 +1313,7 @@ DrawShadowRect:
         add ebx, edx
         push ebx
         push eax
-        call sub_11313C
+        call AngleFromDelta
         add esp, byte 8
         mov ebx, eax
         lea ecx, [dword eax+0100h]
@@ -2278,42 +2278,42 @@ NetSendMessage:
         push ebx
         lea eax, [byte esp+08h]
         push eax
-        call sub_123FA8
+        call StoreBigEndian
         add esp, byte 0Ch
         push byte 4
         mov ebx, dword [dword esi+080h]
         push ebx
         lea eax, [byte esp+040h]
         push eax
-        call sub_123FA8
+        call StoreBigEndian
         add esp, byte 0Ch
         push byte 4
         mov ecx, dword [dword esi+084h]
         push ecx
         lea eax, [byte esp+044h]
         push eax
-        call sub_123FA8
+        call StoreBigEndian
         add esp, byte 0Ch
         push byte 4
         mov eax, dword [dword esi+088h]
         push eax
         lea eax, [byte esp+048h]
         push eax
-        call sub_123FA8
+        call StoreBigEndian
         add esp, byte 0Ch
         push byte 4
         mov edx, dword [dword esi+08Ch]
         push edx
         lea eax, [byte esp+04Ch]
         push eax
-        call sub_123FA8
+        call StoreBigEndian
         add esp, byte 0Ch
         push byte 4
         mov ebx, dword [dword esi+090h]
         push ebx
         lea eax, [byte esp+050h]
         push eax
-        call sub_123FA8
+        call StoreBigEndian
         add esp, byte 0Ch
         push byte 4
         mov ecx, dword [byte esi+04Ch]
@@ -2321,7 +2321,7 @@ NetSendMessage:
         lea eax, [byte esp+0Ch]
         push eax
         mov ebx, 20h
-        call sub_123FA8
+        call StoreBigEndian
         add esp, byte 0Ch
         lea eax, [byte esp+08h]
         lea edx, [byte esi+050h]
@@ -2367,7 +2367,7 @@ NetSendWait:
         inc eax
         mov dword [byte edx+04h], 0
         mov dword [dword_1721B0], eax
-        call sub_123FA8
+        call StoreBigEndian
         mov eax, dword [byte esi+08h]
         mov ecx, dword [byte eax+048h]
         add esp, byte 0Ch
@@ -3022,7 +3022,7 @@ NetHandleMessage:
         push byte 1
         lea eax, [byte esp+0Ch]
         push eax
-        call sub_123FA8
+        call StoreBigEndian
         add esp, byte 0Ch
         push byte 4
         mov ecx, dword [dword esp+0B8h]
@@ -3056,7 +3056,7 @@ NetHandleMessage:
         push byte 1
         lea eax, [byte esp+0Ch]
         push eax
-        call sub_123FA8
+        call StoreBigEndian
         mov eax, dword [byte ebp+0Ch]
         mov edx, ebx
         add eax, 94h
@@ -3072,7 +3072,7 @@ NetHandleMessage:
         lea eax, [byte esp+010h]
 .32:
         push eax
-        call sub_123FA8
+        call StoreBigEndian
         add esp, byte 0Ch
         mov edi, dword [dword esp+0BCh]
         mov ecx, esp
@@ -3679,7 +3679,7 @@ NetCloseSession:
         jne short .7
         db 068h                                 ; insn: push 10D280h
         dd NetPollMessages_168
-        call sub_FC008
+        call RemoveTimerCallback
         add esp, byte 4
 .7:
         mov eax, esi
@@ -4323,7 +4323,7 @@ NetDisconnectPeer:
         push eax
         mov esi, dword [dword esp+084h]
         mov dword [dword esp+080h], edx
-        call sub_123FA8
+        call StoreBigEndian
         mov eax, dword [dword_16E4B0]
         add esp, byte 0Ch
         add eax, eax
@@ -4352,7 +4352,7 @@ NetDisconnectPeer:
         push edi
         lea eax, [byte esp+0Ch]
         push eax
-        call sub_123FA8
+        call StoreBigEndian
         mov eax, dword [dword_16E4B0]
         add esp, byte 0Ch
         add eax, eax
@@ -5146,7 +5146,7 @@ IpxOpenSocketCall:
         push esi
         add ebx, byte 0Ah
         push ebx
-        call sub_123FA8
+        call StoreBigEndian
         add esp, byte 0Ch
         pop esi
         pop ecx
@@ -5191,12 +5191,12 @@ IpxSetupPacket:
         add eax, byte 34h
         push eax
         mov byte [byte eax+03h], 0
-        call sub_123FA8
+        call StoreBigEndian
         add esp, byte 0Ch
         push byte 2
         push esi
         push unk_1DA464
-        call sub_123FA8
+        call StoreBigEndian
         add esp, byte 0Ch
         push byte 6
         lea eax, [byte ebx+020h]
@@ -5621,7 +5621,7 @@ IpxPostListen:
         add eax, byte 0Ah
         push eax
         mov ebx, 2
-        call sub_123FA8
+        call StoreBigEndian
         add esp, byte 0Ch
         lea edx, [byte esp+04h]
         mov eax, esp
@@ -6063,7 +6063,7 @@ IpxSetupLayer:
         push ebp
         lea edi, [byte esi+04h]
         push edi
-        call sub_123FA8
+        call StoreBigEndian
         add esp, byte 0Ch
         mov edx, ebx
         mov eax, edi
@@ -6361,12 +6361,12 @@ IpxStart:
         push byte 2
         push byte 1
         push unk_1DA4A4
-        call sub_123FA8
+        call StoreBigEndian
         add esp, byte 0Ch
         push byte 2
         push dword 8BEh
         push unk_1DA466
-        call sub_123FA8
+        call StoreBigEndian
         add esp, byte 0Ch
         push byte 0Ch
         push unk_1DA498
@@ -6393,7 +6393,7 @@ IpxStop:
         push byte 2
         push byte 10h
         push unk_1DA4A4
-        call sub_123FA8
+        call StoreBigEndian
         add esp, byte 0Ch
         xor ebx, ebx
         push ebx
@@ -6438,18 +6438,18 @@ IpxBuildHeader:
         mov byte [byte esi+07h], 30h
         push eax
         mov byte [byte eax+03h], 0
-        call sub_123FA8
+        call StoreBigEndian
         add esp, byte 0Ch
         push byte 2
         push byte 1
         push edi
-        call sub_123FA8
+        call StoreBigEndian
         add esp, byte 0Ch
         push byte 2
         push dword 8BEh
         add edi, byte 2
         push edi
-        call sub_123FA8
+        call StoreBigEndian
         add esp, byte 0Ch
         push byte 0Ch
         lea eax, [byte ebx+044h]
@@ -6480,7 +6480,7 @@ IpxBuildHeader:
         push dword 452h
         add edi, byte 0Ah
         push edi
-        call sub_123FA8
+        call StoreBigEndian
         add esp, byte 0Ch
         push ebx
         lea eax, [byte esi+01Ch]
@@ -6650,13 +6650,13 @@ IpxQueueSend:
         lea eax, [byte ebx+034h]
         push eax
         mov byte [byte ebx+037h], 0
-        call sub_123FA8
+        call StoreBigEndian
         add esp, byte 0Ch
         push byte 4
         push edi
         lea eax, [byte ebx+050h]
         push eax
-        call sub_123FA8
+        call StoreBigEndian
         add esp, byte 0Ch
         push byte 0Ch
         lea eax, [byte ebx+044h]
@@ -6689,7 +6689,7 @@ IpxQueueSend:
         push dword 452h
         add edi, byte 0Ah
         push edi
-        call sub_123FA8
+        call StoreBigEndian
 .3:
         add esp, byte 0Ch
         mov edi, dword [esp]

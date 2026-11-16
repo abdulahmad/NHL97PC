@@ -4,7 +4,7 @@ bits 32
 section s_12F9E3 progbits alloc exec nowrite align=1
 extern __CommonInit_, dword_17258C, dword_172590, dword_19C690, dword_1DE784, dword_1DE788, exit_, main_
 extern BlitConverted, ConvertArtAt, CMainHook, SetScreenTarget, unk_19C648, unk_19C67E
-global __CMain, __FiniRtns, __InitRtns, sub_12FACC
+global __CMain, __FiniRtns, __InitRtns, PrintScreen
 ;-----------------------------------------------------------------------------
 ; __CMain                                                      12F9E3  library
 ;-----------------------------------------------------------------------------
@@ -136,9 +136,10 @@ __FiniRtns:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_12FACC                                                          12FACC  
+; PrintScreen                                    12FACC  97 PC, low confidence
+; Calls the BIOS print-screen interrupt; followed by small screen helpers
 ;-----------------------------------------------------------------------------
-sub_12FACC:
+PrintScreen:
         push ebx
         int 5
         pop ebx

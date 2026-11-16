@@ -42,13 +42,13 @@ extern str_FatBlueLines, str_FatRedLines, str_Flatboards, str_Glass, str_Glassli
 extern str_Gt004, str_Gt007, str_Gt302, str_IceLine, str_Lites, str_Maxx, str_Maxz, str_Minx
 extern str_Minz, str_Pbench0D, str_Pbench1D, str_Penback, str_Penbox0D, str_Penbox1D, str_Penboxt0, str_Penboxt1
 extern str_Penboxz0, str_Penboxz1, str_R02d, str_Redlite, str_Rink, str_Rlite0, str_Rlite1, str_STAND
-extern str_STAND2ND, str_Score, str_Stands2, str_Strobe, str_ThinRedLines, str_Topboards, str_WALL, sub_1007C0
-extern bcopy, FindShape, OpenArtArchiveErr, Random32, sub_102C96, sub_102CDC, sub_102CF4, WritePaletteRegs
-extern ArtBankCount, ArtBankEntry, ArtBankEntryInfo, BytesPerPixelForDepth, sub_10B000, SetRinkMatrix, SetRinkTranslation, ProjectRinkObjectPoints
+extern str_STAND2ND, str_Score, str_Stands2, str_Strobe, str_ThinRedLines, str_Topboards, str_WALL, SinInterp
+extern bcopy, FindShape, OpenArtArchiveErr, Random32, SeedRandom, SetRemapTable, GetRemapTable, WritePaletteRegs
+extern ArtBankCount, ArtBankEntry, ArtBankEntryInfo, BytesPerPixelForDepth, BuildReciprocalTable, SetRinkMatrix, SetRinkTranslation, ProjectRinkObjectPoints
 extern DrawRinkObjectPolys, DrawModelInstance, DrawModel, BuildAntiAliasTable, SubVec3, DrawSurfacePolys, DrawOverlayModels, ProjectOverlayPoint
 extern FreeOverlaySlots, TransformRinkPoints, DrawRinkPolyStrip, DrawRinkPolys, DrawIceSpans, FindInstanceShape, BindModelShapes, UpdateModelInstance
 extern SetModelShape, SetModelPartName, LoadModelByName, FreeModelFile, CreateModelInstance, FreeModelInstance, FindInstancePart, FindInstanceGroup
-extern GetInstanceGroupEntry, sub_112BCC, sub_112DE4, sub_11313C, BuildRangePalette, BlendRangePalette, AddBankToRange, RemapArtBank
+extern GetInstanceGroupEntry, ClipPolyToNear, DrawRinkPolyList, AngleFromDelta, BuildRangePalette, BlendRangePalette, AddBankToRange, RemapArtBank
 extern SetRangeColors, RemapRangeColors, CopyRangePalette, BuildRangePaletteBuf, FadeGamePalette, SetArtArchive, AddModelName, FindModelName
 extern DrawModelList, DrawFlashSprite, DrawCameraFlashes, LoadRinkTextures, LoadArenaArt, DrawRinkLine, DrawHomeBlueLine, DrawAwayBlueLine
 extern DrawCenterSpots, DrawEndSpots, DrawNeutralSpots, DrawCenterCircle, DrawCreaseArc, BuildRinkGeometry, DrawIceSurface, DrawCreases
@@ -56,7 +56,7 @@ extern DrawRinkMarkings, DrawBoardsLines, DrawGoalLines, StartCrowdReaction, Cle
 extern DrawBoardsTop, DrawStandsSides, DrawBenchDoors, DrawGlass, DrawBenchPlayers, DrawBenchArea, DrawPenaltyBox, DrawBenches
 extern UpdateScoreboardPos, UpdateScoreboardSpin, LoadNetArt, BuildRinkSides, LoadBoardLogo, LoadTeamLogoShape, LoadTeamLogoCopy, UpdateViewMatrix
 extern DrawPlayersSorted, RenderModelPortrait, RestoreSavedPalette, ReplayRegisterStates, ReplayRegisterObjects, ServiceIdle, AllocMemBlock, FreeMemBlock
-extern sub_FC330, sub_FC4BC, ClearScreen, FillPolygon, FillRect, IntsToFloats, VecMulMat, VecSub
+extern OpenResourceArchive, MatchColor, ClearScreen, FillPolygon, FillRect, IntsToFloats, VecMulMat, VecSub
 extern VecDistance, ProjectCoord, ProjectPointsWithZ, tickcount, unk_16175C, unk_161760, unk_161764, unk_161768
 extern unk_16176C, unk_161770, unk_161774, unk_161778, unk_1617BC, unk_16B51C, unk_16B534, unk_1A8D48
 extern unk_1AEDD8, unk_1AEDF0, unk_1AFB38, unk_1B0078, unk_1B0410, unk_1B0510, unk_1B0610, unk_1B0710
@@ -107,7 +107,7 @@ LoadLogos:
         mov esi, eax
         call ServiceIdle
         push ebx
-        call sub_102C96
+        call SeedRandom
         add esp, byte 4
         cmp esi, byte 28h
         jle short .3
@@ -443,7 +443,7 @@ BuildIcePalette:
         or edx, ecx
         or eax, edx
         push eax
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         mov edx, dword [byte esp+08h]
         mov ecx, dword [byte esp+0Ch]
@@ -548,7 +548,7 @@ BlendRangeColours:
         add esi, edi
         add eax, esi
         push eax
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         pop edi
         pop esi
@@ -716,7 +716,7 @@ SetRinkPalette:
         push ecx
         push edx
         push unk_1B0610
-        call sub_102CDC
+        call SetRemapTable
         add esp, byte 4
         pop edx
         pop ecx
@@ -853,7 +853,7 @@ LoadRinkLines:
         mov eax, dword [byte edx+eax*4+04h]
         push dword 0FF000000h
         mov dword [dword_1B0FE4], eax
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         push str_FatRedLines
         mov ebx, dword [dword_1B1108]
@@ -1150,7 +1150,7 @@ LoadRinkModel:
         mov eax, str_ArenaViv2
         call SetArtArchive
         mov dword [dword_1B108C], edx
-        call sub_10B000
+        call BuildReciprocalTable
         mov edx, 4CCCCh
         mov eax, 4
         imul edx
@@ -2402,7 +2402,7 @@ LoadRinkModel:
         xor esi, esi
         call ReplayRegisterObjects
         push esi
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         add esp, byte 64h
         pop ebp
@@ -2662,7 +2662,7 @@ DrawRinkBackground:
         push eax
         mov edi, dword [dword_16AF60]
         push edi
-        call sub_112BCC
+        call ClipPolyToNear
         add esp, byte 10h
         mov dword [dword esp+0240h], eax
         test eax, eax
@@ -2933,7 +2933,7 @@ DrawRinkSurface:
         push dword_1B02C0
         mov ebx, dword [dword_16AF60]
         push ebx
-        call sub_112DE4
+        call DrawRinkPolyList
         add esp, byte 18h
         cmp eax, byte 2
         jle short .4
@@ -2993,7 +2993,7 @@ DrawRinkSurface:
         push dword_1B02C0
         mov eax, dword [dword_16AF60]
         push eax
-        call sub_112DE4
+        call DrawRinkPolyList
         mov edx, dword [dword_1B111C]
         add esp, byte 18h
         mov ebx, eax
@@ -3107,7 +3107,7 @@ DrawRinkSurface:
         mov eax, dword_1AF2B8
         push unk_1B0850
         mov dword [dword esp+0328h], eax
-        call sub_102CDC
+        call SetRemapTable
         add esp, byte 4
         xor edx, edx
         mov dword [dword esp+0320h], edx
@@ -3213,7 +3213,7 @@ DrawRinkSurface:
         cmp dword [dword_1B0E2C], byte 0
         je short .24
         push unk_1B0710
-        call sub_102CDC
+        call SetRemapTable
         xor esi, esi
         add esp, byte 4
 .23:
@@ -3232,7 +3232,7 @@ DrawRinkSurface:
         lea eax, [byte esp+08h]
         push eax
         push byte 10h
-        call sub_112BCC
+        call ClipPolyToNear
         lea ecx, [byte esp+010h]
         add esp, byte 10h
         mov ebx, eax
@@ -3319,7 +3319,7 @@ LoadOpeningArt:
         mov dword [dword_1B0E24], eax
         call ServiceIdle
         push byte 0
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         push byte 0
         mov eax, dword [dword_1B0E28]
@@ -3395,7 +3395,7 @@ DrawRinkOverlay:
         imul edx, dword [dword esi+dword_16AFAC]
         push edx
         mov ebx, dword [dword esi+dword_1B0038]
-        call sub_1007C0
+        call SinInterp
         mov edx, eax
         sar edx, 1Fh
         shl edx, 4
@@ -3408,7 +3408,7 @@ DrawRinkOverlay:
         add ebx, 1999h
         push edx
         add ebx, eax
-        call sub_1007C0
+        call SinInterp
         mov edx, eax
         mov ecx, 6
         sar edx, 1Fh
@@ -3527,10 +3527,10 @@ DrawBenchSide:
         sub esp, 100h
         mov edx, esp
         push edx
-        call sub_102CF4
+        call GetRemapTable
         add esp, byte 4
         push unk_1B0410
-        call sub_102CDC
+        call SetRemapTable
         mov edx, dword [dword_1B0FF8]
         mov ebx, dword [dword_1B0E78]
         mov dword [dword_1B0F9C], edx
@@ -3596,7 +3596,7 @@ DrawBenchSide:
         lea edx, [dword ebx-01F4h]
         call DrawModelList
         push unk_1B0510
-        call sub_102CDC
+        call SetRemapTable
         mov edx, dword [dword_1B0FFC]
         add esp, byte 4
         mov dword [dword_1B0F9C], edx
@@ -3662,7 +3662,7 @@ DrawBenchSide:
         lea edx, [dword ebx-01F4h]
         call DrawModelList
         push unk_1B0510
-        call sub_102CDC
+        call SetRemapTable
         mov edx, dword [dword_1B0FFC]
         add esp, byte 4
         mov dword [dword_1B0F9C], edx
@@ -3695,7 +3695,7 @@ DrawBenchSide:
         cmp ecx, dword [dword_1B105C]
         jl short .7
         push unk_1B0510
-        call sub_102CDC
+        call SetRemapTable
         mov edx, dword [dword_1B0FFC]
         mov ebx, dword [dword_1B1108]
         mov dword [dword_1B0F9C], edx
@@ -3716,7 +3716,7 @@ DrawBenchSide:
 .7:
         mov edx, esp
         push edx
-        call sub_102CDC
+        call SetRemapTable
         add esp, byte 4
         add esp, 100h
         pop ebp
@@ -3978,7 +3978,7 @@ DrawBenchRow:
         push eax
         add esi, unk_1AFB38
         mov edi, dword [byte edi+07Ch]
-        call sub_102CF4
+        call GetRemapTable
         mov edx, dword [esi]
         add esp, byte 4
         test edx, edx
@@ -3999,12 +3999,12 @@ DrawBenchRow:
         cmp dword [byte esi+04h], byte 0
         je short .1
         push unk_1B0410
-        call sub_102CDC
+        call SetRemapTable
         mov eax, dword [dword_1B0FF8]
         jmp short .2
 .1:
         push unk_1B0510
-        call sub_102CDC
+        call SetRemapTable
         mov eax, dword [dword_1B0FFC]
 .2:
         add esp, byte 4
@@ -4045,7 +4045,7 @@ DrawBenchRow:
         jmp short .6
 .5:
         push unk_1B0970
-        call sub_102CDC
+        call SetRemapTable
         mov eax, dword [ebx]
         add esp, byte 4
         mov edx, dword [byte eax+08h]
@@ -4073,7 +4073,7 @@ DrawBenchRow:
 .7:
         mov eax, esp
         push eax
-        call sub_102CDC
+        call SetRemapTable
         add esp, byte 4
         add esp, 100h
         pop ebp
@@ -4582,7 +4582,7 @@ DrawRinkPass:
         push eax
         mov ebp, dword [dword_16AF64]
         push ebp
-        call sub_112BCC
+        call ClipPolyToNear
         add esp, byte 10h
         push byte 0
         push byte 0FFFFFFFFh
@@ -4632,7 +4632,7 @@ DrawNearSide:
         cmp dword [dword_1B0E2C], byte 0
         je short .2
         push unk_1B0710
-        call sub_102CDC
+        call SetRemapTable
         add esp, byte 4
 .2:
         xor eax, eax
@@ -4836,7 +4836,7 @@ DrawNearSide:
         cmp dword [dword_16AF48], byte 0
         je short .14
         push unk_1B0410
-        call sub_102CDC
+        call SetRemapTable
         mov eax, dword [dword_1B0FF8]
         add esp, byte 4
         mov dword [dword_1B0F9C], eax
@@ -5135,7 +5135,7 @@ DrawShadowShape:
         add ebx, edx
         push ebx
         push eax
-        call sub_11313C
+        call AngleFromDelta
         add esp, byte 8
         mov ebx, eax
         lea ecx, [dword eax+0100h]

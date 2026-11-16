@@ -5,7 +5,7 @@ section s_138FCE progbits alloc exec nowrite align=1
 extern IF@LOG10, _Envptr, _Envptr_w4, _Scale10V_, __CHP, __Nan_Inf_, ___env_mask, __cvt_
 extern __get_std_stream_, __set_EDOM_, __set_ERANGE_, _environ, _nfree_, _nmalloc_, str_In, dword_16841C
 extern dword_168420, dword_19C00C, dword_19C010, floor_, fputc_, fputs_, memset_, qword_168418
-extern sub_13B5D2
+extern DecimalToInt64
 global AdjField_, DoEFormat_, DoFFormat_, _FtoS_, _SetMaxPrec_, __rterrmsg_, __setenvp_, _matherr_
 global _set_matherr_, inp_, DoEFormat__A1, outp_, strtod_
 ;-----------------------------------------------------------------------------
@@ -741,7 +741,7 @@ strtod_:
         lea edx, [byte ebp-024h]
         mov byte [byte ebx+ebp-038h], ah
         lea eax, [byte ebp-038h]
-        call sub_13B5D2
+        call DecimalToInt64
         lea eax, [byte esi+ebx-01h]
         cmp eax, 134h
         jle short .26

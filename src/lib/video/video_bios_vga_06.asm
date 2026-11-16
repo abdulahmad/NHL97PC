@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_126480 progbits alloc exec nowrite align=1
 extern byte_172AB0, byte_172AB1, byte_172AB4, AddExitHandler, ShapeRowBytes, word_172AB2
-global RestoreTextMode, SaveTextMode, sub_1265D0, sub_126624, sub_12664C
+global RestoreTextMode, SaveTextMode, PrefetchMemory, PrefetchShape, CopyMemFast
 ;-----------------------------------------------------------------------------
 ; SaveTextMode                                126480  96 PC, medium confidence
 ;-----------------------------------------------------------------------------
@@ -94,9 +94,10 @@ RestoreTextMode:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_1265D0                                                          1265D0  
+; PrefetchMemory                                 1265D0  97 PC, low confidence
+; Touches a range of memory every cache line to bring it into the cache
 ;-----------------------------------------------------------------------------
-sub_1265D0:
+PrefetchMemory:
         push ebx
         mov ecx, dword [byte esp+08h]
         mov edx, dword [byte esp+0Ch]
@@ -130,9 +131,10 @@ sub_1265D0:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_126624                                                          126624  
+; PrefetchShape                                  126624  97 PC, low confidence
+; Touches the pixels of a shape to bring them into the cache
 ;-----------------------------------------------------------------------------
-sub_126624:
+PrefetchShape:
         push ebx
         push esi
         mov esi, dword [byte esp+0Ch]
@@ -145,15 +147,16 @@ sub_126624:
         push eax
         lea eax, [byte esi+010h]
         push eax
-        call sub_1265D0
+        call PrefetchMemory
         add esp, byte 8
         pop esi
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_12664C                                                          12664C  
+; CopyMemFast                                    12664C  97 PC, low confidence
+; Copies memory with 64-bit FPU loads and stores
 ;-----------------------------------------------------------------------------
-sub_12664C:
+CopyMemFast:
         test eax, 7
         jne short .8
 .1:

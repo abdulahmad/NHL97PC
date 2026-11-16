@@ -24,7 +24,7 @@ extern ShowMessageBox, WipeScreen, SetNormalText, MainMenuScreen, RunGameScreens
 extern CreateMenuBitmap, FreeMenuBitmap, SetMenuSelection, LoadLangText, GetLangText, FreeLangText, SortRosterByRating, BuildAutoLines
 extern RunOptionsScreens, GoalieMaskScreen, CreditsScreen, KeysEqual, OpenGameDatabase, CloseGameDatabase, FindPlayerRecord, FindGameRecord
 extern UpdateGameRecord, AddPlayerStat, AddPlayerStatAt, FindPlayerStat, UpdatePlayerStat, ClearLinkAbort, ServiceIdle, InitVideoModeList
-extern AllocMemBlock, AllocMemData, FreeMemBlock, sub_FBE40, WaitTicks, sub_FC330, MakeColor, FreeBitmap
+extern AllocMemBlock, AllocMemData, FreeMemBlock, KbdGetKey, WaitTicks, OpenResourceArchive, MakeColor, FreeBitmap
 extern CreateBitmap, SetDrawTarget, ClearScreen, tickcount, unk_164138, unk_16413C, unk_164150, unk_164158
 extern unk_1C0F00, unk_1C135C, unk_1C347F, word_1C1344
 global BuildSeasonSchedule_77E, FreeTempArt_45, putchar, BuildSeasonSchedule, UpdateTeamLines, BuildRosterLines, PlayerInjuryDays, FindInjuryEntry
@@ -1591,7 +1591,7 @@ MovieKeyPressed:
         jne short .1
         cmp dword [dword_1C1224], byte 0
         je short .1
-        call sub_FBE40
+        call KbdGetKey
         cmp eax, byte 1Bh
         sete al
         and eax, 0FFh
@@ -2304,7 +2304,7 @@ PlayMovie:
         jne short .4
         cmp dword [dword_1C1224], byte 0
         je short .4
-        call sub_FBE40
+        call KbdGetKey
         cmp eax, byte 1Bh
         sete al
         and eax, 0FFh
@@ -2315,7 +2315,7 @@ PlayMovie:
         je short .5
         mov esi, 0FFFFFFFFh
 .5:
-        call sub_FBE40
+        call KbdGetKey
         test eax, eax
         je short .6
         call ServiceIdle
@@ -2345,7 +2345,7 @@ PlayMovie:
         jne short .8
         cmp eax, dword [dword_1C1224]
         je short .8
-        call sub_FBE40
+        call KbdGetKey
         cmp eax, byte 1Bh
         sete al
         and eax, 0FFh
@@ -2372,7 +2372,7 @@ PlayMovie:
         jne short .13
         cmp dword [dword_1C1224], byte 0
         je short .13
-        call sub_FBE40
+        call KbdGetKey
         cmp eax, byte 1Bh
         sete al
         and eax, 0FFh
@@ -3003,7 +3003,7 @@ LoadLogoNames:
         call MakeDataPath
         lea eax, [byte ebp-03Ch]
         push eax
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         push byte 20h
         push dword_1C5DE8
@@ -3013,7 +3013,7 @@ LoadLogoNames:
         call LoadNameFile
         add esp, byte 10h
         push byte 0
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         push ebx
         call FreeMemBlock

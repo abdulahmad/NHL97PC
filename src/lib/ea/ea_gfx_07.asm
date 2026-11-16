@@ -2,8 +2,12 @@
 bits 32
 %include "hockey.inc"
 section s_10CF34 progbits alloc exec nowrite align=1
-global sub_10CF34
-sub_10CF34:
+global TransformVecFull
+;-----------------------------------------------------------------------------
+; TransformVecFull                               10CF34  97 PC, low confidence
+; Multiplies a vector by a 3x3 matrix with 64-bit products
+;-----------------------------------------------------------------------------
+TransformVecFull:
         push ebx
         push esi
         push edi

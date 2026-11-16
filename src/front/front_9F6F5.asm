@@ -14,7 +14,7 @@ extern dword_1C8F58, dword_1C8F5C, dword_1C8F62, dword_1C8F66, dword_1C8F6A, dwo
 extern dword_1C93C8, dword_1C93CC, dword_1C93D8, dword_1C93DC, dword_1C93E0, dword_1C94B8, jpt_9F6DD, memcpy_
 extern off_16D254, off_16D258, rand_, sprintf_, strcat_, strcmp_, strcpy_, strlen_
 extern BlitConverted, BlitShape2, BlitArt, BlitShape, PresentScreen, FindShape, LoadFileAlloc, LoadFileToBlockShared
-extern ConvertArtXY, sub_11B0D0, UnlinkJump, GetFileTimes, FileDateText, FreeArtArchive, SetScreenTarget, SecondsToSamples
+extern ConvertArtXY, SaveDataFileNew, UnlinkJump, GetFileTimes, FileDateText, FreeArtArchive, SetScreenTarget, SecondsToSamples
 extern WaitSoundTime, StopAllSfx, PlaySfx, MakeDirPath, LoadDataFile, FadeInScreen, ShowScreen, SetRegionRect
 extern DrawEditBox, SetTextColor, DrawTextAligned, ShowMessageBox, DrawEntryList, SetHighlightText, ShowWorkingBox, UpdateWorkingBox
 extern HideWorkingBox, ShowLinkMessage, HideLinkBox, NameIndexNew, NameIndexLoad, NameIndexSave, NameIndexFree, LoadNameIndex
@@ -547,7 +547,7 @@ PickIndexEntryScreen_4EE:
         push unk_1ACD2B
         lea eax, [byte ebp+02h]
         push eax
-        call sub_11B0D0
+        call SaveDataFileNew
         add esp, byte 0Ch
         lea eax, [byte ebp+02h]
         lea edx, [byte ebp+02h]
@@ -597,7 +597,7 @@ PickIndexEntryScreen_4EE:
         push unk_1AD250
         lea eax, [byte ebp-03Eh]
         push eax
-        call sub_11B0D0
+        call SaveDataFileNew
         add esp, byte 0Ch
         jmp near .39
 .36:
@@ -644,7 +644,7 @@ PickIndexEntryScreen_4EE:
         push unk_1AD250
         lea eax, [byte ebp+02h]
         push eax
-        call sub_11B0D0
+        call SaveDataFileNew
         add esp, byte 0Ch
         lea eax, [byte ebp+02h]
         lea edx, [byte ebp+02h]
@@ -890,7 +890,7 @@ PickIndexEntryScreen_4EE:
         push unk_1ACD2B
         lea eax, [byte ebp+02h]
         push eax
-        call sub_11B0D0
+        call SaveDataFileNew
         add esp, byte 0Ch
         lea eax, [byte ebp+02h]
         lea edx, [byte ebp+02h]
@@ -940,7 +940,7 @@ PickIndexEntryScreen_4EE:
         push unk_1AD250
         lea eax, [byte ebp-03Eh]
         push eax
-        call sub_11B0D0
+        call SaveDataFileNew
         add esp, byte 0Ch
         jmp near .62
 .59:
@@ -987,7 +987,7 @@ PickIndexEntryScreen_4EE:
         push unk_1AD250
         lea eax, [byte ebp+02h]
         push eax
-        call sub_11B0D0
+        call SaveDataFileNew
         add esp, byte 0Ch
         lea eax, [byte ebp+02h]
         lea edx, [byte ebp+02h]

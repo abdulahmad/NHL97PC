@@ -5,13 +5,14 @@ section s_12FB20 progbits alloc exec nowrite align=1
 extern str_ExitYN, dword_16E464, dword_16E468, dword_16E46C, dword_16E4C8, dword_16E6A8, dword_16F184, dword_199990
 extern dword_199994, dword_199998, dword_19999C, dword_1999A0, dword_1999A4, off_16E4D4, off_16E4D8, off_16E4DC
 extern off_16E4E0, str_PAUSEPRESSANYKEY, BlitConverted, PresentScreen, SaveDrawContext, RestoreDrawContext, CreateBitmapDefault, ConvertArtAt
-extern SaveTextState, RestoreTextState, DebugPrintf, DebugPrintAt, DebugPrintLine, DebugLineCount, SetScreenTarget, sub_FBE40
+extern SaveTextState, RestoreTextState, DebugPrintf, DebugPrintAt, DebugPrintLine, DebugLineCount, SetScreenTarget, KbdGetKey
 extern MakeColor, SelectFont, FreeBitmap, SetDrawTarget, FillRect, SetTextColors, FillRectCorners, unk_16E8A0
-global sub_12FB20, sub_12FDC8, sub_12FF9C, sub_12FFD8, sub_12FFF0, sub_13000C
+global ShowKeyMessageBox, AskExitGame, ShowPauseMessage, DosGetVector, DosSetVector, CallPreservingRegs
 ;-----------------------------------------------------------------------------
-; sub_12FB20                                                          12FB20  
+; ShowKeyMessageBox                              12FB20  97 PC, low confidence
+; Draws a message box, waits for a key and restores the screen
 ;-----------------------------------------------------------------------------
-sub_12FB20:
+ShowKeyMessageBox:
         push esi
         push edi
         push ebp
@@ -133,7 +134,7 @@ sub_12FB20:
         test eax, edi
         jne short .1
 .2:
-        call sub_FBE40
+        call KbdGetKey
         mov ebx, eax
         mov ebp, eax
         call dword [off_16E4E0]
@@ -199,9 +200,10 @@ sub_12FB20:
         ret 8
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_12FDC8                                                          12FDC8  
+; AskExitGame                                    12FDC8  97 PC, low confidence
+; Asks Exit Y/N and quits when the player confirms
 ;-----------------------------------------------------------------------------
-sub_12FDC8:
+AskExitGame:
         push ebx
         mov eax, dword [dword_16E468]
         mov edx, eax
@@ -219,7 +221,7 @@ sub_12FDC8:
         lea edx, [byte eax-050h]
         mov ecx, 0A0h
         mov eax, str_ExitYN
-        call sub_12FB20
+        call ShowKeyMessageBox
         test eax, eax
         je short .1
         call dword [dword_16F184]
@@ -350,9 +352,10 @@ sub_12FDC8:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_12FF9C                                                          12FF9C  
+; ShowPauseMessage                               12FF9C  97 PC, low confidence
+; Shows PAUSE - PRESS ANY KEY and waits
 ;-----------------------------------------------------------------------------
-sub_12FF9C:
+ShowPauseMessage:
         push ebx
         mov eax, dword [dword_16E468]
         mov edx, eax
@@ -370,14 +373,15 @@ sub_12FF9C:
         lea edx, [dword eax-090h]
         mov ecx, 120h
         mov eax, str_PAUSEPRESSANYKEY
-        call sub_12FB20
+        call ShowKeyMessageBox
         pop ebx
         ret
         db 00h
 ;-----------------------------------------------------------------------------
-; sub_12FFD8                                                          12FFD8  
+; DosGetVector                                   12FFD8  97 PC, low confidence
+; Reads an interrupt vector through DOS
 ;-----------------------------------------------------------------------------
-sub_12FFD8:
+DosGetVector:
         push ebx
         push es
         push ds
@@ -397,9 +401,10 @@ sub_12FFD8:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_12FFF0                                                          12FFF0  
+; DosSetVector                                   12FFF0  97 PC, low confidence
+; Sets an interrupt vector through DOS
 ;-----------------------------------------------------------------------------
-sub_12FFF0:
+DosSetVector:
         push es
         push ds
         push esi
@@ -422,16 +427,17 @@ sub_12FFF0:
         ret
         db 00h,00h
 ;-----------------------------------------------------------------------------
-; sub_13000C                                                          13000C  
+; CallPreservingRegs                             13000C  97 PC, low confidence
+; Saves the registers, calls the routine and restores them
 ;-----------------------------------------------------------------------------
-sub_13000C:
+CallPreservingRegs:
         mov dword [dword_199990], ebx
         mov dword [dword_199994], ecx
         mov dword [dword_199998], edx
         mov dword [dword_19999C], esi
         mov dword [dword_1999A0], edi
         pop dword [dword_1999A4]
-        call sub_13000C
+        call CallPreservingRegs
         push dword [dword_1999A4]
         mov ebx, dword [dword_199990]
         mov ecx, dword [dword_199994]

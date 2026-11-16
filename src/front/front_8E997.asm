@@ -19,8 +19,8 @@ extern dword_1AD22A, dword_1AD244, dword_1C1334, dword_1C5DE0, dword_1C8334, dwo
 extern dword_1C85D0, dword_1C8618, dword_1C8680, dword_1C86E8, dword_1C86EC, dword_1C86F0, dword_1C86F4, dword_1C86F8
 extern dword_1C86FC, dword_1C8A8C, dword_1C8A90, dword_1C94E8, jpt_8E977, jpt_8E987, memcpy_, memset_
 extern qsort_, rand_, sprintf_, srand_, strcat_, strcpy_, strlen_, BlitShape2
-extern BlitArt, BlitShape, BlitClippedY, PresentScreen, FindShape, Random32, sub_10AED0, FindShapeList
-extern sub_11B0D0, SetScreenTarget, SeasonGameScreen, MusicEnabled, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx
+extern BlitArt, BlitShape, BlitClippedY, PresentScreen, FindShape, Random32, DosFileInfo, FindShapeList
+extern SaveDataFileNew, SetScreenTarget, SeasonGameScreen, MusicEnabled, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx
 extern MakeDirPath, LoadDataFile, BuildSeasonSchedule, ClearTeamInjuries, DrawScreenBackground, FadeInScreen, ShowScreen, ExitScreen
 extern SetRegionRect, SetTextColor, DrawTextAligned, ShowMessageBox, EditTextField, DrawTeamLogoBanner, WipeScreen, SetHighlightText
 extern SetNormalText, DrawStatTable, ShowLinkMessage, ShowPopupScreen, RunStatsMenu, NameIndexNew, NameIndexLoad, NameIndexFree
@@ -1484,7 +1484,7 @@ CreateSeason:
         add esp, byte 0Ch
         lea eax, [dword ebp-0BEh]
         push eax
-        call sub_10AED0
+        call DosFileInfo
         add esp, byte 4
         test eax, eax
         jne short .15
@@ -1547,7 +1547,7 @@ CreateSeason:
         lea eax, [dword ebp-0BEh]
         push eax
         mov ebx, unk_1ACF12
-        call sub_11B0D0
+        call SaveDataFileNew
         add esp, byte 0Ch
         lea edx, [byte ebp-01Eh]
         mov eax, esi
@@ -4520,7 +4520,7 @@ SeasonSettingsPath:
         push unk_1ACD2B
         lea eax, [byte ebp-078h]
         push eax
-        call sub_11B0D0
+        call SaveDataFileNew
         add esp, byte 0Ch
         leave
         pop edx

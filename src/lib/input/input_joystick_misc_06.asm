@@ -4,8 +4,8 @@ bits 32
 section s_10CFB4 progbits alloc exec nowrite align=1
 extern byte_1D1D8C, byte_1D1FBC, dword_16E464, dword_16E468, dword_16E4A8, dword_17024C, dword_170250, dword_170254
 extern dword_170258, dword_17025C, dword_170260, dword_170264, dword_170268, dword_17026C, dword_170270, dword_170274
-extern dword_1D204C, dword_1D2050, memcpy_, sub_100700, SubVec3, sub_10CF34, FixedLerp, DrawClippedPoly
-extern RotatePoint2D, RotateModelPoint, sub_11313C, SinLookup, CosLookup, sub_12D300, sub_12D4B8, TransposeMatrix
+extern dword_1D204C, dword_1D2050, memcpy_, AngleOfVector, SubVec3, TransformVecFull, FixedLerp, DrawClippedPoly
+extern RotatePoint2D, RotateModelPoint, AngleFromDelta, SinLookup, CosLookup, ProjectPointsPersp, MultiplyMatrix, TransposeMatrix
 extern FreeMemBlock, MakeColor, FillRectColor, unk_1D1D20, vecdist
 global SetCameraAngles_2E, ClipSurfPolyLeft_292, ClipSurfPolyRight_2A6, SetViewScreenOrigin, SetCameraAngles, ClipSurfEdgeAtX, ClipSurfEdgeAtY, ClipSurfPolyLeft
 global ClipSurfPolyRight, ClipSurfPolyTop, ClipSurfPolyBottom, DrawSurfacePolys, DrawOverlayModels, AllocOverlaySlot, SetOverlayCentre, ProjectOverlayPoint
@@ -118,7 +118,7 @@ SetCameraAngles_2E:
         neg eax
         push dword [dword_170250]
         push eax
-        call sub_11313C
+        call AngleFromDelta
         add esp, byte 8
         mov dword [dword_170270], eax
         pop edi
@@ -1177,7 +1177,7 @@ DrawSurfacePolys:
         push edi
         lea eax, [dword esp+0238h]
         push eax
-        call sub_10CF34
+        call TransformVecFull
         add esp, byte 0Ch
         mov edx, dword [dword_16E4A8]
         cmp edx, dword [dword esp+0244h]
@@ -1410,7 +1410,7 @@ DrawSurfacePolys:
         push ebp
         mov eax, dword [dword esp+026Ch]
         push eax
-        call sub_12D300
+        call ProjectPointsPersp
         add esp, byte 0Ch
         push byte 2
         push byte 0
@@ -1501,14 +1501,14 @@ DrawOverlayModels:
         push edx
         lea eax, [byte esp+02Ch]
         push eax
-        call sub_10CF34
+        call TransformVecFull
         add esp, byte 0Ch
         mov ecx, dword [byte esp+038h]
         push ecx
         push edi
         lea eax, [byte esp+08h]
         push eax
-        call sub_12D4B8
+        call MultiplyMatrix
         mov dword [byte ebx+07Ch], 270Fh
         add esp, byte 0Ch
         mov dword [dword ebx+084h], 0FFFFD8F1h
@@ -1694,7 +1694,7 @@ ProjectOverlayPoint:
         push edx
         lea edx, [byte esp+08h]
         push edx
-        call sub_12D4B8
+        call MultiplyMatrix
         add esp, byte 0Ch
         add esp, byte 48h
         pop esi
@@ -1722,7 +1722,7 @@ AimOverlayModel:
         push esi
         sub edi, ecx
         push edi
-        call sub_100700
+        call AngleOfVector
         add esp, byte 8
         mov ecx, eax
         push esi
@@ -1734,7 +1734,7 @@ AimOverlayModel:
         add esp, byte 8
         push eax
         push ebp
-        call sub_100700
+        call AngleOfVector
         add esp, byte 8
         mov dword [byte ebx+020h], eax
         push eax
@@ -1756,7 +1756,7 @@ AimOverlayModel:
         push eax
         lea eax, [byte esp+02Ch]
         push eax
-        call sub_12D4B8
+        call MultiplyMatrix
         add esp, byte 0Ch
         add esp, byte 4Ch
         pop ebp
@@ -1830,7 +1830,7 @@ AllocOverlayModel:
         lea eax, [byte esp+02Ch]
         push eax
         mov esi, unk_1D1D20
-        call sub_12D4B8
+        call MultiplyMatrix
         lea edi, [byte ebx+04h]
         add esp, byte 0Ch
         mov eax, ebx

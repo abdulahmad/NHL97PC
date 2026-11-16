@@ -7,7 +7,7 @@ extern byte_17268C, dword_1682E4, dword_1682E8, dword_16844C, dword_168450, dwor
 extern fputc_, frexp_, modf_, qword_1682EC, qword_16843C, qword_168444, qword_16845E, matherr
 extern unk_16845C, unk_1722C0
 global IF@LOG, IF@LOG10, IF@LOG2, _Scale10V_, _Scale_, __Nan_Inf_, __cvt_, __get_std_stream_
-global _dos_read_, floor_, fputs_, IF@LOG_2, sub_13B542, sub_13B5D2, sub_13B61D, sub_13B66E
+global _dos_read_, floor_, fputs_, IF@LOG_2, ModfCore, DecimalToInt64, NormalizeDouble, CallMatherr
 ;-----------------------------------------------------------------------------
 ; __Nan_Inf_                                                   13B0C9  library
 ;-----------------------------------------------------------------------------
@@ -517,9 +517,10 @@ __cvt_:
         pop ebp
         ret 1Ch
 ;-----------------------------------------------------------------------------
-; sub_13B542                                                          13B542  
+; ModfCore                                       13B542  97 PC, low confidence
+; Splits a double into its integer and fraction parts
 ;-----------------------------------------------------------------------------
-sub_13B542:
+ModfCore:
         push ebp
         push esi
         push edi
@@ -573,7 +574,7 @@ sub_13B542:
         mov ebp, esi
         and edx, dword [byte ebp+04h]
         and eax, dword [byte ebp+00h]
-        call sub_13B61D
+        call NormalizeDouble
         pop esi
         or edx, edx
         je short .5
@@ -589,9 +590,10 @@ sub_13B542:
         pop ebp
         ret
 ;-----------------------------------------------------------------------------
-; sub_13B5D2                                                          13B5D2  
+; DecimalToInt64                                 13B5D2  97 PC, low confidence
+; Converts a string of decimal digits to a 64-bit integer
 ;-----------------------------------------------------------------------------
-sub_13B5D2:
+DecimalToInt64:
         push ebp
         push esi
         push edi
@@ -624,7 +626,7 @@ sub_13B5D2:
 .2:
         mov eax, ecx
         mov edi, 43300000h
-        call sub_13B61D
+        call NormalizeDouble
         pop ebp
         mov dword [byte ebp+04h], edx
         mov dword [byte ebp+00h], eax
@@ -635,9 +637,10 @@ sub_13B5D2:
         pop ebp
         ret
 ;-----------------------------------------------------------------------------
-; sub_13B61D                                                          13B61D  
+; NormalizeDouble                                13B61D  97 PC, low confidence
+; Normalises a 64-bit mantissa and exponent into a double
 ;-----------------------------------------------------------------------------
-sub_13B61D:
+NormalizeDouble:
         sub esi, esi
         or esi, eax
         or esi, edx
@@ -670,9 +673,10 @@ sub_13B61D:
 .5:
         ret
 ;-----------------------------------------------------------------------------
-; sub_13B66E                                                          13B66E  
+; CallMatherr                                    13B66E  97 PC, low confidence
+; Calls matherr
 ;-----------------------------------------------------------------------------
-sub_13B66E:
+CallMatherr:
         jmp near matherr
 ;-----------------------------------------------------------------------------
 ; __get_std_stream_                                            13B673  library

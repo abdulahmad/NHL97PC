@@ -7,11 +7,12 @@ extern byte_16E460, dword_16E344, dword_16E360, dword_16E364, dword_16E368, dwor
 extern dword_16E37C, dword_16E380, dword_16E384, dword_16E388, dword_16E38C, dword_16E390, dword_16E397, dword_16E39B
 extern dword_16E39F, dword_16E3A3, dword_16E3A7, dword_16E3AB, dword_16E3AF, dword_16E3B3, dword_16E3B7, dword_16E3BB
 extern dword_16E3BF, dword_16E3C3, dword_16E3C7, dword_16E3CB, dword_16E3CF, dword_16E3D3, dword_16E4B4, Random32
-global sub_FB8AE, sub_FB9D8, sub_FBCD8
+global CalibrateJoystick, ReadJoystickPorts, ResetJoystickRange
 ;-----------------------------------------------------------------------------
-; sub_FB8AE                                                            FB8AE  
+; CalibrateJoystick                               FB8AE  97 PC, low confidence
+; Times the joystick port with the timer chip to calibrate its range
 ;-----------------------------------------------------------------------------
-sub_FB8AE:
+CalibrateJoystick:
         push ebx
 .1:
         call Random32
@@ -126,9 +127,10 @@ sub_FB8AE:
         ret
         db 00h,00h
 ;-----------------------------------------------------------------------------
-; sub_FB9D8                                                            FB9D8  
+; ReadJoystickPorts                               FB9D8  97 PC, low confidence
+; Reads the joystick buttons and axes by timing the port
 ;-----------------------------------------------------------------------------
-sub_FB9D8:
+ReadJoystickPorts:
         push ebx
         mov byte [byte_16E396], 0
         test byte [byte_16E460], 1
@@ -360,9 +362,10 @@ sub_FB9D8:
         or byte [byte_16E396], 1
         jmp short .27
 ;-----------------------------------------------------------------------------
-; sub_FBCD8                                                            FBCD8  
+; ResetJoystickRange                              FBCD8  97 PC, low confidence
+; Sets the default joystick centre and range
 ;-----------------------------------------------------------------------------
-sub_FBCD8:
+ResetJoystickRange:
         push ebx
         mov byte [byte_16E460], 1
         mov dword [dword_16E397], 50h

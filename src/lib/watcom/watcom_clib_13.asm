@@ -26,15 +26,15 @@ extern dword_1D990C, dword_1D9910, dword_1D9B0C, dword_1D9B10, dword_1D9B2C, dwo
 extern dword_1DA390, dword_1DA4D0, int386_, isatty_, memcpy_, off_1706E0, off_1706E4, off_170B14
 extern off_170B18, off_170B1C, off_171C7C, off_171C80, off_171C84, off_171D10, off_19C6C4, off_19C6E2
 extern off_19C6E3, qword_167EC8, qword_167ED0, qword_167EE0, sprintf_, strcat_, strcpy_, strlen_
-extern strncpy_, sub_1004B8, bcopy, AddExitHandler, PresentScreen, ConvertArtPalette, Random32, sub_102D3C
-extern SetGraphicsMode, WritePaletteRegs, FreeRowTable, FillRowTable, BytesPerPixelForDepth, FileExistsPath, sub_106F64, DosOpenFile
-extern DosCloseFile, DosReadFile, DosSeekFile, SetViewScreenOrigin, SetCameraAngles, DrawPolyArray, sub_121460, sub_121470
-extern sub_121494, sub_12189C, sub_121A43, ArchiveEntryOffset, BlitCore, sub_123FCB, ConvertColor555, CreateBitmapFromBlock
-extern Convert32To565Keyed, sub_12D520, sub_12F270, sub_12FACC, sub_12FDC8, sub_12FF9C, sub_12FFD8, sub_12FFF0
-extern sub_13005A, TgvCopyBlock, TgvFillBlock, SaveTextScreen, RestoreTextScreen, InitTextOutput, ClearNumLock, InstallBreakHandler
+extern strncpy_, LoadResourceData, bcopy, AddExitHandler, PresentScreen, ConvertArtPalette, Random32, VesaSetBank
+extern SetGraphicsMode, WritePaletteRegs, FreeRowTable, FillRowTable, BytesPerPixelForDepth, FileExistsPath, UnpackShared, DosOpenFile
+extern DosCloseFile, DosReadFile, DosSeekFile, SetViewScreenOrigin, SetCameraAngles, DrawPolyArray, ResetMemLock, MemLock
+extern MemUnlock, FindCachedFile, PollHotkeys, ArchiveEntryOffset, BlitCore, StoreLittleEndian, ConvertColor555, CreateBitmapFromBlock
+extern Convert32To565Keyed, PlotPixelClipped, SinCosLookup, PrintScreen, AskExitGame, ShowPauseMessage, DosGetVector, DosSetVector
+extern AssertPreserveRegs, TgvCopyBlock, TgvFillBlock, SaveTextScreen, RestoreTextScreen, InitTextOutput, ClearNumLock, InstallBreakHandler
 extern RegisterHotkey, SetScreenTarget, NoOpPlatformHook, AddMemRegion, AddMemRegions, AddHighMemRegion, TrimMemList, MemListEnd
-extern AllocMemBlockMovable, AllocMemBlock, AllocMemBlockFull, FreeMemBlock, InitMemDescriptors, MemDescPtr, ZeroMem, sub_FBE78
-extern sub_FC0F0, sub_FC410, MakeColor, sub_FC73E, DebugSetLine, SelectFont, LoadDrawContext, ClearScreen
+extern AllocMemBlockMovable, AllocMemBlock, AllocMemBlockFull, FreeMemBlock, InitMemDescriptors, MemDescPtr, ZeroMem, SetKbdIdleHook
+extern InstallTimer, CurrentArchiveName, MakeColor, MouseInit, DebugSetLine, SelectFont, LoadDrawContext, ClearScreen
 extern FillPolygon, FillRectColor, SetTextColors, DrawTextBoxedAt, RefreshTextColors, MatTranspose, TransformVecs, VecAdd
 extern VecSub, AddVecs, VecCross, VecScale, VecNormalize, VecCrossUnit, unk_10003, unk_16E8A0
 extern unk_170B26, unk_170B30, unk_170F72, unk_170F7C, unk_1713BE, unk_1713C8, unk_17180A, unk_171814
@@ -3937,7 +3937,7 @@ LoadModelFile:
         push ecx
         lea eax, [byte esp+04h]
         push eax
-        call sub_1004B8
+        call LoadResourceData
         add esp, byte 8
         mov edx, eax
         test eax, eax
@@ -4341,7 +4341,7 @@ PlotPixelRGB:
         sub eax, ebx
         mov dword [byte esp+014h], ecx
         mov ebx, eax
-        call sub_12D520
+        call PlotPixelClipped
         add esp, byte 8
         push eax
         call ConvertColor555
@@ -4533,7 +4533,7 @@ FixedSinCos:
         mov eax, dword [byte esp+018h]
         sar eax, 6
         push eax
-        call sub_12F270
+        call SinCosLookup
         add esp, byte 0Ch
         mov edx, dword [byte esp+010h]
         and edx, byte 3Fh
@@ -5828,22 +5828,22 @@ InstallKeyboardHandler:
         or al, 3
         out 21h, al
         mov ebx, 9
-        call sub_12FFD8
+        call DosGetVector
         mov dword [dword_1707E4], eax
         mov word [word_1707E8], dx
         mov ebx, 16h
-        call sub_12FFD8
+        call DosGetVector
         mov dword [dword_1707EA], eax
         mov word [word_1707EE], dx
         mov ebx, 23h
-        call sub_12FFD8
+        call DosGetVector
         mov dword [dword_1707F0], eax
         mov word [word_1707F4], dx
         mov dx, cs
         mov ebx, 9
         db 0B8h                                 ; insn: mov eax,106559h
         dd KeyboardISR
-        call sub_12FFF0
+        call DosSetVector
         mov dx, cs
         mov ebx, 16h
         db 0B8h                                 ; insn: mov eax,1066F0h
@@ -5852,7 +5852,7 @@ InstallKeyboardHandler:
         mov ebx, 23h
         db 0B8h                                 ; insn: mov eax,1066EFh
         dd unk_1166EF
-        call sub_12FFF0
+        call DosSetVector
         pop eax
         out 21h, al
         db 0BBh                                 ; insn: mov ebx,10673Ah
@@ -5882,14 +5882,14 @@ RemoveKeyboardHandler:
         mov ebx, 9
         mov eax, dword [dword_1707E4]
         mov dx, word [word_1707E8]
-        call sub_12FFF0
+        call DosSetVector
         mov ebx, 16h
         mov eax, dword [dword_1707EA]
         mov dx, word [word_1707EE]
         mov ebx, 23h
         mov eax, dword [dword_1707F0]
         mov dx, word [word_1707F4]
-        call sub_12FFF0
+        call DosSetVector
         and byte [0417h], 0F0h
         pop eax
         out 21h, al
@@ -6014,7 +6014,7 @@ KeyboardISR:
         cmp dword [dword_170710], byte 0
         je short .7
         mov byte [dword ebx+byte_170764], 0
-        call sub_12FACC
+        call PrintScreen
         jmp short .7
 .14:
         mov al, byte [dword ebx+byte_170921]
@@ -6176,13 +6176,13 @@ AssertFail:
         mov dword [esp], eax
 .1:
         call ExitGraphics
-        call sub_13005A
+        call AssertPreserveRegs
         cmp dword [dword_1709ED], byte 0
         je short .2
         push dword [dword_1709F1]
         push dword [dword_1709ED]
         push str_FILESLINED
-        call sub_13005A
+        call AssertPreserveRegs
         add esp, byte 0Ch
 .2:
         call dword [dword_16F184]
@@ -6237,7 +6237,7 @@ PlotPixel:
         mov edi, 10000h
         mov eax, ebp
         and esi, 0FFFFh
-        call sub_102D3C
+        call VesaSetBank
         sub edi, esi
         xor eax, eax
         lea ebx, [nosplit edi*8+00h]
@@ -6253,7 +6253,7 @@ PlotPixel:
         call bcopy
         add esp, byte 0Ch
         lea eax, [byte ebp+01h]
-        call sub_102D3C
+        call VesaSetBank
         mov eax, 4
         sub eax, edi
         push eax
@@ -6318,7 +6318,7 @@ PlotPixel:
         mov edx, dword [byte esp+024h]
         push edx
         push ebx
-        call sub_123FCB
+        call StoreLittleEndian
         add esp, byte 0Ch
         jmp short .10
 .9:
@@ -6329,7 +6329,7 @@ PlotPixel:
         cmp ebx, eax
         jne short .11
         mov eax, ebp
-        call sub_102D3C
+        call VesaSetBank
         mov eax, dword [dword_16E69C]
         push edi
         add eax, esi
@@ -6341,7 +6341,7 @@ PlotPixel:
         add esp, byte 0Ch
         lea eax, [byte ebp+01h]
         sub ebx, edi
-        call sub_102D3C
+        call VesaSetBank
         push ebx
         mov eax, dword [dword_16E69C]
         push eax
@@ -9068,7 +9068,7 @@ DecodeTgvKeyFrame:
         add edx, byte 10h
         push edx
         push eax
-        call sub_106F64
+        call UnpackShared
         add esp, byte 8
 .12:
         mov dword [byte esp+0Ch], 1
@@ -9336,7 +9336,7 @@ SerialOpen:
         LD xor, eax, eax
         mov ax, word [byte ebx+04h]
         LD mov, ebx, eax
-        call sub_12FFD8
+        call DosGetVector
         mov ebx, dword [byte ebp-04h]
         mov dword [byte ebx+0Ah], eax
         mov word [byte ebx+0Eh], dx
@@ -9345,7 +9345,7 @@ SerialOpen:
         LD xor, ecx, ecx
         mov cx, word [byte ebx+04h]
         LD mov, ebx, ecx
-        call sub_12FFF0
+        call DosSetVector
         mov ebx, dword [byte ebp-04h]
         mov dword [byte ebx+010h], 1
         mov dx, word [byte ebx+08h]
@@ -9396,7 +9396,7 @@ SerialClose:
         LD xor, ecx, ecx
         mov cx, word [byte ebx+04h]
         LD mov, ebx, ecx
-        call sub_12FFF0
+        call DosSetVector
         mov eax, dword [byte ebp+08h]
         mov ebx, dword [nosplit eax*4+off_170B14]
         push dword [byte ebx+018h]
@@ -10183,7 +10183,7 @@ LoadNamedResource:
         push edi
         push ebp
         sub esp, byte 18h
-        call sub_FC410
+        call CurrentArchiveName
         mov edx, dword [byte esp+03Ch]
         push edx
         lea ebx, [byte esp+0Ch]
@@ -10235,7 +10235,7 @@ LoadNamedResource:
         mov eax, dword [ebx]
         push eax
         lea esi, [nosplit ebp*4+00h]
-        call sub_12189C
+        call FindCachedFile
         add esp, byte 4
         test eax, eax
         je short .5
@@ -10528,11 +10528,11 @@ InitMemoryPool:
         push ebp
         sub esp, byte 44h
         mov esi, dword [byte esp+060h]
-        call sub_121460
+        call ResetMemLock
         push eax
         mov ebx, 40h
         mov dword [dword_1CF260], eax
-        call sub_121470
+        call MemLock
         add esp, byte 4
         mov eax, dword_1DA350
         xor edx, edx
@@ -10801,7 +10801,7 @@ InitMemoryPool:
         push ecx
         mov dword [dword_1CF268], edi
         mov dword [dword_1CF264], ebx
-        call sub_121494
+        call MemUnlock
         add esp, byte 4
         mov eax, edi
         add esp, byte 44h
@@ -11277,7 +11277,7 @@ InitPlatform:
 .2:
         mov ecx, dword [dword_16E4B0]
         push ecx
-        call sub_FC0F0
+        call InstallTimer
         mov esi, dword [dword_16E444]
         add esp, byte 4
         test esi, esi
@@ -11323,15 +11323,15 @@ InitPlatform:
         add esp, byte 4
         test edx, edx
         jne short .4
-        call sub_FC73E
+        call MouseInit
 .4:
         call ClearNumLock
         call InstallKeyboardHandler
         push PresentScreen
         call InstallBreakHandler
         add esp, byte 4
-        push sub_121A43
-        call sub_FBE78
+        push PollHotkeys
+        call SetKbdIdleHook
         add esp, byte 4
         call InstallErrorHandlers
         mov ebx, dword [dword_16E468]
@@ -11358,11 +11358,11 @@ InitPlatform:
 ; Installs the handlers of the error interrupts
 ;-----------------------------------------------------------------------------
 InstallErrorHandlers:
-        push sub_12FF9C
+        push ShowPauseMessage
         push byte 10h
         call RegisterHotkey
         add esp, byte 8
-        push sub_12FDC8
+        push AskExitGame
         push byte 18h
         call RegisterHotkey
         add esp, byte 8

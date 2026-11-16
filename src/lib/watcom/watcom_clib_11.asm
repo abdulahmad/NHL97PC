@@ -4,11 +4,12 @@ bits 32
 section s_10AED0 progbits alloc exec nowrite align=1
 extern __doserror_, __fprtf_, dword_16E48C, dword_16E490, dword_16E494, dword_16E498, dword_16E49C, dword_16E4A0
 extern dword_16E4A4, dword_1CFCEC, dword_1CFCF0, DosOpenReadOnly, DosCloseFile, unk_1722DA
-global DetectCPU, _dos_close_, _dos_commit_, _dos_open_, printf_, sub_10AED0, sub_10B000
+global DetectCPU, _dos_close_, _dos_commit_, _dos_open_, printf_, DosFileInfo, BuildReciprocalTable
 ;-----------------------------------------------------------------------------
-; sub_10AED0                                                          10AED0  
+; DosFileInfo                                    10AED0  97 PC, low confidence
+; Opens a file to learn whether it exists and its size, then closes it
 ;-----------------------------------------------------------------------------
-sub_10AED0:
+DosFileInfo:
         push ebx
         sub esp, byte 0Ch
         mov eax, esp
@@ -145,9 +146,10 @@ _dos_open_:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_10B000                                                          10B000  
+; BuildReciprocalTable                           10B000  97 PC, low confidence
+; Fills the table of fixed-point reciprocals used by the polygon fillers
 ;-----------------------------------------------------------------------------
-sub_10B000:
+BuildReciprocalTable:
         push ebx
         push ecx
         push edx

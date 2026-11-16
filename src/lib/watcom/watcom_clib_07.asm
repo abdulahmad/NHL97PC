@@ -8,7 +8,7 @@ extern dword_16E4C8, dword_16E670, dword_16E6A8, dword_16E6AC, dword_16E6B0, dwo
 extern dword_16E6CC, dword_16E6D0, dword_16E6D4, dword_16E6D8, dword_16E714, dword_16F894, dword_16F898, dword_16F8A8
 extern dword_16F8AC, dword_16F8B0, dword_16F8B4, dword_16F8B8, dword_16F9FC, dword_16FA00, dword_16FA04, dword_16FA08
 extern dword_172AAC, dword_1CF9F4, dword_1CF9F8, dword_1DA4D0, int386_, int386x_, memset_, removewindow
-extern segread_, sub_102D3C, sub_102DB2, sub_102DC5, FillRowTable, BytesPerPixelForDepth, SetScreenTarget, AllocMemBlock
+extern segread_, VesaSetBank, VesaSetModeCall, VgaSetModeNoClear, FillRowTable, BytesPerPixelForDepth, SetScreenTarget, AllocMemBlock
 extern FreeMemBlock, FreeBitmap
 global VesaGetModeInfo, VesaQueryMode, FindClosestMode, VesaSetMode, VesaSetWindow, CloseVideoWindow, SetGraphicsMode, WritePaletteRegs
 global AllocRowTable, FreeRowTable
@@ -225,7 +225,7 @@ VesaSetMode:
         jge short .1
         push byte 13h
         mov ebx, 1
-        call sub_102DC5
+        call VgaSetModeNoClear
         add esp, byte 4
         jmp short .3
 .1:
@@ -244,7 +244,7 @@ VesaSetMode:
         mov eax, esi
         or ah, 0C0h
         push eax
-        call sub_102DB2
+        call VesaSetModeCall
         add esp, byte 4
         cmp ax, 4Fh
         jne short .2
@@ -254,7 +254,7 @@ VesaSetMode:
         jne short .3
         or si, 8000h
         push esi
-        call sub_102DB2
+        call VesaSetModeCall
         add esp, byte 4
         cmp ax, 4Fh
         jne short .3
@@ -528,7 +528,7 @@ SetGraphicsMode:
         mov dword [dword_16F894], 1
 .19:
         mov eax, 0FFFFFFFFh
-        call sub_102D3C
+        call VesaSetBank
 .20:
         cmp dword [dword esp+0178h], byte 0
         jne short .21
