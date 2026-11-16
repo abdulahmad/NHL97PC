@@ -12,12 +12,12 @@ extern jpt_45B70, jpt_45B84, jpt_45BC0, jpt_45BD8, sub_48D70_4D6, sub_48D70_4EC,
 extern sub_48D70_536, sub_48D70_572, sub_48D70_5AE, sub_48D70_5D6, sub_48D70_5FE, sub_48D70_64E, sub_48D70_69E, sub_48D70_745
 extern sub_48D70_7FF, sub_48D70_87E, sub_48D70_8CF, sub_48D70_8F5, sub_48D70_91B, sub_48D70_941, sub_48D70_967, sub_48D70_14CD
 extern rand_, sprintf_, strcat_, sub_106AA6, sub_106C74, sub_106CBB, sub_107154, sub_109417
-extern sub_109545, sub_10955B, sub_1095AD, sub_109870, sub_109A74, sub_109B50, sub_109C94, sub_109D70
+extern sub_109545, sub_10955B, sub_1095AD, sub_109870, AsyncInit, AsyncClose, AsyncRequestOpen, AsyncRequestSection
 extern sub_109E74, sub_10A7D0, sub_10A860, sub_10A868, sub_10A8C4, sub_10A930, sub_10A980, sub_10AA38
 extern sub_10AB1C, sub_10ABC8, sub_3FE54, sub_3FEE8, sub_3FF4C, sub_3FF9C, sub_4006C, sub_400E8
 extern sub_401A0, sub_40258, sub_40298, sub_40380, sub_403C0, sub_40400, sub_40440, sub_404C4
 extern sub_40574, sub_405F8, sub_40640, sub_40680, sub_40850, sub_44A50, sub_4518C, sub_45628
-extern sub_4564C, sub_45954, sub_45A00, sub_4AB90, sub_E341C, sub_FAA64, sub_FAF34, sub_FB704
+extern sub_4564C, sub_45954, sub_45A00, MakeDataPath, sub_E341C, sub_FAA64, sub_FAF34, sub_FB704
 extern tickcount, word_1691A4, word_169268, word_169282, word_169284, word_169824
 global jpt_48D20, jpt_48D50, sub_45BEC_66, sub_45BEC_135, sub_45BEC_2DE, sub_45BEC_36D, sub_45BEC_3F6, sub_45BEC_3FF
 global sub_45BEC_408, sub_45BEC_411, sub_45BEC_41A, sub_45BEC_423, sub_45BEC_48A, sub_45BEC_4E4, sub_45BEC_4ED, sub_45BEC_4F6
@@ -32,8 +32,8 @@ global sub_45BEC_1293, sub_45BEC_1500, sub_45BEC_16BA, sub_45BEC_1771, sub_45BEC
 global sub_45BEC_18A1, sub_45BEC_18AA, sub_45BEC_18B3, sub_45BEC_18BC, sub_45BEC_1931, sub_45BEC_19C8, sub_45BEC_1A44, sub_45BEC_1B16
 global sub_45BEC_1B57, sub_45BEC_1B97, sub_45BEC_1BF5, sub_45BEC_1C3D, sub_45BEC_1CB2, sub_45BEC_1DD1, sub_45BEC_1E49, sub_45BEC_1ECB
 global sub_45BEC_1F28, sub_45BEC_1F56, sub_45BEC_1FE8, sub_45BEC, sub_47C08, sub_47D70, sub_47DC8, sub_47E38
-global sub_47EA4, sub_47F8C, sub_48030, sub_48080, sub_480CC, sub_486E8, sub_4880C, sub_48864
-global sub_4890C, sub_48950, sub_489F4
+global sub_47EA4, ShutdownSound, sub_48030, sub_48080, sub_480CC, sub_486E8, sub_4880C, sub_48864
+global sub_4890C, RecordPctClip, RecordStreakClips
 ;-----------------------------------------------------------------------------
 ; sub_45BEC                                                       45BEC  97 PC
 ;-----------------------------------------------------------------------------
@@ -2728,7 +2728,7 @@ sub_47C08:
         jne near .5
         add eax, byte 8
         mov edx, dword [nosplit ebx*4+dword_16926C]
-        call sub_4AB90
+        call MakeDataPath
         mov eax, dword [dword_1AC814]
         and eax, byte 0Ch
         cmp eax, byte 8
@@ -2943,10 +2943,10 @@ sub_47E38:
         call sub_E341C
         lea eax, [byte esp+050h]
         mov edx, dword [dword_16926C]
-        call sub_4AB90
+        call MakeDataPath
         mov eax, esp
         mov edx, dword [dword_169274]
-        call sub_4AB90
+        call MakeDataPath
         mov eax, esp
         push eax
         lea eax, [byte esp+054h]
@@ -2978,7 +2978,7 @@ sub_47EA4:
         push byte 20h
         push dword 2000h
         push byte 18h
-        call sub_109A74
+        call AsyncInit
         add esp, byte 0Ch
         call sub_109E74
         call sub_10A860
@@ -3030,9 +3030,11 @@ sub_47EA4:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_47F8C                                                       47F8C  97 PC
+; ShutdownSound                                47F8C  96 PC, medium confidence
+; From ShutDown: ShutdownSpeech, frees the sound effect banks, fades and
+; stops the music, AsyncClose
 ;-----------------------------------------------------------------------------
-sub_47F8C:
+ShutdownSound:
         push dword 1Ch
         call __CHK
         push ebx
@@ -3043,7 +3045,7 @@ sub_47F8C:
         je near .1
         call sub_109E74
         mov ebx, 0FFFFFFFFh
-        call sub_109B50
+        call AsyncClose
         mov dword [dword_169288], ebx
         call sub_10ABC8
         xor eax, eax
@@ -3213,7 +3215,7 @@ sub_480CC:
         add eax, edx
         add eax, byte 8
         push eax
-        call sub_109C94
+        call AsyncRequestOpen
         mov edx, dword [dword_16927E]
         sar edx, 10h
         mov eax, edx
@@ -3250,7 +3252,7 @@ sub_480CC:
         push ecx
         mov esi, dword [byte edx+eax*2+0Ah]
         push esi
-        call sub_109D70
+        call AsyncRequestSection
         mov edx, dword [dword_16927E]
         sar edx, 10h
         mov ebx, eax
@@ -3278,7 +3280,7 @@ sub_480CC:
         add edx, 2800h
         push edx
         push edi
-        call sub_109D70
+        call AsyncRequestSection
         mov ebx, dword [dword_16927E]
         sar ebx, 10h
         mov edx, eax
@@ -3850,9 +3852,10 @@ sub_4890C:
         ret 4
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_48950                                                       48950  97 PC
+; RecordPctClip                                48950  96 PC, medium confidence
+; Picks clip 9-0Ch from three 16.16 ratios (>= .5, >= .65, >= .6)
 ;-----------------------------------------------------------------------------
-sub_48950:
+RecordPctClip:
         push dword 10h
         call __CHK
         push esi
@@ -3929,9 +3932,11 @@ sub_48950:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_489F4                                                       489F4  97 PC
+; RecordStreakClips                            489F4  96 PC, medium confidence
+; Reads a team's W/L/T byte string (streak or record) for the play-by-play
+; event 4 clips
 ;-----------------------------------------------------------------------------
-sub_489F4:
+RecordStreakClips:
         push dword 44h
         call __CHK
         push esi
@@ -4078,7 +4083,7 @@ sub_489F4:
         mov ebx, dword [byte esp+014h]
         mov edx, dword [byte esp+018h]
         mov eax, dword [byte esp+01Ch]
-        call sub_48950
+        call RecordPctClip
         mov word [edi], ax
         mov eax, dword [byte esp+020h]
         mov dh, byte [eax]
@@ -4102,7 +4107,7 @@ sub_489F4:
         mov ebx, dword [byte esp+014h]
         mov edx, dword [byte esp+018h]
         mov eax, dword [byte esp+01Ch]
-        call sub_48950
+        call RecordPctClip
         mov edx, eax
         cmp eax, byte 9
         je near .17
@@ -4132,7 +4137,7 @@ sub_489F4:
         mov ebx, dword [byte esp+04h]
         mov edx, dword [byte esp+08h]
         mov eax, dword [byte esp+0Ch]
-        call sub_48950
+        call RecordPctClip
         movsx edx, word [edi]
         cmp eax, edx
         jne short .15

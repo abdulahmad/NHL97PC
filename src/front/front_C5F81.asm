@@ -21,7 +21,7 @@ extern sub_C755B_246, sub_C755B_2EC, sub_C755B_3B9, sub_C755B_42C, sub_C755B_49B
 extern sub_C755B_5AB, sub_C755B_5AF, sub_C755B_5CF, sub_C755B_5D3, sub_C755B_604, sub_C755B_615, sub_C755B_624, sub_C755B_65B
 extern sub_C755B_66C, rand_, sprintf_, sub_101340, sub_101390, sub_1013AC, sub_1013FC, sub_101429
 extern sub_102B94, sub_11A318, sub_13C164, sub_415A0, sub_415F8, sub_419B0, sub_419B8, sub_41FA0
-extern sub_41FDC, sub_4B108, sub_7DFC0, sub_7F028, sub_8BF54, sub_8BFAC, sub_E341C, sub_FAF34
+extern sub_41FDC, sub_4B108, sub_7DFC0, sub_7F028, InitMenuItems, sub_8BFAC, sub_E341C, sub_FAF34
 extern sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8, tickcount, unk_1ACB44, unk_1ACD2B, unk_1CBC18
 extern unk_C5ED2
 global jpt_C6038, jpt_C750B, sub_C5F81_B1, sub_C6064_E65, sub_C6064_EB8, sub_C6064_F19, sub_C6064_1135, sub_C6064_115B
@@ -173,7 +173,7 @@ sub_C6064:
         mov edx, unk_1CBC18
         or dword [byte ebp+07Dh], eax
         mov eax, 11h
-        call sub_8BF54
+        call InitMenuItems
         mov eax, 3
         call sub_419B0
         call sub_419B8

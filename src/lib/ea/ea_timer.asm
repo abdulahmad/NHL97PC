@@ -6,6 +6,9 @@ extern __STOSD, _dos_getvect_, _dos_setvect_, asc_167D2C, dword_16E3FC, dword_16
 extern dword_16E4C8, dword_1CF26C, dword_1CF28C, dword_1CF290, dword_1CF294, sub_101220, sub_FAA64, sub_FAF34
 extern TimerISR, word_16E406
 global RestoreTimer, sub_FC008, sub_FC0F0
+;-----------------------------------------------------------------------------
+; sub_FC008                                                            FC008  
+;-----------------------------------------------------------------------------
 sub_FC008:
         push ebx
         push esi
@@ -63,6 +66,9 @@ sub_FC008:
         pop edx
         ret
         db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; RestoreTimer                                 FC078  96 PC, medium confidence
+;-----------------------------------------------------------------------------
 RestoreTimer:
         push ebx
         push ecx
@@ -105,6 +111,9 @@ RestoreTimer:
         pop ebx
         ret
         db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; sub_FC0F0                                                            FC0F0  
+;-----------------------------------------------------------------------------
 sub_FC0F0:
         push ebx
         push esi

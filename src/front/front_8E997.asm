@@ -23,8 +23,8 @@ extern sub_101390, sub_1013AC, sub_1013CC, sub_1013FC, sub_101429, sub_102C30, s
 extern sub_11B0D0, sub_13C164, sub_3812E, sub_415A0, sub_419B0, sub_419B8, sub_41FA0, sub_41FDC
 extern sub_4AE14, sub_4B108, sub_7A9D8, sub_7BB27, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70
 extern sub_7F028, sub_7F0D8, sub_7F16C, sub_7F5A4, sub_7FE38, sub_80AB8, sub_80BBC, sub_81650
-extern sub_81678, sub_81D1C, sub_835BC, sub_83C08, sub_85D1D, sub_86300, sub_86368, sub_864C4
-extern sub_86500, sub_867D4, sub_8BF54, sub_8BFAC, sub_8DBAC, sub_8DE10, sub_8DE19, sub_8DE68
+extern sub_81678, sub_81D1C, sub_835BC, sub_83C08, sub_85D1D, NameIndexNew, NameIndexLoad, NameIndexFree
+extern sub_86500, sub_867D4, InitMenuItems, sub_8BFAC, sub_8DBAC, sub_8DE10, sub_8DE19, sub_8DE68
 extern sub_8DE7E, sub_8DEAC, sub_8E7E0, sub_94BDA, sub_A2EF0, sub_A2F31, sub_A2F52, sub_A2F78
 extern sub_A3048, sub_A3116, sub_C6064, sub_C755B, sub_D49BE, sub_DA7D6, sub_DB75E, sub_DB763
 extern sub_DC653, sub_DCA6C, sub_DCBB0, sub_DCFA4, sub_DD970, sub_DDC4A, sub_DE3CF, sub_DE5A3
@@ -297,7 +297,7 @@ sub_8EC93:
         mov dword [dword_1C86F8], eax
         mov edx, eax
         mov eax, 13h
-        call sub_8BF54
+        call InitMenuItems
         mov eax, 3
         call sub_419B0
         call sub_419B8
@@ -1483,12 +1483,12 @@ sub_8FA67:
         jne short .15
         mov edx, asc_16563F
         lea eax, [byte ebp-06Eh]
-        call sub_86300
+        call NameIndexNew
         jmp short .16
 .15:
         mov edx, asc_16563F
         lea eax, [byte ebp-06Eh]
-        call sub_86368
+        call NameIndexLoad
 .16:
         mov esi, eax
         mov eax, esi
@@ -1547,7 +1547,7 @@ sub_8FA67:
         call sub_86500
         mov edx, eax
         mov eax, 1
-        call sub_864C4
+        call NameIndexFree
         cmp dword [dword_1AC940], byte 0
         je short .19
         mov eax, dword_1AC940
@@ -1863,7 +1863,7 @@ sub_90162:
         add esp, byte 0Ch
         mov eax, 24h
         mov edx, dword [dword_1C86F0]
-        call sub_8BF54
+        call InitMenuItems
         cmp dword [byte ebp-024h], byte 3
         jne short .3
         push asc_1656FA
@@ -3137,7 +3137,7 @@ sub_912E3:
         mov eax, 13h
         mov edx, dword [dword_1C86F4]
         mov ecx, 52h
-        call sub_8BF54
+        call InitMenuItems
         mov edi, dword [dword_1C86F4]
         rep movsb
         mov eax, dword [dword_1C86F4]

@@ -64,7 +64,7 @@ extern sub_102C30, sub_102CDC, sub_102CF4, sub_103648, sub_104948, sub_106C74, s
 extern sub_106DE0, sub_106DF8, sub_107098, sub_1070B0, sub_108144, sub_108640, sub_108900, sub_108A60
 extern sub_108BA0, sub_108E74, sub_1091E0, sub_109210, sub_109545, sub_109557, sub_109E54, sub_109E74
 extern sub_10A7D0, sub_10A930, sub_10AB2C, sub_10AB94, sub_10AD20, sub_10AE10, sub_10AED0, sub_10B000
-extern sub_10B074, sub_10B084, sub_10B0EC, sub_10B2CC, sub_10B580, sub_10B59C, sub_10C1C0, sub_10C434
+extern sub_10B074, sub_10B084, sub_10B0EC, sub_10B2CC, sub_10B580, sub_10B59C, DrawFixedLine, sub_10C434
 extern sub_10C8B0, sub_10C8E8, sub_10C920, sub_10CE9C, sub_10CF34, sub_10DDE0, sub_10E42C, sub_10E47C
 extern sub_10E4F8, sub_10E58C, sub_10E59C, sub_10E690, sub_10E6AC, sub_10E794, sub_10E7AC, sub_10E848
 extern sub_10E8F8, sub_10E960, sub_10ED10, sub_10F814, sub_10FAE4, sub_10FB98, sub_10FBB0, sub_10FD58
@@ -74,9 +74,9 @@ extern sub_110D70, sub_111C08, sub_111FA0, sub_112010, sub_1120F0, sub_112190, s
 extern sub_1B09C, sub_1B3F4, sub_1B6E8, sub_1B71C, sub_1B85C, sub_1D2A8, sub_3B75B, sub_3C75C
 extern sub_3C880, sub_3C8DC, sub_3C944, sub_3C9C8, sub_3CA28, sub_3CAB8, sub_3CB38, sub_3CB70
 extern sub_3CCA8, sub_3D930, sub_3D95C, sub_3D988, sub_3DA18, sub_3DAC4, sub_3DBCC, sub_3DCBC
-extern sub_3E458, sub_3E590, sub_3E818, sub_3EB40, sub_3EC78, sub_3EF68, sub_3FBE4, sub_3FC88
-extern sub_41D94, sub_41DD8, sub_42650, sub_480CC, sub_4880C, sub_48864, sub_489F4, sub_52E14
-extern sub_52E8C, sub_53314, sub_5454C, sub_5475C, sub_55110, sub_55FE4, sub_560AC, sub_56464
+extern sub_3E458, sub_3E590, sub_3E818, sub_3EB40, sub_3EC78, CdStreamService, sub_3FBE4, sub_3FC88
+extern sub_41D94, sub_41DD8, sub_42650, sub_480CC, sub_4880C, sub_48864, RecordStreakClips, sub_52E14
+extern sub_52E8C, sub_53314, FreeRinkModel, sub_5475C, sub_55110, sub_55FE4, sub_560AC, sub_56464
 extern sub_56740, sub_57A1C, sub_5881C, sub_58B80, sub_58CA0, sub_59174, sub_5A6B4, sub_5A6E0
 extern sub_5AAB8, sub_5B090, sub_5B1C0, sub_5B2D4, sub_5B450, sub_5C1CC, sub_5DD74, sub_779C8
 extern sub_77A30, sub_7C3EC, sub_842F4, sub_E3410, sub_E341C, sub_FAA64, sub_FAF34, sub_FB704
@@ -97,12 +97,12 @@ extern word_1B0B62
 global jpt_4A73C, jpt_4AD42, jpt_4AE54, jpt_4B8CC, jpt_52484, sub_48D70_4D6, sub_48D70_4EC, sub_48D70_502
 global sub_48D70_518, sub_48D70_536, sub_48D70_572, sub_48D70_5AE, sub_48D70_5D6, sub_48D70_5FE, sub_48D70_64E, sub_48D70_69E
 global sub_48D70_745, sub_48D70_7FF, sub_48D70_87E, sub_48D70_8CF, sub_48D70_8F5, sub_48D70_91B, sub_48D70_941, sub_48D70_967
-global sub_48D70_14CD, sub_4A74C_34, sub_4A74C_4B, sub_4A74C_105, sub_4A74C_277, sub_4AB90_41, sub_4AB90_49, sub_4AB90_4F
-global sub_4AB90_62, sub_4AB90_111, sub_4AB90_119, sub_4AB90_11F, sub_4AB90_132, jpt_4AE54_137, sub_4B8DC_27, sub_4B8DC_33
+global sub_48D70_14CD, sub_4A74C_34, sub_4A74C_4B, sub_4A74C_105, sub_4A74C_277, MakeDataPath_41, MakeDataPath_49, MakeDataPath_4F
+global MakeDataPath_62, MakeDataPath_111, MakeDataPath_119, MakeDataPath_11F, MakeDataPath_132, jpt_4AE54_137, sub_4B8DC_27, sub_4B8DC_33
 global sub_4B8DC_3D, sub_4B8DC_47, sub_4E8EC_30, sub_4FD24_59, sub_50AF4_184, sub_51A74_58, sub_51AEC_50, sub_52494_2C
 global sub_52494_42, sub_52494_58, sub_52494_7D, sub_48D70, sub_4A248, sub_4A280, sub_4A4F4, sub_4A558
-global sub_4A6F8, sub_4A74C, sub_4AA78, sub_4AB90, sub_4AE14, sub_4AF9F, sub_4B074, sub_4B108
-global sub_4B12D, sub_4B19C, sub_4B1C4, sub_4B307, sub_4B3F8, sub_4B4AC, sub_4B4B0, sub_4B4C4
+global sub_4A6F8, sub_4A74C, sub_4AA78, MakeDataPath, sub_4AE14, LoadDataFileHandle, sub_4B074, sub_4B108
+global sub_4B12D, sub_4B19C, sub_4B1C4, sub_4B307, WriteGlobalSet, sub_4B4AC, sub_4B4B0, sub_4B4C4
 global sub_4B540, sub_4B5C4, sub_4B80C, sub_4B8DC, sub_4B928, sub_4B944, sub_4BA00, sub_4BCB4
 global sub_4BD0C, sub_4BD4C, sub_4BDC0, sub_4BE14, sub_4BF10, sub_4BF54, sub_4BF94, sub_4C0C4
 global sub_4C0CC, sub_4C164, sub_4C240, sub_4C360, sub_4C404, sub_4C48C, sub_4C5A0, sub_4CE94
@@ -112,10 +112,10 @@ global sub_4DD9C, sub_4DDB0, sub_4DDBC, sub_4E3B0, sub_4E410, sub_4E500, sub_4E6
 global sub_4E818, sub_4E840, sub_4E868, sub_4E894, sub_4E8C0, sub_4E8EC, sub_4E938, sub_4E9A0
 global sub_4EA44, sub_4EF68, sub_4F004, sub_4F068, sub_4F294, sub_4F404, sub_4F6AC, sub_4F7FC
 global sub_4F978, sub_4FA2C, sub_4FA8C, sub_4FC50, sub_4FD08, sub_4FD24, sub_4FF55, sub_4FF58
-global sub_4FF94, sub_50050, sub_50174, sub_50218, sub_503A0, sub_504E0, sub_50540, sub_50740
-global sub_507E4, sub_509E8, sub_50AF4, sub_50C90, sub_50DF4, sub_50EB8, sub_50F90, sub_510FC
+global sub_4FF94, sub_50050, sub_50174, sub_50218, sub_503A0, sub_504E0, UpdateGoalLight, DrawGoalLight
+global TransformRink, sub_509E8, sub_50AF4, DrawStandsSides, sub_50DF4, sub_50EB8, sub_50F90, sub_510FC
 global sub_511AC, sub_51254, sub_51408, sub_51434, sub_516B8, sub_519E0, sub_51A74, sub_51AEC
-global sub_51B5C, sub_51BD8, sub_51C4C, sub_51CB8, sub_52494, sub_525E0, sub_52648, sub_526EC
+global sub_51B5C, sub_51BD8, sub_51C4C, BuildRinkSides, sub_52494, sub_525E0, sub_52648, sub_526EC
 global unk_4AB70, unk_4AB80, unk_4B4A0, unk_4BCC0, unk_4BCCC
 ;-----------------------------------------------------------------------------
 ; sub_48D70                                                       48D70  97 PC
@@ -536,7 +536,7 @@ sub_48D70:
         lea ebx, [byte esp+03Ch]
         lea edx, [byte esp+034h]
         mov eax, esi
-        call sub_489F4
+        call RecordStreakClips
         mov edx, dword [esp]
         xor eax, eax
         add edx, 129h
@@ -2133,7 +2133,7 @@ sub_4A4F4:
 .2:
         mov eax, esp
         mov edx, ebx
-        call sub_4AB90
+        call MakeDataPath
         mov ebx, 25AEEh
         push esi
         lea eax, [byte esp+04h]
@@ -2275,7 +2275,7 @@ sub_4A6F8:
         push edx
         cmp dword [dword_1691C0], byte 0
         je short .1
-        call sub_3EF68
+        call CdStreamService
         cmp dword [dword_1691E0], byte 0
         je short .1
         mov ecx, dword [dword_1691C0]
@@ -2377,7 +2377,7 @@ sub_4A74C_4B:
 sub_4A74C_105:
         cmp dword [dword_1691C0], byte 0
         je short .5
-        call sub_3EF68
+        call CdStreamService
         cmp dword [dword_1691E0], byte 0
         je short .5
         mov ecx, dword [dword_1691C0]
@@ -2486,7 +2486,7 @@ sub_4A74C_277:
         mov dword [dword_1691AC], ebx
         test ecx, ecx
         je short .12
-        call sub_3EF68
+        call CdStreamService
         cmp dword [dword_1691E0], byte 0
         je short .12
         mov edi, dword [dword_1691C0]
@@ -2629,19 +2629,22 @@ sub_4AA78:
         pop ebx
         ret
 unk_4AB70:
-        dd sub_4AB90_62
-        dd sub_4AB90_41
-        dd sub_4AB90_49
-        dd sub_4AB90_4F
+        dd MakeDataPath_62
+        dd MakeDataPath_41
+        dd MakeDataPath_49
+        dd MakeDataPath_4F
 unk_4AB80:
-        dd sub_4AB90_132
-        dd sub_4AB90_111
-        dd sub_4AB90_119
-        dd sub_4AB90_11F
+        dd MakeDataPath_132
+        dd MakeDataPath_111
+        dd MakeDataPath_119
+        dd MakeDataPath_11F
 ;-----------------------------------------------------------------------------
-; sub_4AB90                                                       4AB90  97 PC
+; MakeDataPath                                 4AB90  96 PC, medium confidence
+; (out, file id): the path of a game data file: the language prefix (optflags
+; & 3) where the file has one, its directory (table unk_115120) and name
+; (table unk_115333, 16h-byte entries)
 ;-----------------------------------------------------------------------------
-sub_4AB90:
+MakeDataPath:
         push ebx
         push ecx
         push esi
@@ -2655,28 +2658,28 @@ sub_4AB90:
         add esi, unk_169989
         shl eax, 2
         cmp dword [byte esi+0Dh], byte 0
-        jge near sub_4AB90_62.10
+        jge near MakeDataPath_62.10
         imul ecx, dword [byte esi+0Dh], byte 0FFFFFFEBh
         add ecx, unk_1698A2
         cmp edx, byte 3
-        ja short sub_4AB90_62
+        ja short MakeDataPath_62
         jmp dword [dword cs:eax+unk_4AB70]
-sub_4AB90_41:
+MakeDataPath_41:
         test byte [byte ecx+011h], 1
 .1:
-        jne short sub_4AB90_62
-        jmp short sub_4AB90_4F.2
-sub_4AB90_49:
+        jne short MakeDataPath_62
+        jmp short MakeDataPath_4F.2
+MakeDataPath_49:
         test byte [byte ecx+011h], 2
-        jmp short sub_4AB90_41.1
-sub_4AB90_4F:
+        jmp short MakeDataPath_41.1
+MakeDataPath_4F:
         test byte [byte ecx+011h], 4
-        jne short sub_4AB90_62
+        jne short MakeDataPath_62
 .2:
         mov edx, dword [dword_16AEB4]
         mov eax, ebx
         call strcat_
-sub_4AB90_62:
+MakeDataPath_62:
         mov eax, dword [byte ecx+0Dh]
         test eax, eax
         je short .3
@@ -2737,27 +2740,27 @@ sub_4AB90_62:
         mov edx, esi
         mov eax, ebx
         mov byte [ebx], 0
-        jmp short sub_4AB90_132.14
+        jmp short MakeDataPath_132.14
 .10:
         cmp edx, byte 3
-        ja short sub_4AB90_132
+        ja short MakeDataPath_132
         jmp dword [dword cs:eax+unk_4AB80]
-sub_4AB90_111:
+MakeDataPath_111:
         test byte [byte esi+011h], 1
 .11:
-        jne short sub_4AB90_132
-        jmp short sub_4AB90_11F.12
-sub_4AB90_119:
+        jne short MakeDataPath_132
+        jmp short MakeDataPath_11F.12
+MakeDataPath_119:
         test byte [byte esi+011h], 2
-        jmp short sub_4AB90_111.11
-sub_4AB90_11F:
+        jmp short MakeDataPath_111.11
+MakeDataPath_11F:
         test byte [byte esi+011h], 4
-        jne short sub_4AB90_132
+        jne short MakeDataPath_132
 .12:
         mov edx, dword [dword_16AEB4]
         mov eax, ebx
         call strcat_
-sub_4AB90_132:
+MakeDataPath_132:
         mov eax, dword [byte esi+0Dh]
         test eax, eax
         je short .13
@@ -3026,7 +3029,7 @@ jpt_4AE54:
         mov ebx, edx
         mov edx, eax
         mov eax, unk_1AC7DC
-        call sub_4AB90
+        call MakeDataPath
         call sub_E341C
         push ebx
         push unk_1AC7DC
@@ -3041,15 +3044,17 @@ jpt_4AE54_137:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_4AF9F                                                       4AF9F  97 PC
+; LoadDataFileHandle                           4AF9F  96 PC, medium confidence
+; LoadDataFile returning the loader's handle (sub_B2140), for the sound banks
+; (sub_C04C3)
 ;-----------------------------------------------------------------------------
-sub_4AF9F:
+LoadDataFileHandle:
         push ebx
         push ecx
         mov ebx, edx
         mov edx, eax
         mov eax, unk_1AC7DC
-        call sub_4AB90
+        call MakeDataPath
         call sub_E341C
         push ebx
         push unk_1AC7DC
@@ -3060,7 +3065,7 @@ sub_4AF9F:
         mov ebx, edx
         mov edx, eax
         mov eax, unk_1AC7DC
-        call sub_4AB90
+        call MakeDataPath
         call sub_E341C
         push ebx
         push unk_1AC7DC
@@ -3071,7 +3076,7 @@ sub_4AF9F:
         mov ebx, edx
         mov edx, eax
         mov eax, unk_1AC7DC
-        call sub_4AB90
+        call MakeDataPath
         call sub_E341C
         push ebx
         push unk_1AC7DC
@@ -3082,7 +3087,7 @@ sub_4AF9F:
         mov ebx, edx
         mov edx, eax
         mov eax, unk_1AC7DC
-        call sub_4AB90
+        call MakeDataPath
         call sub_E341C
         push ebx
         push unk_1AC7DC
@@ -3093,7 +3098,7 @@ sub_4AF9F:
         mov ebx, edx
         mov edx, eax
         mov eax, unk_1AC7DC
-        call sub_4AB90
+        call MakeDataPath
         call sub_E341C
         push ebx
         push unk_1AC7DC
@@ -3104,7 +3109,7 @@ sub_4AF9F:
         mov ebx, edx
         mov edx, eax
         mov eax, unk_1AC7DC
-        call sub_4AB90
+        call MakeDataPath
         call sub_E341C
         push ebx
         push unk_1AC7DC
@@ -3119,7 +3124,7 @@ sub_4B074:
         mov ebx, edx
         mov edx, eax
         mov eax, unk_1AC7DC
-        call sub_4AB90
+        call MakeDataPath
         call sub_E341C
         push ebx
         push unk_1AC7DC
@@ -3130,7 +3135,7 @@ sub_4B074:
         mov ebx, edx
         mov edx, eax
         mov eax, unk_1AC7DC
-        call sub_4AB90
+        call MakeDataPath
         call sub_E341C
         push ebx
         push unk_1AC7DC
@@ -3141,7 +3146,7 @@ sub_4B074:
         mov ebx, edx
         mov edx, eax
         mov eax, unk_1AC7DC
-        call sub_4AB90
+        call MakeDataPath
         call sub_E341C
         push ebx
         push unk_1AC7DC
@@ -3152,7 +3157,7 @@ sub_4B074:
         mov ebx, edx
         mov edx, eax
         mov eax, unk_1AC7DC
-        call sub_4AB90
+        call MakeDataPath
         call sub_E341C
         push ebx
         push unk_1AC7DC
@@ -3167,7 +3172,7 @@ sub_4B108:
         mov ebx, edx
         mov edx, eax
         mov eax, unk_1AC7DC
-        call sub_4AB90
+        call MakeDataPath
         call sub_E341C
         push ebx
         push unk_1AC7DC
@@ -3182,7 +3187,7 @@ sub_4B12D:
         mov ebx, edx
         mov edx, eax
         mov eax, unk_1AC7DC
-        call sub_4AB90
+        call MakeDataPath
         call sub_E341C
         push ebx
         push unk_1AC7DC
@@ -3193,7 +3198,7 @@ sub_4B12D:
         mov ebx, edx
         mov edx, eax
         mov eax, unk_1AC7DC
-        call sub_4AB90
+        call MakeDataPath
         call sub_E341C
         push ebx
         push unk_1AC7DC
@@ -3204,7 +3209,7 @@ sub_4B12D:
         mov ebx, edx
         mov edx, eax
         mov eax, unk_1AC7DC
-        call sub_4AB90
+        call MakeDataPath
         call sub_E341C
         push ebx
         push unk_1AC7DC
@@ -3218,7 +3223,7 @@ sub_4B19C:
         push edx
         mov edx, eax
         mov eax, unk_1AC7DC
-        call sub_4AB90
+        call MakeDataPath
         call sub_E341C
         push unk_1AC7DC
         call sub_FC330
@@ -3259,7 +3264,7 @@ sub_4B1C4:
         jne short .3
         mov eax, unk_1AC7DC
         mov edx, ebx
-        call sub_4AB90
+        call MakeDataPath
         call sub_E341C
         push unk_1AC7DC
         call sub_FC330
@@ -3267,7 +3272,7 @@ sub_4B1C4:
         call sub_E341C
         mov edx, ebx
         mov eax, unk_1AC7DC
-        call sub_4AB90
+        call MakeDataPath
         push unk_1AC7DC
         call sub_10AED0
         mov ecx, 1
@@ -3374,7 +3379,7 @@ sub_4B307:
         mov edx, 1
         lea eax, [byte ebp-038h]
         lea ebx, [byte ebp-04h]
-        call sub_4AB90
+        call MakeDataPath
         mov edx, 2
         lea eax, [byte ebp-038h]
         xor esi, esi
@@ -3388,7 +3393,7 @@ sub_4B307:
         mov edx, 20h
         call _dos_close_
         mov eax, 1
-        call sub_4AF9F
+        call LoadDataFileHandle
         mov ecx, eax
 .2:
         test ecx, ecx
@@ -3430,15 +3435,17 @@ sub_4B307:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_4B3F8                                                       4B3F8  97 PC
+; WriteGlobalSet                               4B3F8  96 PC, medium confidence
+; Writes GLOBAL.SET back (BCh header, the name, B9h options), the file
+; ReadGlobalSet reads
 ;-----------------------------------------------------------------------------
-sub_4B3F8:
+WriteGlobalSet:
         push ecx
         push edx
         enter 40h, 0
         mov edx, 1
         lea eax, [byte ebp-040h]
-        call sub_4AB90
+        call MakeDataPath
         lea eax, [byte ebp-08h]
         push eax
         lea eax, [byte ebp-0Ch]
@@ -3866,7 +3873,7 @@ sub_4B8DC_47:
 ; sub_4B928                                                       4B928  97 PC
 ;-----------------------------------------------------------------------------
 sub_4B928:
-        call sub_5454C
+        call FreeRinkModel
         call sub_58CA0
         call sub_3D95C
         call sub_3C8DC
@@ -4034,7 +4041,7 @@ sub_4BA00:
         mov eax, esi
         call sub_4FF58
         mov eax, esi
-        call sub_50540
+        call UpdateGoalLight
         mov eax, esi
         call sub_516B8
         call sub_55110
@@ -6310,7 +6317,7 @@ sub_4D27C:
         push ebx
         mov ecx, dword [byte esp+038h]
         push ecx
-        call sub_10C1C0
+        call DrawFixedLine
         add esp, byte 1Ch
 .5:
         add esp, byte 2Ch
@@ -6456,7 +6463,7 @@ sub_4D3B4:
         push ecx
         mov esi, dword [byte esp+030h]
         push esi
-        call sub_10C1C0
+        call DrawFixedLine
         add esp, byte 1Ch
 .7:
         add esp, byte 2Ch
@@ -6671,7 +6678,7 @@ sub_4D65C:
         push ebp
         mov eax, dword [byte esp+038h]
         push eax
-        call sub_10C1C0
+        call DrawFixedLine
         add esp, byte 1Ch
 .1:
         add esp, byte 2Ch
@@ -6798,7 +6805,7 @@ sub_4D800:
         push edx
         mov ecx, dword [eax]
         push ecx
-        call sub_10C1C0
+        call DrawFixedLine
         add esp, byte 1Ch
 .2:
         mov ecx, dword [byte esp+04h]
@@ -7212,7 +7219,9 @@ sub_4DD0C:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; PeriodOver                                                       4DD90  97 PC
+; PeriodOver                     4DD90  93G hockey93_06.asm, medium confidence
+; Line change box reset, gsp+1, gmdir flips; after the 3rd period:
+; overtime (gameopts+1 bit 1 = playoffs) or game over (gsp 4) unless tied; then PeriodOver_sp.
 ;-----------------------------------------------------------------------------
 PeriodOver:
         push edx
@@ -10706,9 +10715,11 @@ sub_504E0:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_50540                                                       50540  97 PC
+; UpdateGoalLight                              50540  96 PC, medium confidence
+; (ticks): from DrawGameFrame: the goal light's flashing, off after 258h
+; ticks
 ;-----------------------------------------------------------------------------
-sub_50540:
+UpdateGoalLight:
         push ebx
         push ecx
         push edx
@@ -10898,9 +10909,10 @@ sub_50540:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_50740                                                       50740  97 PC
+; DrawGoalLight                                50740  96 PC, medium confidence
+; Draws the lit goal light (4 points at dword_158D78)
 ;-----------------------------------------------------------------------------
-sub_50740:
+DrawGoalLight:
         push ebx
         push ecx
         push edx
@@ -10961,9 +10973,10 @@ sub_50740:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_507E4                                                       507E4  97 PC
+; TransformRink                                507E4  96 PC, medium confidence
+; Transforms the rink vertices and sets which rink ends face the camera
 ;-----------------------------------------------------------------------------
-sub_507E4:
+TransformRink:
         push ebx
         push ecx
         push edx
@@ -11382,9 +11395,10 @@ sub_50AF4_184:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_50C90                                                       50C90  97 PC
+; DrawStandsSides                              50C90  96 PC, medium confidence
+; (half): draws the stands of the rink sides on one half
 ;-----------------------------------------------------------------------------
-sub_50C90:
+DrawStandsSides:
         push ebx
         push ecx
         push edx
@@ -12887,9 +12901,11 @@ sub_51C4C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_51CB8                                                       51CB8  97 PC
+; BuildRinkSides                               51CB8  96 PC, medium confidence
+; Finds the 18 rink sides (Side%d) in the rink and stands models with their
+; glass, glassline, boards and ice line parts
 ;-----------------------------------------------------------------------------
-sub_51CB8:
+BuildRinkSides:
         push ebx
         push ecx
         push edx

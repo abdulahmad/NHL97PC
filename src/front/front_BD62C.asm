@@ -26,8 +26,8 @@ extern sub_5B4D4, sub_5BD94, sub_5BDF4, sub_5BE64, sub_5BEB0, sub_5C2CC, sub_5C2
 extern sub_5C32C, sub_5C34C, sub_5C4CC, sub_5C4E4, sub_5C500, sub_5C584, sub_5C5EC, sub_5C74C
 extern sub_5C75C, sub_5C894, sub_5CAB0, sub_5CACC, sub_65CED, sub_65DE8, sub_76E20, sub_77610
 extern sub_77630, sub_7CBD6, sub_7CDD8, sub_7F028, sub_7F0D8, sub_7F16C, sub_7FE4C, sub_81650
-extern sub_86300, sub_86368, sub_86424, sub_864C4, sub_86500, sub_86644, sub_86754, sub_8BE60
-extern sub_8BEF8, sub_8BF54, sub_8BFAC, sub_8D5C0, sub_8D6B4, sub_8D6E8, sub_8D910, sub_8E790
+extern NameIndexNew, NameIndexLoad, NameIndexSave, NameIndexFree, sub_86500, NameIndexRemove, NameIndexPath, sub_8BE60
+extern sub_8BEF8, InitMenuItems, sub_8BFAC, sub_8D5C0, sub_8D6B4, sub_8D6E8, sub_8D910, sub_8E790
 extern sub_8E7E0, sub_8E840, sub_A0867, sub_AC69C, sub_AC6EB, sub_AC73E, sub_DA7EB, sub_DB6AC
 extern sub_E19D5, sub_E1C19, sub_E1CC0, sub_E3174, sub_E3190, sub_E3410, sub_E4218, sub_E4638
 extern sub_E4838, sub_E4908, sub_F22ED, sub_F9496, sub_F94BC, sub_F9789, sub_F9869, sub_FAA64
@@ -944,7 +944,7 @@ sub_BE2A6:
         add esp, byte 0Ch
         mov dword [dword_1CAFA8], eax
         mov eax, 0Fh
-        call sub_8BF54
+        call InitMenuItems
 .1:
         call sub_C04BE
 .2:
@@ -2479,7 +2479,7 @@ sub_BF4F9:
         lea edx, [dword ebp-092Ah]
         mov eax, 10h
         xor esi, esi
-        call sub_8BF54
+        call InitMenuItems
 .1:
         imul eax, dword [dword_16E464], dword 0C8h
         imul ebx, esi, byte 12h
@@ -2687,12 +2687,12 @@ sub_BF4F9:
         mov edx, asc_166AAD
         call sub_7F0D8
         lea eax, [byte ebp+06h]
-        call sub_86368
+        call NameIndexLoad
         test eax, eax
         jne short .6
         mov edx, asc_166AAD
         lea eax, [byte ebp+06h]
-        call sub_86300
+        call NameIndexNew
 .6:
         cmp dword [dword_16DA9C], byte 0
         je short .7
@@ -2931,10 +2931,10 @@ sub_BF4F9:
         mov eax, esi
         add edx, 3E8h
         mov ebx, dword [byte ebp+03Ah]
-        call sub_86644
+        call NameIndexRemove
         mov ecx, eax
         mov esi, eax
-        call sub_86424
+        call NameIndexSave
         mov edx, ecx
         mov eax, edi
         call sub_C037B
@@ -3007,7 +3007,7 @@ sub_BF4F9:
         lea ebx, [byte ebp-04Ah]
         mov eax, esi
         add edx, 3E8h
-        call sub_86754
+        call NameIndexPath
         lea eax, [byte ebp-04Ah]
         jmp short .17
 .16:
@@ -3046,13 +3046,13 @@ sub_BFFB7:
         mov edx, asc_166AAD
         lea eax, [byte ebp+03Eh]
         mov dword [byte ebp+07Eh], 0
-        call sub_86368
+        call NameIndexLoad
         mov edi, eax
         test eax, eax
         jne short .1
         mov edx, asc_166AAD
         lea eax, [byte ebp+03Eh]
-        call sub_86300
+        call NameIndexNew
         mov edi, eax
 .1:
         lea eax, [byte edi+06Eh]
@@ -3139,7 +3139,7 @@ sub_BFFB7:
         call sub_86500
         mov edx, eax
         mov eax, 1
-        call sub_864C4
+        call NameIndexFree
         jmp near .9
 .5:
         test esi, esi
@@ -3270,12 +3270,12 @@ sub_C0285:
         jne short .1
         mov edx, asc_166AAD
         lea eax, [byte ebp+02Eh]
-        call sub_86300
+        call NameIndexNew
         jmp short .2
 .1:
         mov edx, asc_166AAD
         lea eax, [byte ebp+02Eh]
-        call sub_86368
+        call NameIndexLoad
 .2:
         mov esi, eax
         call sub_DA7EB
@@ -3301,7 +3301,7 @@ sub_C0285:
         call sub_86500
         mov edx, eax
         mov eax, 1
-        call sub_864C4
+        call NameIndexFree
 .3:
         lea esp, [dword ebp+09Eh]
         pop ebp

@@ -19,9 +19,9 @@ extern str_NAMEINDEX, str_backslash3, strcat_, strcmp_, strcpy_, strlen_, sub_10
 extern sub_101340, sub_101390, sub_1013AC, sub_1013FC, sub_101429, sub_101584, sub_102B94, sub_102C30
 extern sub_106DA0, sub_10AED0, sub_110D70, sub_11A318, sub_11B094, sub_11B104, sub_13C164, sub_419B0
 extern sub_419B8, sub_41A28, sub_41D18, sub_41DB8, sub_41DD8, sub_41EA4, sub_41F2C, sub_41FA0
-extern sub_41FDC, sub_4AB90, sub_4B108, sub_4B19C, sub_7DA28, sub_7E52C, sub_7E860, sub_7EDF0
+extern sub_41FDC, MakeDataPath, sub_4B108, sub_4B19C, sub_7DA28, sub_7E52C, sub_7E860, sub_7EDF0
 extern sub_7EEB0, sub_7EF70, sub_7F028, sub_7F5A4, sub_80BBC, sub_81468, sub_81D1C, sub_83C08
-extern sub_8BF54, sub_8BFAC, sub_8D6E8, sub_8D910, sub_8E2EE, sub_8E7E0, sub_8E997, sub_8FFCF
+extern InitMenuItems, sub_8BFAC, sub_8D6E8, sub_8D910, sub_8E2EE, sub_8E7E0, sub_8E997, sub_8FFCF
 extern sub_9279A, sub_93512, sub_94B30, sub_9623E, sub_9E91C, sub_9F6F5, sub_A4B7D, sub_A6690
 extern sub_A7D9C, sub_AB0E8, sub_AC369, sub_ADBE6, sub_AF074, sub_B418C, sub_B5891, sub_B8FDF
 extern sub_BD621, sub_C0F5D, sub_C755B, sub_D1927, sub_D3112, sub_DB75E, sub_DE3CF, sub_E036F
@@ -34,8 +34,8 @@ global sub_845E4_370, sub_845E4_50B, sub_84B55_911, sub_84B55_999, sub_84B55_A17
 global sub_84B55_A68, sub_84B55_A79, sub_84B55_A82, sub_84B55_A94, sub_84B55_A9D, sub_84B55_AAF, sub_84B55_AB8, sub_84B55_BA5
 global sub_84B55_BBD, sub_84B55_BC6, sub_84B55_BD5, sub_84B55_BDE, sub_84B55_BED, sub_84B55_BF6, sub_84B55_C76, sub_84B55_CFF
 global sub_84B55_DDB, sub_84B55_DF1, sub_85D1D_6E, sub_85D1D_82, sub_85D1D_9E, sub_85D1D_A5, sub_85D1D_AC, sub_85D1D_B3
-global sub_85D1D_BA, sub_85D1D_C1, sub_845E4, sub_84B55, sub_85A15, sub_85D1D, sub_85E1E, sub_86300
-global sub_86368, sub_86424, sub_864C4, sub_86500, sub_86644, sub_86718, sub_86754, sub_867D4
+global sub_85D1D_BA, sub_85D1D_C1, sub_845E4, sub_84B55, sub_85A15, sub_85D1D, sub_85E1E, NameIndexNew
+global NameIndexLoad, NameIndexSave, NameIndexFree, sub_86500, NameIndexRemove, sub_86718, NameIndexPath, sub_867D4
 global sub_867F0, sub_86878
 ;-----------------------------------------------------------------------------
 ; sub_845E4                                                       845E4  97 PC
@@ -708,7 +708,7 @@ sub_84B55:
         add esp, byte 0Ch
         mov edx, dword [dword_1C8320]
         mov ecx, 280h
-        call sub_8BF54
+        call InitMenuItems
         push dword 1E0h
         lea eax, [dword ebp-01B6h]
         xor edx, edx
@@ -1830,7 +1830,7 @@ sub_85E1E:
         sub ebp, 82h
         lea edx, [dword ebp-0412h]
         mov eax, 9
-        call sub_8BF54
+        call InitMenuItems
         mov eax, 3
         call sub_419B0
         call sub_419B8
@@ -2178,9 +2178,11 @@ sub_85E1E:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_86300                                                       86300  97 PC
+; NameIndexNew                                 86300  96 PC, medium confidence
+; (name, dir): a new NAMEINDEX block (magic 2C093h, directory, title, no
+; entries, first id 1000)
 ;-----------------------------------------------------------------------------
-sub_86300:
+NameIndexNew:
         push ebx
         push ecx
         push esi
@@ -2216,9 +2218,11 @@ sub_86300:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_86368                                                       86368  97 PC
+; NameIndexLoad                                86368  96 PC, medium confidence
+; (dir, file): loads a NAMEINDEX file (dir\file), checks its magic; 0 when
+; missing or bad
 ;-----------------------------------------------------------------------------
-sub_86368:
+NameIndexLoad:
         push ebx
         push ecx
         push esi
@@ -2298,9 +2302,11 @@ sub_86368:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_86424                                                       86424  97 PC
+; NameIndexSave                                86424  96 PC, medium confidence
+; Writes a changed NAMEINDEX block back to its file (header plus 36h-byte
+; entries)
 ;-----------------------------------------------------------------------------
-sub_86424:
+NameIndexSave:
         push ebx
         push ecx
         push edx
@@ -2367,9 +2373,10 @@ sub_86424:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_864C4                                                       864C4  97 PC
+; NameIndexFree                                864C4  96 PC, medium confidence
+; (save, index): saves the index when asked and changed, then frees it
 ;-----------------------------------------------------------------------------
-sub_864C4:
+NameIndexFree:
         push ecx
         test edx, edx
         jne short .1
@@ -2388,7 +2395,7 @@ sub_864C4:
         test eax, eax
         je short .3
         mov eax, edx
-        call sub_86424
+        call NameIndexSave
         test eax, eax
         je short .4
 .3:
@@ -2537,9 +2544,11 @@ sub_86500:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_86644                                                       86644  97 PC
+; NameIndexRemove                              86644  96 PC, medium confidence
+; (index, id): removes the entry with that id (1000 + n); returns the new
+; block
 ;-----------------------------------------------------------------------------
-sub_86644:
+NameIndexRemove:
         push ebx
         push ecx
         push esi
@@ -2654,9 +2663,10 @@ sub_86718:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_86754                                                       86754  97 PC
+; NameIndexPath                                86754  96 PC, medium confidence
+; (index, id, out): dir\file of an entry; 0 when the id is not in the index
 ;-----------------------------------------------------------------------------
-sub_86754:
+NameIndexPath:
         push ecx
         push esi
         mov ecx, eax
@@ -2740,7 +2750,7 @@ sub_867F0:
         mov edx, 64h
         lea eax, [byte ebp-034h]
         mov dword [byte ebp-04h], 0
-        call sub_4AB90
+        call MakeDataPath
         mov edx, unk_165320
         lea eax, [byte ebp-034h]
         call fopen_
@@ -2794,7 +2804,7 @@ sub_86878:
         push eax
         mov edx, 64h
         lea eax, [byte ebp-030h]
-        call sub_4AB90
+        call MakeDataPath
         mov edx, unk_165323
         lea eax, [byte ebp-030h]
         call fopen_

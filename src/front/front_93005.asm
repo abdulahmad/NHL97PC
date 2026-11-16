@@ -23,8 +23,8 @@ extern sub_101324, sub_101340, sub_101390, sub_1013AC, sub_1013CC, sub_1013FC, s
 extern sub_11A318, sub_11B094, sub_11B0D0, sub_13C164, sub_3812E, sub_415A0, sub_415F8, sub_419B0
 extern sub_419B8, sub_41FA0, sub_41FDC, sub_4AE14, sub_4B074, sub_4B108, sub_7E860, sub_7EDF0
 extern sub_7EEB0, sub_7EF70, sub_7F028, sub_7F0D8, sub_7F16C, sub_7F5A4, sub_7FE38, sub_80B28
-extern sub_80BBC, sub_81650, sub_81678, sub_81D1C, sub_83C08, sub_85D1D, sub_86300, sub_86368
-extern sub_864C4, sub_86500, sub_867D4, sub_8BF54, sub_8BFAC, sub_8DF1F, sub_8E7E0, sub_912E3
+extern sub_80BBC, sub_81650, sub_81678, sub_81D1C, sub_83C08, sub_85D1D, NameIndexNew, NameIndexLoad
+extern NameIndexFree, sub_86500, sub_867D4, InitMenuItems, sub_8BFAC, sub_8DF1F, sub_8E7E0, sub_912E3
 extern sub_9279A, sub_9281C, sub_92FE9, sub_C6064, sub_C755B, sub_DB75E, sub_DB763, sub_DC653
 extern sub_DCFA4, sub_DD2DE, sub_DD61F, sub_DE3CF, sub_DE5A3, sub_E036F, sub_E0415, sub_E0B75
 extern sub_E117B, sub_E12D1, sub_E13BF, sub_E3410, sub_E4638, sub_E4838, sub_E7B33, sub_FAA64
@@ -664,7 +664,7 @@ sub_936BE:
         mov dword [dword_1C8A9C], eax
         mov edx, eax
         mov eax, 29h
-        call sub_8BF54
+        call InitMenuItems
         mov eax, dword [dword_1C8AA0]
         mov esi, unk_1C5EF8
         mov ebx, eax
@@ -1523,12 +1523,12 @@ sub_9401D:
         jne short .21
         mov edx, asc_16592B
         lea eax, [dword ebp-092h]
-        call sub_86300
+        call NameIndexNew
         jmp short .22
 .21:
         mov edx, asc_16592B
         lea eax, [dword ebp-092h]
-        call sub_86368
+        call NameIndexLoad
 .22:
         mov esi, eax
         mov eax, esi
@@ -1563,7 +1563,7 @@ sub_9401D:
         call sub_86500
         mov edx, eax
         mov eax, 1
-        call sub_864C4
+        call NameIndexFree
         mov edx, dword_1AC940
         mov eax, unk_1AD73A
         call sub_DE3CF
@@ -2197,7 +2197,7 @@ sub_94BDA:
         add esp, byte 8
         mov dword [byte ebp+05Ah], eax
         mov eax, 1Ch
-        call sub_8BF54
+        call InitMenuItems
         push asc_16595F
         push dword [byte ebp+066h]
         mov esi, unk_1C5EF8
@@ -3181,7 +3181,7 @@ sub_94BDA:
         mov edx, dword [dword_1C8A7C]
         add edx, eax
         mov eax, 1
-        call sub_8BF54
+        call InitMenuItems
         movzx edx, byte [byte_1AD742]
         imul eax, edx, byte 0Ch
         add edx, byte 8

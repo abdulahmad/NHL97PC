@@ -11,7 +11,7 @@ extern dword_1C5E74, dword_1CD760, dword_1CD764, dword_1CD768, dword_1CD76C, dwo
 extern dword_1CD77C, dword_1CD780, dword_1CD784, dword_1CD7DF, off_16E174, sprintf_, strcpy_, sub_101390
 extern sub_1013AC, sub_1013FC, sub_101429, sub_101430, sub_101560, sub_101584, sub_101EAC, sub_102B94
 extern sub_13C164, sub_419B0, sub_419B8, sub_4B19C, sub_7E52C, sub_7E860, sub_7F0D8, sub_7F16C
-extern sub_80758, sub_80808, sub_8BF54, sub_8E7E0, sub_CA44C, sub_D0098, sub_DB75E, sub_DC653
+extern sub_80758, sub_80808, InitMenuItems, sub_8E7E0, sub_CA44C, sub_D0098, sub_DB75E, sub_DC653
 extern sub_DCBB0, sub_DE3CF, sub_E036F, sub_E0D0F, sub_E341C, sub_FAF34, sub_FB71C, sub_FC510
 extern sub_FCFCC, sub_FD0F8, unk_167731, unk_16E1E4, unk_16E21C, unk_1AD22E, unk_1AD443, unk_1C5F4A
 extern unk_1C5F9C, unk_1CD78C, unk_1CD7FA, unk_1CD833, unk_1CD8DE, unk_1CD989, unk_1CDA34, unk_1CDADF
@@ -774,7 +774,7 @@ sub_E8660:
         mov edx, eax
         mov eax, 5
         xor esi, esi
-        call sub_8BF54
+        call InitMenuItems
 .1:
         mov eax, esi
         shl eax, 6

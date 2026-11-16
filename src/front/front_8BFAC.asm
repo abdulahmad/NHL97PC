@@ -14,7 +14,7 @@ extern dword_1C8420, dword_1C8424, dword_1C8428, dword_1C842C, dword_1C8430, dwo
 extern dword_1C8444, dword_1C8448, dword_1C844C, dword_1C8454, sub_8E997_DD, sub_8E997_E6, sub_8E997_EF, sub_8E997_F8
 extern sub_8E997_16F, sub_8E997_17B, sub_8E997_187, sub_8E997_193, off_16E4E0, qword_165550, qword_165558, qword_165568
 extern sub_101390, sub_1013CC, sub_1013FC, sub_101429, sub_1097F0, sub_11A318, sub_13C164, sub_41FDC
-extern sub_4AF9F, sub_7F028, sub_835AC, sub_835BC, sub_83850, sub_8BF54, sub_E3410, sub_E341C
+extern LoadDataFileHandle, sub_7F028, sub_835AC, sub_835BC, sub_83850, InitMenuItems, sub_E3410, sub_E341C
 extern sub_E375C, sub_E3798, sub_FAF34, sub_FC510, SetViewRect, sub_FCD90, sub_FCFCC, sub_FD08C
 extern sub_FD0F8, sub_FD110, sub_FDC68, tickcount, word_16CD04, word_16CD20, word_16CD22
 global jpt_8E977, jpt_8E987, sub_8D956_223, sub_8DBAC_1F5, sub_8DBAC_220, sub_8BFAC, sub_8D5C0, sub_8D6B4
@@ -2673,7 +2673,7 @@ sub_8DF1F:
         lea edx, [dword ebp-0F64h]
         lea eax, [byte esi+04h]
         mov dword [byte ebp-04h], 0
-        call sub_8BF54
+        call InitMenuItems
         jmp near .5
 .4:
         mov eax, dword [byte ebp-04h]
@@ -2983,7 +2983,7 @@ sub_8E2EE:
         lea edx, [dword ebp-0F68h]
         lea eax, [byte esi+04h]
         xor edi, edi
-        call sub_8BF54
+        call InitMenuItems
         jmp near .5
 .4:
         lea eax, [byte edi+01h]
@@ -3321,7 +3321,7 @@ sub_8E740:
         mov eax, dword [nosplit ebx*4+dword_16CD34]
         mov dword [dword_16CD54], esi
         mov dword [dword_16CD50], esi
-        call sub_4AF9F
+        call LoadDataFileHandle
         mov dword [dword_16CD54], eax
         mov dword [dword_16CD50], ebp
         pop ebp
@@ -3354,7 +3354,7 @@ sub_8E790:
         mov eax, dword [nosplit ebx*4+dword_16CD40]
         mov dword [dword_16CD54], esi
         mov dword [dword_16CD50], esi
-        call sub_4AF9F
+        call LoadDataFileHandle
         mov dword [dword_16CD54], eax
         mov dword [dword_16CD50], ebp
         pop ebp

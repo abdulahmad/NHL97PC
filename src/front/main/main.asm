@@ -25,14 +25,14 @@ extern dword_1C81B4, dword_1C81B8, dword_1C8268, dword_1CF538, dword_1CF548, dwo
 extern dword_1CF5B0, dword_1CF5B4, dword_1CF5B8, exit_, getcwd_, sub_845E4_32E, sub_845E4_344, sub_845E4_35A
 extern sub_845E4_370, memcpy_, open_, printf_, sprintf_, srand_, strcat_, strcpy_
 extern strlen_, sub_1008CC, sub_100A68, sub_101324, sub_101340, sub_101390, sub_1013AC, sub_1013FC
-extern sub_101429, sub_101EAC, sub_102B94, sub_102C10, sub_102C30, sub_10354, sub_1046C, sub_104A8
+extern sub_101429, sub_101EAC, sub_102B94, sub_102C10, sub_102C30, LoadGripLibrary, sub_1046C, sub_104A8
 extern sub_105808, sub_106F64, sub_106F94, sub_107D30, sub_116428, sub_1164E8, sub_1167AE, sub_1169D4
 extern sub_119BE4, sub_119FDC, sub_11A120, sub_11A318, sub_11A3E0, sub_11ADD0, sub_11ADE8, sub_11B008
 extern sub_13C164, sub_4095C, sub_40EBC, sub_41870, sub_41A28, sub_41D18, sub_41DB8, sub_41EA4
-extern sub_41FA0, sub_41FDC, sub_4AE14, sub_4B108, sub_4B307, sub_7CE9E, sub_8BF54, sub_8BFAC
+extern sub_41FA0, sub_41FDC, sub_4AE14, sub_4B108, sub_4B307, sub_7CE9E, InitMenuItems, sub_8BFAC
 extern sub_8D956, sub_8DE10, sub_8DE68, sub_8DE7E, sub_8DE9D, sub_8DEAC, sub_8E7E0, sub_8E840
 extern sub_D6930, sub_DA713, sub_DB747, sub_E341C, sub_E3A44, sub_E3AB8, sub_E4638, sub_E4838
-extern sub_E4908, sub_F5601, sub_F9650, sub_FAA64, sub_FAF34, sub_FB4D4, sub_FB704, sub_FB73D
+extern sub_E4908, FillBox, sub_F9650, sub_FAA64, sub_FAF34, sub_FB4D4, sub_FB704, sub_FB73D
 extern sub_FBE40, sub_FBE94, sub_FC510, sub_FC73E, sub_FCC40, sub_FCD90, sub_FCF84, sub_FCFCC
 extern sub_FD08C, sub_FD0F8, sub_FD110, sub_FDC68, sub_FDD1C, sub_FDE44, sub_FE150, sub_FE180
 extern sub_FE3D0, sub_FE470, tickcount, unk_1643C2, unk_16445A, unk_1644A0, unk_1644EF, unk_1645E7
@@ -130,7 +130,7 @@ main_:
         mov eax, 1
         call exit_
 .1:
-        call sub_10354
+        call LoadGripLibrary
         call sub_7D539
         cmp eax, 400h
         jge short .2
@@ -2454,7 +2454,7 @@ sub_7E860:
         mov eax, 1
         mov esi, 5
         mov edi, dword_16CAB0
-        call sub_8BF54
+        call InitMenuItems
         mov eax, dword [dword_1C5EA0]
         mov dword [dword_1C5F5A], esi
         mov dword [dword_1C5F5E], edi
@@ -2476,7 +2476,7 @@ sub_7E860:
         mov dword [dword_1C5F70], eax
         mov eax, 1
         mov dword [dword_1C5F78], ebp
-        call sub_8BF54
+        call InitMenuItems
         mov eax, dword [dword_1C5E7C]
         mov dword [dword_1C5F08], ebx
         mov dword [dword_1C5F0C], ecx
@@ -2494,7 +2494,7 @@ sub_7E860:
         mov ebp, 19Ch
         mov eax, 1
         mov dword [dword_1C5F22], ebp
-        call sub_8BF54
+        call InitMenuItems
         cmp dword [dword_16DA9C], byte 0
         je short .11
         mov dword [dword_1C5FAC], ebx
@@ -3346,7 +3346,7 @@ sub_7F5CC:
         add edi, eax
         mov eax, dword [dword esp+073Ch]
         mov dword [dword esp+070Ch], edi
-        call sub_8BF54
+        call InitMenuItems
         mov edi, dword [dword esp+0734h]
         jmp short .11
 .7:
@@ -4143,7 +4143,7 @@ EditText:
         push ecx
         xor edx, edx
         mov ecx, dword [dword esp+0640h]
-        call sub_F5601
+        call FillBox
         push byte 0FFFFFFFFh
         call sub_FC510
         add esp, byte 4
@@ -6051,7 +6051,7 @@ sub_816E8:
         mov edx, esp
         mov eax, 4
         lea ebx, [dword esp+0248h]
-        call sub_8BF54
+        call InitMenuItems
         xor eax, eax
 .2:
         mov dword [byte esp+eax+014h], ebx
@@ -8234,7 +8234,7 @@ sub_83334:
         push eax
         sar ecx, 10h
         lea eax, [dword esp+0304h]
-        call sub_F5601
+        call FillBox
 .2:
         mov edi, dword [dword_1C81B0]
         push edi
@@ -8505,7 +8505,7 @@ sub_835CC:
         push edx
         sar ecx, 10h
         xor edx, edx
-        call sub_F5601
+        call FillBox
 .3:
         push ebp
         call sub_FD0F8
@@ -9233,7 +9233,7 @@ sub_83D4C:
         add esp, byte 4
         mov eax, 1
         mov ebx, unk_1C6044
-        call sub_8BF54
+        call InitMenuItems
         mov edx, 4
         mov eax, dword [byte esp+038h]
         mov ecx, dword [byte esp+038h]

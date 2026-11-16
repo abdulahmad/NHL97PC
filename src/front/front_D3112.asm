@@ -12,7 +12,7 @@ extern memset_, rand_, sprintf_, str_EASports, str_TXTD, strcpy_, sub_101324, su
 extern sub_1013AC, sub_1013FC, sub_101429, sub_101584, sub_101EAC, sub_102B94, sub_10CD98, sub_13C164
 extern sub_39824, sub_419B0, sub_419B8, sub_41FA0, sub_41FDC, sub_48D70, sub_4A280, sub_4B108
 extern sub_4B19C, sub_7B84B, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, sub_7F0D8, sub_7F16C
-extern sub_80BBC, sub_80F48, sub_83BF4, sub_8BF54, sub_8BFAC, sub_8E7E0, sub_D306F, sub_DA7D6
+extern sub_80BBC, sub_80F48, sub_83BF4, InitMenuItems, sub_8BFAC, sub_8E7E0, sub_D306F, sub_DA7D6
 extern sub_DB75E, sub_DB7B1, sub_DC653, sub_DCBB0, sub_DE3CF, sub_E036F, sub_E117B, sub_E12D1
 extern sub_FAA64, sub_FAF34, sub_FC510, sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8, tickcount
 extern unk_1670CF, unk_16711C, unk_167124, unk_167128, unk_167130, unk_167138, unk_16713C, unk_167144
@@ -434,7 +434,7 @@ sub_D3112:
         add esp, byte 4
         lea edx, [dword ebp-011Eh]
         mov eax, 4
-        call sub_8BF54
+        call InitMenuItems
         push asc_167083
         push dword [byte ebp+07Eh]
         call sub_101429

@@ -38,7 +38,7 @@ extern sub_56CE4, sub_56CF8, sub_572D4, sub_57304, sub_57324, sub_576EC, sub_577
 extern sub_5AC28, sub_5ED80, sub_60D6C, sub_60F48, sub_64EBC, sub_650A4, sub_650E8, sub_6619C
 extern sub_66524, sub_6947C, sub_69654, sub_69A44, sub_69B08, sub_69B78, sub_6A0BC, sub_6A244
 extern sub_72E58, sub_72E94, sub_72EF4, sub_72F34, sub_72FE8, sub_73028, sub_75B94, sub_78044
-extern sub_D67D4, sub_D68AC, sub_FAA64, sub_FAF34, sub_FBE5D, unk_19E060, vtoa, word_168A4C
+extern sub_D67D4, FadeOut, sub_FAA64, sub_FAF34, sub_FBE5D, unk_19E060, vtoa, word_168A4C
 extern word_168A4E, word_168A68, word_168A6A, word_19CB60, word_19CB64, word_19CB68, word_19CB82, word_19CB84
 extern word_19CB8C, word_19CB8E, word_19CB90, word_19CB92, word_19CB94, word_19CB96, word_19CB98, word_19CB9A
 extern word_19CB9C, word_19CB9E, word_19CBA0, word_19CBAC, word_19CBAE, word_19CBB4, word_19CBB6, word_19CBB8
@@ -5935,7 +5935,7 @@ sub_2A3F4:
         call sub_1008CC
         add esp, byte 0Ch
         mov eax, 3
-        call sub_D68AC
+        call FadeOut
         mov eax, dword [dword_19EBBA]
         mov edx, dword [dword_19EAAE]
         sar eax, 10h

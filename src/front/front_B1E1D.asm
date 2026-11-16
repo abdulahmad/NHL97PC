@@ -25,8 +25,8 @@ extern strcmp_, strcpy_, strlen_, sub_101340, sub_101390, sub_1013AC, sub_1013FC
 extern sub_102B94, sub_11A318, sub_13C164, sub_419B0, sub_419B8, sub_41FA0, sub_41FDC, sub_4AE14
 extern sub_4B108, sub_7DFC0, sub_7E860, sub_7EDF0, sub_7EF70, sub_7F028, sub_7F0D8, sub_7F16C
 extern sub_7F5B8, sub_7FE38, sub_80BBC, sub_81650, sub_81678, sub_823F0, sub_82FB8, sub_83C08
-extern sub_86300, sub_86368, sub_86424, sub_864C4, sub_86500, sub_86644, sub_86718, sub_86754
-extern sub_867D4, sub_8BF54, sub_8BFAC, sub_8D956, sub_8DE10, sub_8DE19, sub_8DE68, sub_8DE7E
+extern NameIndexNew, NameIndexLoad, NameIndexSave, NameIndexFree, sub_86500, NameIndexRemove, sub_86718, NameIndexPath
+extern sub_867D4, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, sub_8DE19, sub_8DE68, sub_8DE7E
 extern sub_8DE9D, sub_8DEAC, sub_8E7E0, sub_AC799, sub_ACA49, sub_ACAE5, sub_ACAF2, sub_ACB0E
 extern sub_ACDAE, sub_AD151, sub_AD62E, sub_AD79F, sub_DA7EB, sub_DB6AC, sub_E117B, sub_E12D1
 extern sub_E2041, sub_E2141, sub_E21C6, sub_E341C, sub_E4218, sub_E4230, sub_E4908, sub_FAA64
@@ -36,7 +36,7 @@ extern unk_B1DF1, unk_B1DFD, unk_B1E09, unk_B1E11, word_16D450, word_1AD68F, wor
 extern word_1C5536, word_1C55A2
 global jpt_B234C, jpt_B41D3, sub_B211C_C7, sub_B211C_C8, sub_B2364_71B, sub_B2364_77D, sub_B2364_884, sub_B2364_89E
 global sub_B2364_8BB, sub_B2364_8CA, sub_B41EF_95C, sub_B41EF_96D, sub_B41EF_9B4, sub_B41EF_A7F, sub_B41EF_A92, sub_B41EF_A9E
-global sub_B41EF_AA5, sub_B1E1D, sub_B1E9C, sub_B1F4D, sub_B1FE9, sub_B211C, sub_B21EA, sub_B2258
+global sub_B41EF_AA5, sub_B1E1D, sub_B1E9C, sub_B1F4D, DeleteUser, sub_B211C, sub_B21EA, ScrollUserList
 global sub_B228A, sub_B2364, sub_B2E5B, sub_B2F49, sub_B36D6, sub_B3A9C, sub_B3B5D, sub_B3F21
 global sub_B418C, sub_B41EF, sub_B4F87, sub_B5031
 ;-----------------------------------------------------------------------------
@@ -199,9 +199,11 @@ sub_B1F4D:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_B1FE9                                                       B1FE9  97 PC
+; DeleteUser                                   B1FE9  96 PC, medium confidence
+; (&index, n): asks to confirm, deletes the user's files and takes the user
+; out of LOCAL.NDX and off any controller slot
 ;-----------------------------------------------------------------------------
-sub_B1FE9:
+DeleteUser:
         push ebx
         push ecx
         push esi
@@ -243,7 +245,7 @@ sub_B1FE9:
         mov ecx, dword [esi]
         mov edx, eax
         mov eax, ecx
-        call sub_86754
+        call NameIndexPath
         lea eax, [byte ebp-022h]
         call sub_B1E1D
         call sub_E21C6
@@ -255,7 +257,7 @@ sub_B1FE9:
         mov ebx, dword [esi]
         mov edx, eax
         mov eax, ebx
-        call sub_86644
+        call NameIndexRemove
         mov dword [esi], eax
         mov edi, eax
         cmp dword [byte eax+066h], byte 2
@@ -289,7 +291,7 @@ sub_B1FE9:
         cmp ebx, byte 8
         jl short .2
         mov eax, dword [esi]
-        call sub_86424
+        call NameIndexSave
         mov eax, 1
         jmp short .6
 .4:
@@ -368,7 +370,7 @@ sub_B211C:
         mov eax, dword [esi]
         call sub_86500
         mov dword [esi], eax
-        call sub_86424
+        call NameIndexSave
         jmp short .3
 .2:
         mov eax, 0FCh
@@ -449,9 +451,10 @@ sub_B21EA:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_B2258                                                       B2258  97 PC
+; ScrollUserList                               B2258  96 PC, medium confidence
+; Keeps the selected line of the user list on its page (scroll up or down)
 ;-----------------------------------------------------------------------------
-sub_B2258:
+ScrollUserList:
         push ebx
         mov ebx, dword [byte eax+028h]
         cmp ebx, dword [byte eax+02Ch]
@@ -821,7 +824,7 @@ sub_B2364:
         jl near .1
         lea edx, [dword ebp-0D5Ah]
         mov eax, 15h
-        call sub_8BF54
+        call InitMenuItems
         mov eax, dword [byte ebp-03Ah]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-0D40h], eax
@@ -995,7 +998,7 @@ sub_B2364:
 .8:
         mov edx, dword [byte ebp+076h]
         lea eax, [dword ebp-015Eh]
-        call sub_B2258
+        call ScrollUserList
         push edi
         mov ebx, esi
         call sub_FD0F8
@@ -1318,7 +1321,7 @@ sub_B2364_8CA:
         mov edx, dword [byte ebp+04Ah]
         mov eax, 1
         mov dword [byte ebp+07Eh], 0
-        call sub_864C4
+        call NameIndexFree
         jmp short .37
 .36:
         movsx ebx, word [byte ebp+07Eh]
@@ -1366,13 +1369,13 @@ sub_B2E5B:
         call sub_4AE14
         mov edx, asc_166602
         lea eax, [byte ebp-040h]
-        call sub_86368
+        call NameIndexLoad
         mov dword [ecx], eax
         test eax, eax
         jne near .9
         mov edx, asc_166602
         lea eax, [byte ebp-040h]
-        call sub_86300
+        call NameIndexNew
         mov dword [ecx], eax
         call sub_867D4
         push eax
@@ -1432,7 +1435,7 @@ sub_B2E5B:
         mov dword [ecx], eax
 .8:
         mov eax, dword [ecx]
-        call sub_86424
+        call NameIndexSave
 .9:
         leave
         pop edx
@@ -1485,7 +1488,7 @@ sub_B2F49:
         call sub_86718
         mov edx, eax
         mov eax, dword [byte ebp+052h]
-        call sub_86754
+        call NameIndexPath
         test eax, eax
         je near .55
         lea eax, [byte ebp-016h]
@@ -1993,7 +1996,7 @@ sub_B2F49:
         jl near .1
         mov edx, dword [byte ebp+052h]
         mov eax, 1
-        call sub_864C4
+        call NameIndexFree
         call sub_DB6AC
         movsx eax, word [byte ebp+076h]
         lea esp, [dword ebp+082h]
@@ -2019,7 +2022,7 @@ sub_B36D6:
         mov ecx, dword [dword_16D440]
         mov edx, eax
         mov eax, ecx
-        call sub_86754
+        call NameIndexPath
         test eax, eax
         je near .10
         lea edi, [byte esi-02h]
@@ -2257,7 +2260,7 @@ sub_B36D6:
         push edx
         mov edx, asc_16667B
         mov eax, asc_166685
-        call sub_86368
+        call NameIndexLoad
         mov dword [dword_16D440], eax
         mov eax, dword_16D440
         call sub_B211C
@@ -2983,7 +2986,7 @@ sub_B41EF:
         mov edx, dword_1C9660
         call sub_E117B
         mov eax, 3Ch
-        call sub_8BF54
+        call InitMenuItems
         mov eax, 3
         call sub_419B0
         call sub_419B8
@@ -3280,7 +3283,7 @@ sub_B41EF:
         call sub_7F5B8
         mov eax, 1
         mov edx, dword [dword_16D440]
-        call sub_864C4
+        call NameIndexFree
         push dword [dword_1CA998]
         call sub_FAF34
         add esp, byte 4
@@ -3456,7 +3459,7 @@ sub_B41EF_9B4:
         mov edx, dword [byte ebp-040h]
         mov eax, dword_16D440
 .12:
-        call sub_B1FE9
+        call DeleteUser
         mov eax, dword [dword_16D440]
         cmp dword [byte eax+066h], byte 2
         jle near sub_B41EF_95C.8
@@ -3616,7 +3619,7 @@ sub_B41EF_AA5:
         add esp, byte 4
         mov eax, 1
         mov edx, dword [dword_16D440]
-        call sub_864C4
+        call NameIndexFree
         mov eax, dword [byte ebp-014h]
         jmp near sub_B211C_C7
         push esi
@@ -3635,7 +3638,7 @@ sub_B41EF_AA5:
         call sub_86718
         mov edx, eax
         mov eax, dword [byte ebp-08h]
-        call sub_86754
+        call NameIndexPath
         test eax, eax
         je near .17
         lea ebx, [dword esi+03EAh]
