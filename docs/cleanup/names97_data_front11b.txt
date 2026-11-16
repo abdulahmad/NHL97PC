@@ -1,0 +1,8 @@
+word_16E0F8 NetSessionActive {confidence=low} set while the network session is open
+word_16E10A IpxSocketHandle {confidence=low} IPX socket handle
+unk_16E110 NetHostSessionName {confidence=low} network host session name
+dword_1CD770 SeasonIntroPageShown {confidence=low} season intro page shown
+dword_16E2F4 VesaModeCount {confidence=low} VESA video modes found
+dword_16E2FC VesaModeIndex {confidence=low} VESA video mode index
+dword_16E300 VesaModeChanged {confidence=low} set when the VESA mode changed
+byte_16E354 JoyButtonBits {confidence=low} joystick button bits

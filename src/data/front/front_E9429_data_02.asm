@@ -3,17 +3,17 @@ bits 32
 %include "hockey.inc"
 section s_16E274 progbits alloc noexec write align=1
 extern memlist1, PresentScreen
-global byte_16E274, byte_16E275, byte_16E28E, byte_16E354, byte_16E358, byte_16E35C, str_Punct_LoadAllStarArt, dword_16E2F4
-global dword_16E2F8, dword_16E2FC, dword_16E300, dword_16E304, dword_16E308, dword_16E30C, dword_16E310, dword_16E314
-global dword_16E318, dword_16E31C, dword_16E320, dword_16E324, dword_16E32C, dword_16E330, dword_16E334, dword_16E338
-global dword_16E33C, dword_16E340, dword_16E344, dword_16E348, dword_16E34C, dword_16E350, dword_16E360, dword_16E364
-global dword_16E368, dword_16E36C, dword_16E370, word_16E2EA, word_16E2EC, word_16E2EE, word_16E2F0
-byte_16E274:
+global AllStarSlotOrder, AllStarSlotOrderNext, AllStarArtDigits, JoyButtonBits, JoyButtonMask, JoyPortMask, str_Punct_LoadAllStarArt, VesaModeCount
+global VideoModeChoice, VesaModeIndex, VesaModeChanged, VideoModeList, AudioDriverVersion, GfxFixBuffer, IdleContext, IdleNextTick
+global HeapList, HeapRover, HeapLargestFree, FileCacheList, MemPoolEnd, MemPoolBase, MemPoolSize, FreeSpaceList
+global MemLockOn, MemListEndFunc, JoyAxisValues, JoyAxisY, JoyAxisSecondX, JoyAxisSecondY, JoyPort, JoyTimeX
+global JoyTimeY, JoyTimeSecondX, JoyTimeSecondY, AllStarSoundOn, ControlSetupDelay, ControlSetupItem, ControlSetupSoundOn
+AllStarSlotOrder:
         db 00h
-byte_16E275:
+AllStarSlotOrderNext:
         db 01h,01h,00h,00h,00h,00h,00h,00h,01h,01h,00h,01h,01h,01h,01h,01h
         db 01h,00h,01h,00h,00h,01h,00h,00h,01h
-byte_16E28E:
+AllStarArtDigits:
         db 00h,00h,00h,00h,01h,00h,00h,00h,04h,00h,00h,00h,03h,00h,00h,00h
         db 08h,00h,00h,00h,05h,00h,00h,00h,06h,00h,00h,00h,07h,00h,00h,00h
         db 02h,00h,00h,00h
@@ -22,74 +22,74 @@ str_Punct_LoadAllStarArt:
         db 07h,00h,00h,00h,03h,00h,00h,00h,0Bh,00h,00h,00h,01h,00h,00h,00h
         db 08h,00h,00h,00h,00h,00h,00h,00h,09h,00h,00h,00h,02h,00h,00h,00h
         db 0Ch,00h,00h,00h,05h,00h,00h,00h
-word_16E2EA:
+AllStarSoundOn:
         db 00h,00h
-word_16E2EC:
+ControlSetupDelay:
         db 00h,00h
-word_16E2EE:
+ControlSetupItem:
         db 0FFh,0FFh
-word_16E2F0:
+ControlSetupSoundOn:
         db 00h,00h,00h,00h
-dword_16E2F4:
+VesaModeCount:
         db 0FFh,0FFh,0FFh,0FFh
-dword_16E2F8:
+VideoModeChoice:
         db 0FFh,0FFh,0FFh,0FFh
-dword_16E2FC:
+VesaModeIndex:
         db 0FFh,0FFh,0FFh,0FFh
-dword_16E300:
+VesaModeChanged:
         db 00h,00h,00h,00h
-dword_16E304:
+VideoModeList:
         db 00h,00h,00h,00h
-dword_16E308:
+AudioDriverVersion:
         db 0FFh,0FFh,0FFh,0FFh
-dword_16E30C:
+GfxFixBuffer:
         db 00h,00h,00h,00h
-dword_16E310:
+IdleContext:
         db 01h,00h,00h,00h
-dword_16E314:
+IdleNextTick:
         db 00h,00h,00h,00h
-dword_16E318:
+HeapList:
         db 00h,00h,00h,00h
-dword_16E31C:
+HeapRover:
         db 00h,00h,00h,00h
-dword_16E320:
+HeapLargestFree:
         db 00h,00h,00h,00h
-dword_16E324:
+FileCacheList:
         dd memlist1
         db 00h,00h,00h,00h
-dword_16E32C:
+MemPoolEnd:
         db 00h,00h,00h,00h
-dword_16E330:
+MemPoolBase:
         db 00h,00h,00h,00h
-dword_16E334:
+MemPoolSize:
         db 00h,00h,00h,00h
-dword_16E338:
+FreeSpaceList:
         db 00h,00h,00h,00h
-dword_16E33C:
+MemLockOn:
         db 01h,00h,00h,00h
-dword_16E340:
+MemListEndFunc:
         dd PresentScreen
-dword_16E344:
+JoyAxisValues:
         db 00h,00h,00h,00h
-dword_16E348:
+JoyAxisY:
         db 00h,00h,00h,00h
-dword_16E34C:
+JoyAxisSecondX:
         db 00h,00h,00h,00h
-dword_16E350:
+JoyAxisSecondY:
         db 00h,00h,00h,00h
-byte_16E354:
+JoyButtonBits:
         db 00h,00h,00h,00h
-byte_16E358:
+JoyButtonMask:
         db 00h,00h,00h,00h
-byte_16E35C:
+JoyPortMask:
         db 0Fh,00h,00h,00h
-dword_16E360:
+JoyPort:
         db 01h,02h,00h,00h
-dword_16E364:
+JoyTimeX:
         db 00h,00h,00h,00h
-dword_16E368:
+JoyTimeY:
         db 00h,00h,00h,00h
-dword_16E36C:
+JoyTimeSecondX:
         db 00h,00h,00h,00h
-dword_16E370:
+JoyTimeSecondY:
         db 00h,00h,00h,00h

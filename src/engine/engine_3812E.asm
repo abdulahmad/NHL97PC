@@ -18,7 +18,7 @@ extern StreamTimeout, CdStreamFilled, CdStreamUsed, StreamState, AudioStreamFlag
 extern MusicPaused, MusicTime, MusicStreamPos, MusicVolumeLevel, MusicFeedCount, MusicStartTime, MusicLength, MusicHandle
 extern SfxBankRecords, AudioInitDone, SfxBankHandle, CrowdBankHandle, AmbientHandle, SfxReady, MusicReady, CrowdNoiseLevel
 extern AmbientVolume, SfxVolumeLevel, MusicVolumeWord, LastSfxPlayed, SpeechBankBuffer, SoundCardType, SoundDriverId, F32_9600
-extern F32_768_PositionSfx, SpeechQueueSize, DirPathTable, F32_ViewAngle, dword_16E308, dword_16E464, dword_16E468, MenuScreenBitmap
+extern F32_768_PositionSfx, SpeechQueueSize, DirPathTable, F32_ViewAngle, AudioDriverVersion, dword_16E464, dword_16E468, MenuScreenBitmap
 extern QuantizePalette, DrawDestBuffer, DrawDestPitch, VideoModeNumber, VideoModeIndex, ViewInterlaced, CdStreamSpeed, BenchSlotTable
 extern SparkleTable, SeasonScreenArt, SeasonOpponent, SeasonPlayedFlag, SeasonPanelArt, SeasonUserIndex, SeasonScreenState, SparkleTime
 extern MatchupLogoArt, SeasonPanelShown, WaitIconFrame, WaitIconTime, SparkleFrame, WaitIconCount, SeasonBackground, SeasonFont
@@ -13668,7 +13668,7 @@ OpenAudioStream_D8:
 .6:
         mov eax, ecx
         call DetectAudioDriver
-        mov esi, dword [dword_16E308]
+        mov esi, dword [AudioDriverVersion]
         cmp esi, 510FF40h
         jae short .7
         test al, 8

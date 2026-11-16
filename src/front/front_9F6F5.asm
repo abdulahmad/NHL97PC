@@ -7,7 +7,7 @@ extern str_DATAEXHIBITNDX2, str_DATASEASONNDX2, str_DATAPLAYOFFNDX2, str_Replayb
 extern str_PLY, str_S5, str_IdlistFfc, str_SharedFfc, str_WHATEVER, str_04d3, str_TRBL, str_TRBR
 extern str_TRLS, str_TRRS, str_TRSE, str_TRSS, str_TRSP, str_PICT, str_Roster3, str_Rosids
 extern str_Rtids, str_Games, str_Ros, str_Lros, str_CRUSHER, str_CRUSHERPack, atoi_, IndexFlags
-extern SeasonUserHuman, SeasonUserActive, PlayoffUserHuman, PlayoffUserActive, dword_16CB7C, dword_16DA9C, GameSettings, SeasonUserTeam
+extern SeasonUserHuman, SeasonUserActive, PlayoffUserHuman, PlayoffUserActive, dword_16CB7C, LinkGameActive, GameSettings, SeasonUserTeam
 extern GameOptionFlags, TeamSelectFlags, SeasonSlot, SeasonActive, SeasonScheduleData, SeasonScheduleOffset, SeasonScheduleSize, PlayoffFileHandle
 extern SeasonFileName, ReplayIndexHandle, ReplayBufferSize, dword_1C5DE0, IndexPickChoice, IndexItemType, IndexItemValue, IndexItemTemplate
 extern IndexDialogType, IndexDialogText, IndexDialogShape, IndexDialogFrame, IndexDialogBack, IndexDialogWidth, IndexDialogHeight, TransferOffset
@@ -152,7 +152,7 @@ PickIndexEntryScreen:
         call NameIndexNew
         mov dword [byte ebp+07Ah], eax
 .6:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .7
         mov edx, dword [dword ebp-042Ah]
         mov eax, dword [byte ebp+07Ah]
@@ -423,7 +423,7 @@ PickIndexEntryScreen_4EE:
         call atoi_
         mov dword [byte ebp+06Ah], eax
 .25:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je near .68
         call ClearLinkAbort
         test eax, eax
@@ -3140,7 +3140,7 @@ SendLeagueFile:
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [byte ebp-014h], eax
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je near .69
         call ClearLinkAbort
         test eax, eax
@@ -3683,7 +3683,7 @@ ReceiveLeagueFile:
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [byte ebp-010h], eax
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je near .63
         call ClearLinkAbort
         test eax, eax
@@ -4450,7 +4450,7 @@ ResetLinkSetup:
         movzx eax, al
         jmp dword [nosplit cs:eax*4+jpt_A31C6]
 ResetLinkSetup_20:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short ResetLinkSetup_45.2
         call ClearLinkAbort
         test eax, eax

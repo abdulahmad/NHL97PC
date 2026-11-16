@@ -7102,6 +7102,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1678F0,str_9,unk_1678F0,new,high,"string ""9""",src/data/front/front_E9429_data_01.asm
 1678F2,str_0_GetKeyName,unk_1678F2,new,high,"string ""0""",src/data/front/front_E9429_data_01.asm
 1678F4,str_Punct_GetKeyName,unk_1678F4,new,high,"string ""-""",src/data/front/front_E9429_data_01.asm
+1678F6,str_Equals_KeyName,unk_1678F6,new,low,"key name ""=""",src/data/front/front_E9429_data_01.asm
 1678F8,str_Q,unk_1678F8,new,high,"string ""Q""",src/data/front/front_E9429_data_01.asm
 1678FA,str_W_GetKeyName,unk_1678FA,new,high,"string ""W""",src/data/front/front_E9429_data_01.asm
 1678FC,str_E_GetKeyName,unk_1678FC,new,high,"string ""E""",src/data/front/front_E9429_data_01.asm
@@ -7112,6 +7113,8 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 167906,str_I,unk_167906,new,high,"string ""I""",src/data/front/front_E9429_data_01.asm
 167908,str_O,unk_167908,new,high,"string ""O""",src/data/front/front_E9429_data_01.asm
 16790A,str_P_GetKeyName,unk_16790A,new,high,"string ""P""",src/data/front/front_E9429_data_01.asm
+16790C,str_LeftBracket_KeyName,unk_16790C,new,low,"key name ""[""",src/data/front/front_E9429_data_01.asm
+16790E,str_RightBracket_KeyName,unk_16790E,new,low,"key name ""]""",src/data/front/front_E9429_data_01.asm
 167910,str_A,unk_167910,new,high,"string ""A""",src/data/front/front_E9429_data_01.asm
 167912,str_S_GetKeyName,unk_167912,new,high,"string ""S""",src/data/front/front_E9429_data_01.asm
 167914,str_D_GetKeyName,unk_167914,new,high,"string ""D""",src/data/front/front_E9429_data_01.asm
@@ -7121,6 +7124,10 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 16791C,str_J,unk_16791C,new,high,"string ""J""",src/data/front/front_E9429_data_01.asm
 16791E,str_K,unk_16791E,new,high,"string ""K""",src/data/front/front_E9429_data_01.asm
 167920,str_L,unk_167920,new,high,"string ""L""",src/data/front/front_E9429_data_01.asm
+167922,str_Semicolon_KeyName,unk_167922,new,low,"key name "";""",src/data/front/front_E9429_data_01.asm
+167924,str_Apostrophe_KeyName,unk_167924,new,low,"key name ""'""",src/data/front/front_E9429_data_01.asm
+167926,str_Backquote_KeyName,unk_167926,new,low,"key name ""`""",src/data/front/front_E9429_data_01.asm
+167928,str_Backslash_KeyName,unk_167928,new,low,"key name ""\""",src/data/front/front_E9429_data_01.asm
 16792A,str_Z,unk_16792A,new,high,"string ""Z""",src/data/front/front_E9429_data_01.asm
 16792C,str_X_GetKeyName,unk_16792C,new,high,"string ""X""",src/data/front/front_E9429_data_01.asm
 16792E,str_C_GetKeyName,unk_16792E,new,high,"string ""C""",src/data/front/front_E9429_data_01.asm
@@ -7128,6 +7135,10 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 167932,str_B,unk_167932,new,high,"string ""B""",src/data/front/front_E9429_data_01.asm
 167934,str_N_GetKeyName,unk_167934,new,high,"string ""N""",src/data/front/front_E9429_data_01.asm
 167936,str_M,unk_167936,new,high,"string ""M""",src/data/front/front_E9429_data_01.asm
+167938,str_Comma_KeyName,unk_167938,new,low,"key name "",""",src/data/front/front_E9429_data_01.asm
+16793A,str_Period_KeyName,unk_16793A,new,low,"key name "".""",src/data/front/front_E9429_data_01.asm
+16793C,str_Slash_KeyName,unk_16793C,new,low,"key name ""/""",src/data/front/front_E9429_data_01.asm
+16793E,str_Asterisk_KeyName,unk_16793E,new,low,"key name ""*""",src/data/front/front_E9429_data_01.asm
 167940,str_F1,unk_167940,new,high,"string ""F1""",src/data/front/front_E9429_data_01.asm
 167943,str_F2,unk_167943,new,high,"string ""F2""",src/data/front/front_E9429_data_01.asm
 167946,str_F3,unk_167946,new,high,"string ""F3""",src/data/front/front_E9429_data_01.asm
@@ -7971,16 +7982,125 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 16D80E,MatchupTeamCodes,word_16D80E,new,low,matchup team codes,src/data/front/front_D4E24_data_02.asm
 16D85E,str_Punct_DaysToYear,word_16D85E,new,high,"string ""/""",src/data/front/front_D4E24_data_02.asm
 16D860,MonthStartDays,word_16D860,new,low,day each month starts,src/data/front/front_D4E24_data_02.asm
+16D894,InputPlaybackOn,dword_16D894,new,low,set while recorded input plays back,src/data/front/front_DA66D_data_02.asm
+16D898,InputRecordPaused,dword_16D898,new,low,set while input recording is paused,src/data/front/front_DA66D_data_02.asm
+16D89C,LinkInputFrame,dword_16D89C,new,low,link input frame number,src/data/front/front_DA66D_data_02.asm
+16D8A0,SlotTableCount,dword_16D8A0,new,low,slot table entries,src/data/front/front_DA66D_data_02.asm
+16D8A4,InputRecordOn,word_16D8A4,new,low,set while input is recorded,src/data/front/front_DA66D_data_02.asm
+16D8A8,InputRecordStopped,dword_16D8A8,new,low,set once input recording stops,src/data/front/front_DA66D_data_02.asm
+16D8AC,PadPollTick,dword_16D8AC,new,low,tick of the next pad poll,src/data/front/front_DA66D_data_02.asm
+16D8B0,KeyPollTick,dword_16D8B0,new,low,tick of the next key poll,src/data/front/front_DA66D_data_02.asm
+16D8B4,KeyRepeatTick,dword_16D8B4,new,low,tick of the next key repeat,src/data/front/front_DA66D_data_02.asm
+16D8B8,KeyRepeatOn,dword_16D8B8,new,low,key repeat enabled,src/data/front/front_DA66D_data_02.asm
+16D8BC,PadHoldTicks,dword_16D8BC,new,low,hold ticks per pad,src/data/front/front_DA66D_data_02.asm
+16D8D8,PadHoldCount,dword_16D8D8,new,low,hold count per pad,src/data/front/front_DA66D_data_02.asm
+16D8DC,PadRepeatTicks,dword_16D8DC,new,low,repeat ticks per pad,src/data/front/front_DA66D_data_02.asm
+16D8FA,PadChanged,byte_16D8FA,new,low,changed flag per pad,src/data/front/front_DA66D_data_02.asm
 16D8FC,SlotWords,word_16D8FC,new,high,"8 words: high byte device (bits 0-2) and team (bit 7), low byte buttons",src/data/front/front_DA66D_data_02.asm
+16D8FD,PadSlotFlags,byte_16D8FD,new,low,slot flags per pad,src/data/front/front_DA66D_data_02.asm
 16D90C,InputRecordTail,dword_16D90C,new,high,where TakeInputRecord reads the next record,src/data/front/front_DA66D_data_02.asm
 16D910,InputRecordHead,dword_16D910,96PC,high,96 PC InputRecordHead: where the timer writes the next record,src/data/front/front_DA66D_data_02.asm
 16D914,InputRecordCount,dword_16D914,96PC,high,96 PC InputRecordCount,src/data/front/front_DA66D_data_02.asm
+16D918,InputRecordTaken,dword_16D918,new,low,set once an input record is taken,src/data/front/front_DA66D_data_02.asm
 16D91C,InputRecordStamp,dword_16D91C,new,high,rdtsc when the last record was pushed (draw interpolation),src/data/front/front_DA66D_data_02.asm
+16D920,JoystickUpKey,word_16D920,new,low,joystick up key,src/data/front/front_DA66D_data_02.asm
 16D922,str_Punct_ReadJoystickPads,word_16D922,new,high,"string "" """,src/data/front/front_DA66D_data_02.asm
+16D924,JoystickDownKey,word_16D924,new,low,joystick down key,src/data/front/front_DA66D_data_02.asm
+16D926,JoystickLeftKey,word_16D926,new,low,joystick left key,src/data/front/front_DA66D_data_02.asm
+16D928,JoystickRightKey,word_16D928,new,low,joystick right key,src/data/front/front_DA66D_data_02.asm
+16D92A,JoystickFireKey,word_16D92A,new,low,joystick fire key,src/data/front/front_DA66D_data_02.asm
+16D92C,JoystickAltKey,word_16D92C,new,low,joystick second fire key,src/data/front/front_DA66D_data_02.asm
+16D93A,KeyboardControls,dword_16D93A,new,low,keyboard control settings,src/data/front/front_DA66D_data_02.asm
+16D93B,KeyboardControlOn,byte_16D93B,new,low,keyboard control enabled per side,src/data/front/front_DA66D_data_02.asm
+16D992,DefaultControls,unk_16D992,new,low,default control settings,src/data/front/front_DA66D_data_02.asm
+16DA42,JoystickButtonMap,byte_16DA42,new,low,joystick button map,src/data/front/front_DA66D_data_02.asm
+16DA9C,LinkGameActive,dword_16DA9C,new,low,set while a link or network game runs,src/data/front/front_DA66D_data_02.asm
+16DAA0,NetActive,dword_16DAA0,new,low,set while the network driver is up,src/data/front/front_DA66D_data_02.asm
+16DAA4,NetDriverHandle,dword_16DAA4,new,low,network driver handle,src/data/front/front_DA66D_data_02.asm
+16DAA8,LinkFrameDelay,dword_16DAA8,new,low,link frame delay,src/data/front/front_DA66D_data_02.asm
+16DAAC,LinkRemoteSequence,dword_16DAAC,new,low,link remote packet sequence,src/data/front/front_DA66D_data_02.asm
+16DAB0,LinkHandshakeDone,dword_16DAB0,new,low,set once the link handshake finishes,src/data/front/front_DA66D_data_02.asm
+16DAB4,LinkBlockDone,dword_16DAB4,new,low,set once a link block is received,src/data/front/front_DA66D_data_02.asm
+16DAB6,LinkAbortPad,dword_16DAB6,new,low,low half of the dword read for the link abort flag,src/data/front/front_DA66D_data_02.asm
+16DAB8,LinkSequence,word_16DAB8,new,low,link packet sequence,src/data/front/front_DA66D_data_02.asm
+16DABC,LinkTimeout,dword_16DABC,new,low,tick when the link times out,src/data/front/front_DA66D_data_02.asm
 16DAC0,str_Punct_ModemSettingsScreen,dword_16DAC0,new,high,"string "" """,src/data/front/front_DA66D_data_02.asm
+16DAC4,LinkServiceTick,dword_16DAC4,new,low,tick of the last link service,src/data/front/front_DA66D_data_02.asm
+16DAC8,LinkTimerActive,dword_16DAC8,new,low,set while the link timer runs,src/data/front/front_DA66D_data_02.asm
+16DACA,ModemPortBasePad,dword_16DACA,new,low,low half of the dword read for the port base per COM port,src/data/front/front_DA66D_data_02.asm
+16DACC,ModemPortIrqs,word_16DACC,new,low,IRQ per COM port,src/data/front/front_DA66D_data_02.asm
+16DACE,ModemPortCount,word_16DACE,new,low,COM port count,src/data/front/front_DA66D_data_02.asm
+16DAD0,ModemPortBases,word_16DAD0,new,low,port base per COM port,src/data/front/front_DA66D_data_02.asm
+16DAD2,ModemPortChoice,dword_16DAD2,new,low,chosen COM port,src/data/front/front_DA66D_data_02.asm
 16DADC,str_GenericHayesCompatible,asc_16DADC,new,high,"string ""Generic Hayes-Compatible""",src/data/front/front_DA66D_data_02.asm
+16E0F8,NetSessionActive,word_16E0F8,new,low,set while the network session is open,src/data/front/front_DA66D_data_02.asm
+16E0FA,NetSessionPort,word_16E0FA,new,low,network session port,src/data/front/front_DA66D_data_02.asm
+16E0FC,IpxDriverNames,off_16E0FC,new,low,IPX driver names,src/data/front/front_DA66D_data_02.asm
+16E108,IpxSocketOpen,word_16E108,new,low,set while the IPX socket is open,src/data/front/front_DA66D_data_02.asm
+16E10A,IpxSocketHandle,word_16E10A,new,low,IPX socket handle,src/data/front/front_DA66D_data_02.asm
+16E10C,NetJoinPending,word_16E10C,new,low,set while a network join is pending,src/data/front/front_DA66D_data_02.asm
+16E110,NetHostSessionName,unk_16E110,new,low,network host session name,src/data/front/front_DA66D_data_02.asm
+16E120,NetPlayerNameLength,word_16E120,new,low,network player name length,src/data/front/front_DA66D_data_02.asm
+16E124,NetPlayerNameSet,dword_16E124,new,low,set once the network player name is set,src/data/front/front_DA66D_data_02.asm
+16E128,IpxBuffer,dword_16E128,new,low,IPX buffer,src/data/front/front_DA66D_data_02.asm
+16E12A,NetFoundCountPad,dword_16E12A,new,low,low half of the dword read for the found game count,src/data/front/front_DA66D_data_02.asm
+16E12C,NetFoundCount,word_16E12C,new,low,network games found this scan,src/data/front/front_DA66D_data_02.asm
+16E130,NetGameList,dword_16E130,new,low,network game list,src/data/front/front_DA66D_data_02.asm
+16E134,NetListTick,dword_16E134,new,low,tick of the next network list refresh,src/data/front/front_DA66D_data_02.asm
+16E138,NetListChoice,dword_16E138,new,low,chosen network game,src/data/front/front_DA66D_data_02.asm
+16E13C,NetListFirst,dword_16E13C,new,low,first network game shown,src/data/front/front_DA66D_data_02.asm
+16E140,NetJoinedOk,dword_16E140,new,low,set once a network game is joined,src/data/front/front_DA66D_data_02.asm
+16E144,OptionsAnimIndex,dword_16E144,new,low,options animation index,src/data/front/front_DA66D_data_02.asm
+16E148,OptionsAnimItemFrames,word_16E148,new,low,options animation frame per item,src/data/front/front_DA66D_data_02.asm
+16E15E,OptionsAnimItemState,word_16E15E,new,low,options animation state per item,src/data/front/front_DA66D_data_02.asm
+16E16E,OptionsAnimItem,word_16E16E,new,low,options animation item,src/data/front/front_DA66D_data_02.asm
+16E170,OptionsAnimOn,word_16E170,new,low,options animation enabled,src/data/front/front_DA66D_data_02.asm
+16E174,SeasonIntroArtFiles,off_16E174,new,low,season intro art files,src/data/front/front_E7D6D_data_02.asm
+16E1AC,SeasonIntroLeaderOn,dword_16E1AC,new,low,set per season intro leader slot when filled,src/data/front/front_E7D6D_data_02.asm
+16E1E4,SeasonIntroEmptyText,unk_16E1E4,new,low,season intro text when no leaders,src/data/front/front_E7D6D_data_02.asm
 16E21C,str_Punct_BuildSeasonIntro,unk_16E21C,new,high,"string ""\n""",src/data/front/front_E7D6D_data_02.asm
+16E22C,SeasonIntroLogoIds,dword_16E22C,new,low,season intro logo id per team,src/data/front/front_E7D6D_data_02.asm
+16E264,HexDigits,byte_16E264,new,low,hex digit characters,src/data/front/front_E7D6D_data_02.asm
+16E273,AllStarSlotOrderPrev,byte_16E273,new,low,"all-star slot order, entry before the first",src/data/front/front_E7D6D_data_02.asm
+16E274,AllStarSlotOrder,byte_16E274,new,low,all-star slot order,src/data/front/front_E9429_data_02.asm
+16E275,AllStarSlotOrderNext,byte_16E275,new,low,all-star slot order from the second entry,src/data/front/front_E9429_data_02.asm
+16E28E,AllStarArtDigits,byte_16E28E,new,low,digit per all-star art set,src/data/front/front_E9429_data_02.asm
 16E2B2,str_Punct_LoadAllStarArt,dword_16E2B2,new,high,"string ""\r""",src/data/front/front_E9429_data_02.asm
+16E2EA,AllStarSoundOn,word_16E2EA,new,low,all-star sound enabled,src/data/front/front_E9429_data_02.asm
+16E2EC,ControlSetupDelay,word_16E2EC,new,low,control setup sound delay,src/data/front/front_E9429_data_02.asm
+16E2EE,ControlSetupItem,word_16E2EE,new,low,control setup item for the sound,src/data/front/front_E9429_data_02.asm
+16E2F0,ControlSetupSoundOn,word_16E2F0,new,low,control setup sound enabled,src/data/front/front_E9429_data_02.asm
+16E2F4,VesaModeCount,dword_16E2F4,new,low,VESA video modes found,src/data/front/front_E9429_data_02.asm
+16E2F8,VideoModeChoice,dword_16E2F8,new,low,chosen video mode,src/data/front/front_E9429_data_02.asm
+16E2FC,VesaModeIndex,dword_16E2FC,new,low,VESA video mode index,src/data/front/front_E9429_data_02.asm
+16E300,VesaModeChanged,dword_16E300,new,low,set when the VESA mode changed,src/data/front/front_E9429_data_02.asm
+16E304,VideoModeList,dword_16E304,new,low,video mode list,src/data/front/front_E9429_data_02.asm
+16E308,AudioDriverVersion,dword_16E308,new,low,audio driver version,src/data/front/front_E9429_data_02.asm
+16E30C,GfxFixBuffer,dword_16E30C,new,low,graphics fix buffer,src/data/front/front_E9429_data_02.asm
+16E310,IdleContext,dword_16E310,new,low,idle handler context,src/data/front/front_E9429_data_02.asm
+16E314,IdleNextTick,dword_16E314,new,low,tick of the next idle handler run,src/data/front/front_E9429_data_02.asm
+16E318,HeapList,dword_16E318,new,low,near heap list,src/data/front/front_E9429_data_02.asm
+16E31C,HeapRover,dword_16E31C,new,low,near heap rover,src/data/front/front_E9429_data_02.asm
+16E320,HeapLargestFree,dword_16E320,new,low,largest free near heap block,src/data/front/front_E9429_data_02.asm
+16E324,FileCacheList,dword_16E324,new,low,file cache list,src/data/front/front_E9429_data_02.asm
+16E32C,MemPoolEnd,dword_16E32C,new,low,memory pool end,src/data/front/front_E9429_data_02.asm
+16E330,MemPoolBase,dword_16E330,new,low,memory pool base,src/data/front/front_E9429_data_02.asm
+16E334,MemPoolSize,dword_16E334,new,low,memory pool size,src/data/front/front_E9429_data_02.asm
+16E338,FreeSpaceList,dword_16E338,new,low,free space list,src/data/front/front_E9429_data_02.asm
+16E33C,MemLockOn,dword_16E33C,new,low,memory lock enabled,src/data/front/front_E9429_data_02.asm
+16E340,MemListEndFunc,dword_16E340,new,low,routine at the end of the memory list,src/data/front/front_E9429_data_02.asm
+16E344,JoyAxisValues,dword_16E344,new,low,joystick axis values,src/data/front/front_E9429_data_02.asm
+16E348,JoyAxisY,dword_16E348,new,low,joystick y axis,src/data/front/front_E9429_data_02.asm
+16E34C,JoyAxisSecondX,dword_16E34C,new,low,second joystick x axis,src/data/front/front_E9429_data_02.asm
+16E350,JoyAxisSecondY,dword_16E350,new,low,second joystick y axis,src/data/front/front_E9429_data_02.asm
+16E354,JoyButtonBits,byte_16E354,new,low,joystick button bits,src/data/front/front_E9429_data_02.asm
+16E358,JoyButtonMask,byte_16E358,new,low,joystick button mask,src/data/front/front_E9429_data_02.asm
+16E35C,JoyPortMask,byte_16E35C,new,low,joystick port mask,src/data/front/front_E9429_data_02.asm
+16E360,JoyPort,dword_16E360,new,low,joystick port,src/data/front/front_E9429_data_02.asm
+16E364,JoyTimeX,dword_16E364,new,low,joystick x timing,src/data/front/front_E9429_data_02.asm
+16E368,JoyTimeY,dword_16E368,new,low,joystick y timing,src/data/front/front_E9429_data_02.asm
+16E36C,JoyTimeSecondX,dword_16E36C,new,low,second joystick x timing,src/data/front/front_E9429_data_02.asm
+16E370,JoyTimeSecondY,dword_16E370,new,low,second joystick y timing,src/data/front/front_E9429_data_02.asm
 16E374,JoyCalibrateTicks,dword_16E374,new,low,timer ticks counted during joystick calibration,src/data/lib/input/input_joystick_misc_01_data_01.asm
 16E378,JoyCalibrating,byte_16E378,new,low,set while the joystick is being calibrated,src/data/lib/input/input_joystick_misc_01_data_01.asm
 16E37C,JoyReadTimeout,dword_16E37C,new,low,loop count before a joystick axis read times out,src/data/lib/input/input_joystick_misc_01_data_01.asm
@@ -10477,6 +10597,16 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1CD764,SeasonIntroLayer,dword_1CD764,new,low,season intro layer,src/data/front/front_DA66D_bss_01.asm
 1CD768,SeasonIntroDialogText,dword_1CD768,new,low,season intro dialog text,src/data/front/front_E7D6D_bss_01.asm
 1CD76C,SeasonIntroDialogType,dword_1CD76C,new,low,season intro dialog type,src/data/front/front_E7D6D_bss_01.asm
+1CD770,SeasonIntroPageShown,dword_1CD770,new,low,season intro page shown,src/data/front/front_E7D6D_bss_01.asm
+1CD774,SeasonIntroTitleFile,dword_1CD774,new,low,season intro title art file,src/data/front/front_E7D6D_bss_01.asm
+1CD778,SeasonIntroTeamKey,dword_1CD778,new,low,season intro team key,src/data/front/front_E7D6D_bss_01.asm
+1CD77C,SeasonIntroShapes,dword_1CD77C,new,low,season intro shapes,src/data/front/front_E7D6D_bss_01.asm
+1CD780,SeasonIntroIcons,dword_1CD780,new,low,season intro icons,src/data/front/front_E7D6D_bss_01.asm
+1CD784,SeasonIntroBackFile,dword_1CD784,new,low,season intro back art file,src/data/front/front_E7D6D_bss_01.asm
+1CD788,SeasonIntroLeaders,word_1CD788,97PC,low,"season intro leader entries (171 bytes each), up to the stat words",src/data/front/front_E7D6D_bss_01.asm
+1CD7EB,SeasonIntroLeaderStats,word_1CD7EB,97PC,low,season intro leader entries from the stat words on,src/data/front/front_E7D6D_bss_01.asm
+1CEA8A,KeyNames,unk_1CEA8A,new,low,key name strings per scan code (15 bytes each),src/data/front/front_EE69C_bss_01.asm
+1CEA99,KeyNameSlots,unk_1CEA99,97PC,low,key name strings from scan code 1 on (15 bytes each); KeyNames is entry 0,src/data/front/front_E9429_bss_02.asm
 1CF0DC,memlist1,,95PC,medium,NHL95PC EDA08 (refset): referenced by the same 2 matched functions,
 1CF26C,timercallbacks,dword_1CF26C,96PC,medium,96 PC timercallbacks: the 8 timer callbacks (addtimer),src/data/front/front_F20A1_bss_01.asm
 1CF29C,PolyTopRow,dword_1CF29C,new,low,top row of the polygon being filled,src/data/lib/ea/ea_gfx_02_bss_01.asm

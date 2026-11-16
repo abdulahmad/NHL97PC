@@ -7,7 +7,7 @@ global dword_1CE318, dword_1CE31C, dword_1CE328, dword_1CE32C, dword_1CE330, dwo
 global dword_1CE34A, dword_1CE34E, dword_1CE352, dword_1CE356, dword_1CE3EA, dword_1CE3EE, dword_1CE3F2, dword_1CE43C
 global dword_1CE440, dword_1CE444, dword_1CE478, dword_1CE48E, dword_1CE492, dword_1CE496, dword_1CE4D6, dword_1CE4DA
 global dword_1CE4E0, dword_1CE4E4, dword_1CE4E8, dword_1CE4EC, dword_1CE4F0, dword_1CE528, dword_1CE52C, dword_1CE532
-global dword_1CE536, dword_1CE53A, dword_1CE53E, dword_1CE542, unk_1CE3D0, unk_1CE422, unk_1CE474, unk_1CEA8A
+global dword_1CE536, dword_1CE53A, dword_1CE53E, dword_1CE542, unk_1CE3D0, unk_1CE422, unk_1CE474, KeyNames
 dword_1CE258:
         resb 8
 dword_1CE260:
@@ -102,5 +102,5 @@ dword_1CE53E:
         resb 4
 dword_1CE542:
         resb 1352
-unk_1CEA8A:
+KeyNames:
         resb 15

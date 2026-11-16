@@ -9,7 +9,7 @@ extern str_MB06, str_MB05, str_MB04, str_MB10, str_MB09, str_MB08, str_BACK4, st
 extern str_SY00, str_SY01, str_SY02, str_SY03, str_SY04, str_SY05, str_SY06, str_GL00
 extern str_GR00, str_Mous3, str_DATAREPLAYNDX, FrontEndExit, MenuOptionFlags, LinkMenuCursor, IndexMenuCursor, PlayoffUserIndex
 extern byte_1C6040, MainMenuAnimEnd, MainMenuAnimDone, StatsMenuDrawn, StatsMenuChoice, OptionsMenuChoice, MainMenuSelection, MainMenuFirstShow
-extern MainMenuAnimStop, StatsMenuMode, LinkTransferReady, CreditsKeyFlag, dword_16DA9C, MenuScreenBitmap, GameSettings, GameOptionFlags
+extern MainMenuAnimStop, StatsMenuMode, LinkTransferReady, CreditsKeyFlag, LinkGameActive, MenuScreenBitmap, GameSettings, GameOptionFlags
 extern SeasonDefaultUser, GameRecordIds, dword_1C5DE0, dword_1C5DE4, dword_1C8268, MainMenuAnimFrames, MainMenuAnimTimer, MainMenuAnimFrame
 extern MainMenuAnimStart, MainMenuAnimRate, MainMenuAnimShape, MainMenuAnimMode, MainMenuAnimX, MainMenuAnimY, MainMenuAnimArt, MainMenuAnimBack
 extern MainMenuAnimLogo, MainMenuAnimTitle, MainMenuAnimCursor, MainMenuAnimItems, MainMenuAnimPanel, MainMenuAnimSprites, MainMenuButtons, MainMenuChoice
@@ -484,7 +484,7 @@ MainMenuScreen:
         je short .3
         mov dword [byte ebp+06Eh], 1
 .3:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je near .8
         push dword [byte ebp+06Eh]
         push dword [byte ebp+072h]
@@ -776,7 +776,7 @@ MainMenuScreen:
         rep movsb
         mov eax, dword [MainMenuCursor]
         mov dword [byte eax+052h], 1
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .20
         mov esi, dword [MainMenuCursor]
         mov ecx, 52h
@@ -1074,7 +1074,7 @@ MainMenuScreen:
         jmp near MainMenuScreen_CFF.48
 MainMenuScreen_911:
         call ShowScreen
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je near MainMenuScreen_999.27
         push byte 1
         mov eax, 230h
@@ -1331,7 +1331,7 @@ MainMenuScreen_C76:
         mov eax, dword [MainMenuCursor]
         add eax, 148h
         call ShowPopupScreen
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .44
         push byte 1
         mov eax, 230h
@@ -1406,7 +1406,7 @@ MainMenuScreen_CFF:
         lea eax, [byte ebp+04Eh]
         mov ebx, 0FFFFFFFFh
         push eax
-        mov eax, dword [dword_16DA9C]
+        mov eax, dword [LinkGameActive]
         mov edx, dword [MainMenuCursor]
         add eax, byte 7
         call RunMenu
@@ -2104,7 +2104,7 @@ StatsMenuScreen:
 .8:
         mov byte [byte ebp+07Eh], 4Eh
 .9:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .11
         call ClearLinkAbort
         test eax, eax
@@ -2148,7 +2148,7 @@ StatsMenuScreen:
 .13:
         cmp dword [byte ebp+076h], byte 6Ah
         jne near .5
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je near .5
         mov eax, 304h
         mov dword [byte ebp+076h], 0FFFFFFFFh

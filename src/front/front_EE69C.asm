@@ -20,9 +20,9 @@ extern SetScreenTarget, CameraNoop, SecondsToSamples, WaitSoundTime, PlayMenuSfx
 extern DrawScreenBackground, FadeInScreen, ExitScreen, SetRegionRect, SetTextColor, DrawTextAligned, ShowMessageBoxNoWait, WipeScreen
 extern SetModemButton, InitMenuItems, RunMenu, GetLangText, ServiceIdle, WaitForOtherComputer, GetKeyName, LoadPauseArt
 extern FreePauseArt, DrawPauseClock, FreeMemBlock, MatchColor, MakeColor, FreeBitmap, DrawShapeAtOwnPos, DrawArt
-extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, tickcount, str_S_DrawControlKey, unk_16D992, ControlSetup
-extern unk_1C5F4A, unk_1CE3D0, unk_1CE422, unk_1CE474, unk_1CEA8A, str_Punct_DrawControlLabel, unk_EDE3F, unk_EDE53
-extern unk_EE053, str_Punct_ControlSetupScreen, unk_EE0E3, word_16E2EC, word_16E2EE, word_16E2F0
+extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, tickcount, str_S_DrawControlKey, DefaultControls, ControlSetup
+extern unk_1C5F4A, unk_1CE3D0, unk_1CE422, unk_1CE474, KeyNames, str_Punct_DrawControlLabel, unk_EDE3F, unk_EDE53
+extern unk_EE053, str_Punct_ControlSetupScreen, unk_EE0E3, ControlSetupDelay, ControlSetupItem, ControlSetupSoundOn
 global jpt_F031D, ShowReservedKey_20A, ControlSetupMain_3F3, ControlSetupMain_3FB, ControlSetupScreen_B8D, ControlSetupScreen_BB1, ControlSetupScreen_BC0, ControlSetupScreen_BF3
 global ControlSetupScreen_C3A, ControlSetupScreen_F11, ControlSetupScreen_1064, ShowReservedKey, CopyControlSettings, ControlSetupMain, ControlSetupKeys, ControlSetupPads
 global ControlSetupSound, DrawControlLabel, DrawControlKey, ControlSetupScreen, ControlSetupPlayers, SetupPauseArt, CleanupPauseArt
@@ -179,7 +179,7 @@ ShowReservedKey:
 .13:
         movsx eax, si
         imul eax, byte 0Fh
-        add eax, unk_1CEA8A
+        add eax, KeyNames
         push eax
         mov eax, 25Ah
         call GetLangText
@@ -1880,19 +1880,19 @@ ControlSetupSound:
         mov dword [dword_1CE492], eax
         call BlitShape2
         add esp, byte 4
-        cmp word [word_16E2F0], byte 0
+        cmp word [ControlSetupSoundOn], byte 0
         jne short .1
         mov eax, 309h
         call PlaySfx
 .1:
-        mov word [word_16E2F0], 1
+        mov word [ControlSetupSoundOn], 1
         jmp short .4
 .2:
-        cmp word [word_16E2F0], byte 0
+        cmp word [ControlSetupSoundOn], byte 0
         je short .3
         call StopAllSfx
 .3:
-        mov word [word_16E2F0], 0
+        mov word [ControlSetupSoundOn], 0
 .4:
         mov ebx, 7
         xor esi, esi
@@ -1901,21 +1901,21 @@ ControlSetupSound:
         imul edx, ebx, byte 52h
         cmp dword [dword edx+dword_1CE330], byte 1
         jne near .12
-        movsx edx, word [word_16E2EE]
+        movsx edx, word [ControlSetupItem]
         mov esi, 1
         cmp edx, byte 0FFFFFFFFh
         jne short .8
-        cmp word [word_16E2EC], byte 14h
+        cmp word [ControlSetupDelay], byte 14h
         jge near .12
-        inc word [word_16E2EC]
+        inc word [ControlSetupDelay]
         cmp ebx, byte 0Fh
         jge short .6
-        mov word [word_16E2EE], bx
+        mov word [ControlSetupItem], bx
         jmp short .7
 .6:
         mov eax, ebx
         sub eax, byte 8
-        mov word [word_16E2EE], ax
+        mov word [ControlSetupItem], ax
 .7:
         mov eax, 1
         jmp near .12
@@ -1925,10 +1925,10 @@ ControlSetupSound:
         lea ecx, [byte ebx-08h]
         cmp edx, ecx
         je short .10
-        cmp word [word_16E2EC], byte 0
+        cmp word [ControlSetupDelay], byte 0
         jle short .9
         mov eax, 1
-        sub word [word_16E2EC], ax
+        sub word [ControlSetupDelay], ax
         jmp short .12
 .9:
         mov eax, edx
@@ -1936,62 +1936,62 @@ ControlSetupSound:
         mov eax, dword [dword eax+dword_1CE1E8]
         push dword [byte eax+02Ch]
         call BlitShape2
-        movsx eax, word [word_16E2EE]
+        movsx eax, word [ControlSetupItem]
         add esp, byte 4
         mov eax, dword [nosplit eax*8+dword_1CE2A0]
         push dword [byte eax+02Ch]
         call BlitShape2
-        mov word [word_16E2EE], 0FFFFh
+        mov word [ControlSetupItem], 0FFFFh
         mov eax, 1
         add esp, byte 4
         jmp short .12
 .10:
-        movsx edx, word [word_16E2EE]
+        movsx edx, word [ControlSetupItem]
         cmp edx, ebx
         je short .11
         lea ecx, [byte ebx-08h]
         cmp edx, ecx
         jne short .12
 .11:
-        cmp word [word_16E2EC], byte 14h
+        cmp word [ControlSetupDelay], byte 14h
         jge short .12
         mov eax, 1
-        add word [word_16E2EC], ax
+        add word [ControlSetupDelay], ax
 .12:
         inc ebx
         cmp ebx, byte 17h
         jl near .5
-        movsx edx, word [word_16E2EE]
+        movsx edx, word [ControlSetupItem]
         cmp edx, byte 0FFFFFFFFh
         je near .16
         test ax, ax
         jne near .15
-        cmp word [word_16E2EC], byte 0
+        cmp word [ControlSetupDelay], byte 0
         jle short .13
-        dec word [word_16E2EC]
+        dec word [ControlSetupDelay]
         jmp short .14
 .13:
-        mov word [word_16E2EC], ax
+        mov word [ControlSetupDelay], ax
 .14:
-        movsx eax, word [word_16E2EC]
+        movsx eax, word [ControlSetupDelay]
         mov ecx, 0Ah
         cdq
         idiv ecx
-        movsx ebx, word [word_16E2EE]
+        movsx ebx, word [ControlSetupItem]
         shl ebx, 4
         mov eax, dword [dword ebx+eax*4+dword_1CE1EC]
         push dword [byte eax+02Ch]
         call BlitShape2
-        movsx eax, word [word_16E2EE]
+        movsx eax, word [ControlSetupItem]
         add esp, byte 4
         mov eax, dword [nosplit eax*8+dword_1CE2A4]
         push dword [byte eax+02Ch]
         call BlitShape2
-        movsx eax, word [word_16E2EC]
+        movsx eax, word [ControlSetupDelay]
         mov edi, 0Ah
         cdq
         idiv edi
-        movsx ecx, word [word_16E2EE]
+        movsx ecx, word [ControlSetupItem]
         mov ebx, ecx
         shl ebx, 4
         mov edx, dword [dword ebx+eax*4+dword_1CE1EC]
@@ -1999,22 +1999,22 @@ ControlSetupSound:
         mov edx, dword [byte edx+02Ch]
         add esp, byte 4
         mov dword [dword eax+dword_1CE34A], edx
-        cmp word [word_16E2EC], byte 0
+        cmp word [ControlSetupDelay], byte 0
         jne near .16
         mov eax, dword [dword ebx+dword_1CE1E8]
         push dword [byte eax+02Ch]
         call BlitShape2
-        movsx eax, word [word_16E2EE]
+        movsx eax, word [ControlSetupItem]
         add esp, byte 4
         mov eax, dword [nosplit eax*8+dword_1CE2A0]
         push dword [byte eax+02Ch]
         call BlitShape2
-        mov word [word_16E2EE], 0FFFFh
+        mov word [ControlSetupItem], 0FFFFh
         add esp, byte 4
         jmp short .16
 .15:
         mov ebx, 0Ah
-        movsx eax, word [word_16E2EC]
+        movsx eax, word [ControlSetupDelay]
         mov ecx, edx
         cdq
         idiv ebx
@@ -2022,16 +2022,16 @@ ControlSetupSound:
         mov eax, dword [dword ecx+eax*4+dword_1CE1EC]
         push dword [byte eax+02Ch]
         call BlitShape2
-        movsx eax, word [word_16E2EE]
+        movsx eax, word [ControlSetupItem]
         add esp, byte 4
         mov eax, dword [nosplit eax*8+dword_1CE2A4]
         push dword [byte eax+02Ch]
         call BlitShape2
-        movsx eax, word [word_16E2EC]
+        movsx eax, word [ControlSetupDelay]
         mov ecx, 0Ah
         cdq
         idiv ecx
-        movsx ebx, word [word_16E2EE]
+        movsx ebx, word [ControlSetupItem]
         mov edi, ebx
         shl edi, 4
         mov edx, dword [dword edi+eax*4+dword_1CE1EC]
@@ -2573,7 +2573,7 @@ ControlSetupScreen:
         movsx eax, word [byte ebp+042h]
         movsx eax, word [dword ebp+eax*4-0B4h]
         imul eax, byte 0Fh
-        add eax, unk_1CEA8A
+        add eax, KeyNames
         push eax
         push byte 1Eh
         push byte 68h
@@ -2605,7 +2605,7 @@ ControlSetupScreen:
         movsx eax, word [byte ebp+042h]
         movsx eax, word [dword ebp+eax*4-0B4h]
         imul eax, byte 0Fh
-        add eax, unk_1CEA8A
+        add eax, KeyNames
         push eax
         push byte 1Eh
         push byte 68h
@@ -2637,7 +2637,7 @@ ControlSetupScreen:
         movsx eax, word [byte ebp+044h]
         movsx eax, word [dword ebp+eax*4-0B4h]
         imul eax, byte 0Fh
-        add eax, unk_1CEA8A
+        add eax, KeyNames
         push eax
         push byte 1Eh
         push byte 32h
@@ -2669,7 +2669,7 @@ ControlSetupScreen:
         movsx eax, word [byte ebp+044h]
         movsx eax, word [dword ebp+eax*4-0B4h]
         imul eax, byte 0Fh
-        add eax, unk_1CEA8A
+        add eax, KeyNames
         push eax
         push byte 1Eh
         push byte 32h
@@ -2724,7 +2724,7 @@ ControlSetupScreen:
         movsx eax, word [byte ebp+edi*2+032h]
         movsx eax, word [dword ebp+eax*4-0B4h]
         imul eax, byte 0Fh
-        add eax, unk_1CEA8A
+        add eax, KeyNames
         push eax
         movsx eax, word [byte ebp+edi*8-05Ah]
         cdq
@@ -3194,7 +3194,7 @@ ControlSetupScreen_C3A:
         push byte 58h
         lea eax, [dword ebp-0B6h]
         push eax
-        push unk_16D992
+        push DefaultControls
         xor esi, esi
         call bcopy
         add esp, byte 0Ch
@@ -3235,7 +3235,7 @@ ControlSetupScreen_C3A:
         movsx eax, word [byte ebp+edx*2+032h]
         movsx eax, word [dword ebp+eax*4-0B4h]
         imul eax, byte 0Fh
-        add eax, unk_1CEA8A
+        add eax, KeyNames
         push eax
         movsx eax, word [byte ebp+edx*8-05Ah]
         cdq
@@ -3259,7 +3259,7 @@ ControlSetupScreen_C3A:
         movsx eax, word [dword ebp+eax*4-0B4h]
         imul eax, byte 0Fh
         push dword [byte ebp+07Ah]
-        mov ebx, unk_1CEA8A
+        mov ebx, KeyNames
         mov ecx, str_TB002
         mov edx, 43h
         push str_TB012
@@ -3270,7 +3270,7 @@ ControlSetupScreen_C3A:
         movsx eax, word [dword ebp+eax*4-0B4h]
         imul eax, byte 0Fh
         push dword [byte ebp+07Ah]
-        mov ebx, unk_1CEA8A
+        mov ebx, KeyNames
         mov ecx, str_TB022
         mov edx, 0Dh
         push str_TB032
@@ -3446,7 +3446,7 @@ ControlSetupScreen_F11:
         movsx eax, word [byte ebp+044h]
         movsx eax, word [dword ebp+eax*4-0B4h]
         imul eax, byte 0Fh
-        mov ebx, unk_1CEA8A
+        mov ebx, KeyNames
         push dword [byte ebp+07Ah]
         mov ecx, str_TB022
         push str_TB032
@@ -3533,7 +3533,7 @@ ControlSetupScreen_1064:
         movsx eax, word [byte ebp+042h]
         movsx eax, word [dword ebp+eax*4-0B4h]
         imul eax, byte 0Fh
-        mov ebx, unk_1CEA8A
+        mov ebx, KeyNames
         push dword [byte ebp+07Ah]
         mov ecx, str_TB002
         push str_TB012
@@ -3625,7 +3625,7 @@ ControlSetupScreen_1064:
         movsx eax, word [byte ebp+eax*2+032h]
         movsx eax, word [dword ebp+eax*4-0B4h]
         imul eax, byte 0Fh
-        add eax, unk_1CEA8A
+        add eax, KeyNames
         push eax
         mov eax, dword [byte ebp+066h]
         movsx eax, word [byte ebp+eax*8-05Ah]
@@ -3650,7 +3650,7 @@ ControlSetupScreen_1064:
         movsx eax, word [byte ebp+eax*2+032h]
         movsx eax, word [dword ebp+eax*4-0B4h]
         imul eax, byte 0Fh
-        add eax, unk_1CEA8A
+        add eax, KeyNames
         push eax
         mov eax, dword [byte ebp+066h]
         movsx eax, word [byte ebp+eax*8-05Ah]

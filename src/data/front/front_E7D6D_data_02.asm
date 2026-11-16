@@ -4,8 +4,8 @@ bits 32
 section s_16E174 progbits alloc noexec write align=1
 extern str_HARTFSH, str_ROSSFSH, str_NORRISFSH, str_SELKEFSH, str_VEZINAFSH, str_JENNINGFSH, str_CALDERFSH, str_PEARSONFSH
 extern str_EATROPHYFSH, str_PRESIDNTFSH, str_SMYTHEFSH, str_CAMPBELLFSH, str_WALESFSH, str_STANLEYFSH
-global byte_16E264, byte_16E273, dword_16E1AC, dword_16E22C, off_16E174, unk_16E1E4, str_Punct_BuildSeasonIntro
-off_16E174:
+global HexDigits, AllStarSlotOrderPrev, SeasonIntroLeaderOn, SeasonIntroLogoIds, SeasonIntroArtFiles, SeasonIntroEmptyText, str_Punct_BuildSeasonIntro
+SeasonIntroArtFiles:
         dd str_HARTFSH
         dd str_ROSSFSH
         dd str_NORRISFSH
@@ -20,24 +20,24 @@ off_16E174:
         dd str_CAMPBELLFSH
         dd str_WALESFSH
         dd str_STANLEYFSH
-dword_16E1AC:
+SeasonIntroLeaderOn:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,01h,00h,00h,00h,00h,00h,00h,00h,01h,00h,00h,00h
         db 01h,00h,00h,00h,01h,00h,00h,00h
-unk_16E1E4:
+SeasonIntroEmptyText:
         db 00h,00h,00h,00h,01h,00h,00h,00h,02h,00h,00h,00h,03h,00h,00h,00h
         db 04h,00h,00h,00h,05h,00h,00h,00h,06h,00h,00h,00h,07h,00h,00h,00h
         db 08h,00h,00h,00h,09h,00h,00h,00h,0Ah,00h,00h,00h,0Bh,00h,00h,00h
         db 0Ch,00h,00h,00h,0Dh,00h,00h,00h
 str_Punct_BuildSeasonIntro:
         db 0Ah,00h,00h,00h,0Bh,00h,00h,00h,0Ch,00h,00h,00h,0Dh,00h,00h,00h
-dword_16E22C:
+SeasonIntroLogoIds:
         db 00h,00h,00h,00h,01h,00h,00h,00h,02h,00h,00h,00h,03h,00h,00h,00h
         db 04h,00h,00h,00h,05h,00h,00h,00h,06h,00h,00h,00h,0Dh,00h,00h,00h
         db 08h,00h,00h,00h,07h,00h,00h,00h,0Ch,00h,00h,00h,0Bh,00h,00h,00h
         db 09h,00h,00h,00h,0Ah,00h,00h,00h
-byte_16E264:
+HexDigits:
         db 01h,07h,03h,05h,00h,00h,04h,04h,02h,06h,02h,06h,01h,07h,03h
-byte_16E273:
+AllStarSlotOrderPrev:
         db 05h

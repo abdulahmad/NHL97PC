@@ -47,7 +47,7 @@ extern ReplayStatesSet, F32_ViewAngle, str_Punct_LoadAnimData, MoveState, Player
 extern SkateAnimData, ShotAnimData, ActAnimData, FallAnimData, InterferAnimData, GoalieAnimDataPtr, RefSkateAnimData, RefAmbiAnimData
 extern RefCallAnimData, FightAnimData, CupAnimData, MoveAnimIds, SpaEnabled, IdleAnims, AnimPointUnset, CollideAnimsFront
 extern CollideAnimsSide, CollideAnimsBack, RefGoalLineAnims, BlockShotAnims, BlockShotMoveLeft, BlockShotMoveRight, F32_7p84727eneg44, F32_0
-extern ClockDataTicks, ClockDataRate, ClockDataBase, CupCelebrationActive, dword_16E308, GoalieTickData, str_Punct_DrawRinkSurface, F32_50p0_View
+extern ClockDataTicks, ClockDataRate, ClockDataBase, CupCelebrationActive, AudioDriverVersion, GoalieTickData, str_Punct_DrawRinkSurface, F32_50p0_View
 extern ViewCenterY, str_D_ProjectPointsPersp, ShotState, LastTouchPlayer, PassFrom, PassTo, PuckHitFlag, ZoneTargetX
 extern RefPlayer, SlotPlayers, bholdtimer, GameObjects, PlayerUpdateFlags, PlayerUpdateTable, HmSkaterCount, HmTeamData
 extern HmScore, AwSkaterCount, AwTeamData, AwScore, ViewPixelWidth, ViewPixelHeight, GameSettings, GameOptionFlags
@@ -19682,7 +19682,7 @@ UpdateScoreClockData:
         fnstsw ax
         sahf
         jb near .7
-        mov edi, dword [dword_16E308]
+        mov edi, dword [AudioDriverVersion]
         test edi, edi
         je near .7
         test ecx, ecx

@@ -6,7 +6,7 @@ extern str_00004, str_HOM1, str_HOM2, str_AWY1, str_AWY2, str_Menu3, str_03dB, s
 extern str_011R3, str_012R2, str_013R2, str_11SR3, str_12SR2, str_13SR2, str_SW002, str_SWL2
 extern str_SWL3, str_01LL, str_02LL, str_03LL, str_01LR, str_02LR, str_03LR, str_01RL
 extern str_02RL, str_03RL, str_01RR, str_02RR, str_03RR, str_012R013R014R12SR13SR14SRS, str_SW00SW01SW02SW03SW04SW05S, str_1
-extern str_0001, str_0002, TeamSelectSparkleCount, PanelTeamNameShift, PanelTeamBase, CreditsKeyFlag, dword_16DA9C, GameOptionFlags
+extern str_0001, str_0002, TeamSelectSparkleCount, PanelTeamNameShift, PanelTeamBase, CreditsKeyFlag, LinkGameActive, GameOptionFlags
 extern TeamSelectFlags, SeasonFileName, ExhibitionData, HomePanelTick, TeamSelectSoundOn, TeamSelectDrawn, HomePanelShapes, AwayPanelShapes
 extern AwayPanelTick, TeamSelectValues, HomePanelLayer, AwayPanelLayer, TeamSelectItems, TeamSelectTargets, HomePanelPos, AwayPanelPos
 extern IndexSoundMode, IndexSoundPlayed, IndexDialogShapeMid, PickIndexEntryScreen_393, PickIndexEntryScreen_3A4, PickIndexEntryScreen_3B5, PickIndexEntryScreen_470, PickIndexEntryScreen_4D9
@@ -477,7 +477,7 @@ TeamSelectScreen:
         mov dword [byte ebp+07Eh], eax
         cmp dword [ExhibitionData], byte 0
         je short .1
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         jne short .3
 .1:
         cmp dword [ExhibitionData], byte 0
@@ -1219,7 +1219,7 @@ TeamSelectScreen_B61:
         cmp dword [byte ebp+066h], byte 0Bh
         jne near .39
 .34:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .35
         call ClearLinkAbort
         test eax, eax
@@ -1231,7 +1231,7 @@ TeamSelectScreen_B61:
         mov eax, dword [ExhibitionData]
         call PickDemoTeams
 .36:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .37
         call ClearLinkAbort
         test eax, eax
@@ -1245,7 +1245,7 @@ TeamSelectScreen_B61:
         call LinkSendBlock
         call HideLinkBox
 .37:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .38
         call ClearLinkAbort
         test eax, eax

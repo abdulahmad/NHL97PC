@@ -10,7 +10,7 @@ extern PlayerControlRest, MusicOptions, DetailLevel, DisplayOptions, PeriodHomeT
 extern F32_10, F32_neg8, F32_neg8_StickReachZ, GameEventTable, GameEventFlags, SavedCameraView, ClockShown, F32_62
 extern F32_54, F32_0p8, F32_ReachFactor, OpeningFrames, InGameMenuRequest, BrightnessLevel, ShowFrameRate, ShowStands
 extern ShowRink, ShowCenterLogo, ShowShadows, ShowOverlay, ShowCrowd, ShowBenches, CameraScenesEnabled, CupCelebrationActive
-extern InputRecordStamp, dword_16DA9C, dword_16E464, dword_16E468, QuantizePalette, ProgressCount, RefState, InputState
+extern InputRecordStamp, LinkGameActive, dword_16E464, dword_16E468, QuantizePalette, ProgressCount, RefState, InputState
 extern InputDir, ShotState, LastTouchPlayer, PassFrom, PassTo, GameRunning, FaceoffWinner, seed
 extern GameFrame, penshottimer, PuckX, RefTarget, RefPlayer, bholdtimer, InputActive, InputSlotState
 extern PuckChasers, FaceoffCenter, ChangePlayer, LastChangePlayer, LinkSides, LinkCounter, VideoModePanelMode, VideoModeSel
@@ -1603,7 +1603,7 @@ DebugKeys:
         push edx
         push esi
         push edi
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .2
 .1:
         xor eax, eax
@@ -2472,7 +2472,7 @@ GameLoop:
         cmp esi, byte 0Dh
         jl short .10
         call ServiceIdle
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         jne short .11
         cmp dword [GameTick], byte 0
         je short .12
@@ -2936,7 +2936,7 @@ PlayGame:
         push edx
         push esi
         push edi
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .1
         mov dword [seed], 12435768h
         jmp short .2
@@ -3002,7 +3002,7 @@ PlayGame:
         call InitReplayBuffer
         mov eax, 64h
         call ShowLoadingBar
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je near .10
         mov eax, 2Eh
         xor edx, edx

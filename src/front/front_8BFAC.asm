@@ -6,7 +6,7 @@ extern MouseRead, WaitRetrace, __CHP, str_PNS, str_SLUP, str_SLDN, str_PWE, str_
 extern str_SLRT, F32_0p003125, F32_0p005, F32_0p003125_ScrollPosToValue, F32_0p005_ScrollPosToValue, F32_0p003125_SetupMenuView, F32_0p005_SetupMenuView, F32_0p5_InitScrollList
 extern F32_0p5_InitScrollTable, F32_14_InitScrollTable, F32_0p5_ScrollToMouse, F32_0p5_SetListSelection, MenuLinkWordPad, MenuMouseX, MenuMouseY, MenuMouseButtons
 extern MenuStartSelection, MenuBitmapReady, MenuMouseMode, MenuInputDelay, MenuViewCallback, MenuRepeatTick, MenuLinkKey, str_3_LoadLangText
-extern LangTextFiles, ErrorTextPtr, LangTextLoaded, LangTextHandle, dword_16DA9C, mousex, mousey, dword_16E464
+extern LangTextFiles, ErrorTextPtr, LangTextLoaded, LangTextHandle, LinkGameActive, mousex, mousey, dword_16E464
 extern dword_16E468, MenuScreenBitmap, GameSettings, dword_1C5DE4, MenuSavedMouseMode, MenuLastButtons, MenuRemoteItem, MenuButtons
 extern RemoteMouseButtons, RemoteLastButtons, RemoteLastMouseY, RemoteLastMouseX, RemoteMouseX, RemoteMouseY, MenuSavedRemoteArt, MenuLocalItem
 extern MenuLastMouseY, MenuLastMouseX, MenuSavedCursorArt, MenuRemoteLayer, MenuLocalCursorY, MenuLocalCursorX, MenuItemLeaveFunc, MenuLocalLayer
@@ -53,7 +53,7 @@ RunMenu:
         jne short .2
         mov dword [byte ebp+014h], 3
 .2:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         jne short .3
         mov dword [byte ebp+014h], 2
 .3:
@@ -263,7 +263,7 @@ RunMenu:
         mov eax, dword [MenuButtons]
         mov dword [MenuLastButtons], eax
         mov eax, dword [RemoteMouseButtons]
-        mov ecx, dword [dword_16DA9C]
+        mov ecx, dword [LinkGameActive]
         mov dword [RemoteLastButtons], eax
         test ecx, ecx
         je short .27
@@ -320,7 +320,7 @@ RunMenu:
         call __CHP
         fistp dword [MenuMouseY]
 .31:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je near .39
         test byte [byte ebp+014h], 1
         je near .39
@@ -439,7 +439,7 @@ RunMenu:
         mov dword [MenuButtons], eax
         test eax, eax
         je short .43
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .42
         cmp dword [byte esp+014h], byte 0
         je short .43
@@ -448,7 +448,7 @@ RunMenu:
 .43:
         cmp dword [RemoteMouseButtons], byte 0
         je short .45
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .44
         cmp dword [byte esp+014h], byte 0
         je short .45
@@ -553,7 +553,7 @@ RunMenu:
         je near .59
 .56:
         call WaitRetrace
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .57
         cmp dword [byte esp+054h], byte 0
         je short .57
@@ -572,7 +572,7 @@ RunMenu:
 .57:
         cmp dword [byte esp+058h], byte 0
         je short .59
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .58
         test byte [byte ebp+014h], 2
         je short .59
@@ -590,7 +590,7 @@ RunMenu:
 .59:
         cmp dword [byte esp+010h], byte 0
         je near .63
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .60
         cmp dword [byte esp+014h], byte 0
         je near .63
@@ -1391,7 +1391,7 @@ RunMenu:
 .130:
         mov dword [byte esp+04Ch], 0FFFFFFFFh
 .131:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         jne short .132
         test esi, esi
         je short .133
@@ -1548,7 +1548,7 @@ RunMenu:
         add eax, dword [byte esp+08h]
         test byte [byte eax+032h], 1
         jne short .158
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .155
         cmp dword [byte ebp+014h], byte 3
         je short .155
@@ -1577,7 +1577,7 @@ RunMenu:
         jne short .160
         cmp dword [byte esp+05Ch], byte 0
         je short .160
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .159
         cmp dword [byte esp+014h], byte 0
         je short .160
@@ -1589,7 +1589,7 @@ RunMenu:
         jne short .162
         cmp dword [byte esp+050h], byte 0
         je short .162
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .161
         cmp dword [byte esp+014h], byte 0
         je short .162
@@ -1597,7 +1597,7 @@ RunMenu:
         xor ebx, ebx
         mov dword [byte esp+050h], ebx
 .162:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .163
         test byte [byte ebp+014h], 2
         je near .168
@@ -1653,7 +1653,7 @@ RunMenu:
         call DrawArt
         add esp, byte 0Ch
 .168:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je near .174
         test byte [byte ebp+014h], 1
         je near .174
@@ -1740,7 +1740,7 @@ RunMenu:
         je near .184
 .180:
         call SetScreenTarget
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .181
         cmp dword [byte esp+054h], byte 0
         je short .181
@@ -1757,7 +1757,7 @@ RunMenu:
 .181:
         cmp dword [byte esp+058h], byte 0
         je short .183
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .182
         test byte [byte ebp+014h], 2
         je short .183
@@ -1819,7 +1819,7 @@ ScrollPosToValue:
         jne short .1
         mov eax, 2
 .1:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         jne short .2
         mov eax, 2
 .2:

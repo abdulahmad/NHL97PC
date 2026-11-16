@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_FA5B8 progbits alloc exec nowrite align=1
-extern str_LOW8s, str_GAP, dword_16E340, dword_1CF0E0, dword_1CF25C, dword_1CF260, memlist1, sprintf_
+extern str_LOW8s, str_GAP, MemListEndFunc, dword_1CF0E0, dword_1CF25C, dword_1CF260, memlist1, sprintf_
 extern str_HIGHMEM, strncpy_, PresentScreen, MemLock, MemUnlock, AllocMemBlockEx
 global AddMemRegion, AddMemRegions, AddHighMemRegion, TrimMemList, MemListEnd, AllocMemBlockFixed, AllocMemBlockMovable, AllocMemBlock
 global AllocMemData, AllocMemBlockFull
@@ -405,7 +405,7 @@ MemListEnd:
         xor eax, eax
         pop ebx
         ret
-        mov dword [dword_16E340], PresentScreen
+        mov dword [MemListEndFunc], PresentScreen
         ret
         db 090h
 ;-----------------------------------------------------------------------------

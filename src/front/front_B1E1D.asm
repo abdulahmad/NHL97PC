@@ -10,7 +10,7 @@ extern str_BACK7, str_TITL8, str_UL2d, str_UL08, str_UL09, str_UL10, str_UL00, s
 extern str_UL02, str_UL04, str_UL05, str_UL06, str_ULA0, str_ULA1, str_ULA2, str_ULA3
 extern str_ULA4, str_ULA5, PlayoffRound, ScoringLogPeriod, ScoringLogTime, ScoringLogMinute, ScoringLogType, ScoringLogTeam
 extern StatsMenuChoice, PlayoffColumns, StatsMenuMode, StatsColumn, UserNameIndex, UserRecordsTop, UserRecordsFirst, UserRecordsRow
-extern RatingsColumn, dword_16DA9C, MenuScreenBitmap, GameSettings, GameOptionFlags, SeasonActive, PlayoffOptionBits, PlayoffRoundBits
+extern RatingsColumn, LinkGameActive, MenuScreenBitmap, GameSettings, GameOptionFlags, SeasonActive, PlayoffOptionBits, PlayoffRoundBits
 extern PlayoffCurrentRound, PlayoffFinalRound, PlayoffRoundMatch, PlayoffSeriesMatch, dword_1C5DE4, UserRecordKinds, UserRecordArt, UserRecordsData
 extern UserRecordItems, UserRecordItemKind, UserRecordItemArt, UserRecordItemX, UserRecordItemY, UserDetailPopupFields, UserDetailPopupShapes
 extern UserDetailPopupShapes, UserGamesPopup
@@ -2819,7 +2819,7 @@ BuildUserGamesTable:
 ;-----------------------------------------------------------------------------
 RunUserRecords:
         push edx
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         jne short .1
         call UserRecordsScreen
         pop edx
@@ -3449,7 +3449,7 @@ UserRecordsScreen_95C:
         mov dword [byte ebp-014h], 1Ah
         jmp near UserRecordsScreen_AA5.15
 UserRecordsScreen_96D:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         jne short .9
         lea eax, [dword ebp-02A0h]
         call ExportStatTable

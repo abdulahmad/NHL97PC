@@ -4,7 +4,7 @@ bits 32
 section s_1301FF progbits alloc exec nowrite align=1
 extern _Extender, _ExtenderSubtype, _IsTable, __ExpandDGROUP_, __FDFS, __fatal_runtime_error_, __flush_, __set_doserrno_
 extern __set_errno_, __shutdown_stream_, _nfree_, _nmalloc_, _osmajor, ScanBitMasks, ShadeTable, __iob_flags
-extern HotkeyScanTable, HotkeyModTable, __HeapFlags, dword_16E318, ClipTopRow, ClipLeftCol, ClipRight, ScreenHeight
+extern HotkeyScanTable, HotkeyModTable, __HeapFlags, HeapList, ClipTopRow, ClipLeftCol, ClipRight, ScreenHeight
 extern DrawDestBuffer, DrawDestOffset, DosErrnoTable, __NHandles, __io_mode, SavedBreakOffset, BreakCallFunc, HotkeyNesting
 extern HotkeyFuncTable, TextOriginX, __OpenStreams, __ClosedStreams, ScaledRowBuffer, __freefp__39, memset_, __EFG_scanf
 extern str_NotEnoughMemoryTo, str_SaveText, bcopy, AddExitHandler, RestoreDS, SetBlitSource, CopyMappedSpan, BuildSpanOffsets
@@ -31,7 +31,7 @@ _nexpand_:
         mov edi, edx
         and byte [byte esp+04h], 0FEh
 _nexpand__10:
-        mov eax, dword_16E318
+        mov eax, HeapList
         mov edx, ds
         mov ecx, esp
         xor eax, eax
@@ -88,10 +88,10 @@ __HeapManager_expand_:
         mov eax, dword [byte ebx+04h]
         mov edx, ds
         mov dword [byte esp+0Ch], eax
-        mov eax, dword_16E318
+        mov eax, HeapList
         cmp dx, word [esp]
         jne short .8
-        mov esi, dword [dword_16E318]
+        mov esi, dword [HeapList]
         jmp short .7
 .5:
         cmp esi, edi
@@ -174,14 +174,14 @@ __HeapManager_expand_:
         or dl, 1
         mov dword [ecx], ebx
         lea ebx, [ecx+eax]
-        mov eax, dword_16E318
+        mov eax, HeapList
         mov dword [byte esp+04h], ebx
         mov dword [ebx], edx
         mov edx, ds
         mov ebx, dword [esp]
         cmp dx, bx
         jne short .18
-        mov esi, dword [dword_16E318]
+        mov esi, dword [HeapList]
         jmp short .17
 .15:
         cmp esi, edi

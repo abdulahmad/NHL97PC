@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_FABB8 progbits alloc exec nowrite align=1
-extern byte_16E354, byte_16E358, byte_16E35C, dword_16E324, dword_16E338, dword_16E33C, dword_16E344, dword_16E348
-extern dword_16E34C, dword_16E350, dword_16E360, dword_1CF0E0, dword_1CF25C, dword_1CF260, dword_1CF264, dword_1CF268
+extern JoyButtonBits, JoyButtonMask, JoyPortMask, FileCacheList, FreeSpaceList, MemLockOn, JoyAxisValues, JoyAxisY
+extern JoyAxisSecondX, JoyAxisSecondY, JoyPort, dword_1CF0E0, dword_1CF25C, dword_1CF260, dword_1CF264, dword_1CF268
 extern memlist1, strncmp_, strncpy_, bcopy, MemLock, MemUnlock, PathBaseName, SetBlockGuard
 extern FindFreeSpace
 global AllocMemBlockEx, findmemblock, FreeMemBlock, UnlinkMemBlockLocked, UnlinkMemBlock, MergeFreeSpace, FindNamedBlock, CompactDownLocked
@@ -60,7 +60,7 @@ AllocMemBlockEx:
         je near .31
         test bl, 20h
         jne near .16
-        cmp dword [dword_16E33C], byte 0
+        cmp dword [MemLockOn], byte 0
         je short .3
         test bl, 10h
         jne short .3
@@ -118,13 +118,13 @@ AllocMemBlockEx:
         mov dword [byte ebp+014h], edx
         mov edx, dword [byte esp+08h]
         mov dword [dword_1CF25C], eax
-        mov eax, dword [dword_16E338]
+        mov eax, dword [FreeSpaceList]
         mov dword [byte ebp+010h], edx
         mov ebx, 0Ch
         mov dword [byte ebp+01Ch], eax
         inc eax
         mov edx, dword [byte esp+020h]
-        mov dword [dword_16E338], eax
+        mov dword [FreeSpaceList], eax
         lea eax, [byte ebp+04h]
         call strncpy_
         mov dword [byte ebp+00h], edi
@@ -140,7 +140,7 @@ AllocMemBlockEx:
         call SetBlockGuard
         add esp, byte 4
 .10:
-        cmp dword [dword_16E33C], byte 0
+        cmp dword [MemLockOn], byte 0
         je short .12
         push dword 200h
         call LargestFreeSpace
@@ -194,7 +194,7 @@ AllocMemBlockEx:
         add esp, byte 8
         jmp near .4
 .16:
-        cmp dword [dword_16E33C], byte 0
+        cmp dword [MemLockOn], byte 0
         je short .18
         test bl, 10h
         jne short .18
@@ -253,13 +253,13 @@ AllocMemBlockEx:
         mov dword [byte ebp+014h], edx
         mov edx, dword [byte esp+08h]
         mov dword [dword_1CF25C], eax
-        mov eax, dword [dword_16E338]
+        mov eax, dword [FreeSpaceList]
         mov dword [byte ebp+010h], edx
         mov ebx, 0Ch
         mov dword [byte ebp+01Ch], eax
         inc eax
         mov edx, dword [byte esp+020h]
-        mov dword [dword_16E338], eax
+        mov dword [FreeSpaceList], eax
         lea eax, [byte ebp+04h]
         call strncpy_
         mov edx, dword [byte esp+08h]
@@ -276,7 +276,7 @@ AllocMemBlockEx:
         call SetBlockGuard
         add esp, byte 4
 .25:
-        cmp dword [dword_16E33C], byte 0
+        cmp dword [MemLockOn], byte 0
         je short .27
         push dword 200h
         call LargestFreeSpace
@@ -536,7 +536,7 @@ MergeFreeSpace:
         push esi
         push edi
         push ebp
-        mov esi, dword [dword_16E338]
+        mov esi, dword [FreeSpaceList]
         mov ebx, dword [byte esp+014h]
         mov edx, ebx
         and edx, 0F00h
@@ -579,7 +579,7 @@ MergeFreeSpace:
         cmp eax, dword [byte ebp+04h]
         jne short .1
 .4:
-        mov dword [dword_16E338], esi
+        mov dword [FreeSpaceList], esi
         test edi, edi
         je short .5
         mov edx, dword [byte edi+024h]
@@ -596,7 +596,7 @@ MergeFreeSpace:
 .5:
         xor eax, eax
 .6:
-        mov esi, dword [dword_16E338]
+        mov esi, dword [FreeSpaceList]
         pop ebp
         pop edi
         pop esi
@@ -667,7 +667,7 @@ CompactDownLocked:
         mov edx, dword [dword_1CF260]
         push edx
         call MemLock
-        mov eax, dword [dword_16E324]
+        mov eax, dword [FileCacheList]
         add esp, byte 4
         mov ebx, dword [eax]
         push ebx
@@ -828,7 +828,7 @@ CompactUpLocked:
         mov edx, dword [dword_1CF260]
         push edx
         call MemLock
-        mov eax, dword [dword_16E324]
+        mov eax, dword [FileCacheList]
         add esp, byte 4
         mov ebx, dword [byte eax+04h]
         push ebx
@@ -1055,7 +1055,7 @@ LargestFreeSpace:
         sub eax, edx
         mov esi, memlist1
         shl eax, 3
-        mov edx, dword [dword_16E33C]
+        mov edx, dword [MemLockOn]
         add esi, eax
         test edx, edx
         je short .1
@@ -1099,7 +1099,7 @@ LargestFreeSpace:
         sar eax, 4
         ret
         db 08Bh,0C0h
-        mov eax, dword [dword_16E324]
+        mov eax, dword [FileCacheList]
         mov eax, dword [eax]
         xor edx, edx
         test eax, eax
@@ -1115,7 +1115,7 @@ LargestFreeSpace:
 .6:
         mov eax, edx
         ret
-        mov eax, dword [dword_16E324]
+        mov eax, dword [FileCacheList]
         mov eax, dword [eax]
         xor edx, edx
         test eax, eax
@@ -1458,9 +1458,9 @@ FillMemPattern:
         push esi
         push edi
         LD xor, eax, eax
-        mov ah, byte [byte_16E35C]
+        mov ah, byte [JoyPortMask]
         mov ecx, 186A0h
-        mov edx, dword [dword_16E360]
+        mov edx, dword [JoyPort]
         LD xor, ebx, ebx
         LD mov, ebp, ebx
         LD mov, esi, ebx
@@ -1485,12 +1485,12 @@ FillMemPattern:
         jcxz .23
 .22:
         shr al, 4
-        xor al, byte [byte_16E358]
-        mov byte [byte_16E354], al
-        mov dword [dword_16E344], ebp
-        mov dword [dword_16E348], esi
-        mov dword [dword_16E34C], edi
-        mov dword [dword_16E350], ebx
+        xor al, byte [JoyButtonMask]
+        mov byte [JoyButtonBits], al
+        mov dword [JoyAxisValues], ebp
+        mov dword [JoyAxisY], esi
+        mov dword [JoyAxisSecondX], edi
+        mov dword [JoyAxisSecondY], ebx
         pop edi
         pop esi
         pop ebx
@@ -1500,5 +1500,5 @@ FillMemPattern:
         LD mov, ah, al
         not ah
         and ah, 0Fh
-        mov byte [byte_16E35C], ah
+        mov byte [JoyPortMask], ah
         jmp short .22

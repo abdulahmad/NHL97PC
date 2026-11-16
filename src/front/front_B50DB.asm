@@ -17,7 +17,7 @@ extern str_SC18, str_SC17, str_SC16, str_SC17SC18SC19, str_SC30, str_SC29, str_S
 extern str_AB08, str_AB07, str_AB06, str_AB11, str_AB10, str_AB09, str_SC09SC10SC11, str_Rroster
 extern str_Lroster, str_POWR2, str_01d02d, FrontEndExit, PlayoffStarted, byte_1C6040, StatsMenuDrawn, RatingsTeamSide
 extern StatsMenuMode, StatsColumn, StatsPlayoffMode, RatingsColumn, RatingsGoalieMode, RatingsColumnLimit, RatingsColumnBase, RatingsHeaderText
-extern GoalieRatingsHeaderText, RatingsLabelText, dword_16DA9C, MenuScreenBitmap, GameSettings, SeasonActive, PlayoffTeams, dword_1C5EEC
+extern GoalieRatingsHeaderText, RatingsLabelText, LinkGameActive, MenuScreenBitmap, GameSettings, SeasonActive, PlayoffTeams, dword_1C5EEC
 extern RatingsListFont, RatingsSkaterRow, RatingsGoalieRow, PlayerStatsShapeLists, StatsCardBackArt, StatsCardFrameArt, StatsCardPortrait, StatsCardRow
 extern RatingsSoundPlayed, RatingsShapeCount, RatingsShapes, RatingsTeamShapes, RatingsShapeFile, RatingsSkaterShown, RatingsSkaterTick, StatsCardBitmap
 extern StatsCardShown, RatingsGoalieOrder, RatingsSkaterOrder, RatingsSkaterBitmap, RatingsGoalieBitmap, RatingsSkaterLast, RatingsSkaterDrawn, StatsCardTick
@@ -1545,7 +1545,7 @@ PlayerStatsScreen_C43:
 PlayerStatsScreen_CB4:
         mov ebx, dword [StatsCardRow]
         shl ebx, 2
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         jne short .52
         cmp dword [StatsPlayoffMode], byte 0
         jne short .51
@@ -1851,7 +1851,7 @@ PlayerStatsScreen_10AA:
         jmp near PlayerStatsScreen_DC7.61
 PlayerStatsScreen_1114:
         call ShowStatsScreen
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         sete al
         movzx edx, al
         mov eax, dword [byte ebp+072h]

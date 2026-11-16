@@ -13,7 +13,7 @@ extern str_03AW, str_02AW, str_02AW03AW04AW, str_BG012, str_BG022, str_BG03, str
 extern str_LG27, str_LG28, str_SSEASDPLY, str_SPLAYDSET, FrontEndExit, PlayoffSeedOrder, PlayoffUserHuman, PlayoffUserActive
 extern PlayoffRound, PlayoffStarted, PlayoffUserIndex, byte_1C6040, PlayoffSlotCustom, PlayoffSlotNamed, PlayoffSlotNames, StandingsColumns
 extern PlayoffColumns, LinkTransferReady, PlayoffTreeTimer, PlayoffDefaultTeams, PlayoffSlotTeams, PlayoffSlotLogos, PlayoffEditCursor, PlayoffRoundShown
-extern dword_16DA9C, GameSettings, SeasonUserTeam, GameOptionFlags, SeasonSlot, SeasonDefaultUser, PlayoffRoundBits, PlayoffFileHandle
+extern LinkGameActive, GameSettings, SeasonUserTeam, GameOptionFlags, SeasonSlot, SeasonDefaultUser, PlayoffRoundBits, PlayoffFileHandle
 extern PlayoffTeamNames, PlayoffTeams, PlayoffRandomSeed, dword_1C5DE0, SeasonMenuExit, ExhibitionData, PlayoffTreeSlotX, PlayoffTreeSlotY
 extern PlayoffShapeLists, PlayoffSetupShapes, PlayoffLogoArt, PlayoffTreeLayer, PlayoffTreeArt, PlayoffTreeData, PlayoffTreeLogos, PlayoffMenuBuffer
 extern PlayoffSetupArt, PlayoffFormat, PlayoffSparkleSoundOn, PlayoffNameFont, PlayoffSetupItems, PlayoffTeamFont, LinkScreensDone, EditLinesScreen_17F
@@ -459,7 +459,7 @@ RunNewPlayoffs:
         mov esi, 8
         call memset_
         push byte 1
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .1
         call ClearLinkAbort
         test eax, eax
@@ -554,7 +554,7 @@ RunNewPlayoffs_108:
 .10:
         xor eax, eax
         call RosterScreen
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         jne short .11
         mov eax, ExhibitionData
         call FreeExhibitionFile
@@ -1215,7 +1215,7 @@ CreatePlayoffs:
         idiv ebx
         mov byte [PlayoffStarted], 1
         mov dword [PlayoffRandomSeed], edx
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .2
         call ClearLinkAbort
         test eax, eax
@@ -1257,7 +1257,7 @@ CreatePlayoffs:
         add eax, esi
         add edx, PlayoffSlotNames
         call strcpy_
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .5
         call ClearLinkAbort
         test eax, eax
@@ -1282,7 +1282,7 @@ CreatePlayoffs:
         inc dword [byte ebp+07Ah]
         cmp dword [byte ebp+07Ah], byte 1Fh
         jl near .4
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         jne short .9
         lea eax, [byte ebp+06Eh]
         lea ebx, [dword ebp-0112h]
@@ -3235,7 +3235,7 @@ PlayoffTreeScreen:
         mov dword [byte ebp+06Eh], 2
         jmp near .54
 .73:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         jne short .74
         push byte 0
         mov eax, 248h
@@ -3253,7 +3253,7 @@ PlayoffTreeScreen:
         mov byte [dword eax+PlayoffUserHuman], 0
         jmp short .76
 .75:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .77
         cmp byte [dword eax+PlayoffUserHuman], 0
         jne short .77

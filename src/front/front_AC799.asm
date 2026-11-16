@@ -22,7 +22,7 @@ extern str_RS09RS11RS11, str_RS22, str_RS21, str_RS20, str_RS21RS22RS23, str_RS2
 extern str_RS25RS26RS27, str_RS30, str_RS29, str_RS28, str_RS29RS30RS31, str_RS38, str_RS37, str_RS36
 extern str_RS37RS38RS39, str_LB02d2, str_LH02d, str_LH26, str_TTL0, str_SDDSDD, str_SD02dSD02d, str_SD02dSDD
 extern str_SDDSD2, str_CSS, FrontEndExit, byte_1C6040, StatsMenuDrawn, StandingsColumns, StatsMenuMode, StatsColumn
-extern StatsPlayoffMode, dword_16DA9C, MenuScreenBitmap, GameSettings, SeasonActive, PlayoffTeams, dword_1C5EEC, StatsShapeLists
+extern StatsPlayoffMode, LinkGameActive, MenuScreenBitmap, GameSettings, SeasonActive, PlayoffTeams, dword_1C5EEC, StatsShapeLists
 extern TeamStatsShapeTop, TeamStatsShapeBottom, StatsHeaderShape, TeamStatsLogoShape, TeamStatsNameShape, StatsRowShape, TeamStatsBarShape, TeamStatsBarEnd
 extern StatsArrowUp, StatsArrowDown, TeamStatsPanelShape, StatsSparkleShape, TeamStatsGlowShape, TeamStatsBitmap, StatsMenuItems, StatTableRows
 extern StatsSoundPlayed, StatTableSortText, StatTableSortKeys, StatTableAlpha, StatTableColumns, fclose_, fopen_, fprintf_
@@ -2680,7 +2680,7 @@ TeamStatsScreen:
 .42:
         call ShowStatsScreen
         call SaveStatsScreen
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         sete al
         movzx edx, al
         mov eax, 0ECh
@@ -3224,7 +3224,7 @@ TeamStatsScreen_10ED:
         mov edx, 0Ah
         jmp near TeamStatsScreen.71
 .76:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         jne short .77
         lea eax, [dword ebp-0276h]
         call ExportStatTable
@@ -4119,7 +4119,7 @@ StatsTablesScreen:
         jmp near StatsTablesScreen_D0E.100
 .33:
         call ShowStatsScreen
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         sete al
         movzx edx, al
         mov eax, esi
@@ -4582,7 +4582,7 @@ StatsTablesScreen_D0E:
         push str_TTL0
         jmp short .67
 .69:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         jne short .70
         lea eax, [dword ebp-035Eh]
         call ExportStatTable

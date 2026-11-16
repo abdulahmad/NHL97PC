@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_12075C progbits alloc exec nowrite align=1
 extern __SetIOMode_, __qwrite_, __set_errno_dos_, _dosret0_, _environ, _nfree_, _nmalloc_, _psp
-extern dword_16E318, dword_16E31C, dword_1CF0D8, __OpenStreams, __ClosedStreams, flushall_, isatty_, memset_
+extern HeapList, HeapRover, dword_1CF0D8, __OpenStreams, __ClosedStreams, flushall_, isatty_, memset_
 extern strnicmp_, __iob, __NFiles, errno, _doserrno
 global __MemAllocator, __MemFree, __allocfp_, __chktty_, __close_, __flush_, __freefp_, __set_EDOM_
 global __set_EINVAL_, __set_ERANGE_, __set_doserrno_, __set_errno_, __unlink_, abs_, access_, fflush_
@@ -725,22 +725,22 @@ __unlink_:
         push ecx
         push edx
         push esi
-        mov edx, dword [dword_16E31C]
+        mov edx, dword [HeapRover]
         cmp eax, edx
         jne short .1
         mov edx, dword [byte edx+08h]
-        mov dword [dword_16E31C], edx
+        mov dword [HeapRover], edx
 .1:
         cmp eax, dword [dword_1CF0D8]
         jne short .2
         xor ecx, ecx
         mov dword [dword_1CF0D8], ecx
 .2:
-        mov esi, dword [dword_16E318]
+        mov esi, dword [HeapList]
         cmp eax, esi
         jne short .3
         mov edx, dword [byte esi+08h]
-        mov dword [dword_16E318], edx
+        mov dword [HeapList], edx
 .3:
         mov edx, dword [byte eax+04h]
         mov eax, dword [byte eax+08h]

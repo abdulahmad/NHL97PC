@@ -6,12 +6,12 @@ global str_AB092, str_POWR3, str_EC002, str_EC012, str_BAK12, str_C, str_D3, str
 global str_AR02d3, str_AllStarPlayerInfo, str_AllStarGoalieInfo, str_WestAllStars, str_EastAllStars, str_AllStarRosters, str_AllStarAirecs, str_AllStarRawPlrs
 global str_AllStarStatrecs, str_MB044, str_FrANKGBarchard, str_100, str_REF, str_Refpack, str_F10, str_C_DrawAllStarTeam
 global str_D_DrawAllStarTeam, str_S_DrawAllStarList, str_1_GetKeyName, str_2_GetKeyName, str_3_GetKeyName, str_4_GetKeyName, str_5_GetKeyName, str_6_GetKeyName
-global str_7_GetKeyName, str_8_GetKeyName, str_9, str_0_GetKeyName, str_Punct_GetKeyName, unk_1678F6, str_Q, str_W_GetKeyName
+global str_7_GetKeyName, str_8_GetKeyName, str_9, str_0_GetKeyName, str_Punct_GetKeyName, str_Equals_KeyName, str_Q, str_W_GetKeyName
 global str_E_GetKeyName, str_R, str_T_GetKeyName, str_Y, str_U, str_I, str_O, str_P_GetKeyName
-global unk_16790C, unk_16790E, str_A, str_S_GetKeyName, str_D_GetKeyName, str_F_GetKeyName, str_G, str_H
-global str_J, str_K, str_L, unk_167922, unk_167924, unk_167926, unk_167928, str_Z
-global str_X_GetKeyName, str_C_GetKeyName, str_V, str_B, str_N_GetKeyName, str_M, unk_167938, unk_16793A
-global unk_16793C, unk_16793E, str_F1, str_F2, str_F3, str_F4, str_F5, str_F6
+global str_LeftBracket_KeyName, str_RightBracket_KeyName, str_A, str_S_GetKeyName, str_D_GetKeyName, str_F_GetKeyName, str_G, str_H
+global str_J, str_K, str_L, str_Semicolon_KeyName, str_Apostrophe_KeyName, str_Backquote_KeyName, str_Backslash_KeyName, str_Z
+global str_X_GetKeyName, str_C_GetKeyName, str_V, str_B, str_N_GetKeyName, str_M, str_Comma_KeyName, str_Period_KeyName
+global str_Slash_KeyName, str_Asterisk_KeyName, str_F1, str_F2, str_F3, str_F4, str_F5, str_F6
 global str_F7, str_F8, str_F9
 str_AB092:
         db 041h,042h,030h,039h,00h
@@ -91,7 +91,7 @@ str_0_GetKeyName:
         db 030h,00h
 str_Punct_GetKeyName:
         db 02Dh,00h
-unk_1678F6:
+str_Equals_KeyName:
         db 03Dh,00h
 str_Q:
         db 051h,00h
@@ -113,9 +113,9 @@ str_O:
         db 04Fh,00h
 str_P_GetKeyName:
         db 050h,00h
-unk_16790C:
+str_LeftBracket_KeyName:
         db 05Bh,00h
-unk_16790E:
+str_RightBracket_KeyName:
         db 05Dh,00h
 str_A:
         db 041h,00h
@@ -135,13 +135,13 @@ str_K:
         db 04Bh,00h
 str_L:
         db 04Ch,00h
-unk_167922:
+str_Semicolon_KeyName:
         db 03Bh,00h
-unk_167924:
+str_Apostrophe_KeyName:
         db 027h,00h
-unk_167926:
+str_Backquote_KeyName:
         db 060h,00h
-unk_167928:
+str_Backslash_KeyName:
         db 05Ch,00h
 str_Z:
         db 05Ah,00h
@@ -157,13 +157,13 @@ str_N_GetKeyName:
         db 04Eh,00h
 str_M:
         db 04Dh,00h
-unk_167938:
+str_Comma_KeyName:
         db 02Ch,00h
-unk_16793A:
+str_Period_KeyName:
         db 02Eh,00h
-unk_16793C:
+str_Slash_KeyName:
         db 02Fh,00h
-unk_16793E:
+str_Asterisk_KeyName:
         db 02Ah,00h
 str_F1:
         db 046h,031h,00h

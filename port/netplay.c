@@ -407,7 +407,7 @@ void nh_playgame_enter(void)
     ob_net_game g;
     ob_rollback_game rg;
     if (!nh_ok || !ob_netgame_armed()) return;
-    if (G32(SYM_dword_16DA9C)) { ob_netgame_set_why("the game's own modem or network play is on"); return; }
+    if (G32(SYM_LinkGameActive)) { ob_netgame_set_why("the game's own modem or network play is on"); return; }
     if (find_mine()) { ob_netgame_set_why("pick a controller for one of the teams first"); return; }
     if (!nh_rb) {
         memset(&rg, 0, sizeof rg);

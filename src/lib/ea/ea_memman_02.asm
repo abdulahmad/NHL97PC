@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_1216B0 progbits alloc exec nowrite align=1
-extern GetTicks, TicksSince, CachedFileRetries, dword_16E324, dword_16E338, CachedFileTable, CachedFileFind, dword_1CF260
+extern GetTicks, TicksSince, CachedFileRetries, FileCacheList, FreeSpaceList, CachedFileTable, CachedFileFind, dword_1CF260
 extern memlist1, PresentFuncInput, strncmp_, bcopy, MemLock, MemUnlock, PathBaseName, DispatchHotkey
 extern AllocMemBlockEx, UnlinkMemBlockLocked, UnlinkMemBlock, MergeFreeSpace, ReadJoystickPorts, KbdGetKey, CachedFileDate, CachedFileTime
 extern CachedFileDrive
@@ -91,7 +91,7 @@ FindFreeSpace:
         push edi
         push ebp
         sub esp, byte 14h
-        mov ebp, dword [dword_16E338]
+        mov ebp, dword [FreeSpaceList]
         mov ebx, dword [byte esp+028h]
         mov edx, ebx
         and edx, 0F00h
@@ -139,7 +139,7 @@ FindFreeSpace:
         mov ebx, dword [byte ebx+020h]
         cmp ebx, dword [byte ecx+04h]
         jne short .2
-        mov dword [dword_16E338], ebp
+        mov dword [FreeSpaceList], ebp
         test edi, edi
         je near .8
         mov edx, ebx
@@ -153,7 +153,7 @@ FindFreeSpace:
         jl short .5
         xor dl, dl
         mov byte [byte esp+0Ch], dl
-        mov dword [dword_16E338], ebp
+        mov dword [FreeSpaceList], ebp
 .6:
         mov eax, dword [byte ebx+018h]
         push byte 0
@@ -189,7 +189,7 @@ FindFreeSpace:
         call UnlinkMemBlock
         mov edi, 1
         add esp, byte 4
-        mov ebp, dword [dword_16E338]
+        mov ebp, dword [FreeSpaceList]
         mov eax, edi
         add esp, byte 14h
         pop ebp
@@ -200,7 +200,7 @@ FindFreeSpace:
 .8:
         xor edi, edi
 .9:
-        mov ebp, dword [dword_16E338]
+        mov ebp, dword [FreeSpaceList]
         mov eax, edi
         add esp, byte 14h
         pop ebp
@@ -270,7 +270,7 @@ FindCachedFile:
         mov ebx, esi
         jmp short .4
 .1:
-        mov ebx, dword [dword_16E324]
+        mov ebx, dword [FileCacheList]
         mov ebx, dword [byte ebx+010h]
 .2:
         push ebx

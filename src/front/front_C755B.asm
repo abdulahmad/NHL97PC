@@ -17,7 +17,7 @@ extern str_PBON, str_HEON, str_HEOF, str_WEON, str_WEOF, str_AGON, str_AGOF, str
 extern str_Statplayers, str_Statgoalies, SeasonUserHuman, SeasonUserActive, SeasonUserLocked, SeasonCreated, PlayoffUserHuman, PlayoffUserActive
 extern PlayoffUserLocked, PlayoffStarted, byte_1C6040, NewPlayerRecord, RosterScreenOpen, RosterData, RosterFreeAgents, RosterSpeechCount
 extern RatingPanelTick, RatingPanelFrame, RosterScreenReady, str_Punct_InitRosterScreen, str_X_InitRosterScreen, str_7_SetupRosterLists, str_I_SetupRosterLists, str_Punct_DrawRosterList
-extern str_X_DrawRosterList, RosterTitleX, str_X_SetupRosterLists, RosterTitleY, str_X_ShowRosterLogo, RosterTitleWidth, RosterTitleRight, dword_16DA9C
+extern str_X_DrawRosterList, RosterTitleX, str_X_SetupRosterLists, RosterTitleY, str_X_ShowRosterLogo, RosterTitleWidth, RosterTitleRight, LinkGameActive
 extern GameSettings, SeasonUserTeam, GameOptionFlags, SeasonActive, SeasonDefaultUser, PlayoffTeams, dword_1C5E74, RosterSpeechHome
 extern RosterSpeechTrade, RosterSpeechAway, RosterListBox, RosterOtherListBox, RosterTeam, RosterOtherTeam, CreateSkaterRatings, RatingBarArt
 extern CreatePlayerSlot, RatingBarBackArt, RatingBarLitArt, CreateGoalieMode, RatingBarLitBackArt, CreateGoalieRatings, JerseyMenuItems, RatingPanelShapeFile
@@ -10661,7 +10661,7 @@ CreatePlayerScreen:
         call FreeMemBlock
         add esp, byte 4
         call ShowStatsScreen
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         sete al
         movzx edx, al
         mov eax, 0EAh

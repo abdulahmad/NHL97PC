@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_120CF8 progbits alloc exec nowrite align=1
-extern _Extender, _ExtenderSubtype, __brk_, __unlink_, _curbrk, _nfree_, Is8087, dword_16E318
+extern _Extender, _ExtenderSubtype, __brk_, __unlink_, _curbrk, _nfree_, Is8087, HeapList
 extern __nheapbeg, __amblksiz, RationalAllocLimit, RationalAllocFlags
 global RationalAlloc_, __AdjustAmount_, __CreateNewNHeap_, __ExpandDGROUP_, __FreeDPMIBlocks_, __LastFree_, __LinkUpNewMHeap_, __ReAllocDPMIBlock_
 global RationalAlloc__C8, RationalAlloc__CB
@@ -15,7 +15,7 @@ __FreeDPMIBlocks_:
         push edx
         push esi
         push edi
-        mov edx, dword [dword_16E318]
+        mov edx, dword [HeapList]
 .1:
         test edx, edx
         je near RationalAlloc__CB
@@ -65,7 +65,7 @@ __ReAllocDPMIBlock_:
         mov ebx, eax
         mov ebp, edx
         call __FreeDPMIBlocks_
-        mov edx, dword [dword_16E318]
+        mov edx, dword [HeapList]
         jmp near .6
 .1:
         cmp edx, ebx
@@ -162,7 +162,7 @@ __LinkUpNewMHeap_:
         push ebx
         push edx
         mov edx, eax
-        mov eax, dword [dword_16E318]
+        mov eax, dword [HeapList]
         xor ebx, ebx
         jmp short .2
 .1:
@@ -181,7 +181,7 @@ __LinkUpNewMHeap_:
         mov dword [byte ebx+08h], edx
         jmp short .5
 .4:
-        mov dword [dword_16E318], edx
+        mov dword [HeapList], edx
 .5:
         test eax, eax
         je short .6
@@ -210,7 +210,7 @@ __LinkUpNewMHeap_:
 __LastFree_:
         push ebx
         push edx
-        mov edx, dword [dword_16E318]
+        mov edx, dword [HeapList]
         test edx, edx
         je short .2
         mov edx, dword [byte edx+024h]
@@ -480,7 +480,7 @@ __ExpandDGROUP_:
         lea eax, [byte edx-04h]
         cmp eax, edx
         ja short .4
-        mov edx, dword [dword_16E318]
+        mov edx, dword [HeapList]
         mov dword [esp], eax
         jmp short .10
 .8:

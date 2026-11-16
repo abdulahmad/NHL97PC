@@ -11,7 +11,7 @@ extern str_4db, str_DxDxD, str_CmnFrateC, str_FramerateTIMERHZNOTSET, str_Rate2d
 extern str_PATH, str_DOS4GWEXE, str_CS3, str_0123456789abcdef, str_Null, str_0123456789ABCDEF, str_FILESLINED, ScreenBitsPerPixel
 extern IdentityRemap, KbdCapsLock, KeyStateTable, KbdShiftDown, KbdCtrlDown, KbdAltDown, KbdNumLock, KbdScrollLock
 extern KbdPrefixByte, KbdInsertMode, KbdPauseState, ScanToAscii, ScanToAsciiShift, ScanToAsciiCaps, ScanToAsciiCtrl, ScanToAsciiCapsShift
-extern ShadeTable, __MBCSTable, VideoCodeLengths, dword_16E32C, dword_16E330, dword_16E334, TimerTicks, GraphicsModeSet
+extern ShadeTable, __MBCSTable, VideoCodeLengths, MemPoolEnd, MemPoolBase, MemPoolSize, TimerTicks, GraphicsModeSet
 extern MousePresent, dword_16E464, dword_16E468, MenuScreenBitmap, ScreenModeWidth, ScreenModeHeight, str_D_UpdateFrameRate, MessageBoxActive
 extern DebugMode, ScreenWidth, ClipTopRow, ClipLeftCol, ClipRight, ScreenHeight, ScreenBuffer, DrawDestBuffer
 extern DrawDestPitch, DrawDestOffset, BackBufferWidth, ExitHandler, RowTable, ResourceArchive, ResourceArchiveSize, ResourceArchiveData
@@ -10584,33 +10584,33 @@ InitMemoryPool:
         and al, 0F0h
         inc ebp
         call _nmalloc_
-        mov dword [dword_16E330], eax
+        mov dword [MemPoolBase], eax
         mov dword [nosplit ebp*4+MemPoolSizes], eax
-        mov ebx, dword [dword_16E330]
+        mov ebx, dword [MemPoolBase]
         lea eax, [ebx+edx]
         mov edx, dword [byte esp+058h]
         lea edi, [nosplit edx*4+00h]
         push edx
         push ebx
-        mov dword [dword_16E32C], eax
+        mov dword [MemPoolEnd], eax
         add edi, edx
         call InitMemDescriptors
         add esp, byte 8
         push byte 0
         push byte 0
         push byte 10h
-        mov eax, dword [dword_16E32C]
+        mov eax, dword [MemPoolEnd]
         push byte 10h
         shl edi, 3
         push eax
-        mov eax, dword [dword_16E330]
+        mov eax, dword [MemPoolBase]
         add eax, edi
         push eax
         push byte 0
         push str_MBRAM2
         call AddMemRegion
-        mov edi, dword [dword_16E32C]
-        mov edx, dword [dword_16E330]
+        mov edi, dword [MemPoolEnd]
+        mov edx, dword [MemPoolBase]
         add esp, byte 20h
         sub edi, edx
         mov ebx, dword [byte esp+068h]
@@ -10635,14 +10635,14 @@ InitMemoryPool:
         mov ebx, dword [byte esp+064h]
         sub eax, edx
         mov word [byte esp+01Ch], cx
-        mov dword [dword_16E334], eax
+        mov dword [MemPoolSize], eax
         test ebx, ebx
         je short .9
         cmp eax, ebx
         jle short .9
-        mov dword [dword_16E334], ebx
+        mov dword [MemPoolSize], ebx
 .9:
-        mov eax, dword [dword_16E334]
+        mov eax, dword [MemPoolSize]
         test eax, eax
         jg short .10
         xor eax, eax
@@ -10667,7 +10667,7 @@ InitMemoryPool:
         xor eax, eax
         mov ax, word [byte esp+04h]
         shl eax, 4
-        mov dword [dword_16E334], eax
+        mov dword [MemPoolSize], eax
 .11:
         cmp dword [byte esp+068h], byte 0
         je short .12
@@ -10766,7 +10766,7 @@ InitMemoryPool:
         call AddHighMemRegion
         add esp, byte 10h
 .18:
-        mov ecx, dword [dword_16E334]
+        mov ecx, dword [MemPoolSize]
         test ecx, ecx
         jle short .19
         push byte 0
@@ -11269,7 +11269,7 @@ InitPlatform:
         call FindDos4gw
         add esp, byte 4
 .1:
-        cmp dword [dword_16E330], byte 0
+        cmp dword [MemPoolBase], byte 0
         jne short .2
         push dword 0C8h
         call InitMemoryPoolDefault

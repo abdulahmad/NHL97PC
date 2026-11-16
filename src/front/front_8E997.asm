@@ -13,7 +13,7 @@ extern str_Standmenu, str_FACT, str_LBL1LBL2LBL3LBR1LBR2LTL1L3, str_DDD3, str_Pt
 extern str_SSDSS, str_SSDSS2, str_SSD02dSS, str_S3, str_S4, str_SSEASDSET, str_Importagents, str_FakeEXHIBIT
 extern str_FakeAGENTS, str_Agents, NewSeasonBannerTeams, FrontEndExit, SeasonFlags, SeasonUserHuman, SeasonUserActive, SeasonUserLocked
 extern SeasonCreated, byte_1C6040, SeasonTypeCode, StandingsColumns, PlayoffColumns, NewSeasonTeamOrderSmall, NewSeasonTeamOrderLarge, NewSeasonTeamOrderMid
-extern dword_16CB7C, LangTextLoaded, LangTextHandle, LinkTransferReady, str_F_NewSeasonScreen, NewSeasonArtOffsets, PlayoffFormatTeams, dword_16DA9C
+extern dword_16CB7C, LangTextLoaded, LangTextHandle, LinkTransferReady, str_F_NewSeasonScreen, NewSeasonArtOffsets, PlayoffFormatTeams, LinkGameActive
 extern SeasonUserTeam, GameOptionFlags, SeasonSlot, SeasonPhase, PlayoffRounds, SeasonActive, NewSeasonUserCount, SeasonDefaultUser
 extern SeasonRandomSeed, SeasonScheduleData, SeasonFileName, dword_1C5DE0, SeasonMenuExit, StandingsGoalsFor, SeasonSparkleShapes, StandingsTies
 extern SeasonMenuShapeLists, StandingsWins, StandingsGoalsAgainst, StandingsSortKey, SeasonSparkleSoundOn, SeasonMenuItems, StandingsBuffer, NewSeasonItems
@@ -64,7 +64,7 @@ RunNewSeason:
         call memcpy_
         mov dword [GameOptionFlags], SeasonName
         push byte 1
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .1
         call ClearLinkAbort
         test eax, eax
@@ -196,7 +196,7 @@ RunNewSeason_193:
         xor eax, eax
         mov esi, 6
         call RosterScreen
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         jne short .9
         mov eax, ExhibitionData
         call FreeExhibitionFile
@@ -1160,7 +1160,7 @@ NewSeasonScreen:
         call DrawTextAligned
         add esp, byte 10h
         mov byte [dword esi+SeasonUserActive], 1
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .37
         call ClearLinkAbort
         test eax, eax
@@ -1255,7 +1255,7 @@ CreateSeason:
         call rand_
         div ebx
         mov dword [SeasonRandomSeed], edx
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .2
         call ClearLinkAbort
         test eax, eax
@@ -1274,7 +1274,7 @@ CreateSeason:
         lea edx, [byte ebp+076h]
         mov eax, PlayoffDbKey
         call OpenLeagueFile
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         jne short .4
         movzx eax, byte [SeasonTypeCode]
         imul eax, byte 1Ah
@@ -2449,7 +2449,7 @@ SeasonMenuScreen:
         call SeasonSetupScreen
         jmp near .34
 .46:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         jne short .47
         push byte 0
         mov eax, 248h
@@ -4746,7 +4746,7 @@ LinkTransferSetup:
         enter 110h, 0
         sub ebp, 92h
         mov esi, eax
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je near .34
         mov eax, 227h
         call GetLangText
@@ -5149,7 +5149,7 @@ LoadFakeExhibition:
         push ecx
         push edx
         mov ecx, eax
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         jne short .1
         call LoadExhibitionFile
         pop edx
@@ -5196,7 +5196,7 @@ SaveAgents:
         push edx
         push esi
         mov esi, eax
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         jne short .2
 .1:
         call SaveExhibitionFile
@@ -5258,7 +5258,7 @@ SaveAgentsOnly:
         push ebx
         mov ebx, eax
         mov eax, edx
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         jne short .2
         movsx edx, dx
         mov eax, ebx
@@ -5294,7 +5294,7 @@ SaveTradesLink:
         mov esi, eax
         mov edi, edx
         mov dword [byte ebp-04h], ebx
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         jne short .2
         push dword [byte ebp+014h]
         movzx eax, byte [byte ebp+010h]

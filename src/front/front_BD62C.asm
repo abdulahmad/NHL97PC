@@ -6,7 +6,7 @@ extern SortCords, __CHP, __STOSD, str_Mous4, str_Remo3, str_Replload, str_RPEVEN
 extern str_Replregs, str_REPLAYNDX, str_DATAREPLAYNDX2, str_DONTHAVEIT2, str_Replay, str_SS10, str_Replbuff, str_SREPLAYNDX
 extern str_S12, str_NOIS, str_ARWD, gmode, byte_1C6040, ReplayButtonLit, F32_0p005_ReplayScreen, F32_0p003125_ReplayScreen
 extern F32_0p005_DrawReplayTimeline, F32_0p003125_DrawReplayTimeline, F32_0p003125_PickReplayScreen, F32_0p005_PickReplayScreen, F32_0p003125_DrawReplayEntry, F32_0p005_DrawReplayEntry, F32_0p003125_ReplayMenuScreen, F32_0p005_ReplayMenuScreen
-extern ClockShown, InGameMenuRequest, StatsMenuMode, ReplayListTop, dword_16DA9C, dword_16E464, dword_16E468, MenuScreenBitmap
+extern ClockShown, InGameMenuRequest, StatsMenuMode, ReplayListTop, LinkGameActive, dword_16E464, dword_16E468, MenuScreenBitmap
 extern VideoModeCount, QuantizePalette, VideoModePanelMode, VideoModeSel, ViewWindowX, ViewWindowY, ViewWindowW, ViewWindowH
 extern VideoModeChanged, DisplayFlags, ReplayLoaded, GameObjects, ViewSizeIndex, GameSettings, GameOptionFlags, ReplayData
 extern ReplayMode, SeasonFileName, ReplayIndexHandle, ReplayBufferSize, dword_1C5DE4, dword_1C5E78, dword_1C5EF4, ClockFontSmall
@@ -807,7 +807,7 @@ DrawReplayControls:
 .4:
         inc ebx
 .5:
-        mov eax, dword [dword_16DA9C]
+        mov eax, dword [LinkGameActive]
         mov edx, 0Fh
         xor al, 1
         sub edx, eax
@@ -1097,7 +1097,7 @@ ReplayScreen_EF:
         call SaveReplay
         jmp near ReplayScreen.2
 ReplayScreen_294:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .7
         cmp esi, byte 2
         jne near ReplayScreen.2
@@ -1160,7 +1160,7 @@ ReplayScreen_294:
         call ReplayCamFollow
         jmp near ReplayScreen.2
 ReplayScreen_37D:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .11
         cmp esi, byte 2
         jne near ReplayScreen.2
@@ -1184,7 +1184,7 @@ ReplayScreen_399:
         add eax, dword [ReplayStartFrame]
         jmp near ReplayScreen_C7.4
 ReplayScreen_3D5:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .12
         cmp esi, byte 2
         jne near ReplayScreen.2
@@ -1247,7 +1247,7 @@ ReplayScreen_3D5:
         call ReplayCamOrbit
         jmp near ReplayScreen.2
 ReplayScreen_4D2:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .15
         cmp esi, byte 2
         jne near ReplayScreen.2
@@ -1376,7 +1376,7 @@ ReplayScreen_4D2:
         add esp, byte 14h
         jmp near ReplayScreen.2
 ReplayScreen_6A2:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .24
         cmp esi, byte 2
         jne near ReplayScreen.2
@@ -1428,7 +1428,7 @@ ReplayScreen_6A2:
         call ReplayCamZoom
         jmp near ReplayScreen.2
 ReplayScreen_771:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .27
         cmp esi, byte 2
         jne near ReplayScreen.2
@@ -2708,7 +2708,7 @@ PickReplayScreen:
         lea eax, [byte ebp+06h]
         call NameIndexNew
 .6:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .7
         mov edx, 54CA38h
         call LoadIndexFile
@@ -3073,7 +3073,7 @@ OpenReplayIndex:
 .1:
         lea eax, [byte edi+06Eh]
         mov dword [byte ebp+07Ah], eax
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short PickReplayScreen_AA8
         call ClearLinkAbort
         test eax, eax
@@ -3839,7 +3839,7 @@ ReplayMenuScreen:
         mov dword [byte ebp-010h], eax
         imul eax, dword [dword_16E468], byte 0Bh
         mov dword [byte ebp-014h], eax
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .14
         imul eax, dword [dword_16E464], byte 38h
         mov dword [byte ebp-028h], eax
@@ -4051,7 +4051,7 @@ ReplayMenuScreen:
         mov dword [dword edi+ReplayMenuY], eax
         cmp esi, byte 4
         jl near .16
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je near .17
         imul eax, dword [dword_16E468], byte 0Bh
         mov dword [byte ebp-020h], eax

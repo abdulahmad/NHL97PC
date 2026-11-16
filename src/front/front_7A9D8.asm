@@ -6,7 +6,7 @@ extern str_Roster, str_SS2, str_VIDEO, str_AUDSTRMHACK, str_ATE1Q0X4F1, str_Punc
 extern str_Mous2, str_Remo2, str_CHK1, str_X1, str_CB00, str_CB01, str_BACK2, str_LOGO2
 extern atoi_, ScheduleDivisionFlags, FrontEndExit, SeasonUserActive, PlayoffUserActive, ScheduleWeekDays, ScheduleMonthDays, str_1_BuildSeasonSchedule
 extern ScheduleMonthLengths, ScheduleGameCounts, ScheduleHomeCounts, MovieFileHandle, MovieFileOffset, ModemResultCount, ModemLastResult, dword_16CB74
-extern dword_16DA9C, str_D_UpdateFrameRate, DrawDestBuffer, DrawDestPitch, DrawDestOffset, BackBufferWidth, BackBufferHeight, MovieWidth
+extern LinkGameActive, str_D_UpdateFrameRate, DrawDestBuffer, DrawDestPitch, DrawDestOffset, BackBufferWidth, BackBufferHeight, MovieWidth
 extern GameSettings, SeasonUserTeam, SeasonActive, SeasonRandomSeed, SeasonScheduleData, SeasonScheduleOffset, SeasonScheduleSize, MovieFrameCount
 extern MovieFrameShown, MovieAudioStream, MovieLastFrame, MovieEndReached, MovieFlags, MovieFrameIndex, MovieAudioDone, MovieFramesAhead
 extern MovieSkippable, MovieState, MovieSkipped, MovieNextFrame, MovieVideoDone, MovieStartTick, MoviePageFlip, MovieSoundChannel
@@ -599,7 +599,7 @@ BuildSeasonSchedule:
         mov dl, byte [byte ebp-034h]
         sub dl, byte [SeasonScheduleOffset]
         mov byte [dword eax+0D12h], dl
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .57
         call ClearLinkAbort
         test eax, eax
@@ -2294,7 +2294,7 @@ PlayMovie:
         LD sub, eax, edx
         sar eax, 1
         mov dword [BackBufferHeight], eax
-        mov eax, dword [dword_16DA9C]
+        mov eax, dword [LinkGameActive]
         add esp, byte 8
         test eax, eax
         je short .3
@@ -2359,7 +2359,7 @@ PlayMovie:
 .9:
         mov esi, ebp
 .10:
-        cmp ebp, dword [dword_16DA9C]
+        cmp ebp, dword [LinkGameActive]
         je short .11
         call ServiceIdle
 .11:
@@ -2397,7 +2397,7 @@ PlayMovie:
         call FreeMemBlock
         add esp, byte 4
 .15:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .16
         call ServiceIdle
 .16:

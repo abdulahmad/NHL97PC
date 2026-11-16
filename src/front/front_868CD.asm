@@ -29,7 +29,7 @@ extern ScrollUp, DrawScrollBar, ScrollDown, FreeScrollList, ScrollToMouse, GetLa
 extern ServiceIdle, StartNetworkLink, LinkSendBlock, LinkReceiveBlock, DefaultModemName, LoadServerList, AllocMemBlock, FreeMemBlock
 extern MakeColor, FreeBitmap, DrawShapeAtOwnPos, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, FillRect
 extern MeasureText, str_S_ModemSettingsScreen, ModemSettings, LinkSettings, LinkSettingsData, GlobalSetVersion, IndexEntrySettings, unk_1C5EF8
-extern unk_1C5F4A, ModemInitString, ModemPhoneNumber, ModemDialCommand, NetworkGameName, ConnectRetry, word_16DACC, word_16DAD0
+extern unk_1C5F4A, ModemInitString, ModemPhoneNumber, ModemDialCommand, NetworkGameName, ConnectRetry, ModemPortIrqs, ModemPortBases
 extern NetworkSettings, ModemPort, ModemIrq, ModemBaudRate, ModemDialMode, ModemAnswer, ModemSpeed, NetworkGameNumber
 global jpt_86C99, jpt_87AF7, jpt_89053, SavePhonebook_5F, PhonebookEntryScreen_4B8, PhonebookEntryScreen_4C9, PhonebookEntryScreen_5DB, PhonebookEntryScreen_60C
 global PhonebookEntryScreen_6C5, PhonebookEntryScreen_752, ModemSettingsScreen_AE3, ModemSettingsScreen_AF4, ModemSettingsScreen_CC6, ModemSettingsScreen_D31, ModemSettingsScreen_D5E, ModemSettingsScreen_E4D
@@ -2354,14 +2354,14 @@ ModemSettingsScreen_CC6:
         mov word [ModemPort], ax
         mov eax, dword [byte ebp-038h]
         lea edx, [dword ebp-0E18h]
-        movsx eax, word [nosplit eax*2+word_16DAD0]
+        movsx eax, word [nosplit eax*2+ModemPortBases]
         movsx ebx, word [ModemIrq]
-        movsx ecx, word [nosplit eax*2+word_16DACC]
+        movsx ecx, word [nosplit eax*2+ModemPortIrqs]
         mov eax, dword [byte ebp-018h]
         call LayoutPortList
         mov eax, dword [byte ebp-038h]
-        movsx eax, word [nosplit eax*2+word_16DAD0]
-        mov ax, word [nosplit eax*2+word_16DACC]
+        movsx eax, word [nosplit eax*2+ModemPortBases]
+        mov ax, word [nosplit eax*2+ModemPortIrqs]
 .33:
         mov word [ModemIrq], ax
         jmp near ModemSettingsScreen_11E3

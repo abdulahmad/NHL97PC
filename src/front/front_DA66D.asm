@@ -8,15 +8,15 @@ extern str_WB, str_FILEcreate, str_RB, str_FILEopen, str_FILEseek, str_FILEseeke
 extern str_Pktlayer, str_Disconnecting, str_WaitingForOtherComputer, str_IPXMEM, str_NETWORK, str_SERVLIST, str_NHL97, str_GAMEADDR
 extern str_PICKS2, str_REGS2, str_LX003, str_LC003, str_LX0D3, str_LC0D3, str_DTOP, str_DBOT
 extern str_08x, str_KWKJSK122691, str_BACK13, str_MB014, str_MB023, str_MB03, str_AR02d2, str_LT02d2
-extern str_MB004, str_GenericHayesCompatible, byte_16D8FA, byte_16D8FD, byte_16D93B, byte_16DA42, JoystickFlags, LinkPlayerReady
+extern str_MB004, str_GenericHayesCompatible, PadChanged, PadSlotFlags, KeyboardControlOn, JoystickButtonMap, JoystickFlags, LinkPlayerReady
 extern NetGameName, OptionsAnimSoundOn, GripDriverPtr, PacketSize, DbGameRecordCount, DbPlayerRecordCount, DbStatRecordCount, DbTeamRecordCount
 extern DbGameRecords, DbPlayerRecords, DbStatRecords, DbTeamRecords, DbRecordsLoaded, DbIndexRoot, DbPlayerIndex, DbGameIndex
-extern StaticBuffer, dword_16D894, dword_16D898, dword_16D89C, dword_16D8A0, dword_16D8A8, dword_16D8AC, dword_16D8B0
-extern dword_16D8B4, dword_16D8B8, dword_16D8BC, dword_16D8D8, dword_16D8DC, InputRecordTail, InputRecordHead, InputRecordCount
-extern dword_16D918, InputRecordStamp, dword_16D93A, dword_16DA9C, dword_16DAA0, dword_16DAA4, dword_16DAA8, dword_16DAAC
-extern dword_16DAB0, dword_16DAB4, dword_16DAB6, dword_16DABC, str_Punct_ModemSettingsScreen, dword_16DAC4, dword_16DAC8, dword_16DACA
-extern dword_16DAD2, dword_16E124, dword_16E128, dword_16E12A, dword_16E130, dword_16E134, dword_16E138, dword_16E13C
-extern dword_16E140, dword_16E144, mousex, mousey, dword_16E464, dword_16E468, MenuScreenBitmap, IpxPresent
+extern StaticBuffer, InputPlaybackOn, InputRecordPaused, LinkInputFrame, SlotTableCount, InputRecordStopped, PadPollTick, KeyPollTick
+extern KeyRepeatTick, KeyRepeatOn, PadHoldTicks, PadHoldCount, PadRepeatTicks, InputRecordTail, InputRecordHead, InputRecordCount
+extern InputRecordTaken, InputRecordStamp, KeyboardControls, LinkGameActive, NetActive, NetDriverHandle, LinkFrameDelay, LinkRemoteSequence
+extern LinkHandshakeDone, LinkBlockDone, LinkAbortPad, LinkTimeout, str_Punct_ModemSettingsScreen, LinkServiceTick, LinkTimerActive, ModemPortBasePad
+extern ModemPortChoice, NetPlayerNameSet, IpxBuffer, NetFoundCountPad, NetGameList, NetListTick, NetListChoice, NetListFirst
+extern NetJoinedOk, OptionsAnimIndex, mousex, mousey, dword_16E464, dword_16E468, MenuScreenBitmap, IpxPresent
 extern GameSettings, dword_1C5DE4, DbFileTable, DbKeyIndex, DbRecordSizes, DbStaticBuffer, DbRecordCounts, DbPlayerFile
 extern DbGameFile, DbTeamStatFile, DbPlayerStatFile, DbReplayFile, DbUserFile, DosCallRegs
 extern DosCallRegs, KeyboardPadHomeOn, KeyboardPadAwayOn, LinkInputSent, LinkInputTickCount, LinkInputChanged, LinkRemoteFlags, LinkInputAck
@@ -29,10 +29,10 @@ extern NetScreenItems, NetGameBitmaps, NetJoinShape, NetHostShape, NetListTop, N
 extern NetScrollDownShape, NetJoinRequest
 extern NetJoinSocket, NetTitleShape, NetFrameShape, NetButtonShape, NetGameCountPad, OptionsAnimShapeLists, OptionsAnimShapes, OptionsAnimArt
 extern OptionsAnimItems, OptionsAnimFrames, OptionsAnimTitle, OptionsAnimBack, SeasonIntroList
-extern SeasonIntroLayer, SeasonIntroDialogType, dword_1CD770, dword_1CD774, dword_1CD77C, dword_1CD780, dword_1CD784, LinkTextFont
+extern SeasonIntroLayer, SeasonIntroDialogType, SeasonIntroPageShown, SeasonIntroTitleFile, SeasonIntroShapes, SeasonIntroIcons, SeasonIntroBackFile, LinkTextFont
 extern fclose_, fopen_, fread_, fseek_, ftell_, fwrite_, int386x_, memcmp_
 extern memcpy_, memset_, DbFileNames, DbFileExtensions, LeagueFileDir, LeagueFilePrefix, DbDirName, DbFileSuffix
-extern off_16E0FC, PresentFuncInput, rand_, segread_, slotteam, sprintf_, strcat_, strcmp_
+extern IpxDriverNames, PresentFuncInput, rand_, segread_, slotteam, sprintf_, strcat_, strcmp_
 extern strcpy_, stricmp_, strlen_, strncpy_, bcopy, BlitShape2, BlitArt, BlitShape
 extern PresentScreen, FindShape, ConvertArtNew, FileSizePath, LoadFileToBlockPlain, DetectWindows, SetupOptionsAnim, DosFileInfo
 extern UpdateOptionsAnim, IsKeyDown, ConvertArtXY, ConvertArtKeepPos, SaveDataFile, UnlinkJump, StrCopyEnd, OpenSerialPacketLink
@@ -47,13 +47,13 @@ extern CloseDbFile, AddIndexKey, DeleteIndexKey, FindIndexKey, FindLastKey, Find
 extern BuildKeyFromLong, BuildKeyFromString, KeyToLong, BuildSeasonIntro, SetupSeasonIntro, DrawSeasonIntro, RunIdleHandlers, AllocMemBlock
 extern AllocMemData, FreeMemBlock, ZeroMem, KbdGetKey, addtimer, RemoveTimerCallback, WaitTicks, MakeColor
 extern FreeBitmap, DrawShapeAtOwnPos, DrawArt, CreateBitmap, SetDrawTarget, FillRectColor, FillRect, MeasureText
-extern DrawTextAt, FillRectCorners, tickcount, str_X_WaitForOtherComputer, DbKeyBuffer, PlayoffDbKey, unk_16E110, unk_1C5F4A
+extern DrawTextAt, FillRectCorners, tickcount, str_X_WaitForOtherComputer, DbKeyBuffer, PlayoffDbKey, NetHostSessionName, unk_1C5F4A
 extern DosCallRegs, InputRecordRing, LinkPacketQueues, LinkQueueCounters, NetSessionState, NetSocket
 extern NetJoinRequest, NetJoinedGame, NetJoinedInfo, NetHostName, OptionsAnimItems, GripPortWord, StaticBufferReady, DbOpen
-extern str_Punct_SetMatchupTeams, MatchupTeamCodes, str_Punct_DaysToYear, MonthStartDays, word_16D8A4, SlotWords, word_16D920, str_Punct_ReadJoystickPads
-extern word_16D924, word_16D926, word_16D928, word_16D92A, word_16D92C, word_16DAB8, word_16DACC, word_16DACE
-extern word_16DAD0, word_16E0F8, word_16E0FA, word_16E108, word_16E10A, word_16E10C, word_16E120, word_16E12C
-extern word_16E148, word_16E15E, word_16E16E, word_16E170, DosCallRegs, PadLastButtons, PadButtonState, HotKeyFlags
+extern str_Punct_SetMatchupTeams, MatchupTeamCodes, str_Punct_DaysToYear, MonthStartDays, InputRecordOn, SlotWords, JoystickUpKey, str_Punct_ReadJoystickPads
+extern JoystickDownKey, JoystickLeftKey, JoystickRightKey, JoystickFireKey, JoystickAltKey, LinkSequence, ModemPortIrqs, ModemPortCount
+extern ModemPortBases, NetSessionActive, NetSessionPort, IpxSocketOpen, IpxSocketHandle, NetJoinPending, NetPlayerNameLength, NetFoundCount
+extern OptionsAnimItemFrames, OptionsAnimItemState, OptionsAnimItem, OptionsAnimOn, DosCallRegs, PadLastButtons, PadButtonState, HotKeyFlags
 extern KeyboardLastKey, LinkInputPacket, LinkLocalInput, LinkPacketQueues, LinkQueueCounters
 extern LinkPacketQueues, LinkQueueCounters, LinkWaitCount
 extern LinkWaitTimer, NetGameCount
@@ -11191,11 +11191,11 @@ ReadKeyboardPad:
         push esi
         mov esi, edx
         shl eax, 2
-        cmp byte [dword eax+dword_16D93A], 0
+        cmp byte [dword eax+KeyboardControls], 0
         je short .1
         cmp dword [KeyboardPadAwayOn], byte 0
         je near .4
-        mov eax, dword [dword eax+dword_16D93A]
+        mov eax, dword [dword eax+KeyboardControls]
         sar eax, 10h
         push eax
         call IsKeyDown
@@ -11204,11 +11204,11 @@ ReadKeyboardPad:
         je short .4
         jmp short .3
 .1:
-        cmp byte [dword eax+byte_16D93B], 0
+        cmp byte [dword eax+KeyboardControlOn], 0
         je short .2
         cmp dword [KeyboardPadHomeOn], byte 0
         je short .4
-        mov eax, dword [dword eax+dword_16D93A]
+        mov eax, dword [dword eax+KeyboardControls]
         sar eax, 10h
         push eax
         call IsKeyDown
@@ -11221,7 +11221,7 @@ ReadKeyboardPad:
         jne short .4
         cmp dword [KeyboardPadHomeOn], byte 0
         jne short .4
-        mov eax, dword [dword eax+dword_16D93A]
+        mov eax, dword [dword eax+KeyboardControls]
         sar eax, 10h
         push eax
         call IsKeyDown
@@ -11302,7 +11302,7 @@ ReadKeyboardPlayers:
         call ReadKeyboardPad
         mov dx, word [ecx]
         xor dh, dh
-        mov eax, dword [dword_16D8B8]
+        mov eax, dword [KeyRepeatOn]
         and dl, 0Fh
         test eax, eax
         jbe short .1
@@ -11318,14 +11318,14 @@ ReadKeyboardPlayers:
         mov eax, dword [tickcount]
         cmp dx, word [KeyboardLastKey]
         jne short .2
-        cmp eax, dword [dword_16D8B4]
+        cmp eax, dword [KeyRepeatTick]
         jge short .2
         or byte [ecx], 40h
-        mov dword [dword_16D8B4], eax
+        mov dword [KeyRepeatTick], eax
 .2:
         mov ecx, 1
         mov word [KeyboardLastKey], dx
-        mov dword [dword_16D8B8], ecx
+        mov dword [KeyRepeatOn], ecx
         pop edx
         pop ecx
         pop ebx
@@ -11334,10 +11334,10 @@ ReadKeyboardPlayers:
         test dx, dx
         jne short .4
         xor edx, edx
-        mov dword [dword_16D8B8], edx
+        mov dword [KeyRepeatOn], edx
         mov eax, dword [tickcount]
         add eax, byte 0Ah
-        mov dword [dword_16D8B4], eax
+        mov dword [KeyRepeatTick], eax
         pop edx
         pop ecx
         pop ebx
@@ -11453,7 +11453,7 @@ ReadJoystickPads:
         and dl, 0Fh
         or ebx, edx
         mov word [eax], bx
-        mov cx, word [word_16D920]
+        mov cx, word [JoystickUpKey]
         test cx, cx
         je short .1
         xor ebx, ebx
@@ -11479,18 +11479,18 @@ ReadJoystickPads:
 .2:
         test byte [byte eax+01h], 80h
         jne near .7
-        cmp word [word_16D924], byte 0
+        cmp word [JoystickDownKey], byte 0
         je short .3
         xor eax, eax
         xor ebx, ebx
-        mov ax, word [word_16D924]
+        mov ax, word [JoystickDownKey]
         mov bx, si
         and ebx, eax
         cmp ebx, eax
         jne short .3
         or byte [HotKeyFlags], 40h
 .3:
-        mov dx, word [word_16D926]
+        mov dx, word [JoystickLeftKey]
         test dx, dx
         je short .4
         xor ebx, ebx
@@ -11502,7 +11502,7 @@ ReadJoystickPads:
         jne short .4
         or byte [HotKeyFlags], 80h
 .4:
-        mov bx, word [word_16D928]
+        mov bx, word [JoystickRightKey]
         test bx, bx
         je short .5
         xor eax, eax
@@ -11514,7 +11514,7 @@ ReadJoystickPads:
         jne short .5
         or byte [JoystickFlags], 1
 .5:
-        mov cx, word [word_16D92A]
+        mov cx, word [JoystickFireKey]
         test cx, cx
         je short .6
         xor ebx, ebx
@@ -11526,7 +11526,7 @@ ReadJoystickPads:
         jne short .6
         or byte [JoystickFlags], 2
 .6:
-        mov di, word [word_16D92C]
+        mov di, word [JoystickAltKey]
         test di, di
         je near .12
         xor ebx, ebx
@@ -11539,18 +11539,18 @@ ReadJoystickPads:
         or byte [JoystickFlags], 40h
         jmp near .12
 .7:
-        cmp word [word_16D924], byte 0
+        cmp word [JoystickDownKey], byte 0
         je short .8
         xor eax, eax
         xor ebx, ebx
-        mov ax, word [word_16D924]
+        mov ax, word [JoystickDownKey]
         mov bx, si
         and ebx, eax
         cmp ebx, eax
         jne short .8
         or byte [JoystickFlags], 4
 .8:
-        mov dx, word [word_16D926]
+        mov dx, word [JoystickLeftKey]
         test dx, dx
         je short .9
         xor ebx, ebx
@@ -11562,7 +11562,7 @@ ReadJoystickPads:
         jne short .9
         or byte [JoystickFlags], 8
 .9:
-        mov bx, word [word_16D928]
+        mov bx, word [JoystickRightKey]
         test bx, bx
         je short .10
         xor eax, eax
@@ -11574,7 +11574,7 @@ ReadJoystickPads:
         jne short .10
         or byte [JoystickFlags], 10h
 .10:
-        mov cx, word [word_16D92A]
+        mov cx, word [JoystickFireKey]
         test cx, cx
         je short .11
         xor ebx, ebx
@@ -11586,7 +11586,7 @@ ReadJoystickPads:
         jne short .11
         or byte [JoystickFlags], 20h
 .11:
-        mov di, word [word_16D92C]
+        mov di, word [JoystickAltKey]
         test di, di
         je short .12
         xor ebx, ebx
@@ -11604,7 +11604,7 @@ ReadJoystickPads:
         xor ebx, ebx
         mov bx, ax
         add ebx, ebx
-        mov cx, word [dword ebx+word_16D920]
+        mov cx, word [dword ebx+JoystickUpKey]
         test cx, cx
         je short .14
         mov ebx, ecx
@@ -11669,7 +11669,7 @@ ReadJoystickPads:
         sub eax, ecx
         xor ecx, ecx
         mov cx, bx
-        mov bl, byte [dword ecx+eax+byte_16DA42]
+        mov bl, byte [dword ecx+eax+JoystickButtonMap]
         xor bh, bh
         mov cx, word [edx]
         and bl, 0Fh
@@ -11735,13 +11735,13 @@ PollControllers:
         setne dl
         and edx, 0FFh
         je near .3
-        test byte [dword eax+byte_16D8FD], 80h
+        test byte [dword eax+PadSlotFlags], 80h
         jne near .2
         cmp dword [esp], byte 0
         jne near .2
         mov eax, dword [tickcount]
         mov ebp, 1
-        mov edx, dword [dword_16D8AC]
+        mov edx, dword [PadPollTick]
         mov dword [esp], ebp
         cmp eax, edx
         jle near .3
@@ -11767,14 +11767,14 @@ PollControllers:
         call ReadKeyboardPad
         mov eax, dword [tickcount]
         add eax, byte 12h
-        mov dword [dword_16D8AC], eax
+        mov dword [PadPollTick], eax
         jmp near .3
 .2:
         cmp dword [byte esp+08h], byte 0
         jne near .3
         mov eax, dword [tickcount]
         mov edx, 1
-        mov ebx, dword [dword_16D8B0]
+        mov ebx, dword [KeyPollTick]
         mov dword [byte esp+08h], edx
         cmp eax, ebx
         jle short .3
@@ -11800,7 +11800,7 @@ PollControllers:
         call ReadKeyboardPad
         mov eax, dword [tickcount]
         add eax, byte 12h
-        mov dword [dword_16D8B0], eax
+        mov dword [KeyPollTick], eax
 .3:
         lea edx, [nosplit edi*2+00h]
         mov ax, word [dword edx+SlotWords]
@@ -11821,7 +11821,7 @@ PollControllers:
         xor ebx, ebx
         and al, 0Fh
         mov bx, ax
-        mov eax, dword [dword ecx+dword_16D8DC]
+        mov eax, dword [dword ecx+PadRepeatTicks]
         test eax, eax
         jbe short .4
         cmp eax, byte 1
@@ -11836,24 +11836,24 @@ PollControllers:
         mov ax, word [dword edx+PadButtonState]
         cmp ebx, eax
         jne short .5
-        cmp ebp, dword [dword ecx+dword_16D8BC]
+        cmp ebp, dword [dword ecx+PadHoldTicks]
         jge short .5
         mov al, byte [dword edx+SlotWords]
         or al, 40h
-        mov dword [dword ecx+dword_16D8BC], ebp
+        mov dword [dword ecx+PadHoldTicks], ebp
         mov byte [dword edx+SlotWords], al
 .5:
         mov edx, 1
         mov word [nosplit edi*2+PadButtonState], bx
-        mov dword [dword ecx+dword_16D8DC], edx
+        mov dword [dword ecx+PadRepeatTicks], edx
         jmp short .10
 .6:
         test ebx, ebx
         jne short .7
-        mov dword [dword ecx+dword_16D8DC], ebx
+        mov dword [dword ecx+PadRepeatTicks], ebx
         mov eax, dword [tickcount]
         add eax, byte 0Ch
-        mov dword [dword ecx+dword_16D8BC], eax
+        mov dword [dword ecx+PadHoldTicks], eax
         jmp short .10
 .7:
         mov word [dword edx+PadButtonState], bx
@@ -11885,7 +11885,7 @@ PollControllers:
         mov ebp, dword [byte esp+04h]
         mov ax, dx
         add eax, ebp
-        mov dl, byte [dword eax+byte_16DA42]
+        mov dl, byte [dword eax+JoystickButtonMap]
         xor dh, dh
         mov ax, word [ebx]
         and dl, 0Fh
@@ -11917,41 +11917,41 @@ InputRecordTimer:
         push esi
         push edi
         push ebp
-        cmp word [word_16D8A4], byte 0
+        cmp word [InputRecordOn], byte 0
         je near .11
-        cmp dword [dword_16D8A8], byte 0
+        cmp dword [InputRecordStopped], byte 0
         jne near .11
-        mov dword [dword_16D8A8], 1
-        cmp dword [dword_16D898], byte 0
+        mov dword [InputRecordStopped], 1
+        cmp dword [InputRecordPaused], byte 0
         jne short .1
         call UpdateOptionsAnim
 .1:
-        cmp dword [dword_16D894], byte 0
+        cmp dword [InputPlaybackOn], byte 0
         jne short .2
         call PollControllers
 .2:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .4
-        mov eax, dword [dword_16D89C]
+        mov eax, dword [LinkInputFrame]
         call LinkInputTick
         test eax, eax
         je near .6
-        mov edi, dword [dword_16D89C]
+        mov edi, dword [LinkInputFrame]
         test edi, edi
         jne short .3
-        mov eax, dword [dword_16DAA8]
+        mov eax, dword [LinkFrameDelay]
         dec eax
-        mov dword [dword_16D89C], eax
+        mov dword [LinkInputFrame], eax
         jmp near .6
 .3:
         lea ebp, [byte edi-01h]
-        mov dword [dword_16D89C], ebp
+        mov dword [LinkInputFrame], ebp
         jmp near .6
 .4:
-        cmp dword [dword_16D918], byte 0
+        cmp dword [InputRecordTaken], byte 0
         jne near .6
-        mov dword [dword_16D918], 1
-        cmp dword [dword_16D894], byte 0
+        mov dword [InputRecordTaken], 1
+        cmp dword [InputPlaybackOn], byte 0
         jne short .5
         cmp dword [InputRecordCount], byte 5
         jge short .5
@@ -11983,28 +11983,28 @@ InputRecordTimer:
         mov dword [InputRecordStamp], eax
 .5:
         xor esi, esi
-        mov dword [dword_16D918], esi
+        mov dword [InputRecordTaken], esi
 .6:
-        mov eax, dword [dword_16D894]
+        mov eax, dword [InputPlaybackOn]
         test eax, eax
         jne short .7
-        mov dword [dword_16D894], 2
+        mov dword [InputPlaybackOn], 2
         jmp short .8
 .7:
         lea edx, [byte eax-01h]
-        mov dword [dword_16D894], edx
+        mov dword [InputPlaybackOn], edx
 .8:
-        mov ecx, dword [dword_16D898]
+        mov ecx, dword [InputRecordPaused]
         test ecx, ecx
         jne short .9
-        mov dword [dword_16D898], 3
+        mov dword [InputRecordPaused], 3
         jmp short .10
 .9:
         lea esi, [byte ecx-01h]
-        mov dword [dword_16D898], esi
+        mov dword [InputRecordPaused], esi
 .10:
         xor ebp, ebp
-        mov dword [dword_16D8A8], ebp
+        mov dword [InputRecordStopped], ebp
 .11:
         pop ebp
         pop edi
@@ -12030,10 +12030,10 @@ InitSlotTable:
         add esp, byte 8
         xor edx, edx
         xor eax, eax
-        mov dword [dword_16D8A0], edx
+        mov dword [SlotTableCount], edx
         xor esi, esi
 .1:
-        mov ecx, dword [dword_16DA9C]
+        mov ecx, dword [LinkGameActive]
         cmp esi, ecx
         jne short .2
         cmp edx, byte 4
@@ -12051,7 +12051,7 @@ InitSlotTable:
         sar ecx, 8
         test ecx, ecx
         je short .5
-        test byte [dword eax+byte_16D8FD], 80h
+        test byte [dword eax+PadSlotFlags], 80h
         jne short .4
         mov word [dword eax+slotteam], 1
         jmp short .6
@@ -12068,7 +12068,7 @@ InitSlotTable:
         sar ecx, 8
         cmp ecx, byte 5
         jne short .7
-        mov dword [dword_16D8A0], 1
+        mov dword [SlotTableCount], 1
 .7:
         add eax, byte 2
         inc edx
@@ -12090,7 +12090,7 @@ StartInputRecording:
         push ebx
         push ecx
         push edx
-        cmp word [word_16D8A4], byte 0
+        cmp word [InputRecordOn], byte 0
         jne short .1
         push byte 64h
         push InputRecordRing
@@ -12103,12 +12103,12 @@ StartInputRecording:
         mov dword [InputRecordCount], edx
         call ResetInputState
         push InputRecordTimer
-        mov dword [dword_16D894], edx
-        mov dword [dword_16D898], edx
-        mov dword [dword_16D89C], edx
+        mov dword [InputPlaybackOn], edx
+        mov dword [InputRecordPaused], edx
+        mov dword [LinkInputFrame], edx
         call addtimer
         add esp, byte 4
-        mov word [word_16D8A4], bx
+        mov word [InputRecordOn], bx
 .1:
         pop edx
         pop ecx
@@ -12156,18 +12156,18 @@ ResetInputState:
         push ecx
         push edx
         push esi
-        mov dx, word [word_16D8A4]
+        mov dx, word [InputRecordOn]
         test dx, dx
         jne short .2
         call LinkSyncMenu
         mov word [KeyboardLastKey], dx
         xor edx, edx
         xor ecx, ecx
-        mov dword [dword_16D8B8], edx
+        mov dword [KeyRepeatOn], edx
         mov eax, dword [tickcount]
-        mov dword [dword_16D8AC], eax
+        mov dword [PadPollTick], eax
         mov eax, dword [tickcount]
-        mov dword [dword_16D8B0], eax
+        mov dword [KeyPollTick], eax
         call ClearLinkInputs
         mov word [HotKeyFlags], cx
         xor eax, eax
@@ -12176,10 +12176,10 @@ ResetInputState:
         add eax, byte 2
         xor bl, bl
         xor esi, esi
-        mov byte [dword eax+byte_16D8FA], bl
+        mov byte [dword eax+PadChanged], bl
         xor ebx, ebx
         mov word [dword eax+PadLastButtons], si
-        mov dword [dword edx+dword_16D8D8], ebx
+        mov dword [dword edx+PadHoldCount], ebx
         cmp eax, byte 10h
         jne short .1
         call LinkSyncMenu
@@ -12196,7 +12196,7 @@ ResetInputState:
 IsInputRecording:
         push dword 4
         call __CHK
-        cmp word [word_16D8A4], byte 0
+        cmp word [InputRecordOn], byte 0
         sete al
         and eax, 0FFh
         ret
@@ -12212,22 +12212,22 @@ StopInputRecording:
         push ecx
         push edx
         push esi
-        cmp word [word_16D8A4], byte 0
+        cmp word [InputRecordOn], byte 0
         je short .4
 .1:
-        cmp dword [dword_16D8A8], byte 0
+        cmp dword [InputRecordStopped], byte 0
         jne short .1
         push InputRecordTimer
         call RemoveTimerCallback
         add esp, byte 4
-        cmp dword [dword_16D8A8], byte 0
+        cmp dword [InputRecordStopped], byte 0
         je short .3
 .2:
-        cmp dword [dword_16D8A8], byte 0
+        cmp dword [InputRecordStopped], byte 0
         jne short .2
 .3:
         xor ebx, ebx
-        mov word [word_16D8A4], bx
+        mov word [InputRecordOn], bx
         call ResetInputState
         push byte 64h
         push InputRecordRing
@@ -12268,11 +12268,11 @@ TakeInputRecord:
         cmp dword [InputRecordCount], byte 0
         je short .2
 .1:
-        cmp dword [dword_16D918], byte 0
+        cmp dword [InputRecordTaken], byte 0
         jne short .1
         mov ecx, 1
         push byte 14h
-        mov dword [dword_16D918], ecx
+        mov dword [InputRecordTaken], ecx
         mov edx, dword [InputRecordTail]
         push eax
         lea eax, [nosplit edx*4+00h]
@@ -12293,7 +12293,7 @@ TakeInputRecord:
         add esp, byte 0Ch
         mov dword [InputRecordCount], esi
         mov dword [InputRecordTail], edx
-        mov dword [dword_16D918], edi
+        mov dword [InputRecordTaken], edi
 .2:
         pop edi
         pop esi
@@ -12350,7 +12350,7 @@ InitLinkSettings:
         xor ebx, ebx
         xor ebp, ebp
 .4:
-        cmp ebp, dword [dword_16DA9C]
+        cmp ebp, dword [LinkGameActive]
         je near .7
         call ClearLinkAbort
         test eax, eax
@@ -12397,7 +12397,7 @@ InitLinkSettings:
         and eax, 0FFh
         jmp dword [nosplit cs:eax*4+jpt_E329C]
 InitLinkSettings_D6:
-        cmp ebp, dword [dword_16DA9C]
+        cmp ebp, dword [LinkGameActive]
         jne near InitLinkSettings_E8
 .8:
         mov al, byte [edx]
@@ -12451,7 +12451,7 @@ InitLinkSettings_11D:
 ; Clears the link abort flag
 ;-----------------------------------------------------------------------------
 ClearLinkAbort:
-        mov eax, dword [dword_16DAB6]
+        mov eax, dword [LinkAbortPad]
         sar eax, 10h
         ret
         db 08Dh,040h,00h
@@ -12463,7 +12463,7 @@ ServiceIdle:
         push ecx
         push edx
         mov eax, dword [tickcount]
-        cmp eax, dword [dword_16DAC4]
+        cmp eax, dword [LinkServiceTick]
         je short .1
         push byte 0
         call RunIdleHandlers
@@ -12473,7 +12473,7 @@ ServiceIdle:
         call ServiceBackgroundAudio
         add esp, byte 8
         mov eax, dword [tickcount]
-        mov dword [dword_16DAC4], eax
+        mov dword [LinkServiceTick], eax
 .1:
         pop edx
         pop ecx
@@ -12481,7 +12481,7 @@ ServiceIdle:
         db 08Bh,0C0h
 ServiceIdle_34:
         mov eax, dword [tickcount]
-        cmp eax, dword [dword_16DAC4]
+        cmp eax, dword [LinkServiceTick]
         je short .2
         push byte 0
         call RunIdleHandlers
@@ -12491,7 +12491,7 @@ ServiceIdle_34:
         call ServiceBackgroundAudio
         add esp, byte 8
         mov eax, dword [tickcount]
-        mov dword [dword_16DAC4], eax
+        mov dword [LinkServiceTick], eax
 .2:
         push byte 1
         call IsKeyDown
@@ -12616,12 +12616,12 @@ SendLinkPacket:
         push ebx
         push edx
         xor edx, edx
-        mov bx, word [word_16DAB8]
+        mov bx, word [LinkSequence]
         mov dl, byte [byte eax+05h]
         cmp dx, bx
         je short .3
         mov eax, dword [byte eax+01h]
-        mov dword [dword_16DAAC], eax
+        mov dword [LinkRemoteSequence], eax
 .3:
         pop edx
         pop ebx
@@ -12657,7 +12657,7 @@ SendLinkPacket:
         mov edx, dword [LinkRecvSize]
         cmp edx, dword [LinkRecvOffset]
         jne short .5
-        mov dword [dword_16DAB4], 1
+        mov dword [LinkBlockDone], 1
 .5:
         pop ebp
         pop edi
@@ -12713,7 +12713,7 @@ ResendLinkPacket:
         mov edx, dword [LinkRecvSize]
         cmp edx, dword [LinkRecvOffset]
         jne short .4
-        mov dword [dword_16DAB4], 1
+        mov dword [LinkBlockDone], 1
         mov eax, 1
         pop ebp
         pop edi
@@ -12722,12 +12722,12 @@ ResendLinkPacket:
         ret
 .3:
         xor eax, eax
-        mov bx, word [word_16DAB8]
+        mov bx, word [LinkSequence]
         mov al, byte [byte edx+05h]
         cmp ax, bx
         je short .4
         mov eax, dword [byte edx+01h]
-        mov dword [dword_16DAAC], eax
+        mov dword [LinkRemoteSequence], eax
 .4:
         mov eax, 1
         pop ebp
@@ -12745,7 +12745,7 @@ LinkTimerOn:
         call __CHK
         test eax, eax
         je short .3
-        cmp dword [dword_16DAC8], byte 0
+        cmp dword [LinkTimerActive], byte 0
         jne short .3
         cmp dword [MenuScreenBitmap], byte 8
         je short .1
@@ -12754,7 +12754,7 @@ LinkTimerOn:
 .1:
         call ShowLinkWait
 .2:
-        mov dword [dword_16DAC8], 1
+        mov dword [LinkTimerActive], 1
 .3:
         ret
         db 090h
@@ -12766,11 +12766,11 @@ LinkTimerOff:
         push dword 8
         call __CHK
         push ebx
-        cmp dword [dword_16DAC8], byte 0
+        cmp dword [LinkTimerActive], byte 0
         je short .1
         xor ebx, ebx
         call HideLinkBox
-        mov dword [dword_16DAC8], ebx
+        mov dword [LinkTimerActive], ebx
 .1:
         pop ebx
         ret
@@ -12813,18 +12813,18 @@ SyncLinkGame:
         mov edi, ecx
         xor edx, edx
         mov dword [eax], edx
-        mov ecx, dword [dword_16DAA0]
+        mov ecx, dword [NetActive]
         mov dword [byte esp+08h], edx
         test ecx, ecx
         jne short .1
         xor eax, eax
         jmp near .13
 .1:
-        mov eax, dword [dword_16DA9C]
+        mov eax, dword [LinkGameActive]
         test eax, eax
         je near .13
         mov eax, dword [tickcount]
-        cmp eax, dword [dword_16DABC]
+        cmp eax, dword [LinkTimeout]
         jle near .11
         cmp word [LinkPacketQueues+148h], byte 1
         jge near .10
@@ -12845,7 +12845,7 @@ SyncLinkGame:
         or byte [byte esp+01h], 1
 .2:
         mov eax, dword [tickcount]
-        mov edx, dword [dword_16DAA8]
+        mov edx, dword [LinkFrameDelay]
         shl edx, 2
         add eax, edx
         mov dword [LinkPacketBuffer], eax
@@ -12863,7 +12863,7 @@ SyncLinkGame:
         mov eax, dword [tickcount]
         cmp eax, dword [LinkPacketBuffer]
         jle near .8
-        mov ecx, dword [dword_16DAC8]
+        mov ecx, dword [LinkTimerActive]
         cmp esi, ecx
         jne near .8
         cmp dword [MenuScreenBitmap], byte 8
@@ -12872,7 +12872,7 @@ SyncLinkGame:
         call GetLangText
         test eax, eax
         je short .8
-        cmp ecx, dword [dword_16DAC8]
+        cmp ecx, dword [LinkTimerActive]
         jne short .8
         cmp dword [MenuScreenBitmap], byte 8
         je short .4
@@ -12886,7 +12886,7 @@ SyncLinkGame:
         call GetLangText
         test eax, eax
         je short .8
-        cmp ecx, dword [dword_16DAC8]
+        cmp ecx, dword [LinkTimerActive]
         jne short .8
         cmp dword [MenuScreenBitmap], byte 8
         je short .6
@@ -12895,10 +12895,10 @@ SyncLinkGame:
 .6:
         call ShowLinkWait
 .7:
-        mov dword [dword_16DAC8], 1
+        mov dword [LinkTimerActive], 1
 .8:
         mov eax, dword [tickcount]
-        cmp eax, dword [dword_16DAC4]
+        cmp eax, dword [LinkServiceTick]
         je near .3
         push esi
         call RunIdleHandlers
@@ -12908,24 +12908,24 @@ SyncLinkGame:
         call ServiceBackgroundAudio
         add esp, byte 8
         mov eax, dword [tickcount]
-        mov dword [dword_16DAC4], eax
+        mov dword [LinkServiceTick], eax
         jmp near .3
 .9:
         mov edx, esp
         mov eax, 4
         call QueueLinkPacket
-        mov edx, dword [dword_16DAC8]
+        mov edx, dword [LinkTimerActive]
         test edx, edx
         je short .10
         je short .10
         xor esi, esi
         call HideLinkBox
-        mov dword [dword_16DAC8], esi
+        mov dword [LinkTimerActive], esi
 .10:
         mov eax, dword [tickcount]
-        mov edx, dword [dword_16DAA8]
+        mov edx, dword [LinkFrameDelay]
         add eax, edx
-        mov dword [dword_16DABC], eax
+        mov dword [LinkTimeout], eax
 .11:
         mov cx, word [LinkPacketQueues+3Eh]
         mov ax, word [LinkPacketQueues+3Ch]
@@ -12996,7 +12996,7 @@ SyncLinkGame:
 ;-----------------------------------------------------------------------------
 ; NetInit                                         E3A44  97 PC, low confidence
 ; From main_: once, starts IPX (IpxInit) and the serial layer, allocates the
-; "pktlayer" buffer and marks the network ready (dword_16DAA0)
+; "pktlayer" buffer and marks the network ready (NetActive)
 ;-----------------------------------------------------------------------------
 NetInit:
         push dword 1Ch
@@ -13004,7 +13004,7 @@ NetInit:
         push ebx
         push ecx
         push edx
-        cmp dword [dword_16DAA0], byte 0
+        cmp dword [NetActive], byte 0
         je short .1
         xor eax, eax
         pop edx
@@ -13028,12 +13028,12 @@ NetInit:
         push dword 14Ah
         mov ebx, 0BB8h
         push LinkPacketQueues
-        mov dword [dword_16DAA4], eax
+        mov dword [NetDriverHandle], eax
         mov dword [PacketSize], ebx
         call ZeroMem
         mov ecx, 1
         add esp, byte 8
-        mov dword [dword_16DAA0], ecx
+        mov dword [NetActive], ecx
         mov eax, ecx
         pop edx
         pop ecx
@@ -13050,17 +13050,17 @@ NetShutdown:
         push ebx
         push ecx
         push edx
-        cmp dword [dword_16DAA0], byte 0
+        cmp dword [NetActive], byte 0
         je short .1
         call IpxCloseSocket
         call ShutdownNetSession
-        mov ebx, dword [dword_16DAA4]
+        mov ebx, dword [NetDriverHandle]
         push ebx
         call FreeMemBlock
         xor ecx, ecx
         add esp, byte 4
-        mov dword [dword_16DAA4], ecx
-        mov dword [dword_16DAA0], ecx
+        mov dword [NetDriverHandle], ecx
+        mov dword [NetActive], ecx
 .1:
         pop edx
         pop ecx
@@ -13082,12 +13082,12 @@ StartNetworkLink:
         push ebp
         sub esp, 100h
         mov esi, eax
-        cmp dword [dword_16DAA0], byte 0
+        cmp dword [NetActive], byte 0
         jne short .1
         xor eax, eax
         jmp near .15
 .1:
-        mov ebx, dword [dword_16DA9C]
+        mov ebx, dword [LinkGameActive]
         test ebx, ebx
         je short .2
         xor eax, eax
@@ -13111,7 +13111,7 @@ StartNetworkLink:
         mov dword [NetConnected], ebx
         mov eax, dword [byte esi+074h]
         and eax, ebx
-        mov word [word_16DAB8], ax
+        mov word [LinkSequence], ax
         mov eax, dword [byte esi+076h]
         lea edx, [byte esi+07Ah]
         sar eax, 10h
@@ -13119,7 +13119,7 @@ StartNetworkLink:
         test eax, eax
         je short .3
         mov ebx, ResendLinkPacket
-        mov ecx, dword [dword_16DAA4]
+        mov ecx, dword [NetDriverHandle]
         mov edx, ServiceIdle_34
         push ecx
         lea eax, [byte esi+074h]
@@ -13161,7 +13161,7 @@ StartNetworkLink:
         mov eax, dword [esi]
         and eax, byte 1
         push dword 0FAh
-        mov word [word_16DAB8], ax
+        mov word [LinkSequence], ax
         lea eax, [byte esp+04h]
         push eax
         call ZeroMem
@@ -13174,7 +13174,7 @@ StartNetworkLink:
         lea eax, [byte esp+06h]
         push eax
         mov dl, 2
-        push word_16DAB8
+        push LinkSequence
         mov ebp, 2
         mov byte [byte esp+0Dh], dl
         call bcopy
@@ -13184,13 +13184,13 @@ StartNetworkLink:
         add esp, byte 0Ch
         mov dword [LinkRecvOffset], ebx
         mov dword [LinkRecvSize], ebp
-        mov dword [dword_16DAB4], ebx
+        mov dword [LinkBlockDone], ebx
         mov dword [LinkSendBuffer], eax
         mov eax, 239h
         mov dword [dword esp+0FCh], edx
         call GetLangText
         call ShowLinkMessage
-        mov edx, dword [dword_16DAA4]
+        mov edx, dword [NetDriverHandle]
         mov ebx, ResendLinkPacket
         push edx
         mov eax, esi
@@ -13231,7 +13231,7 @@ StartNetworkLink:
         test eax, eax
         jne short .8
         mov eax, dword [tickcount]
-        cmp eax, dword [dword_16DAC4]
+        cmp eax, dword [LinkServiceTick]
         je short .7
         push esi
         call RunIdleHandlers
@@ -13241,7 +13241,7 @@ StartNetworkLink:
         call ServiceBackgroundAudio
         add esp, byte 8
         mov eax, dword [tickcount]
-        mov dword [dword_16DAC4], eax
+        mov dword [LinkServiceTick], eax
 .7:
         push byte 1
         call WaitTicks
@@ -13250,10 +13250,10 @@ StartNetworkLink:
 .8:
         xor esi, esi
 .9:
-        cmp esi, dword [dword_16DAB4]
+        cmp esi, dword [LinkBlockDone]
         jne short .10
         mov eax, dword [tickcount]
-        cmp eax, dword [dword_16DAC4]
+        cmp eax, dword [LinkServiceTick]
         je short .9
         push esi
         call RunIdleHandlers
@@ -13263,11 +13263,11 @@ StartNetworkLink:
         call ServiceBackgroundAudio
         add esp, byte 8
         mov eax, dword [tickcount]
-        mov dword [dword_16DAC4], eax
+        mov dword [LinkServiceTick], eax
         jmp short .9
 .10:
         mov eax, dword [dword esp+0FCh]
-        cmp ax, word [word_16DAB8]
+        cmp ax, word [LinkSequence]
         jne short .11
         call HideLinkBox
         push byte 0
@@ -13293,11 +13293,11 @@ StartNetworkLink:
 .12:
         xor ebx, ebx
         mov ecx, 1
-        mov dword [dword_16DAB0], ebx
-        mov dword [dword_16DA9C], ecx
+        mov dword [LinkHandshakeDone], ebx
+        mov dword [LinkGameActive], ecx
         call dword [PresentFuncInput]
         mov eax, dword [mousex]
-        mov si, word [word_16DAB8]
+        mov si, word [LinkSequence]
         mov dword [LinkSentPackets], ebx
         mov dword [LinkSentBytes], eax
         mov eax, dword [mousey]
@@ -13352,7 +13352,7 @@ StartNetworkLink:
 ;-----------------------------------------------------------------------------
 ; NetDisconnect                                   E3E8C  97 PC, low confidence
 ; Ends a network session with the "Disconnecting" message (IPX or serial),
-; then clears the connected flag (dword_16DA9C)
+; then clears the connected flag (LinkGameActive)
 ;-----------------------------------------------------------------------------
 NetDisconnect:
         push dword 14h
@@ -13360,9 +13360,9 @@ NetDisconnect:
         push ecx
         push edx
         push esi
-        cmp dword [dword_16DAA0], byte 0
+        cmp dword [NetActive], byte 0
         je short .3
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .3
         mov eax, str_Disconnecting
         call ShowLinkMessage
@@ -13386,7 +13386,7 @@ NetDisconnect:
         xor esi, esi
         call HideLinkBox
         call ShutdownPacketLink
-        mov dword [dword_16DA9C], esi
+        mov dword [LinkGameActive], esi
 .3:
         pop esi
         pop edx
@@ -13407,15 +13407,15 @@ LinkHandshake:
         push ebp
         sub esp, byte 8
         mov ebx, edx
-        cmp dword [dword_16DAA0], byte 0
+        cmp dword [NetActive], byte 0
         je near .24
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je near .24
         test eax, eax
         jne short .3
         test ebx, ebx
         je short .3
-        cmp dword [dword_16DAC8], byte 0
+        cmp dword [LinkTimerActive], byte 0
         jne short .3
         cmp dword [MenuScreenBitmap], byte 8
         je short .1
@@ -13426,21 +13426,21 @@ LinkHandshake:
         mov eax, ebx
         call ShowLinkWait
 .2:
-        mov dword [dword_16DAC8], 1
+        mov dword [LinkTimerActive], 1
 .3:
         mov al, byte [esp]
         and al, 1Fh
         or al, 60h
         mov byte [esp], al
-        mov eax, dword [dword_16DAB0]
+        mov eax, dword [LinkHandshakeDone]
         inc eax
-        mov dword [dword_16DAB0], eax
+        mov dword [LinkHandshakeDone], eax
         mov dword [byte esp+01h], eax
-        mov al, byte [word_16DAB8]
+        mov al, byte [LinkSequence]
         mov byte [byte esp+05h], al
         mov eax, dword [tickcount]
         add eax, byte 19h
-        mov dx, word [word_16DAB8]
+        mov dx, word [LinkSequence]
         mov dword [LinkPacketBuffer], eax
         test dx, dx
         je near .13
@@ -13459,7 +13459,7 @@ LinkHandshake:
         call WaitTicks
         add esp, byte 4
         mov eax, dword [tickcount]
-        cmp eax, dword [dword_16DAC4]
+        cmp eax, dword [LinkServiceTick]
         je short .5
         push esi
         call RunIdleHandlers
@@ -13469,14 +13469,14 @@ LinkHandshake:
         call ServiceBackgroundAudio
         add esp, byte 8
         mov eax, dword [tickcount]
-        mov dword [dword_16DAC4], eax
+        mov dword [LinkServiceTick], eax
 .5:
         mov eax, dword [tickcount]
         cmp eax, dword [LinkPacketBuffer]
         jle short .4
         test ebx, ebx
         je short .4
-        mov ebp, dword [dword_16DAC8]
+        mov ebp, dword [LinkTimerActive]
         cmp esi, ebp
         jne short .4
         test ebx, ebx
@@ -13492,16 +13492,16 @@ LinkHandshake:
         mov eax, ebx
         call ShowLinkWait
 .7:
-        mov dword [dword_16DAC8], 1
+        mov dword [LinkTimerActive], 1
         jmp near .4
 .8:
         xor esi, esi
 .9:
-        mov edi, dword [dword_16DAB0]
-        cmp edi, dword [dword_16DAAC]
+        mov edi, dword [LinkHandshakeDone]
+        cmp edi, dword [LinkRemoteSequence]
         je near .23
         mov eax, dword [tickcount]
-        cmp eax, dword [dword_16DAC4]
+        cmp eax, dword [LinkServiceTick]
         je short .10
         push esi
         call RunIdleHandlers
@@ -13511,14 +13511,14 @@ LinkHandshake:
         call ServiceBackgroundAudio
         add esp, byte 8
         mov eax, dword [tickcount]
-        mov dword [dword_16DAC4], eax
+        mov dword [LinkServiceTick], eax
 .10:
         mov eax, dword [tickcount]
         cmp eax, dword [LinkPacketBuffer]
         jle short .9
         test ebx, ebx
         je short .9
-        mov ecx, dword [dword_16DAC8]
+        mov ecx, dword [LinkTimerActive]
         cmp esi, ecx
         jne short .9
         test ebx, ebx
@@ -13534,16 +13534,16 @@ LinkHandshake:
         mov eax, ebx
         call ShowLinkWait
 .12:
-        mov dword [dword_16DAC8], 1
+        mov dword [LinkTimerActive], 1
         jmp near .9
 .13:
         xor esi, esi
 .14:
-        mov edx, dword [dword_16DAB0]
-        cmp edx, dword [dword_16DAAC]
+        mov edx, dword [LinkHandshakeDone]
+        cmp edx, dword [LinkRemoteSequence]
         je near .18
         mov eax, dword [tickcount]
-        cmp eax, dword [dword_16DAC4]
+        cmp eax, dword [LinkServiceTick]
         je short .15
         push esi
         call RunIdleHandlers
@@ -13553,14 +13553,14 @@ LinkHandshake:
         call ServiceBackgroundAudio
         add esp, byte 8
         mov eax, dword [tickcount]
-        mov dword [dword_16DAC4], eax
+        mov dword [LinkServiceTick], eax
 .15:
         mov eax, dword [tickcount]
         cmp eax, dword [LinkPacketBuffer]
         jle short .14
         test ebx, ebx
         je short .14
-        mov ebp, dword [dword_16DAC8]
+        mov ebp, dword [LinkTimerActive]
         cmp esi, ebp
         jne short .14
         test ebx, ebx
@@ -13576,7 +13576,7 @@ LinkHandshake:
         mov eax, ebx
         call ShowLinkWait
 .17:
-        mov dword [dword_16DAC8], 1
+        mov dword [LinkTimerActive], 1
         jmp near .14
 .18:
         xor esi, esi
@@ -13594,7 +13594,7 @@ LinkHandshake:
         call WaitTicks
         add esp, byte 4
         mov eax, dword [tickcount]
-        cmp eax, dword [dword_16DAC4]
+        cmp eax, dword [LinkServiceTick]
         je short .20
         push esi
         call RunIdleHandlers
@@ -13604,14 +13604,14 @@ LinkHandshake:
         call ServiceBackgroundAudio
         add esp, byte 8
         mov eax, dword [tickcount]
-        mov dword [dword_16DAC4], eax
+        mov dword [LinkServiceTick], eax
 .20:
         mov eax, dword [tickcount]
         cmp eax, dword [LinkPacketBuffer]
         jle short .19
         test ebx, ebx
         je short .19
-        mov ecx, dword [dword_16DAC8]
+        mov ecx, dword [LinkTimerActive]
         cmp esi, ecx
         jne short .19
         test ebx, ebx
@@ -13627,16 +13627,16 @@ LinkHandshake:
         mov eax, ebx
         call ShowLinkWait
 .22:
-        mov dword [dword_16DAC8], 1
+        mov dword [LinkTimerActive], 1
         jmp near .19
 .23:
-        mov edx, dword [dword_16DAC8]
+        mov edx, dword [LinkTimerActive]
         test edx, edx
         je short .24
         je short .24
         xor ecx, ecx
         call HideLinkBox
-        mov dword [dword_16DAC8], ecx
+        mov dword [LinkTimerActive], ecx
 .24:
         add esp, byte 8
         pop ebp
@@ -13719,14 +13719,14 @@ LinkInputTick:
         push edi
         push ebp
         mov edx, 1
-        mov ebx, dword [dword_16DAA0]
+        mov ebx, dword [NetActive]
         mov dword [LinkInputChanged], edx
         test ebx, ebx
         jne short .1
         xor eax, eax
         jmp near .11
 .1:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         jne short .2
         xor eax, eax
         pop ebp
@@ -13836,10 +13836,10 @@ LinkInputTick:
         je near .10
         cmp dword [InputRecordCount], byte 5
         jge near .10
-        mov ebp, dword [dword_16D918]
+        mov ebp, dword [InputRecordTaken]
         test ebp, ebp
         jne near .10
-        mov dword [dword_16D918], 1
+        mov dword [InputRecordTaken], 1
         mov edx, LinkLocalInput
         mov eax, 3
         call SendLinkPacket
@@ -13945,7 +13945,7 @@ LinkInputTick:
         cmp esi, byte 8
         jl near .7
         mov eax, dword [LinkRemoteFlags]
-        mov dx, word [dword_16DAA8]
+        mov dx, word [LinkFrameDelay]
         mov word [byte eax+012h], dx
         mov edx, dword [InputRecordHead]
         inc edx
@@ -13958,7 +13958,7 @@ LinkInputTick:
         rdtsc
         mov dword [InputRecordStamp], eax
         xor eax, eax
-        mov dword [dword_16D918], eax
+        mov dword [InputRecordTaken], eax
 .10:
         mov eax, dword [LinkInputChanged]
 .11:
@@ -13985,9 +13985,9 @@ LinkSendBlock:
         mov edi, eax
         mov dword [dword esp+0FCh], edx
         mov dword [dword esp+0104h], ebx
-        cmp dword [dword_16DAA0], byte 0
+        cmp dword [NetActive], byte 0
         je near .12
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je near .12
         xor edx, edx
         xor eax, eax
@@ -14001,7 +14001,7 @@ LinkSendBlock:
         cmp eax, ebp
         jle short .4
         mov eax, dword [tickcount]
-        cmp eax, dword [dword_16DAC4]
+        cmp eax, dword [LinkServiceTick]
         je short .2
         push byte 0
         call RunIdleHandlers
@@ -14011,7 +14011,7 @@ LinkSendBlock:
         call ServiceBackgroundAudio
         add esp, byte 8
         mov eax, dword [tickcount]
-        mov dword [dword_16DAC4], eax
+        mov dword [LinkServiceTick], eax
 .2:
         cmp dword [dword esp+0104h], byte 0
         je short .3
@@ -14066,7 +14066,7 @@ LinkSendBlock:
         call WaitTicks
         add esp, byte 4
         mov eax, dword [tickcount]
-        cmp eax, dword [dword_16DAC4]
+        cmp eax, dword [LinkServiceTick]
         je short .7
         push byte 0
         call RunIdleHandlers
@@ -14076,7 +14076,7 @@ LinkSendBlock:
         call ServiceBackgroundAudio
         add esp, byte 8
         mov eax, dword [tickcount]
-        mov dword [dword_16DAC4], eax
+        mov dword [LinkServiceTick], eax
         jmp short .7
 .8:
         sub esi, dword [dword esp+0100h]
@@ -14109,7 +14109,7 @@ LinkSendBlock:
         call WaitTicks
         add esp, byte 4
         mov eax, dword [tickcount]
-        cmp eax, dword [dword_16DAC4]
+        cmp eax, dword [LinkServiceTick]
         je short .10
         push esi
         call RunIdleHandlers
@@ -14119,7 +14119,7 @@ LinkSendBlock:
         call ServiceBackgroundAudio
         add esp, byte 8
         mov eax, dword [tickcount]
-        mov dword [dword_16DAC4], eax
+        mov dword [LinkServiceTick], eax
         jmp short .10
 .11:
         xor edx, edx
@@ -14148,11 +14148,11 @@ LinkReceiveBlock:
         mov esi, eax
         mov edi, edx
         mov dword [esp], ebx
-        mov edx, dword [dword_16DAA0]
+        mov edx, dword [NetActive]
         xor ebx, ebx
         test edx, edx
         je near .6
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je near .6
         push edi
         push eax
@@ -14163,16 +14163,16 @@ LinkReceiveBlock:
         mov dword [LinkRecvSize], edi
         xor edx, edx
         xor eax, eax
-        mov dword [dword_16DAB4], ebx
+        mov dword [LinkBlockDone], ebx
         call LinkHandshake
-        cmp dword [dword_16DAB4], byte 0
+        cmp dword [LinkBlockDone], byte 0
         jne short .5
 .1:
         mov eax, dword [tickcount]
         cmp eax, ebx
         jle short .4
         mov eax, dword [tickcount]
-        cmp eax, dword [dword_16DAC4]
+        cmp eax, dword [LinkServiceTick]
         je short .2
         push byte 0
         call RunIdleHandlers
@@ -14182,7 +14182,7 @@ LinkReceiveBlock:
         call ServiceBackgroundAudio
         add esp, byte 8
         mov eax, dword [tickcount]
-        mov dword [dword_16DAC4], eax
+        mov dword [LinkServiceTick], eax
 .2:
         cmp dword [esp], byte 0
         je short .3
@@ -14192,7 +14192,7 @@ LinkReceiveBlock:
         mov eax, dword [tickcount]
         lea ebx, [byte eax+02h]
 .4:
-        cmp dword [dword_16DAB4], byte 0
+        cmp dword [LinkBlockDone], byte 0
         je short .1
 .5:
         xor edx, edx
@@ -14221,11 +14221,11 @@ WaitForOtherComputer:
         push ebp
         sub esp, 1A0h
         xor edx, edx
-        mov ebx, dword [dword_16DAA0]
+        mov ebx, dword [NetActive]
         mov dword [dword esp+017Ch], edx
         test ebx, ebx
         je near .50
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je near .50
         mov esi, dword [dword_16E464]
         mov eax, dword [dword_16E464]
@@ -14488,7 +14488,7 @@ WaitForOtherComputer:
         jne short .9
 .8:
         mov eax, dword [tickcount]
-        cmp eax, dword [dword_16DAC4]
+        cmp eax, dword [LinkServiceTick]
         je short .7
         push ebx
         call RunIdleHandlers
@@ -14498,13 +14498,13 @@ WaitForOtherComputer:
         call ServiceBackgroundAudio
         add esp, byte 8
         mov eax, dword [tickcount]
-        mov dword [dword_16DAC4], eax
+        mov dword [LinkServiceTick], eax
         jmp short .7
 .9:
         xor edx, edx
         xor eax, eax
         call LinkHandshake
-        mov eax, dword [dword_16DAB6]
+        mov eax, dword [LinkAbortPad]
         sar eax, 10h
         test eax, eax
         je short .10
@@ -14581,7 +14581,7 @@ WaitForOtherComputer:
         add esp, byte 14h
         call PresentScreen
         mov eax, dword [tickcount]
-        cmp eax, dword [dword_16DAC4]
+        cmp eax, dword [LinkServiceTick]
         je short .13
         push byte 0
         call RunIdleHandlers
@@ -14591,7 +14591,7 @@ WaitForOtherComputer:
         call ServiceBackgroundAudio
         add esp, byte 8
         mov eax, dword [tickcount]
-        mov dword [dword_16DAC4], eax
+        mov dword [LinkServiceTick], eax
 .13:
         mov eax, dword [tickcount]
         dec eax
@@ -14882,7 +14882,7 @@ WaitForOtherComputer:
         or al, 40h
         mov byte [dword esp+0148h], al
         mov eax, dword [tickcount]
-        mov edx, dword [dword_16DAA8]
+        mov edx, dword [LinkFrameDelay]
         shl edx, 2
         add eax, edx
         mov dword [LinkPacketBuffer], eax
@@ -14907,7 +14907,7 @@ WaitForOtherComputer:
         call GetLangText
         test eax, eax
         je short .34
-        cmp edi, dword [dword_16DAC8]
+        cmp edi, dword [LinkTimerActive]
         jne short .34
         cmp dword [MenuScreenBitmap], byte 8
         je short .30
@@ -14919,7 +14919,7 @@ WaitForOtherComputer:
 .31:
         cmp edi, str_WaitingForOtherComputer
         je short .34
-        cmp edi, dword [dword_16DAC8]
+        cmp edi, dword [LinkTimerActive]
         jne short .34
         cmp ecx, ecx
         je short .32
@@ -14930,10 +14930,10 @@ WaitForOtherComputer:
         mov eax, str_WaitingForOtherComputer
         call ShowLinkWait
 .33:
-        mov dword [dword_16DAC8], 1
+        mov dword [LinkTimerActive], 1
 .34:
         mov eax, dword [tickcount]
-        cmp eax, dword [dword_16DAC4]
+        cmp eax, dword [LinkServiceTick]
         je near .29
         push edi
         call RunIdleHandlers
@@ -14943,19 +14943,19 @@ WaitForOtherComputer:
         call ServiceBackgroundAudio
         add esp, byte 8
         mov eax, dword [tickcount]
-        mov dword [dword_16DAC4], eax
+        mov dword [LinkServiceTick], eax
         jmp near .29
 .35:
-        mov edi, dword [dword_16DAC8]
+        mov edi, dword [LinkTimerActive]
         test edi, edi
         je short .36
         je short .36
         xor edx, edx
         call HideLinkBox
-        mov dword [dword_16DAC8], edx
+        mov dword [LinkTimerActive], edx
 .36:
         mov eax, dword [tickcount]
-        mov edx, dword [dword_16DAA8]
+        mov edx, dword [LinkFrameDelay]
         add edx, eax
         mov dword [dword esp+0178h], edx
 .37:
@@ -15152,7 +15152,7 @@ WaitForOtherComputer:
         jmp near .39
 .47:
         mov eax, dword [tickcount]
-        cmp eax, dword [dword_16DAC4]
+        cmp eax, dword [LinkServiceTick]
         je short .48
         push byte 0
         call RunIdleHandlers
@@ -15162,7 +15162,7 @@ WaitForOtherComputer:
         call ServiceBackgroundAudio
         add esp, byte 8
         mov eax, dword [tickcount]
-        mov dword [dword_16DAC4], eax
+        mov dword [LinkServiceTick], eax
 .48:
         cmp dword [dword esp+0188h], byte 1Bh
         je short .49
@@ -15206,7 +15206,7 @@ InitNetSession:
         push esi
         push edi
         push ebp
-        cmp word [word_16E0F8], byte 0
+        cmp word [NetSessionActive], byte 0
         je short .1
         xor eax, eax
         jmp near .3
@@ -15217,7 +15217,7 @@ InitNetSession:
         mov edi, 3
         mov ebp, 1
         call ZeroMem
-        mov eax, dword [dword_16DAD2]
+        mov eax, dword [ModemPortChoice]
         add esp, byte 8
         mov dword [NetSessionState+34h], ebx
         mov dword [NetSessionState+40h], edi
@@ -15229,7 +15229,7 @@ InitNetSession:
         sar eax, 10h
         push edx
         mov dword [NetSessionState+38h], edx
-        mov eax, dword [nosplit eax*2+dword_16DACA]
+        mov eax, dword [nosplit eax*2+ModemPortBasePad]
         push byte 20h
         sar eax, 10h
         push edx
@@ -15252,7 +15252,7 @@ InitNetSession:
 .2:
         mov ebx, 1
         mov eax, esi
-        mov word [word_16E0F8], bx
+        mov word [NetSessionActive], bx
 .3:
         pop ebp
         pop edi
@@ -15268,7 +15268,7 @@ InitNetSession:
 ; else 0; from ModemSettingsScreen
 ;-----------------------------------------------------------------------------
 DefaultModemName:
-        cmp word [word_16E0F8], byte 0
+        cmp word [NetSessionActive], byte 0
         jne short .1
         xor eax, eax
         ret
@@ -15289,7 +15289,7 @@ OpenNetSession:
         mov ebp, edx
         mov edi, ebx
         mov ebx, ecx
-        cmp word [word_16E0F8], byte 0
+        cmp word [NetSessionActive], byte 0
         jne short .1
         xor eax, eax
         jmp near .11
@@ -15309,15 +15309,15 @@ OpenNetSession:
         mov eax, dword [byte eax+02h]
         sar eax, 10h
         mov dword [NetSessionState+2Ch], eax
-        mov dx, word [word_16DACE]
+        mov dx, word [ModemPortCount]
         mov ax, word [byte esi+06h]
         cmp ax, dx
         je short .4
-        cmp ax, word [word_16DAD0]
+        cmp ax, word [ModemPortBases]
         je short .4
-        cmp ax, word [word_16DACC]
+        cmp ax, word [ModemPortIrqs]
         je short .4
-        cmp ax, word [dword_16DAD2]
+        cmp ax, word [ModemPortChoice]
         je short .4
         xor eax, eax
         pop ebp
@@ -15409,7 +15409,7 @@ OpenNetSession:
         xor ecx, ecx
         mov edx, 20h
         mov dword [NetSessionState+14h], ecx
-        mov word [word_16E0FA], si
+        mov word [NetSessionPort], si
         mov dword [str_Punct_ModemSettingsScreen], edx
         mov eax, 1
         mov dword [ebx], NetSessionState
@@ -15426,15 +15426,15 @@ OpenNetSession:
 CloseNetSession:
         push ecx
         push edx
-        cmp word [word_16E0F8], byte 0
+        cmp word [NetSessionActive], byte 0
         je short .1
-        cmp word [word_16E0FA], byte 0
+        cmp word [NetSessionPort], byte 0
         je short .1
         push NetSessionState
         call ClosePacketLink
         xor ecx, ecx
         add esp, byte 4
-        mov word [word_16E0FA], cx
+        mov word [NetSessionPort], cx
 .1:
         pop edx
         pop ecx
@@ -15449,10 +15449,10 @@ ShutdownNetSession:
         push ecx
         push edx
         push edi
-        mov dx, word [word_16E0F8]
+        mov dx, word [NetSessionActive]
         test dx, dx
         je short .1
-        mov bx, word [word_16E0FA]
+        mov bx, word [NetSessionPort]
         test bx, bx
         je short .1
         test dx, dx
@@ -15463,7 +15463,7 @@ ShutdownNetSession:
         call ClosePacketLink
         xor edi, edi
         add esp, byte 4
-        mov word [word_16E0FA], di
+        mov word [NetSessionPort], di
 .1:
         pop edi
         pop edx
@@ -15478,22 +15478,22 @@ ShutdownNetSession:
 SetNetPlayerName:
         push ebx
         mov ecx, dword [byte esp+08h]
-        cmp dword [dword_16E124], byte 0
+        cmp dword [NetPlayerNameSet], byte 0
         je short .1
         xor edx, edx
-        mov dx, word [word_16E120]
+        mov dx, word [NetPlayerNameLength]
         lea eax, [nosplit edx*4+00h]
         add eax, edx
-        mov edx, dword [dword_16E124]
+        mov edx, dword [NetPlayerNameSet]
         shl eax, 4
         add eax, edx
         mov edx, dword [byte esp+0Ch]
         call strcpy_
         xor edx, edx
-        mov dx, word [word_16E120]
+        mov dx, word [NetPlayerNameLength]
         lea eax, [nosplit edx*4+00h]
         add eax, edx
-        mov edx, dword [dword_16E124]
+        mov edx, dword [NetPlayerNameSet]
         shl eax, 4
         add eax, edx
         mov ebx, 10h
@@ -15501,10 +15501,10 @@ SetNetPlayerName:
         mov edx, ecx
         call memcpy_
 .1:
-        mov dx, word [word_16E120]
+        mov dx, word [NetPlayerNameLength]
         inc edx
         mov eax, 1
-        mov word [word_16E120], dx
+        mov word [NetPlayerNameLength], dx
         pop ebx
         ret
         db 08Bh,0C0h
@@ -15519,7 +15519,7 @@ IpxInit:
         push esi
         push edi
         push ebp
-        mov dx, word [word_16E108]
+        mov dx, word [IpxSocketOpen]
         xor ebx, ebx
         test dx, dx
         je short .1
@@ -15533,7 +15533,7 @@ IpxInit:
         mov eax, dword [GameSettings]
         shl eax, 1Ch
         shr eax, 1Eh
-        mov eax, dword [nosplit eax*4+off_16E0FC]
+        mov eax, dword [nosplit eax*4+IpxDriverNames]
         call IpxLinkStartup
         mov ebx, eax
 .2:
@@ -15544,30 +15544,30 @@ IpxInit:
         push str_IPXMEM
         call AllocMemBlock
         add esp, byte 0Ch
-        mov dword [dword_16E128], eax
+        mov dword [IpxBuffer], eax
         call SetNetCallback
 .3:
         xor ebx, ebx
         push byte 2
-        mov word [word_16E120], bx
+        mov word [NetPlayerNameLength], bx
         xor ebx, ebx
         push ebx
         push dword 2580h
         push SetNetPlayerName
-        mov dword [dword_16E124], ebx
+        mov dword [NetPlayerNameSet], ebx
         call NetCopyName
         add esp, byte 10h
         test eax, eax
         jne short .5
         xor edx, edx
-        mov ebp, dword [dword_16E128]
-        mov word [word_16E120], dx
+        mov ebp, dword [IpxBuffer]
+        mov word [NetPlayerNameLength], dx
         test ebp, ebp
         je short .4
         push ebp
         call FreeMemBlock
         add esp, byte 4
-        mov dword [dword_16E128], ebx
+        mov dword [IpxBuffer], ebx
 .4:
         xor eax, eax
         pop ebp
@@ -15578,7 +15578,7 @@ IpxInit:
         pop ebx
         ret
 .5:
-        mov cx, word [word_16E120]
+        mov cx, word [NetPlayerNameLength]
         test cx, cx
         jbe short .7
         mov bx, cx
@@ -15595,21 +15595,21 @@ IpxInit:
         push dword 2580h
         xor esi, esi
         push SetNetPlayerName
-        mov dword [dword_16E124], eax
-        mov word [word_16E120], si
+        mov dword [NetPlayerNameSet], eax
+        mov word [NetPlayerNameLength], si
         call NetCopyName
         add esp, byte 10h
         test eax, eax
         jne short .7
-        mov ecx, dword [dword_16E128]
-        mov word [word_16E120], si
+        mov ecx, dword [IpxBuffer]
+        mov word [NetPlayerNameLength], si
         test ecx, ecx
         je short .6
         push ecx
         call FreeMemBlock
         xor edi, edi
         add esp, byte 4
-        mov dword [dword_16E128], edi
+        mov dword [IpxBuffer], edi
 .6:
         xor eax, eax
         pop ebp
@@ -15626,7 +15626,7 @@ IpxInit:
         push byte 20h
         mov edi, 1
         push byte 0
-        mov word [word_16E108], di
+        mov word [IpxSocketOpen], di
         call OpenNetPacketLink
         add esp, byte 14h
 .8:
@@ -15651,7 +15651,7 @@ LoadServerList:
         push ebp
         sub esp, byte 4
         mov dword [esp], eax
-        mov dx, word [word_16E120]
+        mov dx, word [NetPlayerNameLength]
         test dx, dx
         jbe short .3
         xor eax, eax
@@ -15669,7 +15669,7 @@ LoadServerList:
         jmp short .2
 .1:
         push byte 40h
-        mov eax, dword [dword_16E124]
+        mov eax, dword [NetPlayerNameSet]
         push edi
         add eax, ebx
         push eax
@@ -15680,7 +15680,7 @@ LoadServerList:
         add esp, byte 0Ch
 .2:
         xor eax, eax
-        mov ax, word [word_16E120]
+        mov ax, word [NetPlayerNameLength]
         cmp esi, eax
         jge short .4
         jmp short .1
@@ -15689,7 +15689,7 @@ LoadServerList:
 .4:
         xor eax, eax
         mov ebx, dword [esp]
-        mov ax, word [word_16E120]
+        mov ax, word [NetPlayerNameLength]
         mov dword [ebx], eax
         mov eax, ebp
         add esp, byte 4
@@ -15712,9 +15712,9 @@ IpxCloseSocket:
         push edx
         push esi
         push edi
-        cmp word [word_16E108], byte 0
+        cmp word [IpxSocketOpen], byte 0
         je short .3
-        mov bx, word [word_16E10A]
+        mov bx, word [IpxSocketHandle]
         test bx, bx
         jl short .1
         jl short .1
@@ -15722,19 +15722,19 @@ IpxCloseSocket:
         mov esi, 0FFFFFFFFh
         call NetCloseSession
         add esp, byte 4
-        mov word [word_16E10A], si
+        mov word [IpxSocketHandle], si
 .1:
-        mov edx, dword [dword_16E128]
+        mov edx, dword [IpxBuffer]
         test edx, edx
         je short .2
         push edx
         call FreeMemBlock
         xor ecx, ecx
         add esp, byte 4
-        mov dword [dword_16E128], ecx
+        mov dword [IpxBuffer], ecx
 .2:
         xor edi, edi
-        mov word [word_16E108], di
+        mov word [IpxSocketOpen], di
 .3:
         pop edi
         pop esi
@@ -15754,7 +15754,7 @@ HostNetGame:
         mov ebx, 12h
         mov eax, NetHostName
         call strncpy_
-        cmp word [word_16E10A], byte 0
+        cmp word [IpxSocketHandle], byte 0
         jl short .1
         xor eax, eax
         pop esi
@@ -15763,7 +15763,7 @@ HostNetGame:
         ret
 .1:
         xor eax, eax
-        mov ax, word [word_16E120]
+        mov ax, word [NetPlayerNameLength]
         cmp eax, esi
         jg short .2
         xor eax, eax
@@ -15779,21 +15779,21 @@ HostNetGame:
         lea eax, [nosplit edx*4+00h]
         add esp, byte 8
         add eax, edx
-        mov edx, dword [dword_16E124]
+        mov edx, dword [NetPlayerNameSet]
         shl eax, 4
         push NetHostName
         add eax, edx
         push NetHostName
         add eax, byte 40h
         push eax
-        push unk_16E110
+        push NetHostSessionName
         push NetSocket
         call NetOpenSession
         add esp, byte 14h
         test eax, eax
         je short .3
         mov eax, 1
-        mov word [word_16E10A], si
+        mov word [IpxSocketHandle], si
 .3:
         pop esi
         pop ecx
@@ -15808,13 +15808,13 @@ LeaveNetGame:
         push ebx
         push ecx
         push edx
-        cmp word [word_16E10A], byte 0
+        cmp word [IpxSocketHandle], byte 0
         jl short .1
         push NetSocket
         mov ebx, 0FFFFFFFFh
         call NetCloseSession
         add esp, byte 4
-        mov word [word_16E10A], bx
+        mov word [IpxSocketHandle], bx
 .1:
         pop edx
         pop ecx
@@ -15842,11 +15842,11 @@ AddFoundGame:
         call strcmp_
         test eax, eax
         jne near .7
-        mov bx, word [word_16E12C]
+        mov bx, word [NetFoundCount]
         mov ax, word [NetGameCount]
         cmp ax, bx
         jge near .7
-        cmp dword [dword_16E130], byte 0
+        cmp dword [NetGameList], byte 0
         je near .6
         mov edx, 1
         xor ebx, ebx
@@ -15856,7 +15856,7 @@ AddFoundGame:
         sar eax, 10h
         cmp esi, eax
         jge short .3
-        mov eax, dword [dword_16E130]
+        mov eax, dword [NetGameList]
         mov edx, ebp
         add eax, ebx
         call stricmp_
@@ -15892,7 +15892,7 @@ AddFoundGame:
         sub eax, byte 34h
         mov dword [esp], eax
 .4:
-        mov eax, dword [dword_16E130]
+        mov eax, dword [NetGameList]
         push byte 34h
         lea edx, [eax+edi]
         push edx
@@ -15910,12 +15910,12 @@ AddFoundGame:
         sub ebx, esi
         shl ebx, 2
         add ebx, esi
-        mov eax, dword [dword_16E130]
+        mov eax, dword [NetGameList]
         shl ebx, 2
         mov edx, ebp
         add eax, ebx
         call strcpy_
-        mov eax, dword [dword_16E130]
+        mov eax, dword [NetGameList]
         mov esi, dword [byte esp+024h]
         lea edi, [byte ebx+eax+020h]
         movsd
@@ -15954,20 +15954,20 @@ FindNetworkGames:
         push ecx
         push edx
         push esi
-        mov edx, dword [dword_16E130]
+        mov edx, dword [NetGameList]
         test edx, edx
         je short .1
         push edx
         call FreeMemBlock
         xor ecx, ecx
         add esp, byte 4
-        mov dword [dword_16E130], ecx
+        mov dword [NetGameList], ecx
 .1:
         mov ebx, 3E8h
         xor edx, edx
         mov eax, 2
         mov word [NetGameCount], dx
-        mov word [word_16E12C], bx
+        mov word [NetFoundCount], bx
         call SecondsToSamples
         call WaitSoundTime
         push byte 1Eh
@@ -15981,8 +15981,8 @@ FindNetworkGames:
         mov cx, word [NetGameCount]
         test cx, cx
         jle near .4
-        mov word [word_16E12C], cx
-        mov edx, dword [dword_16E12A]
+        mov word [NetFoundCount], cx
+        mov edx, dword [NetFoundCountPad]
         sar edx, 10h
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
@@ -15996,7 +15996,7 @@ FindNetworkGames:
         mov word [NetGameCount], si
         call AllocMemBlock
         add esp, byte 0Ch
-        mov dword [dword_16E130], eax
+        mov dword [NetGameList], eax
         mov eax, 2
         call SecondsToSamples
         call WaitSoundTime
@@ -16076,7 +16076,7 @@ DrawNetGameList:
         add esp, byte 0Ch
         test dx, dx
         jle near .3
-        mov esi, dword [dword_16E13C]
+        mov esi, dword [NetListFirst]
         push byte 0FFFFFFFFh
         lea edi, [nosplit esi*4+00h]
         call MakeColor
@@ -16092,7 +16092,7 @@ DrawNetGameList:
         sar eax, 10h
         cmp esi, eax
         jge near .4
-        cmp esi, dword [dword_16E138]
+        cmp esi, dword [NetListChoice]
         jne short .2
         push dword 0FFAA0000h
         call MakeColor
@@ -16105,13 +16105,13 @@ DrawNetGameList:
         push eax
         push byte 14h
         call FillRect
-        mov edx, dword [dword_16E130]
+        mov edx, dword [NetGameList]
         add esp, byte 14h
         mov eax, NetGameName
         add edx, edi
         call strcpy_
 .2:
-        mov eax, dword [dword_16E130]
+        mov eax, dword [NetGameList]
         add eax, edi
         add eax, byte 8
         push eax
@@ -16176,7 +16176,7 @@ ChooseNetGame:
         push esi
         push ebp
         mov eax, dword [tickcount]
-        cmp eax, dword [dword_16E134]
+        cmp eax, dword [NetListTick]
         jle near .20
         call PresentScreen
         call FindNetworkGames
@@ -16191,26 +16191,26 @@ ChooseNetGame:
         cmp ebx, eax
         jge short .5
         imul eax, ebx, byte 34h
-        mov edx, dword [dword_16E130]
+        mov edx, dword [NetGameList]
         add eax, edx
         mov edx, NetGameName
         call strcmp_
         test eax, eax
         jne short .4
-        mov eax, dword [dword_16E13C]
-        mov dword [dword_16E138], ebx
+        mov eax, dword [NetListFirst]
+        mov dword [NetListChoice], ebx
         cmp ebx, eax
         jl short .2
         add eax, byte 5
         cmp ebx, eax
         jle short .3
         sub ebx, byte 5
-        mov dword [dword_16E13C], ebx
+        mov dword [NetListFirst], ebx
         test ebx, ebx
         jge short .3
         xor ebx, ebx
 .2:
-        mov dword [dword_16E13C], ebx
+        mov dword [NetListFirst], ebx
 .3:
         mov ebx, dword [NetGameCountPad]
         sar ebx, 10h
@@ -16219,40 +16219,40 @@ ChooseNetGame:
         jmp short .1
 .5:
         jne near .12
-        mov ebp, dword [dword_16E13C]
+        mov ebp, dword [NetListFirst]
         sub eax, byte 6
         cmp eax, ebp
         jge short .6
-        mov dword [dword_16E13C], eax
+        mov dword [NetListFirst], eax
 .6:
-        cmp dword [dword_16E13C], byte 0
+        cmp dword [NetListFirst], byte 0
         jge short .7
         xor edx, edx
-        mov dword [dword_16E13C], edx
+        mov dword [NetListFirst], edx
 .7:
         mov eax, dword [NetGameCountPad]
-        mov ebx, dword [dword_16E138]
+        mov ebx, dword [NetListChoice]
         sar eax, 10h
         cmp eax, ebx
         jg short .8
         dec eax
-        mov dword [dword_16E138], eax
+        mov dword [NetListChoice], eax
 .8:
-        mov ecx, dword [dword_16E138]
-        cmp ecx, dword [dword_16E13C]
+        mov ecx, dword [NetListChoice]
+        cmp ecx, dword [NetListFirst]
         jge short .9
-        mov dword [dword_16E13C], ecx
+        mov dword [NetListFirst], ecx
         jmp short .12
 .9:
-        mov esi, dword [dword_16E13C]
+        mov esi, dword [NetListFirst]
         lea eax, [byte ecx-05h]
         cmp eax, esi
         jle short .10
-        mov dword [dword_16E13C], eax
+        mov dword [NetListFirst], eax
         test eax, eax
         jge short .12
         xor ebp, ebp
-        mov dword [dword_16E13C], ebp
+        mov dword [NetListFirst], ebp
         jmp short .12
 .10:
         cmp word [NetGameCount], byte 6
@@ -16262,19 +16262,19 @@ ChooseNetGame:
         sub eax, byte 6
         cmp eax, esi
         jge short .12
-        mov dword [dword_16E13C], eax
+        mov dword [NetListFirst], eax
         jmp short .12
 .11:
         xor esi, esi
-        mov dword [dword_16E13C], esi
-        mov dword [dword_16E138], esi
+        mov dword [NetListFirst], esi
+        mov dword [NetListChoice], esi
 .12:
-        mov edx, dword [dword_16E138]
+        mov edx, dword [NetListChoice]
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
         shl eax, 2
         add eax, edx
-        mov edx, dword [dword_16E130]
+        mov edx, dword [NetGameList]
         shl eax, 2
         add edx, eax
         mov eax, NetGameName
@@ -16298,10 +16298,10 @@ ChooseNetGame:
         mov ebx, 0FFFFFFFFh
         xor ecx, ecx
         xor ah, ah
-        mov dword [dword_16E13C], ecx
+        mov dword [NetListFirst], ecx
         mov byte [NetGameName], ah
         mov eax, dword [NetTitleShape]
-        mov dword [dword_16E138], ebx
+        mov dword [NetListChoice], ebx
         mov edx, dword [NetScreenItems]
         mov eax, dword [byte eax+02Ch]
         mov dword [byte edx+06Ch], eax
@@ -16391,7 +16391,7 @@ ChooseNetGame:
         call DrawNetGameList
         mov eax, dword [tickcount]
         add eax, 12Ch
-        mov dword [dword_16E134], eax
+        mov dword [NetListTick], eax
 .20:
         pop ebp
         pop esi
@@ -17101,10 +17101,10 @@ ChooseNetworkGameScreen:
         mov edx, 0FFFFFFFFh
         xor eax, eax
         add esp, byte 0Ch
-        mov dword [dword_16E134], eax
-        mov dword [dword_16E13C], eax
+        mov dword [NetListTick], eax
+        mov dword [NetListFirst], eax
         xor ah, ah
-        mov dword [dword_16E138], edx
+        mov dword [NetListChoice], edx
         mov byte [NetGameName], ah
         call SetScreenTarget
         call ChooseNetGame
@@ -17189,16 +17189,16 @@ ChooseNetworkGameScreen_A99:
         jl short .14
         jmp near ChooseNetworkGameScreen_BA2
 ChooseNetworkGameScreen_AE5:
-        mov eax, dword [dword_16E13C]
+        mov eax, dword [NetListFirst]
         test eax, eax
         jle near ChooseNetworkGameScreen_BA2
         lea edx, [byte eax-01h]
-        mov ebx, dword [dword_16E138]
-        mov dword [dword_16E13C], edx
+        mov ebx, dword [NetListChoice]
+        mov dword [NetListFirst], edx
         lea eax, [byte edx+05h]
         cmp eax, ebx
         jge short .18
-        mov dword [dword_16E138], eax
+        mov dword [NetListChoice], eax
 .18:
         call SetScreenTarget
         call DrawNetGameList
@@ -17207,16 +17207,16 @@ ChooseNetworkGameScreen_AE5:
 ChooseNetworkGameScreen_B21:
         mov eax, dword [NetGameCountPad]
         sar eax, 10h
-        mov edx, dword [dword_16E13C]
+        mov edx, dword [NetListFirst]
         sub eax, byte 6
         cmp eax, edx
         jle short ChooseNetworkGameScreen_BA2
         lea ebx, [byte edx+01h]
-        mov eax, dword [dword_16E138]
-        mov dword [dword_16E13C], ebx
+        mov eax, dword [NetListChoice]
+        mov dword [NetListFirst], ebx
         cmp eax, ebx
         jge short .19
-        mov dword [dword_16E138], ebx
+        mov dword [NetListChoice], ebx
 .19:
         call SetScreenTarget
         call DrawNetGameList
@@ -17224,17 +17224,17 @@ ChooseNetworkGameScreen_B21:
         jmp short ChooseNetworkGameScreen_BA2
 .20:
         lea ebx, [byte eax-02h]
-        mov eax, dword [dword_16E13C]
+        mov eax, dword [NetListFirst]
         add eax, ebx
-        mov dword [dword_16E138], eax
+        mov dword [NetListChoice], eax
         mov eax, dword [NetGameCountPad]
-        mov edx, dword [dword_16E138]
+        mov edx, dword [NetListChoice]
         sar eax, 10h
         mov dword [byte esp+02Ch], ebx
         cmp eax, edx
         jg short .21
         dec eax
-        mov dword [dword_16E138], eax
+        mov dword [NetListChoice], eax
 .21:
         call SetScreenTarget
         call DrawNetGameList
@@ -17260,7 +17260,7 @@ ChooseNetworkGameScreen_BA2:
         call PresentScreen
         cmp word [NetGameCount], byte 0
         jle short .22
-        mov eax, dword [dword_16E138]
+        mov eax, dword [NetListChoice]
         cmp eax, byte 0FFFFFFFFh
         jle short .22
         cmp dword [byte esp+02Ch], byte 1
@@ -17271,7 +17271,7 @@ ChooseNetworkGameScreen_BA2:
         shl eax, 2
         push byte 14h
         add eax, edx
-        mov edx, dword [dword_16E130]
+        mov edx, dword [NetGameList]
         shl eax, 2
         mov ecx, dword [byte esp+034h]
         add eax, edx
@@ -17285,14 +17285,14 @@ ChooseNetworkGameScreen_BA2:
         xor ebx, ebx
         mov dword [byte esp+02Ch], ebx
 .23:
-        mov esi, dword [dword_16E130]
+        mov esi, dword [NetGameList]
         test esi, esi
         je short .24
         push esi
         call FreeMemBlock
         xor ebp, ebp
         add esp, byte 4
-        mov dword [dword_16E130], ebp
+        mov dword [NetGameList], ebp
 .24:
         xor edi, edi
         xor ebx, ebx
@@ -17371,7 +17371,7 @@ CopyJoinedGameInfo:
         mov eax, NetJoinedInfo
         call memcpy_
         mov edx, 1
-        mov dword [dword_16E140], edx
+        mov dword [NetJoinedOk], edx
         mov eax, edx
         pop ebx
         ret
@@ -17390,7 +17390,7 @@ JoinNetworkGame:
         mov dword [byte esp+058h], edx
         mov ebp, ecx
         mov dword [ecx], 0
-        cmp word [word_16E10C], byte 0
+        cmp word [NetJoinPending], byte 0
         je short .1
         xor eax, eax
         jmp near .11
@@ -17425,7 +17425,7 @@ JoinNetworkGame:
         mov ebx, 44h
         mov eax, esp
         xor edx, edx
-        mov dword [dword_16E140], ecx
+        mov dword [NetJoinedOk], ecx
         call memset_
         mov ecx, dword [StaticBuffer]
         push ecx
@@ -17468,7 +17468,7 @@ JoinNetworkGame:
         mov eax, 160h
         call GetLangText
         call ShowLinkMessage
-        cmp dword [dword_16E140], byte 0
+        cmp dword [NetJoinedOk], byte 0
         jne short .5
 .3:
         cmp dword [byte esp+058h], byte 0
@@ -17490,7 +17490,7 @@ JoinNetworkGame:
         ret 4
 .4:
         call ServiceIdle
-        cmp dword [dword_16E140], byte 0
+        cmp dword [NetJoinedOk], byte 0
         je short .3
 .5:
         mov edi, NetJoinedGame
@@ -17588,7 +17588,7 @@ JoinNetworkGame:
         mov dword [str_Punct_ModemSettingsScreen], ebx
         mov ebx, 1
         mov dword [NetJoinRequest+14h], ecx
-        mov word [word_16E10C], bx
+        mov word [NetJoinPending], bx
         mov eax, 1
         mov dword [byte ebp+00h], NetJoinRequest
 .11:
@@ -17605,7 +17605,7 @@ CloseNetConnection:
         push ebx
         push ecx
         push edx
-        cmp word [word_16E10C], byte 0
+        cmp word [NetJoinPending], byte 0
         je short .1
         push NetSocket
         xor edx, edx
@@ -17613,7 +17613,7 @@ CloseNetConnection:
         mov dword [NetJoinRequest+20h], edx
         call NetDisconnectPeer
         add esp, byte 4
-        mov word [word_16E10C], bx
+        mov word [NetJoinPending], bx
 .1:
         pop edx
         pop ecx
@@ -17631,7 +17631,7 @@ OptionsAnimFrame:
         push edi
         enter 38h, 0
         call UpdateOptionsAnim
-        imul eax, dword [dword_16E144], byte 38h
+        imul eax, dword [OptionsAnimIndex], byte 38h
         mov ecx, 0Eh
         mov esi, dword [GripDriverPtr]
         lea edi, [byte ebp-038h]
@@ -17645,7 +17645,7 @@ OptionsAnimFrame:
         jl near .11
         cmp ebx, byte 0Ah
         jg near .11
-        movsx ebx, word [nosplit ebx*2+word_16E148]
+        movsx ebx, word [nosplit ebx*2+OptionsAnimItemFrames]
         cmp dword [OptionsAnimItems+4], byte 1
         jne short .2
         cmp byte [OptionsAnimSoundOn], 0
@@ -17679,19 +17679,19 @@ OptionsAnimFrame:
         call StopAllSfx
         mov byte [OptionsAnimSoundOn], 0
 .3:
-        cmp word [word_16E170], byte 0
+        cmp word [OptionsAnimOn], byte 0
         je near .10
-        movsx eax, word [word_16E16E]
+        movsx eax, word [OptionsAnimItem]
         imul eax, byte 0Ch
         push dword [dword eax+OptionsAnimShapeLists]
         call DrawShapeAtOwnPos
-        mov word [word_16E170], 0
-        movsx eax, word [word_16E16E]
+        mov word [OptionsAnimOn], 0
+        movsx eax, word [OptionsAnimItem]
         add esp, byte 4
-        mov word [nosplit eax*2+word_16E15E], 0
+        mov word [nosplit eax*2+OptionsAnimItemState], 0
         jmp near .10
 .4:
-        cmp word [nosplit ebx*2+word_16E15E], byte 0
+        cmp word [nosplit ebx*2+OptionsAnimItemState], byte 0
         jne short .6
         cmp byte [OptionsAnimSoundOn], 0
         jne short .5
@@ -17699,16 +17699,16 @@ OptionsAnimFrame:
         call PlaySfx
         mov byte [OptionsAnimSoundOn], 1
 .5:
-        movsx eax, word [word_16E16E]
+        movsx eax, word [OptionsAnimItem]
         imul eax, byte 0Ch
         push dword [dword eax+OptionsAnimShapeLists]
         call BlitShape
-        movsx eax, word [word_16E16E]
-        mov word [nosplit eax*2+word_16E15E], 0
+        movsx eax, word [OptionsAnimItem]
+        mov word [nosplit eax*2+OptionsAnimItemState], 0
         movsx eax, bx
-        mov word [word_16E16E], bx
-        mov word [nosplit eax*2+word_16E15E], 1
-        movsx eax, word [nosplit ebx*2+word_16E15E]
+        mov word [OptionsAnimItem], bx
+        mov word [nosplit eax*2+OptionsAnimItemState], 1
+        movsx eax, word [nosplit ebx*2+OptionsAnimItemState]
         mov esi, 3
         cdq
         idiv esi
@@ -17723,26 +17723,26 @@ OptionsAnimFrame:
         call PlaySfx
         mov byte [OptionsAnimSoundOn], 1
 .7:
-        movsx eax, word [word_16E16E]
-        inc word [nosplit eax*2+word_16E15E]
-        movsx eax, word [word_16E16E]
+        movsx eax, word [OptionsAnimItem]
+        inc word [nosplit eax*2+OptionsAnimItemState]
+        movsx eax, word [OptionsAnimItem]
         add eax, eax
-        cmp word [dword eax+word_16E15E], byte 6
+        cmp word [dword eax+OptionsAnimItemState], byte 6
         jl short .8
-        mov word [dword eax+word_16E15E], 1
+        mov word [dword eax+OptionsAnimItemState], 1
 .8:
-        movsx eax, word [nosplit ebx*2+word_16E15E]
+        movsx eax, word [nosplit ebx*2+OptionsAnimItemState]
         mov ebx, 3
         cdq
         idiv ebx
         mov edx, eax
-        movsx eax, word [word_16E16E]
+        movsx eax, word [OptionsAnimItem]
         imul eax, byte 0Ch
 .9:
         shl edx, 2
         push dword [dword edx+eax+OptionsAnimShapes]
         call DrawShapeAtOwnPos
-        mov word [word_16E170], 1
+        mov word [OptionsAnimOn], 1
         add esp, byte 4
 .10:
         call PresentScreen
@@ -17793,7 +17793,7 @@ OptionsAnimScreen:
         call ShowMessageBoxNoWait
         jmp short .1
 .3:
-        mov dword [dword_16E144], eax
+        mov dword [OptionsAnimIndex], eax
         mov eax, 3
         xor edx, edx
         call SecondsToSamples
@@ -18000,7 +18000,7 @@ OptionsAnimScreen:
         xor ebx, ebx
         call GetLangText
         call ShowMessageBoxNoWait
-        movzx eax, word [dword_16E144]
+        movzx eax, word [OptionsAnimIndex]
         call SetupOptionsAnim
         jmp short .9
 .11:
@@ -18045,9 +18045,9 @@ SeasonIntroScreen:
         enter 3A0h, 0
         sub ebp, 82h
         lea eax, [byte ebp+046h]
-        mov dword [dword_1CD780], eax
+        mov dword [SeasonIntroIcons], eax
         lea eax, [byte ebp+0Eh]
-        mov dword [dword_1CD77C], eax
+        mov dword [SeasonIntroShapes], eax
         lea eax, [dword ebp-031Eh]
         mov dword [SeasonIntroList], eax
         call WaitMusicEnd
@@ -18058,14 +18058,14 @@ SeasonIntroScreen:
         xor edx, edx
         mov eax, 6Ch
         call LoadDataFile
-        mov dword [dword_1CD784], eax
+        mov dword [SeasonIntroBackFile], eax
         xor edx, edx
         mov eax, 6Dh
         call LoadDataFile
         push byte 0
         push dword 1E0h
         push dword 280h
-        mov dword [dword_1CD774], eax
+        mov dword [SeasonIntroTitleFile], eax
         call CreateBitmap
         add esp, byte 0Ch
         lea edx, [dword ebp-0182h]
@@ -18107,19 +18107,19 @@ SeasonIntroScreen_DB:
         mov ebx, dword [SeasonIntroLayer]
         push edx
         push dword [byte ebx+02Ch]
-        push dword [dword_1CD77C]
+        push dword [SeasonIntroShapes]
         mov ebx, dword [dword eax+ebp-02F8h]
         mov eax, dword [SeasonIntroDialogType]
-        push dword [dword_1CD780]
+        push dword [SeasonIntroIcons]
         mov edx, eax
         call RunScrollList
-        cmp eax, dword [dword_1CD770]
+        cmp eax, dword [SeasonIntroPageShown]
         je short .2
         test eax, eax
         jl short .2
         cmp eax, dword [SeasonIntroDialogType]
         jge short .2
-        mov dword [dword_1CD770], eax
+        mov dword [SeasonIntroPageShown], eax
         mov eax, 1
 .1:
         call DrawSeasonIntro
@@ -18139,27 +18139,27 @@ SeasonIntroScreen_DB:
         mov eax, dword [byte ebp+07Eh]
         jmp dword [nosplit cs:eax*4+jpt_E7B1F]
 SeasonIntroScreen_186:
-        cmp dword [dword_1CD770], byte 0
+        cmp dword [SeasonIntroPageShown], byte 0
         jle short SeasonIntroScreen_DB.2
         mov eax, 1
-        dec dword [dword_1CD770]
+        dec dword [SeasonIntroPageShown]
         jmp short SeasonIntroScreen_DB.1
 SeasonIntroScreen_19C:
         mov eax, dword [SeasonIntroDialogType]
         dec eax
-        cmp eax, dword [dword_1CD770]
+        cmp eax, dword [SeasonIntroPageShown]
         jle short SeasonIntroScreen_DB.2
         mov eax, 1
-        inc dword [dword_1CD770]
+        inc dword [SeasonIntroPageShown]
         jmp short SeasonIntroScreen_DB.1
 .3:
         push dword [SeasonIntroLayer]
         call FreeBitmap
         add esp, byte 4
-        push dword [dword_1CD774]
+        push dword [SeasonIntroTitleFile]
         call FreeMemBlock
         add esp, byte 4
-        push dword [dword_1CD784]
+        push dword [SeasonIntroBackFile]
         call FreeMemBlock
         add esp, byte 4
         mov ebx, 2

@@ -15,8 +15,8 @@ extern str_GS13, str_CDCS, str_GS02d, str_S6, str_S7, str_DSSDSSSSD02d, str_SSSS
 extern str_UnpackLogo, str_LOGO5, str_DEBUG, LinkButtonLetters, LinkSetupCursorFlags, MenuOptionFlags, ControlSetupFlags, PlayoffUserIndex
 extern PeriodHomeTeam, PeriodAwayTeam, ScoringLogPrevPeriod, ScoringLogPrevTime, ScoringLogPrevMinute, ScoringLogPrevType, ScoringLogPeriod, ScoringLogTime
 extern ScoringLogMinute, ScoringLogType, ScoringLogTeam, ScoringLogPlayer, ScoringLogAssist, ScoringLogSecondAssist, byte_1C6040, LinkSetupCursorRow
-extern LinkSetupCursorCol, LinkSetupItemFlags, GripDriverPtr, LinkSetupMaxPlayers, LinkSetupSoundTick, LinesChangedInGame, InIntermission, dword_16D93A
-extern dword_16DA9C, dword_16E464, dword_16E468, GameRunning, GameSettings, GameOptionFlags, SeasonActive, PlayoffTeamNames
+extern LinkSetupCursorCol, LinkSetupItemFlags, GripDriverPtr, LinkSetupMaxPlayers, LinkSetupSoundTick, LinesChangedInGame, InIntermission, KeyboardControls
+extern LinkGameActive, dword_16E464, dword_16E468, GameRunning, GameSettings, GameOptionFlags, SeasonActive, PlayoffTeamNames
 extern PlayoffTeams, SeasonFileName, ThreeStarsCount, HomePlayerRecords, HomeRosterData, HomeInjuredCount, AwayPlayerRecords
 extern AwayRosterData, dword_1C5DE0, dword_1C5DE4, dword_1C5E74, LinkSetupLogos, LinkSetupNames, LinkSetupArt
 extern LinkSetupItemShape, LinkSetupShapes, LinkSetupSounds, LinkSetupScrollUp, LinkSetupBuffer, LinkSetupSlots, LinkSetupScrollDown, LinkSetupTop
@@ -413,7 +413,7 @@ LinkGameSetup:
         call FindShape
         add esp, byte 8
         mov dword [byte ebp-034h], eax
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .20
         call ClearLinkAbort
         test eax, eax
@@ -546,7 +546,7 @@ LinkGameSetup:
         push dword [dword ebx+LinkSetupNames]
         call SetDrawTarget
         add esp, byte 4
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .24
         call ClearLinkAbort
         test eax, eax
@@ -585,7 +585,7 @@ LinkGameSetup:
         push dword [nosplit esi*4+LinkSetupLogos]
         call SetDrawTarget
         add esp, byte 4
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .28
         call ClearLinkAbort
         test eax, eax
@@ -1251,7 +1251,7 @@ DrawLinkSetupStatus:
         mov edx, dword [byte eax+014h]
         mov dword [byte eax+01Ch], edx
         add esp, byte 4
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         jne short .2
 .1:
         mov ax, word [ebx]
@@ -1308,7 +1308,7 @@ LinkSetupScreen:
         imul eax, byte 7
         cmp word [dword eax+LinkSetupItemType], byte 2
         je near .5
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .3
         cmp si, byte 4
         jge short .2
@@ -1445,7 +1445,7 @@ LinkSetupScreen:
         add esp, byte 4
         jmp short .12
 .8:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .12
         cmp si, byte 4
         jge short .9
@@ -1476,7 +1476,7 @@ LinkSetupScreen:
         mov dword [byte eax+01Ah], edx
         cmp word [dword ebx+LinkSetupItemType], byte 0
         je near .48
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .16
         cmp si, byte 4
         jge short .13
@@ -1580,7 +1580,7 @@ LinkSetupScreen:
         mov dl, byte [dword eax+LinkSetupItemFlags]
         and dl, 0F8h
         mov byte [dword eax+LinkSetupItemFlags], dl
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je near .31
         cmp word [dword eax+LinkSetupItemType], byte 0
         jne short .27
@@ -1675,7 +1675,7 @@ LinkSetupScreen:
         imul eax, byte 7
         cmp word [dword eax+LinkSetupItemType], byte 0
         je near .36
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .34
         cmp si, byte 4
         jge short .33
@@ -1812,7 +1812,7 @@ LinkSetupScreen:
         add esp, byte 4
         jmp short .43
 .39:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .43
         cmp si, byte 4
         jge short .40
@@ -1843,7 +1843,7 @@ LinkSetupScreen:
         mov dword [byte eax+01Ah], edx
         cmp word [dword ebx+LinkSetupItemType], byte 2
         je near .48
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .47
         cmp si, byte 4
         jge short .44
@@ -1889,7 +1889,7 @@ LinkSetupScreen:
         add esp, byte 4
         or byte [dword ebx+LinkSetupItemFlags], 80h
 .48:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .51
         call ClearLinkAbort
         test eax, eax
@@ -2032,7 +2032,7 @@ RunLinkGameScreens_30:
         je short .3
         call ClearLinkCounters
 .3:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .4
         mov dword [LinkSetupShapeFile], str_S_RunLinkGameScreens
         mov dword [LinkPlayerCount], 8
@@ -2082,7 +2082,7 @@ RunLinkGameScreens_112:
         inc esi
         cmp esi, byte 8
         jl short RunLinkGameScreens_30.6
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .8
         call ClearLinkAbort
         test eax, eax
@@ -2236,7 +2236,7 @@ RunLinkGameScreens_112:
 .22:
         test dl, 80h
         jne short .27
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .26
         call ClearLinkAbort
         mov edx, dword [LinkSetupScrollDown]
@@ -2260,7 +2260,7 @@ RunLinkGameScreens_112:
         mov word [dword eax+LinkSetupItemType], 0
         jmp short .32
 .27:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .31
         call ClearLinkAbort
         mov edx, dword [LinkSetupScrollUp]
@@ -2649,7 +2649,7 @@ RunLinkGameScreens_112:
         call FindShape
         add esp, byte 8
         mov dword [byte ebp-0Ch], eax
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .53
         call ClearLinkAbort
         test eax, eax
@@ -2783,7 +2783,7 @@ RunLinkGameScreens_112:
         push dword [dword ebx+LinkSetupNames]
         call SetDrawTarget
         add esp, byte 4
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .57
         call ClearLinkAbort
         test eax, eax
@@ -2822,7 +2822,7 @@ RunLinkGameScreens_112:
         push dword [nosplit esi*4+LinkSetupLogos]
         call SetDrawTarget
         add esp, byte 4
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .61
         call ClearLinkAbort
         test eax, eax
@@ -3081,7 +3081,7 @@ RunLinkGameScreens_112:
         mov eax, dword [LinkSetupItems]
         add edx, dword [byte ebx+eax+03Ah]
         mov dword [byte ebx+eax+042h], edx
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .73
         call ClearLinkAbort
         test eax, eax
@@ -3477,7 +3477,7 @@ RunLinkGameScreens_112:
         mov edx, dword [LinkSetupSlots]
         shl eax, 6
         mov dword [dword edx+eax+015Ch], 11Ah
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .75
         imul eax, dword [LinkPlayerCount], byte 3
         add eax, byte 6
@@ -3525,7 +3525,7 @@ RunLinkGameScreens_112:
         mov ebx, 0FFFFFFFFh
         add eax, byte 6
         mov edx, dword [LinkSetupItems]
-        add eax, dword [dword_16DA9C]
+        add eax, dword [LinkGameActive]
         call RunMenu
         mov ebx, eax
         imul eax, dword [LinkPlayerCount], byte 3
@@ -3543,7 +3543,7 @@ RunLinkGameScreens_112:
         imul eax, byte 7
         cmp word [dword eax+LinkSetupItemType], byte 1
         je near .88
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .77
         cmp ebx, byte 2
         jne short .78
@@ -3612,7 +3612,7 @@ RunLinkGameScreens_112:
         mov eax, 1
         jmp short .85
 .87:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .88
         add eax, byte 6
         cmp eax, dword [byte ebp-024h]
@@ -9989,7 +9989,7 @@ PlayMenuGame:
         push edx
         push esi
         call ShowLoadingScreen
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je near .4
         call ClearLinkAbort
         test eax, eax
@@ -10038,7 +10038,7 @@ PlayMenuGame:
         call FreeFrontEnd
         call InitGameAudio
         mov edx, ControlSetup
-        mov eax, dword_16D93A
+        mov eax, KeyboardControls
         call CopyControlSettings
         mov eax, 37h
         call ShowLoadingBar

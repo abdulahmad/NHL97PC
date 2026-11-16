@@ -3,10 +3,10 @@ bits 32
 %include "hockey.inc"
 section s_10000 progbits alloc exec nowrite align=1
 extern SortCords, __STOSB, _nfree_, _nmalloc_, _searchenv_, str_PATH2, str_JSTICKS, str_DOSJoystick
-extern awtmstruct, GripFlags, byte_16E35C, LinePlayersHome, LinePlayersAway, LinePickOrder, PenaltyPending, PenaltyTeam
+extern awtmstruct, GripFlags, JoyPortMask, LinePlayersHome, LinePlayersAway, LinePickOrder, PenaltyPending, PenaltyTeam
 extern PenaltyBoxCount, gmode, PuckFlags, PlayFlags, holdreset, GripLinkByte, ChantPlayed, ChantState
 extern DefenseByDefense, ForwardsByOffense, HmPlayerSlots, HmRosterMap, AwPlayerSlots, AwRosterMap, GripDriverPtr, GripDriverData
-extern GripLinked, LinePlayerSlots, LinePlayerOffsets, dword_16E344, dword_16E348, dword_16E34C, dword_16E350, PersonnelTable
+extern GripLinked, LinePlayerSlots, LinePlayerOffsets, JoyAxisValues, JoyAxisY, JoyAxisSecondX, JoyAxisSecondY, PersonnelTable
 extern LastTouchPlayer, penshottimer, PuckX, GameObjects, GameTick, PlayerPointsTable, HmTeamData, HmScore
 extern AwTeamData, AwScore, GameSettings, GameOptionFlags, SeasonActive, ObjectPositions, ReplayPlaying, PlayerStartDist
 extern PlayerStartScale, fclose_, fopen_, fread_, fseek_, ftell_, hmtmstruct, PtrPuckTarget
@@ -807,7 +807,7 @@ LoadJoystickConfig:
         jmp near .5
 .14:
         call CalibrateJoystick
-        mov eax, dword [byte_16E35C]
+        mov eax, dword [JoyPortMask]
         and eax, byte 0Fh
         cmp eax, byte 0Fh
         sete al
@@ -815,13 +815,13 @@ LoadJoystickConfig:
         inc eax
         push eax
         call ResetJoystickRange
-        mov bh, byte [byte_16E35C]
+        mov bh, byte [JoyPortMask]
         add esp, byte 4
         test bh, 3
         je near .16
-        cmp dword [dword_16E344], byte 0
+        cmp dword [JoyAxisValues], byte 0
         jne short .15
-        cmp dword [dword_16E348], byte 0
+        cmp dword [JoyAxisY], byte 0
         je near .16
 .15:
         mov eax, dword [GripDriverPtr]
@@ -841,27 +841,27 @@ LoadJoystickConfig:
         mov eax, dword [GripDriverData]
         mov word [byte eax+02Ah], 0
         mov eax, dword [GripDriverData]
-        mov edx, dword [dword_16E344]
+        mov edx, dword [JoyAxisValues]
         mov dword [eax], edx
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E344]
+        mov eax, dword [JoyAxisValues]
         mov dword [byte edx+08h], eax
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E348]
+        mov eax, dword [JoyAxisY]
         mov dword [byte edx+04h], eax
         mov edx, dword [GripDriverData]
         mov dword [byte edx+0Ch], eax
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E344]
+        mov eax, dword [JoyAxisValues]
         mov dword [byte edx+010h], eax
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E348]
+        mov eax, dword [JoyAxisY]
         mov dword [byte edx+014h], eax
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E344]
+        mov eax, dword [JoyAxisValues]
         mov dword [byte edx+018h], eax
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E348]
+        mov eax, dword [JoyAxisY]
         mov dword [byte edx+01Ch], eax
         mov eax, dword [GripDriverData]
         mov dword [byte eax+020h], 0F8h
@@ -870,11 +870,11 @@ LoadJoystickConfig:
 .16:
         mov eax, dword [GripDriverPtr]
         or byte [eax], 2
-        test byte [byte_16E35C], 0Ch
+        test byte [JoyPortMask], 0Ch
         je near .18
-        cmp dword [dword_16E34C], byte 0
+        cmp dword [JoyAxisSecondX], byte 0
         jne short .17
-        cmp dword [dword_16E350], byte 0
+        cmp dword [JoyAxisSecondY], byte 0
         je near .18
 .17:
         mov eax, dword [GripDriverPtr]
@@ -897,26 +897,26 @@ LoadJoystickConfig:
         mov eax, dword [GripDriverData]
         mov word [byte eax+056h], 0
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E34C]
+        mov eax, dword [JoyAxisSecondX]
         mov dword [byte edx+02Ch], eax
         mov edx, dword [GripDriverData]
         mov dword [byte edx+034h], eax
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E350]
+        mov eax, dword [JoyAxisSecondY]
         mov dword [byte edx+030h], eax
         mov edx, dword [GripDriverData]
         mov dword [byte edx+038h], eax
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E34C]
+        mov eax, dword [JoyAxisSecondX]
         mov dword [byte edx+03Ch], eax
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E350]
+        mov eax, dword [JoyAxisSecondY]
         mov dword [byte edx+040h], eax
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E34C]
+        mov eax, dword [JoyAxisSecondX]
         mov dword [byte edx+044h], eax
         mov eax, dword [GripDriverData]
-        mov edx, dword [dword_16E350]
+        mov edx, dword [JoyAxisSecondY]
         mov dword [byte eax+048h], edx
         mov eax, dword [GripDriverData]
         mov dword [byte eax+04Ch], 0F8h
@@ -956,7 +956,7 @@ SetupOptionsAnim:
         test byte [edx+eax*8], 2
         je near .6
         call CalibrateJoystick
-        mov eax, dword [byte_16E35C]
+        mov eax, dword [JoyPortMask]
         and eax, byte 0Fh
         cmp eax, byte 0Fh
         sete al
@@ -967,11 +967,11 @@ SetupOptionsAnim:
         add esp, byte 4
         test bx, bx
         jne near .3
-        test byte [byte_16E35C], 3
+        test byte [JoyPortMask], 3
         je near .2
-        cmp dword [dword_16E344], byte 0
+        cmp dword [JoyAxisValues], byte 0
         jne short .1
-        cmp dword [dword_16E348], byte 0
+        cmp dword [JoyAxisY], byte 0
         je near .2
 .1:
         mov eax, dword [GripDriverPtr]
@@ -991,27 +991,27 @@ SetupOptionsAnim:
         mov eax, dword [GripDriverData]
         mov word [byte eax+02Ah], 0
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E344]
+        mov eax, dword [JoyAxisValues]
         mov dword [edx], eax
         mov edx, dword [GripDriverData]
         mov dword [byte edx+08h], eax
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E348]
+        mov eax, dword [JoyAxisY]
         mov dword [byte edx+04h], eax
         mov eax, dword [GripDriverData]
-        mov edx, dword [dword_16E348]
+        mov edx, dword [JoyAxisY]
         mov dword [byte eax+0Ch], edx
         mov eax, dword [GripDriverData]
-        mov edx, dword [dword_16E344]
+        mov edx, dword [JoyAxisValues]
         mov dword [byte eax+010h], edx
         mov eax, dword [GripDriverData]
-        mov edx, dword [dword_16E348]
+        mov edx, dword [JoyAxisY]
         mov dword [byte eax+014h], edx
         mov eax, dword [GripDriverData]
-        mov edx, dword [dword_16E344]
+        mov edx, dword [JoyAxisValues]
         mov dword [byte eax+018h], edx
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E348]
+        mov eax, dword [JoyAxisY]
         mov dword [byte edx+01Ch], eax
         mov eax, dword [GripDriverData]
         mov dword [byte eax+020h], 0F8h
@@ -1029,11 +1029,11 @@ SetupOptionsAnim:
         pop ebx
         ret
 .3:
-        test byte [byte_16E35C], 0Ch
+        test byte [JoyPortMask], 0Ch
         je near .5
-        cmp dword [dword_16E34C], byte 0
+        cmp dword [JoyAxisSecondX], byte 0
         jne short .4
-        cmp dword [dword_16E350], byte 0
+        cmp dword [JoyAxisSecondY], byte 0
         je near .5
 .4:
         mov eax, dword [GripDriverPtr]
@@ -1056,26 +1056,26 @@ SetupOptionsAnim:
         mov eax, dword [GripDriverData]
         mov word [byte eax+056h], 0
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E34C]
+        mov eax, dword [JoyAxisSecondX]
         mov dword [byte edx+02Ch], eax
         mov edx, dword [GripDriverData]
         mov dword [byte edx+034h], eax
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E350]
+        mov eax, dword [JoyAxisSecondY]
         mov dword [byte edx+030h], eax
         mov edx, dword [GripDriverData]
         mov dword [byte edx+038h], eax
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E34C]
+        mov eax, dword [JoyAxisSecondX]
         mov dword [byte edx+03Ch], eax
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E350]
+        mov eax, dword [JoyAxisSecondY]
         mov dword [byte edx+040h], eax
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E34C]
+        mov eax, dword [JoyAxisSecondX]
         mov dword [byte edx+044h], eax
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E350]
+        mov eax, dword [JoyAxisSecondY]
         mov dword [byte edx+048h], eax
         mov eax, dword [GripDriverData]
         mov dword [byte eax+04Ch], 0F8h
@@ -1443,69 +1443,69 @@ UpdateOptionsAnim:
         cmp dword [byte esp+0Ch], byte 0
         jne near .8
         mov eax, dword [GripDriverData]
-        mov ebx, dword [dword_16E344]
+        mov ebx, dword [JoyAxisValues]
         cmp ebx, dword [eax]
         jge short .4
         mov dword [eax], ebx
 .4:
         mov eax, dword [GripDriverData]
-        mov ecx, dword [dword_16E344]
+        mov ecx, dword [JoyAxisValues]
         cmp ecx, dword [byte eax+08h]
         jle short .5
         mov dword [byte eax+08h], ecx
 .5:
         mov eax, dword [GripDriverData]
-        mov edi, dword [dword_16E348]
+        mov edi, dword [JoyAxisY]
         cmp edi, dword [byte eax+04h]
         jge short .6
         mov dword [byte eax+04h], edi
 .6:
         mov edi, dword [GripDriverData]
-        mov edx, dword [dword_16E348]
+        mov edx, dword [JoyAxisY]
         cmp edx, dword [byte edi+0Ch]
         jle short .7
         mov dword [byte edi+0Ch], edx
 .7:
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E344]
+        mov eax, dword [JoyAxisValues]
         mov dword [byte edx+010h], eax
         mov edi, dword [byte esp+08h]
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E348]
+        mov eax, dword [JoyAxisY]
         not edi
         mov dword [byte edx+014h], eax
         jmp near .13
 .8:
         mov eax, dword [GripDriverData]
-        mov edx, dword [dword_16E34C]
+        mov edx, dword [JoyAxisSecondX]
         cmp edx, dword [byte eax+02Ch]
         jge short .9
         mov dword [byte eax+02Ch], edx
 .9:
         mov edi, dword [GripDriverData]
-        mov ebx, dword [dword_16E34C]
+        mov ebx, dword [JoyAxisSecondX]
         cmp ebx, dword [byte edi+034h]
         jle short .10
         mov dword [byte edi+034h], ebx
 .10:
         mov eax, dword [GripDriverData]
-        mov ecx, dword [dword_16E350]
+        mov ecx, dword [JoyAxisSecondY]
         cmp ecx, dword [byte eax+030h]
         jge short .11
         mov dword [byte eax+030h], ecx
 .11:
         mov eax, dword [GripDriverData]
-        mov edx, dword [dword_16E350]
+        mov edx, dword [JoyAxisSecondY]
         cmp edx, dword [byte eax+038h]
         jle short .12
         mov dword [byte eax+038h], edx
 .12:
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E34C]
+        mov eax, dword [JoyAxisSecondX]
         mov dword [byte edx+03Ch], eax
         mov edi, dword [byte esp+04h]
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E350]
+        mov eax, dword [JoyAxisSecondY]
         not edi
         mov dword [byte edx+040h], eax
 .13:

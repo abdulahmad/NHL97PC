@@ -9,8 +9,8 @@ extern str_AB056, str_AB046, str_AB036, str_AB082, str_AB072, str_AB062, str_AB1
 extern str_AB092, str_POWR3, str_EC002, str_EC012, str_BAK12, str_C, str_D3, str_LB02d7
 extern str_AR02d3, str_AllStarPlayerInfo, str_AllStarGoalieInfo, str_WestAllStars, str_EastAllStars, str_AllStarRosters, str_AllStarAirecs, str_AllStarRawPlrs
 extern str_AllStarStatrecs, str_MB044, str_FrANKGBarchard, str_100, str_REF, str_Refpack, str_F10, FrontEndExit
-extern byte_16E273, byte_16E274, byte_16E275, byte_16E28E, PeriodHomeTeam, PeriodAwayTeam, HomeGoalieIndex, AwayGoalieIndex
-extern byte_1C6040, byte_1CE224, byte_1CE23D, byte_1CE23E, dword_16DA9C, str_Punct_LoadAllStarArt, SeasonUserTeam, SeasonFileName
+extern AllStarSlotOrderPrev, AllStarSlotOrder, AllStarSlotOrderNext, AllStarArtDigits, PeriodHomeTeam, PeriodAwayTeam, HomeGoalieIndex, AwayGoalieIndex
+extern byte_1C6040, byte_1CE224, byte_1CE23D, byte_1CE23E, LinkGameActive, str_Punct_LoadAllStarArt, SeasonUserTeam, SeasonFileName
 extern AllStarTeamCode, dword_1C5DE4, dword_1C5E74, dword_1CE0E4, dword_1CE0E8, dword_1CE0EC, dword_1CE0F4, dword_1CE0FC
 extern dword_1CE104, dword_1CE10C, dword_1CE110, dword_1CE114, dword_1CE118, dword_1CE11C, dword_1CE120, dword_1CE124
 extern dword_1CE128, dword_1CE12C, dword_1CE130, dword_1CE134, dword_1CE158, dword_1CE15C, dword_1CE160, dword_1CE164
@@ -31,25 +31,25 @@ extern PlayerStatsScreen, InitListBox, InitShapeListBox, KeysEqual, SetMatchupTe
 extern FindPlayerStat, FindTeamStat, ServiceIdle, AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, MeasureText, tickcount, str_C_DrawAllStarTeam, str_D_DrawAllStarTeam
 extern str_S_DrawAllStarList, str_1_GetKeyName, str_2_GetKeyName, str_3_GetKeyName, str_4_GetKeyName, str_5_GetKeyName, str_6_GetKeyName, str_7_GetKeyName
-extern str_8_GetKeyName, str_9, str_0_GetKeyName, str_Punct_GetKeyName, unk_1678F6, str_Q, str_W_GetKeyName, str_E_GetKeyName
-extern str_R, str_T_GetKeyName, str_Y, str_U, str_I, str_O, str_P_GetKeyName, unk_16790C
-extern unk_16790E, str_A, str_S_GetKeyName, str_D_GetKeyName, str_F_GetKeyName, str_G, str_H, str_J
-extern str_K, str_L, unk_167922, unk_167924, unk_167926, unk_167928, str_Z, str_X_GetKeyName
-extern str_C_GetKeyName, str_V, str_B, str_N_GetKeyName, str_M, unk_167938, unk_16793A, unk_16793C
-extern unk_16793E, str_F1, str_F2, str_F3, str_F4, str_F5, str_F6, str_F7
+extern str_8_GetKeyName, str_9, str_0_GetKeyName, str_Punct_GetKeyName, str_Equals_KeyName, str_Q, str_W_GetKeyName, str_E_GetKeyName
+extern str_R, str_T_GetKeyName, str_Y, str_U, str_I, str_O, str_P_GetKeyName, str_LeftBracket_KeyName
+extern str_RightBracket_KeyName, str_A, str_S_GetKeyName, str_D_GetKeyName, str_F_GetKeyName, str_G, str_H, str_J
+extern str_K, str_L, str_Semicolon_KeyName, str_Apostrophe_KeyName, str_Backquote_KeyName, str_Backslash_KeyName, str_Z, str_X_GetKeyName
+extern str_C_GetKeyName, str_V, str_B, str_N_GetKeyName, str_M, str_Comma_KeyName, str_Period_KeyName, str_Slash_KeyName
+extern str_Asterisk_KeyName, str_F1, str_F2, str_F3, str_F4, str_F5, str_F6, str_F7
 extern str_F8, str_F9, DbKeyBuffer, AllStarTeamIds, AllStarHomeLines, AllStarAwayLines, AutoLineData, AllStarRoster
-extern HomeLines, HomeTeamName, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C5FEE, unk_1CEA8A, unk_1CEA99
-extern unk_1CEAA8, unk_1CEAB7, unk_1CEAC6, unk_1CEAD5, unk_1CEAE4, unk_1CEAF3, unk_1CEB02, unk_1CEB11
-extern unk_1CEB20, unk_1CEB2F, unk_1CEB3E, unk_1CEB4D, unk_1CEB5C, unk_1CEB6B, unk_1CEB7A, unk_1CEB89
-extern unk_1CEB98, unk_1CEBA7, unk_1CEBB6, unk_1CEBC5, unk_1CEBD4, unk_1CEBE3, unk_1CEBF2, unk_1CEC01
-extern unk_1CEC10, unk_1CEC1F, unk_1CEC2E, unk_1CEC3D, unk_1CEC4C, unk_1CEC5B, unk_1CEC6A, unk_1CEC79
-extern unk_1CEC88, unk_1CEC97, unk_1CECA6, unk_1CECB5, unk_1CECC4, unk_1CECD3, unk_1CECE2, unk_1CECF1
-extern unk_1CED00, unk_1CED0F, unk_1CED1E, unk_1CED2D, unk_1CED3C, unk_1CED4B, unk_1CED5A, unk_1CED69
-extern unk_1CED78, unk_1CED87, unk_1CED96, unk_1CEDA5, unk_1CEDB4, unk_1CEDC3, unk_1CEDD2, unk_1CEDE1
-extern unk_1CEDF0, unk_1CEDFF, unk_1CEE0E, unk_1CEE1D, unk_1CEE2C, unk_1CEE3B, unk_1CEE4A, unk_1CEE59
-extern unk_1CEE68, unk_1CEE77, unk_1CEE86, unk_1CEE95, unk_1CEEA4, unk_1CEEB3, unk_1CEEC2, unk_1CEED1
-extern unk_1CEEE0, unk_1CEEEF, unk_1CEEFE, unk_1CEF0D, unk_1CEF1C, unk_1CEF2B, unk_1CEF3A, unk_1CEF49
-extern unk_1CEF58, unk_1CEF67, word_16E2EA, AllStarDay, AllStarArena, IndexEntryList, HomeTeamCode, GameLogCount
+extern HomeLines, HomeTeamName, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C5FEE, KeyNames, KeyNameSlots
+extern KeyNameSlots
+extern KeyNameSlots
+extern KeyNameSlots
+extern KeyNameSlots
+extern KeyNameSlots
+extern KeyNameSlots
+extern KeyNameSlots
+extern KeyNameSlots
+extern KeyNameSlots
+extern KeyNameSlots
+extern KeyNameSlots, AllStarSoundOn, AllStarDay, AllStarArena, IndexEntryList, HomeTeamCode, GameLogCount
 global BuildAllStarTeams_4B, AllStarSound_1E0, DrawAllStarTeam_68E, DrawAllStarTeam_6C5, FindFreeAllStarSlot_31, PickAllStarPlayers_4C2, PickAllStarPlayers_4C3, BuildAllStarTeams
 global AllStarScreen, AllStarSound, InitAllStarScreen, FreeAllStarScreen, DrawAllStarConference, ShowAllStarArt, DrawAllStarHighlight, DrawAllStarTeam
 global DrawAllStarSlot, DrawAllStarSelection, DrawAllStarList, LoadAllStarLogo, LoadAllStarArt, AllStarNextTeam, AllStarPrevTeam, AllStarNextSlot
@@ -530,7 +530,7 @@ AllStarScreen:
 .39:
         call ShowStatsScreen
         call FreeAllStarScreen
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         sete al
         movzx edx, al
         mov eax, 0E8h
@@ -718,18 +718,18 @@ AllStarSound:
         mov dword [dword_1CE1D0], esi
         test bx, bx
         je short .10
-        cmp word [word_16E2EA], byte 0
+        cmp word [AllStarSoundOn], byte 0
         jne short .10
         mov eax, 309h
         call PlaySfx
-        mov word [word_16E2EA], 1
+        mov word [AllStarSoundOn], 1
 .10:
         test bx, bx
         jne short AllStarSound_1E0
-        cmp word [word_16E2EA], byte 0
+        cmp word [AllStarSoundOn], byte 0
         je short AllStarSound_1E0
         call StopAllSfx
-        mov word [word_16E2EA], bx
+        mov word [AllStarSoundOn], bx
 AllStarSound_1E0:
         leave
         pop esi
@@ -2630,7 +2630,7 @@ LoadAllStarLogo:
         push dword [dword_1CE218]
         call FindShape
         mov edx, eax
-        movzx eax, byte [dword ebx+byte_16E274]
+        movzx eax, byte [dword ebx+AllStarSlotOrder]
         mov eax, dword [nosplit eax*4+dword_1CE10C]
         movzx ecx, byte [dword ebx+byte_1CE23E]
         add esp, byte 8
@@ -2641,7 +2641,7 @@ LoadAllStarLogo:
         mov byte [byte ebp-0Fh], 48h
         call FindShape
         mov edx, eax
-        movzx eax, byte [dword ebx+byte_16E274]
+        movzx eax, byte [dword ebx+AllStarSlotOrder]
         inc ebx
         mov eax, dword [nosplit eax*4+dword_1CE0EC]
         movzx ecx, byte [dword ebx+byte_1CE23D]
@@ -2766,7 +2766,7 @@ LoadAllStarArt:
         xor ebx, ebx
         jmp short .8
 .7:
-        mov al, byte [nosplit ebx*4+byte_16E28E]
+        mov al, byte [nosplit ebx*4+AllStarArtDigits]
         add al, 30h
         mov byte [byte ebp-0Dh], al
         lea eax, [byte ebp-010h]
@@ -2912,7 +2912,7 @@ AllStarNextSlot:
 .1:
         cmp eax, byte 19h
         jge short .2
-        movzx ebx, byte [dword eax+byte_16E275]
+        movzx ebx, byte [dword eax+AllStarSlotOrderNext]
         inc eax
         cmp ebx, dword [dword_1CE1FC]
         jne short .1
@@ -2935,7 +2935,7 @@ AllStarPrevSlot:
 .1:
         test eax, eax
         jle short .2
-        movzx ebx, byte [dword eax+byte_16E273]
+        movzx ebx, byte [dword eax+AllStarSlotOrderPrev]
         dec eax
         cmp ebx, dword [dword_1CE1FC]
         jne short .1
@@ -4159,7 +4159,7 @@ PickAllStarPlayers:
         mov dword [byte ebp-0Ch], 0
         mov dword [byte ebp-01Ch], eax
         mov eax, dword [dword_1CE1E8]
-        movzx ebx, byte [dword ebx+byte_16E274]
+        movzx ebx, byte [dword ebx+AllStarSlotOrder]
         mov ecx, dword [eax+ecx*4]
         jmp near .4
 .3:
@@ -4546,7 +4546,7 @@ AllocAllStarRosters:
         mov dword [byte ebp-020h], 0
         xor ebx, ebx
 .1:
-        movzx edx, byte [dword ebx+byte_16E274]
+        movzx edx, byte [dword ebx+AllStarSlotOrder]
         mov eax, edx
         mov ecx, dword [byte ebp+edx*4-024h]
         imul edx, byte 0Dh
@@ -5800,306 +5800,306 @@ GetKeyName:
         mov eax, 1C9h
         call GetLangText
         mov edx, eax
-        mov eax, unk_1CEA8A
+        mov eax, KeyNames
         call strcpy_
         mov eax, 1CAh
         call GetLangText
         mov edx, eax
-        mov eax, unk_1CEA99
+        mov eax, KeyNameSlots
         call strcpy_
         mov edx, str_1_GetKeyName
-        mov eax, unk_1CEAA8
+        mov eax, KeyNameSlots+0Fh
         call strcpy_
         mov edx, str_2_GetKeyName
-        mov eax, unk_1CEAB7
+        mov eax, KeyNameSlots+1Eh
         call strcpy_
         mov edx, str_3_GetKeyName
-        mov eax, unk_1CEAC6
+        mov eax, KeyNameSlots+2Dh
         call strcpy_
         mov edx, str_4_GetKeyName
-        mov eax, unk_1CEAD5
+        mov eax, KeyNameSlots+3Ch
         call strcpy_
         mov edx, str_5_GetKeyName
-        mov eax, unk_1CEAE4
+        mov eax, KeyNameSlots+4Bh
         call strcpy_
         mov edx, str_6_GetKeyName
-        mov eax, unk_1CEAF3
+        mov eax, KeyNameSlots+5Ah
         call strcpy_
         mov edx, str_7_GetKeyName
-        mov eax, unk_1CEB02
+        mov eax, KeyNameSlots+69h
         call strcpy_
         mov edx, str_8_GetKeyName
-        mov eax, unk_1CEB11
+        mov eax, KeyNameSlots+78h
         call strcpy_
         mov edx, str_9
-        mov eax, unk_1CEB20
+        mov eax, KeyNameSlots+87h
         call strcpy_
         mov edx, str_0_GetKeyName
-        mov eax, unk_1CEB2F
+        mov eax, KeyNameSlots+096h
         call strcpy_
         mov edx, str_Punct_GetKeyName
-        mov eax, unk_1CEB3E
+        mov eax, KeyNameSlots+0A5h
         call strcpy_
-        mov edx, unk_1678F6
-        mov eax, unk_1CEB4D
+        mov edx, str_Equals_KeyName
+        mov eax, KeyNameSlots+0B4h
         call strcpy_
         mov eax, 1CBh
         call GetLangText
         mov edx, eax
-        mov eax, unk_1CEB5C
+        mov eax, KeyNameSlots+0C3h
         call strcpy_
         mov eax, 1CCh
         call GetLangText
         mov edx, eax
-        mov eax, unk_1CEB6B
+        mov eax, KeyNameSlots+0D2h
         call strcpy_
         mov edx, str_Q
-        mov eax, unk_1CEB7A
+        mov eax, KeyNameSlots+0E1h
         call strcpy_
         mov edx, str_W_GetKeyName
-        mov eax, unk_1CEB89
+        mov eax, KeyNameSlots+0F0h
         call strcpy_
         mov edx, str_E_GetKeyName
-        mov eax, unk_1CEB98
+        mov eax, KeyNameSlots+0FFh
         call strcpy_
         mov edx, str_R
-        mov eax, unk_1CEBA7
+        mov eax, KeyNameSlots+10Eh
         call strcpy_
         mov edx, str_T_GetKeyName
-        mov eax, unk_1CEBB6
+        mov eax, KeyNameSlots+11Dh
         call strcpy_
         mov edx, str_Y
-        mov eax, unk_1CEBC5
+        mov eax, KeyNameSlots+12Ch
         call strcpy_
         mov edx, str_U
-        mov eax, unk_1CEBD4
+        mov eax, KeyNameSlots+13Bh
         call strcpy_
         mov edx, str_I
-        mov eax, unk_1CEBE3
+        mov eax, KeyNameSlots+14Ah
         call strcpy_
         mov edx, str_O
-        mov eax, unk_1CEBF2
+        mov eax, KeyNameSlots+159h
         call strcpy_
         mov edx, str_P_GetKeyName
-        mov eax, unk_1CEC01
+        mov eax, KeyNameSlots+168h
         call strcpy_
-        mov edx, unk_16790C
-        mov eax, unk_1CEC10
+        mov edx, str_LeftBracket_KeyName
+        mov eax, KeyNameSlots+177h
         call strcpy_
-        mov edx, unk_16790E
-        mov eax, unk_1CEC1F
+        mov edx, str_RightBracket_KeyName
+        mov eax, KeyNameSlots+186h
         call strcpy_
         mov eax, 1CDh
         call GetLangText
         mov edx, eax
-        mov eax, unk_1CEC2E
+        mov eax, KeyNameSlots+195h
         call strcpy_
         mov eax, 1CEh
         call GetLangText
         mov edx, eax
-        mov eax, unk_1CEC3D
+        mov eax, KeyNameSlots+1A4h
         call strcpy_
         mov edx, str_A
-        mov eax, unk_1CEC4C
+        mov eax, KeyNameSlots+1B3h
         call strcpy_
         mov edx, str_S_GetKeyName
-        mov eax, unk_1CEC5B
+        mov eax, KeyNameSlots+1C2h
         call strcpy_
         mov edx, str_D_GetKeyName
-        mov eax, unk_1CEC6A
+        mov eax, KeyNameSlots+1D1h
         call strcpy_
         mov edx, str_F_GetKeyName
-        mov eax, unk_1CEC79
+        mov eax, KeyNameSlots+1E0h
         call strcpy_
         mov edx, str_G
-        mov eax, unk_1CEC88
+        mov eax, KeyNameSlots+1EFh
         call strcpy_
         mov edx, str_H
-        mov eax, unk_1CEC97
+        mov eax, KeyNameSlots+1FEh
         call strcpy_
         mov edx, str_J
-        mov eax, unk_1CECA6
+        mov eax, KeyNameSlots+20Dh
         call strcpy_
         mov edx, str_K
-        mov eax, unk_1CECB5
+        mov eax, KeyNameSlots+21Ch
         call strcpy_
         mov edx, str_L
-        mov eax, unk_1CECC4
+        mov eax, KeyNameSlots+22Bh
         call strcpy_
-        mov edx, unk_167922
-        mov eax, unk_1CECD3
+        mov edx, str_Semicolon_KeyName
+        mov eax, KeyNameSlots+23Ah
         call strcpy_
-        mov edx, unk_167924
-        mov eax, unk_1CECE2
+        mov edx, str_Apostrophe_KeyName
+        mov eax, KeyNameSlots+249h
         call strcpy_
-        mov edx, unk_167926
-        mov eax, unk_1CECF1
+        mov edx, str_Backquote_KeyName
+        mov eax, KeyNameSlots+258h
         call strcpy_
         mov eax, 1CFh
         call GetLangText
         mov edx, eax
-        mov eax, unk_1CED00
+        mov eax, KeyNameSlots+267h
         call strcpy_
-        mov edx, unk_167928
-        mov eax, unk_1CED0F
+        mov edx, str_Backslash_KeyName
+        mov eax, KeyNameSlots+276h
         call strcpy_
         mov edx, str_Z
-        mov eax, unk_1CED1E
+        mov eax, KeyNameSlots+285h
         call strcpy_
         mov edx, str_X_GetKeyName
-        mov eax, unk_1CED2D
+        mov eax, KeyNameSlots+294h
         call strcpy_
         mov edx, str_C_GetKeyName
-        mov eax, unk_1CED3C
+        mov eax, KeyNameSlots+2A3h
         call strcpy_
         mov edx, str_V
-        mov eax, unk_1CED4B
+        mov eax, KeyNameSlots+2B2h
         call strcpy_
         mov edx, str_B
-        mov eax, unk_1CED5A
+        mov eax, KeyNameSlots+2C1h
         call strcpy_
         mov edx, str_N_GetKeyName
-        mov eax, unk_1CED69
+        mov eax, KeyNameSlots+2D0h
         call strcpy_
         mov edx, str_M
-        mov eax, unk_1CED78
+        mov eax, KeyNameSlots+2DFh
         call strcpy_
-        mov edx, unk_167938
-        mov eax, unk_1CED87
+        mov edx, str_Comma_KeyName
+        mov eax, KeyNameSlots+2EEh
         call strcpy_
-        mov edx, unk_16793A
-        mov eax, unk_1CED96
+        mov edx, str_Period_KeyName
+        mov eax, KeyNameSlots+2FDh
         call strcpy_
-        mov edx, unk_16793C
-        mov eax, unk_1CEDA5
+        mov edx, str_Slash_KeyName
+        mov eax, KeyNameSlots+30Ch
         call strcpy_
         mov eax, 1D0h
         call GetLangText
         mov edx, eax
-        mov eax, unk_1CEDB4
+        mov eax, KeyNameSlots+31Bh
         call strcpy_
-        mov edx, unk_16793E
-        mov eax, unk_1CEDC3
+        mov edx, str_Asterisk_KeyName
+        mov eax, KeyNameSlots+32Ah
         call strcpy_
         mov eax, 1D2h
         call GetLangText
         mov edx, eax
-        mov eax, unk_1CEDD2
+        mov eax, KeyNameSlots+339h
         call strcpy_
         mov eax, 1D3h
         call GetLangText
         mov edx, eax
-        mov eax, unk_1CEDE1
+        mov eax, KeyNameSlots+348h
         call strcpy_
         mov eax, 1D4h
         call GetLangText
         mov edx, eax
-        mov eax, unk_1CEDF0
+        mov eax, KeyNameSlots+357h
         call strcpy_
         mov edx, str_F1
-        mov eax, unk_1CEDFF
+        mov eax, KeyNameSlots+366h
         call strcpy_
         mov edx, str_F2
-        mov eax, unk_1CEE0E
+        mov eax, KeyNameSlots+375h
         call strcpy_
         mov edx, str_F3
-        mov eax, unk_1CEE1D
+        mov eax, KeyNameSlots+384h
         call strcpy_
         mov edx, str_F4
-        mov eax, unk_1CEE2C
+        mov eax, KeyNameSlots+393h
         call strcpy_
         mov edx, str_F5
-        mov eax, unk_1CEE3B
+        mov eax, KeyNameSlots+3A2h
         call strcpy_
         mov edx, str_F6
-        mov eax, unk_1CEE4A
+        mov eax, KeyNameSlots+3B1h
         call strcpy_
         mov edx, str_F7
-        mov eax, unk_1CEE59
+        mov eax, KeyNameSlots+3C0h
         call strcpy_
         mov edx, str_F8
-        mov eax, unk_1CEE68
+        mov eax, KeyNameSlots+3CFh
         call strcpy_
         mov edx, str_F9
-        mov eax, unk_1CEE77
+        mov eax, KeyNameSlots+3DEh
         call strcpy_
         mov edx, str_F10
-        mov eax, unk_1CEE86
+        mov eax, KeyNameSlots+3EDh
         call strcpy_
         mov eax, 1D5h
         call GetLangText
         mov edx, eax
-        mov eax, unk_1CEE95
+        mov eax, KeyNameSlots+3FCh
         call strcpy_
         mov eax, 1D6h
         call GetLangText
         mov edx, eax
-        mov eax, unk_1CEEA4
+        mov eax, KeyNameSlots+40Bh
         call strcpy_
         mov eax, 1D7h
         call GetLangText
         mov edx, eax
-        mov eax, unk_1CEEB3
+        mov eax, KeyNameSlots+41Ah
         call strcpy_
         mov eax, 1D8h
         call GetLangText
         mov edx, eax
-        mov eax, unk_1CEEC2
+        mov eax, KeyNameSlots+429h
         call strcpy_
         mov eax, 1D9h
         call GetLangText
         mov edx, eax
-        mov eax, unk_1CEED1
+        mov eax, KeyNameSlots+438h
         call strcpy_
         mov eax, 1DAh
         call GetLangText
         mov edx, eax
-        mov eax, unk_1CEEE0
+        mov eax, KeyNameSlots+447h
         call strcpy_
         mov eax, 1DBh
         call GetLangText
         mov edx, eax
-        mov eax, unk_1CEEEF
+        mov eax, KeyNameSlots+456h
         call strcpy_
         mov eax, 1DCh
         call GetLangText
         mov edx, eax
-        mov eax, unk_1CEEFE
+        mov eax, KeyNameSlots+465h
         call strcpy_
         mov eax, 1DDh
         call GetLangText
         mov edx, eax
-        mov eax, unk_1CEF0D
+        mov eax, KeyNameSlots+474h
         call strcpy_
         mov eax, 1DEh
         call GetLangText
         mov edx, eax
-        mov eax, unk_1CEF1C
+        mov eax, KeyNameSlots+483h
         call strcpy_
         mov eax, 1DFh
         call GetLangText
         mov edx, eax
-        mov eax, unk_1CEF2B
+        mov eax, KeyNameSlots+492h
         call strcpy_
         mov eax, 1E0h
         call GetLangText
         mov edx, eax
-        mov eax, unk_1CEF3A
+        mov eax, KeyNameSlots+4A1h
         call strcpy_
         mov eax, 1E1h
         call GetLangText
         mov edx, eax
-        mov eax, unk_1CEF49
+        mov eax, KeyNameSlots+4B0h
         call strcpy_
         mov eax, 1E2h
         call GetLangText
         mov edx, eax
-        mov eax, unk_1CEF58
+        mov eax, KeyNameSlots+4BFh
         call strcpy_
         mov eax, 1E3h
         call GetLangText
         mov edx, eax
-        mov eax, unk_1CEF67
+        mov eax, KeyNameSlots+4CEh
         call strcpy_
         pop edx
         ret

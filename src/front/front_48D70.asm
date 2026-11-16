@@ -17,7 +17,7 @@ extern MusicTime, MusicStreamPos, MusicVolumeLevel, BackgroundAudioTick, MusicFe
 extern MusicBuffer, MusicReady, CrowdNoiseLevel, AmbientVolume, MusicVolumeWord, SoundCardType, SoundDriverId, SpeechStreamFile
 extern SpeechStreamTimer, PaQueueHead, PaQueueTail, PaQueueCount, PaQueueClip, PaQueueTime, BackgroundAudioOn, ArtArchiveIds
 extern ArtArchiveSizes, DirPathTable, GameGraphicsMode, ModelCount, TextureCount, ShowFrameRate, ShowCenterLogo, ShowCrowd
-extern ArenaArchiveHandle, RinkGeometryBuilt, ScoreboardOn, dword_16DA9C, dword_16E464, dword_16E468, str_Punct_DrawRinkSurface, F32_1p0_View
+extern ArenaArchiveHandle, RinkGeometryBuilt, ScoreboardOn, LinkGameActive, dword_16E464, dword_16E468, str_Punct_DrawRinkSurface, F32_1p0_View
 extern RinkLineWidth, ViewCenterY, str_D_ProjectPointsPersp, CameraSinYaw, CameraCosYaw, CameraFlags, SinTable, SpeechStreamBuf
 extern SpeechStreamLen, SpeechStreamRead, SpeechStreamEnd, GlobalSetData, GameSettings, AudioOptions, GameOptionFlags, ModelNamePtrs
 extern FrameDrawList, GameVideoMode, RenderTimer, ModelNameCount, FrameBuffer, RenderTicks, ModelList, ArenaArchive
@@ -3497,7 +3497,7 @@ WriteGlobalSet:
         add esp, byte 0Ch
         test eax, eax
         je short .4
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .1
         call ClearLinkAbort
         test eax, eax

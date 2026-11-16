@@ -7,7 +7,7 @@ extern str_ARED, str_MB022, str_MB012, str_MB002, str_LB003, str_LD00, str_LB02d
 extern str_LTL0, str_CSV, str_HistoryCsv, str_MNTR2, str_MB042, str_MB02d, str_1TOP5, str_2TOP5
 extern str_3TOP5, str_1BOT5, str_2BOT5, str_3BOT5, str_BAK0, str_BAK1, str_BOTM3, str_BACK10
 extern str_TTL12, str_BOT1, str_TTL02, str_None, HistoryTeamFlags, MusicOptions, DetailLevel, byte_1C6040
-extern OptionsMenuChoice, str_E_BuildHistoryList, HistoryEntries, dword_16DA9C, AudioOptions, dword_1C5DE4, dword_1C5E74, HistoryTextX
+extern OptionsMenuChoice, str_E_BuildHistoryList, HistoryEntries, LinkGameActive, AudioOptions, dword_1C5DE4, dword_1C5E74, HistoryTextX
 extern HistoryTextY, HistoryDotShape, HistoryArrowShape, HistoryArrowLitShape, HistoryArrowEndShape, HistoryHighlightText, HistoryShineList, HistorySparkleFrame
 extern HistorySelectedTeam, HistoryTrophyIndex, HistoryDetailsOpen, HistoryTextBuffer, HistorySoundOn, HistoryLineLimit, HistoryTextBitmap, HistoryLineCount
 extern HistoryTextList, HistoryShineFrame, HistoryLastTeam, HistoryPopupBitmap, HistoryShineTimer, HistoryTrophyTick, HistorySparkleTimer, HistoryTrophyList
@@ -3073,7 +3073,7 @@ RunOptionsScreens:
         je short .5
         jmp short .8
 .2:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         jne short .3
         call OptionsScreen
         jmp short .7

@@ -20,7 +20,7 @@ extern F32_64_DetailLevelMenu, F32_81_DetailLevelMenu, F32_98_DetailLevelMenu, F
 extern F32_36_DetailLevelMenu, F32_53_DetailLevelMenu, F32_87_DetailLevelMenu, F32_104_DetailLevelMenu, F32_121_DetailLevelMenu, F32_37, F32_18, F32_15_DetailLevelMenu
 extern F32_63, F32_0p005_DetailLevelMenu, F32_0p003125_DetailLevelMenu, F32_55_DetailLevelMenu, F32_40_DetailLevelMenu, F32_100_DetailLevelMenu, F32_85_DetailLevelMenu, F32_25_DetailLevelMenu
 extern ClockShown, InGameMenuRequest, ShowFrameRate, ShowStands, ShowRink, ShowCenterLogo, ShowOverlay, ShowCrowd
-extern ShowBenches, CameraScenesEnabled, InIntermission, dword_16DA9C, dword_16E30C, mousex, mousey, dword_16E464
+extern ShowBenches, CameraScenesEnabled, InIntermission, LinkGameActive, GfxFixBuffer, mousex, mousey, dword_16E464
 extern dword_16E468, QuantizePalette, DrawDestPitch, VideoModePanelMode, VideoModeChanged, GameObjects, ActiveCameraScene, ViewSizeChanged
 extern FadeDone, GameSettings, AudioOptions, GameOptionFlags, ArenaArchive, ObjectPositions, ReplayFrames, PlayerNamesOn
 extern dword_1C5DE4, dword_1CEF88, dword_1CEF8C, dword_1CEF90, dword_1CEF94, dword_1CEF98, dword_1CEF9C, dword_1CEFA0
@@ -2482,7 +2482,7 @@ RunIntermission:
         mov dword [byte ebp-01Ch], eax
         mov eax, dword [mousey]
         mov dword [byte ebp-0Ch], eax
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .8
         lea eax, [byte ebp-08h]
         push eax
@@ -3034,7 +3034,7 @@ PauseMenu_29A:
 PauseMenu_4BB:
         cmp dword [byte ebp+07Ah], byte 0FFFFFFFFh
         jne near PauseMenu_66D.36
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je near PauseMenu.9
         push byte 3
         lea eax, [byte ebp+06Eh]
@@ -8836,11 +8836,11 @@ DetailLevelMenu_17B7:
 FreeVideoBuffer:
         push ecx
         push edx
-        cmp dword [dword_16E30C], byte 0
+        cmp dword [GfxFixBuffer], byte 0
         je short .1
-        push dword [dword_16E30C]
+        push dword [GfxFixBuffer]
         call FreeMemBlock
-        mov dword [dword_16E30C], 0
+        mov dword [GfxFixBuffer], 0
         add esp, byte 4
 .1:
         pop edx
