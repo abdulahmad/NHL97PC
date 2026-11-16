@@ -314,10 +314,29 @@ static int make_step(void)
 }
 
 /* InputRecordAvail (GameLoop's "is there a record?", and the line-up loop's): in a session, one step a pass */
+/* Offline: one drawn frame per input record. The game draws whenever no record is waiting, and much of what moves on the screen
+ * (the camera's moves between plays, some animation) moves a step per drawn frame, not per record: on a Pentium 75-100 the drawing
+ * took about as long as a record (3 ticks, about 34 a second), on a modern CPU the loop drew hundreds of frames a second and those
+ * ran 10x too fast (and the busy loop stuttered). So after a frame the loop waits here for the next record (at most 100 ms, in case
+ * the records stop). NHL97_FRAMES=free draws as fast as it can, as before. */
+static int frames_free = -1, nh_drew;
+static uint32_t paced_avail(uint32_t c)
+{
+    if (frames_free < 0) { const char *e = getenv("NHL97_FRAMES"); frames_free = e && !strcmp(e, "free"); }
+    if (frames_free) return c;
+    if (!c && nh_drew) {
+        int64_t until = plat_now_ns() + 100000000;
+        while (!(c = G32(D_QCOUNT)) && plat_now_ns() < until) host_idle_once();
+    }
+    nh_drew = !c;                                   /* no record: the loop draws a frame now */
+    return c;
+}
+
 uint32_t nh_avail(void)
 {
     uint32_t c = G32(D_QCOUNT);
-    if (!nh_sim || c) return c;
+    if (!nh_sim) return paced_avail(c);
+    if (c) return c;
     if (nh_given) { nh_given = 0; return 0; }       /* this pass had its step: now it draws */
     if (make_step()) { go_local(); return G32(D_QCOUNT); }
     nh_given = 1;
