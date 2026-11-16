@@ -195,7 +195,7 @@
 ;  2A3F4  assstanley                               engine/engine_25894.asm                      1
 ;  2A6B8  sub_2A6B8                                engine/engine_25894.asm                      1
 ;  2BE2C  sub_2BE2C                                engine/engine_25894.asm                      1
-;  2C064  sub_2C064                                engine/engine_25894.asm                      1
+;  2C064  a2touchpuck                              engine/engine_25894.asm                      1
 ;  2D308  pucknorm                                 engine/engine_25894.asm                      1
 ;  2D330  puckfaceoff2                             engine/engine_25894.asm                      1
 ;  2DCC8  CPgoalie                                 engine/engine_25894.asm                      1

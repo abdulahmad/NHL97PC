@@ -53,7 +53,7 @@ global sub_27F80, sub_27FF0, sub_28110, asseben, sub_2842C, asspenalty, assdopen
 global sub_28C0C, assrefpenshot, sub_29064, sub_293A8, sub_295CC, sub_298E8, sub_29A90, sub_29BFC
 global sub_29E2C, sub_29F30, sub_2A000, sub_2A1C8, sub_2A3A0, assstanley, sub_2A6B8, sub_2AA50
 global sub_2AC40, sub_2AD18, sub_2AFD8, sub_2B4D4, sub_2B9EC, sub_2BAC0, sub_2BE2C, sub_2BEF0
-global sub_2BFC4, sub_2C064, sub_2C42C, sub_2C4E8, sub_2C5C8, sub_2C900, pucknorm_body, pucknorm
+global sub_2BFC4, a2touchpuck, sub_2C42C, sub_2C4E8, sub_2C5C8, sub_2C900, pucknorm_body, pucknorm
 global puckfaceoff2, CPgoalie, sub_2DD54
 ;-----------------------------------------------------------------------------
 ; sub_25894                                                       25894  97 PC
@@ -7109,7 +7109,7 @@ sub_2AFD8:
         cmp byte [dword ecx+0A4h], 0Ch
         je short .14
         mov eax, ecx
-        call sub_2C064
+        call a2touchpuck
 .14:
         mov esp, ebp
         pop ebp
@@ -7158,7 +7158,7 @@ sub_2B4D4:
         xor eax, eax
         call sub_20A80
         mov eax, ecx
-        call sub_2C064
+        call a2touchpuck
         mov eax, dword [dword ecx+0FEh]
         mov esi, dword [dword eax+0108h]
         mov eax, dword [dword ecx+0A3h]
@@ -7664,7 +7664,7 @@ sub_2BAC0:
         cmp eax, edx
         jne near .12
         mov eax, ecx
-        call sub_2C064
+        call a2touchpuck
         mov al, byte [byte_19CBCA]
         or al, 10h
         mov edx, dword [off_168CFC]
@@ -7754,7 +7754,7 @@ sub_2BAC0:
         cmp ax, 14h
         jge near .12
         mov eax, ecx
-        call sub_2C064
+        call a2touchpuck
         mov dword [byte ecx+064h], 10h
         mov eax, dword [off_168CFC]
         call sub_2AA50
@@ -8096,9 +8096,12 @@ sub_2BFC4:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_2C064                                                       2C064  97 PC
+; a2touchpuck                                    2C064  94G, medium confidence
+; 94G a2touchpuck: (player) the player touches the puck: records the last
+; touch (player word_19CBAE, position), then checks offsides and the other
+; rules
 ;-----------------------------------------------------------------------------
-sub_2C064:
+a2touchpuck:
         push ebx
         push ecx
         push edx
@@ -8898,7 +8901,7 @@ pucknorm_body:
         shl edx, 3
         add edi, edx
         mov eax, edi
-        call sub_2C064
+        call a2touchpuck
         mov eax, dword [byte ebp-04h]
         mov byte [dword eax+0CEh], 0
         test byte [byte_19CBC2], 1

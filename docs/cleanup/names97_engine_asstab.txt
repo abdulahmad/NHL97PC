@@ -30,3 +30,4 @@ sub_42098 PlaySfxOr {source=96PC,confidence=medium} 96 PC PlaySfxOr: (id, other)
 sub_41FA0 StopAllSfx {confidence=low} stops every voice in PlaySfx's list (dword_1AC508)
 sub_2EDB8 StartFaceoffLineChange {source=94G,confidence=low} 94G StartFaceoffLineChange: starts a team's faceoff line change (once per stoppage: team flag +16h bit 1) when line changes are on
 sub_5ED80 SetSPA {source=94G,confidence=medium} 94G SetSPA: (player, animation 0-17Ch, flags, speed) sets the player's animation; restarts it unless it is already playing
+sub_2C064 a2touchpuck {source=94G,confidence=medium} 94G a2touchpuck: (player) the player touches the puck: records the last touch (player word_19CBAE, position), then checks offsides and the other rules
