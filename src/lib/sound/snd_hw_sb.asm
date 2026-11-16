@@ -3,8 +3,8 @@ bits 32
 %include "hockey.inc"
 section s_13794C progbits alloc exec nowrite align=1
 extern _DoINTR_, _Extender, _ExtenderSubtype, _IsTable, __fatal_runtime_error_, __set_errno_, _dos_getvect_, _dos_setvect_
-extern str_UnableToAllocateRealModeS, str_UnableToSetLimitOfRealMod, str_NoErrorInXACODECFunctionL, str_InvalidErrorCodeInXACODEC, byte_150000, byte_150004, byte_150008, byte_15000C
-extern byte_150010, byte_150014, Is8087, DmaPagePorts, DmaMaskPorts, DmaModePorts, DmaClearPorts, DmaAddressPorts
+extern str_UnableToAllocateRealModeS, str_UnableToSetLimitOfRealMod, str_NoErrorInXACODECFunctionL, str_InvalidErrorCodeInXACODEC, SbDmaPagePorts, SbDmaMaskPorts, SbDmaModePorts, SbDmaFlipFlopPorts
+extern SbDmaAddressPorts, SbDmaCountPorts, Is8087, DmaPagePorts, DmaMaskPorts, DmaModePorts, DmaClearPorts, DmaAddressPorts
 extern DmaCountPorts, TimerIrqMask, TimerChainFlag, TimerPitMode, TimerInstalled, ClipLeftCol, ScreenHeight, StrToLongLimits
 extern IrqAckLast, FloatPow10Table, FloatPow10Exponents, FloatFormatDigits, FloatFormatExponent, FloatFormatMantissaLo, FloatFormatMantissaHi, DacTimerRate
 extern DacTimerDivisor, TimerOldHandler, TimerOldRealHandler, TimerDivisor, TimerChainCount, int386_, str_RMHandler, AllocMemData
@@ -257,13 +257,13 @@ TimerInstall:
         LD xor, edx, edx
         LD mov, eax, ebx
         or al, 4
-        mov dl, byte [dword ebx+byte_150004]
+        mov dl, byte [dword ebx+SbDmaMaskPorts]
         out dx, al
         jmp short .2
 .2:
         jmp short .3
 .3:
-        mov dl, byte [dword ebx+byte_150008]
+        mov dl, byte [dword ebx+SbDmaModePorts]
         mov eax, dword [TimerChainCount]
         or al, 18h
         out dx, al
@@ -271,13 +271,13 @@ TimerInstall:
 .4:
         jmp short .5
 .5:
-        mov dl, byte [dword ebx+byte_15000C]
+        mov dl, byte [dword ebx+SbDmaFlipFlopPorts]
         out dx, al
         jmp short .6
 .6:
         jmp short .7
 .7:
-        mov dl, byte [dword ebx+byte_150010]
+        mov dl, byte [dword ebx+SbDmaAddressPorts]
         mov ax, word [TimerOldOffsetLo]
         out dx, al
         jmp short .8
@@ -290,7 +290,7 @@ TimerInstall:
 .10:
         jmp short .11
 .11:
-        mov dl, byte [dword ebx+byte_150000]
+        mov dl, byte [dword ebx+SbDmaPagePorts]
         mov al, byte [TimerIrqMask]
         out dx, al
         jmp short .12
@@ -299,7 +299,7 @@ TimerInstall:
 .13:
         mov ax, word [TimerOldSelector]
         dec ax
-        mov dl, byte [dword ebx+byte_150014]
+        mov dl, byte [dword ebx+SbDmaCountPorts]
         out dx, al
         jmp short .14
 .14:
@@ -323,7 +323,7 @@ TimerInstall:
         call TimerSetDivisor
         call TimerMeasure
         mov eax, dword [TimerChainCount]
-        mov dl, byte [dword ebx+byte_150004]
+        mov dl, byte [dword ebx+SbDmaMaskPorts]
         out dx, al
         jmp short .18
 .18:
@@ -357,7 +357,7 @@ TimerChainOld:
         mov ebx, dword [TimerChainCount]
         LD mov, eax, ebx
         or al, 4
-        mov dl, byte [dword ebx+byte_150004]
+        mov dl, byte [dword ebx+SbDmaMaskPorts]
         out dx, al
         jmp short .1
 .1:

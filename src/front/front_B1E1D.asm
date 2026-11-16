@@ -32,7 +32,7 @@ extern SortStatTable, DrawStatTableRows, DrawStatTableArt, ExportStatTable, Open
 extern SaveUserRecord, LoadUserRecord, DeleteUserRecord, ServiceIdle, LinkSyncMenu, LinkSyncScreen, WaitForOtherComputer, AllocMemBlock
 extern FreeMemBlock, MakeColor, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, MeasureText, tickcount
 extern str_D_ParseUserName, str_S_DrawUserName, UserListFileSeason, UserListFilePlayoff, BlankMenuItem, UserGamesPopup, UserCupsPopup, UserGamesListBox
-extern unk_B1DF1, unk_B1DFD, unk_B1E09, unk_B1E11, UserRecordsSoundOn, PlayoffRecordWins, PlayoffRecordLosses, HomePeriodShots
+extern UserRecordScaleSteps, UserRecordScaleHalf, UserRecordScalePair, UserRecordScaleQuarter, UserRecordsSoundOn, PlayoffRecordWins, PlayoffRecordLosses, HomePeriodShots
 extern AwayPeriodShots, GameLogCount
 global jpt_B234C, jpt_B41D3, NewUser_C7, NewUser_C8, UserLogScreen_71B, UserLogScreen_77D, UserLogScreen_884, UserLogScreen_89E
 global UserLogScreen_8BB, UserLogScreen_8CA, UserRecordsScreen_95C, UserRecordsScreen_96D, UserRecordsScreen_9B4, UserRecordsScreen_A7F, UserRecordsScreen_A92, UserRecordsScreen_A9E
@@ -1464,21 +1464,21 @@ UpdateUserRecords:
         enter 2D8h, 0
         sub ebp, 82h
         lea edi, [byte ebp+01Eh]
-        mov esi, unk_B1DF1
+        mov esi, UserRecordScaleSteps
         movsd
         movsd
         movsd
         lea edi, [byte ebp+036h]
-        mov esi, unk_B1DFD
+        mov esi, UserRecordScaleHalf
         movsd
         movsd
         movsd
         lea edi, [byte ebp+042h]
-        mov esi, unk_B1E09
+        mov esi, UserRecordScalePair
         movsd
         movsd
         lea edi, [byte ebp+02Ah]
-        mov esi, unk_B1E11
+        mov esi, UserRecordScaleQuarter
         mov dword [byte ebp+076h], 1
         movsd
         movsd

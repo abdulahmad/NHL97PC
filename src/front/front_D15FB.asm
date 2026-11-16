@@ -30,7 +30,7 @@ extern HomeSlotRatings, AwaySlotRatings
 global jpt_D1917, jpt_D3102, LayoutMatchupLeft_1E9, PreGameMatchupScreen_4E0, PreGameMatchupScreen_4EC, PreGameMatchupScreen_516, PreGameMatchupScreen_522, PreGameMatchupScreen_658
 global PreGameStatsPanel_4DF, PreGameStatsPanel_4E0, LayoutMatchupLeft, LayoutMatchupRight, PreGameMatchupScreen, DrawMatchupStats, DrawPlayerPortrait, DrawMatchupPlayer
 global PreGameStatsPanel, FreeMatchupScreen, ReadMatchupStats, MatchupBarLength, LoadMatchupArt, MatchupSparkle, AnimateMatchup, RostersSparkle
-global unk_D3057, unk_D305F, unk_D3067
+global MatchupNotesBlankRect, MatchupNotesBlankPos, MatchupNotesBlankSize
 ;-----------------------------------------------------------------------------
 ; LayoutMatchupLeft                               D15FB  97 PC, low confidence
 ; Lays out the left side of the matchup screen
@@ -1976,11 +1976,11 @@ AnimateMatchup:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-unk_D3057:
+MatchupNotesBlankRect:
         db 00h,00h,00h,00h,00h,00h,00h,00h
-unk_D305F:
+MatchupNotesBlankPos:
         db 00h,00h,00h,00h,00h,00h,00h,00h
-unk_D3067:
+MatchupNotesBlankSize:
         db 00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
 ; RostersSparkle                                  D306F  97 PC, low confidence

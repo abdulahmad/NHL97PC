@@ -3718,6 +3718,12 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 13C228,fprem_common,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 13C42E,__fprem_chk,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 13C4E0,fprem1_common,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+150000,SbDmaPagePorts,byte_150000,new,low,Sound Blaster 8237 DMA page register port for each channel 0-3,src/dseg03/dseg03.asm
+150004,SbDmaMaskPorts,byte_150004,new,low,Sound Blaster 8237 DMA single-channel mask register port for each channel,src/dseg03/dseg03.asm
+150008,SbDmaModePorts,byte_150008,new,low,Sound Blaster 8237 DMA mode register port for each channel,src/dseg03/dseg03.asm
+15000C,SbDmaFlipFlopPorts,byte_15000C,new,low,Sound Blaster 8237 DMA clear flip-flop register port for each channel,src/dseg03/dseg03.asm
+150010,SbDmaAddressPorts,byte_150010,new,low,Sound Blaster 8237 DMA base address register port for each channel,src/dseg03/dseg03.asm
+150014,SbDmaCountPorts,byte_150014,new,low,Sound Blaster 8237 DMA count register port for each channel,src/dseg03/dseg03.asm
 160000,SharedDataFlags,unk_160000,new,low,"four bytes of 1,1,1,0 at the start of the shared data block; unreferenced",src/data/shared_data_01.asm
 160004,str_PATH2,asc_160004,new,high,"string ""PATH""",src/data/shared_data_01.asm
 16000C,str_Rb,unk_16000C,new,high,"string ""rb""",src/data/shared_data_01.asm

@@ -116,7 +116,7 @@ global FindNearestBenchPlayer, StartBenchCheer, BenchCheerStep, UpdateBenchCheer
 global TransformRink, DrawBenchLines, DrawBoardsTop, DrawStandsSides, DrawBenchDoors, DrawGlass, DrawBenchPlayers, DrawBenchArea
 global DrawPenaltyBox, DrawBenches, ScoreboardTransform, LoadScoreboardArt, DrawScoreboard, NetFrameDistance, SetupNetArt, ResetNetArt
 global UpdateScoreboardPos, UpdateScoreboardSpin, LoadNetArt, BuildRinkSides, OpenArenaArchive, LoadBoardLogo, LoadTeamLogoShape, LoadTeamLogoCopy
-global unk_4AB70, unk_4AB80, unk_4B4A0, unk_4BCC0, str_Light
+global unk_4AB70, unk_4AB80, GameGfxInitVector, ScoreboardZeroVector, str_Light
 ;-----------------------------------------------------------------------------
 ; PaEvent                                         48D70  96 PC, low confidence
 ; The arena PA announcer: B events (0B000001h-0B000006h) from the front end
@@ -3521,7 +3521,7 @@ WriteGlobalSet:
         pop ecx
         ret
         db 00h,00h
-unk_4B4A0:
+GameGfxInitVector:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,0FAh,044h
 ;-----------------------------------------------------------------------------
 ; NoOpPlatformHook                                4B4AC  97 PC, low confidence
@@ -3762,7 +3762,7 @@ InitGameGraphics:
         jl short .1
 .2:
         mov edi, esp
-        mov esi, unk_4B4A0
+        mov esi, GameGfxInitVector
         mov edx, esp
         mov eax, esp
         movsd
@@ -4208,7 +4208,7 @@ DrawGameFrame:
 RedrawGameView:
         jmp near PresentGameView
         db 00h,00h,00h,00h,00h,00h,00h
-unk_4BCC0:
+ScoreboardZeroVector:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 str_Light:
         db 06Ch,069h,067h,068h,074h,00h,00h,00h
@@ -12486,7 +12486,7 @@ DrawScoreboard:
         sub esp, byte 1Ch
         mov ebx, eax
         lea edi, [byte esp+0Ch]
-        mov esi, unk_4BCC0
+        mov esi, ScoreboardZeroVector
         movsd
         movsd
         movsd

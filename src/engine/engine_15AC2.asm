@@ -61,7 +61,7 @@ extern GetLangText, LogGoal, DrawClockOverlay, NextVideoMode, PrevVideoMode, Fre
 extern FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, DrawShapeScaledBy, FillPolygon, FillRectColor
 extern FillRect, MeasureText, DrawTextAt, SetTextColors, DrawTextBoxedAt, FillRectCorners, MatRotY, MatTranspose
 extern VecMulMat, VecAdd, VecSub, VecDistance, VecLength, VecScale, VecNormalizeTo, ProjectPointInt
-extern tickcount, unk_158E2, unk_15932, unk_15982, unk_159D2, unk_15A22, unk_15A72, str_S_DrawPenaltyPanel
+extern tickcount, PenaltyPanelBlank, PenaltyShotPanelBlank, SpecialTeamsPanelBlank, InjuryPanelBlank, PeriodPanelBlank, GoalScorerPanelBlank, str_S_DrawPenaltyPanel
 extern str_Punct_DrawGoalScorerPanel, str_CommaSpace, str_CloseParen, CameraViewDefs
 extern CameraViewDefs
 extern CameraViewDefs
@@ -104,8 +104,8 @@ global GoaliePosTarget, FaceoffSpotPosition, Endfaceoff, AssNoop, assnull, assbe
 global Goal, InCrease, UpdateCreaseFlag, FindCreasePlayer, assgoalie, KeepInsideRink, DefendPuck, assextra4
 global assdefo, asswingo, asscentero, FindManToCover, assextra3, assdefd, asswingd, asscenterd
 global asstofaceoff, assfaceoff, assfaceoffpl, BuildPassTargets, CreditPass, assonetimer, CarrierInShotArea, CanReceivePass
-global MakePass, RimPuck, StartPass, TargetInAngle, AIPassDecision, ChkAIShoot, unk_19178, unk_19180
-global unk_19188, unk_19194, unk_191A0, unk_191AC
+global MakePass, RimPuck, StartPass, TargetInAngle, AIPassDecision, ChkAIShoot, FaceoffCloseupInit, FaceoffSweepInit
+global GoalSceneCamFrom, GoalSceneCamTo, GoalCameraFrom, GoalCameraTo
 ;-----------------------------------------------------------------------------
 ; ChangeViewSize                               15AC2  97 PC, medium confidence
 ; (+1 / -1): the game view size in steps of 10 between 28h and 64h percent
@@ -1794,7 +1794,7 @@ DrawPenaltyPanel:
         mov edx, ecx
         mov ecx, 14h
         lea edi, [byte ebp-022h]
-        mov esi, unk_158E2
+        mov esi, PenaltyPanelBlank
         mov eax, 100h
         rep movsd
         call RemoveOverlayPanel
@@ -1997,7 +1997,7 @@ DrawPenaltyShotPanel:
         mov ebx, ecx
         mov ecx, 14h
         lea edi, [byte ebp-022h]
-        mov esi, unk_15932
+        mov esi, PenaltyShotPanelBlank
         mov eax, 100h
         rep movsd
         call RemoveOverlayPanel
@@ -2112,7 +2112,7 @@ DrawSpecialTeamsPanel:
         sub ebp, 0CEh
         mov ecx, 14h
         lea edi, [byte ebp+02Eh]
-        mov esi, unk_15982
+        mov esi, SpecialTeamsPanelBlank
         rep movsd
         movsx eax, word [HmPlayersInBox]
         movsx ebx, word [AwPlayersInBox]
@@ -2407,7 +2407,7 @@ DrawInjuryPanel:
         mov edx, ecx
         mov ecx, 14h
         lea edi, [byte ebp+07Eh]
-        mov esi, unk_159D2
+        mov esi, InjuryPanelBlank
         mov eax, 100h
         rep movsd
         call RemoveOverlayPanel
@@ -2480,7 +2480,7 @@ DrawPeriodPanel:
         sub ebp, 0CEh
         mov ecx, 14h
         lea edi, [byte ebp-022h]
-        mov esi, unk_15A22
+        mov esi, PeriodPanelBlank
         mov eax, 100h
         rep movsd
         call IsOverlayShown
@@ -2560,7 +2560,7 @@ DrawGoalScorerPanel:
         mov edx, ecx
         mov ecx, 14h
         lea edi, [byte ebp-026h]
-        mov esi, unk_15A72
+        mov esi, GoalScorerPanelBlank
         mov eax, 100h
         rep movsd
         call RemoveOverlayPanel
@@ -4762,17 +4762,17 @@ IsOverlayShown:
         ret
         db 00h,00h,00h,00h,0FFh,0C4h,00h,00h,0C8h,042h,00h,00h,096h,0C5h,00h,00h
         db 0FFh,044h,00h,00h,07Ah,045h,00h,00h,096h,045h
-unk_19178:
+FaceoffCloseupInit:
         db 02Ch,01h,00h,00h,02Ch,01h,00h,00h
-unk_19180:
+FaceoffSweepInit:
         db 0F4h,01h,00h,00h,0F4h,01h,00h,00h
-unk_19188:
+GoalSceneCamFrom:
         db 00h,0C0h,05h,0C5h,00h,00h,048h,043h,00h,020h,099h,0C5h
-unk_19194:
+GoalSceneCamTo:
         db 00h,0C0h,05h,045h,00h,080h,0BBh,044h,00h,020h,099h,045h
-unk_191A0:
+GoalCameraFrom:
         db 00h,080h,018h,0C5h,00h,00h,0C8h,043h,00h,080h,0A2h,0C5h
-unk_191AC:
+GoalCameraTo:
         db 00h,080h,018h,045h,00h,080h,0BBh,044h,00h,080h,0A2h,045h
         push eax
         push ebx
@@ -8821,7 +8821,7 @@ FaceoffCloseupScene:
         push ebp
         sub esp, byte 2Ch
         lea edi, [byte esp+024h]
-        mov esi, unk_19178
+        mov esi, FaceoffCloseupInit
         mov ecx, FaceoffSceneStep
         mov eax, 9
         movsd
@@ -9118,7 +9118,7 @@ FaceoffSweepScene:
         lea edi, [byte esp+018h]
         mov edx, 453E0000h
         mov ebx, 458CA000h
-        mov esi, unk_19180
+        mov esi, FaceoffSweepInit
         xor ecx, ecx
         mov dword [esp], edx
         mov dword [byte esp+04h], ebx
@@ -9630,12 +9630,12 @@ GoalSceneStep:
         push edi
         sub esp, byte 18h
         lea edi, [byte esp+0Ch]
-        mov esi, unk_19188
+        mov esi, GoalSceneCamFrom
         movsd
         movsd
         movsd
         mov edi, esp
-        mov esi, unk_19194
+        mov esi, GoalSceneCamTo
         movsd
         movsd
         movsd
@@ -9686,12 +9686,12 @@ GoalCameraScene:
         sub esp, byte 20h
         mov ebx, eax
         lea edi, [byte esp+0Ch]
-        mov esi, unk_191A0
+        mov esi, GoalCameraFrom
         movsd
         movsd
         movsd
         mov edi, esp
-        mov esi, unk_191AC
+        mov esi, GoalCameraTo
         mov eax, 5
         movsd
         movsd

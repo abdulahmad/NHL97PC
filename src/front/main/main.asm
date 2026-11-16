@@ -49,7 +49,7 @@ global SetHighlightText, SetNormalText, PoundsToKg, InchesToCm, PlayerBioScreen,
 global ShowStatScreen, DrawStatHeader, ShowWorkingBox, DrawWorkingBox, UpdateWorkingBox, HideWorkingBox, ShowLinkWait, ShowLinkMessage
 global DrawLinkBox, HideLinkBox, DrawHighlightBar, WaitShortDelay, ShowPopupScreen, DrawStatsBackground, FreeStatsBitmap, ShowStatsScreen
 global SaveStatsScreen, RestoreStatsScreen, DrawListHighlight, ShowLoadingScreen, ClearMenuGameFlag, ShowLoadingBar, TintPortrait, ChangeMenuMusic
-global unk_845C0
+global MainMenuItemMetrics
 ;-----------------------------------------------------------------------------
 ; main_                                                         7D059  library
 ;-----------------------------------------------------------------------------
@@ -9890,7 +9890,7 @@ ChangeMenuMusic:
         pop ecx
         pop ebx
         ret
-unk_845C0:
+MainMenuItemMetrics:
         db 0Eh,00h,00h,00h,0Ah,00h,00h,00h,018h,00h,00h,00h
 jpt_845CC:
         dd MainMenuAnim_32E

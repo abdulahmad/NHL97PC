@@ -20,7 +20,7 @@ extern strstr_, strupr_, AudioDriverUpdate, ApplyChannelVolume, PickSampleRate, 
 extern MixerFillBuffer, SbReadData, SbWriteDsp, SbMixerWrite, SbMixerRead, SbResetDsp, SbDetectDsp, SbSetRate
 extern StartChannel, SetChannelCount, DmaMaskChannel, DmaProgram, IrqAck, IrqVector, IrqUnmask, IrqMask
 extern IrqSetHandler, AllocDosDmaBuffer, FreeDosDmaBuffer, SbTimeConstant, SbRateFromConstant, ReturnArg, AllocMemData, FreeMemBlock
-extern unk_128990, unk_1289A0, SbRateConstLo, SbRateConstMid, SbRateConstHi, SbProStereoFlag, SbProRateConst, unk_140000
+extern WssBasePortsBlaster, BlasterCodeList, SbRateConstLo, SbRateConstMid, SbRateConstHi, SbProStereoFlag, SbProRateConst, unk_140000
 extern unk_14000D, unk_14001A, unk_14002B, str_Rt_ReadSoundscapeIni, str_Punct_IniFindKey, Sb16DmaSetupCode, SbConfig, SbProConfig
 extern Sb16SavedIrqSelector, Sb16DmaPortPatch, str_Punct_Sb16SetupDma, SbDspVersion, SbOldIrqSelector, SbProOldSelector, Sb16DspVersion, Sb16IrqStatusPort
 extern Sb16DmaBits
@@ -41,14 +41,14 @@ ReadBlasterPort:
         push edi
         sub esp, byte 20h
         mov edi, esp
-        mov esi, unk_128990
+        mov esi, WssBasePortsBlaster
         movsd
         movsd
         movsd
         movsd
         mov ecx, 0FFFFFFFFh
         lea edi, [byte esp+010h]
-        mov esi, unk_1289A0
+        mov esi, BlasterCodeList
         mov ebx, 1
         xor edx, edx
         movsd

@@ -68,7 +68,7 @@ global LoadRinkLines, SetupRinkModel, LoadRinkModel, FreeRinkModel, SetRinkTrans
 global DrawRinkOverlay, DrawBenchModels, DrawBenchSide, GetSeatPos, SetBoxDoor, SetPenaltyBoxDoor, SetBoxDoorState, DrawBenchRow
 global DrawBenchSection, DrawRinkPass, DrawNearSide, DrawFarSide, SaveViewOrigin, ShapePixelSize, DrawShadowShape, ModelViewDepth
 global DrawPortraitModels, AddSeatModel, FindSeatModel, PickMarkerShape, SetTeamColours, FaceDistance, SetFaceMouth, SetFaceExpression
-global SetFaceBlink, SetModelHeading, BuildFaceTextures, RefreshFaceTextures, CupFaceTextures, SetModelSlotValue, unk_56790, unk_56794
+global SetFaceBlink, SetModelHeading, BuildFaceTextures, RefreshFaceTextures, CupFaceTextures, SetModelSlotValue, UniformFontColors, UniformFontShadow
 ;-----------------------------------------------------------------------------
 ; LoadLogos                                       52770  97 PC, low confidence
 ; Game graphics: loads "logos.fsh" (LOGOS, blogos) and the ice / board logo
@@ -5093,9 +5093,9 @@ SaveViewOrigin:
         mov dword [ViewOriginY], eax
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-unk_56790:
+UniformFontColors:
         db 0FFh,028h,028h,0FFh
-unk_56794:
+UniformFontShadow:
         db 0FFh,0FFh,0FFh,0FFh
 ;-----------------------------------------------------------------------------
 ; ShapePixelSize                                  56798  97 PC, low confidence

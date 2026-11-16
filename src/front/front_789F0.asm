@@ -5,7 +5,7 @@ section s_789F0 progbits alloc exec nowrite align=1
 extern PeriodHomeTeam, PeriodAwayTeam, HomeRosterData, HomeBackupGoalie, AwayRosterData, AwayBackupGoalie, str_D_SimulateGame, SimGameResult
 extern SeasonUserTeam, GameOptionFlags, SeasonRandomSeed, PlayoffRandomSeed, PaEventValue, ThreeStarsCount, HomeTeamRating, HomeInjuredCount
 extern memset_, rand_, srand_, RandomCrowdDelay, PlayerOverall, FindPlayerRecord, FindGameRecord, FindPlayerStat
-extern ReadTeamStats, ServiceIdle, ZeroMem, PlayoffDbKey, SeasonDbKey, AutoLineData, HomeLines, unk_78930
+extern ReadTeamStats, ServiceIdle, ZeroMem, PlayoffDbKey, SeasonDbKey, AutoLineData, HomeLines, SimGameBlankPair
 extern HomeRosterData, HomeSimGoals, HomeSimShots, HomeShotTotals, HomeGoalTotals
 extern AwayRosterData, AwaySimGoals, AwaySimShots, AwayShotTotals, AwayGoalTotals
 global SimulateGame, SimPlayerRating, SimTeamStrength, unk_7A788
@@ -22,7 +22,7 @@ SimulateGame:
         sub esp, 162Ch
         mov dword [dword esp+0150Ch], edx
         lea edi, [dword esp+014DCh]
-        mov esi, unk_78930
+        mov esi, SimGameBlankPair
         movsd
         movsd
         test edx, edx

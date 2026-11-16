@@ -47,8 +47,8 @@ global TeamStatsScreen_FC4, TeamStatsScreen_1027, TeamStatsScreen_108A, TeamStat
 global StatsTablesScreen_C68, StatsTablesScreen_D0E, AllocStatTable, FreeStatTable, SetStatCell, SetStatCellFlag, SetStatColumn, SetStatRowWidth
 global SortStatTableBy, CompareStatNumber, CompareStatText, CompareStatTextDown, CompareStatName, SortStatTable, DrawStatTableRows, DrawStatTableArt
 global WriteCsvField, WriteCsvLine, AskExportFile, ExportStatTable, TeamStatsSound, TeamStatsScreen, StatsScreenSound, StatsTablesScreen
-global BuildTeamStatsTable, SetSkaterStatColumns, SetGoalieStatColumns, SetTeamStatColumns, unk_AD76B, unk_B1DF1, unk_B1DFD, unk_B1E09
-global unk_B1E11
+global BuildTeamStatsTable, SetSkaterStatColumns, SetGoalieStatColumns, SetTeamStatColumns, unk_AD76B, UserRecordScaleSteps, UserRecordScaleHalf, UserRecordScalePair
+global UserRecordScaleQuarter
 ;-----------------------------------------------------------------------------
 ; AllocStatTable                                  AC799  97 PC, low confidence
 ; Allocates the "statthingy" list tables (flags, columns, sort, names, alpha,
@@ -7084,11 +7084,11 @@ SetTeamStatColumns:
         pop edi
         pop esi
         ret 1Ch
-unk_B1DF1:
+UserRecordScaleSteps:
         db 00h,00h,02h,00h,00h,00h,03h,00h,00h,00h,04h,00h
-unk_B1DFD:
+UserRecordScaleHalf:
         db 00h,00h,01h,00h,00h,080h,01h,00h,00h,00h,00h,00h
-unk_B1E09:
+UserRecordScalePair:
         db 00h,00h,01h,00h,00h,080h,01h,00h
-unk_B1E11:
+UserRecordScaleQuarter:
         db 00h,00h,01h,00h,00h,040h,01h,00h,00h,080h,01h,00h

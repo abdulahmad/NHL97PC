@@ -33,7 +33,7 @@ global jpt_C4822, OptionsScreen_F0A, OptionsScreen_F22, OptionsScreen_10AA, Opti
 global OptionsScreen_1285, OptionsScreen_12DA, OptionsScreen_1359, OptionsScreen_136C, OptionsScreen_137F, OptionsScreen_13A6, OptionsScreen_140D, OptionsScreen_1431
 global OptionsScreen_1435, OptionsScreen_1439, OptionsScreen_143D, OptionsScreen_1441, OptionsScreen_1447, OptionsScreen_144D, OptionsScreen_1451, OptionsScreen_147B
 global OptionsScreen_14BA, OptionsScreen_14FE, OptionsScreen_1519, OptionsScreen_1534, OptionsScreen_154F, OptionsScreen_156A, OptionsScreen_1588, OptionsScreen_15A6
-global DrawOptionsSlider, OptionsSound, OptionsScreen, unk_C5ED2
+global DrawOptionsSlider, OptionsSound, OptionsScreen, SeasonSetupRowY
 ;-----------------------------------------------------------------------------
 ; DrawOptionsSlider                               C462F  97 PC, low confidence
 ; Draws an options slider
@@ -1623,7 +1623,7 @@ OptionsScreen_15A6:
         pop ecx
         pop ebx
         ret
-unk_C5ED2:
+SeasonSetupRowY:
         db 0D4h,00h,00h,00h,0E5h,00h,00h,00h,0F8h,00h,00h,00h,0Ah,01h,00h,00h
         db 01Dh,01h,00h,00h,02Fh,01h,00h,00h,053h,08Bh,05Ah,01h,083h,0E3h,07h,080h
         db 060h,01h,0F8h,09h,058h,01h,08Bh,05Ah,01h,083h,0E3h,08h,080h,060h,01h,0F7h

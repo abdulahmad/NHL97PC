@@ -19,8 +19,8 @@ extern AllocMemBlock, FreeMemBlock, FreeBitmap, DrawArt, CreateBitmap, SetDrawTa
 extern GlobalSetVersion, ScreenTitleItem, BlankMenuItem, ScreenFrameItem, TeamSelectMode, AwayPanelTeam, HomePanelTeam
 global jpt_9E8E8, jpt_9F6DD, DrawHomeTeamPanel_1C9, DrawHomeTeamPanel_1EC, TeamSelectScreen_7BE, TeamSelectScreen_7CF, TeamSelectScreen_7E0, TeamSelectScreen_7FC
 global TeamSelectScreen_815, TeamSelectScreen_8C4, TeamSelectScreen_918, TeamSelectScreen_94F, TeamSelectScreen_A05, TeamSelectScreen_A43, TeamSelectScreen_ACB, TeamSelectScreen_B55
-global TeamSelectScreen_B61, DrawHomeTeamPanel, DrawAwayTeamPanel, TeamSelectSparkle, TeamSelectScreen, IndexScreenSound, str_Punct_PickIndexEntry, unk_9F611
-global unk_9F631, unk_9F651
+global TeamSelectScreen_B61, DrawHomeTeamPanel, DrawAwayTeamPanel, TeamSelectSparkle, TeamSelectScreen, IndexScreenSound, str_Punct_PickIndexEntry, PickIndexTopBar
+global PickIndexLeftBar, PickIndexRightBar
 ;-----------------------------------------------------------------------------
 ; DrawHomeTeamPanel                               9E35E  96 PC, low confidence
 ; The home team's panel on the team select screen: logo, name art, rank
@@ -1287,13 +1287,13 @@ TeamSelectScreen_B61:
 str_Punct_PickIndexEntry:
         db 0Ah,00h,00h,00h,0F6h,0FFh,0FFh,0FFh,0Ah,00h,00h,00h,0Ah,00h,00h,00h
         db 042h,0FFh,0FFh,0FFh,0Ah,00h,00h,00h,042h,0FFh,0FFh,0FFh,0F6h,0FFh,0FFh,0FFh
-unk_9F611:
+PickIndexTopBar:
         db 0F6h,0FFh,0FFh,0FFh,0Ah,00h,00h,00h,0F6h,0FFh,0FFh,0FFh,0F6h,0FFh,0FFh,0FFh
         db 0BEh,00h,00h,00h,0F6h,0FFh,0FFh,0FFh,0BEh,00h,00h,00h,0Ah,00h,00h,00h
-unk_9F631:
+PickIndexLeftBar:
         db 042h,0FFh,0FFh,0FFh,0FBh,0FFh,0FFh,0FFh,0Ah,00h,00h,00h,0FBh,0FFh,0FFh,0FFh
         db 0Ah,00h,00h,00h,0Fh,00h,00h,00h,042h,0FFh,0FFh,0FFh,0Fh,00h,00h,00h
-unk_9F651:
+PickIndexRightBar:
         db 0F6h,0FFh,0FFh,0FFh,0FBh,0FFh,0FFh,0FFh,0BEh,00h,00h,00h,0FBh,0FFh,0FFh,0FFh
         db 0BEh,00h,00h,00h,0Fh,00h,00h,00h,0F6h,0FFh,0FFh,0FFh,0Fh,00h,00h,00h
 ;-----------------------------------------------------------------------------

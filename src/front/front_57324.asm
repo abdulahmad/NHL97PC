@@ -181,7 +181,7 @@ extern GlobalSetVersion, SeatModels, PlayerDrawParams, PortraitModels, SavedPale
 extern ReplayStatesCamera, OffscreenState, CameraStateRecords, DepthSortKeys, PlayerStartRecords, FallAnimSlots, AnimDataBase
 extern ShotAnimPoses, ActAnimFrames, FallAnimFrames, InterferAnimFrames, GoalieAnimFrames, RefSkateAnimFrames, RefAmbiAnimFrames, RefCallAnimFrames
 extern FightAnimFrames, CupAnimFrames, ShotAnimIndex, ActAnimIndex, FallAnimIndex, InterferAnimIndex, GoalieAnimIndex, RefSkateAnimIndex
-extern RefAmbiAnimIndex, RefCallAnimIndex, FightAnimIndex, CupAnimIndex, AutoLineData, HomeLines, unk_56790, unk_56794
+extern RefAmbiAnimIndex, RefCallAnimIndex, FightAnimIndex, CupAnimIndex, AutoLineData, HomeLines, UniformFontColors, UniformFontShadow
 extern vecdist, DebugModelRefresh, GoalieTarget, ZoneTargetY, ShotTarget, ShotTimer, ShotType, ShotSpeed
 extern PassPending, PassReceiver, OneTimerPlayer, StatsPanelPlayer, gameover, PuckOwner, PuckOwnerTeam, Period
 extern SimFrames, gsp, gameclock, StatsPanelOn, FaceoffSpot, FaceoffZone, OneTimerReady, OneTimerPasser
@@ -247,8 +247,8 @@ global ReadAnimValue, DecodeAnimFrame, DecodeAnimDelta, GetAnimId, UpdateObjectP
 global SetAnimClock, AddAnimClock, UpdateAnimBlends, AnimClockTick, SetAnimFrame, SetAnimFlags, ClearAnimFlags, InitAnimState
 global AllocAnimStateBlocks, StartAnim, StartAnimNow, BlendToAnim, ChangeAnim, InitAnimNodePool, FreeAnimStates, AllocAnimStates
 global BuildCameraDebugView, DrawCameraPath, LoadAiIcons, FreeCameraDebug, updateplayers, GameOver, RequestPauseMenu, CheckIntermission
-global CupCelebration, clockcont_0, periodicevents, PlayCrowdAmbience, DoGameFrame, RandomCrowdDelay, unk_65475, unk_704AC
-global unk_704C0, unk_717E0, unk_717F4, unk_71A94, unk_71AA8, unk_78930
+global CupCelebration, clockcont_0, periodicevents, PlayCrowdAmbience, DoGameFrame, RandomCrowdDelay, GoalieAnimBlank, unk_704AC
+global unk_704C0, unk_717E0, unk_717F4, unk_71A94, unk_71AA8, SimGameBlankPair
 ;-----------------------------------------------------------------------------
 ; SetupPlayerModel                                57324  97 PC, low confidence
 ; Builds a player's 3D model: jersey, number and team textures for one roster
@@ -1443,9 +1443,9 @@ LoadUniformArt:
         push str_NumbersFfn
         call LoadResourceDataShared
         add esp, byte 8
-        mov edi, dword [unk_56790]
+        mov edi, dword [UniformFontColors]
         push eax
-        mov esi, dword [unk_56794]
+        mov esi, dword [UniformFontShadow]
         mov dword [dword ebx+PlayerArtTables+190h], eax
         call SelectFont
         add esp, byte 4
@@ -19897,7 +19897,7 @@ UpdateGameDisplay:
         pop ecx
         pop ebx
         ret
-unk_65475:
+GoalieAnimBlank:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
 ; LoadAnimData                                    65481  97 PC, low confidence
@@ -20431,7 +20431,7 @@ LoadGoalieAnimFile:
         push eax
         lea edi, [byte ebp-038h]
         mov eax, dword [nosplit eax*4+MoveAnimIds]
-        mov esi, unk_65475
+        mov esi, GoalieAnimBlank
         mov dword [byte ebp-014h], 0
         mov eax, dword [nosplit eax*4+MoveFuncPair]
         movsd
@@ -46783,7 +46783,7 @@ DoGameFrame:
         pop ebx
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-unk_78930:
+SimGameBlankPair:
         db 00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
 ; RandomCrowdDelay                                78938  97 PC, low confidence

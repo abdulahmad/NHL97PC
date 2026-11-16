@@ -21,8 +21,8 @@ extern DrawScreenBackground, FadeInScreen, ExitScreen, SetRegionRect, SetTextCol
 extern SetModemButton, InitMenuItems, RunMenu, GetLangText, ServiceIdle, WaitForOtherComputer, GetKeyName, LoadPauseArt
 extern FreePauseArt, DrawPauseClock, FreeMemBlock, MatchColor, MakeColor, FreeBitmap, DrawShapeAtOwnPos, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, tickcount, str_S_DrawControlKey, DefaultControls, ControlSetup
-extern BlankMenuItem, ControlSetupItems, KeyNames, str_Punct_DrawControlLabel, unk_EDE3F, unk_EDE53
-extern unk_EE053, str_Punct_ControlSetupScreen, unk_EE0E3, ControlSetupDelay, ControlSetupItem, ControlSetupSoundOn
+extern BlankMenuItem, ControlSetupItems, KeyNames, str_Punct_DrawControlLabel, ControlLabelOrder, ControlSetupLabelPos
+extern ControlSetupButtonRects, str_Punct_ControlSetupScreen, ControlSetupKeyOrder, ControlSetupDelay, ControlSetupItem, ControlSetupSoundOn
 global jpt_F031D, ShowReservedKey_20A, ControlSetupMain_3F3, ControlSetupMain_3FB, ControlSetupScreen_B8D, ControlSetupScreen_BB1, ControlSetupScreen_BC0, ControlSetupScreen_BF3
 global ControlSetupScreen_C3A, ControlSetupScreen_F11, ControlSetupScreen_1064, ShowReservedKey, CopyControlSettings, ControlSetupMain, ControlSetupKeys, ControlSetupPads
 global ControlSetupSound, DrawControlLabel, DrawControlKey, ControlSetupScreen, ControlSetupPlayers, SetupPauseArt, CleanupPauseArt
@@ -2073,7 +2073,7 @@ DrawControlLabel:
         mov esi, str_Punct_DrawControlLabel
         rep movsd
         lea edi, [byte ebp-014h]
-        mov esi, unk_EDE3F
+        mov esi, ControlLabelOrder
         movsd
         movsd
         movsd
@@ -2344,11 +2344,11 @@ ControlSetupScreen:
         sub ebp, 82h
         mov ecx, 80h
         lea edi, [dword ebp-02B6h]
-        mov esi, unk_EDE53
+        mov esi, ControlSetupLabelPos
         rep movsd
         mov ecx, 10h
         lea edi, [byte ebp-0Eh]
-        mov esi, unk_EE053
+        mov esi, ControlSetupButtonRects
         rep movsd
         mov ecx, 14h
         lea edi, [byte ebp-05Eh]
@@ -2358,7 +2358,7 @@ ControlSetupScreen:
         rep movsd
         push eax
         lea edi, [byte ebp+032h]
-        mov esi, unk_EE0E3
+        mov esi, ControlSetupKeyOrder
         push ControlSetup
         movsd
         movsd

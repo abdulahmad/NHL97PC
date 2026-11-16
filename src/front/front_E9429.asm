@@ -56,7 +56,7 @@ global DrawAllStarSlot, DrawAllStarSelection, DrawAllStarList, LoadAllStarLogo, 
 global AllStarPrevSlot, ClearAllStarPicks, AllStarPicksDone, FindAllStarPick, FindFreeAllStarSlot, AllStarPickTaken, AllStarPickPlayer, AllStarAddPick
 global AllStarRemovePick, AllStarTogglePick, AllStarSlotPosition, CompareAllStarGoalie, CompareAllStarKey, AddAllStarCandidate, PickAllStarCandidates, PickAllStarPlayers
 global InitAllStarTeams, AllocAllStarRosters, DrawAllStarPickList, LinkReceiveChunk, LinkSendChunk, LinkSendFile, GetKeyName, str_Punct_DrawControlLabel
-global unk_EDE3F, unk_EDE53, unk_EE053, str_Punct_ControlSetupScreen, unk_EE0E3
+global ControlLabelOrder, ControlSetupLabelPos, ControlSetupButtonRects, str_Punct_ControlSetupScreen, ControlSetupKeyOrder
 ;-----------------------------------------------------------------------------
 ; BuildAllStarTeams                               E9429  97 PC, low confidence
 ; From the season code: sets up the two All-Star teams (InitAllStarTeams,
@@ -5740,10 +5740,10 @@ str_Punct_DrawControlLabel:
         db 0ACh,01h,044h,01h,06Eh,00h,0Eh,00h,04h,01h,07Ah,01h,06Eh,00h,0Eh,00h
         db 05Dh,00h,044h,01h,06Eh,00h,0Eh,00h,042h,00h,0E7h,00h,06Eh,00h,0Eh,00h
         db 089h,00h,054h,00h,04Ah,00h,0Fh,00h,0A3h,01h,054h,00h,04Ah,00h,0Fh,00h
-unk_EDE3F:
+ControlLabelOrder:
         db 04h,00h,05h,00h,06h,00h,08h,00h,0Bh,00h,0Ah,00h,09h,00h,07h,00h
         db 02h,00h,03h,00h
-unk_EDE53:
+ControlSetupLabelPos:
         db 020h,01h,00h,00h,0E6h,00h,00h,00h,01h,01h,00h,00h,0C6h,00h,00h,00h
         db 0F9h,00h,00h,00h,0D0h,00h,00h,00h,0F1h,00h,00h,00h,0ACh,00h,00h,00h
         db 0F8h,00h,00h,00h,0A5h,00h,00h,00h,01Bh,01h,00h,00h,0ADh,00h,00h,00h
@@ -5776,7 +5776,7 @@ unk_EDE53:
         db 0FBh,00h,00h,00h,09h,01h,00h,00h,0DEh,00h,00h,00h,0F5h,00h,00h,00h
         db 0DDh,00h,00h,00h,0EEh,00h,00h,00h,0FAh,00h,00h,00h,0DAh,00h,00h,00h
         db 0FBh,00h,00h,00h,0E5h,00h,00h,00h,01Fh,01h,00h,00h,0E6h,00h,00h,00h
-unk_EE053:
+ControlSetupButtonRects:
         db 0E1h,00h,09Bh,00h,041h,00h,037h,00h,023h,01h,083h,00h,032h,00h,032h,00h
         db 059h,01h,096h,00h,037h,00h,03Ch,00h,077h,01h,0D7h,00h,02Dh,00h,032h,00h
         db 063h,01h,013h,01h,02Dh,00h,03Ch,00h,022h,01h,031h,01h,032h,00h,028h,00h
@@ -5787,7 +5787,7 @@ str_Punct_ControlSetupScreen:
         db 0ACh,01h,044h,01h,06Eh,00h,0Eh,00h,04h,01h,07Ah,01h,06Eh,00h,0Eh,00h
         db 05Dh,00h,044h,01h,06Eh,00h,0Eh,00h,042h,00h,0E7h,00h,06Eh,00h,0Eh,00h
         db 089h,00h,054h,00h,04Ah,00h,0Fh,00h,0A3h,01h,054h,00h,04Ah,00h,0Fh,00h
-unk_EE0E3:
+ControlSetupKeyOrder:
         db 04h,00h,05h,00h,06h,00h,08h,00h,0Bh,00h,0Ah,00h,09h,00h,07h,00h
         db 02h,00h,03h,00h
 ;-----------------------------------------------------------------------------

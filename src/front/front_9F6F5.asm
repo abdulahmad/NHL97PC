@@ -26,8 +26,8 @@ extern RenameReplayIndexEntry, ClearLinkAbort, ServiceIdle, LinkSyncMenu, LinkSe
 extern AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, DrawShapeAtOwnPos, DrawShape, CreateBitmap, SetDrawTarget
 extern FillRectColor, DrawTextAt, SetTextColors, tickcount, str_D_LinkSendData, DbKeyBuffer, GlobalSetVersion, IndexEntrySettings
 extern SeasonName, SeasonPath, SeasonIndexPath, SeasonFilePath, SeasonStatsPath, PlayoffSettings, PlayoffIndexSettings, PlayoffIndexFlags
-extern PlayoffStatsPath, ScreenTitleItem, BlankMenuItem, IndexListBox, LinkMessageText, str_Punct_PickIndexEntry, unk_9F611, unk_9F631
-extern unk_9F651, TeamSelectMode, SeasonLastHome, SeasonLastAway, IndexEntryList, HomeTeamCode, LinkSetupValues, LinkSetupItemCount
+extern PlayoffStatsPath, ScreenTitleItem, BlankMenuItem, IndexListBox, LinkMessageText, str_Punct_PickIndexEntry, PickIndexTopBar, PickIndexLeftBar
+extern PickIndexRightBar, TeamSelectMode, SeasonLastHome, SeasonLastAway, IndexEntryList, HomeTeamCode, LinkSetupValues, LinkSetupItemCount
 global jpt_A31C6, PickIndexEntryScreen_393, PickIndexEntryScreen_3A4, PickIndexEntryScreen_3B5, PickIndexEntryScreen_470, PickIndexEntryScreen_4D9, PickIndexEntryScreen_4EE, PickIndexEntryScreen_1080
 global SendLeagueFile_6F3, SendLeagueFile_6FD, SendLeagueFile_6FE, LinkSendData_BB, ResetLinkSetup_20, ResetLinkSetup_45, ResetLinkSetup_50, ResetLinkSetup_57
 global ResetLinkSetup_5E, PickIndexEntryScreen, DrawIndexEntry, LoadIndexFile, PickIndexEntry, SendLeagueData, ReceiveLeagueData, SendLeagueFile
@@ -1697,16 +1697,16 @@ PickIndexEntry:
         rep movsd
         mov ecx, 8
         lea edi, [byte ebp-01Eh]
-        mov esi, unk_9F611
+        mov esi, PickIndexTopBar
         rep movsd
         mov ecx, 8
         lea edi, [byte ebp-03Eh]
-        mov esi, unk_9F631
+        mov esi, PickIndexLeftBar
         rep movsd
         push str_TRBL
         mov ecx, 8
         lea edi, [byte ebp+022h]
-        mov esi, unk_9F651
+        mov esi, PickIndexRightBar
         push edx
         rep movsd
         call FindShape

@@ -15,7 +15,7 @@ extern UnregisterSoundBank, CheckBankIndex, DetectAudioDriver, OpenAudioDriver, 
 extern ClearSpeechBankTable, SpeechBufferSize, RegisterStreamBank, AddStreamSample, SetChannelVolumeChecked, LoadSampleHeader, PlaySoundEntry, ProbeDspReset
 extern AudioEnter, AudioLeaveCheck, SbDetectDsp, StopAllSoundChannels, StartChannel, MixNoise, RampChannelVolume, IsChannelActive
 extern ResetSpeechStreamState, SpeechStreamFlag, ServiceSpeechIfOpen, PlayBankSample, RequestStreamRead, CdStreamService, CdStreamNextPacket, CdStreamFreePacket
-extern AllocMemBlock, FreeMemBlock, unk_1072E0, MixerRampStep, MixerRampTarget, MixerBlockSize, MixerRampLevel, MixerRampCount
+extern AllocMemBlock, FreeMemBlock, WssBasePorts, MixerRampStep, MixerRampTarget, MixerBlockSize, MixerRampLevel, MixerRampCount
 global jpt_108240, MixChannelFormat_20, MixChannelFormat_FC, MixChannelFormat_1C0, MixChannelFormat_27B, strstr_, DetectSoundCard, ProbeSoundPorts
 global OpenDigitalAudio, CloseDigitalAudio, SetAudioDmaChannel, StartDigitalAudio, DetectWindows, InitSoundMixer, SetMixerVolumes, SetMasterVolume
 global SetChannelVolume, SetSpeechVolume, StopAllChannels, ResetSoundChannels, MixAudioBlock, MixChannelFormat, MixVolumeRamp, SetMusicStreamVolume
@@ -87,7 +87,7 @@ ProbeSoundPorts:
         push edi
         sub esp, byte 10h
         mov edi, esp
-        mov esi, unk_1072E0
+        mov esi, WssBasePorts
         xor edx, edx
         movsd
         movsd

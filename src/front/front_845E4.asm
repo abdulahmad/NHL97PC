@@ -28,7 +28,7 @@ extern RunVideoOptions, HistoryScreen, RosterScreen, PreGameMatchupScreen, PreGa
 extern ClearLinkAbort, ServiceIdle, NetDisconnect, LinkSendBlock, LinkReceiveBlock, AllocMemBlock, FreeMemBlock, ZeroMem
 extern OpenResourceArchive, FreeBitmap, DrawShapeCore, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, tickcount
 extern str_Rb_WritePhonebookFile, str_Wb, MainMenuAnimName, SeasonDbKey, LinkSettings, LinkSettingsData, GlobalSetVersion, IndexEntrySettings
-extern ScreenTitleItem, BlankMenuItem, ScreenFrameItem, MainMenuButtonRect, MainMenuTextRect, unk_845C0
+extern ScreenTitleItem, BlankMenuItem, ScreenFrameItem, MainMenuButtonRect, MainMenuTextRect, MainMenuItemMetrics
 global jpt_84AF5, jpt_84B15, jpt_84B25, jpt_84B3D, jpt_85CFD, MainMenuAnim_32E, MainMenuAnim_344, MainMenuAnim_35A
 global MainMenuAnim_370, MainMenuAnim_50B, MainMenuScreen_911, MainMenuScreen_999, MainMenuScreen_A17, MainMenuScreen_A23, MainMenuScreen_A2F, MainMenuScreen_A3B
 global MainMenuScreen_A68, MainMenuScreen_A79, MainMenuScreen_A82, MainMenuScreen_A94, MainMenuScreen_A9D, MainMenuScreen_AAF, MainMenuScreen_AB8, MainMenuScreen_BA5
@@ -442,7 +442,7 @@ MainMenuScreen:
         sub ebp, 82h
         push byte 0
         lea edi, [byte ebp+042h]
-        mov esi, unk_845C0
+        mov esi, MainMenuItemMetrics
         push dword 290h
         movsd
         movsd

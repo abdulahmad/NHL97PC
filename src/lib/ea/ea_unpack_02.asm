@@ -13,7 +13,7 @@ extern GusStartStream, TimerCalibrate, TimerRestore, TimerSetRate, IrqAck, Alloc
 extern GusDriverBasePort
 global jpt_127FC0, PrepareBankSampleData_B3, PrepareBankSampleData_F0, PrepareBankSampleData_FD, PrepareBankSampleData_124, PrepareBankSampleData_1B0, ExpandBytePair, UnpackBytePairs
 global PrepareBankSampleData, LoadSampleHeader, PlayPatlSample, PlaySoundEntry, GusDetect, GusDriverStartStream, GusDriverCaps, GusDriverOpen
-global GusDriverClose, GusDriverUpdate, DacDriverCaps, DacDriverOpen, DacDriverClose, DacDriverUpdate, unk_128990, unk_1289A0
+global GusDriverClose, GusDriverUpdate, DacDriverCaps, DacDriverOpen, DacDriverClose, DacDriverUpdate, WssBasePortsBlaster, BlasterCodeList
 ;-----------------------------------------------------------------------------
 ; ExpandBytePair                                 127D70  97 PC, low confidence
 ; Expands one byte of byte-pair coded data through the pair tables
@@ -1192,9 +1192,9 @@ GusDriverUpdate:
         pop ecx
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-unk_128990:
+WssBasePortsBlaster:
         db 030h,05h,00h,00h,04h,06h,00h,00h,080h,0Eh,00h,00h,040h,0Fh,00h,00h
-unk_1289A0:
+BlasterCodeList:
         db 011h,00h,00h,00h,012h,00h,00h,00h,0FFh,0FFh,0FFh,0FFh,013h,00h,00h,00h
 ;-----------------------------------------------------------------------------
 ; DacDriverCaps                                  1289B0  97 PC, low confidence

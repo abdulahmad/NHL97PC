@@ -53,8 +53,8 @@ global AllInPlace, Intermission, StartGame, InitGameVars, RunOpeningFrames, Plac
 global EndGameCleanup, GetPlayerJerseyNumber, LinkSideFlags, ClearLinkCounters, PickGameEvents, SpeedScaleAligned, SpeedScale, ReachScale
 global GoalieReachFactor, PlayerReachFactor, StickReachX, StickReachY, StickReachZ, CheckLineChangeKeys, RunSimFrames, JoystickAxisScale
 global ToggleFKeyFlag, ShowCameraView, RandomDiceRoll, CountDebugUnlock, ResetDebugUnlock, DebugKeys, GameFunctionKeys, HandleGameKeys
-global GameLoop, InitGameDisplay, SaveGameDisplay, SetGameBrightness, PlayGame, RunDemoGame, RunInGameMenu, unk_158E2
-global unk_15932, unk_15982, unk_159D2, unk_15A22, unk_15A72
+global GameLoop, InitGameDisplay, SaveGameDisplay, SetGameBrightness, PlayGame, RunDemoGame, RunInGameMenu, PenaltyPanelBlank
+global PenaltyShotPanelBlank, SpecialTeamsPanelBlank, InjuryPanelBlank, PeriodPanelBlank, GoalScorerPanelBlank
 ;-----------------------------------------------------------------------------
 ; AllInPlace                                   1303C  95 PC, medium confidence
 ; 1 when none of the 12 skater sort objects is on the ice with temp5 != -100
@@ -3379,37 +3379,37 @@ RunInGameMenu:
         pop ecx
         pop ebx
         ret
-unk_158E2:
+PenaltyPanelBlank:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-unk_15932:
+PenaltyShotPanelBlank:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-unk_15982:
+SpecialTeamsPanelBlank:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-unk_159D2:
+InjuryPanelBlank:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-unk_15A22:
+PeriodPanelBlank:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-unk_15A72:
+GoalScorerPanelBlank:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h

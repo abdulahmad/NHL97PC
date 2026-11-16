@@ -23,7 +23,7 @@ extern RosterScreen_66C, rand_, sprintf_, BlitShape2, BlitArt, BlitShape, Presen
 extern ConvertArtNew, ConvertArtXY, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, StopAllSfx
 extern PlaySfx, LoadDataFile, DrawShadedLogo, SetRegionRect, InitMenuItems, RunMenu, ServiceIdle, FreeMemBlock
 extern FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, tickcount, GlobalSetVersion, SeasonName, SeasonSetupItems
-extern unk_C5ED2
+extern SeasonSetupRowY
 global jpt_C6038, jpt_C750B, SeasonMenuSound_B1, SeasonSetupScreen_E65, SeasonSetupScreen_EB8, SeasonSetupScreen_F19, SeasonSetupScreen_1135, SeasonSetupScreen_115B
 global SeasonSetupScreen_1181, SeasonSetupScreen_11A7, SeasonSetupScreen_1264, SeasonSetupScreen_12B6, SeasonSetupScreen_1308, SeasonSetupScreen_139E, SeasonMenuSound, SeasonSetupScreen
 ;-----------------------------------------------------------------------------
@@ -120,7 +120,7 @@ SeasonSetupScreen:
         push eax
         sub ebp, 318h
         lea edi, [dword ebp+02ACh]
-        mov esi, unk_C5ED2
+        mov esi, SeasonSetupRowY
         movsd
         movsd
         movsd

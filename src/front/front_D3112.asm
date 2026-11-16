@@ -23,7 +23,7 @@ extern str_LA_GoalieMaskList, str_Jablonski, str_TB_GoalieMaskList, str_Joseph, 
 extern str_Lacher, str_BOS, str_Moog, str_DAL, str_Richter, str_NYR_GoalieMaskList, str_Roy, str_COL
 extern str_MTL, str_Thibault, str_Vanbiesbrouck, str_FLA, str_Vernon, str_DET, str_EA, PlayoffDbKey
 extern MatchupNote, AutoLineData, MatchupNoteText, MatchupNoteLine, HomeLines, HomeCityName, ScreenTitleItem, BlankMenuItem
-extern ScreenFrameItem, unk_D3057, unk_D305F, unk_D3067, AllStarDay
+extern ScreenFrameItem, MatchupNotesBlankRect, MatchupNotesBlankPos, MatchupNotesBlankSize, AllStarDay
 global jpt_D4215, PreGameRostersScreen_B6A, PreGameRostersScreen_BA7, PreGameRostersScreen_BB5, PreGameRostersScreen_BC3, PreGameRostersScreen_C3F, DrawMatchupHistory_FB, DrawMatchupHistory_FC
 global DrawMatchupNotes_86, DrawMatchupNotes_C5, DrawMatchupNotes_10F, DrawMatchupNotes_14B, PreGameRostersScreen, FormatMatchupNote, DrawRosterPlayerInfo, DrawMatchupHistory
 global DrawRosterLabel, DrawMatchupNotes, FindMatchupNotes, CountTeamResults, MatchupAnnouncement, GoalieMaskList
@@ -1382,16 +1382,16 @@ DrawMatchupNotes:
         push edi
         enter 48h, 0
         lea edi, [byte ebp-030h]
-        mov esi, unk_D3057
+        mov esi, MatchupNotesBlankRect
         movsd
         movsd
         lea edi, [byte ebp-038h]
-        mov esi, unk_D305F
+        mov esi, MatchupNotesBlankPos
         movsd
         movsd
         mov dword [byte ebp-08h], 0
         lea edi, [byte ebp-028h]
-        mov esi, unk_D3067
+        mov esi, MatchupNotesBlankSize
         mov dword [byte ebp-0Ch], 0
         mov dword [byte ebp-010h], 0
         movsd
