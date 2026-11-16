@@ -26,7 +26,7 @@ extern sub_7EEB0, sub_7EF70, SetRegionRect, sub_7F0D8, DrawTextAligned, sub_7F5A
 extern sub_80BBC, sub_81650, sub_81678, sub_81D1C, sub_83C08, RunStatsMenu, NameIndexNew, NameIndexLoad
 extern NameIndexFree, sub_86500, sub_867D4, InitMenuItems, sub_8BFAC, sub_8DF1F, GetLangText, StandingsScreen
 extern sub_9279A, LinkTransferSetup, sub_92FE9, sub_C6064, RosterScreen, sub_DB75E, sub_DB763, sub_DC653
-extern sub_DCFA4, sub_DD2DE, sub_DD61F, sub_DE3CF, sub_DE5A3, sub_E036F, sub_E0415, sub_E0B75
+extern sub_DCFA4, sub_DD2DE, sub_DD61F, OpenLeagueFile, sub_DE5A3, sub_E036F, sub_E0415, sub_E0B75
 extern LoadExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, sub_E3410, LinkSendBlock, LinkReceiveBlock, sub_E7B33, sub_FAA64
 extern sub_FAF34, sub_FC510, sub_FCC40, sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FD110
 extern unk_165A5B, unk_16CE20, unk_16D7FC, unk_1ACB44, unk_1ACD2B, unk_1ACF4E, unk_1AD250, unk_1AD443
@@ -34,7 +34,7 @@ extern unk_1AD603, unk_1AD73A, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C89F8, u
 extern unk_1C8A1C, unk_1C8A28
 global jpt_93502, jpt_9621A, RunNewPlayoffs_F7, RunNewPlayoffs_100, RunNewPlayoffs_104, RunNewPlayoffs_108, RunNewPlayoffs_1A6, PlayoffSetupScreen_952
 global PlayoffSetupScreen_959, sub_945A7_96, sub_945A7_9B, sub_93005, sub_93480, RunNewPlayoffs, PlayoffSetupScreen, CreatePlayoffs
-global sub_945A7, sub_94643, sub_948B7, RunPlayoffMenus, PlayoffTreeScreen, sub_96019, sub_96083, sub_961AA
+global sub_945A7, sub_94643, sub_948B7, RunPlayoffMenus, PlayoffTreeScreen, PlayoffSettingsPath, sub_96083, sub_961AA
 global sub_961E2
 ;-----------------------------------------------------------------------------
 ; sub_93005                                                       93005  97 PC
@@ -584,7 +584,7 @@ PlayoffSetupScreen:
         sub ebp, 82h
         mov edx, dword_1AC940
         mov eax, unk_16D7FC
-        call sub_DE3CF
+        call OpenLeagueFile
         mov eax, 3
         call sub_419B0
         call sub_419B8
@@ -1572,7 +1572,7 @@ CreatePlayoffs:
         call NameIndexFree
         mov edx, dword_1AC940
         mov eax, unk_1AD73A
-        call sub_DE3CF
+        call OpenLeagueFile
         jmp near PlayoffSetupScreen_952
 ;-----------------------------------------------------------------------------
 ; sub_945A7                                                       945A7  97 PC
@@ -3423,7 +3423,7 @@ PlayoffTreeScreen:
         mov dword [byte ebp+06Eh], 0Eh
         mov dword [dword_1C5DE0], 1
 .94:
-        call sub_96019
+        call PlayoffSettingsPath
         xor esi, esi
 .95:
         mov eax, dword [dword_1C8A80]
@@ -3486,9 +3486,10 @@ PlayoffTreeScreen:
         mov eax, dword [byte ebp+06Eh]
         jmp near PlayoffSetupScreen_952
 ;-----------------------------------------------------------------------------
-; sub_96019                                                       96019  97 PC
+; PlayoffSettingsPath                             96019  97 PC, low confidence
+; (n, buf): the play-off file names "%sSEAS%d.PLY" / "%sPLAY%d.SET"
 ;-----------------------------------------------------------------------------
-sub_96019:
+PlayoffSettingsPath:
         push ebx
         push ecx
         push edx

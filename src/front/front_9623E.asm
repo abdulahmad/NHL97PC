@@ -39,15 +39,15 @@ extern sub_FD0F8, sub_FD110, sub_FDD1C, sub_FDE44, tickcount, unk_165BAB, unk_16
 extern unk_1C134A, unk_1C1352, unk_1C135C, unk_1C347F, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, word_1C1344
 extern word_1C8CD4, word_1C8CEC
 global jpt_9861E, jpt_9AC47, EditLinesScreen_17F, EditLinesScreen_18C, EditLinesScreen_2C7, EditLinesScreen_49D, EditLinesScreen_4C4, EditLinesScreen_5BA
-global EditLinesScreen_5EF, EditLinesScreen_61B, EditLinesScreen_69D, EditLinesScreen_8E8, sub_96E85_39D, sub_97D16_203, sub_98642_A49, sub_98642_C5B
-global sub_98642_E82, sub_98642_FA7, sub_98642_1010, sub_98642_1087, sub_98642_10B1, sub_98642_10DB, sub_9A0EC_28A, DrawPlayerLines_214
+global EditLinesScreen_5EF, EditLinesScreen_61B, EditLinesScreen_69D, EditLinesScreen_8E8, sub_96E85_39D, sub_97D16_203, EditLinesGridScreen_A49, EditLinesGridScreen_C5B
+global EditLinesGridScreen_E82, EditLinesGridScreen_FA7, EditLinesGridScreen_1010, EditLinesGridScreen_1087, EditLinesGridScreen_10B1, EditLinesGridScreen_10DB, sub_9A0EC_28A, DrawPlayerLines_214
 global DrawPlayerLines_21E, DrawPlayerLines_234, DrawPlayerLines_23B, sub_9AC57_2E6, sub_9AC57_309, sub_9AC57_31A, sub_9AC57_32B, sub_9B4AA_16C
 global sub_9B4AA_41B, sub_9B4AA_517, sub_9BAC1_59, sub_9C7B7_FE, sub_9CD63_82, sub_9CD63_88, sub_9CD63_B6, sub_9DACE_66
-global sub_9DACE_68, EditLinesScreen, sub_96B32, sub_96E85, sub_97228, sub_9732A, sub_97AE7, sub_97C32
-global sub_97D16, sub_97F7F, sub_980B3, sub_981EE, sub_98231, sub_98274, sub_984D3, sub_98642
-global sub_99992, sub_99CC5, sub_99D40, sub_99DAC, sub_99E41, sub_9A0EC, sub_9A389, sub_9A603
-global DrawPlayerLines, sub_9AADF, sub_9AC57, sub_9B25A, sub_9B2A8, sub_9B39F, sub_9B418, sub_9B45C
-global sub_9B4AA, sub_9BAC1, sub_9BB40, sub_9BBDF, sub_9BC01, sub_9BDA1, sub_9C3BF, sub_9C573
+global sub_9DACE_68, EditLinesScreen, sub_96B32, sub_96E85, sub_97228, sub_9732A, AllocTempGameTeam, sub_97C32
+global sub_97D16, sub_97F7F, sub_980B3, sub_981EE, sub_98231, LoadEditLinesRoster, sub_984D3, EditLinesGridScreen
+global DrawScoringLines, sub_99CC5, sub_99D40, sub_99DAC, sub_99E41, sub_9A0EC, sub_9A389, sub_9A603
+global DrawPlayerLines, DrawPlayerHealth, sub_9AC57, sub_9B25A, sub_9B2A8, sub_9B39F, sub_9B418, sub_9B45C
+global sub_9B4AA, sub_9BAC1, sub_9BB40, sub_9BBDF, sub_9BC01, sub_9BDA1, sub_9C3BF, LoadEditLinesArt
 global sub_9C7B7, sub_9C924, sub_9CCB1, sub_9CD63, sub_9CE1D, sub_9CF95, sub_9CFA2, sub_9CFD3
 global sub_9D2D0, sub_9D333, sub_9D822, sub_9D903, sub_9DA9D, sub_9DACE, sub_9DB3C, sub_9DBD5
 global sub_9DC7B, sub_9DD65, sub_9DEC2
@@ -118,14 +118,14 @@ EditLinesScreen:
         mov dword [dword_1C8E44], eax
         mov eax, edi
         mov ebx, 1Eh
-        call sub_97AE7
+        call AllocTempGameTeam
         mov edx, dword [byte ebp+06Ah]
         mov eax, esi
         call sub_96B32
         mov edx, dword [byte ebp+07Ah]
         mov eax, edi
         call sub_9732A
-        call sub_9C573
+        call LoadEditLinesArt
         mov edx, 1
         mov eax, esi
         call sub_9AC57
@@ -461,7 +461,7 @@ EditLinesScreen_5BA:
         jne near EditLinesScreen_49D.24
         mov edx, dword [byte ebp+07Ah]
         mov eax, edi
-        call sub_98274
+        call LoadEditLinesRoster
         jmp near EditLinesScreen_49D.24
 EditLinesScreen_5EF:
         call sub_9CE1D
@@ -568,7 +568,7 @@ EditLinesScreen_69D:
         mov edx, dword [byte ebp+066h]
         mov eax, esi
         sub edx, byte 0Ah
-        call sub_98642
+        call EditLinesGridScreen
         cmp byte [byte_1C6040], 0
         je near EditLinesScreen_2C7.22
         push dword [dword_1C8E1C]
@@ -1907,9 +1907,11 @@ sub_9732A:
         add esp, byte 4
         jmp near EditLinesScreen_8E8
 ;-----------------------------------------------------------------------------
-; sub_97AE7                                                       97AE7  97 PC
+; AllocTempGameTeam                               97AE7  97 PC, low confidence
+; Edit lines: allocates the "temp game team" block and draws the arena button
+; (SW00, AR%02d)
 ;-----------------------------------------------------------------------------
-sub_97AE7:
+AllocTempGameTeam:
         push ebx
         push ecx
         push esi
@@ -2592,9 +2594,10 @@ sub_98231:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_98274                                                       98274  97 PC
+; LoadEditLinesRoster                             98274  97 PC, low confidence
+; Edit lines: allocates and fills the "roster" table for the team
 ;-----------------------------------------------------------------------------
-sub_98274:
+LoadEditLinesRoster:
         push ebx
         push ecx
         push esi
@@ -2957,19 +2960,21 @@ sub_984D3:
         pop ebx
         ret
 jpt_9861E:
-        dd sub_98642_C5B
-        dd sub_98642_A49
-        dd sub_98642_1010
-        dd sub_98642_1010
-        dd sub_98642_E82
-        dd sub_98642_FA7
-        dd sub_98642_1087
-        dd sub_98642_10B1
-        dd sub_98642_10DB
+        dd EditLinesGridScreen_C5B
+        dd EditLinesGridScreen_A49
+        dd EditLinesGridScreen_1010
+        dd EditLinesGridScreen_1010
+        dd EditLinesGridScreen_E82
+        dd EditLinesGridScreen_FA7
+        dd EditLinesGridScreen_1087
+        dd EditLinesGridScreen_10B1
+        dd EditLinesGridScreen_10DB
 ;-----------------------------------------------------------------------------
-; sub_98642                                                       98642  97 PC
+; EditLinesGridScreen                             98642  97 PC, low confidence
+; From EditLinesScreen: the line grid (Player Status, ESD, PP, PK, L1-L4,
+; D1-D3, 5PP1 ... 3PK2 columns)
 ;-----------------------------------------------------------------------------
-sub_98642:
+EditLinesGridScreen:
         push ebx
         push ecx
         push esi
@@ -3019,7 +3024,7 @@ sub_98642:
         mov dword [byte ebp+07Eh], eax
         mov edx, esi
         mov eax, dword [byte ebp+072h]
-        call sub_99992
+        call DrawScoringLines
         push dword 808098h
         mov ebx, eax
         call sub_FC510
@@ -3681,14 +3686,14 @@ sub_98642:
         jmp short .22
 .21:
         mov eax, dword [byte ebp+07Eh]
-        call sub_9AADF
+        call DrawPlayerHealth
 .22:
         call sub_1013FC
         mov dword [byte ebp+05Ah], 0
-        jmp near sub_98642_1010
-sub_98642_A49:
+        jmp near EditLinesGridScreen_1010
+EditLinesGridScreen_A49:
         cmp dword [byte ebp+07Eh], byte 0
-        jl near sub_98642_C5B
+        jl near EditLinesGridScreen_C5B
         cmp dword [dword_1C8E48], byte 3
         jne near .35
         mov eax, dword [dword_1C8DA0]
@@ -3724,7 +3729,7 @@ sub_98642_A49:
         xor ebx, ebx
         lea eax, [byte ebp-056h]
         call sub_7F5A4
-        jmp near sub_98642_1010
+        jmp near EditLinesGridScreen_1010
 .27:
         xor esi, esi
         jmp short .33
@@ -3762,7 +3767,7 @@ sub_98642_A49:
         add eax, edx
         movzx ebx, byte [dword eax+02121h]
         cmp ebx, dword [byte ebp+07Eh]
-        je near sub_98642_C5B
+        je near EditLinesGridScreen_C5B
         mov ebx, 1
         sub ebx, dword [byte ebp+07Ah]
         add edx, ebx
@@ -3776,7 +3781,7 @@ sub_98642_A49:
         add eax, dword [byte ebp+07Ah]
         mov dl, byte [byte ebp+07Eh]
         mov byte [dword eax+02121h], dl
-        jmp near sub_98642_C5B
+        jmp near EditLinesGridScreen_C5B
 .35:
         mov eax, dword [dword_1C8DA0]
         add eax, dword [byte ebp+07Eh]
@@ -3818,11 +3823,11 @@ sub_98642_A49:
         add esi, esi
         movsx edx, word [dword esi+edx*8+word_1C8CD4]
         cmp edx, dword [byte ebp+07Eh]
-        je short sub_98642_C5B
+        je short EditLinesGridScreen_C5B
         cmp dword [dword_1C8E48], byte 0
-        jne near sub_98642_C5B.46
+        jne near EditLinesGridScreen_C5B.46
         cmp dword [byte ebp+072h], byte 3
-        jge short sub_98642_C5B.44
+        jge short EditLinesGridScreen_C5B.44
         xor esi, esi
 .42:
         cmp esi, dword [byte ebp+072h]
@@ -3849,9 +3854,9 @@ sub_98642_A49:
         add eax, dword [byte ebp+072h]
         mov dl, byte [byte ebp+07Eh]
         mov byte [dword eax+020EDh], dl
-sub_98642_C5B:
+EditLinesGridScreen_C5B:
         inc dword [byte ebp+05Ah]
-        jmp near sub_98642_1010
+        jmp near EditLinesGridScreen_1010
 .44:
         mov ebx, 4
         sub ebx, dword [byte ebp+072h]
@@ -3871,7 +3876,7 @@ sub_98642_C5B:
         add eax, dword [byte ebp+072h]
         mov dl, byte [byte ebp+07Eh]
         mov byte [dword eax+020F6h], dl
-        jmp short sub_98642_C5B
+        jmp short EditLinesGridScreen_C5B
 .46:
         cmp dword [dword_1C8E48], byte 1
         jne near .54
@@ -3935,7 +3940,7 @@ sub_98642_C5B:
         add eax, dword [byte ebp+072h]
         mov dl, byte [byte ebp+07Eh]
         mov byte [dword eax+020FFh], dl
-        jmp near sub_98642_C5B
+        jmp near EditLinesGridScreen_C5B
 .52:
         cmp dword [byte ebp+072h], byte 4
         jge short .53
@@ -3946,16 +3951,16 @@ sub_98642_C5B:
         add eax, dword [byte ebp+072h]
         mov dl, byte [byte ebp+07Eh]
         mov byte [dword eax+02101h], dl
-        jmp near sub_98642_C5B
+        jmp near EditLinesGridScreen_C5B
 .53:
         mov eax, dword [dword_1C8E24]
         add eax, dword [byte ebp+07Ah]
         mov dl, byte [byte ebp+07Eh]
         mov byte [dword eax+0210Fh], dl
-        jmp near sub_98642_C5B
+        jmp near EditLinesGridScreen_C5B
 .54:
         cmp dword [dword_1C8E48], byte 2
-        jne near sub_98642_C5B
+        jne near EditLinesGridScreen_C5B
         xor esi, esi
 .55:
         cmp esi, byte 3
@@ -4004,7 +4009,7 @@ sub_98642_C5B:
         add eax, dword [byte ebp+072h]
         mov dl, byte [byte ebp+07Eh]
         mov byte [dword eax+02113h], dl
-        jmp near sub_98642_C5B
+        jmp near EditLinesGridScreen_C5B
 .59:
         mov eax, dword [byte ebp+07Ah]
         dec eax
@@ -4015,8 +4020,8 @@ sub_98642_C5B:
         add eax, dword [byte ebp+072h]
         mov dl, byte [byte ebp+07Eh]
         mov byte [dword eax+0211Bh], dl
-        jmp near sub_98642_C5B
-sub_98642_E82:
+        jmp near EditLinesGridScreen_C5B
+EditLinesGridScreen_E82:
         imul eax, edx, byte 52h
         add eax, dword [byte ebp+076h]
         cmp dword [dword_1C8E48], byte 3
@@ -4076,7 +4081,7 @@ sub_98642_E82:
         xor eax, eax
 .63:
         test eax, eax
-        je near sub_98642_1010
+        je near EditLinesGridScreen_1010
         imul eax, dword [byte ebp+046h], byte 52h
         add eax, dword [byte ebp+076h]
         call sub_9B25A
@@ -4094,21 +4099,21 @@ sub_98642_E82:
         mov eax, dword [byte ebp+07Eh]
         mov edx, edi
         call sub_9A603
-        jmp near sub_98642_FA7.70
+        jmp near EditLinesGridScreen_FA7.70
 .64:
         mov ecx, 1
         mov edx, dword [byte ebp+07Eh]
         mov eax, dword [dword ebp-0132h]
         mov ebx, edi
         call sub_9A0EC
-        jmp short sub_98642_FA7.70
-sub_98642_FA7:
+        jmp short EditLinesGridScreen_FA7.70
+EditLinesGridScreen_FA7:
         cmp dword [dword_16D2B8], byte 0
-        jne short sub_98642_1010
+        jne short EditLinesGridScreen_1010
         cmp dword [byte ebp+07Eh], byte 0
-        jl short sub_98642_1010
+        jl short EditLinesGridScreen_1010
         cmp dword [dword_1C8E48], byte 3
-        jne near sub_98642_1010.71
+        jne near EditLinesGridScreen_1010.71
         mov eax, dword [dword_1C8DA0]
         add eax, dword [byte ebp+07Eh]
         test byte [eax], 2
@@ -4116,7 +4121,7 @@ sub_98642_FA7:
         test byte [eax], 4
         je short .65
         mov eax, 0C3h
-        jmp near sub_98642_A49.25
+        jmp near EditLinesGridScreen_A49.25
 .65:
         and byte [eax], 0FDh
         jmp short .67
@@ -4136,9 +4141,9 @@ sub_98642_FA7:
         call sub_9B2A8
 .70:
         call sub_1013FC
-sub_98642_1010:
+EditLinesGridScreen_1010:
         cmp dword [byte ebp+05Ah], byte 0
-        jne near sub_98642_10DB.79
+        jne near EditLinesGridScreen_10DB.79
         push byte 0
         lea eax, [byte ebp+046h]
         mov ebx, 0FFFFFFFFh
@@ -4148,7 +4153,7 @@ sub_98642_1010:
         mov eax, 14h
         call sub_8BFAC
         cmp dword [byte ebp+046h], byte 8
-        ja near sub_98642_10DB.77
+        ja near EditLinesGridScreen_10DB.77
         mov edx, dword [byte ebp+046h]
         jmp dword [nosplit cs:edx*4+jpt_9861E]
 .71:
@@ -4159,7 +4164,7 @@ sub_98642_1010:
         test byte [eax], 4
         je short .72
         mov eax, 0C2h
-        jmp near sub_98642_A49.25
+        jmp near EditLinesGridScreen_A49.25
 .72:
         and byte [eax], 0FDh
         jmp short .74
@@ -4171,8 +4176,8 @@ sub_98642_1010:
         mov eax, dword [dword ebp-0132h]
         mov ebx, edi
         call sub_9A389
-        jmp near sub_98642_FA7.68
-sub_98642_1087:
+        jmp near EditLinesGridScreen_FA7.68
+EditLinesGridScreen_1087:
         lea eax, [dword ebp-0156h]
         xor edx, edx
         mov ecx, 1
@@ -4184,25 +4189,25 @@ sub_98642_1087:
 .76:
         mov dword [byte ebp+056h], eax
         call sub_9A0EC
-        jmp near sub_98642_1010
-sub_98642_10B1:
+        jmp near EditLinesGridScreen_1010
+EditLinesGridScreen_10B1:
         mov ebx, eax
         xor edx, edx
         lea eax, [dword ebp-0156h]
         call sub_8DEAC
         mov eax, dword [dword ebp-0132h]
         cmp eax, dword [byte ebp+056h]
-        je near sub_98642_1010
+        je near EditLinesGridScreen_1010
         mov ecx, 1
         mov edx, dword [byte ebp+07Eh]
         mov ebx, edi
-        jmp short sub_98642_1087.76
-sub_98642_10DB:
+        jmp short EditLinesGridScreen_1087.76
+EditLinesGridScreen_10DB:
         lea eax, [dword ebp-0156h]
         xor edx, edx
         mov ecx, 1
         call sub_8DE68
-        jmp short sub_98642_1087.75
+        jmp short EditLinesGridScreen_1087.75
 .77:
         mov eax, dword [byte ebp+076h]
         mov esi, dword [byte ebp+046h]
@@ -4212,34 +4217,34 @@ sub_98642_10DB:
         cmp dword [dword_1C8E48], byte 3
         jne short .78
         cmp dword [byte ebp+046h], byte 0Ah
-        jl near sub_98642_1010
+        jl near EditLinesGridScreen_1010
         mov eax, dword [dword_1C8E24]
         movsx eax, word [dword eax+01D40h]
         add eax, byte 0Ah
         cmp eax, dword [byte ebp+046h]
-        jle near sub_98642_1010
+        jle near EditLinesGridScreen_1010
         cmp esi, dword [byte ebp+07Eh]
-        je near sub_98642_1010
+        je near EditLinesGridScreen_1010
         mov ebx, 1
         mov edx, edi
         mov eax, esi
         call sub_9A603
         call sub_13C164
         mov eax, esi
-        call sub_9AADF
+        call DrawPlayerHealth
         mov edx, esi
         mov eax, dword [byte ebp+04Eh]
         mov dword [byte ebp+07Eh], esi
-        jmp near sub_98642_FA7.69
+        jmp near EditLinesGridScreen_FA7.69
 .78:
         cmp dword [byte ebp+046h], byte 0Ah
-        jl near sub_98642_1010
+        jl near EditLinesGridScreen_1010
         cmp dword [byte ebp+046h], byte 14h
-        jge near sub_98642_1010
+        jge near EditLinesGridScreen_1010
         mov eax, dword [byte ebp+07Eh]
         sub eax, dword [dword ebp-0132h]
         cmp eax, esi
-        je near sub_98642_1010
+        je near EditLinesGridScreen_1010
         mov edx, dword [byte ebp+07Eh]
         mov eax, dword [dword ebp-0132h]
         mov ebx, edi
@@ -4261,7 +4266,7 @@ sub_98642_10DB:
         mov edx, dword [byte ebp+07Eh]
         call sub_99E41
         mov eax, dword [byte ebp+04Eh]
-        jmp near sub_98642_FA7.69
+        jmp near EditLinesGridScreen_FA7.69
 .79:
         push edi
         call sub_FCD90
@@ -4382,9 +4387,10 @@ sub_98642_10DB:
         call sub_1013FC
         jmp near EditLinesScreen_8E8
 ;-----------------------------------------------------------------------------
-; sub_99992                                                       99992  97 PC
+; DrawScoringLines                                99992  97 PC, low confidence
+; Edit lines grid: the "Scoring Line %d" rows (SL%02d)
 ;-----------------------------------------------------------------------------
-sub_99992:
+DrawScoringLines:
         push ebx
         push ecx
         push esi
@@ -5891,9 +5897,10 @@ DrawPlayerLines_23B:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_9AADF                                                       9AADF  97 PC
+; DrawPlayerHealth                                9AADF  97 PC, low confidence
+; Edit lines grid: the player's health ("Healthy" or days out, "%s %s -")
 ;-----------------------------------------------------------------------------
-sub_9AADF:
+DrawPlayerHealth:
         push ebx
         push ecx
         push edx
@@ -8100,9 +8107,10 @@ sub_9C3BF:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_9C573                                                       9C573  97 PC
+; LoadEditLinesArt                                9C573  97 PC, low confidence
+; Edit lines: opens the art library and loads the FART / LOGO pictures
 ;-----------------------------------------------------------------------------
-sub_9C573:
+LoadEditLinesArt:
         push ebx
         push ecx
         push edx

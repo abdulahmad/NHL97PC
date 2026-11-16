@@ -27,7 +27,7 @@ extern sub_81678, sub_81D1C, sub_835BC, sub_83C08, RunStatsMenu, NameIndexNew, N
 extern sub_86500, sub_867D4, InitMenuItems, sub_8BFAC, sub_8DBAC, sub_8DE10, DrawScrollBar, sub_8DE68
 extern sub_8DE7E, sub_8DEAC, GetLangText, PlayoffTreeScreen, AllocCrusherBuffers, sub_A2F31, sub_A2F52, LinkSendData
 extern LinkReceiveData, sub_A3116, sub_C6064, RosterScreen, sub_D49BE, sub_DA7D6, sub_DB75E, sub_DB763
-extern sub_DC653, sub_DCA6C, sub_DCBB0, sub_DCFA4, sub_DD970, sub_DDC4A, sub_DE3CF, sub_DE5A3
+extern sub_DC653, sub_DCA6C, sub_DCBB0, sub_DCFA4, sub_DD970, sub_DDC4A, OpenLeagueFile, sub_DE5A3
 extern sub_E036F, sub_E0415, sub_E0691, sub_E069E, sub_E076B, sub_E0841, sub_E0B75, sub_E0D0F
 extern LoadExhibitionFile, SaveExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, sub_E13FE, sub_E1563, sub_E167A, sub_E1C19
 extern AllocClearBlock, sub_E3410, LinkSendBlock, LinkReceiveBlock, sub_E7B33, AllStarScreen, sub_FAA64, sub_FAF34
@@ -39,8 +39,8 @@ global jpt_912BF, RunNewSeason_DD, RunNewSeason_E6, RunNewSeason_EF, RunNewSeaso
 global RunNewSeason_193, NewSeasonScreen_DCB, NewSeasonScreen_DCE, CreateSeason_55B, CreateSeason_561, CreateSeason_562, StandingsScreen_65C, StandingsScreen_685
 global StandingsScreen_699, StandingsScreen_6AD, StandingsScreen_6C1, StandingsScreen_6DD, StandingsScreen_6F4, StandingsScreen_70B, StandingsScreen_718, sub_91D7F_1EA
 global RunNewSeason, sub_8EBDF, NewSeasonScreen, CreateSeason, RunSeasonMenus, sub_900AE, SeasonMenuScreen, sub_91289
-global StandingsScreen, sub_91D07, sub_91D1C, sub_91D7F, sub_91F74, sub_925BE, sub_9260A, sub_926BD
-global sub_9279A, LinkTransferSetup, sub_92DB7, sub_92E37, sub_92EE2, sub_92F25, sub_92FE9
+global StandingsScreen, sub_91D07, sub_91D1C, sub_91D7F, BuildStandingsFactoids, SeasonSettingsPath, sub_9260A, sub_926BD
+global sub_9279A, LinkTransferSetup, LoadFakeExhibition, SaveAgents, sub_92EE2, sub_92F25, sub_92FE9
 ;-----------------------------------------------------------------------------
 ; RunNewSeason                                    8E997  97 PC, low confidence
 ; Screen 6: sets up a new season (copies the set-up, NewSeasonScreen, roster,
@@ -1272,7 +1272,7 @@ CreateSeason:
 .2:
         lea edx, [byte ebp+076h]
         mov eax, unk_16D7FC
-        call sub_DE3CF
+        call OpenLeagueFile
         cmp dword [dword_16DA9C], byte 0
         jne short .4
         movzx eax, byte [byte_1C8700]
@@ -1561,7 +1561,7 @@ CreateSeason:
 .19:
         mov edx, dword_1AC940
         mov eax, unk_1AD22E
-        call sub_DE3CF
+        call OpenLeagueFile
         mov dword [dword_1AC944], unk_1ACD2B
         test byte [byte_1ACD2D], 1
         je short .20
@@ -2992,7 +2992,7 @@ SeasonMenuScreen:
         push edi
         call sub_FCD90
         add esp, byte 4
-        call sub_925BE
+        call SeasonSettingsPath
         jmp near NewSeasonScreen_DCB
 ;-----------------------------------------------------------------------------
 ; sub_91289                                                       91289  97 PC
@@ -3082,7 +3082,7 @@ StandingsScreen:
         jl short .1
         lea edx, [byte ebp+022h]
         mov eax, unk_1AD22E
-        call sub_DE3CF
+        call OpenLeagueFile
         call sub_81650
         mov ebx, dword [byte ebp+022h]
         lea edx, [byte ebp-0Ah]
@@ -3091,7 +3091,7 @@ StandingsScreen:
         mov ebx, dword [byte ebp+022h]
         lea edx, [byte ebp-0Ah]
         lea eax, [dword ebp-08Eh]
-        call sub_91F74
+        call BuildStandingsFactoids
         mov eax, 3
         call sub_419B0
         call sub_419B8
@@ -3986,9 +3986,11 @@ sub_91D7F_1EA:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_91F74                                                       91F74  97 PC
+; BuildStandingsFactoids                          91F74  97 PC, low confidence
+; Standings screen: builds the "ptlist" / "idlist" factoid lines ("%s, %s %s
+; %d %s (%s).")
 ;-----------------------------------------------------------------------------
-sub_91F74:
+BuildStandingsFactoids:
         push ecx
         push esi
         push edi
@@ -4488,9 +4490,10 @@ sub_91F74:
         add esp, byte 4
         jmp near sub_91D7F_1EA
 ;-----------------------------------------------------------------------------
-; sub_925BE                                                       925BE  97 PC
+; SeasonSettingsPath                              925BE  97 PC, low confidence
+; (n, buf): the season settings file name "%sSEAS%d.SET"
 ;-----------------------------------------------------------------------------
-sub_925BE:
+SeasonSettingsPath:
         push ebx
         push ecx
         push edx
@@ -5128,9 +5131,11 @@ LinkTransferSetup:
         lea esp, [dword ebp+092h]
         jmp near CreateSeason_561
 ;-----------------------------------------------------------------------------
-; sub_92DB7                                                       92DB7  97 PC
+; LoadFakeExhibition                              92DB7  97 PC, low confidence
+; For the roster screen: loads the exhibition file into "fakeEXHIBIT" /
+; "fakeAGENTS" copies
 ;-----------------------------------------------------------------------------
-sub_92DB7:
+LoadFakeExhibition:
         push ebx
         push ecx
         push edx
@@ -5173,9 +5178,10 @@ sub_92DB7:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_92E37                                                       92E37  97 PC
+; SaveAgents                                      92E37  97 PC, low confidence
+; Writes the "agents" (free agents) table back (SaveExhibitionFile)
 ;-----------------------------------------------------------------------------
-sub_92E37:
+SaveAgents:
         push ebx
         push ecx
         push edx
@@ -5251,7 +5257,7 @@ sub_92EE2:
         je short .3
 .1:
         mov eax, ebx
-        call sub_92E37
+        call SaveAgents
         pop ebx
         ret
 .2:
@@ -5289,7 +5295,7 @@ sub_92F25:
         je near .4
 .1:
         mov eax, esi
-        call sub_92E37
+        call SaveAgents
         jmp near .4
 .2:
         call sub_E3410

@@ -20,7 +20,7 @@ extern sub_7F04C, sub_7F0D8, DrawTextAligned, sub_7F5A4, sub_81114, sub_81650, s
 extern sub_83558, sub_835BC, sub_83850, NameIndexNew, NameIndexLoad, NameIndexSave, NameIndexFree, sub_86500
 extern NameIndexRemove, NameIndexPath, sub_867D4, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, DrawScrollBar
 extern sub_8DE68, sub_8DE7E, sub_8DEAC, sub_8E6AF, GetLangText, sub_9F671, sub_AB240, sub_AC6EB
-extern sub_AC73E, sub_DA7D6, sub_DCBB0, sub_DCC75, sub_DE3CF, sub_DE5A3, sub_E036F, sub_E0415
+extern sub_AC73E, sub_DA7D6, sub_DCBB0, sub_DCC75, OpenLeagueFile, sub_DE5A3, sub_E036F, sub_E0415
 extern sub_E076B, sub_E0841, sub_E08E9, sub_E0D0F, sub_E0F85, sub_E19D5, sub_E1C19, sub_E1CC0
 extern sub_E1D45, sub_E3410, sub_E341C, sub_E4218, LinkSendBlock, LinkReceiveBlock, sub_ED6C8, sub_EDDAC
 extern sub_FAA64, sub_FAF34, sub_FC510, sub_FCD90, sub_FCF84, sub_FCFE8, sub_FD08C, sub_FD0F8
@@ -717,7 +717,7 @@ PickIndexEntryScreen_4EE:
         call LinkSendBlock
         mov edx, dword_1AC940
         mov eax, unk_1AD22E
-        call sub_DE3CF
+        call OpenLeagueFile
         mov edx, 1
         mov eax, dword [dword_1AC940]
         call sub_A12CD
@@ -1022,7 +1022,7 @@ PickIndexEntryScreen_4EE:
         call LinkSendBlock
         mov edx, dword_1AC940
         mov eax, unk_1AD22E
-        call sub_DE3CF
+        call OpenLeagueFile
         mov edx, 1
         mov eax, dword [dword_1AC940]
         call sub_A12CD
@@ -1057,7 +1057,7 @@ PickIndexEntryScreen_4EE:
         mov edx, dword_1AC940
         mov eax, unk_1AD73A
 .67:
-        call sub_DE3CF
+        call OpenLeagueFile
         mov eax, dword [dword_1AC940]
         xor edx, edx
         call sub_A12CD
@@ -1110,7 +1110,7 @@ PickIndexEntryScreen_4EE:
         mov edx, dword_1AC940
         mov eax, unk_1AD236
 .75:
-        call sub_DE3CF
+        call OpenLeagueFile
         call sub_A219A
         cmp eax, byte 1
         jne short .76
@@ -1128,7 +1128,7 @@ PickIndexEntryScreen_4EE:
         mov edx, dword_1AC940
         mov eax, unk_1AD236
 .79:
-        call sub_DE3CF
+        call OpenLeagueFile
         mov eax, dword [byte ebp+06Ah]
         mov dword [dword_1ACF3A], eax
         jmp near .86
@@ -1141,7 +1141,7 @@ PickIndexEntryScreen_4EE:
         add esp, byte 8
         mov edx, dword_1AC940
         mov eax, unk_1AD73A
-        call sub_DE3CF
+        call OpenLeagueFile
         call sub_A289E
         cmp eax, byte 1
         jne short .81
@@ -1152,7 +1152,7 @@ PickIndexEntryScreen_4EE:
 .82:
         mov edx, dword_1AC940
         mov eax, unk_1AD73A
-        call sub_DE3CF
+        call OpenLeagueFile
         mov eax, dword [byte ebp+06Ah]
         mov dword [dword_1AD62B], eax
         jmp near .86

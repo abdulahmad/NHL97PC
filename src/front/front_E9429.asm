@@ -22,7 +22,7 @@ extern dword_1CE200, dword_1CE204, dword_1CE208, dword_1CE20C, dword_1CE210, dwo
 extern dword_1CE220, memcpy_, memset_, qsort_, sprintf_, strcpy_, sub_101390, sub_1013AC
 extern sub_1013FC, sub_101429, sub_101EAC, sub_102C10, sub_102C30, sub_11A318, sub_11F8E0, sub_11F94C
 extern sub_11F9F0, sub_11FA34, sub_13C164, sub_39851, sub_415F8, sub_419B0, sub_419B8, StopAllSfx
-extern PlaySfx, sub_4A4F4, LoadDataFile, sub_7DFC0, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70
+extern PlaySfx, PlayScreenMovie, LoadDataFile, sub_7DFC0, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70
 extern sub_7F0D8, DrawTextAligned, sub_7F5A4, sub_80758, sub_80808, sub_80BBC, sub_81650, sub_81678
 extern sub_83314, sub_834EC, sub_83558, sub_838A8, sub_83C08, sub_83D4C, sub_84024, sub_84068
 extern sub_84570, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E
@@ -534,7 +534,7 @@ AllStarScreen:
         sete al
         movzx edx, al
         mov eax, 0E8h
-        call sub_4A4F4
+        call PlayScreenMovie
         call sub_84570
         call sub_81650
         push byte 0FFFFFFFFh

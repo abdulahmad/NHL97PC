@@ -54,7 +54,7 @@ extern sub_4B944, sub_4BF54, sub_4BF94, sub_4C0CC, sub_4C5A0, sub_4D3B4, sub_4E8
 extern sub_4E868, sub_4E894, sub_4E8C0, sub_4E8EC, sub_4E9A0, sub_4EA44, sub_4EF68, sub_4F004
 extern sub_4F068, sub_4F294, sub_4F404, sub_4FC50, sub_4FD08, DrawGoalLight, TransformRink, sub_509E8
 extern sub_50AF4, DrawStandsSides, sub_50DF4, sub_50EB8, sub_50F90, sub_510FC, sub_511AC, sub_51254
-extern sub_51B5C, sub_51BD8, sub_51C4C, BuildRinkSides, sub_525E0, sub_52648, sub_526EC, sub_59174
+extern sub_51B5C, sub_51BD8, LoadNetArt, BuildRinkSides, LoadBoardLogo, sub_52648, sub_526EC, sub_59174
 extern sub_5AAB8, sub_5AC38, sub_5B4D4, sub_5BCCC, sub_5BD1C, sub_E341C, sub_FAA64, sub_FAF34
 extern sub_FC330, sub_FC4BC, sub_FD110, sub_FD954, sub_FDD1C, sub_FF044, sub_FF444, sub_FF600
 extern sub_FF798, sub_FFBB4, sub_FFCC4, tickcount, unk_16175C, unk_161760, unk_161764, unk_161768
@@ -63,16 +63,18 @@ extern unk_1AEDD8, unk_1AEDF0, unk_1AFB38, unk_1B0078, unk_1B0410, unk_1B0510, u
 extern unk_1B0850, unk_1B0970, unk_1B0AA8, unk_1B0AE8, unk_1B1068, unk_1B1090, unk_1B1120, unk_1B73F0
 extern unk_1B8583, unk_1B92AB, unk_4BCCC
 global jpt_56DCC, sub_55670_105, sub_55670_115, sub_55670_11A, sub_56DDC_C8, sub_56DDC_E3, sub_56DDC_114, sub_56DDC_18F
-global sub_52770, sub_52A44, sub_52BEC, sub_52CA0, sub_52CE0, sub_52D4C, sub_52E14, sub_52E28
-global sub_52E8C, sub_53260, sub_53314, FreeRinkModel, sub_5475C, sub_54794, sub_54A8C, sub_55000
+global LoadLogos, sub_52A44, sub_52BEC, sub_52CA0, sub_52CE0, sub_52D4C, sub_52E14, sub_52E28
+global LoadRinkLines, sub_53260, LoadRinkModel, FreeRinkModel, sub_5475C, sub_54794, sub_54A8C, sub_55000
 global sub_55110, sub_55228, DrawBenchSide, sub_55648, sub_55670, SetPenaltyBoxDoor, sub_5586C, sub_55894
 global sub_55B14, sub_55FE4, sub_560AC, sub_56464, sub_56740, sub_56798, sub_567B0, sub_568CC
 global sub_56908, sub_5696C, sub_56A08, sub_56A84, sub_56AE4, sub_56B98, sub_56CD0, sub_56CE4
 global sub_56CF8, sub_56D0C, sub_56DDC, sub_57298, sub_572D4, sub_57304, unk_56790, unk_56794
 ;-----------------------------------------------------------------------------
-; sub_52770                                                       52770  97 PC
+; LoadLogos                                       52770  97 PC, low confidence
+; Game graphics: loads "logos.fsh" (LOGOS, blogos) and the ice / board logo
+; shapes (LoadBoardLogo, L%02d...)
 ;-----------------------------------------------------------------------------
-sub_52770:
+LoadLogos:
         push ebx
         push ecx
         push esi
@@ -276,16 +278,16 @@ sub_52770:
         mov eax, ecx
         xor ebx, ebx
         mov esi, edx
-        call sub_525E0
+        call LoadBoardLogo
         mov ebx, ebp
         mov edx, esi
         mov eax, ecx
-        call sub_525E0
+        call LoadBoardLogo
         mov ebx, edi
         mov edx, esi
         mov eax, ecx
         inc ecx
-        call sub_525E0
+        call LoadBoardLogo
         cmp ecx, byte 0Ah
         jl short .18
         push byte 0
@@ -755,9 +757,11 @@ sub_52E28:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_52E8C                                                       52E8C  97 PC
+; LoadRinkLines                                   52E8C  97 PC, low confidence
+; From InitGameGraphics: the rink line and board shapes (boardback, crease,
+; flatboards, fat red / blue lines, glassline, top / bottom boards)
 ;-----------------------------------------------------------------------------
-sub_52E8C:
+LoadRinkLines:
         push ebx
         push ecx
         push edx
@@ -1123,9 +1127,11 @@ sub_53260:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_53314                                                       53314  97 PC
+; LoadRinkModel                                   53314  97 PC, low confidence
+; From InitGameGraphics: the rink model from arena.viv (rink, stands, floor,
+; score, puck, nets, goals, extents, lights, glass, boards)
 ;-----------------------------------------------------------------------------
-sub_53314:
+LoadRinkModel:
         push ebx
         push ecx
         push esi
@@ -1408,9 +1414,9 @@ sub_53314:
         push dword 40490FDBh
         call sub_51BD8
         xor eax, eax
-        call sub_51C4C
+        call LoadNetArt
         mov eax, 1
-        call sub_51C4C
+        call LoadNetArt
         push str_Minx
         mov eax, dword [dword_1B1108]
         push eax
@@ -2380,7 +2386,7 @@ sub_53314:
         lea edx, [byte eax+010h]
         mov eax, dword [byte esp+05Ch]
         mov ebx, 60h
-        call sub_52770
+        call LoadLogos
         mov eax, dword_1B0A70
         mov edx, ebx
         call sub_5BCCC

@@ -29,30 +29,32 @@ extern dword_1C9618, dword_1C961C, dword_1C9620, dword_1C9624, dword_1C9628, fcl
 extern memset_, qsort_, rand_, sprintf_, sscanf_, strcmp_, strlen_, sub_101340
 extern sub_101390, sub_1013CC, sub_1013FC, sub_101429, sub_101584, sub_101EAC, sub_102B94, sub_10CD98
 extern sub_11B094, sub_13C164, sub_415A0, sub_415F8, sub_419B0, sub_419B8, sub_41F2C, PlaySfx
-extern sub_4A4F4, LoadDataFile, OpenDataLibrary, sub_7DFC0, sub_7E860, sub_7EDF0, sub_7EF70, SetRegionRect
+extern PlayScreenMovie, LoadDataFile, OpenDataLibrary, sub_7DFC0, sub_7E860, sub_7EDF0, sub_7EF70, SetRegionRect
 extern sub_7F0D8, DrawTextAligned, sub_7F5B8, sub_7FE38, sub_80BBC, sub_81650, sub_81678, sub_81D1C
 extern sub_82FB8, sub_835BC, sub_83850, sub_83D4C, sub_84024, sub_84068, sub_840F8, sub_84138
 extern sub_84170, sub_84570, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DBAC, sub_8DE10, DrawScrollBar
 extern sub_8DE68, sub_8DE7E, SetScrollBarPos, sub_8DEAC, sub_8DF1F, sub_8E6AF, GetLangText, sub_DA7D6
-extern sub_DB75E, sub_DC653, sub_DCBB0, sub_DE3CF, sub_E036F, sub_E0841, sub_E0D0F, sub_E341C
+extern sub_DB75E, sub_DC653, sub_DCBB0, OpenLeagueFile, sub_E036F, sub_E0841, sub_E0D0F, sub_E341C
 extern sub_E4218, sub_E4230, sub_FAA64, sub_FAF34, sub_FC510, sub_FCD90, sub_FCFCC, sub_FD08C
 extern sub_FD0F8, sub_FD110, unk_16620D, unk_16622A, unk_16622D, unk_16622F, unk_166232, unk_166235
 extern unk_16623E, unk_1663A5, unk_1663B8, unk_16D7FC, unk_16D804, unk_1AD22E, unk_1AD236, unk_1AD73A
 extern unk_1C5F4A, unk_1C5F9C, unk_1C5FEE, word_16D408, word_1C962C
-global jpt_ACD96, jpt_AD11D, jpt_ADBD6, jpt_AF064, sub_AC799_2AA, sub_ACDAE_301, sub_ACDAE_303, sub_ACDAE_310
+global jpt_ACD96, jpt_AD11D, jpt_ADBD6, jpt_AF064, AllocStatTable_2AA, sub_ACDAE_301, sub_ACDAE_303, sub_ACDAE_310
 global sub_ACDAE_321, sub_ACDAE_323, sub_ACDAE_36B, sub_AD151_2A9, sub_AD151_2C4, sub_AD151_2ED, sub_AD151_34B, sub_AD151_36C
 global sub_AD151_3D1, sub_AD151_3FD, sub_AD151_435, sub_AD151_470, sub_AD151_48D, sub_AD151_4D7, sub_AD79F_19A, sub_AD79F_1BA
 global sub_AD79F_1EB, sub_AD79F_221, sub_AD79F_26D, sub_AD79F_2D9, sub_AD79F_304, sub_AD79F_344, sub_AD79F_36C, sub_AD79F_38A
-global sub_ADBE6_FC4, sub_ADBE6_1027, sub_ADBE6_108A, sub_ADBE6_10ED, sub_ADBE6_13BC, sub_ADBE6_13C3, sub_AF074_B17, sub_AF074_BC9
-global sub_AF074_C68, sub_AF074_D0E, sub_AC799, sub_ACA49, sub_ACAE5, sub_ACAF2, sub_ACB0E, sub_ACB21
+global TeamStatsScreen_FC4, TeamStatsScreen_1027, TeamStatsScreen_108A, TeamStatsScreen_10ED, TeamStatsScreen_13BC, TeamStatsScreen_13C3, sub_AF074_B17, sub_AF074_BC9
+global sub_AF074_C68, sub_AF074_D0E, AllocStatTable, sub_ACA49, sub_ACAE5, sub_ACAF2, sub_ACB0E, sub_ACB21
 global sub_ACB2B, sub_ACB8E, sub_ACBF9, sub_ACC7F, sub_ACD03, sub_ACDAE, sub_AD151, sub_AD62E
-global sub_AD64A, sub_AD678, sub_AD6D6, sub_AD79F, sub_ADB4F, sub_ADBE6, sub_AEFAF, sub_AF074
+global sub_AD64A, sub_AD678, sub_AD6D6, sub_AD79F, sub_ADB4F, TeamStatsScreen, sub_AEFAF, sub_AF074
 global sub_B0906, SetSkaterStatColumns, SetGoalieStatColumns, SetTeamStatColumns, unk_AD76B, unk_B1DF1, unk_B1DFD, unk_B1E09
 global unk_B1E11
 ;-----------------------------------------------------------------------------
-; sub_AC799                                                       AC799  97 PC
+; AllocStatTable                                  AC799  97 PC, low confidence
+; Allocates the "statthingy" list tables (flags, columns, sort, names, alpha,
+; string sort) for a stats list
 ;-----------------------------------------------------------------------------
-sub_AC799:
+AllocStatTable:
         push esi
         push edi
         enter 20h, 0
@@ -279,7 +281,7 @@ sub_AC799:
         inc eax
         cmp edi, eax
         jl short .3
-sub_AC799_2AA:
+AllocStatTable_2AA:
         leave
         pop edi
         pop esi
@@ -1436,7 +1438,7 @@ sub_AD151_48D:
         jl short .24
 sub_AD151_4D7:
         leave
-        jmp near sub_ADBE6_13C3
+        jmp near TeamStatsScreen_13C3
 ;-----------------------------------------------------------------------------
 ; sub_AD62E                                                       AD62E  97 PC
 ;-----------------------------------------------------------------------------
@@ -1976,14 +1978,16 @@ sub_ADB4F:
         pop ebx
         ret
 jpt_ADBD6:
-        dd sub_ADBE6_FC4
-        dd sub_ADBE6_1027
-        dd sub_ADBE6_108A
-        dd sub_ADBE6_10ED
+        dd TeamStatsScreen_FC4
+        dd TeamStatsScreen_1027
+        dd TeamStatsScreen_108A
+        dd TeamStatsScreen_10ED
 ;-----------------------------------------------------------------------------
-; sub_ADBE6                                                       ADBE6  97 PC
+; TeamStatsScreen                                 ADBE6  96 PC, low confidence
+; From RunStatsMenu: the team stats screen ("pts", "pppct", "pkpct", "avgt",
+; "high"; "menu" / "reg"; SetTeamStatColumns), as 96 PC TeamStatsScreen
 ;-----------------------------------------------------------------------------
-sub_ADBE6:
+TeamStatsScreen:
         push ebx
         push ecx
         push edx
@@ -2144,13 +2148,13 @@ sub_ADBE6:
         je short .5
         lea edx, [byte ebp+0Eh]
         mov eax, dword [byte ebp+06Ah]
-        call sub_DE3CF
+        call OpenLeagueFile
 .5:
         cmp dword [byte ebp+066h], byte 0
         je short .6
         lea edx, [byte ebp+012h]
         mov eax, dword [byte ebp+066h]
-        call sub_DE3CF
+        call OpenLeagueFile
 .6:
         cmp dword [byte ebp+06Ah], byte 0
         je near .12
@@ -2632,13 +2636,13 @@ sub_ADBE6:
         jbe near .60
         cmp dword [byte ebp+016h], byte 5
         jb near .66
-        jbe near sub_ADBE6_10ED.76
+        jbe near TeamStatsScreen_10ED.76
         cmp dword [byte ebp+016h], byte 6Fh
-        jb near sub_ADBE6_10ED.79
+        jb near TeamStatsScreen_10ED.79
         jbe short .41
         cmp dword [byte ebp+016h], byte 70h
         je short .42
-        jmp near sub_ADBE6_10ED.79
+        jmp near TeamStatsScreen_10ED.79
 .39:
         cmp dword [byte ebp+016h], byte 1
         jb short .40
@@ -2646,7 +2650,7 @@ sub_ADBE6:
         jmp short .44
 .40:
         cmp dword [byte ebp+016h], byte 0
-        jne near sub_ADBE6_10ED.79
+        jne near TeamStatsScreen_10ED.79
         call sub_7EDF0
         mov dword [byte ebp+046h], 1Ah
         jmp near .72
@@ -2662,7 +2666,7 @@ sub_ADBE6:
         sete al
         movzx edx, al
         mov eax, 0ECh
-        call sub_4A4F4
+        call PlayScreenMovie
         call sub_84138
         jmp near .72
 .43:
@@ -3027,7 +3031,7 @@ sub_ADBE6:
         call sub_ACB2B
 .72:
         cmp dword [byte ebp+046h], byte 0FFFFFFFFh
-        jne near sub_ADBE6_10ED.83
+        jne near TeamStatsScreen_10ED.83
         lea eax, [dword ebp-0276h]
         call sub_AD151
         call sub_13C164
@@ -3105,7 +3109,7 @@ sub_ADBE6:
         ja near .72
         mov edx, dword [byte ebp+01Eh]
         jmp dword [nosplit cs:edx*4+jpt_ADBD6]
-sub_ADBE6_FC4:
+TeamStatsScreen_FC4:
         push eax
         mov ecx, asc_166349
         mov ebx, asc_16634E
@@ -3128,8 +3132,8 @@ sub_ADBE6_FC4:
         mov dword [dword_1C95F0], eax
         call sub_101429
         mov edx, 5
-        jmp near sub_ADBE6.71
-sub_ADBE6_1027:
+        jmp near TeamStatsScreen.71
+TeamStatsScreen_1027:
         push eax
         mov ecx, asc_16635D
         mov ebx, asc_166362
@@ -3152,8 +3156,8 @@ sub_ADBE6_1027:
         mov dword [dword_1C95F0], eax
         call sub_101429
         mov edx, 6
-        jmp near sub_ADBE6.71
-sub_ADBE6_108A:
+        jmp near TeamStatsScreen.71
+TeamStatsScreen_108A:
         push eax
         mov ecx, asc_166371
         mov ebx, asc_166376
@@ -3176,8 +3180,8 @@ sub_ADBE6_108A:
         mov dword [dword_1C95F0], eax
         call sub_101429
         mov edx, 9
-        jmp near sub_ADBE6.71
-sub_ADBE6_10ED:
+        jmp near TeamStatsScreen.71
+TeamStatsScreen_10ED:
         push eax
         mov ecx, asc_166385
         mov ebx, asc_16638A
@@ -3200,25 +3204,25 @@ sub_ADBE6_10ED:
         mov dword [dword_1C95F0], eax
         call sub_101429
         mov edx, 0Ah
-        jmp near sub_ADBE6.71
+        jmp near TeamStatsScreen.71
 .76:
         cmp dword [dword_16DA9C], byte 0
         jne short .77
         lea eax, [dword ebp-0276h]
         call sub_AD79F
-        jmp near sub_ADBE6.72
+        jmp near TeamStatsScreen.72
 .77:
         cmp eax, byte 2
         jne short .78
         lea eax, [dword ebp-0276h]
         call sub_AD79F
         call sub_E4218
-        jmp near sub_ADBE6.72
+        jmp near TeamStatsScreen.72
 .78:
         mov eax, 237h
         call GetLangText
         call sub_E4230
-        jmp near sub_ADBE6.72
+        jmp near TeamStatsScreen.72
 .79:
         lea ecx, [byte ebp+01Ah]
         mov ebx, dword_16D400
@@ -3228,9 +3232,9 @@ sub_ADBE6_10ED:
         sub edx, byte 6
         call sub_ACDAE
         cmp dword [byte ebp+01Ah], byte 0FFFFFFFFh
-        je near sub_ADBE6.72
+        je near TeamStatsScreen.72
         cmp dword [byte ebp+01Ah], byte 0
-        je near sub_ADBE6.72
+        je near TeamStatsScreen.72
         push dword [byte ebp+02Ah]
         call sub_FD0F8
         mov eax, dword [byte ebp+072h]
@@ -3317,7 +3321,7 @@ sub_ADBE6_10ED:
         call sub_101390
         add esp, byte 0Ch
         call sub_1013FC
-        jmp near sub_ADBE6.72
+        jmp near TeamStatsScreen.72
 .83:
         lea eax, [dword ebp-0276h]
         call sub_ACA49
@@ -3386,10 +3390,10 @@ sub_ADBE6_10ED:
 .85:
         call sub_81678
         mov eax, dword [byte ebp+046h]
-sub_ADBE6_13BC:
+TeamStatsScreen_13BC:
         lea esp, [dword ebp+082h]
         pop ebp
-sub_ADBE6_13C3:
+TeamStatsScreen_13C3:
         pop edi
         pop esi
         pop edx
@@ -3663,7 +3667,7 @@ sub_AF074:
         lea edx, [byte ebp+06h]
         mov eax, dword [byte ebp+04Ah]
 .9:
-        call sub_DE3CF
+        call OpenLeagueFile
 .10:
         mov eax, 1Eh
         xor edx, edx
@@ -4100,7 +4104,7 @@ sub_AF074:
         movzx edx, al
         mov eax, esi
         mov byte [byte ebp+07Eh], 1
-        call sub_4A4F4
+        call PlayScreenMovie
         call sub_84570
         jmp near sub_AF074_D0E.100
 .34:
@@ -4122,7 +4126,7 @@ sub_AF074:
         lea edx, [byte ebp+06h]
         call sub_DB75E
         mov eax, dword [byte ebp+042h]
-        call sub_DE3CF
+        call OpenLeagueFile
         mov eax, dword [byte ebp+072h]
         add eax, byte 40h
         push eax
@@ -4167,7 +4171,7 @@ sub_AF074:
         lea edx, [byte ebp+06h]
         call sub_DB75E
         mov eax, dword [byte ebp+04Ah]
-        call sub_DE3CF
+        call OpenLeagueFile
         mov eax, dword [byte ebp+072h]
         add eax, byte 40h
         push eax
@@ -5208,7 +5212,7 @@ sub_AF074_D0E:
         call sub_415F8
 .116:
         mov eax, dword [byte ebp+032h]
-        jmp near sub_ADBE6_13BC
+        jmp near TeamStatsScreen_13BC
 ;-----------------------------------------------------------------------------
 ; sub_B0906                                                       B0906  97 PC
 ;-----------------------------------------------------------------------------
@@ -5470,7 +5474,7 @@ SetSkaterStatColumns:
         push byte 6
         mov ebx, 0Dh
         mov edx, edi
-        call sub_AC799
+        call AllocStatTable
         xor edi, edi
         xor ebx, ebx
         jmp near .12
@@ -6014,7 +6018,7 @@ SetSkaterStatColumns:
         mov dword [ecx], eax
         cmp ebx, byte 0Dh
         jl near .19
-        jmp near sub_AC799_2AA
+        jmp near AllocStatTable_2AA
 ;-----------------------------------------------------------------------------
 ; SetGoalieStatColumns                            B1248  97 PC, low confidence
 ; Stats lists: the goalie column titles (GP, Minutes, G.A.A., Shots, S%, GA,
@@ -6038,7 +6042,7 @@ SetGoalieStatColumns:
         push byte 6
         mov ebx, 0Fh
         mov edx, edi
-        call sub_AC799
+        call AllocStatTable
         xor edi, edi
         xor ebx, ebx
         jmp near .8
@@ -6667,7 +6671,7 @@ SetTeamStatColumns:
         push byte 8
         mov edx, dword [byte ebp+018h]
         mov ecx, 0Ah
-        call sub_AC799
+        call AllocStatTable
         xor eax, eax
         jmp near .7
 .1:

@@ -1,0 +1,9 @@
+sub_ADBE6 TeamStatsScreen {source=96PC,confidence=low} from RunStatsMenu: the team stats screen ("pts", "pppct", "pkpct", "avgt", "high"; "menu" / "reg"; SetTeamStatColumns), as 96 PC TeamStatsScreen
+sub_AC799 AllocStatTable {confidence=low} allocates the "statthingy" list tables (flags, columns, sort, names, alpha, string sort) for a stats list
+sub_A8694 GameStatsPlayersPage {confidence=low} from GameStatsScreen: the "player stats" page (GS buttons, the three stars' tops 1TOP-3BOT)
+sub_AAC7C FormatGoalLine {confidence=low} scoring summary: one goal line "%s %s (%s%s%s%s%s) %d:%02d"
+sub_AADEF LoadGameLogos {confidence=low} from PlayGame: the in-game language text (LoadLangTextB) and the team logos "logo%02d.qfs"
+sub_869BB LoadPhonebook {confidence=low} modem settings: reads the "phonebook" file
+sub_104A8 LoadJoystickConfig {confidence=low} from main_: the "JSTICKS" settings ("DOS-Joystick")
+sub_8A81B ModemConnectScreen {confidence=low} from RunModemConnect: the modem connect screen (MOD2, BG00 / BG01)
+sub_8BA36 NetworkConnectScreen {confidence=low} from RunNetworkConnect: the network connect screen (NET2, LoadServerList, DrawNoNetworkServices)

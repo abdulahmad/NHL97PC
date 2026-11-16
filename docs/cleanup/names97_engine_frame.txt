@@ -1,0 +1,14 @@
+sub_77A88 updateplayers {source=94G,confidence=medium} the per-frame player update: reads the joypads (ReadJoy1), runs each object's assignment from off_19C3F4, collisions and animation, as 94G updateplayers
+sub_78810 DoGameFrame {source=95PC,confidence=medium} one frame of game logic, from RunSimFrames, RunOpeningFrames and PlaceOpeningPlayers: periodicevents, updateplayers, then the crowd sounds and commentary
+sub_785E8 periodicevents {source=94G,confidence=low} from DoGameFrame before updateplayers: chkprogress, line changes (StartFaceoffLineChange), the Stanley Cup start (sub_780F0)
+sub_76010 LoadAnimFile {confidence=medium} (name, ...): loads a ".4da" animation file (_splitpath_ / _makepath_), from the InitAnimPoints loaders
+sub_65830 LoadSkateAnims {confidence=medium} InitAnimPoints: loads the "skate" animations (and "stop")
+sub_6593E LoadActAnims {confidence=medium} InitAnimPoints: loads the "pl_act" animations
+sub_6596B LoadFallAnims {confidence=medium} InitAnimPoints: loads the "pl_fall" animations
+sub_659C6 LoadInterferAnims {confidence=medium} InitAnimPoints: loads the "interfer" animations
+sub_65B64 LoadGoalieAnims {confidence=medium} InitAnimPoints: loads the "goalie" animations
+sub_65BFD LoadRefSkateAnims {confidence=medium} InitAnimPoints: loads the "refskate" animations
+sub_65C2D LoadRefCallAnims {confidence=medium} InitAnimPoints: loads the "refcalls" animations
+sub_65C5D LoadRefAmbiAnims {confidence=medium} InitAnimPoints: loads the "refambi" animations
+sub_65C8D LoadFightAnims {confidence=medium} InitAnimPoints: loads the "fight" animations
+sub_65CBD LoadCupAnims {confidence=medium} loads the "cup" animations (Stanley Cup presentation, from sub_780F0)

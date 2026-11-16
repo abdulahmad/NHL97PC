@@ -15,7 +15,7 @@ extern fopen_, memcpy_, memset_, off_16E4E0, rand_, sprintf_, sscanf_, str_CRD1
 extern str_CRD2, str_Nhll, str_Nhlp, str_Pl0, str_Pl1, strlen_, sub_1008CC, sub_101340
 extern sub_101390, sub_1013AC, sub_1013FC, sub_101429, sub_101584, sub_103298, sub_1167AE, sub_11A318
 extern sub_11BED4, sub_13C164, WaitRetraceEdges, RunDemoGame, sub_419B0, sub_419B8, sub_41A28, sub_41D18
-extern sub_41D48, sub_41DB8, sub_41DD8, ArenaFileName, StopAllSfx, PlaySfx, sub_4A4F4, MakeDataPath
+extern MusicPlaying, sub_41DB8, WaitMusicEnd, ArenaFileName, StopAllSfx, PlaySfx, PlayScreenMovie, MakeDataPath
 extern LoadDataFile, sub_7E860, sub_7EDF0, SetRegionRect, sub_7F0D8, DrawTextAligned, sub_80BBC, sub_81650
 extern sub_81678, sub_81D1C, sub_823F0, sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, AllocClearBlock
 extern FreePtr, sub_E22FC, sub_E2310, sub_E2334, sub_E2348, FileCreate, FileOpen, FileSeek
@@ -23,18 +23,20 @@ extern FileReadRecord, FileWriteRecord, FileClose, sub_E341C, sub_F9496, sub_F94
 extern sub_FBE40, sub_FBE5D, sub_FC330, sub_FC510, sub_FCD90, sub_FCEEC, sub_FCF84, sub_FCFCC
 extern sub_FD08C, sub_FD0F8, sub_FD110, sub_FDD1C, tickcount, unk_1673CC, unk_1C5F4A, unk_1CC8B8
 extern unk_1CCBB8, unk_1CCF4A, unk_1CCF9C, unk_1CCFEE, unk_1CD040, unk_1CD092, unk_1CD138, unk_D4CB0
-global jpt_D5460, sub_D547C_715, sub_D547C_72B, sub_D547C_89F, sub_D547C_A13, sub_D547C_B89, sub_D547C_DBB, sub_D547C_FF0
-global sub_D4E24, sub_D53A4, sub_D547C, FadePalette, FadeOut, sub_D68E0, RunIntro, sub_D6D38
-global sub_D6E20, sub_D6FD8, sub_D705C, CreditsScreen, sub_D7A70, sub_D7B64, sub_D7BB0, sub_D7C14
+global jpt_D5460, GoalieMaskScreen_715, GoalieMaskScreen_72B, GoalieMaskScreen_89F, GoalieMaskScreen_A13, GoalieMaskScreen_B89, GoalieMaskScreen_DBB, GoalieMaskScreen_FF0
+global GoalieMaskIntro, sub_D53A4, GoalieMaskScreen, FadePalette, FadeOut, sub_D68E0, RunIntro, sub_D6D38
+global sub_D6E20, sub_D6FD8, sub_D705C, CreditsScreen, AllocPageStack, sub_D7B64, sub_D7BB0, sub_D7C14
 global sub_D7C74, sub_D7CD4, sub_D7E08, sub_D7EC8, sub_D8130, sub_D81D8, sub_D8270, sub_D8358
 global sub_D83C0, sub_D8614, sub_D8860, sub_D8944, sub_D8B20, sub_D8CAC, sub_D9614, sub_D9708
 global sub_D9960, sub_D9AB4, sub_D9D74, sub_D9E18, sub_D9ED8, sub_D9FDC, sub_DA020, sub_DA02C
 global sub_DA038, sub_DA158, sub_DA274, sub_DA48C, sub_DA498, sub_DA4A4, sub_DA544, sub_DA57C
 global sub_DA5C4, sub_DA654
 ;-----------------------------------------------------------------------------
-; sub_D4E24                                                       D4E24  97 PC
+; GoalieMaskIntro                                 D4E24  97 PC, low confidence
+; From GoalieMaskScreen: the opening of the mask gallery (DOR0 / DOR1 doors,
+; PANL, LADR, BB / AB buttons)
 ;-----------------------------------------------------------------------------
-sub_D4E24:
+GoalieMaskIntro:
         push ebx
         push ecx
         push esi
@@ -576,17 +578,19 @@ sub_D53A4:
         pop ebx
         ret
 jpt_D5460:
-        dd sub_D547C_715
-        dd sub_D547C_72B
-        dd sub_D547C_89F
-        dd sub_D547C_A13
-        dd sub_D547C_B89
-        dd sub_D547C_DBB
-        dd sub_D547C_FF0
+        dd GoalieMaskScreen_715
+        dd GoalieMaskScreen_72B
+        dd GoalieMaskScreen_89F
+        dd GoalieMaskScreen_A13
+        dd GoalieMaskScreen_B89
+        dd GoalieMaskScreen_DBB
+        dd GoalieMaskScreen_FF0
 ;-----------------------------------------------------------------------------
-; sub_D547C                                                       D547C  97 PC
+; GoalieMaskScreen                             D547C  97 PC, medium confidence
+; From RunFrontEnd: the goalie mask gallery (MASK00%02d.FSH, "%s - %s - %s"
+; goalie - team - season captions, LEFT / RIGH / FRNT buttons)
 ;-----------------------------------------------------------------------------
-sub_D547C:
+GoalieMaskScreen:
         push ebx
         push ecx
         push edx
@@ -753,7 +757,7 @@ sub_D547C:
         call sub_1013FC
         mov edx, ebp
         mov eax, ebx
-        call sub_D4E24
+        call GoalieMaskIntro
         mov edx, 0E0h
         lea eax, [dword esp+0534h]
         call MakeDataPath
@@ -1075,7 +1079,7 @@ sub_D547C:
         lea eax, [dword esp+0144h]
         call SetRegionRect
         cmp word [dword esp+0578h], byte 0
-        jne near sub_D547C_FF0.14
+        jne near GoalieMaskScreen_FF0.14
 .7:
         push byte 2
         lea eax, [dword esp+0560h]
@@ -1087,15 +1091,15 @@ sub_D547C:
         call sub_8BFAC
         mov edx, dword [dword esp+055Ch]
         cmp edx, byte 6
-        ja near sub_D547C_FF0.13
+        ja near GoalieMaskScreen_FF0.13
         mov eax, edx
         jmp dword [nosplit cs:eax*4+jpt_D5460]
-sub_D547C_715:
+GoalieMaskScreen_715:
         mov ecx, 1
         call sub_7EDF0
         mov dword [dword esp+0578h], ecx
-        jmp near sub_D547C_FF0.13
-sub_D547C_72B:
+        jmp near GoalieMaskScreen_FF0.13
+GoalieMaskScreen_72B:
         mov eax, unk_1CCF4A
         mov ebx, dword [dword esp+0568h]
         call sub_83C08
@@ -1206,8 +1210,8 @@ sub_D547C_72B:
         push edx
         call sub_101340
         add esp, byte 4
-        jmp near sub_D547C_FF0.12
-sub_D547C_89F:
+        jmp near GoalieMaskScreen_FF0.12
+GoalieMaskScreen_89F:
         mov eax, unk_1CCF9C
         mov ecx, dword [dword esp+0568h]
         call sub_83C08
@@ -1318,8 +1322,8 @@ sub_D547C_89F:
         push edx
         call sub_101340
         add esp, byte 4
-        jmp near sub_D547C_FF0.12
-sub_D547C_A13:
+        jmp near GoalieMaskScreen_FF0.12
+GoalieMaskScreen_A13:
         mov eax, unk_1CCFEE
         call sub_83C08
         mov eax, dword [dword esp+0568h]
@@ -1431,8 +1435,8 @@ sub_D547C_A13:
         push ebx
         call sub_101340
         add esp, byte 4
-        jmp near sub_D547C_FF0.12
-sub_D547C_B89:
+        jmp near GoalieMaskScreen_FF0.12
+GoalieMaskScreen_B89:
         mov edx, dword [dword esp+057Ch]
         test dx, dx
         jle short .8
@@ -1588,8 +1592,8 @@ sub_D547C_B89:
         push asc_167298
         mov edi, dword [dword esp+0564h]
         push edi
-        jmp near sub_D547C_FF0.11
-sub_D547C_DBB:
+        jmp near GoalieMaskScreen_FF0.11
+GoalieMaskScreen_DBB:
         mov edi, dword [dword esp+057Ch]
         cmp di, byte 1Eh
         jge short .9
@@ -1746,8 +1750,8 @@ sub_D547C_DBB:
         push asc_167298
         mov ebx, dword [dword esp+0564h]
         push ebx
-        jmp near sub_D547C_FF0.11
-sub_D547C_FF0:
+        jmp near GoalieMaskScreen_FF0.11
+GoalieMaskScreen_FF0:
         mov ecx, dword [byte ebp+0Ch]
         sar ecx, 10h
         mov ebx, dword [byte ebp+0Ah]
@@ -1936,7 +1940,7 @@ sub_D547C_FF0:
         call sub_1013FC
 .13:
         cmp word [dword esp+0578h], byte 0
-        je near sub_D547C.7
+        je near GoalieMaskScreen.7
 .14:
         mov ecx, dword [dword esp+0560h]
         push ecx
@@ -2147,20 +2151,20 @@ sub_D68E0:
         mov dl, al
         mov eax, 0E6h
         mov ebx, ecx
-        call sub_4A4F4
+        call PlayScreenMovie
         mov edx, eax
         test eax, eax
         jne short .2
         mov edx, 1
         mov eax, 0E7h
-        call sub_4A4F4
+        call PlayScreenMovie
         mov edx, eax
 .2:
         test edx, edx
         jne short .3
         call RunDemoGame
         mov edx, eax
-        call sub_41DD8
+        call WaitMusicEnd
 .3:
         test edx, edx
         je short .1
@@ -2409,7 +2413,7 @@ RunIntro:
         call sub_FAF34
         add esp, byte 4
 .7:
-        call sub_41D48
+        call MusicPlaying
         test eax, eax
         je short .9
         test esi, esi
@@ -2420,7 +2424,7 @@ RunIntro:
         call sub_E341C
         jmp short .7
 .9:
-        call sub_41DD8
+        call WaitMusicEnd
         call sub_13C164
         push dword 0FF000000h
         call sub_FC510
@@ -2778,7 +2782,7 @@ sub_D705C:
         push ebx
         push edx
         sub esp, byte 50h
-        call sub_41DD8
+        call WaitMusicEnd
         call sub_41D18
         call rand_
         mov edx, eax
@@ -2826,7 +2830,7 @@ CreditsScreen:
         xor ah, ah
         mov dword [dword esp+06B70h], edx
         mov byte [dword esp+06B74h], ah
-        call sub_41DD8
+        call WaitMusicEnd
         call sub_41D18
         lea edx, [dword esp+06AF8h]
         mov eax, 7
@@ -3434,9 +3438,10 @@ CreditsScreen:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_D7A70                                                       D7A70  97 PC
+; AllocPageStack                                  D7A70  97 PC, low confidence
+; Allocates the front end's "PAGESTACK" block
 ;-----------------------------------------------------------------------------
-sub_D7A70:
+AllocPageStack:
         push ebx
         push ecx
         push edx

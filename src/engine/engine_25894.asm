@@ -31,13 +31,13 @@ extern sub_1F4EC, sub_1F538, Setplass, sub_1FF5C, Endfaceoff, sub_20A80, assgoal
 extern sub_22050, assextra4, sub_22FF0, assextra3, sub_240D0, sub_24220, sub_2471C, sub_248E8
 extern sub_25010, sub_251F0, sub_25730, sub_2E310, CompLine, sub_30778, sub_3085C, sub_31C14
 extern AddPenalty, AddPenalty2, EndPenaltyShot, sub_34330, sub_343F8, doplayeracc, sub_39DA4, sub_39EC0
-extern sub_3A164, sub_3AB68, sub_3ABD8, sub_3AC3C, sub_3AD34, sub_3AD9C, sub_41CF0, sub_41D48
+extern sub_3A164, sub_3AB68, sub_3ABD8, sub_3AC3C, sub_3AD34, sub_3AD9C, sub_41CF0, MusicPlaying
 extern PlaySfxOr, PlaySfxVolume, sub_424CC, CommentaryEvent, PaEvent, sub_4C0C4, PeriodOver, sub_4DD9C
 extern sub_4DDB0, sub_4FD24, sub_51B5C, sub_51BD8, sub_55648, SetPenaltyBoxDoor, sub_56AE4, sub_56CD0
 extern sub_56CE4, sub_56CF8, sub_572D4, sub_57304, sub_57324, sub_576EC, sub_57738, LoadCupArt
 extern sub_5AC28, SetSPA, sub_60D6C, sub_60F48, sub_64EBC, sub_650A4, sub_650E8, sub_6619C
 extern sub_66524, sub_6947C, sub_69654, sub_69A44, sub_69B08, sub_69B78, sub_6A0BC, sub_6A244
-extern sub_72E58, sub_72E94, sub_72EF4, sub_72F34, sub_72FE8, sub_73028, sub_75B94, sub_78044
+extern RefAtDotAnim, RefFaceoffAnim, RefGoalPaAnim, RefWhistleAnim, RefSignalAnim, RefGoalLineAnim, sub_75B94, sub_78044
 extern FadePalette, FadeOut, sub_FAA64, sub_FAF34, sub_FBE5D, unk_19E060, vtoa, word_168A4C
 extern word_168A4E, word_168A68, word_168A6A, word_19CB60, word_19CB64, word_19CB68, word_19CB82, word_19CB84
 extern word_19CB8C, word_19CB8E, word_19CB90, word_19CB92, word_19CB94, word_19CB96, word_19CB98, word_19CB9A
@@ -4657,7 +4657,7 @@ assrefsignal:
         ja near .16
         mov eax, ebx
         mov dword [byte ebx+038h], 0
-        call sub_72FE8
+        call RefSignalAnim
         mov eax, dword [dword ebx+0AEh]
         sar eax, 18h
         mov edx, 34h
@@ -4893,7 +4893,7 @@ assrefwhistle:
         ja short .9
         mov eax, ebx
         mov dword [byte ebx+038h], 0
-        call sub_72F34
+        call RefWhistleAnim
 .9:
         add esp, byte 1Ch
         pop edi
@@ -5080,7 +5080,7 @@ assrefgoalpa:
         mov dword [byte eax+038h], 0
         mov eax, ebx
         mov dword [byte ebx+038h], 0
-        call sub_72EF4
+        call RefGoalPaAnim
         add esp, byte 8
         pop edi
         pop esi
@@ -5227,7 +5227,7 @@ assrefgoalline:
         mov edx, dword [word_19CBF2]
         mov eax, ebx
         sar edx, 10h
-        call sub_73028
+        call RefGoalLineAnim
         jmp short .8
 .6:
         cmp byte [byte_19CBFC], 0
@@ -5532,7 +5532,7 @@ assrefatdot:
         and dh, 0FDh
         mov eax, ebx
         mov byte [dword ebx+0BFh], dh
-        call sub_72E58
+        call RefAtDotAnim
         mov cl, byte [dword ebx+0C1h]
         and cl, 0FDh
         mov eax, ebx
@@ -6143,7 +6143,7 @@ assstanley:
         mov eax, dword [esp]
         cmp dword [byte eax+060h], 1B58h
         jne short .8
-        call sub_41D48
+        call MusicPlaying
         test eax, eax
         je short .8
         call sub_41CF0
@@ -10249,7 +10249,7 @@ puckfaceoff2:
         jg short .45
         jne short .44
         mov eax, dword [off_168D04]
-        call sub_72E94
+        call RefFaceoffAnim
 .44:
         mov eax, dword [off_168CFC]
         cmp dword [byte eax+024h], 41C00000h

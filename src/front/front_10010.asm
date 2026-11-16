@@ -16,7 +16,7 @@ extern ShowCameraView, sub_18E35, sub_1B3D8, assreplace, assinsert, Setplass, su
 extern sub_2E7D8, UpdateCoachModes, EndPenaltyShot, sub_34330, sub_3A06C, sub_41A28, sub_41ACC, sub_41CF0
 extern sub_41DB8, MusicFileName, StopAllSfx, sub_424CC, CommentaryEvent, PaEvent, sub_4DDB0, sub_52E28
 extern sub_57298, sub_57304, sub_57324, sub_57738, LoadGoalieMask, sub_5B558, sub_60D6C, sub_6539C
-extern sub_65E3B, sub_78810, sub_AA650, sub_FAA64, sub_FB704, sub_FB8AE, sub_FBCD8, unk_16000C
+extern sub_65E3B, DoGameFrame, sub_AA650, sub_FAA64, sub_FB704, sub_FB8AE, sub_FBCD8, unk_16000C
 extern unk_168574, unk_168C38, unk_19CCB8, unk_19D5D2, unk_19D668, unk_19D6A0, unk_19DC40, unk_19E060
 extern unk_19E270, unk_1B9520, unk_1C135C, unk_1C347F, word_1684BE, word_1684CA, word_1684E8, word_1684EC
 extern word_1686D8, word_1686DA, word_168D18, word_19CB28, word_19CB2A, word_19CB5C, word_19CB60, word_19CB64
@@ -26,7 +26,7 @@ extern word_19CBE6, word_19CBF4, word_19CC04, word_19CC24, word_19CC26, word_19C
 extern word_19CCB6, word_19CCBC, word_19CCBE, word_19CCC0, word_19CCC4, word_19DAD9, word_19DAEA, word_19DCFA
 extern word_19E32A, word_19E949, word_19EA51, word_19EAB6, word_19EAC0, word_19EBC2, word_19EBCC
 global SetupTeamForIntermission, clearteams, jpt_11318, loc_10000, sub_11328_26, sub_11328_4F, sub_11328_78, sub_11328_A6
-global forcepldata_E, sub_123A0_62, sub_123A0_81, GripLinkLibrary, sub_102F4, LoadGripLibrary, sub_1046C, sub_104A8
+global forcepldata_E, sub_123A0_62, sub_123A0_81, GripLinkLibrary, sub_102F4, LoadGripLibrary, sub_1046C, LoadJoystickConfig
 global sub_10A68, sub_10CC8, sub_10FAC, sub_1120C, sub_11328, sub_114C4, forcepldata, sub_11574
 global sub_116B0, sub_11808, ResetBench, sub_11984, sub_119A8, setplayer, reenergizeteam, sub_11F74
 global sub_11FB4, sub_12024, sub_12334, sub_123A0, sub_12440, sub_124A4, setpersonel, sub_12970
@@ -533,9 +533,10 @@ sub_1046C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_104A8                                                       104A8  97 PC
+; LoadJoystickConfig                              104A8  97 PC, low confidence
+; From main_: the "JSTICKS" settings ("DOS-Joystick")
 ;-----------------------------------------------------------------------------
-sub_104A8:
+LoadJoystickConfig:
         push ebx
         push ecx
         push edx
@@ -3908,8 +3909,8 @@ sub_12C2C:
         or bl, 4
         mov edx, 1
         mov byte [byte_19CBCA], bl
-        call sub_78810
-        call sub_78810
+        call DoGameFrame
+        call DoGameFrame
         mov dword [dword_19CD88], edx
         pop edi
         pop esi

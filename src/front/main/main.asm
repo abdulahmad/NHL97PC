@@ -25,7 +25,7 @@ extern dword_1C81B4, dword_1C81B8, dword_1C8268, dword_1CF538, dword_1CF548, dwo
 extern dword_1CF5B0, dword_1CF5B4, dword_1CF5B8, exit_, getcwd_, sub_845E4_32E, sub_845E4_344, sub_845E4_35A
 extern sub_845E4_370, memcpy_, open_, printf_, sprintf_, srand_, strcat_, strcpy_
 extern strlen_, sub_1008CC, sub_100A68, sub_101324, sub_101340, sub_101390, sub_1013AC, sub_1013FC
-extern sub_101429, sub_101EAC, sub_102B94, sub_102C10, sub_102C30, LoadGripLibrary, sub_1046C, sub_104A8
+extern sub_101429, sub_101EAC, sub_102B94, sub_102C10, sub_102C30, LoadGripLibrary, sub_1046C, LoadJoystickConfig
 extern sub_105808, sub_106F64, sub_106F94, sub_107D30, sub_116428, sub_1164E8, sub_1167AE, sub_1169D4
 extern sub_119BE4, sub_119FDC, sub_11A120, sub_11A318, sub_11A3E0, sub_11ADD0, sub_11ADE8, sub_11B008
 extern sub_13C164, sub_4095C, OpenAudioStream, sub_41870, sub_41A28, sub_41D18, sub_41DB8, ArenaFileName
@@ -359,7 +359,7 @@ main_:
         call sub_11A120
         call NetInit
         call sub_F9650
-        call sub_104A8
+        call LoadJoystickConfig
         call AllocStaticBuffer
         mov edx, 1
         movsx eax, byte [byte_1AC818]

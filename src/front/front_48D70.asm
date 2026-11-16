@@ -75,11 +75,11 @@ extern StartCameraPath, SelectCameraView, sub_1B6E8, sub_1B71C, sub_1B85C, sub_1
 extern sub_3C880, sub_3C8DC, sub_3C944, sub_3C9C8, sub_3CA28, sub_3CAB8, sub_3CB38, sub_3CB70
 extern sub_3CCA8, sub_3D930, sub_3D95C, sub_3D988, sub_3DA18, sub_3DAC4, sub_3DBCC, sub_3DCBC
 extern sub_3E458, sub_3E590, sub_3E818, delstream, CdStreamQueue, CdStreamService, CdStreamNextPacket, sub_3FC88
-extern sub_41D94, sub_41DD8, sub_42650, sub_480CC, sub_4880C, sub_48864, RecordStreakClips, sub_52E14
-extern sub_52E8C, sub_53314, FreeRinkModel, sub_5475C, sub_55110, sub_55FE4, sub_560AC, sub_56464
+extern sub_41D94, WaitMusicEnd, sub_42650, sub_480CC, sub_4880C, sub_48864, RecordStreakClips, sub_52E14
+extern LoadRinkLines, LoadRinkModel, FreeRinkModel, sub_5475C, sub_55110, sub_55FE4, sub_560AC, sub_56464
 extern sub_56740, LoadGoalieMask, sub_5881C, sub_58B80, sub_58CA0, sub_59174, sub_5A6B4, sub_5A6E0
 extern sub_5AAB8, sub_5B090, sub_5B1C0, sub_5B2D4, sub_5B450, sub_5C1CC, sub_5DD74, LoadAiIcons
-extern sub_77A30, sub_7C3EC, sub_842F4, sub_E3410, sub_E341C, sub_FAA64, sub_FAF34, sub_FB704
+extern sub_77A30, PlayMovie, sub_842F4, sub_E3410, sub_E341C, sub_FAA64, sub_FAF34, sub_FB704
 extern WaitTicks, sub_FC330, sub_FC410, sub_FC4BC, sub_FCC40, sub_FD954, sub_FE150, sub_FE180
 extern sub_FF044, sub_FF128, sub_FF174, sub_FF444, sub_FF48C, sub_FF5E0, sub_FF690, sub_FF798
 extern sub_FFA14, sub_FFBB4, sub_FFBC8, sub_FFBE0, sub_FFCC4, sub_FFDAC, tickcount, unk_1611B4
@@ -99,11 +99,11 @@ global PaEvent_518, PaEvent_536, PaEvent_572, PaEvent_5AE, PaEvent_5D6, PaEvent_
 global PaEvent_745, PaEvent_7FF, PaEvent_87E, PaEvent_8CF, PaEvent_8F5, PaEvent_91B, PaEvent_941, PaEvent_967
 global PaEvent_14CD, sub_4A74C_34, sub_4A74C_4B, sub_4A74C_105, sub_4A74C_277, MakeDataPath_41, MakeDataPath_49, MakeDataPath_4F
 global MakeDataPath_62, MakeDataPath_111, MakeDataPath_119, MakeDataPath_11F, MakeDataPath_132, jpt_4AE54_137, sub_4B8DC_27, sub_4B8DC_33
-global sub_4B8DC_3D, sub_4B8DC_47, sub_4E8EC_30, sub_4FD24_59, sub_50AF4_184, sub_51A74_58, sub_51AEC_50, sub_52494_2C
-global sub_52494_42, sub_52494_58, sub_52494_7D, PaEvent, sub_4A248, sub_4A280, sub_4A4F4, sub_4A558
+global sub_4B8DC_3D, sub_4B8DC_47, sub_4E8EC_30, sub_4FD24_59, sub_50AF4_184, sub_51A74_58, sub_51AEC_50, OpenArenaArchive_2C
+global OpenArenaArchive_42, OpenArenaArchive_58, OpenArenaArchive_7D, PaEvent, sub_4A248, sub_4A280, PlayScreenMovie, sub_4A558
 global sub_4A6F8, sub_4A74C, sub_4AA78, MakeDataPath, MakeDirPath, LoadDataFileHandle, LoadDataFileLib, LoadDataFile
 global LoadDataFileFlag0, OpenDataLibrary, SetArtArchive, sub_4B307, WriteGlobalSet, sub_4B4AC, sub_4B4B0, sub_4B4C4
-global sub_4B540, sub_4B5C4, sub_4B80C, sub_4B8DC, sub_4B928, sub_4B944, sub_4BA00, sub_4BCB4
+global sub_4B540, InitGameGraphics, InitGameVideo, sub_4B8DC, FreeGameGraphics, sub_4B944, DrawGameFrame, sub_4BCB4
 global sub_4BD0C, sub_4BD4C, sub_4BDC0, sub_4BE14, sub_4BF10, sub_4BF54, sub_4BF94, sub_4C0C4
 global sub_4C0CC, sub_4C164, sub_4C240, sub_4C360, sub_4C404, sub_4C48C, sub_4C5A0, sub_4CE94
 global sub_4CF18, sub_4CF74, sub_4D230, sub_4D27C, sub_4D3B4, sub_4D534, sub_4D62C, sub_4D65C
@@ -115,7 +115,7 @@ global sub_4F978, sub_4FA2C, sub_4FA8C, sub_4FC50, sub_4FD08, sub_4FD24, sub_4FF
 global sub_4FF94, sub_50050, sub_50174, sub_50218, sub_503A0, sub_504E0, UpdateGoalLight, DrawGoalLight
 global TransformRink, sub_509E8, sub_50AF4, DrawStandsSides, sub_50DF4, sub_50EB8, sub_50F90, sub_510FC
 global sub_511AC, sub_51254, sub_51408, sub_51434, sub_516B8, sub_519E0, sub_51A74, sub_51AEC
-global sub_51B5C, sub_51BD8, sub_51C4C, BuildRinkSides, sub_52494, sub_525E0, sub_52648, sub_526EC
+global sub_51B5C, sub_51BD8, LoadNetArt, BuildRinkSides, OpenArenaArchive, LoadBoardLogo, sub_52648, sub_526EC
 global unk_4AB70, unk_4AB80, unk_4B4A0, unk_4BCC0, unk_4BCCC
 ;-----------------------------------------------------------------------------
 ; PaEvent                                         48D70  96 PC, low confidence
@@ -2112,9 +2112,11 @@ sub_4A280:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_4A4F4                                                       4A4F4  97 PC
+; PlayScreenMovie                                 4A4F4  97 PC, low confidence
+; (id): waits for the music (WaitMusicEnd), makes the movie path and plays it
+; (PlayMovie); from the stats, all-star and create player screens
 ;-----------------------------------------------------------------------------
-sub_4A4F4:
+PlayScreenMovie:
         push dword 64h
         call __CHK
         push ebx
@@ -2123,7 +2125,7 @@ sub_4A4F4:
         sub esp, byte 50h
         mov ebx, eax
         mov ecx, edx
-        call sub_41DD8
+        call WaitMusicEnd
         mov dx, word [word_1691A4]
         xor esi, esi
         test dx, dx
@@ -2142,7 +2144,7 @@ sub_4A4F4:
         push esi
         lea eax, [byte esp+04h]
         mov edx, dword [dword_1691BC]
-        call sub_7C3EC
+        call PlayMovie
         add esp, byte 50h
         pop esi
         pop ecx
@@ -3639,9 +3641,11 @@ sub_4B540:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_4B5C4                                                       4B5C4  97 PC
+; InitGameGraphics                                4B5C4  97 PC, low confidence
+; From PlayGame, LoadReplay and sub_F4978: loads the arena, rink, players'
+; art and camera for a game
 ;-----------------------------------------------------------------------------
-sub_4B5C4:
+InitGameGraphics:
         push ebx
         push ecx
         push edx
@@ -3690,9 +3694,9 @@ sub_4B5C4:
         call sub_842F4
         mov edx, dword [byte ebp+03Ch]
         mov eax, dword [byte ebp+038h]
-        call sub_53314
+        call LoadRinkModel
         mov eax, 0FFFFFFFFh
-        call sub_52494
+        call OpenArenaArchive
         mov eax, 46h
         call sub_842F4
         call sub_E341C
@@ -3769,7 +3773,7 @@ sub_4B5C4:
         mov eax, 0FFh
         call sub_3E590
         call sub_58B80
-        call sub_52E8C
+        call LoadRinkLines
         mov eax, 5Ah
         xor edx, edx
         call sub_842F4
@@ -3795,9 +3799,11 @@ sub_4B5C4:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_4B80C                                                       4B80C  97 PC
+; InitGameVideo                                   4B80C  97 PC, low confidence
+; From PlayGame, LoadReplay: sets the game video mode (SetVideoMode) and the
+; view window
 ;-----------------------------------------------------------------------------
-sub_4B80C:
+InitGameVideo:
         push ebx
         push ecx
         push edx
@@ -3884,9 +3890,11 @@ sub_4B8DC_47:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_4B928                                                       4B928  97 PC
+; FreeGameGraphics                                4B928  97 PC, low confidence
+; From PlayGame, LoadReplay, ReplayScreen: frees what InitGameGraphics loaded
+; (FreeRinkModel ...)
 ;-----------------------------------------------------------------------------
-sub_4B928:
+FreeGameGraphics:
         call FreeRinkModel
         call sub_58CA0
         call sub_3D95C
@@ -3983,9 +3991,11 @@ sub_4B944:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_4BA00                                                       4BA00  97 PC
+; DrawGameFrame                                   4BA00  97 PC, low confidence
+; Draws one frame of the game view (rink, objects, overlays); from GameLoop,
+; the pause menu, RunIntermission, RunOpeningFrames and the replay
 ;-----------------------------------------------------------------------------
-sub_4BA00:
+DrawGameFrame:
         push ebx
         push ecx
         push edx
@@ -12872,9 +12882,10 @@ sub_51BD8:
         ret 4
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_51C4C                                                       51C4C  97 PC
+; LoadNetArt                                      51C4C  97 PC, low confidence
+; Loads the goal net art ("netback", "netfrnt")
 ;-----------------------------------------------------------------------------
-sub_51C4C:
+LoadNetArt:
         push ebx
         push ecx
         push edx
@@ -13450,14 +13461,15 @@ BuildRinkSides:
         pop ecx
         ret
 jpt_52484:
-        dd sub_52494_58
-        dd sub_52494_2C
-        dd sub_52494_42
-        dd sub_52494_7D
+        dd OpenArenaArchive_58
+        dd OpenArenaArchive_2C
+        dd OpenArenaArchive_42
+        dd OpenArenaArchive_7D
 ;-----------------------------------------------------------------------------
-; sub_52494                                                       52494  97 PC
+; OpenArenaArchive                             52494  97 PC, medium confidence
+; SetArtArchive "arena.viv", from the game graphics set-up (sub_4B5C4)
 ;-----------------------------------------------------------------------------
-sub_52494:
+OpenArenaArchive:
         push ebx
         push ecx
         push edx
@@ -13471,23 +13483,23 @@ sub_52494:
         inc edx
         call sub_E341C
         cmp edx, byte 3
-        ja near sub_52494_7D.2
+        ja near OpenArenaArchive_7D.2
         jmp dword [nosplit cs:edx*4+jpt_52484]
-sub_52494_2C:
+OpenArenaArchive_2C:
         mov ecx, dword [dword_16AF68]
         push ecx
         push str_EMPTYFSH
         call sub_10AE10
         add esp, byte 8
-        jmp short sub_52494_7D.2
-sub_52494_42:
+        jmp short OpenArenaArchive_7D.2
+OpenArenaArchive_42:
         mov ebx, dword [dword_16AF68]
         push ebx
         push str_HALFFSH
         call sub_10AE10
         add esp, byte 8
-        jmp short sub_52494_7D.2
-sub_52494_58:
+        jmp short OpenArenaArchive_7D.2
+OpenArenaArchive_58:
         push byte 0
         push str_STANDSFSH
         call sub_101584
@@ -13497,8 +13509,8 @@ sub_52494_58:
         mov ebx, eax
         xor ecx, ecx
         mov eax, str_Stands2
-        jmp short sub_52494_7D.1
-sub_52494_7D:
+        jmp short OpenArenaArchive_7D.1
+OpenArenaArchive_7D:
         mov edx, dword [dword_16AF68]
         push edx
         push str_STANDSFSH
@@ -13566,9 +13578,10 @@ sub_52494_7D:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_525E0                                                       525E0  97 PC
+; LoadBoardLogo                                   525E0  97 PC, low confidence
+; Loads a board logo shape "blogo%d%c"
 ;-----------------------------------------------------------------------------
-sub_525E0:
+LoadBoardLogo:
         push ecx
         push esi
         push edi

@@ -31,13 +31,13 @@ extern qword_167C27, qword_167C4F, qword_167C57, qword_167CCB, rand_, sprintf_, 
 extern sub_101390, sub_1013FC, sub_101429, sub_101EAC, sub_102B94, sub_10491C, sub_1169F0, sub_11984
 extern sub_119A8, sub_11A318, sub_11ADD0, sub_11ADE8, sub_11BDC0, sub_11F74, sub_11FA90, sub_11FAAC
 extern sub_11FB11, sub_12A10, sub_13C164, ChangeViewSize, ApplyDisplayFlags, RemoveOverlayPanel, sub_160E2, sub_18E76
-extern sub_18F67, sub_1BC18, sub_1C854, sub_1C9F0, sub_1D09C, sub_3CD70, sub_3CE58, sub_3CF68
-extern sub_3CFB0, sub_3D020, sub_3E480, sub_3E5F0, InitGameAudio, sub_41670, sub_419B0, sub_419B8
-extern sub_41A28, sub_41CF0, sub_41D18, sub_41D30, sub_41DB8, sub_41DD8, ArenaFileName, sub_423B4
-extern PaEvent, sub_4A280, LoadDataFile, sub_4B5C4, sub_4B80C, sub_4B928, sub_4BA00, sub_4BCB4
+extern sub_18F67, sub_1BC18, sub_1C854, sub_1C9F0, sub_1D09C, AddOverlayWindow, RemoveOverlayWindow, sub_3CF68
+extern RefreshOverlayWindow, sub_3D020, sub_3E480, sub_3E5F0, InitGameAudio, sub_41670, sub_419B0, sub_419B8
+extern sub_41A28, sub_41CF0, sub_41D18, sub_41D30, sub_41DB8, WaitMusicEnd, ArenaFileName, sub_423B4
+extern PaEvent, sub_4A280, LoadDataFile, InitGameGraphics, InitGameVideo, FreeGameGraphics, DrawGameFrame, sub_4BCB4
 extern sub_4C0C4, sub_5B4D4, sub_5BE74, sub_6539C, sub_76D3C, InitFrontEnd, FreeFrontEnd, SetRegionRect
 extern sub_7F0D8, DrawTextAligned, sub_8BE60, sub_8BEF8, InitMenuItems, sub_8BFA0, sub_8BFAC, sub_8D6E0
-extern LoadLangTextB, GetLangText, FreeLangText, EditLinesScreen, GameStatsScreen, sub_AADEF, sub_AB0A6, RunReplay
+extern LoadLangTextB, GetLangText, FreeLangText, EditLinesScreen, GameStatsScreen, LoadGameLogos, sub_AB0A6, RunReplay
 extern FadePalette, FadeOut, sub_DA7EB, sub_DB6AC, sub_E341C, sub_E3798, sub_E4218, sub_E4230
 extern WaitForOtherComputer, sub_F1FF8, sub_FAF34, sub_FC330, sub_FC4BC, sub_FCC40, sub_FCD90, sub_FCFCC
 extern sub_FD08C, sub_FD0F8, sub_FD110, sub_FDD1C, sub_FDE44, sub_FE150, sub_FE180, sub_FE3AC
@@ -48,7 +48,7 @@ global PauseMenu_4BB, PauseMenu_4EF, PauseMenu_60A, PauseMenu_62A, PauseMenu_640
 global PauseMenu_72D, RulesMenu_1583, RulesMenu_176B, RulesMenu_19CD, RulesMenu_1C04, RulesMenu_1D78, RulesMenu_1F1F, RulesMenu_2056
 global RulesMenu_218D, RulesMenu_22F1, RulesMenu_2464, DetailLevelMenu_C81, DetailLevelMenu_E31, DetailLevelMenu_10E6, DetailLevelMenu_12B8, DetailLevelMenu_13D7
 global DetailLevelMenu_14F6, DetailLevelMenu_165B, DetailLevelMenu_17B7, sub_F20A1, sub_F22AF, sub_F22ED, sub_F23BF, sub_F2544
-global sub_F272B, sub_F27A4, sub_F2AA0, DrawPauseButtons, sub_F30A0, sub_F30D7, PickEditLinesTeam, ConfirmQuitGame
+global sub_F272B, DrawPauseClock, sub_F2AA0, DrawPauseButtons, sub_F30A0, sub_F30D7, PickEditLinesTeam, ConfirmQuitGame
 global RunIntermission, sub_F3F33, sub_F3FB0, sub_F3FF5, PauseMenu, sub_F48C2, sub_F4978, sub_F4A8F
 global DrawIntermissionTitle, sub_F5219, sub_F558C, FillBox, RulesMenu, DetailLevelMenu, sub_F9496
 ;-----------------------------------------------------------------------------
@@ -681,9 +681,10 @@ sub_F272B:
         jl short .2
         jmp near PickEditLinesTeam_5B5
 ;-----------------------------------------------------------------------------
-; sub_F27A4                                                       F27A4  97 PC
+; DrawPauseClock                                  F27A4  97 PC, low confidence
+; Pause menu / intermission: the game time line (" %d:%02d.%d")
 ;-----------------------------------------------------------------------------
-sub_F27A4:
+DrawPauseClock:
         push ebx
         push ecx
         push edx
@@ -949,7 +950,7 @@ sub_F2AA0:
         call sub_11ADD0
         add esp, byte 4
         mov eax, dword [dword_1CEF9C]
-        call sub_F27A4
+        call DrawPauseClock
         lea eax, [dword ebp-0ACh]
         push eax
         call sub_11ADE8
@@ -2304,7 +2305,7 @@ RunIntermission:
         call sub_11ADD0
         add esp, byte 4
         mov eax, dword [dword_1CEF9C]
-        call sub_F27A4
+        call DrawPauseClock
         lea eax, [dword ebp-011Ch]
         push eax
         call sub_11ADE8
@@ -2322,7 +2323,7 @@ RunIntermission:
         mov eax, dword [dword_16AF58]
         mov dword [dword_16AF58], 0
         mov dword [byte ebp-04h], eax
-        call sub_41DD8
+        call WaitMusicEnd
         mov eax, 1
         call sub_41670
         movzx eax, byte [byte_1C135B]
@@ -2401,7 +2402,7 @@ RunIntermission:
         lea edx, [dword ebp-041Ch]
         call sub_4C0C4
         mov eax, dword [tickcount]
-        call sub_4BA00
+        call DrawGameFrame
         call sub_4BCB4
         call sub_1BC18
         xor eax, eax
@@ -2452,7 +2453,7 @@ RunIntermission:
         shl ecx, 4
         xor eax, eax
         or cl, 8
-        call sub_3CD70
+        call AddOverlayWindow
         mov dword [byte ebp-08h], 0
         mov dword [byte ebp-018h], 0
         mov eax, dword [tickcount]
@@ -2462,7 +2463,7 @@ RunIntermission:
         cmp dword [byte ebp-08h], byte 0
         jne short .9
         mov eax, dword [tickcount]
-        call sub_4BA00
+        call DrawGameFrame
         call sub_E341C
         call sub_4BCB4
         call sub_E341C
@@ -2488,7 +2489,7 @@ RunIntermission:
         jmp short .8
 .9:
         mov eax, dword [byte esi+02Ch]
-        call sub_3CE58
+        call RemoveOverlayWindow
         push esi
         call sub_FCD90
         add esp, byte 4
@@ -2723,7 +2724,7 @@ PauseMenu:
         call sub_11ADD0
         add esp, byte 4
         mov eax, dword [dword_1CEF9C]
-        call sub_F27A4
+        call DrawPauseClock
         lea eax, [dword ebp-0B6h]
         push eax
         call sub_11ADE8
@@ -2790,7 +2791,7 @@ PauseMenu_16C:
         call sub_8BEF8
         mov eax, dword [dword_1CEFA8]
         mov eax, dword [byte eax+02Ch]
-        call sub_3CE58
+        call RemoveOverlayWindow
         call RunReplay
         cmp dword [dword_19CD30], byte 0
         sete al
@@ -2818,11 +2819,11 @@ PauseMenu_16C:
         call __CHP
         fistp dword [byte ebp+072h]
         mov eax, dword [byte ebp+072h]
-        call sub_3CD70
+        call AddOverlayWindow
         lea ebx, [dword ebp-0336h]
         mov eax, dword [dword_1CEF9C]
         lea edx, [dword ebp-066Ah]
-        call sub_F27A4
+        call DrawPauseClock
         lea eax, [byte ebp-0Ah]
         call sub_F3FF5
         call sub_1C854
@@ -2842,7 +2843,7 @@ PauseMenu_16C:
         call sub_8BE60
         call ApplyDisplayFlags
         mov eax, dword [dword_1CEFBC]
-        call sub_4BA00
+        call DrawGameFrame
         jmp near PauseMenu_29A.30
 PauseMenu_26F:
         mov eax, 3
@@ -2852,7 +2853,7 @@ PauseMenu_26F:
         call sub_18E76
         mov eax, dword [dword_1CEFA8]
         mov eax, dword [byte eax+02Ch]
-        call sub_3CFB0
+        call RefreshOverlayWindow
         jmp near PauseMenu_29A.29
 PauseMenu_29A:
         xor edi, edi
@@ -2899,7 +2900,7 @@ PauseMenu_29A:
         call sub_F3FB0
         mov eax, dword [dword_1CEFA8]
         mov eax, dword [byte eax+02Ch]
-        call sub_3CE58
+        call RemoveOverlayWindow
         push dword [dword_1CEFA8]
         call sub_FCD90
         add esp, byte 4
@@ -2978,7 +2979,7 @@ PauseMenu_29A:
         call sub_8BFA0
         mov eax, dword [dword_1CEF9C]
         lea edx, [dword ebp-066Ah]
-        call sub_F27A4
+        call DrawPauseClock
         lea eax, [byte ebp-0Ah]
         call sub_F3FF5
         lea eax, [byte ebp-0Ah]
@@ -3013,7 +3014,7 @@ PauseMenu_29A:
         call __CHP
         fistp dword [byte ebp+072h]
         mov eax, dword [byte ebp+072h]
-        call sub_3CD70
+        call AddOverlayWindow
 .29:
         mov dword [dword_1A8E50], 1
 .30:
@@ -3036,7 +3037,7 @@ PauseMenu_4EF:
         call sub_F3FB0
         mov eax, dword [dword_1CEFA8]
         mov eax, dword [byte eax+02Ch]
-        call sub_3CE58
+        call RemoveOverlayWindow
         push dword [dword_1CEFA8]
         call sub_FCD90
         add esp, byte 4
@@ -3075,7 +3076,7 @@ PauseMenu_4EF:
         call sub_8BFA0
         mov eax, dword [dword_1CEF9C]
         lea edx, [dword ebp-066Ah]
-        call sub_F27A4
+        call DrawPauseClock
         lea eax, [byte ebp-0Ah]
         call sub_F3FF5
         lea eax, [byte ebp-0Ah]
@@ -3120,7 +3121,7 @@ PauseMenu_640:
         call sub_18E76
         mov eax, dword [dword_1CEFA8]
         mov eax, dword [byte eax+02Ch]
-        call sub_3CFB0
+        call RefreshOverlayWindow
         jmp near PauseMenu_29A.30
 PauseMenu_66D:
         cmp word [word_1CEFC0], byte 2
@@ -3142,7 +3143,7 @@ PauseMenu_66D:
         call sub_18E76
         mov eax, dword [dword_1CEFA8]
         mov eax, dword [byte eax+02Ch]
-        call sub_3CFB0
+        call RefreshOverlayWindow
         call sub_4BCB4
         call sub_E4218
         jmp near PauseMenu_4BB
@@ -3190,7 +3191,7 @@ sub_F48C2:
         push edx
         enter 50h, 0
         mov ebx, eax
-        call sub_4B928
+        call FreeGameGraphics
         cmp dword [dword_16E500], byte 0
         je short .1
         push dword [dword_16E500]
@@ -3254,13 +3255,13 @@ sub_F4978:
         call InitGameAudio
 .1:
         mov eax, dword_19CD10
-        call sub_4B5C4
+        call InitGameGraphics
         call sub_1C854
-        call sub_4B80C
+        call InitGameVideo
         call ApplyDisplayFlags
         xor eax, eax
         call ChangeViewSize
-        call sub_AADEF
+        call LoadGameLogos
         call sub_F1FF8
         mov eax, dword [dword_1ADC88]
         call sub_3E480
@@ -3289,7 +3290,7 @@ sub_F4978:
         call sub_11ADD0
         add esp, byte 4
         mov eax, dword [dword_1CEF9C]
-        call sub_F27A4
+        call DrawPauseClock
         lea eax, [dword ebp-0ACh]
         push eax
         call sub_11ADE8
@@ -3306,14 +3307,14 @@ sub_F4978:
         call sub_11ADD0
         add esp, byte 4
         mov eax, dword [dword_1CEF9C]
-        call sub_F27A4
+        call DrawPauseClock
         lea eax, [dword ebp-0158h]
         push eax
         call sub_11ADE8
         add esp, byte 4
 .4:
         mov eax, dword [tickcount]
-        call sub_4BA00
+        call DrawGameFrame
         call sub_4BCB4
         leave
         pop edx
@@ -3328,7 +3329,7 @@ sub_F4A8F:
         push edx
         enter 50h, 0
         mov eax, dword [tickcount]
-        call sub_41DD8
+        call WaitMusicEnd
         mov eax, 1
         call sub_41670
         movzx eax, byte [byte_1C135B]
@@ -3375,7 +3376,7 @@ sub_F4A8F:
         pop ebx
         ret
         call sub_41D30
-        jmp near sub_41DD8
+        jmp near WaitMusicEnd
 ;-----------------------------------------------------------------------------
 ; DrawIntermissionTitle                           F4B3F  97 PC, low confidence
 ; Pause / intermission panel title: "Second Intermission", "End of Game",
@@ -3868,7 +3869,7 @@ sub_F5219:
         call sub_11ADD0
         add esp, byte 4
         mov eax, dword [dword_1CEF9C]
-        call sub_F27A4
+        call DrawPauseClock
         lea eax, [dword ebp-018Ah]
         push eax
         call sub_11ADE8
@@ -3883,7 +3884,7 @@ sub_F5219:
         call sub_11ADD0
         add esp, byte 4
         mov eax, dword [dword_1CEF9C]
-        call sub_F27A4
+        call DrawPauseClock
         lea eax, [byte ebp-032h]
         push eax
         call sub_11ADE8
@@ -3920,7 +3921,7 @@ sub_F5219:
         call __CHP
         fistp dword [byte ebp+07Ah]
         mov eax, dword [byte ebp+07Ah]
-        call sub_3CD70
+        call AddOverlayWindow
         test si, si
         jne near .5
         mov eax, 12Ch
@@ -3929,7 +3930,7 @@ sub_F5219:
         jmp near .4
 .2:
         mov eax, dword [tickcount]
-        call sub_4BA00
+        call DrawGameFrame
         call sub_4BCB4
         mov eax, edx
         sub eax, ebx
@@ -3997,7 +3998,7 @@ sub_F5219:
         mov edx, dword [byte ebp+07Ah]
         call sub_3CF68
         mov eax, dword [tickcount]
-        call sub_4BA00
+        call DrawGameFrame
         call sub_4BCB4
         jmp near .9
 .5:
@@ -4009,7 +4010,7 @@ sub_F5219:
         call sub_11ADD0
         add esp, byte 4
         mov eax, dword [dword_1CEF9C]
-        call sub_F27A4
+        call DrawPauseClock
         lea eax, [dword ebp-0DEh]
         push eax
         call sub_11ADE8
@@ -4059,7 +4060,7 @@ sub_F5219:
         call sub_12A10
         call sub_11F74
         mov eax, dword [tickcount]
-        call sub_4BA00
+        call DrawGameFrame
         call sub_4BCB4
         mov eax, 0FFFFFFFFh
         call sub_3E5F0
@@ -4085,7 +4086,7 @@ sub_F558C:
         mov eax, dword [dword_1CEFA8]
         mov dword [dword_16AF5C], 0
         mov eax, dword [byte eax+02Ch]
-        call sub_3CE58
+        call RemoveOverlayWindow
         push dword [dword_1CEFA8]
         call sub_FCD90
         add esp, byte 4
@@ -4094,7 +4095,7 @@ sub_F558C:
         test bx, bx
         je short .1
         call sub_41D30
-        call sub_41DD8
+        call WaitMusicEnd
         mov byte [byte_168930], 1
 .1:
         cmp esi, byte 2

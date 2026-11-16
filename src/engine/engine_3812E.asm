@@ -49,7 +49,7 @@ extern sub_106F7C, sub_106F94, sub_1070B0, sub_1070D0, sub_107154, sub_1072F0, s
 extern sub_107B70, sub_107CB0, sub_107D30, sub_107D70, sub_107E74, sub_107F48, sub_108040, sub_108144
 extern sub_10815C, sub_1081B0, sub_108640, sub_1086BF, sub_108CE8, sub_1091E0, sub_109210, sub_109250
 extern sub_1092B0, sub_109352, sub_109384, sub_109417, sub_109545, sub_10955B, sub_13C164, sub_1E7C4
-extern sub_2F8D8, sub_2FA00, sub_2FB40, sub_43944, sub_47C08, sub_47D70, sub_47EA4, ShutdownSound
+extern sub_2F8D8, sub_2FA00, sub_2FB40, InitSpeechBanks, OpenSpeechFile, sub_47D70, sub_47EA4, ShutdownSound
 extern sub_4AA78, MakeDataPath, LoadDataFile, OpenDataLibrary, sub_52D4C, sub_55648, sub_5696C, sub_56A08
 extern sub_56CD0, sub_56CE4, sub_56CF8, sub_56D0C, sub_5AC30, sub_5B4B8, sub_5C1CC, sub_5CD68
 extern sub_5DF50, SetSPA, sub_5EEEC, sub_60D6C, sub_60F48, sub_612E4, sub_613AC, sub_6152C
@@ -57,7 +57,7 @@ extern sub_617EC, sub_62C14, sub_74CEC, sub_74FA4, sub_76944, sub_789F0, sub_7B1
 extern sub_7E52C, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, sub_7F0D8, DrawTextAligned, sub_7F29C
 extern sub_7F5A4, sub_80758, sub_80808, sub_80BBC, sub_81650, sub_842F4, InitMenuItems, sub_8BFAC
 extern sub_8DF1F, GetLangText, sub_99DAC, sub_AC369, sub_D0098, sub_DB75E, sub_DB763, sub_DE25F
-extern sub_DE3CF, sub_DE740, sub_E036F, sub_E0415, FileExists, FileCreate, FileSeek, FileReadRecord
+extern OpenLeagueFile, sub_DE740, sub_E036F, sub_E0415, FileExists, FileCreate, FileSeek, FileReadRecord
 extern FileWriteRecord, FileClose, sub_E341C, BuildAllStarTeams, sub_F9496, sub_F94BC, sub_F99C0, sub_F9A28
 extern sub_FAA64, sub_FAF34, sub_FB4D4, sub_FB704, sub_FB71C, addtimer, sub_FC008, sub_FC290
 extern WaitTicks, sub_FC330, sub_FC410, sub_FC510, sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8
@@ -82,7 +82,7 @@ global sub_3AB68, sub_3ABD8, sub_3AC3C, sub_3AD34, sub_3AD9C, checkgoal, sub_3AF
 global sub_3B09C, sub_3B1EC, sub_3B334, sub_3B690, sub_3B738, sub_3B75B, sub_3B760, sub_3B8AC
 global sub_3B900, sub_3B954, sub_3C0B4, sub_3C544, sub_3C580, sub_3C5D4, SetVideoMode, sub_3C880
 global sub_3C8DC, sub_3C944, sub_3C9C8, sub_3CA28, sub_3CAB8, sub_3CB00, sub_3CB38, sub_3CB48
-global sub_3CB70, sub_3CB98, sub_3CCA8, sub_3CD70, sub_3CE58, sub_3CF68, sub_3CFB0, sub_3D020
+global sub_3CB70, sub_3CB98, sub_3CCA8, AddOverlayWindow, RemoveOverlayWindow, sub_3CF68, RefreshOverlayWindow, sub_3D020
 global sub_3D030, sub_3D134, sub_3D180, sub_3D2C0, sub_3D3D0, sub_3D4C4, sub_3D548, sub_3D5EC
 global sub_3D660, sub_3D764, sub_3D898, sub_3D930, sub_3D95C, sub_3D988, sub_3D9E4, sub_3DA18
 global sub_3DA80, sub_3DAC4, sub_3DBCC, sub_3DC2C, sub_3DCBC, sub_3DDD8, sub_3DE08, sub_3DE94
@@ -94,8 +94,8 @@ global sub_3FE54, sub_3FEE8, sub_3FF4C, sub_3FF9C, sub_4006C, sub_400E8, sub_401
 global sub_40298, sub_40380, sub_403C0, sub_40400, sub_40440, sub_404C4, sub_40574, sub_405F8
 global sub_40640, sub_40680, sub_40850, sub_4095C, LoadSfxBank, sub_40D80, OpenAudioStream, InitGameAudio
 global sub_414B8, sub_41550, sub_415A0, sub_415A8, sub_415F8, sub_41670, sub_41870, sub_419B0
-global sub_419B8, sub_41A28, sub_41ACC, sub_41CF0, sub_41D18, sub_41D30, sub_41D48, sub_41D94
-global sub_41DB8, sub_41DD8, MusicFileName, ArenaFileName, sub_41EE4, sub_41F2C, StopAllSfx, PlaySfx
+global sub_419B8, sub_41A28, sub_41ACC, sub_41CF0, sub_41D18, sub_41D30, MusicPlaying, sub_41D94
+global sub_41DB8, WaitMusicEnd, MusicFileName, ArenaFileName, sub_41EE4, sub_41F2C, StopAllSfx, PlaySfx
 global PlaySfxOr, sub_420E4, PlaySfxVolume, sub_42354, sub_423B4, sub_4241C, sub_424CC, sub_42550
 global sub_425CC, sub_42650, sub_42910, sub_42960, sub_42A98, sub_42AD0, sub_42C38, sub_42D38
 global OpenSpeechBanks, sub_431E8, LoadTeamSpeech
@@ -1346,7 +1346,7 @@ sub_39052:
         jne short .3
         mov edx, dword_19ED30
         mov eax, unk_1AD22E
-        call sub_DE3CF
+        call OpenLeagueFile
         test eax, eax
         jne short .3
         mov dword [dword_19ED30], eax
@@ -6863,9 +6863,12 @@ sub_3CCA8:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_3CD70                                                       3CD70  97 PC
+; AddOverlayWindow                                3CD70  97 PC, low confidence
+; (id, ...): adds an entry to the 32-byte overlay window list (dword_1A8B48,
+; count dword_1A8E7C) and draws it; from every overlay panel and the pause
+; menu
 ;-----------------------------------------------------------------------------
-sub_3CD70:
+AddOverlayWindow:
         push esi
         push edi
         mov esi, eax
@@ -6887,7 +6890,7 @@ sub_3CD70:
         test eax, eax
         je short .2
         mov eax, dword [dword_1A8B48]
-        call sub_3CE58
+        call RemoveOverlayWindow
         jmp short .1
 .2:
         mov dword [dword_1A8E6C], 1
@@ -6953,9 +6956,11 @@ sub_3CD70:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_3CE58                                                       3CE58  97 PC
+; RemoveOverlayWindow                             3CE58  97 PC, low confidence
+; (id): takes the overlay window out of the list and restores what was under
+; it; from RemoveOverlayPanel, DrawGameOverlays, the pause menu
 ;-----------------------------------------------------------------------------
-sub_3CE58:
+RemoveOverlayWindow:
         push ebx
         push ecx
         push edx
@@ -7095,9 +7100,11 @@ sub_3CF68:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_3CFB0                                                       3CFB0  97 PC
+; RefreshOverlayWindow                            3CFB0  97 PC, low confidence
+; (id): marks the overlay window's cells for redraw (byte_1A0CC2 bit 4); from
+; DrawGameClock, DrawPowerPlayClock, the pause menu
 ;-----------------------------------------------------------------------------
-sub_3CFB0:
+RefreshOverlayWindow:
         push ebx
         push ecx
         push edx
@@ -13583,7 +13590,7 @@ OpenAudioStream_D8:
         call sub_E341C
         xor eax, eax
         xor edx, edx
-        call sub_47C08
+        call OpenSpeechFile
         call sub_E341C
         mov eax, 1
         mov dword [dword_169250], edx
@@ -13689,7 +13696,7 @@ InitGameAudio:
         sub esp, 0A0h
         cmp word [word_1691A4], byte 0
         je near .16
-        call sub_41DD8
+        call WaitMusicEnd
         call sub_FC410
         test eax, eax
         je short .1
@@ -13726,11 +13733,11 @@ InitGameAudio:
         call sub_47D70
         call sub_E341C
         mov eax, 1
-        call sub_47C08
+        call OpenSpeechFile
         call sub_E341C
         mov eax, 2
         mov ebx, 2
-        call sub_47C08
+        call OpenSpeechFile
         call sub_E341C
         mov eax, 5
         mov dword [dword_169254], ebx
@@ -13840,7 +13847,7 @@ InitGameAudio:
         test eax, eax
         je short .15
 .14:
-        call sub_43944
+        call InitSpeechBanks
 .15:
         mov eax, dword [dword_1AC819]
         shl eax, 17h
@@ -13902,7 +13909,7 @@ sub_414B8:
         idiv ebx
         mov word [word_169232], ax
 .3:
-        call sub_41D48
+        call MusicPlaying
         test eax, eax
         je short .4
         mov edx, dword [dword_169230]
@@ -14130,7 +14137,7 @@ sub_41670:
         call sub_E341C
         xor eax, eax
         mov ecx, 1
-        call sub_47C08
+        call OpenSpeechFile
         call sub_E341C
         mov dword [dword_169254], ecx
         call sub_E341C
@@ -14232,7 +14239,7 @@ sub_41870:
         sar eax, 5
         mov dword [dword_16922C], eax
 .2:
-        call sub_41DD8
+        call WaitMusicEnd
         cmp dword [dword_169224], byte 0
         je short .5
 .3:
@@ -14586,9 +14593,10 @@ sub_41D30:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_41D48                                                       41D48  97 PC
+; MusicPlaying                                    41D48  97 PC, low confidence
+; 1 while the music stream (dword_1691C4) is still playing, with music on
 ;-----------------------------------------------------------------------------
-sub_41D48:
+MusicPlaying:
         cmp word [word_1691A4], byte 0
         je short .2
         cmp dword [dword_1691BC], byte 0
@@ -14643,9 +14651,11 @@ sub_41DB8:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_41DD8                                                       41DD8  97 PC
+; WaitMusicEnd                                    41DD8  97 PC, low confidence
+; With music on, restarts the current track request and idles (sub_E341C)
+; until MusicPlaying is 0
 ;-----------------------------------------------------------------------------
-sub_41DD8:
+WaitMusicEnd:
         push ebx
         push ecx
         push edx
@@ -14667,7 +14677,7 @@ sub_41DD8:
         mov dword [dword_1691D0], ecx
         mov dword [dword_1691D8], eax
 .2:
-        call sub_41D48
+        call MusicPlaying
         test eax, eax
         je short .3
         call sub_E341C

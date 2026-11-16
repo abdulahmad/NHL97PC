@@ -1,0 +1,5 @@
+sub_3CD70 AddOverlayWindow {confidence=low} (id, ...): adds an entry to the 32-byte overlay window list (dword_1A8B48, count dword_1A8E7C) and draws it; from every overlay panel and the pause menu
+sub_3CE58 RemoveOverlayWindow {confidence=low} (id): takes the overlay window out of the list and restores what was under it; from RemoveOverlayPanel, DrawGameOverlays, the pause menu
+sub_3CFB0 RefreshOverlayWindow {confidence=low} (id): marks the overlay window's cells for redraw (byte_1A0CC2 bit 4); from DrawGameClock, DrawPowerPlayClock, the pause menu
+sub_41D48 MusicPlaying {confidence=low} 1 while the music stream (dword_1691C4) is still playing, with music on
+sub_41DD8 WaitMusicEnd {confidence=low} with music on, restarts the current track request and idles (sub_E341C) until MusicPlaying is 0

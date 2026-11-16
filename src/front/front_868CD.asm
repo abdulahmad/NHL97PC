@@ -26,7 +26,7 @@ extern sub_419B8, StopAllSfx, PlaySfx, LoadDataFileLib, LoadDataFile, sub_7E860,
 extern SetRegionRect, sub_7F04C, sub_7F0D8, DrawTextAligned, sub_7F29C, sub_7F5B8, sub_7FE38, sub_80BBC
 extern sub_81114, sub_81678, sub_835BC, sub_83850, sub_867F0, sub_86878, sub_8BFAC, sub_8D956
 extern sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E, sub_8DEAC, GetLangText, sub_E32B4, sub_E3410
-extern sub_E341C, sub_E3AFC, LinkSendBlock, LinkReceiveBlock, sub_E57EC, sub_E5BF8, sub_FAA64, sub_FAF34
+extern sub_E341C, sub_E3AFC, LinkSendBlock, LinkReceiveBlock, DefaultModemName, LoadServerList, sub_FAA64, sub_FAF34
 extern sub_FC510, sub_FCD90, sub_FCF84, sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FD110, sub_FDD1C
 extern sub_FDE44, unk_165330, unk_1AC839, unk_1AC95D, unk_1AC962, unk_1ACB44, unk_1ACB49, unk_1C5EF8
 extern unk_1C5F4A, unk_1C834C, unk_1C8360, unk_1C8388, unk_1C83BA, word_16CCF8, word_16DACC, word_16DAD0
@@ -35,11 +35,11 @@ global jpt_86C99, jpt_87AF7, jpt_89053, sub_868CD_5F, PhonebookEntryScreen_4B8, 
 global PhonebookEntryScreen_6C5, PhonebookEntryScreen_752, ModemSettingsScreen_AE3, ModemSettingsScreen_AF4, ModemSettingsScreen_CC6, ModemSettingsScreen_D31, ModemSettingsScreen_D5E, ModemSettingsScreen_E4D
 global ModemSettingsScreen_E6E, ModemSettingsScreen_F7C, ModemSettingsScreen_FCE, ModemSettingsScreen_1020, ModemSettingsScreen_112C, ModemSettingsScreen_1184, ModemSettingsScreen_11E3, ModemSettingsScreen_121D
 global ModemSettingsScreen_126A, ModemSettingsScreen_1292, ModemSettingsScreen_12BA, ModemSettingsScreen_12E2, DrawNoNetworkServices_F6, NetworkGamesScreen_646, NetworkGamesScreen_657, NetworkGamesScreen_880
-global NetworkGamesScreen_8F6, NetworkGamesScreen_92B, NetworkGamesScreen_9BB, NetworkGamesScreen_A1E, NetworkGamesScreen_A96, NetworkGamesScreen_B19, NetworkGamesScreen_B3D, sub_8A81B_2BB
-global sub_8A81B_2C0, sub_8A81B_2C3, sub_8A81B_2C4, sub_8AAE5_64C, sub_8AAE5_654, RunNetworkConnect_35, sub_868CD, sub_86936
-global sub_869BB, sub_86A45, sub_86A96, sub_86AFA, sub_86B73, sub_86BD0, PhonebookEntryScreen, sub_87523
+global NetworkGamesScreen_8F6, NetworkGamesScreen_92B, NetworkGamesScreen_9BB, NetworkGamesScreen_A1E, NetworkGamesScreen_A96, NetworkGamesScreen_B19, NetworkGamesScreen_B3D, ModemConnectScreen_2BB
+global ModemConnectScreen_2C0, ModemConnectScreen_2C3, ModemConnectScreen_2C4, sub_8AAE5_64C, sub_8AAE5_654, RunNetworkConnect_35, sub_868CD, sub_86936
+global LoadPhonebook, sub_86A45, sub_86A96, sub_86AFA, sub_86B73, sub_86BD0, PhonebookEntryScreen, sub_87523
 global sub_8769F, sub_8781C, sub_8793E, ModemSettingsScreen, DrawNoNetworkServices, sub_88FD8, NetworkGamesScreen, sub_89CD6
-global sub_8A81B, sub_8AAE5, sub_8B145, sub_8BA36, RunNetworkConnect, RunModemConnect, sub_8BE60, sub_8BEF8
+global ModemConnectScreen, sub_8AAE5, sub_8B145, NetworkConnectScreen, RunNetworkConnect, RunModemConnect, sub_8BE60, sub_8BEF8
 global InitMenuItems, sub_8BFA0
 ;-----------------------------------------------------------------------------
 ; sub_868CD                                                       868CD  97 PC
@@ -63,7 +63,7 @@ sub_868CD:
         call GetLangText
         call sub_7F5B8
         xor eax, eax
-        jmp near sub_8A81B_2C4
+        jmp near ModemConnectScreen_2C4
 .1:
         mov edx, 0A0h
         mov eax, dword [dword_1C83B0]
@@ -79,7 +79,7 @@ sub_868CD:
         add esp, byte 4
 sub_868CD_5F:
         mov eax, 1
-        jmp near sub_8A81B_2C4
+        jmp near ModemConnectScreen_2C4
 ;-----------------------------------------------------------------------------
 ; sub_86936                                                       86936  97 PC
 ;-----------------------------------------------------------------------------
@@ -127,7 +127,7 @@ sub_86936:
         inc dword [ebx]
         mov eax, dword [ebx]
         call sub_868CD
-        call sub_869BB
+        call LoadPhonebook
 .4:
         pop edi
         pop esi
@@ -135,9 +135,10 @@ sub_86936:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_869BB                                                       869BB  97 PC
+; LoadPhonebook                                   869BB  97 PC, low confidence
+; Modem settings: reads the "phonebook" file
 ;-----------------------------------------------------------------------------
-sub_869BB:
+LoadPhonebook:
         push ebx
         push ecx
         push edx
@@ -157,7 +158,7 @@ sub_869BB:
         jne short .2
 .1:
         xor eax, eax
-        jmp near sub_8A81B_2C4
+        jmp near ModemConnectScreen_2C4
 .2:
         call sub_867F0
         mov esi, eax
@@ -1516,7 +1517,7 @@ ModemSettingsScreen:
         call sub_86A45
         mov dword [byte ebp-028h], 0FFFFFFFFh
         mov dword [byte ebp-03Ch], eax
-        call sub_869BB
+        call LoadPhonebook
         cmp dword [dword_16CCFA], byte 0
         jne short .1
         mov edx, unk_1AC839
@@ -1527,7 +1528,7 @@ ModemSettingsScreen:
         lea eax, [byte ebp-044h]
         lea edx, [dword ebp-0E18h]
         mov ecx, 52h
-        call sub_E57EC
+        call DefaultModemName
         mov dword [byte ebp-010h], eax
         mov dword [byte ebp-02Ch], eax
         mov eax, 18h
@@ -2776,7 +2777,7 @@ ModemSettingsScreen_12E2:
         mov eax, dword [byte ebp-03Ch]
         call sub_868CD
         mov eax, dword [byte ebp-028h]
-        jmp near sub_8A81B_2C3
+        jmp near ModemConnectScreen_2C3
         push ebx
         push ecx
         mov ebx, eax
@@ -2980,7 +2981,7 @@ NetworkGamesScreen:
 .1:
         lea eax, [byte ebp-03Ch]
         lea edx, [dword ebp-0D64h]
-        call sub_E5BF8
+        call LoadServerList
         mov dword [byte ebp-0Ch], eax
         mov eax, 15h
         call InitMenuItems
@@ -3771,7 +3772,7 @@ NetworkGamesScreen_B3D:
         push dword [byte ebp-01Ch]
         call sub_FAF34
         movsx eax, word [byte ebp-04h]
-        jmp near sub_8A81B_2C0
+        jmp near ModemConnectScreen_2C0
 ;-----------------------------------------------------------------------------
 ; sub_89CD6                                                       89CD6  97 PC
 ;-----------------------------------------------------------------------------
@@ -4589,7 +4590,7 @@ sub_89CD6:
         add esp, byte 4
         call sub_7F0D8
         lea eax, [byte ebp-010h]
-        call sub_E57EC
+        call DefaultModemName
         mov ebx, eax
         mov edx, eax
         movsx eax, word [word_1C834A]
@@ -4683,9 +4684,10 @@ sub_89CD6:
         add esp, byte 4
         jmp near DrawNoNetworkServices_F6
 ;-----------------------------------------------------------------------------
-; sub_8A81B                                                       8A81B  97 PC
+; ModemConnectScreen                              8A81B  97 PC, low confidence
+; From RunModemConnect: the modem connect screen (MOD2, BG00 / BG01)
 ;-----------------------------------------------------------------------------
-sub_8A81B:
+ModemConnectScreen:
         push ebx
         push ecx
         push edx
@@ -4883,13 +4885,13 @@ sub_8A81B:
         call sub_FAF34
         add esp, byte 4
         push dword [byte ebp-020h]
-sub_8A81B_2BB:
+ModemConnectScreen_2BB:
         call sub_FAF34
-sub_8A81B_2C0:
+ModemConnectScreen_2C0:
         add esp, byte 4
-sub_8A81B_2C3:
+ModemConnectScreen_2C3:
         leave
-sub_8A81B_2C4:
+ModemConnectScreen_2C4:
         pop edi
         pop esi
         pop edx
@@ -5009,7 +5011,7 @@ sub_8AAE5:
         add esp, byte 0Ch
         mov dword [byte ebp+03Ah], eax
         lea eax, [byte ebp+02Ah]
-        call sub_E5BF8
+        call LoadServerList
         push esi
         mov dword [byte ebp+036h], eax
         mov dword [byte ebp+02Eh], eax
@@ -5390,7 +5392,7 @@ sub_8AAE5_64C:
 sub_8AAE5_654:
         lea esp, [dword ebp+082h]
         pop ebp
-        jmp near sub_8A81B_2C4
+        jmp near ModemConnectScreen_2C4
 ;-----------------------------------------------------------------------------
 ; sub_8B145                                                       8B145  97 PC
 ;-----------------------------------------------------------------------------
@@ -5518,7 +5520,7 @@ sub_8B145:
         add esp, byte 0Ch
         mov dword [byte ebp+04Ah], eax
         lea eax, [byte ebp+02Ah]
-        call sub_E5BF8
+        call LoadServerList
         push edi
         mov dword [byte ebp+03Eh], eax
         mov dword [byte ebp+036h], eax
@@ -6079,9 +6081,11 @@ sub_8B145:
         push dword [byte ebp+036h]
         jmp near sub_8AAE5_64C
 ;-----------------------------------------------------------------------------
-; sub_8BA36                                                       8BA36  97 PC
+; NetworkConnectScreen                            8BA36  97 PC, low confidence
+; From RunNetworkConnect: the network connect screen (NET2, LoadServerList,
+; DrawNoNetworkServices)
 ;-----------------------------------------------------------------------------
-sub_8BA36:
+NetworkConnectScreen:
         push ebx
         push ecx
         push edx
@@ -6150,7 +6154,7 @@ sub_8BA36:
         add esp, byte 0Ch
         mov dword [byte ebp-010h], eax
         lea eax, [byte ebp-028h]
-        call sub_E5BF8
+        call LoadServerList
         push dword [byte ebp-024h]
         mov dword [byte ebp-020h], eax
         mov dword [byte ebp-018h], eax
@@ -6324,9 +6328,9 @@ sub_8BA36:
         call sub_FAF34
         add esp, byte 4
         cmp dword [byte ebp-028h], byte 0
-        jle near sub_8A81B_2C3
+        jle near ModemConnectScreen_2C3
         push dword [byte ebp-018h]
-        jmp near sub_8A81B_2BB
+        jmp near ModemConnectScreen_2BB
 ;-----------------------------------------------------------------------------
 ; RunNetworkConnect                               8BDCF  97 PC, low confidence
 ; From RunFrontEnd (18h): the network (IPX) game list first, then the modem
@@ -6334,7 +6338,7 @@ sub_8BA36:
 ;-----------------------------------------------------------------------------
 RunNetworkConnect:
         push edx
-        call sub_8BA36
+        call NetworkConnectScreen
         xor edx, edx
 .1:
         test edx, edx
@@ -6365,7 +6369,7 @@ RunNetworkConnect_35:
 ;-----------------------------------------------------------------------------
 RunModemConnect:
         push edx
-        call sub_8A81B
+        call ModemConnectScreen
         xor edx, edx
 .1:
         test edx, edx

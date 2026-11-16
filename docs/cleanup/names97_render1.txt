@@ -1,0 +1,7 @@
+sub_52494 OpenArenaArchive {confidence=medium} SetArtArchive "arena.viv", from the game graphics set-up (sub_4B5C4)
+sub_51C4C LoadNetArt {confidence=low} loads the goal net art ("netback", "netfrnt")
+sub_525E0 LoadBoardLogo {confidence=low} loads a board logo shape "blogo%d%c"
+sub_4B5C4 InitGameGraphics {confidence=low} from PlayGame, LoadReplay and sub_F4978: loads the arena, rink, players' art and camera for a game
+sub_4B928 FreeGameGraphics {confidence=low} from PlayGame, LoadReplay, ReplayScreen: frees what InitGameGraphics loaded (FreeRinkModel ...)
+sub_4B80C InitGameVideo {confidence=low} from PlayGame, LoadReplay: sets the game video mode (SetVideoMode) and the view window
+sub_4BA00 DrawGameFrame {confidence=low} draws one frame of the game view (rink, objects, overlays); from GameLoop, the pause menu, RunIntermission, RunOpeningFrames and the replay

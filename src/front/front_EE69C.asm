@@ -19,7 +19,7 @@ extern sub_101429, sub_10FE58, sub_115830, sub_1167AE, sub_11A318, sub_11A350, s
 extern sub_13C164, sub_1B88C, sub_419B0, sub_419B8, sub_41F2C, StopAllSfx, PlaySfx, LoadDataFileLib
 extern sub_7E860, sub_7EDF0, sub_7EF70, SetRegionRect, sub_7F0D8, DrawTextAligned, sub_7F5B8, sub_80BBC
 extern sub_86AFA, InitMenuItems, sub_8BFAC, GetLangText, sub_E341C, WaitForOtherComputer, GetKeyName, sub_F20A1
-extern sub_F22AF, sub_F27A4, sub_FAF34, sub_FC4BC, sub_FC510, sub_FCD90, sub_FCF84, sub_FCFCC
+extern sub_F22AF, DrawPauseClock, sub_FAF34, sub_FC4BC, sub_FC510, sub_FCD90, sub_FCF84, sub_FCFCC
 extern sub_FD08C, sub_FD0F8, sub_FD110, sub_FDD1C, tickcount, unk_167A1A, unk_16D992, unk_1AC8E4
 extern unk_1C5F4A, unk_1CE3D0, unk_1CE422, unk_1CE474, unk_1CEA8A, unk_EDDEF, unk_EDE3F, unk_EDE53
 extern unk_EE053, unk_EE093, unk_EE0E3, word_16E2EC, word_16E2EE, word_16E2F0
@@ -4433,7 +4433,7 @@ sub_F1FF8:
         call sub_115830
         add esp, byte 8
         mov dword [dword_1CEF9C], eax
-        call sub_F27A4
+        call DrawPauseClock
         mov eax, dword [dword_1CEF9C]
         push dword [byte eax+02Ch]
         push byte 0

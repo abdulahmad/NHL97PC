@@ -18,13 +18,13 @@ extern fclose_, fopen_, fputc_, jpt_845CC, memcpy_, memset_, rand_, sprintf_
 extern str_NAMEINDEX, str_backslash3, strcat_, strcmp_, strcpy_, strlen_, sub_100A68, sub_101324
 extern sub_101340, sub_101390, sub_1013AC, sub_1013FC, sub_101429, sub_101584, sub_102B94, sub_102C30
 extern sub_106DA0, sub_10AED0, sub_110D70, sub_11A318, sub_11B094, sub_11B104, sub_13C164, sub_419B0
-extern sub_419B8, sub_41A28, sub_41D18, sub_41DB8, sub_41DD8, ArenaFileName, sub_41F2C, StopAllSfx
+extern sub_419B8, sub_41A28, sub_41D18, sub_41DB8, WaitMusicEnd, ArenaFileName, sub_41F2C, StopAllSfx
 extern PlaySfx, MakeDataPath, LoadDataFile, OpenDataLibrary, sub_7DA28, sub_7E52C, sub_7E860, sub_7EDF0
 extern sub_7EEB0, sub_7EF70, SetRegionRect, sub_7F5A4, sub_80BBC, sub_81468, sub_81D1C, sub_83C08
 extern InitMenuItems, sub_8BFAC, sub_8D6E8, sub_8D910, sub_8E2EE, GetLangText, RunNewSeason, RunSeasonMenus
 extern sub_9279A, RunNewPlayoffs, RunPlayoffMenus, EditLinesScreen, TeamSelectScreen, PickIndexEntryScreen, sub_A4B7D, PostGameScreen
-extern GameStatsScreen, PlayMenuGame, sub_AC369, sub_ADBE6, sub_AF074, sub_B418C, PlayerStatsScreen, PlayerRatingsScreen
-extern sub_BD621, sub_C0F5D, RosterScreen, PreGameMatchupScreen, PreGameRostersScreen, sub_DB75E, sub_DE3CF, sub_E036F
+extern GameStatsScreen, PlayMenuGame, sub_AC369, TeamStatsScreen, sub_AF074, sub_B418C, PlayerStatsScreen, PlayerRatingsScreen
+extern sub_BD621, sub_C0F5D, RosterScreen, PreGameMatchupScreen, PreGameRostersScreen, sub_DB75E, OpenLeagueFile, sub_E036F
 extern sub_E3410, sub_E341C, NetDisconnect, LinkSendBlock, LinkReceiveBlock, sub_FAA64, sub_FAF34, sub_FB704
 extern sub_FC330, sub_FCD90, sub_FCEEC, sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FD110, tickcount
 extern unk_165320, unk_165323, unk_16CCC8, unk_16D804, unk_1AC95D, unk_1AC962, unk_1ACB44, unk_1ACB49
@@ -1634,7 +1634,7 @@ RunGameScreens:
         call PreGameMatchupScreen
         jmp near .7
 .32:
-        call sub_41DD8
+        call WaitMusicEnd
         call PlayMenuGame
         test eax, eax
         je short .40
@@ -1675,7 +1675,7 @@ RunGameScreens:
 .41:
         cmp ebx, byte 15h
         je near .8
-        call sub_41DD8
+        call WaitMusicEnd
         call sub_41D18
         call rand_
         mov ecx, 2
@@ -1748,7 +1748,7 @@ RunStatsMenu:
         je short RunStatsMenu_82.4
         lea edx, [byte ebp-04h]
         mov eax, unk_16D804
-        call sub_DE3CF
+        call OpenLeagueFile
         xor ecx, ecx
 .1:
         mov edx, ecx
@@ -1778,7 +1778,7 @@ RunStatsMenu_6E:
         mov esi, eax
         jmp short RunStatsMenu_82.4
 RunStatsMenu_82:
-        call sub_ADBE6
+        call TeamStatsScreen
 .3:
         mov ebx, eax
 .4:

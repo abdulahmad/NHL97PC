@@ -26,13 +26,13 @@ extern dword_1CAEBC, dword_1CAEC0, dword_1CAEC4, dword_1CAFF4, fclose_, fopen_, 
 extern qword_16695B, rand_, sprintf_, strcat_, strcpy_, sub_101324, sub_101340, sub_101390
 extern sub_1013FC, sub_101429, sub_101560, sub_101584, sub_101EAC, sub_102B94, sub_102C10, sub_10CD98
 extern sub_11A294, sub_11A318, sub_11B094, sub_11BD90, sub_13C164, sub_415A0, sub_415F8, sub_419B0
-extern sub_419B8, sub_41F2C, StopAllSfx, PlaySfx, sub_4A4F4, LoadDataFile, OpenDataLibrary, sub_7E860
+extern sub_419B8, sub_41F2C, StopAllSfx, PlaySfx, PlayScreenMovie, LoadDataFile, OpenDataLibrary, sub_7E860
 extern sub_7EDF0, sub_7EF70, SetRegionRect, sub_7F04C, sub_7F0D8, DrawTextAligned, sub_7F5A4, sub_80AB8
 extern sub_80B28, sub_80BBC, sub_815F8, sub_81650, sub_81678, sub_816A4, sub_816BC, sub_81D1C
 extern sub_82FB8, sub_835BC, sub_83850, sub_83D4C, sub_84024, sub_84068, sub_84330, sub_84570
 extern InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E, SetScrollBarPos
 extern sub_8DEAC, sub_8DF1F, sub_8E6AF, GetLangText, sub_AD678, sub_AD6D6, sub_B4F87, sub_B5031
-extern sub_BDB25, sub_DA7D6, sub_DB75E, sub_DB7B1, sub_DC653, sub_DCBB0, sub_DE3CF, sub_E036F
+extern sub_BDB25, sub_DA7D6, sub_DB75E, sub_DB7B1, sub_DC653, sub_DCBB0, OpenLeagueFile, sub_E036F
 extern sub_E0841, sub_E0D0F, sub_E341C, sub_E4218, sub_E4230, sub_FAA64, sub_FAF34, sub_FC510
 extern sub_FCD90, sub_FCEEC, sub_FCF84, sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FD110, tickcount
 extern unk_1667A4, unk_1667A7, unk_1668C2, unk_1668C5, unk_1668F8, unk_166915, unk_166946, unk_166948
@@ -703,7 +703,7 @@ PlayerStatsScreen:
         je short .2
         lea edx, [byte ebp+032h]
         mov eax, unk_16D7FC
-        call sub_DE3CF
+        call OpenLeagueFile
         lea edx, [byte ebp+02Eh]
         mov eax, unk_16D804
         jmp short .4
@@ -714,19 +714,19 @@ PlayerStatsScreen:
         jne short .3
         lea edx, [byte ebp+032h]
         mov eax, unk_1AD73A
-        call sub_DE3CF
+        call OpenLeagueFile
         mov dword [dword_16D404], 1
         jmp short .5
 .3:
         lea edx, [byte ebp+032h]
         mov eax, unk_1AD22E
-        call sub_DE3CF
+        call OpenLeagueFile
         cmp dword [dword_1ACF46], byte 0
         je short .5
         lea edx, [byte ebp+02Eh]
         mov eax, unk_1AD236
 .4:
-        call sub_DE3CF
+        call OpenLeagueFile
 .5:
         xor ebx, ebx
         jmp short .7
@@ -1854,7 +1854,7 @@ PlayerStatsScreen_1114:
         sete al
         movzx edx, al
         mov eax, dword [byte ebp+072h]
-        call sub_4A4F4
+        call PlayScreenMovie
         call sub_84570
         call sub_13C164
         push dword [byte ebp+042h]
@@ -5030,7 +5030,7 @@ PlayerRatingsScreen:
         je short .2
         lea edx, [byte ebp+01Ah]
         mov eax, unk_16D7FC
-        call sub_DE3CF
+        call OpenLeagueFile
         lea edx, [byte ebp+016h]
         mov eax, unk_16D804
         jmp short .4
@@ -5041,17 +5041,17 @@ PlayerRatingsScreen:
         jne short .3
         lea edx, [byte ebp+01Ah]
         mov eax, unk_1AD73A
-        call sub_DE3CF
+        call OpenLeagueFile
         mov dword [dword_16D404], 1
         jmp short .5
 .3:
         lea edx, [byte ebp+01Ah]
         mov eax, unk_1AD22E
-        call sub_DE3CF
+        call OpenLeagueFile
         lea edx, [byte ebp+016h]
         mov eax, unk_1AD236
 .4:
-        call sub_DE3CF
+        call OpenLeagueFile
 .5:
         xor ebx, ebx
         jmp short .7

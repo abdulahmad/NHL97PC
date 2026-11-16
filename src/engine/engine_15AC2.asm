@@ -52,7 +52,7 @@ extern sub_100700, sub_1007C0, sub_100830, sub_11328, sub_114C4, sub_13D50, sub_
 extern UpdateCoachModes, sub_30778, sub_3085C, AddPenalty, AddPenalty2, sub_32D88, EndPenaltyShot, sub_34CF4
 extern doplayeracc, sub_35588, sub_35690, sub_356A8, sub_3A06C, sub_3A404, sub_3AAE8, sub_3AB28
 extern sub_3B1EC, sub_3B738, SetVideoMode, sub_3CA28, sub_3CAB8, sub_3CB00, sub_3CB38, sub_3CB48
-extern sub_3CB70, sub_3CD70, sub_3CE58, sub_3CFB0, sub_3E5F0, sub_424CC, CommentaryEvent, SetArtArchive
+extern sub_3CB70, AddOverlayWindow, RemoveOverlayWindow, RefreshOverlayWindow, sub_3E5F0, sub_424CC, CommentaryEvent, SetArtArchive
 extern sub_4B8DC, sub_4C0C4, sub_4DDB0, sub_504E0, sub_55000, sub_56CD0, sub_56CE4, sub_56CF8
 extern sub_5D6A8, sub_5D7A4, sub_5D878, sub_5D900, sub_5DC1C, sub_5DC50, sub_5DCBC, sub_5DE74
 extern SetSPA, sub_60D6C, sub_60F48, sub_650A4, sub_65F50, sub_6619C, sub_66224, sub_69B78
@@ -585,7 +585,7 @@ RemoveOverlayPanel:
 .2:
         mov eax, dword [ebx]
         mov eax, dword [byte eax+02Ch]
-        call sub_3CE58
+        call RemoveOverlayWindow
         push dword [ebx]
         call sub_FCD90
         add esp, byte 4
@@ -1637,7 +1637,7 @@ sub_16BF9:
 sub_16BF9_15D:
         xor eax, eax
 sub_16BF9_15F:
-        call sub_3CD70
+        call AddOverlayWindow
 .7:
         leave
         pop edi
@@ -1961,7 +1961,7 @@ DrawPenaltyPanel_26F:
         or cl, 8
         mov edx, eax
         xor eax, eax
-        call sub_3CD70
+        call AddOverlayWindow
         lea esp, [dword ebp+082h]
         pop ebp
         pop edi
@@ -2371,7 +2371,7 @@ DrawPenaltyShotPanel_49A:
         or cl, 8
         mov edx, eax
         xor eax, eax
-        call sub_3CD70
+        call AddOverlayWindow
 DrawPenaltyShotPanel_4D7:
         lea esp, [dword ebp+0CEh]
         pop ebp
@@ -2861,7 +2861,7 @@ DrawGameClock:
         call sub_FE3AC
         add esp, byte 0Ch
         mov eax, dword [byte ebx+02Ch]
-        call sub_3CFB0
+        call RefreshOverlayWindow
         jmp near sub_15C30_216
 ;-----------------------------------------------------------------------------
 ; DrawPowerPlayClock                              17C2C  97 PC, low confidence
@@ -2990,7 +2990,7 @@ DrawPowerPlayClock:
         add esp, byte 0Ch
 .5:
         mov eax, dword [byte ebx+02Ch]
-        call sub_3CFB0
+        call RefreshOverlayWindow
 DrawPowerPlayClock_18E:
         leave
         pop esi
@@ -3069,7 +3069,7 @@ DrawClockPanel:
         shl ecx, 4
         or cl, 8
         mov edx, esi
-        call sub_3CD70
+        call AddOverlayWindow
         pop edi
         pop esi
         ret
@@ -3770,7 +3770,7 @@ sub_18025:
         cmp esi, eax
         jle near .9
         mov eax, dword [byte ebx+02Ch]
-        call sub_3CFB0
+        call RefreshOverlayWindow
 .57:
         leave
         pop edi
@@ -3863,7 +3863,7 @@ sub_1870B:
         or cl, 8
         mov edx, eax
         xor eax, eax
-        call sub_3CD70
+        call AddOverlayWindow
 .5:
         leave
         pop edi
@@ -3957,7 +3957,7 @@ sub_1882A:
         shl ecx, 4
         or cl, 8
         mov edx, esi
-        call sub_3CD70
+        call AddOverlayWindow
 .5:
         leave
         pop edi
@@ -4145,7 +4145,7 @@ sub_18958:
         idiv esi
         mov edx, eax
         xor eax, eax
-        call sub_3CD70
+        call AddOverlayWindow
 .14:
         leave
         pop edi
@@ -4321,7 +4321,7 @@ sub_18B81:
         shl ecx, 4
         or cl, 8
         mov edx, esi
-        call sub_3CD70
+        call AddOverlayWindow
 .14:
         leave
         pop edi
@@ -4415,7 +4415,7 @@ sub_18E35:
         je short .2
         mov eax, dword [ebx]
         mov eax, dword [byte eax+02Ch]
-        call sub_3CE58
+        call RemoveOverlayWindow
         push dword [ebx]
         call sub_FCD90
         add esp, byte 4
@@ -4444,7 +4444,7 @@ sub_18E76:
         je short .2
         mov eax, dword [edx]
         mov eax, dword [byte eax+02Ch]
-        call sub_3CFB0
+        call RefreshOverlayWindow
 .2:
         inc ebx
         add edx, byte 0Ch
@@ -4640,7 +4640,7 @@ DrawGameOverlays:
 .2:
         mov eax, dword [ebx]
         mov eax, dword [byte eax+02Ch]
-        call sub_3CE58
+        call RemoveOverlayWindow
         push dword [ebx]
         call sub_FCD90
         add esp, byte 4

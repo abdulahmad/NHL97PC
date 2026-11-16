@@ -19,18 +19,18 @@ extern sub_108A60, sub_108BA0, sub_108D78, sub_108DC4, sub_108E74, sub_1091E0, s
 extern sub_116E84, sub_116F78, sub_117338, sub_11756C, sub_117C26, sub_118C88, sub_119054, sub_11910D
 extern sub_1191D1, sub_1191F2, sub_119780, sub_13C164, sub_3E818, delstream, CdStreamStart, CdStreamOpenSecondary
 extern CdStreamService, CdStreamNextPacket, CdStreamFreePacket, sub_3FD0C, sub_419B0, sub_419B8, sub_41A28, sub_41D18
-extern sub_41DB8, sub_41DD8, ArenaFileName, PaEvent, MakeDataPath, LoadDataFileLib, LoadDataFile, WriteGlobalSet
+extern sub_41DB8, WaitMusicEnd, ArenaFileName, PaEvent, MakeDataPath, LoadDataFileLib, LoadDataFile, WriteGlobalSet
 extern sub_7F5A4, sub_80BBC, sub_81678, MainMenuScreen, RunGameScreens, RunStatsMenu, RunNetworkConnect, RunModemConnect
 extern sub_8BE60, sub_8BEF8, sub_8BFA0, LoadLangText, GetLangText, FreeLangText, sub_9CFD3, sub_9D333
-extern RunOptionsScreens, sub_D547C, CreditsScreen, sub_DA7D6, sub_DA7EB, sub_DB6AC, sub_DCBB0, sub_E036F
+extern RunOptionsScreens, GoalieMaskScreen, CreditsScreen, sub_DA7D6, sub_DA7EB, sub_DB6AC, sub_DCBB0, sub_E036F
 extern sub_E0415, sub_E069E, sub_E076B, sub_E0841, sub_E08E9, sub_E3410, sub_E341C, sub_F9650
 extern sub_FAA64, sub_FAAB4, sub_FAF34, sub_FBE40, WaitTicks, sub_FC330, sub_FC510, sub_FCD90
 extern sub_FD08C, sub_FD0F8, sub_FD110, tickcount, unk_164138, unk_16413C, unk_164150, unk_164158
 extern unk_1C0F00, unk_1C135C, unk_1C347F, word_1C1344
 global sub_7A9D8_77E, sub_7CB8C_45, putchar, sub_7A9D8, sub_7B15D, sub_7B4E4, sub_7B84B, sub_7B85A
-global sub_7B88D, sub_7BB27, sub_7BBB0, sub_7BC34, sub_7BC68, sub_7BCF0, sub_7BE04, sub_7BF64
-global sub_7C038, sub_7C3EC, sub_7C614, ModemHangup, sub_7C714, ModemAutoAnswer, ModemWaitConnect, ModemReadResult
-global ModemSendCommand, ModemAttention, sub_7CAB4, LoadLogoNames, sub_7CB8C, InitFrontEnd, FreeFrontEnd, RunFrontEnd
+global sub_7B88D, sub_7BB27, sub_7BBB0, sub_7BC34, sub_7BC68, OpenVideoStream, sub_7BE04, sub_7BF64
+global sub_7C038, PlayMovie, ModemReset, ModemHangup, ModemDial, ModemAutoAnswer, ModemWaitConnect, ModemReadResult
+global ModemSendCommand, ModemAttention, ModemSpeakerOff, LoadLogoNames, sub_7CB8C, InitFrontEnd, FreeFrontEnd, RunFrontEnd
 global TitleScreen
 ;-----------------------------------------------------------------------------
 ; sub_7A9D8                                                       7A9D8  97 PC
@@ -1648,9 +1648,10 @@ sub_7BC68:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_7BCF0                                                       7BCF0  97 PC
+; OpenVideoStream                                 7BCF0  97 PC, low confidence
+; Opens the movie's "VIDEO" stream (CdStreamOpenSecondary, CdStreamStart)
 ;-----------------------------------------------------------------------------
-sub_7BCF0:
+OpenVideoStream:
         push ecx
         push esi
         push edi
@@ -2224,9 +2225,10 @@ sub_7C038:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_7C3EC                                                       7C3EC  97 PC
+; PlayMovie                                       7C3EC  97 PC, low confidence
+; Plays a movie file ("AUDSTRMHACK" audio, OpenVideoStream), from sub_4A4F4
 ;-----------------------------------------------------------------------------
-sub_7C3EC:
+PlayMovie:
         push esi
         push edi
         push ebp
@@ -2308,7 +2310,7 @@ sub_7C3EC:
 .6:
         mov edx, edi
         mov eax, ebp
-        call sub_7BCF0
+        call OpenVideoStream
         test eax, eax
         je near .12
         xor ebp, ebp
@@ -2400,14 +2402,15 @@ putchar:
         push str_ATZS760S1155
         mov edx, dword [byte esp+08h]
         push edx
-        call sub_7C614
+        call ModemReset
         add esp, byte 8
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_7C614                                                       7C614  97 PC
+; ModemReset                                      7C614  97 PC, low confidence
+; Sends the modem set-up string "ATE1Q0X4F1"
 ;-----------------------------------------------------------------------------
-sub_7C614:
+ModemReset:
         push ebx
         push esi
         mov esi, dword [byte esp+0Ch]
@@ -2522,9 +2525,11 @@ ModemHangup:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_7C714                                                       7C714  97 PC
+; ModemDial                                    7C714  97 PC, medium confidence
+; Hangs up, then dials with "ATD" + the number (ModemSendCommand,
+; ModemReadResult)
 ;-----------------------------------------------------------------------------
-sub_7C714:
+ModemDial:
         push ebx
         push esi
         sub esp, byte 50h
@@ -2928,9 +2933,10 @@ ModemAttention:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_7CAB4                                                       7CAB4  97 PC
+; ModemSpeakerOff                                 7CAB4  97 PC, low confidence
+; Sends "ATM0"
 ;-----------------------------------------------------------------------------
-sub_7CAB4:
+ModemSpeakerOff:
         push ebx
         mov ecx, dword [byte esp+08h]
         mov edx, str_ATM0
@@ -3321,10 +3327,10 @@ RunFrontEnd:
         call CreditsScreen
         jmp short .6
 .12:
-        call sub_D547C
+        call GoalieMaskScreen
         jmp short .6
 .13:
-        call sub_41DD8
+        call WaitMusicEnd
         call FreeFrontEnd
         leave
         pop edx

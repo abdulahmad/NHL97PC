@@ -9,7 +9,7 @@ extern dword_1ACF46, dword_1ACF65, dword_1AD226, dword_1AD22A, dword_1AD437, dwo
 extern dword_1AD6AF, dword_1AD727, dword_1AD743, dword_1C1334, dword_1C1338, dword_1C5DA8, dword_1CEFB0, dword_1CEFB4
 extern memcpy_, sprintf_, sub_10AED0, MakeDirPath, sub_5C974, sub_789F0, sub_7B15D, sub_7B88D
 extern sub_7FE4C, sub_83314, sub_834EC, sub_83558, NameIndexNew, NameIndexLoad, NameIndexFree, sub_86500
-extern GetLangText, sub_91D7F, sub_925BE, sub_96019, AllocCrusherBuffers, sub_A2F31, sub_A2F52, LinkSendData
+extern GetLangText, sub_91D7F, SeasonSettingsPath, PlayoffSettingsPath, AllocCrusherBuffers, sub_A2F31, sub_A2F52, LinkSendData
 extern LinkReceiveData, sub_A3116, sub_DA7D6, sub_DA7EB, sub_DB6AC, sub_DB763, sub_DCFB0, sub_DE5A3
 extern sub_DE740, sub_DEE95, sub_DEF96, sub_E036F, sub_E0415, sub_E19D5, sub_E1C19, sub_E1CC0
 extern sub_E3410, LinkSendBlock, LinkReceiveBlock, sub_FAA64, sub_FAF34, sub_FB704, sub_FCC40, unk_16D7F4
@@ -1061,8 +1061,8 @@ sub_AB573:
         lea esi, [byte esi+04h]
         movsd
         movsd
-        call sub_925BE
-        call sub_96019
+        call SeasonSettingsPath
+        call PlayoffSettingsPath
 .60:
         cmp dword [byte ebp+076h], byte 0FFFFFFFFh
         je short .61

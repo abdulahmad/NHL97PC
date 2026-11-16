@@ -167,7 +167,7 @@ extern sub_218B8, sub_21A4C, sub_2A6B8, sub_2BE2C, a2touchpuck, sub_2DD54, sub_2
 extern sub_2E208, StartFaceoffLineChange, sub_2F4B8, checkint, AddPenalty, AddPenalty2, EndPenaltyShot, sub_34330
 extern sub_358E4, checkfight, sub_3DA80, sub_3DAC4, sub_3DBCC, sub_3DC2C, sub_3DCBC, sub_3DE08
 extern sub_41ACC, StopAllSfx, PlaySfxOr, PlaySfxVolume, sub_42354, sub_4241C, sub_424CC, CommentaryEvent
-extern sub_4A280, SetArtArchive, sub_4B4B0, sub_4B4C4, sub_4B540, sub_4B8DC, sub_4BA00, sub_4BCB4
+extern sub_4A280, SetArtArchive, sub_4B4B0, sub_4B4C4, sub_4B540, sub_4B8DC, DrawGameFrame, sub_4BCB4
 extern sub_4C0C4, sub_4DA84, PeriodOver, sub_4DD9C, sub_4DDB0, sub_4FC50, sub_50050, sub_51B5C
 extern sub_51BD8, sub_56798, sub_567B0, sub_568CC, sub_56908, sub_56A84, sub_56AE4, sub_56CD0
 extern sub_56CE4, sub_56CF8, sub_56D0C, sub_56DDC, sub_AA650, sub_BD61B, sub_E341C, sub_FAA64
@@ -222,8 +222,8 @@ global sub_62340, sub_624D0, sub_626BC, sub_628C4, sub_62C14, sub_62F14, sub_633
 global sub_63980, sub_63AA4, sub_63D24, sub_63E8C, sub_640D0, sub_642A8, sub_643AC, sub_64490
 global sub_64700, sub_64820, sub_648B4, sub_649E0, sub_64AE0, sub_64D54, sub_64EBC, sub_650A4
 global sub_650E8, sub_65164, sub_65338, sub_6539C, sub_65481, sub_656B7, sub_656D3, sub_65742
-global sub_657BF, sub_65830, CamShot23D, sub_6593E, sub_6596B, sub_659C6, sub_659F6, sub_65B64
-global sub_65BFD, sub_65C2D, sub_65C5D, sub_65C8D, sub_65CBD, InitAnimPoints, sub_65DE8, sub_65E3B
+global sub_657BF, LoadSkateAnims, CamShot23D, LoadActAnims, LoadFallAnims, LoadInterferAnims, sub_659F6, LoadGoalieAnims
+global LoadRefSkateAnims, LoadRefCallAnims, LoadRefAmbiAnims, LoadFightAnims, LoadCupAnims, InitAnimPoints, sub_65DE8, sub_65E3B
 global sub_65F50, sub_660F0, sub_6619C, sub_66224, sub_66524, sub_666CC, sub_66758, sub_66E38
 global sub_67248, sub_67540, sub_67A30, sub_67A98, sub_67B10, sub_67BD0, sub_67CC0, sub_68030
 global sub_68378, sub_6889C, sub_68DBC, sub_69410, sub_6947C, sub_69654, sub_69750, sub_69970
@@ -235,19 +235,19 @@ global sub_6E170, checkcx, sub_6E9A4, sub_6F104, sub_6F300, sub_6F55C, checkplco
 global sub_7002C, sub_700D8, sub_701B8, sub_70260, sub_70324, sub_70378, sub_70424, sub_704D4
 global sub_708B0, sub_708F4, sub_709D0, sub_70A14, sub_70A58, sub_70B38, sub_70B74, sub_70C24
 global sub_70D60, sub_70E48, sub_71108, sub_71298, sub_71380, sub_713E0, sub_7147C, sub_71574
-global sub_716F8, sub_71808, sub_71ABC, sub_71D48, sub_71E58, sub_71F4C, sub_71FD0, sub_72050
+global sub_716F8, sub_71808, sub_71ABC, sub_71D48, sub_71E58, StartFightAnim, sub_71FD0, sub_72050
 global sub_72170, sub_72324, sub_7242C, sub_724C8, sub_72564, sub_72648, sub_7275C, sub_7291C
-global sub_72A84, sub_72AF0, sub_72B78, sub_72BF8, sub_72C70, sub_72D74, sub_72E58, sub_72E94
-global sub_72EF4, sub_72F34, sub_72FE8, sub_73028, sub_73070, sub_730C4, sub_7320C, sub_73464
+global sub_72A84, sub_72AF0, sub_72B78, sub_72BF8, sub_72C70, sub_72D74, RefAtDotAnim, RefFaceoffAnim
+global RefGoalPaAnim, RefWhistleAnim, RefSignalAnim, RefGoalLineAnim, sub_73070, sub_730C4, sub_7320C, sub_73464
 global sub_73578, sub_7370C, sub_739B8, sub_73A58, sub_73A60, sub_73B3C, sub_73CE8, sub_73F00
 global sub_73FBC, sub_74708, sub_747E8, sub_74A20, sub_74B74, sub_74BA8, sub_74C64, sub_74CEC
 global sub_74FA4, sub_75068, sub_75500, sub_75AE8, sub_75B94, sub_75F14, sub_75F40, sub_75F70
-global sub_75FA0, sub_75FE4, sub_76010, sub_760C8, sub_7613C, sub_76148, sub_7629C, sub_762E4
+global sub_75FA0, sub_75FE4, LoadAnimFile, sub_760C8, sub_7613C, sub_76148, sub_7629C, sub_762E4
 global sub_76380, sub_763BC, sub_76698, sub_76944, sub_76954, sub_76A1C, sub_76D3C, sub_76E04
 global sub_76E20, sub_76E28, sub_76E30, sub_76FB4, sub_76FE8, sub_77014, sub_77018, sub_77048
 global sub_7716C, sub_7724C, sub_772B8, sub_77310, sub_773C0, sub_77590, sub_77610, AllocAnimStates
-global sub_776F8, sub_77838, LoadAiIcons, sub_77A30, sub_77A88, GameOver, sub_77F94, sub_77FA8
-global sub_78044, sub_780F0, sub_785E8, sub_78730, sub_78810, sub_78938, unk_65475, unk_704AC
+global sub_776F8, sub_77838, LoadAiIcons, sub_77A30, updateplayers, GameOver, sub_77F94, sub_77FA8
+global sub_78044, sub_780F0, periodicevents, sub_78730, DoGameFrame, sub_78938, unk_65475, unk_704AC
 global unk_704C0, unk_717E0, unk_717F4, unk_71A94, unk_71AA8, unk_78930
 ;-----------------------------------------------------------------------------
 ; sub_57324                                                       57324  97 PC
@@ -6859,7 +6859,7 @@ sub_5C1F8:
 .2:
         mov eax, dword [tickcount]
 .3:
-        call sub_4BA00
+        call DrawGameFrame
         call sub_E341C
         call sub_4BCB4
         pop edi
@@ -20083,9 +20083,10 @@ sub_657BF_59:
         mov dword [edx], eax
         ret
 ;-----------------------------------------------------------------------------
-; sub_65830                                                       65830  97 PC
+; LoadSkateAnims                               65830  97 PC, medium confidence
+; InitAnimPoints: loads the "skate" animations (and "stop")
 ;-----------------------------------------------------------------------------
-sub_65830:
+LoadSkateAnims:
         push ebx
         push ecx
         push edx
@@ -20093,7 +20094,7 @@ sub_65830:
         mov eax, asc_163000
         mov ecx, dword_1BF07C
         mov ebx, off_16B738
-        call sub_76010
+        call LoadAnimFile
         push unk_1B9CF8
         mov edx, 25h
         mov dword [dword_16C388], eax
@@ -20155,7 +20156,7 @@ CamShot23D:
         mov eax, asc_16300F
         mov ecx, unk_1BF110
         mov ebx, off_16B7CC
-        call sub_76010
+        call LoadAnimFile
         push unk_1BA510
         mov edx, 19h
         mov dword [dword_16C38C], eax
@@ -20166,9 +20167,10 @@ CamShot23D_2B:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_6593E                                                       6593E  97 PC
+; LoadActAnims                                 6593E  97 PC, medium confidence
+; InitAnimPoints: loads the "pl_act" animations
 ;-----------------------------------------------------------------------------
-sub_6593E:
+LoadActAnims:
         push ebx
         push ecx
         push edx
@@ -20176,15 +20178,16 @@ sub_6593E:
         mov eax, asc_163015
         mov ecx, unk_1BF174
         mov ebx, off_16B830
-        call sub_76010
+        call LoadAnimFile
         push unk_1BAA88
         mov edx, 24h
         mov dword [dword_16C390], eax
         jmp short CamShot23D_2B
 ;-----------------------------------------------------------------------------
-; sub_6596B                                                       6596B  97 PC
+; LoadFallAnims                                6596B  97 PC, medium confidence
+; InitAnimPoints: loads the "pl_fall" animations
 ;-----------------------------------------------------------------------------
-sub_6596B:
+LoadFallAnims:
         push ebx
         push ecx
         push edx
@@ -20193,7 +20196,7 @@ sub_6596B:
         mov eax, asc_16301C
         mov ecx, unk_1BF204
         mov ebx, off_16B8C0
-        call sub_76010
+        call LoadAnimFile
         xor esi, esi
         push unk_1BB268
         mov edx, 26h
@@ -20215,9 +20218,10 @@ sub_6596B:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_659C6                                                       659C6  97 PC
+; LoadInterferAnims                            659C6  97 PC, medium confidence
+; InitAnimPoints: loads the "interfer" animations
 ;-----------------------------------------------------------------------------
-sub_659C6:
+LoadInterferAnims:
         push ebx
         push ecx
         push edx
@@ -20225,7 +20229,7 @@ sub_659C6:
         mov eax, asc_163024
         mov ecx, unk_1BF29C
         mov ebx, off_16B958
-        call sub_76010
+        call LoadAnimFile
         push unk_1BBAB8
         mov edx, 13h
         mov dword [dword_16C398], eax
@@ -20366,9 +20370,10 @@ sub_659F6_168:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_65B64                                                       65B64  97 PC
+; LoadGoalieAnims                              65B64  97 PC, medium confidence
+; InitAnimPoints: loads the "goalie" animations
 ;-----------------------------------------------------------------------------
-sub_65B64:
+LoadGoalieAnims:
         push ebx
         push ecx
         push edx
@@ -20376,7 +20381,7 @@ sub_65B64:
         mov eax, asc_163035
         mov ecx, unk_1BF2E8
         mov ebx, off_16B9A4
-        call sub_76010
+        call LoadAnimFile
         push unk_1BBEE0
         mov edx, 6Ch
         mov dword [dword_16C39C], eax
@@ -20415,9 +20420,10 @@ sub_65B64:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_65BFD                                                       65BFD  97 PC
+; LoadRefSkateAnims                            65BFD  97 PC, medium confidence
+; InitAnimPoints: loads the "refskate" animations
 ;-----------------------------------------------------------------------------
-sub_65BFD:
+LoadRefSkateAnims:
         push ebx
         push ecx
         push edx
@@ -20425,15 +20431,16 @@ sub_65BFD:
         mov eax, asc_16303C
         mov ecx, unk_1BF498
         mov ebx, off_16BB54
-        call sub_76010
+        call LoadAnimFile
         push unk_1BD680
         mov edx, 3Ch
         mov dword [dword_16C3A0], eax
         jmp near CamShot23D_2B
 ;-----------------------------------------------------------------------------
-; sub_65C2D                                                       65C2D  97 PC
+; LoadRefCallAnims                             65C2D  97 PC, medium confidence
+; InitAnimPoints: loads the "refcalls" animations
 ;-----------------------------------------------------------------------------
-sub_65C2D:
+LoadRefCallAnims:
         push ebx
         push ecx
         push edx
@@ -20441,15 +20448,16 @@ sub_65C2D:
         mov eax, asc_163045
         mov ecx, unk_1BF5A0
         mov ebx, off_16BC5C
-        call sub_76010
+        call LoadAnimFile
         push unk_1BE4F0
         mov edx, 0Fh
         mov dword [dword_16C3A8], eax
         jmp near CamShot23D_2B
 ;-----------------------------------------------------------------------------
-; sub_65C5D                                                       65C5D  97 PC
+; LoadRefAmbiAnims                             65C5D  97 PC, medium confidence
+; InitAnimPoints: loads the "refambi" animations
 ;-----------------------------------------------------------------------------
-sub_65C5D:
+LoadRefAmbiAnims:
         push ebx
         push ecx
         push edx
@@ -20457,15 +20465,16 @@ sub_65C5D:
         mov eax, asc_16304E
         mov ecx, unk_1BF588
         mov ebx, off_16BC44
-        call sub_76010
+        call LoadAnimFile
         push unk_1BE3A0
         mov edx, 6
         mov dword [dword_16C3A4], eax
         jmp near CamShot23D_2B
 ;-----------------------------------------------------------------------------
-; sub_65C8D                                                       65C8D  97 PC
+; LoadFightAnims                               65C8D  97 PC, medium confidence
+; InitAnimPoints: loads the "fight" animations
 ;-----------------------------------------------------------------------------
-sub_65C8D:
+LoadFightAnims:
         push ebx
         push ecx
         push edx
@@ -20473,15 +20482,16 @@ sub_65C8D:
         mov eax, asc_163056
         mov ecx, unk_1BF5DC
         mov ebx, off_16BC98
-        call sub_76010
+        call LoadAnimFile
         push unk_1BE838
         mov edx, 1Fh
         mov dword [dword_16C3AC], eax
         jmp near CamShot23D_2B
 ;-----------------------------------------------------------------------------
-; sub_65CBD                                                       65CBD  97 PC
+; LoadCupAnims                                 65CBD  97 PC, medium confidence
+; Loads the "cup" animations (Stanley Cup presentation, from sub_780F0)
 ;-----------------------------------------------------------------------------
-sub_65CBD:
+LoadCupAnims:
         push ebx
         push ecx
         push edx
@@ -20489,7 +20499,7 @@ sub_65CBD:
         mov eax, asc_16305C
         mov ecx, unk_1BF658
         mov ebx, off_16BD14
-        call sub_76010
+        call LoadAnimFile
         push unk_1BEF00
         mov edx, 6
         mov dword [dword_16C3B0], eax
@@ -20549,16 +20559,16 @@ InitAnimPoints:
         jl short .1
         mov eax, asc_16308F
         call SetArtArchive
-        call sub_65830
+        call LoadSkateAnims
         call CamShot23D
-        call sub_6593E
-        call sub_6596B
-        call sub_659C6
-        call sub_65B64
-        call sub_65BFD
-        call sub_65C5D
-        call sub_65C2D
-        call sub_65C8D
+        call LoadActAnims
+        call LoadFallAnims
+        call LoadInterferAnims
+        call LoadGoalieAnims
+        call LoadRefSkateAnims
+        call LoadRefAmbiAnims
+        call LoadRefCallAnims
+        call LoadFightAnims
         push byte 0
         call sub_FC330
         add esp, byte 4
@@ -36984,9 +36994,10 @@ sub_71E58:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_71F4C                                                       71F4C  97 PC
+; StartFightAnim                                  71F4C  97 PC, low confidence
+; From StartFight: the fighter's start move (SPA 176h or 159h by +0D0h)
 ;-----------------------------------------------------------------------------
-sub_71F4C:
+StartFightAnim:
         push ebx
         push ecx
         push edx
@@ -38336,9 +38347,10 @@ sub_72D74:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_72E58                                                       72E58  97 PC
+; RefAtDotAnim                                    72E58  97 PC, low confidence
+; Assrefatdot's referee move: SPA 107h (sub_5EEEC)
 ;-----------------------------------------------------------------------------
-sub_72E58:
+RefAtDotAnim:
         push ebx
         push ecx
         push edx
@@ -38359,9 +38371,11 @@ sub_72E58:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_72E94                                                       72E94  97 PC
+; RefFaceoffAnim                                  72E94  97 PC, low confidence
+; Puckfaceoff2's referee move: SPA 143h, with the referee's two sprite flags
+; (sub_56D0C)
 ;-----------------------------------------------------------------------------
-sub_72E94:
+RefFaceoffAnim:
         push ebx
         push ecx
         push edx
@@ -38391,9 +38405,10 @@ sub_72E94:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_72EF4                                                       72EF4  97 PC
+; RefGoalPaAnim                                   72EF4  97 PC, low confidence
+; Assrefgoalpa's referee move: SPA 144h
 ;-----------------------------------------------------------------------------
-sub_72EF4:
+RefGoalPaAnim:
         push ebx
         push ecx
         push edx
@@ -38415,9 +38430,10 @@ sub_72EF4:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_72F34                                                       72F34  97 PC
+; RefWhistleAnim                                  72F34  97 PC, low confidence
+; Assrefwhistle's referee move, PeriodOver aware
 ;-----------------------------------------------------------------------------
-sub_72F34:
+RefWhistleAnim:
         push ebx
         push ecx
         push edx
@@ -38475,9 +38491,10 @@ sub_72F34:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_72FE8                                                       72FE8  97 PC
+; RefSignalAnim                                   72FE8  97 PC, low confidence
+; Assrefsignal's referee move: SPA 146h
 ;-----------------------------------------------------------------------------
-sub_72FE8:
+RefSignalAnim:
         push ebx
         push ecx
         push edx
@@ -38499,9 +38516,10 @@ sub_72FE8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_73028                                                       73028  97 PC
+; RefGoalLineAnim                                 73028  97 PC, low confidence
+; (ref, n) assrefgoalline's referee move: SPA from table dword_16C58C
 ;-----------------------------------------------------------------------------
-sub_73028:
+RefGoalLineAnim:
         push ebx
         push ecx
         mov ecx, eax
@@ -42729,9 +42747,11 @@ sub_75FE4:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_76010                                                       76010  97 PC
+; LoadAnimFile                                 76010  97 PC, medium confidence
+; (name, ...): loads a ".4da" animation file (_splitpath_ / _makepath_), from
+; the InitAnimPoints loaders
 ;-----------------------------------------------------------------------------
-sub_76010:
+LoadAnimFile:
         push ebx
         push ecx
         push esi
@@ -45309,9 +45329,12 @@ sub_77A30:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_77A88                                                       77A88  97 PC
+; updateplayers                                  77A88  94G, medium confidence
+; The per-frame player update: reads the joypads (ReadJoy1), runs each
+; object's assignment from off_19C3F4, collisions and animation, as 94G
+; updateplayers
 ;-----------------------------------------------------------------------------
-sub_77A88:
+updateplayers:
         push ebx
         push ecx
         push edx
@@ -46062,7 +46085,7 @@ sub_780F0:
         jl short .26
         mov eax, asc_163EEC
         call SetArtArchive
-        call sub_65CBD
+        call LoadCupAnims
         push byte 0
         call sub_FC330
         add esp, byte 4
@@ -46152,9 +46175,11 @@ sub_780F0:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_785E8                                                       785E8  97 PC
+; periodicevents                                    785E8  94G, low confidence
+; From DoGameFrame before updateplayers: chkprogress, line changes
+; (StartFaceoffLineChange), the Stanley Cup start (sub_780F0)
 ;-----------------------------------------------------------------------------
-sub_785E8:
+periodicevents:
         push edx
         call chkprogress
         test byte [byte_19CBC2], 1
@@ -46309,15 +46334,18 @@ sub_78730:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_78810                                                       78810  97 PC
+; DoGameFrame                       78810  94G hockey94.asm, medium confidence
+; One frame of game logic, from RunSimFrames, RunOpeningFrames and
+; PlaceOpeningPlayers: periodicevents, updateplayers, then the crowd sounds
+; and commentary
 ;-----------------------------------------------------------------------------
-sub_78810:
+DoGameFrame:
         push ebx
         push ecx
         push edx
         push esi
-        call sub_785E8
-        call sub_77A88
+        call periodicevents
+        call updateplayers
         call sub_78730
         mov eax, dword [off_168CF0]
         mov dl, byte [eax]

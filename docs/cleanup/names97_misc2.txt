@@ -1,0 +1,6 @@
+sub_D547C GoalieMaskScreen {confidence=medium} from RunFrontEnd: the goalie mask gallery (MASK00%02d.FSH, "%s - %s - %s" goalie - team - season captions, LEFT / RIGH / FRNT buttons)
+sub_D4E24 GoalieMaskIntro {confidence=low} from GoalieMaskScreen: the opening of the mask gallery (DOR0 / DOR1 doors, PANL, LADR, BB / AB buttons)
+sub_D7A70 AllocPageStack {confidence=low} allocates the front end's "PAGESTACK" block
+sub_52770 LoadLogos {confidence=low} game graphics: loads "logos.fsh" (LOGOS, blogos) and the ice / board logo shapes (LoadBoardLogo, L%02d...)
+sub_52E8C LoadRinkLines {confidence=low} from InitGameGraphics: the rink line and board shapes (boardback, crease, flatboards, fat red / blue lines, glassline, top / bottom boards)
+sub_53314 LoadRinkModel {confidence=low} from InitGameGraphics: the rink model from arena.viv (rink, stands, floor, score, puck, nets, goals, extents, lights, glass, boards)
