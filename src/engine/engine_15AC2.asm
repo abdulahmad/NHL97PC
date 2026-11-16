@@ -49,7 +49,7 @@ extern qword_1605B4, qword_1605BC, qword_1605C4, qword_1605CC, qword_1605D4, qwo
 extern qword_1605F4, qword_160604, qword_160624, qword_160630, qword_160638, qword_160640, qword_160648, qword_160650
 extern qword_160658, rand_, randomd0, regd1, sprintf_, strcat_, strcpy_, sub_100498
 extern sub_100700, sub_1007C0, sub_100830, sub_11328, sub_114C4, sub_13D50, sub_25AEC, sub_2E11C
-extern UpdateCoachModes, sub_30778, sub_3085C, AddPenalty, AddPenalty2, sub_32D88, EndPenaltyShot, sub_34CF4
+extern UpdateCoachModes, sub_30778, sub_3085C, AddPenalty, AddPenalty2, PenGoalStuff, EndPenaltyShot, sub_34CF4
 extern doplayeracc, sub_35588, sub_35690, sub_356A8, sub_3A06C, sub_3A404, sub_3AAE8, sub_3AB28
 extern sub_3B1EC, sub_3B738, SetVideoMode, sub_3CA28, sub_3CAB8, sub_3CB00, sub_3CB38, sub_3CB48
 extern sub_3CB70, AddOverlayWindow, RemoveOverlayWindow, RefreshOverlayWindow, sub_3E5F0, sub_424CC, CommentaryEvent, SetArtArchive
@@ -15385,7 +15385,7 @@ Goal:
 .63:
         mov eax, dword [dword_19CBAA]
         sar eax, 10h
-        call sub_32D88
+        call PenGoalStuff
         jmp short .65
 .64:
         xor edi, edi
@@ -15414,7 +15414,7 @@ Goal:
         jne short .67
         mov eax, dword [dword_19CBAA]
         sar eax, 10h
-        call sub_32D88
+        call PenGoalStuff
         jmp short .68
 .67:
         xor edx, edx

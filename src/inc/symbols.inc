@@ -224,7 +224,7 @@
 ;  31F88  sub_31F88                                engine/faceoff/faceoff_2.asm                 1
 ;  32260  AddPenalty                               engine/faceoff/faceoff_2.asm                 4
 ;  32340  AddPenalty2                              engine/faceoff/faceoff_2.asm                 3
-;  32D88  sub_32D88                                engine/faceoff/faceoff_2.asm                 1
+;  32D88  PenGoalStuff                             engine/faceoff/faceoff_2.asm                 1
 ;  33880  EndPenaltyShot                           engine/faceoff/faceoff_2.asm                 4
 ;  342C4  chkprogress                              engine/faceoff/faceoff_2.asm                 1
 ;  34330  sub_34330                                engine/faceoff/faceoff_2.asm                 4

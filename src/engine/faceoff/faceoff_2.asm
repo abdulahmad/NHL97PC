@@ -53,8 +53,8 @@ global InProgress_96E, sub_3509C_E0, assfwatch_1EC, sub_37198_DE, sub_37744_24C,
 global sub_2F744, sub_2F818, sub_2F8D8, sub_2FA00, sub_2FB40, checkint, sub_2FFB8, sub_30300
 global sub_305D8, sub_30674, sub_30778, sub_3085C, sub_308AC, sub_308F4, sub_30998, sub_30A34
 global sub_30BD8, sub_31070, sub_313F4, sub_31540, sub_31A2C, sub_31A5C, sub_31B6C, sub_31C14
-global sub_31F88, sub_32184, AddPenalty, AddPenalty2, sub_32888, sub_32B68, sub_32C04, sub_32CEC
-global sub_32D88, sub_32FF8, sub_3319C, updatepentime, checkfornewpen, sub_335CC, sub_336E4, EndPenaltyShot
+global sub_31F88, sub_32184, AddPenalty, AddPenalty2, Stop4Pen, updatepwrplay, chkatop, releasepl
+global PenGoalStuff, updatepentime_ut_chk, updatepentime_ut, updatepentime, checkfornewpen, sub_335CC, sub_336E4, EndPenaltyShot
 global sub_33904, InProgress, sub_34330, sub_343F8, sub_34500, sub_348DC, sub_34950, sub_34A48
 global sub_34B04, sub_34B78, sub_34C18, sub_34CF4, doplayeracc, sub_34F58, sub_34FD0, sub_3505C
 global sub_3509C, sub_35188, sub_35234, sub_353B4, sub_35464, sub_35588, sub_35690, sub_356A8
@@ -136,7 +136,7 @@ puckfaceoff:
         test byte [byte_19CBC2], 8
         je short .8
         xor eax, eax
-        call sub_32888
+        call Stop4Pen
         pop edi
         pop esi
         pop edx
@@ -4791,9 +4791,12 @@ AddPenalty2_354:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_32888                                                       32888  97 PC
+; Stop4Pen                                       32888  94G, medium confidence
+; 94G Stop4Pen (from checkfornewpen and puckfaceoff): stops the clock
+; (byte_19CBC2 bit 0), sets the faceoff spot from the penalty type, clears
+; the overlays, whistle sound and PA event
 ;-----------------------------------------------------------------------------
-sub_32888:
+Stop4Pen:
         push ebx
         push ecx
         push edx
@@ -4999,9 +5002,13 @@ sub_32888:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_32B68                                                       32B68  97 PC
+; updatepwrplay                                  32B68  94G, medium confidence
+; The 94G updatepwrplay state part (called from updatepentime here): players
+; on ice home minus away; sets / clears the power play flag (byte_19CBCA 20h,
+; 40h visitors) and counts a power play (+20CBh) and a shorthanded situation
+; (+20BDh) when it starts; no display
 ;-----------------------------------------------------------------------------
-sub_32B68:
+updatepwrplay:
         push ebx
         push ecx
         push edx
@@ -5053,9 +5060,11 @@ sub_32B68:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_32C04                                                       32C04  97 PC
+; chkatop                                        32C04  94G, medium confidence
+; 94G chkatop (attack time stat, once a second from updatepentime): puck y
+; beyond +/-570h credits the attacking team's attack time (+20D7h)
 ;-----------------------------------------------------------------------------
-sub_32C04:
+chkatop:
         push edx
         cmp dword [dword_1B8FA0], byte 0
         jne near .6
@@ -5125,9 +5134,12 @@ sub_32C04:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_32CEC                                                       32CEC  97 PC
+; releasepl                                                         32CEC  94G
+; 94G releasepl (player's penalty time is up, let him out): first sort object
+; off the ice, one more on the ice (+0Eh), line-change flags, position from
+; the priority list (off_19C61F), Setplass, setplayer
 ;-----------------------------------------------------------------------------
-sub_32CEC:
+releasepl:
         push ebx
         push ecx
         push esi
@@ -5168,9 +5180,12 @@ sub_32CEC:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_32D88                                                       32D88  97 PC
+; PenGoalStuff                                   32D88  94G, medium confidence
+; 94G PenGoalStuff (after a goal): when the scoring team had more players on
+; the ice, releases the first scored-on player in the box without a
+; coincidental penalty (releasepl)
 ;-----------------------------------------------------------------------------
-sub_32D88:
+PenGoalStuff:
         push ebx
         push ecx
         push edx
@@ -5342,7 +5357,7 @@ sub_32D88:
         or byte [byte eax+051h], 8
         mov eax, edi
         mov ebx, 1
-        call sub_32CEC
+        call releasepl
 .20:
         mov edx, dword [byte esp+06h]
         movsx esi, bx
@@ -5372,9 +5387,12 @@ sub_32D88:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_32FF8                                                       32FF8  97 PC
+; updatepentime_ut_chk                32FF8  94G penalty94.asm, low confidence
+; The updatepentime_ut check for one box entry (team, player): when the time
+; is up, the PA event 1Bh and releasepl when the team is short (the NHL95PC
+; updatepentime_ut_chk part)
 ;-----------------------------------------------------------------------------
-sub_32FF8:
+updatepentime_ut_chk:
         push ebx
         push ecx
         push esi
@@ -5476,7 +5494,7 @@ sub_32FF8:
         test word [byte ebx+edx*2+050h], 7FFh
         jne short .8
         mov eax, ebx
-        call sub_32CEC
+        call releasepl
         mov edi, dword [dword_19CB48]
         push edi
         mov dx, word [byte ebx+0Eh]
@@ -5502,9 +5520,11 @@ sub_32FF8:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_3319C                                                       3319C  97 PC
+; updatepentime_ut                               3319C  94G, medium confidence
+; 94G updatepentime_ut (team): walks the team's penalty box list, the first
+; two entries serving, and counts their time down (updatepentime_ut_chk)
 ;-----------------------------------------------------------------------------
-sub_3319C:
+updatepentime_ut:
         push ebx
         push ecx
         push edx
@@ -5591,7 +5611,7 @@ sub_3319C:
         xor edx, edx
         mov eax, ecx
         mov dl, byte [esp]
-        call sub_32FF8
+        call updatepentime_ut_chk
         jmp short .11
 .10:
         mov eax, dword [dword_19CB6A]
@@ -5603,7 +5623,7 @@ sub_3319C:
         mov eax, ecx
         mov dl, byte [byte esp+01h]
 .12:
-        call sub_32FF8
+        call updatepentime_ut_chk
 .13:
         add esp, byte 4
         pop ebp
@@ -5641,8 +5661,8 @@ updatepentime:
         add esi, byte 10h
         mov byte [byte_19CBCC], dh
         mov word [word_19CBD4], si
-        call sub_32B68
-        call sub_32C04
+        call updatepwrplay
+        call chkatop
         mov bl, byte [byte_19CBCA]
         test bl, 20h
         je short .3
@@ -5658,9 +5678,9 @@ updatepentime:
         inc word [dword eax+020D1h]
 .3:
         mov eax, hmtmstruct
-        call sub_3319C
+        call updatepentime_ut
         mov eax, awtmstruct
-        call sub_3319C
+        call updatepentime_ut
 .4:
         pop esi
         pop edx
@@ -5797,7 +5817,7 @@ checkfornewpen:
         call sub_650E8
 .10:
         movsx eax, dx
-        call sub_32888
+        call Stop4Pen
 .11:
         movsx eax, dx
         lea eax, [eax+eax*2]
