@@ -961,8 +961,8 @@ sub_F2AA0:
         ret
 ;-----------------------------------------------------------------------------
 ; DrawPauseButtons                                F2ADB  96 PC, low confidence
-; Draws the pause menu's buttons (qui0 quit, ret0 return, rep0 replay, ctr0
-; controllers, sts0 stats, edt0 edit lines, sav0 save, cht0 chat)
+; Draws the pause menu buttons (game text Save Game, Controller Setup,
+; Replay, Rules, Detail Level, Quit Game)
 ;-----------------------------------------------------------------------------
 DrawPauseButtons:
         push ebx
@@ -2680,8 +2680,8 @@ jpt_F4167:
         dd PauseMenu_640
 ;-----------------------------------------------------------------------------
 ; PauseMenu                                       F418F  96 PC, low confidence
-; The pause menu (PAUSREG; quit, return, chat ...) with RunMenu, kept in step
-; in a link game (LinkSync)
+; The in-game pause menu loop, from RunInGameMenu (96 PC PauseMenu); runs the
+; rules, detail level, edit-team and quit choices
 ;-----------------------------------------------------------------------------
 PauseMenu:
         push ebx

@@ -154,7 +154,7 @@ address,name,auto_name,source,confidence,evidence,file
 4890C,CountRecordGame,sub_4890C,96PC,medium,96 PC CountRecordGame: counts one game of a W/L/T byte string,src/front/front_45BEC.asm
 48950,RecordPctClip,sub_48950,96PC,medium,NHL96PC 67636 (similar 0.91): mnemonic similarity 0.91 over 69 instructions,src/front/front_45BEC.asm
 489F4,RecordStreakClips,sub_489F4,96PC,medium,NHL96PC 676D4 (sem 0.91): C:560,src/front/front_45BEC.asm
-48D70,PaEvent,sub_48D70,96PC,low,"the play-by-play event call: ClockTick posts 0C0000004h with the period at one minute left, where 96 PC posts PaEvent(100h)",src/front/front_48D70.asm
+48D70,PaEvent,sub_48D70,96PC,low,"the arena PA announcer: B events (0B000001h-0B000006h) from the front end and pre-game screens, C events (0C000001h-0C000004h) in game; ClockTick posts 0C0000004h at one minute left in a period. The play-by-play is CommentaryEvent",src/front/front_48D70.asm
 4AB90,MakeDataPath,sub_4AB90,96PC,medium,NHL96PC 1E3E8 (sem 0.84): C:1920; C:1834; R:579; R:572,src/front/front_48D70.asm
 4AE14,MakeDirPath,sub_4AE14,96PC,high,"96 PC MakeDirPath: (out, dir, language) a game directory path (language prefix, directory from unk_169848, backslash)",src/front/front_48D70.asm
 4AF9F,LoadDataFileHandle,sub_4AF9F,96PC,medium,NHL96PC 1E779 (sem 1.00): C:2267,src/front/front_48D70.asm

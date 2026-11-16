@@ -4492,9 +4492,9 @@ assrefpenshot:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; assrefsignal                                    29064  95 PC, low confidence
-; Asstab 20h: skates to x 0A0h,y 0 (the timekeeper side), plays 0A5Bh; when
-; RefPen is 7 (goal) posts PostGoalEvent with scorer/assists and period time;
-; then assreplace 21h
+; Referee assignment 37h: plays move 0A3Dh, skates to the signalling spot,
+; queues the overlay panel, then moves on to assignment 34h and calls the
+; goal PA (PaEvent 0C0000001h) with the scorer's jersey
 ;-----------------------------------------------------------------------------
 assrefsignal:
         push ebx
@@ -4739,8 +4739,10 @@ assrefsignal:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; assrefwhistle                                293A8  95 PC, medium confidence
-; Asstab 24h: on a stoppage (clock 0, or period-3 tie broken) sets RefStep
-; -1, ovltimer 258h, puck to assignment 1Bh and the referee to 1Eh
+; Referee assignment 35h: on a stoppage (clock 0, or a tie broken in the last
+; period) sets RefStep (dword_19CBF8) -1, the puck to assignment 42h
+; (puckfaceoff) and the referee to 33h (assrefatdot); otherwise skates the
+; referee along
 ;-----------------------------------------------------------------------------
 assrefwhistle:
         push ebx
@@ -5226,9 +5228,8 @@ sub_298E8:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; assreffollow                                    29A90  95 PC, low confidence
-; Asstab 1Fh (StartHL2, Endfaceoff, Goal): picks a spot by puck zone (x
-; +-46h/78h/90h, y +-0EDh/0E8h or camy) and skates the referee there; idles
-; (doplayeracc 8) when the clock is stopped
+; Referee assignment 31h: while the clock runs, picks a spot from the puck's
+; side and position and skates the referee there
 ;-----------------------------------------------------------------------------
 assreffollow:
         push ebx
@@ -5486,9 +5487,8 @@ sub_29BFC:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; assrefatdot                                  29E2C  95 PC, medium confidence
-; Asstab 1Eh (StartHL2, puckfaceoff2): while play is stopped (injurystop 0,
-; clock running) holds the referee at the faceoff spot fox/C90B4 offset
-; +-0Fh, facing 2/6
+; Referee assignment 33h: holds the referee at the faceoff spot while play is
+; stopped, with a random idle timer; assrefwhistle puts the referee here
 ;-----------------------------------------------------------------------------
 assrefatdot:
         push ebx

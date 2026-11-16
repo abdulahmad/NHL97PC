@@ -119,9 +119,10 @@ global sub_51B5C, sub_51BD8, sub_51C4C, BuildRinkSides, sub_52494, sub_525E0, su
 global unk_4AB70, unk_4AB80, unk_4B4A0, unk_4BCC0, unk_4BCCC
 ;-----------------------------------------------------------------------------
 ; PaEvent                                         48D70  96 PC, low confidence
-; The play-by-play announcer: (event bit, args...) from PostGoalEvent,
-; PostPenaltyEvent, ClockTick (100h, end of period), the three stars and the
-; screens; jump table jpt_6799B by event, each case queues clips
+; The arena PA announcer: B events (0B000001h-0B000006h) from the front end
+; and pre-game screens, C events (0C000001h-0C000004h) in game; ClockTick
+; posts 0C0000004h at one minute left in a period. The play-by-play is
+; CommentaryEvent
 ;-----------------------------------------------------------------------------
 PaEvent:
         push dword 5Ch

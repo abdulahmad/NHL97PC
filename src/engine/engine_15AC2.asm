@@ -3000,7 +3000,8 @@ DrawPowerPlayClock_18E:
         ret
 ;-----------------------------------------------------------------------------
 ; DrawClockPanel                                  17DC0  96 PC, low confidence
-; The power play panel or the game clock, with its show / hide timers
+; The clock panel (overlay kind table off_16877E entry 0): removes panels
+; 300h / 700h and draws the clock (DrawGameClock)
 ;-----------------------------------------------------------------------------
 DrawClockPanel:
         push esi

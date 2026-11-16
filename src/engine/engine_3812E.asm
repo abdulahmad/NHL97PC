@@ -9878,8 +9878,7 @@ setstreamspeed:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; delstream                                       3EB40  96 PC, low confidence
-; EA CD stream: removes a stream (stops its timer, closes its file, frees
-; it); name from its debug message ("STREAM NOT FOUND")
+; Closes a CD stream: removes its timer callback and frees its buffer
 ;-----------------------------------------------------------------------------
 delstream:
         push ebx
@@ -9999,8 +9998,7 @@ CdStreamRequest:
         ret
 ;-----------------------------------------------------------------------------
 ; CdStreamStart                                   3EC58  96 PC, low confidence
-; (stream, file): sets the stream's file name and state 1 (open and start
-; reading)
+; CdStreamRequest with flags (1, 0, 1, 1)
 ;-----------------------------------------------------------------------------
 CdStreamStart:
         push ebx
@@ -10019,8 +10017,7 @@ CdStreamStart:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; CdStreamQueue                                   3EC78  96 PC, low confidence
-; (stream, file): sets the stream's file name and state 0Dh (open the next
-; file)
+; CdStreamRequest with flags (1, 0, 1, 0)
 ;-----------------------------------------------------------------------------
 CdStreamQueue:
         push ebx
@@ -16037,9 +16034,8 @@ sub_42D38:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; OpenSpeechBanks                                 42D50  96 PC, low confidence
-; (game): stops speech, clears the clip queue, opens the speech bank files
-; (front-end or game list, MakeDataPath) with AsyncRequestOpen and reads
-; their clip tables
+; Opens the play-by-play speech files (%sAUDPBP3.TSF, KTSF, %sAUDPBP2.VIV,
+; CBANK%03d.DAT), like 96 PC OpenSpeechBanks
 ;-----------------------------------------------------------------------------
 OpenSpeechBanks:
         push dword 128h

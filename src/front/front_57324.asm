@@ -45669,8 +45669,7 @@ sub_77A88:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; GameOver                       77F88  93G hockey93_06.asm, medium confidence
-; Game over: sets the main-loop request flag CBC48 (IntermissionStart when
-; gsp = 4)
+; Sets gameover (gameover); 96 PC GameOver without its already-over check
 ;-----------------------------------------------------------------------------
 GameOver:
         mov word [gameover], 1
