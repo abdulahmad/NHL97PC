@@ -27,10 +27,10 @@ extern qword_1608A7, randomd0, regd1, slotteam, sub_100700, sub_1008CC, sub_1132
 extern forcepldata, sub_116B0, ResetBench, setplayer, sub_123A0, setpersonel, sub_12E50, sub_13D50
 extern sub_13DA4, RemoveOverlayPanel, QueueOverlayPanel, StartCameraPath, SelectCameraView, sub_1BB18, sub_1CBD8, sub_1D008
 extern sub_1DEE4, sub_1E184, assreplace, assexit, sub_1E284, sub_1E8B0, check4bench, sub_1F32C
-extern sub_1F4EC, sub_1F538, sub_1FB6C, sub_1FF5C, sub_20508, sub_20A80, sub_21B20, sub_21E98
-extern sub_22050, sub_22828, sub_22FF0, sub_23284, sub_240D0, sub_24220, sub_2471C, sub_248E8
+extern sub_1F4EC, sub_1F538, Setplass, sub_1FF5C, sub_20508, sub_20A80, assgoalie, sub_21E98
+extern sub_22050, assextra4, sub_22FF0, assextra3, sub_240D0, sub_24220, sub_2471C, sub_248E8
 extern sub_25010, sub_251F0, sub_25730, sub_2E310, CompLine, sub_30778, sub_3085C, sub_31C14
-extern sub_32260, sub_32340, EndPenaltyShot, sub_34330, sub_343F8, doplayeracc, sub_39DA4, sub_39EC0
+extern sub_32260, AddPenalty2, EndPenaltyShot, sub_34330, sub_343F8, doplayeracc, sub_39DA4, sub_39EC0
 extern sub_3A164, sub_3AB68, sub_3ABD8, sub_3AC3C, sub_3AD34, sub_3AD9C, sub_41CF0, sub_41D48
 extern sub_42098, PlaySfx, sub_424CC, sub_45BEC, PaEvent, sub_4C0C4, PeriodOver, sub_4DD9C
 extern sub_4DDB0, sub_4FD24, sub_51B5C, sub_51BD8, sub_55648, SetPenaltyBoxDoor, sub_56AE4, sub_56CD0
@@ -1267,7 +1267,7 @@ assnearest:
         cmp word [dword esi+0A9h], byte 0
         jne short .4
         mov eax, esi
-        call sub_21B20
+        call assgoalie
         jmp near .87
 .4:
         mov ch, byte [dword esi+0BFh]
@@ -1593,7 +1593,7 @@ assnearest:
         cmp word [dword esi+0ABh], byte 2
         jle short .29
         mov eax, esi
-        call sub_22828
+        call assextra4
         add esp, byte 0Ch
         pop ebp
         pop edi
@@ -1953,7 +1953,7 @@ assnearest:
         cmp cx, byte 2
         je short .61
         mov eax, esi
-        call sub_23284
+        call assextra3
         mov eax, esi
         call sub_1E8B0
         add esp, byte 0Ch
@@ -2645,7 +2645,7 @@ assbench:
         mov word [dword ebx+0A9h], ax
 .10:
         mov eax, ebx
-        call sub_1FB6C
+        call Setplass
         mov byte [dword ebx+0A8h], 0FFh
         mov al, byte [dword ebx+0A8h]
         mov byte [dword ebx+0A7h], al
@@ -2753,7 +2753,7 @@ assbench:
         mov word [dword ebx+0A9h], ax
 .19:
         mov eax, ebx
-        call sub_1FB6C
+        call Setplass
         test byte [byte_19CBC2], 1
         je short .21
         mov edx, dword [dword ebx+0AEh]
@@ -7569,7 +7569,7 @@ sub_2B9EC:
         shl eax, 3
         mov edx, 5
         add eax, SortCords
-        call sub_32340
+        call AddPenalty2
         mov eax, 1
 .7:
         mov esp, ebp

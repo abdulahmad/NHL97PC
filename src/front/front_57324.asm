@@ -164,7 +164,7 @@ extern sub_119A8, setplayer, sub_12A10, Intermission, sub_13D50, sub_13DA4, sub_
 extern sub_13F28, RunSimFrames, ChangeViewSize, SetViewWindow, sub_18DF7, sub_18E35, DrawGameOverlays, StartCameraPath
 extern SelectCameraView, sub_1DFA0, sub_1E014, assreplace, assinsert, sub_1E354, sub_1FBF4, sub_20CB0
 extern sub_218B8, sub_21A4C, sub_2A6B8, sub_2BE2C, sub_2C064, sub_2DD54, sub_2E11C, sub_2E168
-extern sub_2E208, sub_2EDB8, sub_2F4B8, sub_2FED8, sub_32260, sub_32340, EndPenaltyShot, sub_34330
+extern sub_2E208, sub_2EDB8, sub_2F4B8, sub_2FED8, sub_32260, AddPenalty2, EndPenaltyShot, sub_34330
 extern sub_358E4, sub_365FC, sub_3DA80, sub_3DAC4, sub_3DBCC, sub_3DC2C, sub_3DCBC, sub_3DE08
 extern sub_41ACC, sub_41FA0, sub_42098, PlaySfx, sub_42354, sub_4241C, sub_424CC, sub_45BEC
 extern sub_4A280, SetArtArchive, sub_4B4B0, sub_4B4C4, sub_4B540, sub_4B8DC, sub_4BA00, sub_4BCB4
@@ -21456,7 +21456,7 @@ sub_66758:
         mov edx, 8
         mov eax, ecx
         xor ebx, ebx
-        call sub_32340
+        call AddPenalty2
 .6:
         call EndPenaltyShot
         xor edi, edi
@@ -21490,7 +21490,7 @@ sub_66758:
         add eax, edx
         mov edx, 8
         xor esi, esi
-        call sub_32340
+        call AddPenalty2
         call EndPenaltyShot
         mov word [word_19CBD8], si
         mov word [word_19CBD6], si
@@ -24019,7 +24019,7 @@ sub_68378:
         mov eax, ecx
         xor ebx, ebx
         mov dword [byte ecx+038h], 0
-        call sub_32340
+        call AddPenalty2
 .7:
         fld dword [byte ebp-04h]
         fcomp dword [dword_163320]
@@ -24497,7 +24497,7 @@ sub_6889C:
         mov eax, ecx
         xor ebx, ebx
         mov dword [byte ecx+038h], 0
-        call sub_32340
+        call AddPenalty2
 .7:
         fld dword [byte ebp-04h]
         fcomp dword [dword_163398]
@@ -30288,7 +30288,7 @@ sub_6CD58:
         mov edx, 0Ah
         mov eax, ecx
         xor ebx, ebx
-        call sub_32340
+        call AddPenalty2
 .7:
         fld dword [byte esp+024h]
         fabs
@@ -45817,7 +45817,7 @@ sub_780F0:
         mov edx, 1
         mov eax, dword [off_168CFC]
         xor ebx, ebx
-        call sub_32340
+        call AddPenalty2
         mov eax, dword [word_19CBAE]
         sar eax, 10h
         inc eax
@@ -45864,7 +45864,7 @@ sub_780F0:
         mov byte [byte_19CBC2], ah
         mov eax, dword [off_168CFC]
         mov ecx, 1000h
-        call sub_32340
+        call AddPenalty2
         push ecx
         push dword 0C001h
         push dword 0A000001Fh
@@ -45876,7 +45876,7 @@ sub_780F0:
         mov edx, 1
         mov eax, dword [off_168CFC]
         xor ebx, ebx
-        call sub_32340
+        call AddPenalty2
         mov eax, dword [word_19CBAE]
         sar eax, 10h
         inc eax
@@ -46107,7 +46107,7 @@ sub_780F0:
         mov eax, dword [off_168CFC]
         mov byte [byte_19CBC2], dl
         mov edx, 2
-        call sub_32340
+        call AddPenalty2
         cmp dword [dword_1B8FA0], byte 0
         jne short .32
         mov eax, dword [word_19CBAE]

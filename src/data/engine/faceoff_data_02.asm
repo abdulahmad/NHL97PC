@@ -3,8 +3,8 @@ bits 32
 %include "hockey.inc"
 section s_19C3D8 progbits alloc noexec write align=1
 extern __InitFiles_, __checkIsDBCS_, __chk8087_, __full_io_exit_, __setEFGfmt_, __setenvp_, fini_, init_
-extern puckfaceoff, sub_135D41, sub_1F5B4, sub_1F7D0, sub_209D0, sub_209E0, sub_21B20, sub_22B8C
-extern sub_22CEC, sub_22E70, sub_238E8, sub_23A78, sub_23B88, sub_23C98, sub_23E90, sub_23F44
+extern puckfaceoff, sub_135D41, sub_1F5B4, sub_1F7D0, sub_209D0, sub_209E0, assgoalie, assdefo
+extern asswingo, asscentero, assdefd, asswingd, asscenterd, sub_23C98, assfaceoff, assfaceoffpl
 extern sub_244BC, sub_25F64, assnearest, sub_27274, assbench, sub_27AD8, sub_27D10, sub_28110
 extern asseben, sub_2842C, asspenalty, assdopen, assepen, assrefpenshot, sub_29064, sub_293A8
 extern sub_295CC, sub_298E8, sub_29A90, sub_29BFC, sub_29E2C, sub_29F30, sub_2A000, sub_2A1C8
@@ -39,18 +39,18 @@ word_19C3F2:
 off_19C3F4:
         dd sub_209D0
         dd sub_209E0
-        dd sub_21B20
-        dd sub_238E8
-        dd sub_23A78
-        dd sub_23B88
+        dd assgoalie
+        dd assdefd
+        dd asswingd
+        dd asscenterd
         dd sub_23C98
-        dd sub_23E90
-        dd sub_23F44
+        dd assfaceoff
+        dd assfaceoffpl
         dd sub_25F64
         dd assnearest
-        dd sub_22B8C
-        dd sub_22CEC
-        dd sub_22E70
+        dd assdefo
+        dd asswingo
+        dd asscentero
         dd sub_244BC
         dd sub_1F7D0
         dd sub_1F5B4

@@ -10,3 +10,17 @@ sub_5585C SetPenaltyBoxDoor {source=96PC,confidence=medium} 96 PC SetPenaltyBoxD
 sub_42220 PlaySfx {source=96PC,confidence=medium} 96 PC PlaySfx: (id, volume, ...) plays a sound effect from the loaded banks (id high byte = bank 1-6) at the globalset volume
 sub_34EF8 doplayeracc {source=94G,confidence=medium} 94G doplayeracc: (player, direction 0-7, 8+ = none) the player accelerates toward the direction (x87 heading, sub_34CF4)
 sub_27500 ChkPullGoalieLate {source=96PC,confidence=medium} 96 PC ChkPullGoalieLate: (team) third period, last 60 seconds, losing by 1-2 and no goalie pulled yet: pull the goalie (from assbench)
+sub_1FB6C Setplass {source=94G,confidence=medium} 94G Setplass: sets the player's starting assignment by position from the list byte_1689C0 (goalie 2, defence 3, wings 4, centre 5), after SwapPosition
+sub_1EF88 SwapPosition {source=96PC,confidence=medium} 96 PC SwapPosition: (player, position) gives the player the position and hands his old one to the teammate who held it; returns the player number
+sub_21B20 assgoalie {source=94G,confidence=medium} 94G assgoalie: assignment 2 (Setplass list for the goalie), the goalie AI
+sub_238E8 assdefd {source=94G,confidence=medium} 94G assdefd: assignment 3 (Setplass list for defence), defenceman on defence
+sub_23A78 asswingd {source=94G,confidence=medium} 94G asswingd: assignment 4 (Setplass list for wings), winger on defence
+sub_23B88 asscenterd {source=94G,confidence=medium} 94G asscenterd: assignment 5 (Setplass list for the centre), centre on defence
+sub_22B8C assdefo {source=94G,confidence=low} 94G assdefo: assignment 0Bh, defenceman on offence (SwapPosition, assextra4, as 96 PC assdefo)
+sub_22CEC asswingo {source=94G,confidence=low} 94G asswingo: assignment 0Ch, winger on offence
+sub_22E70 asscentero {source=94G,confidence=low} 94G asscentero: assignment 0Dh, centre on offence
+sub_23284 assextra3 {source=96PC,confidence=low} 96 PC assextra3 (placeholder name): called from asswingd and asscenterd
+sub_22828 assextra4 {source=96PC,confidence=low} 96 PC assextra4 (placeholder name): called from the offence assignments
+sub_23E90 assfaceoff {source=94G,confidence=medium} 94G assfaceoff: assignment 7, players idle until the faceoff is over (puckfaceoff2 gives it to everyone but the centre, as 94G afaceoff)
+sub_23F44 assfaceoffpl {source=94G,confidence=medium} 94G assfaceoffpl: assignment 8, the faceoff player (puckfaceoff2 gives it to the centre, as 94G afaceoffpl)
+sub_32340 AddPenalty2 {source=94G,confidence=low} 94G AddPenalty2: (player, penalty, ...) a forced penalty: penalty table dword_168D20, the penalty panel (QueueOverlayPanel)
