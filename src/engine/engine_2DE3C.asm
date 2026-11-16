@@ -9,7 +9,7 @@ extern setpersonel, RemoveOverlayPanel, QueueOverlayPanel, CPgoalie, sub_45BEC, 
 extern word_19CA96, word_19CB34, word_19CB98, gsp, gameclock, word_19CBBE, word_19CBEC, word_19CBEE
 extern word_19CC24, word_19CC26, word_19EAC0
 global ReturnGoalies, sub_2DE94_1A5, sub_2DE94_259, sub_2E12C_33, sub_2DE94, sub_2E11C, sub_2E12C, sub_2E168
-global sub_2E208, sub_2E310, CompLine, SetCoachMode, sub_2E7D8, UpdateCoachModes, sub_2EDB8
+global sub_2E208, sub_2E310, CompLine, SetCoachMode, sub_2E7D8, UpdateCoachModes, StartFaceoffLineChange
 ;-----------------------------------------------------------------------------
 ; ReturnGoalies                    2DE3C  93G logic93_4.asm, medium confidence
 ; (computer returns a pulled goalie), from puckfaceoff.
@@ -1316,9 +1316,11 @@ UpdateCoachModes:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_2EDB8                                                       2EDB8  97 PC
+; StartFaceoffLineChange                            2EDB8  94G, low confidence
+; 94G StartFaceoffLineChange: starts a team's faceoff line change (once per
+; stoppage: team flag +16h bit 1) when line changes are on
 ;-----------------------------------------------------------------------------
-sub_2EDB8:
+StartFaceoffLineChange:
         push ebx
         push ecx
         push edx
@@ -1391,7 +1393,7 @@ sub_2EDB8:
         db 090h
         and byte [dword edx+0C0h], 0F7h
         mov eax, edx
-        call sub_2EDB8
+        call StartFaceoffLineChange
         test byte [dword edx+0C0h], 8
         je short .7
         test byte [dword edx+0BFh], 40h

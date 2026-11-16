@@ -28,3 +28,4 @@ PlaySfx PlaySfxVolume {confidence=low} (id, volume 0-64h, ...): PlaySfx with a v
 sub_41FDC PlaySfx {source=96PC,confidence=medium} 96 PC PlaySfx: (id) plays a sound effect from the loaded banks (id high byte = bank 1-6) at the globalset volume; keeps the voice in a 16-entry list (dword_1AC508)
 sub_42098 PlaySfxOr {source=96PC,confidence=medium} 96 PC PlaySfxOr: (id, other) plays other instead of id when id's bank is not loaded
 sub_41FA0 StopAllSfx {confidence=low} stops every voice in PlaySfx's list (dword_1AC508)
+sub_2EDB8 StartFaceoffLineChange {source=94G,confidence=low} 94G StartFaceoffLineChange: starts a team's faceoff line change (once per stoppage: team flag +16h bit 1) when line changes are on

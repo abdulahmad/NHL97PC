@@ -209,7 +209,7 @@
 ;  2E378  CompLine                                 engine/engine_2DE3C.asm                      2
 ;  2E7D8  sub_2E7D8                                engine/engine_2DE3C.asm                      1
 ;  2E8F0  UpdateCoachModes                         engine/engine_2DE3C.asm                      2
-;  2EDB8  sub_2EDB8                                engine/engine_2DE3C.asm                      2
+;  2EDB8  StartFaceoffLineChange                   engine/engine_2DE3C.asm                      2
 ;  2EEE8  puckfaceoff                              engine/faceoff/faceoff_2.asm                 1
 ;  2F4B8  sub_2F4B8                                engine/faceoff/faceoff_2.asm                 1
 ;  2F8D8  sub_2F8D8                                engine/faceoff/faceoff_2.asm                 1

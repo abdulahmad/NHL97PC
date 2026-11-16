@@ -88,6 +88,7 @@ address,name,auto_name,source,confidence,evidence,file
 2E378,CompLine,sub_2E378,94G,medium,"94G CompLine: (team, other team) picks the line for the computer team to change to (0F33h threshold, as 96 PC)",src/engine/engine_2DE3C.asm
 2E6D4,SetCoachMode,sub_2E6D4,96PC,medium,96 PC SetCoachMode: the coach mode from the score difference,src/engine/engine_2DE3C.asm
 2E8F0,UpdateCoachModes,sub_2E8F0,96PC,medium,96 PC UpdateCoachModes: from ClockTick at the same minutes of periods 2 and 3,src/engine/engine_2DE3C.asm
+2EDB8,StartFaceoffLineChange,sub_2EDB8,94G,low,94G StartFaceoffLineChange: starts a team's faceoff line change (once per stoppage: team flag +16h bit 1) when line changes are on,src/engine/engine_2DE3C.asm
 2EEE8,puckfaceoff,,96PC,medium,NHL96PC 3AEBA (sem): C:306; D:19CC04; D:19EBBC; D:19EAB0,
 32340,AddPenalty2,sub_32340,94G,low,"94G AddPenalty2: (player, penalty, ...) a forced penalty: penalty table dword_168D20, the penalty panel (QueueOverlayPanel)",src/engine/faceoff/faceoff_2.asm
 332C0,updatepentime,sub_332C0,94G,medium,"94G updatepentime (96 PC body): counts the penalty times down, from chkprogress",src/engine/faceoff/faceoff_2.asm

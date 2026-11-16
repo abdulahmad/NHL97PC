@@ -26,7 +26,7 @@ extern sub_100D04, sub_100D8C, sub_100DC4, sub_100E54, sub_100F70, sub_1010E8, s
 extern sub_101220, sub_101230, forcepldata, setplayer, setpersonel, sub_13D50, sub_13EB4, RemoveOverlayPanel
 extern QueueOverlayPanel, sub_18E35, sub_1C108, sub_1C210, sub_1C29C, sub_1C7B4, sub_1CCBC, sub_1D16C
 extern sub_1E184, assreplace, assinsert, assexit, sub_1E8B0, Setplass, sub_20CB0, sub_24220
-extern sub_2471C, sub_248E8, sub_25010, sub_2596C, sub_27F80, sub_28C0C, CompLine, sub_2EDB8
+extern sub_2471C, sub_248E8, sub_25010, sub_2596C, sub_27F80, sub_28C0C, CompLine, StartFaceoffLineChange
 extern sub_3AAE8, sub_3AB28, sub_3B09C, sub_3B690, PlaySfxOr, PlaySfxVolume, sub_424CC, sub_45BEC
 extern PaEvent, sub_4B8DC, sub_56CD0, sub_56CE4, sub_56CF8, sub_60F48, sub_650A4, sub_650E8
 extern sub_657BF, sub_6619C, sub_69B78, sub_69F3C, sub_6A0BC, sub_6A13C, sub_71808, sub_71ABC
@@ -246,7 +246,7 @@ puckfaceoff:
         add edx, eax
         and byte [dword edx+0C0h], 0F7h
         mov eax, edx
-        call sub_2EDB8
+        call StartFaceoffLineChange
         test byte [dword edx+0C0h], 8
         je short .20
         test byte [dword edx+0BFh], 40h
@@ -293,7 +293,7 @@ puckfaceoff:
         and bh, 0F7h
         mov eax, edx
         mov byte [dword edx+0C0h], bh
-        call sub_2EDB8
+        call StartFaceoffLineChange
         test byte [dword edx+0C0h], 8
         je short .24
         test byte [dword edx+0BFh], 40h
@@ -7647,7 +7647,7 @@ sub_34B04:
 .1:
         test byte [dword eax+0C0h], 8
         jne short .2
-        call sub_2EDB8
+        call StartFaceoffLineChange
         xor eax, eax
         pop ecx
         pop ebx

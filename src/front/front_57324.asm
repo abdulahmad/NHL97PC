@@ -164,7 +164,7 @@ extern sub_119A8, setplayer, sub_12A10, Intermission, sub_13D50, sub_13DA4, sub_
 extern sub_13F28, RunSimFrames, ChangeViewSize, SetViewWindow, sub_18DF7, sub_18E35, DrawGameOverlays, StartCameraPath
 extern SelectCameraView, sub_1DFA0, sub_1E014, assreplace, assinsert, sub_1E354, sub_1FBF4, sub_20CB0
 extern sub_218B8, sub_21A4C, sub_2A6B8, sub_2BE2C, sub_2C064, sub_2DD54, sub_2E11C, sub_2E168
-extern sub_2E208, sub_2EDB8, sub_2F4B8, sub_2FED8, sub_32260, AddPenalty2, EndPenaltyShot, sub_34330
+extern sub_2E208, StartFaceoffLineChange, sub_2F4B8, sub_2FED8, sub_32260, AddPenalty2, EndPenaltyShot, sub_34330
 extern sub_358E4, sub_365FC, sub_3DA80, sub_3DAC4, sub_3DBCC, sub_3DC2C, sub_3DCBC, sub_3DE08
 extern sub_41ACC, StopAllSfx, PlaySfxOr, PlaySfxVolume, sub_42354, sub_4241C, sub_424CC, sub_45BEC
 extern sub_4A280, SetArtArchive, sub_4B4B0, sub_4B4C4, sub_4B540, sub_4B8DC, sub_4BA00, sub_4BCB4
@@ -46203,7 +46203,7 @@ sub_785E8:
         add eax, edx
         shl eax, 3
         add eax, SortCords
-        call sub_2EDB8
+        call StartFaceoffLineChange
 .3:
         mov edx, dword [awtmstruct]
         mov eax, 1
@@ -46225,7 +46225,7 @@ sub_785E8:
         add eax, edx
         shl eax, 3
         add eax, SortCords
-        call sub_2EDB8
+        call StartFaceoffLineChange
 .4:
         pop edx
         ret
