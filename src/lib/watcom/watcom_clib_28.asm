@@ -19,7 +19,7 @@ extern EmuDispatchDBReg, EmuFaddToSt, EmuFmulToSt, EmuFsubrToSt, EmuFsubToSt, Em
 extern EmuFstSt, EmuFucom, EmuFucomp, EmuFstpSt, EmuFaddp, EmuFmulp, EmuFcompp, EmuFsubrp
 extern EmuFsubp, EmuFdivrp, EmuFdivp, EmuDispatchDFReg
 global __cnvs2d_, forcedecpt_, jpt_1329F0, jpt_132AF0, jpt_132AF0_100, jpt_132AF0_170, NoFloatSupport, unk_132878
-global unk_13287C, unk_132880, unk_132882, unk_132884, unk_132886, unk_1328D2, unk_1328D4, unk_1328D8
+global unk_13287C, unk_132880, str_Punct_jpt, str_F, unk_132886, unk_1328D2, unk_1328D4, unk_1328D8
 global unk_1328DA, unk_132922, unk_132926, unk_132930, unk_132990
 ;-----------------------------------------------------------------------------
 ; forcedecpt_                                                  1327F6  library
@@ -103,9 +103,9 @@ unk_13287C:
         db 00h,00h,00h,00h
 unk_132880:
         db 00h,00h
-unk_132882:
+str_Punct_jpt:
         db 0Ah,00h
-unk_132884:
+str_F:
         db 046h,00h
 unk_132886:
         db 00h,00h,00h,00h,00h,00h,014h,00h,00h,00h,00h,08h,01h,00h,00h,00h

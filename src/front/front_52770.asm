@@ -8,7 +8,7 @@ extern str_Boxback, str_B00, str_XD, str_FaceoffD, str_Flash, str_Fla0, str_Fla1
 extern str_Light6, str_BOGIE, str_Front, byte_1B0300, byte_1B1378, byte_1B8580, byte_1B8581, byte_1B8582
 extern dword_16AF40, dword_16AF44, dword_16AF48, dword_16AF4C, dword_16AF50, dword_16AF58, dword_16AF5C, dword_16AF60
 extern dword_16AF64, dword_16AF68, dword_16AF9C, dword_16AFAC, dword_16B174, dword_16B550, dword_16E464, dword_16E468
-extern dword_16E4A8, dword_16E676, dword_16E67A, dword_16E67E, dword_16E682, dword_1702CC, dword_1A8E60, dword_1AC364
+extern str_Punct_DrawRinkSurface, ClipLeft, ClipTop, ClipRightEdge, ClipBottomEdge, SinTable, RinkDetail, FadeDone
 extern dword_1ADC88, dword_1ADC8C, dword_1ADC90, dword_1ADC98, dword_1ADCEC, dword_1ADCF8, dword_1ADD04, dword_1ADD10
 extern dword_1AE3F8, dword_1AF254, dword_1AF2B8, dword_1AFC48, dword_1AFD10, dword_1B0008, dword_1B0018, dword_1B001C
 extern dword_1B0020, dword_1B0024, dword_1B0028, dword_1B0038, dword_1B0068, dword_1B0074, dword_1B0088, dword_1B0208
@@ -34,8 +34,8 @@ extern dword_1B10D0, dword_1B10D4, dword_1B10D8, dword_1B10E8, dword_1B10F4, dwo
 extern dword_1B13C8, dword_1B1410, dword_1B82DC, dword_1B82E0, dword_1B8300, dword_1B8318, dword_1B8330, dword_1B833C
 extern dword_1B834C, dword_1B8358, dword_1B8364, dword_1B8368, dword_1B8374, dword_1B838C, dword_1B8398, dword_1B83A4
 extern dword_1B83C8, dword_1B83D4, dword_1B83E0, dword_1B83EC, dword_1B841C, dword_1B8444, dword_1B8478, dword_1B853C
-extern dword_1B8550, dword_1B857F, dword_1B905F, dword_1D1D30, dword_1D1D38, dword_1D1D5C, dword_1D1D60, dword_1D205C
-extern DrawCenterCircle_30, qword_1617D0, qword_1617D8, qword_1617E6, qword_1617EE, qword_1617F6, sprintf_, str_Benchbk
+extern dword_1B8550, dword_1B857F, dword_1B905F, ViewOriginX, ViewOriginY, ViewWidth, ViewHeight, TextureDetail
+extern DrawCenterCircle_30, F64_3p14159_DrawPortraitModels, F64_neg3p14159_DrawPortraitModels, F64_0p6_FaceDistance, qword_1617EE, F64_0p6_SetModelHeading, sprintf_, str_Benchbk
 extern str_Benchdiv, str_Benchx, str_Benchz0, str_Benchz1, str_Boardback, str_Botboards, str_Center, str_Crease
 extern str_Door00, str_Door01, str_Door02, str_Door10, str_Door11, str_Door12, str_DoorZ0, str_DoorZ1
 extern str_FatBlueLines, str_FatRedLines, str_Flatboards, str_Glass, str_Glassline, str_Glite0, str_Glite1, str_Grnlite
@@ -57,11 +57,11 @@ extern DrawBoardsTop, DrawStandsSides, DrawBenchDoors, DrawGlass, DrawBenchPlaye
 extern UpdateScoreboardPos, UpdateScoreboardSpin, LoadNetArt, BuildRinkSides, LoadBoardLogo, LoadTeamLogoShape, LoadTeamLogoCopy, UpdateViewMatrix
 extern DrawPlayersSorted, RenderModelPortrait, RestoreSavedPalette, ReplayRegisterStates, ReplayRegisterObjects, ServiceIdle, AllocMemBlock, FreeMemBlock
 extern OpenResourceArchive, MatchColor, ClearScreen, FillPolygon, FillRect, IntsToFloats, VecMulMat, VecSub
-extern VecDistance, ProjectCoord, ProjectPointsWithZ, tickcount, unk_16175C, unk_161760, unk_161764, unk_161768
-extern unk_16176C, unk_161770, unk_161774, unk_161778, unk_1617BC, unk_16B51C, unk_16B534, unk_1A8D48
+extern VecDistance, ProjectCoord, ProjectPointsWithZ, tickcount, str_C3, str_C2, str_C1, str_C0
+extern str_L3, str_L2, str_L1, str_L0, str_Fx, unk_16B51C, unk_16B534, RinkPalette
 extern unk_1AEDD8, unk_1AEDF0, unk_1AFB38, unk_1B0078, unk_1B0410, unk_1B0510, unk_1B0610, unk_1B0710
 extern unk_1B0850, unk_1B0970, unk_1B0AA8, unk_1B0AE8, unk_1B1068, unk_1B1090, unk_1B1120, unk_1B73F0
-extern unk_1B8583, unk_1B92AB, unk_4BCCC
+extern unk_1B8583, unk_1B92AB, str_Light
 global jpt_56DCC, SetBoxDoor_105, SetBoxDoor_115, SetBoxDoor_11A, BuildFaceTextures_C8, BuildFaceTextures_E3, BuildFaceTextures_114, BuildFaceTextures_18F
 global LoadLogos, BuildIcePalette, BlendRangeColours, DimRangeColours, BrightenRangeColours, BuildRinkPalette, SetRinkPalette, UpdateRinkPalette
 global LoadRinkLines, SetupRinkModel, LoadRinkModel, FreeRinkModel, SetRinkTransform, DrawRinkBackground, DrawRinkSurface, LoadOpeningArt
@@ -698,9 +698,9 @@ BuildRinkPalette:
         mov edx, esp
         mov eax, 0E666h
         call BrightenRangeColours
-        mov ebx, unk_1A8D48
+        mov ebx, RinkPalette
         mov edx, esp
-        mov eax, dword [dword_1A8E60]
+        mov eax, dword [RinkDetail]
         call DimRangeColours
         add esp, 300h
         pop edx
@@ -732,7 +732,7 @@ UpdateRinkPalette:
         push esi
         push edi
         mov edi, edx
-        mov edx, dword [dword_1AC364]
+        mov edx, dword [FadeDone]
         mov dword [dword_1B1020], eax
         test edx, edx
         jne short .3
@@ -2087,48 +2087,48 @@ LoadRinkModel:
         cmp edi, byte 15h
         jle short .9
 .10:
-        push unk_16175C
+        push str_C3
         mov eax, dword [dword_1B0FA0]
         push eax
         call FindInstancePart
         add esp, byte 8
-        push unk_161760
+        push str_C2
         mov edx, dword [dword_1B0FA0]
         push edx
         mov dword [dword_1B0960], eax
         call FindInstancePart
         add esp, byte 8
-        push unk_161764
+        push str_C1
         mov ebx, dword [dword_1B0FA0]
         push ebx
         mov dword [dword_1B0964], eax
         call FindInstancePart
         add esp, byte 8
-        push unk_161768
+        push str_C0
         mov ecx, dword [dword_1B0FA0]
         push ecx
         mov dword [dword_1B0968], eax
         call FindInstancePart
         add esp, byte 8
-        push unk_16176C
+        push str_L3
         mov esi, dword [dword_1B0FA0]
         push esi
         mov dword [dword_1B096C], eax
         call FindInstancePart
         add esp, byte 8
-        push unk_161770
+        push str_L2
         mov edi, dword [dword_1B0FA0]
         push edi
         mov dword [dword_1B0950], eax
         call FindInstancePart
         add esp, byte 8
-        push unk_161774
+        push str_L1
         mov ebp, dword [dword_1B0FA0]
         push ebp
         mov dword [dword_1B0954], eax
         call FindInstancePart
         add esp, byte 8
-        push unk_161778
+        push str_L0
         mov dword [dword_1B0958], eax
         mov eax, dword [dword_1B0FA0]
         push eax
@@ -2375,7 +2375,7 @@ LoadRinkModel:
         add esp, byte 8
         mov dword [dword_1B020C], eax
         xor ecx, ecx
-        mov eax, unk_1617BC
+        mov eax, str_Fx
         call RemapArtBank
         call ServiceIdle
         call LoadRinkTextures
@@ -2654,7 +2654,7 @@ DrawRinkBackground:
         cmp edx, ecx
         jl short .1
 .2:
-        mov esi, dword [dword_16E4A8]
+        mov esi, dword [str_Punct_DrawRinkSurface]
         push esi
         lea eax, [dword esp+0F4h]
         push eax
@@ -2923,7 +2923,7 @@ DrawRinkSurface:
         je near .6
         lea eax, [dword esp+0C0h]
         push eax
-        mov edi, dword [dword_16E4A8]
+        mov edi, dword [str_Punct_DrawRinkSurface]
         mov eax, dword [dword_1B1108]
         push edi
         mov ebp, dword [dword eax+080h]
@@ -2983,7 +2983,7 @@ DrawRinkSurface:
 .6:
         lea eax, [dword esp+0160h]
         push eax
-        mov esi, dword [dword_16E4A8]
+        mov esi, dword [str_Punct_DrawRinkSurface]
         mov eax, dword [dword_1B1108]
         push esi
         mov edi, dword [dword eax+080h]
@@ -3019,7 +3019,7 @@ DrawRinkSurface:
 .8:
         call DrawIceSurface
         mov eax, dword [dword_1B0C78]
-        mov ebx, dword [dword_16E4A8]
+        mov ebx, dword [str_Punct_DrawRinkSurface]
         cmp ebx, dword [byte eax+08h]
         jge short .11
         mov ecx, dword [byte eax+04h]
@@ -3038,7 +3038,7 @@ DrawRinkSurface:
         call DrawGoalLines
 .11:
         mov eax, dword [dword_1B0C7C]
-        mov edi, dword [dword_16E4A8]
+        mov edi, dword [str_Punct_DrawRinkSurface]
         cmp edi, dword [byte eax+08h]
         jge short .14
         mov ebp, dword [byte eax+04h]
@@ -3137,7 +3137,7 @@ DrawRinkSurface:
         mov eax, dword [byte ebp+00h]
         mov eax, dword [byte eax+08h]
         imul esi, dword [eax], byte 0Ch
-        mov eax, dword [dword_1D205C]
+        mov eax, dword [TextureDetail]
         lea edi, [dword esp+02B0h]
         add esi, eax
         movsd
@@ -3225,7 +3225,7 @@ DrawRinkSurface:
         push ebx
         call bcopy
         add esp, byte 0Ch
-        mov ecx, dword [dword_16E4A8]
+        mov ecx, dword [str_Punct_DrawRinkSurface]
         push ecx
         lea eax, [dword esp+0204h]
         push eax
@@ -3294,7 +3294,7 @@ LoadOpeningArt:
         cmp dword [dword_1B0E2C], byte 0
         je near .4
         mov edi, esp
-        mov esi, unk_4BCCC
+        mov esi, str_Light
         mov ebx, 6
         movsd
         movsd
@@ -4574,7 +4574,7 @@ DrawRinkPass:
         cmp eax, ebp
         jl short .1
 .2:
-        mov edi, dword [dword_16E4A8]
+        mov edi, dword [str_Punct_DrawRinkSurface]
         push edi
         lea eax, [dword esp+0184h]
         push eax
@@ -5075,22 +5075,22 @@ DrawFarSide:
 ; Saves the view origin
 ;-----------------------------------------------------------------------------
 SaveViewOrigin:
-        mov eax, dword [dword_16E676]
+        mov eax, dword [ClipLeft]
         sar eax, 10h
         shl eax, 10h
-        mov dword [dword_1D1D60], eax
-        mov eax, dword [dword_16E67E]
+        mov dword [ViewHeight], eax
+        mov eax, dword [ClipRightEdge]
         sar eax, 10h
         shl eax, 10h
-        mov dword [dword_1D1D30], eax
-        mov eax, dword [dword_16E67A]
+        mov dword [ViewOriginX], eax
+        mov eax, dword [ClipTop]
         sar eax, 10h
         shl eax, 10h
-        mov dword [dword_1D1D5C], eax
-        mov eax, dword [dword_16E682]
+        mov dword [ViewWidth], eax
+        mov eax, dword [ClipBottomEdge]
         sar eax, 10h
         shl eax, 10h
-        mov dword [dword_1D1D38], eax
+        mov dword [ViewOriginY], eax
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 unk_56790:
@@ -5146,7 +5146,7 @@ DrawShadowShape:
         xor eax, ecx
         and eax, 0FFh
         sub eax, ecx
-        mov eax, dword [nosplit eax*4+dword_1702CC]
+        mov eax, dword [nosplit eax*4+SinTable]
         xor eax, edx
         sub eax, edx
         mov edx, eax
@@ -5165,7 +5165,7 @@ DrawShadowShape:
         xor eax, ecx
         and eax, 0FFh
         sub eax, ecx
-        mov eax, dword [nosplit eax*4+dword_1702CC]
+        mov eax, dword [nosplit eax*4+SinTable]
         xor eax, edx
         sub eax, edx
         mov edx, eax
@@ -5274,7 +5274,7 @@ DrawPortraitModels:
         movsd
         fld dword [byte edx+0Ch]
         fld st0
-        fadd qword [qword_1617D0]
+        fadd qword [F64_3p14159_DrawPortraitModels]
         mov eax, edx
         fstp st1
         fstp dword [byte edx+0Ch]
@@ -5285,7 +5285,7 @@ DrawPortraitModels:
         call DrawPlayersSorted
 .1:
         fld dword [byte edx+0Ch]
-        fadd qword [qword_1617D8]
+        fadd qword [F64_neg3p14159_DrawPortraitModels]
         fstp dword [byte edx+0Ch]
         add esp, byte 8
         pop edi
@@ -5538,10 +5538,10 @@ FaceDistance:
         mov ebp, ebx
         mov edi, ecx
         fild dword [byte esp+028h]
-        fmul qword [qword_1617E6]
+        fmul qword [F64_0p6_FaceDistance]
         fild dword [byte esp+030h]
         lea ebx, [nosplit edx*4+00h]
-        fmul qword [qword_1617E6]
+        fmul qword [F64_0p6_FaceDistance]
         sub ebx, edx
         shl ebx, 2
         add ebx, edx
@@ -5711,10 +5711,10 @@ SetModelHeading:
         mov dword [byte esp+08h], eax
 .5:
         fild dword [byte esp+08h]
-        fmul qword [qword_1617F6]
+        fmul qword [F64_0p6_SetModelHeading]
         fild dword [byte esp+0Ch]
         lea eax, [nosplit edx*4+00h]
-        fmul qword [qword_1617F6]
+        fmul qword [F64_0p6_SetModelHeading]
         sub eax, edx
         shl eax, 2
         add eax, edx

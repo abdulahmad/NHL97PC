@@ -2,80 +2,80 @@
 bits 32
 %include "hockey.inc"
 section s_1D2060 nobits alloc noexec write align=1
-global byte_1D207C, byte_1D2434, dword_1D2060, dword_1D2064, dword_1D2068, dword_1D206C, dword_1D2070, dword_1D2078
-global dword_1D2080, dword_1D2084, dword_1D2088, dword_1D208C, dword_1D2090, dword_1D2094, dword_1D2418, dword_1D241C
-global dword_1D2420, dword_1D2424, dword_1D2428, dword_1D2430, dword_1D2438, dword_1D243C, dword_1D2440, dword_1D2444
-global dword_1D2448, dword_1D244C, dword_1D2450, dword_1D2454, dword_1D3350, dword_1D3354, dword_1D3358, dword_1D335C
-global dword_1D3364, dword_1D3368, unk_1D2098, unk_1D3D6C
-dword_1D2060:
+global TileLeftFlags, TileRightFlags, TileDestRow, TileLeftTop, TileLeftBottom, TileLeftHeight, TileLeftStep, TileLeftCount
+global TileLeftX, TileLeftU, TileLeftUf, TileLeftVf, TileLeftDu, TileLeftDv, TileRightRow, TileRightTop
+global TileRightBottom, TileRightHeight, TileRightStep, TileRightCount, TileRightX, TileRightU, TileRightUf, TileRightVf
+global TileRightDu, TileRightDv, IceShadeScale, IceShadeTable, TileTexture, TileRowCount, TileRowY, TileTexSize
+global IceShadeBase, TileRowShade, TileEdgeTable, ModelPartName
+TileDestRow:
         resb 4
-dword_1D2064:
+TileLeftTop:
         resb 4
-dword_1D2068:
+TileLeftBottom:
         resb 4
-dword_1D206C:
+TileLeftHeight:
         resb 4
-dword_1D2070:
+TileLeftStep:
         resb 8
-dword_1D2078:
+TileLeftCount:
         resb 4
-byte_1D207C:
+TileLeftFlags:
         resb 4
-dword_1D2080:
+TileLeftX:
         resb 4
-dword_1D2084:
+TileLeftU:
         resb 4
-dword_1D2088:
+TileLeftUf:
         resb 4
-dword_1D208C:
+TileLeftVf:
         resb 4
-dword_1D2090:
+TileLeftDu:
         resb 4
-dword_1D2094:
+TileLeftDv:
         resb 4
-unk_1D2098:
+TileEdgeTable:
         resb 896
-dword_1D2418:
+TileRightRow:
         resb 4
-dword_1D241C:
+TileRightTop:
         resb 4
-dword_1D2420:
+TileRightBottom:
         resb 4
-dword_1D2424:
+TileRightHeight:
         resb 4
-dword_1D2428:
+TileRightStep:
         resb 8
-dword_1D2430:
+TileRightCount:
         resb 4
-byte_1D2434:
+TileRightFlags:
         resb 4
-dword_1D2438:
+TileRightX:
         resb 4
-dword_1D243C:
+TileRightU:
         resb 4
-dword_1D2440:
+TileRightUf:
         resb 4
-dword_1D2444:
+TileRightVf:
         resb 4
-dword_1D2448:
+TileRightDu:
         resb 4
-dword_1D244C:
+TileRightDv:
         resb 4
-dword_1D2450:
+IceShadeScale:
         resb 4
-dword_1D2454:
+IceShadeTable:
         resb 3836
-dword_1D3350:
+TileTexture:
         resb 4
-dword_1D3354:
+TileRowCount:
         resb 4
-dword_1D3358:
+TileRowY:
         resb 4
-dword_1D335C:
+TileTexSize:
         resb 8
-dword_1D3364:
+IceShadeBase:
         resb 4
-dword_1D3368:
+TileRowShade:
         resb 2564
-unk_1D3D6C:
+ModelPartName:
         resb 40

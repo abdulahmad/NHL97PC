@@ -3,8 +3,8 @@ bits 32
 %include "hockey.inc"
 section s_12075C progbits alloc exec nowrite align=1
 extern __SetIOMode_, __qwrite_, __set_errno_dos_, _dosret0_, _environ, _nfree_, _nmalloc_, _psp
-extern dword_16E318, dword_16E31C, dword_1CF0D8, dword_1DA4BC, dword_1DA4C0, flushall_, isatty_, memset_
-extern strnicmp_, unk_1722C0, unk_1724C8, unk_1DA4B4, unk_1DA4B8
+extern dword_16E318, dword_16E31C, dword_1CF0D8, __OpenStreams, __ClosedStreams, flushall_, isatty_, memset_
+extern strnicmp_, __iob, __NFiles, errno, _doserrno
 global __MemAllocator, __MemFree, __allocfp_, __chktty_, __close_, __flush_, __freefp_, __set_EDOM_
 global __set_EINVAL_, __set_ERANGE_, __set_doserrno_, __set_errno_, __unlink_, abs_, access_, fflush_
 global getenv_, __freefp__39, __MemAllocator_A3, __MemFree_106, lseek_, ErrnoPtr, DosErrnoPtr, GetPsp
@@ -23,14 +23,14 @@ abs_:
 ; Returns the address of errno
 ;-----------------------------------------------------------------------------
 ErrnoPtr:
-        mov eax, unk_1DA4B4
+        mov eax, errno
         ret
 ;-----------------------------------------------------------------------------
 ; DosErrnoPtr                                    120769  97 PC, low confidence
 ; Returns the address of the DOS error code
 ;-----------------------------------------------------------------------------
 DosErrnoPtr:
-        mov eax, unk_1DA4B8
+        mov eax, _doserrno
         ret
 ;-----------------------------------------------------------------------------
 ; access_                                                      12076F  library
@@ -182,18 +182,18 @@ __allocfp_:
         push edx
         push esi
         push edi
-        mov esi, dword [dword_1DA4BC]
+        mov esi, dword [__OpenStreams]
         test esi, esi
         je short .1
         mov ecx, dword [byte esi+04h]
         mov edi, dword [byte ecx+0Ch]
         mov eax, dword [esi]
         and edi, 4003h
-        mov dword [dword_1DA4BC], eax
+        mov dword [__OpenStreams], eax
         or di, byte 3
         jmp short .5
 .1:
-        mov ecx, unk_1722C0
+        mov ecx, __iob
         jmp short .4
 .2:
         test byte [byte ecx+0Ch], 3
@@ -208,7 +208,7 @@ __allocfp_:
 .3:
         add ecx, byte 1Ah
 .4:
-        cmp ecx, unk_1724C8
+        cmp ecx, __NFiles
         jb short .2
         mov eax, 22h
         mov edi, 4003h
@@ -223,9 +223,9 @@ __allocfp_:
         xor edx, edx
         call memset_
         mov dword [byte ecx+0Ch], edi
-        mov eax, dword [dword_1DA4C0]
+        mov eax, dword [__ClosedStreams]
         mov dword [byte esi+04h], ecx
-        mov dword [dword_1DA4C0], esi
+        mov dword [__ClosedStreams], esi
         mov dword [esi], eax
         mov eax, ecx
         jmp short .7
@@ -248,7 +248,7 @@ __freefp_:
         push ecx
         push edx
         mov ebx, eax
-        mov edx, dword_1DA4C0
+        mov edx, __ClosedStreams
 .1:
         mov eax, dword [edx]
         test eax, eax
@@ -264,8 +264,8 @@ __freefp_:
         mov byte [byte ebx+0Ch], cl
         mov ebx, dword [eax]
         mov dword [edx], ebx
-        mov edx, dword [dword_1DA4BC]
-        mov dword [dword_1DA4BC], eax
+        mov edx, dword [__OpenStreams]
+        mov dword [__OpenStreams], eax
         mov dword [eax], edx
 .3:
         pop edx
@@ -275,13 +275,13 @@ __freefp_:
 __freefp__39:
         push edx
 .4:
-        mov edx, dword [dword_1DA4BC]
+        mov edx, dword [__OpenStreams]
         test edx, edx
         je short .5
         mov eax, edx
         mov edx, dword [edx]
         call _nfree_
-        mov dword [dword_1DA4BC], edx
+        mov dword [__OpenStreams], edx
         jmp short .4
 .5:
         pop edx

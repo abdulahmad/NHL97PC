@@ -4,17 +4,17 @@ bits 32
 section s_BD62C progbits alloc exec nowrite align=1
 extern SortCords, __CHP, __STOSD, str_Mous4, str_Remo3, str_Replload, str_RPEVENT, str_Replmenu
 extern str_Replregs, str_REPLAYNDX, str_DATAREPLAYNDX2, str_DONTHAVEIT2, str_Replay, str_SS10, str_Replbuff, str_SREPLAYNDX
-extern str_S12, str_NOIS, str_ARWD, byte_19CBC2, byte_1C6040, byte_1CB004, dword_166A95, dword_166A99
-extern dword_166A9D, dword_166AA9, dword_166AC8, dword_166AD4, dword_166B0B, dword_166B17, dword_166B26, dword_166B32
-extern dword_1686C0, InGameMenuRequest, dword_16CCF1, dword_16D500, dword_16DA9C, dword_16E464, dword_16E468, dword_16E46C
-extern dword_16E474, dword_16E500, dword_19CD10, dword_19CD14, dword_19CD20, dword_19CD24, dword_19CD28, dword_19CD2C
-extern dword_19CD30, dword_19CD34, dword_19CD4C, dword_19CD54, dword_1A8E80, dword_1AC814, dword_1AC944, dword_1B1B64
+extern str_S12, str_NOIS, str_ARWD, gmode, byte_1C6040, byte_1CB004, F32_0p005_ReplayScreen, F32_0p003125_ReplayScreen
+extern F32_0p005_DrawReplayTimeline, F32_0p003125_DrawReplayTimeline, F32_0p003125_PickReplayScreen, F32_0p005_PickReplayScreen, F32_0p003125_DrawReplayEntry, F32_0p005_DrawReplayEntry, F32_0p003125_ReplayMenuScreen, F32_0p005_ReplayMenuScreen
+extern ClockShown, InGameMenuRequest, dword_16CCF1, dword_16D500, dword_16DA9C, dword_16E464, dword_16E468, MenuScreenBitmap
+extern VideoModeCount, QuantizePalette, dword_19CD10, dword_19CD14, dword_19CD20, dword_19CD24, dword_19CD28, dword_19CD2C
+extern dword_19CD30, dword_19CD34, dword_19CD4C, dword_19CD54, ViewSizeIndex, GameSettings, GameOptionFlags, dword_1B1B64
 extern dword_1B8F4C, dword_1C1334, dword_1C1338, dword_1C5DA4, dword_1C5DE4, dword_1C5E78, dword_1C5EF4, dword_1C95B4
 extern dword_1C95BC, dword_1CAECC, dword_1CAED0, dword_1CAED4, dword_1CAED8, dword_1CAEDC, dword_1CAEE0, dword_1CAEE4
 extern dword_1CAEE8, dword_1CAEEC, dword_1CAEF0, dword_1CAEF4, dword_1CAEF8, dword_1CAF8C, dword_1CAF90, dword_1CAF94
 extern dword_1CAF98, dword_1CAF9C, dword_1CAFA0, dword_1CAFA4, dword_1CAFA8, dword_1CAFAC, dword_1CAFDC, dword_1CAFE0
 extern dword_1CAFE4, dword_1CAFE8, dword_1CAFEC, dword_1CAFF0, dword_1CAFF4, dword_1CAFF8, dword_1CAFFC, dword_1CB000
-extern off_16D254, off_16D258, qword_166A8D, qword_166AA1, qword_166ACC, qword_166B0F, qword_166B2A, rand_
+extern off_16D254, off_16D258, F64_0p5_ReplayScreen, F64_0p5_DrawReplayTimeline, F64_0p5_PickReplayScreen, F64_0p5_DrawReplayEntry, F64_0p5_ReplayMenuScreen, rand_
 extern sprintf_, strcmp_, strcpy_, BlitArt, PresentScreen, FindShape, DrawShapeBlended, SetGraphicsMode
 extern WritePaletteRegs, FreeInverseTable, DosFileInfo, RestartGameMusic, UnlinkJump, ResetPlayers, SetScreenTarget, InitGameDisplay
 extern ApplyDisplayFlags, ClearOverlayWindows, ReplayCameraOn, ReplayCameraOff, ReplayCamFollowMode, ReplayCamDrag, ReplayCamRestorePath, ReplayCamOrbitMode
@@ -32,8 +32,8 @@ extern GetLangText, FreeLangText, LoadIndexFile, WriteReplayFile, ReplayNameToKe
 extern AddReplayIndexEntry, FindReplayIndexEntry, OpenReplayFile, IsInputRecording, StopInputRecording, ClearLinkAbort, LinkSyncMenu, LinkSendBlock
 extern LinkReceiveBlock, WaitForOtherComputer, DrawMenuFrame, FreeVideoBuffer, AllocGfxFixBuffer, GetVideoModeList, PickVideoMode, AllocMemBlock
 extern FreeMemBlock, ZeroMem, OpenResourceArchive, MakeColor, SelectFont, FreeBitmap, DrawArt, CreateBitmap
-extern SetDrawTarget, ClearScreen, FillPolygon, FillRectColor, FillRect, SetTextColors, FillRectCorners, unk_166A8A
-extern unk_171E38, unk_1ACB44, unk_1CAEFC, unk_1CAF3C, word_1686E4
+extern SetDrawTarget, ClearScreen, FillPolygon, FillRectColor, FillRect, SetTextColors, FillRectCorners, str_S_ReplayScreen
+extern VideoOptionsText, GlobalSetVersion, unk_1CAEFC, unk_1CAF3C, str_D_ChangeViewSize
 global jpt_BE037, jpt_BE213, jpt_BE25A, jpt_BE296, jpt_BEC7D, RunReplay_358, RunReplay_359, LoadReplay_194
 global PlayReplayFromMenu_45, PlayReplayFromMenu_4C, PlayReplayFromMenu_53, PlayReplayFromMenu_5A, ReplayScreen_C7, ReplayScreen_D3, ReplayScreen_DA, ReplayScreen_E1
 global ReplayScreen_E8, ReplayScreen_EF, ReplayScreen_294, ReplayScreen_37D, ReplayScreen_399, ReplayScreen_3D5, ReplayScreen_4D2, ReplayScreen_6A2
@@ -128,12 +128,12 @@ RunReplay:
         mov dword [dword_19CD10], eax
         mov eax, dword [byte ebp-018h]
         mov dword [dword_19CD14], eax
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         call ClearViewInterlaced
         mov dword [dword_19CD30], 0
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         call ShowView
-        movsx ebx, word [word_1686E4]
+        movsx ebx, word [str_D_ChangeViewSize]
         mov eax, dword [dword_16E464]
         imul eax, ebx
         mov ecx, 64h
@@ -160,7 +160,7 @@ RunReplay:
         cdq
         LD sub, eax, edx
         sar eax, 1
-        mov esi, dword [dword_1A8E80]
+        mov esi, dword [ViewSizeIndex]
         mov dword [dword_19CD34], 0
         mov dword [byte ebp-04h], eax
         test byte [byte esi+04h], 2
@@ -176,14 +176,14 @@ RunReplay:
         mov esi, dword [byte ebp-04h]
         sub esi, eax
 .2:
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         mov dword [dword_19CD28], ecx
         mov dword [dword_19CD2C], ebx
         mov dword [dword_19CD20], edi
         mov edx, ecx
         mov dword [dword_19CD24], esi
         call SetViewSize
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         mov ebx, esi
         mov edx, edi
         call SetViewOrigin
@@ -200,12 +200,12 @@ RunReplay:
         mov dword [dword_19CD10], eax
         mov eax, dword [byte ebp-018h]
         mov dword [dword_19CD14], eax
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         call ClearViewInterlaced
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         mov dword [dword_19CD30], 0
         call ShowView
-        movsx ebx, word [word_1686E4]
+        movsx ebx, word [str_D_ChangeViewSize]
         mov eax, dword [dword_16E464]
         imul eax, ebx
         mov ecx, 64h
@@ -232,7 +232,7 @@ RunReplay:
         cdq
         LD sub, eax, edx
         sar eax, 1
-        mov esi, dword [dword_1A8E80]
+        mov esi, dword [ViewSizeIndex]
         mov dword [dword_19CD34], 0
         mov dword [byte ebp-08h], eax
         test byte [byte esi+04h], 2
@@ -248,7 +248,7 @@ RunReplay:
         mov esi, dword [byte ebp-08h]
         sub esi, eax
 .4:
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         mov dword [dword_19CD28], ecx
         mov dword [dword_19CD2C], ebx
         mov dword [dword_19CD20], edi
@@ -256,7 +256,7 @@ RunReplay:
         mov dword [dword_19CD24], esi
         call SetViewSize
         mov ecx, 10h
-        mov eax, dword [dword_1A8E80]
+        mov eax, dword [ViewSizeIndex]
         mov ebx, esi
         mov edx, edi
         mov edi, dword_19CD10
@@ -318,7 +318,7 @@ LoadReplay:
         mov eax, dword [dword_1CAF9C]
         mov edx, 20h
         call LoadReplayHeader
-        mov dword [dword_1AC944], unk_1ACB44
+        mov dword [GameOptionFlags], GlobalSetVersion
         call ResetReplayBuffer
         mov eax, 34h
         call AllocAnimStates
@@ -365,11 +365,11 @@ LoadReplay:
         call __STOSD
         call FreeAnimTables
         call FreeGameGraphics
-        cmp dword [dword_16E500], byte 0
+        cmp dword [QuantizePalette], byte 0
         je short .3
-        push dword [dword_16E500]
+        push dword [QuantizePalette]
         call FreeMemBlock
-        mov dword [dword_16E500], 0
+        mov dword [QuantizePalette], 0
         add esp, byte 4
 .3:
         xor eax, eax
@@ -422,11 +422,11 @@ VideoOptionsScreen:
         push byte 8
         push dword 1E0h
         push dword 280h
-        mov dword [dword_16E474], 1
+        mov dword [VideoModeCount], 1
         call SetGraphicsMode
         add esp, byte 0Ch
         call AllocGfxFixBuffer
-        push unk_171E38
+        push VideoOptionsText
         push dword 100h
         push byte 0
         call WritePaletteRegs
@@ -510,7 +510,7 @@ VideoOptionsScreen:
         add esp, byte 10h
         mov eax, dword [byte eax+02Ch]
         call CreateMenuBitmap
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         shl eax, 1Ch
         shr eax, 1Eh
         xor edx, edx
@@ -520,12 +520,12 @@ VideoOptionsScreen:
         mov dword [dword_1CAFA4], eax
         mov dword [dword_1C5E78], eax
         mov dword [dword_1C5EF4], eax
-        cmp dword [dword_1686C0], byte 0
+        cmp dword [ClockShown], byte 0
         jne short .2
         mov eax, 70h
         xor edx, edx
         call LoadDataFileLib
-        mov dword [dword_1686C0], eax
+        mov dword [ClockShown], eax
 .2:
         push byte 0
         call OpenResourceArchive
@@ -577,11 +577,11 @@ VideoOptionsScreen:
         mov dword [dword_1C5E78], 0
         mov dword [dword_1C5EF4], 0
         add esp, byte 4
-        cmp dword [dword_1686C0], byte 0
+        cmp dword [ClockShown], byte 0
         je short .3
-        push dword [dword_1686C0]
+        push dword [ClockShown]
         call FreeMemBlock
-        mov dword [dword_1686C0], 0
+        mov dword [ClockShown], 0
         add esp, byte 4
 .3:
         call InitFrontEnd
@@ -616,12 +616,12 @@ VideoOptionsScreen:
         ret
 .5:
         call CloseGameDatabase
-        cmp dword [dword_1686C0], byte 0
+        cmp dword [ClockShown], byte 0
         jne short .6
         mov eax, 70h
         xor edx, edx
         call LoadDataFileLib
-        mov dword [dword_1686C0], eax
+        mov dword [ClockShown], eax
 .6:
         push byte 0
         push byte 18h
@@ -639,7 +639,7 @@ VideoOptionsScreen:
         push byte 10h
         push dword 1E0h
         push dword 280h
-        mov dword [dword_16E474], 1
+        mov dword [VideoModeCount], 1
         call SetGraphicsMode
         add esp, byte 0Ch
         call AllocGfxFixBuffer
@@ -661,11 +661,11 @@ VideoOptionsScreen:
         push dword [dword_1CAF98]
         call FreeBitmap
         add esp, byte 4
-        cmp dword [dword_1686C0], byte 0
+        cmp dword [ClockShown], byte 0
         je short .7
-        push dword [dword_1686C0]
+        push dword [ClockShown]
         call FreeMemBlock
-        mov dword [dword_1686C0], 0
+        mov dword [ClockShown], 0
         add esp, byte 4
 .7:
         call FreeLangText
@@ -674,11 +674,11 @@ VideoOptionsScreen:
         mov dword [dword_1C5E78], 0
         mov dword [dword_1C5EF4], 0
         add esp, byte 4
-        cmp dword [dword_1686C0], byte 0
+        cmp dword [ClockShown], byte 0
         je short .8
-        push dword [dword_1686C0]
+        push dword [ClockShown]
         call FreeMemBlock
-        mov dword [dword_1686C0], 0
+        mov dword [ClockShown], 0
         add esp, byte 4
 .8:
         push dword [dword_1C5DE4]
@@ -1005,10 +1005,10 @@ ReplayScreen_EF:
         imul eax, dword [dword_16E468], dword 9Bh
         mov dword [byte ebp-04h], eax
         fild dword [byte ebp-04h]
-        fmul dword [dword_166A95]
+        fmul dword [F32_0p005_ReplayScreen]
         mov ecx, 280h
         xor ebx, ebx
-        fadd qword [qword_166A8D]
+        fadd qword [F64_0p5_ReplayScreen]
         xor edx, edx
         call __CHP
         fistp dword [byte ebp-04h]
@@ -1053,9 +1053,9 @@ ReplayScreen_EF:
         imul edx, eax
         mov dword [byte ebp-04h], edx
         fild dword [byte ebp-04h]
-        fmul dword [dword_166A95]
+        fmul dword [F32_0p005_ReplayScreen]
         add esp, byte 8
-        fadd qword [qword_166A8D]
+        fadd qword [F64_0p5_ReplayScreen]
         mov eax, dword [dword_16E468]
         call __CHP
         fistp dword [byte ebp-04h]
@@ -1073,19 +1073,19 @@ ReplayScreen_EF:
         imul eax, dword [dword_16E468], dword 9Bh
         mov dword [byte ebp-04h], edx
         fild dword [byte ebp-04h]
-        fmul dword [dword_166A99]
+        fmul dword [F32_0p003125_ReplayScreen]
         mov dword [byte ebp-04h], eax
         fild dword [byte ebp-04h]
-        fmul dword [dword_166A95]
+        fmul dword [F32_0p005_ReplayScreen]
         mov ecx, dword [dword_16E464]
         add esp, byte 8
         fxch
-        fadd qword [qword_166A8D]
+        fadd qword [F64_0p5_ReplayScreen]
         xor edx, edx
         call __CHP
         fistp dword [byte ebp-04h]
         sub ecx, dword [byte ebp-04h]
-        fadd qword [qword_166A8D]
+        fadd qword [F64_0p5_ReplayScreen]
         mov eax, PlayReplayFromMenu
         call __CHP
         fistp dword [byte ebp-04h]
@@ -1136,7 +1136,7 @@ ReplayScreen_294:
         call SetTextColor
         mov eax, dword [dword_1CAFF0]
         push dword [nosplit eax*4+dword_1CAFAC]
-        push unk_166A8A
+        push str_S_ReplayScreen
         cmp dword [dword_16E468], 12Ch
         jge short .9
         xor edx, edx
@@ -1209,10 +1209,10 @@ ReplayScreen_3D5:
         fild dword [dword_16E468]
         fdivp
         fxch
-        fadd qword [qword_166A8D]
+        fadd qword [F64_0p5_ReplayScreen]
         call __CHP
         fistp dword [byte ebp-04h]
-        fadd qword [qword_166A8D]
+        fadd qword [F64_0p5_ReplayScreen]
         mov ecx, dword [byte ebp-04h]
         call __CHP
         fistp dword [byte ebp-04h]
@@ -1227,15 +1227,15 @@ ReplayScreen_3D5:
         mov eax, dword [dword_1CAECC]
         imul eax, dword [dword_16E464]
         fild dword [byte ebp-04h]
-        fmul dword [dword_166A95]
+        fmul dword [F32_0p005_ReplayScreen]
         mov dword [byte ebp-04h], eax
-        fadd qword [qword_166A8D]
+        fadd qword [F64_0p5_ReplayScreen]
         fild dword [byte ebp-04h]
-        fmul dword [dword_166A99]
+        fmul dword [F32_0p003125_ReplayScreen]
         fxch
         call __CHP
         fistp dword [byte ebp-04h]
-        fadd qword [qword_166A8D]
+        fadd qword [F64_0p5_ReplayScreen]
         mov edx, dword [byte ebp-04h]
         call __CHP
         fistp dword [byte ebp-04h]
@@ -1272,10 +1272,10 @@ ReplayScreen_4D2:
         fild dword [dword_16E468]
         fdivp
         fxch
-        fadd qword [qword_166A8D]
+        fadd qword [F64_0p5_ReplayScreen]
         call __CHP
         fistp dword [byte ebp-04h]
-        fadd qword [qword_166A8D]
+        fadd qword [F64_0p5_ReplayScreen]
         mov ecx, dword [byte ebp-04h]
         call __CHP
         fistp dword [byte ebp-04h]
@@ -1290,15 +1290,15 @@ ReplayScreen_4D2:
         mov eax, dword [dword_1CAED0]
         imul eax, dword [dword_16E464]
         fild dword [byte ebp-04h]
-        fmul dword [dword_166A95]
+        fmul dword [F32_0p005_ReplayScreen]
         mov dword [byte ebp-04h], eax
-        fadd qword [qword_166A8D]
+        fadd qword [F64_0p5_ReplayScreen]
         fild dword [byte ebp-04h]
-        fmul dword [dword_166A99]
+        fmul dword [F32_0p003125_ReplayScreen]
         fxch
         call __CHP
         fistp dword [byte ebp-04h]
-        fadd qword [qword_166A8D]
+        fadd qword [F64_0p5_ReplayScreen]
         mov edx, dword [byte ebp-04h]
         call __CHP
         fistp dword [byte ebp-04h]
@@ -1354,7 +1354,7 @@ ReplayScreen_4D2:
         call SetTextColor
         mov eax, dword [dword_1CAFF0]
         push dword [nosplit eax*4+dword_1CAFAC]
-        push unk_166A8A
+        push str_S_ReplayScreen
         cmp dword [dword_16E468], 12Ch
         jge short .21
         xor ebx, ebx
@@ -1395,7 +1395,7 @@ ReplayScreen_6A2:
         fild dword [byte ebp-04h]
         fild dword [dword_16E468]
         fdivp
-        fadd qword [qword_166A8D]
+        fadd qword [F64_0p5_ReplayScreen]
         call __CHP
         fistp dword [byte ebp-04h]
         mov ebx, dword [byte ebp-04h]
@@ -1408,15 +1408,15 @@ ReplayScreen_6A2:
         mov eax, dword [dword_1CAED4]
         imul eax, dword [dword_16E464]
         fild dword [byte ebp-04h]
-        fmul dword [dword_166A95]
+        fmul dword [F32_0p005_ReplayScreen]
         mov dword [byte ebp-04h], eax
-        fadd qword [qword_166A8D]
+        fadd qword [F64_0p5_ReplayScreen]
         fild dword [byte ebp-04h]
-        fmul dword [dword_166A99]
+        fmul dword [F32_0p003125_ReplayScreen]
         fxch
         call __CHP
         fistp dword [byte ebp-04h]
-        fadd qword [qword_166A8D]
+        fadd qword [F64_0p5_ReplayScreen]
         mov edx, dword [byte ebp-04h]
         call __CHP
         fistp dword [byte ebp-04h]
@@ -1453,10 +1453,10 @@ ReplayScreen_771:
         fild dword [dword_16E468]
         fdivp
         fxch
-        fadd qword [qword_166A8D]
+        fadd qword [F64_0p5_ReplayScreen]
         call __CHP
         fistp dword [byte ebp-04h]
-        fadd qword [qword_166A8D]
+        fadd qword [F64_0p5_ReplayScreen]
         mov ecx, dword [byte ebp-04h]
         call __CHP
         fistp dword [byte ebp-04h]
@@ -1471,15 +1471,15 @@ ReplayScreen_771:
         mov eax, dword [dword_1CAED8]
         imul eax, dword [dword_16E464]
         fild dword [byte ebp-04h]
-        fmul dword [dword_166A95]
+        fmul dword [F32_0p005_ReplayScreen]
         mov dword [byte ebp-04h], eax
-        fadd qword [qword_166A8D]
+        fadd qword [F64_0p5_ReplayScreen]
         fild dword [byte ebp-04h]
-        fmul dword [dword_166A99]
+        fmul dword [F32_0p003125_ReplayScreen]
         fxch
         call __CHP
         fistp dword [byte ebp-04h]
-        fadd qword [qword_166A8D]
+        fadd qword [F64_0p5_ReplayScreen]
         mov edx, dword [byte ebp-04h]
         call __CHP
         fistp dword [byte ebp-04h]
@@ -1513,7 +1513,7 @@ ReplayScreen_771:
         add esp, byte 4
         call SetTextColor
         push dword [dword_1CAFEC]
-        push unk_166A8A
+        push str_S_ReplayScreen
         cmp dword [dword_16E468], 12Ch
         jge short .30
         xor edx, edx
@@ -1568,11 +1568,11 @@ ReplayScreen_929:
         jne short .34
         call StopInputRecording
 .34:
-        cmp dword [dword_16E500], byte 0
+        cmp dword [QuantizePalette], byte 0
         je short .35
-        push dword [dword_16E500]
+        push dword [QuantizePalette]
         call FreeMemBlock
-        mov dword [dword_16E500], 0
+        mov dword [QuantizePalette], 0
         add esp, byte 4
 .35:
         call RestoreMenuView
@@ -1827,7 +1827,7 @@ DrawReplayMenu_271:
         add esp, byte 4
         call SetTextColor
         push dword [byte ebp-04h]
-        push unk_166A8A
+        push str_S_ReplayScreen
         cmp dword [dword_16E468], 12Ch
         jge short .13
         xor eax, eax
@@ -1845,7 +1845,7 @@ DrawReplayMenu_271:
         call DrawTextAligned
         add esp, byte 14h
         push dword [byte ebp-04h]
-        push unk_166A8A
+        push str_S_ReplayScreen
         cmp dword [dword_16E468], 12Ch
         jge short .15
         xor eax, eax
@@ -1883,15 +1883,15 @@ DrawReplayTimeline:
         mov eax, dword [dword_16E468]
         fild dword [dword_16E468]
         shl eax, 3
-        fmul dword [dword_166A9D]
+        fmul dword [F32_0p005_DrawReplayTimeline]
         mov dword [byte ebp-010h], eax
         fild dword [byte ebp-010h]
-        fmul dword [dword_166A9D]
+        fmul dword [F32_0p005_DrawReplayTimeline]
         push byte 0
         fxch
-        fadd qword [qword_166AA1]
+        fadd qword [F64_0p5_DrawReplayTimeline]
         fxch
-        fadd qword [qword_166AA1]
+        fadd qword [F64_0p5_DrawReplayTimeline]
         fxch
         call __CHP
         fxch
@@ -1905,16 +1905,16 @@ DrawReplayTimeline:
         mov dword [byte ebp-010h], eax
         imul eax, dword [dword_16E464], byte 3
         fild dword [byte ebp-010h]
-        fmul dword [dword_166AA9]
+        fmul dword [F32_0p003125_DrawReplayTimeline]
         mov dword [byte ebp-010h], eax
-        fadd qword [qword_166AA1]
+        fadd qword [F64_0p5_DrawReplayTimeline]
         fild dword [byte ebp-010h]
-        fmul dword [dword_166AA9]
+        fmul dword [F32_0p003125_DrawReplayTimeline]
         fxch
         call __CHP
         fistp dword [byte ebp-010h]
         mov edx, dword [byte ebp-010h]
-        fadd qword [qword_166AA1]
+        fadd qword [F64_0p5_DrawReplayTimeline]
         add edx, edx
         call __CHP
         fistp dword [byte ebp-010h]
@@ -1935,16 +1935,16 @@ DrawReplayTimeline:
         mov dword [byte ebp-010h], eax
         imul eax, dword [dword_16E464], byte 3
         fild dword [byte ebp-010h]
-        fmul dword [dword_166AA9]
-        fadd qword [qword_166AA1]
+        fmul dword [F32_0p003125_DrawReplayTimeline]
+        fadd qword [F64_0p5_DrawReplayTimeline]
         call __CHP
         fistp dword [byte ebp-010h]
         mov esi, dword [byte ebp-010h]
         imul esi, edi
         mov dword [byte ebp-010h], eax
         fild dword [byte ebp-010h]
-        fmul dword [dword_166AA9]
-        fadd qword [qword_166AA1]
+        fmul dword [F32_0p003125_DrawReplayTimeline]
+        fadd qword [F64_0p5_DrawReplayTimeline]
         call __CHP
         fistp dword [byte ebp-010h]
         add esi, dword [byte ebp-010h]
@@ -1970,18 +1970,18 @@ DrawReplayTimeline:
         cmp ebx, byte 1
         jne near .13
         fild dword [dword_16E468]
-        fmul dword [dword_166A9D]
+        fmul dword [F32_0p005_DrawReplayTimeline]
         fild dword [byte ebp-04h]
-        fmul dword [dword_166AA9]
+        fmul dword [F32_0p003125_DrawReplayTimeline]
         fild dword [byte ebp-08h]
-        fmul dword [dword_166A9D]
+        fmul dword [F32_0p005_DrawReplayTimeline]
         mov dword [byte ebp-018h], esi
         fxch st2
-        fadd qword [qword_166AA1]
+        fadd qword [F64_0p5_DrawReplayTimeline]
         fxch
-        fadd qword [qword_166AA1]
+        fadd qword [F64_0p5_DrawReplayTimeline]
         fxch st2
-        fadd qword [qword_166AA1]
+        fadd qword [F64_0p5_DrawReplayTimeline]
         fxch
         call __CHP
         fxch st2
@@ -2037,8 +2037,8 @@ DrawReplayTimeline:
         shl eax, 3
         mov dword [byte ebp-010h], eax
         fild dword [byte ebp-010h]
-        fmul dword [dword_166A9D]
-        fadd qword [qword_166AA1]
+        fmul dword [F32_0p005_DrawReplayTimeline]
+        fadd qword [F64_0p5_DrawReplayTimeline]
         call __CHP
         fistp dword [byte ebp-010h]
         mov eax, dword [byte ebp-010h]
@@ -2050,17 +2050,17 @@ DrawReplayTimeline:
         jmp near .13
 .7:
         fild dword [byte ebp-04h]
-        fmul dword [dword_166AA9]
+        fmul dword [F32_0p003125_DrawReplayTimeline]
         fild dword [dword_16E468]
-        fmul dword [dword_166A9D]
+        fmul dword [F32_0p005_DrawReplayTimeline]
         fild dword [byte ebp-08h]
-        fmul dword [dword_166A9D]
+        fmul dword [F32_0p005_DrawReplayTimeline]
         fxch st2
-        fadd qword [qword_166AA1]
+        fadd qword [F64_0p5_DrawReplayTimeline]
         fxch
-        fadd qword [qword_166AA1]
+        fadd qword [F64_0p5_DrawReplayTimeline]
         fxch st2
-        fadd qword [qword_166AA1]
+        fadd qword [F64_0p5_DrawReplayTimeline]
         fxch
         call __CHP
         fxch st2
@@ -2117,8 +2117,8 @@ DrawReplayTimeline:
         shl eax, 3
         mov dword [byte ebp-010h], eax
         fild dword [byte ebp-010h]
-        fmul dword [dword_166A9D]
-        fadd qword [qword_166AA1]
+        fmul dword [F32_0p005_DrawReplayTimeline]
+        fadd qword [F64_0p5_DrawReplayTimeline]
         call __CHP
         fistp dword [byte ebp-010h]
         mov eax, dword [byte ebp-010h]
@@ -2150,8 +2150,8 @@ DrawReplayTimeline:
         shl eax, 3
         mov dword [byte ebp-010h], eax
         fild dword [byte ebp-010h]
-        fmul dword [dword_166A9D]
-        fadd qword [qword_166AA1]
+        fmul dword [F32_0p005_DrawReplayTimeline]
+        fadd qword [F64_0p5_DrawReplayTimeline]
         lea edx, [ebx+ebx]
         call __CHP
         fistp dword [byte ebp-010h]
@@ -2161,17 +2161,17 @@ DrawReplayTimeline:
         imul eax, dword [dword_16E464], byte 0Ah
         mov dword [byte ebp-010h], eax
         fild dword [byte ebp-010h]
-        fmul dword [dword_166AA9]
+        fmul dword [F32_0p003125_DrawReplayTimeline]
         fild dword [dword_16E468]
         fxch
-        fadd qword [qword_166AA1]
+        fadd qword [F64_0p5_DrawReplayTimeline]
         fxch
-        fmul dword [dword_166A9D]
+        fmul dword [F32_0p005_DrawReplayTimeline]
         fxch
         call __CHP
         fistp dword [byte ebp-010h]
         mov eax, dword [byte ebp-010h]
-        fadd qword [qword_166AA1]
+        fadd qword [F64_0p5_DrawReplayTimeline]
         sar eax, 1
         call __CHP
         sub eax, edx
@@ -2189,8 +2189,8 @@ DrawReplayTimeline:
         imul eax, dword [dword_16E464], byte 0Ah
         mov dword [byte ebp-010h], eax
         fild dword [byte ebp-010h]
-        fmul dword [dword_166AA9]
-        fadd qword [qword_166AA1]
+        fmul dword [F32_0p003125_DrawReplayTimeline]
+        fadd qword [F64_0p5_DrawReplayTimeline]
         call __CHP
         fistp dword [byte ebp-010h]
         mov eax, dword [byte ebp-010h]
@@ -2231,7 +2231,7 @@ ReplayStatusText:
         mov eax, 7Eh
         call GetLangText
         mov dword [dword_1CAFE0], eax
-        test byte [byte_19CBC2], 2
+        test byte [gmode], 2
         jne short .1
         mov eax, 80h
         call GetLangText
@@ -2502,26 +2502,26 @@ PickReplayScreen:
         mov dword [byte ebp+032h], eax
         imul eax, dword [dword_16E464], byte 46h
         fild dword [byte ebp+03Eh]
-        fmul dword [dword_166AC8]
+        fmul dword [F32_0p003125_PickReplayScreen]
         fild dword [byte ebp+032h]
-        fmul dword [dword_166AD4]
+        fmul dword [F32_0p005_PickReplayScreen]
         mov dword [byte ebp+032h], eax
         fild dword [byte ebp+032h]
-        fmul dword [dword_166AC8]
+        fmul dword [F32_0p003125_PickReplayScreen]
         push byte 12h
         fxch st2
-        fadd qword [qword_166ACC]
+        fadd qword [F64_0p5_PickReplayScreen]
         lea edx, [dword ebp-040Ah]
         call __CHP
         fistp dword [byte ebp+032h]
-        fadd qword [qword_166ACC]
+        fadd qword [F64_0p5_PickReplayScreen]
         mov ecx, dword [byte ebp+032h]
         call __CHP
         fistp dword [byte ebp+03Eh]
         mov eax, esi
         add ebx, dword [byte ebp+03Eh]
         shl eax, 6
-        fadd qword [qword_166ACC]
+        fadd qword [F64_0p5_PickReplayScreen]
         add eax, 140h
         call __CHP
         add edx, eax
@@ -2541,13 +2541,13 @@ PickReplayScreen:
         imul eax, dword [dword_16E468], dword 82h
         mov dword [byte ebp+03Eh], eax
         fild dword [byte ebp+03Eh]
-        fmul dword [dword_166AD4]
+        fmul dword [F32_0p005_PickReplayScreen]
         mov dword [dword ebp-0904h], 14h
         mov dword [dword ebp-091Ah], 4
         push byte 14h
         mov ecx, 64h
         mov edx, 14h
-        fadd qword [qword_166ACC]
+        fadd qword [F64_0p5_PickReplayScreen]
         lea eax, [dword ebp-040Ah]
         call __CHP
         fistp dword [dword ebp-0900h]
@@ -2564,8 +2564,8 @@ PickReplayScreen:
         imul eax, dword [dword_16E464], dword 140h
         mov dword [byte ebp+03Eh], eax
         fild dword [byte ebp+03Eh]
-        fmul dword [dword_166AC8]
-        fadd qword [qword_166ACC]
+        fmul dword [F32_0p003125_PickReplayScreen]
+        fadd qword [F64_0p5_PickReplayScreen]
         call __CHP
         fistp dword [byte ebp+03Eh]
         mov eax, dword [byte ebp+03Eh]
@@ -2574,12 +2574,12 @@ PickReplayScreen:
         imul eax, dword [dword_16E468], dword 82h
         mov dword [byte ebp+03Eh], eax
         fild dword [byte ebp+03Eh]
-        fmul dword [dword_166AD4]
+        fmul dword [F32_0p005_PickReplayScreen]
         push byte 14h
         mov ecx, 64h
         mov dword [dword ebp-08C8h], 4
         mov edx, dword [dword ebp-08B2h]
-        fadd qword [qword_166ACC]
+        fadd qword [F64_0p5_PickReplayScreen]
         lea eax, [dword ebp-03CAh]
         call __CHP
         fistp dword [dword ebp-08AEh]
@@ -2596,13 +2596,13 @@ PickReplayScreen:
         imul eax, dword [dword_16E468], dword 82h
         mov dword [byte ebp+03Eh], eax
         fild dword [byte ebp+03Eh]
-        fmul dword [dword_166AD4]
+        fmul dword [F32_0p005_PickReplayScreen]
         push byte 14h
         mov ecx, 64h
         mov edx, 10Eh
         mov dword [dword ebp-0860h], 10Eh
         mov dword [dword ebp-0876h], 4
-        fadd qword [qword_166ACC]
+        fadd qword [F64_0p5_PickReplayScreen]
         lea eax, [dword ebp-038Ah]
         call __CHP
         fistp dword [dword ebp-085Ch]
@@ -2617,7 +2617,7 @@ PickReplayScreen:
         mov dword [dword ebp-0864h], eax
         mov dword [dword ebp-0868h], eax
         call SetScreenTarget
-        cmp dword [dword_16E46C], byte 8
+        cmp dword [MenuScreenBitmap], byte 8
         je short .4
         xor esi, esi
         jmp short .3
@@ -2648,8 +2648,8 @@ PickReplayScreen:
         imul eax, dword [dword_16E468], dword 9Bh
         mov dword [byte ebp+046h], eax
         fild dword [byte ebp+046h]
-        fmul dword [dword_166AD4]
-        fadd qword [qword_166ACC]
+        fmul dword [F32_0p005_PickReplayScreen]
+        fadd qword [F64_0p5_PickReplayScreen]
         call __CHP
         fistp dword [byte ebp+072h]
         cmp esi, dword [byte ebp+072h]
@@ -2664,15 +2664,15 @@ PickReplayScreen:
         mov dword [byte ebp+03Eh], eax
         imul eax, dword [dword_16E464], dword 140h
         fild dword [byte ebp+03Eh]
-        fmul dword [dword_166AD4]
+        fmul dword [F32_0p005_PickReplayScreen]
         mov dword [byte ebp+03Eh], eax
-        fadd qword [qword_166ACC]
+        fadd qword [F64_0p5_PickReplayScreen]
         fild dword [byte ebp+03Eh]
-        fmul dword [dword_166AC8]
+        fmul dword [F32_0p003125_PickReplayScreen]
         fxch
         call __CHP
         fistp dword [byte ebp+03Eh]
-        fadd qword [qword_166ACC]
+        fadd qword [F64_0p5_PickReplayScreen]
         push dword [byte ebp+03Eh]
         call __CHP
         fistp dword [byte ebp+03Eh]
@@ -2862,8 +2862,8 @@ PickReplayScreen:
         imul eax, dword [dword_16E464], dword 140h
         mov dword [byte ebp+03Eh], eax
         fild dword [byte ebp+03Eh]
-        fmul dword [dword_166AC8]
-        fadd qword [qword_166ACC]
+        fmul dword [F32_0p003125_PickReplayScreen]
+        fadd qword [F64_0p5_PickReplayScreen]
         call __CHP
         fistp dword [byte ebp+03Eh]
         mov eax, dword [byte ebp+03Eh]
@@ -2889,10 +2889,10 @@ PickReplayScreen:
         imul eax, dword [dword_16E464], dword 140h
         mov dword [byte ebp+03Eh], eax
         fild dword [byte ebp+03Eh]
-        fmul dword [dword_166AC8]
+        fmul dword [F32_0p003125_PickReplayScreen]
         push byte 28h
         mov ecx, 28h
-        fadd qword [qword_166ACC]
+        fadd qword [F64_0p5_PickReplayScreen]
         mov ebx, 0FAh
         call __CHP
         fistp dword [byte ebp+03Eh]
@@ -3342,9 +3342,9 @@ DrawReplayEntry:
         imul eax, dword [dword_16E464], dword 0C8h
         mov dword [byte ebp-0Ch], eax
         fild dword [byte ebp-0Ch]
-        fmul dword [dword_166B0B]
+        fmul dword [F32_0p003125_DrawReplayEntry]
         push byte 0
-        fadd qword [qword_166B0F]
+        fadd qword [F64_0p5_DrawReplayEntry]
         push dword 0B4h
         call __CHP
         fistp dword [byte ebp-0Ch]
@@ -3405,15 +3405,15 @@ DrawReplayEntry:
         mov dword [byte ebp-0Ch], eax
         imul eax, dword [dword_16E464], byte 46h
         fild dword [byte ebp-0Ch]
-        fmul dword [dword_166B17]
+        fmul dword [F32_0p005_DrawReplayEntry]
         mov dword [byte ebp-0Ch], eax
-        fadd qword [qword_166B0F]
+        fadd qword [F64_0p5_DrawReplayEntry]
         fild dword [byte ebp-0Ch]
-        fmul dword [dword_166B0B]
+        fmul dword [F32_0p003125_DrawReplayEntry]
         fxch
         call __CHP
         fistp dword [byte ebp-0Ch]
-        fadd qword [qword_166B0F]
+        fadd qword [F64_0p5_DrawReplayEntry]
         push dword [byte ebp-0Ch]
         call __CHP
         fistp dword [byte ebp-0Ch]
@@ -3616,8 +3616,8 @@ ReplayMenuScreen:
         imul eax, dword [dword_16E468], dword 9Bh
         mov dword [byte ebp-028h], eax
         fild dword [byte ebp-028h]
-        fmul dword [dword_166B32]
-        fadd qword [qword_166B2A]
+        fmul dword [F32_0p005_ReplayMenuScreen]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         call __CHP
         fistp dword [byte ebp-04h]
         jmp short .11
@@ -3633,8 +3633,8 @@ ReplayMenuScreen:
         imul eax, dword [dword_16E468], dword 0C8h
         mov dword [byte ebp-028h], eax
         fild dword [byte ebp-028h]
-        fmul dword [dword_166B32]
-        fadd qword [qword_166B2A]
+        fmul dword [F32_0p005_ReplayMenuScreen]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         mov eax, dword [byte ebp-04h]
         call __CHP
         fistp dword [byte ebp-028h]
@@ -3646,8 +3646,8 @@ ReplayMenuScreen:
         imul eax, dword [dword_16E464], dword 140h
         mov dword [byte ebp-028h], eax
         fild dword [byte ebp-028h]
-        fmul dword [dword_166B26]
-        fadd qword [qword_166B2A]
+        fmul dword [F32_0p003125_ReplayMenuScreen]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         call __CHP
         fistp dword [byte ebp-020h]
         cmp ebx, dword [byte ebp-020h]
@@ -3672,37 +3672,37 @@ ReplayMenuScreen:
         shl eax, 5
         mov dword [byte ebp-01Ch], eax
         fild dword [byte ebp-01Ch]
-        fmul dword [dword_166B26]
-        fadd qword [qword_166B2A]
+        fmul dword [F32_0p003125_ReplayMenuScreen]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         call __CHP
         fistp dword [byte ebp-018h]
         mov edx, dword [byte ebp-018h]
         imul edx, esi
         fild dword [byte ebp-028h]
-        fmul dword [dword_166B32]
+        fmul dword [F32_0p005_ReplayMenuScreen]
         fild dword [byte ebp-020h]
-        fmul dword [dword_166B26]
+        fmul dword [F32_0p003125_ReplayMenuScreen]
         fild dword [byte ebp-024h]
-        fmul dword [dword_166B32]
+        fmul dword [F32_0p005_ReplayMenuScreen]
         mov eax, dword [dword_16E464]
         add eax, eax
         mov dword [byte ebp-028h], eax
         fild dword [byte ebp-028h]
-        fmul dword [dword_166B26]
+        fmul dword [F32_0p003125_ReplayMenuScreen]
         fxch st3
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         push esi
         call __CHP
         fistp dword [byte ebp-028h]
         fxch
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         mov ecx, dword [byte ebp-028h]
         call __CHP
         fistp dword [byte ebp-018h]
         mov ebx, dword [byte ebp-018h]
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         fxch
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         fxch
         call __CHP
         fxch
@@ -3726,32 +3726,32 @@ ReplayMenuScreen:
         mov dword [byte ebp-028h], eax
         imul eax, dword [dword_16E468], dword 0ACh
         fild dword [byte ebp-024h]
-        fmul dword [dword_166B32]
+        fmul dword [F32_0p005_ReplayMenuScreen]
         fild dword [byte ebp-028h]
-        fmul dword [dword_166B26]
+        fmul dword [F32_0p003125_ReplayMenuScreen]
         mov dword [byte ebp-028h], eax
         fild dword [byte ebp-028h]
         mov eax, dword [dword_16E464]
-        fmul dword [dword_166B32]
+        fmul dword [F32_0p005_ReplayMenuScreen]
         add eax, eax
         mov dword [byte ebp-028h], eax
         fild dword [byte ebp-028h]
-        fmul dword [dword_166B26]
+        fmul dword [F32_0p003125_ReplayMenuScreen]
         fxch st3
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         push byte 5
         call __CHP
         fistp dword [byte ebp-028h]
         fxch
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         mov ecx, dword [byte ebp-028h]
         call __CHP
         fistp dword [byte ebp-028h]
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         mov ebx, dword [byte ebp-028h]
         call __CHP
         fistp dword [byte ebp-028h]
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         mov edx, dword [byte ebp-028h]
         call __CHP
         fistp dword [byte ebp-018h]
@@ -3763,32 +3763,32 @@ ReplayMenuScreen:
         mov dword [byte ebp-028h], eax
         imul eax, dword [dword_16E468], dword 0BBh
         fild dword [byte ebp-018h]
-        fmul dword [dword_166B32]
+        fmul dword [F32_0p005_ReplayMenuScreen]
         fild dword [byte ebp-028h]
-        fmul dword [dword_166B26]
+        fmul dword [F32_0p003125_ReplayMenuScreen]
         mov dword [byte ebp-028h], eax
         fild dword [byte ebp-028h]
         mov eax, dword [dword_16E464]
-        fmul dword [dword_166B32]
+        fmul dword [F32_0p005_ReplayMenuScreen]
         add eax, eax
         mov dword [byte ebp-028h], eax
         fild dword [byte ebp-028h]
-        fmul dword [dword_166B26]
+        fmul dword [F32_0p003125_ReplayMenuScreen]
         fxch st3
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         push byte 7
         call __CHP
         fistp dword [byte ebp-028h]
         fxch
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         mov ecx, dword [byte ebp-028h]
         call __CHP
         fistp dword [byte ebp-028h]
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         mov ebx, dword [byte ebp-028h]
         call __CHP
         fistp dword [byte ebp-024h]
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         mov edx, dword [byte ebp-024h]
         call __CHP
         fistp dword [byte ebp-024h]
@@ -3802,29 +3802,29 @@ ReplayMenuScreen:
         mov dword [byte ebp-028h], eax
         imul eax, dword [dword_16E464], byte 34h
         fild dword [byte ebp-020h]
-        fmul dword [dword_166B32]
+        fmul dword [F32_0p005_ReplayMenuScreen]
         fild dword [byte ebp-024h]
-        fmul dword [dword_166B26]
+        fmul dword [F32_0p003125_ReplayMenuScreen]
         fild dword [byte ebp-028h]
-        fmul dword [dword_166B32]
+        fmul dword [F32_0p005_ReplayMenuScreen]
         mov dword [byte ebp-028h], eax
         fild dword [byte ebp-028h]
-        fmul dword [dword_166B26]
+        fmul dword [F32_0p003125_ReplayMenuScreen]
         fxch st3
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         push byte 6
         call __CHP
         fistp dword [byte ebp-028h]
         fxch
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         mov ecx, dword [byte ebp-028h]
         call __CHP
         fistp dword [byte ebp-028h]
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         mov ebx, dword [byte ebp-028h]
         call __CHP
         fistp dword [byte ebp-028h]
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         mov edx, dword [byte ebp-028h]
         call __CHP
         fistp dword [byte ebp-028h]
@@ -3845,19 +3845,19 @@ ReplayMenuScreen:
         mov dword [byte ebp-028h], eax
         imul eax, dword [dword_16E464], byte 66h
         fild dword [byte ebp-014h]
-        fmul dword [dword_166B32]
+        fmul dword [F32_0p005_ReplayMenuScreen]
         fild dword [byte ebp-010h]
-        fmul dword [dword_166B32]
+        fmul dword [F32_0p005_ReplayMenuScreen]
         fild dword [byte ebp-028h]
-        fmul dword [dword_166B26]
+        fmul dword [F32_0p003125_ReplayMenuScreen]
         mov dword [byte ebp-024h], eax
         fild dword [byte ebp-024h]
-        fmul dword [dword_166B26]
+        fmul dword [F32_0p003125_ReplayMenuScreen]
         push byte 8
         fxch st3
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         fxch st2
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         fxch st2
         call __CHP
         fxch st2
@@ -3867,7 +3867,7 @@ ReplayMenuScreen:
         fxch
         fistp dword [byte ebp-01Ch]
         mov ecx, dword [byte ebp-024h]
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         mov edx, dword [byte ebp-01Ch]
         jmp short .15
 .14:
@@ -3875,19 +3875,19 @@ ReplayMenuScreen:
         mov dword [byte ebp-024h], eax
         imul eax, dword [dword_16E464], byte 34h
         fild dword [byte ebp-014h]
-        fmul dword [dword_166B32]
+        fmul dword [F32_0p005_ReplayMenuScreen]
         fild dword [byte ebp-010h]
-        fmul dword [dword_166B32]
+        fmul dword [F32_0p005_ReplayMenuScreen]
         fild dword [byte ebp-024h]
-        fmul dword [dword_166B26]
+        fmul dword [F32_0p003125_ReplayMenuScreen]
         mov dword [byte ebp-024h], eax
         fild dword [byte ebp-024h]
-        fmul dword [dword_166B26]
+        fmul dword [F32_0p003125_ReplayMenuScreen]
         push byte 8
         fxch st3
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         fxch st2
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         fxch st2
         call __CHP
         fxch st2
@@ -3897,12 +3897,12 @@ ReplayMenuScreen:
         fxch
         fistp dword [byte ebp-024h]
         mov ecx, dword [byte ebp-020h]
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         mov edx, dword [byte ebp-024h]
 .15:
         call __CHP
         fistp dword [byte ebp-024h]
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         mov ebx, dword [byte ebp-024h]
         call __CHP
         fistp dword [byte ebp-024h]
@@ -3917,29 +3917,29 @@ ReplayMenuScreen:
         mov dword [byte ebp-024h], eax
         imul eax, dword [dword_16E464], dword 0CAh
         fild dword [byte ebp-01Ch]
-        fmul dword [dword_166B32]
+        fmul dword [F32_0p005_ReplayMenuScreen]
         fild dword [byte ebp-020h]
-        fmul dword [dword_166B26]
+        fmul dword [F32_0p003125_ReplayMenuScreen]
         fild dword [byte ebp-024h]
-        fmul dword [dword_166B32]
+        fmul dword [F32_0p005_ReplayMenuScreen]
         mov dword [byte ebp-024h], eax
         fild dword [byte ebp-024h]
-        fmul dword [dword_166B26]
+        fmul dword [F32_0p003125_ReplayMenuScreen]
         fxch st3
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         push byte 9
         call __CHP
         fistp dword [byte ebp-024h]
         fxch
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         mov ecx, dword [byte ebp-024h]
         call __CHP
         fistp dword [byte ebp-028h]
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         mov ebx, dword [byte ebp-028h]
         call __CHP
         fistp dword [byte ebp-024h]
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         mov edx, dword [byte ebp-024h]
         call __CHP
         fistp dword [byte ebp-024h]
@@ -3952,8 +3952,8 @@ ReplayMenuScreen:
         imul eax, dword [dword_16E464], dword 0A0h
         mov dword [byte ebp-020h], eax
         fild dword [byte ebp-020h]
-        fmul dword [dword_166B26]
-        fadd qword [qword_166B2A]
+        fmul dword [F32_0p003125_ReplayMenuScreen]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         call __CHP
         fistp dword [byte ebp-018h]
         mov eax, dword [byte ebp-018h]
@@ -3977,28 +3977,28 @@ ReplayMenuScreen:
         mov edx, eax
         imul eax, dword [dword_16E464], dword 0A2h
         fild dword [byte ebp-024h]
-        fmul dword [dword_166B32]
+        fmul dword [F32_0p005_ReplayMenuScreen]
         fild dword [byte ebp-01Ch]
-        fmul dword [dword_166B26]
+        fmul dword [F32_0p003125_ReplayMenuScreen]
         fild dword [byte ebp-020h]
-        fmul dword [dword_166B32]
+        fmul dword [F32_0p005_ReplayMenuScreen]
         mov dword [byte ebp-020h], eax
         fild dword [byte ebp-020h]
-        fmul dword [dword_166B26]
+        fmul dword [F32_0p003125_ReplayMenuScreen]
         fxch st3
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         push edi
         call __CHP
         fistp dword [byte ebp-020h]
         fxch
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         mov ecx, dword [byte ebp-020h]
         call __CHP
         fistp dword [byte ebp-020h]
         sub ebx, dword [byte ebp-020h]
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         fxch
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         fxch
         call __CHP
         fxch
@@ -4027,7 +4027,7 @@ ReplayMenuScreen:
         fild dword [dword_16E464]
         fdivp
         mov edi, esi
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         shl edi, 2
         call __CHP
         fistp dword [byte ebp-020h]
@@ -4043,7 +4043,7 @@ ReplayMenuScreen:
         fild dword [byte ebp-020h]
         fild dword [dword_16E468]
         fdivp
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         call __CHP
         fistp dword [byte ebp-020h]
         mov eax, dword [byte ebp-020h]
@@ -4061,29 +4061,29 @@ ReplayMenuScreen:
         mov dword [byte ebp-018h], eax
         imul eax, dword [dword_16E464], byte 34h
         fild dword [byte ebp-020h]
-        fmul dword [dword_166B32]
+        fmul dword [F32_0p005_ReplayMenuScreen]
         fild dword [byte ebp-01Ch]
-        fmul dword [dword_166B26]
+        fmul dword [F32_0p003125_ReplayMenuScreen]
         fild dword [byte ebp-018h]
-        fmul dword [dword_166B32]
+        fmul dword [F32_0p005_ReplayMenuScreen]
         mov dword [byte ebp-018h], eax
         fild dword [byte ebp-018h]
-        fmul dword [dword_166B26]
+        fmul dword [F32_0p003125_ReplayMenuScreen]
         fxch st3
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         push byte 0Eh
         call __CHP
         fistp dword [byte ebp-018h]
         fxch
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         mov ecx, dword [byte ebp-018h]
         call __CHP
         fistp dword [byte ebp-018h]
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         mov ebx, dword [byte ebp-018h]
         call __CHP
         fistp dword [byte ebp-018h]
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         mov edx, dword [byte ebp-018h]
         call __CHP
         fistp dword [byte ebp-018h]
@@ -4101,9 +4101,9 @@ ReplayMenuScreen:
         imul edx, eax
         mov dword [byte ebp-018h], edx
         fild dword [byte ebp-018h]
-        fmul dword [dword_166B32]
+        fmul dword [F32_0p005_ReplayMenuScreen]
         add esp, byte 8
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         mov eax, dword [dword_16E468]
         call __CHP
         fistp dword [byte ebp-018h]
@@ -4121,19 +4121,19 @@ ReplayMenuScreen:
         imul eax, dword [dword_16E468], dword 9Bh
         mov dword [byte ebp-018h], edx
         fild dword [byte ebp-018h]
-        fmul dword [dword_166B26]
+        fmul dword [F32_0p003125_ReplayMenuScreen]
         mov dword [byte ebp-018h], eax
         fild dword [byte ebp-018h]
-        fmul dword [dword_166B32]
+        fmul dword [F32_0p005_ReplayMenuScreen]
         mov ecx, dword [dword_16E464]
         add esp, byte 8
         fxch
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         xor edx, edx
         call __CHP
         fistp dword [byte ebp-018h]
         sub ecx, dword [byte ebp-018h]
-        fadd qword [qword_166B2A]
+        fadd qword [F64_0p5_ReplayMenuScreen]
         mov eax, PlayReplayFromMenu
         call __CHP
         fistp dword [byte ebp-018h]

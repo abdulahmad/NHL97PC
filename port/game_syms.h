@@ -45,14 +45,14 @@
 #define SYM_mouseminy          0x16E608u   /* data/lib/input/input_mouse_data_01.asm */
 #define SYM_mousemaxx          0x16E60Cu   /* data/lib/input/input_mouse_data_01.asm */
 #define SYM_mousemaxy          0x16E610u   /* data/lib/input/input_mouse_data_01.asm */
-#define SYM_dword_171E34       0x171E34u   /* data/lib/watcom/watcom_clib_13_data_01.asm */
+#define SYM_RetraceTimeout     0x171E34u   /* data/lib/watcom/watcom_clib_13_data_01.asm */
 #define SYM__dynend            0x172570u   /* data/lib/ea/ea_memman_02_data_01.asm */
 #define SYM__curbrk            0x172574u   /* data/lib/ea/ea_memman_02_data_01.asm */
 #define SYM__LpCmdLine         0x172578u   /* data/lib/ea/ea_memman_02_data_01.asm */
 #define SYM__psp               0x172580u   /* data/lib/ea/ea_memman_02_data_01.asm */
 #define SYM__STACKLOW          0x172584u   /* data/lib/ea/ea_memman_02_data_01.asm */
 #define SYM__STACKTOP          0x172588u   /* data/lib/ea/ea_memman_02_data_01.asm */
-#define SYM_dword_17258C       0x17258Cu   /* data/lib/ea/ea_memman_02_data_01.asm */
+#define SYM_CMainEnv           0x17258Cu   /* data/lib/ea/ea_memman_02_data_01.asm */
 #define SYM___no87             0x1725A0u   /* data/lib/ea/ea_memman_02_data_01.asm */
 #define SYM__Extender          0x1725A2u   /* data/lib/ea/ea_memman_02_data_01.asm */
 #define SYM__ExtenderSubtype   0x1725A3u   /* data/lib/ea/ea_memman_02_data_01.asm */
@@ -64,8 +64,8 @@
 #define SYM____env_mask        0x199C44u   /* data/lib/watcom/watcom_clib_26_data_01.asm */
 #define SYM_seed               0x19CBC4u   /* data/engine/faceoff_data_03.asm */
 #define SYM_SortCords          0x19DA30u   /* data/engine/faceoff_2_bss_01.asm */
-#define SYM_dword_1AC810       0x1AC810u   /* data/engine/engine_3812E_bss_02.asm */
-#define SYM_unk_1ACB44         0x1ACB44u   /* data/engine/engine_3812E_bss_02.asm */
+#define SYM_GlobalSetData      0x1AC810u   /* data/engine/engine_3812E_bss_02.asm */
+#define SYM_GlobalSetVersion   0x1ACB44u   /* data/engine/engine_3812E_bss_02.asm */
 #define SYM_InputRecordRing    0x1CD1E0u   /* data/front/front_DA66D_bss_01.asm */
 #define SYM_HotKeyFlags        0x1CD24Cu   /* data/front/front_DA66D_bss_01.asm */
 

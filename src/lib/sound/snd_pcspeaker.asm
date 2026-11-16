@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_138C90 progbits alloc exec nowrite align=1
-extern _Extender, _STACKLOW, __DPMI_hosted_, dword_16E3F8, dword_16E464, dword_16E678, dword_16E67C, dword_16E680
-extern dword_16E684, dword_16E69C, dword_199C4C, dword_19C008, dword_1CF528, dword_1CF52C, RestoreDS, SetTextOrigin
+extern _Extender, _STACKLOW, __DPMI_hosted_, TimerTickStep, dword_16E464, ClipTopRow, ClipLeftCol, ClipRight
+extern ScreenHeight, DrawDestPitch, __amblksiz, DebugLineStart, TextOriginX, TextOriginY, RestoreDS, SetTextOrigin
 extern MeasureText, DrawTextRun, unk_116427, vsprintf_
 global __CommonInit_, CMainHook, DebugPrintf, DebugPrintAt, DebugPrintLine, DebugLineCount
 ;-----------------------------------------------------------------------------
@@ -26,7 +26,7 @@ __CommonInit_:
         xor eax, eax
         mov edx, 8000h
         mov al, byte [_Extender]
-        mov dword [dword_199C4C], edx
+        mov dword [__amblksiz], edx
         cmp eax, byte 2
         jl short .1
         cmp eax, byte 8
@@ -97,12 +97,12 @@ DebugPrintf:
         mov dword [byte esi+0Ch], ecx
         mov dword [byte esi+014h], ebx
         mov esi, dword [byte esi+02Ch]
-        cmp dword [dword_16E69C], esi
+        cmp dword [DrawDestPitch], esi
         jne short .5
-        mov dword [dword_16E678], eax
-        mov dword [dword_16E680], edx
-        mov dword [dword_16E67C], ecx
-        mov dword [dword_16E684], ebx
+        mov dword [ClipTopRow], eax
+        mov dword [ClipRight], edx
+        mov dword [ClipLeftCol], ecx
+        mov dword [ScreenHeight], ebx
 .5:
         pop esi
         pop ebx
@@ -131,17 +131,17 @@ DebugPrintf:
         mov edx, dword [dword esp+0110h]
         push edx
         push eax
-        mov ebx, dword [dword_1CF528]
-        mov esi, dword [dword_1CF52C]
+        mov ebx, dword [TextOriginX]
+        mov esi, dword [TextOriginY]
         call SetTextOrigin
         add esp, byte 8
         mov eax, esp
         push eax
         call DrawTextRun
         add esp, byte 4
-        mov dword [dword_1CF528], ebx
+        mov dword [TextOriginX], ebx
         xor ebx, ebx
-        mov dword [dword_1CF52C], esi
+        mov dword [TextOriginY], esi
         mov dword [dword esp+0100h], ebx
         add esp, 104h
         pop esi
@@ -169,16 +169,16 @@ DebugPrintAt:
         mov ecx, dword [byte esp+014h]
         push ecx
         push eax
-        mov ebx, dword [dword_1CF528]
-        mov esi, dword [dword_1CF52C]
+        mov ebx, dword [TextOriginX]
+        mov esi, dword [TextOriginY]
         call SetTextOrigin
         add esp, byte 8
         mov edi, dword [byte esp+010h]
         push edi
         call DrawTextRun
         add esp, byte 4
-        mov dword [dword_1CF528], ebx
-        mov dword [dword_1CF52C], esi
+        mov dword [TextOriginX], ebx
+        mov dword [TextOriginY], esi
         pop edi
         pop esi
         pop ebx
@@ -199,16 +199,16 @@ DebugPrintAt:
         mov ecx, dword [byte esp+014h]
         push ecx
         push eax
-        mov ebx, dword [dword_1CF528]
-        mov esi, dword [dword_1CF52C]
+        mov ebx, dword [TextOriginX]
+        mov esi, dword [TextOriginY]
         call SetTextOrigin
         add esp, byte 8
         mov edi, dword [byte esp+010h]
         push edi
         call DrawTextRun
         add esp, byte 4
-        mov dword [dword_1CF528], ebx
-        mov dword [dword_1CF52C], esi
+        mov dword [TextOriginX], ebx
+        mov dword [TextOriginY], esi
         pop edi
         pop esi
         pop ebx
@@ -232,19 +232,19 @@ DebugPrintLine:
         pop ebx
         ret
         db 00h
-        mov eax, dword [dword_16E3F8]
+        mov eax, dword [TimerTickStep]
         ret
         mov eax, dword [byte esp+04h]
-        add eax, dword [dword_16E3F8]
-        mov dword [dword_19C008], eax
+        add eax, dword [TimerTickStep]
+        mov dword [DebugLineStart], eax
         ret
 .1:
-        mov eax, dword [dword_16E3F8]
-        sub eax, dword [dword_19C008]
+        mov eax, dword [TimerTickStep]
+        sub eax, dword [DebugLineStart]
         js short .1
         ret
-        mov edx, dword [dword_16E3F8]
-        sub edx, dword [dword_19C008]
+        mov edx, dword [TimerTickStep]
+        sub edx, dword [DebugLineStart]
         LD sbb, eax, eax
         inc eax
         ret
@@ -256,11 +256,11 @@ DebugLineCount:
         push ebp
         LD mov, ebp, esp
         add esp, byte 0FFFFFFFCh
-        mov eax, dword [dword_16E3F8]
+        mov eax, dword [TimerTickStep]
         add eax, dword [byte ebp+08h]
         mov dword [byte ebp-04h], eax
 .1:
-        mov eax, dword [dword_16E3F8]
+        mov eax, dword [TimerTickStep]
         sub eax, dword [byte ebp-04h]
         js short .1
         leave

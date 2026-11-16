@@ -2,12 +2,12 @@
 bits 32
 %include "hockey.inc"
 section s_102F40 progbits alloc exec nowrite align=1
-extern SaveTextMode, str_VESAMEM, str_Rowtbl, byte_16E6C0, byte_16E6C1, byte_1DA8CF, dword_16E444, dword_16E464
-extern dword_16E468, dword_16E46C, dword_16E47C, dword_16E480, dword_16E484, dword_16E488, dword_16E4B8, dword_16E4BC
-extern dword_16E4C8, dword_16E670, dword_16E6A8, dword_16E6AC, dword_16E6B0, dword_16E6B4, dword_16E6B8, dword_16E6BC
-extern dword_16E6CC, dword_16E6D0, dword_16E6D4, dword_16E6D8, dword_16E714, dword_16F894, dword_16F898, dword_16F8A8
-extern dword_16F8AC, dword_16F8B0, dword_16F8B4, dword_16F8B8, dword_16F9FC, dword_16FA00, dword_16FA04, dword_16FA08
-extern dword_172AAC, dword_1CF9F4, dword_1CF9F8, dword_1DA4D0, int386_, int386x_, memset_, removewindow
+extern SaveTextMode, str_VESAMEM, str_Rowtbl, ModeBitsPerPixel, str_Punct_SetGraphicsMode, PaletteDirty, GraphicsModeSet, dword_16E464
+extern dword_16E468, MenuScreenBitmap, ScreenModeWidth, ScreenModeHeight, DefaultModeWidth, DefaultModeHeight, ModeSetCount, FrameCounter
+extern MessageBoxActive, ScreenWidth, BackBufferWidth, ModeHeight, ModeFrameBuffer, ModeBankSize, ModeWidth, BackBufferHeight
+extern VideoModeNumber, VideoWindowHandle, ModePitch, ModeLinear, VideoWindowTable, VesaBank, VesaBankFunc, VideoModeIndex
+extern ModeTableWidth, ModeTableHeight, ModeTableBpp, ModeTableNumber, VesaModeInfo, VesaWindowActive, RowTableBytes, RowTable
+extern VideoModeHook, CurrentDrawContext, RowTableSize, PaletteWords, int386_, int386x_, memset_, removewindow
 extern segread_, VesaSetBank, VesaSetModeCall, VgaSetModeNoClear, FillRowTable, BytesPerPixelForDepth, SetScreenTarget, AllocMemBlock
 extern FreeMemBlock, FreeBitmap
 global VesaGetModeInfo, VesaQueryMode, FindClosestMode, VesaSetMode, VesaSetWindow, CloseVideoWindow, SetGraphicsMode, WritePaletteRegs
@@ -32,7 +32,7 @@ VesaGetModeInfo:
         xor ebp, ebp
         call AllocMemBlock
         add esp, byte 0Ch
-        mov dword [dword_16F9FC], eax
+        mov dword [VesaModeInfo], eax
         mov ecx, eax
         xor edx, edx
         mov eax, esp
@@ -62,7 +62,7 @@ VesaGetModeInfo:
         mov eax, 31h
         call int386x_
         mov ecx, 100h
-        mov esi, dword [dword_16F9FC]
+        mov esi, dword [VesaModeInfo]
         push edi
         mov eax, ecx
         shr ecx, 2
@@ -77,7 +77,7 @@ VesaGetModeInfo:
         jne short .1
         mov ebp, 1
 .1:
-        mov ecx, dword [dword_16F9FC]
+        mov ecx, dword [VesaModeInfo]
         push ecx
         call FreeMemBlock
         add esp, byte 4
@@ -140,7 +140,7 @@ FindClosestMode:
         mov ebp, eax
         shl ebp, 4
         mov eax, edx
-        mov ebp, dword [dword ebp+dword_16F8AC]
+        mov ebp, dword [dword ebp+ModeTableWidth]
         sub eax, ebp
         cdq
         xor eax, edx
@@ -157,7 +157,7 @@ FindClosestMode:
         mov edi, esi
         shl edi, 4
         mov eax, ebx
-        mov edi, dword [dword edi+dword_16F8B0]
+        mov edi, dword [dword edi+ModeTableHeight]
         sub eax, edi
         mov ebp, edx
         cdq
@@ -175,7 +175,7 @@ FindClosestMode:
         mov edi, esi
         shl edi, 4
         mov eax, ecx
-        mov edi, dword [dword edi+dword_16F8B4]
+        mov edi, dword [dword edi+ModeTableBpp]
         sub eax, edi
         mov dword [esp], edx
         cdq
@@ -191,7 +191,7 @@ FindClosestMode:
         lea eax, [nosplit ebx*2+00h]
 .3:
         shl esi, 4
-        mov ebx, dword [dword esi+dword_16F8B4]
+        mov ebx, dword [dword esi+ModeTableBpp]
         mov edx, eax
         cmp ebx, byte 8
         jg short .4
@@ -220,7 +220,7 @@ VesaSetMode:
         push esi
         sub esp, 100h
         shl eax, 4
-        mov esi, dword [dword eax+dword_16F8B8]
+        mov esi, dword [dword eax+ModeTableNumber]
         cmp esi, 100h
         jge short .1
         push byte 13h
@@ -235,7 +235,7 @@ VesaSetMode:
         mov ebx, eax
         test eax, eax
         je short .3
-        mov edx, dword [dword_16F8A8]
+        mov edx, dword [VideoModeIndex]
         xor ebx, eax
         test edx, edx
         je short .2
@@ -274,7 +274,7 @@ VesaSetMode:
 VesaSetWindow:
         push ebx
         sub esp, byte 1Ch
-        cmp dword [dword_16FA00], byte 0
+        cmp dword [VesaWindowActive], byte 0
         jne short .2
         mov ebx, 800h
         mov word [byte esp+08h], ax
@@ -303,9 +303,9 @@ VesaSetWindow:
         mov dx, word [byte esp+08h]
         shl eax, 10h
         add eax, edx
-        mov dword [dword_16FA00], eax
+        mov dword [VesaWindowActive], eax
 .2:
-        mov eax, dword [dword_16FA00]
+        mov eax, dword [VesaWindowActive]
         add esp, byte 1Ch
         pop ebx
         ret
@@ -320,7 +320,7 @@ CloseVideoWindow:
         push edi
         mov ecx, dword [byte esp+010h]
         mov esi, dword [byte esp+014h]
-        mov edx, dword [dword_16E6D0]
+        mov edx, dword [VideoWindowHandle]
         mov ebx, dword [byte ecx+04h]
         test edx, edx
         je short .1
@@ -331,7 +331,7 @@ CloseVideoWindow:
         xor edi, edi
         xor eax, eax
         mov dword [byte ecx+020h], esi
-        mov dword [dword_16E6D0], edi
+        mov dword [VideoWindowHandle], edi
         call FillRowTable
         mov ebx, 10000h
         mov dword [byte ecx+028h], eax
@@ -343,7 +343,7 @@ CloseVideoWindow:
         idiv esi
         add ecx, byte 4
         add ebx, 10000h
-        mov dword [dword ecx+dword_16E714], eax
+        mov dword [dword ecx+VideoWindowTable], eax
         cmp ecx, 140h
         jne short .2
         pop edi
@@ -362,7 +362,7 @@ SetGraphicsMode:
         push edi
         push ebp
         sub esp, 15Ch
-        mov edx, dword [dword_172AAC]
+        mov edx, dword [VideoModeHook]
         xor edi, edi
         test edx, edx
         je short .1
@@ -372,23 +372,23 @@ SetGraphicsMode:
         push ecx
         mov edi, dword [dword esp+0178h]
         push edi
-        call dword [dword_172AAC]
+        call dword [VideoModeHook]
         add esp, byte 0Ch
         mov edi, eax
         test eax, eax
         jne near .26
 .1:
-        cmp dword [dword_16E444], byte 0
+        cmp dword [GraphicsModeSet], byte 0
         jne short .2
         call SaveTextMode
         call AllocRowTable
 .2:
-        mov eax, dword [dword_16E6D0]
+        mov eax, dword [VideoWindowHandle]
         test eax, eax
         je short .3
         call removewindow
 .3:
-        mov edx, dword [dword_16E6D8]
+        mov edx, dword [ModeLinear]
         test edx, edx
         je short .4
         mov eax, edx
@@ -396,8 +396,8 @@ SetGraphicsMode:
 .4:
         xor ebx, ebx
         mov ebp, dword [dword esp+0170h]
-        mov dword [dword_16E6D8], ebx
-        mov dword [dword_16E6D0], ebx
+        mov dword [ModeLinear], ebx
+        mov dword [VideoWindowHandle], ebx
         test ebp, ebp
         jne short .5
         mov dword [dword esp+0170h], 280h
@@ -450,11 +450,11 @@ SetGraphicsMode:
         mov ebx, esi
         shl ebx, 4
         mov edx, esp
-        mov eax, dword [dword ebx+dword_16F8B8]
+        mov eax, dword [dword ebx+ModeTableNumber]
         call VesaGetModeInfo
         mov ecx, dword [byte esp+0Eh]
         mov edi, eax
-        mov edx, dword [dword ebx+dword_16F8B0]
+        mov edx, dword [dword ebx+ModeTableHeight]
         sar ecx, 10h
         test eax, eax
         je short .13
@@ -471,7 +471,7 @@ SetGraphicsMode:
 .13:
         test edi, edi
         jne short .9
-        mov dword [dword_16F8A8], ebp
+        mov dword [VideoModeIndex], ebp
         jmp near .9
 .14:
         test eax, eax
@@ -482,18 +482,18 @@ SetGraphicsMode:
         mov ecx, esi
         shl ecx, 4
         xor ebp, ebp
-        mov ebx, dword [dword ecx+dword_16F8AC]
-        mov ecx, dword [dword ecx+dword_16F8B0]
+        mov ebx, dword [dword ecx+ModeTableWidth]
+        mov ecx, dword [dword ecx+ModeTableHeight]
         cmp edi, byte 2
         jne short .16
         mov ebp, 1
 .16:
-        mov dword [dword_16E444], 1
+        mov dword [GraphicsModeSet], 1
         mov eax, esi
         mov edi, 8
         shl eax, 4
         mov dword [dword esp+0178h], edi
-        mov eax, dword [dword eax+dword_16F8B8]
+        mov eax, dword [dword eax+ModeTableNumber]
         mov edi, ebx
         cmp eax, 100h
         jl near .20
@@ -505,27 +505,27 @@ SetGraphicsMode:
         mov dword [dword esp+0178h], eax
         xor eax, eax
         mov edx, 8
-        mov dword [dword_16F898], eax
+        mov dword [VesaBankFunc], eax
         mov eax, dword [byte esp+02h]
         sar edi, 10h
         sar eax, 10h
-        mov dword [dword_16E444], edx
+        mov dword [GraphicsModeSet], edx
         test eax, eax
         je short .18
 .17:
         cmp eax, byte 40h
         jge short .18
-        mov edx, dword [dword_16F898]
+        mov edx, dword [VesaBankFunc]
         inc edx
         add eax, eax
-        mov dword [dword_16F898], edx
+        mov dword [VesaBankFunc], edx
         jmp short .17
 .18:
         xor eax, eax
-        mov dword [dword_16F894], eax
+        mov dword [VesaBank], eax
         test byte [byte esp+03h], 1
         je short .19
-        mov dword [dword_16F894], 1
+        mov dword [VesaBank], 1
 .19:
         mov eax, 0FFFFFFFFh
         call VesaSetBank
@@ -533,7 +533,7 @@ SetGraphicsMode:
         cmp dword [dword esp+0178h], byte 0
         jne short .21
         shl esi, 4
-        mov eax, dword [dword esi+dword_16F8B4]
+        mov eax, dword [dword esi+ModeTableBpp]
         mov dword [dword esp+0178h], eax
 .21:
         mov esi, dword [dword esp+0178h]
@@ -553,54 +553,54 @@ SetGraphicsMode:
         mov eax, dword [dword esp+0178h]
         mov dword [dword_16E464], ebx
         mov edx, ebx
-        mov dword [dword_16E46C], eax
-        mov eax, dword [dword_16E47C]
+        mov dword [MenuScreenBitmap], eax
+        mov eax, dword [ScreenModeWidth]
         mov dword [dword_16E468], ecx
         sub edx, eax
-        mov eax, dword [dword_16E480]
-        mov dword [dword_16E484], edx
+        mov eax, dword [ScreenModeHeight]
+        mov dword [DefaultModeWidth], edx
         mov edx, ecx
-        mov dword [dword_16E6A8], ebx
+        mov dword [BackBufferWidth], ebx
         sub edx, eax
-        mov dword [dword_16E6AC], ecx
-        mov dword [dword_16E488], edx
+        mov dword [ModeHeight], ecx
+        mov dword [DefaultModeHeight], edx
         xor edx, edx
-        mov dword [dword_16E6B8], ebx
-        mov dword [dword_16E6B0], edx
-        mov dword [dword_16E6B4], edx
+        mov dword [ModeWidth], ebx
+        mov dword [ModeFrameBuffer], edx
+        mov dword [ModeBankSize], edx
         mov edx, dword [dword esp+0178h]
         mov al, byte [dword esp+0178h]
         push edx
-        mov dword [dword_16E6BC], ecx
-        mov byte [byte_16E6C0], al
+        mov dword [BackBufferHeight], ecx
+        mov byte [ModeBitsPerPixel], al
         call BytesPerPixelForDepth
         add esp, byte 4
         mov edx, esi
-        mov byte [byte_16E6C1], al
+        mov byte [str_Punct_SetGraphicsMode], al
         sar edx, 3
         xor eax, eax
         call FillRowTable
-        mov dword [dword_16E6D8], eax
+        mov dword [ModeLinear], eax
         test ebp, ebp
         je short .23
         mov eax, dword [dword esp+0158h]
         xor esi, esi
-        mov dword [dword_16E6D4], eax
-        mov dword [dword_16E6CC], esi
+        mov dword [ModePitch], eax
+        mov dword [VideoModeNumber], esi
         jmp short .24
 .23:
         mov ebx, 0A0000h
-        mov ecx, dword [dword_16E444]
-        mov dword [dword_16E6D4], ebx
+        mov ecx, dword [GraphicsModeSet]
+        mov dword [ModePitch], ebx
         cmp ecx, byte 1
         setne al
         and eax, 0FFh
-        mov dword [dword_16E6CC], eax
+        mov dword [VideoModeNumber], eax
 .24:
         push edi
-        push dword_16E6A8
+        push BackBufferWidth
         call CloseVideoWindow
-        mov edi, dword [dword_16E4B8]
+        mov edi, dword [ModeSetCount]
         add esp, byte 8
         test edi, edi
         je short .25
@@ -608,10 +608,10 @@ SetGraphicsMode:
         call FreeBitmap
         xor eax, eax
         add esp, byte 4
-        mov dword [dword_16E4B8], eax
+        mov dword [ModeSetCount], eax
 .25:
         call SetScreenTarget
-        mov dword [dword_1CF9F4], dword_16E670
+        mov dword [CurrentDrawContext], ScreenWidth
 .26:
         add esp, 15Ch
         pop ebp
@@ -629,14 +629,14 @@ WritePaletteRegs:
         push esi
         push edi
         push ebp
-        inc dword [dword_16E4BC]
-        cmp dword [dword_16E46C], byte 8
+        inc dword [FrameCounter]
+        cmp dword [MenuScreenBitmap], byte 8
         jg short .2
         mov ebp, dword [byte esp+01Ch]
         mov edx, 3C8h
         mov eax, dword [byte esp+014h]
         out dx, al
-        lea edi, [nosplit eax*4+dword_1DA4D0]
+        lea edi, [nosplit eax*4+PaletteWords]
         mov ebx, dword [byte esp+018h]
         inc edx
         push edx
@@ -656,7 +656,7 @@ WritePaletteRegs:
         lea ebp, [byte ebp+03h]
         lea edi, [byte edi+04h]
         jne short .1
-        mov byte [byte_1DA8CF], 0
+        mov byte [PaletteDirty], 0
         pop edx
         pop ebp
         pop edi
@@ -666,7 +666,7 @@ WritePaletteRegs:
 .2:
         mov ebp, dword [byte esp+01Ch]
         mov eax, dword [byte esp+014h]
-        lea edi, [nosplit eax*4+dword_1DA4D0]
+        lea edi, [nosplit eax*4+PaletteWords]
         mov ebx, dword [byte esp+018h]
 .3:
         mov eax, dword [byte ebp-01h]
@@ -677,7 +677,7 @@ WritePaletteRegs:
         lea ebp, [byte ebp+03h]
         lea edi, [byte edi+04h]
         jne short .3
-        mov byte [byte_1DA8CF], 0
+        mov byte [PaletteDirty], 0
         pop ebp
         pop edi
         pop esi
@@ -692,26 +692,26 @@ AllocRowTable:
         push ebx
         push ecx
         push edx
-        cmp dword [dword_16FA08], byte 0
+        cmp dword [RowTable], byte 0
         jne short .1
-        mov ebx, dword [dword_16E4C8]
-        mov eax, dword [dword_16FA04]
+        mov ebx, dword [MessageBoxActive]
+        mov eax, dword [RowTableBytes]
         push ebx
         shl eax, 2
         push eax
         push str_Rowtbl
         call AllocMemBlock
         add esp, byte 0Ch
-        mov dword [dword_16FA08], eax
+        mov dword [RowTable], eax
 .1:
-        mov edx, dword [dword_16FA04]
-        mov eax, dword [dword_16FA08]
+        mov edx, dword [RowTableBytes]
+        mov eax, dword [RowTable]
         shl edx, 2
         lea ebx, [eax+edx]
-        mov edx, dword [dword_16FA04]
+        mov edx, dword [RowTableBytes]
         mov dword [byte eax+04h], 0
         sub edx, byte 2
-        mov dword [dword_1CF9F8], ebx
+        mov dword [RowTableSize], ebx
         mov dword [eax], edx
         pop edx
         pop ecx
@@ -725,7 +725,7 @@ AllocRowTable:
 FreeRowTable:
         push ecx
         push edx
-        mov edx, dword [dword_16FA08]
+        mov edx, dword [RowTable]
         test edx, edx
         je short .1
         push edx
@@ -733,7 +733,7 @@ FreeRowTable:
         add esp, byte 4
 .1:
         xor ecx, ecx
-        mov dword [dword_16FA08], ecx
+        mov dword [RowTable], ecx
         pop edx
         pop ecx
         ret

@@ -2,20 +2,20 @@
 bits 32
 %include "hockey.inc"
 section s_107A2C progbits alloc exec nowrite align=1
-extern ParseBlasterEnv, ResetGameVars, str_VoxPlaybuf, byte_170044, byte_170045, byte_170046, byte_170047, byte_170048
-extern byte_1700A0, byte_1700A1, byte_1700A4, byte_1700A5, byte_1700A6, byte_1700A7, byte_1700A8, byte_172BC5
-extern byte_1DCF01, byte_1DCF45, byte_1DD381, dword_170042, dword_170043, dword_170050, dword_170054, dword_170058
-extern dword_170060, dword_170080, dword_170084, dword_170088, dword_17008C, dword_170090, dword_170094, dword_170098
-extern dword_17009C, dword_1700A9, dword_1700AD, dword_1700FD, dword_170101, dword_172AB8, dword_172AC0, dword_172BC8
-extern dword_172BCC, dword_172BD0, dword_172BD4, dword_172BD8, dword_1CFC70, dword_1DC994, dword_1DC998, dword_1DC99C
-extern dword_1DC9A0, dword_1DC9A4, dword_1DC9A8, dword_1DC9AC, dword_1DC9B0, dword_1DC9B4, dword_1DC9B8, dword_1DCAD0
-extern dword_1DCAD4, dword_1DCAD8, dword_1DCADC, dword_1DCAE0, dword_1DCAE4, dword_1DCAE8, dword_1DCAEC, dword_1DCAF0
-extern dword_1DCEC0, dword_1DCEC4, dword_1DCF38, dword_1DCF62, dword_1DD378, dword_1DD37C, int386_, ClearSpeechQueue
+extern ParseBlasterEnv, ResetGameVars, str_VoxPlaybuf, MixerMode, MixerSpeechVolume, MixerChannelCount, MixerMasterVolume, MixerSfxVolume
+extern StreamClosing, StreamFeeding, StreamStarted, StreamFlags, StreamStereo, StreamPaused, StreamOpen, SoundSystemOn
+extern SpeechPatchBits, ChannelActiveFlags, DigitalAudioVolume, MixerMasterLeft, MixerMasterRight, MixerVolLeft, MixerVolRight, MixerVolScale
+extern MixerChannelVolumes, StreamChannel, StreamPosition, StreamBuffer, StreamBufSize, StreamReadPos, StreamWritePos, StreamFill
+extern StreamPackets, StreamCallbackPos, StreamPacketQueue, StreamPacketCount, StreamPacketSlots, SpeechChannelFunc, SoundBankTable, SpeechQueueVolume
+extern AudioWorkHook, AudioStreamHook, AudioSpeechHook, StreamLengthFn, MixerVolumeTable, SpeechChannelA, SpeechChannelB, SpeechRingBusy
+extern SpeechRingHead, SpeechRingTail, SpeechSampleBufA, SpeechSampleBufB, SpeechRingUsed, SpeechRingBytes, SpeechRingEntries, SpeechStreamOpen
+extern SpeechStreamHeader, SpeechStreamBuffer, SpeechStreamSize, SpeechStreamChannel, SpeechStreamData, SpeechStreamActive, SpeechStreamHandle, SpeechStreamPos
+extern SpeechEnabled, SpeechBufferTag, ChannelSampleTable, ChannelHandleTable, DigitalAudioHandle, DigitalAudioRate, int386_, ClearSpeechQueue
 extern UnregisterSoundBank, CheckBankIndex, DetectAudioDriver, OpenAudioDriver, CloseAudioDriver, ApplyChannelVolume, FadeOutChannel, InitStreamHeader
 extern ClearSpeechBankTable, SpeechBufferSize, RegisterStreamBank, AddStreamSample, SetChannelVolumeChecked, LoadSampleHeader, PlaySoundEntry, ProbeDspReset
 extern AudioEnter, AudioLeaveCheck, SbDetectDsp, StopAllSoundChannels, StartChannel, MixNoise, RampChannelVolume, IsChannelActive
 extern ResetSpeechStreamState, SpeechStreamFlag, ServiceSpeechIfOpen, PlayBankSample, RequestStreamRead, CdStreamService, CdStreamNextPacket, CdStreamFreePacket
-extern AllocMemBlock, FreeMemBlock, unk_1072E0, word_17004A, word_17004C, word_17004E, word_17005C, word_17005E
+extern AllocMemBlock, FreeMemBlock, unk_1072E0, MixerRampStep, MixerRampTarget, MixerBlockSize, MixerRampLevel, MixerRampCount
 global jpt_108240, MixChannelFormat_20, MixChannelFormat_FC, MixChannelFormat_1C0, MixChannelFormat_27B, strstr_, DetectSoundCard, ProbeSoundPorts
 global OpenDigitalAudio, CloseDigitalAudio, SetAudioDmaChannel, StartDigitalAudio, DetectWindows, InitSoundMixer, SetMixerVolumes, SetMasterVolume
 global SetChannelVolume, SetSpeechVolume, StopAllChannels, ResetSoundChannels, MixAudioBlock, MixChannelFormat, MixVolumeRamp, SetMusicStreamVolume
@@ -123,7 +123,7 @@ OpenDigitalAudio:
         push edi
         mov ecx, eax
         mov ebx, edx
-        cmp byte [byte_172BC5], 0
+        cmp byte [SoundSystemOn], 0
         je short .1
         xor eax, eax
         pop edi
@@ -136,22 +136,22 @@ OpenDigitalAudio:
 .2:
         add eax, byte 44h
         xor dl, dl
-        mov byte [dword eax+byte_1DCF01], dl
+        mov byte [dword eax+SpeechPatchBits], dl
         cmp eax, 440h
         jne short .2
         mov eax, ecx
         xor edx, edx
         xor esi, esi
         xor edi, edi
-        mov dword [dword_1DD378], edx
-        mov dword [dword_1DD37C], edx
-        mov dword [dword_172BC8], edi
-        mov dword [dword_172BCC], esi
+        mov dword [DigitalAudioHandle], edx
+        mov dword [DigitalAudioRate], edx
+        mov dword [SpeechQueueVolume], edi
+        mov dword [AudioWorkHook], esi
         mov dh, 7Fh
-        mov dword [dword_172BD4], esi
-        mov byte [byte_1DD381], dh
+        mov dword [AudioSpeechHook], esi
+        mov byte [DigitalAudioVolume], dh
         mov edx, ebx
-        mov dword [dword_172BD0], esi
+        mov dword [AudioStreamHook], esi
         call SetAudioDmaChannel
         mov edx, ebx
         call OpenAudioDriver
@@ -168,7 +168,7 @@ OpenDigitalAudio:
 .3:
         mov bl, 1
         xor eax, eax
-        mov byte [byte_172BC5], bl
+        mov byte [SoundSystemOn], bl
         pop edi
         pop esi
         pop ecx
@@ -182,7 +182,7 @@ OpenDigitalAudio:
 CloseDigitalAudio:
         push ebx
         push edx
-        cmp byte [byte_172BC5], 0
+        cmp byte [SoundSystemOn], 0
         jne short .1
         mov eax, 0FFFFFFF6h
         pop edx
@@ -197,7 +197,7 @@ CloseDigitalAudio:
         test eax, eax
         jl short .2
         xor bl, bl
-        mov byte [byte_172BC5], bl
+        mov byte [SoundSystemOn], bl
 .2:
         mov eax, edx
         pop edx
@@ -209,13 +209,13 @@ CloseDigitalAudio:
 .3:
         add eax, byte 44h
         xor dl, dl
-        mov byte [dword eax+byte_1DCF01], dl
+        mov byte [dword eax+SpeechPatchBits], dl
         cmp eax, 440h
         jne short .3
         xor edx, edx
-        mov dword [dword_1DD378], edx
-        mov dword [dword_1DD37C], edx
-        mov byte [byte_1DD381], 7Fh
+        mov dword [DigitalAudioHandle], edx
+        mov dword [DigitalAudioRate], edx
+        mov byte [DigitalAudioVolume], 7Fh
         pop edx
         ret
 ;-----------------------------------------------------------------------------
@@ -346,7 +346,7 @@ StartDigitalAudio:
         push ecx
         push edx
         mov edx, eax
-        cmp byte [byte_172BC5], 0
+        cmp byte [SoundSystemOn], 0
         jne short .1
         mov eax, 0FFFFFFF6h
         pop edx
@@ -366,17 +366,17 @@ StartDigitalAudio:
         ret
 .3:
         call AudioEnter
-        mov byte [byte_1DD381], dl
+        mov byte [DigitalAudioVolume], dl
         xor ebx, ebx
         xor ecx, ecx
 .4:
-        cmp byte [dword ecx+byte_1DCF45], 1
+        cmp byte [dword ecx+ChannelActiveFlags], 1
         jne short .5
-        cmp dword [dword ecx+dword_1DCF38], byte 0
+        cmp dword [dword ecx+ChannelSampleTable], byte 0
         jl short .5
         mov eax, ebx
         call StartChannel
-        mov edx, dword [dword ecx+dword_1DCF62]
+        mov edx, dword [dword ecx+ChannelHandleTable]
         mov eax, ebx
         sar edx, 18h
         call ApplyChannelVolume
@@ -432,17 +432,17 @@ InitSoundMixer:
         push esi
         push edi
         push ebp
-        mov esi, dword [dword_1CFC70]
+        mov esi, dword [MixerVolumeTable]
         mov ebx, edx
-        cmp byte [byte_172BC5], 0
+        cmp byte [SoundSystemOn], 0
         jne short .1
         mov eax, 0FFFFFFF6h
         jmp near .7
 .1:
-        cmp dword [dword_172BCC], byte 0
+        cmp dword [AudioWorkHook], byte 0
         je short .2
         mov eax, 0FFFFFFFFh
-        mov dword [dword_1CFC70], esi
+        mov dword [MixerVolumeTable], esi
         pop ebp
         pop edi
         pop esi
@@ -455,7 +455,7 @@ InitSoundMixer:
         cmp ecx, 6C445243h
         je short .3
         mov eax, 0FFFFFFF9h
-        mov dword [dword_1CFC70], esi
+        mov dword [MixerVolumeTable], esi
         pop ebp
         pop edi
         pop esi
@@ -466,7 +466,7 @@ InitSoundMixer:
         cmp byte [byte ebx+04h], 2
         je short .4
         mov eax, 0FFFFFFF5h
-        mov dword [dword_1CFC70], esi
+        mov dword [MixerVolumeTable], esi
         pop ebp
         pop edi
         pop esi
@@ -478,15 +478,15 @@ InitSoundMixer:
         mov dl, byte [byte ebx+07h]
         mov ecx, 64h
         shl edx, 9
-        mov byte [byte_170046], al
+        mov byte [MixerChannelCount], al
         mov eax, edx
         sar edx, 1Fh
         idiv ecx
         mov edx, 200h
-        mov word [word_17004A], ax
+        mov word [MixerRampStep], ax
         sub edx, eax
         mov cl, byte [byte ebx+05h]
-        mov word [word_17004C], dx
+        mov word [MixerRampTarget], dx
         test cl, cl
         jne short .6
         mov ebx, esi
@@ -509,11 +509,11 @@ InitSoundMixer:
 .6:
         mov ch, 1
         mov eax, MixAudioBlock
-        mov byte [byte_170044], ch
-        mov dword [dword_172BCC], eax
+        mov byte [MixerMode], ch
+        mov dword [AudioWorkHook], eax
         xor eax, eax
 .7:
-        mov dword [dword_1CFC70], esi
+        mov dword [MixerVolumeTable], esi
         pop ebp
         pop edi
         pop esi
@@ -532,12 +532,12 @@ SetMixerVolumes:
         push esi
         push edi
         mov edx, eax
-        cmp byte [byte_172BC5], 0
+        cmp byte [SoundSystemOn], 0
         jne short .1
         mov eax, 0FFFFFFF6h
         jmp near .7
 .1:
-        mov bl, byte [byte_170044]
+        mov bl, byte [MixerMode]
         cmp bl, 1
         je short .2
         mov eax, 0FFFFFFFFh
@@ -549,46 +549,46 @@ SetMixerVolumes:
         ret
 .2:
         call AudioEnter
-        mov byte [byte_170048], bl
+        mov byte [MixerSfxVolume], bl
         xor ebx, ebx
-        mov dword [dword_170050], ebx
-        mov dword [dword_170058], ebx
-        mov dword [dword_170054], ebx
+        mov dword [MixerVolLeft], ebx
+        mov dword [MixerVolScale], ebx
+        mov dword [MixerVolRight], ebx
         xor ebx, ebx
         mov eax, edx
-        mov word [word_17004E], bx
+        mov word [MixerBlockSize], bx
         test edx, edx
         jl short .3
         cmp edx, byte 7Fh
         jg short .3
-        mov byte [byte_170045], al
+        mov byte [MixerSpeechVolume], al
 .3:
         mov edi, 0FFFFFFFFh
         xor ecx, ecx
         xor esi, esi
 .4:
-        mov eax, dword [dword_1CFC70]
+        mov eax, dword [MixerVolumeTable]
         add eax, ecx
         cmp byte [byte eax+020h], 0
         jl short .5
         mov edx, dword [byte eax+01Dh]
         xor ebx, ebx
-        mov eax, dword [dword_170043]
+        mov eax, dword [MixerMasterRight]
         sar edx, 18h
         sar eax, 18h
         call PlaySample
-        mov dword [dword esi+dword_170060], eax
+        mov dword [dword esi+MixerChannelVolumes], eax
         jmp short .6
 .5:
-        mov dword [dword esi+dword_170060], edi
+        mov dword [dword esi+MixerChannelVolumes], edi
 .6:
         inc ecx
         add esi, byte 4
         cmp ecx, byte 8
         jl short .4
         mov dh, 2
-        mov eax, dword [dword_1CFC70]
-        mov byte [byte_170044], dh
+        mov eax, dword [MixerVolumeTable]
+        mov byte [MixerMode], dh
         mov al, byte [byte eax+06h]
         and eax, 0FFh
         call SetMasterVolume
@@ -611,7 +611,7 @@ SetMasterVolume:
         push ecx
         push edx
         mov edx, eax
-        cmp byte [byte_172BC5], 0
+        cmp byte [SoundSystemOn], 0
         jne short .1
         mov eax, 0FFFFFFF6h
         pop edx
@@ -619,7 +619,7 @@ SetMasterVolume:
         pop ebx
         ret
 .1:
-        cmp byte [byte_170044], 2
+        cmp byte [MixerMode], 2
         je short .2
         mov eax, 0FFFFFFFFh
         pop edx
@@ -639,7 +639,7 @@ SetMasterVolume:
         ret
 .4:
         mov ebx, edx
-        mov eax, dword [dword_1CFC70]
+        mov eax, dword [MixerVolumeTable]
         shl ebx, 4
         cmp byte [byte ebx+eax+028h], 0
         jne short .5
@@ -650,43 +650,43 @@ SetMasterVolume:
         ret
 .5:
         call AudioEnter
-        mov eax, dword [dword_1CFC70]
+        mov eax, dword [MixerVolumeTable]
         add ebx, eax
         mov eax, dword [byte ebx+02Ch]
         sar eax, 10h
-        mov ecx, dword [dword_170050]
+        mov ecx, dword [MixerVolLeft]
         shl eax, 10h
         cmp eax, ecx
         jle short .7
         mov ecx, dword [byte ebx+02Ah]
         sar ecx, 10h
-        mov ebx, dword [dword_170050]
+        mov ebx, dword [MixerVolLeft]
         shl ecx, 10h
         add ebx, ecx
-        mov dword [dword_170054], ebx
+        mov dword [MixerVolRight], ebx
         cmp eax, ebx
         jge short .6
-        mov dword [dword_170054], eax
+        mov dword [MixerVolRight], eax
 .6:
         mov ebx, edx
-        mov eax, dword [dword_1CFC70]
+        mov eax, dword [MixerVolumeTable]
         shl ebx, 4
         mov ebx, dword [byte ebx+eax+030h]
-        mov byte [byte_170047], dl
+        mov byte [MixerMasterVolume], dl
         lea eax, [nosplit ebx*4+00h]
         xor ch, ch
         sub eax, ebx
-        mov byte [byte_170048], ch
-        mov dword [dword_170058], eax
+        mov byte [MixerSfxVolume], ch
+        mov dword [MixerVolScale], eax
 .7:
-        mov eax, dword [dword_1CFC70]
+        mov eax, dword [MixerVolumeTable]
         shl edx, 4
         add eax, edx
         cmp byte [byte eax+029h], 0
         jl short .8
-        mov ebx, dword [dword_170042]
+        mov ebx, dword [MixerMasterLeft]
         mov edx, dword [byte eax+026h]
-        mov eax, dword [dword_170043]
+        mov eax, dword [MixerMasterRight]
         sar ebx, 18h
         sar edx, 18h
         sar eax, 18h
@@ -704,7 +704,7 @@ SetMasterVolume:
 ; Sets the volume of a sound channel
 ;-----------------------------------------------------------------------------
 SetChannelVolume:
-        cmp byte [byte_172BC5], 0
+        cmp byte [SoundSystemOn], 0
         jne short .1
         mov eax, 0FFFFFFF6h
         ret
@@ -717,7 +717,7 @@ SetChannelVolume:
         mov eax, 0FFFFFFF8h
         ret
 .3:
-        mov word [word_17005C], ax
+        mov word [MixerRampLevel], ax
         xor eax, eax
         ret
         db 08Dh,040h,00h
@@ -726,7 +726,7 @@ SetChannelVolume:
         push edx
         push esi
         mov esi, eax
-        cmp byte [byte_172BC5], 0
+        cmp byte [SoundSystemOn], 0
         jne short .4
         mov eax, 0FFFFFFF6h
         pop esi
@@ -735,7 +735,7 @@ SetChannelVolume:
         pop ebx
         ret
 .4:
-        cmp byte [byte_170044], 2
+        cmp byte [MixerMode], 2
         je short .5
         mov eax, 0FFFFFFFFh
         pop esi
@@ -749,12 +749,12 @@ SetChannelVolume:
 .6:
         mov ebx, 0FFFFFFFFh
         mov edx, esi
-        mov eax, dword [dword ecx+dword_170060]
+        mov eax, dword [dword ecx+MixerChannelVolumes]
         add ecx, byte 4
         call SetChannelVolumeChecked
         cmp ecx, byte 20h
         jne short .6
-        mov byte [byte_170044], 3
+        mov byte [MixerMode], 3
         call AudioLeaveCheck
         xor eax, eax
         pop esi
@@ -766,7 +766,7 @@ SetChannelVolume:
         push ecx
         push edx
         push esi
-        cmp byte [byte_172BC5], 0
+        cmp byte [SoundSystemOn], 0
         jne short .7
         mov eax, 0FFFFFFF6h
         pop esi
@@ -775,7 +775,7 @@ SetChannelVolume:
         pop ebx
         ret
 .7:
-        cmp byte [byte_170044], 3
+        cmp byte [MixerMode], 3
         je short .8
         mov eax, 0FFFFFFFFh
         pop esi
@@ -788,23 +788,23 @@ SetChannelVolume:
         xor ecx, ecx
         xor esi, esi
 .9:
-        mov eax, dword [dword_1CFC70]
+        mov eax, dword [MixerVolumeTable]
         add eax, ecx
         cmp byte [byte eax+020h], 0
         jl short .10
         mov edx, dword [byte eax+01Dh]
         xor ebx, ebx
-        mov eax, dword [dword_170043]
+        mov eax, dword [MixerMasterRight]
         sar edx, 18h
         sar eax, 18h
         call PlaySample
-        mov dword [dword esi+dword_170060], eax
+        mov dword [dword esi+MixerChannelVolumes], eax
 .10:
         inc ecx
         add esi, byte 4
         cmp ecx, byte 8
         jl short .9
-        mov byte [byte_170044], 2
+        mov byte [MixerMode], 2
         call AudioLeaveCheck
         xor eax, eax
         pop esi
@@ -826,7 +826,7 @@ SetSpeechVolume:
         mov eax, 0FFFFFFF8h
         ret
 .2:
-        mov byte [byte_170045], al
+        mov byte [MixerSpeechVolume], al
         xor eax, eax
         ret
         db 090h
@@ -836,13 +836,13 @@ SetSpeechVolume:
 ;-----------------------------------------------------------------------------
 StopAllChannels:
         push edx
-        cmp byte [byte_172BC5], 0
+        cmp byte [SoundSystemOn], 0
         jne short .1
         mov eax, 0FFFFFFF6h
         pop edx
         ret
 .1:
-        mov dl, byte [byte_170044]
+        mov dl, byte [MixerMode]
         cmp dl, 2
         je short .2
         cmp dl, 3
@@ -854,12 +854,12 @@ StopAllChannels:
         call AudioEnter
         xor edx, edx
 .3:
-        mov eax, dword [dword edx+dword_170060]
+        mov eax, dword [dword edx+MixerChannelVolumes]
         add edx, byte 4
         call StopChannel
         cmp edx, byte 20h
         jne short .3
-        mov byte [byte_170044], 1
+        mov byte [MixerMode], 1
         call AudioLeaveCheck
         xor eax, eax
         pop edx
@@ -871,7 +871,7 @@ StopAllChannels:
 ;-----------------------------------------------------------------------------
 ResetSoundChannels:
         push edx
-        cmp byte [byte_172BC5], 0
+        cmp byte [SoundSystemOn], 0
         jne short .1
         mov eax, 0FFFFFFF6h
         pop edx
@@ -880,11 +880,11 @@ ResetSoundChannels:
         call AudioEnter
         xor edx, edx
         call StopAllChannels
-        mov dword [dword_172BCC], edx
+        mov dword [AudioWorkHook], edx
         call AudioLeaveCheck
         xor dl, dl
         xor eax, eax
-        mov byte [byte_170044], dl
+        mov byte [MixerMode], dl
         pop edx
         ret
 ;-----------------------------------------------------------------------------
@@ -895,15 +895,15 @@ MixAudioBlock:
         push ecx
         push edx
         push edi
-        cmp byte [byte_170044], 2
+        cmp byte [MixerMode], 2
         jne short .4
-        mov ax, word [word_17004E]
-        mov dx, word [word_17005C]
+        mov ax, word [MixerBlockSize]
+        mov dx, word [MixerRampLevel]
         cmp ax, dx
         jle short .1
         mov edi, eax
         sub edi, byte 0Ch
-        mov word [word_17004E], di
+        mov word [MixerBlockSize], di
         cmp di, dx
         jge short .3
         jmp short .2
@@ -911,11 +911,11 @@ MixAudioBlock:
         jge short .3
         mov ecx, eax
         add ecx, byte 0Ch
-        mov word [word_17004E], cx
+        mov word [MixerBlockSize], cx
         cmp cx, dx
         jle short .3
 .2:
-        mov word [word_17004E], dx
+        mov word [MixerBlockSize], dx
 .3:
         call MixChannelFormat
         call MixVolumeRamp
@@ -941,41 +941,41 @@ MixChannelFormat:
         push esi
         push edi
         push ebp
-        mov al, byte [byte_170048]
+        mov al, byte [MixerSfxVolume]
         cmp al, 3
         ja near MixChannelFormat_27B.15
         and eax, 0FFh
         jmp dword [nosplit cs:eax*4+jpt_108240]
 MixChannelFormat_20:
-        mov eax, dword [dword_170058]
-        mov edi, dword [dword_170050]
+        mov eax, dword [MixerVolScale]
+        mov edi, dword [MixerVolLeft]
         add edi, eax
-        mov ebp, dword [dword_170054]
-        mov dword [dword_170050], edi
+        mov ebp, dword [MixerVolRight]
+        mov dword [MixerVolLeft], edi
         cmp edi, ebp
         jl near MixChannelFormat_27B.15
-        mov eax, dword [dword_1CFC70]
+        mov eax, dword [MixerVolumeTable]
         mov edx, dword [byte eax+06h]
         mov eax, dword [byte eax+08h]
-        mov dword [dword_170050], ebp
+        mov dword [MixerVolLeft], ebp
         sar eax, 10h
         sar edx, 10h
         call MixNoise
         add edx, eax
-        mov dword [dword_170054], edx
+        mov dword [MixerVolRight], edx
         cmp edx, 1FFh
         jle short .1
-        mov dword [dword_170054], 1FFh
+        mov dword [MixerVolRight], 1FFh
 .1:
-        cmp dword [dword_170054], byte 0
+        cmp dword [MixerVolRight], byte 0
         jge short .2
         xor ecx, ecx
-        mov dword [dword_170054], ecx
+        mov dword [MixerVolRight], ecx
 .2:
-        mov esi, dword [dword_170054]
+        mov esi, dword [MixerVolRight]
         shl esi, 10h
-        mov edi, dword [dword_170050]
-        mov dword [dword_170054], esi
+        mov edi, dword [MixerVolLeft]
+        mov dword [MixerVolRight], esi
         cmp esi, edi
         jge short .3
         mov edx, edi
@@ -984,9 +984,9 @@ MixChannelFormat_20:
 .3:
         mov edx, 10000h
 .4:
-        mov eax, dword [byte_170044]
+        mov eax, dword [MixerMode]
         sar eax, 18h
-        mov ebx, dword [dword_1CFC70]
+        mov ebx, dword [MixerVolumeTable]
         shl eax, 4
         mov ebx, dword [byte ebx+eax+034h]
         mov eax, ebx
@@ -1000,12 +1000,12 @@ MixChannelFormat_20:
         mov eax, edx
         sar edx, 1Fh
         idiv ebx
-        mov dword [dword_170058], eax
+        mov dword [MixerVolScale], eax
         test eax, eax
         jg short .6
-        mov dword [dword_170058], 1
+        mov dword [MixerVolScale], 1
 .6:
-        mov byte [byte_170048], 1
+        mov byte [MixerSfxVolume], 1
         pop ebp
         pop edi
         pop esi
@@ -1014,36 +1014,36 @@ MixChannelFormat_20:
         pop ebx
         ret
 MixChannelFormat_FC:
-        mov eax, dword [dword_170058]
-        mov esi, dword [dword_170050]
+        mov eax, dword [MixerVolScale]
+        mov esi, dword [MixerVolLeft]
         sub esi, eax
-        mov edi, dword [dword_170054]
-        mov dword [dword_170050], esi
+        mov edi, dword [MixerVolRight]
+        mov dword [MixerVolLeft], esi
         cmp esi, edi
         jg near MixChannelFormat_27B.15
-        mov eax, dword [dword_1CFC70]
+        mov eax, dword [MixerVolumeTable]
         mov edx, dword [byte eax+012h]
         mov eax, dword [byte eax+014h]
-        mov dword [dword_170050], edi
+        mov dword [MixerVolLeft], edi
         sar eax, 10h
         sar edx, 10h
         call MixNoise
         add edx, eax
-        mov dword [dword_170054], edx
+        mov dword [MixerVolRight], edx
         cmp edx, 1FFh
         jle short .7
-        mov dword [dword_170054], 1FFh
+        mov dword [MixerVolRight], 1FFh
 .7:
-        cmp dword [dword_170054], byte 0
+        cmp dword [MixerVolRight], byte 0
         jge short .8
         xor ebx, ebx
-        mov dword [dword_170054], ebx
+        mov dword [MixerVolRight], ebx
 .8:
-        mov ecx, dword [dword_170054]
-        mov edx, dword [dword_1CFC70]
+        mov ecx, dword [MixerVolRight]
+        mov edx, dword [MixerVolumeTable]
         shl ecx, 10h
         mov eax, dword [byte edx+01Ch]
-        mov dword [dword_170054], ecx
+        mov dword [MixerVolRight], ecx
         call MixNoise
         mov ebx, dword [byte edx+018h]
         add ebx, eax
@@ -1051,16 +1051,16 @@ MixChannelFormat_FC:
         jge short .9
         mov ebx, 1
 .9:
-        mov edx, dword [dword_170054]
-        sub edx, dword [dword_170050]
+        mov edx, dword [MixerVolRight]
+        sub edx, dword [MixerVolLeft]
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
         mov edx, eax
         sar edx, 1Fh
         idiv ebx
         mov dh, 2
-        mov dword [dword_170058], eax
-        mov byte [byte_170048], dh
+        mov dword [MixerVolScale], eax
+        mov byte [MixerSfxVolume], dh
         pop ebp
         pop edi
         pop esi
@@ -1069,33 +1069,33 @@ MixChannelFormat_FC:
         pop ebx
         ret
 MixChannelFormat_1C0:
-        mov eax, dword [dword_170058]
-        mov ebx, dword [dword_170050]
+        mov eax, dword [MixerVolScale]
+        mov ebx, dword [MixerVolLeft]
         add ebx, eax
-        mov ecx, dword [dword_170054]
-        mov dword [dword_170050], ebx
+        mov ecx, dword [MixerVolRight]
+        mov dword [MixerVolLeft], ebx
         cmp ebx, ecx
         jl near MixChannelFormat_27B.15
-        mov eax, dword [dword_1CFC70]
+        mov eax, dword [MixerVolumeTable]
         mov edx, dword [byte eax+06h]
         mov eax, dword [byte eax+08h]
-        mov dword [dword_170050], ecx
+        mov dword [MixerVolLeft], ecx
         sar eax, 10h
         sar edx, 10h
         call MixNoise
         add edx, eax
-        mov dword [dword_170054], edx
+        mov dword [MixerVolRight], edx
         cmp edx, 1FFh
         jle short .10
-        mov dword [dword_170054], 1FFh
+        mov dword [MixerVolRight], 1FFh
 .10:
-        cmp dword [dword_170054], byte 0
+        cmp dword [MixerVolRight], byte 0
         jge short .11
         xor eax, eax
-        mov dword [dword_170054], eax
+        mov dword [MixerVolRight], eax
 .11:
-        shl dword [dword_170054], 10h
-        mov edx, dword [dword_1CFC70]
+        shl dword [MixerVolRight], 10h
+        mov edx, dword [MixerVolumeTable]
         mov eax, dword [byte edx+010h]
         call MixNoise
         mov ebx, dword [byte edx+0Ch]
@@ -1104,16 +1104,16 @@ MixChannelFormat_1C0:
         jge short .12
         mov ebx, 1
 .12:
-        mov edx, dword [dword_170050]
-        sub edx, dword [dword_170054]
+        mov edx, dword [MixerVolLeft]
+        sub edx, dword [MixerVolRight]
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
         mov edx, eax
         sar edx, 1Fh
         idiv ebx
         mov dl, 3
-        mov dword [dword_170058], eax
-        mov byte [byte_170048], dl
+        mov dword [MixerVolScale], eax
+        mov byte [MixerSfxVolume], dl
         pop ebp
         pop edi
         pop esi
@@ -1122,41 +1122,41 @@ MixChannelFormat_1C0:
         pop ebx
         ret
 MixChannelFormat_27B:
-        mov eax, dword [dword_170058]
-        mov edx, dword [dword_170050]
+        mov eax, dword [MixerVolScale]
+        mov edx, dword [MixerVolLeft]
         sub edx, eax
-        mov ebx, dword [dword_170054]
-        mov dword [dword_170050], edx
+        mov ebx, dword [MixerVolRight]
+        mov dword [MixerVolLeft], edx
         cmp edx, ebx
         jg near .15
-        mov eax, dword [dword_1CFC70]
+        mov eax, dword [MixerVolumeTable]
         mov edx, dword [byte eax+012h]
         mov eax, dword [byte eax+014h]
-        mov dword [dword_170050], ebx
+        mov dword [MixerVolLeft], ebx
         sar eax, 10h
         sar edx, 10h
         call MixNoise
         add edx, eax
-        mov dword [dword_170054], edx
+        mov dword [MixerVolRight], edx
         cmp edx, 1FFh
         jle short .13
-        mov dword [dword_170054], 1FFh
+        mov dword [MixerVolRight], 1FFh
 .13:
-        cmp dword [dword_170054], byte 0
+        cmp dword [MixerVolRight], byte 0
         jge short .14
         xor ebp, ebp
-        mov dword [dword_170054], ebp
+        mov dword [MixerVolRight], ebp
 .14:
-        mov eax, dword [dword_170054]
+        mov eax, dword [MixerVolRight]
         shl eax, 10h
-        mov edx, dword [dword_1CFC70]
-        mov dword [dword_170054], eax
+        mov edx, dword [MixerVolumeTable]
+        mov dword [MixerVolRight], eax
         mov eax, dword [byte edx+01Ch]
         call MixNoise
         mov ebx, dword [byte edx+018h]
-        mov edx, dword [dword_170050]
+        mov edx, dword [MixerVolLeft]
         add ebx, eax
-        mov eax, dword [dword_170054]
+        mov eax, dword [MixerVolRight]
         sub eax, edx
         mov edx, eax
         shl eax, 2
@@ -1164,8 +1164,8 @@ MixChannelFormat_27B:
         mov edx, eax
         sar edx, 1Fh
         idiv ebx
-        mov dword [dword_170058], eax
-        mov byte [byte_170048], 2
+        mov dword [MixerVolScale], eax
+        mov byte [MixerSfxVolume], 2
 .15:
         pop ebp
         pop edi
@@ -1185,13 +1185,13 @@ MixVolumeRamp:
         push edx
         push esi
         push edi
-        mov ebx, dword [dword_170050]
-        mov edx, dword [word_17004A]
+        mov ebx, dword [MixerVolLeft]
+        mov edx, dword [MixerRampStep]
         sar ebx, 10h
         sar edx, 10h
         imul ebx, edx
-        mov eax, dword [byte_170048]
-        mov edx, dword [word_17004C]
+        mov eax, dword [MixerSfxVolume]
+        mov edx, dword [MixerRampTarget]
         sar eax, 10h
         sar edx, 10h
         imul eax, edx
@@ -1199,14 +1199,14 @@ MixVolumeRamp:
         sar eax, 9
         add eax, ebx
         mov edi, 7Fh
-        mov word [word_17005E], ax
+        mov word [MixerRampCount], ax
         xor ebx, ebx
 .1:
-        cmp dword [dword ebx+dword_170060], byte 0
+        cmp dword [dword ebx+MixerChannelVolumes], byte 0
         jl short .2
-        mov ecx, dword [dword_1CFC70]
-        mov esi, dword [word_17005C]
-        mov edx, dword [dword_170042]
+        mov ecx, dword [MixerVolumeTable]
+        mov esi, dword [MixerRampLevel]
+        mov edx, dword [MixerMasterLeft]
         sar esi, 10h
         mov eax, dword [dword ecx+ebx+0128h]
         sar edx, 18h
@@ -1218,10 +1218,10 @@ MixVolumeRamp:
         mov edx, eax
         mov eax, dword [dword ecx+ebx+0148h]
         movsx ecx, byte [esi+eax]
-        mov eax, dword [dword ebx+dword_170060]
+        mov eax, dword [dword ebx+MixerChannelVolumes]
         call SetMusicStreamVolume
         mov edx, ecx
-        mov eax, dword [dword ebx+dword_170060]
+        mov eax, dword [dword ebx+MixerChannelVolumes]
         call RampChannelVolume
 .2:
         add ebx, byte 4
@@ -1233,7 +1233,7 @@ MixVolumeRamp:
         pop ecx
         pop ebx
         ret
-        mov eax, dword [word_17005C]
+        mov eax, dword [MixerRampLevel]
         sar eax, 10h
         ret
         db 00h,00h,00h,00h,00h,00h,00h
@@ -1245,7 +1245,7 @@ SetMusicStreamVolume:
         push ebx
         push ecx
         mov ebx, eax
-        cmp byte [byte_172BC5], 0
+        cmp byte [SoundSystemOn], 0
         jne short .1
         mov eax, 0FFFFFFF6h
         pop ecx
@@ -1276,7 +1276,7 @@ SetMusicStreamVolume:
 .4:
         shl eax, 4
         add eax, ebx
-        mov ecx, dword_1DCF38
+        mov ecx, ChannelSampleTable
         shl eax, 2
         add ecx, eax
         shl edx, 10h
@@ -1300,29 +1300,29 @@ SetMusicStreamVolume:
 CloseSpeechChannels:
         push ecx
         push edx
-        cmp dword [dword_1DCAE8], byte 0
+        cmp dword [SpeechStreamActive], byte 0
         jl short .1
-        mov eax, dword [dword_1DCAE8]
+        mov eax, dword [SpeechStreamActive]
         call StopChannel
 .1:
-        cmp dword [dword_1DCAE0], byte 0
+        cmp dword [SpeechStreamChannel], byte 0
         jl short .2
-        mov eax, dword [dword_1DCAE0]
+        mov eax, dword [SpeechStreamChannel]
         call UnregisterSoundBank
 .2:
-        cmp dword [dword_1DCAD8], byte 0
+        cmp dword [SpeechStreamBuffer], byte 0
         je short .3
-        push dword [dword_1DCAD8]
+        push dword [SpeechStreamBuffer]
         call FreeMemBlock
         add esp, byte 4
 .3:
         call ResetSpeechStreamState
-        mov dword [dword_172AB8], 0
+        mov dword [SpeechChannelFunc], 0
         pop edx
         pop ecx
         ret
-        mov dword [dword_1DC998], 0
-        mov dword [dword_1DC994], 0FFFFFFFFh
+        mov dword [SpeechChannelB], 0
+        mov dword [SpeechChannelA], 0FFFFFFFFh
         ret
 ;-----------------------------------------------------------------------------
 ; AllocSpeechBuffers                             108725  97 PC, low confidence
@@ -1333,60 +1333,60 @@ AllocSpeechBuffers:
         push ecx
         push edx
         call ResetGameVars
-        mov dword [dword_1DCAD4], dword_1DCEC4
+        mov dword [SpeechStreamHeader], SpeechBufferTag
         call SpeechBufferSize
         push byte 0
         add eax, 3480h
         push eax
         push str_VoxPlaybuf
-        mov dword [dword_1DCAEC], 3480h
+        mov dword [SpeechStreamHandle], 3480h
         call AllocMemBlock
         add esp, byte 0Ch
-        mov dword [dword_1DCAD8], eax
+        mov dword [SpeechStreamBuffer], eax
         test eax, eax
         je near .3
         xor eax, eax
         jmp short .2
 .1:
-        mov edx, dword [dword_1DCAD8]
+        mov edx, dword [SpeechStreamBuffer]
         mov byte [edx+eax], 0
         inc eax
 .2:
-        cmp eax, dword [dword_1DCAEC]
+        cmp eax, dword [SpeechStreamHandle]
         jl short .1
-        mov edx, dword [dword_1DCAD8]
-        mov eax, dword [dword_1DCAEC]
+        mov edx, dword [SpeechStreamBuffer]
+        mov eax, dword [SpeechStreamHandle]
         add edx, eax
         mov eax, edx
-        mov dword [dword_1DCADC], edx
+        mov dword [SpeechStreamSize], edx
         call RegisterStreamBank
-        mov dword [dword_1DCAE0], eax
+        mov dword [SpeechStreamChannel], eax
         test eax, eax
         jl near .3
-        mov edx, dword_1DCAE4
-        mov ecx, dword [dword_1DCAD8]
-        mov ebx, dword [dword_1DCAD4]
+        mov edx, SpeechStreamData
+        mov ecx, dword [SpeechStreamBuffer]
+        mov ebx, dword [SpeechStreamHeader]
         call AddStreamSample
-        mov eax, dword [dword_1DCAD4]
+        mov eax, dword [SpeechStreamHeader]
         mov eax, dword [byte eax+0Ch]
         mov byte [byte eax+08h], 64h
-        mov eax, dword [dword_1DCAEC]
+        mov eax, dword [SpeechStreamHandle]
         cdq
         LD sub, eax, edx
         sar eax, 1
         mov edx, eax
-        mov eax, dword [dword_1DCAD4]
+        mov eax, dword [SpeechStreamHeader]
         mov eax, dword [byte eax+0Ch]
         mov dword [byte eax+034h], edx
-        mov eax, dword [dword_1DCAD4]
+        mov eax, dword [SpeechStreamHeader]
         mov eax, dword [byte eax+0Ch]
         mov dword [byte eax+038h], 0
-        mov eax, dword [dword_1DCAEC]
+        mov eax, dword [SpeechStreamHandle]
         cdq
         LD sub, eax, edx
         sar eax, 1
         mov edx, eax
-        mov eax, dword [dword_1DCAD4]
+        mov eax, dword [SpeechStreamHeader]
         push byte 40h
         mov ecx, 7Fh
         mov eax, dword [byte eax+0Ch]
@@ -1394,13 +1394,13 @@ AllocSpeechBuffers:
         mov ebx, 3Ch
         mov dword [byte eax+03Ch], edx
         push byte 40h
-        mov edx, dword [dword_1DCAE4]
-        mov eax, dword [dword_1DCAE0]
+        mov edx, dword [SpeechStreamData]
+        mov eax, dword [SpeechStreamChannel]
         call PlayBankSample
-        mov dword [dword_1DCAE8], eax
+        mov dword [SpeechStreamActive], eax
         test eax, eax
         je short .3
-        mov dword [dword_1DCAF0], 0
+        mov dword [SpeechStreamPos], 0
         call ClearSpeechRing
         mov eax, 1
         pop edx
@@ -1420,41 +1420,41 @@ AllocSpeechBuffers:
 InitSpeechChannels:
         push ecx
         push edx
-        mov dword [dword_1DCEC0], 0
-        mov dword [dword_172AB8], eax
+        mov dword [SpeechEnabled], 0
+        mov dword [SpeechChannelFunc], eax
         call ResetSpeechStreamState
-        mov dword [dword_1DCAD0], 1
-        mov dword [dword_1DC994], 0FFFFFFFFh
-        mov dword [dword_1DC998], 0
+        mov dword [SpeechStreamOpen], 1
+        mov dword [SpeechChannelA], 0FFFFFFFFh
+        mov dword [SpeechChannelB], 0
         call ClearSpeechBankTable
         call AllocSpeechBuffers
         test eax, eax
         je short .1
         call ClearSpeechQueue
-        mov dword [dword_172BD4], ServiceSpeechIfOpen
+        mov dword [AudioSpeechHook], ServiceSpeechIfOpen
         mov eax, 1
         pop edx
         pop ecx
         ret
 .1:
-        cmp dword [dword_1DCAE8], byte 0
+        cmp dword [SpeechStreamActive], byte 0
         jl short .2
-        mov eax, dword [dword_1DCAE8]
+        mov eax, dword [SpeechStreamActive]
         call StopChannel
 .2:
-        cmp dword [dword_1DCAE0], byte 0
+        cmp dword [SpeechStreamChannel], byte 0
         jl short .3
-        mov eax, dword [dword_1DCAE0]
+        mov eax, dword [SpeechStreamChannel]
         call UnregisterSoundBank
 .3:
-        cmp dword [dword_1DCAD8], byte 0
+        cmp dword [SpeechStreamBuffer], byte 0
         je short .4
-        push dword [dword_1DCAD8]
+        push dword [SpeechStreamBuffer]
         call FreeMemBlock
         add esp, byte 4
 .4:
         call ResetSpeechStreamState
-        mov dword [dword_172AB8], 0
+        mov dword [SpeechChannelFunc], 0
         xor eax, eax
         pop edx
         pop ecx
@@ -1470,36 +1470,36 @@ OpenAudioStreamChannel:
         push ebp
         mov esi, edx
         mov edi, ebx
-        test byte [byte_1700A5], 2
+        test byte [StreamFlags], 2
         je short .1
         mov eax, 0FFFFFFFFh
         jmp near .11
 .1:
         mov edx, AudioStreamCallback
-        mov dword [dword_170084], ecx
-        mov dword [dword_170080], eax
+        mov dword [StreamPosition], ecx
+        mov dword [StreamChannel], eax
         xor ebx, ebx
-        mov dword [dword_172BD8], edx
-        mov dword [dword_170090], ebx
-        mov dword [dword_17008C], ebx
-        mov dword [dword_170094], ebx
-        mov dword [dword_170098], ebx
-        mov dword [dword_17009C], ebx
-        mov dword [dword_1700FD], ebx
-        mov dword [dword_170101], ebx
+        mov dword [StreamLengthFn], edx
+        mov dword [StreamReadPos], ebx
+        mov dword [StreamBufSize], ebx
+        mov dword [StreamWritePos], ebx
+        mov dword [StreamFill], ebx
+        mov dword [StreamPackets], ebx
+        mov dword [StreamPacketCount], ebx
+        mov dword [StreamPacketSlots], ebx
         xor cl, cl
         xor al, al
         mov dl, byte [byte esp+010h]
-        mov byte [byte_1700A5], cl
-        mov byte [byte_1700A8], al
-        mov byte [byte_1700A1], dl
+        mov byte [StreamFlags], cl
+        mov byte [StreamOpen], al
+        mov byte [StreamFeeding], dl
         xor dh, dh
         xor ch, ch
-        mov byte [byte_1700A4], dh
+        mov byte [StreamStarted], dh
         mov edx, 0FFFFFFFFh
-        mov byte [byte_1700A6], ch
-        mov dword [dword_170088], edx
-        mov dword [dword_1700AD], edx
+        mov byte [StreamStereo], ch
+        mov dword [StreamBuffer], edx
+        mov dword [StreamPacketQueue], edx
         test esi, esi
         jg short .2
         xor eax, eax
@@ -1508,14 +1508,14 @@ OpenAudioStreamChannel:
         pop esi
         ret 4
 .2:
-        mov edx, dword [dword_1DD37C]
-        mov ah, byte [byte_172BC5]
+        mov edx, dword [DigitalAudioRate]
+        mov ah, byte [SoundSystemOn]
         add edi, edx
         test ah, ah
         je short .7
 .3:
         call CdStreamService
-        mov edx, dword [dword_170080]
+        mov edx, dword [StreamChannel]
         push edx
         call CdStreamNextPacket
         add esp, byte 4
@@ -1535,7 +1535,7 @@ OpenAudioStreamChannel:
         jne short .5
         mov ch, 4
         inc ebx
-        mov byte [byte_1700A5], ch
+        mov byte [StreamFlags], ch
 .5:
         cmp ebx, esi
         jge short .10
@@ -1543,12 +1543,12 @@ OpenAudioStreamChannel:
         cmp eax, byte 5Fh
         jge short .10
 .6:
-        cmp edi, dword [dword_1DD37C]
+        cmp edi, dword [DigitalAudioRate]
         ja short .3
         jmp short .10
 .7:
         call CdStreamService
-        mov ecx, dword [dword_170080]
+        mov ecx, dword [StreamChannel]
         push ecx
         call CdStreamNextPacket
         add esp, byte 4
@@ -1561,17 +1561,17 @@ OpenAudioStreamChannel:
         test edx, edx
         je short .9
         push edx
-        mov ebp, dword [dword_170080]
+        mov ebp, dword [StreamChannel]
         mov cl, 4
         push ebp
         inc ebx
-        mov byte [byte_1700A5], cl
+        mov byte [StreamFlags], cl
         call CdStreamFreePacket
         add esp, byte 8
         cmp ebx, esi
         jge short .10
 .9:
-        cmp edi, dword [dword_1DD37C]
+        cmp edi, dword [DigitalAudioRate]
         ja short .7
 .10:
         mov eax, ebx
@@ -1588,7 +1588,7 @@ CloseAudioStreamChannel:
         push ebx
         push ecx
         push edx
-        test byte [byte_1700A5], 2
+        test byte [StreamFlags], 2
         je short .1
         mov eax, 0FFFFFFFFh
         pop edx
@@ -1596,7 +1596,7 @@ CloseAudioStreamChannel:
         pop ebx
         ret
 .1:
-        mov dword [dword_170088], 0FFFFFFFFh
+        mov dword [StreamBuffer], 0FFFFFFFFh
         test eax, eax
         jg short .2
         mov eax, 0FFFFFFF8h
@@ -1605,38 +1605,38 @@ CloseAudioStreamChannel:
         pop ebx
         ret
 .2:
-        mov dh, byte [byte_1700A5]
-        mov bl, byte [byte_172BC5]
+        mov dh, byte [StreamFlags]
+        mov bl, byte [SoundSystemOn]
         or dh, 2
-        mov byte [byte_1700A7], al
-        mov byte [byte_1700A5], dh
+        mov byte [StreamPaused], al
+        mov byte [StreamFlags], dh
         test bl, bl
         je short .3
         mov bh, dh
         or bh, 1
-        mov byte [byte_1700A5], bh
+        mov byte [StreamFlags], bh
 .3:
-        test byte [byte_1700A5], 1
+        test byte [StreamFlags], 1
         je short .4
         push byte 0FFFFFFFFh
         push byte 0FFFFFFFFh
         push byte 0FFFFFFFFh
         mov ecx, 0FFFFFFFFh
-        mov eax, dword [dword_17009C]
+        mov eax, dword [StreamPackets]
         push byte 0FFFFFFFFh
         mov ebx, ecx
         mov edx, ecx
         call PlaySoundEntry
-        mov dword [dword_170088], eax
+        mov dword [StreamBuffer], eax
 .4:
-        cmp dword [dword_170088], byte 0
+        cmp dword [StreamBuffer], byte 0
         jl short .5
-        or byte [byte_1700A5], 4
+        or byte [StreamFlags], 4
 .5:
-        mov eax, dword [dword_170088]
+        mov eax, dword [StreamBuffer]
         call IsChannelActive
-        mov byte [byte_1700A0], al
-        mov eax, dword [dword_170088]
+        mov byte [StreamClosing], al
+        mov eax, dword [StreamBuffer]
         pop edx
         pop ecx
         pop ebx
@@ -1646,7 +1646,7 @@ CloseAudioStreamChannel:
         push ecx
         push edx
         push esi
-        mov al, byte [byte_1700A5]
+        mov al, byte [StreamFlags]
         and al, 5
         xor ebx, ebx
         cmp al, 4
@@ -1655,7 +1655,7 @@ CloseAudioStreamChannel:
         cmp al, 5
         jne near .9
         call CdStreamService
-        mov edx, dword [dword_170080]
+        mov edx, dword [StreamChannel]
         push edx
         call CdStreamNextPacket
         add esp, byte 4
@@ -1673,13 +1673,13 @@ CloseAudioStreamChannel:
         test eax, eax
         jne short .9
         mov ebx, eax
-        mov byte [byte_1700A8], 1
+        mov byte [StreamOpen], 1
         jmp short .9
 .8:
-        test byte [byte_1700A5], 2
+        test byte [StreamFlags], 2
         je short .9
         call CdStreamService
-        mov ecx, dword [dword_170080]
+        mov ecx, dword [StreamChannel]
         push ecx
         call CdStreamNextPacket
         add esp, byte 4
@@ -1688,7 +1688,7 @@ CloseAudioStreamChannel:
         cmp eax, byte 0FFFFFFF6h
         jg short .9
         push eax
-        mov esi, dword [dword_170080]
+        mov esi, dword [StreamChannel]
         push esi
         call CdStreamFreePacket
         add esp, byte 8
@@ -1737,20 +1737,20 @@ FeedAudioStream:
         mov ebx, eax
         jmp near .14
 .3:
-        mov eax, dword [dword_170101]
+        mov eax, dword [StreamPacketSlots]
         mov ecx, ebx
         lea ebx, [nosplit eax*4+00h]
         inc eax
-        mov dword [dword_170101], eax
+        mov dword [StreamPacketSlots], eax
         mov eax, dword [edx]
-        mov dword [dword ebx+dword_1700AD], eax
-        cmp dword [dword_170101], byte 14h
+        mov dword [dword ebx+StreamPacketQueue], eax
+        cmp dword [StreamPacketSlots], byte 14h
         jl short .4
         xor ebx, ebx
-        mov dword [dword_170101], ebx
+        mov dword [StreamPacketSlots], ebx
 .4:
         push ecx
-        mov ecx, dword [dword_170080]
+        mov ecx, dword [StreamChannel]
         push ecx
         mov ebx, 2
         jmp near .13
@@ -1760,16 +1760,16 @@ FeedAudioStream:
         je short .6
         mov dword [ebx], 0
 .6:
-        cmp dword [dword_170094], byte 0
+        cmp dword [StreamWritePos], byte 0
         jne short .7
-        mov dword [dword_170094], edx
+        mov dword [StreamWritePos], edx
         jmp short .8
 .7:
-        mov eax, dword [dword_170098]
+        mov eax, dword [StreamFill]
         mov dword [eax], edx
 .8:
         mov ebx, 3
-        mov dword [dword_170098], edx
+        mov dword [StreamFill], edx
         call AudioLeaveCheck
         mov eax, ebx
         pop ebp
@@ -1782,29 +1782,29 @@ FeedAudioStream:
 .9:
         mov ecx, dword [edx]
         push ecx
-        mov esi, dword [dword_170080]
+        mov esi, dword [StreamChannel]
         push esi
         call RequestStreamRead
         add esp, byte 8
         push ebx
-        mov edi, dword [dword_170080]
+        mov edi, dword [StreamChannel]
         push edi
         mov ebx, 4
         jmp short .13
 .10:
-        cmp byte [byte_1700A1], 0
+        cmp byte [StreamFeeding], 0
         jne short .11
-        mov eax, dword [dword_170098]
+        mov eax, dword [StreamFill]
         mov dword [eax], 0FFFFFFFFh
 .11:
         push ebx
-        mov ebp, dword [dword_170080]
+        mov ebp, dword [StreamChannel]
         push ebp
         mov ebx, 5
         jmp short .13
 .12:
         push ebx
-        mov esi, dword [dword_170080]
+        mov esi, dword [StreamChannel]
         push esi
         mov ebx, 0FFFFFFFFh
 .13:
@@ -1831,14 +1831,14 @@ AudioStreamPosition:
         push edx
         push esi
         push ebp
-        mov ah, byte [byte_1700A5]
+        mov ah, byte [StreamFlags]
         xor ebx, ebx
         test ah, 4
         jne short .1
         mov edx, 0FFFFFFFFh
         jmp near .6
 .1:
-        mov edx, dword [dword_170094]
+        mov edx, dword [StreamWritePos]
         test edx, edx
         jne short .2
         mov edx, 0FFFFFFFFh
@@ -1873,7 +1873,7 @@ AudioStreamPosition:
         add edx, ebx
         call AudioLeaveCheck
         shl edx, 2
-        mov ebp, dword [dword_170084]
+        mov ebp, dword [StreamPosition]
         mov eax, edx
         sar edx, 1Fh
         idiv ebp
@@ -1900,7 +1900,7 @@ AudioStreamDone:
         push ebx
         push ecx
         push edx
-        mov ebx, dword [dword_170094]
+        mov ebx, dword [StreamWritePos]
         xor edx, edx
         test ebx, ebx
         jne short .1
@@ -1932,8 +1932,8 @@ AudioStreamDone:
         pop ecx
         pop ebx
         ret
-        mov eax, dword [dword_1700FD]
-        mov eax, dword [nosplit eax*4+dword_1700AD]
+        mov eax, dword [StreamPacketCount]
+        mov eax, dword [nosplit eax*4+StreamPacketQueue]
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
@@ -1943,7 +1943,7 @@ AudioStreamDone:
 StartAudioStream:
         push ebx
         push edx
-        mov ah, byte [byte_1700A5]
+        mov ah, byte [StreamFlags]
         test ah, 2
         jne short .1
         mov eax, 0FFFFFFF2h
@@ -1951,7 +1951,7 @@ StartAudioStream:
         pop ebx
         ret
 .1:
-        cmp byte [byte_1700A4], 0
+        cmp byte [StreamStarted], 0
         jne short .3
         test ah, 4
         je short .2
@@ -1959,38 +1959,38 @@ StartAudioStream:
         jne short .3
 .2:
         mov bh, 1
-        mov eax, dword [dword_1DD37C]
-        mov byte [byte_1700A4], bh
-        mov dword [dword_170090], eax
+        mov eax, dword [DigitalAudioRate]
+        mov byte [StreamStarted], bh
+        mov dword [StreamReadPos], eax
 .3:
-        cmp byte [byte_1700A4], 0
+        cmp byte [StreamStarted], 0
         je short .4
-        mov ebx, dword [dword_1DD37C]
+        mov ebx, dword [DigitalAudioRate]
         xor eax, eax
-        mov edx, dword [dword_170090]
-        mov al, byte [byte_1700A7]
+        mov edx, dword [StreamReadPos]
+        mov al, byte [StreamPaused]
         sub ebx, edx
         imul eax, ebx
         xor edx, edx
         mov ebx, 64h
         div ebx
-        add eax, dword [dword_17008C]
+        add eax, dword [StreamBufSize]
         pop edx
         pop ebx
         ret
 .4:
-        mov eax, dword [dword_17008C]
+        mov eax, dword [StreamBufSize]
         pop edx
         pop ebx
         ret
         db 08Dh,040h,00h
-        mov ah, byte [byte_1700A5]
+        mov ah, byte [StreamFlags]
         test ah, 2
         jne short .5
         mov eax, 0FFFFFFF2h
         ret
 .5:
-        cmp byte [byte_1700A6], 0
+        cmp byte [StreamStereo], 0
         je short .6
         mov eax, 4
         ret
@@ -2013,25 +2013,25 @@ FlushAudioStream:
         push ebx
         push ecx
         push edx
-        mov eax, dword [dword_170094]
-        cmp eax, dword [dword_170098]
+        mov eax, dword [StreamWritePos]
+        cmp eax, dword [StreamFill]
         je short .2
 .1:
-        mov eax, dword [dword_170094]
+        mov eax, dword [StreamWritePos]
         push eax
-        mov ebx, dword [dword_170080]
+        mov ebx, dword [StreamChannel]
         mov edx, dword [eax]
         push ebx
-        mov dword [dword_170094], edx
+        mov dword [StreamWritePos], edx
         call CdStreamFreePacket
-        mov eax, dword [dword_170094]
-        mov ecx, dword [dword_170098]
+        mov eax, dword [StreamWritePos]
+        mov ecx, dword [StreamFill]
         add esp, byte 8
         cmp eax, ecx
         jne short .1
 .2:
         xor ah, ah
-        mov byte [byte_1700A5], ah
+        mov byte [StreamFlags], ah
         xor eax, eax
         pop edx
         pop ecx
@@ -2043,15 +2043,15 @@ FlushAudioStream:
         je short .3
         mov dword [eax], 0
 .3:
-        cmp dword [dword_170094], byte 0
+        cmp dword [StreamWritePos], byte 0
         jne short .4
-        mov dword [dword_170094], eax
+        mov dword [StreamWritePos], eax
         jmp short .5
 .4:
-        mov edx, dword [dword_170098]
+        mov edx, dword [StreamFill]
         mov dword [edx], eax
 .5:
-        mov dword [dword_170098], eax
+        mov dword [StreamFill], eax
         mov eax, 3
         pop edx
         ret
@@ -2067,13 +2067,13 @@ QueueStreamPacket:
         push edi
         sub esp, byte 0Ch
         mov ecx, eax
-        mov edx, dword [dword_17009C]
+        mov edx, dword [StreamPackets]
         test edx, edx
         jne short .4
         mov esi, 0FFFFFFFFh
         add eax, byte 8
         mov ebx, esp
-        mov dword [dword_17009C], eax
+        mov dword [StreamPackets], eax
         mov dword [esp], esi
         call LoadSampleHeader
         mov edi, dword [ecx]
@@ -2082,19 +2082,19 @@ QueueStreamPacket:
         je short .1
         mov dword [ecx], 0
 .1:
-        cmp dword [dword_170094], byte 0
+        cmp dword [StreamWritePos], byte 0
         jne short .2
-        mov dword [dword_170094], eax
+        mov dword [StreamWritePos], eax
         jmp short .3
 .2:
-        mov ebx, dword [dword_170098]
+        mov ebx, dword [StreamFill]
         mov dword [ebx], eax
 .3:
-        mov dword [dword_170098], eax
+        mov dword [StreamFill], eax
         jmp short .5
 .4:
         push eax
-        mov ebx, dword [dword_170080]
+        mov ebx, dword [StreamChannel]
         push ebx
         call CdStreamFreePacket
         add esp, byte 8
@@ -2111,20 +2111,20 @@ QueueStreamPacket:
         push ebx
         push ecx
         push edx
-        mov edx, dword [dword_170101]
+        mov edx, dword [StreamPacketSlots]
         lea ebx, [nosplit edx*4+00h]
         inc edx
         lea ecx, [byte eax+08h]
-        mov dword [dword_170101], edx
+        mov dword [StreamPacketSlots], edx
         mov edx, dword [ecx]
-        mov dword [dword ebx+dword_1700AD], edx
-        cmp dword [dword_170101], byte 14h
+        mov dword [dword ebx+StreamPacketQueue], edx
+        cmp dword [StreamPacketSlots], byte 14h
         jl short .6
         xor ebx, ebx
-        mov dword [dword_170101], ebx
+        mov dword [StreamPacketSlots], ebx
 .6:
         push eax
-        mov ecx, dword [dword_170080]
+        mov ecx, dword [StreamChannel]
         push ecx
         call CdStreamFreePacket
         mov eax, 2
@@ -2140,13 +2140,13 @@ QueueStreamPacket:
         mov ebx, eax
         mov edx, dword [byte eax+08h]
         push edx
-        mov ecx, dword [dword_170080]
+        mov ecx, dword [StreamChannel]
         push ecx
         add eax, byte 8
         call RequestStreamRead
         add esp, byte 8
         push ebx
-        mov esi, dword [dword_170080]
+        mov esi, dword [StreamChannel]
         push esi
         call CdStreamFreePacket
         mov eax, 4
@@ -2159,13 +2159,13 @@ QueueStreamPacket:
         db 08Bh,0C0h
         push ecx
         push edx
-        cmp byte [byte_1700A1], 0
+        cmp byte [StreamFeeding], 0
         jne short .7
-        mov edx, dword [dword_170098]
+        mov edx, dword [StreamFill]
         mov dword [edx], 0FFFFFFFFh
 .7:
         push eax
-        mov edx, dword [dword_170080]
+        mov edx, dword [StreamChannel]
         push edx
         call CdStreamFreePacket
         mov eax, 5
@@ -2185,14 +2185,14 @@ AudioStreamCallback:
         push ebp
         mov esi, dword [byte esp+014h]
         mov ebx, dword [byte esp+018h]
-        mov eax, dword [dword_170094]
-        cmp eax, dword [dword_170098]
+        mov eax, dword [StreamWritePos]
+        cmp eax, dword [StreamFill]
         jne short .2
-        mov eax, dword [dword_170094]
+        mov eax, dword [StreamWritePos]
         cmp dword [eax], byte 0FFFFFFFFh
         jne short .1
         push eax
-        mov ebp, dword [dword_170080]
+        mov ebp, dword [StreamChannel]
         push ebp
         call CdStreamFreePacket
         mov dword [esi], 0
@@ -2206,22 +2206,22 @@ AudioStreamCallback:
 .1:
         add eax, byte 0Ch
         mov dword [esi], eax
-        mov eax, dword [dword_170094]
+        mov eax, dword [StreamWritePos]
         add eax, byte 8
         mov eax, dword [eax]
         mov dword [ebx], eax
-        mov eax, dword [dword_1700A9]
+        mov eax, dword [StreamCallbackPos]
         mov edi, dword [esi]
         cmp eax, edi
         je near .4
         xor eax, eax
-        mov al, byte [byte_1700A0]
+        mov al, byte [StreamClosing]
         mov edx, dword [ebx]
         mov ebx, eax
         mov eax, edi
         call InitStreamHeader
         mov eax, dword [esi]
-        mov dword [dword_1700A9], eax
+        mov dword [StreamCallbackPos], eax
         pop ebp
         pop edi
         pop esi
@@ -2231,37 +2231,37 @@ AudioStreamCallback:
         mov eax, dword [eax]
         add eax, byte 0Ch
         mov dword [esi], eax
-        mov esi, dword [dword_170094]
+        mov esi, dword [StreamWritePos]
         mov esi, dword [esi]
         lea eax, [byte esi+08h]
         mov eax, dword [eax]
         mov dword [ebx], eax
-        mov esi, dword [dword_170094]
+        mov esi, dword [StreamWritePos]
         push esi
-        mov ebx, dword [dword_170080]
+        mov ebx, dword [StreamChannel]
         mov eax, dword [esi]
         push ebx
-        mov dword [dword_170094], eax
+        mov dword [StreamWritePos], eax
         call CdStreamFreePacket
-        mov ecx, dword [dword_17008C]
+        mov ecx, dword [StreamBufSize]
         inc ecx
-        mov eax, dword [dword_1700FD]
-        mov dword [dword_17008C], ecx
-        dec dword [nosplit eax*4+dword_1700AD]
-        mov eax, dword [dword_1700FD]
-        mov edi, dword [nosplit eax*4+dword_1700AD]
+        mov eax, dword [StreamPacketCount]
+        mov dword [StreamBufSize], ecx
+        dec dword [nosplit eax*4+StreamPacketQueue]
+        mov eax, dword [StreamPacketCount]
+        mov edi, dword [nosplit eax*4+StreamPacketQueue]
         add esp, byte 8
         test edi, edi
         jg short .3
         lea ebp, [byte eax+01h]
-        mov dword [dword_1700FD], ebp
+        mov dword [StreamPacketCount], ebp
         cmp ebp, byte 14h
         jl short .3
         xor edx, edx
-        mov dword [dword_1700FD], edx
+        mov dword [StreamPacketCount], edx
 .3:
         xor ebx, ebx
-        mov dword [dword_1700A9], ebx
+        mov dword [StreamCallbackPos], ebx
 .4:
         pop ebp
         pop edi
@@ -2393,7 +2393,7 @@ strstr_:
 ; Returns whether a sound channel is playing
 ;-----------------------------------------------------------------------------
 ChannelPlaying:
-        cmp byte [byte_172BC5], 0
+        cmp byte [SoundSystemOn], 0
         jne short .1
         mov eax, 0FFFFFFF6h
         ret
@@ -2415,7 +2415,7 @@ StopChannel:
         push ebx
         push edx
         mov edx, eax
-        mov ah, byte [byte_172BC5]
+        mov ah, byte [SoundSystemOn]
         xor ebx, ebx
         test ah, ah
         jne short .1
@@ -2448,7 +2448,7 @@ PlaySample:
         push ecx
         push esi
         mov esi, eax
-        cmp byte [byte_172BC5], 0
+        cmp byte [SoundSystemOn], 0
         jne short .1
         mov eax, 0FFFFFFF6h
         pop esi
@@ -2476,7 +2476,7 @@ PlaySample:
 .4:
         push byte 0FFFFFFFFh
         push ebx
-        mov eax, dword [nosplit esi*8+dword_172AC0]
+        mov eax, dword [nosplit esi*8+SoundBankTable]
         push byte 0FFFFFFFFh
         mov ecx, 0FFFFFFFFh
         mov eax, dword [byte eax+edx*4+08h]
@@ -2495,7 +2495,7 @@ PlaySample:
 PlaySampleVolume:
         push esi
         mov esi, eax
-        cmp byte [byte_172BC5], 0
+        cmp byte [SoundSystemOn], 0
         jne short .1
         mov eax, 0FFFFFFF6h
         pop esi
@@ -2520,7 +2520,7 @@ PlaySampleVolume:
 .4:
         push byte 0FFFFFFFFh
         push ecx
-        mov eax, dword [nosplit esi*8+dword_172AC0]
+        mov eax, dword [nosplit esi*8+SoundBankTable]
         push ebx
         mov eax, dword [byte eax+edx*4+08h]
         mov ecx, 0FFFFFFFFh
@@ -2535,15 +2535,15 @@ PlaySampleVolume:
 ; Clears the speech ring
 ;-----------------------------------------------------------------------------
 ClearSpeechRing:
-        mov dword [dword_1DC9A0], 0
-        mov dword [dword_1DC9A4], 0
-        mov dword [dword_1DC99C], 0
+        mov dword [SpeechRingHead], 0
+        mov dword [SpeechRingTail], 0
+        mov dword [SpeechRingBusy], 0
         xor eax, eax
 .1:
         add eax, byte 0Ch
-        mov dword [dword eax+dword_1DC9A8], 0
-        mov dword [dword eax+dword_1DC9AC], 0
-        mov dword [dword eax+dword_1DC9A4], 0
+        mov dword [dword eax+SpeechSampleBufA], 0
+        mov dword [dword eax+SpeechSampleBufB], 0
+        mov dword [dword eax+SpeechRingTail], 0
         cmp eax, 120h
         jne short .1
         ret
@@ -2556,17 +2556,17 @@ PushSpeechRing:
         push ecx
         mov ebx, eax
         mov ecx, edx
-        mov edx, dword [dword_1DC9A0]
+        mov edx, dword [SpeechRingHead]
         imul eax, edx, byte 0Ch
-        mov dword [dword eax+dword_1DC9B0], ebx
-        mov dword [dword eax+dword_1DC9B4], ebx
+        mov dword [dword eax+SpeechRingUsed], ebx
+        mov dword [dword eax+SpeechRingBytes], ebx
         inc edx
-        mov dword [dword eax+dword_1DC9B8], ecx
+        mov dword [dword eax+SpeechRingEntries], ecx
         cmp edx, byte 18h
         jl short .1
         xor edx, edx
 .1:
-        mov dword [dword_1DC9A0], edx
+        mov dword [SpeechRingHead], edx
         pop ecx
         pop ebx
         ret
@@ -2579,8 +2579,8 @@ SpeechRingCount:
         push ecx
         push edx
         mov ecx, eax
-        mov edx, dword [dword_1DC9A0]
-        sub edx, dword [dword_1DC9A4]
+        mov edx, dword [SpeechRingHead]
+        sub edx, dword [SpeechRingTail]
         test edx, edx
         jge short .1
         add edx, byte 18h
@@ -2588,14 +2588,14 @@ SpeechRingCount:
         xor eax, eax
         jmp short .5
 .2:
-        mov ebx, dword [dword_1DC9A4]
+        mov ebx, dword [SpeechRingTail]
         add ebx, eax
         cmp ebx, byte 18h
         jl short .3
         sub ebx, byte 18h
 .3:
         imul ebx, byte 0Ch
-        cmp ecx, dword [dword ebx+dword_1DC9B0]
+        cmp ecx, dword [dword ebx+SpeechRingUsed]
         jne short .4
         mov eax, 1
         pop edx
@@ -2617,7 +2617,7 @@ SpeechRingCount:
 ; Returns whether speech is playing
 ;-----------------------------------------------------------------------------
 SpeechBusy:
-        cmp dword [dword_1DC99C], byte 0
+        cmp dword [SpeechRingBusy], byte 0
         jle short .2
 .1:
         mov eax, 1

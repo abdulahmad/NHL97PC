@@ -2,18 +2,18 @@
 bits 32
 %include "hockey.inc"
 section s_1B93D8 nobits alloc noexec write align=1
-global byte_1B93DD, byte_1B93DE, dword_1B93D8, dword_1B93DC, dword_1B93E4, dword_1B93E8, unk_1B93E0
-dword_1B93D8:
+global BoxSeatSlot, BoxSeatFlags, BoxSeatPlayer, BoxSeatTeam, BenchSeats, SeatTable, BoxSeats
+BoxSeatPlayer:
         resb 4
-dword_1B93DC:
+BoxSeatTeam:
         resb 1
-byte_1B93DD:
+BoxSeatSlot:
         resb 1
-byte_1B93DE:
+BoxSeatFlags:
         resb 2
-unk_1B93E0:
+BoxSeats:
         resb 4
-dword_1B93E4:
+BenchSeats:
         resb 4
-dword_1B93E8:
+SeatTable:
         resb 244

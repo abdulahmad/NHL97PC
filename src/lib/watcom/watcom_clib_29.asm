@@ -2,12 +2,12 @@
 bits 32
 %include "hockey.inc"
 section s_135C52 progbits alloc exec nowrite align=1
-extern __fdiv_fpr, _matherr_, byte_16E415, byte_17268C, dword_16841C, dword_19A6E0, dword_19C8C8, dword_19C8CC
-extern off_19C894, qword_16817C, qword_168418, qword_19C884, tbyte_19C8B4, tbyte_19C8BE, tbyte_19C8D0, tbyte_19C8DA
-extern tbyte_19C8E4, tbyte_19C8EE, tbyte_19C8F8, tbyte_19C902, tbyte_19C90C, unk_135C2D
+extern __fdiv_fpr, _matherr_, FpuType, MathErrorFlags, HugeValHi, MathErrTable, F32_16___fpatan_chk, F32_0p0625
+extern FpatanJumpTable, F64_1eneg08, HugeValLo, F64_1, F80_3p14159, F80_1p5708___fpatan_chk, F80_neg0p333333, F80_0p2
+extern F80_neg0p142857, F80_0p111111, F80_neg0p0909076, F80_0p0764169, F80_0, str_0123456789abcdefghijklmnopqr
 global __fpatan_chk, __math1err_, __math2err_, __math87_err_, itoa_, __fpatan_chk_160, __fpatan_chk_16B, __fpatan_chk_178
 global __fpatan_chk_18B, __fpatan_chk_1A0, __fpatan_chk_1B3, __fpatan_chk_1C8, __fpatan_chk_1DB, ltoa_, CheckPentiumFdiv, ultoa_
-global unk_135CB7, utoa_
+global str_0123456789abcdefghijklmnopqr_ultoa_, utoa_
 ;-----------------------------------------------------------------------------
 ; utoa_                                                        135C52  library
 ;-----------------------------------------------------------------------------
@@ -29,7 +29,7 @@ utoa_:
         xor edx, edx
         div dword [ebx]
         mov dword [ebx], eax
-        mov al, byte [dword cs:edx+unk_135C2D]
+        mov al, byte [dword cs:edx+str_0123456789abcdefghijklmnopqr]
         mov byte [ecx], al
         mov eax, dword [byte esp+024h]
         inc ecx
@@ -67,7 +67,7 @@ itoa_:
         mov eax, ecx
         pop ecx
         ret
-unk_135CB7:
+str_0123456789abcdefghijklmnopqr_ultoa_:
         db 030h,031h,032h,033h,034h,035h,036h,037h,038h,039h,061h,062h,063h,064h,065h,066h
         db 067h,068h,069h,06Ah,06Bh,06Ch,06Dh,06Eh,06Fh,070h,071h,072h,073h,074h,075h,076h
         db 077h,078h,079h,07Ah,00h
@@ -93,7 +93,7 @@ ultoa_:
         div dword [ebx]
         mov dword [ebx], edx
         mov edx, dword [byte esp+024h]
-        mov dl, byte [dword cs:edx+unk_135CB7]
+        mov dl, byte [dword cs:edx+str_0123456789abcdefghijklmnopqr_ultoa_]
         mov byte [ecx], dl
         inc ecx
         test eax, eax
@@ -141,7 +141,7 @@ CheckPentiumFdiv:
         mov dword [esp], 80000000h
         mov dword [byte esp+04h], 4147FFFFh
         xor eax, eax
-        mov al, byte [byte_16E415]
+        mov al, byte [FpuType]
         cmp eax, byte 3
         jl short .1
         fld qword [byte esp+08h]
@@ -151,11 +151,11 @@ CheckPentiumFdiv:
         fdiv st1
         fmulp
         fsubp
-        fcomp qword [qword_16817C]
+        fcomp qword [F64_1eneg08]
         fnstsw ax
         sahf
         jbe short .1
-        or byte [byte_17268C], 1
+        or byte [MathErrorFlags], 1
 .1:
         add esp, byte 10h
         ret
@@ -210,18 +210,18 @@ __fpatan_chk:
         mov eax, 0Fh
         call __fdiv_fpr
         pop eax
-        fld dword [dword_19C8C8]
+        fld dword [F32_16___fpatan_chk]
         fmul st1
         fistp dword [byte esp+020h]
         mov ecx, dword [byte esp+020h]
         shl ecx, 4
         fild dword [byte esp+020h]
-        fmul dword [dword_19C8CC]
+        fmul dword [F32_0p0625]
         fld st1
         fsub st1
         fxch
         fmulp st2
-        fld qword [qword_19C884]
+        fld qword [F64_1]
         faddp st2
         push eax
         mov eax, 0Fh
@@ -233,23 +233,23 @@ __fpatan_chk:
         fmul st1
         fld st0
         fmul st1
-        fld tword [tbyte_19C902]
-        fld tword [tbyte_19C8F8]
+        fld tword [F80_0p0764169]
+        fld tword [F80_neg0p0909076]
         fxch
         fmul st2
-        fld tword [tbyte_19C8EE]
+        fld tword [F80_0p111111]
         fxch st2
         fmul st3
-        fld tword [tbyte_19C8E4]
+        fld tword [F80_neg0p142857]
         fxch st2
         fmul st5
         fxch st3
         fmulp st4
-        fld tword [tbyte_19C8DA]
+        fld tword [F80_0p2]
         fxch st3
         faddp st4
         mov eax, dword [byte esp+014h]
-        fld tword [tbyte_19C8D0]
+        fld tword [F80_neg0p333333]
         fxch
         shl eax, 10h
         fmul st6
@@ -274,9 +274,9 @@ __fpatan_chk:
         faddp
         fmul st1
         faddp
-        fld tword [dword ecx+tbyte_19C90C]
+        fld tword [dword ecx+F80_0]
         faddp
-        jmp dword [nosplit edx*4+off_19C894]
+        jmp dword [nosplit edx*4+FpatanJumpTable]
 __fpatan_chk_160:
         fldcw word [byte esp+018h]
         add esp, byte 24h
@@ -293,7 +293,7 @@ __fpatan_chk_16B:
         pop eax
         ret
 __fpatan_chk_178:
-        fld tword [tbyte_19C8B4]
+        fld tword [F80_3p14159]
         fsubrp
         fldcw word [byte esp+018h]
         add esp, byte 24h
@@ -302,7 +302,7 @@ __fpatan_chk_178:
         pop eax
         ret
 __fpatan_chk_18B:
-        fld tword [tbyte_19C8B4]
+        fld tword [F80_3p14159]
         fsubrp
         fchs
         fldcw word [byte esp+018h]
@@ -312,7 +312,7 @@ __fpatan_chk_18B:
         pop eax
         ret
 __fpatan_chk_1A0:
-        fld tword [tbyte_19C8BE]
+        fld tword [F80_1p5708___fpatan_chk]
         fsubrp
         fldcw word [byte esp+018h]
         add esp, byte 24h
@@ -321,7 +321,7 @@ __fpatan_chk_1A0:
         pop eax
         ret
 __fpatan_chk_1B3:
-        fld tword [tbyte_19C8BE]
+        fld tword [F80_1p5708___fpatan_chk]
         fsubrp
         fchs
         fldcw word [byte esp+018h]
@@ -331,7 +331,7 @@ __fpatan_chk_1B3:
         pop eax
         ret
 __fpatan_chk_1C8:
-        fld tword [tbyte_19C8BE]
+        fld tword [F80_1p5708___fpatan_chk]
         faddp
         fldcw word [byte esp+018h]
         add esp, byte 24h
@@ -340,7 +340,7 @@ __fpatan_chk_1C8:
         pop eax
         ret
 __fpatan_chk_1DB:
-        fld tword [tbyte_19C8BE]
+        fld tword [F80_1p5708___fpatan_chk]
         faddp
         fchs
         fldcw word [byte esp+018h]
@@ -478,12 +478,12 @@ __math2err_:
 .6:
         mov eax, ecx
         and eax, byte 1Fh
-        mov eax, dword [nosplit eax*4+dword_19A6E0]
+        mov eax, dword [nosplit eax*4+MathErrTable]
         mov dword [byte ebp-028h], esi
         mov dword [byte ebp-024h], eax
         test ch, 10h
         je short .7
-        fld qword [qword_168418]
+        fld qword [HugeValLo]
         fchs
         fstp qword [byte ebp-010h]
         jmp short .12
@@ -505,9 +505,9 @@ __math2err_:
 .9:
         test ch, 80h
         je short .10
-        mov eax, dword [qword_168418]
+        mov eax, dword [HugeValLo]
         mov dword [byte ebp-010h], eax
-        mov eax, dword [dword_16841C]
+        mov eax, dword [HugeValHi]
         jmp short .11
 .10:
         mov eax, dword [ebx]

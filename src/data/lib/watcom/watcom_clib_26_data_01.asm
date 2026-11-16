@@ -3,33 +3,33 @@ bits 32
 %include "hockey.inc"
 section s_1999A5 progbits alloc noexec write align=1
 extern NoFloatSupport
-global ___env_mask, _environ, byte_199A24, byte_199AA4, dword_1999A5, dword_1999BC, dword_1999C0, dword_199A14
-global dword_199A18, dword_199A1E, dword_199B2A, dword_199B2E, dword_199C38, dword_199C3C, dword_199C48, dword_199C4C
-global off_199C50, off_199C54, unk_1999C4, word_199A1C, word_199A22
-dword_1999A5:
+global ___env_mask, _environ, HotkeyScanTable, HotkeyModTable, DosErrnoTable, _umaskval, __NHandles, __io_mode
+global SavedBreakOffset, BreakCallFunc, HotkeyNesting, HotkeyFuncTable, ShadowFillFunc, TitleBandFunc, __nheapbeg, __amblksiz
+global __EFG_printf, __EFG_scanf, __init_mode, SavedBreakSelector, BreakDataSelector
+DosErrnoTable:
         db 00h,00h,00h,00h,09h,01h,01h,0Bh,06h,04h,05h,05h,05h,02h,03h,0FFh
         db 0FFh,07h,08h,06h,08h,01h,0FFh
-dword_1999BC:
+_umaskval:
         db 00h,00h,00h,00h
-dword_1999C0:
+__NHandles:
         db 014h,00h,00h,00h
-unk_1999C4:
+__init_mode:
         db 01h,00h,00h,00h,02h,00h,00h,00h,02h,00h,00h,00h,03h,00h,00h,00h
         db 02h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-dword_199A14:
-        dd unk_1999C4
-dword_199A18:
+__io_mode:
+        dd __init_mode
+SavedBreakOffset:
         db 00h,00h,00h,00h
-word_199A1C:
+SavedBreakSelector:
         db 00h,00h
-dword_199A1E:
+BreakCallFunc:
         db 00h,00h,00h,00h
-word_199A22:
+BreakDataSelector:
         db 00h,00h
-byte_199A24:
+HotkeyScanTable:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -38,7 +38,7 @@ byte_199A24:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-byte_199AA4:
+HotkeyModTable:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -48,9 +48,9 @@ byte_199AA4:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h
-dword_199B2A:
+HotkeyNesting:
         db 01h,00h,00h,00h
-dword_199B2E:
+HotkeyFuncTable:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -68,19 +68,19 @@ dword_199B2E:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-dword_199C38:
+ShadowFillFunc:
         db 00h,00h,00h,00h
-dword_199C3C:
+TitleBandFunc:
         db 00h,00h,00h,00h
 _environ:
         db 00h,00h,00h,00h
 ___env_mask:
         db 00h,00h,00h,00h
-dword_199C48:
+__nheapbeg:
         db 01h,00h,00h,00h
-dword_199C4C:
+__amblksiz:
         db 010h,00h,00h,00h
-off_199C50:
+__EFG_printf:
         dd NoFloatSupport
-off_199C54:
+__EFG_scanf:
         dd NoFloatSupport

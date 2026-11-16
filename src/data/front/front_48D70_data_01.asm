@@ -9,13 +9,13 @@ global str_Center02dFsh, str_C100, str_C200, str_C201, str_C210, str_C211, str_C
 global str_C302, str_C303, str_C310, str_C311, str_C312, str_C313, str_C320, str_C321
 global str_C322, str_C323, str_C330, str_C331, str_C332, str_C333, str_GLASS, str_ArenaViv2
 global str_Zamtrack, str_Netback, str_Netfrnt, str_BlogoDC, str_L02da, str_L02db, str_L02dc, str_L02dC
-global dword_161252, dword_161256, dword_161391, dword_1613AD, dword_1613B9, dword_1613E5, dword_1613E9, dword_1613ED
-global dword_1613F1, dword_1613F5, qword_161389, qword_161395, qword_16139D, qword_1613A5, qword_1613B1, qword_1613BD
-global qword_1613C5, qword_1613CD, qword_1613D5, qword_1613DD, qword_16142D, qword_161435, qword_16143D, qword_161445
-global qword_16144D, str_Botboards, str_Center, str_CrowdD, str_EMPTYFSH, str_FatBlueLines, str_FatRedLines, str_Glass
+global F32_neg4264, F32_neg2040, F32_65536_ScaleLineWidth, F32_65536_InitRinkView, F32_600, F32_6_BuildRinkGeometry, F32_10_BuildRinkGeometry, F32_14
+global F32_4, F32_8, F64_0p5_ScaleLineWidth, F64_1p5708_InitRinkView, F64_0p31831, F64_65536_InitRinkView, F64_0p04, F64_6p28319_DrawCreaseArc
+global F64_6p28319_BuildRinkGeometry, F64_80, F64_110, F64_40, F64_0p00138889, F64_65536_DrawScoreboard, F64_0p31831_UpdateScoreboardSpin, F64_0p5_UpdateScoreboardSpin
+global F64_65536_UpdateScoreboardSpin, str_Botboards, str_Center, str_CrowdD, str_EMPTYFSH, str_FatBlueLines, str_FatRedLines, str_Glass
 global str_Glassline, str_Gt002d, str_Gt102d, str_Gt202d, str_Gt302d, str_HALFFSH, str_Icelogo, str_STANDSFSH
-global str_SideD, str_Stands2, str_Topboards, str_WALL, str_Zamboni, str_Zambpath, unk_1611B4
-unk_1611B4:
+global str_SideD, str_Stands2, str_Topboards, str_WALL, str_Zamboni, str_Zambpath, str_Punct_MakeDataPath
+str_Punct_MakeDataPath:
         db 05Ch,00h
 str_DIRECTORYS:
         db 0Ah,0Ah,044h,049h,052h,045h,043h,054h,04Fh,052h,059h,03Ah,020h,025h,073h,0Ah
@@ -43,9 +43,9 @@ str_Puck:
         db 070h,075h,063h,06Bh,00h,00h,00h,00h
 str_JBUG:
         db 04Ah,02Dh,042h,055h,047h,00h
-dword_161252:
+F32_neg4264:
         db 00h,040h,085h,0C5h
-dword_161256:
+F32_neg2040:
         db 00h,00h,0FFh,0C4h,00h,00h
 str_Ice2:
         db 069h,063h,065h,00h
@@ -121,41 +121,41 @@ str_C332:
         db 063h,033h,033h,032h,00h,00h,00h,00h
 str_C333:
         db 063h,033h,033h,033h,00h
-qword_161389:
+F64_0p5_ScaleLineWidth:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-dword_161391:
+F32_65536_ScaleLineWidth:
         db 00h,00h,080h,047h
-qword_161395:
+F64_1p5708_InitRinkView:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0F9h,03Fh
-qword_16139D:
+F64_0p31831:
         db 0F5h,036h,0BDh,068h,030h,05Fh,0D4h,03Fh
-qword_1613A5:
+F64_65536_InitRinkView:
         db 00h,00h,00h,00h,00h,00h,0F0h,040h
-dword_1613AD:
+F32_65536_InitRinkView:
         db 00h,00h,080h,047h
-qword_1613B1:
+F64_0p04:
         db 07Bh,014h,0AEh,047h,0E1h,07Ah,0A4h,03Fh
-dword_1613B9:
+F32_600:
         db 00h,00h,016h,044h
-qword_1613BD:
+F64_6p28319_DrawCreaseArc:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_1613C5:
+F64_6p28319_BuildRinkGeometry:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_1613CD:
+F64_80:
         db 00h,00h,00h,00h,00h,00h,054h,040h
-qword_1613D5:
+F64_110:
         db 00h,00h,00h,00h,00h,080h,05Bh,040h
-qword_1613DD:
+F64_40:
         db 00h,00h,00h,00h,00h,00h,044h,040h
-dword_1613E5:
+F32_6_BuildRinkGeometry:
         db 00h,00h,0C0h,040h
-dword_1613E9:
+F32_10_BuildRinkGeometry:
         db 00h,00h,020h,041h
-dword_1613ED:
+F32_14:
         db 00h,00h,060h,041h
-dword_1613F1:
+F32_4:
         db 00h,00h,080h,040h
-dword_1613F5:
+F32_8:
         db 00h,00h,00h,041h,00h,00h,00h
 str_GLASS:
         db 047h,04Ch,041h,053h,053h,00h,00h,00h
@@ -167,15 +167,15 @@ str_Zamtrack:
         db 07Ah,061h,06Dh,074h,072h,061h,063h,06Bh,00h,00h,00h,00h
 str_Zambpath:
         db 07Ah,061h,06Dh,062h,070h,061h,074h,068h,00h
-qword_16142D:
+F64_0p00138889:
         db 016h,06Ch,0C1h,016h,06Ch,0C1h,056h,03Fh
-qword_161435:
+F64_65536_DrawScoreboard:
         db 00h,00h,00h,00h,00h,00h,0F0h,040h
-qword_16143D:
+F64_0p31831_UpdateScoreboardSpin:
         db 0F5h,036h,0BDh,068h,030h,05Fh,0D4h,03Fh
-qword_161445:
+F64_0p5_UpdateScoreboardSpin:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-qword_16144D:
+F64_65536_UpdateScoreboardSpin:
         db 00h,00h,00h,00h,00h,00h,0F0h,040h,00h,00h,00h
 str_Netback:
         db 06Eh,065h,074h,062h,061h,063h,06Bh,00h

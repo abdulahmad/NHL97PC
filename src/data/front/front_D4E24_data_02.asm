@@ -2,13 +2,13 @@
 bits 32
 %include "hockey.inc"
 section s_16D768 progbits alloc noexec write align=1
-extern unk_167410, unk_167418, unk_167421, unk_167429, unk_167431, unk_167437, unk_16743E, unk_167444
-extern unk_16744D, unk_167455, unk_16745B, unk_167460
+extern str_STATICS, str_DYNAMICS, str_PLAYERS, str_ROSTERS, str_STATS, str_BRAINS, str_GAMES, str_USERLOGS
+extern str_NHL9596, str_DATA, str_HDB, str_BIX
 global byte_16D784, dword_16D768, dword_16D76C, dword_16D770, dword_16D774, dword_16D778, dword_16D77C, dword_16D780
 global dword_16D788, dword_16D78C, dword_16D790, dword_16D794, dword_16D798, dword_16D79C, dword_16D7A0, dword_16D7A4
 global dword_16D7A8, dword_16D7D0, dword_16D7D4, dword_16D7D8, dword_16D7F0, off_16D7AC, off_16D7B4, off_16D7DC
 global off_16D7E0, off_16D7E4, off_16D7E8, unk_16D7F4, unk_16D7FC, unk_16D804, word_16D7EC, word_16D7EE
-global word_16D80C, word_16D80E, word_16D85E, word_16D860
+global str_Punct_SetMatchupTeams, word_16D80E, str_Punct_DaysToYear, word_16D860
 dword_16D768:
         db 00h,00h,00h,00h
 dword_16D76C:
@@ -44,16 +44,16 @@ dword_16D7A4:
 dword_16D7A8:
         db 00h,00h,00h,00h
 off_16D7AC:
-        dd unk_167410
-        dd unk_167418
+        dd str_STATICS
+        dd str_DYNAMICS
 off_16D7B4:
-        dd unk_167410
-        dd unk_167421
-        dd unk_167429
-        dd unk_167431
-        dd unk_167437
-        dd unk_16743E
-        dd unk_167444
+        dd str_STATICS
+        dd str_PLAYERS
+        dd str_ROSTERS
+        dd str_STATS
+        dd str_BRAINS
+        dd str_GAMES
+        dd str_USERLOGS
 dword_16D7D0:
         db 00h,00h,00h,00h
 dword_16D7D4:
@@ -61,13 +61,13 @@ dword_16D7D4:
 dword_16D7D8:
         db 00h,00h,00h,00h
 off_16D7DC:
-        dd unk_16744D
+        dd str_NHL9596
 off_16D7E0:
-        dd unk_167455
+        dd str_DATA
 off_16D7E4:
-        dd unk_16745B
+        dd str_HDB
 off_16D7E8:
-        dd unk_167460
+        dd str_BIX
 word_16D7EC:
         db 00h,00h
 word_16D7EE:
@@ -80,7 +80,7 @@ unk_16D7FC:
         db 00h,00h,00h,00h,00h,00h,00h,00h
 unk_16D804:
         db 00h,00h,00h,00h,01h,00h,00h,00h
-word_16D80C:
+str_Punct_SetMatchupTeams:
         db 0Dh,00h
 word_16D80E:
         db 02Dh,00h,02Ah,00h,01Bh,00h,054h,00h,01Ch,00h,09Eh,00h,01Dh,00h,0C5h,00h
@@ -88,7 +88,7 @@ word_16D80E:
         db 024h,00h,076h,01h,022h,00h,07Bh,01h,023h,00h,0DCh,01h,025h,00h,0E1h,01h
         db 026h,00h,09h,02h,027h,00h,042h,02h,028h,00h,075h,02h,029h,00h,0ACh,02h
         db 02Ah,00h,0D4h,02h,02Ch,00h,0F4h,02h,02Bh,00h,050h,03h,02Eh,00h,05Dh,03h
-word_16D85E:
+str_Punct_DaysToYear:
         db 02Fh,00h
 word_16D860:
         db 00h,00h,01Fh,00h,03Bh,00h,05Ah,00h,078h,00h,097h,00h,0B5h,00h,0D4h,00h

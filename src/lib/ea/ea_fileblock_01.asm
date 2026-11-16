@@ -2,11 +2,11 @@
 bits 32
 %include "hockey.inc"
 section s_FC88C progbits alloc exec nowrite align=1
-extern _dos_getdate_, _dos_gettime_, str_02d3s02d, str_2d02d02d, byte_16E638, byte_16E639, byte_16E63A, byte_16E688
-extern byte_171C90, dword_16E628, dword_16E630, dword_16E634, dword_16E63C, dword_16E870, dword_1CF298, dword_1CF530
-extern dword_1CF534, dword_1CF538, dword_1CF53C, dword_1CF540, dword_1CF544, dword_1CF548, dword_1CF54C, dword_1CF598
-extern dword_1CF59C, dword_1CF5A0, dword_1CF5A4, dword_1CF5A8, dword_1CF5AC, dword_1CF5C4, dword_1CF5C8, dword_1DA4D0
-extern off_16E858, removewindow, sprintf_, bcopy, ConvertArtPalette16, NextTextByte, NextTextChar, BlitCore
+extern _dos_getdate_, _dos_gettime_, str_02d3s02d, str_2d02d02d, DebugTextColor, DebugBackColor, byte_16E63A, ScreenBitsPerPixel
+extern ShadeTable, DebugMode, DebugLineY, DebugLineWidth, DebugLineTable, ShapeRowFunc, dword_1CF298, FontAscent
+extern FontDescent, TextAlign, CurrentFont, FontHeight, FontWidth, LinkTextFont, FontFirstChar, FontLastChar
+extern FontGlyphTable, FontFlags, TextColor, FontGlyphCount, FontKernTable, TextNextCharFn, FontSpacing, PaletteWords
+extern ShapeRowFuncTable, removewindow, sprintf_, bcopy, ConvertArtPalette16, NextTextByte, NextTextChar, BlitCore
 extern FreeMemBlock, ZeroMem, PrepareTextDraw, vsprintf_
 global jpt_FC910, DebugShowLines_BA, DebugShowLines_CB, DebugShowLines_11F, DebugShowLines_149, DebugShowLines_153, FreeBitmap_30, CopyRowKeyed32_1C
 global DebugSetLine, DebugShowLines, DebugStatusLine, SelectFont, FreeBitmap, CopyRowKeyed8, CopyRowKeyed16, CopyRowKeyed24
@@ -21,7 +21,7 @@ DebugSetLine:
         sub esp, 104h
         mov ebx, dword [dword esp+0110h]
         mov edx, dword [dword esp+0114h]
-        cmp dword [dword_16E628], byte 2
+        cmp dword [DebugMode], byte 2
         jl short .2
         test ebx, ebx
         jl short .1
@@ -36,7 +36,7 @@ DebugSetLine:
         shl eax, 4
         add eax, ebx
         add eax, eax
-        mov dword [dword_16E634], eax
+        mov dword [DebugLineWidth], eax
 .1:
         lea eax, [dword esp+011Ch]
         lea ebx, [dword esp+0100h]
@@ -72,10 +72,10 @@ DebugShowLines:
         push edi
         push ebp
         sub esp, byte 0Ch
-        mov ebx, dword [dword_16E634]
-        mov esi, dword [dword_16E630]
+        mov ebx, dword [DebugLineWidth]
+        mov esi, dword [DebugLineY]
         mov edx, eax
-        cmp dword [dword_16E628], byte 2
+        cmp dword [DebugMode], byte 2
         jl near DebugShowLines_153.8
         mov edi, eax
         sub ecx, ecx
@@ -92,13 +92,13 @@ DebugShowLines:
         jle near DebugShowLines_153.8
         mov edi, edx
 .1:
-        mov esi, dword [dword_16E630]
-        mov ebx, dword [dword_16E634]
+        mov esi, dword [DebugLineY]
+        mov ebx, dword [DebugLineWidth]
         cmp cl, 0Eh
         jne short .2
         mov al, byte [edi]
         xor cl, cl
-        mov byte [byte_16E639], al
+        mov byte [DebugBackColor], al
         jmp near DebugShowLines_153.7
 .2:
         mov cl, byte [edi]
@@ -106,10 +106,10 @@ DebugShowLines:
         jb short .3
         call DebugStatusLine
         xor ah, ah
-        mov al, byte [byte_16E639]
-        mov esi, dword [dword_16E630]
+        mov al, byte [DebugBackColor]
+        mov esi, dword [DebugLineY]
         shl eax, 8
-        mov ebx, dword [dword_16E634]
+        mov ebx, dword [DebugLineWidth]
         mov dword [byte esp+08h], eax
         xor ah, ah
         mov edx, dword [byte esp+08h]
@@ -166,16 +166,16 @@ DebugShowLines_11F:
         idiv ebx
         lea ebx, [byte eax+01h]
         imul ebx, dword 0A0h
-        mov dword [dword_16E634], ebx
+        mov dword [DebugLineWidth], ebx
         call DebugStatusLine
-        mov ebx, dword [dword_16E634]
+        mov ebx, dword [DebugLineWidth]
         jmp short DebugShowLines_153.7
 DebugShowLines_149:
         xor ebx, ebx
-        mov bl, byte [byte_16E638]
+        mov bl, byte [DebugTextColor]
         jmp short DebugShowLines_153.6
 DebugShowLines_153:
-        cmp dword [dword_16E628], byte 2
+        cmp dword [DebugMode], byte 2
         jl short .5
         xor eax, eax
 .4:
@@ -185,19 +185,19 @@ DebugShowLines_153:
         jl short .4
 .5:
         xor ebx, ebx
-        mov bl, byte [byte_16E638]
-        mov dword [dword_16E630], esi
+        mov bl, byte [DebugTextColor]
+        mov dword [DebugLineY], esi
 .6:
         imul ebx, dword 0A0h
 .7:
         mov eax, dword [esp]
         inc edi
         inc ebp
-        mov dword [dword_16E634], ebx
+        mov dword [DebugLineWidth], ebx
         cmp ebp, eax
         jl near DebugShowLines.1
 .8:
-        mov ebx, dword [dword_16E634]
+        mov ebx, dword [DebugLineWidth]
         add esp, byte 0Ch
         pop ebp
         pop edi
@@ -216,11 +216,11 @@ DebugStatusLine:
         push ecx
         push edx
         push esi
-        cmp dword [dword_16E634], 0FA0h
+        cmp dword [DebugLineWidth], 0FA0h
         jl short .1
         xor edx, edx
         mov eax, 19h
-        mov dl, byte [byte_16E638]
+        mov dl, byte [DebugTextColor]
         sub eax, edx
         lea ebx, [byte eax-01h]
         lea eax, [nosplit ebx*4+00h]
@@ -229,7 +229,7 @@ DebugStatusLine:
         push eax
         lea eax, [nosplit edx*4+00h]
         add eax, edx
-        mov ebx, dword [dword_16E630]
+        mov ebx, dword [DebugLineY]
         shl eax, 5
         add eax, ebx
         inc edx
@@ -241,14 +241,14 @@ DebugStatusLine:
         push eax
         call bcopy
         add esp, byte 0Ch
-        mov eax, dword [dword_16E630]
+        mov eax, dword [DebugLineY]
         push dword 0A0h
         add eax, 0F00h
         push eax
         mov esi, 0F00h
         call ZeroMem
         add esp, byte 8
-        mov dword [dword_16E634], esi
+        mov dword [DebugLineWidth], esi
 .1:
         pop esi
         pop edx
@@ -256,8 +256,8 @@ DebugStatusLine:
         pop ebx
         ret
         push ebx
-        mov ebx, dword [dword_16E630]
-        cmp dword [dword_16E628], byte 2
+        mov ebx, dword [DebugLineY]
+        cmp dword [DebugMode], byte 2
         jl short .3
         xor eax, eax
 .2:
@@ -266,7 +266,7 @@ DebugStatusLine:
         cmp eax, 0FA0h
         jl short .2
 .3:
-        mov dword [dword_16E630], ebx
+        mov dword [DebugLineY], ebx
         pop ebx
         ret
         db 090h
@@ -275,12 +275,12 @@ DebugStatusLine:
         jl short .4
         cmp eax, byte 18h
         jg short .4
-        mov byte [byte_16E638], al
+        mov byte [DebugTextColor], al
 .4:
         ret
         db 090h
         mov al, byte [byte esp+04h]
-        mov byte [byte_16E639], al
+        mov byte [DebugBackColor], al
         ret
         db 08Bh,0C0h
         mov eax, dword [byte esp+04h]
@@ -293,7 +293,7 @@ DebugStatusLine:
         mov eax, dword [byte esp+04h]
         shl eax, 0Fh
         add eax, 0B0000h
-        mov dword [dword_16E630], eax
+        mov dword [DebugLineY], eax
         ret
         db 08Bh,0C0h
         push ebx
@@ -315,7 +315,7 @@ DebugStatusLine:
         xor eax, eax
         mov al, byte [byte esp+01h]
         push edx
-        mov edx, dword [nosplit eax*4+dword_16E63C]
+        mov edx, dword [nosplit eax*4+DebugLineTable]
         xor eax, eax
         push edx
         mov al, byte [byte esp+08h]
@@ -354,66 +354,66 @@ SelectFont:
         mov edx, dword [byte esp+0Ch]
         mov eax, dword [byte edx+0Dh]
         sar eax, 18h
-        mov dword [dword_1CF530], eax
+        mov dword [FontAscent], eax
         mov eax, dword [byte edx+0Eh]
         sar eax, 18h
-        mov dword [dword_1CF534], eax
+        mov dword [FontDescent], eax
         mov eax, dword [byte edx+0Fh]
         mov ecx, 64h
         sar eax, 18h
         mov esi, 1
-        mov dword [dword_1CF540], eax
+        mov dword [FontHeight], eax
         mov eax, dword [byte edx+010h]
-        mov dword [dword_1CF5A4], edx
+        mov dword [TextColor], edx
         sar eax, 18h
-        mov dword [dword_1CF5A0], ecx
-        mov dword [dword_1CF544], eax
+        mov dword [FontFlags], ecx
+        mov dword [FontWidth], eax
         mov ecx, eax
-        mov eax, dword [dword_1CF540]
+        mov eax, dword [FontHeight]
         mov ebx, dword [byte edx+01Ch]
         add ecx, eax
-        mov dword [dword_1CF53C], esi
+        mov dword [CurrentFont], esi
         mov eax, ecx
         add ebx, edx
         xor eax, ecx
-        mov dword [dword_1CF5AC], ebx
+        mov dword [FontKernTable], ebx
         mov ax, word [byte edx+0Ah]
-        mov dword [dword_1CF548], ecx
-        mov dword [dword_1CF598], eax
+        mov dword [LinkTextFont], ecx
+        mov dword [FontLastChar], eax
         mov eax, dword [byte edx+014h]
-        mov dword [dword_1CF54C], ecx
+        mov dword [FontFirstChar], ecx
         lea ecx, [edx+eax]
         mov eax, ebx
-        mov dword [dword_1CF5A8], ecx
+        mov dword [FontGlyphCount], ecx
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
-        mov dword [dword_1CF538], eax
+        mov al, byte [dword eax+ShadeTable]
+        mov dword [TextAlign], eax
         mov ecx, dword [byte ebx+02h]
         mov eax, ebx
         sar ecx, 10h
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         imul eax, ecx
         add eax, byte 7
         and al, 0F8h
         sar eax, 3
-        mov dword [dword_1CF59C], eax
+        mov dword [FontGlyphTable], eax
         mov eax, dword [byte edx+0Ch]
         sar eax, 10h
         and eax, byte 3
         cmp eax, byte 2
         jne short .1
-        mov dword [dword_1CF5C4], NextTextChar
+        mov dword [TextNextCharFn], NextTextChar
         jmp short .4
 .1:
-        cmp dword [dword_1CF598], 0FFh
+        cmp dword [FontLastChar], 0FFh
         jle short .2
-        mov dword [dword_1CF5C4], NextTextChar
+        mov dword [TextNextCharFn], NextTextChar
         xor ecx, ecx
         call PrepareTextDraw
-        mov dword [dword_1CF5C8], ecx
+        mov dword [FontSpacing], ecx
         pop esi
         pop ebx
         ret
@@ -426,19 +426,19 @@ SelectFont:
         shr eax, cl
         cmp eax, 0FFh
         jbe short .3
-        mov dword [dword_1CF5C4], NextTextChar
+        mov dword [TextNextCharFn], NextTextChar
         xor ecx, ecx
         call PrepareTextDraw
-        mov dword [dword_1CF5C8], ecx
+        mov dword [FontSpacing], ecx
         pop esi
         pop ebx
         ret
 .3:
-        mov dword [dword_1CF5C4], NextTextByte
+        mov dword [TextNextCharFn], NextTextByte
 .4:
         xor ecx, ecx
         call PrepareTextDraw
-        mov dword [dword_1CF5C8], ecx
+        mov dword [FontSpacing], ecx
         pop esi
         pop ebx
         ret
@@ -661,7 +661,7 @@ DrawShapeCore:
         mov eax, esi
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         mov edx, eax
         cmp eax, byte 4
         jne short .1
@@ -671,25 +671,25 @@ DrawShapeCore:
         mov edi, 0FFh
 .2:
         xor ebx, ebx
-        mov ebp, dword [nosplit edi*4+dword_1DA4D0]
-        mov dword [dword_16E870], ebx
-        mov dword [nosplit edi*4+dword_1DA4D0], ebx
+        mov ebp, dword [nosplit edi*4+PaletteWords]
+        mov dword [ShapeRowFunc], ebx
+        mov dword [nosplit edi*4+PaletteWords], ebx
         cmp edx, byte 8
         jne short .3
-        cmp byte [byte_16E688], 10h
+        cmp byte [ScreenBitsPerPixel], 10h
         jne short .3
         mov edx, esp
         mov eax, esi
         call ConvertArtPalette16
         mov dword [dword_1CF298], eax
-        mov dword [dword_16E870], CopyRowKeyed32_1C
+        mov dword [ShapeRowFunc], CopyRowKeyed32_1C
 .3:
-        mov ecx, off_16E858
+        mov ecx, ShapeRowFuncTable
         mov ebx, dword [dword esp+041Ch]
         mov edx, dword [dword esp+0418h]
         mov eax, esi
         call BlitCore
-        mov dword [nosplit edi*4+dword_1DA4D0], ebp
+        mov dword [nosplit edi*4+PaletteWords], ebp
         add esp, 400h
         pop ebp
         pop edi

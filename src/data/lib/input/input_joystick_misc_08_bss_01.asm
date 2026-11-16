@@ -2,52 +2,52 @@
 bits 32
 %include "hockey.inc"
 section s_1DD5B8 nobits alloc noexec write align=1
-global byte_1DE6B8, byte_1DE6B9, byte_1DE6BA, dword_1DE6BC, dword_1DE740, unk_1DD5B8, unk_1DD738, unk_1DD838
-global unk_1DD938, unk_1DDA38, unk_1DDBB8, unk_1DDD38, unk_1DDEB8, unk_1DDFB8, unk_1DE0B8, unk_1DE1B8
-global unk_1DE2B8, unk_1DE3B8, unk_1DE4B8, unk_1DE5B8, unk_1DE6C0, word_1DE6BE, word_1DE760
-unk_1DD5B8:
+global MbvtopLow, MbvtopHigh, MbvtopResult, RationalAllocLimit, GusEnvConfig, TexClipBottomOut, TexClipBottomIn, TexClipRightIn
+global TexClipLeftIn, TexClipRightOut, TexClipLeftOut, TexClipTopOut, PolyClipTopIn, PolyClipBottomIn, PolyClipRightIn, PolyClipLeftOut
+global PolyClipBottomOut, PolyClipLeftIn, PolyClipRightOut, PolyClipTopOut, Hook387Save, RationalAllocFlags, GusDramSize
+TexClipBottomOut:
         resb 384
-unk_1DD738:
+TexClipBottomIn:
         resb 256
-unk_1DD838:
+TexClipRightIn:
         resb 256
-unk_1DD938:
+TexClipLeftIn:
         resb 256
-unk_1DDA38:
+TexClipRightOut:
         resb 384
-unk_1DDBB8:
+TexClipLeftOut:
         resb 384
-unk_1DDD38:
+TexClipTopOut:
         resb 384
-unk_1DDEB8:
+PolyClipTopIn:
         resb 256
-unk_1DDFB8:
+PolyClipBottomIn:
         resb 256
-unk_1DE0B8:
+PolyClipRightIn:
         resb 256
-unk_1DE1B8:
+PolyClipLeftOut:
         resb 256
-unk_1DE2B8:
+PolyClipBottomOut:
         resb 256
-unk_1DE3B8:
+PolyClipLeftIn:
         resb 256
-unk_1DE4B8:
+PolyClipRightOut:
         resb 256
-unk_1DE5B8:
+PolyClipTopOut:
         resb 256
-byte_1DE6B8:
+MbvtopLow:
         resb 1
-byte_1DE6B9:
+MbvtopHigh:
         resb 1
-byte_1DE6BA:
+MbvtopResult:
         resb 2
-dword_1DE6BC:
+RationalAllocLimit:
         resb 2
-word_1DE6BE:
+RationalAllocFlags:
         resb 2
-unk_1DE6C0:
+Hook387Save:
         resb 128
-dword_1DE740:
+GusEnvConfig:
         resb 32
-word_1DE760:
+GusDramSize:
         resb 4

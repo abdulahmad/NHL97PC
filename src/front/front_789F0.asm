@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_789F0 progbits alloc exec nowrite align=1
-extern byte_1C135A, byte_1C135B, byte_1C31A7, byte_1C347D, byte_1C52CA, byte_1C55A0, dword_16C6C0, dword_16C730
-extern dword_1AC940, dword_1AC944, dword_1AD22A, dword_1AD743, dword_1C13C0, dword_1C13FB, dword_1C34E3, dword_1C351E
+extern byte_1C135A, byte_1C135B, byte_1C31A7, byte_1C347D, byte_1C52CA, byte_1C55A0, str_D_SimulateGame, dword_16C730
+extern SeasonUserTeam, GameOptionFlags, dword_1AD22A, dword_1AD743, dword_1C13C0, dword_1C13FB, dword_1C34E3, dword_1C351E
 extern memset_, rand_, srand_, RandomCrowdDelay, PlayerOverall, FindPlayerRecord, FindGameRecord, FindPlayerStat
 extern ReadTeamStats, ServiceIdle, ZeroMem, unk_16D7FC, unk_16D804, unk_1C135C, unk_1C347F, unk_78930
 extern word_1C150A, word_1C319B, word_1C319D, word_1C31A3, word_1C3415, word_1C3417, word_1C3419, word_1C3427
@@ -368,7 +368,7 @@ SimulateGame:
         add edx, esi
         sar eax, 10h
         sar edx, 1
-        imul edx, dword [nosplit eax*4+dword_16C6C0]
+        imul edx, dword [nosplit eax*4+str_D_SimulateGame]
         mov ebx, 64h
         mov eax, edx
         sar edx, 1Fh
@@ -384,7 +384,7 @@ SimulateGame:
         add edx, ebp
         sar eax, 10h
         sar edx, 1
-        imul edx, dword [nosplit eax*4+dword_16C6C0]
+        imul edx, dword [nosplit eax*4+str_D_SimulateGame]
         mov ebx, 64h
         mov eax, edx
         sar edx, 1Fh
@@ -436,7 +436,7 @@ SimulateGame:
         sar edx, 1Fh
         idiv ebx
         mov dword [dword esp+014E8h], eax
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         test byte [byte eax+02h], 18h
         jne short .24
         mov eax, dword [dword esp+014E4h]
@@ -1568,7 +1568,7 @@ SimulateGame:
         imul edx, ebx, dword 125h
         mov eax, dword [dword esp+014E8h]
         mov word [dword edx+word_1C31A3], ax
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         test byte [byte eax+02h], 18h
         jne short .121
         mov word [dword edx+word_1C319B], 384h
@@ -1616,7 +1616,7 @@ SimulateGame:
         imul edx, ebx, dword 125h
         mov eax, dword [dword esp+014E4h]
         mov word [dword edx+word_1C52C6], ax
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         test byte [byte eax+02h], 18h
         jne short .126
         mov word [dword edx+word_1C52BE], 384h
@@ -2064,7 +2064,7 @@ unk_7A788:
 .7:
         xor edi, edi
 .8:
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         mov eax, dword [byte eax+01Ch]
         mov edx, esp
         add eax, edi
@@ -2113,7 +2113,7 @@ unk_7A788:
 .11:
         mov ebx, dword [byte ebp+06Ah]
         lea edx, [dword ebp-01A5Ah]
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         mov esi, 3
         xor ecx, ecx
         mov eax, dword [byte eax+01Ch]

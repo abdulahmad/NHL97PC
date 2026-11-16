@@ -8,10 +8,10 @@ extern str_BarassoPIT199596, str_MASK0000FSH, str_FRNT2, str_BB02d, str_SS14, st
 extern str_AB024, str_AB014, str_AB054, str_AB044, str_MASK0002dFSH, str_SSS4, str_Scr1, str_Scr2
 extern str_Pal3, str_Bkgd, str_D2, str_Ring, str_EAC1, str_EAC2, str_QCRD, str_PAGESTACK
 extern byte_16D784, dword_16D754, dword_16D760, dword_16D764, dword_16D768, dword_16D76C, dword_16D770, dword_16D774
-extern dword_16D778, dword_16D77C, dword_16D780, dword_16E454, dword_1CCEB8, dword_1CCEBC, dword_1CCEE8, dword_1CCEEC
+extern dword_16D778, dword_16D77C, dword_16D780, MouseMoved, dword_1CCEB8, dword_1CCEBC, dword_1CCEE8, dword_1CCEEC
 extern dword_1CCEF0, dword_1CCEF8, dword_1CCEFC, dword_1CCF12, dword_1CCF16, dword_1CCF1E, dword_1CCF22, dword_1CD0F4
 extern dword_1CD0F8, dword_1CD0FE, dword_1CD102, dword_1CD106, dword_1CD10A, dword_1CD10E, fclose_, fgets_
-extern fopen_, memcpy_, memset_, off_16E4E0, rand_, sprintf_, sscanf_, str_CRD1
+extern fopen_, memcpy_, memset_, PresentFuncInput, rand_, sprintf_, sscanf_, str_CRD1
 extern str_CRD2, str_Nhll, str_Nhlp, str_Pl0, str_Pl1, strlen_, GetPaletteRange, BlitShape2
 extern BlitArt, BlitShape, PresentScreen, FindShape, OpenArtArchiveErr, SetGraphicsMode, IsKeyDown, ConvertArtXY
 extern CountFrameTick, SetScreenTarget, WaitRetraceEdges, RunDemoGame, SecondsToSamples, WaitSoundTime, ChkMenuMusic, PauseMusic
@@ -21,7 +21,7 @@ extern SetNormalText, DrawStatTable, DrawPortrait, ShowPopupScreen, InitMenuItem
 extern FreePtr, CopyBytesOk, CopyAndClear, ZeroBytesOk, CompareKeyBytes, FileCreate, FileOpen, FileSeek
 extern FileReadRecord, FileWriteRecord, FileClose, ServiceIdle, FreeVideoBuffer, AllocGfxFixBuffer, AllocMemBlock, FreeMemBlock
 extern KbdGetKey, KbdIdleCall, OpenResourceArchive, MakeColor, FreeBitmap, DrawShapeCore, DrawShapeAtOwnPos, DrawArt
-extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, tickcount, unk_1673CC, unk_1C5F4A, unk_1CC8B8
+extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, tickcount, str_Rt_CreditsScreen, unk_1C5F4A, unk_1CC8B8
 extern unk_1CCBB8, unk_1CCF4A, unk_1CCF9C, unk_1CCFEE, unk_1CD040, unk_1CD092, unk_1CD138, unk_D4CB0
 global jpt_D5460, GoalieMaskScreen_715, GoalieMaskScreen_72B, GoalieMaskScreen_89F, GoalieMaskScreen_A13, GoalieMaskScreen_B89, GoalieMaskScreen_DBB, GoalieMaskScreen_FF0
 global GoalieMaskIntro, GoalieMaskAnim, GoalieMaskScreen, FadePalette, FadeOut, RunIntroMovie, RunIntro, DrawCreditsPage
@@ -2752,8 +2752,8 @@ CreditsKeyPressed:
 .1:
         mov ebx, 1
 .2:
-        call dword [off_16E4E0]
-        cmp dword [dword_16E454], byte 0
+        call dword [PresentFuncInput]
+        cmp dword [MouseMoved], byte 0
         je short .3
         mov ebx, 1
 .3:
@@ -2860,7 +2860,7 @@ CreditsScreen:
         mov dword [dword esp+06B54h], eax
         lea eax, [dword esp+06AA8h]
         call MakeDataPath
-        mov edx, unk_1673CC
+        mov edx, str_Rt_CreditsScreen
         lea eax, [dword esp+06AA8h]
         call fopen_
         mov esi, eax
@@ -2936,7 +2936,7 @@ CreditsScreen:
         call fclose_
         lea eax, [dword esp+06AA8h]
         call MakeDataPath
-        mov edx, unk_1673CC
+        mov edx, str_Rt_CreditsScreen
         lea eax, [dword esp+06AA8h]
         call fopen_
         mov esi, eax
@@ -3225,7 +3225,7 @@ CreditsScreen:
         mov dword [dword esp+06B60h], eax
         lea eax, [dword esp+06AA8h]
         call MakeDataPath
-        mov edx, unk_1673CC
+        mov edx, str_Rt_CreditsScreen
         lea eax, [dword esp+06AA8h]
         call fopen_
         mov dword [dword esp+06B64h], eax

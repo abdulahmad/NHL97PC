@@ -3,8 +3,8 @@ bits 32
 %include "hockey.inc"
 section s_F94BC progbits alloc exec nowrite align=1
 extern abs_, str_IgfxFix, str_IgFix, str_GFXMODES, dword_16E2F4, dword_16E2F8, dword_16E2FC, dword_16E300
-extern dword_16E304, dword_16E308, dword_16E30C, dword_16E310, dword_16E314, dword_16E3F4, dword_16E464, dword_16E468
-extern dword_16E46C, dword_16E474, dword_16F8A8, dword_1CEFC4, dword_1CEFC8, dword_1CEFCC, dword_1CEFD4, dword_1CEFD8
+extern dword_16E304, dword_16E308, dword_16E30C, dword_16E310, dword_16E314, TimerTicks, dword_16E464, dword_16E468
+extern MenuScreenBitmap, VideoModeCount, VideoModeIndex, dword_1CEFC4, dword_1CEFC8, dword_1CEFCC, dword_1CEFD4, dword_1CEFD8
 extern dword_1CEFDC, dword_1CEFE0, dword_1CEFE4, dword_1CF0C8, bcopy, PresentScreen, CountVesaModes, FindModeByResolution
 extern SetModeByResolution, SetScreenTarget, AllocMemBlock, FreeMemBlock, MakeColor, ClearScreen, tickcount, unk_1CEFE8
 global AllocGfxFixBuffer, ProbeVideoModes, InitVideoModeList, GetVideoModeList, FindNearestVideoMode, PickVideoMode, NextVideoMode, PrevVideoMode
@@ -69,7 +69,7 @@ ProbeVideoModes:
 .3:
         cmp dword [dword_1CEFC4], 280h
         jge short .5
-        mov dword [dword_16E474], 1
+        mov dword [VideoModeCount], 1
         cmp dword [dword_16E30C], byte 0
         je short .4
         push dword [dword_16E30C]
@@ -172,7 +172,7 @@ InitVideoModeList:
 .3:
         push dword_1CEFC4
         push dword [dword_16E2F8]
-        mov dword [dword_16F8A8], 1
+        mov dword [VideoModeIndex], 1
         call FindModeByResolution
         mov eax, dword [dword_16E464]
         add esp, byte 8
@@ -181,7 +181,7 @@ InitVideoModeList:
         mov eax, dword [dword_16E468]
         cmp eax, dword [dword_1CEFC8]
         jne short .4
-        mov eax, dword [dword_16E46C]
+        mov eax, dword [MenuScreenBitmap]
         cmp eax, dword [dword_1CEFCC]
         je short .7
 .4:
@@ -204,7 +204,7 @@ InitVideoModeList:
         add esp, byte 4
 .6:
         push dword [dword_16E2F8]
-        mov dword [dword_16E474], 1
+        mov dword [VideoModeCount], 1
         call SetModeByResolution
         add esp, byte 4
         call AllocGfxFixBuffer
@@ -488,7 +488,7 @@ AddIdleHandler:
         mov eax, dword [byte esp+010h]
         mov dword [dword ebx+dword_1CEFD8], ecx
         mov dword [dword ebx+dword_1CEFDC], eax
-        mov eax, dword [dword_16E3F4]
+        mov eax, dword [TimerTicks]
         mov ebp, dword [byte esp+014h]
         add eax, ebp
         mov dword [dword ebx+dword_1CEFE0], eax
@@ -560,7 +560,7 @@ RunIdleHandlers:
         mov edi, dword [byte esp+018h]
         mov eax, dword [dword_16E314]
         mov esi, dword [dword_16E310]
-        cmp eax, dword [dword_16E3F4]
+        cmp eax, dword [TimerTicks]
         jl short .3
         jmp near .5
 .1:
@@ -591,7 +591,7 @@ RunIdleHandlers:
         jl short .4
         jmp short .5
 .3:
-        mov eax, dword [dword_16E3F4]
+        mov eax, dword [TimerTicks]
         mov dword [dword_16E314], eax
         xor ebx, ebx
 .4:

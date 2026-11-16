@@ -60,8 +60,8 @@
 #define D_SLOTS        SYM_SlotWords           /* 8 words: high byte device (bits 0-2) and team (bit 7), low byte buttons */
 #define D_FLAGS        SYM_HotKeyFlags
 #define D_MENUFLAG     SYM_InGameMenuRequest
-#define D_OPTS         SYM_dword_1AC810        /* the options block of GLOBAL.SET (magic, install mode, then the game's options) */
-#define D_SETUP        SYM_unk_1ACB44          /* the game set-up: +1 the teams, +5 the user logs, +10Dh the 8 controller bytes */
+#define D_OPTS         SYM_GlobalSetData        /* the options block of GLOBAL.SET (magic, install mode, then the game's options) */
+#define D_SETUP        SYM_GlobalSetVersion          /* the game set-up: +1 the teams, +5 the user logs, +10Dh the 8 controller bytes */
 #define OPTS_SKIP      8u                      /* the magic and the install mode stay each machine's */
 #define OPTS_N         0x130u
 #define SETUP_N        0x115u                  /* the teams, the user logs and the controller bytes; the key sets after them stay */
@@ -321,7 +321,7 @@ static int make_step(void)
  * second and those ran 10x too fast (and the busy loop stuttered).
  *   Pentium 100: after a frame the loop waits for the next record (at most 100 ms, in case the records stop): one frame a record.
  *   60 fps: no frame sooner than 1/60 s after the last one; a record that comes meanwhile is run first. During a camera scene
- *   it paces as Pentium 100.
+ *   it paces as Pentium 100 (so does Unlocked).
  *   Unlocked: as fast as it can (the original on a fast CPU). NHL97_FRAMES=pentium100 / 60 / free overrides the setting. */
 extern volatile int frames_mode;
 static int nh_drew;
@@ -335,9 +335,10 @@ static uint32_t paced_avail(uint32_t c)
         env = !e ? -1 : !strcmp(e, "free") || !strcmp(e, "unlocked") ? 2 : !strcmp(e, "60") ? 1 : 0;
     }
     mode = env >= 0 ? env : frames_mode;
-    /* 60 fps keeps the camera scenes (the opening fly-in, faceoffs, fights, penalties, intermissions: a scene function runs while
-     * 19D384 is set, see RunCameraScene) at Pentium 100 pacing: their camera eases toward its goal a step per drawn frame */
-    if (mode == 1 && G32(D_SCENE)) mode = 0;
+    /* 60 fps and Unlocked keep the camera scenes (the opening fly-in, faceoffs, fights, penalties, intermissions: a scene function
+     * runs while 19D384 is set, see RunCameraScene) at Pentium 100 pacing: their camera eases toward its goal a step per drawn
+     * frame. NHL97_FRAMES=free is the raw old loop, scenes too. */
+    if (mode != 0 && env != 2 && G32(D_SCENE)) mode = 0;
     if (!c && (mode == 0 ? nh_drew : mode == 1)) {
         int64_t until = mode == 1 ? nh_drew_ns + 1000000000 / 60 : plat_now_ns() + 100000000;
         while (!(c = G32(D_QCOUNT)) && plat_now_ns() < until) host_idle_once();

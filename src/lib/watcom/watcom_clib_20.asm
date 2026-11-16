@@ -2,13 +2,13 @@
 bits 32
 %include "hockey.inc"
 section s_123FEA progbits alloc exec nowrite align=1
-extern IF@ATAN2, __fpatan_chk, __math2err_, __math87_err_, str_RESIZE, byte_16E688, byte_19C724, dword_16E4A8
-extern dword_16F5B4, dword_16F5B8, dword_1702CC, dword_19C734, dword_19C738, dword_19C73C, dword_1CF260, dword_1CF528
-extern dword_1CF52C, dword_1CF548, dword_1CF5B8, dword_1CF5BC, dword_1CF5C0, dword_1CF5F2, dword_1DA4D0, dword_1DC518
-extern dword_1DC51C, dword_1DC520, dword_1DC524, dword_1DC528, dword_1DC5A8, int386x_, itoa_, ltoa_
-extern memlist1, off_16F5BC, off_171C7C, off_199C50, off_19C740, qword_172690, qword_172698, segread_
+extern IF@ATAN2, __fpatan_chk, __math2err_, __math87_err_, str_RESIZE, ScreenBitsPerPixel, FdivShiftTable, str_Punct_DrawRinkSurface
+extern ConvertPalette, ColorKeyEnabled, SinTable, F32_0p9375, F32_1p0625, F32_9p22337e18, dword_1CF260, TextOriginX
+extern TextOriginY, LinkTextFont, DrawGlyphFn, TextCharFn, TextEndFn, IndexTo16Table, PaletteWords, TextLimitPtr
+extern TextLimitCount, TextLimitWidth, AtexitCount, AtexitTable, SpeechBankCount, int386x_, itoa_, ltoa_
+extern memlist1, ConvertDestBuffer, ExitHook, __EFG_printf, FdivJumpTable, F64_709p783, F64_neg709p783, segread_
 extern strncpy_, bcopy, SetTextOrigin, MemLock, MemUnlock, SetBlockGuard, AllocMemBlockEx, findmemblock
-extern CompactMemListDown, CompactMemListUp, PushMemDescriptor, DrawTextRun, tbyte_172680, toupper_, ultoa_, word_1CF5F4
+extern CompactMemListDown, CompactMemListUp, PushMemDescriptor, DrawTextRun, F80_1p5708, toupper_, ultoa_, IndexTo16Entries
 global FixedPoint_Format_, IF@DACOS, IF@EXP, IF@SQRT, _Full_at_exit_rtn_, __@DEXP, __@DEXP1, __@DSQRT
 global __fdiv_chk, __fdiv_fpr, __fdiv_m64, __fdivp_sti_st, __fdivrp_sti_st, __fpatan_wrap, __pow87_err_, __prtf_
 global atexit_, evalflags_, far_other_strlen_, far_strlen_, fdiv_main_routine, float_format_, fmt4hex_, formstring_
@@ -744,7 +744,7 @@ FixedPoint_Format_:
 ; float_format_                                                1246C0  library
 ;-----------------------------------------------------------------------------
 float_format_:
-        call dword [off_199C50]
+        call dword [__EFG_printf]
         ret
 ;-----------------------------------------------------------------------------
 ; formstring_                                                  1246C7  library
@@ -1241,13 +1241,13 @@ zupstr__20:
         push esi
         push edi
         push ebp
-        mov ebx, dword [dword_1DC524]
+        mov ebx, dword [AtexitCount]
         cmp eax, ebx
         jg short .3
         mov ebx, eax
 .3:
-        mov ecx, dword [dword_1DC520]
-        mov dword [dword_1DC524], ebx
+        mov ecx, dword [TextLimitWidth]
+        mov dword [AtexitCount], ebx
         cmp edx, ecx
         jle short .4
         mov ebx, ecx
@@ -1256,22 +1256,22 @@ zupstr__20:
         mov ebx, edx
 .5:
         mov esi, dword [byte esp+014h]
-        mov edi, dword [dword_1DC518]
+        mov edi, dword [TextLimitPtr]
         add eax, esi
-        mov dword [dword_1DC520], ebx
+        mov dword [TextLimitWidth], ebx
         cmp eax, edi
         jge short .6
         mov eax, edi
 .6:
         mov ebp, dword [byte esp+018h]
-        mov dword [dword_1DC518], eax
-        mov eax, dword [dword_1DC51C]
+        mov dword [TextLimitPtr], eax
+        mov eax, dword [TextLimitCount]
         add edx, ebp
         cmp edx, eax
         jge short .7
         mov edx, eax
 .7:
-        mov dword [dword_1DC51C], edx
+        mov dword [TextLimitCount], edx
         pop ebp
         pop edi
         pop esi
@@ -1290,12 +1290,12 @@ DrawTextLimited:
         sub esp, 10Ch
         mov edx, dword [dword esp+0120h]
         mov ebx, dword [dword esp+0124h]
-        mov edi, dword [dword_1CF528]
-        mov esi, dword [dword_1CF52C]
-        mov dword [dword_1DC524], edi
-        mov dword [dword_1DC520], esi
-        mov dword [dword_1DC518], edi
-        mov dword [dword_1DC51C], esi
+        mov edi, dword [TextOriginX]
+        mov esi, dword [TextOriginY]
+        mov dword [AtexitCount], edi
+        mov dword [TextLimitWidth], esi
+        mov dword [TextLimitPtr], edi
+        mov dword [TextLimitCount], esi
         cmp ebx, 100h
         jle short .1
         mov ebx, 100h
@@ -1305,16 +1305,16 @@ DrawTextLimited:
         mov eax, esp
         call strncpy_
         mov edx, zupstr__20
-        mov eax, dword [dword_1CF5B8]
-        mov ebp, dword [dword_1CF5C0]
+        mov eax, dword [DrawGlyphFn]
+        mov ebp, dword [TextEndFn]
         xor ebx, ebx
         mov dword [dword esp+0108h], eax
-        mov dword [dword_1CF5B8], edx
-        mov dword [dword_1CF5C0], ebx
-        mov eax, dword [dword_1CF5BC]
+        mov dword [DrawGlyphFn], edx
+        mov dword [TextEndFn], ebx
+        mov eax, dword [TextCharFn]
         mov dl, byte [esp]
         mov dword [dword esp+0104h], eax
-        mov dword [dword_1CF5BC], ebx
+        mov dword [TextCharFn], ebx
         test dl, dl
         je short .2
         mov eax, esp
@@ -1322,14 +1322,14 @@ DrawTextLimited:
         call DrawTextRun
         add esp, byte 4
 .2:
-        mov eax, dword [dword_1DC524]
+        mov eax, dword [AtexitCount]
         cmp edi, eax
         jg short .3
         mov eax, edi
 .3:
         mov edx, dword [dword esp+0128h]
         mov dword [edx], eax
-        mov edx, dword [dword_1DC520]
+        mov edx, dword [TextLimitWidth]
         cmp esi, edx
         jle short .4
         mov eax, edx
@@ -1338,9 +1338,9 @@ DrawTextLimited:
         mov eax, esi
 .5:
         mov edx, dword [dword esp+012Ch]
-        mov ebx, dword [dword_1CF528]
+        mov ebx, dword [TextOriginX]
         mov dword [edx], eax
-        mov eax, dword [dword_1DC518]
+        mov eax, dword [TextLimitPtr]
         cmp eax, ebx
         jg short .6
         mov eax, ebx
@@ -1349,9 +1349,9 @@ DrawTextLimited:
         mov ebx, dword [ebx]
         mov edx, dword [dword esp+0130h]
         sub eax, ebx
-        mov ecx, dword [dword_1CF548]
+        mov ecx, dword [LinkTextFont]
         mov dword [edx], eax
-        mov eax, dword [dword_1DC51C]
+        mov eax, dword [TextLimitCount]
         cmp eax, ecx
         jg short .7
         mov eax, ecx
@@ -1366,10 +1366,10 @@ DrawTextLimited:
         call SetTextOrigin
         add esp, byte 8
         mov eax, dword [dword esp+0108h]
-        mov dword [dword_1CF5B8], eax
+        mov dword [DrawGlyphFn], eax
         mov eax, dword [dword esp+0104h]
-        mov dword [dword_1CF5C0], ebp
-        mov dword [dword_1CF5BC], eax
+        mov dword [TextEndFn], ebp
+        mov dword [TextCharFn], eax
         add esp, 10Ch
         pop ebp
         pop edi
@@ -1409,7 +1409,7 @@ DrawTextString:
 ConvertColor555:
         push ebx
         mov edx, dword [byte esp+08h]
-        mov al, byte [byte_16E688]
+        mov al, byte [ScreenBitsPerPixel]
         cmp al, 0Fh
         jb short .5
         mov ecx, edx
@@ -1456,7 +1456,7 @@ ConvertColor555:
         pop ebx
         ret
 .5:
-        mov eax, dword [nosplit edx*4+dword_1DA4D0]
+        mov eax, dword [nosplit edx*4+PaletteWords]
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
@@ -1580,7 +1580,7 @@ IF@DACOS:
         jne short .1
         fxch
         call IF@ATAN2
-        fld tword [tbyte_172680]
+        fld tword [F80_1p5708]
         fsubrp
 .1:
         ret
@@ -1594,7 +1594,7 @@ IF@DACOS:
         push ebx
         push esi
         push edi
-        mov eax, dword [dword_16E4A8]
+        mov eax, dword [str_Punct_DrawRinkSurface]
         jmp short .2
         push ebp
         LD mov, ebp, esp
@@ -1643,7 +1643,7 @@ SetTextScale:
         push ebp
         LD mov, ebp, esp
         mov eax, dword [byte ebp+08h]
-        mov dword [dword_16E4A8], eax
+        mov dword [str_Punct_DrawRinkSurface], eax
         leave
         ret
         db 00h,00h
@@ -1813,7 +1813,7 @@ __@DEXP:
         push ebp
         mov ebp, esp
         sub esp, byte 10h
-        fcom qword [qword_172690]
+        fcom qword [F64_709p783]
         wait
         fnstsw word [byte ebp-010h]
         wait
@@ -1832,7 +1832,7 @@ __@DEXP:
         pop ebp
         ret
 __@DEXP_2F:
-        fcom qword [qword_172698]
+        fcom qword [F64_neg709p783]
         wait
         fnstsw word [byte ebp-010h]
         wait
@@ -1879,7 +1879,7 @@ fdiv_main_routine:
         ret
 .2:
         shr eax, 1Ch
-        cmp byte [dword eax+byte_19C724], 0
+        cmp byte [dword eax+FdivShiftTable], 0
         jne short .3
         fdivp
         ret
@@ -1899,17 +1899,17 @@ fdiv_main_routine:
         and eax, 7FFFh
         cmp eax, byte 1
         je short .4
-        fmul dword [dword_19C734]
+        fmul dword [F32_0p9375]
         fxch
-        fmul dword [dword_19C734]
+        fmul dword [F32_0p9375]
         fxch
         fldcw word [byte esp+01Ch]
         fdivp
         ret
 .4:
-        fmul dword [dword_19C738]
+        fmul dword [F32_1p0625]
         fxch
-        fmul dword [dword_19C738]
+        fmul dword [F32_1p0625]
         fxch
         fldcw word [byte esp+01Ch]
         fdivp
@@ -1948,7 +1948,7 @@ fdiv_main_routine:
         fxch
         fstp st0
         fld st0
-        fmul dword [dword_19C73C]
+        fmul dword [F32_9p22337e18]
         fstp tword [byte esp+04h]
         fld tword [byte esp+010h]
         fxch
@@ -1964,7 +1964,7 @@ fdiv_main_routine:
 ;-----------------------------------------------------------------------------
 __fdiv_fpr:
         sub esp, byte 2Ch
-        jmp dword [nosplit eax*4+off_19C740]
+        jmp dword [nosplit eax*4+FdivJumpTable]
 __fdiv_fpr_A:
         fdiv st0
         add esp, byte 2Ch
@@ -2853,7 +2853,7 @@ SinLookup:
         LD xor, eax, ecx
         and eax, 0FFh
         LD sub, eax, ecx
-        mov eax, dword [nosplit eax*4+dword_1702CC]
+        mov eax, dword [nosplit eax*4+SinTable]
         LD xor, eax, edx
         LD sub, eax, edx
         ret
@@ -2871,7 +2871,7 @@ CosLookup:
         LD xor, eax, ecx
         and eax, 0FFh
         LD sub, eax, ecx
-        mov eax, dword [nosplit eax*4+dword_1702CC]
+        mov eax, dword [nosplit eax*4+SinTable]
         LD xor, eax, edx
         LD sub, eax, edx
         ret
@@ -3038,16 +3038,16 @@ _Full_at_exit_rtn_:
         push ebx
         push edx
         sub esp, byte 4
-        mov ebx, dword [dword_1DC5A8]
+        mov ebx, dword [SpeechBankCount]
         cmp ebx, byte 21h
         je short .2
-        mov dword [dword_1DC5A8], 21h
+        mov dword [SpeechBankCount], 21h
         mov edx, ebx
         shl edx, 2
 .1:
         test edx, edx
         je short .2
-        mov eax, dword [dword edx+dword_1DC524]
+        mov eax, dword [dword edx+AtexitCount]
         sub edx, byte 4
         mov dword [esp], eax
         dec ebx
@@ -3067,15 +3067,15 @@ atexit_:
         push edx
         mov ebx, eax
         mov edx, _Full_at_exit_rtn_
-        mov ecx, dword [dword_1DC5A8]
-        mov dword [off_171C7C], edx
+        mov ecx, dword [SpeechBankCount]
+        mov dword [ExitHook], edx
         cmp ecx, byte 20h
         jge short .1
         mov eax, ecx
         xor eax, ecx
         lea edx, [byte ecx+01h]
-        mov dword [nosplit ecx*4+dword_1DC528], ebx
-        mov dword [dword_1DC5A8], edx
+        mov dword [nosplit ecx*4+AtexitTable], ebx
+        mov dword [SpeechBankCount], edx
         pop edx
         pop ecx
         pop ebx
@@ -3200,7 +3200,7 @@ ConvertIndexedTo32:
         push ecx
         push esi
         push edi
-        mov edi, dword [off_16F5BC]
+        mov edi, dword [ConvertDestBuffer]
         LD xor, ecx, ecx
 .1:
         mov cl, byte [eax]
@@ -3248,7 +3248,7 @@ Convert32To565Keyed:
         cmp ecx, 40000000h
         jae short .2
 .5:
-        mov ecx, dword [dword_16F5B4]
+        mov ecx, dword [ConvertPalette]
         sub ebx, byte 1
         lea edx, [byte edx+02h]
         mov word [byte edx-02h], cx
@@ -3268,7 +3268,7 @@ Convert32To565Keyed:
         cmp cx, byte 0
         jne short .3
 .7:
-        mov ecx, dword [dword_16F5B8]
+        mov ecx, dword [ColorKeyEnabled]
         sub ebx, byte 1
         lea edx, [byte edx+02h]
         mov word [byte edx-02h], cx
@@ -3360,13 +3360,13 @@ ConvertIndexedTo16:
         mov cl, byte [byte esi+03h]
         mov dl, byte [byte esi+02h]
 .1:
-        mov eax, dword [nosplit eax*2+dword_1CF5F2]
+        mov eax, dword [nosplit eax*2+IndexTo16Table]
         lea esi, [byte esi+04h]
-        mov ecx, dword [nosplit ecx*2+dword_1CF5F2]
+        mov ecx, dword [nosplit ecx*2+IndexTo16Table]
         lea edi, [byte edi+08h]
-        mov ax, word [nosplit ebx*2+word_1CF5F4]
+        mov ax, word [nosplit ebx*2+IndexTo16Entries]
         mov bl, byte [esi]
-        mov cx, word [nosplit edx*2+word_1CF5F4]
+        mov cx, word [nosplit edx*2+IndexTo16Entries]
         mov dl, byte [byte esi+02h]
         mov dword [byte edi-08h], eax
         mov dword [byte edi-04h], ecx
@@ -3382,7 +3382,7 @@ ConvertIndexedTo16:
 .3:
         mov dl, byte [esi]
         lea esi, [byte esi+01h]
-        mov ax, word [nosplit edx*2+word_1CF5F4]
+        mov ax, word [nosplit edx*2+IndexTo16Entries]
         mov word [edi], ax
         lea edi, [byte edi+02h]
         sub ebp, byte 1
@@ -3562,17 +3562,17 @@ ConvertNibbleTo16:
 .1:
         LD mov, ecx, eax
         shr ecx, 4
-        mov edx, dword [nosplit ecx*2+dword_1CF5F2]
+        mov edx, dword [nosplit ecx*2+IndexTo16Table]
         lea esi, [byte esi+02h]
         LD mov, ecx, ebx
         shr ecx, 4
-        mov ecx, dword [nosplit ecx*2+dword_1CF5F2]
+        mov ecx, dword [nosplit ecx*2+IndexTo16Table]
         lea edi, [byte edi+08h]
         and eax, byte 0Fh
-        mov dx, word [nosplit eax*2+word_1CF5F4]
+        mov dx, word [nosplit eax*2+IndexTo16Entries]
         mov al, byte [esi]
         and ebx, byte 0Fh
-        mov cx, word [nosplit ebx*2+word_1CF5F4]
+        mov cx, word [nosplit ebx*2+IndexTo16Entries]
         mov bl, byte [byte esi+01h]
         mov dword [byte edi-08h], edx
         mov dword [byte edi-04h], ecx
@@ -3584,11 +3584,11 @@ ConvertNibbleTo16:
 .3:
         LD mov, ecx, eax
         shr ecx, 4
-        mov edx, dword [nosplit ecx*2+dword_1CF5F2]
+        mov edx, dword [nosplit ecx*2+IndexTo16Table]
         lea esi, [byte esi+01h]
         lea edi, [byte edi+04h]
         and eax, byte 0Fh
-        mov dx, word [nosplit eax*2+word_1CF5F4]
+        mov dx, word [nosplit eax*2+IndexTo16Entries]
         mov al, byte [esi]
         mov dword [byte edi-04h], edx
         sub ebp, byte 2
@@ -3597,7 +3597,7 @@ ConvertNibbleTo16:
         add ebp, byte 1
         js short .5
         and eax, byte 0Fh
-        mov dx, word [nosplit eax*2+word_1CF5F4]
+        mov dx, word [nosplit eax*2+IndexTo16Entries]
         mov word [edi], dx
 .5:
         pop ebp

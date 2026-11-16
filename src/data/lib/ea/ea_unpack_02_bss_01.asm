@@ -2,142 +2,142 @@
 bits 32
 %include "hockey.inc"
 section s_1DD384 nobits alloc noexec write align=1
-global byte_1DD38C, byte_1DD38D, dword_1DD384, dword_1DD390, dword_1DD394, dword_1DD398, dword_1DD39C, dword_1DD3A0
-global dword_1DD3A4, dword_1DD3A8, dword_1DD3AC, dword_1DD3B0, dword_1DD3B4, dword_1DD3C0, dword_1DD3C8, dword_1DD3CC
-global dword_1DD3D0, dword_1DD3D4, dword_1DD3D8, dword_1DD3DC, dword_1DD3E4, dword_1DD3EC, dword_1DD3F0, dword_1DD3F4
-global dword_1DD3F8, dword_1DD3FC, dword_1DD400, dword_1DD404, dword_1DD408, dword_1DD410, dword_1DD414, dword_1DD418
-global dword_1DD41C, dword_1DD420, dword_1DD424, dword_1DD428, dword_1DD42C, dword_1DD434, dword_1DD438, dword_1DD43C
-global dword_1DD440, dword_1DD444, dword_1DD448, dword_1DD44C, dword_1DD450, dword_1DD454, dword_1DD458, dword_1DD45C
-global dword_1DD460, dword_1DD464, dword_1DD468, dword_1DD474, dword_1DD478, dword_1DD47C, dword_1DD480, unk_1DD3C4
-global unk_1DD40C, word_1DD388, word_1DD38A, word_1DD3E0, word_1DD3E8, word_1DD430, word_1DD46C, word_1DD470
-global word_1DD472
-dword_1DD384:
+global GusDriverDma, GusDriverIrq, PatlChannelParams, GusDriverCardMem, GusDriverDmaBuf, DacTimerRate, DacBuffer, DacIrq
+global DacPort, DacTimerDivisor, DacBufPos, DacBufSize, DacState, SbDmaBuffer, SbRate, SbDmaChannel
+global SbDmaBufSize, SbIrqLine, SbBlockSize, SbHalfSize, SbOldIrqHandler, SbStartTime, SbProDmaBuffer, SbProOldIrq
+global SbProIrqVector, SbProRate, SbProIrqMask, SbProDmaBufSize, SbProBlockSize, SbProDmaChannel, SbProIrqLine, SbProIrqNum
+global SbProHalfSize, SbProOldMask, SbProStereo, SbProBasePort, SbProOldHandler, SbProStartTime, Sb16OldIrq, Sb16IrqVector
+global Sb16IrqMask, Sb16DmaBufSize, Sb16Config, Sb16Rate, Sb16DmaChannel, Sb16BlockSize, Sb16DmaBuffer, Sb16HalfSize
+global Sb16IrqLine, Sb16Format, Sb16Stereo, Sb16StartTime, ScapeDmaBufSize, ScapeCodecBase, ScapeCodecState, SbConfig
+global SbProConfig, GusDriverConfig, GusDriverBasePort, SbDspVersion, SbOldIrqSelector, SbProOldSelector, Sb16DspVersion, Sb16IrqStatusPort
+global Sb16DmaBits
+PatlChannelParams:
         resb 4
-word_1DD388:
+GusDriverConfig:
         resb 2
-word_1DD38A:
+GusDriverBasePort:
         resb 2
-byte_1DD38C:
+GusDriverDma:
         resb 1
-byte_1DD38D:
+GusDriverIrq:
         resb 3
-dword_1DD390:
+GusDriverCardMem:
         resb 4
-dword_1DD394:
+GusDriverDmaBuf:
         resb 4
-dword_1DD398:
+DacTimerRate:
         resb 4
-dword_1DD39C:
+DacBuffer:
         resb 4
-dword_1DD3A0:
+DacIrq:
         resb 4
-dword_1DD3A4:
+DacPort:
         resb 4
-dword_1DD3A8:
+DacTimerDivisor:
         resb 4
-dword_1DD3AC:
+DacBufPos:
         resb 4
-dword_1DD3B0:
+DacBufSize:
         resb 4
-dword_1DD3B4:
+DacState:
         resb 12
-dword_1DD3C0:
+SbDmaBuffer:
         resb 4
-unk_1DD3C4:
+SbConfig:
         resb 4
-dword_1DD3C8:
+SbRate:
         resb 4
-dword_1DD3CC:
+SbDmaChannel:
         resb 4
-dword_1DD3D0:
+SbDmaBufSize:
         resb 4
-dword_1DD3D4:
+SbIrqLine:
         resb 4
-dword_1DD3D8:
+SbBlockSize:
         resb 4
-dword_1DD3DC:
+SbHalfSize:
         resb 4
-word_1DD3E0:
+SbDspVersion:
         resb 4
-dword_1DD3E4:
+SbOldIrqHandler:
         resb 4
-word_1DD3E8:
+SbOldIrqSelector:
         resb 4
-dword_1DD3EC:
+SbStartTime:
         resb 4
-dword_1DD3F0:
+SbProDmaBuffer:
         resb 4
-dword_1DD3F4:
+SbProOldIrq:
         resb 4
-dword_1DD3F8:
+SbProIrqVector:
         resb 4
-dword_1DD3FC:
+SbProRate:
         resb 4
-dword_1DD400:
+SbProIrqMask:
         resb 4
-dword_1DD404:
+SbProDmaBufSize:
         resb 4
-dword_1DD408:
+SbProBlockSize:
         resb 4
-unk_1DD40C:
+SbProConfig:
         resb 4
-dword_1DD410:
+SbProDmaChannel:
         resb 4
-dword_1DD414:
+SbProIrqLine:
         resb 4
-dword_1DD418:
+SbProIrqNum:
         resb 4
-dword_1DD41C:
+SbProHalfSize:
         resb 4
-dword_1DD420:
+SbProOldMask:
         resb 4
-dword_1DD424:
+SbProStereo:
         resb 4
-dword_1DD428:
+SbProBasePort:
         resb 4
-dword_1DD42C:
+SbProOldHandler:
         resb 4
-word_1DD430:
+SbProOldSelector:
         resb 4
-dword_1DD434:
+SbProStartTime:
         resb 4
-dword_1DD438:
+Sb16OldIrq:
         resb 4
-dword_1DD43C:
+Sb16IrqVector:
         resb 4
-dword_1DD440:
+Sb16IrqMask:
         resb 4
-dword_1DD444:
+Sb16DmaBufSize:
         resb 4
-dword_1DD448:
+Sb16Config:
         resb 4
-dword_1DD44C:
+Sb16Rate:
         resb 4
-dword_1DD450:
+Sb16DmaChannel:
         resb 4
-dword_1DD454:
+Sb16BlockSize:
         resb 4
-dword_1DD458:
+Sb16DmaBuffer:
         resb 4
-dword_1DD45C:
+Sb16HalfSize:
         resb 4
-dword_1DD460:
+Sb16IrqLine:
         resb 4
-dword_1DD464:
+Sb16Format:
         resb 4
-dword_1DD468:
+Sb16Stereo:
         resb 4
-word_1DD46C:
+Sb16DspVersion:
         resb 4
-word_1DD470:
+Sb16IrqStatusPort:
         resb 2
-word_1DD472:
+Sb16DmaBits:
         resb 2
-dword_1DD474:
+Sb16StartTime:
         resb 4
-dword_1DD478:
+ScapeDmaBufSize:
         resb 4
-dword_1DD47C:
+ScapeCodecBase:
         resb 4
-dword_1DD480:
+ScapeCodecState:
         resb 4

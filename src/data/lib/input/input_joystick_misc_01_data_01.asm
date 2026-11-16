@@ -3,136 +3,136 @@ bits 32
 %include "hockey.inc"
 section s_16E374 progbits alloc noexec write align=1
 extern PollHotkeys
-global __8087, byte_16E378, byte_16E394, byte_16E395, byte_16E396, byte_16E3D7, byte_16E415, byte_16E460
-global dword_16E374, dword_16E37C, dword_16E380, dword_16E384, dword_16E388, dword_16E38C, dword_16E390, dword_16E397
-global dword_16E39B, dword_16E39F, dword_16E3A3, dword_16E3A7, dword_16E3AB, dword_16E3AF, dword_16E3B3, dword_16E3B7
-global dword_16E3BB, dword_16E3BF, dword_16E3C3, dword_16E3C7, dword_16E3CB, dword_16E3CF, dword_16E3D3, dword_16E3EC
-global dword_16E3F4, dword_16E3F8, dword_16E3FC, dword_16E402, dword_16E408, dword_16E410, dword_16E430, dword_16E444
-global dword_16E448, mousex, mousey, dword_16E454, dword_16E458, dword_16E45C, dword_16E464, dword_16E468
-global dword_16E46C, dword_16E474, dword_16E478, dword_16E47C, dword_16E480, dword_16E484, dword_16E488, str_StackOverflow
-global tickcount, tickdeadline, unk_16E3E8, word_16E406, word_16E418
-dword_16E374:
+global __8087, JoyCalibrating, JoyButtons, JoyButtonsPrev, JoyDirection, JoyDirTable, FpuType, JoyPresent
+global JoyCalibrateTicks, JoyReadTimeout, JoyAxisX1, JoyAxisY1, JoyAxisX2, JoyAxisY2, JoyAxisMask, str_P_ReadJoystickPorts
+global JoyX1Min, JoyX1Center, JoyX1Max, JoyX1Settle, JoyY1Min, JoyY1Max, JoyDeadZone, JoyY1MinSeen
+global JoyY1Center, JoyY1MaxSeen, JoyY1Settle, JoyX2Min, JoyX2Max, JoyXScale, JoyYScale, KbdIdleHook
+global TimerTicks, TimerTickStep, TimerRate, dword_16E402, GoalieTickData, dword_16E410, LastTickCount, GraphicsModeSet
+global MousePresent, mousex, mousey, MouseMoved, MouseHideCount, MouseInitDone, dword_16E464, dword_16E468
+global MenuScreenBitmap, VideoModeCount, SelectedVideoMode, ScreenModeWidth, ScreenModeHeight, DefaultModeWidth, DefaultModeHeight, str_StackOverflow
+global tickcount, tickdeadline, RandSeed, TimerSavedSelector, SavedStackSegment
+JoyCalibrateTicks:
         db 00h,00h,00h,00h
-byte_16E378:
+JoyCalibrating:
         db 00h,00h,00h,00h
-dword_16E37C:
+JoyReadTimeout:
         db 09Ch,02Eh,00h,00h
-dword_16E380:
+JoyAxisX1:
         db 00h,00h,00h,00h
-dword_16E384:
+JoyAxisY1:
         db 00h,00h,00h,00h
-dword_16E388:
+JoyAxisX2:
         db 00h,00h,00h,00h
-dword_16E38C:
+JoyAxisY2:
         db 00h,00h,00h,00h
-dword_16E390:
+JoyAxisMask:
         db 00h,00h,00h,00h
-byte_16E394:
+JoyButtons:
         db 00h
-byte_16E395:
+JoyButtonsPrev:
         db 00h
-byte_16E396:
+JoyDirection:
         db 00h
-dword_16E397:
+str_P_ReadJoystickPorts:
         db 050h,00h,00h,00h
-dword_16E39B:
+JoyX1Min:
         db 00h,00h,00h,00h
-dword_16E39F:
+JoyX1Center:
         db 00h,00h,00h,00h
-dword_16E3A3:
+JoyX1Max:
         db 00h,00h,00h,00h
-dword_16E3A7:
+JoyX1Settle:
         db 014h,00h,00h,00h
-dword_16E3AB:
+JoyY1Min:
         db 00h,00h,00h,00h
-dword_16E3AF:
+JoyY1Max:
         db 00h,00h,00h,00h
-dword_16E3B3:
+JoyDeadZone:
         db 050h,00h,00h,00h
-dword_16E3B7:
+JoyY1MinSeen:
         db 00h,00h,00h,00h
-dword_16E3BB:
+JoyY1Center:
         db 00h,00h,00h,00h
-dword_16E3BF:
+JoyY1MaxSeen:
         db 00h,00h,00h,00h
-dword_16E3C3:
+JoyY1Settle:
         db 014h,00h,00h,00h
-dword_16E3C7:
+JoyX2Min:
         db 00h,00h,00h,00h
-dword_16E3CB:
+JoyX2Max:
         db 00h,00h,00h,00h
-dword_16E3CF:
+JoyXScale:
         db 00h,00h,00h,00h
-dword_16E3D3:
+JoyYScale:
         db 00h,00h,00h,00h
-byte_16E3D7:
+JoyDirTable:
         db 00h,01h,05h,00h,03h,02h,04h,03h,07h,08h,06h,07h,00h,01h,05h,00h
         db 00h
-unk_16E3E8:
+RandSeed:
         db 01h,00h,00h,00h
-dword_16E3EC:
+KbdIdleHook:
         dd PollHotkeys
 tickcount:
         db 00h,00h,00h,00h
-dword_16E3F4:
+TimerTicks:
         db 00h,00h,00h,00h
-dword_16E3F8:
+TimerTickStep:
         db 00h,00h,00h,00h
-dword_16E3FC:
+TimerRate:
         db 00h,010h,00h,00h,00h,00h
 dword_16E402:
         db 00h,00h,00h,00h
-word_16E406:
+TimerSavedSelector:
         db 00h,00h
-dword_16E408:
+GoalieTickData:
         db 00h,00h,00h,00h,00h,00h,00h,00h
 dword_16E410:
         db 00h,00h,00h,00h
 __8087:
         db 00h
-byte_16E415:
+FpuType:
         db 00h,00h,00h
-word_16E418:
+SavedStackSegment:
         db 00h,00h
 str_StackOverflow:
         db 053h,074h,061h,063h,06Bh,020h,04Fh,076h,065h,072h,066h,06Ch,06Fh,077h,021h,0Dh
         db 0Ah,00h
 tickdeadline:
         db 00h,00h,00h,00h
-dword_16E430:
+LastTickCount:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h
-dword_16E444:
+GraphicsModeSet:
         db 00h,00h,00h,00h
-dword_16E448:
+MousePresent:
         db 00h,00h,00h,00h
 mousex:
         db 00h,00h,00h,00h
 mousey:
         db 00h,00h,00h,00h
-dword_16E454:
+MouseMoved:
         db 00h,00h,00h,00h
-dword_16E458:
+MouseHideCount:
         db 00h,00h,00h,00h
-dword_16E45C:
+MouseInitDone:
         db 00h,00h,00h,00h
-byte_16E460:
+JoyPresent:
         db 00h,00h,00h,00h
 dword_16E464:
         db 00h,00h,00h,00h
 dword_16E468:
         db 00h,00h,00h,00h
-dword_16E46C:
+MenuScreenBitmap:
         db 00h,00h,00h,00h,05h,00h,00h,00h
-dword_16E474:
+VideoModeCount:
         db 02h,00h,00h,00h
-dword_16E478:
+SelectedVideoMode:
         db 00h,00h,00h,00h
-dword_16E47C:
+ScreenModeWidth:
         db 00h,00h,00h,00h
-dword_16E480:
+ScreenModeHeight:
         db 00h,00h,00h,00h
-dword_16E484:
+DefaultModeWidth:
         db 040h,01h,00h,00h
-dword_16E488:
+DefaultModeHeight:
         db 0C8h,00h,00h,00h

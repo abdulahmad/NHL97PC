@@ -2,17 +2,17 @@
 bits 32
 %include "hockey.inc"
 section s_168B60 progbits alloc noexec write align=1
-extern SortCords, hmtmstruct, unk_19E060, unk_19E690, unk_19E798, unk_19E79E, unk_19E7A2, unk_19E7A6
-extern unk_19E7A8, unk_19E7AC, unk_19E7B0, unk_19E840, unk_19E8A0, unk_19E9A8
-global byte_168B60, byte_168B69, byte_168C04, byte_168E50, dword_168B66, dword_168D20, dword_168D8E, dword_168DA4
-global dword_168DCC, dword_168E70, dword_168E74, dword_168E7C, dword_168E80, dword_168F58, off_168CD8, off_168CE0
-global off_168CE8, off_168CEC, off_168CF0, off_168CFC, off_168D04, off_168D08, off_168D0C, unk_168C38
-global word_168D18, word_168E2C, word_168E2E, word_168E34, word_168E60
-byte_168B60:
+extern SortCords, hmtmstruct, HomeTeamRecord, AwayTeamRecord
+extern AwayTeamRecord, HomeIcePlayers, AwayIcePlayers
+global LineSlotPositions, LineSlotOffsets, LineReplaceTable, SlotJoyMap, LineReplaceOrder, PenaltyMinutes, PenaltyFlags, PenaltyPaCodes
+global PenaltyTypes, PacketLinkOpen, PacketLinkMode, PacketSize, StandingsColumns, PlayoffColumns, PtrPuckTarget, PtrPuckState
+global PtrPuckOwner, PtrPuckMotion, PtrPuckZone, PtrPuckFlags, PtrPuckObject, PtrHomeIce, PtrAwayIce, ResetPlayerSpots
+global PeriodLengths, ProgressTimes, ProgressLimit, str_Punct_InProgress, LineChangeKeys
+LineSlotPositions:
         db 00h,00h,02h,01h,01h,00h
-dword_168B66:
+LineReplaceOrder:
         db 00h,01h,00h
-byte_168B69:
+LineSlotOffsets:
         db 00h,03h,06h,09h,0FFh,01h,04h,07h,0Ah,0FFh,02h,05h,08h,0Bh,0FFh,0Ch
         db 0Eh,010h,0FFh,0Dh,0Fh,011h,0FFh,012h,017h,01Ch,020h,00h,03h,06h,09h,0FFh
         db 013h,018h,01Dh,021h,01h,04h,07h,0Ah,0FFh,014h,019h,02h,05h,08h,0Bh,0FFh
@@ -23,12 +23,12 @@ byte_168B69:
         db 0Ah,0FFh,028h,02Ch,02Fh,032h,0Ch,0Eh,010h,0FFh,029h,02Dh,030h,033h,0Dh,0Fh
         db 011h,0FFh,02Eh,031h,027h,02Bh,01h,04h,07h,0Ah,0FFh,02Fh,032h,028h,02Ch,0Ch
         db 0Eh,010h,0FFh,030h,033h,029h,02Dh,0Dh,0Fh,011h,0FFh
-byte_168C04:
+LineReplaceTable:
         db 00h,05h,0Ah,00h,05h,0Ah,00h,05h,0Ah,00h,05h,0Ah,0Fh,013h,0Fh,013h
         db 0Fh,013h,017h,020h,029h,030h,038h,017h,020h,029h,030h,038h,040h,049h,052h,05Ah
         db 040h,049h,052h,05Ah,05h,05h,062h,069h,072h,07Ah,062h,069h,072h,07Ah,082h,08Bh
         db 093h,082h,08Bh,093h
-unk_168C38:
+ResetPlayerSpots:
         db 08h,0F8h,00h,00h,040h,0FFh,01h,00h,080h,00h,08h,0F8h,00h,00h,080h,0FEh
         db 01h,00h,080h,00h,08h,0F8h,00h,00h,0C0h,0FDh,01h,00h,080h,00h,08h,0F8h
         db 00h,00h,00h,0FDh,01h,00h,080h,00h,08h,0F8h,00h,00h,040h,0FCh,01h,00h
@@ -39,34 +39,34 @@ unk_168C38:
         db 00h,00h,080h,04h,01h,00h,040h,00h,070h,0FFh,00h,00h,00h,00h,033h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,041h,00h,01h,00h,00h,00h,00h,00h
         db 050h,0EFh,00h,00h,00h,00h,00h,00h,00h,00h,0B0h,010h,00h,00h,00h,00h
-off_168CD8:
-        dd unk_19E79E
-        dd unk_19E7A8
-off_168CE0:
-        dd unk_19E7A2
-        dd unk_19E7AC
-off_168CE8:
-        dd unk_19E7A6
-off_168CEC:
-        dd unk_19E7B0
-off_168CF0:
-        dd unk_19E840
+PtrPuckTarget:
+        dd AwayTeamRecord+52Eh
+        dd AwayTeamRecord+538h
+PtrPuckState:
+        dd AwayTeamRecord+532h
+        dd AwayTeamRecord+53Ch
+PtrPuckOwner:
+        dd AwayTeamRecord+536h
+PtrPuckMotion:
+        dd AwayTeamRecord+540h
+PtrPuckZone:
+        dd AwayTeamRecord+5D0h
         dd SortCords
-        dd unk_19E060
-off_168CFC:
-        dd unk_19E798
+        dd HomeTeamRecord+420h
+PtrPuckFlags:
+        dd AwayTeamRecord+528h
         db 00h,00h,00h,00h
-off_168D04:
-        dd unk_19E690
-off_168D08:
-        dd unk_19E8A0
-off_168D0C:
-        dd unk_19E9A8
+PtrPuckObject:
+        dd AwayTeamRecord+420h
+PtrHomeIce:
+        dd HomeIcePlayers
+PtrAwayIce:
+        dd AwayIcePlayers
         dd hmtmstruct
         dd hmtmstruct
-word_168D18:
+PeriodLengths:
         db 02Ch,01h,058h,02h,0B0h,04h,0B0h,04h
-dword_168D20:
+PenaltyMinutes:
         db 0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh
         db 06h,00h,00h,00h,05h,00h,00h,00h,04h,00h,00h,00h,0FFh,0FFh,0FFh,0FFh
         db 03h,00h,00h,00h,03h,00h,00h,00h,02h,00h,00h,00h,0FFh,0FFh,0FFh,0FFh
@@ -74,38 +74,38 @@ dword_168D20:
         db 07h,00h,00h,00h,07h,00h,00h,00h,07h,00h,00h,00h,07h,00h,00h,00h
         db 07h,00h,00h,00h,07h,00h,00h,00h,07h,00h,00h,00h,07h,00h,00h,00h
         db 07h,00h,00h,00h,07h,00h,00h,00h,07h,00h,00h,00h,07h,00h
-dword_168D8E:
+PenaltyFlags:
         db 00h,00h,07h,00h,00h,00h,07h,00h,00h,00h,07h,00h,00h,00h,07h,00h
         db 00h,00h,07h,00h,00h,00h
-dword_168DA4:
+PenaltyPaCodes:
         db 07h,00h,00h,00h,08h,00h,00h,00h,02h,070h,0Dh,070h,0Ch,070h,04h,070h
         db 0Ah,070h,0Eh,070h,0Bh,070h,09h,070h,07h,070h,06h,070h,00h,070h,03h,070h
         db 01h,070h,05h,070h,08h,070h,00h,00h
-dword_168DCC:
+PenaltyTypes:
         db 01h,05h,00h,00h,05h,05h,00h,00h,07h,05h,00h,00h,0Ch,05h,00h,00h
         db 03h,00h,00h,070h,06h,00h,00h,070h,0Ah,00h,00h,070h,09h,00h,00h,070h
         db 0Fh,00h,00h,070h,0Eh,00h,00h,070h,0Dh,00h,00h,070h,010h,00h,00h,070h
         db 05h,00h,00h,070h,04h,00h,00h,070h,01h,00h,00h,070h,08h,00h,00h,070h
         db 02h,00h,00h,070h,0Bh,00h,00h,070h,011h,00h,00h,070h,0Ch,00h,00h,070h
         db 0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,010h,00h,00h,070h,07h,00h,00h,070h
-word_168E2C:
+ProgressTimes:
         db 00h,00h
-word_168E2E:
+ProgressLimit:
         db 00h,00h,020h,00h,00h,00h
-word_168E34:
+str_Punct_InProgress:
         db 040h,00h,00h,00h,00h,00h,00h,00h,060h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,080h,00h,00h,00h
-byte_168E50:
+SlotJoyMap:
         db 08h,00h,04h,08h,02h,01h,03h,08h,06h,07h,05h,08h,08h,08h,08h,00h
-word_168E60:
+LineChangeKeys:
         db 01h,00h,02h,00h,03h,00h,00h,00h,05h,00h,04h,00h,07h,00h,06h,00h
-dword_168E70:
+PacketLinkOpen:
         db 00h,00h,00h,00h
-dword_168E74:
+PacketLinkMode:
         db 01h,00h,00h,00h,00h,00h,00h,00h
-dword_168E7C:
+PacketSize:
         db 090h,01h,00h,00h
-dword_168E80:
+StandingsColumns:
         db 01h,00h,00h,00h,04h,00h,00h,00h,04h,00h,00h,00h,01h,00h,00h,00h
         db 02h,00h,00h,00h,01h,00h,00h,00h,02h,00h,00h,00h,02h,00h,00h,00h
         db 01h,00h,00h,00h,08h,00h,00h,00h,04h,00h,00h,00h,01h,00h,00h,00h
@@ -120,7 +120,7 @@ dword_168E80:
         db 01h,00h,00h,00h,01h,00h,00h,00h,01h,00h,00h,00h,01h,00h,00h,00h
         db 01h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,01h,00h,00h,00h
         db 01h,00h,00h,00h,01h,00h,00h,00h
-dword_168F58:
+PlayoffColumns:
         db 03h,00h,00h,00h,0Ch,00h,00h,00h,0Ch,00h,00h,00h,03h,00h,00h,00h
         db 03h,00h,00h,00h,03h,00h,00h,00h,03h,00h,00h,00h,03h,00h,00h,00h
         db 03h,00h,00h,00h,0Ch,00h,00h,00h,0Ch,00h,00h,00h,03h,00h,00h,00h

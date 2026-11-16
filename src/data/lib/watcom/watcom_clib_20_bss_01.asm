@@ -2,63 +2,63 @@
 bits 32
 %include "hockey.inc"
 section s_1DC518 nobits alloc noexec write align=1
-global dword_1DC518, dword_1DC51C, dword_1DC520, dword_1DC524, dword_1DC528, dword_1DC5A8, dword_1DC5AC, dword_1DC994
-global dword_1DC998, dword_1DC99C, dword_1DC9A0, dword_1DC9A4, dword_1DC9A8, dword_1DC9AC, dword_1DC9B0, dword_1DC9B4
-global dword_1DC9B8, dword_1DCAD0, dword_1DCAD4, dword_1DCAD8, dword_1DCADC, dword_1DCAE0, dword_1DCAE4, dword_1DCAE8
-global dword_1DCAEC, dword_1DCAF0, dword_1DCAF4, dword_1DCAF8
-dword_1DC518:
+global TextLimitPtr, TextLimitCount, TextLimitWidth, AtexitCount, AtexitTable, SpeechBankCount, SpeechBankTable, SpeechChannelA
+global SpeechChannelB, SpeechRingBusy, SpeechRingHead, SpeechRingTail, SpeechSampleBufA, SpeechSampleBufB, SpeechRingUsed, SpeechRingBytes
+global SpeechRingEntries, SpeechStreamOpen, SpeechStreamHeader, SpeechStreamBuffer, SpeechStreamSize, SpeechStreamChannel, SpeechStreamData, SpeechStreamActive
+global SpeechStreamHandle, SpeechStreamPos, SpeechStreamBlock, SpeechStreamFlagCount
+TextLimitPtr:
         resb 4
-dword_1DC51C:
+TextLimitCount:
         resb 4
-dword_1DC520:
+TextLimitWidth:
         resb 4
-dword_1DC524:
+AtexitCount:
         resb 4
-dword_1DC528:
+AtexitTable:
         resb 128
-dword_1DC5A8:
+SpeechBankCount:
         resb 4
-dword_1DC5AC:
+SpeechBankTable:
         resb 1000
-dword_1DC994:
+SpeechChannelA:
         resb 4
-dword_1DC998:
+SpeechChannelB:
         resb 4
-dword_1DC99C:
+SpeechRingBusy:
         resb 4
-dword_1DC9A0:
+SpeechRingHead:
         resb 4
-dword_1DC9A4:
+SpeechRingTail:
         resb 4
-dword_1DC9A8:
+SpeechSampleBufA:
         resb 4
-dword_1DC9AC:
+SpeechSampleBufB:
         resb 4
-dword_1DC9B0:
+SpeechRingUsed:
         resb 4
-dword_1DC9B4:
+SpeechRingBytes:
         resb 4
-dword_1DC9B8:
+SpeechRingEntries:
         resb 280
-dword_1DCAD0:
+SpeechStreamOpen:
         resb 4
-dword_1DCAD4:
+SpeechStreamHeader:
         resb 4
-dword_1DCAD8:
+SpeechStreamBuffer:
         resb 4
-dword_1DCADC:
+SpeechStreamSize:
         resb 4
-dword_1DCAE0:
+SpeechStreamChannel:
         resb 4
-dword_1DCAE4:
+SpeechStreamData:
         resb 4
-dword_1DCAE8:
+SpeechStreamActive:
         resb 4
-dword_1DCAEC:
+SpeechStreamHandle:
         resb 4
-dword_1DCAF0:
+SpeechStreamPos:
         resb 4
-dword_1DCAF4:
+SpeechStreamBlock:
         resb 4
-dword_1DCAF8:
+SpeechStreamFlagCount:
         resb 4

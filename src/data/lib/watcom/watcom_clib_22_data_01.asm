@@ -2,14 +2,14 @@
 bits 32
 %include "hockey.inc"
 section s_173F64 progbits alloc noexec write align=1
-global byte_199784, byte_19988D, dword_173F64, dword_19469C, dword_1946A0, dword_1946A4, dword_1946A8, dword_1996A4
-global dword_1996A8, dword_1996AC, dword_1996B0, dword_1996B4, dword_1996B8, dword_1996BC, dword_1996C0, dword_1996C4
-global dword_1996C8, dword_1996D0, dword_1996D4, dword_1996D8, dword_1996DC, dword_1996E0, dword_1996E4, dword_1996E8
-global dword_199734, dword_199888, dword_199990, dword_199994, dword_199998, dword_19999C, dword_1999A0, dword_1999A4
-global off_1996EC, unk_193F64, unk_193FD8, unk_19404C, unk_1940C0, unk_194134, unk_1941A8, unk_19421C
-global unk_194290, unk_194304, unk_194378, unk_1943EC, unk_194460, unk_1944D4, unk_194548, unk_1945BC
-global unk_194630, unk_1956A4, unk_19972C, unk_199738
-dword_173F64:
+global AngleOctantTable, __MBCSTable, MixerVolumeLookup, MixerAccumLeft, MixerAccumRight, MixerAccumMono, MixerAccumBuffer, MixerReady
+global MixerStereo, MixerOutputRate, MixerOutPtr, Mixer16Bit, MixerOutEnd, MixerChunkSamples, MixerChunkLeft, MixerSamplePtr
+global MixerSampleStep, MixerLoopLength, MixerLoopLimit, MixerLoopStart, MixerFracPos, MixerFracStep, MixerOutputFunc, MixerStopFunc
+global ChannelUpdateTick, __MBCSFlag, SavedEbx, SavedEcx, SavedEdx, SavedEsi, SavedEdi, SavedRetAddr
+global MixerChannelTable, MixerChannels
+
+global MixerChunkBuffer, PatchDefaultHandle, ModelInstanceTemplate
+MixerVolumeLookup:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -8202,7 +8202,7 @@ dword_173F64:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-unk_193F64:
+MixerChannels:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -8211,7 +8211,6 @@ unk_193F64:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h
-unk_193FD8:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -8220,7 +8219,6 @@ unk_193FD8:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h
-unk_19404C:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -8229,7 +8227,6 @@ unk_19404C:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h
-unk_1940C0:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -8238,7 +8235,6 @@ unk_1940C0:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h
-unk_194134:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -8247,7 +8243,6 @@ unk_194134:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h
-unk_1941A8:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -8256,7 +8251,6 @@ unk_1941A8:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h
-unk_19421C:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -8265,7 +8259,6 @@ unk_19421C:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h
-unk_194290:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -8274,7 +8267,6 @@ unk_194290:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h
-unk_194304:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -8283,7 +8275,6 @@ unk_194304:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h
-unk_194378:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -8292,7 +8283,6 @@ unk_194378:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h
-unk_1943EC:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -8301,7 +8291,6 @@ unk_1943EC:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h
-unk_194460:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -8310,7 +8299,6 @@ unk_194460:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h
-unk_1944D4:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -8319,7 +8307,6 @@ unk_1944D4:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h
-unk_194548:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -8328,7 +8315,6 @@ unk_194548:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h
-unk_1945BC:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -8337,7 +8323,6 @@ unk_1945BC:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h
-unk_194630:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -8345,13 +8330,13 @@ unk_194630:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-dword_19469C:
+MixerAccumLeft:
         db 00h,00h,00h,00h
-dword_1946A0:
+MixerAccumRight:
         db 00h,00h,00h,00h
-dword_1946A4:
+MixerAccumMono:
         db 00h,00h,00h,00h
-dword_1946A8:
+MixerAccumBuffer:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -8608,7 +8593,7 @@ dword_1946A8:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-unk_1956A4:
+MixerChunkBuffer:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -9633,68 +9618,68 @@ unk_1956A4:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-dword_1996A4:
+MixerReady:
         db 00h,00h,00h,00h
-dword_1996A8:
+MixerStereo:
         db 00h,00h,00h,00h
-dword_1996AC:
+MixerOutputRate:
         db 00h,00h,00h,00h
-dword_1996B0:
+MixerOutPtr:
         db 00h,00h,00h,00h
-dword_1996B4:
+Mixer16Bit:
         db 00h,00h,00h,00h
-dword_1996B8:
+MixerOutEnd:
         db 00h,00h,00h,00h
-dword_1996BC:
+MixerChunkSamples:
         db 00h,00h,00h,00h
-dword_1996C0:
+MixerChunkLeft:
         db 00h,00h,00h,00h
-dword_1996C4:
+MixerSamplePtr:
         db 00h,00h,00h,00h
-dword_1996C8:
+MixerSampleStep:
         db 00h,00h,00h,00h,00h,00h,00h,00h
-dword_1996D0:
+MixerLoopLength:
         db 00h,00h,00h,00h
-dword_1996D4:
+MixerLoopLimit:
         db 00h,00h,00h,00h
-dword_1996D8:
+MixerLoopStart:
         db 00h,00h,00h,00h
-dword_1996DC:
+MixerFracPos:
         db 00h,00h,00h,00h
-dword_1996E0:
+MixerFracStep:
         db 00h,00h,00h,00h
-dword_1996E4:
+MixerOutputFunc:
         db 00h,00h,00h,00h
-dword_1996E8:
+MixerStopFunc:
         db 00h,00h,00h,00h
-off_1996EC:
-        dd unk_193F64
-        dd unk_193FD8
-        dd unk_19404C
-        dd unk_1940C0
-        dd unk_194134
-        dd unk_1941A8
-        dd unk_19421C
-        dd unk_194290
-        dd unk_194304
-        dd unk_194378
-        dd unk_1943EC
-        dd unk_194460
-        dd unk_1944D4
-        dd unk_194548
-        dd unk_1945BC
-        dd unk_194630
-unk_19972C:
+MixerChannelTable:
+        dd MixerChannels
+        dd MixerChannels+74h
+        dd MixerChannels+0E8h
+        dd MixerChannels+15Ch
+        dd MixerChannels+1D0h
+        dd MixerChannels+244h
+        dd MixerChannels+2B8h
+        dd MixerChannels+32Ch
+        dd MixerChannels+3A0h
+        dd MixerChannels+414h
+        dd MixerChannels+488h
+        dd MixerChannels+4FCh
+        dd MixerChannels+570h
+        dd MixerChannels+5E4h
+        dd MixerChannels+658h
+        dd MixerChannels+6CCh
+PatchDefaultHandle:
         db 0FFh,0FFh,0FFh,0FFh,07Fh,00h,00h,00h
-dword_199734:
+ChannelUpdateTick:
         db 00h,00h,00h,00h
-unk_199738:
+ModelInstanceTemplate:
         db 00h,00h,01h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,01h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,01h,00h,00h,040h,00h,00h,00h,0E0h,0FFh,0FFh,00h,018h,00h,00h
         db 00h,0ECh,0FFh,0FFh,080h,011h,00h,00h,040h,0F0h,0FFh,0FFh,070h,0Eh,00h,00h
         db 098h,0F2h,0FFh,0FFh,092h,0Ch,00h,00h,021h,0F4h,0FFh,0FFh
-byte_199784:
+AngleOctantTable:
         db 00h,01h,01h,02h,03h,03h,04h,04h,05h,06h,06h,07h,08h,08h,09h,0Ah
         db 0Ah,0Bh,0Bh,0Ch,0Dh,0Dh,0Eh,0Fh,0Fh,010h,010h,011h,012h,012h,013h,014h
         db 014h,015h,016h,016h,017h,017h,018h,019h,019h,01Ah,01Bh,01Bh,01Ch,01Ch,01Dh,01Eh
@@ -9712,9 +9697,9 @@ byte_199784:
         db 075h,076h,076h,076h,077h,077h,077h,078h,078h,078h,079h,079h,079h,07Ah,07Ah,07Ah
         db 07Bh,07Bh,07Bh,07Ch,07Ch,07Ch,07Dh,07Dh,07Dh,07Eh,07Eh,07Eh,07Fh,07Fh,07Fh,080h
         db 080h,00h,00h,00h
-dword_199888:
+__MBCSFlag:
         db 00h,00h,00h,00h,00h
-byte_19988D:
+__MBCSTable:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -9732,15 +9717,15 @@ byte_19988D:
         db 03h,03h,03h,03h,03h,03h,03h,03h,03h,03h,03h,03h,03h,03h,03h,03h
         db 03h,03h,03h,03h,03h,03h,03h,03h,03h,03h,03h,03h,03h,00h,00h,00h
         db 00h,00h,00h
-dword_199990:
+SavedEbx:
         db 00h,00h,00h,00h
-dword_199994:
+SavedEcx:
         db 00h,00h,00h,00h
-dword_199998:
+SavedEdx:
         db 00h,00h,00h,00h
-dword_19999C:
+SavedEsi:
         db 00h,00h,00h,00h
-dword_1999A0:
+SavedEdi:
         db 00h,00h,00h,00h
-dword_1999A4:
+SavedRetAddr:
         db 00h

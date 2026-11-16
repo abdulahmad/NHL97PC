@@ -4,12 +4,12 @@ bits 32
 section s_166A5C progbits alloc noexec write align=1
 global str_Mous4, str_Remo3, str_Replload, str_RPEVENT, str_Replmenu, str_Replregs, str_REPLAYNDX, str_DATAREPLAYNDX2
 global str_DONTHAVEIT2, str_Replay, str_SS10, str_Replbuff, str_SREPLAYNDX, str_S12, str_NOIS, str_ARWD
-global dword_166A95, dword_166A99, dword_166A9D, dword_166AA9, dword_166AC8, dword_166AD4, dword_166B0B, dword_166B17
-global dword_166B26, dword_166B32, qword_166A8D, qword_166AA1, qword_166ACC, qword_166B0F, qword_166B2A, unk_166A8A
-global unk_166B38, unk_166B3C, unk_166B40, unk_166B44, unk_166B48, unk_166B4C, unk_166B50, unk_166B54
-global unk_166B58, unk_166B5C, unk_166B60, unk_166B64, unk_166B67, unk_166B6B, unk_166B6E, unk_166B72
-global unk_166B76, unk_166B7A, unk_166B7E, unk_166B82, unk_166B86, unk_166B8A, unk_166B8D, unk_166B90
-global unk_166B94, unk_166B98
+global F32_0p005_ReplayScreen, F32_0p003125_ReplayScreen, F32_0p005_DrawReplayTimeline, F32_0p003125_DrawReplayTimeline, F32_0p003125_PickReplayScreen, F32_0p005_PickReplayScreen, F32_0p003125_DrawReplayEntry, F32_0p005_DrawReplayEntry
+global F32_0p003125_ReplayMenuScreen, F32_0p005_ReplayMenuScreen, F64_0p5_ReplayScreen, F64_0p5_DrawReplayTimeline, F64_0p5_PickReplayScreen, F64_0p5_DrawReplayEntry, F64_0p5_ReplayMenuScreen, str_S_ReplayScreen
+global str_Ana, str_Bos, str_Buf, str_Cal, str_Chi, str_Col, str_Dal, str_Det
+global str_Edm, str_Fla, str_Har, str_LA, str_Mon, str_NJ, str_NYI, str_NYR
+global str_Ott, str_Phi, str_Pho, str_Pit, str_StL, str_SJ, str_TB, str_Tor
+global str_Van, str_Was
 str_Mous4:
         db 06Dh,06Fh,075h,073h,00h
 str_Remo3:
@@ -22,29 +22,29 @@ str_Replmenu:
         db 072h,065h,070h,06Ch,06Dh,065h,06Eh,075h,00h
 str_Replregs:
         db 072h,065h,070h,06Ch,072h,065h,067h,073h,00h
-unk_166A8A:
+str_S_ReplayScreen:
         db 025h,073h,00h
-qword_166A8D:
+F64_0p5_ReplayScreen:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-dword_166A95:
+F32_0p005_ReplayScreen:
         db 0Ah,0D7h,0A3h,03Bh
-dword_166A99:
+F32_0p003125_ReplayScreen:
         db 0CDh,0CCh,04Ch,03Bh
-dword_166A9D:
+F32_0p005_DrawReplayTimeline:
         db 0Ah,0D7h,0A3h,03Bh
-qword_166AA1:
+F64_0p5_DrawReplayTimeline:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-dword_166AA9:
+F32_0p003125_DrawReplayTimeline:
         db 0CDh,0CCh,04Ch,03Bh
 str_REPLAYNDX:
         db 052h,045h,050h,04Ch,041h,059h,02Eh,04Eh,044h,058h,00h
 str_DATAREPLAYNDX2:
         db 044h,041h,054h,041h,05Ch,052h,045h,050h,04Ch,041h,059h,02Eh,04Eh,044h,058h,00h
-dword_166AC8:
+F32_0p003125_PickReplayScreen:
         db 0CDh,0CCh,04Ch,03Bh
-qword_166ACC:
+F64_0p5_PickReplayScreen:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-dword_166AD4:
+F32_0p005_PickReplayScreen:
         db 0Ah,0D7h,0A3h,03Bh
 str_DONTHAVEIT2:
         db 044h,04Fh,04Eh,054h,048h,041h,056h,045h,02Eh,049h,054h,00h
@@ -58,71 +58,71 @@ str_SREPLAYNDX:
         db 025h,073h,05Ch,052h,045h,050h,04Ch,041h,059h,02Eh,04Eh,044h,058h,00h
 str_S12:
         db 03Eh,025h,073h,00h
-dword_166B0B:
+F32_0p003125_DrawReplayEntry:
         db 0CDh,0CCh,04Ch,03Bh
-qword_166B0F:
+F64_0p5_DrawReplayEntry:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-dword_166B17:
+F32_0p005_DrawReplayEntry:
         db 0Ah,0D7h,0A3h,03Bh
 str_NOIS:
         db 04Eh,04Fh,049h,053h,00h
 str_ARWD:
         db 041h,052h,057h,025h,064h,00h
-dword_166B26:
+F32_0p003125_ReplayMenuScreen:
         db 0CDh,0CCh,04Ch,03Bh
-qword_166B2A:
+F64_0p5_ReplayMenuScreen:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-dword_166B32:
+F32_0p005_ReplayMenuScreen:
         db 0Ah,0D7h,0A3h,03Bh,00h,00h
-unk_166B38:
+str_Ana:
         db 041h,06Eh,061h,00h
-unk_166B3C:
+str_Bos:
         db 042h,06Fh,073h,00h
-unk_166B40:
+str_Buf:
         db 042h,075h,066h,00h
-unk_166B44:
+str_Cal:
         db 043h,061h,06Ch,00h
-unk_166B48:
+str_Chi:
         db 043h,068h,069h,00h
-unk_166B4C:
+str_Col:
         db 043h,06Fh,06Ch,00h
-unk_166B50:
+str_Dal:
         db 044h,061h,06Ch,00h
-unk_166B54:
+str_Det:
         db 044h,065h,074h,00h
-unk_166B58:
+str_Edm:
         db 045h,064h,06Dh,00h
-unk_166B5C:
+str_Fla:
         db 046h,06Ch,061h,00h
-unk_166B60:
+str_Har:
         db 048h,061h,072h,00h
-unk_166B64:
+str_LA:
         db 04Ch,041h,00h
-unk_166B67:
+str_Mon:
         db 04Dh,06Fh,06Eh,00h
-unk_166B6B:
+str_NJ:
         db 04Eh,04Ah,00h
-unk_166B6E:
+str_NYI:
         db 04Eh,059h,049h,00h
-unk_166B72:
+str_NYR:
         db 04Eh,059h,052h,00h
-unk_166B76:
+str_Ott:
         db 04Fh,074h,074h,00h
-unk_166B7A:
+str_Phi:
         db 050h,068h,069h,00h
-unk_166B7E:
+str_Pho:
         db 050h,068h,06Fh,00h
-unk_166B82:
+str_Pit:
         db 050h,069h,074h,00h
-unk_166B86:
+str_StL:
         db 053h,074h,04Ch,00h
-unk_166B8A:
+str_SJ:
         db 053h,04Ah,00h
-unk_166B8D:
+str_TB:
         db 054h,042h,00h
-unk_166B90:
+str_Tor:
         db 054h,06Fh,072h,00h
-unk_166B94:
+str_Van:
         db 056h,061h,06Eh,00h
-unk_166B98:
+str_Was:
         db 057h,061h,073h,00h

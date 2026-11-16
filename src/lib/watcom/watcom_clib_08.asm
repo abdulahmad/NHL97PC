@@ -2,20 +2,20 @@
 bits 32
 %include "hockey.inc"
 section s_104A2C progbits alloc exec nowrite align=1
-extern str_Inversetbl, str_CDROMDATA, str_CDROMBUFFER, byte_16E504, byte_1CFADC, dword_16E4C8, dword_16E4D0, dword_16E500
-extern dword_16FB40, dword_16FB50, dword_16FB54, dword_16FB58, dword_16FB5C, dword_16FB60, dword_16FB64, dword_16FB74
-extern dword_16FFC4, dword_172AB8, dword_172ABC, dword_1CFA10, dword_1CFA14, dword_1CFA18, dword_1CFA1C, dword_1CFA20
-extern dword_1CFA24, dword_1CFA28, dword_1CFA2C, dword_1CFA30, dword_1CFA34, dword_1CFA38, dword_1CFA3C, dword_1CFA40
-extern dword_1CFA44, dword_1CFA48, dword_1CFA4C, dword_1CFA50, dword_1CFA54, dword_1CFA58, dword_1CFA5C, dword_1CFA60
-extern dword_1CFA64, dword_1CFA68, dword_1CFA6C, dword_1CFA70, dword_1CFA74, dword_1CFA78, dword_1CFA7C, dword_1CFA80
-extern dword_1CFA84, dword_1CFA88, dword_1CFA8C, dword_1CFA90, dword_1CFA94, dword_1CFA9C, dword_1CFAA0, dword_1CFAA4
-extern dword_1CFAA8, dword_1CFAAC, dword_1CFAB0, dword_1CFAB4, dword_1CFABC, dword_1CFAC0, dword_1CFACC, dword_1CFAD0
-extern dword_1CFAD4, dword_1CFAD8, dword_1DC5AC, dword_1DC994, dword_1DC998, dword_1DC99C, dword_1DCAFC, dword_1DCB00
-extern dword_1DCB04, dword_1DCB08, dword_1DCEC0, dword_1DCF20, int386_, int386x_, memset_, segread_
+extern str_Inversetbl, str_CDROMDATA, str_CDROMBUFFER, QuantizeTable, CdRegFlags, MessageBoxActive, LastLoadedSize, QuantizePalette
+extern CdSectorSize, CdFileMode, CdFileHandle, CdFileStart, CdFileSize, CdFilePos, CdFileBuffer, CdDriveCount
+extern CdStreamSpeed, SpeechChannelFunc, LoadFileHook, InvTabR, InvTabG, InvTabB, InvTabDist, InvTabRStep
+extern InvTabGStep, InvTabBStep, InvTabColor, InvTabRMin, InvTabRMax, InvTabOut, InvTabDistBuf, InvTabGMin
+extern InvTabGMax, InvTabBMin, InvTabBMax, InvTabGCenter, InvTabBCenter, InvTabRow, InvTabCell, InvTabRCenter
+extern InvTabPass, InvTabGLo, InvTabGHi, InvTabBLo, InvTabBHi, InvTabGInc, InvTabBInc, InvTabDistInc
+extern InvTabDistStart, InvTabFillPtr, InvTabFillCount, InvTabFillStep, InvTabFillDist, CdBufferSelector, CdBufferAddr, CdBufferAllocated
+extern CdDriveLetter, CdReadResult, CdRequestSegment, CdReadSector, CdRegs, CdDirEntryBuf, CdRegEbx, CdRegEdi
+extern CdRegEax, CdRegEdx, SpeechBankTable, SpeechChannelA, SpeechChannelB, SpeechRingBusy, SpeechEventCount, SpeechEventId
+extern SpeechEventTime, SpeechEventQueue, SpeechEnabled, SpeechBankBase, int386_, int386x_, memset_, segread_
 extern str_Inversetmp, bcopy, Random32, ReadPaletteRange, SpeechBusy, DosOpenFile, DosCloseFile, DosReadFile
 extern DosSeekFile, FindSpeechBank, FindCachedFile, ExpandPalette6To8, CopyPaletteRGB, CdDirSearch, AllocMemBlock, AllocMemData
-extern AllocMemBlockFull, FreeMemBlock, WaitTicks, tickcount, toupper_, unk_16FB44, unk_1CFAF0, word_1CFA98
-extern word_1CFAB8, word_1CFADE, word_1CFAE0
+extern AllocMemBlockFull, FreeMemBlock, WaitTicks, tickcount, toupper_, CdFileTable, SpeechEventBuf, CdBufferSegment
+extern CdRequestSelector, CdRegEs, CdRegSegs
 global DetectMscdex_1FC, ParseSpeechEvents_86, QueueSpeechEvent_AD, QueueSpeechEvent_AE, strcmp_, strncpy_, InverseTableSlice, InverseTablePass
 global InverseTableScan, InverseTableFill, BuildInverseTable, FreeInverseTable, CdOpenFile, CdOpenStream, CdHandleEntry, CdCloseFile
 global CdReadSectors, CdRead, CdSeekSectors, CdSeek, CdFindFile, DriveLetterIndex, IsCdDrive, AllocCdBuffer
@@ -76,18 +76,18 @@ InverseTableSlice:
         mov ebx, 1
         shl eax, cl
         mov cl, byte [byte esp+0Ch]
-        mov dword [dword_1CFA38], eax
+        mov dword [InvTabOut], eax
         shl ebx, cl
         mov ecx, dword [byte esp+0Ch]
         mov eax, 1
         add ecx, ecx
         shl eax, cl
-        mov dword [dword_1CFA3C], eax
-        mov eax, dword [dword_1CFA38]
-        mov dword [dword_1CFA5C], eax
+        mov dword [InvTabDistBuf], eax
+        mov eax, dword [InvTabOut]
+        mov dword [InvTabCell], eax
         imul eax, eax
-        mov dword [dword_1CFA60], eax
-        mov eax, dword [dword_1CFA38]
+        mov dword [InvTabRCenter], eax
+        mov eax, dword [InvTabOut]
         mov edx, eax
         imul edx, eax
         imul eax, edx
@@ -103,12 +103,12 @@ InverseTableSlice:
 .2:
         xor edx, edx
         mov ecx, dword [byte esp+04h]
-        mov dword [dword_1CFA24], edx
+        mov dword [InvTabGStep], edx
         test ecx, ecx
         jle near .5
 .3:
-        mov eax, dword [dword_1CFA24]
-        cmp byte [dword eax+byte_16E504], 0
+        mov eax, dword [InvTabGStep]
+        cmp byte [dword eax+QuantizeTable], 0
         je near .4
         mov edi, dword [esp]
         shl eax, 2
@@ -118,33 +118,33 @@ InverseTableSlice:
         mov eax, ebp
         sar eax, cl
         movzx esi, byte [byte edi+01h]
-        mov dword [dword_1CFA48], eax
+        mov dword [InvTabBMin], eax
         mov eax, esi
         sar eax, cl
         movzx edi, byte [edi]
-        mov dword [dword_1CFA2C], eax
+        mov dword [InvTabColor], eax
         mov eax, edi
         mov edx, ebx
         sar eax, cl
         sar edx, 1Fh
-        mov dword [dword_1CFA34], eax
+        mov dword [InvTabRMax], eax
         mov eax, ebx
         LD sub, eax, edx
         sar eax, 1
-        mov ecx, dword [dword_1CFA48]
+        mov ecx, dword [InvTabBMin]
         imul ecx, ebx
         lea edx, [ecx+eax]
         mov ecx, ebp
         imul ebp, ebx
         sub ecx, edx
-        mov edx, dword [dword_1CFA2C]
+        mov edx, dword [InvTabColor]
         imul edx, ebx
-        mov dword [dword_1CFA4C], ecx
+        mov dword [InvTabBMax], ecx
         mov ecx, esi
         imul esi, ebx
         add edx, eax
         sub ecx, edx
-        mov edx, dword [dword_1CFA34]
+        mov edx, dword [InvTabRMax]
         imul edx, ebx
         add eax, edx
         mov edx, edi
@@ -152,66 +152,66 @@ InverseTableSlice:
         sub edx, eax
         mov eax, ecx
         imul eax, ecx
-        mov dword [dword_1CFA44], edx
-        mov edx, dword [dword_1CFA4C]
+        mov dword [InvTabGMax], edx
+        mov edx, dword [InvTabBMax]
         imul edx, edx
         add edx, eax
-        mov eax, dword [dword_1CFA44]
+        mov eax, dword [InvTabGMax]
         imul eax, eax
         add edx, eax
-        mov eax, dword [dword_1CFA48]
-        mov dword [dword_1CFA44], edx
-        mov edx, dword [dword_1CFA3C]
+        mov eax, dword [InvTabBMin]
+        mov dword [InvTabGMax], edx
+        mov edx, dword [InvTabDistBuf]
         inc eax
         imul eax, edx
         sub eax, ebp
         add eax, eax
-        mov dword [dword_1CFA10], eax
-        mov eax, dword [dword_1CFA2C]
+        mov dword [InvTabR], eax
+        mov eax, dword [InvTabColor]
         inc eax
         imul eax, edx
         sub eax, esi
         add eax, eax
-        mov dword [dword_1CFA18], eax
-        mov eax, dword [dword_1CFA34]
+        mov dword [InvTabB], eax
+        mov eax, dword [InvTabRMax]
         inc eax
         imul eax, edx
-        mov esi, dword [dword_1CFA48]
+        mov esi, dword [InvTabBMin]
         sub eax, edi
-        imul esi, dword [dword_1CFA60]
-        mov dword [dword_1CFA58], ecx
+        imul esi, dword [InvTabRCenter]
+        mov dword [InvTabRow], ecx
         add eax, eax
-        mov ecx, dword [dword_1CFA5C]
-        mov dword [dword_1CFA14], eax
-        mov eax, dword [dword_1CFA2C]
+        mov ecx, dword [InvTabCell]
+        mov dword [InvTabG], eax
+        mov eax, dword [InvTabColor]
         imul eax, ecx
         mov ebp, dword [byte esp+08h]
         lea edx, [nosplit esi*4+00h]
         add edx, ebp
         lea edi, [nosplit eax*4+00h]
         add edx, edi
-        mov edi, dword [dword_1CFA34]
+        mov edi, dword [InvTabRMax]
         shl edi, 2
         add edx, edi
         mov edi, dword [byte esp+020h]
-        mov dword [dword_1CFA20], edx
+        mov dword [InvTabRStep], edx
         add esi, edi
-        mov edx, dword [dword_1CFA34]
+        mov edx, dword [InvTabRMax]
         add eax, esi
         add edx, eax
-        mov dword [dword_1CFA30], ebx
-        mov dword [dword_1CFA28], edx
+        mov dword [InvTabRMin], ebx
+        mov dword [InvTabBStep], edx
         call InverseTablePass
-        mov ebx, dword [dword_1CFA30]
+        mov ebx, dword [InvTabRMin]
 .4:
-        mov esi, dword [dword_1CFA24]
+        mov esi, dword [InvTabGStep]
         inc esi
         mov edi, dword [byte esp+04h]
-        mov dword [dword_1CFA24], esi
+        mov dword [InvTabGStep], esi
         cmp esi, edi
         jl near .3
 .5:
-        mov dword [dword_1CFA30], ebx
+        mov dword [InvTabRMin], ebx
         add esp, byte 10h
         pop ebp
         pop edi
@@ -229,71 +229,71 @@ InverseTablePass:
         push esi
         push edi
         push ebp
-        mov ecx, dword [dword_1CFA3C]
-        mov ebx, dword [dword_1CFA48]
-        mov eax, dword [dword_1CFA44]
-        mov esi, dword [dword_1CFA10]
-        mov edi, dword [dword_1CFA38]
-        mov dword [dword_1CFA4C], eax
-        mov eax, dword [dword_1CFA20]
+        mov ecx, dword [InvTabDistBuf]
+        mov ebx, dword [InvTabBMin]
+        mov eax, dword [InvTabGMax]
+        mov esi, dword [InvTabR]
+        mov edi, dword [InvTabOut]
+        mov dword [InvTabBMax], eax
+        mov eax, dword [InvTabRStep]
         xor edx, edx
-        mov dword [dword_1CFA1C], eax
-        mov eax, dword [dword_1CFA28]
+        mov dword [InvTabDist], eax
+        mov eax, dword [InvTabBStep]
         add ecx, ecx
-        mov dword [dword_1CFA50], eax
+        mov dword [InvTabGCenter], eax
         mov eax, 1
         cmp ebx, edi
         jge near .4
-        mov dword [dword_1CFA64], esi
+        mov dword [InvTabPass], esi
 .1:
         call InverseTableScan
         test eax, eax
         je short .2
         mov edx, 1
-        mov esi, dword [dword_1CFA64]
+        mov esi, dword [InvTabPass]
         jmp short .3
 .2:
-        mov esi, dword [dword_1CFA64]
+        mov esi, dword [InvTabPass]
         test edx, edx
         jne short .4
 .3:
-        mov eax, dword [dword_1CFA60]
-        mov ebp, dword [dword_1CFA1C]
-        mov edi, dword [dword_1CFA50]
+        mov eax, dword [InvTabRCenter]
+        mov ebp, dword [InvTabDist]
+        mov edi, dword [InvTabGCenter]
         shl eax, 2
         inc ebx
         add ebp, eax
-        mov eax, dword [dword_1CFA60]
-        mov dword [dword_1CFA1C], ebp
+        mov eax, dword [InvTabRCenter]
+        mov dword [InvTabDist], ebp
         add edi, eax
-        mov ebp, dword [dword_1CFA4C]
-        mov dword [dword_1CFA50], edi
+        mov ebp, dword [InvTabBMax]
+        mov dword [InvTabGCenter], edi
         add ebp, esi
         xor eax, eax
-        mov edi, dword [dword_1CFA38]
+        mov edi, dword [InvTabOut]
         add esi, ecx
-        mov dword [dword_1CFA4C], ebp
-        mov dword [dword_1CFA64], esi
+        mov dword [InvTabBMax], ebp
+        mov dword [InvTabPass], esi
         cmp ebx, edi
         jl short .1
 .4:
-        mov esi, dword [dword_1CFA10]
-        mov eax, dword [dword_1CFA44]
+        mov esi, dword [InvTabR]
+        mov eax, dword [InvTabGMax]
         sub esi, ecx
-        mov edi, dword [dword_1CFA60]
+        mov edi, dword [InvTabRCenter]
         sub eax, esi
         shl edi, 2
-        mov dword [dword_1CFA4C], eax
-        mov eax, dword [dword_1CFA20]
-        mov ebx, dword [dword_1CFA48]
+        mov dword [InvTabBMax], eax
+        mov eax, dword [InvTabRStep]
+        mov ebx, dword [InvTabBMin]
         sub eax, edi
-        mov ebp, dword [dword_1CFA60]
-        mov dword [dword_1CFA1C], eax
-        mov eax, dword [dword_1CFA28]
+        mov ebp, dword [InvTabRCenter]
+        mov dword [InvTabDist], eax
+        mov eax, dword [InvTabBStep]
         dec ebx
         sub eax, ebp
-        mov dword [dword_1CFA64], esi
-        mov dword [dword_1CFA50], eax
+        mov dword [InvTabPass], esi
+        mov dword [InvTabGCenter], eax
         mov eax, 1
         test ebx, ebx
         jl short .8
@@ -307,28 +307,28 @@ InverseTablePass:
         test edx, edx
         jne short .8
 .7:
-        mov eax, dword [dword_1CFA60]
-        mov esi, dword [dword_1CFA1C]
-        mov edi, dword [dword_1CFA50]
-        mov ebp, dword [dword_1CFA4C]
+        mov eax, dword [InvTabRCenter]
+        mov esi, dword [InvTabDist]
+        mov edi, dword [InvTabGCenter]
+        mov ebp, dword [InvTabBMax]
         shl eax, 2
         dec ebx
         sub esi, eax
-        mov eax, dword [dword_1CFA60]
-        mov dword [dword_1CFA1C], esi
-        mov esi, dword [dword_1CFA64]
+        mov eax, dword [InvTabRCenter]
+        mov dword [InvTabDist], esi
+        mov esi, dword [InvTabPass]
         sub edi, eax
         sub esi, ecx
-        mov dword [dword_1CFA50], edi
-        mov dword [dword_1CFA64], esi
+        mov dword [InvTabGCenter], edi
+        mov dword [InvTabPass], esi
         sub ebp, esi
         mov eax, esi
-        mov dword [dword_1CFA4C], ebp
+        mov dword [InvTabBMax], ebp
         xor eax, esi
         test ebx, ebx
         jge short .5
 .8:
-        mov esi, dword [dword_1CFA64]
+        mov esi, dword [InvTabPass]
         mov eax, edx
         pop ebp
         pop edi
@@ -349,112 +349,112 @@ InverseTableScan:
         push esi
         push edi
         push ebp
-        mov esi, dword [dword_1CFA3C]
+        mov esi, dword [InvTabDistBuf]
         add esi, esi
         test eax, eax
         je short .1
-        mov eax, dword [dword_1CFA2C]
-        mov dword [dword_1CFA84], eax
-        mov eax, dword [dword_1CFA38]
+        mov eax, dword [InvTabColor]
+        mov dword [InvTabDistStart], eax
+        mov eax, dword [InvTabOut]
         dec eax
         xor ebx, ebx
-        mov dword [dword_1CFA7C], eax
-        mov eax, dword [dword_1CFA18]
-        mov dword [dword_1CFA80], ebx
-        mov dword [dword_1CFA78], eax
+        mov dword [InvTabBInc], eax
+        mov eax, dword [InvTabB]
+        mov dword [InvTabDistInc], ebx
+        mov dword [InvTabGInc], eax
 .1:
-        mov ebx, dword [dword_1CFA84]
-        mov eax, dword [dword_1CFA4C]
-        mov ecx, dword [dword_1CFA78]
-        mov dword [dword_1CFA58], eax
-        mov dword [dword_1CFA70], eax
-        mov eax, dword [dword_1CFA1C]
-        mov edi, dword [dword_1CFA7C]
-        mov dword [dword_1CFA40], eax
-        mov dword [dword_1CFA6C], eax
-        mov eax, dword [dword_1CFA50]
+        mov ebx, dword [InvTabDistStart]
+        mov eax, dword [InvTabBMax]
+        mov ecx, dword [InvTabGInc]
+        mov dword [InvTabRow], eax
+        mov dword [InvTabBLo], eax
+        mov eax, dword [InvTabDist]
+        mov edi, dword [InvTabBInc]
+        mov dword [InvTabGMin], eax
+        mov dword [InvTabGHi], eax
+        mov eax, dword [InvTabGCenter]
         xor edx, edx
-        mov dword [dword_1CFA54], eax
-        mov dword [dword_1CFA68], eax
+        mov dword [InvTabBCenter], eax
+        mov dword [InvTabGLo], eax
         mov eax, 1
         cmp ebx, edi
         jg near .6
-        mov dword [dword_1CFA74], ecx
+        mov dword [InvTabBHi], ecx
 .2:
         call InverseTableFill
         test eax, eax
         je short .4
-        mov ecx, dword [dword_1CFA74]
+        mov ecx, dword [InvTabBHi]
         test edx, edx
         jne short .5
-        cmp ebx, dword [dword_1CFA84]
+        cmp ebx, dword [InvTabDistStart]
         jle short .3
-        mov eax, dword [dword_1CFA6C]
-        mov dword [dword_1CFA1C], eax
-        mov eax, dword [dword_1CFA68]
-        mov dword [dword_1CFA84], ebx
-        mov dword [dword_1CFA50], eax
-        mov eax, dword [dword_1CFA70]
-        mov dword [dword_1CFA78], ecx
-        mov dword [dword_1CFA4C], eax
+        mov eax, dword [InvTabGHi]
+        mov dword [InvTabDist], eax
+        mov eax, dword [InvTabGLo]
+        mov dword [InvTabDistStart], ebx
+        mov dword [InvTabGCenter], eax
+        mov eax, dword [InvTabBLo]
+        mov dword [InvTabGInc], ecx
+        mov dword [InvTabBMax], eax
 .3:
         mov edx, 1
         jmp short .5
 .4:
-        mov ecx, dword [dword_1CFA74]
+        mov ecx, dword [InvTabBHi]
         test edx, edx
         jne short .6
 .5:
-        mov eax, dword [dword_1CFA5C]
-        mov ebp, dword [dword_1CFA40]
-        mov edi, dword [dword_1CFA6C]
+        mov eax, dword [InvTabCell]
+        mov ebp, dword [InvTabGMin]
+        mov edi, dword [InvTabGHi]
         shl eax, 2
         inc ebx
         add ebp, eax
         add edi, eax
-        mov eax, dword [dword_1CFA5C]
-        mov dword [dword_1CFA40], ebp
-        mov dword [dword_1CFA6C], edi
-        mov ebp, dword [dword_1CFA54]
-        mov edi, dword [dword_1CFA68]
+        mov eax, dword [InvTabCell]
+        mov dword [InvTabGMin], ebp
+        mov dword [InvTabGHi], edi
+        mov ebp, dword [InvTabBCenter]
+        mov edi, dword [InvTabGLo]
         add ebp, eax
         add edi, eax
-        mov dword [dword_1CFA54], ebp
-        mov dword [dword_1CFA68], edi
+        mov dword [InvTabBCenter], ebp
+        mov dword [InvTabGLo], edi
         xor eax, eax
-        mov ebp, dword [dword_1CFA58]
-        mov edi, dword [dword_1CFA70]
+        mov ebp, dword [InvTabRow]
+        mov edi, dword [InvTabBLo]
         add ebp, ecx
         add edi, ecx
-        mov dword [dword_1CFA58], ebp
-        mov dword [dword_1CFA70], edi
+        mov dword [InvTabRow], ebp
+        mov dword [InvTabBLo], edi
         add ecx, esi
-        mov ebp, dword [dword_1CFA7C]
-        mov dword [dword_1CFA74], ecx
+        mov ebp, dword [InvTabBInc]
+        mov dword [InvTabBHi], ecx
         cmp ebx, ebp
         jle near .2
 .6:
-        mov ebx, dword [dword_1CFA84]
-        mov ecx, dword [dword_1CFA78]
-        mov eax, dword [dword_1CFA4C]
+        mov ebx, dword [InvTabDistStart]
+        mov ecx, dword [InvTabGInc]
+        mov eax, dword [InvTabBMax]
         sub ecx, esi
-        mov edi, dword [dword_1CFA5C]
+        mov edi, dword [InvTabCell]
         sub eax, ecx
         shl edi, 2
-        mov dword [dword_1CFA58], eax
-        mov dword [dword_1CFA70], eax
-        mov eax, dword [dword_1CFA1C]
-        mov ebp, dword [dword_1CFA80]
+        mov dword [InvTabRow], eax
+        mov dword [InvTabBLo], eax
+        mov eax, dword [InvTabDist]
+        mov ebp, dword [InvTabDistInc]
         sub eax, edi
-        mov edi, dword [dword_1CFA5C]
-        mov dword [dword_1CFA40], eax
-        mov dword [dword_1CFA6C], eax
-        mov eax, dword [dword_1CFA50]
+        mov edi, dword [InvTabCell]
+        mov dword [InvTabGMin], eax
+        mov dword [InvTabGHi], eax
+        mov eax, dword [InvTabGCenter]
         dec ebx
         sub eax, edi
-        mov dword [dword_1CFA74], ecx
-        mov dword [dword_1CFA54], eax
-        mov dword [dword_1CFA68], eax
+        mov dword [InvTabBHi], ecx
+        mov dword [InvTabBCenter], eax
+        mov dword [InvTabGLo], eax
         mov eax, 1
         cmp ebx, ebp
         jl near .10
@@ -465,52 +465,52 @@ InverseTableScan:
         test edx, edx
         jne short .9
         mov edx, 1
-        mov eax, dword [dword_1CFA6C]
-        mov ecx, dword [dword_1CFA74]
-        mov dword [dword_1CFA1C], eax
-        mov eax, dword [dword_1CFA68]
-        mov dword [dword_1CFA84], ebx
-        mov dword [dword_1CFA50], eax
-        mov eax, dword [dword_1CFA70]
-        mov dword [dword_1CFA78], ecx
-        mov dword [dword_1CFA4C], eax
+        mov eax, dword [InvTabGHi]
+        mov ecx, dword [InvTabBHi]
+        mov dword [InvTabDist], eax
+        mov eax, dword [InvTabGLo]
+        mov dword [InvTabDistStart], ebx
+        mov dword [InvTabGCenter], eax
+        mov eax, dword [InvTabBLo]
+        mov dword [InvTabGInc], ecx
+        mov dword [InvTabBMax], eax
         jmp short .9
 .8:
         test edx, edx
         jne near .10
 .9:
-        mov eax, dword [dword_1CFA5C]
-        mov ecx, dword [dword_1CFA40]
-        mov edi, dword [dword_1CFA6C]
-        mov ebp, dword [dword_1CFA54]
+        mov eax, dword [InvTabCell]
+        mov ecx, dword [InvTabGMin]
+        mov edi, dword [InvTabGHi]
+        mov ebp, dword [InvTabBCenter]
         shl eax, 2
         dec ebx
         sub ecx, eax
         sub edi, eax
-        mov eax, dword [dword_1CFA5C]
-        mov dword [dword_1CFA40], ecx
-        mov dword [dword_1CFA6C], edi
-        mov ecx, dword [dword_1CFA68]
-        mov edi, dword [dword_1CFA58]
+        mov eax, dword [InvTabCell]
+        mov dword [InvTabGMin], ecx
+        mov dword [InvTabGHi], edi
+        mov ecx, dword [InvTabGLo]
+        mov edi, dword [InvTabRow]
         sub ecx, eax
         sub ebp, eax
-        mov dword [dword_1CFA68], ecx
-        mov ecx, dword [dword_1CFA74]
-        mov dword [dword_1CFA54], ebp
+        mov dword [InvTabGLo], ecx
+        mov ecx, dword [InvTabBHi]
+        mov dword [InvTabBCenter], ebp
         sub ecx, esi
-        mov ebp, dword [dword_1CFA70]
-        mov dword [dword_1CFA74], ecx
+        mov ebp, dword [InvTabBLo]
+        mov dword [InvTabBHi], ecx
         mov eax, ecx
         sub edi, ecx
         sub ebp, ecx
-        mov dword [dword_1CFA58], edi
-        mov dword [dword_1CFA70], ebp
-        mov edi, dword [dword_1CFA80]
+        mov dword [InvTabRow], edi
+        mov dword [InvTabBLo], ebp
+        mov edi, dword [InvTabDistInc]
         xor eax, ecx
         cmp ebx, edi
         jge near .7
 .10:
-        mov ecx, dword [dword_1CFA74]
+        mov ecx, dword [InvTabBHi]
         mov eax, edx
         pop ebp
         pop edi
@@ -531,43 +531,43 @@ InverseTableFill:
         push edi
         push ebp
         sub esp, byte 10h
-        mov edx, dword [dword_1CFA24]
-        mov ebp, dword [dword_1CFA3C]
+        mov edx, dword [InvTabGStep]
+        mov ebp, dword [InvTabDistBuf]
         mov dword [byte esp+04h], edx
         add ebp, ebp
         test eax, eax
         je short .1
-        mov eax, dword [dword_1CFA34]
-        mov dword [dword_1CFA94], eax
-        mov eax, dword [dword_1CFA38]
+        mov eax, dword [InvTabRMax]
+        mov dword [InvTabFillDist], eax
+        mov eax, dword [InvTabOut]
         dec eax
         xor ebx, ebx
-        mov dword [dword_1CFA8C], eax
-        mov eax, dword [dword_1CFA14]
-        mov dword [dword_1CFA90], ebx
-        mov dword [dword_1CFA88], eax
+        mov dword [InvTabFillCount], eax
+        mov eax, dword [InvTabG]
+        mov dword [InvTabFillStep], ebx
+        mov dword [InvTabFillPtr], eax
 .1:
-        mov ebx, dword [dword_1CFA94]
-        mov eax, dword [dword_1CFA58]
-        mov esi, dword [dword_1CFA88]
+        mov ebx, dword [InvTabFillDist]
+        mov eax, dword [InvTabRow]
+        mov esi, dword [InvTabFillPtr]
         xor ecx, ecx
-        mov edx, dword [dword_1CFA40]
+        mov edx, dword [InvTabGMin]
         mov dword [esp], ecx
-        mov ecx, dword [dword_1CFA8C]
-        mov edi, dword [dword_1CFA54]
+        mov ecx, dword [InvTabFillCount]
+        mov edi, dword [InvTabBCenter]
         mov dword [byte esp+0Ch], ecx
         cmp ebx, ecx
         jg short .6
 .2:
         cmp eax, dword [edx]
         jae short .4
-        cmp ebx, dword [dword_1CFA94]
+        cmp ebx, dword [InvTabFillDist]
         jle short .3
-        mov dword [dword_1CFA94], ebx
-        mov dword [dword_1CFA40], edx
-        mov dword [dword_1CFA54], edi
-        mov dword [dword_1CFA58], eax
-        mov dword [dword_1CFA88], esi
+        mov dword [InvTabFillDist], ebx
+        mov dword [InvTabGMin], edx
+        mov dword [InvTabBCenter], edi
+        mov dword [InvTabRow], eax
+        mov dword [InvTabFillPtr], esi
 .3:
         mov dword [esp], 1
         jmp short .6
@@ -597,16 +597,16 @@ InverseTableFill:
         jle short .5
 .7:
         mov ecx, dword [esp]
-        mov eax, dword [dword_1CFA90]
-        mov esi, dword [dword_1CFA94]
-        mov ebx, dword [dword_1CFA88]
-        mov edx, dword [dword_1CFA58]
-        mov edi, dword [dword_1CFA54]
+        mov eax, dword [InvTabFillStep]
+        mov esi, dword [InvTabFillDist]
+        mov ebx, dword [InvTabFillPtr]
+        mov edx, dword [InvTabRow]
+        mov edi, dword [InvTabBCenter]
         mov dword [byte esp+08h], eax
         dec esi
         dec edi
         sub ebx, ebp
-        mov eax, dword [dword_1CFA40]
+        mov eax, dword [InvTabGMin]
         sub edx, ebx
         sub eax, byte 4
         test ecx, ecx
@@ -616,11 +616,11 @@ InverseTableFill:
         cmp edx, dword [eax]
         jae short .9
         mov ecx, 1
-        mov dword [dword_1CFA94], esi
-        mov dword [dword_1CFA40], eax
-        mov dword [dword_1CFA54], edi
-        mov dword [dword_1CFA58], edx
-        mov dword [dword_1CFA88], ebx
+        mov dword [InvTabFillDist], esi
+        mov dword [InvTabGMin], eax
+        mov dword [InvTabBCenter], edi
+        mov dword [InvTabRow], edx
+        mov dword [InvTabFillPtr], ebx
         mov dword [esp], ecx
         jmp short .12
 .9:
@@ -677,14 +677,14 @@ InverseTableFill:
         db 08Dh,040h,00h
         push ecx
         push edx
-        mov edx, dword [dword_16E500]
+        mov edx, dword [QuantizePalette]
         test edx, edx
         je short .16
         push edx
         call FreeMemBlock
         xor ecx, ecx
         add esp, byte 4
-        mov dword [dword_16E500], ecx
+        mov dword [QuantizePalette], ecx
 .16:
         pop edx
         pop ecx
@@ -697,7 +697,7 @@ BuildInverseTable:
         push ebx
         push esi
         push edi
-        mov edx, dword [dword_16E4C8]
+        mov edx, dword [MessageBoxActive]
         push edx
         push dword 8000h
         push str_Inversetbl
@@ -707,7 +707,7 @@ BuildInverseTable:
         mov edi, eax
         test eax, eax
         je short .2
-        mov ecx, dword [dword_16E4C8]
+        mov ecx, dword [MessageBoxActive]
         push ecx
         push dword 20000h
         push str_Inversetmp
@@ -769,14 +769,14 @@ BuildInverseTable:
 FreeInverseTable:
         push ebx
         sub esp, 400h
-        mov edx, dword [dword_16E500]
+        mov edx, dword [QuantizePalette]
         xor ebx, ebx
         test edx, edx
         je short .1
         push edx
         call FreeMemBlock
         add esp, byte 4
-        mov dword [dword_16E500], ebx
+        mov dword [QuantizePalette], ebx
 .1:
         mov eax, esp
         push eax
@@ -788,7 +788,7 @@ FreeInverseTable:
         push eax
         call BuildInverseTable
         add esp, byte 4
-        mov dword [dword_16E500], eax
+        mov dword [QuantizePalette], eax
         test eax, eax
         je short .2
         mov ebx, 1
@@ -891,7 +891,7 @@ CdOpenFile:
         mov dword [eax], 0
         mov dword [edi], 0
         mov esi, 1
-        mov edx, dword [dword_16FB74]
+        mov edx, dword [CdDriveCount]
         mov eax, 24h
         test edx, edx
         je short .2
@@ -900,7 +900,7 @@ CdOpenFile:
         inc esi
         cmp eax, 480h
         jge short .2
-        cmp dword [dword eax+dword_16FB50], byte 0
+        cmp dword [dword eax+CdFileMode], byte 0
         jne short .1
 .2:
         push dword 100h
@@ -925,7 +925,7 @@ CdOpenFile:
         lea ebx, [nosplit esi*8+00h]
         call AllocCdBuffer
         add ebx, esi
-        mov eax, unk_16FB44
+        mov eax, CdFileTable
         shl ebx, 2
         add esp, byte 8
         add eax, ebx
@@ -940,13 +940,13 @@ CdOpenFile:
         test eax, eax
         je short .6
         xor eax, eax
-        mov dword [dword ebx+dword_16FB5C], eax
+        mov dword [dword ebx+CdFileSize], eax
         mov ecx, 1
-        mov dword [dword ebx+dword_16FB60], eax
-        mov dword [dword ebx+dword_16FB50], ecx
-        mov eax, dword [dword_16FB40]
+        mov dword [dword ebx+CdFilePos], eax
+        mov dword [dword ebx+CdFileMode], ecx
+        mov eax, dword [CdSectorSize]
         mov edx, dword [dword esp+0124h]
-        mov dword [dword ebx+dword_16FB58], eax
+        mov dword [dword ebx+CdFileStart], eax
         mov ecx, esp
         mov dword [edx], eax
         mov eax, esp
@@ -970,7 +970,7 @@ CdOpenFile:
         mov ebx, 0Ch
         shl eax, 2
         mov edx, ecx
-        add eax, unk_16FB44
+        add eax, CdFileTable
         call strncpy_
         jmp short .7
 .6:
@@ -981,7 +981,7 @@ CdOpenFile:
         push ebx
         lea ebx, [nosplit esi*8+00h]
         add ebx, esi
-        mov eax, unk_16FB44
+        mov eax, CdFileTable
         shl ebx, 2
         add eax, ebx
         add eax, byte 10h
@@ -993,9 +993,9 @@ CdOpenFile:
         mov eax, dword [dword esp+011Ch]
         mov eax, dword [eax]
         mov edi, 2
-        mov dword [dword ebx+dword_16FB5C], eax
+        mov dword [dword ebx+CdFileSize], eax
         mov eax, dword [dword esp+0124h]
-        mov dword [dword ebx+dword_16FB50], edi
+        mov dword [dword ebx+CdFileMode], edi
         mov dword [eax], 1
 .7:
         xor eax, eax
@@ -1063,7 +1063,7 @@ CdHandleEntry:
         lea eax, [nosplit edx*8+00h]
         add eax, edx
         shl eax, 2
-        add eax, unk_16FB44
+        add eax, CdFileTable
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
@@ -1076,9 +1076,9 @@ CdCloseFile:
         lea eax, [nosplit edx*8+00h]
         add eax, edx
         shl eax, 2
-        cmp dword [dword eax+dword_16FB50], byte 2
+        cmp dword [dword eax+CdFileMode], byte 2
         jne short .1
-        mov ebx, dword [dword eax+dword_16FB54]
+        mov ebx, dword [dword eax+CdFileHandle]
         push ebx
         call DosCloseFile
         add esp, byte 4
@@ -1087,7 +1087,7 @@ CdCloseFile:
         lea eax, [nosplit edx*8+00h]
         add eax, edx
         xor ecx, ecx
-        mov dword [nosplit eax*4+dword_16FB50], ecx
+        mov dword [nosplit eax*4+CdFileMode], ecx
         pop ebx
         ret
         db 08Dh,040h,00h
@@ -1106,27 +1106,27 @@ CdReadSectors:
         lea eax, [nosplit ebx*8+00h]
         add ebx, eax
         shl ebx, 2
-        cmp dword [dword ebx+dword_16FB50], byte 2
+        cmp dword [dword ebx+CdFileMode], byte 2
         jne short .1
         push esi
         push edx
-        mov edx, dword [dword ebx+dword_16FB54]
+        mov edx, dword [dword ebx+CdFileHandle]
         push edx
         call DosReadFile
         add esp, byte 0Ch
         jmp short .2
 .1:
         push esi
-        mov edi, dword [dword ebx+dword_16FB60]
+        mov edi, dword [dword ebx+CdFilePos]
         push edi
-        mov ebp, dword [dword ebx+dword_16FB64]
+        mov ebp, dword [dword ebx+CdFileBuffer]
         push ebp
         push edx
         call CdReadLong
-        mov eax, dword [dword ebx+dword_16FB60]
+        mov eax, dword [dword ebx+CdFilePos]
         add eax, esi
         add esp, byte 10h
-        mov dword [dword ebx+dword_16FB60], eax
+        mov dword [dword ebx+CdFilePos], eax
 .2:
         mov eax, esi
         pop ebp
@@ -1177,10 +1177,10 @@ CdSeekSectors:
         lea ebx, [nosplit eax*8+00h]
         add ebx, eax
         shl ebx, 2
-        cmp dword [dword ebx+dword_16FB50], byte 2
+        cmp dword [dword ebx+CdFileMode], byte 2
         jne short .1
         push edx
-        mov ebp, dword [dword ebx+dword_16FB54]
+        mov ebp, dword [dword ebx+CdFileHandle]
         push ebp
         call DosSeekFile
         add esp, byte 8
@@ -1190,14 +1190,14 @@ CdSeekSectors:
         pop ebx
         ret
 .1:
-        mov eax, dword [dword ebx+dword_16FB5C]
+        mov eax, dword [dword ebx+CdFileSize]
         add eax, edx
         push eax
-        mov edi, dword [dword ebx+dword_16FB64]
+        mov edi, dword [dword ebx+CdFileBuffer]
         push edi
-        mov dword [dword ebx+dword_16FB60], eax
+        mov dword [dword ebx+CdFilePos], eax
         call CdSeekCmd
-        mov eax, dword [dword ebx+dword_16FB60]
+        mov eax, dword [dword ebx+CdFilePos]
         add esp, byte 8
         and eax, 7FFh
         pop ebp
@@ -1276,7 +1276,7 @@ DriveLetterIndex:
 IsCdDrive:
         push ebx
         sub esp, byte 38h
-        cmp dword [dword_16FFC4], byte 0
+        cmp dword [CdStreamSpeed], byte 0
         jne short .1
         mov edx, 150Bh
         mov eax, dword [byte esp+040h]
@@ -1306,45 +1306,45 @@ IsCdDrive:
 ;-----------------------------------------------------------------------------
 AllocCdBuffer:
         push ebx
-        cmp dword [dword_1CFAA4], byte 0
+        cmp dword [CdBufferAllocated], byte 0
         jne short .1
         push dword 220h
         push dword 200h
         mov ebx, 1
         push str_CDROMDATA
-        mov dword [dword_1CFAA4], ebx
+        mov dword [CdBufferAllocated], ebx
         call AllocMemBlock
         add esp, byte 0Ch
         push dword 220h
-        mov dword [dword_1CFAA8], eax
+        mov dword [CdDriveLetter], eax
         push dword 10000h
         shr eax, 4
         push str_CDROMBUFFER
-        mov dword [word_1CFAB8], eax
+        mov dword [CdRequestSelector], eax
         call AllocMemBlock
-        mov dword [dword_1CFAB0], eax
+        mov dword [CdRequestSegment], eax
         shr eax, 4
         add esp, byte 0Ch
-        mov dword [word_1CFA98], eax
+        mov dword [CdBufferSegment], eax
 .1:
         mov eax, dword [byte esp+08h]
-        mov dword [dword_1CFA9C], eax
+        mov dword [CdBufferSelector], eax
         mov eax, dword [byte esp+0Ch]
         sar eax, 0Bh
-        mov dword [dword_1CFAA0], eax
+        mov dword [CdBufferAddr], eax
         pop ebx
         ret
         push ebx
         push esi
-        cmp dword [dword_1CFAA4], byte 0
+        cmp dword [CdBufferAllocated], byte 0
         je short .2
-        mov ecx, dword [dword_1CFAA8]
+        mov ecx, dword [CdDriveLetter]
         xor ebx, ebx
         push ecx
-        mov dword [dword_1CFAA4], ebx
+        mov dword [CdBufferAllocated], ebx
         call FreeMemBlock
         add esp, byte 4
-        mov esi, dword [dword_1CFAB0]
+        mov esi, dword [CdRequestSegment]
         push esi
         call FreeMemBlock
         add esp, byte 4
@@ -1363,21 +1363,21 @@ DetectMscdex:
         push ebp
         sub esp, byte 44h
         mov edx, 1501h
-        mov ax, word [word_1CFA98]
+        mov ax, word [CdBufferSegment]
         xor ebx, ebx
         xor ecx, ecx
-        mov dword [dword_1CFAD8], edx
-        mov dword [dword_1CFACC], ebx
-        mov word [word_1CFADE], ax
+        mov dword [CdRegEdx], edx
+        mov dword [CdRegEbx], ebx
+        mov word [CdRegEs], ax
         lea eax, [byte esp+038h]
         mov edx, 300h
         mov ebx, 2Fh
         call segread_
-        mov eax, dword_1CFABC
+        mov eax, CdRegs
         mov word [byte esp+01Ch], dx
         mov word [byte esp+020h], bx
         mov word [byte esp+024h], cx
-        mov ecx, dword_1CFABC
+        mov ecx, CdRegs
         mov edx, ds
         mov ebx, esp
         mov eax, 31h
@@ -1386,7 +1386,7 @@ DetectMscdex:
         lea ecx, [byte esp+038h]
         lea edx, [byte esp+01Ch]
         call int386x_
-        mov eax, dword [dword_1CFAB0]
+        mov eax, dword [CdRequestSegment]
         xor edx, edx
         mov dx, word [byte eax+03h]
         shl edx, 4
@@ -1400,7 +1400,7 @@ DetectMscdex:
         cmp cl, 20h
         je short .2
 .1:
-        mov ebx, dword [dword_1CFAA8]
+        mov ebx, dword [CdDriveLetter]
         inc edx
         lea ecx, [ebx+eax]
         mov bl, byte [byte edx-01h]
@@ -1412,39 +1412,39 @@ DetectMscdex:
         jne short .1
 .2:
         mov esi, 3D02h
-        mov ebp, dword_1CFABC
+        mov ebp, CdRegs
         lea ecx, [byte esp+038h]
-        mov edx, dword [dword_1CFAA8]
+        mov edx, dword [CdDriveLetter]
         mov ebx, esp
         xor edi, edi
         mov byte [edx+eax], 0
-        mov ax, word [word_1CFAB8]
-        mov dword [dword_1CFAD8], esi
-        mov dword [dword_1CFAD0], edi
+        mov ax, word [CdRequestSelector]
+        mov dword [CdRegEdx], esi
+        mov dword [CdRegEdi], edi
         mov edx, ds
         mov esi, 300h
-        mov word [word_1CFAE0], ax
+        mov word [CdRegSegs], ax
         lea eax, [byte esp+038h]
         mov edi, 21h
         call segread_
         xor eax, eax
         mov word [byte esp+01Ch], si
         mov word [byte esp+024h], ax
-        mov eax, dword_1CFABC
+        mov eax, CdRegs
         mov word [byte esp+020h], di
         mov eax, 31h
         mov word [byte esp+038h], dx
         lea edx, [byte esp+01Ch]
         mov dword [byte esp+030h], ebp
         call int386x_
-        test byte [byte_1CFADC], 1
+        test byte [CdRegFlags], 1
         je short .3
         xor eax, eax
         jmp near DetectMscdex_1FC
 .3:
         mov ebx, 32h
-        mov eax, dword [dword_1CFAA8]
-        mov esi, dword [dword_1CFAD8]
+        mov eax, dword [CdDriveLetter]
+        mov esi, dword [CdRegEdx]
         xor edx, edx
         mov byte [eax], 6
         mov eax, ebp
@@ -1452,14 +1452,14 @@ DetectMscdex:
         call memset_
         mov eax, 4402h
         mov edx, 5
-        mov dword [dword_1CFACC], esi
+        mov dword [CdRegEbx], esi
         xor ebx, ebx
-        mov dword [dword_1CFAD8], eax
-        mov dword [dword_1CFAD4], edx
-        mov dword [dword_1CFAD0], ebx
-        mov ax, word [word_1CFAB8]
+        mov dword [CdRegEdx], eax
+        mov dword [CdRegEax], edx
+        mov dword [CdRegEdi], ebx
+        mov ax, word [CdRequestSelector]
         mov edx, 300h
-        mov word [word_1CFAE0], ax
+        mov word [CdRegSegs], ax
         lea eax, [byte esp+038h]
         mov ebx, esp
         call segread_
@@ -1475,7 +1475,7 @@ DetectMscdex:
         lea edx, [byte esp+01Ch]
         mov dword [byte esp+030h], ebp
         call int386x_
-        mov ecx, dword [dword_1CFAA8]
+        mov ecx, dword [CdDriveLetter]
         mov ebx, esp
         lea edx, [byte esp+01Ch]
         mov ecx, dword [byte ecx+01h]
@@ -1501,7 +1501,7 @@ DetectMscdex_1FC:
 CdDeviceStatus:
         push ebx
         sub esp, byte 44h
-        mov eax, dword [dword_1CFAA8]
+        mov eax, dword [CdDriveLetter]
         mov byte [eax], 1Bh
         mov byte [byte eax+01h], 0
         mov byte [byte eax+02h], 82h
@@ -1517,27 +1517,27 @@ CdDeviceStatus:
         mov edx, dword [byte esp+050h]
         mov ebx, 32h
         mov word [byte eax+012h], dx
-        mov eax, dword_1CFABC
+        mov eax, CdRegs
         xor edx, edx
         xor ecx, ecx
         call memset_
         mov edx, 1510h
-        mov eax, dword [dword_1CFA9C]
+        mov eax, dword [CdBufferSelector]
         xor ebx, ebx
-        mov dword [dword_1CFAD8], edx
-        mov dword [dword_1CFACC], ebx
-        mov dword [dword_1CFAD4], eax
-        mov ax, word [word_1CFAB8]
+        mov dword [CdRegEdx], edx
+        mov dword [CdRegEbx], ebx
+        mov dword [CdRegEax], eax
+        mov ax, word [CdRequestSelector]
         mov edx, 300h
-        mov word [word_1CFADE], ax
+        mov word [CdRegEs], ax
         lea eax, [byte esp+038h]
         mov ebx, 2Fh
         call segread_
-        mov eax, dword_1CFABC
+        mov eax, CdRegs
         mov word [byte esp+01Ch], dx
         mov word [byte esp+020h], bx
         mov word [byte esp+024h], cx
-        mov ecx, dword_1CFABC
+        mov ecx, CdRegs
         mov edx, ds
         mov ebx, esp
         mov eax, 31h
@@ -1567,14 +1567,14 @@ CdReadLong:
         and ebp, 7FFh
         mov dword [byte esp+044h], eax
 .1:
-        mov esi, dword [dword_1CFAA8]
-        mov ax, word [word_1CFA98]
+        mov esi, dword [CdDriveLetter]
+        mov ax, word [CdBufferSegment]
         mov edx, dword [byte esp+044h]
         mov word [byte esi+010h], ax
         mov eax, dword [byte esp+060h]
         add eax, edx
         mov byte [esi], 1Bh
-        mov dword [dword_1CFAB4], eax
+        mov dword [CdReadSector], eax
         mov dword [byte esi+014h], eax
         mov eax, dword [byte esp+068h]
         mov byte [byte esi+01h], 0
@@ -1588,27 +1588,27 @@ CdReadLong:
         mov word [byte esi+0Eh], 0
         sar eax, 10h
         mov dx, word [byte esi+012h]
-        mov dword [dword_1CFAAC], eax
+        mov dword [CdReadResult], eax
         test dx, dx
         je near .3
         mov byte [byte esi+018h], 0
         mov ebx, 32h
         mov byte [byte esi+019h], 0
-        mov eax, dword_1CFABC
+        mov eax, CdRegs
         mov byte [byte esi+01Ah], 0
         xor edx, edx
         mov word [byte esi+03h], 0
         call memset_
         xor ecx, ecx
         mov ebx, 1510h
-        mov eax, dword [dword_1CFA9C]
-        mov dword [dword_1CFACC], ecx
+        mov eax, dword [CdBufferSelector]
+        mov dword [CdRegEbx], ecx
         mov edx, ds
         mov ecx, 2Fh
-        mov dword [dword_1CFAD4], eax
-        mov ax, word [word_1CFAB8]
-        mov dword [dword_1CFAD8], ebx
-        mov word [word_1CFADE], ax
+        mov dword [CdRegEax], eax
+        mov ax, word [CdRequestSelector]
+        mov dword [CdRegEdx], ebx
+        mov word [CdRegEs], ax
         lea eax, [byte esp+038h]
         mov ebx, 300h
         call segread_
@@ -1617,9 +1617,9 @@ CdReadLong:
         xor eax, eax
         lea ecx, [byte esp+038h]
         mov word [byte esp+08h], ax
-        mov eax, dword_1CFABC
+        mov eax, CdRegs
         lea ebx, [byte esp+01Ch]
-        mov eax, dword_1CFABC
+        mov eax, CdRegs
         mov word [byte esp+038h], dx
         mov edx, esp
         mov dword [byte esp+014h], eax
@@ -1641,12 +1641,12 @@ CdReadLong:
         mov edx, dword [byte esp+068h]
         push edx
         mov ebx, dword [byte esp+060h]
-        mov eax, dword [dword_1CFAB0]
+        mov eax, dword [CdRequestSegment]
         push ebx
         add ebp, eax
         push ebp
         call bcopy
-        mov ecx, dword [dword_1CFAA0]
+        mov ecx, dword [CdBufferAddr]
         add esp, byte 0Ch
         test ecx, ecx
         je short .3
@@ -1680,7 +1680,7 @@ CdSeekCmd:
         mov edi, 5
         sar ebp, 0Bh
 .1:
-        mov esi, dword [dword_1CFAA8]
+        mov esi, dword [CdDriveLetter]
         mov byte [esi], 1Bh
         mov byte [byte esi+01h], 0
         mov byte [byte esi+02h], 83h
@@ -1697,26 +1697,26 @@ CdSeekCmd:
         add eax, ebp
         xor ecx, ecx
         mov dword [byte esi+014h], eax
-        mov eax, dword_1CFABC
+        mov eax, CdRegs
         mov word [byte esi+03h], 0
         call memset_
         mov edx, 1510h
-        mov eax, dword [dword_1CFA9C]
+        mov eax, dword [CdBufferSelector]
         xor ebx, ebx
-        mov dword [dword_1CFAD8], edx
-        mov dword [dword_1CFACC], ebx
-        mov dword [dword_1CFAD4], eax
-        mov ax, word [word_1CFAB8]
+        mov dword [CdRegEdx], edx
+        mov dword [CdRegEbx], ebx
+        mov dword [CdRegEax], eax
+        mov ax, word [CdRequestSelector]
         mov edx, 300h
-        mov word [word_1CFADE], ax
+        mov word [CdRegEs], ax
         lea eax, [byte esp+038h]
         mov ebx, 2Fh
         call segread_
-        mov eax, dword_1CFABC
+        mov eax, CdRegs
         mov word [byte esp+01Ch], dx
         mov word [byte esp+020h], bx
         mov word [byte esp+024h], cx
-        mov ecx, dword_1CFABC
+        mov ecx, CdRegs
         mov edx, ds
         mov ebx, esp
         mov eax, 31h
@@ -1752,7 +1752,7 @@ CdDirEntry:
         jne short .1
         add esi, byte 2
 .1:
-        mov edi, dword [dword_1CFAB0]
+        mov edi, dword [CdRequestSegment]
         mov ebx, 32h
         push edi
 .2:
@@ -1770,25 +1770,25 @@ CdDirEntry:
         pop edi
         xor edx, edx
         xor ecx, ecx
-        mov eax, dword_1CFABC
-        mov esi, dword_1CFABC
+        mov eax, CdRegs
+        mov esi, CdRegs
         call memset_
         mov edx, 150Fh
-        mov eax, dword [dword_1CFA9C]
+        mov eax, dword [CdBufferSelector]
         xor ebx, ebx
-        mov dword [dword_1CFAD8], edx
-        mov dword [dword_1CFACC], ebx
-        mov dword [dword_1CFAD4], eax
-        mov ax, word [word_1CFA98]
-        mov dword [dword_1CFABC], ebx
-        mov word [word_1CFADE], ax
-        mov eax, dword [word_1CFAB8]
+        mov dword [CdRegEdx], edx
+        mov dword [CdRegEbx], ebx
+        mov dword [CdRegEax], eax
+        mov ax, word [CdBufferSegment]
+        mov dword [CdRegs], ebx
+        mov word [CdRegEs], ax
+        mov eax, dword [CdRequestSelector]
         mov edx, 300h
-        mov dword [dword_1CFAC0], eax
+        mov dword [CdDirEntryBuf], eax
         lea eax, [byte esp+038h]
         mov ebx, 2Fh
         call segread_
-        mov eax, dword_1CFABC
+        mov eax, CdRegs
         mov word [esp], dx
         mov word [byte esp+04h], bx
         mov word [byte esp+08h], cx
@@ -1800,7 +1800,7 @@ CdDirEntry:
         mov edx, esp
         mov dword [byte esp+014h], esi
         call int386x_
-        test byte [byte_1CFADC], 1
+        test byte [CdRegFlags], 1
         je short .4
         mov eax, dword [byte esp+058h]
         mov dword [eax], 0
@@ -1808,7 +1808,7 @@ CdDirEntry:
         mov dword [eax], 0
         jmp short .5
 .4:
-        mov edx, dword [dword_1CFAA8]
+        mov edx, dword [CdDriveLetter]
         mov ebx, dword [byte esp+058h]
         mov eax, dword [byte edx+02h]
         mov dword [ebx], eax
@@ -1938,14 +1938,14 @@ InitSpeechBank:
         push esi
         enter 4, 0
         mov ebx, eax
-        mov dword [dword_1DCF20], eax
+        mov dword [SpeechBankBase], eax
         xor edx, edx
         cmp dword [eax], 76646174h
         jne short .3
         mov eax, dword [byte eax+010h]
         add eax, ebx
         mov dword [byte ebx+010h], eax
-        mov eax, dword [dword_1DCF20]
+        mov eax, dword [SpeechBankBase]
         mov esi, dword [byte eax+014h]
         mov ecx, dword [byte eax+018h]
         shl esi, 2
@@ -1955,7 +1955,7 @@ InitSpeechBank:
         xor ecx, ecx
         jmp short .2
 .1:
-        mov eax, dword [dword_1DCF20]
+        mov eax, dword [SpeechBankBase]
         mov eax, dword [byte eax+018h]
         mov esi, dword [ecx+eax]
         add esi, ebx
@@ -1965,7 +1965,7 @@ InitSpeechBank:
         mov edx, eax
         test eax, eax
         je short .3
-        mov eax, dword [dword_1DCF20]
+        mov eax, dword [SpeechBankBase]
         mov eax, dword [byte eax+018h]
         mov dword [ecx+eax], esi
         add ecx, byte 4
@@ -2059,7 +2059,7 @@ PickClipVariant:
         test eax, eax
         jl near .4
         mov eax, dword [byte ebp-020h]
-        mov eax, dword [dword eax+dword_1DC5AC]
+        mov eax, dword [dword eax+SpeechBankTable]
         mov eax, dword [byte eax+018h]
         mov eax, dword [edx+eax]
         mov dword [byte ebp-08h], 1
@@ -2166,7 +2166,7 @@ PickEventClip:
         push ecx
         mov edi, ebx
         shl edi, 2
-        mov eax, dword [dword edi+dword_1DC5AC]
+        mov eax, dword [dword edi+SpeechBankTable]
         xor esi, esi
         mov eax, dword [byte eax+0Ch]
         mov dword [byte ebp-04h], esi
@@ -2176,7 +2176,7 @@ PickEventClip:
         jmp short .5
 .1:
         mov edi, dword [byte ebp-01Ch]
-        mov edi, dword [dword edi+dword_1DC5AC]
+        mov edi, dword [dword edi+SpeechBankTable]
         mov edi, dword [byte edi+010h]
         add edi, eax
         mov edi, dword [edi]
@@ -2317,7 +2317,7 @@ MatchPhraseRule:
         movzx edx, byte [byte ebx+011h]
         cmp edx, byte 2
         jne short .2
-        mov edx, dword [dword_1DCF20]
+        mov edx, dword [SpeechBankBase]
         mov edi, dword [byte edx+0Ch]
         mov dword [byte ebp-08h], edi
         mov edi, dword [byte eax+04h]
@@ -2412,7 +2412,7 @@ CheckValueCondition:
         enter 8, 0
         push edx
         mov ecx, ebx
-        mov edx, dword [dword_1DCF20]
+        mov edx, dword [SpeechBankBase]
         mov esi, dword [byte edx+0Ch]
         mov dword [byte ebp-08h], esi
         mov esi, dword [byte eax+04h]
@@ -2470,7 +2470,7 @@ CheckFlagCondition:
         push edi
         enter 4, 0
         mov ecx, ebx
-        mov edx, dword [dword_1DCF20]
+        mov edx, dword [SpeechBankBase]
         mov esi, dword [byte edx+0Ch]
         mov edi, dword [byte eax+08h]
         mov dword [byte ebp-04h], esi
@@ -2620,7 +2620,7 @@ BuildSpeechEvent:
         sub ebp, 82h
         mov eax, dword [eax]
         mov dword [byte ebp+072h], eax
-        mov eax, dword [dword_1DCF20]
+        mov eax, dword [SpeechBankBase]
         mov edx, dword [byte ebp+072h]
         mov esi, dword [byte eax+018h]
         mov dword [byte ebp+07Eh], 0
@@ -2632,15 +2632,15 @@ BuildSpeechEvent:
         movsx eax, word [byte esi+04h]
         cmp eax, edx
         jne near .33
-        cmp edx, dword [dword_1DC994]
+        cmp edx, dword [SpeechChannelA]
         jne short .1
         cmp byte [byte esi+06h], 0
         jle short .1
         movsx eax, byte [byte esi+06h]
-        cmp eax, dword [dword_1DC998]
+        cmp eax, dword [SpeechChannelB]
         jle near .33
 .1:
-        cmp dword [dword_1DCAFC], byte 1
+        cmp dword [SpeechEventCount], byte 1
         jle short .2
         mov dword [byte ebp+042h], 1
 .2:
@@ -2687,7 +2687,7 @@ BuildSpeechEvent:
 .5:
         mov eax, dword [byte ebp+06Eh]
         shl eax, 2
-        add eax, unk_1CFAF0
+        add eax, SpeechEventBuf
         mov ecx, dword [byte ebp+06Ah]
         mov dword [byte edi+ebp-056h], eax
         mov ecx, dword [byte ecx+0Ch]
@@ -2726,7 +2726,7 @@ BuildSpeechEvent:
         je near .26
         cmp dword [byte ebp+042h], byte 0
         jne short .10
-        cmp dword [dword_1DCEC0], byte 0
+        cmp dword [SpeechEnabled], byte 0
         je near .23
 .10:
         cmp byte [byte esi+08h], 0
@@ -2820,7 +2820,7 @@ BuildSpeechEvent:
         cdq
         idiv ebx
         mov edx, eax
-        mov eax, dword [dword_1DCF20]
+        mov eax, dword [SpeechBankBase]
         cmp edx, dword [byte eax+04h]
         jge short .20
         mov dword [byte ebp+05Eh], 1
@@ -2887,23 +2887,23 @@ BuildSpeechEvent:
         test ebx, ebx
         je short .29
         mov eax, dword [byte edi+ebp-062h]
-        call dword [dword_172AB8]
+        call dword [SpeechChannelFunc]
         test eax, eax
         je short .29
-        inc dword [dword_1DC99C]
+        inc dword [SpeechRingBusy]
 .29:
         add edi, byte 14h
 .30:
         cmp edi, ecx
         jl short .28
         mov eax, dword [byte ebp+072h]
-        cmp eax, dword [dword_1DC994]
+        cmp eax, dword [SpeechChannelA]
         jne short .31
-        inc dword [dword_1DC998]
+        inc dword [SpeechChannelB]
         jmp short .32
 .31:
-        mov dword [dword_1DC998], 1
-        mov dword [dword_1DC994], eax
+        mov dword [SpeechChannelB], 1
+        mov dword [SpeechChannelA], eax
 .32:
         mov ebx, dword [dword ebp-0166h]
         mov edx, dword [byte ebp+06Ah]
@@ -2922,17 +2922,17 @@ ClearSpeechQueue:
         push ecx
         push edx
         mov ebx, 30h
-        mov dword [dword_1DCAFC], 0
+        mov dword [SpeechEventCount], 0
         xor edx, edx
 .1:
         imul eax, edx, byte 3Ch
-        mov dword [dword eax+dword_1DCB00], 0
-        mov dword [dword eax+dword_1DCB04], 0
+        mov dword [dword eax+SpeechEventId], 0
+        mov dword [dword eax+SpeechEventTime], 0
         mov ecx, ebx
-        mov dword [dword eax+dword_1DCB08], 0
+        mov dword [dword eax+SpeechEventQueue], 0
 .2:
         add eax, byte 4
-        mov dword [dword eax+dword_1DCB08], 0
+        mov dword [dword eax+SpeechEventQueue], 0
         cmp eax, ecx
         jne short .2
         inc edx
@@ -2956,13 +2956,13 @@ QueueSpeechEvent:
         enter 4, 0
         mov esi, eax
         mov edx, 0FFFFFFFFh
-        cmp dword [dword_1DCAFC], byte 10h
+        cmp dword [SpeechEventCount], byte 10h
         jge short .4
         xor eax, eax
         xor ebx, ebx
         jmp short .3
 .1:
-        cmp dword [dword eax+dword_1DCB00], byte 0
+        cmp dword [dword eax+SpeechEventId], byte 0
         jne short .2
         mov edx, ebx
         jmp near .12
@@ -2979,16 +2979,16 @@ QueueSpeechEvent:
         xor eax, eax
         jmp short .8
 .5:
-        mov ebx, dword [dword eax+dword_1DCB08]
+        mov ebx, dword [dword eax+SpeechEventQueue]
         mov edi, dword [byte ebp-04h]
         movzx ebx, word [byte ebx+0Ch]
-        sub edi, dword [dword eax+dword_1DCB04]
+        sub edi, dword [dword eax+SpeechEventTime]
         cmp edi, ebx
         jbe short .7
-        mov dword [dword eax+dword_1DCB00], 0
+        mov dword [dword eax+SpeechEventId], 0
         mov edx, ecx
 .6:
-        dec dword [dword_1DCAFC]
+        dec dword [SpeechEventCount]
         jmp short .12
 .7:
         inc ecx
@@ -3000,11 +3000,11 @@ QueueSpeechEvent:
         xor ebx, ebx
         jmp short .11
 .9:
-        mov ecx, dword [dword eax+dword_1DCB08]
+        mov ecx, dword [dword eax+SpeechEventQueue]
         movzx ecx, word [byte ecx+0Eh]
         cmp ecx, esi
         ja short .10
-        mov dword [dword eax+dword_1DCB00], 0
+        mov dword [dword eax+SpeechEventId], 0
         mov edx, ebx
         jmp short .6
 .10:
@@ -3036,7 +3036,7 @@ RequestSpeechEvent:
         push edi
         mov esi, eax
         mov edx, dword [eax]
-        mov eax, dword [dword_1DCF20]
+        mov eax, dword [SpeechBankBase]
         mov ebx, dword [byte eax+018h]
         mov ebx, dword [ebx+edx*4]
         cmp dword [ebx], 76657674h
@@ -3049,11 +3049,11 @@ RequestSpeechEvent:
         cmp edx, edi
         jg short QueueSpeechEvent_AE
         movzx eax, word [byte ebx+0Eh]
-        cmp dword [dword_1DCEC0], byte 0
+        cmp dword [SpeechEnabled], byte 0
         je short .1
         cmp byte [byte ebx+09h], 0
         je short .1
-        mov edx, dword [dword_1DCF20]
+        mov edx, dword [SpeechBankBase]
         cmp eax, dword [byte edx+08h]
         jb short QueueSpeechEvent_AE
 .1:
@@ -3061,10 +3061,10 @@ RequestSpeechEvent:
         test eax, eax
         jl short QueueSpeechEvent_AE
         imul edx, eax, byte 3Ch
-        mov dword [dword edx+dword_1DCB08], ebx
+        mov dword [dword edx+SpeechEventQueue], ebx
         mov eax, dword [tickcount]
         mov ebx, edx
-        mov dword [dword edx+dword_1DCB04], eax
+        mov dword [dword edx+SpeechEventTime], eax
         mov eax, edx
         mov edx, esi
         add esi, byte 30h
@@ -3073,12 +3073,12 @@ RequestSpeechEvent:
         add ebx, byte 4
         mov ecx, dword [edx]
         add edx, byte 4
-        mov dword [dword ebx+dword_1DCB08], ecx
+        mov dword [dword ebx+SpeechEventQueue], ecx
 .3:
         cmp edx, esi
         jne short .2
-        inc dword [dword_1DCAFC]
-        mov dword [dword eax+dword_1DCB00], 1
+        inc dword [SpeechEventCount]
+        mov dword [dword eax+SpeechEventId], 1
         jmp near QueueSpeechEvent_AE
 ;-----------------------------------------------------------------------------
 ; PickNextSpeech                                 106B45  97 PC, low confidence
@@ -3099,11 +3099,11 @@ PickNextSpeech:
         mov dword [byte ebp-08h], esi
         xor eax, eax
 .1:
-        cmp dword [dword eax+dword_1DCB00], byte 0
+        cmp dword [dword eax+SpeechEventId], byte 0
         je near .7
         mov ecx, dword [byte ebp-018h]
-        mov edx, dword [dword eax+dword_1DCB08]
-        sub ecx, dword [dword eax+dword_1DCB04]
+        mov edx, dword [dword eax+SpeechEventQueue]
+        sub ecx, dword [dword eax+SpeechEventTime]
         mov dword [byte ebp-010h], 0
         mov dword [byte ebp-04h], ecx
         movzx ecx, word [byte edx+0Ch]
@@ -3112,13 +3112,13 @@ PickNextSpeech:
         jae short .2
         mov dword [byte ebp-014h], 1
 .2:
-        cmp dword [dword_1DCEC0], byte 0
+        cmp dword [SpeechEnabled], byte 0
         je short .3
         cmp byte [byte edx+09h], 0
         je short .3
         movzx ecx, word [byte edx+0Eh]
         mov dword [byte ebp-01Ch], ecx
-        mov ecx, dword [dword_1DCF20]
+        mov ecx, dword [SpeechBankBase]
         mov edi, dword [byte ebp-01Ch]
         cmp edi, dword [byte ecx+08h]
         jge short .3
@@ -3129,8 +3129,8 @@ PickNextSpeech:
         cmp dword [byte ebp-010h], byte 0
         je short .5
 .4:
-        mov dword [dword eax+dword_1DCB00], 0
-        dec dword [dword_1DCAFC]
+        mov dword [dword eax+SpeechEventId], 0
+        dec dword [SpeechEventCount]
         jmp short .7
 .5:
         movzx edx, word [byte edx+0Eh]
@@ -3169,16 +3169,16 @@ SpeechAge:
         mov ebx, eax
         mov ecx, eax
         xor eax, eax
-        sub ecx, dword [dword edx+dword_1DCB04]
+        sub ecx, dword [dword edx+SpeechEventTime]
 .1:
-        cmp dword [dword eax+dword_1DCB00], byte 0
+        cmp dword [dword eax+SpeechEventId], byte 0
         je short .2
         mov edx, ebx
-        sub edx, dword [dword eax+dword_1DCB04]
+        sub edx, dword [dword eax+SpeechEventTime]
         cmp edx, ecx
         jbe short .2
-        mov dword [dword eax+dword_1DCB00], 0
-        dec dword [dword_1DCAFC]
+        mov dword [dword eax+SpeechEventId], 0
+        dec dword [SpeechEventCount]
 .2:
         add eax, byte 3Ch
         cmp eax, 3C0h
@@ -3193,7 +3193,7 @@ SpeechAge:
 ;-----------------------------------------------------------------------------
 PlayQueuedSpeech:
         push edx
-        cmp dword [dword_1DCAFC], byte 0
+        cmp dword [SpeechEventCount], byte 0
         je short .1
         call SpeechBusy
         test eax, eax
@@ -3204,12 +3204,12 @@ PlayQueuedSpeech:
         jl short .1
         imul edx, byte 3Ch
         call SpeechAge
-        mov eax, dword_1DCB00
+        mov eax, SpeechEventId
         add eax, edx
         add eax, byte 0Ch
         call BuildSpeechEvent
-        dec dword [dword_1DCAFC]
-        mov dword [dword edx+dword_1DCB00], 0
+        dec dword [SpeechEventCount]
+        mov dword [dword edx+SpeechEventId], 0
 .1:
         pop edx
         ret
@@ -3218,7 +3218,7 @@ PlayQueuedSpeech:
 ; Turns speech on or off
 ;-----------------------------------------------------------------------------
 SetSpeechEnabled:
-        mov dword [dword_1DCEC0], eax
+        mov dword [SpeechEnabled], eax
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
@@ -3435,21 +3435,21 @@ LoadFileCore:
         call DosReadFile
         add esp, byte 0Ch
         mov eax, dword [byte esp+08h]
-        mov dword [dword_16E4D0], eax
+        mov dword [LastLoadedSize], eax
 .1:
         mov ebp, dword [esp]
         push ebp
         call DosCloseFile
         add esp, byte 4
 .2:
-        cmp dword [dword_172ABC], byte 0
+        cmp dword [LoadFileHook], byte 0
         je short .3
         push edi
         mov edx, dword [byte esp+028h]
         push edx
         push esi
         push ebx
-        call dword [dword_172ABC]
+        call dword [LoadFileHook]
         add esp, byte 10h
         mov ebx, eax
 .3:

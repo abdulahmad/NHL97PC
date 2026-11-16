@@ -4,18 +4,18 @@ bits 32
 section s_13794C progbits alloc exec nowrite align=1
 extern _DoINTR_, _Extender, _ExtenderSubtype, _IsTable, __fatal_runtime_error_, __set_errno_, _dos_getvect_, _dos_setvect_
 extern str_UnableToAllocateRealModeS, str_UnableToSetLimitOfRealMod, str_NoErrorInXACODECFunctionL, str_InvalidErrorCodeInXACODEC, byte_150000, byte_150004, byte_150008, byte_15000C
-extern byte_150010, byte_150014, byte_1725A4, byte_19A7B8, byte_19A7C0, byte_19A7C8, byte_19A7D0, byte_19A7D8
-extern byte_19A7E0, byte_1DE770, byte_1DE771, byte_1DE772, byte_1DE773, dword_16E67C, dword_16E684, dword_19A7E4
-extern dword_19A7E8, dword_19A878, dword_19BEB8, dword_19BED8, dword_19BEDC, dword_19BEE0, dword_19BEE4, dword_1DD398
-extern dword_1DD3A8, dword_1DE768, dword_1DE76C, dword_1DE774, dword_1DE778, int386_, str_RMHandler, AllocMemData
-extern FreeMemBlock, tolower_, word_17070A, word_1DE764, word_1DE766, word_1DE780
+extern byte_150010, byte_150014, Is8087, DmaPagePorts, DmaMaskPorts, DmaModePorts, DmaClearPorts, DmaAddressPorts
+extern DmaCountPorts, TimerIrqMask, TimerChainFlag, TimerPitMode, TimerInstalled, ClipLeftCol, ScreenHeight, StrToLongLimits
+extern IrqAckLast, FloatPow10Table, FloatPow10Exponents, FloatFormatDigits, FloatFormatExponent, FloatFormatMantissaLo, FloatFormatMantissaHi, DacTimerRate
+extern DacTimerDivisor, TimerOldHandler, TimerOldRealHandler, TimerDivisor, TimerChainCount, int386_, str_RMHandler, AllocMemData
+extern FreeMemBlock, tolower_, SavedEsSelector, TimerOldOffsetLo, TimerOldSelector, DbcsLeadTable
 global fini_, init_, jpt_138417, jpt_1386D1, jpt_138859, unk_137FE1_2, StrToLong_166, jpt_138417_64
 global jpt_138417_74, jpt_138417_84, jpt_138417_94, ScanFloat_24, ScanFloat_34, ScanFloat_44, ScanFloat_54, TimerCalibrate
 global TimerRestore, TimerSetRate, TimerWritePit, TimerReadCount, TimerTicksForRate, TimerMeasure, TimerSetDivisor, TimerReset
 global TimerInstall, TimerChainOld, DmaMaskChannel, DmaProgram, IrqEoi, IrqAck, IrqVector, IrqUnmask
 global IrqMask, IrqSetHandler, AllocDosDmaBuffer, FreeDosDmaBuffer, SbTimeConstant, SbRateFromConstant, StrToLong, ReturnArg
 global DigitValue, InitFloatFormat, FormatFloat, ScanFloat, RoundDigits, DrawCharMono, DrawCharShadow, DrawCharOutline
-global DrawCharBold, NoDbcsTable, unk_137F46, unk_137F48, unk_137F4A, unk_137FDF, unk_137FE1, unk_138407
+global DrawCharBold, NoDbcsTable, SbRateConstLo, SbRateConstMid, SbRateConstHi, SbProStereoFlag, SbProRateConst, unk_138407
 ;-----------------------------------------------------------------------------
 ; TimerCalibrate                                 13794C  97 PC, low confidence
 ; Calibrates the timer
@@ -39,10 +39,10 @@ TimerCalibrate:
 ; Restores the timer
 ;-----------------------------------------------------------------------------
 TimerRestore:
-        cmp byte [byte_1DE773], 0
+        cmp byte [TimerInstalled], 0
         je short .1
         LD xor, eax, eax
-        mov byte [byte_1DE773], al
+        mov byte [TimerInstalled], al
         call TimerChainOld
         call TimerReset
 .1:
@@ -70,10 +70,10 @@ TimerSetRate:
 ;-----------------------------------------------------------------------------
 TimerWritePit:
         push edx
-        mov edx, dword [dword_1DE774]
+        mov edx, dword [TimerDivisor]
         add edx, byte 4
         xchg al, ah
-        or al, byte [byte_1DE772]
+        or al, byte [TimerPitMode]
         out dx, al
         jmp short .1
 .1:
@@ -94,10 +94,10 @@ TimerWritePit:
 ;-----------------------------------------------------------------------------
 TimerReadCount:
         push edx
-        mov edx, dword [dword_1DE774]
+        mov edx, dword [TimerDivisor]
         add edx, byte 4
         LD mov, al, ah
-        or al, byte [byte_1DE772]
+        or al, byte [TimerPitMode]
         out dx, al
         jmp short .1
 .1:
@@ -120,7 +120,7 @@ TimerTicksForRate:
         push ecx
         push edx
         mov ecx, 7A120h
-        mov edx, dword [dword_1DE774]
+        mov edx, dword [TimerDivisor]
         add edx, byte 4
 .1:
         in al, dx
@@ -174,8 +174,8 @@ TimerMeasure:
 TimerSetDivisor:
         push edx
         shl al, 6
-        mov byte [byte_1DE772], al
-        mov edx, dword [dword_1DE774]
+        mov byte [TimerPitMode], al
+        mov edx, dword [TimerDivisor]
         add edx, byte 4
         out dx, al
         jmp short .1
@@ -215,10 +215,10 @@ TimerInstall:
         mov eax, dword [byte ebp+08h]
         and eax, 0F0000h
         shr eax, 10h
-        mov dword [dword_1DE778], eax
+        mov dword [TimerChainCount], eax
         mov eax, dword [byte ebp+08h]
         and eax, 0FFFh
-        mov dword [dword_1DE774], eax
+        mov dword [TimerDivisor], eax
         call TimerReset
         jae short .1
         mov eax, 0FFFFFED2h
@@ -227,7 +227,7 @@ TimerInstall:
 .1:
         mov al, 1
         call TimerSetDivisor
-        mov eax, dword [dword_1DD398]
+        mov eax, dword [DacTimerRate]
         call TimerWritePit
         call TimerTicksForRate
         mov al, 0
@@ -237,23 +237,23 @@ TimerInstall:
         call TimerWritePit
         mov eax, 700h
         call TimerWritePit
-        mov ebx, dword [dword_1DD3A8]
-        mov dword [dword_1DE768], ebx
+        mov ebx, dword [DacTimerDivisor]
+        mov dword [TimerOldHandler], ebx
         shr ebx, 1
-        mov dword [dword_1DE76C], ebx
-        mov eax, dword [dword_1DE768]
-        mov word [word_1DE766], ax
+        mov dword [TimerOldRealHandler], ebx
+        mov eax, dword [TimerOldHandler]
+        mov word [TimerOldSelector], ax
         mov eax, dword [byte ebp+0Ch]
-        mov word [word_1DE764], ax
+        mov word [TimerOldOffsetLo], ax
         shr eax, 10h
-        mov byte [byte_1DE770], al
-        mov al, byte [byte_1DE771]
+        mov byte [TimerIrqMask], al
+        mov al, byte [TimerChainFlag]
         LD or, al, al
         jne near .20
         mov al, 1
-        mov byte [byte_1DE771], al
+        mov byte [TimerChainFlag], al
         cli
-        mov ebx, dword [dword_1DE778]
+        mov ebx, dword [TimerChainCount]
         LD xor, edx, edx
         LD mov, eax, ebx
         or al, 4
@@ -264,7 +264,7 @@ TimerInstall:
         jmp short .3
 .3:
         mov dl, byte [dword ebx+byte_150008]
-        mov eax, dword [dword_1DE778]
+        mov eax, dword [TimerChainCount]
         or al, 18h
         out dx, al
         jmp short .4
@@ -278,7 +278,7 @@ TimerInstall:
         jmp short .7
 .7:
         mov dl, byte [dword ebx+byte_150010]
-        mov ax, word [word_1DE764]
+        mov ax, word [TimerOldOffsetLo]
         out dx, al
         jmp short .8
 .8:
@@ -291,13 +291,13 @@ TimerInstall:
         jmp short .11
 .11:
         mov dl, byte [dword ebx+byte_150000]
-        mov al, byte [byte_1DE770]
+        mov al, byte [TimerIrqMask]
         out dx, al
         jmp short .12
 .12:
         jmp short .13
 .13:
-        mov ax, word [word_1DE766]
+        mov ax, word [TimerOldSelector]
         dec ax
         mov dl, byte [dword ebx+byte_150014]
         out dx, al
@@ -322,7 +322,7 @@ TimerInstall:
         mov al, 0
         call TimerSetDivisor
         call TimerMeasure
-        mov eax, dword [dword_1DE778]
+        mov eax, dword [TimerChainCount]
         mov dl, byte [dword ebx+byte_150004]
         out dx, al
         jmp short .18
@@ -332,7 +332,7 @@ TimerInstall:
         mov eax, 0A00h
         call TimerWritePit
         mov eax, 1
-        mov byte [byte_1DE773], al
+        mov byte [TimerInstalled], al
         sti
         leave
         ret
@@ -350,11 +350,11 @@ TimerChainOld:
         push ebx
         push ecx
         push edx
-        cmp byte [byte_1DE771], 0
+        cmp byte [TimerChainFlag], 0
         je short .3
         cli
         LD xor, edx, edx
-        mov ebx, dword [dword_1DE778]
+        mov ebx, dword [TimerChainCount]
         LD mov, eax, ebx
         or al, 4
         mov dl, byte [dword ebx+byte_150004]
@@ -364,7 +364,7 @@ TimerChainOld:
         jmp short .2
 .2:
         LD xor, al, al
-        mov byte [byte_1DE771], al
+        mov byte [TimerChainFlag], al
 .3:
         sti
         pop edx
@@ -383,7 +383,7 @@ DmaMaskChannel:
         and ebx, byte 3
         xor edx, edx
         or bl, 4
-        mov dl, byte [dword eax+byte_19A7C0]
+        mov dl, byte [dword eax+DmaMaskPorts]
         mov al, bl
         out dx, al
         pop edx
@@ -394,7 +394,7 @@ DmaMaskChannel:
         mov edx, eax
         xor ebx, ebx
         and edx, byte 3
-        mov bl, byte [dword eax+byte_19A7C0]
+        mov bl, byte [dword eax+DmaMaskPorts]
         mov al, dl
         mov edx, ebx
         out dx, al
@@ -435,47 +435,47 @@ DmaProgram:
         mov eax, esi
         xor edx, edx
         and eax, byte 3
-        mov dl, byte [dword esi+byte_19A7C0]
+        mov dl, byte [dword esi+DmaMaskPorts]
         mov dword [esp], eax
         or al, 4
         out dx, al
         xor edx, edx
         mov eax, dword [byte esp+08h]
-        mov dl, byte [dword esi+byte_19A7C8]
+        mov dl, byte [dword esi+DmaModePorts]
         or eax, ebp
         out dx, al
         xor edx, edx
         xor al, al
-        mov dl, byte [dword esi+byte_19A7D0]
+        mov dl, byte [dword esi+DmaClearPorts]
         out dx, al
         mov eax, ecx
         xor edx, edx
         and eax, 0FFh
-        mov dl, byte [dword esi+byte_19A7D8]
+        mov dl, byte [dword esi+DmaAddressPorts]
         out dx, al
         sar ecx, 8
         xor edx, edx
         mov al, cl
-        mov dl, byte [dword esi+byte_19A7D8]
+        mov dl, byte [dword esi+DmaAddressPorts]
         out dx, al
         xor edx, edx
         mov al, byte [byte esp+04h]
-        mov dl, byte [dword esi+byte_19A7B8]
+        mov dl, byte [dword esi+DmaPagePorts]
         dec ebx
         out dx, al
         mov eax, ebx
         xor edx, edx
         and eax, 0FFh
-        mov dl, byte [dword esi+byte_19A7E0]
+        mov dl, byte [dword esi+DmaCountPorts]
         out dx, al
         mov eax, ebx
         xor edx, edx
         sar eax, 8
-        mov dl, byte [dword esi+byte_19A7E0]
+        mov dl, byte [dword esi+DmaCountPorts]
         out dx, al
         xor edx, edx
         mov al, byte [esp]
-        mov dl, byte [dword esi+byte_19A7C0]
+        mov dl, byte [dword esi+DmaMaskPorts]
         out dx, al
         mov eax, edi
         push eax
@@ -500,12 +500,12 @@ IrqEoi:
         pushf
         pop eax
         cli
-        mov dl, byte [dword ebx+byte_19A7E0]
+        mov dl, byte [dword ebx+DmaCountPorts]
         mov ecx, eax
         sub eax, eax
         in al, dx
         xor edx, edx
-        mov dl, byte [dword ebx+byte_19A7E0]
+        mov dl, byte [dword ebx+DmaCountPorts]
         mov esi, eax
         sub eax, eax
         in al, dx
@@ -541,9 +541,9 @@ IrqAck:
 .1:
         mov eax, ebx
 .2:
-        cmp eax, dword [dword_19A7E8]
+        cmp eax, dword [IrqAckLast]
         je short .3
-        mov dword [dword_19A7E8], eax
+        mov dword [IrqAckLast], eax
         pop ebx
         ret
 .3:
@@ -774,11 +774,11 @@ FreeDosDmaBuffer:
         pop edi
         pop esi
         ret
-unk_137F46:
+SbRateConstLo:
         db 00h,00h
-unk_137F48:
+SbRateConstMid:
         db 00h,00h
-unk_137F4A:
+SbRateConstHi:
         db 00h,00h
 ;-----------------------------------------------------------------------------
 ; SbTimeConstant                                 137F4C  97 PC, low confidence
@@ -788,11 +788,11 @@ SbTimeConstant:
         pusha
         push ds
         db 066h,02Eh,08Bh,015h                  ; insn: mov dx,[cs:127F48h]
-        dd unk_137F48
+        dd SbRateConstMid
         in al, dx
         mov ah, 14h
         db 066h,02Eh,08Bh,015h                  ; insn: mov dx,[cs:127F4Ah]
-        dd unk_137F4A
+        dd SbRateConstHi
         mov ecx, 2710h
 .1:
         in al, dx
@@ -802,7 +802,7 @@ SbTimeConstant:
         out dx, al
         mov ah, 0FFh
         db 066h,02Eh,08Bh,015h                  ; insn: mov dx,[cs:127F4Ah]
-        dd unk_137F4A
+        dd SbRateConstHi
         mov ecx, 2710h
 .2:
         in al, dx
@@ -812,7 +812,7 @@ SbTimeConstant:
         out dx, al
         mov ah, 0FFh
         db 066h,02Eh,08Bh,015h                  ; insn: mov dx,[cs:127F4Ah]
-        dd unk_137F4A
+        dd SbRateConstHi
         mov ecx, 2710h
 .3:
         in al, dx
@@ -821,7 +821,7 @@ SbTimeConstant:
         LD mov, al, ah
         out dx, al
         db 066h,02Eh,083h,03Dh                  ; insn: cmp word [cs:127F46h],8
-        dd unk_137F46
+        dd SbRateConstLo
         db 08h
         jb short .4
         mov al, 20h
@@ -842,10 +842,10 @@ SbRateFromConstant:
         push eax
         push edx
         db 066h,02Eh,08Bh,015h                  ; insn: mov dx,[cs:127F48h]
-        dd unk_137F48
+        dd SbRateConstMid
         in al, dx
         db 066h,02Eh,083h,03Dh                  ; insn: cmp word [cs:127F46h],8
-        dd unk_137F46
+        dd SbRateConstLo
         db 08h
         jb short .1
         mov al, 20h
@@ -858,9 +858,9 @@ SbRateFromConstant:
         pop edx
         pop eax
         iret
-unk_137FDF:
+SbProStereoFlag:
         db 00h,00h
-unk_137FE1:
+SbProRateConst:
         db 00h,00h
 ;-----------------------------------------------------------------------------
 ; unk_137FE1_2                                                        137FE3  
@@ -869,10 +869,10 @@ unk_137FE1_2:
         push eax
         push edx
         db 066h,02Eh,08Bh,015h                  ; insn: mov dx,[cs:127FE1h]
-        dd unk_137FE1
+        dd SbProRateConst
         in al, dx
         db 066h,02Eh,083h,03Dh                  ; insn: cmp word [cs:127FDFh],8
-        dd unk_137FDF
+        dd SbProStereoFlag
         db 08h
         jb short .1
         mov al, 20h
@@ -985,7 +985,7 @@ StrToLong:
         mov dword [byte esp+0Ch], eax
         cmp eax, esi
         jge short .17
-        cmp ebx, dword [dword edi+dword_19A7E4]
+        cmp ebx, dword [dword edi+StrToLongLimits]
         jbe short .15
         mov cl, 1
 .15:
@@ -1144,7 +1144,7 @@ InitFloatFormat:
         and bl, 0Fh
         inc esi
 .3:
-        add edx, dword [dword eax+ebx*4+dword_19A878]
+        add edx, dword [dword eax+ebx*4+FloatPow10Table]
         cmp edx, 7FFFh
         jg short .8
         cmp edx, 0FFFF8000h
@@ -1154,7 +1154,7 @@ InitFloatFormat:
         add edi, byte 2
         inc ecx
         and bl, 7
-        add eax, dword [nosplit ebx*4+dword_19BEB8]
+        add eax, dword [nosplit ebx*4+FloatPow10Exponents]
         cmp eax, 1600h
         jg short .6
         cmp eax, byte 0
@@ -1199,76 +1199,76 @@ FormatFloat:
         mov edx, dword [byte ebp+01Ch]
         mov edx, dword [edx]
         movsx eax, dx
-        mov dword [dword_19BEE0], eax
+        mov dword [FloatFormatMantissaLo], eax
         shr edx, 10h
         movsx eax, dx
-        mov dword [dword_19BEE4], eax
+        mov dword [FloatFormatMantissaHi], eax
         mov edx, dword [byte ebp+018h]
         mov edx, dword [edx]
         movsx eax, dx
-        mov dword [dword_19BED8], eax
+        mov dword [FloatFormatDigits], eax
         shr edx, 10h
         movsx eax, dx
-        mov dword [dword_19BEDC], eax
+        mov dword [FloatFormatExponent], eax
         mov esi, dword [byte ebp+0Ch]
         mov edi, dword [byte ebp+010h]
         LD xor, ebx, ebx
 .1:
         mov bl, byte [esi]
         shr bl, 4
-        mov eax, dword [dword_19BEE0]
-        mov edx, dword [dword_19BED8]
-        add edx, dword [dword eax+ebx*4+dword_19A878]
+        mov eax, dword [FloatFormatMantissaLo]
+        mov edx, dword [FloatFormatDigits]
+        add edx, dword [dword eax+ebx*4+FloatPow10Table]
         cmp edx, 7FFFh
         jg near .9
         cmp edx, 0FFFF8000h
         jl near .10
 .2:
         mov word [edi+ecx*4], dx
-        mov dword [dword_19BED8], edx
+        mov dword [FloatFormatDigits], edx
         and bl, 7
-        add eax, dword [nosplit ebx*4+dword_19BEB8]
+        add eax, dword [nosplit ebx*4+FloatPow10Exponents]
         cmp eax, 1600h
         jg near .7
         cmp eax, byte 0
         jl near .8
 .3:
-        mov dword [dword_19BEE0], eax
+        mov dword [FloatFormatMantissaLo], eax
         mov bl, byte [esi]
         and bl, 0Fh
-        mov eax, dword [dword_19BEE4]
-        mov edx, dword [dword_19BEDC]
-        add edx, dword [dword eax+ebx*4+dword_19A878]
+        mov eax, dword [FloatFormatMantissaHi]
+        mov edx, dword [FloatFormatExponent]
+        add edx, dword [dword eax+ebx*4+FloatPow10Table]
         cmp edx, 7FFFh
         jg near .13
         cmp edx, 0FFFF8000h
         jl near .14
 .4:
         mov word [byte edi+ecx*4+02h], dx
-        mov dword [dword_19BEDC], edx
+        mov dword [FloatFormatExponent], edx
         and bl, 7
-        add eax, dword [nosplit ebx*4+dword_19BEB8]
+        add eax, dword [nosplit ebx*4+FloatPow10Exponents]
         cmp eax, 1600h
         jg short .11
         cmp eax, byte 0
         jl short .12
 .5:
-        mov dword [dword_19BEE4], eax
+        mov dword [FloatFormatMantissaHi], eax
         add ecx, byte 1
         inc esi
         cmp ecx, dword [byte ebp+014h]
         jl near .1
         jmp short .6
 .6:
-        mov edx, dword [dword_19BEDC]
+        mov edx, dword [FloatFormatExponent]
         shl edx, 10h
-        mov ecx, dword [dword_19BED8]
+        mov ecx, dword [FloatFormatDigits]
         LD mov, dx, cx
         mov ecx, dword [byte ebp+018h]
         mov dword [ecx], edx
-        mov edx, dword [dword_19BEE4]
+        mov edx, dword [FloatFormatMantissaHi]
         shl edx, 10h
-        mov ecx, dword [dword_19BEE0]
+        mov ecx, dword [FloatFormatMantissaLo]
         LD mov, dx, cx
         mov ecx, dword [byte ebp+01Ch]
         mov dword [ecx], edx
@@ -1795,7 +1795,7 @@ DrawCharMono:
         mov ecx, dword [byte esp+014h]
         mov edi, dword [byte esp+018h]
         mov ebx, dword [byte esp+01Ch]
-        cmp edi, dword [dword_16E684]
+        cmp edi, dword [ScreenHeight]
         jl short .1
         xor eax, eax
         pop ebp
@@ -1804,7 +1804,7 @@ DrawCharMono:
         pop ebx
         ret
 .1:
-        mov esi, dword [dword_16E67C]
+        mov esi, dword [ClipLeftCol]
         lea eax, [edi+ebx]
         cmp eax, esi
         jge short .2
@@ -1829,7 +1829,7 @@ DrawCharMono:
         jge short .3
         add eax, esi
 .3:
-        mov edx, dword [dword_16E67C]
+        mov edx, dword [ClipLeftCol]
         cmp edi, edx
         jge short .4
         sub edx, edi
@@ -1837,9 +1837,9 @@ DrawCharMono:
         imul edi, edx
         sub ebx, edx
         add eax, edi
-        mov edi, dword [dword_16E67C]
+        mov edi, dword [ClipLeftCol]
 .4:
-        mov ebp, dword [dword_16E684]
+        mov ebp, dword [ScreenHeight]
         lea edx, [edi+ebx]
         cmp edx, ebp
         jl short .5
@@ -1877,7 +1877,7 @@ DrawCharShadow:
         mov ecx, dword [byte esp+014h]
         mov edi, dword [byte esp+018h]
         mov ebx, dword [byte esp+01Ch]
-        cmp edi, dword [dword_16E684]
+        cmp edi, dword [ScreenHeight]
         jl short .1
         xor eax, eax
         pop ebp
@@ -1886,7 +1886,7 @@ DrawCharShadow:
         pop ebx
         ret
 .1:
-        mov esi, dword [dword_16E67C]
+        mov esi, dword [ClipLeftCol]
         lea eax, [edi+ebx]
         cmp eax, esi
         jge short .2
@@ -1911,7 +1911,7 @@ DrawCharShadow:
         jle short .3
         add eax, esi
 .3:
-        mov edx, dword [dword_16E67C]
+        mov edx, dword [ClipLeftCol]
         cmp edi, edx
         jge short .4
         sub edx, edi
@@ -1919,9 +1919,9 @@ DrawCharShadow:
         imul edi, edx
         sub ebx, edx
         add eax, edi
-        mov edi, dword [dword_16E67C]
+        mov edi, dword [ClipLeftCol]
 .4:
-        mov ebp, dword [dword_16E684]
+        mov ebp, dword [ScreenHeight]
         lea edx, [edi+ebx]
         cmp edx, ebp
         jl short .5
@@ -1960,9 +1960,9 @@ DrawCharOutline:
         mov esi, dword [byte esp+018h]
         mov ebx, dword [byte esp+01Ch]
         mov edi, dword [byte esp+020h]
-        cmp esi, dword [dword_16E684]
+        cmp esi, dword [ScreenHeight]
         jge near .5
-        mov ebp, dword [dword_16E67C]
+        mov ebp, dword [ClipLeftCol]
         lea eax, [esi+ebx]
         cmp eax, ebp
         jl short .5
@@ -1978,7 +1978,7 @@ DrawCharOutline:
         jge short .1
         lea eax, [edi+edx]
 .1:
-        mov edi, dword [dword_16E67C]
+        mov edi, dword [ClipLeftCol]
         cmp esi, edi
         jge short .2
         sub edi, esi
@@ -1986,10 +1986,10 @@ DrawCharOutline:
         mov edi, edx
         imul edi, esi
         sub ebx, esi
-        mov esi, dword [dword_16E67C]
+        mov esi, dword [ClipLeftCol]
         add eax, edi
 .2:
-        mov ebp, dword [dword_16E684]
+        mov ebp, dword [ScreenHeight]
         lea edi, [esi+ebx]
         cmp edi, ebp
         jl short .3
@@ -2026,9 +2026,9 @@ DrawCharBold:
         mov esi, dword [byte esp+018h]
         mov ebx, dword [byte esp+01Ch]
         mov edi, dword [byte esp+020h]
-        cmp esi, dword [dword_16E684]
+        cmp esi, dword [ScreenHeight]
         jge near .5
-        mov ebp, dword [dword_16E67C]
+        mov ebp, dword [ClipLeftCol]
         lea eax, [esi+ebx]
         cmp eax, ebp
         jl short .5
@@ -2044,7 +2044,7 @@ DrawCharBold:
         jle short .1
         lea eax, [edi+edx]
 .1:
-        mov edi, dword [dword_16E67C]
+        mov edi, dword [ClipLeftCol]
         cmp esi, edi
         jge short .2
         sub edi, esi
@@ -2052,10 +2052,10 @@ DrawCharBold:
         mov edi, edx
         imul edi, esi
         sub ebx, esi
-        mov esi, dword [dword_16E67C]
+        mov esi, dword [ClipLeftCol]
         add eax, edi
 .2:
-        mov ebp, dword [dword_16E684]
+        mov ebp, dword [ScreenHeight]
         lea edi, [esi+ebx]
         cmp edi, ebp
         jl short .3
@@ -2095,11 +2095,11 @@ init_:
         mov al, byte [_Extender]
         cmp eax, byte 3
         jne short .2
-        cmp byte [byte_1725A4], 0
+        cmp byte [Is8087], 0
         je short .2
-        mov ax, word [word_17070A]
+        mov ax, word [SavedEsSelector]
 .1:
-        mov word [word_1DE780], ax
+        mov word [DbcsLeadTable], ax
         pop edx
         pop ecx
         pop ebx
@@ -2158,7 +2158,7 @@ init_:
         call __fatal_runtime_error_
 .9:
         mov edx, 0FFFFFh
-        mov word [word_1DE780], bx
+        mov word [DbcsLeadTable], bx
         mov ax, dx
         shr edx, 10h
         mov cx, dx
@@ -2177,7 +2177,7 @@ init_:
         ret
 .10:
         xor edx, edx
-        mov word [word_1DE780], dx
+        mov word [DbcsLeadTable], dx
 .11:
         pop edx
         pop ecx
@@ -2196,7 +2196,7 @@ fini_:
         mov al, byte [_ExtenderSubtype]
         cmp eax, byte 1
         jne short .1
-        mov bx, word [word_1DE780]
+        mov bx, word [DbcsLeadTable]
         mov ax, 1
         int 31h
 .1:

@@ -2,15 +2,15 @@
 bits 32
 %include "hockey.inc"
 section s_10E690 progbits alloc exec nowrite align=1
-extern __STOSD, byte_1D207C, byte_1D2434, dword_16E4A8, dword_16E670, dword_16E678, dword_16E67C, dword_16E680
-extern dword_16E684, dword_16E698, dword_16E69C, dword_170218, dword_1702B4, dword_1D2054, dword_1D2058, dword_1D205C
-extern dword_1D2060, dword_1D2064, dword_1D2068, dword_1D206C, dword_1D2070, dword_1D2078, dword_1D2080, dword_1D2084
-extern dword_1D2088, dword_1D208C, dword_1D2090, dword_1D2094, dword_1D2418, dword_1D241C, dword_1D2420, dword_1D2424
-extern dword_1D2428, dword_1D2430, dword_1D2438, dword_1D243C, dword_1D2440, dword_1D2444, dword_1D2448, dword_1D244C
-extern dword_1D2450, dword_1D2454, dword_1D3350, dword_1D3354, dword_1D3358, dword_1D335C, dword_1D3364, dword_1D3368
+extern __STOSD, TileLeftFlags, TileRightFlags, str_Punct_DrawRinkSurface, ScreenWidth, ClipTopRow, ClipLeftCol, ClipRight
+extern ScreenHeight, DrawDestBuffer, DrawDestPitch, str_Punct_SetScreenScale, IceSpansEnabled, TextureTileSize, TexturePageBase, TextureDetail
+extern TileDestRow, TileLeftTop, TileLeftBottom, TileLeftHeight, TileLeftStep, TileLeftCount, TileLeftX, TileLeftU
+extern TileLeftUf, TileLeftVf, TileLeftDu, TileLeftDv, TileRightRow, TileRightTop, TileRightBottom, TileRightHeight
+extern TileRightStep, TileRightCount, TileRightX, TileRightU, TileRightUf, TileRightVf, TileRightDu, TileRightDv
+extern IceShadeScale, IceShadeTable, TileTexture, TileRowCount, TileRowY, TileTexSize, IceShadeBase, TileRowShade
 extern strncpy_, strnicmp_, FindShapeQuiet, GetPaletteEntries, DrawClippedPoly, DrawPolyList, FillSpanRows, ClipPolyToNear
 extern ClipTexPolyToNear, GetModelVertex, TransformModelParts, TransformModelPartsWith, UpdateModelParts, PolyCrossProduct, TexSpanCopy, ClipTexPolyLeft
-extern ClipTexPolyRight, ClipTexPolyTop, ClipTexPolyBottom, MatchColor, FillPolygon, FillRectColor, unk_1D2098, unk_1D3D6C
+extern ClipTexPolyRight, ClipTexPolyTop, ClipTexPolyBottom, MatchColor, FillPolygon, FillRectColor, TileEdgeTable, ModelPartName
 global DrawTileEdgeLeft_24E, SetRinkView, TransformRinkPoints, TransformRinkObject, ProjectRinkObject, DrawRinkPolyStrip, DrawRinkFan, DrawRinkPolys
 global DrawRinkRing, RinkNoOpA, DrawRinkPrimFlat, DrawRinkPrimShaded, DrawRinkPrimTextured, RinkNoOpB, DrawRinkLineFlat, DrawRinkLineShaded
 global DrawRinkLineTextured, DrawIceSpans, SetupTileSpans, DrawTileSpan, DrawTileEdgeLeft, DrawTileEdgeRight, DrawTileTexture, DrawTilePage
@@ -21,11 +21,11 @@ global FindModelShapeByName, FindInstanceShape, BindModelShapes, UpdateModelInst
 ;-----------------------------------------------------------------------------
 SetRinkView:
         mov eax, dword [byte esp+04h]
-        mov dword [dword_1D205C], eax
+        mov dword [TextureDetail], eax
         mov eax, dword [byte esp+0Ch]
-        mov dword [dword_1D2054], eax
+        mov dword [TextureTileSize], eax
         mov eax, dword [byte esp+08h]
-        mov dword [dword_1D2058], eax
+        mov dword [TexturePageBase], eax
         ret
 ;-----------------------------------------------------------------------------
 ; TransformRinkPoints                            10E6AC  97 PC, low confidence
@@ -36,13 +36,13 @@ TransformRinkPoints:
         push esi
         mov eax, dword [byte esp+0Ch]
         mov edx, dword [byte esp+010h]
-        mov esi, dword [dword_170218]
+        mov esi, dword [str_Punct_SetScreenScale]
 .1:
         dec eax
         cmp eax, byte 0FFFFFFFFh
         je short .2
         imul ebx, dword [edx], byte 0Ch
-        mov ecx, dword [dword_1D205C]
+        mov ecx, dword [TextureDetail]
         mov ebx, dword [byte ecx+ebx+08h]
         add edx, byte 4
         cmp ebx, esi
@@ -73,7 +73,7 @@ TransformRinkObject:
         sub eax, ebx
         lea ebx, [nosplit esi*4+00h]
         sub ebx, esi
-        mov edi, dword [dword_1D205C]
+        mov edi, dword [TextureDetail]
         shl ebx, 2
         add edx, byte 4
         add ebx, edi
@@ -92,7 +92,7 @@ TransformRinkObject:
         mov esi, dword [edx]
         lea ebx, [nosplit esi*4+00h]
         sub ebx, esi
-        mov esi, dword [dword_1D205C]
+        mov esi, dword [TextureDetail]
         shl ebx, 2
         add ebx, esi
         mov ebp, dword [byte ebx+08h]
@@ -110,7 +110,7 @@ TransformRinkObject:
         lea edx, [nosplit ebx*4+00h]
         sub edx, ebx
         lea ebx, [nosplit edx*4+00h]
-        mov edx, dword [dword_1D205C]
+        mov edx, dword [TextureDetail]
         add edx, ebx
         mov edi, dword [byte edx+08h]
         cmp eax, edi
@@ -141,7 +141,7 @@ ProjectRinkObject:
         push ebx
         mov edx, dword [byte esp+08h]
         push edx
-        mov ebx, dword [dword_1D2058]
+        mov ebx, dword [TexturePageBase]
         push ebx
         call PolyCrossProduct
         add esp, byte 8
@@ -165,7 +165,7 @@ DrawRinkPolyStrip:
         mov edx, dword [dword esp+0114h]
         mov eax, dword [byte esi+04h]
         push edx
-        mov edx, dword [dword_1D2058]
+        mov edx, dword [TexturePageBase]
         mov ebx, dword [byte edx+eax*8+04h]
         push ebx
         mov ecx, dword [edx+eax*8]
@@ -185,7 +185,7 @@ DrawRinkPolyStrip:
         xor eax, eax
 .2:
         mov esi, dword [edx]
-        mov ebx, dword [dword_1D2058]
+        mov ebx, dword [TexturePageBase]
         shl esi, 3
         lea edi, [esp+eax]
         add esi, ebx
@@ -232,7 +232,7 @@ DrawRinkFan:
         shl ebp, 3
 .1:
         mov ecx, dword [eax]
-        mov esi, dword [dword_1D2058]
+        mov esi, dword [TexturePageBase]
         shl ecx, 3
         lea edi, [dword esp+edx+0180h]
         add esi, ecx
@@ -240,7 +240,7 @@ DrawRinkFan:
         movsd
         imul esi, dword [eax], byte 0Ch
         add ebx, byte 0Ch
-        mov ecx, dword [dword_1D205C]
+        mov ecx, dword [TextureDetail]
         lea edi, [byte esp+ebx-0Ch]
         add esi, ecx
         add edx, byte 8
@@ -251,7 +251,7 @@ DrawRinkFan:
         cmp edx, ebp
         jl short .1
 .2:
-        mov esi, dword [dword_16E4A8]
+        mov esi, dword [str_Punct_DrawRinkSurface]
         push esi
         lea eax, [dword esp+0184h]
         push eax
@@ -300,7 +300,7 @@ DrawRinkPolys:
         xor eax, eax
 .1:
         mov ebx, dword [edx]
-        mov esi, dword [dword_1D2058]
+        mov esi, dword [TexturePageBase]
         shl ebx, 3
         lea edi, [esp+eax]
         add esi, ebx
@@ -346,7 +346,7 @@ DrawRinkRing:
         shl ebp, 3
 .1:
         mov ecx, dword [edx]
-        mov esi, dword [dword_1D2058]
+        mov esi, dword [TexturePageBase]
         shl ecx, 3
         lea edi, [dword esp+eax+0180h]
         add esi, ecx
@@ -354,7 +354,7 @@ DrawRinkRing:
         movsd
         imul ecx, dword [edx], byte 0Ch
         add ebx, byte 0Ch
-        mov esi, dword [dword_1D205C]
+        mov esi, dword [TextureDetail]
         lea edi, [byte esp+ebx-0Ch]
         add esi, ecx
         add eax, byte 8
@@ -365,7 +365,7 @@ DrawRinkRing:
         cmp eax, ebp
         jl short .1
 .2:
-        mov edi, dword [dword_16E4A8]
+        mov edi, dword [str_Punct_DrawRinkSurface]
         push edi
         lea eax, [dword esp+0184h]
         push eax
@@ -410,7 +410,7 @@ DrawRinkPrimFlat:
         mov eax, dword [dword esp+0B4h]
         mov edx, dword [dword esp+0B8h]
         mov esi, dword [edx]
-        mov ebx, dword [dword_1D2058]
+        mov ebx, dword [TexturePageBase]
         shl esi, 3
         lea edi, [byte esp+050h]
         add esi, ebx
@@ -437,7 +437,7 @@ DrawRinkPrimFlat:
         add edx, byte 4
         movsd
         movsd
-        mov edx, dword [dword_1D2054]
+        mov edx, dword [TextureTileSize]
         mov ebx, dword [eax]
         mov ebx, dword [edx+ebx*8]
         shl ebx, 10h
@@ -502,7 +502,7 @@ DrawRinkPrimShaded:
         mov eax, dword [dword esp+0B4h]
         mov edx, dword [dword esp+0B8h]
         mov esi, dword [edx]
-        mov ebx, dword [dword_1D2058]
+        mov ebx, dword [TexturePageBase]
         shl esi, 3
         lea edi, [byte esp+050h]
         add esi, ebx
@@ -529,7 +529,7 @@ DrawRinkPrimShaded:
         add edx, byte 4
         movsd
         movsd
-        mov edx, dword [dword_1D2054]
+        mov edx, dword [TextureTileSize]
         mov ebx, dword [eax]
         mov ebx, dword [edx+ebx*8]
         shl ebx, 10h
@@ -594,7 +594,7 @@ DrawRinkPrimTextured:
         mov eax, dword [dword esp+0B4h]
         mov edx, dword [dword esp+0B8h]
         mov esi, dword [edx]
-        mov ebx, dword [dword_1D2058]
+        mov ebx, dword [TexturePageBase]
         shl esi, 3
         lea edi, [byte esp+050h]
         add esi, ebx
@@ -621,7 +621,7 @@ DrawRinkPrimTextured:
         add edx, byte 4
         movsd
         movsd
-        mov edx, dword [dword_1D2054]
+        mov edx, dword [TextureTileSize]
         mov ebx, dword [eax]
         mov ebx, dword [edx+ebx*8]
         shl ebx, 10h
@@ -690,7 +690,7 @@ DrawRinkLineFlat:
         sub esp, byte 50h
         mov eax, dword [byte esp+060h]
         mov esi, dword [eax]
-        mov edx, dword [dword_1D2058]
+        mov edx, dword [TexturePageBase]
         shl esi, 3
         mov edi, esp
         add esi, edx
@@ -739,7 +739,7 @@ DrawRinkLineShaded:
         sub esp, byte 50h
         mov eax, dword [byte esp+060h]
         mov esi, dword [eax]
-        mov edx, dword [dword_1D2058]
+        mov edx, dword [TexturePageBase]
         shl esi, 3
         mov edi, esp
         add esi, edx
@@ -788,7 +788,7 @@ DrawRinkLineTextured:
         sub esp, byte 50h
         mov eax, dword [byte esp+060h]
         mov esi, dword [eax]
-        mov edx, dword [dword_1D2058]
+        mov edx, dword [TexturePageBase]
         shl esi, 3
         mov edi, esp
         add esi, edx
@@ -840,11 +840,11 @@ DrawIceSpans:
         mov ebp, esp
         sub esp, byte 40h
         and esp, byte 0FFFFFFF8h
-        cmp dword [dword_1702B4], byte 0
+        cmp dword [IceSpansEnabled], byte 0
         je short .2
         mov ecx, 1E0h
         mov edx, 3E8h
-        mov eax, dword_1D2450
+        mov eax, IceShadeScale
         mov ebx, 1
         call __STOSD
         mov eax, 4
@@ -857,11 +857,11 @@ DrawIceSpans:
         inc ecx
         add eax, byte 4
         mov dword [byte esp+03Ch], ecx
-        fstp dword [dword eax+dword_1D3364]
+        fstp dword [dword eax+IceShadeBase]
         cmp ecx, 281h
         jl short .1
         xor edi, edi
-        mov dword [dword_1702B4], edi
+        mov dword [IceSpansEnabled], edi
 .2:
         mov edi, dword [byte ebp+018h]
         mov esi, 1
@@ -894,7 +894,7 @@ DrawIceSpans:
         cmp esi, ecx
         jl short .3
 .6:
-        cmp edi, dword [dword_16E4A8]
+        cmp edi, dword [str_Punct_DrawRinkSurface]
         jle near .12
         mov esi, dword [byte esp+034h]
         mov edi, dword [byte ebp+01Ch]
@@ -918,7 +918,7 @@ DrawIceSpans:
         sub eax, ebx
         mov esi, dword [byte ebp+018h]
         shl eax, 2
-        mov edi, dword [dword_16E4A8]
+        mov edi, dword [str_Punct_DrawRinkSurface]
         add eax, esi
         cmp edx, edi
         jg short .7
@@ -966,7 +966,7 @@ DrawIceSpans:
         fstp dword [byte esp+030h]
         cmp edx, ebx
         jge near .12
-        mov ecx, dword [dword_16E684]
+        mov ecx, dword [ScreenHeight]
         cmp ebx, ecx
         jl short .9
         mov eax, ebx
@@ -981,7 +981,7 @@ DrawIceSpans:
         fstp dword [byte esp+038h]
 .9:
         mov eax, dword [byte esp+024h]
-        mov edi, dword [dword_16E67C]
+        mov edi, dword [ClipLeftCol]
         cmp eax, edi
         jge short .10
         mov dword [byte esp+024h], edi
@@ -1002,7 +1002,7 @@ DrawIceSpans:
         sub eax, byte 4
         fadd st2
         fxch
-        fstp dword [dword eax+dword_1D2454]
+        fstp dword [dword eax+IceShadeTable]
         fstp st2
         cmp eax, edx
         jge short .11
@@ -1270,15 +1270,15 @@ DrawTileSpan:
         push edi
         push ebp
         sub esp, byte 8
-        mov edx, dword [dword_1D2060]
-        mov ebx, dword [dword_1D2418]
+        mov edx, dword [TileDestRow]
+        mov ebx, dword [TileRightRow]
         sub ebx, edx
         test ebx, ebx
         jle near .1
-        mov eax, dword [nosplit ebx*4+dword_1D3368]
-        mov ecx, dword [dword_1D2080]
+        mov eax, dword [nosplit ebx*4+TileRowShade]
+        mov ecx, dword [TileLeftX]
         mov dword [esp], eax
-        mov eax, dword [dword_1D2438]
+        mov eax, dword [TileRightX]
         sub eax, ecx
         mov dword [byte esp+04h], eax
         fild dword [byte esp+04h]
@@ -1286,9 +1286,9 @@ DrawTileSpan:
         push eax
         fistp dword [esp]
         pop eax
-        mov esi, dword [dword_1D2084]
+        mov esi, dword [TileLeftU]
         mov edx, eax
-        mov eax, dword [dword_1D243C]
+        mov eax, dword [TileRightU]
         sub eax, esi
         mov dword [byte esp+04h], eax
         fild dword [byte esp+04h]
@@ -1297,32 +1297,32 @@ DrawTileSpan:
         fistp dword [esp]
         pop eax
         mov ecx, eax
-        mov edi, dword [dword_1D3350]
+        mov edi, dword [TileTexture]
         sar ecx, 10h
         imul ecx, edi
         mov esi, edx
         sar esi, 10h
         add ecx, esi
-        mov esi, dword [dword_1D2084]
+        mov esi, dword [TileLeftU]
         sar esi, 10h
         imul edi, esi
         push ebx
-        mov ebp, dword [dword_1D3350]
+        mov ebp, dword [TileTexture]
         push ecx
         add ecx, ebp
         push ecx
         push eax
-        mov eax, dword [dword_1D2084]
+        mov eax, dword [TileLeftU]
         push eax
-        mov ebx, dword [dword_1D2060]
-        mov eax, dword [dword_1D3358]
+        mov ebx, dword [TileDestRow]
+        mov eax, dword [TileRowY]
         push edx
-        mov esi, dword [dword_1D335C]
-        mov edx, dword [dword_1D2080]
+        mov esi, dword [TileTexSize]
+        mov edx, dword [TileLeftX]
         add esi, byte 10h
         add eax, ebx
         add edi, esi
-        mov esi, dword [dword_1D2080]
+        mov esi, dword [TileLeftX]
         push edx
         sar esi, 10h
         push eax
@@ -1353,20 +1353,20 @@ DrawTileEdgeLeft:
         lea eax, [nosplit ebp*8+00h]
         sub eax, ebp
         mov ecx, 0Eh
-        mov edi, dword_1D2060
-        lea esi, [nosplit eax*8+unk_1D2098]
+        mov edi, TileDestRow
+        lea esi, [nosplit eax*8+TileEdgeTable]
         lea eax, [nosplit ebx*8+00h]
         rep movsd
         sub eax, ebx
         mov ecx, 0Eh
-        lea esi, [nosplit eax*8+unk_1D2098]
+        lea esi, [nosplit eax*8+TileEdgeTable]
         mov eax, dword [byte esp+020h]
-        mov edi, dword_1D2418
+        mov edi, TileRightRow
         dec eax
         rep movsd
         mov dword [esp], eax
 .1:
-        cmp dword [dword_1D2430], byte 0
+        cmp dword [TileRightCount], byte 0
         jg short .3
         dec ebx
         test ebx, ebx
@@ -1377,12 +1377,12 @@ DrawTileEdgeLeft:
         je near DrawTileEdgeLeft_24E
         imul esi, ebx, byte 38h
         mov ecx, 0Eh
-        mov edi, dword_1D2418
-        lea esi, [dword esi+unk_1D2098]
+        mov edi, TileRightRow
+        lea esi, [dword esi+TileEdgeTable]
         rep movsd
         jmp short .1
 .3:
-        mov ecx, dword [dword_1D2078]
+        mov ecx, dword [TileLeftCount]
         test ecx, ecx
         jg short .5
         mov edi, dword [byte esp+020h]
@@ -1393,12 +1393,12 @@ DrawTileEdgeLeft:
 .4:
         imul esi, ebp, byte 38h
         mov ecx, 0Eh
-        mov edi, dword_1D2060
-        lea esi, [dword esi+unk_1D2098]
+        mov edi, TileDestRow
+        lea esi, [dword esi+TileEdgeTable]
         rep movsd
         jmp short .3
 .5:
-        mov eax, dword [dword_1D2430]
+        mov eax, dword [TileRightCount]
         cmp eax, ecx
         jge short .6
         mov esi, eax
@@ -1410,99 +1410,99 @@ DrawTileEdgeLeft:
         cmp esi, byte 0FFFFFFFFh
         je short .1
         call DrawTileSpan
-        mov eax, dword [dword_16E670]
-        mov edx, dword [dword_1D3358]
-        mov ecx, dword [dword_1D3354]
-        mov edi, dword [dword_1D2060]
+        mov eax, dword [ScreenWidth]
+        mov edx, dword [TileRowY]
+        mov ecx, dword [TileRowCount]
+        mov edi, dword [TileDestRow]
         inc ecx
         add edx, eax
-        mov eax, dword [dword_1D2064]
-        mov dword [dword_1D3358], edx
+        mov eax, dword [TileLeftTop]
+        mov dword [TileRowY], edx
         add edi, eax
-        mov eax, dword [dword_1D2078]
-        mov dword [dword_1D3354], ecx
+        mov eax, dword [TileLeftCount]
+        mov dword [TileRowCount], ecx
         dec eax
-        mov edx, dword [dword_1D2070]
-        mov dword [dword_1D2078], eax
-        mov eax, dword [dword_1D2068]
-        mov ecx, dword [dword_1D206C]
+        mov edx, dword [TileLeftStep]
+        mov dword [TileLeftCount], eax
+        mov eax, dword [TileLeftBottom]
+        mov ecx, dword [TileLeftHeight]
         add edx, eax
-        mov dword [dword_1D2060], edi
-        mov dword [dword_1D2070], edx
+        mov dword [TileDestRow], edi
+        mov dword [TileLeftStep], edx
         cmp edx, ecx
         jl short .8
         sub edx, ecx
         inc edi
-        mov dword [dword_1D2070], edx
-        mov dword [dword_1D2060], edi
+        mov dword [TileLeftStep], edx
+        mov dword [TileDestRow], edi
 .8:
-        test byte [byte_1D207C], 1
+        test byte [TileLeftFlags], 1
         je short .9
-        fld dword [dword_1D2090]
-        fadd dword [dword_1D2088]
-        mov eax, dword [dword_1D3354]
-        fst dword [dword_1D2088]
-        fmul dword [nosplit eax*4+dword_1D2450]
+        fld dword [TileLeftDu]
+        fadd dword [TileLeftUf]
+        mov eax, dword [TileRowCount]
+        fst dword [TileLeftUf]
+        fmul dword [nosplit eax*4+IceShadeScale]
         push eax
         fistp dword [esp]
         pop eax
-        mov dword [dword_1D2080], eax
+        mov dword [TileLeftX], eax
 .9:
-        test byte [byte_1D207C], 2
+        test byte [TileLeftFlags], 2
         je short .10
-        fld dword [dword_1D2094]
-        fadd dword [dword_1D208C]
-        mov eax, dword [dword_1D3354]
-        fst dword [dword_1D208C]
-        fmul dword [nosplit eax*4+dword_1D2450]
+        fld dword [TileLeftDv]
+        fadd dword [TileLeftVf]
+        mov eax, dword [TileRowCount]
+        fst dword [TileLeftVf]
+        fmul dword [nosplit eax*4+IceShadeScale]
         push eax
         fistp dword [esp]
         pop eax
-        mov dword [dword_1D2084], eax
+        mov dword [TileLeftU], eax
 .10:
-        mov ecx, dword [dword_1D2418]
-        mov edi, dword [dword_1D2430]
-        mov eax, dword [dword_1D241C]
-        mov edx, dword [dword_1D2428]
+        mov ecx, dword [TileRightRow]
+        mov edi, dword [TileRightCount]
+        mov eax, dword [TileRightTop]
+        mov edx, dword [TileRightStep]
         dec edi
         add ecx, eax
-        mov eax, dword [dword_1D2420]
-        mov dword [dword_1D2418], ecx
-        mov dword [dword_1D2430], edi
+        mov eax, dword [TileRightBottom]
+        mov dword [TileRightRow], ecx
+        mov dword [TileRightCount], edi
         add edx, eax
-        mov ecx, dword [dword_1D2424]
-        mov dword [dword_1D2428], edx
+        mov ecx, dword [TileRightHeight]
+        mov dword [TileRightStep], edx
         cmp edx, ecx
         jl short .11
-        mov edi, dword [dword_1D2418]
+        mov edi, dword [TileRightRow]
         sub edx, ecx
         inc edi
-        mov dword [dword_1D2428], edx
-        mov dword [dword_1D2418], edi
+        mov dword [TileRightStep], edx
+        mov dword [TileRightRow], edi
 .11:
-        test byte [byte_1D2434], 1
+        test byte [TileRightFlags], 1
         je short .12
-        fld dword [dword_1D2448]
-        fadd dword [dword_1D2440]
-        mov eax, dword [dword_1D3354]
-        fst dword [dword_1D2440]
-        fmul dword [nosplit eax*4+dword_1D2450]
+        fld dword [TileRightDu]
+        fadd dword [TileRightUf]
+        mov eax, dword [TileRowCount]
+        fst dword [TileRightUf]
+        fmul dword [nosplit eax*4+IceShadeScale]
         push eax
         fistp dword [esp]
         pop eax
-        mov dword [dword_1D2438], eax
+        mov dword [TileRightX], eax
 .12:
-        test byte [byte_1D2434], 2
+        test byte [TileRightFlags], 2
         je near .7
-        fld dword [dword_1D244C]
-        fadd dword [dword_1D2444]
-        mov eax, dword [dword_1D3354]
-        fst dword [dword_1D2444]
-        fmul dword [nosplit eax*4+dword_1D2450]
+        fld dword [TileRightDv]
+        fadd dword [TileRightVf]
+        mov eax, dword [TileRowCount]
+        fst dword [TileRightVf]
+        fmul dword [nosplit eax*4+IceShadeScale]
         push eax
         fistp dword [esp]
         pop eax
-        mov dword [dword_1D243C], eax
+        mov dword [TileRightU], eax
         jmp near .7
 DrawTileEdgeLeft_24E:
         add esp, byte 4
@@ -1527,20 +1527,20 @@ DrawTileEdgeRight:
         lea eax, [nosplit ebx*8+00h]
         sub eax, ebx
         mov ecx, 0Eh
-        mov edi, dword_1D2060
-        lea esi, [nosplit eax*8+unk_1D2098]
+        mov edi, TileDestRow
+        lea esi, [nosplit eax*8+TileEdgeTable]
         lea eax, [nosplit ebp*8+00h]
         rep movsd
         sub eax, ebp
         mov ecx, 0Eh
-        lea esi, [nosplit eax*8+unk_1D2098]
+        lea esi, [nosplit eax*8+TileEdgeTable]
         mov eax, dword [byte esp+020h]
-        mov edi, dword_1D2418
+        mov edi, TileRightRow
         dec eax
         rep movsd
         mov dword [esp], eax
 .1:
-        cmp dword [dword_1D2078], byte 0
+        cmp dword [TileLeftCount], byte 0
         jg short .3
         dec ebx
         test ebx, ebx
@@ -1551,12 +1551,12 @@ DrawTileEdgeRight:
         je short DrawTileEdgeLeft_24E
         imul esi, ebx, byte 38h
         mov ecx, 0Eh
-        mov edi, dword_1D2060
-        lea esi, [dword esi+unk_1D2098]
+        mov edi, TileDestRow
+        lea esi, [dword esi+TileEdgeTable]
         rep movsd
         jmp short .1
 .3:
-        mov ecx, dword [dword_1D2430]
+        mov ecx, dword [TileRightCount]
         test ecx, ecx
         jg short .5
         mov edi, dword [byte esp+020h]
@@ -1567,12 +1567,12 @@ DrawTileEdgeRight:
 .4:
         imul esi, ebp, byte 38h
         mov ecx, 0Eh
-        mov edi, dword_1D2418
-        lea esi, [dword esi+unk_1D2098]
+        mov edi, TileRightRow
+        lea esi, [dword esi+TileEdgeTable]
         rep movsd
         jmp short .3
 .5:
-        mov esi, dword [dword_1D2078]
+        mov esi, dword [TileLeftCount]
         cmp ecx, esi
         jge short .6
         mov esi, ecx
@@ -1581,99 +1581,99 @@ DrawTileEdgeRight:
         cmp esi, byte 0FFFFFFFFh
         je short .1
         call DrawTileSpan
-        mov eax, dword [dword_16E670]
-        mov edx, dword [dword_1D3358]
-        mov ecx, dword [dword_1D3354]
-        mov edi, dword [dword_1D2060]
+        mov eax, dword [ScreenWidth]
+        mov edx, dword [TileRowY]
+        mov ecx, dword [TileRowCount]
+        mov edi, dword [TileDestRow]
         inc ecx
         add edx, eax
-        mov eax, dword [dword_1D2064]
-        mov dword [dword_1D3358], edx
+        mov eax, dword [TileLeftTop]
+        mov dword [TileRowY], edx
         add edi, eax
-        mov eax, dword [dword_1D2078]
-        mov dword [dword_1D3354], ecx
+        mov eax, dword [TileLeftCount]
+        mov dword [TileRowCount], ecx
         dec eax
-        mov edx, dword [dword_1D2070]
-        mov dword [dword_1D2078], eax
-        mov eax, dword [dword_1D2068]
-        mov ecx, dword [dword_1D206C]
+        mov edx, dword [TileLeftStep]
+        mov dword [TileLeftCount], eax
+        mov eax, dword [TileLeftBottom]
+        mov ecx, dword [TileLeftHeight]
         add edx, eax
-        mov dword [dword_1D2060], edi
-        mov dword [dword_1D2070], edx
+        mov dword [TileDestRow], edi
+        mov dword [TileLeftStep], edx
         cmp edx, ecx
         jl short .7
         sub edx, ecx
         inc edi
-        mov dword [dword_1D2070], edx
-        mov dword [dword_1D2060], edi
+        mov dword [TileLeftStep], edx
+        mov dword [TileDestRow], edi
 .7:
-        test byte [byte_1D207C], 1
+        test byte [TileLeftFlags], 1
         je short .8
-        fld dword [dword_1D2090]
-        fadd dword [dword_1D2088]
-        mov eax, dword [dword_1D3354]
-        fst dword [dword_1D2088]
-        fmul dword [nosplit eax*4+dword_1D2450]
+        fld dword [TileLeftDu]
+        fadd dword [TileLeftUf]
+        mov eax, dword [TileRowCount]
+        fst dword [TileLeftUf]
+        fmul dword [nosplit eax*4+IceShadeScale]
         push eax
         fistp dword [esp]
         pop eax
-        mov dword [dword_1D2080], eax
+        mov dword [TileLeftX], eax
 .8:
-        test byte [byte_1D207C], 2
+        test byte [TileLeftFlags], 2
         je short .9
-        fld dword [dword_1D2094]
-        fadd dword [dword_1D208C]
-        mov eax, dword [dword_1D3354]
-        fst dword [dword_1D208C]
-        fmul dword [nosplit eax*4+dword_1D2450]
+        fld dword [TileLeftDv]
+        fadd dword [TileLeftVf]
+        mov eax, dword [TileRowCount]
+        fst dword [TileLeftVf]
+        fmul dword [nosplit eax*4+IceShadeScale]
         push eax
         fistp dword [esp]
         pop eax
-        mov dword [dword_1D2084], eax
+        mov dword [TileLeftU], eax
 .9:
-        mov ecx, dword [dword_1D2418]
-        mov edi, dword [dword_1D2430]
-        mov eax, dword [dword_1D241C]
-        mov edx, dword [dword_1D2428]
+        mov ecx, dword [TileRightRow]
+        mov edi, dword [TileRightCount]
+        mov eax, dword [TileRightTop]
+        mov edx, dword [TileRightStep]
         dec edi
         add ecx, eax
-        mov eax, dword [dword_1D2420]
-        mov dword [dword_1D2418], ecx
-        mov dword [dword_1D2430], edi
+        mov eax, dword [TileRightBottom]
+        mov dword [TileRightRow], ecx
+        mov dword [TileRightCount], edi
         add edx, eax
-        mov ecx, dword [dword_1D2424]
-        mov dword [dword_1D2428], edx
+        mov ecx, dword [TileRightHeight]
+        mov dword [TileRightStep], edx
         cmp edx, ecx
         jl short .10
-        mov edi, dword [dword_1D2418]
+        mov edi, dword [TileRightRow]
         sub edx, ecx
         inc edi
-        mov dword [dword_1D2428], edx
-        mov dword [dword_1D2418], edi
+        mov dword [TileRightStep], edx
+        mov dword [TileRightRow], edi
 .10:
-        test byte [byte_1D2434], 1
+        test byte [TileRightFlags], 1
         je short .11
-        fld dword [dword_1D2448]
-        fadd dword [dword_1D2440]
-        mov eax, dword [dword_1D3354]
-        fst dword [dword_1D2440]
-        fmul dword [nosplit eax*4+dword_1D2450]
+        fld dword [TileRightDu]
+        fadd dword [TileRightUf]
+        mov eax, dword [TileRowCount]
+        fst dword [TileRightUf]
+        fmul dword [nosplit eax*4+IceShadeScale]
         push eax
         fistp dword [esp]
         pop eax
-        mov dword [dword_1D2438], eax
+        mov dword [TileRightX], eax
 .11:
-        test byte [byte_1D2434], 2
+        test byte [TileRightFlags], 2
         je near .6
-        fld dword [dword_1D244C]
-        fadd dword [dword_1D2444]
-        mov eax, dword [dword_1D3354]
-        fst dword [dword_1D2444]
-        fmul dword [nosplit eax*4+dword_1D2450]
+        fld dword [TileRightDv]
+        fadd dword [TileRightVf]
+        mov eax, dword [TileRowCount]
+        fst dword [TileRightVf]
+        fmul dword [nosplit eax*4+IceShadeScale]
         push eax
         fistp dword [esp]
         pop eax
-        mov dword [dword_1D243C], eax
+        mov dword [TileRightU], eax
         jmp near .6
         db 090h
 ;-----------------------------------------------------------------------------
@@ -1687,7 +1687,7 @@ DrawTileTexture:
         push ebp
         sub esp, byte 10h
         mov edi, dword [byte esp+028h]
-        mov eax, dword [dword_16E4A8]
+        mov eax, dword [str_Punct_DrawRinkSurface]
         inc eax
         push eax
         mov ecx, dword [byte esp+030h]
@@ -1710,17 +1710,17 @@ DrawTileTexture:
         xor ebx, ebx
         mov dword [byte esp+04h], ebp
         mov dword [byte esp+0Ch], edx
-        mov dword [dword_1D3354], edx
+        mov dword [TileRowCount], edx
         test eax, eax
         jle short .6
         mov eax, dword [byte esp+030h]
         xor esi, esi
 .1:
-        mov ecx, dword [dword_1D3354]
+        mov ecx, dword [TileRowCount]
         mov edx, dword [byte eax+04h]
         cmp edx, ecx
         jge short .2
-        mov dword [dword_1D3354], edx
+        mov dword [TileRowCount], edx
         mov dword [byte esp+08h], ebx
         jmp short .3
 .2:
@@ -1751,16 +1751,16 @@ DrawTileTexture:
         cmp ebx, edi
         jl short .1
 .6:
-        mov edx, dword [dword_16E684]
-        cmp edx, dword [dword_1D3354]
+        mov edx, dword [ScreenHeight]
+        cmp edx, dword [TileRowCount]
         jle near .21
         mov eax, dword [byte esp+0Ch]
-        cmp eax, dword [dword_16E67C]
+        cmp eax, dword [ClipLeftCol]
         jl near .21
         mov eax, dword [byte esp+04h]
-        cmp eax, dword [dword_16E680]
+        cmp eax, dword [ClipRight]
         jge near .21
-        cmp ebp, dword [dword_16E678]
+        cmp ebp, dword [ClipTopRow]
         jl near .21
         cmp dword [byte esp+038h], byte 0
         jne short .7
@@ -1779,7 +1779,7 @@ DrawTileTexture:
         mov dword [byte esp+038h], ebx
 .7:
         mov eax, dword [byte esp+04h]
-        cmp eax, dword [dword_16E678]
+        cmp eax, dword [ClipTopRow]
         jge short .8
         lea eax, [byte esp+02Ch]
         push eax
@@ -1793,7 +1793,7 @@ DrawTileTexture:
         jl near .21
         mov dword [esp], 1
 .8:
-        cmp ebp, dword [dword_16E680]
+        cmp ebp, dword [ClipRight]
         jl short .9
         lea eax, [byte esp+02Ch]
         push eax
@@ -1807,8 +1807,8 @@ DrawTileTexture:
         jl near .21
         mov dword [esp], 1
 .9:
-        mov ebp, dword [dword_16E67C]
-        cmp ebp, dword [dword_1D3354]
+        mov ebp, dword [ClipLeftCol]
+        cmp ebp, dword [TileRowCount]
         jle short .10
         lea eax, [byte esp+02Ch]
         push eax
@@ -1823,7 +1823,7 @@ DrawTileTexture:
         mov dword [esp], 1
 .10:
         mov eax, dword [byte esp+0Ch]
-        cmp eax, dword [dword_16E684]
+        cmp eax, dword [ScreenHeight]
         jl short .11
         lea eax, [byte esp+02Ch]
         push eax
@@ -1844,18 +1844,18 @@ DrawTileTexture:
         xor esi, esi
         mov eax, dword [byte eax+04h]
         add ebp, byte 0Ch
-        mov dword [dword_1D3354], eax
+        mov dword [TileRowCount], eax
         mov dword [byte esp+08h], esi
         mov ebp, dword [byte ebp+04h]
         test edi, edi
         jle short .15
         mov eax, dword [byte esp+034h]
 .12:
-        mov ebx, dword [dword_1D3354]
+        mov ebx, dword [TileRowCount]
         mov edx, dword [byte eax+04h]
         cmp edx, ebx
         jge short .13
-        mov dword [dword_1D3354], edx
+        mov dword [TileRowCount], edx
         mov dword [byte esp+08h], esi
         jmp short .14
 .13:
@@ -1872,7 +1872,7 @@ DrawTileTexture:
         xor ebx, ebx
         test edi, edi
         jle short .17
-        mov esi, unk_1D2098
+        mov esi, TileEdgeTable
 .16:
         push eax
         push ebx
@@ -1896,19 +1896,19 @@ DrawTileTexture:
         xor eax, eax
 .18:
         mov ebx, dword [byte esp+024h]
-        mov dword [dword_1D335C], ebx
-        mov ebx, dword [dword_1D3354]
-        mov ecx, dword [dword_16E698]
+        mov dword [TileTexSize], ebx
+        mov ebx, dword [TileRowCount]
+        mov ecx, dword [DrawDestBuffer]
         shl ebx, 2
         add ebx, ecx
-        mov ecx, dword [dword_16E69C]
+        mov ecx, dword [DrawDestPitch]
         mov ebx, dword [ebx]
         add ecx, ebx
         mov ebx, dword [byte esp+024h]
-        mov dword [dword_1D3358], ecx
+        mov dword [TileRowY], ecx
         mov ebx, dword [byte ebx+02h]
         sar ebx, 10h
-        mov dword [dword_1D3350], ebx
+        mov dword [TileTexture], ebx
         cmp dword [byte esp+038h], byte 0
         jge short .19
         push edi
@@ -2366,7 +2366,7 @@ SetModelPartName:
         push ebx
         mov edx, dword [byte esp+08h]
         mov ebx, 28h
-        mov eax, unk_1D3D6C
+        mov eax, ModelPartName
         call strncpy_
         pop ebx
         ret

@@ -4,36 +4,36 @@ bits 32
 section s_1724D4 progbits alloc noexec write align=1
 extern EmuNoHook
 global _Envptr, _Envptr_w4, _Extender, _ExtenderSubtype, _LpCmdLine, _STACKLOW, _STACKTOP, __no87
-global __real87, _curbrk, _dynend, _osmajor, _osminor, _psp, byte_172518, byte_1725A4
-global byte_17268C, dword_1724D4, dword_17251B, dword_172524, dword_172564, dword_17257C, dword_17258C, dword_172590
-global dword_172594, dword_17259C, dword_1725AD, dword_172674, dword_172678, dword_17267C, dword_1726A0, dword_1726A4
-global dword_172AAC, qword_172690, qword_172698, tbyte_172680, word_172514, word_172516, word_172519, word_172568
-global word_17256A
-dword_1724D4:
+global __real87, _curbrk, _dynend, _osmajor, _osminor, _psp, CachedFileRetries, Is8087
+global MathErrorFlags, CachedFileTable, CachedFileFind, FpuSystemFlags, OldFpuVectorOffset, StackLow, CMainEnv, CMainResult
+global UngetChar, BreakSaveStack, FpuInitHook, BlitDestOffsets, BlitColumnOffsets, BlitSourcePtr, AtanTable, str_Punct_AngleOfVector
+global VideoModeHook, F64_709p783, F64_neg709p783, F80_1p5708, CachedFileDate, CachedFileTime, CachedFileDrive, OldFpuVectorSelector
+global FpuCr0Bits
+CachedFileTable:
         db 00h,00h,00h,00h,00h,048h,00h,00h,00h,050h,00h,00h,00h,00h,00h,00h
         db 00h,04Dh,00h,00h,00h,049h,00h,00h,00h,051h,00h,00h,00h,00h,00h,00h
         db 00h,04Bh,00h,00h,00h,047h,00h,00h,00h,04Fh,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-word_172514:
+CachedFileDate:
         db 00h,00h
-word_172516:
+CachedFileTime:
         db 00h,00h
-byte_172518:
+CachedFileRetries:
         db 00h
-word_172519:
+CachedFileDrive:
         db 00h,00h
-dword_17251B:
+CachedFileFind:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h
-dword_172524:
+FpuSystemFlags:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-dword_172564:
+OldFpuVectorOffset:
         db 00h,00h,00h,00h
-word_172568:
+OldFpuVectorSelector:
         db 00h,00h
-word_17256A:
+FpuCr0Bits:
         db 00h,00h
 __real87:
         db 00h,00h,00h,00h
@@ -43,7 +43,7 @@ _curbrk:
         db 00h,00h,00h,00h
 _LpCmdLine:
         db 00h,00h,00h,00h
-dword_17257C:
+StackLow:
         db 00h,00h,00h,00h
 _psp:
         db 00h,00h,00h,00h
@@ -51,13 +51,13 @@ _STACKLOW:
         db 00h,00h,00h,00h
 _STACKTOP:
         db 00h,00h,00h,00h
-dword_17258C:
+CMainEnv:
         db 00h,00h,00h,00h
-dword_172590:
+CMainResult:
         db 00h,00h,00h,00h
-dword_172594:
+UngetChar:
         db 00h,00h,00h,00h,00h,00h,00h,00h
-dword_17259C:
+BreakSaveStack:
         db 00h,00h,00h,00h
 __no87:
         db 00h,00h
@@ -65,7 +65,7 @@ _Extender:
         db 00h
 _ExtenderSubtype:
         db 00h
-byte_1725A4:
+Is8087:
         db 00h
 _Envptr:
         db 00h,00h,00h,00h
@@ -75,7 +75,7 @@ _osmajor:
         db 00h
 _osminor:
         db 00h
-dword_1725AD:
+FpuInitHook:
         dd EmuNoHook
         db 00h,00h,00h,040h,081h,049h,081h,067h,081h,094h,081h,090h,081h,093h,081h,095h
         db 081h,066h,081h,069h,081h,06Ah,081h,096h,081h,07Bh,081h,043h,081h,07Ch,081h,044h
@@ -90,23 +90,23 @@ dword_1725AD:
         db 082h,08Fh,082h,090h,082h,091h,082h,092h,082h,093h,082h,094h,082h,095h,082h,096h
         db 082h,097h,082h,098h,082h,099h,082h,09Ah,082h,06Fh,081h,062h,081h,070h,081h,060h
         db 081h,0A6h,081h
-dword_172674:
+BlitDestOffsets:
         db 00h,00h,00h,00h
-dword_172678:
+BlitColumnOffsets:
         db 00h,00h,00h,00h
-dword_17267C:
+BlitSourcePtr:
         db 00h,00h,00h,00h
-tbyte_172680:
+F80_1p5708:
         db 00h,0C0h,068h,021h,0A2h,0DAh,0Fh,0C9h,0FFh,03Fh,00h,00h
-byte_17268C:
+MathErrorFlags:
         db 00h,00h,00h,00h
-qword_172690:
+F64_709p783:
         db 0EEh,039h,0FAh,0FEh,042h,02Eh,086h,040h
-qword_172698:
+F64_neg709p783:
         db 0EEh,039h,0FAh,0FEh,042h,02Eh,086h,0C0h
-dword_1726A0:
+AtanTable:
         db 00h,00h,00h,00h
-dword_1726A4:
+str_Punct_AngleOfVector:
         db 029h,00h,00h,00h,051h,00h,00h,00h,07Ah,00h,00h,00h,0A3h,00h,00h,00h
         db 0CCh,00h,00h,00h,0F4h,00h,00h,00h,01Dh,01h,00h,00h,046h,01h,00h,00h
         db 06Fh,01h,00h,00h,097h,01h,00h,00h,0C0h,01h,00h,00h,0E9h,01h,00h,00h
@@ -172,5 +172,5 @@ dword_1726A4:
         db 06Fh,01Fh,00h,00h,084h,01Fh,00h,00h,099h,01Fh,00h,00h,0AEh,01Fh,00h,00h
         db 0C3h,01Fh,00h,00h,0D7h,01Fh,00h,00h,0ECh,01Fh,00h,00h,00h,020h,00h,00h
         db 00h,020h,00h,00h,00h,00h,00h,00h
-dword_172AAC:
+VideoModeHook:
         db 00h,00h,00h,00h

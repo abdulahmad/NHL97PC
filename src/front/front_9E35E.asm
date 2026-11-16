@@ -6,8 +6,8 @@ extern str_00004, str_HOM1, str_HOM2, str_AWY1, str_AWY2, str_Menu3, str_03dB, s
 extern str_011R3, str_012R2, str_013R2, str_11SR3, str_12SR2, str_13SR2, str_SW002, str_SWL2
 extern str_SWL3, str_01LL, str_02LL, str_03LL, str_01LR, str_02LR, str_03LR, str_01RL
 extern str_02RL, str_03RL, str_01RR, str_02RR, str_03RR, str_012R013R014R12SR13SR14SRS, str_SW00SW01SW02SW03SW04SW05S, str_1
-extern str_0001, str_0002, dword_16CFF8, dword_16D23C, dword_16D250, dword_16D76C, dword_16DA9C, dword_1AC944
-extern dword_1ACB45, dword_1C1334, dword_1C86FC, dword_1C8E4C, dword_1C8E50, dword_1C8E54, dword_1C8E58, dword_1C8E5C
+extern str_0001, str_0002, dword_16CFF8, dword_16D23C, dword_16D250, dword_16D76C, dword_16DA9C, GameOptionFlags
+extern TeamSelectFlags, dword_1C1334, dword_1C86FC, dword_1C8E4C, dword_1C8E50, dword_1C8E54, dword_1C8E58, dword_1C8E5C
 extern dword_1C8E60, dword_1C8E64, dword_1C8E88, dword_1C8E8C, dword_1C8E90, dword_1C8E94, dword_1C8E98, dword_1C8E9C
 extern dword_1C8F4C, dword_1C93D4, dword_1C93D8, PickIndexEntryScreen_393, PickIndexEntryScreen_3A4, PickIndexEntryScreen_3B5, PickIndexEntryScreen_470, PickIndexEntryScreen_4D9
 extern PickIndexEntryScreen_4EE, rand_, sprintf_, BlitShape2, BlitArt, PresentScreen, FindShape, FindShapeList
@@ -16,10 +16,10 @@ extern FadeInScreen, ShowScreen, ExitScreen, SetRegionRect, DrawTeamLogoBanner, 
 extern HideLinkBox, ShowPopupScreen, InitMenuItems, RunMenu, RunScrollList, GetLangText, LinkTransferSetup, SeasonSetupScreen
 extern LoadExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, PickDemoTeams, ClearLinkAbort, ServiceIdle, LinkSendBlock, LinkReceiveBlock
 extern AllocMemBlock, FreeMemBlock, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, tickcount, unk_16CFFC
-extern unk_1ACB44, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, word_1ACB47, word_1C8EA0, word_1C8EA2
+extern GlobalSetVersion, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, TeamSelectMode, word_1C8EA0, word_1C8EA2
 global jpt_9E8E8, jpt_9F6DD, DrawHomeTeamPanel_1C9, DrawHomeTeamPanel_1EC, TeamSelectScreen_7BE, TeamSelectScreen_7CF, TeamSelectScreen_7E0, TeamSelectScreen_7FC
 global TeamSelectScreen_815, TeamSelectScreen_8C4, TeamSelectScreen_918, TeamSelectScreen_94F, TeamSelectScreen_A05, TeamSelectScreen_A43, TeamSelectScreen_ACB, TeamSelectScreen_B55
-global TeamSelectScreen_B61, DrawHomeTeamPanel, DrawAwayTeamPanel, TeamSelectSparkle, TeamSelectScreen, IndexScreenSound, unk_9F5F1, unk_9F611
+global TeamSelectScreen_B61, DrawHomeTeamPanel, DrawAwayTeamPanel, TeamSelectSparkle, TeamSelectScreen, IndexScreenSound, str_Punct_PickIndexEntry, unk_9F611
 global unk_9F631, unk_9F651
 ;-----------------------------------------------------------------------------
 ; DrawHomeTeamPanel                               9E35E  96 PC, low confidence
@@ -495,27 +495,27 @@ TeamSelectScreen:
 .3:
         cmp dword [dword_16D76C], byte 0
         jne short .4
-        mov eax, dword [dword_1ACB45]
+        mov eax, dword [TeamSelectFlags]
         and eax, 0FC000h
         cmp eax, 84000h
         jb short .4
-        and dword [dword_1ACB45], 0FFF03FFFh
-        or byte [word_1ACB47], 7
+        and dword [TeamSelectFlags], 0FFF03FFFh
+        or byte [TeamSelectMode], 7
 .4:
         cmp dword [dword_16D76C], byte 0
         jne short .5
-        mov eax, dword [dword_1ACB45]
+        mov eax, dword [TeamSelectFlags]
         and eax, 3F00000h
         cmp eax, 2100000h
         jb short .5
-        and word [word_1ACB47], 0FC0Fh
-        or word [word_1ACB47], 1C0h
+        and word [TeamSelectMode], 0FC0Fh
+        or word [TeamSelectMode], 1C0h
 .5:
-        mov eax, dword [dword_1ACB45]
+        mov eax, dword [TeamSelectFlags]
         shl eax, 0Ch
         shr eax, 1Ah
         mov dword [byte ebp+07Ah], eax
-        mov eax, dword [dword_1ACB45]
+        mov eax, dword [TeamSelectFlags]
         shl eax, 6
         shr eax, 1Ah
         mov dword [byte ebp+076h], eax
@@ -1074,13 +1074,13 @@ TeamSelectScreen_94F:
         cmp dword [byte ebp+072h], byte 0FFFFFFFFh
         jne near TeamSelectScreen_B61.32
         mov edx, dword [byte ebp+07Ah]
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         and edx, byte 3Fh
         and dword [byte eax+01h], 0FFF03FFFh
         shl edx, 0Eh
         or dword [byte eax+01h], edx
         mov edx, dword [byte ebp+076h]
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         push byte 3
         and edx, byte 3Fh
         and word [byte eax+03h], 0FC0Fh
@@ -1261,15 +1261,15 @@ TeamSelectScreen_B61:
 .38:
         mov eax, dword [byte ebp+07Ah]
         and eax, byte 3Fh
-        and dword [dword_1ACB45], 0FFF03FFFh
+        and dword [TeamSelectFlags], 0FFF03FFFh
         shl eax, 0Eh
-        or dword [dword_1ACB45], eax
+        or dword [TeamSelectFlags], eax
         mov eax, dword [byte ebp+076h]
         and eax, byte 3Fh
-        and word [word_1ACB47], 0FC0Fh
+        and word [TeamSelectMode], 0FC0Fh
         shl eax, 14h
-        mov dword [dword_1AC944], unk_1ACB44
-        or dword [dword_1ACB45], eax
+        mov dword [GameOptionFlags], GlobalSetVersion
+        or dword [TeamSelectFlags], eax
 .39:
         cmp dword [byte ebp+066h], byte 0
         je short .40
@@ -1284,7 +1284,7 @@ TeamSelectScreen_B61:
         pop ebp
         jmp near DrawHomeTeamPanel_1EC
         db 00h,00h,01h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,01h,00h
-unk_9F5F1:
+str_Punct_PickIndexEntry:
         db 0Ah,00h,00h,00h,0F6h,0FFh,0FFh,0FFh,0Ah,00h,00h,00h,0Ah,00h,00h,00h
         db 042h,0FFh,0FFh,0FFh,0Ah,00h,00h,00h,042h,0FFh,0FFh,0FFh,0F6h,0FFh,0FFh,0FFh
 unk_9F611:

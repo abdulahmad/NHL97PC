@@ -6,8 +6,8 @@ extern SetClipWindow, str_POPM, str_BACK9, str_TITL10, str_MAP0, str_BDOT, str_R
 extern str_ARED, str_MB022, str_MB012, str_MB002, str_LB003, str_LD00, str_LB02d4, str_FNL0
 extern str_LTL0, str_CSV, str_HistoryCsv, str_MNTR2, str_MB042, str_MB02d, str_1TOP5, str_2TOP5
 extern str_3TOP5, str_1BOT5, str_2BOT5, str_3BOT5, str_BAK0, str_BAK1, str_BOTM3, str_BACK10
-extern str_TTL12, str_BOT1, str_TTL02, str_None, byte_16D5DC, byte_1AC81B, byte_1AC81C, byte_1C6040
-extern byte_1CBB8C, dword_16D504, dword_16D508, dword_16DA9C, dword_1AC819, dword_1C5DE4, dword_1C5E74, dword_1CB014
+extern str_TTL12, str_BOT1, str_TTL02, str_None, byte_16D5DC, MusicOptions, DetailLevel, byte_1C6040
+extern byte_1CBB8C, str_E_BuildHistoryList, dword_16D508, dword_16DA9C, AudioOptions, dword_1C5DE4, dword_1C5E74, dword_1CB014
 extern dword_1CB018, dword_1CB064, dword_1CB068, dword_1CB06C, dword_1CB070, dword_1CB074, dword_1CB078, dword_1CB07C
 extern dword_1CB080, dword_1CB084, dword_1CB088, dword_1CB08C, dword_1CB090, dword_1CB094, dword_1CB098, dword_1CB09C
 extern dword_1CB0A0, dword_1CB0A4, dword_1CB0A8, dword_1CB0AC, dword_1CB0B0, dword_1CB0B4, dword_1CB0B8, dword_1CB0BC
@@ -656,7 +656,7 @@ DrawHistoryScreen:
         mov dword [dword_1CB084], 0
 .6:
         mov eax, dword [byte ebp-04h]
-        mov edi, dword [nosplit eax*8+dword_16D504]
+        mov edi, dword [nosplit eax*8+str_E_BuildHistoryList]
         mov eax, dword [nosplit eax*8+dword_16D508]
         sub eax, byte 28h
         push dword [dword_1CB0AC]
@@ -981,7 +981,7 @@ BuildHistoryList:
         sub ebp, 82h
         xor esi, esi
 .1:
-        mov eax, dword [nosplit esi*8+dword_16D504]
+        mov eax, dword [nosplit esi*8+str_E_BuildHistoryList]
         mov edi, 28h
         mov dword [byte ebp+07Eh], eax
         add eax, edi
@@ -1063,7 +1063,7 @@ BuildHistoryList:
         jne near .15
         mov eax, ecx
         shl eax, 3
-        mov ebx, dword [dword eax+dword_16D504]
+        mov ebx, dword [dword eax+str_E_BuildHistoryList]
         cmp ebx, dword [byte ebp+07Eh]
         jge near .8
         mov ebx, dword [byte ebp+07Ah]
@@ -1072,7 +1072,7 @@ BuildHistoryList:
         mov ebx, dword [byte ebp+07Eh]
         sub ebx, dword [byte ebp+046h]
         mov dword [byte ebp+046h], ebx
-        mov ebx, dword [dword eax+dword_16D504]
+        mov ebx, dword [dword eax+str_E_BuildHistoryList]
         cmp ebx, dword [byte ebp+046h]
         jle near .8
         cmp edx, dword [dword eax+dword_16D508]
@@ -1085,7 +1085,7 @@ BuildHistoryList:
         mov ebx, dword [dword eax+dword_16D508]
         cmp ebx, dword [byte ebp+046h]
         jle short .5
-        mov eax, dword [dword eax+dword_16D504]
+        mov eax, dword [dword eax+str_E_BuildHistoryList]
         add eax, dword [byte ebp+07Ah]
         cmp eax, dword [byte ebp-02Ah]
         jle short .3
@@ -1120,7 +1120,7 @@ BuildHistoryList:
         mov eax, dword [byte ebp+052h]
         mov dword [byte ebp-06h], eax
 .6:
-        mov eax, dword [nosplit ecx*8+dword_16D504]
+        mov eax, dword [nosplit ecx*8+str_E_BuildHistoryList]
         add eax, dword [byte ebp+07Ah]
         cmp eax, dword [byte ebp-02h]
         jle near .15
@@ -1132,7 +1132,7 @@ BuildHistoryList:
         cmp edx, dword [dword eax+dword_16D508]
         jne near .15
         mov ebx, edx
-        mov eax, dword [dword eax+dword_16D504]
+        mov eax, dword [dword eax+str_E_BuildHistoryList]
         sub ebx, edi
         add eax, dword [byte ebp+07Ah]
         inc ebx
@@ -1142,7 +1142,7 @@ BuildHistoryList:
 .8:
         mov eax, ecx
         shl eax, 3
-        mov ebx, dword [dword eax+dword_16D504]
+        mov ebx, dword [dword eax+str_E_BuildHistoryList]
         cmp ebx, dword [byte ebp+07Eh]
         jle near .13
         mov ebx, dword [byte ebp+07Ah]
@@ -1151,7 +1151,7 @@ BuildHistoryList:
         mov ebx, dword [byte ebp+07Eh]
         add ebx, dword [byte ebp+046h]
         mov dword [byte ebp+046h], ebx
-        mov ebx, dword [dword eax+dword_16D504]
+        mov ebx, dword [dword eax+str_E_BuildHistoryList]
         cmp ebx, dword [byte ebp+046h]
         jge near .13
         cmp edx, dword [dword eax+dword_16D508]
@@ -1162,7 +1162,7 @@ BuildHistoryList:
         mov ebx, dword [dword eax+dword_16D508]
         cmp ebx, dword [byte ebp+046h]
         jge short .10
-        mov eax, dword [dword eax+dword_16D504]
+        mov eax, dword [dword eax+str_E_BuildHistoryList]
         sub eax, dword [byte ebp+07Ah]
         cmp eax, dword [byte ebp+016h]
         jge short .9
@@ -1197,7 +1197,7 @@ BuildHistoryList:
         mov eax, dword [byte ebp+05Eh]
         mov dword [byte ebp+03Ah], eax
 .11:
-        mov eax, dword [nosplit ecx*8+dword_16D504]
+        mov eax, dword [nosplit ecx*8+str_E_BuildHistoryList]
         sub eax, dword [byte ebp+07Ah]
         cmp eax, dword [byte ebp+03Eh]
         jge near .15
@@ -1209,7 +1209,7 @@ BuildHistoryList:
         cmp edx, dword [dword eax+dword_16D508]
         jne near .15
         lea ebx, [edx+edi]
-        mov eax, dword [dword eax+dword_16D504]
+        mov eax, dword [dword eax+str_E_BuildHistoryList]
         sub eax, dword [byte ebp+07Ah]
         dec ebx
         mov dword [byte ebp+03Eh], eax
@@ -1219,7 +1219,7 @@ BuildHistoryList:
         mov eax, ecx
         shl eax, 3
         mov dword [byte ebp+06Ah], eax
-        mov eax, dword [dword eax+dword_16D504]
+        mov eax, dword [dword eax+str_E_BuildHistoryList]
         cmp eax, dword [byte ebp+07Eh]
         jne near .15
         mov eax, dword [byte ebp+06Ah]
@@ -2605,7 +2605,7 @@ DrawHistoryTrophy:
         jne short .10
         mov ebx, dword [dword eax+dword_16D508]
         sub ebx, byte 4
-        mov eax, dword [dword eax+dword_16D504]
+        mov eax, dword [dword eax+str_E_BuildHistoryList]
         push ebx
         sub eax, byte 4
         push eax
@@ -2614,7 +2614,7 @@ DrawHistoryTrophy:
 .10:
         mov ebx, dword [dword eax+dword_16D508]
         sub ebx, byte 4
-        mov eax, dword [dword eax+dword_16D504]
+        mov eax, dword [dword eax+str_E_BuildHistoryList]
         push ebx
         sub eax, byte 4
         push eax
@@ -3405,7 +3405,7 @@ DetailLevelScreen:
 .6:
         cmp si, 0D7h
         jle short .5
-        test byte [byte_1AC81B], 20h
+        test byte [MusicOptions], 20h
         je short .7
         mov eax, dword [byte ebp-040h]
         mov eax, dword [byte eax+02Ch]
@@ -3426,7 +3426,7 @@ DetailLevelScreen:
 .8:
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-0540h], eax
-        test byte [byte_1AC81B], 40h
+        test byte [MusicOptions], 40h
         je short .9
         cmp byte [byte_1C6040], 0
         jne short .9
@@ -3449,7 +3449,7 @@ DetailLevelScreen:
 .10:
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-04EEh], eax
-        test byte [byte_1AC81C], 1
+        test byte [DetailLevel], 1
         je short .11
         cmp byte [byte_1C6040], 0
         jne short .11
@@ -3472,7 +3472,7 @@ DetailLevelScreen:
 .12:
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-049Ch], eax
-        test byte [byte_1AC81C], 2
+        test byte [DetailLevel], 2
         je short .13
         mov eax, dword [byte ebp-040h]
         mov eax, dword [byte eax+02Ch]
@@ -3493,7 +3493,7 @@ DetailLevelScreen:
 .14:
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-044Ah], eax
-        test byte [byte_1AC81C], 4
+        test byte [DetailLevel], 4
         je short .15
         mov eax, dword [byte ebp-040h]
         mov eax, dword [byte eax+02Ch]
@@ -3514,7 +3514,7 @@ DetailLevelScreen:
 .16:
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-03F8h], eax
-        test byte [byte_1AC81C], 8
+        test byte [DetailLevel], 8
         je short .17
         mov eax, dword [byte ebp-040h]
         mov eax, dword [byte eax+02Ch]
@@ -3535,7 +3535,7 @@ DetailLevelScreen:
 .18:
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-03A6h], eax
-        test byte [byte_1AC81C], 20h
+        test byte [DetailLevel], 20h
         je short .19
         mov eax, dword [byte ebp-040h]
         mov eax, dword [byte eax+02Ch]
@@ -3939,7 +3939,7 @@ DetailLevelScreen_A25:
         mov dword [byte ebp-08h], 1
         jmp near DetailLevelScreen_B18
 DetailLevelScreen_A36:
-        test byte [byte_1AC81B], 20h
+        test byte [MusicOptions], 20h
         je short .26
         mov eax, dword [byte ebp-038h]
         mov eax, dword [byte eax+02Ch]
@@ -3949,7 +3949,7 @@ DetailLevelScreen_A36:
         mov dword [dword ebp-0544h], eax
         mov eax, dword [byte ebp-038h]
         mov eax, dword [byte eax+02Ch]
-        and byte [byte_1AC81B], 0DFh
+        and byte [MusicOptions], 0DFh
         jmp short .27
 .26:
         mov eax, dword [byte ebp-040h]
@@ -3960,17 +3960,17 @@ DetailLevelScreen_A36:
         mov dword [dword ebp-0544h], eax
         mov eax, dword [byte ebp-040h]
         mov eax, dword [byte eax+02Ch]
-        or byte [byte_1AC81B], 20h
+        or byte [MusicOptions], 20h
 .27:
         mov dword [dword ebp-0540h], eax
         jmp short DetailLevelScreen_A93.30
 DetailLevelScreen_A93:
         cmp byte [byte_1C6040], 0
         je short .28
-        and byte [byte_1AC81B], 0BFh
+        and byte [MusicOptions], 0BFh
         jmp short DetailLevelScreen_B18
 .28:
-        test byte [byte_1AC81B], 40h
+        test byte [MusicOptions], 40h
         je near DetailLevelScreen_B18.32
         mov eax, dword [byte ebp-038h]
         mov eax, dword [byte eax+02Ch]
@@ -3989,7 +3989,7 @@ DetailLevelScreen_A93:
         mov dword [dword ebp-04A0h], eax
         mov eax, dword [byte ebp-038h]
         mov eax, dword [byte eax+02Ch]
-        and word [byte_1AC81B], 0FEBFh
+        and word [MusicOptions], 0FEBFh
 .29:
         mov dword [dword ebp-049Ch], eax
 .30:
@@ -4023,18 +4023,18 @@ DetailLevelScreen_B18:
         mov dword [dword ebp-04F2h], eax
         mov eax, dword [byte ebp-040h]
         mov eax, dword [byte eax+02Ch]
-        or byte [byte_1AC81B], 40h
+        or byte [MusicOptions], 40h
         mov dword [dword ebp-04EEh], eax
         jmp short DetailLevelScreen_A93.30
 DetailLevelScreen_B7E:
-        mov edx, dword [dword_1AC819]
+        mov edx, dword [AudioOptions]
         and edx, 0FEFFFFFFh
         cmp byte [byte_1C6040], 0
         je short .33
-        mov dword [dword_1AC819], edx
+        mov dword [AudioOptions], edx
         jmp near DetailLevelScreen_B18
 .33:
-        test byte [byte_1AC81C], 1
+        test byte [DetailLevel], 1
         je short .34
         mov eax, dword [byte ebp-038h]
         mov eax, dword [byte eax+02Ch]
@@ -4045,7 +4045,7 @@ DetailLevelScreen_B7E:
         mov eax, dword [byte ebp-038h]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-049Ch], eax
-        mov dword [dword_1AC819], edx
+        mov dword [AudioOptions], edx
         jmp near DetailLevelScreen_A93.30
 .34:
         mov eax, dword [byte ebp-040h]
@@ -4065,10 +4065,10 @@ DetailLevelScreen_B7E:
         mov dword [dword ebp-04A0h], eax
         mov eax, dword [byte ebp-040h]
         mov eax, dword [byte eax+02Ch]
-        or word [byte_1AC81B], 140h
+        or word [MusicOptions], 140h
         jmp near DetailLevelScreen_A93.29
 DetailLevelScreen_C26:
-        test byte [byte_1AC81C], 2
+        test byte [DetailLevel], 2
         je short .35
         mov eax, dword [byte ebp-038h]
         mov eax, dword [byte eax+02Ch]
@@ -4078,7 +4078,7 @@ DetailLevelScreen_C26:
         mov dword [dword ebp-044Eh], eax
         mov eax, dword [byte ebp-038h]
         mov eax, dword [byte eax+02Ch]
-        and byte [byte_1AC81C], 0FDh
+        and byte [DetailLevel], 0FDh
         jmp short .36
 .35:
         mov eax, dword [byte ebp-040h]
@@ -4089,12 +4089,12 @@ DetailLevelScreen_C26:
         mov dword [dword ebp-044Eh], eax
         mov eax, dword [byte ebp-040h]
         mov eax, dword [byte eax+02Ch]
-        or byte [byte_1AC81C], 2
+        or byte [DetailLevel], 2
 .36:
         mov dword [dword ebp-044Ah], eax
         jmp near DetailLevelScreen_A93.30
 DetailLevelScreen_C86:
-        test byte [byte_1AC81C], 4
+        test byte [DetailLevel], 4
         je short .37
         mov eax, dword [byte ebp-038h]
         mov eax, dword [byte eax+02Ch]
@@ -4104,7 +4104,7 @@ DetailLevelScreen_C86:
         mov dword [dword ebp-03FCh], eax
         mov eax, dword [byte ebp-038h]
         mov eax, dword [byte eax+02Ch]
-        and byte [byte_1AC81C], 0FBh
+        and byte [DetailLevel], 0FBh
         jmp short .38
 .37:
         mov eax, dword [byte ebp-040h]
@@ -4115,12 +4115,12 @@ DetailLevelScreen_C86:
         mov dword [dword ebp-03FCh], eax
         mov eax, dword [byte ebp-040h]
         mov eax, dword [byte eax+02Ch]
-        or byte [byte_1AC81C], 4
+        or byte [DetailLevel], 4
 .38:
         mov dword [dword ebp-03F8h], eax
         jmp near DetailLevelScreen_A93.30
 DetailLevelScreen_CE6:
-        test byte [byte_1AC81C], 8
+        test byte [DetailLevel], 8
         je short .39
         mov eax, dword [byte ebp-038h]
         mov eax, dword [byte eax+02Ch]
@@ -4130,7 +4130,7 @@ DetailLevelScreen_CE6:
         mov dword [dword ebp-03AAh], eax
         mov eax, dword [byte ebp-038h]
         mov eax, dword [byte eax+02Ch]
-        and byte [byte_1AC81C], 0F7h
+        and byte [DetailLevel], 0F7h
         jmp short .40
 .39:
         mov eax, dword [byte ebp-040h]
@@ -4141,12 +4141,12 @@ DetailLevelScreen_CE6:
         mov dword [dword ebp-03AAh], eax
         mov eax, dword [byte ebp-040h]
         mov eax, dword [byte eax+02Ch]
-        or byte [byte_1AC81C], 8
+        or byte [DetailLevel], 8
 .40:
         mov dword [dword ebp-03A6h], eax
         jmp near DetailLevelScreen_A93.30
 DetailLevelScreen_D46:
-        test byte [byte_1AC81C], 20h
+        test byte [DetailLevel], 20h
         je short .41
         mov eax, dword [byte ebp-038h]
         mov eax, dword [byte eax+02Ch]
@@ -4156,7 +4156,7 @@ DetailLevelScreen_D46:
         mov dword [dword ebp-0358h], eax
         mov eax, dword [byte ebp-038h]
         mov eax, dword [byte eax+02Ch]
-        and byte [byte_1AC81C], 0DFh
+        and byte [DetailLevel], 0DFh
         jmp short .42
 .41:
         mov eax, dword [byte ebp-040h]
@@ -4167,7 +4167,7 @@ DetailLevelScreen_D46:
         mov dword [dword ebp-0358h], eax
         mov eax, dword [byte ebp-040h]
         mov eax, dword [byte eax+02Ch]
-        or byte [byte_1AC81C], 20h
+        or byte [DetailLevel], 20h
 .42:
         mov dword [dword ebp-0354h], eax
         jmp near DetailLevelScreen_A93.30

@@ -2,69 +2,69 @@
 bits 32
 %include "hockey.inc"
 section s_19D3AC nobits alloc noexec write align=1
-global SortCords, byte_19D53C, byte_19D555, byte_19D604, byte_19D636, byte_19DAD4, byte_19DAD5, byte_19DAD6
-global dword_19D3AC, dword_19D40D, dword_19D410, dword_19DA50, dword_19DA58, dword_19DA68, dword_19DA70, dword_19DA94
-global dword_19DAD3, dword_19DADD, unk_19D474, unk_19D4A6, unk_19D4D8, unk_19D50A, unk_19D56E, unk_19D5A0
-global unk_19D5D2, unk_19D668, unk_19D6A0, word_19D69A, word_19D69C, word_19D69E, word_19DAD9
-dword_19D3AC:
+global SortCords, LineSlotTaken, LineSlotStart, DefenseByDefense, ForwardsByOffense, StanleyFlag, GoalFlags, GoalieFlags
+global LineSortKeys, LineSortIndex, LineSortOrder, PlayerPointsTable, PlayerScoreTable, PlayerUpdateFlags, PlayerUpdateTable, PuckStickTimers
+global PenaltyRecord, PlayerAssignPtrs, CentersByOffense, RightWingsByDefense, CentersByDefense, LeftWingsByOffense, LeftWingsByDefense, RightWingsByOffense
+global DefenseByOffense, ForwardsByDefense, BenchPlayerTable, LineBuildLine, LineBuildSlot, LineBuildPlayer, PlayerAssignWords
+LineSortKeys:
         resb 97
-dword_19D40D:
+LineSortIndex:
         resb 3
-dword_19D410:
+LineSortOrder:
         resb 100
-unk_19D474:
+CentersByOffense:
         resb 50
-unk_19D4A6:
+RightWingsByDefense:
         resb 50
-unk_19D4D8:
+CentersByDefense:
         resb 50
-unk_19D50A:
+LeftWingsByOffense:
         resb 50
-byte_19D53C:
+LineSlotTaken:
         resb 25
-byte_19D555:
+LineSlotStart:
         resb 25
-unk_19D56E:
+LeftWingsByDefense:
         resb 50
-unk_19D5A0:
+RightWingsByOffense:
         resb 50
-unk_19D5D2:
+DefenseByOffense:
         resb 50
-byte_19D604:
+DefenseByDefense:
         resb 50
-byte_19D636:
+ForwardsByOffense:
         resb 50
-unk_19D668:
+ForwardsByDefense:
         resb 50
-word_19D69A:
+LineBuildLine:
         resb 2
-word_19D69C:
+LineBuildSlot:
         resb 2
-word_19D69E:
+LineBuildPlayer:
         resb 2
-unk_19D6A0:
+BenchPlayerTable:
         resb 912
 SortCords:
         resb 32
-dword_19DA50:
+PlayerPointsTable:
         resb 8
-dword_19DA58:
+PlayerScoreTable:
         resb 16
-dword_19DA68:
+PlayerUpdateFlags:
         resb 8
-dword_19DA70:
+PlayerUpdateTable:
         resb 36
-dword_19DA94:
+PuckStickTimers:
         resb 63
-dword_19DAD3:
+PenaltyRecord:
         resb 1
-byte_19DAD4:
+StanleyFlag:
         resb 1
-byte_19DAD5:
+GoalFlags:
         resb 1
-byte_19DAD6:
+GoalieFlags:
         resb 3
-word_19DAD9:
+PlayerAssignWords:
         resb 4
-dword_19DADD:
+PlayerAssignPtrs:
         resb 1

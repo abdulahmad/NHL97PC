@@ -2,9 +2,9 @@
 bits 32
 %include "hockey.inc"
 section s_16D668 progbits alloc noexec write align=1
-global dword_16D668, dword_16D66C, dword_16D670, dword_16D674, dword_16D678, dword_16D67C, dword_16D680, dword_16D684
-global dword_16D688, dword_16D694, dword_16D698, dword_16D6A4, dword_16D6A8, dword_16D6AC, dword_16D6B0, dword_16D6B4
-global dword_16D6B8, dword_16D6BC, dword_16D6C0, dword_16D6E8, dword_16D6EC, dword_16D6F0, dword_16D6F4, dword_16D6F8
+global dword_16D668, dword_16D66C, dword_16D670, dword_16D674, dword_16D678, dword_16D67C, dword_16D680, str_Punct_InitRosterScreen
+global str_X_InitRosterScreen, str_7_SetupRosterLists, str_I_SetupRosterLists, str_Punct_DrawRosterList, str_X_DrawRosterList, dword_16D6AC, str_X_SetupRosterLists, dword_16D6B4
+global str_X_ShowRosterLogo, dword_16D6BC, dword_16D6C0, dword_16D6E8, dword_16D6EC, dword_16D6F0, dword_16D6F4, dword_16D6F8
 global dword_16D6FC, dword_16D700, dword_16D704, dword_16D708, dword_16D71C, dword_16D720, dword_16D724, dword_16D728
 global dword_16D73C, dword_16D740, dword_16D744, dword_16D748, dword_16D74C, dword_16D750, dword_16D754, dword_16D760
 global dword_16D764, word_16D6C4, word_16D6D2, word_16D6E4
@@ -22,25 +22,25 @@ dword_16D67C:
         db 00h,00h,00h,00h
 dword_16D680:
         db 00h,00h,00h,00h
-dword_16D684:
+str_Punct_InitRosterScreen:
         db 0Ah,00h,00h,00h
-dword_16D688:
+str_X_InitRosterScreen:
         db 078h,00h,00h,00h,062h,02h,00h,00h,078h,00h,00h,00h
-dword_16D694:
+str_7_SetupRosterLists:
         db 037h,00h,00h,00h
-dword_16D698:
+str_I_SetupRosterLists:
         db 049h,00h,00h,00h,0BFh,01h,00h,00h,049h,00h,00h,00h
-dword_16D6A4:
+str_Punct_DrawRosterList:
         db 028h,00h,00h,00h
-dword_16D6A8:
+str_X_DrawRosterList:
         db 078h,00h,00h,00h
 dword_16D6AC:
         db 0A4h,01h,00h,00h
-dword_16D6B0:
+str_X_SetupRosterLists:
         db 078h,00h,00h,00h
 dword_16D6B4:
         db 0DCh,00h,00h,00h
-dword_16D6B8:
+str_X_ShowRosterLogo:
         db 078h,00h,00h,00h
 dword_16D6BC:
         db 0A4h,01h,00h,00h

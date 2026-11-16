@@ -2,13 +2,16 @@
 bits 32
 %include "hockey.inc"
 section s_1326EF progbits alloc exec nowrite align=1
-extern dword_172594
+extern UngetChar
 global getche_
+;-----------------------------------------------------------------------------
+; getche_                                                      1326EF  library
+;-----------------------------------------------------------------------------
 getche_:
         push edx
         xor edx, edx
-        mov eax, dword [dword_172594]
-        mov dword [dword_172594], edx
+        mov eax, dword [UngetChar]
+        mov dword [UngetChar], edx
         test eax, eax
         jne short .1
         mov ah, 1

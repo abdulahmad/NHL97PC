@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_112B84 progbits alloc exec nowrite align=1
-extern dword_17025C, dword_170260, dword_170264, dword_170268, dword_170274, memcpy_, FillSpanRow, unk_1D8AC8
-extern unk_1D8CC8, unk_1D8EC8
+extern ViewCenterY, str_D_ProjectPointsPersp, CameraSinYaw, CameraCosYaw, CameraFlags, memcpy_, FillSpanRow, NearClipTexVerts
+extern NearClipVertsIn, NearClipVertsOut
 global PolySideTest, ClipPolyToNear, DrawRinkPolyList, FillTexturedSpan, ClipTexPolyToNear
 ;-----------------------------------------------------------------------------
 ; PolySideTest                                   112B84  97 PC, low confidence
@@ -76,25 +76,25 @@ ClipPolyToNear:
         sub eax, esi
         lea ebx, [nosplit eax*4+00h]
         mov edx, ebp
-        mov eax, unk_1D8EC8
+        mov eax, NearClipVertsOut
         lea ecx, [nosplit esi*8+00h]
         call memcpy_
         mov edx, dword [byte esp+028h]
-        mov eax, unk_1D8CC8
+        mov eax, NearClipVertsIn
         mov ebx, ecx
         call memcpy_
         lea eax, [nosplit esi*4+00h]
         sub eax, esi
-        mov edx, unk_1D8CC8
-        mov esi, unk_1D8EC8
-        lea edi, [nosplit eax*4+unk_1D8EC8]
+        mov edx, NearClipVertsIn
+        mov esi, NearClipVertsOut
+        lea edi, [nosplit eax*4+NearClipVertsOut]
         mov dword [byte esp+04h], edx
         movsd
         movsd
         movsd
-        mov eax, unk_1D8EC8
-        mov esi, unk_1D8CC8
-        lea edi, [dword ecx+unk_1D8CC8]
+        mov eax, NearClipVertsOut
+        mov esi, NearClipVertsIn
+        lea edi, [dword ecx+NearClipVertsIn]
         lea ebx, [byte eax+0Ch]
         xor ecx, ecx
         movsd
@@ -124,20 +124,20 @@ ClipPolyToNear:
         cmp dword [byte esi+08h], byte 0
         jle short .3
         mov eax, dword [esi]
-        imul dword [dword_170264]
+        imul dword [CameraSinYaw]
         idiv dword [byte esi+08h]
-        add eax, dword [dword_17025C]
+        add eax, dword [ViewCenterY]
         mov dword [edi], eax
         mov eax, dword [byte esi+04h]
-        imul dword [dword_170268]
+        imul dword [CameraCosYaw]
         idiv dword [byte esi+08h]
-        add eax, dword [dword_170260]
+        add eax, dword [str_D_ProjectPointsPersp]
         mov dword [byte edi+04h], eax
         jmp short .4
 .3:
         mov dword [edi], 80000000h
         mov dword [byte edi+04h], 80000000h
-        or dword [dword_170274], byte 1
+        or dword [CameraFlags], byte 1
 .4:
         mov esi, dword [byte esp+08h]
         inc esi
@@ -174,20 +174,20 @@ ClipPolyToNear:
         cmp dword [byte esi+08h], byte 0
         jle short .6
         mov eax, dword [esi]
-        imul dword [dword_170264]
+        imul dword [CameraSinYaw]
         idiv dword [byte esi+08h]
-        add eax, dword [dword_17025C]
+        add eax, dword [ViewCenterY]
         mov dword [edi], eax
         mov eax, dword [byte esi+04h]
-        imul dword [dword_170268]
+        imul dword [CameraCosYaw]
         idiv dword [byte esi+08h]
-        add eax, dword [dword_170260]
+        add eax, dword [str_D_ProjectPointsPersp]
         mov dword [byte edi+04h], eax
         jmp short .7
 .6:
         mov dword [edi], 80000000h
         mov dword [byte edi+04h], 80000000h
-        or dword [dword_170274], byte 1
+        or dword [CameraFlags], byte 1
 .7:
         mov edx, dword [byte esp+08h]
         add edx, byte 2
@@ -339,20 +339,20 @@ FillTexturedSpan:
         cmp dword [byte esi+08h], byte 0
         jle short .1
         mov eax, dword [esi]
-        imul dword [dword_170264]
+        imul dword [CameraSinYaw]
         idiv dword [byte esi+08h]
-        add eax, dword [dword_17025C]
+        add eax, dword [ViewCenterY]
         mov dword [edi], eax
         mov eax, dword [byte esi+04h]
-        imul dword [dword_170268]
+        imul dword [CameraCosYaw]
         idiv dword [byte esi+08h]
-        add eax, dword [dword_170260]
+        add eax, dword [str_D_ProjectPointsPersp]
         mov dword [byte edi+04h], eax
         jmp short .2
 .1:
         mov dword [edi], 80000000h
         mov dword [byte edi+04h], 80000000h
-        or dword [dword_170274], byte 1
+        or dword [CameraFlags], byte 1
 .2:
         pop ebp
         pop edi
@@ -385,39 +385,39 @@ ClipTexPolyToNear:
         cmp eax, byte 2
         je near .7
         lea ebx, [nosplit esi*4+00h]
-        mov eax, unk_1D8EC8
+        mov eax, NearClipVertsOut
         sub ebx, esi
         mov edx, ebp
         shl ebx, 2
         call memcpy_
         lea ecx, [nosplit esi*8+00h]
         mov edx, dword [byte esp+02Ch]
-        mov eax, unk_1D8CC8
+        mov eax, NearClipVertsIn
         mov ebx, ecx
         call memcpy_
         mov edx, dword [byte esp+030h]
-        mov eax, unk_1D8AC8
+        mov eax, NearClipTexVerts
         mov ebx, ecx
         call memcpy_
         lea eax, [nosplit esi*4+00h]
         sub eax, esi
-        mov esi, unk_1D8EC8
-        lea edi, [nosplit eax*4+unk_1D8EC8]
-        mov edx, unk_1D8CC8
+        mov esi, NearClipVertsOut
+        lea edi, [nosplit eax*4+NearClipVertsOut]
+        mov edx, NearClipVertsIn
         movsd
         movsd
         movsd
         mov dword [byte esp+04h], edx
-        mov esi, unk_1D8CC8
-        lea edi, [dword ecx+unk_1D8CC8]
-        mov edx, unk_1D8AC8
-        mov eax, unk_1D8EC8
+        mov esi, NearClipVertsIn
+        lea edi, [dword ecx+NearClipVertsIn]
+        mov edx, NearClipTexVerts
+        mov eax, NearClipVertsOut
         movsd
         movsd
         lea ebx, [byte eax+0Ch]
-        lea edi, [dword ecx+unk_1D8AC8]
+        lea edi, [dword ecx+NearClipTexVerts]
         lea ecx, [byte edx+08h]
-        mov esi, unk_1D8AC8
+        mov esi, NearClipTexVerts
         mov dword [byte esp+08h], ecx
         xor ecx, ecx
         movsd

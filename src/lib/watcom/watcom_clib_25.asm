@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_12F9E3 progbits alloc exec nowrite align=1
-extern __CommonInit_, dword_17258C, dword_172590, dword_19C690, dword_1DE784, dword_1DE788, exit_, main_
-extern BlitConverted, ConvertArtAt, CMainHook, SetScreenTarget, unk_19C648, unk_19C67E
+extern __CommonInit_, CMainEnv, CMainResult, VideoCodePtr, CMainArgc, CMainArgv, exit_, main_
+extern BlitConverted, ConvertArtAt, CMainHook, SetScreenTarget, InitRtnsEntry, FiniRtnsEntry
 global __CMain, __FiniRtns, __InitRtns, PrintScreen
 ;-----------------------------------------------------------------------------
 ; __CMain                                                      12F9E3  library
@@ -12,7 +12,7 @@ __CMain:
         push edx
         push ebp
         mov ebp, esp
-        mov edx, dword [dword_17258C]
+        mov edx, dword [CMainEnv]
         add edx, byte 3
         and dl, 0FCh
         call CMainHook
@@ -25,12 +25,12 @@ __CMain:
 .1:
         xor eax, eax
 .2:
-        mov edx, dword [dword_17258C]
+        mov edx, dword [CMainEnv]
         add eax, edx
-        mov dword [dword_172590], eax
+        mov dword [CMainResult], eax
         call __CommonInit_
-        mov edx, dword [dword_1DE788]
-        mov eax, dword [dword_1DE784]
+        mov edx, dword [CMainArgv]
+        mov eax, dword [CMainArgc]
         call main_
         call exit_
         db 089h,0ECh,05Dh,05Ah,0C3h
@@ -46,9 +46,9 @@ __InitRtns:
         mov edx, eax
 .1:
         db 03Eh,0BEh                            ; insn: mov esi,3C648h
-        dd unk_19C648
+        dd InitRtnsEntry
         db 03Eh,0BFh                            ; insn: mov edi,3C67Eh
-        dd unk_19C67E
+        dd FiniRtnsEntry
         mov ebx, edi
         mov al, dl
 .2:
@@ -96,9 +96,9 @@ __FiniRtns:
         mov dl, al
 .1:
         db 03Eh,0BEh                            ; insn: mov esi,3C67Eh
-        dd unk_19C67E
+        dd FiniRtnsEntry
         db 03Eh,0BFh                            ; insn: mov edi,3C690h
-        dd dword_19C690
+        dd VideoCodePtr
         mov ebx, edi
         mov al, dl
 .2:

@@ -2,10 +2,10 @@
 bits 32
 %include "hockey.inc"
 section s_12D6C4 progbits alloc exec nowrite align=1
-extern byte_16E688, byte_16F794, byte_171C90, dword_16E678, dword_16E67C, dword_16E680, dword_16E684, BlendShapeRows
+extern ScreenBitsPerPixel, RemapTable, ShadeTable, ClipTopRow, ClipLeftCol, ClipRight, ScreenHeight, BlendShapeRows
 extern ConvertArtNew, FixedLerp, SinCosLookup, DrawCharMono, DrawCharShadow, DrawCharOutline, DrawCharBold, FreeMemBlock
-extern unk_1DD4B8, unk_1DD5B8, unk_1DD738, unk_1DD838, unk_1DD938, unk_1DDA38, unk_1DDBB8, unk_1DDD38
-extern unk_1DDEB8, unk_1DDFB8, unk_1DE0B8, unk_1DE1B8, unk_1DE2B8, unk_1DE3B8, unk_1DE4B8, unk_1DE5B8
+extern ClipTexVertsTop, TexClipBottomOut, TexClipBottomIn, TexClipRightIn, TexClipLeftIn, TexClipRightOut, TexClipLeftOut, TexClipTopOut
+extern PolyClipTopIn, PolyClipBottomIn, PolyClipRightIn, PolyClipLeftOut, PolyClipBottomOut, PolyClipLeftIn, PolyClipRightOut, PolyClipTopOut
 global ClipTexPolyLeft_13C, ClipDrawPolyLeft_137, TransposeMatrix, PolyCrossProduct, TexSpanCopy, ClipTexEdgeAtX, ClipTexEdgeAtY, ClipTexPolyLeft
 global ClipTexPolyRight, ClipTexPolyTop, ClipTexPolyBottom, MakeRotationZ, DrawShapeTransformed, TexSpanKeyed, TexSpanShadow, ClipDrawEdgeAtX
 global ClipDrawEdgeAtY, ClipDrawPolyLeft, ClipDrawPolyRight, ClipDrawPolyTop, ClipDrawPolyBottom
@@ -715,14 +715,14 @@ ClipTexPolyLeft:
         mov dword [byte esp+0Ch], edx
         mov edx, dword [byte ebp+00h]
         mov dword [esp], edx
-        mov dword [ebx], unk_1DDBB8
+        mov dword [ebx], TexClipLeftOut
         lea ecx, [byte edx+08h]
         mov ebx, dword [ebx]
-        mov dword [byte ebp+00h], unk_1DD938
+        mov dword [byte ebp+00h], TexClipLeftIn
         mov dword [byte esp+08h], ecx
         mov ebp, dword [byte ebp+00h]
 .1:
-        mov esi, dword [dword_16E678]
+        mov esi, dword [ClipTopRow]
         cmp esi, dword [eax]
         jle short .2
         mov ecx, dword [byte esp+0Ch]
@@ -760,7 +760,7 @@ ClipTexPolyLeft:
         mov esi, edx
         movsd
         movsd
-        mov ecx, dword [dword_16E678]
+        mov ecx, dword [ClipTopRow]
         push ecx
         add ebp, byte 8
         push ebp
@@ -849,14 +849,14 @@ ClipTexPolyRight:
         mov dword [byte esp+0Ch], edx
         mov edx, dword [byte ebp+00h]
         mov dword [esp], edx
-        mov dword [ebx], unk_1DDA38
+        mov dword [ebx], TexClipRightOut
         lea ecx, [byte edx+08h]
         mov ebx, dword [ebx]
-        mov dword [byte ebp+00h], unk_1DD838
+        mov dword [byte ebp+00h], TexClipRightIn
         mov dword [byte esp+08h], ecx
         mov ebp, dword [byte ebp+00h]
 .1:
-        mov esi, dword [dword_16E680]
+        mov esi, dword [ClipRight]
         cmp esi, dword [eax]
         jg short .2
         mov ecx, dword [byte esp+0Ch]
@@ -894,7 +894,7 @@ ClipTexPolyRight:
         mov esi, edx
         movsd
         movsd
-        mov ecx, dword [dword_16E680]
+        mov ecx, dword [ClipRight]
         push ecx
         add ebp, byte 8
         push ebp
@@ -975,14 +975,14 @@ ClipTexPolyTop:
         mov dword [byte esp+0Ch], edx
         mov edx, dword [byte ebp+00h]
         mov dword [esp], edx
-        mov dword [ebx], unk_1DDD38
+        mov dword [ebx], TexClipTopOut
         lea ecx, [byte edx+08h]
         mov ebx, dword [ebx]
-        mov dword [byte ebp+00h], unk_1DD4B8
+        mov dword [byte ebp+00h], ClipTexVertsTop
         mov dword [byte esp+08h], ecx
         mov ebp, dword [byte ebp+00h]
 .1:
-        mov esi, dword [dword_16E67C]
+        mov esi, dword [ClipLeftCol]
         cmp esi, dword [byte eax+04h]
         jle short .2
         mov ecx, dword [byte esp+0Ch]
@@ -1020,7 +1020,7 @@ ClipTexPolyTop:
         mov esi, edx
         movsd
         movsd
-        mov ecx, dword [dword_16E67C]
+        mov ecx, dword [ClipLeftCol]
         push ecx
         add ebp, byte 8
         push ebp
@@ -1102,14 +1102,14 @@ ClipTexPolyBottom:
         mov dword [byte esp+0Ch], edx
         mov edx, dword [byte ebp+00h]
         mov dword [esp], edx
-        mov dword [ebx], unk_1DD5B8
+        mov dword [ebx], TexClipBottomOut
         lea ecx, [byte edx+08h]
         mov ebx, dword [ebx]
-        mov dword [byte ebp+00h], unk_1DD738
+        mov dword [byte ebp+00h], TexClipBottomIn
         mov dword [byte esp+08h], ecx
         mov ebp, dword [byte ebp+00h]
 .1:
-        mov esi, dword [dword_16E684]
+        mov esi, dword [ScreenHeight]
         cmp esi, dword [byte eax+04h]
         jg short .2
         mov ecx, dword [byte esp+0Ch]
@@ -1147,7 +1147,7 @@ ClipTexPolyBottom:
         mov esi, edx
         movsd
         movsd
-        mov ecx, dword [dword_16E684]
+        mov ecx, dword [ScreenHeight]
         push ecx
         add ebp, byte 8
         push ebp
@@ -1323,7 +1323,7 @@ DrawShapeTransformed:
         xor edx, edx
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         mov dword [dword esp+0480Ch], edx
         cmp eax, byte 20h
         je short .1
@@ -1363,10 +1363,10 @@ DrawShapeTransformed:
         cmp ecx, byte 4
         jl short .2
         mov eax, dword [dword esp+0481Ch]
-        cmp eax, dword [dword_16E684]
+        cmp eax, dword [ScreenHeight]
         jge near .19
         mov eax, dword [dword esp+04818h]
-        cmp eax, dword [dword_16E67C]
+        cmp eax, dword [ClipLeftCol]
         jl near .19
         mov eax, dword [dword esp+04810h]
         inc eax
@@ -1546,13 +1546,13 @@ DrawShapeTransformed:
         jne near .10
 .12:
         mov eax, dword [dword esp+0481Ch]
-        mov ebp, dword [dword_16E67C]
+        mov ebp, dword [ClipLeftCol]
         cmp eax, ebp
         jge short .13
         mov dword [dword esp+0481Ch], ebp
 .13:
         mov eax, dword [dword esp+04818h]
-        mov edx, dword [dword_16E684]
+        mov edx, dword [ScreenHeight]
         cmp eax, edx
         jl short .14
         lea eax, [byte edx-01h]
@@ -1576,10 +1576,10 @@ DrawShapeTransformed:
         lea ecx, [byte eax+01h]
         test ecx, ecx
         jle short .15
-        mov esi, dword [dword_16E680]
+        mov esi, dword [ClipRight]
         cmp esi, dword [dword esp+ebx+0C00h]
         jle near .18
-        mov edi, dword [dword_16E678]
+        mov edi, dword [ClipTopRow]
         cmp edi, dword [esp+ebx]
         jg near .18
         mov edx, dword [dword esp+ebx+01800h]
@@ -1596,7 +1596,7 @@ DrawShapeTransformed:
         sar edx, 1Fh
         idiv ecx
         mov dword [dword esp+0483Ch], ebp
-        mov ebp, dword [dword_16E678]
+        mov ebp, dword [ClipTopRow]
         mov edx, dword [dword esp+ebx+0C00h]
         mov esi, dword [dword esp+ebx+02400h]
         cmp edx, ebp
@@ -1609,11 +1609,11 @@ DrawShapeTransformed:
         mov ebp, eax
         imul ebp, edx
         sub ecx, edx
-        mov edx, dword [dword_16E678]
+        mov edx, dword [ClipTopRow]
         add esi, ebp
         mov dword [dword esp+ebx+0C00h], edx
 .16:
-        mov ebp, dword [dword_16E680]
+        mov ebp, dword [ClipRight]
         mov edx, dword [esp+ebx]
         cmp edx, ebp
         jl short .17
@@ -1673,7 +1673,7 @@ TexSpanKeyed:
         mov bx, word [byte esp+024h]
         mov dx, word [byte esp+028h]
         LD xor, eax, eax
-        cmp byte [byte_16E688], 10h
+        cmp byte [ScreenBitsPerPixel], 10h
         je near .10
         sub dword [byte esp+034h], byte 4
         js short .6
@@ -1824,7 +1824,7 @@ TexSpanShadow:
         mov bx, word [byte esp+024h]
         mov dx, word [byte esp+028h]
         LD xor, eax, eax
-        cmp byte [byte_16E688], 10h
+        cmp byte [ScreenBitsPerPixel], 10h
         je near .15
         sub dword [byte esp+034h], byte 4
         js near .10
@@ -1838,7 +1838,7 @@ TexSpanShadow:
         jb short .2
         jne short .3
         mov al, byte [edi]
-        mov al, byte [dword eax+byte_16F794]
+        mov al, byte [dword eax+RemapTable]
 .2:
         mov byte [edi], al
 .3:
@@ -1851,7 +1851,7 @@ TexSpanShadow:
         jb short .4
         jne short .5
         mov al, byte [byte edi+01h]
-        mov al, byte [dword eax+byte_16F794]
+        mov al, byte [dword eax+RemapTable]
 .4:
         mov byte [byte edi+01h], al
 .5:
@@ -1864,7 +1864,7 @@ TexSpanShadow:
         jb short .6
         jne short .7
         mov al, byte [byte edi+02h]
-        mov al, byte [dword eax+byte_16F794]
+        mov al, byte [dword eax+RemapTable]
 .6:
         mov byte [byte edi+02h], al
 .7:
@@ -1877,7 +1877,7 @@ TexSpanShadow:
         jb short .8
         jne short .9
         mov al, byte [byte edi+03h]
-        mov al, byte [dword eax+byte_16F794]
+        mov al, byte [dword eax+RemapTable]
 .8:
         mov byte [byte edi+03h], al
 .9:
@@ -1897,7 +1897,7 @@ TexSpanShadow:
         jb short .12
         jne short .13
         mov al, byte [edi]
-        mov al, byte [dword eax+byte_16F794]
+        mov al, byte [dword eax+RemapTable]
 .12:
         mov byte [edi], al
 .13:
@@ -2206,14 +2206,14 @@ ClipDrawPolyLeft:
         mov dword [byte esp+0Ch], edx
         mov edx, dword [ebx]
         mov dword [byte esp+04h], edx
-        mov dword [byte ebp+00h], unk_1DE3B8
+        mov dword [byte ebp+00h], PolyClipLeftIn
         lea ecx, [byte edx+08h]
         mov ebp, dword [byte ebp+00h]
-        mov dword [ebx], unk_1DE1B8
+        mov dword [ebx], PolyClipLeftOut
         mov dword [byte esp+08h], ecx
         mov ebx, dword [ebx]
 .1:
-        mov esi, dword [dword_16E678]
+        mov esi, dword [ClipTopRow]
         cmp esi, dword [eax]
         jle short .2
         mov ecx, dword [byte esp+0Ch]
@@ -2250,7 +2250,7 @@ ClipDrawPolyLeft:
         mov esi, edx
         movsd
         movsd
-        mov ecx, dword [dword_16E678]
+        mov ecx, dword [ClipTopRow]
         push ecx
         add ebx, byte 8
         push ebx
@@ -2339,14 +2339,14 @@ ClipDrawPolyRight:
         mov dword [byte esp+0Ch], edx
         mov edx, dword [byte ebp+00h]
         mov dword [esp], edx
-        mov dword [ebx], unk_1DE4B8
+        mov dword [ebx], PolyClipRightOut
         lea ecx, [byte edx+08h]
         mov ebx, dword [ebx]
-        mov dword [byte ebp+00h], unk_1DE0B8
+        mov dword [byte ebp+00h], PolyClipRightIn
         mov dword [byte esp+08h], ecx
         mov ebp, dword [byte ebp+00h]
 .1:
-        mov esi, dword [dword_16E680]
+        mov esi, dword [ClipRight]
         cmp esi, dword [eax]
         jg short .2
         mov ecx, dword [byte esp+0Ch]
@@ -2383,7 +2383,7 @@ ClipDrawPolyRight:
         mov esi, edx
         movsd
         movsd
-        mov ecx, dword [dword_16E680]
+        mov ecx, dword [ClipRight]
         push ecx
         add ebp, byte 8
         push ebp
@@ -2464,14 +2464,14 @@ ClipDrawPolyTop:
         mov dword [byte esp+0Ch], edx
         mov edx, dword [byte ebp+00h]
         mov dword [esp], edx
-        mov dword [ebx], unk_1DE5B8
+        mov dword [ebx], PolyClipTopOut
         lea ecx, [byte edx+08h]
         mov ebx, dword [ebx]
-        mov dword [byte ebp+00h], unk_1DDEB8
+        mov dword [byte ebp+00h], PolyClipTopIn
         mov dword [byte esp+08h], ecx
         mov ebp, dword [byte ebp+00h]
 .1:
-        mov esi, dword [dword_16E67C]
+        mov esi, dword [ClipLeftCol]
         cmp esi, dword [byte eax+04h]
         jle short .2
         mov ecx, dword [byte esp+0Ch]
@@ -2508,7 +2508,7 @@ ClipDrawPolyTop:
         mov esi, edx
         movsd
         movsd
-        mov ecx, dword [dword_16E67C]
+        mov ecx, dword [ClipLeftCol]
         push ecx
         add ebp, byte 8
         push ebp
@@ -2589,14 +2589,14 @@ ClipDrawPolyBottom:
         mov dword [byte esp+0Ch], edx
         mov edx, dword [byte ebp+00h]
         mov dword [esp], edx
-        mov dword [ebx], unk_1DE2B8
+        mov dword [ebx], PolyClipBottomOut
         lea ecx, [byte edx+08h]
         mov ebx, dword [ebx]
-        mov dword [byte ebp+00h], unk_1DDFB8
+        mov dword [byte ebp+00h], PolyClipBottomIn
         mov dword [byte esp+08h], ecx
         mov ebp, dword [byte ebp+00h]
 .1:
-        mov esi, dword [dword_16E684]
+        mov esi, dword [ScreenHeight]
         cmp esi, dword [byte eax+04h]
         jg short .2
         mov ecx, dword [byte esp+0Ch]
@@ -2633,7 +2633,7 @@ ClipDrawPolyBottom:
         mov esi, edx
         movsd
         movsd
-        mov ecx, dword [dword_16E684]
+        mov ecx, dword [ScreenHeight]
         push ecx
         add ebp, byte 8
         push ebp

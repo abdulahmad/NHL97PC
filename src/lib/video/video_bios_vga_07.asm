@@ -2,9 +2,9 @@
 bits 32
 %include "hockey.inc"
 section s_12F270 progbits alloc exec nowrite align=1
-extern _Extender, _nmalloc_, byte_19988D, byte_1DE6B8, byte_1DE6B9, byte_1DE6BA, dword_16FECC, dword_1702CC
-extern dword_1706CC, dword_170ACC, dword_1712CC, dword_199888, memset_, strncpy_, StrCopyEnd, NoDbcsTable
-extern word_1DE780
+extern _Extender, _nmalloc_, __MBCSTable, MbvtopLow, MbvtopHigh, MbvtopResult, SinCosTable, SinTable
+extern CosTable, str_BK, SerialPorts, __MBCSFlag, memset_, strncpy_, StrCopyEnd, NoDbcsTable
+extern DbcsLeadTable
 global __checkIsDBCS_, __mbsninc_, __mbvtop_, _mbgetcode_, _mbptov_, _mbscat_, _mbscpy_, _mbsdec_
 global _mbsinc_, _mbsnbcnt_, _mbsnbcpy_, _mbsnccnt_, _mbsncpy_, _mbsnextc_, _mbsninc_, _mbvtop_
 global dos_get_dbcs_lead_table_, _mbscat__34, _mbscpy__B6, SinCosLookup
@@ -21,10 +21,10 @@ SinCosLookup:
         and ah, 3
         jnp short .1
         jne short .3
-        mov edx, dword [nosplit eax*4+dword_1702CC]
+        mov edx, dword [nosplit eax*4+SinTable]
         mov dword [ebx], edx
         neg eax
-        mov edx, dword [nosplit eax*4+dword_1706CC]
+        mov edx, dword [nosplit eax*4+CosTable]
         mov dword [ecx], edx
         pop ebx
         ret
@@ -32,32 +32,32 @@ SinCosLookup:
         dec ah
         jne short .2
         neg eax
-        mov edx, dword [nosplit eax*4+dword_1706CC]
+        mov edx, dword [nosplit eax*4+CosTable]
         mov dword [ebx], edx
         neg eax
-        mov edx, dword [nosplit eax*4+dword_1702CC]
+        mov edx, dword [nosplit eax*4+SinTable]
         neg edx
         mov dword [ecx], edx
         pop ebx
         ret
 .2:
-        mov edx, dword [nosplit eax*4+dword_16FECC]
+        mov edx, dword [nosplit eax*4+SinCosTable]
         neg edx
         mov dword [ebx], edx
         neg eax
-        mov edx, dword [nosplit eax*4+dword_170ACC]
+        mov edx, dword [nosplit eax*4+str_BK]
         neg edx
         mov dword [ecx], edx
         pop ebx
         ret
 .3:
         neg eax
-        mov edx, dword [nosplit eax*4+dword_1712CC]
+        mov edx, dword [nosplit eax*4+SerialPorts+7A6h]
         neg edx
         mov dword [ebx], edx
         neg eax
         LD xor, ah, ah
-        mov edx, dword [nosplit eax*4+dword_1702CC]
+        mov edx, dword [nosplit eax*4+SinTable]
         mov dword [ecx], edx
         pop ebx
         db 0C3h                                 ; insn: ret
@@ -71,7 +71,7 @@ _mbsnccnt_:
         push edi
         sub esp, byte 4
         mov ebx, eax
-        cmp dword [dword_199888], byte 0
+        cmp dword [__MBCSFlag], byte 0
         je short .3
         xor ecx, ecx
         lea esi, [eax+edx]
@@ -108,7 +108,7 @@ _mbsnbcnt_:
         sub esp, byte 4
         mov ecx, eax
         mov ebx, edx
-        cmp dword [dword_199888], byte 0
+        cmp dword [__MBCSFlag], byte 0
         je short .3
 .1:
         dec ebx
@@ -134,7 +134,7 @@ _mbsnbcnt_:
 _mbsninc_:
         push ebx
         mov ebx, eax
-        cmp dword [dword_199888], byte 0
+        cmp dword [__MBCSFlag], byte 0
         je short .1
         call _mbsnbcnt_
         add eax, ebx
@@ -150,7 +150,7 @@ _mbsninc_:
 __mbsninc_:
         push ebx
         push esi
-        mov esi, dword [dword_199888]
+        mov esi, dword [__MBCSFlag]
         test esi, esi
         je short .4
 .1:
@@ -160,7 +160,7 @@ __mbsninc_:
         je short .2
         xor ebx, ebx
         mov bl, byte [eax]
-        mov bl, byte [dword ebx+byte_19988D]
+        mov bl, byte [dword ebx+__MBCSTable]
         and bl, 1
         and ebx, 0FFh
         jmp short .3
@@ -176,7 +176,7 @@ __mbsninc_:
 .4:
         add eax, edx
 .5:
-        mov dword [dword_199888], esi
+        mov dword [__MBCSFlag], esi
         pop esi
         pop ebx
         ret
@@ -303,7 +303,7 @@ _mbscpy_:
         push ebp
         mov ebp, eax
         mov esi, edx
-        cmp dword [dword_199888], byte 0
+        cmp dword [__MBCSFlag], byte 0
         je short .2
         mov edi, eax
         push es
@@ -354,7 +354,7 @@ _mbscpy__B6:
         mov ebp, eax
         mov dword [byte esp+04h], edx
         mov dword [esp], ebx
-        cmp dword [dword_199888], byte 0
+        cmp dword [__MBCSFlag], byte 0
         je near .14
         cmp byte [eax], 0
         je near .13
@@ -376,10 +376,10 @@ _mbscpy__B6:
 .4:
         LD sub, esi, esi
 .5:
-        mov ecx, dword [dword_199888]
+        mov ecx, dword [__MBCSFlag]
         lea ebx, [byte esi-01h]
         mov eax, ebp
-        mov esi, dword [dword_199888]
+        mov esi, dword [__MBCSFlag]
 .6:
         cmp byte [eax], 0
         je short .12
@@ -389,7 +389,7 @@ _mbscpy__B6:
         je short .7
         xor edx, edx
         mov dl, byte [ebx]
-        mov dl, byte [dword edx+byte_19988D]
+        mov dl, byte [dword edx+__MBCSTable]
         and dl, 1
         and edx, 0FFh
         jmp short .8
@@ -404,7 +404,7 @@ _mbscpy__B6:
         je short .10
         xor edx, edx
         mov dl, byte [eax]
-        mov dl, byte [dword edx+byte_19988D]
+        mov dl, byte [dword edx+__MBCSTable]
         and dl, 1
         and edx, 0FFh
         jmp short .11
@@ -487,7 +487,7 @@ _mbsnbcpy_:
         push edi
         push ebp
         mov ebp, eax
-        cmp dword [dword_199888], byte 0
+        cmp dword [__MBCSFlag], byte 0
         je near .6
         mov edi, edx
         push es
@@ -500,11 +500,11 @@ _mbsnbcpy_:
         not ecx
         dec ecx
         pop es
-        mov esi, dword [dword_199888]
+        mov esi, dword [__MBCSFlag]
         test esi, esi
         je short .1
         movzx esi, byte [edx+ebx]
-        mov al, byte [dword esi+byte_19988D]
+        mov al, byte [dword esi+__MBCSTable]
         and al, 1
         movzx esi, al
 .1:
@@ -567,12 +567,12 @@ _mbsnbcpy_:
 ;-----------------------------------------------------------------------------
 _mbptov_:
         push edx
-        mov edx, dword [dword_199888]
+        mov edx, dword [__MBCSFlag]
         test edx, edx
         je short .1
         xor edx, edx
         mov dl, byte [eax]
-        mov dl, byte [dword edx+byte_19988D]
+        mov dl, byte [dword edx+__MBCSTable]
         and dl, 1
         and edx, 0FFh
 .1:
@@ -619,17 +619,17 @@ __mbvtop_:
         je short .1
         mov edx, eax
         shr edx, 8
-        mov byte [byte_1DE6B8], dl
+        mov byte [MbvtopLow], dl
         xor dl, dl
-        mov byte [byte_1DE6B9], al
-        mov byte [byte_1DE6BA], dl
+        mov byte [MbvtopHigh], al
+        mov byte [MbvtopResult], dl
         jmp short .2
 .1:
-        mov byte [byte_1DE6B8], al
+        mov byte [MbvtopLow], al
         xor ah, ah
-        mov byte [byte_1DE6B9], ah
+        mov byte [MbvtopHigh], ah
 .2:
-        mov eax, byte_1DE6B8
+        mov eax, MbvtopLow
         pop edx
         ret
 ;-----------------------------------------------------------------------------
@@ -650,7 +650,7 @@ __checkIsDBCS_:
         db 066h,026h,083h,078h,02h,00h          ; insn: cmp word [es:eax+2],0
         je short .3
 .2:
-        mov dword [dword_199888], 1
+        mov dword [__MBCSFlag], 1
 .3:
         pop es
         pop edx
@@ -701,7 +701,7 @@ dos_get_dbcs_lead_table_:
         shl eax, 4
 .1:
         add eax, edx
-        mov dx, word [word_1DE780]
+        mov dx, word [DbcsLeadTable]
         jmp short .4
 .2:
         xor eax, eax
@@ -751,7 +751,7 @@ _mbgetcode_:
         push ebx
         push ecx
         push edi
-        mov ecx, dword [dword_199888]
+        mov ecx, dword [__MBCSFlag]
         lea ebx, [byte eax+01h]
         test ecx, ecx
         je short .4
@@ -760,13 +760,13 @@ _mbgetcode_:
         mov dword [edx], ecx
         test ecx, ecx
         je short .5
-        mov edi, dword [dword_199888]
+        mov edi, dword [__MBCSFlag]
         mov eax, ebx
         test edi, edi
         je short .1
         xor ebx, ebx
         mov bl, byte [edx]
-        mov bl, byte [dword ebx+byte_19988D]
+        mov bl, byte [dword ebx+__MBCSTable]
         and bl, 1
         and ebx, 0FFh
         jmp short .2
@@ -811,20 +811,20 @@ _mbgetcode_:
 _mbsnextc_:
         push ebx
         push edx
-        mov edx, dword [dword_199888]
+        mov edx, dword [__MBCSFlag]
         test edx, edx
         je short .2
         xor edx, edx
         mov dl, byte [eax]
         test edx, edx
         je short .3
-        mov ebx, dword [dword_199888]
+        mov ebx, dword [__MBCSFlag]
         inc eax
         test ebx, ebx
         je short .1
         xor ebx, ebx
         mov bl, dl
-        mov bl, byte [dword ebx+byte_19988D]
+        mov bl, byte [dword ebx+__MBCSTable]
         and bl, 1
         and ebx, 0FFh
 .1:
@@ -854,7 +854,7 @@ _mbsnextc_:
 _mbsinc_:
         push ebx
         push edx
-        mov edx, dword [dword_199888]
+        mov edx, dword [__MBCSFlag]
         lea ebx, [byte eax+01h]
         test edx, edx
         je short .3
@@ -863,10 +863,10 @@ _mbsinc_:
         test edx, edx
         je short .4
         mov eax, ebx
-        cmp dword [dword_199888], byte 0
+        cmp dword [__MBCSFlag], byte 0
         je short .1
         and edx, 0FFh
-        mov dl, byte [dword edx+byte_19988D]
+        mov dl, byte [dword edx+__MBCSTable]
         and dl, 1
         and edx, 0FFh
         jmp short .2
@@ -891,7 +891,7 @@ _mbsdec_:
         push ebx
         push esi
         push edi
-        mov esi, dword [dword_199888]
+        mov esi, dword [__MBCSFlag]
         mov ebx, eax
         mov edi, edx
         cmp eax, edx
@@ -906,7 +906,7 @@ _mbsdec_:
         je short .2
         mov dl, byte [edx]
         and edx, 0FFh
-        mov dl, byte [dword edx+byte_19988D]
+        mov dl, byte [dword edx+__MBCSTable]
         and dl, 1
         and edx, 0FFh
         jmp short .3
@@ -924,7 +924,7 @@ _mbsdec_:
         je short .5
         xor edx, edx
         mov dl, byte [eax]
-        mov dl, byte [dword edx+byte_19988D]
+        mov dl, byte [dword edx+__MBCSTable]
         and dl, 1
         and edx, 0FFh
         jmp short .6
@@ -944,7 +944,7 @@ _mbsdec_:
         mov edx, edi
 .8:
         mov eax, edx
-        mov dword [dword_199888], esi
+        mov dword [__MBCSFlag], esi
         pop edi
         pop esi
         pop ebx

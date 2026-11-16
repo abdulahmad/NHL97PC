@@ -2,10 +2,13 @@
 bits 32
 %include "hockey.inc"
 section s_120CF8 progbits alloc exec nowrite align=1
-extern _Extender, _ExtenderSubtype, __brk_, __unlink_, _curbrk, _nfree_, byte_1725A4, dword_16E318
-extern dword_199C48, dword_199C4C, dword_1DE6BC, word_1DE6BE
+extern _Extender, _ExtenderSubtype, __brk_, __unlink_, _curbrk, _nfree_, Is8087, dword_16E318
+extern __nheapbeg, __amblksiz, RationalAllocLimit, RationalAllocFlags
 global RationalAlloc_, __AdjustAmount_, __CreateNewNHeap_, __ExpandDGROUP_, __FreeDPMIBlocks_, __LastFree_, __LinkUpNewMHeap_, __ReAllocDPMIBlock_
 global RationalAlloc__C8, RationalAlloc__CB
+;-----------------------------------------------------------------------------
+; __FreeDPMIBlocks_                                            120CF8  library
+;-----------------------------------------------------------------------------
 __FreeDPMIBlocks_:
         push ebx
         push ecx
@@ -50,6 +53,9 @@ __FreeDPMIBlocks_:
 .3:
         mov edx, dword [byte edx+08h]
         jmp short .1
+;-----------------------------------------------------------------------------
+; __ReAllocDPMIBlock_                                          120D54  library
+;-----------------------------------------------------------------------------
 __ReAllocDPMIBlock_:
         push ebx
         push ecx
@@ -149,6 +155,9 @@ __ReAllocDPMIBlock_:
         pop ecx
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; __LinkUpNewMHeap_                                            120E53  library
+;-----------------------------------------------------------------------------
 __LinkUpNewMHeap_:
         push ebx
         push edx
@@ -195,6 +204,9 @@ __LinkUpNewMHeap_:
         pop edx
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; __LastFree_                                                  120EC7  library
+;-----------------------------------------------------------------------------
 __LastFree_:
         push ebx
         push edx
@@ -211,7 +223,7 @@ __LastFree_:
         jl short .1
         cmp eax, byte 8
         jg short .1
-        cmp byte [byte_1725A4], 0
+        cmp byte [Is8087], 0
         jne short .1
         xor eax, eax
         mov ax, ds
@@ -230,6 +242,9 @@ __LastFree_:
         pop edx
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; RationalAlloc_                                               120F17  library
+;-----------------------------------------------------------------------------
 RationalAlloc_:
         push ebx
         push ecx
@@ -263,13 +278,13 @@ RationalAlloc_:
         mov eax, edx
         jmp near RationalAlloc__C8
 .2:
-        test word [word_1DE6BE], 0FFF0h
+        test word [RationalAllocFlags], 0FFF0h
         je short .3
-        mov dword [dword_1DE6BC], 0FFFFFh
+        mov dword [RationalAllocLimit], 0FFFFFh
 .3:
         cmp dword [esp], 10000h
         ja short .4
-        mov ebx, dword [dword_1DE6BC]
+        mov ebx, dword [RationalAllocLimit]
         shr ebx, 4
         or bl, 1
         mov ah, 48h
@@ -320,6 +335,9 @@ RationalAlloc__CB:
         pop ecx
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; __CreateNewNHeap_                                            120FE8  library
+;-----------------------------------------------------------------------------
 __CreateNewNHeap_:
         push ebx
         push ecx
@@ -327,7 +345,7 @@ __CreateNewNHeap_:
         push esi
         push edi
         push eax
-        cmp dword [dword_199C48], byte 0
+        cmp dword [__nheapbeg], byte 0
         jne short .2
 .1:
         xor eax, eax
@@ -389,6 +407,9 @@ __CreateNewNHeap_:
         call _nfree_
         mov eax, 1
         jmp near RationalAlloc__C8
+;-----------------------------------------------------------------------------
+; __ExpandDGROUP_                                              121098  library
+;-----------------------------------------------------------------------------
 __ExpandDGROUP_:
         push ebx
         push ecx
@@ -412,7 +433,7 @@ __ExpandDGROUP_:
         call __CreateNewNHeap_
         jmp near .14
 .3:
-        cmp dword [dword_199C48], byte 0
+        cmp dword [__nheapbeg], byte 0
         jne short .5
 .4:
         xor eax, eax
@@ -430,7 +451,7 @@ __ExpandDGROUP_:
         jl short .6
         cmp eax, byte 8
         jg short .6
-        cmp byte [byte_1725A4], 0
+        cmp byte [Is8087], 0
         jne short .6
         xor eax, eax
         mov ax, ds
@@ -520,6 +541,9 @@ __ExpandDGROUP_:
         pop ecx
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; __AdjustAmount_                                              1211E4  library
+;-----------------------------------------------------------------------------
 __AdjustAmount_:
         push ebx
         push edx
@@ -559,7 +583,7 @@ __AdjustAmount_:
         add edx, byte 3Ch
         cmp edx, dword [ebx]
         jb short .1
-        mov esi, dword [dword_199C4C]
+        mov esi, dword [__amblksiz]
         cmp edx, esi
         jae short .7
         mov edx, esi

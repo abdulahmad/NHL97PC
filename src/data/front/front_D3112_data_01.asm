@@ -3,14 +3,14 @@ bits 32
 %include "hockey.inc"
 section s_1670CF progbits alloc noexec write align=1
 global str_SDDD, str_SSS2, str_SS13, str_SSS3, str_Roster4, str_SVsSDDD, str_SDSD2, str_EASports
-global unk_1670CF, unk_16711C, unk_167124, unk_167128, unk_167130, unk_167138, unk_16713C, unk_167144
-global unk_167148, unk_167150, unk_167154, unk_16715C, unk_167160, unk_167168, unk_16716C, unk_167178
-global unk_16717C, unk_167184, unk_167188, unk_167190, unk_167194, unk_16719C, unk_1671A0, unk_1671A8
-global unk_1671AC, unk_1671B4, unk_1671B8, unk_1671BC, unk_1671C4, unk_1671CC, unk_1671D4, unk_1671D8
-global unk_1671E0, unk_1671E4, unk_1671F0, unk_1671F4, unk_1671FC, unk_167200, unk_167208, unk_16720C
-global unk_167214, unk_16721C, unk_167220, unk_167228, unk_16722C, unk_167234, unk_167238, unk_16723C
-global unk_167240, unk_167244, unk_167250, unk_167260, unk_167264, unk_16726C, unk_16727C
-unk_1670CF:
+global str_S_DrawMatchupNotes, str_Barasso, str_PIT, str_199596, str_Beaupre, str_OTT, str_Brodeur, unk_167144
+global str_Burke, str_HFD, str_Carey, str_WAS, str_Fichaud, unk_167168, str_Flaherty, unk_167178
+global str_Fuhr, str_BUF, str_199495, str_STL, str_Hackett, str_CHI, str_Hebert, str_ANA
+global str_Hextall, str_PHI, str_QUE, str_199293, str_Heyward, str_Hirsch, str_VAN, str_Hrudey
+global unk_1671E0, str_Jablonski, unk_1671F0, str_Joseph, str_EDM, str_Kidd, str_CAL, str_Kolzig
+global str_Lacher, str_BOS, str_Moog, str_DAL, str_Richter, unk_167234, str_Roy, str_COL
+global str_MTL, str_Thibault, str_Vanbiesbrouck, str_FLA, str_Vernon, str_DET, str_EA
+str_S_DrawMatchupNotes:
         db 025h,073h,00h
 str_SDDD:
         db 025h,073h,020h,025h,064h,02Dh,025h,064h,02Dh,025h,064h,00h
@@ -27,113 +27,113 @@ str_SVsSDDD:
         db 064h,00h
 str_SDSD2:
         db 025h,073h,020h,025h,064h,020h,025h,073h,020h,025h,064h,00h
-unk_16711C:
+str_Barasso:
         db 042h,061h,072h,061h,073h,073h,06Fh,00h
-unk_167124:
+str_PIT:
         db 050h,049h,054h,00h
-unk_167128:
+str_199596:
         db 031h,039h,039h,035h,02Dh,039h,036h,00h
-unk_167130:
+str_Beaupre:
         db 042h,065h,061h,075h,070h,072h,065h,00h
-unk_167138:
+str_OTT:
         db 04Fh,054h,054h,00h
-unk_16713C:
+str_Brodeur:
         db 042h,072h,06Fh,064h,065h,075h,072h,00h
 unk_167144:
         db 04Eh,04Ah,00h,00h
-unk_167148:
+str_Burke:
         db 042h,075h,072h,06Bh,065h,00h,00h,00h
-unk_167150:
+str_HFD:
         db 048h,046h,044h,00h
-unk_167154:
+str_Carey:
         db 043h,061h,072h,065h,079h,00h,00h,00h
-unk_16715C:
+str_WAS:
         db 057h,041h,053h,00h
-unk_167160:
+str_Fichaud:
         db 046h,069h,063h,068h,061h,075h,064h,00h
 unk_167168:
         db 04Eh,059h,049h,00h
-unk_16716C:
+str_Flaherty:
         db 046h,06Ch,061h,068h,065h,072h,074h,079h,00h,00h,00h,00h
 unk_167178:
         db 053h,04Ah,00h,00h
-unk_16717C:
+str_Fuhr:
         db 046h,075h,068h,072h,00h,00h,00h,00h
-unk_167184:
+str_BUF:
         db 042h,055h,046h,00h
-unk_167188:
+str_199495:
         db 031h,039h,039h,034h,02Dh,039h,035h,00h
-unk_167190:
+str_STL:
         db 053h,054h,04Ch,00h
-unk_167194:
+str_Hackett:
         db 048h,061h,063h,06Bh,065h,074h,074h,00h
-unk_16719C:
+str_CHI:
         db 043h,048h,049h,00h
-unk_1671A0:
+str_Hebert:
         db 048h,065h,062h,065h,072h,074h,00h,00h
-unk_1671A8:
+str_ANA:
         db 041h,04Eh,041h,00h
-unk_1671AC:
+str_Hextall:
         db 048h,065h,078h,074h,061h,06Ch,06Ch,00h
-unk_1671B4:
+str_PHI:
         db 050h,048h,049h,00h
-unk_1671B8:
+str_QUE:
         db 051h,055h,045h,00h
-unk_1671BC:
+str_199293:
         db 031h,039h,039h,032h,02Dh,039h,033h,00h
-unk_1671C4:
+str_Heyward:
         db 048h,065h,079h,077h,061h,072h,064h,00h
-unk_1671CC:
+str_Hirsch:
         db 048h,069h,072h,073h,063h,068h,00h,00h
-unk_1671D4:
+str_VAN:
         db 056h,041h,04Eh,00h
-unk_1671D8:
+str_Hrudey:
         db 048h,072h,075h,064h,065h,079h,00h,00h
 unk_1671E0:
         db 04Ch,041h,00h,00h
-unk_1671E4:
+str_Jablonski:
         db 04Ah,061h,062h,06Ch,06Fh,06Eh,073h,06Bh,069h,00h,00h,00h
 unk_1671F0:
         db 054h,042h,00h,00h
-unk_1671F4:
+str_Joseph:
         db 04Ah,06Fh,073h,065h,070h,068h,00h,00h
-unk_1671FC:
+str_EDM:
         db 045h,044h,04Dh,00h
-unk_167200:
+str_Kidd:
         db 04Bh,069h,064h,064h,00h,00h,00h,00h
-unk_167208:
+str_CAL:
         db 043h,041h,04Ch,00h
-unk_16720C:
+str_Kolzig:
         db 04Bh,06Fh,06Ch,07Ah,069h,067h,00h,00h
-unk_167214:
+str_Lacher:
         db 04Ch,061h,063h,068h,065h,072h,00h,00h
-unk_16721C:
+str_BOS:
         db 042h,04Fh,053h,00h
-unk_167220:
+str_Moog:
         db 04Dh,06Fh,06Fh,067h,00h,00h,00h,00h
-unk_167228:
+str_DAL:
         db 044h,041h,04Ch,00h
-unk_16722C:
+str_Richter:
         db 052h,069h,063h,068h,074h,065h,072h,00h
 unk_167234:
         db 04Eh,059h,052h,00h
-unk_167238:
+str_Roy:
         db 052h,06Fh,079h,00h
-unk_16723C:
+str_COL:
         db 043h,04Fh,04Ch,00h
-unk_167240:
+str_MTL:
         db 04Dh,054h,04Ch,00h
-unk_167244:
+str_Thibault:
         db 054h,068h,069h,062h,061h,075h,06Ch,074h,00h,00h,00h,00h
-unk_167250:
+str_Vanbiesbrouck:
         db 056h,061h,06Eh,062h,069h,065h,073h,062h,072h,06Fh,075h,063h,06Bh,00h,00h,00h
-unk_167260:
+str_FLA:
         db 046h,04Ch,041h,00h
-unk_167264:
+str_Vernon:
         db 056h,065h,072h,06Eh,06Fh,06Eh,00h,00h
-unk_16726C:
+str_DET:
         db 044h,045h,054h,00h
 str_EASports:
         db 045h,041h,020h,053h,070h,06Fh,072h,074h,073h,00h,00h,00h
-unk_16727C:
+str_EA:
         db 045h,041h,00h,00h

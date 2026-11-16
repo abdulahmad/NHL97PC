@@ -1,0 +1,5 @@
+SpeechQueueState2 SpeechQueueStage {confidence=low} speech queue stage
+SpeechBankCount2 SpeechBanksLoaded {confidence=low} speech banks loaded
+CameraSceneId2 ActiveCameraScene {confidence=low} camera scene being run
+OverlayWindowCount2 OverlayWindowsOpen {confidence=low} overlay windows open
+dword_1AC374 CdStreamBuf {confidence=low} CD stream buffer

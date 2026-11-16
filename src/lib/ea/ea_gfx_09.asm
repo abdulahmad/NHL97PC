@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_12D4B8 progbits alloc exec nowrite align=1
-extern byte_16E688, dword_16E678, dword_16E67C, dword_16E680, dword_16E684, dword_16E694, dword_16E698, dword_16E69C
-extern dword_16E6A0, bcopy, VesaSetBank
+extern ScreenBitsPerPixel, ClipTopRow, ClipLeftCol, ClipRight, ScreenHeight, ScreenBuffer, DrawDestBuffer, DrawDestPitch
+extern DrawDestOffset, bcopy, VesaSetBank
 global MultiplyMatrix, PlotPixelClipped
 ;-----------------------------------------------------------------------------
 ; MultiplyMatrix                                 12D4B8  97 PC, low confidence
@@ -65,27 +65,27 @@ PlotPixelClipped:
         sub esp, byte 4
         mov eax, dword [byte esp+018h]
         mov edx, dword [byte esp+014h]
-        mov ecx, dword [dword_16E678]
+        mov ecx, dword [ClipTopRow]
         xor ebx, ebx
         cmp edx, ecx
         jl near .10
-        cmp edx, dword [dword_16E680]
+        cmp edx, dword [ClipRight]
         jge near .10
-        cmp eax, dword [dword_16E67C]
+        cmp eax, dword [ClipLeftCol]
         jl near .10
-        cmp eax, dword [dword_16E684]
+        cmp eax, dword [ScreenHeight]
         jge near .10
         db 08Bh,015h                            ; insn: mov edx,[0E698h]
-        dd dword_16E698
+        dd DrawDestBuffer
         db 0C1h,0E0h,02h                        ; insn: shl eax,2
         lea esi, [edx+eax]
         mov eax, dword [byte esp+014h]
-        mov edx, dword [dword_16E6A0]
+        mov edx, dword [DrawDestOffset]
         shl eax, 2
         add eax, edx
         mov edx, dword [esi]
         mov ecx, dword [eax]
-        mov esi, dword [dword_16E694]
+        mov esi, dword [ScreenBuffer]
         add edx, ecx
         test esi, esi
         je short .1
@@ -98,10 +98,10 @@ PlotPixelClipped:
         sub esi, edx
         xor eax, eax
         lea ecx, [nosplit esi*8+00h]
-        mov al, byte [byte_16E688]
+        mov al, byte [ScreenBitsPerPixel]
         cmp ecx, eax
         jge short .1
-        mov eax, dword [dword_16E69C]
+        mov eax, dword [DrawDestPitch]
         push esi
         add eax, edx
         lea edx, [byte esp+04h]
@@ -117,17 +117,17 @@ PlotPixelClipped:
         lea edx, [byte esp+04h]
         add edx, esi
         push edx
-        mov eax, dword [dword_16E69C]
+        mov eax, dword [DrawDestPitch]
         push eax
         call bcopy
         lea eax, [byte esp+0Ch]
         add esp, byte 0Ch
         jmp short .2
 .1:
-        mov eax, dword [dword_16E69C]
+        mov eax, dword [DrawDestPitch]
         add eax, edx
 .2:
-        mov dl, byte [byte_16E688]
+        mov dl, byte [ScreenBitsPerPixel]
         cmp dl, 0Fh
         jb short .3
         cmp dl, 10h

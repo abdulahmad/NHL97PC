@@ -12,11 +12,11 @@ extern str_BOTM2, str_TITL7, str_1TOP3, str_2TOP3, str_3TOP3, str_1BOT3, str_2BO
 extern str_GS08, str_GS09, str_PlayerStats, str_GS04, str_GS05, str_D01d, str_00, str_BoxScores
 extern str_SD4, str_GS24, str_GS25, str_GS20, str_GS21, str_GS16, str_GS17, str_GS12
 extern str_GS13, str_CDCS, str_GS02d, str_S6, str_S7, str_DSSDSSSSD02d, str_SSSSSSSD02d, str_Logo02dQfs2
-extern str_UnpackLogo, str_LOGO5, str_DEBUG, byte_16D27A, byte_16D2A2, byte_1AC8C6, byte_1AC93C, byte_1AD742
+extern str_UnpackLogo, str_LOGO5, str_DEBUG, byte_16D27A, byte_16D2A2, MenuOptionFlags, ControlSetupFlags, byte_1AD742
 extern byte_1C135A, byte_1C135B, byte_1C559C, byte_1C559D, byte_1C559E, byte_1C559F, byte_1C55A4, byte_1C55A5
 extern byte_1C55A6, byte_1C55A7, byte_1C55A8, byte_1C55A9, byte_1C55AA, byte_1C55AB, byte_1C6040, byte_1C944A
-extern byte_1C944C, byte_1C9472, dword_1684C0, dword_16D29E, dword_16D2A8, dword_16D2B8, dword_16D2BC, dword_16D93A
-extern dword_16DA9C, dword_16E464, dword_16E468, dword_19CB58, dword_1AC814, dword_1AC944, dword_1ACF46, dword_1AD62F
+extern byte_1C944C, byte_1C9472, GripDriverPtr, dword_16D29E, dword_16D2A8, dword_16D2B8, dword_16D2BC, dword_16D93A
+extern dword_16DA9C, dword_16E464, dword_16E468, GameRunning, GameSettings, GameOptionFlags, SeasonActive, dword_1AD62F
 extern dword_1AD6AB, dword_1C1334, dword_1C13FB, dword_1C13FF, dword_1C309A, dword_1C309E, dword_1C351E, dword_1C3522
 extern dword_1C51BD, dword_1C51C1, dword_1C5DE0, dword_1C5DE4, dword_1C5E74, dword_1C93F0, dword_1C9410, dword_1C9430
 extern dword_1C9473, dword_1C94A4, dword_1C94A8, dword_1C94B4, dword_1C94B8, dword_1C94BC, dword_1C94C0, dword_1C94C4
@@ -26,7 +26,7 @@ extern dword_1C9540, dword_1C9544, dword_1C9548, dword_1C954C, dword_1C9558, dwo
 extern dword_1C9568, dword_1C956C, dword_1C9570, dword_1C9574, dword_1C9578, dword_1C957C, dword_1C9580, dword_1C9584
 extern dword_1C9588, dword_1C958C, dword_1C9590, dword_1C9594, dword_1C9598, dword_1C959C, dword_1C95A0, dword_1C95A4
 extern dword_1C95A8, dword_1C95AA, dword_1C95B0, dword_1C95B4, dword_1C95B8, dword_1C95BC, dword_1C95C0, dword_1C95C4
-extern dword_1CF548, memcmp_, memmove_, memset_, qsort_, sprintf_, str_DD, strcpy_
+extern LinkTextFont, memcmp_, memmove_, memset_, qsort_, sprintf_, str_DD, strcpy_
 extern bcopy, BlitArt, BlitShape, PresentScreen, FindShape, FindShapeQuiet, OpenArtArchive, DrawShapeBlended
 extern ConvertArtNew, ResetClipWindow, Random32, LoadFileAlloc, UnpackShared, UnpackedSize, ProjectModelBounds, CreateBitmapDefault
 extern ConvertArtXY, ConvertArtKeepPos, LinkSideFlags, ClearLinkCounters, SetScreenTarget, PlayGame, SetPlayedTeams, IsAllStarDay
@@ -40,10 +40,10 @@ extern DrawLinkStatusText, ResetLinkSetup, AllocStatTable, FreeStatTable, SetSta
 extern SortStatTable, DrawStatTableRows, DrawStatTableArt, UserLogScreen, InitListBox, InitShapeListBox, InitSlotTable, InitLinkSettings
 extern ClearLinkAbort, ServiceIdle, LinkSyncMenu, LinkSyncScreen, LinkSendBlock, LinkReceiveBlock, CopyControlSettings, AllocMemBlock
 extern FreeMemBlock, ZeroMem, OpenResourceArchive, MakeColor, SelectFont, FreeBitmap, DrawShapeCore, DrawShapeAtOwnPos
-extern DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, MeasureText, tickcount, unk_165EA0, unk_166010
-extern unk_16609C, unk_16D262, unk_16D26A, unk_1AC8E4, unk_1C135C, unk_1C347F, unk_1C5EF8, unk_1C5F4A
-extern unk_1C5F9C, unk_1C94F4, word_1684BE, word_16D25C, word_16D25E, word_16D260, word_16D27E, word_16D28C
-extern word_16D29C, word_16D2A6, word_16D2AC, word_16D2B0, word_16D2B2, word_16D2B4, word_19CB96, gameover
+extern DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, MeasureText, tickcount, str_D_RunLinkGameScreens, str_D_DrawTeamStatLine
+extern str_Punct_GoalTypeSuffix, unk_16D262, str_S_RunLinkGameScreens, ControlSetup, unk_1C135C, unk_1C347F, unk_1C5EF8, unk_1C5F4A
+extern unk_1C5F9C, unk_1C94F4, GripPortWord, word_16D25C, word_16D25E, word_16D260, word_16D27E, word_16D28C
+extern word_16D29C, word_16D2A6, word_16D2AC, word_16D2B0, word_16D2B2, word_16D2B4, PassState, gameover
 extern word_1C1348, word_1C55A2, word_1C9448, word_1C9450, word_1C9470, word_1C94EC, word_1C94EE, word_1C94F0
 extern word_1C94F6, word_1C94F8, word_1C94FA, word_1C95AC, word_1C95AE
 global jpt_A3B51, jpt_A4B35, jpt_A4B4D, jpt_A4B65, jpt_A6680, jpt_A7D7C, LinkGameSetup_8CA, LinkGameSetup_8CB
@@ -432,7 +432,7 @@ LinkGameSetup:
         jl short .21
 .20:
         imul edx, esi, byte 21h
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         add eax, byte 5
         add eax, edx
         inc eax
@@ -446,7 +446,7 @@ LinkGameSetup:
         call MeasureText
         add esp, byte 4
         mov edi, eax
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         push byte 20h
         inc eax
         inc eax
@@ -473,7 +473,7 @@ LinkGameSetup:
         movsx eax, word [byte eax+06h]
         sar eax, 1
         add eax, edx
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         sar edx, 1
         sub eax, edx
         mov edx, eax
@@ -485,7 +485,7 @@ LinkGameSetup:
         push dword [byte eax+02Ch]
         call ConvertArtKeepPos
         add esp, byte 4
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         push byte 20h
         inc eax
         inc eax
@@ -503,7 +503,7 @@ LinkGameSetup:
         movsx eax, word [byte eax+06h]
         sar eax, 1
         add edx, eax
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         sar eax, 1
         sub edx, eax
         mov eax, dword [dword ebx+dword_1C9410]
@@ -514,7 +514,7 @@ LinkGameSetup:
         push dword [byte eax+02Ch]
         call ConvertArtKeepPos
         add esp, byte 4
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         push byte 20h
         inc eax
         inc eax
@@ -533,7 +533,7 @@ LinkGameSetup:
         movsx eax, word [byte eax+06h]
         sar eax, 1
         add edx, eax
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         sar eax, 1
         sub edx, eax
         mov eax, dword [dword ebx+dword_1C93F0]
@@ -565,7 +565,7 @@ LinkGameSetup:
         jl short .25
 .24:
         imul edx, esi, byte 21h
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         add eax, byte 5
         mov ebx, 1
         add eax, edx
@@ -604,7 +604,7 @@ LinkGameSetup:
         jl short .29
 .28:
         imul edx, esi, byte 21h
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         add eax, byte 5
         mov ecx, 1
         add eax, edx
@@ -708,7 +708,7 @@ LinkGameSetup:
         movsx eax, word [edx+eax*2]
         mov edx, dword [byte ebp-034h]
         movsx edx, word [byte edx+06h]
-        mov ebx, dword [dword_1CF548]
+        mov ebx, dword [LinkTextFont]
         sar edx, 1
         sar ebx, 1
         add eax, edx
@@ -840,7 +840,7 @@ LinkSetupCursor_29:
         test byte [byte_16D2A2], 2
         jne short .4
 .3:
-        test byte [byte_1AC93C], 1
+        test byte [ControlSetupFlags], 1
         setne al
         movzx eax, al
         lea ebx, [byte eax+03h]
@@ -882,7 +882,7 @@ LinkSetupCursor_29:
 LinkSetupCursor_CC:
         test byte [byte_16D2A2], 2
         jne short .8
-        test byte [byte_1AC93C], 1
+        test byte [ControlSetupFlags], 1
         setne al
         movzx eax, al
         lea ecx, [byte eax+03h]
@@ -1371,7 +1371,7 @@ LinkSetupScreen:
         movsx eax, word [byte eax+0Eh]
         mov dword [byte ebx+02Ah], eax
         imul eax, dword [byte ebp-018h], byte 21h
-        mov edx, dword [dword_1AC944]
+        mov edx, dword [GameOptionFlags]
         mov dword [byte ebp-010h], eax
         movsx eax, word [byte edx+eax+05h]
         cmp eax, byte 0FFFFFFFFh
@@ -1738,7 +1738,7 @@ LinkSetupScreen:
         mov eax, dword [byte eax+02Ch]
         movsx eax, word [byte eax+0Eh]
         mov dword [byte ebx+02Ah], eax
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov dword [byte ebp-0Ch], eax
         movsx eax, word [byte edx+eax+05h]
         cmp eax, byte 0FFFFFFFFh
@@ -2011,7 +2011,7 @@ RunLinkGameScreens:
         mov dword [byte ebp-010h], 0FFFFFFFFh
         xor esi, esi
 .1:
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov al, byte [dword esi+eax+010Dh]
         and al, 7
         movzx edi, al
@@ -2026,15 +2026,15 @@ RunLinkGameScreens_30:
         je short .2
         call MusicEnabled
 .2:
-        test byte [dword_1AC814], 70h
+        test byte [GameSettings], 70h
         jne short .3
-        cmp dword [dword_19CB58], byte 0
+        cmp dword [GameRunning], byte 0
         je short .3
         call ClearLinkCounters
 .3:
         cmp dword [dword_16DA9C], byte 0
         je short .4
-        mov dword [dword_1C94D0], unk_16D26A
+        mov dword [dword_1C94D0], str_S_RunLinkGameScreens
         mov dword [dword_1C94DC], 8
         jmp short .5
 .4:
@@ -2062,7 +2062,7 @@ RunLinkGameScreens_30:
         mov dword [dword_1C94BC], eax
         lea eax, [byte ebp-02Ch]
         push eax
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         add eax, 10Dh
         push eax
         call bcopy
@@ -2144,7 +2144,7 @@ RunLinkGameScreens_112:
         jmp short .12
 .10:
         imul edx, esi, byte 38h
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         test byte [edx+eax], 1
         je short .11
         movsx eax, word [word_1C94EE]
@@ -2153,7 +2153,7 @@ RunLinkGameScreens_112:
 .11:
         inc esi
 .12:
-        movzx eax, word [word_1684BE]
+        movzx eax, word [GripPortWord]
         cmp esi, eax
         jl short .10
         movsx eax, word [word_1C94EE]
@@ -2341,7 +2341,7 @@ RunLinkGameScreens_112:
 .34:
         cmp edi, byte 1
         jne short .38
-        test byte [byte_1AC8C6], 1
+        test byte [MenuOptionFlags], 1
         je short .35
         mov edx, str_ICN1
         jmp short .39
@@ -2374,13 +2374,13 @@ RunLinkGameScreens_112:
         movsx eax, word [nosplit edi*2+word_1C9448]
         inc eax
         push eax
-        push unk_165EA0
+        push str_D_RunLinkGameScreens
         lea eax, [byte ebp-040h]
         push eax
         call sprintf_
         mov eax, dword [byte ebp-08h]
         mov eax, dword [byte eax+02Ch]
-        mov ebx, dword [dword_1CF548]
+        mov ebx, dword [LinkTextFont]
         movsx edx, word [byte eax+06h]
         sar ebx, 1
         sar edx, 1
@@ -2406,7 +2406,7 @@ RunLinkGameScreens_112:
         lea eax, [byte ebp-040h]
         call strcpy_
         movsx edx, word [byte ebx+06h]
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         sar edx, 1
         sar eax, 1
         sub edx, eax
@@ -2485,7 +2485,7 @@ RunLinkGameScreens_112:
         push dword [dword_1C94E4]
         call FindShape
         mov ebx, eax
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
         add esp, byte 8
@@ -2513,7 +2513,7 @@ RunLinkGameScreens_112:
         push dword [dword_1C94E4]
         call FindShape
         mov ebx, eax
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         shl eax, 6
         add esp, byte 8
@@ -2553,7 +2553,7 @@ RunLinkGameScreens_112:
         add esp, byte 8
         push eax
         call BlitShape
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov edx, dword [byte eax+01h]
         and edx, 0FC000h
         add esp, byte 4
@@ -2590,7 +2590,7 @@ RunLinkGameScreens_112:
         shr eax, 1Ah
         call DrawTeamLogoBanner
 .48:
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov edx, dword [byte eax+01h]
         and edx, 3F00000h
         cmp edx, 1700000h
@@ -2668,7 +2668,7 @@ RunLinkGameScreens_112:
         jl short .54
 .53:
         imul edx, esi, byte 21h
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         add eax, byte 5
         add eax, edx
         inc eax
@@ -2682,7 +2682,7 @@ RunLinkGameScreens_112:
         call MeasureText
         add esp, byte 4
         mov edi, eax
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         push byte 20h
         inc eax
         inc eax
@@ -2709,7 +2709,7 @@ RunLinkGameScreens_112:
         movsx eax, word [byte eax+06h]
         sar eax, 1
         add eax, edx
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         sar edx, 1
         sub eax, edx
         mov edx, eax
@@ -2721,7 +2721,7 @@ RunLinkGameScreens_112:
         push dword [byte eax+02Ch]
         call ConvertArtKeepPos
         add esp, byte 4
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         push byte 20h
         inc eax
         inc eax
@@ -2739,7 +2739,7 @@ RunLinkGameScreens_112:
         movsx eax, word [eax]
         sar edx, 1
         add edx, eax
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         sar eax, 1
         sub edx, eax
         mov eax, dword [dword ebx+dword_1C9410]
@@ -2750,7 +2750,7 @@ RunLinkGameScreens_112:
         push dword [byte eax+02Ch]
         call ConvertArtKeepPos
         add esp, byte 4
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         push byte 20h
         inc eax
         inc eax
@@ -2769,7 +2769,7 @@ RunLinkGameScreens_112:
         movsx eax, word [byte eax+06h]
         sar eax, 1
         add eax, edx
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         sar edx, 1
         sub eax, edx
         mov edx, eax
@@ -2802,7 +2802,7 @@ RunLinkGameScreens_112:
         jl short .58
 .57:
         imul edx, esi, byte 21h
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         add eax, byte 5
         mov ebx, 1
         add eax, edx
@@ -2841,7 +2841,7 @@ RunLinkGameScreens_112:
         jl short .62
 .61:
         imul edx, esi, byte 21h
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         add eax, byte 5
         mov ecx, 1
         add eax, edx
@@ -3638,7 +3638,7 @@ RunLinkGameScreens_112:
 .91:
         cmp esi, dword [dword_1C94DC]
         jl short .90
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         push byte 8
         add eax, 10Dh
         push eax
@@ -3712,7 +3712,7 @@ RunLinkGameScreens_112:
 .98:
         xor esi, esi
 .99:
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov al, byte [dword esi+eax+010Dh]
         and al, 7
         movzx edi, al
@@ -3735,7 +3735,7 @@ PlayArenaAnnouncement:
         push edx
         push esi
         push edi
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         and eax, 0FC000h
         movsx esi, word [word_1C1348]
@@ -3744,7 +3744,7 @@ PlayArenaAnnouncement:
         cmp eax, 6C000h
         jne short .4
 .1:
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         and eax, 3F00000h
         cmp eax, 1A00000h
@@ -3752,7 +3752,7 @@ PlayArenaAnnouncement:
         cmp eax, 1B00000h
         jne short .4
 .2:
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov edx, dword [byte eax+01h]
         shl edx, 0Ch
         mov eax, dword [byte eax+01h]
@@ -3766,9 +3766,9 @@ PlayArenaAnnouncement:
         push byte 0
         jmp near .18
 .4:
-        test byte [dword_1AC814], 70h
+        test byte [GameSettings], 70h
         jne short .5
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov edx, dword [byte eax+01h]
         shl edx, 0Ch
         mov eax, dword [byte eax+01h]
@@ -3780,13 +3780,13 @@ PlayArenaAnnouncement:
         push byte 1
         jmp short .3
 .5:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .6
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         jne short .6
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov edx, dword [byte eax+01h]
         shl edx, 0Ch
         mov eax, dword [byte eax+01h]
@@ -3853,7 +3853,7 @@ PlayArenaAnnouncement:
         lea eax, [byte ebx+01h]
 .17:
         mov edi, dword [nosplit eax*4+dword_1AD62F]
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov edx, dword [byte eax+01h]
         shl edx, 0Ch
         mov eax, dword [byte eax+01h]
@@ -3977,7 +3977,7 @@ PostGameScreen:
         mov esi, eax
         mov eax, dword [dword_1C959C]
         call InitShapeListBox
-        test byte [dword_1AC814], 70h
+        test byte [GameSettings], 70h
         jne near .4
         mov edx, 1
         mov eax, dword [dword esp+0110h]
@@ -4539,12 +4539,12 @@ PostGameScreen:
         call DrawShadowBox
         cmp word [dword edi+word_1C94F8], byte 0
         jne short .24
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
         jmp short .25
 .24:
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         shl eax, 6
 .25:
@@ -4702,7 +4702,7 @@ StarBonus:
         push esi
         push edi
         mov ebx, eax
-        mov ecx, dword [dword_1AC944]
+        mov ecx, dword [GameOptionFlags]
         mov ecx, dword [byte ecx+01h]
         shl ecx, 13h
         mov edx, 5
@@ -5130,7 +5130,7 @@ DrawThreeStarStats:
         add esp, byte 14h
         add ebx, dword [byte esp+05Ch]
 .14:
-        test byte [dword_1AC814], 70h
+        test byte [GameSettings], 70h
         je near .24
         mov eax, dword [dword esi+0D1h]
         mov edx, dword [dword esi+0D3h]
@@ -5278,7 +5278,7 @@ DrawThreeStarStats:
         add esp, byte 18h
 .22:
         add ebx, dword [byte esp+05Ch]
-        test byte [dword_1AC814], 70h
+        test byte [GameSettings], 70h
         je short .24
         mov eax, dword [dword esi+0DDh]
         mov edx, dword [dword esi+0DFh]
@@ -6003,7 +6003,7 @@ InitGameStatsScreen:
         push edi
         push ebp
         mov ebx, eax
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
         shr eax, 1Ah
@@ -6037,7 +6037,7 @@ InitGameStatsScreen:
         call DrawShapeBlended
         add esp, byte 10h
         call FreeLogoArt
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         shl eax, 6
         shr eax, 1Ah
@@ -6968,7 +6968,7 @@ DrawTeamStatLine:
         mov eax, dword [dword eax+020B7h]
         sar eax, 10h
         push eax
-        push unk_166010
+        push str_D_DrawTeamStatLine
         push ebx
         push edx
         push byte 1
@@ -6977,7 +6977,7 @@ DrawTeamStatLine:
         add esp, byte 14h
         sar eax, 10h
         push eax
-        push unk_166010
+        push str_D_DrawTeamStatLine
         add ebx, ebp
         push ebx
         push edi
@@ -7044,7 +7044,7 @@ DrawTeamStatLine:
         mov eax, dword [dword esi+020C9h]
         sar eax, 10h
         push eax
-        push unk_166010
+        push str_D_DrawTeamStatLine
         add ebx, ebp
         push ebx
         push edi
@@ -7059,7 +7059,7 @@ DrawTeamStatLine:
         idiv ecx
         add esp, byte 14h
         push eax
-        push unk_166010
+        push str_D_DrawTeamStatLine
         add ebx, ebp
         push ebx
         push edi
@@ -7069,7 +7069,7 @@ DrawTeamStatLine:
         add esp, byte 14h
         sar eax, 10h
         push eax
-        push unk_166010
+        push str_D_DrawTeamStatLine
         add ebx, ebp
         push ebx
         push edi
@@ -7079,7 +7079,7 @@ DrawTeamStatLine:
         add esp, byte 14h
         sar eax, 10h
         push eax
-        push unk_166010
+        push str_D_DrawTeamStatLine
         add ebx, ebp
         push ebx
         push edi
@@ -7128,7 +7128,7 @@ DrawTeamStatLine:
         add esp, byte 18h
         sar eax, 10h
         push eax
-        push unk_166010
+        push str_D_DrawTeamStatLine
         add ebx, ebp
         push ebx
         push edi
@@ -7138,7 +7138,7 @@ DrawTeamStatLine:
         mov eax, dword [dword esi+020E5h]
         sar eax, 10h
         push eax
-        push unk_166010
+        push str_D_DrawTeamStatLine
         add ebx, ebp
         push ebx
         push edi
@@ -7166,7 +7166,7 @@ DrawTeamStatLine:
         idiv ecx
         add esp, byte 18h
         push eax
-        push unk_166010
+        push str_D_DrawTeamStatLine
         add ebx, ebp
         push ebx
         push edi
@@ -7847,7 +7847,7 @@ DrawPlayerStatsPage:
         jne short .1
         push str_GS24
         mov ecx, str_GS25
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov edx, dword [dword_1C9584]
         mov ebx, str_GS24
         add edx, 1ECh
@@ -7858,7 +7858,7 @@ DrawPlayerStatsPage:
 .1:
         push str_GS20
         mov ecx, str_GS21
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov edx, dword [dword_1C9584]
         mov ebx, str_GS20
         add edx, 1ECh
@@ -8794,7 +8794,7 @@ LogGoal:
         mov esi, 1
         cmp cx, 100h
         jge near .1
-        mov edx, dword [word_19CB96]
+        mov edx, dword [PassState]
         movsx ebx, ax
         sar edx, 10h
         sub edx, ebx
@@ -8853,7 +8853,7 @@ LogPenalty:
         mov ecx, 1
         cmp si, 100h
         jge near .1
-        mov edx, dword [word_19CB96]
+        mov edx, dword [PassState]
         movsx ebx, ax
         sar edx, 10h
         sub edx, ebx
@@ -8912,7 +8912,7 @@ LogPeriodEnd:
         mov ebx, 1
         cmp cx, 100h
         jge near .3
-        mov edx, dword [word_19CB96]
+        mov edx, dword [PassState]
         sar edx, 10h
         mov edi, 3Ch
         mov eax, edx
@@ -9512,7 +9512,7 @@ GoalTypeSuffix:
         push eax
         call sprintf_
         add esp, byte 0Ch
-        push unk_16609C
+        push str_Punct_GoalTypeSuffix
         lea eax, [byte esp+02Ch]
         push eax
         call sprintf_
@@ -9740,7 +9740,7 @@ LoadGameLogos:
         push esi
         push edi
         enter 20h, 0
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         shl eax, 1Ch
         shr eax, 1Eh
         xor edx, edx
@@ -9766,7 +9766,7 @@ LoadGameLogos:
         mov eax, 3
         call SecondsToSamples
         call WaitSoundTime
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
         shr eax, 1Ah
@@ -9857,7 +9857,7 @@ LoadGameLogos:
         mov eax, 3
         call SecondsToSamples
         call WaitSoundTime
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         shl eax, 6
         shr eax, 1Ah
@@ -10037,7 +10037,7 @@ PlayMenuGame:
 .4:
         call FreeFrontEnd
         call InitGameAudio
-        mov edx, unk_1AC8E4
+        mov edx, ControlSetup
         mov eax, dword_16D93A
         call CopyControlSettings
         mov eax, 37h

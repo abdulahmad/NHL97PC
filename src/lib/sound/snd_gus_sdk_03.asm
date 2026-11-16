@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_13B740 progbits alloc exec nowrite align=1
-extern __grab_int23_, __grab_int_ctrl_break_, __math1err_, __restore_int23_, __restore_int_ctrl_break_, __set_errno_, __terminate_, dword_19C170
-extern dword_19C178, dword_19C1A4, SignalHookFpu
+extern __grab_int23_, __grab_int_ctrl_break_, __math1err_, __restore_int23_, __restore_int_ctrl_break_, __set_errno_, __terminate_, SignalTable
+extern SigFpeHandler, AbortHandler, SignalHookFpu
 global __log87_err_, __sigabort_, __sigfpe_handler_, _chain_intr_, jpt_13B879, raise__2A, raise__3F, raise__4A
 global raise__73, raise__96, raise_, signal_, GusConvertAddr16
 ;-----------------------------------------------------------------------------
@@ -76,7 +76,7 @@ __sigfpe_handler_:
         push edx
         push esi
         sub esp, byte 4
-        mov edx, dword [dword_19C178]
+        mov edx, dword [SigFpeHandler]
         mov dword [esp], edx
         cmp edx, byte 1
         je short .1
@@ -87,7 +87,7 @@ __sigfpe_handler_:
         mov esi, 2
         mov edx, eax
         mov eax, esi
-        mov dword [dword_19C178], esi
+        mov dword [SigFpeHandler], esi
         call dword [esp]
 .1:
         add esp, byte 4
@@ -111,7 +111,7 @@ signal_:
         pop ebx
         ret
 .2:
-        mov dword [dword_19C1A4], __sigabort_
+        mov dword [AbortHandler], __sigabort_
         cmp eax, byte 4
         jne short .4
         cmp edx, byte 2
@@ -144,8 +144,8 @@ signal_:
         je short .7
         call SignalHookFpu
 .7:
-        mov eax, dword [nosplit ebx*4+dword_19C170]
-        mov dword [nosplit ebx*4+dword_19C170], edx
+        mov eax, dword [nosplit ebx*4+SignalTable]
+        mov dword [nosplit ebx*4+SignalTable], edx
         pop ebx
         ret
 jpt_13B879:
@@ -173,7 +173,7 @@ raise_:
         sub esp, byte 4
         mov edx, eax
         shl eax, 2
-        mov ebx, dword [dword eax+dword_19C170]
+        mov ebx, dword [dword eax+SignalTable]
         mov dword [esp], ebx
         lea ebx, [byte edx-01h]
         cmp ebx, byte 0Bh
@@ -204,7 +204,7 @@ raise__4A:
         je short raise__2A.1
         cmp edi, byte 3
         je short raise__2A.1
-        mov dword [nosplit edx*4+dword_19C170], 2
+        mov dword [nosplit edx*4+SignalTable], 2
         call __restore_int23_
 .3:
         mov eax, edx
@@ -219,7 +219,7 @@ raise__73:
         je short raise__2A.1
         cmp ebx, byte 3
         je short raise__2A.1
-        mov dword [dword eax+dword_19C170], 2
+        mov dword [dword eax+SignalTable], 2
         call __restore_int_ctrl_break_
         jmp short raise__4A.3
 raise__96:
@@ -232,7 +232,7 @@ raise__96:
         je short raise__2A.1
         mov ecx, 2
         mov eax, edx
-        mov dword [nosplit edx*4+dword_19C170], ecx
+        mov dword [nosplit edx*4+SignalTable], ecx
         jmp short raise__4A.4
 .5:
         mov eax, 0FFFFFFFFh

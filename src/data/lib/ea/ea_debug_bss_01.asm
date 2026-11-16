@@ -2,67 +2,67 @@
 bits 32
 %include "hockey.inc"
 section s_1DA394 nobits alloc noexec write align=1
-global dword_1DA394, dword_1DA398, dword_1DA39C, dword_1DA3A0, dword_1DA3A4, dword_1DA3A8, dword_1DA3AC, dword_1DA3B0
-global dword_1DA3B4, dword_1DA3CC, dword_1DA3E0, dword_1DA3E4, dword_1DA3E8, dword_1DA3EC, dword_1DA3F0, dword_1DA3F4
-global dword_1DA3F8, dword_1DA3FC, dword_1DA400, dword_1DA404, dword_1DA408, dword_1DA40C, dword_1DA410, dword_1DA414
-global unk_1DA3C4, unk_1DA418, unk_1DA448, unk_1DA464, unk_1DA466, unk_1DA468
-dword_1DA394:
+global TintMulGreen, TintMulBlue, TintRowCount, TintPixelGreen, TintPixelBlue, TintMulRed, TintRemapTable, TintPixelRed
+global NetLocalName, NetPollState, NetSendFn, NetDisconnectFn, NetOpenFn, NetLeaveFn, NetJoinFn, NetAnnounceFn
+global NetLinkOpenFn, NetListStartFn, NetListNextFn, NetDropFn, NetPeerSendFn, NetNameFn, NetCloseFn, NetPeerDropFn
+global NetMessageBuf, IpxTargetAddr, IpxRealRegs, IpxSocketNum, IpxSocketResult, IpxLocalAddr
+TintMulGreen:
         resb 4
-dword_1DA398:
+TintMulBlue:
         resb 4
-dword_1DA39C:
+TintRowCount:
         resb 4
-dword_1DA3A0:
+TintPixelGreen:
         resb 4
-dword_1DA3A4:
+TintPixelBlue:
         resb 4
-dword_1DA3A8:
+TintMulRed:
         resb 4
-dword_1DA3AC:
+TintRemapTable:
         resb 4
-dword_1DA3B0:
+TintPixelRed:
         resb 4
-dword_1DA3B4:
+NetLocalName:
         resb 16
-unk_1DA3C4:
+NetMessageBuf:
         resb 8
-dword_1DA3CC:
+NetPollState:
         resb 20
-dword_1DA3E0:
+NetSendFn:
         resb 4
-dword_1DA3E4:
+NetDisconnectFn:
         resb 4
-dword_1DA3E8:
+NetOpenFn:
         resb 4
-dword_1DA3EC:
+NetLeaveFn:
         resb 4
-dword_1DA3F0:
+NetJoinFn:
         resb 4
-dword_1DA3F4:
+NetAnnounceFn:
         resb 4
-dword_1DA3F8:
+NetLinkOpenFn:
         resb 4
-dword_1DA3FC:
+NetListStartFn:
         resb 4
-dword_1DA400:
+NetListNextFn:
         resb 4
-dword_1DA404:
+NetDropFn:
         resb 4
-dword_1DA408:
+NetPeerSendFn:
         resb 4
-dword_1DA40C:
+NetNameFn:
         resb 4
-dword_1DA410:
+NetCloseFn:
         resb 4
-dword_1DA414:
+NetPeerDropFn:
         resb 4
-unk_1DA418:
+IpxTargetAddr:
         resb 48
-unk_1DA448:
+IpxRealRegs:
         resb 28
-unk_1DA464:
+IpxSocketNum:
         resb 2
-unk_1DA466:
+IpxSocketResult:
         resb 2
-unk_1DA468:
+IpxLocalAddr:
         resb 48

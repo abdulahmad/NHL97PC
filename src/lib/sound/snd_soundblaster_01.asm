@@ -4,26 +4,26 @@ bits 32
 section s_128CEC progbits alloc exec nowrite align=1
 extern ParseBlasterEnv, str_DMABUFFER3, str_DMABUF, str_DMABUF2, str_DMABUFFER4, str_SNDSCAPE, str_SNDSCAPEINI, str_Product
 extern str_SoundFX, str_Port, str_DMA, str_IRQ, str_SBIRQ, str_SBEnable, str_FALSE, str_WavePort
-extern atoi_, byte_172C14, byte_172C15, byte_172C2C, byte_172C2D, byte_172C2E, byte_172C2F, byte_172C88
-extern byte_172C89, dword_16E4B0, dword_172BC8, dword_172BCC, dword_172BD0, dword_172BD4, dword_172C00, dword_172C04
-extern dword_172C08, dword_172C0C, dword_172C10, dword_172C20, dword_172C24, dword_172C28, dword_172C3E, dword_172C64
-extern dword_172C68, dword_172C6C, dword_172C70, dword_172C74, dword_172C78, dword_172C7C, dword_172C80, dword_172C84
-extern dword_172C90, dword_172C94, dword_172C98, dword_172C9C, dword_172CA0, dword_1DCF38, dword_1DD378, dword_1DD37C
-extern dword_1DD3C0, dword_1DD3C8, dword_1DD3CC, dword_1DD3D0, dword_1DD3D4, dword_1DD3D8, dword_1DD3DC, dword_1DD3E4
-extern dword_1DD3EC, dword_1DD3F0, dword_1DD3F4, dword_1DD3F8, dword_1DD3FC, dword_1DD400, dword_1DD404, dword_1DD408
-extern dword_1DD410, dword_1DD414, dword_1DD418, dword_1DD41C, dword_1DD420, dword_1DD424, dword_1DD428, dword_1DD42C
-extern dword_1DD434, dword_1DD438, dword_1DD43C, dword_1DD440, dword_1DD444, dword_1DD448, dword_1DD44C, dword_1DD450
-extern dword_1DD454, dword_1DD458, dword_1DD45C, dword_1DD460, dword_1DD464, dword_1DD468, dword_1DD474, dword_1DD478
-extern dword_1DD47C, dword_1DD480, dword_1DD484, dword_1DD488, dword_1DD48C, dword_1DD490, dword_1DD494, dword_1DD498
+extern atoi_, SbProIrqVectors, SbProDmaChannelTable, Sb16DmaPageTable, Sb16DmaAddrTable, Sb16DmaCountTable, Sb16DmaMaskTable, SoundscapeIrqFlags
+extern SoundscapeIrqCodes, str_D_UpdateFrameRate, SpeechQueueVolume, AudioWorkHook, AudioStreamHook, AudioSpeechHook, SbDriverBuffer, SbDriverRunning
+extern SbProDriverBuffer, SbProDriverRunning, SbProChannels, dword_172C20, Sb16DriverActive, Sb16BufferSize, Sb16SavedIrqVector, SoundscapeBasePort
+extern str_Punct_ReadSoundscapeIni, SoundscapeCodecType, SoundscapeDmaChannel, SoundscapeWavePort, SoundscapeIrq, SoundscapeMidiIrq, SoundscapeDmaBuffer, SoundscapeSavedIrq
+extern AudioDeferredPending, AudioDeferredArg, AudioBusyCount, AudioLockCount, AudioDeferredFunc, ChannelSampleTable, DigitalAudioHandle, DigitalAudioRate
+extern SbDmaBuffer, SbRate, SbDmaChannel, SbDmaBufSize, SbIrqLine, SbBlockSize, SbHalfSize, SbOldIrqHandler
+extern SbStartTime, SbProDmaBuffer, SbProOldIrq, SbProIrqVector, SbProRate, SbProIrqMask, SbProDmaBufSize, SbProBlockSize
+extern SbProDmaChannel, SbProIrqLine, SbProIrqNum, SbProHalfSize, SbProOldMask, SbProStereo, SbProBasePort, SbProOldHandler
+extern SbProStartTime, Sb16OldIrq, Sb16IrqVector, Sb16IrqMask, Sb16DmaBufSize, Sb16Config, Sb16Rate, Sb16DmaChannel
+extern Sb16BlockSize, Sb16DmaBuffer, Sb16HalfSize, Sb16IrqLine, Sb16Format, Sb16Stereo, Sb16StartTime, ScapeDmaBufSize
+extern ScapeCodecBase, ScapeCodecState, ScapeBasePort, ScapeIrq, ScapeDmaChannel, ScapeDmaBuffer, ScapeCodecPort, ScapeRate
 extern fclose_, fgets_, fopen_, fseek_, getenv_, unk_137FE1_2, str_WSSDMA, strcmp_
 extern strstr_, strupr_, AudioDriverUpdate, ApplyChannelVolume, PickSampleRate, StopChannel, RestoreDS, MixerInit
 extern MixerFillBuffer, SbReadData, SbWriteDsp, SbMixerWrite, SbMixerRead, SbResetDsp, SbDetectDsp, SbSetRate
 extern StartChannel, SetChannelCount, DmaMaskChannel, DmaProgram, IrqAck, IrqVector, IrqUnmask, IrqMask
 extern IrqSetHandler, AllocDosDmaBuffer, FreeDosDmaBuffer, SbTimeConstant, SbRateFromConstant, ReturnArg, AllocMemData, FreeMemBlock
-extern unk_128990, unk_1289A0, unk_137F46, unk_137F48, unk_137F4A, unk_137FDF, unk_137FE1, unk_140000
-extern unk_14000D, unk_14001A, unk_14002B, unk_168088, unk_1680D4, unk_172C44, unk_1DD3C4, unk_1DD40C
-extern word_172C42, word_172C48, word_172C4C, word_1DD3E0, word_1DD3E8, word_1DD430, word_1DD46C, word_1DD470
-extern word_1DD472
+extern unk_128990, unk_1289A0, SbRateConstLo, SbRateConstMid, SbRateConstHi, SbProStereoFlag, SbProRateConst, unk_140000
+extern unk_14000D, unk_14001A, unk_14002B, str_Rt_ReadSoundscapeIni, str_Punct_IniFindKey, Sb16DmaSetupCode, SbConfig, SbProConfig
+extern Sb16SavedIrqSelector, Sb16DmaPortPatch, str_Punct_Sb16SetupDma, SbDspVersion, SbOldIrqSelector, SbProOldSelector, Sb16DspVersion, Sb16IrqStatusPort
+extern Sb16DmaBits
 global AudioEnter_6, ReadBlasterPort, ProbeDspReset, SbDriverId, SbDriverInit, SbDriverShutdown, SbDriverStart, SbSetupDma
 global SbProDriverId, SbProDriverInit, SbProDriverShutdown, SbProDriverStart, SbProSetupDma, SbProStopDma, Sb16DriverId, Sb16DriverInit
 global Sb16DriverShutdown, Sb16DriverStart, Sb16AckIrq, Sb16SetupDma, Sb16StopDma, SoundscapeDriverId, SoundscapeDriverInit, SoundscapeDriverShutdown
@@ -212,7 +212,7 @@ SbDriverInit:
         jmp near .9
 .1:
         call PickSampleRate
-        mov dword [dword_1DD3C0], eax
+        mov dword [SbDmaBuffer], eax
         cmp eax, 157Ch
         ja short .2
         mov ebx, 4
@@ -229,29 +229,29 @@ SbDriverInit:
         mov edx, eax
         sar edx, 1Fh
         idiv ebx
-        mov dword [dword_1DD3C8], eax
+        mov dword [SbRate], eax
         mov eax, 400h
         mov edx, eax
         sar edx, 1Fh
         idiv ebx
-        mov ecx, unk_1DD3C4
-        mov ebx, dword_1DD3CC
-        mov edx, dword_1DD3D4
-        mov dword [dword_1DD3D0], eax
-        mov eax, word_1DD3E0
+        mov ecx, SbConfig
+        mov ebx, SbDmaChannel
+        mov edx, SbIrqLine
+        mov dword [SbDmaBufSize], eax
+        mov eax, SbDspVersion
         call ParseBlasterEnv
         test eax, eax
         jl near .9
-        mov ax, word [dword_1DD3D4]
-        mov word [unk_137F46], ax
-        mov ax, word [word_1DD3E0]
+        mov ax, word [SbIrqLine]
+        mov word [SbRateConstLo], ax
+        mov ax, word [SbDspVersion]
         add eax, 0Eh
-        mov word [unk_137F48], ax
-        mov ax, word [word_1DD3E0]
+        mov word [SbRateConstMid], ax
+        mov ax, word [SbDspVersion]
         add eax, 0Ch
-        mov word [unk_137F4A], ax
+        mov word [SbRateConstHi], ax
         call SbDetectDsp
-        mov dword [dword_1DD3DC], eax
+        mov dword [SbHalfSize], eax
         test eax, eax
         jge short .5
         mov eax, 0FFFFFFFBh
@@ -262,17 +262,17 @@ SbDriverInit:
         pop ebx
         ret
 .5:
-        mov eax, dword [dword_1DD3D0]
+        mov eax, dword [SbDmaBufSize]
         push dword 200h
         add eax, eax
         push eax
         push str_DMABUFFER3
         call AllocMemData
         add esp, byte 0Ch
-        mov dword [dword_1DD3D8], eax
+        mov dword [SbBlockSize], eax
         test eax, eax
         jne short .6
-        mov dword [dword_172C04], eax
+        mov dword [SbDriverRunning], eax
         mov eax, 0FFFFFFFAh
         pop edi
         pop esi
@@ -283,15 +283,15 @@ SbDriverInit:
 .6:
         mov ebx, 10000h
         mov edx, eax
-        mov ecx, dword [dword_1DD3D0]
+        mov ecx, dword [SbDmaBufSize]
         and edx, 0FFFFh
         sub ebx, ecx
-        mov dword [dword_172C04], eax
+        mov dword [SbDriverRunning], eax
         cmp edx, ebx
         jbe short .7
         and eax, 0F0000h
         add eax, 10000h
-        mov dword [dword_1DD3D8], eax
+        mov dword [SbBlockSize], eax
 .7:
         call SbSetupDma
         test eax, eax
@@ -305,11 +305,11 @@ SbDriverInit:
         ret
 .8:
         push SetChannelCount
-        mov edi, dword [dword_1DD3C0]
+        mov edi, dword [SbDmaBuffer]
         push edi
         mov esi, 1
         push byte 4
-        mov dword [dword_172C00], esi
+        mov dword [SbDriverBuffer], esi
         call MixerInit
         add esp, byte 0Ch
         shl eax, 10h
@@ -330,32 +330,32 @@ SbDriverShutdown:
         push edx
         push esi
         push edi
-        cmp dword [dword_172C04], byte 0
+        cmp dword [SbDriverRunning], byte 0
         je short .2
-        cmp dword [dword_1DD3DC], 200h
+        cmp dword [SbHalfSize], 200h
         jl short .1
         mov eax, 0DAh
         call SbWriteDsp
 .1:
-        mov eax, dword [dword_1DD3CC]
+        mov eax, dword [SbDmaChannel]
         call DmaMaskChannel
         mov eax, 0D3h
         call SbWriteDsp
-        mov eax, dword [dword_1DD3D4]
+        mov eax, dword [SbIrqLine]
         call IrqMask
-        mov cx, word [word_1DD3E8]
-        mov ebx, dword [dword_1DD3E4]
-        mov eax, dword [dword_1DD3D4]
+        mov cx, word [SbOldIrqSelector]
+        mov ebx, dword [SbOldIrqHandler]
+        mov eax, dword [SbIrqLine]
         call IrqSetHandler
-        mov ecx, dword [dword_172C04]
+        mov ecx, dword [SbDriverRunning]
         push ecx
         xor esi, esi
         call FreeMemBlock
         add esp, byte 4
-        mov dword [dword_172C04], esi
+        mov dword [SbDriverRunning], esi
 .2:
         xor edi, edi
-        mov dword [dword_172C00], edi
+        mov dword [SbDriverBuffer], edi
         pop edi
         pop esi
         pop edx
@@ -371,16 +371,16 @@ SbDriverStart:
         push ebx
         push ecx
         push edx
-        mov edx, dword [dword_1DD3CC]
-        mov eax, dword [dword_1DD3C8]
+        mov edx, dword [SbDmaChannel]
+        mov eax, dword [SbRate]
         call IrqAck
-        mov dword [dword_1DD3EC], eax
+        mov dword [SbStartTime], eax
         test eax, eax
         jl short .1
-        cmp dword [dword_172C00], byte 0
+        cmp dword [SbDriverBuffer], byte 0
         je short .1
-        mov ebx, dword [dword_1DD3C8]
-        mov edx, dword [dword_1DD3D8]
+        mov ebx, dword [SbRate]
+        mov edx, dword [SbBlockSize]
         push ebx
         add eax, edx
         push eax
@@ -410,7 +410,7 @@ SbSetupDma:
         ret
 .1:
         mov edx, 1
-        mov eax, dword [dword_1DD3C0]
+        mov eax, dword [SbDmaBuffer]
         call SbSetRate
         test eax, eax
         jge short .2
@@ -430,41 +430,41 @@ SbSetupDma:
         pop ebx
         ret
 .3:
-        mov edx, dword [dword_1DD3D0]
+        mov edx, dword [SbDmaBufSize]
         xor eax, eax
         test edx, edx
         jbe short .5
 .4:
-        mov edx, dword [dword_1DD3D8]
-        mov ebx, dword [dword_1DD3D0]
+        mov edx, dword [SbBlockSize]
+        mov ebx, dword [SbDmaBufSize]
         mov byte [edx+eax], 80h
         inc eax
         cmp eax, ebx
         jb short .4
 .5:
-        mov eax, dword [dword_1DD3D4]
+        mov eax, dword [SbIrqLine]
         call IrqMask
-        cmp dword [dword_1DD3DC], 200h
+        cmp dword [SbHalfSize], 200h
         jge short .6
         mov ebx, SbTimeConstant
         jmp short .7
 .6:
         mov ebx, SbRateFromConstant
 .7:
-        mov eax, dword [dword_1DD3D4]
+        mov eax, dword [SbIrqLine]
         mov ecx, cs
         call IrqSetHandler
-        mov word [word_1DD3E8], dx
-        mov dword [dword_1DD3E4], eax
+        mov word [SbOldIrqSelector], dx
+        mov dword [SbOldIrqHandler], eax
         call IrqVector
-        mov eax, dword [dword_1DD3D4]
+        mov eax, dword [SbIrqLine]
         mov ecx, 58h
         call IrqUnmask
-        mov ebx, dword [dword_1DD3D0]
-        mov edx, dword [dword_1DD3D8]
-        mov eax, dword [dword_1DD3CC]
+        mov ebx, dword [SbDmaBufSize]
+        mov edx, dword [SbBlockSize]
+        mov eax, dword [SbDmaChannel]
         call DmaProgram
-        cmp dword [dword_1DD3DC], 200h
+        cmp dword [SbHalfSize], 200h
         jge short .8
         mov eax, 14h
         call SbWriteDsp
@@ -506,7 +506,7 @@ SbSetupDma:
         pop ebx
         ret
 .11:
-        cmp dword [dword_1DD3DC], 200h
+        cmp dword [SbHalfSize], 200h
         jl short .12
         mov eax, 1Ch
         call SbWriteDsp
@@ -520,20 +520,20 @@ SbSetupDma:
         push ebx
         push ecx
         push edx
-        cmp dword [dword_1DD3DC], 200h
+        cmp dword [SbHalfSize], 200h
         jl short .13
         mov eax, 0DAh
         call SbWriteDsp
 .13:
-        mov eax, dword [dword_1DD3CC]
+        mov eax, dword [SbDmaChannel]
         call DmaMaskChannel
         mov eax, 0D3h
         call SbWriteDsp
-        mov eax, dword [dword_1DD3D4]
+        mov eax, dword [SbIrqLine]
         call IrqMask
-        mov cx, word [word_1DD3E8]
-        mov ebx, dword [dword_1DD3E4]
-        mov eax, dword [dword_1DD3D4]
+        mov cx, word [SbOldIrqSelector]
+        mov ebx, dword [SbOldIrqHandler]
+        mov eax, dword [SbIrqLine]
         call IrqSetHandler
         pop edx
         pop ecx
@@ -567,7 +567,7 @@ SbProDriverInit:
         test bl, 1
         je short .1
         xor edx, edx
-        mov dword [dword_172C10], edx
+        mov dword [SbProChannels], edx
         jmp short .2
 .1:
         test bl, 2
@@ -576,7 +576,7 @@ SbProDriverInit:
         jmp near .14
 .2:
         call PickSampleRate
-        mov dword [dword_1DD408], eax
+        mov dword [SbProBlockSize], eax
         cmp eax, 157Ch
         ja short .3
         mov ebx, 4
@@ -593,30 +593,30 @@ SbProDriverInit:
         mov edx, eax
         sar edx, 1Fh
         idiv ebx
-        mov dword [dword_1DD3F0], eax
-        mov eax, dword [dword_172C10]
-        mov al, byte [nosplit eax*2+byte_172C15]
+        mov dword [SbProDmaBuffer], eax
+        mov eax, dword [SbProChannels]
+        mov al, byte [nosplit eax*2+SbProDmaChannelTable]
         and eax, 0FFh
         imul ebx, eax
         mov eax, 800h
         mov edx, eax
         sar edx, 1Fh
         idiv ebx
-        mov ecx, unk_1DD40C
-        mov ebx, dword_1DD410
-        mov dword [dword_1DD404], eax
+        mov ecx, SbProConfig
+        mov ebx, SbProDmaChannel
+        mov dword [SbProDmaBufSize], eax
         shr eax, 1
-        mov edx, dword_1DD418
-        mov dword [dword_1DD3FC], eax
-        mov eax, dword_1DD428
+        mov edx, SbProIrqNum
+        mov dword [SbProRate], eax
+        mov eax, SbProBasePort
         call ParseBlasterEnv
         test eax, eax
         jl near .14
-        mov ax, word [dword_1DD418]
-        mov word [unk_137FDF], ax
-        mov ax, word [dword_1DD428]
+        mov ax, word [SbProIrqNum]
+        mov word [SbProStereoFlag], ax
+        mov ax, word [SbProBasePort]
         add eax, 0Eh
-        mov word [unk_137FE1], ax
+        mov word [SbProRateConst], ax
         call SbResetDsp
         test eax, eax
         jge short .6
@@ -630,7 +630,7 @@ SbProDriverInit:
         ret
 .6:
         call SbDetectDsp
-        mov dword [dword_1DD424], eax
+        mov dword [SbProStereo], eax
         cmp eax, 300h
         jge short .7
         mov eax, 0FFFFFFFEh
@@ -642,17 +642,17 @@ SbProDriverInit:
         pop ebx
         ret
 .7:
-        mov eax, dword [dword_1DD404]
+        mov eax, dword [SbProDmaBufSize]
         push dword 200h
         add eax, eax
         push eax
         push str_DMABUF
         call AllocMemData
         add esp, byte 0Ch
-        mov dword [dword_1DD41C], eax
+        mov dword [SbProHalfSize], eax
         test eax, eax
         jne short .8
-        mov dword [dword_172C0C], eax
+        mov dword [SbProDriverRunning], eax
         mov eax, 0FFFFFFFAh
         pop ebp
         pop edi
@@ -664,21 +664,21 @@ SbProDriverInit:
 .8:
         mov ebx, 10000h
         mov edx, eax
-        mov ecx, dword [dword_1DD404]
+        mov ecx, dword [SbProDmaBufSize]
         and edx, 0FFFFh
         sub ebx, ecx
-        mov dword [dword_172C0C], eax
+        mov dword [SbProDriverRunning], eax
         cmp edx, ebx
         jbe short .9
         and eax, 0F0000h
         add eax, 10000h
-        mov dword [dword_1DD41C], eax
+        mov dword [SbProHalfSize], eax
 .9:
         push SetChannelCount
-        mov esi, dword [dword_1DD408]
-        mov eax, dword [dword_172C10]
+        mov esi, dword [SbProBlockSize]
+        mov eax, dword [SbProChannels]
         push esi
-        mov al, byte [nosplit eax*2+byte_172C14]
+        mov al, byte [nosplit eax*2+SbProIrqVectors]
         and eax, 0FFh
         push eax
         call MixerInit
@@ -686,19 +686,19 @@ SbProDriverInit:
         add esp, byte 0Ch
         test eax, eax
         jge short .11
-        cmp dword [dword_172C0C], byte 0
+        cmp dword [SbProDriverRunning], byte 0
         je short .10
         call SbProStopDma
-        mov esi, dword [dword_172C0C]
+        mov esi, dword [SbProDriverRunning]
         push esi
         xor edi, edi
         call FreeMemBlock
         add esp, byte 4
-        mov dword [dword_172C0C], edi
+        mov dword [SbProDriverRunning], edi
 .10:
         xor ebp, ebp
         mov eax, 0FFFFFFFFh
-        mov dword [dword_172C08], ebp
+        mov dword [SbProDriverBuffer], ebp
         pop ebp
         pop edi
         pop esi
@@ -710,19 +710,19 @@ SbProDriverInit:
         call SbProSetupDma
         test eax, eax
         jge short .13
-        cmp dword [dword_172C0C], byte 0
+        cmp dword [SbProDriverRunning], byte 0
         je short .12
         call SbProStopDma
-        mov eax, dword [dword_172C0C]
+        mov eax, dword [SbProDriverRunning]
         push eax
         call FreeMemBlock
         xor edx, edx
         add esp, byte 4
-        mov dword [dword_172C0C], edx
+        mov dword [SbProDriverRunning], edx
 .12:
         xor ebx, ebx
         mov eax, 0FFFFFFFBh
-        mov dword [dword_172C08], ebx
+        mov dword [SbProDriverBuffer], ebx
         pop ebp
         pop edi
         pop esi
@@ -734,7 +734,7 @@ SbProDriverInit:
         mov eax, ebx
         mov edi, 1
         shl eax, 10h
-        mov dword [dword_172C08], edi
+        mov dword [SbProDriverBuffer], edi
         or al, 2
 .14:
         pop ebp
@@ -754,18 +754,18 @@ SbProDriverShutdown:
         push ecx
         push edx
         push esi
-        cmp dword [dword_172C0C], byte 0
+        cmp dword [SbProDriverRunning], byte 0
         je short .1
         call SbProStopDma
-        mov ebx, dword [dword_172C0C]
+        mov ebx, dword [SbProDriverRunning]
         push ebx
         call FreeMemBlock
         xor ecx, ecx
         add esp, byte 4
-        mov dword [dword_172C0C], ecx
+        mov dword [SbProDriverRunning], ecx
 .1:
         xor esi, esi
-        mov dword [dword_172C08], esi
+        mov dword [SbProDriverBuffer], esi
         pop esi
         pop edx
         pop ecx
@@ -780,16 +780,16 @@ SbProDriverStart:
         push ebx
         push ecx
         push edx
-        mov edx, dword [dword_1DD410]
-        mov eax, dword [dword_1DD3FC]
+        mov edx, dword [SbProDmaChannel]
+        mov eax, dword [SbProRate]
         call IrqAck
-        mov dword [dword_1DD434], eax
+        mov dword [SbProStartTime], eax
         test eax, eax
         jl short .1
-        cmp dword [dword_172C08], byte 0
+        cmp dword [SbProDriverBuffer], byte 0
         je short .1
-        mov ebx, dword [dword_1DD3F0]
-        mov edx, dword [dword_1DD41C]
+        mov ebx, dword [SbProDmaBuffer]
+        mov edx, dword [SbProHalfSize]
         push ebx
         add eax, edx
         push eax
@@ -811,61 +811,61 @@ SbProSetupDma:
         push edx
         push esi
         push edi
-        mov edx, dword [dword_1DD3F0]
+        mov edx, dword [SbProDmaBuffer]
         push edx
-        mov ebx, dword [dword_1DD41C]
+        mov ebx, dword [SbProHalfSize]
         push ebx
         call MixerFillBuffer
-        mov ecx, dword [dword_1DD3F0]
+        mov ecx, dword [SbProDmaBuffer]
         add esp, byte 8
-        mov eax, dword [dword_1DD41C]
-        mov esi, dword [dword_1DD3FC]
+        mov eax, dword [SbProHalfSize]
+        mov esi, dword [SbProRate]
         push ecx
         add eax, esi
         push eax
         call MixerFillBuffer
         add esp, byte 8
-        mov eax, dword [dword_1DD418]
+        mov eax, dword [SbProIrqNum]
         mov ebx, unk_137FE1_2
         call IrqMask
         mov ecx, cs
-        mov eax, dword [dword_1DD418]
+        mov eax, dword [SbProIrqNum]
         call IrqSetHandler
-        mov edi, dword [dword_1DD418]
-        mov word [word_1DD430], dx
-        mov dword [dword_1DD42C], eax
+        mov edi, dword [SbProIrqNum]
+        mov word [SbProOldSelector], dx
+        mov dword [SbProOldHandler], eax
         cmp edi, byte 8
         jge short .2
-        cmp dword [dword_1DD428], 220h
+        cmp dword [SbProBasePort], 220h
         jne short .1
         push byte 20h
-        mov edx, dword_1DD3F8
+        mov edx, SbProIrqVector
         mov ebx, unk_140000
         jmp short .4
 .1:
         push byte 20h
-        mov edx, dword_1DD3F8
+        mov edx, SbProIrqVector
         mov ebx, unk_14000D
         jmp short .4
 .2:
-        cmp dword [dword_1DD428], 220h
+        cmp dword [SbProBasePort], 220h
         jne short .3
         push byte 20h
-        mov edx, dword_1DD3F8
+        mov edx, SbProIrqVector
         mov ebx, unk_14001A
         jmp short .4
 .3:
         push byte 20h
-        mov edx, dword_1DD3F8
+        mov edx, SbProIrqVector
         mov ebx, unk_14002B
 .4:
-        push dword_1DD3F4
+        push SbProOldIrq
         mov eax, edi
         mov ecx, cs
         call AllocDosDmaBuffer
-        mov dword [dword_1DD400], eax
+        mov dword [SbProIrqMask], eax
         call IrqVector
-        mov eax, dword [dword_1DD418]
+        mov eax, dword [SbProIrqNum]
         call IrqUnmask
         mov eax, 0D1h
         call SbWriteDsp
@@ -874,15 +874,15 @@ SbProSetupDma:
         mov eax, 0FFFFFFFBh
         jmp near .14
 .5:
-        cmp dword [dword_172C10], byte 1
+        cmp dword [SbProChannels], byte 1
         jne short .7
         mov eax, 2
         mov ecx, 48h
         mov ebx, 1
         call SbMixerWrite
-        mov edx, dword [dword_1DD41C]
-        mov dword [dword_1DD420], eax
-        mov eax, dword [dword_1DD410]
+        mov edx, dword [SbProHalfSize]
+        mov dword [SbProOldMask], eax
+        mov eax, dword [SbProDmaChannel]
         call DmaProgram
         mov eax, 14h
         call SbWriteDsp
@@ -900,12 +900,12 @@ SbProSetupDma:
         jl short .6
 .7:
         mov ecx, 18h
-        mov ebx, dword [dword_1DD404]
-        mov edx, dword [dword_1DD41C]
-        mov eax, dword [dword_1DD410]
+        mov ebx, dword [SbProDmaBufSize]
+        mov edx, dword [SbProHalfSize]
+        mov eax, dword [SbProDmaChannel]
         call DmaProgram
-        mov edx, dword [dword_172C10]
-        mov eax, dword [dword_1DD408]
+        mov edx, dword [SbProChannels]
+        mov eax, dword [SbProBlockSize]
         inc edx
         call SbSetRate
         test eax, eax
@@ -918,11 +918,11 @@ SbProSetupDma:
         pop ebx
         ret
 .8:
-        cmp dword [dword_172C10], byte 1
+        cmp dword [SbProChannels], byte 1
         jne short .9
         mov eax, 20h
         call SbMixerRead
-        mov dword [dword_1DD414], eax
+        mov dword [SbProIrqLine], eax
 .9:
         mov eax, 48h
         call SbWriteDsp
@@ -989,32 +989,32 @@ SbProStopDma:
         push ebx
         push ecx
         push edx
-        mov eax, dword [dword_1DD410]
+        mov eax, dword [SbProDmaChannel]
         call DmaMaskChannel
         call SbResetDsp
         mov eax, 0D3h
         call SbWriteDsp
-        cmp dword [dword_172C10], byte 1
+        cmp dword [SbProChannels], byte 1
         jne short .1
-        mov eax, dword [dword_1DD420]
+        mov eax, dword [SbProOldMask]
         call SbMixerWrite
-        mov eax, dword [dword_1DD414]
+        mov eax, dword [SbProIrqLine]
         call SbMixerRead
 .1:
-        mov cx, word [word_1DD430]
-        mov ebx, dword [dword_1DD42C]
-        mov eax, dword [dword_1DD418]
+        mov cx, word [SbProOldSelector]
+        mov ebx, dword [SbProOldHandler]
+        mov eax, dword [SbProIrqNum]
         call IrqSetHandler
-        mov ebx, dword [dword_1DD400]
+        mov ebx, dword [SbProIrqMask]
         test ebx, ebx
         je short .2
-        mov edx, dword [dword_1DD3F8]
-        mov eax, dword [dword_1DD418]
+        mov edx, dword [SbProIrqVector]
+        mov eax, dword [SbProIrqNum]
         mov ecx, ebx
-        mov ebx, dword [dword_1DD3F4]
+        mov ebx, dword [SbProOldIrq]
         call FreeDosDmaBuffer
 .2:
-        mov eax, dword [dword_1DD418]
+        mov eax, dword [SbProIrqNum]
         call IrqMask
         pop edx
         pop ecx
@@ -1044,17 +1044,17 @@ Sb16DriverInit:
         mov edx, eax
         call Sb16DriverId
         and edx, 0FF00h
-        mov dword [dword_172C28], ebx
+        mov dword [Sb16BufferSize], ebx
         and eax, edx
         test bl, 1
         je short .1
         xor ecx, ecx
-        mov dword [dword_172C28], ecx
+        mov dword [Sb16BufferSize], ecx
         jmp short .4
 .1:
         test bl, 2
         je short .2
-        mov dword [dword_172C28], 2
+        mov dword [Sb16BufferSize], 2
         jmp short .4
 .2:
         test bl, 8
@@ -1062,10 +1062,10 @@ Sb16DriverInit:
         mov eax, 0FFFFFFF4h
         jmp near .18
 .3:
-        mov dword [dword_172C28], 3
+        mov dword [Sb16BufferSize], 3
 .4:
         call PickSampleRate
-        mov dword [dword_1DD444], eax
+        mov dword [Sb16DmaBufSize], eax
         cmp eax, 157Ch
         ja short .5
         mov ebx, 8
@@ -1087,43 +1087,43 @@ Sb16DriverInit:
         mov edx, eax
         sar edx, 1Fh
         idiv ebx
-        mov dword [dword_1DD44C], eax
-        mov eax, dword [dword_172C28]
-        mov al, byte [nosplit eax*4+byte_172C2F]
+        mov dword [Sb16Rate], eax
+        mov eax, dword [Sb16BufferSize]
+        mov al, byte [nosplit eax*4+Sb16DmaMaskTable]
         and eax, 0FFh
         imul ebx, eax
         mov eax, 2000h
         mov edx, eax
         sar edx, 1Fh
         idiv ebx
-        mov ecx, dword_1DD448
-        mov ebx, dword_1DD458
-        mov dword [dword_1DD454], eax
+        mov ecx, Sb16Config
+        mov ebx, Sb16DmaBuffer
+        mov dword [Sb16BlockSize], eax
         shr eax, 1
-        mov edx, dword_1DD460
-        mov dword [dword_1DD45C], eax
-        mov eax, word_1DD46C
+        mov edx, Sb16IrqLine
+        mov dword [Sb16HalfSize], eax
+        mov eax, Sb16DspVersion
         call ParseBlasterEnv
         test eax, eax
         jl near .18
-        test byte [dword_172C28], 1
+        test byte [Sb16BufferSize], 1
         je short .9
-        mov eax, dword [dword_1DD448]
-        mov dword [dword_1DD450], eax
-        mov ax, word [word_1DD46C]
+        mov eax, dword [Sb16Config]
+        mov dword [Sb16DmaChannel], eax
+        mov ax, word [Sb16DspVersion]
         add eax, 0Fh
         jmp short .10
 .9:
-        mov eax, dword [dword_1DD458]
-        mov dword [dword_1DD450], eax
-        mov ax, word [word_1DD46C]
+        mov eax, dword [Sb16DmaBuffer]
+        mov dword [Sb16DmaChannel], eax
+        mov ax, word [Sb16DspVersion]
         add eax, 0Eh
 .10:
-        mov word [word_1DD470], ax
-        mov ax, word [dword_1DD460]
-        mov word [word_1DD472], ax
+        mov word [Sb16IrqStatusPort], ax
+        mov ax, word [Sb16IrqLine]
+        mov word [Sb16DmaBits], ax
         call SbDetectDsp
-        mov dword [dword_1DD468], eax
+        mov dword [Sb16Stereo], eax
         cmp eax, 400h
         jge short .11
         mov eax, 0FFFFFFFEh
@@ -1135,17 +1135,17 @@ Sb16DriverInit:
         pop ebx
         ret
 .11:
-        mov eax, dword [dword_1DD454]
+        mov eax, dword [Sb16BlockSize]
         push dword 200h
         add eax, eax
         push eax
         push str_DMABUF2
         call AllocMemData
         add esp, byte 0Ch
-        mov dword [dword_1DD464], eax
+        mov dword [Sb16Format], eax
         test eax, eax
         jne short .12
-        mov dword [dword_172C24], eax
+        mov dword [Sb16DriverActive], eax
         mov eax, 0FFFFFFFAh
         pop ebp
         pop edi
@@ -1157,21 +1157,21 @@ Sb16DriverInit:
 .12:
         mov ebx, 10000h
         mov edx, eax
-        mov esi, dword [dword_1DD454]
+        mov esi, dword [Sb16BlockSize]
         and edx, 0FFFFh
         sub ebx, esi
-        mov dword [dword_172C24], eax
+        mov dword [Sb16DriverActive], eax
         cmp edx, ebx
         jbe short .13
         and eax, 0F0000h
         add eax, 10000h
-        mov dword [dword_1DD464], eax
+        mov dword [Sb16Format], eax
 .13:
         push SetChannelCount
-        mov edi, dword [dword_1DD444]
-        mov eax, dword [dword_172C28]
+        mov edi, dword [Sb16DmaBufSize]
+        mov eax, dword [Sb16BufferSize]
         push edi
-        mov al, byte [nosplit eax*4+byte_172C2E]
+        mov al, byte [nosplit eax*4+Sb16DmaCountTable]
         and eax, 0FFh
         push eax
         call MixerInit
@@ -1179,15 +1179,15 @@ Sb16DriverInit:
         add esp, byte 0Ch
         test eax, eax
         jge short .15
-        cmp dword [dword_172C24], byte 0
+        cmp dword [Sb16DriverActive], byte 0
         je short .14
         call Sb16StopDma
-        mov edi, dword [dword_172C24]
+        mov edi, dword [Sb16DriverActive]
         push edi
         xor ebp, ebp
         call FreeMemBlock
         add esp, byte 4
-        mov dword [dword_172C24], ebp
+        mov dword [Sb16DriverActive], ebp
 .14:
         xor eax, eax
         mov dword [dword_172C20], eax
@@ -1203,15 +1203,15 @@ Sb16DriverInit:
         call Sb16SetupDma
         test eax, eax
         jge short .17
-        cmp dword [dword_172C24], byte 0
+        cmp dword [Sb16DriverActive], byte 0
         je short .16
         call Sb16StopDma
-        mov edx, dword [dword_172C24]
+        mov edx, dword [Sb16DriverActive]
         push edx
         xor ebx, ebx
         call FreeMemBlock
         add esp, byte 4
-        mov dword [dword_172C24], ebx
+        mov dword [Sb16DriverActive], ebx
 .16:
         xor ecx, ecx
         mov eax, 0FFFFFFFBh
@@ -1248,33 +1248,33 @@ Sb16DriverShutdown:
         push edx
         push esi
         push edi
-        cmp dword [dword_172C24], byte 0
+        cmp dword [Sb16DriverActive], byte 0
         je short .2
-        mov eax, dword [dword_1DD450]
+        mov eax, dword [Sb16DmaChannel]
         call DmaMaskChannel
-        mov eax, dword [dword_1DD460]
+        mov eax, dword [Sb16IrqLine]
         call IrqMask
-        mov cx, word [word_172C42]
-        mov ebx, dword [dword_172C3E]
-        mov eax, dword [dword_1DD460]
+        mov cx, word [Sb16SavedIrqSelector]
+        mov ebx, dword [Sb16SavedIrqVector]
+        mov eax, dword [Sb16IrqLine]
         call IrqSetHandler
-        mov ebx, dword [dword_1DD440]
+        mov ebx, dword [Sb16IrqMask]
         test ebx, ebx
         je short .1
-        mov edx, dword [dword_1DD43C]
-        mov eax, dword [dword_1DD460]
+        mov edx, dword [Sb16IrqVector]
+        mov eax, dword [Sb16IrqLine]
         mov ecx, ebx
-        mov ebx, dword [dword_1DD438]
+        mov ebx, dword [Sb16OldIrq]
         call FreeDosDmaBuffer
 .1:
         mov eax, 0D9h
         call SbWriteDsp
-        mov ecx, dword [dword_172C24]
+        mov ecx, dword [Sb16DriverActive]
         push ecx
         xor esi, esi
         call FreeMemBlock
         add esp, byte 4
-        mov dword [dword_172C24], esi
+        mov dword [Sb16DriverActive], esi
 .2:
         xor edi, edi
         mov dword [dword_172C20], edi
@@ -1293,16 +1293,16 @@ Sb16DriverStart:
         push ebx
         push ecx
         push edx
-        mov edx, dword [dword_1DD450]
-        mov eax, dword [dword_1DD45C]
+        mov edx, dword [Sb16DmaChannel]
+        mov eax, dword [Sb16HalfSize]
         call IrqAck
-        mov dword [dword_1DD474], eax
+        mov dword [Sb16StartTime], eax
         test eax, eax
         jl short .1
         cmp dword [dword_172C20], byte 0
         je short .1
-        mov ebx, dword [dword_1DD44C]
-        mov edx, dword [dword_1DD464]
+        mov ebx, dword [Sb16Rate]
+        mov edx, dword [Sb16Format]
         push ebx
         add eax, edx
         push eax
@@ -1328,10 +1328,10 @@ Sb16AckIrq:
         cld
         call RestoreDS
         xor edx, edx
-        mov dx, word [word_1DD470]
+        mov dx, word [Sb16IrqStatusPort]
         sub eax, eax
         in al, dx
-        cmp word [word_1DD472], byte 8
+        cmp word [Sb16DmaBits], byte 8
         jb short .1
         mov al, 20h
         mov edx, 0A0h
@@ -1356,47 +1356,47 @@ Sb16SetupDma:
         push ecx
         push edx
         push esi
-        mov edx, dword [dword_1DD44C]
+        mov edx, dword [Sb16Rate]
         push edx
-        mov ebx, dword [dword_1DD464]
+        mov ebx, dword [Sb16Format]
         push ebx
         call MixerFillBuffer
-        mov ecx, dword [dword_1DD44C]
+        mov ecx, dword [Sb16Rate]
         add esp, byte 8
-        mov eax, dword [dword_1DD464]
-        mov esi, dword [dword_1DD45C]
+        mov eax, dword [Sb16Format]
+        mov esi, dword [Sb16HalfSize]
         push ecx
         add eax, esi
         push eax
         call MixerFillBuffer
         add esp, byte 8
-        mov eax, dword [dword_1DD460]
+        mov eax, dword [Sb16IrqLine]
         mov ebx, Sb16AckIrq
         call IrqMask
         mov ecx, cs
-        mov eax, dword [dword_1DD460]
+        mov eax, dword [Sb16IrqLine]
         call IrqSetHandler
         push byte 20h
-        mov ebx, unk_172C44
-        mov word [word_172C42], dx
-        mov dword [dword_172C3E], eax
+        mov ebx, Sb16DmaSetupCode
+        mov word [Sb16SavedIrqSelector], dx
+        mov dword [Sb16SavedIrqVector], eax
         mov ecx, ds
-        mov ax, word [word_1DD470]
-        push dword_1DD438
-        mov word [word_172C48], ax
-        mov ax, word [word_1DD472]
-        mov edx, dword_1DD43C
-        mov word [word_172C4C], ax
-        mov eax, dword [dword_1DD460]
+        mov ax, word [Sb16IrqStatusPort]
+        push Sb16OldIrq
+        mov word [Sb16DmaPortPatch], ax
+        mov ax, word [Sb16DmaBits]
+        mov edx, Sb16IrqVector
+        mov word [str_Punct_Sb16SetupDma], ax
+        mov eax, dword [Sb16IrqLine]
         call AllocDosDmaBuffer
-        mov dword [dword_1DD440], eax
+        mov dword [Sb16IrqMask], eax
         call IrqVector
-        mov eax, dword [dword_1DD460]
+        mov eax, dword [Sb16IrqLine]
         mov ecx, 18h
         call IrqUnmask
-        mov ebx, dword [dword_1DD454]
-        mov edx, dword [dword_1DD464]
-        mov eax, dword [dword_1DD450]
+        mov ebx, dword [Sb16BlockSize]
+        mov edx, dword [Sb16Format]
+        mov eax, dword [Sb16DmaChannel]
         call DmaProgram
         mov eax, 41h
         call SbWriteDsp
@@ -1409,14 +1409,14 @@ Sb16SetupDma:
         pop ebx
         ret
 .1:
-        mov eax, dword [dword_1DD444]
+        mov eax, dword [Sb16DmaBufSize]
         shr eax, 8
         call SbWriteDsp
-        mov eax, dword [dword_1DD444]
+        mov eax, dword [Sb16DmaBufSize]
         and eax, 0FFh
         call SbWriteDsp
-        mov eax, dword [dword_172C28]
-        mov al, byte [nosplit eax*4+byte_172C2C]
+        mov eax, dword [Sb16BufferSize]
+        mov al, byte [nosplit eax*4+Sb16DmaPageTable]
         and eax, 0FFh
         call SbWriteDsp
         test eax, eax
@@ -1428,8 +1428,8 @@ Sb16SetupDma:
         pop ebx
         ret
 .2:
-        mov eax, dword [dword_172C28]
-        mov al, byte [nosplit eax*4+byte_172C2D]
+        mov eax, dword [Sb16BufferSize]
+        mov al, byte [nosplit eax*4+Sb16DmaAddrTable]
         and eax, 0FFh
         call SbWriteDsp
         test eax, eax
@@ -1478,21 +1478,21 @@ Sb16StopDma:
         push ebx
         push ecx
         push edx
-        mov eax, dword [dword_1DD450]
+        mov eax, dword [Sb16DmaChannel]
         call DmaMaskChannel
-        mov eax, dword [dword_1DD460]
+        mov eax, dword [Sb16IrqLine]
         call IrqMask
-        mov cx, word [word_172C42]
-        mov ebx, dword [dword_172C3E]
-        mov eax, dword [dword_1DD460]
+        mov cx, word [Sb16SavedIrqSelector]
+        mov ebx, dword [Sb16SavedIrqVector]
+        mov eax, dword [Sb16IrqLine]
         call IrqSetHandler
-        mov edx, dword [dword_1DD440]
+        mov edx, dword [Sb16IrqMask]
         test edx, edx
         je short .1
-        mov ebx, dword [dword_1DD438]
-        mov eax, dword [dword_1DD460]
+        mov ebx, dword [Sb16OldIrq]
+        mov eax, dword [Sb16IrqLine]
         mov ecx, edx
-        mov edx, dword [dword_1DD43C]
+        mov edx, dword [Sb16IrqVector]
         call FreeDosDmaBuffer
 .1:
         mov eax, 0D9h
@@ -1546,16 +1546,16 @@ SoundscapeDriverInit:
 .3:
         mov esi, 3
 .4:
-        test byte [nosplit esi*2+byte_172C88], 2
+        test byte [nosplit esi*2+SoundscapeIrqFlags], 2
         je short .5
         mov edi, 1
 .5:
-        test byte [nosplit esi*2+byte_172C88], 1
+        test byte [nosplit esi*2+SoundscapeIrqFlags], 1
         je short .6
         mov ebp, 1
 .6:
         call PickSampleRate
-        mov dword [dword_1DD484], eax
+        mov dword [ScapeBasePort], eax
         cmp eax, 3E80h
         jb short .8
         jbe short .11
@@ -1594,8 +1594,8 @@ SoundscapeDriverInit:
         mov edx, eax
         sar edx, 1Fh
         idiv ebx
-        mov dword [dword_1DD488], eax
-        mov al, byte [nosplit esi*2+byte_172C89]
+        mov dword [ScapeIrq], eax
+        mov al, byte [nosplit esi*2+SoundscapeIrqCodes]
         and eax, 0FFh
         imul ebx, eax
         mov eax, 2000h
@@ -1604,21 +1604,21 @@ SoundscapeDriverInit:
         idiv ebx
         mov edx, eax
         sar edx, 1Fh
-        mov dword [dword_1DD478], eax
+        mov dword [ScapeDmaBufSize], eax
         LD sub, eax, edx
         sar eax, 1
-        mov dword [dword_1DD48C], eax
-        mov eax, dword [dword_1DD478]
+        mov dword [ScapeDmaChannel], eax
+        mov eax, dword [ScapeDmaBufSize]
         push dword 200h
         add eax, eax
         push eax
         push str_DMABUFFER4
         call AllocMemData
         add esp, byte 0Ch
-        mov dword [dword_1DD490], eax
+        mov dword [ScapeDmaBuffer], eax
         test eax, eax
         jne short .14
-        mov dword [dword_172C80], eax
+        mov dword [SoundscapeDmaBuffer], eax
         mov eax, 0FFFFFFFAh
         pop ebp
         pop edi
@@ -1630,26 +1630,26 @@ SoundscapeDriverInit:
 .14:
         mov edx, 10000h
         mov ebx, eax
-        mov ecx, dword [dword_1DD478]
+        mov ecx, dword [ScapeDmaBufSize]
         and ebx, 0FFFFh
         sub edx, ecx
-        mov dword [dword_172C80], eax
+        mov dword [SoundscapeDmaBuffer], eax
         cmp ebx, edx
         jle short .15
         and eax, 0F0000h
         add eax, 10000h
-        mov dword [dword_1DD490], eax
+        mov dword [ScapeDmaBuffer], eax
 .15:
         call ReadSoundscapeIni
         test eax, eax
         jge short .16
-        mov edi, dword [dword_172C80]
+        mov edi, dword [SoundscapeDmaBuffer]
         push edi
         xor ebp, ebp
         call FreeMemBlock
         mov eax, 0FFFFFFFEh
         add esp, byte 4
-        mov dword [dword_172C80], ebp
+        mov dword [SoundscapeDmaBuffer], ebp
         pop ebp
         pop edi
         pop esi
@@ -1661,13 +1661,13 @@ SoundscapeDriverInit:
         call SoundscapeCodecReady
         test eax, eax
         jge short .17
-        mov ecx, dword [dword_172C80]
+        mov ecx, dword [SoundscapeDmaBuffer]
         push ecx
         xor esi, esi
         call FreeMemBlock
         mov eax, 0FFFFFFFEh
         add esp, byte 4
-        mov dword [dword_172C80], esi
+        mov dword [SoundscapeDmaBuffer], esi
         pop ebp
         pop edi
         pop esi
@@ -1677,23 +1677,23 @@ SoundscapeDriverInit:
         ret
 .17:
         push SetChannelCount
-        mov eax, dword [dword_1DD484]
+        mov eax, dword [ScapeBasePort]
         push eax
-        mov al, byte [nosplit esi*2+byte_172C88]
+        mov al, byte [nosplit esi*2+SoundscapeIrqFlags]
         and eax, 0FFh
         push eax
         call MixerInit
         add esp, byte 0Ch
-        mov edx, dword [dword_1DD488]
+        mov edx, dword [ScapeIrq]
         push edx
-        mov ebx, dword [dword_1DD490]
+        mov ebx, dword [ScapeDmaBuffer]
         push ebx
         mov esi, eax
         call MixerFillBuffer
-        mov ecx, dword [dword_1DD488]
+        mov ecx, dword [ScapeIrq]
         add esp, byte 8
-        mov eax, dword [dword_1DD490]
-        mov edx, dword [dword_1DD48C]
+        mov eax, dword [ScapeDmaBuffer]
+        mov edx, dword [ScapeDmaChannel]
         push ecx
         add eax, edx
         push eax
@@ -1702,13 +1702,13 @@ SoundscapeDriverInit:
         mov ebx, edi
         call SoundscapeSetupCodec
         mov edx, ebp
-        mov ecx, dword [dword_1DD488]
-        mov eax, dword [dword_1DD484]
+        mov ecx, dword [ScapeIrq]
+        mov eax, dword [ScapeBasePort]
         call SoundscapeSetupDma
         mov eax, esi
         mov ebx, 1
         shl eax, 10h
-        mov dword [dword_172C84], ebx
+        mov dword [SoundscapeSavedIrq], ebx
         or al, 3
 .18:
         pop ebp
@@ -1728,19 +1728,19 @@ SoundscapeDriverShutdown:
         push ecx
         push edx
         push esi
-        cmp dword [dword_172C80], byte 0
+        cmp dword [SoundscapeDmaBuffer], byte 0
         je short .1
         call SoundscapeWriteReg
         call SoundscapeStopCodec
-        mov ebx, dword [dword_172C80]
+        mov ebx, dword [SoundscapeDmaBuffer]
         push ebx
         call FreeMemBlock
         xor ecx, ecx
         add esp, byte 4
-        mov dword [dword_172C80], ecx
+        mov dword [SoundscapeDmaBuffer], ecx
 .1:
         xor esi, esi
-        mov dword [dword_172C84], esi
+        mov dword [SoundscapeSavedIrq], esi
         pop esi
         pop edx
         pop ecx
@@ -1755,16 +1755,16 @@ SoundscapeDriverStart:
         push ebx
         push ecx
         push edx
-        mov edx, dword [dword_1DD494]
-        mov eax, dword [dword_1DD48C]
+        mov edx, dword [ScapeCodecPort]
+        mov eax, dword [ScapeDmaChannel]
         call IrqAck
-        mov dword [dword_1DD498], eax
+        mov dword [ScapeRate], eax
         test eax, eax
         jl short .1
-        cmp dword [dword_172C84], byte 0
+        cmp dword [SoundscapeSavedIrq], byte 0
         je short .1
-        mov ebx, dword [dword_1DD488]
-        mov edx, dword [dword_1DD490]
+        mov ebx, dword [ScapeIrq]
+        mov edx, dword [ScapeDmaBuffer]
         push ebx
         add eax, edx
         push eax
@@ -1815,7 +1815,7 @@ ReadSoundscapeIni:
         pop edi
         mov esi, str_SNDSCAPEINI
         mov edi, esp
-        mov edx, unk_168088
+        mov edx, str_Rt_ReadSoundscapeIni
         push edi
         LD sub, ecx, ecx
         dec ecx
@@ -1866,7 +1866,7 @@ ReadSoundscapeIni:
         mov ebx, str_Port
         and eax, 0FFh
         mov edx, esp
-        mov dword [dword_172C7C], eax
+        mov dword [SoundscapeMidiIrq], eax
         mov eax, ecx
         call IniFindKey
         test eax, eax
@@ -1880,7 +1880,7 @@ ReadSoundscapeIni:
         call ReturnArg
         mov ebx, str_DMA
         mov edx, esp
-        mov dword [dword_172C64], eax
+        mov dword [SoundscapeBasePort], eax
         mov eax, ecx
         call IniFindKey
         test eax, eax
@@ -1894,7 +1894,7 @@ ReadSoundscapeIni:
         call ReturnArg
         mov ebx, str_IRQ
         mov edx, esp
-        mov dword [dword_1DD494], eax
+        mov dword [ScapeCodecPort], eax
         mov eax, ecx
         call IniFindKey
         test eax, eax
@@ -1906,10 +1906,10 @@ ReadSoundscapeIni:
         mov eax, esp
         xor edx, edx
         call ReturnArg
-        mov dword [dword_172C68], eax
+        mov dword [str_Punct_ReadSoundscapeIni], eax
         cmp eax, byte 2
         jne short .11
-        mov dword [dword_172C68], 9
+        mov dword [str_Punct_ReadSoundscapeIni], 9
 .11:
         mov ebx, str_SBIRQ
         mov edx, esp
@@ -1924,10 +1924,10 @@ ReadSoundscapeIni:
         mov eax, esp
         xor edx, edx
         call ReturnArg
-        mov dword [dword_1DD480], eax
+        mov dword [ScapeCodecState], eax
         cmp eax, byte 2
         jne short .13
-        mov dword [dword_1DD480], 9
+        mov dword [ScapeCodecState], 9
 .13:
         mov ebx, str_SBEnable
         mov edx, esp
@@ -1943,26 +1943,26 @@ ReadSoundscapeIni:
         call strcmp_
         test eax, eax
         setne al
-        mov edx, dword [dword_172C64]
+        mov edx, dword [SoundscapeBasePort]
         and eax, 0FFh
         add edx, byte 4
-        mov dword [dword_172C70], eax
+        mov dword [SoundscapeDmaChannel], eax
         sub eax, eax
         in al, dx
         shr eax, 4
         test eax, eax
         jne short .15
-        mov dword [dword_172C6C], eax
+        mov dword [SoundscapeCodecType], eax
         jmp short .17
 .15:
         test al, 8
         jne short .16
-        mov dword [dword_172C6C], 1
+        mov dword [SoundscapeCodecType], 1
         jmp short .17
 .16:
-        mov dword [dword_172C6C], 2
+        mov dword [SoundscapeCodecType], 2
 .17:
-        cmp dword [dword_172C6C], byte 0
+        cmp dword [SoundscapeCodecType], byte 0
         jne short .19
         mov ebx, str_WavePort
         mov edx, esp
@@ -1979,26 +1979,26 @@ ReadSoundscapeIni:
         call ReturnArg
         jmp short .20
 .19:
-        mov eax, dword [dword_172C64]
+        mov eax, dword [SoundscapeBasePort]
         add eax, byte 8
 .20:
-        mov dword [dword_1DD47C], eax
-        cmp dword [dword_172C6C], byte 0
+        mov dword [ScapeCodecBase], eax
+        cmp dword [SoundscapeCodecType], byte 0
         jne short .21
-        mov edx, dword [dword_172C64]
+        mov edx, dword [SoundscapeBasePort]
         mov al, 6
         add edx, byte 4
         out dx, al
-        mov edx, dword [dword_172C64]
+        mov edx, dword [SoundscapeBasePort]
         add edx, byte 5
         sub eax, eax
         in al, dx
         and eax, 80h
-        mov dword [dword_172C74], eax
+        mov dword [SoundscapeWavePort], eax
 .21:
-        cmp dword [dword_172C7C], byte 0
+        cmp dword [SoundscapeMidiIrq], byte 0
         jne short .24
-        mov ebx, dword [dword_1DD480]
+        mov ebx, dword [ScapeCodecState]
         cmp ebx, byte 9
         jne short .22
         xor eax, eax
@@ -2015,7 +2015,7 @@ ReadSoundscapeIni:
         add eax, byte 2
         jmp short .27
 .24:
-        mov edi, dword [dword_1DD480]
+        mov edi, dword [ScapeCodecState]
         cmp edi, byte 9
         jne short .25
         xor eax, eax
@@ -2031,7 +2031,7 @@ ReadSoundscapeIni:
         and eax, 0FFh
         add eax, byte 2
 .27:
-        mov dword [dword_172C78], eax
+        mov dword [SoundscapeIrq], eax
 .28:
         mov eax, ecx
         call fclose_
@@ -2052,7 +2052,7 @@ ReadSoundscapeIni:
 ;-----------------------------------------------------------------------------
 SoundscapeCodecReady:
         push edx
-        mov edx, dword [dword_172C64]
+        mov edx, dword [SoundscapeBasePort]
         add edx, byte 2
         sub eax, eax
         in al, dx
@@ -2062,7 +2062,7 @@ SoundscapeCodecReady:
         pop edx
         ret
 .1:
-        mov edx, dword [dword_172C64]
+        mov edx, dword [SoundscapeBasePort]
         add edx, byte 4
         sub eax, eax
         in al, dx
@@ -2073,11 +2073,11 @@ SoundscapeCodecReady:
         pop edx
         ret
 .2:
-        mov edx, dword [dword_172C64]
+        mov edx, dword [SoundscapeBasePort]
         mov al, 0F5h
         add edx, byte 4
         out dx, al
-        mov edx, dword [dword_172C64]
+        mov edx, dword [SoundscapeBasePort]
         add edx, byte 4
         sub eax, eax
         in al, dx
@@ -2088,7 +2088,7 @@ SoundscapeCodecReady:
         pop edx
         ret
 .3:
-        mov edx, dword [dword_172C64]
+        mov edx, dword [SoundscapeBasePort]
         add edx, byte 4
         sub eax, eax
         in al, dx
@@ -2112,7 +2112,7 @@ SoundscapeSetupCodec:
         push edx
         push esi
         call SoundscapeWriteReg
-        cmp dword [dword_172C70], byte 0
+        cmp dword [SoundscapeDmaChannel], byte 0
         je short .1
         mov edx, 22Eh
         sub eax, eax
@@ -2121,19 +2121,19 @@ SoundscapeSetupCodec:
         sub eax, eax
         in al, dx
 .1:
-        cmp dword [dword_172C6C], byte 2
+        cmp dword [SoundscapeCodecType], byte 2
         je near .11
-        mov edx, dword [dword_172C64]
+        mov edx, dword [SoundscapeBasePort]
         mov al, 3
         add edx, byte 4
         out dx, al
-        mov edx, dword [dword_172C64]
+        mov edx, dword [SoundscapeBasePort]
         mov al, 20h
         add edx, byte 5
         out dx, al
-        cmp dword [dword_172C7C], byte 0
+        cmp dword [SoundscapeMidiIrq], byte 0
         jne short .4
-        mov eax, dword [dword_172C68]
+        mov eax, dword [str_Punct_ReadSoundscapeIni]
         cmp eax, byte 9
         jne short .2
         xor ebx, ebx
@@ -2150,7 +2150,7 @@ SoundscapeSetupCodec:
         lea ebx, [byte eax+02h]
         jmp short .8
 .4:
-        mov esi, dword [dword_172C68]
+        mov esi, dword [str_Punct_ReadSoundscapeIni]
         cmp esi, byte 9
         jne short .5
         xor eax, eax
@@ -2169,49 +2169,49 @@ SoundscapeSetupCodec:
         mov ebx, eax
 .8:
         lea eax, [nosplit ebx*4+00h]
-        mov edx, dword [dword_172C64]
+        mov edx, dword [SoundscapeBasePort]
         or al, 0F0h
         add edx, byte 4
         or ebx, eax
         mov al, 4
         out dx, al
-        mov edx, dword [dword_172C64]
+        mov edx, dword [SoundscapeBasePort]
         mov al, bl
         add edx, byte 5
         out dx, al
-        cmp dword [dword_172C6C], byte 1
+        cmp dword [SoundscapeCodecType], byte 1
         jne short .9
-        mov edx, dword [dword_172C64]
+        mov edx, dword [SoundscapeBasePort]
         mov al, 9
         add edx, byte 4
         out dx, al
-        mov edx, dword [dword_172C64]
+        mov edx, dword [SoundscapeBasePort]
         add edx, byte 5
         sub eax, eax
         in al, dx
         and eax, 0CFh
-        mov edx, dword [dword_172C64]
+        mov edx, dword [SoundscapeBasePort]
         or al, 10h
         add edx, byte 4
         mov ebx, eax
         mov al, 9
         out dx, al
-        mov edx, dword [dword_172C64]
+        mov edx, dword [SoundscapeBasePort]
         mov al, bl
         add edx, byte 5
         out dx, al
 .9:
-        mov edx, dword [dword_172C64]
+        mov edx, dword [SoundscapeBasePort]
         mov al, 5
         add edx, byte 4
         out dx, al
-        mov edx, dword [dword_172C64]
+        mov edx, dword [SoundscapeBasePort]
         mov al, 50h
         add edx, byte 5
         out dx, al
-        mov eax, dword [dword_1DD494]
-        mov ebx, dword [dword_172C78]
-        mov edx, dword [dword_172C64]
+        mov eax, dword [ScapeCodecPort]
+        mov ebx, dword [SoundscapeIrq]
+        mov edx, dword [SoundscapeBasePort]
         shl eax, 4
         add ebx, ebx
         or al, 89h
@@ -2219,18 +2219,18 @@ SoundscapeSetupCodec:
         or ebx, eax
         mov al, 6
         out dx, al
-        mov edx, dword [dword_172C64]
+        mov edx, dword [SoundscapeBasePort]
         mov al, bl
         add edx, byte 5
         out dx, al
         mov al, 49h
-        mov edx, dword [dword_1DD47C]
+        mov edx, dword [ScapeCodecBase]
         out dx, al
-        mov edx, dword [dword_1DD47C]
+        mov edx, dword [ScapeCodecBase]
         mov al, 0Ch
         inc edx
         out dx, al
-        mov edx, dword [dword_1DD47C]
+        mov edx, dword [ScapeCodecBase]
         xor al, al
         xor ebx, ebx
         out dx, al
@@ -2243,23 +2243,23 @@ SoundscapeSetupCodec:
         jl short .10
 .11:
         mov al, 6
-        mov edx, dword [dword_1DD47C]
+        mov edx, dword [ScapeCodecBase]
         out dx, al
-        mov edx, dword [dword_1DD47C]
+        mov edx, dword [ScapeCodecBase]
         xor al, al
         inc edx
         out dx, al
         mov al, 7
-        mov edx, dword [dword_1DD47C]
+        mov edx, dword [ScapeCodecBase]
         out dx, al
-        mov edx, dword [dword_1DD47C]
+        mov edx, dword [ScapeCodecBase]
         xor al, al
         inc edx
         out dx, al
-        mov edx, dword [dword_1DD47C]
+        mov edx, dword [ScapeCodecBase]
         add edx, byte 2
         out dx, al
-        mov eax, dword [dword_1DD480]
+        mov eax, dword [ScapeCodecState]
         call IrqMask
         pop esi
         pop edx
@@ -2280,9 +2280,9 @@ SoundscapeSetupDma:
         mov edi, ebx
         mov dword [esp], ecx
         mov ecx, 58h
-        mov ebx, dword [dword_1DD478]
-        mov edx, dword [dword_1DD490]
-        mov eax, dword [dword_1DD494]
+        mov ebx, dword [ScapeDmaBufSize]
+        mov edx, dword [ScapeDmaBuffer]
+        mov eax, dword [ScapeCodecPort]
         call DmaProgram
         mov ebx, edi
         mov edx, esi
@@ -2290,41 +2290,41 @@ SoundscapeSetupDma:
         call SoundscapeRateCode
         mov ebx, dword [esp]
         mov al, 0Fh
-        mov edx, dword [dword_1DD47C]
+        mov edx, dword [ScapeCodecBase]
         lea ecx, [esi+edi]
         out dx, al
         sar ebx, cl
-        mov edx, dword [dword_1DD47C]
+        mov edx, dword [ScapeCodecBase]
         dec ebx
         inc edx
         mov al, bl
         out dx, al
         mov al, 0Eh
-        mov edx, dword [dword_1DD47C]
+        mov edx, dword [ScapeCodecBase]
         sar ebx, 8
         out dx, al
-        mov edx, dword [dword_1DD47C]
+        mov edx, dword [ScapeCodecBase]
         mov al, bl
         inc edx
         out dx, al
         mov al, 9
-        mov edx, dword [dword_1DD47C]
+        mov edx, dword [ScapeCodecBase]
         out dx, al
-        mov edx, dword [dword_1DD47C]
+        mov edx, dword [ScapeCodecBase]
         mov al, 1
         inc edx
         out dx, al
         mov al, 6
-        mov edx, dword [dword_1DD47C]
+        mov edx, dword [ScapeCodecBase]
         out dx, al
-        mov edx, dword [dword_1DD47C]
+        mov edx, dword [ScapeCodecBase]
         xor al, al
         inc edx
         out dx, al
         mov al, 7
-        mov edx, dword [dword_1DD47C]
+        mov edx, dword [ScapeCodecBase]
         out dx, al
-        mov edx, dword [dword_1DD47C]
+        mov edx, dword [ScapeCodecBase]
         xor al, al
         inc edx
         out dx, al
@@ -2342,23 +2342,23 @@ SoundscapeWriteReg:
         push ebx
         push edx
         mov al, 9
-        mov edx, dword [dword_1DD47C]
+        mov edx, dword [ScapeCodecBase]
         out dx, al
-        mov edx, dword [dword_1DD47C]
+        mov edx, dword [ScapeCodecBase]
         inc edx
         sub eax, eax
         in al, dx
         test al, 1
         je short .1
         mov al, 9
-        mov edx, dword [dword_1DD47C]
+        mov edx, dword [ScapeCodecBase]
         out dx, al
-        mov edx, dword [dword_1DD47C]
+        mov edx, dword [ScapeCodecBase]
         xor al, al
         inc edx
         out dx, al
 .1:
-        mov eax, dword [dword_1DD494]
+        mov eax, dword [ScapeCodecPort]
         mov edx, 21h
         call DmaMaskChannel
         xor ebx, ebx
@@ -2380,85 +2380,85 @@ SoundscapeStopCodec:
         push edx
         call SoundscapeWriteReg
         mov al, 0Ah
-        mov edx, dword [dword_1DD47C]
+        mov edx, dword [ScapeCodecBase]
         out dx, al
-        mov edx, dword [dword_1DD47C]
+        mov edx, dword [ScapeCodecBase]
         inc edx
         sub eax, eax
         in al, dx
-        mov edx, dword [dword_1DD47C]
+        mov edx, dword [ScapeCodecBase]
         mov ebx, eax
         mov al, 0Ah
         and ebx, 0FDh
         out dx, al
-        mov edx, dword [dword_1DD47C]
+        mov edx, dword [ScapeCodecBase]
         mov al, bl
         inc edx
         out dx, al
-        cmp dword [dword_172C6C], byte 2
+        cmp dword [SoundscapeCodecType], byte 2
         je near .4
-        mov edx, dword [dword_172C64]
-        mov ebx, dword [dword_172C6C]
+        mov edx, dword [SoundscapeBasePort]
+        mov ebx, dword [SoundscapeCodecType]
         add edx, byte 4
         test ebx, ebx
         jne short .1
         mov al, 6
-        mov ebx, dword [dword_172C74]
+        mov ebx, dword [SoundscapeWavePort]
         jmp short .2
 .1:
         mov al, 6
         out dx, al
-        mov edx, dword [dword_172C64]
+        mov edx, dword [SoundscapeBasePort]
         add edx, byte 5
         sub eax, eax
         in al, dx
-        mov edx, dword [dword_172C64]
+        mov edx, dword [SoundscapeBasePort]
         mov ebx, eax
         mov al, 6
         add edx, byte 4
         and ebx, byte 7Fh
 .2:
         out dx, al
-        mov edx, dword [dword_172C64]
+        mov edx, dword [SoundscapeBasePort]
         mov al, bl
         add edx, byte 5
         out dx, al
-        cmp dword [dword_172C70], byte 0
+        cmp dword [SoundscapeDmaChannel], byte 0
         je short .3
-        mov edx, dword [dword_172C64]
+        mov edx, dword [SoundscapeBasePort]
         mov al, 4
         add edx, byte 4
         out dx, al
-        mov edx, dword [dword_172C64]
+        mov edx, dword [SoundscapeBasePort]
         add edx, byte 5
         sub eax, eax
         in al, dx
-        mov ebx, dword [dword_172C78]
-        mov edx, dword [dword_172C64]
+        mov ebx, dword [SoundscapeIrq]
+        mov edx, dword [SoundscapeBasePort]
         and eax, 0F3h
         shl ebx, 2
         add edx, byte 4
         or ebx, eax
         mov al, 4
         out dx, al
-        mov edx, dword [dword_172C64]
+        mov edx, dword [SoundscapeBasePort]
         mov al, bl
         add edx, byte 5
         out dx, al
 .3:
         mov al, 3
-        mov edx, dword [dword_172C64]
-        mov ebx, dword [dword_1DD494]
+        mov edx, dword [SoundscapeBasePort]
+        mov ebx, dword [ScapeCodecPort]
         add edx, byte 4
         shl ebx, 4
         out dx, al
-        mov edx, dword [dword_172C64]
+        mov edx, dword [SoundscapeBasePort]
         or bl, 80h
         add edx, byte 5
         mov al, bl
         out dx, al
 .4:
-        mov eax, dword [dword_1DD480]
+        mov eax, dword [ScapeCodecState]
         call IrqUnmask
         pop edx
         pop ebx
@@ -2522,18 +2522,18 @@ SoundscapeRateCode:
         or bl, 10h
 .12:
         mov al, 8
-        mov edx, dword [dword_1DD47C]
+        mov edx, dword [ScapeCodecBase]
         out dx, al
-        mov edx, dword [dword_1DD47C]
+        mov edx, dword [ScapeCodecBase]
         inc edx
         sub eax, eax
         in al, dx
         cmp eax, ebx
         je short .15
         mov al, 48h
-        mov edx, dword [dword_1DD47C]
+        mov edx, dword [ScapeCodecBase]
         out dx, al
-        mov edx, dword [dword_1DD47C]
+        mov edx, dword [ScapeCodecBase]
         mov al, bl
         inc edx
         out dx, al
@@ -2546,7 +2546,7 @@ SoundscapeRateCode:
         in al, dx
         cmp ebx, 1C800h
         jl short .13
-        mov edx, dword [dword_1DD47C]
+        mov edx, dword [ScapeCodecBase]
         xor al, al
         out dx, al
         xor ebx, ebx
@@ -2608,7 +2608,7 @@ IniFindKey:
         je short .4
         cmp ah, 3Bh
         je short .4
-        mov edx, unk_1680D4
+        mov edx, str_Punct_IniFindKey
         lea eax, [dword esp+080h]
         call strstr_
         mov ebx, eax
@@ -2654,10 +2654,10 @@ IniFindKey:
         ret
         db 090h
         push edx
-        mov edx, dword [dword_172C64]
+        mov edx, dword [SoundscapeBasePort]
         add edx, byte 4
         out dx, al
-        mov edx, dword [dword_172C64]
+        mov edx, dword [SoundscapeBasePort]
         add edx, byte 5
         sub eax, eax
         in al, dx
@@ -2666,10 +2666,10 @@ IniFindKey:
         db 08Dh,040h,00h
         push ebx
         mov ebx, edx
-        mov edx, dword [dword_172C64]
+        mov edx, dword [SoundscapeBasePort]
         add edx, byte 4
         out dx, al
-        mov edx, dword [dword_172C64]
+        mov edx, dword [SoundscapeBasePort]
         mov al, bl
         add edx, byte 5
         out dx, al
@@ -2677,9 +2677,9 @@ IniFindKey:
         ret
         db 090h
         push edx
-        mov edx, dword [dword_1DD47C]
+        mov edx, dword [ScapeCodecBase]
         out dx, al
-        mov edx, dword [dword_1DD47C]
+        mov edx, dword [ScapeCodecBase]
         inc edx
         sub eax, eax
         in al, dx
@@ -2687,9 +2687,9 @@ IniFindKey:
         ret
         push ebx
         mov ebx, edx
-        mov edx, dword [dword_1DD47C]
+        mov edx, dword [ScapeCodecBase]
         out dx, al
-        mov edx, dword [dword_1DD47C]
+        mov edx, dword [ScapeCodecBase]
         mov al, bl
         inc edx
         out dx, al
@@ -2719,48 +2719,48 @@ AudioLeave:
         push ecx
         push edx
         push ebp
-        mov edx, dword [dword_172C90]
+        mov edx, dword [AudioDeferredPending]
         test edx, edx
         jne near .5
-        cmp dword [dword_172C9C], byte 0
+        cmp dword [AudioLockCount], byte 0
         je short .1
-        inc dword [dword_172C98]
+        inc dword [AudioBusyCount]
         pop ebp
         pop edx
         pop ecx
         pop ebx
         ret
 .1:
-        mov dword [dword_172C90], 1
-        mov eax, dword [dword_16E4B0]
-        cmp eax, dword [dword_172C94]
+        mov dword [AudioDeferredPending], 1
+        mov eax, dword [str_D_UpdateFrameRate]
+        cmp eax, dword [AudioDeferredArg]
         je short .2
-        mov dword [dword_172C94], eax
-        mov dword [dword_1DD37C], edx
-        mov dword [dword_1DD378], edx
+        mov dword [AudioDeferredArg], eax
+        mov dword [DigitalAudioRate], edx
+        mov dword [DigitalAudioHandle], edx
 .2:
-        mov eax, dword [dword_1DD378]
+        mov eax, dword [DigitalAudioHandle]
         inc eax
-        mov dword [dword_1DD378], eax
+        mov dword [DigitalAudioHandle], eax
         lea edx, [nosplit eax*4+00h]
         sub edx, eax
         shl edx, 3
         add eax, edx
-        mov ebx, dword [dword_16E4B0]
+        mov ebx, dword [str_D_UpdateFrameRate]
         shl eax, 2
         xor edx, edx
         div ebx
-        mov ecx, dword [dword_1DD37C]
+        mov ecx, dword [DigitalAudioRate]
         mov edx, eax
         cmp eax, ecx
         jb short .4
 .3:
         call AudioDeferredWork
-        cmp edx, dword [dword_1DD37C]
+        cmp edx, dword [DigitalAudioRate]
         jae short .3
 .4:
         xor ebp, ebp
-        mov dword [dword_172C90], ebp
+        mov dword [AudioDeferredPending], ebp
 .5:
         pop ebp
         pop edx
@@ -2779,37 +2779,37 @@ AudioDeferredWork:
         push esi
         push edi
         push ebp
-        mov edx, dword [dword_1DD37C]
-        mov ebx, dword [dword_172CA0]
+        mov edx, dword [DigitalAudioRate]
+        mov ebx, dword [AudioDeferredFunc]
         inc edx
         inc ebx
-        mov dword [dword_1DD37C], edx
-        mov dword [dword_172CA0], ebx
+        mov dword [DigitalAudioRate], edx
+        mov dword [AudioDeferredFunc], ebx
         call AudioDriverUpdate
-        cmp dword [dword_172BD4], byte 0
+        cmp dword [AudioSpeechHook], byte 0
         je short .1
-        call dword [dword_172BD4]
+        call dword [AudioSpeechHook]
 .1:
-        mov eax, dword [dword_172CA0]
+        mov eax, dword [AudioDeferredFunc]
         mov edx, eax
         mov ebx, 3
         sar edx, 1Fh
         idiv ebx
         test edx, edx
         jne near .13
-        cmp dword [dword_172BC8], byte 0
+        cmp dword [SpeechQueueVolume], byte 0
         je short .2
-        call dword [dword_172BC8]
+        call dword [SpeechQueueVolume]
 .2:
-        cmp dword [dword_172BCC], byte 0
+        cmp dword [AudioWorkHook], byte 0
         je short .3
-        call dword [dword_172BCC]
+        call dword [AudioWorkHook]
 .3:
-        cmp dword [dword_172BD0], byte 0
+        cmp dword [AudioStreamHook], byte 0
         je short .4
-        call dword [dword_172BD0]
+        call dword [AudioStreamHook]
 .4:
-        mov ecx, dword_1DCF38
+        mov ecx, ChannelSampleTable
         xor esi, esi
 .5:
         mov ah, byte [byte ecx+0Dh]
@@ -2918,7 +2918,7 @@ AudioDeferredWork:
 ; Enters the audio critical section
 ;-----------------------------------------------------------------------------
 AudioEnter:
-        inc dword [dword_172C9C]
+        inc dword [AudioLockCount]
 AudioEnter_6:
         ret
         db 090h
@@ -2927,13 +2927,13 @@ AudioEnter_6:
 ; Leaves the audio critical section
 ;-----------------------------------------------------------------------------
 AudioLeaveCheck:
-        dec dword [dword_172C9C]
-        cmp dword [dword_172C9C], byte 0
+        dec dword [AudioLockCount]
+        cmp dword [AudioLockCount], byte 0
         jne short AudioEnter_6
 .1:
-        cmp dword [dword_172C98], byte 0
+        cmp dword [AudioBusyCount], byte 0
         je short AudioEnter_6
-        dec dword [dword_172C98]
+        dec dword [AudioBusyCount]
         call AudioLeave
         jmp short .1
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h

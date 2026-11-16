@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_1097F0 progbits alloc exec nowrite align=1
-extern dword_16E4C8, dword_1CFC9C, dword_1CFCC8, dword_1CFCCC, dword_1CFCD0, dword_1CFCDC, dword_1CFCE8, str_ASYNC
+extern MessageBoxActive, AsyncFileHandle, AsyncStreamFile, AsyncStreamBase, AsyncStreamSize, AsyncStreamPos, AsyncStreamEnd, str_ASYNC
 extern CdOpenStream, CdCloseFile, CdRead, DetectMscdex, AllocMemBlock, FreeMemBlock, TicksSinceLast
 global SumRingRange, OpenSpeechStreamFile
 ;-----------------------------------------------------------------------------
@@ -105,7 +105,7 @@ OpenSpeechStreamFile:
         jle short .1
         mov dword [byte esp+010h], 30D40h
 .1:
-        mov edi, dword [dword_16E4C8]
+        mov edi, dword [MessageBoxActive]
         push edi
         mov ebp, dword [byte esp+014h]
         push ebp
@@ -153,27 +153,27 @@ OpenSpeechStreamFile:
         mov eax, edx
         sar edx, 1Fh
         idiv esi
-        mov dword [dword_1CFCC8], eax
-        mov dword [dword_1CFCDC], eax
+        mov dword [AsyncStreamFile], eax
+        mov dword [AsyncStreamPos], eax
         cmp eax, 0DAh
         jle short .6
-        mov dword [dword_1CFCC8], 0DAh
+        mov dword [AsyncStreamFile], 0DAh
 .6:
-        cmp dword [dword_1CFCC8], byte 0
+        cmp dword [AsyncStreamFile], byte 0
         jne short .7
-        mov dword [dword_1CFCC8], 1
+        mov dword [AsyncStreamFile], 1
 .7:
         call DetectMscdex
         test eax, eax
         jne short .8
-        mov dword [dword_1CFCC8], 1
+        mov dword [AsyncStreamFile], 1
 .8:
-        mov edx, dword [dword_1CFCC8]
-        mov eax, dword [dword_1CFC9C]
+        mov edx, dword [AsyncStreamFile]
+        mov eax, dword [AsyncFileHandle]
         imul edx
         shrd eax, edx, 10h
         adc eax, byte 0
-        mov dword [dword_1CFCCC], eax
+        mov dword [AsyncStreamBase], eax
         call TicksSinceLast
         push dword 800h
         push edi
@@ -191,8 +191,8 @@ OpenSpeechStreamFile:
         mov edx, dword [byte esp+018h]
         add ebx, ebx
         push edx
-        mov dword [dword_1CFCD0], ebx
-        mov dword [dword_1CFCE8], ebx
+        mov dword [AsyncStreamSize], ebx
+        mov dword [AsyncStreamEnd], ebx
         call CdCloseFile
         add esp, byte 4
         mov ebx, dword [byte esp+014h]
@@ -203,7 +203,7 @@ OpenSpeechStreamFile:
         call FreeMemBlock
         mov eax, 3E80000h
         mov edx, eax
-        mov ecx, dword [dword_1CFCC8]
+        mov ecx, dword [AsyncStreamFile]
         sar edx, 1Fh
         add esp, byte 4
         idiv ecx
@@ -214,25 +214,25 @@ OpenSpeechStreamFile:
         pop ebx
         ret
         mov edx, dword [byte esp+04h]
-        mov eax, dword [dword_1CFC9C]
-        mov dword [dword_1CFCC8], edx
+        mov eax, dword [AsyncFileHandle]
+        mov dword [AsyncStreamFile], edx
         imul edx
         shrd eax, edx, 10h
         adc eax, byte 0
-        mov dword [dword_1CFCCC], eax
+        mov dword [AsyncStreamBase], eax
         mov eax, dword [byte esp+08h]
-        mov dword [dword_1CFCD0], eax
+        mov dword [AsyncStreamSize], eax
         ret
         db 090h
         push ebx
         mov edx, 0DAh
         mov ebx, 12Ch
-        mov eax, dword [dword_1CFC9C]
-        mov dword [dword_1CFCC8], edx
+        mov eax, dword [AsyncFileHandle]
+        mov dword [AsyncStreamFile], edx
         imul edx
         shrd eax, edx, 10h
         adc eax, byte 0
-        mov dword [dword_1CFCCC], eax
-        mov dword [dword_1CFCD0], ebx
+        mov dword [AsyncStreamBase], eax
+        mov dword [AsyncStreamSize], ebx
         pop ebx
         ret

@@ -2,10 +2,10 @@
 bits 32
 %include "hockey.inc"
 section s_1216B0 progbits alloc exec nowrite align=1
-extern GetTicks, TicksSince, byte_172518, dword_16E324, dword_16E338, dword_1724D4, dword_17251B, dword_1CF260
-extern memlist1, off_16E4E0, strncmp_, bcopy, MemLock, MemUnlock, PathBaseName, DispatchHotkey
-extern AllocMemBlockEx, UnlinkMemBlockLocked, UnlinkMemBlock, MergeFreeSpace, ReadJoystickPorts, KbdGetKey, word_172514, word_172516
-extern word_172519
+extern GetTicks, TicksSince, CachedFileRetries, dword_16E324, dword_16E338, CachedFileTable, CachedFileFind, dword_1CF260
+extern memlist1, PresentFuncInput, strncmp_, bcopy, MemLock, MemUnlock, PathBaseName, DispatchHotkey
+extern AllocMemBlockEx, UnlinkMemBlockLocked, UnlinkMemBlock, MergeFreeSpace, ReadJoystickPorts, KbdGetKey, CachedFileDate, CachedFileTime
+extern CachedFileDrive
 global FindMemBlockNamed, FindFreeSpace, FindCachedFileData, FindCachedFile
 ;-----------------------------------------------------------------------------
 ; FindMemBlockNamed                              1216B0  97 PC, low confidence
@@ -339,7 +339,7 @@ FindCachedFile:
         add esp, byte 4
         ret
 .5:
-        call dword [off_16E4E0]
+        call dword [PresentFuncInput]
         shl ax, 4
         jne short .7
 .6:
@@ -352,9 +352,9 @@ FindCachedFile:
         jmp short .9
 .8:
         and edx, byte 0Fh
-        mov eax, dword [nosplit edx*2+dword_1724D4]
+        mov eax, dword [nosplit edx*2+CachedFileTable]
 .9:
-        cmp ax, word [word_172514]
+        cmp ax, word [CachedFileDate]
         jne short .12
         LD or, ax, ax
         jne short .11
@@ -362,28 +362,28 @@ FindCachedFile:
         LD xor, ax, ax
         ret
 .11:
-        push dword [dword_17251B]
+        push dword [CachedFileFind]
         call TicksSince
         add esp, byte 4
-        cmp ax, word [word_172519]
+        cmp ax, word [CachedFileDrive]
         jl short .10
         mov ax, 0Fh
-        mov word [word_172519], ax
+        mov word [CachedFileDrive], ax
         jmp short .13
 .12:
-        cmp ax, word [word_172516]
+        cmp ax, word [CachedFileTime]
         jne short .14
-        dec byte [byte_172518]
+        dec byte [CachedFileRetries]
         jg short .10
-        mov word [word_172514], ax
+        mov word [CachedFileDate], ax
         mov ax, 46h
-        mov word [word_172519], ax
+        mov word [CachedFileDrive], ax
 .13:
         call GetTicks
-        mov dword [dword_17251B], eax
-        mov ax, word [word_172514]
+        mov dword [CachedFileFind], eax
+        mov ax, word [CachedFileDate]
         ret
 .14:
-        mov byte [byte_172518], 3
-        mov word [word_172516], ax
+        mov byte [CachedFileRetries], 3
+        mov word [CachedFileTime], ax
         jmp short .10

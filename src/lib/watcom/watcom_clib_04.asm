@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_FC330 progbits alloc exec nowrite align=1
-extern str_BigfileBuf, byte_16E504, byte_16E688, byte_170124, dword_16E500, dword_17014C, dword_170150, dword_170154
-extern dword_170158, dword_1DA4D0, str_Viv, ArchiveEntryOffsetAt, AllocMemBlock, FreeMemBlock, unk_1DA4CC
+extern str_BigfileBuf, QuantizeTable, ScreenBitsPerPixel, ResourceArchiveName, QuantizePalette, ResourceArchive, ResourceLookupFn, ResourceArchiveSize
+extern ResourceArchiveData, PaletteWords, str_Viv, ArchiveEntryOffsetAt, AllocMemBlock, FreeMemBlock, ArchiveHeader
 global OpenResourceArchive, CurrentArchiveName, FindNearestColor, MatchColor, MakeColor
 ;-----------------------------------------------------------------------------
 ; OpenResourceArchive                             FC330  97 PC, low confidence
@@ -17,8 +17,8 @@ OpenResourceArchive:
         push ebp
         mov esi, dword [byte esp+014h]
         mov edx, ArchiveEntryOffsetAt
-        mov ebx, dword [dword_17014C]
-        mov dword [dword_170150], edx
+        mov ebx, dword [ResourceArchive]
+        mov dword [ResourceLookupFn], edx
         test ebx, ebx
         je short .1
         push ebx
@@ -27,22 +27,22 @@ OpenResourceArchive:
 .1:
         xor edi, edi
         xor ah, ah
-        mov dword [dword_17014C], edi
-        mov byte [byte_170124], ah
+        mov dword [ResourceArchive], edi
+        mov byte [ResourceArchiveName], ah
         test esi, esi
         je near .9
         push byte 20h
         push dword 5DC0h
         push str_BigfileBuf
-        mov ebp, unk_1DA4CC
-        mov edi, byte_170124
+        mov ebp, ArchiveHeader
+        mov edi, ResourceArchiveName
         call AllocMemBlock
         mov edx, 5DC0h
         add esp, byte 0Ch
-        mov dword [dword_17014C], eax
-        mov dword [dword_170154], ebp
+        mov dword [ResourceArchive], eax
+        mov dword [ResourceArchiveSize], ebp
         mov byte [eax], 0
-        mov dword [dword_170158], edx
+        mov dword [ResourceArchiveData], edx
         push edi
 .2:
         mov al, byte [esi]
@@ -98,7 +98,7 @@ OpenResourceArchive:
 .8:
         pop edi
 .9:
-        mov eax, byte_170124
+        mov eax, ResourceArchiveName
         pop ebp
         pop edi
         pop esi
@@ -109,7 +109,7 @@ OpenResourceArchive:
 ; Returns the name of the open resource archive
 ;-----------------------------------------------------------------------------
 CurrentArchiveName:
-        mov eax, byte_170124
+        mov eax, ResourceArchiveName
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
@@ -126,7 +126,7 @@ FindNearestColor:
         mov ebx, edx
         shr ebx, 10h
         and ebx, 0FFh
-        mov eax, dword_1DA4D0
+        mov eax, PaletteWords
         mov dword [byte esp+04h], ebx
         mov ebx, edx
         mov ecx, 1869Fh
@@ -141,7 +141,7 @@ FindNearestColor:
         add eax, byte 4
         movzx edi, byte [byte eax-02h]
         movzx esi, byte [byte eax-03h]
-        mov bl, byte [dword edx+byte_16E504]
+        mov bl, byte [dword edx+QuantizeTable]
         movzx ebp, byte [byte eax-04h]
         test bl, bl
         je short .2
@@ -181,7 +181,7 @@ FindNearestColor:
 MatchColor:
         push ebx
         mov eax, dword [byte esp+08h]
-        cmp dword [dword_16E500], byte 0
+        cmp dword [QuantizePalette], byte 0
         je short .1
         mov edx, eax
         mov ebx, eax
@@ -196,7 +196,7 @@ MatchColor:
         shl eax, 5
         and ecx, byte 1Fh
         or eax, edx
-        mov edx, dword [dword_16E500]
+        mov edx, dword [QuantizePalette]
         or eax, ecx
         mov al, byte [edx+eax]
         and eax, 0FFh
@@ -204,7 +204,7 @@ MatchColor:
         ret
 .1:
         push eax
-        push dword_1DA4D0
+        push PaletteWords
         call FindNearestColor
         add esp, byte 8
         pop ebx
@@ -213,12 +213,12 @@ MatchColor:
 ;-----------------------------------------------------------------------------
 ; MakeColor                                       FC510  97 PC, low confidence
 ; (0RGB): converts a colour to a pixel value for the current pixel depth
-; (byte_16E688: 8, 15 / 16, 24 / 32 bits)
+; (ScreenBitsPerPixel: 8, 15 / 16, 24 / 32 bits)
 ;-----------------------------------------------------------------------------
 MakeColor:
         push ebx
         mov edx, dword [byte esp+08h]
-        mov al, byte [byte_16E688]
+        mov al, byte [ScreenBitsPerPixel]
         cmp al, 0Fh
         jb short .2
         mov ebx, edx

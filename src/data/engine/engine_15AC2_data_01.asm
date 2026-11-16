@@ -4,32 +4,32 @@ bits 32
 section s_160150 progbits alloc noexec write align=1
 global str_2d02d, str_DXD, str_Doubled, str_Interlaced, str_Normal, str_SDSS, str_SS, str_SSS
 global str_DSS, str_SDSS2, str_SSD, str_SSDD, str_SD, str_SDCS, str_Punct, str_2d01d
-global str_SD2, str_CHASE, str_THRILLCAMTm, str_USERCHASE, str_IntroD3cp, str_ArenaViv, str_DDD, dword_160150
-global dword_160154, dword_1602D6, dword_1602DA, dword_1602DE, dword_1602E2, dword_1602EE, dword_1602F2, dword_160306
-global dword_160312, dword_160316, dword_16031A, dword_16031E, dword_160322, dword_160326, dword_16032A, dword_16032E
-global dword_160332, dword_160346, dword_16034A, dword_160386, dword_16039A, dword_16039E, dword_1603A2, dword_1603A6
-global dword_1603AA, dword_1603AE, dword_1603B2, dword_1603B6, dword_1603C2, dword_1603C6, dword_1603CA, dword_1603D6
-global dword_1603DA, dword_160443, dword_160457, dword_16045B, dword_16045F, dword_160463, dword_160467, dword_1604B2
-global dword_1604B6, dword_1604BA, dword_1604BE, dword_1604C2, dword_1604C6, dword_1604CA, dword_1604CE, dword_1604D2
-global dword_1604D6, dword_1604DA, dword_1604DE, dword_1604FF, dword_16050B, dword_16050F, dword_160513, dword_16051F
-global dword_160533, dword_160537, dword_160563, dword_160567, dword_160574, dword_160578, dword_16057C, dword_160580
-global dword_160584, dword_1605A0, dword_1605FC, dword_160600, dword_16060C, dword_160610, dword_160614, dword_160618
-global dword_16061C, dword_160620, dword_16062C, qword_1602E6, qword_1602F6, qword_1602FE, qword_16030A, qword_160336
-global qword_16033E, qword_16034E, qword_160356, qword_16035E, qword_160366, qword_16036E, qword_160376, qword_16037E
-global qword_16038A, qword_160392, qword_1603BA, qword_1603CE, qword_1603DE, qword_1603E6, qword_1603EE, qword_1603F6
-global qword_1603FE, qword_160406, qword_16040E, qword_160416, qword_16041E, qword_160447, qword_16044F, qword_16046B
-global qword_160473, qword_16047B, qword_160483, qword_16048B, qword_160493, qword_1604EF, qword_1604F7, qword_160503
-global qword_160517, qword_160523, qword_16052B, qword_16053B, qword_160543, qword_16054B, qword_160553, qword_16055B
-global qword_16056C, qword_160588, qword_160590, qword_160598, qword_1605A4, qword_1605AC, qword_1605B4, qword_1605BC
-global qword_1605C4, qword_1605CC, qword_1605D4, qword_1605DC, qword_1605E4, qword_1605EC, qword_1605F4, qword_160604
-global qword_160624, qword_160630, qword_160638, qword_160640, qword_160648, qword_160650, qword_160658, unk_160193
-global unk_1601EF, unk_1601F1, unk_1601F4, unk_160208, unk_160218, unk_160220, unk_160228, unk_160230
-global unk_160238, unk_160240, unk_160248, unk_160250, unk_160258, unk_160260, unk_160268, unk_160270
-global unk_160278, unk_160280, unk_160288, unk_160290, unk_160298, unk_1602A0, unk_1602A8, unk_1602B0
-global unk_1602B8, unk_1602C0, unk_1602C8, unk_1602D0
-dword_160150:
+global str_SD2, str_CHASE, str_THRILLCAMTm, str_USERCHASE, str_IntroD3cp, str_ArenaViv, str_DDD, F32_0p5
+global F32_65536, F32_100, F32_2000, F32_500, F32_neg500, F32_neg1800, F32_neg4000, F32_neg1000
+global F32_neg500_UpdateCameraView, F32_neg2000, F32_neg0p000147059, F32_0p000232558, F32_0p000357143, F32_neg0p000188679, F32_20, F32_10_UpdateCameraView
+global F32_neg10, F32_neg1050, F32_neg1000_UpdateCameraZoom, F32_neg4600, F32_neg4100, F32_1340, F32_neg1340, F32_4100
+global F32_2040, F32_4800, F32_700, F32_neg700, F32_3600, F32_neg3600, F32_400, F32_4000
+global F32_neg4000_UpdateCameraZoom, F32_neg1, F32_2, F32_20_DrawCameraDebugMarks, F32_neg20, F32_2040_PenaltyCameraDistance, F32_2000_PenaltySceneStep, F32_neg1000_FaceoffCloseupScene
+global F32_1500, F32_1000, F32_neg1500, F32_neg2000_FaceoffCameraScene2, F32_neg400, F32_neg1000_MenuOrbitScene, F32_neg700_MenuOrbitScene, F32_neg200
+global F32_neg300, F32_neg750, F32_750, F32_neg2000_ReplayCamDrag, F32_neg4800, F32_neg50, F32_50, F32_0p001
+global F32_80, F32_6, F32_neg2000_ReplayCamMove, F32_neg4800_ReplayCamMove, F32_4272, F32_1392, F32_neg4272, F32_neg1392
+global F32_10_CanReachPuck, F32_24, F32_neg3984, F32_neg4272_InCrease, F32_4272_InCrease, F32_1272, F32_4032, F32_768
+global F32_192, F32_48, F32_0p166667, F64_0p000333333, F64_1p2_UpdateCameraView, F64_neg0p000454545, F64_neg0p000357143, F64_neg99p9
+global F64_0p785398, F64_0p0004, F64_3, F64_10, F64_8, F64_neg4, F64_neg0p7536, F64_1371p5
+global F64_4, F64_0p7536, F64_0p38, F64_2p5, F64_0p45, F64_0p85, F64_neg0p85, F64_6p66667
+global F64_neg0p5, F64_3p14159, F64_neg6p28319, F64_neg3p14159, F64_6p28319, F64_3p14159_DampCameraMotion, F64_neg3p14159_DampCameraMotion, F64_30
+global F64_0p01_OpeningCameraStep, F64_3p14159_OpeningCameraStep, F64_neg3p14159_OpeningCameraStep, F64_6p28319_OpeningCameraStep, F64_neg6p28319_OpeningCameraStep, F64_3_ReplayCamDrag, F64_0p714286, F64_0p2
+global F64_100, F64_1p05, F64_0p1, F64_0p01_ReplayCamTurn, F64_3p14159_ReplayCamTurn, F64_neg3p14159_ReplayCamTurn, F64_6p28319_ReplayCamTurn, F64_neg6p28319_ReplayCamTurn
+global F64_576, F64_768, F64_0p159155_ChkPokeOrCheck, F64_65536_ChkPokeOrCheck, F64_0p392699_ChkPokeOrCheck, F64_3p14159_GoaliePosTarget, F64_6p28319_GoaliePosTarget, F64_neg6p28319_GoaliePosTarget
+global F64_neg3p14159_GoaliePosTarget, F64_0p392699_GoaliePosTarget, F64_neg0p392699, F64_0p159155_GoaliePosTarget, F64_65536_GoaliePosTarget, F64_0p25, F64_3p14159_Endfaceoff, F64_288
+global F64_480, F64_3p14159_CanReceivePass, F64_0p785398_CanReceivePass, F64_0p785398_MakePass, F64_1080, F64_4272, F64_576_RimPuck, str_S_DrawPenaltyPanel
+global str_Punct_DrawGoalScorerPanel, str_CommaSpace, str_CloseParen, str_NONE, str_OFFST, str_RELTV, CamTagNone, str_PUCK
+global CamTagNet0, CamTagNet1, str_PLYR0, str_SCORE, str_USER, str_ZAMB, str_MULTI, str_PEN0
+global str_PEN1, str_BNCH0, str_BNCH1, str_CENTR, str_CIRC1, str_CIRC2, str_CIRC3, str_CIRC4
+global str_DOT1, str_DOT2, str_DOT3, str_DOT4
+F32_0p5:
         db 00h,00h,00h,03Fh
-dword_160154:
+F32_65536:
         db 00h,00h,080h,047h
 str_2d02d:
         db 025h,032h,064h,03Ah,025h,030h,032h,064h,00h
@@ -43,7 +43,7 @@ str_Normal:
         db 04Eh,06Fh,072h,06Dh,061h,06Ch,00h
 str_SDSS:
         db 025h,073h,020h,02Dh,020h,023h,025h,064h,020h,025h,073h,020h,025h,073h,00h
-unk_160193:
+str_S_DrawPenaltyPanel:
         db 025h,073h,00h
 str_SS:
         db 025h,073h,020h,025h,073h,00h
@@ -63,359 +63,359 @@ str_SDCS:
         db 025h,073h,020h,02Dh,020h,023h,025h,064h,020h,025h,063h,02Eh,020h,025h,073h,00h
 str_Punct:
         db 020h,02Dh,020h,00h
-unk_1601EF:
+str_Punct_DrawGoalScorerPanel:
         db 028h,00h
-unk_1601F1:
+str_CommaSpace:
         db 02Ch,020h,00h
-unk_1601F4:
+str_CloseParen:
         db 029h,00h
 str_2d01d:
         db 025h,032h,064h,02Eh,025h,030h,031h,064h,00h
 str_SD2:
         db 025h,073h,020h,025h,064h,00h,00h,00h,00h
-unk_160208:
+str_NONE:
         db 04Eh,04Fh,04Eh,045h,00h,00h,00h,00h
 str_CHASE:
         db 043h,048h,041h,053h,045h,00h,00h,00h
-unk_160218:
+str_OFFST:
         db 04Fh,046h,046h,053h,054h,00h,00h,00h
-unk_160220:
+str_RELTV:
         db 052h,045h,04Ch,054h,056h,00h,00h,00h
-unk_160228:
+CamTagNone:
         db 04Eh,04Fh,04Eh,045h,020h,00h,00h,00h
-unk_160230:
+str_PUCK:
         db 050h,055h,043h,04Bh,020h,00h,00h,00h
-unk_160238:
+CamTagNet0:
         db 04Eh,045h,054h,030h,020h,00h,00h,00h
-unk_160240:
+CamTagNet1:
         db 04Eh,045h,054h,031h,020h,00h,00h,00h
-unk_160248:
+str_PLYR0:
         db 050h,04Ch,059h,052h,030h,00h,00h,00h
-unk_160250:
+str_SCORE:
         db 053h,043h,04Fh,052h,045h,00h,00h,00h
-unk_160258:
+str_USER:
         db 055h,053h,045h,052h,020h,00h,00h,00h
-unk_160260:
+str_ZAMB:
         db 05Ah,041h,04Dh,042h,020h,00h,00h,00h
-unk_160268:
+str_MULTI:
         db 04Dh,055h,04Ch,054h,049h,00h,00h,00h
-unk_160270:
+str_PEN0:
         db 050h,045h,04Eh,030h,020h,00h,00h,00h
-unk_160278:
+str_PEN1:
         db 050h,045h,04Eh,031h,020h,00h,00h,00h
-unk_160280:
+str_BNCH0:
         db 042h,04Eh,043h,048h,030h,00h,00h,00h
-unk_160288:
+str_BNCH1:
         db 042h,04Eh,043h,048h,031h,00h,00h,00h
-unk_160290:
+str_CENTR:
         db 043h,045h,04Eh,054h,052h,00h,00h,00h
-unk_160298:
+str_CIRC1:
         db 043h,049h,052h,043h,031h,00h,00h,00h
-unk_1602A0:
+str_CIRC2:
         db 043h,049h,052h,043h,032h,00h,00h,00h
-unk_1602A8:
+str_CIRC3:
         db 043h,049h,052h,043h,033h,00h,00h,00h
-unk_1602B0:
+str_CIRC4:
         db 043h,049h,052h,043h,034h,00h,00h,00h
-unk_1602B8:
+str_DOT1:
         db 044h,04Fh,054h,031h,020h,00h,00h,00h
-unk_1602C0:
+str_DOT2:
         db 044h,04Fh,054h,032h,020h,00h,00h,00h
-unk_1602C8:
+str_DOT3:
         db 044h,04Fh,054h,033h,020h,00h,00h,00h
-unk_1602D0:
+str_DOT4:
         db 044h,04Fh,054h,034h,020h,00h
-dword_1602D6:
+F32_100:
         db 00h,00h,0C8h,042h
-dword_1602DA:
+F32_2000:
         db 00h,00h,0FAh,044h
-dword_1602DE:
+F32_500:
         db 00h,00h,0FAh,043h
-dword_1602E2:
+F32_neg500:
         db 00h,00h,0FAh,0C3h
-qword_1602E6:
+F64_0p000333333:
         db 0A5h,0E2h,0ECh,0C3h,067h,0D8h,035h,03Fh
-dword_1602EE:
+F32_neg1800:
         db 00h,00h,0E1h,0C4h
-dword_1602F2:
+F32_neg4000:
         db 00h,00h,07Ah,0C5h
-qword_1602F6:
+F64_1p2_UpdateCameraView:
         db 033h,033h,033h,033h,033h,033h,0F3h,03Fh
-qword_1602FE:
+F64_neg0p000454545:
         db 0CAh,01Dh,0A0h,0DCh,01h,0CAh,03Dh,0BFh
-dword_160306:
+F32_neg1000:
         db 00h,00h,07Ah,0C4h
-qword_16030A:
+F64_neg0p000357143:
         db 0B1h,0A9h,034h,0E4h,0DCh,067h,037h,0BFh
-dword_160312:
+F32_neg500_UpdateCameraView:
         db 00h,00h,0FAh,0C3h
-dword_160316:
+F32_neg2000:
         db 00h,00h,0FAh,0C4h
-dword_16031A:
+F32_neg0p000147059:
         db 0CDh,033h,01Ah,0B9h
-dword_16031E:
+F32_0p000232558:
         db 0DAh,0DAh,073h,039h
-dword_160322:
+F32_0p000357143:
         db 0E7h,03Eh,0BBh,039h
-dword_160326:
+F32_neg0p000188679:
         db 033h,0D8h,045h,0B9h
-dword_16032A:
+F32_20:
         db 00h,00h,0A0h,041h
-dword_16032E:
+F32_10_UpdateCameraView:
         db 00h,00h,020h,041h
-dword_160332:
+F32_neg10:
         db 00h,00h,020h,0C1h
-qword_160336:
+F64_neg99p9:
         db 09Ah,099h,099h,099h,099h,0F9h,058h,0C0h
-qword_16033E:
+F64_0p785398:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,03Fh
-dword_160346:
+F32_neg1050:
         db 00h,040h,083h,0C4h
-dword_16034A:
+F32_neg1000_UpdateCameraZoom:
         db 00h,00h,07Ah,0C4h
-qword_16034E:
+F64_0p0004:
         db 02Dh,043h,01Ch,0EBh,0E2h,036h,03Ah,03Fh
-qword_160356:
+F64_3:
         db 00h,00h,00h,00h,00h,00h,08h,040h
-qword_16035E:
+F64_10:
         db 00h,00h,00h,00h,00h,00h,024h,040h
-qword_160366:
+F64_8:
         db 00h,00h,00h,00h,00h,00h,020h,040h
-qword_16036E:
+F64_neg4:
         db 00h,00h,00h,00h,00h,00h,010h,0C0h
-qword_160376:
+F64_neg0p7536:
         db 0CCh,07Fh,048h,0BFh,07Dh,01Dh,0E8h,0BFh
-qword_16037E:
+F64_1371p5:
         db 00h,00h,00h,00h,00h,06Eh,095h,040h
-dword_160386:
+F32_neg4600:
         db 00h,0C0h,08Fh,0C5h
-qword_16038A:
+F64_4:
         db 00h,00h,00h,00h,00h,00h,010h,040h
-qword_160392:
+F64_0p7536:
         db 0CCh,07Fh,048h,0BFh,07Dh,01Dh,0E8h,03Fh
-dword_16039A:
+F32_neg4100:
         db 00h,020h,080h,0C5h
-dword_16039E:
+F32_1340:
         db 00h,080h,0A7h,044h
-dword_1603A2:
+F32_neg1340:
         db 00h,080h,0A7h,0C4h
-dword_1603A6:
+F32_4100:
         db 00h,020h,080h,045h
-dword_1603AA:
+F32_2040:
         db 00h,00h,0FFh,044h
-dword_1603AE:
+F32_4800:
         db 00h,00h,096h,045h
-dword_1603B2:
+F32_700:
         db 00h,00h,02Fh,044h
-dword_1603B6:
+F32_neg700:
         db 00h,00h,02Fh,0C4h
-qword_1603BA:
+F64_0p38:
         db 052h,0B8h,01Eh,085h,0EBh,051h,0D8h,03Fh
-dword_1603C2:
+F32_3600:
         db 00h,00h,061h,045h
-dword_1603C6:
+F32_neg3600:
         db 00h,00h,061h,0C5h
-dword_1603CA:
+F32_400:
         db 00h,00h,0C8h,043h
-qword_1603CE:
+F64_2p5:
         db 00h,00h,00h,00h,00h,00h,04h,040h
-dword_1603D6:
+F32_4000:
         db 00h,00h,07Ah,045h
-dword_1603DA:
+F32_neg4000_UpdateCameraZoom:
         db 00h,00h,07Ah,0C5h
-qword_1603DE:
+F64_0p45:
         db 0CDh,0CCh,0CCh,0CCh,0CCh,0CCh,0DCh,03Fh
-qword_1603E6:
+F64_0p85:
         db 033h,033h,033h,033h,033h,033h,0EBh,03Fh
-qword_1603EE:
+F64_neg0p85:
         db 033h,033h,033h,033h,033h,033h,0EBh,0BFh
-qword_1603F6:
+F64_6p66667:
         db 0AAh,0AAh,0AAh,0AAh,0AAh,0AAh,01Ah,040h
-qword_1603FE:
+F64_neg0p5:
         db 00h,00h,00h,00h,00h,00h,0E0h,0BFh
-qword_160406:
+F64_3p14159:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_16040E:
+F64_neg6p28319:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_160416:
+F64_neg3p14159:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_16041E:
+F64_6p28319:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h,00h,00h
 str_THRILLCAMTm:
         db 054h,048h,052h,049h,04Ch,04Ch,02Dh,043h,041h,04Dh,020h,028h,074h,06Dh,029h,00h
 str_USERCHASE:
         db 055h,053h,045h,052h,020h,043h,048h,041h,053h,045h,00h
-dword_160443:
+F32_neg1:
         db 00h,00h,080h,0BFh
-qword_160447:
+F64_3p14159_DampCameraMotion:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_16044F:
+F64_neg3p14159_DampCameraMotion:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-dword_160457:
+F32_2:
         db 00h,00h,00h,040h
-dword_16045B:
+F32_20_DrawCameraDebugMarks:
         db 00h,00h,0A0h,041h
-dword_16045F:
+F32_neg20:
         db 00h,00h,0A0h,0C1h
-dword_160463:
+F32_2040_PenaltyCameraDistance:
         db 00h,00h,0FFh,044h
-dword_160467:
+F32_2000_PenaltySceneStep:
         db 00h,00h,0FAh,044h
-qword_16046B:
+F64_30:
         db 00h,00h,00h,00h,00h,00h,03Eh,040h
-qword_160473:
+F64_0p01_OpeningCameraStep:
         db 07Bh,014h,0AEh,047h,0E1h,07Ah,084h,03Fh
-qword_16047B:
+F64_3p14159_OpeningCameraStep:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_160483:
+F64_neg3p14159_OpeningCameraStep:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_16048B:
+F64_6p28319_OpeningCameraStep:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_160493:
+F64_neg6p28319_OpeningCameraStep:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h,00h
 str_IntroD3cp:
         db 069h,06Eh,074h,072h,06Fh,025h,064h,02Eh,033h,063h,070h,00h
 str_ArenaViv:
         db 061h,072h,065h,06Eh,061h,02Eh,076h,069h,076h,00h
-dword_1604B2:
+F32_neg1000_FaceoffCloseupScene:
         db 00h,00h,07Ah,0C4h
-dword_1604B6:
+F32_1500:
         db 00h,080h,0BBh,044h
-dword_1604BA:
+F32_1000:
         db 00h,00h,07Ah,044h
-dword_1604BE:
+F32_neg1500:
         db 00h,080h,0BBh,0C4h
-dword_1604C2:
+F32_neg2000_FaceoffCameraScene2:
         db 00h,00h,0FAh,0C4h
-dword_1604C6:
+F32_neg400:
         db 00h,00h,0C8h,0C3h
-dword_1604CA:
+F32_neg1000_MenuOrbitScene:
         db 00h,00h,07Ah,0C4h
-dword_1604CE:
+F32_neg700_MenuOrbitScene:
         db 00h,00h,02Fh,0C4h
-dword_1604D2:
+F32_neg200:
         db 00h,00h,048h,0C3h
-dword_1604D6:
+F32_neg300:
         db 00h,00h,096h,0C3h
-dword_1604DA:
+F32_neg750:
         db 00h,080h,03Bh,0C4h
-dword_1604DE:
+F32_750:
         db 00h,080h,03Bh,044h,00h,00h
 str_DDD:
         db 028h,025h,064h,02Ch,025h,064h,02Ch,025h,064h,029h,00h
-qword_1604EF:
+F64_3_ReplayCamDrag:
         db 00h,00h,00h,00h,00h,00h,08h,040h
-qword_1604F7:
+F64_0p714286:
         db 0B7h,06Dh,0DBh,0B6h,06Dh,0DBh,0E6h,03Fh
-dword_1604FF:
+F32_neg2000_ReplayCamDrag:
         db 00h,00h,0FAh,0C4h
-qword_160503:
+F64_0p2:
         db 09Ah,099h,099h,099h,099h,099h,0C9h,03Fh
-dword_16050B:
+F32_neg4800:
         db 00h,00h,096h,0C5h
-dword_16050F:
+F32_neg50:
         db 00h,00h,048h,0C2h
-dword_160513:
+F32_50:
         db 00h,00h,048h,042h
-qword_160517:
+F64_100:
         db 00h,00h,00h,00h,00h,00h,059h,040h
-dword_16051F:
+F32_0p001:
         db 06Fh,012h,083h,03Ah
-qword_160523:
+F64_1p05:
         db 0CDh,0CCh,0CCh,0CCh,0CCh,0CCh,0F0h,03Fh
-qword_16052B:
+F64_0p1:
         db 09Ah,099h,099h,099h,099h,099h,0B9h,03Fh
-dword_160533:
+F32_80:
         db 00h,00h,0A0h,042h
-dword_160537:
+F32_6:
         db 00h,00h,0C0h,040h
-qword_16053B:
+F64_0p01_ReplayCamTurn:
         db 07Bh,014h,0AEh,047h,0E1h,07Ah,084h,03Fh
-qword_160543:
+F64_3p14159_ReplayCamTurn:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_16054B:
+F64_neg3p14159_ReplayCamTurn:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_160553:
+F64_6p28319_ReplayCamTurn:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_16055B:
+F64_neg6p28319_ReplayCamTurn:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-dword_160563:
+F32_neg2000_ReplayCamMove:
         db 00h,00h,0FAh,0C4h
-dword_160567:
+F32_neg4800_ReplayCamMove:
         db 00h,00h,096h,0C5h,00h
-qword_16056C:
+F64_576:
         db 00h,00h,00h,00h,00h,00h,082h,040h
-dword_160574:
+F32_4272:
         db 00h,080h,085h,045h
-dword_160578:
+F32_1392:
         db 00h,00h,0AEh,044h
-dword_16057C:
+F32_neg4272:
         db 00h,080h,085h,0C5h
-dword_160580:
+F32_neg1392:
         db 00h,00h,0AEh,0C4h
-dword_160584:
+F32_10_CanReachPuck:
         db 00h,00h,020h,041h
-qword_160588:
+F64_768:
         db 00h,00h,00h,00h,00h,00h,088h,040h
-qword_160590:
+F64_0p159155_ChkPokeOrCheck:
         db 0F5h,036h,0BDh,068h,030h,05Fh,0C4h,03Fh
-qword_160598:
+F64_65536_ChkPokeOrCheck:
         db 00h,00h,00h,00h,00h,00h,0F0h,040h
-dword_1605A0:
+F32_24:
         db 00h,00h,0C0h,041h
-qword_1605A4:
+F64_0p392699_ChkPokeOrCheck:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0D9h,03Fh
-qword_1605AC:
+F64_3p14159_GoaliePosTarget:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_1605B4:
+F64_6p28319_GoaliePosTarget:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_1605BC:
+F64_neg6p28319_GoaliePosTarget:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_1605C4:
+F64_neg3p14159_GoaliePosTarget:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_1605CC:
+F64_0p392699_GoaliePosTarget:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0D9h,03Fh
-qword_1605D4:
+F64_neg0p392699:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0D9h,0BFh
-qword_1605DC:
+F64_0p159155_GoaliePosTarget:
         db 0F5h,036h,0BDh,068h,030h,05Fh,0C4h,03Fh
-qword_1605E4:
+F64_65536_GoaliePosTarget:
         db 00h,00h,00h,00h,00h,00h,0F0h,040h
-qword_1605EC:
+F64_0p25:
         db 00h,00h,00h,00h,00h,00h,0D0h,03Fh
-qword_1605F4:
+F64_3p14159_Endfaceoff:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-dword_1605FC:
+F32_neg3984:
         db 00h,00h,079h,0C5h
-dword_160600:
+F32_neg4272_InCrease:
         db 00h,080h,085h,0C5h
-qword_160604:
+F64_288:
         db 00h,00h,00h,00h,00h,00h,072h,040h
-dword_16060C:
+F32_4272_InCrease:
         db 00h,080h,085h,045h
-dword_160610:
+F32_1272:
         db 00h,00h,09Fh,044h
-dword_160614:
+F32_4032:
         db 00h,00h,07Ch,045h
-dword_160618:
+F32_768:
         db 00h,00h,040h,044h
-dword_16061C:
+F32_192:
         db 00h,00h,040h,043h
-dword_160620:
+F32_48:
         db 00h,00h,040h,042h
-qword_160624:
+F64_480:
         db 00h,00h,00h,00h,00h,00h,07Eh,040h
-dword_16062C:
+F32_0p166667:
         db 0ABh,0AAh,02Ah,03Eh
-qword_160630:
+F64_3p14159_CanReceivePass:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_160638:
+F64_0p785398_CanReceivePass:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,03Fh
-qword_160640:
+F64_0p785398_MakePass:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,03Fh
-qword_160648:
+F64_1080:
         db 00h,00h,00h,00h,00h,0E0h,090h,040h
-qword_160650:
+F64_4272:
         db 00h,00h,00h,00h,00h,0B0h,0B0h,040h
-qword_160658:
+F64_576_RimPuck:
         db 00h,00h,00h,00h,00h,00h,082h,040h

@@ -2,10 +2,10 @@
 bits 32
 %include "hockey.inc"
 section s_13B9C2 progbits alloc exec nowrite align=1
-extern _Extender, _STACKLOW, __8087, __CHP, __fatal_runtime_error_, __sigfpe_handler_, str_ABNORMALTERMINATION, byte_19C3D0
-extern byte_19C3D1, byte_19C3D2, byte_19C3D3, dword_16E670, dword_16E6A8, dword_1725AD, dword_19C1A4, dword_19C1AA
-extern dword_19C1AE, dword_19C1C6, dword_19C3CC, off_171C84, qword_19C1BE, RestoreDS, unk_19C1B4, unk_19C1CA
-extern word_19C1A8, word_19C3CA
+extern _Extender, _STACKLOW, __8087, __CHP, __fatal_runtime_error_, __sigfpe_handler_, str_ABNORMALTERMINATION, DosExtenderType
+extern PharLapVersion, ErgoVersion, IntelExtenderVersion, ScreenWidth, BackBufferWidth, FpuInitHook, AbortHandler, SavedFpuVecOffset
+extern SavedFpuVecSelector, F32_3p40282e38, FpuSavedEsp, FpuExitHook, F64_1p79769e308, RestoreDS, FpuFixupBuffer, FpuHandlerStack
+extern SavedFpuEs, FpuSavedSs
 global __Bin2String, __CmpBigInt, __DOS4G_hook_fini_, __DOS4G_hook_init_, __Ergo_hook_fini_, __Ergo_hook_init_, __GrabFP87_, __Intel_hook_fini_
 global __Intel_hook_init_, __Phar_hook_fini_, __Phar_hook_init_, __Rnd2Int, __terminate_, abort_, frexp_, modf_
 global BigIntCallHook, BigIntNullHook, SignalHookFpu, HookFpuExceptions, UnhookFpuExceptions, EnableFpuExceptions, FpuIrqEoi, FpuExceptionHandler
@@ -251,7 +251,7 @@ frexp_:
 ; abort_                                                       13BC11  library
 ;-----------------------------------------------------------------------------
 abort_:
-        call dword [dword_19C1A4]
+        call dword [AbortHandler]
 ;-----------------------------------------------------------------------------
 ; __terminate_                                                 13BC17  library
 ;-----------------------------------------------------------------------------
@@ -274,13 +274,13 @@ SignalHookFpu:
 __GrabFP87_:
         push ebx
         push ecx
-        cmp dword [off_171C84], UnhookFpuExceptions
+        cmp dword [FpuExitHook], UnhookFpuExceptions
         je short .1
         mov ebx, __sigfpe_handler_
         mov ecx, UnhookFpuExceptions
-        mov dword [dword_1725AD], ebx
+        mov dword [FpuInitHook], ebx
         call HookFpuExceptions
-        mov dword [off_171C84], ecx
+        mov dword [FpuExitHook], ecx
 .1:
         call EnableFpuExceptions
         pop ecx
@@ -293,7 +293,7 @@ __GrabFP87_:
 ; when a coprocessor is present
 ;-----------------------------------------------------------------------------
 HookFpuExceptions:
-        cmp word [word_19C1A8], byte 0
+        cmp word [SavedFpuEs], byte 0
         jne short .1
         cmp byte [__8087], 0
         je short .1
@@ -338,7 +338,7 @@ HookFpuExceptions:
 ; DOS extender
 ;-----------------------------------------------------------------------------
 UnhookFpuExceptions:
-        cmp word [word_19C1A8], byte 0
+        cmp word [SavedFpuEs], byte 0
         jne short .1
         ret
 .1:
@@ -491,19 +491,19 @@ FpuExceptionHandler:
         cmp cl, 0
         je short .11
         push dword [_STACKLOW]
-        o16 mov word [word_19C3CA], ss
-        mov dword [dword_19C3CC], esp
+        o16 mov word [FpuSavedSs], ss
+        mov dword [FpuSavedEsp], esp
         push ds
         pop ss
-        lea esp, [word_19C3CA]
-        lea eax, [unk_19C1CA]
+        lea esp, [FpuSavedSs]
+        lea eax, [FpuHandlerStack]
         mov dword [_STACKLOW], eax
         movzx eax, cl
-        call dword [dword_1725AD]
-        o16 mov ss, word [word_19C3CA]
-        mov esp, dword [dword_19C3CC]
+        call dword [FpuInitHook]
+        o16 mov ss, word [FpuSavedSs]
+        mov esp, dword [FpuSavedEsp]
         pop dword [_STACKLOW]
-        mov word [word_19C3CA], 0
+        mov word [FpuSavedSs], 0
 .11:
         wait
         fnclex
@@ -617,7 +617,7 @@ FpuFixupResult:
         and dl, 0C0h
         cmp dl, 0C0h
         jne short .5
-        lea esi, [unk_19C1B4]
+        lea esi, [FpuFixupBuffer]
         call FpuRestoreStackTop
         jmp short .6
 .5:
@@ -635,10 +635,10 @@ FpuLoadInfinity:
         fstp st0
         test bh, 4
         je short .1
-        fld qword [qword_19C1BE]
+        fld qword [F64_1p79769e308]
         jmp short .2
 .1:
-        fld dword [dword_19C1C6]
+        fld dword [F32_3p40282e38]
 .2:
         test word [byte ebp+014h], 100h
         je short .3
@@ -693,7 +693,7 @@ FpuStoreResult:
 ;-----------------------------------------------------------------------------
 __Phar_hook_init_:
         push ds
-        cmp byte [byte_19C3D3], 20h
+        cmp byte [IntelExtenderVersion], 20h
         jne short .1
         lea edx, [FpuIrqEoi]
         jmp short .2
@@ -720,15 +720,15 @@ __Phar_hook_init_:
         mov ax, 250Ch
         int 21h
         mov cl, ah
-        add cl, byte [byte_19C3D1]
+        add cl, byte [PharLapVersion]
         sub cl, 8
         mov ax, 2502h
         int 21h
-        mov dword [dword_19C1AA], ebx
-        o16 mov word [word_19C1A8], es
+        mov dword [SavedFpuVecOffset], ebx
+        o16 mov word [SavedFpuEs], es
         mov ax, 2503h
         int 21h
-        mov dword [dword_19C1AE], ebx
+        mov dword [SavedFpuVecSelector], ebx
         cmp byte [_Extender], 3
         jae short .4
         sub esp, byte 8
@@ -766,11 +766,11 @@ __Phar_hook_fini_:
         mov ax, 250Ch
         int 21h
         mov cl, ah
-        add cl, byte [byte_19C3D1]
+        add cl, byte [PharLapVersion]
         sub cl, 8
-        mov ebx, dword [dword_19C1AE]
-        mov edx, dword [dword_19C1AA]
-        o16 mov ds, word [word_19C1A8]
+        mov ebx, dword [SavedFpuVecSelector]
+        mov edx, dword [SavedFpuVecOffset]
+        o16 mov ds, word [SavedFpuEs]
         mov ax, 2507h
         int 21h
         pop ds
@@ -781,12 +781,12 @@ __Phar_hook_fini_:
 __DOS4G_hook_init_:
         push ds
         mov ah, 35h
-        mov al, byte [byte_19C3D0]
+        mov al, byte [DosExtenderType]
         int 21h
-        mov dword [dword_19C1AA], ebx
-        o16 mov word [word_19C1A8], es
+        mov dword [SavedFpuVecOffset], ebx
+        o16 mov word [SavedFpuEs], es
         mov ah, 25h
-        mov al, byte [byte_19C3D0]
+        mov al, byte [DosExtenderType]
         mov dx, cs
         mov ds, edx
         lea edx, [FpuExceptionHandler]
@@ -799,9 +799,9 @@ __DOS4G_hook_init_:
 __DOS4G_hook_fini_:
         push ds
         mov ah, 25h
-        mov al, byte [byte_19C3D0]
-        mov edx, dword [dword_19C1AA]
-        o16 mov ds, word [word_19C1A8]
+        mov al, byte [DosExtenderType]
+        mov edx, dword [SavedFpuVecOffset]
+        o16 mov ds, word [SavedFpuEs]
         int 21h
         pop ds
         ret
@@ -811,13 +811,13 @@ __DOS4G_hook_fini_:
 __Ergo_hook_init_:
         push ds
         mov ah, 35h
-        mov al, byte [byte_19C3D2]
+        mov al, byte [ErgoVersion]
         int 21h
-        mov dword [dword_19C1AA], ebx
-        o16 mov word [word_19C1A8], es
+        mov dword [SavedFpuVecOffset], ebx
+        o16 mov word [SavedFpuEs], es
         mov ah, 25h
-        mov al, byte [byte_19C3D2]
-        cmp byte [byte_19C3D3], 20h
+        mov al, byte [ErgoVersion]
+        cmp byte [IntelExtenderVersion], 20h
         jne short .1
         lea edx, [FpuIrqEoi]
         jmp short .2
@@ -835,9 +835,9 @@ __Ergo_hook_init_:
 __Ergo_hook_fini_:
         push ds
         mov ah, 25h
-        mov al, byte [byte_19C3D2]
-        mov edx, dword [dword_19C1AA]
-        o16 mov ds, word [word_19C1A8]
+        mov al, byte [ErgoVersion]
+        mov edx, dword [SavedFpuVecOffset]
+        o16 mov ds, word [SavedFpuEs]
         int 21h
         pop ds
         ret
@@ -847,18 +847,18 @@ __Ergo_hook_fini_:
 ;-----------------------------------------------------------------------------
 __Intel_hook_init_:
         mov ax, 204h
-        mov bl, byte [byte_19C3D0]
+        mov bl, byte [DosExtenderType]
         int 31h
-        mov dword [dword_19C1AA], edx
-        mov word [word_19C1A8], cx
+        mov dword [SavedFpuVecOffset], edx
+        mov word [SavedFpuEs], cx
         mov ax, 200h
-        mov bl, byte [byte_19C3D0]
+        mov bl, byte [DosExtenderType]
         int 31h
         shl ecx, 10h
         mov cx, dx
-        mov dword [dword_19C1AE], ecx
+        mov dword [SavedFpuVecSelector], ecx
         mov cx, cs
-        cmp byte [byte_19C3D3], 20h
+        cmp byte [IntelExtenderVersion], 20h
         jne short .1
         lea edx, [FpuIrqEoi]
         jmp short .2
@@ -866,7 +866,7 @@ __Intel_hook_init_:
         lea edx, [FpuExceptionHandler]
 .2:
         mov ax, 205h
-        mov bl, byte [byte_19C3D0]
+        mov bl, byte [DosExtenderType]
         int 31h
         ret
 ;-----------------------------------------------------------------------------
@@ -878,13 +878,13 @@ __Intel_hook_fini_:
 ;-----------------------------------------------------------------------------
 ; SetScreenTarget                                13C164  97 PC, low confidence
 ; Makes the screen the draw target again: copies the screen header
-; (dword_16E6A8) to dword_16E670
+; (BackBufferWidth) to ScreenWidth
 ;-----------------------------------------------------------------------------
 SetScreenTarget:
         LD mov, edx, edi
         LD mov, eax, esi
-        mov esi, dword_16E6A8
-        mov edi, dword_16E670
+        mov esi, BackBufferWidth
+        mov edi, ScreenWidth
         mov ecx, 0Dh
         rep movsd
         LD mov, edi, edx

@@ -11,34 +11,34 @@ extern __fdiv_fpr_22C, __fdiv_fpr_231, __fdiv_fpr_24B, __fdiv_fpr_250, __fdiv_fp
 extern __fdiv_fpr_2D0, __fdiv_fpr_2D5, __fdiv_fpr_2EF, __fdiv_fpr_2F4, __fdiv_fpr_314, __fdiv_fpr_328, __fdiv_fpr_340, __fdiv_fpr_354
 extern __fdiv_fpr_374, __fdiv_fpr_379, __fdiv_fpr_393, __fdiv_fpr_398, __fdiv_fpr_3B8, __fdiv_fpr_3CC, __fdiv_fpr_3E4, __fdiv_fpr_3F8
 extern __fdiv_fpr_418, __fdiv_fpr_41D, __fdiv_fpr_437, __fdiv_fpr_43C, __fdiv_fpr_45C, __fdiv_fpr_470, __fdiv_fpr_488
-global byte_19C6E4, byte_19C724, dword_19C694, dword_19C698, dword_19C69C, dword_19C6A0, dword_19C6A4, dword_19C6A8
-global dword_19C6AC, dword_19C6B0, dword_19C6B4, dword_19C6B8, dword_19C6BC, dword_19C6C0, dword_19C734, dword_19C738
-global dword_19C73C, off_19C6C4, off_19C6E2, off_19C6E3, off_19C740
-dword_19C694:
+global VideoCodeLengths, FdivShiftTable, VideoBitCount, VideoBitBuffer, VideoOutPtr, VideoBlockX, VideoBlockY, VideoBlockTemp
+global VideoBlockSum, VideoIdctScale, F32_0p541196, F32_1p30656, F32_0p382683, F32_6p7554e15, F32_0p9375, F32_1p0625
+global F32_9p22337e18, VideoCodeJumpTable, off_19C6E2, off_19C6E3, FdivJumpTable
+VideoBitCount:
         db 00h,00h,00h,00h
-dword_19C698:
+VideoBitBuffer:
         db 00h,00h,00h,00h
-dword_19C69C:
+VideoOutPtr:
         db 00h,00h,00h,00h
-dword_19C6A0:
+VideoBlockX:
         db 00h,00h,00h,00h
-dword_19C6A4:
+VideoBlockY:
         db 00h,00h,00h,00h
-dword_19C6A8:
+VideoBlockTemp:
         db 00h,00h,00h,00h
-dword_19C6AC:
+VideoBlockSum:
         db 00h,00h,00h,00h
-dword_19C6B0:
+VideoIdctScale:
         db 09Ah,079h,082h,05Ah
-dword_19C6B4:
+F32_0p541196:
         db 0D4h,08Bh,0Ah,03Fh
-dword_19C6B8:
+F32_1p30656:
         db 075h,03Dh,0A7h,03Fh
-dword_19C6BC:
+F32_0p382683:
         db 015h,0EFh,0C3h,03Eh
-dword_19C6C0:
+F32_6p7554e15:
         db 00h,00h,0C0h,059h
-off_19C6C4:
+VideoCodeJumpTable:
         dd ReadVideoCodes_7D
         dd ReadVideoCodes_E6
         dd ReadVideoCodes_5B
@@ -49,20 +49,20 @@ off_19C6C4:
 off_19C6E2 equ $+2
 off_19C6E3 equ $+3
         dd ReadVideoCodes_115
-byte_19C6E4:
+VideoCodeLengths:
         db 00h,03Fh,037h,03Eh,03Dh,036h,02Fh,027h,02Eh,035h,03Ch,03Bh,034h,02Dh,026h,01Fh
         db 017h,01Eh,025h,02Ch,033h,03Ah,039h,032h,02Bh,024h,01Dh,016h,0Fh,07h,0Eh,015h
         db 01Ch,023h,02Ah,031h,038h,030h,029h,022h,01Bh,014h,0Dh,06h,05h,0Ch,013h,01Ah
         db 021h,028h,020h,019h,012h,0Bh,04h,03h,0Ah,011h,018h,010h,09h,02h,01h,08h
-byte_19C724:
+FdivShiftTable:
         db 00h,01h,00h,00h,04h,00h,00h,07h,00h,00h,0Ah,00h,00h,0Dh,00h,00h
-dword_19C734:
+F32_0p9375:
         db 00h,00h,070h,03Fh
-dword_19C738:
+F32_1p0625:
         db 00h,00h,088h,03Fh
-dword_19C73C:
+F32_9p22337e18:
         db 00h,00h,00h,05Fh
-off_19C740:
+FdivJumpTable:
         dd __fdiv_fpr_A
         dd __fdiv_fpr_10
         dd __fdiv_fpr_15

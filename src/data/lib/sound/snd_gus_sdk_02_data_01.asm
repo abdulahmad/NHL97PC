@@ -3,36 +3,36 @@ bits 32
 %include "hockey.inc"
 section s_19C024 progbits alloc noexec write align=1
 extern __terminate_
-global byte_19C032, byte_19C040, byte_19C124, byte_19C16E, dword_19C054, dword_19C0D4, dword_19C0F4, dword_19C0F8
-global dword_19C0FC, dword_19C100, dword_19C104, dword_19C108, dword_19C10C, dword_19C110, dword_19C114, dword_19C118
-global dword_19C11C, dword_19C120, dword_19C128, dword_19C12C, dword_19C132, dword_19C138, dword_19C13E, dword_19C144
-global dword_19C170, dword_19C178, dword_19C1A4, word_19C024, word_19C026, word_19C028, word_19C02A, word_19C02C
-global word_19C02E, word_19C030, word_19C052, word_19C058, word_19C0DC, word_19C130, word_19C136, word_19C13C
-global word_19C142
-word_19C024:
+global GusDmaLatchBits, GusDmaPageTable, GusDramSized, GusDmaReady, GusIrqOldHandler, GusMidiPending, GusMidiIrqCount, GusTimerCallback
+global GusDmaDoneCallback, GusRecordDoneCallback, GusWaveCallback, GusVolumeCallback, GusTimer1Callback, GusTimer2Callback, GusWaveIrqCallback, GusVolumeIrqCallback
+global GusMidiXmitCallback, GusMidiRecvCallback, GusDmaBusy, OldInt23Offset, OldCtrlBreakOffset, OldInt23RealOffset, OldCtrlBreakRealOffset, DpmiHostedFlag
+global SignalTable, SigFpeHandler, AbortHandler, GusMidiControlPort, GusMidiDataPort, GusVoiceSelectPort, GusRegSelectPort, GusDataLowPort
+global GusDataHighPort, GusDramPort, GusIrqVectorTable, GusIrqOldSelector, GusIrqPending, OldInt23Selector, OldCtrlBreakSelector, OldInt23RealSegment
+global OldCtrlBreakRealSegment
+GusMidiControlPort:
         db 020h,03h
-word_19C026:
+GusMidiDataPort:
         db 021h,03h
-word_19C028:
+GusVoiceSelectPort:
         db 022h,03h
-word_19C02A:
+GusRegSelectPort:
         db 023h,03h
-word_19C02C:
+GusDataLowPort:
         db 024h,03h
-word_19C02E:
+GusDataHighPort:
         db 025h,03h
-word_19C030:
+GusDramPort:
         db 027h,03h
-byte_19C032:
+GusDmaLatchBits:
         db 00h,01h,00h,02h,00h,03h,04h,05h,00h,00h,00h,00h,00h,00h
-byte_19C040:
+GusDmaPageTable:
         db 087h,00h,083h,00h,081h,00h,082h,00h,08Fh,00h,08Bh,00h,089h,00h,08Ah,00h
         db 00h,00h
-word_19C052:
+GusIrqVectorTable:
         db 08h,00h
-dword_19C054:
+GusIrqOldHandler:
         db 00h,00h,00h,00h
-word_19C058:
+GusIrqOldSelector:
         db 00h,00h,09h,00h,00h,00h,00h,00h,00h,00h,0Ah,00h,00h,00h,00h,00h
         db 00h,00h,0Bh,00h,00h,00h,00h,00h,00h,00h,0Ch,00h,00h,00h,00h,00h
         db 00h,00h,0Dh,00h,00h,00h,00h,00h,00h,00h,0Eh,00h,00h,00h,00h,00h
@@ -41,66 +41,66 @@ word_19C058:
         db 00h,00h,073h,00h,00h,00h,00h,00h,00h,00h,074h,00h,00h,00h,00h,00h
         db 00h,00h,075h,00h,00h,00h,00h,00h,00h,00h,076h,00h,00h,00h,00h,00h
         db 00h,00h,077h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-dword_19C0D4:
+GusMidiPending:
         db 00h,00h,00h,00h,00h,00h,00h,00h
-word_19C0DC:
+GusIrqPending:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h
-dword_19C0F4:
+GusMidiIrqCount:
         db 00h,00h,00h,00h
-dword_19C0F8:
+GusTimerCallback:
         db 00h,00h,00h,00h
-dword_19C0FC:
+GusDmaDoneCallback:
         db 00h,00h,00h,00h
-dword_19C100:
+GusRecordDoneCallback:
         db 00h,00h,00h,00h
-dword_19C104:
+GusWaveCallback:
         db 00h,00h,00h,00h
-dword_19C108:
+GusVolumeCallback:
         db 00h,00h,00h,00h
-dword_19C10C:
+GusTimer1Callback:
         db 00h,00h,00h,00h
-dword_19C110:
+GusTimer2Callback:
         db 00h,00h,00h,00h
-dword_19C114:
+GusWaveIrqCallback:
         db 00h,00h,00h,00h
-dword_19C118:
+GusVolumeIrqCallback:
         db 00h,00h,00h,00h
-dword_19C11C:
+GusMidiXmitCallback:
         db 00h,00h,00h,00h
-dword_19C120:
+GusMidiRecvCallback:
         db 00h,00h,00h,00h
-byte_19C124:
+GusDramSized:
         db 00h,00h,00h,00h
-dword_19C128:
+GusDmaBusy:
         db 01h,00h,00h,00h
-dword_19C12C:
+OldInt23Offset:
         db 00h,00h,00h,00h
-word_19C130:
+OldInt23Selector:
         db 00h,00h
-dword_19C132:
+OldCtrlBreakOffset:
         db 00h,00h,00h,00h
-word_19C136:
+OldCtrlBreakSelector:
         db 00h,00h
-dword_19C138:
+OldInt23RealOffset:
         db 00h,00h,00h,00h
-word_19C13C:
+OldInt23RealSegment:
         db 00h,00h
-dword_19C13E:
+OldCtrlBreakRealOffset:
         db 00h,00h,00h,00h
-word_19C142:
+OldCtrlBreakRealSegment:
         db 00h,00h
-dword_19C144:
+DpmiHostedFlag:
         db 00h,00h,00h,00h,044h,0ACh,0C8h,0A0h,0BBh,096h,0DDh,08Dh,0FCh,085h,0EEh,07Eh
         db 096h,078h,0D8h,072h,09Fh,06Dh,0DBh,068h,07Dh,064h,078h,060h,0C2h,05Ch,052h,059h
         db 022h,056h,029h,053h,064h,050h,0CCh,04Dh,05Dh,04Bh
-byte_19C16E:
+GusDmaReady:
         db 00h,00h
-dword_19C170:
+SignalTable:
         db 01h,00h,00h,00h,02h,00h,00h,00h
-dword_19C178:
+SigFpeHandler:
         db 01h,00h,00h,00h,02h,00h,00h,00h,02h,00h,00h,00h,02h,00h,00h,00h
         db 02h,00h,00h,00h,02h,00h,00h,00h,01h,00h,00h,00h,01h,00h,00h,00h
         db 01h,00h,00h,00h,02h,00h,00h,00h,02h,00h,00h,00h
-dword_19C1A4:
+AbortHandler:
         dd __terminate_

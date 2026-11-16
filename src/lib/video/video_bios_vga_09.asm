@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_13C180 progbits alloc exec nowrite align=1
-extern byte_19C840, dword_171E34, qword_19C858, qword_19C860, qword_19C870, tbyte_19C878
+extern FpremShiftTable, RetraceTimeout, FpremScale, F64_5p42101eneg20, F64_0p5_fprem_common, FpremTwoPi
 global WaitDisplayRetrace, WaitRetrace, __fprem_chk, fprem1_common, fprem_common, WaitRetrace_2D, ReadPortStable, WaitRetraceEdges
 ;-----------------------------------------------------------------------------
 ; ReadPortStable                                 13C180  97 PC, low confidence
@@ -19,7 +19,7 @@ ReadPortStable:
 ;-----------------------------------------------------------------------------
 WaitRetrace:
         mov dx, 3DAh
-        mov ecx, dword [dword_171E34]
+        mov ecx, dword [RetraceTimeout]
         jmp short .2
 .1:
         call ReadPortStable
@@ -31,17 +31,17 @@ WaitRetrace:
         test al, 8
         loope .2
         jecxz WaitRetrace_2D
-        mov dword [dword_171E34], 186A0h
+        mov dword [RetraceTimeout], 186A0h
         ret
 WaitRetrace_2D:
-        mov dword [dword_171E34], 2710h
+        mov dword [RetraceTimeout], 2710h
         ret
 ;-----------------------------------------------------------------------------
 ; WaitRetraceEdges                                               13C1BF  96 PC
 ;-----------------------------------------------------------------------------
 WaitRetraceEdges:
         mov dx, 3DAh
-        mov ecx, dword [dword_171E34]
+        mov ecx, dword [RetraceTimeout]
 .1:
         call ReadPortStable
         test al, 8
@@ -52,14 +52,14 @@ WaitRetraceEdges:
         test al, 8
         loope .2
         jecxz WaitRetrace_2D
-        mov dword [dword_171E34], 186A0h
+        mov dword [RetraceTimeout], 186A0h
         ret
 ;-----------------------------------------------------------------------------
 ; WaitDisplayRetrace                                             13C1EA  96 PC
 ;-----------------------------------------------------------------------------
 WaitDisplayRetrace:
         mov dx, 3DAh
-        mov ecx, dword [dword_171E34]
+        mov ecx, dword [RetraceTimeout]
 .3:
         call ReadPortStable
         test al, 8
@@ -70,7 +70,7 @@ WaitDisplayRetrace:
         test al, 8
         loopne .4
         jecxz WaitRetrace_2D
-        mov dword [dword_171E34], 186A0h
+        mov dword [RetraceTimeout], 186A0h
         ret
         mov dx, 3DAh
         call ReadPortStable
@@ -91,7 +91,7 @@ fprem_common:
         jne near .6
         shr eax, 0Bh
         and eax, byte 0Fh
-        cmp byte [dword eax+byte_19C840], 0
+        cmp byte [dword eax+FpremShiftTable], 0
         je near .6
         mov eax, dword [byte esp+016h]
         and eax, 7FFF0000h
@@ -181,7 +181,7 @@ fprem_common:
         fsub st1
 .5:
         fxch
-        fmul qword [qword_19C870]
+        fmul qword [F64_0p5_fprem_common]
         fxch
         sub ecx, byte 1
         jne short .4
@@ -189,7 +189,7 @@ fprem_common:
         fstp tword [byte esp+028h]
         fstp st0
         fld tword [byte esp+01Ch]
-        fld tword [tbyte_19C878]
+        fld tword [FpremTwoPi]
         fprem
         fstp st0
         fld tword [byte esp+028h]
@@ -213,7 +213,7 @@ fprem_common:
         or eax, 300h
         mov dword [byte esp+038h], eax
         fldcw word [byte esp+038h]
-        fmul qword [qword_19C860]
+        fmul qword [F64_5p42101eneg20]
         fldcw word [byte esp+034h]
 .8:
         mov eax, dword [byte esp+03Ch]
@@ -270,9 +270,9 @@ __fprem_chk:
         cmp eax, 7FBEh
         ja short .2
         or edx, byte 1
-        fmul qword [qword_19C858]
+        fmul qword [FpremScale]
         fstp tword [byte esp+018h]
-        fmul qword [qword_19C858]
+        fmul qword [FpremScale]
         fstp tword [esp]
         jmp short .3
 .2:
@@ -282,7 +282,7 @@ __fprem_chk:
         mov dword [byte esp+028h], eax
         fldcw word [byte esp+028h]
         fstp st0
-        fmul qword [qword_19C858]
+        fmul qword [FpremScale]
         fstp tword [esp]
 .3:
         fldcw word [byte esp+024h]
@@ -308,7 +308,7 @@ fprem1_common:
         jne near .6
         shr eax, 0Bh
         and eax, byte 0Fh
-        cmp byte [dword eax+byte_19C840], 0
+        cmp byte [dword eax+FpremShiftTable], 0
         je near .6
         mov eax, dword [byte esp+016h]
         and eax, 7FFF0000h
@@ -398,7 +398,7 @@ fprem1_common:
         fsub st1
 .5:
         fxch
-        fmul qword [qword_19C870]
+        fmul qword [F64_0p5_fprem_common]
         fxch
         sub ecx, byte 1
         jne short .4
@@ -406,7 +406,7 @@ fprem1_common:
         fstp tword [byte esp+028h]
         fstp st0
         fld tword [byte esp+01Ch]
-        fld tword [tbyte_19C878]
+        fld tword [FpremTwoPi]
         fprem1
         fstp st0
         fld tword [byte esp+028h]
@@ -430,7 +430,7 @@ fprem1_common:
         or eax, 300h
         mov dword [byte esp+038h], eax
         fldcw word [byte esp+038h]
-        fmul qword [qword_19C860]
+        fmul qword [F64_5p42101eneg20]
         fldcw word [byte esp+034h]
 .8:
         mov eax, dword [byte esp+03Ch]
@@ -458,9 +458,9 @@ fprem1_common:
         db 089h,044h,024h,028h,0D9h,06Ch,024h,028h,08Bh,044h,024h,020h,025h,0FFh,07Fh,00h
         db 00h,03Dh,0BEh,07Fh,00h,00h,077h,018h,083h,0CAh
         add esp, ebx
-        or eax, qword_19C858
+        or eax, FpremScale
         fstp tword [byte esp+018h]
-        fmul qword [qword_19C858]
+        fmul qword [FpremScale]
         fstp tword [esp]
         jmp short .10
         fnstcw word [byte esp+024h]
@@ -469,7 +469,7 @@ fprem1_common:
         mov dword [byte esp+028h], eax
         fldcw word [byte esp+028h]
         fstp st0
-        fmul qword [qword_19C858]
+        fmul qword [FpremScale]
         fstp tword [esp]
 .10:
         fldcw word [byte esp+024h]

@@ -2,88 +2,88 @@
 bits 32
 %include "hockey.inc"
 section s_1D1CF8 nobits alloc noexec write align=1
-global byte_1D1D88, byte_1D1D8C, byte_1D1FBC, dword_1D1CF8, dword_1D1CFC, dword_1D1D00, dword_1D1D04, dword_1D1D08
-global dword_1D1D0C, dword_1D1D10, dword_1D1D14, dword_1D1D2C, dword_1D1D30, dword_1D1D34, dword_1D1D38, dword_1D1D3C
-global dword_1D1D40, dword_1D1D44, dword_1D1D48, dword_1D1D4C, dword_1D1D50, dword_1D1D54, dword_1D1D58, dword_1D1D5C
-global dword_1D1D60, dword_1D1D64, dword_1D1D68, dword_1D1D6C, dword_1D1D70, dword_1D1D74, dword_1D1D78, dword_1D1D7C
-global dword_1D1D80, dword_1D1D84, dword_1D204C, dword_1D2050, dword_1D2054, dword_1D2058, dword_1D205C, unk_1D1D20
-dword_1D1CF8:
+global LinePattern, OverlayModels, OverlaySprites, ModelPartCount, ModelPartTable, ModelFrame, ModelPoints, ModelFlags
+global ModelInstance, ModelSetupMode, RinkViewChanged, ModelPartIndex, ViewOriginX, LineDeltaX, ViewOriginY, LineDeltaY
+global LineX, LineSteep, LineY, LineEndX, LineStepX, LineEndY, LineStepY, ViewWidth
+global ViewHeight, LineErrY, LineErrX, LineErrStepY, LineColor, LineClipMaxX, LineClipMaxY, LineErrStepX
+global EllipseRadiusX, EllipseRadiusY, OverlayViewMatrix, OverlayCamera, TextureTileSize, TexturePageBase, TextureDetail, ModelSlots
+ModelPartCount:
         resb 4
-dword_1D1CFC:
+ModelPartTable:
         resb 4
-dword_1D1D00:
+ModelFrame:
         resb 4
-dword_1D1D04:
+ModelPoints:
         resb 4
-dword_1D1D08:
+ModelFlags:
         resb 4
-dword_1D1D0C:
+ModelInstance:
         resb 4
-dword_1D1D10:
+ModelSetupMode:
         resb 4
-dword_1D1D14:
+RinkViewChanged:
         resb 12
-unk_1D1D20:
+ModelSlots:
         resb 12
-dword_1D1D2C:
+ModelPartIndex:
         resb 4
-dword_1D1D30:
+ViewOriginX:
         resb 4
-dword_1D1D34:
+LineDeltaX:
         resb 4
-dword_1D1D38:
+ViewOriginY:
         resb 4
-dword_1D1D3C:
+LineDeltaY:
         resb 4
-dword_1D1D40:
+LineX:
         resb 4
-dword_1D1D44:
+LineSteep:
         resb 4
-dword_1D1D48:
+LineY:
         resb 4
-dword_1D1D4C:
+LineEndX:
         resb 4
-dword_1D1D50:
+LineStepX:
         resb 4
-dword_1D1D54:
+LineEndY:
         resb 4
-dword_1D1D58:
+LineStepY:
         resb 4
-dword_1D1D5C:
+ViewWidth:
         resb 4
-dword_1D1D60:
+ViewHeight:
         resb 4
-dword_1D1D64:
+LineErrY:
         resb 4
-dword_1D1D68:
+LineErrX:
         resb 4
-dword_1D1D6C:
+LineErrStepY:
         resb 4
-dword_1D1D70:
+LineColor:
         resb 4
-dword_1D1D74:
+LineClipMaxX:
         resb 4
-dword_1D1D78:
+LineClipMaxY:
         resb 4
-dword_1D1D7C:
+LineErrStepX:
         resb 4
-dword_1D1D80:
+EllipseRadiusX:
         resb 4
-dword_1D1D84:
+EllipseRadiusY:
         resb 4
-byte_1D1D88:
+LinePattern:
         resb 4
-byte_1D1D8C:
+OverlayModels:
         resb 560
-byte_1D1FBC:
+OverlaySprites:
         resb 144
-dword_1D204C:
+OverlayViewMatrix:
         resb 4
-dword_1D2050:
+OverlayCamera:
         resb 4
-dword_1D2054:
+TextureTileSize:
         resb 4
-dword_1D2058:
+TexturePageBase:
         resb 4
-dword_1D205C:
+TextureDetail:
         resb 4

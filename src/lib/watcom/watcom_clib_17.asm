@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_121264 progbits alloc exec nowrite align=1
-extern __chktty_, __flushall_, __set_errno_, __set_errno_dos_, _nmalloc_, dword_1CF0E0, dword_1CF260, dword_1DA4C8
+extern __chktty_, __flushall_, __set_errno_, __set_errno_dos_, _nmalloc_, dword_1CF0E0, dword_1CF260, MemLockState
 extern getche_, memlist1, StoreBigEndian, findmemblock
 global __filbuf_, __fill_buffer_, __ioalloc_, __qread_, fgetc_, ResetMemLock, MemLock, MemUnlock
 global PathBaseName, SetBlockGuard, CheckBlockGuards
@@ -247,8 +247,8 @@ __fill_buffer_:
 ;-----------------------------------------------------------------------------
 ResetMemLock:
         xor edx, edx
-        mov eax, dword_1DA4C8
-        mov dword [dword_1DA4C8], edx
+        mov eax, MemLockState
+        mov dword [MemLockState], edx
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------

@@ -19,19 +19,19 @@ global str_LB26, str_RS06, str_RS05, str_RS04, str_RS05RS06RS07, str_LAHL, str_L
 global str_RABL, str_RS09RS11RS11, str_RS22, str_RS21, str_RS20, str_RS21RS22RS23, str_RS26, str_RS25
 global str_RS24, str_RS25RS26RS27, str_RS30, str_RS29, str_RS28, str_RS29RS30RS31, str_RS38, str_RS37
 global str_RS36, str_RS37RS38RS39, str_LB02d2, str_LH02d, str_LH26, str_TTL0, str_SDDSDD, str_SD02dSD02d
-global str_SD02dSDD, str_SDDSD2, str_CSS, unk_16622A, unk_16622D, unk_16622F, unk_166232, unk_166235
-global unk_16623E, unk_1663A5, unk_1663B8
+global str_SD02dSDD, str_SDDSD2, str_CSS, str_S_ExportStatTable, str_Punct_WriteCsvLine, str_Rt, str_Wt, str_Punct_ExportStatTable
+global unk_16623E, str_Punct_StatsTablesScreen, str_Ai
 str_D01d2:
         db 025h,064h,02Eh,025h,030h,031h,064h,00h
-unk_16622A:
+str_S_ExportStatTable:
         db 025h,073h,00h
-unk_16622D:
+str_Punct_WriteCsvLine:
         db 020h,00h
-unk_16622F:
+str_Rt:
         db 072h,074h,00h
-unk_166232:
+str_Wt:
         db 077h,074h,00h
-unk_166235:
+str_Punct_ExportStatTable:
         db 0Ah,0Ah,00h
 str_03d:
         db 02Eh,025h,030h,033h,064h,00h
@@ -172,13 +172,13 @@ str_TS39:
 str_SDDSD:
         db 025h,073h,03Ah,025h,064h,02Eh,025h,064h,020h,020h,020h,025h,073h,03Ah,025h,064h
         db 00h
-unk_1663A5:
+str_Punct_StatsTablesScreen:
         db 025h,00h
 str_Rosters:
         db 072h,06Fh,073h,074h,065h,072h,073h,00h
 str_Rawteams:
         db 072h,061h,077h,074h,065h,061h,06Dh,073h,00h
-unk_1663B8:
+str_Ai:
         db 061h,069h,00h
 str_Gai:
         db 067h,061h,069h,00h

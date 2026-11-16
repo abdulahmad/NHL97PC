@@ -3,303 +3,303 @@ bits 32
 %include "hockey.inc"
 section s_167A65 progbits alloc noexec write align=1
 global str_CB0D, str_CB002, str_Chat, str_SS15, str_D4, str_IgfxFix, str_IgFix, str_GFXMODES
-global str_MBRAM, str_LOW8s, str_GAP, str_TIMERSTACK, str_BigfileBuf, str_02d3s02d, str_2d02d02d, dword_167A85
-global dword_167A89, dword_167A8D, dword_167A91, dword_167A95, dword_167A99, dword_167A9D, dword_167AA1, dword_167AA5
-global dword_167AA9, dword_167AAD, dword_167AE1, dword_167AE5, dword_167AE9, dword_167AED, dword_167AF1, dword_167AF5
-global dword_167AF9, dword_167AFD, dword_167B01, dword_167B05, dword_167B09, dword_167B0D, dword_167B11, dword_167B15
-global dword_167B19, dword_167B2D, dword_167B31, dword_167B35, dword_167B39, dword_167B3D, dword_167B41, dword_167B45
-global dword_167B49, dword_167B4D, dword_167B51, dword_167B55, dword_167B59, dword_167B5D, dword_167B61, dword_167B65
-global dword_167B71, dword_167B75, dword_167B81, dword_167B8B, dword_167B97, dword_167B9B, dword_167BA7, dword_167BC3
-global dword_167BC7, dword_167BCB, dword_167BCF, dword_167BD3, dword_167BD7, dword_167BDB, dword_167BDF, dword_167BE3
-global dword_167BE7, dword_167BEB, dword_167BEF, dword_167BF3, dword_167BF7, dword_167BFB, dword_167BFF, dword_167C03
-global dword_167C07, dword_167C0B, dword_167C0F, dword_167C13, dword_167C17, dword_167C1B, dword_167C1F, dword_167C23
-global dword_167C2F, dword_167C33, dword_167C37, dword_167C3B, dword_167C3F, dword_167C43, dword_167C47, dword_167C4B
-global dword_167C5F, dword_167C63, dword_167C67, dword_167C6B, dword_167C6F, dword_167C73, dword_167C77, dword_167C7B
-global dword_167C7F, dword_167C83, dword_167C87, dword_167C8B, dword_167C8F, dword_167C93, dword_167C97, dword_167C9B
-global dword_167C9F, dword_167CA3, dword_167CA7, dword_167CAB, dword_167CAF, dword_167CB3, dword_167CB7, dword_167CBB
-global dword_167CBF, dword_167CC3, dword_167CC7, dword_167CD3, dword_167CD7, dword_167CDB, dword_167CDF, dword_167CE3
-global dword_167CE7, qword_167A75, qword_167A7D, qword_167AB1, qword_167AB9, qword_167AC1, qword_167AC9, qword_167AD1
-global qword_167AD9, qword_167B1D, qword_167B25, qword_167B69, qword_167B79, qword_167B8F, qword_167B9F, qword_167BB3
-global qword_167BBB, qword_167C27, qword_167C4F, qword_167C57, qword_167CCB, str_HIGHMEM, unk_167D44, unk_167D48
-global unk_167D4C, unk_167D50, unk_167D54, unk_167D58, unk_167D5C, unk_167D60, unk_167D64, unk_167D68
-global unk_167D6C, unk_167D70
+global str_MBRAM, str_LOW8s, str_GAP, str_TIMERSTACK, str_BigfileBuf, str_02d3s02d, str_2d02d02d, F32_12_DrawPauseButtons
+global F32_100_DrawPauseButtons, F32_155, F32_10_DrawPauseButtons, F32_165, F32_129, F32_117, F32_105, F32_141
+global F32_153, F32_178, F32_40_PickEditLinesTeam, F32_130, F32_0p5_PickEditLinesTeam, F32_55, F32_150, F32_50_PickEditLinesTeam
+global F32_10_PickEditLinesTeam, F32_5, F32_75, F32_65, F32_7_PickEditLinesTeam, F32_90, F32_20_PickEditLinesTeam, F32_28
+global F32_36, F32_40_ConfirmQuitGame, F32_120_ConfirmQuitGame, F32_0p5_ConfirmQuitGame, F32_45, F32_200_ConfirmQuitGame, F32_13, F32_5_ConfirmQuitGame
+global F32_100_ConfirmQuitGame, F32_60, F32_10_ConfirmQuitGame, F32_35, F32_30_ConfirmQuitGame, F32_80_ConfirmQuitGame, F32_20_ConfirmQuitGame, F32_0p005_SetupPauseButtons
+global F32_0p003125_SetupPauseButtons, F32_0p005_PauseMenu, F32_0p003125_PauseMenu, F32_0p005_DrawIntermissionTitle, F32_0p003125_DrawIntermissionTitle, F32_0p005_RunPauseIntermission, F32_0p003125_RunPauseIntermission, F32_10_RulesMenu
+global F32_180_RulesMenu, F32_130_RulesMenu, F32_90_RulesMenu, F32_20_RulesMenu, F32_30_RulesMenu, F32_70, F32_8_RulesMenu, F32_47
+global F32_64, F32_81, F32_98_RulesMenu, F32_115, F32_132, F32_149, F32_178_RulesMenu, F32_5_RulesMenu
+global F32_19, F32_36_RulesMenu, F32_53, F32_87, F32_104, F32_121, F32_138, F32_0p005_RulesMenu
+global F32_0p003125_RulesMenu, F32_9, F32_145, F32_100_RulesMenu, F32_85, F32_55_RulesMenu, F32_40_RulesMenu, F32_25
+global F32_10_DetailLevelMenu, F32_180_DetailLevelMenu, F32_130_DetailLevelMenu, F32_90_DetailLevelMenu, F32_9_DetailLevelMenu, F32_70_DetailLevelMenu, F32_30_DetailLevelMenu, F32_20_DetailLevelMenu
+global F32_47_DetailLevelMenu, F32_64_DetailLevelMenu, F32_81_DetailLevelMenu, F32_98_DetailLevelMenu, F32_115_DetailLevelMenu, F32_132_DetailLevelMenu, F32_178_DetailLevelMenu, F32_5_DetailLevelMenu
+global F32_19_DetailLevelMenu, F32_36_DetailLevelMenu, F32_53_DetailLevelMenu, F32_87_DetailLevelMenu, F32_104_DetailLevelMenu, F32_121_DetailLevelMenu, F32_37, F32_18
+global F32_15_DetailLevelMenu, F32_63, F32_0p005_DetailLevelMenu, F32_0p003125_DetailLevelMenu, F32_55_DetailLevelMenu, F32_40_DetailLevelMenu, F32_100_DetailLevelMenu, F32_85_DetailLevelMenu
+global F32_25_DetailLevelMenu, F64_0p003125, F64_0p005, F64_200, F64_0p00208333, F64_320, F64_0p0015625, F64_0p003125_PickEditLinesTeam
+global F64_0p005_PickEditLinesTeam, F64_0p003125_ConfirmQuitGame, F64_0p005_ConfirmQuitGame, F64_0p5_SetupPauseButtons, F64_0p5_PauseMenu, F64_0p5_DrawIntermissionTitle, F64_0p5_RunPauseIntermission, F64_0p003125_RulesMenu
+global F64_0p005_RulesMenu, F64_0p5_RulesMenu, F64_0p003125_DetailLevelMenu, F64_0p005_DetailLevelMenu, F64_0p5_DetailLevelMenu, str_HIGHMEM, str_Jan, str_Feb
+global str_Mar, str_Apr, str_May, str_Jun, str_Jul, str_Aug, str_Sep, str_Oct
+global str_Nov, str_Dec
 str_CB0D:
         db 043h,042h,030h,025h,064h,00h
 str_CB002:
         db 043h,042h,030h,030h,00h
 str_Chat:
         db 043h,068h,061h,074h,00h
-qword_167A75:
+F64_0p003125:
         db 09Ah,099h,099h,099h,099h,099h,069h,03Fh
-qword_167A7D:
+F64_0p005:
         db 07Bh,014h,0AEh,047h,0E1h,07Ah,074h,03Fh
-dword_167A85:
+F32_12_DrawPauseButtons:
         db 00h,00h,040h,041h
-dword_167A89:
+F32_100_DrawPauseButtons:
         db 00h,00h,0C8h,042h
-dword_167A8D:
+F32_155:
         db 00h,00h,01Bh,043h
-dword_167A91:
+F32_10_DrawPauseButtons:
         db 00h,00h,020h,041h
-dword_167A95:
+F32_165:
         db 00h,00h,025h,043h
-dword_167A99:
+F32_129:
         db 00h,00h,01h,043h
-dword_167A9D:
+F32_117:
         db 00h,00h,0EAh,042h
-dword_167AA1:
+F32_105:
         db 00h,00h,0D2h,042h
-dword_167AA5:
+F32_141:
         db 00h,00h,0Dh,043h
-dword_167AA9:
+F32_153:
         db 00h,00h,019h,043h
-dword_167AAD:
+F32_178:
         db 00h,00h,032h,043h
-qword_167AB1:
+F64_200:
         db 00h,00h,00h,00h,00h,00h,069h,040h
-qword_167AB9:
+F64_0p00208333:
         db 011h,011h,011h,011h,011h,011h,061h,03Fh
-qword_167AC1:
+F64_320:
         db 00h,00h,00h,00h,00h,00h,074h,040h
-qword_167AC9:
+F64_0p0015625:
         db 09Ah,099h,099h,099h,099h,099h,059h,03Fh
-qword_167AD1:
+F64_0p003125_PickEditLinesTeam:
         db 09Ah,099h,099h,099h,099h,099h,069h,03Fh
-qword_167AD9:
+F64_0p005_PickEditLinesTeam:
         db 07Bh,014h,0AEh,047h,0E1h,07Ah,074h,03Fh
-dword_167AE1:
+F32_40_PickEditLinesTeam:
         db 00h,00h,020h,042h
-dword_167AE5:
+F32_130:
         db 00h,00h,02h,043h
-dword_167AE9:
+F32_0p5_PickEditLinesTeam:
         db 00h,00h,00h,03Fh
-dword_167AED:
+F32_55:
         db 00h,00h,05Ch,042h
-dword_167AF1:
+F32_150:
         db 00h,00h,016h,043h
-dword_167AF5:
+F32_50_PickEditLinesTeam:
         db 00h,00h,048h,042h
-dword_167AF9:
+F32_10_PickEditLinesTeam:
         db 00h,00h,020h,041h
-dword_167AFD:
+F32_5:
         db 00h,00h,0A0h,040h
-dword_167B01:
+F32_75:
         db 00h,00h,096h,042h
-dword_167B05:
+F32_65:
         db 00h,00h,082h,042h
-dword_167B09:
+F32_7_PickEditLinesTeam:
         db 00h,00h,0E0h,040h
-dword_167B0D:
+F32_90:
         db 00h,00h,0B4h,042h
-dword_167B11:
+F32_20_PickEditLinesTeam:
         db 00h,00h,0A0h,041h
-dword_167B15:
+F32_28:
         db 00h,00h,0E0h,041h
-dword_167B19:
+F32_36:
         db 00h,00h,010h,042h
-qword_167B1D:
+F64_0p003125_ConfirmQuitGame:
         db 09Ah,099h,099h,099h,099h,099h,069h,03Fh
-qword_167B25:
+F64_0p005_ConfirmQuitGame:
         db 07Bh,014h,0AEh,047h,0E1h,07Ah,074h,03Fh
-dword_167B2D:
+F32_40_ConfirmQuitGame:
         db 00h,00h,020h,042h
-dword_167B31:
+F32_120_ConfirmQuitGame:
         db 00h,00h,0F0h,042h
-dword_167B35:
+F32_0p5_ConfirmQuitGame:
         db 00h,00h,00h,03Fh
-dword_167B39:
+F32_45:
         db 00h,00h,034h,042h
-dword_167B3D:
+F32_200_ConfirmQuitGame:
         db 00h,00h,048h,043h
-dword_167B41:
+F32_13:
         db 00h,00h,050h,041h
-dword_167B45:
+F32_5_ConfirmQuitGame:
         db 00h,00h,0A0h,040h
-dword_167B49:
+F32_100_ConfirmQuitGame:
         db 00h,00h,0C8h,042h
-dword_167B4D:
+F32_60:
         db 00h,00h,070h,042h
-dword_167B51:
+F32_10_ConfirmQuitGame:
         db 00h,00h,020h,041h
-dword_167B55:
+F32_35:
         db 00h,00h,0Ch,042h
-dword_167B59:
+F32_30_ConfirmQuitGame:
         db 00h,00h,0F0h,041h
-dword_167B5D:
+F32_80_ConfirmQuitGame:
         db 00h,00h,0A0h,042h
-dword_167B61:
+F32_20_ConfirmQuitGame:
         db 00h,00h,0A0h,041h
-dword_167B65:
+F32_0p005_SetupPauseButtons:
         db 0Ah,0D7h,0A3h,03Bh
-qword_167B69:
+F64_0p5_SetupPauseButtons:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-dword_167B71:
+F32_0p003125_SetupPauseButtons:
         db 0CDh,0CCh,04Ch,03Bh
-dword_167B75:
+F32_0p005_PauseMenu:
         db 0Ah,0D7h,0A3h,03Bh
-qword_167B79:
+F64_0p5_PauseMenu:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-dword_167B81:
+F32_0p003125_PauseMenu:
         db 0CDh,0CCh,04Ch,03Bh
 str_SS15:
         db 025h,073h,020h,025h,073h,00h
-dword_167B8B:
+F32_0p005_DrawIntermissionTitle:
         db 0Ah,0D7h,0A3h,03Bh
-qword_167B8F:
+F64_0p5_DrawIntermissionTitle:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-dword_167B97:
+F32_0p003125_DrawIntermissionTitle:
         db 0CDh,0CCh,04Ch,03Bh
-dword_167B9B:
+F32_0p005_RunPauseIntermission:
         db 0Ah,0D7h,0A3h,03Bh
-qword_167B9F:
+F64_0p5_RunPauseIntermission:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-dword_167BA7:
+F32_0p003125_RunPauseIntermission:
         db 0CDh,0CCh,04Ch,03Bh
 str_D4:
         db 025h,064h,020h,025h,025h,025h,025h,00h
-qword_167BB3:
+F64_0p003125_RulesMenu:
         db 09Ah,099h,099h,099h,099h,099h,069h,03Fh
-qword_167BBB:
+F64_0p005_RulesMenu:
         db 07Bh,014h,0AEh,047h,0E1h,07Ah,074h,03Fh
-dword_167BC3:
+F32_10_RulesMenu:
         db 00h,00h,020h,041h
-dword_167BC7:
+F32_180_RulesMenu:
         db 00h,00h,034h,043h
-dword_167BCB:
+F32_130_RulesMenu:
         db 00h,00h,02h,043h
-dword_167BCF:
+F32_90_RulesMenu:
         db 00h,00h,0B4h,042h
-dword_167BD3:
+F32_20_RulesMenu:
         db 00h,00h,0A0h,041h
-dword_167BD7:
+F32_30_RulesMenu:
         db 00h,00h,0F0h,041h
-dword_167BDB:
+F32_70:
         db 00h,00h,08Ch,042h
-dword_167BDF:
+F32_8_RulesMenu:
         db 00h,00h,00h,041h
-dword_167BE3:
+F32_47:
         db 00h,00h,03Ch,042h
-dword_167BE7:
+F32_64:
         db 00h,00h,080h,042h
-dword_167BEB:
+F32_81:
         db 00h,00h,0A2h,042h
-dword_167BEF:
+F32_98_RulesMenu:
         db 00h,00h,0C4h,042h
-dword_167BF3:
+F32_115:
         db 00h,00h,0E6h,042h
-dword_167BF7:
+F32_132:
         db 00h,00h,04h,043h
-dword_167BFB:
+F32_149:
         db 00h,00h,015h,043h
-dword_167BFF:
+F32_178_RulesMenu:
         db 00h,00h,032h,043h
-dword_167C03:
+F32_5_RulesMenu:
         db 00h,00h,0A0h,040h
-dword_167C07:
+F32_19:
         db 00h,00h,098h,041h
-dword_167C0B:
+F32_36_RulesMenu:
         db 00h,00h,010h,042h
-dword_167C0F:
+F32_53:
         db 00h,00h,054h,042h
-dword_167C13:
+F32_87:
         db 00h,00h,0AEh,042h
-dword_167C17:
+F32_104:
         db 00h,00h,0D0h,042h
-dword_167C1B:
+F32_121:
         db 00h,00h,0F2h,042h
-dword_167C1F:
+F32_138:
         db 00h,00h,0Ah,043h
-dword_167C23:
+F32_0p005_RulesMenu:
         db 0Ah,0D7h,0A3h,03Bh
-qword_167C27:
+F64_0p5_RulesMenu:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-dword_167C2F:
+F32_0p003125_RulesMenu:
         db 0CDh,0CCh,04Ch,03Bh
-dword_167C33:
+F32_9:
         db 00h,00h,010h,041h
-dword_167C37:
+F32_145:
         db 00h,00h,011h,043h
-dword_167C3B:
+F32_100_RulesMenu:
         db 00h,00h,0C8h,042h
-dword_167C3F:
+F32_85:
         db 00h,00h,0AAh,042h
-dword_167C43:
+F32_55_RulesMenu:
         db 00h,00h,05Ch,042h
-dword_167C47:
+F32_40_RulesMenu:
         db 00h,00h,020h,042h
-dword_167C4B:
+F32_25:
         db 00h,00h,0C8h,041h
-qword_167C4F:
+F64_0p003125_DetailLevelMenu:
         db 09Ah,099h,099h,099h,099h,099h,069h,03Fh
-qword_167C57:
+F64_0p005_DetailLevelMenu:
         db 07Bh,014h,0AEh,047h,0E1h,07Ah,074h,03Fh
-dword_167C5F:
+F32_10_DetailLevelMenu:
         db 00h,00h,020h,041h
-dword_167C63:
+F32_180_DetailLevelMenu:
         db 00h,00h,034h,043h
-dword_167C67:
+F32_130_DetailLevelMenu:
         db 00h,00h,02h,043h
-dword_167C6B:
+F32_90_DetailLevelMenu:
         db 00h,00h,0B4h,042h
-dword_167C6F:
+F32_9_DetailLevelMenu:
         db 00h,00h,010h,041h
-dword_167C73:
+F32_70_DetailLevelMenu:
         db 00h,00h,08Ch,042h
-dword_167C77:
+F32_30_DetailLevelMenu:
         db 00h,00h,0F0h,041h
-dword_167C7B:
+F32_20_DetailLevelMenu:
         db 00h,00h,0A0h,041h
-dword_167C7F:
+F32_47_DetailLevelMenu:
         db 00h,00h,03Ch,042h
-dword_167C83:
+F32_64_DetailLevelMenu:
         db 00h,00h,080h,042h
-dword_167C87:
+F32_81_DetailLevelMenu:
         db 00h,00h,0A2h,042h
-dword_167C8B:
+F32_98_DetailLevelMenu:
         db 00h,00h,0C4h,042h
-dword_167C8F:
+F32_115_DetailLevelMenu:
         db 00h,00h,0E6h,042h
-dword_167C93:
+F32_132_DetailLevelMenu:
         db 00h,00h,04h,043h
-dword_167C97:
+F32_178_DetailLevelMenu:
         db 00h,00h,032h,043h
-dword_167C9B:
+F32_5_DetailLevelMenu:
         db 00h,00h,0A0h,040h
-dword_167C9F:
+F32_19_DetailLevelMenu:
         db 00h,00h,098h,041h
-dword_167CA3:
+F32_36_DetailLevelMenu:
         db 00h,00h,010h,042h
-dword_167CA7:
+F32_53_DetailLevelMenu:
         db 00h,00h,054h,042h
-dword_167CAB:
+F32_87_DetailLevelMenu:
         db 00h,00h,0AEh,042h
-dword_167CAF:
+F32_104_DetailLevelMenu:
         db 00h,00h,0D0h,042h
-dword_167CB3:
+F32_121_DetailLevelMenu:
         db 00h,00h,0F2h,042h
-dword_167CB7:
+F32_37:
         db 00h,00h,014h,042h
-dword_167CBB:
+F32_18:
         db 00h,00h,090h,041h
-dword_167CBF:
+F32_15_DetailLevelMenu:
         db 00h,00h,070h,041h
-dword_167CC3:
+F32_63:
         db 00h,00h,07Ch,042h
-dword_167CC7:
+F32_0p005_DetailLevelMenu:
         db 0Ah,0D7h,0A3h,03Bh
-qword_167CCB:
+F64_0p5_DetailLevelMenu:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-dword_167CD3:
+F32_0p003125_DetailLevelMenu:
         db 0CDh,0CCh,04Ch,03Bh
-dword_167CD7:
+F32_55_DetailLevelMenu:
         db 00h,00h,05Ch,042h
-dword_167CDB:
+F32_40_DetailLevelMenu:
         db 00h,00h,020h,042h
-dword_167CDF:
+F32_100_DetailLevelMenu:
         db 00h,00h,0C8h,042h
-dword_167CE3:
+F32_85_DetailLevelMenu:
         db 00h,00h,0AAh,042h
-dword_167CE7:
+F32_25_DetailLevelMenu:
         db 00h,00h,0C8h,041h,00h
 str_IgfxFix:
         db 069h,067h,066h,078h,020h,066h,069h,078h,00h
@@ -319,29 +319,29 @@ str_TIMERSTACK:
         db 054h,049h,04Dh,045h,052h,020h,053h,054h,041h,043h,04Bh,00h
 str_BigfileBuf:
         db 062h,069h,067h,066h,069h,06Ch,065h,020h,062h,075h,066h,00h
-unk_167D44:
+str_Jan:
         db 04Ah,061h,06Eh,00h
-unk_167D48:
+str_Feb:
         db 046h,065h,062h,00h
-unk_167D4C:
+str_Mar:
         db 04Dh,061h,072h,00h
-unk_167D50:
+str_Apr:
         db 041h,070h,072h,00h
-unk_167D54:
+str_May:
         db 04Dh,061h,079h,00h
-unk_167D58:
+str_Jun:
         db 04Ah,075h,06Eh,00h
-unk_167D5C:
+str_Jul:
         db 04Ah,075h,06Ch,00h
-unk_167D60:
+str_Aug:
         db 041h,075h,067h,00h
-unk_167D64:
+str_Sep:
         db 053h,065h,070h,00h
-unk_167D68:
+str_Oct:
         db 04Fh,063h,074h,00h
-unk_167D6C:
+str_Nov:
         db 04Eh,06Fh,076h,00h
-unk_167D70:
+str_Dec:
         db 044h,065h,063h,00h
 str_02d3s02d:
         db 025h,030h,032h,064h,02Dh,025h,033h,073h,02Dh,025h,030h,032h,064h,00h,00h,00h

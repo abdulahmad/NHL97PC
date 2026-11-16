@@ -15,8 +15,8 @@ global str_SC01, str_SC00, str_SC01SC02SC03, str_SC10, str_SC09, str_SC08, str_S
 global str_SC05, str_SC04, str_SC05SC06SC07, str_SC14, str_SC13, str_SC12, str_SC13SC14SC15, str_SC18
 global str_SC17, str_SC16, str_SC17SC18SC19, str_SC30, str_SC29, str_SC28, str_SC29SC30SC31, str_AB08
 global str_AB07, str_AB06, str_AB11, str_AB10, str_AB09, str_SC09SC10SC11, str_Rroster, str_Lroster
-global str_POWR2, str_01d02d, qword_16695B, unk_1667A4, unk_1667A7, unk_1668C2, unk_1668C5, unk_1668F8
-global unk_166915, unk_166946, unk_166948
+global str_POWR2, str_01d02d, F64_0p9_DrawPlayerRatingsPage, str_Ai_PlayerStatsScreen, str_Rp, str_D_DrawPlayerRatings, str_0_DrawPlayerStatsText, str_S_DrawPlayerBio
+global str_Wt_ExportPlayerCard, str_Punct_ExportPlayerCard, unk_166948
 str_MTRD:
         db 04Dh,054h,052h,025h,064h,00h
 str_MTR1:
@@ -33,9 +33,9 @@ str_PlMenu:
         db 070h,06Ch,020h,06Dh,065h,06Eh,075h,00h
 str_PlReg:
         db 070h,06Ch,020h,072h,065h,067h,00h
-unk_1667A4:
+str_Ai_PlayerStatsScreen:
         db 061h,069h,00h
-unk_1667A7:
+str_Rp:
         db 072h,070h,00h
 str_Curs:
         db 063h,075h,072h,073h,00h
@@ -125,9 +125,9 @@ str_PP16:
         db 050h,050h,031h,036h,00h
 str_PP17PP18PP19:
         db 050h,050h,031h,037h,050h,050h,031h,038h,050h,050h,031h,039h,00h
-unk_1668C2:
+str_D_DrawPlayerRatings:
         db 025h,064h,00h
-unk_1668C5:
+str_0_DrawPlayerStatsText:
         db 030h,00h
 str_D02d3:
         db 025h,064h,02Eh,025h,030h,032h,064h,00h
@@ -142,7 +142,7 @@ str_S8:
         db 025h,073h,03Ah,020h,00h
 str_S9:
         db 020h,020h,025h,073h,03Ah,020h,00h
-unk_1668F8:
+str_S_DrawPlayerBio:
         db 025h,073h,00h
 str_SSDD2:
         db 025h,073h,020h,025h,073h,020h,025h,064h,02Ch,020h,025h,064h,00h
@@ -150,7 +150,7 @@ str_SD5:
         db 025h,073h,020h,025h,064h,00h
 str_SD6:
         db 025h,073h,03Ah,020h,025h,064h,00h
-unk_166915:
+str_Wt_ExportPlayerCard:
         db 077h,074h,00h
 str_S10:
         db 025h,073h,0Ah,0Ah,00h
@@ -164,7 +164,7 @@ str_20sD:
         db 09h,025h,032h,030h,073h,09h,09h,025h,064h,0Ah,00h
 str_20sD2:
         db 09h,025h,032h,030h,073h,09h,09h,025h,064h,0Ah,0Ah,0Ah,0Ah,00h
-unk_166946:
+str_Punct_ExportPlayerCard:
         db 020h,00h
 unk_166948:
         db 0Ah,00h
@@ -174,7 +174,7 @@ str_MN00:
         db 04Dh,04Eh,030h,030h,00h
 str_MN04:
         db 04Dh,04Eh,030h,034h,00h
-qword_16695B:
+F64_0p9_DrawPlayerRatingsPage:
         db 0CDh,0CCh,0CCh,0CCh,0CCh,0CCh,0ECh,03Fh
 str_Menu5:
         db 06Dh,065h,06Eh,075h,00h

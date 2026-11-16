@@ -7,9 +7,9 @@ extern str_OFF0, str_SL02d, str_LB02d, str_LY02d, str_MB01MB02MB03, str_MB05MB06
 extern str_TITL2, str_GMT1, str_BOTM, str_LB00, str_LB07, str_MB02, str_MB01, str_MB00
 extern str_MB06, str_MB05, str_MB04, str_MB10, str_MB09, str_MB08, str_BACK4, str_SY02d
 extern str_SY00, str_SY01, str_SY02, str_SY03, str_SY04, str_SY05, str_SY06, str_GL00
-extern str_GR00, str_Mous3, str_DATAREPLAYNDX, byte_16CCF0, byte_1AC8C6, byte_1ACA65, byte_1ACC50, byte_1AD742
+extern str_GR00, str_Mous3, str_DATAREPLAYNDX, byte_16CCF0, MenuOptionFlags, LinkMenuCursor, IndexMenuCursor, byte_1AD742
 extern byte_1C6040, byte_1C82B3, byte_1C82B4, byte_1C8338, byte_1CA9D8, byte_1CBB8C, dword_16CCC4, dword_16CCE8
-extern dword_16CCEC, dword_16CCF1, dword_16CD58, dword_16D76C, dword_16DA9C, dword_16E46C, dword_1AC814, dword_1AC944
+extern dword_16CCEC, dword_16CCF1, dword_16CD58, dword_16D76C, dword_16DA9C, MenuScreenBitmap, GameSettings, GameOptionFlags
 extern dword_1AD226, dword_1AD6A7, dword_1C5DE0, dword_1C5DE4, dword_1C8268, dword_1C826C, dword_1C829C, dword_1C82A0
 extern dword_1C82A4, dword_1C82A8, dword_1C82AC, dword_1C82B0, dword_1C82C0, dword_1C82C4, dword_1C82C8, dword_1C82CC
 extern dword_1C82D0, dword_1C82D4, dword_1C82D8, dword_1C82DC, dword_1C82E0, dword_1C82E4, dword_1C82F4, dword_1C8318
@@ -27,7 +27,7 @@ extern GameStatsScreen, PlayMenuGame, FinishLeagueGame, TeamStatsScreen, StatsTa
 extern RunVideoOptions, HistoryScreen, RosterScreen, PreGameMatchupScreen, PreGameRostersScreen, FreeDbBlock, OpenLeagueFile, FindGameRecord
 extern ClearLinkAbort, ServiceIdle, NetDisconnect, LinkSendBlock, LinkReceiveBlock, AllocMemBlock, FreeMemBlock, ZeroMem
 extern OpenResourceArchive, FreeBitmap, DrawShapeCore, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, tickcount
-extern unk_165320, unk_165323, unk_16CCC8, unk_16D804, unk_1AC95D, unk_1AC962, unk_1ACB44, unk_1ACB49
+extern str_Rb_WritePhonebookFile, str_Wb, unk_16CCC8, unk_16D804, LinkSettings, LinkSettingsData, GlobalSetVersion, IndexEntrySettings
 extern unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C8300, unk_1C830C, unk_845C0
 global jpt_84AF5, jpt_84B15, jpt_84B25, jpt_84B3D, jpt_85CFD, MainMenuAnim_32E, MainMenuAnim_344, MainMenuAnim_35A
 global MainMenuAnim_370, MainMenuAnim_50B, MainMenuScreen_911, MainMenuScreen_999, MainMenuScreen_A17, MainMenuScreen_A23, MainMenuScreen_A2F, MainMenuScreen_A3B
@@ -537,7 +537,7 @@ MainMenuScreen:
         cmp dword [dword_16CCC4], byte 5
         jne short .13
 .9:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         shl eax, 19h
         shr eax, 1Dh
         cmp eax, byte 1
@@ -740,7 +740,7 @@ MainMenuScreen:
         push edi
         call FreeBitmap
         add esp, byte 4
-        push dword [dword_16E46C]
+        push dword [MenuScreenBitmap]
         push str_BACK3
         push dword [byte ebp+06Ah]
         call FindShape
@@ -893,13 +893,13 @@ MainMenuScreen:
         mov dword [dword eax+0C6h], edx
         mov eax, dword [dword_1C8320]
         mov dword [dword eax+0C2h], edx
-        mov edx, dword [dword_1AC814]
+        mov edx, dword [GameSettings]
         shl edx, 17h
         shr edx, 1Eh
         mov eax, dword [dword_1C8320]
         mov edx, dword [byte ebp+edx*4-05Ah]
         mov dword [dword eax+0110h], edx
-        mov edx, dword [dword_1AC814]
+        mov edx, dword [GameSettings]
         shl edx, 17h
         shr edx, 1Eh
         mov eax, dword [dword_1C8320]
@@ -1093,21 +1093,21 @@ MainMenuScreen_911:
         lea eax, [byte ebx-04h]
         imul eax, byte 21h
         push byte 21h
-        add eax, unk_1AC962
+        add eax, LinkSettingsData
         push eax
         imul eax, ebx, byte 21h
-        add eax, unk_1ACB49
+        add eax, IndexEntrySettings
         push eax
         inc ebx
         call bcopy
-        mov al, byte [dword ebx+byte_1ACC50]
+        mov al, byte [dword ebx+IndexMenuCursor]
         add esp, byte 0Ch
-        mov byte [dword ebx+byte_1ACA65], al
+        mov byte [dword ebx+LinkMenuCursor], al
         cmp ebx, byte 8
         jl short .25
         mov ebx, 1E7h
-        mov edx, unk_1AC95D
-        mov eax, unk_1ACB44
+        mov edx, LinkSettings
+        mov eax, GlobalSetVersion
         call memcpy_
         jmp short MainMenuScreen_999.26
 MainMenuScreen_999:
@@ -1156,7 +1156,7 @@ MainMenuScreen_A3B:
         mov edx, dword [dword_16CCC4]
         cmp edx, byte 5
         ja near MainMenuScreen_CFF.48
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and al, 8Fh
         mov ebx, eax
         mov ecx, eax
@@ -1166,7 +1166,7 @@ MainMenuScreen_A3B:
 MainMenuScreen_A68:
         mov dword [byte ebp+07Eh], 4
 .29:
-        mov dword [dword_1AC814], eax
+        mov dword [GameSettings], eax
         jmp near MainMenuScreen_CFF.48
 MainMenuScreen_A79:
         mov dword [byte ebp+07Eh], 5
@@ -1174,7 +1174,7 @@ MainMenuScreen_A79:
 MainMenuScreen_A82:
         mov dword [byte ebp+07Eh], 6
 .30:
-        mov dword [dword_1AC814], ebx
+        mov dword [GameSettings], ebx
         jmp near MainMenuScreen_CFF.48
 MainMenuScreen_A94:
         mov dword [byte ebp+07Eh], 7
@@ -1182,7 +1182,7 @@ MainMenuScreen_A94:
 MainMenuScreen_A9D:
         mov dword [byte ebp+07Eh], 8
 .31:
-        mov dword [dword_1AC814], ecx
+        mov dword [GameSettings], ecx
         jmp near MainMenuScreen_CFF.48
 MainMenuScreen_AAF:
         mov dword [byte ebp+07Eh], 9
@@ -1256,7 +1256,7 @@ MainMenuScreen_AB8:
         mov dword [dword_16CCC4], ebx
         cmp ebx, byte 5
         ja short MainMenuScreen_BA5.38
-        mov edx, dword [dword_1AC814]
+        mov edx, dword [GameSettings]
         and dl, 8Fh
         mov esi, edx
         mov ecx, edx
@@ -1266,7 +1266,7 @@ MainMenuScreen_AB8:
 MainMenuScreen_BA5:
         mov dword [byte ebp+07Eh], 4
 .37:
-        mov dword [dword_1AC814], edx
+        mov dword [GameSettings], edx
 .38:
         inc ebx
         cmp ebx, byte 6
@@ -1278,7 +1278,7 @@ MainMenuScreen_BBD:
 MainMenuScreen_BC6:
         mov dword [byte ebp+07Eh], 6
 .39:
-        mov dword [dword_1AC814], esi
+        mov dword [GameSettings], esi
         jmp short MainMenuScreen_BA5.38
 MainMenuScreen_BD5:
         mov dword [byte ebp+07Eh], 7
@@ -1286,7 +1286,7 @@ MainMenuScreen_BD5:
 MainMenuScreen_BDE:
         mov dword [byte ebp+07Eh], 8
 .40:
-        mov dword [dword_1AC814], ecx
+        mov dword [GameSettings], ecx
         jmp short MainMenuScreen_BA5.38
 MainMenuScreen_BED:
         mov dword [byte ebp+07Eh], 9
@@ -1323,9 +1323,9 @@ MainMenuScreen_BF6:
         cmp eax, byte 0FFFFFFFFh
         je near MainMenuScreen_CFF.48
         and eax, byte 3
-        and word [dword_1AC814], 0FE7Fh
+        and word [GameSettings], 0FE7Fh
         shl eax, 7
-        or dword [dword_1AC814], eax
+        or dword [GameSettings], eax
         jmp near MainMenuScreen_CFF.48
 MainMenuScreen_C76:
         mov eax, dword [dword_1C8320]
@@ -1346,8 +1346,8 @@ MainMenuScreen_C76:
         test eax, eax
         jne short .42
         mov ebx, 1E7h
-        mov edx, unk_1AC95D
-        mov eax, unk_1ACB44
+        mov edx, LinkSettings
+        mov eax, GlobalSetVersion
         call memcpy_
 .42:
         call NetDisconnect
@@ -1355,7 +1355,7 @@ MainMenuScreen_C76:
         mov dword [byte ebp+07Eh], 1
         jmp short .46
 .44:
-        test byte [byte_1AC8C6], 1
+        test byte [MenuOptionFlags], 1
         je short .45
         mov dword [byte ebp+07Eh], 18h
         jmp short .46
@@ -1386,13 +1386,13 @@ MainMenuScreen_CFF:
         mov dword [dword eax+0C6h], edx
         mov eax, dword [dword_1C8320]
         mov dword [dword eax+0C2h], edx
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         shl eax, 17h
         shr eax, 1Eh
         mov edx, dword [dword_1C8320]
         mov eax, dword [byte ebp+eax*4-05Ah]
         mov dword [dword edx+0110h], eax
-        mov edx, dword [dword_1AC814]
+        mov edx, dword [GameSettings]
         shl edx, 17h
         shr edx, 1Eh
         shl edx, 2
@@ -1559,12 +1559,12 @@ RunGameScreens:
         cmp eax, byte 1Ah
         jne short .19
         mov dword [dword_1C5DE0], 0
-        test byte [dword_1AC814], 70h
+        test byte [GameSettings], 70h
         jne short .16
         mov ebx, 4
         jmp near .8
 .16:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .18
@@ -1583,13 +1583,13 @@ RunGameScreens:
         mov ebx, 0Dh
         jmp short .17
 .19:
-        mov ecx, dword [dword_1AC944]
+        mov ecx, dword [GameOptionFlags]
         test byte [byte ecx+02h], 20h
         je short .20
         cmp eax, byte 13h
         je short .23
 .20:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .24
@@ -1661,7 +1661,7 @@ RunGameScreens:
         call GameStatsScreen
         jmp short .33
 .38:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         je short .39
@@ -1700,12 +1700,12 @@ RunGameScreens:
         call RequestMusicStop
         cmp ebx, byte 1
         je near .8
-        test byte [dword_1AC814], 70h
+        test byte [GameSettings], 70h
         jne short .42
         mov ebx, 1
         jmp near .8
 .42:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .43
@@ -1766,7 +1766,7 @@ RunStatsMenu:
         jl short .1
         lea eax, [byte ebp-04h]
         call FreeDbBlock
-        and byte [dword_1AC814], 8Fh
+        and byte [GameSettings], 8Fh
         jmp short RunStatsMenu_82.4
 RunStatsMenu_6E:
         call StatsMenuScreen
@@ -2764,13 +2764,13 @@ WritePhonebookFile:
         lea eax, [byte ebp-034h]
         mov dword [byte ebp-04h], 0
         call MakeDataPath
-        mov edx, unk_165320
+        mov edx, str_Rb_WritePhonebookFile
         lea eax, [byte ebp-034h]
         call fopen_
         mov ecx, eax
         test eax, eax
         jne short .3
-        mov edx, unk_165323
+        mov edx, str_Wb
         lea eax, [byte ebp-034h]
         call fopen_
         mov ecx, eax
@@ -2791,7 +2791,7 @@ WritePhonebookFile:
         cmp ebx, byte 4
         jb short .1
         mov eax, ecx
-        mov edx, unk_165320
+        mov edx, str_Rb_WritePhonebookFile
         call fclose_
         lea eax, [byte ebp-034h]
         call fopen_
@@ -2819,7 +2819,7 @@ OpenPhonebookFile:
         mov edx, 64h
         lea eax, [byte ebp-030h]
         call MakeDataPath
-        mov edx, unk_165323
+        mov edx, str_Wb
         lea eax, [byte ebp-030h]
         call fopen_
         mov ecx, eax

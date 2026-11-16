@@ -2,74 +2,74 @@
 bits 32
 %include "hockey.inc"
 section s_1DE764 nobits alloc noexec write align=1
-global byte_1DE770, byte_1DE771, byte_1DE772, byte_1DE773, byte_1DE794, byte_1DE795, byte_1DE796, byte_1DE797
-global byte_1DE798, byte_1DE7F0, dword_1DE768, dword_1DE76C, dword_1DE774, dword_1DE778, dword_1DE784, dword_1DE788
-global dword_1DE7D0, dword_1DE7E4, dword_1DE7E8, dword_1DE7EC, unk_1DE7A0, unk_1DE7F4, unk_1DEC00, word_1DE764
-global word_1DE766, word_1DE780, word_1DE78C, word_1DE78E, word_1DE790, word_1DE792, word_1DE7E0, word_1DE7E2
-global word_1DE7F1
-word_1DE764:
+global TimerIrqMask, TimerChainFlag, TimerPitMode, TimerInstalled, GusPlayDmaChannel, GusIrqLatch, GusRecordDmaChannel, GusMidiIrq
+global GusWaveIrq, GusDmaControl, TimerOldHandler, TimerOldRealHandler, TimerDivisor, TimerChainCount, CMainArgc, CMainArgv
+global GusVoiceIrqBits, GusDmaLeft, GusDmaChunkSize, GusDmaDone, GusDmaChannels, BreakHandlerRegs, StartupStack, TimerOldOffsetLo
+global TimerOldSelector, DbcsLeadTable, GusDosResult, GusIrqFlags, GusActiveVoices, GusCriticalDepth, GusDmaChunkLo, GusDmaChunkHi
+global GusDmaFlags
+TimerOldOffsetLo:
         resb 2
-word_1DE766:
+TimerOldSelector:
         resb 2
-dword_1DE768:
+TimerOldHandler:
         resb 4
-dword_1DE76C:
+TimerOldRealHandler:
         resb 4
-byte_1DE770:
+TimerIrqMask:
         resb 1
-byte_1DE771:
+TimerChainFlag:
         resb 1
-byte_1DE772:
+TimerPitMode:
         resb 1
-byte_1DE773:
+TimerInstalled:
         resb 1
-dword_1DE774:
+TimerDivisor:
         resb 4
-dword_1DE778:
+TimerChainCount:
         resb 8
-word_1DE780:
+DbcsLeadTable:
         resb 4
-dword_1DE784:
+CMainArgc:
         resb 4
-dword_1DE788:
+CMainArgv:
         resb 4
-word_1DE78C:
+GusDosResult:
         resb 2
-word_1DE78E:
+GusIrqFlags:
         resb 2
-word_1DE790:
+GusActiveVoices:
         resb 2
-word_1DE792:
+GusCriticalDepth:
         resb 2
-byte_1DE794:
+GusPlayDmaChannel:
         resb 1
-byte_1DE795:
+GusIrqLatch:
         resb 1
-byte_1DE796:
+GusRecordDmaChannel:
         resb 1
-byte_1DE797:
+GusMidiIrq:
         resb 1
-byte_1DE798:
+GusWaveIrq:
         resb 8
-unk_1DE7A0:
+GusDmaChannels:
         resb 48
-dword_1DE7D0:
+GusVoiceIrqBits:
         resb 16
-word_1DE7E0:
+GusDmaChunkLo:
         resb 2
-word_1DE7E2:
+GusDmaChunkHi:
         resb 2
-dword_1DE7E4:
+GusDmaLeft:
         resb 4
-dword_1DE7E8:
+GusDmaChunkSize:
         resb 4
-dword_1DE7EC:
+GusDmaDone:
         resb 4
-byte_1DE7F0:
+GusDmaControl:
         resb 1
-word_1DE7F1:
+GusDmaFlags:
         resb 3
-unk_1DE7F4:
+BreakHandlerRegs:
         resb 1036
-unk_1DEC00:
+StartupStack:
         resb 3044

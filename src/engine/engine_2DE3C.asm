@@ -2,12 +2,12 @@
 bits 32
 %include "hockey.inc"
 section s_2DE3C progbits alloc exec nowrite align=1
-extern SortCords, __CHP, awtmstruct, byte_19CB7E, byte_19CBC2, byte_19CBC8, byte_19EB54, byte_19EB55
-extern byte_19EB56, byte_19EB57, byte_19EC60, byte_19EC61, byte_19EC62, byte_19EC63, dword_1608AF, dword_1608B3
-extern dword_19CB32, dword_19CB48, dword_19EB58, dword_19EC64, dword_1AC944, hmtmstruct, off_19C5F4, randomd0
-extern setpersonel, RemoveOverlayPanel, QueueOverlayPanel, CPgoalie, CommentaryEvent, word_19CA90, word_19CA92, word_19CA94
-extern word_19CA96, word_19CB34, word_19CB98, gsp, gameclock, word_19CBBE, word_19CBEC, word_19CBEE
-extern word_19CC24, word_19CC26, word_19EAC0
+extern SortCords, __CHP, awtmstruct, GoalieOut, gmode, PuckFlags, HmCoachOffense, HmCoachDefense
+extern HmCoachGoalie, HmCoachLines, AwCoachOffense, AwCoachDefense, AwCoachGoalie, AwCoachLines, F32_40_ChkTiredPlayer, F32_0p01
+extern FaceoffSlots, LastTouchPlayer, HmCoachTimer, AwCoachTimer, GameOptionFlags, hmtmstruct, CompLineTable, randomd0
+extern setpersonel, RemoveOverlayPanel, QueueOverlayPanel, CPgoalie, CommentaryEvent, FaceoffX, FaceoffDropX, FaceoffY
+extern FaceoffDropY, HomeSkaters, StatsPanelPlayer, gsp, gameclock, FaceoffSpot, DelayedPen, MessagePanel
+extern HomeGoalieOff, AwayGoalieOff, HmLineState
 global ReturnGoalies, CoachLineChange_1A5, CoachLineChange_259, LineSlotsPtr_33, CoachLineChange, TeamLineSlots, LineSlotsPtr, RestoreBenchEnergy
 global ChkTiredPlayer, AvgLineEnergy, CompLine, SetCoachMode, ResetCoachModes, UpdateCoachModes, StartFaceoffLineChange
 ;-----------------------------------------------------------------------------
@@ -27,14 +27,14 @@ ReturnGoalies:
         mov byte [byte eax+011h], 0
         test cx, cx
         je short .2
-        mov bx, word [word_19CC26]
+        mov bx, word [AwayGoalieOff]
         jmp short .3
 .2:
-        mov bx, word [word_19CC24]
+        mov bx, word [HomeGoalieOff]
 .3:
         test bx, bx
         jne short .4
-        mov ebx, dword [word_19CBBE]
+        mov ebx, dword [FaceoffSpot]
         sar ebx, 10h
         call CPgoalie
 .4:
@@ -67,13 +67,13 @@ CoachLineChange:
         add eax, edx
         shl eax, 2
         sub eax, edx
-        mov si, word [nosplit eax*4+word_19EAC0]
+        mov si, word [nosplit eax*4+HmLineState]
         test bx, bx
         je short .1
-        mov ax, word [word_19CC26]
+        mov ax, word [AwayGoalieOff]
         jmp short .2
 .1:
-        mov ax, word [word_19CC24]
+        mov ax, word [HomeGoalieOff]
 .2:
         test ax, ax
         je near .7
@@ -84,14 +84,14 @@ CoachLineChange:
         test si, si
         setge al
         xor edx, edx
-        mov cx, word [word_19CBEE]
+        mov cx, word [MessagePanel]
         mov dl, al
         cmp dx, cx
         jg short .3
         cmp cx, byte 1
         jg short .4
 .3:
-        mov eax, dword [word_19CBEC]
+        mov eax, dword [DelayedPen]
         sar eax, 10h
         call RemoveOverlayPanel
         movsx eax, dx
@@ -140,7 +140,7 @@ CoachLineChange:
         shl eax, 3
         add eax, SortCords
         mov cl, byte [dword eax+0A6h]
-        mov byte [dword edi+byte_19CB7E], cl
+        mov byte [dword edi+GoalieOut], cl
         mov eax, dword [dword eax+0A3h]
         sar eax, 18h
         sub eax, byte 19h
@@ -151,7 +151,7 @@ CoachLineChange:
         mov ax, word [edx]
         cmp ax, word [byte ebp+00h]
         setge al
-        mov edx, dword [dword_19CB48]
+        mov edx, dword [LastTouchPlayer]
         push edx
         and eax, 0FFh
         push eax
@@ -357,7 +357,7 @@ RestoreBenchEnergy:
         ret
         push ebx
         push edx
-        mov edx, dword [dword_1AC944]
+        mov edx, dword [GameOptionFlags]
         test byte [byte edx+01h], 0C0h
         je short .6
         mov edx, dword [dword eax+0A3h]
@@ -392,13 +392,13 @@ ChkTiredPlayer:
         push edx
         sub esp, byte 8
         mov edx, eax
-        test byte [byte_19CBC2], 1
+        test byte [gmode], 1
         jne near .7
         cmp word [dword edx+0A9h], byte 0
         je near .7
         cmp byte [dword edx+0A4h], 0Ch
         je near .7
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         test byte [byte eax+01h], 0C0h
         je near .7
         mov eax, 28h
@@ -411,8 +411,8 @@ ChkTiredPlayer:
         mov ebx, dword [byte ebx+eax*2+016h]
         mov eax, dword [dword edx+0EEh]
         fld dword [byte eax+024h]
-        fmul dword [dword_1608AF]
-        fmul dword [dword_1608B3]
+        fmul dword [F32_40_ChkTiredPlayer]
+        fmul dword [F32_0p01]
         call __CHP
         fistp dword [esp]
         mov eax, dword [esp]
@@ -532,7 +532,7 @@ CompLine:
         mov ebx, edx
         cmp word [gsp], byte 0
         jg short .1
-        mov di, word [word_19CB98]
+        mov di, word [StatsPanelPlayer]
         cmp di, word [gameclock]
         jle near .37
 .1:
@@ -547,7 +547,7 @@ CompLine:
 .2:
         mov ecx, 4
 .3:
-        test byte [byte_19CBC2], 1
+        test byte [gmode], 1
         je short .4
         mov ebp, 190h
         jmp short .5
@@ -580,7 +580,7 @@ CompLine:
         mov ah, byte [dword ebx+0A6h]
         test ah, 1
         je near .15
-        mov dl, byte [byte_19CBC2]
+        mov dl, byte [gmode]
         mov cx, word [byte ebx+02h]
         test dl, 1
         je short .12
@@ -600,7 +600,7 @@ CompLine:
         mov eax, 0F33h
 .9:
         mov edx, eax
-        test byte [byte_19CBC2], 1
+        test byte [gmode], 1
         je short .10
         mov eax, 190h
         jmp short .11
@@ -629,7 +629,7 @@ CompLine:
 .15:
         cmp word [gsp], byte 0
         jg short .16
-        mov dx, word [word_19CB98]
+        mov dx, word [StatsPanelPlayer]
         cmp dx, word [gameclock]
         jle short .18
 .16:
@@ -653,7 +653,7 @@ CompLine:
         movsx eax, cx
         sar edx, 18h
         shl eax, 2
-        mov esi, dword [nosplit edx*4+off_19C5F4]
+        mov esi, dword [nosplit edx*4+CompLineTable]
         add esi, eax
         mov ax, word [byte ebx+02h]
         mov word [byte esp+0Ch], ax
@@ -670,7 +670,7 @@ CompLine:
         test cx, cx
         jl short .24
         movsx eax, cx
-        mov dh, byte [byte_19CBC2]
+        mov dh, byte [gmode]
         movsx cx, byte [dword ebx+eax+0ACh]
         test dh, 1
         je short .21
@@ -717,7 +717,7 @@ CompLine:
 .26:
         test dx, dx
         jne short .27
-        test byte [byte_19CBC2], 1
+        test byte [gmode], 1
         je near .37
 .27:
         mov ax, word [byte ebx+04h]
@@ -741,7 +741,7 @@ CompLine:
         sar edx, 1Fh
         LD sub, eax, edx
         sar eax, 1
-        mov dh, byte [byte_19CBC2]
+        mov dh, byte [gmode]
         mov edi, eax
         test dh, 1
         je short .28
@@ -781,7 +781,7 @@ CompLine:
         sar edx, 1Fh
         LD sub, eax, edx
         sar eax, 1
-        test byte [byte_19CBC2], 1
+        test byte [gmode], 1
         je short .32
         mov edx, 190h
         jmp short .33
@@ -835,42 +835,42 @@ SetCoachMode:
         sub eax, ebx
         test dx, dx
         jne short .3
-        mov dl, byte [byte_19EB56]
+        mov dl, byte [HmCoachGoalie]
         movsx ebx, ax
         and dl, 0FEh
         cmp ebx, byte 0FFFFFFFFh
         jge short .1
-        mov byte [byte_19EB56], dl
-        mov byte [byte_19EB57], 5
+        mov byte [HmCoachGoalie], dl
+        mov byte [HmCoachLines], 5
         jmp near .6
 .1:
         cmp ax, 3
         jle short .2
         mov al, 4
         mov edi, 0D9Ah
-        mov byte [byte_19EB56], dl
+        mov byte [HmCoachGoalie], dl
         mov dl, 2
-        mov byte [byte_19EB57], al
-        mov dword [dword_19EB58], edi
+        mov byte [HmCoachLines], al
+        mov dword [HmCoachTimer], edi
         mov ah, 3
-        mov byte [byte_19EB55], dl
-        mov byte [byte_19EB54], ah
+        mov byte [HmCoachDefense], dl
+        mov byte [HmCoachOffense], ah
         jmp near .6
 .2:
         mov esi, 0CCCh
         xor ch, ch
-        mov byte [byte_19EB56], dl
-        mov byte [byte_19EB57], ch
-        mov dword [dword_19EB58], esi
+        mov byte [HmCoachGoalie], dl
+        mov byte [HmCoachLines], ch
+        mov dword [HmCoachTimer], esi
         jmp short .6
 .3:
-        mov dl, byte [byte_19EC62]
+        mov dl, byte [AwCoachGoalie]
         or dl, 1
         cmp ax, 1
         jle short .4
         mov cl, 8
-        mov byte [byte_19EC62], dl
-        mov byte [byte_19EC63], cl
+        mov byte [AwCoachGoalie], dl
+        mov byte [AwCoachLines], cl
         pop edi
         pop esi
         pop edx
@@ -884,12 +884,12 @@ SetCoachMode:
         mov dh, 3
         mov bl, 2
         mov ecx, 0D9Ah
-        mov byte [byte_19EC60], dh
-        mov byte [byte_19EC61], bl
-        mov byte [byte_19EC62], dl
+        mov byte [AwCoachOffense], dh
+        mov byte [AwCoachDefense], bl
+        mov byte [AwCoachGoalie], dl
         mov bh, 1
-        mov dword [dword_19EC64], ecx
-        mov byte [byte_19EC63], bh
+        mov dword [AwCoachTimer], ecx
+        mov byte [AwCoachLines], bh
         pop edi
         pop esi
         pop edx
@@ -899,9 +899,9 @@ SetCoachMode:
 .5:
         mov ah, 1
         mov ebx, 0CCCh
-        mov byte [byte_19EC62], dl
-        mov byte [byte_19EC63], ah
-        mov dword [dword_19EC64], ebx
+        mov byte [AwCoachGoalie], dl
+        mov byte [AwCoachLines], ah
+        mov dword [AwCoachTimer], ebx
 .6:
         pop edi
         pop esi
@@ -924,26 +924,26 @@ ResetCoachModes:
         mov ch, 3
         xor ah, ah
         mov ebx, hmtmstruct
-        mov byte [byte_19EC62], ah
-        mov byte [byte_19EB56], ah
-        mov byte [byte_19EC60], ch
-        mov byte [byte_19EB54], ch
+        mov byte [AwCoachGoalie], ah
+        mov byte [HmCoachGoalie], ah
+        mov byte [AwCoachOffense], ch
+        mov byte [HmCoachOffense], ch
         mov ah, 2
         mov cx, word [gsp]
-        mov byte [byte_19EC61], ah
-        mov byte [byte_19EB55], ah
+        mov byte [AwCoachDefense], ah
+        mov byte [HmCoachDefense], ah
         cmp cx, byte 2
         jle short .1
         mov edi, 0D9Ah
         mov cl, 1
-        mov byte [byte_19EB57], ah
-        mov dword [dword_19EC64], edi
+        mov byte [HmCoachLines], ah
+        mov dword [AwCoachTimer], edi
         xor al, al
-        mov byte [byte_19EC62], cl
-        mov byte [byte_19EB56], al
+        mov byte [AwCoachGoalie], cl
+        mov byte [HmCoachGoalie], al
         mov ah, 8
-        mov dword [dword_19EB58], edi
-        mov byte [byte_19EC63], ah
+        mov dword [HmCoachTimer], edi
+        mov byte [AwCoachLines], ah
         jmp short .3
 .1:
         jne short .2
@@ -956,14 +956,14 @@ ResetCoachModes:
         mov ecx, 0CCCh
         mov esi, 0CCCh
         mov ah, 1
-        mov dword [dword_19EB58], ecx
+        mov dword [HmCoachTimer], ecx
         xor ch, ch
-        mov dword [dword_19EC64], esi
-        mov byte [byte_19EB57], ch
-        mov byte [byte_19EB56], ch
+        mov dword [AwCoachTimer], esi
+        mov byte [HmCoachLines], ch
+        mov byte [HmCoachGoalie], ch
         mov cl, 81h
-        mov byte [byte_19EC63], ah
-        mov byte [byte_19EC62], cl
+        mov byte [AwCoachLines], ah
+        mov byte [AwCoachGoalie], cl
 .3:
         mov word [byte edx+02h], 0
         mov ax, word [byte edx+02h]
@@ -971,12 +971,12 @@ ResetCoachModes:
         mov word [byte edx+04h], 0
         mov ax, word [byte edx+04h]
         mov word [byte ebx+04h], ax
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         test byte [byte eax+01h], 0C0h
         je short .5
         cmp word [gsp], byte 0
         jle short .5
-        cmp word [word_19CC26], byte 0
+        cmp word [AwayGoalieOff], byte 0
         je short .4
         mov eax, dword [byte eax+01h]
         and eax, 0C0h
@@ -1013,61 +1013,61 @@ UpdateCoachModes:
         cmp word [gameclock], 258h
         jg near .6
         xor eax, eax
-        mov bl, byte [byte_19EB57]
+        mov bl, byte [HmCoachLines]
         call SetCoachMode
-        mov ecx, dword [byte_19EB54]
+        mov ecx, dword [HmCoachOffense]
         xor eax, eax
         sar ecx, 18h
         mov al, bl
         cmp ecx, eax
         je short .1
-        or byte [byte_19EB56], 40h
+        or byte [HmCoachGoalie], 40h
 .1:
         mov eax, 1
-        mov cl, byte [byte_19EC63]
+        mov cl, byte [AwCoachLines]
         call SetCoachMode
-        mov ebx, dword [byte_19EC60]
+        mov ebx, dword [AwCoachOffense]
         xor eax, eax
         sar ebx, 18h
         mov al, cl
         cmp ebx, eax
         je short .2
-        or byte [byte_19EC62], 40h
+        or byte [AwCoachGoalie], 40h
 .2:
         cmp word [gameclock], 258h
         jne near .26
         movsx eax, dx
         cmp eax, byte 0FFFFFFFFh
         jge short .4
-        mov ah, byte [byte_19EB54]
+        mov ah, byte [HmCoachOffense]
         cmp ah, 4
         jae short .3
         mov bl, ah
         inc bl
-        mov byte [byte_19EB54], bl
+        mov byte [HmCoachOffense], bl
 .3:
-        mov bh, byte [byte_19EB55]
+        mov bh, byte [HmCoachDefense]
         cmp bh, 1
         jbe short .4
         mov cl, bh
         dec cl
-        mov byte [byte_19EB55], cl
+        mov byte [HmCoachDefense], cl
 .4:
         cmp dx, byte 1
         jle near .26
-        mov ch, byte [byte_19EC60]
+        mov ch, byte [AwCoachOffense]
         cmp ch, 4
         jae short .5
         mov al, ch
         inc al
-        mov byte [byte_19EC60], al
+        mov byte [AwCoachOffense], al
 .5:
-        mov ah, byte [byte_19EC61]
+        mov ah, byte [AwCoachDefense]
         cmp ah, 1
         jbe near .26
         mov dl, ah
         dec dl
-        mov byte [byte_19EC61], dl
+        mov byte [AwCoachDefense], dl
         pop ebp
         pop edi
         pop esi
@@ -1079,7 +1079,7 @@ UpdateCoachModes:
         cmp word [gsp], byte 2
         jl near .26
         mov ax, word [gameclock]
-        mov cl, byte [byte_19EB57]
+        mov cl, byte [HmCoachLines]
         cmp ax, 3Ch
         jg short .7
         movsx eax, dx
@@ -1087,15 +1087,15 @@ UpdateCoachModes:
         jg short .7
         mov bl, 6
         mov ch, 1
-        mov ah, byte [byte_19EB56]
+        mov ah, byte [HmCoachGoalie]
         mov esi, 0B33h
         or ah, 1
-        mov byte [byte_19EB57], bl
-        mov byte [byte_19EB55], ch
-        mov dword [dword_19EB58], esi
+        mov byte [HmCoachLines], bl
+        mov byte [HmCoachDefense], ch
+        mov dword [HmCoachTimer], esi
         mov bh, 4
-        mov byte [byte_19EB56], ah
-        mov byte [byte_19EB54], bh
+        mov byte [HmCoachGoalie], ah
+        mov byte [HmCoachOffense], bh
         jmp near .15
 .7:
         cmp word [gameclock], byte 78h
@@ -1104,15 +1104,15 @@ UpdateCoachModes:
         jge short .8
         mov ebx, 0B33h
         mov ch, 4
-        mov dword [dword_19EB58], ebx
-        mov bl, byte [byte_19EB56]
+        mov dword [HmCoachTimer], ebx
+        mov bl, byte [HmCoachGoalie]
         mov al, 1
         or bl, 1
-        mov byte [byte_19EB54], ch
-        mov byte [byte_19EB56], bl
+        mov byte [HmCoachOffense], ch
+        mov byte [HmCoachGoalie], bl
         mov bh, 6
-        mov byte [byte_19EB55], al
-        mov byte [byte_19EB57], bh
+        mov byte [HmCoachDefense], al
+        mov byte [HmCoachLines], bh
         jmp near .15
 .8:
         cmp word [gameclock], 0B4h
@@ -1122,15 +1122,15 @@ UpdateCoachModes:
         jg short .9
         mov eax, 0B33h
         mov ch, 7
-        mov bh, byte [byte_19EB56]
-        mov dword [dword_19EB58], eax
+        mov bh, byte [HmCoachGoalie]
+        mov dword [HmCoachTimer], eax
         or bh, 1
         mov al, 4
-        mov byte [byte_19EB57], ch
-        mov byte [byte_19EB54], al
+        mov byte [HmCoachLines], ch
+        mov byte [HmCoachOffense], al
         mov ah, 1
-        mov byte [byte_19EB56], bh
-        mov byte [byte_19EB55], ah
+        mov byte [HmCoachGoalie], bh
+        mov byte [HmCoachDefense], ah
         jmp near .15
 .9:
         cmp word [gameclock], 12Ch
@@ -1140,15 +1140,15 @@ UpdateCoachModes:
         jge short .10
         mov al, 7
         mov bl, 1
-        mov ch, byte [byte_19EB56]
+        mov ch, byte [HmCoachGoalie]
         mov ebp, 0B33h
         or ch, 1
-        mov byte [byte_19EB57], al
-        mov byte [byte_19EB55], bl
-        mov dword [dword_19EB58], ebp
+        mov byte [HmCoachLines], al
+        mov byte [HmCoachDefense], bl
+        mov dword [HmCoachTimer], ebp
         mov ah, 4
-        mov byte [byte_19EB56], ch
-        mov byte [byte_19EB54], ah
+        mov byte [HmCoachGoalie], ch
+        mov byte [HmCoachOffense], ah
         jmp near .15
 .10:
         cmp word [gameclock], 258h
@@ -1157,63 +1157,63 @@ UpdateCoachModes:
         cmp eax, byte 0FFFFFFFFh
         jge short .11
         mov bl, 4
-        mov al, byte [byte_19EB56]
+        mov al, byte [HmCoachGoalie]
         mov edi, 0B33h
         or al, 1
-        mov byte [byte_19EB54], bl
-        mov dword [dword_19EB58], edi
+        mov byte [HmCoachOffense], bl
+        mov dword [HmCoachTimer], edi
         mov bh, 1
-        mov byte [byte_19EB56], al
+        mov byte [HmCoachGoalie], al
         mov ah, 0Ah
-        mov byte [byte_19EB55], bh
-        mov byte [byte_19EB57], ah
+        mov byte [HmCoachDefense], bh
+        mov byte [HmCoachLines], ah
         jmp short .15
 .11:
         cmp dx, byte 2
         jle short .12
-        mov dword [dword_19EB58], 0CCCh
+        mov dword [HmCoachTimer], 0CCCh
         jmp short .13
 .12:
-        mov dword [dword_19EB58], 0D9Ah
+        mov dword [HmCoachTimer], 0D9Ah
 .13:
         mov bl, 3
-        mov ah, byte [byte_19EB56]
+        mov ah, byte [HmCoachGoalie]
         mov ch, 2
         and ah, 0FEh
-        mov byte [byte_19EB57], bl
-        mov byte [byte_19EB54], bl
-        mov byte [byte_19EB55], ch
-        mov byte [byte_19EB56], ah
+        mov byte [HmCoachLines], bl
+        mov byte [HmCoachOffense], bl
+        mov byte [HmCoachDefense], ch
+        mov byte [HmCoachGoalie], ah
         jmp short .15
 .14:
         xor eax, eax
         call SetCoachMode
 .15:
         xor eax, eax
-        mov ebx, dword [byte_19EB54]
+        mov ebx, dword [HmCoachOffense]
         mov al, cl
         sar ebx, 18h
         cmp ebx, eax
         je short .16
-        or byte [byte_19EB56], 40h
+        or byte [HmCoachGoalie], 40h
 .16:
         mov cx, word [gameclock]
-        mov bl, byte [byte_19EC63]
+        mov bl, byte [AwCoachLines]
         cmp cx, byte 3Ch
         jg short .17
         cmp dx, byte 1
         jl short .17
         mov dl, 6
         mov bh, 1
-        mov ah, byte [byte_19EC62]
+        mov ah, byte [AwCoachGoalie]
         mov edi, 0B33h
         or ah, 1
-        mov byte [byte_19EC63], dl
-        mov byte [byte_19EC61], bh
-        mov dword [dword_19EC64], edi
+        mov byte [AwCoachLines], dl
+        mov byte [AwCoachDefense], bh
+        mov dword [AwCoachTimer], edi
         mov dh, 4
-        mov byte [byte_19EC62], ah
-        mov byte [byte_19EC60], dh
+        mov byte [AwCoachGoalie], ah
+        mov byte [AwCoachOffense], dh
         jmp near .25
 .17:
         cmp word [gameclock], byte 78h
@@ -1222,15 +1222,15 @@ UpdateCoachModes:
         jle short .18
         mov cl, 6
         mov al, 1
-        mov bh, byte [byte_19EC62]
+        mov bh, byte [AwCoachGoalie]
         mov esi, 0B33h
         or bh, 1
-        mov byte [byte_19EC63], cl
-        mov byte [byte_19EC61], al
-        mov dword [dword_19EC64], esi
+        mov byte [AwCoachLines], cl
+        mov byte [AwCoachDefense], al
+        mov dword [AwCoachTimer], esi
         mov ch, 4
-        mov byte [byte_19EC62], bh
-        mov byte [byte_19EC60], ch
+        mov byte [AwCoachGoalie], bh
+        mov byte [AwCoachOffense], ch
         jmp near .25
 .18:
         cmp word [gameclock], 0B4h
@@ -1238,16 +1238,16 @@ UpdateCoachModes:
         cmp dx, byte 1
         jle short .19
         mov dl, 4
-        mov al, byte [byte_19EC62]
+        mov al, byte [AwCoachGoalie]
         mov ecx, 0B33h
         or al, 1
-        mov byte [byte_19EC60], dl
-        mov dword [dword_19EC64], ecx
+        mov byte [AwCoachOffense], dl
+        mov dword [AwCoachTimer], ecx
         mov dh, 1
-        mov byte [byte_19EC62], al
+        mov byte [AwCoachGoalie], al
         mov ah, 7
-        mov byte [byte_19EC61], dh
-        mov byte [byte_19EC63], ah
+        mov byte [AwCoachDefense], dh
+        mov byte [AwCoachLines], ah
         jmp near .25
 .19:
         cmp word [gameclock], 12Ch
@@ -1257,14 +1257,14 @@ UpdateCoachModes:
         mov edx, 0B33h
         mov bh, 7
         mov cl, 4
-        mov dword [dword_19EC64], edx
-        mov byte [byte_19EC63], bh
-        mov byte [byte_19EC60], cl
-        mov dh, byte [byte_19EC62]
+        mov dword [AwCoachTimer], edx
+        mov byte [AwCoachLines], bh
+        mov byte [AwCoachOffense], cl
+        mov dh, byte [AwCoachGoalie]
         mov ch, 1
         or dh, 1
-        mov byte [byte_19EC61], ch
-        mov byte [byte_19EC62], dh
+        mov byte [AwCoachDefense], ch
+        mov byte [AwCoachGoalie], dh
         jmp near .25
 .20:
         cmp word [gameclock], 258h
@@ -1273,15 +1273,15 @@ UpdateCoachModes:
         jle short .21
         mov eax, 0B33h
         mov dl, 1
-        mov ch, byte [byte_19EC62]
-        mov dword [dword_19EC64], eax
+        mov ch, byte [AwCoachGoalie]
+        mov dword [AwCoachTimer], eax
         or ch, 1
         mov al, 0Ah
-        mov byte [byte_19EC61], dl
-        mov byte [byte_19EC63], al
+        mov byte [AwCoachDefense], dl
+        mov byte [AwCoachLines], al
         mov ah, 4
-        mov byte [byte_19EC62], ch
-        mov byte [byte_19EC60], ah
+        mov byte [AwCoachGoalie], ch
+        mov byte [AwCoachOffense], ah
         jmp short .25
 .21:
         movsx eax, dx
@@ -1289,33 +1289,33 @@ UpdateCoachModes:
         jge short .22
         mov dl, 9
         mov ebp, 0CCCh
-        mov byte [byte_19EC63], dl
-        mov dword [dword_19EC64], ebp
+        mov byte [AwCoachLines], dl
+        mov dword [AwCoachTimer], ebp
         jmp short .23
 .22:
         mov ah, 8
         mov edi, 0D9Ah
-        mov byte [byte_19EC63], ah
-        mov dword [dword_19EC64], edi
+        mov byte [AwCoachLines], ah
+        mov dword [AwCoachTimer], edi
 .23:
         mov bh, 3
-        mov dh, byte [byte_19EB56]
+        mov dh, byte [HmCoachGoalie]
         mov cl, 2
         or dh, 1
-        mov byte [byte_19EB54], bh
-        mov byte [byte_19EB55], cl
-        mov byte [byte_19EB56], dh
+        mov byte [HmCoachOffense], bh
+        mov byte [HmCoachDefense], cl
+        mov byte [HmCoachGoalie], dh
         jmp short .25
 .24:
         mov eax, 1
         call SetCoachMode
 .25:
-        mov eax, dword [byte_19EC60]
+        mov eax, dword [AwCoachOffense]
         sar eax, 18h
         and ebx, 0FFh
         cmp eax, ebx
         je short .26
-        or byte [byte_19EC62], 40h
+        or byte [AwCoachGoalie], 40h
 .26:
         pop ebp
         pop edi
@@ -1335,7 +1335,7 @@ StartFaceoffLineChange:
         push ecx
         push edx
         push esi
-        mov edx, dword [dword_1AC944]
+        mov edx, dword [GameOptionFlags]
         test byte [byte edx+01h], 0C0h
         je near .5
         mov edx, dword [dword eax+0FEh]
@@ -1345,7 +1345,7 @@ StartFaceoffLineChange:
         mov cl, bh
         or cl, 2
         mov byte [byte edx+016h], cl
-        and byte [byte_19CBC8], 0F3h
+        and byte [PuckFlags], 0F3h
         or byte [dword eax+0C0h], 8
         mov ecx, dword [dword eax+0102h]
         mov bh, byte [dword eax+0BFh]
@@ -1360,12 +1360,12 @@ StartFaceoffLineChange:
         sub ecx, eax
         lea eax, [nosplit esi*2+00h]
         mov dx, word [byte edx+02h]
-        mov word [dword eax+word_19CB34], dx
+        mov word [dword eax+HomeSkaters], dx
         test ecx, ecx
         jle short .1
         cmp dx, byte 6
         jge short .4
-        mov word [dword eax+word_19CB34], 6
+        mov word [dword eax+HomeSkaters], 6
         jmp short .4
 .1:
         test ecx, ecx
@@ -1375,15 +1375,15 @@ StartFaceoffLineChange:
         cmp dx, byte 5
         jle short .4
 .2:
-        mov word [nosplit ebx*2+word_19CB34], 4
+        mov word [nosplit ebx*2+HomeSkaters], 4
         jmp short .4
 .3:
         cmp dx, byte 4
         jl short .4
         xor ecx, ecx
-        mov word [dword eax+word_19CB34], cx
+        mov word [dword eax+HomeSkaters], cx
 .4:
-        mov eax, dword [nosplit ebx*2+dword_19CB32]
+        mov eax, dword [nosplit ebx*2+FaceoffSlots]
         sar eax, 10h
         push eax
         push byte 0
@@ -1408,16 +1408,16 @@ StartFaceoffLineChange:
         je short .7
         test byte [dword edx+0BFh], 40h
         je short .6
-        mov word [word_19CA94], 168h
+        mov word [FaceoffY], 168h
         mov dl, byte [dword edx+0A4h]
         xor dh, dh
-        mov word [word_19CA96], dx
+        mov word [FaceoffDropY], dx
         ret
 .6:
-        mov word [word_19CA90], 258h
+        mov word [FaceoffX], 258h
         mov dl, byte [dword edx+0A4h]
         xor dh, dh
-        mov word [word_19CA92], dx
+        mov word [FaceoffDropX], dx
 .7:
         ret
         db 08Bh,0C0h

@@ -2,31 +2,31 @@
 bits 32
 %include "hockey.inc"
 section s_1CF29C nobits alloc noexec write align=1
-global dword_1CF29C, dword_1CF2A0, dword_1CF524, dword_1CF528, dword_1CF52C, dword_1CF530, dword_1CF534, dword_1CF538
-global dword_1CF53C, dword_1CF540, dword_1CF544, dword_1CF548, unk_1CF2A4
-dword_1CF29C:
+global PolyTopRow, PolyRowCount, FillColor, TextOriginX, TextOriginY, FontAscent, FontDescent, TextAlign
+global CurrentFont, FontHeight, FontWidth, LinkTextFont, PolySpanEdges
+PolyTopRow:
         resb 4
-dword_1CF2A0:
+PolyRowCount:
         resb 4
-unk_1CF2A4:
+PolySpanEdges:
         resb 640
-dword_1CF524:
+FillColor:
         resb 4
-dword_1CF528:
+TextOriginX:
         resb 4
-dword_1CF52C:
+TextOriginY:
         resb 4
-dword_1CF530:
+FontAscent:
         resb 4
-dword_1CF534:
+FontDescent:
         resb 4
-dword_1CF538:
+TextAlign:
         resb 4
-dword_1CF53C:
+CurrentFont:
         resb 4
-dword_1CF540:
+FontHeight:
         resb 4
-dword_1CF544:
+FontWidth:
         resb 4
-dword_1CF548:
+LinkTextFont:
         resb 4

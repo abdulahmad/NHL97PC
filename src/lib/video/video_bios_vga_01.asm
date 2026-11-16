@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_102BB8 progbits alloc exec nowrite align=1
-extern byte_16F794, dword_16E670, dword_16E674, dword_16E678, dword_16E67C, dword_16E680, dword_16E684, dword_16F77C
-extern dword_16F780, dword_16F784, dword_16F788, dword_16F78C, dword_16F790
+extern RemapTable, ScreenWidth, ClipBottom, ClipTopRow, ClipLeftCol, ClipRight, ScreenHeight, RandState
+extern RandState, RandIndex
 global SetClipWindow, ResetClipWindow, Random32, SeedRandom, SetRemapTable, GetRemapTable
 ;-----------------------------------------------------------------------------
 ; SetClipWindow                               102BB8  96 PC, medium confidence
@@ -22,18 +22,18 @@ SetClipWindow:
         jge short .2
         LD xor, ecx, ecx
 .2:
-        cmp edx, dword [dword_16E670]
+        cmp edx, dword [ScreenWidth]
         jle short .3
-        mov edx, dword [dword_16E670]
+        mov edx, dword [ScreenWidth]
 .3:
-        cmp ebx, dword [dword_16E674]
+        cmp ebx, dword [ClipBottom]
         jle short .4
-        mov ebx, dword [dword_16E674]
+        mov ebx, dword [ClipBottom]
 .4:
-        mov dword [dword_16E678], eax
-        mov dword [dword_16E67C], ecx
-        mov dword [dword_16E680], edx
-        mov dword [dword_16E684], ebx
+        mov dword [ClipTopRow], eax
+        mov dword [ClipLeftCol], ecx
+        mov dword [ClipRight], edx
+        mov dword [ScreenHeight], ebx
         pop ebx
         ret
         db 00h,00h,00h,00h
@@ -43,10 +43,10 @@ SetClipWindow:
 ;-----------------------------------------------------------------------------
 ResetClipWindow:
         push ebx
-        mov edx, dword [dword_16E674]
+        mov edx, dword [ClipBottom]
         push edx
         push byte 0
-        mov ebx, dword [dword_16E670]
+        mov ebx, dword [ScreenWidth]
         push ebx
         push byte 0
         call SetClipWindow
@@ -57,32 +57,32 @@ ResetClipWindow:
 ;-----------------------------------------------------------------------------
 ; Random32                                    102C30  97 PC, medium confidence
 ; Returns a pseudo-random dword (multi-word add-with-carry generator,
-; dword_16F77C-790)
+; RandState-790)
 ;-----------------------------------------------------------------------------
 Random32:
-        mov eax, dword [dword_16F790]
-        add eax, dword [dword_16F78C]
-        mov dword [dword_16F78C], eax
-        adc eax, dword [dword_16F788]
-        mov dword [dword_16F788], eax
-        adc eax, dword [dword_16F784]
-        mov dword [dword_16F784], eax
-        adc eax, dword [dword_16F780]
-        mov dword [dword_16F780], eax
-        adc eax, dword [dword_16F77C]
-        inc dword [dword_16F790]
+        mov eax, dword [RandIndex]
+        add eax, dword [RandState+10h]
+        mov dword [RandState+10h], eax
+        adc eax, dword [RandState+0Ch]
+        mov dword [RandState+0Ch], eax
+        adc eax, dword [RandState+8]
+        mov dword [RandState+8], eax
+        adc eax, dword [RandState+4]
+        mov dword [RandState+4], eax
+        adc eax, dword [RandState]
+        inc dword [RandIndex]
         jne short .1
-        inc dword [dword_16F78C]
+        inc dword [RandState+10h]
         jne short .1
-        inc dword [dword_16F788]
+        inc dword [RandState+0Ch]
         jne short .1
-        inc dword [dword_16F784]
+        inc dword [RandState+8]
         jne short .1
-        inc dword [dword_16F780]
+        inc dword [RandState+4]
         db 075h, .1-($+2)
         db 040h                                 ; insn: inc eax
 .1:
-        mov dword [dword_16F77C], eax
+        mov dword [RandState], eax
         ret
 ;-----------------------------------------------------------------------------
 ; SeedRandom                                     102C96  97 PC, low confidence
@@ -93,17 +93,17 @@ SeedRandom:
         LD mov, ebp, esp
         mov eax, dword [byte ebp+08h]
         add eax, 0F22D0E56h
-        mov dword [dword_16F77C], eax
+        mov dword [RandState], eax
         add eax, 96041893h
-        mov dword [dword_16F780], eax
+        mov dword [RandState+4], eax
         add eax, 3DF3B646h
-        mov dword [dword_16F784], eax
+        mov dword [RandState+8], eax
         add eax, 40DDE76Dh
-        mov dword [dword_16F788], eax
+        mov dword [RandState+0Ch], eax
         add eax, 97327AE1h
-        mov dword [dword_16F78C], eax
+        mov dword [RandState+10h], eax
         add eax, 0D1A9FBE7h
-        mov dword [dword_16F790], eax
+        mov dword [RandIndex], eax
         leave
         ret
         db 00h,00h
@@ -118,7 +118,7 @@ SetRemapTable:
         push edi
         mov ecx, 40h
         mov esi, dword [byte ebp+08h]
-        mov edi, byte_16F794
+        mov edi, RemapTable
         rep movsd
         pop edi
         pop esi
@@ -134,7 +134,7 @@ GetRemapTable:
         push esi
         push edi
         mov edi, dword [byte ebp+08h]
-        mov esi, byte_16F794
+        mov esi, RemapTable
         mov ecx, 40h
         rep movsd
         pop edi
@@ -148,7 +148,7 @@ GetRemapTable:
         push edi
         mov ecx, dword [byte ebp+0Ch]
         mov esi, dword [byte ebp+010h]
-        mov edi, byte_16F794
+        mov edi, RemapTable
         mov ebx, dword [byte ebp+08h]
         lea edi, [ebx+edi]
         shr ecx, 2

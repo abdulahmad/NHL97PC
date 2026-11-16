@@ -9,17 +9,17 @@ extern str_Ice22, str_0ice2, str_Ice3, str_0ice3, str_Newice, str_Icepolys, str_
 extern str_C100, str_C200, str_C201, str_C210, str_C211, str_C300, str_C301, str_C302
 extern str_C303, str_C310, str_C311, str_C312, str_C313, str_C320, str_C321, str_C322
 extern str_C323, str_C330, str_C331, str_C332, str_C333, str_GLASS, str_ArenaViv2, str_Zamtrack
-extern str_Netback, str_Netfrnt, str_BlogoDC, str_L02da, str_L02db, str_L02dc, str_L02dC, byte_16FA40
-extern byte_1AC638, byte_1AC818, byte_1AC81A, byte_1AC81B, byte_1AC948, byte_1AC95B, byte_1AEDED, byte_1AEDEE
-extern byte_1AEDEF, dword_161252, dword_161256, dword_161391, dword_1613AD, dword_1613B9, dword_1613E5, dword_1613E9
-extern dword_1613ED, dword_1613F1, dword_1613F5, dword_1691A8, dword_1691AC, dword_1691AE, dword_1691B0, dword_1691B8
-extern dword_1691BC, dword_1691C0, dword_1691C4, dword_1691C8, dword_1691CC, dword_1691D0, dword_1691D4, dword_1691D8
-extern dword_1691E0, dword_169224, dword_169228, dword_16922C, dword_169230, dword_169250, dword_169254, dword_169258
+extern str_Netback, str_Netfrnt, str_BlogoDC, str_L02da, str_L02db, str_L02dc, str_L02dC, IdentityRemap
+extern MusicTrackTable, StartupFlag, SfxOptions, MusicOptions, GlobalSetName, GlobalSetPad, byte_1AEDED, byte_1AEDEE
+extern byte_1AEDEF, F32_neg4264, F32_neg2040, F32_65536_ScaleLineWidth, F32_65536_InitRinkView, F32_600, F32_6_BuildRinkGeometry, F32_10_BuildRinkGeometry
+extern F32_14, F32_4, F32_8, MusicState, MusicTrack, MusicNextTrack, MusicRestart, MusicPaused
+extern MusicTime, MusicStreamPos, MusicVolumeLevel, BackgroundAudioTick, MusicFeedCount, MusicStartTime, MusicLength, MusicHandle
+extern MusicBuffer, MusicReady, CrowdNoiseLevel, AmbientVolume, MusicVolumeWord, dword_169250, dword_169254, dword_169258
 extern dword_169264, dword_169278, dword_16927A, dword_16927C, dword_16927E, dword_169280, dword_169844, dword_1698AF
 extern dword_169996, dword_16AEB4, dword_16AF30, dword_16AF34, dword_16AF38, dword_16AF3C, dword_16AF48, dword_16AF54
-extern dword_16AF68, dword_16B164, dword_16B168, dword_16DA9C, dword_16E464, dword_16E468, dword_16E4A8, dword_16F144
-extern dword_16F148, dword_17025C, dword_170260, dword_170264, dword_170268, dword_170274, dword_1702CC, dword_1AC790
-extern dword_1AC794, dword_1AC798, dword_1AC79C, dword_1AC810, dword_1AC814, dword_1AC819, dword_1AC944, dword_1AD748
+extern dword_16AF68, dword_16B164, dword_16B168, dword_16DA9C, dword_16E464, dword_16E468, str_Punct_DrawRinkSurface, F32_1p0_View
+extern RinkLineWidth, ViewCenterY, str_D_ProjectPointsPersp, CameraSinYaw, CameraCosYaw, CameraFlags, SinTable, SpeechStreamBuf
+extern SpeechStreamLen, SpeechStreamRead, SpeechStreamEnd, GlobalSetData, GameSettings, AudioOptions, GameOptionFlags, dword_1AD748
 extern dword_1ADBF8, dword_1ADC70, dword_1ADC74, dword_1ADC78, dword_1ADC7C, dword_1ADC80, dword_1ADC84, dword_1ADC88
 extern dword_1ADC8C, dword_1ADC90, dword_1ADC94, dword_1ADC98, dword_1ADC9C, dword_1ADCA8, dword_1ADCB8, dword_1ADCC0
 extern dword_1ADCC8, dword_1ADCD0, dword_1ADCD8, dword_1ADCE4, dword_1ADCE8, dword_1ADCF4, dword_1ADD00, dword_1ADD0C
@@ -51,10 +51,10 @@ extern dword_1B1010, dword_1B101C, dword_1B1024, dword_1B1028, dword_1B102C, dwo
 extern dword_1B103C, dword_1B1040, dword_1B1044, dword_1B1048, dword_1B104C, dword_1B1050, dword_1B1054, dword_1B1058
 extern dword_1B105C, dword_1B1060, dword_1B1064, dword_1B108C, dword_1B10D0, dword_1B10DC, dword_1B10E0, dword_1B10E4
 extern dword_1B10E8, dword_1B10F4, dword_1B10F8, dword_1B1108, dword_1B1114, dword_1B1118, dword_1B1410, dword_1B857C
-extern dword_1B905F, dword_1B9067, dword_1C13C0, dword_1C34E3, dword_1CF5EC, dword_1D1D38, dword_1D1D5C, dword_1D2054
-extern dword_1D2058, dword_1D205C, hypot_, jpt_48D20, jpt_48D50, memcpy_, openhandle, printf_
-extern qword_161389, qword_161395, qword_16139D, qword_1613A5, qword_1613B1, qword_1613BD, qword_1613C5, qword_1613CD
-extern qword_1613D5, qword_1613DD, qword_16142D, qword_161435, qword_16143D, qword_161445, qword_16144D, rand_
+extern dword_1B905F, dword_1B9067, dword_1C13C0, dword_1C34E3, ProjDetailScale, ViewOriginY, ViewWidth, TextureTileSize
+extern TexturePageBase, TextureDetail, hypot_, jpt_48D20, jpt_48D50, memcpy_, openhandle, printf_
+extern F64_0p5_ScaleLineWidth, F64_1p5708_InitRinkView, F64_0p31831, F64_65536_InitRinkView, F64_0p04, F64_6p28319_DrawCreaseArc, F64_6p28319_BuildRinkGeometry, F64_80
+extern F64_110, F64_40, F64_0p00138889, F64_65536_DrawScoreboard, F64_0p31831_UpdateScoreboardSpin, F64_0p5_UpdateScoreboardSpin, F64_65536_UpdateScoreboardSpin, rand_
 extern sprintf_, str_Botboards, str_Center, str_CrowdD, str_EMPTYFSH, str_FatBlueLines, str_FatRedLines, str_Glass
 extern str_Glassline, str_Gt002d, str_Gt102d, str_Gt202d, str_Gt302d, str_HALFFSH, str_Icelogo, str_STANDSFSH
 extern str_SideD, str_Stands2, str_Topboards, str_WALL, str_Zamboni, str_Zambpath, strcat_, stricmp_
@@ -82,9 +82,9 @@ extern DrawPlayersSorted, DrawIceMarkers, DrawPlayerNames, DrawPuckArrow, NoOpDr
 extern FreeCameraDebug, PlayMovie, ShowLoadingBar, ClearLinkAbort, ServiceIdle, AllocMemBlock, FreeMemBlock, ZeroMem
 extern WaitTicks, OpenResourceArchive, CurrentArchiveName, MatchColor, SelectFont, FillPolygon, DrawTextAt, SetTextColors
 extern IntsToFloats, FloatsToInts, ScaleFloatsToInts, VecMulMat, TransformVecs, VecAdd, AddVecs, VecDistance
-extern SetViewScale, ProjectCoord, ProjectCoordInt, ProjectPoints, ProjectPointsWithZ, ProjectPointsToScreen, tickcount, unk_1611B4
-extern unk_169848, unk_1698A2, unk_169989, unk_16AF14, unk_16AF6C, unk_16B084, unk_16B0E4, unk_16B144
-extern unk_16B16C, unk_16E8A0, unk_1AC7DC, unk_1AC95D, unk_1ACB44, unk_1AD7C0, unk_1ADCA0, unk_1ADD38
+extern SetViewScale, ProjectCoord, ProjectCoordInt, ProjectPoints, ProjectPointsWithZ, ProjectPointsToScreen, tickcount, str_Punct_MakeDataPath
+extern unk_169848, unk_1698A2, str_X_SetArtArchive, unk_16AF14, unk_16AF6C, unk_16B084, unk_16B0E4, unk_16B144
+extern unk_16B16C, DebugTagStr, DataFilePath, LinkSettings, GlobalSetVersion, unk_1AD7C0, unk_1ADCA0, unk_1ADD38
 extern unk_1ADD40, unk_1ADD58, unk_1ADD60, unk_1ADD78, unk_1ADDE4, unk_1ADEF8, unk_1ADF38, unk_1ADFF8
 extern unk_1AE028, unk_1AE058, unk_1AE0B8, unk_1AE118, unk_1AE278, unk_1AE588, unk_1AE688, unk_1AE6D0
 extern unk_1AE748, unk_1AE7C0, unk_1AE808, unk_1AE850, unk_1AE8B0, unk_1AE910, unk_1AE9B8, unk_1AE9E8
@@ -92,7 +92,7 @@ extern unk_1AEA30, unk_1AEA60, unk_1AEB08, unk_1AEB50, unk_1AEB98, unk_1AEC40, u
 extern unk_1AEDD8, unk_1AEDF0, unk_1AEE08, unk_1AEEA8, unk_1AF340, unk_1AF450, unk_1B0078, unk_1B0410
 extern unk_1B0510, unk_1B0970, unk_1B0AA8, unk_1B0AD0, unk_1B0B3C, unk_1B0BA0, unk_1B0C0C, unk_1B0C84
 extern unk_1B0CF0, unk_1B0F14, unk_1B0F28, unk_1B0FA4, unk_1B0FC0, unk_1B1068, unk_1B10FC, unk_1B92AB
-extern unk_1D1D20, vecdist, word_1691A4, word_1691B2, word_1691B4, word_1691B6, word_169282, word_169284
+extern ModelSlots, vecdist, SfxBankLoaded, MusicBlock, MusicBlockCount, MusicStopRequest, word_169282, word_169284
 extern word_1B0B62
 global jpt_4A73C, jpt_4AD42, jpt_4AE54, jpt_4B8CC, jpt_52484, PaEvent_4D6, PaEvent_4EC, PaEvent_502
 global PaEvent_518, PaEvent_536, PaEvent_572, PaEvent_5AE, PaEvent_5D6, PaEvent_5FE, PaEvent_64E, PaEvent_69E
@@ -116,7 +116,7 @@ global FindNearestBenchPlayer, StartBenchCheer, BenchCheerStep, UpdateBenchCheer
 global TransformRink, DrawBenchLines, DrawBoardsTop, DrawStandsSides, DrawBenchDoors, DrawGlass, DrawBenchPlayers, DrawBenchArea
 global DrawPenaltyBox, DrawBenches, ScoreboardTransform, LoadScoreboardArt, DrawScoreboard, NetFrameDistance, SetupNetArt, ResetNetArt
 global UpdateScoreboardPos, UpdateScoreboardSpin, LoadNetArt, BuildRinkSides, OpenArenaArchive, LoadBoardLogo, LoadTeamLogoShape, LoadTeamLogoCopy
-global unk_4AB70, unk_4AB80, unk_4B4A0, unk_4BCC0, unk_4BCCC
+global unk_4AB70, unk_4AB80, unk_4B4A0, unk_4BCC0, str_Light
 ;-----------------------------------------------------------------------------
 ; PaEvent                                         48D70  96 PC, low confidence
 ; The arena PA announcer: B events (0B000001h-0B000006h) from the front end
@@ -134,7 +134,7 @@ PaEvent:
         push edi
         push ebp
         sub esp, byte 40h
-        test byte [byte_1AC81B], 2
+        test byte [MusicOptions], 2
         je near PaEvent_14CD
         cmp dword [dword_169254], byte 1
         jl near PaEvent_14CD
@@ -1169,7 +1169,7 @@ PaEvent_967:
         call SayPaClip
         cmp dword [ecx], byte 0
         jne short .86
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 0Ch
         cmp eax, byte 8
         je short .86
@@ -1192,7 +1192,7 @@ PaEvent_967:
         mov eax, dword [byte esp+02Ch]
         cmp dword [eax], byte 0
         jne short .87
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 0Ch
         cmp eax, byte 8
         je short .87
@@ -1211,7 +1211,7 @@ PaEvent_967:
         mov eax, dword [byte esp+030h]
         cmp dword [eax], byte 0
         jne near PaEvent_14CD
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 0Ch
         cmp eax, byte 8
         je near PaEvent_14CD
@@ -1235,7 +1235,7 @@ PaEvent_967:
         mov eax, dword [byte esp+02Ch]
         cmp dword [eax], byte 0
         jne near PaEvent_14CD
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 0Ch
         cmp eax, byte 8
         je near PaEvent_14CD
@@ -1336,7 +1336,7 @@ PaEvent_967:
         mov eax, 2
         add edx, byte 6Ah
         call SayPaClip
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         mov ebx, dword [byte esp+04h]
         and eax, byte 0Ch
         test ebx, ebx
@@ -1355,7 +1355,7 @@ PaEvent_967:
         call SayPaClip
         cmp dword [ecx], byte 0
         jne short .103
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 0Ch
         cmp eax, byte 8
         je short .103
@@ -1822,7 +1822,7 @@ PaEvent_967:
         call SayPaClip
         cmp dword [ecx], byte 0
         jne short .155
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 0Ch
         cmp eax, byte 8
         je short .155
@@ -1853,7 +1853,7 @@ PaEvent_967:
         mov eax, dword [byte esp+02Ch]
         cmp dword [eax], byte 0
         jne short .157
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 0Ch
         cmp eax, byte 8
         je short .157
@@ -1972,20 +1972,20 @@ ResetStreamAudio:
         mov ebx, dword [byte edx+eax+012h]
         mov eax, dword [byte edx+eax+016h]
         add ebx, eax
-        mov dword [dword_1AC794], ebx
+        mov dword [SpeechStreamLen], ebx
         mov eax, ebx
-        cmp eax, dword [dword_1AC798]
+        cmp eax, dword [SpeechStreamRead]
         jne short .3
-        mov eax, dword [dword_1AC790]
-        mov dword [dword_1AC798], eax
+        mov eax, dword [SpeechStreamBuf]
+        mov dword [SpeechStreamRead], eax
         jmp short .4
 .3:
-        cmp eax, dword [dword_1AC79C]
+        cmp eax, dword [SpeechStreamEnd]
         jne short .5
-        mov eax, dword [dword_1AC790]
-        mov dword [dword_1AC79C], esi
+        mov eax, dword [SpeechStreamBuf]
+        mov dword [SpeechStreamEnd], esi
 .4:
-        mov dword [dword_1AC794], eax
+        mov dword [SpeechStreamLen], eax
 .5:
         mov eax, dword [dword_16927A]
         sar eax, 10h
@@ -2062,20 +2062,20 @@ ResetStreamAudio:
         je short .13
         mov eax, dword [byte edx+016h]
         add ebx, eax
-        mov ecx, dword [dword_1AC798]
-        mov dword [dword_1AC794], ebx
+        mov ecx, dword [SpeechStreamRead]
+        mov dword [SpeechStreamLen], ebx
         cmp ebx, ecx
         jne short .11
-        mov eax, dword [dword_1AC790]
-        mov dword [dword_1AC798], eax
+        mov eax, dword [SpeechStreamBuf]
+        mov dword [SpeechStreamRead], eax
         jmp short .12
 .11:
-        cmp ebx, dword [dword_1AC79C]
+        cmp ebx, dword [SpeechStreamEnd]
         jne short .13
-        mov eax, dword [dword_1AC790]
-        mov dword [dword_1AC79C], esi
+        mov eax, dword [SpeechStreamBuf]
+        mov dword [SpeechStreamEnd], esi
 .12:
-        mov dword [dword_1AC794], eax
+        mov dword [SpeechStreamLen], eax
 .13:
         mov edx, dword [dword_16927C]
         sar edx, 10h
@@ -2129,13 +2129,13 @@ PlayScreenMovie:
         mov ebx, eax
         mov ecx, edx
         call WaitMusicEnd
-        mov dx, word [word_1691A4]
+        mov dx, word [SfxBankLoaded]
         xor esi, esi
         test dx, dx
         je short .2
-        test byte [byte_1AC81A], 2
+        test byte [SfxOptions], 2
         jne short .1
-        test byte [dword_1AC819], 2
+        test byte [AudioOptions], 2
         je short .2
 .1:
         mov esi, 1
@@ -2146,7 +2146,7 @@ PlayScreenMovie:
         mov ebx, 25AEEh
         push esi
         lea eax, [byte esp+04h]
-        mov edx, dword [dword_1691BC]
+        mov edx, dword [MusicTime]
         call PlayMovie
         add esp, byte 50h
         pop esi
@@ -2167,106 +2167,106 @@ CloseMusicStream:
         push esi
         push edi
         push ebp
-        mov edx, dword [dword_1691C0]
+        mov edx, dword [MusicStreamPos]
         push edx
         xor ebx, ebx
         call delstream
         mov ecx, 0FFFFFFFFh
-        mov edi, dword [dword_1691B8]
+        mov edi, dword [MusicPaused]
         add esp, byte 4
-        mov dword [dword_1691C0], ebx
-        mov dword [dword_1691E0], ebx
-        mov dword [dword_1691C4], ecx
+        mov dword [MusicStreamPos], ebx
+        mov dword [MusicBuffer], ebx
+        mov dword [MusicVolumeLevel], ecx
         test edi, edi
         jne short .1
-        mov eax, dword [word_1691B2]
+        mov eax, dword [MusicBlock]
         sar eax, 10h
         lea edx, [nosplit eax*4+00h]
         add edx, eax
         shl edx, 4
         xor ah, ah
-        mov bx, word [word_1691B6]
-        mov byte [dword edx+byte_1AC638], ah
-        mov edx, dword [dword_1691AE]
+        mov bx, word [MusicStopRequest]
+        mov byte [dword edx+MusicTrackTable], ah
+        mov edx, dword [MusicNextTrack]
         dec ebx
         sar edx, 10h
-        mov word [word_1691B6], bx
+        mov word [MusicStopRequest], bx
         inc edx
         mov ebx, 4
         mov eax, edx
         sar edx, 1Fh
         idiv ebx
-        mov word [dword_1691B0], dx
+        mov word [MusicRestart], dx
 .1:
-        mov edx, dword [word_1691B2]
+        mov edx, dword [MusicBlock]
         sar edx, 10h
         inc edx
         mov ebx, 4
         mov eax, edx
         sar edx, 1Fh
         idiv ebx
-        mov cx, word [word_1691B2]
-        mov word [word_1691B4], dx
+        mov cx, word [MusicBlock]
+        mov word [MusicBlockCount], dx
         cmp dx, cx
         jne short .2
-        cmp dword [dword_1691B8], byte 0
+        cmp dword [MusicPaused], byte 0
         je short .2
-        mov ax, word [dword_1691B0]
-        mov word [word_1691B4], ax
+        mov ax, word [MusicRestart]
+        mov word [MusicBlockCount], ax
 .2:
-        cmp dword [dword_1691D0], byte 0
+        cmp dword [MusicStartTime], byte 0
         je near .8
-        mov eax, dword [dword_1691B0]
-        mov edx, dword [dword_1691D8]
+        mov eax, dword [MusicRestart]
+        mov edx, dword [MusicHandle]
         sar eax, 10h
         cmp eax, edx
         jne short .4
-        cmp dword [dword_1691B8], byte 0
+        cmp dword [MusicPaused], byte 0
         je short .3
-        mov ax, word [dword_1691B0]
-        mov word [word_1691B4], ax
+        mov ax, word [MusicRestart]
+        mov word [MusicBlockCount], ax
         jmp near .7
 .3:
-        mov ax, word [word_1691B2]
+        mov ax, word [MusicBlock]
         xor esi, esi
-        mov word [word_1691B4], ax
-        mov word [dword_1691B0], ax
-        mov word [word_1691B6], si
+        mov word [MusicBlockCount], ax
+        mov word [MusicRestart], ax
+        mov word [MusicStopRequest], si
         jmp short .7
 .4:
         cmp edx, byte 0FFFFFFFFh
         je short .7
         mov ecx, 4
-        mov ax, word [dword_1691B0]
-        mov ebx, dword [word_1691B2]
-        mov di, word [word_1691B2]
-        mov esi, dword [dword_1691D8]
-        mov word [word_1691B4], ax
+        mov ax, word [MusicRestart]
+        mov ebx, dword [MusicBlock]
+        mov di, word [MusicBlock]
+        mov esi, dword [MusicHandle]
+        mov word [MusicBlockCount], ax
         sar ebx, 10h
 .5:
-        mov edx, dword [word_1691B2]
+        mov edx, dword [MusicBlock]
         sar edx, 10h
         cmp edx, esi
         je short .6
-        cmp di, word [word_1691B4]
+        cmp di, word [MusicBlockCount]
         je short .6
         inc edx
         mov eax, edx
         sar edx, 1Fh
         idiv ecx
-        mov word [word_1691B4], dx
+        mov word [MusicBlockCount], dx
         jmp short .5
 .6:
-        mov dx, word [word_1691B2]
-        cmp dx, word [word_1691B4]
+        mov dx, word [MusicBlock]
+        cmp dx, word [MusicBlockCount]
         jne short .7
-        mov word [word_1691B4], bx
+        mov word [MusicBlockCount], bx
 .7:
         xor edi, edi
-        mov dword [dword_1691D0], edi
+        mov dword [MusicStartTime], edi
 .8:
         xor ebp, ebp
-        mov dword [dword_1691D4], ebp
+        mov dword [MusicLength], ebp
         pop ebp
         pop edi
         pop esi
@@ -2284,12 +2284,12 @@ PumpMusicStream:
         call __CHK
         push ecx
         push edx
-        cmp dword [dword_1691C0], byte 0
+        cmp dword [MusicStreamPos], byte 0
         je short .1
         call CdStreamService
-        cmp dword [dword_1691E0], byte 0
+        cmp dword [MusicBuffer], byte 0
         je short .1
-        mov ecx, dword [dword_1691C0]
+        mov ecx, dword [MusicStreamPos]
         push ecx
         call CdStreamNextPacket
         add esp, byte 4
@@ -2321,55 +2321,55 @@ FeedMusicStream:
         push esi
         push edi
         push ebp
-        cmp dword [dword_1691BC], byte 0
+        cmp dword [MusicTime], byte 0
         je near FeedMusicStream_277.14
-        mov eax, dword [dword_1691A8]
+        mov eax, dword [MusicState]
         dec eax
         cmp eax, byte 3
         ja near FeedMusicStream_277.14
         jmp dword [nosplit cs:eax*4+jpt_4A73C]
 FeedMusicStream_34:
-        cmp word [word_1691B6], byte 0
+        cmp word [MusicStopRequest], byte 0
         jne short FeedMusicStream_4B
         xor edx, edx
-        mov dword [dword_1691CC], edx
+        mov dword [MusicFeedCount], edx
         jmp near FeedMusicStream_277.14
 FeedMusicStream_4B:
         push dword 800h
         push dword 25B7Eh
-        mov ecx, dword [dword_1691BC]
+        mov ecx, dword [MusicTime]
         push ecx
         call OpenStreamBuffer
-        mov ebx, dword [word_1691B2]
+        mov ebx, dword [MusicBlock]
         mov edx, eax
         sar ebx, 10h
-        mov dword [dword_1691C0], eax
+        mov dword [MusicStreamPos], eax
         lea eax, [nosplit ebx*4+00h]
         add eax, ebx
         shl eax, 4
         add esp, byte 0Ch
-        add eax, byte_1AC638
+        add eax, MusicTrackTable
         push eax
         push edx
         call CdStreamQueue
         add esp, byte 8
         test eax, eax
         jne short .3
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je short .1
         xor edi, edi
-        mov dword [dword_1691B8], edi
+        mov dword [MusicPaused], edi
 .1:
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je short .2
-        mov eax, dword [dword_1691B0]
+        mov eax, dword [MusicRestart]
         mov ebp, 1
         sar eax, 10h
-        mov dword [dword_1691D0], ebp
-        mov dword [dword_1691D8], eax
+        mov dword [MusicStartTime], ebp
+        mov dword [MusicHandle], eax
 .2:
         call CloseMusicStream
-        mov dword [dword_1691A8], 1
+        mov dword [MusicState], 1
         pop ebp
         pop edi
         pop esi
@@ -2378,21 +2378,21 @@ FeedMusicStream_4B:
         pop ebx
         ret
 .3:
-        cmp dword [dword_1691CC], byte 0
+        cmp dword [MusicFeedCount], byte 0
         je short .4
-        mov dword [dword_1691AC], 1
+        mov dword [MusicTrack], 1
 .4:
         mov eax, 1
         mov ebp, 3
-        mov dword [dword_1691CC], eax
-        mov dword [dword_1691A8], ebp
+        mov dword [MusicFeedCount], eax
+        mov dword [MusicState], ebp
 FeedMusicStream_105:
-        cmp dword [dword_1691C0], byte 0
+        cmp dword [MusicStreamPos], byte 0
         je short .5
         call CdStreamService
-        cmp dword [dword_1691E0], byte 0
+        cmp dword [MusicBuffer], byte 0
         je short .5
-        mov ecx, dword [dword_1691C0]
+        mov ecx, dword [MusicStreamPos]
         push ecx
         call CdStreamNextPacket
         add esp, byte 4
@@ -2402,9 +2402,9 @@ FeedMusicStream_105:
         je short .5
         call FeedAudioStream
 .5:
-        cmp dword [dword_1691AC], byte 0
+        cmp dword [MusicTrack], byte 0
         je near FeedMusicStream_277.14
-        mov edi, dword [dword_1691C0]
+        mov edi, dword [MusicStreamPos]
         push edi
         call StreamBufferFree
         add esp, byte 4
@@ -2414,26 +2414,26 @@ FeedMusicStream_105:
         mov ecx, 25AEEh
         mov ebx, 0C8h
         mov edx, 3
-        mov eax, dword [dword_1691C0]
+        mov eax, dword [MusicStreamPos]
         call OpenAudioStreamChannel
         test eax, eax
         jg short .8
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je short .6
         xor ebx, ebx
-        mov dword [dword_1691B8], ebx
+        mov dword [MusicPaused], ebx
 .6:
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je short .7
-        mov eax, dword [dword_1691B0]
+        mov eax, dword [MusicRestart]
         mov ecx, 1
         sar eax, 10h
-        mov dword [dword_1691D0], ecx
-        mov dword [dword_1691D8], eax
+        mov dword [MusicStartTime], ecx
+        mov dword [MusicHandle], eax
 .7:
         mov esi, 1
         call CloseMusicStream
-        mov dword [dword_1691A8], esi
+        mov dword [MusicState], esi
         pop ebp
         pop edi
         pop esi
@@ -2444,30 +2444,30 @@ FeedMusicStream_105:
 .8:
         mov ebp, 1
         mov eax, 0Fh
-        mov dword [dword_1691E0], ebp
+        mov dword [MusicBuffer], ebp
         call CloseAudioStreamChannel
-        mov dword [dword_1691C4], eax
+        mov dword [MusicVolumeLevel], eax
         test eax, eax
         jge short .11
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je short .9
         xor edi, edi
-        mov dword [dword_1691B8], edi
+        mov dword [MusicPaused], edi
 .9:
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         je short .10
-        mov eax, dword [dword_1691B0]
+        mov eax, dword [MusicRestart]
         mov ebp, 1
         sar eax, 10h
-        mov dword [dword_1691D0], ebp
-        mov dword [dword_1691D8], eax
+        mov dword [MusicStartTime], ebp
+        mov dword [MusicHandle], eax
 .10:
         call FlushAudioStream
         call CloseMusicStream
         xor eax, eax
         mov edx, 1
-        mov dword [dword_1691CC], eax
-        mov dword [dword_1691A8], edx
+        mov dword [MusicFeedCount], eax
+        mov dword [MusicState], edx
         pop ebp
         pop edi
         pop esi
@@ -2476,15 +2476,15 @@ FeedMusicStream_105:
         pop ebx
         ret
 .11:
-        mov dword [dword_1691A8], 4
-        mov edx, dword [dword_169230]
+        mov dword [MusicState], 4
+        mov edx, dword [MusicVolumeWord]
         mov ecx, 0FFFFFFFFh
         sar edx, 10h
         xor ebx, ebx
         call SetMusicStreamVolume
-        mov dword [dword_1691D0], ebx
-        mov dword [dword_1691D8], ecx
-        mov dword [dword_1691D4], ebx
+        mov dword [MusicStartTime], ebx
+        mov dword [MusicHandle], ecx
+        mov dword [MusicLength], ebx
         pop ebp
         pop edi
         pop esi
@@ -2494,14 +2494,14 @@ FeedMusicStream_105:
         ret
 FeedMusicStream_277:
         xor ebx, ebx
-        mov ecx, dword [dword_1691C0]
-        mov dword [dword_1691AC], ebx
+        mov ecx, dword [MusicStreamPos]
+        mov dword [MusicTrack], ebx
         test ecx, ecx
         je short .12
         call CdStreamService
-        cmp dword [dword_1691E0], byte 0
+        cmp dword [MusicBuffer], byte 0
         je short .12
-        mov edi, dword [dword_1691C0]
+        mov edi, dword [MusicStreamPos]
         push edi
         call CdStreamNextPacket
         add esp, byte 4
@@ -2511,11 +2511,11 @@ FeedMusicStream_277:
         je short .12
         call FeedAudioStream
 .12:
-        mov eax, dword [dword_1691C4]
+        mov eax, dword [MusicVolumeLevel]
         call ChannelPlaying
         test eax, eax
         je short .13
-        mov eax, dword [dword_1691C4]
+        mov eax, dword [MusicVolumeLevel]
         call StopChannel
         push byte 1
         call WaitTicks
@@ -2523,7 +2523,7 @@ FeedMusicStream_277:
         mov ebx, 1
         call FlushAudioStream
         call CloseMusicStream
-        mov dword [dword_1691A8], ebx
+        mov dword [MusicState], ebx
         pop ebp
         pop edi
         pop esi
@@ -2532,15 +2532,15 @@ FeedMusicStream_277:
         pop ebx
         ret
 .13:
-        cmp dword [dword_1691D4], byte 0
+        cmp dword [MusicLength], byte 0
         jne short .14
-        cmp dword [dword_1691D0], byte 0
+        cmp dword [MusicStartTime], byte 0
         je short .14
         mov ebx, 0FFFFFFFFh
         mov edx, 32h
-        mov eax, dword [dword_1691C4]
+        mov eax, dword [MusicVolumeLevel]
         call SetChannelVolumeChecked
-        mov dword [dword_1691D4], 1
+        mov dword [MusicLength], 1
 .14:
         pop ebp
         pop edi
@@ -2560,7 +2560,7 @@ ServiceBackgroundAudio:
         push ebx
         push esi
         push edi
-        cmp word [word_1691A4], byte 0
+        cmp word [SfxBankLoaded], byte 0
         jne short .1
         xor eax, eax
         pop edi
@@ -2587,13 +2587,13 @@ ServiceBackgroundAudio:
         je short .5
         cmp dword [dword_169254], byte 2
         jne short .4
-        cmp dword [dword_1691CC], byte 0
+        cmp dword [MusicFeedCount], byte 0
         jne short .5
 .4:
         call ServiceSpeechStream
 .5:
         mov eax, dword [tickcount]
-        mov edx, dword [dword_1691C8]
+        mov edx, dword [BackgroundAudioTick]
         inc edx
         cmp eax, edx
         jge short .6
@@ -2605,26 +2605,26 @@ ServiceBackgroundAudio:
         pop ebx
         ret
 .6:
-        mov dword [dword_1691C8], eax
+        mov dword [BackgroundAudioTick], eax
         cmp dword [dword_169250], byte 0
         je short .7
         call PlayQueuedSpeech
 .7:
-        cmp dword [dword_169224], byte 0
+        cmp dword [MusicReady], byte 0
         je short .10
-        mov ebx, dword [dword_16922C]
-        mov eax, dword [dword_169228]
+        mov ebx, dword [AmbientVolume]
+        mov eax, dword [CrowdNoiseLevel]
         cmp eax, ebx
         je short .10
         jge short .8
         lea edi, [byte eax+03h]
-        mov dword [dword_169228], edi
+        mov dword [CrowdNoiseLevel], edi
         jmp short .9
 .8:
         lea esi, [byte eax-03h]
-        mov dword [dword_169228], esi
+        mov dword [CrowdNoiseLevel], esi
 .9:
-        mov eax, dword [dword_169228]
+        mov eax, dword [CrowdNoiseLevel]
         call SetSpeechVolume
 .10:
         cmp dword [dword_169254], byte 2
@@ -2665,10 +2665,10 @@ MakeDataPath:
         mov ecx, edx
         imul esi, edx, byte 15h
         mov byte [eax], 0
-        mov edx, dword [dword_1AC814]
+        mov edx, dword [GameSettings]
         and edx, byte 3
         mov eax, edx
-        add esi, unk_169989
+        add esi, str_X_SetArtArchive
         shl eax, 2
         cmp dword [byte esi+0Dh], byte 0
         jge near MakeDataPath_62.10
@@ -2703,7 +2703,7 @@ MakeDataPath_62:
         add edx, eax
         mov eax, ebx
         call strcat_
-        mov edx, unk_1611B4
+        mov edx, str_Punct_MakeDataPath
         mov eax, ebx
         call strcat_
 .3:
@@ -2716,17 +2716,17 @@ MakeDataPath_62:
         lea eax, [ebx+edx]
         cmp byte [eax], 24h
         jne short .7
-        test byte [dword_1AC814], 0Ch
+        test byte [GameSettings], 0Ch
         jne short .5
         mov byte [eax], 45h
 .5:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 0Ch
         cmp eax, byte 4
         jne short .6
         mov byte [edx+ebx], 46h
 .6:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 0Ch
         cmp eax, byte 8
         jne short .7
@@ -2784,7 +2784,7 @@ MakeDataPath_132:
         add edx, eax
         mov eax, ebx
         call strcat_
-        mov edx, unk_1611B4
+        mov edx, str_Punct_MakeDataPath
         mov eax, ebx
         call strcat_
 .13:
@@ -2801,17 +2801,17 @@ MakeDataPath_132:
         lea eax, [ebx+edx]
         cmp byte [eax], 24h
         jne short .19
-        test byte [dword_1AC814], 0Ch
+        test byte [GameSettings], 0Ch
         jne short .17
         mov byte [eax], 45h
 .17:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 0Ch
         cmp eax, byte 4
         jne short .18
         mov byte [edx+ebx], 46h
 .18:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 0Ch
         cmp eax, byte 8
         jne short .19
@@ -2837,7 +2837,7 @@ jpt_4AD42:
         mov ebx, eax
         imul edx, byte 15h
         mov byte [eax], 0
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         mov ecx, unk_1698A2
         and eax, byte 3
         add ecx, edx
@@ -2870,7 +2870,7 @@ jpt_4AD42:
         add edx, eax
         mov eax, ebx
         call strcat_
-        mov edx, unk_1611B4
+        mov edx, str_Punct_MakeDataPath
         mov eax, ebx
         call strcat_
 .7:
@@ -2883,17 +2883,17 @@ jpt_4AD42:
         lea eax, [ebx+ecx]
         cmp byte [eax], 24h
         jne short .11
-        test byte [dword_1AC814], 0Ch
+        test byte [GameSettings], 0Ch
         jne short .9
         mov byte [eax], 45h
 .9:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 0Ch
         cmp eax, byte 4
         jne short .10
         mov byte [ecx+ebx], 46h
 .10:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 0Ch
         cmp eax, byte 8
         jne short .11
@@ -2921,7 +2921,7 @@ MakeDirPath:
         mov byte [eax], 0
         test ebx, ebx
         je short .1
-        test byte [dword_1AC814], 3
+        test byte [GameSettings], 3
         je short .1
         mov edx, dword [dword_16AEB4]
         call strcat_
@@ -2930,7 +2930,7 @@ MakeDirPath:
         mov eax, ecx
         add edx, unk_169848
         call strcat_
-        mov edx, unk_1611B4
+        mov edx, str_Punct_MakeDataPath
         mov eax, ecx
         call strcat_
         pop esi
@@ -2956,7 +2956,7 @@ jpt_4AE54:
         imul edx, byte 0FFFFFFEBh
         mov ebx, unk_1698A2
         add ebx, edx
-        mov edx, dword [dword_1AC814]
+        mov edx, dword [GameSettings]
         and edx, byte 3
         cmp edx, byte 3
         ja short .7
@@ -2986,7 +2986,7 @@ jpt_4AE54:
         lea eax, [byte ebp-028h]
         add edx, unk_169848
         call strcat_
-        mov edx, unk_1611B4
+        mov edx, str_Punct_MakeDataPath
         lea eax, [byte ebp-028h]
         call strcat_
 .8:
@@ -3012,17 +3012,17 @@ jpt_4AE54:
 .11:
         cmp byte [byte edx+ebp-028h], 24h
         jne short .14
-        test byte [dword_1AC814], 0Ch
+        test byte [GameSettings], 0Ch
         jne short .12
         mov byte [byte edx+ebp-028h], 45h
 .12:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 0Ch
         cmp eax, byte 4
         jne short .13
         mov byte [byte edx+ebp-028h], 46h
 .13:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 0Ch
         cmp eax, byte 8
         jne short .14
@@ -3043,11 +3043,11 @@ jpt_4AE54:
         push ecx
         mov ebx, edx
         mov edx, eax
-        mov eax, unk_1AC7DC
+        mov eax, DataFilePath
         call MakeDataPath
         call ServiceIdle
         push ebx
-        push unk_1AC7DC
+        push DataFilePath
         call LoadFileAlloc
 jpt_4AE54_137:
         add esp, byte 8
@@ -3068,66 +3068,66 @@ LoadDataFileHandle:
         push ecx
         mov ebx, edx
         mov edx, eax
-        mov eax, unk_1AC7DC
+        mov eax, DataFilePath
         call MakeDataPath
         call ServiceIdle
         push ebx
-        push unk_1AC7DC
+        push DataFilePath
         call LoadFileAllocQuiet
         jmp short jpt_4AE54_137
         push ebx
         push ecx
         mov ebx, edx
         mov edx, eax
-        mov eax, unk_1AC7DC
+        mov eax, DataFilePath
         call MakeDataPath
         call ServiceIdle
         push ebx
-        push unk_1AC7DC
+        push DataFilePath
         call LoadFileInto
         jmp short jpt_4AE54_137
         push ebx
         push ecx
         mov ebx, edx
         mov edx, eax
-        mov eax, unk_1AC7DC
+        mov eax, DataFilePath
         call MakeDataPath
         call ServiceIdle
         push ebx
-        push unk_1AC7DC
+        push DataFilePath
         call LoadFileIntoQuiet
         jmp short jpt_4AE54_137
         push ebx
         push ecx
         mov ebx, edx
         mov edx, eax
-        mov eax, unk_1AC7DC
+        mov eax, DataFilePath
         call MakeDataPath
         call ServiceIdle
         push ebx
-        push unk_1AC7DC
+        push DataFilePath
         call LoadFileToBlockShared
         jmp near jpt_4AE54_137
         push ebx
         push ecx
         mov ebx, edx
         mov edx, eax
-        mov eax, unk_1AC7DC
+        mov eax, DataFilePath
         call MakeDataPath
         call ServiceIdle
         push ebx
-        push unk_1AC7DC
+        push DataFilePath
         call LoadFileToBlockPlain
         jmp near jpt_4AE54_137
         push ebx
         push ecx
         mov ebx, edx
         mov edx, eax
-        mov eax, unk_1AC7DC
+        mov eax, DataFilePath
         call MakeDataPath
         call ServiceIdle
         push ebx
-        push unk_1AC7DC
+        push DataFilePath
         call ReadWholeFile
         jmp near jpt_4AE54_137
 ;-----------------------------------------------------------------------------
@@ -3140,44 +3140,44 @@ LoadDataFileLib:
         push ecx
         mov ebx, edx
         mov edx, eax
-        mov eax, unk_1AC7DC
+        mov eax, DataFilePath
         call MakeDataPath
         call ServiceIdle
         push ebx
-        push unk_1AC7DC
+        push DataFilePath
         call LoadResourceDataShared
         jmp near jpt_4AE54_137
         push ebx
         push ecx
         mov ebx, edx
         mov edx, eax
-        mov eax, unk_1AC7DC
+        mov eax, DataFilePath
         call MakeDataPath
         call ServiceIdle
         push ebx
-        push unk_1AC7DC
+        push DataFilePath
         call LoadResourceData
         jmp near jpt_4AE54_137
         push ebx
         push ecx
         mov ebx, edx
         mov edx, eax
-        mov eax, unk_1AC7DC
+        mov eax, DataFilePath
         call MakeDataPath
         call ServiceIdle
         push ebx
-        push unk_1AC7DC
+        push DataFilePath
         call LoadResourceBlockShared
         jmp near jpt_4AE54_137
         push ebx
         push ecx
         mov ebx, edx
         mov edx, eax
-        mov eax, unk_1AC7DC
+        mov eax, DataFilePath
         call MakeDataPath
         call ServiceIdle
         push ebx
-        push unk_1AC7DC
+        push DataFilePath
         call LoadResourceBlock
         jmp near jpt_4AE54_137
 ;-----------------------------------------------------------------------------
@@ -3190,11 +3190,11 @@ LoadDataFile:
         push ecx
         mov ebx, edx
         mov edx, eax
-        mov eax, unk_1AC7DC
+        mov eax, DataFilePath
         call MakeDataPath
         call ServiceIdle
         push ebx
-        push unk_1AC7DC
+        push DataFilePath
         call OpenArtArchiveErr
         jmp near jpt_4AE54_137
 ;-----------------------------------------------------------------------------
@@ -3206,33 +3206,33 @@ LoadDataFileFlag0:
         push ecx
         mov ebx, edx
         mov edx, eax
-        mov eax, unk_1AC7DC
+        mov eax, DataFilePath
         call MakeDataPath
         call ServiceIdle
         push ebx
-        push unk_1AC7DC
+        push DataFilePath
         call OpenArtArchive
         jmp near jpt_4AE54_137
         push ebx
         push ecx
         mov ebx, edx
         mov edx, eax
-        mov eax, unk_1AC7DC
+        mov eax, DataFilePath
         call MakeDataPath
         call ServiceIdle
         push ebx
-        push unk_1AC7DC
+        push DataFilePath
         call LoadDataFileErr
         jmp near jpt_4AE54_137
         push ebx
         push ecx
         mov ebx, edx
         mov edx, eax
-        mov eax, unk_1AC7DC
+        mov eax, DataFilePath
         call MakeDataPath
         call ServiceIdle
         push ebx
-        push unk_1AC7DC
+        push DataFilePath
         call LoadDataFileNoErr
         jmp near jpt_4AE54_137
 ;-----------------------------------------------------------------------------
@@ -3243,10 +3243,10 @@ OpenDataLibrary:
         push ecx
         push edx
         mov edx, eax
-        mov eax, unk_1AC7DC
+        mov eax, DataFilePath
         call MakeDataPath
         call ServiceIdle
-        push unk_1AC7DC
+        push DataFilePath
         call OpenResourceArchive
         add esp, byte 4
         call ServiceIdle
@@ -3281,22 +3281,22 @@ SetArtArchive:
 .2:
         imul eax, ebx, byte 15h
         mov edx, esi
-        add eax, unk_169989
+        add eax, str_X_SetArtArchive
         call stricmp_
         test eax, eax
         jne short .3
-        mov eax, unk_1AC7DC
+        mov eax, DataFilePath
         mov edx, ebx
         call MakeDataPath
         call ServiceIdle
-        push unk_1AC7DC
+        push DataFilePath
         call OpenResourceArchive
         add esp, byte 4
         call ServiceIdle
         mov edx, ebx
-        mov eax, unk_1AC7DC
+        mov eax, DataFilePath
         call MakeDataPath
-        push unk_1AC7DC
+        push DataFilePath
         call DosFileInfo
         mov ecx, 1
         add esp, byte 4
@@ -3343,7 +3343,7 @@ SetArtArchive:
         imul eax, edx, byte 15h
         cmp ebx, dword [dword eax+dword_169996]
         jne short .10
-        add eax, unk_169989
+        add eax, str_X_SetArtArchive
         push eax
         push str_S
         call printf_
@@ -3370,7 +3370,7 @@ SetArtArchive:
         neg ecx
         cmp ecx, dword [dword eax+dword_169996]
         jne short .13
-        add eax, unk_169989
+        add eax, str_X_SetArtArchive
         push eax
         push str_S
         call printf_
@@ -3397,9 +3397,9 @@ LoadStartupData:
         push esi
         enter 38h, 0
         call DetectCPU
-        mov byte [byte_1AC948], 0
-        mov dword [dword_16AEB4], byte_1AC948
-        mov dword [dword_1AC944], unk_1ACB44
+        mov byte [GlobalSetName], 0
+        mov dword [dword_16AEB4], GlobalSetName
+        mov dword [GameOptionFlags], GlobalSetVersion
         mov edx, 1
         lea eax, [byte ebp-038h]
         lea ebx, [byte ebp-04h]
@@ -3423,27 +3423,27 @@ LoadStartupData:
         test ecx, ecx
         je near .5
         mov ebx, 130h
-        mov eax, dword_1AC810
+        mov eax, GlobalSetData
         mov edx, ecx
         call memcpy_
-        cmp dword [dword_1AC810], 16059h
+        cmp dword [GlobalSetData], 16059h
         jne short .4
-        cmp byte [byte_1AC818], 0
+        cmp byte [StartupFlag], 0
         jne short .3
-        and dword [dword_1AC819], 0FFE9FFFDh
+        and dword [AudioOptions], 0FFE9FFFDh
 .3:
         mov ebx, 14h
         lea esi, [dword ecx+0130h]
-        mov eax, byte_1AC948
+        mov eax, GlobalSetName
         mov edx, esi
         call strncpy_
-        mov eax, byte_1AC948
-        mov byte [byte_1AC95B], 0
+        mov eax, GlobalSetName
+        mov byte [GlobalSetPad], 0
         call strlen_
         inc eax
         mov ebx, 1E7h
         lea edx, [esi+eax]
-        mov eax, unk_1ACB44
+        mov eax, GlobalSetVersion
         mov esi, 1
         call memcpy_
 .4:
@@ -3481,17 +3481,17 @@ WriteGlobalSet:
         call openhandle
         add esp, byte 10h
         push dword 130h
-        push dword_1AC810
+        push GlobalSetData
         push dword [byte ebp-04h]
         call DosWriteFile
         add esp, byte 0Ch
         test eax, eax
         je short .4
-        mov eax, byte_1AC948
+        mov eax, GlobalSetName
         call strlen_
         inc eax
         push eax
-        push byte_1AC948
+        push GlobalSetName
         push dword [byte ebp-04h]
         call DosWriteFile
         add esp, byte 0Ch
@@ -3504,11 +3504,11 @@ WriteGlobalSet:
         je short .2
 .1:
         push dword 1E7h
-        push unk_1ACB44
+        push GlobalSetVersion
         jmp short .3
 .2:
         push dword 1E7h
-        push unk_1AC95D
+        push LinkSettings
 .3:
         push dword [byte ebp-04h]
         call DosWriteFile
@@ -3715,13 +3715,13 @@ InitGameGraphics:
         push dword 0FF000000h
         call MatchColor
         add esp, byte 4
-        mov al, byte [dword eax+byte_16FA40]
+        mov al, byte [dword eax+IdentityRemap]
         and eax, 0FFh
         push eax
         push byte 0FFFFFFFFh
         call MatchColor
         add esp, byte 4
-        mov al, byte [dword eax+byte_16FA40]
+        mov al, byte [dword eax+IdentityRemap]
         and eax, 0FFh
         push eax
         call SetTextColors
@@ -4035,7 +4035,7 @@ DrawGameFrame:
         call SetViewDrawTarget
         cmp dword [dword_1ADC74], byte 0
         je short .4
-        push unk_16E8A0
+        push DebugTagStr
         call SelectFont
         add esp, byte 4
         push byte 0
@@ -4115,7 +4115,7 @@ DrawGameFrame:
         cmp dword [dword edx+dword_1B1410], 44FF0000h
         jge short .8
         fld dword [dword edx+dword_1B1410]
-        fcomp dword [dword_161256]
+        fcomp dword [F32_neg2040]
         fnstsw ax
         sahf
         jbe short .8
@@ -4131,7 +4131,7 @@ DrawGameFrame:
         call DrawCameraDebug
         call DrawCameraDebugMarks
         fld dword [dword_1B9067]
-        fcomp dword [dword_161252]
+        fcomp dword [F32_neg4264]
         fnstsw ax
         sahf
         jae short .9
@@ -4183,7 +4183,7 @@ DrawGameFrame:
         cmp dword [dword edx+dword_1B1410], 44FF0000h
         jge short .13
         fld dword [dword edx+dword_1B1410]
-        fcomp dword [dword_161256]
+        fcomp dword [F32_neg2040]
         fnstsw ax
         sahf
         jbe short .13
@@ -4211,12 +4211,12 @@ RedrawGameView:
         db 00h,00h,00h,00h,00h,00h,00h
 unk_4BCC0:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-unk_4BCCC:
+str_Light:
         db 06Ch,069h,067h,068h,074h,00h,00h,00h
         push ebx
         sub esp, byte 4
         mov dword [esp], edx
-        mov ebx, dword [dword_16E4A8]
+        mov ebx, dword [str_Punct_DrawRinkSurface]
         cmp ebx, dword [byte eax+08h]
         jl short .1
         xor eax, eax
@@ -4249,7 +4249,7 @@ SetStandsClip:
         xor edx, edx
         test ecx, ecx
         jle short .3
-        mov esi, dword [dword_16E4A8]
+        mov esi, dword [str_Punct_DrawRinkSurface]
 .1:
         cmp esi, dword [byte eax+08h]
         jge short .2
@@ -4290,16 +4290,16 @@ SetStandsDetail:
         xor edx, edx
         test esi, esi
         jle short .3
-        mov ebp, dword [dword_1D1D38]
+        mov ebp, dword [ViewOriginY]
         mov ebx, ecx
 .1:
-        mov edi, dword [dword_16E4A8]
+        mov edi, dword [str_Punct_DrawRinkSurface]
         cmp edi, dword [byte ebx+08h]
         jge short .2
         mov ecx, dword [byte eax+04h]
         cmp ecx, ebp
         jge short .2
-        cmp ecx, dword [dword_1D1D5C]
+        cmp ecx, dword [ViewWidth]
         jl short .2
         xor ecx, ecx
         jmp short .4
@@ -4526,7 +4526,7 @@ DrawFlashSprite:
         push ebx
         fmul dword [byte esp+014h]
         push ecx
-        fmul dword [dword_16F144]
+        fmul dword [F32_1p0_View]
         push edx
         push eax
         fistp dword [esp]
@@ -4579,7 +4579,7 @@ DrawCameraFlashes:
         inc eax
         mov dword [byte ebx+0Ch], eax
         mov eax, dword [byte esp+014h]
-        mov ecx, dword [dword_16E4A8]
+        mov ecx, dword [str_Punct_DrawRinkSurface]
         mov ebx, dword [dword esi+dword_1B0208]
         cmp eax, ecx
         jle near .4
@@ -4594,20 +4594,20 @@ DrawCameraFlashes:
         cmp dword [byte esi+08h], byte 0
         jle short .2
         mov eax, dword [esi]
-        imul dword [dword_170264]
+        imul dword [CameraSinYaw]
         idiv dword [byte esi+08h]
-        add eax, dword [dword_17025C]
+        add eax, dword [ViewCenterY]
         mov dword [edi], eax
         mov eax, dword [byte esi+04h]
-        imul dword [dword_170268]
+        imul dword [CameraCosYaw]
         idiv dword [byte esi+08h]
-        add eax, dword [dword_170260]
+        add eax, dword [str_D_ProjectPointsPersp]
         mov dword [byte edi+04h], eax
         jmp short .3
 .2:
         mov dword [edi], 80000000h
         mov dword [byte edi+04h], 80000000h
-        or dword [dword_170274], byte 1
+        or dword [CameraFlags], byte 1
 .3:
         fild word [byte ebx+06h]
         mov esi, dword [byte esp+01Ch]
@@ -4615,7 +4615,7 @@ DrawCameraFlashes:
         push esi
         fmul dword [byte esp+024h]
         push edi
-        fmul dword [dword_16F144]
+        fmul dword [F32_1p0_View]
         push ebx
         push eax
         fistp dword [esp]
@@ -4679,7 +4679,7 @@ LoadRinkTextures:
         mov edx, esi
         mov dword [dword ecx+dword_1B0068], eax
         call SetOverlayPosition
-        mov edx, unk_1D1D20
+        mov edx, ModelSlots
         mov eax, dword [dword ecx+dword_1B0068]
         call AimOverlayModel
         mov eax, dword [dword ecx+dword_1B0068]
@@ -4725,7 +4725,7 @@ BuildTexturePage:
         mov ebp, eax
         mov dword [byte esp+064h], ebx
         mov esi, dword [edx]
-        mov ecx, dword [dword_1D2058]
+        mov ecx, dword [TexturePageBase]
         shl esi, 3
         lea edi, [byte esp+03Ch]
         add esi, ecx
@@ -4734,7 +4734,7 @@ BuildTexturePage:
         mov ebx, dword [edx]
         lea eax, [nosplit ebx*4+00h]
         sub eax, ebx
-        mov ebx, dword [dword_1D205C]
+        mov ebx, dword [TextureDetail]
         shl eax, 2
         mov edi, esp
         lea esi, [ebx+eax]
@@ -4831,7 +4831,7 @@ BuildTextureTile:
         mov ebp, ecx
 .1:
         mov esi, dword [byte ebp+00h]
-        mov ecx, dword [dword_1D2058]
+        mov ecx, dword [TexturePageBase]
         shl esi, 3
         lea edi, [dword esp+eax+0B4h]
         add esi, ecx
@@ -4839,14 +4839,14 @@ BuildTextureTile:
         movsd
         imul ecx, dword [byte ebp+00h], byte 0Ch
         mov edi, dword [dword esp+0104h]
-        mov esi, dword [dword_1D205C]
+        mov esi, dword [TextureDetail]
         lea edi, [esp+edi]
         add esi, ecx
         movsd
         movsd
         movsd
         mov ecx, dword [edx]
-        mov esi, dword [dword_1D2054]
+        mov esi, dword [TextureTileSize]
         shl ecx, 3
         add esi, ecx
         mov cl, bl
@@ -4857,7 +4857,7 @@ BuildTextureTile:
         mov dword [byte esp+eax+064h], esi
         add ebp, byte 4
         mov ecx, dword [byte edx-04h]
-        mov esi, dword [dword_1D2054]
+        mov esi, dword [TextureTileSize]
         shl ecx, 3
         mov edi, dword [dword esp+0104h]
         add esi, ecx
@@ -4908,7 +4908,7 @@ SetTextureDetail:
         mov ebx, eax
         mov eax, edx
         mov edx, dword [byte eax+ebx*4-04h]
-        mov ecx, dword [dword_1D2058]
+        mov ecx, dword [TexturePageBase]
         shl edx, 3
         add edx, ecx
         mov ecx, dword [edx]
@@ -4921,16 +4921,16 @@ SetTextureDetail:
         cmp ebx, byte 0FFFFFFFFh
         je short .3
         imul edi, dword [eax], byte 0Ch
-        mov esi, dword [dword_1D2058]
+        mov esi, dword [TexturePageBase]
         mov ecx, dword [eax]
         mov dword [esp], edi
         shl ecx, 3
         mov ebp, dword [esp]
-        mov edi, dword [dword_1D205C]
+        mov edi, dword [TextureDetail]
         add ecx, esi
         add edi, ebp
         mov esi, dword [ecx]
-        mov ebp, dword [dword_16E4A8]
+        mov ebp, dword [str_Punct_DrawRinkSurface]
         mov edi, dword [byte edi+08h]
         mov ecx, dword [byte ecx+04h]
         cmp edi, ebp
@@ -5822,7 +5822,7 @@ ClipLinePoint:
         mov esi, eax
         mov edi, edx
         mov ebp, ebx
-        mov ebx, dword [dword_16E4A8]
+        mov ebx, dword [str_Punct_DrawRinkSurface]
         mov eax, dword [byte edx+08h]
         mov edx, dword [byte esi+08h]
         mov ecx, dword [byte esi+08h]
@@ -5865,7 +5865,7 @@ ClipLinePoint:
         mov eax, dword [byte esi+04h]
         add eax, edx
         mov dword [byte ebp+04h], eax
-        mov ebx, dword [dword_16E4A8]
+        mov ebx, dword [str_Punct_DrawRinkSurface]
         inc ebx
         mov dword [byte ebp+08h], ebx
         pop ebp
@@ -5885,7 +5885,7 @@ ProjectLinePoints:
         mov ebp, eax
         mov edi, edx
         mov esi, ebx
-        mov edx, dword [dword_16E4A8]
+        mov edx, dword [str_Punct_DrawRinkSurface]
         cmp edx, dword [byte ebx+08h]
         jl short .2
         cmp edx, dword [byte ecx+08h]
@@ -6326,7 +6326,7 @@ DrawRinkCircle:
         test eax, eax
         jne near .5
         mov eax, dword [byte esp+08h]
-        cmp eax, dword [dword_16E4A8]
+        cmp eax, dword [str_Punct_DrawRinkSurface]
         jg short .1
         xor eax, eax
         jmp short .2
@@ -6339,7 +6339,7 @@ DrawRinkCircle:
         fstp dword [esp]
         call ProjectCoordInt
 .2:
-        mov ecx, dword [dword_16F148]
+        mov ecx, dword [RinkLineWidth]
         mov ebx, eax
         test ecx, ecx
         jne short .4
@@ -6446,7 +6446,7 @@ DrawRinkLine:
         test eax, eax
         jne near .7
         mov eax, dword [byte esp+014h]
-        cmp eax, dword [dword_16E4A8]
+        cmp eax, dword [str_Punct_DrawRinkSurface]
         jg short .1
         xor eax, eax
         jmp short .2
@@ -6459,7 +6459,7 @@ DrawRinkLine:
         fstp dword [esp]
         call ProjectCoordInt
 .2:
-        mov ecx, dword [dword_16E4A8]
+        mov ecx, dword [str_Punct_DrawRinkSurface]
         mov ebx, eax
         cmp ecx, dword [byte esp+08h]
         jl short .3
@@ -6474,7 +6474,7 @@ DrawRinkLine:
         fstp dword [esp]
         call ProjectCoordInt
 .4:
-        mov esi, dword [dword_16F148]
+        mov esi, dword [RinkLineWidth]
         mov ecx, eax
         test esi, esi
         jne short .6
@@ -6547,7 +6547,7 @@ ScaleLineWidth:
         fild dword [byte ebx+08h]
         fld1
         fdivrp
-        mov ecx, dword [dword_16E4A8]
+        mov ecx, dword [str_Punct_DrawRinkSurface]
         mov eax, dword [byte ebx+08h]
         fstp dword [byte esp+014h]
         cmp eax, ecx
@@ -6578,7 +6578,7 @@ ScaleLineWidth:
         fsin
         fabs
         fild dword [byte ebp+0Ch]
-        fmul dword [dword_1CF5EC]
+        fmul dword [ProjDetailScale]
         fmul dword [byte esp+014h]
         fld1
         fld dword [byte esp+020h]
@@ -6588,7 +6588,7 @@ ScaleLineWidth:
         fstp dword [byte esp+024h]
         fxch st2
         fmul dword [byte esp+024h]
-        mov esi, dword [dword_16F148]
+        mov esi, dword [RinkLineWidth]
         faddp st2
         fstp dword [byte esp+028h]
         fstp dword [byte esp+018h]
@@ -6596,14 +6596,14 @@ ScaleLineWidth:
         jne short .4
         fld1
         fadd dword [byte esp+024h]
-        fmul qword [qword_161389]
+        fmul qword [F64_0p5_ScaleLineWidth]
         fmul dword [byte esp+028h]
         fstp dword [byte esp+028h]
 .4:
         fld dword [byte esp+028h]
         fmul dword [byte esp+018h]
         fst dword [byte esp+01Ch]
-        fmul dword [dword_161391]
+        fmul dword [F32_65536_ScaleLineWidth]
         push eax
         fistp dword [esp]
         pop eax
@@ -6616,7 +6616,7 @@ ScaleLineWidth:
         ret 4
 .5:
         fld dword [byte esp+01Ch]
-        fmul dword [dword_161391]
+        fmul dword [F32_65536_ScaleLineWidth]
         push eax
         fistp dword [esp]
         pop eax
@@ -6631,7 +6631,7 @@ ScaleLineWidth:
 ;-----------------------------------------------------------------------------
 SetLineWidth:
         push edi
-        mov edi, dword [dword_16E4A8]
+        mov edi, dword [str_Punct_DrawRinkSurface]
         cmp edi, dword [byte ebx+08h]
         jl short .1
         xor eax, eax
@@ -6770,12 +6770,12 @@ DrawFaceoffDot:
 .1:
         mov edx, dword [ebx]
         imul eax, edx, byte 0Ch
-        mov ecx, dword [dword_16E4A8]
+        mov ecx, dword [str_Punct_DrawRinkSurface]
         cmp ecx, dword [byte eax+ebp+08h]
         jge short .2
         imul eax, dword [byte ebx+04h], byte 0Ch
         shl edx, 3
-        mov ecx, dword [dword_16E4A8]
+        mov ecx, dword [str_Punct_DrawRinkSurface]
         mov eax, dword [byte eax+ebp+08h]
         add edx, edi
         cmp eax, ecx
@@ -6838,12 +6838,12 @@ DrawLineSegment:
 .1:
         mov edx, dword [ebx]
         imul eax, edx, byte 0Ch
-        mov ecx, dword [dword_16E4A8]
+        mov ecx, dword [str_Punct_DrawRinkSurface]
         cmp ecx, dword [byte eax+ebp+08h]
         jge short .2
         lea eax, [nosplit edx*8+00h]
         imul edx, dword [byte ebx+04h], byte 0Ch
-        mov ecx, dword [dword_16E4A8]
+        mov ecx, dword [str_Punct_DrawRinkSurface]
         mov edx, dword [byte edx+ebp+08h]
         add eax, edi
         cmp edx, ecx
@@ -6905,7 +6905,7 @@ SetNetPositions:
 .1:
         imul eax, dword [edx], byte 0Ch
         add eax, esi
-        mov ebp, dword [dword_16E4A8]
+        mov ebp, dword [str_Punct_DrawRinkSurface]
         cmp ebp, dword [byte eax+08h]
         jge short .5
         mov ecx, dword [eax]
@@ -6964,7 +6964,7 @@ DrawNets:
         sub esp, 120h
         mov edi, eax
         mov dword [dword esp+011Ch], edx
-        mov eax, dword [dword_16E4A8]
+        mov eax, dword [str_Punct_DrawRinkSurface]
         add eax, byte 50h
         mov dword [dword esp+0118h], eax
         fild dword [dword esp+0118h]
@@ -7062,7 +7062,7 @@ DrawNetShadows:
         sub esp, 120h
         mov edi, eax
         mov dword [dword esp+011Ch], edx
-        mov eax, dword [dword_16E4A8]
+        mov eax, dword [str_Punct_DrawRinkSurface]
         add eax, byte 6Eh
         mov dword [dword esp+0118h], eax
         fild dword [dword esp+0118h]
@@ -7155,7 +7155,7 @@ DrawNetShadows:
         sub esp, 0A8h
         mov edi, eax
         mov dword [dword esp+0A4h], edx
-        mov eax, dword [dword_16E4A8]
+        mov eax, dword [str_Punct_DrawRinkSurface]
         add eax, byte 28h
         mov dword [dword esp+0A0h], eax
         fild dword [dword esp+0A0h]
@@ -7335,7 +7335,7 @@ InitRinkView:
         and esp, byte 0FFFFFFF8h
         cmp dword [dword_1B0ACC], byte 0
         je near .17
-        fild dword [dword_16E4A8]
+        fild dword [str_Punct_DrawRinkSurface]
         fcomp dword [dword_1B0F1C]
         fnstsw ax
         sahf
@@ -7372,9 +7372,9 @@ InitRinkView:
         fxch
         call IF@ATAN2
         fchs
-        fadd qword [qword_161395]
-        fmul qword [qword_16139D]
-        fmul qword [qword_1613A5]
+        fadd qword [F64_1p5708_InitRinkView]
+        fmul qword [F64_0p31831]
+        fmul qword [F64_65536_InitRinkView]
         push eax
         fistp dword [esp]
         pop eax
@@ -7440,7 +7440,7 @@ InitRinkView:
         mov eax, dword [dword_1B026C]
         fld dword [dword esp+0F0h]
         mov dword [dword esp+0ACh], eax
-        fcomp qword [qword_1613B1]
+        fcomp qword [F64_0p04]
         fnstsw ax
         sahf
         jae short .8
@@ -7460,9 +7460,9 @@ InitRinkView:
         fxch st3
         fmul dword [dword esp+0A4h]
         fxch st3
-        fmul dword [dword_16F144]
+        fmul dword [F32_1p0_View]
         fxch st3
-        fmul dword [dword_16F144]
+        fmul dword [F32_1p0_View]
         fld dword [dword_1B0268]
         fxch st2
         fstp dword [dword esp+0C4h]
@@ -7538,11 +7538,11 @@ InitRinkView:
         push dword 3F0CCCCDh
         push dword [dword_1B0F1C]
         call ProjectCoord
-        fmul dword [dword_1613AD]
+        fmul dword [F32_65536_InitRinkView]
         call __CHP
         fistp dword [dword esp+0F4h]
         fild dword [dword esp+0F4h]
-        fcomp qword [qword_1613B1]
+        fcomp qword [F64_0p04]
         fnstsw ax
         sahf
         jae short .10
@@ -7722,7 +7722,7 @@ UpdateViewDistance:
         mov ecx, edx
         mov edx, unk_1B10FC
         call VecDistance
-        fcomp dword [dword_1613B9]
+        fcomp dword [F32_600]
         fnstsw ax
         sahf
         jae short .1
@@ -7770,7 +7770,7 @@ DrawStandsRow:
         xor eax, eax
 .1:
         imul ecx, dword [edx], byte 0Ch
-        mov esi, dword [dword_1D205C]
+        mov esi, dword [TextureDetail]
         lea edi, [esp+ebx]
         add esi, ecx
         movsd
@@ -7778,7 +7778,7 @@ DrawStandsRow:
         movsd
         add eax, byte 8
         mov esi, dword [edx]
-        mov ecx, dword [dword_1D2058]
+        mov ecx, dword [TexturePageBase]
         shl esi, 3
         lea edi, [byte esp+eax+070h]
         add esi, ecx
@@ -7807,7 +7807,7 @@ DrawStandsRow:
         xor eax, eax
 .3:
         imul ebx, dword [edx], byte 0Ch
-        mov esi, dword [dword_1D205C]
+        mov esi, dword [TextureDetail]
         lea edi, [esp+eax]
         add esi, ebx
         add eax, byte 0Ch
@@ -7867,26 +7867,26 @@ DrawStandsSection:
         mov dword [dword esp+0120h], esi
 .1:
         imul esi, dword [ebx], byte 0Ch
-        mov ecx, dword [dword_1D205C]
+        mov ecx, dword [TextureDetail]
         lea edi, [esp+ebp]
         add esi, ecx
         movsd
         movsd
         movsd
         mov ecx, dword [ebx]
-        mov esi, dword [dword_1D2058]
+        mov esi, dword [TexturePageBase]
         shl ecx, 3
         lea edi, [byte esp+eax+078h]
         add esi, ecx
         movsd
         movsd
-        mov ecx, dword [dword_1D2054]
+        mov ecx, dword [TextureTileSize]
         mov esi, dword [edx]
         mov ecx, dword [ecx+esi*8]
         shl ecx, 10h
         mov dword [dword esp+eax+0C8h], ecx
         add edx, byte 4
-        mov esi, dword [dword_1D2054]
+        mov esi, dword [TextureTileSize]
         mov ecx, dword [byte edx-04h]
         add eax, byte 8
         add ebp, byte 0Ch
@@ -7920,7 +7920,7 @@ DrawStandsSection:
         xor eax, eax
 .3:
         imul ebx, dword [edx], byte 0Ch
-        mov esi, dword [dword_1D205C]
+        mov esi, dword [TextureDetail]
         lea edi, [esp+eax]
         add esi, ebx
         add eax, byte 0Ch
@@ -8386,7 +8386,7 @@ DrawCreaseArc:
         mov edx, eax
         fld dword [byte esp+018h]
         fld st0
-        fmul qword [qword_1613BD]
+        fmul qword [F64_6p28319_DrawCreaseArc]
         fstp st1
         fdiv dword [byte esp+01Ch]
         fst dword [byte esp+018h]
@@ -8426,17 +8426,17 @@ BuildRinkGeometry:
 .1:
         fild dword [byte esp+038h]
         fld st0
-        fmul qword [qword_1613C5]
+        fmul qword [F64_6p28319_BuildRinkGeometry]
         fst st1
-        fdiv dword [dword_1613E5]
+        fdiv dword [F32_6_BuildRinkGeometry]
         fst st1
         fsin
         fxch
         fcos
         fxch
-        fmul qword [qword_1613CD]
+        fmul qword [F64_80]
         fxch
-        fmul qword [qword_1613CD]
+        fmul qword [F64_80]
         mov ecx, dword [byte esp+038h]
         add ebx, byte 0Ch
         inc ecx
@@ -8453,17 +8453,17 @@ BuildRinkGeometry:
 .2:
         fild dword [byte esp+054h]
         fld st0
-        fmul qword [qword_1613C5]
+        fmul qword [F64_6p28319_BuildRinkGeometry]
         fst st1
-        fdiv dword [dword_1613E9]
+        fdiv dword [F32_10_BuildRinkGeometry]
         fst st1
         fsin
         fxch
         fcos
         fxch
-        fmul qword [qword_1613CD]
+        fmul qword [F64_80]
         fxch
-        fmul qword [qword_1613CD]
+        fmul qword [F64_80]
         add ebx, byte 0Ch
         mov eax, dword [byte esp+054h]
         mov dword [byte ebx-08h], 0
@@ -8480,17 +8480,17 @@ BuildRinkGeometry:
 .3:
         fild dword [byte esp+050h]
         fld st0
-        fmul qword [qword_1613C5]
+        fmul qword [F64_6p28319_BuildRinkGeometry]
         fst st1
-        fdiv dword [dword_1613ED]
+        fdiv dword [F32_14]
         fst st1
         fsin
         fxch
         fcos
         fxch
-        fmul qword [qword_1613CD]
+        fmul qword [F64_80]
         fxch
-        fmul qword [qword_1613CD]
+        fmul qword [F64_80]
         mov ecx, dword [byte esp+050h]
         add ebx, byte 0Ch
         inc ecx
@@ -8507,17 +8507,17 @@ BuildRinkGeometry:
 .4:
         fild dword [byte esp+04Ch]
         fld st0
-        fmul qword [qword_1613C5]
+        fmul qword [F64_6p28319_BuildRinkGeometry]
         fst st1
-        fdiv dword [dword_1613E5]
+        fdiv dword [F32_6_BuildRinkGeometry]
         fst st1
         fsin
         fxch
         fcos
         fxch
-        fmul qword [qword_1613D5]
+        fmul qword [F64_110]
         fxch
-        fmul qword [qword_1613D5]
+        fmul qword [F64_110]
         add ebx, byte 0Ch
         mov eax, dword [byte esp+04Ch]
         mov dword [byte ebx-08h], 0
@@ -8534,17 +8534,17 @@ BuildRinkGeometry:
 .5:
         fild dword [byte esp+040h]
         fld st0
-        fmul qword [qword_1613C5]
+        fmul qword [F64_6p28319_BuildRinkGeometry]
         fst st1
-        fdiv dword [dword_1613E9]
+        fdiv dword [F32_10_BuildRinkGeometry]
         fst st1
         fsin
         fxch
         fcos
         fxch
-        fmul qword [qword_1613D5]
+        fmul qword [F64_110]
         fxch
-        fmul qword [qword_1613D5]
+        fmul qword [F64_110]
         mov ecx, dword [byte esp+040h]
         add ebx, byte 0Ch
         inc ecx
@@ -8561,17 +8561,17 @@ BuildRinkGeometry:
 .6:
         fild dword [byte esp+044h]
         fld st0
-        fmul qword [qword_1613C5]
+        fmul qword [F64_6p28319_BuildRinkGeometry]
         fst st1
-        fdiv dword [dword_1613ED]
+        fdiv dword [F32_14]
         fst st1
         fsin
         fxch
         fcos
         fxch
-        fmul qword [qword_1613D5]
+        fmul qword [F64_110]
         fxch
-        fmul qword [qword_1613D5]
+        fmul qword [F64_110]
         add ebx, byte 0Ch
         mov eax, dword [byte esp+044h]
         mov dword [byte ebx-08h], 0
@@ -8588,17 +8588,17 @@ BuildRinkGeometry:
 .7:
         fild dword [byte esp+03Ch]
         fld st0
-        fmul qword [qword_1613C5]
+        fmul qword [F64_6p28319_BuildRinkGeometry]
         fst st1
-        fdiv dword [dword_1613F1]
+        fdiv dword [F32_4]
         fst st1
         fsin
         fxch
         fcos
         fxch
-        fmul qword [qword_1613DD]
+        fmul qword [F64_40]
         fxch
-        fmul qword [qword_1613DD]
+        fmul qword [F64_40]
         mov ecx, dword [byte esp+03Ch]
         add ebx, byte 0Ch
         inc ecx
@@ -8615,17 +8615,17 @@ BuildRinkGeometry:
 .8:
         fild dword [byte esp+034h]
         fld st0
-        fmul qword [qword_1613C5]
+        fmul qword [F64_6p28319_BuildRinkGeometry]
         fst st1
-        fdiv dword [dword_1613E5]
+        fdiv dword [F32_6_BuildRinkGeometry]
         fst st1
         fsin
         fxch
         fcos
         fxch
-        fmul qword [qword_1613DD]
+        fmul qword [F64_40]
         fxch
-        fmul qword [qword_1613DD]
+        fmul qword [F64_40]
         add ebx, byte 0Ch
         mov eax, dword [byte esp+034h]
         mov dword [byte ebx-08h], 0
@@ -8642,17 +8642,17 @@ BuildRinkGeometry:
 .9:
         fild dword [byte esp+048h]
         fld st0
-        fmul qword [qword_1613C5]
+        fmul qword [F64_6p28319_BuildRinkGeometry]
         fst st1
-        fdiv dword [dword_1613F5]
+        fdiv dword [F32_8]
         fst st1
         fsin
         fxch
         fcos
         fxch
-        fmul qword [qword_1613DD]
+        fmul qword [F64_40]
         fxch
-        fmul qword [qword_1613DD]
+        fmul qword [F64_40]
         mov ecx, dword [byte esp+048h]
         add ebx, byte 0Ch
         inc ecx
@@ -8886,7 +8886,7 @@ DrawCreases:
         push esi
         mov ebx, eax
         mov esi, edx
-        mov edx, dword [dword_16E4A8]
+        mov edx, dword [str_Punct_DrawRinkSurface]
         mov eax, dword [dword_1B1048]
         mov ecx, dword [byte ebx+08h]
         add eax, edx
@@ -9004,7 +9004,7 @@ DrawRinkMarkings:
         call ProjectPointsToScreen
         mov ecx, dword [dword_1B1060]
         mov eax, dword [dword_1AE000]
-        mov edi, dword [dword_16E4A8]
+        mov edi, dword [str_Punct_DrawRinkSurface]
         mov ebx, dword [dword_1B1030]
         cmp eax, edi
         jg short .2
@@ -9032,7 +9032,7 @@ DrawRinkMarkings:
         mov esi, 4
         mov ecx, dword [dword_1B1060]
         mov eax, dword [dword_1AE030]
-        mov edx, dword [dword_16E4A8]
+        mov edx, dword [str_Punct_DrawRinkSurface]
         mov ebx, dword [dword_1B1030]
         cmp eax, edx
         jg short .6
@@ -9326,11 +9326,11 @@ DrawGoalLines:
         mov dword [dword esp+esi+088h], eax
         xor ebx, ebx
         mov esi, dword [dword_1ADD80]
-        mov ecx, dword [dword_16E4A8]
+        mov ecx, dword [str_Punct_DrawRinkSurface]
         xor eax, eax
         cmp esi, ecx
         jle short .8
-        mov ecx, dword [dword_16E4A8]
+        mov ecx, dword [str_Punct_DrawRinkSurface]
 .7:
         mov esi, dword [dword eax+dword_1AE178]
         sar esi, 10h
@@ -9369,12 +9369,12 @@ DrawGoalLines:
         call DrawLineSegment
         mov ebx, 6Ch
         mov esi, dword [dword_1ADDEC]
-        mov ebp, dword [dword_16E4A8]
+        mov ebp, dword [str_Punct_DrawRinkSurface]
         xor edx, edx
         xor eax, eax
         cmp esi, ebp
         jle short .11
-        mov ecx, dword [dword_16E4A8]
+        mov ecx, dword [str_Punct_DrawRinkSurface]
 .10:
         mov esi, dword [dword eax+dword_1AE1C0]
         sar esi, 10h
@@ -10581,7 +10581,7 @@ UpdateBenchCheer:
         xor eax, ecx
         and eax, 0FFh
         sub eax, ecx
-        mov eax, dword [nosplit eax*4+dword_1702CC]
+        mov eax, dword [nosplit eax*4+SinTable]
         xor eax, edx
         sub eax, edx
         mov edx, eax
@@ -10999,7 +10999,7 @@ UpdateGoalLight:
         push eax
         fmul dword [byte esp+04h]
         push edx
-        fmul dword [dword_16F144]
+        fmul dword [F32_1p0_View]
         push ebx
         push eax
         fistp dword [esp]
@@ -11055,7 +11055,7 @@ DrawGoalLight:
         push esi
         call SubVec3
         add esp, byte 0Ch
-        mov ecx, dword [dword_16E4A8]
+        mov ecx, dword [str_Punct_DrawRinkSurface]
         cmp ecx, dword [byte esp+edi+08h]
         jg short .2
         inc ebx
@@ -11860,7 +11860,7 @@ DrawBenchPlayers:
         lea edx, [dword esp+0118h]
         push edx
         push edx
-        push unk_1D1D20
+        push ModelSlots
         call SubVec3
         add esp, byte 0Ch
         mov ecx, dword [dword_1B0B9C]
@@ -12562,8 +12562,8 @@ DrawScoreboard:
         sub eax, ecx
         mov dword [byte esp+018h], eax
         fild dword [byte esp+018h]
-        fmul qword [qword_16142D]
-        fmul qword [qword_161435]
+        fmul qword [F64_0p00138889]
+        fmul qword [F64_65536_DrawScoreboard]
         mov esi, dword [dword_1B0B38]
         call __CHP
         fistp dword [byte esp+018h]
@@ -12956,9 +12956,9 @@ UpdateScoreboardSpin:
         cmp eax, byte 1
         jg short .1
         fld dword [byte esp+03Ch]
-        fmul qword [qword_16143D]
-        fmul qword [qword_161445]
-        fmul qword [qword_16144D]
+        fmul qword [F64_0p31831_UpdateScoreboardSpin]
+        fmul qword [F64_0p5_UpdateScoreboardSpin]
+        fmul qword [F64_65536_UpdateScoreboardSpin]
         call __CHP
         fistp dword [byte esp+024h]
         mov edx, dword [byte esp+024h]

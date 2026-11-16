@@ -2,40 +2,40 @@
 bits 32
 %include "hockey.inc"
 section s_19CA2F progbits alloc noexec write align=1
-global byte_19CA30, byte_19CA31, byte_19CA32, byte_19CA33, byte_19CB70, dword_19CA2F, dword_19CA88, dword_19CA8C
-global dword_19CB30, dword_19CB32, dword_19CB38, dword_19CB3C, dword_19CB3E, dword_19CB40, dword_19CB44, dword_19CB48
-global dword_19CB4C, dword_19CB50, dword_19CB54, dword_19CB58, dword_19CB5A, dword_19CB5E, dword_19CB62, dword_19CB66
-global dword_19CB6A, dword_19CB6D, regd1, unk_19CA98, word_19CA90, word_19CA92, word_19CA94, word_19CA96
-global word_19CB16, word_19CB18, word_19CB28, word_19CB2A, word_19CB2C, word_19CB2E, word_19CB34, word_19CB36
-global word_19CB5C, word_19CB60, word_19CB64, word_19CB68
-dword_19CA2F:
+global PenaltyPending, PenaltyTeam, PenaltySlots, PenaltyQueue, PenaltyBoxCount, ProgressRecord, PadSlotA, PadSlotB
+global ProgressCount, FaceoffSlots, RefState, InputState, InputButtons, InputDir, ShotState, LastTouchPlayer
+global PassFrom, PassTo, PuckHitFlag, GameRunning, DefendTarget, ShootSpotX, ExtraAttacker, ZoneTargetX
+global ZoneFlags, BenchSlotTable, regd1, JoyStateTable, FaceoffX, FaceoffDropX, FaceoffY, FaceoffDropY
+global GameVarClear, JoyButtonsTable, LineChangeHome, LineChangeAway, LineChangeHomeLine, LineChangeAwayLine, HomeSkaters, AwaySkaters
+global DefendFlags, ShootSpotY, GoalieTarget, ZoneTargetY
+ProgressRecord:
         db 00h
-byte_19CA30:
+PenaltyPending:
         db 00h
-byte_19CA31:
+PenaltyTeam:
         db 00h
-byte_19CA32:
+PenaltySlots:
         db 00h
-byte_19CA33:
+PenaltyQueue:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h
-dword_19CA88:
+PadSlotA:
         db 00h,00h,00h,00h
-dword_19CA8C:
+PadSlotB:
         db 00h,00h,00h,00h
-word_19CA90:
+FaceoffX:
         db 00h,00h
-word_19CA92:
+FaceoffDropX:
         db 00h,00h
-word_19CA94:
+FaceoffY:
         db 00h,00h
-word_19CA96:
+FaceoffDropY:
         db 00h,00h
-unk_19CA98:
+JoyStateTable:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -44,67 +44,67 @@ unk_19CA98:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-word_19CB16:
+GameVarClear:
         db 00h,00h
-word_19CB18:
+JoyButtonsTable:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-word_19CB28:
+LineChangeHome:
         db 00h,00h
-word_19CB2A:
+LineChangeAway:
         db 00h,00h
-word_19CB2C:
+LineChangeHomeLine:
         db 00h,00h
-word_19CB2E:
+LineChangeAwayLine:
         db 00h,00h
-dword_19CB30:
+ProgressCount:
         db 00h,00h
-dword_19CB32:
+FaceoffSlots:
         db 00h,00h
-word_19CB34:
+HomeSkaters:
         db 00h,00h
-word_19CB36:
+AwaySkaters:
         db 00h,00h
-dword_19CB38:
+RefState:
         db 00h,00h,00h,00h
-dword_19CB3C:
+InputState:
         db 00h,00h
-dword_19CB3E:
+InputButtons:
         db 00h,00h
-dword_19CB40:
+InputDir:
         db 00h,00h,00h,00h
-dword_19CB44:
+ShotState:
         db 00h,00h,00h,00h
-dword_19CB48:
+LastTouchPlayer:
         db 00h,00h,00h,00h
-dword_19CB4C:
+PassFrom:
         db 00h,00h,00h,00h
-dword_19CB50:
+PassTo:
         db 00h,00h,00h,00h
-dword_19CB54:
+PuckHitFlag:
         db 00h,00h,00h,00h
-dword_19CB58:
+GameRunning:
         db 00h,00h
-dword_19CB5A:
+DefendTarget:
         db 00h,00h
-word_19CB5C:
+DefendFlags:
         db 00h,00h
-dword_19CB5E:
+ShootSpotX:
         db 00h,00h
-word_19CB60:
+ShootSpotY:
         db 00h,00h
-dword_19CB62:
+ExtraAttacker:
         db 00h,00h
-word_19CB64:
+GoalieTarget:
         db 00h,00h
-dword_19CB66:
+ZoneTargetX:
         db 00h,00h
-word_19CB68:
+ZoneTargetY:
         db 00h,00h
-dword_19CB6A:
+ZoneFlags:
         db 00h,00h
 regd1:
         db 00h
-dword_19CB6D:
+BenchSlotTable:
         db 00h,00h,00h
-byte_19CB70:
+PenaltyBoxCount:
         db 00h

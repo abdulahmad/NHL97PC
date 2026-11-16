@@ -2,9 +2,9 @@
 bits 32
 %include "hockey.inc"
 section s_10376C progbits alloc exec nowrite align=1
-extern IF@ATAN2, str_Tube3, dword_167E08, dword_167E1C, dword_16E46C, dword_16E4A8, dword_16E4BC, dword_16FA04
-extern dword_16FA08, dword_16FA10, dword_16FA14, dword_1CF9F8, dword_1CF9FC, dword_1CFA04, dword_1DA4D0, hypot_
-extern off_16FA1C, qword_167DF0, qword_167DF8, qword_167E00, qword_167E0C, qword_167E14, qword_167E20, SortIndices
+extern IF@ATAN2, str_Tube3, F32_2_DrawLimbSegment, F32_2_DrawLimbSegmentFlat, MenuScreenBitmap, str_Punct_DrawRinkSurface, FrameCounter, RowTableBytes
+extern RowTable, LimbShadeEnabled, ViewInterlaced, RowTableSize, UniformArtBuf, LimbVerts, PaletteWords, hypot_
+extern FrameBlitFuncs, F64_0p31831_DrawLimbSegment, F64_65536_DrawLimbSegment, F64_0p5_DrawLimbSegment, F64_0p31831_DrawLimbSegmentFlat, F64_65536_DrawLimbSegmentFlat, F64_0p5_DrawLimbSegmentFlat, SortIndices
 extern ArtBankCount, ArtBankEntry, ArtBankEntryInfo, BytesPerPixelForDepth, DrawPolyList, BlitCore, PrefetchMemory, PrefetchShape
 extern CopyMemFast, AllocMemBlock, FloatsToInts, VecSub, VecAngle, ProjectCoord
 global bcopy_, BuildUniformArt_3CC, removewindow, FillRowTable, DrawLimbSegment, DrawLimbSegmentFlat, ParseHexChar, ParseHexByte
@@ -23,8 +23,8 @@ FillRowTable:
         mov ecx, eax
         mov edi, edx
         mov esi, ebx
-        mov eax, dword [dword_16FA08]
-        mov edx, dword [dword_1CF9F8]
+        mov eax, dword [RowTable]
+        mov edx, dword [RowTableSize]
         xor ebx, ebx
         cmp eax, edx
         jae short .4
@@ -54,7 +54,7 @@ FillRowTable:
 .3:
         shl edx, 2
         add edx, byte 8
-        mov ebp, dword [dword_1CF9F8]
+        mov ebp, dword [RowTableSize]
         add eax, edx
         cmp eax, ebp
         jb short .1
@@ -122,7 +122,7 @@ removewindow:
         mov dword [byte ebx+04h], edx
         test edx, edx
         ja short .4
-        mov eax, dword [dword_16FA08]
+        mov eax, dword [RowTable]
         xor ecx, ecx
         cmp eax, ebx
         jae short .2
@@ -138,7 +138,7 @@ removewindow:
         mov edx, dword [eax]
         add edx, byte 2
         shl edx, 2
-        mov esi, dword [dword_1CF9F8]
+        mov esi, dword [RowTableSize]
         add edx, eax
         cmp edx, esi
         jae short .3
@@ -167,9 +167,9 @@ removewindow:
         pop ebx
         ret
         mov eax, dword [byte esp+04h]
-        mov dword [dword_16FA08], eax
+        mov dword [RowTable], eax
         mov eax, dword [byte esp+08h]
-        mov dword [dword_16FA04], eax
+        mov dword [RowTableBytes], eax
         ret
         db 00h
 ;-----------------------------------------------------------------------------
@@ -187,7 +187,7 @@ DrawLimbSegment:
         sub esp, 0E0h
         sub ebp, 82h
         mov dword [byte ebp+07Eh], eax
-        fild dword [dword_16E4A8]
+        fild dword [str_Punct_DrawRinkSurface]
         mov eax, dword [byte eax+08h]
         fstp dword [byte ebp+072h]
         fld dword [byte eax+08h]
@@ -249,8 +249,8 @@ DrawLimbSegment:
         lea eax, [byte ebp+012h]
         mov edx, dword [byte edx+08h]
         call VecAngle
-        fmul qword [qword_167DF0]
-        fmul qword [qword_167DF8]
+        fmul qword [F64_0p31831_DrawLimbSegment]
+        fmul qword [F64_65536_DrawLimbSegment]
         mov edi, dword [byte ebp+07Eh]
         push eax
         fistp dword [esp]
@@ -277,9 +277,9 @@ DrawLimbSegment:
         lea eax, [byte ebp+012h]
         mov edx, dword [byte edx+010h]
         call VecAngle
-        fmul qword [qword_167DF0]
-        fmul qword [qword_167E00]
-        fmul qword [qword_167DF8]
+        fmul qword [F64_0p31831_DrawLimbSegment]
+        fmul qword [F64_0p5_DrawLimbSegment]
+        fmul qword [F64_65536_DrawLimbSegment]
         push eax
         fistp dword [esp]
         pop eax
@@ -302,7 +302,7 @@ DrawLimbSegment:
         neg esi
 .4:
         mov eax, dword [byte ebp+07Eh]
-        mov ecx, dword [dword_1CFA04]
+        mov ecx, dword [LimbVerts]
         mov eax, dword [byte eax+024h]
         add eax, ecx
         mov edx, dword [byte ebp+07Eh]
@@ -344,12 +344,12 @@ DrawLimbSegment:
         fld dword [byte ebp+07Ah]
         fld dword [byte esi+08h]
         fmul st1
-        fmul dword [dword_167E08]
+        fmul dword [F32_2_DrawLimbSegment]
         mov eax, dword [eax]
         fld dword [eax]
         fld dword [byte ebp+076h]
         fld st0
-        fmul qword [qword_167E00]
+        fmul qword [F64_0p5_DrawLimbSegment]
         fsubp st2
         fxch
         fsubrp st2
@@ -359,7 +359,7 @@ DrawLimbSegment:
         fxch
         fsub dword [byte esi+08h]
         fmul st1
-        mov ecx, dword [dword_16FA14]
+        mov ecx, dword [ViewInterlaced]
         fstp dword [byte ebp+066h]
         test ecx, ecx
         sete al
@@ -372,18 +372,18 @@ DrawLimbSegment:
         mov eax, dword [eax]
         fld dword [byte eax+04h]
         fld st3
-        fmul qword [qword_167E00]
+        fmul qword [F64_0p5_DrawLimbSegment]
         fsubp
         faddp
         fstp dword [byte ebp-02h]
         fld dword [byte esi+08h]
         fmul st2
         mov eax, dword [byte ebp+07Eh]
-        fmul dword [dword_167E08]
+        fmul dword [F32_2_DrawLimbSegment]
         mov eax, dword [eax]
         fld dword [eax]
         fld st2
-        fmul qword [qword_167E00]
+        fmul qword [F64_0p5_DrawLimbSegment]
         fsubp
         faddp
         fstp dword [byte ebp-0Eh]
@@ -400,7 +400,7 @@ DrawLimbSegment:
         mov eax, dword [eax]
         fld dword [byte eax+04h]
         fxch st2
-        fmul qword [qword_167E00]
+        fmul qword [F64_0p5_DrawLimbSegment]
         fsubp st2
         fsubp
         fstp dword [byte ebp-0Ah]
@@ -409,16 +409,16 @@ DrawLimbSegment:
         fld dword [byte ebp+07Ah]
         fld dword [byte esi+08h]
         fmul st1
-        fmul dword [dword_167E08]
+        fmul dword [F32_2_DrawLimbSegment]
         mov eax, dword [eax]
         fld dword [eax]
         fld dword [byte ebp+076h]
         fld st0
-        fmul qword [qword_167E00]
+        fmul qword [F64_0p5_DrawLimbSegment]
         fsubp st2
         fxch
         fsubrp st2
-        mov edx, dword [dword_16FA14]
+        mov edx, dword [ViewInterlaced]
         fxch
         fstp dword [byte ebp-0Eh]
         test edx, edx
@@ -434,7 +434,7 @@ DrawLimbSegment:
         mov eax, dword [eax]
         fld dword [byte eax+04h]
         fld st3
-        fmul qword [qword_167E00]
+        fmul qword [F64_0p5_DrawLimbSegment]
         fsubp
         faddp
         fld1
@@ -443,11 +443,11 @@ DrawLimbSegment:
         fsub dword [byte esi+08h]
         fmul st2
         mov eax, dword [byte ebp+07Eh]
-        fmul dword [dword_167E08]
+        fmul dword [F32_2_DrawLimbSegment]
         mov eax, dword [eax]
         fld dword [eax]
         fld st2
-        fmul qword [qword_167E00]
+        fmul qword [F64_0p5_DrawLimbSegment]
         fsubp
         faddp
         fld1
@@ -467,7 +467,7 @@ DrawLimbSegment:
         mov eax, dword [eax]
         fld dword [byte eax+04h]
         fxch st2
-        fmul qword [qword_167E00]
+        fmul qword [F64_0p5_DrawLimbSegment]
         fsubp st2
         fsubp
         fstp dword [byte ebp-02h]
@@ -493,14 +493,14 @@ DrawLimbSegment:
         fld dword [eax]
         fld dword [byte ebp+076h]
         fld st0
-        fmul qword [qword_167E00]
+        fmul qword [F64_0p5_DrawLimbSegment]
         faddp st2
         fld dword [byte ebp+07Ah]
         fld dword [byte esi+08h]
         fmul st1
-        fmul dword [dword_167E08]
+        fmul dword [F32_2_DrawLimbSegment]
         faddp st3
-        mov edi, dword [dword_16FA14]
+        mov edi, dword [ViewInterlaced]
         fxch st2
         fstp dword [byte ebp+0Ah]
         test edi, edi
@@ -516,7 +516,7 @@ DrawLimbSegment:
         mov eax, dword [byte eax+04h]
         fld dword [byte eax+04h]
         fld st3
-        fmul qword [qword_167E00]
+        fmul qword [F64_0p5_DrawLimbSegment]
         faddp
         fsubrp
         fld1
@@ -525,11 +525,11 @@ DrawLimbSegment:
         fsub dword [byte esi+08h]
         fmul st2
         mov eax, dword [byte ebp+07Eh]
-        fmul dword [dword_167E08]
+        fmul dword [F32_2_DrawLimbSegment]
         mov eax, dword [byte eax+04h]
         fld dword [eax]
         fld st2
-        fmul qword [qword_167E00]
+        fmul qword [F64_0p5_DrawLimbSegment]
         faddp
         fsubrp
         fld1
@@ -549,7 +549,7 @@ DrawLimbSegment:
         mov eax, dword [byte eax+04h]
         fld dword [byte eax+04h]
         fxch st2
-        fmul qword [qword_167E00]
+        fmul qword [F64_0p5_DrawLimbSegment]
         faddp st2
         faddp
         fstp dword [byte ebp+06h]
@@ -560,12 +560,12 @@ DrawLimbSegment:
         fld dword [byte ebp+07Ah]
         fxch
         fmul st1
-        fmul dword [dword_167E08]
+        fmul dword [F32_2_DrawLimbSegment]
         mov eax, dword [byte eax+04h]
         fld dword [eax]
         fld dword [byte ebp+076h]
         fld st0
-        fmul qword [qword_167E00]
+        fmul qword [F64_0p5_DrawLimbSegment]
         faddp st2
         fxch
         faddp st2
@@ -575,7 +575,7 @@ DrawLimbSegment:
         fxch
         fsub dword [byte esi+08h]
         fmul st1
-        mov ebx, dword [dword_16FA14]
+        mov ebx, dword [ViewInterlaced]
         fstp dword [byte ebp+062h]
         test ebx, ebx
         sete al
@@ -588,7 +588,7 @@ DrawLimbSegment:
         mov eax, dword [byte eax+04h]
         fld dword [byte eax+04h]
         fld st3
-        fmul qword [qword_167E00]
+        fmul qword [F64_0p5_DrawLimbSegment]
         faddp
         fsubrp
         mov eax, dword [byte ebp+07Eh]
@@ -596,11 +596,11 @@ DrawLimbSegment:
         mov eax, dword [byte eax+04h]
         fld dword [eax]
         fld st1
-        fmul qword [qword_167E00]
+        fmul qword [F64_0p5_DrawLimbSegment]
         faddp
         fld dword [byte esi+08h]
         fmul st3
-        fmul dword [dword_167E08]
+        fmul dword [F32_2_DrawLimbSegment]
         fsubp
         fstp dword [byte ebp+0Ah]
         test ebx, ebx
@@ -616,7 +616,7 @@ DrawLimbSegment:
         mov eax, dword [byte eax+04h]
         fld dword [byte eax+04h]
         fxch st2
-        fmul qword [qword_167E00]
+        fmul qword [F64_0p5_DrawLimbSegment]
         faddp st2
         faddp
         fstp dword [byte ebp+0Eh]
@@ -625,7 +625,7 @@ DrawLimbSegment:
         lea edx, [byte ebp-0Eh]
         mov eax, 8
         call FloatsToInts
-        cmp dword [dword_16FA10], byte 0
+        cmp dword [LimbShadeEnabled], byte 0
         je short .9
         mov ecx, dword [esi]
         push ecx
@@ -675,7 +675,7 @@ DrawLimbSegmentFlat:
         sub esp, 0DCh
         sub ebp, 82h
         mov dword [byte ebp+07Eh], eax
-        fild dword [dword_16E4A8]
+        fild dword [str_Punct_DrawRinkSurface]
         mov eax, dword [byte eax+08h]
         fstp dword [byte ebp+072h]
         fld dword [byte eax+08h]
@@ -737,8 +737,8 @@ DrawLimbSegmentFlat:
         lea eax, [byte ebp+016h]
         mov edx, dword [byte edx+08h]
         call VecAngle
-        fmul qword [qword_167E0C]
-        fmul qword [qword_167E14]
+        fmul qword [F64_0p31831_DrawLimbSegmentFlat]
+        fmul qword [F64_65536_DrawLimbSegmentFlat]
         mov edx, dword [byte ebp+07Eh]
         push eax
         fistp dword [esp]
@@ -773,12 +773,12 @@ DrawLimbSegmentFlat:
         fld dword [byte ebp+07Ah]
         fxch
         fmul st1
-        fmul dword [dword_167E1C]
+        fmul dword [F32_2_DrawLimbSegmentFlat]
         mov eax, dword [edx]
         fld dword [eax]
         fld dword [byte ebp+076h]
         fld st0
-        fmul qword [qword_167E20]
+        fmul qword [F64_0p5_DrawLimbSegmentFlat]
         fsubp st2
         fxch
         fsubrp st2
@@ -788,7 +788,7 @@ DrawLimbSegmentFlat:
         fxch
         fsub dword [byte esi+08h]
         fmul st1
-        mov ecx, dword [dword_16FA14]
+        mov ecx, dword [ViewInterlaced]
         fstp dword [byte ebp+066h]
         test ecx, ecx
         sete al
@@ -800,17 +800,17 @@ DrawLimbSegmentFlat:
         mov eax, dword [edx]
         fld dword [byte eax+04h]
         fld st3
-        fmul qword [qword_167E20]
+        fmul qword [F64_0p5_DrawLimbSegmentFlat]
         fsubp
         faddp
         fstp dword [byte ebp+02h]
         fld dword [byte esi+08h]
         fmul st2
-        fmul dword [dword_167E1C]
+        fmul dword [F32_2_DrawLimbSegmentFlat]
         mov eax, dword [edx]
         fld dword [eax]
         fld st2
-        fmul qword [qword_167E20]
+        fmul qword [F64_0p5_DrawLimbSegmentFlat]
         fsubp
         faddp
         fstp dword [byte ebp-0Ah]
@@ -826,7 +826,7 @@ DrawLimbSegmentFlat:
         mov eax, dword [edx]
         fld dword [byte eax+04h]
         fxch st2
-        fmul qword [qword_167E20]
+        fmul qword [F64_0p5_DrawLimbSegmentFlat]
         fsubp st2
         fsubp
         fstp dword [byte ebp-06h]
@@ -835,16 +835,16 @@ DrawLimbSegmentFlat:
         fld dword [byte ebp+07Ah]
         fld dword [byte esi+08h]
         fmul st1
-        fmul dword [dword_167E1C]
+        fmul dword [F32_2_DrawLimbSegmentFlat]
         mov eax, dword [edx]
         fld dword [eax]
         fld dword [byte ebp+076h]
         fld st0
-        fmul qword [qword_167E20]
+        fmul qword [F64_0p5_DrawLimbSegmentFlat]
         fsubp st2
         fxch
         fsubrp st2
-        mov edx, dword [dword_16FA14]
+        mov edx, dword [ViewInterlaced]
         fxch
         fstp dword [byte ebp-0Ah]
         test edx, edx
@@ -860,7 +860,7 @@ DrawLimbSegmentFlat:
         mov eax, dword [eax]
         fld dword [byte eax+04h]
         fld st3
-        fmul qword [qword_167E20]
+        fmul qword [F64_0p5_DrawLimbSegmentFlat]
         fsubp
         faddp
         fld1
@@ -869,11 +869,11 @@ DrawLimbSegmentFlat:
         fsub dword [byte esi+08h]
         fmul st2
         mov eax, dword [byte ebp+07Eh]
-        fmul dword [dword_167E1C]
+        fmul dword [F32_2_DrawLimbSegmentFlat]
         mov eax, dword [eax]
         fld dword [eax]
         fld st2
-        fmul qword [qword_167E20]
+        fmul qword [F64_0p5_DrawLimbSegmentFlat]
         fsubp
         faddp
         fld1
@@ -893,7 +893,7 @@ DrawLimbSegmentFlat:
         mov eax, dword [eax]
         fld dword [byte eax+04h]
         fxch st2
-        fmul qword [qword_167E20]
+        fmul qword [F64_0p5_DrawLimbSegmentFlat]
         fsubp st2
         fsubp
         fstp dword [byte ebp+02h]
@@ -919,14 +919,14 @@ DrawLimbSegmentFlat:
         fld dword [eax]
         fld dword [byte ebp+076h]
         fld st0
-        fmul qword [qword_167E20]
+        fmul qword [F64_0p5_DrawLimbSegmentFlat]
         faddp st2
         fld dword [byte ebp+07Ah]
         fld dword [byte esi+08h]
         fmul st1
-        fmul dword [dword_167E1C]
+        fmul dword [F32_2_DrawLimbSegmentFlat]
         faddp st3
-        mov edi, dword [dword_16FA14]
+        mov edi, dword [ViewInterlaced]
         fxch st2
         fstp dword [byte ebp+0Eh]
         test edi, edi
@@ -942,7 +942,7 @@ DrawLimbSegmentFlat:
         mov eax, dword [byte eax+04h]
         fld dword [byte eax+04h]
         fld st3
-        fmul qword [qword_167E20]
+        fmul qword [F64_0p5_DrawLimbSegmentFlat]
         faddp
         fsubrp
         fld1
@@ -951,11 +951,11 @@ DrawLimbSegmentFlat:
         fsub dword [byte esi+08h]
         fmul st2
         mov eax, dword [byte ebp+07Eh]
-        fmul dword [dword_167E1C]
+        fmul dword [F32_2_DrawLimbSegmentFlat]
         mov eax, dword [byte eax+04h]
         fld dword [eax]
         fld st2
-        fmul qword [qword_167E20]
+        fmul qword [F64_0p5_DrawLimbSegmentFlat]
         faddp
         fsubrp
         fld1
@@ -975,7 +975,7 @@ DrawLimbSegmentFlat:
         mov eax, dword [byte eax+04h]
         fld dword [byte eax+04h]
         fxch st2
-        fmul qword [qword_167E20]
+        fmul qword [F64_0p5_DrawLimbSegmentFlat]
         faddp st2
         faddp
         fstp dword [byte ebp+0Ah]
@@ -986,12 +986,12 @@ DrawLimbSegmentFlat:
         fld dword [byte ebp+07Ah]
         fxch
         fmul st1
-        fmul dword [dword_167E1C]
+        fmul dword [F32_2_DrawLimbSegmentFlat]
         mov eax, dword [byte eax+04h]
         fld dword [eax]
         fld dword [byte ebp+076h]
         fld st0
-        fmul qword [qword_167E20]
+        fmul qword [F64_0p5_DrawLimbSegmentFlat]
         faddp st2
         fxch
         faddp st2
@@ -1001,7 +1001,7 @@ DrawLimbSegmentFlat:
         fxch
         fsub dword [byte esi+08h]
         fmul st1
-        mov ebx, dword [dword_16FA14]
+        mov ebx, dword [ViewInterlaced]
         fstp dword [byte ebp+06Ah]
         test ebx, ebx
         sete al
@@ -1014,7 +1014,7 @@ DrawLimbSegmentFlat:
         mov eax, dword [byte eax+04h]
         fld dword [byte eax+04h]
         fld st3
-        fmul qword [qword_167E20]
+        fmul qword [F64_0p5_DrawLimbSegmentFlat]
         faddp
         fsubrp
         mov eax, dword [byte ebp+07Eh]
@@ -1022,11 +1022,11 @@ DrawLimbSegmentFlat:
         mov eax, dword [byte eax+04h]
         fld dword [eax]
         fld st1
-        fmul qword [qword_167E20]
+        fmul qword [F64_0p5_DrawLimbSegmentFlat]
         faddp
         fld dword [byte esi+08h]
         fmul st3
-        fmul dword [dword_167E1C]
+        fmul dword [F32_2_DrawLimbSegmentFlat]
         fsubp
         fstp dword [byte ebp+0Eh]
         test ebx, ebx
@@ -1042,7 +1042,7 @@ DrawLimbSegmentFlat:
         mov eax, dword [byte eax+04h]
         fld dword [byte eax+04h]
         fxch st2
-        fmul qword [qword_167E20]
+        fmul qword [F64_0p5_DrawLimbSegmentFlat]
         faddp st2
         faddp
         fstp dword [byte ebp+012h]
@@ -1051,7 +1051,7 @@ DrawLimbSegmentFlat:
         lea edx, [byte ebp-0Ah]
         mov eax, 8
         call FloatsToInts
-        cmp dword [dword_16FA10], byte 0
+        cmp dword [LimbShadeEnabled], byte 0
         je short .7
         mov eax, dword [esi]
         mov edx, dword [byte eax+02h]
@@ -1470,7 +1470,7 @@ BuildUniformArt:
         fild dword [dword esp+04E8h]
         fdivp
         fstp dword [byte eax+04h]
-        cmp dword [dword_1CF9FC], byte 0
+        cmp dword [UniformArtBuf], byte 0
         je short .25
         mov dword [byte eax+08h], 3F000000h
         jmp short .26
@@ -1574,7 +1574,7 @@ BlitFrameToScreen:
         push ebx
         mov eax, dword [byte esp+08h]
         mov edx, dword [byte esp+0Ch]
-        mov ecx, off_16FA1C
+        mov ecx, FrameBlitFuncs
         mov ebx, dword [byte esp+010h]
         call BlitCore
         pop ebx
@@ -1582,7 +1582,7 @@ BlitFrameToScreen:
         db 08Dh,040h,00h
         push ebx
         mov eax, dword [byte esp+08h]
-        mov ecx, off_16FA1C
+        mov ecx, FrameBlitFuncs
         mov edx, dword [byte eax+0Ah]
         mov ebx, dword [byte eax+0Ch]
         sar edx, 10h
@@ -1603,7 +1603,7 @@ BlitFrameToScreen:
         sar ebx, 10h
         sub ecx, ebx
         mov ebx, ecx
-        mov ecx, off_16FA1C
+        mov ecx, FrameBlitFuncs
         call BlitCore
         pop ebx
         ret
@@ -1618,14 +1618,14 @@ WritePaletteRange:
         push esi
         push edi
         push ebp
-        inc dword [dword_16E4BC]
-        cmp dword [dword_16E46C], byte 8
+        inc dword [FrameCounter]
+        cmp dword [MenuScreenBitmap], byte 8
         jg short .2
         mov ebp, dword [byte esp+01Ch]
         mov edx, 3C8h
         mov eax, dword [byte esp+014h]
         out dx, al
-        lea edi, [nosplit eax*4+dword_1DA4D0]
+        lea edi, [nosplit eax*4+PaletteWords]
         mov ebx, dword [byte esp+018h]
         inc edx
         push edx
@@ -1652,7 +1652,7 @@ WritePaletteRange:
 .2:
         mov ebp, dword [byte esp+01Ch]
         mov eax, dword [byte esp+014h]
-        lea edi, [nosplit eax*4+dword_1DA4D0]
+        lea edi, [nosplit eax*4+PaletteWords]
         mov ebx, dword [byte esp+018h]
 .3:
         mov eax, dword [byte ebp+00h]

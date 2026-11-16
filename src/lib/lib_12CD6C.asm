@@ -2,16 +2,16 @@
 bits 32
 %include "hockey.inc"
 section s_12CD6C progbits alloc exec nowrite align=1
-extern byte_172BC5, byte_1DCEC8, byte_1DCEC9, byte_1DCECA, byte_1DCECB, byte_1DCECE, byte_1DCECF, byte_1DCED4
-extern byte_1DCED5, byte_1DCED6, byte_1DCED7, byte_1DCEDC, byte_1DCEDD, byte_1DCEDE, byte_1DCEDF, byte_1DCEE0
-extern byte_1DCEE1, byte_1DCEE2, byte_1DCEE3, byte_1DCEE4, byte_1DCEE5, byte_1DCEE6, byte_1DCEE7, byte_1DCF00
-extern byte_1DCF01, byte_1DCF02, byte_1DCF03, byte_1DCF04, byte_1DCF05, dword_172AC0, dword_1DC99C, dword_1DC9A0
-extern dword_1DC9A4, dword_1DC9A8, dword_1DC9AC, dword_1DC9B0, dword_1DC9B4, dword_1DC9B8, dword_1DCAD0, dword_1DCAD4
-extern dword_1DCAD8, dword_1DCADC, dword_1DCAE0, dword_1DCAE4, dword_1DCAE8, dword_1DCAEC, dword_1DCAF0, dword_1DCAF4
-extern dword_1DCAF8, dword_1DCEC4, dword_1DCED0, dword_1DCED8, dword_1DCEEC, dword_1DCEF0, dword_1DCEF4, dword_1DCEF8
-extern dword_1DCEFC, dword_1DCF08, dword_1DCF0C, dword_1DCF10, dword_1DCF14, dword_1DCF18, dword_1DCF1C, CheckBankIndex
-extern ChannelTimeLeft, PlaySoundEntry, AudioEnter, AudioLeaveCheck, MixerSamplePosition, IsChannelActive, ScanFloat, word_1DCECC
-extern word_1DCEE8, word_1DCEEA, word_1DCF06
+extern SoundSystemOn, SpeechPatchOn, SpeechPatchLooped, SpeechPatchMono, SpeechPatchSigned, SpeechPatchPan, SpeechPatchVolume, SpeechPatchVolMin
+extern SpeechPatchVolMax, SpeechPatchPanMin, SpeechPatchPanMax, SpeechPatchPercent, SpeechPatchRate, SpeechPatchRepeat, SpeechPatchPriority, SpeechPatchPanStart
+extern SpeechPatchAttack, SpeechPatchDecay, SpeechPatchSustain, SpeechPatchPanEnd, SpeechPatchRelease, SpeechPatchVolStart, SpeechPatchDetune, SpeechPatchFormat
+extern SpeechPatchBits, SpeechPatchChannels, SpeechPatchCompression, SpeechPatchBytesPerSample, SpeechPatchReserved, SoundBankTable, SpeechRingBusy, SpeechRingHead
+extern SpeechRingTail, SpeechSampleBufA, SpeechSampleBufB, SpeechRingUsed, SpeechRingBytes, SpeechRingEntries, SpeechStreamOpen, SpeechStreamHeader
+extern SpeechStreamBuffer, SpeechStreamSize, SpeechStreamChannel, SpeechStreamData, SpeechStreamActive, SpeechStreamHandle, SpeechStreamPos, SpeechStreamBlock
+extern SpeechStreamFlagCount, SpeechBufferTag, SpeechPatchVoices, SpeechPatchChannel, SpeechPatchDataOffset, SpeechPatchDataSize, SpeechPatchPosition, SpeechPatchHeaderSize
+extern SpeechPatchTemplateTag, SpeechPatchLength, SpeechPatchLoopFrom, SpeechPatchLoopTo, SpeechPatchNext, SpeechPatchHandle, SpeechPatchMaxVolume, CheckBankIndex
+extern ChannelTimeLeft, PlaySoundEntry, AudioEnter, AudioLeaveCheck, MixerSamplePosition, IsChannelActive, ScanFloat, SpeechPatchFlags
+extern SpeechPatchLoopStart, SpeechPatchLoopEnd, SpeechPatchSampleRate
 global ResetGameVars, ResetSpeechStreamState, FillSpeechSamples, FillSpeechBuffer, ServiceSpeechBuffers, SpeechStreamFlag, ServiceSpeechIfOpen, PlayBankSample
 global ChannelPosition, ChannelTimeLeftLocked
 ;-----------------------------------------------------------------------------
@@ -22,69 +22,69 @@ global ChannelPosition, ChannelTimeLeftLocked
 ; joyq_flush
 ;-----------------------------------------------------------------------------
 ResetGameVars:
-        mov byte [byte_1DCEC8], 1
-        mov byte [byte_1DCEC9], 0
-        mov byte [byte_1DCECA], 1
-        mov byte [byte_1DCECB], 1
-        mov word [word_1DCECC], 0
-        mov byte [byte_1DCECE], 40h
-        mov byte [byte_1DCECF], 7Fh
-        mov dword [dword_1DCED0], 4
-        mov byte [byte_1DCED4], 0
-        mov byte [byte_1DCED5], 7Fh
-        mov byte [byte_1DCED6], 0
-        mov byte [byte_1DCED7], 7Fh
-        mov dword [dword_1DCED8], 0FFFFFFFFh
-        mov byte [byte_1DCEDC], 64h
-        mov byte [byte_1DCEDD], 3Ch
-        mov byte [byte_1DCEDE], 1
-        mov byte [byte_1DCEDF], 0FFh
-        mov byte [byte_1DCEE0], 40h
-        mov byte [byte_1DCEE1], 0
-        mov byte [byte_1DCEE2], 0
-        mov byte [byte_1DCEE3], 1
-        mov byte [byte_1DCEE4], 40h
-        mov byte [byte_1DCEE5], 0
-        mov byte [byte_1DCEE6], 7Fh
-        mov byte [byte_1DCEE7], 0
-        mov word [word_1DCEE8], 0
-        mov word [word_1DCEEA], 0
-        mov dword [dword_1DCEEC], 0
-        mov dword [dword_1DCEF0], 0
-        mov dword [dword_1DCEF4], 0
-        mov dword [dword_1DCEF8], 20h
-        mov dword [dword_1DCEFC], 6C704D54h
-        mov byte [byte_1DCF00], 0
-        mov byte [byte_1DCF01], 10h
-        mov byte [byte_1DCF02], 1
-        mov byte [byte_1DCF03], 0
-        mov byte [byte_1DCF04], 2
-        mov byte [byte_1DCF05], 0
-        mov word [word_1DCF06], 5622h
-        mov dword [dword_1DCF08], 0
-        mov dword [dword_1DCF0C], 0FFFFFFFFh
-        mov dword [dword_1DCF10], 0FFFFFFFFh
-        mov dword [dword_1DCF14], 0
-        mov dword [dword_1DCF18], 0FFFFFFFFh
-        mov dword [dword_1DCF1C], 7Fh
-        mov dword [dword_1DCEC4], 6C544150h
+        mov byte [SpeechPatchOn], 1
+        mov byte [SpeechPatchLooped], 0
+        mov byte [SpeechPatchMono], 1
+        mov byte [SpeechPatchSigned], 1
+        mov word [SpeechPatchFlags], 0
+        mov byte [SpeechPatchPan], 40h
+        mov byte [SpeechPatchVolume], 7Fh
+        mov dword [SpeechPatchVoices], 4
+        mov byte [SpeechPatchVolMin], 0
+        mov byte [SpeechPatchVolMax], 7Fh
+        mov byte [SpeechPatchPanMin], 0
+        mov byte [SpeechPatchPanMax], 7Fh
+        mov dword [SpeechPatchChannel], 0FFFFFFFFh
+        mov byte [SpeechPatchPercent], 64h
+        mov byte [SpeechPatchRate], 3Ch
+        mov byte [SpeechPatchRepeat], 1
+        mov byte [SpeechPatchPriority], 0FFh
+        mov byte [SpeechPatchPanStart], 40h
+        mov byte [SpeechPatchAttack], 0
+        mov byte [SpeechPatchDecay], 0
+        mov byte [SpeechPatchSustain], 1
+        mov byte [SpeechPatchPanEnd], 40h
+        mov byte [SpeechPatchRelease], 0
+        mov byte [SpeechPatchVolStart], 7Fh
+        mov byte [SpeechPatchDetune], 0
+        mov word [SpeechPatchLoopStart], 0
+        mov word [SpeechPatchLoopEnd], 0
+        mov dword [SpeechPatchDataOffset], 0
+        mov dword [SpeechPatchDataSize], 0
+        mov dword [SpeechPatchPosition], 0
+        mov dword [SpeechPatchHeaderSize], 20h
+        mov dword [SpeechPatchTemplateTag], 6C704D54h
+        mov byte [SpeechPatchFormat], 0
+        mov byte [SpeechPatchBits], 10h
+        mov byte [SpeechPatchChannels], 1
+        mov byte [SpeechPatchCompression], 0
+        mov byte [SpeechPatchBytesPerSample], 2
+        mov byte [SpeechPatchReserved], 0
+        mov word [SpeechPatchSampleRate], 5622h
+        mov dword [SpeechPatchLength], 0
+        mov dword [SpeechPatchLoopFrom], 0FFFFFFFFh
+        mov dword [SpeechPatchLoopTo], 0FFFFFFFFh
+        mov dword [SpeechPatchNext], 0
+        mov dword [SpeechPatchHandle], 0FFFFFFFFh
+        mov dword [SpeechPatchMaxVolume], 7Fh
+        mov dword [SpeechBufferTag], 6C544150h
         ret
 ;-----------------------------------------------------------------------------
 ; ResetSpeechStreamState                         12CEE1  97 PC, low confidence
 ; Clears the speech stream buffers and positions
 ;-----------------------------------------------------------------------------
 ResetSpeechStreamState:
-        mov dword [dword_1DCAD4], 0
-        mov dword [dword_1DCAD8], 0
-        mov dword [dword_1DCADC], 0
-        mov dword [dword_1DCAE0], 0
-        mov dword [dword_1DCAE4], 0
-        mov dword [dword_1DCAE8], 0FFFFFFFFh
-        mov dword [dword_1DCAEC], 0
-        mov dword [dword_1DCAF0], 0
-        mov dword [dword_1DCAF4], 0
-        mov dword [dword_1DCAF8], 0
-        mov dword [dword_1DCAD0], 0
+        mov dword [SpeechStreamHeader], 0
+        mov dword [SpeechStreamBuffer], 0
+        mov dword [SpeechStreamSize], 0
+        mov dword [SpeechStreamChannel], 0
+        mov dword [SpeechStreamData], 0
+        mov dword [SpeechStreamActive], 0FFFFFFFFh
+        mov dword [SpeechStreamHandle], 0
+        mov dword [SpeechStreamPos], 0
+        mov dword [SpeechStreamBlock], 0
+        mov dword [SpeechStreamFlagCount], 0
+        mov dword [SpeechStreamOpen], 0
         ret
 ;-----------------------------------------------------------------------------
 ; FillSpeechSamples                              12CF50  97 PC, low confidence
@@ -107,8 +107,8 @@ FillSpeechSamples:
         jmp short .2
 .1:
         push byte 1
-        mov edx, dword_1DC9A8
-        mov eax, dword_1DC9AC
+        mov edx, SpeechSampleBufA
+        mov eax, SpeechSampleBufB
         mov ecx, esi
         push byte 1
         mov ebx, edi
@@ -136,21 +136,21 @@ FillSpeechBuffer:
         push esi
         push edi
         enter 8, 0
-        imul eax, dword [dword_1DCAF4], dword 8C0h
-        mov ecx, dword [dword_1DCAD8]
+        imul eax, dword [SpeechStreamBlock], dword 8C0h
+        mov ecx, dword [SpeechStreamBuffer]
         mov edi, 140h
         add ecx, eax
         mov dword [byte ebp-08h], 0
         mov dword [byte ebp-04h], ecx
 .1:
-        mov eax, dword [dword_1DC9A0]
-        cmp eax, dword [dword_1DC9A4]
+        mov eax, dword [SpeechRingHead]
+        cmp eax, dword [SpeechRingTail]
         je near .4
         test edi, edi
         jle near .4
-        mov ecx, dword [dword_1DC9A4]
+        mov ecx, dword [SpeechRingTail]
         imul esi, ecx, byte 0Ch
-        mov esi, dword [dword esi+dword_1DC9B8]
+        mov esi, dword [dword esi+SpeechRingEntries]
         mov dword [byte ebp-08h], 1
         cmp esi, edi
         jle short .2
@@ -159,7 +159,7 @@ FillSpeechBuffer:
         imul ecx, byte 0Ch
         mov edx, dword [byte ebp-04h]
         mov ebx, esi
-        mov eax, dword [dword ecx+dword_1DC9B4]
+        mov eax, dword [dword ecx+SpeechRingBytes]
         call FillSpeechSamples
         mov eax, esi
         cdq
@@ -167,26 +167,26 @@ FillSpeechBuffer:
         LD sbb, eax, edx
         sar eax, 4
         imul eax, byte 70h
-        add dword [dword ecx+dword_1DC9B4], esi
+        add dword [dword ecx+SpeechRingBytes], esi
         sub edi, esi
-        sub dword [dword ecx+dword_1DC9B8], esi
+        sub dword [dword ecx+SpeechRingEntries], esi
         add dword [byte ebp-04h], eax
-        cmp dword [dword ecx+dword_1DC9B8], byte 0
+        cmp dword [dword ecx+SpeechRingEntries], byte 0
         jg short .1
-        mov dword [dword_1DC9AC], 0
-        mov dword [dword_1DC9A8], 0
-        mov dword [dword ecx+dword_1DC9B8], 0
-        mov dword [dword ecx+dword_1DC9B0], 0
-        mov dword [dword ecx+dword_1DC9B4], 0
-        inc dword [dword_1DC9A4]
-        cmp dword [dword_1DC9A4], byte 18h
+        mov dword [SpeechSampleBufB], 0
+        mov dword [SpeechSampleBufA], 0
+        mov dword [dword ecx+SpeechRingEntries], 0
+        mov dword [dword ecx+SpeechRingUsed], 0
+        mov dword [dword ecx+SpeechRingBytes], 0
+        inc dword [SpeechRingTail]
+        cmp dword [SpeechRingTail], byte 18h
         jne short .3
-        mov dword [dword_1DC9A4], 0
+        mov dword [SpeechRingTail], 0
 .3:
-        dec dword [dword_1DC99C]
-        cmp dword [dword_1DC99C], byte 0
+        dec dword [SpeechRingBusy]
+        cmp dword [SpeechRingBusy], byte 0
         jge near .1
-        mov dword [dword_1DC99C], 0
+        mov dword [SpeechRingBusy], 0
         jmp near .1
 .4:
         test edi, edi
@@ -223,33 +223,33 @@ FillSpeechBuffer:
 ServiceSpeechBuffers:
         push ebx
         push edx
-        mov eax, dword [dword_1DCAE8]
+        mov eax, dword [SpeechStreamActive]
         call ChannelPosition
         add eax, eax
         mov ebx, 8C0h
         cdq
         idiv ebx
-        sub eax, dword [dword_1DCAF4]
+        sub eax, dword [SpeechStreamBlock]
         test eax, eax
         jge short .1
         add eax, byte 6
 .1:
         cmp eax, byte 3
         jl short .4
-        inc dword [dword_1DCAF4]
-        cmp dword [dword_1DCAF4], byte 6
+        inc dword [SpeechStreamBlock]
+        cmp dword [SpeechStreamBlock], byte 6
         jl short .2
-        sub dword [dword_1DCAF4], byte 6
+        sub dword [SpeechStreamBlock], byte 6
 .2:
-        dec dword [dword_1DCAF8]
-        cmp dword [dword_1DCAF8], byte 0
+        dec dword [SpeechStreamFlagCount]
+        cmp dword [SpeechStreamFlagCount], byte 0
         jge short .3
-        mov dword [dword_1DCAF8], 0
+        mov dword [SpeechStreamFlagCount], 0
 .3:
         call FillSpeechBuffer
         test eax, eax
         je short .4
-        inc dword [dword_1DCAF8]
+        inc dword [SpeechStreamFlagCount]
 .4:
         pop edx
         pop ebx
@@ -259,14 +259,14 @@ ServiceSpeechBuffers:
 ; Returns the speech stream state flag
 ;-----------------------------------------------------------------------------
 SpeechStreamFlag:
-        mov eax, dword [dword_1DCAF8]
+        mov eax, dword [SpeechStreamFlagCount]
         ret
 ;-----------------------------------------------------------------------------
 ; ServiceSpeechIfOpen                            12D141  97 PC, low confidence
 ; Refills the speech buffers when the stream is open
 ;-----------------------------------------------------------------------------
 ServiceSpeechIfOpen:
-        cmp dword [dword_1DCAD0], byte 0
+        cmp dword [SpeechStreamOpen], byte 0
         jne short ServiceSpeechBuffers
         ret
         db 00h,00h,00h,00h,00h
@@ -279,7 +279,7 @@ PlayBankSample:
         push edi
         push ebp
         mov esi, eax
-        cmp byte [byte_172BC5], 0
+        cmp byte [SoundSystemOn], 0
         jne short .1
         mov eax, 0FFFFFFF6h
         jmp short .5
@@ -311,7 +311,7 @@ PlayBankSample:
         push ebp
         mov eax, dword [byte esp+018h]
         push eax
-        mov eax, dword [nosplit esi*8+dword_172AC0]
+        mov eax, dword [nosplit esi*8+SoundBankTable]
         push byte 0FFFFFFFFh
         mov eax, dword [byte eax+edx*4+08h]
         mov edx, esi
@@ -331,7 +331,7 @@ ChannelPosition:
         push ecx
         push edx
         mov edx, eax
-        cmp byte [byte_172BC5], 0
+        cmp byte [SoundSystemOn], 0
         jne short .1
         mov eax, 0FFFFFFF6h
         pop edx
@@ -366,7 +366,7 @@ ChannelPosition:
 ChannelTimeLeftLocked:
         push edx
         mov edx, eax
-        cmp byte [byte_172BC5], 0
+        cmp byte [SoundSystemOn], 0
         jne short .1
         mov eax, 0FFFFFFF6h
         pop edx

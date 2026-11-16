@@ -2,44 +2,44 @@
 bits 32
 %include "hockey.inc"
 section s_1DA498 nobits alloc noexec write align=1
-global byte_1DA4C4, byte_1DA4C5, byte_1DA8CF, dword_1DA4BC, dword_1DA4C0, dword_1DA4C8, dword_1DA4D0, unk_1DA498
-global unk_1DA4A4, unk_1DA4B4, unk_1DA4B8, unk_1DA4CC, word_1DA4A6, word_1DA4A8, word_1DA4AA, word_1DA4AC
-global word_1DA4AE, word_1DA4B0, word_1DA4B2
-unk_1DA498:
+global __nheap_clean, __HeapFlags, PaletteDirty, __OpenStreams, __ClosedStreams, MemLockState, PaletteWords, IpxEcb
+global IpxSocket, errno, _doserrno, ArchiveHeader, IpxRealSegment, IpxCallSegment, IpxCallOffset, IpxSavedVecOffset
+global IpxBufferSegment, IpxBufferOffset, IpxSavedVecSegment
+IpxEcb:
         resb 12
-unk_1DA4A4:
+IpxSocket:
         resb 2
-word_1DA4A6:
+IpxRealSegment:
         resb 2
-word_1DA4A8:
+IpxCallSegment:
         resb 2
-word_1DA4AA:
+IpxCallOffset:
         resb 2
-word_1DA4AC:
+IpxSavedVecOffset:
         resb 2
-word_1DA4AE:
+IpxBufferSegment:
         resb 2
-word_1DA4B0:
+IpxBufferOffset:
         resb 2
-word_1DA4B2:
+IpxSavedVecSegment:
         resb 2
-unk_1DA4B4:
+errno:
         resb 4
-unk_1DA4B8:
+_doserrno:
         resb 4
-dword_1DA4BC:
+__OpenStreams:
         resb 4
-dword_1DA4C0:
+__ClosedStreams:
         resb 4
-byte_1DA4C4:
+__nheap_clean:
         resb 1
-byte_1DA4C5:
+__HeapFlags:
         resb 3
-dword_1DA4C8:
+MemLockState:
         resb 4
-unk_1DA4CC:
+ArchiveHeader:
         resb 4
-dword_1DA4D0:
+PaletteWords:
         resb 1023
-byte_1DA8CF:
+PaletteDirty:
         resb 1

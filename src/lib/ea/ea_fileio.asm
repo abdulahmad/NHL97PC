@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_1093E8 progbits alloc exec nowrite align=1
-extern byte_170124, dword_17014C, dword_170150, dword_170154, dword_170158, dword_1DC5A8, dword_1DC5AC
+extern ResourceArchiveName, ResourceArchive, ResourceLookupFn, ResourceArchiveSize, ResourceArchiveData, SpeechBankCount, SpeechBankTable
 global openhandle_2C, DosReadFile_2, RelocateBankGroups_5C, openhandle, DosCallSplitDx, DosOpenFile, DosOpenReadOnly, DosCloseFile
 global DosWriteFile, DosReadFile, DosSeekFile, ClearSpeechBankTable, FindSpeechBank, RelocateBankOffsets, RelocateBankGroups, RelocateBankEntries
 global RegisterSpeechBank
@@ -99,9 +99,9 @@ openhandle_2C:
         leave
         ret
 .1:
-        cmp byte [byte_170124], 0
+        cmp byte [ResourceArchiveName], 0
         je short .3
-        mov edx, byte_170124
+        mov edx, ResourceArchiveName
         mov eax, dword [byte ebp-08h]
         LD xor, ecx, ecx
         int 21h
@@ -109,23 +109,23 @@ openhandle_2C:
         mov ebx, dword [byte ebp+0Ch]
         mov dword [ebx], eax
         LD mov, ebx, eax
-        mov edx, dword [dword_17014C]
+        mov edx, dword [ResourceArchive]
         cmp byte [edx], 0
         jne short .2
-        mov ecx, dword [dword_170158]
+        mov ecx, dword [ResourceArchiveData]
         mov ah, 3Fh
         int 21h
         jb short .3
 .2:
         push dword [byte ebp+08h]
-        push dword [dword_17014C]
-        call dword [dword_170150]
+        push dword [ResourceArchive]
+        call dword [ResourceLookupFn]
         add esp, byte 8
         LD or, eax, eax
         je short .3
         mov ebx, dword [byte ebp+010h]
         mov dword [ebx], eax
-        mov ebx, dword [dword_170154]
+        mov ebx, dword [ResourceArchiveSize]
         mov ecx, dword [ebx]
         mov ebx, dword [byte ebp+014h]
         mov dword [ebx], ecx
@@ -245,7 +245,7 @@ ClearSpeechBankTable:
         xor eax, eax
 .1:
         add eax, byte 4
-        mov dword [dword eax+dword_1DC5A8], 0
+        mov dword [dword eax+SpeechBankCount], 0
         cmp eax, 3E8h
         jne short .1
         ret
@@ -256,7 +256,7 @@ ClearSpeechBankTable:
         xor eax, eax
         jmp short .4
 .2:
-        cmp dword [dword eax+dword_1DC5AC], byte 0
+        cmp dword [dword eax+SpeechBankTable], byte 0
         jne short .3
         mov ebx, edx
         mov eax, ebx
@@ -286,9 +286,9 @@ FindSpeechBank:
         xor edx, edx
         jmp short .3
 .1:
-        cmp dword [dword eax+dword_1DC5AC], byte 0
+        cmp dword [dword eax+SpeechBankTable], byte 0
         je short .2
-        mov ebx, dword [dword eax+dword_1DC5AC]
+        mov ebx, dword [dword eax+SpeechBankTable]
         cmp ecx, dword [byte ebx+04h]
         jne short .2
         mov eax, edx
@@ -353,7 +353,7 @@ RelocateBankOffsets:
         pop ecx
         pop ebx
         ret
-        mov dword [nosplit eax*4+dword_1DC5AC], 0
+        mov dword [nosplit eax*4+SpeechBankTable], 0
         ret
 ;-----------------------------------------------------------------------------
 ; RelocateBankGroups                             10968F  97 PC, low confidence
@@ -480,7 +480,7 @@ RegisterSpeechBank:
         xor eax, eax
         jmp short .3
 .1:
-        cmp dword [dword eax+dword_1DC5AC], byte 0
+        cmp dword [dword eax+SpeechBankTable], byte 0
         jne short .2
         mov ebx, ecx
         jmp short .4
@@ -502,12 +502,12 @@ RegisterSpeechBank:
         call RelocateBankEntries
         test eax, eax
         je short .5
-        mov dword [nosplit ebx*4+dword_1DC5AC], esi
+        mov dword [nosplit ebx*4+SpeechBankTable], esi
         jmp short .6
 .5:
         test ecx, ecx
         jl short .6
-        mov dword [nosplit ecx*4+dword_1DC5AC], 0
+        mov dword [nosplit ecx*4+SpeechBankTable], 0
         mov ecx, 0FFFFFFFFh
 .6:
         mov eax, ecx

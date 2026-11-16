@@ -2,24 +2,24 @@
 bits 32
 %include "hockey.inc"
 section s_13005A progbits alloc exec nowrite align=1
-extern dword_199990, dword_199994, dword_199998, dword_19999C, dword_1999A0, dword_1999A4, printf_
+extern SavedEbx, SavedEcx, SavedEdx, SavedEsi, SavedEdi, SavedRetAddr, printf_
 global AssertPreserveRegs
 ;-----------------------------------------------------------------------------
 ; AssertPreserveRegs                             13005A  97 PC, low confidence
 ; Saves the registers around the assertion report and restores them
 ;-----------------------------------------------------------------------------
 AssertPreserveRegs:
-        mov dword [dword_199990], ebx
-        mov dword [dword_199994], ecx
-        mov dword [dword_199998], edx
-        mov dword [dword_19999C], esi
-        mov dword [dword_1999A0], edi
-        pop dword [dword_1999A4]
+        mov dword [SavedEbx], ebx
+        mov dword [SavedEcx], ecx
+        mov dword [SavedEdx], edx
+        mov dword [SavedEsi], esi
+        mov dword [SavedEdi], edi
+        pop dword [SavedRetAddr]
         call printf_
-        push dword [dword_1999A4]
-        mov ebx, dword [dword_199990]
-        mov ecx, dword [dword_199994]
-        mov edx, dword [dword_199998]
-        mov esi, dword [dword_19999C]
-        mov edi, dword [dword_1999A0]
+        push dword [SavedRetAddr]
+        mov ebx, dword [SavedEbx]
+        mov ecx, dword [SavedEcx]
+        mov edx, dword [SavedEdx]
+        mov esi, dword [SavedEsi]
+        mov edi, dword [SavedEdi]
         ret

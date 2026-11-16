@@ -9,10 +9,10 @@ extern str_Punct11, str_YouMustFirstUseTheSETUPPr, str_SystemBeforeRunningHOCKEY
 extern str_NHL97MustBeInstalledAndRu, str_CDFILEIVIV, str_BitteLegenSieDieNHL97CDIn, str_PleaseInsertTheNHL97CDROM, str_CHK12, str_X12, str_CB003, str_CHKD
 extern str_XD2, str_CB02d, str_N, str_E, str_W, str_S14, str_NW, str_NE
 extern str_SW, str_SE, str_LX02d, str_LC02d, str_UNPACKLOGO, str_LOGO8, str_LX004, str_LC004
-extern str_DisD, str_REL1, str_RELD, str_Ldn2, byte_171C90, byte_1AC818, byte_1AC81B, byte_1C1267
-extern byte_1C6040, close_, dword_16AEB4, dword_16CAB0, dword_16CAB4, dword_16CAF0, dword_16CAF4, dword_16CB78
-extern dword_16CB7C, dword_16CB80, dword_16DA9C, dword_16E464, dword_16E468, dword_16E46C, dword_16E628, dword_16E670
-extern dword_16F184, dword_170710, dword_1AC814, dword_1C5DAC, dword_1C5DB0, dword_1C5DB4, dword_1C5DDC, dword_1C5DE4
+extern str_DisD, str_REL1, str_RELD, str_Ldn2, ShadeTable, StartupFlag, MusicOptions, byte_1C1267
+extern byte_1C6040, close_, dword_16AEB4, dword_16CAB0, dword_16CAB4, str_Punct_DrawScreenBackground, dword_16CAF4, dword_16CB78
+extern dword_16CB7C, dword_16CB80, dword_16DA9C, dword_16E464, dword_16E468, MenuScreenBitmap, DebugMode, ScreenWidth
+extern ExitHandler, KbdHandlerInstalled, GameSettings, dword_1C5DAC, dword_1C5DB0, dword_1C5DB4, dword_1C5DDC, dword_1C5DE4
 extern dword_1C5DE8, dword_1C5E74, dword_1C5E78, dword_1C5E7C, dword_1C5E80, dword_1C5E84, dword_1C5EA0, dword_1C5EA4
 extern dword_1C5EA8, dword_1C5EC4, dword_1C5EC8, dword_1C5ECC, dword_1C5ED0, dword_1C5EEC, dword_1C5EF0, dword_1C5EF4
 extern dword_1C5F08, dword_1C5F0C, dword_1C5F12, dword_1C5F16, dword_1C5F1A, dword_1C5F1E, dword_1C5F22, dword_1C5F26
@@ -21,8 +21,8 @@ extern dword_1C5FAC, dword_1C5FB0, dword_1C5FB6, dword_1C5FBA, dword_1C5FBE, dwo
 extern dword_1C5FFE, dword_1C6002, dword_1C6008, dword_1C600C, dword_1C6010, dword_1C6014, dword_1C6018, dword_1C601C
 extern dword_1C6080, dword_1C6084, dword_1C60C0, dword_1C60C4, dword_1C8184, dword_1C8188, dword_1C818C, dword_1C8190
 extern dword_1C8194, dword_1C8198, dword_1C819C, dword_1C81A0, dword_1C81A4, dword_1C81A8, dword_1C81AC, dword_1C81B0
-extern dword_1C81B4, dword_1C81B8, dword_1C8268, dword_1CF538, dword_1CF548, dword_1CF550, dword_1CF554, dword_1CF5A4
-extern dword_1CF5B0, dword_1CF5B4, dword_1CF5B8, exit_, getcwd_, MainMenuAnim_32E, MainMenuAnim_344, MainMenuAnim_35A
+extern dword_1C81B4, dword_1C81B8, dword_1C8268, TextAlign, LinkTextFont, TextColorIndex, TextColorTable, TextColor
+extern TextShadowColor, TextBuffer, DrawGlyphFn, exit_, getcwd_, MainMenuAnim_32E, MainMenuAnim_344, MainMenuAnim_35A
 extern MainMenuAnim_370, memcpy_, open_, printf_, sprintf_, srand_, strcat_, strcpy_
 extern strlen_, GetPaletteRange, bcopy, BlitConverted, BlitShape2, BlitArt, BlitShape, PresentScreen
 extern FindShape, DrawShapeBlended, ConvertArtNew, ResetClipWindow, Random32, LoadGripLibrary, InitGripDriver, LoadJoystickConfig
@@ -37,8 +37,8 @@ extern KbdGetKey, KbdFlush, MakeColor, MouseInit, SelectFont, FreeBitmap, DrawSh
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRectColor, FillRect, MeasureText, DrawTextAt, SetTextColors
 extern FillRectCorners, DrawGlyph, tickcount, unk_1643C2, unk_16445A, unk_1644A0, unk_1644EF, unk_1645E7
 extern unk_164636, unk_164686, unk_1646D4, unk_164724, unk_16480B, unk_1648DA, unk_16491D, unk_1649E0
-extern unk_164A6A, unk_164B4D, unk_164BFD, unk_164C3F, unk_164C6C, unk_164D67, unk_164F96, unk_16503B
-extern unk_16508B, unk_16518C, unk_165190, unk_16CB30, unk_16E8A0, unk_1C1264, unk_1C12B4, unk_1C5EF8
+extern unk_164A6A, unk_164B4D, unk_164BFD, unk_164C3F, unk_164C6C, unk_164D67, unk_164F96, str_Punct_main_
+extern unk_16508B, str_X, str_S_EditText, unk_16CB30, DebugTagStr, unk_1C1264, unk_1C12B4, unk_1C5EF8
 extern unk_1C5F4A, unk_1C5F9C, unk_1C5FEE, unk_1C6044, unk_1C6104, unk_1C7144, unk_1C81BC
 global jpt_816D8, jpt_845CC, PlayerBioScreen_425, PlayerBioScreen_438, PlayerBioScreen_44A, PlayerBioScreen_45A, main_, CheckDiskSpace
 global DrawShadedButton, DrawShadedField, ShadeShape, DrawShadedLogo, DrawShadowBox, DrawScreenBackground, FadeInScreen, ShowScreen
@@ -227,7 +227,7 @@ main_:
         add esp, byte 4
         cmp eax, 4C4B40h
         jge short .8
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 0Ch
         cmp eax, byte 8
         jne short .5
@@ -255,7 +255,7 @@ main_:
         add esp, byte 4
         test eax, eax
         jne short .12
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 0Ch
         cmp eax, byte 8
         jne short .9
@@ -288,10 +288,10 @@ main_:
         mov dword [dword_1C5DDC], eax
         cmp eax, byte 0FFFFFFFFh
         jne short .16
-        push unk_16503B
+        push str_Punct_main_
         mov byte [byte_1C1267], 0
         call printf_
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 0Ch
         add esp, byte 4
         cmp eax, byte 8
@@ -335,7 +335,7 @@ main_:
         mov byte [byte_1C6040], al
         test al, al
         je short .18
-        and byte [byte_1AC81B], 0F7h
+        and byte [MusicOptions], 0F7h
 .18:
         call InitPlatform
         mov eax, dword [dword_16E468]
@@ -354,15 +354,15 @@ main_:
         movzx eax, byte [byte ebp-02h]
         imul eax, ebx
         call srand_
-        mov dword [dword_16E628], 0
-        mov dword [dword_170710], 0
+        mov dword [DebugMode], 0
+        mov dword [KbdHandlerInstalled], 0
         call InstallErrorHandlers
         call NetInit
         call InitVideoModeList
         call LoadJoystickConfig
         call AllocStaticBuffer
         mov edx, 1
-        movsx eax, byte [byte_1AC818]
+        movsx eax, byte [StartupFlag]
         call OpenAudioStream
         call RunIntro
         call LoadMainSfxBank
@@ -372,7 +372,7 @@ main_:
         call InitGripDriver
         call NetShutdown
         call FreeLangText
-        call dword [dword_16F184]
+        call dword [ExitHandler]
         leave
         pop edx
         pop ecx
@@ -455,7 +455,7 @@ CheckDiskSpace:
         mov dword [byte esp+018h], eax
         test si, 80h
         je short .3
-        mov edx, dword [dword_1CF550]
+        mov edx, dword [TextColorIndex]
         push edx
         mov eax, dword [byte esp+024h]
         push edi
@@ -464,7 +464,7 @@ CheckDiskSpace:
         mov dword [byte esp+0Ch], eax
         call PlotPixelAt
         add esp, byte 0Ch
-        mov eax, dword [dword_1CF554]
+        mov eax, dword [TextColorTable]
         push eax
         mov eax, dword [byte esp+04h]
         push ebp
@@ -475,7 +475,7 @@ CheckDiskSpace:
 .3:
         test si, 40h
         je short .4
-        mov edx, dword [dword_1CF550]
+        mov edx, dword [TextColorIndex]
         mov eax, dword [byte esp+020h]
         push edx
         add eax, ebx
@@ -485,7 +485,7 @@ CheckDiskSpace:
         mov dword [byte esp+0Ch], eax
         call PlotPixelAt
         add esp, byte 0Ch
-        mov eax, dword [dword_1CF554]
+        mov eax, dword [TextColorTable]
         push eax
         mov eax, dword [byte esp+04h]
         push ebp
@@ -496,7 +496,7 @@ CheckDiskSpace:
 .4:
         test si, 20h
         je short .5
-        mov edx, dword [dword_1CF550]
+        mov edx, dword [TextColorIndex]
         mov eax, dword [byte esp+020h]
         push edx
         add eax, ebx
@@ -506,7 +506,7 @@ CheckDiskSpace:
         mov dword [byte esp+0Ch], eax
         call PlotPixelAt
         add esp, byte 0Ch
-        mov eax, dword [dword_1CF554]
+        mov eax, dword [TextColorTable]
         push eax
         mov eax, dword [byte esp+04h]
         push ebp
@@ -517,7 +517,7 @@ CheckDiskSpace:
 .5:
         test si, 10h
         je short .6
-        mov edx, dword [dword_1CF550]
+        mov edx, dword [TextColorIndex]
         mov eax, dword [byte esp+020h]
         push edx
         add eax, ebx
@@ -527,7 +527,7 @@ CheckDiskSpace:
         mov dword [byte esp+0Ch], eax
         call PlotPixelAt
         add esp, byte 0Ch
-        mov eax, dword [dword_1CF554]
+        mov eax, dword [TextColorTable]
         push eax
         mov eax, dword [byte esp+04h]
         push ebp
@@ -538,7 +538,7 @@ CheckDiskSpace:
 .6:
         test si, 8
         je short .7
-        mov edx, dword [dword_1CF550]
+        mov edx, dword [TextColorIndex]
         mov eax, dword [byte esp+020h]
         push edx
         add eax, ebx
@@ -548,7 +548,7 @@ CheckDiskSpace:
         mov dword [byte esp+0Ch], eax
         call PlotPixelAt
         add esp, byte 0Ch
-        mov eax, dword [dword_1CF554]
+        mov eax, dword [TextColorTable]
         push eax
         mov eax, dword [byte esp+04h]
         push ebp
@@ -559,7 +559,7 @@ CheckDiskSpace:
 .7:
         test si, 4
         je short .8
-        mov edx, dword [dword_1CF550]
+        mov edx, dword [TextColorIndex]
         mov eax, dword [byte esp+020h]
         push edx
         add eax, ebx
@@ -569,7 +569,7 @@ CheckDiskSpace:
         mov dword [byte esp+0Ch], eax
         call PlotPixelAt
         add esp, byte 0Ch
-        mov eax, dword [dword_1CF554]
+        mov eax, dword [TextColorTable]
         push eax
         mov eax, dword [byte esp+04h]
         push ebp
@@ -580,7 +580,7 @@ CheckDiskSpace:
 .8:
         test si, 2
         je short .9
-        mov edx, dword [dword_1CF550]
+        mov edx, dword [TextColorIndex]
         mov eax, dword [byte esp+020h]
         push edx
         add eax, ebx
@@ -590,7 +590,7 @@ CheckDiskSpace:
         mov dword [byte esp+0Ch], eax
         call PlotPixelAt
         add esp, byte 0Ch
-        mov eax, dword [dword_1CF554]
+        mov eax, dword [TextColorTable]
         push eax
         mov eax, dword [byte esp+04h]
         push ebp
@@ -601,7 +601,7 @@ CheckDiskSpace:
 .9:
         test si, 1
         je short .10
-        mov edx, dword [dword_1CF550]
+        mov edx, dword [TextColorIndex]
         mov eax, dword [byte esp+020h]
         push edx
         add eax, ebx
@@ -610,7 +610,7 @@ CheckDiskSpace:
         push eax
         call PlotPixelAt
         add esp, byte 0Ch
-        mov ecx, dword [dword_1CF554]
+        mov ecx, dword [TextColorTable]
         push ecx
         push ebp
         mov esi, dword [byte esp+024h]
@@ -657,7 +657,7 @@ DrawShadedButton:
         mov dword [byte esp+038h], ecx
         mov ecx, 0Eh
         mov edi, esp
-        mov esi, dword_16E670
+        mov esi, ScreenWidth
         rep movsd
         mov eax, dword [byte ebp+02Ch]
         mov esi, dword [byte eax+04h]
@@ -757,7 +757,7 @@ DrawShadedField:
         mov ebx, ecx
         mov ecx, 0Eh
         mov edi, esp
-        mov esi, dword_16E670
+        mov esi, ScreenWidth
         rep movsd
         mov eax, dword [byte ebp+02Ch]
         mov edi, dword [byte eax+02h]
@@ -855,7 +855,7 @@ ShadeShape:
         mov ebp, ecx
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         cmp eax, byte 0Fh
         jl near .29
         cmp eax, byte 10h
@@ -863,7 +863,7 @@ ShadeShape:
         mov eax, edx
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         cmp eax, byte 0Fh
         jl near .29
         cmp eax, byte 10h
@@ -1357,7 +1357,7 @@ DrawShadedLogo:
         mov dword [byte esp+024h], ecx
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         cmp eax, byte 0Fh
         jl near .36
         cmp eax, byte 10h
@@ -1365,7 +1365,7 @@ DrawShadedLogo:
         mov eax, edx
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         cmp eax, byte 0Fh
         jl near .36
         cmp eax, byte 10h
@@ -1837,7 +1837,7 @@ DrawShadowBox:
         mov dword [byte esp+0Ch], ecx
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         cmp eax, byte 0Fh
         jl near .21
         cmp eax, byte 10h
@@ -2140,7 +2140,7 @@ DrawScreenBackground:
         mov dword [dword esp+0BCh], ebx
         mov ecx, 0Eh
         mov edi, esp
-        mov esi, dword_16E670
+        mov esi, ScreenWidth
         rep movsd
         push str_CHK12
         mov edx, dword [dword_1C5DE4]
@@ -2473,7 +2473,7 @@ DrawScreenBackground:
         mov dword [dword_1C5F68], eax
         mov eax, dword [dword_1C5EA8]
         mov ebx, 8
-        mov ecx, dword_16CAF0
+        mov ecx, str_Punct_DrawScreenBackground
         mov eax, dword [byte eax+02Ch]
         mov edx, 1A2h
         mov dword [dword_1C5F6C], eax
@@ -2554,7 +2554,7 @@ FadeInScreen:
         sub esp, byte 38h
         mov ecx, 0Eh
         mov edi, esp
-        mov esi, dword_16E670
+        mov esi, ScreenWidth
         mov ebx, 1
         rep movsd
 .1:
@@ -2629,7 +2629,7 @@ ShowScreen:
         sub esp, byte 38h
         mov ecx, 0Eh
         mov edi, esp
-        mov esi, dword_16E670
+        mov esi, ScreenWidth
         mov ebx, 1
         rep movsd
 .1:
@@ -2702,7 +2702,7 @@ ExitScreen:
         sub esp, byte 38h
         mov ecx, 0Eh
         mov edi, esp
-        mov esi, dword_16E670
+        mov esi, ScreenWidth
         push byte 0FFFFFFFFh
         rep movsd
         call MakeColor
@@ -2791,7 +2791,7 @@ DrawEditBox:
         mov edx, ecx
         mov ecx, 0Eh
         mov edi, esp
-        mov esi, dword_16E670
+        mov esi, ScreenWidth
         rep movsd
         mov edi, dword [byte esp+050h]
         push byte 0
@@ -2852,11 +2852,11 @@ SetTextColor:
         cmp eax, dword [dword_1C8268]
         jne short .1
         mov ebx, dword [dword_1C81B8]
-        cmp ebx, dword [dword_1CF5A4]
+        cmp ebx, dword [TextColor]
         je short .4
 .1:
-        mov edx, dword [dword_1CF5B4]
-        mov ecx, dword [dword_16E46C]
+        mov edx, dword [TextBuffer]
+        mov ecx, dword [MenuScreenBitmap]
         mov dword [dword_1C8268], esi
         mov dword [dword_1C81B4], edx
         cmp ecx, byte 8
@@ -2872,7 +2872,7 @@ SetTextColor:
         add esp, byte 8
         mov eax, unk_1C6104
         mov ebx, dword [dword_1C81B4]
-        mov edx, dword [dword_1CF5B0]
+        mov edx, dword [TextShadowColor]
         call memcpy_
         push byte 0
         push esi
@@ -2880,9 +2880,9 @@ SetTextColor:
         mov eax, unk_1C7144
         add esp, byte 8
         mov ebx, dword [dword_1C81B4]
-        mov edx, dword [dword_1CF5B0]
+        mov edx, dword [TextShadowColor]
         call memcpy_
-        mov edx, dword [dword_1CF5A4]
+        mov edx, dword [TextColor]
         mov dword [dword_1C81B8], edx
 .4:
         pop esi
@@ -2938,7 +2938,7 @@ DrawTextAligned:
         sub esi, eax
 .3:
         mov edi, dword [dword esp+0120h]
-        mov ebx, dword [dword_1CF538]
+        mov ebx, dword [TextAlign]
         lea ebp, [byte esi+01h]
         inc edi
         cmp ebx, byte 1
@@ -2967,7 +2967,7 @@ DrawTextAligned:
 .4:
         mov edx, unk_1C6104
         mov ebx, dword [dword_1C81B4]
-        mov eax, dword [dword_1CF5B0]
+        mov eax, dword [TextShadowColor]
         call memcpy_
         push edi
         push ebp
@@ -2977,7 +2977,7 @@ DrawTextAligned:
         mov edx, unk_1C7144
         mov ebx, dword [dword_1C81B4]
         add esp, byte 0Ch
-        mov eax, dword [dword_1CF5B0]
+        mov eax, dword [TextShadowColor]
         mov ecx, dword [dword esp+0120h]
         call memcpy_
         push ecx
@@ -3316,12 +3316,12 @@ MessageBox:
         mov ebx, dword [dword_1C5EF4]
         push ebx
         lea edi, [dword esp+06B4h]
-        mov esi, dword_16E670
+        mov esi, ScreenWidth
         call SelectFont
         mov ecx, DrawGlyph
         mov eax, dword [dword_1C8268]
         add esp, byte 4
-        mov dword [dword_1CF5B8], ecx
+        mov dword [DrawGlyphFn], ecx
         mov ecx, 0Eh
         call SetTextColor
         rep movsd
@@ -3969,7 +3969,7 @@ EditText:
         mov dword [dword esp+0638h], ecx
         mov ebx, 3Ch
         lea edi, [dword esp+0600h]
-        mov esi, dword_16E670
+        mov esi, ScreenWidth
         xor edx, edx
         xor ah, ah
         mov dword [dword esp+0680h], edx
@@ -3992,10 +3992,10 @@ EditText:
         call SelectFont
         add esp, byte 4
         mov eax, dword [dword_1C8268]
-        mov dword [dword_1CF5B8], edi
+        mov dword [DrawGlyphFn], edi
         call SetTextColor
 .1:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 0Ch
         cmp eax, byte 8
         jne short .2
@@ -4083,7 +4083,7 @@ EditText:
         add esp, byte 4
         mov ebx, eax
 .12:
-        push unk_16518C
+        push str_X
         call MeasureText
         add esp, byte 4
         mov edx, dword [dword esp+0658h]
@@ -4223,7 +4223,7 @@ EditText:
         mov byte [dword esp+edx+0500h], al
         lea eax, [dword esp+0500h]
         push eax
-        push unk_165190
+        push str_S_EditText
         push edi
         mov ecx, dword [dword esp+066Ch]
         push ecx
@@ -4256,7 +4256,7 @@ EditText:
         lea eax, [nosplit edx*4+00h]
         add eax, edx
         shl eax, 2
-        push unk_165190
+        push str_S_EditText
         add eax, byte 0Ah
         push eax
         mov eax, dword [dword esp+0648h]
@@ -4287,7 +4287,7 @@ EditText:
         add esp, byte 4
         push eax
         push byte 14h
-        push unk_16518C
+        push str_X
         call MeasureText
         add esp, byte 4
         push eax
@@ -4333,7 +4333,7 @@ EditText:
         call FillRect
         add esp, byte 14h
         push ebp
-        push unk_165190
+        push str_S_EditText
         push ebx
         push edi
         push byte 0
@@ -4347,7 +4347,7 @@ EditText:
         add esp, byte 4
         push eax
         push byte 14h
-        push unk_16518C
+        push str_X
         call MeasureText
         add esp, byte 4
         push eax
@@ -4360,7 +4360,7 @@ EditText:
         add esp, byte 4
         push eax
         push byte 14h
-        push unk_16518C
+        push str_X
         call MeasureText
         add esp, byte 4
         push eax
@@ -4413,7 +4413,7 @@ EditText:
 .27:
         cmp esi, dword [dword esp+0640h]
         jge short .28
-        push unk_16518C
+        push str_X
         call MeasureText
         add esp, byte 4
         mov edx, dword [dword esp+065Ch]
@@ -4501,7 +4501,7 @@ EditText:
         jne near .39
         cmp dword [dword esp+069Ch], byte 0
         je near .39
-        cmp dword [dword_16E46C], byte 8
+        cmp dword [MenuScreenBitmap], byte 8
         jne short .37
         mov eax, 83h
         jmp short .38
@@ -4616,7 +4616,7 @@ LoadTeamLogo:
         add esp, byte 8
         mov edx, 8
         call FindColorRange
-        mov eax, dword [dword_16E46C]
+        mov eax, dword [MenuScreenBitmap]
         push eax
         push str_LOGO8
         mov edx, dword [dword_1C5EF0]
@@ -4871,9 +4871,9 @@ DrawMatchBanner:
         mov ebx, ecx
         mov ecx, 0Eh
         mov edi, esp
-        mov esi, dword_16E670
+        mov esi, ScreenWidth
         rep movsd
-        mov edx, dword [dword_16E46C]
+        mov edx, dword [MenuScreenBitmap]
         push edx
         push eax
         call ConvertArtNew
@@ -4922,7 +4922,7 @@ DrawTeamLogoBanner:
         mov ebx, ecx
         mov ecx, 0Eh
         mov edi, esp
-        mov esi, dword_16E670
+        mov esi, ScreenWidth
         rep movsd
         mov ecx, dword [byte esp+058h]
         call LoadTeamLogo
@@ -5033,7 +5033,7 @@ WipeScreen:
         mov ebx, 1
         mov ecx, 0Eh
         mov edi, esp
-        mov esi, dword_16E670
+        mov esi, ScreenWidth
         mov dword [byte esp+044h], ebx
         rep movsd
         test edx, edx
@@ -5338,7 +5338,7 @@ DrawRosterPanelBox:
         mov dword [byte esp+068h], ecx
         mov ecx, 0Eh
         mov edi, esp
-        mov esi, dword_16E670
+        mov esi, ScreenWidth
         rep movsd
         mov eax, dword [byte ebx+02Ch]
         add eax, byte 10h
@@ -5498,7 +5498,7 @@ DrawEntryList:
         mov dword [dword esp+090h], ecx
         mov ecx, 0Eh
         mov edi, esp
-        mov esi, dword_16E670
+        mov esi, ScreenWidth
         rep movsd
         push str_CHK12
         mov edx, dword [dword_1C5DE4]
@@ -5678,7 +5678,7 @@ DrawEntryList:
         mov dword [dword_1C5F08], ecx
         sub ebp, eax
 .4:
-        mov eax, dword [dword ebx+dword_16CAF0]
+        mov eax, dword [dword ebx+str_Punct_DrawScreenBackground]
         sub eax, esi
         mov dword [dword ebx+dword_1C60C4], eax
         mov eax, dword [dword ebx+dword_16CAF4]
@@ -5730,7 +5730,7 @@ DrawEntryRow:
         mov dword [byte esp+068h], ebx
         mov ecx, 0Eh
         mov edi, esp
-        mov esi, dword_16E670
+        mov esi, ScreenWidth
         rep movsd
         push str_LX004
         mov edx, dword [dword_1C5DE4]
@@ -5813,7 +5813,7 @@ DrawEntryRow:
         sub ebp, eax
         xor eax, eax
 .3:
-        mov ebx, dword [dword eax+dword_16CAF0]
+        mov ebx, dword [dword eax+str_Punct_DrawScreenBackground]
         sub ebx, ebp
         mov dword [dword eax+dword_1C60C4], ebx
         mov ebx, dword [dword eax+dword_16CAF4]
@@ -5927,7 +5927,7 @@ SetNormalText:
         call SelectFont
         add esp, byte 4
         mov eax, dword [dword_1C8268]
-        mov dword [dword_1CF5B8], ebx
+        mov dword [DrawGlyphFn], ebx
         call SetTextColor
         pop edx
         pop ecx
@@ -5991,7 +5991,7 @@ PlayerBioScreen:
         mov edx, 0C8h
         mov eax, 78h
         push byte 0
-        mov esi, dword_16E670
+        mov esi, ScreenWidth
         mov ebp, ebx
         mov dword [dword esp+03C8h], edx
         mov ebx, edx
@@ -6460,13 +6460,13 @@ DrawStatTable:
         mov dword [byte esp+0Ch], edx
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         cmp eax, byte 10h
         jne near .10
         mov eax, edx
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         cmp eax, byte 10h
         jne near .10
         mov eax, dword [byte esp+018h]
@@ -6610,13 +6610,13 @@ DrawStatTable:
         mov dword [esp], edx
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         cmp eax, byte 10h
         jne near .21
         mov eax, edx
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         cmp eax, byte 10h
         jne near .21
         mov eax, dword [byte esp+018h]
@@ -7020,7 +7020,7 @@ DrawPortrait:
         mov eax, edx
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         cmp eax, byte 0Fh
         jl near .19
         cmp eax, byte 10h
@@ -7028,7 +7028,7 @@ DrawPortrait:
         mov eax, esi
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         cmp eax, byte 8
         je short .1
         cmp eax, byte 0Fh
@@ -7135,7 +7135,7 @@ DrawPortrait:
         mov ebx, dword [byte esp+064h]
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         sub ebx, byte 2
         lea edx, [byte esi+010h]
         mov dword [byte esp+054h], ebx
@@ -7964,7 +7964,7 @@ DrawStatHeader:
         mov esi, ecx
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         test ebp, ebp
         je near .19
         cmp eax, byte 0Fh
@@ -8439,7 +8439,7 @@ DrawLinkBox:
         mov edi, edx
         cmp dword [dword_16CB80], byte 0
         jne near .6
-        push unk_16518C
+        push str_X
         call MeasureText
         add esp, byte 4
         push esi
@@ -8450,10 +8450,10 @@ DrawLinkBox:
         mov dword [dword_1C8198], eax
         test eax, eax
         jg short .1
-        push unk_16E8A0
+        push DebugTagStr
         call SelectFont
         add esp, byte 4
-        push unk_16518C
+        push str_X
         call MeasureText
         add esp, byte 4
         push esi
@@ -8463,7 +8463,7 @@ DrawLinkBox:
         add esp, byte 4
         mov dword [dword_1C8198], eax
 .1:
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         lea eax, [nosplit edx*4+00h]
         push byte 0
         sub eax, edx
@@ -8471,7 +8471,7 @@ DrawLinkBox:
         mov ecx, dword [dword_1C8198]
         push ecx
         call CreateBitmap
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         add esp, byte 0Ch
         mov dword [dword_1C8194], eax
         lea eax, [nosplit edx*4+00h]
@@ -8489,7 +8489,7 @@ DrawLinkBox:
         sar eax, 1
         sub edx, eax
         mov dword [dword_1C818C], edx
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
         mov edx, dword [dword_16E468]
@@ -8519,7 +8519,7 @@ DrawLinkBox:
         call PresentScreen
         cmp edi, byte 10h
         jne short .2
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
         xor ecx, ecx
@@ -8567,7 +8567,7 @@ DrawLinkBox:
         push byte 0FFFFFFFFh
         call MakeColor
         add esp, byte 4
-        mov ebx, dword [dword_1CF548]
+        mov ebx, dword [LinkTextFont]
         push eax
         lea eax, [nosplit ebx*4+00h]
         sub eax, ebx
@@ -8582,7 +8582,7 @@ DrawLinkBox:
         add esp, byte 14h
         jmp short .5
 .4:
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         mov ebx, dword [dword_1C8198]
         lea ecx, [nosplit edx*4+00h]
         xor eax, eax
@@ -8595,7 +8595,7 @@ DrawLinkBox:
         add esp, byte 4
         call SetTextColor
         push esi
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         mov eax, dword [dword_1C8198]
         push edx
         sar eax, 1
@@ -8680,7 +8680,7 @@ DrawHighlightBar:
         mov dword [byte esp+0Ch], ecx
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         test ebp, ebp
         je near .17
         cmp eax, byte 0Fh
@@ -9154,7 +9154,7 @@ DrawStatsBackground:
         add esp, byte 8
         sar eax, 10h
         push eax
-        mov esi, dword_16E670
+        mov esi, ScreenWidth
         lea edi, [byte esp+0Ch]
         call CreateBitmap
         mov ecx, 0Eh
@@ -9383,7 +9383,7 @@ ShowStatsScreen:
         sub esp, byte 38h
         mov ecx, 0Eh
         mov edi, esp
-        mov esi, dword_16E670
+        mov esi, ScreenWidth
         rep movsd
         call KbdFlush
         xor esi, esi
@@ -9497,7 +9497,7 @@ DrawListHighlight:
         mov eax, ecx
         mov ecx, 0Eh
         mov edi, esp
-        mov esi, dword_16E670
+        mov esi, ScreenWidth
         rep movsd
         mov edi, eax
         mov eax, dword [byte esp+050h]
@@ -9581,7 +9581,7 @@ ShowLoadingScreen:
         call SelectFont
         add esp, byte 4
         mov eax, dword [dword_1C8268]
-        mov dword [dword_1CF5B8], edi
+        mov dword [DrawGlyphFn], edi
         call SetTextColor
         push byte 0FFFFFFFFh
         call MakeColor
@@ -9676,7 +9676,7 @@ TintPortrait:
         mov dword [byte esp+0Ch], edx
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         cmp eax, byte 0Fh
         jl near .8
         cmp eax, byte 10h
@@ -9684,7 +9684,7 @@ TintPortrait:
         mov eax, edx
         mov eax, dword [eax]
         and eax, byte 7Fh
-        mov al, byte [dword eax+byte_171C90]
+        mov al, byte [dword eax+ShadeTable]
         cmp eax, byte 0Fh
         jl near .8
         cmp eax, byte 10h

@@ -4,24 +4,24 @@ bits 32
 section s_167E98 progbits alloc noexec write align=1
 global str_Ori2, str_PRIMLIST, str_4db, str_DxDxD, str_CmnFrateC, str_FramerateTIMERHZNOTSET, str_Rate2dDAvg2dDD, str_TGV
 global str_MBRAM2, str_MBDOS, str_PATH, str_DOS4GWEXE, str_CS3, str_0123456789abcdef, str_Null, str_0123456789ABCDEF
-global qword_167E9D, qword_167EA5, qword_167EC8, qword_167ED0, qword_167EE0, str_ORIINST
+global F64_0p1_InitModelInstance, F64_1p25_InitModelInstance, F64_0p1_ScaleModelVerts, F64_1p25_ScaleModelVerts, F64_0p5_ReadBits, str_ORIINST
 str_Ori2:
         db 02Eh,06Fh,072h,069h,00h
-qword_167E9D:
+F64_0p1_InitModelInstance:
         db 09Ah,099h,099h,099h,099h,099h,0B9h,03Fh
-qword_167EA5:
+F64_1p25_InitModelInstance:
         db 00h,00h,00h,00h,00h,00h,0F4h,03Fh,00h,00h,00h
 str_ORIINST:
         db 04Fh,052h,049h,05Fh,049h,04Eh,053h,054h,00h,00h,00h,00h
 str_PRIMLIST:
         db 050h,052h,049h,04Dh,04Ch,049h,053h,054h,00h,00h,00h,00h
-qword_167EC8:
+F64_0p1_ScaleModelVerts:
         db 09Ah,099h,099h,099h,099h,099h,0B9h,03Fh
-qword_167ED0:
+F64_1p25_ScaleModelVerts:
         db 00h,00h,00h,00h,00h,00h,0F4h,03Fh
 str_4db:
         db 02Eh,034h,064h,062h,00h,00h,00h,00h
-qword_167EE0:
+F64_0p5_ReadBits:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
 str_DxDxD:
         db 025h,064h,078h,025h,064h,078h,025h,064h,00h,00h,00h,00h

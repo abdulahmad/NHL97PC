@@ -2,11 +2,11 @@
 bits 32
 %include "hockey.inc"
 section s_16CCC4 progbits alloc noexec write align=1
-extern unk_1655AC
+extern str_Error
 global byte_16CCF0, dword_16CCC4, dword_16CCE8, dword_16CCEC, dword_16CCF1, dword_16CCFA, dword_16CCFE, dword_16CD02
 global dword_16CD08, dword_16CD0C, dword_16CD10, dword_16CD14, dword_16CD18, dword_16CD1C, dword_16CD24, dword_16CD28
-global dword_16CD2C, dword_16CD30, dword_16CD34, dword_16CD40, dword_16CD4C, dword_16CD50, dword_16CD54, dword_16CD58
-global dword_16CD60, dword_16CD64, unk_16CCC8, word_16CCF8, word_16CD04, word_16CD20, word_16CD22
+global dword_16CD2C, dword_16CD30, str_3_LoadLangText, dword_16CD40, dword_16CD4C, dword_16CD50, dword_16CD54, dword_16CD58
+global str_F_NewSeasonScreen, dword_16CD64, unk_16CCC8, word_16CCF8, word_16CD04, word_16CD20, word_16CD22
 dword_16CCC4:
         db 0FFh,0FFh,0FFh,0FFh
 unk_16CCC8:
@@ -54,19 +54,19 @@ dword_16CD2C:
         db 00h,00h,00h,00h
 dword_16CD30:
         db 00h,00h,00h,00h
-dword_16CD34:
+str_3_LoadLangText:
         db 033h,00h,00h,00h,034h,00h,00h,00h,035h,00h,00h,00h
 dword_16CD40:
         db 0D6h,00h,00h,00h,0D7h,00h,00h,00h,0D8h,00h,00h,00h
 dword_16CD4C:
-        dd unk_1655AC
+        dd str_Error
 dword_16CD50:
         db 00h,00h,00h,00h
 dword_16CD54:
         db 00h,00h,00h,00h
 dword_16CD58:
         db 00h,00h,00h,00h,00h,00h,00h,00h
-dword_16CD60:
+str_F_NewSeasonScreen:
         db 046h,00h,00h,00h
 dword_16CD64:
         db 09Bh,00h,00h,00h,0A0h,00h,00h,00h,09Bh,00h,00h,00h,0FAh,00h,00h,00h

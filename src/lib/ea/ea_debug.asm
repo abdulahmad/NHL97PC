@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_11AE10 progbits alloc exec nowrite align=1
-extern byte_16E503, byte_16E504, byte_171D33, byte_171D34, dword_1DA394, dword_1DA398, dword_1DA39C, dword_1DA3A0
-extern dword_1DA3A4, dword_1DA3A8, dword_1DA3AC, dword_1DA3B0, FindShape, FindShapeQuiet
+extern QuantizeByte, QuantizeTable, TintByte, TintTable, TintMulGreen, TintMulBlue, TintRowCount, TintPixelGreen
+extern TintPixelBlue, TintMulRed, TintRemapTable, TintPixelRed, FindShape, FindShapeQuiet
 global TintRowPixels, TintRows, TintRect, FindShapeList
 ;-----------------------------------------------------------------------------
 ; TintRowPixels                                  11AE10  97 PC, low confidence
@@ -16,88 +16,88 @@ TintRowPixels:
         push edi
         push ebp
         sub esp, byte 4
-        mov ebx, dword [dword_1DA3AC]
+        mov ebx, dword [TintRemapTable]
         mov esi, edx
         mov edx, eax
         shl eax, 2
         sub eax, edx
         lea ebx, [esi+eax]
         xor eax, eax
-        mov edx, dword [dword_1DA3A8]
+        mov edx, dword [TintMulRed]
         mov al, byte [ebx]
         imul edx
         shrd eax, edx, 10h
         adc eax, byte 0
-        mov dword [dword_1DA3B0], eax
+        mov dword [TintPixelRed], eax
         xor eax, eax
-        mov edx, dword [dword_1DA398]
+        mov edx, dword [TintMulBlue]
         mov al, byte [byte ebx+01h]
         inc ebx
         imul edx
         shrd eax, edx, 10h
         adc eax, byte 0
-        mov dword [dword_1DA3A4], eax
+        mov dword [TintPixelBlue], eax
         xor eax, eax
-        mov edx, dword [dword_1DA394]
+        mov edx, dword [TintMulGreen]
         mov al, byte [byte ebx+01h]
         inc ebx
         imul edx
         shrd eax, edx, 10h
         adc eax, byte 0
-        mov ebx, dword [dword_1DA39C]
+        mov ebx, dword [TintRowCount]
         mov edx, eax
-        mov dword [dword_1DA3A0], eax
+        mov dword [TintPixelGreen], eax
         test ebx, ebx
         je short .1
-        mov eax, dword [dword_1DA3B0]
-        add eax, dword [dword_1DA3A4]
+        mov eax, dword [TintPixelRed]
+        add eax, dword [TintPixelBlue]
         add edx, eax
         mov ebx, 3
         mov eax, edx
         sar edx, 1Fh
         idiv ebx
-        mov dword [dword_1DA3A0], eax
-        mov dword [dword_1DA3A4], eax
-        mov dword [dword_1DA3B0], eax
+        mov dword [TintPixelGreen], eax
+        mov dword [TintPixelBlue], eax
+        mov dword [TintPixelRed], eax
 .1:
-        cmp dword [dword_1DA3A4], byte 3Fh
+        cmp dword [TintPixelBlue], byte 3Fh
         jle short .2
-        mov dword [dword_1DA3A4], 3Fh
+        mov dword [TintPixelBlue], 3Fh
 .2:
-        cmp dword [dword_1DA3B0], byte 3Fh
+        cmp dword [TintPixelRed], byte 3Fh
         jle short .3
-        mov dword [dword_1DA3B0], 3Fh
+        mov dword [TintPixelRed], 3Fh
 .3:
-        cmp dword [dword_1DA3A0], byte 3Fh
+        cmp dword [TintPixelGreen], byte 3Fh
         jle short .4
-        mov dword [dword_1DA3A0], 3Fh
+        mov dword [TintPixelGreen], 3Fh
 .4:
-        cmp dword [dword_1DA39C], byte 0
+        cmp dword [TintRowCount], byte 0
         je short .5
-        mov eax, dword [dword_1DA3B0]
-        mov ebp, dword [dword_1DA3A4]
-        mov edx, dword [dword_1DA3A0]
+        mov eax, dword [TintPixelRed]
+        mov ebp, dword [TintPixelBlue]
+        mov edx, dword [TintPixelGreen]
         add eax, ebp
         add edx, eax
         mov ebx, 3
         mov eax, edx
         sar edx, 1Fh
         idiv ebx
-        mov dword [dword_1DA3A0], eax
-        mov dword [dword_1DA3A4], eax
-        mov dword [dword_1DA3B0], eax
+        mov dword [TintPixelGreen], eax
+        mov dword [TintPixelBlue], eax
+        mov dword [TintPixelRed], eax
 .5:
         mov ecx, 270Fh
         mov ebx, esi
         xor edx, edx
 .6:
-        cmp byte [dword edx+byte_16E504], 0
+        cmp byte [dword edx+QuantizeTable], 0
         jne short .7
         add ebx, byte 3
         jmp short .10
 .7:
         xor eax, eax
-        mov esi, dword [dword_1DA3B0]
+        mov esi, dword [TintPixelRed]
         mov al, byte [ebx]
         sub esi, eax
         mov eax, esi
@@ -109,7 +109,7 @@ TintRowPixels:
         add ebx, byte 2
         jmp short .10
 .8:
-        mov edi, dword [dword_1DA3A4]
+        mov edi, dword [TintPixelBlue]
         movzx esi, byte [ebx]
         sub edi, esi
         mov esi, edi
@@ -122,7 +122,7 @@ TintRowPixels:
         inc ebx
         jmp short .10
 .9:
-        mov edi, dword [dword_1DA3A0]
+        mov edi, dword [TintPixelGreen]
         movzx esi, byte [ebx]
         sub edi, esi
         mov esi, edi
@@ -138,7 +138,7 @@ TintRowPixels:
         cmp edx, 100h
         jl short .6
         mov al, byte [esp]
-        mov dword [dword_1DA3AC], ebx
+        mov dword [TintRemapTable], ebx
         add esp, byte 4
         pop ebp
         pop edi
@@ -159,16 +159,16 @@ TintRows:
         mov edi, dword [byte esp+020h]
         mov ebx, dword [byte esp+010h]
         mov ecx, edi
-        mov dword [dword_1DA3A8], ebx
+        mov dword [TintMulRed], ebx
         mov ebx, dword [byte esp+014h]
         xor edx, edx
-        mov dword [dword_1DA398], ebx
+        mov dword [TintMulBlue], ebx
         mov ebx, dword [byte esp+018h]
-        mov dword [dword_1DA39C], edx
-        mov dword [dword_1DA394], ebx
+        mov dword [TintRowCount], edx
+        mov dword [TintMulGreen], ebx
         xor ebx, ebx
 .1:
-        cmp byte [dword ebx+byte_171D34], 0
+        cmp byte [dword ebx+TintTable], 0
         je short .2
         mov edx, esi
         mov eax, ebx
@@ -213,7 +213,7 @@ TintRect:
         inc eax
         mov bl, byte [edx]
         inc edx
-        mov byte [dword eax+byte_171D33], bl
+        mov byte [dword eax+TintByte], bl
         cmp eax, 100h
         jl short .1
 .2:
@@ -225,7 +225,7 @@ TintRect:
         inc eax
         mov bl, byte [edx]
         inc edx
-        mov byte [dword eax+byte_16E503], bl
+        mov byte [dword eax+QuantizeByte], bl
         cmp eax, 100h
         jl short .3
 .4:

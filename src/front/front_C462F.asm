@@ -4,7 +4,7 @@ bits 32
 section s_C462F progbits alloc exec nowrite align=1
 extern str_BAK0, str_BAK1, str_BOTM3, str_TTL02, str_BAL1, str_ON0D, str_OF0D, str_MB0D
 extern str_MB003, str_MB013, str_MB043, str_MB052, str_CENT, str_LFT02, str_LFT2, str_RIT02
-extern str_RIT2, byte_1AC81A, byte_1AC81B, byte_1C6040, dword_1684C0, dword_1AC819, dword_1CB108, dword_1CB10C
+extern str_RIT2, SfxOptions, MusicOptions, byte_1C6040, GripDriverPtr, AudioOptions, dword_1CB108, dword_1CB10C
 extern dword_1CB11C, dword_1CB128, dword_1CB12C, dword_1CB130, dword_1CB138, dword_1CB13C, dword_1CB140, dword_1CB14C
 extern dword_1CB162, dword_1CB166, dword_1CB16A, dword_1CB16E, dword_1CB172, dword_1CB19A, dword_1CB1F0, dword_1CB1FC
 extern dword_1CB200, dword_1CB206, dword_1CB20A, dword_1CB20E, dword_1CB212, dword_1CB216, dword_1CB242, dword_1CB24E
@@ -27,8 +27,8 @@ extern PresentScreen, FindShape, UpdateOptionsAnim, ConvertArtXY, SetScreenTarge
 extern WaitSoundTime, ChkMenuMusic, PauseMusic, RequestMusicStop, WaitMusicEnd, ArenaFileName, PlayMenuSfx, PlaySfx
 extern LoadDataFile, DrawScreenBackground, FadeInScreen, SetRegionRect, SetTextColor, DrawTextAligned, WipeScreen, ShowPopupScreen
 extern InitMenuItems, RunMenu, DetailLevelScreen, FreeMemBlock, MemFreeSize, MakeColor, FreeBitmap, DrawShapeCore
-extern DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, FillRectCorners, unk_166C97, unk_1C5F4A, unk_1CB148
-extern unk_1CB1EC, unk_1CB23E, word_1684BE
+extern DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, FillRectCorners, str_D_OptionsScreen, unk_1C5F4A, unk_1CB148
+extern unk_1CB1EC, unk_1CB23E, GripPortWord
 global jpt_C4822, OptionsScreen_F0A, OptionsScreen_F22, OptionsScreen_10AA, OptionsScreen_10D0, OptionsScreen_1125, OptionsScreen_117A, OptionsScreen_11CF
 global OptionsScreen_1285, OptionsScreen_12DA, OptionsScreen_1359, OptionsScreen_136C, OptionsScreen_137F, OptionsScreen_13A6, OptionsScreen_140D, OptionsScreen_1431
 global OptionsScreen_1435, OptionsScreen_1439, OptionsScreen_143D, OptionsScreen_1441, OptionsScreen_1447, OptionsScreen_144D, OptionsScreen_1451, OptionsScreen_147B
@@ -270,7 +270,7 @@ OptionsScreen:
         jmp short .6
 .3:
         imul eax, byte 38h
-        mov edx, dword [dword_1684C0]
+        mov edx, dword [GripDriverPtr]
         test byte [edx+eax], 1
         je short .5
         movsx eax, word [byte ebp+07Eh]
@@ -285,7 +285,7 @@ OptionsScreen:
 .5:
         inc ebx
 .6:
-        movzx edx, word [word_1684BE]
+        movzx edx, word [GripPortWord]
         movsx eax, bx
         cmp eax, edx
         jge short .7
@@ -512,7 +512,7 @@ OptionsScreen:
         lea eax, [dword ebp-074Ah]
         mov edx, dword [dword_1CB264]
         call SetRegionRect
-        test byte [byte_1AC81A], 2
+        test byte [SfxOptions], 2
         je short .10
         mov eax, dword [dword_1CB128]
         mov dword [dword_1CB2AA], eax
@@ -541,7 +541,7 @@ OptionsScreen:
         lea eax, [dword ebp-070Ah]
         mov edx, 140h
         call SetRegionRect
-        test byte [byte_1AC81B], 4
+        test byte [MusicOptions], 4
         je short .12
         mov eax, dword [dword_1CB128]
         mov dword [dword_1CB2FC], eax
@@ -570,7 +570,7 @@ OptionsScreen:
         lea eax, [dword ebp-06CAh]
         mov edx, 140h
         call SetRegionRect
-        test byte [byte_1AC81B], 10h
+        test byte [MusicOptions], 10h
         je short .14
         mov eax, dword [dword_1CB128]
         mov dword [dword_1CB34E], eax
@@ -599,7 +599,7 @@ OptionsScreen:
         lea eax, [dword ebp-068Ah]
         mov edx, 140h
         call SetRegionRect
-        test byte [dword_1AC819], 2
+        test byte [AudioOptions], 2
         je short .16
         mov eax, dword [dword_1CB128]
         mov dword [dword_1CB3A0], eax
@@ -628,7 +628,7 @@ OptionsScreen:
         lea eax, [dword ebp-064Ah]
         mov edx, 140h
         call SetRegionRect
-        test byte [byte_1AC81B], 2
+        test byte [MusicOptions], 2
         je short .18
         mov eax, dword [dword_1CB128]
         mov dword [dword_1CB3F2], eax
@@ -657,7 +657,7 @@ OptionsScreen:
         lea eax, [dword ebp-060Ah]
         mov edx, 140h
         call SetRegionRect
-        test byte [byte_1AC81B], 8
+        test byte [MusicOptions], 8
         je short .20
         cmp byte [byte_1C6040], 0
         jne short .20
@@ -1056,7 +1056,7 @@ OptionsScreen:
         movsx eax, word [byte ebp+eax*2+01Eh]
         inc eax
         push eax
-        push unk_166C97
+        push str_D_OptionsScreen
         push dword 13Ah
         push dword 237h
         push byte 1
@@ -1090,14 +1090,14 @@ OptionsScreen:
         push dword [byte eax+02Ch]
         call ConvertArtXY
         mov ecx, 10Dh
-        mov eax, dword [dword_1AC819]
+        mov eax, dword [AudioOptions]
         mov edx, dword [byte ebp+072h]
         shl eax, 17h
         add esp, byte 0Ch
         shr eax, 19h
         call DrawOptionsSlider
         mov ecx, 55h
-        mov eax, dword [dword_1AC819]
+        mov eax, dword [AudioOptions]
         mov edx, dword [byte ebp+072h]
         shl eax, 0Fh
         mov ebx, esi
@@ -1142,7 +1142,7 @@ OptionsScreen:
         movsx eax, word [byte ebp+ebx*2+01Eh]
         inc eax
         push eax
-        push unk_166C97
+        push str_D_OptionsScreen
         push dword 13Ah
         push dword 237h
         push byte 1
@@ -1161,35 +1161,35 @@ OptionsScreen_F0A:
 OptionsScreen_F22:
         mov eax, unk_1CB1EC
         call ShowPopupScreen
-        or byte [byte_1AC81A], 2
-        and dword [dword_1AC819], 0FFFE03FFh
-        or dword [dword_1AC819], 19000h
-        and word [dword_1AC819], 0FE03h
-        or byte [byte_1AC81B], 4
-        or word [dword_1AC819], 190h
-        or byte [byte_1AC81B], 10h
-        or byte [dword_1AC819], 2
-        or byte [byte_1AC81B], 2
+        or byte [SfxOptions], 2
+        and dword [AudioOptions], 0FFFE03FFh
+        or dword [AudioOptions], 19000h
+        and word [AudioOptions], 0FE03h
+        or byte [MusicOptions], 4
+        or word [AudioOptions], 190h
+        or byte [MusicOptions], 10h
+        or byte [AudioOptions], 2
+        or byte [MusicOptions], 2
         cmp byte [byte_1C6040], 0
         jne short .29
-        or byte [byte_1AC81B], 8
+        or byte [MusicOptions], 8
         jmp short .30
 .29:
-        and byte [byte_1AC81B], 0F7h
+        and byte [MusicOptions], 0F7h
 .30:
-        mov eax, dword [dword_1AC819]
+        mov eax, dword [AudioOptions]
         shl eax, 17h
         shr eax, 19h
         cwde
         call SetMusicVolume
-        mov eax, dword [dword_1AC819]
+        mov eax, dword [AudioOptions]
         shl eax, 0Fh
         shr eax, 19h
         cwde
         call SetSfxVolume
         cmp byte [byte_1C6040], 0
         je short .31
-        and byte [byte_1AC81B], 0F7h
+        and byte [MusicOptions], 0F7h
 .31:
         call PauseMusic
         call rand_
@@ -1246,7 +1246,7 @@ OptionsScreen_F22:
         jl short .32
         call SetScreenTarget
         mov ecx, 10Dh
-        mov eax, dword [dword_1AC819]
+        mov eax, dword [AudioOptions]
         mov edx, dword [byte ebp+072h]
         shl eax, 17h
         mov ebx, edi
@@ -1266,14 +1266,14 @@ OptionsScreen_10AA:
         call DrawScreenBackground
         jmp near OptionsScreen_14BA
 OptionsScreen_10D0:
-        test byte [byte_1AC81A], 2
+        test byte [SfxOptions], 2
         je short .37
         mov eax, dword [dword_1CB138]
         mov dword [dword_1CB2AA], eax
         mov eax, dword [dword_1CB13C]
         mov dword [dword_1CB2AE], eax
         mov eax, dword [dword_1CB140]
-        and byte [byte_1AC81A], 0FDh
+        and byte [SfxOptions], 0FDh
 .36:
         mov dword [dword_1CB2B2], eax
         jmp near OptionsScreen_14BA
@@ -1283,17 +1283,17 @@ OptionsScreen_10D0:
         mov eax, dword [dword_1CB12C]
         mov dword [dword_1CB2AE], eax
         mov eax, dword [dword_1CB130]
-        or byte [byte_1AC81A], 2
+        or byte [SfxOptions], 2
         jmp short .36
 OptionsScreen_1125:
-        test byte [byte_1AC81B], 4
+        test byte [MusicOptions], 4
         je short .39
         mov eax, dword [dword_1CB138]
         mov dword [dword_1CB2FC], eax
         mov eax, dword [dword_1CB13C]
         mov dword [dword_1CB300], eax
         mov eax, dword [dword_1CB140]
-        and byte [byte_1AC81B], 0FBh
+        and byte [MusicOptions], 0FBh
 .38:
         mov dword [dword_1CB304], eax
         jmp near OptionsScreen_14BA
@@ -1303,17 +1303,17 @@ OptionsScreen_1125:
         mov eax, dword [dword_1CB12C]
         mov dword [dword_1CB300], eax
         mov eax, dword [dword_1CB130]
-        or byte [byte_1AC81B], 4
+        or byte [MusicOptions], 4
         jmp short .38
 OptionsScreen_117A:
-        test byte [byte_1AC81B], 10h
+        test byte [MusicOptions], 10h
         je short .41
         mov eax, dword [dword_1CB138]
         mov dword [dword_1CB34E], eax
         mov eax, dword [dword_1CB13C]
         mov dword [dword_1CB352], eax
         mov eax, dword [dword_1CB140]
-        and byte [byte_1AC81B], 0EFh
+        and byte [MusicOptions], 0EFh
 .40:
         mov dword [dword_1CB356], eax
         jmp near OptionsScreen_14BA
@@ -1323,17 +1323,17 @@ OptionsScreen_117A:
         mov eax, dword [dword_1CB12C]
         mov dword [dword_1CB352], eax
         mov eax, dword [dword_1CB130]
-        or byte [byte_1AC81B], 10h
+        or byte [MusicOptions], 10h
         jmp short .40
 OptionsScreen_11CF:
-        test byte [dword_1AC819], 2
+        test byte [AudioOptions], 2
         je short .42
         mov eax, dword [dword_1CB138]
         mov dword [dword_1CB3A0], eax
         mov eax, dword [dword_1CB13C]
         mov dword [dword_1CB3A4], eax
         mov eax, dword [dword_1CB140]
-        and byte [dword_1AC819], 0FDh
+        and byte [AudioOptions], 0FDh
         mov dword [dword_1CB3A8], eax
         call WaitMusicEnd
         jmp near OptionsScreen_14BA
@@ -1344,7 +1344,7 @@ OptionsScreen_11CF:
         mov ebx, 2
         mov dword [dword_1CB3A4], eax
         mov eax, dword [dword_1CB130]
-        or byte [dword_1AC819], 2
+        or byte [AudioOptions], 2
         mov dword [dword_1CB3A8], eax
         call PauseMusic
         call rand_
@@ -1371,14 +1371,14 @@ OptionsScreen_11CF:
         call RequestMusicStop
         jmp near OptionsScreen_14BA
 OptionsScreen_1285:
-        test byte [byte_1AC81B], 2
+        test byte [MusicOptions], 2
         je short .44
         mov eax, dword [dword_1CB138]
         mov dword [dword_1CB3F2], eax
         mov eax, dword [dword_1CB13C]
         mov dword [dword_1CB3F6], eax
         mov eax, dword [dword_1CB140]
-        and byte [byte_1AC81B], 0FDh
+        and byte [MusicOptions], 0FDh
 .43:
         mov dword [dword_1CB3FA], eax
         jmp near OptionsScreen_14BA
@@ -1388,22 +1388,22 @@ OptionsScreen_1285:
         mov eax, dword [dword_1CB12C]
         mov dword [dword_1CB3F6], eax
         mov eax, dword [dword_1CB130]
-        or byte [byte_1AC81B], 2
+        or byte [MusicOptions], 2
         jmp short .43
 OptionsScreen_12DA:
         cmp byte [byte_1C6040], 0
         je short .45
-        and byte [byte_1AC81B], 0F7h
+        and byte [MusicOptions], 0F7h
         jmp near OptionsScreen_14BA
 .45:
-        test byte [byte_1AC81B], 8
+        test byte [MusicOptions], 8
         je short .47
         mov eax, dword [dword_1CB138]
         mov dword [dword_1CB444], eax
         mov eax, dword [dword_1CB13C]
         mov dword [dword_1CB448], eax
         mov eax, dword [dword_1CB140]
-        and byte [byte_1AC81B], 0F7h
+        and byte [MusicOptions], 0F7h
 .46:
         mov dword [dword_1CB44C], eax
         jmp near OptionsScreen_14BA
@@ -1418,7 +1418,7 @@ OptionsScreen_12DA:
         mov eax, dword [dword_1CB12C]
         mov dword [dword_1CB448], eax
         mov eax, dword [dword_1CB130]
-        or byte [byte_1AC81B], 8
+        or byte [MusicOptions], 8
         jmp short .46
 OptionsScreen_1359:
         mov dword [byte ebp+07Ah], 1
@@ -1459,7 +1459,7 @@ OptionsScreen_13A6:
         movsx eax, word [byte ebp+eax*2+01Eh]
         inc eax
         push eax
-        push unk_166C97
+        push str_D_OptionsScreen
         push dword 13Ah
         push dword 237h
         push byte 1
@@ -1498,30 +1498,30 @@ OptionsScreen_1447:
 OptionsScreen_144D:
         or ax, 190h
 OptionsScreen_1451:
-        mov dword [dword_1AC819], eax
+        mov dword [AudioOptions], eax
         shl eax, 17h
         shr eax, 19h
         cwde
         mov ebx, edi
         call SetMusicVolume
         call SetScreenTarget
-        mov eax, dword [dword_1AC819]
+        mov eax, dword [AudioOptions]
         mov ecx, 10Dh
         shl eax, 17h
         mov edx, dword [byte ebp+072h]
         jmp short OptionsScreen_147B.51
 OptionsScreen_147B:
         call SetScreenTarget
-        and dword [dword_1AC819], 0FFFE03FFh
+        and dword [AudioOptions], 0FFFE03FFh
 .49:
-        mov eax, dword [dword_1AC819]
+        mov eax, dword [AudioOptions]
         shl eax, 0Fh
         shr eax, 19h
         cwde
         mov ecx, 55h
         call SetSfxVolume
 .50:
-        mov eax, dword [dword_1AC819]
+        mov eax, dword [AudioOptions]
         mov edx, dword [byte ebp+072h]
         shl eax, 0Fh
         mov ebx, esi
@@ -1543,44 +1543,44 @@ OptionsScreen_14BA:
         call RunMenu
         cmp dword [byte ebp+056h], byte 1Fh
         ja short OptionsScreen_14BA
-        mov eax, dword [dword_1AC819]
+        mov eax, dword [AudioOptions]
         mov ebx, dword [byte ebp+056h]
         and ax, 0FE03h
         jmp dword [nosplit cs:ebx*4+jpt_C4822]
 OptionsScreen_14FE:
         call SetScreenTarget
-        and dword [dword_1AC819], 0FFFE03FFh
-        or byte [byte_1AC81A], 3Ch
+        and dword [AudioOptions], 0FFFE03FFh
+        or byte [SfxOptions], 3Ch
         jmp near OptionsScreen_147B.49
 OptionsScreen_1519:
         call SetScreenTarget
-        and dword [dword_1AC819], 0FFFE03FFh
-        or byte [byte_1AC81A], 78h
+        and dword [AudioOptions], 0FFFE03FFh
+        or byte [SfxOptions], 78h
         jmp near OptionsScreen_147B.49
 OptionsScreen_1534:
         call SetScreenTarget
-        and dword [dword_1AC819], 0FFFE03FFh
-        or byte [byte_1AC81A], 0B4h
+        and dword [AudioOptions], 0FFFE03FFh
+        or byte [SfxOptions], 0B4h
         jmp near OptionsScreen_147B.49
 OptionsScreen_154F:
         call SetScreenTarget
-        and dword [dword_1AC819], 0FFFE03FFh
-        or byte [byte_1AC81A], 0F0h
+        and dword [AudioOptions], 0FFFE03FFh
+        or byte [SfxOptions], 0F0h
         jmp near OptionsScreen_147B.49
 OptionsScreen_156A:
         call SetScreenTarget
-        and dword [dword_1AC819], 0FFFE03FFh
-        or dword [dword_1AC819], 12C00h
+        and dword [AudioOptions], 0FFFE03FFh
+        or dword [AudioOptions], 12C00h
         jmp near OptionsScreen_147B.49
 OptionsScreen_1588:
         call SetScreenTarget
-        and dword [dword_1AC819], 0FFFE03FFh
-        or dword [dword_1AC819], 16800h
+        and dword [AudioOptions], 0FFFE03FFh
+        or dword [AudioOptions], 16800h
         jmp near OptionsScreen_147B.49
 OptionsScreen_15A6:
         call SetScreenTarget
-        and dword [dword_1AC819], 0FFFE03FFh
-        or dword [dword_1AC819], 19000h
+        and dword [AudioOptions], 0FFFE03FFh
+        or dword [AudioOptions], 19000h
         jmp near OptionsScreen_147B.49
 .53:
         push dword [byte ebp+06Eh]

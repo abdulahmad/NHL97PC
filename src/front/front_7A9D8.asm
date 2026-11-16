@@ -4,10 +4,10 @@ bits 32
 section s_7A9D8 progbits alloc exec nowrite align=1
 extern str_Roster, str_SS2, str_VIDEO, str_AUDSTRMHACK, str_ATE1Q0X4F1, str_Punct2, str_LogoNames, str_Logo02dQfs
 extern str_Mous2, str_Remo2, str_CHK1, str_X1, str_CB00, str_CB01, str_BACK2, str_LOGO2
-extern atoi_, byte_16C914, byte_16CCF0, byte_1ACF63, byte_1AD458, dword_16C734, dword_16C738, dword_16C75C
+extern atoi_, byte_16C914, byte_16CCF0, byte_1ACF63, byte_1AD458, dword_16C734, dword_16C738, str_1_BuildSeasonSchedule
 extern dword_16C760, dword_16C982, dword_16C996, dword_16C9AC, dword_16C9B0, dword_16CAA8, dword_16CAAC, dword_16CB74
-extern dword_16DA9C, dword_16E4B0, dword_16E698, dword_16E69C, dword_16E6A0, dword_16E6A8, dword_16E6BC, dword_16E6C8
-extern dword_1AC814, dword_1AC940, dword_1ACF46, dword_1AD22A, dword_1AD244, dword_1AD248, dword_1AD24C, dword_1C1200
+extern dword_16DA9C, str_D_UpdateFrameRate, DrawDestBuffer, DrawDestPitch, DrawDestOffset, BackBufferWidth, BackBufferHeight, MovieWidth
+extern GameSettings, SeasonUserTeam, SeasonActive, dword_1AD22A, dword_1AD244, dword_1AD248, dword_1AD24C, dword_1C1200
 extern dword_1C1204, dword_1C1208, dword_1C120C, dword_1C1210, dword_1C1214, dword_1C1218, dword_1C121C, dword_1C1220
 extern dword_1C1224, dword_1C1228, dword_1C122C, dword_1C1230, dword_1C1234, dword_1C1238, dword_1C123C, dword_1C1240
 extern dword_1C1244, dword_1C1248, dword_1C124C, dword_1C1250, dword_1C1254, dword_1C1258, dword_1C125C, dword_1C1260
@@ -25,7 +25,7 @@ extern CreateMenuBitmap, FreeMenuBitmap, SetMenuSelection, LoadLangText, GetLang
 extern RunOptionsScreens, GoalieMaskScreen, CreditsScreen, KeysEqual, OpenGameDatabase, CloseGameDatabase, FindPlayerRecord, FindGameRecord
 extern UpdateGameRecord, AddPlayerStat, AddPlayerStatAt, FindPlayerStat, UpdatePlayerStat, ClearLinkAbort, ServiceIdle, InitVideoModeList
 extern AllocMemBlock, AllocMemData, FreeMemBlock, KbdGetKey, WaitTicks, OpenResourceArchive, MakeColor, FreeBitmap
-extern CreateBitmap, SetDrawTarget, ClearScreen, tickcount, unk_164138, unk_16413C, unk_164150, unk_164158
+extern CreateBitmap, SetDrawTarget, ClearScreen, tickcount, str_T, str_P, str_Punct_ModemSendCommand, str_AT
 extern unk_1C0F00, unk_1C135C, unk_1C347F, word_1C1344
 global BuildSeasonSchedule_77E, FreeTempArt_45, putchar, BuildSeasonSchedule, UpdateTeamLines, BuildRosterLines, PlayerInjuryDays, FindInjuryEntry
 global CheckLeagueInjuries, ClearTeamInjuries, FadeMovieOut, MovieKeyPressed, OpenMovieStream, OpenVideoStream, CloseMovie, DecodeMovieFrame
@@ -47,7 +47,7 @@ BuildSeasonSchedule:
         and eax, 0FFCFFCh
         mov dword [dword_1AD24C], 0
         call srand_
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         movsx eax, word [eax]
         imul eax, dword 194Fh
         push byte 0
@@ -91,7 +91,7 @@ BuildSeasonSchedule:
         jl short .2
         inc dword [byte ebp-08h]
 .4:
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         movsx edx, word [eax]
         cmp edx, dword [byte ebp-08h]
         jg short .1
@@ -115,16 +115,16 @@ BuildSeasonSchedule:
         shl ebx, 3
         add ebx, eax
         mov ecx, dword [dword ebx+dword_16C760]
-        sub ecx, dword [dword ebx+dword_16C75C]
+        sub ecx, dword [dword ebx+str_1_BuildSeasonSchedule]
         je short .6
         call rand_
         cdq
         idiv ecx
-        mov eax, dword [dword ebx+dword_16C75C]
+        mov eax, dword [dword ebx+str_1_BuildSeasonSchedule]
         add eax, edx
         jmp short .7
 .6:
-        mov eax, dword [dword ebx+dword_16C75C]
+        mov eax, dword [dword ebx+str_1_BuildSeasonSchedule]
 .7:
         mov dword [byte ebp-018h], eax
 .8:
@@ -160,7 +160,7 @@ BuildSeasonSchedule:
 .13:
         inc ebx
 .14:
-        mov ecx, dword [dword_1AC940]
+        mov ecx, dword [SeasonUserTeam]
         movsx edx, word [ecx]
         cmp ebx, edx
         jge short .15
@@ -186,7 +186,7 @@ BuildSeasonSchedule:
         imul eax, ecx, byte 7
         cmp dword [dword edx+eax+0D0Ch], byte 0
         jne near .29
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         movsx eax, word [byte eax+02h]
         mov esi, 0Dh
         cdq
@@ -217,14 +217,14 @@ BuildSeasonSchedule:
 .20:
         test eax, eax
         jle short .21
-        mov edi, dword [dword_1AC940]
+        mov edi, dword [SeasonUserTeam]
         movsx edx, word [byte edi+02h]
         cmp esi, edx
         jl short .17
 .21:
         imul edi, ecx, byte 7
         dec esi
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         mov edx, esi
         mov eax, dword [byte eax+020h]
         shl edx, 4
@@ -255,7 +255,7 @@ BuildSeasonSchedule:
         movzx eax, dl
         mov edi, dword [dword edi+0D0Ch]
         add edi, eax
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         movsx edx, word [byte eax+02h]
         shl edx, 4
         mov eax, dword [byte eax+020h]
@@ -287,7 +287,7 @@ BuildSeasonSchedule:
         add edi, edx
         mov dword [byte ebp-028h], edi
         mov edx, esi
-        mov edi, dword [dword_1AC940]
+        mov edi, dword [SeasonUserTeam]
         shl edx, 4
         mov edi, dword [byte edi+020h]
         add edi, edx
@@ -301,7 +301,7 @@ BuildSeasonSchedule:
 .24:
         inc esi
 .25:
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         movsx edx, word [byte eax+02h]
         cmp esi, edx
         jge short .26
@@ -351,7 +351,7 @@ BuildSeasonSchedule:
 .31:
         inc dword [byte ebp-08h]
 .32:
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         movsx eax, word [byte eax+02h]
         imul eax, byte 78h
         mov ebx, 410h
@@ -423,7 +423,7 @@ BuildSeasonSchedule:
 .40:
         inc ebx
 .41:
-        mov ecx, dword [dword_1AC940]
+        mov ecx, dword [SeasonUserTeam]
         movsx edx, word [ecx]
         cmp ebx, edx
         jge short .42
@@ -441,7 +441,7 @@ BuildSeasonSchedule:
         imul eax, ecx, byte 7
         cmp dword [dword edx+eax+0D0Ch], byte 0
         jne near .59
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         movsx eax, word [byte eax+02h]
         mov esi, 0Dh
         cdq
@@ -472,13 +472,13 @@ BuildSeasonSchedule:
 .47:
         test eax, eax
         jle short .48
-        mov edi, dword [dword_1AC940]
+        mov edi, dword [SeasonUserTeam]
         movsx edx, word [byte edi+02h]
         cmp esi, edx
         jl short .44
 .48:
         dec esi
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         mov edx, esi
         mov eax, dword [byte eax+020h]
         shl edx, 4
@@ -497,7 +497,7 @@ BuildSeasonSchedule:
         mov byte [dword eax+0D11h], dl
         movzx edx, dl
         add edx, dword [dword eax+0D0Ch]
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         movsx edi, word [byte eax+02h]
         mov eax, dword [byte eax+020h]
         shl edi, 4
@@ -531,7 +531,7 @@ BuildSeasonSchedule:
         add edi, edx
         mov dword [byte ebp-028h], edi
         mov edx, esi
-        mov edi, dword [dword_1AC940]
+        mov edi, dword [SeasonUserTeam]
         shl edx, 4
         mov edi, dword [byte edi+020h]
         add edi, edx
@@ -545,7 +545,7 @@ BuildSeasonSchedule:
 .51:
         inc esi
 .52:
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         movsx edx, word [byte eax+02h]
         cmp esi, edx
         jge short .53
@@ -624,7 +624,7 @@ BuildSeasonSchedule:
 .61:
         inc dword [byte ebp-08h]
 .62:
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         movsx eax, word [byte eax+02h]
         imul eax, byte 78h
         mov ebx, 410h
@@ -640,7 +640,7 @@ BuildSeasonSchedule:
         inc dword [byte ebp-08h]
         call UpdateGameRecord
 .64:
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         movsx eax, word [eax]
         cmp eax, dword [byte ebp-08h]
         jg short .63
@@ -815,11 +815,11 @@ UpdateTeamLines:
         call KeysEqual
         test eax, eax
         je short .15
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .13
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         jne short .13
         imul eax, ecx, byte 1Ch
         cmp byte [dword eax+byte_1ACF63], 0
@@ -834,7 +834,7 @@ UpdateTeamLines:
 .15:
         inc ecx
 .16:
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         movsx edx, word [eax]
         cmp ecx, edx
         jl short .12
@@ -943,7 +943,7 @@ BuildRosterLines:
         push edi
         enter 10h, 0
         push eax
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         mov dword [byte ebp-04h], 0FFFFFFFFh
         xor esi, esi
         movsx ebx, word [byte eax+02h]
@@ -952,7 +952,7 @@ BuildRosterLines:
 .1:
         mov edx, ebx
         shl edx, 4
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         mov dword [byte ebp-08h], edx
         mov edx, dword [byte eax+020h]
         add edx, dword [byte ebp-08h]
@@ -964,7 +964,7 @@ BuildRosterLines:
         call KeysEqual
         test eax, eax
         jne short .2
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         mov edx, dword [byte eax+020h]
         add edx, dword [byte ebp-08h]
         movsx edx, byte [byte edx+01h]
@@ -977,7 +977,7 @@ BuildRosterLines:
         je short .3
 .2:
         mov edx, ebx
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         shl edx, 4
         mov eax, dword [byte eax+020h]
         add eax, edx
@@ -1040,11 +1040,11 @@ BuildRosterLines:
         call KeysEqual
         test eax, eax
         je short .13
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .11
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         jne short .11
         imul eax, ebx, byte 1Ch
         cmp byte [dword eax+byte_1ACF63], 0
@@ -1059,7 +1059,7 @@ BuildRosterLines:
 .13:
         inc ebx
 .14:
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         movsx edx, word [eax]
         cmp ebx, edx
         jl short .10
@@ -1162,14 +1162,14 @@ BuildRosterLines:
         enter 8, 0
         mov ecx, eax
         mov dword [byte ebp-08h], edx
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         movsx ebx, word [byte eax+02h]
         mov esi, 0FFFFFFFFh
         jmp short .22
 .20:
         mov edx, ebx
         shl edx, 4
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         mov dword [byte ebp-04h], edx
         mov edx, dword [byte eax+020h]
         add edx, dword [byte ebp-04h]
@@ -1181,7 +1181,7 @@ BuildRosterLines:
         call KeysEqual
         test eax, eax
         jne short .21
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         mov edx, dword [byte eax+020h]
         add edx, dword [byte ebp-04h]
         movsx edx, byte [edx]
@@ -1194,7 +1194,7 @@ BuildRosterLines:
         je short .22
 .21:
         mov edx, ebx
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         shl edx, 4
         mov eax, dword [byte eax+020h]
         add eax, edx
@@ -1283,7 +1283,7 @@ CheckLeagueInjuries:
         shl ebx, 4
         cmp dword [byte ebp+07Eh], byte 0
         je short .2
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         mov edx, dword [byte eax+020h]
         movsx ebx, byte [edx+ebx]
         mov edx, ebx
@@ -1294,7 +1294,7 @@ CheckLeagueInjuries:
         mov dword [byte ebp+07Ah], unk_1C135C
         jmp short .3
 .2:
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         mov edx, dword [byte eax+020h]
         movsx ebx, byte [byte edx+ebx+01h]
         mov edx, ebx
@@ -1305,11 +1305,11 @@ CheckLeagueInjuries:
         mov dword [byte ebp+07Ah], unk_1C347F
 .3:
         call FindGameRecord
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .4
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         jne short .4
         imul ebx, byte 1Ch
         cmp byte [dword ebx+byte_1ACF63], 0
@@ -1343,7 +1343,7 @@ CheckLeagueInjuries:
         add eax, byte 18h
         call FindPlayerRecord
         movzx edx, byte [dword ebx+ebp-0D3Dh]
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         add edx, dword [dword ebx+ebp-0D42h]
         movsx ebx, word [byte eax+02h]
         shl ebx, 4
@@ -1564,18 +1564,18 @@ FadeMovieOut:
         db 08Dh,040h,00h
         push ecx
         push edx
-        mov eax, dword [dword_16E6C8]
+        mov eax, dword [MovieWidth]
         add eax, eax
         push eax
-        push dword_16E6A8
+        push BackBufferWidth
         call CloseVideoWindow
-        mov eax, dword [dword_16E6BC]
+        mov eax, dword [BackBufferHeight]
         mov edx, eax
         sar edx, 1Fh
         LD sub, eax, edx
         sar eax, 1
         add esp, byte 8
-        mov dword [dword_16E6BC], eax
+        mov dword [BackBufferHeight], eax
         pop edx
         pop ecx
         ret
@@ -1838,16 +1838,16 @@ CloseMovie:
         push edi
         mov dword [dword_1C1208], esi
         call FreeBitmap
-        mov eax, dword [dword_16E6C8]
+        mov eax, dword [MovieWidth]
         add esp, byte 4
         shr eax, 1
         push eax
-        push dword_16E6A8
+        push BackBufferWidth
         call CloseVideoWindow
-        mov ebp, dword [dword_16E6BC]
+        mov ebp, dword [BackBufferHeight]
         add ebp, ebp
         add esp, byte 8
-        mov dword [dword_16E6BC], ebp
+        mov dword [BackBufferHeight], ebp
         pop ebp
         pop edi
         pop esi
@@ -1894,11 +1894,11 @@ DecodeMovieFrame:
         push dword 4C0h
         mov ebx, ebp
         mov eax, esi
-        mov edx, dword [dword_16E6A0]
+        mov edx, dword [DrawDestOffset]
         mov eax, dword [edx+eax*4]
-        mov edx, dword [dword_16E698]
+        mov edx, dword [DrawDestBuffer]
         add eax, dword [edx+ebx*4]
-        add eax, dword [dword_16E69C]
+        add eax, dword [DrawDestPitch]
         push eax
         push edi
         call DecodeVideoFrame
@@ -1908,11 +1908,11 @@ DecodeMovieFrame:
         push dword 4C0h
         mov ebx, ebp
         mov eax, esi
-        mov edx, dword [dword_16E6A0]
+        mov edx, dword [DrawDestOffset]
         mov eax, dword [edx+eax*4]
-        mov edx, dword [dword_16E698]
+        mov edx, dword [DrawDestBuffer]
         add eax, dword [edx+ebx*4]
-        add eax, dword [dword_16E69C]
+        add eax, dword [DrawDestPitch]
         push eax
         push edi
         call DecodeVideoChunk
@@ -2283,17 +2283,17 @@ PlayMovie:
         call ClearScreen
         add esp, byte 4
         call PresentScreen
-        mov eax, dword [dword_16E6C8]
+        mov eax, dword [MovieWidth]
         add eax, eax
         push eax
-        push dword_16E6A8
+        push BackBufferWidth
         call CloseVideoWindow
-        mov eax, dword [dword_16E6BC]
+        mov eax, dword [BackBufferHeight]
         mov edx, eax
         sar edx, 1Fh
         LD sub, eax, edx
         sar eax, 1
-        mov dword [dword_16E6BC], eax
+        mov dword [BackBufferHeight], eax
         mov eax, dword [dword_16DA9C]
         add esp, byte 8
         test eax, eax
@@ -2447,7 +2447,7 @@ ModemReset:
         pop ebx
         ret
 .2:
-        mov eax, dword [dword_16E4B0]
+        mov eax, dword [str_D_UpdateFrameRate]
         add eax, eax
         push eax
         push esi
@@ -2467,7 +2467,7 @@ ModemReset:
         pop ebx
         ret
 .3:
-        mov eax, dword [dword_16E4B0]
+        mov eax, dword [str_D_UpdateFrameRate]
         add eax, eax
         push eax
         push esi
@@ -2506,7 +2506,7 @@ ModemHangup:
         pop ebx
         ret
 .2:
-        mov eax, dword [dword_16E4B0]
+        mov eax, dword [str_D_UpdateFrameRate]
         add eax, eax
         push eax
         push ecx
@@ -2555,10 +2555,10 @@ ModemDial:
         call strcpy_
         cmp dword [byte esp+068h], byte 0
         je short .1
-        mov edx, unk_164138
+        mov edx, str_T
         jmp short .2
 .1:
-        mov edx, unk_16413C
+        mov edx, str_P
 .2:
         mov eax, esp
         call strcat_
@@ -2586,7 +2586,7 @@ ModemDial:
         call ModemAttention
         mov eax, esi
         call ModemSendCommand
-        mov eax, dword [dword_16E4B0]
+        mov eax, dword [str_D_UpdateFrameRate]
         add eax, eax
         push eax
         push esi
@@ -2628,7 +2628,7 @@ ModemAutoAnswer:
 ; an error, else the result code (1 / 5 / 10+ = CONNECT at some speed)
 ;-----------------------------------------------------------------------------
 ModemWaitConnect:
-        mov eax, dword [dword_16E4B0]
+        mov eax, dword [str_D_UpdateFrameRate]
         mov edx, eax
         sar edx, 1Fh
         shl edx, 2
@@ -2849,7 +2849,7 @@ ModemSendCommand:
         push esi
         call SerialWrite
         add esp, byte 0Ch
-        push unk_164150
+        push str_Punct_ModemSendCommand
         push byte 1
         push esi
         call SerialWrite
@@ -2912,12 +2912,12 @@ ModemAttention:
         mov ebx, ebp
         call WaitTicks
         add esp, byte 4
-        mov edx, unk_164158
+        mov edx, str_AT
         mov eax, esi
         call ModemSendCommand
         test eax, eax
         je short .2
-        mov eax, dword [dword_16E4B0]
+        mov eax, dword [str_D_UpdateFrameRate]
         add eax, eax
         push eax
         push esi
@@ -2956,7 +2956,7 @@ ModemSpeakerOff:
         mov eax, ecx
         xor ebx, ebx
         call ModemSendCommand
-        mov eax, dword [dword_16E4B0]
+        mov eax, dword [str_D_UpdateFrameRate]
         add eax, eax
         push eax
         push ecx
@@ -3109,7 +3109,7 @@ InitFrontEnd:
         call CreateMenuBitmap
         mov eax, 100h
         call SetMenuSelection
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         shl eax, 1Ch
         shr eax, 1Eh
         call LoadLangText

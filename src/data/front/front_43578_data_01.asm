@@ -3,8 +3,8 @@ bits 32
 %include "hockey.inc"
 section s_160D70 progbits alloc noexec write align=1
 global str_03dDAT, str_03dHDR, str_TEMPBANK, str_EVENTDAT, str_CBANK03dHDR, str_TEAM04dHDR, str_PBP, str_Mous
-global str_Remo, str_PlayByPlayNeedsToBeInstal, str_PlayByPlayNeedsToBeInstal2, str_InstallingPlayByPlay, str_CarrySS, str_GKSF, str_SPEECH, qword_161173
-global qword_16117B, qword_161183, qword_16118B, unk_160DD4, unk_160E8C, unk_160FD4, unk_161068
+global str_Remo, str_PlayByPlayNeedsToBeInstal, str_PlayByPlayNeedsToBeInstal2, str_InstallingPlayByPlay, str_CarrySS, str_GKSF, str_SPEECH, F64_0p5_SayShotCall
+global F64_0p5_SaySaveCall, F64_0p5_SayPlayerCall, F64_0p5_SayRandomFiller, unk_160DD4, unk_160E8C, unk_160FD4, unk_161068
 str_03dDAT:
         db 025h,030h,033h,064h,02Eh,044h,041h,054h,00h,00h,00h,00h
 str_03dHDR:
@@ -91,13 +91,13 @@ str_PlayByPlayNeedsToBeInstal2:
 str_InstallingPlayByPlay:
         db 049h,06Eh,073h,074h,061h,06Ch,06Ch,069h,06Eh,067h,020h,050h,06Ch,061h,079h,02Dh
         db 062h,079h,02Dh,050h,06Ch,061h,079h,02Eh,02Eh,02Eh,00h
-qword_161173:
+F64_0p5_SayShotCall:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-qword_16117B:
+F64_0p5_SaySaveCall:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-qword_161183:
+F64_0p5_SayPlayerCall:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-qword_16118B:
+F64_0p5_SayRandomFiller:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh,00h
 str_CarrySS:
         db 043h,061h,072h,072h,079h,020h,025h,073h,02Dh,03Eh,025h,073h,00h,00h,00h,00h

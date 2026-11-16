@@ -7,8 +7,8 @@ global str_BB012, str_BB02, str_BB052, str_KMB4, str_KMB5, str_KMBD, str_TOP02, 
 global str_MID1, str_BL0D, str_BR0D, str_BL01, str_BR012, str_TL01, str_TR012, str_Mous5
 global str_BOX0, str_BOX1, str_BB03, str_BB042, str_KMB0, str_KMB1, str_S13, str_TB012
 global str_TB002, str_TB032, str_TB022, str_GLWD, str_SCRB, str_Mous6, str_Remo4, str_D02dD
-global str_D02dD2, dword_167A3B, dword_167A3F, dword_167A43, dword_167A47, qword_167A33, str_TR0D, unk_167A1A
-global unk_167A4B
+global str_D02dD2, F32_3_DrawPauseButton, F32_4_DrawPauseButton, F32_3_DrawMenuItem, F32_4_DrawMenuItem, F64_65536_LoadPauseArt, str_TR0D, str_S_DrawControlKey
+global str_D_DrawPauseClock
 str_LTDA:
         db 04Ch,054h,025h,064h,041h,00h
 str_LTDB:
@@ -81,7 +81,7 @@ str_TB032:
         db 054h,042h,030h,033h,00h
 str_TB022:
         db 054h,042h,030h,032h,00h
-unk_167A1A:
+str_S_DrawControlKey:
         db 025h,073h,00h
 str_GLWD:
         db 047h,04Ch,057h,025h,064h,00h,00h
@@ -91,17 +91,17 @@ str_Mous6:
         db 06Dh,06Fh,075h,073h,00h
 str_Remo4:
         db 072h,065h,06Dh,06Fh,00h
-qword_167A33:
+F64_65536_LoadPauseArt:
         db 00h,00h,00h,00h,00h,00h,0F0h,040h
-dword_167A3B:
+F32_3_DrawPauseButton:
         db 00h,00h,040h,040h
-dword_167A3F:
+F32_4_DrawPauseButton:
         db 00h,00h,080h,040h
-dword_167A43:
+F32_3_DrawMenuItem:
         db 00h,00h,040h,040h
-dword_167A47:
+F32_4_DrawMenuItem:
         db 00h,00h,080h,040h
-unk_167A4B:
+str_D_DrawPauseClock:
         db 025h,064h,00h
 str_D02dD:
         db 020h,025h,064h,03Ah,025h,030h,032h,064h,02Eh,025h,064h,00h

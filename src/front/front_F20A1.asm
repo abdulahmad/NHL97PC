@@ -3,31 +3,31 @@ bits 32
 %include "hockey.inc"
 section s_F20A1 progbits alloc exec nowrite align=1
 extern SortCords, __CHP, str_Mous6, str_Remo4, str_D02dD, str_D02dD2, str_CB0D, str_CB002
-extern str_Chat, str_SS15, str_D4, byte_168930, byte_19CBC2, byte_1AC81B, byte_1AC81C, byte_1AD23E
-extern byte_1C135A, byte_1C135B, dword_167A3B, dword_167A3F, dword_167A43, dword_167A47, dword_167A85, dword_167A89
-extern dword_167A8D, dword_167A91, dword_167A95, dword_167A99, dword_167A9D, dword_167AA1, dword_167AA5, dword_167AA9
-extern dword_167AAD, dword_167AE1, dword_167AE5, dword_167AE9, dword_167AED, dword_167AF1, dword_167AF5, dword_167AF9
-extern dword_167AFD, dword_167B01, dword_167B05, dword_167B09, dword_167B0D, dword_167B11, dword_167B15, dword_167B19
-extern dword_167B2D, dword_167B31, dword_167B35, dword_167B39, dword_167B3D, dword_167B41, dword_167B45, dword_167B49
-extern dword_167B4D, dword_167B51, dword_167B55, dword_167B59, dword_167B5D, dword_167B61, dword_167B65, dword_167B71
-extern dword_167B75, dword_167B81, dword_167B8B, dword_167B97, dword_167B9B, dword_167BA7, dword_167BC3, dword_167BC7
-extern dword_167BCB, dword_167BCF, dword_167BD3, dword_167BD7, dword_167BDB, dword_167BDF, dword_167BE3, dword_167BE7
-extern dword_167BEB, dword_167BEF, dword_167BF3, dword_167BF7, dword_167BFB, dword_167BFF, dword_167C03, dword_167C07
-extern dword_167C0B, dword_167C0F, dword_167C13, dword_167C17, dword_167C1B, dword_167C1F, dword_167C23, dword_167C2F
-extern dword_167C33, dword_167C37, dword_167C3B, dword_167C3F, dword_167C43, dword_167C47, dword_167C4B, dword_167C5F
-extern dword_167C63, dword_167C67, dword_167C6B, dword_167C6F, dword_167C73, dword_167C77, dword_167C7B, dword_167C7F
-extern dword_167C83, dword_167C87, dword_167C8B, dword_167C8F, dword_167C93, dword_167C97, dword_167C9B, dword_167C9F
-extern dword_167CA3, dword_167CA7, dword_167CAB, dword_167CAF, dword_167CB3, dword_167CB7, dword_167CBB, dword_167CBF
-extern dword_167CC3, dword_167CC7, dword_167CD3, dword_167CD7, dword_167CDB, dword_167CDF, dword_167CE3, dword_167CE7
-extern dword_1686C0, InGameMenuRequest, dword_16AF3C, dword_16AF40, dword_16AF44, dword_16AF48, dword_16AF50, dword_16AF54
+extern str_Chat, str_SS15, str_D4, IntermissionActive, gmode, MusicOptions, DetailLevel, byte_1AD23E
+extern byte_1C135A, byte_1C135B, F32_3_DrawPauseButton, F32_4_DrawPauseButton, F32_3_DrawMenuItem, F32_4_DrawMenuItem, F32_12_DrawPauseButtons, F32_100_DrawPauseButtons
+extern F32_155, F32_10_DrawPauseButtons, F32_165, F32_129, F32_117, F32_105, F32_141, F32_153
+extern F32_178, F32_40_PickEditLinesTeam, F32_130, F32_0p5_PickEditLinesTeam, F32_55, F32_150, F32_50_PickEditLinesTeam, F32_10_PickEditLinesTeam
+extern F32_5, F32_75, F32_65, F32_7_PickEditLinesTeam, F32_90, F32_20_PickEditLinesTeam, F32_28, F32_36
+extern F32_40_ConfirmQuitGame, F32_120_ConfirmQuitGame, F32_0p5_ConfirmQuitGame, F32_45, F32_200_ConfirmQuitGame, F32_13, F32_5_ConfirmQuitGame, F32_100_ConfirmQuitGame
+extern F32_60, F32_10_ConfirmQuitGame, F32_35, F32_30_ConfirmQuitGame, F32_80_ConfirmQuitGame, F32_20_ConfirmQuitGame, F32_0p005_SetupPauseButtons, F32_0p003125_SetupPauseButtons
+extern F32_0p005_PauseMenu, F32_0p003125_PauseMenu, F32_0p005_DrawIntermissionTitle, F32_0p003125_DrawIntermissionTitle, F32_0p005_RunPauseIntermission, F32_0p003125_RunPauseIntermission, F32_10_RulesMenu, F32_180_RulesMenu
+extern F32_130_RulesMenu, F32_90_RulesMenu, F32_20_RulesMenu, F32_30_RulesMenu, F32_70, F32_8_RulesMenu, F32_47, F32_64
+extern F32_81, F32_98_RulesMenu, F32_115, F32_132, F32_149, F32_178_RulesMenu, F32_5_RulesMenu, F32_19
+extern F32_36_RulesMenu, F32_53, F32_87, F32_104, F32_121, F32_138, F32_0p005_RulesMenu, F32_0p003125_RulesMenu
+extern F32_9, F32_145, F32_100_RulesMenu, F32_85, F32_55_RulesMenu, F32_40_RulesMenu, F32_25, F32_10_DetailLevelMenu
+extern F32_180_DetailLevelMenu, F32_130_DetailLevelMenu, F32_90_DetailLevelMenu, F32_9_DetailLevelMenu, F32_70_DetailLevelMenu, F32_30_DetailLevelMenu, F32_20_DetailLevelMenu, F32_47_DetailLevelMenu
+extern F32_64_DetailLevelMenu, F32_81_DetailLevelMenu, F32_98_DetailLevelMenu, F32_115_DetailLevelMenu, F32_132_DetailLevelMenu, F32_178_DetailLevelMenu, F32_5_DetailLevelMenu, F32_19_DetailLevelMenu
+extern F32_36_DetailLevelMenu, F32_53_DetailLevelMenu, F32_87_DetailLevelMenu, F32_104_DetailLevelMenu, F32_121_DetailLevelMenu, F32_37, F32_18, F32_15_DetailLevelMenu
+extern F32_63, F32_0p005_DetailLevelMenu, F32_0p003125_DetailLevelMenu, F32_55_DetailLevelMenu, F32_40_DetailLevelMenu, F32_100_DetailLevelMenu, F32_85_DetailLevelMenu, F32_25_DetailLevelMenu
+extern ClockShown, InGameMenuRequest, dword_16AF3C, dword_16AF40, dword_16AF44, dword_16AF48, dword_16AF50, dword_16AF54
 extern dword_16AF58, dword_16AF5C, dword_16D2BC, dword_16DA9C, dword_16E30C, mousex, mousey, dword_16E464
-extern dword_16E468, dword_16E500, dword_16E69C, dword_19CD10, dword_19CD30, dword_19CD54, dword_19D384, dword_1A8E50
-extern dword_1AC364, dword_1AC814, dword_1AC819, dword_1AC944, dword_1ADC88, dword_1B1410, dword_1B1464, dword_1B8578
+extern dword_16E468, QuantizePalette, DrawDestPitch, dword_19CD10, dword_19CD30, dword_19CD54, ActiveCameraScene, ViewSizeChanged
+extern FadeDone, GameSettings, AudioOptions, GameOptionFlags, dword_1ADC88, dword_1B1410, dword_1B1464, dword_1B8578
 extern dword_1C5DE4, dword_1CEF88, dword_1CEF8C, dword_1CEF90, dword_1CEF94, dword_1CEF98, dword_1CEF9C, dword_1CEFA0
-extern dword_1CEFA4, dword_1CEFA8, dword_1CEFB0, dword_1CEFB4, dword_1CEFB8, dword_1CEFBC, off_16E4E0, qword_167A33
-extern qword_167A75, qword_167A7D, qword_167AB1, qword_167AB9, qword_167AC1, qword_167AC9, qword_167AD1, qword_167AD9
-extern qword_167B1D, qword_167B25, qword_167B69, qword_167B79, qword_167B8F, qword_167B9F, qword_167BB3, qword_167BBB
-extern qword_167C27, qword_167C4F, qword_167C57, qword_167CCB, rand_, sprintf_, sscanf_, GetPaletteRange
+extern dword_1CEFA4, dword_1CEFA8, dword_1CEFB0, dword_1CEFB4, dword_1CEFB8, dword_1CEFBC, PresentFuncInput, F64_65536_LoadPauseArt
+extern F64_0p003125, F64_0p005, F64_200, F64_0p00208333, F64_320, F64_0p0015625, F64_0p003125_PickEditLinesTeam, F64_0p005_PickEditLinesTeam
+extern F64_0p003125_ConfirmQuitGame, F64_0p005_ConfirmQuitGame, F64_0p5_SetupPauseButtons, F64_0p5_PauseMenu, F64_0p5_DrawIntermissionTitle, F64_0p5_RunPauseIntermission, F64_0p003125_RulesMenu, F64_0p005_RulesMenu
+extern F64_0p5_RulesMenu, F64_0p003125_DetailLevelMenu, F64_0p005_DetailLevelMenu, F64_0p5_DetailLevelMenu, rand_, sprintf_, sscanf_, GetPaletteRange
 extern BlitArt, PresentScreen, FindShape, DrawShapeBlended, ConvertArtNew, TranslatePixels, PrintBoxedText, IsPlayoffGame
 extern RefreshPlayerModel, ConvertArtXY, SaveTextState, RestoreTextState, DrawShadowRect, ResetForIntermission, GetCurrentFont, SetTextFont
 extern DrawTitleBand, RefreshRinkPalette, SetScreenTarget, ChangeViewSize, ApplyDisplayFlags, RemoveOverlayPanel, DrawPanelArtScaled, RefreshOverlayWindows
@@ -41,8 +41,8 @@ extern LoadLangTextB, GetLangText, FreeLangText, EditLinesScreen, GameStatsScree
 extern FadePalette, FadeOut, OpenGameDatabase, CloseGameDatabase, ServiceIdle, SyncLinkGame, LinkSyncMenu, LinkSyncScreen
 extern WaitForOtherComputer, SetupPauseArt, FreeMemBlock, OpenResourceArchive, MatchColor, SelectFont, FreeBitmap, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, MeasureText, DrawTextAt, SetTextColors, DrawTextBoxedAt
-extern FillRectCorners, tickcount, unk_167A4B, word_168D18, word_19CBB0, word_19CBB2, gsp, gameclock
-extern word_19CBBC, word_1C3413, word_1C5536, word_1CEFC0
+extern FillRectCorners, tickcount, str_D_DrawPauseClock, PeriodLengths, Period, SimFrames, gsp, gameclock
+extern StatsPanelOn, word_1C3413, word_1C5536, word_1CEFC0
 global jpt_F4167, jpt_F56E5, jpt_F7BB6, PickEditLinesTeam_5B2, PickEditLinesTeam_5B5, PauseMenu_16C, PauseMenu_26F, PauseMenu_29A
 global PauseMenu_4BB, PauseMenu_4EF, PauseMenu_60A, PauseMenu_62A, PauseMenu_640, PauseMenu_66D, PauseMenu_726, PauseMenu_72C
 global PauseMenu_72D, RulesMenu_1583, RulesMenu_176B, RulesMenu_19CD, RulesMenu_1C04, RulesMenu_1D78, RulesMenu_1F1F, RulesMenu_2056
@@ -183,7 +183,7 @@ LoadPauseArt:
         add esp, byte 8
         push byte 0
         push byte 0
-        fmul qword [qword_167A33]
+        fmul qword [F64_65536_LoadPauseArt]
         push eax
         call __CHP
         fistp dword [byte ebp-08h]
@@ -368,9 +368,9 @@ DrawPauseButton:
         push dword 0FFh
         call ClearScreen
         fld dword [byte ebp+024h]
-        fmul dword [dword_167A3B]
+        fmul dword [F32_3_DrawPauseButton]
         fld dword [byte ebp+020h]
-        fmul dword [dword_167A3B]
+        fmul dword [F32_3_DrawPauseButton]
         fld dword [byte ebp+024h]
         fld dword [byte ebp+020h]
         add esp, byte 4
@@ -397,9 +397,9 @@ DrawPauseButton:
         push dword [byte ebp-04h]
         call FillRect
         fld dword [byte ebp+020h]
-        fmul dword [dword_167A3F]
+        fmul dword [F32_4_DrawPauseButton]
         fld dword [byte ebp+024h]
-        fmul dword [dword_167A3F]
+        fmul dword [F32_4_DrawPauseButton]
         add esp, byte 14h
         fxch
         fstp dword [byte ebp-020h]
@@ -527,9 +527,9 @@ DrawMenuItem:
         push dword 0FFh
         call ClearScreen
         fld dword [byte ebp+020h]
-        fmul dword [dword_167A43]
+        fmul dword [F32_3_DrawMenuItem]
         fld dword [byte ebp+01Ch]
-        fmul dword [dword_167A43]
+        fmul dword [F32_3_DrawMenuItem]
         fld dword [byte ebp+020h]
         fld dword [byte ebp+01Ch]
         add esp, byte 4
@@ -557,9 +557,9 @@ DrawMenuItem:
         mov dword [dword_1CEF98], 0
         call FillRect
         fld dword [byte ebp+01Ch]
-        fmul dword [dword_167A47]
+        fmul dword [F32_4_DrawMenuItem]
         fld dword [byte ebp+020h]
-        fmul dword [dword_167A47]
+        fmul dword [F32_4_DrawMenuItem]
         add esp, byte 14h
         fxch
         fstp dword [byte ebp-0Ch]
@@ -706,7 +706,7 @@ DrawPauseClock:
         push eax
         call SaveTextState
         add esp, byte 4
-        push dword [dword_1686C0]
+        push dword [ClockShown]
         call SelectFont
         add esp, byte 4
         push esi
@@ -726,29 +726,29 @@ DrawPauseClock:
         push dword 0F8h
         call SetTextColors
         add esp, byte 8
-        cmp word [word_19CBB2], byte 0
+        cmp word [SimFrames], byte 0
         je short .1
-        cmp word [word_19CBB0], byte 8
+        cmp word [Period], byte 8
         jl short .2
 .1:
-        cmp word [word_19CBB2], byte 0
+        cmp word [SimFrames], byte 0
         jne short .5
-        cmp word [word_19CBB0], byte 9
+        cmp word [Period], byte 9
         jge short .5
 .2:
-        cmp word [word_19CBB2], byte 0
+        cmp word [SimFrames], byte 0
         je short .3
-        test byte [byte_19CBC2], 40h
+        test byte [gmode], 40h
         sete al
         movzx eax, al
         test eax, eax
         je short .3
-        movsx eax, word [word_19CBB0]
+        movsx eax, word [Period]
         inc eax
         inc eax
         jmp short .4
 .3:
-        movsx eax, word [word_19CBB0]
+        movsx eax, word [Period]
         inc eax
 .4:
         push eax
@@ -756,7 +756,7 @@ DrawPauseClock:
 .5:
         push byte 9
 .6:
-        push unk_167A4B
+        push str_D_DrawPauseClock
         lea eax, [byte ebp+07Eh]
         push eax
         call sprintf_
@@ -773,9 +773,9 @@ DrawPauseClock:
         push eax
         call DrawTextBoxedAt
         add esp, byte 0Ch
-        cmp word [word_19CBB2], byte 0
+        cmp word [SimFrames], byte 0
         je near .11
-        test byte [byte_19CBC2], 40h
+        test byte [gmode], 40h
         sete al
         movzx eax, al
         test eax, eax
@@ -785,14 +785,14 @@ DrawPauseClock:
         jne short .7
         cmp word [gsp], byte 2
         jl short .7
-        movsx eax, word [word_168D18]
+        movsx eax, word [PeriodLengths]
         jmp short .8
 .7:
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         shl eax, 13h
         shr eax, 1Eh
-        movsx eax, word [nosplit eax*2+word_168D18]
+        movsx eax, word [nosplit eax*2+PeriodLengths]
 .8:
         mov ebx, 3Ch
         cdq
@@ -825,7 +825,7 @@ DrawPauseClock:
         mov ecx, edx
         cmp ebx, byte 0Ah
         jge short .12
-        movsx eax, word [word_19CBBC]
+        movsx eax, word [StatsPanelOn]
         imul eax, byte 0Ah
         cdq
         shl edx, 4
@@ -836,7 +836,7 @@ DrawPauseClock:
         push ebx
         jmp short .9
 .12:
-        movsx eax, word [word_19CBBC]
+        movsx eax, word [StatsPanelOn]
         imul eax, byte 0Ah
         cdq
         shl edx, 4
@@ -853,7 +853,7 @@ DrawPauseClock:
         add esp, byte 18h
         movzx eax, byte [byte_1C135A]
         push eax
-        push unk_167A4B
+        push str_D_DrawPauseClock
         lea eax, [byte ebp+07Eh]
         push eax
         call sprintf_
@@ -872,7 +872,7 @@ DrawPauseClock:
         add esp, byte 0Ch
         movzx eax, byte [byte_1C135B]
         push eax
-        push unk_167A4B
+        push str_D_DrawPauseClock
         lea eax, [byte ebp+07Eh]
         push eax
         call sprintf_
@@ -891,7 +891,7 @@ DrawPauseClock:
         add esp, byte 0Ch
         movsx eax, word [word_1C3413]
         push eax
-        push unk_167A4B
+        push str_D_DrawPauseClock
         lea eax, [byte ebp+07Eh]
         push eax
         call sprintf_
@@ -910,7 +910,7 @@ DrawPauseClock:
         add esp, byte 0Ch
         movsx eax, word [word_1C5536]
         push eax
-        push unk_167A4B
+        push str_D_DrawPauseClock
         lea eax, [byte ebp+07Eh]
         push eax
         call sprintf_
@@ -984,9 +984,9 @@ DrawPauseButtons:
         push eax
         call SaveTextState
         fild dword [dword_16E464]
-        fmul qword [qword_167A75]
+        fmul qword [F64_0p003125]
         fild dword [dword_16E468]
-        fmul qword [qword_167A7D]
+        fmul qword [F64_0p005]
         add esp, byte 4
         fxch
         fstp dword [byte ebp-08h]
@@ -1021,13 +1021,13 @@ DrawPauseButtons:
         mov eax, 3Ch
         call GetLangText
         fld dword [byte ebp-050h]
-        fmul dword [dword_167A85]
+        fmul dword [F32_12_DrawPauseButtons]
         fld dword [byte ebp-08h]
-        fmul dword [dword_167A89]
+        fmul dword [F32_100_DrawPauseButtons]
         fld dword [byte ebp-050h]
-        fmul dword [dword_167A8D]
+        fmul dword [F32_155]
         fld dword [byte ebp-08h]
-        fmul dword [dword_167A91]
+        fmul dword [F32_10_DrawPauseButtons]
         push eax
         fxch
         call __CHP
@@ -1065,7 +1065,7 @@ DrawPauseButtons:
         mov eax, 38h
         call GetLangText
         fld dword [byte ebp-050h]
-        fmul dword [dword_167A89]
+        fmul dword [F32_100_DrawPauseButtons]
         push eax
         mov ebx, dword [byte ebp-0Ch]
         mov edx, esi
@@ -1078,12 +1078,12 @@ DrawPauseButtons:
         mov eax, dword [byte ebp-018h]
         call DrawPauseButton
         fld dword [byte ebp-050h]
-        fmul dword [dword_167A95]
+        fmul dword [F32_165]
         fld dword [byte ebp-050h]
-        fmul dword [dword_167A99]
+        fmul dword [F32_129]
         fld dword [byte ebp-050h]
         lea eax, [byte esi+054h]
-        fmul dword [dword_167A9D]
+        fmul dword [F32_117]
         mov dword [byte ebp-034h], eax
         fxch st2
         fstp dword [byte ebp-024h]
@@ -1191,13 +1191,13 @@ DrawPauseButtons:
         mov eax, 39h
         call GetLangText
         fld dword [byte ebp-050h]
-        fmul dword [dword_167A85]
+        fmul dword [F32_12_DrawPauseButtons]
         fld dword [byte ebp-08h]
-        fmul dword [dword_167A89]
+        fmul dword [F32_100_DrawPauseButtons]
         fld dword [byte ebp-050h]
-        fmul dword [dword_167AA1]
+        fmul dword [F32_105]
         fld dword [byte ebp-08h]
-        fmul dword [dword_167A91]
+        fmul dword [F32_10_DrawPauseButtons]
         push eax
         fxch
         call __CHP
@@ -1235,7 +1235,7 @@ DrawPauseButtons:
         mov eax, 3Ah
         call GetLangText
         fld dword [byte ebp-050h]
-        fmul dword [dword_167AA5]
+        fmul dword [F32_141]
         push eax
         mov ebx, dword [byte ebp-048h]
         lea edx, [byte esi+018h]
@@ -1253,7 +1253,7 @@ DrawPauseButtons:
         mov eax, 64h
         call GetLangText
         fld dword [byte ebp-050h]
-        fmul dword [dword_167AA9]
+        fmul dword [F32_153]
         push eax
         mov ebx, dword [byte ebp-048h]
         lea edx, [byte esi+060h]
@@ -1271,7 +1271,7 @@ DrawPauseButtons:
         mov eax, 3Eh
         call GetLangText
         fld dword [byte ebp-050h]
-        fmul dword [dword_167AAD]
+        fmul dword [F32_178]
         push eax
         mov ebx, dword [byte ebp-048h]
         lea edx, [byte esi+048h]
@@ -1375,8 +1375,8 @@ DrawPauseButtons:
         push eax
         call FindShape
         fild word [byte eax+06h]
-        fmul qword [qword_167AB1]
-        fmul qword [qword_167AB9]
+        fmul qword [F64_200]
+        fmul qword [F64_0p00208333]
         call __CHP
         fistp dword [byte ebp-04h]
         mov eax, dword [byte ebp-04h]
@@ -1387,8 +1387,8 @@ DrawPauseButtons:
         push dword [dword_1C5DE4]
         call FindShape
         fild word [byte eax+04h]
-        fmul qword [qword_167AC1]
-        fmul qword [qword_167AC9]
+        fmul qword [F64_320]
+        fmul qword [F64_0p0015625]
         mov ebx, 5
         mov edx, 116h
         call __CHP
@@ -1442,7 +1442,7 @@ OpenInGameMenu:
 ;-----------------------------------------------------------------------------
 LoadGameMenuText:
         call FreeLangText
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         shl eax, 1Ch
         shr eax, 1Eh
         call LoadLangTextB
@@ -1463,9 +1463,9 @@ PickEditLinesTeam:
         mov eax, 3
         call InitMenuItems
         fild dword [dword_16E464]
-        fmul qword [qword_167AD1]
+        fmul qword [F64_0p003125_PickEditLinesTeam]
         fild dword [dword_16E468]
-        fmul qword [qword_167AD9]
+        fmul qword [F64_0p005_PickEditLinesTeam]
         fxch
         fstp dword [byte ebp-02Ch]
         fstp dword [byte ebp-018h]
@@ -1476,9 +1476,9 @@ PickEditLinesTeam:
         jmp near .4
 .1:
         fld dword [byte ebp-02Ch]
-        fmul dword [dword_167AE5]
+        fmul dword [F32_130]
         fld dword [byte ebp-018h]
-        fmul dword [dword_167AE1]
+        fmul dword [F32_40_PickEditLinesTeam]
         fxch
         fstp dword [byte ebp-020h]
         fstp dword [byte ebp-024h]
@@ -1490,9 +1490,9 @@ PickEditLinesTeam:
         fxch
         fsub dword [byte ebp-024h]
         fxch
-        fmul dword [dword_167AE9]
+        fmul dword [F32_0p5_PickEditLinesTeam]
         fxch
-        fmul dword [dword_167AE9]
+        fmul dword [F32_0p5_PickEditLinesTeam]
         fxch
         call __CHP
         fxch
@@ -1513,9 +1513,9 @@ PickEditLinesTeam:
         fxch
         fsub dword [byte ebp-024h]
         fxch
-        fmul dword [dword_167AE9]
+        fmul dword [F32_0p5_PickEditLinesTeam]
         fxch
-        fmul dword [dword_167AE9]
+        fmul dword [F32_0p5_PickEditLinesTeam]
         fxch
         call __CHP
         fxch
@@ -1532,15 +1532,15 @@ PickEditLinesTeam:
         cmp di, byte 2
         je short .5
         fld dword [byte ebp-018h]
-        fmul dword [dword_167AF5]
+        fmul dword [F32_50_PickEditLinesTeam]
         fld dword [byte ebp-02Ch]
-        fmul dword [dword_167AE5]
+        fmul dword [F32_130]
         jmp short .6
 .5:
         fld dword [byte ebp-018h]
-        fmul dword [dword_167AED]
+        fmul dword [F32_55]
         fld dword [byte ebp-02Ch]
-        fmul dword [dword_167AF1]
+        fmul dword [F32_150]
 .6:
         push byte 0
         fxch
@@ -1571,7 +1571,7 @@ PickEditLinesTeam:
         jmp short .8
 .7:
         fld dword [byte ebp-02Ch]
-        fmul dword [dword_167AF9]
+        fmul dword [F32_10_PickEditLinesTeam]
         movsx eax, word [byte ebp-0Ch]
         fild word [byte ebp-04h]
         fsubrp
@@ -1598,16 +1598,16 @@ PickEditLinesTeam:
         mov eax, dword [dword_1CEFA0]
         call SetTextColor
         fld dword [byte ebp-018h]
-        fmul dword [dword_167AFD]
+        fmul dword [F32_5]
         fstp dword [byte ebp-028h]
         cmp word [word_1CEFC0], byte 2
         je short .9
         push dword [dword_1CEFB0]
         call SelectFont
         fld dword [byte ebp-018h]
-        fmul dword [dword_167AF5]
+        fmul dword [F32_50_PickEditLinesTeam]
         fld dword [byte ebp-02Ch]
-        fmul dword [dword_167AE5]
+        fmul dword [F32_130]
         add esp, byte 4
         xor edx, edx
         xor eax, eax
@@ -1624,15 +1624,15 @@ PickEditLinesTeam:
         mov eax, 5Ah
         call GetLangText
         fld dword [byte ebp-02Ch]
-        fmul dword [dword_167B05]
+        fmul dword [F32_65]
         jmp short .10
 .9:
         push dword [dword_1CEFB4]
         call SelectFont
         fld dword [byte ebp-018h]
-        fmul dword [dword_167AED]
+        fmul dword [F32_55]
         fld dword [byte ebp-02Ch]
-        fmul dword [dword_167AF1]
+        fmul dword [F32_150]
         add esp, byte 4
         xor edx, edx
         xor eax, eax
@@ -1649,7 +1649,7 @@ PickEditLinesTeam:
         mov eax, 5Ah
         call GetLangText
         fld dword [byte ebp-02Ch]
-        fmul dword [dword_167B01]
+        fmul dword [F32_75]
 .10:
         fld dword [byte ebp-028h]
         push eax
@@ -1674,7 +1674,7 @@ PickEditLinesTeam:
 .11:
         fld dword [byte ebp-02Ch]
         movsx eax, word [byte ebp-0Ch]
-        fmul dword [dword_167AF9]
+        fmul dword [F32_10_PickEditLinesTeam]
         push eax
         fild word [byte ebp-04h]
         fsubrp
@@ -1695,13 +1695,13 @@ PickEditLinesTeam:
         mov eax, 5Ch
         call GetLangText
         fld dword [byte ebp-018h]
-        fmul dword [dword_167B09]
+        fmul dword [F32_7_PickEditLinesTeam]
         fld dword [byte ebp-02Ch]
-        fmul dword [dword_167B0D]
+        fmul dword [F32_90]
         fld dword [byte ebp-018h]
-        fmul dword [dword_167B11]
+        fmul dword [F32_20_PickEditLinesTeam]
         fld dword [byte ebp-02Ch]
-        fmul dword [dword_167AF5]
+        fmul dword [F32_50_PickEditLinesTeam]
         fild word [byte ebp-04h]
         push eax
         fild word [byte ebp-0Ch]
@@ -1746,7 +1746,7 @@ PickEditLinesTeam:
         mov eax, 5Bh
         call GetLangText
         fld dword [byte ebp-018h]
-        fmul dword [dword_167B15]
+        fmul dword [F32_28]
         mov ecx, dword [byte ebp-030h]
         mov edx, dword [byte ebp-010h]
         fadd dword [byte ebp-03Ch]
@@ -1764,7 +1764,7 @@ PickEditLinesTeam:
         mov eax, 73h
         call GetLangText
         fld dword [byte ebp-018h]
-        fmul dword [dword_167B19]
+        fmul dword [F32_36]
         mov ecx, dword [byte ebp-030h]
         mov edx, dword [byte ebp-010h]
         fadd dword [byte ebp-03Ch]
@@ -1835,7 +1835,7 @@ PickEditLinesTeam:
         jmp short .16
 .15:
         fld dword [byte ebp-02Ch]
-        fmul dword [dword_167AF9]
+        fmul dword [F32_10_PickEditLinesTeam]
         movsx eax, word [byte ebp-0Ch]
         fild word [byte ebp-04h]
         fsubrp
@@ -1897,9 +1897,9 @@ ConfirmQuitGame:
         mov eax, 2
         call InitMenuItems
         fild dword [dword_16E464]
-        fmul qword [qword_167B1D]
+        fmul qword [F64_0p003125_ConfirmQuitGame]
         fild dword [dword_16E468]
-        fmul qword [qword_167B25]
+        fmul qword [F64_0p005_ConfirmQuitGame]
         fxch
         fstp dword [byte ebp-018h]
         fstp dword [byte ebp-02Ch]
@@ -1910,9 +1910,9 @@ ConfirmQuitGame:
         jmp short .3
 .1:
         fld dword [byte ebp-018h]
-        fmul dword [dword_167B31]
+        fmul dword [F32_120_ConfirmQuitGame]
         fld dword [byte ebp-02Ch]
-        fmul dword [dword_167B2D]
+        fmul dword [F32_40_ConfirmQuitGame]
         fxch
         fstp dword [byte ebp-020h]
         fstp dword [byte ebp-01Ch]
@@ -1927,9 +1927,9 @@ ConfirmQuitGame:
         fxch
         fsub dword [byte ebp-01Ch]
         fxch
-        fmul dword [dword_167B35]
+        fmul dword [F32_0p5_ConfirmQuitGame]
         fxch
-        fmul dword [dword_167B35]
+        fmul dword [F32_0p5_ConfirmQuitGame]
         fxch
         call __CHP
         fxch
@@ -1945,15 +1945,15 @@ ConfirmQuitGame:
         cmp word [dword ebp-0220h], byte 2
         je short .4
         fld dword [byte ebp-02Ch]
-        fmul dword [dword_167B2D]
+        fmul dword [F32_40_ConfirmQuitGame]
         fld dword [byte ebp-018h]
-        fmul dword [dword_167B31]
+        fmul dword [F32_120_ConfirmQuitGame]
         jmp short .5
 .4:
         fld dword [byte ebp-02Ch]
-        fmul dword [dword_167B39]
+        fmul dword [F32_45]
         fld dword [byte ebp-018h]
-        fmul dword [dword_167B3D]
+        fmul dword [F32_200_ConfirmQuitGame]
 .5:
         push byte 0
         fxch
@@ -1984,7 +1984,7 @@ ConfirmQuitGame:
         jmp short .7
 .6:
         fld dword [byte ebp-018h]
-        fmul dword [dword_167B2D]
+        fmul dword [F32_40_ConfirmQuitGame]
         movsx eax, word [byte ebp-0Ch]
         fild word [byte ebp-04h]
         fsubrp
@@ -2012,18 +2012,18 @@ ConfirmQuitGame:
         call SetTextColor
         fld dword [byte ebp-02Ch]
         fld st0
-        fmul dword [dword_167B41]
+        fmul dword [F32_13]
         fxch
-        fmul dword [dword_167B45]
+        fmul dword [F32_5_ConfirmQuitGame]
         fxch
         fstp dword [byte ebp-024h]
         fstp dword [byte ebp-028h]
         cmp word [word_1CEFC0], byte 2
         je short .8
         fld dword [byte ebp-02Ch]
-        fmul dword [dword_167B2D]
+        fmul dword [F32_40_ConfirmQuitGame]
         fld dword [byte ebp-018h]
-        fmul dword [dword_167B31]
+        fmul dword [F32_120_ConfirmQuitGame]
         xor edx, edx
         xor eax, eax
         fxch
@@ -2042,15 +2042,15 @@ ConfirmQuitGame:
         mov eax, 71h
         call GetLangText
         fld dword [byte ebp-018h]
-        fmul dword [dword_167B4D]
+        fmul dword [F32_60]
         jmp short .9
 .8:
         push dword [dword_1CEFB4]
         call SelectFont
         fld dword [byte ebp-02Ch]
-        fmul dword [dword_167B39]
+        fmul dword [F32_45]
         fld dword [byte ebp-018h]
-        fmul dword [dword_167B3D]
+        fmul dword [F32_200_ConfirmQuitGame]
         add esp, byte 4
         xor edx, edx
         xor eax, eax
@@ -2067,7 +2067,7 @@ ConfirmQuitGame:
         mov eax, 71h
         call GetLangText
         fld dword [byte ebp-018h]
-        fmul dword [dword_167B49]
+        fmul dword [F32_100_ConfirmQuitGame]
 .9:
         fld dword [byte ebp-028h]
         push eax
@@ -2101,7 +2101,7 @@ ConfirmQuitGame:
         jmp short .11
 .10:
         fld dword [byte ebp-018h]
-        fmul dword [dword_167B2D]
+        fmul dword [F32_40_ConfirmQuitGame]
         movsx eax, word [byte ebp-0Ch]
         fild word [byte ebp-04h]
         fsubrp
@@ -2122,13 +2122,13 @@ ConfirmQuitGame:
         mov eax, 70h
         call GetLangText
         fld dword [byte ebp-02Ch]
-        fmul dword [dword_167B51]
+        fmul dword [F32_10_ConfirmQuitGame]
         fld dword [byte ebp-018h]
-        fmul dword [dword_167B55]
+        fmul dword [F32_35]
         fld dword [byte ebp-02Ch]
-        fmul dword [dword_167B59]
+        fmul dword [F32_30_ConfirmQuitGame]
         fld dword [byte ebp-018h]
-        fmul dword [dword_167B5D]
+        fmul dword [F32_80_ConfirmQuitGame]
         fild word [byte ebp-0Ch]
         push eax
         fild word [byte ebp-04h]
@@ -2172,7 +2172,7 @@ ConfirmQuitGame:
         mov eax, 6Fh
         call GetLangText
         fld dword [byte ebp-018h]
-        fmul dword [dword_167B61]
+        fmul dword [F32_20_ConfirmQuitGame]
         mov ecx, dword [byte ebp-030h]
         mov ebx, dword [byte ebp-010h]
         fadd dword [byte ebp-03Ch]
@@ -2193,12 +2193,12 @@ ConfirmQuitGame:
         imul eax, byte 52h
         fld dword [byte ebp-02Ch]
         mov ebx, dword [byte edx+ebp-064h]
-        fmul dword [dword_167B51]
+        fmul dword [F32_10_ConfirmQuitGame]
         mov ebx, dword [byte ebx+02Ch]
         fld dword [byte ebp-018h]
         mov dword [dword eax+ebp-0202h], ebx
         mov ebx, dword [byte edx+ebp-060h]
-        fmul dword [dword_167B55]
+        fmul dword [F32_35]
         mov ebx, dword [byte ebx+02Ch]
         mov edx, dword [byte edx+ebp-05Ch]
         mov dword [dword eax+ebp-01FEh], ebx
@@ -2252,7 +2252,7 @@ ConfirmQuitGame:
         jmp short .15
 .14:
         fld dword [byte ebp-018h]
-        fmul dword [dword_167B2D]
+        fmul dword [F32_40_ConfirmQuitGame]
         movsx eax, word [byte ebp-0Ch]
         fild word [byte ebp-04h]
         fsubrp
@@ -2337,7 +2337,7 @@ RunIntermission:
         call InitGameSounds
         movzx eax, byte [byte_1C135B]
         push eax
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov edx, dword [byte eax+01h]
         shl edx, 6
         shr edx, 1Ah
@@ -2356,7 +2356,7 @@ RunIntermission:
         call PaEvent
         add esp, byte 18h
 .1:
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         add eax, esi
         mov dl, byte [dword eax+010Dh]
         and dl, 7
@@ -2476,7 +2476,7 @@ RunIntermission:
         call ServiceIdle
         call RedrawGameView
         call ServiceIdle
-        call dword [off_16E4E0]
+        call dword [PresentFuncInput]
         mov dword [byte ebp-018h], eax
         mov eax, dword [mousex]
         mov dword [byte ebp-01Ch], eax
@@ -2635,12 +2635,12 @@ SetupPauseButtons:
         mov dword [byte ebp-0Ch], eax
         imul eax, dword [dword_16E464], byte 50h
         fild dword [byte ebp-0Ch]
-        fmul dword [dword_167B65]
+        fmul dword [F32_0p005_SetupPauseButtons]
         mov dword [byte ebp-0Ch], eax
         fild dword [byte ebp-0Ch]
-        fmul dword [dword_167B71]
+        fmul dword [F32_0p003125_SetupPauseButtons]
         fxch
-        fadd qword [qword_167B69]
+        fadd qword [F64_0p5_SetupPauseButtons]
         mov dword [byte ebp-010h], ebx
         call __CHP
         fistp dword [byte ebp-0Ch]
@@ -2648,7 +2648,7 @@ SetupPauseButtons:
         push dword [byte ebp-0Ch]
         movsx ebx, word [byte eax+0Eh]
         movsx edx, word [byte eax+0Ch]
-        fadd qword [qword_167B69]
+        fadd qword [F64_0p5_SetupPauseButtons]
         mov eax, dword [byte ebp-010h]
         call __CHP
         fistp dword [byte ebp-0Ch]
@@ -2712,7 +2712,7 @@ PauseMenu:
         xor ebx, ebx
         mov dword [byte ebp+07Ah], 0FFFFFFFFh
         call FadeGamePalette
-        test byte [byte_19CBC2], 40h
+        test byte [gmode], 40h
         je short .1
         call RunIntermission
         xor eax, eax
@@ -2816,17 +2816,17 @@ PauseMenu_16C:
         mov eax, dword [dword_16E464]
         fild dword [byte ebp+072h]
         shl eax, 2
-        fmul dword [dword_167B75]
+        fmul dword [F32_0p005_PauseMenu]
         mov dword [byte ebp+072h], eax
         fild dword [byte ebp+072h]
-        fmul dword [dword_167B81]
+        fmul dword [F32_0p003125_PauseMenu]
         shl ecx, 4
         fxch
-        fadd qword [qword_167B79]
+        fadd qword [F64_0p5_PauseMenu]
         or cl, 8
         call __CHP
         fistp dword [byte ebp+072h]
-        fadd qword [qword_167B79]
+        fadd qword [F64_0p5_PauseMenu]
         mov edx, dword [byte ebp+072h]
         call __CHP
         fistp dword [byte ebp+072h]
@@ -2873,7 +2873,7 @@ PauseMenu_29A:
         xor ebx, ebx
         jmp short .16
 .13:
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov dword [byte ebp+076h], eax
         movsx eax, dx
         add eax, dword [byte ebp+076h]
@@ -2917,7 +2917,7 @@ PauseMenu_29A:
         call FreeBitmap
         add esp, byte 4
         call FreeLangText
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         shl eax, 1Ch
         shr eax, 1Eh
         call LoadLangTextB
@@ -2932,7 +2932,7 @@ PauseMenu_29A:
         test di, di
         jne short .21
 .20:
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov edx, dword [byte eax+01h]
         shl edx, 0Ch
         xor eax, eax
@@ -2942,7 +2942,7 @@ PauseMenu_29A:
         jne short .22
         test di, di
         je short .22
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov edx, dword [byte eax+01h]
         shl edx, 6
         mov eax, 1
@@ -2961,7 +2961,7 @@ PauseMenu_29A:
         je short .25
         cmp word [byte ebp+07Eh], byte 0
         jne short .25
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov edx, dword [byte eax+01h]
         shl edx, 6
         mov eax, 1
@@ -3010,25 +3010,25 @@ PauseMenu_29A:
         mov eax, dword [dword_16E464]
         fild dword [byte ebp+072h]
         shl eax, 2
-        fmul dword [dword_167B75]
+        fmul dword [F32_0p005_PauseMenu]
         mov dword [byte ebp+072h], eax
         fild dword [byte ebp+072h]
         fxch
-        fadd qword [qword_167B79]
+        fadd qword [F64_0p5_PauseMenu]
         fxch
-        fmul dword [dword_167B81]
+        fmul dword [F32_0p003125_PauseMenu]
         fxch
 .28:
         call __CHP
         fistp dword [byte ebp+072h]
-        fadd qword [qword_167B79]
+        fadd qword [F64_0p5_PauseMenu]
         mov edx, dword [byte ebp+072h]
         call __CHP
         fistp dword [byte ebp+072h]
         mov eax, dword [byte ebp+072h]
         call AddOverlayWindow
 .29:
-        mov dword [dword_1A8E50], 1
+        mov dword [ViewSizeChanged], 1
 .30:
         call RedrawGameView
 PauseMenu_4BB:
@@ -3054,7 +3054,7 @@ PauseMenu_4EF:
         call FreeBitmap
         add esp, byte 4
         call FreeLangText
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         shl eax, 1Ch
         shr eax, 1Eh
         movsx edx, si
@@ -3105,13 +3105,13 @@ PauseMenu_4EF:
         mov eax, dword [dword_16E464]
         fild dword [byte ebp+072h]
         shl eax, 2
-        fmul dword [dword_167B75]
+        fmul dword [F32_0p005_PauseMenu]
         mov dword [byte ebp+072h], eax
         fild dword [byte ebp+072h]
-        fmul dword [dword_167B81]
+        fmul dword [F32_0p003125_PauseMenu]
         shl ecx, 4
         fxch
-        fadd qword [qword_167B79]
+        fadd qword [F64_0p5_PauseMenu]
         or cl, 8
         jmp near PauseMenu_29A.28
 PauseMenu_60A:
@@ -3129,7 +3129,7 @@ PauseMenu_640:
         call WaitForOtherComputer
         xor eax, eax
         call MenuOrbitScene
-        mov dword [dword_1A8E50], 1
+        mov dword [ViewSizeChanged], 1
         call RefreshOverlayWindows
         mov eax, dword [dword_1CEFA8]
         mov eax, dword [byte eax+02Ch]
@@ -3151,7 +3151,7 @@ PauseMenu_66D:
         call SecondsToSamples
         call WaitSoundTime
         call DetailLevelMenu
-        mov dword [dword_1A8E50], 1
+        mov dword [ViewSizeChanged], 1
         call RefreshOverlayWindows
         mov eax, dword [dword_1CEFA8]
         mov eax, dword [byte eax+02Ch]
@@ -3168,7 +3168,7 @@ PauseMenu_66D:
         lea eax, [byte ebp-0Ah]
         call FreePauseBitmap
         call FreeLangText
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         shl eax, 1Ch
         shr eax, 1Eh
         call LoadLangTextB
@@ -3205,11 +3205,11 @@ LeaveGameForMenu:
         enter 50h, 0
         mov ebx, eax
         call FreeGameGraphics
-        cmp dword [dword_16E500], byte 0
+        cmp dword [QuantizePalette], byte 0
         je short .1
-        push dword [dword_16E500]
+        push dword [QuantizePalette]
         call FreeMemBlock
-        mov dword [dword_16E500], 0
+        mov dword [QuantizePalette], 0
         add esp, byte 4
 .1:
         call FreePauseArt
@@ -3349,7 +3349,7 @@ RestartGameAudio:
         call InitGameSounds
         movzx eax, byte [byte_1C135B]
         push eax
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov edx, dword [byte eax+01h]
         shl edx, 6
         shr edx, 1Ah
@@ -3360,7 +3360,7 @@ RestartGameAudio:
         push edx
         shr eax, 1Ah
         push eax
-        movsx eax, word [word_19CBB0]
+        movsx eax, word [Period]
         push eax
         push dword 0B0000004h
         call PaEvent
@@ -3418,16 +3418,16 @@ DrawIntermissionTitle:
         mov dword [byte ebp+07Ah], eax
         imul eax, dword [dword_16E464], byte 64h
         fild dword [byte ebp+07Ah]
-        fmul dword [dword_167B8B]
+        fmul dword [F32_0p005_DrawIntermissionTitle]
         mov dword [byte ebp+07Ah], eax
         fild dword [byte ebp+07Ah]
-        fmul dword [dword_167B97]
+        fmul dword [F32_0p003125_DrawIntermissionTitle]
         fxch
-        fadd qword [qword_167B8F]
+        fadd qword [F64_0p5_DrawIntermissionTitle]
         push byte 0
         call __CHP
         fistp dword [byte ebp+07Ah]
-        fadd qword [qword_167B8F]
+        fadd qword [F64_0p5_DrawIntermissionTitle]
         push dword [byte ebp+07Ah]
         call __CHP
         fistp dword [byte ebp+07Ah]
@@ -3451,25 +3451,25 @@ DrawIntermissionTitle:
         mov dword [byte ebp+07Ah], eax
         imul eax, dword [dword_16E464], byte 64h
         fild dword [byte ebp+07Eh]
-        fmul dword [dword_167B8B]
-        fadd qword [qword_167B8F]
+        fmul dword [F32_0p005_DrawIntermissionTitle]
+        fadd qword [F64_0p5_DrawIntermissionTitle]
         fild dword [byte ebp+07Ah]
-        fmul dword [dword_167B97]
+        fmul dword [F32_0p003125_DrawIntermissionTitle]
         fxch
         call __CHP
         fistp dword [byte ebp+07Eh]
         mov dword [byte ebp+07Ah], eax
         push dword [byte ebp+07Eh]
         fild dword [byte ebp+07Ah]
-        fmul dword [dword_167B97]
+        fmul dword [F32_0p003125_DrawIntermissionTitle]
         push byte 0
         fxch
-        fadd qword [qword_167B8F]
+        fadd qword [F64_0p5_DrawIntermissionTitle]
         push dword [byte ebp+07Eh]
         call __CHP
         fistp dword [byte ebp+07Ah]
         push dword [byte ebp+07Ah]
-        fadd qword [qword_167B8F]
+        fadd qword [F64_0p5_DrawIntermissionTitle]
         push byte 0
         call __CHP
         fistp dword [byte ebp+07Ah]
@@ -3490,30 +3490,30 @@ DrawIntermissionTitle:
         mov dword [byte ebp+07Eh], eax
         imul eax, dword [dword_16E464], byte 5
         fild dword [dword_16E468]
-        fmul dword [dword_167B8B]
+        fmul dword [F32_0p005_DrawIntermissionTitle]
         fild dword [byte ebp+07Ah]
-        fmul dword [dword_167B97]
+        fmul dword [F32_0p003125_DrawIntermissionTitle]
         fild dword [byte ebp+07Eh]
-        fmul dword [dword_167B8B]
+        fmul dword [F32_0p005_DrawIntermissionTitle]
         mov dword [byte ebp+07Eh], eax
         fxch st2
-        fadd qword [qword_167B8F]
+        fadd qword [F64_0p5_DrawIntermissionTitle]
         fild dword [byte ebp+07Eh]
-        fmul dword [dword_167B97]
+        fmul dword [F32_0p003125_DrawIntermissionTitle]
         fxch
         call __CHP
         fistp dword [byte ebp+07Eh]
         fxch
-        fadd qword [qword_167B8F]
+        fadd qword [F64_0p5_DrawIntermissionTitle]
         push dword [byte ebp+07Eh]
         call __CHP
         fistp dword [byte ebp+07Ah]
         fxch
-        fadd qword [qword_167B8F]
+        fadd qword [F64_0p5_DrawIntermissionTitle]
         push dword [byte ebp+07Ah]
         call __CHP
         fistp dword [byte ebp+07Ah]
-        fadd qword [qword_167B8F]
+        fadd qword [F64_0p5_DrawIntermissionTitle]
         push dword [byte ebp+07Ah]
         call __CHP
         fistp dword [byte ebp+07Ah]
@@ -3528,16 +3528,16 @@ DrawIntermissionTitle:
         mov dword [byte ebp+07Ah], eax
         imul eax, dword [dword_16E464], dword 82h
         fild dword [byte ebp+07Ah]
-        fmul dword [dword_167B8B]
-        fadd qword [qword_167B8F]
+        fmul dword [F32_0p005_DrawIntermissionTitle]
+        fadd qword [F64_0p5_DrawIntermissionTitle]
         call __CHP
         fistp dword [byte ebp+07Eh]
         mov dword [byte ebp+07Ah], eax
         push dword [byte ebp+07Eh]
         fild dword [byte ebp+07Ah]
-        fmul dword [dword_167B97]
+        fmul dword [F32_0p003125_DrawIntermissionTitle]
         push byte 0
-        fadd qword [qword_167B8F]
+        fadd qword [F64_0p5_DrawIntermissionTitle]
         push dword [byte ebp+07Eh]
         call __CHP
         fistp dword [byte ebp+07Eh]
@@ -3570,15 +3570,15 @@ DrawIntermissionTitle:
         mov dword [byte ebp+07Eh], eax
         imul eax, dword [dword_16E464], byte 5
         fild dword [byte ebp+07Eh]
-        fmul dword [dword_167B8B]
+        fmul dword [F32_0p005_DrawIntermissionTitle]
         mov dword [byte ebp+07Eh], eax
-        fadd qword [qword_167B8F]
+        fadd qword [F64_0p5_DrawIntermissionTitle]
         fild dword [byte ebp+07Eh]
-        fmul dword [dword_167B97]
+        fmul dword [F32_0p003125_DrawIntermissionTitle]
         fxch
         call __CHP
         fistp dword [byte ebp+07Ah]
-        fadd qword [qword_167B8F]
+        fadd qword [F64_0p5_DrawIntermissionTitle]
         push dword [byte ebp+07Ah]
 .6:
         call __CHP
@@ -3600,9 +3600,9 @@ DrawIntermissionTitle:
         mov dword [byte ebp+07Ah], eax
         imul eax, dword [dword_16E464], byte 5
         fild dword [byte ebp+07Ah]
-        fmul dword [dword_167B8B]
+        fmul dword [F32_0p005_DrawIntermissionTitle]
         mov dword [byte ebp+07Ah], eax
-        fadd qword [qword_167B8F]
+        fadd qword [F64_0p5_DrawIntermissionTitle]
         fild dword [byte ebp+07Ah]
         jmp near .15
 .9:
@@ -3618,15 +3618,15 @@ DrawIntermissionTitle:
         mov dword [byte ebp+07Eh], eax
         imul eax, dword [dword_16E464], byte 5
         fild dword [byte ebp+07Eh]
-        fmul dword [dword_167B8B]
+        fmul dword [F32_0p005_DrawIntermissionTitle]
         mov dword [byte ebp+07Eh], eax
-        fadd qword [qword_167B8F]
+        fadd qword [F64_0p5_DrawIntermissionTitle]
         fild dword [byte ebp+07Eh]
-        fmul dword [dword_167B97]
+        fmul dword [F32_0p003125_DrawIntermissionTitle]
         fxch
         call __CHP
         fistp dword [byte ebp+07Eh]
-        fadd qword [qword_167B8F]
+        fadd qword [F64_0p5_DrawIntermissionTitle]
         push dword [byte ebp+07Eh]
         jmp near .6
 .10:
@@ -3639,16 +3639,16 @@ DrawIntermissionTitle:
         mov dword [byte ebp+07Eh], eax
         imul eax, dword [dword_16E464], byte 5
         fild dword [byte ebp+07Eh]
-        fmul dword [dword_167B8B]
+        fmul dword [F32_0p005_DrawIntermissionTitle]
         mov dword [byte ebp+07Eh], eax
-        fadd qword [qword_167B8F]
+        fadd qword [F64_0p5_DrawIntermissionTitle]
         fild dword [byte ebp+07Eh]
 .11:
-        fmul dword [dword_167B97]
+        fmul dword [F32_0p003125_DrawIntermissionTitle]
         fxch
         call __CHP
         fistp dword [byte ebp+07Ah]
-        fadd qword [qword_167B8F]
+        fadd qword [F64_0p5_DrawIntermissionTitle]
         push dword [byte ebp+07Ah]
         jmp near .16
 .12:
@@ -3659,9 +3659,9 @@ DrawIntermissionTitle:
         mov dword [byte ebp+07Ah], eax
         imul eax, dword [dword_16E464], byte 5
         fild dword [byte ebp+07Ah]
-        fmul dword [dword_167B8B]
+        fmul dword [F32_0p005_DrawIntermissionTitle]
         mov dword [byte ebp+07Ah], eax
-        fadd qword [qword_167B8F]
+        fadd qword [F64_0p5_DrawIntermissionTitle]
         fild dword [byte ebp+07Ah]
         jmp short .11
 .13:
@@ -3682,15 +3682,15 @@ DrawIntermissionTitle:
         push eax
         imul eax, dword [dword_16E464], byte 5
         fild dword [dword_16E468]
-        fmul dword [dword_167B8B]
+        fmul dword [F32_0p005_DrawIntermissionTitle]
         mov dword [byte ebp+07Eh], eax
-        fadd qword [qword_167B8F]
+        fadd qword [F64_0p5_DrawIntermissionTitle]
         fild dword [byte ebp+07Eh]
-        fmul dword [dword_167B97]
+        fmul dword [F32_0p003125_DrawIntermissionTitle]
         fxch
         call __CHP
         fistp dword [byte ebp+07Eh]
-        fadd qword [qword_167B8F]
+        fadd qword [F64_0p5_DrawIntermissionTitle]
         push dword [byte ebp+07Eh]
         call __CHP
         fistp dword [byte ebp+07Eh]
@@ -3704,16 +3704,16 @@ DrawIntermissionTitle:
         mov dword [byte ebp+07Eh], eax
         imul eax, dword [dword_16E464], byte 5
         fild dword [byte ebp+07Eh]
-        fmul dword [dword_167B8B]
+        fmul dword [F32_0p005_DrawIntermissionTitle]
         mov dword [byte ebp+07Eh], eax
-        fadd qword [qword_167B8F]
+        fadd qword [F64_0p5_DrawIntermissionTitle]
         fild dword [byte ebp+07Eh]
 .15:
-        fmul dword [dword_167B97]
+        fmul dword [F32_0p003125_DrawIntermissionTitle]
         fxch
         call __CHP
         fistp dword [byte ebp+07Eh]
-        fadd qword [qword_167B8F]
+        fadd qword [F64_0p5_DrawIntermissionTitle]
         push dword [byte ebp+07Eh]
 .16:
         call __CHP
@@ -3768,15 +3768,15 @@ DrawIntermissionTitle:
         push eax
         imul eax, dword [dword_16E464], byte 5
         fild dword [dword_16E468]
-        fmul dword [dword_167B8B]
+        fmul dword [F32_0p005_DrawIntermissionTitle]
         mov dword [byte ebp+07Eh], eax
-        fadd qword [qword_167B8F]
+        fadd qword [F64_0p5_DrawIntermissionTitle]
         fild dword [byte ebp+07Eh]
-        fmul dword [dword_167B97]
+        fmul dword [F32_0p003125_DrawIntermissionTitle]
         fxch
         call __CHP
         fistp dword [byte ebp+07Eh]
-        fadd qword [qword_167B8F]
+        fadd qword [F64_0p5_DrawIntermissionTitle]
         push dword [byte ebp+07Eh]
         call __CHP
         fistp dword [byte ebp+07Eh]
@@ -3790,15 +3790,15 @@ DrawIntermissionTitle:
         mov dword [byte ebp+07Eh], eax
         imul eax, dword [dword_16E464], byte 5
         fild dword [byte ebp+07Eh]
-        fmul dword [dword_167B8B]
+        fmul dword [F32_0p005_DrawIntermissionTitle]
         mov dword [byte ebp+07Eh], eax
-        fadd qword [qword_167B8F]
+        fadd qword [F64_0p5_DrawIntermissionTitle]
         fild dword [byte ebp+07Eh]
-        fmul dword [dword_167B97]
+        fmul dword [F32_0p003125_DrawIntermissionTitle]
         fxch
         call __CHP
         fistp dword [byte ebp+07Eh]
-        fadd qword [qword_167B8F]
+        fadd qword [F64_0p5_DrawIntermissionTitle]
         push dword [byte ebp+07Eh]
         call __CHP
         fistp dword [byte ebp+07Eh]
@@ -3817,9 +3817,9 @@ DrawIntermissionTitle:
         mov dword [byte ebp+07Eh], eax
         mov edx, dword [byte edx+02Ch]
         fild dword [byte ebp+07Eh]
-        fmul dword [dword_167B8B]
+        fmul dword [F32_0p005_DrawIntermissionTitle]
         movsx ecx, word [byte edx+0Eh]
-        fadd qword [qword_167B8F]
+        fadd qword [F64_0p5_DrawIntermissionTitle]
         mov eax, ecx
         call __CHP
         fistp dword [byte ebp+07Eh]
@@ -3829,9 +3829,9 @@ DrawIntermissionTitle:
         shl eax, 2
         mov dword [byte ebp+07Eh], eax
         fild dword [byte ebp+07Eh]
-        fmul dword [dword_167B97]
+        fmul dword [F32_0p003125_DrawIntermissionTitle]
         movsx ecx, word [byte edx+0Ch]
-        fadd qword [qword_167B8F]
+        fadd qword [F64_0p5_DrawIntermissionTitle]
         mov eax, ecx
         call __CHP
         fistp dword [byte ebp+07Eh]
@@ -3921,18 +3921,18 @@ RunPauseIntermission:
         mov eax, dword [dword_16E464]
         imul eax, ebx
         fild dword [byte ebp+07Ah]
-        fmul dword [dword_167B9B]
+        fmul dword [F32_0p005_RunPauseIntermission]
         mov dword [byte ebp+07Ah], eax
         fild dword [byte ebp+07Ah]
-        fmul dword [dword_167BA7]
+        fmul dword [F32_0p003125_RunPauseIntermission]
         shl ecx, 4
         fxch
-        fadd qword [qword_167B9F]
+        fadd qword [F64_0p5_RunPauseIntermission]
         or cl, 8
         call __CHP
         fistp dword [byte ebp+07Ah]
         mov ebx, edx
-        fadd qword [qword_167B9F]
+        fadd qword [F64_0p5_RunPauseIntermission]
         mov edx, dword [byte ebp+07Ah]
         call __CHP
         fistp dword [byte ebp+07Ah]
@@ -3967,17 +3967,17 @@ RunPauseIntermission:
         mov eax, dword [dword_16E464]
         imul eax, ebx
         fild dword [byte ebp+07Ah]
-        fmul dword [dword_167B9B]
+        fmul dword [F32_0p005_RunPauseIntermission]
         mov dword [byte ebp+07Ah], eax
-        fadd qword [qword_167B9F]
+        fadd qword [F64_0p5_RunPauseIntermission]
         fild dword [byte ebp+07Ah]
-        fmul dword [dword_167BA7]
+        fmul dword [F32_0p003125_RunPauseIntermission]
         fxch
         call __CHP
         fistp dword [byte ebp+07Ah]
         mov ebx, dword [byte ebp+07Ah]
         mov eax, dword [dword_1CEFA8]
-        fadd qword [qword_167B9F]
+        fadd qword [F64_0p5_RunPauseIntermission]
         mov eax, dword [byte eax+02Ch]
         call __CHP
         fistp dword [byte ebp+07Ah]
@@ -3997,17 +3997,17 @@ RunPauseIntermission:
         mov eax, dword [dword_16E464]
         fild dword [byte ebp+07Ah]
         shl eax, 2
-        fmul dword [dword_167B9B]
+        fmul dword [F32_0p005_RunPauseIntermission]
         mov dword [byte ebp+07Ah], eax
         fild dword [byte ebp+07Ah]
-        fmul dword [dword_167BA7]
+        fmul dword [F32_0p003125_RunPauseIntermission]
         fxch
-        fadd qword [qword_167B9F]
+        fadd qword [F64_0p5_RunPauseIntermission]
         mov eax, dword [dword_1CEFA8]
         call __CHP
         fistp dword [byte ebp+07Ah]
         mov eax, dword [byte eax+02Ch]
-        fadd qword [qword_167B9F]
+        fadd qword [F64_0p5_RunPauseIntermission]
         mov ebx, dword [byte ebp+07Ah]
         call __CHP
         fistp dword [byte ebp+07Ah]
@@ -4051,24 +4051,24 @@ RunPauseIntermission:
         mov eax, dword [dword_16E464]
         fild dword [byte ebp+07Ah]
         shl eax, 2
-        fmul dword [dword_167B9B]
+        fmul dword [F32_0p005_RunPauseIntermission]
         mov dword [byte ebp+07Ah], eax
         fild dword [byte ebp+07Ah]
-        fmul dword [dword_167BA7]
+        fmul dword [F32_0p003125_RunPauseIntermission]
         fxch
-        fadd qword [qword_167B9F]
+        fadd qword [F64_0p5_RunPauseIntermission]
         mov eax, dword [dword_1CEFA8]
         call __CHP
         fistp dword [byte ebp+07Ah]
         mov eax, dword [byte eax+02Ch]
-        fadd qword [qword_167B9F]
+        fadd qword [F64_0p5_RunPauseIntermission]
         mov ebx, dword [byte ebp+07Ah]
         call __CHP
         fistp dword [byte ebp+07Ah]
         mov edx, dword [byte ebp+07Ah]
         call UpdateScreenRegion
 .8:
-        cmp dword [dword_1AC364], byte 0
+        cmp dword [FadeDone], byte 0
         jne short .8
         mov eax, 1
         mov ebx, 64h
@@ -4107,17 +4107,17 @@ CloseIntermission:
         push dword [dword_1CEFA8]
         call FreeBitmap
         add esp, byte 4
-        mov dword [dword_19D384], 0
+        mov dword [ActiveCameraScene], 0
         call RestoreGameCamera
         test bx, bx
         je short .1
         call ResumeMusic
         call WaitMusicEnd
-        mov byte [byte_168930], 1
+        mov byte [IntermissionActive], 1
 .1:
         cmp esi, byte 2
         je short .2
-        test byte [byte_19CBC2], 40h
+        test byte [gmode], 40h
         sete al
         movzx eax, al
         test eax, eax
@@ -4140,7 +4140,7 @@ FillBox:
         push eax
         mov esi, edx
         mov edi, ecx
-        mov eax, dword [dword_16E69C]
+        mov eax, dword [DrawDestPitch]
         movsx edx, word [byte eax+04h]
         cmp esi, edx
         jg near .7
@@ -4252,19 +4252,19 @@ RulesMenu:
         enter 750h, 0
         sub ebp, 82h
         fild dword [dword_16E464]
-        fmul qword [qword_167BB3]
+        fmul qword [F64_0p003125_RulesMenu]
         fild dword [dword_16E468]
-        fmul qword [qword_167BBB]
+        fmul qword [F64_0p005_RulesMenu]
         fxch
         fstp dword [byte ebp+072h]
         fstp dword [byte ebp+066h]
         call SetScreenTarget
         fld dword [byte ebp+072h]
-        fmul dword [dword_167BC3]
+        fmul dword [F32_10_RulesMenu]
         fld dword [byte ebp+066h]
-        fmul dword [dword_167BC3]
+        fmul dword [F32_10_RulesMenu]
         fld dword [byte ebp+066h]
-        fmul dword [dword_167BC7]
+        fmul dword [F32_180_RulesMenu]
         mov dword [byte ebp+07Ah], 0
         fxch st2
         fstp dword [byte ebp+03Ah]
@@ -4275,7 +4275,7 @@ RulesMenu:
         push dword 0FF000000h
         call MatchColor
         fld dword [byte ebp+072h]
-        fmul dword [dword_167BCF]
+        fmul dword [F32_90_RulesMenu]
         fld dword [byte ebp+02h]
         fld dword [byte ebp-022h]
         fld dword [byte ebp+03Ah]
@@ -4309,7 +4309,7 @@ RulesMenu:
         push dword 0FF000000h
         call MatchColor
         fld dword [byte ebp+072h]
-        fmul dword [dword_167BCB]
+        fmul dword [F32_130_RulesMenu]
         fld dword [byte ebp+02h]
         fld dword [byte ebp-022h]
         fld dword [byte ebp+03Ah]
@@ -4342,14 +4342,14 @@ RulesMenu:
         call DrawMenuFrame
         fld dword [byte ebp+072h]
         fld st0
-        fmul dword [dword_167BD3]
+        fmul dword [F32_20_RulesMenu]
         fld dword [byte ebp+066h]
         fld st0
-        fmul dword [dword_167BD7]
+        fmul dword [F32_30_RulesMenu]
         fxch st3
-        fmul dword [dword_167BDB]
+        fmul dword [F32_70]
         fxch
-        fmul dword [dword_167BDF]
+        fmul dword [F32_8_RulesMenu]
         fxch st3
         fstp dword [byte ebp+026h]
         fstp dword [byte ebp-04Eh]
@@ -4358,7 +4358,7 @@ RulesMenu:
         fstp dword [byte ebp-052h]
         cmp word [word_1CEFC0], byte 2
         je near .11
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         test byte [byte eax+01h], 8
         je short .3
         push dword [byte ebp+066h]
@@ -4432,15 +4432,15 @@ RulesMenu:
         call DrawMenuItem
         fld dword [byte ebp+072h]
         fld st0
-        fmul dword [dword_167BD3]
+        fmul dword [F32_20_RulesMenu]
         fld dword [byte ebp+066h]
         fld st0
-        fmul dword [dword_167BE3]
+        fmul dword [F32_47]
         fxch st3
-        fmul dword [dword_167BDB]
+        fmul dword [F32_70]
         fxch
-        fmul dword [dword_167BDF]
-        mov eax, dword [dword_1AC944]
+        fmul dword [F32_8_RulesMenu]
+        mov eax, dword [GameOptionFlags]
         fxch st2
         fstp dword [byte ebp-0Eh]
         fxch st2
@@ -4521,15 +4521,15 @@ RulesMenu:
         call DrawMenuItem
         fld dword [byte ebp+072h]
         fld st0
-        fmul dword [dword_167BD3]
+        fmul dword [F32_20_RulesMenu]
         fld dword [byte ebp+066h]
         fld st0
-        fmul dword [dword_167BE7]
+        fmul dword [F32_64]
         fxch st3
-        fmul dword [dword_167BDB]
+        fmul dword [F32_70]
         fxch
-        fmul dword [dword_167BDF]
-        mov eax, dword [dword_1AC944]
+        fmul dword [F32_8_RulesMenu]
+        mov eax, dword [GameOptionFlags]
         fxch st2
         fstp dword [byte ebp+04Eh]
         fxch st2
@@ -4610,15 +4610,15 @@ RulesMenu:
         call DrawMenuItem
         fld dword [byte ebp+072h]
         fld st0
-        fmul dword [dword_167BD3]
+        fmul dword [F32_20_RulesMenu]
         fld dword [byte ebp+066h]
         fld st0
-        fmul dword [dword_167BEB]
+        fmul dword [F32_81]
         fxch st3
-        fmul dword [dword_167BDB]
+        fmul dword [F32_70]
         fxch
-        fmul dword [dword_167BDF]
-        mov eax, dword [dword_1AC944]
+        fmul dword [F32_8_RulesMenu]
+        mov eax, dword [GameOptionFlags]
         fxch st2
         fstp dword [byte ebp+03Eh]
         fxch st2
@@ -4696,7 +4696,7 @@ RulesMenu:
         mov eax, dword [byte ebp-02Eh]
         jmp short .9
 .11:
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         test byte [byte eax+01h], 8
         je short .12
         push dword [byte ebp+066h]
@@ -4760,15 +4760,15 @@ RulesMenu:
         call DrawMenuItem
         fld dword [byte ebp+072h]
         fld st0
-        fmul dword [dword_167BD3]
+        fmul dword [F32_20_RulesMenu]
         fld dword [byte ebp+066h]
         fld st0
-        fmul dword [dword_167BE3]
+        fmul dword [F32_47]
         fxch st3
-        fmul dword [dword_167BDB]
+        fmul dword [F32_70]
         fxch
-        fmul dword [dword_167BDF]
-        mov eax, dword [dword_1AC944]
+        fmul dword [F32_8_RulesMenu]
+        mov eax, dword [GameOptionFlags]
         fxch st2
         fstp dword [dword ebp-082h]
         fxch st2
@@ -4852,15 +4852,15 @@ RulesMenu:
         call DrawMenuItem
         fld dword [byte ebp+072h]
         fld st0
-        fmul dword [dword_167BD3]
+        fmul dword [F32_20_RulesMenu]
         fld dword [byte ebp+066h]
         fld st0
-        fmul dword [dword_167BE7]
+        fmul dword [F32_64]
         fxch st3
-        fmul dword [dword_167BDB]
+        fmul dword [F32_70]
         fxch
-        fmul dword [dword_167BDF]
-        mov eax, dword [dword_1AC944]
+        fmul dword [F32_8_RulesMenu]
+        mov eax, dword [GameOptionFlags]
         fxch st2
         fstp dword [byte ebp-026h]
         fxch st2
@@ -4941,15 +4941,15 @@ RulesMenu:
         call DrawMenuItem
         fld dword [byte ebp+072h]
         fld st0
-        fmul dword [dword_167BD3]
+        fmul dword [F32_20_RulesMenu]
         fld dword [byte ebp+066h]
         fld st0
-        fmul dword [dword_167BEB]
+        fmul dword [F32_81]
         fxch st3
-        fmul dword [dword_167BDB]
+        fmul dword [F32_70]
         fxch
-        fmul dword [dword_167BDF]
-        mov eax, dword [dword_1AC944]
+        fmul dword [F32_8_RulesMenu]
+        mov eax, dword [GameOptionFlags]
         fxch st2
         fstp dword [byte ebp+05Ah]
         fxch st2
@@ -5033,23 +5033,23 @@ RulesMenu:
         call DrawMenuItem
         fld dword [byte ebp+072h]
         fld st0
-        fmul dword [dword_167BD3]
+        fmul dword [F32_20_RulesMenu]
         fld dword [byte ebp+066h]
         fld st0
-        fmul dword [dword_167BEF]
+        fmul dword [F32_98_RulesMenu]
         fxch st3
-        fmul dword [dword_167BDB]
+        fmul dword [F32_70]
         fxch
-        fmul dword [dword_167BDF]
+        fmul dword [F32_8_RulesMenu]
         fxch st3
         fstp dword [byte ebp-05Ah]
         fstp dword [byte ebp-0Ah]
         fxch
         fstp dword [byte ebp-056h]
         fstp dword [byte ebp-05Eh]
-        test byte [dword_1AC814], 70h
+        test byte [GameSettings], 70h
         jne near .33
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         test byte [byte eax+02h], 1
         je short .20
         push dword [byte ebp+066h]
@@ -5126,15 +5126,15 @@ RulesMenu:
         call DrawMenuItem
         fld dword [byte ebp+072h]
         fld st0
-        fmul dword [dword_167BD3]
+        fmul dword [F32_20_RulesMenu]
         fld dword [byte ebp+066h]
         fld st0
-        fmul dword [dword_167BF3]
+        fmul dword [F32_115]
         fxch st3
-        fmul dword [dword_167BDB]
+        fmul dword [F32_70]
         fxch
-        fmul dword [dword_167BDF]
-        mov eax, dword [dword_1AC944]
+        fmul dword [F32_8_RulesMenu]
+        mov eax, dword [GameOptionFlags]
         fxch st2
         fstp dword [byte ebp+032h]
         fxch st2
@@ -5216,7 +5216,7 @@ RulesMenu:
         movsx edx, ax
         lea eax, [dword ebp-0D2h]
         call DrawMenuItem
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         and eax, byte 7
         imul eax, byte 14h
@@ -5226,14 +5226,14 @@ RulesMenu:
         push eax
         call sprintf_
         fld dword [byte ebp+066h]
-        fmul dword [dword_167BDF]
+        fmul dword [F32_8_RulesMenu]
         fld dword [byte ebp+072h]
-        fmul dword [dword_167BDB]
+        fmul dword [F32_70]
         fld dword [byte ebp+066h]
-        fmul dword [dword_167BF7]
+        fmul dword [F32_132]
         fld dword [byte ebp+072h]
         add esp, byte 0Ch
-        fmul dword [dword_167BD3]
+        fmul dword [F32_20_RulesMenu]
         push dword [byte ebp+066h]
         movsx eax, word [word_1CEFC0]
         push dword [byte ebp+072h]
@@ -5265,11 +5265,11 @@ RulesMenu:
         mov edx, esi
         call DrawMenuItem
         fld dword [byte ebp+066h]
-        fmul dword [dword_167BEB]
+        fmul dword [F32_81]
         fstp dword [byte ebp-03Eh]
         cmp word [word_1CEFC0], byte 2
         je near .28
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         and eax, 0C0h
         cmp eax, 80h
@@ -5318,7 +5318,7 @@ RulesMenu:
         mov eax, 53h
         jmp short .24
 .28:
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         and eax, 0C0h
         cmp eax, 80h
@@ -5335,15 +5335,15 @@ RulesMenu:
 .29:
         fld dword [byte ebp+072h]
         fld st0
-        fmul dword [dword_167BD3]
+        fmul dword [F32_20_RulesMenu]
         fld dword [byte ebp+066h]
         fld st0
-        fmul dword [dword_167BEB]
+        fmul dword [F32_81]
         fxch st3
-        fmul dword [dword_167BDB]
-        mov eax, dword [dword_1AC944]
+        fmul dword [F32_70]
+        mov eax, dword [GameOptionFlags]
         fxch
-        fmul dword [dword_167BDF]
+        fmul dword [F32_8_RulesMenu]
         mov eax, dword [byte eax+01h]
         fxch st2
         fstp dword [byte ebp+036h]
@@ -5433,7 +5433,7 @@ RulesMenu:
         mov eax, 5Dh
         call GetLangText
         fld dword [byte ebp+066h]
-        fmul dword [dword_167BEB]
+        fmul dword [F32_81]
         fld dword [byte ebp-056h]
         fld dword [byte ebp-0Ah]
         fld dword [byte ebp-05Eh]
@@ -5490,7 +5490,7 @@ RulesMenu:
         mov eax, 5Dh
         call GetLangText
         fld dword [byte ebp+066h]
-        fmul dword [dword_167BF3]
+        fmul dword [F32_115]
         mov ecx, edi
         mov edx, esi
         push eax
@@ -5508,7 +5508,7 @@ RulesMenu:
         mov eax, 5Dh
         call GetLangText
         fld dword [byte ebp+066h]
-        fmul dword [dword_167BF7]
+        fmul dword [F32_132]
         mov ecx, edi
         mov edx, esi
         push eax
@@ -5522,15 +5522,15 @@ RulesMenu:
         call DrawMenuItem
         fld dword [byte ebp+072h]
         fld st0
-        fmul dword [dword_167BD3]
+        fmul dword [F32_20_RulesMenu]
         fld dword [byte ebp+066h]
         fld st0
-        fmul dword [dword_167BFB]
+        fmul dword [F32_149]
         fxch st3
-        fmul dword [dword_167BDB]
+        fmul dword [F32_70]
         fxch
-        fmul dword [dword_167BDF]
-        mov eax, dword [dword_1AC944]
+        fmul dword [F32_8_RulesMenu]
+        mov eax, dword [GameOptionFlags]
         fxch st2
         fstp dword [byte ebp+052h]
         fxch st2
@@ -5619,13 +5619,13 @@ RulesMenu:
         mov eax, 51h
         call GetLangText
         fld dword [byte ebp+066h]
-        fmul dword [dword_167BDF]
+        fmul dword [F32_8_RulesMenu]
         fld dword [byte ebp+072h]
-        fmul dword [dword_167BDB]
+        fmul dword [F32_70]
         fld dword [byte ebp+066h]
-        fmul dword [dword_167BFF]
+        fmul dword [F32_178_RulesMenu]
         fld dword [byte ebp+072h]
-        fmul dword [dword_167BD3]
+        fmul dword [F32_20_RulesMenu]
         push eax
         fxch st3
         call __CHP
@@ -5690,18 +5690,18 @@ RulesMenu:
         mov dword [byte ebp-02Eh], eax
         imul eax, dword [dword_16E464], byte 46h
         fild dword [byte ebp-02Eh]
-        fmul dword [dword_167C23]
+        fmul dword [F32_0p005_RulesMenu]
         mov dword [byte ebp-02Eh], eax
         fild dword [byte ebp-02Eh]
-        fmul dword [dword_167C2F]
+        fmul dword [F32_0p003125_RulesMenu]
         mov ebx, dword [dword edx+ebp-06A4h]
         fxch
-        fadd qword [qword_167C27]
+        fadd qword [F64_0p5_RulesMenu]
         mov edx, dword [dword edx+ebp-06A8h]
         call __CHP
         fistp dword [byte ebp-02Eh]
         push dword [byte ebp-02Eh]
-        fadd qword [qword_167C27]
+        fadd qword [F64_0p5_RulesMenu]
         mov eax, edi
         call __CHP
         fistp dword [byte ebp-02Eh]
@@ -5728,7 +5728,7 @@ RulesMenu:
         cmp word [word_1CEFC0], byte 2
         je short .42
         fld dword [byte ebp+066h]
-        fmul dword [dword_167C03]
+        fmul dword [F32_5_RulesMenu]
         call __CHP
         fistp dword [byte ebp-02Eh]
         mov eax, dword [byte ebp-02Eh]
@@ -5738,9 +5738,9 @@ RulesMenu:
         mov eax, 47h
         call GetLangText
         fld dword [byte ebp+066h]
-        fmul dword [dword_167C07]
+        fmul dword [F32_19]
         fld dword [byte ebp+072h]
-        fmul dword [dword_167BD3]
+        fmul dword [F32_20_RulesMenu]
         push eax
         fild word [byte ebp+07Eh]
         fstp dword [byte ebp+076h]
@@ -5760,7 +5760,7 @@ RulesMenu:
         mov eax, 48h
         call GetLangText
         fld dword [byte ebp+066h]
-        fmul dword [dword_167C0B]
+        fmul dword [F32_36_RulesMenu]
         fadd dword [byte ebp+076h]
         push eax
         call __CHP
@@ -5773,7 +5773,7 @@ RulesMenu:
         mov eax, 49h
         call GetLangText
         fld dword [byte ebp+066h]
-        fmul dword [dword_167C0F]
+        fmul dword [F32_53]
         fadd dword [byte ebp+076h]
         push eax
         call __CHP
@@ -5791,9 +5791,9 @@ RulesMenu:
         mov eax, 4Ch
         call GetLangText
         fld dword [byte ebp+066h]
-        fmul dword [dword_167BDB]
+        fmul dword [F32_70]
         fld dword [byte ebp+072h]
-        fmul dword [dword_167BD3]
+        fmul dword [F32_20_RulesMenu]
         push eax
         fild word [byte ebp+07Eh]
         fstp dword [byte ebp-02Eh]
@@ -5813,7 +5813,7 @@ RulesMenu:
         mov eax, 4Dh
         call GetLangText
         fld dword [byte ebp+066h]
-        fmul dword [dword_167C13]
+        fmul dword [F32_87]
         fadd dword [byte ebp-02Eh]
         push eax
         call __CHP
@@ -5826,7 +5826,7 @@ RulesMenu:
         mov eax, 4Eh
         call GetLangText
         fld dword [byte ebp+066h]
-        fmul dword [dword_167C17]
+        fmul dword [F32_104]
         fadd dword [byte ebp-02Eh]
         push eax
         call __CHP
@@ -5839,7 +5839,7 @@ RulesMenu:
         mov eax, 4Fh
         call GetLangText
         fld dword [byte ebp+066h]
-        fmul dword [dword_167C1B]
+        fmul dword [F32_121]
         fadd dword [byte ebp-02Eh]
         push eax
         call __CHP
@@ -5857,9 +5857,9 @@ RulesMenu:
         mov eax, 50h
         call GetLangText
         fld dword [byte ebp+066h]
-        fmul dword [dword_167C1F]
+        fmul dword [F32_138]
         fld dword [byte ebp+072h]
-        fmul dword [dword_167BD3]
+        fmul dword [F32_20_RulesMenu]
         push eax
         fild word [byte ebp+07Eh]
         faddp st2
@@ -5893,11 +5893,11 @@ RulesMenu:
         ja short .45
         fld dword [byte ebp+072h]
         fld st0
-        fmul dword [dword_167BC7]
+        fmul dword [F32_180_RulesMenu]
         fxch
-        fmul dword [dword_167BDB]
+        fmul dword [F32_70]
         fld dword [byte ebp+066h]
-        fmul dword [dword_167C33]
+        fmul dword [F32_9]
         mov eax, dword [dword ebp-092h]
         fxch st2
         fstp dword [byte ebp-046h]
@@ -5926,7 +5926,7 @@ RulesMenu_1583:
         add esp, byte 4
         push dword [dword ebp-0116h]
         call FreeBitmap
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         add esp, byte 4
         test byte [byte eax+01h], 8
         je near .48
@@ -5941,13 +5941,13 @@ RulesMenu_1583:
 .46:
         call GetLangText
         fld dword [byte ebp+066h]
-        fmul dword [dword_167C33]
+        fmul dword [F32_9]
         fld dword [byte ebp+072h]
-        fmul dword [dword_167BDB]
+        fmul dword [F32_70]
         fld dword [byte ebp+066h]
-        fmul dword [dword_167C4B]
+        fmul dword [F32_25]
         fld dword [byte ebp+072h]
-        fmul dword [dword_167BC7]
+        fmul dword [F32_180_RulesMenu]
         push eax
         fxch st3
         call __CHP
@@ -5994,13 +5994,13 @@ RulesMenu_1583:
         mov eax, 52h
         call GetLangText
         fld dword [byte ebp+066h]
-        fmul dword [dword_167C33]
+        fmul dword [F32_9]
         fld dword [byte ebp+072h]
-        fmul dword [dword_167BDB]
+        fmul dword [F32_70]
         fld dword [byte ebp+066h]
-        fmul dword [dword_167C4B]
+        fmul dword [F32_25]
         fld dword [byte ebp+072h]
-        fmul dword [dword_167BC7]
+        fmul dword [F32_180_RulesMenu]
         push eax
         fxch st3
         call __CHP
@@ -6060,7 +6060,7 @@ RulesMenu_176B:
         add esp, byte 4
         push dword [dword ebp-010Ah]
         call FreeBitmap
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         add esp, byte 4
         test byte [byte eax+01h], 20h
         je near .53
@@ -6075,13 +6075,13 @@ RulesMenu_176B:
 .51:
         call GetLangText
         fld dword [byte ebp+066h]
-        fmul dword [dword_167C33]
+        fmul dword [F32_9]
         fld dword [byte ebp+072h]
-        fmul dword [dword_167BDB]
+        fmul dword [F32_70]
         fld dword [byte ebp+066h]
-        fmul dword [dword_167C47]
+        fmul dword [F32_40_RulesMenu]
         fld dword [byte ebp+072h]
-        fmul dword [dword_167BC7]
+        fmul dword [F32_180_RulesMenu]
         push eax
         fxch st3
         call __CHP
@@ -6114,13 +6114,13 @@ RulesMenu_176B:
         mov eax, 53h
         call GetLangText
         fld dword [byte ebp+066h]
-        fmul dword [dword_167C33]
+        fmul dword [F32_9]
         fld dword [byte ebp+072h]
-        fmul dword [dword_167BDB]
+        fmul dword [F32_70]
         fld dword [byte ebp+066h]
-        fmul dword [dword_167C47]
+        fmul dword [F32_40_RulesMenu]
         fld dword [byte ebp+072h]
-        fmul dword [dword_167BC7]
+        fmul dword [F32_180_RulesMenu]
         push eax
         fxch st3
         call __CHP
@@ -6163,13 +6163,13 @@ RulesMenu_176B:
         mov eax, 52h
         call GetLangText
         fld dword [byte ebp+066h]
-        fmul dword [dword_167C33]
+        fmul dword [F32_9]
         fld dword [byte ebp+072h]
-        fmul dword [dword_167BDB]
+        fmul dword [F32_70]
         fld dword [byte ebp+066h]
-        fmul dword [dword_167C47]
+        fmul dword [F32_40_RulesMenu]
         fld dword [byte ebp+072h]
-        fmul dword [dword_167BC7]
+        fmul dword [F32_180_RulesMenu]
         push eax
         fxch st3
         call __CHP
@@ -6229,7 +6229,7 @@ RulesMenu_19CD:
         add esp, byte 4
         push dword [dword ebp-0FEh]
         call FreeBitmap
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         add esp, byte 4
         test byte [byte eax+01h], 10h
         je near .58
@@ -6243,13 +6243,13 @@ RulesMenu_19CD:
         mov eax, 59h
         call GetLangText
         fld dword [byte ebp+066h]
-        fmul dword [dword_167C33]
+        fmul dword [F32_9]
         fld dword [byte ebp+072h]
-        fmul dword [dword_167BDB]
+        fmul dword [F32_70]
         fld dword [byte ebp+066h]
-        fmul dword [dword_167C43]
+        fmul dword [F32_55_RulesMenu]
         fld dword [byte ebp+072h]
-        fmul dword [dword_167BC7]
+        fmul dword [F32_180_RulesMenu]
         push eax
         fxch st3
         call __CHP
@@ -6277,13 +6277,13 @@ RulesMenu_19CD:
 .57:
         call GetLangText
         fld dword [byte ebp+066h]
-        fmul dword [dword_167C33]
+        fmul dword [F32_9]
         fld dword [byte ebp+072h]
-        fmul dword [dword_167BDB]
+        fmul dword [F32_70]
         fld dword [byte ebp+066h]
-        fmul dword [dword_167C43]
+        fmul dword [F32_55_RulesMenu]
         fld dword [byte ebp+072h]
-        fmul dword [dword_167BC7]
+        fmul dword [F32_180_RulesMenu]
         push eax
         fxch st3
         call __CHP
@@ -6320,13 +6320,13 @@ RulesMenu_19CD:
         mov eax, 52h
         call GetLangText
         fld dword [byte ebp+066h]
-        fmul dword [dword_167C33]
+        fmul dword [F32_9]
         fld dword [byte ebp+072h]
-        fmul dword [dword_167BDB]
+        fmul dword [F32_70]
         fld dword [byte ebp+066h]
-        fmul dword [dword_167C43]
+        fmul dword [F32_55_RulesMenu]
         fld dword [byte ebp+072h]
-        fmul dword [dword_167BC7]
+        fmul dword [F32_180_RulesMenu]
         push eax
         fxch st3
         call __CHP
@@ -6384,7 +6384,7 @@ RulesMenu_1C04:
         add esp, byte 4
         push dword [dword ebp-0F2h]
         call FreeBitmap
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         add esp, byte 4
         test byte [byte eax+02h], 2
         je short .62
@@ -6423,13 +6423,13 @@ RulesMenu_1C04:
 .64:
         call GetLangText
         fld dword [byte ebp+066h]
-        fmul dword [dword_167C33]
+        fmul dword [F32_9]
         fld dword [byte ebp+072h]
-        fmul dword [dword_167BDB]
+        fmul dword [F32_70]
         fld dword [byte ebp+066h]
-        fmul dword [dword_167BDB]
+        fmul dword [F32_70]
         fld dword [byte ebp+072h]
-        fmul dword [dword_167BC7]
+        fmul dword [F32_180_RulesMenu]
         push eax
         fxch st3
         call __CHP
@@ -6467,7 +6467,7 @@ RulesMenu_1C04:
         mov dword [dword ebp-05B6h], eax
         jmp near RulesMenu.45
 RulesMenu_1D78:
-        test byte [dword_1AC814], 70h
+        test byte [GameSettings], 70h
         jne near RulesMenu.45
         call SetScreenTarget
         movsx eax, si
@@ -6489,8 +6489,8 @@ RulesMenu_1D78:
         push dword [dword ebp-0E6h]
         call FreeBitmap
         fld dword [byte ebp+066h]
-        fmul dword [dword_167C3F]
-        mov eax, dword [dword_1AC944]
+        fmul dword [F32_85]
+        mov eax, dword [GameOptionFlags]
         add esp, byte 4
         fstp dword [byte ebp+02Ah]
         test byte [byte eax+01h], 0C0h
@@ -6584,7 +6584,7 @@ RulesMenu_1D78:
         mov dword [dword ebp-0564h], eax
         jmp near RulesMenu.45
 RulesMenu_1F1F:
-        test byte [dword_1AC814], 70h
+        test byte [GameSettings], 70h
         jne near RulesMenu.45
         call SetScreenTarget
         movsx eax, si
@@ -6606,8 +6606,8 @@ RulesMenu_1F1F:
         push dword [dword ebp-0DAh]
         call FreeBitmap
         fld dword [byte ebp+066h]
-        fmul dword [dword_167C3B]
-        mov eax, dword [dword_1AC944]
+        fmul dword [F32_100_RulesMenu]
+        mov eax, dword [GameOptionFlags]
         add esp, byte 4
         fstp dword [byte ebp-062h]
         test byte [byte eax+02h], 1
@@ -6669,7 +6669,7 @@ RulesMenu_1F1F:
         mov dword [dword ebp-0512h], eax
         jmp near RulesMenu.45
 RulesMenu_2056:
-        test byte [dword_1AC814], 70h
+        test byte [GameSettings], 70h
         jne near RulesMenu.45
         call SetScreenTarget
         movsx eax, si
@@ -6691,8 +6691,8 @@ RulesMenu_2056:
         push dword [dword ebp-0CEh]
         call FreeBitmap
         fld dword [byte ebp+066h]
-        fmul dword [dword_167BF3]
-        mov eax, dword [dword_1AC944]
+        fmul dword [F32_115]
+        mov eax, dword [GameOptionFlags]
         add esp, byte 4
         fstp dword [byte ebp+01Ah]
         test byte [byte eax+02h], 4
@@ -6754,7 +6754,7 @@ RulesMenu_2056:
         mov dword [dword ebp-04C0h], eax
         jmp near RulesMenu.45
 RulesMenu_218D:
-        test byte [dword_1AC814], 70h
+        test byte [GameSettings], 70h
         jne near RulesMenu.45
         call SetScreenTarget
         movsx eax, si
@@ -6775,14 +6775,14 @@ RulesMenu_218D:
         add esp, byte 4
         push dword [dword ebp-0C2h]
         call FreeBitmap
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov edx, dword [byte eax+01h]
         and edx, byte 7
         inc edx
         and byte [byte eax+01h], 0F8h
         and edx, byte 7
         or dword [byte eax+01h], edx
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov edx, dword [byte eax+01h]
         and edx, byte 7
         add esp, byte 4
@@ -6790,7 +6790,7 @@ RulesMenu_218D:
         jbe short .74
         and byte [byte eax+01h], 0F8h
 .74:
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         and eax, byte 7
         imul eax, byte 14h
@@ -6800,14 +6800,14 @@ RulesMenu_218D:
         push eax
         call sprintf_
         fld dword [byte ebp+066h]
-        fmul dword [dword_167C33]
+        fmul dword [F32_9]
         fld dword [byte ebp+072h]
-        fmul dword [dword_167BDB]
+        fmul dword [F32_70]
         fld dword [byte ebp+066h]
-        fmul dword [dword_167BCB]
+        fmul dword [F32_130_RulesMenu]
         fld dword [byte ebp+072h]
         add esp, byte 0Ch
-        fmul dword [dword_167BC7]
+        fmul dword [F32_180_RulesMenu]
         push dword [byte ebp+066h]
         movsx eax, word [word_1CEFC0]
         push dword [byte ebp+072h]
@@ -6870,8 +6870,8 @@ RulesMenu_22F1:
         push dword [dword ebp-0B6h]
         call FreeBitmap
         fld dword [byte ebp+066h]
-        fmul dword [dword_167C37]
-        mov eax, dword [dword_1AC944]
+        fmul dword [F32_145]
+        mov eax, dword [GameOptionFlags]
         add esp, byte 4
         fstp dword [byte ebp+016h]
         test byte [byte eax+02h], 20h
@@ -7001,19 +7001,19 @@ DetailLevelMenu:
         enter 5ACh, 0
         sub ebp, 86h
         fild dword [dword_16E464]
-        fmul qword [qword_167C4F]
+        fmul qword [F64_0p003125_DetailLevelMenu]
         fild dword [dword_16E468]
-        fmul qword [qword_167C57]
+        fmul qword [F64_0p005_DetailLevelMenu]
         fxch
         fstp dword [byte ebp+072h]
         fstp dword [byte ebp+076h]
         call SetScreenTarget
         fld dword [byte ebp+072h]
-        fmul dword [dword_167C5F]
+        fmul dword [F32_10_DetailLevelMenu]
         fld dword [byte ebp+076h]
-        fmul dword [dword_167C5F]
+        fmul dword [F32_10_DetailLevelMenu]
         fld dword [byte ebp+076h]
-        fmul dword [dword_167C63]
+        fmul dword [F32_180_DetailLevelMenu]
         mov dword [byte ebp+07Eh], 0
         fxch st2
         fstp dword [byte ebp+032h]
@@ -7024,13 +7024,13 @@ DetailLevelMenu:
         push dword 0FF000000h
         call MatchColor
         fld dword [byte ebp+072h]
-        fmul dword [dword_167C6B]
+        fmul dword [F32_90_DetailLevelMenu]
         jmp short .2
 .1:
         push dword 0FF000000h
         call MatchColor
         fld dword [byte ebp+072h]
-        fmul dword [dword_167C67]
+        fmul dword [F32_130_DetailLevelMenu]
 .2:
         fld dword [byte ebp+02Eh]
         fld dword [byte ebp+03Ah]
@@ -7073,13 +7073,13 @@ DetailLevelMenu:
         mov eax, 52h
         call GetLangText
         fld dword [byte ebp+076h]
-        fmul dword [dword_167C6F]
+        fmul dword [F32_9_DetailLevelMenu]
         fld dword [byte ebp+072h]
-        fmul dword [dword_167C73]
+        fmul dword [F32_70_DetailLevelMenu]
         fld dword [byte ebp+076h]
-        fmul dword [dword_167C77]
+        fmul dword [F32_30_DetailLevelMenu]
         fld dword [byte ebp+072h]
-        fmul dword [dword_167C7B]
+        fmul dword [F32_20_DetailLevelMenu]
         push eax
         fxch st3
         call __CHP
@@ -7112,13 +7112,13 @@ DetailLevelMenu:
         mov eax, 53h
         call GetLangText
         fld dword [byte ebp+076h]
-        fmul dword [dword_167C6F]
+        fmul dword [F32_9_DetailLevelMenu]
         fld dword [byte ebp+072h]
-        fmul dword [dword_167C73]
+        fmul dword [F32_70_DetailLevelMenu]
         fld dword [byte ebp+076h]
-        fmul dword [dword_167C77]
+        fmul dword [F32_30_DetailLevelMenu]
         fld dword [byte ebp+072h]
-        fmul dword [dword_167C7B]
+        fmul dword [F32_20_DetailLevelMenu]
         push eax
         fxch st3
         call __CHP
@@ -7148,14 +7148,14 @@ DetailLevelMenu:
         call DrawMenuItem
         fld dword [byte ebp+072h]
         fld st0
-        fmul dword [dword_167C7B]
+        fmul dword [F32_20_DetailLevelMenu]
         fld dword [byte ebp+076h]
         fld st0
-        fmul dword [dword_167C7F]
+        fmul dword [F32_47_DetailLevelMenu]
         fxch st3
-        fmul dword [dword_167C73]
+        fmul dword [F32_70_DetailLevelMenu]
         fxch
-        fmul dword [dword_167C6F]
+        fmul dword [F32_9_DetailLevelMenu]
         fxch st3
         fstp dword [byte ebp-02Eh]
         fstp dword [byte ebp+012h]
@@ -7235,14 +7235,14 @@ DetailLevelMenu:
         call DrawMenuItem
         fld dword [byte ebp+072h]
         fld st0
-        fmul dword [dword_167C7B]
+        fmul dword [F32_20_DetailLevelMenu]
         fld dword [byte ebp+076h]
         fld st0
-        fmul dword [dword_167C83]
+        fmul dword [F32_64_DetailLevelMenu]
         fxch st3
-        fmul dword [dword_167C73]
+        fmul dword [F32_70_DetailLevelMenu]
         fxch
-        fmul dword [dword_167C6F]
+        fmul dword [F32_9_DetailLevelMenu]
         fxch st3
         fstp dword [byte ebp-026h]
         fstp dword [byte ebp+04Ah]
@@ -7319,14 +7319,14 @@ DetailLevelMenu:
         call DrawMenuItem
         fld dword [byte ebp+072h]
         fld st0
-        fmul dword [dword_167C7B]
+        fmul dword [F32_20_DetailLevelMenu]
         fld dword [byte ebp+076h]
         fld st0
-        fmul dword [dword_167C87]
+        fmul dword [F32_81_DetailLevelMenu]
         fxch st3
-        fmul dword [dword_167C73]
+        fmul dword [F32_70_DetailLevelMenu]
         fxch
-        fmul dword [dword_167C6F]
+        fmul dword [F32_9_DetailLevelMenu]
         fxch st3
         fstp dword [byte ebp+052h]
         fstp dword [byte ebp+056h]
@@ -7409,14 +7409,14 @@ DetailLevelMenu:
         call DrawMenuItem
         fld dword [byte ebp+072h]
         fld st0
-        fmul dword [dword_167C7B]
+        fmul dword [F32_20_DetailLevelMenu]
         fld dword [byte ebp+076h]
         fld st0
-        fmul dword [dword_167C8B]
+        fmul dword [F32_98_DetailLevelMenu]
         fxch st3
-        fmul dword [dword_167C73]
+        fmul dword [F32_70_DetailLevelMenu]
         fxch
-        fmul dword [dword_167C6F]
+        fmul dword [F32_9_DetailLevelMenu]
         fxch st3
         fstp dword [byte ebp+06h]
         fstp dword [byte ebp+05Ah]
@@ -7499,14 +7499,14 @@ DetailLevelMenu:
         call DrawMenuItem
         fld dword [byte ebp+072h]
         fld st0
-        fmul dword [dword_167C7B]
+        fmul dword [F32_20_DetailLevelMenu]
         fld dword [byte ebp+076h]
         fld st0
-        fmul dword [dword_167C8F]
+        fmul dword [F32_115_DetailLevelMenu]
         fxch st3
-        fmul dword [dword_167C73]
+        fmul dword [F32_70_DetailLevelMenu]
         fxch
-        fmul dword [dword_167C6F]
+        fmul dword [F32_9_DetailLevelMenu]
         fxch st3
         fstp dword [byte ebp+036h]
         fstp dword [byte ebp+0Eh]
@@ -7586,14 +7586,14 @@ DetailLevelMenu:
         call DrawMenuItem
         fld dword [byte ebp+072h]
         fld st0
-        fmul dword [dword_167C7B]
+        fmul dword [F32_20_DetailLevelMenu]
         fld dword [byte ebp+076h]
         fld st0
-        fmul dword [dword_167C93]
+        fmul dword [F32_132_DetailLevelMenu]
         fxch st3
-        fmul dword [dword_167C73]
+        fmul dword [F32_70_DetailLevelMenu]
         fxch
-        fmul dword [dword_167C6F]
+        fmul dword [F32_9_DetailLevelMenu]
         fxch st3
         fstp dword [byte ebp+05Eh]
         fstp dword [byte ebp-01Eh]
@@ -7678,13 +7678,13 @@ DetailLevelMenu:
         mov eax, 51h
         call GetLangText
         fld dword [byte ebp+076h]
-        fmul dword [dword_167C6F]
+        fmul dword [F32_9_DetailLevelMenu]
         fld dword [byte ebp+072h]
-        fmul dword [dword_167C73]
+        fmul dword [F32_70_DetailLevelMenu]
         fld dword [byte ebp+076h]
-        fmul dword [dword_167C97]
+        fmul dword [F32_178_DetailLevelMenu]
         fld dword [byte ebp+072h]
-        fmul dword [dword_167C7B]
+        fmul dword [F32_20_DetailLevelMenu]
         push eax
         fxch st3
         call __CHP
@@ -7747,18 +7747,18 @@ DetailLevelMenu:
         mov dword [byte ebp-012h], eax
         imul eax, dword [dword_16E464], byte 50h
         fild dword [byte ebp-012h]
-        fmul dword [dword_167CC7]
+        fmul dword [F32_0p005_DetailLevelMenu]
         mov dword [byte ebp-012h], eax
         fild dword [byte ebp-012h]
-        fmul dword [dword_167CD3]
+        fmul dword [F32_0p003125_DetailLevelMenu]
         mov ebx, dword [dword edx+ebp-04FCh]
         fxch
-        fadd qword [qword_167CCB]
+        fadd qword [F64_0p5_DetailLevelMenu]
         mov edx, dword [dword edx+ebp-0500h]
         call __CHP
         fistp dword [byte ebp-012h]
         push dword [byte ebp-012h]
-        fadd qword [qword_167CCB]
+        fadd qword [F64_0p5_DetailLevelMenu]
         mov eax, edi
         call __CHP
         fistp dword [byte ebp-012h]
@@ -7784,7 +7784,7 @@ DetailLevelMenu:
         cmp word [word_1CEFC0], byte 2
         je short .22
         fld dword [byte ebp+076h]
-        fmul dword [dword_167C9B]
+        fmul dword [F32_5_DetailLevelMenu]
         call __CHP
         fistp dword [byte ebp-012h]
         mov eax, dword [byte ebp-012h]
@@ -7794,9 +7794,9 @@ DetailLevelMenu:
         mov eax, 65h
         call GetLangText
         fld dword [byte ebp+076h]
-        fmul dword [dword_167C9F]
+        fmul dword [F32_19_DetailLevelMenu]
         fld dword [byte ebp+072h]
-        fmul dword [dword_167C7B]
+        fmul dword [F32_20_DetailLevelMenu]
         push eax
         fild word [dword ebp+082h]
         fstp dword [byte ebp+01Ah]
@@ -7816,7 +7816,7 @@ DetailLevelMenu:
         mov eax, 66h
         call GetLangText
         fld dword [byte ebp+076h]
-        fmul dword [dword_167CA3]
+        fmul dword [F32_36_DetailLevelMenu]
         fadd dword [byte ebp+01Ah]
         push eax
         call __CHP
@@ -7829,7 +7829,7 @@ DetailLevelMenu:
         mov eax, 67h
         call GetLangText
         fld dword [byte ebp+076h]
-        fmul dword [dword_167CA7]
+        fmul dword [F32_53_DetailLevelMenu]
         fadd dword [byte ebp+01Ah]
         push eax
         call __CHP
@@ -7842,7 +7842,7 @@ DetailLevelMenu:
         mov eax, 68h
         call GetLangText
         fld dword [byte ebp+076h]
-        fmul dword [dword_167C73]
+        fmul dword [F32_70_DetailLevelMenu]
         fadd dword [byte ebp+01Ah]
         push eax
         call __CHP
@@ -7855,7 +7855,7 @@ DetailLevelMenu:
         mov eax, 69h
         call GetLangText
         fld dword [byte ebp+076h]
-        fmul dword [dword_167CAB]
+        fmul dword [F32_87_DetailLevelMenu]
         fadd dword [byte ebp+01Ah]
         push eax
         call __CHP
@@ -7868,7 +7868,7 @@ DetailLevelMenu:
         mov eax, 6Bh
         call GetLangText
         fld dword [byte ebp+076h]
-        fmul dword [dword_167CAF]
+        fmul dword [F32_104_DetailLevelMenu]
         fadd dword [byte ebp+01Ah]
         push eax
         call __CHP
@@ -7881,7 +7881,7 @@ DetailLevelMenu:
         mov eax, 6Ah
         call GetLangText
         fld dword [byte ebp+076h]
-        fmul dword [dword_167CB3]
+        fmul dword [F32_121_DetailLevelMenu]
         fadd dword [byte ebp+01Ah]
         push eax
         call __CHP
@@ -7891,13 +7891,13 @@ DetailLevelMenu:
         push byte 0
         call DrawTextAligned
         fld dword [byte ebp+076h]
-        fmul dword [dword_167CB7]
+        fmul dword [F32_37]
         fld dword [byte ebp+072h]
         fld st0
-        fmul dword [dword_167CBB]
+        fmul dword [F32_18]
         add esp, byte 10h
         fxch
-        fmul dword [dword_167CBF]
+        fmul dword [F32_15_DetailLevelMenu]
         push byte 2
         fxch
         call __CHP
@@ -7917,7 +7917,7 @@ DetailLevelMenu:
         call DrawShadowRect
         fld dword [byte ebp+076h]
         add esp, byte 18h
-        fmul dword [dword_167CC3]
+        fmul dword [F32_63]
         push byte 2
         fadd dword [byte ebp+01Ah]
         push dword [dword_1CEFB8]
@@ -7978,13 +7978,13 @@ DetailLevelMenu_C81:
         mov dword [dword_16AF54], 0
         call GetLangText
         fld dword [byte ebp+076h]
-        fmul dword [dword_167C6F]
+        fmul dword [F32_9_DetailLevelMenu]
         fld dword [byte ebp+072h]
-        fmul dword [dword_167C73]
+        fmul dword [F32_70_DetailLevelMenu]
         fld dword [byte ebp+076h]
-        fmul dword [dword_167CE7]
+        fmul dword [F32_25_DetailLevelMenu]
         fld dword [byte ebp+072h]
-        fmul dword [dword_167C63]
+        fmul dword [F32_180_DetailLevelMenu]
         push eax
         fxch st3
         call __CHP
@@ -8016,7 +8016,7 @@ DetailLevelMenu_C81:
         mov dword [dword_16AF54], 1
         call GetLangText
         fld dword [byte ebp+076h]
-        fmul dword [dword_167CE7]
+        fmul dword [F32_25_DetailLevelMenu]
         fld dword [byte ebp+03Eh]
         fld dword [byte ebp-0Eh]
         fld dword [byte ebp+01Eh]
@@ -8229,18 +8229,18 @@ DetailLevelMenu_E31:
         ja short .29
         fld dword [byte ebp+072h]
         fld st0
-        fmul dword [dword_167C63]
+        fmul dword [F32_180_DetailLevelMenu]
         fxch
-        fmul dword [dword_167C73]
+        fmul dword [F32_70_DetailLevelMenu]
         fld dword [byte ebp+076h]
         fld st0
-        fmul dword [dword_167C6F]
+        fmul dword [F32_9_DetailLevelMenu]
         fld st1
-        fmul dword [dword_167CD7]
+        fmul dword [F32_55_DetailLevelMenu]
         fld st2
-        fmul dword [dword_167CDB]
+        fmul dword [F32_40_DetailLevelMenu]
         fxch st3
-        fmul dword [dword_167CDF]
+        fmul dword [F32_100_DetailLevelMenu]
         mov eax, dword [byte ebp-036h]
         fxch st5
         fstp dword [byte ebp+01Eh]
@@ -8409,7 +8409,7 @@ DetailLevelMenu_12B8:
         push dword [byte ebp-06Eh]
         call FreeBitmap
         fld dword [byte ebp+076h]
-        fmul dword [dword_167C73]
+        fmul dword [F32_70_DetailLevelMenu]
         add esp, byte 4
         fstp dword [byte ebp+022h]
         cmp dword [dword_16AF3C], byte 0
@@ -8491,7 +8491,7 @@ DetailLevelMenu_13D7:
         push dword [byte ebp-062h]
         call FreeBitmap
         fld dword [byte ebp+076h]
-        fmul dword [dword_167CE3]
+        fmul dword [F32_85_DetailLevelMenu]
         add esp, byte 4
         fstp dword [byte ebp+02h]
         cmp dword [dword_16AF48], byte 0
@@ -8775,40 +8775,40 @@ DetailLevelMenu_17B7:
         xor eax, eax
 .41:
         and eax, byte 1
-        and byte [byte_1AC81B], 0DFh
+        and byte [MusicOptions], 0DFh
         shl eax, 15h
-        or dword [dword_1AC819], eax
+        or dword [AudioOptions], eax
         mov eax, dword [dword_16AF44]
         and eax, byte 1
-        and byte [byte_1AC81B], 0BFh
+        and byte [MusicOptions], 0BFh
         shl eax, 16h
-        or dword [dword_1AC819], eax
+        or dword [AudioOptions], eax
         mov eax, dword [dword_16AF40]
         and eax, byte 1
-        and byte [byte_1AC81C], 0FEh
+        and byte [DetailLevel], 0FEh
         shl eax, 18h
-        or dword [dword_1AC819], eax
+        or dword [AudioOptions], eax
         mov eax, dword [dword_16AF3C]
         and eax, byte 1
-        and byte [byte_1AC81C], 0FDh
+        and byte [DetailLevel], 0FDh
         shl eax, 19h
-        or dword [dword_1AC819], eax
+        or dword [AudioOptions], eax
         mov eax, dword [dword_16AF48]
         and eax, byte 1
-        and byte [byte_1AC81C], 0FBh
+        and byte [DetailLevel], 0FBh
         shl eax, 1Ah
-        or dword [dword_1AC819], eax
+        or dword [AudioOptions], eax
         mov eax, dword [dword_1B8578]
         and eax, byte 1
-        and byte [byte_1AC81C], 0F7h
+        and byte [DetailLevel], 0F7h
         shl eax, 1Bh
-        or dword [dword_1AC819], eax
+        or dword [AudioOptions], eax
         mov eax, dword [dword_16AF58]
         and eax, byte 1
-        and byte [byte_1AC81C], 0DFh
+        and byte [DetailLevel], 0DFh
         shl eax, 1Dh
         mov dword [byte ebp+07Eh], 1
-        or dword [dword_1AC819], eax
+        or dword [AudioOptions], eax
         jmp near DetailLevelMenu_E31.29
 .42:
         call RedrawGameView

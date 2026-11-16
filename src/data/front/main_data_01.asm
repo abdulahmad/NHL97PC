@@ -11,7 +11,7 @@ global str_S14, str_NW, str_NE, str_SW, str_SE, str_LX02d, str_LC02d, str_UNPACK
 global str_LOGO8, str_LX004, str_LC004, str_DisD, str_REL1, str_RELD, str_Ldn2, unk_1643C2
 global unk_16445A, unk_1644A0, unk_1644EF, unk_1645E7, unk_164636, unk_164686, unk_1646D4, unk_164724
 global unk_16480B, unk_1648DA, unk_16491D, unk_1649E0, unk_164A6A, unk_164B4D, unk_164BFD, unk_164C3F
-global unk_164C6C, unk_164D67, unk_164F96, unk_16503B, unk_16508B, unk_16518C, unk_165190
+global unk_164C6C, unk_164D67, unk_164F96, str_Punct_main_, unk_16508B, str_X, str_S_EditText
 str_Punct5:
         db 0Ah,0Ah,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh
         db 02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh
@@ -318,7 +318,7 @@ str_NHL97MustBeInstalledAndRu:
         db 0Ah,00h
 str_CDFILEIVIV:
         db 043h,044h,046h,049h,04Ch,045h,049h,02Eh,056h,049h,056h,00h
-unk_16503B:
+str_Punct_main_:
         db 0Ah,00h
 str_BitteLegenSieDieNHL97CDIn:
         db 042h,069h,074h,074h,065h,020h,06Ch,065h,067h,065h,06Eh,020h,053h,069h,065h,020h
@@ -369,9 +369,9 @@ str_LX02d:
         db 04Ch,058h,025h,030h,032h,064h,00h,00h
 str_LC02d:
         db 04Ch,043h,025h,030h,032h,064h,00h,00h
-unk_16518C:
+str_X:
         db 058h,00h,00h,00h
-unk_165190:
+str_S_EditText:
         db 025h,073h,00h,00h
 str_UNPACKLOGO:
         db 055h,04Eh,050h,041h,043h,04Bh,04Ch,04Fh,047h,04Fh,00h,00h

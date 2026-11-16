@@ -2,9 +2,9 @@
 bits 32
 %include "hockey.inc"
 section s_169780 progbits alloc noexec write align=1
-extern unk_160BA8, unk_160BB4, unk_160BC0, unk_160BCC, unk_160BD4, unk_160BE0, unk_160BE8, unk_160BF8
-extern unk_160C00, unk_160C08, unk_160C14, unk_160C1C, unk_160C24, unk_160C30, unk_160C3C, unk_160C4C
-extern unk_160C58, unk_160C60, unk_160C68, unk_160C70, unk_160C7C, unk_160C80, unk_160C8C, unk_1692F8
+extern str_CentreArea, str_CentreIce, str_BlueLine, str_Point, str_OwnBlueLine, str_InFront, str_InFrontOfTheNet, str_OwnZone
+extern str_Corner, str_NeutralZone, str_Slot, str_Wing, str_BehindNet, str_BesideNet, str_OffensiveZone, str_WideOfNet
+extern str_Deep, str_Right, str_Left, str_PointBlank, str_NetExt, str_EndBoards, str_ERROR, unk_1692F8
 extern unk_169300, unk_169308, unk_16933C, unk_169370, unk_1693D0, unk_169488, unk_1694E8, unk_1695A0
 extern unk_169600, unk_169660, unk_1696C0, unk_169778
 global dword_1697B4, dword_1697B8, dword_169818, dword_16981C, dword_169820, dword_169844, off_169780, off_1697BC
@@ -28,30 +28,30 @@ dword_1697B4:
 dword_1697B8:
         db 00h,00h,00h,00h
 off_1697BC:
-        dd unk_160BA8
-        dd unk_160BB4
-        dd unk_160BC0
-        dd unk_160BCC
-        dd unk_160BD4
-        dd unk_160BE0
-        dd unk_160BE8
-        dd unk_160BF8
-        dd unk_160C00
-        dd unk_160C08
-        dd unk_160C14
-        dd unk_160C1C
-        dd unk_160C24
-        dd unk_160C30
-        dd unk_160C3C
-        dd unk_160C4C
-        dd unk_160C58
-        dd unk_160C60
-        dd unk_160C68
-        dd unk_160C70
-        dd unk_160C7C
-        dd unk_160C80
+        dd str_CentreArea
+        dd str_CentreIce
+        dd str_BlueLine
+        dd str_Point
+        dd str_OwnBlueLine
+        dd str_InFront
+        dd str_InFrontOfTheNet
+        dd str_OwnZone
+        dd str_Corner
+        dd str_NeutralZone
+        dd str_Slot
+        dd str_Wing
+        dd str_BehindNet
+        dd str_BesideNet
+        dd str_OffensiveZone
+        dd str_WideOfNet
+        dd str_Deep
+        dd str_Right
+        dd str_Left
+        dd str_PointBlank
+        dd str_NetExt
+        dd str_EndBoards
 off_169814:
-        dd unk_160C8C
+        dd str_ERROR
 dword_169818:
         db 00h,00h,00h,00h
 dword_16981C:

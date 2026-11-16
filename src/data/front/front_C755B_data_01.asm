@@ -12,7 +12,7 @@ global str_LWON, str_RWOF, str_RWON, str_CEOF, str_CEON, str_DEOF, str_DEON, str
 global str_SRON, str_GROF, str_GRON, str_SLOF, str_SLON, str_GLOF, str_GLON, str_POB1
 global str_PBOF, str_STSP, str_STSG, str_AN02d, str_CreatePlrMenu, str_CreatePlrRegion, str_00008, str_NAON
 global str_JNON, str_JNOF, str_PBON, str_HEON, str_HEOF, str_WEON, str_WEOF, str_AGON
-global str_AGOF, str_Aiplayers, str_Statplayers, str_Statgoalies, qword_166FC4, str_TR00, unk_166E9D, unk_166F30
+global str_AGOF, str_Aiplayers, str_Statplayers, str_Statgoalies, F64_2_BuildTradePlayerLists, str_TR00, str_D_JerseyScreen, str_S_DrawCreatePlayerLabel
 str_CDCS2:
         db 025h,063h,020h,020h,020h,025h,064h,020h,020h,020h,025h,063h,02Eh,020h,020h,025h
         db 073h,00h
@@ -99,7 +99,7 @@ str_TR04:
         db 054h,052h,030h,034h,00h
 str_SS11:
         db 025h,073h,020h,025h,073h,00h
-unk_166E9D:
+str_D_JerseyScreen:
         db 025h,064h,00h
 str_JerseyMenu:
         db 06Ah,065h,072h,073h,065h,079h,020h,06Dh,065h,06Eh,075h,00h
@@ -150,7 +150,7 @@ str_GLON:
         db 047h,04Ch,04Fh,04Eh,00h
 str_POB1:
         db 050h,04Fh,042h,031h,00h
-unk_166F30:
+str_S_DrawCreatePlayerLabel:
         db 025h,073h,00h
 str_PBOF:
         db 050h,042h,04Fh,046h,00h
@@ -193,5 +193,5 @@ str_Statplayers:
         db 073h,074h,061h,074h,070h,06Ch,061h,079h,065h,072h,073h,00h
 str_Statgoalies:
         db 073h,074h,061h,074h,067h,06Fh,061h,06Ch,069h,065h,073h,00h
-qword_166FC4:
+F64_2_BuildTradePlayerLists:
         db 00h,00h,00h,00h,00h,00h,00h,040h

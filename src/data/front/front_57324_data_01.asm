@@ -15,143 +15,143 @@ global str_Fac00000, str_Face3, str_REPLAY, str_RPGAME, str_RSPRITE, str_Tmp, st
 global str_Puckh, str_PlAct, str_PlFall, str_Interfer, str_Goalie, str_Refskate, str_Refcalls, str_Refambi
 global str_Fight, str_Cup2, str_Puck3, str_Stickheel, str_Origin, str_Chin, str_Rhand, str_Lshldr
 global str_Rshldr, str_ANIMSVIV, str_MIRROR, str_SCALED, str_LOOP, str_MASTER, str_SLAVE, str_FADING
-global str_4da, str_ANIMSTAT, str_AiconsViv, str_Cross, str_ANIMSVIV2, dword_161A96, dword_161ABA, dword_161ABE
-global dword_161AC2, dword_161AC6, dword_161ACA, dword_161AD0, dword_161B28, dword_161B34, dword_161B38, dword_161B3C
-global dword_161B48, dword_161B4C, dword_161B50, dword_161B54, dword_161B98, dword_161B9C, dword_161BA0, dword_161BA4
-global dword_162AE7, dword_162B13, dword_162B1F, dword_162B2B, dword_162B5F, dword_162B63, dword_162B67, dword_162B73
-global dword_162B77, dword_162B7B, dword_162BBF, dword_162C0B, dword_162C1F, dword_162C33, dword_162C37, dword_162C3B
-global dword_162CB7, dword_162CBB, dword_162CBF, dword_162D03, dword_162D37, dword_162E0B, dword_162E3F, dword_162E43
-global dword_162E87, dword_162E8B, dword_162ECF, dword_162F13, dword_162F17, dword_162F23, dword_162F6F, dword_162F73
-global dword_162FBF, dword_162FC3, dword_162FC7, dword_162FCB, dword_162FDF, dword_16300B, dword_16309C, dword_1630A0
-global dword_1630A4, dword_1630E0, dword_1630E4, dword_163138, dword_16317C, dword_163190, dword_163194, dword_163198
-global dword_1631A4, dword_1631D0, dword_1631D4, dword_1631D8, dword_1631DC, dword_163230, dword_163234, dword_163248
-global dword_16324C, dword_163280, dword_163284, dword_163288, dword_1632C4, dword_1632C8, dword_1632CC, dword_163300
-global dword_163304, dword_163308, dword_16330C, dword_163310, dword_16331C, dword_163320, dword_163334, dword_163378
-global dword_16337C, dword_163380, dword_163384, dword_163388, dword_163394, dword_163398, dword_1633AC, dword_1633F0
-global dword_1633F4, dword_1633F8, dword_1633FC, dword_163408, dword_16340C, dword_163420, dword_163464, dword_163468
-global dword_16346C, dword_163498, dword_16349C, dword_1634A0, dword_1634A4, dword_1634A8, dword_1634D4, dword_163578
-global dword_16357C, dword_1635D0, dword_1635D4, dword_163630, dword_163644, dword_163648, dword_16367C, dword_163680
-global dword_163684, dword_163688, dword_1636B4, dword_1636B8, dword_1636BC, dword_1636C0, dword_1636C4, dword_1636C8
-global dword_1636F4, dword_163720, dword_163744, dword_163758, dword_16375C, dword_163760, dword_16376C, dword_163790
-global dword_163794, dword_163798, dword_1637D4, dword_163808, dword_16380C, dword_163810, dword_163814, dword_163818
-global dword_16381C, dword_163828, dword_163834, dword_163838, dword_16383C, dword_163850, dword_16390C, dword_163958
-global dword_163A5C, dword_163A60, dword_163A6C, dword_163AD8, dword_163B04, dword_163B10, dword_163B24, dword_163B58
-global dword_163BD4, dword_163C00, dword_163C24, dword_163C28, dword_163C2C, dword_163C90, dword_163CB4, dword_163CB8
-global dword_163D3C, dword_163D40, dword_163D4C, dword_163D50, dword_163D5C, dword_163D60, qword_161A9A, qword_161AA2
-global qword_161AAA, qword_161AB2, qword_161B2C, qword_161B40, qword_161B58, qword_161B60, qword_161B68, qword_161B70
-global qword_161B78, qword_161B80, qword_161B88, qword_161B90, qword_162AC7, qword_162ACF, qword_162AD7, qword_162ADF
-global qword_162AEB, qword_162AF3, qword_162AFB, qword_162B03, qword_162B0B, qword_162B17, qword_162B23, qword_162B2F
-global qword_162B37, qword_162B3F, qword_162B47, qword_162B4F, qword_162B57, qword_162B6B, qword_162B7F, qword_162B87
-global qword_162B8F, qword_162B97, qword_162B9F, qword_162BA7, qword_162BAF, qword_162BB7, qword_162BC3, qword_162BCB
-global qword_162BD3, qword_162BDB, qword_162BE3, qword_162BEB, qword_162BF3, qword_162BFB, qword_162C03, qword_162C0F
-global qword_162C17, qword_162C23, qword_162C2B, qword_162C3F, qword_162C47, qword_162C4F, qword_162C57, qword_162C5F
-global qword_162C67, qword_162C6F, qword_162C77, qword_162C7F, qword_162C87, qword_162C8F, qword_162C97, qword_162C9F
-global qword_162CA7, qword_162CAF, qword_162CC3, qword_162CCB, qword_162CD3, qword_162CDB, qword_162CE3, qword_162CEB
-global qword_162CF3, qword_162CFB, qword_162D07, qword_162D0F, qword_162D17, qword_162D1F, qword_162D27, qword_162D2F
-global qword_162D3B, qword_162D43, qword_162D4B, qword_162D53, qword_162D5B, qword_162D63, qword_162D6B, qword_162D73
-global qword_162D7B, qword_162D83, qword_162D8B, qword_162D93, qword_162D9B, qword_162DA3, qword_162DAB, qword_162DB3
-global qword_162DBB, qword_162DC3, qword_162DCB, qword_162DD3, qword_162DDB, qword_162DE3, qword_162DEB, qword_162DF3
-global qword_162DFB, qword_162E03, qword_162E0F, qword_162E17, qword_162E1F, qword_162E27, qword_162E2F, qword_162E37
-global qword_162E47, qword_162E4F, qword_162E57, qword_162E5F, qword_162E67, qword_162E6F, qword_162E77, qword_162E7F
-global qword_162E8F, qword_162E97, qword_162E9F, qword_162EA7, qword_162EAF, qword_162EB7, qword_162EBF, qword_162EC7
-global qword_162ED3, qword_162EDB, qword_162EE3, qword_162EEB, qword_162EF3, qword_162EFB, qword_162F03, qword_162F0B
-global qword_162F1B, qword_162F27, qword_162F2F, qword_162F37, qword_162F3F, qword_162F47, qword_162F4F, qword_162F57
-global qword_162F5F, qword_162F67, qword_162F77, qword_162F7F, qword_162F87, qword_162F8F, qword_162F97, qword_162F9F
-global qword_162FA7, qword_162FAF, qword_162FB7, qword_162FCF, qword_162FD7, qword_162FE3, qword_162FEB, qword_162FF3
-global qword_16302D, qword_1630A8, qword_1630B0, qword_1630B8, qword_1630C0, qword_1630C8, qword_1630D0, qword_1630D8
-global qword_1630E8, qword_1630F0, qword_1630F8, qword_163100, qword_163108, qword_163110, qword_163118, qword_163120
-global qword_163128, qword_163130, qword_16313C, qword_163144, qword_16314C, qword_163154, qword_16315C, qword_163164
-global qword_16316C, qword_163174, qword_163180, qword_163188, qword_16319C, qword_1631A8, qword_1631B0, qword_1631B8
-global qword_1631C0, qword_1631C8, qword_1631E0, qword_1631E8, qword_1631F0, qword_1631F8, qword_163200, qword_163208
-global qword_163210, qword_163218, qword_163220, qword_163228, qword_163238, qword_163240, qword_163250, qword_163258
-global qword_163260, qword_163268, qword_163270, qword_163278, qword_16328C, qword_163294, qword_16329C, qword_1632A4
-global qword_1632AC, qword_1632B4, qword_1632BC, qword_1632D0, qword_1632D8, qword_1632E0, qword_1632E8, qword_1632F0
-global qword_1632F8, qword_163314, qword_163324, qword_16332C, qword_163338, qword_163340, qword_163348, qword_163350
-global qword_163358, qword_163360, qword_163368, qword_163370, qword_16338C, qword_16339C, qword_1633A4, qword_1633B0
-global qword_1633B8, qword_1633C0, qword_1633C8, qword_1633D0, qword_1633D8, qword_1633E0, qword_1633E8, qword_163400
-global qword_163410, qword_163418, qword_163424, qword_16342C, qword_163434, qword_16343C, qword_163444, qword_16344C
-global qword_163454, qword_16345C, qword_163470, qword_163478, qword_163480, qword_163488, qword_163490, qword_1634AC
-global qword_1634B4, qword_1634BC, qword_1634C4, qword_1634CC, qword_1634D8, qword_1634E0, qword_1634E8, qword_1634F0
-global qword_1634F8, qword_163500, qword_163508, qword_163510, qword_163518, qword_163520, qword_163528, qword_163530
-global qword_163538, qword_163540, qword_163548, qword_163550, qword_163558, qword_163560, qword_163568, qword_163570
-global qword_163580, qword_163588, qword_163590, qword_163598, qword_1635A0, qword_1635A8, qword_1635B0, qword_1635B8
-global qword_1635C0, qword_1635C8, qword_1635D8, qword_1635E0, qword_1635E8, qword_1635F0, qword_1635F8, qword_163600
-global qword_163608, qword_163610, qword_163618, qword_163620, qword_163628, qword_163634, qword_16363C, qword_16364C
-global qword_163654, qword_16365C, qword_163664, qword_16366C, qword_163674, qword_16368C, qword_163694, qword_16369C
-global qword_1636A4, qword_1636AC, qword_1636CC, qword_1636D4, qword_1636DC, qword_1636E4, qword_1636EC, qword_1636F8
-global qword_163700, qword_163708, qword_163710, qword_163718, qword_163724, qword_16372C, qword_163734, qword_16373C
-global qword_163748, qword_163750, qword_163764, qword_163770, qword_163778, qword_163780, qword_163788, qword_16379C
-global qword_1637A4, qword_1637AC, qword_1637B4, qword_1637BC, qword_1637C4, qword_1637CC, qword_1637D8, qword_1637E0
-global qword_1637E8, qword_1637F0, qword_1637F8, qword_163800, qword_163820, qword_16382C, qword_163840, qword_163848
-global qword_163854, qword_16385C, qword_163864, qword_16386C, qword_163874, qword_16387C, qword_163884, qword_16388C
-global qword_163894, qword_16389C, qword_1638A4, qword_1638AC, qword_1638B4, qword_1638BC, qword_1638C4, qword_1638CC
-global qword_1638D4, qword_1638DC, qword_1638E4, qword_1638EC, qword_1638F4, qword_1638FC, qword_163904, qword_163910
-global qword_163918, qword_163920, qword_163928, qword_163930, qword_163938, qword_163940, qword_163948, qword_163950
-global qword_16395C, qword_163964, qword_16396C, qword_163974, qword_16397C, qword_163984, qword_16398C, qword_163994
-global qword_16399C, qword_1639A4, qword_1639AC, qword_1639B4, qword_1639BC, qword_1639C4, qword_1639CC, qword_1639D4
-global qword_1639DC, qword_1639E4, qword_1639EC, qword_1639F4, qword_1639FC, qword_163A04, qword_163A0C, qword_163A14
-global qword_163A1C, qword_163A24, qword_163A2C, qword_163A34, qword_163A3C, qword_163A44, qword_163A4C, qword_163A54
-global qword_163A64, qword_163A70, qword_163A78, qword_163A80, qword_163A88, qword_163A90, qword_163A98, qword_163AA0
-global qword_163AA8, qword_163AB0, qword_163AB8, qword_163AC0, qword_163AC8, qword_163AD0, qword_163ADC, qword_163AE4
-global qword_163AEC, qword_163AF4, qword_163AFC, qword_163B08, qword_163B14, qword_163B1C, qword_163B28, qword_163B30
-global qword_163B38, qword_163B40, qword_163B48, qword_163B50, qword_163B5C, qword_163B64, qword_163B6C, qword_163B74
-global qword_163B7C, qword_163B84, qword_163B8C, qword_163B94, qword_163B9C, qword_163BA4, qword_163BAC, qword_163BB4
-global qword_163BBC, qword_163BC4, qword_163BCC, qword_163BD8, qword_163BE0, qword_163BE8, qword_163BF0, qword_163BF8
-global qword_163C04, qword_163C0C, qword_163C14, qword_163C1C, qword_163C30, qword_163C38, qword_163C40, qword_163C48
-global qword_163C50, qword_163C58, qword_163C60, qword_163C68, qword_163C70, qword_163C78, qword_163C80, qword_163C88
-global qword_163C94, qword_163C9C, qword_163CA4, qword_163CAC, qword_163CBC, qword_163CC4, qword_163CCC, qword_163CD4
-global qword_163CDC, qword_163CE4, qword_163CEC, qword_163CF4, qword_163CFC, qword_163D04, qword_163D0C, qword_163D14
-global qword_163D1C, qword_163D24, qword_163D2C, qword_163D34, qword_163D44, qword_163D54, qword_163D64, qword_163DA1
-global qword_163DA9, qword_163DB1, qword_163EF8, str_Back, str_Uarm, unk_161BA8, unk_161BB4, unk_161BC0
-global unk_161BC8, unk_161BD0, unk_161BD8, unk_161BE0, unk_161BE8, unk_161BF0, unk_161BF8, unk_161C00
-global unk_161C08, unk_161C10, unk_161C18, unk_161C24, unk_161C30, unk_161C38, unk_161C40, unk_161C4C
-global unk_161C54, unk_161C5C, unk_161C64, unk_161C6C, unk_161C74, unk_161C7C, unk_161C84, unk_161C8C
-global unk_161C98, unk_161CA4, unk_161CB0, unk_161CBC, unk_161CC8, unk_161CD4, unk_161CDC, unk_161CE4
-global unk_161CEC, unk_161CF4, unk_161CFC, unk_161D04, unk_161D0C, unk_161D14, unk_161D20, unk_161D2C
-global unk_161D34, unk_161D3C, unk_161D44, unk_161D4C, unk_161D58, unk_161D60, unk_161D6C, unk_161D78
-global unk_161D84, unk_161D8C, unk_161D98, unk_161DA0, unk_161DA8, unk_161DB0, unk_161DBC, unk_161DC4
-global unk_161DCC, unk_161DD8, unk_161DE0, unk_161DE8, unk_161DF4, unk_161E00, unk_161E08, unk_161E14
-global unk_161E20, unk_161E2C, unk_161E34, unk_161E3C, unk_161E44, unk_161E4C, unk_161E54, unk_161E5C
-global unk_161E64, unk_161E6C, unk_161E74, unk_161E7C, unk_161E88, unk_161E94, unk_161EA0, unk_161EAC
-global unk_161EB8, unk_161EC4, unk_161ED0, unk_161EDC, unk_161EE8, unk_161EF4, unk_161F00, unk_161F0C
-global unk_161F18, unk_161F24, unk_161F30, unk_161F3C, unk_161F48, unk_161F50, unk_161F58, unk_161F60
-global unk_161F6C, unk_161F78, unk_161F80, unk_161F88, unk_161F90, unk_161F9C, unk_161FA8, unk_161FB4
-global unk_161FC0, unk_161FCC, unk_161FD8, unk_161FE4, unk_161FEC, unk_161FF4, unk_161FFC, unk_162008
-global unk_162014, unk_162020, unk_16202C, unk_162038, unk_162044, unk_162050, unk_16205C, unk_162068
-global unk_162074, unk_162080, unk_16208C, unk_162094, unk_16209C, unk_1620A8, unk_1620B4, unk_1620BC
-global unk_1620C4, unk_1620CC, unk_1620D4, unk_1620DC, unk_1620E4, unk_1620EC, unk_1620F4, unk_1620FC
-global unk_162104, unk_16210C, unk_162118, unk_162124, unk_162130, unk_16213C, unk_162148, unk_162154
-global unk_16215C, unk_162164, unk_16216C, unk_162174, unk_16217C, unk_162184, unk_16218C, unk_162194
-global unk_16219C, unk_1621A4, unk_1621AC, unk_1621B8, unk_1621C0, unk_1621C8, unk_1621D0, unk_1621D8
-global unk_1621E0, unk_1621E8, unk_1621F0, unk_1621F8, unk_162200, unk_162208, unk_162210, unk_162218
-global unk_162220, unk_16222C, unk_162238, unk_162240, unk_162244, unk_162248, unk_162254, unk_16225C
-global unk_162264, unk_16226C, unk_162274, unk_16227C, unk_162284, unk_16228C, unk_162294, unk_162298
-global unk_1622A0, unk_1622A8, unk_1622B4, unk_1622C0, unk_1622C8, unk_1622D0, unk_1622DC, unk_1622E8
-global unk_1622F0, unk_1622F8, unk_162300, unk_162308, unk_162310, unk_16231C, unk_162328, unk_162330
-global unk_162338, unk_162340, unk_162348, unk_162350, unk_162358, unk_162364, unk_162370, unk_162378
-global unk_162380, unk_16238C, unk_162394, unk_16239C, unk_1623A0, unk_1623AC, unk_1623B4, unk_1623BC
-global unk_1623C8, unk_1623D0, unk_1623D8, unk_1623E0, unk_1623E8, unk_1623F0, unk_1623F8, unk_162400
-global unk_162408, unk_162414, unk_16241C, unk_162424, unk_162430, unk_16243C, unk_162444, unk_16244C
-global unk_162454, unk_16245C, unk_162468, unk_162474, unk_162480, unk_162488, unk_162494, unk_16249C
-global unk_1624A8, unk_1624B4, unk_1624BC, unk_1624C4, unk_1624CC, unk_1624D4, unk_1624DC, unk_1624E4
-global unk_1624EC, unk_1624F8, unk_162504, unk_16250C, unk_162514, unk_16251C, unk_162524, unk_162530
-global unk_16253C, unk_162544, unk_162550, unk_16255C, unk_162568, unk_162574, unk_16257C, unk_162588
-global unk_162590, unk_16259C, unk_1625A4, unk_1625B0, unk_1625BC, unk_1625C8, unk_1625D4, unk_1625E0
-global unk_1625E8, unk_1625F4, unk_1625FC, unk_162608, unk_162614, unk_162620, unk_162628, unk_162634
-global unk_16263C, unk_162648, unk_162650, unk_16265C, unk_162664, unk_162670, unk_162678, unk_162684
-global unk_16268C, unk_162698, unk_1626A0, unk_1626AC, unk_1626B4, unk_1626C0, unk_1626C8, unk_1626D4
-global unk_1626DC, unk_1626E8, unk_1626F0, unk_1626FC, unk_162708, unk_162714, unk_162720, unk_16272C
-global unk_162738, unk_162744, unk_162750, unk_16275C, unk_162768, unk_162774, unk_162780, unk_16278C
-global unk_162798, unk_1627A4, unk_1627B0, unk_1627BC, unk_1627C8, unk_1627D4, unk_1627E0, unk_1627EC
-global unk_1627F4, unk_162800, unk_16280C, unk_162818, unk_162824, unk_162830, unk_16283C, unk_162848
-global unk_162850, unk_162858, unk_162864, unk_162870, unk_16287C, unk_162888, unk_162890, unk_16289C
-global unk_1628A8, unk_1628B4, unk_1628BC, unk_1628C8, unk_1628D0, unk_1628DC, unk_1628E0, unk_1628E8
-global unk_1628F4, unk_162900, unk_16290C, unk_162914, unk_16291C, unk_162928, unk_162934, unk_162940
-global unk_16294C, unk_162958, unk_162964, unk_162970, unk_16297C, unk_162988, unk_162994, unk_1629A0
-global unk_1629AC, unk_1629B8, unk_1629C4, unk_1629D0, unk_1629DC, unk_1629E8, unk_1629F4, unk_1629F8
-global unk_162A04, unk_162A0C, unk_162A18, unk_162A24, unk_162A30, unk_162A3C, unk_162A48, unk_162A50
-global unk_162A58, unk_162A64, unk_162A70, unk_162A78, unk_162A80, unk_162A88, unk_162A90, unk_162A98
-global unk_162AA0, unk_162AA8, unk_162AB0, unk_162AB8, unk_162AC0
+global str_4da, str_ANIMSTAT, str_AiconsViv, str_Cross, str_ANIMSVIV2, F32_50_DrawPlayerModel, F32_200, F32_neg30
+global F32_20_DrawPlayerMarkers, F32_neg20_DrawPlayerMarkers, F32_30, F32_65536_LoadFaceTexture, F32_4096, F32_464, F32_65536_BeginOffscreenRender, F32_65536_SetPortraitProjection
+global F32_2_CameraSplinePoint, F32_3_CameraSplinePoint, F32_3_CameraEasePoint, F32_2_CameraEasePoint, F32_2_SetCameraTarget, F32_3_SetCameraTarget, F32_2_UpdateCameraMotion, F32_3_UpdateCameraMotion
+global F32_neg10_PlaySkateSounds, F32_0p5_StickHandleScaled, F32_0p5_StickHandleSpeed, F32_neg4272_GoalieReadShot, F32_176, F32_neg4, F32_4_GoalieReadShot, F32_480
+global F32_288, F32_2_GoalieReadShot, F32_neg88, F32_3p95, F32_neg1_UpdateGoalie, F32_neg12, F32_30_UpdateGoalie, F32_12
+global F32_2_SteerTowardTarget, F32_12_SteerTowardTarget, F32_2p5, F32_0p5_PickStrideAnim, F32_0p1, F32_12_LimitSkateSpeed, F32_3p95_LimitSkateSpeed, F32_12_SkateForwardMove
+global F32_0p1_SkateForwardMove, F32_12_SkateBackwardMove, F32_0p1_SkateBackwardMove, F32_2_TurnStickPos, F32_neg0p5, F32_4_StopSkidDistance, F32_neg0p125664, F32_neg0p125664_StandMove
+global F32_48_SetSkateSpeedFromRating, F32_0p1_SetSkateSpeedFromRating, F32_4_SetSkateSpeedFromRating, F32_4_UpdateScoreClockData, F32_8_UpdateScoreClockData, F32_0p5_LoadSkateAnims, F32_2_StickReach, F32_4_StickReach
+global F32_65536_PuckHeightAt, F32_65536_TryStickTouch, F32_2_PuckBounceOffPlayer, F32_10000, F32_neg1024, F32_1272_PuckHitsBoards, F32_4032_PuckHitsBoards, F32_768_PuckHitsBoards
+global F32_4_PuckHitsBoards, F32_2040_PuckHitsBoards, F32_4800_PuckHitsBoards, F32_2040_PuckHitsGlass, F32_4800_PuckHitsGlass, F32_4_NetCollisionPoint, F32_2_NetCollisionPoint, F32_12_PuckInNetDepth
+global F32_neg12_PuckInNetWidth, F32_2_PuckOffPost, F32_22p5625, F32_4_PuckOffPost, F32_2_PuckOffCrossbar, F32_22p5625_PuckOffCrossbar, F32_4_PuckOffCrossbar, F32_192_PuckInHomeNet
+global F32_4272_PuckInHomeNet, F32_4448, F32_180, F32_neg180, F32_191, F32_193, F32_201p5, F32_192_PuckInAwayNet
+global F32_neg4272_PuckInAwayNet, F32_neg4448, F32_180_PuckInAwayNet, F32_neg180_PuckInAwayNet, F32_191_PuckInAwayNet, F32_193_PuckInAwayNet, F32_201p5_PuckInAwayNet, F32_192_PuckBehindNet
+global F32_neg176, F32_180_PuckBehindNet, F32_neg180_PuckBehindNet, F32_191_PuckBehindNet, F32_193_PuckBehindNet, F32_201p5_PuckBehindNet, F32_neg176_GoalLinePuckTest, F32_180_GoalLinePuckTest
+global F32_neg180_GoalLinePuckTest, F32_1272_PuckGroundHeight, F32_4032_PuckGroundHeight, F32_768_PuckGroundHeight, F32_neg3000, F32_neg5760, F32_144_GoalJudgeTest, F32_2_ShotMove
+global F32_6_ShotMove, F32_neg124, F32_124, F32_541696, F32_2_CheckContactForce, F32_4_CheckContactForce, F32_1272_BodyCollide, F32_4032_BodyCollide
+global F32_768_BodyCollide, F32_32, F32_2040_BodyCollide, F32_4800_BodyCollide, F32_2040_BodyBounce, F32_4800_BodyBounce, F32_32_BodyBounce, F32_12_BodyBounce
+global F32_40_BodyBounce, F32_0p2, F32_144_CheckPlayerVsBoards, F32_88, F32_2_CheckPlayerVsBoards, F32_48_CheckPlayerVsBoards, F32_32_CheckPlayerVsBoards, F32_neg4_CheckPlayerVsBoards
+global F32_4_CheckPlayerVsBoards, F32_neg88_CheckPlayerVsBoards, F32_0p5_HitKnockback, F32_0p1_HitKnockback, F32_768_StartHitAnim, F32_neg192, F32_1272_ResolveBodyCheck, F32_4032_ResolveBodyCheck
+global F32_neg1272, F32_neg4608, F32_4608, F32_neg1848, F32_1392_ResolveBodyCheck, F32_1848, F32_10_ResolvePlayerContact, F32_16
+global F32_neg3, F32_neg3_CelebrationJumpMove, F32_0p5_SkateToBenchStep, F32_0p1_RefWhistleAnim, F32_30_PokeCheckMove, F32_96_PokeCheckMove, F32_30_SweepCheckMove, F32_30_HookMove
+global F32_0p5_BlockReach, F32_12_BlockShotMove, F32_0p1_BlockShotMove, F32_120, F32_168, F32_10_GoalieSave, F32_96_GoalieSave, F32_240
+global F32_144_GoalieMoves, F32_24_GoalieMoves, F32_2_GoalieMoves, F32_480_GoalieMoves, F32_neg1_GoalieMoves, F32_672, F64_0p002, F64_0p785398_DrawModelParts
+global F64_0p159155_DrawModelParts, F64_65536_DrawModelParts, F64_1p25, F64_0p1_CameraSplinePoint, F64_3p14159_CameraSmoothStep, F64_neg3p14159_CameraSmoothStep, F64_6p28319_CameraSmoothStep, F64_neg6p28319_CameraSmoothStep
+global qword_161B78, qword_161B80, qword_161B88, qword_161B90, F64_neg0p1, F64_0p00872665, F64_neg0p00872665, F64_neg1p6
+global F64_0p25_PlaySkateSounds, F64_0p2_PlaySkateSounds, F64_neg0p2, F64_0p785398_PuckOnStickPhysics, F64_2p35619, F64_1p1, F64_1p1_StickHandleSpeed, F64_6p28319_GoalieReadShot
+global F64_3p14159_GoalieReadShot, F64_neg6p28319_GoalieReadShot, F64_neg3p14159_GoalieReadShot, F64_0p785398_GoalieReadShot, F64_180, F64_240_GoalieReadShot, F64_1896, F64_4656
+global F64_1272, F64_4032, F64_6p28319_GoalieAngle, F64_3p14159_GoalieAngle, F64_neg6p28319_GoalieAngle, F64_neg3p14159_GoalieAngle, F64_6p28319_GoalieCoverPost, F64_3p14159_GoalieCoverPost
+global F64_neg6p28319_GoalieCoverPost, F64_neg3p14159_GoalieCoverPost, F64_6p28319_GoalieAI, F64_1p52588eneg05, F64_3p14159_GoalieAI, F64_neg6p28319_GoalieAI, F64_neg3p14159_GoalieAI, F64_1p975
+global F64_neg1, F64_0p785398_UpdateGoalie, F64_2p35619_UpdateGoalie, F64_2p82743, F64_0p392699_UpdateGoalie, F64_0p2_UpdateGoalie, F64_4272_PickSkateAnim, F64_4448
+global F64_384, F64_864, F64_4272_EndMove, F64_4448_EndMove, F64_384_EndMove, F64_864_EndMove, F64_6p28319_ApplyMoveMotion, F64_3p14159_ApplyMoveMotion
+global F64_neg6p28319_ApplyMoveMotion, F64_neg3p14159_ApplyMoveMotion, F64_1p33, F64_2_ApplySkateAccel, F64_0p0628319, F64_1p5, F64_2p35619_PickTurnAnim, F64_0p0628319_PickGlideAnim
+global F64_1p5708_PickGlideAnim, F64_2p35619_PickStrideAnim, F64_1p1_PickStrideAnim, F64_0p785398_PickStrideAnim, F64_6p28319_PickStrideAnim, F64_3p14159_PickStrideAnim, F64_neg6p28319_PickStrideAnim, F64_neg3p14159_PickStrideAnim
+global F64_6p28319_PickForwardTurn, F64_3p14159_PickForwardTurn, F64_neg6p28319_PickForwardTurn, F64_neg3p14159_PickForwardTurn, F64_0p0001_PickForwardTurn, F64_0p2_PickForwardTurn, F64_1p8, F64_0p5_PickForwardTurn
+global F64_6p28319_PickBackwardTurn, F64_3p14159_PickBackwardTurn, F64_neg6p28319_PickBackwardTurn, F64_neg3p14159_PickBackwardTurn, F64_0p0001_PickBackwardTurn, F64_0p2_PickBackwardTurn, F64_1p8_PickBackwardTurn, F64_0p5_PickBackwardTurn
+global F64_1272_GlideForwardMove, F64_4032_GlideForwardMove, F64_6p28319_GlideForwardMove, F64_3p14159_GlideForwardMove, F64_neg6p28319_GlideForwardMove, F64_neg3p14159_GlideForwardMove, F64_0p785398_GlideForwardMove, F64_0p523599
+global F64_1p0472_GlideForwardMove, F64_2p35619_GlideForwardMove, F64_0p2_LimitSkateSpeed, F64_6p28319_LimitSkateSpeed, F64_3p14159_LimitSkateSpeed, F64_neg6p28319_LimitSkateSpeed, F64_neg3p14159_LimitSkateSpeed, F64_0p04_LimitSkateSpeed
+global F64_6p28319_SkateForwardMove, F64_3p14159_SkateForwardMove, F64_neg6p28319_SkateForwardMove, F64_neg3p14159_SkateForwardMove, F64_1p39626, F64_1p5708_SkateForwardMove, F64_0p63662, F64_0p7_SkateForwardMove
+global F64_6p28319_SkateBackwardMove, F64_3p14159_SkateBackwardMove, F64_neg6p28319_SkateBackwardMove, F64_neg3p14159_SkateBackwardMove, F64_1p39626_SkateBackwardMove, F64_1p5708_SkateBackwardMove, F64_0p63662_SkateBackwardMove, F64_0p7_SkateBackwardMove
+global F64_1p33_TurnLeanAngle, F64_2_TurnLeanAngle, F64_0p125664, F64_neg3p75, F64_0p2_TurnStickPos, F64_neg3p75_TurnStickPos, F64_2p5_TurnStickPos, F64_2_TurnStickPos
+global F64_2p82743_StopSkidDistance, F64_neg0p1_StopSkidDistance, F64_0p1_StopSkidDistance, F64_1p2_StopSkidDistance, F64_0p2_StopSkidDistance, F64_6p28319_StopForwardMove, F64_3p14159_StopForwardMove, F64_neg6p28319_StopForwardMove
+global F64_neg3p14159_StopForwardMove, F64_1p5708_StopForwardMove, F64_6p28319_SpeedTowardSpot, F64_3p14159_SpeedTowardSpot, F64_neg6p28319_SpeedTowardSpot, F64_neg3p14159_SpeedTowardSpot, F64_6p28319_FaceoffPuckDrop, F64_1p52588eneg05_FaceoffPuckDrop
+global F64_3p14159_FaceoffPuckDrop, F64_neg6p28319_FaceoffPuckDrop, F64_neg3p14159_FaceoffPuckDrop, F64_0p0001_UpdateScoreClockData, F64_10000, F64_0p2_UpdateScoreClockData, F64_0p5_UpdateScoreClockData, F64_3p14159_UpdateGameDisplay
+global F64_0p6_LoadGoalieAnimFile, F64_0p159155_PuckHeightAt, F64_65536_PuckHeightAt, F64_0p0631313, F64_1p8_TryStickTouch, F64_1p7, F64_25, F64_0p02
+global F64_96_PuckBounceOffPlayer, F64_132, F64_168, F64_3360, F64_1392_PuckBounceOffPlayer, F64_3360_PuckHitsNet, F64_1392_PuckHitsNet, F64_0p25_PuckHitsNet
+global F64_0p985, F64_0p8_PuckHitsNet, F64_6p28319_PuckHitsNet, F64_3p14159_PuckHitsNet, F64_neg6p28319_PuckHitsNet, F64_neg3p14159_PuckHitsNet, F64_1p5708_PuckHitsNet, F64_neg0p0872665
+global F64_0p0872665, F64_2p0944, F64_4272_PuckHitsNet, F64_0p99, F64_2_PuckHitsBoards, F64_6p28319_PuckHitsBoards, F64_3p14159_PuckHitsBoards, F64_neg6p28319_PuckHitsBoards
+global F64_neg3p14159_PuckHitsBoards, F64_1p74533, F64_6p28319_PuckHitsGlass, F64_3p14159_PuckHitsGlass, F64_neg6p28319_PuckHitsGlass, F64_neg3p14159_PuckHitsGlass, F64_1p74533_PuckHitsGlass, F64_32400
+global F64_12100, F64_64800, F64_neg12100, F64_180_NetCollisionPoint, F64_3p08642eneg05, F64_110_NetCollisionPoint, F64_6p28319_PlayNetSound, F64_3p14159_PlayNetSound
+global F64_neg6p28319_PlayNetSound, F64_neg3p14159_PlayNetSound, F64_1p74533_PlayNetSound, F64_0p0001_PuckOffPost, F64_2_PuckOffPost, F64_3p14159_PuckOffPost, F64_6p28319_PuckOffPost, F64_neg6p28319_PuckOffPost
+global F64_neg3p14159_PuckOffPost, F64_0p3, F64_0p0001_PuckOffCrossbar, F64_2_PuckOffCrossbar, F64_3p14159_PuckOffCrossbar, F64_6p28319_PuckOffCrossbar, F64_neg6p28319_PuckOffCrossbar, F64_neg3p14159_PuckOffCrossbar
+global F64_0p3_PuckOffCrossbar, F64_0p5_PuckInHomeNet, F64_144, F64_153p5, F64_neg4338, F64_228, F64_3p08642eneg05_PuckInHomeNet, F64_8p26446eneg05
+global F64_108, F64_3p14159_PuckInHomeNet, F64_0p9, F64_66, F64_0p5_PuckInAwayNet, F64_144_PuckInAwayNet, F64_153p5_PuckInAwayNet, F64_4338
+global F64_228_PuckInAwayNet, F64_3p08642eneg05_PuckInAwayNet, F64_8p26446eneg05_PuckInAwayNet, F64_108_PuckInAwayNet, F64_3p14159_PuckInAwayNet, F64_0p9_PuckInAwayNet, F64_neg4338_PuckInAwayNet, F64_0p5_PuckBehindNet
+global F64_144_PuckBehindNet, F64_153p5_PuckBehindNet, F64_66_PuckBehindNet, F64_228_PuckBehindNet, F64_3p08642eneg05_PuckBehindNet, F64_8p26446eneg05_PuckBehindNet, F64_108_PuckBehindNet, F64_3p14159_PuckBehindNet
+global F64_neg66, F64_0p9_PuckBehindNet, F64_66_GoalLinePuckTest, F64_228_GoalLinePuckTest, F64_3p08642eneg05_GoalLinePuckTest, F64_8p26446eneg05_GoalLinePuckTest, F64_neg0p1_GoalLinePuckTest, F64_6p28319_GoalJudgeTest
+global F64_3p14159_GoalJudgeTest, F64_neg6p28319_GoalJudgeTest, F64_neg3p14159_GoalJudgeTest, F64_0p785398_GoalJudgeTest, F64_3p14159_RandomPuckSpin, F64_0p0833333, F64_6p28319_StartPassAnim, F64_3p14159_StartPassAnim
+global F64_neg6p28319_StartPassAnim, F64_neg3p14159_StartPassAnim, F64_0p785398_StartPassAnim, F64_1p5708_StartPassAnim, F64_0p6_StartPassAnim, F64_6p28319_StartDropPassAnim, F64_3p14159_StartDropPassAnim, F64_neg6p28319_StartDropPassAnim
+global F64_neg3p14159_StartDropPassAnim, F64_0p6_StartDropPassAnim, F64_6p28319_StartShotAnim, F64_3p14159_StartShotAnim, F64_neg6p28319_StartShotAnim, F64_neg3p14159_StartShotAnim, F64_25_PassMove, F64_120
+global F64_4272_SkateWithPuckMove, F64_4448_SkateWithPuckMove, F64_384_SkateWithPuckMove, F64_864_SkateWithPuckMove, F64_4272_GlideWithPuckMove, F64_4448_GlideWithPuckMove, F64_384_GlideWithPuckMove, F64_864_GlideWithPuckMove
+global F64_neg216, F64_216, F64_6p28319_CheckBoardsContact, F64_3p14159_CheckBoardsContact, F64_neg6p28319_CheckBoardsContact, F64_neg3p14159_CheckBoardsContact, F64_0p785398_CheckBoardsContact, F64_2008
+global F64_6p28319_CheckContactVelocity, F64_3p14159_CheckContactVelocity, F64_neg6p28319_CheckContactVelocity, F64_neg3p14159_CheckContactVelocity, F64_0p785398_CheckContactVelocity, F64_0p0001_CheckContactForce, F64_0p5_CheckContactForce, F64_2_CheckContactForce
+global F64_6p28319_CheckContactForce, F64_3p14159_CheckContactForce, F64_neg6p28319_CheckContactForce, F64_neg3p14159_CheckContactForce, F64_0p785398_CheckContactForce, F64_6p28319_BodyCollide, F64_3p14159_BodyCollide, F64_neg6p28319_BodyCollide
+global F64_neg3p14159_BodyCollide, F64_0p523599_BodyCollide, F64_6p28319_BodyBounce, F64_3p14159_BodyBounce, F64_neg6p28319_BodyBounce, F64_neg3p14159_BodyBounce, F64_0p523599_BodyBounce, F64_6p28319_CheckForPenalty
+global F64_3p14159_CheckForPenalty, F64_neg6p28319_CheckForPenalty, F64_neg3p14159_CheckForPenalty, F64_1p0472_CheckForPenalty, F64_0p349066_CheckForPenalty, F64_neg0p0523599, F64_0p0523599, F64_4272_CheckPlayerVsBoards
+global F64_4280, F64_4268, F64_180_CheckPlayerVsBoards, F64_3p14159_CheckPlayerVsBoards, F64_neg3p14159_CheckPlayerVsBoards, F64_4_CheckPlayerVsBoards, F64_neg4_CheckPlayerVsBoards, F64_6p28319_HitDirection
+global F64_3p14159_HitDirection, F64_neg6p28319_HitDirection, F64_neg3p14159_HitDirection, F64_0p785398_HitDirection, F64_2p35619_HitDirection, F64_0p0001_HitKnockback, F64_1p2_HitKnockback, F64_6p28319_HitKnockback
+global F64_3p14159_HitKnockback, F64_neg6p28319_HitKnockback, F64_neg3p14159_HitKnockback, F64_0p174533, F64_0p785398_ResolveBodyCheck, F64_2p35619_ResolveBodyCheck, F64_neg0p785398, F64_neg2p35619
+global F64_6p28319_ResolveBodyCheck, F64_3p14159_ResolveBodyCheck, F64_neg6p28319_ResolveBodyCheck, F64_neg3p14159_ResolveBodyCheck, F64_6p28319_StartFallAnim, F64_3p14159_StartFallAnim, F64_neg6p28319_StartFallAnim, F64_neg3p14159_StartFallAnim
+global F64_2p0944_StartFallAnim, F64_3p14159_checkcx, F64_6p28319_checkcx, F64_neg6p28319_checkcx, F64_neg3p14159_checkcx, F64_0p349066_checkcx, F64_1p5708_checkcx, F64_0p785398_checkcx
+global F64_2p35619_checkcx, F64_6p28319_ResolvePlayerContact, F64_3p14159_ResolvePlayerContact, F64_neg6p28319_ResolvePlayerContact, F64_neg3p14159_ResolvePlayerContact, F64_1p5708_ResolvePlayerContact, F64_5, F64_0p785398_ResolvePlayerContact
+global F64_2p35619_ResolvePlayerContact, F64_6p28319_StickContact, F64_3p14159_StickContact, F64_neg6p28319_StickContact, F64_neg3p14159_StickContact, F64_0p785398_StickContact, F64_neg0p5_StickContact, F64_10_StickContact
+global F64_3p14159_PlayerPush, F64_neg3p14159_PlayerPush, F64_0p0001_checkplcoll, F64_0p5_checkplcoll, F64_2_checkplcoll, F64_neg0p2_UpdatePlayerMotion, F64_0p00436332, F64_neg0p00436332
+global F64_6p28319_UpdatePlayerMotion, F64_3p14159_UpdatePlayerMotion, F64_neg6p28319_UpdatePlayerMotion, F64_neg3p14159_UpdatePlayerMotion, F64_6p28319_MoveToAnimPose, F64_3p14159_MoveToAnimPose, F64_neg6p28319_MoveToAnimPose, F64_neg3p14159_MoveToAnimPose
+global F64_6p28319_FaceAngleDelta, F64_3p14159_FaceAngleDelta, F64_neg6p28319_FaceAngleDelta, F64_neg3p14159_FaceAngleDelta, F64_0p785398_FaceAngleDelta, F64_6p28319_FacePlayerToward, F64_3p14159_FacePlayerToward, F64_neg6p28319_FacePlayerToward
+global F64_neg3p14159_FacePlayerToward, F64_0p785398_FacePlayerToward, F64_6p28319_FightPositionMove, F64_3p14159_FightPositionMove, F64_neg6p28319_FightPositionMove, F64_neg3p14159_FightPositionMove, F64_0p5_FightSwingMove, F64_96_FightSwingMove
+global F64_0p785398_CelebrationJumpMove, F64_6p28319_SkateToBenchStep, F64_3p14159_SkateToBenchStep, F64_neg6p28319_SkateToBenchStep, F64_neg3p14159_SkateToBenchStep, F64_6p28319_SkateToSpotStep, F64_3p14159_SkateToSpotStep, F64_neg6p28319_SkateToSpotStep
+global F64_neg3p14159_SkateToSpotStep, F64_1p5708_RefWhistleAnim, F64_6p28319_RefWhistleAnim, F64_3p14159_RefWhistleAnim, F64_neg6p28319_RefWhistleAnim, F64_neg3p14159_RefWhistleAnim, F64_6p28319_StartPokeAnim, F64_3p14159_StartPokeAnim
+global F64_neg6p28319_StartPokeAnim, F64_neg3p14159_StartPokeAnim, F64_0p785398_StartPokeAnim, F64_0p523599_PokeCheckMove, F64_1p22173, F64_144_PokeCheckMove, F64_6p28319_SweepCheckMove, F64_3p14159_SweepCheckMove
+global F64_neg6p28319_SweepCheckMove, F64_neg3p14159_SweepCheckMove, F64_0p785398_SweepCheckMove, F64_0p6_HookMove, F64_6p28319_StartBlockAnim, F64_3p14159_StartBlockAnim, F64_neg6p28319_StartBlockAnim, F64_neg3p14159_StartBlockAnim
+global F64_2p35619_StartBlockAnim, F64_0p785398_StartBlockAnim, F64_6p28319_BlockReach, F64_1p52588eneg05_BlockReach, F64_1p33_BlockReach, F64_2_BlockReach, F64_0p0628319_BlockReach, F64_3p14159_BlockReach
+global F64_neg6p28319_BlockReach, F64_neg3p14159_BlockReach, F64_5_BlockReach, F64_0p8_BlockReach, F64_4272_BlockShotMove, F64_4448_BlockShotMove, F64_384_BlockShotMove, F64_864_BlockShotMove
+global F64_6p28319_BlockShotMove, F64_3p14159_BlockShotMove, F64_neg6p28319_BlockShotMove, F64_neg3p14159_BlockShotMove, F64_24_BlockShotMove, F64_4288, F64_4272_BlockSlideMove, F64_4448_BlockSlideMove
+global F64_384_BlockSlideMove, F64_864_BlockSlideMove, F64_240_PickSaveAnim, F64_72, F64_144_PickSaveAnim, F64_4272_GoalieSave, F64_2832, F64_72_GoalieSave
+global F64_6p28319_GoalieSave, F64_3p14159_GoalieSave, F64_neg6p28319_GoalieSave, F64_neg3p14159_GoalieSave, F64_1p0472_GoalieSave, F64_384_GoalieSave, F64_neg0p785398_GoalieSave, F64_0p785398_GoalieSave
+global F64_48, F64_0p0001_GoalieMoves, F64_144_GoalieMoves, F64_576_GoalieMoves, F64_4272_GoalieMoves, F64_240_GoalieMoves, F64_6p28319_GoalieMoves, F64_3p14159_GoalieMoves
+global F64_neg6p28319_GoalieMoves, F64_neg3p14159_GoalieMoves, F64_0p349066_GoalieMoves, F64_48_GoalieMoves, F64_2_GoalieMoves, F64_0p6_GoalieMoves, F64_480_PuckDeflect, F64_0p00613592
+global F64_0p00613592_UpdateMovePose, qword_163DB1, F64_0p001, str_Back, str_Uarm, str_BASEPOS, str_Standing, str_Glide
+global str_StartF, str_Sk8fSu, str_Sk8fSh, str_Sk8fSd, str_Flturn, str_Frturn, str_CsovfL, str_CsovfR
+global str_Wait, str_Wait2, str_StpfwdL, str_StpfwdR, str_QstpL, str_QstpR, str_GlidbkS, str_Bsk8
+global str_Stpbw, str_Blturn, str_Brturn, str_Fr2bkL, str_Fr2bkR, str_Bk2frL, str_Bk2frR, str_BstartL
+global str_BstartR, str_Turn90L, str_Turn90R, str_Trn180L, str_Trn180R, str_Bstart, str_BcsovL, str_BcsovR
+global str_AcclL, str_AcclR, str_PFHSW, str_PFHFWD, str_PBKHSW, str_PBKHFWD, str_SSSTAND, str_SSF
+global str_SSL, str_SSR, str_SSBKH, str_WRISTSHO, str_WSBKH, str_FLIPPFW, str_FLIPPBK, str_PUKGLID
+global str_PUKSK8, str_PUKHAND, str_PFLTURN, str_PFRTURN, str_PSTAND, str_PGLDBKS, str_PBLTURN, str_PBRTURN
+global str_PSTARTF, str_PACCLL, str_PACCLR, str_BENCICE, str_ICEBENC, str_GOPENAL, str_FACEOFR, str_FACEOFL
+global str_FACEOFB, str_CATCHPU, str_BLOCR, str_BLOCF, str_BLOCL, str_CELEBR1, str_CELEBR2, str_CELEBR3
+global str_CELEBR4, str_CELEBR5, str_CELEBR6, str_SITPOSE, str_BNMADST, str_BNMADHN, str_BNDESPH, str_BNDESPK
+global str_BNCHEER, str_FOFPOKL, str_FOFPOKR, str_FOFSHUF1, str_FOFSHUF2, str_LEAVPEN, str_BNLOOKL, str_BNLOOKR
+global str_BNLR2S, str_BNLS2R, str_BNLL2S, str_BNLS2L, str_SINGAD, str_SINGAU, str_HURDAL, str_HIPHITR
+global str_HIPHITL, str_HIHITR, str_HIHITL, str_HIHITF, str_HGHITBF, str_HGHITRF, str_HGHITLF, str_HGHITFF
+global str_BIGHITL, str_BIGHITR, str_BIGHITB, str_GETUPF, str_GETUPR, str_GETUPL, str_GTUPCHT, str_GTUPTUP
+global str_FALBRDB, str_FALBRDF, str_FALBRDL, str_FALBRDR, str_INTBNCB, str_INTBNCF, str_INTBNCL, str_INTBNCR
+global str_MEDHITL, str_MEDHITR, str_WRITHE, str_RECOVB, str_RECVBFS, str_GTUPB2T, str_STUMBL1, str_STUMBL2
+global str_STUMBL3, str_SPINF, str_SPINL, str_SPINR, str_SPINB, str_HOLD, str_HOOKR, str_HOOKL
+global str_HOOKF, str_CRSCHKR, str_CRSCHKL, str_CRSCHKF, str_SPEARING, str_SLASHING, str_ROUGHING, str_HIGHST
+global str_ELBOWR, str_ELBOWL, str_HIPR, str_HIPL, str_SHOULR, str_SHOULL, str_SHOULF, str_POKECH
+global str_PkGlid, str_Setpos, str_Relaxset, str_Buterfl, str_Casual, str_HugL, str_HugR, str_GLIDEL
+global str_GLIDER, str_PturnL, str_PturnR, str_Getset, str_Intobut, str_Butset, str_Po2poL, str_Po2poR
+global str_Bt2relbt, str_Bt2chest, str_Fr24, str_R24, str_L24, str_All42but, str_GetupF, str_GetupS
+global str_GetupL, str_GetupR, str_HitF, str_HitL, str_HitR, unk_16228C, str_Sk8, str_StepL
+global str_StepR, str_BigstpL, str_BigstpR, str_StepFL, str_StepFR, str_StepbkL, str_StepbkR, str_Snowpl
+global str_Icing, str_DropL, str_DropR, str_DropF, str_Chuckpuk, str_Lookhand, str_Juggle, str_Twitch
+global str_Bang, str_Post, str_LookL, str_LookR, str_CaslooL, str_CaslooR, str_WtonL, str_WtonR
+global str_Handknee, str_Clean, str_CloseH, str_Gut, str_Glovsnap, str_GlovLO, str_GlovHI, str_Blocsnap
+global str_BlocLO, str_BlocHI, str_StickL, str_StickR, str_PadL, str_PadR, str_Sweep, str_Poke
+global str_Coverpuk, str_Hack, str_DiveF, str_DivebkR, str_DivebkL, str_FlopL, str_FlopR, str_KickL
+global str_KickR, str_Btglvsnp, str_BtdiveL, str_BtdiveR, str_Butpoke, str_Butsweep, str_Buthack, str_Butstflt
+global str_Btblksnp, str_BtblkHI, str_Butfist, str_Butfck, str_Pkhand, str_PStart, str_Pksnowp, str_PasbkL
+global str_PasfwdL, str_PasfwdR, str_Pasfwd, str_Flipass, str_PkSk8, str_Scuff, str_Coverpu1, str_Coverpu2
+global str_Btcover, str_RefGlid, str_RfGldau, str_RefStnd, str_RfStnda, str_RturnL, str_RturnLa, str_RturnR
+global str_RturnRa, str_RefSk8, str_RfSk8au, str_RcsovfL, str_RcsvfLa, str_RcsovfR, str_RcsvfRa, str_RstopL
+global str_RstopLa, str_RstopR, str_RstopRa, str_RstartF, str_RstrtFa, str_RacclL, str_RacclLa, str_RacclR
+global str_RacclRa, str_Rtr90L, str_Rtr90La, str_Rtr90R, str_Rtr90Ra, str_Rt180L, str_Rt180La, str_Rt180R
+global str_Rt180Ra, str_Rf2bL, str_Rf2bLau, str_Rf2bR, str_Rf2bRau, str_Rb2fL, str_Rb2fLau, str_Rb2fR
+global str_Rb2fRau, str_RfBgld, str_RfBglda, str_RbturnL, str_RbtrnLa, str_RbturnR, str_RbtrnRa, str_RstopBw
+global str_RstpBwa, str_RbstarF, str_RbstrFa, str_RbstarL, str_RbstrLa, str_RbstarR, str_RefBsk8, str_RfBsk8a
+global str_RbcsovL, str_RbcsvLa, str_RbcsovR, str_RbcsvRa, str_ADropuk, str_APikpuk, str_RefGetp, str_ClGoal
+global str_ClIcing, str_ClWsnog, str_ClCharg, str_ClBoard, str_ClElbow, str_ClCrchk, str_ClHigst, str_ClHook
+global str_ClHold, str_ClIntrf, str_ClMisco, str_ClSlash, str_ClRough, str_ClTrip, str_ClSpear, str_ClUnspo
+global str_ClPenal, str_READY, str_THRWGLVS, str_JABBED, str_JABEDND, str_JAB, str_HOOK, str_HOKEDUP
+global str_HOKEDBK, str_GETUPBK, str_GRAB, str_GRABBED, str_GRABJAB, str_GRABHOK, str_GRBDJBD, str_GRBDHKD
+global str_GRJBDND, str_GRHKDND, str_SHFLFWD, str_SHFLBKW, str_PULLJER, str_JERPULD, str_PULLJHK, str_JPLDHKD
+global str_PLDHKDD, str_BRKGRAB, str_RLSGRAB, str_MISGRAB, str_BRKPULJ, str_RLSPULJ, str_UP, str_THGLVOD
+global str_CUPSK8, str_CUPCASK, str_CUPKISS, str_CUPUPDW, str_CUPGLAU, str_CUPGLAD, unk_162A48, str_Lhand
+global unk_162A58, str_Sticktip, str_Lknee, str_Lankle, str_Rknee, str_Rankle, str_Pelvis, unk_162A98
+global unk_162AA0, str_Lelbow, str_Relbow, unk_162AB8, unk_162AC0
 str_CUPP:
         db 043h,055h,050h,050h,00h,00h,00h,00h
 str_2d:
@@ -290,27 +290,27 @@ str_05dFsh:
         db 025h,030h,035h,064h,02Eh,066h,073h,068h,00h,00h,00h,00h
 str_ABCDEFGHIJKLM:
         db 041h,042h,043h,044h,045h,046h,047h,048h,049h,04Ah,04Bh,04Ch,04Dh,00h
-dword_161A96:
+F32_50_DrawPlayerModel:
         db 00h,00h,048h,042h
-qword_161A9A:
+F64_0p002:
         db 0FCh,0A9h,0F1h,0D2h,04Dh,062h,060h,03Fh
-qword_161AA2:
+F64_0p785398_DrawModelParts:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,03Fh
-qword_161AAA:
+F64_0p159155_DrawModelParts:
         db 0F5h,036h,0BDh,068h,030h,05Fh,0C4h,03Fh
-qword_161AB2:
+F64_65536_DrawModelParts:
         db 00h,00h,00h,00h,00h,00h,0F0h,040h
-dword_161ABA:
+F32_200:
         db 00h,00h,048h,043h
-dword_161ABE:
+F32_neg30:
         db 00h,00h,0F0h,0C1h
-dword_161AC2:
+F32_20_DrawPlayerMarkers:
         db 00h,00h,0A0h,041h
-dword_161AC6:
+F32_neg20_DrawPlayerMarkers:
         db 00h,00h,0A0h,0C1h
-dword_161ACA:
+F32_30:
         db 00h,00h,0F0h,041h,00h,00h
-dword_161AD0:
+F32_65536_LoadFaceTexture:
         db 00h,00h,080h,047h
 str_FacesViv:
         db 066h,061h,063h,065h,073h,02Eh,076h,069h,076h,00h,00h,00h
@@ -332,33 +332,33 @@ str_RPGAME:
         db 052h,050h,05Fh,047h,041h,04Dh,045h,00h
 str_RSPRITE:
         db 052h,053h,050h,052h,049h,054h,045h,00h
-dword_161B28:
+F32_4096:
         db 00h,00h,080h,045h
-qword_161B2C:
+F64_1p25:
         db 00h,00h,00h,00h,00h,00h,0F4h,03Fh
-dword_161B34:
+F32_464:
         db 00h,00h,0E8h,043h
-dword_161B38:
+F32_65536_BeginOffscreenRender:
         db 00h,00h,080h,047h
-dword_161B3C:
+F32_65536_SetPortraitProjection:
         db 00h,00h,080h,047h
-qword_161B40:
+F64_0p1_CameraSplinePoint:
         db 09Ah,099h,099h,099h,099h,099h,0B9h,03Fh
-dword_161B48:
+F32_2_CameraSplinePoint:
         db 00h,00h,00h,040h
-dword_161B4C:
+F32_3_CameraSplinePoint:
         db 00h,00h,040h,040h
-dword_161B50:
+F32_3_CameraEasePoint:
         db 00h,00h,040h,040h
-dword_161B54:
+F32_2_CameraEasePoint:
         db 00h,00h,00h,040h
-qword_161B58:
+F64_3p14159_CameraSmoothStep:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_161B60:
+F64_neg3p14159_CameraSmoothStep:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_161B68:
+F64_6p28319_CameraSmoothStep:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_161B70:
+F64_neg6p28319_CameraSmoothStep:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
 qword_161B78:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
@@ -368,1167 +368,1167 @@ qword_161B88:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
 qword_161B90:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-dword_161B98:
+F32_2_SetCameraTarget:
         db 00h,00h,00h,040h
-dword_161B9C:
+F32_3_SetCameraTarget:
         db 00h,00h,040h,040h
-dword_161BA0:
+F32_2_UpdateCameraMotion:
         db 00h,00h,00h,040h
-dword_161BA4:
+F32_3_UpdateCameraMotion:
         db 00h,00h,040h,040h
-unk_161BA8:
+str_BASEPOS:
         db 042h,041h,053h,045h,05Fh,050h,04Fh,053h,00h,00h,00h,00h
-unk_161BB4:
+str_Standing:
         db 073h,074h,061h,06Eh,064h,069h,06Eh,067h,00h,00h,00h,00h
-unk_161BC0:
+str_Glide:
         db 067h,06Ch,069h,064h,065h,00h,00h,00h
-unk_161BC8:
+str_StartF:
         db 073h,074h,061h,072h,074h,05Fh,066h,00h
-unk_161BD0:
+str_Sk8fSu:
         db 073h,06Bh,038h,066h,05Fh,073h,075h,00h
-unk_161BD8:
+str_Sk8fSh:
         db 073h,06Bh,038h,066h,05Fh,073h,068h,00h
-unk_161BE0:
+str_Sk8fSd:
         db 073h,06Bh,038h,066h,05Fh,073h,064h,00h
-unk_161BE8:
+str_Flturn:
         db 066h,06Ch,074h,075h,072h,06Eh,00h,00h
-unk_161BF0:
+str_Frturn:
         db 066h,072h,074h,075h,072h,06Eh,00h,00h
-unk_161BF8:
+str_CsovfL:
         db 063h,073h,06Fh,076h,066h,05Fh,06Ch,00h
-unk_161C00:
+str_CsovfR:
         db 063h,073h,06Fh,076h,066h,05Fh,072h,00h
-unk_161C08:
+str_Wait:
         db 077h,061h,069h,074h,00h,00h,00h,00h
-unk_161C10:
+str_Wait2:
         db 077h,061h,069h,074h,032h,00h,00h,00h
-unk_161C18:
+str_StpfwdL:
         db 073h,074h,070h,066h,077h,064h,05Fh,06Ch,00h,00h,00h,00h
-unk_161C24:
+str_StpfwdR:
         db 073h,074h,070h,066h,077h,064h,05Fh,072h,00h,00h,00h,00h
-unk_161C30:
+str_QstpL:
         db 071h,073h,074h,070h,05Fh,06Ch,00h,00h
-unk_161C38:
+str_QstpR:
         db 071h,073h,074h,070h,05Fh,072h,00h,00h
-unk_161C40:
+str_GlidbkS:
         db 067h,06Ch,069h,064h,062h,06Bh,05Fh,073h,00h,00h,00h,00h
-unk_161C4C:
+str_Bsk8:
         db 062h,073h,06Bh,038h,00h,00h,00h,00h
-unk_161C54:
+str_Stpbw:
         db 073h,074h,070h,062h,077h,00h,00h,00h
-unk_161C5C:
+str_Blturn:
         db 062h,06Ch,074h,075h,072h,06Eh,00h,00h
-unk_161C64:
+str_Brturn:
         db 062h,072h,074h,075h,072h,06Eh,00h,00h
-unk_161C6C:
+str_Fr2bkL:
         db 066h,072h,032h,062h,06Bh,05Fh,06Ch,00h
-unk_161C74:
+str_Fr2bkR:
         db 066h,072h,032h,062h,06Bh,05Fh,072h,00h
-unk_161C7C:
+str_Bk2frL:
         db 062h,06Bh,032h,066h,072h,05Fh,06Ch,00h
-unk_161C84:
+str_Bk2frR:
         db 062h,06Bh,032h,066h,072h,05Fh,072h,00h
-unk_161C8C:
+str_BstartL:
         db 062h,073h,074h,061h,072h,074h,05Fh,06Ch,00h,00h,00h,00h
-unk_161C98:
+str_BstartR:
         db 062h,073h,074h,061h,072h,074h,05Fh,072h,00h,00h,00h,00h
-unk_161CA4:
+str_Turn90L:
         db 074h,075h,072h,06Eh,039h,030h,05Fh,06Ch,00h,00h,00h,00h
-unk_161CB0:
+str_Turn90R:
         db 074h,075h,072h,06Eh,039h,030h,05Fh,072h,00h,00h,00h,00h
-unk_161CBC:
+str_Trn180L:
         db 074h,072h,06Eh,031h,038h,030h,05Fh,06Ch,00h,00h,00h,00h
-unk_161CC8:
+str_Trn180R:
         db 074h,072h,06Eh,031h,038h,030h,05Fh,072h,00h,00h,00h,00h
-unk_161CD4:
+str_Bstart:
         db 062h,073h,074h,061h,072h,074h,00h,00h
-unk_161CDC:
+str_BcsovL:
         db 062h,063h,073h,06Fh,076h,05Fh,06Ch,00h
-unk_161CE4:
+str_BcsovR:
         db 062h,063h,073h,06Fh,076h,05Fh,072h,00h
-unk_161CEC:
+str_AcclL:
         db 061h,063h,063h,06Ch,05Fh,06Ch,00h,00h
-unk_161CF4:
+str_AcclR:
         db 061h,063h,063h,06Ch,05Fh,072h,00h,00h
-unk_161CFC:
+str_PFHSW:
         db 050h,046h,048h,05Fh,053h,057h,00h,00h
-unk_161D04:
+str_PFHFWD:
         db 050h,046h,048h,05Fh,046h,057h,044h,00h
-unk_161D0C:
+str_PBKHSW:
         db 050h,042h,04Bh,048h,05Fh,053h,057h,00h
-unk_161D14:
+str_PBKHFWD:
         db 050h,042h,04Bh,048h,05Fh,046h,057h,044h,00h,00h,00h,00h
-unk_161D20:
+str_SSSTAND:
         db 053h,053h,05Fh,053h,054h,041h,04Eh,044h,00h,00h,00h,00h
-unk_161D2C:
+str_SSF:
         db 053h,053h,05Fh,046h,00h,00h,00h,00h
-unk_161D34:
+str_SSL:
         db 053h,053h,05Fh,04Ch,00h,00h,00h,00h
-unk_161D3C:
+str_SSR:
         db 053h,053h,05Fh,052h,00h,00h,00h,00h
-unk_161D44:
+str_SSBKH:
         db 053h,053h,05Fh,042h,04Bh,048h,00h,00h
-unk_161D4C:
+str_WRISTSHO:
         db 057h,052h,049h,053h,054h,053h,048h,04Fh,00h,00h,00h,00h
-unk_161D58:
+str_WSBKH:
         db 057h,053h,05Fh,042h,04Bh,048h,00h,00h
-unk_161D60:
+str_FLIPPFW:
         db 046h,04Ch,049h,050h,050h,05Fh,046h,057h,00h,00h,00h,00h
-unk_161D6C:
+str_FLIPPBK:
         db 046h,04Ch,049h,050h,050h,05Fh,042h,04Bh,00h,00h,00h,00h
-unk_161D78:
+str_PUKGLID:
         db 050h,055h,04Bh,05Fh,047h,04Ch,049h,044h,00h,00h,00h,00h
-unk_161D84:
+str_PUKSK8:
         db 050h,055h,04Bh,05Fh,053h,04Bh,038h,00h
-unk_161D8C:
+str_PUKHAND:
         db 050h,055h,04Bh,05Fh,048h,041h,04Eh,044h,00h,00h,00h,00h
-unk_161D98:
+str_PFLTURN:
         db 050h,046h,04Ch,054h,055h,052h,04Eh,00h
-unk_161DA0:
+str_PFRTURN:
         db 050h,046h,052h,054h,055h,052h,04Eh,00h
-unk_161DA8:
+str_PSTAND:
         db 050h,05Fh,053h,054h,041h,04Eh,044h,00h
-unk_161DB0:
+str_PGLDBKS:
         db 050h,047h,04Ch,044h,042h,04Bh,05Fh,053h,00h,00h,00h,00h
-unk_161DBC:
+str_PBLTURN:
         db 050h,042h,04Ch,054h,055h,052h,04Eh,00h
-unk_161DC4:
+str_PBRTURN:
         db 050h,042h,052h,054h,055h,052h,04Eh,00h
-unk_161DCC:
+str_PSTARTF:
         db 050h,053h,054h,041h,052h,054h,05Fh,046h,00h,00h,00h,00h
-unk_161DD8:
+str_PACCLL:
         db 050h,041h,043h,043h,04Ch,05Fh,04Ch,00h
-unk_161DE0:
+str_PACCLR:
         db 050h,041h,043h,043h,04Ch,05Fh,052h,00h
-unk_161DE8:
+str_BENCICE:
         db 042h,045h,04Eh,043h,05Fh,049h,043h,045h,00h,00h,00h,00h
-unk_161DF4:
+str_ICEBENC:
         db 049h,043h,045h,05Fh,042h,045h,04Eh,043h,00h,00h,00h,00h
-unk_161E00:
+str_GOPENAL:
         db 047h,04Fh,050h,045h,04Eh,041h,04Ch,00h
-unk_161E08:
+str_FACEOFR:
         db 046h,041h,043h,045h,04Fh,046h,05Fh,052h,00h,00h,00h,00h
-unk_161E14:
+str_FACEOFL:
         db 046h,041h,043h,045h,04Fh,046h,05Fh,04Ch,00h,00h,00h,00h
-unk_161E20:
+str_FACEOFB:
         db 046h,041h,043h,045h,04Fh,046h,05Fh,042h,00h,00h,00h,00h
-unk_161E2C:
+str_CATCHPU:
         db 043h,041h,054h,043h,048h,050h,055h,00h
-unk_161E34:
+str_BLOCR:
         db 042h,04Ch,04Fh,043h,05Fh,052h,00h,00h
-unk_161E3C:
+str_BLOCF:
         db 042h,04Ch,04Fh,043h,05Fh,046h,00h,00h
-unk_161E44:
+str_BLOCL:
         db 042h,04Ch,04Fh,043h,05Fh,04Ch,00h,00h
-unk_161E4C:
+str_CELEBR1:
         db 043h,045h,04Ch,045h,042h,052h,031h,00h
-unk_161E54:
+str_CELEBR2:
         db 043h,045h,04Ch,045h,042h,052h,032h,00h
-unk_161E5C:
+str_CELEBR3:
         db 043h,045h,04Ch,045h,042h,052h,033h,00h
-unk_161E64:
+str_CELEBR4:
         db 043h,045h,04Ch,045h,042h,052h,034h,00h
-unk_161E6C:
+str_CELEBR5:
         db 043h,045h,04Ch,045h,042h,052h,035h,00h
-unk_161E74:
+str_CELEBR6:
         db 043h,045h,04Ch,045h,042h,052h,036h,00h
-unk_161E7C:
+str_SITPOSE:
         db 053h,049h,054h,05Fh,050h,04Fh,053h,045h,00h,00h,00h,00h
-unk_161E88:
+str_BNMADST:
         db 042h,04Eh,05Fh,04Dh,041h,044h,053h,054h,00h,00h,00h,00h
-unk_161E94:
+str_BNMADHN:
         db 042h,04Eh,05Fh,04Dh,041h,044h,048h,04Eh,00h,00h,00h,00h
-unk_161EA0:
+str_BNDESPH:
         db 042h,04Eh,05Fh,044h,045h,053h,050h,048h,00h,00h,00h,00h
-unk_161EAC:
+str_BNDESPK:
         db 042h,04Eh,05Fh,044h,045h,053h,050h,04Bh,00h,00h,00h,00h
-unk_161EB8:
+str_BNCHEER:
         db 042h,04Eh,05Fh,043h,048h,045h,045h,052h,00h,00h,00h,00h
-unk_161EC4:
+str_FOFPOKL:
         db 046h,04Fh,046h,050h,04Fh,04Bh,05Fh,04Ch,00h,00h,00h,00h
-unk_161ED0:
+str_FOFPOKR:
         db 046h,04Fh,046h,050h,04Fh,04Bh,05Fh,052h,00h,00h,00h,00h
-unk_161EDC:
+str_FOFSHUF1:
         db 046h,04Fh,046h,053h,048h,055h,046h,031h,00h,00h,00h,00h
-unk_161EE8:
+str_FOFSHUF2:
         db 046h,04Fh,046h,053h,048h,055h,046h,032h,00h,00h,00h,00h
-unk_161EF4:
+str_LEAVPEN:
         db 04Ch,045h,041h,056h,05Fh,050h,045h,04Eh,00h,00h,00h,00h
-unk_161F00:
+str_BNLOOKL:
         db 042h,04Eh,05Fh,04Ch,04Fh,04Fh,04Bh,04Ch,00h,00h,00h,00h
-unk_161F0C:
+str_BNLOOKR:
         db 042h,04Eh,05Fh,04Ch,04Fh,04Fh,04Bh,052h,00h,00h,00h,00h
-unk_161F18:
+str_BNLR2S:
         db 042h,04Eh,05Fh,04Ch,05Fh,052h,032h,053h,00h,00h,00h,00h
-unk_161F24:
+str_BNLS2R:
         db 042h,04Eh,05Fh,04Ch,05Fh,053h,032h,052h,00h,00h,00h,00h
-unk_161F30:
+str_BNLL2S:
         db 042h,04Eh,05Fh,04Ch,05Fh,04Ch,032h,053h,00h,00h,00h,00h
-unk_161F3C:
+str_BNLS2L:
         db 042h,04Eh,05Fh,04Ch,05Fh,053h,032h,04Ch,00h,00h,00h,00h
-unk_161F48:
+str_SINGAD:
         db 053h,049h,04Eh,047h,05Fh,041h,044h,00h
-unk_161F50:
+str_SINGAU:
         db 053h,049h,04Eh,047h,05Fh,041h,055h,00h
-unk_161F58:
+str_HURDAL:
         db 048h,055h,052h,044h,041h,04Ch,00h,00h
-unk_161F60:
+str_HIPHITR:
         db 048h,049h,050h,048h,049h,054h,05Fh,052h,00h,00h,00h,00h
-unk_161F6C:
+str_HIPHITL:
         db 048h,049h,050h,048h,049h,054h,05Fh,04Ch,00h,00h,00h,00h
-unk_161F78:
+str_HIHITR:
         db 048h,049h,048h,049h,054h,05Fh,052h,00h
-unk_161F80:
+str_HIHITL:
         db 048h,049h,048h,049h,054h,05Fh,04Ch,00h
-unk_161F88:
+str_HIHITF:
         db 048h,049h,048h,049h,054h,05Fh,046h,00h
-unk_161F90:
+str_HGHITBF:
         db 048h,047h,048h,049h,054h,05Fh,042h,046h,00h,00h,00h,00h
-unk_161F9C:
+str_HGHITRF:
         db 048h,047h,048h,049h,054h,05Fh,052h,046h,00h,00h,00h,00h
-unk_161FA8:
+str_HGHITLF:
         db 048h,047h,048h,049h,054h,05Fh,04Ch,046h,00h,00h,00h,00h
-unk_161FB4:
+str_HGHITFF:
         db 048h,047h,048h,049h,054h,05Fh,046h,046h,00h,00h,00h,00h
-unk_161FC0:
+str_BIGHITL:
         db 042h,049h,047h,048h,049h,054h,05Fh,04Ch,00h,00h,00h,00h
-unk_161FCC:
+str_BIGHITR:
         db 042h,049h,047h,048h,049h,054h,05Fh,052h,00h,00h,00h,00h
-unk_161FD8:
+str_BIGHITB:
         db 042h,049h,047h,048h,049h,054h,05Fh,042h,00h,00h,00h,00h
-unk_161FE4:
+str_GETUPF:
         db 047h,045h,054h,055h,050h,05Fh,046h,00h
-unk_161FEC:
+str_GETUPR:
         db 047h,045h,054h,055h,050h,05Fh,052h,00h
-unk_161FF4:
+str_GETUPL:
         db 047h,045h,054h,055h,050h,05Fh,04Ch,00h
-unk_161FFC:
+str_GTUPCHT:
         db 047h,054h,055h,050h,05Fh,043h,048h,054h,00h,00h,00h,00h
-unk_162008:
+str_GTUPTUP:
         db 047h,054h,055h,050h,05Fh,054h,055h,050h,00h,00h,00h,00h
-unk_162014:
+str_FALBRDB:
         db 046h,041h,04Ch,05Fh,042h,052h,044h,042h,00h,00h,00h,00h
-unk_162020:
+str_FALBRDF:
         db 046h,041h,04Ch,05Fh,042h,052h,044h,046h,00h,00h,00h,00h
-unk_16202C:
+str_FALBRDL:
         db 046h,041h,04Ch,05Fh,042h,052h,044h,04Ch,00h,00h,00h,00h
-unk_162038:
+str_FALBRDR:
         db 046h,041h,04Ch,05Fh,042h,052h,044h,052h,00h,00h,00h,00h
-unk_162044:
+str_INTBNCB:
         db 049h,04Eh,054h,05Fh,042h,04Eh,043h,042h,00h,00h,00h,00h
-unk_162050:
+str_INTBNCF:
         db 049h,04Eh,054h,05Fh,042h,04Eh,043h,046h,00h,00h,00h,00h
-unk_16205C:
+str_INTBNCL:
         db 049h,04Eh,054h,05Fh,042h,04Eh,043h,04Ch,00h,00h,00h,00h
-unk_162068:
+str_INTBNCR:
         db 049h,04Eh,054h,05Fh,042h,04Eh,043h,052h,00h,00h,00h,00h
-unk_162074:
+str_MEDHITL:
         db 04Dh,045h,044h,048h,049h,054h,05Fh,04Ch,00h,00h,00h,00h
-unk_162080:
+str_MEDHITR:
         db 04Dh,045h,044h,048h,049h,054h,05Fh,052h,00h,00h,00h,00h
-unk_16208C:
+str_WRITHE:
         db 057h,052h,049h,054h,048h,045h,00h,00h
-unk_162094:
+str_RECOVB:
         db 052h,045h,043h,04Fh,056h,05Fh,042h,00h
-unk_16209C:
+str_RECVBFS:
         db 052h,045h,043h,056h,05Fh,042h,046h,053h,00h,00h,00h,00h
-unk_1620A8:
+str_GTUPB2T:
         db 047h,054h,055h,050h,05Fh,042h,032h,054h,00h,00h,00h,00h
-unk_1620B4:
+str_STUMBL1:
         db 053h,054h,055h,04Dh,042h,04Ch,031h,00h
-unk_1620BC:
+str_STUMBL2:
         db 053h,054h,055h,04Dh,042h,04Ch,032h,00h
-unk_1620C4:
+str_STUMBL3:
         db 053h,054h,055h,04Dh,042h,04Ch,033h,00h
-unk_1620CC:
+str_SPINF:
         db 053h,050h,049h,04Eh,05Fh,046h,00h,00h
-unk_1620D4:
+str_SPINL:
         db 053h,050h,049h,04Eh,05Fh,04Ch,00h,00h
-unk_1620DC:
+str_SPINR:
         db 053h,050h,049h,04Eh,05Fh,052h,00h,00h
-unk_1620E4:
+str_SPINB:
         db 053h,050h,049h,04Eh,05Fh,042h,00h,00h
-unk_1620EC:
+str_HOLD:
         db 048h,04Fh,04Ch,044h,00h,00h,00h,00h
-unk_1620F4:
+str_HOOKR:
         db 048h,04Fh,04Fh,04Bh,05Fh,052h,00h,00h
-unk_1620FC:
+str_HOOKL:
         db 048h,04Fh,04Fh,04Bh,05Fh,04Ch,00h,00h
-unk_162104:
+str_HOOKF:
         db 048h,04Fh,04Fh,04Bh,05Fh,046h,00h,00h
-unk_16210C:
+str_CRSCHKR:
         db 043h,052h,053h,043h,048h,04Bh,05Fh,052h,00h,00h,00h,00h
-unk_162118:
+str_CRSCHKL:
         db 043h,052h,053h,043h,048h,04Bh,05Fh,04Ch,00h,00h,00h,00h
-unk_162124:
+str_CRSCHKF:
         db 043h,052h,053h,043h,048h,04Bh,05Fh,046h,00h,00h,00h,00h
-unk_162130:
+str_SPEARING:
         db 053h,050h,045h,041h,052h,049h,04Eh,047h,00h,00h,00h,00h
-unk_16213C:
+str_SLASHING:
         db 053h,04Ch,041h,053h,048h,049h,04Eh,047h,00h,00h,00h,00h
-unk_162148:
+str_ROUGHING:
         db 052h,04Fh,055h,047h,048h,049h,04Eh,047h,00h,00h,00h,00h
-unk_162154:
+str_HIGHST:
         db 048h,049h,047h,048h,05Fh,053h,054h,00h
-unk_16215C:
+str_ELBOWR:
         db 045h,04Ch,042h,04Fh,057h,05Fh,052h,00h
-unk_162164:
+str_ELBOWL:
         db 045h,04Ch,042h,04Fh,057h,05Fh,04Ch,00h
-unk_16216C:
+str_HIPR:
         db 048h,049h,050h,05Fh,052h,00h,00h,00h
-unk_162174:
+str_HIPL:
         db 048h,049h,050h,05Fh,04Ch,00h,00h,00h
-unk_16217C:
+str_SHOULR:
         db 053h,048h,04Fh,055h,04Ch,05Fh,052h,00h
-unk_162184:
+str_SHOULL:
         db 053h,048h,04Fh,055h,04Ch,05Fh,04Ch,00h
-unk_16218C:
+str_SHOULF:
         db 053h,048h,04Fh,055h,04Ch,05Fh,046h,00h
-unk_162194:
+str_POKECH:
         db 050h,04Fh,04Bh,045h,043h,048h,00h,00h
-unk_16219C:
+str_PkGlid:
         db 070h,06Bh,02Dh,067h,06Ch,069h,064h,00h
-unk_1621A4:
+str_Setpos:
         db 073h,065h,074h,070h,06Fh,073h,00h,00h
-unk_1621AC:
+str_Relaxset:
         db 072h,065h,06Ch,061h,078h,073h,065h,074h,00h,00h,00h,00h
-unk_1621B8:
+str_Buterfl:
         db 062h,075h,074h,065h,072h,066h,06Ch,00h
-unk_1621C0:
+str_Casual:
         db 063h,061h,073h,075h,061h,06Ch,00h,00h
-unk_1621C8:
+str_HugL:
         db 068h,075h,067h,04Ch,00h,00h,00h,00h
-unk_1621D0:
+str_HugR:
         db 068h,075h,067h,052h,00h,00h,00h,00h
-unk_1621D8:
+str_GLIDEL:
         db 047h,04Ch,049h,044h,045h,04Ch,00h,00h
-unk_1621E0:
+str_GLIDER:
         db 047h,04Ch,049h,044h,045h,052h,00h,00h
-unk_1621E8:
+str_PturnL:
         db 070h,074h,075h,072h,06Eh,02Dh,04Ch,00h
-unk_1621F0:
+str_PturnR:
         db 070h,074h,075h,072h,06Eh,02Dh,052h,00h
-unk_1621F8:
+str_Getset:
         db 067h,065h,074h,073h,065h,074h,00h,00h
-unk_162200:
+str_Intobut:
         db 069h,06Eh,074h,06Fh,062h,075h,074h,00h
-unk_162208:
+str_Butset:
         db 062h,075h,074h,073h,065h,074h,00h,00h
-unk_162210:
+str_Po2poL:
         db 070h,06Fh,032h,070h,06Fh,04Ch,00h,00h
-unk_162218:
+str_Po2poR:
         db 070h,06Fh,032h,070h,06Fh,052h,00h,00h
-unk_162220:
+str_Bt2relbt:
         db 062h,074h,032h,072h,065h,06Ch,062h,074h,00h,00h,00h,00h
-unk_16222C:
+str_Bt2chest:
         db 062h,074h,032h,063h,068h,065h,073h,074h,00h,00h,00h,00h
-unk_162238:
+str_Fr24:
         db 066h,072h,032h,034h,00h,00h,00h,00h
-unk_162240:
+str_R24:
         db 072h,032h,034h,00h
-unk_162244:
+str_L24:
         db 06Ch,032h,034h,00h
-unk_162248:
+str_All42but:
         db 061h,06Ch,06Ch,034h,032h,062h,075h,074h,00h,00h,00h,00h
-unk_162254:
+str_GetupF:
         db 067h,065h,074h,075h,070h,02Dh,066h,00h
-unk_16225C:
+str_GetupS:
         db 067h,065h,074h,075h,070h,02Dh,053h,00h
-unk_162264:
+str_GetupL:
         db 067h,065h,074h,075h,070h,02Dh,04Ch,00h
-unk_16226C:
+str_GetupR:
         db 067h,065h,074h,075h,070h,02Dh,052h,00h
-unk_162274:
+str_HitF:
         db 068h,069h,074h,046h,00h,00h,00h,00h
-unk_16227C:
+str_HitL:
         db 068h,069h,074h,04Ch,00h,00h,00h,00h
-unk_162284:
+str_HitR:
         db 068h,069h,074h,052h,00h,00h,00h,00h
 unk_16228C:
         db 073h,074h,061h,072h,074h,02Dh,046h,00h
-unk_162294:
+str_Sk8:
         db 073h,06Bh,038h,00h
-unk_162298:
+str_StepL:
         db 073h,074h,065h,070h,02Dh,04Ch,00h,00h
-unk_1622A0:
+str_StepR:
         db 073h,074h,065h,070h,02Dh,052h,00h,00h
-unk_1622A8:
+str_BigstpL:
         db 062h,069h,067h,073h,074h,070h,02Dh,04Ch,00h,00h,00h,00h
-unk_1622B4:
+str_BigstpR:
         db 062h,069h,067h,073h,074h,070h,02Dh,052h,00h,00h,00h,00h
-unk_1622C0:
+str_StepFL:
         db 073h,074h,065h,070h,046h,04Ch,00h,00h
-unk_1622C8:
+str_StepFR:
         db 073h,074h,065h,070h,046h,052h,00h,00h
-unk_1622D0:
+str_StepbkL:
         db 073h,074h,065h,070h,062h,06Bh,02Dh,04Ch,00h,00h,00h,00h
-unk_1622DC:
+str_StepbkR:
         db 073h,074h,065h,070h,062h,06Bh,02Dh,052h,00h,00h,00h,00h
-unk_1622E8:
+str_Snowpl:
         db 073h,06Eh,06Fh,077h,070h,06Ch,00h,00h
-unk_1622F0:
+str_Icing:
         db 069h,063h,069h,06Eh,067h,00h,00h,00h
-unk_1622F8:
+str_DropL:
         db 064h,072h,06Fh,070h,02Dh,04Ch,00h,00h
-unk_162300:
+str_DropR:
         db 064h,072h,06Fh,070h,02Dh,052h,00h,00h
-unk_162308:
+str_DropF:
         db 064h,072h,06Fh,070h,02Dh,046h,00h,00h
-unk_162310:
+str_Chuckpuk:
         db 063h,068h,075h,063h,06Bh,070h,075h,06Bh,00h,00h,00h,00h
-unk_16231C:
+str_Lookhand:
         db 06Ch,06Fh,06Fh,06Bh,068h,061h,06Eh,064h,00h,00h,00h,00h
-unk_162328:
+str_Juggle:
         db 06Ah,075h,067h,067h,06Ch,065h,00h,00h
-unk_162330:
+str_Twitch:
         db 074h,077h,069h,074h,063h,068h,00h,00h
-unk_162338:
+str_Bang:
         db 062h,061h,06Eh,067h,00h,00h,00h,00h
-unk_162340:
+str_Post:
         db 070h,06Fh,073h,074h,00h,00h,00h,00h
-unk_162348:
+str_LookL:
         db 06Ch,06Fh,06Fh,06Bh,02Dh,04Ch,00h,00h
-unk_162350:
+str_LookR:
         db 06Ch,06Fh,06Fh,06Bh,02Dh,052h,00h,00h
-unk_162358:
+str_CaslooL:
         db 063h,061h,073h,06Ch,06Fh,06Fh,02Dh,04Ch,00h,00h,00h,00h
-unk_162364:
+str_CaslooR:
         db 063h,061h,073h,06Ch,06Fh,06Fh,02Dh,052h,00h,00h,00h,00h
-unk_162370:
+str_WtonL:
         db 077h,074h,06Fh,06Eh,02Dh,04Ch,00h,00h
-unk_162378:
+str_WtonR:
         db 077h,074h,06Fh,06Eh,02Dh,052h,00h,00h
-unk_162380:
+str_Handknee:
         db 068h,061h,06Eh,064h,06Bh,06Eh,065h,065h,00h,00h,00h,00h
-unk_16238C:
+str_Clean:
         db 063h,06Ch,065h,061h,06Eh,00h,00h,00h
-unk_162394:
+str_CloseH:
         db 063h,06Ch,06Fh,073h,065h,048h,00h,00h
-unk_16239C:
+str_Gut:
         db 067h,075h,074h,00h
-unk_1623A0:
+str_Glovsnap:
         db 067h,06Ch,06Fh,076h,073h,06Eh,061h,070h,00h,00h,00h,00h
-unk_1623AC:
+str_GlovLO:
         db 067h,06Ch,06Fh,076h,02Dh,04Ch,04Fh,00h
-unk_1623B4:
+str_GlovHI:
         db 067h,06Ch,06Fh,076h,02Dh,048h,049h,00h
-unk_1623BC:
+str_Blocsnap:
         db 062h,06Ch,06Fh,063h,073h,06Eh,061h,070h,00h,00h,00h,00h
-unk_1623C8:
+str_BlocLO:
         db 062h,06Ch,06Fh,063h,02Dh,04Ch,04Fh,00h
-unk_1623D0:
+str_BlocHI:
         db 062h,06Ch,06Fh,063h,02Dh,048h,049h,00h
-unk_1623D8:
+str_StickL:
         db 073h,074h,069h,063h,06Bh,02Dh,04Ch,00h
-unk_1623E0:
+str_StickR:
         db 073h,074h,069h,063h,06Bh,02Dh,052h,00h
-unk_1623E8:
+str_PadL:
         db 070h,061h,064h,02Dh,04Ch,00h,00h,00h
-unk_1623F0:
+str_PadR:
         db 070h,061h,064h,02Dh,052h,00h,00h,00h
-unk_1623F8:
+str_Sweep:
         db 073h,077h,065h,065h,070h,00h,00h,00h
-unk_162400:
+str_Poke:
         db 070h,06Fh,06Bh,065h,00h,00h,00h,00h
-unk_162408:
+str_Coverpuk:
         db 063h,06Fh,076h,065h,072h,070h,075h,06Bh,00h,00h,00h,00h
-unk_162414:
+str_Hack:
         db 068h,061h,063h,06Bh,00h,00h,00h,00h
-unk_16241C:
+str_DiveF:
         db 064h,069h,076h,065h,02Dh,046h,00h,00h
-unk_162424:
+str_DivebkR:
         db 064h,069h,076h,065h,062h,06Bh,02Dh,052h,00h,00h,00h,00h
-unk_162430:
+str_DivebkL:
         db 064h,069h,076h,065h,062h,06Bh,02Dh,04Ch,00h,00h,00h,00h
-unk_16243C:
+str_FlopL:
         db 066h,06Ch,06Fh,070h,04Ch,00h,00h,00h
-unk_162444:
+str_FlopR:
         db 066h,06Ch,06Fh,070h,052h,00h,00h,00h
-unk_16244C:
+str_KickL:
         db 06Bh,069h,063h,06Bh,02Dh,04Ch,00h,00h
-unk_162454:
+str_KickR:
         db 06Bh,069h,063h,06Bh,02Dh,052h,00h,00h
-unk_16245C:
+str_Btglvsnp:
         db 062h,074h,067h,06Ch,076h,073h,06Eh,070h,00h,00h,00h,00h
-unk_162468:
+str_BtdiveL:
         db 062h,074h,064h,069h,076h,065h,02Dh,04Ch,00h,00h,00h,00h
-unk_162474:
+str_BtdiveR:
         db 062h,074h,064h,069h,076h,065h,02Dh,052h,00h,00h,00h,00h
-unk_162480:
+str_Butpoke:
         db 062h,075h,074h,070h,06Fh,06Bh,065h,00h
-unk_162488:
+str_Butsweep:
         db 062h,075h,074h,073h,077h,065h,065h,070h,00h,00h,00h,00h
-unk_162494:
+str_Buthack:
         db 062h,075h,074h,068h,061h,063h,06Bh,00h
-unk_16249C:
+str_Butstflt:
         db 062h,075h,074h,073h,074h,066h,06Ch,074h,00h,00h,00h,00h
-unk_1624A8:
+str_Btblksnp:
         db 062h,074h,062h,06Ch,06Bh,073h,06Eh,070h,00h,00h,00h,00h
-unk_1624B4:
+str_BtblkHI:
         db 062h,074h,062h,06Ch,06Bh,048h,049h,00h
-unk_1624BC:
+str_Butfist:
         db 062h,075h,074h,066h,069h,073h,074h,00h
-unk_1624C4:
+str_Butfck:
         db 062h,075h,074h,066h,063h,06Bh,00h,00h
-unk_1624CC:
+str_Pkhand:
         db 070h,06Bh,068h,061h,06Eh,064h,00h,00h
-unk_1624D4:
+str_PStart:
         db 070h,02Dh,073h,074h,061h,072h,074h,00h
-unk_1624DC:
+str_Pksnowp:
         db 070h,06Bh,073h,06Eh,06Fh,077h,070h,00h
-unk_1624E4:
+str_PasbkL:
         db 070h,061h,073h,062h,06Bh,02Dh,04Ch,00h
-unk_1624EC:
+str_PasfwdL:
         db 070h,061h,073h,066h,077h,064h,02Dh,04Ch,00h,00h,00h,00h
-unk_1624F8:
+str_PasfwdR:
         db 070h,061h,073h,066h,077h,064h,02Dh,052h,00h,00h,00h,00h
-unk_162504:
+str_Pasfwd:
         db 070h,061h,073h,066h,077h,064h,00h,00h
-unk_16250C:
+str_Flipass:
         db 066h,06Ch,069h,070h,061h,073h,073h,00h
-unk_162514:
+str_PkSk8:
         db 070h,06Bh,05Fh,073h,06Bh,038h,00h,00h
-unk_16251C:
+str_Scuff:
         db 073h,063h,075h,066h,066h,00h,00h,00h
-unk_162524:
+str_Coverpu1:
         db 063h,06Fh,076h,065h,072h,070h,075h,031h,00h,00h,00h,00h
-unk_162530:
+str_Coverpu2:
         db 063h,06Fh,076h,065h,072h,070h,075h,032h,00h,00h,00h,00h
-unk_16253C:
+str_Btcover:
         db 062h,074h,063h,06Fh,076h,065h,072h,00h
-unk_162544:
+str_RefGlid:
         db 072h,065h,066h,05Fh,067h,06Ch,069h,064h,00h,00h,00h,00h
-unk_162550:
+str_RfGldau:
         db 072h,066h,05Fh,067h,06Ch,064h,061h,075h,00h,00h,00h,00h
-unk_16255C:
+str_RefStnd:
         db 072h,065h,066h,05Fh,073h,074h,06Eh,064h,00h,00h,00h,00h
-unk_162568:
+str_RfStnda:
         db 072h,066h,05Fh,073h,074h,06Eh,064h,061h,00h,00h,00h,00h
-unk_162574:
+str_RturnL:
         db 072h,074h,075h,072h,06Eh,05Fh,06Ch,00h
-unk_16257C:
+str_RturnLa:
         db 072h,074h,075h,072h,06Eh,05Fh,06Ch,061h,00h,00h,00h,00h
-unk_162588:
+str_RturnR:
         db 072h,074h,075h,072h,06Eh,05Fh,072h,00h
-unk_162590:
+str_RturnRa:
         db 072h,074h,075h,072h,06Eh,05Fh,072h,061h,00h,00h,00h,00h
-unk_16259C:
+str_RefSk8:
         db 072h,065h,066h,05Fh,073h,06Bh,038h,00h
-unk_1625A4:
+str_RfSk8au:
         db 072h,066h,05Fh,073h,06Bh,038h,061h,075h,00h,00h,00h,00h
-unk_1625B0:
+str_RcsovfL:
         db 072h,063h,073h,06Fh,076h,066h,05Fh,06Ch,00h,00h,00h,00h
-unk_1625BC:
+str_RcsvfLa:
         db 072h,063h,073h,076h,066h,05Fh,06Ch,061h,00h,00h,00h,00h
-unk_1625C8:
+str_RcsovfR:
         db 072h,063h,073h,06Fh,076h,066h,05Fh,072h,00h,00h,00h,00h
-unk_1625D4:
+str_RcsvfRa:
         db 072h,063h,073h,076h,066h,05Fh,072h,061h,00h,00h,00h,00h
-unk_1625E0:
+str_RstopL:
         db 072h,073h,074h,06Fh,070h,05Fh,06Ch,00h
-unk_1625E8:
+str_RstopLa:
         db 072h,073h,074h,06Fh,070h,05Fh,06Ch,061h,00h,00h,00h,00h
-unk_1625F4:
+str_RstopR:
         db 072h,073h,074h,06Fh,070h,05Fh,072h,00h
-unk_1625FC:
+str_RstopRa:
         db 072h,073h,074h,06Fh,070h,05Fh,072h,061h,00h,00h,00h,00h
-unk_162608:
+str_RstartF:
         db 072h,073h,074h,061h,072h,074h,05Fh,066h,00h,00h,00h,00h
-unk_162614:
+str_RstrtFa:
         db 072h,073h,074h,072h,074h,05Fh,066h,061h,00h,00h,00h,00h
-unk_162620:
+str_RacclL:
         db 072h,061h,063h,063h,06Ch,05Fh,06Ch,00h
-unk_162628:
+str_RacclLa:
         db 072h,061h,063h,063h,06Ch,05Fh,06Ch,061h,00h,00h,00h,00h
-unk_162634:
+str_RacclR:
         db 072h,061h,063h,063h,06Ch,05Fh,072h,00h
-unk_16263C:
+str_RacclRa:
         db 072h,061h,063h,063h,06Ch,05Fh,072h,061h,00h,00h,00h,00h
-unk_162648:
+str_Rtr90L:
         db 072h,074h,072h,039h,030h,05Fh,06Ch,00h
-unk_162650:
+str_Rtr90La:
         db 072h,074h,072h,039h,030h,05Fh,06Ch,061h,00h,00h,00h,00h
-unk_16265C:
+str_Rtr90R:
         db 072h,074h,072h,039h,030h,05Fh,072h,00h
-unk_162664:
+str_Rtr90Ra:
         db 072h,074h,072h,039h,030h,05Fh,072h,061h,00h,00h,00h,00h
-unk_162670:
+str_Rt180L:
         db 072h,074h,031h,038h,030h,05Fh,06Ch,00h
-unk_162678:
+str_Rt180La:
         db 072h,074h,031h,038h,030h,05Fh,06Ch,061h,00h,00h,00h,00h
-unk_162684:
+str_Rt180R:
         db 072h,074h,031h,038h,030h,05Fh,072h,00h
-unk_16268C:
+str_Rt180Ra:
         db 072h,074h,031h,038h,030h,05Fh,072h,061h,00h,00h,00h,00h
-unk_162698:
+str_Rf2bL:
         db 072h,066h,032h,062h,05Fh,06Ch,00h,00h
-unk_1626A0:
+str_Rf2bLau:
         db 072h,066h,032h,062h,05Fh,06Ch,061h,075h,00h,00h,00h,00h
-unk_1626AC:
+str_Rf2bR:
         db 072h,066h,032h,062h,05Fh,072h,00h,00h
-unk_1626B4:
+str_Rf2bRau:
         db 072h,066h,032h,062h,05Fh,072h,061h,075h,00h,00h,00h,00h
-unk_1626C0:
+str_Rb2fL:
         db 072h,062h,032h,066h,05Fh,06Ch,00h,00h
-unk_1626C8:
+str_Rb2fLau:
         db 072h,062h,032h,066h,05Fh,06Ch,061h,075h,00h,00h,00h,00h
-unk_1626D4:
+str_Rb2fR:
         db 072h,062h,032h,066h,05Fh,072h,00h,00h
-unk_1626DC:
+str_Rb2fRau:
         db 072h,062h,032h,066h,05Fh,072h,061h,075h,00h,00h,00h,00h
-unk_1626E8:
+str_RfBgld:
         db 072h,066h,05Fh,062h,067h,06Ch,064h,00h
-unk_1626F0:
+str_RfBglda:
         db 072h,066h,05Fh,062h,067h,06Ch,064h,061h,00h,00h,00h,00h
-unk_1626FC:
+str_RbturnL:
         db 072h,062h,074h,075h,072h,06Eh,05Fh,06Ch,00h,00h,00h,00h
-unk_162708:
+str_RbtrnLa:
         db 072h,062h,074h,072h,06Eh,05Fh,06Ch,061h,00h,00h,00h,00h
-unk_162714:
+str_RbturnR:
         db 072h,062h,074h,075h,072h,06Eh,05Fh,072h,00h,00h,00h,00h
-unk_162720:
+str_RbtrnRa:
         db 072h,062h,074h,072h,06Eh,05Fh,072h,061h,00h,00h,00h,00h
-unk_16272C:
+str_RstopBw:
         db 072h,073h,074h,06Fh,070h,05Fh,062h,077h,00h,00h,00h,00h
-unk_162738:
+str_RstpBwa:
         db 072h,073h,074h,070h,05Fh,062h,077h,061h,00h,00h,00h,00h
-unk_162744:
+str_RbstarF:
         db 072h,062h,073h,074h,061h,072h,05Fh,066h,00h,00h,00h,00h
-unk_162750:
+str_RbstrFa:
         db 072h,062h,073h,074h,072h,05Fh,066h,061h,00h,00h,00h,00h
-unk_16275C:
+str_RbstarL:
         db 072h,062h,073h,074h,061h,072h,05Fh,06Ch,00h,00h,00h,00h
-unk_162768:
+str_RbstrLa:
         db 072h,062h,073h,074h,072h,05Fh,06Ch,061h,00h,00h,00h,00h
-unk_162774:
+str_RbstarR:
         db 072h,062h,073h,074h,061h,072h,05Fh,072h,00h,00h,00h,00h
-unk_162780:
+str_RefBsk8:
         db 072h,065h,066h,05Fh,062h,073h,06Bh,038h,00h,00h,00h,00h
-unk_16278C:
+str_RfBsk8a:
         db 072h,066h,05Fh,062h,073h,06Bh,038h,061h,00h,00h,00h,00h
-unk_162798:
+str_RbcsovL:
         db 072h,062h,063h,073h,06Fh,076h,05Fh,06Ch,00h,00h,00h,00h
-unk_1627A4:
+str_RbcsvLa:
         db 072h,062h,063h,073h,076h,05Fh,06Ch,061h,00h,00h,00h,00h
-unk_1627B0:
+str_RbcsovR:
         db 072h,062h,063h,073h,06Fh,076h,05Fh,072h,00h,00h,00h,00h
-unk_1627BC:
+str_RbcsvRa:
         db 072h,062h,063h,073h,076h,05Fh,072h,061h,00h,00h,00h,00h
-unk_1627C8:
+str_ADropuk:
         db 061h,05Fh,064h,072h,06Fh,070h,075h,06Bh,00h,00h,00h,00h
-unk_1627D4:
+str_APikpuk:
         db 061h,05Fh,070h,069h,06Bh,070h,075h,06Bh,00h,00h,00h,00h
-unk_1627E0:
+str_RefGetp:
         db 072h,065h,066h,05Fh,067h,065h,074h,070h,00h,00h,00h,00h
-unk_1627EC:
+str_ClGoal:
         db 063h,06Ch,05Fh,067h,06Fh,061h,06Ch,00h
-unk_1627F4:
+str_ClIcing:
         db 063h,06Ch,05Fh,069h,063h,069h,06Eh,067h,00h,00h,00h,00h
-unk_162800:
+str_ClWsnog:
         db 063h,06Ch,05Fh,077h,073h,06Eh,06Fh,067h,00h,00h,00h,00h
-unk_16280C:
+str_ClCharg:
         db 063h,06Ch,05Fh,063h,068h,061h,072h,067h,00h,00h,00h,00h
-unk_162818:
+str_ClBoard:
         db 063h,06Ch,05Fh,062h,06Fh,061h,072h,064h,00h,00h,00h,00h
-unk_162824:
+str_ClElbow:
         db 063h,06Ch,05Fh,065h,06Ch,062h,06Fh,077h,00h,00h,00h,00h
-unk_162830:
+str_ClCrchk:
         db 063h,06Ch,05Fh,063h,072h,063h,068h,06Bh,00h,00h,00h,00h
-unk_16283C:
+str_ClHigst:
         db 063h,06Ch,05Fh,068h,069h,067h,073h,074h,00h,00h,00h,00h
-unk_162848:
+str_ClHook:
         db 063h,06Ch,05Fh,068h,06Fh,06Fh,06Bh,00h
-unk_162850:
+str_ClHold:
         db 063h,06Ch,05Fh,068h,06Fh,06Ch,064h,00h
-unk_162858:
+str_ClIntrf:
         db 063h,06Ch,05Fh,069h,06Eh,074h,072h,066h,00h,00h,00h,00h
-unk_162864:
+str_ClMisco:
         db 063h,06Ch,05Fh,06Dh,069h,073h,063h,06Fh,00h,00h,00h,00h
-unk_162870:
+str_ClSlash:
         db 063h,06Ch,05Fh,073h,06Ch,061h,073h,068h,00h,00h,00h,00h
-unk_16287C:
+str_ClRough:
         db 063h,06Ch,05Fh,072h,06Fh,075h,067h,068h,00h,00h,00h,00h
-unk_162888:
+str_ClTrip:
         db 063h,06Ch,05Fh,074h,072h,069h,070h,00h
-unk_162890:
+str_ClSpear:
         db 063h,06Ch,05Fh,073h,070h,065h,061h,072h,00h,00h,00h,00h
-unk_16289C:
+str_ClUnspo:
         db 063h,06Ch,05Fh,075h,06Eh,073h,070h,06Fh,00h,00h,00h,00h
-unk_1628A8:
+str_ClPenal:
         db 063h,06Ch,05Fh,070h,065h,06Eh,061h,06Ch,00h,00h,00h,00h
-unk_1628B4:
+str_READY:
         db 052h,045h,041h,044h,059h,00h,00h,00h
-unk_1628BC:
+str_THRWGLVS:
         db 054h,048h,052h,057h,047h,04Ch,056h,053h,00h,00h,00h,00h
-unk_1628C8:
+str_JABBED:
         db 04Ah,041h,042h,042h,045h,044h,00h,00h
-unk_1628D0:
+str_JABEDND:
         db 04Ah,041h,042h,045h,044h,05Fh,04Eh,044h,00h,00h,00h,00h
-unk_1628DC:
+str_JAB:
         db 04Ah,041h,042h,00h
-unk_1628E0:
+str_HOOK:
         db 048h,04Fh,04Fh,04Bh,00h,00h,00h,00h
-unk_1628E8:
+str_HOKEDUP:
         db 048h,04Fh,04Bh,045h,044h,05Fh,055h,050h,00h,00h,00h,00h
-unk_1628F4:
+str_HOKEDBK:
         db 048h,04Fh,04Bh,045h,044h,05Fh,042h,04Bh,00h,00h,00h,00h
-unk_162900:
+str_GETUPBK:
         db 047h,045h,054h,055h,050h,05Fh,042h,04Bh,00h,00h,00h,00h
-unk_16290C:
+str_GRAB:
         db 047h,052h,041h,042h,00h,00h,00h,00h
-unk_162914:
+str_GRABBED:
         db 047h,052h,041h,042h,042h,045h,044h,00h
-unk_16291C:
+str_GRABJAB:
         db 047h,052h,041h,042h,05Fh,04Ah,041h,042h,00h,00h,00h,00h
-unk_162928:
+str_GRABHOK:
         db 047h,052h,041h,042h,05Fh,048h,04Fh,04Bh,00h,00h,00h,00h
-unk_162934:
+str_GRBDJBD:
         db 047h,052h,042h,044h,05Fh,04Ah,042h,044h,00h,00h,00h,00h
-unk_162940:
+str_GRBDHKD:
         db 047h,052h,042h,044h,05Fh,048h,04Bh,044h,00h,00h,00h,00h
-unk_16294C:
+str_GRJBDND:
         db 047h,052h,04Ah,042h,044h,05Fh,04Eh,044h,00h,00h,00h,00h
-unk_162958:
+str_GRHKDND:
         db 047h,052h,048h,04Bh,044h,05Fh,04Eh,044h,00h,00h,00h,00h
-unk_162964:
+str_SHFLFWD:
         db 053h,048h,046h,04Ch,05Fh,046h,057h,044h,00h,00h,00h,00h
-unk_162970:
+str_SHFLBKW:
         db 053h,048h,046h,04Ch,05Fh,042h,04Bh,057h,00h,00h,00h,00h
-unk_16297C:
+str_PULLJER:
         db 050h,055h,04Ch,04Ch,05Fh,04Ah,045h,052h,00h,00h,00h,00h
-unk_162988:
+str_JERPULD:
         db 04Ah,045h,052h,05Fh,050h,055h,04Ch,044h,00h,00h,00h,00h
-unk_162994:
+str_PULLJHK:
         db 050h,055h,04Ch,04Ch,04Ah,05Fh,048h,04Bh,00h,00h,00h,00h
-unk_1629A0:
+str_JPLDHKD:
         db 04Ah,050h,04Ch,044h,05Fh,048h,04Bh,044h,00h,00h,00h,00h
-unk_1629AC:
+str_PLDHKDD:
         db 050h,04Ch,044h,048h,04Bh,044h,05Fh,044h,00h,00h,00h,00h
-unk_1629B8:
+str_BRKGRAB:
         db 042h,052h,04Bh,05Fh,047h,052h,041h,042h,00h,00h,00h,00h
-unk_1629C4:
+str_RLSGRAB:
         db 052h,04Ch,053h,05Fh,047h,052h,041h,042h,00h,00h,00h,00h
-unk_1629D0:
+str_MISGRAB:
         db 04Dh,049h,053h,05Fh,047h,052h,041h,042h,00h,00h,00h,00h
-unk_1629DC:
+str_BRKPULJ:
         db 042h,052h,04Bh,05Fh,050h,055h,04Ch,04Ah,00h,00h,00h,00h
-unk_1629E8:
+str_RLSPULJ:
         db 052h,04Ch,053h,05Fh,050h,055h,04Ch,04Ah,00h,00h,00h,00h
-unk_1629F4:
+str_UP:
         db 055h,050h,00h,00h
-unk_1629F8:
+str_THGLVOD:
         db 054h,048h,047h,04Ch,056h,05Fh,04Fh,044h,00h,00h,00h,00h
-unk_162A04:
+str_CUPSK8:
         db 043h,055h,050h,05Fh,053h,04Bh,038h,00h
-unk_162A0C:
+str_CUPCASK:
         db 043h,055h,050h,05Fh,043h,041h,053h,04Bh,00h,00h,00h,00h
-unk_162A18:
+str_CUPKISS:
         db 043h,055h,050h,05Fh,04Bh,049h,053h,053h,00h,00h,00h,00h
-unk_162A24:
+str_CUPUPDW:
         db 043h,055h,050h,05Fh,055h,050h,044h,057h,00h,00h,00h,00h
-unk_162A30:
+str_CUPGLAU:
         db 043h,055h,050h,05Fh,047h,04Ch,041h,055h,00h,00h,00h,00h
-unk_162A3C:
+str_CUPGLAD:
         db 043h,055h,050h,05Fh,047h,04Ch,041h,044h,00h,00h,00h,00h
 unk_162A48:
         db 072h,068h,061h,06Eh,064h,00h,00h,00h
-unk_162A50:
+str_Lhand:
         db 06Ch,068h,061h,06Eh,064h,00h,00h,00h
 unk_162A58:
         db 073h,074h,069h,063h,06Bh,068h,065h,065h,06Ch,00h,00h,00h
-unk_162A64:
+str_Sticktip:
         db 073h,074h,069h,063h,06Bh,074h,069h,070h,00h,00h,00h,00h
-unk_162A70:
+str_Lknee:
         db 06Ch,06Bh,06Eh,065h,065h,00h,00h,00h
-unk_162A78:
+str_Lankle:
         db 06Ch,061h,06Eh,06Bh,06Ch,065h,00h,00h
-unk_162A80:
+str_Rknee:
         db 072h,06Bh,06Eh,065h,065h,00h,00h,00h
-unk_162A88:
+str_Rankle:
         db 072h,061h,06Eh,06Bh,06Ch,065h,00h,00h
-unk_162A90:
+str_Pelvis:
         db 070h,065h,06Ch,076h,069h,073h,00h,00h
 unk_162A98:
         db 062h,061h,063h,06Bh,00h,00h,00h,00h
 unk_162AA0:
         db 063h,068h,069h,06Eh,00h,00h,00h,00h
-unk_162AA8:
+str_Lelbow:
         db 06Ch,065h,06Ch,062h,06Fh,077h,00h,00h
-unk_162AB0:
+str_Relbow:
         db 072h,065h,06Ch,062h,06Fh,077h,00h,00h
 unk_162AB8:
         db 06Ch,073h,068h,06Ch,064h,072h,00h,00h
 unk_162AC0:
         db 072h,073h,068h,06Ch,064h,072h,00h
-qword_162AC7:
+F64_neg0p1:
         db 09Ah,099h,099h,099h,099h,099h,0B9h,0BFh
-qword_162ACF:
+F64_0p00872665:
         db 0Bh,095h,0C0h,0A6h,046h,0DFh,081h,03Fh
-qword_162AD7:
+F64_neg0p00872665:
         db 0Bh,095h,0C0h,0A6h,046h,0DFh,081h,0BFh
-qword_162ADF:
+F64_neg1p6:
         db 09Ah,099h,099h,099h,099h,099h,0F9h,0BFh
-dword_162AE7:
+F32_neg10_PlaySkateSounds:
         db 00h,00h,020h,0C1h
-qword_162AEB:
+F64_0p25_PlaySkateSounds:
         db 00h,00h,00h,00h,00h,00h,0D0h,03Fh
-qword_162AF3:
+F64_0p2_PlaySkateSounds:
         db 09Ah,099h,099h,099h,099h,099h,0C9h,03Fh
-qword_162AFB:
+F64_neg0p2:
         db 09Ah,099h,099h,099h,099h,099h,0C9h,0BFh
-qword_162B03:
+F64_0p785398_PuckOnStickPhysics:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,03Fh
-qword_162B0B:
+F64_2p35619:
         db 031h,01Dh,0DFh,083h,07Ch,0D9h,02h,040h
-dword_162B13:
+F32_0p5_StickHandleScaled:
         db 00h,00h,00h,03Fh
-qword_162B17:
+F64_1p1:
         db 09Ah,099h,099h,099h,099h,099h,0F1h,03Fh
-dword_162B1F:
+F32_0p5_StickHandleSpeed:
         db 00h,00h,00h,03Fh
-qword_162B23:
+F64_1p1_StickHandleSpeed:
         db 09Ah,099h,099h,099h,099h,099h,0F1h,03Fh
-dword_162B2B:
+F32_neg4272_GoalieReadShot:
         db 00h,080h,085h,0C5h
-qword_162B2F:
+F64_6p28319_GoalieReadShot:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_162B37:
+F64_3p14159_GoalieReadShot:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_162B3F:
+F64_neg6p28319_GoalieReadShot:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_162B47:
+F64_neg3p14159_GoalieReadShot:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_162B4F:
+F64_0p785398_GoalieReadShot:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,03Fh
-qword_162B57:
+F64_180:
         db 00h,00h,00h,00h,00h,080h,066h,040h
-dword_162B5F:
+F32_176:
         db 00h,00h,030h,043h
-dword_162B63:
+F32_neg4:
         db 00h,00h,080h,0C0h
-dword_162B67:
+F32_4_GoalieReadShot:
         db 00h,00h,080h,040h
-qword_162B6B:
+F64_240_GoalieReadShot:
         db 00h,00h,00h,00h,00h,00h,06Eh,040h
-dword_162B73:
+F32_480:
         db 00h,00h,0F0h,043h
-dword_162B77:
+F32_288:
         db 00h,00h,090h,043h
-dword_162B7B:
+F32_2_GoalieReadShot:
         db 00h,00h,00h,040h
-qword_162B7F:
+F64_1896:
         db 00h,00h,00h,00h,00h,0A0h,09Dh,040h
-qword_162B87:
+F64_4656:
         db 00h,00h,00h,00h,00h,030h,0B2h,040h
-qword_162B8F:
+F64_1272:
         db 00h,00h,00h,00h,00h,0E0h,093h,040h
-qword_162B97:
+F64_4032:
         db 00h,00h,00h,00h,00h,080h,0AFh,040h
-qword_162B9F:
+F64_6p28319_GoalieAngle:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_162BA7:
+F64_3p14159_GoalieAngle:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_162BAF:
+F64_neg6p28319_GoalieAngle:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_162BB7:
+F64_neg3p14159_GoalieAngle:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-dword_162BBF:
+F32_neg88:
         db 00h,00h,0B0h,0C2h
-qword_162BC3:
+F64_6p28319_GoalieCoverPost:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_162BCB:
+F64_3p14159_GoalieCoverPost:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_162BD3:
+F64_neg6p28319_GoalieCoverPost:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_162BDB:
+F64_neg3p14159_GoalieCoverPost:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_162BE3:
+F64_6p28319_GoalieAI:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_162BEB:
+F64_1p52588eneg05:
         db 00h,00h,00h,00h,00h,00h,0F0h,03Eh
-qword_162BF3:
+F64_3p14159_GoalieAI:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_162BFB:
+F64_neg6p28319_GoalieAI:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_162C03:
+F64_neg3p14159_GoalieAI:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-dword_162C0B:
+F32_3p95:
         db 0CDh,0CCh,07Ch,040h
-qword_162C0F:
+F64_1p975:
         db 09Ah,099h,099h,099h,099h,099h,0FFh,03Fh
-qword_162C17:
+F64_neg1:
         db 00h,00h,00h,00h,00h,00h,0F0h,0BFh
-dword_162C1F:
+F32_neg1_UpdateGoalie:
         db 00h,00h,080h,0BFh
-qword_162C23:
+F64_0p785398_UpdateGoalie:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,03Fh
-qword_162C2B:
+F64_2p35619_UpdateGoalie:
         db 031h,01Dh,0DFh,083h,07Ch,0D9h,02h,040h
-dword_162C33:
+F32_neg12:
         db 00h,00h,040h,0C1h
-dword_162C37:
+F32_30_UpdateGoalie:
         db 00h,00h,0F0h,041h
-dword_162C3B:
+F32_12:
         db 00h,00h,040h,041h
-qword_162C3F:
+F64_2p82743:
         db 0A2h,0BCh,0Bh,06Bh,095h,09Eh,06h,040h
-qword_162C47:
+F64_0p392699_UpdateGoalie:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0D9h,03Fh
-qword_162C4F:
+F64_0p2_UpdateGoalie:
         db 09Ah,099h,099h,099h,099h,099h,0C9h,03Fh
-qword_162C57:
+F64_4272_PickSkateAnim:
         db 00h,00h,00h,00h,00h,0B0h,0B0h,040h
-qword_162C5F:
+F64_4448:
         db 00h,00h,00h,00h,00h,060h,0B1h,040h
-qword_162C67:
+F64_384:
         db 00h,00h,00h,00h,00h,00h,078h,040h
-qword_162C6F:
+F64_864:
         db 00h,00h,00h,00h,00h,00h,08Bh,040h
-qword_162C77:
+F64_4272_EndMove:
         db 00h,00h,00h,00h,00h,0B0h,0B0h,040h
-qword_162C7F:
+F64_4448_EndMove:
         db 00h,00h,00h,00h,00h,060h,0B1h,040h
-qword_162C87:
+F64_384_EndMove:
         db 00h,00h,00h,00h,00h,00h,078h,040h
-qword_162C8F:
+F64_864_EndMove:
         db 00h,00h,00h,00h,00h,00h,08Bh,040h
-qword_162C97:
+F64_6p28319_ApplyMoveMotion:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_162C9F:
+F64_3p14159_ApplyMoveMotion:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_162CA7:
+F64_neg6p28319_ApplyMoveMotion:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_162CAF:
+F64_neg3p14159_ApplyMoveMotion:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-dword_162CB7:
+F32_2_SteerTowardTarget:
         db 00h,00h,00h,040h
-dword_162CBB:
+F32_12_SteerTowardTarget:
         db 00h,00h,040h,041h
-dword_162CBF:
+F32_2p5:
         db 00h,00h,020h,040h
-qword_162CC3:
+F64_1p33:
         db 048h,0E1h,07Ah,014h,0AEh,047h,0F5h,03Fh
-qword_162CCB:
+F64_2_ApplySkateAccel:
         db 00h,00h,00h,00h,00h,00h,00h,040h
-qword_162CD3:
+F64_0p0628319:
         db 056h,0B9h,013h,096h,0BFh,015h,0B0h,03Fh
-qword_162CDB:
+F64_1p5:
         db 00h,00h,00h,00h,00h,00h,0F8h,03Fh
-qword_162CE3:
+F64_2p35619_PickTurnAnim:
         db 031h,01Dh,0DFh,083h,07Ch,0D9h,02h,040h
-qword_162CEB:
+F64_0p0628319_PickGlideAnim:
         db 056h,0B9h,013h,096h,0BFh,015h,0B0h,03Fh
-qword_162CF3:
+F64_1p5708_PickGlideAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0F9h,03Fh
-qword_162CFB:
+F64_2p35619_PickStrideAnim:
         db 031h,01Dh,0DFh,083h,07Ch,0D9h,02h,040h
-dword_162D03:
+F32_0p5_PickStrideAnim:
         db 00h,00h,00h,03Fh
-qword_162D07:
+F64_1p1_PickStrideAnim:
         db 09Ah,099h,099h,099h,099h,099h,0F1h,03Fh
-qword_162D0F:
+F64_0p785398_PickStrideAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,03Fh
-qword_162D17:
+F64_6p28319_PickStrideAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_162D1F:
+F64_3p14159_PickStrideAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_162D27:
+F64_neg6p28319_PickStrideAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_162D2F:
+F64_neg3p14159_PickStrideAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-dword_162D37:
+F32_0p1:
         db 0CDh,0CCh,0CCh,03Dh
-qword_162D3B:
+F64_6p28319_PickForwardTurn:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_162D43:
+F64_3p14159_PickForwardTurn:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_162D4B:
+F64_neg6p28319_PickForwardTurn:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_162D53:
+F64_neg3p14159_PickForwardTurn:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_162D5B:
+F64_0p0001_PickForwardTurn:
         db 02Dh,043h,01Ch,0EBh,0E2h,036h,01Ah,03Fh
-qword_162D63:
+F64_0p2_PickForwardTurn:
         db 09Ah,099h,099h,099h,099h,099h,0C9h,03Fh
-qword_162D6B:
+F64_1p8:
         db 0CDh,0CCh,0CCh,0CCh,0CCh,0CCh,0FCh,03Fh
-qword_162D73:
+F64_0p5_PickForwardTurn:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-qword_162D7B:
+F64_6p28319_PickBackwardTurn:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_162D83:
+F64_3p14159_PickBackwardTurn:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_162D8B:
+F64_neg6p28319_PickBackwardTurn:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_162D93:
+F64_neg3p14159_PickBackwardTurn:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_162D9B:
+F64_0p0001_PickBackwardTurn:
         db 02Dh,043h,01Ch,0EBh,0E2h,036h,01Ah,03Fh
-qword_162DA3:
+F64_0p2_PickBackwardTurn:
         db 09Ah,099h,099h,099h,099h,099h,0C9h,03Fh
-qword_162DAB:
+F64_1p8_PickBackwardTurn:
         db 0CDh,0CCh,0CCh,0CCh,0CCh,0CCh,0FCh,03Fh
-qword_162DB3:
+F64_0p5_PickBackwardTurn:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-qword_162DBB:
+F64_1272_GlideForwardMove:
         db 00h,00h,00h,00h,00h,0E0h,093h,040h
-qword_162DC3:
+F64_4032_GlideForwardMove:
         db 00h,00h,00h,00h,00h,080h,0AFh,040h
-qword_162DCB:
+F64_6p28319_GlideForwardMove:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_162DD3:
+F64_3p14159_GlideForwardMove:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_162DDB:
+F64_neg6p28319_GlideForwardMove:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_162DE3:
+F64_neg3p14159_GlideForwardMove:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_162DEB:
+F64_0p785398_GlideForwardMove:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,03Fh
-qword_162DF3:
+F64_0p523599:
         db 0BAh,08Bh,054h,03Ch,052h,0C1h,0E0h,03Fh
-qword_162DFB:
+F64_1p0472_GlideForwardMove:
         db 0BCh,08Bh,054h,03Ch,052h,0C1h,0F0h,03Fh
-qword_162E03:
+F64_2p35619_GlideForwardMove:
         db 031h,01Dh,0DFh,083h,07Ch,0D9h,02h,040h
-dword_162E0B:
+F32_12_LimitSkateSpeed:
         db 00h,00h,040h,041h
-qword_162E0F:
+F64_0p2_LimitSkateSpeed:
         db 09Ah,099h,099h,099h,099h,099h,0C9h,03Fh
-qword_162E17:
+F64_6p28319_LimitSkateSpeed:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_162E1F:
+F64_3p14159_LimitSkateSpeed:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_162E27:
+F64_neg6p28319_LimitSkateSpeed:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_162E2F:
+F64_neg3p14159_LimitSkateSpeed:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_162E37:
+F64_0p04_LimitSkateSpeed:
         db 07Bh,014h,0AEh,047h,0E1h,07Ah,0A4h,03Fh
-dword_162E3F:
+F32_3p95_LimitSkateSpeed:
         db 0CDh,0CCh,07Ch,040h
-dword_162E43:
+F32_12_SkateForwardMove:
         db 00h,00h,040h,041h
-qword_162E47:
+F64_6p28319_SkateForwardMove:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_162E4F:
+F64_3p14159_SkateForwardMove:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_162E57:
+F64_neg6p28319_SkateForwardMove:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_162E5F:
+F64_neg3p14159_SkateForwardMove:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_162E67:
+F64_1p39626:
         db 04Dh,0BAh,070h,050h,018h,057h,0F6h,03Fh
-qword_162E6F:
+F64_1p5708_SkateForwardMove:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0F9h,03Fh
-qword_162E77:
+F64_0p63662:
         db 0F5h,036h,0BDh,068h,030h,05Fh,0E4h,03Fh
-qword_162E7F:
+F64_0p7_SkateForwardMove:
         db 066h,066h,066h,066h,066h,066h,0E6h,03Fh
-dword_162E87:
+F32_0p1_SkateForwardMove:
         db 0CDh,0CCh,0CCh,03Dh
-dword_162E8B:
+F32_12_SkateBackwardMove:
         db 00h,00h,040h,041h
-qword_162E8F:
+F64_6p28319_SkateBackwardMove:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_162E97:
+F64_3p14159_SkateBackwardMove:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_162E9F:
+F64_neg6p28319_SkateBackwardMove:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_162EA7:
+F64_neg3p14159_SkateBackwardMove:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_162EAF:
+F64_1p39626_SkateBackwardMove:
         db 04Dh,0BAh,070h,050h,018h,057h,0F6h,03Fh
-qword_162EB7:
+F64_1p5708_SkateBackwardMove:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0F9h,03Fh
-qword_162EBF:
+F64_0p63662_SkateBackwardMove:
         db 0F5h,036h,0BDh,068h,030h,05Fh,0E4h,03Fh
-qword_162EC7:
+F64_0p7_SkateBackwardMove:
         db 066h,066h,066h,066h,066h,066h,0E6h,03Fh
-dword_162ECF:
+F32_0p1_SkateBackwardMove:
         db 0CDh,0CCh,0CCh,03Dh
-qword_162ED3:
+F64_1p33_TurnLeanAngle:
         db 048h,0E1h,07Ah,014h,0AEh,047h,0F5h,03Fh
-qword_162EDB:
+F64_2_TurnLeanAngle:
         db 00h,00h,00h,00h,00h,00h,00h,040h
-qword_162EE3:
+F64_0p125664:
         db 057h,0B9h,013h,096h,0BFh,015h,0C0h,03Fh
-qword_162EEB:
+F64_neg3p75:
         db 00h,00h,00h,00h,00h,00h,0Eh,0C0h
-qword_162EF3:
+F64_0p2_TurnStickPos:
         db 09Ah,099h,099h,099h,099h,099h,0C9h,03Fh
-qword_162EFB:
+F64_neg3p75_TurnStickPos:
         db 00h,00h,00h,00h,00h,00h,0Eh,0C0h
-qword_162F03:
+F64_2p5_TurnStickPos:
         db 00h,00h,00h,00h,00h,00h,04h,040h
-qword_162F0B:
+F64_2_TurnStickPos:
         db 00h,00h,00h,00h,00h,00h,00h,040h
-dword_162F13:
+F32_2_TurnStickPos:
         db 00h,00h,00h,040h
-dword_162F17:
+F32_neg0p5:
         db 00h,00h,00h,0BFh
-qword_162F1B:
+F64_2p82743_StopSkidDistance:
         db 0A2h,0BCh,0Bh,06Bh,095h,09Eh,06h,040h
-dword_162F23:
+F32_4_StopSkidDistance:
         db 00h,00h,080h,040h
-qword_162F27:
+F64_neg0p1_StopSkidDistance:
         db 09Ah,099h,099h,099h,099h,099h,0B9h,0BFh
-qword_162F2F:
+F64_0p1_StopSkidDistance:
         db 09Ah,099h,099h,099h,099h,099h,0B9h,03Fh
-qword_162F37:
+F64_1p2_StopSkidDistance:
         db 033h,033h,033h,033h,033h,033h,0F3h,03Fh
-qword_162F3F:
+F64_0p2_StopSkidDistance:
         db 09Ah,099h,099h,099h,099h,099h,0C9h,03Fh
-qword_162F47:
+F64_6p28319_StopForwardMove:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_162F4F:
+F64_3p14159_StopForwardMove:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_162F57:
+F64_neg6p28319_StopForwardMove:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_162F5F:
+F64_neg3p14159_StopForwardMove:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_162F67:
+F64_1p5708_StopForwardMove:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0F9h,03Fh
-dword_162F6F:
+F32_neg0p125664:
         db 0FDh,0ADh,00h,0BEh
-dword_162F73:
+F32_neg0p125664_StandMove:
         db 0FDh,0ADh,00h,0BEh
-qword_162F77:
+F64_6p28319_SpeedTowardSpot:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_162F7F:
+F64_3p14159_SpeedTowardSpot:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_162F87:
+F64_neg6p28319_SpeedTowardSpot:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_162F8F:
+F64_neg3p14159_SpeedTowardSpot:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_162F97:
+F64_6p28319_FaceoffPuckDrop:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_162F9F:
+F64_1p52588eneg05_FaceoffPuckDrop:
         db 00h,00h,00h,00h,00h,00h,0F0h,03Eh
-qword_162FA7:
+F64_3p14159_FaceoffPuckDrop:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_162FAF:
+F64_neg6p28319_FaceoffPuckDrop:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_162FB7:
+F64_neg3p14159_FaceoffPuckDrop:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-dword_162FBF:
+F32_48_SetSkateSpeedFromRating:
         db 00h,00h,040h,042h
-dword_162FC3:
+F32_0p1_SetSkateSpeedFromRating:
         db 0CDh,0CCh,0CCh,03Dh
-dword_162FC7:
+F32_4_SetSkateSpeedFromRating:
         db 00h,00h,080h,040h
-dword_162FCB:
+F32_4_UpdateScoreClockData:
         db 00h,00h,080h,040h
-qword_162FCF:
+F64_0p0001_UpdateScoreClockData:
         db 02Dh,043h,01Ch,0EBh,0E2h,036h,01Ah,03Fh
-qword_162FD7:
+F64_10000:
         db 00h,00h,00h,00h,00h,088h,0C3h,040h
-dword_162FDF:
+F32_8_UpdateScoreClockData:
         db 00h,00h,00h,041h
-qword_162FE3:
+F64_0p2_UpdateScoreClockData:
         db 09Ah,099h,099h,099h,099h,099h,0C9h,03Fh
-qword_162FEB:
+F64_0p5_UpdateScoreClockData:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-qword_162FF3:
+F64_3p14159_UpdateGameDisplay:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h,00h
 str_Tmp:
         db 074h,06Dh,070h,00h
@@ -1536,7 +1536,7 @@ str_Skate:
         db 073h,06Bh,061h,074h,065h,00h
 str_Stop:
         db 073h,074h,06Fh,070h,00h
-dword_16300B:
+F32_0p5_LoadSkateAnims:
         db 00h,00h,00h,03Fh
 str_Puckh:
         db 070h,075h,063h,06Bh,068h,00h
@@ -1546,7 +1546,7 @@ str_PlFall:
         db 070h,06Ch,05Fh,066h,061h,06Ch,06Ch,00h
 str_Interfer:
         db 069h,06Eh,074h,065h,072h,066h,065h,072h,00h
-qword_16302D:
+F64_0p6_LoadGoalieAnimFile:
         db 033h,033h,033h,033h,033h,033h,0E3h,03Fh
 str_Goalie:
         db 067h,06Fh,061h,06Ch,069h,065h,00h
@@ -1576,945 +1576,945 @@ str_Rshldr:
         db 072h,073h,068h,06Ch,064h,072h,00h
 str_ANIMSVIV:
         db 041h,04Eh,049h,04Dh,053h,02Eh,056h,049h,056h,00h,00h,00h,00h
-dword_16309C:
+F32_2_StickReach:
         db 00h,00h,00h,040h
-dword_1630A0:
+F32_4_StickReach:
         db 00h,00h,080h,040h
-dword_1630A4:
+F32_65536_PuckHeightAt:
         db 00h,00h,080h,047h
-qword_1630A8:
+F64_0p159155_PuckHeightAt:
         db 0F5h,036h,0BDh,068h,030h,05Fh,0C4h,03Fh
-qword_1630B0:
+F64_65536_PuckHeightAt:
         db 00h,00h,00h,00h,00h,00h,0F0h,040h
-qword_1630B8:
+F64_0p0631313:
         db 07Eh,0A5h,040h,0ADh,05Fh,029h,0B0h,03Fh
-qword_1630C0:
+F64_1p8_TryStickTouch:
         db 0CDh,0CCh,0CCh,0CCh,0CCh,0CCh,0FCh,03Fh
-qword_1630C8:
+F64_1p7:
         db 033h,033h,033h,033h,033h,033h,0FBh,03Fh
-qword_1630D0:
+F64_25:
         db 00h,00h,00h,00h,00h,00h,039h,040h
-qword_1630D8:
+F64_0p02:
         db 07Bh,014h,0AEh,047h,0E1h,07Ah,094h,03Fh
-dword_1630E0:
+F32_65536_TryStickTouch:
         db 00h,00h,080h,047h
-dword_1630E4:
+F32_2_PuckBounceOffPlayer:
         db 00h,00h,00h,040h
-qword_1630E8:
+F64_96_PuckBounceOffPlayer:
         db 00h,00h,00h,00h,00h,00h,058h,040h
-qword_1630F0:
+F64_132:
         db 00h,00h,00h,00h,00h,080h,060h,040h
-qword_1630F8:
+F64_168:
         db 00h,00h,00h,00h,00h,00h,065h,040h
-qword_163100:
+F64_3360:
         db 00h,00h,00h,00h,00h,040h,0AAh,040h
-qword_163108:
+F64_1392_PuckBounceOffPlayer:
         db 00h,00h,00h,00h,00h,0C0h,095h,040h
-qword_163110:
+F64_3360_PuckHitsNet:
         db 00h,00h,00h,00h,00h,040h,0AAh,040h
-qword_163118:
+F64_1392_PuckHitsNet:
         db 00h,00h,00h,00h,00h,0C0h,095h,040h
-qword_163120:
+F64_0p25_PuckHitsNet:
         db 00h,00h,00h,00h,00h,00h,0D0h,03Fh
-qword_163128:
+F64_0p985:
         db 085h,0EBh,051h,0B8h,01Eh,085h,0EFh,03Fh
-qword_163130:
+F64_0p8_PuckHitsNet:
         db 09Ah,099h,099h,099h,099h,099h,0E9h,03Fh
-dword_163138:
+F32_10000:
         db 00h,040h,01Ch,046h
-qword_16313C:
+F64_6p28319_PuckHitsNet:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_163144:
+F64_3p14159_PuckHitsNet:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_16314C:
+F64_neg6p28319_PuckHitsNet:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_163154:
+F64_neg3p14159_PuckHitsNet:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_16315C:
+F64_1p5708_PuckHitsNet:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0F9h,03Fh
-qword_163164:
+F64_neg0p0872665:
         db 04Eh,0BAh,070h,050h,018h,057h,0B6h,0BFh
-qword_16316C:
+F64_0p0872665:
         db 04Eh,0BAh,070h,050h,018h,057h,0B6h,03Fh
-qword_163174:
+F64_2p0944:
         db 0B9h,08Bh,054h,03Ch,052h,0C1h,00h,040h
-dword_16317C:
+F32_neg1024:
         db 00h,00h,080h,0C4h
-qword_163180:
+F64_4272_PuckHitsNet:
         db 00h,00h,00h,00h,00h,0B0h,0B0h,040h
-qword_163188:
+F64_0p99:
         db 0AEh,047h,0E1h,07Ah,014h,0AEh,0EFh,03Fh
-dword_163190:
+F32_1272_PuckHitsBoards:
         db 00h,00h,09Fh,044h
-dword_163194:
+F32_4032_PuckHitsBoards:
         db 00h,00h,07Ch,045h
-dword_163198:
+F32_768_PuckHitsBoards:
         db 00h,00h,040h,044h
-qword_16319C:
+F64_2_PuckHitsBoards:
         db 00h,00h,00h,00h,00h,00h,00h,040h
-dword_1631A4:
+F32_4_PuckHitsBoards:
         db 00h,00h,080h,040h
-qword_1631A8:
+F64_6p28319_PuckHitsBoards:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_1631B0:
+F64_3p14159_PuckHitsBoards:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_1631B8:
+F64_neg6p28319_PuckHitsBoards:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_1631C0:
+F64_neg3p14159_PuckHitsBoards:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_1631C8:
+F64_1p74533:
         db 0E2h,0E8h,08Ch,064h,0DEh,0ECh,0FBh,03Fh
-dword_1631D0:
+F32_2040_PuckHitsBoards:
         db 00h,00h,0FFh,044h
-dword_1631D4:
+F32_4800_PuckHitsBoards:
         db 00h,00h,096h,045h
-dword_1631D8:
+F32_2040_PuckHitsGlass:
         db 00h,00h,0FFh,044h
-dword_1631DC:
+F32_4800_PuckHitsGlass:
         db 00h,00h,096h,045h
-qword_1631E0:
+F64_6p28319_PuckHitsGlass:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_1631E8:
+F64_3p14159_PuckHitsGlass:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_1631F0:
+F64_neg6p28319_PuckHitsGlass:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_1631F8:
+F64_neg3p14159_PuckHitsGlass:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_163200:
+F64_1p74533_PuckHitsGlass:
         db 0E2h,0E8h,08Ch,064h,0DEh,0ECh,0FBh,03Fh
-qword_163208:
+F64_32400:
         db 00h,00h,00h,00h,00h,0A4h,0DFh,040h
-qword_163210:
+F64_12100:
         db 00h,00h,00h,00h,00h,0A2h,0C7h,040h
-qword_163218:
+F64_64800:
         db 00h,00h,00h,00h,00h,0A4h,0EFh,040h
-qword_163220:
+F64_neg12100:
         db 00h,00h,00h,00h,00h,0A2h,0C7h,0C0h
-qword_163228:
+F64_180_NetCollisionPoint:
         db 00h,00h,00h,00h,00h,080h,066h,040h
-dword_163230:
+F32_4_NetCollisionPoint:
         db 00h,00h,080h,040h
-dword_163234:
+F32_2_NetCollisionPoint:
         db 00h,00h,00h,040h
-qword_163238:
+F64_3p08642eneg05:
         db 071h,08Bh,089h,0C0h,085h,02Eh,00h,03Fh
-qword_163240:
+F64_110_NetCollisionPoint:
         db 00h,00h,00h,00h,00h,080h,05Bh,040h
-dword_163248:
+F32_12_PuckInNetDepth:
         db 00h,00h,040h,041h
-dword_16324C:
+F32_neg12_PuckInNetWidth:
         db 00h,00h,040h,0C1h
-qword_163250:
+F64_6p28319_PlayNetSound:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_163258:
+F64_3p14159_PlayNetSound:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_163260:
+F64_neg6p28319_PlayNetSound:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_163268:
+F64_neg3p14159_PlayNetSound:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_163270:
+F64_1p74533_PlayNetSound:
         db 0E2h,0E8h,08Ch,064h,0DEh,0ECh,0FBh,03Fh
-qword_163278:
+F64_0p0001_PuckOffPost:
         db 02Dh,043h,01Ch,0EBh,0E2h,036h,01Ah,03Fh
-dword_163280:
+F32_2_PuckOffPost:
         db 00h,00h,00h,040h
-dword_163284:
+F32_22p5625:
         db 00h,080h,0B4h,041h
-dword_163288:
+F32_4_PuckOffPost:
         db 00h,00h,080h,040h
-qword_16328C:
+F64_2_PuckOffPost:
         db 00h,00h,00h,00h,00h,00h,00h,040h
-qword_163294:
+F64_3p14159_PuckOffPost:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_16329C:
+F64_6p28319_PuckOffPost:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_1632A4:
+F64_neg6p28319_PuckOffPost:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_1632AC:
+F64_neg3p14159_PuckOffPost:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_1632B4:
+F64_0p3:
         db 033h,033h,033h,033h,033h,033h,0D3h,03Fh
-qword_1632BC:
+F64_0p0001_PuckOffCrossbar:
         db 02Dh,043h,01Ch,0EBh,0E2h,036h,01Ah,03Fh
-dword_1632C4:
+F32_2_PuckOffCrossbar:
         db 00h,00h,00h,040h
-dword_1632C8:
+F32_22p5625_PuckOffCrossbar:
         db 00h,080h,0B4h,041h
-dword_1632CC:
+F32_4_PuckOffCrossbar:
         db 00h,00h,080h,040h
-qword_1632D0:
+F64_2_PuckOffCrossbar:
         db 00h,00h,00h,00h,00h,00h,00h,040h
-qword_1632D8:
+F64_3p14159_PuckOffCrossbar:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_1632E0:
+F64_6p28319_PuckOffCrossbar:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_1632E8:
+F64_neg6p28319_PuckOffCrossbar:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_1632F0:
+F64_neg3p14159_PuckOffCrossbar:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_1632F8:
+F64_0p3_PuckOffCrossbar:
         db 033h,033h,033h,033h,033h,033h,0D3h,03Fh
-dword_163300:
+F32_192_PuckInHomeNet:
         db 00h,00h,040h,043h
-dword_163304:
+F32_4272_PuckInHomeNet:
         db 00h,080h,085h,045h
-dword_163308:
+F32_4448:
         db 00h,00h,08Bh,045h
-dword_16330C:
+F32_180:
         db 00h,00h,034h,043h
-dword_163310:
+F32_neg180:
         db 00h,00h,034h,0C3h
-qword_163314:
+F64_0p5_PuckInHomeNet:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-dword_16331C:
+F32_191:
         db 00h,00h,03Fh,043h
-dword_163320:
+F32_193:
         db 00h,00h,041h,043h
-qword_163324:
+F64_144:
         db 00h,00h,00h,00h,00h,00h,062h,040h
-qword_16332C:
+F64_153p5:
         db 00h,00h,00h,00h,00h,030h,063h,040h
-dword_163334:
+F32_201p5:
         db 00h,080h,049h,043h
-qword_163338:
+F64_neg4338:
         db 00h,00h,00h,00h,00h,0F2h,0B0h,0C0h
-qword_163340:
+F64_228:
         db 00h,00h,00h,00h,00h,080h,06Ch,040h
-qword_163348:
+F64_3p08642eneg05_PuckInHomeNet:
         db 071h,08Bh,089h,0C0h,085h,02Eh,00h,03Fh
-qword_163350:
+F64_8p26446eneg05:
         db 01Eh,0E7h,045h,0E6h,02Fh,0AAh,015h,03Fh
-qword_163358:
+F64_108:
         db 00h,00h,00h,00h,00h,00h,05Bh,040h
-qword_163360:
+F64_3p14159_PuckInHomeNet:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_163368:
+F64_0p9:
         db 0CDh,0CCh,0CCh,0CCh,0CCh,0CCh,0ECh,03Fh
-qword_163370:
+F64_66:
         db 00h,00h,00h,00h,00h,080h,050h,040h
-dword_163378:
+F32_192_PuckInAwayNet:
         db 00h,00h,040h,043h
-dword_16337C:
+F32_neg4272_PuckInAwayNet:
         db 00h,080h,085h,0C5h
-dword_163380:
+F32_neg4448:
         db 00h,00h,08Bh,0C5h
-dword_163384:
+F32_180_PuckInAwayNet:
         db 00h,00h,034h,043h
-dword_163388:
+F32_neg180_PuckInAwayNet:
         db 00h,00h,034h,0C3h
-qword_16338C:
+F64_0p5_PuckInAwayNet:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-dword_163394:
+F32_191_PuckInAwayNet:
         db 00h,00h,03Fh,043h
-dword_163398:
+F32_193_PuckInAwayNet:
         db 00h,00h,041h,043h
-qword_16339C:
+F64_144_PuckInAwayNet:
         db 00h,00h,00h,00h,00h,00h,062h,040h
-qword_1633A4:
+F64_153p5_PuckInAwayNet:
         db 00h,00h,00h,00h,00h,030h,063h,040h
-dword_1633AC:
+F32_201p5_PuckInAwayNet:
         db 00h,080h,049h,043h
-qword_1633B0:
+F64_4338:
         db 00h,00h,00h,00h,00h,0F2h,0B0h,040h
-qword_1633B8:
+F64_228_PuckInAwayNet:
         db 00h,00h,00h,00h,00h,080h,06Ch,040h
-qword_1633C0:
+F64_3p08642eneg05_PuckInAwayNet:
         db 071h,08Bh,089h,0C0h,085h,02Eh,00h,03Fh
-qword_1633C8:
+F64_8p26446eneg05_PuckInAwayNet:
         db 01Eh,0E7h,045h,0E6h,02Fh,0AAh,015h,03Fh
-qword_1633D0:
+F64_108_PuckInAwayNet:
         db 00h,00h,00h,00h,00h,00h,05Bh,040h
-qword_1633D8:
+F64_3p14159_PuckInAwayNet:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_1633E0:
+F64_0p9_PuckInAwayNet:
         db 0CDh,0CCh,0CCh,0CCh,0CCh,0CCh,0ECh,03Fh
-qword_1633E8:
+F64_neg4338_PuckInAwayNet:
         db 00h,00h,00h,00h,00h,0F2h,0B0h,0C0h
-dword_1633F0:
+F32_192_PuckBehindNet:
         db 00h,00h,040h,043h
-dword_1633F4:
+F32_neg176:
         db 00h,00h,030h,0C3h
-dword_1633F8:
+F32_180_PuckBehindNet:
         db 00h,00h,034h,043h
-dword_1633FC:
+F32_neg180_PuckBehindNet:
         db 00h,00h,034h,0C3h
-qword_163400:
+F64_0p5_PuckBehindNet:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-dword_163408:
+F32_191_PuckBehindNet:
         db 00h,00h,03Fh,043h
-dword_16340C:
+F32_193_PuckBehindNet:
         db 00h,00h,041h,043h
-qword_163410:
+F64_144_PuckBehindNet:
         db 00h,00h,00h,00h,00h,00h,062h,040h
-qword_163418:
+F64_153p5_PuckBehindNet:
         db 00h,00h,00h,00h,00h,030h,063h,040h
-dword_163420:
+F32_201p5_PuckBehindNet:
         db 00h,080h,049h,043h
-qword_163424:
+F64_66_PuckBehindNet:
         db 00h,00h,00h,00h,00h,080h,050h,040h
-qword_16342C:
+F64_228_PuckBehindNet:
         db 00h,00h,00h,00h,00h,080h,06Ch,040h
-qword_163434:
+F64_3p08642eneg05_PuckBehindNet:
         db 071h,08Bh,089h,0C0h,085h,02Eh,00h,03Fh
-qword_16343C:
+F64_8p26446eneg05_PuckBehindNet:
         db 01Eh,0E7h,045h,0E6h,02Fh,0AAh,015h,03Fh
-qword_163444:
+F64_108_PuckBehindNet:
         db 00h,00h,00h,00h,00h,00h,05Bh,040h
-qword_16344C:
+F64_3p14159_PuckBehindNet:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_163454:
+F64_neg66:
         db 00h,00h,00h,00h,00h,080h,050h,0C0h
-qword_16345C:
+F64_0p9_PuckBehindNet:
         db 0CDh,0CCh,0CCh,0CCh,0CCh,0CCh,0ECh,03Fh
-dword_163464:
+F32_neg176_GoalLinePuckTest:
         db 00h,00h,030h,0C3h
-dword_163468:
+F32_180_GoalLinePuckTest:
         db 00h,00h,034h,043h
-dword_16346C:
+F32_neg180_GoalLinePuckTest:
         db 00h,00h,034h,0C3h
-qword_163470:
+F64_66_GoalLinePuckTest:
         db 00h,00h,00h,00h,00h,080h,050h,040h
-qword_163478:
+F64_228_GoalLinePuckTest:
         db 00h,00h,00h,00h,00h,080h,06Ch,040h
-qword_163480:
+F64_3p08642eneg05_GoalLinePuckTest:
         db 071h,08Bh,089h,0C0h,085h,02Eh,00h,03Fh
-qword_163488:
+F64_8p26446eneg05_GoalLinePuckTest:
         db 01Eh,0E7h,045h,0E6h,02Fh,0AAh,015h,03Fh
-qword_163490:
+F64_neg0p1_GoalLinePuckTest:
         db 09Ah,099h,099h,099h,099h,099h,0B9h,0BFh
-dword_163498:
+F32_1272_PuckGroundHeight:
         db 00h,00h,09Fh,044h
-dword_16349C:
+F32_4032_PuckGroundHeight:
         db 00h,00h,07Ch,045h
-dword_1634A0:
+F32_768_PuckGroundHeight:
         db 00h,00h,040h,044h
-dword_1634A4:
+F32_neg3000:
         db 00h,080h,03Bh,0C5h
-dword_1634A8:
+F32_neg5760:
         db 00h,00h,0B4h,0C5h
-qword_1634AC:
+F64_6p28319_GoalJudgeTest:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_1634B4:
+F64_3p14159_GoalJudgeTest:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_1634BC:
+F64_neg6p28319_GoalJudgeTest:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_1634C4:
+F64_neg3p14159_GoalJudgeTest:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_1634CC:
+F64_0p785398_GoalJudgeTest:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,03Fh
-dword_1634D4:
+F32_144_GoalJudgeTest:
         db 00h,00h,010h,043h
-qword_1634D8:
+F64_3p14159_RandomPuckSpin:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_1634E0:
+F64_0p0833333:
         db 055h,055h,055h,055h,055h,055h,0B5h,03Fh
-qword_1634E8:
+F64_6p28319_StartPassAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_1634F0:
+F64_3p14159_StartPassAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_1634F8:
+F64_neg6p28319_StartPassAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_163500:
+F64_neg3p14159_StartPassAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_163508:
+F64_0p785398_StartPassAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,03Fh
-qword_163510:
+F64_1p5708_StartPassAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0F9h,03Fh
-qword_163518:
+F64_0p6_StartPassAnim:
         db 033h,033h,033h,033h,033h,033h,0E3h,03Fh
-qword_163520:
+F64_6p28319_StartDropPassAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_163528:
+F64_3p14159_StartDropPassAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_163530:
+F64_neg6p28319_StartDropPassAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_163538:
+F64_neg3p14159_StartDropPassAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_163540:
+F64_0p6_StartDropPassAnim:
         db 033h,033h,033h,033h,033h,033h,0E3h,03Fh
-qword_163548:
+F64_6p28319_StartShotAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_163550:
+F64_3p14159_StartShotAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_163558:
+F64_neg6p28319_StartShotAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_163560:
+F64_neg3p14159_StartShotAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_163568:
+F64_25_PassMove:
         db 00h,00h,00h,00h,00h,00h,039h,040h
-qword_163570:
+F64_120:
         db 00h,00h,00h,00h,00h,00h,05Eh,040h
-dword_163578:
+F32_2_ShotMove:
         db 00h,00h,00h,040h
-dword_16357C:
+F32_6_ShotMove:
         db 00h,00h,0C0h,040h
-qword_163580:
+F64_4272_SkateWithPuckMove:
         db 00h,00h,00h,00h,00h,0B0h,0B0h,040h
-qword_163588:
+F64_4448_SkateWithPuckMove:
         db 00h,00h,00h,00h,00h,060h,0B1h,040h
-qword_163590:
+F64_384_SkateWithPuckMove:
         db 00h,00h,00h,00h,00h,00h,078h,040h
-qword_163598:
+F64_864_SkateWithPuckMove:
         db 00h,00h,00h,00h,00h,00h,08Bh,040h
-qword_1635A0:
+F64_4272_GlideWithPuckMove:
         db 00h,00h,00h,00h,00h,0B0h,0B0h,040h
-qword_1635A8:
+F64_4448_GlideWithPuckMove:
         db 00h,00h,00h,00h,00h,060h,0B1h,040h
-qword_1635B0:
+F64_384_GlideWithPuckMove:
         db 00h,00h,00h,00h,00h,00h,078h,040h
-qword_1635B8:
+F64_864_GlideWithPuckMove:
         db 00h,00h,00h,00h,00h,00h,08Bh,040h
-qword_1635C0:
+F64_neg216:
         db 00h,00h,00h,00h,00h,00h,06Bh,0C0h
-qword_1635C8:
+F64_216:
         db 00h,00h,00h,00h,00h,00h,06Bh,040h
-dword_1635D0:
+F32_neg124:
         db 00h,00h,0F8h,0C2h
-dword_1635D4:
+F32_124:
         db 00h,00h,0F8h,042h
-qword_1635D8:
+F64_6p28319_CheckBoardsContact:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_1635E0:
+F64_3p14159_CheckBoardsContact:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_1635E8:
+F64_neg6p28319_CheckBoardsContact:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_1635F0:
+F64_neg3p14159_CheckBoardsContact:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_1635F8:
+F64_0p785398_CheckBoardsContact:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,03Fh
-qword_163600:
+F64_2008:
         db 00h,00h,00h,00h,00h,060h,09Fh,040h
-qword_163608:
+F64_6p28319_CheckContactVelocity:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_163610:
+F64_3p14159_CheckContactVelocity:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_163618:
+F64_neg6p28319_CheckContactVelocity:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_163620:
+F64_neg3p14159_CheckContactVelocity:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_163628:
+F64_0p785398_CheckContactVelocity:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,03Fh
-dword_163630:
+F32_541696:
         db 00h,040h,04h,049h
-qword_163634:
+F64_0p0001_CheckContactForce:
         db 02Dh,043h,01Ch,0EBh,0E2h,036h,01Ah,03Fh
-qword_16363C:
+F64_0p5_CheckContactForce:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-dword_163644:
+F32_2_CheckContactForce:
         db 00h,00h,00h,040h
-dword_163648:
+F32_4_CheckContactForce:
         db 00h,00h,080h,040h
-qword_16364C:
+F64_2_CheckContactForce:
         db 00h,00h,00h,00h,00h,00h,00h,040h
-qword_163654:
+F64_6p28319_CheckContactForce:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_16365C:
+F64_3p14159_CheckContactForce:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_163664:
+F64_neg6p28319_CheckContactForce:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_16366C:
+F64_neg3p14159_CheckContactForce:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_163674:
+F64_0p785398_CheckContactForce:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,03Fh
-dword_16367C:
+F32_1272_BodyCollide:
         db 00h,00h,09Fh,044h
-dword_163680:
+F32_4032_BodyCollide:
         db 00h,00h,07Ch,045h
-dword_163684:
+F32_768_BodyCollide:
         db 00h,00h,040h,044h
-dword_163688:
+F32_32:
         db 00h,00h,00h,042h
-qword_16368C:
+F64_6p28319_BodyCollide:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_163694:
+F64_3p14159_BodyCollide:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_16369C:
+F64_neg6p28319_BodyCollide:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_1636A4:
+F64_neg3p14159_BodyCollide:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_1636AC:
+F64_0p523599_BodyCollide:
         db 0BAh,08Bh,054h,03Ch,052h,0C1h,0E0h,03Fh
-dword_1636B4:
+F32_2040_BodyCollide:
         db 00h,00h,0FFh,044h
-dword_1636B8:
+F32_4800_BodyCollide:
         db 00h,00h,096h,045h
-dword_1636BC:
+F32_2040_BodyBounce:
         db 00h,00h,0FFh,044h
-dword_1636C0:
+F32_4800_BodyBounce:
         db 00h,00h,096h,045h
-dword_1636C4:
+F32_32_BodyBounce:
         db 00h,00h,00h,042h
-dword_1636C8:
+F32_12_BodyBounce:
         db 00h,00h,040h,041h
-qword_1636CC:
+F64_6p28319_BodyBounce:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_1636D4:
+F64_3p14159_BodyBounce:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_1636DC:
+F64_neg6p28319_BodyBounce:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_1636E4:
+F64_neg3p14159_BodyBounce:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_1636EC:
+F64_0p523599_BodyBounce:
         db 0BAh,08Bh,054h,03Ch,052h,0C1h,0E0h,03Fh
-dword_1636F4:
+F32_40_BodyBounce:
         db 00h,00h,020h,042h
-qword_1636F8:
+F64_6p28319_CheckForPenalty:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_163700:
+F64_3p14159_CheckForPenalty:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_163708:
+F64_neg6p28319_CheckForPenalty:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_163710:
+F64_neg3p14159_CheckForPenalty:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_163718:
+F64_1p0472_CheckForPenalty:
         db 0BCh,08Bh,054h,03Ch,052h,0C1h,0F0h,03Fh
-dword_163720:
+F32_0p2:
         db 0CDh,0CCh,04Ch,03Eh
-qword_163724:
+F64_0p349066_CheckForPenalty:
         db 04Eh,0BAh,070h,050h,018h,057h,0D6h,03Fh
-qword_16372C:
+F64_neg0p0523599:
         db 090h,0DFh,020h,0FAh,0E9h,0CEh,0AAh,0BFh
-qword_163734:
+F64_0p0523599:
         db 090h,0DFh,020h,0FAh,0E9h,0CEh,0AAh,03Fh
-qword_16373C:
+F64_4272_CheckPlayerVsBoards:
         db 00h,00h,00h,00h,00h,0B0h,0B0h,040h
-dword_163744:
+F32_144_CheckPlayerVsBoards:
         db 00h,00h,010h,043h
-qword_163748:
+F64_4280:
         db 00h,00h,00h,00h,00h,0B8h,0B0h,040h
-qword_163750:
+F64_4268:
         db 00h,00h,00h,00h,00h,0ACh,0B0h,040h
-dword_163758:
+F32_88:
         db 00h,00h,0B0h,042h
-dword_16375C:
+F32_2_CheckPlayerVsBoards:
         db 00h,00h,00h,040h
-dword_163760:
+F32_48_CheckPlayerVsBoards:
         db 00h,00h,040h,042h
-qword_163764:
+F64_180_CheckPlayerVsBoards:
         db 00h,00h,00h,00h,00h,080h,066h,040h
-dword_16376C:
+F32_32_CheckPlayerVsBoards:
         db 00h,00h,00h,042h
-qword_163770:
+F64_3p14159_CheckPlayerVsBoards:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_163778:
+F64_neg3p14159_CheckPlayerVsBoards:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_163780:
+F64_4_CheckPlayerVsBoards:
         db 00h,00h,00h,00h,00h,00h,010h,040h
-qword_163788:
+F64_neg4_CheckPlayerVsBoards:
         db 00h,00h,00h,00h,00h,00h,010h,0C0h
-dword_163790:
+F32_neg4_CheckPlayerVsBoards:
         db 00h,00h,080h,0C0h
-dword_163794:
+F32_4_CheckPlayerVsBoards:
         db 00h,00h,080h,040h
-dword_163798:
+F32_neg88_CheckPlayerVsBoards:
         db 00h,00h,0B0h,0C2h
-qword_16379C:
+F64_6p28319_HitDirection:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_1637A4:
+F64_3p14159_HitDirection:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_1637AC:
+F64_neg6p28319_HitDirection:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_1637B4:
+F64_neg3p14159_HitDirection:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_1637BC:
+F64_0p785398_HitDirection:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,03Fh
-qword_1637C4:
+F64_2p35619_HitDirection:
         db 031h,01Dh,0DFh,083h,07Ch,0D9h,02h,040h
-qword_1637CC:
+F64_0p0001_HitKnockback:
         db 02Dh,043h,01Ch,0EBh,0E2h,036h,01Ah,03Fh
-dword_1637D4:
+F32_0p5_HitKnockback:
         db 00h,00h,00h,03Fh
-qword_1637D8:
+F64_1p2_HitKnockback:
         db 033h,033h,033h,033h,033h,033h,0F3h,03Fh
-qword_1637E0:
+F64_6p28319_HitKnockback:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_1637E8:
+F64_3p14159_HitKnockback:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_1637F0:
+F64_neg6p28319_HitKnockback:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_1637F8:
+F64_neg3p14159_HitKnockback:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_163800:
+F64_0p174533:
         db 04Eh,0BAh,070h,050h,018h,057h,0C6h,03Fh
-dword_163808:
+F32_0p1_HitKnockback:
         db 0CDh,0CCh,0CCh,03Dh
-dword_16380C:
+F32_768_StartHitAnim:
         db 00h,00h,040h,044h
-dword_163810:
+F32_neg192:
         db 00h,00h,040h,0C3h
-dword_163814:
+F32_1272_ResolveBodyCheck:
         db 00h,00h,09Fh,044h
-dword_163818:
+F32_4032_ResolveBodyCheck:
         db 00h,00h,07Ch,045h
-dword_16381C:
+F32_neg1272:
         db 00h,00h,09Fh,0C4h
-qword_163820:
+F64_0p785398_ResolveBodyCheck:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,03Fh
-dword_163828:
+F32_neg4608:
         db 00h,00h,090h,0C5h
-qword_16382C:
+F64_2p35619_ResolveBodyCheck:
         db 031h,01Dh,0DFh,083h,07Ch,0D9h,02h,040h
-dword_163834:
+F32_4608:
         db 00h,00h,090h,045h
-dword_163838:
+F32_neg1848:
         db 00h,00h,0E7h,0C4h
-dword_16383C:
+F32_1392_ResolveBodyCheck:
         db 00h,00h,0AEh,044h
-qword_163840:
+F64_neg0p785398:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,0BFh
-qword_163848:
+F64_neg2p35619:
         db 031h,01Dh,0DFh,083h,07Ch,0D9h,02h,0C0h
-dword_163850:
+F32_1848:
         db 00h,00h,0E7h,044h
-qword_163854:
+F64_6p28319_ResolveBodyCheck:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_16385C:
+F64_3p14159_ResolveBodyCheck:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_163864:
+F64_neg6p28319_ResolveBodyCheck:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_16386C:
+F64_neg3p14159_ResolveBodyCheck:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_163874:
+F64_6p28319_StartFallAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_16387C:
+F64_3p14159_StartFallAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_163884:
+F64_neg6p28319_StartFallAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_16388C:
+F64_neg3p14159_StartFallAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_163894:
+F64_2p0944_StartFallAnim:
         db 0B9h,08Bh,054h,03Ch,052h,0C1h,00h,040h
-qword_16389C:
+F64_3p14159_checkcx:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_1638A4:
+F64_6p28319_checkcx:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_1638AC:
+F64_neg6p28319_checkcx:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_1638B4:
+F64_neg3p14159_checkcx:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_1638BC:
+F64_0p349066_checkcx:
         db 04Eh,0BAh,070h,050h,018h,057h,0D6h,03Fh
-qword_1638C4:
+F64_1p5708_checkcx:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0F9h,03Fh
-qword_1638CC:
+F64_0p785398_checkcx:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,03Fh
-qword_1638D4:
+F64_2p35619_checkcx:
         db 031h,01Dh,0DFh,083h,07Ch,0D9h,02h,040h
-qword_1638DC:
+F64_6p28319_ResolvePlayerContact:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_1638E4:
+F64_3p14159_ResolvePlayerContact:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_1638EC:
+F64_neg6p28319_ResolvePlayerContact:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_1638F4:
+F64_neg3p14159_ResolvePlayerContact:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_1638FC:
+F64_1p5708_ResolvePlayerContact:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0F9h,03Fh
-qword_163904:
+F64_5:
         db 00h,00h,00h,00h,00h,00h,014h,040h
-dword_16390C:
+F32_10_ResolvePlayerContact:
         db 00h,00h,020h,041h
-qword_163910:
+F64_0p785398_ResolvePlayerContact:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,03Fh
-qword_163918:
+F64_2p35619_ResolvePlayerContact:
         db 031h,01Dh,0DFh,083h,07Ch,0D9h,02h,040h
-qword_163920:
+F64_6p28319_StickContact:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_163928:
+F64_3p14159_StickContact:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_163930:
+F64_neg6p28319_StickContact:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_163938:
+F64_neg3p14159_StickContact:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_163940:
+F64_0p785398_StickContact:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,03Fh
-qword_163948:
+F64_neg0p5_StickContact:
         db 00h,00h,00h,00h,00h,00h,0E0h,0BFh
-qword_163950:
+F64_10_StickContact:
         db 00h,00h,00h,00h,00h,00h,024h,040h
-dword_163958:
+F32_16:
         db 00h,00h,080h,041h
-qword_16395C:
+F64_3p14159_PlayerPush:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_163964:
+F64_neg3p14159_PlayerPush:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_16396C:
+F64_0p0001_checkplcoll:
         db 02Dh,043h,01Ch,0EBh,0E2h,036h,01Ah,03Fh
-qword_163974:
+F64_0p5_checkplcoll:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-qword_16397C:
+F64_2_checkplcoll:
         db 00h,00h,00h,00h,00h,00h,00h,040h
-qword_163984:
+F64_neg0p2_UpdatePlayerMotion:
         db 09Ah,099h,099h,099h,099h,099h,0C9h,0BFh
-qword_16398C:
+F64_0p00436332:
         db 0Ah,095h,0C0h,0A6h,046h,0DFh,071h,03Fh
-qword_163994:
+F64_neg0p00436332:
         db 0Ah,095h,0C0h,0A6h,046h,0DFh,071h,0BFh
-qword_16399C:
+F64_6p28319_UpdatePlayerMotion:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_1639A4:
+F64_3p14159_UpdatePlayerMotion:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_1639AC:
+F64_neg6p28319_UpdatePlayerMotion:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_1639B4:
+F64_neg3p14159_UpdatePlayerMotion:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_1639BC:
+F64_6p28319_MoveToAnimPose:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_1639C4:
+F64_3p14159_MoveToAnimPose:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_1639CC:
+F64_neg6p28319_MoveToAnimPose:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_1639D4:
+F64_neg3p14159_MoveToAnimPose:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_1639DC:
+F64_6p28319_FaceAngleDelta:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_1639E4:
+F64_3p14159_FaceAngleDelta:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_1639EC:
+F64_neg6p28319_FaceAngleDelta:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_1639F4:
+F64_neg3p14159_FaceAngleDelta:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_1639FC:
+F64_0p785398_FaceAngleDelta:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,03Fh
-qword_163A04:
+F64_6p28319_FacePlayerToward:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_163A0C:
+F64_3p14159_FacePlayerToward:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_163A14:
+F64_neg6p28319_FacePlayerToward:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_163A1C:
+F64_neg3p14159_FacePlayerToward:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_163A24:
+F64_0p785398_FacePlayerToward:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,03Fh
-qword_163A2C:
+F64_6p28319_FightPositionMove:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_163A34:
+F64_3p14159_FightPositionMove:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_163A3C:
+F64_neg6p28319_FightPositionMove:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_163A44:
+F64_neg3p14159_FightPositionMove:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_163A4C:
+F64_0p5_FightSwingMove:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-qword_163A54:
+F64_96_FightSwingMove:
         db 00h,00h,00h,00h,00h,00h,058h,040h
-dword_163A5C:
+F32_neg3:
         db 00h,00h,040h,0C0h
-dword_163A60:
+F32_neg3_CelebrationJumpMove:
         db 00h,00h,040h,0C0h
-qword_163A64:
+F64_0p785398_CelebrationJumpMove:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,03Fh
-dword_163A6C:
+F32_0p5_SkateToBenchStep:
         db 00h,00h,00h,03Fh
-qword_163A70:
+F64_6p28319_SkateToBenchStep:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_163A78:
+F64_3p14159_SkateToBenchStep:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_163A80:
+F64_neg6p28319_SkateToBenchStep:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_163A88:
+F64_neg3p14159_SkateToBenchStep:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_163A90:
+F64_6p28319_SkateToSpotStep:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_163A98:
+F64_3p14159_SkateToSpotStep:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_163AA0:
+F64_neg6p28319_SkateToSpotStep:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_163AA8:
+F64_neg3p14159_SkateToSpotStep:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_163AB0:
+F64_1p5708_RefWhistleAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0F9h,03Fh
-qword_163AB8:
+F64_6p28319_RefWhistleAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_163AC0:
+F64_3p14159_RefWhistleAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_163AC8:
+F64_neg6p28319_RefWhistleAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_163AD0:
+F64_neg3p14159_RefWhistleAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-dword_163AD8:
+F32_0p1_RefWhistleAnim:
         db 0CDh,0CCh,0CCh,03Dh
-qword_163ADC:
+F64_6p28319_StartPokeAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_163AE4:
+F64_3p14159_StartPokeAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_163AEC:
+F64_neg6p28319_StartPokeAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_163AF4:
+F64_neg3p14159_StartPokeAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_163AFC:
+F64_0p785398_StartPokeAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,03Fh
-dword_163B04:
+F32_30_PokeCheckMove:
         db 00h,00h,0F0h,041h
-qword_163B08:
+F64_0p523599_PokeCheckMove:
         db 0BAh,08Bh,054h,03Ch,052h,0C1h,0E0h,03Fh
-dword_163B10:
+F32_96_PokeCheckMove:
         db 00h,00h,0C0h,042h
-qword_163B14:
+F64_1p22173:
         db 02h,0A3h,062h,046h,035h,08Ch,0F3h,03Fh
-qword_163B1C:
+F64_144_PokeCheckMove:
         db 00h,00h,00h,00h,00h,00h,062h,040h
-dword_163B24:
+F32_30_SweepCheckMove:
         db 00h,00h,0F0h,041h
-qword_163B28:
+F64_6p28319_SweepCheckMove:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_163B30:
+F64_3p14159_SweepCheckMove:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_163B38:
+F64_neg6p28319_SweepCheckMove:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_163B40:
+F64_neg3p14159_SweepCheckMove:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_163B48:
+F64_0p785398_SweepCheckMove:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,03Fh
-qword_163B50:
+F64_0p6_HookMove:
         db 033h,033h,033h,033h,033h,033h,0E3h,03Fh
-dword_163B58:
+F32_30_HookMove:
         db 00h,00h,0F0h,041h
-qword_163B5C:
+F64_6p28319_StartBlockAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_163B64:
+F64_3p14159_StartBlockAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_163B6C:
+F64_neg6p28319_StartBlockAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_163B74:
+F64_neg3p14159_StartBlockAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_163B7C:
+F64_2p35619_StartBlockAnim:
         db 031h,01Dh,0DFh,083h,07Ch,0D9h,02h,040h
-qword_163B84:
+F64_0p785398_StartBlockAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,03Fh
-qword_163B8C:
+F64_6p28319_BlockReach:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_163B94:
+F64_1p52588eneg05_BlockReach:
         db 00h,00h,00h,00h,00h,00h,0F0h,03Eh
-qword_163B9C:
+F64_1p33_BlockReach:
         db 048h,0E1h,07Ah,014h,0AEh,047h,0F5h,03Fh
-qword_163BA4:
+F64_2_BlockReach:
         db 00h,00h,00h,00h,00h,00h,00h,040h
-qword_163BAC:
+F64_0p0628319_BlockReach:
         db 056h,0B9h,013h,096h,0BFh,015h,0B0h,03Fh
-qword_163BB4:
+F64_3p14159_BlockReach:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_163BBC:
+F64_neg6p28319_BlockReach:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_163BC4:
+F64_neg3p14159_BlockReach:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_163BCC:
+F64_5_BlockReach:
         db 00h,00h,00h,00h,00h,00h,014h,040h
-dword_163BD4:
+F32_0p5_BlockReach:
         db 00h,00h,00h,03Fh
-qword_163BD8:
+F64_0p8_BlockReach:
         db 09Ah,099h,099h,099h,099h,099h,0E9h,03Fh
-qword_163BE0:
+F64_4272_BlockShotMove:
         db 00h,00h,00h,00h,00h,0B0h,0B0h,040h
-qword_163BE8:
+F64_4448_BlockShotMove:
         db 00h,00h,00h,00h,00h,060h,0B1h,040h
-qword_163BF0:
+F64_384_BlockShotMove:
         db 00h,00h,00h,00h,00h,00h,078h,040h
-qword_163BF8:
+F64_864_BlockShotMove:
         db 00h,00h,00h,00h,00h,00h,08Bh,040h
-dword_163C00:
+F32_12_BlockShotMove:
         db 00h,00h,040h,041h
-qword_163C04:
+F64_6p28319_BlockShotMove:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_163C0C:
+F64_3p14159_BlockShotMove:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_163C14:
+F64_neg6p28319_BlockShotMove:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_163C1C:
+F64_neg3p14159_BlockShotMove:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-dword_163C24:
+F32_0p1_BlockShotMove:
         db 0CDh,0CCh,0CCh,03Dh
-dword_163C28:
+F32_120:
         db 00h,00h,0F0h,042h
-dword_163C2C:
+F32_168:
         db 00h,00h,028h,043h
-qword_163C30:
+F64_24_BlockShotMove:
         db 00h,00h,00h,00h,00h,00h,038h,040h
-qword_163C38:
+F64_4288:
         db 00h,00h,00h,00h,00h,0C0h,0B0h,040h
-qword_163C40:
+F64_4272_BlockSlideMove:
         db 00h,00h,00h,00h,00h,0B0h,0B0h,040h
-qword_163C48:
+F64_4448_BlockSlideMove:
         db 00h,00h,00h,00h,00h,060h,0B1h,040h
-qword_163C50:
+F64_384_BlockSlideMove:
         db 00h,00h,00h,00h,00h,00h,078h,040h
-qword_163C58:
+F64_864_BlockSlideMove:
         db 00h,00h,00h,00h,00h,00h,08Bh,040h
-qword_163C60:
+F64_240_PickSaveAnim:
         db 00h,00h,00h,00h,00h,00h,06Eh,040h
-qword_163C68:
+F64_72:
         db 00h,00h,00h,00h,00h,00h,052h,040h
-qword_163C70:
+F64_144_PickSaveAnim:
         db 00h,00h,00h,00h,00h,00h,062h,040h
-qword_163C78:
+F64_4272_GoalieSave:
         db 00h,00h,00h,00h,00h,0B0h,0B0h,040h
-qword_163C80:
+F64_2832:
         db 00h,00h,00h,00h,00h,020h,0A6h,040h
-qword_163C88:
+F64_72_GoalieSave:
         db 00h,00h,00h,00h,00h,00h,052h,040h
-dword_163C90:
+F32_10_GoalieSave:
         db 00h,00h,020h,041h
-qword_163C94:
+F64_6p28319_GoalieSave:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_163C9C:
+F64_3p14159_GoalieSave:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_163CA4:
+F64_neg6p28319_GoalieSave:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_163CAC:
+F64_neg3p14159_GoalieSave:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-dword_163CB4:
+F32_96_GoalieSave:
         db 00h,00h,0C0h,042h
-dword_163CB8:
+F32_240:
         db 00h,00h,070h,043h
-qword_163CBC:
+F64_1p0472_GoalieSave:
         db 0BCh,08Bh,054h,03Ch,052h,0C1h,0F0h,03Fh
-qword_163CC4:
+F64_384_GoalieSave:
         db 00h,00h,00h,00h,00h,00h,078h,040h
-qword_163CCC:
+F64_neg0p785398_GoalieSave:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,0BFh
-qword_163CD4:
+F64_0p785398_GoalieSave:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,03Fh
-qword_163CDC:
+F64_48:
         db 00h,00h,00h,00h,00h,00h,048h,040h
-qword_163CE4:
+F64_0p0001_GoalieMoves:
         db 02Dh,043h,01Ch,0EBh,0E2h,036h,01Ah,03Fh
-qword_163CEC:
+F64_144_GoalieMoves:
         db 00h,00h,00h,00h,00h,00h,062h,040h
-qword_163CF4:
+F64_576_GoalieMoves:
         db 00h,00h,00h,00h,00h,00h,082h,040h
-qword_163CFC:
+F64_4272_GoalieMoves:
         db 00h,00h,00h,00h,00h,0B0h,0B0h,040h
-qword_163D04:
+F64_240_GoalieMoves:
         db 00h,00h,00h,00h,00h,00h,06Eh,040h
-qword_163D0C:
+F64_6p28319_GoalieMoves:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_163D14:
+F64_3p14159_GoalieMoves:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_163D1C:
+F64_neg6p28319_GoalieMoves:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_163D24:
+F64_neg3p14159_GoalieMoves:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_163D2C:
+F64_0p349066_GoalieMoves:
         db 04Eh,0BAh,070h,050h,018h,057h,0D6h,03Fh
-qword_163D34:
+F64_48_GoalieMoves:
         db 00h,00h,00h,00h,00h,00h,048h,040h
-dword_163D3C:
+F32_144_GoalieMoves:
         db 00h,00h,010h,043h
-dword_163D40:
+F32_24_GoalieMoves:
         db 00h,00h,0C0h,041h
-qword_163D44:
+F64_2_GoalieMoves:
         db 00h,00h,00h,00h,00h,00h,00h,040h
-dword_163D4C:
+F32_2_GoalieMoves:
         db 00h,00h,00h,040h
-dword_163D50:
+F32_480_GoalieMoves:
         db 00h,00h,0F0h,043h
-qword_163D54:
+F64_0p6_GoalieMoves:
         db 033h,033h,033h,033h,033h,033h,0E3h,03Fh
-dword_163D5C:
+F32_neg1_GoalieMoves:
         db 00h,00h,080h,0BFh
-dword_163D60:
+F32_672:
         db 00h,00h,028h,044h
-qword_163D64:
+F64_480_PuckDeflect:
         db 00h,00h,00h,00h,00h,00h,07Eh,040h
 str_MIRROR:
         db 04Dh,049h,052h,052h,04Fh,052h,00h,00h
@@ -2530,9 +2530,9 @@ str_FADING:
         db 046h,041h,044h,049h,04Eh,047h,00h,00h
 str_4da:
         db 02Eh,034h,064h,061h,00h
-qword_163DA1:
+F64_0p00613592:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,079h,03Fh
-qword_163DA9:
+F64_0p00613592_UpdateMovePose:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,079h,03Fh
 qword_163DB1:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,079h,03Fh,00h,00h,00h
@@ -2561,5 +2561,5 @@ str_Cross:
         db 063h,072h,06Fh,073h,073h,00h,00h,00h
 str_ANIMSVIV2:
         db 041h,04Eh,049h,04Dh,053h,02Eh,056h,049h,056h,00h,00h,00h
-qword_163EF8:
+F64_0p001:
         db 0FCh,0A9h,0F1h,0D2h,04Dh,062h,050h,03Fh

@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_16CDC8 progbits alloc noexec write align=1
 global byte_16CDCC, byte_16CF98, dword_16CDC8, dword_16CDD0, dword_16CDD8, dword_16CDDC, dword_16CDFC, dword_16CE1C
-global dword_16CF18, dword_16CFBC, dword_16CFF4, unk_16CE20
+global dword_16CF18, str_Punct_LoadLinesArt, dword_16CFF4, unk_16CE20
 dword_16CDC8:
         db 00h,00h,00h,00h
 byte_16CDCC:
@@ -50,7 +50,7 @@ byte_16CF98:
         db 00h,00h,00h,00h,01h,00h,00h,00h,04h,00h,00h,00h,03h,00h,00h,00h
         db 08h,00h,00h,00h,05h,00h,00h,00h,06h,00h,00h,00h,07h,00h,00h,00h
         db 02h,00h,00h,00h
-dword_16CFBC:
+str_Punct_LoadLinesArt:
         db 0Dh,00h,00h,00h,04h,00h,00h,00h,0Ah,00h,00h,00h,06h,00h,00h,00h
         db 07h,00h,00h,00h,03h,00h,00h,00h,0Bh,00h,00h,00h,01h,00h,00h,00h
         db 08h,00h,00h,00h,00h,00h,00h,00h,09h,00h,00h,00h,02h,00h,00h,00h

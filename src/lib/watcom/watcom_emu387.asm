@@ -2,10 +2,10 @@
 bits 32
 %include "hockey.inc"
 section s_132C84 progbits alloc exec nowrite align=1
-extern _dos_setvect_, byte_199CD4, byte_199CD5, byte_199CE4, dword_1725AD, jpt_1329F0, jpt_132AF0, jpt_132AF0_170
-extern str_RATIONALDOS4G, RestoreDS, unk_132878, unk_13287C, unk_132880, unk_132882, unk_132884, unk_132886
+extern _dos_setvect_, Hook387Flag, Hook387Saved, WVideoActive, FpuInitHook, jpt_1329F0, jpt_132AF0, jpt_132AF0_170
+extern str_RATIONALDOS4G, RestoreDS, unk_132878, unk_13287C, unk_132880, str_Punct_jpt, str_F, unk_132886
 extern unk_1328D2, unk_1328D4, unk_1328D8, unk_1328DA, unk_132922, unk_132926, unk_132930, unk_132990
-extern unk_199C58, unk_1DE6C0
+extern EmuTrapFrame, Hook387Save
 global __EnterWVIDEO_, __hook387, __init_80x87, __unhook387, jpt_1337C5, jpt_133904, jpt_133985, jpt_133BA0
 global jpt_133CAA, jpt_133DC2, jpt_133E4B, jpt_134054, jpt_134209, RoundToDouble_32, RoundToDouble_49, RoundToDouble_84
 global jpt_133E4B_2C, jpt_134209_20, jpt_134209_69, jpt_134209_CE, jpt_134209_F8, jpt_134209_110, EmuAdd_7, StoreIntBits_3
@@ -30,7 +30,7 @@ global StoreM32Int, StoreIntBits, LoadM32Int, LoadM64Int, LoadM64Real, StoreM32R
 global ExtToInt, EmuRemainder, RemainderStep, EmuRoundInt, RoundMantissa, EmuExamine, AddOne, EmuLog2
 global Log2Core, SinCosCore, EmuSin, EmuCos, EmuTan, EmuAtan, EmuExp2, PolyEval
 global PolyEvalOdd, EmuNoOp, unk_134C17, unk_134DCA, unk_1351C6, unk_1351E4, unk_13543A, unk_135494
-global unk_1354EE, unk_135C2D
+global unk_1354EE, str_0123456789abcdefghijklmnopqr
 ;-----------------------------------------------------------------------------
 ; EmuTrapExit                                    132C84  97 PC, low confidence
 ; X87 emulator: restores the registers and returns from the trap
@@ -68,7 +68,7 @@ EmuTrapExit:
         and ebx, byte 38h
         LD or, bl, al
         call RestoreDS
-        lea ebp, [unk_199C58]
+        lea ebp, [EmuTrapFrame]
         mov edi, dword [byte ds:ebp+04h]
         and edi, 3800h
         shr edi, 0Bh
@@ -133,7 +133,7 @@ EmuTrapExit:
 .11:
         mov dword [byte ebp+038h], esi
         call RestoreDS
-        lea ebp, [unk_199C58]
+        lea ebp, [EmuTrapFrame]
         LD mov, dl, ah
         and edx, byte 38h
         LD or, dl, al
@@ -211,7 +211,7 @@ RoundToDouble_49:
         and word [byte ds:ebp+08h], bx
         mov bx, word [dword cs:edi+unk_1328DA]
         or word [byte ds:ebp+08h], bx
-        movzx edi, word [dword cs:edi+unk_132882]
+        movzx edi, word [dword cs:edi+str_Punct_jpt]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
         or word [byte ds:ebp+04h], bx
@@ -246,7 +246,7 @@ RaiseFpuError:
         cld
         rep movsd
         movzx eax, ah
-        call dword [dword_1725AD]
+        call dword [FpuInitHook]
         mov cx, ds
         mov es, cx
         mov cx, ss
@@ -620,7 +620,7 @@ EmuFdivrM32:
 ; X87 emulator: FLD m32real
 ;-----------------------------------------------------------------------------
 EmuFldM32:
-        movzx edi, word [dword cs:edi+unk_132884]
+        movzx edi, word [dword cs:edi+str_F]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
         or word [byte ds:ebp+04h], bx
@@ -816,7 +816,7 @@ EmuFidivrM32:
 ; X87 emulator: FILD m32int
 ;-----------------------------------------------------------------------------
 EmuFildM32:
-        movzx edi, word [dword cs:edi+unk_132884]
+        movzx edi, word [dword cs:edi+str_F]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
         or word [byte ds:ebp+04h], bx
@@ -975,7 +975,7 @@ EmuFdivrM64:
 ; X87 emulator: FLD m80real (probably)
 ;-----------------------------------------------------------------------------
 EmuFldM80:
-        movzx edi, word [dword cs:edi+unk_132884]
+        movzx edi, word [dword cs:edi+str_F]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
         or word [byte ds:ebp+04h], bx
@@ -993,7 +993,7 @@ EmuFldM80:
 ; X87 emulator: FLD m64real
 ;-----------------------------------------------------------------------------
 EmuFldM64:
-        movzx edi, word [dword cs:edi+unk_132884]
+        movzx edi, word [dword cs:edi+str_F]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
         or word [byte ds:ebp+04h], bx
@@ -1061,7 +1061,7 @@ EmuFrstor:
         movsd
         movsd
         movsw
-        movzx ebx, word [dword cs:ebx+unk_132882]
+        movzx ebx, word [dword cs:ebx+str_Punct_jpt]
         loop .1
         pop es
         pop ds
@@ -1082,7 +1082,7 @@ EmuFsave:
         movsd
         movsd
         movsw
-        movzx ebx, word [dword cs:ebx+unk_132882]
+        movzx ebx, word [dword cs:ebx+str_Punct_jpt]
         loop .1
         LD mov, edi, ebx
         jmp near jpt_133E4B_2C
@@ -1209,7 +1209,7 @@ EmuFidivrM16:
 ; X87 emulator: FILD m16int
 ;-----------------------------------------------------------------------------
 EmuFildM16:
-        movzx edi, word [dword cs:edi+unk_132884]
+        movzx edi, word [dword cs:edi+str_F]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
         or word [byte ds:ebp+04h], bx
@@ -1277,7 +1277,7 @@ EmuFbld:
 ; X87 emulator: FILD m64int
 ;-----------------------------------------------------------------------------
 EmuFildM64:
-        movzx edi, word [dword cs:edi+unk_132884]
+        movzx edi, word [dword cs:edi+str_F]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
         or word [byte ds:ebp+04h], bx
@@ -1412,7 +1412,7 @@ EmuFdivrSt:
 ; X87 emulator: FLD st(i)
 ;-----------------------------------------------------------------------------
 EmuFldSt:
-        movzx edi, word [dword cs:edi+unk_132884]
+        movzx edi, word [dword cs:edi+str_F]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
         or word [byte ds:ebp+04h], bx
@@ -1496,7 +1496,7 @@ jpt_133985:
         dd .7
         dd EmuReservedOp
 .1:
-        movzx edi, word [dword cs:edi+unk_132884]
+        movzx edi, word [dword cs:edi+str_F]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
         or word [byte ds:ebp+04h], bx
@@ -1509,7 +1509,7 @@ jpt_133985:
         mov word [byte esi+08h], 3FFFh
         jmp near EmuTrapExit
 .2:
-        movzx edi, word [dword cs:edi+unk_132884]
+        movzx edi, word [dword cs:edi+str_F]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
         or word [byte ds:ebp+04h], bx
@@ -1521,7 +1521,7 @@ jpt_133985:
         mov word [byte esi+08h], 4000h
         jmp near EmuTrapExit
 .3:
-        movzx edi, word [dword cs:edi+unk_132884]
+        movzx edi, word [dword cs:edi+str_F]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
         or word [byte ds:ebp+04h], bx
@@ -1533,7 +1533,7 @@ jpt_133985:
         mov word [byte esi+08h], 3FFFh
         jmp near EmuTrapExit
 .4:
-        movzx edi, word [dword cs:edi+unk_132884]
+        movzx edi, word [dword cs:edi+str_F]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
         or word [byte ds:ebp+04h], bx
@@ -1545,7 +1545,7 @@ jpt_133985:
         mov word [byte esi+08h], 4000h
         jmp near EmuTrapExit
 .5:
-        movzx edi, word [dword cs:edi+unk_132884]
+        movzx edi, word [dword cs:edi+str_F]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
         or word [byte ds:ebp+04h], bx
@@ -1557,7 +1557,7 @@ jpt_133985:
         mov word [byte esi+08h], 3FFDh
         jmp near EmuTrapExit
 .6:
-        movzx edi, word [dword cs:edi+unk_132884]
+        movzx edi, word [dword cs:edi+str_F]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
         or word [byte ds:ebp+04h], bx
@@ -1569,7 +1569,7 @@ jpt_133985:
         mov word [byte esi+08h], 3FFEh
         jmp near EmuTrapExit
 .7:
-        movzx edi, word [dword cs:edi+unk_132884]
+        movzx edi, word [dword cs:edi+str_F]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
         or word [byte ds:ebp+04h], bx
@@ -1610,7 +1610,7 @@ jpt_133BA0:
         and word [byte ds:ebp+08h], bx
         mov bx, word [dword cs:edi+unk_1328DA]
         or word [byte ds:ebp+08h], bx
-        movzx edi, word [dword cs:edi+unk_132882]
+        movzx edi, word [dword cs:edi+str_Punct_jpt]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
         or word [byte ds:ebp+04h], bx
@@ -1620,7 +1620,7 @@ jpt_133BA0:
 .3:
         lea eax, [byte edi+ebp+01Ch]
         call EmuTan
-        movzx edi, word [dword cs:edi+unk_132884]
+        movzx edi, word [dword cs:edi+str_F]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
         or word [byte ds:ebp+04h], bx
@@ -1633,13 +1633,13 @@ jpt_133BA0:
         mov word [byte esi+08h], 3FFFh
         jmp near EmuTrapExit
 .4:
-        movzx edi, word [dword cs:edi+unk_132884]
+        movzx edi, word [dword cs:edi+str_F]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
         or word [byte ds:ebp+04h], bx
         jmp near EmuTrapExit
 .5:
-        movzx edi, word [dword cs:edi+unk_132882]
+        movzx edi, word [dword cs:edi+str_Punct_jpt]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
         or word [byte ds:ebp+04h], bx
@@ -1675,7 +1675,7 @@ jpt_133CAA:
         and word [byte ds:ebp+08h], bx
         mov bx, word [dword cs:edi+unk_1328DA]
         or word [byte ds:ebp+08h], bx
-        movzx edi, word [dword cs:edi+unk_132882]
+        movzx edi, word [dword cs:edi+str_Punct_jpt]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
         or word [byte ds:ebp+04h], bx
@@ -1693,7 +1693,7 @@ jpt_133CAA:
         push dword [byte ebx+06h]
         lea eax, [byte edi+ebp+01Ch]
         call EmuSin
-        movzx edi, word [dword cs:edi+unk_132884]
+        movzx edi, word [dword cs:edi+str_F]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
         or word [byte ds:ebp+04h], bx
@@ -1740,7 +1740,7 @@ jpt_133DC2:
         and word [byte ds:ebp+08h], bx
         mov bx, word [dword cs:edi+unk_1328DA]
         or word [byte ds:ebp+08h], bx
-        movzx edi, word [dword cs:edi+unk_132882]
+        movzx edi, word [dword cs:edi+str_Punct_jpt]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
         or word [byte ds:ebp+04h], bx
@@ -1906,7 +1906,7 @@ EmuFaddp:
         and word [byte ds:ebp+08h], bx
         mov bx, word [dword cs:edi+unk_1328DA]
         or word [byte ds:ebp+08h], bx
-        movzx edi, word [dword cs:edi+unk_132882]
+        movzx edi, word [dword cs:edi+str_Punct_jpt]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
         or word [byte ds:ebp+04h], bx
@@ -1924,7 +1924,7 @@ EmuFmulp:
         and word [byte ds:ebp+08h], bx
         mov bx, word [dword cs:edi+unk_1328DA]
         or word [byte ds:ebp+08h], bx
-        movzx edi, word [dword cs:edi+unk_132882]
+        movzx edi, word [dword cs:edi+str_Punct_jpt]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
         or word [byte ds:ebp+04h], bx
@@ -1955,7 +1955,7 @@ jpt_134054:
         and word [byte ds:ebp+08h], bx
         mov bx, word [dword cs:edi+unk_1328DA]
         or word [byte ds:ebp+08h], bx
-        movzx edi, word [dword cs:edi+unk_132882]
+        movzx edi, word [dword cs:edi+str_Punct_jpt]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
         or word [byte ds:ebp+04h], bx
@@ -1976,7 +1976,7 @@ EmuFsubrp:
         and word [byte ds:ebp+08h], bx
         mov bx, word [dword cs:edi+unk_1328DA]
         or word [byte ds:ebp+08h], bx
-        movzx edi, word [dword cs:edi+unk_132882]
+        movzx edi, word [dword cs:edi+str_Punct_jpt]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
         or word [byte ds:ebp+04h], bx
@@ -1994,7 +1994,7 @@ EmuFsubp:
         and word [byte ds:ebp+08h], bx
         mov bx, word [dword cs:edi+unk_1328DA]
         or word [byte ds:ebp+08h], bx
-        movzx edi, word [dword cs:edi+unk_132882]
+        movzx edi, word [dword cs:edi+str_Punct_jpt]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
         or word [byte ds:ebp+04h], bx
@@ -2012,7 +2012,7 @@ EmuFdivrp:
         and word [byte ds:ebp+08h], bx
         mov bx, word [dword cs:edi+unk_1328DA]
         or word [byte ds:ebp+08h], bx
-        movzx edi, word [dword cs:edi+unk_132882]
+        movzx edi, word [dword cs:edi+str_Punct_jpt]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
         or word [byte ds:ebp+04h], bx
@@ -2030,7 +2030,7 @@ EmuFdivp:
         and word [byte ds:ebp+08h], bx
         mov bx, word [dword cs:edi+unk_1328DA]
         or word [byte ds:ebp+08h], bx
-        movzx edi, word [dword cs:edi+unk_132882]
+        movzx edi, word [dword cs:edi+str_Punct_jpt]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
         or word [byte ds:ebp+04h], bx
@@ -2059,7 +2059,7 @@ jpt_134209_20:
         and word [byte ds:ebp+08h], bx
         mov bx, word [dword cs:edi+unk_1328DA]
         or word [byte ds:ebp+08h], bx
-        movzx edi, word [dword cs:edi+unk_132882]
+        movzx edi, word [dword cs:edi+str_Punct_jpt]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
         or word [byte ds:ebp+04h], bx
@@ -2072,7 +2072,7 @@ jpt_134209_20:
 ;-----------------------------------------------------------------------------
 jpt_134209_69:
         lea esi, [byte edi+ebp+01Ch]
-        movzx edi, word [dword cs:edi+unk_132884]
+        movzx edi, word [dword cs:edi+str_F]
         mov bx, word [dword cs:edi+unk_132886]
         and word [byte ds:ebp+04h], 0C7FFh
         or word [byte ds:ebp+04h], bx
@@ -2121,7 +2121,7 @@ jpt_134209_F8:
 ;-----------------------------------------------------------------------------
 jpt_134209_110:
         LD mov, esi, edi
-        movzx edi, word [dword cs:edi+unk_132882]
+        movzx edi, word [dword cs:edi+str_Punct_jpt]
         lea eax, [byte edi+ebp+01Ch]
         mov cx, word [byte eax+08h]
         call StoreM32Int
@@ -4659,12 +4659,12 @@ __hook387:
         mov al, 1Eh
         xor ebx, ebx
         xor ecx, ecx
-        mov byte [byte_199CD5], dh
+        mov byte [Hook387Saved], dh
         xor edx, edx
         mov ah, 0FAh
         int 2Fh
         mov eax, cs
-        mov ebx, unk_1DE6C0
+        mov ebx, Hook387Save
         mov edx, eax
         mov ecx, ebx
         mov al, 20h
@@ -4703,7 +4703,7 @@ __hook387:
         mov cr0, eax
         mov ah, 30h
         int 21h
-        mov byte [byte_199CD4], dl
+        mov byte [Hook387Flag], dl
 .3:
         xor al, al
 .4:
@@ -4723,7 +4723,7 @@ __unhook387:
         push ecx
         push es
         mov es, edx
-        mov dl, byte [byte_199CD5]
+        mov dl, byte [Hook387Saved]
         test dl, dl
         je short .1
         mov eax, cs
@@ -4745,7 +4745,7 @@ __unhook387:
         pop ebx
         ret
 .1:
-        cmp byte [byte_199CD4], 0
+        cmp byte [Hook387Flag], 0
         je short .2
         mov bl, byte [byte es:eax+040h]
         mov byte [byte es:eax+03Eh], dl
@@ -4797,7 +4797,7 @@ __init_80x87:
 ; __EnterWVIDEO_                                               135BF3  library
 ;-----------------------------------------------------------------------------
 __EnterWVIDEO_:
-        cmp byte [byte_199CE4], 0
+        cmp byte [WVideoActive], 0
         je short .2
         and edx, 0FFFFh
         push edx
@@ -4835,7 +4835,7 @@ strchr_:
 .2:
         pop ebx
         ret
-unk_135C2D:
+str_0123456789abcdefghijklmnopqr:
         db 030h,031h,032h,033h,034h,035h,036h,037h,038h,039h,061h,062h,063h,064h,065h,066h
         db 067h,068h,069h,06Ah,06Bh,06Ch,06Dh,06Eh,06Fh,070h,071h,072h,073h,074h,075h,076h
         db 077h,078h,079h,07Ah,00h

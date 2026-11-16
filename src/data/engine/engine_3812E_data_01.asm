@@ -6,16 +6,16 @@ global str_BACK, str_TITL, str_AB02, str_AB01, str_AB00, str_BH00, str_BT00, str
 global str_AB04, str_AB03, str_SIM0, str_BT02d, str_FAN0, str_LT00, str_Logo02dFsh, str_LOGO
 global str_ALST, str_CDD, str_SDSD, str_LOCK, str_PANL, str_DMAN, str_HIST, str_MEGAHIST
 global str_BKH, str_BKD, str_SFX4S, str_AUDSTREAM, str_CROWDCRD, str_GAMEDATAAUDPBP3TSF, str_MENU, str_S02dASF
-global str_TEMP, str_SAUDPBP3TSF, str_KTSF, str_SAUDPBP2VIV, str_CBANK03dDAT, str_TEAM04dDAT, dword_160A64, dword_160A68
-global dword_160A6C, dword_160A70, dword_160A74, dword_160AC0, dword_160B0C, dword_160B10, dword_160B24, dword_160D17
-global dword_160D1B, qword_160A5C, qword_160A78, qword_160A80, qword_160A88, qword_160A90, qword_160A98, qword_160AA0
-global qword_160AA8, qword_160AB0, qword_160AB8, qword_160AC4, qword_160ACC, qword_160AD4, qword_160ADC, qword_160AE4
-global qword_160AEC, qword_160AF4, qword_160AFC, qword_160B04, qword_160B14, qword_160B1C, qword_160B28, qword_160B35
-global qword_160CF7, qword_160CFF, qword_160D07, qword_160D0F, str_CDSTREAM, str_SECCDSTREAM, str_STREAM, unk_160A56
-global unk_160B68, unk_160B78, unk_160B80, unk_160B88, unk_160B90, unk_160B98, unk_160BA0, unk_160BA8
-global unk_160BB4, unk_160BC0, unk_160BCC, unk_160BD4, unk_160BE0, unk_160BE8, unk_160BF8, unk_160C00
-global unk_160C08, unk_160C14, unk_160C1C, unk_160C24, unk_160C30, unk_160C3C, unk_160C4C, unk_160C58
-global unk_160C60, unk_160C68, unk_160C70, unk_160C7C, unk_160C80, unk_160C8C, unk_160C94, unk_160C98
+global str_TEMP, str_SAUDPBP3TSF, str_KTSF, str_SAUDPBP2VIV, str_CBANK03dDAT, str_TEAM04dDAT, F32_10_RefDodgePuck, F32_3_RefDodgePuck
+global F32_15, F32_0p0666667, F32_0p5_RefDodgePuck, F32_144_PokeCheckAnim, F32_336, F32_192_TryBodyCheck, F32_144_TryBodyCheck, F32_98
+global F32_42, F64_neg3p14159_GoToBoxAnim, F64_0p2_RefDodgePuck, F64_6p28319_ReachForPuckAnim, F64_3p14159_ReachForPuckAnim, F64_neg6p28319_ReachForPuckAnim, F64_neg3p14159_ReachForPuckAnim, F64_0p785398_ReachForPuckAnim
+global F64_0p0001, F64_0p6, F64_96, F64_0p00347222, F64_0p8, F64_1p2_PokeCheckAnim, F64_6p28319_TryBodyCheck, F64_3p14159_TryBodyCheck
+global F64_neg6p28319_TryBodyCheck, F64_neg3p14159_TryBodyCheck, F64_1p0472, F64_1p5708, F64_0p349066, F64_0p785398_TryBodyCheck, F64_0p7, F64_0p5_SetViewDrawTarget
+global F64_3p14159_PositionSfx, F64_neg3p14159_PositionSfx, F64_6p28319_PositionSfx, F64_neg6p28319_PositionSfx, str_CDSTREAM, str_SECCDSTREAM, str_STREAM, str_D_DrawSeasonGamePanel
+global StreamReadBuf, str_GLOBAL, str_FRONT1, str_FRONT2, str_GAME, str_AUXI, str_CROWD, str_CentreArea
+global str_CentreIce, str_BlueLine, str_Point, str_OwnBlueLine, str_InFront, str_InFrontOfTheNet, str_OwnZone, str_Corner
+global str_NeutralZone, str_Slot, str_Wing, str_BehindNet, str_BesideNet, str_OffensiveZone, str_WideOfNet, str_Deep
+global str_Right, str_Left, str_PointBlank, str_NetExt, str_EndBoards, str_ERROR, str_16, str_8
 str_BACK:
         db 042h,041h,043h,04Bh,00h
 str_TITL:
@@ -58,73 +58,73 @@ str_LOCK:
         db 04Ch,04Fh,043h,04Bh,00h
 str_PANL:
         db 050h,041h,04Eh,04Ch,00h
-unk_160A56:
+str_D_DrawSeasonGamePanel:
         db 025h,064h,00h,00h,00h,00h
-qword_160A5C:
+F64_neg3p14159_GoToBoxAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-dword_160A64:
+F32_10_RefDodgePuck:
         db 00h,00h,020h,041h
-dword_160A68:
+F32_3_RefDodgePuck:
         db 00h,00h,040h,040h
-dword_160A6C:
+F32_15:
         db 00h,00h,070h,041h
-dword_160A70:
+F32_0p0666667:
         db 089h,088h,088h,03Dh
-dword_160A74:
+F32_0p5_RefDodgePuck:
         db 00h,00h,00h,03Fh
-qword_160A78:
+F64_0p2_RefDodgePuck:
         db 09Ah,099h,099h,099h,099h,099h,0C9h,03Fh
-qword_160A80:
+F64_6p28319_ReachForPuckAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_160A88:
+F64_3p14159_ReachForPuckAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_160A90:
+F64_neg6p28319_ReachForPuckAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_160A98:
+F64_neg3p14159_ReachForPuckAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_160AA0:
+F64_0p785398_ReachForPuckAnim:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,03Fh
-qword_160AA8:
+F64_0p0001:
         db 02Dh,043h,01Ch,0EBh,0E2h,036h,01Ah,03Fh
-qword_160AB0:
+F64_0p6:
         db 033h,033h,033h,033h,033h,033h,0E3h,03Fh
-qword_160AB8:
+F64_96:
         db 00h,00h,00h,00h,00h,00h,058h,040h
-dword_160AC0:
+F32_144_PokeCheckAnim:
         db 00h,00h,010h,043h
-qword_160AC4:
+F64_0p00347222:
         db 01Dh,0C7h,071h,01Ch,0C7h,071h,06Ch,03Fh
-qword_160ACC:
+F64_0p8:
         db 09Ah,099h,099h,099h,099h,099h,0E9h,03Fh
-qword_160AD4:
+F64_1p2_PokeCheckAnim:
         db 033h,033h,033h,033h,033h,033h,0F3h,03Fh
-qword_160ADC:
+F64_6p28319_TryBodyCheck:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_160AE4:
+F64_3p14159_TryBodyCheck:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_160AEC:
+F64_neg6p28319_TryBodyCheck:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_160AF4:
+F64_neg3p14159_TryBodyCheck:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_160AFC:
+F64_1p0472:
         db 0BCh,08Bh,054h,03Ch,052h,0C1h,0F0h,03Fh
-qword_160B04:
+F64_1p5708:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0F9h,03Fh
-dword_160B0C:
+F32_336:
         db 00h,00h,0A8h,043h
-dword_160B10:
+F32_192_TryBodyCheck:
         db 00h,00h,040h,043h
-qword_160B14:
+F64_0p349066:
         db 04Eh,0BAh,070h,050h,018h,057h,0D6h,03Fh
-qword_160B1C:
+F64_0p785398_TryBodyCheck:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,03Fh
-dword_160B24:
+F32_144_TryBodyCheck:
         db 00h,00h,010h,043h
-qword_160B28:
+F64_0p7:
         db 066h,066h,066h,066h,066h,066h,0E6h,03Fh
 str_DMAN:
         db 044h,04Dh,041h,04Eh,00h
-qword_160B35:
+F64_0p5_SetViewDrawTarget:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh,00h,00h,00h
 str_HIST:
         db 048h,049h,053h,054h,00h,00h,00h,00h
@@ -134,71 +134,71 @@ str_CDSTREAM:
         db 043h,044h,053h,054h,052h,045h,041h,04Dh,00h,00h,00h,00h
 str_STREAM:
         db 053h,054h,052h,045h,041h,04Dh,00h,00h
-unk_160B68:
+StreamReadBuf:
         db 00h,00h,00h,00h
 str_SECCDSTREAM:
         db 053h,045h,043h,043h,044h,053h,054h,052h,045h,041h,04Dh,00h
-unk_160B78:
+str_GLOBAL:
         db 047h,04Ch,04Fh,042h,041h,04Ch,00h,00h
-unk_160B80:
+str_FRONT1:
         db 046h,052h,04Fh,04Eh,054h,031h,00h,00h
-unk_160B88:
+str_FRONT2:
         db 046h,052h,04Fh,04Eh,054h,032h,00h,00h
-unk_160B90:
+str_GAME:
         db 047h,041h,04Dh,045h,00h,00h,00h,00h
-unk_160B98:
+str_AUXI:
         db 041h,055h,058h,049h,00h,00h,00h,00h
-unk_160BA0:
+str_CROWD:
         db 043h,052h,04Fh,057h,044h,00h,00h,00h
-unk_160BA8:
+str_CentreArea:
         db 043h,065h,06Eh,074h,072h,065h,041h,072h,065h,061h,00h,00h
-unk_160BB4:
+str_CentreIce:
         db 043h,065h,06Eh,074h,072h,065h,049h,063h,065h,00h,00h,00h
-unk_160BC0:
+str_BlueLine:
         db 042h,06Ch,075h,065h,04Ch,069h,06Eh,065h,00h,00h,00h,00h
-unk_160BCC:
+str_Point:
         db 050h,06Fh,069h,06Eh,074h,00h,00h,00h
-unk_160BD4:
+str_OwnBlueLine:
         db 04Fh,077h,06Eh,042h,06Ch,075h,065h,04Ch,069h,06Eh,065h,00h
-unk_160BE0:
+str_InFront:
         db 049h,06Eh,046h,072h,06Fh,06Eh,074h,00h
-unk_160BE8:
+str_InFrontOfTheNet:
         db 049h,06Eh,046h,072h,06Fh,06Eh,074h,04Fh,066h,054h,068h,065h,04Eh,065h,074h,00h
-unk_160BF8:
+str_OwnZone:
         db 04Fh,077h,06Eh,05Ah,06Fh,06Eh,065h,00h
-unk_160C00:
+str_Corner:
         db 043h,06Fh,072h,06Eh,065h,072h,00h,00h
-unk_160C08:
+str_NeutralZone:
         db 04Eh,065h,075h,074h,072h,061h,06Ch,05Ah,06Fh,06Eh,065h,00h
-unk_160C14:
+str_Slot:
         db 053h,06Ch,06Fh,074h,00h,00h,00h,00h
-unk_160C1C:
+str_Wing:
         db 057h,069h,06Eh,067h,00h,00h,00h,00h
-unk_160C24:
+str_BehindNet:
         db 042h,065h,068h,069h,06Eh,064h,04Eh,065h,074h,00h,00h,00h
-unk_160C30:
+str_BesideNet:
         db 042h,065h,073h,069h,064h,065h,04Eh,065h,074h,00h,00h,00h
-unk_160C3C:
+str_OffensiveZone:
         db 04Fh,066h,066h,065h,06Eh,073h,069h,076h,065h,05Ah,06Fh,06Eh,065h,00h,00h,00h
-unk_160C4C:
+str_WideOfNet:
         db 057h,069h,064h,065h,04Fh,066h,04Eh,065h,074h,00h,00h,00h
-unk_160C58:
+str_Deep:
         db 064h,065h,065h,070h,00h,00h,00h,00h
-unk_160C60:
+str_Right:
         db 052h,069h,067h,068h,074h,00h,00h,00h
-unk_160C68:
+str_Left:
         db 04Ch,065h,066h,074h,00h,00h,00h,00h
-unk_160C70:
+str_PointBlank:
         db 050h,06Fh,069h,06Eh,074h,042h,06Ch,061h,06Eh,06Bh,00h,00h
-unk_160C7C:
+str_NetExt:
         db 06Eh,065h,074h,00h
-unk_160C80:
+str_EndBoards:
         db 065h,06Eh,064h,042h,06Fh,061h,072h,064h,073h,00h,00h,00h
-unk_160C8C:
+str_ERROR:
         db 045h,052h,052h,04Fh,052h,00h,00h,00h
-unk_160C94:
+str_16:
         db 031h,036h,00h,00h
-unk_160C98:
+str_8:
         db 038h,00h,00h,00h
 str_BKH:
         db 02Eh,042h,04Bh,048h,00h,00h,00h,00h
@@ -217,17 +217,17 @@ str_MENU:
         db 04Dh,045h,04Eh,055h,00h,00h,00h,00h
 str_S02dASF:
         db 025h,073h,025h,030h,032h,064h,02Eh,041h,053h,046h,00h
-qword_160CF7:
+F64_3p14159_PositionSfx:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_160CFF:
+F64_neg3p14159_PositionSfx:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-qword_160D07:
+F64_6p28319_PositionSfx:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_160D0F:
+F64_neg6p28319_PositionSfx:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-dword_160D17:
+F32_98:
         db 00h,00h,0C4h,042h
-dword_160D1B:
+F32_42:
         db 00h,00h,028h,042h,00h
 str_TEMP:
         db 054h,045h,04Dh,050h,00h,00h,00h,00h

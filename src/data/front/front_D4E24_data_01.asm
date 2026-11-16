@@ -7,9 +7,9 @@ global str_BB00, str_BB04, str_BB08, str_AB004, str_AB034, str_BarassoPIT, str_B
 global str_FRNT2, str_BB02d, str_SS14, str_BB01, str_BB05, str_BB09, str_AB024, str_AB014
 global str_AB054, str_AB044, str_MASK0002dFSH, str_SSS4, str_Scr1, str_Scr2, str_Pal3, str_Bkgd
 global str_D2, str_Ring, str_EAC1, str_EAC2, str_QCRD, str_PAGESTACK, str_CRD1, str_CRD2
-global str_Nhll, str_Nhlp, str_Pl0, str_Pl1, unk_1673CC, unk_167410, unk_167418, unk_167421
-global unk_167429, unk_167431, unk_167437, unk_16743E, unk_167444, unk_16744D, unk_167455, unk_16745B
-global unk_167460
+global str_Nhll, str_Nhlp, str_Pl0, str_Pl1, str_Rt_CreditsScreen, str_STATICS, str_DYNAMICS, str_PLAYERS
+global str_ROSTERS, str_STATS, str_BRAINS, str_GAMES, str_USERLOGS, str_NHL9596, str_DATA, str_HDB
+global str_BIX
 str_DOR0:
         db 044h,04Fh,052h,030h,00h,00h,00h,00h
 str_DOR1:
@@ -83,7 +83,7 @@ str_Bkgd:
         db 062h,06Bh,067h,064h,00h,00h,00h,00h
 str_Nhlp:
         db 06Eh,068h,06Ch,070h,00h,00h,00h,00h
-unk_1673CC:
+str_Rt_CreditsScreen:
         db 072h,074h,00h,00h
 str_D2:
         db 025h,064h,0Ah,00h
@@ -101,27 +101,27 @@ str_CRD1:
         db 043h,052h,044h,031h,00h,00h,00h,00h
 str_PAGESTACK:
         db 050h,041h,047h,045h,053h,054h,041h,043h,04Bh,00h,00h,00h
-unk_167410:
+str_STATICS:
         db 053h,054h,041h,054h,049h,043h,053h,00h
-unk_167418:
+str_DYNAMICS:
         db 044h,059h,04Eh,041h,04Dh,049h,043h,053h,00h
-unk_167421:
+str_PLAYERS:
         db 050h,04Ch,041h,059h,045h,052h,053h,00h
-unk_167429:
+str_ROSTERS:
         db 052h,04Fh,053h,054h,045h,052h,053h,00h
-unk_167431:
+str_STATS:
         db 053h,054h,041h,054h,053h,00h
-unk_167437:
+str_BRAINS:
         db 042h,052h,041h,049h,04Eh,053h,00h
-unk_16743E:
+str_GAMES:
         db 047h,041h,04Dh,045h,053h,00h
-unk_167444:
+str_USERLOGS:
         db 055h,053h,045h,052h,04Ch,04Fh,047h,053h,00h
-unk_16744D:
+str_NHL9596:
         db 04Eh,048h,04Ch,039h,035h,039h,036h,00h
-unk_167455:
+str_DATA:
         db 044h,041h,054h,041h,05Ch,00h
-unk_16745B:
+str_HDB:
         db 02Eh,048h,044h,042h,00h
-unk_167460:
+str_BIX:
         db 02Eh,042h,049h,058h,00h

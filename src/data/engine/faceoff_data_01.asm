@@ -2,12 +2,12 @@
 bits 32
 %include "hockey.inc"
 section s_16862E progbits alloc noexec write align=1
-global dword_16862E, dword_168630, dword_1686BA, dword_1686C0, dword_1686C4, dword_1686C8, dword_1686CC, dword_1686D0
-global dword_1686D2, dword_1686DC, InGameMenuRequest, dword_1686E2, dword_1686E6, word_1686BC, word_1686D4, word_1686D6
-global word_1686D8, word_1686DA, word_1686E4
-dword_16862E:
+global GameEventTable, GameEventFlags, SavedCameraView, ClockShown, F32_62, F32_54, F32_0p8, F32_ReachFactor
+global PenaltyPanelIds, OpeningFrames, InGameMenuRequest, BrightnessLevel, MessagePanelIds, CameraViewKey, DebugUnlockCount, ForcePenaltyCall
+global DebugModelRefresh, DebugModelIndex, str_D_ChangeViewSize
+GameEventTable:
         db 00h,00h
-dword_168630:
+GameEventFlags:
         db 01h,00h,039h,00h,03h,00h,03Ah,00h,05h,00h,0FFh,0FFh,07h,00h,0FFh,0FFh
         db 09h,00h,0FFh,0FFh,0Bh,00h,0FFh,0FFh,0Dh,00h,0FFh,0FFh,0Fh,00h,0FFh,0FFh
         db 013h,00h,0FFh,0FFh,015h,00h,0FFh,0FFh,017h,00h,0FFh,0FFh,019h,00h,03Bh,00h
@@ -17,39 +17,39 @@ dword_168630:
         db 031h,00h,03Dh,00h,033h,00h,0FFh,0FFh,035h,00h,0FFh,0FFh,011h,00h,0FFh,0FFh
         db 042h,00h,0FFh,0FFh,044h,00h,0FFh,0FFh,046h,00h,0FFh,0FFh,048h,00h,0FFh,0FFh
         db 040h,00h,0FFh,0FFh,037h,00h,0FFh,0FFh,037h,00h
-dword_1686BA:
+SavedCameraView:
         db 0FFh,0FFh
-word_1686BC:
+CameraViewKey:
         db 00h,00h,00h,00h
-dword_1686C0:
+ClockShown:
         db 00h,00h,00h,00h
-dword_1686C4:
+F32_62:
         db 00h,00h,078h,042h
-dword_1686C8:
+F32_54:
         db 00h,00h,058h,042h
-dword_1686CC:
+F32_0p8:
         db 0CDh,0CCh,04Ch,03Fh
-dword_1686D0:
+F32_ReachFactor:
         db 09Ah,099h
-dword_1686D2:
+PenaltyPanelIds:
         db 099h,03Eh
-word_1686D4:
+DebugUnlockCount:
         db 00h,00h
-word_1686D6:
+ForcePenaltyCall:
         db 00h,00h
-word_1686D8:
+DebugModelRefresh:
         db 00h,00h
-word_1686DA:
+DebugModelIndex:
         db 00h,00h
-dword_1686DC:
+OpeningFrames:
         db 00h,00h,00h,00h
 InGameMenuRequest:
         db 00h,00h
-dword_1686E2:
+BrightnessLevel:
         db 00h,00h
-word_1686E4:
+str_D_ChangeViewSize:
         db 064h,00h
-dword_1686E6:
+MessagePanelIds:
         db 00h,00h,00h,00h,01h,00h,00h,00h,02h,00h,00h,00h,03h,00h,00h,00h
         db 04h,00h,00h,00h,05h,00h,00h,00h,06h,00h,00h,00h,07h,00h,00h,00h
         db 08h,00h,00h,00h,09h,00h,00h,00h,0Ah,00h,00h,00h,0Bh,00h,00h,00h

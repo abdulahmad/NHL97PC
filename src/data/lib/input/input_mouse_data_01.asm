@@ -3,16 +3,16 @@ bits 32
 %include "hockey.inc"
 section s_16E604 progbits alloc noexec write align=1
 extern FreeBitmap_30, FillRectColor_48, FillRectColor_5C, FillRectColor_6C, FillRectColor_80, ExitProgram, CopyRowKeyed8, CopyRowKeyed16
-extern CopyRowKeyed24, CopyRowKeyed32, FillRowColor, unk_167D44, unk_167D48, unk_167D4C, unk_167D50, unk_167D54
-extern unk_167D58, unk_167D5C, unk_167D60, unk_167D64, unk_167D68, unk_167D6C, unk_167D70
-global byte_16E638, byte_16E639, byte_16E63A, byte_16E688, byte_16E689, byte_16E6C0, byte_16E6C1, mouseminx
-global mouseminy, mousemaxx, mousemaxy, dword_16E614, dword_16E618, dword_16E61C, dword_16E620, dword_16E624
-global dword_16E628, dword_16E630, dword_16E634, dword_16E63C, dword_16E670, dword_16E674, dword_16E676, dword_16E678
-global dword_16E67A, dword_16E67C, dword_16E67E, dword_16E680, dword_16E682, dword_16E684, dword_16E690, dword_16E694
-global dword_16E698, dword_16E69C, dword_16E6A0, dword_16E6A8, dword_16E6AC, dword_16E6B0, dword_16E6B4, dword_16E6B8
-global dword_16E6BC, dword_16E6C8, dword_16E6CC, dword_16E6D0, dword_16E6D4, dword_16E6D8, dword_16E714, dword_16E718
-global dword_16E870, dword_16F140, dword_16F144, dword_16F148, dword_16F14C, dword_16F150, dword_16F184, off_16E858
-global off_16E87C, unk_16E8A0, unk_16F110
+extern CopyRowKeyed24, CopyRowKeyed32, FillRowColor, str_Jan, str_Feb, str_Mar, str_Apr, str_May
+extern str_Jun, str_Jul, str_Aug, str_Sep, str_Oct, str_Nov, str_Dec
+global DebugTextColor, DebugBackColor, byte_16E63A, ScreenBitsPerPixel, str_Punct_FreeArtArchive, ModeBitsPerPixel, str_Punct_SetGraphicsMode, mouseminx
+global mouseminy, mousemaxx, mousemaxy, MouseDeltaX, MouseButtonState, MouseSavedSensX, MouseSavedSensY, MouseSavedThreshold
+global DebugMode, DebugLineY, DebugLineWidth, DebugLineTable, ScreenWidth, ClipBottom, ClipLeft, ClipTopRow
+global ClipTop, ClipLeftCol, ClipRightEdge, ClipRight, ClipBottomEdge, ScreenHeight, ScreenPitch, ScreenBuffer
+global DrawDestBuffer, DrawDestPitch, DrawDestOffset, BackBufferWidth, ModeHeight, ModeFrameBuffer, ModeBankSize, ModeWidth
+global BackBufferHeight, MovieWidth, VideoModeNumber, VideoWindowHandle, ModePitch, ModeLinear, VideoWindowTable, str_F_BlitCore
+global ShapeRowFunc, F32_50p0_View, F32_1p0_View, RinkLineWidth, SortStride, SortKeyOffset, ExitHandler, ShapeRowFuncTable
+global FillRowFuncTable, DebugTagStr, SplineCoefs
 mouseminx:
         db 00h,00h,00h,00h
 mouseminy:
@@ -21,108 +21,108 @@ mousemaxx:
         db 040h,01h,00h,00h
 mousemaxy:
         db 0C8h,00h,00h,00h
-dword_16E614:
+MouseDeltaX:
         db 00h,00h,00h,00h
-dword_16E618:
+MouseButtonState:
         db 01h,00h,00h,00h
-dword_16E61C:
+MouseSavedSensX:
         db 00h,00h,00h,00h
-dword_16E620:
+MouseSavedSensY:
         db 00h,00h,00h,00h
-dword_16E624:
+MouseSavedThreshold:
         db 00h,00h,00h,00h
-dword_16E628:
+DebugMode:
         db 02h,00h,00h,00h,00h,00h,00h,00h
-dword_16E630:
+DebugLineY:
         db 00h,00h,0Bh,00h
-dword_16E634:
+DebugLineWidth:
         db 080h,07h,00h,00h
-byte_16E638:
+DebugTextColor:
         db 00h
-byte_16E639:
+DebugBackColor:
         db 07h
 byte_16E63A:
         db 08h,00h
-dword_16E63C:
+DebugLineTable:
         db 00h,00h,00h,00h
-        dd unk_167D44
-        dd unk_167D48
-        dd unk_167D4C
-        dd unk_167D50
-        dd unk_167D54
-        dd unk_167D58
-        dd unk_167D5C
-        dd unk_167D60
-        dd unk_167D64
-        dd unk_167D68
-        dd unk_167D6C
-        dd unk_167D70
-dword_16E670:
+        dd str_Jan
+        dd str_Feb
+        dd str_Mar
+        dd str_Apr
+        dd str_May
+        dd str_Jun
+        dd str_Jul
+        dd str_Aug
+        dd str_Sep
+        dd str_Oct
+        dd str_Nov
+        dd str_Dec
+ScreenWidth:
         db 080h,02h,00h,00h
-dword_16E674:
+ClipBottom:
         db 0E0h,01h
-dword_16E676:
+ClipLeft:
         db 00h,00h
-dword_16E678:
+ClipTopRow:
         db 00h,00h
-dword_16E67A:
+ClipTop:
         db 00h,00h
-dword_16E67C:
+ClipLeftCol:
         db 00h,00h
-dword_16E67E:
+ClipRightEdge:
         db 00h,00h
-dword_16E680:
+ClipRight:
         db 080h,02h
-dword_16E682:
+ClipBottomEdge:
         db 00h,00h
-dword_16E684:
+ScreenHeight:
         db 0E0h,01h,00h,00h
-byte_16E688:
+ScreenBitsPerPixel:
         db 08h
-byte_16E689:
+str_Punct_FreeArtArchive:
         db 07Bh,00h,00h,00h,00h,00h,00h
-dword_16E690:
+ScreenPitch:
         db 080h,02h,00h,00h
-dword_16E694:
+ScreenBuffer:
         db 00h,00h,00h,00h
-dword_16E698:
+DrawDestBuffer:
         db 00h,00h,00h,00h
-dword_16E69C:
+DrawDestPitch:
         db 00h,00h,0Ah,00h
-dword_16E6A0:
+DrawDestOffset:
         db 00h,00h,00h,00h,00h,00h,00h,00h
-dword_16E6A8:
+BackBufferWidth:
         db 080h,02h,00h,00h
-dword_16E6AC:
+ModeHeight:
         db 0E0h,01h,00h,00h
-dword_16E6B0:
+ModeFrameBuffer:
         db 00h,00h,00h,00h
-dword_16E6B4:
+ModeBankSize:
         db 00h,00h,00h,00h
-dword_16E6B8:
+ModeWidth:
         db 080h,02h,00h,00h
-dword_16E6BC:
+BackBufferHeight:
         db 0E0h,01h,00h,00h
-byte_16E6C0:
+ModeBitsPerPixel:
         db 08h
-byte_16E6C1:
+str_Punct_SetGraphicsMode:
         db 07Bh,00h,00h,00h,00h,00h,00h
-dword_16E6C8:
+MovieWidth:
         db 080h,02h,00h,00h
-dword_16E6CC:
+VideoModeNumber:
         db 00h,00h,00h,00h
-dword_16E6D0:
+VideoWindowHandle:
         db 00h,00h,00h,00h
-dword_16E6D4:
+ModePitch:
         db 00h,00h,0Ah,00h
-dword_16E6D8:
+ModeLinear:
         db 00h,00h,00h,00h,00h,00h,00h,00h,080h,02h,00h,00h,0E0h,01h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,080h,02h,00h,00h,0E0h,01h,00h,00h
         db 08h,07Bh,00h,00h,00h,00h,00h,00h,080h,02h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,0Ah,00h,00h,00h,00h,00h
-dword_16E714:
+VideoWindowTable:
         db 00h,00h,00h,00h
-dword_16E718:
+str_F_BlitCore:
         db 066h,00h,00h,00h,0CCh,00h,00h,00h,033h,01h,00h,00h,099h,01h,00h,00h
         db 00h,02h,00h,00h,00h,04h,00h,00h,00h,04h,00h,00h,00h,04h,00h,00h
         db 00h,04h,00h,00h,00h,04h,00h,00h,00h,04h,00h,00h,00h,04h,00h,00h
@@ -143,16 +143,16 @@ dword_16E718:
         db 00h,04h,00h,00h,00h,04h,00h,00h,00h,04h,00h,00h,00h,04h,00h,00h
         db 00h,04h,00h,00h,00h,04h,00h,00h,00h,04h,00h,00h,00h,04h,00h,00h
         db 00h,04h,00h,00h,00h,04h,00h,00h,00h,04h,00h,00h,00h,04h,00h,00h
-off_16E858:
+ShapeRowFuncTable:
         dd FreeBitmap_30
         dd CopyRowKeyed8
         dd CopyRowKeyed16
         dd CopyRowKeyed16
         dd CopyRowKeyed24
         dd CopyRowKeyed32
-dword_16E870:
+ShapeRowFunc:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-off_16E87C:
+FillRowFuncTable:
         dd FillRectColor_48
         dd FillRectColor_5C
         dd FillRectColor_6C
@@ -160,7 +160,7 @@ off_16E87C:
         dd FillRectColor_80
         dd FillRowColor
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-unk_16E8A0:
+DebugTagStr:
         db 046h,04Eh,054h,046h,06Dh,08h,00h,00h,064h,00h,06Fh,00h,00h,00h,00h,00h
         db 00h,00h,00h,0Ah,020h,00h,00h,00h,00h,00h,00h,00h,0E8h,04h,00h,00h
         db 020h,00h,08h,08h,00h,00h,00h,00h,08h,00h,00h,021h,00h,08h,08h,08h
@@ -296,22 +296,22 @@ unk_16E8A0:
         db 0FFh,00h,00h,00h,00h,00h,00h,00h,0F8h,00h,00h,078h,00h,00h,00h,00h
         db 00h,0F0h,01Eh,00h,00h,00h,00h,00h,00h,00h,0F8h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,010h,00h,00h,00h,00h,0FFh,00h,00h,00h
-unk_16F110:
+SplineCoefs:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,080h,03Fh
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,080h,03Fh
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,080h,03Fh
-dword_16F140:
+F32_50p0_View:
         db 00h,00h,048h,042h
-dword_16F144:
+F32_1p0_View:
         db 00h,00h,080h,03Fh
-dword_16F148:
+RinkLineWidth:
         db 01h,00h,00h,00h
-dword_16F14C:
+SortStride:
         db 01h,00h,00h,00h
-dword_16F150:
+SortKeyOffset:
         db 04h,00h,00h,00h,0Dh,00h,00h,00h,028h,00h,00h,00h,079h,00h,00h,00h
         db 06Ch,01h,00h,00h,045h,04h,00h,00h,0D0h,0Ch,00h,00h,071h,026h,00h,00h
         db 054h,073h,00h,00h,0FDh,059h,01h,00h,0F8h,0Dh,04h,00h,0E9h,029h,0Ch,00h
         db 0FFh,0FFh,0FFh,07Fh
-dword_16F184:
+ExitHandler:
         dd ExitProgram

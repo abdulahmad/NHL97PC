@@ -2,146 +2,146 @@
 bits 32
 %include "hockey.inc"
 section s_1DCEC8 nobits alloc noexec write align=1
-global byte_1DCEC8, byte_1DCEC9, byte_1DCECA, byte_1DCECB, byte_1DCECE, byte_1DCECF, byte_1DCED4, byte_1DCED5
-global byte_1DCED6, byte_1DCED7, byte_1DCEDC, byte_1DCEDD, byte_1DCEDE, byte_1DCEDF, byte_1DCEE0, byte_1DCEE1
-global byte_1DCEE2, byte_1DCEE3, byte_1DCEE4, byte_1DCEE5, byte_1DCEE6, byte_1DCEE7, byte_1DCF00, byte_1DCF01
-global byte_1DCF02, byte_1DCF03, byte_1DCF04, byte_1DCF05, byte_1DCF3B, byte_1DCF44, byte_1DCF45, byte_1DCF47
-global byte_1DCF67, byte_1DCF68, byte_1DD381, dword_1DCED0, dword_1DCED8, dword_1DCEEC, dword_1DCEF0, dword_1DCEF4
-global dword_1DCEF8, dword_1DCEFC, dword_1DCF08, dword_1DCF0C, dword_1DCF10, dword_1DCF14, dword_1DCF18, dword_1DCF1C
-global dword_1DCF20, dword_1DCF24, dword_1DCF28, dword_1DCF2C, dword_1DCF30, dword_1DCF34, dword_1DCF38, dword_1DCF3E
-global dword_1DCF3F, dword_1DCF48, dword_1DCF62, dword_1DCF78, dword_1DD378, dword_1DD37C, dword_1DD37E, word_1DCECC
-global word_1DCEE8, word_1DCEEA, word_1DCF06
-byte_1DCEC8:
+global SpeechPatchOn, SpeechPatchLooped, SpeechPatchMono, SpeechPatchSigned, SpeechPatchPan, SpeechPatchVolume, SpeechPatchVolMin, SpeechPatchVolMax
+global SpeechPatchPanMin, SpeechPatchPanMax, SpeechPatchPercent, SpeechPatchRate, SpeechPatchRepeat, SpeechPatchPriority, SpeechPatchPanStart, SpeechPatchAttack
+global SpeechPatchDecay, SpeechPatchSustain, SpeechPatchPanEnd, SpeechPatchRelease, SpeechPatchVolStart, SpeechPatchDetune, SpeechPatchFormat, SpeechPatchBits
+global SpeechPatchChannels, SpeechPatchCompression, SpeechPatchBytesPerSample, SpeechPatchReserved, ChannelStateBytes, ChannelVolumeTable, ChannelActiveFlags, ChannelPriorityTable
+global ChannelRampTable, ChannelTimeTable, DigitalAudioVolume, SpeechPatchVoices, SpeechPatchChannel, SpeechPatchDataOffset, SpeechPatchDataSize, SpeechPatchPosition
+global SpeechPatchHeaderSize, SpeechPatchTemplateTag, SpeechPatchLength, SpeechPatchLoopFrom, SpeechPatchLoopTo, SpeechPatchNext, SpeechPatchHandle, SpeechPatchMaxVolume
+global SpeechBankBase, UnpackSrcPtr, UnpackDestPtr, UnpackCount, UnpackStackPtr, UnpackPairTable, ChannelSampleTable, ChannelPitchTable
+global ChannelBankTable, ChannelRecords, ChannelHandleTable, VolumeRampTable, DigitalAudioHandle, DigitalAudioRate, ChannelCount, SpeechPatchFlags
+global SpeechPatchLoopStart, SpeechPatchLoopEnd, SpeechPatchSampleRate
+SpeechPatchOn:
         resb 1
-byte_1DCEC9:
+SpeechPatchLooped:
         resb 1
-byte_1DCECA:
+SpeechPatchMono:
         resb 1
-byte_1DCECB:
+SpeechPatchSigned:
         resb 1
-word_1DCECC:
+SpeechPatchFlags:
         resb 2
-byte_1DCECE:
+SpeechPatchPan:
         resb 1
-byte_1DCECF:
+SpeechPatchVolume:
         resb 1
-dword_1DCED0:
+SpeechPatchVoices:
         resb 4
-byte_1DCED4:
+SpeechPatchVolMin:
         resb 1
-byte_1DCED5:
+SpeechPatchVolMax:
         resb 1
-byte_1DCED6:
+SpeechPatchPanMin:
         resb 1
-byte_1DCED7:
+SpeechPatchPanMax:
         resb 1
-dword_1DCED8:
+SpeechPatchChannel:
         resb 4
-byte_1DCEDC:
+SpeechPatchPercent:
         resb 1
-byte_1DCEDD:
+SpeechPatchRate:
         resb 1
-byte_1DCEDE:
+SpeechPatchRepeat:
         resb 1
-byte_1DCEDF:
+SpeechPatchPriority:
         resb 1
-byte_1DCEE0:
+SpeechPatchPanStart:
         resb 1
-byte_1DCEE1:
+SpeechPatchAttack:
         resb 1
-byte_1DCEE2:
+SpeechPatchDecay:
         resb 1
-byte_1DCEE3:
+SpeechPatchSustain:
         resb 1
-byte_1DCEE4:
+SpeechPatchPanEnd:
         resb 1
-byte_1DCEE5:
+SpeechPatchRelease:
         resb 1
-byte_1DCEE6:
+SpeechPatchVolStart:
         resb 1
-byte_1DCEE7:
+SpeechPatchDetune:
         resb 1
-word_1DCEE8:
+SpeechPatchLoopStart:
         resb 2
-word_1DCEEA:
+SpeechPatchLoopEnd:
         resb 2
-dword_1DCEEC:
+SpeechPatchDataOffset:
         resb 4
-dword_1DCEF0:
+SpeechPatchDataSize:
         resb 4
-dword_1DCEF4:
+SpeechPatchPosition:
         resb 4
-dword_1DCEF8:
+SpeechPatchHeaderSize:
         resb 4
-dword_1DCEFC:
+SpeechPatchTemplateTag:
         resb 4
-byte_1DCF00:
+SpeechPatchFormat:
         resb 1
-byte_1DCF01:
+SpeechPatchBits:
         resb 1
-byte_1DCF02:
+SpeechPatchChannels:
         resb 1
-byte_1DCF03:
+SpeechPatchCompression:
         resb 1
-byte_1DCF04:
+SpeechPatchBytesPerSample:
         resb 1
-byte_1DCF05:
+SpeechPatchReserved:
         resb 1
-word_1DCF06:
+SpeechPatchSampleRate:
         resb 2
-dword_1DCF08:
+SpeechPatchLength:
         resb 4
-dword_1DCF0C:
+SpeechPatchLoopFrom:
         resb 4
-dword_1DCF10:
+SpeechPatchLoopTo:
         resb 4
-dword_1DCF14:
+SpeechPatchNext:
         resb 4
-dword_1DCF18:
+SpeechPatchHandle:
         resb 4
-dword_1DCF1C:
+SpeechPatchMaxVolume:
         resb 4
-dword_1DCF20:
+SpeechBankBase:
         resb 4
-dword_1DCF24:
+UnpackSrcPtr:
         resb 4
-dword_1DCF28:
+UnpackDestPtr:
         resb 4
-dword_1DCF2C:
+UnpackCount:
         resb 4
-dword_1DCF30:
+UnpackStackPtr:
         resb 4
-dword_1DCF34:
+UnpackPairTable:
         resb 4
-dword_1DCF38:
+ChannelSampleTable:
         resb 3
-byte_1DCF3B:
+ChannelStateBytes:
         resb 3
-dword_1DCF3E:
+ChannelPitchTable:
         resb 1
-dword_1DCF3F:
+ChannelBankTable:
         resb 5
-byte_1DCF44:
+ChannelVolumeTable:
         resb 1
-byte_1DCF45:
+ChannelActiveFlags:
         resb 2
-byte_1DCF47:
+ChannelPriorityTable:
         resb 1
-dword_1DCF48:
+ChannelRecords:
         resb 26
-dword_1DCF62:
+ChannelHandleTable:
         resb 5
-byte_1DCF67:
+ChannelRampTable:
         resb 1
-byte_1DCF68:
+ChannelTimeTable:
         resb 16
-dword_1DCF78:
+VolumeRampTable:
         resb 1024
-dword_1DD378:
+DigitalAudioHandle:
         resb 4
-dword_1DD37C:
+DigitalAudioRate:
         resb 2
-dword_1DD37E:
+ChannelCount:
         resb 3
-byte_1DD381:
+DigitalAudioVolume:
         resb 3

@@ -9,15 +9,15 @@ extern str_Pktlayer, str_Disconnecting, str_WaitingForOtherComputer, str_IPXMEM,
 extern str_PICKS2, str_REGS2, str_LX003, str_LC003, str_LX0D3, str_LC0D3, str_DTOP, str_DBOT
 extern str_08x, str_KWKJSK122691, str_BACK13, str_MB014, str_MB023, str_MB03, str_AR02d2, str_LT02d2
 extern str_MB004, str_GenericHayesCompatible, byte_16D8FA, byte_16D8FD, byte_16D93B, byte_16DA42, byte_1CD24D, byte_1CD250
-extern byte_1CD460, byte_1CD75C, dword_1684C0, dword_168E7C, dword_16D788, dword_16D78C, dword_16D790, dword_16D794
+extern byte_1CD460, byte_1CD75C, GripDriverPtr, PacketSize, dword_16D788, dword_16D78C, dword_16D790, dword_16D794
 extern dword_16D798, dword_16D79C, dword_16D7A0, dword_16D7A4, dword_16D7A8, dword_16D7D0, dword_16D7D4, dword_16D7D8
 extern dword_16D7F0, dword_16D894, dword_16D898, dword_16D89C, dword_16D8A0, dword_16D8A8, dword_16D8AC, dword_16D8B0
 extern dword_16D8B4, dword_16D8B8, dword_16D8BC, dword_16D8D8, dword_16D8DC, InputRecordTail, InputRecordHead, InputRecordCount
 extern dword_16D918, InputRecordStamp, dword_16D93A, dword_16DA9C, dword_16DAA0, dword_16DAA4, dword_16DAA8, dword_16DAAC
-extern dword_16DAB0, dword_16DAB4, dword_16DAB6, dword_16DABC, dword_16DAC0, dword_16DAC4, dword_16DAC8, dword_16DACA
+extern dword_16DAB0, dword_16DAB4, dword_16DAB6, dword_16DABC, str_Punct_ModemSettingsScreen, dword_16DAC4, dword_16DAC8, dword_16DACA
 extern dword_16DAD2, dword_16E124, dword_16E128, dword_16E12A, dword_16E130, dword_16E134, dword_16E138, dword_16E13C
-extern dword_16E140, dword_16E144, mousex, mousey, dword_16E464, dword_16E468, dword_16E46C, dword_1721A8
-extern dword_1AC814, dword_1C5DE4, dword_1CD158, dword_1CD15C, dword_1CD160, dword_1CD17C, dword_1CD180, dword_1CD184
+extern dword_16E140, dword_16E144, mousex, mousey, dword_16E464, dword_16E468, MenuScreenBitmap, IpxPresent
+extern GameSettings, dword_1C5DE4, dword_1CD158, dword_1CD15C, dword_1CD160, dword_1CD17C, dword_1CD180, dword_1CD184
 extern dword_1CD188, dword_1CD18C, dword_1CD190, dword_1CD194, dword_1CD198, dword_1CD1AC, dword_1CD1B0, dword_1CD1B4
 extern dword_1CD1B8, dword_1CD244, dword_1CD248, dword_1CD264, dword_1CD268, dword_1CD26C, dword_1CD270, dword_1CD274
 extern dword_1CD278, dword_1CD27C, dword_1CD280, dword_1CD284, dword_1CD288, dword_1CD28C, dword_1CD290, dword_1CD294
@@ -29,10 +29,10 @@ extern dword_1CD54C, dword_1CD550, dword_1CD554, dword_1CD558, dword_1CD55C, dwo
 extern dword_1CD56C, dword_1CD574, dword_1CD578, dword_1CD57C, dword_1CD580, dword_1CD584, dword_1CD590, dword_1CD594
 extern dword_1CD598, dword_1CD5B4, dword_1CD5B8, dword_1CD5BC, dword_1CD632, dword_1CD64C, dword_1CD650, dword_1CD654
 extern dword_1CD6B0, dword_1CD6C6, dword_1CD6CA, dword_1CD6FE, dword_1CD750, dword_1CD754, dword_1CD758, dword_1CD760
-extern dword_1CD764, dword_1CD76C, dword_1CD770, dword_1CD774, dword_1CD77C, dword_1CD780, dword_1CD784, dword_1CF548
+extern dword_1CD764, dword_1CD76C, dword_1CD770, dword_1CD774, dword_1CD77C, dword_1CD780, dword_1CD784, LinkTextFont
 extern fclose_, fopen_, fread_, fseek_, ftell_, fwrite_, int386x_, memcmp_
 extern memcpy_, memset_, off_16D7AC, off_16D7B4, off_16D7DC, off_16D7E0, off_16D7E4, off_16D7E8
-extern off_16E0FC, off_16E4E0, rand_, segread_, slotteam, sprintf_, strcat_, strcmp_
+extern off_16E0FC, PresentFuncInput, rand_, segread_, slotteam, sprintf_, strcat_, strcmp_
 extern strcpy_, stricmp_, strlen_, strncpy_, bcopy, BlitShape2, BlitArt, BlitShape
 extern PresentScreen, FindShape, ConvertArtNew, FileSizePath, LoadFileToBlockPlain, DetectWindows, SetupOptionsAnim, DosFileInfo
 extern UpdateOptionsAnim, IsKeyDown, ConvertArtXY, ConvertArtKeepPos, SaveDataFile, UnlinkJump, StrCopyEnd, OpenSerialPacketLink
@@ -47,10 +47,10 @@ extern CloseDbFile, AddIndexKey, DeleteIndexKey, FindIndexKey, FindLastKey, Find
 extern BuildKeyFromLong, BuildKeyFromString, KeyToLong, BuildSeasonIntro, SetupSeasonIntro, DrawSeasonIntro, RunIdleHandlers, AllocMemBlock
 extern AllocMemData, FreeMemBlock, ZeroMem, KbdGetKey, addtimer, RemoveTimerCallback, WaitTicks, MakeColor
 extern FreeBitmap, DrawShapeAtOwnPos, DrawArt, CreateBitmap, SetDrawTarget, FillRectColor, FillRect, MeasureText
-extern DrawTextAt, FillRectCorners, tickcount, unk_167540, unk_16D7F4, unk_16D7FC, unk_16E110, unk_1C5F4A
+extern DrawTextAt, FillRectCorners, tickcount, str_X_WaitForOtherComputer, unk_16D7F4, unk_16D7FC, unk_16E110, unk_1C5F4A
 extern unk_1CD19C, InputRecordRing, unk_1CD2BA, unk_1CD2FC, unk_1CD33E, unk_1CD380, unk_1CD408, unk_1CD480
-extern unk_1CD570, unk_1CD59C, unk_1CD5D8, unk_1CD636, unk_1CD6AC, word_1684BE, word_16D7EC, word_16D7EE
-extern word_16D80C, word_16D80E, word_16D85E, word_16D860, word_16D8A4, SlotWords, word_16D920, word_16D922
+extern unk_1CD570, unk_1CD59C, unk_1CD5D8, unk_1CD636, unk_1CD6AC, GripPortWord, word_16D7EC, word_16D7EE
+extern str_Punct_SetMatchupTeams, word_16D80E, str_Punct_DaysToYear, word_16D860, word_16D8A4, SlotWords, word_16D920, str_Punct_ReadJoystickPads
 extern word_16D924, word_16D926, word_16D928, word_16D92A, word_16D92C, word_16DAB8, word_16DACC, word_16DACE
 extern word_16DAD0, word_16E0F8, word_16E0FA, word_16E108, word_16E10A, word_16E10C, word_16E120, word_16E12C
 extern word_16E148, word_16E15E, word_16E16E, word_16E170, word_1CD1C0, word_1CD1CE, word_1CD1D0, HotKeyFlags
@@ -616,7 +616,7 @@ SetMatchupTeams:
         sar ebx, 1
         mov eax, ebx
         shl eax, 2
-        movzx edi, word [dword eax+word_16D80C]
+        movzx edi, word [dword eax+str_Punct_SetMatchupTeams]
         cmp edi, dword [byte edx+04h]
         jne short .2
         mov ax, word [dword eax+word_16D80E]
@@ -1584,7 +1584,7 @@ DaysToYear:
         sub eax, edx
         imul edx, byte 1Ah
         movsx ecx, si
-        add ax, word [dword edx+ecx*2+word_16D85E]
+        add ax, word [dword edx+ecx*2+str_Punct_DaysToYear]
         add eax, ebx
         pop edi
         pop esi
@@ -1637,7 +1637,7 @@ AgeFromBirthDate:
         inc word [ebx]
         jmp short .1
 .2:
-        mov ax, word [dword eax+word_16D85E]
+        mov ax, word [dword eax+str_Punct_DaysToYear]
         sub ecx, eax
         mov word [edi], cx
         leave
@@ -11361,7 +11361,7 @@ ReadInputDriver:
         push esi
         push edi
         mov ebx, eax
-        call dword [off_16E4E0]
+        call dword [PresentFuncInput]
         mov edx, dword [dword_16E464]
         mov ecx, dword [mousex]
         sar edx, 2
@@ -11445,7 +11445,7 @@ ReadJoystickPads:
         mov ecx, ebx
         shl ebx, 3
         sub ebx, ecx
-        mov ecx, dword [dword_1684C0]
+        mov ecx, dword [GripDriverPtr]
         mov si, word [byte ecx+ebx*8+036h]
         mov edx, esi
         xor dh, dh
@@ -11465,7 +11465,7 @@ ReadJoystickPads:
         jne short .1
         or byte [eax], 10h
 .1:
-        mov di, word [word_16D922]
+        mov di, word [str_Punct_ReadJoystickPads]
         test di, di
         je short .2
         xor ecx, ecx
@@ -12334,7 +12334,7 @@ InitLinkSettings:
         xor edx, edx
         jmp short .3
 .1:
-        mov eax, dword [dword_1684C0]
+        mov eax, dword [GripDriverPtr]
         test byte [ebx+eax], 1
         je short .2
         inc esi
@@ -12343,7 +12343,7 @@ InitLinkSettings:
         add ebx, byte 38h
 .3:
         xor eax, eax
-        mov ax, word [word_1684BE]
+        mov ax, word [GripPortWord]
         cmp edx, eax
         jl short .1
         mov edx, edi
@@ -12432,12 +12432,12 @@ InitLinkSettings_11D:
         and al, 78h
         xor ecx, ecx
         and eax, 0FFh
-        mov cx, word [word_1684BE]
+        mov cx, word [GripPortWord]
         sar eax, 3
         cmp eax, ecx
         jge short InitLinkSettings_D6.8
         imul ecx, eax, byte 38h
-        mov edi, dword [dword_1684C0]
+        mov edi, dword [GripDriverPtr]
         test byte [ecx+edi], 1
         je short InitLinkSettings_D6.8
         shl eax, 2
@@ -12747,7 +12747,7 @@ LinkTimerOn:
         je short .3
         cmp dword [dword_16DAC8], byte 0
         jne short .3
-        cmp dword [dword_16E46C], byte 8
+        cmp dword [MenuScreenBitmap], byte 8
         je short .1
         call ShowLinkMessage
         jmp short .2
@@ -12866,7 +12866,7 @@ SyncLinkGame:
         mov ecx, dword [dword_16DAC8]
         cmp esi, ecx
         jne near .8
-        cmp dword [dword_16E46C], byte 8
+        cmp dword [MenuScreenBitmap], byte 8
         je short .5
         mov eax, 237h
         call GetLangText
@@ -12874,7 +12874,7 @@ SyncLinkGame:
         je short .8
         cmp ecx, dword [dword_16DAC8]
         jne short .8
-        cmp dword [dword_16E46C], byte 8
+        cmp dword [MenuScreenBitmap], byte 8
         je short .4
         call ShowLinkMessage
         jmp short .7
@@ -12888,7 +12888,7 @@ SyncLinkGame:
         je short .8
         cmp ecx, dword [dword_16DAC8]
         jne short .8
-        cmp dword [dword_16E46C], byte 8
+        cmp dword [MenuScreenBitmap], byte 8
         je short .6
         call ShowLinkMessage
         jmp short .7
@@ -13029,7 +13029,7 @@ NetInit:
         mov ebx, 0BB8h
         push unk_1CD2BA
         mov dword [dword_16DAA4], eax
-        mov dword [dword_168E7C], ebx
+        mov dword [PacketSize], ebx
         call ZeroMem
         mov ecx, 1
         add esp, byte 8
@@ -13295,7 +13295,7 @@ StartNetworkLink:
         mov ecx, 1
         mov dword [dword_16DAB0], ebx
         mov dword [dword_16DA9C], ecx
-        call dword [off_16E4E0]
+        call dword [PresentFuncInput]
         mov eax, dword [mousex]
         mov si, word [word_16DAB8]
         mov dword [dword_1CD280], ebx
@@ -13417,7 +13417,7 @@ LinkHandshake:
         je short .3
         cmp dword [dword_16DAC8], byte 0
         jne short .3
-        cmp dword [dword_16E46C], byte 8
+        cmp dword [MenuScreenBitmap], byte 8
         je short .1
         mov eax, ebx
         call ShowLinkMessage
@@ -13483,7 +13483,7 @@ LinkHandshake:
         je short .4
         cmp ebp, ebp
         jne short .4
-        cmp dword [dword_16E46C], byte 8
+        cmp dword [MenuScreenBitmap], byte 8
         je short .6
         mov eax, ebx
         call ShowLinkMessage
@@ -13525,7 +13525,7 @@ LinkHandshake:
         je short .9
         cmp ecx, ecx
         jne short .9
-        cmp dword [dword_16E46C], byte 8
+        cmp dword [MenuScreenBitmap], byte 8
         je short .11
         mov eax, ebx
         call ShowLinkMessage
@@ -13567,7 +13567,7 @@ LinkHandshake:
         je short .14
         cmp ebp, ebp
         jne short .14
-        cmp dword [dword_16E46C], byte 8
+        cmp dword [MenuScreenBitmap], byte 8
         je short .16
         mov eax, ebx
         call ShowLinkMessage
@@ -13618,7 +13618,7 @@ LinkHandshake:
         je short .19
         cmp ecx, ecx
         jne short .19
-        cmp dword [dword_16E46C], byte 8
+        cmp dword [MenuScreenBitmap], byte 8
         je short .21
         mov eax, ebx
         call ShowLinkMessage
@@ -14022,7 +14022,7 @@ LinkSendBlock:
         mov eax, dword [tickcount]
         lea ebp, [byte eax+02h]
 .4:
-        mov eax, dword [dword_16DAC0]
+        mov eax, dword [str_Punct_ModemSettingsScreen]
         sub eax, byte 2
         cmp esi, eax
         jle short .5
@@ -14247,8 +14247,8 @@ WaitForOtherComputer:
         lea eax, [nosplit ebp*2+00h]
         sar edi, 1
         sub edx, eax
-        sub edi, dword [dword_1CF548]
-        mov ecx, dword [dword_1CF548]
+        sub edi, dword [LinkTextFont]
+        mov ecx, dword [LinkTextFont]
         sub edi, byte 7
         mov dword [dword esp+0194h], edx
         mov edx, edi
@@ -14274,7 +14274,7 @@ WaitForOtherComputer:
         mov edi, ecx
         mov dword [dword esp+015Ch], edx
         lea eax, [edx+edi]
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         add eax, byte 5
         mov ebx, dword [dword_16E464]
         add eax, edx
@@ -14283,7 +14283,7 @@ WaitForOtherComputer:
         add ebp, ebx
         mov dword [dword esp+0174h], eax
         xor ah, ah
-        mov ecx, dword [dword_16E46C]
+        mov ecx, dword [MenuScreenBitmap]
         mov byte [esp], ah
         mov byte [dword esp+0A0h], ah
         mov byte [dword esp+019Dh], ah
@@ -14361,7 +14361,7 @@ WaitForOtherComputer:
         call FillRectColor
         add esp, byte 14h
         mov eax, dword [dword esp+0170h]
-        mov ecx, dword [dword_16E46C]
+        mov ecx, dword [MenuScreenBitmap]
         add eax, byte 2
         cmp ecx, byte 8
         je short .3
@@ -14411,9 +14411,9 @@ WaitForOtherComputer:
         call FillRectColor
         add esp, byte 14h
         mov eax, dword [dword esp+0174h]
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         sub eax, byte 4
-        mov ecx, dword [dword_16E46C]
+        mov ecx, dword [MenuScreenBitmap]
         sub eax, edx
         cmp ecx, byte 8
         je short .5
@@ -14544,10 +14544,10 @@ WaitForOtherComputer:
         call MakeColor
         add esp, byte 4
         push eax
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         sub eax, byte 2
         push eax
-        push unk_167540
+        push str_X_WaitForOtherComputer
         call MeasureText
         add esp, byte 4
         sub eax, byte 2
@@ -14565,10 +14565,10 @@ WaitForOtherComputer:
         call MakeColor
         add esp, byte 4
         push eax
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         sub eax, byte 2
         push eax
-        push unk_167540
+        push str_X_WaitForOtherComputer
         call MeasureText
         add esp, byte 4
         sub eax, byte 2
@@ -14639,10 +14639,10 @@ WaitForOtherComputer:
         call MakeColor
         add esp, byte 4
         push eax
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         sub eax, byte 2
         push eax
-        push unk_167540
+        push str_X_WaitForOtherComputer
         call MeasureText
         add esp, byte 4
         sub eax, byte 2
@@ -14705,7 +14705,7 @@ WaitForOtherComputer:
         call MakeColor
         add esp, byte 4
         push eax
-        mov edi, dword [dword_1CF548]
+        mov edi, dword [LinkTextFont]
         push edi
         lea eax, [dword esp+01A4h]
         push eax
@@ -14724,7 +14724,7 @@ WaitForOtherComputer:
 .18:
         cmp dword [dword esp+0188h], byte 0Dh
         je short .19
-        push unk_167540
+        push str_X_WaitForOtherComputer
         call MeasureText
         add esp, byte 4
         mov edi, dword [dword esp+0184h]
@@ -14735,10 +14735,10 @@ WaitForOtherComputer:
         jle near .22
 .19:
         xor dh, dh
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         mov byte [esp], dh
         mov edx, dword [dword esp+0180h]
-        mov ecx, dword [dword_1CF548]
+        mov ecx, dword [LinkTextFont]
         add edx, eax
         mov eax, dword [dword esp+0158h]
         mov dword [dword esp+0184h], ebp
@@ -14753,7 +14753,7 @@ WaitForOtherComputer:
         call MakeColor
         add esp, byte 4
         push eax
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         push eax
         mov edx, dword [dword esp+019Ch]
         push edx
@@ -14763,9 +14763,9 @@ WaitForOtherComputer:
         push edi
         call FillRect
         add esp, byte 14h
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         mov edi, dword [dword esp+0180h]
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         add edi, eax
         mov eax, dword [dword esp+0158h]
         sub eax, edx
@@ -14777,7 +14777,7 @@ WaitForOtherComputer:
         call MakeColor
         add esp, byte 4
         push eax
-        mov ecx, dword [dword_1CF548]
+        mov ecx, dword [LinkTextFont]
         push ecx
         mov eax, dword [dword esp+019Ch]
         push eax
@@ -14791,10 +14791,10 @@ WaitForOtherComputer:
         call MakeColor
         add esp, byte 4
         push eax
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         sub eax, byte 2
         push eax
-        push unk_167540
+        push str_X_WaitForOtherComputer
         call MeasureText
         add esp, byte 4
         sub eax, byte 2
@@ -14899,7 +14899,7 @@ WaitForOtherComputer:
         jne near .35
         push byte 1
         call WaitTicks
-        mov ecx, dword [dword_16E46C]
+        mov ecx, dword [MenuScreenBitmap]
         add esp, byte 4
         cmp ecx, byte 8
         je short .31
@@ -14909,7 +14909,7 @@ WaitForOtherComputer:
         je short .34
         cmp edi, dword [dword_16DAC8]
         jne short .34
-        cmp dword [dword_16E46C], byte 8
+        cmp dword [MenuScreenBitmap], byte 8
         je short .30
         call ShowLinkMessage
         jmp short .33
@@ -14998,10 +14998,10 @@ WaitForOtherComputer:
         call MakeColor
         add esp, byte 4
         push eax
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         sub eax, byte 2
         push eax
-        push unk_167540
+        push str_X_WaitForOtherComputer
         call MeasureText
         add esp, byte 4
         sub eax, byte 2
@@ -15057,7 +15057,7 @@ WaitForOtherComputer:
         call MakeColor
         add esp, byte 4
         push eax
-        mov edi, dword [dword_1CF548]
+        mov edi, dword [LinkTextFont]
         push edi
         lea eax, [dword esp+01A4h]
         push eax
@@ -15074,7 +15074,7 @@ WaitForOtherComputer:
 .41:
         cmp dword [dword esp+0164h], byte 0Dh
         je short .42
-        push unk_167540
+        push str_X_WaitForOtherComputer
         call MeasureText
         add esp, byte 4
         lea edi, [ebx+eax]
@@ -15085,7 +15085,7 @@ WaitForOtherComputer:
 .42:
         xor dh, dh
         mov byte [dword esp+0A0h], dh
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         mov eax, dword [dword esp+0190h]
         add esi, edx
         sub eax, edx
@@ -15098,16 +15098,16 @@ WaitForOtherComputer:
         call MakeColor
         add esp, byte 4
         push eax
-        mov edi, dword [dword_1CF548]
+        mov edi, dword [LinkTextFont]
         push edi
         mov eax, dword [dword esp+019Ch]
         push eax
         push esi
         push ebx
         call FillRect
-        mov edi, dword [dword_1CF548]
+        mov edi, dword [LinkTextFont]
         add esp, byte 14h
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         mov eax, dword [dword esp+0190h]
         add edi, esi
         sub eax, edx
@@ -15119,7 +15119,7 @@ WaitForOtherComputer:
         call MakeColor
         add esp, byte 4
         push eax
-        mov ecx, dword [dword_1CF548]
+        mov ecx, dword [LinkTextFont]
         push ecx
         mov eax, dword [dword esp+019Ch]
         push eax
@@ -15132,10 +15132,10 @@ WaitForOtherComputer:
         call MakeColor
         add esp, byte 4
         push eax
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         sub eax, byte 2
         push eax
-        push unk_167540
+        push str_X_WaitForOtherComputer
         call MeasureText
         add esp, byte 4
         sub eax, byte 2
@@ -15410,7 +15410,7 @@ OpenNetSession:
         mov edx, 20h
         mov dword [dword_1CD41C], ecx
         mov word [word_16E0FA], si
-        mov dword [dword_16DAC0], edx
+        mov dword [str_Punct_ModemSettingsScreen], edx
         mov eax, 1
         mov dword [ebx], unk_1CD408
 .11:
@@ -15526,11 +15526,11 @@ IpxInit:
         xor eax, eax
         jmp near .8
 .1:
-        mov dword [dword_1721A8], ebx
+        mov dword [IpxPresent], ebx
         call DetectWindows
         test eax, eax
         jne short .2
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         shl eax, 1Ch
         shr eax, 1Eh
         mov eax, dword [nosplit eax*4+off_16E0FC]
@@ -16098,7 +16098,7 @@ DrawNetGameList:
         call MakeColor
         add esp, byte 4
         push eax
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         push eax
         imul eax, ebx
         push dword 14Ah
@@ -16115,7 +16115,7 @@ DrawNetGameList:
         add eax, edi
         add eax, byte 8
         push eax
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         imul eax, ebx
         push eax
         push byte 19h
@@ -16135,7 +16135,7 @@ DrawNetGameList:
         call SetTextColor
         mov eax, 22Ah
         call GetLangText
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         push eax
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
@@ -16423,7 +16423,7 @@ ChooseNetworkGameScreen:
         push ebp
         sub esp, byte 44h
         mov dword [byte esp+030h], eax
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
         shl eax, 2
@@ -16504,7 +16504,7 @@ ChooseNetworkGameScreen:
         mov eax, 3
         xor edx, edx
         call DrawEditBox
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         lea eax, [nosplit edx*8+00h]
         add eax, edx
         mov ecx, 15Eh
@@ -16526,7 +16526,7 @@ ChooseNetworkGameScreen:
         mov eax, 22Bh
         call GetLangText
         push eax
-        mov ecx, dword [dword_1CF548]
+        mov ecx, dword [LinkTextFont]
         push ecx
         push dword 0C8h
         mov ebp, 0FFFFFFFFh
@@ -16653,7 +16653,7 @@ ChooseNetworkGameScreen:
         add esp, byte 4
         test edi, edi
         jne short .2
-        mov ebx, dword [dword_16E46C]
+        mov ebx, dword [MenuScreenBitmap]
         push ebx
         push str_LX003
         mov ecx, dword [dword_1C5DE4]
@@ -16704,7 +16704,7 @@ ChooseNetworkGameScreen:
         add esp, byte 4
         test edi, edi
         jne short .4
-        mov ebx, dword [dword_16E46C]
+        mov ebx, dword [MenuScreenBitmap]
         push ebx
         push str_LC003
         mov ecx, dword [dword_1C5DE4]
@@ -16885,13 +16885,13 @@ ChooseNetworkGameScreen:
         mov dword [byte esi+eax+02Eh], 0
         mov eax, dword [dword_1CD54C]
         mov word [byte esi+eax+018h], 3
-        mov eax, dword [dword_1CF548]
-        mov ebx, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
+        mov ebx, dword [LinkTextFont]
         dec eax
         lea ebx, [ebx+ebx*2]
         push eax
         add ebx, dword [dword_1CD55C]
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         imul eax, ebp
         mov ecx, 14Ah
         mov edx, dword [dword_1CD560]
@@ -16932,7 +16932,7 @@ ChooseNetworkGameScreen:
         push eax
         call CreateBitmap
         mov dword [dword ebx+dword_1CD564], eax
-        mov eax, dword [dword_1CF548]
+        mov eax, dword [LinkTextFont]
         add esp, byte 0Ch
         lea eax, [eax+eax*2]
         push eax
@@ -16977,7 +16977,7 @@ ChooseNetworkGameScreen:
         push eax
         call CreateBitmap
         mov dword [dword ebx+dword_1CD550], eax
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         mov eax, dword [byte esi+04h]
         lea edx, [edx+edx*8]
         sar eax, 10h
@@ -17021,7 +17021,7 @@ ChooseNetworkGameScreen:
         mov edx, dword [dword_1CD54C]
         add eax, 16Eh
         mov dword [dword edx+02B6h], eax
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         lea eax, [nosplit edx*4+00h]
         mov edi, dword [dword_1CD55C]
         sub eax, edx
@@ -17064,7 +17064,7 @@ ChooseNetworkGameScreen:
         mov edx, dword [dword_1CD54C]
         add eax, 16Eh
         mov dword [dword edx+0308h], eax
-        mov edx, dword [dword_1CF548]
+        mov edx, dword [LinkTextFont]
         lea eax, [nosplit edx*8+00h]
         add eax, edx
         mov edx, dword [dword_1CD55C]
@@ -17585,7 +17585,7 @@ JoinNetworkGame:
 .10:
         mov ebx, 0FAh
         xor ecx, ecx
-        mov dword [dword_16DAC0], ebx
+        mov dword [str_Punct_ModemSettingsScreen], ebx
         mov ebx, 1
         mov dword [dword_1CD584], ecx
         mov word [word_16E10C], bx
@@ -17633,7 +17633,7 @@ OptionsAnimFrame:
         call UpdateOptionsAnim
         imul eax, dword [dword_16E144], byte 38h
         mov ecx, 0Eh
-        mov esi, dword [dword_1684C0]
+        mov esi, dword [GripDriverPtr]
         lea edi, [byte ebp-038h]
         add esi, eax
         rep movsd
@@ -17767,7 +17767,7 @@ OptionsAnimScreen:
         push edi
         enter 0B0h, 0
         sub ebp, 82h
-        movzx edx, word [word_1684BE]
+        movzx edx, word [GripPortWord]
         cmp edx, eax
         jge short .2
 .1:
@@ -17776,7 +17776,7 @@ OptionsAnimScreen:
 .2:
         imul esi, eax, byte 38h
         mov ecx, 0Eh
-        mov edx, dword [dword_1684C0]
+        mov edx, dword [GripDriverPtr]
         lea edi, [byte ebp+012h]
         add esi, edx
         rep movsd

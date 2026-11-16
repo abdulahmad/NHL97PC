@@ -8,7 +8,7 @@ extern str_ST02d, byte_1C3449, byte_1C344A, byte_1C344B, byte_1C3455, byte_1C345
 extern byte_1C556D, byte_1C556E, byte_1C5578, byte_1C5579, byte_1C55A0, byte_1C6040, byte_1CC8B4, dword_16D6E8
 extern dword_16D6EC, dword_16D6F0, dword_16D6F4, dword_16D6F8, dword_16D6FC, dword_16D700, dword_16D704, dword_16D708
 extern dword_16D71C, dword_16D720, dword_16D724, dword_16D728, dword_16D73C, dword_16D740, dword_16D74C, dword_16D750
-extern dword_1AC814, dword_1AC944, dword_1ACF46, dword_1C13FF, dword_1C309E, dword_1C3522, dword_1C51C1, dword_1CC2C8
+extern GameSettings, GameOptionFlags, SeasonActive, dword_1C13FF, dword_1C309E, dword_1C3522, dword_1C51C1, dword_1CC2C8
 extern dword_1CC328, dword_1CC32C, dword_1CC330, dword_1CC334, dword_1CC338, dword_1CC33C, dword_1CC340, dword_1CC344
 extern dword_1CC348, dword_1CC34C, dword_1CC4B0, dword_1CC4B4, dword_1CC4B8, dword_1CC4BC, dword_1CC4C0, dword_1CC4C4
 extern dword_1CC4C8, dword_1CC4CC, dword_1CC5B0, dword_1CC5C8, dword_1CC5CC, dword_1CC5D0, dword_1CC5EC, dword_1CC5F0
@@ -24,8 +24,8 @@ extern FindShapeList, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToS
 extern PaEvent, LoadDataFile, OpenDataLibrary, LoadLogoNames, FreeTempArt, DrawScreenBackground, FadeInScreen, ShowScreen
 extern ExitScreen, SetTextColor, DrawTextAligned, WipeScreen, DrawPortrait, TintPortrait, InitMenuItems, RunMenu
 extern ReadTeamStats, ServiceIdle, AllocMemBlock, FreeMemBlock, OpenResourceArchive, MakeColor, FreeBitmap, DrawArt
-extern DrawShape, CreateBitmap, SetDrawTarget, ClearScreen, tickcount, unk_166FF4, unk_16D7FC, unk_16D804
-extern unk_1AD22E, unk_1AD236, unk_1AD73A, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_D15D1, unk_D15EE
+extern DrawShape, CreateBitmap, SetDrawTarget, ClearScreen, tickcount, str_D_DrawMatchupStats, unk_16D7FC, unk_16D804
+extern unk_1AD22E, unk_1AD236, unk_1AD73A, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, str_Xx00xx01xx02xx03xx10xx11xx12, str_G0LWC0RWLDRD
 extern word_1C340D, word_1C5530
 global jpt_D1917, jpt_D3102, LayoutMatchupLeft_1E9, PreGameMatchupScreen_4E0, PreGameMatchupScreen_4EC, PreGameMatchupScreen_516, PreGameMatchupScreen_522, PreGameMatchupScreen_658
 global PreGameStatsPanel_4DF, PreGameStatsPanel_4E0, LayoutMatchupLeft, LayoutMatchupRight, PreGameMatchupScreen, DrawMatchupStats, DrawPlayerPortrait, DrawMatchupPlayer
@@ -43,11 +43,11 @@ LayoutMatchupLeft:
         enter 104h, 0
         mov edi, eax
         mov ebx, edx
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .3
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         je short .2
 .1:
         mov dword [dword_16D740], 0
@@ -182,10 +182,10 @@ LayoutMatchupRight:
         push edx
         mov ecx, 1Dh
         lea edi, [byte ebp-030h]
-        mov esi, unk_D15D1
+        mov esi, str_Xx00xx01xx02xx03xx10xx11xx12
         rep movsb
         lea edi, [byte ebp-010h]
-        mov esi, unk_D15EE
+        mov esi, str_G0LWC0RWLDRD
         movsd
         movsd
         movsd
@@ -386,7 +386,7 @@ PreGameMatchupScreen:
         add esp, byte 0Ch
         mov eax, 38h
         call OpenDataLibrary
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov ebx, dword [byte eax+01h]
         shl ebx, 0Ch
         shr ebx, 1Ah
@@ -418,7 +418,7 @@ PreGameMatchupScreen:
         add esp, byte 0Ch
         push ebx
         call FreeMemBlock
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov ebx, dword [byte eax+01h]
         shl ebx, 6
         add esp, byte 4
@@ -574,7 +574,7 @@ PreGameMatchupScreen_4E0:
         mov dword [dword_16D740], 1
         jmp short PreGameMatchupScreen_522.13
 PreGameMatchupScreen_4EC:
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .10
@@ -590,7 +590,7 @@ PreGameMatchupScreen_516:
         mov dword [dword_16D740], 0
         jmp short PreGameMatchupScreen_522.13
 PreGameMatchupScreen_522:
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         jne short PreGameMatchupScreen_4EC.11
         jmp short PreGameMatchupScreen_516
 .12:
@@ -733,7 +733,7 @@ DrawMatchupStats:
         mov edi, eax
         movsx eax, word [byte ebp+04Eh]
         push eax
-        push unk_166FF4
+        push str_D_DrawMatchupStats
         push byte 0
         mov esi, 1Ah
         push esi
@@ -788,7 +788,7 @@ DrawMatchupStats:
         add esp, byte 18h
         movsx eax, word [byte ebp+056h]
         push eax
-        push unk_166FF4
+        push str_D_DrawMatchupStats
         add ebx, edi
         push ebx
         push esi
@@ -797,7 +797,7 @@ DrawMatchupStats:
         add esp, byte 14h
         movsx eax, word [byte ebp+0Eh]
         push eax
-        push unk_166FF4
+        push str_D_DrawMatchupStats
         mov esi, dword [dword_16D6F4]
         push byte 0
         sub esi, byte 1Ah
@@ -853,7 +853,7 @@ DrawMatchupStats:
         add esp, byte 18h
         movsx eax, word [byte ebp+016h]
         push eax
-        push unk_166FF4
+        push str_D_DrawMatchupStats
         add ebx, edi
         push ebx
         jmp near .6
@@ -891,7 +891,7 @@ DrawMatchupStats:
         mov edi, eax
         movsx eax, word [byte ebp+04Eh]
         push eax
-        push unk_166FF4
+        push str_D_DrawMatchupStats
         push byte 0
         push byte 1Ah
         push byte 1
@@ -901,7 +901,7 @@ DrawMatchupStats:
         mov dword [byte ebp+076h], eax
         movsx eax, word [byte ebp+050h]
         push eax
-        push unk_166FF4
+        push str_D_DrawMatchupStats
         push edi
         push byte 1Ah
         push byte 1
@@ -912,7 +912,7 @@ DrawMatchupStats:
         mov dword [byte ebp+07Ah], eax
         movsx eax, word [byte ebp+052h]
         push eax
-        push unk_166FF4
+        push str_D_DrawMatchupStats
         push dword [byte ebp+07Ah]
         push byte 1Ah
         push byte 1
@@ -921,7 +921,7 @@ DrawMatchupStats:
         movsx eax, word [byte ebp+05Eh]
         push eax
         mov ebx, dword [byte ebp+07Ah]
-        push unk_166FF4
+        push str_D_DrawMatchupStats
         add ebx, edi
         push ebx
         push byte 1Ah
@@ -930,7 +930,7 @@ DrawMatchupStats:
         add esp, byte 14h
         movsx eax, word [byte ebp+05Ah]
         push eax
-        push unk_166FF4
+        push str_D_DrawMatchupStats
         add edi, ebx
         push edi
         push byte 1Ah
@@ -939,7 +939,7 @@ DrawMatchupStats:
         add esp, byte 14h
         movsx eax, word [byte ebp+0Eh]
         push eax
-        push unk_166FF4
+        push str_D_DrawMatchupStats
         mov esi, dword [dword_16D6F4]
         push byte 0
         sub esi, byte 1Ah
@@ -949,7 +949,7 @@ DrawMatchupStats:
         add esp, byte 14h
         movsx eax, word [byte ebp+010h]
         push eax
-        push unk_166FF4
+        push str_D_DrawMatchupStats
         push dword [byte ebp+076h]
         push esi
         push byte 1
@@ -957,7 +957,7 @@ DrawMatchupStats:
         add esp, byte 14h
         movsx eax, word [byte ebp+012h]
         push eax
-        push unk_166FF4
+        push str_D_DrawMatchupStats
         push dword [byte ebp+07Ah]
         push esi
         push byte 1
@@ -965,7 +965,7 @@ DrawMatchupStats:
         add esp, byte 14h
         movsx eax, word [byte ebp+01Eh]
         push eax
-        push unk_166FF4
+        push str_D_DrawMatchupStats
         push ebx
         push esi
         push byte 1
@@ -973,7 +973,7 @@ DrawMatchupStats:
         add esp, byte 14h
         movsx eax, word [byte ebp+01Ah]
         push eax
-        push unk_166FF4
+        push str_D_DrawMatchupStats
         push edi
 .6:
         push esi
@@ -1431,7 +1431,7 @@ PreGameStatsPanel:
         add edx, 16Eh
         add eax, 16Eh
         call ReadMatchupStats
-        mov eax, dword [dword_1AC814]
+        mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .7
@@ -1441,7 +1441,7 @@ PreGameStatsPanel:
         add edx, 2DCh
         add eax, 2DCh
         call ReadMatchupStats
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         je short .9
         mov ebx, unk_1AD236
         jmp short .8

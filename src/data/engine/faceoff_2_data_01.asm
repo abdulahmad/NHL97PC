@@ -2,84 +2,84 @@
 bits 32
 %include "hockey.inc"
 section s_1608B7 progbits alloc noexec write align=1
-global str_Pktbuffer, dword_1608C0, dword_1608E4, dword_1608E8, dword_1609C4, dword_1609C8, qword_1608B7, qword_1608C4
-global qword_1608CC, qword_1608D4, qword_1608DC, qword_1608EC, qword_1608F4, qword_1608FC, qword_160904, qword_16090C
-global qword_160914, qword_16091C, qword_160924, qword_16092C, qword_160934, qword_16093C, qword_160944, qword_16094C
-global qword_160954, qword_16095C, qword_160964, qword_16096C, qword_160974, qword_16097C, qword_160984, qword_16098C
-global qword_160994, qword_16099C, qword_1609A4, qword_1609AC, qword_1609B4, qword_1609BC
-qword_1608B7:
+global str_Pktbuffer, F32_neg1392_PickShotTarget, F32_neg432, F32_neg1392_updatepentime_ut_chk, F32_144_assfwatch, F32_48_assfwatch, F64_480_PenaltyChance, F64_105
+global F64_130, F64_10_PickShotTarget, F64_20_PickShotTarget, F64_240_ChkGrabPuckOnSwitch, F64_0p392699_FaceDirFromMotion, F64_0p159155_FaceDirFromMotion, F64_65536_FaceDirFromMotion, F64_0p785398_doplayeracc
+global F64_0p785398_SetSkateDir, F64_0p75, F64_0p392699_JoySkate, F64_0p159155_JoySkate, F64_65536_JoySkate, F64_0p392699_ChkPassTo, F64_0p159155_ChkPassTo, F64_65536_ChkPassTo
+global F64_0p392699_DoPassButton, F64_0p159155_DoPassButton, F64_65536_DoPassButton, F64_0p392699_DoShootButton, F64_0p159155_DoShootButton, F64_65536_DoShootButton, F64_0p392699_doinput, F64_0p159155_doinput
+global F64_65536_doinput, F64_0p392699_HumanStickAction, F64_0p159155_HumanStickAction, F64_65536_HumanStickAction, F64_153p6, F64_1392_assfwatch
+F64_480_PenaltyChance:
         db 00h,00h,00h,00h,00h,00h,07Eh,040h,00h
-dword_1608C0:
+F32_neg1392_PickShotTarget:
         db 00h,00h,0AEh,0C4h
-qword_1608C4:
+F64_105:
         db 00h,00h,00h,00h,00h,040h,05Ah,040h
-qword_1608CC:
+F64_130:
         db 00h,00h,00h,00h,00h,040h,060h,040h
-qword_1608D4:
+F64_10_PickShotTarget:
         db 00h,00h,00h,00h,00h,00h,024h,040h
-qword_1608DC:
+F64_20_PickShotTarget:
         db 00h,00h,00h,00h,00h,00h,034h,040h
-dword_1608E4:
+F32_neg432:
         db 00h,00h,0D8h,0C3h
-dword_1608E8:
+F32_neg1392_updatepentime_ut_chk:
         db 00h,00h,0AEh,0C4h
-qword_1608EC:
+F64_240_ChkGrabPuckOnSwitch:
         db 00h,00h,00h,00h,00h,00h,06Eh,040h
-qword_1608F4:
+F64_0p392699_FaceDirFromMotion:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0D9h,03Fh
-qword_1608FC:
+F64_0p159155_FaceDirFromMotion:
         db 0F5h,036h,0BDh,068h,030h,05Fh,0C4h,03Fh
-qword_160904:
+F64_65536_FaceDirFromMotion:
         db 00h,00h,00h,00h,00h,00h,0F0h,040h
-qword_16090C:
+F64_0p785398_doplayeracc:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,03Fh
-qword_160914:
+F64_0p785398_SetSkateDir:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,03Fh
-qword_16091C:
+F64_0p75:
         db 00h,00h,00h,00h,00h,00h,0E8h,03Fh
-qword_160924:
+F64_0p392699_JoySkate:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0D9h,03Fh
-qword_16092C:
+F64_0p159155_JoySkate:
         db 0F5h,036h,0BDh,068h,030h,05Fh,0C4h,03Fh
-qword_160934:
+F64_65536_JoySkate:
         db 00h,00h,00h,00h,00h,00h,0F0h,040h
-qword_16093C:
+F64_0p392699_ChkPassTo:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0D9h,03Fh
-qword_160944:
+F64_0p159155_ChkPassTo:
         db 0F5h,036h,0BDh,068h,030h,05Fh,0C4h,03Fh
-qword_16094C:
+F64_65536_ChkPassTo:
         db 00h,00h,00h,00h,00h,00h,0F0h,040h
-qword_160954:
+F64_0p392699_DoPassButton:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0D9h,03Fh
-qword_16095C:
+F64_0p159155_DoPassButton:
         db 0F5h,036h,0BDh,068h,030h,05Fh,0C4h,03Fh
-qword_160964:
+F64_65536_DoPassButton:
         db 00h,00h,00h,00h,00h,00h,0F0h,040h
-qword_16096C:
+F64_0p392699_DoShootButton:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0D9h,03Fh
-qword_160974:
+F64_0p159155_DoShootButton:
         db 0F5h,036h,0BDh,068h,030h,05Fh,0C4h,03Fh
-qword_16097C:
+F64_65536_DoShootButton:
         db 00h,00h,00h,00h,00h,00h,0F0h,040h
-qword_160984:
+F64_0p392699_doinput:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0D9h,03Fh
-qword_16098C:
+F64_0p159155_doinput:
         db 0F5h,036h,0BDh,068h,030h,05Fh,0C4h,03Fh
-qword_160994:
+F64_65536_doinput:
         db 00h,00h,00h,00h,00h,00h,0F0h,040h
-qword_16099C:
+F64_0p392699_HumanStickAction:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0D9h,03Fh
-qword_1609A4:
+F64_0p159155_HumanStickAction:
         db 0F5h,036h,0BDh,068h,030h,05Fh,0C4h,03Fh
-qword_1609AC:
+F64_65536_HumanStickAction:
         db 00h,00h,00h,00h,00h,00h,0F0h,040h
-qword_1609B4:
+F64_153p6:
         db 033h,033h,033h,033h,033h,033h,063h,040h
-qword_1609BC:
+F64_1392_assfwatch:
         db 00h,00h,00h,00h,00h,0C0h,095h,040h
-dword_1609C4:
+F32_144_assfwatch:
         db 00h,00h,010h,043h
-dword_1609C8:
+F32_48_assfwatch:
         db 00h,00h,040h,042h
 str_Pktbuffer:
         db 070h,06Bh,074h,062h,075h,066h,066h,065h,072h,00h,00h,00h

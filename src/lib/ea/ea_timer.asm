@@ -2,9 +2,9 @@
 bits 32
 %include "hockey.inc"
 section s_FC008 progbits alloc exec nowrite align=1
-extern __STOSD, _dos_getvect_, _dos_setvect_, str_TIMERSTACK, dword_16E3FC, dword_16E402, dword_16E4B0, dword_16E4B4
-extern dword_16E4C8, timercallbacks, dword_1CF28C, dword_1CF290, dword_1CF294, AddExitHandler, AllocMemBlock, FreeMemBlock
-extern TimerISR, word_16E406
+extern __STOSD, _dos_getvect_, _dos_setvect_, str_TIMERSTACK, TimerRate, dword_16E402, str_D_UpdateFrameRate, TimerCalibration
+extern MessageBoxActive, timercallbacks, dword_1CF28C, dword_1CF290, dword_1CF294, AddExitHandler, AllocMemBlock, FreeMemBlock
+extern TimerISR, TimerSavedSelector
 global RestoreTimer, RemoveTimerCallback, InstallTimer
 ;-----------------------------------------------------------------------------
 ; RemoveTimerCallback                             FC008  97 PC, low confidence
@@ -76,7 +76,7 @@ RestoreTimer:
         push edx
         cmp dword [dword_16E402], byte 0
         jne short .1
-        cmp word [word_16E406], byte 0
+        cmp word [TimerSavedSelector], byte 0
         je short .2
 .1:
         mov edx, 21h
@@ -85,7 +85,7 @@ RestoreTimer:
         or al, 3
         out dx, al
         mov eax, 8
-        mov cx, word [word_16E406]
+        mov cx, word [TimerSavedSelector]
         mov ebx, dword [dword_16E402]
         mov edx, 40h
         call _dos_setvect_
@@ -93,7 +93,7 @@ RestoreTimer:
         out dx, al
         xor ebx, ebx
         out dx, al
-        mov word [word_16E406], bx
+        mov word [TimerSavedSelector], bx
         xor ebx, ebx
         mov edx, 21h
         mov dword [dword_16E402], ebx
@@ -123,11 +123,11 @@ InstallTimer:
         push ebp
         cmp dword [dword_16E402], byte 0
         jne short .1
-        cmp word [word_16E406], byte 0
+        cmp word [TimerSavedSelector], byte 0
         jne short .1
-        mov ebx, dword [dword_16E4C8]
+        mov ebx, dword [MessageBoxActive]
         push ebx
-        mov ecx, dword [dword_16E3FC]
+        mov ecx, dword [TimerRate]
         push ecx
         push str_TIMERSTACK
         call AllocMemBlock
@@ -140,7 +140,7 @@ InstallTimer:
         or al, 3
         out dx, al
         mov esi, dword [dword_16E402]
-        mov bx, word [word_16E406]
+        mov bx, word [TimerSavedSelector]
         test esi, esi
         jne short .2
         test bx, bx
@@ -155,7 +155,7 @@ InstallTimer:
         mov ecx, cs
         mov dword [dword_16E402], eax
         mov eax, 8
-        mov word [word_16E406], dx
+        mov word [TimerSavedSelector], dx
         call _dos_setvect_
         push RestoreTimer
         call AddExitHandler
@@ -166,14 +166,14 @@ InstallTimer:
         mov edi, dword [byte esp+014h]
         sar edx, 1Fh
         idiv edi
-        mov dword [dword_16E4B4], eax
+        mov dword [TimerCalibration], eax
         mov ebx, eax
         mov eax, 1234DCh
         mov edx, eax
         sar edx, 1Fh
         idiv ebx
         xor ebp, ebp
-        mov dword [dword_16E4B0], eax
+        mov dword [str_D_UpdateFrameRate], eax
         mov ebx, eax
         mov eax, 1234DBh
         shl ebx, 10h
@@ -188,11 +188,11 @@ InstallTimer:
         shl ecx, 10h
         add eax, ecx
         mov dword [dword_1CF290], eax
-        mov eax, dword [dword_16E4B4]
+        mov eax, dword [TimerCalibration]
         mov edx, 40h
         and eax, 0FFh
         out dx, al
-        mov eax, dword [dword_16E4B4]
+        mov eax, dword [TimerCalibration]
         sar eax, 8
         and eax, 0FFh
         out dx, al

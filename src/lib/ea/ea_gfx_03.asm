@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_100700 progbits alloc exec nowrite align=1
-extern __fprem_chk, byte_17268C, dword_16E46C, dword_16F14C, dword_16F150, dword_1702CC, dword_1726A0, dword_1726A4
-extern dword_1DA4D0, jpt_1006E0, Div64By32, Shl64
+extern __fprem_chk, MathErrorFlags, MenuScreenBitmap, SortStride, SortKeyOffset, SinTable, AtanTable, str_Punct_AngleOfVector
+extern PaletteWords, jpt_1006E0, Div64By32, Shl64
 global IF@DFMOD, AngleOfVector_91, AngleOfVector_93, AngleOfVector_9A, AngleOfVector_A3, AngleOfVector_A7, AngleOfVector_AE, AngleOfVector_B0
 global AngleOfVector_B5, AngleOfVector, SinInterp, CosInterp, GetPaletteRange, SortIndices
 ;-----------------------------------------------------------------------------
@@ -52,8 +52,8 @@ AngleOfVector:
         shr eax, 18h
         lea edx, [nosplit eax*4+00h]
         shr esi, 8
-        mov eax, dword [dword edx+dword_1726A0]
-        mov edx, dword [dword edx+dword_1726A4]
+        mov eax, dword [dword edx+AtanTable]
+        mov edx, dword [dword edx+str_Punct_AngleOfVector]
         and esi, 0FFFFh
         sub edx, eax
         imul edx, esi
@@ -105,7 +105,7 @@ SinInterp:
         xor eax, ecx
         and eax, 0FFh
         sub eax, ecx
-        mov eax, dword [nosplit eax*4+dword_1702CC]
+        mov eax, dword [nosplit eax*4+SinTable]
         xor eax, edx
         sub eax, edx
         mov esi, eax
@@ -121,7 +121,7 @@ SinInterp:
         xor eax, ecx
         and eax, 0FFh
         sub eax, ecx
-        mov eax, dword [nosplit eax*4+dword_1702CC]
+        mov eax, dword [nosplit eax*4+SinTable]
         xor eax, edx
         sub eax, edx
         sar eax, 2
@@ -151,7 +151,7 @@ CosInterp:
         xor eax, ecx
         and eax, 0FFh
         sub eax, ecx
-        mov eax, dword [nosplit eax*4+dword_1702CC]
+        mov eax, dword [nosplit eax*4+SinTable]
         xor eax, edx
         sub eax, edx
         mov esi, eax
@@ -163,7 +163,7 @@ CosInterp:
         xor eax, ecx
         and eax, 0FFh
         sub eax, ecx
-        mov eax, dword [nosplit eax*4+dword_1702CC]
+        mov eax, dword [nosplit eax*4+SinTable]
         xor eax, edx
         sub eax, edx
         mov ebx, eax
@@ -184,7 +184,7 @@ CosInterp:
 ; IF@DFMOD                                                     1008A2  library
 ;-----------------------------------------------------------------------------
 IF@DFMOD:
-        test byte [byte_17268C], 1
+        test byte [MathErrorFlags], 1
         jne short .1
         fprem
         jmp short .2
@@ -209,7 +209,7 @@ GetPaletteRange:
         LD mov, ebp, esp
         push ebx
         push edi
-        cmp dword [dword_16E46C], byte 8
+        cmp dword [MenuScreenBitmap], byte 8
         jg short .2
         mov edi, dword [byte ebp+010h]
         mov edx, 3C7h
@@ -231,7 +231,7 @@ GetPaletteRange:
 .2:
         mov edi, dword [byte ebp+010h]
         mov eax, dword [byte ebp+08h]
-        lea ebx, [nosplit eax*4+dword_1DA4D0]
+        lea ebx, [nosplit eax*4+PaletteWords]
         mov ecx, dword [byte ebp+0Ch]
 .3:
         mov al, byte [byte ebx+02h]
@@ -266,14 +266,14 @@ SortIndices:
         mov edx, 1
         mov ebx, dword [byte esp+030h]
         mov dword [byte esp+04h], edx
-        mov edx, dword [dword_16F150]
+        mov edx, dword [SortKeyOffset]
         mov eax, 4
         cmp edx, ebx
         jge short .2
         mov esi, dword [byte esp+030h]
 .1:
         mov ecx, dword [byte esp+04h]
-        mov edx, dword [dword eax+dword_16F150]
+        mov edx, dword [dword eax+SortKeyOffset]
         inc ecx
         add eax, byte 4
         mov dword [byte esp+04h], ecx
@@ -289,7 +289,7 @@ SortIndices:
         sub ebp, byte 4
         mov edx, dword [byte esp+030h]
         dec eax
-        mov esi, dword [dword ebp+dword_16F14C]
+        mov esi, dword [dword ebp+SortStride]
         mov dword [esp], ebp
         mov dword [byte esp+04h], eax
         mov dword [byte esp+014h], esi

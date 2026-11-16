@@ -10,7 +10,7 @@ extern str_AB092, str_POWR3, str_EC002, str_EC012, str_BAK12, str_C, str_D3, str
 extern str_AR02d3, str_AllStarPlayerInfo, str_AllStarGoalieInfo, str_WestAllStars, str_EastAllStars, str_AllStarRosters, str_AllStarAirecs, str_AllStarRawPlrs
 extern str_AllStarStatrecs, str_MB044, str_FrANKGBarchard, str_100, str_REF, str_Refpack, str_F10, byte_16CCF0
 extern byte_16E273, byte_16E274, byte_16E275, byte_16E28E, byte_1C135A, byte_1C135B, byte_1C3449, byte_1C556C
-extern byte_1C6040, byte_1CE224, byte_1CE23D, byte_1CE23E, dword_16DA9C, dword_16E2B2, dword_1AC940, dword_1C1334
+extern byte_1C6040, byte_1CE224, byte_1CE23D, byte_1CE23E, dword_16DA9C, str_Punct_LoadAllStarArt, SeasonUserTeam, dword_1C1334
 extern dword_1C1346, dword_1C5DE4, dword_1C5E74, dword_1CE0E4, dword_1CE0E8, dword_1CE0EC, dword_1CE0F4, dword_1CE0FC
 extern dword_1CE104, dword_1CE10C, dword_1CE110, dword_1CE114, dword_1CE118, dword_1CE11C, dword_1CE120, dword_1CE124
 extern dword_1CE128, dword_1CE12C, dword_1CE130, dword_1CE134, dword_1CE158, dword_1CE15C, dword_1CE160, dword_1CE164
@@ -29,15 +29,15 @@ extern ChangeMenuMusic, InitMenuItems, RunMenu, InitScrollList, ScrollUp, DrawSc
 extern SetScrollBarPos, ScrollToMouse, RunScrollList, SetListSelection, GetLangText, PositionAbbrev, ClearAndBuildLines, StatsTablesScreen
 extern PlayerStatsScreen, InitListBox, InitShapeListBox, KeysEqual, SetMatchupTeams, BuildAllStarRecords, FindPlayerRecord, FindGameRecord
 extern FindPlayerStat, FindTeamStat, ServiceIdle, AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, DrawArt
-extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, MeasureText, tickcount, unk_167806, unk_167809
-extern unk_167814, unk_1678E0, unk_1678E2, unk_1678E4, unk_1678E6, unk_1678E8, unk_1678EA, unk_1678EC
-extern unk_1678EE, unk_1678F0, unk_1678F2, unk_1678F4, unk_1678F6, unk_1678F8, unk_1678FA, unk_1678FC
-extern unk_1678FE, unk_167900, unk_167902, unk_167904, unk_167906, unk_167908, unk_16790A, unk_16790C
-extern unk_16790E, unk_167910, unk_167912, unk_167914, unk_167916, unk_167918, unk_16791A, unk_16791C
-extern unk_16791E, unk_167920, unk_167922, unk_167924, unk_167926, unk_167928, unk_16792A, unk_16792C
-extern unk_16792E, unk_167930, unk_167932, unk_167934, unk_167936, unk_167938, unk_16793A, unk_16793C
-extern unk_16793E, unk_167940, unk_167943, unk_167946, unk_167949, unk_16794C, unk_16794F, unk_167952
-extern unk_167955, unk_167958, unk_16D7F4, unk_1C133C, unk_1C134A, unk_1C1352, unk_1C135C, unk_1C1364
+extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, MeasureText, tickcount, str_C_DrawAllStarTeam, str_D_DrawAllStarTeam
+extern str_S_DrawAllStarList, str_1_GetKeyName, str_2_GetKeyName, str_3_GetKeyName, str_4_GetKeyName, str_5_GetKeyName, str_6_GetKeyName, str_7_GetKeyName
+extern str_8_GetKeyName, str_9, str_0_GetKeyName, str_Punct_GetKeyName, unk_1678F6, str_Q, str_W_GetKeyName, str_E_GetKeyName
+extern str_R, str_T_GetKeyName, str_Y, str_U, str_I, str_O, str_P_GetKeyName, unk_16790C
+extern unk_16790E, str_A, str_S_GetKeyName, str_D_GetKeyName, str_F_GetKeyName, str_G, str_H, str_J
+extern str_K, str_L, unk_167922, unk_167924, unk_167926, unk_167928, str_Z, str_X_GetKeyName
+extern str_C_GetKeyName, str_V, str_B, str_N_GetKeyName, str_M, unk_167938, unk_16793A, unk_16793C
+extern unk_16793E, str_F1, str_F2, str_F3, str_F4, str_F5, str_F6, str_F7
+extern str_F8, str_F9, unk_16D7F4, unk_1C133C, unk_1C134A, unk_1C1352, unk_1C135C, unk_1C1364
 extern unk_1C347F, unk_1C3487, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C5FEE, unk_1CEA8A, unk_1CEA99
 extern unk_1CEAA8, unk_1CEAB7, unk_1CEAC6, unk_1CEAD5, unk_1CEAE4, unk_1CEAF3, unk_1CEB02, unk_1CEB11
 extern unk_1CEB20, unk_1CEB2F, unk_1CEB3E, unk_1CEB4D, unk_1CEB5C, unk_1CEB6B, unk_1CEB7A, unk_1CEB89
@@ -55,8 +55,8 @@ global AllStarScreen, AllStarSound, InitAllStarScreen, FreeAllStarScreen, DrawAl
 global DrawAllStarSlot, DrawAllStarSelection, DrawAllStarList, LoadAllStarLogo, LoadAllStarArt, AllStarNextTeam, AllStarPrevTeam, AllStarNextSlot
 global AllStarPrevSlot, ClearAllStarPicks, AllStarPicksDone, FindAllStarPick, FindFreeAllStarSlot, AllStarPickTaken, AllStarPickPlayer, AllStarAddPick
 global AllStarRemovePick, AllStarTogglePick, AllStarSlotPosition, CompareAllStarGoalie, CompareAllStarKey, AddAllStarCandidate, PickAllStarCandidates, PickAllStarPlayers
-global InitAllStarTeams, AllocAllStarRosters, DrawAllStarPickList, LinkReceiveChunk, LinkSendChunk, LinkSendFile, GetKeyName, unk_EDDEF
-global unk_EDE3F, unk_EDE53, unk_EE053, unk_EE093, unk_EE0E3
+global InitAllStarTeams, AllocAllStarRosters, DrawAllStarPickList, LinkReceiveChunk, LinkSendChunk, LinkSendFile, GetKeyName, str_Punct_DrawControlLabel
+global unk_EDE3F, unk_EDE53, unk_EE053, str_Punct_ControlSetupScreen, unk_EE0E3
 ;-----------------------------------------------------------------------------
 ; BuildAllStarTeams                               E9429  97 PC, low confidence
 ; From the season code: sets up the two All-Star teams (InitAllStarTeams,
@@ -1743,7 +1743,7 @@ DrawAllStarTeam:
         movzx eax, al
         push eax
         mov ebx, dword [byte ebp-014h]
-        push unk_167806
+        push str_C_DrawAllStarTeam
         add ebx, byte 4
         push ebx
         push dword [byte ebp-018h]
@@ -1751,7 +1751,7 @@ DrawAllStarTeam:
         call DrawTextAligned
         add esp, byte 14h
         push dword [byte ebp-020h]
-        push unk_167809
+        push str_D_DrawAllStarTeam
         mov eax, dword [byte ebp-018h]
         push ebx
         add eax, byte 10h
@@ -2349,7 +2349,7 @@ DrawAllStarList:
         add esp, byte 14h
         add eax, byte 8
         push eax
-        push unk_167814
+        push str_S_DrawAllStarList
         mov eax, dword [byte ebp-04h]
         push dword [byte ebp-0Ch]
         add eax, byte 14h
@@ -2735,7 +2735,7 @@ LoadAllStarArt:
         xor ebx, ebx
         jmp short .6
 .5:
-        push dword [nosplit ebx*4+dword_16E2B2]
+        push dword [nosplit ebx*4+str_Punct_LoadAllStarArt]
         push str_AR02d3
         lea eax, [byte ebp-010h]
         push eax
@@ -4114,7 +4114,7 @@ PickAllStarPlayers:
         push esi
         push edi
         enter 40h, 0
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         mov edi, 0DF7h
         mov dword [byte ebp-020h], 1ADh
         movsx eax, word [eax]
@@ -4477,7 +4477,7 @@ InitAllStarTeams:
         mov esi, unk_16D7F4
         movsd
         movsd
-        mov esi, dword [dword_1AC940]
+        mov esi, dword [SeasonUserTeam]
         mov edi, unk_1C133C
         lea esi, [byte esi+04h]
         movsd
@@ -4586,7 +4586,7 @@ AllocAllStarRosters:
 .5:
         test ebx, ebx
         jge short .4
-        mov esi, dword [dword_1AC940]
+        mov esi, dword [SeasonUserTeam]
         mov dword [dword_1CE1B4], unk_1C135C
         mov dword [dword_1CE1B8], unk_1C347F
         movsx esi, word [esi]
@@ -4664,7 +4664,7 @@ AllocAllStarRosters:
         mov eax, dword [dword_1CE220]
         mov ecx, ebx
         add edx, eax
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         shl ecx, 3
         mov eax, dword [byte eax+01Ch]
         add eax, ecx
@@ -5734,7 +5734,7 @@ LinkSendFile:
         pop edi
         pop esi
         ret
-unk_EDDEF:
+str_Punct_DrawControlLabel:
         db 05Dh,00h,089h,00h,06Eh,00h,0Eh,00h,04h,01h,058h,00h,06Eh,00h,0Eh,00h
         db 0ADh,01h,089h,00h,06Eh,00h,0Eh,00h,0C8h,01h,0E7h,00h,06Eh,00h,0Eh,00h
         db 0ACh,01h,044h,01h,06Eh,00h,0Eh,00h,04h,01h,07Ah,01h,06Eh,00h,0Eh,00h
@@ -5781,7 +5781,7 @@ unk_EE053:
         db 059h,01h,096h,00h,037h,00h,03Ch,00h,077h,01h,0D7h,00h,02Dh,00h,032h,00h
         db 063h,01h,013h,01h,02Dh,00h,03Ch,00h,022h,01h,031h,01h,032h,00h,028h,00h
         db 0E6h,00h,013h,01h,037h,00h,032h,00h,0D2h,00h,0D7h,00h,02Dh,00h,032h,00h
-unk_EE093:
+str_Punct_ControlSetupScreen:
         db 05Dh,00h,089h,00h,06Eh,00h,0Eh,00h,04h,01h,058h,00h,06Eh,00h,0Eh,00h
         db 0ADh,01h,089h,00h,06Eh,00h,0Eh,00h,0C8h,01h,0E7h,00h,06Eh,00h,0Eh,00h
         db 0ACh,01h,044h,01h,06Eh,00h,0Eh,00h,04h,01h,07Ah,01h,06Eh,00h,0Eh,00h
@@ -5807,37 +5807,37 @@ GetKeyName:
         mov edx, eax
         mov eax, unk_1CEA99
         call strcpy_
-        mov edx, unk_1678E0
+        mov edx, str_1_GetKeyName
         mov eax, unk_1CEAA8
         call strcpy_
-        mov edx, unk_1678E2
+        mov edx, str_2_GetKeyName
         mov eax, unk_1CEAB7
         call strcpy_
-        mov edx, unk_1678E4
+        mov edx, str_3_GetKeyName
         mov eax, unk_1CEAC6
         call strcpy_
-        mov edx, unk_1678E6
+        mov edx, str_4_GetKeyName
         mov eax, unk_1CEAD5
         call strcpy_
-        mov edx, unk_1678E8
+        mov edx, str_5_GetKeyName
         mov eax, unk_1CEAE4
         call strcpy_
-        mov edx, unk_1678EA
+        mov edx, str_6_GetKeyName
         mov eax, unk_1CEAF3
         call strcpy_
-        mov edx, unk_1678EC
+        mov edx, str_7_GetKeyName
         mov eax, unk_1CEB02
         call strcpy_
-        mov edx, unk_1678EE
+        mov edx, str_8_GetKeyName
         mov eax, unk_1CEB11
         call strcpy_
-        mov edx, unk_1678F0
+        mov edx, str_9
         mov eax, unk_1CEB20
         call strcpy_
-        mov edx, unk_1678F2
+        mov edx, str_0_GetKeyName
         mov eax, unk_1CEB2F
         call strcpy_
-        mov edx, unk_1678F4
+        mov edx, str_Punct_GetKeyName
         mov eax, unk_1CEB3E
         call strcpy_
         mov edx, unk_1678F6
@@ -5853,34 +5853,34 @@ GetKeyName:
         mov edx, eax
         mov eax, unk_1CEB6B
         call strcpy_
-        mov edx, unk_1678F8
+        mov edx, str_Q
         mov eax, unk_1CEB7A
         call strcpy_
-        mov edx, unk_1678FA
+        mov edx, str_W_GetKeyName
         mov eax, unk_1CEB89
         call strcpy_
-        mov edx, unk_1678FC
+        mov edx, str_E_GetKeyName
         mov eax, unk_1CEB98
         call strcpy_
-        mov edx, unk_1678FE
+        mov edx, str_R
         mov eax, unk_1CEBA7
         call strcpy_
-        mov edx, unk_167900
+        mov edx, str_T_GetKeyName
         mov eax, unk_1CEBB6
         call strcpy_
-        mov edx, unk_167902
+        mov edx, str_Y
         mov eax, unk_1CEBC5
         call strcpy_
-        mov edx, unk_167904
+        mov edx, str_U
         mov eax, unk_1CEBD4
         call strcpy_
-        mov edx, unk_167906
+        mov edx, str_I
         mov eax, unk_1CEBE3
         call strcpy_
-        mov edx, unk_167908
+        mov edx, str_O
         mov eax, unk_1CEBF2
         call strcpy_
-        mov edx, unk_16790A
+        mov edx, str_P_GetKeyName
         mov eax, unk_1CEC01
         call strcpy_
         mov edx, unk_16790C
@@ -5899,31 +5899,31 @@ GetKeyName:
         mov edx, eax
         mov eax, unk_1CEC3D
         call strcpy_
-        mov edx, unk_167910
+        mov edx, str_A
         mov eax, unk_1CEC4C
         call strcpy_
-        mov edx, unk_167912
+        mov edx, str_S_GetKeyName
         mov eax, unk_1CEC5B
         call strcpy_
-        mov edx, unk_167914
+        mov edx, str_D_GetKeyName
         mov eax, unk_1CEC6A
         call strcpy_
-        mov edx, unk_167916
+        mov edx, str_F_GetKeyName
         mov eax, unk_1CEC79
         call strcpy_
-        mov edx, unk_167918
+        mov edx, str_G
         mov eax, unk_1CEC88
         call strcpy_
-        mov edx, unk_16791A
+        mov edx, str_H
         mov eax, unk_1CEC97
         call strcpy_
-        mov edx, unk_16791C
+        mov edx, str_J
         mov eax, unk_1CECA6
         call strcpy_
-        mov edx, unk_16791E
+        mov edx, str_K
         mov eax, unk_1CECB5
         call strcpy_
-        mov edx, unk_167920
+        mov edx, str_L
         mov eax, unk_1CECC4
         call strcpy_
         mov edx, unk_167922
@@ -5943,25 +5943,25 @@ GetKeyName:
         mov edx, unk_167928
         mov eax, unk_1CED0F
         call strcpy_
-        mov edx, unk_16792A
+        mov edx, str_Z
         mov eax, unk_1CED1E
         call strcpy_
-        mov edx, unk_16792C
+        mov edx, str_X_GetKeyName
         mov eax, unk_1CED2D
         call strcpy_
-        mov edx, unk_16792E
+        mov edx, str_C_GetKeyName
         mov eax, unk_1CED3C
         call strcpy_
-        mov edx, unk_167930
+        mov edx, str_V
         mov eax, unk_1CED4B
         call strcpy_
-        mov edx, unk_167932
+        mov edx, str_B
         mov eax, unk_1CED5A
         call strcpy_
-        mov edx, unk_167934
+        mov edx, str_N_GetKeyName
         mov eax, unk_1CED69
         call strcpy_
-        mov edx, unk_167936
+        mov edx, str_M
         mov eax, unk_1CED78
         call strcpy_
         mov edx, unk_167938
@@ -5996,31 +5996,31 @@ GetKeyName:
         mov edx, eax
         mov eax, unk_1CEDF0
         call strcpy_
-        mov edx, unk_167940
+        mov edx, str_F1
         mov eax, unk_1CEDFF
         call strcpy_
-        mov edx, unk_167943
+        mov edx, str_F2
         mov eax, unk_1CEE0E
         call strcpy_
-        mov edx, unk_167946
+        mov edx, str_F3
         mov eax, unk_1CEE1D
         call strcpy_
-        mov edx, unk_167949
+        mov edx, str_F4
         mov eax, unk_1CEE2C
         call strcpy_
-        mov edx, unk_16794C
+        mov edx, str_F5
         mov eax, unk_1CEE3B
         call strcpy_
-        mov edx, unk_16794F
+        mov edx, str_F6
         mov eax, unk_1CEE4A
         call strcpy_
-        mov edx, unk_167952
+        mov edx, str_F7
         mov eax, unk_1CEE59
         call strcpy_
-        mov edx, unk_167955
+        mov edx, str_F8
         mov eax, unk_1CEE68
         call strcpy_
-        mov edx, unk_167958
+        mov edx, str_F9
         mov eax, unk_1CEE77
         call strcpy_
         mov edx, str_F10

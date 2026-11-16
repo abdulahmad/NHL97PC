@@ -3,14 +3,14 @@ bits 32
 %include "hockey.inc"
 section s_FDDD4 progbits alloc exec nowrite align=1
 extern IF@DACOS, IF@SQRT, __@DEXP, __CHP, __fdiv_fpr, __fpatan_wrap, __pow87_err_, __prtf_
-extern str_Acos, byte_16E688, byte_17268C, dword_167D99, dword_167D9D, dword_167DC1, dword_167DC5, dword_16E678
-extern dword_16E67C, dword_16E680, dword_16E684, dword_16E690, dword_16E694, dword_16E698, dword_16E69C, dword_16E6A0
-extern dword_16F140, dword_16F144, dword_16F148, dword_170254, dword_170258, dword_17025C, dword_170260, dword_170264
-extern dword_170268, dword_1CF528, dword_1CF52C, dword_1CF530, dword_1CF534, dword_1CF538, dword_1CF53C, dword_1CF540
-extern dword_1CF544, dword_1CF550, dword_1CF554, dword_1CF558, dword_1CF598, dword_1CF59C, dword_1CF5A8, dword_1CF5AC
-extern dword_1CF5B0, dword_1CF5B4, dword_1CF5B8, dword_1CF5BC, dword_1CF5C0, dword_1CF5C4, dword_1CF5C8, dword_1CF5CC
-extern dword_1CF5D0, dword_1CF5D4, dword_1CF5D8, dword_1CF5DC, dword_1CF5E0, dword_1CF5E4, dword_1CF5E8, dword_1CF5EC
-extern dword_1CF5F0, dword_1DA4D0, mem_putc_, qword_167DA1, qword_167DA9, qword_167DB1, qword_167DB9, strcmp_
+extern str_Acos, ScreenBitsPerPixel, MathErrorFlags, F32_1p52588eneg05, F32_65536_ScaleFloatsToInts, F32_0p5_SetProjectionCenter, F32_65536_SetProjectionCenter, ClipTopRow
+extern ClipLeftCol, ClipRight, ScreenHeight, ScreenPitch, ScreenBuffer, DrawDestBuffer, DrawDestPitch, DrawDestOffset
+extern F32_50p0_View, F32_1p0_View, RinkLineWidth, CameraYaw, CameraPitch, ViewCenterY, str_D_ProjectPointsPersp, CameraSinYaw
+extern CameraCosYaw, TextOriginX, TextOriginY, FontAscent, FontDescent, TextAlign, CurrentFont, FontHeight
+extern FontWidth, TextColorIndex, TextColorTable, FontGlyphColors, FontLastChar, FontGlyphTable, FontGlyphCount, FontKernTable
+extern TextShadowColor, TextBuffer, DrawGlyphFn, TextCharFn, TextEndFn, TextNextCharFn, FontSpacing, FontKernCount
+extern FontKernPairs, ProjScaleX, ProjCenterX, ProjCenterY, ProjScaleY, ProjOffsetX, ProjOffsetY, ProjDetailScale
+extern ProjAspect, PaletteWords, mem_putc_, F64_1p5259eneg05, F64_0p9_SetFocalLength, F64_1p1_SetFocalLength, F64_0p5_SetProjectionCenter, strcmp_
 extern Random32, PlotPixelRGB, PlotPixel, SaveTextState, RestoreTextState, AllocNetBuffer, FreeNetBuffer, SetTextOrigin
 extern SetTextFont, DrawTextLimited, DrawTextString, ConvertColor555, DrawGlyphScaled, SetTextScale, MakeColor, FillRect
 global IF@ATAN, IF@ATAN2, IF@DPOW, hypot_, DrawGlyph_494, DrawGlyph_590, PrepareTextDraw_72, FloatsToInts_47
@@ -154,7 +154,7 @@ GetGlyph:
         lea eax, [nosplit ebx*4+00h]
         sub eax, ebx
         shl eax, 2
-        mov edx, dword [dword_1CF5A8]
+        mov edx, dword [FontGlyphCount]
         sub eax, ebx
         lea ebx, [edx+eax]
         mov ecx, 2
@@ -173,7 +173,7 @@ GetGlyph:
         ret
 .1:
         mov ecx, 0Bh
-        mov ebx, dword [dword_1CF598]
+        mov ebx, dword [FontLastChar]
         mov eax, esi
         call FindGlyph
         pop esi
@@ -190,10 +190,10 @@ GetKerning:
         push ebx
         push ecx
         push esi
-        mov ebx, dword [dword_1CF5CC]
+        mov ebx, dword [FontKernCount]
         mov esi, eax
         mov ecx, edx
-        mov eax, dword [dword_1CF5D0]
+        mov eax, dword [FontKernPairs]
         xor edx, edx
         test ebx, ebx
         jle short .3
@@ -234,28 +234,28 @@ DrawTextRun:
         mov eax, dword [byte esp+050h]
         mov ebp, 0FFFFFFFFh
         mov dword [esp], eax
-        mov eax, dword [dword_1CF5B8]
-        mov esi, dword [dword_1CF528]
+        mov eax, dword [DrawGlyphFn]
+        mov esi, dword [TextOriginX]
         mov dword [byte esp+0Ch], eax
-        mov eax, dword [dword_1CF5C4]
-        mov edx, dword [dword_1CF530]
+        mov eax, dword [TextNextCharFn]
+        mov edx, dword [FontAscent]
         mov dword [byte esp+014h], eax
-        mov eax, dword [dword_1CF5C8]
-        mov ebx, dword [dword_1CF534]
+        mov eax, dword [FontSpacing]
+        mov ebx, dword [FontDescent]
         mov dword [byte esp+030h], eax
-        mov eax, dword [dword_1CF5D0]
+        mov eax, dword [FontKernPairs]
         xor ecx, ecx
         mov dword [byte esp+010h], eax
-        mov eax, dword [dword_1CF52C]
+        mov eax, dword [TextOriginY]
         mov dword [byte esp+018h], ecx
         add eax, ebx
         mov dword [byte esp+034h], ecx
         mov dword [byte esp+038h], eax
-        mov eax, dword [dword_1CF5BC]
+        mov eax, dword [TextCharFn]
         add esi, edx
         test eax, eax
         je short .1
-        call dword [dword_1CF5BC]
+        call dword [TextCharFn]
 .1:
         mov eax, 20h
         call GetGlyph
@@ -323,7 +323,7 @@ DrawTextRun:
         call dword [byte esp+030h]
 .4:
         mov ebx, dword [byte esp+028h]
-        mov edx, dword [dword_1CF59C]
+        mov edx, dword [FontGlyphTable]
         xor eax, eax
         push edx
         mov al, byte [byte edi+03h]
@@ -337,7 +337,7 @@ DrawTextRun:
         mov ecx, dword [byte esp+014h]
         mov eax, dword [byte esp+028h]
         push ebx
-        mov ebx, dword [dword_1CF5AC]
+        mov ebx, dword [FontKernTable]
         add eax, ecx
         mov ecx, dword [byte esp+030h]
         call dword [byte esp+01Ch]
@@ -350,8 +350,8 @@ DrawTextRun:
         je short .7
         cmp eax, byte 0Ah
         jne short .6
-        mov edx, dword [dword_1CF540]
-        mov ebx, dword [dword_1CF544]
+        mov edx, dword [FontHeight]
+        mov ebx, dword [FontWidth]
         mov ecx, dword [byte esp+038h]
         add edx, ebx
         add ecx, edx
@@ -362,17 +362,17 @@ DrawTextRun:
         add esi, dword [byte esp+018h]
         jmp near .2
 .7:
-        cmp dword [dword_1CF5C0], byte 0
+        cmp dword [TextEndFn], byte 0
         je short .8
-        call dword [dword_1CF5C0]
+        call dword [TextEndFn]
 .8:
-        mov eax, dword [dword_1CF530]
+        mov eax, dword [FontAscent]
         mov edx, dword [byte esp+038h]
         sub esi, eax
-        mov eax, dword [dword_1CF534]
+        mov eax, dword [FontDescent]
         sub edx, eax
-        mov dword [dword_1CF528], esi
-        mov dword [dword_1CF52C], edx
+        mov dword [TextOriginX], esi
+        mov dword [TextOriginY], edx
         add esp, byte 3Ch
         pop ebp
         pop edi
@@ -412,14 +412,14 @@ SetTextColors:
         sub esp, byte 30h
         mov eax, dword [byte esp+044h]
         mov ebx, dword [byte esp+048h]
-        cmp eax, dword [dword_1CF550]
+        cmp eax, dword [TextColorIndex]
         jne short .1
-        cmp ebx, dword [dword_1CF554]
+        cmp ebx, dword [TextColorTable]
         je near .3
 .1:
         push eax
-        mov dword [dword_1CF550], eax
-        mov dword [dword_1CF554], ebx
+        mov dword [TextColorIndex], eax
+        mov dword [TextColorTable], ebx
         call ConvertColor555
         mov edx, eax
         shr edx, 10h
@@ -502,7 +502,7 @@ SetTextColors:
         mov dword [byte esp+024h], ecx
         call MakeColor
         add esp, byte 4
-        mov dword [dword ebx+dword_1CF558], eax
+        mov dword [dword ebx+FontGlyphColors], eax
         mov ah, byte [byte esp+027h]
         add ah, 10h
         add ebx, byte 4
@@ -535,9 +535,9 @@ DrawTextBoxed:
         push byte 0
         call SetTextFont
         add esp, byte 4
-        mov edx, dword [dword_1CF554]
+        mov edx, dword [TextColorTable]
         push edx
-        mov ebx, dword [dword_1CF550]
+        mov ebx, dword [TextColorIndex]
         push ebx
         call SetTextColors
         add esp, byte 8
@@ -553,7 +553,7 @@ DrawTextBoxed:
         push ecx
         call DrawTextString
         add esp, byte 14h
-        mov esi, dword [dword_1CF554]
+        mov esi, dword [TextColorTable]
         push esi
         mov edi, dword [dword esp+0B0h]
         push edi
@@ -702,41 +702,41 @@ DrawGlyph:
         lea edi, [ebx+eax]
         mov eax, dword [byte esp+040h]
         inc eax
-        mov ebp, dword [dword_1CF5B0]
+        mov ebp, dword [TextShadowColor]
         sar eax, 1
-        mov edx, dword [dword_16E694]
+        mov edx, dword [ScreenBuffer]
         mov dword [byte esp+0Ch], eax
         test edx, edx
         jne near .15
         mov eax, dword [byte esp+018h]
-        cmp eax, dword [dword_16E678]
+        cmp eax, dword [ClipTopRow]
         jl near .15
-        cmp eax, dword [dword_16E680]
+        cmp eax, dword [ClipRight]
         jge near .15
         mov eax, dword [byte esp+014h]
-        cmp eax, dword [dword_16E67C]
+        cmp eax, dword [ClipLeftCol]
         jl near .15
-        cmp eax, dword [dword_16E684]
+        cmp eax, dword [ScreenHeight]
         jge near .15
         mov eax, dword [byte esp+018h]
         mov ecx, dword [byte esp+040h]
-        mov edx, dword [dword_16E678]
+        mov edx, dword [ClipTopRow]
         add eax, ecx
         cmp eax, edx
         jl near .15
-        cmp eax, dword [dword_16E680]
+        cmp eax, dword [ClipRight]
         jge near .15
         mov eax, dword [byte esp+014h]
         mov ecx, dword [byte esp+044h]
-        mov edx, dword [dword_16E67C]
+        mov edx, dword [ClipLeftCol]
         add eax, ecx
         cmp eax, edx
         jl near .15
-        cmp eax, dword [dword_16E684]
+        cmp eax, dword [ScreenHeight]
         jge near .15
         mov ecx, dword [byte esp+0Ch]
         mov eax, esi
-        mov dl, byte [byte_16E688]
+        mov dl, byte [ScreenBitsPerPixel]
         sub eax, ecx
         cmp dl, 10h
         jne near .7
@@ -744,11 +744,11 @@ DrawGlyph:
 .1:
         mov ebx, dword [byte esp+014h]
         mov eax, dword [byte esp+018h]
-        mov edx, dword [dword_16E6A0]
+        mov edx, dword [DrawDestOffset]
         mov eax, dword [edx+eax*4]
-        mov edx, dword [dword_16E698]
+        mov edx, dword [DrawDestBuffer]
         add eax, dword [edx+ebx*4]
-        add eax, dword [dword_16E69C]
+        add eax, dword [DrawDestPitch]
         mov esi, eax
         mov eax, dword [byte esp+0Ch]
         mov dword [byte esp+024h], eax
@@ -861,11 +861,11 @@ DrawGlyph:
 .8:
         mov ebx, dword [byte esp+014h]
         mov eax, dword [byte esp+018h]
-        mov edx, dword [dword_16E6A0]
+        mov edx, dword [DrawDestOffset]
         mov eax, dword [edx+eax*4]
-        mov edx, dword [dword_16E698]
+        mov edx, dword [DrawDestBuffer]
         add eax, dword [edx+ebx*4]
-        add eax, dword [dword_16E69C]
+        add eax, dword [DrawDestPitch]
         mov esi, eax
         mov eax, dword [byte esp+0Ch]
         mov dword [byte esp+028h], eax
@@ -966,18 +966,18 @@ DrawGlyph:
 .14:
         cmp dl, 8
         jne short .15
-        mov ebx, dword [dword_16E690]
+        mov ebx, dword [ScreenPitch]
         lea edx, [ecx+ecx]
         sub ebx, edx
         push ebx
         mov edx, dword [byte esp+018h]
         push eax
         shl edx, 2
-        mov eax, dword [dword_16E698]
+        mov eax, dword [DrawDestBuffer]
         mov ebx, dword [byte esp+04Ch]
         add edx, eax
         push ebx
-        mov eax, dword [dword_16E69C]
+        mov eax, dword [DrawDestPitch]
         mov esi, dword [edx]
         mov edx, dword [byte esp+024h]
         add eax, esi
@@ -1111,7 +1111,7 @@ DrawGlyph_494:
         test eax, eax
         je short .24
         shl eax, 2
-        add eax, dword_1CF558
+        add eax, FontGlyphColors
         mov ecx, dword [eax]
         push ecx
         mov eax, dword [byte esp+01Ch]
@@ -1125,7 +1125,7 @@ DrawGlyph_494:
         test ebp, ebp
         je short .25
         lea eax, [nosplit ebp*4+00h]
-        add eax, dword_1CF558
+        add eax, FontGlyphColors
         mov edx, dword [eax]
         push edx
         mov ecx, dword [byte esp+01Ch]
@@ -1168,7 +1168,7 @@ DrawGlyph_590:
         mov edx, ecx
         mov ebp, dword [byte esp+050h]
         xor ecx, ecx
-        mov edi, dword [dword_1CF550]
+        mov edi, dword [TextColorIndex]
         mov dword [byte esp+010h], ecx
         test ebp, ebp
         jle near .39
@@ -1357,14 +1357,14 @@ BuildTextColorTable:
         xor edx, edx
         xor eax, eax
 .1:
-        mov ebx, dword [dword eax+dword_1DA4D0]
+        mov ebx, dword [dword eax+PaletteWords]
         shr ebx, 10h
         mov byte [esp+edx], bl
-        mov ebx, dword [dword eax+dword_1DA4D0]
+        mov ebx, dword [dword eax+PaletteWords]
         add edx, byte 3
         shr ebx, 8
         mov byte [byte esp+edx-02h], bl
-        mov bl, byte [dword eax+dword_1DA4D0]
+        mov bl, byte [dword eax+PaletteWords]
         add eax, byte 4
         mov byte [byte esp+edx-01h], bl
         cmp eax, 400h
@@ -1483,34 +1483,34 @@ BuildTextColorTable:
 ;-----------------------------------------------------------------------------
 PrepareTextDraw:
         push ebx
-        cmp dword [dword_1CF5B0], byte 0
+        cmp dword [TextShadowColor], byte 0
         jne short .1
         mov ebx, 1040h
         mov eax, ebx
-        mov dword [dword_1CF5B4], ebx
+        mov dword [TextBuffer], ebx
         call AllocNetBuffer
-        mov dword [dword_1CF5B0], eax
+        mov dword [TextShadowColor], eax
 .1:
-        cmp dword [dword_1CF53C], byte 0
+        cmp dword [CurrentFont], byte 0
         je short .2
-        cmp dword [dword_1CF538], byte 4
+        cmp dword [TextAlign], byte 4
         jne short .2
-        mov eax, dword [dword_1CF550]
+        mov eax, dword [TextColorIndex]
         call BuildColorRamp
 .2:
-        cmp dword [dword_1CF538], byte 1
+        cmp dword [TextAlign], byte 1
         jne short .3
-        mov dword [dword_1CF5B8], DrawGlyph_590
+        mov dword [DrawGlyphFn], DrawGlyph_590
         pop ebx
         ret
 .3:
-        cmp dword [dword_1CF53C], byte 0
+        cmp dword [CurrentFont], byte 0
         je short .4
-        mov dword [dword_1CF5B8], DrawGlyph
+        mov dword [DrawGlyphFn], DrawGlyph
         pop ebx
         ret
 .4:
-        mov dword [dword_1CF5B8], DrawGlyph_494
+        mov dword [DrawGlyphFn], DrawGlyph_494
         pop ebx
 PrepareTextDraw_72:
         ret
@@ -1521,11 +1521,11 @@ PrepareTextDraw_72:
 ; text is on
 ;-----------------------------------------------------------------------------
 RefreshTextColors:
-        cmp dword [dword_1CF53C], byte 0
+        cmp dword [CurrentFont], byte 0
         je short PrepareTextDraw_72
-        cmp dword [dword_1CF538], byte 4
+        cmp dword [TextAlign], byte 4
         jne short PrepareTextDraw_72
-        mov eax, dword [dword_1CF550]
+        mov eax, dword [TextColorIndex]
         nop
 ;-----------------------------------------------------------------------------
 ; BuildColorRamp                                  FEE78  97 PC, low confidence
@@ -1540,7 +1540,7 @@ BuildColorRamp:
         push edi
         push ebp
         sub esp, byte 18h
-        mov edx, dword [dword_1CF5B0]
+        mov edx, dword [TextShadowColor]
         push eax
         mov dword [byte esp+0Ch], edx
         call ConvertColor555
@@ -1598,7 +1598,7 @@ BuildColorRamp:
         add edi, edx
         cmp ebx, eax
         jne short .1
-        mov edx, dword [dword_1CF5B0]
+        mov edx, dword [TextShadowColor]
         mov eax, dword [byte esp+08h]
         add edx, byte 40h
         call BuildTextColorTable
@@ -1619,17 +1619,17 @@ FreeTextBuffers:
         push ebx
         push edx
         push esi
-        mov edx, dword [dword_1CF5B0]
+        mov edx, dword [TextShadowColor]
         test edx, edx
         je short .1
         mov eax, edx
         xor ebx, ebx
         call FreeNetBuffer
-        mov dword [dword_1CF5B0], ebx
-        mov dword [dword_1CF5B4], ebx
+        mov dword [TextShadowColor], ebx
+        mov dword [TextBuffer], ebx
 .1:
         xor esi, esi
-        mov dword [dword_1CF5B8], esi
+        mov dword [DrawGlyphFn], esi
         pop esi
         pop edx
         pop ebx
@@ -1761,28 +1761,28 @@ IntsToFloats:
         jle short .5
 .4:
         fild dword [edx]
-        fmul dword [dword_167D99]
+        fmul dword [F32_1p52588eneg05]
         fstp dword [ebx]
         fild dword [byte edx+04h]
-        fmul dword [dword_167D99]
+        fmul dword [F32_1p52588eneg05]
         fstp dword [byte ebx+04h]
         fild dword [byte edx+08h]
-        fmul dword [dword_167D99]
+        fmul dword [F32_1p52588eneg05]
         fstp dword [byte ebx+08h]
         fild dword [byte edx+0Ch]
-        fmul dword [dword_167D99]
+        fmul dword [F32_1p52588eneg05]
         fstp dword [byte ebx+0Ch]
         fild dword [byte edx+010h]
-        fmul dword [dword_167D99]
+        fmul dword [F32_1p52588eneg05]
         fstp dword [byte ebx+010h]
         fild dword [byte edx+014h]
-        fmul dword [dword_167D99]
+        fmul dword [F32_1p52588eneg05]
         fstp dword [byte ebx+014h]
         fild dword [byte edx+018h]
-        fmul dword [dword_167D99]
+        fmul dword [F32_1p52588eneg05]
         fstp dword [byte ebx+018h]
         fild dword [byte edx+01Ch]
-        fmul dword [dword_167D99]
+        fmul dword [F32_1p52588eneg05]
         add ebx, byte 20h
         sub eax, byte 8
         add edx, byte 20h
@@ -1795,7 +1795,7 @@ IntsToFloats:
         test ecx, ecx
         jle short .3
         fild dword [edx]
-        fmul dword [dword_167D99]
+        fmul dword [F32_1p52588eneg05]
         add ebx, byte 4
         add edx, byte 4
         fstp dword [byte ebx-04h]
@@ -1859,7 +1859,7 @@ ScaleFloatsToInts:
         jle short FloatsToInts_47
         mov eax, edx
         fld dword [eax]
-        fmul dword [dword_167D9D]
+        fmul dword [F32_65536_ScaleFloatsToInts]
         add ebx, byte 4
         add edx, byte 4
         push eax
@@ -2833,7 +2833,7 @@ VecAngle:
         mov dword [esp], eax
         mov dword [byte esp+04h], edx
         fild qword [esp]
-        fmul qword [qword_167DA1]
+        fmul qword [F64_1p5259eneg05]
         add esp, byte 8
         pop edx
         pop ecx
@@ -2856,7 +2856,7 @@ SetViewScale:
         call SetTextScale
         add esp, byte 4
         mov eax, dword [byte esp+010h]
-        mov dword [dword_16F140], eax
+        mov dword [F32_50p0_View], eax
         add esp, byte 4
         pop edx
         pop ecx
@@ -2875,28 +2875,28 @@ SetFocalLength:
         fld dword [byte ebp+0Ch]
         mov eax, dword [byte ebp+0Ch]
         fst qword [esp]
-        mov dword [dword_16F144], eax
-        fcomp qword [qword_167DA9]
+        mov dword [F32_1p0_View], eax
+        fcomp qword [F64_0p9_SetFocalLength]
         fnstsw ax
         sahf
         jbe short .1
         fld qword [esp]
-        fcomp qword [qword_167DB1]
+        fcomp qword [F64_1p1_SetFocalLength]
         fnstsw ax
         sahf
         jae short .1
-        mov dword [dword_16F148], 1
+        mov dword [RinkLineWidth], 1
         jmp short .2
 .1:
         xor edx, edx
-        mov dword [dword_16F148], edx
+        mov dword [RinkLineWidth], edx
 .2:
         mov esp, ebp
         pop ebp
         pop edx
         ret 4
-        mov dword [dword_170258], edx
-        mov dword [dword_170254], eax
+        mov dword [CameraPitch], edx
+        mov dword [CameraYaw], eax
         ret
 ;-----------------------------------------------------------------------------
 ; SetProjectionCenter                             FFA9C  97 PC, low confidence
@@ -2914,60 +2914,60 @@ SetProjectionCenter:
         sar edx, 1Fh
         LD sub, eax, edx
         sar eax, 1
-        mov edi, dword [dword_170254]
+        mov edi, dword [CameraYaw]
         add eax, edi
         mov edx, esi
-        mov dword [dword_17025C], eax
+        mov dword [ViewCenterY], eax
         sar edx, 1Fh
         mov eax, esi
         LD sub, eax, edx
         sar eax, 1
         lea edi, [byte esp+04h]
-        fild dword [dword_17025C]
-        fadd qword [qword_167DB9]
-        mov esi, dword [dword_170258]
-        fstp dword [dword_1CF5E8]
+        fild dword [ViewCenterY]
+        fadd qword [F64_0p5_SetProjectionCenter]
+        mov esi, dword [CameraPitch]
+        fstp dword [ProjOffsetY]
         add eax, esi
         mov esi, esp
-        mov dword [dword_170260], eax
-        mov eax, dword [dword_17025C]
-        fild dword [dword_170260]
+        mov dword [str_D_ProjectPointsPersp], eax
+        mov eax, dword [ViewCenterY]
+        fild dword [str_D_ProjectPointsPersp]
         shl eax, 10h
-        fadd qword [qword_167DB9]
+        fadd qword [F64_0p5_SetProjectionCenter]
         mov dword [byte esp+08h], eax
-        mov eax, dword [dword_170260]
-        fstp dword [dword_1CF5E4]
+        mov eax, dword [str_D_ProjectPointsPersp]
+        fstp dword [ProjOffsetX]
         shl eax, 10h
         fild dword [byte esp+08h]
         mov dword [byte esp+08h], eax
-        fstp dword [dword_1CF5D8]
+        fstp dword [ProjCenterX]
         fild dword [byte esp+08h]
         lea eax, [byte esp+01Ch]
-        fstp dword [dword_1CF5DC]
+        fstp dword [ProjCenterY]
         fld dword [eax]
         fsincos
         fstp dword [edi]
         fstp dword [esi]
         fild dword [byte esp+020h]
         fmul dword [byte esp+04h]
-        fmul dword [dword_167DC1]
+        fmul dword [F32_0p5_SetProjectionCenter]
         fdiv dword [esp]
-        fst dword [dword_1CF5EC]
-        fmul dword [dword_16F144]
-        fld dword [dword_1CF5EC]
-        fmul dword [dword_167DC5]
+        fst dword [ProjDetailScale]
+        fmul dword [F32_1p0_View]
+        fld dword [ProjDetailScale]
+        fmul dword [F32_65536_SetProjectionCenter]
         fxch
-        fst dword [dword_1CF5F0]
-        fmul dword [dword_167DC5]
-        mov eax, dword_170264
-        fld dword [dword_1CF5EC]
+        fst dword [ProjAspect]
+        fmul dword [F32_65536_SetProjectionCenter]
+        mov eax, CameraSinYaw
+        fld dword [ProjDetailScale]
         fxch st2
-        fstp dword [dword_1CF5E0]
-        fstp dword [dword_1CF5D4]
+        fstp dword [ProjScaleY]
+        fstp dword [ProjScaleX]
         fistp dword [eax]
-        fld dword [dword_1CF5F0]
+        fld dword [ProjAspect]
         fchs
-        mov eax, dword_170268
+        mov eax, CameraCosYaw
         fistp dword [eax]
         add esp, byte 0Ch
         pop edi
@@ -2979,7 +2979,7 @@ SetProjectionCenter:
 ; 3D library: focal length divided by depth
 ;-----------------------------------------------------------------------------
 PerspectiveScale:
-        fld dword [dword_1CF5EC]
+        fld dword [ProjDetailScale]
         fdiv dword [byte esp+04h]
         ret 4
         db 08Dh,040h,00h
@@ -2989,7 +2989,7 @@ PerspectiveScale:
 ;-----------------------------------------------------------------------------
 ProjectCoord:
         fld dword [byte esp+08h]
-        fmul dword [dword_1CF5EC]
+        fmul dword [ProjDetailScale]
         fdiv dword [byte esp+04h]
         ret 8
         db 08Dh,040h,00h
@@ -2999,7 +2999,7 @@ ProjectCoord:
 ;-----------------------------------------------------------------------------
 ProjectCoordInt:
         fld dword [byte esp+08h]
-        fmul dword [dword_1CF5E0]
+        fmul dword [ProjScaleY]
         fdiv dword [byte esp+04h]
         push eax
         fistp dword [esp]
@@ -3025,7 +3025,7 @@ ProjectPoints:
         lea eax, [nosplit ecx*8+00h]
         add eax, byte 4
         add eax, ebx
-        mov ebx, dword [dword_16F148]
+        mov ebx, dword [RinkLineWidth]
         add edx, edi
         test ebx, ebx
         je short .2
@@ -3039,19 +3039,19 @@ ProjectPoints:
         sub edx, byte 0Ch
         test ebp, 7FFFFFFFh
         je short .1
-        fld dword [dword_1CF5EC]
+        fld dword [ProjDetailScale]
         fdiv dword [byte edx+08h]
         fld dword [edx]
         fxch
         fstp dword [esp]
         fmul dword [esp]
         lea eax, [nosplit ecx*8+00h]
-        fadd dword [dword_1CF5E8]
+        fadd dword [ProjOffsetY]
         add eax, esi
         fistp dword [eax]
         fld dword [byte edx+04h]
         fmul dword [esp]
-        fsubr dword [dword_1CF5E4]
+        fsubr dword [ProjOffsetX]
         mov eax, ebx
         fistp dword [eax]
         jmp short .1
@@ -3069,18 +3069,18 @@ ProjectPoints:
         fld1
         fdiv dword [byte edx+08h]
         fld dword [edx]
-        fmul dword [dword_1CF5EC]
+        fmul dword [ProjDetailScale]
         fxch
         fstp dword [byte esp+04h]
         fmul dword [byte esp+04h]
         lea eax, [nosplit ecx*8+00h]
-        fadd dword [dword_1CF5E8]
+        fadd dword [ProjOffsetY]
         add eax, esi
         fistp dword [eax]
         fld dword [byte edx+04h]
-        fmul dword [dword_1CF5F0]
+        fmul dword [ProjAspect]
         fmul dword [byte esp+04h]
-        fsubr dword [dword_1CF5E4]
+        fsubr dword [ProjOffsetX]
         mov eax, ebx
         fistp dword [eax]
         jmp short .3
@@ -3112,7 +3112,7 @@ ProjectPointsWithZ:
         lea eax, [nosplit ecx*8+00h]
         add eax, byte 4
         add eax, ebx
-        mov ebx, dword [dword_16F148]
+        mov ebx, dword [RinkLineWidth]
         add edx, edi
         test ebx, ebx
         je short .2
@@ -3128,18 +3128,18 @@ ProjectPointsWithZ:
         cmp edi, eax
         je short .1
         fild dword [byte edx+08h]
-        fdivr dword [dword_1CF5EC]
+        fdivr dword [ProjDetailScale]
         fild dword [edx]
         fxch
         fstp dword [esp]
         fmul dword [esp]
         lea eax, [nosplit ecx*8+00h]
-        fadd dword [dword_1CF5E8]
+        fadd dword [ProjOffsetY]
         add eax, esi
         fistp dword [eax]
         fild dword [byte edx+04h]
         fmul dword [esp]
-        fsubr dword [dword_1CF5E4]
+        fsubr dword [ProjOffsetX]
         mov eax, ebx
         fistp dword [eax]
         jmp short .1
@@ -3159,18 +3159,18 @@ ProjectPointsWithZ:
         fld1
         fdivrp
         fild dword [edx]
-        fmul dword [dword_1CF5EC]
+        fmul dword [ProjDetailScale]
         fxch
         fstp dword [byte esp+04h]
         fmul dword [byte esp+04h]
         lea eax, [nosplit ecx*8+00h]
-        fadd dword [dword_1CF5E8]
+        fadd dword [ProjOffsetY]
         add eax, esi
         fistp dword [eax]
         fild dword [byte edx+04h]
-        fmul dword [dword_1CF5F0]
+        fmul dword [ProjAspect]
         fmul dword [byte esp+04h]
-        fsubr dword [dword_1CF5E4]
+        fsubr dword [ProjOffsetX]
         mov eax, ebx
         fistp dword [eax]
         jmp short .3
@@ -3203,7 +3203,7 @@ ProjectPointsToScreen:
         lea eax, [nosplit ecx*8+00h]
         add eax, byte 4
         add eax, ebx
-        mov ebx, dword [dword_16F148]
+        mov ebx, dword [RinkLineWidth]
         add edx, edi
         test ebx, ebx
         je short .2
@@ -3219,18 +3219,18 @@ ProjectPointsToScreen:
         cmp edi, eax
         je short .1
         fild dword [byte edx+08h]
-        fdivr dword [dword_1CF5E0]
+        fdivr dword [ProjScaleY]
         fild dword [edx]
         fxch
         fstp dword [esp]
         fmul dword [esp]
         lea eax, [nosplit ecx*8+00h]
-        fadd dword [dword_1CF5D8]
+        fadd dword [ProjCenterX]
         add eax, esi
         fistp dword [eax]
         fild dword [byte edx+04h]
         fmul dword [esp]
-        fsubr dword [dword_1CF5DC]
+        fsubr dword [ProjCenterY]
         mov eax, ebx
         fistp dword [eax]
         jmp short .1
@@ -3250,18 +3250,18 @@ ProjectPointsToScreen:
         fld1
         fdivrp
         fild dword [edx]
-        fmul dword [dword_1CF5E0]
+        fmul dword [ProjScaleY]
         fxch
         fstp dword [byte esp+04h]
         fmul dword [byte esp+04h]
         lea eax, [nosplit ecx*8+00h]
-        fadd dword [dword_1CF5D8]
+        fadd dword [ProjCenterX]
         add eax, esi
         fistp dword [eax]
         fild dword [byte edx+04h]
-        fmul dword [dword_1CF5D4]
+        fmul dword [ProjScaleX]
         fmul dword [byte esp+04h]
-        fsubr dword [dword_1CF5DC]
+        fsubr dword [ProjCenterY]
         mov eax, ebx
         fistp dword [eax]
         jmp short .3
@@ -3279,17 +3279,17 @@ ProjectPointInt:
         fld1
         fdiv dword [byte eax+08h]
         fld dword [ebx]
-        fmul dword [dword_1CF5EC]
+        fmul dword [ProjDetailScale]
         fxch
         fstp dword [esp]
         fmul dword [esp]
-        fadd dword [dword_1CF5E8]
+        fadd dword [ProjOffsetY]
         mov eax, edx
         fistp dword [eax]
         fld dword [byte ebx+04h]
-        fmul dword [dword_1CF5F0]
+        fmul dword [ProjAspect]
         fmul dword [esp]
-        fsubr dword [dword_1CF5E4]
+        fsubr dword [ProjOffsetX]
         lea eax, [byte edx+04h]
         fistp dword [eax]
 .1:
@@ -3328,7 +3328,7 @@ ClipProjectPoints:
         mov esi, dword [byte esp+010h]
         add edi, edx
         add edx, ebp
-        mov ebp, dword [dword_16F148]
+        mov ebp, dword [RinkLineWidth]
         add ebx, esi
         test ebp, ebp
         je near .8
@@ -3342,53 +3342,53 @@ ClipProjectPoints:
         test dword [byte ebp+08h], 7FFFFFFFh
         je short .2
         fld dword [byte ebp+00h]
-        fld dword [dword_1CF5EC]
+        fld dword [ProjDetailScale]
         fdiv dword [byte ebp+08h]
         fxch
         fmul st1
-        fadd dword [dword_1CF5E8]
+        fadd dword [ProjOffsetY]
         fstp dword [byte edx-08h]
         fmul dword [byte ebp+04h]
-        fsubr dword [dword_1CF5E4]
+        fsubr dword [ProjOffsetX]
         fstp dword [byte edx-04h]
 .2:
         test dword [byte esi+08h], 7FFFFFFFh
         je short .3
         fld dword [esi]
-        fld dword [dword_1CF5EC]
+        fld dword [ProjDetailScale]
         fdiv dword [byte esi+08h]
         fxch
         fmul st1
-        fadd dword [dword_1CF5E8]
+        fadd dword [ProjOffsetY]
         fstp dword [byte edx-010h]
         fmul dword [byte esi+04h]
-        fsubr dword [dword_1CF5E4]
+        fsubr dword [ProjOffsetX]
         fstp dword [byte edx-0Ch]
 .3:
         test dword [byte edi+08h], 7FFFFFFFh
         je short .4
         fld dword [edi]
-        fld dword [dword_1CF5EC]
+        fld dword [ProjDetailScale]
         fdiv dword [byte edi+08h]
         fxch
         fmul st1
-        fadd dword [dword_1CF5E8]
+        fadd dword [ProjOffsetY]
         fstp dword [byte edx-018h]
         fmul dword [byte edi+04h]
-        fsubr dword [dword_1CF5E4]
+        fsubr dword [ProjOffsetX]
         fstp dword [byte edx-014h]
 .4:
         test dword [byte ebx+08h], 7FFFFFFFh
         je short .5
         fld dword [ebx]
-        fld dword [dword_1CF5EC]
+        fld dword [ProjDetailScale]
         fdiv dword [byte ebx+08h]
         fxch
         fmul st1
-        fadd dword [dword_1CF5E8]
+        fadd dword [ProjOffsetY]
         fstp dword [byte edx-020h]
         fmul dword [byte ebx+04h]
-        fsubr dword [dword_1CF5E4]
+        fsubr dword [ProjOffsetX]
         fstp dword [byte edx-01Ch]
 .5:
         sub esi, byte 30h
@@ -3417,14 +3417,14 @@ ClipProjectPoints:
         test esi, 7FFFFFFFh
         je short .7
         fld dword [edx]
-        fld dword [dword_1CF5EC]
+        fld dword [ProjDetailScale]
         fdiv dword [byte edx+08h]
         fxch
         fmul st1
-        fadd dword [dword_1CF5E8]
+        fadd dword [ProjOffsetY]
         fstp dword [ebx]
         fmul dword [byte edx+04h]
-        fsubr dword [dword_1CF5E4]
+        fsubr dword [ProjOffsetX]
         fstp dword [byte ebx+04h]
         jmp short .7
 .8:
@@ -3439,68 +3439,68 @@ ClipProjectPoints:
         je short .10
         fld1
         fld dword [esi]
-        fmul dword [dword_1CF5EC]
+        fmul dword [ProjDetailScale]
         fxch
         fdiv dword [byte esi+08h]
         fxch
         fmul st1
-        fadd dword [dword_1CF5E8]
+        fadd dword [ProjOffsetY]
         fstp dword [byte edx-08h]
         fld dword [byte esi+04h]
-        fmul dword [dword_1CF5F0]
+        fmul dword [ProjAspect]
         fmulp
-        fsubr dword [dword_1CF5E4]
+        fsubr dword [ProjOffsetX]
         fstp dword [byte edx-04h]
 .10:
         test dword [byte ebx+08h], 7FFFFFFFh
         je short .11
         fld1
         fld dword [ebx]
-        fmul dword [dword_1CF5EC]
+        fmul dword [ProjDetailScale]
         fxch
         fdiv dword [byte ebx+08h]
         fxch
         fmul st1
-        fadd dword [dword_1CF5E8]
+        fadd dword [ProjOffsetY]
         fstp dword [byte edx-010h]
         fld dword [byte ebx+04h]
-        fmul dword [dword_1CF5F0]
+        fmul dword [ProjAspect]
         fmulp
-        fsubr dword [dword_1CF5E4]
+        fsubr dword [ProjOffsetX]
         fstp dword [byte edx-0Ch]
 .11:
         test dword [byte edi+08h], 7FFFFFFFh
         je short .12
         fld1
         fld dword [edi]
-        fmul dword [dword_1CF5EC]
+        fmul dword [ProjDetailScale]
         fxch
         fdiv dword [byte edi+08h]
         fxch
         fmul st1
-        fadd dword [dword_1CF5E8]
+        fadd dword [ProjOffsetY]
         fstp dword [byte edx-018h]
         fld dword [byte edi+04h]
-        fmul dword [dword_1CF5F0]
+        fmul dword [ProjAspect]
         fmulp
-        fsubr dword [dword_1CF5E4]
+        fsubr dword [ProjOffsetX]
         fstp dword [byte edx-014h]
 .12:
         test dword [byte ebp+08h], 7FFFFFFFh
         je short .13
         fld1
         fld dword [byte ebp+00h]
-        fmul dword [dword_1CF5EC]
+        fmul dword [ProjDetailScale]
         fxch
         fdiv dword [byte ebp+08h]
         fxch
         fmul st1
-        fadd dword [dword_1CF5E8]
+        fadd dword [ProjOffsetY]
         fstp dword [byte edx-020h]
         fld dword [byte ebp+04h]
-        fmul dword [dword_1CF5F0]
+        fmul dword [ProjAspect]
         fmulp
-        fsubr dword [dword_1CF5E4]
+        fsubr dword [ProjOffsetX]
         fstp dword [byte edx-01Ch]
 .13:
         sub ebx, byte 30h
@@ -3530,17 +3530,17 @@ ClipProjectPoints:
         je short .15
         fld1
         fld dword [edx]
-        fmul dword [dword_1CF5EC]
+        fmul dword [ProjDetailScale]
         fxch
         fdiv dword [byte edx+08h]
         fxch
         fmul st1
-        fadd dword [dword_1CF5E8]
+        fadd dword [ProjOffsetY]
         fstp dword [ebx]
         fld dword [byte edx+04h]
-        fmul dword [dword_1CF5F0]
+        fmul dword [ProjAspect]
         fmulp
-        fsubr dword [dword_1CF5E4]
+        fsubr dword [ProjOffsetX]
         fstp dword [byte ebx+04h]
         jmp short .15
 .16:
@@ -3567,17 +3567,17 @@ ProjectPointFloat:
         jae short .1
         fld1
         fld dword [ebx]
-        fmul dword [dword_1CF5EC]
+        fmul dword [ProjDetailScale]
         fxch
         fdiv dword [byte ebx+08h]
         fxch
         fmul st1
-        fadd dword [dword_1CF5E8]
+        fadd dword [ProjOffsetY]
         fstp dword [edx]
         fld dword [byte ebx+04h]
-        fmul dword [dword_1CF5F0]
+        fmul dword [ProjAspect]
         fmulp
-        fsubr dword [dword_1CF5E4]
+        fsubr dword [ProjOffsetX]
         fstp dword [byte edx+04h]
 .1:
         add esp, byte 4
@@ -3588,7 +3588,7 @@ ProjectPointFloat:
 ;-----------------------------------------------------------------------------
 IF@ATAN:
         fld1
-        test byte [byte_17268C], 1
+        test byte [MathErrorFlags], 1
         jne short .1
         fpatan
         jmp short .2
@@ -3601,7 +3601,7 @@ IF@ATAN:
 ;-----------------------------------------------------------------------------
 IF@ATAN2:
         fxch
-        test byte [byte_17268C], 1
+        test byte [MathErrorFlags], 1
         jne short .1
         fpatan
         jmp short .2
@@ -3720,7 +3720,7 @@ IF@DPOW:
         neg ax
         call PowIntLoop
         fld1
-        test byte [byte_17268C], 1
+        test byte [MathErrorFlags], 1
         jne short .7
         fdivrp
         jmp short .8

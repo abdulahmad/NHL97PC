@@ -16,16 +16,16 @@ extern str_STSG, str_AN02d, str_CreatePlrMenu, str_CreatePlrRegion, str_00008, s
 extern str_PBON, str_HEON, str_HEOF, str_WEON, str_WEOF, str_AGON, str_AGOF, str_Aiplayers
 extern str_Statplayers, str_Statgoalies, byte_1ACF62, byte_1ACF63, byte_1ACF69, byte_1AD23E, byte_1AD457, byte_1AD458
 extern byte_1AD45E, byte_1AD739, byte_1C6040, byte_1CC240, dword_16D668, dword_16D66C, dword_16D670, dword_16D674
-extern dword_16D678, dword_16D67C, dword_16D680, dword_16D684, dword_16D688, dword_16D694, dword_16D698, dword_16D6A4
-extern dword_16D6A8, dword_16D6AC, dword_16D6B0, dword_16D6B4, dword_16D6B8, dword_16D6BC, dword_16D6C0, dword_16DA9C
-extern dword_1AC814, dword_1AC940, dword_1AC944, dword_1ACF46, dword_1AD226, dword_1AD6AB, dword_1C5E74, dword_1CC18C
+extern dword_16D678, dword_16D67C, dword_16D680, str_Punct_InitRosterScreen, str_X_InitRosterScreen, str_7_SetupRosterLists, str_I_SetupRosterLists, str_Punct_DrawRosterList
+extern str_X_DrawRosterList, dword_16D6AC, str_X_SetupRosterLists, dword_16D6B4, str_X_ShowRosterLogo, dword_16D6BC, dword_16D6C0, dword_16DA9C
+extern GameSettings, SeasonUserTeam, GameOptionFlags, SeasonActive, dword_1AD226, dword_1AD6AB, dword_1C5E74, dword_1CC18C
 extern dword_1CC19C, dword_1CC1AC, dword_1CC1BC, dword_1CC1C0, dword_1CC1C4, dword_1CC1C8, dword_1CC1CC, dword_1CC1D0
 extern dword_1CC1D4, dword_1CC1D8, dword_1CC1DC, dword_1CC1E0, dword_1CC1E4, dword_1CC1E8, dword_1CC1EC, dword_1CC1F0
 extern dword_1CC1F4, dword_1CC1F8, dword_1CC1FC, dword_1CC200, dword_1CC204, dword_1CC208, dword_1CC20C, dword_1CC210
 extern dword_1CC214, dword_1CC218, dword_1CC21C, dword_1CC220, dword_1CC224, dword_1CC228, dword_1CC22C, dword_1CC230
 extern dword_1CC234, dword_1CC238, dword_1CC23C, dword_1CC2A4, dword_1CC2A8, dword_1CC2AC, dword_1CC2B0, dword_1CC2B4
 extern dword_1CC2B8, dword_1CC2BC, dword_1CC2C0, dword_1CC2C4, jpt_C750B, memmove_, memset_, qsort_
-extern qword_166FC4, sprintf_, str_TR00, strcat_, strcpy_, stricmp_, strlen_, BlitArt
+extern F64_2_BuildTradePlayerLists, sprintf_, str_TR00, strcat_, strcpy_, stricmp_, strlen_, BlitArt
 extern BlitShape, PresentScreen, FindShape, DrawShapeBlended, ResetClipWindow, Random32, LoadFileAllocQuiet, ConvertArtXY
 extern FindShapeList, SaveDataFile, UnlinkJump, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime
 extern PlayMenuSfx, PlaySfx, PlayScreenMovie, LoadDataFile, BuildRosterLines, DrawShadedLogo, DrawShadowBox, DrawScreenBackground
@@ -37,7 +37,7 @@ extern SetListSelection, GetLangText, PositionAbbrev, LoadFakeExhibition, SaveAg
 extern BuildAutoLines, PlayerRatingsScreen, KeysEqual, DaysToYear, AgeFromBirthDate, FindTeamRecord, FindPlayerRecord, FindGameRecord
 extern UpdateGameRecord, FindPlayerStat, FindTeamStat, FreeExhibitionFile, ResetExhibitionStats, AllocMemBlock, FreeMemBlock, MakeColor
 extern FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, FillRect, MeasureText, tickcount
-extern unk_166E9D, unk_166F30, unk_16D7F4, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C5FEE, word_16D6C4
+extern str_D_JerseyScreen, str_S_DrawCreatePlayerLabel, unk_16D7F4, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C5FEE, word_16D6C4
 extern word_16D6D2, word_16D6E4
 global jpt_CBFAA, jpt_CD7E3, RosterScreen_11C, RosterScreen_157, RosterScreen_172, RosterScreen_246, RosterScreen_2EC, RosterScreen_3B9
 global RosterScreen_42C, RosterScreen_49B, RosterScreen_4ED, RosterScreen_53E, RosterScreen_596, RosterScreen_5AB, RosterScreen_5AF, RosterScreen_5CF
@@ -57,8 +57,8 @@ global SaveTrades, ResetExhibitionRosters, ShowCreatePlayerHelp, DrawCreatePlaye
 global DrawCreatePlayerHeight, DrawCreatePlayerWeight, DrawCreatePlayerAge, DrawRatingBarSlot, DrawRatingBars, DrawRatingValues, DrawRatingPanel, DrawCreatePlayerField
 global DrawCreatePlayerText, DrawCreatePlayerNameLine, CreatePlayerScreen, DrawRatingBar, InitShapeListBox, SetupCreatePlayerLists, InitCreatePlayerScreen, NewSkaterRecord
 global NewGoalieRecord, PlayerOverall, RemoveListEntry, CompareFirstDword, CompareTeamGoalsFor, CompareTeamGoalsAgainst, CompareTeamPowerPlay, CompareTeamPenaltyKill
-global CompareTeamShots, ComparePlayerGoals, ComparePlayerAssists, CompareGoalieAverage, ComparePlayerOffence, ComparePlayerDefence, BuildTradePlayerLists, unk_D15D1
-global unk_D15EE
+global CompareTeamShots, ComparePlayerGoals, ComparePlayerAssists, CompareGoalieAverage, ComparePlayerOffence, ComparePlayerDefence, BuildTradePlayerLists, str_Xx00xx01xx02xx03xx10xx11xx12
+global str_G0LWC0RWLDRD
 ;-----------------------------------------------------------------------------
 ; RosterScreen                                    C755B  96 PC, low confidence
 ; The roster screen: trades between teams, signing free agents (FREEAGNT.DB),
@@ -737,19 +737,19 @@ PlayRosterSound:
 ;-----------------------------------------------------------------------------
 SetRosterMode:
         push edx
-        test byte [dword_1AC814], 70h
+        test byte [GameSettings], 70h
         jne short .1
         mov dword [dword_1CC230], 1Ah
         xor eax, eax
         pop edx
         ret
 .1:
-        mov edx, dword [dword_1AC814]
+        mov edx, dword [GameSettings]
         and edx, byte 70h
         cmp edx, byte 10h
         jne short .3
         mov dword [dword_1CC230], 1Ah
-        cmp dword [dword_1ACF46], byte 0
+        cmp dword [SeasonActive], byte 0
         je short .2
         mov eax, 2
         mov dword [dword_1CC230], edx
@@ -868,7 +868,7 @@ AllocRosterInfo:
         push esi
         push edi
         enter 4, 0
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         movsx ebx, word [eax]
         imul ebx, dword 32C6h
         push byte 0
@@ -882,7 +882,7 @@ AllocRosterInfo:
         xor edx, edx
         mov dword [dword_1CC2AC], eax
         call memset_
-        mov eax, dword [dword_1AC940]
+        mov eax, dword [SeasonUserTeam]
         movsx ebx, word [eax]
         imul ebx, dword 194Fh
         push byte 20h
@@ -916,7 +916,7 @@ AllocRosterInfo:
 .3:
         inc ecx
 .4:
-        mov ebx, dword [dword_1AC940]
+        mov ebx, dword [SeasonUserTeam]
         movsx eax, word [ebx]
         cmp ecx, eax
         jl short .1
@@ -1515,7 +1515,7 @@ InitRosterData:
 .1:
         test eax, eax
         jne near .35
-        mov eax, dword [dword_1AC944]
+        mov eax, dword [GameOptionFlags]
         mov edx, dword [byte eax+01h]
         shl edx, 0Ch
         shr edx, 1Ah
@@ -1794,10 +1794,10 @@ DrawRosterRow:
         push eax
         mov dword [byte ebp-0Ch], 16h
         mov esi, eax
-        mov eax, dword [nosplit eax*8+dword_16D6A4]
+        mov eax, dword [nosplit eax*8+str_Punct_DrawRosterList]
         mov dword [byte ebp-04h], 14h
         mov dword [byte ebp-010h], eax
-        mov eax, dword [nosplit esi*8+dword_16D6A8]
+        mov eax, dword [nosplit esi*8+str_X_DrawRosterList]
         mov dword [byte ebp-014h], 0
         mov dword [byte ebp-08h], eax
         cmp esi, byte 1
@@ -1971,14 +1971,14 @@ DrawRosterList:
         mov edi, eax
         mov dword [byte ebp+036h], edx
         and edi, byte 1
-        mov eax, dword [nosplit edi*8+dword_16D6A4]
+        mov eax, dword [nosplit edi*8+str_Punct_DrawRosterList]
         add eax, byte 8
         mov dword [byte ebp+06Eh], eax
-        mov eax, dword [nosplit edi*8+dword_16D6A8]
+        mov eax, dword [nosplit edi*8+str_X_DrawRosterList]
         add eax, byte 6
         mov dword [byte ebp+07Ah], 0
         mov dword [byte ebp+07Eh], eax
-        mov eax, dword [nosplit edi*8+dword_16D6A8]
+        mov eax, dword [nosplit edi*8+str_X_DrawRosterList]
         mov dword [byte ebp+076h], 16h
         sub eax, byte 16h
         mov dword [byte ebp+03Eh], 14h
@@ -2024,7 +2024,7 @@ DrawRosterList:
         push dword 0B4h
         push dword [byte edx+eax+02Ah]
         push dword 0FF0000AAh
-        mov ebx, dword [nosplit edi*8+dword_16D6A4]
+        mov ebx, dword [nosplit edi*8+str_Punct_DrawRosterList]
         call MakeColor
         mov edx, eax
         add esp, byte 4
@@ -2664,16 +2664,16 @@ ShowRosterLogo:
         mov eax, dword [byte eax+02Ch]
         call DrawRosterLogo
         mov eax, dword [dword_16D6C0]
-        sub eax, dword [dword_16D6B8]
+        sub eax, dword [str_X_ShowRosterLogo]
         push eax
         mov eax, dword [dword_16D6AC]
         add eax, 0B4h
         mov edx, 14h
-        sub eax, dword [dword_16D6A4]
-        mov ecx, dword [dword_16D6B8]
+        sub eax, dword [str_Punct_DrawRosterList]
+        mov ecx, dword [str_X_ShowRosterLogo]
         push eax
         mov eax, dword [dword_1CC214]
-        mov ebx, dword [dword_16D6A4]
+        mov ebx, dword [str_Punct_DrawRosterList]
         sub ecx, byte 6
         mov eax, dword [byte eax+02Ch]
         call DrawShadowBox
@@ -2769,16 +2769,16 @@ DrawRosterTitle:
         call DrawFrameBox
         call SetHighlightText
         mov eax, dword [dword_16D6B4]
-        mov esi, dword [dword_16D6B8]
+        mov esi, dword [str_X_ShowRosterLogo]
         mov ebx, dword [dword_16D6BC]
         mov edi, dword [dword_16D6C0]
         sub esi, byte 6
-        sub edi, dword [dword_16D6B8]
+        sub edi, dword [str_X_ShowRosterLogo]
         sub ebx, eax
         mov ecx, edi
         mov edx, esi
         call DrawFrameBox
-        mov eax, dword [dword_16D6A4]
+        mov eax, dword [str_Punct_DrawRosterList]
         mov ebx, dword [dword_16D6AC]
         sub eax, byte 6
         add ebx, 0B4h
@@ -2810,8 +2810,8 @@ CreateRosterPanel:
         push esi
         call CreateBitmap
         add esp, byte 0Ch
-        push dword [nosplit ebx*8+dword_16D6A8]
-        push dword [nosplit ebx*8+dword_16D6A4]
+        push dword [nosplit ebx*8+str_X_DrawRosterList]
+        push dword [nosplit ebx*8+str_Punct_DrawRosterList]
         mov dword [nosplit ebx*4+dword_1CC21C], eax
         push dword [byte eax+02Ch]
         inc ebx
@@ -2821,14 +2821,14 @@ CreateRosterPanel:
         jl short .1
         mov edi, dword [dword_16D6C0]
         push byte 0
-        sub edi, dword [dword_16D6B8]
+        sub edi, dword [str_X_ShowRosterLogo]
         mov esi, dword [dword_16D6BC]
         push edi
         sub esi, dword [dword_16D6B4]
         push esi
         call CreateBitmap
         add esp, byte 0Ch
-        push dword [dword_16D6B8]
+        push dword [str_X_ShowRosterLogo]
         push dword [dword_16D6B4]
         mov dword [dword_1CC224], eax
         push dword [byte eax+02Ch]
@@ -2966,8 +2966,8 @@ InitRosterScreen:
         push byte 0
         push byte 0
         push dword [byte ebp-08h]
-        push dword [nosplit edi*8+dword_16D688]
-        push dword [nosplit edi*8+dword_16D684]
+        push dword [nosplit edi*8+str_X_InitRosterScreen]
+        push dword [nosplit edi*8+str_Punct_InitRosterScreen]
         push dword [byte ebp-04h]
         mov ecx, 0Ah
         push byte 0
@@ -3285,11 +3285,11 @@ SetupRosterLists:
         mov edx, dword [dword_1CC20C]
         add eax, edx
         mov edi, dword [byte eax+01Ah]
-        mov ebx, dword [nosplit esi*8+dword_16D698]
+        mov ebx, dword [nosplit esi*8+str_I_SetupRosterLists]
         movsx edx, word [byte edi+06h]
         movsx ecx, word [byte edi+04h]
         push edx
-        mov edx, dword [nosplit esi*8+dword_16D694]
+        mov edx, dword [nosplit esi*8+str_7_SetupRosterLists]
         inc esi
         call InitListBox
         cmp esi, byte 2
@@ -3325,8 +3325,8 @@ SetupRosterLists:
         add edx, 42Ah
         mov esi, 14h
         call InitShapeListBox
-        mov eax, dword [dword_16D6A4]
-        mov edi, dword [dword_16D6A8]
+        mov eax, dword [str_Punct_DrawRosterList]
+        mov edi, dword [str_X_DrawRosterList]
         mov dword [byte ebp-08h], eax
 .5:
         imul edx, esi, byte 52h
@@ -3343,7 +3343,7 @@ SetupRosterLists:
         jl short .5
         mov esi, 1Eh
         mov eax, dword [dword_16D6AC]
-        mov edi, dword [dword_16D6B0]
+        mov edi, dword [str_X_SetupRosterLists]
         mov dword [byte ebp-08h], eax
 .6:
         imul edx, esi, byte 52h
@@ -4054,7 +4054,7 @@ DrawRosterDetails:
 .5:
         test esi, esi
         jne short .6
-        mov eax, dword [dword_16D6B8]
+        mov eax, dword [str_X_ShowRosterLogo]
         add eax, byte 0Ah
         mov dword [byte ebp-04h], eax
         jmp short .7
@@ -4063,7 +4063,7 @@ DrawRosterDetails:
         mov eax, dword [byte eax+04h]
         sar eax, 1
         imul eax, esi
-        mov edx, dword [dword_16D6B8]
+        mov edx, dword [str_X_ShowRosterLogo]
         add edx, eax
         mov dword [byte ebp-04h], edx
 .7:
@@ -7237,7 +7237,7 @@ JerseyScreen:
 .4:
         push ebx
         mov eax, dword [byte ebp+076h]
-        push unk_166E9D
+        push str_D_JerseyScreen
         add eax, byte 3
         push eax
         mov eax, dword [byte ebp+072h]
@@ -7441,7 +7441,7 @@ JerseyScreen:
         cmp byte [dword ebx+byte_1CC240], 0
         jne short .27
         push ebx
-        push unk_166E9D
+        push str_D_JerseyScreen
         push dword [byte ebp+076h]
         push dword [byte ebp+072h]
         push byte 1
@@ -9382,7 +9382,7 @@ DrawCreatePlayerPanel:
         call SetTextColor
         movzx eax, byte [byte edi+01h]
         push eax
-        push unk_166E9D
+        push str_D_JerseyScreen
         push ebx
         push dword [byte ebp-0Ch]
 DrawCreatePlayerPanel_83:
@@ -9572,7 +9572,7 @@ DrawCreatePlayerLabel:
         add edi, 91h
         call SetTextColor
         push edi
-        push unk_166F30
+        push str_S_DrawCreatePlayerLabel
         push byte 4
         push byte 20h
         push byte 0
@@ -9623,7 +9623,7 @@ DrawCreatePlayerHeight:
         add esp, byte 4
         call SetTextColor
         movsx esi, word [byte edi+059h]
-        test byte [dword_1AC814], 0Ch
+        test byte [GameSettings], 0Ch
         jne short .1
         mov eax, esi
         mov ecx, 0Ch
@@ -9697,7 +9697,7 @@ DrawCreatePlayerWeight:
         add esp, byte 4
         call SetTextColor
         movsx eax, word [byte edi+05Bh]
-        test byte [dword_1AC814], 0Ch
+        test byte [GameSettings], 0Ch
         je short .1
         call PoundsToKg
 .1:
@@ -9757,7 +9757,7 @@ DrawCreatePlayerAge:
         add esp, byte 4
         call SetTextColor
         push dword [byte ebp-010h]
-        push unk_166E9D
+        push str_D_JerseyScreen
         push ebx
         push dword [byte ebp-014h]
         jmp near DrawCreatePlayerPanel_83
@@ -10176,7 +10176,7 @@ DrawCreatePlayerField:
         mov edi, edx
         mov esi, ebx
         lea ebx, [byte eax+042h]
-        test byte [dword_1AC814], 0Ch
+        test byte [GameSettings], 0Ch
         jne short .1
         mov eax, ebx
         mov ecx, 0Ch
@@ -10221,7 +10221,7 @@ DrawCreatePlayerField:
 DrawCreatePlayerText:
         push ecx
         add eax, 96h
-        test byte [dword_1AC814], 0Ch
+        test byte [GameSettings], 0Ch
         je short .1
         call PoundsToKg
 .1:
@@ -10245,7 +10245,7 @@ DrawCreatePlayerNameLine:
         push ecx
         add eax, byte 12h
         push eax
-        push unk_166E9D
+        push str_D_JerseyScreen
         jmp short DrawCreatePlayerText_20
 ;-----------------------------------------------------------------------------
 ; CreatePlayerScreen                           CF749  96 PC, medium confidence
@@ -12447,7 +12447,7 @@ BuildTradePlayerLists:
         mov eax, dword [byte ebp-010h]
         fild dword [byte ebp-018h]
         fild word [byte eax+018h]
-        fmul qword [qword_166FC4]
+        fmul qword [F64_2_BuildTradePlayerLists]
         fmulp
         fild dword [dword edi+ebp-0354h]
         faddp
@@ -12463,7 +12463,7 @@ BuildTradePlayerLists:
         add dword [dword edi+ebp-0354h], eax
         mov eax, dword [byte ebp-010h]
         fild word [byte eax+018h]
-        fmul qword [qword_166FC4]
+        fmul qword [F64_2_BuildTradePlayerLists]
         fild word [byte eax+055h]
         faddp
         call __CHP
@@ -12663,8 +12663,8 @@ BuildTradePlayerLists:
         call FreeMemBlock
         add esp, byte 4
         jmp near DrawRatingBars_157
-unk_D15D1:
+str_Xx00xx01xx02xx03xx10xx11xx12:
         db 078h,078h,030h,030h,078h,078h,030h,031h,078h,078h,030h,032h,078h,078h,030h,033h
         db 078h,078h,031h,030h,078h,078h,031h,031h,078h,078h,031h,032h,00h
-unk_D15EE:
+str_G0LWC0RWLDRD:
         db 047h,030h,04Ch,057h,043h,030h,052h,057h,04Ch,044h,052h,044h,00h

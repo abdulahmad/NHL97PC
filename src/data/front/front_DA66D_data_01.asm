@@ -7,9 +7,9 @@ global str_EXHIBIT, str_AGENTS, str_ORIGEXH, str_FILEdelete, str_WB, str_FILEcre
 global str_FILEseek, str_FILEseekend, str_FILEread, str_FILEclose, str_Pktlayer, str_Disconnecting, str_WaitingForOtherComputer, str_IPXMEM
 global str_NETWORK, str_SERVLIST, str_NHL97, str_GAMEADDR, str_PICKS2, str_REGS2, str_LX003, str_LC003
 global str_LX0D3, str_LC0D3, str_DTOP, str_DBOT, str_08x, str_KWKJSK122691, str_BACK13, str_MB014
-global str_MB023, str_MB03, str_AR02d2, str_LT02d2, str_MB004, unk_167540, unk_167560, unk_167574
-global unk_167588, unk_16764C, unk_167655, unk_16765E, unk_167669, unk_167673, unk_16767E, unk_16768A
-global unk_167695, unk_1676A1, unk_1676AE, unk_1676BB, unk_1676C6, unk_1676D3, unk_1676DD
+global str_MB023, str_MB03, str_AR02d2, str_LT02d2, str_MB004, str_X_WaitForOtherComputer, str_DOSCompatibleIPX, str_DOSKompatibelIPX
+global str_DOSKompatiblesIPX, str_HARTFSH, str_ROSSFSH, str_NORRISFSH, str_SELKEFSH, str_VEZINAFSH, str_JENNINGFSH, str_CALDERFSH
+global str_PEARSONFSH, str_EATROPHYFSH, str_PRESIDNTFSH, str_SMYTHEFSH, str_CAMPBELLFSH, str_WALESFSH, str_STANLEYFSH
 str_MEDIABUFFER:
         db 04Dh,045h,044h,049h,041h,020h,042h,055h,046h,046h,045h,052h,00h
 str_STATICBUF:
@@ -54,18 +54,18 @@ str_Pktlayer:
         db 070h,06Bh,074h,06Ch,061h,079h,065h,072h,00h,00h,00h,00h
 str_Disconnecting:
         db 044h,069h,073h,063h,06Fh,06Eh,06Eh,065h,063h,074h,069h,06Eh,067h,00h,00h,00h
-unk_167540:
+str_X_WaitForOtherComputer:
         db 058h,00h,00h,00h
 str_WaitingForOtherComputer:
         db 057h,061h,069h,074h,069h,06Eh,067h,020h,066h,06Fh,072h,020h,06Fh,074h,068h,065h
         db 072h,020h,063h,06Fh,06Dh,070h,075h,074h,065h,072h,00h,00h
-unk_167560:
+str_DOSCompatibleIPX:
         db 044h,04Fh,053h,02Dh,063h,06Fh,06Dh,070h,061h,074h,069h,062h,06Ch,065h,020h,049h
         db 050h,058h,00h,00h
-unk_167574:
+str_DOSKompatibelIPX:
         db 044h,04Fh,053h,02Dh,06Bh,06Fh,06Dh,070h,061h,074h,069h,062h,065h,06Ch,020h,049h
         db 050h,058h,00h,00h
-unk_167588:
+str_DOSKompatiblesIPX:
         db 044h,04Fh,053h,02Dh,06Bh,06Fh,06Dh,070h,061h,074h,069h,062h,06Ch,065h,073h,020h
         db 049h,050h,058h,00h
 str_IPXMEM:
@@ -112,31 +112,31 @@ str_LT02d2:
         db 04Ch,054h,025h,030h,032h,064h,00h
 str_MB004:
         db 04Dh,042h,030h,030h,00h,00h
-unk_16764C:
+str_HARTFSH:
         db 048h,041h,052h,054h,02Eh,046h,053h,048h,00h
-unk_167655:
+str_ROSSFSH:
         db 052h,04Fh,053h,053h,02Eh,046h,053h,048h,00h
-unk_16765E:
+str_NORRISFSH:
         db 04Eh,04Fh,052h,052h,049h,053h,02Eh,046h,053h,048h,00h
-unk_167669:
+str_SELKEFSH:
         db 053h,045h,04Ch,04Bh,045h,02Eh,046h,053h,048h,00h
-unk_167673:
+str_VEZINAFSH:
         db 056h,045h,05Ah,049h,04Eh,041h,02Eh,046h,053h,048h,00h
-unk_16767E:
+str_JENNINGFSH:
         db 04Ah,045h,04Eh,04Eh,049h,04Eh,047h,02Eh,046h,053h,048h,00h
-unk_16768A:
+str_CALDERFSH:
         db 043h,041h,04Ch,044h,045h,052h,02Eh,046h,053h,048h,00h
-unk_167695:
+str_PEARSONFSH:
         db 050h,045h,041h,052h,053h,04Fh,04Eh,02Eh,046h,053h,048h,00h
-unk_1676A1:
+str_EATROPHYFSH:
         db 045h,041h,054h,052h,04Fh,050h,048h,059h,02Eh,046h,053h,048h,00h
-unk_1676AE:
+str_PRESIDNTFSH:
         db 050h,052h,045h,053h,049h,044h,04Eh,054h,02Eh,046h,053h,048h,00h
-unk_1676BB:
+str_SMYTHEFSH:
         db 053h,04Dh,059h,054h,048h,045h,02Eh,046h,053h,048h,00h
-unk_1676C6:
+str_CAMPBELLFSH:
         db 043h,041h,04Dh,050h,042h,045h,04Ch,04Ch,02Eh,046h,053h,048h,00h
-unk_1676D3:
+str_WALESFSH:
         db 057h,041h,04Ch,045h,053h,02Eh,046h,053h,048h,00h
-unk_1676DD:
+str_STANLEYFSH:
         db 053h,054h,041h,04Eh,04Ch,045h,059h,02Eh,046h,053h,048h,00h

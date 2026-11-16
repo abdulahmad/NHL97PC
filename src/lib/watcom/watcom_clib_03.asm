@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_FC210 progbits alloc exec nowrite align=1
-extern _STACKLOW, __fatal_runtime_error_, __sys_fini_387_emulator, __sys_init_387_emulator, str_StackOverflow, word_16E418
+extern _STACKLOW, __fatal_runtime_error_, __sys_fini_387_emulator, __sys_init_387_emulator, str_StackOverflow, SavedStackSegment
 global __CHK, __CHP, __GRO, __STK, InitFpuEmulatorEntry, FiniFpuEmulatorEntry, SaveStackSegment
 ;-----------------------------------------------------------------------------
 ; InitFpuEmulatorEntry                            FC210  97 PC, low confidence
@@ -38,7 +38,7 @@ __CHP:
 ; Records the stack segment at start-up
 ;-----------------------------------------------------------------------------
 SaveStackSegment:
-        o16 mov word [word_16E418], ss
+        o16 mov word [SavedStackSegment], ss
         ret
 ;-----------------------------------------------------------------------------
 ; __CHK                                                         FC240  library
@@ -66,7 +66,7 @@ __STK:
         ret
 .1:
         mov ax, ss
-        cmp ax, word [word_16E418]
+        cmp ax, word [SavedStackSegment]
         je short .2
         ret
 .2:

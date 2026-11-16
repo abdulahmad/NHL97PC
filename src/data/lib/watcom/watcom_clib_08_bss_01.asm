@@ -2,116 +2,116 @@
 bits 32
 %include "hockey.inc"
 section s_1CFA10 nobits alloc noexec write align=1
-global byte_1CFADC, dword_1CFA10, dword_1CFA14, dword_1CFA18, dword_1CFA1C, dword_1CFA20, dword_1CFA24, dword_1CFA28
-global dword_1CFA2C, dword_1CFA30, dword_1CFA34, dword_1CFA38, dword_1CFA3C, dword_1CFA40, dword_1CFA44, dword_1CFA48
-global dword_1CFA4C, dword_1CFA50, dword_1CFA54, dword_1CFA58, dword_1CFA5C, dword_1CFA60, dword_1CFA64, dword_1CFA68
-global dword_1CFA6C, dword_1CFA70, dword_1CFA74, dword_1CFA78, dword_1CFA7C, dword_1CFA80, dword_1CFA84, dword_1CFA88
-global dword_1CFA8C, dword_1CFA90, dword_1CFA94, dword_1CFA9C, dword_1CFAA0, dword_1CFAA4, dword_1CFAA8, dword_1CFAAC
-global dword_1CFAB0, dword_1CFAB4, dword_1CFABC, dword_1CFAC0, dword_1CFACC, dword_1CFAD0, dword_1CFAD4, dword_1CFAD8
-global unk_1CFAF0, word_1CFA98, word_1CFAB8, word_1CFADE, word_1CFAE0
-dword_1CFA10:
+global CdRegFlags, InvTabR, InvTabG, InvTabB, InvTabDist, InvTabRStep, InvTabGStep, InvTabBStep
+global InvTabColor, InvTabRMin, InvTabRMax, InvTabOut, InvTabDistBuf, InvTabGMin, InvTabGMax, InvTabBMin
+global InvTabBMax, InvTabGCenter, InvTabBCenter, InvTabRow, InvTabCell, InvTabRCenter, InvTabPass, InvTabGLo
+global InvTabGHi, InvTabBLo, InvTabBHi, InvTabGInc, InvTabBInc, InvTabDistInc, InvTabDistStart, InvTabFillPtr
+global InvTabFillCount, InvTabFillStep, InvTabFillDist, CdBufferSelector, CdBufferAddr, CdBufferAllocated, CdDriveLetter, CdReadResult
+global CdRequestSegment, CdReadSector, CdRegs, CdDirEntryBuf, CdRegEbx, CdRegEdi, CdRegEax, CdRegEdx
+global SpeechEventBuf, CdBufferSegment, CdRequestSelector, CdRegEs, CdRegSegs
+InvTabR:
         resb 4
-dword_1CFA14:
+InvTabG:
         resb 4
-dword_1CFA18:
+InvTabB:
         resb 4
-dword_1CFA1C:
+InvTabDist:
         resb 4
-dword_1CFA20:
+InvTabRStep:
         resb 4
-dword_1CFA24:
+InvTabGStep:
         resb 4
-dword_1CFA28:
+InvTabBStep:
         resb 4
-dword_1CFA2C:
+InvTabColor:
         resb 4
-dword_1CFA30:
+InvTabRMin:
         resb 4
-dword_1CFA34:
+InvTabRMax:
         resb 4
-dword_1CFA38:
+InvTabOut:
         resb 4
-dword_1CFA3C:
+InvTabDistBuf:
         resb 4
-dword_1CFA40:
+InvTabGMin:
         resb 4
-dword_1CFA44:
+InvTabGMax:
         resb 4
-dword_1CFA48:
+InvTabBMin:
         resb 4
-dword_1CFA4C:
+InvTabBMax:
         resb 4
-dword_1CFA50:
+InvTabGCenter:
         resb 4
-dword_1CFA54:
+InvTabBCenter:
         resb 4
-dword_1CFA58:
+InvTabRow:
         resb 4
-dword_1CFA5C:
+InvTabCell:
         resb 4
-dword_1CFA60:
+InvTabRCenter:
         resb 4
-dword_1CFA64:
+InvTabPass:
         resb 4
-dword_1CFA68:
+InvTabGLo:
         resb 4
-dword_1CFA6C:
+InvTabGHi:
         resb 4
-dword_1CFA70:
+InvTabBLo:
         resb 4
-dword_1CFA74:
+InvTabBHi:
         resb 4
-dword_1CFA78:
+InvTabGInc:
         resb 4
-dword_1CFA7C:
+InvTabBInc:
         resb 4
-dword_1CFA80:
+InvTabDistInc:
         resb 4
-dword_1CFA84:
+InvTabDistStart:
         resb 4
-dword_1CFA88:
+InvTabFillPtr:
         resb 4
-dword_1CFA8C:
+InvTabFillCount:
         resb 4
-dword_1CFA90:
+InvTabFillStep:
         resb 4
-dword_1CFA94:
+InvTabFillDist:
         resb 4
-word_1CFA98:
+CdBufferSegment:
         resb 4
-dword_1CFA9C:
+CdBufferSelector:
         resb 4
-dword_1CFAA0:
+CdBufferAddr:
         resb 4
-dword_1CFAA4:
+CdBufferAllocated:
         resb 4
-dword_1CFAA8:
+CdDriveLetter:
         resb 4
-dword_1CFAAC:
+CdReadResult:
         resb 4
-dword_1CFAB0:
+CdRequestSegment:
         resb 4
-dword_1CFAB4:
+CdReadSector:
         resb 4
-word_1CFAB8:
+CdRequestSelector:
         resb 4
-dword_1CFABC:
+CdRegs:
         resb 4
-dword_1CFAC0:
+CdDirEntryBuf:
         resb 12
-dword_1CFACC:
+CdRegEbx:
         resb 4
-dword_1CFAD0:
+CdRegEdi:
         resb 4
-dword_1CFAD4:
+CdRegEax:
         resb 4
-dword_1CFAD8:
+CdRegEdx:
         resb 4
-byte_1CFADC:
+CdRegFlags:
         resb 2
-word_1CFADE:
+CdRegEs:
         resb 2
-word_1CFAE0:
+CdRegSegs:
         resb 16
-unk_1CFAF0:
+SpeechEventBuf:
         resb 256

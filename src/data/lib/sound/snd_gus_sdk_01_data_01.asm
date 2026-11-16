@@ -2,87 +2,87 @@
 bits 32
 %include "hockey.inc"
 section s_19A740 progbits alloc noexec write align=1
-extern unk_1681F0
-global byte_19A748, byte_19A77C, byte_19A780, byte_19A784, byte_19A7B8, byte_19A7C0, byte_19A7C8, byte_19A7D0
-global byte_19A7D8, byte_19A7E0, dword_19A744, dword_19A758, dword_19A75C, dword_19A760, dword_19A764, dword_19A768
-global dword_19A76C, dword_19A770, dword_19A774, dword_19A778, dword_19A788, dword_19A78C, dword_19A790, dword_19A794
-global dword_19A798, dword_19A79C, dword_19A7A0, dword_19A7A4, dword_19A7A8, dword_19A7B0, dword_19A7B4, dword_19A7E4
-global dword_19A7E8, off_19A740, word_19A7AC, word_19A7AE, word_19A7B2, word_19A7B6
-off_19A740:
-        dd unk_1681F0
-dword_19A744:
+extern str_ULTRASND
+global GusIrqLatchBits, GusStreamVoiceA, GusStreamVoiceStereo, GusStreamVoiceB, DmaPagePorts, DmaMaskPorts, DmaModePorts, DmaClearPorts
+global DmaAddressPorts, DmaCountPorts, GusOpenCount, GusStreamRefillA, GusStreamRefillB, GusStreamSrcA, GusStreamHalfA, GusStreamBusyA
+global GusStreamSrcB, GusStreamHalfB, GusStreamBusyB, GusStreamActive, GusStreamBufSize, GusStreamHalfSize, GusStreamQuarterSize, GusRefillSrc
+global GusRefillDest, GusRefillLength, GusStreamCardA, GusStreamCardB, GusStreamCardEnd, GusStreamStartLo, GusStreamEndLo, StrToLongLimits
+global IrqAckLast, GusEnvVarName, GusStreamLoopLo, GusStreamLoopHi, GusStreamStartHi, GusStreamEndHi
+GusEnvVarName:
+        dd str_ULTRASND
+GusOpenCount:
         db 00h,00h,00h,00h
-byte_19A748:
+GusIrqLatchBits:
         db 00h,00h,01h,03h,00h,02h,00h,04h,00h,00h,00h,05h,06h,00h,00h,07h
-dword_19A758:
+GusStreamRefillA:
         db 00h,00h,00h,00h
-dword_19A75C:
+GusStreamRefillB:
         db 00h,00h,00h,00h
-dword_19A760:
+GusStreamSrcA:
         db 00h,00h,00h,00h
-dword_19A764:
+GusStreamHalfA:
         db 00h,00h,00h,00h
-dword_19A768:
+GusStreamBusyA:
         db 00h,00h,00h,00h
-dword_19A76C:
+GusStreamSrcB:
         db 00h,00h,00h,00h
-dword_19A770:
+GusStreamHalfB:
         db 00h,00h,00h,00h
-dword_19A774:
+GusStreamBusyB:
         db 00h,00h,00h,00h
-dword_19A778:
+GusStreamActive:
         db 00h,00h,00h,00h
-byte_19A77C:
+GusStreamVoiceA:
         db 00h,00h,00h,00h
-byte_19A780:
+GusStreamVoiceStereo:
         db 00h,00h,00h,00h
-byte_19A784:
+GusStreamVoiceB:
         db 00h,00h,00h,00h
-dword_19A788:
+GusStreamBufSize:
         db 00h,00h,00h,00h
-dword_19A78C:
+GusStreamHalfSize:
         db 00h,00h,00h,00h
-dword_19A790:
+GusStreamQuarterSize:
         db 00h,00h,00h,00h
-dword_19A794:
+GusRefillSrc:
         db 00h,00h,00h,00h
-dword_19A798:
+GusRefillDest:
         db 00h,00h,00h,00h
-dword_19A79C:
+GusRefillLength:
         db 00h,00h,00h,00h
-dword_19A7A0:
+GusStreamCardA:
         db 00h,00h,00h,00h
-dword_19A7A4:
+GusStreamCardB:
         db 00h,00h,00h,00h
-dword_19A7A8:
+GusStreamCardEnd:
         db 00h,00h,00h,00h
-word_19A7AC:
+GusStreamLoopLo:
         db 00h,00h
-word_19A7AE:
+GusStreamLoopHi:
         db 00h,00h
-dword_19A7B0:
+GusStreamStartLo:
         db 00h,00h
-word_19A7B2:
+GusStreamStartHi:
         db 00h,00h
-dword_19A7B4:
+GusStreamEndLo:
         db 00h,00h
-word_19A7B6:
+GusStreamEndHi:
         db 00h,00h
-byte_19A7B8:
+DmaPagePorts:
         db 087h,083h,081h,082h,08Fh,08Bh,089h,08Ah
-byte_19A7C0:
+DmaMaskPorts:
         db 0Ah,0Ah,0Ah,0Ah,0D4h,0D4h,0D4h,0D4h
-byte_19A7C8:
+DmaModePorts:
         db 0Bh,0Bh,0Bh,0Bh,0D6h,0D6h,0D6h,0D6h
-byte_19A7D0:
+DmaClearPorts:
         db 0Ch,0Ch,0Ch,0Ch,0D8h,0D8h,0D8h,0D8h
-byte_19A7D8:
+DmaAddressPorts:
         db 00h,02h,04h,06h,0C0h,0C4h,0C8h,0CCh
-byte_19A7E0:
+DmaCountPorts:
         db 01h,03h,05h,07h
-dword_19A7E4:
+StrToLongLimits:
         db 0C2h,0C6h,0CAh,0CEh
-dword_19A7E8:
+IrqAckLast:
         db 0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,07Fh,055h,055h,055h,055h,0FFh,0FFh,0FFh,03Fh
         db 033h,033h,033h,033h,0AAh,0AAh,0AAh,02Ah,024h,049h,092h,024h,0FFh,0FFh,0FFh,01Fh
         db 01Ch,0C7h,071h,01Ch,099h,099h,099h,019h,074h,0D1h,045h,017h,055h,055h,055h,015h

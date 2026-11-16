@@ -9,7 +9,7 @@ global str_SR00, str_SG02, str_SG01, str_SG00, str_DT02, str_DT01, str_DT00, str
 global str_DIV3, str_DIV4, str_DIV1, str_DIV2, str_Factoid, str_Rts, str_Ross, str_Standmenu
 global str_FACT, str_LBL1LBL2LBL3LBR1LBR2LTL1L3, str_DDD3, str_Ptlist, str_Idlist, str_List, str_SSSDSS, str_SSDSS
 global str_SSDSS2, str_SSD02dSS, str_S3, str_S4, str_SSEASDSET, str_Importagents, str_FakeEXHIBIT, str_FakeAGENTS
-global str_Agents, unk_165779, unk_1657CD, unk_1657CF
+global str_Agents, str_Punct_SeasonMenuScreen, str_Punct_StandingsScreen, str_D_StandingsScreen
 str_SEAS04dSET:
         db 053h,045h,041h,053h,025h,030h,034h,064h,02Eh,053h,045h,054h,00h
 str_SS3:
@@ -90,7 +90,7 @@ str_DIV1:
         db 044h,049h,056h,031h,00h
 str_DIV2:
         db 044h,049h,056h,032h,00h
-unk_165779:
+str_Punct_SeasonMenuScreen:
         db 0Ah,00h
 str_Factoid:
         db 066h,061h,063h,074h,06Fh,069h,064h,00h
@@ -108,9 +108,9 @@ str_LBL1LBL2LBL3LBR1LBR2LTL1L3:
         db 04Ch,054h,052h,032h,04Ch,054h,052h,033h,00h
 str_DDD3:
         db 025h,064h,02Dh,025h,064h,02Dh,025h,064h,00h
-unk_1657CD:
+str_Punct_StandingsScreen:
         db 02Ah,00h
-unk_1657CF:
+str_D_StandingsScreen:
         db 025h,064h,00h
 str_Ptlist:
         db 070h,074h,06Ch,069h,073h,074h,00h
