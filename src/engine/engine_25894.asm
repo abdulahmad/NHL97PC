@@ -51,7 +51,7 @@ global sub_25AEC, sub_25BD0, sub_25D40, sub_25E24, sub_25F64, sub_2625C, sub_264
 global sub_27210, sub_27274, ChkPullGoalieLate, assbench, sub_27A00, sub_27A78, sub_27AD8, sub_27D10
 global sub_27F80, sub_27FF0, sub_28110, asseben, sub_2842C, asspenalty, assdopen, assepen
 global sub_28C0C, assrefpenshot, sub_29064, sub_293A8, sub_295CC, sub_298E8, sub_29A90, sub_29BFC
-global sub_29E2C, sub_29F30, sub_2A000, sub_2A1C8, sub_2A3A0, assstanley, sub_2A6B8, sub_2AA50
+global sub_29E2C, assintrostand, assintroline, asstakeposition, sub_2A3A0, assstanley, sub_2A6B8, sub_2AA50
 global sub_2AC40, sub_2AD18, sub_2AFD8, sub_2B4D4, sub_2B9EC, sub_2BAC0, sub_2BE2C, a2offsides
 global sub_2BFC4, a2touchpuck, sub_2C42C, sub_2C4E8, sub_2C5C8, sub_2C900, pucknorm_body, pucknorm
 global puckfaceoff2, CPgoalie, sub_2DD54
@@ -5553,9 +5553,12 @@ sub_29E2C:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_29F30                                                       29F30  97 PC
+; assintrostand                                29F30  95 PC, medium confidence
+; Asstab 25h (PreGameIntro): stands with a countdown in temp5, small random x
+; jitter and random fidget animation (introstandanims_m2); when done
+; assinsert 27h
 ;-----------------------------------------------------------------------------
-sub_29F30:
+assintrostand:
         push ebx
         push ecx
         push edx
@@ -5616,9 +5619,12 @@ sub_29F30:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_2A000                                                       2A000  97 PC
+; assintroline                                    2A000  95 PC, low confidence
+; Asstab 26h (PreGameIntro): skates to the line-up spot (temp3 -0Fh,temp4),
+; turns to face centre, marks temp5 -64h; when all 12 skaters are done sets
+; seqtimer 0Ah; crowdlevel 320h
 ;-----------------------------------------------------------------------------
-sub_2A000:
+assintroline:
         push ebx
         push ecx
         push edx
@@ -5742,9 +5748,12 @@ sub_2A000:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_2A1C8                                                       2A1C8  97 PC
+; asstakeposition                                 2A1C8  95 PC, low confidence
+; Asstab 27h (assintrostand, assbench, PenShotStart/Assign): goalie -> 0Dh;
+; else skates to the position slot from apl by position and team tmap, exits
+; when done
 ;-----------------------------------------------------------------------------
-sub_2A1C8:
+asstakeposition:
         push ebx
         push ecx
         push edx

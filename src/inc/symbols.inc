@@ -189,9 +189,9 @@
 ;  29A90  sub_29A90                                engine/engine_25894.asm                      1
 ;  29BFC  sub_29BFC                                engine/engine_25894.asm                      1
 ;  29E2C  sub_29E2C                                engine/engine_25894.asm                      1
-;  29F30  sub_29F30                                engine/engine_25894.asm                      1
-;  2A000  sub_2A000                                engine/engine_25894.asm                      1
-;  2A1C8  sub_2A1C8                                engine/engine_25894.asm                      1
+;  29F30  assintrostand                            engine/engine_25894.asm                      1
+;  2A000  assintroline                             engine/engine_25894.asm                      1
+;  2A1C8  asstakeposition                          engine/engine_25894.asm                      1
 ;  2A3F4  assstanley                               engine/engine_25894.asm                      1
 ;  2A6B8  sub_2A6B8                                engine/engine_25894.asm                      1
 ;  2BE2C  sub_2BE2C                                engine/engine_25894.asm                      1

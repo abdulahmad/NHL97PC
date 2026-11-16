@@ -79,6 +79,9 @@ address,name,auto_name,source,confidence,evidence,file
 289AC,assdopen,sub_289AC,96PC,low,"96 PC assdopen: assignment 13h, opens the penalty box door (SetPenaltyBoxDoor, sound)",src/engine/engine_25894.asm
 28A08,assepen,sub_28A08,94G,medium,"94G assepen: assignment 14h, leaving the penalty box (setplayer gives it for a player from the box, as in 94G)",src/engine/engine_25894.asm
 28D88,assrefpenshot,sub_28D88,96PC,low,"96 PC assrefpenshot: assignment 29h (last referee handler): waits for AllInPlace before the penalty shot, with a sound",src/engine/engine_25894.asm
+29F30,assintrostand,sub_29F30,96PC,medium,"96 PC assintrostand: assignment 1Eh (PlaceOpeningPlayers gives it), players stand during the opening, random idle animations",src/engine/engine_25894.asm
+2A000,assintroline,sub_2A000,96PC,low,"96 PC assintroline: assignment 1Fh, after assintrostand as in 96 PC: the opening line-up",src/engine/engine_25894.asm
+2A1C8,asstakeposition,sub_2A1C8,96PC,low,"96 PC asstakeposition: assignment 20h, after assintroline as in 96 PC: skate to the starting position",src/engine/engine_25894.asm
 2A3F4,assstanley,sub_2A3F4,96PC,low,"96 PC assstanley: player handler 46, the Stanley Cup presentation (cuppal, LoadCupArt, fade, camera path)",src/engine/engine_25894.asm
 2BEF0,a2offsides,sub_2BEF0,94G,low,94G a2offsides: (player) from a2touchpuck: offsides when the rule is on and the touching player's team is past the line,src/engine/engine_25894.asm
 2C064,a2touchpuck,sub_2C064,94G,medium,"94G a2touchpuck: (player) the player touches the puck: records the last touch (player word_19CBAE, position), then checks offsides and the other rules",src/engine/engine_25894.asm
