@@ -145,9 +145,22 @@ static uint32_t first_diff(const uint32_t *a, const uint32_t *b)      /* the ori
     }
     return 0;
 }
+/* Unlocked: no more than 500 frames a second. Cheap scenes (the opening fly-in) drew about 1,850 a second, far more than any
+ * display shows, which only kept a CPU core busy; play draws about 330, so it is left as it was. */
+#define MIN_FRAME_NS 2000000
+static int64_t draw_ns;
+static void cap_frames(void)
+{
+    int64_t now = plat_now_ns();
+    if (now - draw_ns < MIN_FRAME_NS && now >= draw_ns)
+        while ((now = plat_now_ns()) - draw_ns < MIN_FRAME_NS) host_idle_once();
+    draw_ns = now;
+}
+
 void cam_begin(int32_t t)
 {
     blended = 0;
+    if (active() && nh_frames_mode() == 2) cap_frames();
     if (!active() || !have_cur) { do_step = 2; last_t = t; return; }     /* 2: the original call, its own ticks */
     save(now_state);
     n_frames++;
