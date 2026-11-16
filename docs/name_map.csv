@@ -170,12 +170,15 @@ address,name,auto_name,source,confidence,evidence,file
 42220,PlaySfxVolume,sub_42220,new,low,"(id, volume 0-64h, ...): PlaySfx with a volume (scaled by the globalset sound volume) and position",src/engine/engine_3812E.asm
 42D50,OpenSpeechBanks,sub_42D50,96PC,low,"opens the play-by-play speech files (%sAUDPBP3.TSF, KTSF, %sAUDPBP2.VIV, CBANK%03d.DAT), like 96 PC OpenSpeechBanks",src/engine/engine_3812E.asm
 4329C,LoadTeamSpeech,sub_4329C,new,low,"(team, other): loads the team name speech file TEAM%04d.DAT when it is not loaded",src/engine/engine_3812E.asm
+43944,InitSpeechBanks,sub_43944,new,low,"from InitGameAudio: sets up the speech banks (TEMPBANK, EVENT.DAT, CBANK%03d.HDR, TEAM%04d.HDR, PBP, AUDPBP3.TSF, KTSF)",src/front/front_43578.asm
 45BEC,CommentaryEvent,sub_45BEC,new,low,"the play-by-play commentary: (event 0A0000001h-0A000002Fh, args...) with speech on, not in a replay (dword_1B8FA0); jump table jpt_45A64 by event, each case queues commentary clips. The arena PA announcer is PaEvent (B/C events)",src/front/front_45BEC.asm
+47C08,OpenSpeechFile,sub_47C08,new,low,"opens the ""SPEECH"" file (""G.KSF"")",src/front/front_45BEC.asm
 47F8C,ShutdownSound,sub_47F8C,96PC,medium,NHL96PC 699D0 (sem 0.61): C:2246,src/front/front_45BEC.asm
 4890C,CountRecordGame,sub_4890C,96PC,medium,96 PC CountRecordGame: counts one game of a W/L/T byte string,src/front/front_45BEC.asm
 48950,RecordPctClip,sub_48950,96PC,medium,NHL96PC 67636 (similar 0.91): mnemonic similarity 0.91 over 69 instructions,src/front/front_45BEC.asm
 489F4,RecordStreakClips,sub_489F4,96PC,medium,NHL96PC 676D4 (sem 0.91): C:560,src/front/front_45BEC.asm
 48D70,PaEvent,sub_48D70,96PC,low,"the arena PA announcer: B events (0B000001h-0B000006h) from the front end and pre-game screens, C events (0C000001h-0C000004h) in game; ClockTick posts 0C0000004h at one minute left in a period. The play-by-play is CommentaryEvent",src/front/front_48D70.asm
+4A4F4,PlayScreenMovie,sub_4A4F4,new,low,"(id): waits for the music (WaitMusicEnd), makes the movie path and plays it (PlayMovie); from the stats, all-star and create player screens",src/front/front_48D70.asm
 4AB90,MakeDataPath,sub_4AB90,96PC,medium,NHL96PC 1E3E8 (sem 0.84): C:1920; C:1834; R:579; R:572,src/front/front_48D70.asm
 4AE14,MakeDirPath,sub_4AE14,96PC,high,"96 PC MakeDirPath: (out, dir, language) a game directory path (language prefix, directory from unk_169848, backslash)",src/front/front_48D70.asm
 4AF9F,LoadDataFileHandle,sub_4AF9F,96PC,medium,NHL96PC 1E779 (sem 1.00): C:2267,src/front/front_48D70.asm
@@ -242,13 +245,18 @@ address,name,auto_name,source,confidence,evidence,file
 77F88,GameOver,sub_77F88,96PC,medium,sets gameover (word_19CBA0); 96 PC GameOver without its already-over check,src/front/front_57324.asm
 785E8,periodicevents,sub_785E8,94G,low,"from DoGameFrame before updateplayers: chkprogress, line changes (StartFaceoffLineChange), the Stanley Cup start (sub_780F0)",src/front/front_57324.asm
 78810,DoGameFrame,sub_78810,95PC,medium,"one frame of game logic, from RunSimFrames, RunOpeningFrames and PlaceOpeningPlayers: periodicevents, updateplayers, then the crowd sounds and commentary",src/front/front_57324.asm
+7BCF0,OpenVideoStream,sub_7BCF0,new,low,"opens the movie's ""VIDEO"" stream (CdStreamOpenSecondary, CdStreamStart)",src/front/front_7A9D8.asm
+7C3EC,PlayMovie,sub_7C3EC,new,low,"plays a movie file (""AUDSTRMHACK"" audio, OpenVideoStream), from sub_4A4F4",src/front/front_7A9D8.asm
 7C600,putchar,,96PC,medium,NHL96PC 17675 (sem): S:ATZS7=60S11=55; D:164110,
+7C614,ModemReset,sub_7C614,new,low,"sends the modem set-up string ""ATE1Q0X4F1""",src/front/front_7A9D8.asm
 7C690,ModemHangup,sub_7C690,96PC,medium,NHL96PC 1779C (sem 0.94): S:ATH0; D:16412C; C:1054; C:1053,src/front/front_7A9D8.asm
+7C714,ModemDial,sub_7C714,new,medium,"hangs up, then dials with ""ATD"" + the number (ModemSendCommand, ModemReadResult)",src/front/front_7A9D8.asm
 7C7A4,ModemAutoAnswer,sub_7C7A4,96PC,medium,NHL96PC 17887 (sem 1.00): S:ATS0=1; D:164140; S:ATA ; D:164148,src/front/front_7A9D8.asm
 7C7E0,ModemWaitConnect,sub_7C7E0,96PC,medium,"NHL96PC 178C0 (neighbour 0.78): between ModemAutoAnswer and ModemReadResult, mnemonic similarity 0.78",src/front/front_7A9D8.asm
 7C834,ModemReadResult,sub_7C834,96PC,medium,NHL96PC 17906 (sem 1.00): C:2478; C:2221; R:1054,src/front/front_7A9D8.asm
 7C988,ModemSendCommand,sub_7C988,96PC,medium,NHL96PC 17A32 (similar 0.85): mnemonic similarity 0.85 over 63 instructions,src/front/front_7A9D8.asm
 7CA1C,ModemAttention,sub_7CA1C,96PC,medium,NHL96PC 17AC7 (similar 0.86): mnemonic similarity 0.86 over 63 instructions,src/front/front_7A9D8.asm
+7CAB4,ModemSpeakerOff,sub_7CAB4,new,low,"sends ""ATM0""",src/front/front_7A9D8.asm
 7CADA,LoadLogoNames,sub_7CADA,new,low,"loads the ""logo names"" block from the logo%02d.qfs files",src/front/front_7A9D8.asm
 7CBD6,InitFrontEnd,sub_7CBD6,new,low,"front-end start-up (also after a game): input devices (mous / remo), the front-end art and the team logo names",src/front/front_7A9D8.asm
 7CDD8,FreeFrontEnd,sub_7CDD8,new,low,undoes InitFrontEnd and saves GLOBAL.SET (WriteGlobalSet),src/front/front_7A9D8.asm
@@ -290,12 +298,17 @@ address,name,auto_name,source,confidence,evidence,file
 8FFCF,RunSeasonMenus,sub_8FFCF,96PC,low,"96 PC RunSeasonMenus: screen 0Ch, runs the season screens (season menu, standings, play-off tree, roster) until they leave",src/front/front_8E997.asm
 90162,SeasonMenuScreen,sub_90162,96PC,low,"96 PC SeasonMenuScreen: the season menu (""menu"", SD00-SD03, RL00, SN00, SR00 ...)",src/front/front_8E997.asm
 912E3,StandingsScreen,sub_912E3,96PC,medium,"96 PC StandingsScreen: the standings screen (""standmenu"", factoids, BGWS, TTLW)",src/front/front_8E997.asm
+91F74,BuildStandingsFactoids,sub_91F74,new,low,"standings screen: builds the ""ptlist"" / ""idlist"" factoid lines (""%s, %s %s %d %s (%s)."")",src/front/front_8E997.asm
+925BE,SeasonSettingsPath,sub_925BE,new,low,"(n, buf): the season settings file name ""%sSEAS%d.SET""",src/front/front_8E997.asm
 9281C,LinkTransferSetup,sub_9281C,new,low,"link games: from RunNewSeason, RunNewPlayoffs and TeamSelectScreen, swaps the set-up data with the other computer (""Transferring data..."")",src/front/front_8E997.asm
+92DB7,LoadFakeExhibition,sub_92DB7,new,low,"for the roster screen: loads the exhibition file into ""fakeEXHIBIT"" / ""fakeAGENTS"" copies",src/front/front_8E997.asm
+92E37,SaveAgents,sub_92E37,new,low,"writes the ""agents"" (free agents) table back (SaveExhibitionFile)",src/front/front_8E997.asm
 93512,RunNewPlayoffs,sub_93512,new,low,"screen 8: sets up new play-offs (copies the set-up, PlayoffSetupScreen, roster, import agents)",src/front/front_93005.asm
 936BE,PlayoffSetupScreen,sub_936BE,96PC,low,"96 PC PlayoffSetupScreen: the new play-offs screen (""playoffmenu"", TITL, 012R-014R, the option toggles SCOF/SCON ...)",src/front/front_93005.asm
 9401D,CreatePlayoffs,sub_9401D,new,low,creates the new play-offs: picks a free PLAY%04d.SET name and adds it to PLAYOFF.NDX,src/front/front_93005.asm
 94B30,RunPlayoffMenus,sub_94B30,96PC,low,"96 PC RunPlayoffMenus: screen 0Dh, runs the play-off screens (play-off tree, standings, roster) until they leave",src/front/front_93005.asm
 94BDA,PlayoffTreeScreen,sub_94BDA,96PC,low,"96 PC PlayoffTreeScreen: the play-off tree screen (""playoffmenu"", ""pieces"", pan2 / pan6, 01RU, 01SR ...)",src/front/front_93005.asm
+96019,PlayoffSettingsPath,sub_96019,new,low,"(n, buf): the play-off file names ""%sSEAS%d.PLY"" / ""%sPLAY%d.SET""",src/front/front_93005.asm
 9623E,EditLinesScreen,sub_9623E,96PC,medium,"96 PC EditLinesScreen: (team, line) the edit lines screen (""edit lines menu"" / ""edit lines regions"")",src/front/front_9623E.asm
 97AE7,AllocTempGameTeam,sub_97AE7,new,low,"edit lines: allocates the ""temp game team"" block and draws the arena button (SW00, AR%02d)",src/front/front_9623E.asm
 98274,LoadEditLinesRoster,sub_98274,new,low,"edit lines: allocates and fills the ""roster"" table for the team",src/front/front_9623E.asm
@@ -340,6 +353,9 @@ BD62C,RunReplay,sub_BD62C,96PC,low,"96 PC RunReplay: RunInGameMenu's replay requ
 BD98B,LoadReplay,sub_BD98B,new,low,"loads a saved replay (""replload"") and sets up the game view and animations for it",src/front/front_BD62C.asm
 BE2A6,ReplayScreen,sub_BE2A6,96PC,low,"96 PC ReplayScreen: the instant replay screen (""replmenu"" / ""replregs"")",src/front/front_BD62C.asm
 BF4F9,PickReplayScreen,sub_BF4F9,new,low,the saved replay list (REPLAY.NDX),src/front/front_BD62C.asm
+BFFB7,OpenReplayIndex,sub_BFFB7,new,low,"from LoadReplay: reads ""REPLAY.NDX"" (NameIndexLoad / NameIndexNew), also over a link",src/front/front_BD62C.asm
+C0285,SaveReplay,sub_C0285,new,low,"from ReplayScreen: saves the highlight under a name in ""%s\REPLAY.NDX""",src/front/front_BD62C.asm
+C250A,ExportHistoryCsv,sub_C250A,new,low,"writes the ""history .csv"" file",src/front/front_C0F5D.asm
 C3594,RunOptionsScreens,sub_C3594,new,low,from RunFrontEnd (0Ah): runs the options screen and its control set-up screens (screen numbers 22h-24h) until it returns 1Ah; in a network session only one side may change them,src/front/front_C0F5D.asm
 C36CA,DetailLevelScreen,sub_C36CA,new,low,"the front end detail level panel (On / Off for crowd, ice logos, ice texture, boards, glass, names, benches), from OptionsScreen",src/front/front_C0F5D.asm
 C48A2,OptionsScreen,sub_C48A2,new,low,"the options screen (ON0%d / OF0%d toggles, MB0%d buttons, BOTM)",src/front/front_C462F.asm
@@ -361,6 +377,8 @@ CF749,CreatePlayerScreen,sub_CF749,96PC,medium,"96 PC CreatePlayerScreen: the cr
 D0D56,CompareFirstDword,sub_D0D56,new,medium,"qsort compare: the first dword of the two entries, ascending",src/front/front_C755B.asm
 D0F07,BuildTradePlayerLists,sub_D0F07,new,low,"from the roster screen (sub_CE73B): allocates and sorts ""aiplayers"", ""statplayers"" and ""statgoalies"" (qsort with sub_D0D56-sub_D0EBE)",src/front/front_C755B.asm
 D1927,PreGameMatchupScreen,sub_D1927,96PC,low,"96 PC PreGameMatchupScreen: game screen 14h before play: the matchup with the left / right team pictures (%03dL.FSH / %03dR.FSH), PANL, team and player stats",src/front/front_D15FB.asm
+D230A,DrawPlayerPortrait,sub_D230A,new,low,"pre-game: the player's portrait (0%02d.FSH, NOFACE.FSH, ""Portrait not found"") and ""#%d  %s %s""",src/front/front_D15FB.asm
+D26EE,PreGameStatsPanel,sub_D26EE,new,low,"from PreGameMatchupScreen: the ""homestats"" / ""awaystats"" comparison panel",src/front/front_D15FB.asm
 D3112,PreGameRostersScreen,sub_D3112,new,low,"game screen 13h before play: the home and visitor rosters (""hros"" / ""vros""), the ""blurb"" and the star players (STAR, FIR1, F%dP%d)",src/front/front_D3112.asm
 D4225,DrawMatchupNotes,sub_D4225,new,low,"pre-game: the playoff race notes, season series and ""last time they met"" lines",src/front/front_D3112.asm
 D4E24,GoalieMaskIntro,sub_D4E24,new,low,"from GoalieMaskScreen: the opening of the mask gallery (DOR0 / DOR1 doors, PANL, LADR, BB / AB buttons)",src/front/front_D4E24.asm
@@ -420,6 +438,7 @@ ED01F,AllocAllStarRosters,sub_ED01F,new,low,"allocates the ""all star rosters"",
 EE0F7,GetKeyName,sub_EE0F7,new,medium,"(scan code, buf): copies the key's name (""Escape"", ""Backspace"", ""Left Shift""..., ""<NONE>"") for the control setup screen",src/front/front_E9429.asm
 EE69C,ShowReservedKey,sub_EE69C,new,low,"control setup: ""The %s key is reserved for a system function. Please choose another.""",src/front/front_EE69C.asm
 F0339,ControlSetupScreen,sub_F0339,96PC,low,"96 PC ControlSetupScreen: (mode) the control set-up screen (KMB%d keyboard / mouse buttons, TB00-TB03, GLW%d)",src/front/front_EE69C.asm
+F27A4,DrawPauseClock,sub_F27A4,new,low,"pause menu / intermission: the game time line ("" %d:%02d.%d"")",src/front/front_F20A1.asm
 F2ADB,DrawPauseButtons,sub_F2ADB,96PC,low,"draws the pause menu buttons (game text Save Game, Controller Setup, Replay, Rules, Detail Level, Quit Game)",src/front/front_F20A1.asm
 F30F1,PickEditLinesTeam,sub_F30F1,new,low,"the in-game ""Edit which team?"" box (Home / Away / Cancel)",src/front/front_F20A1.asm
 F36AC,ConfirmQuitGame,sub_F36AC,new,medium,"the in-game ""Are you sure you want to quit the game?"" box (Yes / No)",src/front/front_F20A1.asm

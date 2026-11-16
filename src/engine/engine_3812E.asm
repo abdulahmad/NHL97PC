@@ -49,7 +49,7 @@ extern sub_106F7C, sub_106F94, sub_1070B0, sub_1070D0, sub_107154, sub_1072F0, s
 extern sub_107B70, sub_107CB0, sub_107D30, sub_107D70, sub_107E74, sub_107F48, sub_108040, sub_108144
 extern sub_10815C, sub_1081B0, sub_108640, sub_1086BF, sub_108CE8, sub_1091E0, sub_109210, sub_109250
 extern sub_1092B0, sub_109352, sub_109384, sub_109417, sub_109545, sub_10955B, sub_13C164, sub_1E7C4
-extern sub_2F8D8, sub_2FA00, sub_2FB40, sub_43944, sub_47C08, sub_47D70, sub_47EA4, ShutdownSound
+extern sub_2F8D8, sub_2FA00, sub_2FB40, InitSpeechBanks, OpenSpeechFile, sub_47D70, sub_47EA4, ShutdownSound
 extern sub_4AA78, MakeDataPath, LoadDataFile, OpenDataLibrary, sub_52D4C, sub_55648, sub_5696C, sub_56A08
 extern sub_56CD0, sub_56CE4, sub_56CF8, sub_56D0C, sub_5AC30, sub_5B4B8, sub_5C1CC, sub_5CD68
 extern sub_5DF50, SetSPA, sub_5EEEC, sub_60D6C, sub_60F48, sub_612E4, sub_613AC, sub_6152C
@@ -13590,7 +13590,7 @@ OpenAudioStream_D8:
         call sub_E341C
         xor eax, eax
         xor edx, edx
-        call sub_47C08
+        call OpenSpeechFile
         call sub_E341C
         mov eax, 1
         mov dword [dword_169250], edx
@@ -13733,11 +13733,11 @@ InitGameAudio:
         call sub_47D70
         call sub_E341C
         mov eax, 1
-        call sub_47C08
+        call OpenSpeechFile
         call sub_E341C
         mov eax, 2
         mov ebx, 2
-        call sub_47C08
+        call OpenSpeechFile
         call sub_E341C
         mov eax, 5
         mov dword [dword_169254], ebx
@@ -13847,7 +13847,7 @@ InitGameAudio:
         test eax, eax
         je short .15
 .14:
-        call sub_43944
+        call InitSpeechBanks
 .15:
         mov eax, dword [dword_1AC819]
         shl eax, 17h
@@ -14137,7 +14137,7 @@ sub_41670:
         call sub_E341C
         xor eax, eax
         mov ecx, 1
-        call sub_47C08
+        call OpenSpeechFile
         call sub_E341C
         mov dword [dword_169254], ecx
         call sub_E341C

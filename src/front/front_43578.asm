@@ -31,7 +31,7 @@ extern sub_8BEF8, FileExists, FileOpen, FileSeek, FileReadRecord, FileWriteRecor
 extern sub_E341C, sub_FAA64, sub_FAAB4, sub_FAF34, sub_FC330, sub_FC410, sub_FC510, tickcount
 extern unk_160DD4, unk_160E8C, unk_160FD4, unk_161068, vecdist
 global jpt_45A64, jpt_45B20, jpt_45B38, jpt_45B60, jpt_45B70, jpt_45B84, jpt_45BC0, jpt_45BD8
-global sub_43884_9C, sub_43578, sub_43884, sub_43944, sub_44998, sub_449F0, sub_44A50, sub_4518C
+global sub_43884_9C, sub_43578, sub_43884, InitSpeechBanks, sub_44998, sub_449F0, sub_44A50, sub_4518C
 global sub_45430, sub_45628, sub_4564C, sub_45954, sub_45A00, sub_45A3C
 ;-----------------------------------------------------------------------------
 ; sub_43578                                                       43578  97 PC
@@ -367,9 +367,11 @@ sub_43884_9C:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_43944                                                       43944  97 PC
+; InitSpeechBanks                                 43944  97 PC, low confidence
+; From InitGameAudio: sets up the speech banks (TEMPBANK, EVENT.DAT,
+; CBANK%03d.HDR, TEAM%04d.HDR, PBP, AUDPBP3.TSF, KTSF)
 ;-----------------------------------------------------------------------------
-sub_43944:
+InitSpeechBanks:
         push dword 1A0h
         call __CHK
         push ebx

@@ -79,7 +79,7 @@ extern sub_41D94, WaitMusicEnd, sub_42650, sub_480CC, sub_4880C, sub_48864, Reco
 extern LoadRinkLines, LoadRinkModel, FreeRinkModel, sub_5475C, sub_55110, sub_55FE4, sub_560AC, sub_56464
 extern sub_56740, LoadGoalieMask, sub_5881C, sub_58B80, sub_58CA0, sub_59174, sub_5A6B4, sub_5A6E0
 extern sub_5AAB8, sub_5B090, sub_5B1C0, sub_5B2D4, sub_5B450, sub_5C1CC, sub_5DD74, LoadAiIcons
-extern sub_77A30, sub_7C3EC, sub_842F4, sub_E3410, sub_E341C, sub_FAA64, sub_FAF34, sub_FB704
+extern sub_77A30, PlayMovie, sub_842F4, sub_E3410, sub_E341C, sub_FAA64, sub_FAF34, sub_FB704
 extern WaitTicks, sub_FC330, sub_FC410, sub_FC4BC, sub_FCC40, sub_FD954, sub_FE150, sub_FE180
 extern sub_FF044, sub_FF128, sub_FF174, sub_FF444, sub_FF48C, sub_FF5E0, sub_FF690, sub_FF798
 extern sub_FFA14, sub_FFBB4, sub_FFBC8, sub_FFBE0, sub_FFCC4, sub_FFDAC, tickcount, unk_1611B4
@@ -100,7 +100,7 @@ global PaEvent_745, PaEvent_7FF, PaEvent_87E, PaEvent_8CF, PaEvent_8F5, PaEvent_
 global PaEvent_14CD, sub_4A74C_34, sub_4A74C_4B, sub_4A74C_105, sub_4A74C_277, MakeDataPath_41, MakeDataPath_49, MakeDataPath_4F
 global MakeDataPath_62, MakeDataPath_111, MakeDataPath_119, MakeDataPath_11F, MakeDataPath_132, jpt_4AE54_137, sub_4B8DC_27, sub_4B8DC_33
 global sub_4B8DC_3D, sub_4B8DC_47, sub_4E8EC_30, sub_4FD24_59, sub_50AF4_184, sub_51A74_58, sub_51AEC_50, OpenArenaArchive_2C
-global OpenArenaArchive_42, OpenArenaArchive_58, OpenArenaArchive_7D, PaEvent, sub_4A248, sub_4A280, sub_4A4F4, sub_4A558
+global OpenArenaArchive_42, OpenArenaArchive_58, OpenArenaArchive_7D, PaEvent, sub_4A248, sub_4A280, PlayScreenMovie, sub_4A558
 global sub_4A6F8, sub_4A74C, sub_4AA78, MakeDataPath, MakeDirPath, LoadDataFileHandle, LoadDataFileLib, LoadDataFile
 global LoadDataFileFlag0, OpenDataLibrary, SetArtArchive, sub_4B307, WriteGlobalSet, sub_4B4AC, sub_4B4B0, sub_4B4C4
 global sub_4B540, InitGameGraphics, InitGameVideo, sub_4B8DC, FreeGameGraphics, sub_4B944, DrawGameFrame, sub_4BCB4
@@ -2112,9 +2112,11 @@ sub_4A280:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_4A4F4                                                       4A4F4  97 PC
+; PlayScreenMovie                                 4A4F4  97 PC, low confidence
+; (id): waits for the music (WaitMusicEnd), makes the movie path and plays it
+; (PlayMovie); from the stats, all-star and create player screens
 ;-----------------------------------------------------------------------------
-sub_4A4F4:
+PlayScreenMovie:
         push dword 64h
         call __CHK
         push ebx
@@ -2142,7 +2144,7 @@ sub_4A4F4:
         push esi
         lea eax, [byte esp+04h]
         mov edx, dword [dword_1691BC]
-        call sub_7C3EC
+        call PlayMovie
         add esp, byte 50h
         pop esi
         pop ecx

@@ -28,8 +28,8 @@ extern sub_FCFE8, sub_FD08C, sub_FD0F8, sub_FD110, tickcount, unk_166FF4, unk_16
 extern unk_1AD22E, unk_1AD236, unk_1AD73A, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_D15D1, unk_D15EE
 extern word_1C340D, word_1C5530
 global jpt_D1917, jpt_D3102, sub_D15FB_1E9, PreGameMatchupScreen_4E0, PreGameMatchupScreen_4EC, PreGameMatchupScreen_516, PreGameMatchupScreen_522, PreGameMatchupScreen_658
-global sub_D26EE_4DF, sub_D26EE_4E0, sub_D15FB, sub_D17EA, PreGameMatchupScreen, sub_D1F8B, sub_D230A, sub_D24F8
-global sub_D26EE, sub_D2BD4, sub_D2C78, sub_D2CCA, sub_D2D94, sub_D2E1A, sub_D2ED6, sub_D306F
+global PreGameStatsPanel_4DF, PreGameStatsPanel_4E0, sub_D15FB, sub_D17EA, PreGameMatchupScreen, sub_D1F8B, DrawPlayerPortrait, sub_D24F8
+global PreGameStatsPanel, sub_D2BD4, sub_D2C78, sub_D2CCA, sub_D2D94, sub_D2E1A, sub_D2ED6, sub_D306F
 global unk_D3057, unk_D305F, unk_D3067
 ;-----------------------------------------------------------------------------
 ; sub_D15FB                                                       D15FB  97 PC
@@ -480,7 +480,7 @@ PreGameMatchupScreen:
         push dword [dword_1CC7BC]
         call sub_FCD90
         add esp, byte 4
-        call sub_D26EE
+        call PreGameStatsPanel
         push dword 0B0000002h
         mov ebx, 7
         call PaEvent
@@ -670,7 +670,7 @@ PreGameMatchupScreen_522:
 PreGameMatchupScreen_658:
         lea esp, [dword ebp+082h]
         pop ebp
-        jmp near sub_D26EE_4E0
+        jmp near PreGameStatsPanel_4E0
 ;-----------------------------------------------------------------------------
 ; sub_D1F8B                                                       D1F8B  97 PC
 ;-----------------------------------------------------------------------------
@@ -979,9 +979,11 @@ sub_D1F8B:
         add esp, byte 14h
         jmp near PreGameMatchupScreen_658
 ;-----------------------------------------------------------------------------
-; sub_D230A                                                       D230A  97 PC
+; DrawPlayerPortrait                              D230A  97 PC, low confidence
+; Pre-game: the player's portrait (0%02d.FSH, NOFACE.FSH, "Portrait not
+; found") and "#%d  %s %s"
 ;-----------------------------------------------------------------------------
-sub_D230A:
+DrawPlayerPortrait:
         push ebx
         push ecx
         push esi
@@ -1151,10 +1153,10 @@ sub_D24F8:
         je short .1
         mov edx, eax
         xor eax, eax
-        call sub_D230A
+        call DrawPlayerPortrait
         mov eax, 1
         mov edx, edi
-        call sub_D230A
+        call DrawPlayerPortrait
 .1:
         test byte [byte ebp-08h], 4
         je short .2
@@ -1282,9 +1284,10 @@ sub_D24F8:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_D26EE                                                       D26EE  97 PC
+; PreGameStatsPanel                               D26EE  97 PC, low confidence
+; From PreGameMatchupScreen: the "homestats" / "awaystats" comparison panel
 ;-----------------------------------------------------------------------------
-sub_D26EE:
+PreGameStatsPanel:
         push ebx
         push ecx
         push edx
@@ -1579,9 +1582,9 @@ sub_D26EE:
         call sub_11A318
         add esp, byte 0Ch
         call sub_1013FC
-sub_D26EE_4DF:
+PreGameStatsPanel_4DF:
         leave
-sub_D26EE_4E0:
+PreGameStatsPanel_4E0:
         pop edi
         pop esi
         pop edx
@@ -1644,7 +1647,7 @@ sub_D2BD4:
         push dword [dword_1CC7A4]
         call sub_FAF34
         add esp, byte 4
-        jmp near sub_D26EE_4E0
+        jmp near PreGameStatsPanel_4E0
 ;-----------------------------------------------------------------------------
 ; sub_D2C78                                                       D2C78  97 PC
 ;-----------------------------------------------------------------------------
@@ -1799,7 +1802,7 @@ sub_D2D94:
         jl short .1
         mov eax, dword [tickcount]
         mov dword [dword_1CC7A0], eax
-        jmp near sub_D26EE_4DF
+        jmp near PreGameStatsPanel_4DF
         push ecx
         push edx
         cmp dword [dword_16D6E8], byte 0

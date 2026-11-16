@@ -25,7 +25,7 @@ extern sub_E77B1, ControlSetupScreen, sub_FAA64, sub_FAF34, sub_FC510, sub_FCD90
 extern sub_FD08C, sub_FD0F8, sub_FD110, sub_FDD1C, tickcount, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C
 global jpt_C36A2, sub_C0F5D_60E, sub_C1577_73D, sub_C1577_73E, sub_C2633_42, DetailLevelScreen_A25, DetailLevelScreen_A36, DetailLevelScreen_A93
 global DetailLevelScreen_B18, DetailLevelScreen_B7E, DetailLevelScreen_C26, DetailLevelScreen_C86, DetailLevelScreen_CE6, DetailLevelScreen_D46, sub_C0F5D, sub_C1577
-global sub_C1CBB, sub_C1D5B, sub_C23E6, sub_C248B, sub_C250A, sub_C2633, sub_C267B, sub_C271D
+global sub_C1CBB, sub_C1D5B, sub_C23E6, sub_C248B, ExportHistoryCsv, sub_C2633, sub_C267B, sub_C271D
 global sub_C27D8, sub_C2A49, sub_C2BB2, sub_C2D94, sub_C2F86, sub_C3088, sub_C3142, sub_C31FE
 global sub_C32B0, RunOptionsScreens, DetailLevelScreen
 ;-----------------------------------------------------------------------------
@@ -1681,9 +1681,10 @@ sub_C248B:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_C250A                                                       C250A  97 PC
+; ExportHistoryCsv                                C250A  97 PC, low confidence
+; Writes the "history .csv" file
 ;-----------------------------------------------------------------------------
-sub_C250A:
+ExportHistoryCsv:
         push ebx
         push ecx
         push edx
@@ -2924,7 +2925,7 @@ sub_C32B0:
         mov dword [dword_1CB098], eax
 .5:
         mov eax, edi
-        call sub_C250A
+        call ExportHistoryCsv
         mov dword [dword_1CB094], eax
         call sub_C2633
         mov edx, dword [dword_1CB094]

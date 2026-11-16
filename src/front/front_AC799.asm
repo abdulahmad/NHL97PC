@@ -29,7 +29,7 @@ extern dword_1C9618, dword_1C961C, dword_1C9620, dword_1C9624, dword_1C9628, fcl
 extern memset_, qsort_, rand_, sprintf_, sscanf_, strcmp_, strlen_, sub_101340
 extern sub_101390, sub_1013CC, sub_1013FC, sub_101429, sub_101584, sub_101EAC, sub_102B94, sub_10CD98
 extern sub_11B094, sub_13C164, sub_415A0, sub_415F8, sub_419B0, sub_419B8, sub_41F2C, PlaySfx
-extern sub_4A4F4, LoadDataFile, OpenDataLibrary, sub_7DFC0, sub_7E860, sub_7EDF0, sub_7EF70, SetRegionRect
+extern PlayScreenMovie, LoadDataFile, OpenDataLibrary, sub_7DFC0, sub_7E860, sub_7EDF0, sub_7EF70, SetRegionRect
 extern sub_7F0D8, DrawTextAligned, sub_7F5B8, sub_7FE38, sub_80BBC, sub_81650, sub_81678, sub_81D1C
 extern sub_82FB8, sub_835BC, sub_83850, sub_83D4C, sub_84024, sub_84068, sub_840F8, sub_84138
 extern sub_84170, sub_84570, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DBAC, sub_8DE10, DrawScrollBar
@@ -2666,7 +2666,7 @@ TeamStatsScreen:
         sete al
         movzx edx, al
         mov eax, 0ECh
-        call sub_4A4F4
+        call PlayScreenMovie
         call sub_84138
         jmp near .72
 .43:
@@ -4104,7 +4104,7 @@ sub_AF074:
         movzx edx, al
         mov eax, esi
         mov byte [byte ebp+07Eh], 1
-        call sub_4A4F4
+        call PlayScreenMovie
         call sub_84570
         jmp near sub_AF074_D0E.100
 .34:

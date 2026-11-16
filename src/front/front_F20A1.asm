@@ -48,7 +48,7 @@ global PauseMenu_4BB, PauseMenu_4EF, PauseMenu_60A, PauseMenu_62A, PauseMenu_640
 global PauseMenu_72D, RulesMenu_1583, RulesMenu_176B, RulesMenu_19CD, RulesMenu_1C04, RulesMenu_1D78, RulesMenu_1F1F, RulesMenu_2056
 global RulesMenu_218D, RulesMenu_22F1, RulesMenu_2464, DetailLevelMenu_C81, DetailLevelMenu_E31, DetailLevelMenu_10E6, DetailLevelMenu_12B8, DetailLevelMenu_13D7
 global DetailLevelMenu_14F6, DetailLevelMenu_165B, DetailLevelMenu_17B7, sub_F20A1, sub_F22AF, sub_F22ED, sub_F23BF, sub_F2544
-global sub_F272B, sub_F27A4, sub_F2AA0, DrawPauseButtons, sub_F30A0, sub_F30D7, PickEditLinesTeam, ConfirmQuitGame
+global sub_F272B, DrawPauseClock, sub_F2AA0, DrawPauseButtons, sub_F30A0, sub_F30D7, PickEditLinesTeam, ConfirmQuitGame
 global RunIntermission, sub_F3F33, sub_F3FB0, sub_F3FF5, PauseMenu, sub_F48C2, sub_F4978, sub_F4A8F
 global DrawIntermissionTitle, sub_F5219, sub_F558C, FillBox, RulesMenu, DetailLevelMenu, sub_F9496
 ;-----------------------------------------------------------------------------
@@ -681,9 +681,10 @@ sub_F272B:
         jl short .2
         jmp near PickEditLinesTeam_5B5
 ;-----------------------------------------------------------------------------
-; sub_F27A4                                                       F27A4  97 PC
+; DrawPauseClock                                  F27A4  97 PC, low confidence
+; Pause menu / intermission: the game time line (" %d:%02d.%d")
 ;-----------------------------------------------------------------------------
-sub_F27A4:
+DrawPauseClock:
         push ebx
         push ecx
         push edx
@@ -949,7 +950,7 @@ sub_F2AA0:
         call sub_11ADD0
         add esp, byte 4
         mov eax, dword [dword_1CEF9C]
-        call sub_F27A4
+        call DrawPauseClock
         lea eax, [dword ebp-0ACh]
         push eax
         call sub_11ADE8
@@ -2304,7 +2305,7 @@ RunIntermission:
         call sub_11ADD0
         add esp, byte 4
         mov eax, dword [dword_1CEF9C]
-        call sub_F27A4
+        call DrawPauseClock
         lea eax, [dword ebp-011Ch]
         push eax
         call sub_11ADE8
@@ -2723,7 +2724,7 @@ PauseMenu:
         call sub_11ADD0
         add esp, byte 4
         mov eax, dword [dword_1CEF9C]
-        call sub_F27A4
+        call DrawPauseClock
         lea eax, [dword ebp-0B6h]
         push eax
         call sub_11ADE8
@@ -2822,7 +2823,7 @@ PauseMenu_16C:
         lea ebx, [dword ebp-0336h]
         mov eax, dword [dword_1CEF9C]
         lea edx, [dword ebp-066Ah]
-        call sub_F27A4
+        call DrawPauseClock
         lea eax, [byte ebp-0Ah]
         call sub_F3FF5
         call sub_1C854
@@ -2978,7 +2979,7 @@ PauseMenu_29A:
         call sub_8BFA0
         mov eax, dword [dword_1CEF9C]
         lea edx, [dword ebp-066Ah]
-        call sub_F27A4
+        call DrawPauseClock
         lea eax, [byte ebp-0Ah]
         call sub_F3FF5
         lea eax, [byte ebp-0Ah]
@@ -3075,7 +3076,7 @@ PauseMenu_4EF:
         call sub_8BFA0
         mov eax, dword [dword_1CEF9C]
         lea edx, [dword ebp-066Ah]
-        call sub_F27A4
+        call DrawPauseClock
         lea eax, [byte ebp-0Ah]
         call sub_F3FF5
         lea eax, [byte ebp-0Ah]
@@ -3289,7 +3290,7 @@ sub_F4978:
         call sub_11ADD0
         add esp, byte 4
         mov eax, dword [dword_1CEF9C]
-        call sub_F27A4
+        call DrawPauseClock
         lea eax, [dword ebp-0ACh]
         push eax
         call sub_11ADE8
@@ -3306,7 +3307,7 @@ sub_F4978:
         call sub_11ADD0
         add esp, byte 4
         mov eax, dword [dword_1CEF9C]
-        call sub_F27A4
+        call DrawPauseClock
         lea eax, [dword ebp-0158h]
         push eax
         call sub_11ADE8
@@ -3868,7 +3869,7 @@ sub_F5219:
         call sub_11ADD0
         add esp, byte 4
         mov eax, dword [dword_1CEF9C]
-        call sub_F27A4
+        call DrawPauseClock
         lea eax, [dword ebp-018Ah]
         push eax
         call sub_11ADE8
@@ -3883,7 +3884,7 @@ sub_F5219:
         call sub_11ADD0
         add esp, byte 4
         mov eax, dword [dword_1CEF9C]
-        call sub_F27A4
+        call DrawPauseClock
         lea eax, [byte ebp-032h]
         push eax
         call sub_11ADE8
@@ -4009,7 +4010,7 @@ sub_F5219:
         call sub_11ADD0
         add esp, byte 4
         mov eax, dword [dword_1CEF9C]
-        call sub_F27A4
+        call DrawPauseClock
         lea eax, [dword ebp-0DEh]
         push eax
         call sub_11ADE8

@@ -34,7 +34,7 @@ extern unk_1AD603, unk_1AD73A, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C89F8, u
 extern unk_1C8A1C, unk_1C8A28
 global jpt_93502, jpt_9621A, RunNewPlayoffs_F7, RunNewPlayoffs_100, RunNewPlayoffs_104, RunNewPlayoffs_108, RunNewPlayoffs_1A6, PlayoffSetupScreen_952
 global PlayoffSetupScreen_959, sub_945A7_96, sub_945A7_9B, sub_93005, sub_93480, RunNewPlayoffs, PlayoffSetupScreen, CreatePlayoffs
-global sub_945A7, sub_94643, sub_948B7, RunPlayoffMenus, PlayoffTreeScreen, sub_96019, sub_96083, sub_961AA
+global sub_945A7, sub_94643, sub_948B7, RunPlayoffMenus, PlayoffTreeScreen, PlayoffSettingsPath, sub_96083, sub_961AA
 global sub_961E2
 ;-----------------------------------------------------------------------------
 ; sub_93005                                                       93005  97 PC
@@ -3423,7 +3423,7 @@ PlayoffTreeScreen:
         mov dword [byte ebp+06Eh], 0Eh
         mov dword [dword_1C5DE0], 1
 .94:
-        call sub_96019
+        call PlayoffSettingsPath
         xor esi, esi
 .95:
         mov eax, dword [dword_1C8A80]
@@ -3486,9 +3486,10 @@ PlayoffTreeScreen:
         mov eax, dword [byte ebp+06Eh]
         jmp near PlayoffSetupScreen_952
 ;-----------------------------------------------------------------------------
-; sub_96019                                                       96019  97 PC
+; PlayoffSettingsPath                             96019  97 PC, low confidence
+; (n, buf): the play-off file names "%sSEAS%d.PLY" / "%sPLAY%d.SET"
 ;-----------------------------------------------------------------------------
-sub_96019:
+PlayoffSettingsPath:
         push ebx
         push ecx
         push edx

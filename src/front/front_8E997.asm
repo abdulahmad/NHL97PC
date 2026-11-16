@@ -39,8 +39,8 @@ global jpt_912BF, RunNewSeason_DD, RunNewSeason_E6, RunNewSeason_EF, RunNewSeaso
 global RunNewSeason_193, NewSeasonScreen_DCB, NewSeasonScreen_DCE, CreateSeason_55B, CreateSeason_561, CreateSeason_562, StandingsScreen_65C, StandingsScreen_685
 global StandingsScreen_699, StandingsScreen_6AD, StandingsScreen_6C1, StandingsScreen_6DD, StandingsScreen_6F4, StandingsScreen_70B, StandingsScreen_718, sub_91D7F_1EA
 global RunNewSeason, sub_8EBDF, NewSeasonScreen, CreateSeason, RunSeasonMenus, sub_900AE, SeasonMenuScreen, sub_91289
-global StandingsScreen, sub_91D07, sub_91D1C, sub_91D7F, sub_91F74, sub_925BE, sub_9260A, sub_926BD
-global sub_9279A, LinkTransferSetup, sub_92DB7, sub_92E37, sub_92EE2, sub_92F25, sub_92FE9
+global StandingsScreen, sub_91D07, sub_91D1C, sub_91D7F, BuildStandingsFactoids, SeasonSettingsPath, sub_9260A, sub_926BD
+global sub_9279A, LinkTransferSetup, LoadFakeExhibition, SaveAgents, sub_92EE2, sub_92F25, sub_92FE9
 ;-----------------------------------------------------------------------------
 ; RunNewSeason                                    8E997  97 PC, low confidence
 ; Screen 6: sets up a new season (copies the set-up, NewSeasonScreen, roster,
@@ -2992,7 +2992,7 @@ SeasonMenuScreen:
         push edi
         call sub_FCD90
         add esp, byte 4
-        call sub_925BE
+        call SeasonSettingsPath
         jmp near NewSeasonScreen_DCB
 ;-----------------------------------------------------------------------------
 ; sub_91289                                                       91289  97 PC
@@ -3091,7 +3091,7 @@ StandingsScreen:
         mov ebx, dword [byte ebp+022h]
         lea edx, [byte ebp-0Ah]
         lea eax, [dword ebp-08Eh]
-        call sub_91F74
+        call BuildStandingsFactoids
         mov eax, 3
         call sub_419B0
         call sub_419B8
@@ -3986,9 +3986,11 @@ sub_91D7F_1EA:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_91F74                                                       91F74  97 PC
+; BuildStandingsFactoids                          91F74  97 PC, low confidence
+; Standings screen: builds the "ptlist" / "idlist" factoid lines ("%s, %s %s
+; %d %s (%s).")
 ;-----------------------------------------------------------------------------
-sub_91F74:
+BuildStandingsFactoids:
         push ecx
         push esi
         push edi
@@ -4488,9 +4490,10 @@ sub_91F74:
         add esp, byte 4
         jmp near sub_91D7F_1EA
 ;-----------------------------------------------------------------------------
-; sub_925BE                                                       925BE  97 PC
+; SeasonSettingsPath                              925BE  97 PC, low confidence
+; (n, buf): the season settings file name "%sSEAS%d.SET"
 ;-----------------------------------------------------------------------------
-sub_925BE:
+SeasonSettingsPath:
         push ebx
         push ecx
         push edx
@@ -5128,9 +5131,11 @@ LinkTransferSetup:
         lea esp, [dword ebp+092h]
         jmp near CreateSeason_561
 ;-----------------------------------------------------------------------------
-; sub_92DB7                                                       92DB7  97 PC
+; LoadFakeExhibition                              92DB7  97 PC, low confidence
+; For the roster screen: loads the exhibition file into "fakeEXHIBIT" /
+; "fakeAGENTS" copies
 ;-----------------------------------------------------------------------------
-sub_92DB7:
+LoadFakeExhibition:
         push ebx
         push ecx
         push edx
@@ -5173,9 +5178,10 @@ sub_92DB7:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_92E37                                                       92E37  97 PC
+; SaveAgents                                      92E37  97 PC, low confidence
+; Writes the "agents" (free agents) table back (SaveExhibitionFile)
 ;-----------------------------------------------------------------------------
-sub_92E37:
+SaveAgents:
         push ebx
         push ecx
         push edx
@@ -5251,7 +5257,7 @@ sub_92EE2:
         je short .3
 .1:
         mov eax, ebx
-        call sub_92E37
+        call SaveAgents
         pop ebx
         ret
 .2:
@@ -5289,7 +5295,7 @@ sub_92F25:
         je near .4
 .1:
         mov eax, esi
-        call sub_92E37
+        call SaveAgents
         jmp near .4
 .2:
         call sub_E3410

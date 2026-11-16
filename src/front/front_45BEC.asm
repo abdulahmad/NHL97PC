@@ -31,7 +31,7 @@ global CommentaryEvent_F92, CommentaryEvent_F9B, CommentaryEvent_FB0, Commentary
 global CommentaryEvent_1293, CommentaryEvent_1500, CommentaryEvent_16BA, CommentaryEvent_1771, CommentaryEvent_17AA, CommentaryEvent_17E6, CommentaryEvent_1871, CommentaryEvent_189C
 global CommentaryEvent_18A1, CommentaryEvent_18AA, CommentaryEvent_18B3, CommentaryEvent_18BC, CommentaryEvent_1931, CommentaryEvent_19C8, CommentaryEvent_1A44, CommentaryEvent_1B16
 global CommentaryEvent_1B57, CommentaryEvent_1B97, CommentaryEvent_1BF5, CommentaryEvent_1C3D, CommentaryEvent_1CB2, CommentaryEvent_1DD1, CommentaryEvent_1E49, CommentaryEvent_1ECB
-global CommentaryEvent_1F28, CommentaryEvent_1F56, CommentaryEvent_1FE8, CommentaryEvent, sub_47C08, sub_47D70, sub_47DC8, sub_47E38
+global CommentaryEvent_1F28, CommentaryEvent_1F56, CommentaryEvent_1FE8, CommentaryEvent, OpenSpeechFile, sub_47D70, sub_47DC8, sub_47E38
 global sub_47EA4, ShutdownSound, sub_48030, sub_48080, sub_480CC, sub_486E8, sub_4880C, sub_48864
 global CountRecordGame, RecordPctClip, RecordStreakClips
 ;-----------------------------------------------------------------------------
@@ -2707,9 +2707,10 @@ CommentaryEvent_1FE8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_47C08                                                       47C08  97 PC
+; OpenSpeechFile                                  47C08  97 PC, low confidence
+; Opens the "SPEECH" file ("G.KSF")
 ;-----------------------------------------------------------------------------
-sub_47C08:
+OpenSpeechFile:
         push dword 30h
         call __CHK
         push ebx
@@ -3097,11 +3098,11 @@ sub_48030:
         call sub_47D70
         call sub_E341C
         mov eax, 1
-        call sub_47C08
+        call OpenSpeechFile
         call sub_E341C
         mov eax, 2
         mov ebx, 2
-        call sub_47C08
+        call OpenSpeechFile
         call sub_E341C
         mov dword [dword_169254], ebx
         pop ebx
@@ -3124,7 +3125,7 @@ sub_48080:
         call sub_E341C
         xor eax, eax
         mov ebx, 1
-        call sub_47C08
+        call OpenSpeechFile
         call sub_E341C
         mov dword [dword_169254], ebx
         pop ebx

@@ -41,7 +41,7 @@ global ReplayScreen_771, ReplayScreen_8F5, ReplayScreen_8FF, ReplayScreen_914, R
 global sub_BECB9_15A, sub_BECB9_17A, sub_BECB9_192, sub_BECB9_1A1, sub_BECB9_1B0, sub_BECB9_1B8, sub_BECB9_1C0, sub_BECB9_1C8
 global sub_BECB9_1D0, sub_BECB9_20B, sub_BECB9_22B, sub_BECB9_24B, sub_BECB9_26B, sub_BECB9_271, sub_BECB9_301, PickReplayScreen_AA8
 global RunReplay, LoadReplay, sub_BDB25, sub_BE047, sub_BE0BA, ReplayScreen, sub_BECB9, sub_BEFC0
-global sub_BF417, PickReplayScreen, sub_BFFB7, sub_C0285, sub_C037B, sub_C04BE
+global sub_BF417, PickReplayScreen, OpenReplayIndex, SaveReplay, sub_C037B, sub_C04BE
 ;-----------------------------------------------------------------------------
 ; RunReplay                                       BD62C  96 PC, low confidence
 ; RunInGameMenu's replay request: frees the sprite cache, runs ReplayScreen,
@@ -298,7 +298,7 @@ LoadReplay:
         push edx
         push esi
         enter 8, 0
-        call sub_BFFB7
+        call OpenReplayIndex
         mov eax, unk_1CAF3C
         lea esi, [byte ebp-08h]
         mov edx, dword_1C1334
@@ -1091,7 +1091,7 @@ ReplayScreen_EF:
         jmp near ReplayScreen.2
 .6:
         mov eax, esi
-        call sub_C0285
+        call SaveReplay
         jmp near ReplayScreen.2
 ReplayScreen_294:
         cmp dword [dword_16DA9C], byte 0
@@ -3037,9 +3037,11 @@ PickReplayScreen_AA8:
         mov eax, dword [dword_1CAF9C]
         jmp near sub_5CACC
 ;-----------------------------------------------------------------------------
-; sub_BFFB7                                                       BFFB7  97 PC
+; OpenReplayIndex                                 BFFB7  97 PC, low confidence
+; From LoadReplay: reads "REPLAY.NDX" (NameIndexLoad / NameIndexNew), also
+; over a link
 ;-----------------------------------------------------------------------------
-sub_BFFB7:
+OpenReplayIndex:
         push ebx
         push ecx
         push edx
@@ -3236,9 +3238,10 @@ sub_BFFB7:
         add esp, byte 4
         jmp near PickReplayScreen_AA8
 ;-----------------------------------------------------------------------------
-; sub_C0285                                                       C0285  97 PC
+; SaveReplay                                      C0285  97 PC, low confidence
+; From ReplayScreen: saves the highlight under a name in "%s\REPLAY.NDX"
 ;-----------------------------------------------------------------------------
-sub_C0285:
+SaveReplay:
         push ebx
         push ecx
         push edx

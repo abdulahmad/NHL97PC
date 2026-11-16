@@ -26,7 +26,7 @@ extern dword_1CAEBC, dword_1CAEC0, dword_1CAEC4, dword_1CAFF4, fclose_, fopen_, 
 extern qword_16695B, rand_, sprintf_, strcat_, strcpy_, sub_101324, sub_101340, sub_101390
 extern sub_1013FC, sub_101429, sub_101560, sub_101584, sub_101EAC, sub_102B94, sub_102C10, sub_10CD98
 extern sub_11A294, sub_11A318, sub_11B094, sub_11BD90, sub_13C164, sub_415A0, sub_415F8, sub_419B0
-extern sub_419B8, sub_41F2C, StopAllSfx, PlaySfx, sub_4A4F4, LoadDataFile, OpenDataLibrary, sub_7E860
+extern sub_419B8, sub_41F2C, StopAllSfx, PlaySfx, PlayScreenMovie, LoadDataFile, OpenDataLibrary, sub_7E860
 extern sub_7EDF0, sub_7EF70, SetRegionRect, sub_7F04C, sub_7F0D8, DrawTextAligned, sub_7F5A4, sub_80AB8
 extern sub_80B28, sub_80BBC, sub_815F8, sub_81650, sub_81678, sub_816A4, sub_816BC, sub_81D1C
 extern sub_82FB8, sub_835BC, sub_83850, sub_83D4C, sub_84024, sub_84068, sub_84330, sub_84570
@@ -1854,7 +1854,7 @@ PlayerStatsScreen_1114:
         sete al
         movzx edx, al
         mov eax, dword [byte ebp+072h]
-        call sub_4A4F4
+        call PlayScreenMovie
         call sub_84570
         call sub_13C164
         push dword [byte ebp+042h]

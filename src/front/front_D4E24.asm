@@ -15,7 +15,7 @@ extern fopen_, memcpy_, memset_, off_16E4E0, rand_, sprintf_, sscanf_, str_CRD1
 extern str_CRD2, str_Nhll, str_Nhlp, str_Pl0, str_Pl1, strlen_, sub_1008CC, sub_101340
 extern sub_101390, sub_1013AC, sub_1013FC, sub_101429, sub_101584, sub_103298, sub_1167AE, sub_11A318
 extern sub_11BED4, sub_13C164, WaitRetraceEdges, RunDemoGame, sub_419B0, sub_419B8, sub_41A28, sub_41D18
-extern MusicPlaying, sub_41DB8, WaitMusicEnd, ArenaFileName, StopAllSfx, PlaySfx, sub_4A4F4, MakeDataPath
+extern MusicPlaying, sub_41DB8, WaitMusicEnd, ArenaFileName, StopAllSfx, PlaySfx, PlayScreenMovie, MakeDataPath
 extern LoadDataFile, sub_7E860, sub_7EDF0, SetRegionRect, sub_7F0D8, DrawTextAligned, sub_80BBC, sub_81650
 extern sub_81678, sub_81D1C, sub_823F0, sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, AllocClearBlock
 extern FreePtr, sub_E22FC, sub_E2310, sub_E2334, sub_E2348, FileCreate, FileOpen, FileSeek
@@ -2151,13 +2151,13 @@ sub_D68E0:
         mov dl, al
         mov eax, 0E6h
         mov ebx, ecx
-        call sub_4A4F4
+        call PlayScreenMovie
         mov edx, eax
         test eax, eax
         jne short .2
         mov edx, 1
         mov eax, 0E7h
-        call sub_4A4F4
+        call PlayScreenMovie
         mov edx, eax
 .2:
         test edx, edx

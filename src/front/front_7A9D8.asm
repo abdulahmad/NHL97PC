@@ -28,9 +28,9 @@ extern sub_FAA64, sub_FAAB4, sub_FAF34, sub_FBE40, WaitTicks, sub_FC330, sub_FC5
 extern sub_FD08C, sub_FD0F8, sub_FD110, tickcount, unk_164138, unk_16413C, unk_164150, unk_164158
 extern unk_1C0F00, unk_1C135C, unk_1C347F, word_1C1344
 global sub_7A9D8_77E, sub_7CB8C_45, putchar, sub_7A9D8, sub_7B15D, sub_7B4E4, sub_7B84B, sub_7B85A
-global sub_7B88D, sub_7BB27, sub_7BBB0, sub_7BC34, sub_7BC68, sub_7BCF0, sub_7BE04, sub_7BF64
-global sub_7C038, sub_7C3EC, sub_7C614, ModemHangup, sub_7C714, ModemAutoAnswer, ModemWaitConnect, ModemReadResult
-global ModemSendCommand, ModemAttention, sub_7CAB4, LoadLogoNames, sub_7CB8C, InitFrontEnd, FreeFrontEnd, RunFrontEnd
+global sub_7B88D, sub_7BB27, sub_7BBB0, sub_7BC34, sub_7BC68, OpenVideoStream, sub_7BE04, sub_7BF64
+global sub_7C038, PlayMovie, ModemReset, ModemHangup, ModemDial, ModemAutoAnswer, ModemWaitConnect, ModemReadResult
+global ModemSendCommand, ModemAttention, ModemSpeakerOff, LoadLogoNames, sub_7CB8C, InitFrontEnd, FreeFrontEnd, RunFrontEnd
 global TitleScreen
 ;-----------------------------------------------------------------------------
 ; sub_7A9D8                                                       7A9D8  97 PC
@@ -1648,9 +1648,10 @@ sub_7BC68:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_7BCF0                                                       7BCF0  97 PC
+; OpenVideoStream                                 7BCF0  97 PC, low confidence
+; Opens the movie's "VIDEO" stream (CdStreamOpenSecondary, CdStreamStart)
 ;-----------------------------------------------------------------------------
-sub_7BCF0:
+OpenVideoStream:
         push ecx
         push esi
         push edi
@@ -2224,9 +2225,10 @@ sub_7C038:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_7C3EC                                                       7C3EC  97 PC
+; PlayMovie                                       7C3EC  97 PC, low confidence
+; Plays a movie file ("AUDSTRMHACK" audio, OpenVideoStream), from sub_4A4F4
 ;-----------------------------------------------------------------------------
-sub_7C3EC:
+PlayMovie:
         push esi
         push edi
         push ebp
@@ -2308,7 +2310,7 @@ sub_7C3EC:
 .6:
         mov edx, edi
         mov eax, ebp
-        call sub_7BCF0
+        call OpenVideoStream
         test eax, eax
         je near .12
         xor ebp, ebp
@@ -2400,14 +2402,15 @@ putchar:
         push str_ATZS760S1155
         mov edx, dword [byte esp+08h]
         push edx
-        call sub_7C614
+        call ModemReset
         add esp, byte 8
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_7C614                                                       7C614  97 PC
+; ModemReset                                      7C614  97 PC, low confidence
+; Sends the modem set-up string "ATE1Q0X4F1"
 ;-----------------------------------------------------------------------------
-sub_7C614:
+ModemReset:
         push ebx
         push esi
         mov esi, dword [byte esp+0Ch]
@@ -2522,9 +2525,11 @@ ModemHangup:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_7C714                                                       7C714  97 PC
+; ModemDial                                    7C714  97 PC, medium confidence
+; Hangs up, then dials with "ATD" + the number (ModemSendCommand,
+; ModemReadResult)
 ;-----------------------------------------------------------------------------
-sub_7C714:
+ModemDial:
         push ebx
         push esi
         sub esp, byte 50h
@@ -2928,9 +2933,10 @@ ModemAttention:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_7CAB4                                                       7CAB4  97 PC
+; ModemSpeakerOff                                 7CAB4  97 PC, low confidence
+; Sends "ATM0"
 ;-----------------------------------------------------------------------------
-sub_7CAB4:
+ModemSpeakerOff:
         push ebx
         mov ecx, dword [byte esp+08h]
         mov edx, str_ATM0
