@@ -25,12 +25,14 @@ extern unk_167240, unk_167244, unk_167250, unk_167260, unk_167264, unk_16726C, u
 extern unk_1ACF12, unk_1C135C, unk_1C1382, unk_1C139A, unk_1C347F, unk_1C34A5, unk_1C5EF8, unk_1C5F4A
 extern unk_1C5F9C, unk_D3057, unk_D305F, unk_D3067, word_1C1344
 global jpt_D4215, sub_D3112_B6A, sub_D3112_BA7, sub_D3112_BB5, sub_D3112_BC3, sub_D3112_C3F, sub_D40CF_FB, sub_D40CF_FC
-global sub_D4225_86, sub_D4225_C5, sub_D4225_10F, sub_D4225_14B, sub_D3112, sub_D3D5D, sub_D3DFA, sub_D40CF
+global sub_D4225_86, sub_D4225_C5, sub_D4225_10F, sub_D4225_14B, PreGameRostersScreen, sub_D3D5D, sub_D3DFA, sub_D40CF
 global sub_D41D1, sub_D4225, sub_D4727, sub_D49BE, sub_D4AAC, unk_D4CB0
 ;-----------------------------------------------------------------------------
-; sub_D3112                                                       D3112  97 PC
+; PreGameRostersScreen                            D3112  97 PC, low confidence
+; Game screen 13h before play: the home and visitor rosters ("hros" /
+; "vros"), the "blurb" and the star players (STAR, FIR1, F%dP%d)
 ;-----------------------------------------------------------------------------
-sub_D3112:
+PreGameRostersScreen:
         push ebx
         push ecx
         push edx
@@ -922,14 +924,23 @@ sub_D3112_B6A:
         ja short sub_D3112_B6A
         mov eax, dword [byte ebp+046h]
         jmp dword [nosplit cs:eax*4+jpt_D3102]
+;-----------------------------------------------------------------------------
+; sub_D3112_BA7                                                   D3CB9  97 PC
+;-----------------------------------------------------------------------------
 sub_D3112_BA7:
         call sub_7EDF0
         mov dword [byte ebp+056h], 14h
         jmp short sub_D3112_B6A
+;-----------------------------------------------------------------------------
+; sub_D3112_BB5                                                   D3CC7  97 PC
+;-----------------------------------------------------------------------------
 sub_D3112_BB5:
         call sub_7EEB0
         mov dword [byte ebp+056h], 0Eh
         jmp short sub_D3112_B6A
+;-----------------------------------------------------------------------------
+; sub_D3112_BC3                                                   D3CD5  97 PC
+;-----------------------------------------------------------------------------
 sub_D3112_BC3:
         call sub_7EF70
         jmp short sub_D3112_B6A

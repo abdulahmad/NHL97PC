@@ -24,3 +24,8 @@ sub_9401D CreatePlayoffs {confidence=low} creates the new play-offs: picks a fre
 sub_94B30 RunPlayoffMenus {source=96PC,confidence=low} 96 PC RunPlayoffMenus: screen 0Dh, runs the play-off screens (play-off tree, standings, roster) until they leave
 sub_94BDA PlayoffTreeScreen {source=96PC,confidence=low} 96 PC PlayoffTreeScreen: the play-off tree screen ("playoffmenu", "pieces", pan2 / pan6, 01RU, 01SR ...)
 sub_D70C4 CreditsScreen {confidence=low} from RunFrontEnd: the credits (reads the credits text file, EAC1/EAC2, CRD1/CRD2, QCRD) with the arena music
+sub_C3594 RunOptionsScreens {confidence=low} from RunFrontEnd (0Ah): runs the options screen and its control set-up screens (screen numbers 22h-24h) until it returns 1Ah; in a network session only one side may change them
+sub_C48A2 OptionsScreen {confidence=low} the options screen (ON0%d / OF0%d toggles, MB0%d buttons, BOTM)
+sub_F0339 ControlSetupScreen {source=96PC,confidence=low} 96 PC ControlSetupScreen: (mode) the control set-up screen (KMB%d keyboard / mouse buttons, TB00-TB03, GLW%d)
+sub_D3112 PreGameRostersScreen {confidence=low} game screen 13h before play: the home and visitor rosters ("hros" / "vros"), the "blurb" and the star players (STAR, FIR1, F%dP%d)
+sub_D1927 PreGameMatchupScreen {source=96PC,confidence=low} 96 PC PreGameMatchupScreen: game screen 14h before play: the matchup with the left / right team pictures (%03dL.FSH / %03dR.FSH), PANL, team and player stats

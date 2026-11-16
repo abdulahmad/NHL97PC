@@ -1084,9 +1084,9 @@
 ;  BD62C  RunReplay                                front/front_BD62C.asm                        2
 ;  BDB25  sub_BDB25                                front/front_BD62C.asm                        1
 ;  C0F5D  sub_C0F5D                                front/front_C0F5D.asm                        1
-;  C3594  sub_C3594                                front/front_C0F5D.asm                        1
+;  C3594  RunOptionsScreens                        front/front_C0F5D.asm                        1
 ;  C36CA  sub_C36CA                                front/front_C0F5D.asm                        1
-;  C48A2  sub_C48A2                                front/front_C462F.asm                        1
+;  C48A2  OptionsScreen                            front/front_C462F.asm                        1
 ;  C5ED2  unk_C5ED2                                front/front_C462F.asm                        1
 ;  C6064  sub_C6064                                front/front_C5F81.asm                        3
 ;  C750B  jpt_C750B                                front/front_C5F81.asm                        1
@@ -1119,13 +1119,13 @@
 ;  D0BD8  sub_D0BD8                                front/front_C755B.asm                        1
 ;  D15D1  unk_D15D1                                front/front_C755B.asm                        1
 ;  D15EE  unk_D15EE                                front/front_C755B.asm                        1
-;  D1927  sub_D1927                                front/front_D15FB.asm                        1
+;  D1927  PreGameMatchupScreen                     front/front_D15FB.asm                        1
 ;  D3057  unk_D3057                                front/front_D15FB.asm                        1
 ;  D305F  unk_D305F                                front/front_D15FB.asm                        1
 ;  D3067  unk_D3067                                front/front_D15FB.asm                        1
 ;  D306F  sub_D306F                                front/front_D15FB.asm                        1
 ;  D3102  jpt_D3102                                front/front_D15FB.asm                        1
-;  D3112  sub_D3112                                front/front_D3112.asm                        1
+;  D3112  PreGameRostersScreen                     front/front_D3112.asm                        1
 ;  D3C7C  sub_D3112_B6A                            front/front_D3112.asm                        1
 ;  D3CB9  sub_D3112_BA7                            front/front_D3112.asm                        1
 ;  D3CC7  sub_D3112_BB5                            front/front_D3112.asm                        1
@@ -1261,7 +1261,7 @@
 ;  EE0E3  unk_EE0E3                                front/front_E9429.asm                        1
 ;  EE0F7  sub_EE0F7                                front/front_E9429.asm                        1
 ;  EE8AC  sub_EE8AC                                front/front_EE69C.asm                        1
-;  F0339  sub_F0339                                front/front_EE69C.asm                        1
+;  F0339  ControlSetupScreen                       front/front_EE69C.asm                        1
 ;  F1FF8  sub_F1FF8                                front/front_EE69C.asm                        2
 ;  F207F  sub_F207F                                front/front_EE69C.asm                        1
 ;  F20A1  sub_F20A1                                front/front_F20A1.asm                        1

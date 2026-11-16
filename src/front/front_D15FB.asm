@@ -28,7 +28,7 @@ extern sub_FCFE8, sub_FD08C, sub_FD0F8, sub_FD110, tickcount, unk_166FF4, unk_16
 extern unk_1AD22E, unk_1AD236, unk_1AD73A, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_D15D1, unk_D15EE
 extern word_1C340D, word_1C5530
 global jpt_D1917, jpt_D3102, sub_D15FB_1E9, sub_D1927_4E0, sub_D1927_4EC, sub_D1927_516, sub_D1927_522, sub_D1927_658
-global sub_D26EE_4DF, sub_D26EE_4E0, sub_D15FB, sub_D17EA, sub_D1927, sub_D1F8B, sub_D230A, sub_D24F8
+global sub_D26EE_4DF, sub_D26EE_4E0, sub_D15FB, sub_D17EA, PreGameMatchupScreen, sub_D1F8B, sub_D230A, sub_D24F8
 global sub_D26EE, sub_D2BD4, sub_D2C78, sub_D2CCA, sub_D2D94, sub_D2E1A, sub_D2ED6, sub_D306F
 global unk_D3057, unk_D305F, unk_D3067
 ;-----------------------------------------------------------------------------
@@ -257,9 +257,11 @@ jpt_D1917:
         dd sub_D1927_522
         dd sub_D1927_516
 ;-----------------------------------------------------------------------------
-; sub_D1927                                                       D1927  97 PC
+; PreGameMatchupScreen                            D1927  96 PC, low confidence
+; Pre-game screen 1: the matchup with the home and away pictures (H%07d /
+; A%07d .FSH, pal.fsh); the announcer's team pair call (PaEvent 8)
 ;-----------------------------------------------------------------------------
-sub_D1927:
+PreGameMatchupScreen:
         push ebx
         push ecx
         push edx
@@ -566,9 +568,15 @@ sub_D1927:
         cmp eax, byte 3
         ja short sub_D1927_522.12
         jmp dword [nosplit cs:eax*4+jpt_D1917]
+;-----------------------------------------------------------------------------
+; sub_D1927_4E0                                                   D1E07  97 PC
+;-----------------------------------------------------------------------------
 sub_D1927_4E0:
         mov dword [dword_16D740], 1
         jmp short sub_D1927_522.13
+;-----------------------------------------------------------------------------
+; sub_D1927_4EC                                                   D1E13  97 PC
+;-----------------------------------------------------------------------------
 sub_D1927_4EC:
         mov eax, dword [dword_1AC814]
         and eax, byte 70h
@@ -582,9 +590,15 @@ sub_D1927_4EC:
 .11:
         mov dword [dword_16D740], 3
         jmp short sub_D1927_522.13
+;-----------------------------------------------------------------------------
+; sub_D1927_516                                                   D1E3D  97 PC
+;-----------------------------------------------------------------------------
 sub_D1927_516:
         mov dword [dword_16D740], 0
         jmp short sub_D1927_522.13
+;-----------------------------------------------------------------------------
+; sub_D1927_522                                                   D1E49  97 PC
+;-----------------------------------------------------------------------------
 sub_D1927_522:
         cmp dword [dword_1ACF46], byte 0
         jne short sub_D1927_4EC.11
@@ -609,7 +623,7 @@ sub_D1927_522:
         call sub_1013FC
         mov eax, dword [dword_1CC7C8]
         xor edx, edx
-        jmp near sub_D1927.4
+        jmp near PreGameMatchupScreen.4
 .14:
         call sub_7EEB0
         mov dword [byte ebp+07Ah], 13h
@@ -629,7 +643,7 @@ sub_D1927_522:
         mov dword [byte ebp+07Ah], 4
         call sub_8BFAC
         cmp dword [byte ebp+072h], byte 7
-        jb near sub_D1927.5
+        jb near PreGameMatchupScreen.5
         mov edx, dword [byte ebp+07Eh]
         inc edx
         cmp dword [byte ebp+072h], byte 7

@@ -24,7 +24,7 @@ extern sub_7EEB0, sub_7EF70, SetRegionRect, sub_7F5A4, sub_80BBC, sub_81468, sub
 extern InitMenuItems, sub_8BFAC, sub_8D6E8, sub_8D910, sub_8E2EE, GetLangText, RunNewSeason, RunSeasonMenus
 extern sub_9279A, RunNewPlayoffs, RunPlayoffMenus, EditLinesScreen, TeamSelectScreen, PickIndexEntryScreen, sub_A4B7D, PostGameScreen
 extern GameStatsScreen, PlayMenuGame, sub_AC369, sub_ADBE6, sub_AF074, sub_B418C, sub_B5891, sub_B8FDF
-extern sub_BD621, sub_C0F5D, RosterScreen, sub_D1927, sub_D3112, sub_DB75E, sub_DE3CF, sub_E036F
+extern sub_BD621, sub_C0F5D, RosterScreen, PreGameMatchupScreen, PreGameRostersScreen, sub_DB75E, sub_DE3CF, sub_E036F
 extern sub_E3410, sub_E341C, NetDisconnect, LinkSendBlock, LinkReceiveBlock, sub_FAA64, sub_FAF34, sub_FB704
 extern sub_FC330, sub_FCD90, sub_FCEEC, sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FD110, tickcount
 extern unk_165320, unk_165323, unk_16CCC8, unk_16D804, unk_1AC95D, unk_1AC962, unk_1ACB44, unk_1ACB49
@@ -1700,10 +1700,10 @@ RunGameScreens:
         mov eax, 1
         jmp short .28
 .30:
-        call sub_D3112
+        call PreGameRostersScreen
         jmp near .7
 .31:
-        call sub_D1927
+        call PreGameMatchupScreen
         jmp near .7
 .32:
         call sub_41DD8

@@ -20,14 +20,14 @@ extern sub_415F8, sub_419B0, sub_419B8, StopAllSfx, PlaySfx, LoadDataFile, OpenD
 extern sub_7DFC0, sub_7E52C, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, SetRegionRect, sub_7F0D8
 extern DrawTextAligned, sub_7F29C, sub_80758, sub_80808, sub_80BBC, sub_81650, sub_81678, sub_83C08
 extern InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E, sub_8DEAC
-extern sub_8DF1F, GetLangText, sub_C48A2, sub_CA44C, sub_D0098, sub_E341C, sub_E4218, sub_E4230
-extern sub_E77B1, sub_F0339, sub_FAA64, sub_FAF34, sub_FC510, sub_FCD90, sub_FCEEC, sub_FCFCC
+extern sub_8DF1F, GetLangText, OptionsScreen, sub_CA44C, sub_D0098, sub_E341C, sub_E4218, sub_E4230
+extern sub_E77B1, ControlSetupScreen, sub_FAA64, sub_FAF34, sub_FC510, sub_FCD90, sub_FCEEC, sub_FCFCC
 extern sub_FD08C, sub_FD0F8, sub_FD110, sub_FDD1C, tickcount, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C
 global jpt_C36A2, sub_C0F5D_60E, sub_C1577_73D, sub_C1577_73E, sub_C2633_42, sub_C36CA_A25, sub_C36CA_A36, sub_C36CA_A93
 global sub_C36CA_B18, sub_C36CA_B7E, sub_C36CA_C26, sub_C36CA_C86, sub_C36CA_CE6, sub_C36CA_D46, sub_C0F5D, sub_C1577
 global sub_C1CBB, sub_C1D5B, sub_C23E6, sub_C248B, sub_C250A, sub_C2633, sub_C267B, sub_C271D
 global sub_C27D8, sub_C2A49, sub_C2BB2, sub_C2D94, sub_C2F86, sub_C3088, sub_C3142, sub_C31FE
-global sub_C32B0, sub_C3594, sub_C36CA
+global sub_C32B0, RunOptionsScreens, sub_C36CA
 ;-----------------------------------------------------------------------------
 ; sub_C0F5D                                                       C0F5D  97 PC
 ;-----------------------------------------------------------------------------
@@ -3040,9 +3040,12 @@ sub_C32B0:
         mov dword [dword_1CB0C4], 1
         jmp near sub_C1577_73E
 ;-----------------------------------------------------------------------------
-; sub_C3594                                                       C3594  97 PC
+; RunOptionsScreens                               C3594  97 PC, low confidence
+; From RunFrontEnd (0Ah): runs the options screen and its control set-up
+; screens (screen numbers 22h-24h) until it returns 1Ah; in a network session
+; only one side may change them
 ;-----------------------------------------------------------------------------
-sub_C3594:
+RunOptionsScreens:
         push edx
         mov edx, 64h
         jmp short .8
@@ -3053,13 +3056,13 @@ sub_C3594:
 .2:
         cmp dword [dword_16DA9C], byte 0
         jne short .3
-        call sub_C48A2
+        call OptionsScreen
         jmp short .7
 .3:
         je short .4
         cmp byte [byte_1CBB8C], 2
         jne short .4
-        call sub_C48A2
+        call OptionsScreen
         mov edx, eax
         cmp eax, byte 1Ah
         jne short .8
@@ -3074,7 +3077,7 @@ sub_C3594:
 .5:
         xor eax, eax
 .6:
-        call sub_F0339
+        call ControlSetupScreen
 .7:
         mov edx, eax
 .8:

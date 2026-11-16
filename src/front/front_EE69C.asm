@@ -25,7 +25,7 @@ extern unk_1C5F4A, unk_1CE3D0, unk_1CE422, unk_1CE474, unk_1CEA8A, unk_EDDEF, un
 extern unk_EE053, unk_EE093, unk_EE0E3, word_16E2EC, word_16E2EE, word_16E2F0
 global jpt_F031D, sub_EE69C_20A, sub_EE8BB_3F3, sub_EE8BB_3FB, sub_F0339_B8D, sub_F0339_BB1, sub_F0339_BC0, sub_F0339_BF3
 global sub_F0339_C3A, sub_F0339_F11, sub_F0339_1064, sub_EE69C, sub_EE8AC, sub_EE8BB, sub_EECBC, sub_EF5B3
-global sub_EFD08, sub_F0004, sub_F01C5, sub_F0339, sub_F174F, sub_F1FF8, sub_F207F
+global sub_EFD08, sub_F0004, sub_F01C5, ControlSetupScreen, sub_F174F, sub_F1FF8, sub_F207F
 ;-----------------------------------------------------------------------------
 ; sub_EE69C                                                       EE69C  97 PC
 ;-----------------------------------------------------------------------------
@@ -2320,9 +2320,11 @@ jpt_F031D:
         dd sub_F0339_F11
         dd sub_F0339_1064
 ;-----------------------------------------------------------------------------
-; sub_F0339                                                       F0339  97 PC
+; ControlSetupScreen                              F0339  96 PC, low confidence
+; The control setup screen: mouse, keyboard, joystick 1 and 2 pictures,
+; detect and on/off sliders
 ;-----------------------------------------------------------------------------
-sub_F0339:
+ControlSetupScreen:
         push ebx
         push ecx
         push edx
@@ -3134,6 +3136,9 @@ sub_F0339:
         ja near sub_F0339_1064.44
         mov eax, dword [byte ebp+066h]
         jmp dword [nosplit cs:eax*4+jpt_F031D]
+;-----------------------------------------------------------------------------
+; sub_F0339_B8D                                                   F0EC6  97 PC
+;-----------------------------------------------------------------------------
 sub_F0339_B8D:
         call sub_7EDF0
         push byte 58h
@@ -3143,10 +3148,16 @@ sub_F0339_B8D:
         mov dword [byte ebp+072h], 64h
         call sub_100A68
         jmp near sub_F0339_C3A.38
+;-----------------------------------------------------------------------------
+; sub_F0339_BB1                                                   F0EEA  97 PC
+;-----------------------------------------------------------------------------
 sub_F0339_BB1:
         call sub_7EF70
         call WaitForOtherComputer
         jmp near sub_F0339_F11.42
+;-----------------------------------------------------------------------------
+; sub_F0339_BC0                                                   F0EF9  97 PC
+;-----------------------------------------------------------------------------
 sub_F0339_BC0:
         cmp word [byte ebp+07Eh], byte 0
         je near sub_F0339_F11.42
@@ -3160,6 +3171,9 @@ sub_F0339_BC0:
         mov dword [byte ebp+07Eh], 0
         call sub_EF5B3
         jmp near sub_F0339_F11.42
+;-----------------------------------------------------------------------------
+; sub_F0339_BF3                                                   F0F2C  97 PC
+;-----------------------------------------------------------------------------
 sub_F0339_BF3:
         cmp word [byte ebp+07Eh], byte 0
         jne near sub_F0339_F11.42
@@ -3177,6 +3191,9 @@ sub_F0339_BF3:
         mov dword [byte ebp+07Eh], 1
         mov dword [dword ebp-063Ah], 0
         jmp near sub_F0339_F11.42
+;-----------------------------------------------------------------------------
+; sub_F0339_C3A                                                   F0F73  97 PC
+;-----------------------------------------------------------------------------
 sub_F0339_C3A:
         cmp word [byte ebp+07Eh], byte 0
         jne near .35
@@ -3382,6 +3399,9 @@ sub_F0339_C3A:
         push dword 15Eh
         push asc_1679E4
         jmp short .37
+;-----------------------------------------------------------------------------
+; sub_F0339_F11                                                   F124A  97 PC
+;-----------------------------------------------------------------------------
 sub_F0339_F11:
         push dword [byte ebp+05Eh]
         call sub_FD0F8
@@ -3456,9 +3476,9 @@ sub_F0339_F11:
         cmp dword [byte ebp+072h], byte 0
         jne near sub_F0339_1064.46
         cmp word [dword ebp-063Ah], byte 0
-        jne near sub_F0339.24
+        jne near ControlSetupScreen.24
         cmp word [byte ebp+07Eh], byte 0
-        jne near sub_F0339.23
+        jne near ControlSetupScreen.23
         push byte 2
         lea eax, [byte ebp+066h]
         mov ecx, sub_EFD08
@@ -3468,7 +3488,10 @@ sub_F0339_F11:
         mov eax, 17h
 .43:
         call sub_8BFAC
-        jmp near sub_F0339.25
+        jmp near ControlSetupScreen.25
+;-----------------------------------------------------------------------------
+; sub_F0339_1064                                                  F139D  97 PC
+;-----------------------------------------------------------------------------
 sub_F0339_1064:
         push dword [byte ebp+056h]
         call sub_FD0F8
