@@ -4,12 +4,12 @@ bits 32
 section s_1301FF progbits alloc exec nowrite align=1
 extern _Extender, _ExtenderSubtype, _IsTable, __ExpandDGROUP_, __FDFS, __fatal_runtime_error_, __flush_, __set_doserrno_
 extern __set_errno_, __shutdown_stream_, _nfree_, _nmalloc_, _osmajor, ScanBitMasks, byte_171C90, byte_172301
-extern byte_199A24, byte_199AA4, byte_1DA4C5, dword_16E318, dword_16E678, dword_16E67C, dword_16E680, dword_16E684
-extern dword_16E698, dword_16E6A0, dword_1999A5, dword_1999C0, dword_199A14, dword_199A18, dword_199A1E, dword_199B2A
+extern byte_199A24, byte_199AA4, byte_1DA4C5, dword_16E318, ClipTopRow, ClipLeftCol, ClipRight, ScreenHeight
+extern DrawDestBuffer, DrawDestOffset, dword_1999A5, dword_1999C0, dword_199A14, dword_199A18, dword_199A1E, dword_199B2A
 extern dword_199B2E, TextOriginX, dword_1DA4BC, dword_1DA4C0, dword_1DA8D8, __freefp__39, memset_, off_199C54
 extern str_NotEnoughMemoryTo, str_SaveText, bcopy, AddExitHandler, RestoreDS, SetBlitSource, CopyMappedSpan, BuildSpanOffsets
 extern DosGetVector, DosSetVector, SaveVideoState, RestoreVideoState, AllocMemBlockFixed, UnlinkMemBlockLocked, MemDescPtr, ZeroMem
-extern KbdPeekKey, MakeColor, SelectFont, FillRect, SetTextColors, FreeTextBuffers, tolower_, unk_16E8A0
+extern KbdPeekKey, MakeColor, SelectFont, FillRect, SetTextColors, FreeTextBuffers, tolower_, DebugTagStr
 extern unk_1722C0, unk_172342, word_199A1C, word_199A22
 global _DoINTR_, __HeapManager_expand_, __IOMode_, __InitFiles_, __SetIOMode_, __flushall_, __full_io_exit_, __int386x_
 global __qwrite_, __set_errno_dos_, _dosret0_, _nexpand_, _nmsize_, docloseall_, flushall_, isatty_
@@ -571,7 +571,7 @@ InitTextOutput:
         push TextOriginX
         call ZeroMem
         add esp, byte 8
-        push unk_16E8A0
+        push DebugTagStr
         call SelectFont
         add esp, byte 4
         push dword 0FF000000h
@@ -1251,12 +1251,12 @@ RasterShapeTriangle:
         mov dword [byte esp+04Ch], eax
 .26:
         mov edx, dword [byte esp+0Ch]
-        mov eax, dword [dword_16E684]
+        mov eax, dword [ScreenHeight]
         cmp eax, edx
         jl short .27
         mov eax, edx
 .27:
-        mov ebx, dword [dword_16E67C]
+        mov ebx, dword [ClipLeftCol]
         mov dword [byte esp+038h], eax
         cmp esi, ebx
         jl near .30
@@ -1264,12 +1264,12 @@ RasterShapeTriangle:
         mov ecx, dword [dword esp+08Ch]
         shl edx, 3
         add edx, ecx
-        mov ecx, dword [dword_16E678]
+        mov ecx, dword [ClipTopRow]
         mov ebx, dword [edx]
         cmp ebx, ecx
         jl near .30
         mov edx, ebx
-        mov ebx, dword [dword_16E680]
+        mov ebx, dword [ClipRight]
         cmp edx, ebx
         jge near .30
         mov edx, dword [byte esp+020h]
@@ -1308,10 +1308,10 @@ RasterShapeTriangle:
         mov edx, dword [byte esp+08h]
         shl eax, 2
         shl edx, cl
-        mov ecx, dword [dword_16E6A0]
+        mov ecx, dword [DrawDestOffset]
         push edx
         add ecx, eax
-        mov edx, dword [dword_16E698]
+        mov edx, dword [DrawDestBuffer]
         mov eax, dword [edx+ebx]
         add eax, dword [ecx]
         push eax
@@ -1344,14 +1344,14 @@ RasterShapeTriangle:
         sar edx, 10h
         sar eax, 10h
         sub eax, edx
-        mov ecx, dword [dword_16E680]
+        mov ecx, dword [ClipRight]
         lea ebx, [edx+eax]
         sub ebx, ecx
         test ebx, ebx
         jle short .32
         sub eax, ebx
 .32:
-        mov ebx, dword [dword_16E678]
+        mov ebx, dword [ClipTopRow]
         sub ebx, edx
         test ebx, ebx
         jle short .33
@@ -1363,7 +1363,7 @@ RasterShapeTriangle:
 .34:
         test eax, eax
         jle short .35
-        cmp esi, dword [dword_16E67C]
+        cmp esi, dword [ClipLeftCol]
         jl short .35
         push eax
         mov eax, dword [byte esp+074h]
@@ -1378,10 +1378,10 @@ RasterShapeTriangle:
         shl eax, cl
         mov ebx, dword [byte esp+058h]
         push eax
-        mov eax, dword [dword_16E698]
+        mov eax, dword [DrawDestBuffer]
         shl edx, 2
         add ebx, eax
-        mov eax, dword [dword_16E6A0]
+        mov eax, dword [DrawDestOffset]
         add edx, eax
         mov eax, dword [ebx]
         add eax, dword [edx]
@@ -1534,13 +1534,13 @@ RasterShapeTriangle:
         shl eax, 3
         add eax, edx
         mov eax, dword [byte eax+04h]
-        mov ebx, dword [dword_16E684]
+        mov ebx, dword [ScreenHeight]
         sar eax, 10h
         cmp eax, ebx
         jle short .49
         mov eax, ebx
 .49:
-        mov ecx, dword [dword_16E67C]
+        mov ecx, dword [ClipLeftCol]
         mov dword [byte esp+034h], eax
         cmp esi, ecx
         jl near .52
@@ -1548,12 +1548,12 @@ RasterShapeTriangle:
         mov ebx, dword [dword esp+08Ch]
         shl edx, 3
         add edx, ebx
-        mov ecx, dword [dword_16E678]
+        mov ecx, dword [ClipTopRow]
         mov ebx, dword [edx]
         cmp ebx, ecx
         jl near .52
         mov edx, ebx
-        mov ebx, dword [dword_16E680]
+        mov ebx, dword [ClipRight]
         cmp edx, ebx
         jge near .52
         mov edx, dword [byte esp+020h]
@@ -1592,11 +1592,11 @@ RasterShapeTriangle:
         mov edx, dword [byte esp+08h]
         shl edx, cl
         push edx
-        mov edx, dword [dword_16E698]
+        mov edx, dword [DrawDestBuffer]
         add edx, ebx
         shl eax, 2
         mov dword [byte esp+0Ch], edx
-        mov edx, dword [dword_16E6A0]
+        mov edx, dword [DrawDestOffset]
         add edx, eax
         mov eax, dword [byte esp+0Ch]
         mov ecx, dword [edx]
@@ -1632,14 +1632,14 @@ RasterShapeTriangle:
         sar edx, 10h
         sar eax, 10h
         sub eax, edx
-        mov ecx, dword [dword_16E680]
+        mov ecx, dword [ClipRight]
         lea ebx, [edx+eax]
         sub ebx, ecx
         test ebx, ebx
         jle short .54
         sub eax, ebx
 .54:
-        mov ebx, dword [dword_16E678]
+        mov ebx, dword [ClipTopRow]
         sub ebx, edx
         test ebx, ebx
         jle short .55
@@ -1651,7 +1651,7 @@ RasterShapeTriangle:
 .56:
         test eax, eax
         jle short .57
-        cmp esi, dword [dword_16E67C]
+        cmp esi, dword [ClipLeftCol]
         jl short .57
         push eax
         mov eax, dword [byte esp+074h]
@@ -1666,10 +1666,10 @@ RasterShapeTriangle:
         shl eax, cl
         mov ebx, dword [byte esp+05Ch]
         push eax
-        mov eax, dword [dword_16E698]
+        mov eax, dword [DrawDestBuffer]
         shl edx, 2
         add ebx, eax
-        mov eax, dword [dword_16E6A0]
+        mov eax, dword [DrawDestOffset]
         add edx, eax
         mov eax, dword [ebx]
         add eax, dword [edx]

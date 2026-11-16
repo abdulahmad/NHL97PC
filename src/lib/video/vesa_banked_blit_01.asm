@@ -2,20 +2,20 @@
 bits 32
 %include "hockey.inc"
 section s_102D3C progbits alloc exec nowrite align=1
-extern byte_16F89C, dword_16E46C, dword_16F894, dword_16F898, dword_16F8A0, dword_1DA4D0
+extern VesaBankShift, MenuScreenBitmap, VesaBank, VesaBankFunc, PaletteReadFunc, dword_1DA4D0
 global jpt_102D5C, jpt_102D5C_27, VesaSetBank, VesaSetModeCall, VgaSetModeNoClear, CopyMemFpu, GetPaletteEntries
 ;-----------------------------------------------------------------------------
 ; VesaSetBank                                    102D3C  97 PC, low confidence
 ; Switches the VESA bank window when the wanted bank differs
 ;-----------------------------------------------------------------------------
 VesaSetBank:
-        cmp al, byte [byte_16F89C]
+        cmp al, byte [VesaBankShift]
         je short jpt_102D5C_27
-        mov byte [byte_16F89C], al
+        mov byte [VesaBankShift], al
         cmp eax, byte 0
         jl short jpt_102D5C_27
         push edx
-        mov edx, dword [dword_16F894]
+        mov edx, dword [VesaBank]
         jmp dword [nosplit edx*4+jpt_102D5C]
 jpt_102D5C:
         dd .1
@@ -26,7 +26,7 @@ jpt_102D5C:
         push ebp
         push esi
         push edi
-        mov ecx, dword [dword_16F898]
+        mov ecx, dword [VesaBankFunc]
         shl al, cl
         movzx edx, al
         mov eax, 4F05h
@@ -46,7 +46,7 @@ jpt_102D5C_27:
         push ebp
         push esi
         push edi
-        mov ecx, dword [dword_16F898]
+        mov ecx, dword [VesaBankFunc]
         shl al, cl
         movzx edx, al
         push edx
@@ -220,15 +220,15 @@ CopyMemFpu:
 ; Reads palette entries through the installed hook, or from the VGA DAC
 ;-----------------------------------------------------------------------------
 GetPaletteEntries:
-        cmp dword [dword_16F8A0], byte 0
+        cmp dword [PaletteReadFunc], byte 0
         je short .1
-        jmp dword [dword_16F8A0]
+        jmp dword [PaletteReadFunc]
 .1:
         push ebp
         LD mov, ebp, esp
         push ebx
         push edi
-        cmp dword [dword_16E46C], byte 8
+        cmp dword [MenuScreenBitmap], byte 8
         jg short .3
         mov edi, dword [byte ebp+010h]
         mov edx, 3C7h

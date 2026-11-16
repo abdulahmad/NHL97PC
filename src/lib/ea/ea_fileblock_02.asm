@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_11B104 progbits alloc exec nowrite align=1
-extern dword_16E4C8, openhandle, DosCloseFile, DosWriteFile, MemDescPtr, MemDescSize
+extern MessageBoxActive, openhandle, DosCloseFile, DosWriteFile, MemDescPtr, MemDescSize
 global savefileblocka, SaveDataFile
 ;-----------------------------------------------------------------------------
 ; SaveDataFile                                   11B104  97 PC, low confidence
@@ -14,7 +14,7 @@ SaveDataFile:
         mov dword [esp], eax
         mov eax, dword [byte esp+034h]
         mov dword [byte esp+014h], eax
-        mov eax, dword [dword_16E4C8]
+        mov eax, dword [MessageBoxActive]
         push byte 0
         mov dword [byte esp+01Ch], eax
         lea eax, [byte esp+04h]
@@ -33,7 +33,7 @@ SaveDataFile:
         mov eax, dword [byte esp+038h]
         mov edx, dword [byte esp+03Ch]
         mov dword [byte esp+014h], eax
-        mov eax, dword [dword_16E4C8]
+        mov eax, dword [MessageBoxActive]
         push edx
         mov dword [byte esp+01Ch], eax
         lea eax, [byte esp+04h]

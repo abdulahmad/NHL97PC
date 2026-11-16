@@ -10,7 +10,7 @@ extern str_SW00, str_Roster2, str_ELPopupMenu, str_ELPopupRegions, str_1TOP2, st
 extern str_2BOT2, str_3BOT2, str_Punct4, str_SL02d2, str_BTTM2, str_POWR, str_CHEK, str_CS
 extern str_SS5, str_SS6, str_TB05, str_TB04, str_TB03, str_TB02, str_TB01, str_TB00
 extern str_PB022, str_PB002, str_PB03, str_PB012, str_AR02d, str_FART, str_NOFACEFSH, str_FRR0
-extern byte_16CF98, byte_1C6040, str_Punct_LoadLinesArt, dword_16CFF4, dword_16D2B8, dword_16E46C, dword_1AC944, dword_1AD6AB
+extern byte_16CF98, byte_1C6040, str_Punct_LoadLinesArt, dword_16CFF4, dword_16D2B8, MenuScreenBitmap, dword_1AC944, dword_1AD6AB
 extern dword_1C5DE4, dword_1C5DE8, dword_1C8AA4, dword_1C8AA8, dword_1C8AAC, dword_1C8AB0, dword_1C8AB4, dword_1C8AF8
 extern dword_1C8AFC, dword_1C8B44, dword_1C8B90, dword_1C8B94, dword_1C8BE4, dword_1C8BE8, dword_1C8BEC, dword_1C8BF0
 extern dword_1C8BF4, dword_1C8BF8, dword_1C8BFC, dword_1C8C00, dword_1C8C04, dword_1C8C08, dword_1C8C0C, dword_1C8C34
@@ -1421,7 +1421,7 @@ EditLinesSetup:
         mov ebx, eax
         test eax, eax
         je near EditLinesScreen_8E8
-        push dword [dword_16E46C]
+        push dword [MenuScreenBitmap]
         push str_TILE
         push eax
         call FindShape

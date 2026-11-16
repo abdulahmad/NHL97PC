@@ -21,10 +21,10 @@ extern F32_36_DetailLevelMenu, F32_53_DetailLevelMenu, F32_87_DetailLevelMenu, F
 extern F32_63, F32_0p005_DetailLevelMenu, F32_0p003125_DetailLevelMenu, F32_55_DetailLevelMenu, F32_40_DetailLevelMenu, F32_100_DetailLevelMenu, F32_85_DetailLevelMenu, F32_25_DetailLevelMenu
 extern dword_1686C0, InGameMenuRequest, dword_16AF3C, dword_16AF40, dword_16AF44, dword_16AF48, dword_16AF50, dword_16AF54
 extern dword_16AF58, dword_16AF5C, dword_16D2BC, dword_16DA9C, dword_16E30C, mousex, mousey, dword_16E464
-extern dword_16E468, dword_16E500, dword_16E69C, dword_19CD10, dword_19CD30, dword_19CD54, dword_19D384, dword_1A8E50
+extern dword_16E468, QuantizePalette, DrawDestPitch, dword_19CD10, dword_19CD30, dword_19CD54, dword_19D384, dword_1A8E50
 extern dword_1AC364, dword_1AC814, dword_1AC819, dword_1AC944, dword_1ADC88, dword_1B1410, dword_1B1464, dword_1B8578
 extern dword_1C5DE4, dword_1CEF88, dword_1CEF8C, dword_1CEF90, dword_1CEF94, dword_1CEF98, dword_1CEF9C, dword_1CEFA0
-extern dword_1CEFA4, dword_1CEFA8, dword_1CEFB0, dword_1CEFB4, dword_1CEFB8, dword_1CEFBC, off_16E4E0, F64_65536_LoadPauseArt
+extern dword_1CEFA4, dword_1CEFA8, dword_1CEFB0, dword_1CEFB4, dword_1CEFB8, dword_1CEFBC, PresentFuncInput, F64_65536_LoadPauseArt
 extern F64_0p003125, F64_0p005, F64_200, F64_0p00208333, F64_320, F64_0p0015625, F64_0p003125_PickEditLinesTeam, F64_0p005_PickEditLinesTeam
 extern F64_0p003125_ConfirmQuitGame, F64_0p005_ConfirmQuitGame, F64_0p5_SetupPauseButtons, F64_0p5_PauseMenu, F64_0p5_DrawIntermissionTitle, F64_0p5_RunPauseIntermission, F64_0p003125_RulesMenu, F64_0p005_RulesMenu
 extern F64_0p5_RulesMenu, F64_0p003125_DetailLevelMenu, F64_0p005_DetailLevelMenu, F64_0p5_DetailLevelMenu, rand_, sprintf_, sscanf_, GetPaletteRange
@@ -2476,7 +2476,7 @@ RunIntermission:
         call ServiceIdle
         call RedrawGameView
         call ServiceIdle
-        call dword [off_16E4E0]
+        call dword [PresentFuncInput]
         mov dword [byte ebp-018h], eax
         mov eax, dword [mousex]
         mov dword [byte ebp-01Ch], eax
@@ -3205,11 +3205,11 @@ LeaveGameForMenu:
         enter 50h, 0
         mov ebx, eax
         call FreeGameGraphics
-        cmp dword [dword_16E500], byte 0
+        cmp dword [QuantizePalette], byte 0
         je short .1
-        push dword [dword_16E500]
+        push dword [QuantizePalette]
         call FreeMemBlock
-        mov dword [dword_16E500], 0
+        mov dword [QuantizePalette], 0
         add esp, byte 4
 .1:
         call FreePauseArt
@@ -4140,7 +4140,7 @@ FillBox:
         push eax
         mov esi, edx
         mov edi, ecx
-        mov eax, dword [dword_16E69C]
+        mov eax, dword [DrawDestPitch]
         movsx edx, word [byte eax+04h]
         cmp esi, edx
         jg near .7

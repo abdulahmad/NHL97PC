@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_10B660 progbits alloc exec nowrite align=1
-extern SetClipWindow, LinePattern, dword_16E670, dword_16E676, dword_16E67A, dword_16E67E, dword_16E682, dword_16E698
-extern dword_16E69C, ViewOriginX, LineDeltaX, ViewOriginY, LineDeltaY, LineX, LineSteep, LineY
+extern SetClipWindow, LinePattern, ScreenWidth, ClipLeft, ClipTop, ClipRightEdge, ClipBottomEdge, DrawDestBuffer
+extern DrawDestPitch, ViewOriginX, LineDeltaX, ViewOriginY, LineDeltaY, LineX, LineSteep, LineY
 extern LineEndX, LineStepX, LineEndY, LineStepY, ViewWidth, ViewHeight, LineErrY, LineErrX
 extern LineErrStepY, LineColor, LineClipMaxX, LineClipMaxY, LineErrStepX, EllipseRadiusX, EllipseRadiusY, str_AALIAS
 extern FixedLerp, PlotPixel, PlotPixelClipped, AllocMemBlock, MatchColor, FillRect
@@ -545,26 +545,26 @@ DrawLineYPlot:
         jge near .10
 .1:
         mov ebx, dword [LineEndY]
-        mov eax, dword [dword_16E676]
+        mov eax, dword [ClipLeft]
         mov esi, dword [LineY]
         sar ebx, 10h
         sar eax, 10h
         sar esi, 10h
         cmp ebx, eax
         jl short .2
-        mov eax, dword [dword_16E67E]
+        mov eax, dword [ClipRightEdge]
         sar eax, 10h
         cmp esi, eax
         jl near .10
 .2:
-        mov eax, dword [dword_16E676]
+        mov eax, dword [ClipLeft]
         sar eax, 10h
         cmp ebx, eax
         jge short .3
         cmp esi, eax
         jl near .10
 .3:
-        mov eax, dword [dword_16E67E]
+        mov eax, dword [ClipRightEdge]
         sar eax, 10h
         cmp ebx, eax
         jl short .4
@@ -599,7 +599,7 @@ DrawLineYPlot:
 .5:
         test eax, eax
         je short .6
-        mov eax, dword [dword_16E676]
+        mov eax, dword [ClipLeft]
         sar eax, 10h
         cmp ebx, eax
         jle short .6
@@ -636,7 +636,7 @@ DrawLineYPlot:
 .7:
         test ebp, ebp
         je short .9
-        mov eax, dword [dword_16E67E]
+        mov eax, dword [ClipRightEdge]
         sar eax, 10h
         cmp esi, eax
         jge short .9
@@ -713,12 +713,12 @@ DrawLineY:
         mov esi, 10000h
         mov edx, dword [LineY]
         mov ebx, dword [LineEndY]
-        mov ebp, dword [dword_16E69C]
+        mov ebp, dword [DrawDestPitch]
         sar eax, 10h
         and ebx, 0FFFFh
         sar edx, 10h
         sub esi, ebx
-        mov ebx, dword [dword_16E698]
+        mov ebx, dword [DrawDestBuffer]
         sub edx, eax
         add ebp, dword [edi+ebx]
         sar esi, 0Ch
@@ -805,7 +805,7 @@ DrawLineXPlot:
         cmp eax, edx
         jge near .10
 .1:
-        mov eax, dword [dword_16E67A]
+        mov eax, dword [ClipTop]
         mov ebx, dword [LineStepX]
         mov esi, dword [LineEndX]
         sar eax, 10h
@@ -813,19 +813,19 @@ DrawLineXPlot:
         sar esi, 10h
         cmp ebx, eax
         jl short .2
-        mov eax, dword [dword_16E682]
+        mov eax, dword [ClipBottomEdge]
         sar eax, 10h
         cmp esi, eax
         jl near .10
 .2:
-        mov eax, dword [dword_16E67A]
+        mov eax, dword [ClipTop]
         sar eax, 10h
         cmp ebx, eax
         jge short .3
         cmp esi, eax
         jl near .10
 .3:
-        mov eax, dword [dword_16E682]
+        mov eax, dword [ClipBottomEdge]
         sar eax, 10h
         cmp ebx, eax
         jl short .4
@@ -859,7 +859,7 @@ DrawLineXPlot:
 .5:
         test ebp, ebp
         je short .6
-        mov eax, dword [dword_16E67A]
+        mov eax, dword [ClipTop]
         sar eax, 10h
         cmp ebx, eax
         jle short .6
@@ -895,7 +895,7 @@ DrawLineXPlot:
 .7:
         cmp dword [esp], byte 0
         je short .9
-        mov eax, dword [dword_16E682]
+        mov eax, dword [ClipBottomEdge]
         sar eax, 10h
         cmp esi, eax
         jge short .9
@@ -977,9 +977,9 @@ DrawLineX:
         sub edx, eax
         mov ebx, edi
         shl eax, 2
-        mov edi, dword [dword_16E698]
+        mov edi, dword [DrawDestBuffer]
         add edi, eax
-        mov eax, dword [dword_16E69C]
+        mov eax, dword [DrawDestPitch]
         add eax, dword [edi]
         sar ebx, 0Ch
         add eax, esi
@@ -1007,7 +1007,7 @@ DrawLineX:
 .3:
         mov byte [eax], bl
 .4:
-        add eax, dword [dword_16E670]
+        add eax, dword [ScreenWidth]
         dec edx
         je short .5
         mov bl, byte [LinePattern]
@@ -1347,10 +1347,10 @@ DrawEllipseSpans:
         cmp dword [EllipseRadiusX], byte 0
         je near .15
 .10:
-        mov eax, dword [dword_16E682]
+        mov eax, dword [ClipBottomEdge]
         sar eax, 10h
         mov dword [byte ebp-04h], eax
-        mov eax, dword [dword_16E67A]
+        mov eax, dword [ClipTop]
         sar eax, 10h
         mov dword [byte ebp-0Ch], eax
         mov dword [byte ebp-08h], 1
@@ -1363,7 +1363,7 @@ DrawEllipseSpans:
         jle short .11
         mov eax, ecx
 .11:
-        mov edx, dword [dword_16E67A]
+        mov edx, dword [ClipTop]
         push eax
         mov eax, ebx
         sar edx, 10h
@@ -1382,7 +1382,7 @@ DrawEllipseSpans:
 .13:
         push eax
         mov edx, esi
-        mov eax, dword [dword_16E67A]
+        mov eax, dword [ClipTop]
         sar edx, 10h
         sar eax, 10h
         cmp eax, edx
@@ -1390,19 +1390,19 @@ DrawEllipseSpans:
         mov eax, edx
 .14:
         push eax
-        mov eax, dword [dword_16E67E]
+        mov eax, dword [ClipRightEdge]
         sar eax, 10h
         push eax
-        mov eax, dword [dword_16E676]
+        mov eax, dword [ClipLeft]
         sar eax, 10h
         push eax
         call SetClipWindow
         add esp, byte 10h
-        mov eax, dword [dword_16E67A]
+        mov eax, dword [ClipTop]
         sar eax, 10h
         shl eax, 10h
         mov dword [ViewWidth], eax
-        mov eax, dword [dword_16E682]
+        mov eax, dword [ClipBottomEdge]
         sar eax, 10h
         shl eax, 10h
         mov dword [ViewOriginY], eax
@@ -1563,20 +1563,20 @@ DrawEllipseSpans:
         mov eax, dword [byte ebp-04h]
         push eax
         mov edx, dword [byte ebp-0Ch]
-        mov eax, dword [dword_16E67E]
+        mov eax, dword [ClipRightEdge]
         push edx
         sar eax, 10h
         push eax
-        mov eax, dword [dword_16E676]
+        mov eax, dword [ClipLeft]
         sar eax, 10h
         push eax
         call SetClipWindow
-        mov eax, dword [dword_16E67A]
+        mov eax, dword [ClipTop]
         sar eax, 10h
         shl eax, 10h
         xor ebx, ebx
         mov dword [ViewWidth], eax
-        mov eax, dword [dword_16E682]
+        mov eax, dword [ClipBottomEdge]
         add esp, byte 10h
         sar eax, 10h
         mov dword [EllipseRadiusX], ebx

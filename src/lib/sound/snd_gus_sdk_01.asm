@@ -6,11 +6,11 @@ extern GusIrqLatchBits, GusStreamVoiceA, GusStreamVoiceStereo, GusStreamVoiceB, 
 extern GusRecordDmaChannel, GusMidiIrq, GusWaveIrq, GusOpenCount, GusStreamRefillA, GusStreamRefillB, GusStreamSrcA, GusStreamHalfA
 extern GusStreamBusyA, GusStreamSrcB, GusStreamHalfB, GusStreamBusyB, GusStreamActive, GusStreamBufSize, GusStreamHalfSize, GusStreamQuarterSize
 extern GusRefillSrc, GusRefillDest, GusRefillLength, GusStreamCardA, GusStreamCardB, GusStreamCardEnd, GusStreamStartLo, GusStreamEndLo
-extern dword_1DE740, getenv_, inp_, inpw_, GusEnvVarName, outp_, outpw_, ReturnArg
+extern GusEnvConfig, getenv_, inp_, inpw_, GusEnvVarName, outp_, outpw_, ReturnArg
 extern GusHookIrq, GusUnhookIrq, GusWaveIrqHandler, GusMidiIrqHandler, GusDelay, GusSetBasePort, GusClearIrqState, GusEnterCritical
 extern GusLeaveCritical, GusClearCallbacks, GusSetVoiceCallbacks, GusRunInitTable, GusPeek, GusPoke, GusTestDramBank, GusDownload
 extern GusStreamLoopLo, GusStreamLoopHi, GusStreamStartHi, GusStreamEndHi, GusBasePort, GusIrqStatusPort, GusIrqLatchPort, GusDmaLatchPort
-extern GusVoiceSelectPort, GusRegSelectPort, GusDataLowPort, GusDataHighPort, GusDramPort, word_1DE760, GusIrqFlags, GusActiveVoices
+extern GusVoiceSelectPort, GusRegSelectPort, GusDataLowPort, GusDataHighPort, GusDramPort, GusDramSize, GusIrqFlags, GusActiveVoices
 global GusGetEnvConfig, GusProbePort, GusStopDmaAndTimers, GusUnhookIrqs, GusHookIrqs, GusOpenCard, GusStopAllVoices, GusOpen
 global GusClose, GusSetIrqDmaLatches, GusResetVoices, GusPokeBlock, GusPeekBlock, GusSizeDram, GusMemAlloc, GusStopStream
 global GusStreamBusy, GusRefillStreamChannel, GusStreamVoiceIrq, GusServiceStream, GusStartStream, GusStopStreamVoices
@@ -29,55 +29,55 @@ GusGetEnvConfig:
         mov eax, dword [GusEnvVarName]
         call getenv_
         mov edx, eax
-        mov dword [dword_1DE740], eax
+        mov dword [GusEnvConfig], eax
         test eax, eax
         je near .6
-        mov edx, dword_1DE740
+        mov edx, GusEnvConfig
         mov ebx, 10h
         call ReturnArg
         mov word [byte ecx+02h], ax
-        mov eax, dword [dword_1DE740]
+        mov eax, dword [GusEnvConfig]
         cmp byte [eax], 2Ch
         jne short .1
         inc eax
-        mov dword [dword_1DE740], eax
+        mov dword [GusEnvConfig], eax
 .1:
-        mov edx, dword_1DE740
+        mov edx, GusEnvConfig
         mov ebx, 0Ah
-        mov eax, dword [dword_1DE740]
+        mov eax, dword [GusEnvConfig]
         call ReturnArg
         mov byte [byte ecx+07h], al
-        mov eax, dword [dword_1DE740]
+        mov eax, dword [GusEnvConfig]
         cmp byte [eax], 2Ch
         jne short .2
         inc eax
-        mov dword [dword_1DE740], eax
+        mov dword [GusEnvConfig], eax
 .2:
-        mov edx, dword_1DE740
+        mov edx, GusEnvConfig
         mov ebx, 0Ah
-        mov eax, dword [dword_1DE740]
+        mov eax, dword [GusEnvConfig]
         call ReturnArg
         mov byte [byte ecx+06h], al
-        mov eax, dword [dword_1DE740]
+        mov eax, dword [GusEnvConfig]
         cmp byte [eax], 2Ch
         jne short .3
         inc eax
-        mov dword [dword_1DE740], eax
+        mov dword [GusEnvConfig], eax
 .3:
-        mov edx, dword_1DE740
+        mov edx, GusEnvConfig
         mov ebx, 0Ah
-        mov eax, dword [dword_1DE740]
+        mov eax, dword [GusEnvConfig]
         call ReturnArg
         mov byte [byte ecx+04h], al
-        mov eax, dword [dword_1DE740]
+        mov eax, dword [GusEnvConfig]
         cmp byte [eax], 2Ch
         jne short .4
         inc eax
-        mov dword [dword_1DE740], eax
+        mov dword [GusEnvConfig], eax
 .4:
-        mov edx, dword_1DE740
+        mov edx, GusEnvConfig
         mov ebx, 0Ah
-        mov eax, dword [dword_1DE740]
+        mov eax, dword [GusEnvConfig]
         call ReturnArg
         mov dx, word [byte ecx+02h]
         mov byte [byte ecx+05h], al
@@ -1018,7 +1018,7 @@ GusSizeDram:
         mov byte [GusDramSized], 1
         xor edx, edx
         xor ebx, ebx
-        mov word [word_1DE760], dx
+        mov word [GusDramSize], dx
 .1:
         mov edx, ebx
         shl edx, 12h
@@ -1032,11 +1032,11 @@ GusSizeDram:
         mov dword [byte ebp-01Ch], esi
         mov dword [byte ebp-018h], esi
         shl eax, cl
-        mov cx, word [word_1DE760]
+        mov cx, word [GusDramSize]
         xor esi, esi
         or ecx, eax
         mov word [byte ebp-014h], si
-        mov word [word_1DE760], cx
+        mov word [GusDramSize], cx
         mov ecx, 40000h
         mov eax, edx
         mov dword [byte ebp-020h], ecx
@@ -1048,7 +1048,7 @@ GusSizeDram:
         inc ebx
         cmp ebx, byte 4
         jl short .1
-        cmp word [word_1DE760], byte 0
+        cmp word [GusDramSize], byte 0
         jne short .3
         mov eax, 6
         jmp short .4
@@ -1096,7 +1096,7 @@ GusMemAlloc:
         mov cl, byte [byte ebp-018h]
         xor edx, edx
         mov eax, 1
-        mov dx, word [word_1DE760]
+        mov dx, word [GusDramSize]
         shl eax, cl
         test edx, eax
         je near .6
@@ -1292,7 +1292,7 @@ GusMemAlloc:
         mov eax, 1
         xor edx, edx
         mov cl, bl
-        mov dx, word [word_1DE760]
+        mov dx, word [GusDramSize]
         shl eax, cl
         test edx, eax
         je short .14
@@ -1339,7 +1339,7 @@ GusMemAlloc:
         mov eax, 1
         xor edx, edx
         mov cl, bl
-        mov dx, word [word_1DE760]
+        mov dx, word [GusDramSize]
         shl eax, cl
         test edx, eax
         je short .18

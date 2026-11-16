@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_107000 progbits alloc exec nowrite align=1
-extern SoundSystemOn, SampleBitsTable, SampleChannelsTable, byte_1DCF44, byte_1DCF67, byte_1DCF68, dword_16E4D0, AudioTimerOn
-extern AudioDriverNum, AudioExitHooked, dword_172AC0, dword_172AC4, SampleInfoTable, dword_1DCF38, dword_1DCF3E, dword_1DCF3F
+extern SoundSystemOn, SampleBitsTable, SampleChannelsTable, byte_1DCF44, byte_1DCF67, byte_1DCF68, LastLoadedSize, AudioTimerOn
+extern AudioDriverNum, AudioExitHooked, SoundBankTable, SoundBankSamples, SampleInfoTable, dword_1DCF38, dword_1DCF3E, dword_1DCF3F
 extern dword_1DCF62, AudioDriverOpenFns, AudioDriverCloseFns, AudioDriverUpdateFns, AudioDriverDetectFns, bcopy, AddExitHandler, DetectSoundCard
 extern ProbeSoundPorts, CloseDigitalAudio, StopChannel, DosOpenFile, DosCloseFile, DosReadFile, ReleaseBankSample, FindCachedFileData
 extern LoadSampleHeader, GusDetect, ReadSoundscapeIni, SoundscapeCodecReady, AudioLeave, SampleFormatSize, MixerStartSample, MixerFadeChannel
@@ -72,7 +72,7 @@ LoadFileToBlock:
         mov eax, dword [byte esp+08h]
         push edx
         mov ebx, esi
-        mov dword [dword_16E4D0], eax
+        mov dword [LastLoadedSize], eax
         call DosCloseFile
 .3:
         add esp, byte 4
@@ -143,14 +143,14 @@ RegisterSoundBank:
         pop ecx
         ret
 .2:
-        mov edi, dword [dword_172AC0]
+        mov edi, dword [SoundBankTable]
         xor edx, edx
         xor eax, eax
         test edi, edi
         jne short .5
 .3:
-        mov dword [dword eax+dword_172AC0], ecx
-        mov dword [dword eax+dword_172AC4], ebx
+        mov dword [dword eax+SoundBankTable], ecx
+        mov dword [dword eax+SoundBankSamples], ebx
         mov eax, edx
         call PrepareBankSamples
         test eax, eax
@@ -172,7 +172,7 @@ RegisterSoundBank:
         inc edx
         cmp eax, 100h
         jge short .6
-        cmp dword [dword eax+dword_172AC0], byte 0
+        cmp dword [dword eax+SoundBankTable], byte 0
         je short .3
         jmp short .5
 .6:
@@ -223,7 +223,7 @@ UnregisterSoundBank:
         mov eax, 0FFFFFFF8h
         jmp short .7
 .5:
-        cmp dword [nosplit ebx*8+dword_172AC0], byte 0
+        cmp dword [nosplit ebx*8+SoundBankTable], byte 0
         jne short .6
         mov eax, 0FFFFFFF8h
         test eax, eax
@@ -258,7 +258,7 @@ UnregisterSoundBank:
         jne short .9
         xor ecx, ecx
         xor eax, eax
-        mov dword [nosplit ebx*8+dword_172AC0], ecx
+        mov dword [nosplit ebx*8+SoundBankTable], ecx
         pop edx
         pop ecx
         pop ebx
@@ -285,7 +285,7 @@ PrepareBankSamples:
         mov dword [dword esp+0C04h], edx
         mov dword [dword esp+0C00h], ebx
 .1:
-        mov edx, dword [dword esi+dword_172AC0]
+        mov edx, dword [dword esi+SoundBankTable]
         lea eax, [edx+ecx]
         mov ebx, dword [byte eax+08h]
         test ebx, ebx
@@ -294,9 +294,9 @@ PrepareBankSamples:
         add edx, ecx
         add edx, ebx
         mov dword [byte eax+08h], edx
-        mov eax, dword [dword esi+dword_172AC0]
+        mov eax, dword [dword esi+SoundBankTable]
         mov ebx, esp
-        mov edx, dword [dword esi+dword_172AC4]
+        mov edx, dword [dword esi+SoundBankSamples]
         mov eax, dword [byte ecx+eax+08h]
         call LoadSampleHeader
         mov dword [dword esp+0C00h], eax
@@ -348,7 +348,7 @@ CheckBankIndex:
         mov eax, 0FFFFFFF8h
         ret
 .2:
-        cmp dword [nosplit eax*8+dword_172AC0], byte 0
+        cmp dword [nosplit eax*8+SoundBankTable], byte 0
         jne short .3
         mov eax, 0FFFFFFF8h
         ret

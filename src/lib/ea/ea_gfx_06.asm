@@ -5,8 +5,8 @@ section s_10B040 progbits alloc exec nowrite align=1
 extern str_Punct_DrawRinkSurface, str_Punct_SetScreenScale, ModelPartCount, ModelPartTable, ModelFrame, ModelPoints, ModelFlags, ModelInstance
 extern ModelSetupMode, RinkViewChanged, ModelPartIndex, RinkPrimNoOpFns, RinkPrimFlatFns, RinkPrimSetupFns, RinkPrimLineFns, RinkPrimEndFns
 extern SortIndices, SubVec3, TransformVecFull, SetRinkView, TransformRinkPoints, TransformRinkObject, ProjectRinkObject, DrawRinkPolyStrip
-extern DrawFlatPoly, DrawPolyOutline, CallModelPartFuncs, CallAllPartFuncs, ProjectPointsPersp, MultiplyMatrix, ProjectPoints, unk_17021C
-extern unk_170240
+extern DrawFlatPoly, DrawPolyOutline, CallModelPartFuncs, CallAllPartFuncs, ProjectPointsPersp, MultiplyMatrix, ProjectPoints, RinkMatrix
+extern RinkTranslation
 global DrawRinkObjectPolys_9B, DrawSortedModelPolys_B8, DrawModelPartPolys_190, SetRinkMatrix, SetRinkTranslation, SetScreenScale, ProjectRinkObjectPoints, ProjectModelPoints
 global DrawRinkObjectPolys, SetModelFrame, DrawSortedModelPolys, DrawModelSorted, DrawModelPartPolys, DrawModelInstance, DrawModel, InitModelParts
 ;-----------------------------------------------------------------------------
@@ -19,7 +19,7 @@ SetRinkMatrix:
         mov edx, 1
         mov ecx, 9
         mov esi, dword [byte esp+0Ch]
-        mov edi, unk_17021C
+        mov edi, RinkMatrix
         mov dword [RinkViewChanged], edx
         rep movsd
         pop edi
@@ -33,7 +33,7 @@ SetRinkTranslation:
         push esi
         push edi
         mov esi, dword [byte esp+0Ch]
-        mov edi, unk_170240
+        mov edi, RinkTranslation
         movsd
         movsd
         movsd
@@ -120,7 +120,7 @@ DrawRinkObjectPolys:
 .1:
         lea eax, [byte ebx+04Ch]
         push eax
-        push unk_17021C
+        push RinkMatrix
         lea eax, [byte ebx+028h]
         push eax
         call MultiplyMatrix
@@ -131,14 +131,14 @@ DrawRinkObjectPolys:
 .2:
         lea eax, [byte esp+0Ch]
         push eax
-        push unk_170240
+        push RinkTranslation
         lea eax, [byte ebx+01Ch]
         push eax
         call SubVec3
         add esp, byte 0Ch
         mov eax, esp
         push eax
-        push unk_17021C
+        push RinkMatrix
         lea eax, [byte esp+014h]
         push eax
         call TransformVecFull

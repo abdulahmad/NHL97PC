@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_112B84 progbits alloc exec nowrite align=1
-extern dword_17025C, str_D_ProjectPointsPersp, dword_170264, dword_170268, dword_170274, memcpy_, FillSpanRow, NearClipTexVerts
+extern ViewCenterY, str_D_ProjectPointsPersp, CameraSinYaw, CameraCosYaw, CameraFlags, memcpy_, FillSpanRow, NearClipTexVerts
 extern NearClipVertsIn, NearClipVertsOut
 global PolySideTest, ClipPolyToNear, DrawRinkPolyList, FillTexturedSpan, ClipTexPolyToNear
 ;-----------------------------------------------------------------------------
@@ -124,12 +124,12 @@ ClipPolyToNear:
         cmp dword [byte esi+08h], byte 0
         jle short .3
         mov eax, dword [esi]
-        imul dword [dword_170264]
+        imul dword [CameraSinYaw]
         idiv dword [byte esi+08h]
-        add eax, dword [dword_17025C]
+        add eax, dword [ViewCenterY]
         mov dword [edi], eax
         mov eax, dword [byte esi+04h]
-        imul dword [dword_170268]
+        imul dword [CameraCosYaw]
         idiv dword [byte esi+08h]
         add eax, dword [str_D_ProjectPointsPersp]
         mov dword [byte edi+04h], eax
@@ -137,7 +137,7 @@ ClipPolyToNear:
 .3:
         mov dword [edi], 80000000h
         mov dword [byte edi+04h], 80000000h
-        or dword [dword_170274], byte 1
+        or dword [CameraFlags], byte 1
 .4:
         mov esi, dword [byte esp+08h]
         inc esi
@@ -174,12 +174,12 @@ ClipPolyToNear:
         cmp dword [byte esi+08h], byte 0
         jle short .6
         mov eax, dword [esi]
-        imul dword [dword_170264]
+        imul dword [CameraSinYaw]
         idiv dword [byte esi+08h]
-        add eax, dword [dword_17025C]
+        add eax, dword [ViewCenterY]
         mov dword [edi], eax
         mov eax, dword [byte esi+04h]
-        imul dword [dword_170268]
+        imul dword [CameraCosYaw]
         idiv dword [byte esi+08h]
         add eax, dword [str_D_ProjectPointsPersp]
         mov dword [byte edi+04h], eax
@@ -187,7 +187,7 @@ ClipPolyToNear:
 .6:
         mov dword [edi], 80000000h
         mov dword [byte edi+04h], 80000000h
-        or dword [dword_170274], byte 1
+        or dword [CameraFlags], byte 1
 .7:
         mov edx, dword [byte esp+08h]
         add edx, byte 2
@@ -339,12 +339,12 @@ FillTexturedSpan:
         cmp dword [byte esi+08h], byte 0
         jle short .1
         mov eax, dword [esi]
-        imul dword [dword_170264]
+        imul dword [CameraSinYaw]
         idiv dword [byte esi+08h]
-        add eax, dword [dword_17025C]
+        add eax, dword [ViewCenterY]
         mov dword [edi], eax
         mov eax, dword [byte esi+04h]
-        imul dword [dword_170268]
+        imul dword [CameraCosYaw]
         idiv dword [byte esi+08h]
         add eax, dword [str_D_ProjectPointsPersp]
         mov dword [byte edi+04h], eax
@@ -352,7 +352,7 @@ FillTexturedSpan:
 .1:
         mov dword [edi], 80000000h
         mov dword [byte edi+04h], 80000000h
-        or dword [dword_170274], byte 1
+        or dword [CameraFlags], byte 1
 .2:
         pop ebp
         pop edi

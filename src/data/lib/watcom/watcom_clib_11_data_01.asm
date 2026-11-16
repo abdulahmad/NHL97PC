@@ -3,44 +3,44 @@ bits 32
 %include "hockey.inc"
 section s_16E48C progbits alloc noexec write align=1
 extern PresentScreen
-global byte_16E503, byte_16E504, dword_16E48C, dword_16E490, dword_16E494, dword_16E498, dword_16E49C, dword_16E4A0
-global dword_16E4A4, str_Punct_DrawRinkSurface, str_D_UpdateFrameRate, dword_16E4B4, dword_16E4B8, dword_16E4BC, dword_16E4C8, dword_16E4D0
-global dword_16E500, off_16E4D4, off_16E4D8, off_16E4DC, off_16E4E0, str_Viv
-dword_16E48C:
+global QuantizeByte, QuantizeTable, CpuIs386, CpuIs486, CpuType, CpuIsPentium, CpuHasCpuid, CpuFeatures
+global CpuSignature, str_Punct_DrawRinkSurface, str_D_UpdateFrameRate, TimerCalibration, ModeSetCount, FrameCounter, MessageBoxActive, LastLoadedSize
+global QuantizePalette, PresentFunc, PresentFuncMenu, PresentFuncGame, PresentFuncInput, str_Viv
+CpuIs386:
         db 00h,00h,00h,00h
-dword_16E490:
+CpuIs486:
         db 00h,00h,00h,00h
-dword_16E494:
+CpuType:
         db 00h,00h,00h,00h
-dword_16E498:
+CpuIsPentium:
         db 00h,00h,00h,00h
-dword_16E49C:
+CpuHasCpuid:
         db 00h,00h,00h,00h
-dword_16E4A0:
+CpuFeatures:
         db 00h,00h,00h,00h
-dword_16E4A4:
+CpuSignature:
         db 00h,00h,00h,00h
 str_Punct_DrawRinkSurface:
         db 0Ah,00h,00h,00h,0F0h,00h,00h,00h
 str_D_UpdateFrameRate:
         db 064h,00h,00h,00h
-dword_16E4B4:
+TimerCalibration:
         db 09Ch,02Eh,00h,00h
-dword_16E4B8:
+ModeSetCount:
         db 00h,00h,00h,00h
-dword_16E4BC:
+FrameCounter:
         db 00h,00h,00h,00h,00h,00h,00h,00h,040h,09Ch,00h,00h
-dword_16E4C8:
+MessageBoxActive:
         db 00h,00h,00h,00h,00h,00h,00h,00h
-dword_16E4D0:
+LastLoadedSize:
         db 00h,00h,00h,00h
-off_16E4D4:
+PresentFunc:
         dd PresentScreen
-off_16E4D8:
+PresentFuncMenu:
         dd PresentScreen
-off_16E4DC:
+PresentFuncGame:
         dd PresentScreen
-off_16E4E0:
+PresentFuncInput:
         dd PresentScreen
         dd PresentScreen
         dd PresentScreen
@@ -49,11 +49,11 @@ off_16E4E0:
         dd PresentScreen
 str_Viv:
         db 02Eh,076h,069h,076h,00h,00h,00h,00h
-dword_16E500:
+QuantizePalette:
         db 00h,00h,00h
-byte_16E503:
+QuantizeByte:
         db 00h
-byte_16E504:
+QuantizeTable:
         db 01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h
         db 01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h
         db 01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h,01h

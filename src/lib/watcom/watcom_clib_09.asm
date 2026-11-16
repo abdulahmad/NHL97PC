@@ -6,11 +6,11 @@ extern ParseBlasterEnv, ResetGameVars, str_VoxPlaybuf, MixerMode, MixerSpeechVol
 extern StreamClosing, StreamFeeding, StreamStarted, StreamFlags, StreamStereo, StreamPaused, StreamOpen, SoundSystemOn
 extern byte_1DCF01, byte_1DCF45, byte_1DD381, MixerMasterLeft, MixerMasterRight, MixerVolLeft, MixerVolRight, MixerVolScale
 extern MixerChannelVolumes, StreamChannel, StreamPosition, StreamBuffer, StreamBufSize, StreamReadPos, StreamWritePos, StreamFill
-extern StreamPackets, StreamCallbackPos, StreamPacketQueue, StreamPacketCount, StreamPacketSlots, dword_172AB8, dword_172AC0, SpeechQueueVolume
+extern StreamPackets, StreamCallbackPos, StreamPacketQueue, StreamPacketCount, StreamPacketSlots, SpeechChannelFunc, SoundBankTable, SpeechQueueVolume
 extern AudioWorkHook, AudioStreamHook, AudioSpeechHook, StreamLengthFn, MixerVolumeTable, dword_1DC994, dword_1DC998, dword_1DC99C
 extern dword_1DC9A0, dword_1DC9A4, dword_1DC9A8, dword_1DC9AC, dword_1DC9B0, dword_1DC9B4, dword_1DC9B8, dword_1DCAD0
 extern dword_1DCAD4, dword_1DCAD8, dword_1DCADC, dword_1DCAE0, dword_1DCAE4, dword_1DCAE8, dword_1DCAEC, dword_1DCAF0
-extern dword_1DCEC0, dword_1DCEC4, dword_1DCF38, dword_1DCF62, dword_1DD378, dword_1DD37C, int386_, ClearSpeechQueue
+extern SpeechEnabled, SpeechBufferTag, dword_1DCF38, dword_1DCF62, dword_1DD378, dword_1DD37C, int386_, ClearSpeechQueue
 extern UnregisterSoundBank, CheckBankIndex, DetectAudioDriver, OpenAudioDriver, CloseAudioDriver, ApplyChannelVolume, FadeOutChannel, InitStreamHeader
 extern ClearSpeechBankTable, SpeechBufferSize, RegisterStreamBank, AddStreamSample, SetChannelVolumeChecked, LoadSampleHeader, PlaySoundEntry, ProbeDspReset
 extern AudioEnter, AudioLeaveCheck, SbDetectDsp, StopAllSoundChannels, StartChannel, MixNoise, RampChannelVolume, IsChannelActive
@@ -1317,7 +1317,7 @@ CloseSpeechChannels:
         add esp, byte 4
 .3:
         call ResetSpeechStreamState
-        mov dword [dword_172AB8], 0
+        mov dword [SpeechChannelFunc], 0
         pop edx
         pop ecx
         ret
@@ -1333,7 +1333,7 @@ AllocSpeechBuffers:
         push ecx
         push edx
         call ResetGameVars
-        mov dword [dword_1DCAD4], dword_1DCEC4
+        mov dword [dword_1DCAD4], SpeechBufferTag
         call SpeechBufferSize
         push byte 0
         add eax, 3480h
@@ -1420,8 +1420,8 @@ AllocSpeechBuffers:
 InitSpeechChannels:
         push ecx
         push edx
-        mov dword [dword_1DCEC0], 0
-        mov dword [dword_172AB8], eax
+        mov dword [SpeechEnabled], 0
+        mov dword [SpeechChannelFunc], eax
         call ResetSpeechStreamState
         mov dword [dword_1DCAD0], 1
         mov dword [dword_1DC994], 0FFFFFFFFh
@@ -1454,7 +1454,7 @@ InitSpeechChannels:
         add esp, byte 4
 .4:
         call ResetSpeechStreamState
-        mov dword [dword_172AB8], 0
+        mov dword [SpeechChannelFunc], 0
         xor eax, eax
         pop edx
         pop ecx
@@ -2476,7 +2476,7 @@ PlaySample:
 .4:
         push byte 0FFFFFFFFh
         push ebx
-        mov eax, dword [nosplit esi*8+dword_172AC0]
+        mov eax, dword [nosplit esi*8+SoundBankTable]
         push byte 0FFFFFFFFh
         mov ecx, 0FFFFFFFFh
         mov eax, dword [byte eax+edx*4+08h]
@@ -2520,7 +2520,7 @@ PlaySampleVolume:
 .4:
         push byte 0FFFFFFFFh
         push ecx
-        mov eax, dword [nosplit esi*8+dword_172AC0]
+        mov eax, dword [nosplit esi*8+SoundBankTable]
         push ebx
         mov eax, dword [byte eax+edx*4+08h]
         mov ecx, 0FFFFFFFFh

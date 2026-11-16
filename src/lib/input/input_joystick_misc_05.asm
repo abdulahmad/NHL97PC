@@ -2,10 +2,10 @@
 bits 32
 %include "hockey.inc"
 section s_100A68 progbits alloc exec nowrite align=1
-extern str_DtoD, atexit_, byte_16E688, byte_16F748, byte_16FA40, byte_171C90, dword_16E4C8, dword_16E500
-extern dword_16E678, dword_16E67C, dword_16E680, dword_16E684, dword_16E698, dword_16E69C, dword_16E6A0, dword_16F188
-extern dword_16F5AC, dword_16F5B4, ProjAspect, dword_1DA4D0, exit_, off_16F588, off_16F5BC, off_16F5C0
-extern off_16F684, sprintf_, strrchr_, LoadResourceFile, BytesPerPixelForDepth, PlotPixelRGB, FindCachedFile, BlitCore
+extern str_DtoD, atexit_, ScreenBitsPerPixel, ArtFormatCodes, IdentityRemap, byte_171C90, MessageBoxActive, QuantizePalette
+extern ClipTopRow, ClipLeftCol, ClipRight, ScreenHeight, DrawDestBuffer, DrawDestPitch, DrawDestOffset, PacketCrcTable
+extern FshExtension, ConvertPalette, ProjAspect, dword_1DA4D0, exit_, BlitRowFuncTable, ConvertDestBuffer, ArtRowFuncs8
+extern ArtRowFuncs16, sprintf_, strrchr_, LoadResourceFile, BytesPerPixelForDepth, PlotPixelRGB, FindCachedFile, BlitCore
 extern ShapeRowBytes, StoreBigEndian, Convert32To565Keyed, Convert32To555Keyed, SwapRedBlue555, Convert32To565, FindPaletteChunk, ExpandPalette6To8
 extern CopyPaletteRGB, AllocMemBlock, FreeMemBlock, MakeColor, IndexTo16Entries
 global _os_handle, jpt_1015B0, jpt_101980, PacketChecksum_90, FindShapeQuiet_2, BlendPixelMode_30, BlendPixelMode_54, BlendPixelMode_6E
@@ -1087,20 +1087,20 @@ PacketChecksum:
         mov edx, dword [esi]
         LD mov, bl, dl
         LD xor, bl, al
-        mov ecx, dword [nosplit ebx*4+dword_16F188]
+        mov ecx, dword [nosplit ebx*4+PacketCrcTable]
         LD mov, bl, dh
         shr edx, 10h
         LD xor, cl, ah
         LD xor, bl, cl
-        mov eax, dword [nosplit ebx*4+dword_16F188]
+        mov eax, dword [nosplit ebx*4+PacketCrcTable]
         LD mov, bl, dl
         LD xor, al, ch
         LD xor, bl, al
-        mov ecx, dword [nosplit ebx*4+dword_16F188]
+        mov ecx, dword [nosplit ebx*4+PacketCrcTable]
         LD mov, bl, dh
         LD xor, cl, ah
         LD xor, bl, cl
-        mov eax, dword [nosplit ebx*4+dword_16F188]
+        mov eax, dword [nosplit ebx*4+PacketCrcTable]
         lea esi, [byte esi+04h]
         LD xor, al, ch
         sub edi, byte 4
@@ -1112,7 +1112,7 @@ PacketChecksum:
         mov bl, byte [esi]
         LD xor, bl, al
         shr eax, 8
-        xor eax, dword [nosplit ebx*4+dword_16F188]
+        xor eax, dword [nosplit ebx*4+PacketCrcTable]
         lea esi, [byte esi+01h]
         sub edi, byte 1
         jns short .3
@@ -1205,7 +1205,7 @@ BlitConverted:
         push ebx
         mov eax, dword [byte esp+08h]
         mov edx, dword [byte esp+0Ch]
-        mov ecx, off_16F588
+        mov ecx, BlitRowFuncTable
         mov ebx, dword [byte esp+010h]
         call BlitCore
         pop ebx
@@ -1218,7 +1218,7 @@ BlitConverted:
 BlitShape2:
         push ebx
         mov eax, dword [byte esp+08h]
-        mov ecx, off_16F588
+        mov ecx, BlitRowFuncTable
         mov edx, dword [byte eax+0Ah]
         mov ebx, dword [byte eax+0Ch]
         sar edx, 10h
@@ -1239,7 +1239,7 @@ BlitShape2:
         sar ebx, 10h
         sub ecx, ebx
         mov ebx, ecx
-        mov ecx, off_16F588
+        mov ecx, BlitRowFuncTable
         call BlitCore
         pop ebx
         ret
@@ -1247,13 +1247,13 @@ BlitShape2:
 ;-----------------------------------------------------------------------------
 ; BlitArt                                        101390  97 PC, low confidence
 ; Graphics library: draws art at x, y (art, x, y) straight through the
-; blitter table off_16F588, no colour conversion (next to FindShape)
+; blitter table BlitRowFuncTable, no colour conversion (next to FindShape)
 ;-----------------------------------------------------------------------------
 BlitArt:
         push ebx
         mov eax, dword [byte esp+08h]
         mov edx, dword [byte esp+0Ch]
-        mov ecx, off_16F588
+        mov ecx, BlitRowFuncTable
         mov ebx, dword [byte esp+010h]
         call BlitCore
         pop ebx
@@ -1266,7 +1266,7 @@ BlitArt:
 BlitShape:
         push ebx
         mov eax, dword [byte esp+08h]
-        mov ecx, off_16F588
+        mov ecx, BlitRowFuncTable
         mov edx, dword [byte eax+0Ah]
         mov ebx, dword [byte eax+0Ch]
         sar edx, 10h
@@ -1292,7 +1292,7 @@ BlitClippedY:
         sar ebx, 10h
         sub ecx, ebx
         mov ebx, ecx
-        mov ecx, off_16F588
+        mov ecx, BlitRowFuncTable
         call BlitCore
         pop ebx
         ret
@@ -1383,7 +1383,7 @@ LoadDataFileExt:
         test eax, eax
         jne short .5
         mov edi, esp
-        mov esi, dword [dword_16F5AC]
+        mov esi, dword [FshExtension]
         push edi
         LD sub, ecx, ecx
         dec ecx
@@ -1955,12 +1955,12 @@ BlendShapeRows:
         mov ebx, dword [byte esp+044h]
         xor ecx, ecx
         mov eax, dword [byte esp+040h]
-        mov cl, byte [byte_16E688]
-        mov edx, dword [dword_16E6A0]
+        mov cl, byte [ScreenBitsPerPixel]
+        mov edx, dword [DrawDestOffset]
         mov eax, dword [edx+eax*4]
-        mov edx, dword [dword_16E698]
+        mov edx, dword [DrawDestBuffer]
         add eax, dword [edx+ebx*4]
-        add eax, dword [dword_16E69C]
+        add eax, dword [DrawDestPitch]
         mov esi, eax
         mov eax, dword [byte esp+02Ch]
         mov eax, dword [byte eax+02h]
@@ -2113,12 +2113,12 @@ BlendShapeRows:
         mov ebx, dword [byte esp+048h]
         xor ecx, ecx
         mov eax, dword [byte esp+044h]
-        mov cl, byte [byte_16E688]
-        mov edx, dword [dword_16E6A0]
+        mov cl, byte [ScreenBitsPerPixel]
+        mov edx, dword [DrawDestOffset]
         mov eax, dword [edx+eax*4]
-        mov edx, dword [dword_16E698]
+        mov edx, dword [DrawDestBuffer]
         add eax, dword [edx+ebx*4]
-        add eax, dword [dword_16E69C]
+        add eax, dword [DrawDestPitch]
         mov esi, eax
         mov eax, dword [byte esp+030h]
         mov eax, dword [byte eax+02h]
@@ -2391,7 +2391,7 @@ DrawShapeBlended:
         mov eax, edx
         sar edx, 1Fh
         idiv ebx
-        mov edx, dword [dword_16E678]
+        mov edx, dword [ClipTopRow]
         mov ebx, ecx
         mov ecx, dword [byte esp+038h]
         mov dword [byte esp+014h], edi
@@ -2411,7 +2411,7 @@ DrawShapeBlended:
 .7:
         mov eax, dword [byte esp+038h]
         mov edi, dword [byte esp+018h]
-        mov edx, dword [dword_16E680]
+        mov edx, dword [ClipRight]
         add eax, edi
         sub eax, edx
         test eax, eax
@@ -2420,7 +2420,7 @@ DrawShapeBlended:
         sub ecx, eax
         mov dword [byte esp+018h], ecx
 .8:
-        mov edx, dword [dword_16E67C]
+        mov edx, dword [ClipLeftCol]
         sub edx, esi
         test edx, edx
         jle short .9
@@ -2430,7 +2430,7 @@ DrawShapeBlended:
         sub ebp, edx
         add ebx, eax
 .9:
-        mov edi, dword [dword_16E684]
+        mov edi, dword [ScreenHeight]
         lea eax, [esi+ebp]
         sub eax, edi
         test eax, eax
@@ -2602,7 +2602,7 @@ ConvertRow8To16:
         push esi
         push edi
         push ebp
-        mov ebp, dword [off_16F5BC]
+        mov ebp, dword [ConvertDestBuffer]
         mov ecx, eax
         mov edi, ebx
         xor esi, esi
@@ -2625,7 +2625,7 @@ ConvertRow8To16:
         cmp esi, edi
         jl short .1
 .2:
-        mov dword [off_16F5BC], ebp
+        mov dword [ConvertDestBuffer], ebp
         pop ebp
         pop edi
         pop esi
@@ -2664,7 +2664,7 @@ ConvertRow16To8:
         jle short .4
 .1:
         mov ax, word [ecx]
-        mov ebp, dword [dword_16F5B4]
+        mov ebp, dword [ConvertPalette]
         and eax, 0FFFFh
         cmp eax, ebp
         jne short .2
@@ -2713,7 +2713,7 @@ ConvertRow16To15:
         mov esi, eax
         mov edi, edx
         mov ebp, ebx
-        cmp dword [dword_16E500], byte 0
+        cmp dword [QuantizePalette], byte 0
         jne short .2
         xor ebx, ebx
         test ebp, ebp
@@ -2770,7 +2770,7 @@ ConvertRow16To15:
         shl edx, 5
         mov ecx, dword [esp]
         or eax, edx
-        mov edx, dword [dword_16E500]
+        mov edx, dword [QuantizePalette]
         or eax, ecx
         inc edi
         add esi, byte 2
@@ -2867,7 +2867,7 @@ ConvertRow15To8:
         jle short .4
 .1:
         mov ax, word [ecx]
-        mov ebp, dword [dword_16F5B4]
+        mov ebp, dword [ConvertPalette]
         and eax, 0FFFFh
         cmp eax, ebp
         jne short .2
@@ -3349,7 +3349,7 @@ ConvertArtRows:
         call MapArtType
         add ecx, eax
         xor eax, eax
-        mov al, byte [dword ecx+byte_16F748]
+        mov al, byte [dword ecx+ArtFormatCodes]
         xor ebp, ebp
         mov dword [esp], eax
         cmp edx, eax
@@ -3365,7 +3365,7 @@ ConvertArtRows:
         mov eax, edx
         call MapArtType
         add eax, ebx
-        mov ebp, dword [nosplit eax*4+off_16F5C0]
+        mov ebp, dword [nosplit eax*4+ArtRowFuncs8]
         jmp short .2
 .1:
         mov eax, ebx
@@ -3377,7 +3377,7 @@ ConvertArtRows:
         mov eax, edx
         call MapArtType
         add eax, ebx
-        mov ebp, dword [nosplit eax*4+off_16F684]
+        mov ebp, dword [nosplit eax*4+ArtRowFuncs16]
 .2:
         mov eax, esi
         mov eax, dword [eax]
@@ -3398,7 +3398,7 @@ ConvertArtRows:
         mov ebx, 1
         call ConvertArtPalette
         mov edx, dword [byte esp+04h]
-        mov dword [off_16F5BC], eax
+        mov dword [ConvertDestBuffer], eax
         shl ebx, cl
         test edx, edx
         je short .4
@@ -3467,7 +3467,7 @@ ConvertArtShape:
         mov eax, dword [byte esp+064h]
         call MapArtType
         add eax, ebx
-        mov eax, dword [nosplit eax*4+off_16F5C0]
+        mov eax, dword [nosplit eax*4+ArtRowFuncs8]
         jmp short .3
 .2:
         mov eax, dword [edi]
@@ -3477,7 +3477,7 @@ ConvertArtShape:
         mov eax, dword [byte esp+064h]
         call MapArtType
         add eax, ebx
-        mov eax, dword [nosplit eax*4+off_16F684]
+        mov eax, dword [nosplit eax*4+ArtRowFuncs16]
 .3:
         mov dword [byte esp+040h], eax
         mov eax, dword [edi]
@@ -3488,7 +3488,7 @@ ConvertArtShape:
         call MapArtType
         add ebx, eax
         xor eax, eax
-        mov al, byte [dword ebx+byte_16F748]
+        mov al, byte [dword ebx+ArtFormatCodes]
         mov dword [byte esp+020h], eax
         mov eax, edi
         mov eax, dword [eax]
@@ -3536,7 +3536,7 @@ ConvertArtShape:
         jle short .5
         xor ecx, ecx
 .4:
-        movzx esi, byte [dword eax+byte_16FA40]
+        movzx esi, byte [dword eax+IdentityRemap]
         add ecx, byte 4
         mov esi, dword [nosplit esi*4+dword_1DA4D0]
         inc eax
@@ -3544,13 +3544,13 @@ ConvertArtShape:
         cmp eax, ebx
         jl short .4
 .5:
-        mov dword [off_16F5BC], IndexTo16Entries
+        mov dword [ConvertDestBuffer], IndexTo16Entries
         jmp short .7
 .6:
         mov edx, IndexTo16Entries
         mov eax, dword [byte esp+024h]
         call ConvertArtPalette
-        mov dword [off_16F5BC], eax
+        mov dword [ConvertDestBuffer], eax
 .7:
         cmp dword [byte esp+06Ch], byte 0
         je short .9
@@ -3558,14 +3558,14 @@ ConvertArtShape:
         cmp eax, byte 0Fh
         jne short .8
         mov edx, IndexTo16Entries
-        mov eax, dword [off_16F5BC]
+        mov eax, dword [ConvertDestBuffer]
         call Convert32To555Keyed
         jmp short .11
 .8:
         cmp eax, byte 10h
         jne short .11
         mov edx, IndexTo16Entries
-        mov eax, dword [off_16F5BC]
+        mov eax, dword [ConvertDestBuffer]
         call Convert32To565Keyed
         jmp short .11
 .9:
@@ -3573,14 +3573,14 @@ ConvertArtShape:
         cmp ecx, byte 0Fh
         jne short .10
         mov edx, IndexTo16Entries
-        mov eax, dword [off_16F5BC]
+        mov eax, dword [ConvertDestBuffer]
         call ConvertRowPalTo16
         jmp short .11
 .10:
         cmp ecx, byte 10h
         jne short .11
         mov edx, IndexTo16Entries
-        mov eax, dword [off_16F5BC]
+        mov eax, dword [ConvertDestBuffer]
         call Convert32To565
 .11:
         xor ebx, ebx
@@ -3597,7 +3597,7 @@ ConvertArtShape:
         add esp, byte 10h
         mov esi, dword [byte esp+048h]
         imul esi, ebp
-        mov eax, dword [dword_16E4C8]
+        mov eax, dword [MessageBoxActive]
         push eax
         lea eax, [byte esi+014h]
         push eax

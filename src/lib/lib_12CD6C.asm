@@ -5,10 +5,10 @@ section s_12CD6C progbits alloc exec nowrite align=1
 extern SoundSystemOn, byte_1DCEC8, byte_1DCEC9, byte_1DCECA, byte_1DCECB, byte_1DCECE, byte_1DCECF, byte_1DCED4
 extern byte_1DCED5, byte_1DCED6, byte_1DCED7, byte_1DCEDC, byte_1DCEDD, byte_1DCEDE, byte_1DCEDF, byte_1DCEE0
 extern byte_1DCEE1, byte_1DCEE2, byte_1DCEE3, byte_1DCEE4, byte_1DCEE5, byte_1DCEE6, byte_1DCEE7, byte_1DCF00
-extern byte_1DCF01, byte_1DCF02, byte_1DCF03, byte_1DCF04, byte_1DCF05, dword_172AC0, dword_1DC99C, dword_1DC9A0
+extern byte_1DCF01, byte_1DCF02, byte_1DCF03, byte_1DCF04, byte_1DCF05, SoundBankTable, dword_1DC99C, dword_1DC9A0
 extern dword_1DC9A4, dword_1DC9A8, dword_1DC9AC, dword_1DC9B0, dword_1DC9B4, dword_1DC9B8, dword_1DCAD0, dword_1DCAD4
 extern dword_1DCAD8, dword_1DCADC, dword_1DCAE0, dword_1DCAE4, dword_1DCAE8, dword_1DCAEC, dword_1DCAF0, dword_1DCAF4
-extern dword_1DCAF8, dword_1DCEC4, dword_1DCED0, dword_1DCED8, dword_1DCEEC, dword_1DCEF0, dword_1DCEF4, dword_1DCEF8
+extern dword_1DCAF8, SpeechBufferTag, dword_1DCED0, dword_1DCED8, dword_1DCEEC, dword_1DCEF0, dword_1DCEF4, dword_1DCEF8
 extern dword_1DCEFC, dword_1DCF08, dword_1DCF0C, dword_1DCF10, dword_1DCF14, dword_1DCF18, dword_1DCF1C, CheckBankIndex
 extern ChannelTimeLeft, PlaySoundEntry, AudioEnter, AudioLeaveCheck, MixerSamplePosition, IsChannelActive, ScanFloat, word_1DCECC
 extern word_1DCEE8, word_1DCEEA, word_1DCF06
@@ -67,7 +67,7 @@ ResetGameVars:
         mov dword [dword_1DCF14], 0
         mov dword [dword_1DCF18], 0FFFFFFFFh
         mov dword [dword_1DCF1C], 7Fh
-        mov dword [dword_1DCEC4], 6C544150h
+        mov dword [SpeechBufferTag], 6C544150h
         ret
 ;-----------------------------------------------------------------------------
 ; ResetSpeechStreamState                         12CEE1  97 PC, low confidence
@@ -311,7 +311,7 @@ PlayBankSample:
         push ebp
         mov eax, dword [byte esp+018h]
         push eax
-        mov eax, dword [nosplit esi*8+dword_172AC0]
+        mov eax, dword [nosplit esi*8+SoundBankTable]
         push byte 0FFFFFFFFh
         mov eax, dword [byte eax+edx*4+08h]
         mov edx, esi

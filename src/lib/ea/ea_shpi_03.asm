@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_10E690 progbits alloc exec nowrite align=1
-extern __STOSD, TileLeftFlags, TileRightFlags, str_Punct_DrawRinkSurface, dword_16E670, dword_16E678, dword_16E67C, dword_16E680
-extern dword_16E684, dword_16E698, dword_16E69C, str_Punct_SetScreenScale, IceSpansEnabled, TextureTileSize, TexturePageBase, TextureDetail
+extern __STOSD, TileLeftFlags, TileRightFlags, str_Punct_DrawRinkSurface, ScreenWidth, ClipTopRow, ClipLeftCol, ClipRight
+extern ScreenHeight, DrawDestBuffer, DrawDestPitch, str_Punct_SetScreenScale, IceSpansEnabled, TextureTileSize, TexturePageBase, TextureDetail
 extern TileDestRow, TileLeftTop, TileLeftBottom, TileLeftHeight, TileLeftStep, TileLeftCount, TileLeftX, TileLeftU
 extern TileLeftUf, TileLeftVf, TileLeftDu, TileLeftDv, TileRightRow, TileRightTop, TileRightBottom, TileRightHeight
 extern TileRightStep, TileRightCount, TileRightX, TileRightU, TileRightUf, TileRightVf, TileRightDu, TileRightDv
@@ -966,7 +966,7 @@ DrawIceSpans:
         fstp dword [byte esp+030h]
         cmp edx, ebx
         jge near .12
-        mov ecx, dword [dword_16E684]
+        mov ecx, dword [ScreenHeight]
         cmp ebx, ecx
         jl short .9
         mov eax, ebx
@@ -981,7 +981,7 @@ DrawIceSpans:
         fstp dword [byte esp+038h]
 .9:
         mov eax, dword [byte esp+024h]
-        mov edi, dword [dword_16E67C]
+        mov edi, dword [ClipLeftCol]
         cmp eax, edi
         jge short .10
         mov dword [byte esp+024h], edi
@@ -1410,7 +1410,7 @@ DrawTileEdgeLeft:
         cmp esi, byte 0FFFFFFFFh
         je short .1
         call DrawTileSpan
-        mov eax, dword [dword_16E670]
+        mov eax, dword [ScreenWidth]
         mov edx, dword [TileRowY]
         mov ecx, dword [TileRowCount]
         mov edi, dword [TileDestRow]
@@ -1581,7 +1581,7 @@ DrawTileEdgeRight:
         cmp esi, byte 0FFFFFFFFh
         je short .1
         call DrawTileSpan
-        mov eax, dword [dword_16E670]
+        mov eax, dword [ScreenWidth]
         mov edx, dword [TileRowY]
         mov ecx, dword [TileRowCount]
         mov edi, dword [TileDestRow]
@@ -1751,16 +1751,16 @@ DrawTileTexture:
         cmp ebx, edi
         jl short .1
 .6:
-        mov edx, dword [dword_16E684]
+        mov edx, dword [ScreenHeight]
         cmp edx, dword [TileRowCount]
         jle near .21
         mov eax, dword [byte esp+0Ch]
-        cmp eax, dword [dword_16E67C]
+        cmp eax, dword [ClipLeftCol]
         jl near .21
         mov eax, dword [byte esp+04h]
-        cmp eax, dword [dword_16E680]
+        cmp eax, dword [ClipRight]
         jge near .21
-        cmp ebp, dword [dword_16E678]
+        cmp ebp, dword [ClipTopRow]
         jl near .21
         cmp dword [byte esp+038h], byte 0
         jne short .7
@@ -1779,7 +1779,7 @@ DrawTileTexture:
         mov dword [byte esp+038h], ebx
 .7:
         mov eax, dword [byte esp+04h]
-        cmp eax, dword [dword_16E678]
+        cmp eax, dword [ClipTopRow]
         jge short .8
         lea eax, [byte esp+02Ch]
         push eax
@@ -1793,7 +1793,7 @@ DrawTileTexture:
         jl near .21
         mov dword [esp], 1
 .8:
-        cmp ebp, dword [dword_16E680]
+        cmp ebp, dword [ClipRight]
         jl short .9
         lea eax, [byte esp+02Ch]
         push eax
@@ -1807,7 +1807,7 @@ DrawTileTexture:
         jl near .21
         mov dword [esp], 1
 .9:
-        mov ebp, dword [dword_16E67C]
+        mov ebp, dword [ClipLeftCol]
         cmp ebp, dword [TileRowCount]
         jle short .10
         lea eax, [byte esp+02Ch]
@@ -1823,7 +1823,7 @@ DrawTileTexture:
         mov dword [esp], 1
 .10:
         mov eax, dword [byte esp+0Ch]
-        cmp eax, dword [dword_16E684]
+        cmp eax, dword [ScreenHeight]
         jl short .11
         lea eax, [byte esp+02Ch]
         push eax
@@ -1898,10 +1898,10 @@ DrawTileTexture:
         mov ebx, dword [byte esp+024h]
         mov dword [TileTexSize], ebx
         mov ebx, dword [TileRowCount]
-        mov ecx, dword [dword_16E698]
+        mov ecx, dword [DrawDestBuffer]
         shl ebx, 2
         add ebx, ecx
-        mov ecx, dword [dword_16E69C]
+        mov ecx, dword [DrawDestPitch]
         mov ebx, dword [ebx]
         add ecx, ebx
         mov ebx, dword [byte esp+024h]

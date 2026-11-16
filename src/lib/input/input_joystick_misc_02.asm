@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_FBE40 progbits alloc exec nowrite align=1
-extern GetTicks, TickDeadlinePassed, dword_16E3EC, dword_16E3F4, dword_16E3F8, dword_16E3FC, dword_16E402, dword_16E410
+extern GetTicks, TickDeadlinePassed, KbdIdleHook, TimerTicks, TimerTickStep, TimerRate, dword_16E402, dword_16E410
 extern dword_17070C, timercallbacks, dword_1CF28C, dword_1CF290, dword_1CF294, RestoreDS, tickcount, word_1CF28E
 global WaitKey, KbdGetKey, KbdIdleCall, KbdPeekKey, SetKbdIdleHook, KbdFlush, RunTimerCallbacks, TimerISR
 global addtimer
@@ -29,7 +29,7 @@ KbdGetKey:
 ; Calls the keyboard idle hook
 ;-----------------------------------------------------------------------------
 KbdIdleCall:
-        jmp dword [dword_16E3EC]
+        jmp dword [KbdIdleHook]
 ;-----------------------------------------------------------------------------
 ; KbdPeekKey                                      FBE63  97 PC, low confidence
 ; Returns the next key without removing it, or 0
@@ -52,15 +52,15 @@ KbdPeekKey:
 ;-----------------------------------------------------------------------------
 SetKbdIdleHook:
         mov eax, dword [byte esp+04h]
-        mov dword [dword_16E3EC], eax
+        mov dword [KbdIdleHook], eax
         ret
-        mov eax, dword [dword_16E3EC]
+        mov eax, dword [KbdIdleHook]
         ret
 ;-----------------------------------------------------------------------------
 ; WaitKey                                                         FBE88  96 PC
 ;-----------------------------------------------------------------------------
 WaitKey:
-        call dword [dword_16E3EC]
+        call dword [KbdIdleHook]
         LD or, ax, ax
         je short WaitKey
         ret
@@ -74,7 +74,7 @@ KbdFlush:
         jne short KbdFlush
         ret
 .1:
-        call dword [dword_16E3EC]
+        call dword [KbdIdleHook]
         LD or, ax, ax
         jne short .2
         call TickDeadlinePassed
@@ -157,7 +157,7 @@ TimerISR:
         cld
         call RestoreDS
         inc dword [tickcount]
-        inc dword [dword_16E3F4]
+        inc dword [TimerTicks]
         mov eax, dword [dword_1CF290]
         mov ecx, dword [dword_1CF28C]
         add ecx, eax
@@ -168,7 +168,7 @@ TimerISR:
         mov word [word_1CF28E], dx
         test eax, eax
         je short .1
-        add dword [dword_16E3F8], eax
+        add dword [TimerTickStep], eax
         pushf
         call far [dword_16E402]
         jmp short .2
@@ -186,7 +186,7 @@ TimerISR:
         test eax, eax
         je short .3
         mov eax, dword [dword_1CF294]
-        add eax, dword [dword_16E3FC]
+        add eax, dword [TimerRate]
         push es
         pop ebx
         push ss

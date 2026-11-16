@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_12AB6C progbits alloc exec nowrite align=1
-extern StreamLengthFn, dword_172CA4, dword_173F64, dword_19469C, dword_1946A0, dword_1946A4, dword_1946A8, dword_1996A4
+extern StreamLengthFn, MixerStepTable, dword_173F64, dword_19469C, dword_1946A0, dword_1946A4, dword_1946A8, dword_1996A4
 extern dword_1996A8, dword_1996AC, dword_1996B0, dword_1996B4, dword_1996B8, dword_1996BC, dword_1996C0, dword_1996C4
 extern dword_1996C8, dword_1996D0, dword_1996D4, dword_1996D8, dword_1996DC, dword_1996E0, dword_1996E4, dword_1996E8
 extern dword_1DCF38, PatchRegionParams, off_1996EC, StartPatchSample, ParsePatchTags, AudioEnter, AudioLeaveCheck, SbReadData
@@ -1015,7 +1015,7 @@ MixerCalcStep:
         jmp short .1
 .2:
         LD sub, ebx, edx
-        mov edx, dword [nosplit ebx*4+dword_172CA4]
+        mov edx, dword [nosplit ebx*4+MixerStepTable]
         mul edx
         shrd eax, edx, cl
         LD mov, edi, eax

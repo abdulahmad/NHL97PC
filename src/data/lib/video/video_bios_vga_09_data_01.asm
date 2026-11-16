@@ -4,23 +4,23 @@ bits 32
 section s_19C840 progbits alloc noexec write align=1
 extern __fpatan_chk_160, __fpatan_chk_16B, __fpatan_chk_178, __fpatan_chk_18B, __fpatan_chk_1A0, __fpatan_chk_1B3, __fpatan_chk_1C8, __fpatan_chk_1DB
 extern GusSizeDram, GusInitDma
-global byte_19C840, F32_16___fpatan_chk, F32_0p0625, kaufmfont, off_19C894, qword_19C858, F64_5p42101eneg20, F64_0p5_fprem_common
-global F64_1, tbyte_19C878, F80_3p14159, F80_1p5708___fpatan_chk, F80_neg0p333333, F80_0p2, F80_neg0p142857, F80_0p111111
-global F80_neg0p0909076, F80_0p0764169, F80_0, unk_19CA1C
-byte_19C840:
+global FpremShiftTable, F32_16___fpatan_chk, F32_0p0625, kaufmfont, FpatanJumpTable, FpremScale, F64_5p42101eneg20, F64_0p5_fprem_common
+global F64_1, FpremTwoPi, F80_3p14159, F80_1p5708___fpatan_chk, F80_neg0p333333, F80_0p2, F80_neg0p142857, F80_0p111111
+global F80_neg0p0909076, F80_0p0764169, F80_0, GusInitTable
+FpremShiftTable:
         db 00h,01h,00h,00h,04h,00h,00h,07h,00h,00h,0Ah,00h,00h,0Dh,00h,00h
         db 00h,00h,00h,00h,00h,00h,0EEh,03Fh
-qword_19C858:
+FpremScale:
         db 00h,00h,00h,00h,00h,00h,0F0h,043h
 F64_5p42101eneg20:
         db 00h,00h,00h,00h,00h,00h,0F0h,03Bh,00h,00h,00h,00h,00h,00h,0F0h,03Fh
 F64_0p5_fprem_common:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-tbyte_19C878:
+FpremTwoPi:
         db 00h,00h,00h,00h,00h,00h,0FFh,0FFh,0FEh,07Fh,00h,00h
 F64_1:
         db 00h,00h,00h,00h,00h,00h,0F0h,03Fh,00h,00h,00h,00h,00h,00h,0F0h,0BFh
-off_19C894:
+FpatanJumpTable:
         dd __fpatan_chk_160
         dd __fpatan_chk_16B
         dd __fpatan_chk_178
@@ -67,7 +67,7 @@ F80_0:
         db 074h,09Eh,031h,0C2h,02Bh,03Eh,05h,0B8h,0FEh,03Fh,00h,00h,00h,00h,00h,00h
         db 041h,066h,052h,0ACh,0B8h,085h,0CEh,0C0h,0FEh,03Fh,00h,00h,00h,00h,00h,00h
         db 035h,0C2h,068h,021h,0A2h,0DAh,0Fh,0C9h,0FEh,03Fh,00h,00h,00h,00h,00h,00h
-unk_19CA1C:
+GusInitTable:
         db 00h,00h
         dd GusSizeDram
         db 00h,00h

@@ -2,9 +2,9 @@
 bits 32
 %include "hockey.inc"
 section s_10FEE8 progbits alloc exec nowrite align=1
-extern str_INVMATRX, str_Ori2, TexLeftFlags, TexRightFlags, str_Punct_DrawRinkSurface, dword_16E670, dword_16E678, dword_16E67C
-extern dword_16E680, dword_16E684, dword_16E698, dword_16E69C, dword_17025C, str_D_ProjectPointsPersp, dword_170264, dword_170268
-extern dword_170274, TexSpanTable, str_Punct_DrawTexturedPoly, str_Punct_DrawTexturedSpan, F32_7p00649eneg41, ReciprocalTable, ViewOriginX, ViewOriginY
+extern str_INVMATRX, str_Ori2, TexLeftFlags, TexRightFlags, str_Punct_DrawRinkSurface, ScreenWidth, ClipTopRow, ClipLeftCol
+extern ClipRight, ScreenHeight, DrawDestBuffer, DrawDestPitch, ViewCenterY, str_D_ProjectPointsPersp, CameraSinYaw, CameraCosYaw
+extern CameraFlags, TexSpanTable, str_Punct_DrawTexturedPoly, str_Punct_DrawTexturedSpan, F32_7p00649eneg41, ReciprocalTable, ViewOriginX, ViewOriginY
 extern ViewWidth, ViewHeight, TexRowCount, TexRowY, TexDestRow, TexLeftTop, TexLeftBottom, TexLeftHeight
 extern TexLeftStep, TexLeftStepCount, TexLeftDone, TexLeftPos, TexLeftFrac, TexLeftX, TexLeftDx, TexLeftDu
 extern TexLeftDv, TexLeftDz, TexLeftVertex, TexSpanUV, TexDepthScale, TexVertexCount, TexRightRow, TexRightTop
@@ -1235,9 +1235,9 @@ BuildNetGeometry:
         cmp ebp, dword [byte esp+068h]
         je near .55
         mov edx, dword [byte esp+020h]
-        mov eax, dword [dword_16E698]
+        mov eax, dword [DrawDestBuffer]
         add eax, edx
-        mov edx, dword [dword_16E69C]
+        mov edx, dword [DrawDestPitch]
         mov ebx, dword [eax]
         sar ebp, 10h
         add edx, ebx
@@ -1725,7 +1725,7 @@ DrawTextureSpans:
         add edx, eax
         mov eax, dword [byte edx+04h]
         mov dword [byte esi+014h], eax
-        cmp eax, dword [dword_16E684]
+        cmp eax, dword [ScreenHeight]
         jg near .19
         lea eax, [nosplit ebp*4+00h]
         sub eax, ebp
@@ -2308,7 +2308,7 @@ DrawTexturedEdgeLeft:
         cmp esi, byte 0FFFFFFFFh
         je near .1
         call DrawTexturedSpan
-        mov eax, dword [dword_16E670]
+        mov eax, dword [ScreenWidth]
         mov ecx, dword [TexRowY]
         mov edi, dword [TexDestRow]
         add ecx, eax
@@ -2535,7 +2535,7 @@ DrawTexturedEdgeRight:
         cmp esi, byte 0FFFFFFFFh
         je near .1
         call DrawTexturedSpan
-        mov eax, dword [dword_16E670]
+        mov eax, dword [ScreenWidth]
         mov ecx, dword [TexRowY]
         mov edi, dword [TexDestRow]
         add ecx, eax
@@ -2779,12 +2779,12 @@ DrawTexturedPoly:
 .9:
         mov eax, dword [byte esp+0Ch]
         shl eax, 2
-        mov esi, dword [dword_16E684]
+        mov esi, dword [ScreenHeight]
         mov dword [TexSpanWidth], eax
         cmp edi, esi
         jge short .10
         mov eax, dword [byte esp+010h]
-        cmp eax, dword [dword_16E67C]
+        cmp eax, dword [ClipLeftCol]
         jge short .11
 .10:
         xor eax, eax
@@ -2796,10 +2796,10 @@ DrawTexturedPoly:
         ret
 .11:
         mov eax, dword [byte esp+01Ch]
-        cmp eax, dword [dword_16E680]
+        cmp eax, dword [ClipRight]
         jge short .12
         mov eax, dword [byte esp+014h]
-        cmp eax, dword [dword_16E678]
+        cmp eax, dword [ClipTopRow]
         jge short .13
 .12:
         xor eax, eax
@@ -2827,7 +2827,7 @@ DrawTexturedPoly:
         mov dword [byte esp+048h], ebx
 .14:
         mov eax, dword [byte esp+01Ch]
-        cmp eax, dword [dword_16E678]
+        cmp eax, dword [ClipTopRow]
         jge short .16
         lea eax, [byte esp+03Ch]
         push eax
@@ -2850,7 +2850,7 @@ DrawTexturedPoly:
         mov dword [esp], 1
 .16:
         mov eax, dword [byte esp+014h]
-        cmp eax, dword [dword_16E680]
+        cmp eax, dword [ClipRight]
         jl short .18
         lea eax, [byte esp+03Ch]
         push eax
@@ -2872,7 +2872,7 @@ DrawTexturedPoly:
 .17:
         mov dword [esp], 1
 .18:
-        cmp edi, dword [dword_16E67C]
+        cmp edi, dword [ClipLeftCol]
         jge short .20
         lea eax, [byte esp+03Ch]
         push eax
@@ -2895,7 +2895,7 @@ DrawTexturedPoly:
         mov dword [esp], 1
 .20:
         mov eax, dword [byte esp+010h]
-        cmp eax, dword [dword_16E684]
+        cmp eax, dword [ScreenHeight]
         jl short .22
         lea eax, [byte esp+03Ch]
         push eax
@@ -2962,9 +2962,9 @@ DrawTexturedPoly:
         jl short .23
 .28:
         mov eax, dword [byte esp+014h]
-        cmp eax, dword [dword_16E678]
+        cmp eax, dword [ClipTopRow]
         mov eax, dword [byte esp+01Ch]
-        cmp eax, dword [dword_16E680]
+        cmp eax, dword [ClipRight]
 .29:
         mov edx, dword [byte esp+044h]
         mov eax, ebp
@@ -3012,8 +3012,8 @@ DrawTexturedPoly:
         mov ebx, dword [byte ebx+02h]
         sar ebx, 10h
         mov dword [TexRowCount], ebx
-        mov ebx, dword [dword_16E698]
-        mov ecx, dword [dword_16E69C]
+        mov ebx, dword [DrawDestBuffer]
+        mov ecx, dword [DrawDestPitch]
         mov ebx, dword [ebx+edi*4]
         add ecx, ebx
         mov ebx, dword [byte esp+048h]
@@ -3646,7 +3646,7 @@ ClipPolygon:
         push eax
         push ecx
         call dword [ClipPolyDrawFn]
-        mov eax, dword [dword_16E670]
+        mov eax, dword [ScreenWidth]
         mov ecx, dword [ClipPolyCount]
         add esp, byte 24h
         add ecx, eax
@@ -3760,7 +3760,7 @@ DrawClippedPoly:
         jl short .1
 .6:
         mov eax, dword [byte esp+04h]
-        mov ecx, dword [dword_16E678]
+        mov ecx, dword [ClipTopRow]
         cmp eax, ecx
         jge short .9
         cmp ebx, ecx
@@ -3784,7 +3784,7 @@ DrawClippedPoly:
 .8:
         mov dword [esp], 1
 .9:
-        mov ecx, dword [dword_16E680]
+        mov ecx, dword [ClipRight]
         cmp ebx, ecx
         jl short .12
         cmp ecx, dword [byte esp+04h]
@@ -3818,7 +3818,7 @@ DrawClippedPoly:
 .11:
         mov dword [esp], 1
 .12:
-        mov ebx, dword [dword_16E67C]
+        mov ebx, dword [ClipLeftCol]
         cmp edi, ebx
         jge short .15
         cmp ebp, ebx
@@ -3852,7 +3852,7 @@ DrawClippedPoly:
 .14:
         mov dword [esp], 1
 .15:
-        mov edx, dword [dword_16E684]
+        mov edx, dword [ScreenHeight]
         cmp ebp, edx
         jl short .18
         cmp edi, edx
@@ -3967,8 +3967,8 @@ DrawClippedPoly:
         mov eax, dword [byte esp+020h]
         mov dword [ClipPolyOutCount], eax
         call ClipEdgeTop
-        mov eax, dword [dword_16E698]
-        mov ebx, dword [dword_16E69C]
+        mov eax, dword [DrawDestBuffer]
+        mov ebx, dword [DrawDestPitch]
         mov eax, dword [eax+edi*4]
         add ebx, eax
         mov dword [ClipPolyCount], ebx
@@ -4265,12 +4265,12 @@ FillSpanRows:
         cmp dword [byte esi+08h], byte 0
         jle short .1
         mov eax, dword [esi]
-        imul dword [dword_170264]
+        imul dword [CameraSinYaw]
         idiv dword [byte esi+08h]
-        add eax, dword [dword_17025C]
+        add eax, dword [ViewCenterY]
         mov dword [edi], eax
         mov eax, dword [byte esi+04h]
-        imul dword [dword_170268]
+        imul dword [CameraCosYaw]
         idiv dword [byte esi+08h]
         add eax, dword [str_D_ProjectPointsPersp]
         mov dword [byte edi+04h], eax
@@ -4278,7 +4278,7 @@ FillSpanRows:
 .1:
         mov dword [edi], 80000000h
         mov dword [byte edi+04h], 80000000h
-        or dword [dword_170274], byte 1
+        or dword [CameraFlags], byte 1
 .2:
         pop edi
         pop esi

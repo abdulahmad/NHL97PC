@@ -5,7 +5,7 @@ section s_13794C progbits alloc exec nowrite align=1
 extern _DoINTR_, _Extender, _ExtenderSubtype, _IsTable, __fatal_runtime_error_, __set_errno_, _dos_getvect_, _dos_setvect_
 extern str_UnableToAllocateRealModeS, str_UnableToSetLimitOfRealMod, str_NoErrorInXACODECFunctionL, str_InvalidErrorCodeInXACODEC, byte_150000, byte_150004, byte_150008, byte_15000C
 extern byte_150010, byte_150014, Is8087, DmaPagePorts, DmaMaskPorts, DmaModePorts, DmaClearPorts, DmaAddressPorts
-extern DmaCountPorts, TimerIrqMask, TimerChainFlag, TimerPitMode, TimerInstalled, dword_16E67C, dword_16E684, StrToLongLimits
+extern DmaCountPorts, TimerIrqMask, TimerChainFlag, TimerPitMode, TimerInstalled, ClipLeftCol, ScreenHeight, StrToLongLimits
 extern IrqAckLast, FloatPow10Table, FloatPow10Exponents, FloatFormatDigits, FloatFormatExponent, FloatFormatMantissaLo, FloatFormatMantissaHi, DacTimerRate
 extern DacTimerDivisor, TimerOldHandler, TimerOldRealHandler, TimerDivisor, TimerChainCount, int386_, str_RMHandler, AllocMemData
 extern FreeMemBlock, tolower_, word_17070A, TimerOldOffsetLo, TimerOldSelector, DbcsLeadTable
@@ -1795,7 +1795,7 @@ DrawCharMono:
         mov ecx, dword [byte esp+014h]
         mov edi, dword [byte esp+018h]
         mov ebx, dword [byte esp+01Ch]
-        cmp edi, dword [dword_16E684]
+        cmp edi, dword [ScreenHeight]
         jl short .1
         xor eax, eax
         pop ebp
@@ -1804,7 +1804,7 @@ DrawCharMono:
         pop ebx
         ret
 .1:
-        mov esi, dword [dword_16E67C]
+        mov esi, dword [ClipLeftCol]
         lea eax, [edi+ebx]
         cmp eax, esi
         jge short .2
@@ -1829,7 +1829,7 @@ DrawCharMono:
         jge short .3
         add eax, esi
 .3:
-        mov edx, dword [dword_16E67C]
+        mov edx, dword [ClipLeftCol]
         cmp edi, edx
         jge short .4
         sub edx, edi
@@ -1837,9 +1837,9 @@ DrawCharMono:
         imul edi, edx
         sub ebx, edx
         add eax, edi
-        mov edi, dword [dword_16E67C]
+        mov edi, dword [ClipLeftCol]
 .4:
-        mov ebp, dword [dword_16E684]
+        mov ebp, dword [ScreenHeight]
         lea edx, [edi+ebx]
         cmp edx, ebp
         jl short .5
@@ -1877,7 +1877,7 @@ DrawCharShadow:
         mov ecx, dword [byte esp+014h]
         mov edi, dword [byte esp+018h]
         mov ebx, dword [byte esp+01Ch]
-        cmp edi, dword [dword_16E684]
+        cmp edi, dword [ScreenHeight]
         jl short .1
         xor eax, eax
         pop ebp
@@ -1886,7 +1886,7 @@ DrawCharShadow:
         pop ebx
         ret
 .1:
-        mov esi, dword [dword_16E67C]
+        mov esi, dword [ClipLeftCol]
         lea eax, [edi+ebx]
         cmp eax, esi
         jge short .2
@@ -1911,7 +1911,7 @@ DrawCharShadow:
         jle short .3
         add eax, esi
 .3:
-        mov edx, dword [dword_16E67C]
+        mov edx, dword [ClipLeftCol]
         cmp edi, edx
         jge short .4
         sub edx, edi
@@ -1919,9 +1919,9 @@ DrawCharShadow:
         imul edi, edx
         sub ebx, edx
         add eax, edi
-        mov edi, dword [dword_16E67C]
+        mov edi, dword [ClipLeftCol]
 .4:
-        mov ebp, dword [dword_16E684]
+        mov ebp, dword [ScreenHeight]
         lea edx, [edi+ebx]
         cmp edx, ebp
         jl short .5
@@ -1960,9 +1960,9 @@ DrawCharOutline:
         mov esi, dword [byte esp+018h]
         mov ebx, dword [byte esp+01Ch]
         mov edi, dword [byte esp+020h]
-        cmp esi, dword [dword_16E684]
+        cmp esi, dword [ScreenHeight]
         jge near .5
-        mov ebp, dword [dword_16E67C]
+        mov ebp, dword [ClipLeftCol]
         lea eax, [esi+ebx]
         cmp eax, ebp
         jl short .5
@@ -1978,7 +1978,7 @@ DrawCharOutline:
         jge short .1
         lea eax, [edi+edx]
 .1:
-        mov edi, dword [dword_16E67C]
+        mov edi, dword [ClipLeftCol]
         cmp esi, edi
         jge short .2
         sub edi, esi
@@ -1986,10 +1986,10 @@ DrawCharOutline:
         mov edi, edx
         imul edi, esi
         sub ebx, esi
-        mov esi, dword [dword_16E67C]
+        mov esi, dword [ClipLeftCol]
         add eax, edi
 .2:
-        mov ebp, dword [dword_16E684]
+        mov ebp, dword [ScreenHeight]
         lea edi, [esi+ebx]
         cmp edi, ebp
         jl short .3
@@ -2026,9 +2026,9 @@ DrawCharBold:
         mov esi, dword [byte esp+018h]
         mov ebx, dword [byte esp+01Ch]
         mov edi, dword [byte esp+020h]
-        cmp esi, dword [dword_16E684]
+        cmp esi, dword [ScreenHeight]
         jge near .5
-        mov ebp, dword [dword_16E67C]
+        mov ebp, dword [ClipLeftCol]
         lea eax, [esi+ebx]
         cmp eax, ebp
         jl short .5
@@ -2044,7 +2044,7 @@ DrawCharBold:
         jle short .1
         lea eax, [edi+edx]
 .1:
-        mov edi, dword [dword_16E67C]
+        mov edi, dword [ClipLeftCol]
         cmp esi, edi
         jge short .2
         sub edi, esi
@@ -2052,10 +2052,10 @@ DrawCharBold:
         mov edi, edx
         imul edi, esi
         sub ebx, esi
-        mov esi, dword [dword_16E67C]
+        mov esi, dword [ClipLeftCol]
         add eax, edi
 .2:
-        mov ebp, dword [dword_16E684]
+        mov ebp, dword [ScreenHeight]
         lea edi, [esi+ebx]
         cmp edi, ebp
         jl short .3

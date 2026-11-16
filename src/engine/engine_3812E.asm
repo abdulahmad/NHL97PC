@@ -7,8 +7,8 @@ extern str_BACK, str_TITL, str_AB02, str_AB01, str_AB00, str_BH00, str_BT00, str
 extern str_AB04, str_AB03, str_SIM0, str_BT02d, str_FAN0, str_LT00, str_Logo02dFsh, str_LOGO
 extern str_ALST, str_CDD, str_SDSD, str_LOCK, str_PANL, str_DMAN, str_HIST, str_MEGAHIST
 extern str_BKH, str_BKD, str_SFX4S, str_AUDSTREAM, str_CROWDCRD, str_GAMEDATAAUDPBP3TSF, str_MENU, str_S02dASF
-extern str_TEMP, str_SAUDPBP3TSF, str_KTSF, str_SAUDPBP2VIV, str_CBANK03dDAT, str_TEAM04dDAT, byte_1691DC, byte_16E503
-extern byte_16E504, byte_16F794, byte_16FA40, byte_19CBC2, byte_1A0CC2, byte_1A8E89, byte_1A8E8E, byte_1A988C
+extern str_TEMP, str_SAUDPBP3TSF, str_KTSF, str_SAUDPBP2VIV, str_CBANK03dDAT, str_TEAM04dDAT, byte_1691DC, QuantizeByte
+extern QuantizeTable, RemapTable, IdentityRemap, byte_19CBC2, byte_1A0CC2, byte_1A8E89, byte_1A8E8E, byte_1A988C
 extern byte_1A988D, byte_1A988E, byte_1AC638, byte_1AC81A, byte_1AC81B, byte_1ACF62, byte_1ACF63, byte_1AD457
 extern byte_1AD458, byte_1AD742, byte_1B93DD, byte_1B93DE, byte_1BF670, byte_1C135A, byte_1C135B, byte_1C6040
 extern F32_10_RefDodgePuck, F32_3_RefDodgePuck, F32_15, F32_0p0666667, F32_0p5_RefDodgePuck, F32_144_PokeCheckAnim, F32_336, F32_192_TryBodyCheck
@@ -18,8 +18,8 @@ extern dword_169194, dword_169198, dword_16919C, dword_1691A0, dword_1691A2, dwo
 extern dword_1691B8, dword_1691BC, dword_1691C0, dword_1691C4, dword_1691CC, dword_1691D0, dword_1691D4, dword_1691D8
 extern dword_1691FC, dword_169210, dword_169214, dword_169218, dword_16921C, dword_169220, dword_169224, dword_169228
 extern dword_16922C, dword_16922E, dword_169230, dword_169238, dword_16923C, dword_169250, dword_169254, F32_9600
-extern F32_768_PositionSfx, dword_169294, dword_16AEB4, dword_16B72C, dword_16E308, dword_16E464, dword_16E468, dword_16E46C
-extern dword_16E500, dword_16E698, dword_16E69C, dword_16E6CC, dword_16F8A8, dword_16FA14, dword_16FFC4, dword_19CB6D
+extern F32_768_PositionSfx, dword_169294, dword_16AEB4, dword_16B72C, dword_16E308, dword_16E464, dword_16E468, MenuScreenBitmap
+extern QuantizePalette, DrawDestBuffer, DrawDestPitch, VideoModeNumber, VideoModeIndex, ViewInterlaced, CdStreamSpeed, dword_19CB6D
 extern dword_19ED00, dword_19ED10, dword_19ED14, dword_19ED18, dword_19ED1C, dword_19ED20, dword_19ED24, dword_19ED28
 extern dword_19ED2C, dword_19ED30, dword_19ED34, dword_19ED38, dword_19ED3C, dword_19ED40, dword_19ED44, dword_19ED48
 extern dword_19ED4C, dword_19ED50, dword_19ED54, dword_19ED58, dword_19ED5C, dword_19ED60, dword_19ED64, dword_19ED68
@@ -937,7 +937,7 @@ DrawAllStarLogo:
         push edi
         mov edi, eax
         mov ebx, edx
-        push dword [dword_16E46C]
+        push dword [MenuScreenBitmap]
         push str_ALST
         push dword [dword_19ED70]
         call FindShape
@@ -5724,8 +5724,8 @@ RebuildOverlayMask:
         mov dword [dword_1A0CC0], edx
 .1:
         call SetScreenTarget
-        mov eax, dword [dword_16E69C]
-        mov esi, dword [dword_16E698]
+        mov eax, dword [DrawDestPitch]
+        mov esi, dword [DrawDestBuffer]
         mov dword [byte esp+038h], eax
         call PresentScreen
         mov eax, dword [dword_1A8E80]
@@ -6106,7 +6106,7 @@ BlendOverlayRow:
         jne short .3
         xor ecx, ecx
         mov cl, byte [ebx]
-        mov cl, byte [dword ecx+byte_16F794]
+        mov cl, byte [dword ecx+RemapTable]
 .3:
         mov byte [eax], cl
         inc ebx
@@ -6142,7 +6142,7 @@ ShadeOverlayRow:
         jne short .2
         xor ecx, ecx
         mov cl, byte [esi]
-        mov cl, byte [dword ecx+byte_16F794]
+        mov cl, byte [dword ecx+RemapTable]
 .2:
         mov byte [edx], cl
         inc edx
@@ -6370,7 +6370,7 @@ SetVideoMode:
         mov edi, 1
         call GetPaletteEntries
         add esp, byte 0Ch
-        mov dword [dword_16F8A8], edi
+        mov dword [VideoModeIndex], edi
         call SetScreenTarget
         mov ebp, dword [dword_169184]
         push ebp
@@ -6384,7 +6384,7 @@ SetVideoMode:
         call SetGraphicsMode
         add esp, byte 0Ch
         call AllocGfxFixBuffer
-        cmp dword [dword_16E6CC], byte 0
+        cmp dword [VideoModeNumber], byte 0
         sete al
         and eax, 0FFh
         mov dword [dword_169180], eax
@@ -6692,7 +6692,7 @@ SetViewInterlaced:
         mov eax, ecx
         call SetViewSize
         mov edx, 1
-        mov dword [dword_16FA14], edx
+        mov dword [ViewInterlaced], edx
         mov dword [dword_1A8E6C], edx
         mov dword [dword_1A8E50], edx
         call MarkPaletteDirty
@@ -6721,7 +6721,7 @@ ClearViewInterlaced:
         call SetViewSize
         xor edx, edx
         mov ebx, 1
-        mov dword [dword_16FA14], edx
+        mov dword [ViewInterlaced], edx
         mov dword [dword_1A8E6C], ebx
 .1:
         pop edx
@@ -7719,7 +7719,7 @@ CountArtPixels:
         sar ebx, 10h
         imul edx, ebx
         push edx
-        push byte_16FA40
+        push IdentityRemap
         add eax, byte 10h
         push eax
         call TranslatePixels
@@ -7756,7 +7756,7 @@ CountArtPixels:
         sar ecx, 10h
         imul edx, ecx
         push edx
-        push byte_16FA40
+        push IdentityRemap
         add eax, byte 10h
         push eax
         call TranslatePixels
@@ -7776,13 +7776,13 @@ RemapArtColors:
         mov edi, edx
         mov dword [dword esp+0100h], ebx
         mov esi, ecx
-        mov edx, byte_16FA40
+        mov edx, IdentityRemap
         mov eax, esp
         mov ebx, ecx
         call memcpy_
         xor eax, eax
 .1:
-        mov byte [dword eax+byte_16FA40], al
+        mov byte [dword eax+IdentityRemap], al
         inc eax
         cmp eax, 100h
         jl short .1
@@ -7794,7 +7794,7 @@ RemapArtColors:
         add dl, al
 .2:
         inc eax
-        mov byte [dword ebx+byte_16FA40], dl
+        mov byte [dword ebx+IdentityRemap], dl
         inc ebx
         inc dl
         cmp eax, esi
@@ -7822,7 +7822,7 @@ RemapArtColors:
         jmp short .4
 .5:
         mov edx, esp
-        mov eax, byte_16FA40
+        mov eax, IdentityRemap
         mov ebx, esi
         call memcpy_
         add esp, 104h
@@ -7846,7 +7846,7 @@ RemapArtToRange:
         test bl, 1
         sete al
         movzx esi, al
-        mov edx, byte_16FA40
+        mov edx, IdentityRemap
         add esi, 0FEh
         mov eax, esp
         mov ebx, esi
@@ -7926,12 +7926,12 @@ RemapArtRange:
         jl short .3
 .4:
         mov ebx, 100h
-        mov edx, byte_16FA40
+        mov edx, IdentityRemap
         lea eax, [dword esp+0300h]
         call memcpy_
         xor ecx, ecx
 .5:
-        mov byte [dword ecx+byte_16FA40], cl
+        mov byte [dword ecx+IdentityRemap], cl
         inc ecx
         cmp ecx, 100h
         jl short .5
@@ -7964,7 +7964,7 @@ RemapArtRange:
 .7:
         mov ebx, 100h
         lea edx, [dword esp+0300h]
-        mov eax, byte_16FA40
+        mov eax, IdentityRemap
         call memcpy_
         add esp, 404h
         pop ebp
@@ -8695,7 +8695,7 @@ RemapArtPixels:
         sete al
         xor ecx, ecx
         mov cl, al
-        mov edx, byte_16FA40
+        mov edx, IdentityRemap
         add ecx, 0FEh
         mov eax, esp
         mov ebx, ecx
@@ -8717,14 +8717,14 @@ RemapArtPixels:
         sar eax, 10h
         imul eax, edx
         push eax
-        push byte_16FA40
+        push IdentityRemap
         add esi, byte 10h
         push esi
         call TranslatePixels
         add esp, byte 0Ch
 RemapArtPixels_70:
         mov edx, esp
-        mov eax, byte_16FA40
+        mov eax, IdentityRemap
         mov ebx, ebp
         call memcpy_
         add esp, 100h
@@ -9242,7 +9242,7 @@ QuantizeRange:
         jle short .10
 .9:
         xor dl, dl
-        mov byte [dword eax+byte_16E504], dl
+        mov byte [dword eax+QuantizeTable], dl
         inc eax
         cmp eax, dword [byte esi+08h]
         jl short .9
@@ -9259,10 +9259,10 @@ QuantizeRange:
         jne short .12
         xor dl, dl
         inc eax
-        mov byte [dword ecx+byte_16E504], dl
+        mov byte [dword ecx+QuantizeTable], dl
 .12:
         mov edx, dword [byte esi+08h]
-        mov byte [dword edx+eax+byte_16E504], 1
+        mov byte [dword edx+eax+QuantizeTable], 1
         mov edx, dword [byte esi+08h]
         add edx, eax
         shl edx, 2
@@ -9283,7 +9283,7 @@ QuantizeRange:
 .14:
         inc eax
         xor dh, dh
-        mov byte [dword eax+byte_16E503], dh
+        mov byte [dword eax+QuantizeByte], dh
         cmp eax, 100h
         jl short .14
 .15:
@@ -9328,7 +9328,7 @@ QuantizeRange:
         mov byte [byte esi+015h], 0
         mov byte [byte esi+014h], 0
 .19:
-        mov eax, dword [dword_16E500]
+        mov eax, dword [QuantizePalette]
         test eax, eax
         je short .20
         push eax
@@ -9339,7 +9339,7 @@ QuantizeRange:
         push eax
         call BuildInverseTable
         add esp, byte 4
-        mov dword [dword_16E500], eax
+        mov dword [QuantizePalette], eax
         call ServiceIdle
         mov esi, dword [dword esi+0414h]
         test esi, esi
@@ -9369,7 +9369,7 @@ QuantizeRange:
         mov ecx, 100h
         add esp, byte 4
         mov edx, 1010101h
-        mov eax, byte_16E504
+        mov eax, QuantizeTable
         call __STOSB
 .24:
         add esp, byte 8
@@ -9541,7 +9541,7 @@ BuildGamePalette:
         lea edx, [dword esp+0404h]
         mov eax, esi
         call MergeRangePalettes
-        mov edx, dword [dword_16E500]
+        mov edx, dword [QuantizePalette]
         test edx, edx
         je short .1
         push edx
@@ -9552,7 +9552,7 @@ BuildGamePalette:
         push eax
         call BuildInverseTable
         add esp, byte 4
-        mov dword [dword_16E500], eax
+        mov dword [QuantizePalette], eax
         add esp, 408h
         pop esi
         pop edx
@@ -9991,9 +9991,9 @@ setstreamspeed:
         jge short .9
         mov esi, 1
         mov dword [dword_169190], esi
-        mov dword [dword_16FFC4], esi
+        mov dword [CdStreamSpeed], esi
 .9:
-        cmp dword [dword_16FFC4], byte 0
+        cmp dword [CdStreamSpeed], byte 0
         jne short .10
         push edi
         call DriveLetterIndex

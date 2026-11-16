@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_11FAAC progbits alloc exec nowrite align=1
-extern dword_16E478, dword_16E678, dword_16E67C, dword_16E680, dword_16E684, dword_16F8AC, dword_16F8B0, dword_16F8B4
-extern dword_16F8B8, dword_199C38, dword_199C3C, CurrentFont, VesaQueryMode, SetGraphicsMode, BytesPerPixelForDepth, SetupRectFillShaded
+extern SelectedVideoMode, ClipTopRow, ClipLeftCol, ClipRight, ScreenHeight, ModeTableWidth, ModeTableHeight, ModeTableBpp
+extern ModeTableNumber, dword_199C38, dword_199C3C, CurrentFont, VesaQueryMode, SetGraphicsMode, BytesPerPixelForDepth, SetupRectFillShaded
 extern SetupRectFill, FillRectSpans, FillRectList, ZeroMem, FillRectColor, PrepareTextDraw
 global jpt_11FDFD, jpt_11FF3D, jpt_120116, FillShadowRect_10, DrawTitleBand_10, DrawTitleBand_27, jpt_11FDFD_38, jpt_11FF3D_3B
 global jpt_120116_22F, SetTextFont, FillShadowRect, DrawTitleBand, FillBandEdges, FillBandRows, FillBandRowsBlend, CountVesaModes
@@ -84,9 +84,9 @@ DrawTitleBand_27:
         cld
         lea eax, [dword ebp-0282Ch]
         mov dword [byte ebp-02Ch], eax
-        mov eax, dword [dword_16E678]
+        mov eax, dword [ClipTopRow]
         mov dword [byte ebp-04h], eax
-        mov eax, dword [dword_16E680]
+        mov eax, dword [ClipRight]
         dec eax
         mov dword [byte ebp-08h], eax
         mov eax, dword [byte esi+04h]
@@ -145,19 +145,19 @@ DrawTitleBand_27:
         cmp ebx, dword [byte ebp-08h]
         jge short .9
         mov eax, dword [byte ebp-020h]
-        cmp eax, dword [dword_16E67C]
+        cmp eax, dword [ClipLeftCol]
         jl short .9
         mov ecx, dword [byte ebp-018h]
-        cmp ecx, dword [dword_16E684]
+        cmp ecx, dword [ScreenHeight]
         jge short .9
         mov byte [byte ebp-012h], 0
         cmp edx, dword [byte ebp-08h]
         jg short .6
         cmp ebx, dword [byte ebp-04h]
         jl short .6
-        cmp eax, dword [dword_16E684]
+        cmp eax, dword [ScreenHeight]
         jge short .6
-        cmp ecx, dword [dword_16E67C]
+        cmp ecx, dword [ClipLeftCol]
         jge short .7
 .6:
         mov byte [byte ebp-012h], 1
@@ -248,15 +248,15 @@ DrawTitleBand_27:
         cmp edi, dword [byte ebp-024h]
         jne short .16
         mov eax, dword [byte ebp-020h]
-        cmp eax, dword [dword_16E684]
+        cmp eax, dword [ScreenHeight]
         jl short .21
-        mov eax, dword [dword_16E684]
+        mov eax, dword [ScreenHeight]
         dec eax
 .21:
         mov ebx, dword [byte ebp-018h]
-        cmp ebx, dword [dword_16E67C]
+        cmp ebx, dword [ClipLeftCol]
         jge short .22
-        mov ebx, dword [dword_16E67C]
+        mov ebx, dword [ClipLeftCol]
 .22:
         LD sub, eax, ebx
         jle short .23
@@ -294,7 +294,7 @@ FillBandEdges:
         LD sub, edi, ecx
         lea edi, [nosplit edi*4+00h]
         add edi, dword [byte ebp-02Ch]
-        mov eax, dword [dword_16E678]
+        mov eax, dword [ClipTopRow]
         push ecx
         push edi
         rep stosd
@@ -314,7 +314,7 @@ FillBandEdges:
         LD sub, edi, ecx
         lea edi, [nosplit edi*4+00h]
         add edi, dword [byte ebp-02Ch]
-        mov eax, dword [dword_16E680]
+        mov eax, dword [ClipRight]
         push ecx
         push edi
         rep stosd
@@ -331,7 +331,7 @@ FillBandEdges:
         inc edi
         lea edi, [nosplit edi*4+00h]
         add edi, dword [byte ebp-02Ch]
-        mov eax, dword [dword_16E678]
+        mov eax, dword [ClipTopRow]
         push ecx
         push edi
         rep stosd
@@ -348,7 +348,7 @@ FillBandEdges:
         inc edi
         lea edi, [nosplit edi*4+00h]
         add edi, dword [byte ebp-02Ch]
-        mov eax, dword [dword_16E680]
+        mov eax, dword [ClipRight]
         push ecx
         push edi
         rep stosd
@@ -987,7 +987,7 @@ jpt_120116_22F:
         LD sub, edi, ecx
         lea edi, [nosplit edi*4+00h]
         add edi, dword [byte ebp-02Ch]
-        mov eax, dword [dword_16E678]
+        mov eax, dword [ClipTopRow]
         rep stosd
 .47:
         mov ecx, dword [byte esi+028h]
@@ -1001,7 +1001,7 @@ jpt_120116_22F:
         lea edi, [nosplit edi*4+00h]
         add edi, dword [byte ebp-02Ch]
         add edi, 1400h
-        mov eax, dword [dword_16E680]
+        mov eax, dword [ClipRight]
         dec eax
         rep stosd
 .48:
@@ -1012,7 +1012,7 @@ jpt_120116_22F:
         inc edi
         lea edi, [nosplit edi*4+00h]
         add edi, dword [byte ebp-02Ch]
-        mov eax, dword [dword_16E678]
+        mov eax, dword [ClipTopRow]
         rep stosd
 .49:
         mov ecx, dword [byte esi+02Ch]
@@ -1023,7 +1023,7 @@ jpt_120116_22F:
         lea edi, [nosplit edi*4+00h]
         add edi, dword [byte ebp-02Ch]
         add edi, 1400h
-        mov eax, dword [dword_16E680]
+        mov eax, dword [ClipRight]
         dec eax
         rep stosd
 .50:
@@ -1063,9 +1063,9 @@ jpt_120116_22F:
         cld
         lea eax, [dword ebp-0282Ch]
         mov dword [byte ebp-02Ch], eax
-        mov eax, dword [dword_16E678]
+        mov eax, dword [ClipTopRow]
         mov dword [byte ebp-04h], eax
-        mov eax, dword [dword_16E680]
+        mov eax, dword [ClipRight]
         dec eax
         mov dword [byte ebp-08h], eax
         mov edi, dword [esi]
@@ -1159,19 +1159,19 @@ jpt_120116_22F:
         cmp ebx, dword [byte ebp-08h]
         jge short .67
         mov eax, dword [byte ebp-020h]
-        cmp eax, dword [dword_16E67C]
+        cmp eax, dword [ClipLeftCol]
         jl short .67
         mov ecx, dword [byte ebp-018h]
-        cmp ecx, dword [dword_16E684]
+        cmp ecx, dword [ScreenHeight]
         jge short .67
         mov byte [byte ebp-012h], 0
         cmp edx, dword [byte ebp-08h]
         jg short .64
         cmp ebx, dword [byte ebp-04h]
         jl short .64
-        cmp eax, dword [dword_16E684]
+        cmp eax, dword [ScreenHeight]
         jge short .64
-        cmp ecx, dword [dword_16E67C]
+        cmp ecx, dword [ClipLeftCol]
         jge short .65
 .64:
         mov byte [byte ebp-012h], 1
@@ -1234,15 +1234,15 @@ jpt_120116_22F:
         jmp short .74
 .76:
         mov eax, dword [byte ebp-020h]
-        cmp eax, dword [dword_16E684]
+        cmp eax, dword [ScreenHeight]
         jl short .77
-        mov eax, dword [dword_16E684]
+        mov eax, dword [ScreenHeight]
         dec eax
 .77:
         mov ebx, dword [byte ebp-018h]
-        cmp ebx, dword [dword_16E67C]
+        cmp ebx, dword [ClipLeftCol]
         jge short .78
-        mov ebx, dword [dword_16E67C]
+        mov ebx, dword [ClipLeftCol]
 .78:
         LD sub, eax, ebx
         jle short .79
@@ -1274,7 +1274,7 @@ CountVesaModes:
         xor ebx, ebx
         xor edx, edx
 .1:
-        mov eax, dword [dword edx+dword_16F8B8]
+        mov eax, dword [dword edx+ModeTableNumber]
         lea ecx, [byte ebx+01h]
         cmp eax, 100h
         jl short .2
@@ -1308,7 +1308,7 @@ FindModeByResolution:
         xor esi, esi
         mov dword [esp], ebx
 .1:
-        mov eax, dword [dword ebx+dword_16F8B8]
+        mov eax, dword [dword ebx+ModeTableNumber]
         lea ecx, [byte edx+01h]
         cmp eax, 100h
         jl short .2
@@ -1331,12 +1331,12 @@ FindModeByResolution:
         push ebp
         shl esi, 4
         call ZeroMem
-        mov eax, dword [dword esi+dword_16F8AC]
+        mov eax, dword [dword esi+ModeTableWidth]
         mov dword [byte ebp+00h], eax
-        mov eax, dword [dword esi+dword_16F8B0]
+        mov eax, dword [dword esi+ModeTableHeight]
         mov dword [byte ebp+04h], eax
         add esp, byte 8
-        mov eax, dword [dword esi+dword_16F8B4]
+        mov eax, dword [dword esi+ModeTableBpp]
         push eax
         mov dword [byte ebp+08h], eax
         call BytesPerPixelForDepth
@@ -1379,7 +1379,7 @@ SetModeByResolution:
         call SetGraphicsMode
         add esp, byte 0Ch
         mov eax, dword [byte esp+020h]
-        mov dword [dword_16E478], eax
+        mov dword [SelectedVideoMode], eax
         mov eax, 1
         add esp, byte 14h
         pop esi

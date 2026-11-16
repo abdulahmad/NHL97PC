@@ -17,7 +17,7 @@ extern str_Skate, str_Stop, str_Puckh, str_PlAct, str_PlFall, str_Interfer, str_
 extern str_Refcalls, str_Refambi, str_Fight, str_Cup2, str_Puck3, str_Stickheel, str_Origin, str_Chin
 extern str_Rhand, str_Lshldr, str_Rshldr, str_ANIMSVIV, str_MIRROR, str_SCALED, str_LOOP, str_MASTER
 extern str_SLAVE, str_FADING, str_4da, str_ANIMSTAT, str_AiconsViv, str_Cross, str_ANIMSVIV2, awtmstruct
-extern byte_16C429, byte_16FA40, byte_16FA4F, byte_19CA30, byte_19CB74, byte_19CBC2, byte_19CBC8, byte_19CBCA
+extern byte_16C429, IdentityRemap, PuckArrowColors, byte_19CA30, byte_19CB74, byte_19CBC2, byte_19CBC8, byte_19CBCA
 extern byte_19CBCC, byte_19CD8C, byte_19DAEF, byte_1AD72B, byte_1B1378, byte_1B1398, byte_1B8571, byte_1B8580
 extern byte_1B8582, byte_1B9058, byte_1BF670, chkprogress, F32_50_DrawPlayerModel, F32_200, F32_neg30, F32_20_DrawPlayerMarkers
 extern F32_neg20_DrawPlayerMarkers, F32_30, F32_65536_LoadFaceTexture, F32_4096, F32_464, F32_65536_BeginOffscreenRender, F32_65536_SetPortraitProjection, F32_2_CameraSplinePoint
@@ -47,8 +47,8 @@ extern dword_16B724, dword_16B72C, str_Punct_LoadAnimData, dword_16C360, dword_1
 extern dword_16C388, dword_16C38C, dword_16C390, dword_16C394, dword_16C398, dword_16C39C, dword_16C3A0, dword_16C3A4
 extern dword_16C3A8, dword_16C3AC, dword_16C3B0, dword_16C3F0, dword_16C54C, dword_16C550, dword_16C55C, dword_16C568
 extern dword_16C574, dword_16C580, dword_16C58C, dword_16C618, dword_16C63C, dword_16C648, F32_7p84727eneg44, F32_0
-extern dword_16C6B0, dword_16C6B4, dword_16C6B8, dword_16C6BC, dword_16E308, dword_16E408, str_Punct_DrawRinkSurface, dword_16F140
-extern dword_17025C, str_D_ProjectPointsPersp, dword_19CB44, dword_19CB48, dword_19CB4C, dword_19CB50, dword_19CB54, dword_19CB66
+extern dword_16C6B0, dword_16C6B4, dword_16C6B8, dword_16C6BC, dword_16E308, GoalieTickData, str_Punct_DrawRinkSurface, F32_50p0_View
+extern ViewCenterY, str_D_ProjectPointsPersp, dword_19CB44, dword_19CB48, dword_19CB4C, dword_19CB50, dword_19CB54, dword_19CB66
 extern dword_19CC00, dword_19CC02, dword_19CC54, dword_19CD54, dword_19DA68, dword_19DA70, dword_19EBAE, dword_19EBB4
 extern dword_19EBB8, dword_19ECBA, dword_19ECC0, dword_19ECC4, dword_1A8E84, dword_1A8E88, dword_1AC814, dword_1AC944
 extern dword_1AD437, dword_1AD69F, dword_1AD6A3, dword_1ADC88, dword_1ADC90, dword_1B0CFC, dword_1B1258, dword_1B1260
@@ -83,7 +83,7 @@ extern dword_1BF06C, dword_1BF070, dword_1BF074, dword_1BF078, dword_1BF07C, dwo
 extern dword_1BF1B4, dword_1BF248, dword_1BF7F0, dword_1BF7F4, dword_1BF7F8, dword_1BF7FC, dword_1BF800, dword_1BF888
 extern dword_1BF88C, dword_1BF890, dword_1BF894, dword_1BF898, dword_1BF89C, dword_1BF8A0, dword_1BF8A4, dword_1BF8A8
 extern dword_1BF8B0, dword_1BF8B4, dword_1C0EE0, dword_1C0EEC, dword_1C0EF0, dword_1C0EF8, dword_1C0EFC, FontGlyphColors
-extern DrawGlyphFn, ProjOffsetX, ProjOffsetY, ProjDetailScale, ProjAspect, UniformArtBuf, dword_1D91CC, dword_1D940C
+extern DrawGlyphFn, ProjOffsetX, ProjOffsetY, ProjDetailScale, ProjAspect, UniformArtBuf, ModelFileCount, BitReaderBits
 extern hmtmstruct, hypot_, kaufmfont, memcpy_, off_168CD8, off_168CE0, off_168CE8, off_168CF0
 extern off_168CFC, off_168D04, off_168D08, off_168D0C, off_16B6F8, off_16B708, off_16B738, off_16B7CC
 extern off_16B830, off_16B8C0, off_16B958, off_16B9A4, off_16BB54, off_16BC44, off_16BC5C, off_16BC98
@@ -176,7 +176,7 @@ extern FreeBitmap, SetDrawTarget, FillPolygon, FillPolygonPoints, FillRectColor,
 extern SetTextColors, ClearIfNaN, FloatsToInts, MatRotX, MatRotY, MatTranspose, MatMul, VecMulMat
 extern TransformVecs, TransformTranslateVecs, VecAdd, VecSub, OffsetVecs, SubVecs, VecCross, VecDistance
 extern VecLength, VecScale, VecDot, PerspectiveScale, ProjectCoord, ProjectPoints, ProjectPointInt, ClipProjectPoints
-extern tickcount, unk_16B534, unk_16B718, unk_16B728, unk_16C338, unk_16E8A0, unk_19D6A0, unk_19E060
+extern tickcount, unk_16B534, unk_16B718, unk_16B728, unk_16C338, DebugTagStr, unk_19D6A0, unk_19E060
 extern unk_1ACB44, unk_1B1120, unk_1B13E8, unk_1B73F0, unk_1B7448, unk_1B7BA8, unk_1B85DC, unk_1B8BD0
 extern unk_1B8D88, unk_1B8FA8, unk_1B91AF, unk_1B92AB, unk_1B94E0, unk_1B9520, unk_1B9A58, unk_1B9CF8
 extern unk_1BA510, unk_1BAA88, unk_1BB268, unk_1BBAB8, unk_1BBEE0, unk_1BD680, unk_1BE3A0, unk_1BE4F0
@@ -283,7 +283,7 @@ SetupPlayerModel:
         mov edx, 1
         mov ebx, esp
         mov eax, esi
-        mov dword [dword_1D91CC], edx
+        mov dword [ModelFileCount], edx
         mov edx, ecx
         call LoadPlayerFace
         mov ebx, unk_1B85DC
@@ -315,7 +315,7 @@ SetupPlayerModel:
         call ResetMorphVerts
         xor ecx, ecx
         add esp, byte 4
-        mov dword [dword_1D91CC], ecx
+        mov dword [ModelFileCount], ecx
 SetupPlayerModel_CD:
         add esp, byte 4
         pop ebp
@@ -898,7 +898,7 @@ LoadGoalieMask:
         sub eax, ebx
         mov edx, 1
         mov ecx, dword [nosplit eax*4+dword_1B84FC]
-        mov dword [dword_1D91CC], edx
+        mov dword [ModelFileCount], edx
         test ecx, ecx
         je short .1
         mov eax, ebx
@@ -1002,7 +1002,7 @@ LoadGoalieMask:
         call OpenResourceArchive
         xor esi, esi
         add esp, byte 4
-        mov dword [dword_1D91CC], esi
+        mov dword [ModelFileCount], esi
         add esp, byte 28h
         pop ebp
         pop edi
@@ -1948,7 +1948,7 @@ LoadGameModels:
         mov dword [byte esp+08h], ebx
         mov edx, 1
         xor ebx, ebx
-        mov dword [dword_1D91CC], edx
+        mov dword [ModelFileCount], edx
         mov dword [dword_1B8550], ebx
         call AllocSpriteBuffers
         mov eax, str_PlyrcomnViv
@@ -2183,7 +2183,7 @@ LoadGameModels:
         xor edi, edi
         call BuildFaceTextures
         push edi
-        mov dword [dword_1D91CC], edi
+        mov dword [ModelFileCount], edi
         call OpenResourceArchive
         add esp, byte 4
         add esp, byte 20h
@@ -2967,7 +2967,7 @@ UpdateViewMatrix:
         jbe short .15
         mov eax, dword [dword esp+0148h]
         fld dword [dword eax+0408h]
-        fcomp dword [dword_16F140]
+        fcomp dword [F32_50p0_View]
         fnstsw ax
         sahf
         ja short .16
@@ -5275,11 +5275,11 @@ DrawPlayerNames:
 .1:
         mov eax, dword [dword_1B8550]
         fld dword [dword eax+0424h]
-        fcomp dword [dword_16F140]
+        fcomp dword [F32_50p0_View]
         fnstsw ax
         sahf
         jb near .2
-        push unk_16E8A0
+        push DebugTagStr
         call SelectFont
         mov eax, dword [dword_1B8550]
         add esp, byte 4
@@ -5373,16 +5373,16 @@ DrawPuckArrow:
         call AngleOfVector
         xor edx, edx
         add esp, byte 8
-        mov dl, byte [byte_16FA40]
+        mov dl, byte [IdentityRemap]
         mov dword [byte esp+010h], edx
         xor edx, edx
-        mov dl, byte [byte_16FA4F]
+        mov dl, byte [PuckArrowColors]
         mov dword [byte esp+0Ch], edx
         mov edx, esp
         push edx
         lea edx, [byte esp+08h]
         push edx
-        mov edi, dword [dword_17025C]
+        mov edi, dword [ViewCenterY]
         push eax
         mov ebp, dword [str_D_ProjectPointsPersp]
         mov ebx, eax
@@ -5439,17 +5439,17 @@ DrawPuckArrow:
         mov al, byte [dword esi+0740h]
         add al, 0F0h
         push byte 0FFFFFFFFh
-        mov byte [byte_16FA40], al
+        mov byte [IdentityRemap], al
         call MatchColor
         add esp, byte 4
-        mov byte [byte_16FA4F], al
+        mov byte [PuckArrowColors], al
         mov ebp, dword [esp]
         mov eax, dword [str_D_ProjectPointsPersp]
         sub ebx, 2000h
         add eax, ebp
         mov edx, dword [byte esp+04h]
         push eax
-        mov eax, dword [dword_17025C]
+        mov eax, dword [ViewCenterY]
         and ebx, 0FFFFh
         add eax, edx
         sar ebx, 0Eh
@@ -5459,9 +5459,9 @@ DrawPuckArrow:
         call BlitShapeAt
         add esp, byte 0Ch
         mov al, byte [byte esp+010h]
-        mov byte [byte_16FA40], al
+        mov byte [IdentityRemap], al
         mov al, byte [byte esp+0Ch]
-        mov byte [byte_16FA4F], al
+        mov byte [PuckArrowColors], al
 .5:
         add esp, byte 14h
         pop ebp
@@ -5749,8 +5749,8 @@ LoadFaceArt:
         mov esi, eax
         mov edx, 1
         mov eax, str_FacesViv
-        mov ebp, dword [dword_1D91CC]
-        mov dword [dword_1D91CC], edx
+        mov ebp, dword [ModelFileCount]
+        mov dword [ModelFileCount], edx
         call SetArtArchive
         push byte 0
         push str_Facepal
@@ -5797,7 +5797,7 @@ LoadFaceArt:
         cmp ecx, byte 34h
         jne short .2
         push byte 0
-        mov dword [dword_1D91CC], ebp
+        mov dword [ModelFileCount], ebp
         call OpenResourceArchive
         add esp, byte 4
         pop ebp
@@ -9393,7 +9393,7 @@ UpdateCameraProjection:
         call ProjectPoints
 .1:
         fld dword [byte ecx+08h]
-        fcomp dword [dword_16F140]
+        fcomp dword [F32_50p0_View]
         fnstsw ax
         sahf
         seta al
@@ -9428,7 +9428,7 @@ ProjectRinkPoints:
         call ClipProjectPoints
 .1:
         fld dword [byte ecx+08h]
-        fcomp dword [dword_16F140]
+        fcomp dword [F32_50p0_View]
         fnstsw ax
         sahf
         seta al
@@ -13554,13 +13554,13 @@ GoalieTick:
         rdtsc
         mov ecx, eax
         mov eax, ebx
-        mov esi, dword [dword_16E408]
+        mov esi, dword [GoalieTickData]
         call UpdateGoalie
         mov eax, dword [dword ebx+0F6h]
         call AnimClockTick
         rdtsc
         sub eax, ecx
-        mov edx, dword [dword_16E408]
+        mov edx, dword [GoalieTickData]
         add eax, esi
         mov ebx, dword [dword_1BF050]
         sub eax, edx
@@ -43560,7 +43560,7 @@ DecodeAnimFrame:
         je short .3
         mov eax, dword [byte edi+014h]
         mov dword [byte esp+04h], eax
-        mov eax, dword [dword_1D940C]
+        mov eax, dword [BitReaderBits]
         mov dword [byte esp+010h], eax
         jmp short .4
 .3:
@@ -43575,7 +43575,7 @@ DecodeAnimFrame:
         sar eax, 10h
         mov edx, eax
         mov ebx, eax
-        mov eax, dword [dword_1D940C]
+        mov eax, dword [BitReaderBits]
         sar ebx, 3
         and edx, byte 7
         add eax, ebx
@@ -43798,7 +43798,7 @@ DecodeAnimDelta:
         je short .3
         mov eax, dword [byte edx+014h]
         mov dword [byte esp+04h], eax
-        mov eax, dword [dword_1D940C]
+        mov eax, dword [BitReaderBits]
         mov dword [byte esp+08h], eax
         jmp short .4
 .3:
@@ -43815,7 +43815,7 @@ DecodeAnimDelta:
         sar eax, 10h
         mov edx, eax
         mov esi, eax
-        mov eax, dword [dword_1D940C]
+        mov eax, dword [BitReaderBits]
         sar esi, 3
         and edx, byte 7
         add eax, esi

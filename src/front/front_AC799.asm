@@ -22,7 +22,7 @@ extern str_RS09RS11RS11, str_RS22, str_RS21, str_RS20, str_RS21RS22RS23, str_RS2
 extern str_RS25RS26RS27, str_RS30, str_RS29, str_RS28, str_RS29RS30RS31, str_RS38, str_RS37, str_RS36
 extern str_RS37RS38RS39, str_LB02d2, str_LH02d, str_LH26, str_TTL0, str_SDDSDD, str_SD02dSD02d, str_SD02dSDD
 extern str_SDDSD2, str_CSS, byte_16CCF0, byte_1C6040, byte_1C8338, dword_168E80, dword_16CCF1, dword_16D400
-extern dword_16D404, dword_16DA9C, dword_16E46C, dword_1AC814, dword_1ACF46, dword_1AD6AB, dword_1C5EEC, dword_1C95C8
+extern dword_16D404, dword_16DA9C, MenuScreenBitmap, dword_1AC814, dword_1ACF46, dword_1AD6AB, dword_1C5EEC, dword_1C95C8
 extern dword_1C95CC, dword_1C95D0, dword_1C95D4, dword_1C95D8, dword_1C95DC, dword_1C95E0, dword_1C95E4, dword_1C95E8
 extern dword_1C95EC, dword_1C95F0, dword_1C95F4, dword_1C95F8, dword_1C95FC, dword_1C9600, dword_1C9610, dword_1C9614
 extern dword_1C9618, dword_1C961C, dword_1C9620, dword_1C9624, dword_1C9628, fclose_, fopen_, fprintf_
@@ -3729,13 +3729,13 @@ StatsTablesScreen:
         push eax
         call OpenArtArchiveErr
         add esp, byte 8
-        push dword [dword_16E46C]
+        push dword [MenuScreenBitmap]
         push str_LOGO6
         push eax
         mov dword [byte ebp+04Eh], eax
         jmp short .15
 .14:
-        push dword [dword_16E46C]
+        push dword [MenuScreenBitmap]
         push str_NHLP2
         push ebx
 .15:
@@ -5027,13 +5027,13 @@ StatsTablesScreen_D0E:
         push eax
         call OpenArtArchiveErr
         add esp, byte 8
-        push dword [dword_16E46C]
+        push dword [MenuScreenBitmap]
         push str_LOGO6
         push eax
         mov dword [byte ebp+04Eh], eax
         jmp short .105
 .104:
-        push dword [dword_16E46C]
+        push dword [MenuScreenBitmap]
         push str_NHLP2
         push dword [byte ebp+016h]
 .105:

@@ -6,9 +6,9 @@ extern dword_1DA4D0, PacketChecksum_90, DrawShapeBlended_1F4, CopyRow8, CopyRow1
 extern ConvertRow4To16, ConvertRow8To8, ConvertRow8To16, ConvertRow16To16, ConvertRow16To8, ConvertRow16To15, ConvertRow15To15, ConvertRow15To16
 extern ConvertRow15To8, ConvertRow24To24, ConvertRow32To16, ConvertRow24To16, ConvertRow32To32, ConvertRowPalTo16, Convert565To555, Convert555To565
 extern ConvertIndexedTo32, Convert32To565Keyed, Convert32To555Keyed, ConvertIndexedTo16, SwapRedBlue555, Convert32To565, ConvertNibbleTo16, str_Fsh
-global byte_16F748, dword_16F188, dword_16F5AC, dword_16F5B4, dword_16F5B8, off_16F588, off_16F5BC, off_16F5C0
-global off_16F684
-dword_16F188:
+global ArtFormatCodes, PacketCrcTable, FshExtension, ConvertPalette, ColorKeyEnabled, BlitRowFuncTable, ConvertDestBuffer, ArtRowFuncs8
+global ArtRowFuncs16
+PacketCrcTable:
         db 00h,00h,00h,00h,0C1h,0C0h,00h,00h,081h,0C1h,00h,00h,040h,01h,00h,00h
         db 01h,0C3h,00h,00h,0C0h,03h,00h,00h,080h,02h,00h,00h,041h,0C2h,00h,00h
         db 01h,0C6h,00h,00h,0C0h,06h,00h,00h,080h,07h,00h,00h,041h,0C7h,00h,00h
@@ -73,7 +73,7 @@ dword_16F188:
         db 01h,087h,00h,00h,0C0h,047h,00h,00h,080h,046h,00h,00h,041h,086h,00h,00h
         db 01h,082h,00h,00h,0C0h,042h,00h,00h,080h,043h,00h,00h,041h,083h,00h,00h
         db 00h,041h,00h,00h,0C1h,081h,00h,00h,081h,080h,00h,00h,040h,040h,00h,00h
-off_16F588:
+BlitRowFuncTable:
         dd PacketChecksum_90
         dd CopyRow8
         dd CopyRow16
@@ -81,16 +81,16 @@ off_16F588:
         dd CopyRow24
         dd CopyRow32
         db 00h,00h,00h,00h,02h,00h,00h,00h,00h,00h,00h,00h
-dword_16F5AC:
+FshExtension:
         dd str_Fsh
         db 00h,00h,00h,00h
-dword_16F5B4:
+ConvertPalette:
         db 00h,00h,00h,00h
-dword_16F5B8:
+ColorKeyEnabled:
         db 01h,00h,00h,00h
-off_16F5BC:
+ConvertDestBuffer:
         dd dword_1DA4D0
-off_16F5C0:
+ArtRowFuncs8:
         dd DrawShapeBlended_1F4
         dd ConvertRow4To8
         dd ConvertNibbleTo16
@@ -140,7 +140,7 @@ off_16F5C0:
         dd SwapRedBlue555
         dd SwapRedBlue555
         dd ConvertRow16To16
-off_16F684:
+ArtRowFuncs16:
         dd DrawShapeBlended_1F4
         dd ConvertRow4To8
         dd ConvertNibbleTo16
@@ -190,7 +190,7 @@ off_16F684:
         dd SwapRedBlue555
         dd SwapRedBlue555
         dd ConvertRow16To16
-byte_16F748:
+ArtFormatCodes:
         db 07Ah,07Bh,07Eh,078h,07Bh,07Bh,07Eh,07Ah,07Bh,07Eh,078h,07Fh,07Dh,07Eh,078h,078h
         db 07Eh,078h,078h,07Dh,042h,07Bh,07Bh,07Eh,078h,07Fh,07Dh,07Eh,07Dh,07Dh,07Dh,07Dh
         db 07Fh,07Dh,07Dh,078h,078h,07Eh,078h,07Fh,07Dh,07Eh,07Eh,07Eh,07Eh,07Eh,07Eh,07Eh

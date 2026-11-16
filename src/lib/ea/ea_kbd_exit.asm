@@ -2,11 +2,11 @@
 bits 32
 %include "hockey.inc"
 section s_12FB20 progbits alloc exec nowrite align=1
-extern str_ExitYN, dword_16E464, dword_16E468, dword_16E46C, dword_16E4C8, dword_16E6A8, dword_16F184, dword_199990
-extern dword_199994, dword_199998, dword_19999C, dword_1999A0, dword_1999A4, off_16E4D4, off_16E4D8, off_16E4DC
-extern off_16E4E0, str_PAUSEPRESSANYKEY, BlitConverted, PresentScreen, SaveDrawContext, RestoreDrawContext, CreateBitmapDefault, ConvertArtAt
+extern str_ExitYN, dword_16E464, dword_16E468, MenuScreenBitmap, MessageBoxActive, BackBufferWidth, ExitHandler, dword_199990
+extern dword_199994, dword_199998, dword_19999C, dword_1999A0, dword_1999A4, PresentFunc, PresentFuncMenu, PresentFuncGame
+extern PresentFuncInput, str_PAUSEPRESSANYKEY, BlitConverted, PresentScreen, SaveDrawContext, RestoreDrawContext, CreateBitmapDefault, ConvertArtAt
 extern SaveTextState, RestoreTextState, DebugPrintf, DebugPrintAt, DebugPrintLine, DebugLineCount, SetScreenTarget, KbdGetKey
-extern MakeColor, SelectFont, FreeBitmap, SetDrawTarget, FillRect, SetTextColors, FillRectCorners, unk_16E8A0
+extern MakeColor, SelectFont, FreeBitmap, SetDrawTarget, FillRect, SetTextColors, FillRectCorners, DebugTagStr
 global ShowKeyMessageBox, AskExitGame, ShowPauseMessage, DosGetVector, DosSetVector, CallPreservingRegs
 ;-----------------------------------------------------------------------------
 ; ShowKeyMessageBox                              12FB20  97 PC, low confidence
@@ -29,9 +29,9 @@ ShowKeyMessageBox:
         mov dword [dword esp+0120h], eax
         call PresentScreen
         add esp, byte 4
-        mov edx, dword [dword_16E4C8]
+        mov edx, dword [MessageBoxActive]
         push edx
-        mov ebx, dword [dword_16E46C]
+        mov ebx, dword [MenuScreenBitmap]
         push ebx
         mov ecx, dword [dword esp+014Ch]
         push ecx
@@ -49,7 +49,7 @@ ShowKeyMessageBox:
         push eax
         call SaveTextState
         add esp, byte 4
-        push unk_16E8A0
+        push DebugTagStr
         call SelectFont
         add esp, byte 4
         mov eax, dword [dword esp+0130h]
@@ -64,10 +64,10 @@ ShowKeyMessageBox:
         push esi
         mov edx, dword [dword esp+0138h]
         push edx
-        push dword_16E6A8
+        push BackBufferWidth
         call DebugPrintf
         add esp, byte 14h
-        call dword [off_16E4D8]
+        call dword [PresentFuncMenu]
         push ebx
         call SetDrawTarget
         add esp, byte 4
@@ -125,19 +125,19 @@ ShowKeyMessageBox:
         push ebp
         call DebugPrintAt
         add esp, byte 8
-        call dword [off_16E4DC]
-        push dword_16E6A8
+        call dword [PresentFuncGame]
+        push BackBufferWidth
         call DebugPrintLine
         add esp, byte 4
 .1:
-        call dword [off_16E4E0]
+        call dword [PresentFuncInput]
         test eax, edi
         jne short .1
 .2:
         call KbdGetKey
         mov ebx, eax
         mov ebp, eax
-        call dword [off_16E4E0]
+        call dword [PresentFuncInput]
         mov esi, eax
         and esi, edi
         test ebx, ebx
@@ -162,10 +162,10 @@ ShowKeyMessageBox:
         push eax
         mov ebp, dword [dword esp+0138h]
         push ebp
-        push dword_16E6A8
+        push BackBufferWidth
         call DebugPrintf
         add esp, byte 14h
-        call dword [off_16E4D4]
+        call dword [PresentFunc]
         call SetScreenTarget
         mov eax, dword [dword esp+0130h]
         push eax
@@ -175,7 +175,7 @@ ShowKeyMessageBox:
         push ebx
         call BlitConverted
         add esp, byte 0Ch
-        call dword [off_16E4DC]
+        call dword [PresentFuncGame]
         mov eax, esp
         push eax
         call RestoreTextState
@@ -224,7 +224,7 @@ AskExitGame:
         call ShowKeyMessageBox
         test eax, eax
         je short .1
-        call dword [dword_16F184]
+        call dword [ExitHandler]
 .1:
         pop ebx
         ret
@@ -241,9 +241,9 @@ AskExitGame:
         mov esi, eax
         call PresentScreen
         add esp, byte 4
-        mov edx, dword [dword_16E4C8]
+        mov edx, dword [MessageBoxActive]
         push edx
-        mov ebx, dword [dword_16E46C]
+        mov ebx, dword [MenuScreenBitmap]
         push ebx
         push byte 0Ah
         mov ecx, dword [dword_16E464]
@@ -259,7 +259,7 @@ AskExitGame:
         push eax
         call SaveTextState
         add esp, byte 4
-        push unk_16E8A0
+        push DebugTagStr
         call SelectFont
         add esp, byte 4
         push ebx
@@ -272,10 +272,10 @@ AskExitGame:
         mov ebp, dword [dword_16E464]
         push ebp
         push byte 0
-        push dword_16E6A8
+        push BackBufferWidth
         call DebugPrintf
         add esp, byte 14h
-        call dword [off_16E4D8]
+        call dword [PresentFuncMenu]
         mov edi, dword [dword_16E468]
         sub edi, byte 0Ah
         call SetScreenTarget
@@ -313,13 +313,13 @@ AskExitGame:
         push ecx
         call DebugPrintAt
         add esp, byte 8
-        call dword [off_16E4DC]
+        call dword [PresentFuncGame]
         mov edi, dword [dword esp+0134h]
         call PresentScreen
         push edi
         call DebugLineCount
         add esp, byte 4
-        call dword [off_16E4D4]
+        call dword [PresentFunc]
         mov edi, dword [dword_16E468]
         sub edi, byte 0Ah
         call SetScreenTarget
@@ -329,7 +329,7 @@ AskExitGame:
         push ebp
         call BlitConverted
         add esp, byte 0Ch
-        call dword [off_16E4DC]
+        call dword [PresentFuncGame]
         mov eax, esp
         push eax
         call RestoreTextState

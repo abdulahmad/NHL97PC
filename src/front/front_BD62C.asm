@@ -6,8 +6,8 @@ extern SortCords, __CHP, __STOSD, str_Mous4, str_Remo3, str_Replload, str_RPEVEN
 extern str_Replregs, str_REPLAYNDX, str_DATAREPLAYNDX2, str_DONTHAVEIT2, str_Replay, str_SS10, str_Replbuff, str_SREPLAYNDX
 extern str_S12, str_NOIS, str_ARWD, byte_19CBC2, byte_1C6040, byte_1CB004, F32_0p005_ReplayScreen, F32_0p003125_ReplayScreen
 extern F32_0p005_DrawReplayTimeline, F32_0p003125_DrawReplayTimeline, F32_0p003125_PickReplayScreen, F32_0p005_PickReplayScreen, F32_0p003125_DrawReplayEntry, F32_0p005_DrawReplayEntry, F32_0p003125_ReplayMenuScreen, F32_0p005_ReplayMenuScreen
-extern dword_1686C0, InGameMenuRequest, dword_16CCF1, dword_16D500, dword_16DA9C, dword_16E464, dword_16E468, dword_16E46C
-extern dword_16E474, dword_16E500, dword_19CD10, dword_19CD14, dword_19CD20, dword_19CD24, dword_19CD28, dword_19CD2C
+extern dword_1686C0, InGameMenuRequest, dword_16CCF1, dword_16D500, dword_16DA9C, dword_16E464, dword_16E468, MenuScreenBitmap
+extern VideoModeCount, QuantizePalette, dword_19CD10, dword_19CD14, dword_19CD20, dword_19CD24, dword_19CD28, dword_19CD2C
 extern dword_19CD30, dword_19CD34, dword_19CD4C, dword_19CD54, dword_1A8E80, dword_1AC814, dword_1AC944, dword_1B1B64
 extern dword_1B8F4C, dword_1C1334, dword_1C1338, dword_1C5DA4, dword_1C5DE4, dword_1C5E78, dword_1C5EF4, dword_1C95B4
 extern dword_1C95BC, dword_1CAECC, dword_1CAED0, dword_1CAED4, dword_1CAED8, dword_1CAEDC, dword_1CAEE0, dword_1CAEE4
@@ -365,11 +365,11 @@ LoadReplay:
         call __STOSD
         call FreeAnimTables
         call FreeGameGraphics
-        cmp dword [dword_16E500], byte 0
+        cmp dword [QuantizePalette], byte 0
         je short .3
-        push dword [dword_16E500]
+        push dword [QuantizePalette]
         call FreeMemBlock
-        mov dword [dword_16E500], 0
+        mov dword [QuantizePalette], 0
         add esp, byte 4
 .3:
         xor eax, eax
@@ -422,7 +422,7 @@ VideoOptionsScreen:
         push byte 8
         push dword 1E0h
         push dword 280h
-        mov dword [dword_16E474], 1
+        mov dword [VideoModeCount], 1
         call SetGraphicsMode
         add esp, byte 0Ch
         call AllocGfxFixBuffer
@@ -639,7 +639,7 @@ VideoOptionsScreen:
         push byte 10h
         push dword 1E0h
         push dword 280h
-        mov dword [dword_16E474], 1
+        mov dword [VideoModeCount], 1
         call SetGraphicsMode
         add esp, byte 0Ch
         call AllocGfxFixBuffer
@@ -1568,11 +1568,11 @@ ReplayScreen_929:
         jne short .34
         call StopInputRecording
 .34:
-        cmp dword [dword_16E500], byte 0
+        cmp dword [QuantizePalette], byte 0
         je short .35
-        push dword [dword_16E500]
+        push dword [QuantizePalette]
         call FreeMemBlock
-        mov dword [dword_16E500], 0
+        mov dword [QuantizePalette], 0
         add esp, byte 4
 .35:
         call RestoreMenuView
@@ -2617,7 +2617,7 @@ PickReplayScreen:
         mov dword [dword ebp-0864h], eax
         mov dword [dword ebp-0868h], eax
         call SetScreenTarget
-        cmp dword [dword_16E46C], byte 8
+        cmp dword [MenuScreenBitmap], byte 8
         je short .4
         xor esi, esi
         jmp short .3

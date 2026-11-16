@@ -6,7 +6,7 @@ extern str_Roster, str_SS2, str_VIDEO, str_AUDSTRMHACK, str_ATE1Q0X4F1, str_Punc
 extern str_Mous2, str_Remo2, str_CHK1, str_X1, str_CB00, str_CB01, str_BACK2, str_LOGO2
 extern atoi_, byte_16C914, byte_16CCF0, byte_1ACF63, byte_1AD458, dword_16C734, dword_16C738, str_1_BuildSeasonSchedule
 extern dword_16C760, dword_16C982, dword_16C996, dword_16C9AC, dword_16C9B0, dword_16CAA8, dword_16CAAC, dword_16CB74
-extern dword_16DA9C, str_D_UpdateFrameRate, dword_16E698, dword_16E69C, dword_16E6A0, dword_16E6A8, dword_16E6BC, dword_16E6C8
+extern dword_16DA9C, str_D_UpdateFrameRate, DrawDestBuffer, DrawDestPitch, DrawDestOffset, BackBufferWidth, BackBufferHeight, MovieWidth
 extern dword_1AC814, dword_1AC940, dword_1ACF46, dword_1AD22A, dword_1AD244, dword_1AD248, dword_1AD24C, dword_1C1200
 extern dword_1C1204, dword_1C1208, dword_1C120C, dword_1C1210, dword_1C1214, dword_1C1218, dword_1C121C, dword_1C1220
 extern dword_1C1224, dword_1C1228, dword_1C122C, dword_1C1230, dword_1C1234, dword_1C1238, dword_1C123C, dword_1C1240
@@ -1564,18 +1564,18 @@ FadeMovieOut:
         db 08Dh,040h,00h
         push ecx
         push edx
-        mov eax, dword [dword_16E6C8]
+        mov eax, dword [MovieWidth]
         add eax, eax
         push eax
-        push dword_16E6A8
+        push BackBufferWidth
         call CloseVideoWindow
-        mov eax, dword [dword_16E6BC]
+        mov eax, dword [BackBufferHeight]
         mov edx, eax
         sar edx, 1Fh
         LD sub, eax, edx
         sar eax, 1
         add esp, byte 8
-        mov dword [dword_16E6BC], eax
+        mov dword [BackBufferHeight], eax
         pop edx
         pop ecx
         ret
@@ -1838,16 +1838,16 @@ CloseMovie:
         push edi
         mov dword [dword_1C1208], esi
         call FreeBitmap
-        mov eax, dword [dword_16E6C8]
+        mov eax, dword [MovieWidth]
         add esp, byte 4
         shr eax, 1
         push eax
-        push dword_16E6A8
+        push BackBufferWidth
         call CloseVideoWindow
-        mov ebp, dword [dword_16E6BC]
+        mov ebp, dword [BackBufferHeight]
         add ebp, ebp
         add esp, byte 8
-        mov dword [dword_16E6BC], ebp
+        mov dword [BackBufferHeight], ebp
         pop ebp
         pop edi
         pop esi
@@ -1894,11 +1894,11 @@ DecodeMovieFrame:
         push dword 4C0h
         mov ebx, ebp
         mov eax, esi
-        mov edx, dword [dword_16E6A0]
+        mov edx, dword [DrawDestOffset]
         mov eax, dword [edx+eax*4]
-        mov edx, dword [dword_16E698]
+        mov edx, dword [DrawDestBuffer]
         add eax, dword [edx+ebx*4]
-        add eax, dword [dword_16E69C]
+        add eax, dword [DrawDestPitch]
         push eax
         push edi
         call DecodeVideoFrame
@@ -1908,11 +1908,11 @@ DecodeMovieFrame:
         push dword 4C0h
         mov ebx, ebp
         mov eax, esi
-        mov edx, dword [dword_16E6A0]
+        mov edx, dword [DrawDestOffset]
         mov eax, dword [edx+eax*4]
-        mov edx, dword [dword_16E698]
+        mov edx, dword [DrawDestBuffer]
         add eax, dword [edx+ebx*4]
-        add eax, dword [dword_16E69C]
+        add eax, dword [DrawDestPitch]
         push eax
         push edi
         call DecodeVideoChunk
@@ -2283,17 +2283,17 @@ PlayMovie:
         call ClearScreen
         add esp, byte 4
         call PresentScreen
-        mov eax, dword [dword_16E6C8]
+        mov eax, dword [MovieWidth]
         add eax, eax
         push eax
-        push dword_16E6A8
+        push BackBufferWidth
         call CloseVideoWindow
-        mov eax, dword [dword_16E6BC]
+        mov eax, dword [BackBufferHeight]
         mov edx, eax
         sar edx, 1Fh
         LD sub, eax, edx
         sar eax, 1
-        mov dword [dword_16E6BC], eax
+        mov dword [BackBufferHeight], eax
         mov eax, dword [dword_16DA9C]
         add esp, byte 8
         test eax, eax

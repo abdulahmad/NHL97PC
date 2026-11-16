@@ -4,8 +4,8 @@ bits 32
 section s_11B20A progbits alloc exec nowrite align=1
 extern SetClipWindow, __flush_, __fprtf_, __int386x_, __ioalloc_, __qwrite_, __set_errno_, str_ATD2
 extern str_EAGAME08x04x04x02x02x02x0, str_Netserv, str_IPXINTF, str_IPXSOCK, str_Galloc, str_GMEM, str_GEND, str_GFRE
-extern str_Punct_FreeArtArchive, byte_172250, byte_172251, byte_1DA8CF, dword_16E3F4, dword_16E46C, str_D_UpdateFrameRate, dword_16E4BC
-extern dword_16E4C8, SinTable, str_Punct_CountFrameTick, dword_17213C, dword_172168, dword_172194, dword_172198, str_D_NetHandleMessage
+extern str_Punct_FreeArtArchive, byte_172250, byte_172251, byte_1DA8CF, TimerTicks, MenuScreenBitmap, str_D_UpdateFrameRate, FrameCounter
+extern MessageBoxActive, SinTable, str_Punct_CountFrameTick, dword_17213C, dword_172168, dword_172194, dword_172198, str_D_NetHandleMessage
 extern dword_1721A0, str_Punct_NetLeaveGame, dword_1721A8, dword_1721B0, dword_1721B4, dword_1721D4, dword_1721E0, dword_1721E4
 extern dword_172244, str_Punct_IpxHookCheck, dword_17224C, dword_172254, dword_172258, dword_17225C, dword_172260, dword_1722BC
 extern TextOriginX, TextOriginY, LinkTextFont, NetLocalName, NetPollState, NetSendFn, NetDisconnectFn, NetOpenFn
@@ -1407,8 +1407,8 @@ CountFrameTick:
         push esi
         push edi
         push ebp
-        inc dword [dword_16E4BC]
-        cmp dword [dword_16E46C], byte 8
+        inc dword [FrameCounter]
+        cmp dword [MenuScreenBitmap], byte 8
         jg short .2
         mov ebp, dword [byte esp+01Ch]
         mov edx, 3C8h
@@ -2215,7 +2215,7 @@ SameNetAddress:
         ret
         db 08Bh,0C0h
         push edx
-        mov edx, dword [dword_16E3F4]
+        mov edx, dword [TimerTicks]
         add eax, edx
         mov dword [dword_1721B4], eax
         pop edx
@@ -2225,7 +2225,7 @@ SameNetAddress:
 ; Returns whether the network timeout has passed
 ;-----------------------------------------------------------------------------
 NetTimeoutPassed:
-        mov eax, dword [dword_16E3F4]
+        mov eax, dword [TimerTicks]
         sub eax, dword [dword_1721B4]
         test eax, eax
         setge al
@@ -2380,7 +2380,7 @@ NetSendWait:
 .1:
         mov eax, dword [byte esp+08h]
         mov dword [dword esi+094h], eax
-        mov eax, dword [dword_16E3F4]
+        mov eax, dword [TimerTicks]
         mov ebp, dword [byte esp+020h]
         add eax, ebp
         mov dword [dword_1721B4], eax
@@ -3726,7 +3726,7 @@ NetAnnounce:
         mov dword [byte esp+040h], eax
         lea eax, [byte esp+030h]
         mov dword [dword ebx+094h], eax
-        mov eax, dword [dword_16E3F4]
+        mov eax, dword [TimerTicks]
         mov esi, dword [byte esp+064h]
         add eax, esi
         mov dword [dword_1721B4], eax
@@ -3743,7 +3743,7 @@ NetAnnounce:
         push byte 1
         call WaitTicks
         add esp, byte 4
-        mov eax, dword [dword_16E3F4]
+        mov eax, dword [TimerTicks]
         sub eax, dword [dword_1721B4]
         test eax, eax
         setge al
@@ -5600,7 +5600,7 @@ IpxPostListen:
         cmp dword [dword_17225C], byte 0
         je near .7
         mov eax, dword [dword_172260]
-        cmp eax, dword [dword_16E3F4]
+        cmp eax, dword [TimerTicks]
         jge short .1
         push byte 0
         push byte 4
@@ -5633,7 +5633,7 @@ IpxPostListen:
         shl eax, 4
         sub eax, edx
         shl eax, 2
-        mov edx, dword [dword_16E3F4]
+        mov edx, dword [TimerTicks]
         add eax, edx
         mov dword [dword_172260], eax
 .1:
@@ -6151,7 +6151,7 @@ IpxSetupLayer:
         je short .11
         jmp near .16
 .8:
-        mov edi, dword [dword_16E3F4]
+        mov edi, dword [TimerTicks]
         push eax
         mov ebx, 0EA61636Bh
         mov edx, dword [byte esp+08h]
@@ -6159,7 +6159,7 @@ IpxSetupLayer:
         xor ecx, ecx
         add edi, byte 2
         call IpxQueueSend
-        cmp edi, dword [dword_16E3F4]
+        cmp edi, dword [TimerTicks]
         jle short .10
         xor ebx, ebx
 .9:
@@ -6172,7 +6172,7 @@ IpxSetupLayer:
         push esi
         call IpxSendPacket
         add esp, byte 8
-        cmp edi, dword [dword_16E3F4]
+        cmp edi, dword [TimerTicks]
         jg short .9
 .10:
         mov ebx, dword [byte esp+08h]
@@ -7074,7 +7074,7 @@ AllocNetBuffer:
         pop ebx
         ret
 .1:
-        mov edx, dword [dword_16E4C8]
+        mov edx, dword [MessageBoxActive]
         push edx
         add eax, byte 0Ch
         push eax

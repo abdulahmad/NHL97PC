@@ -2,25 +2,25 @@
 bits 32
 %include "hockey.inc"
 section s_16FB40 progbits alloc noexec write align=1
-global dword_16FB40, dword_16FB50, dword_16FB54, dword_16FB58, dword_16FB5C, dword_16FB60, dword_16FB64, dword_16FB74
-global dword_16FECC, dword_16FFC4, unk_16FB44
-dword_16FB40:
+global CdSectorSize, CdFileMode, CdFileHandle, CdFileStart, CdFileSize, CdFilePos, CdFileBuffer, CdDriveCount
+global SinCosTable, CdStreamSpeed, CdFileTable
+CdSectorSize:
         db 00h,08h,00h,00h
-unk_16FB44:
+CdFileTable:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-dword_16FB50:
+CdFileMode:
         db 00h,00h,00h,00h
-dword_16FB54:
+CdFileHandle:
         db 00h,00h,00h,00h
-dword_16FB58:
+CdFileStart:
         db 00h,00h,00h,00h
-dword_16FB5C:
+CdFileSize:
         db 00h,00h,00h,00h
-dword_16FB60:
+CdFilePos:
         db 00h,00h,00h,00h
-dword_16FB64:
+CdFileBuffer:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-dword_16FB74:
+CdDriveCount:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -75,7 +75,7 @@ dword_16FB74:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h
-dword_16FECC:
+SinCosTable:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -92,5 +92,5 @@ dword_16FECC:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h
-dword_16FFC4:
+CdStreamSpeed:
         db 00h,00h,00h,00h

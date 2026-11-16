@@ -10,7 +10,7 @@ extern byte_19DAF1, byte_1AC81B, byte_1AC81C, byte_1AC81D, byte_1C135A, byte_1C1
 extern F32_10, F32_neg8, F32_neg8_StickReachZ, dword_16862E, dword_168630, dword_1686BA, dword_1686C0, F32_62
 extern F32_54, F32_0p8, dword_1686D0, dword_1686DC, InGameMenuRequest, dword_1686E2, dword_16AF3C, dword_16AF40
 extern dword_16AF44, dword_16AF48, dword_16AF4C, dword_16AF50, dword_16AF54, dword_16AF58, dword_16AF5C, dword_16C6BC
-extern InputRecordStamp, dword_16DA9C, dword_16E464, dword_16E468, dword_16E500, dword_19CB30, dword_19CB38, dword_19CB3C
+extern InputRecordStamp, dword_16DA9C, dword_16E464, dword_16E468, QuantizePalette, dword_19CB30, dword_19CB38, dword_19CB3C
 extern dword_19CB40, dword_19CB44, dword_19CB48, dword_19CB4C, dword_19CB50, dword_19CB58, dword_19CBAA, seed
 extern dword_19CBD0, penshottimer, dword_19CBE8, dword_19CBF8, dword_19CC00, dword_19CC54, dword_19CC58, dword_19CC78
 extern dword_19CC9C, dword_19CCA0, dword_19CCA4, dword_19CCA8, dword_19CD08, dword_19CD0C, dword_19CD10, dword_19CD14
@@ -3090,14 +3090,14 @@ PlayGame:
         call __STOSD
         call FreeAnimTables
         call FreeGameGraphics
-        mov edx, dword [dword_16E500]
+        mov edx, dword [QuantizePalette]
         test edx, edx
         je short .13
         push edx
         call FreeMemBlock
         xor ecx, ecx
         add esp, byte 4
-        mov dword [dword_16E500], ecx
+        mov dword [QuantizePalette], ecx
 .13:
         call IsInputRecording
         test eax, eax

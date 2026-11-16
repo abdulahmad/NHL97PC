@@ -17,7 +17,7 @@ extern str_SC18, str_SC17, str_SC16, str_SC17SC18SC19, str_SC30, str_SC29, str_S
 extern str_AB08, str_AB07, str_AB06, str_AB11, str_AB10, str_AB09, str_SC09SC10SC11, str_Rroster
 extern str_Lroster, str_POWR2, str_01d02d, byte_16CCF0, byte_1AD739, byte_1C6040, byte_1C8338, byte_1CAEC8
 extern dword_16CCF1, dword_16D400, dword_16D404, dword_16D454, dword_16D458, dword_16D45C, dword_16D470, dword_16D484
-extern dword_16D4B0, dword_16D4D4, dword_16DA9C, dword_16E46C, dword_1AC814, dword_1ACF46, dword_1AD6AB, dword_1C5EEC
+extern dword_16D4B0, dword_16D4D4, dword_16DA9C, MenuScreenBitmap, dword_1AC814, dword_1ACF46, dword_1AD6AB, dword_1C5EEC
 extern dword_1CAA00, dword_1CAB00, dword_1CAC00, dword_1CACDC, dword_1CAD28, dword_1CAD2C, dword_1CAD38, dword_1CAD48
 extern dword_1CAE24, dword_1CAE28, dword_1CAE2C, dword_1CAE34, dword_1CAE6C, dword_1CAE70, dword_1CAE74, dword_1CAE78
 extern dword_1CAE7C, dword_1CAE80, dword_1CAE84, dword_1CAE88, dword_1CAE8C, dword_1CAE90, dword_1CAE94, dword_1CAE98
@@ -363,7 +363,7 @@ DrawStatsCardPage:
         mov ebx, eax
         call FindColorRange
         call SetScreenTarget
-        push dword [dword_16E46C]
+        push dword [MenuScreenBitmap]
         push ebx
         call ConvertArtNew
         add esp, byte 8
@@ -4290,7 +4290,7 @@ DrawPlayerRatingsPage:
         call FindColorRange
         cmp byte [byte_1C6040], 0
         jne short .21
-        push dword [dword_16E46C]
+        push dword [MenuScreenBitmap]
         push edi
         call ConvertArtNew
         add esp, byte 8
@@ -4645,7 +4645,7 @@ DrawPlayerRatingsPage:
         call FindColorRange
         cmp byte [byte_1C6040], 0
         jne short .37
-        push dword [dword_16E46C]
+        push dword [MenuScreenBitmap]
         push edi
         call ConvertArtNew
         add esp, byte 8

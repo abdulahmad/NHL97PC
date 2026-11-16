@@ -8,7 +8,7 @@ extern GusDmaControl, BreakSaveStack, GusIrqOldHandler, GusMidiPending, GusMidiI
 extern GusWaveCallback, GusVolumeCallback, GusTimer1Callback, GusTimer2Callback, GusWaveIrqCallback, GusVolumeIrqCallback, GusMidiXmitCallback, GusMidiRecvCallback
 extern GusDmaBusy, OldInt23Offset, OldCtrlBreakOffset, OldInt23RealOffset, OldCtrlBreakRealOffset, DpmiHostedFlag, GusVoiceIrqBits, GusDmaLeft
 extern GusDmaChunkSize, GusDmaDone, inp_, kaufmfont, lseek_, off_171C80, outp_, raise_
-extern RestoreDS, GusConvertAddr16, unk_19CA1C, GusDmaChannels, BreakHandlerRegs, BreakHandlerStack, GusBasePort, GusIrqStatusPort
+extern RestoreDS, GusConvertAddr16, GusInitTable, GusDmaChannels, BreakHandlerRegs, BreakHandlerStack, GusBasePort, GusIrqStatusPort
 extern GusMidiControlPort, GusMidiDataPort, GusRegSelectPort, GusDataLowPort, GusDataHighPort, GusDramPort, GusIrqVectorTable, GusIrqOldSelector
 extern GusIrqPending, OldInt23Selector, OldCtrlBreakSelector, OldInt23RealSegment, OldCtrlBreakRealSegment, GusDosResult, GusIrqFlags, GusCriticalDepth
 extern GusDmaChunkLo, GusDmaChunkHi, GusDmaFlags
@@ -1247,7 +1247,7 @@ GusRunInitTable:
         push edx
         push esi
         push edi
-        mov esi, unk_19CA1C
+        mov esi, GusInitTable
         mov edi, kaufmfont
         LD mov, ebx, esi
 .1:

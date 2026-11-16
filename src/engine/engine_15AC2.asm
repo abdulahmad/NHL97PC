@@ -20,7 +20,7 @@ extern F32_50, F32_0p001, F32_80, F32_6, F32_neg2000_ReplayCamMove, F32_neg4800_
 extern F32_neg4272, F32_neg1392, F32_10_CanReachPuck, F32_24, F32_neg3984, F32_neg4272_InCrease, F32_4272_InCrease, F32_1272
 extern F32_4032, F32_768, F32_192, F32_48, F32_0p166667, dword_168628, dword_1686BA, dword_1686C0
 extern dword_1686D2, dword_1686E6, dword_16875E, dword_1687B8, dword_168934, dword_16893C, dword_16AF5C, dword_16B168
-extern dword_16E464, dword_16E468, dword_16E670, dword_19CB48, dword_19CB4C, dword_19CB50, dword_19CB5A, dword_19CB5E
+extern dword_16E464, dword_16E468, ScreenWidth, dword_19CB48, dword_19CB4C, dword_19CB50, dword_19CB5A, dword_19CB5E
 extern dword_19CB62, dword_19CB66, dword_19CB6A, dword_19CB7B, dword_19CBAA, penshottimer, dword_19CD10, dword_19CD14
 extern dword_19CD20, dword_19CD24, dword_19CD28, dword_19CD2C, dword_19CD30, dword_19CD34, dword_19D004, dword_19D008
 extern dword_19D00C, dword_19D010, dword_19D014, dword_19D018, dword_19D020, dword_19D024, dword_19D034, dword_19D038
@@ -65,7 +65,7 @@ extern tickcount, unk_158E2, unk_15932, unk_15982, unk_159D2, unk_15A22, unk_15A
 extern str_Punct_DrawGoalScorerPanel, unk_1601F1, unk_1601F4, unk_1687BC, unk_1687C8, unk_1687D4, unk_1687E0, unk_1687EC
 extern unk_1687F8, unk_168810, unk_16881C, unk_168828, unk_168834, unk_168840, unk_16884C, unk_168858
 extern unk_168864, unk_168870, unk_16887C, unk_168888, unk_168894, unk_1688A0, unk_1688AC, unk_1688B8
-extern unk_16897C, unk_1689AC, unk_1689FC, unk_168A24, unk_16AF14, unk_16E8A0, unk_16F110, unk_19CF8C
+extern unk_16897C, unk_1689AC, unk_1689FC, unk_168A24, unk_16AF14, DebugTagStr, SplineCoefs, unk_19CF8C
 extern unk_19D028, unk_19D04C, unk_19D05C, unk_19D0A4, unk_19D214, unk_19D298, unk_19D31C, unk_19D328
 extern unk_19E060, unk_1B0AD0, unk_1B0AE8, unk_1B1090, unk_1B9038, unk_1B92AB, vecdist, vtoa
 extern str_D_ChangeViewSize, word_1689BE, word_1689C8, word_1689CA, word_19C628, word_19C62A, word_19CB34, word_19CB36
@@ -614,7 +614,7 @@ DrawPanelArtScaled:
         enter 40h, 0
         mov ecx, 0Eh
         lea edi, [byte ebp-040h]
-        mov esi, dword_16E670
+        mov esi, ScreenWidth
         rep movsd
         test eax, eax
         je short .1
@@ -6913,7 +6913,7 @@ BuildSplinePath:
         call VecScale
         jmp short .6
 .5:
-        mov esi, unk_16F110
+        mov esi, SplineCoefs
         movsd
         movsd
         movsd
@@ -10215,7 +10215,7 @@ DrawCameraDebug:
         push eax
         call sprintf_
         add esp, byte 14h
-        push unk_16E8A0
+        push DebugTagStr
         call SelectFont
         add esp, byte 4
         push dword 0FF000000h

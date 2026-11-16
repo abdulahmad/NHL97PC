@@ -2,9 +2,9 @@
 bits 32
 %include "hockey.inc"
 section s_FC590 progbits alloc exec nowrite align=1
-extern dword_16E448, mousex, mousey, dword_16E454, dword_16E458, dword_16E45C, dword_16E464, dword_16E468
-extern mouseminx, mouseminy, mousemaxx, mousemaxy, dword_16E614, dword_16E618, dword_16E61C, dword_16E620
-extern dword_16E624, off_16E4D4, off_16E4D8, off_16E4DC, off_16E4E0, AddExitHandler
+extern MousePresent, mousex, mousey, MouseMoved, MouseHideCount, MouseInitDone, dword_16E464, dword_16E468
+extern mouseminx, mouseminy, mousemaxx, mousemaxy, MouseDeltaX, MouseButtonState, MouseSavedSensX, MouseSavedSensY
+extern MouseSavedThreshold, PresentFunc, PresentFuncMenu, PresentFuncGame, PresentFuncInput, AddExitHandler
 global MouseRead, MouseReadMotion, MouseReadButtons, MouseSetSensitivity, SetViewRect, MouseHide, MouseShow, MouseRestoreSensitivity
 global MouseInit
 ;-----------------------------------------------------------------------------
@@ -14,15 +14,15 @@ global MouseInit
 MouseReadButtons:
         push ebx
         LD xor, eax, eax
-        dec dword [dword_16E618]
+        dec dword [MouseButtonState]
         jne short .1
-        cmp dword [dword_16E448], byte 1
+        cmp dword [MousePresent], byte 1
         jb short .1
         mov eax, 3
         int 33h
         movsx eax, bx
 .1:
-        inc dword [dword_16E618]
+        inc dword [MouseButtonState]
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
@@ -33,7 +33,7 @@ MouseSetSensitivity:
         push ebp
         LD mov, ebp, esp
         push ebx
-        cmp dword [dword_16E448], byte 0
+        cmp dword [MousePresent], byte 0
         je short .1
         mov eax, 1Ah
         mov ebx, dword [byte ebp+08h]
@@ -47,7 +47,7 @@ MouseSetSensitivity:
         push ebp
         LD mov, ebp, esp
         push ebx
-        cmp dword [dword_16E448], byte 0
+        cmp dword [MousePresent], byte 0
         je short .2
         mov eax, 1Ah
         mov ebx, dword [byte ebp+08h]
@@ -109,9 +109,9 @@ SetViewRect:
 ;-----------------------------------------------------------------------------
 MouseReadMotion:
         pusha
-        dec dword [dword_16E618]
+        dec dword [MouseButtonState]
         jne near .5
-        mov eax, dword [dword_16E448]
+        mov eax, dword [MousePresent]
         LD or, eax, eax
         je near .5
         mov eax, 0Bh
@@ -119,7 +119,7 @@ MouseReadMotion:
         movsx ecx, cx
         movsx edx, dx
         mov eax, dword [mousex]
-        mov ebx, dword [dword_16E614]
+        mov ebx, dword [MouseDeltaX]
         LD add, ebx, ebx
         LD adc, eax, eax
         LD add, ecx, eax
@@ -146,31 +146,31 @@ MouseReadMotion:
         mov edx, dword [mousemaxy]
         dec edx
 .4:
-        mov dword [dword_16E614], ebx
+        mov dword [MouseDeltaX], ebx
         mov dword [mousex], ecx
         mov dword [mousey], edx
-        inc dword [dword_16E618]
+        inc dword [MouseButtonState]
         call MouseReadButtons
-        dec dword [dword_16E618]
-        mov dword [dword_16E454], eax
+        dec dword [MouseButtonState]
+        mov dword [MouseMoved], eax
 .5:
         popa
-        mov eax, dword [dword_16E454]
-        inc dword [dword_16E618]
+        mov eax, dword [MouseMoved]
+        inc dword [MouseButtonState]
         ret
 ;-----------------------------------------------------------------------------
 ; MouseHide                                       FC714  97 PC, low confidence
 ; Raises the mouse hide count
 ;-----------------------------------------------------------------------------
 MouseHide:
-        inc dword [dword_16E458]
+        inc dword [MouseHideCount]
         ret
 ;-----------------------------------------------------------------------------
 ; MouseShow                                       FC71B  97 PC, low confidence
 ; Lowers the mouse hide count
 ;-----------------------------------------------------------------------------
 MouseShow:
-        dec dword [dword_16E458]
+        dec dword [MouseHideCount]
         ret
 ;-----------------------------------------------------------------------------
 ; MouseRestoreSensitivity                         FC722  97 PC, low confidence
@@ -179,9 +179,9 @@ MouseShow:
 MouseRestoreSensitivity:
         pusha
         mov eax, 1Ah
-        mov ebx, dword [dword_16E61C]
-        mov ecx, dword [dword_16E620]
-        mov edx, dword [dword_16E624]
+        mov ebx, dword [MouseSavedSensX]
+        mov ecx, dword [MouseSavedSensY]
+        mov edx, dword [MouseSavedThreshold]
         int 33h
         popa
         ret
@@ -191,14 +191,14 @@ MouseRestoreSensitivity:
 ;-----------------------------------------------------------------------------
 MouseInit:
         pusha
-        mov dword [dword_16E448], 0
-        mov dword [dword_16E458], 0
-        mov dword [dword_16E45C], 0
+        mov dword [MousePresent], 0
+        mov dword [MouseHideCount], 0
+        mov dword [MouseInitDone], 0
         LD xor, eax, eax
         int 33h
         LD or, ax, ax
         je near .1
-        inc dword [dword_16E448]
+        inc dword [MousePresent]
         push dword [dword_16E468]
         push dword [dword_16E464]
         push byte 0
@@ -215,24 +215,24 @@ MouseInit:
         movzx ebx, bx
         movzx ecx, cx
         movzx edx, dx
-        mov dword [dword_16E61C], ebx
-        mov dword [dword_16E620], ecx
-        mov dword [dword_16E624], edx
+        mov dword [MouseSavedSensX], ebx
+        mov dword [MouseSavedSensY], ecx
+        mov dword [MouseSavedThreshold], edx
         push byte 40h
         push byte 20h
         push byte 20h
         call MouseSetSensitivity
         lea eax, [MouseShow]
-        mov dword [off_16E4D4], eax
-        mov dword [off_16E4D8], eax
+        mov dword [PresentFunc], eax
+        mov dword [PresentFuncMenu], eax
         lea eax, [MouseHide]
-        mov dword [off_16E4DC], eax
+        mov dword [PresentFuncGame], eax
         lea eax, [MouseReadMotion]
-        mov dword [off_16E4E0], eax
+        mov dword [PresentFuncInput], eax
         push MouseRestoreSensitivity
         call AddExitHandler
         add esp, byte 20h
 .1:
         popa
-        mov eax, dword [dword_16E448]
+        mov eax, dword [MousePresent]
         ret

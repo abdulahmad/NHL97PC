@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_123414 progbits alloc exec nowrite align=1
-extern dword_16E678, dword_16E67C, dword_16E680, dword_16E684, str_2_SetupRectFill, off_199CEC, PlotPixel, FillRect
+extern ClipTopRow, ClipLeftCol, ClipRight, ScreenHeight, str_2_SetupRectFill, off_199CEC, PlotPixel, FillRect
 global jpt_123595, jpt_1235F5, jpt_1236E1, jpt_1237CB, jpt_1239B2, jpt_123D10, SetupRectFill_D, SetupRectFill_5B
 global SetupRectFill_165, jpt_123595_40, jpt_1235F5_D2, jpt_1236E1_DF, jpt_1237CB_14A, jpt_1237CB_1DB, jpt_1239B2_145, jpt_1239B2_153
 global jpt_1239B2_1AC, jpt_1239B2_1BF, jpt_1239B2_27F, FillRectSpans_7C, FillRectSpans_A2, FillRectSpans_C7, FillRectSpans_E7, FillRectSpans_107
@@ -67,8 +67,8 @@ SetupRectFill_5B:
         db 080h,07Dh,0FBh,00h                   ; insn: cmp byte [ebp-5],0
         jne short .11
         mov eax, dword [byte esi+0Ch]
-        mov ebx, dword [dword_16E67C]
-        mov ecx, dword [dword_16E684]
+        mov ebx, dword [ClipLeftCol]
+        mov ecx, dword [ScreenHeight]
         LD cmp, eax, ecx
         jl short .3
         mov dl, 8
@@ -88,8 +88,8 @@ SetupRectFill_5B:
         jl short .6
         or dl, 8
 .6:
-        mov ebx, dword [dword_16E678]
-        mov ecx, dword [dword_16E680]
+        mov ebx, dword [ClipTopRow]
+        mov ecx, dword [ClipRight]
         mov eax, dword [byte esi+04h]
         LD cmp, eax, ebx
         jge short .7
@@ -214,7 +214,7 @@ jpt_123595_40:
         ret
 .1:
         mov eax, dword [byte esi+0Ch]
-        mov ecx, dword [dword_16E67C]
+        mov ecx, dword [ClipLeftCol]
         mov dword [byte esi+0Ch], ecx
         LD sub, ecx, eax
         mov bl, byte [byte esi+034h]
@@ -271,7 +271,7 @@ jpt_1235F5:
         jmp near jpt_1239B2_145
 .7:
         mov dword [byte esi+018h], 1
-        mov eax, dword [dword_16E67C]
+        mov eax, dword [ClipLeftCol]
         mov dword [byte esi+0Ch], eax
         mov eax, dword [byte esi+010h]
         mov dword [byte esi+04h], eax
@@ -297,7 +297,7 @@ jpt_1235F5:
 ;-----------------------------------------------------------------------------
 jpt_1235F5_D2:
         mov ecx, dword [byte esi+014h]
-        mov edx, dword [dword_16E684]
+        mov edx, dword [ScreenHeight]
         dec edx
         mov dword [byte esi+014h], edx
         LD sub, ecx, edx
@@ -403,7 +403,7 @@ jpt_1237CB:
         dd .8
         dd .9
 .1:
-        mov ecx, dword [dword_16E678]
+        mov ecx, dword [ClipTopRow]
         mov eax, dword [byte esi+010h]
         mov dword [byte esi+010h], ecx
         LD sub, ecx, eax
@@ -413,7 +413,7 @@ jpt_1237CB:
         jmp near jpt_1239B2_1AC
 .2:
         mov eax, dword [byte esi+04h]
-        mov ecx, dword [dword_16E678]
+        mov ecx, dword [ClipTopRow]
         mov dword [byte esi+04h], ecx
         LD sub, ecx, eax
         add dword [byte esi+020h], ecx
@@ -423,7 +423,7 @@ jpt_1237CB:
 .3:
         mov eax, dword [esi]
         mov edx, dword [byte esi+04h]
-        mov ecx, dword [dword_16E678]
+        mov ecx, dword [ClipTopRow]
         mov dword [byte esi+010h], ecx
         LD sub, edx, ecx
         jl short .5
@@ -446,7 +446,7 @@ jpt_1237CB:
         mov eax, 1
         jmp short .4
 .6:
-        mov edx, dword [dword_16E678]
+        mov edx, dword [ClipTopRow]
         LD xor, eax, eax
         sub eax, dword [esi]
         sbb edx, dword [byte esi+04h]
@@ -468,7 +468,7 @@ jpt_1237CB:
         jmp short .10
 .8:
         mov eax, dword [byte esi+04h]
-        mov edx, dword [dword_16E678]
+        mov edx, dword [ClipTopRow]
         mov dword [byte esi+010h], edx
         LD sub, eax, edx
         LD mov, ecx, eax
@@ -486,7 +486,7 @@ jpt_1237CB:
         jmp near jpt_1239B2_1AC
 .9:
         mov ecx, dword [byte esi+04h]
-        mov eax, dword [dword_16E678]
+        mov eax, dword [ClipTopRow]
         mov dword [byte esi+04h], eax
         LD sub, eax, ecx
         sub dword [byte esi+018h], eax
@@ -512,7 +512,7 @@ jpt_1237CB_14A:
         mov al, byte [byte esi+035h]
         test al, 4
         je short .11
-        mov ebx, dword [dword_16E67C]
+        mov ebx, dword [ClipLeftCol]
         mov dword [byte esi+0Ch], ebx
         mov dword [byte esi+08h], 0
         dec ebx
@@ -521,24 +521,24 @@ jpt_1237CB_14A:
 .11:
         test al, 8
         je short .12
-        mov ebx, dword [dword_16E684]
+        mov ebx, dword [ScreenHeight]
         mov dword [byte esi+0Ch], ebx
         mov dword [byte esi+08h], 0
         jmp short .16
 .12:
         mov ecx, dword [byte esi+014h]
-        cmp ecx, dword [dword_16E684]
+        cmp ecx, dword [ScreenHeight]
         jl short .13
-        mov ecx, dword [dword_16E684]
+        mov ecx, dword [ScreenHeight]
         dec ecx
 .13:
         mov edx, dword [byte esi+0Ch]
         mov ebx, dword [byte esi+08h]
         add ebx, 80000000h
         adc edx, byte 0
-        cmp edx, dword [dword_16E67C]
+        cmp edx, dword [ClipLeftCol]
         jge short .14
-        mov edx, dword [dword_16E67C]
+        mov edx, dword [ClipLeftCol]
 .14:
         mov dword [byte esi+0Ch], edx
         mov dword [byte esi+08h], 0
@@ -579,7 +579,7 @@ jpt_1239B2:
         jmp near jpt_1237CB_14A
 .2:
         mov ecx, dword [byte esi+04h]
-        mov eax, dword [dword_16E680]
+        mov eax, dword [ClipRight]
         dec eax
         mov dword [byte esi+04h], eax
         LD sub, ecx, eax
@@ -588,7 +588,7 @@ jpt_1239B2:
         add dword [byte esi+028h], ecx
         jmp near jpt_123595_40
 .3:
-        mov ecx, dword [dword_16E680]
+        mov ecx, dword [ClipRight]
         dec ecx
         mov eax, dword [byte esi+010h]
         mov dword [byte esi+010h], ecx
@@ -600,7 +600,7 @@ jpt_1239B2:
 .4:
         mov eax, dword [esi]
         mov edx, dword [byte esi+04h]
-        sub edx, dword [dword_16E680]
+        sub edx, dword [ClipRight]
         inc edx
         mov ecx, dword [byte esi+030h]
         div ecx
@@ -616,7 +616,7 @@ jpt_1239B2:
         sbb dword [byte esi+04h], edx
         jmp near jpt_123595_40
 .5:
-        mov edx, dword [dword_16E680]
+        mov edx, dword [ClipRight]
         dec edx
         mov dword [byte esi+010h], edx
         LD xor, eax, eax
@@ -639,7 +639,7 @@ jpt_1239B2:
         jmp near jpt_123595_40
 .6:
         mov eax, dword [byte esi+04h]
-        mov ecx, dword [dword_16E680]
+        mov ecx, dword [ClipRight]
         dec ecx
         LD sub, eax, ecx
         mov dword [byte esi+04h], ecx
@@ -659,7 +659,7 @@ jpt_1239B2:
         add dword [byte esi+028h], edx
         jmp near jpt_123595_40
 .7:
-        mov eax, dword [dword_16E680]
+        mov eax, dword [ClipRight]
         LD mov, ecx, eax
         dec ecx
         mov dword [byte esi+010h], ecx
@@ -689,23 +689,23 @@ jpt_1239B2_145:
 jpt_1239B2_153:
         LD xor, edx, edx
         mov eax, dword [byte esi+04h]
-        cmp eax, dword [dword_16E678]
+        cmp eax, dword [ClipTopRow]
         jge short .8
         or dh, 2
 .8:
         mov ebx, dword [esi]
         add ebx, 80000000h
         adc eax, byte 0
-        cmp eax, dword [dword_16E680]
+        cmp eax, dword [ClipRight]
         jl short .9
         or dh, 1
 .9:
         mov eax, dword [byte esi+010h]
-        cmp eax, dword [dword_16E678]
+        cmp eax, dword [ClipTopRow]
         jge short .10
         or dl, 2
 .10:
-        cmp eax, dword [dword_16E680]
+        cmp eax, dword [ClipRight]
         jl short .11
         or dl, 1
 .11:
@@ -745,7 +745,7 @@ jpt_1239B2_1BF:
 .15:
         cmp byte [byte ebp-05h], 0
         jne short .17
-        mov ebx, dword [dword_16E67C]
+        mov ebx, dword [ClipLeftCol]
         LD cmp, eax, ebx
         jge short .18
         mov al, 4
@@ -766,7 +766,7 @@ jpt_1239B2_1BF:
         mov dword [byte esi+018h], edx
         jmp near jpt_123595_40
 .18:
-        mov ebx, dword [dword_16E684]
+        mov ebx, dword [ScreenHeight]
         LD cmp, eax, ebx
         jl short .19
         mov al, 8
@@ -778,21 +778,21 @@ jpt_1239B2_1BF:
         LD sub, eax, ecx
         inc eax
         mov dword [byte esi+018h], eax
-        cmp edx, dword [dword_16E678]
+        cmp edx, dword [ClipTopRow]
         jge short .20
         dec dword [byte esi+014h]
         mov dword [byte esi+024h], 1
         mov al, 2
         jmp short .16
 .20:
-        cmp ecx, dword [dword_16E680]
+        cmp ecx, dword [ClipRight]
         jl short .21
         dec dword [byte esi+014h]
         mov dword [byte esi+02Ch], 1
         mov al, 1
         jmp short .16
 .21:
-        mov eax, dword [dword_16E678]
+        mov eax, dword [ClipTopRow]
         LD mov, ebx, eax
         LD sub, eax, ecx
         jle short .22
@@ -800,7 +800,7 @@ jpt_1239B2_1BF:
         sub dword [byte esi+018h], eax
 .22:
         LD mov, eax, edx
-        mov ebx, dword [dword_16E680]
+        mov ebx, dword [ClipRight]
         dec ebx
         LD sub, eax, ebx
         jle short .23
@@ -832,19 +832,19 @@ jpt_1239B2_27F:
         LD add, eax, ecx
         mov dword [byte esi+0Ch], eax
         LD mov, ebx, eax
-        sub eax, dword [dword_16E67C]
+        sub eax, dword [ClipLeftCol]
         jle short .29
         LD cmp, eax, ecx
         jle short .26
         LD mov, eax, ecx
 .26:
-        sub ebx, dword [dword_16E684]
+        sub ebx, dword [ScreenHeight]
         jle short .27
         LD sub, eax, ebx
         jle short .29
 .27:
         mov ebx, dword [byte esi+04h]
-        cmp ebx, dword [dword_16E678]
+        cmp ebx, dword [ClipTopRow]
         jge short .28
         add dword [byte esi+020h], eax
         jmp short .29
@@ -870,7 +870,7 @@ jpt_1239B2_27F:
         LD sub, eax, ecx
         mov dword [byte esi+014h], eax
         LD mov, ebx, eax
-        sub eax, dword [dword_16E684]
+        sub eax, dword [ScreenHeight]
         inc eax
         jge short .35
         neg eax
@@ -878,14 +878,14 @@ jpt_1239B2_27F:
         jle short .32
         LD mov, eax, ecx
 .32:
-        sub ebx, dword [dword_16E67C]
+        sub ebx, dword [ClipLeftCol]
         inc ebx
         jge short .33
         LD add, eax, ebx
         jle short .35
 .33:
         mov ebx, dword [byte esi+010h]
-        cmp ebx, dword [dword_16E678]
+        cmp ebx, dword [ClipTopRow]
         jge short .34
         add dword [byte esi+024h], eax
         jmp short .35

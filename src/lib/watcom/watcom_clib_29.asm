@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_135C52 progbits alloc exec nowrite align=1
-extern __fdiv_fpr, _matherr_, byte_16E415, MathErrorFlags, HugeValHi, dword_19A6E0, F32_16___fpatan_chk, F32_0p0625
-extern off_19C894, F64_1eneg08, HugeValLo, F64_1, F80_3p14159, F80_1p5708___fpatan_chk, F80_neg0p333333, F80_0p2
+extern __fdiv_fpr, _matherr_, FpuType, MathErrorFlags, HugeValHi, dword_19A6E0, F32_16___fpatan_chk, F32_0p0625
+extern FpatanJumpTable, F64_1eneg08, HugeValLo, F64_1, F80_3p14159, F80_1p5708___fpatan_chk, F80_neg0p333333, F80_0p2
 extern F80_neg0p142857, F80_0p111111, F80_neg0p0909076, F80_0p0764169, F80_0, str_0123456789abcdefghijklmnopqr
 global __fpatan_chk, __math1err_, __math2err_, __math87_err_, itoa_, __fpatan_chk_160, __fpatan_chk_16B, __fpatan_chk_178
 global __fpatan_chk_18B, __fpatan_chk_1A0, __fpatan_chk_1B3, __fpatan_chk_1C8, __fpatan_chk_1DB, ltoa_, CheckPentiumFdiv, ultoa_
@@ -141,7 +141,7 @@ CheckPentiumFdiv:
         mov dword [esp], 80000000h
         mov dword [byte esp+04h], 4147FFFFh
         xor eax, eax
-        mov al, byte [byte_16E415]
+        mov al, byte [FpuType]
         cmp eax, byte 3
         jl short .1
         fld qword [byte esp+08h]
@@ -276,7 +276,7 @@ __fpatan_chk:
         faddp
         fld tword [dword ecx+F80_0]
         faddp
-        jmp dword [nosplit edx*4+off_19C894]
+        jmp dword [nosplit edx*4+FpatanJumpTable]
 __fpatan_chk_160:
         fldcw word [byte esp+018h]
         add esp, byte 24h

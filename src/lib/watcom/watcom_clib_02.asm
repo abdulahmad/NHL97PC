@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_FBD60 progbits alloc exec nowrite align=1
-extern unk_16E3E8
+extern RandSeed
 global __STOSB, __STOSD, rand_, srand_, GetRandState
 ;-----------------------------------------------------------------------------
 ; __STOSB                                                       FBD60  library
@@ -100,7 +100,7 @@ __STOSD:
 ; Returns the C library's rand state address
 ;-----------------------------------------------------------------------------
 GetRandState:
-        mov eax, unk_16E3E8
+        mov eax, RandSeed
         ret
 ;-----------------------------------------------------------------------------
 ; rand_                                                         FBE09  library

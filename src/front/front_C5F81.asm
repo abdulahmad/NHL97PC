@@ -5,7 +5,7 @@ section s_C5F81 progbits alloc exec nowrite align=1
 extern str_00007, str_ON00, str_OF00, str_MA00, str_AUOO, str_5000, str_1000, str_2000
 extern str_NA00, str_10IL, str_102L, str_103L, str_ONDL, str_OFDL, str_MADL, str_AUDL
 extern str_50DL, str_20DL, str_NADL, str_OFF, str_LX002, str_LC002, str_LX0D2, str_LC0D2
-extern str_BALL, byte_1AD23E, byte_1AD252, byte_1AD739, byte_1C6040, dword_16D664, dword_16E46C, dword_1AC814
+extern str_BALL, byte_1AD23E, byte_1AD252, byte_1AD739, byte_1C6040, dword_16D664, MenuScreenBitmap, dword_1AC814
 extern dword_1AC944, dword_1AD251, dword_1C5DE4, dword_1CBB94, dword_1CBB98, dword_1CBBA4, dword_1CBBB4, dword_1CBBC4
 extern dword_1CBBD4, dword_1CBBE4, dword_1CBBE8, dword_1CBBEC, dword_1CBBF0, dword_1CBBF4, dword_1CBC04, dword_1CBC14
 extern dword_1CBC1C, dword_1CBC28, dword_1CBC2C, dword_1CBC32, dword_1CBC36, dword_1CBC3A, dword_1CBC3E, dword_1CBC42
@@ -506,7 +506,7 @@ SeasonSetupScreen:
         add esp, byte 4
         test di, di
         jne short .5
-        push dword [dword_16E46C]
+        push dword [MenuScreenBitmap]
         push str_LX002
         push dword [dword_1C5DE4]
         call FindShape
@@ -554,7 +554,7 @@ SeasonSetupScreen:
         add esp, byte 4
         test di, di
         jne short .7
-        push dword [dword_16E46C]
+        push dword [MenuScreenBitmap]
         push str_LC002
         push dword [dword_1C5DE4]
         call FindShape

@@ -2,9 +2,9 @@
 bits 32
 %include "hockey.inc"
 section s_FCF84 progbits alloc exec nowrite align=1
-extern byte_16E688, str_Punct_FreeArtArchive, dword_16E46C, dword_16E670, dword_16E678, dword_16E67C, dword_16E680, dword_16E684
-extern dword_16E690, dword_16E694, dword_16E698, dword_16E69C, dword_16E6A0, PolyTopRow, PolyRowCount, FillColor
-extern ReciprocalTable, dword_1DA8D8, off_16E87C, ConvertArtSame, VesaSetBank, CreateBitmapEx, BlitCore, SetBlitSource
+extern ScreenBitsPerPixel, str_Punct_FreeArtArchive, MenuScreenBitmap, ScreenWidth, ClipTopRow, ClipLeftCol, ClipRight, ScreenHeight
+extern ScreenPitch, ScreenBuffer, DrawDestBuffer, DrawDestPitch, DrawDestOffset, PolyTopRow, PolyRowCount, FillColor
+extern ReciprocalTable, dword_1DA8D8, FillRowFuncTable, ConvertArtSame, VesaSetBank, CreateBitmapEx, BlitCore, SetBlitSource
 extern CopyScaledSpan, ShapeRowBytes, BuildSpanOffsets, FillMemFast, RemapPixels, ClipPolyLeft, ClipPolyRight, ClipPolyTop
 extern ClipPolyBottom, SetupRectFill, FillRectSpans, StoreLittleEndian, FreeMemBlock, FillMemPattern, DrawShapeCore, PolySpanEdges
 global FillRectColor_48, FillRectColor_5C, FillRectColor_6C, FillRectColor_80, mem_putc_, DrawShapeAtOwnPos, DrawArt, DrawShape
@@ -106,7 +106,7 @@ DrawShape:
         push edx
         mov ebx, dword [byte esp+01Ch]
         push ebx
-        mov ecx, dword [dword_16E46C]
+        mov ecx, dword [MenuScreenBitmap]
         push ecx
         mov esi, dword [byte esp+020h]
         push esi
@@ -127,7 +127,7 @@ DrawShape:
         push byte 0
         mov edx, dword [byte esp+018h]
         push edx
-        mov ebx, dword [dword_16E46C]
+        mov ebx, dword [MenuScreenBitmap]
         push ebx
         mov ecx, dword [byte esp+01Ch]
         push ecx
@@ -146,7 +146,7 @@ DrawShape:
 ;-----------------------------------------------------------------------------
 ; CreateBitmap                                 FD08C  95 PC, medium confidence
 ; Graphics library: create a bitmap (w, h, flags) at the current pixel depth
-; (dword_16E46C); returns the bitmap
+; (MenuScreenBitmap); returns the bitmap
 ;-----------------------------------------------------------------------------
 CreateBitmap:
         push ebx
@@ -154,7 +154,7 @@ CreateBitmap:
         push byte 1
         mov edx, dword [byte esp+018h]
         push edx
-        mov ebx, dword [dword_16E46C]
+        mov ebx, dword [MenuScreenBitmap]
         push ebx
         mov ecx, dword [byte esp+01Ch]
         push ecx
@@ -171,7 +171,7 @@ CreateBitmap:
         push edi
         mov ecx, 0Eh
         mov esi, dword [byte esp+0Ch]
-        mov edi, dword_16E670
+        mov edi, ScreenWidth
         mov eax, 1
         rep movsd
         pop edi
@@ -188,7 +188,7 @@ LoadDrawContext:
         push edi
         mov ecx, 0Eh
         mov esi, dword [byte esp+0Ch]
-        mov edi, dword_16E670
+        mov edi, ScreenWidth
         mov eax, 1
         rep movsd
         pop edi
@@ -198,14 +198,14 @@ LoadDrawContext:
 ;-----------------------------------------------------------------------------
 ; SetDrawTarget                                   FD0F8  97 PC, low confidence
 ; Makes a bitmap the current draw target: copies its 0Eh-dword header to
-; dword_16E670
+; ScreenWidth
 ;-----------------------------------------------------------------------------
 SetDrawTarget:
         push esi
         push edi
         mov ecx, 0Eh
         mov esi, dword [byte esp+0Ch]
-        mov edi, dword_16E670
+        mov edi, ScreenWidth
         rep movsd
         pop edi
         pop esi
@@ -213,19 +213,19 @@ SetDrawTarget:
         db 00h,00h,00h
 ;-----------------------------------------------------------------------------
 ; ClearScreen                                  FD110  95 PC, medium confidence
-; Graphics library: fills the whole current draw target (dword_16E678..684)
+; Graphics library: fills the whole current draw target (ClipTopRow..684)
 ; with a colour (sub_FDD1C)
 ;-----------------------------------------------------------------------------
 ClearScreen:
         push ebx
         mov edx, dword [byte esp+08h]
-        mov eax, dword [dword_16E684]
-        mov ebx, dword [dword_16E67C]
+        mov eax, dword [ScreenHeight]
+        mov ebx, dword [ClipLeftCol]
         push edx
         sub eax, ebx
-        mov ecx, dword [dword_16E678]
+        mov ecx, dword [ClipTopRow]
         push eax
-        mov eax, dword [dword_16E680]
+        mov eax, dword [ClipRight]
         sub eax, ecx
         push eax
         push ebx
@@ -251,7 +251,7 @@ DrawScaledRow:
         mov eax, edi
         xor edx, edx
         call VesaSetBank
-        mov dl, byte [byte_16E688]
+        mov dl, byte [ScreenBitsPerPixel]
         inc edx
         and dl, 0FEh
         mov eax, edx
@@ -345,10 +345,10 @@ DrawShapeScaledCore:
         mov dword [esp], eax
         mov dword [byte esp+034h], eax
 .1:
-        cmp edi, dword [dword_16E680]
+        cmp edi, dword [ClipRight]
         jge near .15
         mov eax, dword [byte esp+03Ch]
-        cmp eax, dword [dword_16E684]
+        cmp eax, dword [ScreenHeight]
         jge near .15
         test ebp, ebp
         jle short .2
@@ -358,7 +358,7 @@ DrawShapeScaledCore:
         mov eax, ebp
         neg eax
 .3:
-        mov ecx, dword [dword_16E678]
+        mov ecx, dword [ClipTopRow]
         add eax, edi
         cmp eax, ecx
         jle near .15
@@ -371,7 +371,7 @@ DrawShapeScaledCore:
         neg eax
 .5:
         mov edx, dword [byte esp+03Ch]
-        mov ecx, dword [dword_16E67C]
+        mov ecx, dword [ClipLeftCol]
         add eax, edx
         cmp eax, ecx
         jle near .15
@@ -417,27 +417,27 @@ DrawShapeScaledCore:
         add eax, edx
 .8:
         mov edx, dword [byte esp+03Ch]
-        cmp edx, dword [dword_16E67C]
+        cmp edx, dword [ClipLeftCol]
         jge short .9
-        mov edx, dword [dword_16E67C]
+        mov edx, dword [ClipLeftCol]
         sub edx, dword [byte esp+03Ch]
         mov dword [byte esp+014h], edx
         mov edx, dword [byte esp+010h]
         imul edx, dword [byte esp+014h]
         add esi, edx
         sub ebx, dword [byte esp+014h]
-        mov edx, dword [dword_16E67C]
+        mov edx, dword [ClipLeftCol]
         mov dword [byte esp+03Ch], edx
 .9:
         mov edx, dword [byte esp+03Ch]
         add edx, ebx
-        cmp edx, dword [dword_16E684]
+        cmp edx, dword [ScreenHeight]
         jle short .10
         mov edx, dword [byte esp+03Ch]
-        mov ebx, dword [dword_16E684]
+        mov ebx, dword [ScreenHeight]
         sub ebx, edx
 .10:
-        mov edx, dword [dword_16E678]
+        mov edx, dword [ClipTopRow]
         cmp edi, edx
         jge short .11
         sub edx, edi
@@ -445,23 +445,23 @@ DrawShapeScaledCore:
         mov edx, ecx
         imul edx, edi
         sub ebp, edi
-        mov edi, dword [dword_16E678]
+        mov edi, dword [ClipTopRow]
         add eax, edx
 .11:
         lea edx, [edi+ebp]
-        cmp edx, dword [dword_16E680]
+        cmp edx, dword [ClipRight]
         jle short .12
-        mov ebp, dword [dword_16E680]
+        mov ebp, dword [ClipRight]
         sub ebp, edi
 .12:
         mov edx, dword [byte esp+03Ch]
         shl edx, 2
         mov dword [byte esp+014h], edx
-        mov edx, dword [dword_16E698]
+        mov edx, dword [DrawDestBuffer]
         add edx, dword [byte esp+014h]
         shl edi, 2
         mov dword [byte esp+014h], edx
-        mov edx, dword [dword_16E6A0]
+        mov edx, dword [DrawDestOffset]
         add edi, edx
         mov edx, dword [byte esp+014h]
         mov edx, dword [edx]
@@ -470,7 +470,7 @@ DrawShapeScaledCore:
         mov edi, dword [byte esp+014h]
         add edi, edx
         mov dword [byte esp+0Ch], CopyScaledSpan
-        mov edx, dword [dword_16E694]
+        mov edx, dword [ScreenBuffer]
         test edx, edx
         je short .13
         mov dword [byte esp+0Ch], DrawScaledRow
@@ -505,7 +505,7 @@ DrawShapeScaledCore:
         push edi
         call dword [byte esp+018h]
         add esp, byte 0Ch
-        mov eax, dword [dword_16E690]
+        mov eax, dword [ScreenPitch]
         mov edx, dword [byte esp+010h]
         add edi, eax
         add esi, edx
@@ -859,10 +859,10 @@ BuildPolyEdge:
         sub eax, esi
         mov esi, eax
         mov eax, dword [byte ecx+04h]
-        mov edi, dword [dword_16E698]
+        mov edi, dword [DrawDestBuffer]
         shl eax, 2
         add eax, edi
-        mov edi, dword [dword_16E69C]
+        mov edi, dword [DrawDestPitch]
         mov ebp, dword [eax]
         mov eax, dword [ecx]
         add edi, ebp
@@ -874,7 +874,7 @@ BuildPolyEdge:
         shl eax, 2
         imul dword [nosplit edx*4+ReciprocalTable]
         mov dword [byte ebx+0Ch], edx
-        mov eax, dword [dword_16E670]
+        mov eax, dword [ScreenWidth]
         sar edx, 10h
         add edx, eax
         mov dword [byte ebx+04h], edx
@@ -1147,7 +1147,7 @@ FillPolygon:
         mov dword [byte ebp+020h], ebx
 .7:
         mov eax, dword [byte ebp-014h]
-        mov esi, dword [dword_16E678]
+        mov esi, dword [ClipTopRow]
         cmp eax, esi
         jge short .10
         cmp esi, dword [byte ebp-0Ch]
@@ -1168,13 +1168,13 @@ FillPolygon:
 .9:
         mov dword [byte ebp-018h], 1
 .10:
-        mov eax, dword [dword_16E680]
+        mov eax, dword [ClipRight]
         mov ecx, dword [byte ebp-0Ch]
         dec eax
         cmp eax, ecx
         jg short .13
         mov eax, dword [byte ebp-014h]
-        cmp eax, dword [dword_16E680]
+        cmp eax, dword [ClipRight]
         jl short .11
         xor eax, eax
         mov esp, ebp
@@ -1203,7 +1203,7 @@ FillPolygon:
         mov dword [byte ebp-018h], 1
 .13:
         mov eax, dword [byte ebp-010h]
-        mov edx, dword [dword_16E67C]
+        mov edx, dword [ClipLeftCol]
         cmp eax, edx
         jge short .16
         cmp edx, dword [byte ebp-08h]
@@ -1235,7 +1235,7 @@ FillPolygon:
         mov dword [byte ebp-018h], 1
 .16:
         mov eax, dword [byte ebp-08h]
-        mov esi, dword [dword_16E684]
+        mov esi, dword [ScreenHeight]
         cmp eax, esi
         jl short .19
         cmp esi, dword [byte ebp-010h]
@@ -1529,7 +1529,7 @@ FillRect:
         push ebx
         sub esp, byte 14h
         mov eax, dword [byte esp+02Ch]
-        mov dl, byte [byte_16E688]
+        mov dl, byte [ScreenBitsPerPixel]
         cmp dl, 8
         jb short .1
         jbe short .2
@@ -1569,7 +1569,7 @@ FillRect:
         mov al, byte [str_Punct_FreeArtArchive]
         mov edx, dword [esp]
         and eax, 0FFh
-        mov ecx, off_16E87C
+        mov ecx, FillRowFuncTable
         or edx, eax
         mov eax, dword [byte esp+024h]
         mov dword [esp], edx

@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_1097F0 progbits alloc exec nowrite align=1
-extern dword_16E4C8, AsyncFileHandle, AsyncStreamFile, AsyncStreamBase, AsyncStreamSize, AsyncStreamPos, AsyncStreamEnd, str_ASYNC
+extern MessageBoxActive, AsyncFileHandle, AsyncStreamFile, AsyncStreamBase, AsyncStreamSize, AsyncStreamPos, AsyncStreamEnd, str_ASYNC
 extern CdOpenStream, CdCloseFile, CdRead, DetectMscdex, AllocMemBlock, FreeMemBlock, TicksSinceLast
 global SumRingRange, OpenSpeechStreamFile
 ;-----------------------------------------------------------------------------
@@ -105,7 +105,7 @@ OpenSpeechStreamFile:
         jle short .1
         mov dword [byte esp+010h], 30D40h
 .1:
-        mov edi, dword [dword_16E4C8]
+        mov edi, dword [MessageBoxActive]
         push edi
         mov ebp, dword [byte esp+014h]
         push ebp

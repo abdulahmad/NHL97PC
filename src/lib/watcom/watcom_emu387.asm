@@ -5,7 +5,7 @@ section s_132C84 progbits alloc exec nowrite align=1
 extern _dos_setvect_, byte_199CD4, byte_199CD5, byte_199CE4, FpuInitHook, jpt_1329F0, jpt_132AF0, jpt_132AF0_170
 extern str_RATIONALDOS4G, RestoreDS, unk_132878, unk_13287C, unk_132880, str_Punct_jpt, str_F, unk_132886
 extern unk_1328D2, unk_1328D4, unk_1328D8, unk_1328DA, unk_132922, unk_132926, unk_132930, unk_132990
-extern unk_199C58, unk_1DE6C0
+extern unk_199C58, Hook387Save
 global __EnterWVIDEO_, __hook387, __init_80x87, __unhook387, jpt_1337C5, jpt_133904, jpt_133985, jpt_133BA0
 global jpt_133CAA, jpt_133DC2, jpt_133E4B, jpt_134054, jpt_134209, RoundToDouble_32, RoundToDouble_49, RoundToDouble_84
 global jpt_133E4B_2C, jpt_134209_20, jpt_134209_69, jpt_134209_CE, jpt_134209_F8, jpt_134209_110, EmuAdd_7, StoreIntBits_3
@@ -4664,7 +4664,7 @@ __hook387:
         mov ah, 0FAh
         int 2Fh
         mov eax, cs
-        mov ebx, unk_1DE6C0
+        mov ebx, Hook387Save
         mov edx, eax
         mov ecx, ebx
         mov al, 20h

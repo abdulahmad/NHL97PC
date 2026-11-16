@@ -2,9 +2,9 @@
 bits 32
 %include "hockey.inc"
 section s_1D91C8 nobits alloc noexec write align=1
-global dword_1D91C8, dword_1D91CC, dword_1D9404, dword_1D940C, dword_1D9410, dword_1D960C, dword_1D9610, dword_1D9810
-global dword_1D990C, dword_1D9910, dword_1D9B0C, dword_1D9B10, dword_1D9B2C, dword_1D9B30, dword_1DA34C, dword_1DA350
-global dword_1DA390, unk_1D91D0, unk_1D9B50, unk_1D9B70, unk_1D9B90, unk_1D9BB0, unk_1D9BD0, unk_1D9BF0
+global PrimColor, ModelFileCount, BitReaderPtr, BitReaderBits, VideoCodeTableA, VideoDecoderA, VideoCodeTableB, VideoGammaTable
+global VideoDecoderB, VideoCodeTableC, FrameRateState, FrameRateSamples, FrameRateLast, VideoBlock0, dword_1DA34C, dword_1DA350
+global dword_1DA390, PartFuncTable, VideoBlock1, VideoBlock2, VideoBlock3, VideoBlock4, unk_1D9BD0, unk_1D9BF0
 global unk_1D9C10, unk_1D9C30, unk_1D9C34, unk_1D9C38, unk_1D9C3C, unk_1D9C40, unk_1D9C44, unk_1D9C48
 global unk_1D9C4C, unk_1D9C54, unk_1D9C78, unk_1D9C9C, unk_1D9CC0, unk_1D9CE4, unk_1D9D08, unk_1D9D2C
 global unk_1D9D50, unk_1D9D70, unk_1D9D90, unk_1D9DB0, unk_1D9DD0, unk_1D9DF0, unk_1D9E10, unk_1D9E30
@@ -13,46 +13,46 @@ global unk_1D9F50, unk_1D9F70, unk_1D9F90, unk_1D9FB0, unk_1D9FD0, unk_1D9FF0, u
 global unk_1DA050, unk_1DA070, unk_1DA090, unk_1DA0B0, unk_1DA0D0, unk_1DA0F0, unk_1DA110, unk_1DA130
 global unk_1DA150, unk_1DA170, unk_1DA190, unk_1DA1B0, unk_1DA1D0, unk_1DA1F0, unk_1DA210, unk_1DA230
 global unk_1DA250, unk_1DA270, unk_1DA290, unk_1DA2B0, unk_1DA2D0, unk_1DA2F0, unk_1DA310, unk_1DA330
-global word_1D91FC
-dword_1D91C8:
+global KeyRowTable
+PrimColor:
         resb 4
-dword_1D91CC:
+ModelFileCount:
         resb 4
-unk_1D91D0:
+PartFuncTable:
         resb 44
-word_1D91FC:
+KeyRowTable:
         resb 520
-dword_1D9404:
+BitReaderPtr:
         resb 8
-dword_1D940C:
+BitReaderBits:
         resb 4
-dword_1D9410:
+VideoCodeTableA:
         resb 508
-dword_1D960C:
+VideoDecoderA:
         resb 4
-dword_1D9610:
+VideoCodeTableB:
         resb 512
-dword_1D9810:
+VideoGammaTable:
         resb 252
-dword_1D990C:
+VideoDecoderB:
         resb 4
-dword_1D9910:
+VideoCodeTableC:
         resb 508
-dword_1D9B0C:
+FrameRateState:
         resb 4
-dword_1D9B10:
+FrameRateSamples:
         resb 28
-dword_1D9B2C:
+FrameRateLast:
         resb 4
-dword_1D9B30:
+VideoBlock0:
         resb 32
-unk_1D9B50:
+VideoBlock1:
         resb 32
-unk_1D9B70:
+VideoBlock2:
         resb 32
-unk_1D9B90:
+VideoBlock3:
         resb 32
-unk_1D9BB0:
+VideoBlock4:
         resb 32
 unk_1D9BD0:
         resb 32

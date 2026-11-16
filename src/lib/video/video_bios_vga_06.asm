@@ -2,24 +2,24 @@
 bits 32
 %include "hockey.inc"
 section s_126480 progbits alloc exec nowrite align=1
-extern byte_172AB0, byte_172AB1, byte_172AB4, AddExitHandler, ShapeRowBytes, word_172AB2
+extern SavedTextMode, SavedTextPage, SavedTextRows, AddExitHandler, ShapeRowBytes, SavedTextColumns
 global RestoreTextMode, SaveTextMode, PrefetchMemory, PrefetchShape, CopyMemFast
 ;-----------------------------------------------------------------------------
 ; SaveTextMode                                126480  96 PC, medium confidence
 ;-----------------------------------------------------------------------------
 SaveTextMode:
         push ebx
-        cmp byte [byte_172AB0], 0
+        cmp byte [SavedTextMode], 0
         jne short .1
         mov ah, 0Fh
         int 10h
-        mov byte [byte_172AB0], al
+        mov byte [SavedTextMode], al
         mov al, byte [0410h]
-        mov byte [byte_172AB1], al
+        mov byte [SavedTextPage], al
         mov ax, word [044Ah]
-        mov word [word_172AB2], ax
+        mov word [SavedTextColumns], ax
         mov al, byte [0484h]
-        mov byte [byte_172AB4], al
+        mov byte [SavedTextRows], al
         push RestoreTextMode
         call AddExitHandler
         add esp, byte 4
@@ -31,24 +31,24 @@ SaveTextMode:
 ;-----------------------------------------------------------------------------
 RestoreTextMode:
         pusha
-        cmp byte [byte_172AB0], 0
+        cmp byte [SavedTextMode], 0
         je near .4
-        mov al, byte [byte_172AB1]
+        mov al, byte [SavedTextPage]
         mov byte [0410h], al
-        cmp byte [byte_172AB0], 3
+        cmp byte [SavedTextMode], 3
         jne near .2
-        cmp word [word_172AB2], byte 50h
+        cmp word [SavedTextColumns], byte 50h
         jne near .2
-        cmp byte [byte_172AB4], 2Ah
+        cmp byte [SavedTextRows], 2Ah
         jb near .2
-        cmp byte [byte_172AB4], 31h
+        cmp byte [SavedTextRows], 31h
         ja near .2
         je short .1
         mov ax, 1201h
         mov bl, 30h
         int 10h
         LD xor, eax, eax
-        mov al, byte [byte_172AB0]
+        mov al, byte [SavedTextMode]
         int 10h
         mov ax, 1112h
         LD xor, ebx, ebx
@@ -67,7 +67,7 @@ RestoreTextMode:
         mov bl, 30h
         int 10h
         LD xor, eax, eax
-        mov al, byte [byte_172AB0]
+        mov al, byte [SavedTextMode]
         int 10h
         mov ax, 1112h
         LD xor, ebx, ebx
@@ -83,12 +83,12 @@ RestoreTextMode:
         jmp short .3
 .2:
         LD xor, eax, eax
-        mov al, byte [byte_172AB0]
+        mov al, byte [SavedTextMode]
         int 10h
 .3:
-        mov al, byte [byte_172AB1]
+        mov al, byte [SavedTextPage]
         mov byte [0410h], al
-        mov byte [byte_172AB0], 0
+        mov byte [SavedTextMode], 0
 .4:
         popa
         ret

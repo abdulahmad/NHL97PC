@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_10AED0 progbits alloc exec nowrite align=1
-extern __doserror_, __fprtf_, dword_16E48C, dword_16E490, dword_16E494, dword_16E498, dword_16E49C, dword_16E4A0
-extern dword_16E4A4, ReciprocalBase, ReciprocalTable, DosOpenReadOnly, DosCloseFile, unk_1722DA
+extern __doserror_, __fprtf_, CpuIs386, CpuIs486, CpuType, CpuIsPentium, CpuHasCpuid, CpuFeatures
+extern CpuSignature, ReciprocalBase, ReciprocalTable, DosOpenReadOnly, DosCloseFile, unk_1722DA
 global DetectCPU, _dos_close_, _dos_commit_, _dos_open_, printf_, DosFileInfo, BuildReciprocalTable
 ;-----------------------------------------------------------------------------
 ; DosFileInfo                                    10AED0  97 PC, low confidence
@@ -57,11 +57,11 @@ printf_:
 ;-----------------------------------------------------------------------------
 DetectCPU:
         push ebx
-        mov dword [dword_16E48C], 1
-        mov dword [dword_16E490], 1
+        mov dword [CpuIs386], 1
+        mov dword [CpuIs486], 1
         smsw eax
         and eax, byte 1
-        mov dword [dword_16E4A0], eax
+        mov dword [CpuFeatures], eax
         pushf
         LD mov, edx, esp
         and esp, byte 0FFFFFFFCh
@@ -80,7 +80,7 @@ DetectCPU:
         db 09Dh                                 ; insn: popf
         LD mov, esp, edx
         popf
-        mov dword [dword_16E494], eax
+        mov dword [CpuType], eax
         cmp eax, byte 0
         je short .1
         pushf
@@ -97,15 +97,15 @@ DetectCPU:
         cpuid
         shr edx, 17h
         and edx, byte 1
-        mov dword [dword_16E4A4], edx
+        mov dword [CpuSignature], edx
         shr eax, 8
         and eax, byte 0Fh
         cmp al, 5
         jl short .1
-        mov dword [dword_16E498], 1
+        mov dword [CpuIsPentium], 1
         cmp al, 6
         jl short .1
-        mov dword [dword_16E49C], 1
+        mov dword [CpuHasCpuid], 1
 .1:
         pop ebx
         ret

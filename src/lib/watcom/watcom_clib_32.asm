@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_13B9C2 progbits alloc exec nowrite align=1
 extern _Extender, _STACKLOW, __8087, __CHP, __fatal_runtime_error_, __sigfpe_handler_, str_ABNORMALTERMINATION, byte_19C3D0
-extern byte_19C3D1, byte_19C3D2, byte_19C3D3, dword_16E670, dword_16E6A8, FpuInitHook, AbortHandler, dword_19C1AA
+extern byte_19C3D1, byte_19C3D2, byte_19C3D3, ScreenWidth, BackBufferWidth, FpuInitHook, AbortHandler, dword_19C1AA
 extern dword_19C1AE, F32_3p40282e38, dword_19C3CC, off_171C84, F64_1p79769e308, RestoreDS, unk_19C1B4, unk_19C1CA
 extern word_19C1A8, word_19C3CA
 global __Bin2String, __CmpBigInt, __DOS4G_hook_fini_, __DOS4G_hook_init_, __Ergo_hook_fini_, __Ergo_hook_init_, __GrabFP87_, __Intel_hook_fini_
@@ -878,13 +878,13 @@ __Intel_hook_fini_:
 ;-----------------------------------------------------------------------------
 ; SetScreenTarget                                13C164  97 PC, low confidence
 ; Makes the screen the draw target again: copies the screen header
-; (dword_16E6A8) to dword_16E670
+; (BackBufferWidth) to ScreenWidth
 ;-----------------------------------------------------------------------------
 SetScreenTarget:
         LD mov, edx, edi
         LD mov, eax, esi
-        mov esi, dword_16E6A8
-        mov edi, dword_16E670
+        mov esi, BackBufferWidth
+        mov edi, ScreenWidth
         mov ecx, 0Dh
         rep movsd
         LD mov, edi, edx

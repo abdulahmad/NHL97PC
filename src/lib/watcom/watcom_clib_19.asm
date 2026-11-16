@@ -3,9 +3,9 @@ bits 32
 %include "hockey.inc"
 section s_121C55 progbits alloc exec nowrite align=1
 extern _Extender, __8087, __EnterWVIDEO_, __init_80x87, __no87, __prtf_, __real87, __unhook387
-extern _curbrk, byte_16E415, byte_16E688, str_Punct_FreeArtArchive, byte_16F794, byte_16FA40, byte_171C90, Is8087
-extern dword_16E678, dword_16E67C, dword_16E680, dword_16E684, dword_16E690, dword_16E694, dword_16E698, dword_16E69C
-extern dword_16E6A0, str_F_BlitCore, dword_170704, FpuSystemFlags, OldFpuVectorOffset, BlitDestOffsets, BlitColumnOffsets, BlitSourcePtr
+extern _curbrk, FpuType, ScreenBitsPerPixel, str_Punct_FreeArtArchive, RemapTable, IdentityRemap, byte_171C90, Is8087
+extern ClipTopRow, ClipLeftCol, ClipRight, ScreenHeight, ScreenPitch, ScreenBuffer, DrawDestBuffer, DrawDestPitch
+extern DrawDestOffset, str_F_BlitCore, dword_170704, FpuSystemFlags, OldFpuVectorOffset, BlitDestOffsets, BlitColumnOffsets, BlitSourcePtr
 extern dword_1DA8D0, dword_1DA8D4, off_199CDC, off_199CE0, strchr_, strcpy_, stricmp_, strlen_
 extern bcopy, ConvertArtRows, ConvertArtShape, VesaSetBank, FixedLerp, WriteConsoleMessage, FreeMemBlock, unk_1DA4CC
 extern unk_1DC118, unk_1DC218, unk_1DC318, unk_1DC418, str_Punct_InitFpuFlags, OldFpuVectorSelector, FpuCr0Bits, word_199CD8
@@ -125,7 +125,7 @@ __rest_8087_:
 __init_8087_:
         push ebx
         push edx
-        cmp byte [byte_16E415], 0
+        cmp byte [FpuType], 0
         je short .1
         mov edx, __save_8087_
         mov ebx, __rest_8087_
@@ -142,7 +142,7 @@ __init_8087_:
 ; _fpreset_                                                    121D65  library
 ;-----------------------------------------------------------------------------
 _fpreset_:
-        cmp byte [byte_16E415], 0
+        cmp byte [FpuType], 0
         jne short __init_8087_
         ret
 ;-----------------------------------------------------------------------------
@@ -153,7 +153,7 @@ __chk8087_:
         mov ah, byte [__8087]
         test ah, ah
         jne short .2
-        mov byte [byte_16E415], ah
+        mov byte [FpuType], ah
         xor dl, dl
         LD sub, eax, eax
         push eax
@@ -172,7 +172,7 @@ __chk8087_:
         cmp byte [__no87], 0
         jne short .2
         mov byte [__8087], dl
-        mov byte [byte_16E415], dh
+        mov byte [FpuType], dh
 .2:
         pop edx
         ret
@@ -944,7 +944,7 @@ BlitCore:
         sub eax, edx
         mov ecx, dword [byte ebp-024h]
         mov dword [byte ebp-03Ch], eax
-        mov eax, dword [dword_16E67C]
+        mov eax, dword [ClipLeftCol]
         sar ebx, 10h
         sub eax, ecx
         add esp, byte 4
@@ -957,7 +957,7 @@ BlitCore:
         mov dword [byte ebp-024h], edx
 .4:
         mov eax, dword [byte ebp-024h]
-        mov ecx, dword [dword_16E684]
+        mov ecx, dword [ScreenHeight]
         add eax, ebx
         sub eax, ecx
         test eax, eax
@@ -965,7 +965,7 @@ BlitCore:
         sub ebx, eax
 .5:
         mov edx, dword [byte ebp-050h]
-        mov eax, dword [dword_16E678]
+        mov eax, dword [ClipTopRow]
         sub eax, edx
         test eax, eax
         jle short .6
@@ -983,7 +983,7 @@ BlitCore:
 .6:
         mov eax, dword [byte ebp-050h]
         mov edx, dword [byte ebp-0Ch]
-        mov ecx, dword [dword_16E680]
+        mov ecx, dword [ClipRight]
         add eax, edx
         sub eax, ecx
         test eax, eax
@@ -1005,10 +1005,10 @@ BlitCore:
         jle near .33
         xor eax, eax
         mov dword [byte ebp-018h], eax
-        mov eax, dword [dword_16E69C]
+        mov eax, dword [DrawDestPitch]
         mov dword [byte ebp-08h], eax
         xor eax, eax
-        mov al, byte [byte_16E688]
+        mov al, byte [ScreenBitsPerPixel]
         inc eax
         and al, 0FEh
         mov edx, dword [byte ebp-034h]
@@ -1022,20 +1022,20 @@ BlitCore:
         sar eax, 3
         mov dword [byte ebp-040h], eax
         mov eax, dword [byte ebp-024h]
-        mov edx, dword [dword_16E698]
+        mov edx, dword [DrawDestBuffer]
         shl eax, 2
         add eax, edx
         mov edx, dword [byte ebp-050h]
         shl edx, 2
         mov dword [byte ebp-060h], edx
         mov ecx, dword [byte ebp-060h]
-        mov edx, dword [dword_16E6A0]
+        mov edx, dword [DrawDestOffset]
         add edx, ecx
         mov ecx, dword [eax]
         mov eax, dword [edx]
         mov edx, dword [byte ebp-040h]
         add ecx, eax
-        mov eax, dword [dword_16E690]
+        mov eax, dword [ScreenPitch]
         mov dword [byte ebp-01Ch], ebx
         sub eax, edx
         mov ebx, dword [byte ebp-054h]
@@ -1045,7 +1045,7 @@ BlitCore:
         mov dword [byte ebp-04h], ebx
         jmp near .19
 .8:
-        mov al, byte [byte_16E688]
+        mov al, byte [ScreenBitsPerPixel]
         cmp al, 0Fh
         jb short .10
         jbe short .13
@@ -1092,7 +1092,7 @@ BlitCore:
         mov dword [dword_1DA8D0], eax
         mov dword [byte ebp-04h], NextTextChar_54
 .19:
-        cmp dword [dword_16E694], byte 0
+        cmp dword [ScreenBuffer], byte 0
         je short .20
         mov eax, ecx
         shr eax, 10h
@@ -1108,7 +1108,7 @@ BlitCore:
         add eax, edi
         mov dword [byte ebp-014h], eax
 .21:
-        cmp dword [dword_16E694], byte 0
+        cmp dword [ScreenBuffer], byte 0
         je short .22
         mov edi, dword [byte ebp-018h]
         mov edx, dword [byte ebp-024h]
@@ -1367,10 +1367,10 @@ CopyMappedSpan:
         mov edi, dword [byte esp+010h]
         mov ecx, dword [byte esp+018h]
         add esi, dword [BlitSourcePtr]
-        add edi, dword [dword_16E69C]
+        add edi, dword [DrawDestPitch]
         mov edx, dword [BlitColumnOffsets]
         LD xor, eax, eax
-        cmp byte [byte_16E688], 8
+        cmp byte [ScreenBitsPerPixel], 8
         jg short .10
         sub ecx, byte 4
         js short .6
@@ -1424,7 +1424,7 @@ CopyMappedSpan:
         ret
 .10:
         mov ebx, dword [edx]
-        cmp byte [byte_16E688], 10h
+        cmp byte [ScreenBitsPerPixel], 10h
         jg short .13
         sub ecx, byte 1
         js short .9
@@ -1462,7 +1462,7 @@ CopyMappedSpan:
         mov edi, dword [byte esp+010h]
         mov ecx, dword [byte esp+018h]
         add esi, dword [BlitSourcePtr]
-        add edi, dword [dword_16E69C]
+        add edi, dword [DrawDestPitch]
         mov edx, dword [BlitColumnOffsets]
         LD xor, eax, eax
         sub ecx, byte 4
@@ -1471,27 +1471,27 @@ CopyMappedSpan:
         mov ebx, dword [edx]
         mov al, byte [ebx+esi]
         mov ebx, dword [byte edx+04h]
-        mov al, byte [dword eax+byte_16FA40]
+        mov al, byte [dword eax+IdentityRemap]
         cmp al, 0FFh
         je short .17
         mov byte [edi], al
 .17:
         mov al, byte [ebx+esi]
         mov ebx, dword [byte edx+08h]
-        mov al, byte [dword eax+byte_16FA40]
+        mov al, byte [dword eax+IdentityRemap]
         cmp al, 0FFh
         je short .18
         mov byte [byte edi+01h], al
 .18:
         mov al, byte [ebx+esi]
         mov ebx, dword [byte edx+0Ch]
-        mov al, byte [dword eax+byte_16FA40]
+        mov al, byte [dword eax+IdentityRemap]
         cmp al, 0FFh
         je short .19
         mov byte [byte edi+02h], al
 .19:
         mov al, byte [ebx+esi]
-        mov al, byte [dword eax+byte_16FA40]
+        mov al, byte [dword eax+IdentityRemap]
         cmp al, 0FFh
         je short .20
         mov byte [byte edi+03h], al
@@ -1506,7 +1506,7 @@ CopyMappedSpan:
 .22:
         mov ebx, dword [edx]
         mov al, byte [ebx+esi]
-        mov al, byte [dword eax+byte_16FA40]
+        mov al, byte [dword eax+IdentityRemap]
         cmp al, 0FFh
         je short .23
         mov byte [edi], al
@@ -1529,13 +1529,13 @@ CopyMappedSpan:
         mov edi, dword [byte ebp+08h]
         mov ecx, dword [byte ebp+010h]
         add esi, dword [BlitSourcePtr]
-        add edi, dword [dword_16E69C]
+        add edi, dword [DrawDestPitch]
         mov edx, dword [BlitColumnOffsets]
         LD xor, eax, eax
 .25:
         mov ebx, dword [edx]
         mov al, byte [ebx+esi]
-        mov al, byte [dword eax+byte_16FA40]
+        mov al, byte [dword eax+IdentityRemap]
         add edx, byte 4
         mov byte [edi], al
         sub ecx, byte 1
@@ -1555,7 +1555,7 @@ CopyMappedSpan:
         mov edi, dword [byte ebp+08h]
         mov ecx, dword [byte ebp+010h]
         add esi, dword [BlitSourcePtr]
-        add edi, dword [dword_16E69C]
+        add edi, dword [DrawDestPitch]
         mov edx, dword [BlitColumnOffsets]
         LD xor, eax, eax
 .26:
@@ -1566,7 +1566,7 @@ CopyMappedSpan:
         jb short .27
         jne short .28
         mov al, byte [edi]
-        mov al, byte [dword eax+byte_16F794]
+        mov al, byte [dword eax+RemapTable]
 .27:
         mov byte [edi], al
 .28:
@@ -1587,19 +1587,19 @@ CopyMappedSpan:
         mov edi, dword [byte ebp+08h]
         mov ecx, dword [byte ebp+010h]
         add esi, dword [BlitSourcePtr]
-        add edi, dword [dword_16E69C]
+        add edi, dword [DrawDestPitch]
         mov edx, dword [BlitColumnOffsets]
         LD xor, eax, eax
 .29:
         mov ebx, dword [edx]
         mov al, byte [ebx+esi]
-        mov al, byte [dword eax+byte_16FA40]
+        mov al, byte [dword eax+IdentityRemap]
         add edx, byte 4
         cmp al, 0FEh
         jb short .30
         jne short .31
         mov al, byte [edi]
-        mov al, byte [dword eax+byte_16F794]
+        mov al, byte [dword eax+RemapTable]
 .30:
         mov byte [edi], al
 .31:
@@ -1619,7 +1619,7 @@ CopyMappedSpan:
         mov ebp, dword [byte esp+014h]
         mov ecx, dword [byte esp+01Ch]
         add esi, dword [BlitSourcePtr]
-        add ebp, dword [dword_16E69C]
+        add ebp, dword [DrawDestPitch]
         mov edx, dword [BlitColumnOffsets]
         mov edi, dword [BlitDestOffsets]
         LD xor, eax, eax
@@ -1665,7 +1665,7 @@ CopyMappedSpan:
         mov edi, dword [byte esp+014h]
         mov ebp, dword [byte esp+01Ch]
         add esi, dword [BlitSourcePtr]
-        add edi, dword [dword_16E69C]
+        add edi, dword [DrawDestPitch]
         sub ebp, byte 10h
         js short .36
 .35:
@@ -1738,7 +1738,7 @@ CopyMappedSpan:
         mov edi, dword [byte esp+08h]
         mov esi, dword [byte esp+0Ch]
         mov eax, dword [byte esp+010h]
-        add edi, dword [dword_16E69C]
+        add edi, dword [DrawDestPitch]
         add esi, dword [BlitSourcePtr]
         cmp eax, byte 0Ch
         jl short .41
@@ -1778,9 +1778,9 @@ CopyScaledSpan:
         mov ecx, dword [byte esp+01Ch]
         mov edx, dword [BlitColumnOffsets]
         add esi, dword [BlitSourcePtr]
-        add edi, dword [dword_16E69C]
+        add edi, dword [DrawDestPitch]
         mov ebx, dword [byte edx+0Ch]
-        cmp byte [byte_16E688], 8
+        cmp byte [ScreenBitsPerPixel], 8
         jg near .9
         sub ecx, byte 10h
         jl near .2
@@ -1885,7 +1885,7 @@ CopyScaledSpan:
         jmp short .2
 .9:
         mov ebx, dword [edx]
-        cmp byte [byte_16E688], 10h
+        cmp byte [ScreenBitsPerPixel], 10h
         jg short .11
         sub ecx, byte 1
         js short .6
@@ -2166,7 +2166,7 @@ RemapPixels:
 .1:
         mov dl, byte [edi]
         dec ecx
-        mov al, byte [dword edx+byte_16F794]
+        mov al, byte [dword edx+RemapTable]
         inc edi
         mov byte [byte edi-01h], al
         test edi, 3
@@ -2176,15 +2176,15 @@ RemapPixels:
 .3:
         mov ebx, dword [edi]
         LD mov, dl, bl
-        mov al, byte [dword edx+byte_16F794]
+        mov al, byte [dword edx+RemapTable]
         LD mov, dl, bh
-        mov ah, byte [dword edx+byte_16F794]
+        mov ah, byte [dword edx+RemapTable]
         ror eax, 10h
         ror ebx, 10h
         LD mov, dl, bl
-        mov al, byte [dword edx+byte_16F794]
+        mov al, byte [dword edx+RemapTable]
         LD mov, dl, bh
-        mov ah, byte [dword edx+byte_16F794]
+        mov ah, byte [dword edx+RemapTable]
         ror eax, 10h
         add edi, byte 4
         mov dword [byte edi-04h], eax
@@ -2202,7 +2202,7 @@ RemapPixels:
 .5:
         mov dl, byte [edi]
         inc edi
-        mov al, byte [dword edx+byte_16F794]
+        mov al, byte [dword edx+RemapTable]
         dec ecx
         mov byte [byte edi-01h], al
         jg short .4
@@ -2347,7 +2347,7 @@ ClipPolyLeft:
 .1:
         mov dword [byte esp+04h], edx
 .2:
-        mov ecx, dword [dword_16E678]
+        mov ecx, dword [ClipTopRow]
         cmp ecx, dword [eax]
         jle short .4
         mov edx, dword [byte esp+04h]
@@ -2374,7 +2374,7 @@ ClipPolyLeft:
         mov esi, eax
         movsd
         movsd
-        mov edi, dword [dword_16E678]
+        mov edi, dword [ClipTopRow]
         push edi
         add ebx, byte 8
         push ebx
@@ -2436,13 +2436,13 @@ ClipPolyRight:
         lea edx, [byte eax+08h]
         mov dword [ebx], unk_1DC318
         mov dword [byte esp+04h], edx
-        mov edx, dword [dword_16E680]
+        mov edx, dword [ClipRight]
         xor ebp, ebp
         dec edx
         mov ebx, dword [ebx]
-        mov dword [dword_16E680], edx
+        mov dword [ClipRight], edx
 .1:
-        mov ecx, dword [dword_16E680]
+        mov ecx, dword [ClipRight]
         cmp ecx, dword [eax]
         jg short .3
         mov edx, dword [byte esp+04h]
@@ -2469,7 +2469,7 @@ ClipPolyRight:
         mov esi, eax
         movsd
         movsd
-        mov edi, dword [dword_16E680]
+        mov edi, dword [ClipRight]
         push edi
         add ebx, byte 8
         push ebx
@@ -2508,10 +2508,10 @@ ClipPolyRight:
         mov dword [byte esp+04h], esi
         jmp near .1
 .7:
-        mov edi, dword [dword_16E680]
+        mov edi, dword [ClipRight]
         inc edi
         mov eax, ebp
-        mov dword [dword_16E680], edi
+        mov dword [ClipRight], edi
         add esp, byte 8
         pop ebp
         pop edi
@@ -2538,7 +2538,7 @@ ClipPolyTop:
 .1:
         mov dword [byte esp+04h], edx
 .2:
-        mov ecx, dword [dword_16E67C]
+        mov ecx, dword [ClipLeftCol]
         cmp ecx, dword [byte eax+04h]
         jle short .3
         mov edx, dword [byte esp+04h]
@@ -2564,7 +2564,7 @@ ClipPolyTop:
         mov esi, eax
         movsd
         movsd
-        mov edi, dword [dword_16E67C]
+        mov edi, dword [ClipLeftCol]
         push edi
         add ebx, byte 8
         push ebx
@@ -2625,7 +2625,7 @@ ClipPolyBottom:
 .1:
         mov dword [byte esp+04h], edx
 .2:
-        mov ecx, dword [dword_16E684]
+        mov ecx, dword [ScreenHeight]
         cmp ecx, dword [byte eax+04h]
         jg short .3
         mov edx, dword [byte esp+04h]
@@ -2651,7 +2651,7 @@ ClipPolyBottom:
         mov esi, eax
         movsd
         movsd
-        mov edi, dword [dword_16E684]
+        mov edi, dword [ScreenHeight]
         push edi
         add ebx, byte 8
         push ebx

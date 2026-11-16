@@ -7535,23 +7535,188 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 16DADC,str_GenericHayesCompatible,asc_16DADC,new,high,"string ""Generic Hayes-Compatible""",src/data/front/front_DA66D_data_02.asm
 16E21C,str_Punct_BuildSeasonIntro,unk_16E21C,new,high,"string ""\n""",src/data/front/front_E7D6D_data_02.asm
 16E2B2,str_Punct_LoadAllStarArt,dword_16E2B2,new,high,"string ""\r""",src/data/front/front_E9429_data_02.asm
+16E374,JoyCalibrateTicks,dword_16E374,new,low,timer ticks counted during joystick calibration,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E378,JoyCalibrating,byte_16E378,new,low,set while the joystick is being calibrated,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E37C,JoyReadTimeout,dword_16E37C,new,low,loop count before a joystick axis read times out,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E380,JoyAxisX1,dword_16E380,new,low,joystick 1 X axis reading,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E384,JoyAxisY1,dword_16E384,new,low,joystick 1 Y axis reading,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E388,JoyAxisX2,dword_16E388,new,low,joystick 2 X axis reading,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E38C,JoyAxisY2,dword_16E38C,new,low,joystick 2 Y axis reading,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E390,JoyAxisMask,dword_16E390,new,low,axes still being timed in the read loop,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E394,JoyButtons,byte_16E394,new,low,last joystick button byte,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E395,JoyButtonsPrev,byte_16E395,new,low,previous joystick button byte,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E396,JoyDirection,byte_16E396,new,low,joystick direction bits built from the axes,src/data/lib/input/input_joystick_misc_01_data_01.asm
 16E397,str_P_ReadJoystickPorts,dword_16E397,new,high,"string ""P""",src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E39B,JoyX1Min,dword_16E39B,new,low,joystick 1 X axis minimum seen,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E39F,JoyX1Center,dword_16E39F,new,low,joystick 1 X axis center,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E3A3,JoyX1Max,dword_16E3A3,new,low,joystick 1 X axis maximum seen,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E3A7,JoyX1Settle,dword_16E3A7,new,low,reads left before the joystick 1 X range is trusted,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E3AB,JoyY1Min,dword_16E3AB,new,low,joystick 1 Y axis minimum seen,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E3AF,JoyY1Max,dword_16E3AF,new,low,joystick 1 Y axis maximum seen,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E3B3,JoyDeadZone,dword_16E3B3,new,low,joystick dead zone around the center,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E3B7,JoyY1MinSeen,dword_16E3B7,new,low,joystick 1 Y axis lowest reading this pass,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E3BB,JoyY1Center,dword_16E3BB,new,low,joystick 1 Y axis center,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E3BF,JoyY1MaxSeen,dword_16E3BF,new,low,joystick 1 Y axis highest reading this pass,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E3C3,JoyY1Settle,dword_16E3C3,new,low,reads left before the joystick 1 Y range is trusted,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E3C7,JoyX2Min,dword_16E3C7,new,low,joystick 2 X axis minimum seen,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E3CB,JoyX2Max,dword_16E3CB,new,low,joystick 2 X axis maximum seen,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E3CF,JoyXScale,dword_16E3CF,new,low,joystick X scale from the calibrated range,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E3D3,JoyYScale,dword_16E3D3,new,low,joystick Y scale from the calibrated range,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E3D7,JoyDirTable,byte_16E3D7,new,low,direction code per axis zone,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E3E8,RandSeed,unk_16E3E8,new,low,random number generator seed,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E3EC,KbdIdleHook,dword_16E3EC,new,low,routine called while waiting for a key (default PollHotkeys),src/data/lib/input/input_joystick_misc_01_data_01.asm
 16E3F0,tickcount,,96PC,high,NHL96PC 11F9A4 (position): same fixup of SetTickDeadline,
+16E3F4,TimerTicks,dword_16E3F4,new,low,timer interrupt tick count,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E3F8,TimerTickStep,dword_16E3F8,new,low,ticks added per timer interrupt,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E3FC,TimerRate,dword_16E3FC,new,low,timer divisor and chain rate,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E406,TimerSavedSelector,word_16E406,new,low,selector of the previous timer handler,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E408,GoalieTickData,dword_16E408,new,low,goalie tick data pointers,src/data/lib/input/input_joystick_misc_01_data_01.asm
 16E414,__8087,,95PC,medium,NHL95PC D4B9C (refset): referenced by the same 2 matched functions,
+16E415,FpuType,byte_16E415,new,low,FPU type found at start up,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E418,SavedStackSegment,word_16E418,new,low,stack segment saved at start up,src/data/lib/input/input_joystick_misc_01_data_01.asm
 16E41A,str_StackOverflow,,96PC,high,NHL96PC 14FADE (string): 'Stack Overflow!\r\n',
 16E42C,tickdeadline,,96PC,high,NHL96PC 11F8DC (position): same fixup of SetTickDeadline,
+16E430,LastTickCount,dword_16E430,new,low,tick count at the last TicksSinceLast call,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E444,GraphicsModeSet,dword_16E444,new,low,set while a graphics mode is active,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E448,MousePresent,dword_16E448,new,low,mouse driver found,src/data/lib/input/input_joystick_misc_01_data_01.asm
 16E44C,mousex,dword_16E44C,96PC,high,NHL96PC mousex: MouseRead / MouseReadMotion keep the pointer x here,src/data/lib/input/input_joystick_misc_01_data_01.asm
 16E450,mousey,dword_16E450,96PC,high,NHL96PC mousey: the pointer y,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E454,MouseMoved,dword_16E454,new,low,mouse moved since the last read,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E458,MouseHideCount,dword_16E458,new,low,mouse cursor hide nesting count,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E45C,MouseInitDone,dword_16E45C,new,low,mouse initialised,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E460,JoyPresent,byte_16E460,new,low,joystick found,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E46C,MenuScreenBitmap,dword_16E46C,new,low,bitmap the menus draw into,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E474,VideoModeCount,dword_16E474,new,low,number of usable video modes,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E478,SelectedVideoMode,dword_16E478,new,low,video mode picked by resolution,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E47C,ScreenModeWidth,dword_16E47C,new,low,width of the current screen mode,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E480,ScreenModeHeight,dword_16E480,new,low,height of the current screen mode,src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E484,DefaultModeWidth,dword_16E484,new,low,default mode width (320),src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E488,DefaultModeHeight,dword_16E488,new,low,default mode height (200),src/data/lib/input/input_joystick_misc_01_data_01.asm
+16E48C,CpuIs386,dword_16E48C,new,low,CPU is a 386,src/data/lib/watcom/watcom_clib_11_data_01.asm
+16E490,CpuIs486,dword_16E490,new,low,CPU is a 486,src/data/lib/watcom/watcom_clib_11_data_01.asm
+16E494,CpuType,dword_16E494,new,low,CPU type,src/data/lib/watcom/watcom_clib_11_data_01.asm
+16E498,CpuIsPentium,dword_16E498,new,low,CPU is a Pentium,src/data/lib/watcom/watcom_clib_11_data_01.asm
+16E49C,CpuHasCpuid,dword_16E49C,new,low,CPU has CPUID,src/data/lib/watcom/watcom_clib_11_data_01.asm
+16E4A0,CpuFeatures,dword_16E4A0,new,low,CPUID feature bits,src/data/lib/watcom/watcom_clib_11_data_01.asm
+16E4A4,CpuSignature,dword_16E4A4,new,low,CPUID signature,src/data/lib/watcom/watcom_clib_11_data_01.asm
 16E4A8,str_Punct_DrawRinkSurface,dword_16E4A8,new,high,"string ""\n""",src/data/lib/watcom/watcom_clib_11_data_01.asm
 16E4B0,str_D_UpdateFrameRate,dword_16E4B0,new,high,"string ""d""",src/data/lib/watcom/watcom_clib_11_data_01.asm
+16E4B4,TimerCalibration,dword_16E4B4,new,low,timer loop count for calibration,src/data/lib/watcom/watcom_clib_11_data_01.asm
+16E4B8,ModeSetCount,dword_16E4B8,new,low,graphics mode set count,src/data/lib/watcom/watcom_clib_11_data_01.asm
+16E4BC,FrameCounter,dword_16E4BC,new,low,frames drawn,src/data/lib/watcom/watcom_clib_11_data_01.asm
+16E4C8,MessageBoxActive,dword_16E4C8,new,low,message box shown,src/data/lib/watcom/watcom_clib_11_data_01.asm
+16E4D0,LastLoadedSize,dword_16E4D0,new,low,size of the last loaded file,src/data/lib/watcom/watcom_clib_11_data_01.asm
+16E4D4,PresentFunc,off_16E4D4,new,low,routine that shows the back buffer,src/data/lib/watcom/watcom_clib_11_data_01.asm
+16E4D8,PresentFuncMenu,off_16E4D8,new,low,back buffer show routine for menus,src/data/lib/watcom/watcom_clib_11_data_01.asm
+16E4DC,PresentFuncGame,off_16E4DC,new,low,back buffer show routine for the game,src/data/lib/watcom/watcom_clib_11_data_01.asm
+16E4E0,PresentFuncInput,off_16E4E0,new,low,back buffer show routine while reading input,src/data/lib/watcom/watcom_clib_11_data_01.asm
 16E4F8,str_Viv,,96PC,high,NHL96PC 121FC0 (string): '.viv',
+16E500,QuantizePalette,dword_16E500,new,low,palette for colour quantising,src/data/lib/watcom/watcom_clib_11_data_01.asm
+16E503,QuantizeByte,byte_16E503,new,low,quantise scratch byte,src/data/lib/watcom/watcom_clib_11_data_01.asm
+16E504,QuantizeTable,byte_16E504,new,low,colour quantise table,src/data/lib/watcom/watcom_clib_11_data_01.asm
 16E604,mouseminx,dword_16E604,96PC,high,NHL96PC mouseminx (SetViewRect),src/data/lib/input/input_mouse_data_01.asm
 16E608,mouseminy,dword_16E608,96PC,high,NHL96PC mouseminy (SetViewRect),src/data/lib/input/input_mouse_data_01.asm
 16E60C,mousemaxx,dword_16E60C,96PC,high,"NHL96PC mousemaxx (SetViewRect, exclusive)",src/data/lib/input/input_mouse_data_01.asm
 16E610,mousemaxy,dword_16E610,96PC,high,"NHL96PC mousemaxy (SetViewRect, exclusive)",src/data/lib/input/input_mouse_data_01.asm
+16E614,MouseDeltaX,dword_16E614,new,low,mouse motion X since the last read,src/data/lib/input/input_mouse_data_01.asm
+16E618,MouseButtonState,dword_16E618,new,low,mouse button state,src/data/lib/input/input_mouse_data_01.asm
+16E61C,MouseSavedSensX,dword_16E61C,new,low,mouse X sensitivity saved at start up,src/data/lib/input/input_mouse_data_01.asm
+16E620,MouseSavedSensY,dword_16E620,new,low,mouse Y sensitivity saved at start up,src/data/lib/input/input_mouse_data_01.asm
+16E624,MouseSavedThreshold,dword_16E624,new,low,mouse double speed threshold saved at start up,src/data/lib/input/input_mouse_data_01.asm
+16E628,DebugMode,dword_16E628,new,low,debug display mode (2 = status lines),src/data/lib/input/input_mouse_data_01.asm
+16E630,DebugLineY,dword_16E630,new,low,row of the next debug line,src/data/lib/input/input_mouse_data_01.asm
+16E634,DebugLineWidth,dword_16E634,new,low,width of the debug line area,src/data/lib/input/input_mouse_data_01.asm
+16E638,DebugTextColor,byte_16E638,new,low,debug text colour,src/data/lib/input/input_mouse_data_01.asm
+16E639,DebugBackColor,byte_16E639,new,low,debug background colour,src/data/lib/input/input_mouse_data_01.asm
+16E63C,DebugLineTable,dword_16E63C,new,low,text pointer per debug line,src/data/lib/input/input_mouse_data_01.asm
+16E670,ScreenWidth,dword_16E670,new,low,screen width in pixels,src/data/lib/input/input_mouse_data_01.asm
+16E674,ClipBottom,dword_16E674,new,low,bottom of the clip window,src/data/lib/input/input_mouse_data_01.asm
+16E676,ClipLeft,dword_16E676,new,low,left edge of the clip window,src/data/lib/input/input_mouse_data_01.asm
+16E678,ClipTopRow,dword_16E678,new,low,top of the clip window,src/data/lib/input/input_mouse_data_01.asm
+16E67A,ClipTop,dword_16E67A,new,low,top edge of the clip window,src/data/lib/input/input_mouse_data_01.asm
+16E67C,ClipLeftCol,dword_16E67C,new,low,left of the clip window,src/data/lib/input/input_mouse_data_01.asm
+16E67E,ClipRightEdge,dword_16E67E,new,low,right edge of the clip window,src/data/lib/input/input_mouse_data_01.asm
+16E680,ClipRight,dword_16E680,new,low,right of the clip window,src/data/lib/input/input_mouse_data_01.asm
+16E682,ClipBottomEdge,dword_16E682,new,low,bottom edge of the clip window,src/data/lib/input/input_mouse_data_01.asm
+16E684,ScreenHeight,dword_16E684,new,low,screen height in pixels,src/data/lib/input/input_mouse_data_01.asm
+16E688,ScreenBitsPerPixel,byte_16E688,new,low,bits per pixel of the screen,src/data/lib/input/input_mouse_data_01.asm
 16E689,str_Punct_FreeArtArchive,byte_16E689,new,high,"string ""{""",src/data/lib/input/input_mouse_data_01.asm
+16E690,ScreenPitch,dword_16E690,new,low,bytes per screen row,src/data/lib/input/input_mouse_data_01.asm
+16E694,ScreenBuffer,dword_16E694,new,low,pointer to the screen buffer,src/data/lib/input/input_mouse_data_01.asm
+16E698,DrawDestBuffer,dword_16E698,new,low,buffer drawing routines write to,src/data/lib/input/input_mouse_data_01.asm
+16E69C,DrawDestPitch,dword_16E69C,new,low,bytes per row of the draw buffer,src/data/lib/input/input_mouse_data_01.asm
+16E6A0,DrawDestOffset,dword_16E6A0,new,low,offset into the draw buffer,src/data/lib/input/input_mouse_data_01.asm
+16E6A8,BackBufferWidth,dword_16E6A8,new,low,back buffer width,src/data/lib/input/input_mouse_data_01.asm
+16E6AC,ModeHeight,dword_16E6AC,new,low,height of the set graphics mode,src/data/lib/input/input_mouse_data_01.asm
+16E6B0,ModeFrameBuffer,dword_16E6B0,new,low,frame buffer of the set graphics mode,src/data/lib/input/input_mouse_data_01.asm
+16E6B4,ModeBankSize,dword_16E6B4,new,low,bank size of the set graphics mode,src/data/lib/input/input_mouse_data_01.asm
+16E6B8,ModeWidth,dword_16E6B8,new,low,width of the set graphics mode,src/data/lib/input/input_mouse_data_01.asm
+16E6BC,BackBufferHeight,dword_16E6BC,new,low,back buffer height,src/data/lib/input/input_mouse_data_01.asm
+16E6C0,ModeBitsPerPixel,byte_16E6C0,new,low,bits per pixel of the set graphics mode,src/data/lib/input/input_mouse_data_01.asm
 16E6C1,str_Punct_SetGraphicsMode,byte_16E6C1,new,high,"string ""{""",src/data/lib/input/input_mouse_data_01.asm
+16E6C8,MovieWidth,dword_16E6C8,new,low,width used for movie playback,src/data/lib/input/input_mouse_data_01.asm
+16E6CC,VideoModeNumber,dword_16E6CC,new,low,current video mode number,src/data/lib/input/input_mouse_data_01.asm
+16E6D0,VideoWindowHandle,dword_16E6D0,new,low,video window handle,src/data/lib/input/input_mouse_data_01.asm
+16E6D4,ModePitch,dword_16E6D4,new,low,bytes per row of the set graphics mode,src/data/lib/input/input_mouse_data_01.asm
+16E6D8,ModeLinear,dword_16E6D8,new,low,set when the graphics mode has a linear frame buffer,src/data/lib/input/input_mouse_data_01.asm
+16E714,VideoWindowTable,dword_16E714,new,low,video window records,src/data/lib/input/input_mouse_data_01.asm
 16E718,str_F_BlitCore,dword_16E718,new,high,"string ""f""",src/data/lib/input/input_mouse_data_01.asm
+16E858,ShapeRowFuncTable,off_16E858,new,low,shape row draw routine table,src/data/lib/input/input_mouse_data_01.asm
+16E870,ShapeRowFunc,dword_16E870,new,low,current shape row routine,src/data/lib/input/input_mouse_data_01.asm
+16E87C,FillRowFuncTable,off_16E87C,new,low,fill row routine table,src/data/lib/input/input_mouse_data_01.asm
+16E8A0,DebugTagStr,unk_16E8A0,new,low,tag text drawn with debug boxes,src/data/lib/input/input_mouse_data_01.asm
+16F110,SplineCoefs,unk_16F110,new,low,spline coefficients for camera paths,src/data/lib/input/input_mouse_data_01.asm
+16F140,F32_50p0_View,dword_16F140,new,low,50.0 (single precision),src/data/lib/input/input_mouse_data_01.asm
+16F144,F32_1p0_View,dword_16F144,new,low,1.0 (single precision),src/data/lib/input/input_mouse_data_01.asm
+16F148,RinkLineWidth,dword_16F148,new,low,rink line width,src/data/lib/input/input_mouse_data_01.asm
+16F14C,SortStride,dword_16F14C,new,low,record stride for SortIndices,src/data/lib/input/input_mouse_data_01.asm
+16F150,SortKeyOffset,dword_16F150,new,low,key offset for SortIndices,src/data/lib/input/input_mouse_data_01.asm
+16F184,ExitHandler,dword_16F184,new,low,routine called to leave the program,src/data/lib/input/input_mouse_data_01.asm
+16F188,PacketCrcTable,dword_16F188,new,low,CRC table for link packet checksums,src/data/lib/input/input_joystick_misc_05_data_01.asm
+16F588,BlitRowFuncTable,off_16F588,new,low,row blit routine table,src/data/lib/input/input_joystick_misc_05_data_01.asm
+16F5AC,FshExtension,dword_16F5AC,new,low,"pointer to the "".fsh"" file extension",src/data/lib/input/input_joystick_misc_05_data_01.asm
+16F5B4,ConvertPalette,dword_16F5B4,new,low,palette used to convert true colour rows to 8-bit,src/data/lib/input/input_joystick_misc_05_data_01.asm
+16F5B8,ColorKeyEnabled,dword_16F5B8,new,low,colour key used when converting 32-bit art,src/data/lib/input/input_joystick_misc_05_data_01.asm
+16F5BC,ConvertDestBuffer,off_16F5BC,new,low,destination buffer for art conversion,src/data/lib/input/input_joystick_misc_05_data_01.asm
+16F5C0,ArtRowFuncs8,off_16F5C0,new,low,row conversion routine per art format (8-bit),src/data/lib/input/input_joystick_misc_05_data_01.asm
+16F684,ArtRowFuncs16,off_16F684,new,low,row conversion routine per art format (16-bit),src/data/lib/input/input_joystick_misc_05_data_01.asm
+16F748,ArtFormatCodes,byte_16F748,new,low,art format code bytes,src/data/lib/input/input_joystick_misc_05_data_01.asm
+16F77C,RandState0,dword_16F77C,new,low,random generator state word 0,src/data/lib/video/video_bios_vga_01_data_01.asm
+16F780,RandState1,dword_16F780,new,low,random generator state word 1,src/data/lib/video/video_bios_vga_01_data_01.asm
+16F784,RandState2,dword_16F784,new,low,random generator state word 2,src/data/lib/video/video_bios_vga_01_data_01.asm
+16F788,RandState3,dword_16F788,new,low,random generator state word 3,src/data/lib/video/video_bios_vga_01_data_01.asm
+16F78C,RandState4,dword_16F78C,new,low,random generator state word 4,src/data/lib/video/video_bios_vga_01_data_01.asm
+16F790,RandIndex,dword_16F790,new,low,random generator step counter,src/data/lib/video/video_bios_vga_01_data_01.asm
+16F794,RemapTable,byte_16F794,new,low,colour remap table,src/data/lib/video/video_bios_vga_01_data_01.asm
+16F894,VesaBank,dword_16F894,new,low,current VESA bank,src/data/lib/video/video_bios_vga_01_data_01.asm
+16F898,VesaBankFunc,dword_16F898,new,low,VESA bank switch routine,src/data/lib/video/video_bios_vga_01_data_01.asm
+16F89C,VesaBankShift,byte_16F89C,new,low,VESA bank granularity shift,src/data/lib/video/video_bios_vga_01_data_01.asm
+16F8A0,PaletteReadFunc,dword_16F8A0,new,low,palette read routine,src/data/lib/video/video_bios_vga_01_data_01.asm
+16F8A8,VideoModeIndex,dword_16F8A8,new,low,index of the current video mode,src/data/lib/video/video_bios_vga_01_data_01.asm
+16F8AC,ModeTableWidth,dword_16F8AC,new,low,video mode table: width,src/data/lib/video/video_bios_vga_01_data_01.asm
+16F8B0,ModeTableHeight,dword_16F8B0,new,low,video mode table: height,src/data/lib/video/video_bios_vga_01_data_01.asm
+16F8B4,ModeTableBpp,dword_16F8B4,new,low,video mode table: bits per pixel,src/data/lib/video/video_bios_vga_01_data_01.asm
+16F8B8,ModeTableNumber,dword_16F8B8,new,low,video mode table: mode number,src/data/lib/video/video_bios_vga_01_data_01.asm
+16F9FC,VesaModeInfo,dword_16F9FC,new,low,VESA mode information block pointer,src/data/lib/video/video_bios_vga_01_data_01.asm
+16FA00,VesaWindowActive,dword_16FA00,new,low,VESA window set,src/data/lib/video/video_bios_vga_01_data_01.asm
+16FA08,RowTable,dword_16FA08,new,low,screen row address table,src/data/lib/video/video_bios_vga_01_data_01.asm
+16FA10,LimbShadeEnabled,dword_16FA10,new,low,limb segments are shaded,src/data/lib/video/video_bios_vga_01_data_01.asm
+16FA14,ViewInterlaced,dword_16FA14,new,low,view drawn interlaced,src/data/lib/video/video_bios_vga_01_data_01.asm
+16FA1C,FrameBlitFuncs,off_16FA1C,new,low,frame blit routine table,src/data/lib/video/video_bios_vga_01_data_01.asm
+16FA3F,RemapByte,byte_16FA3F,new,low,remap scratch byte,src/data/lib/video/video_bios_vga_01_data_01.asm
+16FA40,IdentityRemap,byte_16FA40,new,low,identity colour remap table,src/data/lib/video/video_bios_vga_01_data_01.asm
+16FA4F,PuckArrowColors,byte_16FA4F,new,low,puck arrow colours,src/data/lib/video/video_bios_vga_01_data_01.asm
+16FB40,CdSectorSize,dword_16FB40,new,low,CD sector size (800h),src/data/lib/watcom/watcom_clib_08_data_01.asm
+16FB44,CdFileTable,unk_16FB44,new,low,open CD file records,src/data/lib/watcom/watcom_clib_08_data_01.asm
+16FB50,CdFileMode,dword_16FB50,new,low,CD file: open mode,src/data/lib/watcom/watcom_clib_08_data_01.asm
+16FB54,CdFileHandle,dword_16FB54,new,low,CD file: handle,src/data/lib/watcom/watcom_clib_08_data_01.asm
+16FB58,CdFileStart,dword_16FB58,new,low,CD file: first sector,src/data/lib/watcom/watcom_clib_08_data_01.asm
+16FB5C,CdFileSize,dword_16FB5C,new,low,CD file: size,src/data/lib/watcom/watcom_clib_08_data_01.asm
+16FB60,CdFilePos,dword_16FB60,new,low,CD file: position,src/data/lib/watcom/watcom_clib_08_data_01.asm
+16FB64,CdFileBuffer,dword_16FB64,new,low,CD file: buffer,src/data/lib/watcom/watcom_clib_08_data_01.asm
+16FB74,CdDriveCount,dword_16FB74,new,low,number of CD drives,src/data/lib/watcom/watcom_clib_08_data_01.asm
+16FECC,SinCosTable,dword_16FECC,new,low,sine/cosine lookup table,src/data/lib/watcom/watcom_clib_08_data_01.asm
+16FFC4,CdStreamSpeed,dword_16FFC4,new,low,CD stream speed,src/data/lib/watcom/watcom_clib_08_data_01.asm
 16FFC8,AudioDriverOpenFns,off_16FFC8,new,low,open function of each audio driver,src/data/lib/ea/ea_gfx_04_data_01.asm
 16FFCC,AudioDriverCloseFns,off_16FFCC,new,low,close function of each audio driver,src/data/lib/ea/ea_gfx_04_data_01.asm
 16FFD0,AudioDriverUpdateFns,off_16FFD0,new,low,update function of each audio driver,src/data/lib/ea/ea_gfx_04_data_01.asm
@@ -7599,9 +7764,28 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 170150,ResourceLookupFn,dword_170150,new,low,function that finds an entry in the open archive,src/data/lib/ea/ea_gfx_04_data_01.asm
 170154,ResourceArchiveSize,dword_170154,new,low,size of the open resource archive,src/data/lib/ea/ea_gfx_04_data_01.asm
 170158,ResourceArchiveData,dword_170158,new,low,data of the open resource archive,src/data/lib/ea/ea_gfx_04_data_01.asm
+17015C,SpeechQueueActive,dword_17015C,new,low,set while the speech queue plays,src/data/lib/lib_109A74_data_01.asm
+170160,SpeechQueueBank,byte_170160,new,low,bank number per queued speech clip,src/data/lib/lib_109A74_data_01.asm
+170161,SpeechQueueFlags,byte_170161,new,low,flags per queued speech clip,src/data/lib/lib_109A74_data_01.asm
+170162,SpeechQueueClip,word_170162,new,low,clip number per queued speech clip,src/data/lib/lib_109A74_data_01.asm
+170164,SpeechQueueData,dword_170164,new,low,data pointer per queued speech clip,src/data/lib/lib_109A74_data_01.asm
+170200,SpeechQueueHead,dword_170200,new,low,first queued speech clip,src/data/lib/lib_109A74_data_01.asm
+170204,SpeechQueueTail,dword_170204,new,low,last queued speech clip,src/data/lib/lib_109A74_data_01.asm
+170208,SpeechQueueCount,dword_170208,new,low,number of queued speech clips,src/data/lib/lib_109A74_data_01.asm
+170210,SpeechQueueChannel,dword_170210,new,low,channel playing the speech queue,src/data/lib/lib_109A74_data_01.asm
+170214,SpeechQueueHandle,dword_170214,new,low,handle of the playing speech clip,src/data/lib/lib_109A74_data_01.asm
 170218,str_Punct_SetScreenScale,dword_170218,new,high,"string ""\n""",src/data/lib/lib_109A74_data_01.asm
+17021C,RinkMatrix,unk_17021C,new,low,rink rotation matrix,src/data/lib/lib_109A74_data_01.asm
+170240,RinkTranslation,unk_170240,new,low,rink translation vector,src/data/lib/lib_109A74_data_01.asm
+17024C,ViewCenterX,dword_17024C,new,low,view center X,src/data/lib/lib_109A74_data_01.asm
 170250,str_D_SetCameraAngles,dword_170250,new,high,"string ""d""",src/data/lib/lib_109A74_data_01.asm
+170254,CameraYaw,dword_170254,new,low,camera yaw angle,src/data/lib/lib_109A74_data_01.asm
+170258,CameraPitch,dword_170258,new,low,camera pitch angle,src/data/lib/lib_109A74_data_01.asm
+17025C,ViewCenterY,dword_17025C,new,low,view center Y,src/data/lib/lib_109A74_data_01.asm
 170260,str_D_ProjectPointsPersp,dword_170260,new,high,"string ""d""",src/data/lib/lib_109A74_data_01.asm
+170264,CameraSinYaw,dword_170264,new,low,sine of the camera yaw,src/data/lib/lib_109A74_data_01.asm
+170268,CameraCosYaw,dword_170268,new,low,cosine of the camera yaw,src/data/lib/lib_109A74_data_01.asm
+170274,CameraFlags,dword_170274,new,low,camera state flags,src/data/lib/lib_109A74_data_01.asm
 170278,RinkPrimNoOpFns,off_170278,new,low,rink primitive functions that draw nothing,src/data/lib/ea/ea_gfx_06_data_01.asm
 170284,RinkPrimFlatFns,off_170284,new,low,rink primitive functions for flat polygons,src/data/lib/ea/ea_gfx_06_data_01.asm
 170290,RinkPrimSetupFns,off_170290,new,low,rink primitive set-up functions,src/data/lib/ea/ea_gfx_06_data_01.asm
@@ -7663,6 +7847,14 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1726A0,AtanTable,dword_1726A0,new,low,arctangent table of the angle routine,src/data/lib/ea/ea_memman_02_data_01.asm
 1726A4,str_Punct_AngleOfVector,dword_1726A4,new,high,"string "")""",src/data/lib/ea/ea_memman_02_data_01.asm
 172AAC,VideoModeHook,dword_172AAC,new,low,function called after a video mode change,src/data/lib/ea/ea_memman_02_data_01.asm
+172AB0,SavedTextMode,byte_172AB0,new,low,text mode saved at start up,src/data/lib/video/video_bios_vga_06_data_01.asm
+172AB1,SavedTextPage,byte_172AB1,new,low,text page saved at start up,src/data/lib/video/video_bios_vga_06_data_01.asm
+172AB2,SavedTextColumns,word_172AB2,new,low,text columns saved at start up,src/data/lib/video/video_bios_vga_06_data_01.asm
+172AB4,SavedTextRows,byte_172AB4,new,low,text rows saved at start up,src/data/lib/video/video_bios_vga_06_data_01.asm
+172AB8,SpeechChannelFunc,dword_172AB8,new,low,speech channel callback,src/data/lib/video/video_bios_vga_06_data_01.asm
+172ABC,LoadFileHook,dword_172ABC,new,low,routine called around file loads,src/data/lib/video/video_bios_vga_06_data_01.asm
+172AC0,SoundBankTable,dword_172AC0,new,low,registered sound bank per slot,src/data/lib/video/video_bios_vga_06_data_01.asm
+172AC4,SoundBankSamples,dword_172AC4,new,low,sample table per registered sound bank,src/data/lib/video/video_bios_vga_06_data_01.asm
 172BC1,PatlDefaultPitch,dword_172BC1,new,low,default pitch of PATl samples,src/data/lib/ea/ea_unpack_02_data_01.asm
 172BC5,SoundSystemOn,byte_172BC5,new,low,set while the sound system is running,src/data/lib/ea/ea_unpack_02_data_01.asm
 172BC8,SpeechQueueVolume,dword_172BC8,new,low,volume of the speech queue,src/data/lib/ea/ea_unpack_02_data_01.asm
@@ -7685,8 +7877,35 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 172C0C,SbProDriverRunning,dword_172C0C,new,low,set while the Sound Blaster Pro driver runs,src/data/lib/ea/ea_unpack_02_data_01.asm
 172C10,SbProChannels,dword_172C10,new,low,channel count of the Sound Blaster Pro driver,src/data/lib/ea/ea_unpack_02_data_01.asm
 172C14,SbProIrqVectors,byte_172C14,new,low,interrupt vector of each Sound Blaster Pro IRQ line,src/data/lib/ea/ea_unpack_02_data_01.asm
+172C15,SbProDmaChannelTable,byte_172C15,new,low,DMA channel bits per Sound Blaster Pro DMA number,src/data/lib/ea/ea_unpack_02_data_01.asm
+172C24,Sb16DriverActive,dword_172C24,new,low,Sound Blaster 16 driver open flag,src/data/lib/ea/ea_unpack_02_data_01.asm
+172C28,Sb16BufferSize,dword_172C28,new,low,Sound Blaster 16 DMA buffer size,src/data/lib/ea/ea_unpack_02_data_01.asm
+172C2C,Sb16DmaPageTable,byte_172C2C,new,low,DMA page register port per channel,src/data/lib/ea/ea_unpack_02_data_01.asm
+172C2D,Sb16DmaAddrTable,byte_172C2D,new,low,DMA address register port per channel,src/data/lib/ea/ea_unpack_02_data_01.asm
+172C2E,Sb16DmaCountTable,byte_172C2E,new,low,DMA count register port per channel,src/data/lib/ea/ea_unpack_02_data_01.asm
+172C2F,Sb16DmaMaskTable,byte_172C2F,new,low,DMA mask bits per channel,src/data/lib/ea/ea_unpack_02_data_01.asm
+172C3E,Sb16SavedIrqVector,dword_172C3E,new,low,previous IRQ handler offset saved by the Sound Blaster 16 driver,src/data/lib/ea/ea_unpack_02_data_01.asm
+172C42,Sb16SavedIrqSelector,word_172C42,new,low,previous IRQ handler selector saved by the Sound Blaster 16 driver,src/data/lib/ea/ea_unpack_02_data_01.asm
+172C44,Sb16DmaSetupCode,unk_172C44,new,low,DMA setup code bytes patched with the channel ports,src/data/lib/ea/ea_unpack_02_data_01.asm
+172C48,Sb16DmaPortPatch,word_172C48,new,low,port operand patched into the DMA setup code,src/data/lib/ea/ea_unpack_02_data_01.asm
 172C4C,str_Punct_Sb16SetupDma,word_172C4C,new,high,"string ""\n""",src/data/lib/ea/ea_unpack_02_data_01.asm
+172C64,SoundscapeBasePort,dword_172C64,new,low,Soundscape card base I/O port (default 330h),src/data/lib/ea/ea_unpack_02_data_01.asm
 172C68,str_Punct_ReadSoundscapeIni,dword_172C68,new,high,"string ""\t""",src/data/lib/ea/ea_unpack_02_data_01.asm
+172C6C,SoundscapeCodecType,dword_172C6C,new,low,Soundscape codec type read from SNDSCAPE.INI,src/data/lib/ea/ea_unpack_02_data_01.asm
+172C70,SoundscapeDmaChannel,dword_172C70,new,low,Soundscape DMA channel,src/data/lib/ea/ea_unpack_02_data_01.asm
+172C74,SoundscapeWavePort,dword_172C74,new,low,Soundscape codec (wave) port,src/data/lib/ea/ea_unpack_02_data_01.asm
+172C78,SoundscapeIrq,dword_172C78,new,low,Soundscape IRQ number,src/data/lib/ea/ea_unpack_02_data_01.asm
+172C7C,SoundscapeMidiIrq,dword_172C7C,new,low,Soundscape synth IRQ number,src/data/lib/ea/ea_unpack_02_data_01.asm
+172C80,SoundscapeDmaBuffer,dword_172C80,new,low,Soundscape DMA buffer address,src/data/lib/ea/ea_unpack_02_data_01.asm
+172C84,SoundscapeSavedIrq,dword_172C84,new,low,previous IRQ handler saved by the Soundscape driver,src/data/lib/ea/ea_unpack_02_data_01.asm
+172C88,SoundscapeIrqFlags,byte_172C88,new,low,IRQ capability bits per Soundscape IRQ,src/data/lib/ea/ea_unpack_02_data_01.asm
+172C89,SoundscapeIrqCodes,byte_172C89,new,low,codec IRQ select code per Soundscape IRQ,src/data/lib/ea/ea_unpack_02_data_01.asm
+172C90,AudioDeferredPending,dword_172C90,new,low,deferred audio work queued while the mixer was busy,src/data/lib/ea/ea_unpack_02_data_01.asm
+172C94,AudioDeferredArg,dword_172C94,new,low,argument of the deferred audio work,src/data/lib/ea/ea_unpack_02_data_01.asm
+172C98,AudioBusyCount,dword_172C98,new,low,nesting count of AudioEnter/AudioLeave,src/data/lib/ea/ea_unpack_02_data_01.asm
+172C9C,AudioLockCount,dword_172C9C,new,low,audio critical section lock count,src/data/lib/ea/ea_unpack_02_data_01.asm
+172CA0,AudioDeferredFunc,dword_172CA0,new,low,deferred audio work routine,src/data/lib/ea/ea_unpack_02_data_01.asm
+172CA4,MixerStepTable,dword_172CA4,new,low,mixer pitch step per note,src/data/lib/ea/ea_unpack_02_data_01.asm
 199C40,_environ,,96PC,high,NHL96PC 14F09C (position): same fixup of __setenvp_,
 199C44,___env_mask,,96PC,high,NHL96PC 14F0A0 (position): same fixup of __setenvp_,
 199CE8,str_2_SetupRectFill,dword_199CE8,new,high,"string ""2""",src/data/lib/watcom/watcom_emu387_data_01.asm
@@ -7793,9 +8012,13 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 19C734,F32_0p9375,dword_19C734,new,high,float constant 0.9375,src/data/lib/watcom/watcom_clib_13_data_02.asm
 19C738,F32_1p0625,dword_19C738,new,high,float constant 1.0625,src/data/lib/watcom/watcom_clib_13_data_02.asm
 19C73C,F32_9p22337e18,dword_19C73C,new,high,float constant 9.223372037e+18,src/data/lib/watcom/watcom_clib_13_data_02.asm
+19C840,FpremShiftTable,byte_19C840,new,low,fprem quotient bit table,src/data/lib/video/video_bios_vga_09_data_01.asm
+19C858,FpremScale,qword_19C858,new,low,fprem scale constant,src/data/lib/video/video_bios_vga_09_data_01.asm
 19C860,F64_5p42101eneg20,qword_19C860,new,high,double constant 5.421010862e-20,src/data/lib/video/video_bios_vga_09_data_01.asm
 19C870,F64_0p5_fprem_common,qword_19C870,new,high,double constant 0.5,src/data/lib/video/video_bios_vga_09_data_01.asm
+19C878,FpremTwoPi,tbyte_19C878,new,low,fprem reduction constant,src/data/lib/video/video_bios_vga_09_data_01.asm
 19C884,F64_1,qword_19C884,new,high,double constant 1,src/data/lib/video/video_bios_vga_09_data_01.asm
+19C894,FpatanJumpTable,off_19C894,new,low,fpatan case table,src/data/lib/video/video_bios_vga_09_data_01.asm
 19C8B4,F80_3p14159,tbyte_19C8B4,new,high,extended constant 3.141592654,src/data/lib/video/video_bios_vga_09_data_01.asm
 19C8BE,F80_1p5708___fpatan_chk,tbyte_19C8BE,new,high,extended constant 1.570796327,src/data/lib/video/video_bios_vga_09_data_01.asm
 19C8C8,F32_16___fpatan_chk,dword_19C8C8,new,high,float constant 16,src/data/lib/video/video_bios_vga_09_data_01.asm
@@ -7807,6 +8030,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 19C8F8,F80_neg0p0909076,tbyte_19C8F8,new,high,extended constant -0.09090758475,src/data/lib/video/video_bios_vga_09_data_01.asm
 19C902,F80_0p0764169,tbyte_19C902,new,high,extended constant 0.07641690806,src/data/lib/video/video_bios_vga_09_data_01.asm
 19C90C,F80_0,tbyte_19C90C,new,high,extended constant 0,src/data/lib/video/video_bios_vga_09_data_01.asm
+19CA1C,GusInitTable,unk_19CA1C,new,low,Gravis register initialisation table,src/data/lib/video/video_bios_vga_09_data_01.asm
 19CA28,kaufmfont,,96PC,high,NHL96PC 151598 (position): same fixup of sub_DB13C,
 19CB6C,regd1,,96PC,medium,NHL96PC 165980 (refset): referenced by the same 2 matched functions,
 19CBA0,gameover,word_19CBA0,96PC,medium,"96 PC gameover (GameOver sets it, RunSimFrames checks it)",src/data/engine/faceoff_data_03.asm
@@ -7870,6 +8094,59 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1CF9F8,RowTableSize,dword_1CF9F8,new,low,number of rows in the screen row address table,src/data/lib/ea/ea_fileblock_01_bss_01.asm
 1CF9FC,UniformArtBuf,dword_1CF9FC,new,low,buffer and size of the uniform art being built,src/data/lib/ea/ea_fileblock_01_bss_01.asm
 1CFA04,LimbVerts,dword_1CFA04,new,low,projected corner points of the limb segment being drawn,src/data/lib/ea/ea_fileblock_01_bss_01.asm
+1CFA10,InvTabR,dword_1CFA10,new,low,inverse colour table: red,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFA14,InvTabG,dword_1CFA14,new,low,inverse colour table: green,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFA18,InvTabB,dword_1CFA18,new,low,inverse colour table: blue,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFA1C,InvTabDist,dword_1CFA1C,new,low,inverse colour table: distance,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFA20,InvTabRStep,dword_1CFA20,new,low,inverse colour table: red step,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFA24,InvTabGStep,dword_1CFA24,new,low,inverse colour table: green step,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFA28,InvTabBStep,dword_1CFA28,new,low,inverse colour table: blue step,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFA2C,InvTabColor,dword_1CFA2C,new,low,inverse colour table: colour index,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFA30,InvTabRMin,dword_1CFA30,new,low,inverse colour table: red minimum,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFA34,InvTabRMax,dword_1CFA34,new,low,inverse colour table: red maximum,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFA38,InvTabOut,dword_1CFA38,new,low,inverse colour table: output buffer,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFA3C,InvTabDistBuf,dword_1CFA3C,new,low,inverse colour table: distance buffer,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFA40,InvTabGMin,dword_1CFA40,new,low,inverse colour table: green minimum,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFA44,InvTabGMax,dword_1CFA44,new,low,inverse colour table: green maximum,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFA48,InvTabBMin,dword_1CFA48,new,low,inverse colour table: blue minimum,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFA4C,InvTabBMax,dword_1CFA4C,new,low,inverse colour table: blue maximum,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFA50,InvTabGCenter,dword_1CFA50,new,low,inverse colour table: green center,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFA54,InvTabBCenter,dword_1CFA54,new,low,inverse colour table: blue center,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFA58,InvTabRow,dword_1CFA58,new,low,inverse colour table: row pointer,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFA5C,InvTabCell,dword_1CFA5C,new,low,inverse colour table: cell pointer,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFA60,InvTabRCenter,dword_1CFA60,new,low,inverse colour table: red center,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFA64,InvTabPass,dword_1CFA64,new,low,inverse colour table: pass count,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFA68,InvTabGLo,dword_1CFA68,new,low,inverse colour table scan: green low,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFA6C,InvTabGHi,dword_1CFA6C,new,low,inverse colour table scan: green high,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFA70,InvTabBLo,dword_1CFA70,new,low,inverse colour table scan: blue low,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFA74,InvTabBHi,dword_1CFA74,new,low,inverse colour table scan: blue high,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFA78,InvTabGInc,dword_1CFA78,new,low,inverse colour table scan: green increment,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFA7C,InvTabBInc,dword_1CFA7C,new,low,inverse colour table scan: blue increment,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFA80,InvTabDistInc,dword_1CFA80,new,low,inverse colour table scan: distance increment,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFA84,InvTabDistStart,dword_1CFA84,new,low,inverse colour table scan: start distance,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFA88,InvTabFillPtr,dword_1CFA88,new,low,inverse colour table fill: pointer,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFA8C,InvTabFillCount,dword_1CFA8C,new,low,inverse colour table fill: count,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFA90,InvTabFillStep,dword_1CFA90,new,low,inverse colour table fill: step,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFA94,InvTabFillDist,dword_1CFA94,new,low,inverse colour table fill: distance,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFA98,CdBufferSegment,word_1CFA98,new,low,real mode segment of the CD buffer,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFA9C,CdBufferSelector,dword_1CFA9C,new,low,selector of the CD buffer,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFAA0,CdBufferAddr,dword_1CFAA0,new,low,linear address of the CD buffer,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFAA4,CdBufferAllocated,dword_1CFAA4,new,low,CD buffer allocated,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFAA8,CdDriveLetter,dword_1CFAA8,new,low,CD drive number,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFAAC,CdReadResult,dword_1CFAAC,new,low,last CD read result,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFAB0,CdRequestSegment,dword_1CFAB0,new,low,real mode segment of the CD request header,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFAB4,CdReadSector,dword_1CFAB4,new,low,sector of the last CD read,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFAB8,CdRequestSelector,word_1CFAB8,new,low,selector of the CD request header,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFABC,CdRegs,dword_1CFABC,new,low,real mode registers for MSCDEX calls,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFAC0,CdDirEntryBuf,dword_1CFAC0,new,low,CD directory entry,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFACC,CdRegEbx,dword_1CFACC,new,low,MSCDEX call EBX,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFAD0,CdRegEdi,dword_1CFAD0,new,low,MSCDEX call EDI,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFAD4,CdRegEax,dword_1CFAD4,new,low,MSCDEX call EAX,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFAD8,CdRegEdx,dword_1CFAD8,new,low,MSCDEX call EDX,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFADC,CdRegFlags,byte_1CFADC,new,low,MSCDEX call flags,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFADE,CdRegEs,word_1CFADE,new,low,MSCDEX call ES,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFAE0,CdRegSegs,word_1CFAE0,new,low,MSCDEX call segment registers,src/data/lib/watcom/watcom_clib_08_bss_01.asm
+1CFAF0,SpeechEventBuf,unk_1CFAF0,new,low,speech event build buffer,src/data/lib/watcom/watcom_clib_08_bss_01.asm
 1CFBF0,SampleRateTable,word_1CFBF0,new,low,playback rate of each mixer channel's sample,src/data/lib/ea/ea_gfx_04_bss_01.asm
 1CFBF2,SampleBitsTable,byte_1CFBF2,new,low,bits per sample of each mixer channel's sample,src/data/lib/ea/ea_gfx_04_bss_01.asm
 1CFBF3,SampleChannelsTable,byte_1CFBF3,new,low,channel count of each mixer channel's sample,src/data/lib/ea/ea_gfx_04_bss_01.asm
@@ -8034,6 +8311,26 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1D8AC8,NearClipTexVerts,unk_1D8AC8,new,low,textured vertices clipped against the near plane,src/data/lib/ea/ea_gfx_08_bss_01.asm
 1D8CC8,NearClipVertsIn,unk_1D8CC8,new,low,vertices before near-plane clipping,src/data/lib/ea/ea_gfx_08_bss_01.asm
 1D8EC8,NearClipVertsOut,unk_1D8EC8,new,low,vertices after near-plane clipping,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D91C8,PrimColor,dword_1D91C8,new,low,current primitive colour,src/data/lib/watcom/watcom_clib_13_bss_01.asm
+1D91CC,ModelFileCount,dword_1D91CC,new,low,number of loaded model files,src/data/lib/watcom/watcom_clib_13_bss_01.asm
+1D91D0,PartFuncTable,unk_1D91D0,new,low,model part routine table,src/data/lib/watcom/watcom_clib_13_bss_01.asm
+1D91FC,KeyRowTable,word_1D91FC,new,low,keyed blit row table,src/data/lib/watcom/watcom_clib_13_bss_01.asm
+1D9404,BitReaderPtr,dword_1D9404,new,low,bit reader position,src/data/lib/watcom/watcom_clib_13_bss_01.asm
+1D940C,BitReaderBits,dword_1D940C,new,low,bit reader bit buffer,src/data/lib/watcom/watcom_clib_13_bss_01.asm
+1D9410,VideoCodeTableA,dword_1D9410,new,low,video decoder code table A,src/data/lib/watcom/watcom_clib_13_bss_01.asm
+1D960C,VideoDecoderA,dword_1D960C,new,low,video decoder state A,src/data/lib/watcom/watcom_clib_13_bss_01.asm
+1D9610,VideoCodeTableB,dword_1D9610,new,low,video decoder code table B,src/data/lib/watcom/watcom_clib_13_bss_01.asm
+1D9810,VideoGammaTable,dword_1D9810,new,low,video decoder gamma table,src/data/lib/watcom/watcom_clib_13_bss_01.asm
+1D990C,VideoDecoderB,dword_1D990C,new,low,video decoder state B,src/data/lib/watcom/watcom_clib_13_bss_01.asm
+1D9910,VideoCodeTableC,dword_1D9910,new,low,video decoder code table C,src/data/lib/watcom/watcom_clib_13_bss_01.asm
+1D9B0C,FrameRateState,dword_1D9B0C,new,low,frame rate state,src/data/lib/watcom/watcom_clib_13_bss_01.asm
+1D9B10,FrameRateSamples,dword_1D9B10,new,low,frame rate samples,src/data/lib/watcom/watcom_clib_13_bss_01.asm
+1D9B2C,FrameRateLast,dword_1D9B2C,new,low,last frame rate,src/data/lib/watcom/watcom_clib_13_bss_01.asm
+1D9B30,VideoBlock0,dword_1D9B30,new,low,video block buffer 0,src/data/lib/watcom/watcom_clib_13_bss_01.asm
+1D9B50,VideoBlock1,unk_1D9B50,new,low,video block buffer 1,src/data/lib/watcom/watcom_clib_13_bss_01.asm
+1D9B70,VideoBlock2,unk_1D9B70,new,low,video block buffer 2,src/data/lib/watcom/watcom_clib_13_bss_01.asm
+1D9B90,VideoBlock3,unk_1D9B90,new,low,video block buffer 3,src/data/lib/watcom/watcom_clib_13_bss_01.asm
+1D9BB0,VideoBlock4,unk_1D9BB0,new,low,video block buffer 4,src/data/lib/watcom/watcom_clib_13_bss_01.asm
 1DA394,TintMulGreen,dword_1DA394,new,low,green multiplier of the screen tint,src/data/lib/ea/ea_debug_bss_01.asm
 1DA398,TintMulBlue,dword_1DA398,new,low,blue multiplier of the screen tint,src/data/lib/ea/ea_debug_bss_01.asm
 1DA39C,TintRowCount,dword_1DA39C,new,low,rows of the tint rectangle left to do,src/data/lib/ea/ea_debug_bss_01.asm
@@ -8064,6 +8361,12 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1DA464,IpxSocketNum,unk_1DA464,new,low,IPX socket number the game listens on,src/data/lib/ea/ea_debug_bss_01.asm
 1DA466,IpxSocketResult,unk_1DA466,new,low,result of opening the IPX socket,src/data/lib/ea/ea_debug_bss_01.asm
 1DA468,IpxLocalAddr,unk_1DA468,new,low,this computer's IPX network and node address,src/data/lib/ea/ea_debug_bss_01.asm
+1DCAFC,SpeechEventCount,dword_1DCAFC,new,low,queued speech event count,src/data/lib/watcom/watcom_clib_08_bss_02.asm
+1DCB00,SpeechEventId,dword_1DCB00,new,low,speech event: id,src/data/lib/watcom/watcom_clib_08_bss_02.asm
+1DCB04,SpeechEventTime,dword_1DCB04,new,low,speech event: time,src/data/lib/watcom/watcom_clib_08_bss_02.asm
+1DCB08,SpeechEventQueue,dword_1DCB08,new,low,speech event queue,src/data/lib/watcom/watcom_clib_08_bss_02.asm
+1DCEC0,SpeechEnabled,dword_1DCEC0,new,low,speech on,src/data/lib/watcom/watcom_clib_08_bss_02.asm
+1DCEC4,SpeechBufferTag,dword_1DCEC4,new,low,speech buffer tag ('PATl'),src/data/lib/watcom/watcom_clib_08_bss_02.asm
 1DD384,PatlChannelParams,dword_1DD384,new,low,parameters of the PATl sample being started,src/data/lib/ea/ea_unpack_02_bss_01.asm
 1DD388,GusDriverConfig,word_1DD388,new,low,card settings read by the Gravis driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
 1DD38A,GusDriverBasePort,word_1DD38A,new,low,base port of the Gravis card,src/data/lib/ea/ea_unpack_02_bss_01.asm
@@ -8148,6 +8451,29 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1DD4B0,SbChannelFlags,byte_1DD4B0,new,low,flags of the channel slot table,src/data/lib/sound/snd_soundblaster_01_bss_01.asm
 1DD4B4,SbChannelCount,dword_1DD4B4,new,low,number of channel slots in use,src/data/lib/sound/snd_soundblaster_01_bss_01.asm
 1DD4B8,ClipTexVertsTop,unk_1DD4B8,new,low,vertex buffer of textured polygons clipped against the top edge,src/data/lib/sound/snd_soundblaster_01_bss_01.asm
+1DD5B8,TexClipBottomOut,unk_1DD5B8,new,low,textured polygon vertices after clipping the bottom edge,src/data/lib/input/input_joystick_misc_08_bss_01.asm
+1DD738,TexClipBottomIn,unk_1DD738,new,low,textured polygon vertices before clipping the bottom edge,src/data/lib/input/input_joystick_misc_08_bss_01.asm
+1DD838,TexClipRightIn,unk_1DD838,new,low,textured polygon vertices before clipping the right edge,src/data/lib/input/input_joystick_misc_08_bss_01.asm
+1DD938,TexClipLeftIn,unk_1DD938,new,low,textured polygon vertices before clipping the left edge,src/data/lib/input/input_joystick_misc_08_bss_01.asm
+1DDA38,TexClipRightOut,unk_1DDA38,new,low,textured polygon vertices after clipping the right edge,src/data/lib/input/input_joystick_misc_08_bss_01.asm
+1DDBB8,TexClipLeftOut,unk_1DDBB8,new,low,textured polygon vertices after clipping the left edge,src/data/lib/input/input_joystick_misc_08_bss_01.asm
+1DDD38,TexClipTopOut,unk_1DDD38,new,low,textured polygon vertices after clipping the top edge,src/data/lib/input/input_joystick_misc_08_bss_01.asm
+1DDEB8,PolyClipTopIn,unk_1DDEB8,new,low,polygon vertices before clipping the top edge,src/data/lib/input/input_joystick_misc_08_bss_01.asm
+1DDFB8,PolyClipBottomIn,unk_1DDFB8,new,low,polygon vertices before clipping the bottom edge,src/data/lib/input/input_joystick_misc_08_bss_01.asm
+1DE0B8,PolyClipRightIn,unk_1DE0B8,new,low,polygon vertices before clipping the right edge,src/data/lib/input/input_joystick_misc_08_bss_01.asm
+1DE1B8,PolyClipLeftOut,unk_1DE1B8,new,low,polygon vertices after clipping the left edge,src/data/lib/input/input_joystick_misc_08_bss_01.asm
+1DE2B8,PolyClipBottomOut,unk_1DE2B8,new,low,polygon vertices after clipping the bottom edge,src/data/lib/input/input_joystick_misc_08_bss_01.asm
+1DE3B8,PolyClipLeftIn,unk_1DE3B8,new,low,polygon vertices before clipping the left edge,src/data/lib/input/input_joystick_misc_08_bss_01.asm
+1DE4B8,PolyClipRightOut,unk_1DE4B8,new,low,polygon vertices after clipping the right edge,src/data/lib/input/input_joystick_misc_08_bss_01.asm
+1DE5B8,PolyClipTopOut,unk_1DE5B8,new,low,polygon vertices after clipping the top edge,src/data/lib/input/input_joystick_misc_08_bss_01.asm
+1DE6B8,MbvtopLow,byte_1DE6B8,new,low,__mbvtop_ result low byte,src/data/lib/input/input_joystick_misc_08_bss_01.asm
+1DE6B9,MbvtopHigh,byte_1DE6B9,new,low,__mbvtop_ result high byte,src/data/lib/input/input_joystick_misc_08_bss_01.asm
+1DE6BA,MbvtopResult,byte_1DE6BA,new,low,__mbvtop_ result,src/data/lib/input/input_joystick_misc_08_bss_01.asm
+1DE6BC,RationalAllocLimit,dword_1DE6BC,new,low,rational allocator size limit,src/data/lib/input/input_joystick_misc_08_bss_01.asm
+1DE6BE,RationalAllocFlags,word_1DE6BE,new,low,rational allocator flags,src/data/lib/input/input_joystick_misc_08_bss_01.asm
+1DE6C0,Hook387Save,unk_1DE6C0,new,low,FPU state saved by __hook387,src/data/lib/input/input_joystick_misc_08_bss_01.asm
+1DE740,GusEnvConfig,dword_1DE740,new,low,ULTRASND environment settings,src/data/lib/input/input_joystick_misc_08_bss_01.asm
+1DE760,GusDramSize,word_1DE760,new,low,Gravis on-board memory size,src/data/lib/input/input_joystick_misc_08_bss_01.asm
 1DE764,TimerOldOffsetLo,word_1DE764,new,low,low word of the saved timer interrupt offset,src/data/lib/sound/snd_hw_sb_bss_01.asm
 1DE766,TimerOldSelector,word_1DE766,new,low,selector of the saved timer interrupt handler,src/data/lib/sound/snd_hw_sb_bss_01.asm
 1DE768,TimerOldHandler,dword_1DE768,new,low,saved protected-mode timer interrupt handler,src/data/lib/sound/snd_hw_sb_bss_01.asm

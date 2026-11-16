@@ -10,7 +10,7 @@ extern str_BACK7, str_TITL8, str_UL2d, str_UL08, str_UL09, str_UL10, str_UL00, s
 extern str_UL02, str_UL04, str_UL05, str_UL06, str_ULA0, str_ULA1, str_ULA2, str_ULA3
 extern str_ULA4, str_ULA5, byte_1AD72B, byte_1C55A4, byte_1C55A5, byte_1C55A6, byte_1C55A7, byte_1C55A8
 extern byte_1CA9D8, dword_168F58, dword_16CCF1, dword_16D400, dword_16D440, dword_16D444, dword_16D448, dword_16D44C
-extern dword_16D454, dword_16DA9C, dword_16E46C, dword_1AC814, dword_1AC944, dword_1ACF46, dword_1AD251, dword_1AD437
+extern dword_16D454, dword_16DA9C, MenuScreenBitmap, dword_1AC814, dword_1AC944, dword_1ACF46, dword_1AD251, dword_1AD437
 extern dword_1AD69F, dword_1AD6A3, dword_1AD70F, dword_1AD71B, dword_1C5DE4, dword_1C9630, dword_1C9634, dword_1C9660
 extern dword_1C9664, dword_1C967A, dword_1C967E, dword_1C9686, dword_1C968A, dword_1C96C2, dword_1C96C6, dword_1C96CC
 extern dword_1C96D0, dword_1C96D4, dword_1C96D8, dword_1C96DC, dword_1C9714, dword_1C9718, dword_1C971E, dword_1C9722
@@ -709,7 +709,7 @@ UserLogScreen:
         add esp, byte 4
         cmp word [byte ebp+07Eh], byte 0
         jne short .2
-        push dword [dword_16E46C]
+        push dword [MenuScreenBitmap]
         push str_LX00
         push dword [dword_1C5DE4]
         call FindShape
@@ -740,7 +740,7 @@ UserLogScreen:
         push eax
         call sprintf_
         add esp, byte 0Ch
-        push dword [dword_16E46C]
+        push dword [MenuScreenBitmap]
         lea eax, [byte ebp+032h]
         push eax
         push dword [dword_1C5DE4]
@@ -771,7 +771,7 @@ UserLogScreen:
         add esp, byte 4
         cmp word [byte ebp+07Eh], byte 0
         jne short .4
-        push dword [dword_16E46C]
+        push dword [MenuScreenBitmap]
         push str_LC00
         push dword [dword_1C5DE4]
         call FindShape
@@ -802,7 +802,7 @@ UserLogScreen:
         push eax
         call sprintf_
         add esp, byte 0Ch
-        push dword [dword_16E46C]
+        push dword [MenuScreenBitmap]
         lea eax, [byte ebp+032h]
         push eax
         push dword [dword_1C5DE4]

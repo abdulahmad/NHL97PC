@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_10CFB4 progbits alloc exec nowrite align=1
-extern OverlayModels, OverlaySprites, dword_16E464, dword_16E468, str_Punct_DrawRinkSurface, dword_17024C, str_D_SetCameraAngles, dword_170254
-extern dword_170258, dword_17025C, str_D_ProjectPointsPersp, dword_170264, dword_170268, dword_17026C, dword_170270, dword_170274
+extern OverlayModels, OverlaySprites, dword_16E464, dword_16E468, str_Punct_DrawRinkSurface, ViewCenterX, str_D_SetCameraAngles, CameraYaw
+extern CameraPitch, ViewCenterY, str_D_ProjectPointsPersp, CameraSinYaw, CameraCosYaw, dword_17026C, dword_170270, CameraFlags
 extern OverlayViewMatrix, OverlayCamera, memcpy_, AngleOfVector, SubVec3, TransformVecFull, FixedLerp, DrawClippedPoly
 extern RotatePoint2D, RotateModelPoint, AngleFromDelta, SinLookup, CosLookup, ProjectPointsPersp, MultiplyMatrix, TransposeMatrix
 extern FreeMemBlock, MakeColor, FillRectColor, ModelSlots, vecdist
@@ -19,11 +19,11 @@ SetViewScreenOrigin:
         push ebp
         LD mov, ebp, esp
         mov eax, dword [byte ebp+08h]
-        mov dword [dword_170254], eax
-        add eax, dword [dword_17024C]
-        mov dword [dword_17025C], eax
+        mov dword [CameraYaw], eax
+        add eax, dword [ViewCenterX]
+        mov dword [ViewCenterY], eax
         mov eax, dword [byte ebp+0Ch]
-        mov dword [dword_170258], eax
+        mov dword [CameraPitch], eax
         add eax, dword [str_D_SetCameraAngles]
         mov dword [str_D_ProjectPointsPersp], eax
         leave
@@ -64,20 +64,20 @@ SetCameraAngles:
 SetCameraAngles_2E:
         mov eax, dword [byte ebp+010h]
         shr eax, 1
-        mov dword [dword_17024C], eax
-        add eax, dword [dword_170254]
-        mov dword [dword_17025C], eax
+        mov dword [ViewCenterX], eax
+        add eax, dword [CameraYaw]
+        mov dword [ViewCenterY], eax
         mov eax, dword [byte ebp+014h]
         shr eax, 1
         mov dword [str_D_SetCameraAngles], eax
-        add eax, dword [dword_170258]
+        add eax, dword [CameraPitch]
         db 0A3h                                 ; insn: mov [10260h],eax
         dd str_D_ProjectPointsPersp
         db 0FFh,035h                            ; insn: push dword [1026Ch]
         dd dword_17026C
         call CosLookup
         add esp, byte 4
-        mul dword [dword_17024C]
+        mul dword [ViewCenterX]
         LD mov, esi, eax
         push dword [dword_17026C]
         call SinLookup
@@ -85,7 +85,7 @@ SetCameraAngles_2E:
         LD mov, ecx, eax
         LD mov, eax, esi
         div ecx
-        mov dword [dword_170264], eax
+        mov dword [CameraSinYaw], eax
         mov ebx, dword [dword_170270]
         LD or, ebx, ebx
         je short .1
@@ -101,7 +101,7 @@ SetCameraAngles_2E:
         LD mov, eax, esi
         div ecx
         neg eax
-        mov dword [dword_170268], eax
+        mov dword [CameraCosYaw], eax
         pop edi
         pop esi
         pop ebx
@@ -114,7 +114,7 @@ SetCameraAngles_2E:
         shr ebx, 1
         LD sub, eax, ebx
         neg eax
-        mov dword [dword_170268], eax
+        mov dword [CameraCosYaw], eax
         neg eax
         push dword [str_D_SetCameraAngles]
         push eax
@@ -132,12 +132,12 @@ SetCameraAngles_2E:
         cmp dword [byte ebx+08h], byte 0
         jle short .2
         mov eax, dword [ebx]
-        imul dword [dword_170264]
+        imul dword [CameraSinYaw]
         idiv dword [byte ebx+08h]
-        add eax, dword [dword_17025C]
+        add eax, dword [ViewCenterY]
         mov dword [ecx], eax
         mov eax, dword [byte ebx+04h]
-        imul dword [dword_170268]
+        imul dword [CameraCosYaw]
         idiv dword [byte ebx+08h]
         add eax, dword [str_D_ProjectPointsPersp]
         mov dword [byte ecx+04h], eax
@@ -146,7 +146,7 @@ SetCameraAngles_2E:
 .2:
         mov dword [ecx], 80000000h
         mov dword [byte ecx+04h], 80000000h
-        or dword [dword_170274], byte 1
+        or dword [CameraFlags], byte 1
         pop ebx
         ret
         db 00h,00h,00h,00h,00h,00h
@@ -1190,12 +1190,12 @@ DrawSurfacePolys:
         cmp dword [byte esi+08h], byte 0
         jle short .2
         mov eax, dword [esi]
-        imul dword [dword_170264]
+        imul dword [CameraSinYaw]
         idiv dword [byte esi+08h]
-        add eax, dword [dword_17025C]
+        add eax, dword [ViewCenterY]
         mov dword [edi], eax
         mov eax, dword [byte esi+04h]
-        imul dword [dword_170268]
+        imul dword [CameraCosYaw]
         idiv dword [byte esi+08h]
         add eax, dword [str_D_ProjectPointsPersp]
         mov dword [byte edi+04h], eax
@@ -1203,7 +1203,7 @@ DrawSurfacePolys:
 .2:
         mov dword [edi], 80000000h
         mov dword [byte edi+04h], 80000000h
-        or dword [dword_170274], byte 1
+        or dword [CameraFlags], byte 1
 .3:
         mov eax, dword [dword esp+0244h]
         mov esi, dword [dword esp+0278h]
@@ -1546,12 +1546,12 @@ DrawOverlayModels:
         cmp dword [byte esi+08h], byte 0
         jle short .3
         mov eax, dword [esi]
-        imul dword [dword_170264]
+        imul dword [CameraSinYaw]
         idiv dword [byte esi+08h]
-        add eax, dword [dword_17025C]
+        add eax, dword [ViewCenterY]
         mov dword [edi], eax
         mov eax, dword [byte esi+04h]
-        imul dword [dword_170268]
+        imul dword [CameraCosYaw]
         idiv dword [byte esi+08h]
         add eax, dword [str_D_ProjectPointsPersp]
         mov dword [byte edi+04h], eax
@@ -1559,7 +1559,7 @@ DrawOverlayModels:
 .3:
         mov dword [edi], 80000000h
         mov dword [byte edi+04h], 80000000h
-        or dword [dword_170274], byte 1
+        or dword [CameraFlags], byte 1
 .4:
         cmp dword [byte ebx+07Ch], 270Fh
         jge short .5

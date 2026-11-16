@@ -7,12 +7,12 @@ extern str_SLRT, F32_0p003125, F32_0p005, F32_0p003125_ScrollPosToValue, F32_0p0
 extern F32_0p5_InitScrollTable, F32_14_InitScrollTable, F32_0p5_ScrollToMouse, F32_0p5_SetListSelection, dword_16CD02, dword_16CD08, dword_16CD0C, dword_16CD10
 extern dword_16CD14, dword_16CD18, dword_16CD1C, dword_16CD24, dword_16CD28, dword_16CD2C, dword_16CD30, str_3_LoadLangText
 extern dword_16CD40, dword_16CD4C, dword_16CD50, dword_16CD54, dword_16DA9C, mousex, mousey, dword_16E464
-extern dword_16E468, dword_16E46C, dword_1AC814, dword_1C5DE4, dword_1C83D0, dword_1C83D4, dword_1C83D8, dword_1C83DC
+extern dword_16E468, MenuScreenBitmap, dword_1AC814, dword_1C5DE4, dword_1C83D0, dword_1C83D4, dword_1C83D8, dword_1C83DC
 extern dword_1C83E0, dword_1C83E4, dword_1C83E8, dword_1C83EC, dword_1C83F0, dword_1C83F4, dword_1C83F8, dword_1C83FC
 extern dword_1C8400, dword_1C8404, dword_1C8408, dword_1C840C, dword_1C8410, dword_1C8414, dword_1C8418, dword_1C841C
 extern dword_1C8420, dword_1C8424, dword_1C8428, dword_1C842C, dword_1C8430, dword_1C8434, dword_1C8438, dword_1C843C
 extern dword_1C8444, dword_1C8448, dword_1C844C, dword_1C8454, RunNewSeason_DD, RunNewSeason_E6, RunNewSeason_EF, RunNewSeason_F8
-extern RunNewSeason_16F, RunNewSeason_17B, RunNewSeason_187, RunNewSeason_193, off_16E4E0, F64_0p5_RunMenu, F64_0p5_ScrollPosToValue, F64_0p5_SetupMenuView
+extern RunNewSeason_16F, RunNewSeason_17B, RunNewSeason_187, RunNewSeason_193, PresentFuncInput, F64_0p5_RunMenu, F64_0p5_ScrollPosToValue, F64_0p5_SetupMenuView
 extern BlitArt, BlitClippedY, PresentScreen, FindShape, SumRingRange, ConvertArtXY, SetScreenTarget, PlaySfx
 extern LoadDataFileHandle, SetRegionRect, ShowLinkWait, ShowLinkMessage, HideLinkBox, InitMenuItems, ClearLinkAbort, ServiceIdle
 extern ResetLinkStats, SyncLinkGame, FreeMemBlock, MakeColor, SetViewRect, FreeBitmap, DrawArt, CreateBitmap
@@ -270,7 +270,7 @@ RunMenu:
         test byte [byte ebp+014h], 2
         je short .28
 .27:
-        call dword [off_16E4E0]
+        call dword [PresentFuncInput]
         mov dword [dword_16CD10], eax
         mov eax, dword [mousex]
         mov dword [dword_16CD08], eax
@@ -351,7 +351,7 @@ RunMenu:
 .33:
         cmp word [word_16CD20], byte 0
         jne short .35
-        cmp dword [dword_16E46C], byte 8
+        cmp dword [MenuScreenBitmap], byte 8
         je short .34
         mov eax, 237h
         call GetLangText

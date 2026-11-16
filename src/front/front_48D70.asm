@@ -9,7 +9,7 @@ extern str_Ice22, str_0ice2, str_Ice3, str_0ice3, str_Newice, str_Icepolys, str_
 extern str_C100, str_C200, str_C201, str_C210, str_C211, str_C300, str_C301, str_C302
 extern str_C303, str_C310, str_C311, str_C312, str_C313, str_C320, str_C321, str_C322
 extern str_C323, str_C330, str_C331, str_C332, str_C333, str_GLASS, str_ArenaViv2, str_Zamtrack
-extern str_Netback, str_Netfrnt, str_BlogoDC, str_L02da, str_L02db, str_L02dc, str_L02dC, byte_16FA40
+extern str_Netback, str_Netfrnt, str_BlogoDC, str_L02da, str_L02db, str_L02dc, str_L02dC, IdentityRemap
 extern byte_1AC638, byte_1AC818, byte_1AC81A, byte_1AC81B, byte_1AC948, byte_1AC95B, byte_1AEDED, byte_1AEDEE
 extern byte_1AEDEF, F32_neg4264, F32_neg2040, F32_65536_ScaleLineWidth, F32_65536_InitRinkView, F32_600, F32_6_BuildRinkGeometry, F32_10_BuildRinkGeometry
 extern F32_14, F32_4, F32_8, dword_1691A8, dword_1691AC, dword_1691AE, dword_1691B0, dword_1691B8
@@ -17,8 +17,8 @@ extern dword_1691BC, dword_1691C0, dword_1691C4, dword_1691C8, dword_1691CC, dwo
 extern dword_1691E0, dword_169224, dword_169228, dword_16922C, dword_169230, dword_169250, dword_169254, dword_169258
 extern dword_169264, dword_169278, dword_16927A, dword_16927C, dword_16927E, dword_169280, dword_169844, dword_1698AF
 extern dword_169996, dword_16AEB4, dword_16AF30, dword_16AF34, dword_16AF38, dword_16AF3C, dword_16AF48, dword_16AF54
-extern dword_16AF68, dword_16B164, dword_16B168, dword_16DA9C, dword_16E464, dword_16E468, str_Punct_DrawRinkSurface, dword_16F144
-extern dword_16F148, dword_17025C, str_D_ProjectPointsPersp, dword_170264, dword_170268, dword_170274, SinTable, dword_1AC790
+extern dword_16AF68, dword_16B164, dword_16B168, dword_16DA9C, dword_16E464, dword_16E468, str_Punct_DrawRinkSurface, F32_1p0_View
+extern RinkLineWidth, ViewCenterY, str_D_ProjectPointsPersp, CameraSinYaw, CameraCosYaw, CameraFlags, SinTable, dword_1AC790
 extern dword_1AC794, dword_1AC798, dword_1AC79C, dword_1AC810, dword_1AC814, dword_1AC819, dword_1AC944, dword_1AD748
 extern dword_1ADBF8, dword_1ADC70, dword_1ADC74, dword_1ADC78, dword_1ADC7C, dword_1ADC80, dword_1ADC84, dword_1ADC88
 extern dword_1ADC8C, dword_1ADC90, dword_1ADC94, dword_1ADC98, dword_1ADC9C, dword_1ADCA8, dword_1ADCB8, dword_1ADCC0
@@ -84,7 +84,7 @@ extern WaitTicks, OpenResourceArchive, CurrentArchiveName, MatchColor, SelectFon
 extern IntsToFloats, FloatsToInts, ScaleFloatsToInts, VecMulMat, TransformVecs, VecAdd, AddVecs, VecDistance
 extern SetViewScale, ProjectCoord, ProjectCoordInt, ProjectPoints, ProjectPointsWithZ, ProjectPointsToScreen, tickcount, str_Punct_MakeDataPath
 extern unk_169848, unk_1698A2, str_X_SetArtArchive, unk_16AF14, unk_16AF6C, unk_16B084, unk_16B0E4, unk_16B144
-extern unk_16B16C, unk_16E8A0, unk_1AC7DC, unk_1AC95D, unk_1ACB44, unk_1AD7C0, unk_1ADCA0, unk_1ADD38
+extern unk_16B16C, DebugTagStr, unk_1AC7DC, unk_1AC95D, unk_1ACB44, unk_1AD7C0, unk_1ADCA0, unk_1ADD38
 extern unk_1ADD40, unk_1ADD58, unk_1ADD60, unk_1ADD78, unk_1ADDE4, unk_1ADEF8, unk_1ADF38, unk_1ADFF8
 extern unk_1AE028, unk_1AE058, unk_1AE0B8, unk_1AE118, unk_1AE278, unk_1AE588, unk_1AE688, unk_1AE6D0
 extern unk_1AE748, unk_1AE7C0, unk_1AE808, unk_1AE850, unk_1AE8B0, unk_1AE910, unk_1AE9B8, unk_1AE9E8
@@ -3715,13 +3715,13 @@ InitGameGraphics:
         push dword 0FF000000h
         call MatchColor
         add esp, byte 4
-        mov al, byte [dword eax+byte_16FA40]
+        mov al, byte [dword eax+IdentityRemap]
         and eax, 0FFh
         push eax
         push byte 0FFFFFFFFh
         call MatchColor
         add esp, byte 4
-        mov al, byte [dword eax+byte_16FA40]
+        mov al, byte [dword eax+IdentityRemap]
         and eax, 0FFh
         push eax
         call SetTextColors
@@ -4035,7 +4035,7 @@ DrawGameFrame:
         call SetViewDrawTarget
         cmp dword [dword_1ADC74], byte 0
         je short .4
-        push unk_16E8A0
+        push DebugTagStr
         call SelectFont
         add esp, byte 4
         push byte 0
@@ -4526,7 +4526,7 @@ DrawFlashSprite:
         push ebx
         fmul dword [byte esp+014h]
         push ecx
-        fmul dword [dword_16F144]
+        fmul dword [F32_1p0_View]
         push edx
         push eax
         fistp dword [esp]
@@ -4594,12 +4594,12 @@ DrawCameraFlashes:
         cmp dword [byte esi+08h], byte 0
         jle short .2
         mov eax, dword [esi]
-        imul dword [dword_170264]
+        imul dword [CameraSinYaw]
         idiv dword [byte esi+08h]
-        add eax, dword [dword_17025C]
+        add eax, dword [ViewCenterY]
         mov dword [edi], eax
         mov eax, dword [byte esi+04h]
-        imul dword [dword_170268]
+        imul dword [CameraCosYaw]
         idiv dword [byte esi+08h]
         add eax, dword [str_D_ProjectPointsPersp]
         mov dword [byte edi+04h], eax
@@ -4607,7 +4607,7 @@ DrawCameraFlashes:
 .2:
         mov dword [edi], 80000000h
         mov dword [byte edi+04h], 80000000h
-        or dword [dword_170274], byte 1
+        or dword [CameraFlags], byte 1
 .3:
         fild word [byte ebx+06h]
         mov esi, dword [byte esp+01Ch]
@@ -4615,7 +4615,7 @@ DrawCameraFlashes:
         push esi
         fmul dword [byte esp+024h]
         push edi
-        fmul dword [dword_16F144]
+        fmul dword [F32_1p0_View]
         push ebx
         push eax
         fistp dword [esp]
@@ -6339,7 +6339,7 @@ DrawRinkCircle:
         fstp dword [esp]
         call ProjectCoordInt
 .2:
-        mov ecx, dword [dword_16F148]
+        mov ecx, dword [RinkLineWidth]
         mov ebx, eax
         test ecx, ecx
         jne short .4
@@ -6474,7 +6474,7 @@ DrawRinkLine:
         fstp dword [esp]
         call ProjectCoordInt
 .4:
-        mov esi, dword [dword_16F148]
+        mov esi, dword [RinkLineWidth]
         mov ecx, eax
         test esi, esi
         jne short .6
@@ -6588,7 +6588,7 @@ ScaleLineWidth:
         fstp dword [byte esp+024h]
         fxch st2
         fmul dword [byte esp+024h]
-        mov esi, dword [dword_16F148]
+        mov esi, dword [RinkLineWidth]
         faddp st2
         fstp dword [byte esp+028h]
         fstp dword [byte esp+018h]
@@ -7460,9 +7460,9 @@ InitRinkView:
         fxch st3
         fmul dword [dword esp+0A4h]
         fxch st3
-        fmul dword [dword_16F144]
+        fmul dword [F32_1p0_View]
         fxch st3
-        fmul dword [dword_16F144]
+        fmul dword [F32_1p0_View]
         fld dword [dword_1B0268]
         fxch st2
         fstp dword [dword esp+0C4h]
@@ -10999,7 +10999,7 @@ UpdateGoalLight:
         push eax
         fmul dword [byte esp+04h]
         push edx
-        fmul dword [dword_16F144]
+        fmul dword [F32_1p0_View]
         push ebx
         push eax
         fistp dword [esp]

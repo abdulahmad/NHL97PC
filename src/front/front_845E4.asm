@@ -9,7 +9,7 @@ extern str_MB06, str_MB05, str_MB04, str_MB10, str_MB09, str_MB08, str_BACK4, st
 extern str_SY00, str_SY01, str_SY02, str_SY03, str_SY04, str_SY05, str_SY06, str_GL00
 extern str_GR00, str_Mous3, str_DATAREPLAYNDX, byte_16CCF0, byte_1AC8C6, byte_1ACA65, byte_1ACC50, byte_1AD742
 extern byte_1C6040, byte_1C82B3, byte_1C82B4, byte_1C8338, byte_1CA9D8, byte_1CBB8C, dword_16CCC4, dword_16CCE8
-extern dword_16CCEC, dword_16CCF1, dword_16CD58, dword_16D76C, dword_16DA9C, dword_16E46C, dword_1AC814, dword_1AC944
+extern dword_16CCEC, dword_16CCF1, dword_16CD58, dword_16D76C, dword_16DA9C, MenuScreenBitmap, dword_1AC814, dword_1AC944
 extern dword_1AD226, dword_1AD6A7, dword_1C5DE0, dword_1C5DE4, dword_1C8268, dword_1C826C, dword_1C829C, dword_1C82A0
 extern dword_1C82A4, dword_1C82A8, dword_1C82AC, dword_1C82B0, dword_1C82C0, dword_1C82C4, dword_1C82C8, dword_1C82CC
 extern dword_1C82D0, dword_1C82D4, dword_1C82D8, dword_1C82DC, dword_1C82E0, dword_1C82E4, dword_1C82F4, dword_1C8318
@@ -740,7 +740,7 @@ MainMenuScreen:
         push edi
         call FreeBitmap
         add esp, byte 4
-        push dword [dword_16E46C]
+        push dword [MenuScreenBitmap]
         push str_BACK3
         push dword [byte ebp+06Ah]
         call FindShape

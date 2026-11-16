@@ -5,7 +5,7 @@ section s_E7D6D progbits alloc exec nowrite align=1
 extern SetClipWindow, str_BACK14, str_TITL14, str_LB02d6, str_AB025, str_AB015, str_AB005, str_AB055
 extern str_AB045, str_AB035, str_FRAM, str_000011, str_FART5, str_DSS4, str_D02d4, str_D01d3
 extern str_SSDD3, byte_16E264, byte_1CD7A9, byte_1CD7B3, byte_1CD7B4, byte_1CD7FC, byte_1CD7FD, byte_1CD7FE
-extern byte_1CD85E, byte_1CDA5F, byte_1CDC60, byte_1CDDFF, byte_1CDE61, dword_16E1AC, dword_16E22C, dword_16E46C
+extern byte_1CD85E, byte_1CDA5F, byte_1CDC60, byte_1CDDFF, byte_1CDE61, dword_16E1AC, dword_16E22C, MenuScreenBitmap
 extern seed, dword_1AC814, dword_1AC940, dword_1AD62F, dword_1AD6AB, dword_1AD71B, dword_1AD71F, dword_1AD723
 extern dword_1C5E74, dword_1CD760, dword_1CD764, dword_1CD768, dword_1CD76C, dword_1CD770, dword_1CD774, dword_1CD778
 extern dword_1CD77C, dword_1CD780, dword_1CD784, dword_1CD7DF, off_16E174, sprintf_, strcpy_, BlitArt
@@ -1114,7 +1114,7 @@ DrawSeasonIntro:
         add esp, byte 8
         test eax, eax
         je short .3
-        push dword [dword_16E46C]
+        push dword [MenuScreenBitmap]
         push eax
         call ConvertArtNew
         mov ebx, eax

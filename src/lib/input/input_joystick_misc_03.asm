@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_FC280 progbits alloc exec nowrite align=1
-extern dword_16E430, RunIdleHandlers, tickcount, tickdeadline
+extern LastTickCount, RunIdleHandlers, tickcount, tickdeadline
 global GetTicks, SetTickDeadline, TickDeadlinePassed, TicksSince, WaitTickDeadline, memcpy_, TicksSinceLast, WaitTicks
 ;-----------------------------------------------------------------------------
 ; GetTicks                                     FC280  96 PC, medium confidence
@@ -22,9 +22,9 @@ TicksSince:
 ; Returns the timer ticks since the last call; followed by the tick reset
 ;-----------------------------------------------------------------------------
 TicksSinceLast:
-        mov edx, dword [dword_16E430]
+        mov edx, dword [LastTickCount]
         mov eax, dword [tickcount]
-        mov dword [dword_16E430], eax
+        mov dword [LastTickCount], eax
         LD sub, eax, edx
         ret
         LD xor, eax, eax

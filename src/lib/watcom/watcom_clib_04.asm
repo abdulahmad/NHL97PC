@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_FC330 progbits alloc exec nowrite align=1
-extern str_BigfileBuf, byte_16E504, byte_16E688, ResourceArchiveName, dword_16E500, ResourceArchive, ResourceLookupFn, ResourceArchiveSize
+extern str_BigfileBuf, QuantizeTable, ScreenBitsPerPixel, ResourceArchiveName, QuantizePalette, ResourceArchive, ResourceLookupFn, ResourceArchiveSize
 extern ResourceArchiveData, dword_1DA4D0, str_Viv, ArchiveEntryOffsetAt, AllocMemBlock, FreeMemBlock, unk_1DA4CC
 global OpenResourceArchive, CurrentArchiveName, FindNearestColor, MatchColor, MakeColor
 ;-----------------------------------------------------------------------------
@@ -141,7 +141,7 @@ FindNearestColor:
         add eax, byte 4
         movzx edi, byte [byte eax-02h]
         movzx esi, byte [byte eax-03h]
-        mov bl, byte [dword edx+byte_16E504]
+        mov bl, byte [dword edx+QuantizeTable]
         movzx ebp, byte [byte eax-04h]
         test bl, bl
         je short .2
@@ -181,7 +181,7 @@ FindNearestColor:
 MatchColor:
         push ebx
         mov eax, dword [byte esp+08h]
-        cmp dword [dword_16E500], byte 0
+        cmp dword [QuantizePalette], byte 0
         je short .1
         mov edx, eax
         mov ebx, eax
@@ -196,7 +196,7 @@ MatchColor:
         shl eax, 5
         and ecx, byte 1Fh
         or eax, edx
-        mov edx, dword [dword_16E500]
+        mov edx, dword [QuantizePalette]
         or eax, ecx
         mov al, byte [edx+eax]
         and eax, 0FFh
@@ -213,12 +213,12 @@ MatchColor:
 ;-----------------------------------------------------------------------------
 ; MakeColor                                       FC510  97 PC, low confidence
 ; (0RGB): converts a colour to a pixel value for the current pixel depth
-; (byte_16E688: 8, 15 / 16, 24 / 32 bits)
+; (ScreenBitsPerPixel: 8, 15 / 16, 24 / 32 bits)
 ;-----------------------------------------------------------------------------
 MakeColor:
         push ebx
         mov edx, dword [byte esp+08h]
-        mov al, byte [byte_16E688]
+        mov al, byte [ScreenBitsPerPixel]
         cmp al, 0Fh
         jb short .2
         mov ebx, edx

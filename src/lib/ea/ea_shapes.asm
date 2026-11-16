@@ -2,9 +2,9 @@
 bits 32
 %include "hockey.inc"
 section s_10376C progbits alloc exec nowrite align=1
-extern IF@ATAN2, str_Tube3, F32_2_DrawLimbSegment, F32_2_DrawLimbSegmentFlat, dword_16E46C, str_Punct_DrawRinkSurface, dword_16E4BC, dword_16FA04
-extern dword_16FA08, dword_16FA10, dword_16FA14, RowTableSize, UniformArtBuf, LimbVerts, dword_1DA4D0, hypot_
-extern off_16FA1C, F64_0p31831_DrawLimbSegment, F64_65536_DrawLimbSegment, F64_0p5_DrawLimbSegment, F64_0p31831_DrawLimbSegmentFlat, F64_65536_DrawLimbSegmentFlat, F64_0p5_DrawLimbSegmentFlat, SortIndices
+extern IF@ATAN2, str_Tube3, F32_2_DrawLimbSegment, F32_2_DrawLimbSegmentFlat, MenuScreenBitmap, str_Punct_DrawRinkSurface, FrameCounter, dword_16FA04
+extern RowTable, LimbShadeEnabled, ViewInterlaced, RowTableSize, UniformArtBuf, LimbVerts, dword_1DA4D0, hypot_
+extern FrameBlitFuncs, F64_0p31831_DrawLimbSegment, F64_65536_DrawLimbSegment, F64_0p5_DrawLimbSegment, F64_0p31831_DrawLimbSegmentFlat, F64_65536_DrawLimbSegmentFlat, F64_0p5_DrawLimbSegmentFlat, SortIndices
 extern ArtBankCount, ArtBankEntry, ArtBankEntryInfo, BytesPerPixelForDepth, DrawPolyList, BlitCore, PrefetchMemory, PrefetchShape
 extern CopyMemFast, AllocMemBlock, FloatsToInts, VecSub, VecAngle, ProjectCoord
 global bcopy_, BuildUniformArt_3CC, removewindow, FillRowTable, DrawLimbSegment, DrawLimbSegmentFlat, ParseHexChar, ParseHexByte
@@ -23,7 +23,7 @@ FillRowTable:
         mov ecx, eax
         mov edi, edx
         mov esi, ebx
-        mov eax, dword [dword_16FA08]
+        mov eax, dword [RowTable]
         mov edx, dword [RowTableSize]
         xor ebx, ebx
         cmp eax, edx
@@ -122,7 +122,7 @@ removewindow:
         mov dword [byte ebx+04h], edx
         test edx, edx
         ja short .4
-        mov eax, dword [dword_16FA08]
+        mov eax, dword [RowTable]
         xor ecx, ecx
         cmp eax, ebx
         jae short .2
@@ -167,7 +167,7 @@ removewindow:
         pop ebx
         ret
         mov eax, dword [byte esp+04h]
-        mov dword [dword_16FA08], eax
+        mov dword [RowTable], eax
         mov eax, dword [byte esp+08h]
         mov dword [dword_16FA04], eax
         ret
@@ -359,7 +359,7 @@ DrawLimbSegment:
         fxch
         fsub dword [byte esi+08h]
         fmul st1
-        mov ecx, dword [dword_16FA14]
+        mov ecx, dword [ViewInterlaced]
         fstp dword [byte ebp+066h]
         test ecx, ecx
         sete al
@@ -418,7 +418,7 @@ DrawLimbSegment:
         fsubp st2
         fxch
         fsubrp st2
-        mov edx, dword [dword_16FA14]
+        mov edx, dword [ViewInterlaced]
         fxch
         fstp dword [byte ebp-0Eh]
         test edx, edx
@@ -500,7 +500,7 @@ DrawLimbSegment:
         fmul st1
         fmul dword [F32_2_DrawLimbSegment]
         faddp st3
-        mov edi, dword [dword_16FA14]
+        mov edi, dword [ViewInterlaced]
         fxch st2
         fstp dword [byte ebp+0Ah]
         test edi, edi
@@ -575,7 +575,7 @@ DrawLimbSegment:
         fxch
         fsub dword [byte esi+08h]
         fmul st1
-        mov ebx, dword [dword_16FA14]
+        mov ebx, dword [ViewInterlaced]
         fstp dword [byte ebp+062h]
         test ebx, ebx
         sete al
@@ -625,7 +625,7 @@ DrawLimbSegment:
         lea edx, [byte ebp-0Eh]
         mov eax, 8
         call FloatsToInts
-        cmp dword [dword_16FA10], byte 0
+        cmp dword [LimbShadeEnabled], byte 0
         je short .9
         mov ecx, dword [esi]
         push ecx
@@ -788,7 +788,7 @@ DrawLimbSegmentFlat:
         fxch
         fsub dword [byte esi+08h]
         fmul st1
-        mov ecx, dword [dword_16FA14]
+        mov ecx, dword [ViewInterlaced]
         fstp dword [byte ebp+066h]
         test ecx, ecx
         sete al
@@ -844,7 +844,7 @@ DrawLimbSegmentFlat:
         fsubp st2
         fxch
         fsubrp st2
-        mov edx, dword [dword_16FA14]
+        mov edx, dword [ViewInterlaced]
         fxch
         fstp dword [byte ebp-0Ah]
         test edx, edx
@@ -926,7 +926,7 @@ DrawLimbSegmentFlat:
         fmul st1
         fmul dword [F32_2_DrawLimbSegmentFlat]
         faddp st3
-        mov edi, dword [dword_16FA14]
+        mov edi, dword [ViewInterlaced]
         fxch st2
         fstp dword [byte ebp+0Eh]
         test edi, edi
@@ -1001,7 +1001,7 @@ DrawLimbSegmentFlat:
         fxch
         fsub dword [byte esi+08h]
         fmul st1
-        mov ebx, dword [dword_16FA14]
+        mov ebx, dword [ViewInterlaced]
         fstp dword [byte ebp+06Ah]
         test ebx, ebx
         sete al
@@ -1051,7 +1051,7 @@ DrawLimbSegmentFlat:
         lea edx, [byte ebp-0Ah]
         mov eax, 8
         call FloatsToInts
-        cmp dword [dword_16FA10], byte 0
+        cmp dword [LimbShadeEnabled], byte 0
         je short .7
         mov eax, dword [esi]
         mov edx, dword [byte eax+02h]
@@ -1574,7 +1574,7 @@ BlitFrameToScreen:
         push ebx
         mov eax, dword [byte esp+08h]
         mov edx, dword [byte esp+0Ch]
-        mov ecx, off_16FA1C
+        mov ecx, FrameBlitFuncs
         mov ebx, dword [byte esp+010h]
         call BlitCore
         pop ebx
@@ -1582,7 +1582,7 @@ BlitFrameToScreen:
         db 08Dh,040h,00h
         push ebx
         mov eax, dword [byte esp+08h]
-        mov ecx, off_16FA1C
+        mov ecx, FrameBlitFuncs
         mov edx, dword [byte eax+0Ah]
         mov ebx, dword [byte eax+0Ch]
         sar edx, 10h
@@ -1603,7 +1603,7 @@ BlitFrameToScreen:
         sar ebx, 10h
         sub ecx, ebx
         mov ebx, ecx
-        mov ecx, off_16FA1C
+        mov ecx, FrameBlitFuncs
         call BlitCore
         pop ebx
         ret
@@ -1618,8 +1618,8 @@ WritePaletteRange:
         push esi
         push edi
         push ebp
-        inc dword [dword_16E4BC]
-        cmp dword [dword_16E46C], byte 8
+        inc dword [FrameCounter]
+        cmp dword [MenuScreenBitmap], byte 8
         jg short .2
         mov ebp, dword [byte esp+01Ch]
         mov edx, 3C8h

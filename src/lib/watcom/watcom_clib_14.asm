@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_11B0D0 progbits alloc exec nowrite align=1
-extern dword_16E4C8, savefileblocka
+extern MessageBoxActive, savefileblocka
 global SaveDataFileNew
 ;-----------------------------------------------------------------------------
 ; SaveDataFileNew                                11B0D0  97 PC, low confidence
@@ -14,7 +14,7 @@ SaveDataFileNew:
         mov dword [esp], eax
         mov eax, dword [byte esp+034h]
         mov dword [byte esp+014h], eax
-        mov eax, dword [dword_16E4C8]
+        mov eax, dword [MessageBoxActive]
         push byte 1
         mov dword [byte esp+01Ch], eax
         lea eax, [byte esp+04h]

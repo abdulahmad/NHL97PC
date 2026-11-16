@@ -2,16 +2,16 @@
 bits 32
 %include "hockey.inc"
 section s_1DCAFC nobits alloc noexec write align=1
-global dword_1DCAFC, dword_1DCB00, dword_1DCB04, dword_1DCB08, dword_1DCEC0, dword_1DCEC4
-dword_1DCAFC:
+global SpeechEventCount, SpeechEventId, SpeechEventTime, SpeechEventQueue, SpeechEnabled, SpeechBufferTag
+SpeechEventCount:
         resb 4
-dword_1DCB00:
+SpeechEventId:
         resb 4
-dword_1DCB04:
+SpeechEventTime:
         resb 4
-dword_1DCB08:
+SpeechEventQueue:
         resb 952
-dword_1DCEC0:
+SpeechEnabled:
         resb 4
-dword_1DCEC4:
+SpeechBufferTag:
         resb 4

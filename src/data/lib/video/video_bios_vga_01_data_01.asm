@@ -3,23 +3,23 @@ bits 32
 %include "hockey.inc"
 section s_16F77C progbits alloc noexec write align=1
 extern bcopy_, BuildUniformArt_3CC, CopyPalette16, CopyPalette24, CopyPalette32
-global byte_16F794, byte_16F89C, byte_16FA3F, byte_16FA40, byte_16FA4F, dword_16F77C, dword_16F780, dword_16F784
-global dword_16F788, dword_16F78C, dword_16F790, dword_16F894, dword_16F898, dword_16F8A0, dword_16F8A8, dword_16F8AC
-global dword_16F8B0, dword_16F8B4, dword_16F8B8, dword_16F9FC, dword_16FA00, dword_16FA04, dword_16FA08, dword_16FA10
-global dword_16FA14, off_16FA1C
-dword_16F77C:
+global RemapTable, VesaBankShift, RemapByte, IdentityRemap, PuckArrowColors, RandState0, RandState1, RandState2
+global RandState3, RandState4, RandIndex, VesaBank, VesaBankFunc, PaletteReadFunc, VideoModeIndex, ModeTableWidth
+global ModeTableHeight, ModeTableBpp, ModeTableNumber, VesaModeInfo, VesaWindowActive, dword_16FA04, RowTable, LimbShadeEnabled
+global ViewInterlaced, FrameBlitFuncs
+RandState0:
         db 056h,0Eh,02Dh,0F2h
-dword_16F780:
+RandState1:
         db 0E9h,026h,031h,088h
-dword_16F784:
+RandState2:
         db 02Fh,0DDh,024h,0C6h
-dword_16F788:
+RandState3:
         db 09Ch,0C4h,02h,07h
-dword_16F78C:
+RandState4:
         db 07Dh,03Fh,035h,09Eh
-dword_16F790:
+RandIndex:
         db 064h,03Bh,0DFh,06Fh
-byte_16F794:
+RemapTable:
         db 00h,09Eh,06Eh,07Eh,02Eh,0BEh,03Eh,08h,01Eh,08Dh,06Ah,07Ch,0DFh,0BCh,04Ch,018h
         db 018h,019h,019h,01Ah,08h,08h,01Ch,01Ch,01Ch,01Dh,01Eh,01Eh,01Fh,01Fh,01Fh,00h
         db 019h,0C9h,0CAh,0CBh,0DFh,0DFh,02Ch,02Ch,02Dh,02Dh,02Eh,02Eh,02Fh,02Fh,02Fh,00h
@@ -36,23 +36,23 @@ byte_16F794:
         db 019h,019h,0C9h,0CAh,0CAh,0CBh,0CBh,0CBh,0CCh,0CCh,0CCh,0CDh,03Eh,03Eh,03Fh,03Fh
         db 0BCh,0BCh,0BCh,0BCh,0BCh,0BCh,0BCh,0BCh,0BCh,0BCh,0BCh,0BCh,0BCh,0BCh,0BCh,0BCh
         db 0BCh,0BCh,0BCh,0BCh,0BCh,0BCh,0BCh,0BCh,0BCh,0BCh,0BCh,0BCh,0BCh,0BCh,0BCh,018h
-dword_16F894:
+VesaBank:
         db 00h,00h,00h,00h
-dword_16F898:
+VesaBankFunc:
         db 00h,00h,00h,00h
-byte_16F89C:
+VesaBankShift:
         db 00h,00h,00h,00h
-dword_16F8A0:
+PaletteReadFunc:
         db 00h,00h,00h,00h,07h,00h,00h,00h
-dword_16F8A8:
+VideoModeIndex:
         db 01h,00h,00h,00h
-dword_16F8AC:
+ModeTableWidth:
         db 040h,01h,00h,00h
-dword_16F8B0:
+ModeTableHeight:
         db 0C8h,00h,00h,00h
-dword_16F8B4:
+ModeTableBpp:
         db 08h,00h,00h,00h
-dword_16F8B8:
+ModeTableNumber:
         db 013h,00h,00h,00h,080h,02h,00h,00h,090h,01h,00h,00h,08h,00h,00h,00h
         db 00h,01h,00h,00h,080h,02h,00h,00h,0E0h,01h,00h,00h,08h,00h,00h,00h
         db 01h,01h,00h,00h,020h,03h,00h,00h,058h,02h,00h,00h,08h,00h,00h,00h
@@ -74,19 +74,19 @@ dword_16F8B8:
         db 015h,01h,00h,00h,00h,04h,00h,00h,00h,03h,00h,00h,020h,00h,00h,00h
         db 018h,01h,00h,00h,00h,05h,00h,00h,00h,04h,00h,00h,020h,00h,00h,00h
         db 01Bh,01h,00h,00h
-dword_16F9FC:
+VesaModeInfo:
         db 00h,00h,00h,00h
-dword_16FA00:
+VesaWindowActive:
         db 00h,00h,00h,00h
 dword_16FA04:
         db 00h,038h,00h,00h
-dword_16FA08:
+RowTable:
         db 00h,00h,00h,00h,00h,00h,00h,00h
-dword_16FA10:
+LimbShadeEnabled:
         db 00h,00h,00h,00h
-dword_16FA14:
+ViewInterlaced:
         db 00h,00h,00h,00h,00h,00h,00h,00h
-off_16FA1C:
+FrameBlitFuncs:
         dd BuildUniformArt_3CC
         dd bcopy_
         dd CopyPalette16
@@ -94,11 +94,11 @@ off_16FA1C:
         dd CopyPalette24
         dd CopyPalette32
         db 00h,00h,00h,00h,02h,00h,00h,00h,00h,00h,00h
-byte_16FA3F:
+RemapByte:
         db 00h
-byte_16FA40:
+IdentityRemap:
         db 00h,01h,02h,03h,04h,05h,06h,07h,08h,09h,0Ah,0Bh,0Ch,0Dh,0Eh
-byte_16FA4F:
+PuckArrowColors:
         db 0Fh,010h,011h,012h,013h,014h,015h,016h,017h,018h,019h,01Ah,01Bh,01Ch,01Dh,01Eh
         db 01Fh,020h,021h,022h,023h,024h,025h,026h,027h,028h,029h,02Ah,02Bh,02Ch,02Dh,02Eh
         db 02Fh,030h,031h,032h,033h,034h,035h,036h,037h,038h,039h,03Ah,03Bh,03Ch,03Dh,03Eh

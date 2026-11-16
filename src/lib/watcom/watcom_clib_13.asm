@@ -8,21 +8,21 @@ extern __STOSB, __SetIOMode_, __close_, __mbvtop_, __no87, __set_EINVAL_, __set_
 extern _curbrk, _dynend, _mbptov_, _mbsdec_, _mbsnbcnt_, _mbsnccnt_, _mbsncpy_, _nexpand_
 extern _nfree_, _nmalloc_, _nmsize_, _osmajor, _osminor, _psp, _searchenv_, str_PRIMLIST
 extern str_4db, str_DxDxD, str_CmnFrateC, str_FramerateTIMERHZNOTSET, str_Rate2dDAvg2dDD, str_TGV, str_MBRAM2, str_MBDOS
-extern str_PATH, str_DOS4GWEXE, str_CS3, str_0123456789abcdef, str_Null, str_0123456789ABCDEF, str_FILESLINED, byte_16E688
-extern byte_16FA40, byte_17075C, byte_170764, byte_170781, byte_17078E, byte_17079A, byte_17079C, byte_1707B7
+extern str_PATH, str_DOS4GWEXE, str_CS3, str_0123456789abcdef, str_Null, str_0123456789ABCDEF, str_FILESLINED, ScreenBitsPerPixel
+extern IdentityRemap, byte_17075C, byte_170764, byte_170781, byte_17078E, byte_17079A, byte_17079C, byte_1707B7
 extern byte_1707FC, byte_170800, byte_170804, byte_170810, byte_17086B, byte_1708C6, byte_170921, byte_17097C
-extern byte_171C90, byte_19988D, byte_19C6E4, dword_16E32C, dword_16E330, dword_16E334, dword_16E3F4, dword_16E444
-extern dword_16E448, dword_16E464, dword_16E468, dword_16E46C, dword_16E47C, dword_16E480, str_D_UpdateFrameRate, dword_16E4C8
-extern dword_16E628, dword_16E670, dword_16E678, dword_16E67C, dword_16E680, dword_16E684, dword_16E694, dword_16E698
-extern dword_16E69C, dword_16E6A0, dword_16E6A8, dword_16F184, dword_16FA08, ResourceArchive, ResourceArchiveSize, ResourceArchiveData
+extern byte_171C90, byte_19988D, byte_19C6E4, dword_16E32C, dword_16E330, dword_16E334, TimerTicks, GraphicsModeSet
+extern MousePresent, dword_16E464, dword_16E468, MenuScreenBitmap, ScreenModeWidth, ScreenModeHeight, str_D_UpdateFrameRate, MessageBoxActive
+extern DebugMode, ScreenWidth, ClipTopRow, ClipLeftCol, ClipRight, ScreenHeight, ScreenBuffer, DrawDestBuffer
+extern DrawDestPitch, DrawDestOffset, BackBufferWidth, ExitHandler, RowTable, ResourceArchive, ResourceArchiveSize, ResourceArchiveData
 extern dword_1706F8, dword_170704, dword_17070C, dword_170710, dword_170714, dword_170754, dword_170758, dword_170760
 extern dword_1707E4, dword_1707EA, dword_1707F0, dword_1709D8, dword_1709ED, dword_1709F1, dword_1709F8, dword_170AF8
 extern dword_170AFC, dword_170B00, dword_170B04, dword_170B08, dword_170B0C, dword_170B10, dword_171C88, dword_171C8C
-extern dword_1724C9, StackLow, dword_172ABC, dword_199888, dword_1999BC, dword_1999C0, dword_19C690, dword_19C694
+extern dword_1724C9, StackLow, LoadFileHook, dword_199888, dword_1999BC, dword_1999C0, dword_19C690, dword_19C694
 extern dword_19C698, dword_19C69C, dword_19C6A0, dword_19C6A4, dword_19C6A8, dword_19C6AC, dword_19C6B0, F32_0p541196
 extern F32_1p30656, F32_0p382683, F32_6p7554e15, dword_1CF260, dword_1CF264, dword_1CF268, TextOriginX, ModelSetupMode
-extern dword_1D91C8, dword_1D91CC, dword_1D9404, dword_1D940C, dword_1D9410, dword_1D960C, dword_1D9610, dword_1D9810
-extern dword_1D990C, dword_1D9910, dword_1D9B0C, dword_1D9B10, dword_1D9B2C, dword_1D9B30, dword_1DA34C, dword_1DA350
+extern PrimColor, ModelFileCount, BitReaderPtr, BitReaderBits, VideoCodeTableA, VideoDecoderA, VideoCodeTableB, VideoGammaTable
+extern VideoDecoderB, VideoCodeTableC, FrameRateState, FrameRateSamples, FrameRateLast, VideoBlock0, dword_1DA34C, dword_1DA350
 extern dword_1DA390, dword_1DA4D0, int386_, isatty_, memcpy_, off_1706E0, off_1706E4, off_170B14
 extern off_170B18, off_170B1C, off_171C7C, off_171C80, off_171C84, off_171D10, off_19C6C4, off_19C6E2
 extern off_19C6E3, F64_0p1_ScaleModelVerts, F64_1p25_ScaleModelVerts, F64_0p5_ReadBits, sprintf_, strcat_, strcpy_, strlen_
@@ -36,9 +36,9 @@ extern RegisterHotkey, SetScreenTarget, NoOpPlatformHook, AddMemRegion, AddMemRe
 extern AllocMemBlockMovable, AllocMemBlock, AllocMemBlockFull, FreeMemBlock, InitMemDescriptors, MemDescPtr, ZeroMem, SetKbdIdleHook
 extern InstallTimer, CurrentArchiveName, MakeColor, MouseInit, DebugSetLine, SelectFont, LoadDrawContext, ClearScreen
 extern FillPolygon, FillRectColor, SetTextColors, DrawTextBoxedAt, RefreshTextColors, MatTranspose, TransformVecs, VecAdd
-extern VecSub, AddVecs, VecCross, VecScale, VecNormalize, VecCrossUnit, unk_10003, unk_16E8A0
+extern VecSub, AddVecs, VecCross, VecScale, VecNormalize, VecCrossUnit, unk_10003, DebugTagStr
 extern unk_170B26, unk_170B30, unk_170F72, unk_170F7C, unk_1713BE, unk_1713C8, unk_17180A, unk_171814
-extern unk_171E38, unk_19CCB0, unk_1D91D0, unk_1D9B50, unk_1D9B70, unk_1D9B90, unk_1D9BB0, unk_1D9BD0
+extern unk_171E38, unk_19CCB0, PartFuncTable, VideoBlock1, VideoBlock2, VideoBlock3, VideoBlock4, unk_1D9BD0
 extern unk_1D9BF0, unk_1D9C10, unk_1D9C30, unk_1D9C34, unk_1D9C38, unk_1D9C3C, unk_1D9C40, unk_1D9C44
 extern unk_1D9C48, unk_1D9C4C, unk_1D9C54, unk_1D9C78, unk_1D9C9C, unk_1D9CC0, unk_1D9CE4, unk_1D9D08
 extern unk_1D9D2C, unk_1D9D50, unk_1D9D70, unk_1D9D90, unk_1D9DB0, unk_1D9DD0, unk_1D9DF0, unk_1D9E10
@@ -48,7 +48,7 @@ extern unk_1DA030, unk_1DA050, unk_1DA070, unk_1DA090, unk_1DA0B0, unk_1DA0D0, u
 extern unk_1DA130, unk_1DA150, unk_1DA170, unk_1DA190, unk_1DA1B0, unk_1DA1D0, unk_1DA1F0, unk_1DA210
 extern unk_1DA230, unk_1DA250, unk_1DA270, unk_1DA290, unk_1DA2B0, unk_1DA2D0, unk_1DA2F0, unk_1DA310
 extern unk_1DA330, StartupStack, vsprintf_, str_Punct_InitFpuFlags, word_1707E8, word_1707EE, word_1707F4, word_1707F6
-extern word_170B24, word_171C56, word_1D91FC
+extern word_170B24, word_171C56, KeyRowTable
 global __null_int23_exit_, __set_binary_, _dos_getdiskfree_, _exit_, _makepath_, _splitpath_, atoi_, close_
 global copypart_, exit_, getcwd_, jpt_114394, jpt_114B90, jpt_114CB4, PrimRectDebug_30, PrimTriTexCcw_6C
 global PrimQuadDebugCcw_80, PrimQuadSplit_EC, PrimQuadTexCcw_6C, DrawPrimList_A3, DrawPrimList_D6, DrawPrimList_10C, DrawPrimList_1A6, DrawPrimList_39E
@@ -232,7 +232,7 @@ PrimTriFlat:
         imul eax, edx
         imul ebx, ecx
         sub ebx, eax
-        mov dword [dword_1D91C8], ebx
+        mov dword [PrimColor], ebx
         test ebx, ebx
         setl dl
         mov ebx, dword [ModelSetupMode]
@@ -296,7 +296,7 @@ PrimTriLitCcw:
         imul eax, edx
         imul ebx, ecx
         sub ebx, eax
-        mov dword [dword_1D91C8], ebx
+        mov dword [PrimColor], ebx
         test ebx, ebx
         setl dl
         mov ebx, dword [ModelSetupMode]
@@ -394,7 +394,7 @@ PrimTriShadeBlend:
         imul eax, edx
         imul ebx, ecx
         sub ebx, eax
-        mov dword [dword_1D91C8], ebx
+        mov dword [PrimColor], ebx
         test ebx, ebx
         setl dl
         mov ebx, dword [ModelSetupMode]
@@ -457,7 +457,7 @@ PrimTriShadeCcw:
         imul eax, edx
         imul ebx, ecx
         sub ebx, eax
-        mov dword [dword_1D91C8], ebx
+        mov dword [PrimColor], ebx
         test ebx, ebx
         setl dl
         mov ebx, dword [ModelSetupMode]
@@ -555,7 +555,7 @@ PrimTriDebugCw:
         imul eax, edx
         imul ebx, ecx
         sub ebx, eax
-        mov dword [dword_1D91C8], ebx
+        mov dword [PrimColor], ebx
         test ebx, ebx
         setl dl
         mov ebx, dword [ModelSetupMode]
@@ -596,7 +596,7 @@ PrimTriDebugCcw:
         imul eax, edx
         imul ebx, ecx
         sub ebx, eax
-        mov dword [dword_1D91C8], ebx
+        mov dword [PrimColor], ebx
         test ebx, ebx
         setl dl
         mov ebx, dword [ModelSetupMode]
@@ -661,7 +661,7 @@ TriVertsIfCw:
         imul eax, edx
         imul ebx, ecx
         sub ebx, eax
-        mov dword [dword_1D91C8], ebx
+        mov dword [PrimColor], ebx
         test ebx, ebx
         setl dl
         mov ebx, dword [ModelSetupMode]
@@ -703,7 +703,7 @@ TriVertsIfCcw:
         imul eax, edx
         imul ebx, ecx
         sub ebx, eax
-        mov dword [dword_1D91C8], ebx
+        mov dword [PrimColor], ebx
         test ebx, ebx
         setl dl
         mov ebx, dword [ModelSetupMode]
@@ -768,7 +768,7 @@ TriTexVertsIfCw:
         imul eax, edx
         imul ebx, ecx
         sub ebx, eax
-        mov dword [dword_1D91C8], ebx
+        mov dword [PrimColor], ebx
         test ebx, ebx
         setl dl
         mov ebx, dword [ModelSetupMode]
@@ -810,7 +810,7 @@ TriTexVertsIfCcw:
         imul eax, edx
         imul ebx, ecx
         sub ebx, eax
-        mov dword [dword_1D91C8], ebx
+        mov dword [PrimColor], ebx
         test ebx, ebx
         setl dl
         mov ebx, dword [ModelSetupMode]
@@ -875,7 +875,7 @@ TriShadeVertsIfCw:
         imul eax, edx
         imul ebx, ecx
         sub ebx, eax
-        mov dword [dword_1D91C8], ebx
+        mov dword [PrimColor], ebx
         test ebx, ebx
         setl dl
         mov ebx, dword [ModelSetupMode]
@@ -917,7 +917,7 @@ TriShadeVertsIfCcw:
         imul eax, edx
         imul ebx, ecx
         sub ebx, eax
-        mov dword [dword_1D91C8], ebx
+        mov dword [PrimColor], ebx
         test ebx, ebx
         setl dl
         mov ebx, dword [ModelSetupMode]
@@ -980,7 +980,7 @@ PrimTriTexCw:
         imul eax, edx
         imul ebx, ecx
         sub ebx, eax
-        mov dword [dword_1D91C8], ebx
+        mov dword [PrimColor], ebx
         test ebx, ebx
         setl dl
         mov ebx, dword [ModelSetupMode]
@@ -988,7 +988,7 @@ PrimTriTexCw:
         xor edx, ebx
         je short .1
         push byte 0
-        mov ecx, dword [dword_1D91C8]
+        mov ecx, dword [PrimColor]
         push ecx
         lea edx, [byte edi+01Ch]
         push edx
@@ -1031,7 +1031,7 @@ PrimTriTexCcw:
         imul eax, edx
         imul ebx, ecx
         sub ebx, eax
-        mov dword [dword_1D91C8], ebx
+        mov dword [PrimColor], ebx
         test ebx, ebx
         setl dl
         mov ebx, dword [ModelSetupMode]
@@ -1039,7 +1039,7 @@ PrimTriTexCcw:
         xor edx, ebx
         jne short .1
         push edx
-        mov ecx, dword [dword_1D91C8]
+        mov ecx, dword [PrimColor]
         push ecx
         lea edx, [byte edi+01Ch]
         push edx
@@ -1102,7 +1102,7 @@ PrimTriTexClearCw:
         imul eax, edx
         imul ebx, ecx
         sub ebx, eax
-        mov dword [dword_1D91C8], ebx
+        mov dword [PrimColor], ebx
         test ebx, ebx
         setl dl
         mov ebx, dword [ModelSetupMode]
@@ -1110,7 +1110,7 @@ PrimTriTexClearCw:
         xor edx, ebx
         je short .1
         push byte 1
-        mov ecx, dword [dword_1D91C8]
+        mov ecx, dword [PrimColor]
         push ecx
         lea edx, [byte edi+01Ch]
         push edx
@@ -1154,7 +1154,7 @@ PrimTriTexClearCcw:
         imul eax, edx
         imul ebx, ecx
         sub ebx, eax
-        mov dword [dword_1D91C8], ebx
+        mov dword [PrimColor], ebx
         test ebx, ebx
         setl dl
         mov ebx, dword [ModelSetupMode]
@@ -1162,7 +1162,7 @@ PrimTriTexClearCcw:
         xor edx, ebx
         jne short .1
         push byte 1
-        mov ecx, dword [dword_1D91C8]
+        mov ecx, dword [PrimColor]
         push ecx
         lea edx, [byte edi+01Ch]
         push edx
@@ -1227,7 +1227,7 @@ PrimTriTexShadeCw:
         imul eax, edx
         imul ebx, ecx
         sub ebx, eax
-        mov dword [dword_1D91C8], ebx
+        mov dword [PrimColor], ebx
         test ebx, ebx
         setl dl
         mov ebx, dword [ModelSetupMode]
@@ -1235,7 +1235,7 @@ PrimTriTexShadeCw:
         xor edx, ebx
         je short .1
         push byte 2
-        mov ecx, dword [dword_1D91C8]
+        mov ecx, dword [PrimColor]
         push ecx
         lea edx, [byte edi+01Ch]
         push edx
@@ -1279,7 +1279,7 @@ PrimTriTexShadeCcw:
         imul eax, edx
         imul ebx, ecx
         sub ebx, eax
-        mov dword [dword_1D91C8], ebx
+        mov dword [PrimColor], ebx
         test ebx, ebx
         setl dl
         mov ebx, dword [ModelSetupMode]
@@ -1287,7 +1287,7 @@ PrimTriTexShadeCcw:
         xor edx, ebx
         jne short .1
         push byte 2
-        mov ecx, dword [dword_1D91C8]
+        mov ecx, dword [PrimColor]
         push ecx
         lea edx, [byte edi+01Ch]
         push edx
@@ -1367,7 +1367,7 @@ PrimQuadDebugCw:
         imul eax, edx
         imul ebx, ecx
         sub ebx, eax
-        mov dword [dword_1D91C8], ebx
+        mov dword [PrimColor], ebx
         test ebx, ebx
         setl al
         mov edx, dword [ModelSetupMode]
@@ -1430,7 +1430,7 @@ PrimQuadDebugCcw:
         imul eax, edx
         imul ebx, ecx
         sub ebx, eax
-        mov dword [dword_1D91C8], ebx
+        mov dword [PrimColor], ebx
         test ebx, ebx
         setl al
         mov edx, dword [ModelSetupMode]
@@ -1529,7 +1529,7 @@ PrimQuadFlat:
         imul eax, edx
         imul ebx, ecx
         sub ebx, eax
-        mov dword [dword_1D91C8], ebx
+        mov dword [PrimColor], ebx
         test ebx, ebx
         setl dl
         mov ebx, dword [ModelSetupMode]
@@ -1596,7 +1596,7 @@ PrimQuadLitCcw:
         imul eax, edx
         imul ebx, ecx
         sub ebx, eax
-        mov dword [dword_1D91C8], ebx
+        mov dword [PrimColor], ebx
         test ebx, ebx
         setl dl
         mov ebx, dword [ModelSetupMode]
@@ -1702,7 +1702,7 @@ PrimQuadShadeCw:
         imul eax, edx
         imul ebx, ecx
         sub ebx, eax
-        mov dword [dword_1D91C8], ebx
+        mov dword [PrimColor], ebx
         test ebx, ebx
         setl dl
         mov ebx, dword [ModelSetupMode]
@@ -1769,7 +1769,7 @@ PrimQuadShadeBlendCcw:
         imul eax, edx
         imul ebx, ecx
         sub ebx, eax
-        mov dword [dword_1D91C8], ebx
+        mov dword [PrimColor], ebx
         test ebx, ebx
         setl dl
         mov ebx, dword [ModelSetupMode]
@@ -1870,7 +1870,7 @@ PrimQuadSplit:
         imul eax, edx
         imul ebx, ecx
         sub ebx, eax
-        mov dword [dword_1D91C8], ebx
+        mov dword [PrimColor], ebx
         test ebx, ebx
         setl dl
         mov ebx, dword [ModelSetupMode]
@@ -1906,7 +1906,7 @@ PrimQuadSplit:
         imul eax, edx
         imul ebx, ecx
         sub ebx, eax
-        mov dword [dword_1D91C8], ebx
+        mov dword [PrimColor], ebx
         test ebx, ebx
         setl dl
         mov ebx, dword [ModelSetupMode]
@@ -1965,7 +1965,7 @@ PrimQuadTexCw:
         imul eax, edx
         imul ebx, ecx
         sub ebx, eax
-        mov dword [dword_1D91C8], ebx
+        mov dword [PrimColor], ebx
         test ebx, ebx
         setl dl
         mov ebx, dword [ModelSetupMode]
@@ -1973,7 +1973,7 @@ PrimQuadTexCw:
         xor edx, ebx
         je short .1
         push byte 0
-        mov ecx, dword [dword_1D91C8]
+        mov ecx, dword [PrimColor]
         push ecx
         lea edx, [byte edi+024h]
         push edx
@@ -2016,7 +2016,7 @@ PrimQuadTexCcw:
         imul eax, edx
         imul ebx, ecx
         sub ebx, eax
-        mov dword [dword_1D91C8], ebx
+        mov dword [PrimColor], ebx
         test ebx, ebx
         setl dl
         mov ebx, dword [ModelSetupMode]
@@ -2024,7 +2024,7 @@ PrimQuadTexCcw:
         xor edx, ebx
         jne short .1
         push edx
-        mov ecx, dword [dword_1D91C8]
+        mov ecx, dword [PrimColor]
         push ecx
         lea edx, [byte edi+024h]
         push edx
@@ -2086,7 +2086,7 @@ PrimQuadTexShadeCw:
         imul eax, edx
         imul ebx, ecx
         sub ebx, eax
-        mov dword [dword_1D91C8], ebx
+        mov dword [PrimColor], ebx
         test ebx, ebx
         setl dl
         mov ebx, dword [ModelSetupMode]
@@ -2094,7 +2094,7 @@ PrimQuadTexShadeCw:
         xor edx, ebx
         je short .1
         push byte 2
-        mov ecx, dword [dword_1D91C8]
+        mov ecx, dword [PrimColor]
         push ecx
         lea edx, [byte edi+024h]
         push edx
@@ -2137,7 +2137,7 @@ PrimQuadTexShadeCcw:
         imul eax, edx
         imul ebx, ecx
         sub ebx, eax
-        mov dword [dword_1D91C8], ebx
+        mov dword [PrimColor], ebx
         test ebx, ebx
         setl dl
         mov ebx, dword [ModelSetupMode]
@@ -2145,7 +2145,7 @@ PrimQuadTexShadeCcw:
         xor edx, ebx
         jne short .1
         push byte 2
-        mov ecx, dword [dword_1D91C8]
+        mov ecx, dword [PrimColor]
         push ecx
         lea edx, [byte edi+024h]
         push edx
@@ -2212,7 +2212,7 @@ PrimQuadTexClearCw:
         imul eax, edx
         imul ebx, ecx
         sub ebx, eax
-        mov dword [dword_1D91C8], ebx
+        mov dword [PrimColor], ebx
         test ebx, ebx
         setl dl
         mov ebx, dword [ModelSetupMode]
@@ -2220,7 +2220,7 @@ PrimQuadTexClearCw:
         xor edx, ebx
         je short .1
         push byte 1
-        mov ecx, dword [dword_1D91C8]
+        mov ecx, dword [PrimColor]
         push ecx
         lea edx, [byte edi+024h]
         push edx
@@ -2264,7 +2264,7 @@ PrimQuadTexClearCcw:
         imul eax, edx
         imul ebx, ecx
         sub ebx, eax
-        mov dword [dword_1D91C8], ebx
+        mov dword [PrimColor], ebx
         test ebx, ebx
         setl dl
         mov ebx, dword [ModelSetupMode]
@@ -2272,7 +2272,7 @@ PrimQuadTexClearCcw:
         xor edx, ebx
         jne short .1
         push byte 1
-        mov ecx, dword [dword_1D91C8]
+        mov ecx, dword [PrimColor]
         push ecx
         lea edx, [byte edi+024h]
         push edx
@@ -2355,7 +2355,7 @@ PrimQuadRandomFillCw:
         imul eax, edx
         imul ebx, ecx
         sub ebx, eax
-        mov dword [dword_1D91C8], ebx
+        mov dword [PrimColor], ebx
         test ebx, ebx
         setl dl
         mov ebx, dword [ModelSetupMode]
@@ -2396,7 +2396,7 @@ PrimQuadRandomFillCcw:
         imul eax, edx
         imul ebx, ecx
         sub ebx, eax
-        mov dword [dword_1D91C8], ebx
+        mov dword [PrimColor], ebx
         test ebx, ebx
         setl dl
         mov ebx, dword [ModelSetupMode]
@@ -2579,7 +2579,7 @@ DrawPrimList_1A6:
         mov ebp, dword [byte esp+014h]
         lea edx, [byte ebp+044h]
         mov dword [byte esp+014h], edx
-        cmp dword [dword_1D91CC], byte 0
+        cmp dword [ModelFileCount], byte 0
         je near .18
         mov cl, byte [byte esp+01h]
         test cl, 1
@@ -3446,7 +3446,7 @@ CallAllPartFuncs:
         push ebx
         mov edx, dword [byte esp+08h]
         mov ebx, 28h
-        mov eax, unk_1D91D0
+        mov eax, PartFuncTable
         call strncpy_
         pop ebx
         ret
@@ -3909,7 +3909,7 @@ LoadModelFile:
         sub esp, byte 50h
         mov ebx, eax
         mov ecx, edx
-        mov edx, unk_1D91D0
+        mov edx, PartFuncTable
         mov eax, esp
         call strcpy_
         mov eax, esp
@@ -4247,25 +4247,25 @@ PlotPixelRGB:
         mov esi, dword [byte esp+030h]
         mov edi, dword [byte esp+034h]
         mov ecx, dword [byte esp+038h]
-        cmp esi, dword [dword_16E678]
+        cmp esi, dword [ClipTopRow]
         jl near .12
-        cmp esi, dword [dword_16E680]
+        cmp esi, dword [ClipRight]
         jge near .12
-        cmp edi, dword [dword_16E67C]
+        cmp edi, dword [ClipLeftCol]
         jl near .12
-        cmp edi, dword [dword_16E684]
+        cmp edi, dword [ScreenHeight]
         jge near .12
-        cmp byte [byte_16E688], 10h
+        cmp byte [ScreenBitsPerPixel], 10h
         jne near .3
-        cmp dword [dword_16E694], byte 0
+        cmp dword [ScreenBuffer], byte 0
         jne near .3
         mov ebx, edi
         mov eax, esi
-        mov edx, dword [dword_16E6A0]
+        mov edx, dword [DrawDestOffset]
         mov eax, dword [edx+eax*4]
-        mov edx, dword [dword_16E698]
+        mov edx, dword [DrawDestBuffer]
         add eax, dword [edx+ebx*4]
-        add eax, dword [dword_16E69C]
+        add eax, dword [DrawDestPitch]
         mov ebx, ecx
         mov esi, eax
         cmp ebx, 1000000h
@@ -4585,7 +4585,7 @@ FixedSinCos_70:
         and edx, 0FFh
 .3:
         and edx, 0FFh
-        mov dl, byte [dword edx+byte_16FA40]
+        mov dl, byte [dword edx+IdentityRemap]
         test dl, dl
         je short .6
         mov ebx, eax
@@ -4630,7 +4630,7 @@ BlitRowRemap8:
 .1:
         xor ecx, ecx
         mov cl, byte [eax]
-        mov cl, byte [dword ecx+byte_16FA40]
+        mov cl, byte [dword ecx+IdentityRemap]
         inc eax
         cmp cl, 0FFh
         je short .2
@@ -4724,12 +4724,12 @@ BlitRowKey32_1C:
 .3:
         xor ecx, ecx
         mov cl, byte [eax]
-        mov cl, byte [dword ecx+byte_16FA40]
+        mov cl, byte [dword ecx+IdentityRemap]
         inc eax
         cmp cl, 0FFh
         je short .4
         and ecx, 0FFh
-        mov cx, word [nosplit ecx*2+word_1D91FC]
+        mov cx, word [nosplit ecx*2+KeyRowTable]
         mov word [edx], cx
 .4:
         add edx, byte 2
@@ -4768,13 +4768,13 @@ BlitShapeKeyed:
         mov dword [nosplit edi*4+dword_1DA4D0], ebx
         cmp edx, byte 8
         jne short .3
-        cmp byte [byte_16E688], 10h
+        cmp byte [ScreenBitsPerPixel], 10h
         jne short .3
         mov edx, esp
         mov eax, esi
         mov ebx, 100h
         call ConvertArtPalette
-        mov edx, word_1D91FC
+        mov edx, KeyRowTable
         call Convert32To565Keyed
         mov dword [dword_1706F8], BlitRowKey32_1C
 .3:
@@ -4874,11 +4874,11 @@ SaveDrawContext:
         push edi
         mov eax, dword [byte esp+0Ch]
         mov ecx, 0Eh
-        mov esi, dword_16E670
+        mov esi, ScreenWidth
         mov edi, eax
         rep movsd
         mov ecx, 0Eh
-        mov esi, dword_16E6A8
+        mov esi, BackBufferWidth
         lea edi, [byte eax+038h]
         rep movsd
         pop edi
@@ -4894,7 +4894,7 @@ RestoreDrawContext:
         push edi
         mov esi, dword [byte esp+0Ch]
         push esi
-        mov edi, dword_16E6A8
+        mov edi, BackBufferWidth
         call LoadDrawContext
         mov ecx, 0Eh
         lea esi, [byte esi+038h]
@@ -5300,22 +5300,22 @@ strnicmp_:
         db 00h,00h,00h,00h,00h,00h
         push edx
         xor edx, edx
-        mov dword [dword_1D940C], eax
-        mov dword [dword_1D9404], edx
+        mov dword [BitReaderBits], eax
+        mov dword [BitReaderPtr], edx
         pop edx
         ret
         push edx
-        mov edx, dword [dword_1D940C]
+        mov edx, dword [BitReaderBits]
         mov dword [eax], edx
-        mov edx, dword [dword_1D9404]
+        mov edx, dword [BitReaderPtr]
         mov dword [byte eax+04h], edx
         pop edx
         ret
         push edx
         mov edx, dword [eax]
-        mov dword [dword_1D940C], edx
+        mov dword [BitReaderBits], edx
         mov eax, dword [byte eax+04h]
-        mov dword [dword_1D9404], eax
+        mov dword [BitReaderPtr], eax
         pop edx
         ret
         db 090h
@@ -5324,25 +5324,25 @@ strnicmp_:
 ; Bit reader: sets the buffer and bit position to read from
 ;-----------------------------------------------------------------------------
 SetBitReader:
-        mov dword [dword_1D9404], edx
-        mov dword [dword_1D940C], eax
+        mov dword [BitReaderPtr], edx
+        mov dword [BitReaderBits], eax
         ret
         push ebx
         push ecx
         push edx
-        mov eax, dword [dword_1D9404]
-        mov edx, dword [dword_1D940C]
+        mov eax, dword [BitReaderPtr]
+        mov edx, dword [BitReaderBits]
         sar eax, 3
         add edx, eax
-        mov ah, byte [dword_1D9404]
-        mov dword [dword_1D940C], edx
+        mov ah, byte [BitReaderPtr]
+        mov dword [BitReaderBits], edx
         test ah, 7
         je short .1
         lea ebx, [byte edx+01h]
-        mov dword [dword_1D940C], ebx
+        mov dword [BitReaderBits], ebx
 .1:
         xor ecx, ecx
-        mov dword [dword_1D9404], ecx
+        mov dword [BitReaderPtr], ecx
         pop edx
         pop ecx
         pop ebx
@@ -5369,27 +5369,27 @@ SetBitReader:
         dec edx
         cmp edx, byte 0FFFFFFFFh
         je short .6
-        mov ecx, dword [dword_1D9404]
+        mov ecx, dword [BitReaderPtr]
         mov esi, 1
         and ecx, byte 7
-        mov ebx, dword [dword_1D9404]
+        mov ebx, dword [BitReaderPtr]
         shl esi, cl
         sar ebx, 3
         mov ecx, esi
         test eax, edi
         je short .4
-        mov esi, dword [dword_1D940C]
+        mov esi, dword [BitReaderBits]
         or dword [esi+ebx], ecx
         jmp short .5
 .4:
-        mov esi, dword [dword_1D940C]
+        mov esi, dword [BitReaderBits]
         not ecx
         and dword [esi+ebx], ecx
 .5:
-        mov ebx, dword [dword_1D9404]
+        mov ebx, dword [BitReaderPtr]
         inc ebx
         add eax, eax
-        mov dword [dword_1D9404], ebx
+        mov dword [BitReaderPtr], ebx
         jmp short .3
 .6:
         pop edi
@@ -5405,11 +5405,11 @@ ReadBits:
         push ebx
         push ecx
         push edx
-        mov edx, dword [dword_1D9404]
-        mov ecx, dword [dword_1D940C]
+        mov edx, dword [BitReaderPtr]
+        mov ecx, dword [BitReaderBits]
         sar edx, 3
         add edx, ecx
-        mov ecx, dword [dword_1D9404]
+        mov ecx, dword [BitReaderPtr]
         mov edx, dword [edx]
         and ecx, byte 7
         mov ebx, 1
@@ -5418,7 +5418,7 @@ ReadBits:
         shl ebx, cl
         lea ecx, [byte ebx-01h]
         and ecx, edx
-        add dword [dword_1D9404], eax
+        add dword [BitReaderPtr], eax
         mov eax, ecx
         pop edx
         pop ecx
@@ -6036,7 +6036,7 @@ KeyboardISR:
 .19:
         cmp dword [dword_170710], byte 0
         je near .7
-        call dword [dword_16F184]
+        call dword [ExitHandler]
 unk_1166EF:
         db 0CFh
 ;-----------------------------------------------------------------------------
@@ -6185,7 +6185,7 @@ AssertFail:
         call AssertPreserveRegs
         add esp, byte 0Ch
 .2:
-        call dword [dword_16F184]
+        call dword [ExitHandler]
         ret
         push ebp
         LD mov, ebp, esp
@@ -6213,22 +6213,22 @@ PlotPixel:
         sub esp, byte 4
         mov eax, dword [byte esp+01Ch]
         mov ebx, dword [byte esp+018h]
-        cmp ebx, dword [dword_16E678]
+        cmp ebx, dword [ClipTopRow]
         jl near .11
-        cmp ebx, dword [dword_16E680]
+        cmp ebx, dword [ClipRight]
         jge near .11
-        cmp eax, dword [dword_16E67C]
+        cmp eax, dword [ClipLeftCol]
         jl near .11
-        cmp eax, dword [dword_16E684]
+        cmp eax, dword [ScreenHeight]
         jge near .11
-        mov ebx, dword [dword_16E698]
+        mov ebx, dword [DrawDestBuffer]
         shl eax, 2
         lea esi, [ebx+eax]
         mov eax, dword [byte esp+018h]
-        mov ebx, dword [dword_16E6A0]
+        mov ebx, dword [DrawDestOffset]
         mov esi, dword [esi]
         mov ecx, dword [ebx+eax*4]
-        mov eax, dword [dword_16E694]
+        mov eax, dword [ScreenBuffer]
         add esi, ecx
         test eax, eax
         je short .1
@@ -6241,12 +6241,12 @@ PlotPixel:
         sub edi, esi
         xor eax, eax
         lea ebx, [nosplit edi*8+00h]
-        mov al, byte [byte_16E688]
+        mov al, byte [ScreenBitsPerPixel]
         cmp ebx, eax
         jge short .1
         push edi
         lea eax, [byte esp+04h]
-        mov ebx, dword [dword_16E69C]
+        mov ebx, dword [DrawDestPitch]
         push eax
         add ebx, esi
         push ebx
@@ -6260,17 +6260,17 @@ PlotPixel:
         lea eax, [byte esp+04h]
         add eax, edi
         push eax
-        mov ebx, dword [dword_16E69C]
+        mov ebx, dword [DrawDestPitch]
         push ebx
         call bcopy
         lea ebx, [byte esp+0Ch]
         add esp, byte 0Ch
         jmp short .2
 .1:
-        mov ebx, dword [dword_16E69C]
+        mov ebx, dword [DrawDestPitch]
         add ebx, esi
 .2:
-        mov al, byte [byte_16E688]
+        mov al, byte [ScreenBitsPerPixel]
         cmp al, 0Fh
         jb short .3
         cmp al, 10h
@@ -6330,7 +6330,7 @@ PlotPixel:
         jne short .11
         mov eax, ebp
         call VesaSetBank
-        mov eax, dword [dword_16E69C]
+        mov eax, dword [DrawDestPitch]
         push edi
         add eax, esi
         push eax
@@ -6343,7 +6343,7 @@ PlotPixel:
         sub ebx, edi
         call VesaSetBank
         push ebx
-        mov eax, dword [dword_16E69C]
+        mov eax, dword [DrawDestPitch]
         push eax
         lea eax, [byte esp+08h]
         add eax, edi
@@ -6758,7 +6758,7 @@ InitVideoDecoder:
         add edi, byte 4
         call BuildDecodeTable
         mov ecx, dword [esp]
-        mov dword [dword edi+dword_1D990C], eax
+        mov dword [dword edi+VideoDecoderB], eax
         mov ah, byte [byte esp+08h]
         inc ecx
         add ah, 2
@@ -6799,7 +6799,7 @@ InitVideoDecoder:
         call BuildDecodeTable
         mov dl, byte [byte esp+0Ch]
         mov ecx, dword [esp]
-        mov dword [dword ebp+dword_1D940C], eax
+        mov dword [dword ebp+BitReaderBits], eax
         add dl, 2
         inc ecx
         mov byte [byte esp+0Ch], dl
@@ -6839,7 +6839,7 @@ InitVideoDecoder:
         mov edx, dword [esp]
         add ebp, byte 4
         inc edx
-        mov dword [dword ebp+dword_1D960C], eax
+        mov dword [dword ebp+VideoDecoderA], eax
         mov dword [esp], edx
         cmp edx, 80h
         jl short .3
@@ -6914,7 +6914,7 @@ BuildVideoGammaTable:
         shl edx, 10h
         shr eax, 10h
         adc eax, edx
-        mov dword [dword ecx+dword_1D9810], eax
+        mov dword [dword ecx+VideoGammaTable], eax
         mov eax, dword [byte esp+014h]
         add ecx, byte 4
         add ebx, eax
@@ -6950,7 +6950,7 @@ DecodeVideoChunk:
         sub esp, byte 10h
         mov ebx, dword [byte esp+024h]
         mov edi, dword [byte esp+02Ch]
-        mov edx, dword [dword_1D9810]
+        mov edx, dword [VideoGammaTable]
         movsx eax, byte [ebx]
         imul edx
         shl edx, 10h
@@ -6958,8 +6958,8 @@ DecodeVideoChunk:
         adc eax, edx
         sar eax, 1
         and eax, byte 7Fh
-        mov edx, dword [dword_1D9810]
-        mov esi, dword [nosplit eax*4+dword_1D9910]
+        mov edx, dword [VideoGammaTable]
+        mov esi, dword [nosplit eax*4+VideoCodeTableC]
         movsx eax, byte [byte ebx+02h]
         imul edx
         shl edx, 10h
@@ -6967,10 +6967,10 @@ DecodeVideoChunk:
         adc eax, edx
         sar eax, 1
         and eax, byte 7Fh
-        mov eax, dword [nosplit eax*4+dword_1D9910]
+        mov eax, dword [nosplit eax*4+VideoCodeTableC]
         mov dword [byte esp+08h], eax
         mov eax, dword [byte ebx+01h]
-        mov edx, dword [dword_1D9810]
+        mov edx, dword [VideoGammaTable]
         sar eax, 18h
         imul edx
         shl edx, 10h
@@ -6978,10 +6978,10 @@ DecodeVideoChunk:
         adc eax, edx
         sar eax, 1
         and eax, byte 7Fh
-        mov eax, dword [nosplit eax*4+dword_1D9910]
+        mov eax, dword [nosplit eax*4+VideoCodeTableC]
         mov dword [esp], eax
         mov eax, dword [byte ebx+03h]
-        mov edx, dword [dword_1D9810]
+        mov edx, dword [VideoGammaTable]
         sar eax, 18h
         imul edx
         shl edx, 10h
@@ -6989,10 +6989,10 @@ DecodeVideoChunk:
         adc eax, edx
         sar eax, 1
         and eax, byte 7Fh
-        mov eax, dword [nosplit eax*4+dword_1D9910]
+        mov eax, dword [nosplit eax*4+VideoCodeTableC]
         mov dword [byte esp+04h], eax
         mov eax, dword [byte ebx+05h]
-        mov edx, dword [dword_1D9810]
+        mov edx, dword [VideoGammaTable]
         sar eax, 18h
         imul edx
         shl edx, 10h
@@ -7002,7 +7002,7 @@ DecodeVideoChunk:
         and eax, byte 7Fh
         lea ecx, [nosplit eax*4+00h]
         mov eax, dword [byte ebx+07h]
-        mov edx, dword [dword_1D9810]
+        mov edx, dword [VideoGammaTable]
         sar eax, 18h
         imul edx
         shl edx, 10h
@@ -7010,8 +7010,8 @@ DecodeVideoChunk:
         adc eax, edx
         sar eax, 1
         and eax, byte 7Fh
-        mov edx, dword [dword ecx+dword_1D9410]
-        mov ebx, dword [nosplit eax*4+dword_1D9610]
+        mov edx, dword [dword ecx+VideoCodeTableA]
+        mov ebx, dword [nosplit eax*4+VideoCodeTableB]
         add edx, ebx
         mov dword [byte esp+0Ch], edx
         lea ebx, [edx+esi]
@@ -7122,7 +7122,7 @@ CreateBitmapEx:
         mov edi, dword [byte esp+02Ch]
         cmp dword [byte esp+034h], byte 0
         jne short .1
-        mov eax, dword [dword_16E46C]
+        mov eax, dword [MenuScreenBitmap]
         mov dword [byte esp+034h], eax
 .1:
         cmp dword [byte esp+034h], byte 0
@@ -7132,7 +7132,7 @@ CreateBitmapEx:
         mov eax, dword [byte esp+034h]
         inc eax
         and al, 0FEh
-        mov esi, dword [dword_16FA08]
+        mov esi, dword [RowTable]
         mov dword [byte esp+014h], eax
         test esi, esi
         jne short .3
@@ -7378,7 +7378,7 @@ UpdateFrameRate:
         mov ebx, dword [dword_170B0C]
         mov esi, dword [dword_170B08]
         inc dword [dword_170AFC]
-        mov edi, dword [dword_16E3F4]
+        mov edi, dword [TimerTicks]
         mov ecx, dword [dword_170B04]
         mov ebp, edi
         mov eax, dword [str_D_UpdateFrameRate]
@@ -7408,23 +7408,23 @@ UpdateFrameRate:
         xor eax, eax
 .3:
         add eax, byte 4
-        mov dword [dword eax+dword_1D9B0C], esi
+        mov dword [dword eax+FrameRateState], esi
         cmp eax, byte 20h
         jne short .3
 .4:
         xor eax, eax
 .5:
         add eax, byte 4
-        mov edx, dword [dword eax+dword_1D9B10]
-        mov dword [dword eax+dword_1D9B0C], edx
+        mov edx, dword [dword eax+FrameRateSamples]
+        mov dword [dword eax+FrameRateState], edx
         cmp eax, byte 1Ch
         jne short .5
         mov eax, esi
-        mov dword [dword_1D9B2C], esi
+        mov dword [FrameRateLast], esi
         xor ebx, ebx
         xor eax, esi
 .6:
-        mov edx, dword [dword eax+dword_1D9B10]
+        mov edx, dword [dword eax+FrameRateSamples]
         add eax, byte 4
         add ebx, edx
         cmp eax, byte 20h
@@ -7494,7 +7494,7 @@ UpdateFrameRate:
         pop ebx
         ret
         db 08Bh,0C0h
-        cmp dword [dword_16E628], byte 3
+        cmp dword [DebugMode], byte 3
         jge short .10
         push byte 0
         push PresentScreen
@@ -7520,9 +7520,9 @@ UpdateFrameRate:
         push byte 0
         db 068h                                 ; insn: push 1069F0h
         dd PrintBoxedText
-        mov edx, dword [dword_16E480]
+        mov edx, dword [ScreenModeHeight]
         push edx
-        mov ebx, dword [dword_16E47C]
+        mov ebx, dword [ScreenModeWidth]
         push ebx
         call UpdateFrameRate
         add esp, byte 10h
@@ -7539,7 +7539,7 @@ ResetFrameRate:
         mov dword [dword_170B08], edx
         mov dword [dword_170B0C], edx
         mov dword [dword_170B10], edx
-        mov eax, dword [dword_16E3F4]
+        mov eax, dword [TimerTicks]
         mov dword [dword_170B04], eax
         ret
         db 00h
@@ -7554,13 +7554,13 @@ ReadVideoCodes:
         mov ebp, dword [dword_19C694]
         sar eax, 8
         mov ecx, dword [dword_19C698]
-        imul dword [dword_1D9810]
+        imul dword [VideoGammaTable]
         shl edx, 10h
         LD xor, ebx, ebx
         shr eax, 10h
         mov edi, 3Fh
         LD adc, eax, edx
-        mov dword [dword_1D9B30], eax
+        mov dword [VideoBlock0], eax
         LD xor, eax, eax
         shr ebp, 8
         mov al, byte [esi]
@@ -7575,22 +7575,22 @@ ReadVideoCodes:
         and eax, byte 7
         jmp dword [nosplit eax*4+off_19C6C4]
 ReadVideoCodes_5B:
-        mov eax, dword [nosplit ebx*4+dword_1D9810]
-        mov dword [nosplit ebx*4+dword_1D9B30], eax
+        mov eax, dword [nosplit ebx*4+VideoGammaTable]
+        mov dword [nosplit ebx*4+VideoBlock0], eax
         jmp short ReadVideoCodes_8A.2
 ReadVideoCodes_6B:
-        mov eax, dword [nosplit ebx*4+dword_1D9810]
+        mov eax, dword [nosplit ebx*4+VideoGammaTable]
         neg eax
-        mov dword [nosplit ebx*4+dword_1D9B30], eax
+        mov dword [nosplit ebx*4+VideoBlock0], eax
         jmp short ReadVideoCodes_8A.2
 ReadVideoCodes_7D:
-        mov dword [nosplit ebx*4+dword_1D9B30], 0
+        mov dword [nosplit ebx*4+VideoBlock0], 0
         jmp short ReadVideoCodes_8A.2
 ReadVideoCodes_8A:
-        mov dword [nosplit ebx*4+dword_1D9B30], 0
+        mov dword [nosplit ebx*4+VideoBlock0], 0
         mov bl, byte [dword edi+off_19C6E3]
         dec edi
-        mov dword [nosplit ebx*4+dword_1D9B30], 0
+        mov dword [nosplit ebx*4+VideoBlock0], 0
 .2:
         shr ebp, 3
         sub ecx, byte 3
@@ -7610,7 +7610,7 @@ ReadVideoCodes_8A:
         mov dword [dword_19C698], ecx
         ret
 ReadVideoCodes_D4:
-        mov dword [nosplit ebx*4+dword_1D9B30], 0
+        mov dword [nosplit ebx*4+VideoBlock0], 0
         mov bl, byte [dword edi+off_19C6E3]
         dec edi
 ReadVideoCodes_E6:
@@ -7619,9 +7619,9 @@ ReadVideoCodes_E6:
         and eax, 0FFh
         shr eax, 3
 .4:
-        mov dword [nosplit ebx*4+dword_1D9B30], edx
+        mov dword [nosplit ebx*4+VideoBlock0], edx
         mov bl, byte [dword edi+off_19C6E3]
-        mov dword [nosplit ebx*4+dword_1D9B30], edx
+        mov dword [nosplit ebx*4+VideoBlock0], edx
         mov bl, byte [dword edi+off_19C6E2]
         sub edi, byte 2
         dec eax
@@ -7635,11 +7635,11 @@ ReadVideoCodes_115:
         je short .5
         shl eax, 18h
         sar eax, 0Ah
-        imul dword [nosplit ebx*4+dword_1D9810]
+        imul dword [nosplit ebx*4+VideoGammaTable]
         shl edx, 10h
         shr eax, 10h
         LD adc, eax, edx
-        mov dword [nosplit ebx*4+dword_1D9B30], eax
+        mov dword [nosplit ebx*4+VideoBlock0], eax
         jmp short .6
 .5:
         shr ebp, 8
@@ -7652,11 +7652,11 @@ ReadVideoCodes_115:
         LD mov, eax, ebp
         shl eax, 18h
         sar eax, 8
-        imul dword [nosplit ebx*4+dword_1D9810]
+        imul dword [nosplit ebx*4+VideoGammaTable]
         shl edx, 10h
         shr eax, 10h
         LD adc, eax, edx
-        mov dword [nosplit ebx*4+dword_1D9B30], eax
+        mov dword [nosplit ebx*4+VideoBlock0], eax
 .6:
         shr ebp, 8
         LD xor, eax, eax
@@ -7873,10 +7873,10 @@ VideoBlockPattern:
         and edx, byte 7Fh
         and ecx, byte 7Fh
         and ebp, byte 7Fh
-        mov eax, dword [nosplit eax*4+dword_1D9910]
-        mov edx, dword [nosplit edx*4+dword_1D9910]
-        mov ecx, dword [nosplit ecx*4+dword_1D9410]
-        mov ebp, dword [nosplit ebp*4+dword_1D9610]
+        mov eax, dword [nosplit eax*4+VideoCodeTableC]
+        mov edx, dword [nosplit edx*4+VideoCodeTableC]
+        mov ecx, dword [nosplit ecx*4+VideoCodeTableA]
+        mov ebp, dword [nosplit ebp*4+VideoCodeTableB]
         LD add, eax, ecx
         LD add, edx, ecx
         LD add, eax, ebp
@@ -7895,10 +7895,10 @@ VideoBlockPattern:
         and edx, byte 7Fh
         and ecx, byte 7Fh
         and ebp, byte 7Fh
-        mov eax, dword [nosplit eax*4+dword_1D9910]
-        mov edx, dword [nosplit edx*4+dword_1D9910]
-        mov ecx, dword [nosplit ecx*4+dword_1D9410]
-        mov ebp, dword [nosplit ebp*4+dword_1D9610]
+        mov eax, dword [nosplit eax*4+VideoCodeTableC]
+        mov edx, dword [nosplit edx*4+VideoCodeTableC]
+        mov ecx, dword [nosplit ecx*4+VideoCodeTableA]
+        mov ebp, dword [nosplit ebp*4+VideoCodeTableB]
         LD add, eax, ecx
         LD add, edx, ecx
         LD add, eax, ebp
@@ -7917,10 +7917,10 @@ VideoBlockPattern:
         and edx, byte 7Fh
         and ecx, byte 7Fh
         and ebp, byte 7Fh
-        mov eax, dword [nosplit eax*4+dword_1D9910]
-        mov edx, dword [nosplit edx*4+dword_1D9910]
-        mov ecx, dword [nosplit ecx*4+dword_1D9410]
-        mov ebp, dword [nosplit ebp*4+dword_1D9610]
+        mov eax, dword [nosplit eax*4+VideoCodeTableC]
+        mov edx, dword [nosplit edx*4+VideoCodeTableC]
+        mov ecx, dword [nosplit ecx*4+VideoCodeTableA]
+        mov ebp, dword [nosplit ebp*4+VideoCodeTableB]
         LD add, eax, ecx
         LD add, edx, ecx
         LD add, eax, ebp
@@ -7939,10 +7939,10 @@ VideoBlockPattern:
         and edx, byte 7Fh
         and ecx, byte 7Fh
         and ebp, byte 7Fh
-        mov eax, dword [nosplit eax*4+dword_1D9910]
-        mov edx, dword [nosplit edx*4+dword_1D9910]
-        mov ecx, dword [nosplit ecx*4+dword_1D9410]
-        mov ebp, dword [nosplit ebp*4+dword_1D9610]
+        mov eax, dword [nosplit eax*4+VideoCodeTableC]
+        mov edx, dword [nosplit edx*4+VideoCodeTableC]
+        mov ecx, dword [nosplit ecx*4+VideoCodeTableA]
+        mov ebp, dword [nosplit ebp*4+VideoCodeTableB]
         LD add, eax, ecx
         LD add, edx, ecx
         LD add, eax, ebp
@@ -7961,10 +7961,10 @@ VideoBlockPattern:
         and edx, byte 7Fh
         and ecx, byte 7Fh
         and ebp, byte 7Fh
-        mov eax, dword [nosplit eax*4+dword_1D9910]
-        mov edx, dword [nosplit edx*4+dword_1D9910]
-        mov ecx, dword [nosplit ecx*4+dword_1D9410]
-        mov ebp, dword [nosplit ebp*4+dword_1D9610]
+        mov eax, dword [nosplit eax*4+VideoCodeTableC]
+        mov edx, dword [nosplit edx*4+VideoCodeTableC]
+        mov ecx, dword [nosplit ecx*4+VideoCodeTableA]
+        mov ebp, dword [nosplit ebp*4+VideoCodeTableB]
         LD add, eax, ecx
         LD add, edx, ecx
         LD add, eax, ebp
@@ -7983,10 +7983,10 @@ VideoBlockPattern:
         and edx, byte 7Fh
         and ecx, byte 7Fh
         and ebp, byte 7Fh
-        mov eax, dword [nosplit eax*4+dword_1D9910]
-        mov edx, dword [nosplit edx*4+dword_1D9910]
-        mov ecx, dword [nosplit ecx*4+dword_1D9410]
-        mov ebp, dword [nosplit ebp*4+dword_1D9610]
+        mov eax, dword [nosplit eax*4+VideoCodeTableC]
+        mov edx, dword [nosplit edx*4+VideoCodeTableC]
+        mov ecx, dword [nosplit ecx*4+VideoCodeTableA]
+        mov ebp, dword [nosplit ebp*4+VideoCodeTableB]
         LD add, eax, ecx
         LD add, edx, ecx
         LD add, eax, ebp
@@ -8005,10 +8005,10 @@ VideoBlockPattern:
         and edx, byte 7Fh
         and ecx, byte 7Fh
         and ebp, byte 7Fh
-        mov eax, dword [nosplit eax*4+dword_1D9910]
-        mov edx, dword [nosplit edx*4+dword_1D9910]
-        mov ecx, dword [nosplit ecx*4+dword_1D9410]
-        mov ebp, dword [nosplit ebp*4+dword_1D9610]
+        mov eax, dword [nosplit eax*4+VideoCodeTableC]
+        mov edx, dword [nosplit edx*4+VideoCodeTableC]
+        mov ecx, dword [nosplit ecx*4+VideoCodeTableA]
+        mov ebp, dword [nosplit ebp*4+VideoCodeTableB]
         LD add, eax, ecx
         LD add, edx, ecx
         LD add, eax, ebp
@@ -8027,10 +8027,10 @@ VideoBlockPattern:
         and edx, byte 7Fh
         and ecx, byte 7Fh
         and ebp, byte 7Fh
-        mov eax, dword [nosplit eax*4+dword_1D9910]
-        mov edx, dword [nosplit edx*4+dword_1D9910]
-        mov ecx, dword [nosplit ecx*4+dword_1D9410]
-        mov ebp, dword [nosplit ebp*4+dword_1D9610]
+        mov eax, dword [nosplit eax*4+VideoCodeTableC]
+        mov edx, dword [nosplit edx*4+VideoCodeTableC]
+        mov ecx, dword [nosplit ecx*4+VideoCodeTableA]
+        mov ebp, dword [nosplit ebp*4+VideoCodeTableB]
         LD add, eax, ecx
         LD add, edx, ecx
         LD add, eax, ebp
@@ -8057,19 +8057,19 @@ DecodeVideoFrame:
         mov dword [dword_19C694], eax
         mov dword [dword_19C698], 8
         call ReadVideoCodes
-        mov esi, dword_1D9B30
+        mov esi, VideoBlock0
         mov dword [dword_19C69C], unk_1D9C30
         call VideoBlockFill
-        mov esi, unk_1D9B50
+        mov esi, VideoBlock1
         mov dword [dword_19C69C], unk_1D9C34
         call VideoBlockFill
-        mov esi, unk_1D9B70
+        mov esi, VideoBlock2
         mov dword [dword_19C69C], unk_1D9C38
         call VideoBlockFill
-        mov esi, unk_1D9B90
+        mov esi, VideoBlock3
         mov dword [dword_19C69C], unk_1D9C3C
         call VideoBlockFill
-        mov esi, unk_1D9BB0
+        mov esi, VideoBlock4
         mov dword [dword_19C69C], unk_1D9C40
         call VideoBlockFill
         mov esi, unk_1D9BD0
@@ -8106,19 +8106,19 @@ DecodeVideoFrame:
         mov dword [dword_19C69C], unk_1D9F10
         call VideoBlockDelta
         call ReadVideoCodes
-        mov esi, dword_1D9B30
+        mov esi, VideoBlock0
         mov dword [dword_19C69C], unk_1D9C30
         call VideoBlockFill
-        mov esi, unk_1D9B50
+        mov esi, VideoBlock1
         mov dword [dword_19C69C], unk_1D9C34
         call VideoBlockFill
-        mov esi, unk_1D9B70
+        mov esi, VideoBlock2
         mov dword [dword_19C69C], unk_1D9C38
         call VideoBlockFill
-        mov esi, unk_1D9B90
+        mov esi, VideoBlock3
         mov dword [dword_19C69C], unk_1D9C3C
         call VideoBlockFill
-        mov esi, unk_1D9BB0
+        mov esi, VideoBlock4
         mov dword [dword_19C69C], unk_1D9C40
         call VideoBlockFill
         mov esi, unk_1D9BD0
@@ -8155,19 +8155,19 @@ DecodeVideoFrame:
         mov dword [dword_19C69C], unk_1D9F30
         call VideoBlockDelta
         call ReadVideoCodes
-        mov esi, dword_1D9B30
+        mov esi, VideoBlock0
         mov dword [dword_19C69C], unk_1D9C30
         call VideoBlockFill
-        mov esi, unk_1D9B50
+        mov esi, VideoBlock1
         mov dword [dword_19C69C], unk_1D9C34
         call VideoBlockFill
-        mov esi, unk_1D9B70
+        mov esi, VideoBlock2
         mov dword [dword_19C69C], unk_1D9C38
         call VideoBlockFill
-        mov esi, unk_1D9B90
+        mov esi, VideoBlock3
         mov dword [dword_19C69C], unk_1D9C3C
         call VideoBlockFill
-        mov esi, unk_1D9BB0
+        mov esi, VideoBlock4
         mov dword [dword_19C69C], unk_1D9C40
         call VideoBlockFill
         mov esi, unk_1D9BD0
@@ -8204,19 +8204,19 @@ DecodeVideoFrame:
         mov dword [dword_19C69C], unk_1DA110
         call VideoBlockDelta
         call ReadVideoCodes
-        mov esi, dword_1D9B30
+        mov esi, VideoBlock0
         mov dword [dword_19C69C], unk_1D9C30
         call VideoBlockFill
-        mov esi, unk_1D9B50
+        mov esi, VideoBlock1
         mov dword [dword_19C69C], unk_1D9C34
         call VideoBlockFill
-        mov esi, unk_1D9B70
+        mov esi, VideoBlock2
         mov dword [dword_19C69C], unk_1D9C38
         call VideoBlockFill
-        mov esi, unk_1D9B90
+        mov esi, VideoBlock3
         mov dword [dword_19C69C], unk_1D9C3C
         call VideoBlockFill
-        mov esi, unk_1D9BB0
+        mov esi, VideoBlock4
         mov dword [dword_19C69C], unk_1D9C40
         call VideoBlockFill
         mov esi, unk_1D9BD0
@@ -8253,19 +8253,19 @@ DecodeVideoFrame:
         mov dword [dword_19C69C], unk_1DA130
         call VideoBlockDelta
         call ReadVideoCodes
-        mov esi, dword_1D9B30
+        mov esi, VideoBlock0
         mov dword [dword_19C69C], unk_1D9C30
         call VideoBlockFill
-        mov esi, unk_1D9B50
+        mov esi, VideoBlock1
         mov dword [dword_19C69C], unk_1D9C34
         call VideoBlockFill
-        mov esi, unk_1D9B70
+        mov esi, VideoBlock2
         mov dword [dword_19C69C], unk_1D9C38
         call VideoBlockFill
-        mov esi, unk_1D9B90
+        mov esi, VideoBlock3
         mov dword [dword_19C69C], unk_1D9C3C
         call VideoBlockFill
-        mov esi, unk_1D9BB0
+        mov esi, VideoBlock4
         mov dword [dword_19C69C], unk_1D9C40
         call VideoBlockFill
         mov esi, unk_1D9BD0
@@ -8302,19 +8302,19 @@ DecodeVideoFrame:
         mov dword [dword_19C69C], unk_1DA230
         call VideoBlockDelta
         call ReadVideoCodes
-        mov esi, dword_1D9B30
+        mov esi, VideoBlock0
         mov dword [dword_19C69C], unk_1D9C30
         call VideoBlockFill
-        mov esi, unk_1D9B50
+        mov esi, VideoBlock1
         mov dword [dword_19C69C], unk_1D9C34
         call VideoBlockFill
-        mov esi, unk_1D9B70
+        mov esi, VideoBlock2
         mov dword [dword_19C69C], unk_1D9C38
         call VideoBlockFill
-        mov esi, unk_1D9B90
+        mov esi, VideoBlock3
         mov dword [dword_19C69C], unk_1D9C3C
         call VideoBlockFill
-        mov esi, unk_1D9BB0
+        mov esi, VideoBlock4
         mov dword [dword_19C69C], unk_1D9C40
         call VideoBlockFill
         mov esi, unk_1D9BD0
@@ -8673,7 +8673,7 @@ DecodeTgvFrame:
 .1:
         cmp dword [byte esi+03Ch], byte 0
         jne short .3
-        mov ecx, dword [dword_16E4C8]
+        mov ecx, dword [MessageBoxActive]
         mov eax, dword [byte esi+020h]
         mov ebp, dword [byte esi+024h]
         push ecx
@@ -8947,7 +8947,7 @@ DecodeTgvKeyFrame:
         add esp, byte 4
         mov dword [byte esi+030h], 0
 .7:
-        mov eax, dword [dword_16E4C8]
+        mov eax, dword [MessageBoxActive]
         mov ebx, dword [byte esp+010h]
         push eax
         add ebx, byte 10h
@@ -8955,13 +8955,13 @@ DecodeTgvKeyFrame:
         push str_TGV
         call AllocMemBlock
         add esp, byte 0Ch
-        mov edx, dword [dword_16E4C8]
+        mov edx, dword [MessageBoxActive]
         push edx
         push ebx
         push str_TGV
         mov dword [byte esi+028h], eax
         call AllocMemBlock
-        mov ebx, dword [dword_16E4C8]
+        mov ebx, dword [MessageBoxActive]
         add esp, byte 0Ch
         mov dword [byte esi+02Ch], eax
         mov eax, dword [byte esp+014h]
@@ -8978,7 +8978,7 @@ DecodeTgvKeyFrame:
         shl edx, 4
         LD sbb, eax, edx
         sar eax, 4
-        mov ecx, dword [dword_16E4C8]
+        mov ecx, dword [MessageBoxActive]
         push ecx
         shl eax, 2
         push eax
@@ -9081,7 +9081,7 @@ DecodeTgvKeyFrame:
         pop ebx
         ret
         push ebx
-        mov edx, dword [dword_16E4C8]
+        mov edx, dword [MessageBoxActive]
         push edx
         push dword 344h
         push str_TGV
@@ -10292,7 +10292,7 @@ LoadNamedResource:
         call DosReadFile
         add esp, byte 0Ch
 .8:
-        cmp dword [dword_172ABC], byte 0
+        cmp dword [LoadFileHook], byte 0
         je short .9
         mov eax, dword [byte esp+03Ch]
         push eax
@@ -10301,7 +10301,7 @@ LoadNamedResource:
         mov ecx, dword [ebx]
         push ecx
         push esi
-        call dword [dword_172ABC]
+        call dword [LoadFileHook]
         add esp, byte 10h
         mov esi, eax
 .9:
@@ -11194,7 +11194,7 @@ ExitGraphics:
 .1:
         xor ecx, ecx
         call FreeRowTable
-        mov dword [dword_16E444], ecx
+        mov dword [GraphicsModeSet], ecx
         pop edx
         pop ecx
         pop ebx
@@ -11278,7 +11278,7 @@ InitPlatform:
         mov ecx, dword [str_D_UpdateFrameRate]
         push ecx
         call InstallTimer
-        mov esi, dword [dword_16E444]
+        mov esi, dword [GraphicsModeSet]
         add esp, byte 4
         test esi, esi
         jne short .3
@@ -11288,7 +11288,7 @@ InitPlatform:
         mov dword [dword_171C88], eax
         call AddExitHandler
         add esp, byte 4
-        mov edi, dword [dword_16E46C]
+        mov edi, dword [MenuScreenBitmap]
         push edi
         mov ebp, dword [dword_16E468]
         push ebp
@@ -11303,7 +11303,7 @@ InitPlatform:
         push byte 0
         call WritePaletteRegs
         add esp, byte 0Ch
-        push unk_16E8A0
+        push DebugTagStr
         call SelectFont
         add esp, byte 4
         push dword 0FF000000h
@@ -11319,7 +11319,7 @@ InitPlatform:
         call SetScreenTarget
         push byte 0
         call ClearScreen
-        mov edx, dword [dword_16E448]
+        mov edx, dword [MousePresent]
         add esp, byte 4
         test edx, edx
         jne short .4

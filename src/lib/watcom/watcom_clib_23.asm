@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_12D24F progbits alloc exec nowrite align=1
-extern __flush_, __ioalloc_, __prtf_, __set_errno_dos_, dword_17025C, str_D_ProjectPointsPersp, dword_170264, dword_170268
-extern dword_170274, fputc_
+extern __flush_, __ioalloc_, __prtf_, __set_errno_dos_, ViewCenterY, str_D_ProjectPointsPersp, CameraSinYaw, CameraCosYaw
+extern CameraFlags, fputc_
 global __doserror_, __fprtf_, file_putc_, ProjectPointsPersp
 ;-----------------------------------------------------------------------------
 ; file_putc_                                                   12D24F  library
@@ -111,12 +111,12 @@ ProjectPointsPersp:
         cmp dword [byte esi+08h], byte 0
         jle short .2
         mov eax, dword [esi]
-        imul dword [dword_170264]
+        imul dword [CameraSinYaw]
         idiv dword [byte esi+08h]
-        add eax, dword [dword_17025C]
+        add eax, dword [ViewCenterY]
         mov dword [edi], eax
         mov eax, dword [byte esi+04h]
-        imul dword [dword_170268]
+        imul dword [CameraCosYaw]
         idiv dword [byte esi+08h]
         add eax, dword [str_D_ProjectPointsPersp]
         mov dword [byte edi+04h], eax
@@ -124,7 +124,7 @@ ProjectPointsPersp:
 .2:
         mov dword [edi], 80000000h
         mov dword [byte edi+04h], 80000000h
-        or dword [dword_170274], byte 1
+        or dword [CameraFlags], byte 1
 .3:
         add ecx, byte 8
         add ebx, byte 0Ch
@@ -133,12 +133,12 @@ ProjectPointsPersp:
         cmp dword [byte esi+08h], byte 0
         jle short .4
         mov eax, dword [esi]
-        imul dword [dword_170264]
+        imul dword [CameraSinYaw]
         idiv dword [byte esi+08h]
-        add eax, dword [dword_17025C]
+        add eax, dword [ViewCenterY]
         mov dword [edi], eax
         mov eax, dword [byte esi+04h]
-        imul dword [dword_170268]
+        imul dword [CameraCosYaw]
         idiv dword [byte esi+08h]
         add eax, dword [str_D_ProjectPointsPersp]
         mov dword [byte edi+04h], eax
@@ -146,7 +146,7 @@ ProjectPointsPersp:
 .4:
         mov dword [edi], 80000000h
         mov dword [byte edi+04h], 80000000h
-        or dword [dword_170274], byte 1
+        or dword [CameraFlags], byte 1
 .5:
         add ecx, byte 8
         add ebx, byte 0Ch
@@ -155,12 +155,12 @@ ProjectPointsPersp:
         cmp dword [byte esi+08h], byte 0
         jle short .6
         mov eax, dword [esi]
-        imul dword [dword_170264]
+        imul dword [CameraSinYaw]
         idiv dword [byte esi+08h]
-        add eax, dword [dword_17025C]
+        add eax, dword [ViewCenterY]
         mov dword [edi], eax
         mov eax, dword [byte esi+04h]
-        imul dword [dword_170268]
+        imul dword [CameraCosYaw]
         idiv dword [byte esi+08h]
         add eax, dword [str_D_ProjectPointsPersp]
         mov dword [byte edi+04h], eax
@@ -168,7 +168,7 @@ ProjectPointsPersp:
 .6:
         mov dword [edi], 80000000h
         mov dword [byte edi+04h], 80000000h
-        or dword [dword_170274], byte 1
+        or dword [CameraFlags], byte 1
 .7:
         add ecx, byte 8
         add ebx, byte 0Ch
@@ -178,12 +178,12 @@ ProjectPointsPersp:
         cmp dword [byte esi+08h], byte 0
         jle short .8
         mov eax, dword [esi]
-        imul dword [dword_170264]
+        imul dword [CameraSinYaw]
         idiv dword [byte esi+08h]
-        add eax, dword [dword_17025C]
+        add eax, dword [ViewCenterY]
         mov dword [edi], eax
         mov eax, dword [byte esi+04h]
-        imul dword [dword_170268]
+        imul dword [CameraCosYaw]
         idiv dword [byte esi+08h]
         add eax, dword [str_D_ProjectPointsPersp]
         mov dword [byte edi+04h], eax
@@ -191,7 +191,7 @@ ProjectPointsPersp:
 .8:
         mov dword [edi], 80000000h
         mov dword [byte edi+04h], 80000000h
-        or dword [dword_170274], byte 1
+        or dword [CameraFlags], byte 1
 .9:
         add ebx, byte 0Ch
         add ecx, byte 8
@@ -205,12 +205,12 @@ ProjectPointsPersp:
         cmp dword [byte esi+08h], byte 0
         jle short .11
         mov eax, dword [esi]
-        imul dword [dword_170264]
+        imul dword [CameraSinYaw]
         idiv dword [byte esi+08h]
-        add eax, dword [dword_17025C]
+        add eax, dword [ViewCenterY]
         mov dword [edi], eax
         mov eax, dword [byte esi+04h]
-        imul dword [dword_170268]
+        imul dword [CameraCosYaw]
         idiv dword [byte esi+08h]
         add eax, dword [str_D_ProjectPointsPersp]
         mov dword [byte edi+04h], eax
@@ -218,7 +218,7 @@ ProjectPointsPersp:
 .11:
         mov dword [edi], 80000000h
         mov dword [byte edi+04h], 80000000h
-        or dword [dword_170274], byte 1
+        or dword [CameraFlags], byte 1
 .12:
         dec ebp
         add ebx, byte 0Ch

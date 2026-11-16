@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_10C8B0 progbits alloc exec nowrite align=1
-extern byte_16E688, str_Punct_FreeArtArchive, dword_16E678, dword_16E67C, dword_16E680, dword_16E684, dword_16E690, dword_16E694
-extern dword_16E698, dword_16E6A0, dword_1DA8D8, ConvertArtSame, VesaSetBank, SetBlitSource, CopyMappedSpan, ShapeRowBytes
+extern ScreenBitsPerPixel, str_Punct_FreeArtArchive, ClipTopRow, ClipLeftCol, ClipRight, ScreenHeight, ScreenPitch, ScreenBuffer
+extern DrawDestBuffer, DrawDestOffset, dword_1DA8D8, ConvertArtSame, VesaSetBank, SetBlitSource, CopyMappedSpan, ShapeRowBytes
 extern BuildSpanOffsets, VecLengthOf, FreeMemBlock
 global AddVec3, SubVec3, ScaleVec3, DrawSpriteRow, DrawSpriteScaledCore, DrawSpriteScaledFit, DrawSpriteScaledBy, DrawSpriteScaledFlip
 global DrawSpriteScaled
@@ -145,7 +145,7 @@ DrawSpriteRow:
         mov eax, edi
         xor edx, edx
         call VesaSetBank
-        mov dl, byte [byte_16E688]
+        mov dl, byte [ScreenBitsPerPixel]
         inc edx
         and dl, 0FEh
         mov eax, edx
@@ -239,10 +239,10 @@ DrawSpriteScaledCore:
         mov dword [esp], eax
         mov dword [byte esp+034h], eax
 .1:
-        cmp edi, dword [dword_16E680]
+        cmp edi, dword [ClipRight]
         jge near .15
         mov eax, dword [byte esp+03Ch]
-        cmp eax, dword [dword_16E684]
+        cmp eax, dword [ScreenHeight]
         jge near .15
         test ebp, ebp
         jle short .2
@@ -252,7 +252,7 @@ DrawSpriteScaledCore:
         mov eax, ebp
         neg eax
 .3:
-        mov ecx, dword [dword_16E678]
+        mov ecx, dword [ClipTopRow]
         add eax, edi
         cmp eax, ecx
         jle near .15
@@ -265,7 +265,7 @@ DrawSpriteScaledCore:
         neg eax
 .5:
         mov edx, dword [byte esp+03Ch]
-        mov ecx, dword [dword_16E67C]
+        mov ecx, dword [ClipLeftCol]
         add eax, edx
         cmp eax, ecx
         jle near .15
@@ -311,27 +311,27 @@ DrawSpriteScaledCore:
         add eax, edx
 .8:
         mov edx, dword [byte esp+03Ch]
-        cmp edx, dword [dword_16E67C]
+        cmp edx, dword [ClipLeftCol]
         jge short .9
-        mov edx, dword [dword_16E67C]
+        mov edx, dword [ClipLeftCol]
         sub edx, dword [byte esp+03Ch]
         mov dword [byte esp+014h], edx
         mov edx, dword [byte esp+010h]
         imul edx, dword [byte esp+014h]
         add esi, edx
         sub ebx, dword [byte esp+014h]
-        mov edx, dword [dword_16E67C]
+        mov edx, dword [ClipLeftCol]
         mov dword [byte esp+03Ch], edx
 .9:
         mov edx, dword [byte esp+03Ch]
         add edx, ebx
-        cmp edx, dword [dword_16E684]
+        cmp edx, dword [ScreenHeight]
         jle short .10
         mov edx, dword [byte esp+03Ch]
-        mov ebx, dword [dword_16E684]
+        mov ebx, dword [ScreenHeight]
         sub ebx, edx
 .10:
-        mov edx, dword [dword_16E678]
+        mov edx, dword [ClipTopRow]
         cmp edi, edx
         jge short .11
         sub edx, edi
@@ -339,23 +339,23 @@ DrawSpriteScaledCore:
         mov edx, ecx
         imul edx, edi
         sub ebp, edi
-        mov edi, dword [dword_16E678]
+        mov edi, dword [ClipTopRow]
         add eax, edx
 .11:
         lea edx, [edi+ebp]
-        cmp edx, dword [dword_16E680]
+        cmp edx, dword [ClipRight]
         jle short .12
-        mov ebp, dword [dword_16E680]
+        mov ebp, dword [ClipRight]
         sub ebp, edi
 .12:
         mov edx, dword [byte esp+03Ch]
         shl edx, 2
         mov dword [byte esp+014h], edx
-        mov edx, dword [dword_16E698]
+        mov edx, dword [DrawDestBuffer]
         add edx, dword [byte esp+014h]
         shl edi, 2
         mov dword [byte esp+014h], edx
-        mov edx, dword [dword_16E6A0]
+        mov edx, dword [DrawDestOffset]
         add edi, edx
         mov edx, dword [byte esp+014h]
         mov edx, dword [edx]
@@ -364,7 +364,7 @@ DrawSpriteScaledCore:
         mov edi, dword [byte esp+014h]
         add edi, edx
         mov dword [byte esp+0Ch], CopyMappedSpan
-        mov edx, dword [dword_16E694]
+        mov edx, dword [ScreenBuffer]
         test edx, edx
         je short .13
         mov dword [byte esp+0Ch], DrawSpriteRow
@@ -399,7 +399,7 @@ DrawSpriteScaledCore:
         push edi
         call dword [byte esp+018h]
         add esp, byte 0Ch
-        mov eax, dword [dword_16E690]
+        mov eax, dword [ScreenPitch]
         mov edx, dword [byte esp+010h]
         add edi, eax
         add esi, edx

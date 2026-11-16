@@ -2,11 +2,11 @@
 bits 32
 %include "hockey.inc"
 section s_123FEA progbits alloc exec nowrite align=1
-extern IF@ATAN2, __fpatan_chk, __math2err_, __math87_err_, str_RESIZE, byte_16E688, byte_19C724, str_Punct_DrawRinkSurface
-extern dword_16F5B4, dword_16F5B8, SinTable, F32_0p9375, F32_1p0625, F32_9p22337e18, dword_1CF260, TextOriginX
+extern IF@ATAN2, __fpatan_chk, __math2err_, __math87_err_, str_RESIZE, ScreenBitsPerPixel, byte_19C724, str_Punct_DrawRinkSurface
+extern ConvertPalette, ColorKeyEnabled, SinTable, F32_0p9375, F32_1p0625, F32_9p22337e18, dword_1CF260, TextOriginX
 extern TextOriginY, LinkTextFont, DrawGlyphFn, TextCharFn, TextEndFn, IndexTo16Table, dword_1DA4D0, dword_1DC518
 extern dword_1DC51C, dword_1DC520, dword_1DC524, dword_1DC528, dword_1DC5A8, int386x_, itoa_, ltoa_
-extern memlist1, off_16F5BC, off_171C7C, off_199C50, off_19C740, F64_709p783, F64_neg709p783, segread_
+extern memlist1, ConvertDestBuffer, off_171C7C, off_199C50, off_19C740, F64_709p783, F64_neg709p783, segread_
 extern strncpy_, bcopy, SetTextOrigin, MemLock, MemUnlock, SetBlockGuard, AllocMemBlockEx, findmemblock
 extern CompactMemListDown, CompactMemListUp, PushMemDescriptor, DrawTextRun, F80_1p5708, toupper_, ultoa_, IndexTo16Entries
 global FixedPoint_Format_, IF@DACOS, IF@EXP, IF@SQRT, _Full_at_exit_rtn_, __@DEXP, __@DEXP1, __@DSQRT
@@ -1409,7 +1409,7 @@ DrawTextString:
 ConvertColor555:
         push ebx
         mov edx, dword [byte esp+08h]
-        mov al, byte [byte_16E688]
+        mov al, byte [ScreenBitsPerPixel]
         cmp al, 0Fh
         jb short .5
         mov ecx, edx
@@ -3200,7 +3200,7 @@ ConvertIndexedTo32:
         push ecx
         push esi
         push edi
-        mov edi, dword [off_16F5BC]
+        mov edi, dword [ConvertDestBuffer]
         LD xor, ecx, ecx
 .1:
         mov cl, byte [eax]
@@ -3248,7 +3248,7 @@ Convert32To565Keyed:
         cmp ecx, 40000000h
         jae short .2
 .5:
-        mov ecx, dword [dword_16F5B4]
+        mov ecx, dword [ConvertPalette]
         sub ebx, byte 1
         lea edx, [byte edx+02h]
         mov word [byte edx-02h], cx
@@ -3268,7 +3268,7 @@ Convert32To565Keyed:
         cmp cx, byte 0
         jne short .3
 .7:
-        mov ecx, dword [dword_16F5B8]
+        mov ecx, dword [ColorKeyEnabled]
         sub ebx, byte 1
         lea edx, [byte edx+02h]
         mov word [byte edx-02h], cx

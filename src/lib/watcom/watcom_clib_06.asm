@@ -3,10 +3,10 @@ bits 32
 %include "hockey.inc"
 section s_FDDD4 progbits alloc exec nowrite align=1
 extern IF@DACOS, IF@SQRT, __@DEXP, __CHP, __fdiv_fpr, __fpatan_wrap, __pow87_err_, __prtf_
-extern str_Acos, byte_16E688, MathErrorFlags, F32_1p52588eneg05, F32_65536_ScaleFloatsToInts, F32_0p5_SetProjectionCenter, F32_65536_SetProjectionCenter, dword_16E678
-extern dword_16E67C, dword_16E680, dword_16E684, dword_16E690, dword_16E694, dword_16E698, dword_16E69C, dword_16E6A0
-extern dword_16F140, dword_16F144, dword_16F148, dword_170254, dword_170258, dword_17025C, str_D_ProjectPointsPersp, dword_170264
-extern dword_170268, TextOriginX, TextOriginY, FontAscent, FontDescent, TextAlign, CurrentFont, FontHeight
+extern str_Acos, ScreenBitsPerPixel, MathErrorFlags, F32_1p52588eneg05, F32_65536_ScaleFloatsToInts, F32_0p5_SetProjectionCenter, F32_65536_SetProjectionCenter, ClipTopRow
+extern ClipLeftCol, ClipRight, ScreenHeight, ScreenPitch, ScreenBuffer, DrawDestBuffer, DrawDestPitch, DrawDestOffset
+extern F32_50p0_View, F32_1p0_View, RinkLineWidth, CameraYaw, CameraPitch, ViewCenterY, str_D_ProjectPointsPersp, CameraSinYaw
+extern CameraCosYaw, TextOriginX, TextOriginY, FontAscent, FontDescent, TextAlign, CurrentFont, FontHeight
 extern FontWidth, TextColorIndex, TextColorTable, FontGlyphColors, FontLastChar, FontGlyphTable, FontGlyphCount, FontKernTable
 extern TextShadowColor, TextBuffer, DrawGlyphFn, TextCharFn, TextEndFn, TextNextCharFn, FontSpacing, FontKernCount
 extern FontKernPairs, ProjScaleX, ProjCenterX, ProjCenterY, ProjScaleY, ProjOffsetX, ProjOffsetY, ProjDetailScale
@@ -704,39 +704,39 @@ DrawGlyph:
         inc eax
         mov ebp, dword [TextShadowColor]
         sar eax, 1
-        mov edx, dword [dword_16E694]
+        mov edx, dword [ScreenBuffer]
         mov dword [byte esp+0Ch], eax
         test edx, edx
         jne near .15
         mov eax, dword [byte esp+018h]
-        cmp eax, dword [dword_16E678]
+        cmp eax, dword [ClipTopRow]
         jl near .15
-        cmp eax, dword [dword_16E680]
+        cmp eax, dword [ClipRight]
         jge near .15
         mov eax, dword [byte esp+014h]
-        cmp eax, dword [dword_16E67C]
+        cmp eax, dword [ClipLeftCol]
         jl near .15
-        cmp eax, dword [dword_16E684]
+        cmp eax, dword [ScreenHeight]
         jge near .15
         mov eax, dword [byte esp+018h]
         mov ecx, dword [byte esp+040h]
-        mov edx, dword [dword_16E678]
+        mov edx, dword [ClipTopRow]
         add eax, ecx
         cmp eax, edx
         jl near .15
-        cmp eax, dword [dword_16E680]
+        cmp eax, dword [ClipRight]
         jge near .15
         mov eax, dword [byte esp+014h]
         mov ecx, dword [byte esp+044h]
-        mov edx, dword [dword_16E67C]
+        mov edx, dword [ClipLeftCol]
         add eax, ecx
         cmp eax, edx
         jl near .15
-        cmp eax, dword [dword_16E684]
+        cmp eax, dword [ScreenHeight]
         jge near .15
         mov ecx, dword [byte esp+0Ch]
         mov eax, esi
-        mov dl, byte [byte_16E688]
+        mov dl, byte [ScreenBitsPerPixel]
         sub eax, ecx
         cmp dl, 10h
         jne near .7
@@ -744,11 +744,11 @@ DrawGlyph:
 .1:
         mov ebx, dword [byte esp+014h]
         mov eax, dword [byte esp+018h]
-        mov edx, dword [dword_16E6A0]
+        mov edx, dword [DrawDestOffset]
         mov eax, dword [edx+eax*4]
-        mov edx, dword [dword_16E698]
+        mov edx, dword [DrawDestBuffer]
         add eax, dword [edx+ebx*4]
-        add eax, dword [dword_16E69C]
+        add eax, dword [DrawDestPitch]
         mov esi, eax
         mov eax, dword [byte esp+0Ch]
         mov dword [byte esp+024h], eax
@@ -861,11 +861,11 @@ DrawGlyph:
 .8:
         mov ebx, dword [byte esp+014h]
         mov eax, dword [byte esp+018h]
-        mov edx, dword [dword_16E6A0]
+        mov edx, dword [DrawDestOffset]
         mov eax, dword [edx+eax*4]
-        mov edx, dword [dword_16E698]
+        mov edx, dword [DrawDestBuffer]
         add eax, dword [edx+ebx*4]
-        add eax, dword [dword_16E69C]
+        add eax, dword [DrawDestPitch]
         mov esi, eax
         mov eax, dword [byte esp+0Ch]
         mov dword [byte esp+028h], eax
@@ -966,18 +966,18 @@ DrawGlyph:
 .14:
         cmp dl, 8
         jne short .15
-        mov ebx, dword [dword_16E690]
+        mov ebx, dword [ScreenPitch]
         lea edx, [ecx+ecx]
         sub ebx, edx
         push ebx
         mov edx, dword [byte esp+018h]
         push eax
         shl edx, 2
-        mov eax, dword [dword_16E698]
+        mov eax, dword [DrawDestBuffer]
         mov ebx, dword [byte esp+04Ch]
         add edx, eax
         push ebx
-        mov eax, dword [dword_16E69C]
+        mov eax, dword [DrawDestPitch]
         mov esi, dword [edx]
         mov edx, dword [byte esp+024h]
         add eax, esi
@@ -2856,7 +2856,7 @@ SetViewScale:
         call SetTextScale
         add esp, byte 4
         mov eax, dword [byte esp+010h]
-        mov dword [dword_16F140], eax
+        mov dword [F32_50p0_View], eax
         add esp, byte 4
         pop edx
         pop ecx
@@ -2875,7 +2875,7 @@ SetFocalLength:
         fld dword [byte ebp+0Ch]
         mov eax, dword [byte ebp+0Ch]
         fst qword [esp]
-        mov dword [dword_16F144], eax
+        mov dword [F32_1p0_View], eax
         fcomp qword [F64_0p9_SetFocalLength]
         fnstsw ax
         sahf
@@ -2885,18 +2885,18 @@ SetFocalLength:
         fnstsw ax
         sahf
         jae short .1
-        mov dword [dword_16F148], 1
+        mov dword [RinkLineWidth], 1
         jmp short .2
 .1:
         xor edx, edx
-        mov dword [dword_16F148], edx
+        mov dword [RinkLineWidth], edx
 .2:
         mov esp, ebp
         pop ebp
         pop edx
         ret 4
-        mov dword [dword_170258], edx
-        mov dword [dword_170254], eax
+        mov dword [CameraPitch], edx
+        mov dword [CameraYaw], eax
         ret
 ;-----------------------------------------------------------------------------
 ; SetProjectionCenter                             FFA9C  97 PC, low confidence
@@ -2914,23 +2914,23 @@ SetProjectionCenter:
         sar edx, 1Fh
         LD sub, eax, edx
         sar eax, 1
-        mov edi, dword [dword_170254]
+        mov edi, dword [CameraYaw]
         add eax, edi
         mov edx, esi
-        mov dword [dword_17025C], eax
+        mov dword [ViewCenterY], eax
         sar edx, 1Fh
         mov eax, esi
         LD sub, eax, edx
         sar eax, 1
         lea edi, [byte esp+04h]
-        fild dword [dword_17025C]
+        fild dword [ViewCenterY]
         fadd qword [F64_0p5_SetProjectionCenter]
-        mov esi, dword [dword_170258]
+        mov esi, dword [CameraPitch]
         fstp dword [ProjOffsetY]
         add eax, esi
         mov esi, esp
         mov dword [str_D_ProjectPointsPersp], eax
-        mov eax, dword [dword_17025C]
+        mov eax, dword [ViewCenterY]
         fild dword [str_D_ProjectPointsPersp]
         shl eax, 10h
         fadd qword [F64_0p5_SetProjectionCenter]
@@ -2953,13 +2953,13 @@ SetProjectionCenter:
         fmul dword [F32_0p5_SetProjectionCenter]
         fdiv dword [esp]
         fst dword [ProjDetailScale]
-        fmul dword [dword_16F144]
+        fmul dword [F32_1p0_View]
         fld dword [ProjDetailScale]
         fmul dword [F32_65536_SetProjectionCenter]
         fxch
         fst dword [ProjAspect]
         fmul dword [F32_65536_SetProjectionCenter]
-        mov eax, dword_170264
+        mov eax, CameraSinYaw
         fld dword [ProjDetailScale]
         fxch st2
         fstp dword [ProjScaleY]
@@ -2967,7 +2967,7 @@ SetProjectionCenter:
         fistp dword [eax]
         fld dword [ProjAspect]
         fchs
-        mov eax, dword_170268
+        mov eax, CameraCosYaw
         fistp dword [eax]
         add esp, byte 0Ch
         pop edi
@@ -3025,7 +3025,7 @@ ProjectPoints:
         lea eax, [nosplit ecx*8+00h]
         add eax, byte 4
         add eax, ebx
-        mov ebx, dword [dword_16F148]
+        mov ebx, dword [RinkLineWidth]
         add edx, edi
         test ebx, ebx
         je short .2
@@ -3112,7 +3112,7 @@ ProjectPointsWithZ:
         lea eax, [nosplit ecx*8+00h]
         add eax, byte 4
         add eax, ebx
-        mov ebx, dword [dword_16F148]
+        mov ebx, dword [RinkLineWidth]
         add edx, edi
         test ebx, ebx
         je short .2
@@ -3203,7 +3203,7 @@ ProjectPointsToScreen:
         lea eax, [nosplit ecx*8+00h]
         add eax, byte 4
         add eax, ebx
-        mov ebx, dword [dword_16F148]
+        mov ebx, dword [RinkLineWidth]
         add edx, edi
         test ebx, ebx
         je short .2
@@ -3328,7 +3328,7 @@ ClipProjectPoints:
         mov esi, dword [byte esp+010h]
         add edi, edx
         add edx, ebp
-        mov ebp, dword [dword_16F148]
+        mov ebp, dword [RinkLineWidth]
         add ebx, esi
         test ebp, ebp
         je near .8

@@ -2,19 +2,19 @@
 bits 32
 %include "hockey.inc"
 section s_17015C progbits alloc noexec write align=1
-global byte_170160, byte_170161, dword_17015C, dword_170164, dword_170200, dword_170204, dword_170208, dword_17020C
-global dword_170210, dword_170214, str_Punct_SetScreenScale, dword_17024C, str_D_SetCameraAngles, dword_170254, dword_170258, dword_17025C
-global str_D_ProjectPointsPersp, dword_170264, dword_170268, dword_17026C, dword_170270, dword_170274, unk_17021C, unk_170240
-global word_170162
-dword_17015C:
+global SpeechQueueBank, SpeechQueueFlags, SpeechQueueActive, SpeechQueueData, SpeechQueueHead, SpeechQueueTail, SpeechQueueCount, dword_17020C
+global SpeechQueueChannel, SpeechQueueHandle, str_Punct_SetScreenScale, ViewCenterX, str_D_SetCameraAngles, CameraYaw, CameraPitch, ViewCenterY
+global str_D_ProjectPointsPersp, CameraSinYaw, CameraCosYaw, dword_17026C, dword_170270, CameraFlags, RinkMatrix, RinkTranslation
+global SpeechQueueClip
+SpeechQueueActive:
         db 00h,00h,00h,00h
-byte_170160:
+SpeechQueueBank:
         db 00h
-byte_170161:
+SpeechQueueFlags:
         db 00h
-word_170162:
+SpeechQueueClip:
         db 00h,00h
-dword_170164:
+SpeechQueueData:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -25,45 +25,45 @@ dword_170164:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-dword_170200:
+SpeechQueueHead:
         db 00h,00h,00h,00h
-dword_170204:
+SpeechQueueTail:
         db 00h,00h,00h,00h
-dword_170208:
+SpeechQueueCount:
         db 00h,00h,00h,00h
 dword_17020C:
         db 07Fh,00h,00h,00h
-dword_170210:
+SpeechQueueChannel:
         db 0FFh,0FFh,0FFh,0FFh
-dword_170214:
+SpeechQueueHandle:
         db 0FFh,0FFh,0FFh,0FFh
 str_Punct_SetScreenScale:
         db 0Ah,00h,00h,00h
-unk_17021C:
+RinkMatrix:
         db 00h,00h,01h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,01h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,01h,00h
-unk_170240:
+RinkTranslation:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-dword_17024C:
+ViewCenterX:
         db 0A0h,00h,00h,00h
 str_D_SetCameraAngles:
         db 064h,00h,00h,00h
-dword_170254:
+CameraYaw:
         db 00h,00h,00h,00h
-dword_170258:
+CameraPitch:
         db 00h,00h,00h,00h
-dword_17025C:
+ViewCenterY:
         db 0A0h,00h,00h,00h
 str_D_ProjectPointsPersp:
         db 064h,00h,00h,00h
-dword_170264:
+CameraSinYaw:
         db 00h,00h,00h,00h
-dword_170268:
+CameraCosYaw:
         db 00h,00h,00h,00h
 dword_17026C:
         db 00h,00h,00h,00h
 dword_170270:
         db 00h,00h,00h,00h
-dword_170274:
+CameraFlags:
         db 00h,00h,00h,00h

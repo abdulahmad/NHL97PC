@@ -2,22 +2,22 @@
 bits 32
 %include "hockey.inc"
 section s_172AB0 progbits alloc noexec write align=1
-global byte_172AB0, byte_172AB1, byte_172AB4, dword_172AB8, dword_172ABC, dword_172AC0, dword_172AC4, word_172AB2
-byte_172AB0:
+global SavedTextMode, SavedTextPage, SavedTextRows, SpeechChannelFunc, LoadFileHook, SoundBankTable, SoundBankSamples, SavedTextColumns
+SavedTextMode:
         db 00h
-byte_172AB1:
+SavedTextPage:
         db 00h
-word_172AB2:
+SavedTextColumns:
         db 00h,00h
-byte_172AB4:
+SavedTextRows:
         db 00h,00h,00h,00h
-dword_172AB8:
+SpeechChannelFunc:
         db 00h,00h,00h,00h
-dword_172ABC:
+LoadFileHook:
         db 00h,00h,00h,00h
-dword_172AC0:
+SoundBankTable:
         db 00h,00h,00h,00h
-dword_172AC4:
+SoundBankSamples:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h

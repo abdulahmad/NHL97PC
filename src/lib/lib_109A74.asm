@@ -2,15 +2,15 @@
 bits 32
 %include "hockey.inc"
 section s_109A74 progbits alloc exec nowrite align=1
-extern byte_170160, byte_170161, SoundSystemOn, dword_17015C, dword_170164, dword_170200, dword_170204, dword_170208
-extern dword_17020C, dword_170210, dword_170214, dword_172AC0, SpeechQueueVolume, AsyncRequests, AsyncCurFile, AsyncCurOffset
+extern SpeechQueueBank, SpeechQueueFlags, SoundSystemOn, SpeechQueueActive, SpeechQueueData, SpeechQueueHead, SpeechQueueTail, SpeechQueueCount
+extern dword_17020C, SpeechQueueChannel, SpeechQueueHandle, SoundBankTable, SpeechQueueVolume, AsyncRequests, AsyncCurFile, AsyncCurOffset
 extern AsyncFreeList, AsyncCurBuffer, AsyncQueueHead, AsyncQueueTail, AsyncReadLength, AsyncState, AsyncFileHandle, AsyncError
 extern AsyncDosRegs, AsyncDosResult, AsyncSector, AsyncSectorCount, AsyncBytesLeft, AsyncDest, AsyncCallback, AsyncWaitTimer
 extern AsyncStreamFile, AsyncStreamBase, AsyncStreamSize, AsyncTickCount, AsyncLastSector, AsyncStreamPos, AsyncChunkSize, AsyncChunkDest
 extern AsyncStreamEnd, dword_1DCF38, str_ASYNCFILE, strcmp_, strncpy_, CdOpenStream, CdHandleEntry, CdCloseFile
 extern CdRead, CdSeek, CdFindFile, DriveLetterIndex, IsCdDrive, CheckBankIndex, SetMusicStreamVolume, ChannelPlaying
 extern StopChannel, PlaySample, LoadSampleHeader, AudioEnter, AudioLeaveCheck, IsChannelActive, ChannelPosition, ChannelTimeLeftLocked
-extern AllocMemBlockFixed, AllocMemBlock, FreeMemBlock, UnlinkMemBlockLocked, addtimer, RemoveTimerCallback, AsyncSeekRegs, word_170162
+extern AllocMemBlockFixed, AllocMemBlock, FreeMemBlock, UnlinkMemBlockLocked, addtimer, RemoveTimerCallback, AsyncSeekRegs, SpeechQueueClip
 global jpt_109E64, AsyncStreamStep_2E, AsyncStreamStep_57B, AsyncStreamStep_613, AsyncStreamStep_78F, AsyncInit, AsyncClose, AsyncRequestOpen
 global AsyncRequestSection, AsyncResetRequest, AsyncStreamStep, AsyncTick, AsyncFreeRequest, AsyncPopRequest, SpeechBufferSize, RegisterStreamBank
 global AddStreamSample, ReleaseBankSample, StartSpeechQueue, QueueSpeechClip, SpeechQueueGo, StopSpeechQueue, SpeechQueueState, ShutdownSpeechQueue
@@ -1043,18 +1043,18 @@ RegisterStreamBank:
         push ecx
         push edx
         mov ebx, eax
-        mov ecx, dword [dword_172AC0]
+        mov ecx, dword [SoundBankTable]
         xor edx, edx
         xor eax, eax
         test ecx, ecx
         jne short .3
 .1:
         mov ecx, eax
-        mov dword [dword eax+dword_172AC0], ebx
+        mov dword [dword eax+SoundBankTable], ebx
         xor eax, eax
 .2:
         add eax, byte 4
-        mov ebx, dword [dword ecx+dword_172AC0]
+        mov ebx, dword [dword ecx+SoundBankTable]
         mov dword [byte ebx+eax+04h], 0
         cmp eax, 200h
         jne short .2
@@ -1068,7 +1068,7 @@ RegisterStreamBank:
         inc edx
         cmp eax, 100h
         jge short .4
-        cmp dword [dword eax+dword_172AC0], byte 0
+        cmp dword [dword eax+SoundBankTable], byte 0
         je short .1
         jmp short .3
 .4:
@@ -1094,7 +1094,7 @@ AddStreamSample:
         xor ecx, ecx
         xor eax, eax
 .1:
-        mov edx, dword [dword ebx+dword_172AC0]
+        mov edx, dword [dword ebx+SoundBankTable]
         add edx, eax
         cmp dword [byte edx+08h], byte 0
         jne short .3
@@ -1149,7 +1149,7 @@ ReleaseBankSample:
         ret
 .3:
         shl edx, 2
-        mov eax, dword [nosplit ebx*8+dword_172AC0]
+        mov eax, dword [nosplit ebx*8+SoundBankTable]
         add eax, edx
         cmp dword [byte eax+08h], byte 0
         jne short .4
@@ -1183,9 +1183,9 @@ StartSpeechQueue:
 .1:
         xor ebx, ebx
         call AudioEnter
-        mov dword [dword_170208], ebx
-        mov dword [dword_170200], ebx
-        mov dword [dword_170204], ebx
+        mov dword [SpeechQueueCount], ebx
+        mov dword [SpeechQueueHead], ebx
+        mov dword [SpeechQueueTail], ebx
         call AudioLeaveCheck
         cmp edx, byte 7Fh
         jg short .2
@@ -1204,7 +1204,7 @@ StartSpeechQueue:
         mov dword [dword_17020C], edx
         xor eax, eax
         mov dword [SpeechQueueVolume], edi
-        mov dword [dword_17015C], ebp
+        mov dword [SpeechQueueActive], ebp
         pop ebp
         pop edi
         pop edx
@@ -1230,11 +1230,11 @@ StartSpeechQueue:
         pop ebx
         ret
 .6:
-        mov edx, dword [dword_17015C]
+        mov edx, dword [SpeechQueueActive]
         mov dword [dword_17020C], eax
         test edx, edx
         je short .7
-        mov ebx, dword [dword_170214]
+        mov ebx, dword [SpeechQueueHandle]
         mov edx, eax
         mov eax, ebx
         call SetMusicStreamVolume
@@ -1261,7 +1261,7 @@ QueueSpeechClip:
         mov eax, 0FFFFFFF6h
         jmp near .5
 .1:
-        cmp dword [dword_17015C], byte 0
+        cmp dword [SpeechQueueActive], byte 0
         jne short .2
         mov eax, 0FFFFFFFFh
         add esp, byte 8
@@ -1280,21 +1280,21 @@ QueueSpeechClip:
         ret
 .3:
         call AudioEnter
-        mov edx, dword [dword_170200]
+        mov edx, dword [SpeechQueueHead]
         lea eax, [byte edx+01h]
-        mov dword [dword_170200], eax
+        mov dword [SpeechQueueHead], eax
         cmp eax, byte 14h
         jne short .4
         xor esi, esi
-        mov dword [dword_170200], esi
+        mov dword [SpeechQueueHead], esi
 .4:
         mov cl, byte [esp]
-        mov word [nosplit edx*8+word_170162], bx
+        mov word [nosplit edx*8+SpeechQueueClip], bx
         mov edi, 0FFFFFF9Ch
-        mov byte [nosplit edx*8+byte_170160], cl
-        mov dword [nosplit edx*8+dword_170164], edi
+        mov byte [nosplit edx*8+SpeechQueueBank], cl
+        mov dword [nosplit edx*8+SpeechQueueData], edi
         mov cl, byte [byte esp+04h]
-        mov byte [nosplit edx*8+byte_170161], cl
+        mov byte [nosplit edx*8+SpeechQueueFlags], cl
         call AudioLeaveCheck
         mov eax, edx
 .5:
@@ -1305,7 +1305,7 @@ QueueSpeechClip:
         ret
         push edx
         shl eax, 3
-        mov edx, dword [dword eax+dword_170164]
+        mov edx, dword [dword eax+SpeechQueueData]
         cmp edx, byte 0FFFFFF9Ch
         jne short .6
         mov eax, 8
@@ -1330,7 +1330,7 @@ QueueSpeechClip:
         pop edx
         ret
         db 090h
-        mov eax, dword [nosplit eax*8+dword_170164]
+        mov eax, dword [nosplit eax*8+SpeechQueueData]
         jmp near ChannelPosition
 ;-----------------------------------------------------------------------------
 ; SpeechQueueGo                                  10AB1C  97 PC, low confidence
@@ -1340,7 +1340,7 @@ SpeechQueueGo:
         push edx
         mov edx, 1
         xor eax, eax
-        mov dword [dword_170208], edx
+        mov dword [SpeechQueueCount], edx
         pop edx
         ret
 ;-----------------------------------------------------------------------------
@@ -1355,7 +1355,7 @@ StopSpeechQueue:
         pop ebx
         ret
 .1:
-        cmp dword [dword_17015C], byte 0
+        cmp dword [SpeechQueueActive], byte 0
         jne short .2
         mov eax, 0FFFFFFFFh
         pop ebx
@@ -1363,15 +1363,15 @@ StopSpeechQueue:
 .2:
         call AudioEnter
         xor ebx, ebx
-        mov eax, dword [dword_170210]
-        mov dword [dword_170208], ebx
+        mov eax, dword [SpeechQueueChannel]
+        mov dword [SpeechQueueCount], ebx
         call StopChannel
-        mov eax, dword [dword_170214]
+        mov eax, dword [SpeechQueueHandle]
         call StopChannel
         call AudioEnter
-        mov dword [dword_170208], ebx
-        mov dword [dword_170200], ebx
-        mov dword [dword_170204], ebx
+        mov dword [SpeechQueueCount], ebx
+        mov dword [SpeechQueueHead], ebx
+        mov dword [SpeechQueueTail], ebx
         call AudioLeaveCheck
         call AudioLeaveCheck
         xor eax, eax
@@ -1388,12 +1388,12 @@ SpeechQueueState:
         mov eax, 0FFFFFFF6h
         ret
 .1:
-        cmp dword [dword_17015C], byte 0
+        cmp dword [SpeechQueueActive], byte 0
         jne short .2
         mov eax, 0FFFFFFFFh
         ret
 .2:
-        cmp dword [dword_170208], byte 0
+        cmp dword [SpeechQueueCount], byte 0
         je short .3
         mov eax, 3
         ret
@@ -1415,7 +1415,7 @@ ShutdownSpeechQueue:
         pop ecx
         ret
 .1:
-        cmp dword [dword_17015C], byte 0
+        cmp dword [SpeechQueueActive], byte 0
         jne short .2
         mov eax, 0FFFFFFFFh
         pop esi
@@ -1425,14 +1425,14 @@ ShutdownSpeechQueue:
         call AudioEnter
         cmp byte [SoundSystemOn], 0
         je short .3
-        cmp dword [dword_17015C], byte 0
+        cmp dword [SpeechQueueActive], byte 0
         je short .3
         call AudioEnter
         xor ecx, ecx
-        mov eax, dword [dword_170210]
-        mov dword [dword_170208], ecx
+        mov eax, dword [SpeechQueueChannel]
+        mov dword [SpeechQueueCount], ecx
         call StopChannel
-        mov eax, dword [dword_170214]
+        mov eax, dword [SpeechQueueHandle]
         call StopChannel
         call ResetSpeechQueueState
         call AudioLeaveCheck
@@ -1440,7 +1440,7 @@ ShutdownSpeechQueue:
         xor esi, esi
         mov dword [SpeechQueueVolume], esi
         call AudioLeaveCheck
-        mov dword [dword_17015C], esi
+        mov dword [SpeechQueueActive], esi
         xor eax, eax
         pop esi
         pop ecx
@@ -1456,46 +1456,46 @@ AdvanceSpeechQueue:
         push edx
         push esi
         push ebp
-        cmp dword [dword_170208], byte 0
+        cmp dword [SpeechQueueCount], byte 0
         je near .3
-        mov ecx, dword [dword_170204]
+        mov ecx, dword [SpeechQueueTail]
         lea edx, [nosplit ecx*8+00h]
-        add edx, byte_170160
+        add edx, SpeechQueueBank
         mov ebx, dword [edx]
-        mov eax, dword [dword_170214]
+        mov eax, dword [SpeechQueueHandle]
         sar ebx, 10h
         call ChannelTimeLeftLocked
         cmp eax, ebx
         jg short .3
-        mov ebx, dword [dword_170200]
+        mov ebx, dword [SpeechQueueHead]
         cmp ecx, ebx
         je short .2
-        mov esi, dword [dword_170204]
+        mov esi, dword [SpeechQueueTail]
         inc esi
-        mov dword [dword_170204], esi
+        mov dword [SpeechQueueTail], esi
         cmp esi, byte 14h
         jne short .1
         xor ebp, ebp
-        mov dword [dword_170204], ebp
+        mov dword [SpeechQueueTail], ebp
 .1:
-        mov eax, dword [dword_170214]
+        mov eax, dword [SpeechQueueHandle]
         mov ebx, dword [dword_17020C]
-        mov dword [dword_170210], eax
+        mov dword [SpeechQueueChannel], eax
         xor eax, eax
         movzx esi, byte [byte edx+01h]
         mov al, byte [edx]
         mov edx, esi
         call PlaySample
-        mov dword [dword_170214], eax
-        mov dword [nosplit ecx*8+dword_170164], eax
+        mov dword [SpeechQueueHandle], eax
+        mov dword [nosplit ecx*8+SpeechQueueData], eax
         jmp short .3
 .2:
-        mov eax, dword [dword_170214]
+        mov eax, dword [SpeechQueueHandle]
         call ChannelPlaying
         test eax, eax
         je short .3
         xor ecx, ebx
-        mov dword [dword_170208], ecx
+        mov dword [SpeechQueueCount], ecx
 .3:
         pop ebp
         pop esi
@@ -1512,9 +1512,9 @@ ResetSpeechQueueState:
         push edx
         xor edx, edx
         call AudioEnter
-        mov dword [dword_170208], edx
-        mov dword [dword_170200], edx
-        mov dword [dword_170204], edx
+        mov dword [SpeechQueueCount], edx
+        mov dword [SpeechQueueHead], edx
+        mov dword [SpeechQueueTail], edx
         call AudioLeaveCheck
         pop edx
         ret

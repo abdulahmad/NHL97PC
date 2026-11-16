@@ -8,7 +8,7 @@ extern str_Boxback, str_B00, str_XD, str_FaceoffD, str_Flash, str_Fla0, str_Fla1
 extern str_Light6, str_BOGIE, str_Front, byte_1B0300, byte_1B1378, byte_1B8580, byte_1B8581, byte_1B8582
 extern dword_16AF40, dword_16AF44, dword_16AF48, dword_16AF4C, dword_16AF50, dword_16AF58, dword_16AF5C, dword_16AF60
 extern dword_16AF64, dword_16AF68, dword_16AF9C, dword_16AFAC, dword_16B174, dword_16B550, dword_16E464, dword_16E468
-extern str_Punct_DrawRinkSurface, dword_16E676, dword_16E67A, dword_16E67E, dword_16E682, SinTable, dword_1A8E60, dword_1AC364
+extern str_Punct_DrawRinkSurface, ClipLeft, ClipTop, ClipRightEdge, ClipBottomEdge, SinTable, dword_1A8E60, dword_1AC364
 extern dword_1ADC88, dword_1ADC8C, dword_1ADC90, dword_1ADC98, dword_1ADCEC, dword_1ADCF8, dword_1ADD04, dword_1ADD10
 extern dword_1AE3F8, dword_1AF254, dword_1AF2B8, dword_1AFC48, dword_1AFD10, dword_1B0008, dword_1B0018, dword_1B001C
 extern dword_1B0020, dword_1B0024, dword_1B0028, dword_1B0038, dword_1B0068, dword_1B0074, dword_1B0088, dword_1B0208
@@ -5075,19 +5075,19 @@ DrawFarSide:
 ; Saves the view origin
 ;-----------------------------------------------------------------------------
 SaveViewOrigin:
-        mov eax, dword [dword_16E676]
+        mov eax, dword [ClipLeft]
         sar eax, 10h
         shl eax, 10h
         mov dword [ViewHeight], eax
-        mov eax, dword [dword_16E67E]
+        mov eax, dword [ClipRightEdge]
         sar eax, 10h
         shl eax, 10h
         mov dword [ViewOriginX], eax
-        mov eax, dword [dword_16E67A]
+        mov eax, dword [ClipTop]
         sar eax, 10h
         shl eax, 10h
         mov dword [ViewWidth], eax
-        mov eax, dword [dword_16E682]
+        mov eax, dword [ClipBottomEdge]
         sar eax, 10h
         shl eax, 10h
         mov dword [ViewOriginY], eax

@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_12F270 progbits alloc exec nowrite align=1
-extern _Extender, _nmalloc_, byte_19988D, byte_1DE6B8, byte_1DE6B9, byte_1DE6BA, dword_16FECC, SinTable
+extern _Extender, _nmalloc_, byte_19988D, MbvtopLow, MbvtopHigh, MbvtopResult, SinCosTable, SinTable
 extern CosTable, str_BK, dword_1712CC, dword_199888, memset_, strncpy_, StrCopyEnd, NoDbcsTable
 extern DbcsLeadTable
 global __checkIsDBCS_, __mbsninc_, __mbvtop_, _mbgetcode_, _mbptov_, _mbscat_, _mbscpy_, _mbsdec_
@@ -41,7 +41,7 @@ SinCosLookup:
         pop ebx
         ret
 .2:
-        mov edx, dword [nosplit eax*4+dword_16FECC]
+        mov edx, dword [nosplit eax*4+SinCosTable]
         neg edx
         mov dword [ebx], edx
         neg eax
@@ -619,17 +619,17 @@ __mbvtop_:
         je short .1
         mov edx, eax
         shr edx, 8
-        mov byte [byte_1DE6B8], dl
+        mov byte [MbvtopLow], dl
         xor dl, dl
-        mov byte [byte_1DE6B9], al
-        mov byte [byte_1DE6BA], dl
+        mov byte [MbvtopHigh], al
+        mov byte [MbvtopResult], dl
         jmp short .2
 .1:
-        mov byte [byte_1DE6B8], al
+        mov byte [MbvtopLow], al
         xor ah, ah
-        mov byte [byte_1DE6B9], ah
+        mov byte [MbvtopHigh], ah
 .2:
-        mov eax, byte_1DE6B8
+        mov eax, MbvtopLow
         pop edx
         ret
 ;-----------------------------------------------------------------------------

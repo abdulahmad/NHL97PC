@@ -17,7 +17,7 @@ extern str_BG00, str_BG01, str_BACK5, str_TITL3, str_LT002, str_LB002, str_RB00,
 extern str_TOP0, str_BOT0, str_LFTD, str_RITD, str_LT0D, str_LB0D, str_RT0D, str_RB0D
 extern str_LFT0, str_RIT0, str_BTTM, byte_1AC8C6, byte_1ACA66, byte_1ACA6A, byte_1ACC51, byte_1ACC55
 extern byte_1C833C, byte_1C83B4, dword_16CCFA, dword_16CCFE, dword_16CD14, dword_16CD18, str_Punct_ModemSettingsScreen, dword_16E464
-extern dword_16E468, dword_16E46C, dword_1AC814, dword_1AC8AD, dword_1C5DE4, dword_1C5F12, dword_1C5F1E, dword_1C5F22
+extern dword_16E468, MenuScreenBitmap, dword_1AC814, dword_1AC8AD, dword_1C5DE4, dword_1C5F12, dword_1C5F1E, dword_1C5F22
 extern dword_1C5F64, dword_1C5F70, dword_1C5F74, dword_1C83B0, dword_1C8440, dword_1C8444, dword_1C8448, dword_1C844C
 extern dword_1C8450, dword_1C8454, fclose_, fgets_, fread_, fseek_, fwrite_, memcpy_
 extern memset_, sprintf_, strcmp_, strcpy_, strlen_, strstr_, bcopy, BlitConverted
@@ -6415,7 +6415,7 @@ CreateMenuBitmap:
         mov ebx, edx
         cmp dword [dword_16CD18], byte 0
         jne near .1
-        mov ecx, dword [dword_16E46C]
+        mov ecx, dword [MenuScreenBitmap]
         push ecx
         push eax
         call ConvertArtNew
@@ -6430,7 +6430,7 @@ CreateMenuBitmap:
         push eax
         call CreateBitmap
         add esp, byte 0Ch
-        mov esi, dword [dword_16E46C]
+        mov esi, dword [MenuScreenBitmap]
         mov dword [dword_1C8450], eax
         push esi
         mov eax, dword [byte eax+02Ch]
