@@ -12,7 +12,7 @@ extern dword_19ECC0, dword_19ECC4, dword_1AC814, dword_1AC944, dword_1ACF46, dwo
 extern dword_1B9558, fclose_, fopen_, fread_, fseek_, ftell_, hmtmstruct, off_168CD8
 extern off_168CE0, off_168CE8, off_168CF0, off_168CFC, off_168D04, qword_160018, qword_160020, rand_
 extern randomd0, regd1, str_CGRIP, str_GRIP, str_GRIPGLL, strcat_, strcpy_, sub_13AF0
-extern ShowCameraView, ClearOverlayWindows, sub_1B3D8, assreplace, assinsert, Setplass, sub_1FF5C, asspsclear
+extern ShowCameraView, ClearOverlayWindows, ResetSceneCamera, assreplace, assinsert, Setplass, FaceoffSpotPosition, asspsclear
 extern sub_2E7D8, UpdateCoachModes, EndPenaltyShot, SetPlayerTarget, sub_3A06C, sub_41A28, sub_41ACC, sub_41CF0
 extern sub_41DB8, MusicFileName, StopAllSfx, sub_424CC, CommentaryEvent, PaEvent, sub_4DDB0, sub_52E28
 extern sub_57298, sub_57304, sub_57324, sub_57738, LoadGoalieMask, sub_5B558, sub_60D6C, sub_6539C
@@ -1915,7 +1915,7 @@ sub_11574:
         cmp word [dword ebx+0A9h], byte 0
         jl short .2
         mov eax, ebx
-        call sub_1FF5C
+        call FaceoffSpotPosition
         mov edx, dword [dword ebx+0EEh]
         fld dword [edx]
         mov edx, dword [dword ebx+0EEh]
@@ -2754,7 +2754,7 @@ sub_11F74:
         mov dword [dword edx+dword_19DA50], ebx
         cmp ax, 0Dh
         jl short .1
-        call sub_1B3D8
+        call ResetSceneCamera
         mov edx, dword [off_168D04]
         cmp dword [byte edx+05Ah], byte 0FFFFFFFFh
         je short .2

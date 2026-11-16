@@ -23,7 +23,7 @@ extern off_168D04, off_168D08, off_168D0C, qword_16002C, qword_160034, qword_160
 extern qword_16005C, qword_160064, qword_16006C, qword_160074, rand_, randomd0, regd1, sub_11328
 extern sub_11574, sub_116B0, sub_11808, IsPlayoffGame, sub_11F74, sub_12A10, ClockTick, sub_12C2C
 extern sub_12DE8, ChangeViewSize, PrevVideoModeKey, NextVideoModeKey, QueueOverlayPanel, ClearOverlayWindows, DrawGameOverlays, StartCameraPath
-extern sub_1B3D8, SelectCameraView, sub_1B67C, sub_1BCA8, LoadOpeningCamera, assreplace, Goal, sub_2DE94
+extern ResetSceneCamera, SelectCameraView, ToggleCameraFollow, EndOpeningCamera, LoadOpeningCamera, assreplace, Goal, sub_2DE94
 extern SetupAutoLines, InitGameLines, AddPenalty, SetPlayerTarget, InitPadSlots, DebugRestoreEnergy, ResetPlayerCounters, sub_3CA28
 extern sub_3CB70, sub_3D020, sub_3E5F0, InitGameAudio, sub_41670, sub_41CF0, WaitMusicEnd, sub_423B4
 extern sub_424CC, CommentaryEvent, LoadDataFileLib, LoadDataFile, InitGameGraphics, InitGameVideo, sub_4B8DC, FreeGameGraphics
@@ -106,7 +106,7 @@ Intermission:
         mov dword [dword edx+dword_19DA50], ebx
         cmp ax, 0Dh
         jl short .2
-        call sub_1B3D8
+        call ResetSceneCamera
         mov edx, dword [off_168D04]
         cmp dword [byte edx+05Ah], byte 0FFFFFFFFh
         je short .3
@@ -726,7 +726,7 @@ OpeningSequence:
         call sub_41CF0
         mov byte [byte_19CD05], cl
 .3:
-        call sub_1BCA8
+        call EndOpeningCamera
         mov eax, 7AEh
         call sub_4C0C4
         xor eax, eax
@@ -2210,7 +2210,7 @@ HandleGameKeys:
         push byte 1
         jmp near .13
 .5:
-        call sub_1B67C
+        call ToggleCameraFollow
         pop edi
         pop edx
         pop ecx

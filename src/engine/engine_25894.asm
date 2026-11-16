@@ -26,10 +26,10 @@ extern qword_160857, qword_16085F, qword_160867, qword_16086F, qword_16087B, qwo
 extern qword_1608A7, randomd0, regd1, slotteam, sub_100700, sub_1008CC, sub_11328, sub_114C4
 extern forcepldata, sub_116B0, ResetBench, setplayer, sub_123A0, setpersonel, ReleaseBoxPlayers, sub_13D50
 extern sub_13DA4, RemoveOverlayPanel, QueueOverlayPanel, StartCameraPath, SelectCameraView, PenaltyCameraScene, PenaltyShotCameraScene, FaceoffDropCameraScene
-extern sub_1DEE4, sub_1E184, assreplace, assexit, sub_1E284, sub_1E8B0, check4bench, sub_1F32C
-extern sub_1F4EC, sub_1F538, Setplass, sub_1FF5C, Endfaceoff, sub_20A80, assgoalie, sub_21E98
-extern sub_22050, assextra4, sub_22FF0, assextra3, sub_240D0, sub_24220, sub_2471C, sub_248E8
-extern sub_25010, sub_251F0, sub_25730, sub_2E310, CompLine, ChkShoot, ForceShoot, UpdateLinesForAbsent
+extern CrowdForPuckZone, LineChangeCommentary, assreplace, assexit, AimAtPuckTarget, ChkPokeOrCheck, check4bench, ChkForwardSwap
+extern GetDefensePartner, ChkSwapWithPartner, Setplass, FaceoffSpotPosition, Endfaceoff, DelayedPenaltyEnd, assgoalie, KeepInsideRink
+extern DefendPuck, assextra4, FindManToCover, assextra3, BuildPassTargets, CreditPass, CarrierInShotArea, CanReceivePass
+extern StartPass, AIPassDecision, ChkAIShoot, sub_2E310, CompLine, ChkShoot, ForceShoot, UpdateLinesForAbsent
 extern AddPenalty, AddPenalty2, EndPenaltyShot, SetPlayerTarget, SetSlotPlayer, doplayeracc, sub_39DA4, sub_39EC0
 extern sub_3A164, sub_3AB68, sub_3ABD8, sub_3AC3C, sub_3AD34, sub_3AD9C, sub_41CF0, MusicPlaying
 extern PlaySfxOr, PlaySfxVolume, sub_424CC, CommentaryEvent, PaEvent, sub_4C0C4, PeriodOver, sub_4DD9C
@@ -519,7 +519,7 @@ chk4lc:
         mov dl, al
         add edx, 0A005h
         mov eax, ebx
-        call sub_1E184
+        call LineChangeCommentary
         mov eax, 1
 .13:
         pop edi
@@ -579,7 +579,7 @@ SkateOnside:
         mov eax, dword [dword edx+0EEh]
         mov dword [byte eax+024h], 42C80000h
         mov eax, edx
-        call sub_1E284
+        call AimAtPuckTarget
         mov eax, 1
         pop edx
         pop ecx
@@ -682,7 +682,7 @@ SkateToEndBoards:
         mov eax, dword [dword ebx+0EEh]
         mov dword [byte eax+024h], 42DC0000h
         mov eax, ebx
-        call sub_1E284
+        call AimAtPuckTarget
         mov ch, byte [byte ebx+06Dh]
         or ch, 1
         mov eax, 1
@@ -788,7 +788,7 @@ asspuckc:
         mov al, byte [dword ebx+0C5h]
         mov dword [byte ebx+056h], eax
         mov eax, ebx
-        call sub_240D0
+        call BuildPassTargets
         mov eax, ebx
         call checkob
         cmp word [word_19CBDA], byte 0
@@ -823,15 +823,15 @@ asspuckc:
         test ax, ax
         jne near .15
         mov eax, ebx
-        call sub_25730
+        call ChkAIShoot
         test ax, ax
         jne near .15
         mov eax, ebx
-        call sub_251F0
+        call AIPassDecision
         test ax, ax
         jne near .15
         mov eax, ebx
-        call sub_1F32C
+        call ChkForwardSwap
         jmp near .13
 .8:
         cmp edx, byte 2
@@ -848,7 +848,7 @@ asspuckc:
         add edx, eax
         mov eax, ebx
         mov esi, edx
-        call sub_248E8
+        call CanReceivePass
         test ax, ax
         je short .9
         mov word [word_19CB96], 2
@@ -858,7 +858,7 @@ asspuckc:
 .10:
         mov edx, esi
         mov eax, ecx
-        call sub_25010
+        call StartPass
         cmp word [dword ecx+0A9h], byte 0
         jle short .11
         mov eax, ecx
@@ -922,7 +922,7 @@ asspuckc:
         mov eax, dword [dword ebx+0EEh]
         mov dword [byte eax+024h], 42C80000h
         mov eax, ebx
-        call sub_1E284
+        call AimAtPuckTarget
 .15:
         pop ebp
         pop edi
@@ -935,7 +935,7 @@ asspuckc:
 ;-----------------------------------------------------------------------------
 ; ChkDefenseSwitch                                2625C  97 PC, low confidence
 ; From assnearest: decides when a defenceman switches sides with his partner
-; (SwapPosition helpers sub_1F538 / sub_1F4EC) by puck carrier, zone (0B10h,
+; (SwapPosition helpers ChkSwapWithPartner / GetDefensePartner) by puck carrier, zone (0B10h,
 ; 0FC0h) and side
 ;-----------------------------------------------------------------------------
 ChkDefenseSwitch:
@@ -979,7 +979,7 @@ ChkDefenseSwitch:
         xor eax, ebx
         je near .17
         mov eax, ecx
-        call sub_1F538
+        call ChkSwapWithPartner
         mov eax, 1
         pop edi
         pop esi
@@ -1065,7 +1065,7 @@ ChkDefenseSwitch:
         xor eax, ebx
         je near .17
         mov eax, ecx
-        call sub_1F4EC
+        call GetDefensePartner
         mov edx, eax
         test eax, eax
         je short .12
@@ -1139,7 +1139,7 @@ ChkDefenseSwitch:
         ret
 .16:
         mov eax, ecx
-        call sub_1F538
+        call ChkSwapWithPartner
 .17:
         mov eax, 1
         pop edi
@@ -1201,7 +1201,7 @@ ChasePuck:
         fild word [regd1]
         fstp dword [byte eax+04h]
         mov eax, edx
-        call sub_21E98
+        call KeepInsideRink
         mov eax, dword [dword edx+0EEh]
         and byte [byte eax+028h], 7Fh
         mov eax, dword [dword edx+0EEh]
@@ -1232,7 +1232,7 @@ ChasePuck:
         mov ebx, dword [esp]
         mov dword [byte eax+024h], ebx
         mov eax, edx
-        call sub_1E284
+        call AimAtPuckTarget
         mov eax, dword [dword edx+0EEh]
         and byte [byte eax+029h], 0FEh
         add esp, byte 4
@@ -1335,7 +1335,7 @@ assnearest:
         ret
 .8:
         mov eax, esi
-        call sub_1F32C
+        call ChkForwardSwap
         add esp, byte 0Ch
         pop ebp
         pop edi
@@ -1627,7 +1627,7 @@ assnearest:
         ret
 .29:
         mov eax, esi
-        call sub_22050
+        call DefendPuck
         add esp, byte 0Ch
         pop ebp
         pop edi
@@ -1837,7 +1837,7 @@ assnearest:
         jne short .50
 .49:
         mov eax, esi
-        call sub_22FF0
+        call FindManToCover
         jmp near .86
 .50:
         cmp word [byte esi+06h], byte 0
@@ -1873,7 +1873,7 @@ assnearest:
         mov eax, dword [dword esi+0EEh]
         mov dword [byte eax+024h], 42C80000h
         mov eax, esi
-        call sub_1E8B0
+        call ChkPokeOrCheck
         add esp, byte 0Ch
         pop ebp
         pop edi
@@ -1923,7 +1923,7 @@ assnearest:
         mov eax, esi
         call ChasePuck
         mov eax, esi
-        call sub_1E8B0
+        call ChkPokeOrCheck
         add esp, byte 0Ch
         pop ebp
         pop edi
@@ -1978,7 +1978,7 @@ assnearest:
         mov eax, esi
         call assextra3
         mov eax, esi
-        call sub_1E8B0
+        call ChkPokeOrCheck
         add esp, byte 0Ch
         pop ebp
         pop edi
@@ -2160,7 +2160,7 @@ assnearest:
         mov dword [byte eax+024h], 42A00000h
 .86:
         mov eax, esi
-        call sub_1E8B0
+        call ChkPokeOrCheck
 .87:
         add esp, byte 0Ch
         pop ebp
@@ -5147,7 +5147,7 @@ assrefgoalpa:
         mov eax, dword [dword ebx+0EEh]
         mov dword [byte eax+024h], 42FA0000h
         mov eax, ebx
-        call sub_1E284
+        call AimAtPuckTarget
 .13:
         add esp, byte 8
         pop edi
@@ -6339,7 +6339,7 @@ PlayerGetsPuck:
         cmp word [byte eax+06Dh], byte 1
         jne short .10
         mov eax, edx
-        call sub_24220
+        call CreditPass
         jmp near .13
 .10:
         mov eax, dword [off_168CFC]
@@ -6414,13 +6414,13 @@ PlayerGetsPuck:
         call CommentaryEvent
         add esp, byte 10h
         mov eax, edx
-        call sub_1DEE4
+        call CrowdForPuckZone
 .13:
         and byte [byte_19CBC8], 0F3h
         cmp word [dword edx+0A9h], byte 0
         jne short .14
         xor eax, eax
-        call sub_20A80
+        call DelayedPenaltyEnd
         call EndPenaltyShot
 .14:
         mov ah, byte [dword edx+0BFh]
@@ -6842,7 +6842,7 @@ PuckHitsPlayer:
         mov byte [byte_19CBC8], dl
         call DeflectPuck
         mov eax, ebx
-        call sub_1DEE4
+        call CrowdForPuckZone
 .12:
         pop ebp
         pop edi
@@ -7244,7 +7244,7 @@ PuckToStick:
         je near PuckToStick_469.26
 .1:
         xor eax, eax
-        call sub_20A80
+        call DelayedPenaltyEnd
         mov eax, ecx
         call a2touchpuck
         mov eax, dword [dword ecx+0FEh]
@@ -7788,7 +7788,7 @@ PuckPlayerContact:
         mov eax, dword [off_168CF0]
         mov byte [eax], 0FFh
         mov eax, ecx
-        call sub_1DEE4
+        call CrowdForPuckZone
         mov esp, ebp
         pop ebp
         pop edi
@@ -7851,7 +7851,7 @@ PuckPlayerContact:
         mov eax, dword [off_168CFC]
         call DeflectPuck
         mov eax, ecx
-        call sub_1DEE4
+        call CrowdForPuckZone
         mov esp, ebp
         pop ebp
         pop edi
@@ -8539,7 +8539,7 @@ PuckIChk:
 PuckEntersZone:
         push ebx
         push edx
-        call sub_2471C
+        call CarrierInShotArea
         mov ax, word [word_19CBDC]
         mov word [word_19CBDA], ax
         test ax, ax
@@ -10127,7 +10127,7 @@ puckfaceoff2:
         call assreplace
 .26:
         mov eax, ecx
-        call sub_1FF5C
+        call FaceoffSpotPosition
         mov eax, dword [dword ecx+0EEh]
         fld dword [eax]
         call __CHP

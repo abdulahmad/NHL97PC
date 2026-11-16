@@ -24,9 +24,9 @@ extern qword_16098C, qword_160994, qword_16099C, qword_1609A4, qword_1609AC, qwo
 extern regd1, slotteam, SortIndices, bcopy, sub_100B88, sub_100BC8, sub_100BCC, sub_100C50
 extern sub_100D04, sub_100D8C, sub_100DC4, sub_100E54, sub_100F70, sub_1010E8, sub_101154, sub_1011E8
 extern sub_101220, sub_101230, forcepldata, setplayer, setpersonel, sub_13D50, sub_13EB4, RemoveOverlayPanel
-extern QueueOverlayPanel, ClearOverlayWindows, FightCameraScene, sub_1C210, FaceoffCameraScene, FaceoffCameraScene2, sub_1CCBC, sub_1D16C
-extern sub_1E184, assreplace, assinsert, assexit, sub_1E8B0, Setplass, Goal, sub_24220
-extern sub_2471C, sub_248E8, sub_25010, checkob, AssignControlSlots, ResetFaceoffAssigns, CompLine, StartFaceoffLineChange
+extern QueueOverlayPanel, ClearOverlayWindows, FightCameraScene, SetFightCameraReady, FaceoffCameraScene, FaceoffCameraScene2, EndPenShotScene, PenaltyCallCameraScene
+extern LineChangeCommentary, assreplace, assinsert, assexit, ChkPokeOrCheck, Setplass, Goal, CreditPass
+extern CarrierInShotArea, CanReceivePass, StartPass, checkob, AssignControlSlots, ResetFaceoffAssigns, CompLine, StartFaceoffLineChange
 extern sub_3AAE8, sub_3AB28, sub_3B09C, sub_3B690, PlaySfxOr, PlaySfxVolume, sub_424CC, CommentaryEvent
 extern PaEvent, sub_4B8DC, sub_56CD0, sub_56CE4, sub_56CF8, sub_60F48, sub_650A4, sub_650E8
 extern sub_657BF, sub_6619C, sub_69B78, sub_69F3C, sub_6A0BC, sub_6A13C, sub_71808, sub_71ABC
@@ -484,7 +484,7 @@ ChkPenaltyCall:
         mov eax, dword [dword_1AC944]
         test byte [byte eax+02h], 1
         je near .7
-        call sub_2471C
+        call CarrierInShotArea
         mov ax, word [word_19CBDC]
         mov word [word_19CBDA], ax
         test ax, ax
@@ -608,7 +608,7 @@ ChkPenaltyCall:
         call AddPenalty2
         xor eax, eax
         mov al, byte [dword ecx+0A4h]
-        call sub_1D16C
+        call PenaltyCallCameraScene
         xor eax, eax
         mov al, byte [dword ecx+0A4h]
         push eax
@@ -750,7 +750,7 @@ ChkNetCrash:
         sahf
         jbe short .6
 .2:
-        call sub_2471C
+        call CarrierInShotArea
         mov ax, word [word_19CBDC]
         mov word [word_19CBDA], ax
         test ax, ax
@@ -1612,7 +1612,7 @@ PickShotTarget:
 .30:
         cmp word [word_19CBDA], byte 0
         je short .31
-        call sub_2471C
+        call CarrierInShotArea
         mov ax, word [word_19CBDC]
         mov word [word_19CBDA], ax
 .31:
@@ -6160,7 +6160,7 @@ EndPenaltyShot:
         mov word [word_19CB90], ax
         mov eax, dword [off_168D04]
         call assreplace
-        call sub_1CCBC
+        call EndPenShotScene
 .1:
         pop edi
         pop edx
@@ -7677,7 +7677,7 @@ RequestLineChange:
         mov edx, 0A003h
 .4:
         mov eax, ecx
-        call sub_1E184
+        call LineChangeCommentary
 .5:
         mov eax, ebx
         call setpersonel
@@ -8200,7 +8200,7 @@ JoySkate:
         sar edx, 10h
         call doplayeracc
         mov eax, ebx
-        call sub_1E8B0
+        call ChkPokeOrCheck
         add esp, byte 4
         pop ebp
         pop esi
@@ -8332,7 +8332,7 @@ FindPassTarget_E0:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; ChkPassTo                                       35188  97 PC, low confidence
-; Pass target found and lane open (sub_248E8): pass direction
+; Pass target found and lane open (CanReceivePass): pass direction
 ;-----------------------------------------------------------------------------
 ChkPassTo:
         push ebx
@@ -8353,7 +8353,7 @@ ChkPassTo:
 .1:
         mov eax, ecx
         mov edx, dword [ebx]
-        call sub_248E8
+        call CanReceivePass
         test ax, ax
         je short .3
         fld dword [byte ecx+040h]
@@ -8396,7 +8396,7 @@ ChkPassTo:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; DoPassButton                                    35234  97 PC, low confidence
-; From doinput: pass button: target, pass kind (word_19CB96), sub_25010
+; From doinput: pass button: target, pass kind (word_19CB96), StartPass
 ;-----------------------------------------------------------------------------
 DoPassButton:
         push ebx
@@ -8429,7 +8429,7 @@ DoPassButton:
 .4:
         mov edx, dword [esp]
         mov eax, ebx
-        call sub_25010
+        call StartPass
         add esp, byte 4
         pop ebp
         pop edi
@@ -8582,7 +8582,7 @@ ShotAimDir:
         db 090h
 ;-----------------------------------------------------------------------------
 ; DoShootButton                                   35464  97 PC, low confidence
-; From doinput: shoot button: aim, power, target point, sub_25010
+; From doinput: shoot button: aim, power, target point, StartPass
 ;-----------------------------------------------------------------------------
 DoShootButton:
         push ebx
@@ -8613,7 +8613,7 @@ DoShootButton:
         mov word [word_19CB86], ax
         xor edx, edx
         mov eax, ebx
-        call sub_25010
+        call StartPass
         and byte [byte_19CBC8], 0F7h
         add esp, byte 4
         pop edx
@@ -8796,7 +8796,7 @@ ClearLastPasser:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; OneTimerShot                                    356A8  97 PC, low confidence
-; From assonetimer: the one-timer shot itself (sub_24220, assexit)
+; From assonetimer: the one-timer shot itself (CreditPass, assexit)
 ;-----------------------------------------------------------------------------
 OneTimerShot:
         push ebx
@@ -8826,7 +8826,7 @@ OneTimerShot:
         cmp edx, eax
         jne short .2
         mov eax, ecx
-        call sub_24220
+        call CreditPass
         jmp short .3
 .2:
         mov word [word_19CB94], 0FFFFh
@@ -10521,7 +10521,7 @@ assfight:
         push dword 0A000001Eh
         call CommentaryEvent
         add esp, byte 4
-        call sub_1C210
+        call SetFightCameraReady
         jmp near .25
 .7:
         test byte [dword ebx+0BFh], 8

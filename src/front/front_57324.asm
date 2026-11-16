@@ -161,9 +161,9 @@ extern sub_110414, sub_1104F0, sub_11328, sub_114C4, sub_114FD0, sub_115020, sub
 extern sub_115170, sub_1151A4, sub_115220, sub_1152B0, sub_115318, sub_1153AC, sub_1153DC, sub_115810
 extern sub_115830, sub_1158A0, sub_115B78, sub_115BB0, sub_115BD8, sub_115F98, sub_116050, IsPlayoffGame
 extern sub_119A8, setplayer, sub_12A10, Intermission, sub_13D50, sub_13DA4, sub_13EB4, sub_13EF0
-extern sub_13F28, RunSimFrames, ChangeViewSize, SetViewWindow, sub_18DF7, ClearOverlayWindows, DrawGameOverlays, StartCameraPath
-extern SelectCameraView, sub_1DFA0, sub_1E014, assreplace, assinsert, sub_1E354, sub_1FBF4, Goal
-extern sub_218B8, sub_21A4C, PlayerGetsPuck, ChkPuckContacts, a2touchpuck, ChkGoalies, sub_2E11C, RestoreBenchEnergy
+extern sub_13F28, RunSimFrames, ChangeViewSize, SetViewWindow, OpenFreeOverlay, ClearOverlayWindows, DrawGameOverlays, StartCameraPath
+extern SelectCameraView, CrowdForPlayer, ShotChanceCommentary, assreplace, assinsert, SetZoneFlags, GoaliePosTarget, Goal
+extern InCrease, UpdateCreaseFlag, PlayerGetsPuck, ChkPuckContacts, a2touchpuck, ChkGoalies, sub_2E11C, RestoreBenchEnergy
 extern sub_2E208, StartFaceoffLineChange, ChkPenaltyCall, checkint, AddPenalty, AddPenalty2, EndPenaltyShot, SetPlayerTarget
 extern doinput, checkfight, sub_3DA80, sub_3DAC4, sub_3DBCC, sub_3DC2C, sub_3DCBC, sub_3DE08
 extern sub_41ACC, StopAllSfx, PlaySfxOr, PlaySfxVolume, sub_42354, sub_4241C, sub_424CC, CommentaryEvent
@@ -7106,7 +7106,7 @@ sub_5C500:
         mov dword [dword_1B8FA4], edx
         call SetReplayRecording
         call ClearOverlayWindows
-        call sub_18DF7
+        call OpenFreeOverlay
         mov eax, 2
         call sub_4B8DC
         mov eax, 3
@@ -31016,7 +31016,7 @@ sub_6D678:
         cmp byte [dword edx+0A4h], 0Ch
         jne short .1
         mov eax, edx
-        call sub_1DFA0
+        call CrowdForPlayer
         pop edi
         pop esi
         pop ecx
@@ -31041,7 +31041,7 @@ sub_6D678:
         jne short .5
 .3:
         mov eax, edx
-        call sub_1DFA0
+        call CrowdForPlayer
         mov di, word [byte ecx+06Ah]
         cmp di, byte 23h
         jle short .4
@@ -41809,7 +41809,7 @@ sub_75500:
         mov dword [byte ebp+046h], eax
         mov eax, dword [byte ebp+07Ah]
         fstp dword [byte ebp+04Ah]
-        call sub_1FBF4
+        call GoaliePosTarget
         mov eax, dword [byte ebp+07Ah]
         test byte [dword eax+0BFh], 20h
         jne near .26
@@ -45345,7 +45345,7 @@ updateplayers:
         mov eax, 12Ch
         call sub_76E28
         call sub_7002C
-        call sub_1E014
+        call ShotChanceCommentary
         mov eax, dword [off_168D04]
         mov edx, dword [dword eax+0AEh]
         sar edx, 18h
@@ -45424,7 +45424,7 @@ updateplayers:
         test ah, 80h
         setne dl
         mov eax, ebx
-        call sub_218B8
+        call InCrease
         mov byte [dword ebx+0A5h], al
         test byte [byte_19CBCC], 40h
         je near .15
@@ -45477,7 +45477,7 @@ updateplayers:
         test byte [dword ebx+0C0h], 1
         jne short .11
         mov eax, ebx
-        call sub_21A4C
+        call UpdateCreaseFlag
 .11:
         test byte [byte_19CBCC], 40h
         je short .15
@@ -45553,7 +45553,7 @@ updateplayers:
         cmp word [dword ebx+0A9h], byte 0
         jle short .21
         mov eax, ebx
-        call sub_1E354
+        call SetZoneFlags
 .21:
         mov eax, dword [dword ebx+0EEh]
         and byte [byte eax+029h], 0FEh

@@ -41,6 +41,13 @@ address,name,auto_name,source,confidence,evidence,file
 15E4D,NextVideoModeKey,sub_15E4D,new,low,"from GameFunctionKeys (F12): clears the overlays, NextVideoMode, SetVideoMode and rebuilds the overlay windows",src/engine/engine_15AC2.asm
 1603A,ApplyDisplayFlags,sub_1603A,new,low,"sets the doubled / interlaced display flags (dword_19CD30, dword_19CD34) in the screen record",src/engine/engine_15AC2.asm
 16090,RemoveOverlayPanel,sub_16090,new,medium,(kind): takes the queued panels of a kind out of the panel queue,src/engine/engine_15AC2.asm
+160E2,DrawPanelArtScaled,sub_160E2,new,low,draws a piece of overlay panel art scaled to the panel size; takes the art and the panel rectangle,src/engine/engine_15AC2.asm
+161F0,DrawPanelPlayerCard,sub_161F0,new,low,"draws a player card on an overlay panel: picture, number, name and stats of the given player",src/engine/engine_15AC2.asm
+16AD0,GetPlayerNumber,sub_16AD0,new,low,returns the jersey number of a player from the team roster record,src/engine/engine_15AC2.asm
+16B17,GetPlayerPanelName,sub_16B17,new,low,builds the short name of a player shown on an overlay panel (initial and last name),src/engine/engine_15AC2.asm
+16BAD,GetPlayerName,sub_16BAD,new,low,copies the full name of a player from the team roster record into a buffer,src/engine/engine_15AC2.asm
+16BF5,TeamNameField,sub_16BF5,new,low,returns the team name field of a team record,src/engine/engine_15AC2.asm
+16BF9,DrawMessagePanel,sub_16BF9,new,low,"draws the in-game message overlay: frame, title and text lines picked by the message type",src/engine/engine_15AC2.asm
 16D61,DrawVideoModePanel,sub_16D61,new,medium,"the screen mode panel (""%d x %d"", Doubled / Interlaced / Normal)",src/engine/engine_15AC2.asm
 16ED0,DrawPenaltyPanel,sub_16ED0,new,medium,"overlay panel kind 1: the penalty call (game text ""Penalty"", ""for"", the infraction, ""2 Minutes"" / ""5 Minute Major"", ""and a Game Misconduct"")",src/engine/engine_15AC2.asm
 17158,DrawPenaltyShotPanel,sub_17158,new,medium,"overlay panel kind 8: ""Penalty Shot"", the shooter ""against"" the goalie (was the 96 PC carry DrawPlayerNamePanel)",src/engine/engine_15AC2.asm
@@ -51,52 +58,154 @@ address,name,auto_name,source,confidence,evidence,file
 17AD1,DrawGameClock,sub_17AD1,96PC,medium,"96 PC DrawGameClock: the game clock ""%2d:%02d"", or ""%2d.%01d"" under a minute",src/engine/engine_15AC2.asm
 17C2C,DrawPowerPlayClock,sub_17C2C,new,low,"draws the ""Power Play"" countdown next to the game clock (""%2d:%02d"")",src/engine/engine_15AC2.asm
 17DC0,DrawClockPanel,sub_17DC0,96PC,low,the clock panel (overlay kind table off_16877E entry 0): removes panels 300h / 700h and draws the clock (DrawGameClock),src/engine/engine_15AC2.asm
+17EB6,PowerPlayPanel,sub_17EB6,new,low,"draws the power play overlay: team, time left on the penalty and players in the box",src/engine/engine_15AC2.asm
+18025,UpdateScoreboardPanel,sub_18025,new,low,"redraws the score and clock overlay when the score, period or time changes",src/engine/engine_15AC2.asm
+1870B,HomeTeamPanel,sub_1870B,new,low,"draws the home team overlay panel (name, logo, score)",src/engine/engine_15AC2.asm
+1882A,AwayTeamPanel,sub_1882A,new,low,"draws the away team overlay panel (name, logo, score)",src/engine/engine_15AC2.asm
+18958,HomeStatPanel,sub_18958,new,low,"draws the home team statistics overlay (shots, goals, power play)",src/engine/engine_15AC2.asm
+18B81,AwayStatPanel,sub_18B81,new,low,"draws the away team statistics overlay (shots, goals, power play)",src/engine/engine_15AC2.asm
 18D8A,QueueOverlayPanel,sub_18D8A,96PC,medium,"96 PC QueueOverlayPanel (kind, ticks, ...): puts a panel in a free slot of the 10-panel queue (unk_19CF8C, 0Ch each)",src/engine/engine_15AC2.asm
+18DF7,OpenFreeOverlay,sub_18DF7,new,low,"finds a free overlay window slot, allocates its bitmap and adds it to the overlay list; returns the slot",src/engine/engine_15AC2.asm
 18E35,ClearOverlayWindows,sub_18E35,new,medium,"removes and frees all ten game overlay windows (unk_19CF8C), RemoveOverlayWindow on each",src/engine/engine_15AC2.asm
+18E76,RefreshOverlayWindows,sub_18E76,new,medium,asks every open overlay window to be drawn again,src/engine/engine_15AC2.asm
+18E9A,ChkShowStatsPanel,sub_18E9A,new,low,opens the statistics overlay at a stoppage when the option is on and none is shown,src/engine/engine_15AC2.asm
+18EEE,ChkPowerPlayPanel,sub_18EEE,new,low,opens or closes the power play overlay as penalties start and end,src/engine/engine_15AC2.asm
+18F67,SetOverlayFont,sub_18F67,new,low,selects the font and colours used to draw text on the overlay panels,src/engine/engine_15AC2.asm
 1900F,DrawGameOverlays,sub_1900F,96PC,medium,"96 PC DrawGameOverlays: from GameLoop, the overlay panels of the frame (clock, queued panels)",src/engine/engine_15AC2.asm
+19133,IsOverlayShown,sub_19133,new,medium,returns nonzero when the given overlay window is open,src/engine/engine_15AC2.asm
 191F8,GetCameraTarget,sub_191F8,new,low,"(target 4-10h and up): the position record of a camera target (player records at dword_1B1410, then fixed targets); 0 when none",src/engine/engine_15AC2.asm
+19540,GetTargetPoint,sub_19540,new,low,"returns the point the game camera looks at: the puck, its carrier or the object the scene follows",src/engine/engine_15AC2.asm
 1963C,UpdateCameraView,sub_1963C,new,low,"(camera, ...): per frame, the camera by its view kind (+24h, 0-0Dh)",src/engine/engine_15AC2.asm
 19F30,UpdateCameraZoom,sub_19F30,new,low,"(camera): the camera distance by its zoom mode (+28h, 0-5)",src/engine/engine_15AC2.asm
 1A31C,UpdateCameraTrack,sub_1A31C,new,low,"(camera): follows the camera path target by its track mode (+2Ch, 0-5)",src/engine/engine_15AC2.asm
+1A5F8,EaseAngle,sub_1A5F8,new,low,"moves an angle toward a target angle by a fraction of the difference, taking the short way round",src/engine/engine_15AC2.asm
+1A690,EaseCameraAngles,sub_1A690,new,low,"eases the camera's heading, pitch and roll toward their targets each frame",src/engine/engine_15AC2.asm
 1A740,SetCameraView,sub_1A740,new,medium,"(camera, view 0-0Dh): fills a camera record (unk_19D0A4) with the view's name (GetLangText) and settings",src/engine/engine_15AC2.asm
+1AD4C,BuildSplinePath,sub_1AD4C,new,low,builds the spline coefficients of a camera path through its control points,src/engine/engine_15AC2.asm
+1AE58,SetCameraSpline,sub_1AE58,new,low,"starts the camera along a spline path: control points, length and speed",src/engine/engine_15AC2.asm
 1AF4C,SetCameraHeight,sub_1AF4C,new,low,"sets the camera height (dword_19D1A4), at once or eased over frames",src/engine/engine_15AC2.asm
 1AF90,SetCameraFocus,sub_1AF90,new,low,"sets the camera focus x / z (dword_19D1A0, dword_19D1A8), at once or eased",src/engine/engine_15AC2.asm
 1B034,SetCameraPathPoint,sub_1B034,new,low,"sets the camera path point (dword_19D340, dword_19D344), at once or eased",src/engine/engine_15AC2.asm
 1B09C,StartCameraPath,sub_1B09C,new,low,"(path, ticks): starts a camera path (dword_19D380) for the game camera",src/engine/engine_15AC2.asm
+1B1CC,SetCameraPathPoints,sub_1B1CC,new,low,fills the control points of the camera path from the current camera and the target view,src/engine/engine_15AC2.asm
+1B340,FightCameraStart,sub_1B340,new,low,moves the camera to the fight view around the two fighting players,src/engine/engine_15AC2.asm
+1B3D8,ResetSceneCamera,sub_1B3D8,new,low,ends a camera scene: clears the scene function and puts the camera back on the game view,src/engine/engine_15AC2.asm
 1B3F4,SelectCameraView,sub_1B3F4,new,medium,"(view, ticks): picks the game camera view (mod 10) with SetCameraView and moves the camera to it",src/engine/engine_15AC2.asm
+1B4E4,UpdateGameCamera,sub_1B4E4,new,low,per-frame game camera: runs the scene function or follows the target with the chosen camera view,src/engine/engine_15AC2.asm
+1B5B0,DampCameraMotion,sub_1B5B0,new,low,smooths the camera position toward its goal so the view does not jump,src/engine/engine_15AC2.asm
+1B67C,ToggleCameraFollow,sub_1B67C,new,low,switches the camera between following the puck and following the controlled player,src/engine/engine_15AC2.asm
+1B6E8,InitCamera,sub_1B6E8,new,low,sets the camera to its start view and clears the scene state at the start of a game,src/engine/engine_15AC2.asm
+1B71C,DrawCameraDebugMarks,sub_1B71C,new,low,debug: draws markers at the camera target and path points,src/engine/engine_15AC2.asm
+1B85C,RunCameraScene,sub_1B85C,new,low,calls the current camera scene step function when one is set,src/engine/engine_15AC2.asm
+1B88C,CameraNoop,sub_1B88C,new,low,empty camera scene step,src/engine/engine_15AC2.asm
 1B890,CanStartCameraScene,sub_1B890,new,low,"(priority 1-7): whether a scripted camera scene of this priority may start now (none running, or a higher priority than the running one; 0 ends the scene)",src/engine/engine_15AC2.asm
+1B90C,SetCameraSceneFunc,sub_1B90C,new,low,sets the function that drives the camera each frame for the current scene,src/engine/engine_15AC2.asm
+1B930,PenaltyCameraDistance,sub_1B930,new,low,returns how far the camera stays from the penalized player in the penalty scene,src/engine/engine_15AC2.asm
+1B9D4,PenaltySceneStep,sub_1B9D4,new,low,camera step of the penalty scene: follows the penalized player to the box,src/engine/engine_15AC2.asm
 1BB18,PenaltyCameraScene,sub_1BB18,new,low,"from asspenalty: scripted camera scene, priority 6 (SetCameraView 8, StartCameraPath, sub_1B9D4 per frame)",src/engine/engine_15AC2.asm
+1BB94,IntermissionSceneStep,sub_1BB94,new,low,camera step of the intermission scene: slow move over the rink,src/engine/engine_15AC2.asm
+1BC18,IntermissionCameraScene,sub_1BC18,new,low,starts the intermission camera scene,src/engine/engine_15AC2.asm
+1BCA8,EndOpeningCamera,sub_1BCA8,new,low,ends the opening camera move and hands the camera to the game view,src/engine/engine_15AC2.asm
+1BCDC,OpeningCameraStep,sub_1BCDC,new,low,camera step of the opening scene: the fly-in over the arena before the first faceoff,src/engine/engine_15AC2.asm
 1BEA4,LoadOpeningCamera,sub_1BEA4,new,low,from OpeningSequence: loads the opening camera path intro%d.3cp from arena.viv,src/engine/engine_15AC2.asm
+1BFC0,FightSceneStep,sub_1BFC0,new,low,camera step of the fight scene: circles the fighters,src/engine/engine_15AC2.asm
 1C108,FightCameraScene,sub_1C108,new,low,"from StartFight: scripted camera scene, priority 2 (follows the two fighters, sub_1BFC0 per frame)",src/engine/engine_15AC2.asm
+1C210,SetFightCameraReady,sub_1C210,new,low,marks the fight camera as in place,src/engine/engine_15AC2.asm
+1C21C,SceneReturnToView,sub_1C21C,new,low,moves the camera from a scene back to the normal game view,src/engine/engine_15AC2.asm
 1C29C,FaceoffCameraScene,sub_1C29C,new,low,"from puckfaceoff: scripted camera scene, priority 7 (path 18h)",src/engine/engine_15AC2.asm
+1C2EC,FaceoffSceneStep,sub_1C2EC,new,low,camera step of the faceoff scene,src/engine/engine_15AC2.asm
+1C360,FaceoffCloseupScene,sub_1C360,new,low,starts the close-up camera on the faceoff circle,src/engine/engine_15AC2.asm
+1C4F4,FaceoffSweepStep,sub_1C4F4,new,low,camera step of the sweep down to the faceoff circle,src/engine/engine_15AC2.asm
+1C70C,FaceoffSweepScene,sub_1C70C,new,low,starts the camera sweep down to the faceoff circle,src/engine/engine_15AC2.asm
 1C7B4,FaceoffCameraScene2,sub_1C7B4,new,low,"from puckfaceoff: scripted camera scene, priority 7, one of two random camera moves",src/engine/engine_15AC2.asm
+1C854,MenuCameraScene,sub_1C854,new,low,starts the camera scene shown behind the in-game menus,src/engine/engine_15AC2.asm
+1C8DC,MenuOrbitStep,sub_1C8DC,new,low,camera step of the slow orbit behind the in-game menus,src/engine/engine_15AC2.asm
+1C9F0,MenuOrbitScene,sub_1C9F0,new,low,starts the slow orbit behind the in-game menus,src/engine/engine_15AC2.asm
+1CB9C,PenShotSceneStep,sub_1CB9C,new,low,camera step of the penalty shot scene: follows the shooter in on the goalie,src/engine/engine_15AC2.asm
 1CBD8,PenaltyShotCameraScene,sub_1CBD8,new,low,"from assrefpenshot: scripted camera scene, priority 3 (penshottimer)",src/engine/engine_15AC2.asm
+1CCBC,EndPenShotScene,sub_1CCBC,new,low,ends the penalty shot camera scene,src/engine/engine_15AC2.asm
+1CCF8,GoalSceneStep,sub_1CCF8,new,low,camera step of the goal scene: follows the scorer's celebration,src/engine/engine_15AC2.asm
 1CD80,GoalCameraScene,sub_1CD80,new,low,"from Goal: scripted camera scene, priority 5 (sub_1CCF8 per frame)",src/engine/engine_15AC2.asm
+1CE98,FaceoffDropSceneStep,sub_1CE98,new,low,camera step while the referee drops the puck,src/engine/engine_15AC2.asm
 1D008,FaceoffDropCameraScene,sub_1D008,new,low,"from puckfaceoff2: scripted camera scene, priority 1 (sub_1CE98 per frame)",src/engine/engine_15AC2.asm
+1D09C,RestoreGameCamera,sub_1D09C,new,low,restores the camera view saved before a scene,src/engine/engine_15AC2.asm
+1D0BC,PenaltyCallSceneStep,sub_1D0BC,new,low,camera step while the referee signals a penalty,src/engine/engine_15AC2.asm
+1D16C,PenaltyCallCameraScene,sub_1D16C,new,low,starts the camera scene of a penalty call,src/engine/engine_15AC2.asm
+1D1D4,SetFaceoffEndFlag,sub_1D1D4,new,low,sets the flag that ends the faceoff camera scene,src/engine/engine_15AC2.asm
+1D1DC,ReplayCameraOn,sub_1D1DC,new,low,hands the camera to the instant replay controls,src/engine/engine_15AC2.asm
+1D208,ReplayCameraOff,sub_1D208,new,low,gives the camera back to the game after the instant replay,src/engine/engine_15AC2.asm
 1D2A8,DrawCameraDebug,sub_1D2A8,new,low,"from DrawGameFrame when dword_19D094 is set: draws the camera target and prints its ""(%d,%d,%d)"" position",src/engine/engine_15AC2.asm
+1D480,ReplayCamFollowMode,sub_1D480,new,low,"replay camera: follow mode, keeps the target in view",src/engine/engine_15AC2.asm
+1D4FC,ReplayCamDrag,sub_1D4FC,new,low,replay camera: moves the camera with the mouse or pad while a button is held,src/engine/engine_15AC2.asm
+1D828,ReplayCamRestorePath,sub_1D828,new,low,replay camera: puts the saved camera path back,src/engine/engine_15AC2.asm
+1D858,ReplayCamOrbitMode,sub_1D858,new,low,replay camera: starts orbit mode around the target,src/engine/engine_15AC2.asm
+1D914,ReplayCamOrbit,sub_1D914,new,low,replay camera: orbits and zooms around the target from the input,src/engine/engine_15AC2.asm
+1DB8C,ReplayCamStop,sub_1DB8C,new,low,replay camera: stops the current camera move,src/engine/engine_15AC2.asm
+1DBA0,ReplayCamFreeMode,sub_1DBA0,new,low,replay camera: starts free mode,src/engine/engine_15AC2.asm
+1DBF0,ReplayCamTurn,sub_1DBF0,new,low,replay camera: turns the free camera from the input,src/engine/engine_15AC2.asm
+1DCB0,ReplayCamMove,sub_1DCB0,new,low,replay camera: moves the free camera from the input,src/engine/engine_15AC2.asm
+1DD5C,ReplayCamZoomMode,sub_1DD5C,new,low,replay camera: starts zoom mode,src/engine/engine_15AC2.asm
+1DDE4,ReplayCamZoom,sub_1DDE4,new,low,replay camera: zooms in or out from the input,src/engine/engine_15AC2.asm
+1DEB8,ReplayCamClearFlag,sub_1DEB8,new,low,replay camera: clears the camera mode flag,src/engine/engine_15AC2.asm
+1DEE4,CrowdForPuckZone,sub_1DEE4,new,low,"sets the crowd mood from where the player touching the puck is: own zone, neutral zone, deep, or near the net on a fast puck; nothing while the puck is in its faceoff state",src/engine/engine_15AC2.asm
+1DFA0,CrowdForPlayer,sub_1DFA0,new,low,sets the crowd mood when a player gets the puck: by which team and whether he is past the blue line,src/engine/engine_15AC2.asm
+1E014,ShotChanceCommentary,sub_1E014,new,low,each frame: rates how close the carrier is to a scoring chance (distance to the goal) and sets the crowd mood and the play-by-play excitement level,src/engine/engine_15AC2.asm
+1E184,LineChangeCommentary,sub_1E184,new,low,play-by-play call for a line change of the given player's team (more often while play is stopped),src/engine/engine_15AC2.asm
 1E208,assreplace,sub_1E208,94G,high,"94G assreplace: (player, assignment) replaces the current assignment (+0B2h list at index +0B1h) and sets the new-assignment flag (+0BFh bit 1)",src/engine/engine_15AC2.asm
 1E224,assinsert,sub_1E224,94G,medium,"94G assinsert: (player, assignment) pushes a new assignment (index - 1) unless it is already the current one, then as assreplace",src/engine/engine_15AC2.asm
 1E268,assexit,sub_1E268,94G,high,94G assexit: ends the current assignment (index + 1) and sets the new-assignment flag,src/engine/engine_15AC2.asm
+1E284,AimAtPuckTarget,sub_1E284,new,low,"turns a player toward the puck carrier, or toward the goal he attacks when he carries the puck himself; sets the motion heading",src/engine/engine_15AC2.asm
+1E354,SetZoneFlags,sub_1E354,new,low,"sets a player's rink zone flags from his position seen from his attacking end: side (left, middle, right) and depth (own end to deep offensive zone)",src/engine/engine_15AC2.asm
+1E4E4,CanReachPuck,sub_1E4E4,new,low,"whether a player can play the loose or carried puck: not his own team's carrier, play running, puck speed in range and moving his way; returns nonzero if so",src/engine/engine_15AC2.asm
+1E7C4,TryPokePuck,sub_1E7C4,new,low,starts a poke check when the player can reach the puck; keeps the puck's motion as it was; returns nonzero when started,src/engine/engine_15AC2.asm
+1E810,RandomPokeCheck,sub_1E810,new,low,"computer players poke at the puck now and then, more often against the other team and with higher checking skill",src/engine/engine_15AC2.asm
+1E8B0,ChkPokeOrCheck,sub_1E8B0,new,low,"defender decides to poke check, hook or body check the carrier from distance, angle, skill and difficulty",src/engine/engine_15AC2.asm
 1EC5C,check4bench,sub_1EC5C,94G,medium,"94G check4bench: whether player a3 should go to the bench; if so assreplace with assbench (17h); 0 when he stays (joystick-controlled, penalty shot, ...)",src/engine/engine_15AC2.asm
 1EF88,SwapPosition,sub_1EF88,96PC,medium,"96 PC SwapPosition: (player, position) gives the player the position and hands his old one to the teammate who held it; returns the player number",src/engine/engine_15AC2.asm
+1F32C,ChkForwardSwap,sub_1F32C,new,low,"a defenseman caught deep in the offensive zone swaps position with a forward (left wing, center or right wing by side)",src/engine/engine_15AC2.asm
+1F4EC,GetDefensePartner,sub_1F4EC,new,low,"returns the object of the other defenseman of a defenseman's line, 0 for a forward",src/engine/engine_15AC2.asm
+1F538,ChkSwapWithPartner,sub_1F538,new,low,two defensemen on the wrong sides swap positions; returns 1 when they swapped,src/engine/engine_15AC2.asm
 1F5B4,asscoverdefd,sub_1F5B4,96PC,low,"assignment 10h (set by asscoverdefo): the defending half of the cover, SwapPosition back when it ends",src/engine/engine_15AC2.asm
 1F7D0,asscoverdefo,sub_1F7D0,96PC,low,"assignment 0Fh (given from the Setplass jump table): a forward covering a defence spot; uses SwapPosition and moves on to 10h (asscoverdefd), as 96 PC asscoverdefo / asscoverdefd",src/engine/engine_15AC2.asm
 1FB6C,Setplass,sub_1FB6C,94G,medium,"94G Setplass: sets the player's starting assignment by position from the list byte_1689C0 (goalie 2, defence 3, wings 4, centre 5), after SwapPosition",src/engine/engine_15AC2.asm
+1FBF4,GoaliePosTarget,sub_1FBF4,new,low,"works out where the goalie stands: on the line between the puck and the middle of the goal, kept inside the crease",src/engine/engine_15AC2.asm
+1FF5C,FaceoffSpotPosition,sub_1FF5C,new,low,sets the spot a player takes at a faceoff from his position and the faceoff dot (table of offsets per position),src/engine/engine_15AC2.asm
 20508,Endfaceoff,sub_20508,96PC,medium,"from puckfaceoff2: decides the faceoff (randomd0 21h / 0Ah as in 96 PC), gives the puck assignment 41h (pucknorm) and the referee 31h (assreffollow)",src/engine/engine_15AC2.asm
+209CC,AssNoop,sub_209CC,new,low,empty assignment: does nothing,src/engine/engine_15AC2.asm
+209D0,assnull,sub_209D0,new,low,"assignment 0 (and the first referee and puck slots): stops the animation of object 13, otherwise nothing",src/engine/engine_15AC2.asm
 209E0,assbenchwait,sub_209E0,96PC,low,"assignment 1 (set by setpersonel, AddPenalty2): an off-ice player waits at the bench (x -2232 / -4440), check4bench, flags +0C1h",src/engine/engine_15AC2.asm
+20A80,DelayedPenaltyEnd,sub_20A80,new,low,"ends a delayed penalty when the penalized team touches the puck or a goal is scored: stops play, crowd reaction; keeps the right players in the box",src/engine/engine_15AC2.asm
+20C50,ChkTeamPlayerFlag,sub_20C50,new,low,on a goal: whether the given team has a player on the ice with the goal-check flag set; returns 1 if so,src/engine/engine_15AC2.asm
 20CB0,Goal,sub_20CB0,95PC,medium,"the puck is in a goal: offside goals become AddPenalty / AddPenalty2, the goal and its bookkeeping, the goal commentary (CommentaryEvent), the scorer's team to assscore (18h), the puck to 40h and the referee to 31h; also from DebugKeys",src/engine/engine_15AC2.asm
+218B8,InCrease,sub_218B8,new,low,whether a player stands in the goal crease at the given end (distance from the goal mouth); returns 1 if so,src/engine/engine_15AC2.asm
+21A4C,UpdateCreaseFlag,sub_21A4C,new,low,each frame: sets or clears a player's in-crease flag at the goal he attacks,src/engine/engine_15AC2.asm
+21AB4,FindCreasePlayer,sub_21AB4,new,low,"on a goal with the crease rule on: returns the number of the first attacker standing in the crease, -1 if none",src/engine/engine_15AC2.asm
 21B20,assgoalie,sub_21B20,94G,medium,"94G assgoalie: assignment 2 (Setplass list for the goalie), the goalie AI",src/engine/engine_15AC2.asm
+21E98,KeepInsideRink,sub_21E98,new,low,pulls a player's skating target back inside the boards when it lies past the rink edge,src/engine/engine_15AC2.asm
+22050,DefendPuck,sub_22050,new,low,defensive play of a computer player: picks the attacker or lane to cover and skates there,src/engine/engine_15AC2.asm
 22828,assextra4,sub_22828,96PC,low,96 PC assextra4 (placeholder name): called from the offence assignments,src/engine/engine_15AC2.asm
 22B8C,assdefo,sub_22B8C,94G,low,"94G assdefo: assignment 0Bh, defenceman on offence (SwapPosition, assextra4, as 96 PC assdefo)",src/engine/engine_15AC2.asm
 22CEC,asswingo,sub_22CEC,94G,low,"94G asswingo: assignment 0Ch, winger on offence",src/engine/engine_15AC2.asm
 22E70,asscentero,sub_22E70,94G,low,"94G asscentero: assignment 0Dh, centre on offence",src/engine/engine_15AC2.asm
+22FF0,FindManToCover,sub_22FF0,new,low,"picks the opposing skater a defending player covers, by side and distance",src/engine/engine_15AC2.asm
 23284,assextra3,sub_23284,96PC,low,96 PC assextra3 (placeholder name): called from asswingd and asscenterd,src/engine/engine_15AC2.asm
 238E8,assdefd,sub_238E8,94G,medium,"94G assdefd: assignment 3 (Setplass list for defence), defenceman on defence",src/engine/engine_15AC2.asm
 23A78,asswingd,sub_23A78,94G,medium,"94G asswingd: assignment 4 (Setplass list for wings), winger on defence",src/engine/engine_15AC2.asm
 23B88,asscenterd,sub_23B88,94G,medium,"94G asscenterd: assignment 5 (Setplass list for the centre), centre on defence",src/engine/engine_15AC2.asm
+23C98,asstofaceoff,sub_23C98,new,low,"assignment 6: a player skates to his faceoff spot (or to the bench, or to the side for a penalty shot)",src/engine/engine_15AC2.asm
 23E90,assfaceoff,sub_23E90,94G,medium,"94G assfaceoff: assignment 7, players idle until the faceoff is over (puckfaceoff2 gives it to everyone but the centre, as 94G afaceoff)",src/engine/engine_15AC2.asm
 23F44,assfaceoffpl,sub_23F44,94G,medium,"94G assfaceoffpl: assignment 8, the faceoff player (puckfaceoff2 gives it to the centre, as 94G afaceoffpl)",src/engine/engine_15AC2.asm
+240D0,BuildPassTargets,sub_240D0,new,low,"fills a player's table of passing targets: each teammate's distance and lane, best target first",src/engine/engine_15AC2.asm
+24220,CreditPass,sub_24220,new,low,a teammate takes a pass: counts the completed pass for the team and calls the play-by-play,src/engine/engine_15AC2.asm
 244BC,assonetimer,sub_244BC,new,low,"asstab 0Eh: the one-timer: waits for the pass, then shoots (OneTimerShot)",src/engine/engine_15AC2.asm
+2471C,CarrierInShotArea,sub_2471C,new,low,whether the puck carrier is in the area in front of the net he attacks (play running); returns nonzero if so,src/engine/engine_15AC2.asm
+248E8,CanReceivePass,sub_248E8,new,low,"whether a teammate can take a pass: on the ice, open, close enough and ahead of the passer",src/engine/engine_15AC2.asm
+249F8,MakePass,sub_249F8,new,low,"the passer lets the puck go: clears the carrier, sets the puck speed from the pass power, counts the pass and calls the play-by-play",src/engine/engine_15AC2.asm
+24C00,RimPuck,sub_24C00,new,low,pass type 8: shoots the puck around the boards to a teammate,src/engine/engine_15AC2.asm
+25010,StartPass,sub_25010,new,low,"starts a pass by its type (normal, flip, rim, drop) to the chosen teammate",src/engine/engine_15AC2.asm
+25188,TargetInAngle,sub_25188,new,low,whether a teammate lies within the given angle of the passer's heading and farther than him; returns 1 if so,src/engine/engine_15AC2.asm
+251F0,AIPassDecision,sub_251F0,new,low,"computer puck carrier decides to pass, shoot or keep skating; picks the receiver",src/engine/engine_15AC2.asm
+25730,ChkAIShoot,sub_25730,new,low,computer carrier decides to shoot from range and angle (always late in a period when behind),src/engine/engine_15AC2.asm
 25894,PlayerPastLine,sub_25894,new,low,"(player, line y 0 / +-56Bh): whether both of the player's tracked points are past the line in his attacking direction (red line +-18h, blue line +-30h)",src/engine/engine_25894.asm
 2596C,checkob,sub_2596C,94G,medium,"94G checkob (warning ref when a player on your team is over the blue line): offsides option, a teammate past the blue line as the carrier comes up sets byte_19CBCA 80h and shows overlay 5",src/engine/engine_25894.asm
 25AEC,GetLowestPen,sub_25AEC,94G,high,94G GetLowestPen: power play time left from the two teams' penalty box lists (coincidental entries skipped); 0 when the teams are even,src/engine/engine_25894.asm

@@ -30,8 +30,8 @@ extern qword_167B1D, qword_167B25, qword_167B69, qword_167B79, qword_167B8F, qwo
 extern qword_167C27, qword_167C4F, qword_167C57, qword_167CCB, rand_, sprintf_, sscanf_, sub_1008CC
 extern BlitArt, sub_1013FC, FindShape, sub_101EAC, sub_102B94, sub_10491C, sub_1169F0, IsPlayoffGame
 extern sub_119A8, sub_11A318, sub_11ADD0, sub_11ADE8, sub_11BDC0, sub_11F74, sub_11FA90, sub_11FAAC
-extern sub_11FB11, sub_12A10, SetScreenTarget, ChangeViewSize, ApplyDisplayFlags, RemoveOverlayPanel, sub_160E2, sub_18E76
-extern sub_18F67, sub_1BC18, sub_1C854, sub_1C9F0, sub_1D09C, AddOverlayWindow, RemoveOverlayWindow, sub_3CF68
+extern sub_11FB11, sub_12A10, SetScreenTarget, ChangeViewSize, ApplyDisplayFlags, RemoveOverlayPanel, DrawPanelArtScaled, RefreshOverlayWindows
+extern SetOverlayFont, IntermissionCameraScene, MenuCameraScene, MenuOrbitScene, RestoreGameCamera, AddOverlayWindow, RemoveOverlayWindow, sub_3CF68
 extern RefreshOverlayWindow, sub_3D020, sub_3E480, sub_3E5F0, InitGameAudio, sub_41670, sub_419B0, sub_419B8
 extern sub_41A28, sub_41CF0, sub_41D18, sub_41D30, sub_41DB8, WaitMusicEnd, ArenaFileName, sub_423B4
 extern PaEvent, sub_4A280, LoadDataFile, InitGameGraphics, InitGameVideo, FreeGameGraphics, DrawGameFrame, sub_4BCB4
@@ -710,12 +710,12 @@ DrawPauseClock:
         push byte 19h
         mov eax, 1
         push dword 3E3851ECh
-        call sub_160E2
+        call DrawPanelArtScaled
         push dword 0E4h
         push dword 0E7h
         xor eax, eax
         push dword 3E3851ECh
-        call sub_160E2
+        call DrawPanelArtScaled
         push ebx
         push dword 0F8h
         call sub_FE180
@@ -2404,7 +2404,7 @@ RunIntermission:
         mov eax, dword [tickcount]
         call DrawGameFrame
         call sub_4BCB4
-        call sub_1BC18
+        call IntermissionCameraScene
         xor eax, eax
         call FadePalette
         push byte 0
@@ -2423,7 +2423,7 @@ RunIntermission:
         push dword 0FEh
         call ClearScreen
         add esp, byte 4
-        call sub_18F67
+        call SetOverlayFont
         push byte 4
         mov eax, 74h
         call GetLangText
@@ -2826,7 +2826,7 @@ PauseMenu_16C:
         call DrawPauseClock
         lea eax, [byte ebp-0Ah]
         call sub_F3FF5
-        call sub_1C854
+        call MenuCameraScene
         call sub_8BEF8
         cmp word [word_1CEFC0], byte 2
         jne short .11
@@ -2850,7 +2850,7 @@ PauseMenu_26F:
         call sub_419B0
         call sub_419B8
         call RulesMenu
-        call sub_18E76
+        call RefreshOverlayWindows
         mov eax, dword [dword_1CEFA8]
         mov eax, dword [byte eax+02Ch]
         call RefreshOverlayWindow
@@ -3116,9 +3116,9 @@ PauseMenu_62A:
 PauseMenu_640:
         call WaitForOtherComputer
         xor eax, eax
-        call sub_1C9F0
+        call MenuOrbitScene
         mov dword [dword_1A8E50], 1
-        call sub_18E76
+        call RefreshOverlayWindows
         mov eax, dword [dword_1CEFA8]
         mov eax, dword [byte eax+02Ch]
         call RefreshOverlayWindow
@@ -3140,7 +3140,7 @@ PauseMenu_66D:
         call sub_419B8
         call DetailLevelMenu
         mov dword [dword_1A8E50], 1
-        call sub_18E76
+        call RefreshOverlayWindows
         mov eax, dword [dword_1CEFA8]
         mov eax, dword [byte eax+02Ch]
         call RefreshOverlayWindow
@@ -3256,7 +3256,7 @@ sub_F4978:
 .1:
         mov eax, dword_19CD10
         call InitGameGraphics
-        call sub_1C854
+        call MenuCameraScene
         call InitGameVideo
         call ApplyDisplayFlags
         xor eax, eax
@@ -3925,7 +3925,7 @@ sub_F5219:
         test si, si
         jne near .5
         mov eax, 12Ch
-        call sub_1C9F0
+        call MenuOrbitScene
         mov ebx, edi
         jmp near .4
 .2:
@@ -4029,7 +4029,7 @@ sub_F5219:
         cmp eax, edx
         jl short .7
         xor eax, eax
-        call sub_1C9F0
+        call MenuOrbitScene
         imul eax, dword [dword_16E468], byte 52h
         mov dword [byte ebp+07Ah], eax
         mov eax, dword [dword_16E464]
@@ -4091,7 +4091,7 @@ sub_F558C:
         call FreeBitmap
         add esp, byte 4
         mov dword [dword_19D384], 0
-        call sub_1D09C
+        call RestoreGameCamera
         test bx, bx
         je short .1
         call sub_41D30
