@@ -185,6 +185,7 @@ __attribute__((naked)) static void wait_retrace_entry(void)
 }
 
 void osk_hook_install(void);
+void install_rdtsc_traps(void);
 
 void install_overrides(void)
 {
@@ -209,4 +210,5 @@ void install_overrides(void)
     if (GAME_ADDR(ORIG_WAITRETRACE2)[0] == 0xBA || (GAME_ADDR(ORIG_WAITRETRACE2)[0] == 0x66 && GAME_ADDR(ORIG_WAITRETRACE2)[1] == 0xBA))   /* 97: 66 BA DA 03, mov dx */ patch_jmp(GAME_ADDR(ORIG_WAITRETRACE2), wait_retrace_entry);
     if (GAME_ADDR(ORIG_WAITRETRACE3)[0] == 0xBA || (GAME_ADDR(ORIG_WAITRETRACE3)[0] == 0x66 && GAME_ADDR(ORIG_WAITRETRACE3)[1] == 0xBA))   /* 97: 66 BA DA 03, mov dx */ patch_jmp(GAME_ADDR(ORIG_WAITRETRACE3), wait_retrace_entry);
     install_flag_traps();
+    install_rdtsc_traps();
 }

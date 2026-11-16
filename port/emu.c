@@ -37,6 +37,41 @@ void install_flag_traps(void)
     if (n != NFLAGOPS) fprintf(stderr, "pushf/popf: %d of %d found in the code\n", n, NFLAGOPS);
 }
 
+/* ---- rdtsc ----
+ * NHL 97 times itself with the Pentium's time-stamp counter: at start-up it counts the cycles of one second (sub_F9650, into
+ * dword_16E308), and each frame it places the players between two simulation steps by the cycles since the last one (14CDD, the
+ * players' drawing positions in sub_6539C). A modern counter runs at several GHz: the one-second count overflows 32 bits and the
+ * drawn positions land far off, so the shadows and sprites were drawn as rows from the screen's left edge. Each rdtsc of the game
+ * is replaced by int3, nop and answered from the host's clock as a Pentium's counter (200 MHz; NHL97_CPUMHZ sets another rate). */
+static const uint32_t rdtsc_sites[] = { 0x14CDD, 0x60D2E, 0x60D4A, 0xE2F3A, 0xE461E, 0xF967D, 0xF968E };
+#define NRDTSC (int)(sizeof rdtsc_sites / sizeof *rdtsc_sites)
+static uint64_t tsc_mhz = 200;
+
+void install_rdtsc_traps(void)
+{
+    const char *e = getenv("NHL97_CPUMHZ");
+    int i;
+    if (e && atoi(e) > 0) tsc_mhz = (uint64_t)atoi(e);
+    for (i = 0; i < NRDTSC; i++) {
+        uint8_t *p = GAME_ADDR(rdtsc_sites[i]);
+        if (p[0] == 0x0F && p[1] == 0x31) { p[0] = 0xCC; p[1] = 0x90; }
+        else fprintf(stderr, "rdtsc at %05x is %02x %02x, not patched\n", (unsigned)rdtsc_sites[i], p[0], p[1]);
+    }
+}
+
+static int emulate_rdtsc(ctx_t *c, const uint8_t *ip)
+{
+    uint32_t orig = ORIG_FROM(ip);
+    uint64_t t;
+    int i;
+    if (ip[1] != 0x90) return 0;
+    for (i = 0; i < NRDTSC && rdtsc_sites[i] != orig; i++) ;
+    if (i == NRDTSC) return 0;
+    t = (uint64_t)plat_now_ns() * tsc_mhz / 1000u;
+    R(c, EAX) = (uint32_t)t; R(c, EDX) = (uint32_t)(t >> 32);
+    return 2;
+}
+
 /* the instruction an int3 at ip replaced, or -1 */
 static int flagop_kind(const uint8_t *ip)
 {
@@ -225,7 +260,9 @@ static int emulate_one(ctx_t *c, uint8_t *ip)
     op = ip[n];
     switch (op) {
     case 0xCC:
-        return n ? 0 : emulate_flagop(c, ip);
+        if (n) return 0;
+        { int k = emulate_rdtsc(c, ip); if (k) return k; }
+        return emulate_flagop(c, ip);
     case 0xCD:
         return dos_int(c, ip[n + 1]) ? n + 2 : 0;
     case 0xFA: irq_set_enabled(c, 0); return n + 1;                 /* cli */
