@@ -51,7 +51,7 @@ extern BenchCheerData, StandsRowModel, AwayBlueLineModel, BenchCheerArt, HomeBlu
 extern RinkGeometryModel, RinkGeometryParts, CenterSpotModel, CreasePolyModel, BoardsTopModel, RinkGeometryData, CenterCircleModel, BenchLineModel
 extern CameraFlashOn, SpotModelData, BenchSideIndex, LogosLoaded, RinkSidesModel, ScoreboardAngle, ScoreboardFrameNo, ScoreboardHeight
 extern FlashSpots, RinkSidesData, GameGraphicsFlags, CrowdCenter, RinkViewWidth, RinkViewHeight, ObjectPositions, RenderTimersOn
-extern CameraStateRecords, PaEventValue, dword_1C34E3, ProjDetailScale, ViewOriginY, ViewWidth, TextureTileSize
+extern CameraStateRecords, PaEventValue, HomeTeamRating, ProjDetailScale, ViewOriginY, ViewWidth, TextureTileSize
 extern TexturePageBase, TextureDetail, hypot_, jpt_48D20, jpt_48D50, memcpy_, openhandle, printf_
 extern F64_0p5_ScaleLineWidth, F64_1p5708_InitRinkView, F64_0p31831, F64_65536_InitRinkView, F64_0p04, F64_6p28319_DrawCreaseArc, F64_6p28319_BuildRinkGeometry, F64_80
 extern F64_110, F64_40, F64_0p00138889, F64_65536_DrawScoreboard, F64_0p31831_UpdateScoreboardSpin, F64_0p5_UpdateScoreboardSpin, F64_65536_UpdateScoreboardSpin, rand_
@@ -1077,7 +1077,7 @@ PaEvent_967:
         mov dword [byte esp+04h], eax
         test eax, eax
         je short .73
-        mov eax, dword [dword_1C34E3]
+        mov eax, dword [HomeTeamRating]
         jmp short .74
 .73:
         mov eax, dword [PaEventValue]
@@ -1260,7 +1260,7 @@ PaEvent_967:
         mov dword [esp], eax
         test eax, eax
         je short .90
-        mov eax, dword [dword_1C34E3]
+        mov eax, dword [HomeTeamRating]
         jmp short .91
 .90:
         mov eax, dword [PaEventValue]
@@ -1415,7 +1415,7 @@ PaEvent_967:
         mov dword [esp], eax
         test eax, eax
         je short .106
-        mov eax, dword [dword_1C34E3]
+        mov eax, dword [HomeTeamRating]
         jmp short .107
 .106:
         mov eax, dword [PaEventValue]

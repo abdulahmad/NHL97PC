@@ -8,7 +8,7 @@ extern str_NEUERBENUTZER, str_DD02d, str_LocalNdx, str_User, str_DDD5, str_DD3, 
 extern str_Upp, str_Upk, str_Exrec, str_Seasrec, str_Plyrec, str_Urating, str_Uso, str_Ucups
 extern str_BACK7, str_TITL8, str_UL2d, str_UL08, str_UL09, str_UL10, str_UL00, str_UL01
 extern str_UL02, str_UL04, str_UL05, str_UL06, str_ULA0, str_ULA1, str_ULA2, str_ULA3
-extern str_ULA4, str_ULA5, PlayoffRound, byte_1C55A4, byte_1C55A5, byte_1C55A6, byte_1C55A7, byte_1C55A8
+extern str_ULA4, str_ULA5, PlayoffRound, ScoringLogPeriod, ScoringLogTime, ScoringLogMinute, ScoringLogType, ScoringLogTeam
 extern StatsMenuChoice, PlayoffColumns, StatsMenuMode, StatsColumn, UserNameIndex, UserRecordsTop, UserRecordsFirst, UserRecordsRow
 extern RatingsColumn, dword_16DA9C, MenuScreenBitmap, GameSettings, GameOptionFlags, SeasonActive, PlayoffOptionBits, PlayoffRoundBits
 extern PlayoffCurrentRound, PlayoffFinalRound, PlayoffRoundMatch, PlayoffSeriesMatch, dword_1C5DE4, UserRecordKinds, UserRecordArt, UserRecordsData
@@ -32,8 +32,8 @@ extern SortStatTable, DrawStatTableRows, DrawStatTableArt, ExportStatTable, Open
 extern SaveUserRecord, LoadUserRecord, DeleteUserRecord, ServiceIdle, LinkSyncMenu, LinkSyncScreen, WaitForOtherComputer, AllocMemBlock
 extern FreeMemBlock, MakeColor, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, MeasureText, tickcount
 extern str_D_ParseUserName, str_S_DrawUserName, UserListFileSeason, UserListFilePlayoff, unk_1C5F4A, UserGamesPopup, UserCupsPopup, UserGamesListBox
-extern unk_B1DF1, unk_B1DFD, unk_B1E09, unk_B1E11, UserRecordsSoundOn, PlayoffRecordWins, PlayoffRecordLosses, word_1C3413
-extern word_1C5536, word_1C55A2
+extern unk_B1DF1, unk_B1DFD, unk_B1E09, unk_B1E11, UserRecordsSoundOn, PlayoffRecordWins, PlayoffRecordLosses, HomePeriodShots
+extern AwayPeriodShots, GameLogCount
 global jpt_B234C, jpt_B41D3, NewUser_C7, NewUser_C8, UserLogScreen_71B, UserLogScreen_77D, UserLogScreen_884, UserLogScreen_89E
 global UserLogScreen_8BB, UserLogScreen_8CA, UserRecordsScreen_95C, UserRecordsScreen_96D, UserRecordsScreen_9B4, UserRecordsScreen_A7F, UserRecordsScreen_A92, UserRecordsScreen_A9E
 global UserRecordsScreen_AA5, ParseUserName, AddUserGame, UserRecordTotals, DeleteUser, NewUser, CopyUserName, ScrollUserList
@@ -1527,11 +1527,11 @@ UpdateUserRecords:
         test byte [dword eax+010Dh], 80h
         jne short .4
         mov dword [byte ebp+07Ah], 1
-        mov eax, word_1C3413
+        mov eax, HomePeriodShots
         jmp short .5
 .4:
         mov dword [byte ebp+07Ah], 0
-        mov eax, word_1C5536
+        mov eax, AwayPeriodShots
 .5:
         movsx edx, word [byte eax+02h]
         mov dword [byte ebp+06Eh], edx
@@ -1710,25 +1710,25 @@ UpdateUserRecords:
 .21:
         movsx eax, dx
         shl eax, 3
-        cmp byte [dword eax+byte_1C55A7], 20h
+        cmp byte [dword eax+ScoringLogType], 20h
         jne near .29
         cmp word [byte ebp+07Ah], byte 0
         je short .22
-        cmp byte [dword eax+byte_1C55A8], 0
+        cmp byte [dword eax+ScoringLogTeam], 0
         je short .23
 .22:
         cmp word [byte ebp+07Ah], byte 0
         jne near .29
         movsx eax, dx
-        cmp byte [nosplit eax*8+byte_1C55A8], 0
+        cmp byte [nosplit eax*8+ScoringLogTeam], 0
         je near .29
 .23:
         mov eax, dword [GameOptionFlags]
         test byte [byte eax+02h], 18h
         jne short .24
         movsx eax, dx
-        movzx esi, byte [nosplit eax*8+byte_1C55A6]
-        movzx edi, byte [nosplit eax*8+byte_1C55A4]
+        movzx esi, byte [nosplit eax*8+ScoringLogMinute]
+        movzx edi, byte [nosplit eax*8+ScoringLogPeriod]
         lea esi, [esi+esi*4]
         add esi, edi
         jmp short .26
@@ -1738,24 +1738,24 @@ UpdateUserRecords:
         cmp eax, 800h
         jne short .25
         movsx eax, dx
-        movzx esi, byte [nosplit eax*8+byte_1C55A6]
+        movzx esi, byte [nosplit eax*8+ScoringLogMinute]
         imul esi, byte 0Ah
         mov dword [byte ebp+072h], esi
-        movzx esi, byte [nosplit eax*8+byte_1C55A4]
+        movzx esi, byte [nosplit eax*8+ScoringLogPeriod]
         add esi, dword [byte ebp+072h]
         jmp short .26
 .25:
         cmp eax, 1000h
         jne short .27
         movsx eax, dx
-        movzx esi, byte [nosplit eax*8+byte_1C55A6]
+        movzx esi, byte [nosplit eax*8+ScoringLogMinute]
         imul esi, byte 14h
         mov dword [byte ebp+072h], esi
-        movzx esi, byte [nosplit eax*8+byte_1C55A4]
+        movzx esi, byte [nosplit eax*8+ScoringLogPeriod]
         add esi, dword [byte ebp+072h]
 .26:
         imul esi, byte 3Ch
-        movzx eax, byte [nosplit eax*8+byte_1C55A5]
+        movzx eax, byte [nosplit eax*8+ScoringLogTime]
         add esi, eax
         movsx eax, word [byte ebp+07Eh]
         mov dword [dword ebp+eax*4-0DEh], esi
@@ -1763,10 +1763,10 @@ UpdateUserRecords:
         cmp word [byte ebp+07Eh], byte 0
         jne short .28
         movsx eax, dx
-        movzx esi, byte [nosplit eax*8+byte_1C55A5]
+        movzx esi, byte [nosplit eax*8+ScoringLogTime]
         push esi
-        movzx esi, byte [nosplit eax*8+byte_1C55A4]
-        movzx eax, byte [nosplit eax*8+byte_1C55A6]
+        movzx esi, byte [nosplit eax*8+ScoringLogPeriod]
+        movzx eax, byte [nosplit eax*8+ScoringLogMinute]
         push esi
         inc eax
         push eax
@@ -1780,7 +1780,7 @@ UpdateUserRecords:
 .29:
         inc edx
 .30:
-        cmp dx, word [word_1C55A2]
+        cmp dx, word [GameLogCount]
         jge short .31
         cmp word [byte ebp+07Eh], byte 32h
         jl near .21

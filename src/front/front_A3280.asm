@@ -13,11 +13,11 @@ extern str_GS08, str_GS09, str_PlayerStats, str_GS04, str_GS05, str_D01d, str_00
 extern str_SD4, str_GS24, str_GS25, str_GS20, str_GS21, str_GS16, str_GS17, str_GS12
 extern str_GS13, str_CDCS, str_GS02d, str_S6, str_S7, str_DSSDSSSSD02d, str_SSSSSSSD02d, str_Logo02dQfs2
 extern str_UnpackLogo, str_LOGO5, str_DEBUG, LinkButtonLetters, LinkSetupCursorFlags, MenuOptionFlags, ControlSetupFlags, PlayoffUserIndex
-extern PeriodHomeTeam, PeriodAwayTeam, byte_1C559C, byte_1C559D, byte_1C559E, byte_1C559F, byte_1C55A4, byte_1C55A5
-extern byte_1C55A6, byte_1C55A7, byte_1C55A8, byte_1C55A9, byte_1C55AA, byte_1C55AB, byte_1C6040, LinkSetupCursorRow
+extern PeriodHomeTeam, PeriodAwayTeam, ScoringLogPrevPeriod, ScoringLogPrevTime, ScoringLogPrevMinute, ScoringLogPrevType, ScoringLogPeriod, ScoringLogTime
+extern ScoringLogMinute, ScoringLogType, ScoringLogTeam, ScoringLogPlayer, ScoringLogAssist, ScoringLogSecondAssist, byte_1C6040, LinkSetupCursorRow
 extern LinkSetupCursorCol, LinkSetupItemFlags, GripDriverPtr, LinkSetupMaxPlayers, LinkSetupSoundTick, LinesChangedInGame, InIntermission, dword_16D93A
 extern dword_16DA9C, dword_16E464, dword_16E468, GameRunning, GameSettings, GameOptionFlags, SeasonActive, PlayoffTeamNames
-extern PlayoffTeams, SeasonFileName, ThreeStarsCount, ThreeStarsList, HomeRosterData, dword_1C351E, dword_1C3522
+extern PlayoffTeams, SeasonFileName, ThreeStarsCount, HomePlayerRecords, HomeRosterData, HomeInjuredCount, AwayPlayerRecords
 extern AwayRosterData, dword_1C5DE0, dword_1C5DE4, dword_1C5E74, LinkSetupLogos, LinkSetupNames, LinkSetupArt
 extern LinkSetupItemShape, LinkSetupShapes, LinkSetupSounds, LinkSetupScrollUp, LinkSetupBuffer, LinkSetupSlots, LinkSetupScrollDown, LinkSetupTop
 extern LinkSetupRow, LinkSetupItems, LinkSetupShapeFile, LinkSetupCount, LinkSetupSettings, LinkPlayerCount, LinkLogoFile, LinkShapeFile
@@ -41,10 +41,10 @@ extern SortStatTable, DrawStatTableRows, DrawStatTableArt, UserLogScreen, InitLi
 extern ClearLinkAbort, ServiceIdle, LinkSyncMenu, LinkSyncScreen, LinkSendBlock, LinkReceiveBlock, CopyControlSettings, AllocMemBlock
 extern FreeMemBlock, ZeroMem, OpenResourceArchive, MakeColor, SelectFont, FreeBitmap, DrawShapeCore, DrawShapeAtOwnPos
 extern DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, MeasureText, tickcount, str_D_RunLinkGameScreens, str_D_DrawTeamStatLine
-extern str_Punct_GoalTypeSuffix, LinkSetupShapeName, str_S_RunLinkGameScreens, ControlSetup, AutoLineData, unk_1C347F, unk_1C5EF8, unk_1C5F4A
+extern str_Punct_GoalTypeSuffix, LinkSetupShapeName, str_S_RunLinkGameScreens, ControlSetup, AutoLineData, HomeLines, unk_1C5EF8, unk_1C5F4A
 extern unk_1C5F9C, ThreeStarsData, GripPortWord, LinkSetupItemX, LinkSetupSlotY, LinkSetupStatusX, LinkButtonX, LinkButtonY
 extern LinkSetupTitleY, LinkSetupSoundIndex, LinkSetupSoundOn, ThreeStarsSoundOn, GameStatsSoundOn, GameStatsAnimSoundOn, PassState, gameover
-extern AllStarArena, word_1C55A2, LinkSetupOrder, LinkSetupValues, LinkSetupItemType, LinkHomeChoice, LinkSetupItemCount, LinkAwayChoice
+extern AllStarArena, GameLogCount, LinkSetupOrder, LinkSetupValues, LinkSetupItemType, LinkHomeChoice, LinkSetupItemCount, LinkAwayChoice
 extern ThreeStarsPlayer, ThreeStarsTeam, ThreeStarsPoints, ScoringLogCount, PenaltyLogCount
 global jpt_A3B51, jpt_A4B35, jpt_A4B4D, jpt_A4B65, jpt_A6680, jpt_A7D7C, LinkGameSetup_8CA, LinkGameSetup_8CB
 global LinkSetupCursor_29, LinkSetupCursor_CC, LinkSetupCursor_166, LinkSetupCursor_1EE, LinkSetupCursor_2BB, RunLinkGameScreens_30, RunLinkGameScreens_112, RunLinkGameScreens_1971
@@ -4146,7 +4146,7 @@ PostGameScreen:
         mov eax, AutoLineData
         jmp short .8
 .7:
-        mov eax, unk_1C347F
+        mov eax, HomeLines
 .8:
         cmp word [dword esp+edi+0296h], byte 0
         jne short .9
@@ -4788,7 +4788,7 @@ PickThreeStars:
         push esi
         push edi
         mov edi, eax
-        mov esi, ThreeStarsList
+        mov esi, HomePlayerRecords
         mov ecx, eax
         xor edx, edx
         xor ebx, ebx
@@ -4810,7 +4810,7 @@ PickThreeStars:
         sar eax, 10h
         cmp edx, eax
         jl short .1
-        mov esi, dword_1C3522
+        mov esi, AwayPlayerRecords
         lea ecx, [nosplit ebx*8+00h]
         xor edx, edx
         add esi, 0FDh
@@ -4828,7 +4828,7 @@ PickThreeStars:
         mov word [byte ecx-06h], dx
         inc edx
 .4:
-        mov eax, dword [dword_1C351E]
+        mov eax, dword [HomeInjuredCount]
         sar eax, 10h
         cmp edx, eax
         jl short .3
@@ -4966,13 +4966,13 @@ DrawThreeStarStats:
         xor esi, esi
         mov si, word [dword eax+ThreeStarsPlayer]
         imul esi, dword 125h
-        add esi, ThreeStarsList
+        add esi, HomePlayerRecords
         jmp short .7
 .6:
         mov ax, word [dword eax+ThreeStarsPlayer]
         and eax, 0FFFFh
         imul eax, dword 125h
-        mov esi, dword_1C3522
+        mov esi, AwayPlayerRecords
         add esi, eax
 .7:
         lea eax, [byte esi+08h]
@@ -5588,7 +5588,7 @@ ClearThreeStars:
         mov ebx, 0FFFFFFFFh
         xor edx, edx
         xor ah, ah
-        mov word [word_1C55A2], dx
+        mov word [GameLogCount], dx
         mov word [PenaltyLogCount], bx
         mov word [ScoringLogCount], bx
         mov byte [PeriodHomeTeam], ah
@@ -5601,7 +5601,7 @@ ClearThreeStars:
         mov ebp, AutoLineData
         jmp short .3
 .2:
-        mov ebp, unk_1C347F
+        mov ebp, HomeLines
 .3:
         mov ebx, 36h
         lea eax, [dword ebp+020B7h]
@@ -6794,7 +6794,7 @@ DrawTeamGameStats:
         jmp short .3
 .2:
         mov edx, 21Ch
-        mov eax, unk_1C347F
+        mov eax, HomeLines
 .3:
         mov ecx, 13h
         mov ebx, 5Ah
@@ -7322,12 +7322,12 @@ DrawScoringSummary:
         call MakeColor
         add esp, byte 4
         call SetTextColor
-        mov ax, word [word_1C55A2]
+        mov ax, word [GameLogCount]
         mov ebx, 13h
         test ax, ax
         jle short .1
         cwde
-        mov al, byte [nosplit eax*8+byte_1C559E]
+        mov al, byte [nosplit eax*8+ScoringLogPrevMinute]
         and eax, 0FFh
         jmp short .2
 .1:
@@ -7693,7 +7693,7 @@ FormatPlayerStatLine:
         mov dword [esp], AutoLineData
         jmp short .2
 .1:
-        mov dword [esp], unk_1C347F
+        mov dword [esp], HomeLines
 .2:
         cmp dword [GameStatsDrawn], byte 0
         jne near .6
@@ -7997,7 +7997,7 @@ BuildPlayerStatsTable:
         mov dword [byte esp+04h], AutoLineData
         jmp short .2
 .1:
-        mov dword [byte esp+04h], unk_1C347F
+        mov dword [byte esp+04h], HomeLines
 .2:
         mov esi, dword [GameStatsDrawn]
         test esi, esi
@@ -8774,7 +8774,7 @@ ResetScoringLog:
         xor edx, edx
         mov word [PenaltyLogCount], bx
         mov word [ScoringLogCount], bx
-        mov word [word_1C55A2], dx
+        mov word [GameLogCount], dx
         pop edx
         pop ebx
         ret
@@ -8790,7 +8790,7 @@ LogGoal:
         mov word [byte esp+04h], dx
         mov word [byte esp+08h], bx
         mov word [esp], cx
-        mov cx, word [word_1C55A2]
+        mov cx, word [GameLogCount]
         mov esi, 1
         cmp cx, 100h
         jge near .1
@@ -8804,28 +8804,28 @@ LogGoal:
         sar edx, 1Fh
         idiv edi
         movsx edx, cx
-        mov byte [nosplit edx*8+byte_1C55A4], al
+        mov byte [nosplit edx*8+ScoringLogPeriod], al
         mov ah, 3Ch
         mul ah
         sub bl, al
         mov al, byte [byte esp+04h]
-        mov byte [nosplit edx*8+byte_1C55A6], al
+        mov byte [nosplit edx*8+ScoringLogMinute], al
         mov al, byte [byte esp+020h]
-        mov byte [nosplit edx*8+byte_1C55A5], bl
+        mov byte [nosplit edx*8+ScoringLogTime], bl
         or al, 20h
-        mov byte [nosplit edx*8+byte_1C55A7], al
+        mov byte [nosplit edx*8+ScoringLogType], al
         mov al, byte [byte esp+08h]
-        mov byte [nosplit edx*8+byte_1C55A8], al
+        mov byte [nosplit edx*8+ScoringLogTeam], al
         mov al, byte [esp]
-        mov byte [nosplit edx*8+byte_1C55A9], al
+        mov byte [nosplit edx*8+ScoringLogPlayer], al
         mov al, byte [byte esp+018h]
-        mov byte [nosplit edx*8+byte_1C55AA], al
+        mov byte [nosplit edx*8+ScoringLogAssist], al
         mov al, byte [byte esp+01Ch]
-        mov byte [nosplit edx*8+byte_1C55AB], al
-        mov dx, word [word_1C55A2]
+        mov byte [nosplit edx*8+ScoringLogSecondAssist], al
+        mov dx, word [GameLogCount]
         inc edx
         mov word [ScoringLogCount], cx
-        mov word [word_1C55A2], dx
+        mov word [GameLogCount], dx
         mov eax, esi
         add esp, byte 0Ch
         pop edi
@@ -8849,7 +8849,7 @@ LogPenalty:
         mov word [byte esp+04h], dx
         mov word [byte esp+08h], bx
         mov word [esp], cx
-        mov si, word [word_1C55A2]
+        mov si, word [GameLogCount]
         mov ecx, 1
         cmp si, 100h
         jge near .1
@@ -8863,26 +8863,26 @@ LogPenalty:
         sar edx, 1Fh
         idiv edi
         movsx edx, si
-        mov byte [nosplit edx*8+byte_1C55A4], al
+        mov byte [nosplit edx*8+ScoringLogPeriod], al
         mov ah, 3Ch
         mul ah
         sub bl, al
         mov al, byte [byte esp+04h]
-        mov byte [nosplit edx*8+byte_1C55A5], bl
-        mov byte [nosplit edx*8+byte_1C55A6], al
-        mov byte [nosplit edx*8+byte_1C55A7], 80h
+        mov byte [nosplit edx*8+ScoringLogTime], bl
+        mov byte [nosplit edx*8+ScoringLogMinute], al
+        mov byte [nosplit edx*8+ScoringLogType], 80h
         mov al, byte [byte esp+08h]
-        mov byte [nosplit edx*8+byte_1C55A8], al
+        mov byte [nosplit edx*8+ScoringLogTeam], al
         mov al, byte [esp]
-        mov byte [nosplit edx*8+byte_1C55A9], al
+        mov byte [nosplit edx*8+ScoringLogPlayer], al
         mov al, byte [byte esp+018h]
-        mov byte [nosplit edx*8+byte_1C55AA], al
+        mov byte [nosplit edx*8+ScoringLogAssist], al
         mov al, byte [byte esp+01Ch]
-        mov byte [nosplit edx*8+byte_1C55AB], al
-        mov dx, word [word_1C55A2]
+        mov byte [nosplit edx*8+ScoringLogSecondAssist], al
+        mov dx, word [GameLogCount]
         inc edx
         mov word [PenaltyLogCount], si
-        mov word [word_1C55A2], dx
+        mov word [GameLogCount], dx
         mov eax, ecx
         add esp, byte 0Ch
         pop edi
@@ -8908,7 +8908,7 @@ LogPeriodEnd:
         sub esp, byte 4
         mov word [esp], ax
         mov esi, edx
-        mov cx, word [word_1C55A2]
+        mov cx, word [GameLogCount]
         mov ebx, 1
         cmp cx, 100h
         jge near .3
@@ -8921,29 +8921,29 @@ LogPeriodEnd:
         mov dl, al
         movsx eax, cx
         shl eax, 3
-        mov byte [dword eax+byte_1C55A4], dl
+        mov byte [dword eax+ScoringLogPeriod], dl
         xor dl, dl
-        mov byte [dword eax+byte_1C55A5], dl
+        mov byte [dword eax+ScoringLogTime], dl
         test si, si
         jne short .1
-        mov byte [dword eax+byte_1C55A4], dl
+        mov byte [dword eax+ScoringLogPeriod], dl
         jmp short .2
 .1:
         cmp word [esp], byte 2
         jle short .2
-        test byte [dword eax+byte_1C559F], 20h
+        test byte [dword eax+ScoringLogPrevType], 20h
         je short .2
-        mov dl, byte [dword eax+byte_1C559C]
-        mov byte [dword eax+byte_1C55A4], dl
-        mov dl, byte [dword eax+byte_1C559D]
-        mov byte [dword eax+byte_1C55A5], dl
+        mov dl, byte [dword eax+ScoringLogPrevPeriod]
+        mov byte [dword eax+ScoringLogPeriod], dl
+        mov dl, byte [dword eax+ScoringLogPrevTime]
+        mov byte [dword eax+ScoringLogTime], dl
 .2:
         movsx eax, cx
         mov dl, byte [esp]
-        mov byte [nosplit eax*8+byte_1C55A6], dl
-        mov word [nosplit eax*8+byte_1C55A8], si
-        mov byte [nosplit eax*8+byte_1C55A7], 40h
-        inc word [word_1C55A2]
+        mov byte [nosplit eax*8+ScoringLogMinute], dl
+        mov word [nosplit eax*8+ScoringLogTeam], si
+        mov byte [nosplit eax*8+ScoringLogType], 40h
+        inc word [GameLogCount]
         mov eax, ebx
         add esp, byte 4
         pop edi
@@ -8972,26 +8972,26 @@ FirstScoringEntry:
         push esi
         mov ebx, eax
         mov dx, word [PenaltyLogCount]
-        mov si, word [word_1C55A2]
+        mov si, word [GameLogCount]
         test dx, dx
         jl short .5
         xor eax, eax
         xor edx, edx
         jmp short .4
 .1:
-        test byte [dword eax+byte_1C55A7], 80h
+        test byte [dword eax+ScoringLogType], 80h
         je short .3
         test bx, bx
         jl short .2
         xor ecx, ecx
-        mov cl, byte [dword eax+byte_1C55A6]
+        mov cl, byte [dword eax+ScoringLogMinute]
         cmp cx, bx
         jne short .3
 .2:
         movsx eax, dx
         shl eax, 3
         mov word [PenaltyLogCount], dx
-        add eax, byte_1C55A4
+        add eax, ScoringLogPeriod
         pop esi
         pop edx
         pop ecx
@@ -9023,7 +9023,7 @@ NextScoringEntry:
         push esi
         mov ebx, eax
         mov dx, word [PenaltyLogCount]
-        mov si, word [word_1C55A2]
+        mov si, word [GameLogCount]
         test dx, dx
         jl short .5
         mov edx, dword [ScoringLogCount]
@@ -9036,19 +9036,19 @@ NextScoringEntry:
         lea eax, [nosplit edx*8+00h]
         jmp short .4
 .1:
-        test byte [dword eax+byte_1C55A7], 80h
+        test byte [dword eax+ScoringLogType], 80h
         je short .3
         test bx, bx
         jl short .2
         xor ecx, ecx
-        mov cl, byte [dword eax+byte_1C55A6]
+        mov cl, byte [dword eax+ScoringLogMinute]
         cmp cx, bx
         jne short .3
 .2:
         movsx eax, dx
         shl eax, 3
         mov word [PenaltyLogCount], dx
-        add eax, byte_1C55A4
+        add eax, ScoringLogPeriod
         pop esi
         pop edx
         pop ecx
@@ -9079,7 +9079,7 @@ FirstPenaltyEntry:
         push esi
         push edi
         mov esi, eax
-        mov di, word [word_1C55A2]
+        mov di, word [GameLogCount]
         xor eax, eax
         test si, si
         jge short .4
@@ -9087,7 +9087,7 @@ FirstPenaltyEntry:
         xor ebx, ebx
         jmp short .3
 .1:
-        test byte [dword edx+byte_1C55A7], 80h
+        test byte [dword edx+ScoringLogType], 80h
         je short .2
         inc eax
 .2:
@@ -9103,10 +9103,10 @@ FirstPenaltyEntry:
         xor ebx, ebx
         jmp short .8
 .5:
-        test byte [dword edx+byte_1C55A7], 80h
+        test byte [dword edx+ScoringLogType], 80h
         je short .7
         xor ecx, ecx
-        mov cl, byte [dword edx+byte_1C55A6]
+        mov cl, byte [dword edx+ScoringLogMinute]
         cmp cx, si
         jne short .6
         inc eax
@@ -9138,26 +9138,26 @@ NextPenaltyEntry:
         push esi
         mov ebx, eax
         mov dx, word [ScoringLogCount]
-        mov si, word [word_1C55A2]
+        mov si, word [GameLogCount]
         test dx, dx
         jl short .5
         xor eax, eax
         xor edx, edx
         jmp short .4
 .1:
-        test byte [dword eax+byte_1C55A7], 20h
+        test byte [dword eax+ScoringLogType], 20h
         je short .3
         test bx, bx
         jl short .2
         xor ecx, ecx
-        mov cl, byte [dword eax+byte_1C55A6]
+        mov cl, byte [dword eax+ScoringLogMinute]
         cmp cx, bx
         jne short .3
 .2:
         movsx eax, dx
         shl eax, 3
         mov word [ScoringLogCount], dx
-        add eax, byte_1C55A4
+        add eax, ScoringLogPeriod
         pop esi
         pop edx
         pop ecx
@@ -9189,7 +9189,7 @@ PeriodEntryCount:
         push esi
         mov ebx, eax
         mov dx, word [ScoringLogCount]
-        mov si, word [word_1C55A2]
+        mov si, word [GameLogCount]
         test dx, dx
         jl short .5
         mov edx, dword [ScoringLogPad]
@@ -9202,19 +9202,19 @@ PeriodEntryCount:
         lea eax, [nosplit edx*8+00h]
         jmp short .4
 .1:
-        test byte [dword eax+byte_1C55A7], 20h
+        test byte [dword eax+ScoringLogType], 20h
         je short .3
         test bx, bx
         jl short .2
         xor ecx, ecx
-        mov cl, byte [dword eax+byte_1C55A6]
+        mov cl, byte [dword eax+ScoringLogMinute]
         cmp cx, bx
         jne short .3
 .2:
         movsx eax, dx
         shl eax, 3
         mov word [ScoringLogCount], dx
-        add eax, byte_1C55A4
+        add eax, ScoringLogPeriod
         pop esi
         pop edx
         pop ecx
@@ -9245,7 +9245,7 @@ ScoringEntryText:
         push esi
         push edi
         mov esi, eax
-        mov di, word [word_1C55A2]
+        mov di, word [GameLogCount]
         xor eax, eax
         test si, si
         jge short .4
@@ -9253,7 +9253,7 @@ ScoringEntryText:
         xor ebx, ebx
         jmp short .3
 .1:
-        test byte [dword edx+byte_1C55A7], 20h
+        test byte [dword edx+ScoringLogType], 20h
         je short .2
         inc eax
 .2:
@@ -9269,10 +9269,10 @@ ScoringEntryText:
         xor ebx, ebx
         jmp short .8
 .5:
-        test byte [dword edx+byte_1C55A7], 20h
+        test byte [dword edx+ScoringLogType], 20h
         je short .7
         xor ecx, ecx
-        mov cl, byte [dword edx+byte_1C55A6]
+        mov cl, byte [dword edx+ScoringLogMinute]
         cmp cx, si
         jne short .6
         inc eax
@@ -9298,19 +9298,19 @@ ScoringEntryText:
         push edx
         push esi
         mov ebx, eax
-        mov si, word [word_1C55A2]
+        mov si, word [GameLogCount]
         test si, si
         jl short .14
         xor eax, eax
         xor edx, edx
         jmp short .13
 .10:
-        test byte [dword eax+byte_1C55A7], 40h
+        test byte [dword eax+ScoringLogType], 40h
         je short .12
         test bx, bx
         jl short .11
         xor ecx, ecx
-        mov cl, byte [dword eax+byte_1C55A6]
+        mov cl, byte [dword eax+ScoringLogMinute]
         cmp cx, bx
         jne short .12
 .11:
@@ -9343,7 +9343,7 @@ ScoringEntryText:
         push esi
         push edi
         mov esi, eax
-        mov di, word [word_1C55A2]
+        mov di, word [GameLogCount]
         xor ecx, ecx
         test ax, ax
         jge short .15
@@ -9355,7 +9355,7 @@ ScoringEntryText:
         jmp short .19
 .16:
         xor ebx, ebx
-        mov bl, byte [dword edx+byte_1C55A6]
+        mov bl, byte [dword edx+ScoringLogMinute]
         cmp bx, si
         jne short .17
         inc ecx
@@ -9378,11 +9378,11 @@ ScoringEntryText:
         pop ebx
         ret
         db 08Dh,040h,00h
-        mov ax, word [word_1C55A2]
+        mov ax, word [GameLogCount]
         test ax, ax
         jle short NoScoringEntry
         cwde
-        mov al, byte [nosplit eax*8+byte_1C559E]
+        mov al, byte [nosplit eax*8+ScoringLogPrevMinute]
         and eax, 0FFh
         ret
 ;-----------------------------------------------------------------------------
@@ -9418,7 +9418,7 @@ GoalTypeSuffix:
         mov edx, AutoLineData
         jmp short .2
 .1:
-        mov edx, unk_1C347F
+        mov edx, HomeLines
 .2:
         mov bl, byte [byte ecx+03h]
         test bl, 1
@@ -9624,7 +9624,7 @@ FormatGoalLine:
         mov eax, AutoLineData
         jmp short .2
 .1:
-        mov eax, unk_1C347F
+        mov eax, HomeLines
 .2:
         lea edi, [byte eax+026h]
         mov dword [byte esp+08h], edi

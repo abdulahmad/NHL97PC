@@ -7894,14 +7894,41 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 16D664,SeasonMenuSoundOn,dword_16D664,new,low,set once the season menu sound plays,src/data/front/front_B1E1D_data_02.asm
 16D668,RosterScreenOpen,dword_16D668,new,low,set while the roster screen is open,src/data/front/front_C755B_data_02.asm
 16D66C,RosterData,dword_16D66C,new,low,roster data,src/data/front/front_C755B_data_02.asm
+16D670,RosterFreeAgents,dword_16D670,new,low,roster free agent data,src/data/front/front_C755B_data_02.asm
+16D674,RosterSpeechCount,dword_16D674,new,low,roster speech count,src/data/front/front_C755B_data_02.asm
+16D678,RatingPanelTick,dword_16D678,new,low,tick of the next rating panel frame,src/data/front/front_C755B_data_02.asm
+16D67C,RatingPanelFrame,dword_16D67C,new,low,rating panel frame,src/data/front/front_C755B_data_02.asm
+16D680,RosterScreenReady,dword_16D680,new,low,set once the roster screen is ready,src/data/front/front_C755B_data_02.asm
 16D684,str_Punct_InitRosterScreen,dword_16D684,new,high,"string ""\n""",src/data/front/front_C755B_data_02.asm
 16D688,str_X_InitRosterScreen,dword_16D688,new,high,"string ""x""",src/data/front/front_C755B_data_02.asm
 16D694,str_7_SetupRosterLists,dword_16D694,new,high,"string ""7""",src/data/front/front_C755B_data_02.asm
 16D698,str_I_SetupRosterLists,dword_16D698,new,high,"string ""I""",src/data/front/front_C755B_data_02.asm
 16D6A4,str_Punct_DrawRosterList,dword_16D6A4,new,high,"string ""(""",src/data/front/front_C755B_data_02.asm
 16D6A8,str_X_DrawRosterList,dword_16D6A8,new,high,"string ""x""",src/data/front/front_C755B_data_02.asm
+16D6AC,RosterTitleX,dword_16D6AC,new,low,roster title x,src/data/front/front_C755B_data_02.asm
 16D6B0,str_X_SetupRosterLists,dword_16D6B0,new,high,"string ""x""",src/data/front/front_C755B_data_02.asm
+16D6B4,RosterTitleY,dword_16D6B4,new,low,roster title y,src/data/front/front_C755B_data_02.asm
 16D6B8,str_X_ShowRosterLogo,dword_16D6B8,new,high,"string ""x""",src/data/front/front_C755B_data_02.asm
+16D6BC,RosterTitleWidth,dword_16D6BC,new,low,roster title width,src/data/front/front_C755B_data_02.asm
+16D6C0,RosterTitleRight,dword_16D6C0,new,low,roster title right edge,src/data/front/front_C755B_data_02.asm
+16D6C4,CreateSkaterRows,word_16D6C4,new,low,create player skater rating rows,src/data/front/front_C755B_data_02.asm
+16D6D2,CreateGoalieRows,word_16D6D2,new,low,create player goalie rating rows,src/data/front/front_C755B_data_02.asm
+16D6E4,RosterSoundOn,word_16D6E4,new,low,roster sound enabled,src/data/front/front_C755B_data_02.asm
+16D6E8,MatchupArt,dword_16D6E8,new,low,matchup art,src/data/front/front_C755B_data_02.asm
+16D6EC,MatchupStatsX,dword_16D6EC,new,low,matchup stats x,src/data/front/front_C755B_data_02.asm
+16D6F0,MatchupStatsY,dword_16D6F0,new,low,matchup stats y,src/data/front/front_C755B_data_02.asm
+16D6F4,MatchupStatsWidth,dword_16D6F4,new,low,matchup stats width,src/data/front/front_C755B_data_02.asm
+16D6F8,MatchupPanelBottom,dword_16D6F8,new,low,matchup panel bottom,src/data/front/front_C755B_data_02.asm
+16D6FC,MatchupPanelRects,dword_16D6FC,97PC,low,"pre-game matchup panel rectangles (x, y, width, height per panel)",src/data/front/front_C755B_data_02.asm
+16D73C,MatchupLayout,dword_16D73C,new,low,matchup layout,src/data/front/front_C755B_data_02.asm
+16D740,MatchupLeftSide,dword_16D740,new,low,matchup left side,src/data/front/front_C755B_data_02.asm
+16D744,MatchupNoteCount,dword_16D744,new,low,matchup note count,src/data/front/front_C755B_data_02.asm
+16D748,MatchupNoteLength,dword_16D748,new,low,matchup note length,src/data/front/front_C755B_data_02.asm
+16D74C,RostersSparkleTick,dword_16D74C,new,low,tick of the next rosters sparkle,src/data/front/front_C755B_data_02.asm
+16D750,RostersSparkleFrame,dword_16D750,new,low,rosters sparkle frame,src/data/front/front_C755B_data_02.asm
+16D754,GoalieMaskSoundOn,dword_16D754,new,low,goalie mask sound enabled,src/data/front/front_C755B_data_02.asm
+16D760,CreditsLastLine,dword_16D760,new,low,last credits line drawn,src/data/front/front_C755B_data_02.asm
+16D764,CreditsLastY,dword_16D764,new,low,last credits y,src/data/front/front_C755B_data_02.asm
 16D80C,str_Punct_SetMatchupTeams,word_16D80C,new,high,"string ""\r""",src/data/front/front_D4E24_data_02.asm
 16D85E,str_Punct_DaysToYear,word_16D85E,new,high,"string ""/""",src/data/front/front_D4E24_data_02.asm
 16D8FC,SlotWords,word_16D8FC,new,high,"8 words: high byte device (bits 0-2) and team (bit 7), low byte buttons",src/data/front/front_DA66D_data_02.asm
@@ -9674,13 +9701,60 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1C13C0,PaEventValue,dword_1C13C0,new,low,PA event value,src/data/front/front_7A9D8_bss_01.asm
 1C13C2,IndexEntryList,word_1C13C2,new,low,index entry list,src/data/front/front_7A9D8_bss_01.asm
 1C13FB,ThreeStarsCount,dword_1C13FB,new,low,three stars count,src/data/front/front_7A9D8_bss_01.asm
-1C13FF,ThreeStarsList,dword_1C13FF,new,low,three stars list,src/data/front/front_7A9D8_bss_01.asm
+1C13FF,HomePlayerRecords,dword_1C13FF,new,low,home team player records (293 bytes each),src/data/front/front_7A9D8_bss_01.asm
 1C1403,HomeSpeechNames,dword_1C1403,new,low,home team speech name clips,src/data/front/front_43578_bss_01.asm
 1C14BD,HomeSpeechLoaded,byte_1C14BD,new,low,home team speech clips loaded,src/data/front/front_43578_bss_01.asm
 1C150A,HomeRosterData,word_1C150A,97PC,low,"home team roster, stats and simulation data",src/data/front/front_789F0_bss_01.asm
+1C340D,HomeSlotRatings,word_1C340D,new,low,home rating per roster slot,src/data/front/front_D15FB_bss_01.asm
+1C3413,HomePeriodShots,word_1C3413,new,low,home shots per period,src/data/front/front_D15FB_bss_01.asm
+1C3415,HomeSimGoals,word_1C3415,new,low,home goals in the simulated game,src/data/front/front_D15FB_bss_01.asm
+1C3417,HomeSimShots,word_1C3417,new,low,home shots in the simulated game,src/data/front/front_D15FB_bss_01.asm
+1C3419,HomeShotTotals,word_1C3419,new,low,home shot totals,src/data/front/front_D15FB_bss_01.asm
+1C3427,HomeGoalTotals,word_1C3427,new,low,home goal totals,src/data/front/front_D15FB_bss_01.asm
+1C3449,HomeGoalieIndex,byte_1C3449,new,low,home starting goalie,src/data/front/front_D15FB_bss_01.asm
+1C344A,HomeCenterIndex,byte_1C344A,new,low,home starting center,src/data/front/front_D15FB_bss_01.asm
+1C344B,HomeWingIndex,byte_1C344B,new,low,home starting wing,src/data/front/front_D15FB_bss_01.asm
+1C3455,HomeDefenceIndex,byte_1C3455,new,low,home starting defenceman,src/data/front/front_D15FB_bss_01.asm
+1C3456,HomeDefencePartner,byte_1C3456,new,low,home starting defence partner,src/data/front/front_D15FB_bss_01.asm
+1C347D,HomeBackupGoalie,byte_1C347D,new,low,home backup goalie,src/data/front/front_D15FB_bss_01.asm
+1C347F,HomeLines,unk_1C347F,new,low,home team lines,src/data/front/front_D15FB_bss_01.asm
+1C3487,HomeTeamName,unk_1C3487,new,low,home team name,src/data/front/front_D15FB_bss_01.asm
+1C34A5,HomeCityName,unk_1C34A5,new,low,home city name,src/data/front/front_D15FB_bss_01.asm
+1C34E3,HomeTeamRating,dword_1C34E3,new,low,home team rating,src/data/front/front_D15FB_bss_01.asm
+1C34E5,HomeTeamCode,word_1C34E5,new,low,home team code,src/data/front/front_D15FB_bss_01.asm
+1C351E,HomeInjuredCount,dword_1C351E,new,low,home injured player count (high word),src/data/front/front_D15FB_bss_01.asm
+1C3522,AwayPlayerRecords,dword_1C3522,new,low,away team player records (293 bytes each),src/data/front/front_D15FB_bss_01.asm
 1C3526,AwaySpeechNames,dword_1C3526,new,low,away team speech name clips,src/data/front/front_43578_bss_02.asm
 1C35E0,AwaySpeechLoaded,byte_1C35E0,new,low,away team speech clips loaded,src/data/front/front_43578_bss_02.asm
 1C362D,AwayRosterData,word_1C362D,97PC,low,"away team roster, stats and simulation data",src/data/front/front_789F0_bss_02.asm
+1C5530,AwaySlotRatings,word_1C5530,new,low,away rating per roster slot,src/data/front/front_D15FB_bss_02.asm
+1C5536,AwayPeriodShots,word_1C5536,new,low,away shots per period,src/data/front/front_D15FB_bss_02.asm
+1C5538,AwaySimGoals,word_1C5538,new,low,away goals in the simulated game,src/data/front/front_D15FB_bss_02.asm
+1C553A,AwaySimShots,word_1C553A,new,low,away shots in the simulated game,src/data/front/front_D15FB_bss_02.asm
+1C553C,AwayShotTotals,word_1C553C,new,low,away shot totals,src/data/front/front_D15FB_bss_02.asm
+1C554A,AwayGoalTotals,word_1C554A,new,low,away goal totals,src/data/front/front_D15FB_bss_02.asm
+1C556C,AwayGoalieIndex,byte_1C556C,new,low,away starting goalie,src/data/front/front_D15FB_bss_02.asm
+1C556D,AwayCenterIndex,byte_1C556D,new,low,away starting center,src/data/front/front_D15FB_bss_02.asm
+1C556E,AwayWingIndex,byte_1C556E,new,low,away starting wing,src/data/front/front_D15FB_bss_02.asm
+1C5578,AwayDefenceIndex,byte_1C5578,new,low,away starting defenceman,src/data/front/front_D15FB_bss_02.asm
+1C5579,AwayDefencePartner,byte_1C5579,new,low,away starting defence partner,src/data/front/front_D15FB_bss_02.asm
+1C559C,ScoringLogPrevPeriod,byte_1C559C,new,low,scoring log entry before the first: period,src/data/front/front_D15FB_bss_02.asm
+1C559D,ScoringLogPrevTime,byte_1C559D,new,low,scoring log entry before the first: time,src/data/front/front_D15FB_bss_02.asm
+1C559E,ScoringLogPrevMinute,byte_1C559E,new,low,scoring log entry before the first: minute,src/data/front/front_D15FB_bss_02.asm
+1C559F,ScoringLogPrevType,byte_1C559F,new,low,scoring log entry before the first: type,src/data/front/front_D15FB_bss_02.asm
+1C55A0,AwayBackupGoalie,byte_1C55A0,new,low,away backup goalie,src/data/front/front_D15FB_bss_02.asm
+1C55A2,GameLogCount,word_1C55A2,new,low,game log entries,src/data/front/front_D15FB_bss_02.asm
+1C55A4,ScoringLogPeriod,byte_1C55A4,new,low,scoring log entries (8 bytes each): period,src/data/front/front_D15FB_bss_02.asm
+1C55A5,ScoringLogTime,byte_1C55A5,new,low,scoring log entry: time,src/data/front/front_D15FB_bss_02.asm
+1C55A6,ScoringLogMinute,byte_1C55A6,new,low,scoring log entry: minute,src/data/front/front_D15FB_bss_02.asm
+1C55A7,ScoringLogType,byte_1C55A7,new,low,scoring log entry: type,src/data/front/front_D15FB_bss_02.asm
+1C55A8,ScoringLogTeam,byte_1C55A8,new,low,scoring log entry: team,src/data/front/front_D15FB_bss_02.asm
+1C55A9,ScoringLogPlayer,byte_1C55A9,new,low,scoring log entry: player,src/data/front/front_D15FB_bss_02.asm
+1C55AA,ScoringLogAssist,byte_1C55AA,new,low,scoring log entry: assist,src/data/front/front_D15FB_bss_02.asm
+1C55AB,ScoringLogSecondAssist,byte_1C55AB,new,low,scoring log entry: second assist,src/data/front/front_D15FB_bss_02.asm
+1C5DA4,ReplayBufferSize,dword_1C5DA4,new,low,replay buffer size,src/data/front/front_D15FB_bss_02.asm
+1C5DA8,ReplayFileOpen,dword_1C5DA8,new,low,set while the replay file is open,src/data/front/front_D15FB_bss_02.asm
+1C5DAC,ScreenBackgrounds,dword_1C5DAC,new,low,screen background bitmaps,src/data/front/front_D15FB_bss_02.asm
 1C826C,MainMenuAnimFrames,dword_1C826C,new,low,main menu animation frames,src/data/front/front_845E4_bss_01.asm
 1C829C,MainMenuAnimTimer,dword_1C829C,new,low,main menu animation timer,src/data/front/front_845E4_bss_01.asm
 1C82A0,MainMenuAnimFrame,dword_1C82A0,new,low,main menu animation frame,src/data/front/front_845E4_bss_01.asm
@@ -10091,9 +10165,11 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1CAEFC,ReplaySavedPanelModes,unk_1CAEFC,new,low,panel modes saved while the replay runs,src/data/front/front_BD62C_bss_01.asm
 1CAF3C,ReplayIndexData,unk_1CAF3C,new,low,replay index data,src/data/front/front_BD62C_bss_01.asm
 1CAF8C,ReplayMenuResult,dword_1CAF8C,new,low,replay menu result,src/data/front/front_BD62C_bss_01.asm
+1CAF90,ReplayFrameNow,dword_1CAF90,new,low,replay frame now shown,src/data/front/front_BD62C_bss_01.asm
 1CAF94,ReplayRemoteShape,dword_1CAF94,new,low,replay remote shape,src/data/front/front_BD62C_bss_01.asm
 1CAF98,ReplayBitmap,dword_1CAF98,new,low,replay bitmap,src/data/front/front_BD62C_bss_01.asm
 1CAF9C,ReplayLoadBuffer,dword_1CAF9C,new,low,replay load buffer,src/data/front/front_BD62C_bss_01.asm
+1CAFA0,ReplayFrameTotal,dword_1CAFA0,new,low,frames in the replay,src/data/front/front_BD62C_bss_01.asm
 1CAFA4,ReplayFont,dword_1CAFA4,new,low,replay text font,src/data/front/front_BD62C_bss_01.asm
 1CAFA8,ReplayMenuBitmap,dword_1CAFA8,new,low,replay menu bitmap,src/data/front/front_BD62C_bss_01.asm
 1CAFAC,ReplaySpeedText,dword_1CAFAC,new,low,replay speed text per speed,src/data/front/front_BD62C_bss_01.asm
@@ -10164,6 +10240,66 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1CBB88,OptionsAnimChoice,dword_1CBB88,new,low,options animation choice,src/data/front/front_C462F_bss_01.asm
 1CBB8C,OptionsMenuChoice,byte_1CBB8C,new,low,options menu choice,src/data/front/front_C462F_bss_01.asm
 1CBB8D,OptionsSoundPlayed,dword_1CBB8D,new,low,set once the options sound plays,src/data/front/front_C462F_bss_01.asm
+1CBB94,SeasonSetupItemKinds,dword_1CBB94,new,low,season setup item kind per art set,src/data/front/front_C5F81_bss_01.asm
+1CBB98,SeasonSetupItemArt,dword_1CBB98,new,low,season setup art per item kind,src/data/front/front_C5F81_bss_01.asm
+1CBBA4,SeasonModeShapes,dword_1CBBA4,new,low,season mode shapes,src/data/front/front_C5F81_bss_01.asm
+1CBBB4,SeasonAutoShapes,dword_1CBBB4,new,low,season auto shapes,src/data/front/front_C5F81_bss_01.asm
+1CBBC4,SeasonLength50Shapes,dword_1CBBC4,new,low,season length 50 shapes,src/data/front/front_C5F81_bss_01.asm
+1CBBD4,SeasonLength10Shapes,dword_1CBBD4,new,low,season length 10 shapes,src/data/front/front_C5F81_bss_01.asm
+1CBBE4,SeasonLength20Shape,dword_1CBBE4,new,low,season length 20 shape,src/data/front/front_C5F81_bss_01.asm
+1CBBE8,SeasonLeagueShape,dword_1CBBE8,new,low,season league shape,src/data/front/front_C5F81_bss_01.asm
+1CBBEC,SeasonLeagueShapeLit,dword_1CBBEC,new,low,season league lit shape,src/data/front/front_C5F81_bss_01.asm
+1CBBF0,SeasonLeagueShapeEnd,dword_1CBBF0,new,low,season league end shape,src/data/front/front_C5F81_bss_01.asm
+1CBBF4,SeasonSetupNameShapes,dword_1CBBF4,new,low,season setup name shapes,src/data/front/front_C5F81_bss_01.asm
+1CBC04,SeasonInjuryShapes,dword_1CBC04,new,low,season injury shapes,src/data/front/front_C5F81_bss_01.asm
+1CBC14,SeasonSetupShapeFile,dword_1CBC14,new,low,season setup shape file,src/data/front/front_C5F81_bss_01.asm
+1CBC18,SeasonSetupItems,unk_1CBC18,97PC,low,season setup menu item records (82 bytes each),src/data/front/front_C5F81_bss_01.asm
+1CC18C,RosterSpeechHome,dword_1CC18C,new,low,"roster speech per slot, home",src/data/front/front_C755B_bss_01.asm
+1CC19C,RosterSpeechTrade,dword_1CC19C,new,low,"roster speech per slot, trade",src/data/front/front_C755B_bss_01.asm
+1CC1AC,RosterSpeechAway,dword_1CC1AC,new,low,"roster speech per slot, away",src/data/front/front_C755B_bss_01.asm
+1CC1BC,RosterListBox,dword_1CC1BC,new,low,roster list box,src/data/front/front_C755B_bss_01.asm
+1CC1C0,RosterOtherListBox,dword_1CC1C0,new,low,second roster list box,src/data/front/front_C755B_bss_01.asm
+1CC1C4,RosterTeam,dword_1CC1C4,new,low,team shown on the roster screen,src/data/front/front_C755B_bss_01.asm
+1CC1C8,RosterOtherTeam,dword_1CC1C8,new,low,other team on the roster screen,src/data/front/front_C755B_bss_01.asm
+1CC1CC,CreateSkaterRatings,dword_1CC1CC,new,low,new skater ratings,src/data/front/front_C755B_bss_01.asm
+1CC1D0,RatingBarArt,dword_1CC1D0,new,low,rating bar art,src/data/front/front_C755B_bss_01.asm
+1CC1D4,CreatePlayerSlot,dword_1CC1D4,new,low,roster slot of the new player,src/data/front/front_C755B_bss_01.asm
+1CC1D8,RatingBarBackArt,dword_1CC1D8,new,low,rating bar back art,src/data/front/front_C755B_bss_01.asm
+1CC1DC,RatingBarLitArt,dword_1CC1DC,new,low,rating bar lit art,src/data/front/front_C755B_bss_01.asm
+1CC1E0,CreateGoalieMode,dword_1CC1E0,new,low,set when creating a goalie,src/data/front/front_C755B_bss_01.asm
+1CC1E4,RatingBarLitBackArt,dword_1CC1E4,new,low,rating bar lit back art,src/data/front/front_C755B_bss_01.asm
+1CC1E8,CreateGoalieRatings,dword_1CC1E8,new,low,new goalie ratings,src/data/front/front_C755B_bss_01.asm
+1CC1EC,JerseyMenuItems,dword_1CC1EC,new,low,jersey screen menu items,src/data/front/front_C755B_bss_01.asm
+1CC1F0,RatingPanelShapeFile,dword_1CC1F0,new,low,rating panel shape file,src/data/front/front_C755B_bss_01.asm
+1CC1F4,RatingPointsLeft,dword_1CC1F4,new,low,rating points left to spend,src/data/front/front_C755B_bss_01.asm
+1CC1F8,JerseyChoice,dword_1CC1F8,new,low,jersey number choice,src/data/front/front_C755B_bss_01.asm
+1CC1FC,CreatePlayerItems,dword_1CC1FC,new,low,create player menu items,src/data/front/front_C755B_bss_01.asm
+1CC200,RosterLastSpeech,dword_1CC200,new,low,last roster speech picked,src/data/front/front_C755B_bss_01.asm
+1CC204,RosterListArea,dword_1CC204,new,low,roster list area,src/data/front/front_C755B_bss_01.asm
+1CC208,RosterMode,dword_1CC208,new,low,roster screen mode,src/data/front/front_C755B_bss_01.asm
+1CC20C,RosterRow,dword_1CC20C,new,low,roster list row,src/data/front/front_C755B_bss_01.asm
+1CC210,RosterScrollArea,dword_1CC210,new,low,roster scroll area,src/data/front/front_C755B_bss_01.asm
+1CC214,RosterPanelBitmap,dword_1CC214,new,low,roster panel bitmap,src/data/front/front_C755B_bss_01.asm
+1CC218,RosterPanelShape,dword_1CC218,new,low,roster panel shape,src/data/front/front_C755B_bss_01.asm
+1CC21C,RosterPanelLayers,dword_1CC21C,new,low,roster panel layers,src/data/front/front_C755B_bss_01.asm
+1CC220,RosterTitleShape,dword_1CC220,new,low,roster title shape,src/data/front/front_C755B_bss_01.asm
+1CC224,RosterLogoBitmap,dword_1CC224,new,low,roster logo bitmap,src/data/front/front_C755B_bss_01.asm
+1CC228,RosterMenuItems,dword_1CC228,new,low,roster menu items,src/data/front/front_C755B_bss_01.asm
+1CC22C,RosterTradeOn,dword_1CC22C,new,low,set while trading on the roster screen,src/data/front/front_C755B_bss_01.asm
+1CC230,RosterScrollList,dword_1CC230,new,low,roster scroll list,src/data/front/front_C755B_bss_01.asm
+1CC234,RosterMenuArea,dword_1CC234,new,low,roster menu area,src/data/front/front_C755B_bss_01.asm
+1CC238,RosterInfoLoaded,dword_1CC238,new,low,set once roster player info is loaded,src/data/front/front_C755B_bss_01.asm
+1CC23C,RosterInfoAnim,dword_1CC23C,new,low,roster info animation,src/data/front/front_C755B_bss_01.asm
+1CC240,NewPlayerRecord,byte_1CC240,new,low,new player record,src/data/front/front_C755B_bss_01.asm
+1CC2A4,DeletionCount,dword_1CC2A4,new,low,deleted player count,src/data/front/front_C755B_bss_01.asm
+1CC2A8,RosterPlayerInfo,dword_1CC2A8,new,low,roster player info,src/data/front/front_C755B_bss_01.asm
+1CC2AC,RosterTeams,dword_1CC2AC,new,low,roster team records (12998 bytes each),src/data/front/front_C755B_bss_01.asm
+1CC2B0,RosterChanged,dword_1CC2B0,new,low,set when the rosters changed,src/data/front/front_C755B_bss_01.asm
+1CC2B4,JerseyHomeArt,dword_1CC2B4,new,low,home jersey art,src/data/front/front_C755B_bss_01.asm
+1CC2B8,JerseyAwayArt,dword_1CC2B8,new,low,away jersey art,src/data/front/front_C755B_bss_01.asm
+1CC2BC,RosterEditOpen,dword_1CC2BC,new,low,set while a roster edit is open,src/data/front/front_C755B_bss_01.asm
+1CC2C0,RosterShapeFile,dword_1CC2C0,new,low,roster shape file,src/data/front/front_C755B_bss_01.asm
+1CC2C4,RosterBackFile,dword_1CC2C4,new,low,roster back art file,src/data/front/front_C755B_bss_01.asm
 1CD1E0,InputRecordRing,unk_1CD1E0,96PC,high,96 PC InputRecordRing (97: 5 records of 14h bytes),src/data/front/front_DA66D_bss_01.asm
 1CD24C,HotKeyFlags,word_1CD24C,new,medium,"the record's flag word (pause and hot keys), from PollControllers",src/data/front/front_DA66D_bss_01.asm
 1CF0DC,memlist1,,95PC,medium,NHL95PC EDA08 (refset): referenced by the same 2 matched functions,

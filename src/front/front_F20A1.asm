@@ -42,7 +42,7 @@ extern FadePalette, FadeOut, OpenGameDatabase, CloseGameDatabase, ServiceIdle, S
 extern WaitForOtherComputer, SetupPauseArt, FreeMemBlock, OpenResourceArchive, MatchColor, SelectFont, FreeBitmap, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, MeasureText, DrawTextAt, SetTextColors, DrawTextBoxedAt
 extern FillRectCorners, tickcount, str_D_DrawPauseClock, PeriodLengths, Period, SimFrames, gsp, gameclock
-extern StatsPanelOn, word_1C3413, word_1C5536, word_1CEFC0
+extern StatsPanelOn, HomePeriodShots, AwayPeriodShots, word_1CEFC0
 global jpt_F4167, jpt_F56E5, jpt_F7BB6, PickEditLinesTeam_5B2, PickEditLinesTeam_5B5, PauseMenu_16C, PauseMenu_26F, PauseMenu_29A
 global PauseMenu_4BB, PauseMenu_4EF, PauseMenu_60A, PauseMenu_62A, PauseMenu_640, PauseMenu_66D, PauseMenu_726, PauseMenu_72C
 global PauseMenu_72D, RulesMenu_1583, RulesMenu_176B, RulesMenu_19CD, RulesMenu_1C04, RulesMenu_1D78, RulesMenu_1F1F, RulesMenu_2056
@@ -889,7 +889,7 @@ DrawPauseClock:
         push eax
         call DrawTextBoxedAt
         add esp, byte 0Ch
-        movsx eax, word [word_1C3413]
+        movsx eax, word [HomePeriodShots]
         push eax
         push str_D_DrawPauseClock
         lea eax, [byte ebp+07Eh]
@@ -908,7 +908,7 @@ DrawPauseClock:
         push eax
         call DrawTextBoxedAt
         add esp, byte 0Ch
-        movsx eax, word [word_1C5536]
+        movsx eax, word [AwayPeriodShots]
         push eax
         push str_D_DrawPauseClock
         lea eax, [byte ebp+07Eh]

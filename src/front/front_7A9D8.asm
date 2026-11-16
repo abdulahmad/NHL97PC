@@ -11,7 +11,7 @@ extern GameSettings, SeasonUserTeam, SeasonActive, SeasonRandomSeed, SeasonSched
 extern MovieFrameShown, MovieAudioStream, MovieLastFrame, MovieEndReached, MovieFlags, MovieFrameIndex, MovieAudioDone, MovieFramesAhead
 extern MovieSkippable, MovieState, MovieSkipped, MovieNextFrame, MovieVideoDone, MovieStartTick, MoviePageFlip, MovieSoundChannel
 extern MovieChunkTag, MovieVideoBuffer, MovieDropCount, MovieHasAudio, MovieStreamBuffer, MovieChunkSize, MovieChunkData, MovieCdStream
-extern dword_1C5DA8, dword_1C5DAC, dword_1C5DE4, dword_1C5DE8, dword_1C5E78, dword_1C5E9C, dword_1C5EA0, dword_1C5EF4
+extern ReplayFileOpen, ScreenBackgrounds, dword_1C5DE4, dword_1C5DE8, dword_1C5E78, dword_1C5E9C, dword_1C5EA0, dword_1C5EF4
 extern memcpy_, ModemResultTextTable, ModemResultCodeTable, rand_, sprintf_, srand_, str_ATA, str_ATD
 extern str_ATH0, str_ATM0, str_ATS01, str_ATZS760S1155, strcat_, strcpy_, strlen_, strncmp_
 extern strstr_, bcopy, BlitShape, PresentScreen, FindShape, CloseVideoWindow, BlitFrameToScreen, OpenAudioStreamChannel
@@ -26,7 +26,7 @@ extern RunOptionsScreens, GoalieMaskScreen, CreditsScreen, KeysEqual, OpenGameDa
 extern UpdateGameRecord, AddPlayerStat, AddPlayerStatAt, FindPlayerStat, UpdatePlayerStat, ClearLinkAbort, ServiceIdle, InitVideoModeList
 extern AllocMemBlock, AllocMemData, FreeMemBlock, KbdGetKey, WaitTicks, OpenResourceArchive, MakeColor, FreeBitmap
 extern CreateBitmap, SetDrawTarget, ClearScreen, tickcount, str_T, str_P, str_Punct_ModemSendCommand, str_AT
-extern MoviePalette, AutoLineData, unk_1C347F, AllStarDay
+extern MoviePalette, AutoLineData, HomeLines, AllStarDay
 global BuildSeasonSchedule_77E, FreeTempArt_45, putchar, BuildSeasonSchedule, UpdateTeamLines, BuildRosterLines, PlayerInjuryDays, FindInjuryEntry
 global CheckLeagueInjuries, ClearTeamInjuries, FadeMovieOut, MovieKeyPressed, OpenMovieStream, OpenVideoStream, CloseMovie, DecodeMovieFrame
 global PlayMovieFrames, PlayMovie, ModemReset, ModemHangup, ModemDial, ModemAutoAnswer, ModemWaitConnect, ModemReadResult
@@ -1302,7 +1302,7 @@ CheckLeagueInjuries:
         shl edx, 3
         add eax, edx
         lea edx, [dword ebp-01A4Eh]
-        mov dword [byte ebp+07Ah], unk_1C347F
+        mov dword [byte ebp+07Ah], HomeLines
 .3:
         call FindGameRecord
         mov eax, dword [GameSettings]
@@ -1490,7 +1490,7 @@ ClearTeamInjuries:
         mov eax, AutoLineData
         jmp short .3
 .2:
-        mov eax, unk_1C347F
+        mov eax, HomeLines
 .3:
         xor ebx, ebx
         jmp short .7
@@ -3171,7 +3171,7 @@ InitFrontEnd:
         inc ebx
         call CreateBitmap
         add esp, byte 0Ch
-        mov dword [nosplit ebx*4+dword_1C5DA8], eax
+        mov dword [nosplit ebx*4+ReplayFileOpen], eax
         cmp ebx, byte 2
         jl short .5
         mov ebx, 2
@@ -3192,7 +3192,7 @@ InitFrontEnd:
         inc ebx
         call CreateBitmap
         add esp, byte 0Ch
-        mov dword [nosplit ebx*4+dword_1C5DA8], eax
+        mov dword [nosplit ebx*4+ReplayFileOpen], eax
         cmp ebx, byte 0Ch
         jl short .6
         call LoadLogoNames
@@ -3237,11 +3237,11 @@ FreeFrontEnd:
         jl short .1
         xor esi, esi
 .2:
-        push dword [nosplit esi*4+dword_1C5DAC]
+        push dword [nosplit esi*4+ScreenBackgrounds]
         inc esi
         call FreeBitmap
         add esp, byte 4
-        mov dword [nosplit esi*4+dword_1C5DA8], 0
+        mov dword [nosplit esi*4+ReplayFileOpen], 0
         cmp esi, byte 0Ch
         jl short .2
         call FreeTempArt

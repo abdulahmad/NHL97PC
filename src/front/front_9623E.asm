@@ -25,7 +25,7 @@ extern LinesGridRowY, LinesPopupBitmap, LinesLastSpeech, LinesIntroTeam, LinesSp
 extern LinesListTop, LinesIntroDone, LinesTitleText, LinesSparkleTimer, LinesSparkleIndex, LinesTeamText, LinesForwardCount, LinesDefenceCount
 extern LinesGridColumn, LinesTextScroll, LinesTextLine, LinesTextPos, LinesTextLength, LinesGridRow, LinesForwardChoice, LinesSpecialChoice
 extern LinesScreenBitmap, LinesIntroArt, EditLinesTeam, LinesCircleShape, LinesArtFile, LinesCardBitmap, LinesOvalShape, LinesLogoBitmap
-extern LinesSwapShape, LinesFontFile, LinesShapeFile, EditLinesPage, dword_1CC2AC, LinkTextFont, jpt_9621A, memset_
+extern LinesSwapShape, LinesFontFile, LinesShapeFile, EditLinesPage, RosterTeams, LinkTextFont, jpt_9621A, memset_
 extern qsort_, sprintf_, strcat_, strcpy_, BlitArt, BlitShape, PresentScreen, FindShape
 extern FindShapeQuiet, OpenArtArchive, ConvertArtNew, ResetClipWindow, Random32, UnpackShared, UnpackedSize, ConvertArtXY
 extern SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, PlayMenuSfx, StopAllSfx, PlaySfx
@@ -36,7 +36,7 @@ extern ScrollDown, FreeScrollList, SetScrollBarPos, ScrollToMouse, RunScrollList
 extern SkaterOverall, GoalieOverall, InitListBox, InitShapeListBox, KeysEqual, FindGameRecord, FindPlayerStat, ServiceIdle
 extern AllocMemBlock, FreeMemBlock, KbdIdleCall, MakeColor, FreeBitmap, DrawArt, DrawShape, CreateBitmap
 extern SetDrawTarget, ClearScreen, FillRect, MeasureText, tickcount, str_D_DrawLinesCardDetails, str_C_DrawForwardLines, unk_16D7F4
-extern AllStarHomeLines, AllStarAwayLines, AutoLineData, unk_1C347F, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, AllStarDay
+extern AllStarHomeLines, AllStarAwayLines, AutoLineData, HomeLines, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, AllStarDay
 extern LinesSlotPositions, LinesGridSlotIds
 global jpt_9861E, jpt_9AC47, EditLinesScreen_17F, EditLinesScreen_18C, EditLinesScreen_2C7, EditLinesScreen_49D, EditLinesScreen_4C4, EditLinesScreen_5BA
 global EditLinesScreen_5EF, EditLinesScreen_61B, EditLinesScreen_69D, EditLinesScreen_8E8, LayoutLinesCard_39D, CopyTeamRoster_203, EditLinesGridScreen_A49, EditLinesGridScreen_C5B
@@ -1940,13 +1940,13 @@ AllocTempGameTeam:
         jmp short .4
 .2:
         mov ecx, 2123h
-        mov esi, unk_1C347F
+        mov esi, HomeLines
         jmp short .1
 .3:
         test esi, esi
         jl short .4
         imul edx, esi, dword 32C6h
-        mov ebx, dword [dword_1CC2AC]
+        mov ebx, dword [RosterTeams]
         add edx, ebx
         call CopyTeamRoster
 .4:
@@ -2459,7 +2459,7 @@ LoadLinesForTeam:
         mov eax, AutoLineData
         jmp short .2
 .1:
-        mov eax, unk_1C347F
+        mov eax, HomeLines
 .2:
         mov esi, dword [EditLinesTeam]
         mov ecx, 36h
@@ -2496,10 +2496,10 @@ LoadLinesForTeam:
         pop ebx
         ret
 .7:
-        cmp dword [dword_1CC2AC], byte 0
+        cmp dword [RosterTeams], byte 0
         je near .12
         imul eax, edx, dword 32C6h
-        mov ecx, dword [dword_1CC2AC]
+        mov ecx, dword [RosterTeams]
         mov esi, dword [EditLinesTeam]
         mov edi, dword [ecx+eax]
         lea esi, [dword esi+020EDh]
@@ -2512,7 +2512,7 @@ LoadLinesForTeam:
         imul esi, ecx, dword 125h
         add esi, eax
         imul eax, edx, dword 32C6h
-        mov edi, dword [dword_1CC2AC]
+        mov edi, dword [RosterTeams]
         mov eax, dword [edi+eax]
         imul edi, ecx, byte 38h
         mov bl, byte [dword esi+0161h]
@@ -2529,7 +2529,7 @@ LoadLinesForTeam:
         imul esi, ecx, dword 125h
         add esi, eax
         imul eax, edx, dword 32C6h
-        mov edi, dword [dword_1CC2AC]
+        mov edi, dword [RosterTeams]
         mov edi, dword [edi+eax]
         imul eax, ecx, byte 38h
         mov bl, byte [dword esi+01E00h]
@@ -2649,10 +2649,10 @@ LoadEditLinesRoster:
         call FindGameRecord
         jmp short .5
 .4:
-        cmp dword [dword_1CC2AC], byte 0
+        cmp dword [RosterTeams], byte 0
         je short .5
         imul edx, dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         mov eax, dword [edx+eax]
         mov dword [byte ebp-04h], eax
 .5:
@@ -9240,10 +9240,10 @@ ClearAndBuildLines:
         xor eax, eax
         mov ebx, 36h
         call BuildAutoLines
-        mov eax, unk_1C347F
+        mov eax, HomeLines
         mov edx, 0FFh
         add eax, 20EDh
-        mov dword [EditLinesTeam], unk_1C347F
+        mov dword [EditLinesTeam], HomeLines
         call memset_
         xor eax, eax
         call BuildAutoLines

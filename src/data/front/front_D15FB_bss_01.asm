@@ -2,44 +2,44 @@
 bits 32
 %include "hockey.inc"
 section s_1C340D nobits alloc noexec write align=1
-global byte_1C3449, byte_1C344A, byte_1C344B, byte_1C3455, byte_1C3456, byte_1C347D, dword_1C34E3, dword_1C351E
-global dword_1C3522, unk_1C347F, unk_1C3487, unk_1C34A5, word_1C340D, word_1C3413, word_1C3415, word_1C3417
-global word_1C3419, word_1C3427, word_1C34E5
-word_1C340D:
+global HomeGoalieIndex, HomeCenterIndex, HomeWingIndex, HomeDefenceIndex, HomeDefencePartner, HomeBackupGoalie, HomeTeamRating, HomeInjuredCount
+global AwayPlayerRecords, HomeLines, HomeTeamName, HomeCityName, HomeSlotRatings, HomePeriodShots, HomeSimGoals, HomeSimShots
+global HomeShotTotals, HomeGoalTotals, HomeTeamCode
+HomeSlotRatings:
         resb 6
-word_1C3413:
+HomePeriodShots:
         resb 2
-word_1C3415:
+HomeSimGoals:
         resb 2
-word_1C3417:
+HomeSimShots:
         resb 2
-word_1C3419:
+HomeShotTotals:
         resb 14
-word_1C3427:
+HomeGoalTotals:
         resb 34
-byte_1C3449:
+HomeGoalieIndex:
         resb 1
-byte_1C344A:
+HomeCenterIndex:
         resb 1
-byte_1C344B:
+HomeWingIndex:
         resb 10
-byte_1C3455:
+HomeDefenceIndex:
         resb 1
-byte_1C3456:
+HomeDefencePartner:
         resb 39
-byte_1C347D:
+HomeBackupGoalie:
         resb 2
-unk_1C347F:
+HomeLines:
         resb 8
-unk_1C3487:
+HomeTeamName:
         resb 30
-unk_1C34A5:
+HomeCityName:
         resb 62
-dword_1C34E3:
+HomeTeamRating:
         resb 2
-word_1C34E5:
+HomeTeamCode:
         resb 57
-dword_1C351E:
+HomeInjuredCount:
         resb 4
-dword_1C3522:
+AwayPlayerRecords:
         resb 4

@@ -5,7 +5,7 @@ section s_D3112 progbits alloc exec nowrite align=1
 extern str_Hros, str_Vros, str_Blurb, str_STAR, str_FIR1, str_FDPD, str_FIRD, str_000010
 extern str_DOOR, str_TXT1, str_TRM1, str_TITL13, str_LOGO02dFSH2, str_LOGO7, str_LOGO28FSH, str_SS12
 extern str_SDD, str_SDDD, str_SSS2, str_SS13, str_SSS3, str_Roster4, str_SVsSDDD, str_SDSD2
-extern PlayoffUserIndex, byte_1C6040, byte_1CC8B4, PlayoffColumns, dword_16D744, dword_16D748, dword_16D74C, dword_16D750
+extern PlayoffUserIndex, byte_1C6040, byte_1CC8B4, PlayoffColumns, MatchupNoteCount, MatchupNoteLength, RostersSparkleTick, RostersSparkleFrame
 extern MenuScreenBitmap, GameSettings, SeasonUserTeam, GameOptionFlags, SeasonActive, SeasonUserReplay, SeasonDefaultUser, PlayoffRoundBits
 extern PlayoffTeamNames, PlayoffTeams, dword_1CC7D8, dword_1CC828, dword_1CC860, dword_1CC864, dword_1CC8A0, jpt_D3102
 extern memset_, rand_, sprintf_, str_EASports, str_TXTD, strcpy_, BlitConverted, BlitArt
@@ -22,7 +22,7 @@ extern str_Hextall, str_PHI, str_QUE, str_199293, str_Heyward, str_Hirsch, str_V
 extern unk_1671E0, str_Jablonski, unk_1671F0, str_Joseph, str_EDM, str_Kidd, str_CAL, str_Kolzig
 extern str_Lacher, str_BOS, str_Moog, str_DAL, str_Richter, unk_167234, str_Roy, str_COL
 extern str_MTL, str_Thibault, str_Vanbiesbrouck, str_FLA, str_Vernon, str_DET, str_EA, unk_16D7FC
-extern MatchupNote, AutoLineData, MatchupNoteText, MatchupNoteLine, unk_1C347F, unk_1C34A5, unk_1C5EF8, unk_1C5F4A
+extern MatchupNote, AutoLineData, MatchupNoteText, MatchupNoteLine, HomeLines, HomeCityName, unk_1C5EF8, unk_1C5F4A
 extern unk_1C5F9C, unk_D3057, unk_D305F, unk_D3067, AllStarDay
 global jpt_D4215, PreGameRostersScreen_B6A, PreGameRostersScreen_BA7, PreGameRostersScreen_BB5, PreGameRostersScreen_BC3, PreGameRostersScreen_C3F, DrawMatchupHistory_FB, DrawMatchupHistory_FC
 global DrawMatchupNotes_86, DrawMatchupNotes_C5, DrawMatchupNotes_10F, DrawMatchupNotes_14B, PreGameRostersScreen, FormatMatchupNote, DrawRosterPlayerInfo, DrawMatchupHistory
@@ -62,9 +62,9 @@ PreGameRostersScreen:
         push byte 0
         push dword 4B0h
         xor esi, esi
-        mov dword [dword_16D744], 0
+        mov dword [MatchupNoteCount], 0
         push str_Blurb
-        mov dword [dword_16D748], 0
+        mov dword [MatchupNoteLength], 0
         mov dword [byte ebp+06Eh], eax
         call AllocMemBlock
         add esp, byte 0Ch
@@ -728,19 +728,19 @@ PreGameRostersScreen:
         call SetDrawTarget
         add esp, byte 4
         mov eax, dword [tickcount]
-        cmp eax, dword [dword_16D74C]
+        cmp eax, dword [RostersSparkleTick]
         jle short .29
         mov eax, dword [tickcount]
         add eax, byte 0Ah
-        inc dword [dword_16D750]
-        mov dword [dword_16D74C], eax
-        mov eax, dword [dword_16D750]
+        inc dword [RostersSparkleFrame]
+        mov dword [RostersSparkleTick], eax
+        mov eax, dword [RostersSparkleFrame]
         movzx ecx, byte [byte_1CC8B4]
         cdq
         idiv ecx
-        mov dword [dword_16D750], edx
+        mov dword [RostersSparkleFrame], edx
 .29:
-        mov eax, dword [dword_16D750]
+        mov eax, dword [RostersSparkleFrame]
         inc eax
         push eax
         push str_TXTD
@@ -983,7 +983,7 @@ FormatMatchupNote:
         push ecx
         push edx
         mov edx, eax
-        cmp eax, dword [dword_16D748]
+        cmp eax, dword [MatchupNoteLength]
         je near .6
         cmp eax, byte 2
         jb short .1
@@ -998,7 +998,7 @@ FormatMatchupNote:
 .2:
         call GetLangText
         push eax
-        mov eax, dword [dword_16D744]
+        mov eax, dword [MatchupNoteCount]
         push dword [nosplit eax*4+dword_1CC864]
         call sprintf_
         add esp, byte 8
@@ -1011,18 +1011,18 @@ FormatMatchupNote:
         call GetLangText
         push eax
         push MatchupNote
-        mov eax, dword [dword_16D744]
+        mov eax, dword [MatchupNoteCount]
         push str_SS12
         push dword [nosplit eax*4+dword_1CC864]
         call sprintf_
         add esp, byte 10h
 .5:
         push dword 0FFFFFF50h
-        mov dword [dword_16D748], edx
+        mov dword [MatchupNoteLength], edx
         call MakeColor
-        mov edx, dword [dword_16D744]
+        mov edx, dword [MatchupNoteCount]
         add esp, byte 4
-        inc dword [dword_16D744]
+        inc dword [MatchupNoteCount]
         mov dword [nosplit edx*4+dword_1CC828], eax
 .6:
         pop edx
@@ -1048,7 +1048,7 @@ DrawRosterPlayerInfo:
         push byte 0FFFFFFFFh
         call MakeColor
         mov edx, eax
-        mov eax, dword [dword_16D744]
+        mov eax, dword [MatchupNoteCount]
         add esp, byte 4
         mov dword [nosplit eax*4+dword_1CC828], edx
         movsx eax, word [byte ebp+07Ah]
@@ -1059,11 +1059,11 @@ DrawRosterPlayerInfo:
         add eax, byte 22h
         call GetLangText
         push eax
-        mov edx, dword [dword_16D744]
+        mov edx, dword [MatchupNoteCount]
         push str_SDD
         inc edx
         push dword [nosplit edx*4+dword_1CC860]
-        mov dword [dword_16D744], edx
+        mov dword [MatchupNoteCount], edx
         call sprintf_
         add esp, byte 14h
         test byte [GameSettings], 70h
@@ -1112,16 +1112,16 @@ DrawRosterPlayerInfo:
         push byte 0FFFFFFFFh
         call MakeColor
         mov edx, eax
-        mov eax, dword [dword_16D744]
+        mov eax, dword [MatchupNoteCount]
         add esp, byte 4
         mov dword [nosplit eax*4+dword_1CC828], edx
         lea eax, [byte ebp+040h]
-        mov edx, dword [dword_16D744]
+        mov edx, dword [MatchupNoteCount]
         push eax
         inc edx
         push str_S_DrawMatchupNotes
         push dword [nosplit edx*4+dword_1CC860]
-        mov dword [dword_16D744], edx
+        mov dword [MatchupNoteCount], edx
         call sprintf_
         add esp, byte 0Ch
         jmp short .7
@@ -1149,7 +1149,7 @@ DrawRosterPlayerInfo:
         mov dword [byte ebp+072h], eax
         cmp eax, byte 0FFFFFFFFh
         je near .16
-        cmp dword [dword_16D744], byte 5
+        cmp dword [MatchupNoteCount], byte 5
         jge near .16
         lea eax, [byte edx+018h]
         test byte [dword esi+ebp-0D15h], 1
@@ -1163,7 +1163,7 @@ DrawRosterPlayerInfo:
         push dword 0FF0000h
         call MakeColor
         mov edx, eax
-        mov eax, dword [dword_16D744]
+        mov eax, dword [MatchupNoteCount]
         mov dword [nosplit eax*4+dword_1CC828], edx
         imul eax, dword [byte ebp+06Eh], byte 7
         add eax, esi
@@ -1226,11 +1226,11 @@ DrawRosterPlayerInfo:
         push eax
         mov eax, 5Dh
         call GetLangText
-        mov edx, dword [dword_16D744]
+        mov edx, dword [MatchupNoteCount]
         push eax
         inc edx
         push dword [nosplit edx*4+dword_1CC860]
-        mov dword [dword_16D744], edx
+        mov dword [MatchupNoteCount], edx
         call sprintf_
         add esp, byte 18h
 .16:
@@ -1264,7 +1264,7 @@ DrawMatchupHistory:
         mov eax, AutoLineData
         jmp short .3
 .2:
-        mov eax, unk_1C347F
+        mov eax, HomeLines
 .3:
         lea edx, [byte eax+03Eh]
         mov dword [byte ebp-0Ch], edx
@@ -1312,14 +1312,14 @@ DrawMatchupHistory:
         push esi
         push edi
         mov edx, eax
-        mov eax, dword [dword_16D744]
+        mov eax, dword [MatchupNoteCount]
         push dword [byte ebp-0Ch]
         inc ebx
         push str_SDDD
         mov dword [nosplit eax*4+dword_1CC828], edx
         lea edx, [byte eax+01h]
         push dword [nosplit eax*4+dword_1CC864]
-        mov dword [dword_16D744], edx
+        mov dword [MatchupNoteCount], edx
         call sprintf_
         add esp, byte 18h
         cmp ebx, byte 2
@@ -1358,7 +1358,7 @@ DrawRosterLabel:
         call DrawTextAligned
         add esp, byte 14h
 .2:
-        cmp ebx, dword [dword_16D744]
+        cmp ebx, dword [MatchupNoteCount]
         jl short .1
         pop edx
         pop ecx
@@ -1423,7 +1423,7 @@ DrawMatchupNotes_86:
         push byte 0FFFFFFFFh
         call MakeColor
         mov ecx, eax
-        mov eax, dword [dword_16D744]
+        mov eax, dword [MatchupNoteCount]
         add esp, byte 4
         mov dword [nosplit eax*4+dword_1CC828], ecx
         mov eax, 1Bh
@@ -1433,25 +1433,25 @@ DrawMatchupNotes_86:
         mov eax, 1Ah
         call GetLangText
         push eax
-        mov ebx, dword [dword_16D744]
+        mov ebx, dword [MatchupNoteCount]
         push str_SSS2
         jmp near DrawMatchupNotes_14B.4
 DrawMatchupNotes_C5:
         push byte 0FFFFFFFFh
         call MakeColor
         mov ecx, eax
-        mov eax, dword [dword_16D744]
+        mov eax, dword [MatchupNoteCount]
         add esp, byte 4
         mov dword [nosplit eax*4+dword_1CC828], ecx
         mov eax, 1Ch
         call GetLangText
         push eax
         push ebx
-        mov ebx, dword [dword_16D744]
+        mov ebx, dword [MatchupNoteCount]
         push str_SS13
         inc ebx
         push dword [nosplit ebx*4+dword_1CC860]
-        mov dword [dword_16D744], ebx
+        mov dword [MatchupNoteCount], ebx
         call sprintf_
         add esp, byte 10h
         jmp near DrawMatchupNotes_14B.5
@@ -1459,7 +1459,7 @@ DrawMatchupNotes_10F:
         push byte 0FFFFFFFFh
         call MakeColor
         mov ecx, eax
-        mov eax, dword [dword_16D744]
+        mov eax, dword [MatchupNoteCount]
         add esp, byte 4
         mov dword [nosplit eax*4+dword_1CC828], ecx
         mov eax, 1Eh
@@ -1469,14 +1469,14 @@ DrawMatchupNotes_10F:
         mov eax, 1Dh
         call GetLangText
         push eax
-        mov ebx, dword [dword_16D744]
+        mov ebx, dword [MatchupNoteCount]
         push str_SSS3
         jmp short DrawMatchupNotes_14B.4
 DrawMatchupNotes_14B:
         push byte 0FFFFFFFFh
         call MakeColor
         mov ecx, eax
-        mov eax, dword [dword_16D744]
+        mov eax, dword [MatchupNoteCount]
         add esp, byte 4
         mov dword [nosplit eax*4+dword_1CC828], ecx
         mov eax, 20h
@@ -1486,12 +1486,12 @@ DrawMatchupNotes_14B:
         mov eax, 1Fh
         call GetLangText
         push eax
-        mov ebx, dword [dword_16D744]
+        mov ebx, dword [MatchupNoteCount]
         push str_SSS2
 .4:
         inc ebx
         push dword [nosplit ebx*4+dword_1CC860]
-        mov dword [dword_16D744], ebx
+        mov dword [MatchupNoteCount], ebx
         call sprintf_
         add esp, byte 14h
 .5:
@@ -1513,7 +1513,7 @@ DrawMatchupNotes_14B:
         mov edi, AutoLineData
         jmp short .9
 .8:
-        mov edi, unk_1C347F
+        mov edi, HomeLines
 .9:
         xor ebx, ebx
         jmp short .12
@@ -1676,7 +1676,7 @@ DrawMatchupNotes_14B:
         mov edi, AutoLineData
         jmp short .35
 .34:
-        mov edi, unk_1C347F
+        mov edi, HomeLines
 .35:
         mov eax, dword [byte ebp-08h]
         add eax, dword [byte ebp-010h]
@@ -1685,7 +1685,7 @@ DrawMatchupNotes_14B:
         push byte 0FFFFFFFFh
         call MakeColor
         mov ebx, eax
-        mov eax, dword [dword_16D744]
+        mov eax, dword [MatchupNoteCount]
         mov dword [nosplit eax*4+dword_1CC828], ebx
         add esp, byte 4
         movzx eax, byte [byte edi+06Ch]
@@ -1695,7 +1695,7 @@ DrawMatchupNotes_14B:
         movzx eax, byte [byte edi+06Ah]
         push eax
         add edi, byte 3Eh
-        mov ebx, dword [dword_16D744]
+        mov ebx, dword [MatchupNoteCount]
         push edi
         inc ebx
         push str_SDDD
@@ -1705,17 +1705,17 @@ DrawMatchupNotes_14B:
         push byte 0FFFFFFFFh
         call MakeColor
         mov ebx, eax
-        mov eax, dword [dword_16D744]
+        mov eax, dword [MatchupNoteCount]
         add esp, byte 4
         mov dword [nosplit eax*4+dword_1CC828], ebx
         mov eax, 21h
         call GetLangText
         push eax
-        mov ebx, dword [dword_16D744]
+        mov ebx, dword [MatchupNoteCount]
         push str_S_DrawMatchupNotes
         inc ebx
         push dword [nosplit ebx*4+dword_1CC860]
-        mov dword [dword_16D744], ebx
+        mov dword [MatchupNoteCount], ebx
         call sprintf_
         add esp, byte 0Ch
         push byte 0FFFFFFFFh
@@ -1724,49 +1724,49 @@ DrawMatchupNotes_14B:
         push dword [byte ebp-04h]
         push dword [byte ebp-0Ch]
         push dword [byte ebp-08h]
-        push unk_1C34A5
+        push HomeCityName
         push MatchupNoteText
         mov ebx, eax
-        mov eax, dword [dword_16D744]
+        mov eax, dword [MatchupNoteCount]
         push str_SVsSDDD
         mov dword [nosplit eax*4+dword_1CC828], ebx
         lea ebx, [byte eax+01h]
         push dword [nosplit eax*4+dword_1CC864]
-        mov dword [dword_16D744], ebx
+        mov dword [MatchupNoteCount], ebx
         call sprintf_
         add esp, byte 1Ch
         push byte 0FFFFFFFFh
         call MakeColor
         mov ebx, eax
-        mov eax, dword [dword_16D744]
+        mov eax, dword [MatchupNoteCount]
         add esp, byte 4
         mov dword [nosplit eax*4+dword_1CC828], ebx
         mov eax, 22h
         call GetLangText
         push eax
-        mov ebx, dword [dword_16D744]
+        mov ebx, dword [MatchupNoteCount]
         push str_S_DrawMatchupNotes
         inc ebx
         push dword [nosplit ebx*4+dword_1CC860]
-        mov dword [dword_16D744], ebx
+        mov dword [MatchupNoteCount], ebx
         call sprintf_
         add esp, byte 0Ch
         push byte 0FFFFFFFFh
         call MakeColor
         add esp, byte 4
         push dword [byte ebp-020h]
-        push unk_1C34A5
+        push HomeCityName
         push dword [byte ebp-018h]
         mov ebx, eax
         push MatchupNoteText
-        mov eax, dword [dword_16D744]
+        mov eax, dword [MatchupNoteCount]
         mov esi, 1
         push str_SDSD2
         mov dword [nosplit eax*4+dword_1CC828], ebx
         lea ebx, [byte eax+01h]
         push dword [nosplit eax*4+dword_1CC864]
 .37:
-        mov dword [dword_16D744], ebx
+        mov dword [MatchupNoteCount], ebx
         call sprintf_
         add esp, byte 18h
         inc esi

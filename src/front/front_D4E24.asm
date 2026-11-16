@@ -7,7 +7,7 @@ extern str_RIGH, str_BOTM4, str_BB00, str_BB04, str_BB08, str_AB004, str_AB034, 
 extern str_BarassoPIT199596, str_MASK0000FSH, str_FRNT2, str_BB02d, str_SS14, str_BB01, str_BB05, str_BB09
 extern str_AB024, str_AB014, str_AB054, str_AB044, str_MASK0002dFSH, str_SSS4, str_Scr1, str_Scr2
 extern str_Pal3, str_Bkgd, str_D2, str_Ring, str_EAC1, str_EAC2, str_QCRD, str_PAGESTACK
-extern byte_16D784, dword_16D754, dword_16D760, dword_16D764, dword_16D768, dword_16D76C, dword_16D770, dword_16D774
+extern byte_16D784, GoalieMaskSoundOn, CreditsLastLine, CreditsLastY, dword_16D768, dword_16D76C, dword_16D770, dword_16D774
 extern dword_16D778, dword_16D77C, dword_16D780, MouseMoved, dword_1CCEB8, dword_1CCEBC, dword_1CCEE8, dword_1CCEEC
 extern dword_1CCEF0, dword_1CCEF8, dword_1CCEFC, dword_1CCF12, dword_1CCF16, dword_1CCF1E, dword_1CCF22, dword_1CD0F4
 extern dword_1CD0F8, dword_1CD0FE, dword_1CD102, dword_1CD106, dword_1CD10A, dword_1CD10E, fclose_, fgets_
@@ -556,19 +556,19 @@ GoalieMaskAnim:
         jne short .1
         test ebp, ebp
         je short .5
-        cmp dword [dword_16D754], byte 0
+        cmp dword [GoalieMaskSoundOn], byte 0
         jne short .5
         mov edi, 1
         mov eax, 309h
-        mov dword [dword_16D754], edi
+        mov dword [GoalieMaskSoundOn], edi
         call PlaySfx
 .5:
         test ebp, ebp
         jne short .6
-        cmp dword [dword_16D754], byte 0
+        cmp dword [GoalieMaskSoundOn], byte 0
         je short .6
         xor eax, eax
-        mov dword [dword_16D754], eax
+        mov dword [GoalieMaskSoundOn], eax
         call StopAllSfx
 .6:
         pop ebp
@@ -2620,9 +2620,9 @@ ScrollCredits:
         sar edx, 1Fh
         idiv ebx
         add edi, eax
-        cmp ebp, dword [dword_16D760]
+        cmp ebp, dword [CreditsLastLine]
         jne short .3
-        cmp edi, dword [dword_16D764]
+        cmp edi, dword [CreditsLastY]
         je near .6
 .3:
         call SetScreenTarget
@@ -2682,8 +2682,8 @@ ScrollCredits:
         call ServiceIdle
         jmp short .4
 .5:
-        mov dword [dword_16D764], edi
-        mov dword [dword_16D760], ebp
+        mov dword [CreditsLastY], edi
+        mov dword [CreditsLastLine], ebp
 .6:
         mov ecx, dword [byte esp+018h]
         inc ecx

@@ -9,10 +9,10 @@ extern F32_0p005_DrawReplayTimeline, F32_0p003125_DrawReplayTimeline, F32_0p0031
 extern ClockShown, InGameMenuRequest, StatsMenuMode, ReplayListTop, dword_16DA9C, dword_16E464, dword_16E468, MenuScreenBitmap
 extern VideoModeCount, QuantizePalette, VideoModePanelMode, VideoModeSel, ViewWindowX, ViewWindowY, ViewWindowW, ViewWindowH
 extern VideoModeChanged, DisplayFlags, ReplayLoaded, GameObjects, ViewSizeIndex, GameSettings, GameOptionFlags, ReplayData
-extern ReplayMode, SeasonFileName, ReplayIndexHandle, dword_1C5DA4, dword_1C5DE4, dword_1C5E78, dword_1C5EF4, ClockFontSmall
+extern ReplayMode, SeasonFileName, ReplayIndexHandle, ReplayBufferSize, dword_1C5DE4, dword_1C5E78, dword_1C5EF4, ClockFontSmall
 extern ClockFontLarge, ReplayMenuX, ReplayControlsX, ReplayCameraX, ReplaySaveX, ReplayMenuY, ReplayControlsY, ReplayCameraY
-extern ReplaySaveY, ReplayMenuShape, ReplayControlsShape, ReplayCameraShape, ReplaySaveShape, ReplayMenuResult, dword_1CAF90, ReplayRemoteShape
-extern ReplayBitmap, ReplayLoadBuffer, dword_1CAFA0, ReplayFont, ReplayMenuBitmap, ReplaySpeedText, ReplayPlayText, ReplayPauseText
+extern ReplaySaveY, ReplayMenuShape, ReplayControlsShape, ReplayCameraShape, ReplaySaveShape, ReplayMenuResult, ReplayFrameNow, ReplayRemoteShape
+extern ReplayBitmap, ReplayLoadBuffer, ReplayFrameTotal, ReplayFont, ReplayMenuBitmap, ReplaySpeedText, ReplayPlayText, ReplayPauseText
 extern ReplayRecordText, ReplayStopText, ReplayCameraText, ReplaySpeed, ReplayRecordingOn, ReplayMenuItems, ReplayLastFrame, ReplayStartFrame
 extern ReplayIndexSendBuf, ReplayIndexRecvBuf, F64_0p5_ReplayScreen, F64_0p5_DrawReplayTimeline, F64_0p5_PickReplayScreen, F64_0p5_DrawReplayEntry, F64_0p5_ReplayMenuScreen, rand_
 extern sprintf_, strcmp_, strcpy_, BlitArt, PresentScreen, FindShape, DrawShapeBlended, SetGraphicsMode
@@ -306,7 +306,7 @@ LoadReplay:
         lea eax, [byte ebp-08h]
         call FindReplayIndexEntry
         push byte 0
-        push dword [dword_1C5DA4]
+        push dword [ReplayBufferSize]
         push str_Replload
         call AllocMemBlock
         add esp, byte 0Ch
@@ -730,7 +730,7 @@ PlayReplayFromMenu:
         mov ebx, eax
         call PresentScreen
         call PlaySavedReplay
-        mov dword [dword_1CAF90], eax
+        mov dword [ReplayFrameNow], eax
         call ReplayStatusText
         call SetScreenTarget
         cmp dword [ReplayMenuResult], byte 2
@@ -813,10 +813,10 @@ DrawReplayControls:
         sub edx, eax
         cmp ebx, edx
         jb near .1
-        mov eax, dword [dword_1CAF90]
+        mov eax, dword [ReplayFrameNow]
         cmp eax, dword [ReplayLastFrame]
         je near .7
-        cmp dword [dword_1CAFA0], byte 0
+        cmp dword [ReplayFrameTotal], byte 0
         jle near .6
         push dword 0FF000000h
         call MakeColor
@@ -835,13 +835,13 @@ DrawReplayControls:
         call FillRect
         mov ebx, dword [ReplayMenuItems]
         mov ecx, dword [dword ebx+02F6h]
-        mov eax, dword [dword_1CAF90]
+        mov eax, dword [ReplayFrameNow]
         mov edx, dword [byte ecx+010h]
         sub eax, dword [ReplayStartFrame]
         sub edx, dword [ecx]
         imul eax, edx
         cdq
-        idiv dword [dword_1CAFA0]
+        idiv dword [ReplayFrameTotal]
         mov ebx, dword [dword ebx+0308h]
         add ebx, eax
         add esp, byte 14h
@@ -864,7 +864,7 @@ DrawReplayControls:
         call FillRect
         add esp, byte 14h
 .6:
-        mov eax, dword [dword_1CAF90]
+        mov eax, dword [ReplayFrameNow]
         mov dword [ReplayLastFrame], eax
 .7:
         pop esi
@@ -937,7 +937,7 @@ ReplayScreen:
         call ReplayCamFollow
         call StartInstantReplay
         call ReplayFramesLeft
-        mov dword [dword_1CAFA0], eax
+        mov dword [ReplayFrameTotal], eax
         call ReplayCurrentFrame
         push byte 0
         push dword 4CEh
@@ -1035,7 +1035,7 @@ ReplayScreen_EF:
         call ReplayCamFollow
         call StartInstantReplay
         call ReplayFramesLeft
-        mov dword [dword_1CAFA0], eax
+        mov dword [ReplayFrameTotal], eax
         call ReplayCurrentFrame
         mov dword [ReplayStartFrame], eax
         call CloseGameDatabase
@@ -1178,7 +1178,7 @@ ReplayScreen_399:
         sub ecx, dword [eax]
         mov eax, dword [byte ebp-0Ch]
         sub eax, dword [dword ebx+0308h]
-        imul eax, dword [dword_1CAFA0]
+        imul eax, dword [ReplayFrameTotal]
         cdq
         idiv ecx
         add eax, dword [ReplayStartFrame]
@@ -3114,12 +3114,12 @@ OpenReplayIndex:
         xor ebx, ebx
         call LinkReceiveBlock
         push byte 0
-        push dword [dword_1C5DA4]
+        push dword [ReplayBufferSize]
         push str_Replay
         xor ebx, ebx
         call AllocMemBlock
         add esp, byte 0Ch
-        mov edx, dword [dword_1C5DA4]
+        mov edx, dword [ReplayBufferSize]
         mov esi, eax
         call LinkReceiveBlock
         lea eax, [byte ebp+016h]
@@ -3145,7 +3145,7 @@ OpenReplayIndex:
         call sprintf_
         add esp, byte 10h
         mov eax, SeasonFileName
-        mov ebx, dword [dword_1C5DA4]
+        mov ebx, dword [ReplayBufferSize]
         call AddReplayIndexEntry
         imul eax, dword [byte ebp+07Eh], byte 36h
         add eax, dword [byte ebp+07Ah]
@@ -3167,7 +3167,7 @@ OpenReplayIndex:
         lea eax, [byte ebp+072h]
         call FindReplayIndexEntry
         push byte 0
-        push dword [dword_1C5DA4]
+        push dword [ReplayBufferSize]
         push str_Replbuff
         call AllocMemBlock
         mov esi, eax
@@ -3179,7 +3179,7 @@ OpenReplayIndex:
         mov edx, 4A78h
         mov eax, SeasonFileName
         call LinkSendBlock
-        mov edx, dword [dword_1C5DA4]
+        mov edx, dword [ReplayBufferSize]
         mov eax, esi
         xor ebx, ebx
         call LinkSendBlock
@@ -3222,7 +3222,7 @@ OpenReplayIndex:
         lea eax, [byte ebp+072h]
         call FindReplayIndexEntry
         push byte 0
-        push dword [dword_1C5DA4]
+        push dword [ReplayBufferSize]
         push str_Replbuff
         call AllocMemBlock
         mov esi, eax
@@ -3234,7 +3234,7 @@ OpenReplayIndex:
         mov edx, 4A78h
         mov eax, SeasonFileName
         call LinkSendBlock
-        mov edx, dword [dword_1C5DA4]
+        mov edx, dword [ReplayBufferSize]
         mov eax, esi
         xor ebx, ebx
         call LinkSendBlock

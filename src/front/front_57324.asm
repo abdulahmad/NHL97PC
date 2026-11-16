@@ -181,7 +181,7 @@ extern GlobalSetVersion, SeatModels, PlayerDrawParams, PortraitModels, SavedPale
 extern ReplayStatesCamera, OffscreenState, CameraStateRecords, DepthSortKeys, PlayerStartRecords, FallAnimSlots, AnimDataBase
 extern ShotAnimPoses, ActAnimFrames, FallAnimFrames, InterferAnimFrames, GoalieAnimFrames, RefSkateAnimFrames, RefAmbiAnimFrames, RefCallAnimFrames
 extern FightAnimFrames, CupAnimFrames, ShotAnimIndex, ActAnimIndex, FallAnimIndex, InterferAnimIndex, GoalieAnimIndex, RefSkateAnimIndex
-extern RefAmbiAnimIndex, RefCallAnimIndex, FightAnimIndex, CupAnimIndex, AutoLineData, unk_1C347F, unk_56790, unk_56794
+extern RefAmbiAnimIndex, RefCallAnimIndex, FightAnimIndex, CupAnimIndex, AutoLineData, HomeLines, unk_56790, unk_56794
 extern vecdist, DebugModelRefresh, GoalieTarget, ZoneTargetY, ShotTarget, ShotTimer, ShotType, ShotSpeed
 extern PassPending, PassReceiver, OneTimerPlayer, StatsPanelPlayer, gameover, PuckOwner, PuckOwnerTeam, Period
 extern SimFrames, gsp, gameclock, StatsPanelOn, FaceoffSpot, FaceoffZone, OneTimerReady, OneTimerPasser
@@ -7812,7 +7812,7 @@ LoadReplayData:
         jl near .2
         mov esi, AutoLineData
         mov edi, HomeTeamRecord+420h
-        mov ebp, unk_1C347F
+        mov ebp, HomeLines
         mov ecx, SortCords
         mov eax, 1
         mov dword [HmScore], esi

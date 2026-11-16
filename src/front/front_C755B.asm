@@ -15,16 +15,16 @@ extern str_GRON, str_SLOF, str_SLON, str_GLOF, str_GLON, str_POB1, str_PBOF, str
 extern str_STSG, str_AN02d, str_CreatePlrMenu, str_CreatePlrRegion, str_00008, str_NAON, str_JNON, str_JNOF
 extern str_PBON, str_HEON, str_HEOF, str_WEON, str_WEOF, str_AGON, str_AGOF, str_Aiplayers
 extern str_Statplayers, str_Statgoalies, SeasonUserHuman, SeasonUserActive, SeasonUserLocked, SeasonCreated, PlayoffUserHuman, PlayoffUserActive
-extern PlayoffUserLocked, PlayoffStarted, byte_1C6040, byte_1CC240, RosterScreenOpen, RosterData, dword_16D670, dword_16D674
-extern dword_16D678, dword_16D67C, dword_16D680, str_Punct_InitRosterScreen, str_X_InitRosterScreen, str_7_SetupRosterLists, str_I_SetupRosterLists, str_Punct_DrawRosterList
-extern str_X_DrawRosterList, dword_16D6AC, str_X_SetupRosterLists, dword_16D6B4, str_X_ShowRosterLogo, dword_16D6BC, dword_16D6C0, dword_16DA9C
-extern GameSettings, SeasonUserTeam, GameOptionFlags, SeasonActive, SeasonDefaultUser, PlayoffTeams, dword_1C5E74, dword_1CC18C
-extern dword_1CC19C, dword_1CC1AC, dword_1CC1BC, dword_1CC1C0, dword_1CC1C4, dword_1CC1C8, dword_1CC1CC, dword_1CC1D0
-extern dword_1CC1D4, dword_1CC1D8, dword_1CC1DC, dword_1CC1E0, dword_1CC1E4, dword_1CC1E8, dword_1CC1EC, dword_1CC1F0
-extern dword_1CC1F4, dword_1CC1F8, dword_1CC1FC, dword_1CC200, dword_1CC204, dword_1CC208, dword_1CC20C, dword_1CC210
-extern dword_1CC214, dword_1CC218, dword_1CC21C, dword_1CC220, dword_1CC224, dword_1CC228, dword_1CC22C, dword_1CC230
-extern dword_1CC234, dword_1CC238, dword_1CC23C, dword_1CC2A4, dword_1CC2A8, dword_1CC2AC, dword_1CC2B0, dword_1CC2B4
-extern dword_1CC2B8, dword_1CC2BC, dword_1CC2C0, dword_1CC2C4, jpt_C750B, memmove_, memset_, qsort_
+extern PlayoffUserLocked, PlayoffStarted, byte_1C6040, NewPlayerRecord, RosterScreenOpen, RosterData, RosterFreeAgents, RosterSpeechCount
+extern RatingPanelTick, RatingPanelFrame, RosterScreenReady, str_Punct_InitRosterScreen, str_X_InitRosterScreen, str_7_SetupRosterLists, str_I_SetupRosterLists, str_Punct_DrawRosterList
+extern str_X_DrawRosterList, RosterTitleX, str_X_SetupRosterLists, RosterTitleY, str_X_ShowRosterLogo, RosterTitleWidth, RosterTitleRight, dword_16DA9C
+extern GameSettings, SeasonUserTeam, GameOptionFlags, SeasonActive, SeasonDefaultUser, PlayoffTeams, dword_1C5E74, RosterSpeechHome
+extern RosterSpeechTrade, RosterSpeechAway, RosterListBox, RosterOtherListBox, RosterTeam, RosterOtherTeam, CreateSkaterRatings, RatingBarArt
+extern CreatePlayerSlot, RatingBarBackArt, RatingBarLitArt, CreateGoalieMode, RatingBarLitBackArt, CreateGoalieRatings, JerseyMenuItems, RatingPanelShapeFile
+extern RatingPointsLeft, JerseyChoice, CreatePlayerItems, RosterLastSpeech, RosterListArea, RosterMode, RosterRow, RosterScrollArea
+extern RosterPanelBitmap, RosterPanelShape, RosterPanelLayers, RosterTitleShape, RosterLogoBitmap, RosterMenuItems, RosterTradeOn, RosterScrollList
+extern RosterMenuArea, RosterInfoLoaded, RosterInfoAnim, DeletionCount, RosterPlayerInfo, RosterTeams, RosterChanged, JerseyHomeArt
+extern JerseyAwayArt, RosterEditOpen, RosterShapeFile, RosterBackFile, jpt_C750B, memmove_, memset_, qsort_
 extern F64_2_BuildTradePlayerLists, sprintf_, str_TR00, strcat_, strcpy_, stricmp_, strlen_, BlitArt
 extern BlitShape, PresentScreen, FindShape, DrawShapeBlended, ResetClipWindow, Random32, LoadFileAllocQuiet, ConvertArtXY
 extern FindShapeList, SaveDataFile, UnlinkJump, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime
@@ -37,8 +37,8 @@ extern SetListSelection, GetLangText, PositionAbbrev, LoadFakeExhibition, SaveAg
 extern BuildAutoLines, PlayerRatingsScreen, KeysEqual, DaysToYear, AgeFromBirthDate, FindTeamRecord, FindPlayerRecord, FindGameRecord
 extern UpdateGameRecord, FindPlayerStat, FindTeamStat, FreeExhibitionFile, ResetExhibitionStats, AllocMemBlock, FreeMemBlock, MakeColor
 extern FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, FillRect, MeasureText, tickcount
-extern str_D_JerseyScreen, str_S_DrawCreatePlayerLabel, unk_16D7F4, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C5FEE, word_16D6C4
-extern word_16D6D2, word_16D6E4
+extern str_D_JerseyScreen, str_S_DrawCreatePlayerLabel, unk_16D7F4, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C5FEE, CreateSkaterRows
+extern CreateGoalieRows, RosterSoundOn
 global jpt_CBFAA, jpt_CD7E3, RosterScreen_11C, RosterScreen_157, RosterScreen_172, RosterScreen_246, RosterScreen_2EC, RosterScreen_3B9
 global RosterScreen_42C, RosterScreen_49B, RosterScreen_4ED, RosterScreen_53E, RosterScreen_596, RosterScreen_5AB, RosterScreen_5AF, RosterScreen_5CF
 global RosterScreen_5D3, RosterScreen_604, RosterScreen_615, RosterScreen_624, RosterScreen_65B, RosterScreen_66C, FreeRosterInfoAnim_4A, DrawRosterList_86F
@@ -87,16 +87,16 @@ RosterScreen:
         call MusicEnabled
 .1:
         lea eax, [byte ebp-026h]
-        mov dword [dword_1CC210], eax
+        mov dword [RosterScrollArea], eax
         lea eax, [dword ebp-08Eh]
         push byte 0
-        mov dword [dword_1CC204], eax
+        mov dword [RosterListArea], eax
         lea eax, [byte ebp+052h]
         push dword 0CD0h
-        mov dword [dword_1CC234], eax
+        mov dword [RosterMenuArea], eax
         lea eax, [byte ebp+042h]
         push str_RosterMenu
-        mov dword [dword_1CC228], eax
+        mov dword [RosterMenuItems], eax
         call AllocMemBlock
         add esp, byte 0Ch
         push byte 0
@@ -109,16 +109,16 @@ RosterScreen:
         mov dword [byte ebp+076h], eax
         lea eax, [dword ebp-028Eh]
         push byte 0FFFFFFFFh
-        mov dword [dword_1CC1BC], eax
+        mov dword [RosterListBox], eax
         lea eax, [dword ebp-018Eh]
-        mov dword [dword_1CC20C], ebx
-        mov dword [dword_1CC1C0], eax
+        mov dword [RosterRow], ebx
+        mov dword [RosterOtherListBox], eax
         call MakeColor
         add esp, byte 4
         call SetTextColor
         call SetRosterMode
         mov edx, ebx
-        mov dword [dword_1CC208], eax
+        mov dword [RosterMode], eax
         mov esi, eax
         call InitRosterData
         mov eax, 28h
@@ -136,10 +136,10 @@ RosterScreen:
         jl short .2
         call InitRosterScreen
         push str_BACK11
-        push dword [dword_1CC2C4]
+        push dword [RosterBackFile]
         call FindShape
         mov dword [byte ebp+07Ah], eax
-        mov eax, dword [dword_1CC214]
+        mov eax, dword [RosterPanelBitmap]
         add esp, byte 8
 .3:
         mov edx, 0FFFFFFFFh
@@ -148,7 +148,7 @@ RosterScreen:
         jmp near RosterScreen_66C.29
 RosterScreen_11C:
         call ShowScreen
-        cmp dword [dword_1CC2BC], byte 0
+        cmp dword [RosterEditOpen], byte 0
         je short .4
         push byte 1
         mov ecx, 1
@@ -170,7 +170,7 @@ RosterScreen_157:
         jmp near RosterScreen_66C.29
 RosterScreen_172:
         call FreeRosterPanel
-        push dword [dword_1CC2C4]
+        push dword [RosterBackFile]
         call FreeMemBlock
         add esp, byte 4
         call ExitScreen
@@ -180,24 +180,24 @@ RosterScreen_172:
         call WaitSoundTime
         mov eax, 1Ch
         call LoadDataFile
-        mov dword [dword_1CC2C4], eax
+        mov dword [RosterBackFile], eax
         mov eax, str_BACK11
         push eax
-        push dword [dword_1CC2C4]
+        push dword [RosterBackFile]
         call FindShape
         add esp, byte 8
-        mov dword [dword_1CC218], eax
+        mov dword [RosterPanelShape], eax
         call LoadRosterArt
-        push dword [dword_1CC214]
+        push dword [RosterPanelBitmap]
         call SetDrawTarget
         add esp, byte 4
-        push dword [dword_1CC218]
+        push dword [RosterPanelShape]
         call BlitShape
         add esp, byte 4
         call DrawRosterTitle
         call ShowRosterLogo
         call CreateRosterPanel
-        push dword [dword_1CC214]
+        push dword [RosterPanelBitmap]
         call SetDrawTarget
         add esp, byte 4
         xor edx, edx
@@ -225,9 +225,9 @@ RosterScreen_172:
         jl short .5
         jmp near RosterScreen_66C.29
 RosterScreen_246:
-        cmp dword [dword_1CC2B0], byte 0
+        cmp dword [RosterChanged], byte 0
         je near RosterScreen_66C.29
-        cmp dword [dword_1CC22C], byte 0
+        cmp dword [RosterTradeOn], byte 0
         je near RosterScreen_66C.29
         call CheckRosterInjuries
         test eax, eax
@@ -245,21 +245,21 @@ RosterScreen_246:
         mov edx, 1
         mov eax, edx
         call DrawRosterList
-        imul eax, dword [dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         xor ebx, ebx
         movsx edx, word [byte edx+eax+072h]
         lea eax, [dword ebp-028Eh]
         call SetScrollBarPos
-        imul edx, dword [dword_1CC1C8], dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        imul edx, dword [RosterOtherTeam], dword 32C6h
+        mov eax, dword [RosterTeams]
         xor ebx, ebx
         movsx edx, word [byte edx+eax+072h]
         lea eax, [dword ebp-018Eh]
         call SetScrollBarPos
         jmp near RosterScreen_66C.28
 RosterScreen_2EC:
-        cmp dword [dword_1CC208], byte 0
+        cmp dword [RosterMode], byte 0
         jne near RosterScreen_66C.29
         push byte 1
         mov eax, 0D5h
@@ -279,14 +279,14 @@ RosterScreen_2EC:
         mov edx, esi
         mov eax, ebx
         call LoadRosterData
-        imul eax, dword [dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         xor ebx, ebx
         movsx edx, word [byte edx+eax+072h]
         lea eax, [dword ebp-028Eh]
         call SetScrollBarPos
-        imul edx, dword [dword_1CC1C8], dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        imul edx, dword [RosterOtherTeam], dword 32C6h
+        mov eax, dword [RosterTeams]
         xor ebx, ebx
         movsx edx, word [byte edx+eax+072h]
         lea eax, [dword ebp-018Eh]
@@ -300,7 +300,7 @@ RosterScreen_2EC:
         call SetRosterArrows
         mov eax, 1
         call DrawRosterDetails
-        mov dword [dword_1CC2BC], 1
+        mov dword [RosterEditOpen], 1
         jmp near RosterScreen_66C.29
 RosterScreen_3B9:
         call ShowPopupScreen
@@ -332,7 +332,7 @@ RosterScreen_3B9:
         je short .10
         call InitRosterScreen
 .10:
-        mov eax, dword [dword_1CC214]
+        mov eax, dword [RosterPanelBitmap]
         jmp near RosterScreen.3
 RosterScreen_42C:
         xor eax, eax
@@ -346,13 +346,13 @@ RosterScreen_42C:
         push dword [byte edi+eax+02Ah]
         add edx, byte 0Ah
         push edx
-        mov edx, dword [dword_1CC214]
+        mov edx, dword [RosterPanelBitmap]
         mov ecx, dword [byte edi+eax+02Ah]
         push dword [byte edx+02Ch]
         mov ebx, dword [byte edi+eax+026h]
-        push dword [dword_1CC228]
+        push dword [RosterMenuItems]
         mov edx, 4
-        push dword [dword_1CC234]
+        push dword [RosterMenuArea]
         mov eax, edx
         call RunScrollList
         xor edx, edx
@@ -361,7 +361,7 @@ RosterScreen_42C:
         call RosterEditScreen
         test ebx, ebx
         jne short .12
-        mov eax, dword [dword_1CC218]
+        mov eax, dword [RosterPanelShape]
         mov dword [byte ebp+07Ah], eax
 .12:
         call SetRosterArrows
@@ -376,13 +376,13 @@ RosterScreen_49B:
         push dword [byte edi+eax+02Ah]
         sub edx, byte 1Eh
         push edx
-        mov edx, dword [dword_1CC214]
+        mov edx, dword [RosterPanelBitmap]
         mov ecx, dword [byte edi+eax+02Ah]
         push dword [byte edx+02Ch]
         mov ebx, dword [byte edi+eax+026h]
-        push dword [dword_1CC228]
+        push dword [RosterMenuItems]
         mov edx, 4
-        push dword [dword_1CC234]
+        push dword [RosterMenuArea]
         mov eax, edx
         call RunScrollList
         mov edx, 1
@@ -395,21 +395,21 @@ RosterScreen_4ED:
         add ebx, dword [byte eax+026h]
         push ecx
         add ebx, byte 0Ah
-        mov edx, dword [dword_1CC214]
+        mov edx, dword [RosterPanelBitmap]
         push ebx
         push dword [byte edx+02Ch]
         mov ebx, dword [byte eax+026h]
-        push dword [dword_1CC204]
+        push dword [RosterListArea]
         mov edx, 0Ah
-        push dword [dword_1CC210]
-        mov eax, dword [dword_1CC230]
+        push dword [RosterScrollArea]
+        mov eax, dword [RosterScrollList]
         call RunScrollList
         xor ebx, ebx
         jmp short .14
 .13:
         inc ebx
 .14:
-        cmp ebx, dword [dword_1CC230]
+        cmp ebx, dword [RosterScrollList]
         jl short .13
         push byte 0
         mov ebx, dword [byte ebp+072h]
@@ -424,12 +424,12 @@ RosterScreen_53E:
         push ecx
         add edx, byte 0Ah
         push edx
-        mov edx, dword [dword_1CC214]
+        mov edx, dword [RosterPanelBitmap]
         push dword [byte edx+02Ch]
         mov ebx, dword [byte eax+026h]
-        push dword [dword_1CC204]
-        mov eax, dword [dword_1CC230]
-        push dword [dword_1CC210]
+        push dword [RosterListArea]
+        mov eax, dword [RosterScrollList]
+        push dword [RosterScrollArea]
         mov edx, 0Ah
         call RunScrollList
         xor ebx, ebx
@@ -437,7 +437,7 @@ RosterScreen_53E:
 .15:
         inc ebx
 .16:
-        cmp ebx, dword [dword_1CC230]
+        cmp ebx, dword [RosterScrollList]
         jl short .15
         push byte 0
         mov ebx, dword [byte ebp+072h]
@@ -447,7 +447,7 @@ RosterScreen_596:
         push byte 0FFFFFFFFh
 .17:
         mov ebx, 8
-        mov eax, dword [dword_1CC1C4]
+        mov eax, dword [RosterTeam]
 .18:
         mov ecx, esi
         push dword [byte ebp+07Ah]
@@ -461,7 +461,7 @@ RosterScreen_5AF:
 .19:
         mov ebx, 9
         mov edx, 1
-        mov eax, dword [dword_1CC1C8]
+        mov eax, dword [RosterOtherTeam]
 .20:
         push dword [byte ebp+07Ah]
         mov ecx, esi
@@ -476,8 +476,8 @@ RosterScreen_5D3:
         xor edx, edx
         call ScrollUp
 .22:
-        imul edx, dword [dword_1CC1C4], dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        imul edx, dword [RosterTeam], dword 32C6h
+        mov eax, dword [RosterTeams]
         add edx, eax
         mov eax, dword [dword ebp-026Ah]
         mov word [byte edx+072h], ax
@@ -500,8 +500,8 @@ RosterScreen_624:
         xor edx, edx
         call ScrollUp
 .23:
-        imul eax, dword [dword_1CC1C8], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [RosterOtherTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
 .24:
         add edx, eax
         mov eax, dword [dword ebp-016Ah]
@@ -521,8 +521,8 @@ RosterScreen_66C:
         lea eax, [dword ebp-018Eh]
         xor edx, edx
         call ScrollDown
-        imul edx, dword [dword_1CC1C8], dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        imul edx, dword [RosterOtherTeam], dword 32C6h
+        mov eax, dword [RosterTeams]
         jmp short RosterScreen_624.24
 .26:
         cmp dword [byte ebp+072h], byte 14h
@@ -587,8 +587,8 @@ RosterScreen_66C:
 ;-----------------------------------------------------------------------------
 GetRosterPlayerNumber:
         push ebx
-        imul edx, dword [nosplit eax*4+dword_1CC1C4], dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        imul edx, dword [nosplit eax*4+RosterTeam], dword 32C6h
+        mov eax, dword [RosterTeams]
         add eax, edx
         cmp byte [byte eax+071h], 0
         jbe short .1
@@ -620,28 +620,28 @@ PlayRosterSound:
         mov eax, dword [tickcount]
         mov edi, eax
         xor esi, esi
-        cmp eax, dword [dword_16D674]
+        cmp eax, dword [RosterSpeechCount]
         jle near DrawRatingBars_158
         call Random32
         mov ebx, 3
         xor edx, edx
         div ebx
         mov ebx, edx
-        cmp edx, dword [dword_1CC200]
+        cmp edx, dword [RosterLastSpeech]
         jl short .1
         lea ebx, [byte edx+01h]
 .1:
-        mov eax, dword [dword_1CC20C]
-        mov dword [dword_1CC200], ebx
+        mov eax, dword [RosterRow]
+        mov dword [RosterLastSpeech], ebx
         cmp dword [dword eax+0FAh], byte 1
         jne short .2
-        cmp dword [dword_1CC2B0], byte 0
+        cmp dword [RosterChanged], byte 0
         je short .2
-        cmp dword [dword_1CC22C], byte 0
+        cmp dword [RosterTradeOn], byte 0
         je short .2
-        mov edx, dword [nosplit ebx*4+dword_1CC18C]
+        mov edx, dword [nosplit ebx*4+RosterSpeechHome]
         mov dword [dword eax+0114h], edx
-        mov eax, dword [dword_1CC20C]
+        mov eax, dword [RosterRow]
         push dword [dword eax+0120h]
         push dword [dword eax+011Ch]
         push dword [dword eax+0114h]
@@ -649,14 +649,14 @@ PlayRosterSound:
         call BlitArt
         add esp, byte 0Ch
 .2:
-        mov eax, dword [dword_1CC20C]
+        mov eax, dword [RosterRow]
         cmp dword [dword eax+014Ch], byte 1
         jne short .3
-        cmp dword [dword_1CC208], byte 0
+        cmp dword [RosterMode], byte 0
         jne short .3
-        mov edx, dword [nosplit ebx*4+dword_1CC1AC]
+        mov edx, dword [nosplit ebx*4+RosterSpeechAway]
         mov dword [dword eax+0166h], edx
-        mov eax, dword [dword_1CC20C]
+        mov eax, dword [RosterRow]
         push dword [dword eax+0172h]
         push dword [dword eax+016Eh]
         push dword [dword eax+0166h]
@@ -664,12 +664,12 @@ PlayRosterSound:
         call BlitArt
         add esp, byte 0Ch
 .3:
-        mov eax, dword [dword_1CC20C]
+        mov eax, dword [RosterRow]
         cmp dword [dword eax+019Eh], byte 1
         jne short .4
-        mov edx, dword [nosplit ebx*4+dword_1CC19C]
+        mov edx, dword [nosplit ebx*4+RosterSpeechTrade]
         mov dword [dword eax+01B8h], edx
-        mov eax, dword [dword_1CC20C]
+        mov eax, dword [RosterRow]
         push dword [dword eax+01C4h]
         push dword [dword eax+01C0h]
         push dword [dword eax+01B8h]
@@ -678,22 +678,22 @@ PlayRosterSound:
         add esp, byte 0Ch
 .4:
         add edi, byte 4
-        mov dword [dword_16D674], edi
+        mov dword [RosterSpeechCount], edi
         test si, si
         jne short .5
-        cmp word [word_16D6E4], byte 0
+        cmp word [RosterSoundOn], byte 0
         je short .5
         mov eax, 309h
         call PlayMenuSfx
-        mov word [word_16D6E4], si
+        mov word [RosterSoundOn], si
 .5:
         test si, si
         je near DrawRatingBars_158
-        cmp word [word_16D6E4], byte 0
+        cmp word [RosterSoundOn], byte 0
         jne near DrawRatingBars_158
         mov eax, 309h
         call PlaySfx
-        mov word [word_16D6E4], 1
+        mov word [RosterSoundOn], 1
         jmp near DrawRatingBars_158
         push esi
         enter 14h, 0
@@ -739,7 +739,7 @@ SetRosterMode:
         push edx
         test byte [GameSettings], 70h
         jne short .1
-        mov dword [dword_1CC230], 1Ah
+        mov dword [RosterScrollList], 1Ah
         xor eax, eax
         pop edx
         ret
@@ -748,11 +748,11 @@ SetRosterMode:
         and edx, byte 70h
         cmp edx, byte 10h
         jne short .3
-        mov dword [dword_1CC230], 1Ah
+        mov dword [RosterScrollList], 1Ah
         cmp dword [SeasonActive], byte 0
         je short .2
         mov eax, 2
-        mov dword [dword_1CC230], edx
+        mov dword [RosterScrollList], edx
         pop edx
         ret
 .2:
@@ -766,12 +766,12 @@ SetRosterMode:
         jne short .6
         cmp byte [PlayoffStarted], 0
         je short .4
-        mov dword [dword_1CC230], 10h
+        mov dword [RosterScrollList], 10h
         mov eax, 2
         pop edx
         ret
 .4:
-        mov dword [dword_1CC230], 1Ah
+        mov dword [RosterScrollList], 1Ah
 .5:
         xor eax, eax
 .6:
@@ -787,36 +787,36 @@ LoadRosterInfoAnim:
         push edx
         push esi
         xor ebx, ebx
-        cmp dword [dword_1CC238], byte 0
+        cmp dword [RosterInfoLoaded], byte 0
         jne near .5
         push ebx
         push str_RosinfoAna
         call LoadFileAllocQuiet
         add esp, byte 8
-        mov dword [dword_1CC2AC], eax
+        mov dword [RosterTeams], eax
         test eax, eax
         je short .5
         mov ebx, 1
-        mov dword [dword_1CC238], 1
+        mov dword [RosterInfoLoaded], 1
         xor eax, eax
         jmp short .4
 .1:
         imul ecx, eax, dword 32C6h
         imul edx, eax, dword 194Fh
-        cmp dword [dword_1CC208], byte 0
+        cmp dword [RosterMode], byte 0
         jne short .2
         mov esi, dword [RosterData]
         add esi, 0DF4h
         jmp short .3
 .2:
-        mov esi, dword [dword_16D670]
+        mov esi, dword [RosterFreeAgents]
 .3:
         add esi, edx
-        mov edx, dword [dword_1CC2AC]
+        mov edx, dword [RosterTeams]
         mov dword [ecx+edx], esi
         inc eax
 .4:
-        cmp eax, dword [dword_1CC230]
+        cmp eax, dword [RosterScrollList]
         jl short .1
         mov eax, str_RosinfoAna
         call UnlinkJump
@@ -836,20 +836,20 @@ FreeRosterInfoAnim:
         push ecx
         push edx
         xor ebx, ebx
-        cmp dword [dword_1CC238], byte 0
+        cmp dword [RosterInfoLoaded], byte 0
         je short FreeRosterInfoAnim_4A
-        push dword [dword_1CC23C]
-        push dword [dword_1CC2AC]
+        push dword [RosterInfoAnim]
+        push dword [RosterTeams]
         push str_RosinfoAna
         call SaveDataFile
         add esp, byte 0Ch
         test eax, eax
         je short FreeRosterInfoAnim_4A
-        push dword [dword_1CC2AC]
+        push dword [RosterTeams]
         call FreeMemBlock
         add esp, byte 4
-        mov dword [dword_1CC238], ebx
-        mov dword [dword_1CC2AC], ebx
+        mov dword [RosterInfoLoaded], ebx
+        mov dword [RosterTeams], ebx
         mov ebx, 1
 FreeRosterInfoAnim_4A:
         mov eax, ebx
@@ -875,12 +875,12 @@ AllocRosterInfo:
         push ebx
         mov esi, 1
         push str_RosPlrInfo
-        mov dword [dword_1CC238], esi
-        mov dword [dword_1CC23C], ebx
+        mov dword [RosterInfoLoaded], esi
+        mov dword [RosterInfoAnim], ebx
         call AllocMemBlock
         add esp, byte 0Ch
         xor edx, edx
-        mov dword [dword_1CC2AC], eax
+        mov dword [RosterTeams], eax
         call memset_
         mov eax, dword [SeasonUserTeam]
         movsx ebx, word [eax]
@@ -891,7 +891,7 @@ AllocRosterInfo:
         call AllocMemBlock
         add esp, byte 0Ch
         xor edx, edx
-        mov dword [dword_16D670], eax
+        mov dword [RosterFreeAgents], eax
         call memset_
         xor ecx, ecx
         jmp short .4
@@ -899,7 +899,7 @@ AllocRosterInfo:
         imul edi, ecx, dword 194Fh
         mov eax, ecx
         shl eax, 3
-        mov edx, dword [dword_16D670]
+        mov edx, dword [RosterFreeAgents]
         mov dword [byte ebp-04h], eax
         mov eax, dword [byte ebx+01Ch]
         add edx, edi
@@ -910,7 +910,7 @@ AllocRosterInfo:
         xor esi, esi
         jmp short .3
 .2:
-        mov eax, dword [dword_16D670]
+        mov eax, dword [RosterFreeAgents]
         add eax, edi
         call BuildRosterLines
 .3:
@@ -1007,9 +1007,9 @@ LoadRosterData:
         enter 10h, 0
         push eax
         push edx
-        mov esi, dword [nosplit eax*4+dword_1CC1C4]
+        mov esi, dword [nosplit eax*4+RosterTeam]
         imul edx, esi, dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         mov dword [byte ebp-04h], 1
         test byte [byte edx+eax+06Ah], 1
         je short .1
@@ -1017,7 +1017,7 @@ LoadRosterData:
         je near .35
 .1:
         imul edi, esi, dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         mov byte [byte edi+eax+071h], 0
         imul eax, esi, dword 194Fh
         cmp dword [byte ebp-018h], byte 0
@@ -1027,27 +1027,27 @@ LoadRosterData:
         mov edx, dword [RosterData]
         add edx, 0DF4h
         lea ecx, [edx+eax]
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         or byte [byte edi+eax+06Ah], 4
 .2:
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         or byte [byte edi+eax+06Ah], 8
         jmp near .10
 .3:
-        cmp dword [dword_16D670], byte 0
+        cmp dword [RosterFreeAgents], byte 0
         je near .9
         imul ebx, esi, byte 1Ch
-        mov ecx, dword [dword_16D670]
+        mov ecx, dword [RosterFreeAgents]
         add ecx, eax
         cmp dword [byte ebp-018h], byte 1
         jne short .7
         cmp byte [dword ebx+SeasonUserLocked], 0
         je short .4
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         or byte [byte edi+eax+06Ah], 4
         jmp short .5
 .4:
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         and byte [byte edi+eax+06Ah], 0FBh
 .5:
         imul ebx, esi, byte 1Ch
@@ -1056,16 +1056,16 @@ LoadRosterData:
         cmp byte [dword ebx+SeasonUserHuman], 1
         je short .6
         imul eax, esi, dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        mov edx, dword [RosterTeams]
         or byte [byte edx+eax+06Ah], 8
         jmp short .10
 .6:
         imul ebx, esi, dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         and byte [byte ebx+eax+06Ah], 0F7h
         jmp short .10
 .7:
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         and byte [byte edi+eax+06Ah], 0FBh
         cmp byte [dword ebx+PlayoffUserActive], 1
         jne short .8
@@ -1073,7 +1073,7 @@ LoadRosterData:
         jne near .2
 .8:
         imul edx, esi, dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         and byte [byte edx+eax+06Ah], 0F7h
         jmp short .10
 .9:
@@ -1082,23 +1082,23 @@ LoadRosterData:
         cmp dword [byte ebp-04h], byte 0
         je near .35
         imul ebx, esi, dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         mov dword [ebx+eax], ecx
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, ebx
         lea edx, [byte eax+04h]
         lea eax, [byte ecx+010h]
         call FindTeamRecord
         imul edx, esi, dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         or byte [byte ebx+eax+06Ah], 1
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         and byte [byte ebx+eax+06Ah], 0FDh
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         mov word [byte ebx+eax+072h], 0
         xor ebx, ebx
 .11:
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         inc ebx
         add eax, edx
         mov byte [byte ebx+eax+06Dh], 0
@@ -1110,13 +1110,13 @@ LoadRosterData:
         mov bx, word [dword ecx+01281h]
         add ax, word [dword ecx+018A5h]
         add ebx, eax
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         mov word [byte edx+eax+074h], bx
         xor ebx, ebx
         jmp near .13
 .12:
         imul eax, ebx, byte 27h
-        mov edx, dword [dword_1CC2AC]
+        mov edx, dword [RosterTeams]
         add edx, edi
         add edx, byte 76h
         mov dword [byte ebp-0Ch], eax
@@ -1129,33 +1129,33 @@ LoadRosterData:
         add eax, byte 28h
         call FindPlayerStat
         imul edx, ebx, dword 0BCh
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, edi
         add eax, 8FEh
         add edx, eax
         mov eax, dword [byte ebp-010h]
         add eax, byte 18h
         call FindPlayerRecord
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, edi
         add eax, byte 76h
         mov edx, 1
         add eax, dword [byte ebp-0Ch]
         call PlayerOverall
         mov dword [byte ebp-010h], eax
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, edi
         add eax, dword [byte ebp-0Ch]
         mov dl, byte [byte ebp-010h]
         mov byte [dword eax+09Bh], dl
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, edi
         add eax, byte 76h
         add eax, dword [byte ebp-0Ch]
         add eax, byte 10h
         call SkaterOverall
         mov edx, eax
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, edi
         mov dword [byte ebp-0Ch], eax
         lea eax, [ebx+ebx]
@@ -1163,7 +1163,7 @@ LoadRosterData:
         mov eax, dword [byte ebp-0Ch]
         add eax, dword [byte ebp-010h]
         mov word [dword eax+03256h], dx
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         inc ebx
         add eax, edi
         mov byte [dword ebx+eax+0321Dh], 0
@@ -1175,7 +1175,7 @@ LoadRosterData:
         imul edi, esi, dword 32C6h
         jmp near .15
 .14:
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, edi
         mov dword [byte ebp-010h], eax
         imul eax, ebx, byte 27h
@@ -1191,7 +1191,7 @@ LoadRosterData:
         add eax, byte 28h
         call FindPlayerStat
         imul edx, ebx, dword 0BCh
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, edi
         mov dword [byte ebp-0Ch], edx
         lea edx, [dword eax+01B5Ah]
@@ -1199,26 +1199,26 @@ LoadRosterData:
         add eax, byte 18h
         add edx, dword [byte ebp-0Ch]
         call FindPlayerRecord
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, edi
         add eax, 445h
         xor edx, edx
         add eax, dword [byte ebp-010h]
         call PlayerOverall
         mov dword [byte ebp-0Ch], eax
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, edi
         add eax, dword [byte ebp-010h]
         mov dl, byte [byte ebp-0Ch]
         mov byte [dword eax+0466h], dl
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, edi
         add eax, 445h
         add eax, dword [byte ebp-010h]
         add eax, byte 10h
         call GoalieOverall
         mov edx, eax
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, edi
         mov dword [byte ebp-08h], eax
         lea eax, [ebx+ebx]
@@ -1226,7 +1226,7 @@ LoadRosterData:
         mov eax, dword [byte ebp-08h]
         add eax, dword [byte ebp-0Ch]
         mov word [dword eax+03288h], dx
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         inc ebx
         add eax, edi
         mov byte [dword ebx+eax+03236h], 0
@@ -1239,7 +1239,7 @@ LoadRosterData:
         jmp near .17
 .16:
         imul eax, ebx, byte 27h
-        mov edx, dword [dword_1CC2AC]
+        mov edx, dword [RosterTeams]
         add edx, edi
         add edx, 4BAh
         mov dword [byte ebp-08h], eax
@@ -1252,33 +1252,33 @@ LoadRosterData:
         add eax, byte 28h
         call FindPlayerStat
         imul edx, ebx, dword 0BCh
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, edi
         add eax, 1D8Eh
         add edx, eax
         mov eax, dword [byte ebp-0Ch]
         add eax, byte 18h
         call FindPlayerRecord
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, edi
         add eax, 4BAh
         mov edx, 1
         add eax, dword [byte ebp-08h]
         call PlayerOverall
         mov dword [byte ebp-0Ch], eax
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, edi
         add eax, dword [byte ebp-08h]
         mov dl, byte [byte ebp-0Ch]
         mov byte [dword eax+04DFh], dl
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, edi
         add eax, 4BAh
         add eax, dword [byte ebp-08h]
         add eax, byte 10h
         call SkaterOverall
         mov edx, eax
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, edi
         mov dword [byte ebp-08h], eax
         lea eax, [ebx+ebx]
@@ -1286,7 +1286,7 @@ LoadRosterData:
         mov eax, dword [byte ebp-08h]
         add eax, dword [byte ebp-0Ch]
         mov word [dword eax+0328Eh], dx
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         inc ebx
         add eax, edi
         mov byte [dword ebx+eax+03239h], 0
@@ -1298,7 +1298,7 @@ LoadRosterData:
         imul edi, esi, dword 32C6h
         jmp near .19
 .18:
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, edi
         mov dword [byte ebp-0Ch], eax
         imul eax, ebx, byte 27h
@@ -1314,33 +1314,33 @@ LoadRosterData:
         add eax, byte 28h
         call FindPlayerStat
         imul eax, ebx, dword 0BCh
-        mov edx, dword [dword_1CC2AC]
+        mov edx, dword [RosterTeams]
         add edx, edi
         add edx, 2FEAh
         add edx, eax
         mov eax, dword [byte ebp-0Ch]
         add eax, byte 18h
         call FindPlayerRecord
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, edi
         add eax, 889h
         xor edx, edx
         add eax, dword [byte ebp-08h]
         call PlayerOverall
         mov dword [byte ebp-0Ch], eax
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, edi
         add eax, dword [byte ebp-08h]
         mov dl, byte [byte ebp-0Ch]
         mov byte [dword eax+08AAh], dl
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, edi
         add eax, 889h
         add eax, dword [byte ebp-08h]
         add eax, byte 10h
         call GoalieOverall
         mov edx, eax
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, edi
         mov dword [byte ebp-08h], eax
         lea eax, [ebx+ebx]
@@ -1348,7 +1348,7 @@ LoadRosterData:
         mov eax, dword [byte ebp-08h]
         add eax, dword [byte ebp-0Ch]
         mov word [dword eax+032C0h], dx
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         inc ebx
         add eax, edi
         mov byte [dword ebx+eax+03252h], 0
@@ -1383,7 +1383,7 @@ LoadRosterData:
         je short .22
         imul eax, esi, dword 32C6h
         mov dword [byte ebp-0Ch], eax
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, dword [byte ebp-0Ch]
         or byte [dword ebx+eax+0321Eh], 20h
 .22:
@@ -1409,7 +1409,7 @@ LoadRosterData:
         test eax, eax
         je short .25
         imul eax, esi, dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        mov edx, dword [RosterTeams]
         add eax, edx
         or byte [dword ebx+eax+03237h], 20h
 .25:
@@ -1435,7 +1435,7 @@ LoadRosterData:
         test eax, eax
         je short .28
         imul eax, esi, dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        mov edx, dword [RosterTeams]
         add eax, edx
         or byte [dword ebx+eax+0323Ah], 20h
 .28:
@@ -1462,7 +1462,7 @@ LoadRosterData:
         test eax, eax
         je short .31
         imul eax, esi, dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        mov edx, dword [RosterTeams]
         add eax, edx
         or byte [dword ebx+eax+03253h], 20h
 .31:
@@ -1500,12 +1500,12 @@ InitRosterData:
         push edi
         mov edi, eax
         mov esi, 1
-        mov dword [dword_1CC1C4], 0
+        mov dword [RosterTeam], 0
         mov dword [RosterData], 0
-        mov dword [dword_16D670], 0
-        mov dword [dword_1CC2BC], 0
-        mov dword [dword_1CC22C], 0
-        mov dword [dword_1CC1C8], esi
+        mov dword [RosterFreeAgents], 0
+        mov dword [RosterEditOpen], 0
+        mov dword [RosterTradeOn], 0
+        mov dword [RosterOtherTeam], esi
         cmp eax, esi
         jb short .1
         jbe near .9
@@ -1519,62 +1519,62 @@ InitRosterData:
         mov edx, dword [byte eax+01h]
         shl edx, 0Ch
         shr edx, 1Ah
-        mov dword [dword_1CC1C4], edx
+        mov dword [RosterTeam], edx
         mov eax, dword [byte eax+01h]
         shl eax, 6
         shr eax, 1Ah
-        mov dword [dword_1CC1C8], eax
+        mov dword [RosterOtherTeam], eax
         test edx, edx
         jl short .2
         cmp edx, byte 1Ah
         jl short .4
 .2:
-        cmp dword [dword_1CC1C8], byte 0
+        cmp dword [RosterOtherTeam], byte 0
         je short .3
-        mov dword [dword_1CC1C4], 0
+        mov dword [RosterTeam], 0
         jmp short .4
 .3:
-        mov dword [dword_1CC1C4], 1
+        mov dword [RosterTeam], 1
 .4:
-        cmp dword [dword_1CC1C8], byte 0
+        cmp dword [RosterOtherTeam], byte 0
         jl short .5
-        cmp dword [dword_1CC1C8], byte 1Ah
+        cmp dword [RosterOtherTeam], byte 1Ah
         jl short .7
 .5:
-        cmp dword [dword_1CC1C4], byte 0
+        cmp dword [RosterTeam], byte 0
         je short .6
-        mov dword [dword_1CC1C8], 0
+        mov dword [RosterOtherTeam], 0
         jmp short .7
 .6:
-        mov dword [dword_1CC1C8], 1
+        mov dword [RosterOtherTeam], 1
 .7:
-        mov eax, dword [dword_1CC1C4]
-        cmp eax, dword [dword_1CC1C8]
+        mov eax, dword [RosterTeam]
+        cmp eax, dword [RosterOtherTeam]
         jne short .8
         inc eax
         mov ebx, 1Ah
         cdq
         idiv ebx
-        mov dword [dword_1CC1C8], edx
+        mov dword [RosterOtherTeam], edx
 .8:
         push byte 20h
         push dword 7D0h
         push str_DeletionIndices
-        mov dword [dword_1CC2B0], 1
-        mov dword [dword_1CC2A4], 0
+        mov dword [RosterChanged], 1
+        mov dword [DeletionCount], 0
         call AllocMemBlock
         add esp, byte 0Ch
         push byte 0
         push dword 5281Ch
         mov ebx, 5281Ch
-        mov dword [dword_1CC23C], 5281Ch
+        mov dword [RosterInfoAnim], 5281Ch
         push str_RosterPlayerInfo
-        mov dword [dword_1CC238], 1
-        mov dword [dword_1CC2A8], eax
+        mov dword [RosterInfoLoaded], 1
+        mov dword [RosterPlayerInfo], eax
         call AllocMemBlock
         add esp, byte 0Ch
         xor edx, edx
-        mov dword [dword_1CC2AC], eax
+        mov dword [RosterTeams], eax
         call memset_
         mov eax, RosterData
         call LoadFakeExhibition
@@ -1582,13 +1582,13 @@ InitRosterData:
         jne near .20
         jmp near DrawRatingBars_158
 .9:
-        mov dword [dword_1CC1C8], 0FFFFFFFFh
+        mov dword [RosterOtherTeam], 0FFFFFFFFh
         mov eax, dword [SeasonDefaultUser]
         mov edx, 0FFFFFFFFh
-        mov dword [dword_1CC1C4], eax
+        mov dword [RosterTeam], eax
         xor eax, eax
 .10:
-        cmp eax, dword [dword_1CC1C4]
+        cmp eax, dword [RosterTeam]
         je short .12
         imul ebx, eax, byte 1Ch
         cmp byte [dword ebx+SeasonUserActive], 1
@@ -1602,40 +1602,40 @@ InitRosterData:
         je short .12
         cmp byte [dword ebx+SeasonUserLocked], 0
         je short .12
-        mov dword [dword_1CC2B0], 1
-        mov dword [dword_1CC1C8], eax
+        mov dword [RosterChanged], 1
+        mov dword [RosterOtherTeam], eax
         jmp short .13
 .12:
         inc eax
         cmp eax, byte 1Ah
         jl short .10
 .13:
-        cmp dword [dword_1CC1C8], byte 0
+        cmp dword [RosterOtherTeam], byte 0
         jge short .17
         test edx, edx
         jl short .14
-        mov dword [dword_1CC1C8], edx
+        mov dword [RosterOtherTeam], edx
         jmp short .16
 .14:
-        cmp dword [dword_1CC1C4], byte 0
+        cmp dword [RosterTeam], byte 0
         je short .15
-        mov dword [dword_1CC1C8], 0
+        mov dword [RosterOtherTeam], 0
         jmp short .16
 .15:
-        mov dword [dword_1CC1C8], 1
+        mov dword [RosterOtherTeam], 1
 .16:
-        mov dword [dword_1CC2B0], 0
+        mov dword [RosterChanged], 0
 .17:
-        imul eax, dword [dword_1CC1C4], byte 1Ch
+        imul eax, dword [RosterTeam], byte 1Ch
         cmp byte [dword eax+SeasonUserLocked], 0
         je short .18
-        imul eax, dword [dword_1CC1C8], byte 1Ch
+        imul eax, dword [RosterOtherTeam], byte 1Ch
         cmp byte [dword eax+SeasonUserLocked], 0
         je short .18
-        mov dword [dword_1CC2B0], 1
+        mov dword [RosterChanged], 1
         jmp short .19
 .18:
-        mov dword [dword_1CC2B0], 0
+        mov dword [RosterChanged], 0
 .19:
         call AllocRosterInfo
         and esi, eax
@@ -1652,10 +1652,10 @@ InitRosterData:
         and eax, esi
         jmp near DrawRatingBars_158
 .21:
-        mov dword [dword_1CC1C4], 0FFFFFFFFh
-        mov dword [dword_1CC1C8], 0FFFFFFFFh
+        mov dword [RosterTeam], 0FFFFFFFFh
+        mov dword [RosterOtherTeam], 0FFFFFFFFh
         mov ecx, 0FFFFFFFFh
-        mov dword [dword_1CC2B0], 0
+        mov dword [RosterChanged], 0
         xor eax, eax
         mov edx, ecx
 .22:
@@ -1676,25 +1676,25 @@ InitRosterData:
         je short .25
         cmp byte [dword ebx+PlayoffUserLocked], 0
         je short .25
-        mov dword [dword_1CC1C4], eax
+        mov dword [RosterTeam], eax
         jmp short .26
 .25:
         inc eax
         cmp eax, byte 10h
         jl short .22
 .26:
-        cmp dword [dword_1CC1C4], byte 0
+        cmp dword [RosterTeam], byte 0
         jge short .28
         test edx, edx
         jl short .27
-        mov dword [dword_1CC1C4], edx
+        mov dword [RosterTeam], edx
         jmp short .28
 .27:
-        mov dword [dword_1CC1C4], 0
+        mov dword [RosterTeam], 0
 .28:
         xor eax, eax
 .29:
-        cmp eax, dword [dword_1CC1C4]
+        cmp eax, dword [RosterTeam]
         je short .30
         imul ebx, eax, byte 1Ch
         cmp byte [dword ebx+PlayoffUserActive], 1
@@ -1703,33 +1703,33 @@ InitRosterData:
         je short .30
         cmp byte [dword ebx+PlayoffUserLocked], 0
         je short .30
-        mov dword [dword_1CC1C8], eax
+        mov dword [RosterOtherTeam], eax
         jmp short .31
 .30:
         inc eax
         cmp eax, byte 10h
         jl short .29
 .31:
-        cmp dword [dword_1CC1C8], byte 0
+        cmp dword [RosterOtherTeam], byte 0
         jge near .19
         test edx, edx
         jl short .32
-        cmp edx, dword [dword_1CC1C4]
+        cmp edx, dword [RosterTeam]
         je short .32
-        mov dword [dword_1CC1C8], edx
+        mov dword [RosterOtherTeam], edx
         jmp near .19
 .32:
         test ecx, ecx
         jl short .33
-        mov dword [dword_1CC1C8], ecx
+        mov dword [RosterOtherTeam], ecx
         jmp near .19
 .33:
-        cmp dword [dword_1CC1C4], byte 0
+        cmp dword [RosterTeam], byte 0
         je short .34
-        mov dword [dword_1CC1C8], 0
+        mov dword [RosterOtherTeam], 0
         jmp near .19
 .34:
-        mov dword [dword_1CC1C8], 1
+        mov dword [RosterOtherTeam], 1
         jmp near .19
 .35:
         xor eax, eax
@@ -1743,27 +1743,27 @@ FreeRosterData:
         push ecx
         push edx
         mov ebx, eax
-        cmp dword [dword_1CC2AC], byte 0
+        cmp dword [RosterTeams], byte 0
         je short .1
-        push dword [dword_1CC2AC]
+        push dword [RosterTeams]
         call FreeMemBlock
-        mov dword [dword_1CC2AC], 0
-        mov dword [dword_1CC238], 0
-        mov dword [dword_1CC23C], 0
+        mov dword [RosterTeams], 0
+        mov dword [RosterInfoLoaded], 0
+        mov dword [RosterInfoAnim], 0
         add esp, byte 4
 .1:
-        cmp dword [dword_16D670], byte 0
+        cmp dword [RosterFreeAgents], byte 0
         je short .2
-        push dword [dword_16D670]
+        push dword [RosterFreeAgents]
         call FreeMemBlock
-        mov dword [dword_16D670], 0
+        mov dword [RosterFreeAgents], 0
         add esp, byte 4
 .2:
-        cmp dword [dword_1CC2A8], byte 0
+        cmp dword [RosterPlayerInfo], byte 0
         je short .3
-        push dword [dword_1CC2A8]
+        push dword [RosterPlayerInfo]
         call FreeMemBlock
-        mov dword [dword_1CC2A8], 0
+        mov dword [RosterPlayerInfo], 0
         add esp, byte 4
 .3:
         cmp ebx, byte 1
@@ -1805,8 +1805,8 @@ DrawRosterRow:
         mov dword [byte ebp-04h], 1Eh
 .1:
         mov eax, dword [byte ebp-018h]
-        imul edi, dword [nosplit eax*4+dword_1CC1C4], dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        imul edi, dword [nosplit eax*4+RosterTeam], dword 32C6h
+        mov eax, dword [RosterTeams]
         xor esi, esi
         movsx edi, word [byte edi+eax+072h]
         jmp short .3
@@ -1815,7 +1815,7 @@ DrawRosterRow:
         push dword [byte ebp-0Ch]
         mov ecx, 0B4h
         mov ebx, dword [byte ebp-08h]
-        mov eax, dword [dword_1CC20C]
+        mov eax, dword [RosterRow]
         inc edi
         add eax, edx
         mov edx, dword [byte ebp-010h]
@@ -1828,16 +1828,16 @@ DrawRosterRow:
         cmp esi, byte 0Ah
         jge short .4
         mov eax, dword [byte ebp-018h]
-        imul eax, dword [nosplit eax*4+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [nosplit eax*4+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         mov eax, dword [edx+eax]
         movsx eax, word [dword eax+0D05h]
         cmp edi, eax
         jl short .2
 .4:
         mov eax, dword [byte ebp-018h]
-        imul eax, dword [nosplit eax*4+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [nosplit eax*4+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         mov eax, dword [edx+eax]
         movsx eax, word [dword eax+0D05h]
         sub edi, eax
@@ -1847,7 +1847,7 @@ DrawRosterRow:
         push dword [byte ebp-0Ch]
         mov ecx, 0B4h
         mov ebx, dword [byte ebp-08h]
-        mov edx, dword [dword_1CC20C]
+        mov edx, dword [RosterRow]
         inc edi
         add eax, edx
         mov edx, dword [byte ebp-010h]
@@ -1860,8 +1860,8 @@ DrawRosterRow:
         cmp esi, byte 0Ah
         jge short .7
         mov eax, dword [byte ebp-018h]
-        imul edx, dword [nosplit eax*4+dword_1CC1C4], dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        imul edx, dword [nosplit eax*4+RosterTeam], dword 32C6h
+        mov eax, dword [RosterTeams]
         mov eax, dword [edx+eax]
         movsx eax, word [dword eax+01281h]
         cmp edi, eax
@@ -1877,8 +1877,8 @@ DrawRosterRow:
         add dword [byte ebp-08h], eax
 .8:
         mov eax, dword [byte ebp-018h]
-        imul eax, dword [nosplit eax*4+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [nosplit eax*4+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         mov eax, dword [edx+eax]
         movsx eax, word [dword eax+01281h]
         sub edi, eax
@@ -1888,7 +1888,7 @@ DrawRosterRow:
         push dword [byte ebp-0Ch]
         mov ecx, 0B4h
         mov ebx, dword [byte ebp-08h]
-        mov edx, dword [dword_1CC20C]
+        mov edx, dword [RosterRow]
         inc edi
         add eax, edx
         mov edx, dword [byte ebp-010h]
@@ -1901,16 +1901,16 @@ DrawRosterRow:
         cmp esi, byte 0Ah
         jge short .11
         mov eax, dword [byte ebp-018h]
-        imul edx, dword [nosplit eax*4+dword_1CC1C4], dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        imul edx, dword [nosplit eax*4+RosterTeam], dword 32C6h
+        mov eax, dword [RosterTeams]
         mov eax, dword [edx+eax]
         movsx eax, word [dword eax+0132Bh]
         cmp edi, eax
         jl short .9
 .11:
         mov eax, dword [byte ebp-018h]
-        imul edx, dword [nosplit eax*4+dword_1CC1C4], dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        imul edx, dword [nosplit eax*4+RosterTeam], dword 32C6h
+        mov eax, dword [RosterTeams]
         mov eax, dword [edx+eax]
         movsx eax, word [dword eax+0132Bh]
         sub edi, eax
@@ -1920,7 +1920,7 @@ DrawRosterRow:
         push dword [byte ebp-0Ch]
         mov ecx, 0B4h
         mov ebx, dword [byte ebp-08h]
-        mov edx, dword [dword_1CC20C]
+        mov edx, dword [RosterRow]
         inc edi
         add eax, edx
         mov edx, dword [byte ebp-010h]
@@ -1933,8 +1933,8 @@ DrawRosterRow:
         cmp esi, byte 0Ah
         jge short .15
         mov eax, dword [byte ebp-018h]
-        imul eax, dword [nosplit eax*4+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [nosplit eax*4+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         mov eax, dword [edx+eax]
         movsx eax, word [dword eax+018A5h]
         cmp edi, eax
@@ -1945,7 +1945,7 @@ DrawRosterRow:
         push byte 1
         mov ecx, 1
         mov ebx, 1E0h
-        mov eax, dword [dword_1CC20C]
+        mov eax, dword [RosterRow]
         inc esi
         add eax, edx
         mov edx, 280h
@@ -1989,19 +1989,19 @@ DrawRosterList:
         jne short .1
         mov dword [byte ebp+03Eh], 1Eh
 .1:
-        imul esi, dword [nosplit edi*4+dword_1CC1C4], dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        imul esi, dword [nosplit edi*4+RosterTeam], dword 32C6h
+        mov eax, dword [RosterTeams]
         movsx esi, word [byte esi+eax+072h]
         mov eax, edi
         call DrawRosterRow
-        push dword [dword_1CC214]
+        push dword [RosterPanelBitmap]
         call SetDrawTarget
         add esp, byte 4
-        mov eax, dword [nosplit edi*4+dword_1CC21C]
+        mov eax, dword [nosplit edi*4+RosterPanelLayers]
         push dword [byte eax+02Ch]
         call BlitShape
-        imul eax, dword [nosplit edi*4+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [nosplit edi*4+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         add esp, byte 4
         cmp byte [byte edx+eax+071h], 0
         jbe near .5
@@ -2020,7 +2020,7 @@ DrawRosterList:
         add eax, dword [byte ebp+03Eh]
         imul eax, byte 52h
         push dword [byte ebp+076h]
-        mov edx, dword [dword_1CC20C]
+        mov edx, dword [RosterRow]
         push dword 0B4h
         push dword [byte edx+eax+02Ah]
         push dword 0FF0000AAh
@@ -2028,7 +2028,7 @@ DrawRosterList:
         call MakeColor
         mov edx, eax
         add esp, byte 4
-        mov eax, dword [dword_1CC214]
+        mov eax, dword [RosterPanelBitmap]
         mov ecx, ebx
         mov ebx, 10h
         mov eax, dword [byte eax+02Ch]
@@ -2036,8 +2036,8 @@ DrawRosterList:
 .3:
         inc dword [byte ebp+06Ah]
 .4:
-        imul ebx, dword [nosplit edi*4+dword_1CC1C4], dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        imul ebx, dword [nosplit edi*4+RosterTeam], dword 32C6h
+        mov eax, dword [RosterTeams]
         add ebx, eax
         movzx eax, byte [byte ebx+071h]
         cmp eax, dword [byte ebp+06Ah]
@@ -2053,7 +2053,7 @@ DrawRosterList:
         add eax, dword [byte ebp+076h]
         push eax
         mov eax, dword [byte ebp+05Ah]
-        mov eax, dword [dword eax+dword_1CC21C]
+        mov eax, dword [dword eax+RosterPanelLayers]
         mov eax, dword [byte eax+02Ch]
         movsx eax, word [byte eax+0Ch]
         push dword [byte ebp+072h]
@@ -2062,7 +2062,7 @@ DrawRosterList:
         push eax
         call SetClipWindow
         add esp, byte 10h
-        push dword [dword_1CC218]
+        push dword [RosterPanelShape]
         call BlitShape
         add esp, byte 4
         push dword 0FFFFFF50h
@@ -2080,7 +2080,7 @@ DrawRosterList:
         add eax, byte 6
         push eax
         mov eax, dword [byte ebp+05Ah]
-        mov eax, dword [dword eax+dword_1CC21C]
+        mov eax, dword [dword eax+RosterPanelLayers]
         mov eax, dword [byte eax+02Ch]
         movsx edx, word [byte eax+04h]
         sar edx, 1
@@ -2093,8 +2093,8 @@ DrawRosterList:
         inc dword [byte ebp+07Ah]
         call ResetClipWindow
 .7:
-        imul eax, dword [nosplit edi*4+dword_1CC1C4], dword 32C6h
-        mov ecx, dword [dword_1CC2AC]
+        imul eax, dword [nosplit edi*4+RosterTeam], dword 32C6h
+        mov ecx, dword [RosterTeams]
         add ecx, eax
         imul eax, esi, dword 0BCh
         mov dword [byte ebp+032h], ecx
@@ -2120,8 +2120,8 @@ DrawRosterList:
         lea eax, [byte ebp-01Eh]
         push eax
         call sprintf_
-        imul eax, dword [nosplit edi*4+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [nosplit edi*4+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         mov eax, dword [edx+eax]
         add eax, dword [byte ebp+04Ah]
         add esp, byte 18h
@@ -2157,15 +2157,15 @@ DrawRosterList:
         mov eax, edi
         shl eax, 2
         mov dword [byte ebp+05Ah], eax
-        imul eax, dword [dword eax+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [dword eax+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         mov eax, dword [edx+eax]
         movsx eax, word [dword eax+0D05h]
         cmp esi, eax
         jl near .6
 .12:
-        imul eax, dword [nosplit edi*4+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [nosplit edi*4+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         mov eax, dword [edx+eax]
         movsx eax, word [dword eax+0D05h]
         sub esi, eax
@@ -2177,7 +2177,7 @@ DrawRosterList:
         add eax, dword [byte ebp+076h]
         push eax
         mov eax, dword [byte ebp+062h]
-        mov eax, dword [dword eax+dword_1CC21C]
+        mov eax, dword [dword eax+RosterPanelLayers]
         mov eax, dword [byte eax+02Ch]
         movsx eax, word [byte eax+0Ch]
         push dword [byte ebp+072h]
@@ -2186,7 +2186,7 @@ DrawRosterList:
         push eax
         call SetClipWindow
         add esp, byte 10h
-        push dword [dword_1CC218]
+        push dword [RosterPanelShape]
         call BlitShape
         add esp, byte 4
         push dword 0FFFFFF50h
@@ -2204,7 +2204,7 @@ DrawRosterList:
         add eax, byte 6
         push eax
         mov eax, dword [byte ebp+062h]
-        mov eax, dword [dword eax+dword_1CC21C]
+        mov eax, dword [dword eax+RosterPanelLayers]
         mov eax, dword [byte eax+02Ch]
         movsx edx, word [byte eax+04h]
         sar edx, 1
@@ -2217,8 +2217,8 @@ DrawRosterList:
         inc dword [byte ebp+07Ah]
         call ResetClipWindow
 .14:
-        imul eax, dword [nosplit edi*4+dword_1CC1C4], dword 32C6h
-        mov ecx, dword [dword_1CC2AC]
+        imul eax, dword [nosplit edi*4+RosterTeam], dword 32C6h
+        mov ecx, dword [RosterTeams]
         add ecx, eax
         imul eax, esi, dword 0BCh
         mov dword [byte ebp+032h], ecx
@@ -2244,8 +2244,8 @@ DrawRosterList:
         lea eax, [byte ebp-01Eh]
         push eax
         call sprintf_
-        imul eax, dword [nosplit edi*4+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [nosplit edi*4+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         mov eax, dword [edx+eax]
         add eax, dword [byte ebp+052h]
         add esp, byte 18h
@@ -2281,8 +2281,8 @@ DrawRosterList:
         mov eax, edi
         shl eax, 2
         mov dword [byte ebp+062h], eax
-        imul eax, dword [dword eax+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [dword eax+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         mov eax, dword [edx+eax]
         movsx eax, word [dword eax+01281h]
         cmp esi, eax
@@ -2290,9 +2290,9 @@ DrawRosterList:
 .19:
         mov eax, edi
         shl eax, 2
-        imul edx, dword [dword eax+dword_1CC1C4], dword 32C6h
+        imul edx, dword [dword eax+RosterTeam], dword 32C6h
         mov dword [byte ebp+04Eh], eax
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         mov eax, dword [edx+eax]
         movsx eax, word [dword eax+01281h]
         sub esi, eax
@@ -2310,7 +2310,7 @@ DrawRosterList:
         mov dword [byte ebp+032h], eax
         call MeasureText
         mov eax, dword [byte ebp+04Eh]
-        mov eax, dword [dword eax+dword_1CC21C]
+        mov eax, dword [dword eax+RosterPanelLayers]
         mov eax, dword [byte eax+02Ch]
         add esp, byte 4
         movsx edx, word [byte eax+04h]
@@ -2330,7 +2330,7 @@ DrawRosterList:
         add eax, dword [byte ebp+076h]
         push eax
         mov eax, dword [byte ebp+066h]
-        mov eax, dword [dword eax+dword_1CC21C]
+        mov eax, dword [dword eax+RosterPanelLayers]
         mov eax, dword [byte eax+02Ch]
         movsx eax, word [byte eax+0Ch]
         push dword [byte ebp+072h]
@@ -2339,7 +2339,7 @@ DrawRosterList:
         push eax
         call SetClipWindow
         add esp, byte 10h
-        push dword [dword_1CC218]
+        push dword [RosterPanelShape]
         call BlitShape
         add esp, byte 4
         push dword 0FFFFFF50h
@@ -2357,7 +2357,7 @@ DrawRosterList:
         add eax, byte 6
         push eax
         mov eax, dword [byte ebp+066h]
-        mov eax, dword [dword eax+dword_1CC21C]
+        mov eax, dword [dword eax+RosterPanelLayers]
         mov eax, dword [byte eax+02Ch]
         movsx edx, word [byte eax+04h]
         sar edx, 1
@@ -2370,8 +2370,8 @@ DrawRosterList:
         inc dword [byte ebp+07Ah]
         call ResetClipWindow
 .21:
-        imul eax, dword [nosplit edi*4+dword_1CC1C4], dword 32C6h
-        mov ecx, dword [dword_1CC2AC]
+        imul eax, dword [nosplit edi*4+RosterTeam], dword 32C6h
+        mov ecx, dword [RosterTeams]
         add ecx, eax
         imul eax, esi, dword 0BCh
         mov dword [byte ebp+032h], ecx
@@ -2397,8 +2397,8 @@ DrawRosterList:
         lea eax, [byte ebp-01Eh]
         push eax
         call sprintf_
-        imul eax, dword [nosplit edi*4+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [nosplit edi*4+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         mov eax, dword [edx+eax]
         add eax, dword [byte ebp+042h]
         add esp, byte 18h
@@ -2435,15 +2435,15 @@ DrawRosterList:
         mov eax, edi
         shl eax, 2
         mov dword [byte ebp+066h], eax
-        imul eax, dword [dword eax+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [dword eax+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         mov eax, dword [edx+eax]
         movsx eax, word [dword eax+0132Bh]
         cmp esi, eax
         jl near .20
 .27:
-        imul edx, dword [nosplit edi*4+dword_1CC1C4], dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        imul edx, dword [nosplit edi*4+RosterTeam], dword 32C6h
+        mov eax, dword [RosterTeams]
         mov eax, dword [edx+eax]
         movsx eax, word [dword eax+0132Bh]
         sub esi, eax
@@ -2471,8 +2471,8 @@ DrawRosterList:
         lea eax, [byte ebp-01Eh]
         push eax
         call sprintf_
-        imul eax, dword [dword edx+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [dword edx+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         mov eax, dword [edx+eax]
         add eax, dword [byte ebp+046h]
         add esp, byte 18h
@@ -2507,8 +2507,8 @@ DrawRosterList:
         jge short .33
         mov edx, edi
         shl edx, 2
-        imul eax, dword [dword edx+dword_1CC1C4], dword 32C6h
-        mov ecx, dword [dword_1CC2AC]
+        imul eax, dword [dword edx+RosterTeam], dword 32C6h
+        mov ecx, dword [RosterTeams]
         add ecx, eax
         mov eax, dword [ecx]
         mov dword [byte ebp+056h], eax
@@ -2525,7 +2525,7 @@ DrawRosterList:
         cmp dword [byte ebp+036h], byte 0
         je short .34
         call SetScreenTarget
-        mov ebx, dword [nosplit edi*4+dword_1CC21C]
+        mov ebx, dword [nosplit edi*4+RosterPanelLayers]
         mov ebx, dword [byte ebx+02Ch]
         movsx eax, word [byte ebx+0Eh]
         movsx edx, word [byte ebx+06h]
@@ -2541,7 +2541,7 @@ DrawRosterList:
         call SetClipWindow
         add esp, byte 10h
         push byte 0
-        mov eax, dword [dword_1CC214]
+        mov eax, dword [RosterPanelBitmap]
         push byte 0
         push dword [byte eax+02Ch]
         call BlitArt
@@ -2549,14 +2549,14 @@ DrawRosterList:
         call ResetClipWindow
         call PresentScreen
 .34:
-        imul eax, dword [nosplit edi*4+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [nosplit edi*4+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         movsx edx, word [byte edx+eax+074h]
         inc edx
-        mov eax, dword [nosplit edi*4+dword_1CC1BC]
+        mov eax, dword [nosplit edi*4+RosterListBox]
         call SetListSelection
-        mov edx, dword [dword_1CC214]
-        mov eax, dword [nosplit edi*4+dword_1CC1BC]
+        mov edx, dword [RosterPanelBitmap]
+        mov eax, dword [nosplit edi*4+RosterListBox]
         call DrawScrollBar
         mov eax, dword [byte ebp+03Ah]
 DrawRosterList_86F:
@@ -2643,36 +2643,36 @@ ShowRosterLogo:
         enter 20h, 0
         mov dword [byte ebp-01Ch], 0BEh
         mov dword [byte ebp-020h], 98h
-        mov edx, dword [dword_1CC1C4]
-        cmp dword [dword_1CC230], byte 1Ah
+        mov edx, dword [RosterTeam]
+        cmp dword [RosterScrollList], byte 1Ah
         jge short .1
         mov edx, dword [nosplit edx*4+PlayoffTeams]
 .1:
-        mov eax, dword [dword_1CC214]
+        mov eax, dword [RosterPanelBitmap]
         lea ebx, [byte ebp-020h]
         mov eax, dword [byte eax+02Ch]
         call DrawRosterLogo
         mov dword [byte ebp-020h], 1EAh
         mov dword [byte ebp-01Ch], 0BEh
-        mov edx, dword [dword_1CC1C8]
-        cmp dword [dword_1CC230], byte 1Ah
+        mov edx, dword [RosterOtherTeam]
+        cmp dword [RosterScrollList], byte 1Ah
         jge short .2
         mov edx, dword [nosplit edx*4+PlayoffTeams]
 .2:
-        mov eax, dword [dword_1CC214]
+        mov eax, dword [RosterPanelBitmap]
         lea ebx, [byte ebp-020h]
         mov eax, dword [byte eax+02Ch]
         call DrawRosterLogo
-        mov eax, dword [dword_16D6C0]
+        mov eax, dword [RosterTitleRight]
         sub eax, dword [str_X_ShowRosterLogo]
         push eax
-        mov eax, dword [dword_16D6AC]
+        mov eax, dword [RosterTitleX]
         add eax, 0B4h
         mov edx, 14h
         sub eax, dword [str_Punct_DrawRosterList]
         mov ecx, dword [str_X_ShowRosterLogo]
         push eax
-        mov eax, dword [dword_1CC214]
+        mov eax, dword [RosterPanelBitmap]
         mov ebx, dword [str_Punct_DrawRosterList]
         sub ecx, byte 6
         mov eax, dword [byte eax+02Ch]
@@ -2696,7 +2696,7 @@ DrawRosterTitle:
         push byte 32h
         mov ecx, 1AAh
         mov ebx, 58h
-        mov eax, dword [dword_1CC214]
+        mov eax, dword [RosterPanelBitmap]
         push dword 8Ch
         mov edx, 14h
         mov eax, dword [byte eax+02Ch]
@@ -2733,7 +2733,7 @@ DrawRosterTitle:
         push byte 32h
         mov ecx, 1AAh
         mov ebx, 1A2h
-        mov eax, dword [dword_1CC214]
+        mov eax, dword [RosterPanelBitmap]
         push dword 8Ch
         mov edx, 14h
         mov eax, dword [byte eax+02Ch]
@@ -2768,10 +2768,10 @@ DrawRosterTitle:
         mov eax, 1A2h
         call DrawFrameBox
         call SetHighlightText
-        mov eax, dword [dword_16D6B4]
+        mov eax, dword [RosterTitleY]
         mov esi, dword [str_X_ShowRosterLogo]
-        mov ebx, dword [dword_16D6BC]
-        mov edi, dword [dword_16D6C0]
+        mov ebx, dword [RosterTitleWidth]
+        mov edi, dword [RosterTitleRight]
         sub esi, byte 6
         sub edi, dword [str_X_ShowRosterLogo]
         sub ebx, eax
@@ -2779,7 +2779,7 @@ DrawRosterTitle:
         mov edx, esi
         call DrawFrameBox
         mov eax, dword [str_Punct_DrawRosterList]
-        mov ebx, dword [dword_16D6AC]
+        mov ebx, dword [RosterTitleX]
         sub eax, byte 6
         add ebx, 0B4h
         mov ecx, edi
@@ -2799,7 +2799,7 @@ CreateRosterPanel:
         push esi
         push edi
         mov edi, 0DCh
-        push dword [dword_1CC214]
+        push dword [RosterPanelBitmap]
         mov esi, 0B4h
         call SetDrawTarget
         xor ebx, ebx
@@ -2812,29 +2812,29 @@ CreateRosterPanel:
         add esp, byte 0Ch
         push dword [nosplit ebx*8+str_X_DrawRosterList]
         push dword [nosplit ebx*8+str_Punct_DrawRosterList]
-        mov dword [nosplit ebx*4+dword_1CC21C], eax
+        mov dword [nosplit ebx*4+RosterPanelLayers], eax
         push dword [byte eax+02Ch]
         inc ebx
         call ConvertArtXY
         add esp, byte 0Ch
         cmp ebx, byte 2
         jl short .1
-        mov edi, dword [dword_16D6C0]
+        mov edi, dword [RosterTitleRight]
         push byte 0
         sub edi, dword [str_X_ShowRosterLogo]
-        mov esi, dword [dword_16D6BC]
+        mov esi, dword [RosterTitleWidth]
         push edi
-        sub esi, dword [dword_16D6B4]
+        sub esi, dword [RosterTitleY]
         push esi
         call CreateBitmap
         add esp, byte 0Ch
         push dword [str_X_ShowRosterLogo]
-        push dword [dword_16D6B4]
-        mov dword [dword_1CC224], eax
+        push dword [RosterTitleY]
+        mov dword [RosterLogoBitmap], eax
         push dword [byte eax+02Ch]
         call ConvertArtXY
         add esp, byte 0Ch
-        push dword [dword_1CC224]
+        push dword [RosterLogoBitmap]
         call SetDrawTarget
         add esp, byte 4
         call DrawRosterPanel
@@ -2851,14 +2851,14 @@ FreeRosterPanel:
 .1:
         mov eax, ebx
         shl eax, 2
-        cmp dword [dword eax+dword_1CC21C], byte 0
+        cmp dword [dword eax+RosterPanelLayers], byte 0
         je short .2
-        push dword [dword eax+dword_1CC21C]
+        push dword [dword eax+RosterPanelLayers]
         call FreeBitmap
         add esp, byte 4
 .2:
         inc ebx
-        mov dword [nosplit ebx*4+dword_1CC218], 0
+        mov dword [nosplit ebx*4+RosterPanelShape], 0
         cmp ebx, byte 3
         jl short .1
         pop edx
@@ -2883,7 +2883,7 @@ InitRosterScreen:
         xor edx, edx
         mov eax, 1Dh
         call LoadDataFile
-        mov dword [dword_1CC2C0], eax
+        mov dword [RosterShapeFile], eax
         mov eax, 3
         xor edx, edx
         call SecondsToSamples
@@ -2892,14 +2892,14 @@ InitRosterScreen:
         call LoadDataFile
         push str_BACK11
         push eax
-        mov dword [dword_1CC2C4], eax
+        mov dword [RosterBackFile], eax
         call FindShape
         add esp, byte 8
         push str_TITL11
         mov esi, eax
         mov dword [byte ebp-04h], eax
-        push dword [dword_1CC2C0]
-        mov dword [dword_1CC218], eax
+        push dword [RosterShapeFile]
+        mov dword [RosterPanelShape], eax
         call FindShape
         add esp, byte 8
         push byte 0
@@ -2909,7 +2909,7 @@ InitRosterScreen:
         call CreateBitmap
         add esp, byte 0Ch
         push eax
-        mov dword [dword_1CC214], eax
+        mov dword [RosterPanelBitmap], eax
         call SetDrawTarget
         add esp, byte 4
         push esi
@@ -2919,37 +2919,37 @@ InitRosterScreen:
         call BlitShape
         add esp, byte 4
         call ShowRosterLogo
-        mov eax, dword [dword_1CC214]
+        mov eax, dword [RosterPanelBitmap]
         mov eax, dword [byte eax+02Ch]
         mov esi, unk_1C5EF8
         mov ebx, eax
         mov edx, eax
         mov ecx, 52h
         call DrawScreenBackground
-        mov edi, dword [dword_1CC20C]
+        mov edi, dword [RosterRow]
         rep movsb
-        mov eax, dword [dword_1CC20C]
+        mov eax, dword [RosterRow]
         mov dword [eax], 0
-        mov esi, dword [dword_1CC20C]
+        mov esi, dword [RosterRow]
         mov ecx, 52h
         lea edi, [byte esi+052h]
         mov esi, unk_1C5F4A
         rep movsb
-        mov eax, dword [dword_1CC20C]
+        mov eax, dword [RosterRow]
         mov dword [byte eax+052h], 1
-        mov esi, dword [dword_1CC20C]
+        mov esi, dword [RosterRow]
         mov ecx, 52h
         lea edi, [dword esi+0A4h]
         mov esi, unk_1C5F9C
         rep movsb
-        mov eax, dword [dword_1CC20C]
+        mov eax, dword [RosterRow]
         mov dword [dword eax+0A4h], 2
-        push dword [dword_1CC214]
+        push dword [RosterPanelBitmap]
         call SetDrawTarget
         add esp, byte 4
         call DrawRosterTitle
         call CreateRosterPanel
-        push dword [dword_1CC214]
+        push dword [RosterPanelBitmap]
         call SetDrawTarget
         add esp, byte 4
         mov dword [byte ebp-08h], 0DCh
@@ -2959,8 +2959,8 @@ InitRosterScreen:
 .1:
         lea eax, [edi+edi*2]
         lea edx, [byte eax+0Eh]
-        imul eax, dword [nosplit edi*4+dword_1CC1C4], dword 32C6h
-        mov ebx, dword [dword_1CC2AC]
+        imul eax, dword [nosplit edi*4+RosterTeam], dword 32C6h
+        mov ebx, dword [RosterTeams]
         movsx ebx, word [byte ebx+eax+074h]
         imul eax, edx, byte 52h
         push byte 0
@@ -2971,24 +2971,24 @@ InitRosterScreen:
         push dword [byte ebp-04h]
         mov ecx, 0Ah
         push byte 0
-        mov edx, dword [dword_1CC20C]
+        mov edx, dword [RosterRow]
         inc ebx
         add edx, eax
-        mov eax, dword [nosplit edi*4+dword_1CC1BC]
+        mov eax, dword [nosplit edi*4+RosterListBox]
         call InitScrollList
-        imul edx, dword [nosplit edi*4+dword_1CC1C4], dword 32C6h
-        mov eax, dword [dword_1CC2AC]
-        mov ebx, dword [dword_1CC214]
+        imul edx, dword [nosplit edi*4+RosterTeam], dword 32C6h
+        mov eax, dword [RosterTeams]
+        mov ebx, dword [RosterPanelBitmap]
         movsx edx, word [byte edx+eax+072h]
-        mov eax, dword [nosplit edi*4+dword_1CC1BC]
+        mov eax, dword [nosplit edi*4+RosterListBox]
         call SetScrollBarPos
-        mov edx, dword [dword_1CC214]
-        mov eax, dword [nosplit edi*4+dword_1CC1BC]
+        mov edx, dword [RosterPanelBitmap]
+        mov eax, dword [nosplit edi*4+RosterListBox]
         inc edi
         call DrawScrollBar
         cmp edi, byte 2
         jl near .1
-        push dword [dword_1CC214]
+        push dword [RosterPanelBitmap]
         call SetDrawTarget
         add esp, byte 4
         call SetRosterArrows
@@ -3003,7 +3003,7 @@ InitRosterScreen:
         call DrawRosterDetails
 .2:
         imul esi, edi, byte 52h
-        mov eax, dword [dword_1CC20C]
+        mov eax, dword [RosterRow]
         add esi, eax
         cmp dword [byte esi+01Ah], byte 0
         je short .3
@@ -3017,34 +3017,34 @@ InitRosterScreen:
         cmp edi, byte 14h
         jl short .2
         mov eax, 1
-        mov dword [dword_16D680], 0
+        mov dword [RosterScreenReady], 0
         jmp near DrawRatingBars_157
 ;-----------------------------------------------------------------------------
 ; FreeRosterScreen                                C9D84  97 PC, low confidence
-; From RosterScreen: frees the roster screen art once (dword_16D680 guard)
+; From RosterScreen: frees the roster screen art once (RosterScreenReady guard)
 ;-----------------------------------------------------------------------------
 FreeRosterScreen:
         push ecx
         push edx
-        cmp dword [dword_16D680], byte 0
+        cmp dword [RosterScreenReady], byte 0
         jne short .2
         xor edx, edx
 .1:
-        mov eax, dword [nosplit edx*4+dword_1CC1BC]
+        mov eax, dword [nosplit edx*4+RosterListBox]
         inc edx
         call FreeScrollList
         cmp edx, byte 2
         jl short .1
         call FreeRosterPanel
-        push dword [dword_1CC214]
+        push dword [RosterPanelBitmap]
         call FreeBitmap
         add esp, byte 4
-        push dword [dword_1CC2C0]
+        push dword [RosterShapeFile]
         call FreeMemBlock
         add esp, byte 4
-        push dword [dword_1CC2C4]
+        push dword [RosterBackFile]
         call FreeMemBlock
-        mov dword [dword_16D680], 1
+        mov dword [RosterScreenReady], 1
         add esp, byte 4
 .2:
         pop edx
@@ -3062,7 +3062,7 @@ DrawRosterPanel:
         push edi
         enter 1Ch, 0
         push str_MTR2
-        push dword [dword_1CC2C4]
+        push dword [RosterBackFile]
         call FindShape
         add esp, byte 8
         push byte 10h
@@ -3183,40 +3183,40 @@ SetupRosterLists:
         push esi
         push edi
         enter 0Ch, 0
-        push dword_1CC18C
+        push RosterSpeechHome
         push str_TR00TR01TR02TR03
-        push dword [dword_1CC2C0]
+        push dword [RosterShapeFile]
         call FindShapeList
         add esp, byte 0Ch
-        push dword_1CC1AC
+        push RosterSpeechAway
         push str_DF00DF01DF02DF03
-        push dword [dword_1CC2C0]
+        push dword [RosterShapeFile]
         call FindShapeList
         add esp, byte 0Ch
-        push dword_1CC19C
+        push RosterSpeechTrade
         push str_CM00CM01CM02CM03
-        push dword [dword_1CC2C0]
+        push dword [RosterShapeFile]
         mov ebx, str_TR00
         call FindShapeList
         add esp, byte 0Ch
         mov ecx, str_TR01
-        mov edx, dword [dword_1CC20C]
+        mov edx, dword [RosterRow]
         push str_TR00
-        mov eax, dword [dword_1CC2C0]
+        mov eax, dword [RosterShapeFile]
         add edx, 0F6h
         call InitShapeListBox
         push str_DF002
         mov ecx, str_DF002
-        mov edx, dword [dword_1CC20C]
-        mov eax, dword [dword_1CC2C0]
+        mov edx, dword [RosterRow]
+        mov eax, dword [RosterShapeFile]
         add edx, 148h
         mov ebx, ecx
         call InitShapeListBox
         push str_CM002
         mov ecx, str_CM012
         mov ebx, str_CM002
-        mov edx, dword [dword_1CC20C]
-        mov eax, dword [dword_1CC2C0]
+        mov edx, dword [RosterRow]
+        mov eax, dword [RosterShapeFile]
         add edx, 19Ah
         xor esi, esi
         call InitShapeListBox
@@ -3230,22 +3230,22 @@ SetupRosterLists:
         jne short .2
         push str_GB00
         mov ecx, str_GB00
-        mov edx, dword [dword_1CC20C]
+        mov edx, dword [RosterRow]
         mov ebx, ecx
         jmp short .3
 .2:
         push str_LD002
         mov ecx, str_LD002
-        mov edx, dword [dword_1CC20C]
+        mov edx, dword [RosterRow]
         mov ebx, str_LB004
 .3:
         add edx, eax
-        mov eax, dword [dword_1CC2C0]
+        mov eax, dword [RosterShapeFile]
         call InitShapeListBox
         inc esi
         cmp esi, byte 2
         jl short .1
-        mov eax, dword [dword_1CC20C]
+        mov eax, dword [RosterRow]
         mov esi, dword [dword eax+0206h]
         mov ebx, 178h
         movsx edx, word [byte esi+06h]
@@ -3254,7 +3254,7 @@ SetupRosterLists:
         movsx ecx, word [byte esi+04h]
         mov edx, 37h
         call InitListBox
-        mov eax, dword [dword_1CC20C]
+        mov eax, dword [RosterRow]
         mov esi, dword [dword eax+0258h]
         mov ebx, 178h
         add eax, 23Eh
@@ -3265,24 +3265,24 @@ SetupRosterLists:
         xor esi, esi
         call InitListBox
 .4:
-        mov eax, dword [nosplit esi*4+dword_1CC1C4]
-        mov edx, dword [dword_1CC210]
+        mov eax, dword [nosplit esi*4+RosterTeam]
+        mov edx, dword [RosterScrollArea]
         shl eax, 2
         add edx, eax
         lea eax, [byte esi+08h]
         imul eax, byte 52h
-        mov ebx, dword [dword_1CC20C]
+        mov ebx, dword [RosterRow]
         mov edx, dword [edx]
         mov dword [byte ebx+eax+01Ah], edx
-        mov ebx, dword [dword_1CC204]
-        mov edx, dword [nosplit esi*4+dword_1CC1C4]
-        mov edi, dword [dword_1CC20C]
+        mov ebx, dword [RosterListArea]
+        mov edx, dword [nosplit esi*4+RosterTeam]
+        mov edi, dword [RosterRow]
         mov edx, dword [ebx+edx*4]
         mov dword [byte edi+eax+01Eh], edx
         mov ebx, edx
-        mov edx, dword [dword_1CC20C]
+        mov edx, dword [RosterRow]
         mov dword [byte edx+eax+022h], ebx
-        mov edx, dword [dword_1CC20C]
+        mov edx, dword [RosterRow]
         add eax, edx
         mov edi, dword [byte eax+01Ah]
         mov ebx, dword [nosplit esi*8+str_I_SetupRosterLists]
@@ -3297,31 +3297,31 @@ SetupRosterLists:
         push str_ATL2
         mov ecx, str_ATL1
         mov ebx, str_ATL0
-        mov edx, dword [dword_1CC20C]
-        mov eax, dword [dword_1CC2C4]
+        mov edx, dword [RosterRow]
+        mov eax, dword [RosterBackFile]
         add edx, 334h
         call InitShapeListBox
         push str_ATL5
         mov ecx, str_ATL4
         mov ebx, str_ATL3
-        mov edx, dword [dword_1CC20C]
-        mov eax, dword [dword_1CC2C4]
+        mov edx, dword [RosterRow]
+        mov eax, dword [RosterBackFile]
         add edx, 386h
         mov dword [byte ebp-0Ch], 0B4h
         call InitShapeListBox
         push str_ATR2
         mov ecx, str_ATR1
         mov ebx, str_ATR0
-        mov edx, dword [dword_1CC20C]
-        mov eax, dword [dword_1CC2C4]
+        mov edx, dword [RosterRow]
+        mov eax, dword [RosterBackFile]
         add edx, 3D8h
         mov dword [byte ebp-04h], 16h
         call InitShapeListBox
         push str_ATR5
         mov ecx, str_ATR4
         mov ebx, str_ATR3
-        mov edx, dword [dword_1CC20C]
-        mov eax, dword [dword_1CC2C4]
+        mov edx, dword [RosterRow]
+        mov eax, dword [RosterBackFile]
         add edx, 42Ah
         mov esi, 14h
         call InitShapeListBox
@@ -3332,7 +3332,7 @@ SetupRosterLists:
         imul edx, esi, byte 52h
         push dword [byte ebp-04h]
         mov ecx, dword [byte ebp-0Ch]
-        mov eax, dword [dword_1CC20C]
+        mov eax, dword [RosterRow]
         mov ebx, edi
         add edi, dword [byte ebp-04h]
         add eax, edx
@@ -3342,14 +3342,14 @@ SetupRosterLists:
         cmp esi, byte 1Eh
         jl short .5
         mov esi, 1Eh
-        mov eax, dword [dword_16D6AC]
+        mov eax, dword [RosterTitleX]
         mov edi, dword [str_X_SetupRosterLists]
         mov dword [byte ebp-08h], eax
 .6:
         imul edx, esi, byte 52h
         push dword [byte ebp-04h]
         mov ecx, dword [byte ebp-0Ch]
-        mov eax, dword [dword_1CC20C]
+        mov eax, dword [RosterRow]
         mov ebx, edi
         add edi, dword [byte ebp-04h]
         add eax, edx
@@ -3373,7 +3373,7 @@ LoadRosterArt:
         xor ebx, ebx
         jmp near .5
 .1:
-        cmp dword [dword_1CC230], byte 1Ah
+        cmp dword [RosterScrollList], byte 1Ah
         jge short .2
         mov eax, dword [nosplit ebx*4+PlayoffTeams]
         jmp short .3
@@ -3397,25 +3397,25 @@ LoadRosterArt:
         add esp, byte 0Ch
         lea eax, [byte ebp-08h]
         push eax
-        push dword [dword_1CC2C4]
+        push dword [RosterBackFile]
         mov esi, ebx
         call FindShape
         mov edx, eax
-        mov eax, dword [dword_1CC210]
+        mov eax, dword [RosterScrollArea]
         add esp, byte 8
         mov dword [eax+esi*4], edx
         lea eax, [byte ebp-08h]
         push eax
-        push dword [dword_1CC2C4]
+        push dword [RosterBackFile]
         mov byte [byte ebp-07h], 44h
         call FindShape
         mov edx, eax
-        mov eax, dword [dword_1CC204]
+        mov eax, dword [RosterListArea]
         inc ebx
         add esp, byte 8
         mov dword [eax+esi*4], edx
 .5:
-        cmp ebx, dword [dword_1CC230]
+        cmp ebx, dword [RosterScrollList]
         jl near .1
         mov eax, 1
         leave
@@ -3432,106 +3432,106 @@ SetRosterButtons:
         push ebx
         push ecx
         push edx
-        imul eax, dword [nosplit eax*4+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [nosplit eax*4+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         xor ebx, ebx
         test byte [byte edx+eax+06Ah], 8
         je short .1
         push str_LB04
-        push dword [dword_1CC2C0]
+        push dword [RosterShapeFile]
         call FindShape
         add esp, byte 8
         mov edx, eax
-        mov eax, dword [dword_1CC234]
+        mov eax, dword [RosterMenuArea]
         push str_LD04
         mov dword [eax], edx
-        push dword [dword_1CC2C0]
+        push dword [RosterShapeFile]
         call FindShape
         add esp, byte 8
         mov edx, eax
-        mov eax, dword [dword_1CC228]
+        mov eax, dword [RosterMenuItems]
         push str_LB02
         mov dword [eax], edx
-        push dword [dword_1CC2C0]
+        push dword [RosterShapeFile]
         call FindShape
         add esp, byte 8
         mov edx, eax
-        mov eax, dword [dword_1CC234]
+        mov eax, dword [RosterMenuArea]
         push str_LD02
         mov dword [byte eax+08h], edx
-        push dword [dword_1CC2C0]
+        push dword [RosterShapeFile]
         call FindShape
         mov edx, eax
-        mov eax, dword [dword_1CC228]
+        mov eax, dword [RosterMenuItems]
         mov ebx, 1
         jmp short .2
 .1:
         push str_GB04
-        push dword [dword_1CC2C0]
+        push dword [RosterShapeFile]
         call FindShape
         mov edx, eax
-        mov eax, dword [dword_1CC228]
+        mov eax, dword [RosterMenuItems]
         mov dword [eax], edx
         add esp, byte 8
-        mov eax, dword [dword_1CC234]
+        mov eax, dword [RosterMenuArea]
         push str_GB02
         mov dword [eax], edx
-        push dword [dword_1CC2C0]
+        push dword [RosterShapeFile]
         call FindShape
         mov edx, eax
-        mov eax, dword [dword_1CC228]
+        mov eax, dword [RosterMenuItems]
         mov dword [byte eax+08h], edx
-        mov eax, dword [dword_1CC234]
+        mov eax, dword [RosterMenuArea]
 .2:
         add esp, byte 8
         mov dword [byte eax+08h], edx
-        cmp dword [dword_1CC208], byte 0
+        cmp dword [RosterMode], byte 0
         jne short .3
         push str_LB03
-        push dword [dword_1CC2C0]
+        push dword [RosterShapeFile]
         call FindShape
         add esp, byte 8
         mov edx, eax
-        mov eax, dword [dword_1CC234]
+        mov eax, dword [RosterMenuArea]
         push str_LD03
         mov dword [byte eax+04h], edx
-        push dword [dword_1CC2C0]
+        push dword [RosterShapeFile]
         call FindShape
         add esp, byte 8
         mov edx, eax
-        mov eax, dword [dword_1CC228]
+        mov eax, dword [RosterMenuItems]
         push str_LB01
         mov dword [byte eax+04h], edx
-        push dword [dword_1CC2C0]
+        push dword [RosterShapeFile]
         call FindShape
         add esp, byte 8
         mov edx, eax
-        mov eax, dword [dword_1CC234]
+        mov eax, dword [RosterMenuArea]
         push str_LD01
         mov dword [byte eax+0Ch], edx
-        push dword [dword_1CC2C0]
+        push dword [RosterShapeFile]
         call FindShape
         mov edx, eax
-        mov eax, dword [dword_1CC228]
+        mov eax, dword [RosterMenuItems]
         mov ebx, 1
         jmp short .4
 .3:
         push str_GB03
-        push dword [dword_1CC2C0]
+        push dword [RosterShapeFile]
         call FindShape
         mov edx, eax
-        mov eax, dword [dword_1CC228]
+        mov eax, dword [RosterMenuItems]
         mov dword [byte eax+04h], edx
         add esp, byte 8
-        mov eax, dword [dword_1CC234]
+        mov eax, dword [RosterMenuArea]
         push str_GB01
         mov dword [byte eax+04h], edx
-        push dword [dword_1CC2C0]
+        push dword [RosterShapeFile]
         call FindShape
         mov edx, eax
-        mov eax, dword [dword_1CC228]
+        mov eax, dword [RosterMenuItems]
         mov dword [byte eax+0Ch], edx
-        mov eax, dword [dword_1CC234]
+        mov eax, dword [RosterMenuArea]
 .4:
         add esp, byte 8
         mov dword [byte eax+0Ch], edx
@@ -3582,11 +3582,11 @@ DrawPlayerCard:
         enter 24h, 0
         push eax
         mov esi, edx
-        imul edx, dword [nosplit edx*4+dword_1CC1C4], dword 32C6h
+        imul edx, dword [nosplit edx*4+RosterTeam], dword 32C6h
         mov dword [byte ebp-014h], 0FFFFFFFFh
         mov dword [byte ebp-010h], 16h
         mov dword [byte ebp-0Ch], eax
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         mov dword [byte ebp-020h], 1
         xor ebx, ebx
         movsx eax, word [byte edx+eax+072h]
@@ -3602,8 +3602,8 @@ DrawPlayerCard:
 .2:
         inc edi
 .3:
-        imul eax, dword [nosplit esi*4+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [nosplit esi*4+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         add eax, edx
         movzx edx, byte [byte eax+071h]
         cmp edi, edx
@@ -3619,8 +3619,8 @@ DrawPlayerCard:
 .6:
         mov edx, esi
         shl edx, 2
-        imul eax, dword [dword edx+dword_1CC1C4], dword 32C6h
-        mov ecx, dword [dword_1CC2AC]
+        imul eax, dword [dword edx+RosterTeam], dword 32C6h
+        mov ecx, dword [RosterTeams]
         add eax, ecx
         movzx ecx, byte [byte eax+071h]
         dec ecx
@@ -3628,21 +3628,21 @@ DrawPlayerCard:
         cmp edi, ecx
         jl short .5
         mov byte [byte eax+06Eh], 0
-        imul eax, dword [dword edx+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [dword edx+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         dec byte [byte edx+eax+071h]
         jmp short .9
 .7:
         mov edx, esi
         shl edx, 2
-        imul eax, dword [dword edx+dword_1CC1C4], dword 32C6h
-        mov ecx, dword [dword_1CC2AC]
+        imul eax, dword [dword edx+RosterTeam], dword 32C6h
+        mov ecx, dword [RosterTeams]
         add eax, ecx
         cmp byte [byte eax+071h], 3
         jae short .8
         inc byte [byte eax+071h]
-        imul eax, dword [dword edx+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [dword edx+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         add eax, edx
         add edi, eax
         mov al, byte [byte ebp-028h]
@@ -3662,10 +3662,10 @@ DrawPlayerCard:
         add dword [byte ebp-04h], byte 0Ah
 .10:
         imul edi, dword [byte ebp-04h], byte 52h
-        mov eax, dword [dword_1CC20C]
+        mov eax, dword [RosterRow]
         add edi, eax
         mov eax, dword [byte edi+026h]
-        push dword [dword_1CC214]
+        push dword [RosterPanelBitmap]
         mov dword [byte ebp-08h], eax
         mov edi, dword [byte edi+02Ah]
         call SetDrawTarget
@@ -3680,7 +3680,7 @@ DrawPlayerCard:
         push dword [byte ebp-08h]
         call SetClipWindow
         add esp, byte 10h
-        mov eax, dword [nosplit esi*4+dword_1CC21C]
+        mov eax, dword [nosplit esi*4+RosterPanelLayers]
         push dword [byte eax+02Ch]
         call BlitShape
         add esp, byte 4
@@ -3693,7 +3693,7 @@ DrawPlayerCard:
         mov ebx, 10h
         call MakeColor
         mov edx, eax
-        mov eax, dword [dword_1CC214]
+        mov eax, dword [RosterPanelBitmap]
         add esp, byte 4
         mov ecx, dword [byte ebp-08h]
         mov eax, dword [byte eax+02Ch]
@@ -3721,7 +3721,7 @@ DrawPlayerCard:
         call SetClipWindow
         add esp, byte 10h
         push byte 0
-        mov eax, dword [dword_1CC214]
+        mov eax, dword [RosterPanelBitmap]
         push byte 0
         push dword [byte eax+02Ch]
         call BlitArt
@@ -3731,10 +3731,10 @@ DrawPlayerCard:
         jl near .12
         mov ebx, esi
         shl ebx, 2
-        imul edx, dword [dword ebx+dword_1CC1C4], dword 32C6h
+        imul edx, dword [dword ebx+RosterTeam], dword 32C6h
         mov eax, dword [byte ebp-0Ch]
         sub dword [byte ebp-04h], eax
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         movsx eax, word [byte edx+eax+072h]
         mov edx, dword [byte ebp-014h]
         sub edx, eax
@@ -3745,8 +3745,8 @@ DrawPlayerCard:
         jge near .12
         add dword [byte ebp-04h], edx
         imul eax, dword [byte ebp-04h], byte 52h
-        mov edi, dword [dword_1CC20C]
-        push dword [dword_1CC214]
+        mov edi, dword [RosterRow]
+        push dword [RosterPanelBitmap]
         mov edi, dword [byte edi+eax+02Ah]
         call SetDrawTarget
         mov eax, dword [byte ebp-010h]
@@ -3759,7 +3759,7 @@ DrawPlayerCard:
         mov dword [byte ebp-024h], eax
         call SetClipWindow
         add esp, byte 10h
-        mov eax, dword [dword ebx+dword_1CC21C]
+        mov eax, dword [dword ebx+RosterPanelLayers]
         push dword [byte eax+02Ch]
         call BlitShape
         add esp, byte 4
@@ -3777,7 +3777,7 @@ DrawPlayerCard:
         call SetClipWindow
         add esp, byte 10h
         push byte 0
-        mov eax, dword [dword_1CC214]
+        mov eax, dword [RosterPanelBitmap]
         push byte 0
         push dword [byte eax+02Ch]
         call BlitArt
@@ -3808,8 +3808,8 @@ DrawPlayerCardText:
         mov eax, edx
         mov ebx, esi
         shl ebx, 2
-        imul ecx, dword [dword ebx+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul ecx, dword [dword ebx+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         add ecx, edx
         mov edx, dword [ecx]
         movsx esi, word [dword edx+0D05h]
@@ -3833,8 +3833,8 @@ DrawPlayerCardText:
         lea eax, [byte ebp-0Ah]
         push eax
         call sprintf_
-        imul eax, dword [dword ebx+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [dword ebx+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         mov eax, dword [edx+eax]
         add eax, ecx
         add esp, byte 18h
@@ -3875,8 +3875,8 @@ DrawPlayerCardText:
         lea eax, [byte ebp-0Ah]
         push eax
         call sprintf_
-        imul eax, dword [dword ebx+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [dword ebx+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         mov eax, dword [edx+eax]
         add eax, ecx
         add esp, byte 18h
@@ -3908,8 +3908,8 @@ DrawPlayerCardText:
         lea eax, [byte ebp-0Ah]
         push eax
         call sprintf_
-        imul eax, dword [dword ebx+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [dword ebx+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         mov eax, dword [edx+eax]
         add eax, ecx
         add esp, byte 18h
@@ -3942,8 +3942,8 @@ DrawPlayerCardText:
         lea eax, [byte ebp-0Ah]
         push eax
         call sprintf_
-        imul edx, dword [dword ebx+dword_1CC1C4], dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        imul edx, dword [dword ebx+RosterTeam], dword 32C6h
+        mov eax, dword [RosterTeams]
         mov eax, dword [edx+eax]
         add eax, ecx
         add esp, byte 18h
@@ -3987,14 +3987,14 @@ DrawRosterDetails:
         push edi
         enter 14h, 0
         push eax
-        push dword [dword_1CC214]
+        push dword [RosterPanelBitmap]
         call SetDrawTarget
-        mov eax, dword [dword_1CC224]
+        mov eax, dword [RosterLogoBitmap]
         add esp, byte 4
         push dword [byte eax+02Ch]
         call BlitShape
         add esp, byte 4
-        cmp dword [dword_1CC22C], byte 0
+        cmp dword [RosterTradeOn], byte 0
         je near .4
         mov dword [byte ebp-014h], 0
         mov dword [byte ebp-010h], 0
@@ -4011,8 +4011,8 @@ DrawRosterDetails:
 .3:
         mov ebx, edi
         shl ebx, 2
-        imul edx, dword [dword ebx+dword_1CC1C4], dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        imul edx, dword [dword ebx+RosterTeam], dword 32C6h
+        mov eax, dword [RosterTeams]
         add eax, edx
         movzx edx, byte [byte eax+071h]
         cmp esi, edx
@@ -4020,7 +4020,7 @@ DrawRosterDetails:
         inc edi
         cmp edi, byte 2
         jl short .1
-        mov ebx, dword [dword_1CC224]
+        mov ebx, dword [RosterLogoBitmap]
         mov ebx, dword [byte ebx+02Ch]
         movsx eax, word [byte ebx+0Ch]
         add eax, 0B4h
@@ -4059,7 +4059,7 @@ DrawRosterDetails:
         mov dword [byte ebp-04h], eax
         jmp short .7
 .6:
-        mov eax, dword [dword_1CC224]
+        mov eax, dword [RosterLogoBitmap]
         mov eax, dword [byte eax+04h]
         sar eax, 1
         imul eax, esi
@@ -4071,8 +4071,8 @@ DrawRosterDetails:
         call MakeColor
         add esp, byte 4
         call SetTextColor
-        imul edx, dword [nosplit esi*4+dword_1CC1C4], dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        imul edx, dword [nosplit esi*4+RosterTeam], dword 32C6h
+        mov eax, dword [RosterTeams]
         add eax, edx
         add eax, byte 42h
         push eax
@@ -4095,8 +4095,8 @@ DrawRosterDetails:
         inc edi
 .9:
         add dword [byte ebp-04h], eax
-        imul eax, dword [nosplit esi*4+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [nosplit esi*4+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         add eax, edx
         movzx edx, byte [byte eax+071h]
         cmp edi, edx
@@ -4107,7 +4107,7 @@ DrawRosterDetails:
         cmp dword [byte ebp-018h], byte 0
         je near DrawRatingBars_157
         call SetScreenTarget
-        mov eax, dword [dword_1CC224]
+        mov eax, dword [RosterLogoBitmap]
         mov ebx, dword [byte eax+02Ch]
         mov esi, dword [byte eax+04h]
         movsx edx, word [byte ebx+0Eh]
@@ -4122,7 +4122,7 @@ DrawRosterDetails:
         call SetClipWindow
         add esp, byte 10h
         push byte 0
-        mov eax, dword [dword_1CC214]
+        mov eax, dword [RosterPanelBitmap]
         push byte 0
         push dword [byte eax+02Ch]
         call BlitArt
@@ -4137,41 +4137,41 @@ DrawRosterDetails:
 SetRosterArrows:
         push ecx
         push edx
-        imul eax, dword [dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         cmp byte [byte edx+eax+071h], 0
         jbe short .1
-        imul eax, dword [dword_1CC1C8], dword 32C6h
+        imul eax, dword [RosterOtherTeam], dword 32C6h
         cmp byte [byte edx+eax+071h], 0
         jbe short .1
-        mov dword [dword_1CC22C], 1
+        mov dword [RosterTradeOn], 1
         jmp short .2
 .1:
-        mov dword [dword_1CC22C], 0
+        mov dword [RosterTradeOn], 0
 .2:
-        cmp dword [dword_1CC2B0], byte 0
+        cmp dword [RosterChanged], byte 0
         je short .3
-        cmp dword [dword_1CC22C], byte 0
+        cmp dword [RosterTradeOn], byte 0
         je short .3
         push str_TR00
-        push dword [dword_1CC2C0]
+        push dword [RosterShapeFile]
         call FindShape
         add esp, byte 8
         mov edx, eax
-        mov eax, dword [dword_1CC20C]
+        mov eax, dword [RosterRow]
         push str_TR01
         mov dword [dword eax+0110h], edx
-        push dword [dword_1CC2C0]
+        push dword [RosterShapeFile]
         call FindShape
         add esp, byte 8
         mov edx, eax
-        mov eax, dword [dword_1CC20C]
+        mov eax, dword [RosterRow]
         push str_TR01
         mov dword [dword eax+0114h], edx
-        push dword [dword_1CC2C0]
+        push dword [RosterShapeFile]
         call FindShape
         mov edx, eax
-        mov eax, dword [dword_1CC20C]
+        mov eax, dword [RosterRow]
         add esp, byte 8
         mov dword [dword eax+0118h], edx
         pop edx
@@ -4179,14 +4179,14 @@ SetRosterArrows:
         ret
 .3:
         push str_TR04
-        push dword [dword_1CC2C0]
+        push dword [RosterShapeFile]
         call FindShape
         mov edx, eax
-        mov eax, dword [dword_1CC20C]
+        mov eax, dword [RosterRow]
         mov dword [dword eax+0118h], edx
-        mov eax, dword [dword_1CC20C]
+        mov eax, dword [RosterRow]
         mov dword [dword eax+0114h], edx
-        mov eax, dword [dword_1CC20C]
+        mov eax, dword [RosterRow]
         add esp, byte 8
         mov dword [dword eax+0110h], edx
         pop edx
@@ -4205,51 +4205,51 @@ RedrawRosterScreen:
         cmp dword [byte ebp+014h], byte 0
         je short .2
         add eax, dword [byte ebp+014h]
-        add eax, dword [dword_1CC230]
+        add eax, dword [RosterScrollList]
         cdq
-        idiv dword [dword_1CC230]
+        idiv dword [RosterScrollList]
         mov eax, edx
-        cmp edx, dword [dword_1CC1C4]
+        cmp edx, dword [RosterTeam]
         je short .1
-        cmp edx, dword [dword_1CC1C8]
+        cmp edx, dword [RosterOtherTeam]
         jne short .2
 .1:
         add eax, dword [byte ebp+014h]
-        add eax, dword [dword_1CC230]
+        add eax, dword [RosterScrollList]
         cdq
-        idiv dword [dword_1CC230]
+        idiv dword [RosterScrollList]
         mov eax, edx
 .2:
-        cmp eax, dword [dword_1CC1C4]
+        cmp eax, dword [RosterTeam]
         je near .12
-        cmp eax, dword [dword_1CC1C8]
+        cmp eax, dword [RosterOtherTeam]
         je near .12
         test eax, eax
         jl near .12
-        cmp eax, dword [dword_1CC230]
+        cmp eax, dword [RosterScrollList]
         jge near .12
         imul edi, ebx, byte 52h
-        mov ecx, dword [dword_1CC210]
+        mov ecx, dword [RosterScrollArea]
         mov edx, eax
-        mov dword [nosplit esi*4+dword_1CC1C4], eax
+        mov dword [nosplit esi*4+RosterTeam], eax
         shl edx, 2
-        mov eax, dword [dword_1CC20C]
+        mov eax, dword [RosterRow]
         mov ebx, dword [ecx+edx]
         mov dword [byte edi+eax+01Ah], ebx
-        mov ecx, dword [dword_1CC204]
-        mov eax, dword [dword_1CC20C]
+        mov ecx, dword [RosterListArea]
+        mov eax, dword [RosterRow]
         mov ebx, dword [ecx+edx]
         mov dword [byte edi+eax+01Eh], ebx
-        mov eax, dword [dword_1CC204]
+        mov eax, dword [RosterListArea]
         add edx, eax
-        mov eax, dword [dword_1CC20C]
+        mov eax, dword [RosterRow]
         mov edx, dword [edx]
         xor ebx, ebx
         mov dword [byte edi+eax+022h], edx
         mov edx, dword [byte ebp-04h]
         mov eax, esi
         call LoadRosterData
-        push dword [dword_1CC214]
+        push dword [RosterPanelBitmap]
         call SetDrawTarget
         add esp, byte 4
         push dword [byte ebp+010h]
@@ -4257,9 +4257,9 @@ RedrawRosterScreen:
         add esp, byte 4
         call DrawRosterTitle
         call ShowRosterLogo
-        push dword [dword_1CC214]
+        push dword [RosterPanelBitmap]
         call SetDrawTarget
-        mov eax, dword [dword_1CC224]
+        mov eax, dword [RosterLogoBitmap]
         mov eax, dword [byte eax+02Ch]
         movsx edx, word [byte eax+0Eh]
         add esp, byte 4
@@ -4273,7 +4273,7 @@ RedrawRosterScreen:
         mov dword [byte ebp-010h], edx
         push eax
         mov dword [byte ebp-0Ch], eax
-        mov eax, dword [dword_1CC214]
+        mov eax, dword [RosterPanelBitmap]
         push edx
         mov edx, 14h
         mov eax, dword [byte eax+02Ch]
@@ -4283,10 +4283,10 @@ RedrawRosterScreen:
         mov edx, dword [byte ebp-08h]
         mov eax, edi
         call DrawFrameBox
-        mov eax, dword [dword_1CC21C]
+        mov eax, dword [RosterPanelLayers]
         mov eax, dword [byte eax+02Ch]
         movsx edi, word [byte eax+0Ch]
-        mov eax, dword [dword_1CC220]
+        mov eax, dword [RosterTitleShape]
         mov eax, dword [byte eax+02Ch]
         movsx edx, word [byte eax+0Ch]
         movsx eax, word [byte eax+04h]
@@ -4302,7 +4302,7 @@ RedrawRosterScreen:
         xor edi, edi
         call DrawFrameBox
 .3:
-        mov eax, dword [nosplit edi*4+dword_1CC21C]
+        mov eax, dword [nosplit edi*4+RosterPanelLayers]
         mov eax, dword [byte eax+02Ch]
         movsx edx, word [byte eax+0Eh]
         push edx
@@ -4314,11 +4314,11 @@ RedrawRosterScreen:
         add esp, byte 0Ch
         cmp edi, byte 3
         jl short .3
-        push dword [dword_1CC224]
+        push dword [RosterLogoBitmap]
         call SetDrawTarget
         add esp, byte 4
         call DrawRosterPanel
-        push dword [dword_1CC214]
+        push dword [RosterPanelBitmap]
         call SetDrawTarget
         add esp, byte 4
         mov eax, esi
@@ -4327,15 +4327,15 @@ RedrawRosterScreen:
         cmp dword [byte ebp-04h], byte 0
         jne short .5
 .4:
-        mov dword [dword_1CC2B0], 1
+        mov dword [RosterChanged], 1
         jmp short .7
 .5:
         cmp dword [byte ebp-04h], byte 1
         jne short .6
-        imul ecx, dword [dword_1CC1C4], byte 1Ch
+        imul ecx, dword [RosterTeam], byte 1Ch
         cmp byte [dword ecx+SeasonUserLocked], 0
         je short .6
-        imul eax, dword [dword_1CC1C8], byte 1Ch
+        imul eax, dword [RosterOtherTeam], byte 1Ch
         cmp byte [dword eax+SeasonUserLocked], 0
         je short .6
         cmp byte [dword ecx+SeasonUserActive], 1
@@ -4343,7 +4343,7 @@ RedrawRosterScreen:
         cmp byte [dword eax+SeasonUserActive], 1
         je short .4
 .6:
-        mov dword [dword_1CC2B0], 0
+        mov dword [RosterChanged], 0
 .7:
         call SetRosterArrows
         xor eax, eax
@@ -4355,69 +4355,69 @@ RedrawRosterScreen:
         test eax, eax
         jne short .8
         push str_GB00
-        push dword [dword_1CC2C0]
+        push dword [RosterShapeFile]
         call FindShape
         mov edx, eax
-        mov eax, dword [dword_1CC20C]
+        mov eax, dword [RosterRow]
         mov dword [byte edi+eax+022h], edx
-        mov eax, dword [dword_1CC20C]
+        mov eax, dword [RosterRow]
         mov dword [byte edi+eax+01Eh], edx
-        mov eax, dword [dword_1CC20C]
+        mov eax, dword [RosterRow]
         add esp, byte 8
         mov dword [byte edi+eax+01Ah], edx
         jmp short .9
 .8:
         push str_LB004
-        push dword [dword_1CC2C0]
+        push dword [RosterShapeFile]
         call FindShape
         add esp, byte 8
         mov edx, eax
-        mov eax, dword [dword_1CC20C]
+        mov eax, dword [RosterRow]
         push str_LD002
         mov dword [byte edi+eax+01Ah], edx
-        push dword [dword_1CC2C0]
+        push dword [RosterShapeFile]
         call FindShape
         mov edx, eax
-        mov eax, dword [dword_1CC20C]
+        mov eax, dword [RosterRow]
         mov dword [byte edi+eax+022h], edx
         mov eax, edx
-        mov edx, dword [dword_1CC20C]
+        mov edx, dword [RosterRow]
         add esp, byte 8
         mov dword [byte edx+edi+01Eh], eax
 .9:
-        imul eax, dword [nosplit esi*4+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [nosplit esi*4+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         movsx edx, word [byte edx+eax+074h]
         inc edx
-        mov eax, dword [nosplit esi*4+dword_1CC1BC]
+        mov eax, dword [nosplit esi*4+RosterListBox]
         call SetListSelection
-        imul eax, dword [nosplit esi*4+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [nosplit esi*4+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         xor ebx, ebx
         movsx edx, word [byte edx+eax+072h]
-        mov eax, dword [nosplit esi*4+dword_1CC1BC]
+        mov eax, dword [nosplit esi*4+RosterListBox]
         call SetScrollBarPos
-        mov edx, dword [dword_1CC214]
-        mov eax, dword [nosplit esi*4+dword_1CC1BC]
+        mov edx, dword [RosterPanelBitmap]
+        mov eax, dword [nosplit esi*4+RosterListBox]
         call DrawScrollBar
         call SetScreenTarget
         test esi, esi
         jne short .10
         push dword 1A4h
         push esi
-        push dword [dword_16D6BC]
+        push dword [RosterTitleWidth]
         push esi
         jmp short .11
 .10:
         push dword 1A4h
         push byte 0
         push dword 280h
-        push dword [dword_16D6B4]
+        push dword [RosterTitleY]
 .11:
         call SetClipWindow
         add esp, byte 10h
         push byte 0
-        mov eax, dword [dword_1CC214]
+        mov eax, dword [RosterPanelBitmap]
         push byte 0
         push dword [byte eax+02Ch]
         call BlitArt
@@ -4523,8 +4523,8 @@ CheckRosterInjuries:
         inc dword [byte ebp+07Eh]
 .9:
         mov eax, dword [byte ebp+07Ah]
-        imul ebx, dword [nosplit eax*4+dword_1CC1C4], dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        imul ebx, dword [nosplit eax*4+RosterTeam], dword 32C6h
+        mov eax, dword [RosterTeams]
         add ebx, eax
         movzx eax, byte [byte ebx+071h]
         cmp eax, dword [byte ebp+07Eh]
@@ -4544,8 +4544,8 @@ GetPlayerStatLine:
         push ebx
         push ecx
         push esi
-        imul eax, dword [nosplit eax*4+dword_1CC1C4], dword 32C6h
-        mov ebx, dword [dword_1CC2AC]
+        imul eax, dword [nosplit eax*4+RosterTeam], dword 32C6h
+        mov ebx, dword [RosterTeams]
         add ebx, eax
         mov eax, dword [ebx]
         movsx esi, word [dword eax+0D05h]
@@ -4597,13 +4597,13 @@ ShowTradeRejected:
         enter 8Ch, 0
         sub ebp, 82h
         xor esi, esi
-        cmp dword [dword_1CC208], byte 0
+        cmp dword [RosterMode], byte 0
         jne short .2
-        imul eax, dword [dword_1CC1C4], dword 32C6h
-        mov ebx, dword [dword_1CC2AC]
+        imul eax, dword [RosterTeam], dword 32C6h
+        mov ebx, dword [RosterTeams]
         cmp byte [byte ebx+eax+071h], 0
         jbe short .1
-        imul eax, dword [dword_1CC1C8], dword 32C6h
+        imul eax, dword [RosterOtherTeam], dword 32C6h
         cmp byte [byte ebx+eax+071h], 0
         jbe short .1
         xor eax, eax
@@ -4628,8 +4628,8 @@ ShowTradeRejected:
 .5:
         mov ebx, ecx
         shl ebx, 2
-        imul eax, dword [dword ebx+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [dword ebx+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         add eax, edx
         mov dword [byte ebp+07Eh], edx
         movzx edx, byte [byte eax+071h]
@@ -4642,14 +4642,14 @@ ShowTradeRejected:
         add eax, byte 0Fh
         cmp eax, dword [byte ebp+076h]
         jge short .6
-        imul eax, dword [dword_1CC1C4], dword 32C6h
+        imul eax, dword [RosterTeam], dword 32C6h
         jmp short .7
 .6:
         mov eax, dword [byte ebp+076h]
         add eax, byte 0Fh
         cmp eax, dword [byte ebp+07Ah]
         jge short .8
-        imul eax, dword [dword_1CC1C8], dword 32C6h
+        imul eax, dword [RosterOtherTeam], dword 32C6h
 .7:
         add eax, dword [byte ebp+07Eh]
         add eax, byte 42h
@@ -4704,14 +4704,14 @@ CheckRosterLimits:
         jl short .1
         xor edx, edx
 .2:
-        imul ecx, dword [nosplit edx*4+dword_1CC1C4], dword 32C6h
-        mov ebx, dword [dword_1CC2AC]
+        imul ecx, dword [nosplit edx*4+RosterTeam], dword 32C6h
+        mov ebx, dword [RosterTeams]
         mov ebx, dword [ecx+ebx]
         movsx esi, word [dword ebx+0D05h]
         movsx ebx, word [dword ebx+0132Bh]
         add esi, ebx
         mov dword [byte ebp+edx*4+076h], esi
-        mov ebx, dword [dword_1CC2AC]
+        mov ebx, dword [RosterTeams]
         mov ebx, dword [ecx+ebx]
         movsx ecx, word [dword ebx+01281h]
         movsx ebx, word [dword ebx+018A5h]
@@ -4730,8 +4730,8 @@ CheckRosterLimits:
 .5:
         mov ebx, edx
         shl ebx, 2
-        imul ecx, dword [dword ebx+dword_1CC1C4], dword 32C6h
-        mov esi, dword [dword_1CC2AC]
+        imul ecx, dword [dword ebx+RosterTeam], dword 32C6h
+        mov esi, dword [RosterTeams]
         mov ecx, dword [ecx+esi]
         movsx esi, word [dword ecx+0D05h]
         cmp eax, esi
@@ -4748,8 +4748,8 @@ CheckRosterLimits:
 .8:
         mov ebx, edx
         shl ebx, 2
-        imul ecx, dword [dword ebx+dword_1CC1C4], dword 32C6h
-        mov esi, dword [dword_1CC2AC]
+        imul ecx, dword [dword ebx+RosterTeam], dword 32C6h
+        mov esi, dword [RosterTeams]
         mov ecx, dword [ecx+esi]
         movsx esi, word [dword ecx+01281h]
         cmp eax, esi
@@ -4766,8 +4766,8 @@ CheckRosterLimits:
 .11:
         mov ebx, edx
         shl ebx, 2
-        imul ecx, dword [dword ebx+dword_1CC1C4], dword 32C6h
-        mov esi, dword [dword_1CC2AC]
+        imul ecx, dword [dword ebx+RosterTeam], dword 32C6h
+        mov esi, dword [RosterTeams]
         mov ecx, dword [ecx+esi]
         movsx esi, word [dword ecx+0132Bh]
         cmp eax, esi
@@ -4784,8 +4784,8 @@ CheckRosterLimits:
 .14:
         mov ebx, edx
         shl ebx, 2
-        imul ecx, dword [dword ebx+dword_1CC1C4], dword 32C6h
-        mov esi, dword [dword_1CC2AC]
+        imul ecx, dword [dword ebx+RosterTeam], dword 32C6h
+        mov esi, dword [RosterTeams]
         mov ecx, dword [ecx+esi]
         movsx esi, word [dword ecx+018A5h]
         cmp eax, esi
@@ -4826,8 +4826,8 @@ CheckRosterLimits:
 .21:
         mov ebx, edx
         shl ebx, 2
-        imul ecx, dword [dword ebx+dword_1CC1C4], dword 32C6h
-        mov esi, dword [dword_1CC2AC]
+        imul ecx, dword [dword ebx+RosterTeam], dword 32C6h
+        mov esi, dword [RosterTeams]
         add ecx, esi
         movzx esi, byte [byte ecx+071h]
         cmp eax, esi
@@ -4846,8 +4846,8 @@ CheckRosterLimits:
         add ecx, dword [byte ebp+ebx*4+056h]
         cmp ecx, byte 12h
         jge short .23
-        imul eax, dword [dword eax+dword_1CC1C4], dword 32C6h
-        mov ebx, dword [dword_1CC2AC]
+        imul eax, dword [dword eax+RosterTeam], dword 32C6h
+        mov ebx, dword [RosterTeams]
         add eax, ebx
         add eax, byte 42h
         push eax
@@ -4869,8 +4869,8 @@ CheckRosterLimits:
         add ecx, dword [byte ebp+ebx*4+04Eh]
         cmp ecx, byte 2
         jge short .24
-        imul eax, dword [dword eax+dword_1CC1C4], dword 32C6h
-        mov ebx, dword [dword_1CC2AC]
+        imul eax, dword [dword eax+RosterTeam], dword 32C6h
+        mov ebx, dword [RosterTeams]
         add eax, ebx
         add eax, byte 42h
         push eax
@@ -4895,8 +4895,8 @@ CheckRosterLimits:
         add ecx, dword [byte ebp+ebx*4+04Eh]
         cmp ecx, byte 17h
         jge short .25
-        imul eax, dword [dword eax+dword_1CC1C4], dword 32C6h
-        mov ebx, dword [dword_1CC2AC]
+        imul eax, dword [dword eax+RosterTeam], dword 32C6h
+        mov ebx, dword [RosterTeams]
         add eax, ebx
         add eax, byte 42h
         push eax
@@ -4918,8 +4918,8 @@ CheckRosterLimits:
         add ecx, dword [byte ebp+ebx*4+056h]
         cmp ecx, byte 32h
         jle short .26
-        imul eax, dword [dword eax+dword_1CC1C4], dword 32C6h
-        mov ebx, dword [dword_1CC2AC]
+        imul eax, dword [dword eax+RosterTeam], dword 32C6h
+        mov ebx, dword [RosterTeams]
         add eax, ebx
         add eax, byte 42h
         push eax
@@ -4941,8 +4941,8 @@ CheckRosterLimits:
         add ecx, dword [byte ebp+ebx*4+04Eh]
         cmp ecx, byte 6
         jle short .27
-        imul ebx, dword [dword eax+dword_1CC1C4], dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        imul ebx, dword [dword eax+RosterTeam], dword 32C6h
+        mov eax, dword [RosterTeams]
         add eax, ebx
         add eax, byte 42h
         push eax
@@ -5004,8 +5004,8 @@ CheckRegularRosterLimits:
 .2:
         inc ebx
 .3:
-        imul eax, dword [nosplit ecx*4+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [nosplit ecx*4+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         mov eax, dword [edx+eax]
         movsx edx, word [dword eax+0D05h]
         cmp ebx, edx
@@ -5020,8 +5020,8 @@ CheckRegularRosterLimits:
 .5:
         inc ebx
 .6:
-        imul eax, dword [nosplit ecx*4+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [nosplit ecx*4+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         mov eax, dword [edx+eax]
         movsx edx, word [dword eax+01281h]
         cmp ebx, edx
@@ -5075,8 +5075,8 @@ CheckRegularRosterLimits:
 .11:
         inc ebx
 .12:
-        imul eax, dword [nosplit ecx*4+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [nosplit ecx*4+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         add eax, edx
         movzx edx, byte [byte eax+071h]
         cmp ebx, edx
@@ -5102,8 +5102,8 @@ CheckRegularRosterLimits:
         add eax, dword [byte ebp+05Ah]
         cmp eax, byte 2
         jge short .14
-        imul eax, dword [nosplit ecx*4+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [nosplit ecx*4+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         add eax, edx
         add eax, byte 42h
         push eax
@@ -5116,8 +5116,8 @@ CheckRegularRosterLimits:
         call sprintf_
         add esp, byte 0Ch
 .14:
-        imul eax, dword [nosplit ecx*4+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [nosplit ecx*4+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         add eax, edx
         mov edx, dword [eax]
         movsx edx, word [dword edx+0D05h]
@@ -5136,8 +5136,8 @@ CheckRegularRosterLimits:
         call sprintf_
         add esp, byte 0Ch
 .15:
-        imul eax, dword [nosplit ecx*4+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [nosplit ecx*4+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         add eax, edx
         mov edx, dword [eax]
         movsx edx, word [dword edx+01281h]
@@ -5156,8 +5156,8 @@ CheckRegularRosterLimits:
         call sprintf_
         add esp, byte 0Ch
 .16:
-        imul eax, dword [nosplit ecx*4+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [nosplit ecx*4+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         add eax, edx
         mov edx, dword [eax]
         movsx edx, word [dword edx+0132Bh]
@@ -5176,8 +5176,8 @@ CheckRegularRosterLimits:
         call sprintf_
         add esp, byte 0Ch
 .17:
-        imul eax, dword [nosplit ecx*4+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [nosplit ecx*4+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         add eax, edx
         mov edx, dword [eax]
         movsx edx, word [dword edx+018A5h]
@@ -5215,11 +5215,11 @@ RosterTradeScreen:
         enter 71Ch, 0
         xor esi, esi
 .1:
-        imul edx, dword [nosplit esi*4+dword_1CC1C4], dword 32C6h
-        mov ebx, dword [dword_1CC2AC]
+        imul edx, dword [nosplit esi*4+RosterTeam], dword 32C6h
+        mov ebx, dword [RosterTeams]
         or byte [byte edx+ebx+06Ah], 2
-        imul ebx, dword [nosplit esi*4+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul ebx, dword [nosplit esi*4+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         movzx edx, byte [byte edx+ebx+071h]
         xor edi, edi
         mov dword [byte ebp+esi*4-01Ch], edx
@@ -5302,8 +5302,8 @@ RosterTradeScreen:
         shl edx, 2
         cmp byte [dword ebx+ebp-071Ah], 47h
         jne short .8
-        imul edx, dword [dword edx+dword_1CC1C4], dword 32C6h
-        mov ebx, dword [dword_1CC2AC]
+        imul edx, dword [dword edx+RosterTeam], dword 32C6h
+        mov ebx, dword [RosterTeams]
         add edx, ebx
         mov edx, dword [edx]
         cmp word [dword edx+01281h], byte 3
@@ -5316,8 +5316,8 @@ RosterTradeScreen:
         mov edx, 3
         jmp short .10
 .8:
-        imul edx, dword [dword edx+dword_1CC1C4], dword 32C6h
-        mov ebx, dword [dword_1CC2AC]
+        imul edx, dword [dword edx+RosterTeam], dword 32C6h
+        mov ebx, dword [RosterTeams]
         add edx, ebx
         mov edx, dword [edx]
         cmp word [dword edx+0D05h], byte 19h
@@ -5339,15 +5339,15 @@ RosterTradeScreen:
         jl short .11
         mov eax, 1
         sub eax, esi
-        imul ebx, dword [nosplit eax*4+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul ebx, dword [nosplit eax*4+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         add edx, ebx
         mov bl, byte [byte edx+071h]
         movzx ecx, bl
         inc bl
         mov byte [byte edx+071h], bl
-        imul eax, dword [nosplit eax*4+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [nosplit eax*4+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         add eax, edx
         add eax, ecx
         mov dl, byte [byte ebp-04h]
@@ -5360,17 +5360,17 @@ RosterTradeScreen:
         inc esi
         cmp esi, byte 2
         jl near .4
-        push dword [dword_1CC214]
+        push dword [RosterPanelBitmap]
         call SetDrawTarget
         add esp, byte 4
-        push dword [dword_1CC218]
+        push dword [RosterPanelShape]
         call BlitShape
         add esp, byte 4
         call DrawRosterTitle
         call ShowRosterLogo
         call CreateRosterPanel
         xor eax, eax
-        mov dword [dword_1CC2BC], 1
+        mov dword [RosterEditOpen], 1
         call SwapRosterPlayers
         mov eax, 1
         call SwapRosterPlayers
@@ -5391,8 +5391,8 @@ RosterTradeScreen:
 .15:
         inc edi
 .16:
-        imul edx, dword [nosplit esi*4+dword_1CC1C4], dword 32C6h
-        mov ebx, dword [dword_1CC2AC]
+        imul edx, dword [nosplit esi*4+RosterTeam], dword 32C6h
+        mov ebx, dword [RosterTeams]
         add edx, ebx
         movzx ebx, byte [byte edx+071h]
         cmp edi, ebx
@@ -5403,20 +5403,20 @@ RosterTradeScreen:
         call ClampRosterScroll
         cmp esi, byte 2
         jl short .13
-        imul eax, dword [dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         mov eax, dword [edx+eax]
         call BuildAutoLines
-        imul edx, dword [dword_1CC1C8], dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        imul edx, dword [RosterOtherTeam], dword 32C6h
+        mov eax, dword [RosterTeams]
         mov eax, dword [edx+eax]
         call BuildAutoLines
-        imul edx, dword [dword_1CC1C4], dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        imul edx, dword [RosterTeam], dword 32C6h
+        mov eax, dword [RosterTeams]
         mov eax, dword [edx+eax]
         call RemoveListEntry
-        imul eax, dword [dword_1CC1C8], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [RosterOtherTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         mov eax, dword [edx+eax]
 RosterTradeScreen_306:
         call RemoveListEntry
@@ -5445,7 +5445,7 @@ FindFreeRosterSlot:
         inc eax
 .3:
         imul ecx, ebx, dword 32C6h
-        mov esi, dword [dword_1CC2AC]
+        mov esi, dword [RosterTeams]
         mov ecx, dword [ecx+esi]
         movsx esi, word [dword ecx+0132Bh]
         cmp eax, esi
@@ -5469,7 +5469,7 @@ FindFreeRosterSlot:
         inc eax
 .7:
         imul ecx, ebx, dword 32C6h
-        mov esi, dword [dword_1CC2AC]
+        mov esi, dword [RosterTeams]
         add ecx, esi
         mov esi, dword [ecx]
         movsx esi, word [dword esi+0132Bh]
@@ -5496,7 +5496,7 @@ FindFreeRosterSlot:
         inc eax
 .11:
         imul ecx, ebx, dword 32C6h
-        mov esi, dword [dword_1CC2AC]
+        mov esi, dword [RosterTeams]
         add ecx, esi
         mov esi, dword [ecx]
         movsx edi, word [dword esi+0132Bh]
@@ -5504,7 +5504,7 @@ FindFreeRosterSlot:
         jl short .9
 .12:
         imul eax, ebx, dword 32C6h
-        mov ebx, dword [dword_1CC2AC]
+        mov ebx, dword [RosterTeams]
         mov eax, dword [ebx+eax]
         movsx ebx, word [dword eax+0D05h]
         movsx eax, word [dword eax+01281h]
@@ -5536,7 +5536,7 @@ FindRosterSlot:
         inc eax
 .3:
         imul ebx, ecx, dword 32C6h
-        mov esi, dword [dword_1CC2AC]
+        mov esi, dword [RosterTeams]
         mov ebx, dword [esi+ebx]
         movsx esi, word [dword ebx+018A5h]
         cmp eax, esi
@@ -5560,7 +5560,7 @@ FindRosterSlot:
         inc eax
 .7:
         imul ebx, ecx, dword 32C6h
-        mov esi, dword [dword_1CC2AC]
+        mov esi, dword [RosterTeams]
         add ebx, esi
         mov esi, dword [ebx]
         movsx esi, word [dword esi+0132Bh]
@@ -5587,7 +5587,7 @@ FindRosterSlot:
         inc eax
 .11:
         imul ebx, ecx, dword 32C6h
-        mov esi, dword [dword_1CC2AC]
+        mov esi, dword [RosterTeams]
         add ebx, esi
         mov esi, dword [ebx]
         movsx edi, word [dword esi+018A5h]
@@ -5595,7 +5595,7 @@ FindRosterSlot:
         jl short .9
 .12:
         imul ecx, dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         mov eax, dword [ecx+eax]
         movsx ebx, word [dword eax+0D05h]
         movsx ecx, word [dword eax+01281h]
@@ -5614,11 +5614,11 @@ SwapRosterPlayers:
         push edi
         enter 124h, 0
         mov esi, eax
-        mov edi, dword [nosplit eax*4+dword_1CC1C4]
+        mov edi, dword [nosplit eax*4+RosterTeam]
 .1:
         imul eax, edi, dword 32C6h
         mov dword [byte ebp-04h], eax
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, dword [byte ebp-04h]
         mov eax, dword [eax]
         cmp word [dword eax+0D05h], byte 19h
@@ -5632,7 +5632,7 @@ SwapRosterPlayers:
         mov ecx, eax
         mov eax, esi
         call ApplyTrade
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, dword [byte ebp-04h]
         mov eax, dword [eax]
         lea ecx, [dword ebp-0124h]
@@ -5644,7 +5644,7 @@ SwapRosterPlayers:
 .2:
         imul eax, edi, dword 32C6h
         mov dword [byte ebp-08h], eax
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, dword [byte ebp-08h]
         mov eax, dword [eax]
         cmp word [dword eax+01281h], byte 3
@@ -5658,7 +5658,7 @@ SwapRosterPlayers:
         mov ecx, eax
         mov eax, esi
         call ApplyTrade
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, dword [byte ebp-08h]
         mov eax, dword [eax]
         lea ecx, [dword ebp-0124h]
@@ -5703,7 +5703,7 @@ ComparePlayersForTrade:
         imul ebx, dword [byte ebp-034h], dword 32C6h
         jmp dword [nosplit cs:ecx*4+jpt_CBFAA]
 ComparePlayersForTrade_59:
-        mov ecx, dword [dword_1CC2AC]
+        mov ecx, dword [RosterTeams]
         add ecx, ebx
         mov ebx, dword [ecx]
         mov dword [byte ebp-030h], ecx
@@ -5741,7 +5741,7 @@ ComparePlayersForTrade_59:
         mov eax, 1
         jmp near ComparePlayersForTrade_17B.7
 ComparePlayersForTrade_D9:
-        mov ecx, dword [dword_1CC2AC]
+        mov ecx, dword [RosterTeams]
         add ecx, ebx
         mov ebx, dword [ecx]
         mov dword [byte ebp-02Ch], ecx
@@ -5769,7 +5769,7 @@ ComparePlayersForTrade_D9:
         mov dword [byte ebp-014h], ecx
         jmp short ComparePlayersForTrade_59.2
 ComparePlayersForTrade_133:
-        mov ecx, dword [dword_1CC2AC]
+        mov ecx, dword [RosterTeams]
         add ecx, ebx
         mov ebx, dword [ecx]
         mov dword [byte ebp-024h], ecx
@@ -5787,7 +5787,7 @@ ComparePlayersForTrade_133:
         add ebx, 1D8Eh
         jmp near ComparePlayersForTrade_59.1
 ComparePlayersForTrade_17B:
-        mov ecx, dword [dword_1CC2AC]
+        mov ecx, dword [RosterTeams]
         add ecx, ebx
         mov ebx, dword [ecx]
         mov dword [byte ebp-028h], ecx
@@ -5847,7 +5847,7 @@ RateTrade:
         push edi
         enter 8, 0
         push eax
-        mov eax, dword [nosplit eax*4+dword_1CC1C4]
+        mov eax, dword [nosplit eax*4+RosterTeam]
         xor esi, esi
         mov dword [byte ebp-08h], eax
         jmp short .6
@@ -5868,7 +5868,7 @@ RateTrade:
         inc edi
 .4:
         imul edx, dword [byte ebp-08h], dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         mov eax, dword [edx+eax]
         movsx eax, word [dword eax+0D05h]
         cmp edi, eax
@@ -5884,7 +5884,7 @@ RateTrade:
         inc esi
 .6:
         imul eax, dword [byte ebp-08h], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        mov edx, dword [RosterTeams]
         mov eax, dword [edx+eax]
         movsx eax, word [dword eax+0D05h]
         dec eax
@@ -5909,7 +5909,7 @@ RateTrade:
         inc edi
 .10:
         imul eax, dword [byte ebp-08h], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        mov edx, dword [RosterTeams]
         mov eax, dword [edx+eax]
         movsx eax, word [dword eax+01281h]
         cmp edi, eax
@@ -5925,7 +5925,7 @@ RateTrade:
         inc esi
 .12:
         imul edx, dword [byte ebp-08h], dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         mov eax, dword [edx+eax]
         movsx eax, word [dword eax+01281h]
         dec eax
@@ -5950,7 +5950,7 @@ RateTrade:
         inc edi
 .16:
         imul edx, dword [byte ebp-08h], dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         mov eax, dword [edx+eax]
         movsx eax, word [dword eax+0132Bh]
         cmp edi, eax
@@ -5966,7 +5966,7 @@ RateTrade:
         inc esi
 .18:
         imul edx, dword [byte ebp-08h], dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         mov eax, dword [edx+eax]
         movsx eax, word [dword eax+0132Bh]
         dec eax
@@ -5991,7 +5991,7 @@ RateTrade:
         inc edi
 .22:
         imul eax, dword [byte ebp-08h], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        mov edx, dword [RosterTeams]
         mov eax, dword [edx+eax]
         movsx eax, word [dword eax+018A5h]
         cmp edi, eax
@@ -6007,7 +6007,7 @@ RateTrade:
         inc esi
 .24:
         imul eax, dword [byte ebp-08h], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        mov edx, dword [RosterTeams]
         mov eax, dword [edx+eax]
         movsx edi, word [dword eax+018A5h]
         dec edi
@@ -6026,7 +6026,7 @@ TradeValue:
         push ecx
         sub ebp, 82h
         imul ebx, ecx, dword 0BCh
-        mov eax, dword [nosplit eax*4+dword_1CC1C4]
+        mov eax, dword [nosplit eax*4+RosterTeam]
         mov dword [byte ebp+066h], eax
         imul eax, ecx, byte 27h
         mov dword [byte ebp+076h], eax
@@ -6041,7 +6041,7 @@ TradeValue:
         mov dword [byte ebp+07Eh], eax
         test edx, edx
         jne near .1
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, dword [byte ebp+07Eh]
         mov dword [byte ebp+06Ah], edx
         mov edx, dword [eax]
@@ -6070,7 +6070,7 @@ TradeValue:
         mov al, byte [dword eax+0321Eh]
         rep movsd
         mov byte [byte ebp+061h], al
-        mov esi, dword [dword_1CC2AC]
+        mov esi, dword [RosterTeams]
         mov eax, dword [byte ebp+076h]
         add esi, dword [byte ebp+07Eh]
         add eax, esi
@@ -6079,7 +6079,7 @@ TradeValue:
         lea edi, [byte esi+076h]
         lea esi, [byte eax+076h]
         rep movsb
-        mov esi, dword [dword_1CC2AC]
+        mov esi, dword [RosterTeams]
         add esi, dword [byte ebp+07Eh]
         lea eax, [esi+ebx]
         add esi, dword [byte ebp+06Eh]
@@ -6087,14 +6087,14 @@ TradeValue:
         lea edi, [dword esi+08FEh]
         lea esi, [dword eax+08FEh]
         rep movsd
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         mov edx, dword [dword ebp-0C2h]
         add eax, dword [byte ebp+07Eh]
         add edx, eax
         add eax, dword [dword ebp-0BEh]
         mov dl, byte [dword edx+0321Eh]
         mov byte [dword eax+0321Eh], dl
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, dword [byte ebp+07Eh]
         mov esi, dword [eax]
         add esi, dword [byte ebp+07Ah]
@@ -6102,39 +6102,39 @@ TradeValue:
         lea edi, [dword esi+0D09h]
         lea esi, [dword ebp-0BAh]
         rep movsd
-        mov esi, dword [dword_1CC2AC]
+        mov esi, dword [RosterTeams]
         add esi, dword [byte ebp+07Eh]
         add esi, dword [byte ebp+076h]
         mov ecx, 27h
         lea edi, [byte esi+076h]
         lea esi, [dword ebp-082h]
         rep movsb
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, dword [byte ebp+07Eh]
         mov ecx, 2Fh
         lea esi, [byte ebp-05Bh]
         lea edi, [dword ebx+eax+08FEh]
         rep movsd
-        mov edx, dword [dword_1CC2AC]
+        mov edx, dword [RosterTeams]
         add edx, dword [byte ebp+07Eh]
         add edx, dword [dword ebp-0C2h]
         mov al, byte [byte ebp+061h]
         mov byte [dword edx+0321Eh], al
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, dword [byte ebp+07Eh]
         mov ebx, 63h
         mov eax, dword [eax]
         mov edx, dword [dword ebp-0BEh]
         add eax, byte 18h
         call TradeNeedBonus
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, dword [byte ebp+07Eh]
         mov ebx, dword [dword ebp-0BEh]
         mov eax, dword [eax]
         mov edx, dword [dword ebp-0C2h]
         add eax, byte 18h
         call TradeNeedBonus
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, dword [byte ebp+07Eh]
         mov ebx, dword [dword ebp-0C2h]
         mov eax, dword [eax]
@@ -6145,7 +6145,7 @@ TradeValue:
 .1:
         cmp edx, byte 1
         jne near .3
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, dword [byte ebp+07Eh]
         mov edx, dword [eax]
         mov dword [byte ebp+062h], edx
@@ -6176,7 +6176,7 @@ TradeValue:
         mov al, byte [dword eax+03237h]
         rep movsd
         mov byte [byte ebp+061h], al
-        mov esi, dword [dword_1CC2AC]
+        mov esi, dword [RosterTeams]
         mov eax, dword [byte ebp+076h]
         add esi, dword [byte ebp+07Eh]
         add eax, esi
@@ -6185,7 +6185,7 @@ TradeValue:
         lea edi, [dword esi+0445h]
         lea esi, [dword eax+0445h]
         rep movsb
-        mov edi, dword [dword_1CC2AC]
+        mov edi, dword [RosterTeams]
         add edi, dword [byte ebp+07Eh]
         lea esi, [edi+ebx]
         add edi, dword [byte ebp+06Eh]
@@ -6193,14 +6193,14 @@ TradeValue:
         lea esi, [dword esi+01B5Ah]
         lea edi, [dword edi+01B5Ah]
         rep movsd
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         mov edx, dword [dword ebp-0C2h]
         add eax, dword [byte ebp+07Eh]
         add edx, eax
         add eax, dword [dword ebp-0BEh]
         mov dl, byte [dword edx+03237h]
         mov byte [dword eax+03237h], dl
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, dword [byte ebp+07Eh]
         mov esi, dword [eax]
         add esi, dword [byte ebp+07Ah]
@@ -6208,25 +6208,25 @@ TradeValue:
         lea edi, [dword esi+01283h]
         lea esi, [dword ebp-0BAh]
         rep movsd
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         mov esi, dword [byte ebp+076h]
         add eax, dword [byte ebp+07Eh]
         mov ecx, 27h
         lea edi, [dword esi+eax+0445h]
         lea esi, [dword ebp-082h]
         rep movsb
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, dword [byte ebp+07Eh]
         mov ecx, 2Fh
         lea esi, [byte ebp-05Bh]
         lea edi, [dword ebx+eax+01B5Ah]
         rep movsd
-        mov edx, dword [dword_1CC2AC]
+        mov edx, dword [RosterTeams]
         add edx, dword [byte ebp+07Eh]
         add edx, dword [dword ebp-0C2h]
         mov al, byte [byte ebp+061h]
         mov byte [dword edx+03237h], al
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, dword [byte ebp+07Eh]
         mov eax, dword [eax]
         movzx edx, byte [byte eax+04Ch]
@@ -6234,7 +6234,7 @@ TradeValue:
         jne short .2
         mov dl, byte [dword ebp-0C2h]
         mov byte [byte eax+04Ch], dl
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, dword [byte ebp+07Eh]
         mov eax, dword [eax]
         movzx edx, byte [byte eax+04Dh]
@@ -6249,7 +6249,7 @@ TradeValue:
         jne near .5
         mov dl, byte [dword ebp-0C2h]
         mov byte [byte eax+04Dh], dl
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, dword [byte ebp+07Eh]
         mov eax, dword [eax]
         movzx edx, byte [byte eax+04Ch]
@@ -6261,7 +6261,7 @@ TradeValue:
 .3:
         cmp edx, byte 2
         jne near .4
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, dword [byte ebp+07Eh]
         mov edx, dword [eax]
         movsx esi, word [dword edx+0D05h]
@@ -6294,7 +6294,7 @@ TradeValue:
         lea edi, [dword edi+0132Dh]
         mov al, byte [dword eax+0323Ah]
         rep movsd
-        mov edi, dword [dword_1CC2AC]
+        mov edi, dword [RosterTeams]
         mov esi, dword [byte ebp+076h]
         add edi, dword [byte ebp+07Eh]
         add esi, edi
@@ -6303,7 +6303,7 @@ TradeValue:
         lea esi, [dword esi+04BAh]
         lea edi, [dword edi+04BAh]
         rep movsb
-        mov edi, dword [dword_1CC2AC]
+        mov edi, dword [RosterTeams]
         add edi, dword [byte ebp+07Eh]
         lea esi, [edi+ebx]
         add edi, dword [byte ebp+06Eh]
@@ -6312,14 +6312,14 @@ TradeValue:
         lea edi, [dword edi+01D8Eh]
         rep movsd
         mov byte [byte ebp+061h], al
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         mov edx, dword [dword ebp-0C2h]
         add eax, dword [byte ebp+07Eh]
         add edx, eax
         add eax, dword [dword ebp-0BEh]
         mov dl, byte [dword edx+0323Ah]
         mov byte [dword eax+0323Ah], dl
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, dword [byte ebp+07Eh]
         mov esi, dword [eax]
         add esi, dword [byte ebp+07Ah]
@@ -6327,20 +6327,20 @@ TradeValue:
         lea edi, [dword esi+0132Dh]
         lea esi, [dword ebp-0BAh]
         rep movsd
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         mov esi, dword [byte ebp+076h]
         add eax, dword [byte ebp+07Eh]
         mov ecx, 27h
         lea edi, [dword esi+eax+04BAh]
         lea esi, [dword ebp-082h]
         rep movsb
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, dword [byte ebp+07Eh]
         mov ecx, 2Fh
         lea esi, [byte ebp-05Bh]
         lea edi, [dword ebx+eax+01D8Eh]
         rep movsd
-        mov edx, dword [dword_1CC2AC]
+        mov edx, dword [RosterTeams]
         add edx, dword [byte ebp+07Eh]
         add edx, dword [dword ebp-0C2h]
         mov al, byte [byte ebp+061h]
@@ -6349,7 +6349,7 @@ TradeValue:
 .4:
         cmp edx, byte 3
         jne near .5
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, dword [byte ebp+07Eh]
         mov edx, dword [eax]
         movsx edi, word [dword edx+01281h]
@@ -6382,7 +6382,7 @@ TradeValue:
         lea edi, [dword edi+018A7h]
         mov al, byte [dword eax+03253h]
         rep movsd
-        mov edi, dword [dword_1CC2AC]
+        mov edi, dword [RosterTeams]
         mov esi, dword [byte ebp+076h]
         add edi, dword [byte ebp+07Eh]
         add esi, edi
@@ -6391,7 +6391,7 @@ TradeValue:
         lea esi, [dword esi+0889h]
         lea edi, [dword edi+0889h]
         rep movsb
-        mov edi, dword [dword_1CC2AC]
+        mov edi, dword [RosterTeams]
         add edi, dword [byte ebp+07Eh]
         lea esi, [edi+ebx]
         add edi, dword [byte ebp+06Eh]
@@ -6400,14 +6400,14 @@ TradeValue:
         lea edi, [dword edi+02FEAh]
         rep movsd
         mov byte [byte ebp+061h], al
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         mov edx, dword [dword ebp-0C2h]
         add eax, dword [byte ebp+07Eh]
         add edx, eax
         add eax, dword [dword ebp-0BEh]
         mov dl, byte [dword edx+03253h]
         mov byte [dword eax+03253h], dl
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, dword [byte ebp+07Eh]
         mov esi, dword [eax]
         add esi, dword [byte ebp+07Ah]
@@ -6415,20 +6415,20 @@ TradeValue:
         lea edi, [dword esi+018A7h]
         lea esi, [dword ebp-0BAh]
         rep movsd
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         mov esi, dword [byte ebp+076h]
         add eax, dword [byte ebp+07Eh]
         mov ecx, 27h
         lea edi, [dword esi+eax+0889h]
         lea esi, [dword ebp-082h]
         rep movsb
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, dword [byte ebp+07Eh]
         mov ecx, 2Fh
         lea esi, [byte ebp-05Bh]
         lea edi, [dword ebx+eax+02FEAh]
         rep movsd
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         mov edx, dword [dword ebp-0C2h]
         add eax, dword [byte ebp+07Eh]
         add edx, eax
@@ -6449,7 +6449,7 @@ TradeValue:
         inc eax
 .8:
         imul edx, dword [byte ebp+066h], dword 32C6h
-        mov ebx, dword [dword_1CC2AC]
+        mov ebx, dword [RosterTeams]
         add edx, ebx
         movzx ebx, byte [byte edx+071h]
         cmp eax, ebx
@@ -6470,7 +6470,7 @@ TradeValue:
         inc eax
 .11:
         imul edx, dword [byte ebp+066h], dword 32C6h
-        mov ebx, dword [dword_1CC2AC]
+        mov ebx, dword [RosterTeams]
         add edx, ebx
         movzx ebx, byte [byte edx+071h]
         cmp eax, ebx
@@ -6488,7 +6488,7 @@ TradeValue:
         inc eax
 .14:
         imul edx, dword [byte ebp+066h], dword 32C6h
-        mov ebx, dword [dword_1CC2AC]
+        mov ebx, dword [RosterTeams]
         add edx, ebx
         movzx ebx, byte [byte edx+071h]
         cmp eax, ebx
@@ -6657,8 +6657,8 @@ ApplyTrade:
         push ecx
         test ecx, ecx
         jge short .1
-        imul eax, dword [nosplit eax*4+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [nosplit eax*4+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         add edx, eax
         add edx, dword [byte ebp-08h]
         movzx edx, byte [byte edx+06Eh]
@@ -6668,8 +6668,8 @@ ApplyTrade:
 .2:
         mov eax, dword [byte ebp-04h]
         shl eax, 2
-        imul ecx, dword [dword eax+dword_1CC1C4], dword 32C6h
-        mov esi, dword [dword_1CC2AC]
+        imul ecx, dword [dword eax+RosterTeam], dword 32C6h
+        mov esi, dword [RosterTeams]
         mov ecx, dword [ecx+esi]
         movsx esi, word [dword ecx+0D05h]
         cmp edx, esi
@@ -6680,8 +6680,8 @@ ApplyTrade:
         mov ecx, 0Eh
         lea esi, [dword esi+0D09h]
         rep movsd
-        imul ecx, dword [dword eax+dword_1CC1C4], dword 32C6h
-        mov esi, dword [dword_1CC2AC]
+        imul ecx, dword [dword eax+RosterTeam], dword 32C6h
+        mov esi, dword [RosterTeams]
         add ecx, esi
         imul esi, edx, byte 27h
         add esi, ecx
@@ -6689,8 +6689,8 @@ ApplyTrade:
         mov ecx, 27h
         lea esi, [byte esi+076h]
         rep movsb
-        imul ecx, dword [dword eax+dword_1CC1C4], dword 32C6h
-        mov esi, dword [dword_1CC2AC]
+        imul ecx, dword [dword eax+RosterTeam], dword 32C6h
+        mov esi, dword [RosterTeams]
         add esi, ecx
         imul ecx, edx, dword 0BCh
         add esi, ecx
@@ -6698,8 +6698,8 @@ ApplyTrade:
         mov ecx, 2Fh
         lea esi, [dword esi+08FEh]
         rep movsd
-        imul eax, dword [dword eax+dword_1CC1C4], dword 32C6h
-        mov ecx, dword [dword_1CC2AC]
+        imul eax, dword [dword eax+RosterTeam], dword 32C6h
+        mov ecx, dword [RosterTeams]
         add eax, ecx
         mov al, byte [dword edx+eax+0321Eh]
         jmp near .6
@@ -6714,8 +6714,8 @@ ApplyTrade:
         mov ecx, 0Eh
         lea esi, [dword esi+01283h]
         rep movsd
-        imul esi, dword [dword eax+dword_1CC1C4], dword 32C6h
-        mov ecx, dword [dword_1CC2AC]
+        imul esi, dword [dword eax+RosterTeam], dword 32C6h
+        mov ecx, dword [RosterTeams]
         add ecx, esi
         imul esi, edx, byte 27h
         add esi, ecx
@@ -6723,8 +6723,8 @@ ApplyTrade:
         mov ecx, 27h
         lea esi, [dword esi+0445h]
         rep movsb
-        imul ecx, dword [dword eax+dword_1CC1C4], dword 32C6h
-        mov esi, dword [dword_1CC2AC]
+        imul ecx, dword [dword eax+RosterTeam], dword 32C6h
+        mov esi, dword [RosterTeams]
         add ecx, esi
         imul esi, edx, dword 0BCh
         add esi, ecx
@@ -6732,8 +6732,8 @@ ApplyTrade:
         mov ecx, 2Fh
         lea esi, [dword esi+01B5Ah]
         rep movsd
-        imul ecx, dword [dword eax+dword_1CC1C4], dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        imul ecx, dword [dword eax+RosterTeam], dword 32C6h
+        mov eax, dword [RosterTeams]
         add eax, ecx
         mov al, byte [dword edx+eax+03237h]
         jmp near .6
@@ -6748,8 +6748,8 @@ ApplyTrade:
         mov ecx, 0Eh
         lea esi, [dword esi+0132Dh]
         rep movsd
-        imul esi, dword [dword eax+dword_1CC1C4], dword 32C6h
-        mov ecx, dword [dword_1CC2AC]
+        imul esi, dword [dword eax+RosterTeam], dword 32C6h
+        mov ecx, dword [RosterTeams]
         add esi, ecx
         imul ecx, edx, byte 27h
         add esi, ecx
@@ -6757,8 +6757,8 @@ ApplyTrade:
         mov ecx, 27h
         lea esi, [dword esi+04BAh]
         rep movsb
-        imul esi, dword [dword eax+dword_1CC1C4], dword 32C6h
-        mov ecx, dword [dword_1CC2AC]
+        imul esi, dword [dword eax+RosterTeam], dword 32C6h
+        mov ecx, dword [RosterTeams]
         add ecx, esi
         imul esi, edx, dword 0BCh
         add esi, ecx
@@ -6766,8 +6766,8 @@ ApplyTrade:
         mov ecx, 2Fh
         lea esi, [dword esi+01D8Eh]
         rep movsd
-        imul eax, dword [dword eax+dword_1CC1C4], dword 32C6h
-        mov ecx, dword [dword_1CC2AC]
+        imul eax, dword [dword eax+RosterTeam], dword 32C6h
+        mov ecx, dword [RosterTeams]
         add eax, ecx
         mov al, byte [dword edx+eax+0323Ah]
         jmp near .6
@@ -6782,8 +6782,8 @@ ApplyTrade:
         mov ecx, 0Eh
         lea esi, [dword esi+018A7h]
         rep movsd
-        imul ecx, dword [dword eax+dword_1CC1C4], dword 32C6h
-        mov esi, dword [dword_1CC2AC]
+        imul ecx, dword [dword eax+RosterTeam], dword 32C6h
+        mov esi, dword [RosterTeams]
         add ecx, esi
         imul esi, edx, byte 27h
         add esi, ecx
@@ -6791,8 +6791,8 @@ ApplyTrade:
         mov ecx, 27h
         lea esi, [dword esi+0889h]
         rep movsb
-        imul esi, dword [dword eax+dword_1CC1C4], dword 32C6h
-        mov ecx, dword [dword_1CC2AC]
+        imul esi, dword [dword eax+RosterTeam], dword 32C6h
+        mov ecx, dword [RosterTeams]
         add ecx, esi
         imul esi, edx, dword 0BCh
         add esi, ecx
@@ -6800,8 +6800,8 @@ ApplyTrade:
         mov ecx, 2Fh
         lea esi, [dword esi+02FEAh]
         rep movsd
-        imul eax, dword [dword eax+dword_1CC1C4], dword 32C6h
-        mov ecx, dword [dword_1CC2AC]
+        imul eax, dword [dword eax+RosterTeam], dword 32C6h
+        mov ecx, dword [RosterTeams]
         add eax, ecx
         mov al, byte [dword edx+eax+03253h]
 .6:
@@ -6810,8 +6810,8 @@ ApplyTrade:
         cmp dword [byte ebp-0Ch], byte 0
         jge short .8
         mov eax, dword [byte ebp-04h]
-        imul edx, dword [nosplit eax*4+dword_1CC1C4], dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        imul edx, dword [nosplit eax*4+RosterTeam], dword 32C6h
+        mov eax, dword [RosterTeams]
         add edx, eax
         add edx, dword [byte ebp-08h]
         mov ecx, dword [byte ebp-08h]
@@ -6831,8 +6831,8 @@ ApplyTrade:
         inc eax
 .11:
         mov ebx, dword [byte ebp-04h]
-        imul ebx, dword [nosplit ebx*4+dword_1CC1C4], dword 32C6h
-        mov esi, dword [dword_1CC2AC]
+        imul ebx, dword [nosplit ebx*4+RosterTeam], dword 32C6h
+        mov esi, dword [RosterTeams]
         add ebx, esi
         movzx esi, byte [byte ebx+071h]
         cmp eax, esi
@@ -6871,9 +6871,9 @@ CountRosterPositions:
 .2:
         inc eax
 .3:
-        imul esi, dword [nosplit ebx*4+dword_1CC1C4], dword 32C6h
+        imul esi, dword [nosplit ebx*4+RosterTeam], dword 32C6h
         mov dword [byte ebp-04h], esi
-        mov esi, dword [dword_1CC2AC]
+        mov esi, dword [RosterTeams]
         add esi, dword [byte ebp-04h]
         mov esi, dword [esi]
         movsx edi, word [dword esi+0D05h]
@@ -6894,8 +6894,8 @@ CountRosterPositions:
 .6:
         inc eax
 .7:
-        imul esi, dword [nosplit ebx*4+dword_1CC1C4], dword 32C6h
-        mov edi, dword [dword_1CC2AC]
+        imul esi, dword [nosplit ebx*4+RosterTeam], dword 32C6h
+        mov edi, dword [RosterTeams]
         add esi, edi
         mov esi, dword [esi]
         movsx edi, word [dword esi+01281h]
@@ -6916,8 +6916,8 @@ CountRosterPositions:
 .10:
         inc eax
 .11:
-        imul esi, dword [nosplit ebx*4+dword_1CC1C4], dword 32C6h
-        mov edi, dword [dword_1CC2AC]
+        imul esi, dword [nosplit ebx*4+RosterTeam], dword 32C6h
+        mov edi, dword [RosterTeams]
         add esi, edi
         mov esi, dword [esi]
         movsx edi, word [dword esi+0132Bh]
@@ -6938,8 +6938,8 @@ CountRosterPositions:
 .14:
         inc eax
 .15:
-        imul esi, dword [nosplit ebx*4+dword_1CC1C4], dword 32C6h
-        mov edi, dword [dword_1CC2AC]
+        imul esi, dword [nosplit ebx*4+RosterTeam], dword 32C6h
+        mov edi, dword [RosterTeams]
         add esi, edi
         mov esi, dword [esi]
         movsx edi, word [dword esi+018A5h]
@@ -6958,21 +6958,21 @@ ClearPlayerRecord:
         push edx
         mov ebx, eax
         mov ecx, 64h
-        mov eax, byte_1CC240
+        mov eax, NewPlayerRecord
         xor edx, edx
         call __STOSB
-        mov byte [byte_1CC240], 1
-        mov dword [dword_1CC1F8], 0
+        mov byte [NewPlayerRecord], 1
+        mov dword [JerseyChoice], 0
         xor eax, eax
         jmp short .2
 .1:
         imul ecx, eax, byte 38h
         movzx edx, byte [dword ecx+edx+0D0Ah]
         inc eax
-        mov byte [dword edx+byte_1CC240], 1
+        mov byte [dword edx+NewPlayerRecord], 1
 .2:
-        imul edx, dword [nosplit ebx*4+dword_1CC1C4], dword 32C6h
-        mov ecx, dword [dword_1CC2AC]
+        imul edx, dword [nosplit ebx*4+RosterTeam], dword 32C6h
+        mov ecx, dword [RosterTeams]
         mov edx, dword [ecx+edx]
         movsx ecx, word [dword edx+0D05h]
         cmp eax, ecx
@@ -6983,10 +6983,10 @@ ClearPlayerRecord:
         imul ecx, eax, byte 38h
         movzx edx, byte [dword ecx+edx+01284h]
         inc eax
-        mov byte [dword edx+byte_1CC240], 1
+        mov byte [dword edx+NewPlayerRecord], 1
 .4:
-        imul edx, dword [nosplit ebx*4+dword_1CC1C4], dword 32C6h
-        mov ecx, dword [dword_1CC2AC]
+        imul edx, dword [nosplit ebx*4+RosterTeam], dword 32C6h
+        mov ecx, dword [RosterTeams]
         mov edx, dword [ecx+edx]
         movsx ecx, word [dword edx+01281h]
         cmp eax, ecx
@@ -6997,10 +6997,10 @@ ClearPlayerRecord:
         imul ecx, eax, byte 38h
         movzx edx, byte [dword ecx+edx+0132Eh]
         inc eax
-        mov byte [dword edx+byte_1CC240], 1
+        mov byte [dword edx+NewPlayerRecord], 1
 .6:
-        imul edx, dword [nosplit ebx*4+dword_1CC1C4], dword 32C6h
-        mov ecx, dword [dword_1CC2AC]
+        imul edx, dword [nosplit ebx*4+RosterTeam], dword 32C6h
+        mov ecx, dword [RosterTeams]
         mov edx, dword [ecx+edx]
         movsx ecx, word [dword edx+0132Bh]
         cmp eax, ecx
@@ -7011,10 +7011,10 @@ ClearPlayerRecord:
         imul ecx, eax, byte 38h
         movzx edx, byte [dword ecx+edx+018A8h]
         inc eax
-        mov byte [dword edx+byte_1CC240], 1
+        mov byte [dword edx+NewPlayerRecord], 1
 .8:
-        imul edx, dword [nosplit ebx*4+dword_1CC1C4], dword 32C6h
-        mov ecx, dword [dword_1CC2AC]
+        imul edx, dword [nosplit ebx*4+RosterTeam], dword 32C6h
+        mov ecx, dword [RosterTeams]
         mov edx, dword [ecx+edx]
         movsx ecx, word [dword edx+018A5h]
         cmp eax, ecx
@@ -7037,15 +7037,15 @@ DrawJerseyPreview:
         xor esi, esi
 .1:
         imul eax, ebx, byte 52h
-        mov edx, dword [dword_1CC1EC]
+        mov edx, dword [JerseyMenuItems]
         add eax, edx
         cmp dword [byte eax+04h], byte 0
         je near .4
         mov esi, 1
-        cmp ebx, dword [dword_1CC1F8]
+        cmp ebx, dword [JerseyChoice]
         je near .4
-        mov edi, dword [dword_1CC1F8]
-        cmp byte [dword ebx+byte_1CC240], 0
+        mov edi, dword [JerseyChoice]
+        cmp byte [dword ebx+NewPlayerRecord], 0
         jne short .2
         mov edx, dword [byte eax+02Ah]
         add edx, byte 12h
@@ -7058,18 +7058,18 @@ DrawJerseyPreview:
         call SetClipWindow
         add esp, byte 10h
         push byte 64h
-        mov eax, dword [dword_1CC2B8]
+        mov eax, dword [JerseyAwayArt]
         push byte 78h
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        mov dword [dword_1CC1F8], ebx
+        mov dword [JerseyChoice], ebx
         jmp short .3
 .2:
-        mov dword [dword_1CC1F8], 0
+        mov dword [JerseyChoice], 0
 .3:
         imul eax, edi, byte 52h
-        mov edx, dword [dword_1CC1EC]
+        mov edx, dword [JerseyMenuItems]
         add eax, edx
         mov edx, dword [byte eax+02Ah]
         add edx, byte 12h
@@ -7082,12 +7082,12 @@ DrawJerseyPreview:
         call SetClipWindow
         add esp, byte 10h
         push byte 64h
-        mov eax, dword [dword_1CC2B4]
+        mov eax, dword [JerseyHomeArt]
         push byte 78h
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        mov dword [dword_1CC1F8], ebx
+        mov dword [JerseyChoice], ebx
         call ResetClipWindow
 .4:
         inc ebx
@@ -7095,10 +7095,10 @@ DrawJerseyPreview:
         jl near .1
         test esi, esi
         jne near DrawRatingBars_158
-        cmp dword [dword_1CC1F8], byte 0
+        cmp dword [JerseyChoice], byte 0
         je near DrawRatingBars_158
-        imul edx, dword [dword_1CC1F8], byte 52h
-        mov eax, dword [dword_1CC1EC]
+        imul edx, dword [JerseyChoice], byte 52h
+        mov eax, dword [JerseyMenuItems]
         mov ebx, dword [byte edx+eax+02Ah]
         add ebx, byte 12h
         push ebx
@@ -7110,13 +7110,13 @@ DrawJerseyPreview:
         call SetClipWindow
         add esp, byte 10h
         push byte 64h
-        mov eax, dword [dword_1CC2B4]
+        mov eax, dword [JerseyHomeArt]
         push byte 78h
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
         call ResetClipWindow
-        mov dword [dword_1CC1F8], esi
+        mov dword [JerseyChoice], esi
         jmp near DrawRatingBars_158
 ;-----------------------------------------------------------------------------
 ; JerseyScreen                                    CD272  97 PC, low confidence
@@ -7222,7 +7222,7 @@ JerseyScreen:
         test edi, edi
         jle short .5
 .3:
-        cmp byte [dword ebx+byte_1CC240], 0
+        cmp byte [dword ebx+NewPlayerRecord], 0
         je short .4
         push dword 0FFAA0000h
         call MakeColor
@@ -7280,8 +7280,8 @@ JerseyScreen:
         cmp byte [byte ebp+07Eh], 64h
         jae near .17
         mov eax, dword [byte ebp-036h]
-        imul eax, dword [nosplit eax*4+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [nosplit eax*4+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         add eax, edx
         add eax, byte 42h
         push eax
@@ -7438,7 +7438,7 @@ JerseyScreen:
         test edi, edi
         jle short .28
 .26:
-        cmp byte [dword ebx+byte_1CC240], 0
+        cmp byte [dword ebx+NewPlayerRecord], 0
         jne short .27
         push ebx
         push str_D_JerseyScreen
@@ -7462,10 +7462,10 @@ JerseyScreen:
         push byte 0
         mov eax, dword [byte ebp+06Eh]
         push dword 2008h
-        mov dword [dword_1CC2B4], eax
+        mov dword [JerseyHomeArt], eax
         mov eax, dword [byte ebp+05Eh]
         push str_JerseyMenu
-        mov dword [dword_1CC2B8], eax
+        mov dword [JerseyAwayArt], eax
         call AllocMemBlock
         add esp, byte 0Ch
         push byte 0
@@ -7479,7 +7479,7 @@ JerseyScreen:
         mov dword [byte ebp+056h], eax
         mov edx, ebx
         mov eax, 64h
-        mov dword [dword_1CC1EC], ebx
+        mov dword [JerseyMenuItems], ebx
         call InitMenuItems
 .29:
         mov eax, esi
@@ -7535,13 +7535,13 @@ JerseyScreen:
         mov eax, 64h
         call RunMenu
         mov eax, dword [byte ebp+04Eh]
-        cmp byte [dword eax+byte_1CC240], 0
+        cmp byte [dword eax+NewPlayerRecord], 0
         jne short .30
         mov dword [byte ebp+07Ah], eax
         jmp short .30
 .31:
         mov al, byte [byte ebp+04Eh]
-        mov dword [dword_1CC1F8], 0
+        mov dword [JerseyChoice], 0
         push dword [byte ebp+056h]
         mov byte [byte ebp+07Eh], al
         call FreeMemBlock
@@ -7579,8 +7579,8 @@ JerseyScreen:
 ;-----------------------------------------------------------------------------
 ClampRosterScroll:
         push ebx
-        imul eax, dword [nosplit eax*4+dword_1CC1C4], dword 32C6h
-        mov ebx, dword [dword_1CC2AC]
+        imul eax, dword [nosplit eax*4+RosterTeam], dword 32C6h
+        mov ebx, dword [RosterTeams]
         add eax, ebx
         movsx ebx, word [byte eax+074h]
         sub ebx, byte 9
@@ -7614,8 +7614,8 @@ RosterEditScreen:
         shl edx, 2
         jmp dword [nosplit cs:eax*4+jpt_CD7E3]
 RosterEditScreen_24:
-        imul eax, dword [dword edx+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [dword edx+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         test byte [byte edx+eax+06Ah], 8
         je near DrawRosterList_86F
         cmp dword [RosterScreenOpen], byte 0
@@ -7623,27 +7623,27 @@ RosterEditScreen_24:
         call FreeRosterScreen
 .1:
         mov eax, 0FFFFFFFFh
-        mov edx, dword [nosplit esi*4+dword_1CC1C4]
+        mov edx, dword [nosplit esi*4+RosterTeam]
         call EditLinesScreen
         mov edi, eax
         cmp dword [RosterScreenOpen], byte 0
         je short .2
         call InitRosterScreen
 .2:
-        mov eax, dword [dword_1CC214]
+        mov eax, dword [RosterPanelBitmap]
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte eax+02Ch]
         call WipeScreen
         test edi, edi
         je near DrawRosterList_86F
-        imul eax, dword [nosplit esi*4+dword_1CC1C4], dword 32C6h
+        imul eax, dword [nosplit esi*4+RosterTeam], dword 32C6h
 .3:
-        mov edx, dword [dword_1CC2AC]
+        mov edx, dword [RosterTeams]
         or byte [byte edx+eax+06Ah], 2
-        mov dword [dword_1CC2BC], 1
+        mov dword [RosterEditOpen], 1
         jmp near DrawRosterList_86F
 RosterEditScreen_AD:
-        cmp dword [dword_1CC208], byte 0
+        cmp dword [RosterMode], byte 0
         jne near DrawRosterList_86F
         mov eax, esi
         call RosterCreatePlayer
@@ -7651,21 +7651,21 @@ RosterEditScreen_AD:
         mov edi, eax
         mov eax, esi
         call RateTrade
-        imul eax, dword [dword edx+dword_1CC1C4], dword 32C6h
+        imul eax, dword [dword edx+RosterTeam], dword 32C6h
         mov dword [byte ebp+07Ah], eax
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, dword [byte ebp+07Ah]
         mov eax, dword [eax]
         call BuildAutoLines
-        imul eax, dword [dword edx+dword_1CC1C4], dword 32C6h
-        mov ecx, dword [dword_1CC2AC]
+        imul eax, dword [dword edx+RosterTeam], dword 32C6h
+        mov ecx, dword [RosterTeams]
         add eax, ecx
         mov eax, dword [eax]
         call RemoveListEntry
         test ebx, ebx
         je short .4
-        imul eax, dword [dword edx+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [dword edx+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         add eax, edx
         movzx edx, byte [byte eax+071h]
         movzx edx, byte [byte edx+eax+06Dh]
@@ -7673,17 +7673,17 @@ RosterEditScreen_AD:
         call ClampRosterScroll
 .4:
         shl esi, 2
-        imul eax, dword [dword esi+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [dword esi+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         movsx edx, word [byte edx+eax+074h]
         inc edx
-        mov eax, dword [dword esi+dword_1CC1BC]
+        mov eax, dword [dword esi+RosterListBox]
         call SetListSelection
-        imul edx, dword [dword esi+dword_1CC1C4], dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        imul edx, dword [dword esi+RosterTeam], dword 32C6h
+        mov eax, dword [RosterTeams]
         xor ebx, ebx
         movsx edx, word [byte edx+eax+072h]
-        mov eax, dword [dword esi+dword_1CC1BC]
+        mov eax, dword [dword esi+RosterListBox]
         call SetScrollBarPos
         mov edx, 1
         xor eax, eax
@@ -7691,21 +7691,21 @@ RosterEditScreen_AD:
         mov edx, 1
         mov eax, edx
         call DrawRosterList
-        mov eax, dword [dword_1CC1BC]
+        mov eax, dword [RosterListBox]
         xor edx, edx
         call DrawScrollBar
-        mov eax, dword [dword_1CC1C0]
+        mov eax, dword [RosterOtherListBox]
         xor edx, edx
         call DrawScrollBar
         mov eax, 1
         call DrawRosterDetails
         test edi, edi
         je near DrawRosterList_86F
-        imul eax, dword [dword esi+dword_1CC1C4], dword 32C6h
+        imul eax, dword [dword esi+RosterTeam], dword 32C6h
         jmp near RosterEditScreen_24.3
 RosterEditScreen_1BD:
-        imul eax, dword [dword edx+dword_1CC1C4], dword 32C6h
-        mov ebx, dword [dword_1CC2AC]
+        imul eax, dword [dword edx+RosterTeam], dword 32C6h
+        mov ebx, dword [RosterTeams]
         test byte [byte ebx+eax+06Ah], 8
         je near DrawRosterList_86F
         mov eax, esi
@@ -7714,18 +7714,18 @@ RosterEditScreen_1BD:
         jne near DrawRosterList_86F
         mov eax, esi
         call ReleasePlayer
-        imul ebx, dword [dword edx+dword_1CC1C4], dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        imul ebx, dword [dword edx+RosterTeam], dword 32C6h
+        mov eax, dword [RosterTeams]
         mov eax, dword [ebx+eax]
         call BuildAutoLines
-        imul ebx, dword [dword edx+dword_1CC1C4], dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        imul ebx, dword [dword edx+RosterTeam], dword 32C6h
+        mov eax, dword [RosterTeams]
         mov eax, dword [ebx+eax]
         call RemoveListEntry
-        imul eax, dword [dword edx+dword_1CC1C4], dword 32C6h
-        mov ebx, dword [dword_1CC2AC]
+        imul eax, dword [dword edx+RosterTeam], dword 32C6h
+        mov ebx, dword [RosterTeams]
         movsx edi, word [byte ebx+eax+072h]
-        mov eax, dword [dword edx+dword_1CC1BC]
+        mov eax, dword [dword edx+RosterListBox]
         xor ebx, ebx
         mov edx, edi
         call SetScrollBarPos
@@ -7736,7 +7736,7 @@ RosterEditScreen_1BD:
         call DrawRosterDetails
         jmp near DrawRosterList_86F
 RosterEditScreen_25B:
-        cmp dword [dword_1CC208], byte 0
+        cmp dword [RosterMode], byte 0
         jne near DrawRosterList_86F
         xor edi, edi
         jmp near .8
@@ -7789,8 +7789,8 @@ RosterEditScreen_25B:
 .8:
         mov edx, esi
         shl edx, 2
-        imul eax, dword [dword edx+dword_1CC1C4], dword 32C6h
-        mov ebx, dword [dword_1CC2AC]
+        imul eax, dword [dword edx+RosterTeam], dword 32C6h
+        mov ebx, dword [RosterTeams]
         add eax, ebx
         movzx ebx, byte [byte eax+071h]
         cmp edi, ebx
@@ -7798,42 +7798,42 @@ RosterEditScreen_25B:
         test byte [byte eax+06Ah], 2
         je near DrawRosterList_86F
         mov eax, esi
-        mov dword [dword_1CC2BC], 1
+        mov dword [RosterEditOpen], 1
         call SwapRosterPlayers
         mov eax, esi
         call RateTrade
-        imul eax, dword [dword edx+dword_1CC1C4], dword 32C6h
-        mov ebx, dword [dword_1CC2AC]
+        imul eax, dword [dword edx+RosterTeam], dword 32C6h
+        mov ebx, dword [RosterTeams]
         add ebx, eax
         cmp word [byte ebx+072h], byte 0
         jle short .9
         dec word [byte ebx+072h]
-        imul ebx, dword [dword edx+dword_1CC1C4], dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        imul ebx, dword [dword edx+RosterTeam], dword 32C6h
+        mov eax, dword [RosterTeams]
         movsx ebx, word [byte ebx+eax+072h]
-        mov eax, dword [dword edx+dword_1CC1BC]
+        mov eax, dword [dword edx+RosterListBox]
         mov dword [byte eax+024h], ebx
 .9:
-        imul eax, dword [nosplit esi*4+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [nosplit esi*4+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         movsx edx, word [byte edx+eax+074h]
         inc edx
-        mov eax, dword [nosplit esi*4+dword_1CC1BC]
+        mov eax, dword [nosplit esi*4+RosterListBox]
         call SetListSelection
         mov edx, 1
         mov eax, esi
         call DrawRosterList
-        mov eax, dword [nosplit esi*4+dword_1CC1BC]
+        mov eax, dword [nosplit esi*4+RosterListBox]
         xor edx, edx
         call DrawScrollBar
         mov eax, 1
         call DrawRosterDetails
-        imul eax, dword [nosplit esi*4+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [nosplit esi*4+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         mov eax, dword [edx+eax]
         call BuildAutoLines
-        imul eax, dword [nosplit esi*4+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [nosplit esi*4+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         mov eax, dword [edx+eax]
         call RemoveListEntry
         jmp near DrawRosterList_86F
@@ -7848,8 +7848,8 @@ FormatTradeMessage:
         mov ecx, ebx
         mov eax, edx
         mov edx, esi
-        imul ebx, dword [nosplit edx*4+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul ebx, dword [nosplit edx*4+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         add ebx, edx
         mov edx, dword [ebx]
         movsx esi, word [dword edx+0D05h]
@@ -7907,8 +7907,8 @@ FindTradedPlayer:
         push esi
         push edi
         enter 0Ch, 0
-        imul ecx, dword [nosplit eax*4+dword_1CC1C4], dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        imul ecx, dword [nosplit eax*4+RosterTeam], dword 32C6h
+        mov eax, dword [RosterTeams]
         add ecx, eax
         mov eax, dword [ecx]
         mov dword [byte ebp-0Ch], 0
@@ -8225,16 +8225,16 @@ FixLinesAfterTrade:
         enter 4, 0
         mov ecx, eax
         mov esi, edx
-        imul eax, dword [nosplit eax*4+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [nosplit eax*4+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         or byte [byte edx+eax+06Ah], 2
         test ebx, ebx
         jl short .1
-        mov eax, dword [dword_1CC2A4]
+        mov eax, dword [DeletionCount]
         mov edx, eax
         inc eax
-        mov edi, dword [dword_1CC2A8]
-        mov dword [dword_1CC2A4], eax
+        mov edi, dword [RosterPlayerInfo]
+        mov dword [DeletionCount], eax
         mov eax, edi
         mov word [eax+edx*2], bx
 .1:
@@ -8249,8 +8249,8 @@ FixLinesAfterTrade:
 .3:
         inc eax
 .4:
-        imul edx, dword [nosplit ecx*4+dword_1CC1C4], dword 32C6h
-        mov ebx, dword [dword_1CC2AC]
+        imul edx, dword [nosplit ecx*4+RosterTeam], dword 32C6h
+        mov ebx, dword [RosterTeams]
         add edx, ebx
         movzx ebx, byte [byte edx+071h]
         cmp eax, ebx
@@ -8261,8 +8261,8 @@ FixLinesAfterTrade:
         mov bl, byte [byte edx+eax+06Eh]
         mov byte [byte edx+eax+06Dh], bl
 .6:
-        imul edx, dword [nosplit ecx*4+dword_1CC1C4], dword 32C6h
-        mov ebx, dword [dword_1CC2AC]
+        imul edx, dword [nosplit ecx*4+RosterTeam], dword 32C6h
+        mov ebx, dword [RosterTeams]
         add edx, ebx
         movzx ebx, byte [byte edx+071h]
         cmp eax, ebx
@@ -8280,8 +8280,8 @@ FixLinesAfterTrade:
 .9:
         mov ebx, ecx
         shl ebx, 2
-        imul edx, dword [dword ebx+dword_1CC1C4], dword 32C6h
-        mov edi, dword [dword_1CC2AC]
+        imul edx, dword [dword ebx+RosterTeam], dword 32C6h
+        mov edi, dword [RosterTeams]
         add edx, edi
         movzx edi, byte [byte edx+071h]
         cmp eax, edi
@@ -8295,8 +8295,8 @@ FixLinesAfterTrade:
         mov edx, esi
         mov eax, ecx
         call RebuildLinesAfterTrade
-        imul edx, dword [dword ebx+dword_1CC1C4], dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        imul edx, dword [dword ebx+RosterTeam], dword 32C6h
+        mov eax, dword [RosterTeams]
         add eax, edx
         lea edx, [dword eax+0321Eh]
         push edx
@@ -8318,8 +8318,8 @@ FixLinesAfterTrade:
         mov edx, esi
         mov eax, ecx
         call FindLineSlot
-        imul eax, dword [dword ebx+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [dword ebx+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         add eax, edx
         lea edx, [dword eax+03237h]
         push edx
@@ -8428,8 +8428,8 @@ UpdateRosterCounts:
         mov esi, edx
         mov dword [byte ebp-04h], ebx
         mov edx, ecx
-        imul eax, dword [nosplit eax*4+dword_1CC1C4], dword 32C6h
-        mov ecx, dword [dword_1CC2AC]
+        imul eax, dword [nosplit eax*4+RosterTeam], dword 32C6h
+        mov ecx, dword [RosterTeams]
         add eax, ecx
         lea ecx, [byte eax+074h]
         mov dword [byte ebp-01Ch], ecx
@@ -8456,8 +8456,8 @@ UpdateRosterCounts:
         shl eax, 2
         cmp esi, byte 1
         jne short .3
-        imul eax, dword [dword eax+dword_1CC1C4], dword 32C6h
-        mov ecx, dword [dword_1CC2AC]
+        imul eax, dword [dword eax+RosterTeam], dword 32C6h
+        mov ecx, dword [RosterTeams]
         add eax, ecx
         mov ecx, dword [eax]
         lea edi, [dword ecx+01281h]
@@ -8473,8 +8473,8 @@ UpdateRosterCounts:
         jmp short .4
 .3:
         jle short .4
-        imul eax, dword [dword eax+dword_1CC1C4], dword 32C6h
-        mov ecx, dword [dword_1CC2AC]
+        imul eax, dword [dword eax+RosterTeam], dword 32C6h
+        mov ecx, dword [RosterTeams]
         mov eax, dword [ecx+eax]
         movsx eax, word [dword eax+01281h]
         add ebx, eax
@@ -8483,8 +8483,8 @@ UpdateRosterCounts:
         shl eax, 2
         cmp esi, byte 2
         jne short .5
-        imul eax, dword [dword eax+dword_1CC1C4], dword 32C6h
-        mov ecx, dword [dword_1CC2AC]
+        imul eax, dword [dword eax+RosterTeam], dword 32C6h
+        mov ecx, dword [RosterTeams]
         add eax, ecx
         mov ecx, dword [eax]
         lea edi, [dword ecx+0132Bh]
@@ -8500,8 +8500,8 @@ UpdateRosterCounts:
         jmp short .6
 .5:
         jle short .6
-        imul eax, dword [dword eax+dword_1CC1C4], dword 32C6h
-        mov ecx, dword [dword_1CC2AC]
+        imul eax, dword [dword eax+RosterTeam], dword 32C6h
+        mov ecx, dword [RosterTeams]
         mov eax, dword [ecx+eax]
         movsx eax, word [dword eax+0132Bh]
         add ebx, eax
@@ -8509,8 +8509,8 @@ UpdateRosterCounts:
         cmp esi, byte 3
         jne short .7
         mov eax, dword [byte ebp-024h]
-        imul ecx, dword [nosplit eax*4+dword_1CC1C4], dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        imul ecx, dword [nosplit eax*4+RosterTeam], dword 32C6h
+        mov eax, dword [RosterTeams]
         add eax, ecx
         mov ecx, dword [eax]
         lea esi, [dword ecx+018A5h]
@@ -8579,15 +8579,15 @@ UpdateRosterCounts:
         mov edx, dword [byte ebp-014h]
         mov eax, dword [byte ebp-024h]
         inc word [edx]
-        imul edx, dword [nosplit eax*4+dword_1CC1C4], dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        imul edx, dword [nosplit eax*4+RosterTeam], dword 32C6h
+        mov eax, dword [RosterTeams]
         movzx esi, byte [byte edx+eax+071h]
         xor eax, eax
         jmp short .12
 .10:
         mov edx, dword [byte ebp-024h]
-        imul edx, dword [nosplit edx*4+dword_1CC1C4], dword 32C6h
-        mov ecx, dword [dword_1CC2AC]
+        imul edx, dword [nosplit edx*4+RosterTeam], dword 32C6h
+        mov ecx, dword [RosterTeams]
         add edx, ecx
         add edx, eax
         movzx ecx, byte [byte edx+06Eh]
@@ -8616,15 +8616,15 @@ RosterCreatePlayer:
         push edi
         enter 124h, 0
         mov esi, eax
-        imul ebx, dword [nosplit eax*4+dword_1CC1C4], dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        imul ebx, dword [nosplit eax*4+RosterTeam], dword 32C6h
+        mov eax, dword [RosterTeams]
         mov eax, dword [ebx+eax]
         xor edi, edi
         movsx ebx, word [dword eax+0132Bh]
         xor edx, edx
         mov dword [byte ebp-04h], ebx
         movsx ebx, word [dword eax+018A5h]
-        mov dword [dword_1CC1D4], esi
+        mov dword [CreatePlayerSlot], esi
         cmp dword [byte ebp-04h], byte 19h
         jl short .1
         cmp ebx, byte 3
@@ -8651,11 +8651,11 @@ RosterCreatePlayer:
 .5:
         test edi, edi
         je short .6
-        mov eax, dword [dword_1CC214]
+        mov eax, dword [RosterPanelBitmap]
         mov edx, 2
         jmp short .7
 .6:
-        mov eax, dword [dword_1CC214]
+        mov eax, dword [RosterPanelBitmap]
         xor edx, edx
 .7:
         mov eax, dword [byte eax+02Ch]
@@ -8676,8 +8676,8 @@ RosterCreatePlayer:
         call UpdateRosterCounts
         mov dword [byte ebp-08h], eax
         shl esi, 2
-        imul eax, dword [dword esi+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [dword esi+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         add eax, edx
         cmp byte [byte eax+071h], 3
         jae short .10
@@ -8685,8 +8685,8 @@ RosterCreatePlayer:
         movzx ebx, dl
         inc dl
         mov byte [byte eax+071h], dl
-        imul edx, dword [dword esi+dword_1CC1C4], dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        imul edx, dword [dword esi+RosterTeam], dword 32C6h
+        mov eax, dword [RosterTeams]
         add eax, edx
         mov dl, byte [byte ebp-08h]
         mov byte [byte ebx+eax+06Eh], dl
@@ -8695,7 +8695,7 @@ RosterCreatePlayer:
         mov dl, byte [byte ebp-08h]
         mov byte [byte eax+070h], dl
 .11:
-        mov dword [dword_1CC2BC], 1
+        mov dword [RosterEditOpen], 1
         jmp short .13
 .12:
         push byte 1
@@ -8721,8 +8721,8 @@ ReleasePlayer:
         enter 368h, 0
         push eax
         sub ebp, 3E6h
-        imul edx, dword [nosplit eax*4+dword_1CC1C4], dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        imul edx, dword [nosplit eax*4+RosterTeam], dword 32C6h
+        mov eax, dword [RosterTeams]
         mov dword [dword ebp+03E2h], 64h
         movzx eax, byte [byte edx+eax+071h]
         xor esi, esi
@@ -8730,8 +8730,8 @@ ReleasePlayer:
         jmp near .6
 .1:
         mov eax, dword [byte ebp+07Ah]
-        imul eax, dword [nosplit eax*4+dword_1CC1C4], dword 32C6h
-        mov edi, dword [dword_1CC2AC]
+        imul eax, dword [nosplit eax*4+RosterTeam], dword 32C6h
+        mov edi, dword [RosterTeams]
         movzx edx, byte [byte edi+eax+06Eh]
         mov edi, dword [edi+eax]
         mov eax, esi
@@ -8784,12 +8784,12 @@ ReleasePlayer:
         mov eax, dword [byte ebp+07Ah]
         call UpdateRosterCounts
         mov ebx, eax
-        imul eax, dword [dword edi+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [dword edi+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         add eax, edx
         mov byte [byte esi+eax+06Eh], bl
-        imul eax, dword [dword edi+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [dword edi+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         inc esi
         inc byte [byte edx+eax+071h]
 .8:
@@ -8799,26 +8799,26 @@ ReleasePlayer:
         jl short .7
         cmp dword [dword ebp+03DEh], byte 0
         jle near .12
-        imul eax, dword [dword edi+dword_1CC1C4], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        imul eax, dword [dword edi+RosterTeam], dword 32C6h
+        mov edx, dword [RosterTeams]
         or byte [byte edx+eax+06Ah], 2
         mov eax, dword [byte ebp+07Ah]
-        mov dword [dword_1CC2BC], 1
+        mov dword [RosterEditOpen], 1
         call RateTrade
-        imul edx, dword [dword edi+dword_1CC1C4], dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        imul edx, dword [dword edi+RosterTeam], dword 32C6h
+        mov eax, dword [RosterTeams]
         mov eax, dword [edx+eax]
         call BuildAutoLines
-        imul edx, dword [dword edi+dword_1CC1C4], dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        imul edx, dword [dword edi+RosterTeam], dword 32C6h
+        mov eax, dword [RosterTeams]
         mov eax, dword [edx+eax]
         xor esi, esi
         call RemoveListEntry
-        mov edx, dword [dword_1CC2AC]
+        mov edx, dword [RosterTeams]
         jmp short .11
 .9:
         mov eax, dword [byte ebp+07Ah]
-        imul eax, dword [nosplit eax*4+dword_1CC1C4], dword 32C6h
+        imul eax, dword [nosplit eax*4+RosterTeam], dword 32C6h
         add eax, edx
         movzx eax, byte [byte esi+eax+06Eh]
         cmp eax, dword [dword ebp+03E2h]
@@ -8862,7 +8862,7 @@ SaveTrades:
         jmp near .15
 .1:
         imul eax, dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        mov edx, dword [RosterTeams]
         test byte [byte edx+eax+06Ah], 2
         je near .14
         mov dword [byte ebp-08h], 0
@@ -8892,7 +8892,7 @@ SaveTrades:
         mov eax, dword [RosterData]
         mov eax, dword [dword eax+0383C1h]
         add edx, eax
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, dword [byte ebp-014h]
         mov esi, dword [eax]
         add esi, dword [byte ebp-020h]
@@ -8905,7 +8905,7 @@ SaveTrades:
         mov eax, dword [RosterData]
         mov eax, dword [dword eax+0383C1h]
         add edx, eax
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, dword [byte ebp-014h]
         mov esi, dword [eax]
         add esi, dword [byte ebp-020h]
@@ -8917,7 +8917,7 @@ SaveTrades:
         inc dword [byte ebp-08h]
 .4:
         imul eax, dword [byte ebp-0Ch], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        mov edx, dword [RosterTeams]
         add edx, eax
         mov dword [byte ebp-014h], eax
         mov eax, dword [edx]
@@ -8951,7 +8951,7 @@ SaveTrades:
         mov eax, dword [RosterData]
         mov eax, dword [dword eax+0383C1h]
         add edx, eax
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, dword [byte ebp-01Ch]
         mov esi, dword [eax]
         add esi, dword [byte ebp-020h]
@@ -8964,7 +8964,7 @@ SaveTrades:
         mov eax, dword [RosterData]
         mov eax, dword [dword eax+0383C1h]
         add edx, eax
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, dword [byte ebp-01Ch]
         mov esi, dword [eax]
         add esi, dword [byte ebp-020h]
@@ -8976,7 +8976,7 @@ SaveTrades:
         inc dword [byte ebp-08h]
 .7:
         imul eax, dword [byte ebp-0Ch], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        mov edx, dword [RosterTeams]
         add edx, eax
         mov dword [byte ebp-01Ch], eax
         mov eax, dword [edx]
@@ -9009,7 +9009,7 @@ SaveTrades:
         imul ebx, byte 38h
         mov eax, dword [RosterData]
         mov edx, dword [dword eax+0383C1h]
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, dword [byte ebp-018h]
         mov esi, dword [eax]
         add esi, dword [byte ebp-020h]
@@ -9023,7 +9023,7 @@ SaveTrades:
         mov eax, dword [RosterData]
         mov eax, dword [dword eax+0383C1h]
         add edx, eax
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, dword [byte ebp-018h]
         mov esi, dword [eax]
         add esi, dword [byte ebp-020h]
@@ -9036,7 +9036,7 @@ SaveTrades:
 .10:
         imul eax, dword [byte ebp-0Ch], dword 32C6h
         mov dword [byte ebp-018h], eax
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, dword [byte ebp-018h]
         mov edx, dword [eax]
         movsx ebx, word [dword edx+0132Bh]
@@ -9069,7 +9069,7 @@ SaveTrades:
         mov eax, dword [RosterData]
         mov eax, dword [dword eax+0383C1h]
         add edx, eax
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, dword [byte ebp-010h]
         mov esi, dword [eax]
         add esi, dword [byte ebp-020h]
@@ -9082,7 +9082,7 @@ SaveTrades:
         mov eax, dword [RosterData]
         mov eax, dword [dword eax+0383C1h]
         add edx, eax
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         add eax, dword [byte ebp-010h]
         mov esi, dword [eax]
         add esi, dword [byte ebp-020h]
@@ -9094,7 +9094,7 @@ SaveTrades:
         inc dword [byte ebp-08h]
 .13:
         imul eax, dword [byte ebp-0Ch], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        mov edx, dword [RosterTeams]
         add edx, eax
         mov dword [byte ebp-010h], eax
         mov eax, dword [edx]
@@ -9104,42 +9104,42 @@ SaveTrades:
         mov esi, 1
 .14:
         imul eax, dword [byte ebp-0Ch], dword 32C6h
-        mov edx, dword [dword_1CC2AC]
+        mov edx, dword [RosterTeams]
         inc dword [byte ebp-0Ch]
         and byte [byte edx+eax+06Ah], 0FDh
 .15:
         mov eax, dword [byte ebp-0Ch]
-        cmp eax, dword [dword_1CC230]
+        cmp eax, dword [RosterScrollList]
         jl near .1
         test esi, esi
         je short .16
         call BuildTradePlayerLists
 .16:
-        cmp dword [dword_1CC208], byte 0
+        cmp dword [RosterMode], byte 0
         jne short .20
         test esi, esi
         je short .17
         mov eax, dword [RosterData]
         call SaveAgents
 .17:
-        cmp dword [dword_1CC2A4], byte 0
+        cmp dword [DeletionCount], byte 0
         jle short .20
         mov ecx, CompareShorts
         mov ebx, 2
-        mov edx, dword [dword_1CC2A4]
-        mov eax, dword [dword_1CC2A8]
+        mov edx, dword [DeletionCount]
+        mov eax, dword [RosterPlayerInfo]
         mov dword [byte ebp-0Ch], 0
         call qsort_
         jmp short .19
 .18:
-        mov edx, dword [dword_1CC2A8]
+        mov edx, dword [RosterPlayerInfo]
         movsx edx, word [edx+eax*2]
         mov eax, dword [RosterData]
         inc dword [byte ebp-0Ch]
         call SaveAgentsOnly
 .19:
         mov eax, dword [byte ebp-0Ch]
-        cmp eax, dword [dword_1CC2A4]
+        cmp eax, dword [DeletionCount]
         jl short .18
 .20:
         test esi, esi
@@ -9147,17 +9147,17 @@ SaveTrades:
         mov dword [byte ebp-0Ch], 0
         jmp short .23
 .21:
-        cmp dword [dword_1CC208], byte 0
+        cmp dword [RosterMode], byte 0
         je short .22
         imul eax, dword 194Fh
-        mov edx, dword [dword_16D670]
+        mov edx, dword [RosterFreeAgents]
         add eax, edx
         call UpdateGameRecord
 .22:
         inc dword [byte ebp-0Ch]
 .23:
         mov eax, dword [byte ebp-0Ch]
-        cmp eax, dword [dword_1CC230]
+        cmp eax, dword [RosterScrollList]
         jl short .21
         jmp near DrawRatingBars_157
 ;-----------------------------------------------------------------------------
@@ -9171,21 +9171,21 @@ ResetExhibitionRosters:
         jmp short .2
 .1:
         imul ebx, edx, dword 32C6h
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         and byte [byte ebx+eax+06Ah], 0FEh
-        mov eax, dword [dword_1CC2AC]
+        mov eax, dword [RosterTeams]
         inc edx
         mov word [byte ebx+eax+072h], 0
 .2:
-        cmp edx, dword [dword_1CC230]
+        cmp edx, dword [RosterScrollList]
         jl short .1
-        cmp dword [dword_1CC208], byte 0
+        cmp dword [RosterMode], byte 0
         jne short .3
         mov eax, RosterData
         call FreeExhibitionFile
         mov eax, RosterData
         call ResetExhibitionStats
-        mov dword [dword_1CC2A4], 0
+        mov dword [DeletionCount], 0
 .3:
         pop edx
         pop ebx
@@ -9769,22 +9769,22 @@ DrawRatingBarSlot:
         push ebx
         push ecx
         push edx
-        cmp dword [dword_1CC1E0], byte 1
+        cmp dword [CreateGoalieMode], byte 1
         jne short .1
         push byte 1
         mov ecx, 5
         mov ebx, 19Eh
-        push dword [dword_1CC1DC]
+        push dword [RatingBarLitArt]
         mov edx, 1D0h
-        push dword [dword_1CC1E4]
+        push dword [RatingBarLitBackArt]
         jmp short .2
 .1:
         push byte 1
         mov ecx, 5
         mov ebx, 19Eh
-        push dword [dword_1CC1D8]
+        push dword [RatingBarBackArt]
         mov edx, 1D0h
-        push dword [dword_1CC1D0]
+        push dword [RatingBarArt]
 .2:
         mov eax, 70h
         call DrawRatingBar
@@ -9804,7 +9804,7 @@ DrawRatingBars:
         push edi
         enter 20h, 0
         mov dword [byte ebp-014h], 3
-        cmp dword [dword_1CC1E0], byte 1
+        cmp dword [CreateGoalieMode], byte 1
         jne short .1
         push str_STSP
         push eax
@@ -9827,12 +9827,12 @@ DrawRatingBars:
         jmp near .8
 .3:
         shl eax, 2
-        cmp dword [dword_1CC1E0], byte 1
+        cmp dword [CreateGoalieMode], byte 1
         jne short .4
-        mov edx, dword [dword_1CC1E8]
+        mov edx, dword [CreateGoalieRatings]
         jmp short .5
 .4:
-        mov edx, dword [dword_1CC1CC]
+        mov edx, dword [CreateSkaterRatings]
 .5:
         mov eax, dword [edx+eax]
         movzx eax, byte [eax]
@@ -9845,7 +9845,7 @@ DrawRatingBars:
         mov eax, dword [byte ebp-04h]
         add eax, byte 0Bh
         imul eax, byte 52h
-        mov edx, dword [dword_1CC1FC]
+        mov edx, dword [CreatePlayerItems]
         add eax, edx
         mov edx, dword [byte ebp-04h]
         add edx, byte 19h
@@ -9868,7 +9868,7 @@ DrawRatingBars:
         push byte 6
         mov edx, dword [byte ebp-08h]
         mov ecx, dword [byte ebp-01Ch]
-        mov eax, dword [dword_1CC1FC]
+        mov eax, dword [CreatePlayerItems]
         mov ebx, esi
         add eax, dword [byte ebp-0Ch]
         add edx, edi
@@ -9882,7 +9882,7 @@ DrawRatingBars:
         add edx, dword [byte ebp-014h]
         mov dword [byte ebp-010h], 0FFFFFFFFh
         call InitListBox
-        mov eax, dword [dword_1CC1FC]
+        mov eax, dword [CreatePlayerItems]
         push byte 6
         add eax, dword [byte ebp-0Ch]
         mov ecx, dword [byte ebp-01Ch]
@@ -9930,12 +9930,12 @@ DrawRatingValues:
         mov dword [byte ebp-010h], 0
         mov dword [byte ebp-030h], eax
         xor esi, esi
-        cmp eax, dword [dword_1CC1F4]
+        cmp eax, dword [RatingPointsLeft]
         jle short DrawRatingBars_157
         mov eax, 1
         mov ebx, 0Bh
         mov dword [byte ebp-024h], 4
-        mov ecx, dword [dword_1CC1FC]
+        mov ecx, dword [CreatePlayerItems]
 .1:
         imul edx, ebx, byte 52h
         add edx, ecx
@@ -9948,20 +9948,20 @@ DrawRatingValues:
         shl ecx, 2
         inc dword [byte ebp-010h]
         mov dword [byte ebp-04h], ecx
-        cmp dword [dword_1CC1E0], byte 1
+        cmp dword [CreateGoalieMode], byte 1
         jne short .3
-        mov edx, dword [dword_1CC1E4]
-        cmp edx, dword [dword_1CC1DC]
+        mov edx, dword [RatingBarLitBackArt]
+        cmp edx, dword [RatingBarLitArt]
         jge near .5
-        mov edx, dword [dword_1CC1E8]
+        mov edx, dword [CreateGoalieRatings]
         add edx, ecx
         mov ecx, dword [edx]
         cmp byte [ecx], 0
         jbe short .5
-        add dword [dword_1CC1E4], eax
+        add dword [RatingBarLitBackArt], eax
         mov edx, dword [edx]
         sub byte [edx], al
-        mov edi, dword [dword_1CC1E8]
+        mov edi, dword [CreateGoalieRatings]
         add edi, dword [byte ebp-04h]
         mov edi, dword [edi]
 .2:
@@ -9971,18 +9971,18 @@ DrawRatingValues:
 .3:
         cmp edx, byte 9
         jge short .5
-        mov edx, dword [dword_1CC1D0]
-        cmp edx, dword [dword_1CC1D8]
+        mov edx, dword [RatingBarArt]
+        cmp edx, dword [RatingBarBackArt]
         jge short .5
-        mov edx, dword [dword_1CC1CC]
+        mov edx, dword [CreateSkaterRatings]
         add edx, ecx
         mov ecx, dword [edx]
         cmp byte [ecx], 0
         jbe short .5
-        add dword [dword_1CC1D0], eax
+        add dword [RatingBarArt], eax
         mov edx, dword [edx]
         sub byte [edx], al
-        mov edx, dword [dword_1CC1CC]
+        mov edx, dword [CreateSkaterRatings]
         add edx, dword [byte ebp-04h]
         mov edi, dword [edx]
         jmp short .2
@@ -9994,7 +9994,7 @@ DrawRatingValues:
         cmp dword [byte ebp-010h], byte 0
         jne near .11
         mov ebx, 19h
-        mov ecx, dword [dword_1CC1FC]
+        mov ecx, dword [CreatePlayerItems]
 .6:
         imul edx, ebx, byte 52h
         add edx, ecx
@@ -10006,36 +10006,36 @@ DrawRatingValues:
         mov ecx, edx
         shl ecx, 2
         mov dword [byte ebp-0Ch], ecx
-        cmp dword [dword_1CC1E0], byte 1
+        cmp dword [CreateGoalieMode], byte 1
         jne short .7
-        cmp dword [dword_1CC1E4], byte 0
+        cmp dword [RatingBarLitBackArt], byte 0
         jle short .9
-        mov edx, dword [dword_1CC1E8]
+        mov edx, dword [CreateGoalieRatings]
         add edx, ecx
         mov ecx, dword [edx]
         cmp byte [ecx], 0Dh
         jae short .9
-        sub dword [dword_1CC1E4], eax
+        sub dword [RatingBarLitBackArt], eax
         mov edx, dword [edx]
         add byte [edx], al
-        mov edi, dword [dword_1CC1E8]
+        mov edi, dword [CreateGoalieRatings]
         add edi, dword [byte ebp-0Ch]
         mov edi, dword [edi]
         jmp short .8
 .7:
         cmp edx, byte 9
         jge short .9
-        cmp dword [dword_1CC1D0], byte 0
+        cmp dword [RatingBarArt], byte 0
         jle short .9
-        mov edx, dword [dword_1CC1CC]
+        mov edx, dword [CreateSkaterRatings]
         add edx, ecx
         mov ecx, dword [edx]
         cmp byte [ecx], 0Dh
         jae short .9
-        sub dword [dword_1CC1D0], eax
+        sub dword [RatingBarArt], eax
         mov edx, dword [edx]
         add byte [edx], al
-        mov eax, dword [dword_1CC1CC]
+        mov eax, dword [CreateSkaterRatings]
         add eax, dword [byte ebp-0Ch]
         mov edi, dword [eax]
 .8:
@@ -10051,7 +10051,7 @@ DrawRatingValues:
 .11:
         mov eax, dword [byte ebp-030h]
         inc eax
-        mov dword [dword_1CC1F4], eax
+        mov dword [RatingPointsLeft], eax
         test esi, esi
         je near DrawRatingBars_157
         add edi, byte 0Ah
@@ -10061,7 +10061,7 @@ DrawRatingValues:
         idiv ecx
         mov edi, eax
         imul eax, ebx, byte 52h
-        mov edx, dword [dword_1CC1FC]
+        mov edx, dword [CreatePlayerItems]
         add eax, edx
         lea edx, [byte ebx+0Eh]
         mov dword [byte ebp-02Ch], edx
@@ -10085,7 +10085,7 @@ DrawRatingValues:
         push byte 6
         mov edx, dword [byte ebp-08h]
         mov ecx, dword [byte ebp-014h]
-        mov eax, dword [dword_1CC1FC]
+        mov eax, dword [CreatePlayerItems]
         mov ebx, esi
         add eax, dword [byte ebp-028h]
         add edx, edi
@@ -10100,7 +10100,7 @@ DrawRatingValues:
         inc edx
         mov dword [byte ebp-020h], 0FFFFFFFFh
         call InitListBox
-        mov eax, dword [dword_1CC1FC]
+        mov eax, dword [CreatePlayerItems]
         push byte 6
         add eax, dword [byte ebp-028h]
         mov ecx, dword [byte ebp-014h]
@@ -10130,34 +10130,34 @@ DrawRatingPanel:
         call DrawRatingValues
         mov eax, dword [tickcount]
         mov ebx, eax
-        cmp eax, dword [dword_16D678]
+        cmp eax, dword [RatingPanelTick]
         jle short .3
-        cmp dword [dword_16D67C], byte 7
+        cmp dword [RatingPanelFrame], byte 7
         jg short .1
-        cmp dword [dword_16D67C], byte 0
+        cmp dword [RatingPanelFrame], byte 0
         jge short .2
 .1:
-        mov dword [dword_16D67C], 0
+        mov dword [RatingPanelFrame], 0
 .2:
-        mov eax, dword [dword_16D67C]
+        mov eax, dword [RatingPanelFrame]
         push eax
         push str_AN02d
         lea edx, [byte ebp-08h]
         inc eax
         push edx
-        mov dword [dword_16D67C], eax
+        mov dword [RatingPanelFrame], eax
         call sprintf_
         add esp, byte 0Ch
         lea eax, [byte ebp-08h]
         push eax
-        push dword [dword_1CC1F0]
+        push dword [RatingPanelShapeFile]
         call FindShape
         add esp, byte 8
         push eax
         add ebx, byte 0Ah
         call BlitShape
         add esp, byte 4
-        mov dword [dword_16D678], ebx
+        mov dword [RatingPanelTick], ebx
 .3:
         leave
         pop edx
@@ -10271,30 +10271,30 @@ CreatePlayerScreen:
         push dword 0A00h
         push str_CreatePlrRegion
         mov dword [byte ebp+072h], eax
-        mov dword [dword_1CC1FC], eax
+        mov dword [CreatePlayerItems], eax
         call AllocMemBlock
         mov dword [byte ebp+06Ah], eax
         lea eax, [byte ebp-01Ah]
-        mov dword [dword_1CC1E8], eax
+        mov dword [CreateGoalieRatings], eax
         lea eax, [byte ebp+01Eh]
         add esp, byte 0Ch
-        mov dword [dword_1CC1CC], eax
+        mov dword [CreateSkaterRatings], eax
         lea eax, [byte ebp+052h]
-        mov dword [dword_16D67C], edi
+        mov dword [RatingPanelFrame], edi
         call _dos_getdate_
-        mov eax, dword [dword_1CC1D4]
+        mov eax, dword [CreatePlayerSlot]
         mov dword [byte ebp+06Eh], 1
         call ClearPlayerRecord
-        mov dword [dword_1CC1E4], 0A8h
-        mov dword [dword_1CC1DC], 0A8h
-        mov dword [dword_1CC1D0], 6Ch
-        mov dword [dword_1CC1D8], 6Ch
+        mov dword [RatingBarLitBackArt], 0A8h
+        mov dword [RatingBarLitArt], 0A8h
+        mov dword [RatingBarArt], 6Ch
+        mov dword [RatingBarBackArt], 6Ch
         test byte [dword ebp-025Ah], 1
         sete al
         movzx eax, al
         inc eax
         lea edx, [byte ebp-01Ah]
-        mov dword [dword_1CC1E0], eax
+        mov dword [CreateGoalieMode], eax
         lea eax, [dword ebp-0136h]
         call NewSkaterRecord
         lea edx, [byte ebp+01Eh]
@@ -10321,7 +10321,7 @@ CreatePlayerScreen:
         call InitCreatePlayerScreen
         mov eax, dword [byte ebp+062h]
         mov ebx, dword [byte ebp+066h]
-        mov dword [dword_1CC1F0], eax
+        mov dword [RatingPanelShapeFile], eax
         mov eax, dword [byte ebp+072h]
         lea edx, [dword ebp-0136h]
         add eax, 148h
@@ -10342,7 +10342,7 @@ CreatePlayerScreen:
         add eax, 334h
         call DrawCreatePlayerAge
         mov eax, dword [tickcount]
-        mov dword [dword_1CC1F4], eax
+        mov dword [RatingPointsLeft], eax
         jmp near .33
 .3:
         cmp dword [byte ebp+05Ah], byte 6
@@ -10397,7 +10397,7 @@ CreatePlayerScreen:
         movsx eax, word [dword ebp-01FBh]
         sar eax, 4
         mov byte [dword ebp-0203h], al
-        cmp dword [dword_1CC1E0], byte 1
+        cmp dword [CreateGoalieMode], byte 1
         jne short .7
         mov ecx, 47h
         mov edi, dword [dword ebp-0256h]
@@ -10506,7 +10506,7 @@ CreatePlayerScreen:
 .19:
         test byte [dword ebp-025Ah], 1
         je short .25
-        mov dword [dword_1CC1E0], 1
+        mov dword [CreateGoalieMode], 1
         mov esi, 1
         jmp short .24
 .20:
@@ -10521,7 +10521,7 @@ CreatePlayerScreen:
 .23:
         test byte [dword ebp-025Ah], 2
         je short .24
-        mov dword [dword_1CC1E0], 2
+        mov dword [CreateGoalieMode], 2
         mov byte [dword ebp-0134h], 47h
         inc esi
         jmp short .25
@@ -10657,7 +10657,7 @@ CreatePlayerScreen:
         je short .34
         jmp short .33
 .34:
-        push dword [dword_1CC1F0]
+        push dword [RatingPanelShapeFile]
         call FreeMemBlock
         add esp, byte 4
         call ShowStatsScreen
@@ -10676,7 +10676,7 @@ CreatePlayerScreen:
         push str_00008
         push eax
         mov dword [byte ebp+062h], eax
-        mov dword [dword_1CC1F0], eax
+        mov dword [RatingPanelShapeFile], eax
         call FindShape
         add esp, byte 8
         push edi
@@ -10951,7 +10951,7 @@ SetupCreatePlayerLists:
         mov dword [byte ebp-014h], 1B1h
         mov dword [byte ebp-0Ch], 5Fh
         xor esi, esi
-        cmp dword [dword_1CC1E0], byte 1
+        cmp dword [CreateGoalieMode], byte 1
         jne near .3
         mov dword [byte ebp-04h], esi
 .1:
@@ -10964,7 +10964,7 @@ SetupCreatePlayerLists:
         add edx, edx
         mov ecx, dword [byte ebp-01Ch]
         mov dword [byte ebp-018h], edx
-        movsx ebx, word [dword edx+word_16D6C4]
+        movsx ebx, word [dword edx+CreateSkaterRows]
         add edi, dword [byte ebp-020h]
         mov edx, dword [byte ebp-010h]
         mov eax, edi
@@ -10979,7 +10979,7 @@ SetupCreatePlayerLists:
         mov ebx, dword [byte ebp-018h]
         mov ecx, dword [byte ebp-01Ch]
         mov edx, dword [byte ebp-014h]
-        movsx ebx, word [dword ebx+word_16D6C4]
+        movsx ebx, word [dword ebx+CreateSkaterRows]
         add edi, dword [byte ebp-020h]
         sub edx, dword [byte ebp-01Ch]
         mov eax, edi
@@ -11003,7 +11003,7 @@ SetupCreatePlayerLists:
         add edx, edx
         mov ecx, dword [byte ebp-01Ch]
         mov dword [byte ebp-018h], edx
-        movsx ebx, word [dword edx+word_16D6C4]
+        movsx ebx, word [dword edx+CreateSkaterRows]
         add edi, dword [byte ebp-020h]
         mov edx, dword [byte ebp-010h]
         mov eax, edi
@@ -11019,7 +11019,7 @@ SetupCreatePlayerLists:
         mov ebx, dword [byte ebp-018h]
         mov ecx, dword [byte ebp-01Ch]
         mov edx, dword [byte ebp-014h]
-        movsx ebx, word [dword ebx+word_16D6C4]
+        movsx ebx, word [dword ebx+CreateSkaterRows]
         add edi, dword [byte ebp-020h]
         sub edx, dword [byte ebp-0Ch]
         mov eax, edi
@@ -11042,7 +11042,7 @@ SetupCreatePlayerLists:
         push dword [byte ebp-08h]
         mov ecx, dword [byte ebp-01Ch]
         mov dword [byte ebp-018h], edx
-        movsx ebx, word [dword edx+word_16D6D2]
+        movsx ebx, word [dword edx+CreateGoalieRows]
         add edi, dword [byte ebp-020h]
         mov edx, dword [byte ebp-010h]
         mov eax, edi
@@ -11057,7 +11057,7 @@ SetupCreatePlayerLists:
         mov ebx, dword [byte ebp-018h]
         mov ecx, dword [byte ebp-01Ch]
         mov edx, dword [byte ebp-010h]
-        movsx ebx, word [dword ebx+word_16D6D2]
+        movsx ebx, word [dword ebx+CreateGoalieRows]
         add edi, dword [byte ebp-020h]
         add edx, dword [byte ebp-01Ch]
         mov eax, edi
@@ -11080,7 +11080,7 @@ SetupCreatePlayerLists:
         push dword [byte ebp-08h]
         mov ecx, dword [byte ebp-018h]
         mov dword [byte ebp-01Ch], edx
-        movsx ebx, word [dword edx+word_16D6D2]
+        movsx ebx, word [dword edx+CreateGoalieRows]
         mov edx, dword [byte ebp-014h]
         add edi, dword [byte ebp-020h]
         sub edx, dword [byte ebp-018h]
@@ -11096,7 +11096,7 @@ SetupCreatePlayerLists:
         mov ebx, dword [byte ebp-01Ch]
         mov ecx, dword [byte ebp-018h]
         mov edx, dword [byte ebp-014h]
-        movsx ebx, word [dword ebx+word_16D6D2]
+        movsx ebx, word [dword ebx+CreateGoalieRows]
         add edi, dword [byte ebp-020h]
         sub edx, dword [byte ebp-0Ch]
         mov eax, edi
@@ -11588,7 +11588,7 @@ NewSkaterRecord:
         mov byte [eax], 0
         mov eax, 1
 .1:
-        cmp byte [dword eax+byte_1CC240], 0
+        cmp byte [dword eax+NewPlayerRecord], 0
         jne short .2
         mov byte [byte ecx+01h], al
         jmp short .3
@@ -11689,7 +11689,7 @@ NewGoalieRecord:
         mov byte [eax], 0
         mov eax, 1
 .1:
-        cmp byte [dword eax+byte_1CC240], 0
+        cmp byte [dword eax+NewPlayerRecord], 0
         jne short .2
         mov byte [byte ecx+01h], al
         jmp short .3
@@ -12209,15 +12209,15 @@ BuildTradePlayerLists:
 .1:
         imul edx, eax, dword 194Fh
         shl eax, 2
-        cmp dword [dword_1CC208], byte 0
+        cmp dword [RosterMode], byte 0
         jne short .2
         mov ebx, dword [RosterData]
         add ebx, 0DF4h
         jmp short .3
 .2:
-        cmp dword [dword_16D670], byte 0
+        cmp dword [RosterFreeAgents], byte 0
         je short .4
-        mov ebx, dword [dword_16D670]
+        mov ebx, dword [RosterFreeAgents]
 .3:
         add edx, ebx
         mov dword [dword eax+ebp-088h], edx
@@ -12225,7 +12225,7 @@ BuildTradePlayerLists:
         inc dword [byte ebp-04h]
 .5:
         mov eax, dword [byte ebp-04h]
-        cmp eax, dword [dword_1CC230]
+        cmp eax, dword [RosterScrollList]
         jl short .1
         mov dword [byte ebp-04h], 0
         jmp near .29
@@ -12529,12 +12529,12 @@ BuildTradePlayerLists:
         mov dword [dword edi+ebp-034Ch], eax
 .29:
         mov eax, dword [byte ebp-04h]
-        cmp eax, dword [dword_1CC230]
+        cmp eax, dword [RosterScrollList]
         jl near .6
         mov ecx, CompareFirstDword
         mov ebx, 1Ch
         lea eax, [dword ebp-0360h]
-        mov edx, dword [dword_1CC230]
+        mov edx, dword [RosterScrollList]
         mov dword [byte ebp-04h], 0
         call qsort_
         jmp short .31
@@ -12548,12 +12548,12 @@ BuildTradePlayerLists:
         mov byte [byte eax+05Bh], dl
 .31:
         mov eax, dword [byte ebp-04h]
-        cmp eax, dword [dword_1CC230]
+        cmp eax, dword [RosterScrollList]
         jl short .30
         mov ecx, CompareTeamGoalsFor
         mov ebx, 1Ch
         lea eax, [dword ebp-0360h]
-        mov edx, dword [dword_1CC230]
+        mov edx, dword [RosterScrollList]
         mov dword [byte ebp-04h], 0
         call qsort_
         jmp short .33
@@ -12567,12 +12567,12 @@ BuildTradePlayerLists:
         mov byte [byte eax+05Ch], dl
 .33:
         mov eax, dword [byte ebp-04h]
-        cmp eax, dword [dword_1CC230]
+        cmp eax, dword [RosterScrollList]
         jl short .32
         mov ecx, CompareTeamGoalsAgainst
         mov ebx, 1Ch
         lea eax, [dword ebp-0360h]
-        mov edx, dword [dword_1CC230]
+        mov edx, dword [RosterScrollList]
         mov dword [byte ebp-04h], 0
         call qsort_
         jmp short .35
@@ -12586,12 +12586,12 @@ BuildTradePlayerLists:
         mov byte [byte eax+05Dh], dl
 .35:
         mov eax, dword [byte ebp-04h]
-        cmp eax, dword [dword_1CC230]
+        cmp eax, dword [RosterScrollList]
         jl short .34
         mov ecx, CompareTeamPowerPlay
         mov ebx, 1Ch
         lea eax, [dword ebp-0360h]
-        mov edx, dword [dword_1CC230]
+        mov edx, dword [RosterScrollList]
         mov dword [byte ebp-04h], 0
         call qsort_
         jmp short .37
@@ -12605,12 +12605,12 @@ BuildTradePlayerLists:
         mov byte [byte eax+05Eh], dl
 .37:
         mov eax, dword [byte ebp-04h]
-        cmp eax, dword [dword_1CC230]
+        cmp eax, dword [RosterScrollList]
         jl short .36
         mov ecx, CompareTeamPenaltyKill
         mov ebx, 1Ch
         lea eax, [dword ebp-0360h]
-        mov edx, dword [dword_1CC230]
+        mov edx, dword [RosterScrollList]
         mov dword [byte ebp-04h], 0
         call qsort_
         jmp short .39
@@ -12624,12 +12624,12 @@ BuildTradePlayerLists:
         mov byte [byte eax+05Fh], dl
 .39:
         mov eax, dword [byte ebp-04h]
-        cmp eax, dword [dword_1CC230]
+        cmp eax, dword [RosterScrollList]
         jl short .38
         mov ecx, CompareTeamShots
         mov ebx, 1Ch
         lea eax, [dword ebp-0360h]
-        mov edx, dword [dword_1CC230]
+        mov edx, dword [RosterScrollList]
         mov dword [byte ebp-04h], 0
         call qsort_
         mov ebx, 5
@@ -12651,7 +12651,7 @@ BuildTradePlayerLists:
         mov byte [byte esi+060h], al
 .41:
         mov eax, dword [byte ebp-04h]
-        cmp eax, dword [dword_1CC230]
+        cmp eax, dword [RosterScrollList]
         jl short .40
         push dword [byte ebp-08h]
         call FreeMemBlock

@@ -6,7 +6,7 @@ extern str_Xferdata, str_Replaybuf2, str_Gdata, str_Ros2, str_SEXHIBITNDX, str_E
 extern PlayoffUserActive, PlayoffRound, PlayoffStarted, PlayoffUserIndex, PlayoffColumns, HomeUserSlot, AwayUserSlot, PlayoffRoundSlots
 extern PlayoffRoundGames, PlayoffWinsNeeded, PlayoffPairings, dword_16DA9C, dword_16E464, GameSettings, SeasonUserTeam, PlayoffRounds
 extern SeasonActive, SeasonUserReplay, SeasonDefaultUser, SeasonRandomSeed, PlayoffRoundBits, PlayoffUserReplay, PlayoffTeamNames, PlayoffTeams
-extern PlayoffOpponents, PlayoffGameCount, PlayoffRandomSeed, SeasonFileName, ReplayIndexHandle, dword_1C5DA8, dword_1CEFB0, dword_1CEFB4
+extern PlayoffOpponents, PlayoffGameCount, PlayoffRandomSeed, SeasonFileName, ReplayIndexHandle, ReplayFileOpen, dword_1CEFB0, dword_1CEFB4
 extern memcpy_, sprintf_, DosFileInfo, MakeDirPath, SaveReplayHeader, SimulateGame, UpdateTeamLines, CheckLeagueInjuries
 extern EditFileName, ShowWorkingBox, UpdateWorkingBox, HideWorkingBox, NameIndexNew, NameIndexLoad, NameIndexFree, LoadNameIndex
 extern GetLangText, SortStandings, SeasonSettingsPath, PlayoffSettingsPath, AllocCrusherBuffers, FreeTransferBuffers, CopyToTransfer, LinkSendData
@@ -1545,7 +1545,7 @@ SaveReplayFile:
         mov esi, unk_16D7F4
         movsd
         movsd
-        mov dword [dword_1C5DA8], 0
+        mov dword [ReplayFileOpen], 0
         call WriteReplayFile
         lea eax, [byte ebp+07Eh]
         push eax

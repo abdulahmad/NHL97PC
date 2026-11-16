@@ -9,7 +9,7 @@ extern str_TRLS, str_TRRS, str_TRSE, str_TRSS, str_TRSP, str_PICT, str_Roster3, 
 extern str_Rtids, str_Games, str_Ros, str_Lros, str_CRUSHER, str_CRUSHERPack, atoi_, IndexFlags
 extern SeasonUserHuman, SeasonUserActive, PlayoffUserHuman, PlayoffUserActive, dword_16CB7C, dword_16DA9C, GameSettings, SeasonUserTeam
 extern GameOptionFlags, TeamSelectFlags, SeasonSlot, SeasonActive, SeasonScheduleData, SeasonScheduleOffset, SeasonScheduleSize, PlayoffFileHandle
-extern SeasonFileName, ReplayIndexHandle, dword_1C5DA4, dword_1C5DE0, IndexPickChoice, IndexItemType, IndexItemValue, IndexItemTemplate
+extern SeasonFileName, ReplayIndexHandle, ReplayBufferSize, dword_1C5DE0, IndexPickChoice, IndexItemType, IndexItemValue, IndexItemTemplate
 extern IndexDialogType, IndexDialogText, IndexDialogShape, IndexDialogFrame, IndexDialogBack, IndexDialogWidth, IndexDialogHeight, TransferOffset
 extern TransferPackBuffer, TransferBuffer, IndexDialogShapeMid, IndexDialogShapeEnd, IndexDialogShapeTop, LinkSetupBuffer, jpt_9F6DD, memcpy_
 extern ReplayIndexSendBuf, ReplayIndexRecvBuf, rand_, sprintf_, strcat_, strcmp_, strcpy_, strlen_
@@ -27,7 +27,7 @@ extern AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, DrawShapeAtOwnPos, Dr
 extern FillRectColor, DrawTextAt, SetTextColors, tickcount, str_D_LinkSendData, unk_16D7F4, GlobalSetVersion, IndexEntrySettings
 extern SeasonName, SeasonPath, SeasonIndexPath, SeasonFilePath, SeasonStatsPath, PlayoffSettings, PlayoffIndexSettings, PlayoffIndexFlags
 extern PlayoffStatsPath, unk_1C5EF8, unk_1C5F4A, IndexListBox, LinkMessageText, str_Punct_PickIndexEntry, unk_9F611, unk_9F631
-extern unk_9F651, TeamSelectMode, SeasonLastHome, SeasonLastAway, IndexEntryList, word_1C34E5, LinkSetupValues, LinkSetupItemCount
+extern unk_9F651, TeamSelectMode, SeasonLastHome, SeasonLastAway, IndexEntryList, HomeTeamCode, LinkSetupValues, LinkSetupItemCount
 global jpt_A31C6, PickIndexEntryScreen_393, PickIndexEntryScreen_3A4, PickIndexEntryScreen_3B5, PickIndexEntryScreen_470, PickIndexEntryScreen_4D9, PickIndexEntryScreen_4EE, PickIndexEntryScreen_1080
 global SendLeagueFile_6F3, SendLeagueFile_6FD, SendLeagueFile_6FE, LinkSendData_BB, ResetLinkSetup_20, ResetLinkSetup_45, ResetLinkSetup_50, ResetLinkSetup_57
 global ResetLinkSetup_5E, PickIndexEntryScreen, DrawIndexEntry, LoadIndexFile, PickIndexEntry, SendLeagueData, ReceiveLeagueData, SendLeagueFile
@@ -473,16 +473,16 @@ PickIndexEntryScreen_4EE:
         xor ebx, ebx
         call LinkReceiveBlock
         push byte 0
-        push dword [dword_1C5DA4]
+        push dword [ReplayBufferSize]
         push str_Replaybuf
         xor ebx, ebx
         call AllocMemBlock
         add esp, byte 0Ch
-        mov edx, dword [dword_1C5DA4]
+        mov edx, dword [ReplayBufferSize]
         mov esi, eax
         call LinkReceiveBlock
         mov eax, SeasonFileName
-        mov ebx, dword [dword_1C5DA4]
+        mov ebx, dword [ReplayBufferSize]
         mov edx, esi
         call AddReplayIndexEntry
         push esi
@@ -682,7 +682,7 @@ PickIndexEntryScreen_4EE:
         lea eax, [byte ebp+04Eh]
         call FindReplayIndexEntry
         push byte 0
-        push dword [dword_1C5DA4]
+        push dword [ReplayBufferSize]
         push str_Replaybuf
         call AllocMemBlock
         mov esi, eax
@@ -694,7 +694,7 @@ PickIndexEntryScreen_4EE:
         mov edx, 4A78h
         mov eax, SeasonFileName
         call LinkSendBlock
-        mov edx, dword [dword_1C5DA4]
+        mov edx, dword [ReplayBufferSize]
         mov eax, esi
         xor ebx, ebx
         call LinkSendBlock
@@ -815,16 +815,16 @@ PickIndexEntryScreen_4EE:
         xor ebx, ebx
         call LinkReceiveBlock
         push byte 0
-        push dword [dword_1C5DA4]
+        push dword [ReplayBufferSize]
         push str_Replaybuf
         xor ebx, ebx
         call AllocMemBlock
         add esp, byte 0Ch
-        mov edx, dword [dword_1C5DA4]
+        mov edx, dword [ReplayBufferSize]
         mov esi, eax
         call LinkReceiveBlock
         mov edx, SeasonFileName
-        mov ecx, dword [dword_1C5DA4]
+        mov ecx, dword [ReplayBufferSize]
         mov ebx, esi
         mov eax, edx
         call RenameReplayIndexEntry
@@ -1176,7 +1176,7 @@ PickIndexEntryScreen_4EE:
         shl eax, 0Eh
         mov dword [byte ebp+072h], 0Eh
         or dword [TeamSelectFlags], eax
-        movsx eax, word [word_1C34E5]
+        movsx eax, word [HomeTeamCode]
         mov dword [dword_1C5DE0], 1
         and eax, byte 3Fh
         and word [TeamSelectMode], 0FC0Fh

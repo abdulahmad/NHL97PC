@@ -3,8 +3,8 @@ bits 32
 %include "hockey.inc"
 section s_1CAECC nobits alloc noexec write align=1
 global ReplayButtonLit, ReplayMenuX, ReplayControlsX, ReplayCameraX, ReplaySaveX, ReplayMenuY, ReplayControlsY, ReplayCameraY
-global ReplaySaveY, ReplayMenuShape, ReplayControlsShape, ReplayCameraShape, ReplaySaveShape, ReplayMenuResult, dword_1CAF90, ReplayRemoteShape
-global ReplayBitmap, ReplayLoadBuffer, dword_1CAFA0, ReplayFont, ReplayMenuBitmap, ReplaySpeedText, ReplayPlayText, ReplayPauseText
+global ReplaySaveY, ReplayMenuShape, ReplayControlsShape, ReplayCameraShape, ReplaySaveShape, ReplayMenuResult, ReplayFrameNow, ReplayRemoteShape
+global ReplayBitmap, ReplayLoadBuffer, ReplayFrameTotal, ReplayFont, ReplayMenuBitmap, ReplaySpeedText, ReplayPlayText, ReplayPauseText
 global ReplayRecordText, ReplayStopText, ReplayCameraText, ReplaySpeed, ReplayRecordingOn, ReplayMenuItems, ReplayLastFrame, ReplayStartFrame
 global ReplaySavedPanelModes, ReplayIndexData
 ReplayMenuX:
@@ -37,7 +37,7 @@ ReplayIndexData:
         resb 80
 ReplayMenuResult:
         resb 4
-dword_1CAF90:
+ReplayFrameNow:
         resb 4
 ReplayRemoteShape:
         resb 4
@@ -45,7 +45,7 @@ ReplayBitmap:
         resb 4
 ReplayLoadBuffer:
         resb 4
-dword_1CAFA0:
+ReplayFrameTotal:
         resb 4
 ReplayFont:
         resb 4

@@ -12,7 +12,7 @@ extern str_SW, str_SE, str_LX02d, str_LC02d, str_UNPACKLOGO, str_LOGO8, str_LX00
 extern str_DisD, str_REL1, str_RELD, str_Ldn2, ShadeTable, StartupFlag, MusicOptions, MainCmdLine
 extern byte_1C6040, close_, DirPathTable, dword_16CAB0, dword_16CAB4, str_Punct_DrawScreenBackground, dword_16CAF4, dword_16CB78
 extern dword_16CB7C, dword_16CB80, dword_16DA9C, dword_16E464, dword_16E468, MenuScreenBitmap, DebugMode, ScreenWidth
-extern ExitHandler, KbdHandlerInstalled, GameSettings, dword_1C5DAC, dword_1C5DB0, dword_1C5DB4, dword_1C5DDC, dword_1C5DE4
+extern ExitHandler, KbdHandlerInstalled, GameSettings, ScreenBackgrounds, dword_1C5DB0, dword_1C5DB4, dword_1C5DDC, dword_1C5DE4
 extern dword_1C5DE8, dword_1C5E74, dword_1C5E78, dword_1C5E7C, dword_1C5E80, dword_1C5E84, dword_1C5EA0, dword_1C5EA4
 extern dword_1C5EA8, dword_1C5EC4, dword_1C5EC8, dword_1C5ECC, dword_1C5ED0, dword_1C5EEC, dword_1C5EF0, dword_1C5EF4
 extern dword_1C5F08, dword_1C5F0C, dword_1C5F12, dword_1C5F16, dword_1C5F1A, dword_1C5F1E, dword_1C5F22, dword_1C5F26
@@ -2370,7 +2370,7 @@ DrawScreenBackground:
         je short .8
         xor ebx, ebx
 .7:
-        mov ecx, dword [dword ebx+dword_1C5DAC]
+        mov ecx, dword [dword ebx+ScreenBackgrounds]
         push ecx
         call SetDrawTarget
         add esp, byte 4
@@ -2437,7 +2437,7 @@ DrawScreenBackground:
         push byte 0
         mov ebx, 0Bh
         push byte 0
-        mov edx, dword [dword_1C5DAC]
+        mov edx, dword [ScreenBackgrounds]
         xor ecx, ecx
         push byte 0
         mov edx, dword [byte edx+02Ch]
@@ -2506,7 +2506,7 @@ DrawScreenBackground:
         je short .11
         mov dword [dword_1C5FAC], ebx
         mov ebx, unk_16CB30
-        mov eax, dword [dword_1C5DAC]
+        mov eax, dword [ScreenBackgrounds]
         mov dword [dword_1C5FB0], ebx
         mov eax, dword [byte eax+02Ch]
         mov dword [dword_1C5FB6], eax

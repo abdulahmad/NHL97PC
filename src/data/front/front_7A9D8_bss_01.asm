@@ -6,7 +6,7 @@ global MainCmdLine, PeriodHomeTeam, PeriodAwayTeam, MovieFrameCount, MovieFrameS
 global MovieFlags, MovieFrameIndex, MovieAudioDone, MovieFramesAhead, MovieSkippable, MovieState, MovieSkipped, MovieNextFrame
 global MovieVideoDone, MovieStartTick, MoviePageFlip, MovieSoundChannel, MovieChunkTag, MovieVideoBuffer, MovieDropCount, MovieHasAudio
 global MovieStreamBuffer, MovieChunkSize, MovieChunkData, MovieCdStream, SeasonFileName, ReplayIndexHandle, AllStarTeamCode, PaEventValue
-global ThreeStarsCount, ThreeStarsList, MoviePalette, MainArgFlag, MainPathBuffer, AllStarTeamIds, AllStarHomeLines, AllStarAwayLines
+global ThreeStarsCount, HomePlayerRecords, MoviePalette, MainArgFlag, MainPathBuffer, AllStarTeamIds, AllStarHomeLines, AllStarAwayLines
 global AutoLineData, AllStarRoster, MatchupNoteText, MatchupNoteLine, AllStarDay, AllStarArena, IndexEntryList
 MoviePalette:
         resb 768
@@ -100,5 +100,5 @@ IndexEntryList:
         resb 57
 ThreeStarsCount:
         resb 4
-ThreeStarsList:
+HomePlayerRecords:
         resb 4

@@ -4,11 +4,11 @@ bits 32
 section s_D15FB progbits alloc exec nowrite align=1
 extern str_PANL2, str_TITL12, str_00009, str_03dLFSH, str_03dRFSH, str_GSTS, str_DD5, str_PSTS
 extern str_002dFSH, str_FRNT, str_FART4, str_NOFACEFSH4, str_PortraitNotFound, str_DSS3, str_Homestats, str_Awaystats
-extern str_ST02d, byte_1C3449, byte_1C344A, byte_1C344B, byte_1C3455, byte_1C3456, byte_1C347D, byte_1C556C
-extern byte_1C556D, byte_1C556E, byte_1C5578, byte_1C5579, byte_1C55A0, byte_1C6040, byte_1CC8B4, dword_16D6E8
-extern dword_16D6EC, dword_16D6F0, dword_16D6F4, dword_16D6F8, dword_16D6FC, dword_16D700, dword_16D704, dword_16D708
-extern dword_16D71C, dword_16D720, dword_16D724, dword_16D728, dword_16D73C, dword_16D740, dword_16D74C, dword_16D750
-extern GameSettings, GameOptionFlags, SeasonActive, ThreeStarsList, HomeRosterData, dword_1C3522, AwayRosterData, dword_1CC2C8
+extern str_ST02d, HomeGoalieIndex, HomeCenterIndex, HomeWingIndex, HomeDefenceIndex, HomeDefencePartner, HomeBackupGoalie, AwayGoalieIndex
+extern AwayCenterIndex, AwayWingIndex, AwayDefenceIndex, AwayDefencePartner, AwayBackupGoalie, byte_1C6040, byte_1CC8B4, MatchupArt
+extern MatchupStatsX, MatchupStatsY, MatchupStatsWidth, MatchupPanelBottom, MatchupPanelRects
+extern MatchupPanelRects, MatchupLayout, MatchupLeftSide, RostersSparkleTick, RostersSparkleFrame
+extern GameSettings, GameOptionFlags, SeasonActive, HomePlayerRecords, HomeRosterData, AwayPlayerRecords, AwayRosterData, dword_1CC2C8
 extern dword_1CC328, dword_1CC32C, dword_1CC330, dword_1CC334, dword_1CC338, dword_1CC33C, dword_1CC340, dword_1CC344
 extern dword_1CC348, dword_1CC34C, dword_1CC4B0, dword_1CC4B4, dword_1CC4B8, dword_1CC4BC, dword_1CC4C0, dword_1CC4C4
 extern dword_1CC4C8, dword_1CC4CC, dword_1CC5B0, dword_1CC5C8, dword_1CC5CC, dword_1CC5D0, dword_1CC5EC, dword_1CC5F0
@@ -26,7 +26,7 @@ extern ExitScreen, SetTextColor, DrawTextAligned, WipeScreen, DrawPortrait, Tint
 extern ReadTeamStats, ServiceIdle, AllocMemBlock, FreeMemBlock, OpenResourceArchive, MakeColor, FreeBitmap, DrawArt
 extern DrawShape, CreateBitmap, SetDrawTarget, ClearScreen, tickcount, str_D_DrawMatchupStats, unk_16D7FC, unk_16D804
 extern SeasonFilePath, SeasonStatsPath, PlayoffStatsPath, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, str_Xx00xx01xx02xx03xx10xx11xx12, str_G0LWC0RWLDRD
-extern word_1C340D, word_1C5530
+extern HomeSlotRatings, AwaySlotRatings
 global jpt_D1917, jpt_D3102, LayoutMatchupLeft_1E9, PreGameMatchupScreen_4E0, PreGameMatchupScreen_4EC, PreGameMatchupScreen_516, PreGameMatchupScreen_522, PreGameMatchupScreen_658
 global PreGameStatsPanel_4DF, PreGameStatsPanel_4E0, LayoutMatchupLeft, LayoutMatchupRight, PreGameMatchupScreen, DrawMatchupStats, DrawPlayerPortrait, DrawMatchupPlayer
 global PreGameStatsPanel, FreeMatchupScreen, ReadMatchupStats, MatchupBarLength, LoadMatchupArt, MatchupSparkle, AnimateMatchup, RostersSparkle
@@ -50,18 +50,18 @@ LayoutMatchupLeft:
         cmp dword [SeasonActive], byte 0
         je short .2
 .1:
-        mov dword [dword_16D740], 0
-        mov dword [dword_16D73C], 3
+        mov dword [MatchupLeftSide], 0
+        mov dword [MatchupLayout], 3
         jmp short .4
 .2:
-        mov dword [dword_16D740], 0
-        mov dword [dword_16D73C], 2
+        mov dword [MatchupLeftSide], 0
+        mov dword [MatchupLayout], 2
         jmp short .4
 .3:
         cmp eax, byte 20h
         je short .1
-        mov dword [dword_16D740], 1
-        mov dword [dword_16D73C], 0
+        mov dword [MatchupLeftSide], 1
+        mov dword [MatchupLayout], 0
 .4:
         xor eax, eax
         mov dword [byte ebp-04h], eax
@@ -116,30 +116,30 @@ LayoutMatchupLeft:
         add esp, byte 0Ch
         cmp esi, byte 4
         jl short .8
-        mov eax, dword [dword_16D73C]
+        mov eax, dword [MatchupLayout]
         shl eax, 4
         mov eax, dword [dword eax+dword_1CC6A8]
         movsx eax, word [byte eax+0Ch]
         mov dword [byte ebx+026h], eax
-        mov eax, dword [dword_16D73C]
+        mov eax, dword [MatchupLayout]
         shl eax, 4
         mov eax, dword [dword eax+dword_1CC6A8]
         movsx eax, word [byte eax+0Eh]
         mov dword [byte ebx+02Ah], eax
-        mov eax, dword [dword_16D73C]
+        mov eax, dword [MatchupLayout]
         shl eax, 4
         mov eax, dword [dword eax+dword_1CC6A8]
         mov dword [byte ebx+01Ah], eax
-        mov eax, dword [dword_16D73C]
+        mov eax, dword [MatchupLayout]
         shl eax, 4
         mov eax, dword [dword eax+dword_1CC6AC]
         mov dword [byte ebx+01Eh], eax
-        mov eax, dword [dword_16D73C]
+        mov eax, dword [MatchupLayout]
         shl eax, 4
         mov eax, dword [dword eax+dword_1CC6A8]
         mov dword [byte ebx+010h], 4
         mov dword [byte ebx+022h], eax
-        mov eax, dword [dword_16D73C]
+        mov eax, dword [MatchupLayout]
         shl eax, 4
         mov eax, dword [dword eax+dword_1CC6A8]
         movsx edx, word [byte eax+0Ch]
@@ -565,39 +565,39 @@ PreGameMatchupScreen:
         mov dword [dword_1CC7C8], eax
         jmp near .4
 .9:
-        mov eax, dword [dword_16D740]
-        mov dword [dword_16D73C], eax
+        mov eax, dword [MatchupLeftSide]
+        mov dword [MatchupLayout], eax
         cmp eax, byte 3
         ja short PreGameMatchupScreen_522.12
         jmp dword [nosplit cs:eax*4+jpt_D1917]
 PreGameMatchupScreen_4E0:
-        mov dword [dword_16D740], 1
+        mov dword [MatchupLeftSide], 1
         jmp short PreGameMatchupScreen_522.13
 PreGameMatchupScreen_4EC:
         mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .10
-        mov dword [dword_16D740], 2
+        mov dword [MatchupLeftSide], 2
         jmp short PreGameMatchupScreen_522.13
 .10:
         cmp eax, byte 20h
         jne short PreGameMatchupScreen_516
 .11:
-        mov dword [dword_16D740], 3
+        mov dword [MatchupLeftSide], 3
         jmp short PreGameMatchupScreen_522.13
 PreGameMatchupScreen_516:
-        mov dword [dword_16D740], 0
+        mov dword [MatchupLeftSide], 0
         jmp short PreGameMatchupScreen_522.13
 PreGameMatchupScreen_522:
         cmp dword [SeasonActive], byte 0
         jne short PreGameMatchupScreen_4EC.11
         jmp short PreGameMatchupScreen_516
 .12:
-        mov dword [dword_16D740], 1
-        mov dword [dword_16D73C], 0
+        mov dword [MatchupLeftSide], 1
+        mov dword [MatchupLayout], 0
 .13:
-        mov ebx, dword [dword_16D73C]
+        mov ebx, dword [MatchupLayout]
         shl ebx, 4
         mov eax, dword [dword ebx+dword_1CC6A8]
         mov dword [dword ebp-0CCh], eax
@@ -685,7 +685,7 @@ DrawMatchupStats:
         push edi
         enter 8Ch, 0
         sub ebp, 82h
-        imul edx, dword [dword_16D73C], byte 6
+        imul edx, dword [MatchupLayout], byte 6
         add edx, eax
         imul edx, byte 3Dh
         mov ecx, 3Dh
@@ -715,10 +715,10 @@ DrawMatchupStats:
         call BlitArt
         movsx eax, word [byte ebx+0Eh]
         add esp, byte 0Ch
-        sub eax, dword [dword_16D6F0]
+        sub eax, dword [MatchupStatsY]
         push eax
         movsx eax, word [byte ebx+0Ch]
-        sub eax, dword [dword_16D6EC]
+        sub eax, dword [MatchupStatsX]
         push eax
         push ebx
         call BlitArt
@@ -798,7 +798,7 @@ DrawMatchupStats:
         movsx eax, word [byte ebp+0Eh]
         push eax
         push str_D_DrawMatchupStats
-        mov esi, dword [dword_16D6F4]
+        mov esi, dword [MatchupStatsWidth]
         push byte 0
         sub esi, byte 1Ah
         push esi
@@ -873,10 +873,10 @@ DrawMatchupStats:
         call BlitArt
         movsx eax, word [byte ebx+0Eh]
         add esp, byte 0Ch
-        sub eax, dword [dword_16D6F0]
+        sub eax, dword [MatchupStatsY]
         push eax
         movsx eax, word [byte ebx+0Ch]
-        sub eax, dword [dword_16D6EC]
+        sub eax, dword [MatchupStatsX]
         push eax
         push ebx
         call BlitArt
@@ -940,7 +940,7 @@ DrawMatchupStats:
         movsx eax, word [byte ebp+0Eh]
         push eax
         push str_D_DrawMatchupStats
-        mov esi, dword [dword_16D6F4]
+        mov esi, dword [MatchupStatsWidth]
         push byte 0
         sub esi, byte 1Ah
         push esi
@@ -1131,7 +1131,7 @@ DrawPlayerPortrait:
         push eax
         shl esi, 4
         push str_DSS3
-        mov eax, dword [dword esi+dword_16D724]
+        mov eax, dword [dword esi+MatchupPanelRects+28h]
         push byte 0
         sar eax, 1
         push eax
@@ -1310,34 +1310,34 @@ PreGameStatsPanel:
         or edx, ebx
         shl ebx, 0Bh
         or ebx, eax
-        movzx eax, byte [byte_1C3449]
+        movzx eax, byte [HomeGoalieIndex]
         imul eax, dword 125h
         mov dword [dword_1CC7C4], edx
-        mov edx, ThreeStarsList
+        mov edx, HomePlayerRecords
         add edx, eax
-        movzx eax, byte [byte_1C344A]
+        movzx eax, byte [HomeCenterIndex]
         imul eax, dword 125h
         mov dword [dword_1CC63C], edx
-        mov edx, ThreeStarsList
+        mov edx, HomePlayerRecords
         add edx, eax
-        movzx eax, byte [byte_1C344B]
+        movzx eax, byte [HomeWingIndex]
         imul eax, dword 125h
         mov dword [dword_1CC640], edx
-        mov edx, ThreeStarsList
+        mov edx, HomePlayerRecords
         add edx, eax
-        movzx eax, byte [byte_1C3455]
+        movzx eax, byte [HomeDefenceIndex]
         imul eax, dword 125h
         mov dword [dword_1CC644], edx
-        mov edx, ThreeStarsList
+        mov edx, HomePlayerRecords
         add edx, eax
-        movzx eax, byte [byte_1C3456]
+        movzx eax, byte [HomeDefencePartner]
         imul eax, dword 125h
         add esp, byte 4
         mov dword [dword_1CC648], edx
-        mov edx, ThreeStarsList
+        mov edx, HomePlayerRecords
         mov dword [dword_1CC7B8], ebx
         add edx, eax
-        movzx eax, byte [byte_1C347D]
+        movzx eax, byte [HomeBackupGoalie]
         mov dword [dword_1CC64C], edx
         cmp eax, byte 19h
         jl short .1
@@ -1346,7 +1346,7 @@ PreGameStatsPanel:
         imul edx, eax, dword 125h
         mov ebx, HomeRosterData+1B94h
         add ebx, edx
-        movsx eax, word [nosplit eax*2+word_1C340D]
+        movsx eax, word [nosplit eax*2+HomeSlotRatings]
         mov dword [dword_1CC638], ebx
         cmp eax, byte 64h
         jge short .2
@@ -1357,31 +1357,31 @@ PreGameStatsPanel:
 .2:
         mov dword [dword_1CC328], 0
 .3:
-        movzx eax, byte [byte_1C556C]
+        movzx eax, byte [AwayGoalieIndex]
         imul eax, dword 125h
-        mov edx, dword_1C3522
+        mov edx, AwayPlayerRecords
         add edx, eax
-        movzx eax, byte [byte_1C556D]
+        movzx eax, byte [AwayCenterIndex]
         imul eax, dword 125h
         mov dword [dword_1CC654], edx
-        mov edx, dword_1C3522
+        mov edx, AwayPlayerRecords
         add edx, eax
-        movzx eax, byte [byte_1C556E]
+        movzx eax, byte [AwayWingIndex]
         imul eax, dword 125h
         mov dword [dword_1CC658], edx
-        mov edx, dword_1C3522
+        mov edx, AwayPlayerRecords
         add edx, eax
-        movzx eax, byte [byte_1C5578]
+        movzx eax, byte [AwayDefenceIndex]
         imul eax, dword 125h
         mov dword [dword_1CC65C], edx
-        mov edx, dword_1C3522
+        mov edx, AwayPlayerRecords
         add edx, eax
-        movzx eax, byte [byte_1C5579]
+        movzx eax, byte [AwayDefencePartner]
         imul eax, dword 125h
         mov dword [dword_1CC660], edx
-        mov edx, dword_1C3522
+        mov edx, AwayPlayerRecords
         add edx, eax
-        movzx eax, byte [byte_1C55A0]
+        movzx eax, byte [AwayBackupGoalie]
         mov dword [dword_1CC664], edx
         cmp eax, byte 19h
         jl short .4
@@ -1390,7 +1390,7 @@ PreGameStatsPanel:
         imul edx, eax, dword 125h
         mov ebx, AwayRosterData+1B94h
         add ebx, edx
-        movsx eax, word [nosplit eax*2+word_1C5530]
+        movsx eax, word [nosplit eax*2+AwaySlotRatings]
         mov dword [dword_1CC650], ebx
         cmp eax, byte 64h
         jge short .5
@@ -1468,15 +1468,15 @@ PreGameStatsPanel:
         shl esi, 2
         shl ebx, 4
         mov dword [byte ebp-08h], eax
-        push dword [dword ebx+dword_16D708]
+        push dword [dword ebx+MatchupPanelRects+0Ch]
         add esi, eax
-        push dword [dword ebx+dword_16D704]
+        push dword [dword ebx+MatchupPanelRects+8]
         mov dword [dword esi+dword_1CC5F8], 0
         call CreateBitmap
         add esp, byte 0Ch
         push byte 0
-        push dword [dword ebx+dword_16D728]
-        push dword [dword ebx+dword_16D724]
+        push dword [dword ebx+MatchupPanelRects+2Ch]
+        push dword [dword ebx+MatchupPanelRects+28h]
         mov dword [dword esi+dword_1CC5B0], eax
         call CreateBitmap
         add esp, byte 0Ch
@@ -1484,15 +1484,15 @@ PreGameStatsPanel:
         cmp dword [byte ebp-04h], byte 0
         jne short .12
         call SetScreenTarget
-        push dword [dword ebx+dword_16D700]
+        push dword [dword ebx+MatchupPanelRects+4]
         mov eax, dword [dword esi+dword_1CC5B0]
-        push dword [dword ebx+dword_16D6FC]
+        push dword [dword ebx+MatchupPanelRects]
         push dword [byte eax+02Ch]
         call ConvertArtXY
         add esp, byte 0Ch
-        push dword [dword ebx+dword_16D720]
+        push dword [dword ebx+MatchupPanelRects+24h]
         mov eax, dword [dword esi+dword_1CC668]
-        push dword [dword ebx+dword_16D71C]
+        push dword [dword ebx+MatchupPanelRects+20h]
         push dword [byte eax+02Ch]
         call ConvertArtXY
         add esp, byte 0Ch
@@ -1510,11 +1510,11 @@ PreGameStatsPanel:
         call BlitArt
         mov eax, dword [dword esi+dword_1CC5B0]
         mov eax, dword [byte eax+02Ch]
-        mov dx, word [dword ebx+dword_16D6FC]
+        mov dx, word [dword ebx+MatchupPanelRects]
         mov word [byte eax+0Ch], dx
         mov eax, dword [dword esi+dword_1CC5B0]
         mov eax, dword [byte eax+02Ch]
-        mov dx, word [dword ebx+dword_16D700]
+        mov dx, word [dword ebx+MatchupPanelRects+4]
         add esp, byte 0Ch
         mov word [byte eax+0Eh], dx
         push dword [dword esi+dword_1CC668]
@@ -1528,11 +1528,11 @@ PreGameStatsPanel:
         call BlitArt
         mov eax, dword [dword esi+dword_1CC668]
         mov eax, dword [byte eax+02Ch]
-        mov dx, word [dword ebx+dword_16D71C]
+        mov dx, word [dword ebx+MatchupPanelRects+20h]
         mov word [byte eax+0Ch], dx
         mov eax, dword [dword esi+dword_1CC668]
         mov eax, dword [byte eax+02Ch]
-        mov dx, word [dword ebx+dword_16D720]
+        mov dx, word [dword ebx+MatchupPanelRects+24h]
         add esp, byte 0Ch
         mov word [byte eax+0Eh], dx
 .13:
@@ -1549,39 +1549,39 @@ PreGameStatsPanel:
         call FindShape
         movsx edx, word [byte eax+0Ch]
         sub edx, byte 24h
-        mov dword [dword_16D6EC], edx
+        mov dword [MatchupStatsX], edx
         movsx edx, word [byte eax+0Eh]
         sub edx, byte 4
-        mov dword [dword_16D6F0], edx
+        mov dword [MatchupStatsY], edx
         movsx edx, word [byte eax+04h]
         add edx, byte 48h
-        mov dword [dword_16D6F4], edx
+        mov dword [MatchupStatsWidth], edx
         movsx eax, word [byte eax+06h]
         xor edi, edi
         add eax, byte 8
         add esp, byte 8
-        mov dword [dword_16D6F8], eax
+        mov dword [MatchupPanelBottom], eax
 .14:
         push byte 0
-        push dword [dword_16D6F8]
-        push dword [dword_16D6F4]
+        push dword [MatchupPanelBottom]
+        push dword [MatchupStatsWidth]
         call CreateBitmap
         mov dword [nosplit edi*4+dword_1CC5F0], eax
         mov ebx, dword [byte eax+02Ch]
-        mov dx, word [dword_16D6EC]
+        mov dx, word [MatchupStatsX]
         mov word [byte ebx+0Ch], dx
         mov eax, dword [nosplit edi*4+dword_1CC5F0]
         inc edi
         mov eax, dword [byte eax+02Ch]
-        mov dx, word [dword_16D6F0]
+        mov dx, word [MatchupStatsY]
         add esp, byte 0Ch
         mov word [byte eax+0Eh], dx
         cmp edi, byte 2
         jl short .14
         call SetScreenTarget
-        push dword [dword_16D6F0]
+        push dword [MatchupStatsY]
         mov eax, dword [dword_1CC5F4]
-        push dword [dword_16D6EC]
+        push dword [MatchupStatsX]
         push dword [byte eax+02Ch]
         call ConvertArtXY
         add esp, byte 0Ch
@@ -1813,13 +1813,13 @@ LoadMatchupArt:
         jmp near PreGameStatsPanel_4DF
         push ecx
         push edx
-        cmp dword [dword_16D6E8], byte 0
+        cmp dword [MatchupArt], byte 0
         je short .2
-        push dword [dword_16D6E8]
+        push dword [MatchupArt]
         call FreeMemBlock
         add esp, byte 4
 .2:
-        mov dword [dword_16D6E8], 0
+        mov dword [MatchupArt], 0
         pop edx
         pop ecx
         ret
@@ -1937,7 +1937,7 @@ AnimateMatchup:
         jl short .4
         inc edx
 .4:
-        mov ebx, dword [dword_16D73C]
+        mov ebx, dword [MatchupLayout]
         mov dword [dword_1CC7B4], edx
         mov eax, edx
         shl ebx, 4
@@ -1991,7 +1991,7 @@ RostersSparkle:
         push ecx
         push edx
         mov eax, dword [tickcount]
-        cmp eax, dword [dword_16D74C]
+        cmp eax, dword [RostersSparkleTick]
         jle near .4
         xor ebx, ebx
 .1:
@@ -2009,20 +2009,20 @@ RostersSparkle:
         jl short .1
         mov eax, dword [tickcount]
         add eax, byte 0Ah
-        mov ecx, dword [dword_16D750]
-        mov dword [dword_16D74C], eax
+        mov ecx, dword [RostersSparkleFrame]
+        mov dword [RostersSparkleTick], eax
 .2:
-        cmp ecx, dword [dword_16D750]
+        cmp ecx, dword [RostersSparkleFrame]
         jne short .3
         call rand_
         movzx ebx, byte [byte_1CC8B4]
         cdq
         idiv ebx
-        mov dword [dword_16D750], edx
+        mov dword [RostersSparkleFrame], edx
         jmp short .2
 .3:
         push dword 104h
-        mov eax, dword [dword_16D750]
+        mov eax, dword [RostersSparkleFrame]
         push byte 4Bh
         mov eax, dword [nosplit eax*4+dword_1CC8A0]
         push dword [byte eax+02Ch]

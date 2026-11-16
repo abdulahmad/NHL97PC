@@ -9,7 +9,7 @@ extern str_AB056, str_AB046, str_AB036, str_AB082, str_AB072, str_AB062, str_AB1
 extern str_AB092, str_POWR3, str_EC002, str_EC012, str_BAK12, str_C, str_D3, str_LB02d7
 extern str_AR02d3, str_AllStarPlayerInfo, str_AllStarGoalieInfo, str_WestAllStars, str_EastAllStars, str_AllStarRosters, str_AllStarAirecs, str_AllStarRawPlrs
 extern str_AllStarStatrecs, str_MB044, str_FrANKGBarchard, str_100, str_REF, str_Refpack, str_F10, FrontEndExit
-extern byte_16E273, byte_16E274, byte_16E275, byte_16E28E, PeriodHomeTeam, PeriodAwayTeam, byte_1C3449, byte_1C556C
+extern byte_16E273, byte_16E274, byte_16E275, byte_16E28E, PeriodHomeTeam, PeriodAwayTeam, HomeGoalieIndex, AwayGoalieIndex
 extern byte_1C6040, byte_1CE224, byte_1CE23D, byte_1CE23E, dword_16DA9C, str_Punct_LoadAllStarArt, SeasonUserTeam, SeasonFileName
 extern AllStarTeamCode, dword_1C5DE4, dword_1C5E74, dword_1CE0E4, dword_1CE0E8, dword_1CE0EC, dword_1CE0F4, dword_1CE0FC
 extern dword_1CE104, dword_1CE10C, dword_1CE110, dword_1CE114, dword_1CE118, dword_1CE11C, dword_1CE120, dword_1CE124
@@ -38,7 +38,7 @@ extern str_K, str_L, unk_167922, unk_167924, unk_167926, unk_167928, str_Z, str_
 extern str_C_GetKeyName, str_V, str_B, str_N_GetKeyName, str_M, unk_167938, unk_16793A, unk_16793C
 extern unk_16793E, str_F1, str_F2, str_F3, str_F4, str_F5, str_F6, str_F7
 extern str_F8, str_F9, unk_16D7F4, AllStarTeamIds, AllStarHomeLines, AllStarAwayLines, AutoLineData, AllStarRoster
-extern unk_1C347F, unk_1C3487, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C5FEE, unk_1CEA8A, unk_1CEA99
+extern HomeLines, HomeTeamName, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C5FEE, unk_1CEA8A, unk_1CEA99
 extern unk_1CEAA8, unk_1CEAB7, unk_1CEAC6, unk_1CEAD5, unk_1CEAE4, unk_1CEAF3, unk_1CEB02, unk_1CEB11
 extern unk_1CEB20, unk_1CEB2F, unk_1CEB3E, unk_1CEB4D, unk_1CEB5C, unk_1CEB6B, unk_1CEB7A, unk_1CEB89
 extern unk_1CEB98, unk_1CEBA7, unk_1CEBB6, unk_1CEBC5, unk_1CEBD4, unk_1CEBE3, unk_1CEBF2, unk_1CEC01
@@ -49,7 +49,7 @@ extern unk_1CED78, unk_1CED87, unk_1CED96, unk_1CEDA5, unk_1CEDB4, unk_1CEDC3, u
 extern unk_1CEDF0, unk_1CEDFF, unk_1CEE0E, unk_1CEE1D, unk_1CEE2C, unk_1CEE3B, unk_1CEE4A, unk_1CEE59
 extern unk_1CEE68, unk_1CEE77, unk_1CEE86, unk_1CEE95, unk_1CEEA4, unk_1CEEB3, unk_1CEEC2, unk_1CEED1
 extern unk_1CEEE0, unk_1CEEEF, unk_1CEEFE, unk_1CEF0D, unk_1CEF1C, unk_1CEF2B, unk_1CEF3A, unk_1CEF49
-extern unk_1CEF58, unk_1CEF67, word_16E2EA, AllStarDay, AllStarArena, IndexEntryList, word_1C34E5, word_1C55A2
+extern unk_1CEF58, unk_1CEF67, word_16E2EA, AllStarDay, AllStarArena, IndexEntryList, HomeTeamCode, GameLogCount
 global BuildAllStarTeams_4B, AllStarSound_1E0, DrawAllStarTeam_68E, DrawAllStarTeam_6C5, FindFreeAllStarSlot_31, PickAllStarPlayers_4C2, PickAllStarPlayers_4C3, BuildAllStarTeams
 global AllStarScreen, AllStarSound, InitAllStarScreen, FreeAllStarScreen, DrawAllStarConference, ShowAllStarArt, DrawAllStarHighlight, DrawAllStarTeam
 global DrawAllStarSlot, DrawAllStarSelection, DrawAllStarList, LoadAllStarLogo, LoadAllStarArt, AllStarNextTeam, AllStarPrevTeam, AllStarNextSlot
@@ -4360,7 +4360,7 @@ PickAllStarPlayers:
         mov esi, AutoLineData
         jmp short .15
 .14:
-        mov esi, unk_1C347F
+        mov esi, HomeLines
 .15:
         mov word [dword esi+01D40h], 3
         mov ecx, esi
@@ -4500,31 +4500,31 @@ InitAllStarTeams:
         mov byte [PeriodHomeTeam], 0
         call memset_
         mov ebx, 2123h
-        mov eax, unk_1C347F
+        mov eax, HomeLines
         xor edx, edx
         call memset_
         mov ebx, 36h
         mov edx, 0FFh
-        mov eax, byte_1C3449
+        mov eax, HomeGoalieIndex
         call memset_
         mov ebx, 36h
         mov edx, 0FFh
-        mov eax, byte_1C556C
+        mov eax, AwayGoalieIndex
         call memset_
         mov edx, str_WestAllStars
         mov eax, AllStarRoster
         call strcpy_
         mov edx, str_EastAllStars
-        mov eax, unk_1C3487
+        mov eax, HomeTeamName
         call strcpy_
         mov eax, AutoLineData
         call BuildAllStarRecords
-        mov eax, unk_1C347F
+        mov eax, HomeLines
         call BuildAllStarRecords
         mov word [IndexEntryList], 1Ah
-        mov word [word_1C34E5], 1Bh
+        mov word [HomeTeamCode], 1Bh
         mov word [AllStarArena], 15h
-        mov word [word_1C55A2], 0
+        mov word [GameLogCount], 0
         pop edi
         pop esi
         pop edx
@@ -4588,7 +4588,7 @@ AllocAllStarRosters:
         jge short .4
         mov esi, dword [SeasonUserTeam]
         mov dword [dword_1CE1B4], AutoLineData
-        mov dword [dword_1CE1B8], unk_1C347F
+        mov dword [dword_1CE1B8], HomeLines
         movsx esi, word [esi]
         imul eax, esi, dword 194Fh
         push byte 0

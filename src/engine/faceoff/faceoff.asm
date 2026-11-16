@@ -48,7 +48,7 @@ extern gameclock, StatsPanelOn, FaceoffSpot, FaceoffZone, PeriodLength, OneTimer
 extern PuckZone, penshotmode, BenchRequest, penshotlive, FaceoffRequest, PuckY, DelayedPen, MessagePanel
 extern PenCntDwn, GoalLineFlag, BreakawayFlag, SlotAssign, HomeGoalieOff, AwayGoalieOff, HomeControlSlot, AwayControlSlot
 extern HomeEbenPlayer, FaceoffTakers, FaceoffTakerAway, ChantIndex, LineChangeKeyLow, DemoInput, PlayerAssignWords, HomeTeamRecord
-extern AwayTeamRecord, word_1C3415, word_1C3417, word_1C5538, word_1C553A
+extern AwayTeamRecord, HomeSimGoals, HomeSimShots, AwaySimGoals, AwaySimShots
 global AllInPlace, Intermission, StartGame, InitGameVars, RunOpeningFrames, PlaceOpeningPlayers, OpeningSequence, BeginGame
 global EndGameCleanup, GetPlayerJerseyNumber, LinkSideFlags, ClearLinkCounters, PickGameEvents, SpeedScaleAligned, SpeedScale, ReachScale
 global GoalieReachFactor, PlayerReachFactor, StickReachX, StickReachY, StickReachZ, CheckLineChangeKeys, RunSimFrames, JoystickAxisScale
@@ -1738,14 +1738,14 @@ DebugKeys:
         xor esi, esi
         mov byte [PeriodHomeTeam], ah
         mov byte [PeriodAwayTeam], dl
-        mov word [word_1C3415], cx
+        mov word [HomeSimGoals], cx
         xor eax, eax
-        mov word [word_1C5538], si
+        mov word [AwaySimGoals], si
         mov al, byte [PeriodHomeTeam]
-        mov word [word_1C3417], si
+        mov word [HomeSimShots], si
         mov word [hmtmstruct], ax
         xor eax, eax
-        mov word [word_1C553A], cx
+        mov word [AwaySimShots], cx
         mov al, dl
         mov edx, 2
         mov word [StatsPanelOn], si
@@ -1771,9 +1771,9 @@ DebugKeys:
         mov byte [PeriodHomeTeam], cl
         mov word [hmtmstruct], si
         mov word [awtmstruct], di
-        mov word [word_1C3415], ax
-        mov word [word_1C5538], di
-        mov word [word_1C3417], di
+        mov word [HomeSimGoals], ax
+        mov word [AwaySimGoals], di
+        mov word [HomeSimShots], di
         mov word [StatsPanelOn], ax
         mov word [gameclock], ax
         mov ch, 1
@@ -1785,7 +1785,7 @@ DebugKeys:
         or al, 40h
         xor ch, ch
         mov byte [gmode], al
-        mov word [word_1C553A], cx
+        mov word [AwaySimShots], cx
         mov eax, 1
         pop edi
         pop esi
@@ -1800,14 +1800,14 @@ DebugKeys:
         mov byte [PeriodHomeTeam], dl
         mov word [hmtmstruct], si
         mov word [awtmstruct], si
-        mov word [word_1C3415], si
-        mov word [word_1C3417], si
-        mov word [word_1C553A], si
+        mov word [HomeSimGoals], si
+        mov word [HomeSimShots], si
+        mov word [AwaySimShots], si
         mov word [StatsPanelOn], ax
         xor dh, dh
         mov esi, 2
         mov byte [PeriodAwayTeam], dh
-        mov word [word_1C5538], dx
+        mov word [AwaySimGoals], dx
         mov word [Period], si
         mov word [gsp], si
         mov word [gameclock], dx
