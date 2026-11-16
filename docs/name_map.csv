@@ -4,6 +4,8 @@ address,name,auto_name,source,confidence,evidence,file
 11744,clearteams,,96PC,medium,NHL96PC 4875E (similar): mnemonic similarity 0.80 over 60 instructions,
 11F10,SetupTeamForIntermission,,96PC,medium,NHL96PC 4AF89 (similar): mnemonic similarity 0.88 over 32 instructions,
 1303C,AllInPlace,,96PC,medium,NHL96PC 3ABAE (similar): mnemonic similarity 0.87 over 21 instructions,
+1306C,Intermission,sub_1306C,96PC,medium,"96 PC Intermission: GameOver when gsp is 4, else SetupTeamForIntermission and resets the players for the next period",src/engine/faceoff/faceoff.asm
+130C8,StartGame,sub_130C8,96PC,medium,"96 PC StartGame: CountTeamSlots, clears the game vars and teams, restores the teams and starts the period",src/engine/faceoff/faceoff.asm
 14078,RunSimFrames,sub_14078,96PC,medium,96 PC RunSimFrames: runs the simulation for one input record,src/engine/faceoff/faceoff.asm
 14AC8,GameLoop,sub_14AC8,96PC,high,"96 PC GameLoop: same structure (input records, RunSimFrames, in-game menu, period over, game over)",src/engine/faceoff/faceoff.asm
 152C4,PlayGame,sub_152C4,96PC,high,"96 PC PlayGame: seeds, then calls GameLoop",src/engine/faceoff/faceoff.asm
@@ -35,6 +37,7 @@ address,name,auto_name,source,confidence,evidence,file
 5454C,FreeRinkModel,sub_5454C,96PC,medium,NHL96PC 2751C (sem 1.00): D:1B10E8; C:1863,src/front/front_52770.asm
 552E0,DrawBenchSide,sub_552E0,96PC,medium,NHL96PC 27F20 (sem 0.71): C:2080; C:2285; D:1B105C; C:2079,src/front/front_52770.asm
 6590A,CamShot23D,sub_6590A,96PC,medium,NHL96PC 603FF (similar 0.81): mnemonic similarity 0.81 over 16 instructions,src/front/front_57324.asm
+77F88,GameOver,sub_77F88,96PC,medium,sets gameover (word_19CBA0); 96 PC GameOver without its already-over check,src/front/front_57324.asm
 7C600,putchar,,96PC,medium,NHL96PC 17675 (sem): S:ATZS7=60S11=55; D:164110,
 7C690,ModemHangup,sub_7C690,96PC,medium,NHL96PC 1779C (sem 0.94): S:ATH0; D:16412C; C:1054; C:1053,src/front/front_7A9D8.asm
 7C7A4,ModemAutoAnswer,sub_7C7A4,96PC,medium,NHL96PC 17887 (sem 1.00): S:ATS0=1; D:164140; S:ATA ; D:164148,src/front/front_7A9D8.asm

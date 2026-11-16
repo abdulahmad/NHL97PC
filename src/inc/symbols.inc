@@ -29,7 +29,7 @@
 ;  12DE8  sub_12DE8                                front/front_10010.asm                        1
 ;  12E50  sub_12E50                                front/front_10010.asm                        1
 ;  1303C  AllInPlace                               engine/faceoff/faceoff.asm                   1
-;  1306C  sub_1306C                                engine/faceoff/faceoff.asm                   1
+;  1306C  Intermission                             engine/faceoff/faceoff.asm                   1
 ;  13AF0  sub_13AF0                                engine/faceoff/faceoff.asm                   1
 ;  13B50  sub_13B50                                engine/faceoff/faceoff.asm                   1
 ;  13B98  sub_13B98                                engine/faceoff/faceoff.asm                   1
@@ -841,7 +841,7 @@
 ;  77838  sub_77838                                front/front_57324.asm                        1
 ;  779C8  sub_779C8                                front/front_57324.asm                        1
 ;  77A30  sub_77A30                                front/front_57324.asm                        1
-;  77F88  sub_77F88                                front/front_57324.asm                        1
+;  77F88  GameOver                                 front/front_57324.asm                        1
 ;  77F94  sub_77F94                                front/front_57324.asm                        1
 ;  77FA8  sub_77FA8                                front/front_57324.asm                        1
 ;  78044  sub_78044                                front/front_57324.asm                        1

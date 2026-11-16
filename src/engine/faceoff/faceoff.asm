@@ -29,7 +29,7 @@ extern sub_3CB70, sub_3D020, sub_3E5F0, sub_4123C, sub_41670, sub_41CF0, sub_41D
 extern sub_424CC, sub_45BEC, sub_4B074, sub_4B108, sub_4B5C4, sub_4B80C, sub_4B8DC, sub_4B928
 extern sub_4BA00, sub_4BCB4, sub_4C0C4, PeriodOver, sub_52E28, sub_55000, sub_5BD3C, sub_5BD94
 extern sub_5BDF4, sub_5BE74, sub_5BEB0, sub_5C134, sub_5C160, sub_5C180, sub_5C894, sub_6539C
-extern sub_65CED, sub_65DE8, sub_76D3C, sub_76E20, sub_77610, sub_77630, sub_77F88, sub_77FA8
+extern sub_65CED, sub_65DE8, sub_76D3C, sub_76E20, sub_77610, sub_77630, GameOver, sub_77FA8
 extern sub_78810, sub_7F0D8, sub_81678, sub_84204, sub_842E8, sub_842F4, sub_8E740, sub_8E840
 extern sub_AA498, sub_AADEF, sub_AB0A6, sub_B2F49, sub_BD62C, FadeOut, sub_DA7EB, sub_DB6AC
 extern sub_E117B, sub_E12D1, sub_E13BF, sub_E1744, sub_E304C, sub_E30F4, sub_E3174, sub_E3190
@@ -49,7 +49,7 @@ extern word_19CBDC, word_19CBDE, word_19CBE0, word_19CBE2, word_19CBE6, word_19C
 extern word_19CBF0, word_19CBF2, word_19CBF4, word_19CC04, word_19CC24, word_19CC26, word_19CC28, word_19CC2A
 extern word_19CC2C, word_19CC50, word_19CC52, word_19CCC4, word_19CD9C, word_19CDA7, word_19DAD9, word_19DCFA
 extern word_19E32A, word_1C3415, word_1C3417, word_1C5538, word_1C553A
-global AllInPlace, sub_1306C, sub_130C8, sub_131E0, sub_134F0, sub_136C0, sub_13920, sub_13A4C
+global AllInPlace, Intermission, StartGame, sub_131E0, sub_134F0, sub_136C0, sub_13920, sub_13A4C
 global sub_13ACB, sub_13AF0, sub_13B50, sub_13B98, sub_13BAC, sub_13D00, sub_13D50, sub_13DA4
 global sub_13DF8, sub_13E4C, sub_13EB4, sub_13EF0, sub_13F28, sub_13F7C, RunSimFrames, sub_14140
 global sub_14184, sub_141AC, sub_141E8, sub_14238, sub_1426C, sub_14294, sub_14710, sub_14880
@@ -82,14 +82,16 @@ AllInPlace:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1306C                                                       1306C  97 PC
+; Intermission                   1306C  93G penalty93_2.asm, medium confidence
+; 93G Intermission start: SetupTeamForIntermission and clear the SortCords
+; positions
 ;-----------------------------------------------------------------------------
-sub_1306C:
+Intermission:
         push ebx
         push edx
         cmp word [word_19CBB8], byte 4
         jne short .1
-        call sub_77F88
+        call GameOver
         pop edx
         pop ebx
         ret
@@ -118,9 +120,10 @@ sub_1306C:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_130C8                                                       130C8  97 PC
+; StartGame                      130C8  93G hockey93_01.asm, medium confidence
+; role. cleargamevars, clearteams, gsp = 0, restoreteams, PeriodOver_sp.
 ;-----------------------------------------------------------------------------
-sub_130C8:
+StartGame:
         push ebx
         push ecx
         push edx
@@ -169,7 +172,7 @@ sub_130C8:
         mov dword [byte eax+05Ah], 0FFFFFFFFh
         cmp word [word_19CBB8], byte 4
         jne short .1
-        call sub_77F88
+        call GameOver
         jmp short .2
 .1:
         call sub_11F74
@@ -205,7 +208,7 @@ sub_131E0:
         mov dword [dword_19CC54], edx
         mov dword [dword_19CB3C], edx
         mov dword [dword_19CB40], edx
-        call sub_130C8
+        call StartGame
         xor esi, ecx
         mov dword [dword_19CB44], ecx
         mov word [word_19CB96], bx
@@ -810,7 +813,7 @@ sub_13A4C:
 ;-----------------------------------------------------------------------------
 sub_13ACB:
         push edx
-        call sub_77F88
+        call GameOver
         and byte [byte_19CBC2], 7Fh
         xor edx, edx
 .1:
