@@ -326,6 +326,16 @@ static int make_step(void)
 extern volatile int frames_mode;
 static int nh_drew;
 static int64_t nh_drew_ns;
+static int frames_env = -2;
+int nh_frames_mode(void)
+{
+    if (frames_env == -2) {
+        const char *e = getenv("NHL97_FRAMES");
+        frames_env = !e ? -1 : !strcmp(e, "free") || !strcmp(e, "unlocked") ? 2 : !strcmp(e, "60") ? 1 : 0;
+    }
+    return frames_env >= 0 ? frames_env : frames_mode % 3;
+}
+
 static uint32_t paced_avail(uint32_t c)
 {
     static int env = -2;
