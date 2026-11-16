@@ -20,7 +20,7 @@ extern LoadDataFile, DrawScreenBackground, FadeInScreen, SetRegionRect, SetTextC
 extern SetNormalText, DrawStatTable, DrawPortrait, ShowPopupScreen, InitMenuItems, RunMenu, RunScrollList, AllocClearBlock
 extern FreePtr, CopyBytesOk, CopyAndClear, ZeroBytesOk, CompareKeyBytes, FileCreate, FileOpen, FileSeek
 extern FileReadRecord, FileWriteRecord, FileClose, ServiceIdle, FreeVideoBuffer, AllocGfxFixBuffer, AllocMemBlock, FreeMemBlock
-extern sub_FBE40, sub_FBE5D, sub_FC330, MakeColor, FreeBitmap, sub_FCEEC, DrawShapeAtOwnPos, DrawArt
+extern sub_FBE40, sub_FBE5D, sub_FC330, MakeColor, FreeBitmap, DrawShapeCore, DrawShapeAtOwnPos, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, tickcount, unk_1673CC, unk_1C5F4A, unk_1CC8B8
 extern unk_1CCBB8, unk_1CCF4A, unk_1CCF9C, unk_1CCFEE, unk_1CD040, unk_1CD092, unk_1CD138, unk_D4CB0
 global jpt_D5460, GoalieMaskScreen_715, GoalieMaskScreen_72B, GoalieMaskScreen_89F, GoalieMaskScreen_A13, GoalieMaskScreen_B89, GoalieMaskScreen_DBB, GoalieMaskScreen_FF0
@@ -826,7 +826,7 @@ GoalieMaskScreen:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
         push str_FRNT2
         push ebx
@@ -1156,7 +1156,7 @@ GoalieMaskScreen_72B:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
         push str_LEFT
         push esi
@@ -1268,7 +1268,7 @@ GoalieMaskScreen_89F:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
         push str_FRNT2
         push edi
@@ -1380,7 +1380,7 @@ GoalieMaskScreen_A13:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
         push str_RIGH
         push ebx
@@ -1537,7 +1537,7 @@ GoalieMaskScreen_B89:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
         push str_FRNT2
         push esi
@@ -1694,7 +1694,7 @@ GoalieMaskScreen_DBB:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
         push str_FRNT2
         push esi
@@ -1868,7 +1868,7 @@ GoalieMaskScreen_FF0:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
         push str_FRNT2
         push esi
@@ -2670,7 +2670,7 @@ ScrollCredits:
         push edx
         mov ecx, dword [byte esp+014h]
         push ecx
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
         call PresentScreen
         mov eax, dword [tickcount]

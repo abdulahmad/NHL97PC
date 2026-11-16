@@ -28,7 +28,7 @@ extern RegisterSpeechBank, sub_1097F0, QueueSpeechRequest, ResetSpeechQueue, Fin
 extern OpenSpeechBanks, ResolveSpeechClips, LoadTeamSpeech, MakeDataPath, MakeDirPath, LoadDataFileLib, LoadDataFile, CheckDiskSpace
 extern SetTextColor, ShowMessageBoxNoWait, SetNormalText, ShowWorkingBox, UpdateWorkingBox, HideWorkingBox, ShowLoadingBar, CreateMenuBitmap
 extern FreeMenuBitmap, FileExists, FileOpen, FileSeek, FileReadRecord, FileWriteRecord, FileClose, FileLength
-extern ServiceIdle, AllocMemBlock, sub_FAAB4, FreeMemBlock, sub_FC330, sub_FC410, MakeColor, tickcount
+extern ServiceIdle, AllocMemBlock, AllocMemData, FreeMemBlock, sub_FC330, sub_FC410, MakeColor, tickcount
 extern unk_160DD4, unk_160E8C, unk_160FD4, unk_161068, vecdist
 global jpt_45A64, jpt_45B20, jpt_45B38, jpt_45B60, jpt_45B70, jpt_45B84, jpt_45BC0, jpt_45BD8
 global QueueSpeechChain_9C, LoadSpeechBank, QueueSpeechChain, InitSpeechBanks, CloseSpeechFile, SpeechClipLength, SayShotCall, SaySaveCall
@@ -532,7 +532,7 @@ InitSpeechBanks:
         lea eax, [nosplit esi*8+00h]
         push eax
         push str_TEMP
-        call sub_FAAB4
+        call AllocMemData
         add esp, byte 0Ch
         mov ebx, eax
         mov dword [dword esp+0174h], eax

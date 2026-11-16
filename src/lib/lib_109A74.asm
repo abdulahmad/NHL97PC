@@ -10,7 +10,7 @@ extern dword_1CFCC8, dword_1CFCCC, dword_1CFCD0, dword_1CFCD4, dword_1CFCD8, dwo
 extern dword_1CFCE8, dword_1DCF38, str_ASYNCFILE, strcmp_, strncpy_, CdOpenStream, CdHandleEntry, CdCloseFile
 extern CdRead, CdSeek, CdFindFile, DriveLetterIndex, IsCdDrive, CheckBankIndex, SetMusicStreamVolume, ChannelPlaying
 extern StopChannel, PlaySample, LoadSampleHeader, AudioEnter, AudioLeaveCheck, IsChannelActive, ChannelPosition, ChannelTimeLeftLocked
-extern sub_FA9C4, AllocMemBlock, FreeMemBlock, UnlinkMemBlockLocked, addtimer, sub_FC008, unk_1CFCBC, word_170162
+extern AllocMemBlockFixed, AllocMemBlock, FreeMemBlock, UnlinkMemBlockLocked, addtimer, sub_FC008, unk_1CFCBC, word_170162
 global jpt_109E64, AsyncStreamStep_2E, AsyncStreamStep_57B, AsyncStreamStep_613, AsyncStreamStep_78F, AsyncInit, AsyncClose, AsyncRequestOpen
 global AsyncRequestSection, AsyncResetRequest, AsyncStreamStep, AsyncTick, AsyncFreeRequest, AsyncPopRequest, SpeechBufferSize, RegisterStreamBank
 global AddStreamSample, ReleaseBankSample, StartSpeechQueue, QueueSpeechClip, SpeechQueueGo, StopSpeechQueue, SpeechQueueState, ShutdownSpeechQueue
@@ -525,7 +525,7 @@ AsyncStreamStep_2E:
         push esi
         push ebx
         mov edi, 3
-        call sub_FA9C4
+        call AllocMemBlockFixed
         mov dword [dword_1CFCAC], eax
         mov eax, dword [dword_1CFCA8]
         add esp, byte 0Ch
@@ -742,7 +742,7 @@ AsyncStreamStep_57B:
         mov ebx, dword [dword_1CFC84]
         push ebx
         mov esi, 3
-        call sub_FA9C4
+        call AllocMemBlockFixed
         add esp, byte 0Ch
         mov dword [dword_1CFCAC], eax
         mov dword [dword_1CFCB8], edi

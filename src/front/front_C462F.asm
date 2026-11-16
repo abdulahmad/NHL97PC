@@ -26,7 +26,7 @@ extern dword_1CBAF8, dword_1CBB46, dword_1CBB4A, dword_1CBB88, dword_1CBB8D, ran
 extern PresentScreen, FindShape, UpdateOptionsAnim, ConvertArtXY, SetScreenTarget, SetMusicVolume, SetSfxVolume, SecondsToSamples
 extern WaitSoundTime, ChkMenuMusic, PauseMusic, RequestMusicStop, WaitMusicEnd, ArenaFileName, PlayMenuSfx, PlaySfx
 extern LoadDataFile, DrawScreenBackground, FadeInScreen, SetRegionRect, SetTextColor, DrawTextAligned, WipeScreen, ShowPopupScreen
-extern InitMenuItems, RunMenu, DetailLevelScreen, FreeMemBlock, MemFreeSize, MakeColor, FreeBitmap, sub_FCEEC
+extern InitMenuItems, RunMenu, DetailLevelScreen, FreeMemBlock, MemFreeSize, MakeColor, FreeBitmap, DrawShapeCore
 extern DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, FillRectCorners, unk_166C97, unk_1C5F4A, unk_1CB148
 extern unk_1CB1EC, unk_1CB23E, word_1684BE
 global jpt_C4822, OptionsScreen_F0A, OptionsScreen_F22, OptionsScreen_10AA, OptionsScreen_10D0, OptionsScreen_1125, OptionsScreen_117A, OptionsScreen_11CF
@@ -108,7 +108,7 @@ DrawOptionsSlider:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
         leave
         pop edi

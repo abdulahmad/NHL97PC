@@ -3,8 +3,13 @@ bits 32
 %include "hockey.inc"
 section s_1048BC progbits alloc exec nowrite align=1
 extern byte_16FA3F, dword_16E46C, dword_1DA4D0, sub_FC4BC
-global sub_1048BC, sub_10491C, sub_104940, sub_104948, sub_10495F, sub_104980, sub_1049D0
-sub_1048BC:
+global ReadPaletteRange, TranslatePixels, ArtBankCount, ArtBankEntry, ArtBankEntryInfo, RemapPixelRange, BytesPerPixelForDepth
+;-----------------------------------------------------------------------------
+; ReadPaletteRange                               1048BC  97 PC, low confidence
+; Reads a range of palette entries from the VGA DAC (skipped in high-colour
+; modes)
+;-----------------------------------------------------------------------------
+ReadPaletteRange:
         push ebp
         LD mov, ebp, esp
         push ebx
@@ -50,7 +55,11 @@ sub_1048BC:
         leave
         ret
         db 00h
-sub_10491C:
+;-----------------------------------------------------------------------------
+; TranslatePixels                                10491C  97 PC, low confidence
+; Translates a run of 8-bit pixels through a table
+;-----------------------------------------------------------------------------
+TranslatePixels:
         push ebp
         LD mov, ebp, esp
         push ebx
@@ -73,11 +82,19 @@ sub_10491C:
         leave
         ret
         db 00h,00h,00h
-sub_104940:
+;-----------------------------------------------------------------------------
+; ArtBankCount                                   104940  97 PC, low confidence
+; Returns the number of entries in an art bank
+;-----------------------------------------------------------------------------
+ArtBankCount:
         mov edx, dword [byte esp+04h]
         mov eax, dword [byte edx+08h]
         ret
-sub_104948:
+;-----------------------------------------------------------------------------
+; ArtBankEntry                                   104948  97 PC, low confidence
+; Returns a pointer to an art bank entry, or 0 past the end
+;-----------------------------------------------------------------------------
+ArtBankEntry:
         mov eax, dword [byte esp+04h]
         mov edx, dword [byte esp+08h]
         mov ecx, dword [byte eax+08h]
@@ -88,7 +105,11 @@ sub_104948:
 .1:
         LD xor, eax, eax
         ret
-sub_10495F:
+;-----------------------------------------------------------------------------
+; ArtBankEntryInfo                               10495F  97 PC, low confidence
+; Returns the info word of an art bank entry
+;-----------------------------------------------------------------------------
+ArtBankEntryInfo:
         mov ecx, dword [byte esp+04h]
         mov eax, dword [byte esp+08h]
         mov edx, dword [byte esp+0Ch]
@@ -102,7 +123,11 @@ sub_10495F:
         mov dword [edx], eax
         ret
         db 00h,00h,00h,00h
-sub_104980:
+;-----------------------------------------------------------------------------
+; RemapPixelRange                                104980  97 PC, low confidence
+; Remaps a range of pixels in an art buffer through the colour table
+;-----------------------------------------------------------------------------
+RemapPixelRange:
         push ebx
         push esi
         push edi
@@ -138,7 +163,11 @@ sub_104980:
         pop ebx
         ret
         db 00h,00h,00h,00h,00h,00h
-sub_1049D0:
+;-----------------------------------------------------------------------------
+; BytesPerPixelForDepth                          1049D0  97 PC, low confidence
+; Returns the bytes per pixel for a colour depth (8, 15, 16, 24 or 32 bits)
+;-----------------------------------------------------------------------------
+BytesPerPixelForDepth:
         mov edx, dword [byte esp+04h]
         xor eax, eax
         cmp edx, byte 0Fh

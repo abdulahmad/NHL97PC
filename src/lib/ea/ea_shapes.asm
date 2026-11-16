@@ -5,7 +5,7 @@ section s_10376C progbits alloc exec nowrite align=1
 extern IF@ATAN2, str_Tube3, dword_167E08, dword_167E1C, dword_16E46C, dword_16E4A8, dword_16E4BC, dword_16FA04
 extern dword_16FA08, dword_16FA10, dword_16FA14, dword_1CF9F8, dword_1CF9FC, dword_1CFA04, dword_1DA4D0, hypot_
 extern off_16FA1C, qword_167DF0, qword_167DF8, qword_167E00, qword_167E0C, qword_167E14, qword_167E20, SortIndices
-extern sub_104940, sub_104948, sub_10495F, sub_1049D0, DrawPolyList, BlitCore, sub_1265D0, sub_126624
+extern ArtBankCount, ArtBankEntry, ArtBankEntryInfo, BytesPerPixelForDepth, DrawPolyList, BlitCore, sub_1265D0, sub_126624
 extern sub_12664C, AllocMemBlock, FloatsToInts, VecSub, VecAngle, ProjectCoord
 global bcopy_, BuildUniformArt_3CC, removewindow, FillRowTable, DrawLimbSegment, DrawLimbSegmentFlat, ParseHexChar, ParseHexByte
 global BuildUniformArt, CopyPalette16, CopyPalette24, CopyPalette32, BlitFrameToScreen, WritePaletteRange
@@ -1214,7 +1214,7 @@ BuildUniformArt:
         mov dword [dword esp+04CCh], edx
         mov dword [dword esp+04C8h], ebx
         push eax
-        call sub_104940
+        call ArtBankCount
         xor edi, edi
         add esp, byte 4
         xor ebp, ebp
@@ -1222,7 +1222,7 @@ BuildUniformArt:
         push byte 8
         mov ebx, eax
         mov dword [dword esp+04DCh], eax
-        call sub_1049D0
+        call BytesPerPixelForDepth
         add esp, byte 4
         xor ecx, ecx
         mov dword [dword esp+04D4h], eax
@@ -1235,7 +1235,7 @@ BuildUniformArt:
         push esi
         mov ecx, dword [dword esp+04F4h]
         push ecx
-        call sub_104948
+        call ArtBankEntry
         add esp, byte 8
         mov eax, dword [eax]
         mov edx, dword [dword esp+04D4h]
@@ -1247,7 +1247,7 @@ BuildUniformArt:
         push esi
         mov ebx, dword [dword esp+04F8h]
         push ebx
-        call sub_10495F
+        call ArtBankEntryInfo
         lea ebx, [dword esp+04D0h]
         add esp, byte 0Ch
         lea edx, [dword esp+04C0h]
@@ -1352,7 +1352,7 @@ BuildUniformArt:
         push esi
         mov eax, dword [dword esp+04F4h]
         push eax
-        call sub_104948
+        call ArtBankEntry
         add esp, byte 8
         mov dword [dword esp+04DCh], eax
         mov eax, dword [eax]
@@ -1366,7 +1366,7 @@ BuildUniformArt:
         mov ecx, dword [dword esp+04F8h]
         push ecx
         lea ebx, [dword esp+04D0h]
-        call sub_10495F
+        call ArtBankEntryInfo
         add esp, byte 0Ch
         lea edx, [dword esp+04C0h]
         lea eax, [dword esp+04B0h]

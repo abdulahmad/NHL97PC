@@ -57,7 +57,7 @@ extern ResetRenderTimers, TriggerCameraFlashes, SetCameraMode, GoalCrowdCheer, L
 extern SetCameraTarget, SetCameraPathTarget, SetCameraSplineTarget, UpdateCameraMotion, SnapCamera, BuildCameraMatrix, UpdateCameraProjection, InitCameraParams
 extern SetSPA, ResetAnimTimer, PickSkateAnim, SetSkateSpeedFromRating, StickReach, ObjectFramePos, TryStickTouch, StopObject
 extern StartPassAnim, StartDropPassAnim, StartGoalieSave, StartGoalieStance, GoalieMoves, DrawCameraPath, SetTextColor, DrawTextAligned
-extern GetLangText, LogGoal, DrawClockOverlay, NextVideoMode, PrevVideoMode, FreeMemBlock, sub_FC4BC, sub_FCC40
+extern GetLangText, LogGoal, DrawClockOverlay, NextVideoMode, PrevVideoMode, FreeMemBlock, sub_FC4BC, SelectFont
 extern FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, DrawShapeScaledBy, FillPolygon, FillRectColor
 extern FillRect, MeasureText, DrawTextAt, SetTextColors, DrawTextBoxedAt, FillRectCorners, MatRotY, MatTranspose
 extern VecMulMat, VecAdd, VecSub, VecDistance, VecLength, VecScale, VecNormalizeTo, ProjectPointInt
@@ -335,7 +335,7 @@ PrevVideoModeKey:
 .6:
         push dword [dword_1C95BC]
 .7:
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         test byte [byte_19EAC6], 2
         je short .8
@@ -490,7 +490,7 @@ NextVideoModeKey:
 .6:
         push dword [dword_1C95BC]
 .7:
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         test byte [byte_19EAC6], 2
         je short .8
@@ -2805,7 +2805,7 @@ DrawGameClock:
 .3:
         push dword [dword_1686C0]
 .4:
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         cmp word [gameclock], byte 3Bh
         jne short .5
@@ -2911,7 +2911,7 @@ DrawPowerPlayClock:
 .2:
         push dword [dword_1686C0]
 .3:
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         imul eax, dword [dword_16E468], byte 14h
         mov ecx, 190h
@@ -4590,7 +4590,7 @@ SetOverlayFont:
         cmp eax, dword [dword_1CF5A4]
         je short .3
         push eax
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
 .3:
         cmp dword [dword_1CF538], byte 1
@@ -10216,7 +10216,7 @@ DrawCameraDebug:
         call sprintf_
         add esp, byte 14h
         push unk_16E8A0
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         push dword 0FF000000h
         call sub_FC4BC

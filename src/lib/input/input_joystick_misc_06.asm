@@ -4,7 +4,7 @@ bits 32
 section s_10CFB4 progbits alloc exec nowrite align=1
 extern byte_1D1D8C, byte_1D1FBC, dword_16E464, dword_16E468, dword_16E4A8, dword_17024C, dword_170250, dword_170254
 extern dword_170258, dword_17025C, dword_170260, dword_170264, dword_170268, dword_17026C, dword_170270, dword_170274
-extern dword_1D204C, dword_1D2050, memcpy_, sub_100700, sub_10C8E8, sub_10CF34, FixedLerp, DrawClippedPoly
+extern dword_1D204C, dword_1D2050, memcpy_, sub_100700, SubVec3, sub_10CF34, FixedLerp, DrawClippedPoly
 extern RotatePoint2D, RotateModelPoint, sub_11313C, SinLookup, CosLookup, sub_12D300, sub_12D4B8, TransposeMatrix
 extern FreeMemBlock, MakeColor, FillRectColor, unk_1D1D20, vecdist
 global SetCameraAngles_2E, ClipSurfPolyLeft_292, ClipSurfPolyRight_2A6, SetViewScreenOrigin, SetCameraAngles, ClipSurfEdgeAtX, ClipSurfEdgeAtY, ClipSurfPolyLeft
@@ -1169,7 +1169,7 @@ DrawSurfacePolys:
         push ecx
         mov esi, dword [dword esp+0280h]
         push esi
-        call sub_10C8E8
+        call SubVec3
         add esp, byte 0Ch
         lea eax, [dword esp+023Ch]
         push eax
@@ -1494,7 +1494,7 @@ DrawOverlayModels:
         push ecx
         mov eax, dword [byte esp+044h]
         push eax
-        call sub_10C8E8
+        call SubVec3
         add esp, byte 0Ch
         push ebp
         mov edx, dword [byte esp+038h]

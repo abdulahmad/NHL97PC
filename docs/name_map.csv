@@ -2105,7 +2105,16 @@ FA13B,__doclose_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FA1CB,_nmalloc_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FA2AE,fread_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FA489,_nfree_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+FA5B8,AddMemRegion,sub_FA5B8,new,low,adds a region of memory to a memory list as a named LOW block range,src/lib/ea/ea_gfx_01.asm
+FA6A0,AddMemRegions,sub_FA6A0,new,low,adds each region of a list of memory areas to the memory lists,src/lib/ea/ea_gfx_01.asm
+FA734,AddHighMemRegion,sub_FA734,new,low,adds the HIGHMEM region to a memory list with a GAP block for the hole below it,src/lib/ea/ea_gfx_01.asm
+FA8AC,TrimMemList,sub_FA8AC,new,low,releases the last block of a memory list and returns how much space it freed,src/lib/ea/ea_gfx_01.asm
+FA954,MemListEnd,sub_FA954,new,low,returns the end address of the last block of a memory list; followed by the free slot search,src/lib/ea/ea_gfx_01.asm
+FA9C4,AllocMemBlockFixed,sub_FA9C4,new,low,allocates a named block under the memory lock with the fixed flag set,src/lib/ea/ea_gfx_01.asm
+FAA14,AllocMemBlockMovable,sub_FAA14,new,low,allocates a named block under the memory lock without the fixed flag,src/lib/ea/ea_gfx_01.asm
 FAA64,AllocMemBlock,sub_FAA64,95PC,high,"memory manager: allocate a named block (name, size, flags), e.g. ""DMAN"", ""HIST""; under the memory lock",src/lib/ea/ea_gfx_01.asm
+FAAB4,AllocMemData,sub_FAAB4,new,low,allocates a named block under the memory lock and returns its data pointer,src/lib/ea/ea_gfx_01.asm
+FAB68,AllocMemBlockFull,sub_FAB68,new,low,allocates a named block under the memory lock with every option passed through,src/lib/ea/ea_gfx_01.asm
 FABB8,AllocMemBlockEx,sub_FABB8,new,low,the allocator under AllocMemBlock: finds room in the block's memory list (compacting if needed) and links a named block,src/lib/ea/ea_memman_01.asm
 FAEF8,findmemblock,sub_FAEF8,96PC,high,NHL96PC ABEEC (callsite 0.90): called at the same place of sub_AC9B8,src/lib/ea/ea_memman_01.asm
 FAF34,FreeMemBlock,sub_FAF34,95PC,high,memory manager: findmemblock on the pointer and frees the block (under the memory lock dword_1CF260); 600+ calls,src/lib/ea/ea_memman_01.asm
@@ -2159,7 +2168,16 @@ FC635,SetViewRect,sub_FC635,96PC,high,"NHL96PC SetViewRect: stores the mouse ran
 FC65F,MouseReadMotion,,96PC,medium,NHL96PC DF9B7 (similar): mnemonic similarity 0.88 over 57 instructions,
 FC804,_dos_getdate_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FC81F,_dos_gettime_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+FC88C,DebugSetLine,sub_FC88C,new,low,formats a debug message into one of the on-screen debug lines,src/lib/ea/ea_fileblock_01.asm
+FC924,DebugShowLines,sub_FC924,new,low,draws the on-screen debug lines when debug output is on,src/lib/ea/ea_fileblock_01.asm
+FCACC,DebugStatusLine,sub_FCACC,new,low,"formats the date, time and frame counter into the debug status line",src/lib/ea/ea_fileblock_01.asm
+FCC40,SelectFont,sub_FCC40,new,low,makes a font current: reads its spacing and height and sets the text pointers,src/lib/ea/ea_fileblock_01.asm
 FCD90,FreeBitmap,sub_FCD90,new,low,"removes a bitmap's two windows (+28h, +30h, removewindow) and frees it (FreeMemBlock)",src/lib/ea/ea_fileblock_01.asm
+FCE34,CopyRowKeyed8,sub_FCE34,new,low,"copies a row of 8-bit pixels, skipping transparent (FFh) ones",src/lib/ea/ea_fileblock_01.asm
+FCE48,CopyRowKeyed16,sub_FCE48,new,low,"copies a row of 16-bit pixels, skipping transparent (zero) ones",src/lib/ea/ea_fileblock_01.asm
+FCE60,CopyRowKeyed24,sub_FCE60,new,low,"copies a row of 24-bit pixels, skipping transparent (zero) ones",src/lib/ea/ea_fileblock_01.asm
+FCEA0,CopyRowKeyed32,sub_FCEA0,new,low,"copies a row of 32-bit pixels, skipping those with zero alpha",src/lib/ea/ea_fileblock_01.asm
+FCEEC,DrawShapeCore,sub_FCEEC,new,low,draws a shape: sets up its palette and blits it through the blit engine,src/lib/ea/ea_fileblock_01.asm
 FCF84,DrawShapeAtOwnPos,sub_FCF84,new,low,draws a shape at the position stored in its header; followed by the draw at a given position,src/lib/ea/ea_gfx_02.asm
 FCFCC,DrawArt,sub_FCFCC,95PC,low,"graphics library: draw art at x, y (art, x, y) through sub_FCEEC, which converts 8-bit art to the 16-bit screen; the module order matches the NHL95PC DrawArt",src/lib/ea/ea_gfx_02.asm
 FCFE8,DrawShape,sub_FCFE8,95PC,low,graphics library: DrawArt at the art's own position (+0Ah / +0Ch); right after DrawArt as in NHL95PC,src/lib/ea/ea_gfx_02.asm
@@ -2333,6 +2351,13 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1047BC,CopyPalette32,sub_1047BC,new,low,copies palette entries four bytes each,src/lib/ea/ea_shapes.asm
 1047D0,BlitFrameToScreen,sub_1047D0,new,low,blits a movie or game frame to the screen through the blit engine; followed by the clipped variant,src/lib/ea/ea_shapes.asm
 10483C,WritePaletteRange,sub_10483C,new,low,writes a range of palette entries to the VGA DAC (skipped in high-colour modes),src/lib/ea/ea_shapes.asm
+1048BC,ReadPaletteRange,sub_1048BC,new,low,reads a range of palette entries from the VGA DAC (skipped in high-colour modes),src/lib/video/video_bios_vga_02.asm
+10491C,TranslatePixels,sub_10491C,new,low,translates a run of 8-bit pixels through a table,src/lib/video/video_bios_vga_02.asm
+104940,ArtBankCount,sub_104940,new,low,returns the number of entries in an art bank,src/lib/video/video_bios_vga_02.asm
+104948,ArtBankEntry,sub_104948,new,low,"returns a pointer to an art bank entry, or 0 past the end",src/lib/video/video_bios_vga_02.asm
+10495F,ArtBankEntryInfo,sub_10495F,new,low,returns the info word of an art bank entry,src/lib/video/video_bios_vga_02.asm
+104980,RemapPixelRange,sub_104980,new,low,remaps a range of pixels in an art buffer through the colour table,src/lib/video/video_bios_vga_02.asm
+1049D0,BytesPerPixelForDepth,sub_1049D0,new,low,"returns the bytes per pixel for a colour depth (8, 15, 16, 24 or 32 bits)",src/lib/video/video_bios_vga_02.asm
 104A2C,strncpy_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 104A60,InverseTableSlice,sub_104A60,new,low,builds one slice of the inverse colour table,src/lib/watcom/watcom_clib_08.asm
 104C78,InverseTablePass,sub_104C78,new,low,runs one pass of the inverse colour table,src/lib/watcom/watcom_clib_08.asm
@@ -2514,6 +2539,15 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 10BEC0,DrawLineXPlot,sub_10BEC0,96PC,medium,96 PC DrawLineXPlot,src/lib/lib_10B660.asm
 10C07C,DrawLineX,sub_10C07C,96PC,medium,96 PC DrawLineX,src/lib/lib_10B660.asm
 10C1C0,DrawFixedLine,sub_10C1C0,96PC,medium,NHL96PC 87DD6 (similar 0.80): mnemonic similarity 0.80 over 173 instructions,src/lib/lib_10B660.asm
+10C8B0,AddVec3,sub_10C8B0,new,low,adds two 3-component vectors,src/lib/ea/ea_shpi_02.asm
+10C8E8,SubVec3,sub_10C8E8,new,low,subtracts one 3-component vector from another,src/lib/ea/ea_shpi_02.asm
+10C920,ScaleVec3,sub_10C920,new,low,multiplies a 3-component vector by a 16.16 factor,src/lib/ea/ea_shpi_02.asm
+10C9B0,DrawSpriteRow,sub_10C9B0,new,low,draws one row of a scaled sprite through the span offsets,src/lib/ea/ea_shpi_02.asm
+10CA48,DrawSpriteScaledCore,sub_10CA48,new,low,scales a sprite to a width and height: builds the span offsets and draws each visible row,src/lib/ea/ea_shpi_02.asm
+10CCB0,DrawSpriteScaledFit,sub_10CCB0,new,low,"scales a sprite to fit a box, keeping its aspect",src/lib/ea/ea_shpi_02.asm
+10CD98,DrawSpriteScaledBy,sub_10CD98,new,low,scales a sprite by a factor and draws it,src/lib/ea/ea_shpi_02.asm
+10CDE0,DrawSpriteScaledFlip,sub_10CDE0,new,low,"scales a sprite by a factor, mirroring it for negative factors",src/lib/ea/ea_shpi_02.asm
+10CE9C,DrawSpriteScaled,sub_10CE9C,new,low,"draws a scaled sprite, picking the fit, factor or mirrored path",src/lib/ea/ea_shpi_02.asm
 10CFB4,SetViewScreenOrigin,sub_10CFB4,new,low,sets the view's screen origin and works out its far corner from the view size,src/lib/input/input_joystick_misc_06.asm
 10CFF7,SetCameraAngles,sub_10CFF7,new,low,converts the camera angles from degrees to 1024ths of a turn and builds the camera rotation,src/lib/input/input_joystick_misc_06.asm
 10D140,ClipSurfEdgeAtX,sub_10D140,new,low,"clips a rink surface polygon edge at a vertical line, interpolating its vertex values",src/lib/input/input_joystick_misc_06.asm
@@ -2878,6 +2912,15 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 11FA34,WriteBigEndian,sub_11FA34,new,low,writes a big-endian number of the given size,src/lib/watcom/watcom_clib_15.asm
 11FA90,GetCurrentFont,sub_11FA90,new,low,returns the current font,src/lib/watcom/watcom_clib_15.asm
 11FA98,SetTextOrigin,sub_11FA98,new,low,sets the text origin,src/lib/watcom/watcom_clib_15.asm
+11FAAC,SetTextFont,sub_11FAAC,new,low,sets the current text font and prepares text drawing; followed by the getter,src/lib/input/input_joystick_misc_07.asm
+11FAD6,FillShadowRect,sub_11FAD6,new,low,entry that sets the rectangle fill callbacks and draws a shadowed rectangle,src/lib/input/input_joystick_misc_07.asm
+11FB11,DrawTitleBand,sub_11FB11,new,low,entry that sets the fill callbacks and draws a shaded title band,src/lib/input/input_joystick_misc_07.asm
+11FD1E,FillBandEdges,sub_11FD1E,new,low,fills the soft edge columns of a shaded band,src/lib/input/input_joystick_misc_07.asm
+11FDDC,FillBandRows,sub_11FDDC,new,low,fills the rows of a shaded band with its colour,src/lib/input/input_joystick_misc_07.asm
+11FF0E,FillBandRowsBlend,sub_11FF0E,new,low,"fills the rows of a shaded band, blending with what is under it",src/lib/input/input_joystick_misc_07.asm
+120650,CountVesaModes,sub_120650,new,low,counts the listed VESA modes the card answers for,src/lib/input/input_joystick_misc_07.asm
+120680,FindModeByResolution,sub_120680,new,low,finds the listed video mode with the given resolution and depth,src/lib/input/input_joystick_misc_07.asm
+12071C,SetModeByResolution,sub_12071C,new,low,finds the video mode with the given resolution and switches to it,src/lib/input/input_joystick_misc_07.asm
 12075C,abs_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 12076F,access_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 1207AA,getenv_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),

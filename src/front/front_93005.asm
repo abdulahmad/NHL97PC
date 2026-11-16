@@ -28,7 +28,7 @@ extern NameIndexFree, LoadNameIndex, NameIndexLimit, InitMenuItems, RunMenu, Run
 extern FindSeasonReplay, LinkTransferSetup, SetPlayoffFormat, SeasonSetupScreen, RosterScreen, FreeDbBlock, DaysToYear, FindTeamRecord
 extern MakeLeagueKeyBase, CreatePlayoffFile, CreatePlayoffSchedule, OpenLeagueFile, WriteLeagueHeader, FindGameRecord, UpdateGameRecord, MakeStandingsKey
 extern LoadExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, ClearLinkAbort, LinkSendBlock, LinkReceiveBlock, SeasonIntroScreen, AllocMemBlock
-extern FreeMemBlock, MakeColor, sub_FCC40, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen
+extern FreeMemBlock, MakeColor, SelectFont, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen
 extern unk_165A5B, unk_16CE20, unk_16D7FC, unk_1ACB44, unk_1ACD2B, unk_1ACF4E, unk_1AD250, unk_1AD443
 extern unk_1AD603, unk_1AD73A, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C89F8, unk_1C8A04, unk_1C8A10
 extern unk_1C8A1C, unk_1C8A28
@@ -2625,7 +2625,7 @@ PlayoffTreeScreen:
         add esp, byte 4
         call SetTextColor
         push dword [dword_1C8A84]
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         cmp dword [nosplit esi*4+dword_16CF18], byte 0
         je short .20
@@ -2710,7 +2710,7 @@ PlayoffTreeScreen:
         call DrawArt
         add esp, byte 0Ch
         push dword [dword_1C8A84]
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         cmp dword [nosplit esi*4+dword_16CF18], byte 0
         je short .28
@@ -3136,7 +3136,7 @@ PlayoffTreeScreen:
         add esp, byte 4
         call SetTextColor
         push dword [dword_1C8A84]
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         push dword [nosplit esi*4+dword_1AD62F]
         add edi, unk_1AD443

@@ -27,14 +27,14 @@ extern dword_1DA390, dword_1DA4D0, int386_, isatty_, memcpy_, off_1706E0, off_17
 extern off_170B18, off_170B1C, off_171C7C, off_171C80, off_171C84, off_171D10, off_19C6C4, off_19C6E2
 extern off_19C6E3, qword_167EC8, qword_167ED0, qword_167EE0, sprintf_, strcat_, strcpy_, strlen_
 extern strncpy_, sub_1004B8, bcopy, AddExitHandler, PresentScreen, ConvertArtPalette, Random32, sub_102D3C
-extern SetGraphicsMode, WritePaletteRegs, FreeRowTable, FillRowTable, sub_1049D0, FileExistsPath, sub_106F64, DosOpenFile
+extern SetGraphicsMode, WritePaletteRegs, FreeRowTable, FillRowTable, BytesPerPixelForDepth, FileExistsPath, sub_106F64, DosOpenFile
 extern DosCloseFile, DosReadFile, DosSeekFile, SetViewScreenOrigin, SetCameraAngles, DrawPolyArray, sub_121460, sub_121470
 extern sub_121494, sub_12189C, sub_121A43, ArchiveEntryOffset, BlitCore, sub_123FCB, ConvertColor555, CreateBitmapFromBlock
 extern Convert32To565Keyed, sub_12D520, sub_12F270, sub_12FACC, sub_12FDC8, sub_12FF9C, sub_12FFD8, sub_12FFF0
 extern sub_13005A, TgvCopyBlock, TgvFillBlock, SaveTextScreen, RestoreTextScreen, InitTextOutput, ClearNumLock, InstallBreakHandler
-extern RegisterHotkey, SetScreenTarget, NoOpPlatformHook, sub_FA5B8, sub_FA6A0, sub_FA734, sub_FA8AC, sub_FA954
-extern sub_FAA14, AllocMemBlock, sub_FAB68, FreeMemBlock, InitMemDescriptors, MemDescPtr, ZeroMem, sub_FBE78
-extern sub_FC0F0, sub_FC410, MakeColor, sub_FC73E, sub_FC88C, sub_FCC40, LoadDrawContext, ClearScreen
+extern RegisterHotkey, SetScreenTarget, NoOpPlatformHook, AddMemRegion, AddMemRegions, AddHighMemRegion, TrimMemList, MemListEnd
+extern AllocMemBlockMovable, AllocMemBlock, AllocMemBlockFull, FreeMemBlock, InitMemDescriptors, MemDescPtr, ZeroMem, sub_FBE78
+extern sub_FC0F0, sub_FC410, MakeColor, sub_FC73E, DebugSetLine, SelectFont, LoadDrawContext, ClearScreen
 extern FillPolygon, FillRectColor, SetTextColors, DrawTextBoxedAt, RefreshTextColors, MatTranspose, TransformVecs, VecAdd
 extern VecSub, AddVecs, VecCross, VecScale, VecNormalize, VecCrossUnit, unk_10003, unk_16E8A0
 extern unk_170B26, unk_170B30, unk_170F72, unk_170F7C, unk_1713BE, unk_1713C8, unk_17180A, unk_171814
@@ -7185,7 +7185,7 @@ CreateBitmapEx:
         push edx
         lea eax, [byte esp+08h]
         push eax
-        call sub_FAA14
+        call AllocMemBlockMovable
         mov dword [byte esp+01Ch], eax
         add esp, byte 0Ch
         test eax, eax
@@ -7208,7 +7208,7 @@ CreateBitmapEx:
         mov eax, dword [byte esp+034h]
         push eax
         lea ebx, [byte esi+038h]
-        call sub_1049D0
+        call BytesPerPixelForDepth
         add esp, byte 4
         mov byte [ebx], 0
         and eax, 0FFh
@@ -7501,7 +7501,7 @@ UpdateFrameRate:
         jmp short .11
 .10:
         push byte 0
-        push sub_FC88C
+        push DebugSetLine
 .11:
         push byte 0
         push byte 0
@@ -9000,7 +9000,7 @@ DecodeTgvKeyFrame:
         xor edx, edx
         call memset_
         push byte 8
-        call sub_1049D0
+        call BytesPerPixelForDepth
         mov edx, eax
         mov eax, dword [byte esi+028h]
         mov byte [eax], 0
@@ -9018,7 +9018,7 @@ DecodeTgvKeyFrame:
         xor edx, edx
         call memset_
         push byte 8
-        call sub_1049D0
+        call BytesPerPixelForDepth
         mov edx, eax
         mov eax, dword [byte esi+02Ch]
         mov byte [eax], 0
@@ -10278,7 +10278,7 @@ LoadNamedResource:
         add edi, eax
         mov eax, dword [ebx]
         push eax
-        call sub_FAB68
+        call AllocMemBlockFull
         add esp, byte 10h
         mov esi, eax
         test eax, eax
@@ -10608,7 +10608,7 @@ InitMemoryPool:
         push eax
         push byte 0
         push str_MBRAM2
-        call sub_FA5B8
+        call AddMemRegion
         mov edi, dword [dword_16E32C]
         mov edx, dword [dword_16E330]
         add esp, byte 20h
@@ -10720,7 +10720,7 @@ InitMemoryPool:
         push str_MBRAM2
         add ebx, byte 4
         mov dword [byte esp+050h], ecx
-        call sub_FA734
+        call AddHighMemRegion
         add esp, byte 10h
         jmp short .13
 .14:
@@ -10740,13 +10740,13 @@ InitMemoryPool:
         jle short .17
 .16:
         push byte 0
-        call sub_FA954
+        call MemListEnd
         add esp, byte 4
         test eax, eax
         je short .17
         call _nfree_
         push byte 0
-        call sub_FA8AC
+        call TrimMemList
         sub esi, eax
         add esp, byte 4
         test esi, esi
@@ -10763,7 +10763,7 @@ InitMemoryPool:
         push byte 0
         push str_MBRAM2
         mov dword [nosplit ebp*4+dword_1DA350], eax
-        call sub_FA734
+        call AddHighMemRegion
         add esp, byte 10h
 .18:
         mov ecx, dword [dword_16E334]
@@ -10782,7 +10782,7 @@ InitMemoryPool:
         push byte 0
         push str_MBDOS
         add edi, ecx
-        call sub_FA6A0
+        call AddMemRegions
         add esp, byte 24h
 .19:
         cmp dword [byte esp+068h], byte 0
@@ -11304,7 +11304,7 @@ InitPlatform:
         call WritePaletteRegs
         add esp, byte 0Ch
         push unk_16E8A0
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         push dword 0FF000000h
         call MakeColor

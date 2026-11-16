@@ -27,7 +27,7 @@ extern dword_1C95CC, dword_1C95D0, dword_1C95D4, dword_1C95D8, dword_1C95DC, dwo
 extern dword_1C95EC, dword_1C95F0, dword_1C95F4, dword_1C95F8, dword_1C95FC, dword_1C9600, dword_1C9610, dword_1C9614
 extern dword_1C9618, dword_1C961C, dword_1C9620, dword_1C9624, dword_1C9628, fclose_, fopen_, fprintf_
 extern memset_, qsort_, rand_, sprintf_, sscanf_, strcmp_, strlen_, BlitShape2
-extern BlitArt, BlitClippedY, PresentScreen, FindShape, OpenArtArchiveErr, DrawShapeBlended, ConvertArtNew, sub_10CD98
+extern BlitArt, BlitClippedY, PresentScreen, FindShape, OpenArtArchiveErr, DrawShapeBlended, ConvertArtNew, DrawSpriteScaledBy
 extern FindShapeList, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, PlayMenuSfx, PlaySfx
 extern PlayScreenMovie, LoadDataFile, OpenDataLibrary, DrawShadedLogo, DrawScreenBackground, FadeInScreen, ExitScreen, SetRegionRect
 extern SetTextColor, DrawTextAligned, ShowMessageBoxNoWait, EditTextField, WipeScreen, SetHighlightText, SetNormalText, DrawStatTable
@@ -3803,7 +3803,7 @@ StatsTablesScreen:
         push dword 8Ch
         push dword [byte ebp+066h]
         push dword 14CCCh
-        call sub_10CD98
+        call DrawSpriteScaledBy
         add esp, byte 10h
         jmp short .18
 .17:
@@ -5100,7 +5100,7 @@ StatsTablesScreen_D0E:
         push dword 8Ch
         push dword [byte ebp+066h]
         push dword 14CCCh
-        call sub_10CD98
+        call DrawSpriteScaledBy
         add esp, byte 10h
         jmp short .112
 .111:

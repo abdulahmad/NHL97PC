@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_16E604 progbits alloc noexec write align=1
-extern FreeBitmap_30, FillRectColor_48, FillRectColor_5C, FillRectColor_6C, FillRectColor_80, ExitProgram, sub_FCE34, sub_FCE48
-extern sub_FCE60, sub_FCEA0, FillRowColor, unk_167D44, unk_167D48, unk_167D4C, unk_167D50, unk_167D54
+extern FreeBitmap_30, FillRectColor_48, FillRectColor_5C, FillRectColor_6C, FillRectColor_80, ExitProgram, CopyRowKeyed8, CopyRowKeyed16
+extern CopyRowKeyed24, CopyRowKeyed32, FillRowColor, unk_167D44, unk_167D48, unk_167D4C, unk_167D50, unk_167D54
 extern unk_167D58, unk_167D5C, unk_167D60, unk_167D64, unk_167D68, unk_167D6C, unk_167D70
 global byte_16E638, byte_16E639, byte_16E63A, byte_16E688, byte_16E689, byte_16E6C0, byte_16E6C1, mouseminx
 global mouseminy, mousemaxx, mousemaxy, dword_16E614, dword_16E618, dword_16E61C, dword_16E620, dword_16E624
@@ -145,11 +145,11 @@ dword_16E718:
         db 00h,04h,00h,00h,00h,04h,00h,00h,00h,04h,00h,00h,00h,04h,00h,00h
 off_16E858:
         dd FreeBitmap_30
-        dd sub_FCE34
-        dd sub_FCE48
-        dd sub_FCE48
-        dd sub_FCE60
-        dd sub_FCEA0
+        dd CopyRowKeyed8
+        dd CopyRowKeyed16
+        dd CopyRowKeyed16
+        dd CopyRowKeyed24
+        dd CopyRowKeyed32
 dword_16E870:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 off_16E87C:

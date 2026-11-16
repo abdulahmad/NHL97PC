@@ -39,7 +39,7 @@ extern DrawScrollBar, ScrollDown, FreeScrollList, ScrollToMouse, LoadLangTextB, 
 extern DrawLinkStatusText, ResetLinkSetup, AllocStatTable, FreeStatTable, SetStatCell, SetStatCellFlag, SetStatColumn, SetStatRowWidth
 extern SortStatTable, DrawStatTableRows, DrawStatTableArt, UserLogScreen, InitListBox, InitShapeListBox, InitSlotTable, InitLinkSettings
 extern ClearLinkAbort, ServiceIdle, LinkSyncMenu, LinkSyncScreen, LinkSendBlock, LinkReceiveBlock, CopyControlSettings, AllocMemBlock
-extern FreeMemBlock, ZeroMem, sub_FC330, MakeColor, sub_FCC40, FreeBitmap, sub_FCEEC, DrawShapeAtOwnPos
+extern FreeMemBlock, ZeroMem, sub_FC330, MakeColor, SelectFont, FreeBitmap, DrawShapeCore, DrawShapeAtOwnPos
 extern DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, MeasureText, tickcount, unk_165EA0, unk_166010
 extern unk_16609C, unk_16D262, unk_16D26A, unk_1AC8E4, unk_1C135C, unk_1C347F, unk_1C5EF8, unk_1C5F4A
 extern unk_1C5F9C, unk_1C94F4, word_1684BE, word_16D25C, word_16D25E, word_16D260, word_16D27E, word_16D28C
@@ -4411,7 +4411,7 @@ PostGameScreen:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
         mov esi, dword [dword esp+0110h]
         test esi, esi
@@ -4421,7 +4421,7 @@ PostGameScreen:
         mov ebp, dword [dword esp+0120h]
         push ebp
         push esi
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
 .21:
         cmp dword [dword_1C9594], byte 0
@@ -4438,7 +4438,7 @@ PostGameScreen:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
         mov ecx, dword [dword esp+0162h]
         test ecx, ecx
@@ -4448,7 +4448,7 @@ PostGameScreen:
         mov edi, dword [dword esp+0172h]
         push edi
         push ecx
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
 .22:
         mov eax, 0DCh
@@ -9759,7 +9759,7 @@ LoadGameLogos:
 .1:
         push dword [dword_1C95BC]
 .2:
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         mov eax, 32h
         call OpenDataLibrary

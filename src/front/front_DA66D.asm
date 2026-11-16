@@ -45,7 +45,7 @@ extern WipeScreen, DrawStatTable, ShowWorkingBox, UpdateWorkingBox, HideWorkingB
 extern ShowPopupScreen, InitMenuItems, RunMenu, RunScrollList, GetLangText, AllocPageStack, FreeDbPages, OpenDbFile
 extern CloseDbFile, AddIndexKey, DeleteIndexKey, FindIndexKey, FindLastKey, FindFirstKey, NextIndexKey, PrevIndexKey
 extern BuildKeyFromLong, BuildKeyFromString, KeyToLong, BuildSeasonIntro, SetupSeasonIntro, DrawSeasonIntro, RunIdleHandlers, AllocMemBlock
-extern sub_FAAB4, FreeMemBlock, ZeroMem, sub_FBE40, addtimer, sub_FC008, WaitTicks, MakeColor
+extern AllocMemData, FreeMemBlock, ZeroMem, sub_FBE40, addtimer, sub_FC008, WaitTicks, MakeColor
 extern FreeBitmap, DrawShapeAtOwnPos, DrawArt, CreateBitmap, SetDrawTarget, FillRectColor, FillRect, MeasureText
 extern DrawTextAt, FillRectCorners, tickcount, unk_167540, unk_16D7F4, unk_16D7FC, unk_16E110, unk_1C5F4A
 extern unk_1CD19C, InputRecordRing, unk_1CD2BA, unk_1CD2FC, unk_1CD33E, unk_1CD380, unk_1CD408, unk_1CD480
@@ -10718,7 +10718,7 @@ AllocClearBlock:
         push edx
         push eax
         mov dword [ebx], 0
-        call sub_FAAB4
+        call AllocMemData
         add esp, byte 0Ch
         mov dword [ebx], eax
         test eax, eax
@@ -10745,7 +10745,7 @@ AllocClearBlock20:
         push edx
         push eax
         mov dword [ebx], 0
-        call sub_FAAB4
+        call AllocMemData
         add esp, byte 0Ch
         mov dword [ebx], eax
         test eax, eax

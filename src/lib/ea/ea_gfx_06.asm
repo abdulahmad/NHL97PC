@@ -4,7 +4,7 @@ bits 32
 section s_10B040 progbits alloc exec nowrite align=1
 extern dword_16E4A8, dword_170218, dword_1D1CF8, dword_1D1CFC, dword_1D1D00, dword_1D1D04, dword_1D1D08, dword_1D1D0C
 extern dword_1D1D10, dword_1D1D14, dword_1D1D2C, off_170278, off_170284, off_170290, off_17029C, off_1702A8
-extern SortIndices, sub_10C8E8, sub_10CF34, SetRinkView, TransformRinkPoints, TransformRinkObject, ProjectRinkObject, DrawRinkPolyStrip
+extern SortIndices, SubVec3, sub_10CF34, SetRinkView, TransformRinkPoints, TransformRinkObject, ProjectRinkObject, DrawRinkPolyStrip
 extern DrawFlatPoly, DrawPolyOutline, CallModelPartFuncs, CallAllPartFuncs, sub_12D300, sub_12D4B8, ProjectPoints, unk_17021C
 extern unk_170240
 global DrawRinkObjectPolys_9B, DrawSortedModelPolys_B8, DrawModelPartPolys_190, SetRinkMatrix, SetRinkTranslation, SetScreenScale, ProjectRinkObjectPoints, ProjectModelPoints
@@ -134,7 +134,7 @@ DrawRinkObjectPolys:
         push unk_170240
         lea eax, [byte ebx+01Ch]
         push eax
-        call sub_10C8E8
+        call SubVec3
         add esp, byte 0Ch
         mov eax, esp
         push eax

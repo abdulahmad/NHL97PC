@@ -7,7 +7,7 @@ extern str_UnableToAllocateRealModeS, str_UnableToSetLimitOfRealMod, str_NoError
 extern byte_150010, byte_150014, byte_1725A4, byte_19A7B8, byte_19A7C0, byte_19A7C8, byte_19A7D0, byte_19A7D8
 extern byte_19A7E0, byte_1DE770, byte_1DE771, byte_1DE772, byte_1DE773, dword_16E67C, dword_16E684, dword_19A7E4
 extern dword_19A7E8, dword_19A878, dword_19BEB8, dword_19BED8, dword_19BEDC, dword_19BEE0, dword_19BEE4, dword_1DD398
-extern dword_1DD3A8, dword_1DE768, dword_1DE76C, dword_1DE774, dword_1DE778, int386_, str_RMHandler, sub_FAAB4
+extern dword_1DD3A8, dword_1DE768, dword_1DE76C, dword_1DE774, dword_1DE778, int386_, str_RMHandler, AllocMemData
 extern FreeMemBlock, tolower_, word_17070A, word_1DE764, word_1DE766, word_1DE780
 global fini_, init_, jpt_138417, jpt_1386D1, jpt_138859, unk_137FE1_2, StrToLong_166, jpt_138417_64
 global jpt_138417_74, jpt_138417_84, jpt_138417_94, ScanFloat_24, ScanFloat_34, ScanFloat_44, ScanFloat_54, TimerCalibrate
@@ -690,7 +690,7 @@ AllocDosDmaBuffer:
         mov eax, dword [byte esp+014h]
         push str_RMHandler
         mov dword [edx], eax
-        call sub_FAAB4
+        call AllocMemData
         mov ebp, eax
         add esp, byte 0Ch
         test eax, eax

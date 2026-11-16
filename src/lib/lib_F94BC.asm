@@ -5,8 +5,8 @@ section s_F94BC progbits alloc exec nowrite align=1
 extern abs_, str_IgfxFix, str_IgFix, str_GFXMODES, dword_16E2F4, dword_16E2F8, dword_16E2FC, dword_16E300
 extern dword_16E304, dword_16E308, dword_16E30C, dword_16E310, dword_16E314, dword_16E3F4, dword_16E464, dword_16E468
 extern dword_16E46C, dword_16E474, dword_16F8A8, dword_1CEFC4, dword_1CEFC8, dword_1CEFCC, dword_1CEFD4, dword_1CEFD8
-extern dword_1CEFDC, dword_1CEFE0, dword_1CEFE4, dword_1CF0C8, bcopy, PresentScreen, sub_120650, sub_120680
-extern sub_12071C, SetScreenTarget, AllocMemBlock, FreeMemBlock, MakeColor, ClearScreen, tickcount, unk_1CEFE8
+extern dword_1CEFDC, dword_1CEFE0, dword_1CEFE4, dword_1CF0C8, bcopy, PresentScreen, CountVesaModes, FindModeByResolution
+extern SetModeByResolution, SetScreenTarget, AllocMemBlock, FreeMemBlock, MakeColor, ClearScreen, tickcount, unk_1CEFE8
 global AllocGfxFixBuffer, ProbeVideoModes, InitVideoModeList, GetVideoModeList, FindNearestVideoMode, PickVideoMode, NextVideoMode, PrevVideoMode
 global AddIdleHandler, RemoveIdleHandler, RunIdleHandlers, SetIdleContext
 ;-----------------------------------------------------------------------------
@@ -46,7 +46,7 @@ ProbeVideoModes:
         add esp, byte 0Ch
         xor esi, esi
         mov dword [dword_16E30C], eax
-        call sub_120650
+        call CountVesaModes
         mov dword [dword_16E2F8], 0FFFFFFFFh
         mov dword [dword_16E2F4], eax
 .1:
@@ -54,7 +54,7 @@ ProbeVideoModes:
         jge near .7
         push dword_1CEFC4
         push ebx
-        call sub_120680
+        call FindModeByResolution
         add esp, byte 8
         cmp dword [dword_1CEFC4], 280h
         jne short .3
@@ -78,12 +78,12 @@ ProbeVideoModes:
         add esp, byte 4
 .4:
         push ebx
-        call sub_12071C
+        call SetModeByResolution
         add esp, byte 4
         call AllocGfxFixBuffer
         push dword_1CEFC4
         push ebx
-        call sub_120680
+        call FindModeByResolution
         add esp, byte 8
 .5:
         cmp dword [dword_1CEFC4], 280h
@@ -173,7 +173,7 @@ InitVideoModeList:
         push dword_1CEFC4
         push dword [dword_16E2F8]
         mov dword [dword_16F8A8], 1
-        call sub_120680
+        call FindModeByResolution
         mov eax, dword [dword_16E464]
         add esp, byte 8
         cmp eax, dword [dword_1CEFC4]
@@ -205,7 +205,7 @@ InitVideoModeList:
 .6:
         push dword [dword_16E2F8]
         mov dword [dword_16E474], 1
-        call sub_12071C
+        call SetModeByResolution
         add esp, byte 4
         call AllocGfxFixBuffer
 .7:
@@ -268,7 +268,7 @@ FindNearestVideoMode:
         mov edx, dword [dword_16E304]
         mov eax, ebx
         push dword [edx+eax*4]
-        call sub_120680
+        call FindModeByResolution
         mov eax, dword [dword_1CEFC4]
         add esp, byte 8
         cmp eax, dword [byte ebp-0Ch]
@@ -299,7 +299,7 @@ FindNearestVideoMode:
         mov ebx, edi
         mov dword [dword_16E2FC], edi
         push dword [eax+ebx*4]
-        call sub_120680
+        call FindModeByResolution
         add esp, byte 8
 .5:
         push byte 14h
@@ -398,7 +398,7 @@ NextVideoMode:
         mov ecx, edx
         mov dword [dword_16E2FC], edx
         push dword [eax+ecx*4]
-        call sub_120680
+        call FindModeByResolution
         add esp, byte 8
         push byte 14h
         push ebx
@@ -444,7 +444,7 @@ PrevVideoMode:
         mov ecx, edx
         mov dword [dword_16E2FC], edx
         push dword [eax+ecx*4]
-        call sub_120680
+        call FindModeByResolution
         add esp, byte 8
         push byte 14h
         push ebx

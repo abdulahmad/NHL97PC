@@ -8,13 +8,14 @@ extern dword_1CF534, dword_1CF538, dword_1CF53C, dword_1CF540, dword_1CF544, dwo
 extern dword_1CF59C, dword_1CF5A0, dword_1CF5A4, dword_1CF5A8, dword_1CF5AC, dword_1CF5C4, dword_1CF5C8, dword_1DA4D0
 extern off_16E858, removewindow, sprintf_, bcopy, ConvertArtPalette16, NextTextByte, NextTextChar, BlitCore
 extern FreeMemBlock, ZeroMem, PrepareTextDraw, vsprintf_
-global jpt_FC910, sub_FC924_BA, sub_FC924_CB, sub_FC924_11F, sub_FC924_149, sub_FC924_153, FreeBitmap_30, sub_FCEA0_1C
-global sub_FC88C, sub_FC924, sub_FCACC, sub_FCC40, FreeBitmap, sub_FCE34, sub_FCE48, sub_FCE60
-global sub_FCEA0, sub_FCEEC
+global jpt_FC910, DebugShowLines_BA, DebugShowLines_CB, DebugShowLines_11F, DebugShowLines_149, DebugShowLines_153, FreeBitmap_30, CopyRowKeyed32_1C
+global DebugSetLine, DebugShowLines, DebugStatusLine, SelectFont, FreeBitmap, CopyRowKeyed8, CopyRowKeyed16, CopyRowKeyed24
+global CopyRowKeyed32, DrawShapeCore
 ;-----------------------------------------------------------------------------
-; sub_FC88C                                                            FC88C  
+; DebugSetLine                                    FC88C  97 PC, low confidence
+; Formats a debug message into one of the on-screen debug lines
 ;-----------------------------------------------------------------------------
-sub_FC88C:
+DebugSetLine:
         push ebx
         push esi
         sub esp, 104h
@@ -46,7 +47,7 @@ sub_FC88C:
         call vsprintf_
         mov eax, esp
         mov dword [dword esp+0100h], esi
-        call sub_FC924
+        call DebugShowLines
 .2:
         add esp, 104h
         pop esi
@@ -54,15 +55,16 @@ sub_FC88C:
         ret
         db 08Bh,0C0h
 jpt_FC910:
-        dd sub_FC924_BA
-        dd sub_FC924_CB
-        dd sub_FC924_11F
-        dd sub_FC924_149
-        dd sub_FC924_153
+        dd DebugShowLines_BA
+        dd DebugShowLines_CB
+        dd DebugShowLines_11F
+        dd DebugShowLines_149
+        dd DebugShowLines_153
 ;-----------------------------------------------------------------------------
-; sub_FC924                                                            FC924  
+; DebugShowLines                                  FC924  97 PC, low confidence
+; Draws the on-screen debug lines when debug output is on
 ;-----------------------------------------------------------------------------
-sub_FC924:
+DebugShowLines:
         push ebx
         push ecx
         push edx
@@ -74,7 +76,7 @@ sub_FC924:
         mov esi, dword [dword_16E630]
         mov edx, eax
         cmp dword [dword_16E628], byte 2
-        jl near sub_FC924_153.8
+        jl near DebugShowLines_153.8
         mov edi, eax
         sub ecx, ecx
         dec ecx
@@ -87,7 +89,7 @@ sub_FC924:
         mov dword [esp], ecx
         xor cl, cl
         test eax, eax
-        jle near sub_FC924_153.8
+        jle near DebugShowLines_153.8
         mov edi, edx
 .1:
         mov esi, dword [dword_16E630]
@@ -97,12 +99,12 @@ sub_FC924:
         mov al, byte [edi]
         xor cl, cl
         mov byte [byte_16E639], al
-        jmp near sub_FC924_153.7
+        jmp near DebugShowLines_153.7
 .2:
         mov cl, byte [edi]
         cmp cl, 20h
         jb short .3
-        call sub_FCACC
+        call DebugStatusLine
         xor ah, ah
         mov al, byte [byte_16E639]
         mov esi, dword [dword_16E630]
@@ -116,22 +118,22 @@ sub_FC924:
         add edx, eax
         mov eax, esi
         mov word [byte ebx+eax-02h], dx
-        jmp near sub_FC924_153.7
+        jmp near DebugShowLines_153.7
 .3:
         mov al, cl
         sub al, 8
         cmp al, 4
-        ja near sub_FC924_153.7
+        ja near DebugShowLines_153.7
         and eax, 0FFh
         jmp dword [nosplit cs:eax*4+jpt_FC910]
-sub_FC924_BA:
+DebugShowLines_BA:
         cmp ebx, byte 2
-        jl near sub_FC924_153.7
+        jl near DebugShowLines_153.7
         sub ebx, byte 2
-        jmp near sub_FC924_153.7
-sub_FC924_CB:
+        jmp near DebugShowLines_153.7
+DebugShowLines_CB:
         cmp byte [byte_16E63A], 1
-        jbe near sub_FC924_153.7
+        jbe near DebugShowLines_153.7
         mov dword [byte esp+04h], 0A0h
         mov edx, ebx
         mov eax, ebx
@@ -155,8 +157,8 @@ sub_FC924_CB:
         mov ebx, dword [byte esp+04h]
         add eax, eax
         add ebx, eax
-        jmp short sub_FC924_153.7
-sub_FC924_11F:
+        jmp short DebugShowLines_153.7
+DebugShowLines_11F:
         mov eax, ebx
         mov edx, ebx
         mov ebx, 0A0h
@@ -165,14 +167,14 @@ sub_FC924_11F:
         lea ebx, [byte eax+01h]
         imul ebx, dword 0A0h
         mov dword [dword_16E634], ebx
-        call sub_FCACC
+        call DebugStatusLine
         mov ebx, dword [dword_16E634]
-        jmp short sub_FC924_153.7
-sub_FC924_149:
+        jmp short DebugShowLines_153.7
+DebugShowLines_149:
         xor ebx, ebx
         mov bl, byte [byte_16E638]
-        jmp short sub_FC924_153.6
-sub_FC924_153:
+        jmp short DebugShowLines_153.6
+DebugShowLines_153:
         cmp dword [dword_16E628], byte 2
         jl short .5
         xor eax, eax
@@ -193,7 +195,7 @@ sub_FC924_153:
         inc ebp
         mov dword [dword_16E634], ebx
         cmp ebp, eax
-        jl near sub_FC924.1
+        jl near DebugShowLines.1
 .8:
         mov ebx, dword [dword_16E634]
         add esp, byte 0Ch
@@ -206,9 +208,10 @@ sub_FC924_153:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_FCACC                                                            FCACC  
+; DebugStatusLine                                 FCACC  97 PC, low confidence
+; Formats the date, time and frame counter into the debug status line
 ;-----------------------------------------------------------------------------
-sub_FCACC:
+DebugStatusLine:
         push ebx
         push ecx
         push edx
@@ -341,9 +344,11 @@ sub_FCACC:
         ret
         db 00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_FCC40                                                            FCC40  
+; SelectFont                                      FCC40  97 PC, low confidence
+; Makes a font current: reads its spacing and height and sets the text
+; pointers
 ;-----------------------------------------------------------------------------
-sub_FCC40:
+SelectFont:
         push ebx
         push esi
         mov edx, dword [byte esp+0Ch]
@@ -524,9 +529,10 @@ FreeBitmap_30:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_FCE34                                                            FCE34  
+; CopyRowKeyed8                                   FCE34  97 PC, low confidence
+; Copies a row of 8-bit pixels, skipping transparent (FFh) ones
 ;-----------------------------------------------------------------------------
-sub_FCE34:
+CopyRowKeyed8:
         push ecx
 .1:
         mov cl, byte [eax]
@@ -542,9 +548,10 @@ sub_FCE34:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_FCE48                                                            FCE48  
+; CopyRowKeyed16                                  FCE48  97 PC, low confidence
+; Copies a row of 16-bit pixels, skipping transparent (zero) ones
 ;-----------------------------------------------------------------------------
-sub_FCE48:
+CopyRowKeyed16:
         push ecx
 .1:
         mov cx, word [eax]
@@ -560,9 +567,10 @@ sub_FCE48:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_FCE60                                                            FCE60  
+; CopyRowKeyed24                                  FCE60  97 PC, low confidence
+; Copies a row of 24-bit pixels, skipping transparent (zero) ones
 ;-----------------------------------------------------------------------------
-sub_FCE60:
+CopyRowKeyed24:
         push ecx
         push esi
         push edi
@@ -594,9 +602,10 @@ sub_FCE60:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_FCEA0                                                            FCEA0  
+; CopyRowKeyed32                                  FCEA0  97 PC, low confidence
+; Copies a row of 32-bit pixels, skipping those with zero alpha
 ;-----------------------------------------------------------------------------
-sub_FCEA0:
+CopyRowKeyed32:
         push ecx
         push esi
 .1:
@@ -615,7 +624,7 @@ sub_FCEA0:
         pop ecx
         ret
         db 090h
-sub_FCEA0_1C:
+CopyRowKeyed32_1C:
         push ecx
         push esi
         push edi
@@ -639,9 +648,10 @@ sub_FCEA0_1C:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_FCEEC                                                            FCEEC  
+; DrawShapeCore                                   FCEEC  97 PC, low confidence
+; Draws a shape: sets up its palette and blits it through the blit engine
 ;-----------------------------------------------------------------------------
-sub_FCEEC:
+DrawShapeCore:
         push ebx
         push esi
         push edi
@@ -672,7 +682,7 @@ sub_FCEEC:
         mov eax, esi
         call ConvertArtPalette16
         mov dword [dword_1CF298], eax
-        mov dword [dword_16E870], sub_FCEA0_1C
+        mov dword [dword_16E870], CopyRowKeyed32_1C
 .3:
         mov ecx, off_16E858
         mov ebx, dword [dword esp+041Ch]
