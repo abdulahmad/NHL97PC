@@ -7,7 +7,7 @@ extern dword_16E468, dword_16E46C, dword_16E47C, dword_16E480, dword_16E484, dwo
 extern dword_16E4C8, dword_16E670, dword_16E6A8, dword_16E6AC, dword_16E6B0, dword_16E6B4, dword_16E6B8, dword_16E6BC
 extern dword_16E6CC, dword_16E6D0, dword_16E6D4, dword_16E6D8, dword_16E714, dword_16F894, dword_16F898, dword_16F8A8
 extern dword_16F8AC, dword_16F8B0, dword_16F8B4, dword_16F8B8, dword_16F9FC, dword_16FA00, dword_16FA04, dword_16FA08
-extern dword_172AAC, CurrentDrawContext, RowTableSize, dword_1DA4D0, int386_, int386x_, memset_, removewindow
+extern VideoModeHook, CurrentDrawContext, RowTableSize, dword_1DA4D0, int386_, int386x_, memset_, removewindow
 extern segread_, VesaSetBank, VesaSetModeCall, VgaSetModeNoClear, FillRowTable, BytesPerPixelForDepth, SetScreenTarget, AllocMemBlock
 extern FreeMemBlock, FreeBitmap
 global VesaGetModeInfo, VesaQueryMode, FindClosestMode, VesaSetMode, VesaSetWindow, CloseVideoWindow, SetGraphicsMode, WritePaletteRegs
@@ -362,7 +362,7 @@ SetGraphicsMode:
         push edi
         push ebp
         sub esp, 15Ch
-        mov edx, dword [dword_172AAC]
+        mov edx, dword [VideoModeHook]
         xor edi, edi
         test edx, edx
         je short .1
@@ -372,7 +372,7 @@ SetGraphicsMode:
         push ecx
         mov edi, dword [dword esp+0178h]
         push edi
-        call dword [dword_172AAC]
+        call dword [VideoModeHook]
         add esp, byte 0Ch
         mov edi, eax
         test eax, eax

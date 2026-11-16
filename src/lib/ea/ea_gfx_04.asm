@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_107000 progbits alloc exec nowrite align=1
-extern byte_172BC5, SampleBitsTable, SampleChannelsTable, byte_1DCF44, byte_1DCF67, byte_1DCF68, dword_16E4D0, AudioTimerOn
+extern SoundSystemOn, SampleBitsTable, SampleChannelsTable, byte_1DCF44, byte_1DCF67, byte_1DCF68, dword_16E4D0, AudioTimerOn
 extern AudioDriverNum, AudioExitHooked, dword_172AC0, dword_172AC4, SampleInfoTable, dword_1DCF38, dword_1DCF3E, dword_1DCF3F
 extern dword_1DCF62, AudioDriverOpenFns, AudioDriverCloseFns, AudioDriverUpdateFns, AudioDriverDetectFns, bcopy, AddExitHandler, DetectSoundCard
 extern ProbeSoundPorts, CloseDigitalAudio, StopChannel, DosOpenFile, DosCloseFile, DosReadFile, ReleaseBankSample, FindCachedFileData
@@ -127,7 +127,7 @@ RegisterSoundBank:
         push edi
         mov esi, eax
         mov ecx, edx
-        cmp byte [byte_172BC5], 0
+        cmp byte [SoundSystemOn], 0
         jne short .1
         mov eax, 0FFFFFFF6h
         pop edi
@@ -192,7 +192,7 @@ UnregisterSoundBank:
         push ecx
         push edx
         mov ebx, eax
-        cmp byte [byte_172BC5], 0
+        cmp byte [SoundSystemOn], 0
         jne short .1
         mov eax, 0FFFFFFF6h
         pop edx

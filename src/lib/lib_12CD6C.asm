@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_12CD6C progbits alloc exec nowrite align=1
-extern byte_172BC5, byte_1DCEC8, byte_1DCEC9, byte_1DCECA, byte_1DCECB, byte_1DCECE, byte_1DCECF, byte_1DCED4
+extern SoundSystemOn, byte_1DCEC8, byte_1DCEC9, byte_1DCECA, byte_1DCECB, byte_1DCECE, byte_1DCECF, byte_1DCED4
 extern byte_1DCED5, byte_1DCED6, byte_1DCED7, byte_1DCEDC, byte_1DCEDD, byte_1DCEDE, byte_1DCEDF, byte_1DCEE0
 extern byte_1DCEE1, byte_1DCEE2, byte_1DCEE3, byte_1DCEE4, byte_1DCEE5, byte_1DCEE6, byte_1DCEE7, byte_1DCF00
 extern byte_1DCF01, byte_1DCF02, byte_1DCF03, byte_1DCF04, byte_1DCF05, dword_172AC0, dword_1DC99C, dword_1DC9A0
@@ -279,7 +279,7 @@ PlayBankSample:
         push edi
         push ebp
         mov esi, eax
-        cmp byte [byte_172BC5], 0
+        cmp byte [SoundSystemOn], 0
         jne short .1
         mov eax, 0FFFFFFF6h
         jmp short .5
@@ -331,7 +331,7 @@ ChannelPosition:
         push ecx
         push edx
         mov edx, eax
-        cmp byte [byte_172BC5], 0
+        cmp byte [SoundSystemOn], 0
         jne short .1
         mov eax, 0FFFFFFF6h
         pop edx
@@ -366,7 +366,7 @@ ChannelPosition:
 ChannelTimeLeftLocked:
         push edx
         mov edx, eax
-        cmp byte [byte_172BC5], 0
+        cmp byte [SoundSystemOn], 0
         jne short .1
         mov eax, 0FFFFFFF6h
         pop edx

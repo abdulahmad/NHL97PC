@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_10B040 progbits alloc exec nowrite align=1
 extern str_Punct_DrawRinkSurface, str_Punct_SetScreenScale, ModelPartCount, ModelPartTable, ModelFrame, ModelPoints, ModelFlags, ModelInstance
-extern ModelSetupMode, RinkViewChanged, ModelPartIndex, off_170278, off_170284, off_170290, off_17029C, off_1702A8
+extern ModelSetupMode, RinkViewChanged, ModelPartIndex, RinkPrimNoOpFns, RinkPrimFlatFns, RinkPrimSetupFns, RinkPrimLineFns, RinkPrimEndFns
 extern SortIndices, SubVec3, TransformVecFull, SetRinkView, TransformRinkPoints, TransformRinkObject, ProjectRinkObject, DrawRinkPolyStrip
 extern DrawFlatPoly, DrawPolyOutline, CallModelPartFuncs, CallAllPartFuncs, ProjectPointsPersp, MultiplyMatrix, ProjectPoints, unk_17021C
 extern unk_170240
@@ -434,7 +434,7 @@ DrawModelPartPolys:
         mov edi, dword [byte ebp+0Ch]
         push edi
         push eax
-        call dword [dword ecx+off_170278]
+        call dword [dword ecx+RinkPrimNoOpFns]
         jmp near .12
 .5:
         mov dl, byte [byte esp+01h]
@@ -452,14 +452,14 @@ DrawModelPartPolys:
         push edx
         shr ecx, 1Ch
         push eax
-        call dword [nosplit ecx*4+off_170290]
+        call dword [nosplit ecx*4+RinkPrimSetupFns]
         jmp short .12
 .7:
         push ebx
         mov edi, dword [byte ebp+0Ch]
         push edi
         push eax
-        call dword [dword ecx+off_170284]
+        call dword [dword ecx+RinkPrimFlatFns]
         jmp short .12
 .8:
         cmp dword [ModelFlags], byte 0
@@ -472,7 +472,7 @@ DrawModelPartPolys:
         shl ecx, 19h
         push eax
         shr ecx, 1Ch
-        call dword [nosplit ecx*4+off_1702A8]
+        call dword [nosplit ecx*4+RinkPrimEndFns]
         add esp, byte 8
         test byte [byte esp+01h], 8
         je short .14
@@ -481,7 +481,7 @@ DrawModelPartPolys:
 .10:
         push ebx
         push eax
-        call dword [dword ecx+off_17029C]
+        call dword [dword ecx+RinkPrimLineFns]
         add esp, byte 8
         test byte [byte esp+01h], 8
         je short .14

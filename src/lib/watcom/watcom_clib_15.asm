@@ -5,7 +5,7 @@ section s_11B20A progbits alloc exec nowrite align=1
 extern SetClipWindow, __flush_, __fprtf_, __int386x_, __ioalloc_, __qwrite_, __set_errno_, str_ATD2
 extern str_EAGAME08x04x04x02x02x02x0, str_Netserv, str_IPXINTF, str_IPXSOCK, str_Galloc, str_GMEM, str_GEND, str_GFRE
 extern str_Punct_FreeArtArchive, byte_172250, byte_172251, byte_1DA8CF, dword_16E3F4, dword_16E46C, str_D_UpdateFrameRate, dword_16E4BC
-extern dword_16E4C8, dword_1702CC, str_Punct_CountFrameTick, dword_17213C, dword_172168, dword_172194, dword_172198, str_D_NetHandleMessage
+extern dword_16E4C8, SinTable, str_Punct_CountFrameTick, dword_17213C, dword_172168, dword_172194, dword_172198, str_D_NetHandleMessage
 extern dword_1721A0, str_Punct_NetLeaveGame, dword_1721A8, dword_1721B0, dword_1721B4, dword_1721D4, dword_1721E0, dword_1721E4
 extern dword_172244, str_Punct_IpxHookCheck, dword_17224C, dword_172254, dword_172258, dword_17225C, dword_172260, dword_1722BC
 extern TextOriginX, TextOriginY, LinkTextFont, NetLocalName, NetPollState, NetSendFn, NetDisconnectFn, NetOpenFn
@@ -1324,7 +1324,7 @@ DrawShadowRect:
         xor eax, ecx
         and eax, 0FFh
         sub eax, ecx
-        mov eax, dword [nosplit eax*4+dword_1702CC]
+        mov eax, dword [nosplit eax*4+SinTable]
         xor eax, edx
         sub eax, edx
         mov edx, eax
@@ -1342,7 +1342,7 @@ DrawShadowRect:
         xor eax, ecx
         and eax, 0FFh
         sub eax, ecx
-        mov eax, dword [nosplit eax*4+dword_1702CC]
+        mov eax, dword [nosplit eax*4+SinTable]
         xor eax, edx
         sub eax, edx
         mov edx, eax

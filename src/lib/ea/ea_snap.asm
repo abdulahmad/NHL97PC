@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_121B00 progbits alloc exec nowrite align=1
-extern _Extender, __8087, __hook387, __real87, byte_1725A4, dword_170704, dword_172524, dword_172564
-extern jpt_132AF0_100, jpt_132AF0_170, str_Punct_InitFpuFlags, word_17070A, word_172568, word_17256A
+extern _Extender, __8087, __hook387, __real87, Is8087, dword_170704, FpuSystemFlags, OldFpuVectorOffset
+extern jpt_132AF0_100, jpt_132AF0_170, str_Punct_InitFpuFlags, word_17070A, OldFpuVectorSelector, FpuCr0Bits
 global InitFpuFlags, MakeFpuGate, HookCoprocessorVector, SetSystemFpuFlag
 ;-----------------------------------------------------------------------------
 ; InitFpuFlags                                                   121B00  95 PC
@@ -12,14 +12,14 @@ InitFpuFlags:
         mov byte [__8087], 3
         mov byte [__real87], 1
         db 066h,0Fh,01h,025h
-        dd word_17256A
-        and word [word_17256A], byte 6
+        dd FpuCr0Bits
+        and word [FpuCr0Bits], byte 6
         sub esp, byte 8
         sidt [esp]
         mov ebx, dword [byte esp+02h]
         add ebx, byte 38h
         add esp, byte 8
-        cmp byte [byte_1725A4], 0
+        cmp byte [Is8087], 0
         je short .1
         call MakeFpuGate
         o16 mov es, word [word_17070A]
@@ -90,8 +90,8 @@ HookCoprocessorVector:
         mov cl, 7
         mov ax, 2502h
         int 21h
-        mov dword [dword_172564], ebx
-        o16 mov word [word_172568], es
+        mov dword [OldFpuVectorOffset], ebx
+        o16 mov word [OldFpuVectorSelector], es
         cmp byte [_Extender], 3
         mov cl, 7
         mov ax, 2504h
@@ -120,11 +120,11 @@ HookCoprocessorVector:
 ;-----------------------------------------------------------------------------
 SetSystemFpuFlag:
         xor ebx, ebx
-        lea edx, [dword_172524]
+        lea edx, [FpuSystemFlags]
         mov ax, 2535h
         int 21h
-        or dword [dword_172524], byte 4
-        and dword [dword_172524], byte 0FFFFFFFDh
+        or dword [FpuSystemFlags], byte 4
+        and dword [FpuSystemFlags], byte 0FFFFFFFDh
         inc ebx
         int 21h
         ret

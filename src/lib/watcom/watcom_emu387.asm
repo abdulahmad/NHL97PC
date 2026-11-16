@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_132C84 progbits alloc exec nowrite align=1
-extern _dos_setvect_, byte_199CD4, byte_199CD5, byte_199CE4, dword_1725AD, jpt_1329F0, jpt_132AF0, jpt_132AF0_170
+extern _dos_setvect_, byte_199CD4, byte_199CD5, byte_199CE4, FpuInitHook, jpt_1329F0, jpt_132AF0, jpt_132AF0_170
 extern str_RATIONALDOS4G, RestoreDS, unk_132878, unk_13287C, unk_132880, str_Punct_jpt, str_F, unk_132886
 extern unk_1328D2, unk_1328D4, unk_1328D8, unk_1328DA, unk_132922, unk_132926, unk_132930, unk_132990
 extern unk_199C58, unk_1DE6C0
@@ -246,7 +246,7 @@ RaiseFpuError:
         cld
         rep movsd
         movzx eax, ah
-        call dword [dword_1725AD]
+        call dword [FpuInitHook]
         mov cx, ds
         mov es, cx
         mov cx, ss

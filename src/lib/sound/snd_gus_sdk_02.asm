@@ -4,7 +4,7 @@ bits 32
 section s_1396E0 progbits alloc exec nowrite align=1
 extern _Extender, _STACKLOW, __null_int23_exit_, _chain_intr_, _dos_close_, _dos_getvect_, _dos_open_, _dos_read_
 extern _dos_setvect_, GusDmaLatchBits, GusDmaPageTable, GusDmaReady, GusPlayDmaChannel, GusRecordDmaChannel, GusMidiIrq, GusWaveIrq
-extern GusDmaControl, dword_17259C, GusIrqOldHandler, GusMidiPending, GusMidiIrqCount, GusTimerCallback, GusDmaDoneCallback, GusRecordDoneCallback
+extern GusDmaControl, BreakSaveStack, GusIrqOldHandler, GusMidiPending, GusMidiIrqCount, GusTimerCallback, GusDmaDoneCallback, GusRecordDoneCallback
 extern GusWaveCallback, GusVolumeCallback, GusTimer1Callback, GusTimer2Callback, GusWaveIrqCallback, GusVolumeIrqCallback, GusMidiXmitCallback, GusMidiRecvCallback
 extern GusDmaBusy, OldInt23Offset, OldCtrlBreakOffset, OldInt23RealOffset, OldCtrlBreakRealOffset, DpmiHostedFlag, GusVoiceIrqBits, GusDmaLeft
 extern GusDmaChunkSize, GusDmaDone, inp_, kaufmfont, lseek_, off_171C80, outp_, raise_
@@ -2167,7 +2167,7 @@ __int23_handler_:
         mov dx, bx
         mov eax, ecx
         mov esi, dword [_STACKLOW]
-        mov edi, dword [dword_17259C]
+        mov edi, dword [BreakSaveStack]
         mov ecx, edx
         mov edx, BreakHandlerRegs
         mov ebx, eax
@@ -2226,7 +2226,7 @@ __int_ctrl_break_handler_:
         mov dx, bx
         mov eax, ecx
         mov esi, dword [_STACKLOW]
-        mov edi, dword [dword_17259C]
+        mov edi, dword [BreakSaveStack]
         mov ecx, edx
         mov edx, BreakHandlerRegs
         mov ebx, eax

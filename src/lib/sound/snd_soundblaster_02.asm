@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_12C604 progbits alloc exec nowrite align=1
-extern byte_172BC5, byte_1DCF3B, byte_1DCF45, byte_1DCF47, byte_1DCF67, SbChannelVoice, SbChannelFlags, dword_199734
+extern SoundSystemOn, byte_1DCF3B, byte_1DCF45, byte_1DCF47, byte_1DCF67, SbChannelVoice, SbChannelFlags, dword_199734
 extern dword_1DCF38, dword_1DCF48, dword_1DCF78, dword_1DD37C, dword_1DD37E, SbChannelSlots, SbChannelCount, getenv_
 extern str_BLASTER, Random32, SetChannelPitch, StopChannel, AudioEnter, AudioLeaveCheck, ReturnArg, SbBasePort
 extern SbIrq, SbMixerAddrPort, SbMixerDataPort, SbResetPort, SbWritePort, SbReadPort
@@ -530,7 +530,7 @@ RampChannelVolume:
         push ecx
         mov ecx, eax
         mov ebx, edx
-        cmp byte [byte_172BC5], 0
+        cmp byte [SoundSystemOn], 0
         jne short .1
         mov eax, 0FFFFFFF6h
         pop ecx

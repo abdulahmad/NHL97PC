@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_13B0C9 progbits alloc exec nowrite align=1
 extern __Bin2String, __CmpBigInt, __Rnd2Int, __doserror_, __fdiv_m64, __flush_, __ioalloc_, __log87_err_
-extern byte_17268C, str_Inf, str_Nan, dword_16844C, dword_168450, dword_168454, dword_168458, dword_168462
+extern MathErrorFlags, str_Inf, str_Nan, dword_16844C, dword_168450, dword_168454, dword_168458, dword_168462
 extern fputc_, frexp_, modf_, F64_neg1_floor_, qword_16843C, qword_168444, qword_16845E, matherr
 extern unk_16845C, unk_1722C0
 global IF@LOG, IF@LOG10, IF@LOG2, _Scale10V_, _Scale_, __Nan_Inf_, __cvt_, __get_std_stream_
@@ -236,7 +236,7 @@ _Scale10V_:
         cmp edx, 134h
         jle short .8
         fld qword [byte esp+020h]
-        test byte [byte_17268C], 1
+        test byte [MathErrorFlags], 1
         je short .4
         push dword [dword_168462]
         push dword [qword_16845E]
@@ -281,7 +281,7 @@ _Scale10V_:
         test ecx, ecx
         jge short .13
         fld qword [byte esp+020h]
-        test byte [byte_17268C], 1
+        test byte [MathErrorFlags], 1
         je short .12
         push dword [byte esp+04h]
         push dword [byte esp+04h]

@@ -52,7 +52,7 @@
 #define SYM__psp               0x172580u   /* data/lib/ea/ea_memman_02_data_01.asm */
 #define SYM__STACKLOW          0x172584u   /* data/lib/ea/ea_memman_02_data_01.asm */
 #define SYM__STACKTOP          0x172588u   /* data/lib/ea/ea_memman_02_data_01.asm */
-#define SYM_dword_17258C       0x17258Cu   /* data/lib/ea/ea_memman_02_data_01.asm */
+#define SYM_CMainEnv           0x17258Cu   /* data/lib/ea/ea_memman_02_data_01.asm */
 #define SYM___no87             0x1725A0u   /* data/lib/ea/ea_memman_02_data_01.asm */
 #define SYM__Extender          0x1725A2u   /* data/lib/ea/ea_memman_02_data_01.asm */
 #define SYM__ExtenderSubtype   0x1725A3u   /* data/lib/ea/ea_memman_02_data_01.asm */

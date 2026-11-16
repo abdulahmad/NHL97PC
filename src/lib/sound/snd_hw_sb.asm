@@ -4,10 +4,10 @@ bits 32
 section s_13794C progbits alloc exec nowrite align=1
 extern _DoINTR_, _Extender, _ExtenderSubtype, _IsTable, __fatal_runtime_error_, __set_errno_, _dos_getvect_, _dos_setvect_
 extern str_UnableToAllocateRealModeS, str_UnableToSetLimitOfRealMod, str_NoErrorInXACODECFunctionL, str_InvalidErrorCodeInXACODEC, byte_150000, byte_150004, byte_150008, byte_15000C
-extern byte_150010, byte_150014, byte_1725A4, DmaPagePorts, DmaMaskPorts, DmaModePorts, DmaClearPorts, DmaAddressPorts
+extern byte_150010, byte_150014, Is8087, DmaPagePorts, DmaMaskPorts, DmaModePorts, DmaClearPorts, DmaAddressPorts
 extern DmaCountPorts, TimerIrqMask, TimerChainFlag, TimerPitMode, TimerInstalled, dword_16E67C, dword_16E684, StrToLongLimits
-extern IrqAckLast, FloatPow10Table, FloatPow10Exponents, FloatFormatDigits, FloatFormatExponent, FloatFormatMantissaLo, FloatFormatMantissaHi, dword_1DD398
-extern dword_1DD3A8, TimerOldHandler, TimerOldRealHandler, TimerDivisor, TimerChainCount, int386_, str_RMHandler, AllocMemData
+extern IrqAckLast, FloatPow10Table, FloatPow10Exponents, FloatFormatDigits, FloatFormatExponent, FloatFormatMantissaLo, FloatFormatMantissaHi, DacTimerRate
+extern DacTimerDivisor, TimerOldHandler, TimerOldRealHandler, TimerDivisor, TimerChainCount, int386_, str_RMHandler, AllocMemData
 extern FreeMemBlock, tolower_, word_17070A, TimerOldOffsetLo, TimerOldSelector, DbcsLeadTable
 global fini_, init_, jpt_138417, jpt_1386D1, jpt_138859, unk_137FE1_2, StrToLong_166, jpt_138417_64
 global jpt_138417_74, jpt_138417_84, jpt_138417_94, ScanFloat_24, ScanFloat_34, ScanFloat_44, ScanFloat_54, TimerCalibrate
@@ -227,7 +227,7 @@ TimerInstall:
 .1:
         mov al, 1
         call TimerSetDivisor
-        mov eax, dword [dword_1DD398]
+        mov eax, dword [DacTimerRate]
         call TimerWritePit
         call TimerTicksForRate
         mov al, 0
@@ -237,7 +237,7 @@ TimerInstall:
         call TimerWritePit
         mov eax, 700h
         call TimerWritePit
-        mov ebx, dword [dword_1DD3A8]
+        mov ebx, dword [DacTimerDivisor]
         mov dword [TimerOldHandler], ebx
         shr ebx, 1
         mov dword [TimerOldRealHandler], ebx
@@ -2095,7 +2095,7 @@ init_:
         mov al, byte [_Extender]
         cmp eax, byte 3
         jne short .2
-        cmp byte [byte_1725A4], 0
+        cmp byte [Is8087], 0
         je short .2
         mov ax, word [word_17070A]
 .1:

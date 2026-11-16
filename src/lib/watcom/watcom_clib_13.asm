@@ -18,7 +18,7 @@ extern dword_16E69C, dword_16E6A0, dword_16E6A8, dword_16F184, dword_16FA08, Res
 extern dword_1706F8, dword_170704, dword_17070C, dword_170710, dword_170714, dword_170754, dword_170758, dword_170760
 extern dword_1707E4, dword_1707EA, dword_1707F0, dword_1709D8, dword_1709ED, dword_1709F1, dword_1709F8, dword_170AF8
 extern dword_170AFC, dword_170B00, dword_170B04, dword_170B08, dword_170B0C, dword_170B10, dword_171C88, dword_171C8C
-extern dword_1724C9, dword_17257C, dword_172ABC, dword_199888, dword_1999BC, dword_1999C0, dword_19C690, dword_19C694
+extern dword_1724C9, StackLow, dword_172ABC, dword_199888, dword_1999BC, dword_1999C0, dword_19C690, dword_19C694
 extern dword_19C698, dword_19C69C, dword_19C6A0, dword_19C6A4, dword_19C6A8, dword_19C6AC, dword_19C6B0, F32_0p541196
 extern F32_1p30656, F32_0p382683, F32_6p7554e15, dword_1CF260, dword_1CF264, dword_1CF268, TextOriginX, ModelSetupMode
 extern dword_1D91C8, dword_1D91CC, dword_1D9404, dword_1D940C, dword_1D9410, dword_1D960C, dword_1D9610, dword_1D9810
@@ -5756,7 +5756,7 @@ start_74:
         add eax, byte 0Fh
         and al, 0F0h
         mov dword [_LpCmdLine], eax
-        mov dword [dword_17257C], esi
+        mov dword [StackLow], esi
         mov eax, 0FFh
         call __InitRtns
         sub ebp, ebp

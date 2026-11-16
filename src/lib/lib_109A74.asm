@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_109A74 progbits alloc exec nowrite align=1
-extern byte_170160, byte_170161, byte_172BC5, dword_17015C, dword_170164, dword_170200, dword_170204, dword_170208
-extern dword_17020C, dword_170210, dword_170214, dword_172AC0, dword_172BC8, AsyncRequests, AsyncCurFile, AsyncCurOffset
+extern byte_170160, byte_170161, SoundSystemOn, dword_17015C, dword_170164, dword_170200, dword_170204, dword_170208
+extern dword_17020C, dword_170210, dword_170214, dword_172AC0, SpeechQueueVolume, AsyncRequests, AsyncCurFile, AsyncCurOffset
 extern AsyncFreeList, AsyncCurBuffer, AsyncQueueHead, AsyncQueueTail, AsyncReadLength, AsyncState, AsyncFileHandle, AsyncError
 extern AsyncDosRegs, AsyncDosResult, AsyncSector, AsyncSectorCount, AsyncBytesLeft, AsyncDest, AsyncCallback, AsyncWaitTimer
 extern AsyncStreamFile, AsyncStreamBase, AsyncStreamSize, AsyncTickCount, AsyncLastSector, AsyncStreamPos, AsyncChunkSize, AsyncChunkDest
@@ -1172,7 +1172,7 @@ StartSpeechQueue:
         push edi
         push ebp
         mov edx, eax
-        cmp byte [byte_172BC5], 0
+        cmp byte [SoundSystemOn], 0
         jne short .1
         mov eax, 0FFFFFFF6h
         pop ebp
@@ -1203,7 +1203,7 @@ StartSpeechQueue:
         mov ebp, 1
         mov dword [dword_17020C], edx
         xor eax, eax
-        mov dword [dword_172BC8], edi
+        mov dword [SpeechQueueVolume], edi
         mov dword [dword_17015C], ebp
         pop ebp
         pop edi
@@ -1213,7 +1213,7 @@ StartSpeechQueue:
         db 08Dh,040h,00h
         push ebx
         push edx
-        cmp byte [byte_172BC5], 0
+        cmp byte [SoundSystemOn], 0
         jne short .4
         mov eax, 0FFFFFFF6h
         pop edx
@@ -1256,7 +1256,7 @@ QueueSpeechClip:
         sub esp, byte 8
         mov dword [esp], eax
         mov dword [byte esp+04h], edx
-        cmp byte [byte_172BC5], 0
+        cmp byte [SoundSystemOn], 0
         jne short .1
         mov eax, 0FFFFFFF6h
         jmp near .5
@@ -1349,7 +1349,7 @@ SpeechQueueGo:
 ;-----------------------------------------------------------------------------
 StopSpeechQueue:
         push ebx
-        cmp byte [byte_172BC5], 0
+        cmp byte [SoundSystemOn], 0
         jne short .1
         mov eax, 0FFFFFFF6h
         pop ebx
@@ -1383,7 +1383,7 @@ StopSpeechQueue:
 ; Returns 3 while the speech queue runs, 2 when idle, or an error
 ;-----------------------------------------------------------------------------
 SpeechQueueState:
-        cmp byte [byte_172BC5], 0
+        cmp byte [SoundSystemOn], 0
         jne short .1
         mov eax, 0FFFFFFF6h
         ret
@@ -1408,7 +1408,7 @@ SpeechQueueState:
 ShutdownSpeechQueue:
         push ecx
         push esi
-        cmp byte [byte_172BC5], 0
+        cmp byte [SoundSystemOn], 0
         jne short .1
         mov eax, 0FFFFFFF6h
         pop esi
@@ -1423,7 +1423,7 @@ ShutdownSpeechQueue:
         ret
 .2:
         call AudioEnter
-        cmp byte [byte_172BC5], 0
+        cmp byte [SoundSystemOn], 0
         je short .3
         cmp dword [dword_17015C], byte 0
         je short .3
@@ -1438,7 +1438,7 @@ ShutdownSpeechQueue:
         call AudioLeaveCheck
 .3:
         xor esi, esi
-        mov dword [dword_172BC8], esi
+        mov dword [SpeechQueueVolume], esi
         call AudioLeaveCheck
         mov dword [dword_17015C], esi
         xor eax, eax
@@ -1530,7 +1530,7 @@ SetChannelVolumeChecked:
         mov esi, eax
         mov ecx, edx
         mov edx, ebx
-        cmp byte [byte_172BC5], 0
+        cmp byte [SoundSystemOn], 0
         jne short .1
         mov eax, 0FFFFFFF6h
         pop esi

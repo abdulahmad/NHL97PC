@@ -18,7 +18,7 @@ extern dword_1691E0, dword_169224, dword_169228, dword_16922C, dword_169230, dwo
 extern dword_169264, dword_169278, dword_16927A, dword_16927C, dword_16927E, dword_169280, dword_169844, dword_1698AF
 extern dword_169996, dword_16AEB4, dword_16AF30, dword_16AF34, dword_16AF38, dword_16AF3C, dword_16AF48, dword_16AF54
 extern dword_16AF68, dword_16B164, dword_16B168, dword_16DA9C, dword_16E464, dword_16E468, str_Punct_DrawRinkSurface, dword_16F144
-extern dword_16F148, dword_17025C, str_D_ProjectPointsPersp, dword_170264, dword_170268, dword_170274, dword_1702CC, dword_1AC790
+extern dword_16F148, dword_17025C, str_D_ProjectPointsPersp, dword_170264, dword_170268, dword_170274, SinTable, dword_1AC790
 extern dword_1AC794, dword_1AC798, dword_1AC79C, dword_1AC810, dword_1AC814, dword_1AC819, dword_1AC944, dword_1AD748
 extern dword_1ADBF8, dword_1ADC70, dword_1ADC74, dword_1ADC78, dword_1ADC7C, dword_1ADC80, dword_1ADC84, dword_1ADC88
 extern dword_1ADC8C, dword_1ADC90, dword_1ADC94, dword_1ADC98, dword_1ADC9C, dword_1ADCA8, dword_1ADCB8, dword_1ADCC0
@@ -51,8 +51,8 @@ extern dword_1B1010, dword_1B101C, dword_1B1024, dword_1B1028, dword_1B102C, dwo
 extern dword_1B103C, dword_1B1040, dword_1B1044, dword_1B1048, dword_1B104C, dword_1B1050, dword_1B1054, dword_1B1058
 extern dword_1B105C, dword_1B1060, dword_1B1064, dword_1B108C, dword_1B10D0, dword_1B10DC, dword_1B10E0, dword_1B10E4
 extern dword_1B10E8, dword_1B10F4, dword_1B10F8, dword_1B1108, dword_1B1114, dword_1B1118, dword_1B1410, dword_1B857C
-extern dword_1B905F, dword_1B9067, dword_1C13C0, dword_1C34E3, ProjDetailScale, ViewOriginY, ViewWidth, dword_1D2054
-extern dword_1D2058, dword_1D205C, hypot_, jpt_48D20, jpt_48D50, memcpy_, openhandle, printf_
+extern dword_1B905F, dword_1B9067, dword_1C13C0, dword_1C34E3, ProjDetailScale, ViewOriginY, ViewWidth, TextureTileSize
+extern TexturePageBase, TextureDetail, hypot_, jpt_48D20, jpt_48D50, memcpy_, openhandle, printf_
 extern F64_0p5_ScaleLineWidth, F64_1p5708_InitRinkView, F64_0p31831, F64_65536_InitRinkView, F64_0p04, F64_6p28319_DrawCreaseArc, F64_6p28319_BuildRinkGeometry, F64_80
 extern F64_110, F64_40, F64_0p00138889, F64_65536_DrawScoreboard, F64_0p31831_UpdateScoreboardSpin, F64_0p5_UpdateScoreboardSpin, F64_65536_UpdateScoreboardSpin, rand_
 extern sprintf_, str_Botboards, str_Center, str_CrowdD, str_EMPTYFSH, str_FatBlueLines, str_FatRedLines, str_Glass
@@ -4725,7 +4725,7 @@ BuildTexturePage:
         mov ebp, eax
         mov dword [byte esp+064h], ebx
         mov esi, dword [edx]
-        mov ecx, dword [dword_1D2058]
+        mov ecx, dword [TexturePageBase]
         shl esi, 3
         lea edi, [byte esp+03Ch]
         add esi, ecx
@@ -4734,7 +4734,7 @@ BuildTexturePage:
         mov ebx, dword [edx]
         lea eax, [nosplit ebx*4+00h]
         sub eax, ebx
-        mov ebx, dword [dword_1D205C]
+        mov ebx, dword [TextureDetail]
         shl eax, 2
         mov edi, esp
         lea esi, [ebx+eax]
@@ -4831,7 +4831,7 @@ BuildTextureTile:
         mov ebp, ecx
 .1:
         mov esi, dword [byte ebp+00h]
-        mov ecx, dword [dword_1D2058]
+        mov ecx, dword [TexturePageBase]
         shl esi, 3
         lea edi, [dword esp+eax+0B4h]
         add esi, ecx
@@ -4839,14 +4839,14 @@ BuildTextureTile:
         movsd
         imul ecx, dword [byte ebp+00h], byte 0Ch
         mov edi, dword [dword esp+0104h]
-        mov esi, dword [dword_1D205C]
+        mov esi, dword [TextureDetail]
         lea edi, [esp+edi]
         add esi, ecx
         movsd
         movsd
         movsd
         mov ecx, dword [edx]
-        mov esi, dword [dword_1D2054]
+        mov esi, dword [TextureTileSize]
         shl ecx, 3
         add esi, ecx
         mov cl, bl
@@ -4857,7 +4857,7 @@ BuildTextureTile:
         mov dword [byte esp+eax+064h], esi
         add ebp, byte 4
         mov ecx, dword [byte edx-04h]
-        mov esi, dword [dword_1D2054]
+        mov esi, dword [TextureTileSize]
         shl ecx, 3
         mov edi, dword [dword esp+0104h]
         add esi, ecx
@@ -4908,7 +4908,7 @@ SetTextureDetail:
         mov ebx, eax
         mov eax, edx
         mov edx, dword [byte eax+ebx*4-04h]
-        mov ecx, dword [dword_1D2058]
+        mov ecx, dword [TexturePageBase]
         shl edx, 3
         add edx, ecx
         mov ecx, dword [edx]
@@ -4921,12 +4921,12 @@ SetTextureDetail:
         cmp ebx, byte 0FFFFFFFFh
         je short .3
         imul edi, dword [eax], byte 0Ch
-        mov esi, dword [dword_1D2058]
+        mov esi, dword [TexturePageBase]
         mov ecx, dword [eax]
         mov dword [esp], edi
         shl ecx, 3
         mov ebp, dword [esp]
-        mov edi, dword [dword_1D205C]
+        mov edi, dword [TextureDetail]
         add ecx, esi
         add edi, ebp
         mov esi, dword [ecx]
@@ -7770,7 +7770,7 @@ DrawStandsRow:
         xor eax, eax
 .1:
         imul ecx, dword [edx], byte 0Ch
-        mov esi, dword [dword_1D205C]
+        mov esi, dword [TextureDetail]
         lea edi, [esp+ebx]
         add esi, ecx
         movsd
@@ -7778,7 +7778,7 @@ DrawStandsRow:
         movsd
         add eax, byte 8
         mov esi, dword [edx]
-        mov ecx, dword [dword_1D2058]
+        mov ecx, dword [TexturePageBase]
         shl esi, 3
         lea edi, [byte esp+eax+070h]
         add esi, ecx
@@ -7807,7 +7807,7 @@ DrawStandsRow:
         xor eax, eax
 .3:
         imul ebx, dword [edx], byte 0Ch
-        mov esi, dword [dword_1D205C]
+        mov esi, dword [TextureDetail]
         lea edi, [esp+eax]
         add esi, ebx
         add eax, byte 0Ch
@@ -7867,26 +7867,26 @@ DrawStandsSection:
         mov dword [dword esp+0120h], esi
 .1:
         imul esi, dword [ebx], byte 0Ch
-        mov ecx, dword [dword_1D205C]
+        mov ecx, dword [TextureDetail]
         lea edi, [esp+ebp]
         add esi, ecx
         movsd
         movsd
         movsd
         mov ecx, dword [ebx]
-        mov esi, dword [dword_1D2058]
+        mov esi, dword [TexturePageBase]
         shl ecx, 3
         lea edi, [byte esp+eax+078h]
         add esi, ecx
         movsd
         movsd
-        mov ecx, dword [dword_1D2054]
+        mov ecx, dword [TextureTileSize]
         mov esi, dword [edx]
         mov ecx, dword [ecx+esi*8]
         shl ecx, 10h
         mov dword [dword esp+eax+0C8h], ecx
         add edx, byte 4
-        mov esi, dword [dword_1D2054]
+        mov esi, dword [TextureTileSize]
         mov ecx, dword [byte edx-04h]
         add eax, byte 8
         add ebp, byte 0Ch
@@ -7920,7 +7920,7 @@ DrawStandsSection:
         xor eax, eax
 .3:
         imul ebx, dword [edx], byte 0Ch
-        mov esi, dword [dword_1D205C]
+        mov esi, dword [TextureDetail]
         lea edi, [esp+eax]
         add esi, ebx
         add eax, byte 0Ch
@@ -10581,7 +10581,7 @@ UpdateBenchCheer:
         xor eax, ecx
         and eax, 0FFh
         sub eax, ecx
-        mov eax, dword [nosplit eax*4+dword_1702CC]
+        mov eax, dword [nosplit eax*4+SinTable]
         xor eax, edx
         sub eax, edx
         mov edx, eax

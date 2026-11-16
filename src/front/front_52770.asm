@@ -8,7 +8,7 @@ extern str_Boxback, str_B00, str_XD, str_FaceoffD, str_Flash, str_Fla0, str_Fla1
 extern str_Light6, str_BOGIE, str_Front, byte_1B0300, byte_1B1378, byte_1B8580, byte_1B8581, byte_1B8582
 extern dword_16AF40, dword_16AF44, dword_16AF48, dword_16AF4C, dword_16AF50, dword_16AF58, dword_16AF5C, dword_16AF60
 extern dword_16AF64, dword_16AF68, dword_16AF9C, dword_16AFAC, dword_16B174, dword_16B550, dword_16E464, dword_16E468
-extern str_Punct_DrawRinkSurface, dword_16E676, dword_16E67A, dword_16E67E, dword_16E682, dword_1702CC, dword_1A8E60, dword_1AC364
+extern str_Punct_DrawRinkSurface, dword_16E676, dword_16E67A, dword_16E67E, dword_16E682, SinTable, dword_1A8E60, dword_1AC364
 extern dword_1ADC88, dword_1ADC8C, dword_1ADC90, dword_1ADC98, dword_1ADCEC, dword_1ADCF8, dword_1ADD04, dword_1ADD10
 extern dword_1AE3F8, dword_1AF254, dword_1AF2B8, dword_1AFC48, dword_1AFD10, dword_1B0008, dword_1B0018, dword_1B001C
 extern dword_1B0020, dword_1B0024, dword_1B0028, dword_1B0038, dword_1B0068, dword_1B0074, dword_1B0088, dword_1B0208
@@ -34,7 +34,7 @@ extern dword_1B10D0, dword_1B10D4, dword_1B10D8, dword_1B10E8, dword_1B10F4, dwo
 extern dword_1B13C8, dword_1B1410, dword_1B82DC, dword_1B82E0, dword_1B8300, dword_1B8318, dword_1B8330, dword_1B833C
 extern dword_1B834C, dword_1B8358, dword_1B8364, dword_1B8368, dword_1B8374, dword_1B838C, dword_1B8398, dword_1B83A4
 extern dword_1B83C8, dword_1B83D4, dword_1B83E0, dword_1B83EC, dword_1B841C, dword_1B8444, dword_1B8478, dword_1B853C
-extern dword_1B8550, dword_1B857F, dword_1B905F, ViewOriginX, ViewOriginY, ViewWidth, ViewHeight, dword_1D205C
+extern dword_1B8550, dword_1B857F, dword_1B905F, ViewOriginX, ViewOriginY, ViewWidth, ViewHeight, TextureDetail
 extern DrawCenterCircle_30, F64_3p14159_DrawPortraitModels, F64_neg3p14159_DrawPortraitModels, F64_0p6_FaceDistance, qword_1617EE, F64_0p6_SetModelHeading, sprintf_, str_Benchbk
 extern str_Benchdiv, str_Benchx, str_Benchz0, str_Benchz1, str_Boardback, str_Botboards, str_Center, str_Crease
 extern str_Door00, str_Door01, str_Door02, str_Door10, str_Door11, str_Door12, str_DoorZ0, str_DoorZ1
@@ -3137,7 +3137,7 @@ DrawRinkSurface:
         mov eax, dword [byte ebp+00h]
         mov eax, dword [byte eax+08h]
         imul esi, dword [eax], byte 0Ch
-        mov eax, dword [dword_1D205C]
+        mov eax, dword [TextureDetail]
         lea edi, [dword esp+02B0h]
         add esi, eax
         movsd
@@ -5146,7 +5146,7 @@ DrawShadowShape:
         xor eax, ecx
         and eax, 0FFh
         sub eax, ecx
-        mov eax, dword [nosplit eax*4+dword_1702CC]
+        mov eax, dword [nosplit eax*4+SinTable]
         xor eax, edx
         sub eax, edx
         mov edx, eax
@@ -5165,7 +5165,7 @@ DrawShadowShape:
         xor eax, ecx
         and eax, 0FFh
         sub eax, ecx
-        mov eax, dword [nosplit eax*4+dword_1702CC]
+        mov eax, dword [nosplit eax*4+SinTable]
         xor eax, edx
         sub eax, edx
         mov edx, eax

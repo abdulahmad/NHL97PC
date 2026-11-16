@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_123FEA progbits alloc exec nowrite align=1
 extern IF@ATAN2, __fpatan_chk, __math2err_, __math87_err_, str_RESIZE, byte_16E688, byte_19C724, str_Punct_DrawRinkSurface
-extern dword_16F5B4, dword_16F5B8, dword_1702CC, F32_0p9375, F32_1p0625, F32_9p22337e18, dword_1CF260, TextOriginX
+extern dword_16F5B4, dword_16F5B8, SinTable, F32_0p9375, F32_1p0625, F32_9p22337e18, dword_1CF260, TextOriginX
 extern TextOriginY, LinkTextFont, DrawGlyphFn, TextCharFn, TextEndFn, IndexTo16Table, dword_1DA4D0, dword_1DC518
 extern dword_1DC51C, dword_1DC520, dword_1DC524, dword_1DC528, dword_1DC5A8, int386x_, itoa_, ltoa_
 extern memlist1, off_16F5BC, off_171C7C, off_199C50, off_19C740, F64_709p783, F64_neg709p783, segread_
@@ -2853,7 +2853,7 @@ SinLookup:
         LD xor, eax, ecx
         and eax, 0FFh
         LD sub, eax, ecx
-        mov eax, dword [nosplit eax*4+dword_1702CC]
+        mov eax, dword [nosplit eax*4+SinTable]
         LD xor, eax, edx
         LD sub, eax, edx
         ret
@@ -2871,7 +2871,7 @@ CosLookup:
         LD xor, eax, ecx
         and eax, 0FFh
         LD sub, eax, ecx
-        mov eax, dword [nosplit eax*4+dword_1702CC]
+        mov eax, dword [nosplit eax*4+SinTable]
         LD xor, eax, edx
         LD sub, eax, edx
         ret

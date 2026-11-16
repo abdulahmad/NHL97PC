@@ -2,114 +2,114 @@
 bits 32
 %include "hockey.inc"
 section s_1D3D94 nobits alloc noexec write align=1
-global byte_1D8018, byte_1D8088, dword_1D7FD4, dword_1D7FD8, dword_1D7FDC, dword_1D7FE0, dword_1D7FE4, dword_1D7FE8
-global dword_1D7FEC, dword_1D7FF8, dword_1D7FFC, dword_1D8000, dword_1D800C, dword_1D801C, dword_1D8020, dword_1D8024
-global dword_1D8028, dword_1D802C, dword_1D8030, dword_1D8034, dword_1D8044, dword_1D8048, dword_1D804C, dword_1D8050
-global dword_1D8054, dword_1D8058, dword_1D805C, dword_1D8068, dword_1D806C, dword_1D8070, dword_1D807C, dword_1D808C
-global dword_1D8090, dword_1D8094, dword_1D8098, dword_1D809C, dword_1D80A0, dword_1D80A4, dword_1D80B0, dword_1D8334
-global dword_1D8AB4, dword_1D8AB8, dword_1D8ABC, dword_1D8AC0, dword_1D8AC4, unk_1D3D94, unk_1D5B94, unk_1D7994
-global unk_1D80B4, unk_1D8AC8, unk_1D8CC8, unk_1D8EC8
-unk_1D3D94:
+global TexLeftFlags, TexRightFlags, TexRowCount, TexRowY, TexDestRow, TexLeftTop, TexLeftBottom, TexLeftHeight
+global TexLeftStep, TexLeftStepCount, TexLeftDone, TexLeftPos, TexLeftFrac, TexLeftX, TexLeftDx, TexLeftDu
+global TexLeftDv, TexLeftDz, TexLeftVertex, TexSpanUV, TexDepthScale, TexVertexCount, TexRightRow, TexRightTop
+global TexRightBottom, TexRightHeight, TexRightStep, TexRightStepCount, TexRightDone, TexRightPos, TexRightFrac, TexRightX
+global TexRightDx, TexRightDu, TexRightDv, TexRightDz, TexRightVertex, TexSpanStep, TexSpanWidth, ClipPolyOut
+global ClipPolyCount, ClipPolyOutCount, ClipEdgePrev, ClipEdgeOutPtr, ClipPolyDrawFn, NetFrontPoints, NetBackPoints, TexEdgeTable
+global ClipPolyVerts, NearClipTexVerts, NearClipVertsIn, NearClipVertsOut
+NetFrontPoints:
         resb 7680
-unk_1D5B94:
+NetBackPoints:
         resb 7680
-unk_1D7994:
+TexEdgeTable:
         resb 1600
-dword_1D7FD4:
+TexRowCount:
         resb 4
-dword_1D7FD8:
+TexRowY:
         resb 4
-dword_1D7FDC:
+TexDestRow:
         resb 4
-dword_1D7FE0:
+TexLeftTop:
         resb 4
-dword_1D7FE4:
+TexLeftBottom:
         resb 4
-dword_1D7FE8:
+TexLeftHeight:
         resb 4
-dword_1D7FEC:
+TexLeftStep:
         resb 12
-dword_1D7FF8:
+TexLeftStepCount:
         resb 4
-dword_1D7FFC:
+TexLeftDone:
         resb 4
-dword_1D8000:
+TexLeftPos:
         resb 12
-dword_1D800C:
+TexLeftFrac:
         resb 12
-byte_1D8018:
+TexLeftFlags:
         resb 4
-dword_1D801C:
+TexLeftX:
         resb 4
-dword_1D8020:
+TexLeftDx:
         resb 4
-dword_1D8024:
+TexLeftDu:
         resb 4
-dword_1D8028:
+TexLeftDv:
         resb 4
-dword_1D802C:
+TexLeftDz:
         resb 4
-dword_1D8030:
+TexLeftVertex:
         resb 4
-dword_1D8034:
+TexSpanUV:
         resb 16
-dword_1D8044:
+TexDepthScale:
         resb 4
-dword_1D8048:
+TexVertexCount:
         resb 4
-dword_1D804C:
+TexRightRow:
         resb 4
-dword_1D8050:
+TexRightTop:
         resb 4
-dword_1D8054:
+TexRightBottom:
         resb 4
-dword_1D8058:
+TexRightHeight:
         resb 4
-dword_1D805C:
+TexRightStep:
         resb 12
-dword_1D8068:
+TexRightStepCount:
         resb 4
-dword_1D806C:
+TexRightDone:
         resb 4
-dword_1D8070:
+TexRightPos:
         resb 12
-dword_1D807C:
+TexRightFrac:
         resb 12
-byte_1D8088:
+TexRightFlags:
         resb 4
-dword_1D808C:
+TexRightX:
         resb 4
-dword_1D8090:
+TexRightDx:
         resb 4
-dword_1D8094:
+TexRightDu:
         resb 4
-dword_1D8098:
+TexRightDv:
         resb 4
-dword_1D809C:
+TexRightDz:
         resb 4
-dword_1D80A0:
+TexRightVertex:
         resb 4
-dword_1D80A4:
+TexSpanStep:
         resb 12
-dword_1D80B0:
+TexSpanWidth:
         resb 4
-unk_1D80B4:
+ClipPolyVerts:
         resb 640
-dword_1D8334:
+ClipPolyOut:
         resb 1920
-dword_1D8AB4:
+ClipPolyCount:
         resb 4
-dword_1D8AB8:
+ClipPolyOutCount:
         resb 4
-dword_1D8ABC:
+ClipEdgePrev:
         resb 4
-dword_1D8AC0:
+ClipEdgeOutPtr:
         resb 4
-dword_1D8AC4:
+ClipPolyDrawFn:
         resb 4
-unk_1D8AC8:
+NearClipTexVerts:
         resb 512
-unk_1D8CC8:
+NearClipVertsIn:
         resb 512
-unk_1D8EC8:
+NearClipVertsOut:
         resb 768

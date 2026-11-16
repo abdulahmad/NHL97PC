@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_112B84 progbits alloc exec nowrite align=1
-extern dword_17025C, str_D_ProjectPointsPersp, dword_170264, dword_170268, dword_170274, memcpy_, FillSpanRow, unk_1D8AC8
-extern unk_1D8CC8, unk_1D8EC8
+extern dword_17025C, str_D_ProjectPointsPersp, dword_170264, dword_170268, dword_170274, memcpy_, FillSpanRow, NearClipTexVerts
+extern NearClipVertsIn, NearClipVertsOut
 global PolySideTest, ClipPolyToNear, DrawRinkPolyList, FillTexturedSpan, ClipTexPolyToNear
 ;-----------------------------------------------------------------------------
 ; PolySideTest                                   112B84  97 PC, low confidence
@@ -76,25 +76,25 @@ ClipPolyToNear:
         sub eax, esi
         lea ebx, [nosplit eax*4+00h]
         mov edx, ebp
-        mov eax, unk_1D8EC8
+        mov eax, NearClipVertsOut
         lea ecx, [nosplit esi*8+00h]
         call memcpy_
         mov edx, dword [byte esp+028h]
-        mov eax, unk_1D8CC8
+        mov eax, NearClipVertsIn
         mov ebx, ecx
         call memcpy_
         lea eax, [nosplit esi*4+00h]
         sub eax, esi
-        mov edx, unk_1D8CC8
-        mov esi, unk_1D8EC8
-        lea edi, [nosplit eax*4+unk_1D8EC8]
+        mov edx, NearClipVertsIn
+        mov esi, NearClipVertsOut
+        lea edi, [nosplit eax*4+NearClipVertsOut]
         mov dword [byte esp+04h], edx
         movsd
         movsd
         movsd
-        mov eax, unk_1D8EC8
-        mov esi, unk_1D8CC8
-        lea edi, [dword ecx+unk_1D8CC8]
+        mov eax, NearClipVertsOut
+        mov esi, NearClipVertsIn
+        lea edi, [dword ecx+NearClipVertsIn]
         lea ebx, [byte eax+0Ch]
         xor ecx, ecx
         movsd
@@ -385,39 +385,39 @@ ClipTexPolyToNear:
         cmp eax, byte 2
         je near .7
         lea ebx, [nosplit esi*4+00h]
-        mov eax, unk_1D8EC8
+        mov eax, NearClipVertsOut
         sub ebx, esi
         mov edx, ebp
         shl ebx, 2
         call memcpy_
         lea ecx, [nosplit esi*8+00h]
         mov edx, dword [byte esp+02Ch]
-        mov eax, unk_1D8CC8
+        mov eax, NearClipVertsIn
         mov ebx, ecx
         call memcpy_
         mov edx, dword [byte esp+030h]
-        mov eax, unk_1D8AC8
+        mov eax, NearClipTexVerts
         mov ebx, ecx
         call memcpy_
         lea eax, [nosplit esi*4+00h]
         sub eax, esi
-        mov esi, unk_1D8EC8
-        lea edi, [nosplit eax*4+unk_1D8EC8]
-        mov edx, unk_1D8CC8
+        mov esi, NearClipVertsOut
+        lea edi, [nosplit eax*4+NearClipVertsOut]
+        mov edx, NearClipVertsIn
         movsd
         movsd
         movsd
         mov dword [byte esp+04h], edx
-        mov esi, unk_1D8CC8
-        lea edi, [dword ecx+unk_1D8CC8]
-        mov edx, unk_1D8AC8
-        mov eax, unk_1D8EC8
+        mov esi, NearClipVertsIn
+        lea edi, [dword ecx+NearClipVertsIn]
+        mov edx, NearClipTexVerts
+        mov eax, NearClipVertsOut
         movsd
         movsd
         lea ebx, [byte eax+0Ch]
-        lea edi, [dword ecx+unk_1D8AC8]
+        lea edi, [dword ecx+NearClipTexVerts]
         lea ecx, [byte edx+08h]
-        mov esi, unk_1D8AC8
+        mov esi, NearClipTexVerts
         mov dword [byte esp+08h], ecx
         xor ecx, ecx
         movsd

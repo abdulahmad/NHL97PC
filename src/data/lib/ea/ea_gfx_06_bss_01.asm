@@ -2,11 +2,11 @@
 bits 32
 %include "hockey.inc"
 section s_1D1CF8 nobits alloc noexec write align=1
-global byte_1D1D88, byte_1D1D8C, byte_1D1FBC, ModelPartCount, ModelPartTable, ModelFrame, ModelPoints, ModelFlags
+global LinePattern, OverlayModels, OverlaySprites, ModelPartCount, ModelPartTable, ModelFrame, ModelPoints, ModelFlags
 global ModelInstance, ModelSetupMode, RinkViewChanged, ModelPartIndex, ViewOriginX, LineDeltaX, ViewOriginY, LineDeltaY
 global LineX, LineSteep, LineY, LineEndX, LineStepX, LineEndY, LineStepY, ViewWidth
-global ViewHeight, LineErrY, LineErrX, dword_1D1D6C, dword_1D1D70, dword_1D1D74, dword_1D1D78, dword_1D1D7C
-global dword_1D1D80, dword_1D1D84, dword_1D204C, dword_1D2050, dword_1D2054, dword_1D2058, dword_1D205C, ModelSlots
+global ViewHeight, LineErrY, LineErrX, LineErrStepY, LineColor, LineClipMaxX, LineClipMaxY, LineErrStepX
+global EllipseRadiusX, EllipseRadiusY, OverlayViewMatrix, OverlayCamera, TextureTileSize, TexturePageBase, TextureDetail, ModelSlots
 ModelPartCount:
         resb 4
 ModelPartTable:
@@ -57,33 +57,33 @@ LineErrY:
         resb 4
 LineErrX:
         resb 4
-dword_1D1D6C:
+LineErrStepY:
         resb 4
-dword_1D1D70:
+LineColor:
         resb 4
-dword_1D1D74:
+LineClipMaxX:
         resb 4
-dword_1D1D78:
+LineClipMaxY:
         resb 4
-dword_1D1D7C:
+LineErrStepX:
         resb 4
-dword_1D1D80:
+EllipseRadiusX:
         resb 4
-dword_1D1D84:
+EllipseRadiusY:
         resb 4
-byte_1D1D88:
+LinePattern:
         resb 4
-byte_1D1D8C:
+OverlayModels:
         resb 560
-byte_1D1FBC:
+OverlaySprites:
         resb 144
-dword_1D204C:
+OverlayViewMatrix:
         resb 4
-dword_1D2050:
+OverlayCamera:
         resb 4
-dword_1D2054:
+TextureTileSize:
         resb 4
-dword_1D2058:
+TexturePageBase:
         resb 4
-dword_1D205C:
+TextureDetail:
         resb 4

@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_FDDD4 progbits alloc exec nowrite align=1
 extern IF@DACOS, IF@SQRT, __@DEXP, __CHP, __fdiv_fpr, __fpatan_wrap, __pow87_err_, __prtf_
-extern str_Acos, byte_16E688, byte_17268C, F32_1p52588eneg05, F32_65536_ScaleFloatsToInts, F32_0p5_SetProjectionCenter, F32_65536_SetProjectionCenter, dword_16E678
+extern str_Acos, byte_16E688, MathErrorFlags, F32_1p52588eneg05, F32_65536_ScaleFloatsToInts, F32_0p5_SetProjectionCenter, F32_65536_SetProjectionCenter, dword_16E678
 extern dword_16E67C, dword_16E680, dword_16E684, dword_16E690, dword_16E694, dword_16E698, dword_16E69C, dword_16E6A0
 extern dword_16F140, dword_16F144, dword_16F148, dword_170254, dword_170258, dword_17025C, str_D_ProjectPointsPersp, dword_170264
 extern dword_170268, TextOriginX, TextOriginY, FontAscent, FontDescent, TextAlign, CurrentFont, FontHeight
@@ -3588,7 +3588,7 @@ ProjectPointFloat:
 ;-----------------------------------------------------------------------------
 IF@ATAN:
         fld1
-        test byte [byte_17268C], 1
+        test byte [MathErrorFlags], 1
         jne short .1
         fpatan
         jmp short .2
@@ -3601,7 +3601,7 @@ IF@ATAN:
 ;-----------------------------------------------------------------------------
 IF@ATAN2:
         fxch
-        test byte [byte_17268C], 1
+        test byte [MathErrorFlags], 1
         jne short .1
         fpatan
         jmp short .2
@@ -3720,7 +3720,7 @@ IF@DPOW:
         neg ax
         call PowIntLoop
         fld1
-        test byte [byte_17268C], 1
+        test byte [MathErrorFlags], 1
         jne short .7
         fdivrp
         jmp short .8

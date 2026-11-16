@@ -2,56 +2,56 @@
 bits 32
 %include "hockey.inc"
 section s_172BC1 progbits alloc noexec write align=1
-global byte_172BC5, byte_172BF4, byte_172BF5, byte_172BF6, byte_172C14, byte_172C15, byte_172C2C, byte_172C2D
-global byte_172C2E, byte_172C2F, byte_172C88, byte_172C89, dword_172BC1, dword_172BC8, dword_172BCC, dword_172BD0
-global dword_172BD4, dword_172BD8, dword_172BDC, dword_172BE0, dword_172BE4, dword_172BE8, dword_172BEC, dword_172BF0
-global dword_172C00, dword_172C04, dword_172C08, dword_172C0C, dword_172C10, dword_172C20, dword_172C24, dword_172C28
+global SoundSystemOn, DacPortTable, DacPortBits, DacRateTable, SbProIrqVectors, byte_172C15, byte_172C2C, byte_172C2D
+global byte_172C2E, byte_172C2F, byte_172C88, byte_172C89, PatlDefaultPitch, SpeechQueueVolume, AudioWorkHook, AudioStreamHook
+global AudioSpeechHook, StreamLengthFn, GusDriverIsOpen, GusDriverStreaming, GusDriverFound, GusDriverRunning, DacDriverBuffer, DacDriverRunning
+global SbDriverBuffer, SbDriverRunning, SbProDriverBuffer, SbProDriverRunning, SbProChannels, dword_172C20, dword_172C24, dword_172C28
 global dword_172C3E, dword_172C64, str_Punct_ReadSoundscapeIni, dword_172C6C, dword_172C70, dword_172C74, dword_172C78, dword_172C7C
 global dword_172C80, dword_172C84, dword_172C90, dword_172C94, dword_172C98, dword_172C9C, dword_172CA0, dword_172CA4
 global unk_172C44, word_172C42, word_172C48, str_Punct_Sb16SetupDma
-dword_172BC1:
+PatlDefaultPitch:
         db 00h,00h,00h,00h
-byte_172BC5:
+SoundSystemOn:
         db 00h,00h,00h
-dword_172BC8:
+SpeechQueueVolume:
         db 00h,00h,00h,00h
-dword_172BCC:
+AudioWorkHook:
         db 00h,00h,00h,00h
-dword_172BD0:
+AudioStreamHook:
         db 00h,00h,00h,00h
-dword_172BD4:
+AudioSpeechHook:
         db 00h,00h,00h,00h
-dword_172BD8:
+StreamLengthFn:
         db 00h,00h,00h,00h
-dword_172BDC:
+GusDriverIsOpen:
         db 00h,00h,00h,00h
-dword_172BE0:
+GusDriverStreaming:
         db 00h,00h,00h,00h
-dword_172BE4:
+GusDriverFound:
         db 00h,00h,00h,00h
-dword_172BE8:
+GusDriverRunning:
         db 00h,00h,00h,00h
-dword_172BEC:
+DacDriverBuffer:
         db 00h,00h,00h,00h
-dword_172BF0:
+DacDriverRunning:
         db 00h,00h,00h,00h
-byte_172BF4:
+DacPortTable:
         db 00h
-byte_172BF5:
+DacPortBits:
         db 04h
-byte_172BF6:
+DacRateTable:
         db 04h,050h,03h,01h,010h,06h,02h,050h,03h,01h
-dword_172C00:
+SbDriverBuffer:
         db 00h,00h,00h,00h
-dword_172C04:
+SbDriverRunning:
         db 00h,00h,00h,00h
-dword_172C08:
+SbProDriverBuffer:
         db 00h,00h,00h,00h
-dword_172C0C:
+SbProDriverRunning:
         db 00h,00h,00h,00h
-dword_172C10:
+SbProChannels:
         db 01h,00h,00h,00h
-byte_172C14:
+SbProIrqVectors:
         db 04h
 byte_172C15:
         db 02h,06h,01h,00h,00h,00h,00h,00h,00h,00h,00h

@@ -37,7 +37,7 @@
 #define ORIG_CRT_ESP2      SYM__curbrk
 #define ORIG_CRT_ESP3      SYM__dynend
 #define ORIG_CRT_SEL       SYM__psp
-#define ORIG_CRT_CMD       SYM_dword_17258C
+#define ORIG_CRT_CMD       SYM_CMainEnv
 #define ORIG_CRT_CMDEND    SYM__STACKLOW
 #define ORIG_CRT_CMDLINAL  SYM__LpCmdLine
 #define ORIG_CRT_DOSMAJ    SYM__osmajor

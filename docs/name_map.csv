@@ -7602,9 +7602,19 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 170218,str_Punct_SetScreenScale,dword_170218,new,high,"string ""\n""",src/data/lib/lib_109A74_data_01.asm
 170250,str_D_SetCameraAngles,dword_170250,new,high,"string ""d""",src/data/lib/lib_109A74_data_01.asm
 170260,str_D_ProjectPointsPersp,dword_170260,new,high,"string ""d""",src/data/lib/lib_109A74_data_01.asm
+170278,RinkPrimNoOpFns,off_170278,new,low,rink primitive functions that draw nothing,src/data/lib/ea/ea_gfx_06_data_01.asm
+170284,RinkPrimFlatFns,off_170284,new,low,rink primitive functions for flat polygons,src/data/lib/ea/ea_gfx_06_data_01.asm
+170290,RinkPrimSetupFns,off_170290,new,low,rink primitive set-up functions,src/data/lib/ea/ea_gfx_06_data_01.asm
+17029C,RinkPrimLineFns,off_17029C,new,low,rink primitive functions for lines,src/data/lib/ea/ea_gfx_06_data_01.asm
+1702A8,RinkPrimEndFns,off_1702A8,new,low,rink primitive end functions,src/data/lib/ea/ea_gfx_06_data_01.asm
+1702B4,IceSpansEnabled,dword_1702B4,new,low,set when the ice is drawn with shaded spans,src/data/lib/ea/ea_gfx_06_data_01.asm
+1702B8,TexSpanTable,dword_1702B8,new,low,texture span copy routines by pixel depth,src/data/lib/ea/ea_gfx_06_data_01.asm
 1702C0,str_Punct_DrawTexturedPoly,dword_1702C0,new,high,"string "" """,src/data/lib/ea/ea_gfx_06_data_01.asm
 1702C4,str_Punct_DrawTexturedSpan,dword_1702C4,new,high,"string "" """,src/data/lib/ea/ea_gfx_06_data_01.asm
 1702C8,F32_7p00649eneg41,dword_1702C8,new,high,float constant 7.006492322e-41,src/data/lib/ea/ea_gfx_06_data_01.asm
+1702CC,SinTable,dword_1702CC,new,low,quarter-wave sine table in 16.16 fixed point,src/data/lib/ea/ea_gfx_06_data_01.asm
+1706CC,CosTable,dword_1706CC,new,low,quarter-wave cosine table in 16.16 fixed point,src/data/lib/ea/ea_gfx_06_data_01.asm
+1706D0,PolySpanFns,off_1706D0,new,low,span drawing routine of each polygon fill mode,src/data/lib/ea/ea_gfx_06_data_01.asm
 170708,str_Punct_InitFpuFlags,word_170708,new,high,"string "" """,src/data/lib/watcom/watcom_clib_13_data_01.asm
 1709DC,str_FILESLINED,asc_1709DC,new,high,"string ""FILE %s LINE %d """,src/data/lib/watcom/watcom_clib_13_data_01.asm
 170ACC,str_BK,dword_170ACC,new,high,"string ""BK""",src/data/lib/watcom/watcom_clib_13_data_01.asm
@@ -7612,24 +7622,69 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 17219C,str_D_NetHandleMessage,dword_17219C,new,high,"string ""d""",src/data/lib/watcom/watcom_clib_15_data_02.asm
 1721A4,str_Punct_NetLeaveGame,dword_1721A4,new,high,"string "" """,src/data/lib/watcom/watcom_clib_15_data_02.asm
 172248,str_Punct_IpxHookCheck,dword_172248,new,high,"string ""`""",src/data/lib/watcom/watcom_clib_15_data_02.asm
+1724D4,CachedFileTable,dword_1724D4,new,low,"files held in memory, by drive and directory",src/data/lib/ea/ea_memman_02_data_01.asm
+172514,CachedFileDate,word_172514,new,low,date of the cached file being checked,src/data/lib/ea/ea_memman_02_data_01.asm
+172516,CachedFileTime,word_172516,new,low,time of the cached file being checked,src/data/lib/ea/ea_memman_02_data_01.asm
+172518,CachedFileRetries,byte_172518,new,low,retries left when checking a cached file,src/data/lib/ea/ea_memman_02_data_01.asm
+172519,CachedFileDrive,word_172519,new,low,drive of the cached file being checked,src/data/lib/ea/ea_memman_02_data_01.asm
+17251B,CachedFileFind,dword_17251B,new,low,find record of the cached file being checked,src/data/lib/ea/ea_memman_02_data_01.asm
+172524,FpuSystemFlags,dword_172524,new,low,DOS extender coprocessor flags,src/data/lib/ea/ea_memman_02_data_01.asm
+172564,OldFpuVectorOffset,dword_172564,new,low,saved offset of the old coprocessor-missing vector,src/data/lib/ea/ea_memman_02_data_01.asm
+172568,OldFpuVectorSelector,word_172568,new,low,saved selector of the old coprocessor-missing vector,src/data/lib/ea/ea_memman_02_data_01.asm
+17256A,FpuCr0Bits,word_17256A,new,low,saved CR0 coprocessor bits,src/data/lib/ea/ea_memman_02_data_01.asm
 17256C,__real87,,95PC,high,NHL95PC D51DC (position): same fixup of __sys_fini_387_emulator,
 172570,_dynend,,96PC,high,NHL96PC 1243F8 (position): same fixup of start,
 172574,_curbrk,,96PC,high,NHL96PC 1243FC (position): same fixup of start,
 172578,_LpCmdLine,,96PC,high,NHL96PC 124400 (position): same fixup of start,
+17257C,StackLow,dword_17257C,new,low,lowest address of the program stack,src/data/lib/ea/ea_memman_02_data_01.asm
 172580,_psp,,96PC,high,NHL96PC 124408 (position): same fixup of start,
 172584,_STACKLOW,,96PC,high,NHL96PC 12440C (position): same fixup of sub_D0692,
 172588,_STACKTOP,,96PC,high,NHL96PC 124410 (position): same fixup of start,
+17258C,CMainEnv,dword_17258C,new,low,environment pointer passed to main,src/data/lib/ea/ea_memman_02_data_01.asm
+172590,CMainResult,dword_172590,new,low,value main returned,src/data/lib/ea/ea_memman_02_data_01.asm
+172594,UngetChar,dword_172594,new,low,character pushed back by ungetch,src/data/lib/ea/ea_memman_02_data_01.asm
+17259C,BreakSaveStack,dword_17259C,new,low,stack pointer saved by the break handlers,src/data/lib/ea/ea_memman_02_data_01.asm
 1725A0,__no87,,96PC,high,NHL96PC 124428 (position): same fixup of start,
 1725A2,_Extender,,96PC,high,NHL96PC 12442A (position): same fixup of sub_CA7C8,
 1725A3,_ExtenderSubtype,,96PC,high,NHL96PC 12442B (position): same fixup of start,
+1725A4,Is8087,byte_1725A4,new,low,set when a coprocessor (or the emulator) is present,src/data/lib/ea/ea_memman_02_data_01.asm
 1725A5,_Envptr,,96PC,high,NHL96PC 12442D (position): same fixup of __setenvp_,
 1725A9,_Envptr_w4,,96PC,high,NHL96PC 124431 (position): same fixup of __setenvp_,
 1725AB,_osmajor,,96PC,high,NHL96PC 124433 (position): same fixup of start,
 1725AC,_osminor,,96PC,high,NHL96PC 124434 (position): same fixup of start,
+1725AD,FpuInitHook,dword_1725AD,new,low,function that sets up the coprocessor,src/data/lib/ea/ea_memman_02_data_01.asm
+172674,BlitDestOffsets,dword_172674,new,low,column offset table of the blit destination,src/data/lib/ea/ea_memman_02_data_01.asm
+172678,BlitColumnOffsets,dword_172678,new,low,column offset table of the span copy,src/data/lib/ea/ea_memman_02_data_01.asm
+17267C,BlitSourcePtr,dword_17267C,new,low,source pointer of the span copy,src/data/lib/ea/ea_memman_02_data_01.asm
 172680,F80_1p5708,tbyte_172680,new,high,extended constant 1.570796327,src/data/lib/ea/ea_memman_02_data_01.asm
+17268C,MathErrorFlags,byte_17268C,new,low,error flags of the maths functions,src/data/lib/ea/ea_memman_02_data_01.asm
 172690,F64_709p783,qword_172690,new,high,double constant 709.7827129,src/data/lib/ea/ea_memman_02_data_01.asm
 172698,F64_neg709p783,qword_172698,new,high,double constant -709.7827129,src/data/lib/ea/ea_memman_02_data_01.asm
+1726A0,AtanTable,dword_1726A0,new,low,arctangent table of the angle routine,src/data/lib/ea/ea_memman_02_data_01.asm
 1726A4,str_Punct_AngleOfVector,dword_1726A4,new,high,"string "")""",src/data/lib/ea/ea_memman_02_data_01.asm
+172AAC,VideoModeHook,dword_172AAC,new,low,function called after a video mode change,src/data/lib/ea/ea_memman_02_data_01.asm
+172BC1,PatlDefaultPitch,dword_172BC1,new,low,default pitch of PATl samples,src/data/lib/ea/ea_unpack_02_data_01.asm
+172BC5,SoundSystemOn,byte_172BC5,new,low,set while the sound system is running,src/data/lib/ea/ea_unpack_02_data_01.asm
+172BC8,SpeechQueueVolume,dword_172BC8,new,low,volume of the speech queue,src/data/lib/ea/ea_unpack_02_data_01.asm
+172BCC,AudioWorkHook,dword_172BCC,new,low,deferred audio work hook,src/data/lib/ea/ea_unpack_02_data_01.asm
+172BD0,AudioStreamHook,dword_172BD0,new,low,deferred audio stream hook,src/data/lib/ea/ea_unpack_02_data_01.asm
+172BD4,AudioSpeechHook,dword_172BD4,new,low,deferred speech hook,src/data/lib/ea/ea_unpack_02_data_01.asm
+172BD8,StreamLengthFn,dword_172BD8,new,low,function that returns the length of the next stream chunk,src/data/lib/ea/ea_unpack_02_data_01.asm
+172BDC,GusDriverIsOpen,dword_172BDC,new,low,set while the Gravis driver is open,src/data/lib/ea/ea_unpack_02_data_01.asm
+172BE0,GusDriverStreaming,dword_172BE0,new,low,set while the Gravis driver streams,src/data/lib/ea/ea_unpack_02_data_01.asm
+172BE4,GusDriverFound,dword_172BE4,new,low,set when a Gravis card was found,src/data/lib/ea/ea_unpack_02_data_01.asm
+172BE8,GusDriverRunning,dword_172BE8,new,low,set while the Gravis card is running,src/data/lib/ea/ea_unpack_02_data_01.asm
+172BEC,DacDriverBuffer,dword_172BEC,new,low,memory block of the DAC driver's buffer,src/data/lib/ea/ea_unpack_02_data_01.asm
+172BF0,DacDriverRunning,dword_172BF0,new,low,set while the DAC driver runs,src/data/lib/ea/ea_unpack_02_data_01.asm
+172BF4,DacPortTable,byte_172BF4,new,low,output port settings of the DAC driver,src/data/lib/ea/ea_unpack_02_data_01.asm
+172BF5,DacPortBits,byte_172BF5,new,low,bit settings of the DAC output ports,src/data/lib/ea/ea_unpack_02_data_01.asm
+172BF6,DacRateTable,byte_172BF6,new,low,sample rates of the DAC driver,src/data/lib/ea/ea_unpack_02_data_01.asm
+172C00,SbDriverBuffer,dword_172C00,new,low,memory block of the Sound Blaster driver's buffer,src/data/lib/ea/ea_unpack_02_data_01.asm
+172C04,SbDriverRunning,dword_172C04,new,low,set while the Sound Blaster driver runs,src/data/lib/ea/ea_unpack_02_data_01.asm
+172C08,SbProDriverBuffer,dword_172C08,new,low,memory block of the Sound Blaster Pro driver's buffer,src/data/lib/ea/ea_unpack_02_data_01.asm
+172C0C,SbProDriverRunning,dword_172C0C,new,low,set while the Sound Blaster Pro driver runs,src/data/lib/ea/ea_unpack_02_data_01.asm
+172C10,SbProChannels,dword_172C10,new,low,channel count of the Sound Blaster Pro driver,src/data/lib/ea/ea_unpack_02_data_01.asm
+172C14,SbProIrqVectors,byte_172C14,new,low,interrupt vector of each Sound Blaster Pro IRQ line,src/data/lib/ea/ea_unpack_02_data_01.asm
 172C4C,str_Punct_Sb16SetupDma,word_172C4C,new,high,"string ""\n""",src/data/lib/ea/ea_unpack_02_data_01.asm
 172C68,str_Punct_ReadSoundscapeIni,dword_172C68,new,high,"string ""\t""",src/data/lib/ea/ea_unpack_02_data_01.asm
 199C40,_environ,,96PC,high,NHL96PC 14F09C (position): same fixup of __setenvp_,
@@ -7876,6 +7931,109 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1D1D60,ViewHeight,dword_1D1D60,new,low,height of the view,src/data/lib/ea/ea_gfx_06_bss_01.asm
 1D1D64,LineErrY,dword_1D1D64,new,low,error term of a steep line,src/data/lib/ea/ea_gfx_06_bss_01.asm
 1D1D68,LineErrX,dword_1D1D68,new,low,error term of a shallow line,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D1D6C,LineErrStepY,dword_1D1D6C,new,low,error step of a steep line,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D1D70,LineColor,dword_1D1D70,new,low,colour of the line being drawn,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D1D74,LineClipMaxX,dword_1D1D74,new,low,right clip limit of the line being drawn,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D1D78,LineClipMaxY,dword_1D1D78,new,low,bottom clip limit of the line being drawn,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D1D7C,LineErrStepX,dword_1D1D7C,new,low,error step of a shallow line,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D1D80,EllipseRadiusX,dword_1D1D80,new,low,horizontal radius of the ellipse being drawn,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D1D84,EllipseRadiusY,dword_1D1D84,new,low,vertical radius of the ellipse being drawn,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D1D88,LinePattern,byte_1D1D88,new,low,dot pattern of the line being drawn,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D1D8C,OverlayModels,byte_1D1D8C,new,low,the four overlay model slots,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D1FBC,OverlaySprites,byte_1D1FBC,new,low,the four overlay sprite slots,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D204C,OverlayViewMatrix,dword_1D204C,new,low,view matrix the overlay models are drawn with,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D2050,OverlayCamera,dword_1D2050,new,low,camera the overlay models are drawn from,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D2054,TextureTileSize,dword_1D2054,new,low,size of one rink texture tile,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D2058,TexturePageBase,dword_1D2058,new,low,base of the texture page being built,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D205C,TextureDetail,dword_1D205C,new,low,texture detail level,src/data/lib/ea/ea_gfx_06_bss_01.asm
+1D2060,TileDestRow,dword_1D2060,new,low,screen row address of the tile span,src/data/lib/ea/ea_shpi_03_bss_01.asm
+1D2064,TileLeftTop,dword_1D2064,new,low,top vertex of the tile's left edge,src/data/lib/ea/ea_shpi_03_bss_01.asm
+1D2068,TileLeftBottom,dword_1D2068,new,low,bottom vertex of the tile's left edge,src/data/lib/ea/ea_shpi_03_bss_01.asm
+1D206C,TileLeftHeight,dword_1D206C,new,low,rows of the tile's left edge,src/data/lib/ea/ea_shpi_03_bss_01.asm
+1D2070,TileLeftStep,dword_1D2070,new,low,steps of the tile's left edge,src/data/lib/ea/ea_shpi_03_bss_01.asm
+1D2078,TileLeftCount,dword_1D2078,new,low,steps left on the tile's left edge,src/data/lib/ea/ea_shpi_03_bss_01.asm
+1D207C,TileLeftFlags,byte_1D207C,new,low,flags of the tile's left edge,src/data/lib/ea/ea_shpi_03_bss_01.asm
+1D2080,TileLeftX,dword_1D2080,new,low,x of the tile's left edge,src/data/lib/ea/ea_shpi_03_bss_01.asm
+1D2084,TileLeftU,dword_1D2084,new,low,texture u of the tile's left edge,src/data/lib/ea/ea_shpi_03_bss_01.asm
+1D2088,TileLeftUf,dword_1D2088,new,low,float u of the tile's left edge,src/data/lib/ea/ea_shpi_03_bss_01.asm
+1D208C,TileLeftVf,dword_1D208C,new,low,float v of the tile's left edge,src/data/lib/ea/ea_shpi_03_bss_01.asm
+1D2090,TileLeftDu,dword_1D2090,new,low,float u step of the tile's left edge,src/data/lib/ea/ea_shpi_03_bss_01.asm
+1D2094,TileLeftDv,dword_1D2094,new,low,float v step of the tile's left edge,src/data/lib/ea/ea_shpi_03_bss_01.asm
+1D2098,TileEdgeTable,unk_1D2098,new,low,edges of the tile being filled,src/data/lib/ea/ea_shpi_03_bss_01.asm
+1D2418,TileRightRow,dword_1D2418,new,low,screen row of the tile's right edge,src/data/lib/ea/ea_shpi_03_bss_01.asm
+1D241C,TileRightTop,dword_1D241C,new,low,top vertex of the tile's right edge,src/data/lib/ea/ea_shpi_03_bss_01.asm
+1D2420,TileRightBottom,dword_1D2420,new,low,bottom vertex of the tile's right edge,src/data/lib/ea/ea_shpi_03_bss_01.asm
+1D2424,TileRightHeight,dword_1D2424,new,low,rows of the tile's right edge,src/data/lib/ea/ea_shpi_03_bss_01.asm
+1D2428,TileRightStep,dword_1D2428,new,low,steps of the tile's right edge,src/data/lib/ea/ea_shpi_03_bss_01.asm
+1D2430,TileRightCount,dword_1D2430,new,low,steps left on the tile's right edge,src/data/lib/ea/ea_shpi_03_bss_01.asm
+1D2434,TileRightFlags,byte_1D2434,new,low,flags of the tile's right edge,src/data/lib/ea/ea_shpi_03_bss_01.asm
+1D2438,TileRightX,dword_1D2438,new,low,x of the tile's right edge,src/data/lib/ea/ea_shpi_03_bss_01.asm
+1D243C,TileRightU,dword_1D243C,new,low,texture u of the tile's right edge,src/data/lib/ea/ea_shpi_03_bss_01.asm
+1D2440,TileRightUf,dword_1D2440,new,low,float u of the tile's right edge,src/data/lib/ea/ea_shpi_03_bss_01.asm
+1D2444,TileRightVf,dword_1D2444,new,low,float v of the tile's right edge,src/data/lib/ea/ea_shpi_03_bss_01.asm
+1D2448,TileRightDu,dword_1D2448,new,low,float u step of the tile's right edge,src/data/lib/ea/ea_shpi_03_bss_01.asm
+1D244C,TileRightDv,dword_1D244C,new,low,float v step of the tile's right edge,src/data/lib/ea/ea_shpi_03_bss_01.asm
+1D2450,IceShadeScale,dword_1D2450,new,low,shade scale of the ice spans,src/data/lib/ea/ea_shpi_03_bss_01.asm
+1D2454,IceShadeTable,dword_1D2454,new,low,shade value of each ice row,src/data/lib/ea/ea_shpi_03_bss_01.asm
+1D3350,TileTexture,dword_1D3350,new,low,texture of the tile being drawn,src/data/lib/ea/ea_shpi_03_bss_01.asm
+1D3354,TileRowCount,dword_1D3354,new,low,rows of the tile left to fill,src/data/lib/ea/ea_shpi_03_bss_01.asm
+1D3358,TileRowY,dword_1D3358,new,low,row of the tile being filled,src/data/lib/ea/ea_shpi_03_bss_01.asm
+1D335C,TileTexSize,dword_1D335C,new,low,width and height of the tile's texture,src/data/lib/ea/ea_shpi_03_bss_01.asm
+1D3364,IceShadeBase,dword_1D3364,new,low,first ice shade value,src/data/lib/ea/ea_shpi_03_bss_01.asm
+1D3368,TileRowShade,dword_1D3368,new,low,shade of each tile row,src/data/lib/ea/ea_shpi_03_bss_01.asm
+1D3D6C,ModelPartName,unk_1D3D6C,new,low,name of the model part being looked up,src/data/lib/ea/ea_shpi_03_bss_01.asm
+1D3D94,NetFrontPoints,unk_1D3D94,new,low,projected points of the front of the nets,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D5B94,NetBackPoints,unk_1D5B94,new,low,projected points of the back of the nets,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D7994,TexEdgeTable,unk_1D7994,new,low,left and right edges of the textured polygon being filled,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D7FD4,TexRowCount,dword_1D7FD4,new,low,rows of the textured polygon left to fill,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D7FD8,TexRowY,dword_1D7FD8,new,low,row of the textured polygon being filled,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D7FDC,TexDestRow,dword_1D7FDC,new,low,screen row address of the textured span,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D7FE0,TexLeftTop,dword_1D7FE0,new,low,top vertex of the left edge,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D7FE4,TexLeftBottom,dword_1D7FE4,new,low,bottom vertex of the left edge,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D7FE8,TexLeftHeight,dword_1D7FE8,new,low,rows of the left edge,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D7FEC,TexLeftStep,dword_1D7FEC,new,low,"x, u and v steps of the left edge",src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D7FF8,TexLeftStepCount,dword_1D7FF8,new,low,steps left on the left edge,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D7FFC,TexLeftDone,dword_1D7FFC,new,low,set when the left edge has run out,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D8000,TexLeftPos,dword_1D8000,new,low,"x, u and v of the left edge",src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D800C,TexLeftFrac,dword_1D800C,new,low,fraction parts of the left edge position,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D8018,TexLeftFlags,byte_1D8018,new,low,flags of the left edge,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D801C,TexLeftX,dword_1D801C,new,low,screen x of the left edge,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D8020,TexLeftDx,dword_1D8020,new,low,x step of the left edge,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D8024,TexLeftDu,dword_1D8024,new,low,u step of the left edge,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D8028,TexLeftDv,dword_1D8028,new,low,v step of the left edge,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D802C,TexLeftDz,dword_1D802C,new,low,depth step of the left edge,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D8030,TexLeftVertex,dword_1D8030,new,low,vertex index of the left edge,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D8034,TexSpanUV,dword_1D8034,new,low,u and v at the start of the span,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D8044,TexDepthScale,dword_1D8044,new,low,depth scale of the textured polygon,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D8048,TexVertexCount,dword_1D8048,new,low,vertex count of the textured polygon,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D804C,TexRightRow,dword_1D804C,new,low,screen row of the right edge,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D8050,TexRightTop,dword_1D8050,new,low,top vertex of the right edge,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D8054,TexRightBottom,dword_1D8054,new,low,bottom vertex of the right edge,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D8058,TexRightHeight,dword_1D8058,new,low,rows of the right edge,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D805C,TexRightStep,dword_1D805C,new,low,"x, u and v steps of the right edge",src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D8068,TexRightStepCount,dword_1D8068,new,low,steps left on the right edge,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D806C,TexRightDone,dword_1D806C,new,low,set when the right edge has run out,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D8070,TexRightPos,dword_1D8070,new,low,"x, u and v of the right edge",src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D807C,TexRightFrac,dword_1D807C,new,low,fraction parts of the right edge position,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D8088,TexRightFlags,byte_1D8088,new,low,flags of the right edge,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D808C,TexRightX,dword_1D808C,new,low,screen x of the right edge,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D8090,TexRightDx,dword_1D8090,new,low,x step of the right edge,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D8094,TexRightDu,dword_1D8094,new,low,u step of the right edge,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D8098,TexRightDv,dword_1D8098,new,low,v step of the right edge,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D809C,TexRightDz,dword_1D809C,new,low,depth step of the right edge,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D80A0,TexRightVertex,dword_1D80A0,new,low,vertex index of the right edge,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D80A4,TexSpanStep,dword_1D80A4,new,low,u and v steps along the span,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D80B0,TexSpanWidth,dword_1D80B0,new,low,width of the span being drawn,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D80B4,ClipPolyVerts,unk_1D80B4,new,low,vertex list of the polygon being clipped,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D8334,ClipPolyOut,dword_1D8334,new,low,vertex lists output by each clip edge,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D8AB4,ClipPolyCount,dword_1D8AB4,new,low,vertex count of the polygon being clipped,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D8AB8,ClipPolyOutCount,dword_1D8AB8,new,low,vertex count after clipping,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D8ABC,ClipEdgePrev,dword_1D8ABC,new,low,previous vertex of the clip edge pass,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D8AC0,ClipEdgeOutPtr,dword_1D8AC0,new,low,output pointer of the clip edge pass,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D8AC4,ClipPolyDrawFn,dword_1D8AC4,new,low,routine that draws the clipped polygon,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D8AC8,NearClipTexVerts,unk_1D8AC8,new,low,textured vertices clipped against the near plane,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D8CC8,NearClipVertsIn,unk_1D8CC8,new,low,vertices before near-plane clipping,src/data/lib/ea/ea_gfx_08_bss_01.asm
+1D8EC8,NearClipVertsOut,unk_1D8EC8,new,low,vertices after near-plane clipping,src/data/lib/ea/ea_gfx_08_bss_01.asm
 1DA394,TintMulGreen,dword_1DA394,new,low,green multiplier of the screen tint,src/data/lib/ea/ea_debug_bss_01.asm
 1DA398,TintMulBlue,dword_1DA398,new,low,blue multiplier of the screen tint,src/data/lib/ea/ea_debug_bss_01.asm
 1DA39C,TintRowCount,dword_1DA39C,new,low,rows of the tint rectangle left to do,src/data/lib/ea/ea_debug_bss_01.asm
@@ -7906,6 +8064,71 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1DA464,IpxSocketNum,unk_1DA464,new,low,IPX socket number the game listens on,src/data/lib/ea/ea_debug_bss_01.asm
 1DA466,IpxSocketResult,unk_1DA466,new,low,result of opening the IPX socket,src/data/lib/ea/ea_debug_bss_01.asm
 1DA468,IpxLocalAddr,unk_1DA468,new,low,this computer's IPX network and node address,src/data/lib/ea/ea_debug_bss_01.asm
+1DD384,PatlChannelParams,dword_1DD384,new,low,parameters of the PATl sample being started,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD388,GusDriverConfig,word_1DD388,new,low,card settings read by the Gravis driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD38A,GusDriverBasePort,word_1DD38A,new,low,base port of the Gravis card,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD38C,GusDriverDma,byte_1DD38C,new,low,DMA channel of the Gravis driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD38D,GusDriverIrq,byte_1DD38D,new,low,IRQ line of the Gravis driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD390,GusDriverCardMem,dword_1DD390,new,low,card memory allocated for the stream,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD394,GusDriverDmaBuf,dword_1DD394,new,low,DMA buffer of the Gravis driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD398,DacTimerRate,dword_1DD398,new,low,timer rate of the DAC driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD39C,DacBuffer,dword_1DD39C,new,low,output buffer of the DAC driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD3A0,DacIrq,dword_1DD3A0,new,low,interrupt line acknowledged by the DAC driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD3A4,DacPort,dword_1DD3A4,new,low,output port of the DAC driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD3A8,DacTimerDivisor,dword_1DD3A8,new,low,timer divisor of the DAC driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD3AC,DacBufPos,dword_1DD3AC,new,low,position in the DAC output buffer,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD3B0,DacBufSize,dword_1DD3B0,new,low,size of the DAC output buffer,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD3B4,DacState,dword_1DD3B4,new,low,state words of the DAC driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD3C0,SbDmaBuffer,dword_1DD3C0,new,low,DMA buffer of the Sound Blaster driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD3C4,SbConfig,unk_1DD3C4,new,low,settings of the Sound Blaster driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD3C8,SbRate,dword_1DD3C8,new,low,sample rate of the Sound Blaster driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD3CC,SbDmaChannel,dword_1DD3CC,new,low,DMA channel of the Sound Blaster driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD3D0,SbDmaBufSize,dword_1DD3D0,new,low,DMA buffer size of the Sound Blaster driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD3D4,SbIrqLine,dword_1DD3D4,new,low,IRQ line of the Sound Blaster driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD3D8,SbBlockSize,dword_1DD3D8,new,low,DMA block size of the Sound Blaster driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD3DC,SbHalfSize,dword_1DD3DC,new,low,half DMA buffer size of the Sound Blaster driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD3E0,SbDspVersion,word_1DD3E0,new,low,DSP version of the Sound Blaster,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD3E4,SbOldIrqHandler,dword_1DD3E4,new,low,saved interrupt handler of the Sound Blaster line,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD3E8,SbOldIrqSelector,word_1DD3E8,new,low,saved interrupt selector of the Sound Blaster line,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD3EC,SbStartTime,dword_1DD3EC,new,low,start time of the Sound Blaster driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD3F0,SbProDmaBuffer,dword_1DD3F0,new,low,DMA buffer of the Sound Blaster Pro driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD3F4,SbProOldIrq,dword_1DD3F4,new,low,saved interrupt handler of the Sound Blaster Pro line,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD3F8,SbProIrqVector,dword_1DD3F8,new,low,interrupt vector of the Sound Blaster Pro line,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD3FC,SbProRate,dword_1DD3FC,new,low,sample rate of the Sound Blaster Pro driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD400,SbProIrqMask,dword_1DD400,new,low,interrupt mask of the Sound Blaster Pro line,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD404,SbProDmaBufSize,dword_1DD404,new,low,DMA buffer size of the Sound Blaster Pro driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD408,SbProBlockSize,dword_1DD408,new,low,DMA block size of the Sound Blaster Pro driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD40C,SbProConfig,unk_1DD40C,new,low,settings of the Sound Blaster Pro driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD410,SbProDmaChannel,dword_1DD410,new,low,DMA channel of the Sound Blaster Pro driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD414,SbProIrqLine,dword_1DD414,new,low,IRQ line of the Sound Blaster Pro driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD418,SbProIrqNum,dword_1DD418,new,low,interrupt number of the Sound Blaster Pro line,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD41C,SbProHalfSize,dword_1DD41C,new,low,half DMA buffer size of the Sound Blaster Pro driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD420,SbProOldMask,dword_1DD420,new,low,saved interrupt controller mask of the Sound Blaster Pro line,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD424,SbProStereo,dword_1DD424,new,low,set when the Sound Blaster Pro plays in stereo,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD428,SbProBasePort,dword_1DD428,new,low,base port of the Sound Blaster Pro,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD42C,SbProOldHandler,dword_1DD42C,new,low,saved handler offset of the Sound Blaster Pro line,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD430,SbProOldSelector,word_1DD430,new,low,saved handler selector of the Sound Blaster Pro line,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD434,SbProStartTime,dword_1DD434,new,low,start time of the Sound Blaster Pro driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD438,Sb16OldIrq,dword_1DD438,new,low,saved interrupt handler of the Sound Blaster 16 line,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD43C,Sb16IrqVector,dword_1DD43C,new,low,interrupt vector of the Sound Blaster 16 line,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD440,Sb16IrqMask,dword_1DD440,new,low,interrupt mask of the Sound Blaster 16 line,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD444,Sb16DmaBufSize,dword_1DD444,new,low,DMA buffer size of the Sound Blaster 16 driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD448,Sb16Config,dword_1DD448,new,low,settings of the Sound Blaster 16 driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD44C,Sb16Rate,dword_1DD44C,new,low,sample rate of the Sound Blaster 16 driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD450,Sb16DmaChannel,dword_1DD450,new,low,DMA channel of the Sound Blaster 16 driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD454,Sb16BlockSize,dword_1DD454,new,low,DMA block size of the Sound Blaster 16 driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD458,Sb16DmaBuffer,dword_1DD458,new,low,DMA buffer of the Sound Blaster 16 driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD45C,Sb16HalfSize,dword_1DD45C,new,low,half DMA buffer size of the Sound Blaster 16 driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD460,Sb16IrqLine,dword_1DD460,new,low,IRQ line of the Sound Blaster 16 driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD464,Sb16Format,dword_1DD464,new,low,sample format of the Sound Blaster 16 driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD468,Sb16Stereo,dword_1DD468,new,low,set when the Sound Blaster 16 plays in stereo,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD46C,Sb16DspVersion,word_1DD46C,new,low,DSP version of the Sound Blaster 16,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD470,Sb16IrqStatusPort,word_1DD470,new,low,interrupt status port of the Sound Blaster 16,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD472,Sb16DmaBits,word_1DD472,new,low,DMA width of the Sound Blaster 16 (8 or 16),src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD474,Sb16StartTime,dword_1DD474,new,low,start time of the Sound Blaster 16 driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD478,ScapeDmaBufSize,dword_1DD478,new,low,DMA buffer size of the Soundscape driver,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD47C,ScapeCodecBase,dword_1DD47C,new,low,codec base port of the Soundscape card,src/data/lib/ea/ea_unpack_02_bss_01.asm
+1DD480,ScapeCodecState,dword_1DD480,new,low,state of the Soundscape codec,src/data/lib/ea/ea_unpack_02_bss_01.asm
 1DD484,ScapeBasePort,dword_1DD484,new,low,base port of the Soundscape card,src/data/lib/sound/snd_soundblaster_01_bss_01.asm
 1DD488,ScapeIrq,dword_1DD488,new,low,IRQ line of the Soundscape card,src/data/lib/sound/snd_soundblaster_01_bss_01.asm
 1DD48C,ScapeDmaChannel,dword_1DD48C,new,low,DMA channel of the Soundscape card,src/data/lib/sound/snd_soundblaster_01_bss_01.asm

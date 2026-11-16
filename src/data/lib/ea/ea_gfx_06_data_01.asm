@@ -4,31 +4,31 @@ bits 32
 section s_170278 progbits alloc noexec write align=1
 extern RinkNoOpA, DrawRinkPrimFlat, DrawRinkPrimShaded, DrawRinkPrimTextured, RinkNoOpB, DrawRinkLineFlat, DrawRinkLineShaded, DrawRinkLineTextured
 extern TexSpanCopy, TexSpanKeyed, TexSpanShadow
-global dword_1702B4, dword_1702B8, str_Punct_DrawTexturedPoly, str_Punct_DrawTexturedSpan, F32_7p00649eneg41, dword_1702CC, dword_1706CC, off_170278
-global off_170284, off_170290, off_17029C, off_1702A8, off_1706D0
-off_170278:
+global IceSpansEnabled, TexSpanTable, str_Punct_DrawTexturedPoly, str_Punct_DrawTexturedSpan, F32_7p00649eneg41, SinTable, CosTable, RinkPrimNoOpFns
+global RinkPrimFlatFns, RinkPrimSetupFns, RinkPrimLineFns, RinkPrimEndFns, PolySpanFns
+RinkPrimNoOpFns:
         dd RinkNoOpA
         dd RinkNoOpA
         dd RinkNoOpA
-off_170284:
+RinkPrimFlatFns:
         dd DrawRinkPrimFlat
         dd DrawRinkPrimShaded
         dd DrawRinkPrimTextured
-off_170290:
+RinkPrimSetupFns:
         dd RinkNoOpA
         dd RinkNoOpA
         dd RinkNoOpA
-off_17029C:
+RinkPrimLineFns:
         dd DrawRinkLineFlat
         dd DrawRinkLineTextured
         dd DrawRinkLineShaded
-off_1702A8:
+RinkPrimEndFns:
         dd RinkNoOpB
         dd RinkNoOpB
         dd RinkNoOpB
-dword_1702B4:
+IceSpansEnabled:
         db 01h,00h,00h,00h
-dword_1702B8:
+TexSpanTable:
         db 00h,00h,00h,00h,080h,00h,00h,00h
 str_Punct_DrawTexturedPoly:
         db 020h,00h,00h,00h
@@ -36,7 +36,7 @@ str_Punct_DrawTexturedSpan:
         db 020h,00h,00h,00h
 F32_7p00649eneg41:
         db 050h,0C3h,00h,00h
-dword_1702CC:
+SinTable:
         db 00h,00h,00h,00h,092h,01h,00h,00h,024h,03h,00h,00h,0B6h,04h,00h,00h
         db 048h,06h,00h,00h,0DAh,07h,00h,00h,06Ch,09h,00h,00h,0FEh,0Ah,00h,00h
         db 08Fh,0Ch,00h,00h,021h,0Eh,00h,00h,0B2h,0Fh,00h,00h,044h,011h,00h,00h
@@ -101,9 +101,9 @@ dword_1702CC:
         db 04Eh,0FFh,00h,00h,06Ah,0FFh,00h,00h,084h,0FFh,00h,00h,09Ch,0FFh,00h,00h
         db 0B1h,0FFh,00h,00h,0C3h,0FFh,00h,00h,0D3h,0FFh,00h,00h,0E1h,0FFh,00h,00h
         db 0ECh,0FFh,00h,00h,0F4h,0FFh,00h,00h,0FBh,0FFh,00h,00h,0FEh,0FFh,00h,00h
-dword_1706CC:
+CosTable:
         db 00h,00h,01h,00h
-off_1706D0:
+PolySpanFns:
         dd TexSpanCopy
         dd TexSpanKeyed
         dd TexSpanShadow

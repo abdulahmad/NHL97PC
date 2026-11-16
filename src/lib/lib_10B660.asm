@@ -2,10 +2,10 @@
 bits 32
 %include "hockey.inc"
 section s_10B660 progbits alloc exec nowrite align=1
-extern SetClipWindow, byte_1D1D88, dword_16E670, dword_16E676, dword_16E67A, dword_16E67E, dword_16E682, dword_16E698
+extern SetClipWindow, LinePattern, dword_16E670, dword_16E676, dword_16E67A, dword_16E67E, dword_16E682, dword_16E698
 extern dword_16E69C, ViewOriginX, LineDeltaX, ViewOriginY, LineDeltaY, LineX, LineSteep, LineY
 extern LineEndX, LineStepX, LineEndY, LineStepY, ViewWidth, ViewHeight, LineErrY, LineErrX
-extern dword_1D1D6C, dword_1D1D70, dword_1D1D74, dword_1D1D78, dword_1D1D7C, dword_1D1D80, dword_1D1D84, str_AALIAS
+extern LineErrStepY, LineColor, LineClipMaxX, LineClipMaxY, LineErrStepX, EllipseRadiusX, EllipseRadiusY, str_AALIAS
 extern FixedLerp, PlotPixel, PlotPixelClipped, AllocMemBlock, MatchColor, FillRect
 global BuildAntiAliasTable, ClipLineY, ClipLineX, DrawLineYPlot, DrawLineY, DrawLineXPlot, DrawLineX, DrawFixedLine
 global DrawEllipseSpans
@@ -127,7 +127,7 @@ ClipLineY:
         push edi
         push ebp
         mov edx, dword [ViewWidth]
-        cmp edx, dword [dword_1D1D78]
+        cmp edx, dword [LineClipMaxY]
         jle short .1
         xor eax, eax
         jmp near .16
@@ -158,7 +158,7 @@ ClipLineY:
         mov edi, dword [LineEndY]
         mov edx, ebx
         add edi, eax
-        mov eax, dword [dword_1D1D6C]
+        mov eax, dword [LineErrStepY]
         mov dword [LineEndY], edi
         imul edx
         shl edx, 10h
@@ -171,9 +171,9 @@ ClipLineY:
         mov dword [LineStepY], eax
 .3:
         mov edx, dword [ViewOriginY]
-        cmp edx, dword [dword_1D1D78]
+        cmp edx, dword [LineClipMaxY]
         jge short .4
-        mov dword [dword_1D1D78], edx
+        mov dword [LineClipMaxY], edx
 .4:
         mov ebx, dword [ViewHeight]
         cmp ebx, dword [LineEndY]
@@ -191,7 +191,7 @@ ClipLineY:
         mov dword [LineSteep], eax
         cmp esi, dword [LineY]
         jle near .11
-        mov edi, dword [dword_1D1D6C]
+        mov edi, dword [LineErrStepY]
         test edi, edi
         jle short .9
         mov ebp, dword [LineY]
@@ -295,7 +295,7 @@ ClipLineY:
         pop ebx
         ret
 .14:
-        mov ebx, dword [dword_1D1D6C]
+        mov ebx, dword [LineErrStepY]
         mov edx, eax
         mov eax, ebx
         imul edx
@@ -333,7 +333,7 @@ ClipLineX:
         push edi
         push ebp
         mov edx, dword [ViewHeight]
-        cmp edx, dword [dword_1D1D74]
+        cmp edx, dword [LineClipMaxX]
         jle short .1
         xor eax, eax
         jmp near .16
@@ -355,7 +355,7 @@ ClipLineX:
         jge short .3
         mov ebx, edx
         sub ebx, eax
-        mov eax, dword [dword_1D1D7C]
+        mov eax, dword [LineErrStepX]
         mov edx, ebx
         imul edx
         shl edx, 10h
@@ -377,9 +377,9 @@ ClipLineX:
         mov dword [LineX], eax
 .3:
         mov edx, dword [ViewOriginX]
-        cmp edx, dword [dword_1D1D74]
+        cmp edx, dword [LineClipMaxX]
         jge short .4
-        mov dword [dword_1D1D74], edx
+        mov dword [LineClipMaxX], edx
 .4:
         mov ebx, dword [ViewWidth]
         cmp ebx, dword [LineStepX]
@@ -442,7 +442,7 @@ ClipLineX:
 .10:
         mov ebx, dword [ViewWidth]
         mov dword [LineEndX], ebx
-        mov ebx, dword [dword_1D1D7C]
+        mov ebx, dword [LineErrStepX]
         mov edx, eax
         mov eax, ebx
         imul edx
@@ -458,7 +458,7 @@ ClipLineX:
         mov edx, dword [ViewOriginY]
         cmp edx, dword [LineStepX]
         jg near .15
-        mov ebx, dword [dword_1D1D7C]
+        mov ebx, dword [LineErrStepX]
         test ebx, ebx
         jge short .13
         mov ecx, dword [LineStepX]
@@ -539,7 +539,7 @@ DrawLineYPlot:
         sub esp, byte 4
         mov edi, dword [LineStepY]
         mov eax, dword [LineStepY]
-        mov edx, dword [dword_1D1D78]
+        mov edx, dword [LineClipMaxY]
         sar edi, 10h
         cmp eax, edx
         jge near .10
@@ -592,7 +592,7 @@ DrawLineYPlot:
         shl ebp, 8
         call PlotPixelClipped
         add ebp, eax
-        mov eax, dword [dword_1D1D70]
+        mov eax, dword [LineColor]
         add esp, byte 8
         mov al, byte [dword eax+ebp-0100h]
         jmp near .8
@@ -610,7 +610,7 @@ DrawLineYPlot:
         mov edx, dword [esp]
         shl edx, 8
         add eax, edx
-        mov edx, dword [dword_1D1D70]
+        mov edx, dword [LineColor]
         mov al, byte [dword edx+eax-0100h]
         and eax, 0FFh
         push eax
@@ -623,7 +623,7 @@ DrawLineYPlot:
         cmp ebx, esi
         jge short .7
         xor eax, eax
-        mov al, byte [byte_1D1D88]
+        mov al, byte [LinePattern]
         push eax
         mov eax, esi
         push byte 1
@@ -644,7 +644,7 @@ DrawLineYPlot:
         push esi
         shl ebp, 8
         call PlotPixelClipped
-        mov ebx, dword [dword_1D1D70]
+        mov ebx, dword [LineColor]
         add eax, ebp
         add esp, byte 8
         mov al, byte [dword ebx+eax-0100h]
@@ -660,9 +660,9 @@ DrawLineYPlot:
         mov ebx, dword [LineEndY]
         mov ecx, dword [LineY]
         mov esi, dword [LineStepY]
-        mov ebp, dword [dword_1D1D78]
+        mov ebp, dword [LineClipMaxY]
         add ebx, eax
-        mov eax, dword [dword_1D1D6C]
+        mov eax, dword [LineErrStepY]
         inc edi
         add ecx, eax
         mov eax, dword [LineDeltaY]
@@ -692,7 +692,7 @@ DrawLineY:
         sub esp, byte 4
         mov eax, dword [LineStepY]
         sar eax, 10h
-        mov edx, dword [dword_1D1D78]
+        mov edx, dword [LineClipMaxY]
         mov dword [esp], eax
         cmp edx, dword [LineStepY]
         jle near .8
@@ -730,7 +730,7 @@ DrawLineY:
         sub ecx, byte 10h
         mov dl, byte [eax]
         shl ecx, 8
-        mov ebx, dword [dword_1D1D70]
+        mov ebx, dword [LineColor]
         add edx, ecx
         mov dl, byte [dword edx+ebx-0100h]
         jmp short .6
@@ -741,7 +741,7 @@ DrawLineY:
         shl esi, 8
         mov bl, byte [eax]
         add ebx, esi
-        mov esi, dword [dword_1D1D70]
+        mov esi, dword [LineColor]
         mov bl, byte [dword esi+ebx-0100h]
 .3:
         mov byte [eax], bl
@@ -749,7 +749,7 @@ DrawLineY:
         inc eax
         dec edx
         je short .5
-        mov bl, byte [byte_1D1D88]
+        mov bl, byte [LinePattern]
         jmp short .3
 .5:
         test ecx, ecx
@@ -757,7 +757,7 @@ DrawLineY:
         shl ecx, 8
         mov dl, byte [eax]
         add edx, ecx
-        mov ecx, dword [dword_1D1D70]
+        mov ecx, dword [LineColor]
         mov dl, byte [dword ecx+edx-0100h]
 .6:
         mov byte [eax], dl
@@ -767,11 +767,11 @@ DrawLineY:
         mov ebx, dword [LineEndY]
         mov ecx, dword [LineY]
         mov esi, dword [LineStepY]
-        mov edx, dword [dword_1D1D78]
+        mov edx, dword [LineClipMaxY]
         add edi, byte 4
         inc ebp
         add ebx, eax
-        mov eax, dword [dword_1D1D6C]
+        mov eax, dword [LineErrStepY]
         mov dword [LineEndY], ebx
         add ecx, eax
         mov eax, dword [LineDeltaY]
@@ -800,7 +800,7 @@ DrawLineXPlot:
         sub esp, byte 4
         mov edi, dword [LineX]
         mov eax, dword [LineX]
-        mov edx, dword [dword_1D1D74]
+        mov edx, dword [LineClipMaxX]
         sar edi, 10h
         cmp eax, edx
         jge near .10
@@ -852,7 +852,7 @@ DrawLineXPlot:
         shl ebp, 8
         call PlotPixelClipped
         add ebp, eax
-        mov eax, dword [dword_1D1D70]
+        mov eax, dword [LineColor]
         add esp, byte 8
         mov al, byte [dword eax+ebp-0100h]
         jmp near .8
@@ -868,7 +868,7 @@ DrawLineXPlot:
         shl ebp, 8
         call PlotPixelClipped
         add eax, ebp
-        mov ebp, dword [dword_1D1D70]
+        mov ebp, dword [LineColor]
         add esp, byte 8
         mov al, byte [dword eax+ebp-0100h]
         and eax, 0FFh
@@ -882,7 +882,7 @@ DrawLineXPlot:
         cmp ebx, esi
         jge short .7
         xor eax, eax
-        mov al, byte [byte_1D1D88]
+        mov al, byte [LinePattern]
         push eax
         mov eax, esi
         sub eax, ebx
@@ -906,7 +906,7 @@ DrawLineXPlot:
         mov ebx, dword [esp]
         shl ebx, 8
         add eax, ebx
-        mov ebx, dword [dword_1D1D70]
+        mov ebx, dword [LineColor]
         mov al, byte [dword ebx+eax-0100h]
 .8:
         and eax, 0FFh
@@ -916,11 +916,11 @@ DrawLineXPlot:
         call PlotPixel
         add esp, byte 0Ch
 .9:
-        mov eax, dword [dword_1D1D7C]
+        mov eax, dword [LineErrStepX]
         mov ebx, dword [LineStepX]
         mov ecx, dword [LineEndX]
         mov esi, dword [LineX]
-        mov ebp, dword [dword_1D1D74]
+        mov ebp, dword [LineClipMaxX]
         add ebx, eax
         mov eax, dword [LineErrX]
         inc edi
@@ -951,7 +951,7 @@ DrawLineX:
         push ebp
         mov esi, dword [LineX]
         mov eax, dword [LineX]
-        mov edx, dword [dword_1D1D74]
+        mov edx, dword [LineClipMaxX]
         sar esi, 10h
         cmp eax, edx
         jge near .8
@@ -993,7 +993,7 @@ DrawLineX:
         shl ebx, 8
         mov dl, byte [eax]
         add edx, ebx
-        mov ebx, dword [dword_1D1D70]
+        mov ebx, dword [LineColor]
         mov dl, byte [dword edx+ebx-0100h]
         jmp short .6
 .2:
@@ -1002,7 +1002,7 @@ DrawLineX:
         shl ebx, 8
         movzx edi, byte [eax]
         add edi, ebx
-        mov ebx, dword [dword_1D1D70]
+        mov ebx, dword [LineColor]
         mov bl, byte [dword edi+ebx-0100h]
 .3:
         mov byte [eax], bl
@@ -1010,7 +1010,7 @@ DrawLineX:
         add eax, dword [dword_16E670]
         dec edx
         je short .5
-        mov bl, byte [byte_1D1D88]
+        mov bl, byte [LinePattern]
         jmp short .3
 .5:
         test ecx, ecx
@@ -1018,16 +1018,16 @@ DrawLineX:
         shl ecx, 8
         mov dl, byte [eax]
         add ecx, edx
-        mov edx, dword [dword_1D1D70]
+        mov edx, dword [LineColor]
         mov dl, byte [dword ecx+edx-0100h]
 .6:
         mov byte [eax], dl
 .7:
-        mov eax, dword [dword_1D1D7C]
+        mov eax, dword [LineErrStepX]
         mov ebx, dword [LineStepX]
         mov ecx, dword [LineEndX]
         mov edi, dword [LineX]
-        mov ebp, dword [dword_1D1D74]
+        mov ebp, dword [LineClipMaxX]
         add ebx, eax
         mov eax, dword [LineErrX]
         inc esi
@@ -1091,8 +1091,8 @@ DrawFixedLine:
         mov esi, dword [LineDeltaY]
         mov al, byte [edx]
         add edx, byte 4
-        mov byte [byte_1D1D88], al
-        mov dword [dword_1D1D70], edx
+        mov byte [LinePattern], al
+        mov dword [LineColor], edx
         test esi, esi
         jg short .5
         neg esi
@@ -1121,7 +1121,7 @@ DrawFixedLine:
         cmp dword [LineDeltaY], byte 0
         jge short .7
         mov eax, dword [byte esp+01Ch]
-        mov dword [dword_1D1D78], eax
+        mov dword [LineClipMaxY], eax
         mov eax, ebp
         mov dword [LineStepY], edi
         sub eax, ecx
@@ -1137,7 +1137,7 @@ DrawFixedLine:
         mov dword [LineEndY], eax
         mov eax, dword [byte esp+018h]
         add eax, ebx
-        mov dword [dword_1D1D78], edi
+        mov dword [LineClipMaxY], edi
         mov dword [LineY], eax
 .8:
         mov eax, dword [LineDeltaX]
@@ -1153,7 +1153,7 @@ DrawFixedLine:
         mov edx, 10000h
         add eax, esi
         mov dword [LineDeltaY], edx
-        mov dword [dword_1D1D6C], eax
+        mov dword [LineErrStepY], eax
         call ClipLineY
         test eax, eax
         jle near .14
@@ -1161,12 +1161,12 @@ DrawFixedLine:
         je short .9
         call DrawLineYPlot
 .9:
-        mov ecx, dword [dword_1D1D78]
+        mov ecx, dword [LineClipMaxY]
         cmp ecx, dword [LineStepY]
         jle near .14
         call DrawLineY
         mov eax, dword [LineStepY]
-        cmp eax, dword [dword_1D1D78]
+        cmp eax, dword [LineClipMaxY]
         jge near .14
         call DrawLineYPlot
         add esp, byte 4
@@ -1188,7 +1188,7 @@ DrawFixedLine:
         cmp dword [LineDeltaX], byte 0
         jge short .11
         mov eax, dword [byte esp+018h]
-        mov dword [dword_1D1D74], eax
+        mov dword [LineClipMaxX], eax
         mov eax, edi
         mov dword [LineX], ebp
         sub eax, ecx
@@ -1204,7 +1204,7 @@ DrawFixedLine:
         mov dword [LineStepX], eax
         mov eax, dword [byte esp+01Ch]
         add eax, ebx
-        mov dword [dword_1D1D74], ebp
+        mov dword [LineClipMaxX], ebp
         mov dword [LineEndX], eax
 .12:
         mov eax, dword [LineDeltaY]
@@ -1215,7 +1215,7 @@ DrawFixedLine:
         idiv ebx
         mov dword [LineDeltaY], eax
         sub eax, esi
-        mov dword [dword_1D1D7C], eax
+        mov dword [LineErrStepX], eax
         mov eax, dword [LineDeltaY]
         mov edx, 10000h
         add esi, eax
@@ -1228,12 +1228,12 @@ DrawFixedLine:
         je short .13
         call DrawLineXPlot
 .13:
-        mov ecx, dword [dword_1D1D74]
+        mov ecx, dword [LineClipMaxX]
         cmp ecx, dword [LineX]
         jle short .14
         call DrawLineX
         mov eax, dword [LineX]
-        cmp eax, dword [dword_1D1D74]
+        cmp eax, dword [LineClipMaxX]
         jge short .14
         call DrawLineXPlot
 .14:
@@ -1289,9 +1289,9 @@ DrawEllipseSpans:
 .4:
         mov al, byte [edx]
         add edx, byte 4
-        mov byte [byte_1D1D88], al
+        mov byte [LinePattern], al
         mov eax, dword [LineDeltaY]
-        mov dword [dword_1D1D70], edx
+        mov dword [LineColor], edx
         test eax, eax
         jg short .5
         neg eax
@@ -1319,7 +1319,7 @@ DrawEllipseSpans:
         jge short .9
         mov dword [LineStepY], ebx
         mov ebx, dword [byte ebp+030h]
-        mov dword [dword_1D1D78], esi
+        mov dword [LineClipMaxY], esi
         test ebx, ebx
         je short .8
         mov edx, dword [byte ebp+02Ch]
@@ -1331,20 +1331,20 @@ DrawEllipseSpans:
         xor ecx, ecx
         sub eax, edx
         mov dword [LineErrY], ebx
-        mov dword [dword_1D1D6C], ecx
+        mov dword [LineErrStepY], ecx
         mov dword [LineEndY], eax
         jmp near .18
 .8:
         mov eax, dword [byte ebp+02Ch]
         mov dword [LineErrY], ebx
-        mov dword [dword_1D1D6C], edi
+        mov dword [LineErrStepY], edi
         add eax, ecx
         mov dword [LineEndY], ecx
         jmp near .17
 .9:
-        cmp dword [dword_1D1D84], byte 0
+        cmp dword [EllipseRadiusY], byte 0
         jne short .10
-        cmp dword [dword_1D1D80], byte 0
+        cmp dword [EllipseRadiusX], byte 0
         je near .15
 .10:
         mov eax, dword [dword_16E682]
@@ -1409,12 +1409,12 @@ DrawEllipseSpans:
 .15:
         mov dword [LineStepY], esi
         mov esi, dword [byte ebp+030h]
-        mov dword [dword_1D1D78], ebx
+        mov dword [LineClipMaxY], ebx
         test esi, esi
         je short .16
         mov eax, dword [byte ebp+014h]
         mov edx, dword [byte ebp+028h]
-        mov dword [dword_1D1D6C], edi
+        mov dword [LineErrStepY], edi
         xor esi, esi
         mov dword [LineEndY], eax
         add eax, edx
@@ -1425,7 +1425,7 @@ DrawEllipseSpans:
         mov edx, dword [byte ebp+028h]
         mov dword [LineErrY], edi
         mov ebx, edi
-        mov dword [dword_1D1D6C], esi
+        mov dword [LineErrStepY], esi
         sub eax, edx
         neg ebx
         mov dword [LineEndY], eax
@@ -1443,12 +1443,12 @@ DrawEllipseSpans:
         mov esi, 10000h
         mov edi, dword [LineErrY]
         mov dword [LineDeltaY], esi
-        mov edx, dword [dword_1D1D6C]
+        mov edx, dword [LineErrStepY]
         mov dword [LineDeltaX], eax
         add edi, eax
         add edx, eax
         mov dword [LineErrY], edi
-        mov dword [dword_1D1D6C], edx
+        mov dword [LineErrStepY], edx
         call ClipLineY
         test eax, eax
         jle near .27
@@ -1456,12 +1456,12 @@ DrawEllipseSpans:
         je short .19
         call DrawLineYPlot
 .19:
-        mov ecx, dword [dword_1D1D78]
+        mov ecx, dword [LineClipMaxY]
         cmp ecx, dword [LineStepY]
         jle near .27
         call DrawLineY
         mov eax, dword [LineStepY]
-        cmp eax, dword [dword_1D1D78]
+        cmp eax, dword [LineClipMaxY]
         jge near .27
         call DrawLineYPlot
         jmp near .27
@@ -1474,13 +1474,13 @@ DrawEllipseSpans:
         cmp dword [LineDeltaX], byte 0
         jge short .22
         mov edx, dword [byte ebp+014h]
-        mov dword [dword_1D1D74], edx
+        mov dword [LineClipMaxX], edx
         mov edx, dword [byte ebp+030h]
         mov dword [LineX], ecx
         test edx, edx
         je short .21
         xor edx, edx
-        mov dword [dword_1D1D7C], edx
+        mov dword [LineErrStepX], edx
         mov edx, dword [byte ebp+02Ch]
         mov dword [LineErrX], eax
         add edx, ebx
@@ -1490,36 +1490,36 @@ DrawEllipseSpans:
         mov ecx, dword [byte ebp+02Ch]
         mov esi, eax
         mov edx, ebx
-        mov dword [dword_1D1D7C], eax
+        mov dword [LineErrStepX], eax
         mov dword [LineEndX], ebx
         xor edi, edi
         neg esi
         mov dword [LineErrX], edi
         sub edx, ecx
-        mov dword [dword_1D1D7C], esi
+        mov dword [LineErrStepX], esi
         mov dword [LineStepX], edx
         jmp short .25
 .22:
         mov edx, dword [byte ebp+014h]
         mov dword [LineX], edx
         mov edx, dword [byte ebp+030h]
-        mov dword [dword_1D1D74], ecx
+        mov dword [LineClipMaxX], ecx
         test edx, edx
         je short .23
         mov ecx, dword [byte ebp+028h]
-        mov dword [dword_1D1D7C], eax
+        mov dword [LineErrStepX], eax
         mov edi, eax
         mov edx, esi
         mov dword [LineEndX], esi
         neg edi
         xor eax, eax
         sub edx, ecx
-        mov dword [dword_1D1D7C], edi
+        mov dword [LineErrStepX], edi
         mov dword [LineErrX], eax
         mov dword [LineStepX], edx
         jmp short .25
 .23:
-        mov dword [dword_1D1D7C], edx
+        mov dword [LineErrStepX], edx
         mov edx, dword [byte ebp+028h]
         mov dword [LineErrX], eax
         add edx, esi
@@ -1536,12 +1536,12 @@ DrawEllipseSpans:
         mov esi, 10000h
         mov ecx, dword [LineErrX]
         mov dword [LineDeltaX], esi
-        mov ebx, dword [dword_1D1D7C]
+        mov ebx, dword [LineErrStepX]
         mov dword [LineDeltaY], eax
         add ecx, eax
         add ebx, eax
         mov dword [LineErrX], ecx
-        mov dword [dword_1D1D7C], ebx
+        mov dword [LineErrStepX], ebx
         call ClipLineX
         test eax, eax
         jle short .27
@@ -1549,12 +1549,12 @@ DrawEllipseSpans:
         je short .26
         call DrawLineXPlot
 .26:
-        mov edx, dword [dword_1D1D74]
+        mov edx, dword [LineClipMaxX]
         cmp edx, dword [LineX]
         jle short .27
         call DrawLineX
         mov eax, dword [LineX]
-        cmp eax, dword [dword_1D1D74]
+        cmp eax, dword [LineClipMaxX]
         jge short .27
         call DrawLineXPlot
 .27:
@@ -1579,9 +1579,9 @@ DrawEllipseSpans:
         mov eax, dword [dword_16E682]
         add esp, byte 10h
         sar eax, 10h
-        mov dword [dword_1D1D80], ebx
+        mov dword [EllipseRadiusX], ebx
         shl eax, 10h
-        mov dword [dword_1D1D84], ebx
+        mov dword [EllipseRadiusY], ebx
         mov dword [ViewOriginY], eax
 .28:
         mov esp, ebp
@@ -1592,8 +1592,8 @@ DrawEllipseSpans:
         ret
         db 090h
         mov eax, dword [byte esp+04h]
-        mov dword [dword_1D1D84], eax
+        mov dword [EllipseRadiusY], eax
         mov eax, dword [byte esp+08h]
-        mov dword [dword_1D1D80], eax
+        mov dword [EllipseRadiusX], eax
         ret
         db 00h,00h,00h,00h,00h

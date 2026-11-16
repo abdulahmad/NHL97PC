@@ -3,12 +3,12 @@ bits 32
 %include "hockey.inc"
 section s_121C55 progbits alloc exec nowrite align=1
 extern _Extender, __8087, __EnterWVIDEO_, __init_80x87, __no87, __prtf_, __real87, __unhook387
-extern _curbrk, byte_16E415, byte_16E688, str_Punct_FreeArtArchive, byte_16F794, byte_16FA40, byte_171C90, byte_1725A4
+extern _curbrk, byte_16E415, byte_16E688, str_Punct_FreeArtArchive, byte_16F794, byte_16FA40, byte_171C90, Is8087
 extern dword_16E678, dword_16E67C, dword_16E680, dword_16E684, dword_16E690, dword_16E694, dword_16E698, dword_16E69C
-extern dword_16E6A0, str_F_BlitCore, dword_170704, dword_172524, dword_172564, dword_172674, dword_172678, dword_17267C
+extern dword_16E6A0, str_F_BlitCore, dword_170704, FpuSystemFlags, OldFpuVectorOffset, BlitDestOffsets, BlitColumnOffsets, BlitSourcePtr
 extern dword_1DA8D0, dword_1DA8D4, off_199CDC, off_199CE0, strchr_, strcpy_, stricmp_, strlen_
 extern bcopy, ConvertArtRows, ConvertArtShape, VesaSetBank, FixedLerp, WriteConsoleMessage, FreeMemBlock, unk_1DA4CC
-extern unk_1DC118, unk_1DC218, unk_1DC318, unk_1DC418, str_Punct_InitFpuFlags, word_172568, word_17256A, word_199CD8
+extern unk_1DC118, unk_1DC218, unk_1DC318, unk_1DC418, str_Punct_InitFpuFlags, OldFpuVectorSelector, FpuCr0Bits, word_199CD8
 global __chk8087_, __exit_with_msg_, __fatal_runtime_error_, __init_8087_, __rest_8087_, __save_8087_, __sys_fini_387_emulator, _fpreset_
 global NextTextChar_54, ClipPolyLeft_B8, mem_putc__0, EmuRestoreFpuVector, EmuRestoreRealVector, EmuNoHook, GetArchiveType, GetArchiveHeaderSize
 global FindArchiveEntry, ArchiveEntryOffset, ArchiveEntryOffsetAt, LocateArchiveEntry, LocateArchiveEntries, NextTextByte, NextTextChar, BlitCore
@@ -26,7 +26,7 @@ __sys_fini_387_emulator:
         push ebx
         push edx
         mov al, byte [_Extender]
-        cmp byte [byte_1725A4], 0
+        cmp byte [Is8087], 0
         je short .2
         call EmuRestoreRealVector
         jmp short .6
@@ -41,7 +41,7 @@ __sys_fini_387_emulator:
 .3:
         cmp al, 0
         jne short .4
-        mov ax, word [word_17256A]
+        mov ax, word [FpuCr0Bits]
         mov ah, 0F3h
         int 21h
         jmp short .6
@@ -72,9 +72,9 @@ __sys_fini_387_emulator:
 EmuRestoreFpuVector:
         mov cl, 7
         mov ax, 2504h
-        mov edx, dword [dword_172564]
+        mov edx, dword [OldFpuVectorOffset]
         push ds
-        o16 mov ds, word [word_172568]
+        o16 mov ds, word [OldFpuVectorSelector]
         int 21h
         pop ds
         cmp byte [_Extender], 3
@@ -84,7 +84,7 @@ EmuRestoreFpuVector:
 .1:
         mov ecx, cr0
         and ecx, byte 0FFFFFFF9h
-        mov dx, word [word_17256A]
+        mov dx, word [FpuCr0Bits]
         or cx, dx
         mov cr0, ecx
 .2:
@@ -95,12 +95,12 @@ EmuRestoreFpuVector:
 ;-----------------------------------------------------------------------------
 EmuRestoreRealVector:
         xor ebx, ebx
-        lea edx, [dword_172524]
+        lea edx, [FpuSystemFlags]
         mov ax, 2535h
         int 21h
         xor ecx, ecx
-        mov cx, word [word_17256A]
-        mov dword [dword_172524], ecx
+        mov cx, word [FpuCr0Bits]
+        mov dword [FpuSystemFlags], ecx
         inc ebx
         int 21h
         ret
@@ -1343,15 +1343,15 @@ SetBlitSource:
         push ebp
         LD mov, ebp, esp
         mov eax, dword [byte ebp+08h]
-        mov dword [dword_17267C], eax
+        mov dword [BlitSourcePtr], eax
         mov eax, dword [byte ebp+0Ch]
-        mov dword [dword_172678], eax
+        mov dword [BlitColumnOffsets], eax
         leave
         ret
         push ebp
         LD mov, ebp, esp
         mov eax, dword [byte ebp+08h]
-        mov dword [dword_172674], eax
+        mov dword [BlitDestOffsets], eax
         leave
         ret
 ;-----------------------------------------------------------------------------
@@ -1366,9 +1366,9 @@ CopyMappedSpan:
         mov esi, dword [byte esp+014h]
         mov edi, dword [byte esp+010h]
         mov ecx, dword [byte esp+018h]
-        add esi, dword [dword_17267C]
+        add esi, dword [BlitSourcePtr]
         add edi, dword [dword_16E69C]
-        mov edx, dword [dword_172678]
+        mov edx, dword [BlitColumnOffsets]
         LD xor, eax, eax
         cmp byte [byte_16E688], 8
         jg short .10
@@ -1461,9 +1461,9 @@ CopyMappedSpan:
         mov esi, dword [byte esp+014h]
         mov edi, dword [byte esp+010h]
         mov ecx, dword [byte esp+018h]
-        add esi, dword [dword_17267C]
+        add esi, dword [BlitSourcePtr]
         add edi, dword [dword_16E69C]
-        mov edx, dword [dword_172678]
+        mov edx, dword [BlitColumnOffsets]
         LD xor, eax, eax
         sub ecx, byte 4
         js short .21
@@ -1528,9 +1528,9 @@ CopyMappedSpan:
         mov esi, dword [byte ebp+0Ch]
         mov edi, dword [byte ebp+08h]
         mov ecx, dword [byte ebp+010h]
-        add esi, dword [dword_17267C]
+        add esi, dword [BlitSourcePtr]
         add edi, dword [dword_16E69C]
-        mov edx, dword [dword_172678]
+        mov edx, dword [BlitColumnOffsets]
         LD xor, eax, eax
 .25:
         mov ebx, dword [edx]
@@ -1554,9 +1554,9 @@ CopyMappedSpan:
         mov esi, dword [byte ebp+0Ch]
         mov edi, dword [byte ebp+08h]
         mov ecx, dword [byte ebp+010h]
-        add esi, dword [dword_17267C]
+        add esi, dword [BlitSourcePtr]
         add edi, dword [dword_16E69C]
-        mov edx, dword [dword_172678]
+        mov edx, dword [BlitColumnOffsets]
         LD xor, eax, eax
 .26:
         mov ebx, dword [edx]
@@ -1586,9 +1586,9 @@ CopyMappedSpan:
         mov esi, dword [byte ebp+0Ch]
         mov edi, dword [byte ebp+08h]
         mov ecx, dword [byte ebp+010h]
-        add esi, dword [dword_17267C]
+        add esi, dword [BlitSourcePtr]
         add edi, dword [dword_16E69C]
-        mov edx, dword [dword_172678]
+        mov edx, dword [BlitColumnOffsets]
         LD xor, eax, eax
 .29:
         mov ebx, dword [edx]
@@ -1618,10 +1618,10 @@ CopyMappedSpan:
         mov esi, dword [byte esp+018h]
         mov ebp, dword [byte esp+014h]
         mov ecx, dword [byte esp+01Ch]
-        add esi, dword [dword_17267C]
+        add esi, dword [BlitSourcePtr]
         add ebp, dword [dword_16E69C]
-        mov edx, dword [dword_172678]
-        mov edi, dword [dword_172674]
+        mov edx, dword [BlitColumnOffsets]
+        mov edi, dword [BlitDestOffsets]
         LD xor, eax, eax
         sub ecx, byte 2
         js short .33
@@ -1664,7 +1664,7 @@ CopyMappedSpan:
         mov esi, dword [byte esp+018h]
         mov edi, dword [byte esp+014h]
         mov ebp, dword [byte esp+01Ch]
-        add esi, dword [dword_17267C]
+        add esi, dword [BlitSourcePtr]
         add edi, dword [dword_16E69C]
         sub ebp, byte 10h
         js short .36
@@ -1739,7 +1739,7 @@ CopyMappedSpan:
         mov esi, dword [byte esp+0Ch]
         mov eax, dword [byte esp+010h]
         add edi, dword [dword_16E69C]
-        add esi, dword [dword_17267C]
+        add esi, dword [BlitSourcePtr]
         cmp eax, byte 0Ch
         jl short .41
         LD mov, ecx, edi
@@ -1776,8 +1776,8 @@ CopyScaledSpan:
         mov esi, dword [byte esp+018h]
         mov edi, dword [byte esp+014h]
         mov ecx, dword [byte esp+01Ch]
-        mov edx, dword [dword_172678]
-        add esi, dword [dword_17267C]
+        mov edx, dword [BlitColumnOffsets]
+        add esi, dword [BlitSourcePtr]
         add edi, dword [dword_16E69C]
         mov ebx, dword [byte edx+0Ch]
         cmp byte [byte_16E688], 8

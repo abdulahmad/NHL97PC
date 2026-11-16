@@ -2,20 +2,20 @@
 bits 32
 %include "hockey.inc"
 section s_10FEE8 progbits alloc exec nowrite align=1
-extern str_INVMATRX, str_Ori2, byte_1D8018, byte_1D8088, str_Punct_DrawRinkSurface, dword_16E670, dword_16E678, dword_16E67C
+extern str_INVMATRX, str_Ori2, TexLeftFlags, TexRightFlags, str_Punct_DrawRinkSurface, dword_16E670, dword_16E678, dword_16E67C
 extern dword_16E680, dword_16E684, dword_16E698, dword_16E69C, dword_17025C, str_D_ProjectPointsPersp, dword_170264, dword_170268
-extern dword_170274, dword_1702B8, str_Punct_DrawTexturedPoly, str_Punct_DrawTexturedSpan, F32_7p00649eneg41, ReciprocalTable, ViewOriginX, ViewOriginY
-extern ViewWidth, ViewHeight, dword_1D7FD4, dword_1D7FD8, dword_1D7FDC, dword_1D7FE0, dword_1D7FE4, dword_1D7FE8
-extern dword_1D7FEC, dword_1D7FF8, dword_1D7FFC, dword_1D8000, dword_1D800C, dword_1D801C, dword_1D8020, dword_1D8024
-extern dword_1D8028, dword_1D802C, dword_1D8030, dword_1D8034, dword_1D8044, dword_1D8048, dword_1D804C, dword_1D8050
-extern dword_1D8054, dword_1D8058, dword_1D805C, dword_1D8068, dword_1D806C, dword_1D8070, dword_1D807C, dword_1D808C
-extern dword_1D8090, dword_1D8094, dword_1D8098, dword_1D809C, dword_1D80A0, dword_1D80A4, dword_1D80B0, dword_1D8334
-extern dword_1D8AB4, dword_1D8AB8, dword_1D8ABC, dword_1D8AC0, dword_1D8AC4, memcpy_, off_1706D0, F64_0p1_InitModelInstance
+extern dword_170274, TexSpanTable, str_Punct_DrawTexturedPoly, str_Punct_DrawTexturedSpan, F32_7p00649eneg41, ReciprocalTable, ViewOriginX, ViewOriginY
+extern ViewWidth, ViewHeight, TexRowCount, TexRowY, TexDestRow, TexLeftTop, TexLeftBottom, TexLeftHeight
+extern TexLeftStep, TexLeftStepCount, TexLeftDone, TexLeftPos, TexLeftFrac, TexLeftX, TexLeftDx, TexLeftDu
+extern TexLeftDv, TexLeftDz, TexLeftVertex, TexSpanUV, TexDepthScale, TexVertexCount, TexRightRow, TexRightTop
+extern TexRightBottom, TexRightHeight, TexRightStep, TexRightStepCount, TexRightDone, TexRightPos, TexRightFrac, TexRightX
+extern TexRightDx, TexRightDu, TexRightDv, TexRightDz, TexRightVertex, TexSpanStep, TexSpanWidth, ClipPolyOut
+extern ClipPolyCount, ClipPolyOutCount, ClipEdgePrev, ClipEdgeOutPtr, ClipPolyDrawFn, memcpy_, PolySpanFns, F64_0p1_InitModelInstance
 extern F64_1p25_InitModelInstance, str_ORIINST, strcat_, strcpy_, strlen_, strnicmp_, LoadResourceData, SetModelFrame
 extern TransformVecFull, UpdateModelInstance, ClipTexPolyToNear, DrawPrimList, ResetMorphVerts, FixedSinCos, TexSpanCopy, ClipTexPolyLeft
 extern ClipTexPolyRight, ClipTexPolyTop, ClipTexPolyBottom, MakeRotationZ, DrawShapeTransformed, ClipDrawPolyLeft, ClipDrawPolyRight, ClipDrawPolyTop
-extern ClipDrawPolyBottom, AllocMemBlock, FreeMemBlock, FillMem, VecScale, unk_199738, ModelSlots, unk_1D3D6C
-extern unk_1D3D94, unk_1D5B94, unk_1D7994, unk_1D80B4
+extern ClipDrawPolyBottom, AllocMemBlock, FreeMemBlock, FillMem, VecScale, unk_199738, ModelSlots, ModelPartName
+extern NetFrontPoints, NetBackPoints, TexEdgeTable, ClipPolyVerts
 global DrawTexturedEdgeLeft_31B, AllocModelHeader, LoadModelByName, FreeModelFile, InitModelInstance, CreateModelInstance, FreeModelInstance, SetModelMatrix
 global SetModelPosition, FindModelPartByName, FindInstancePart, FindModelGroupByName, FindInstanceGroup, GetModelGroupEntry, GetInstanceGroupEntry, GetModelPartEntry
 global GetModelMatrixEntry, BuildNetGeometry, ProjectModelBounds, TexelStep, SetupTextureSpans, DrawTextureSpans, DrawTexturedSpan, DrawTexturedEdgeLeft
@@ -123,7 +123,7 @@ LoadModelByName:
         sub esp, byte 50h
         mov ebx, eax
         mov esi, edx
-        mov edx, unk_1D3D6C
+        mov edx, ModelPartName
         mov eax, esp
         call strcpy_
         mov eax, esp
@@ -945,7 +945,7 @@ BuildNetGeometry:
         mov edi, dword [edx]
         mov ebp, dword [byte edx+04h]
         mov edx, dword [byte esp+024h]
-        mov esi, unk_1D3D94
+        mov esi, NetFrontPoints
         cmp eax, edx
         je near .16
 .8:
@@ -1028,7 +1028,7 @@ BuildNetGeometry:
         cmp eax, ebx
         jne near .8
 .16:
-        sub esi, unk_1D3D94
+        sub esi, NetFrontPoints
         mov eax, dword [byte esp+08h]
         sar esi, 2
         mov dword [byte esp+040h], eax
@@ -1044,7 +1044,7 @@ BuildNetGeometry:
         mov ebp, dword [edx]
         mov edi, dword [byte edx+04h]
         mov edx, dword [byte esp+024h]
-        mov esi, unk_1D5B94
+        mov esi, NetBackPoints
         cmp eax, edx
         je near .25
         mov eax, dword [byte esp+014h]
@@ -1130,9 +1130,9 @@ BuildNetGeometry:
         cmp eax, ebx
         jne near .17
 .25:
-        mov edx, unk_1D5B94
+        mov edx, NetBackPoints
         mov esi, dword [byte esp+02Ch]
-        mov eax, unk_1D3D94
+        mov eax, NetFrontPoints
         xor ebx, ebx
         test esi, esi
         jle near .58
@@ -1142,16 +1142,16 @@ BuildNetGeometry:
         mov ecx, dword [eax]
         cmp ecx, ebp
         jge short .27
-        mov edx, unk_1D5B94
-        mov eax, unk_1D3D94
+        mov edx, NetBackPoints
+        mov eax, NetFrontPoints
         mov dword [byte esp+05Ch], edx
         mov dword [byte esp+058h], eax
         jmp short .29
 .27:
         cmp ebp, ecx
         jge short .28
-        mov ebp, unk_1D3D94
-        mov edi, unk_1D5B94
+        mov ebp, NetFrontPoints
+        mov edi, NetBackPoints
         mov dword [byte esp+05Ch], ebp
         mov dword [byte esp+058h], edi
         jmp short .29
@@ -1668,17 +1668,17 @@ SetupTextureSpans:
         fsubp st3
         fdivp
         fmulp
-        fstp dword [dword_1D8044]
-        test dword [dword_1D8044], 7FFFFFFFh
+        fstp dword [TexDepthScale]
+        test dword [TexDepthScale], 7FFFFFFFh
         je short .7
         fld1
-        fdiv dword [dword_1D8044]
+        fdiv dword [TexDepthScale]
         fild dword [F32_7p00649eneg41]
         fdivp
-        fstp dword [dword_1D8044]
+        fstp dword [TexDepthScale]
         jmp short .8
 .7:
-        mov dword [dword_1D8044], 47C34F80h
+        mov dword [TexDepthScale], 47C34F80h
 .8:
         add esp, byte 2Ch
         pop ebp
@@ -1915,12 +1915,12 @@ DrawTextureSpans:
         mov eax, dword [byte esp+010h]
         mov dword [byte esi+058h], eax
         mov ebx, eax
-        mov edx, dword [dword_1D80B0]
+        mov edx, dword [TexSpanWidth]
         mov eax, 0
         div ebx
         mov dword [byte esi+040h], eax
         mov ebx, dword [byte esp+08h]
-        mov edx, dword [dword_1D80B0]
+        mov edx, dword [TexSpanWidth]
         mov eax, 0
         div ebx
         mov edx, dword [byte esi+040h]
@@ -2022,35 +2022,35 @@ DrawTexturedSpan:
         push edi
         push ebp
         sub esp, byte 38h
-        mov edx, dword [dword_1D7FDC]
-        mov eax, dword [dword_1D804C]
+        mov edx, dword [TexDestRow]
+        mov eax, dword [TexRightRow]
         sub eax, edx
         mov dword [byte esp+034h], eax
         test eax, eax
         jle near .4
-        mov edi, dword [dword_1D800C]
+        mov edi, dword [TexLeftFrac]
         mov ecx, dword [str_Punct_DrawTexturedSpan]
-        mov esi, dword [dword_1D8000]
+        mov esi, dword [TexLeftPos]
         mov ebp, edx
         cmp eax, ecx
         jl near .3
         mov dword [byte esp+014h], eax
-        mov eax, dword [dword_1D8070]
+        mov eax, dword [TexRightPos]
         sub eax, esi
         mov dword [byte esp+010h], eax
-        mov eax, dword [dword_1D807C]
+        mov eax, dword [TexRightFrac]
         sub eax, edi
         mov dword [byte esp+018h], eax
-        mov eax, dword [dword_1D8034]
+        mov eax, dword [TexSpanUV]
         mov dword [byte esp+020h], eax
         mov edx, dword [byte esp+020h]
-        mov eax, dword [dword_1D80A4]
+        mov eax, dword [TexSpanStep]
         sub eax, edx
         mov dword [byte esp+01Ch], eax
-        mov eax, dword [dword_1D801C]
+        mov eax, dword [TexLeftX]
         mov dword [byte esp+030h], eax
         mov ebx, dword [byte esp+030h]
-        mov eax, dword [dword_1D808C]
+        mov eax, dword [TexRightX]
         sub eax, ebx
         imul eax, ecx
         mov edx, dword [byte esp+034h]
@@ -2067,7 +2067,7 @@ DrawTexturedSpan:
         mov ebx, dword [byte esp+030h]
         mov ecx, dword [byte esp+02Ch]
         add ebx, eax
-        mov edx, dword [dword_1D80B0]
+        mov edx, dword [TexSpanWidth]
         mov dword [byte esp+030h], ebx
         mov eax, 0
         div ebx
@@ -2085,7 +2085,7 @@ DrawTexturedSpan:
         shl edx, 10h
         shr eax, 10h
         adc eax, edx
-        mov edx, dword [dword_1D8000]
+        mov edx, dword [TexLeftPos]
         add edx, eax
         mov dword [byte esp+028h], edx
         mov eax, ebx
@@ -2094,7 +2094,7 @@ DrawTexturedSpan:
         shl edx, 10h
         shr eax, 10h
         adc eax, edx
-        mov edx, dword [dword_1D800C]
+        mov edx, dword [TexLeftFrac]
         add edx, eax
         mov eax, dword [byte esp+028h]
         mov dword [byte esp+024h], edx
@@ -2109,7 +2109,7 @@ DrawTexturedSpan:
         shl eax, 2
         imul dword [nosplit edx*4+ReciprocalTable]
         mov eax, edx
-        mov ecx, dword [dword_1D7FD4]
+        mov ecx, dword [TexRowCount]
         sar eax, 10h
         imul ecx, eax
         mov eax, ebx
@@ -2117,9 +2117,9 @@ DrawTexturedSpan:
         add eax, ecx
         mov ecx, edi
         sar ecx, 10h
-        imul ecx, dword [dword_1D7FD4]
+        imul ecx, dword [TexRowCount]
         mov dword [byte esp+04h], ecx
-        mov ecx, dword [dword_1D8048]
+        mov ecx, dword [TexVertexCount]
         add ecx, byte 10h
         add ecx, dword [byte esp+04h]
         mov dword [byte esp+08h], ecx
@@ -2131,25 +2131,25 @@ DrawTexturedSpan:
         mov dword [esp], ecx
         mov ecx, dword [str_Punct_DrawTexturedSpan]
         push ecx
-        mov ecx, dword [dword_1D7FD4]
+        mov ecx, dword [TexRowCount]
         push eax
         add eax, ecx
         push eax
         push edx
         push edi
         push ebx
-        mov eax, dword [dword_1D7FD8]
+        mov eax, dword [TexRowY]
         push esi
         add eax, ebp
         push eax
         mov esi, dword [byte esp+020h]
         push esi
         call TexSpanCopy
-        mov edi, dword [dword_1702B8]
+        mov edi, dword [TexSpanTable]
         add esp, byte 24h
         test edi, edi
         je short .2
-        mov eax, dword [dword_1D7FD8]
+        mov eax, dword [TexRowY]
         mov byte [eax+ebp], 0Fh
 .2:
         mov ebx, dword [byte esp+034h]
@@ -2164,10 +2164,10 @@ DrawTexturedSpan:
 .3:
         cmp dword [byte esp+034h], byte 0
         jle near .4
-        mov eax, dword [dword_1D8070]
+        mov eax, dword [TexRightPos]
         mov edx, dword [byte esp+034h]
         sub eax, esi
-        mov ecx, dword [dword_1D807C]
+        mov ecx, dword [TexRightFrac]
         shl eax, 2
         imul dword [nosplit edx*4+ReciprocalTable]
         mov ebx, edx
@@ -2177,7 +2177,7 @@ DrawTexturedSpan:
         shl eax, 2
         imul dword [nosplit edx*4+ReciprocalTable]
         mov eax, edx
-        mov ecx, dword [dword_1D7FD4]
+        mov ecx, dword [TexRowCount]
         sar eax, 10h
         imul ecx, eax
         mov eax, ebx
@@ -2185,9 +2185,9 @@ DrawTexturedSpan:
         add eax, ecx
         mov ecx, edi
         sar ecx, 10h
-        imul ecx, dword [dword_1D7FD4]
+        imul ecx, dword [TexRowCount]
         mov dword [byte esp+04h], ecx
-        mov ecx, dword [dword_1D8048]
+        mov ecx, dword [TexVertexCount]
         add ecx, byte 10h
         add ecx, dword [byte esp+04h]
         mov dword [byte esp+04h], ecx
@@ -2199,25 +2199,25 @@ DrawTexturedSpan:
         mov dword [esp], ecx
         mov ecx, dword [byte esp+034h]
         push ecx
-        mov ecx, dword [dword_1D7FD4]
+        mov ecx, dword [TexRowCount]
         push eax
         add eax, ecx
         push eax
         push edx
         push edi
         push ebx
-        mov eax, dword [dword_1D7FD8]
+        mov eax, dword [TexRowY]
         push esi
         add eax, ebp
         push eax
         mov esi, dword [byte esp+020h]
         push esi
         call TexSpanCopy
-        mov edi, dword [dword_1702B8]
+        mov edi, dword [TexSpanTable]
         add esp, byte 24h
         test edi, edi
         je short .4
-        mov eax, dword [dword_1D7FD8]
+        mov eax, dword [TexRowY]
         mov byte [eax+ebp], 0Dh
 .4:
         add esp, byte 38h
@@ -2243,23 +2243,23 @@ DrawTexturedEdgeLeft:
         shl eax, 3
         add eax, ebp
         mov edx, dword [byte esp+018h]
-        lea esi, [nosplit eax*4+unk_1D7994]
+        lea esi, [nosplit eax*4+TexEdgeTable]
         lea eax, [nosplit edx*4+00h]
         mov ecx, 19h
         sub eax, edx
-        mov edi, dword_1D7FDC
+        mov edi, TexDestRow
         shl eax, 3
         rep movsd
         add eax, edx
         mov ecx, 19h
-        lea esi, [nosplit eax*4+unk_1D7994]
+        lea esi, [nosplit eax*4+TexEdgeTable]
         mov eax, dword [byte esp+020h]
-        mov edi, dword_1D804C
+        mov edi, TexRightRow
         dec eax
         rep movsd
         mov dword [esp], eax
 .1:
-        cmp dword [dword_1D806C], byte 0
+        cmp dword [TexRightDone], byte 0
         jg short .3
         mov ebx, dword [byte esp+018h]
         dec ebx
@@ -2274,14 +2274,14 @@ DrawTexturedEdgeLeft:
         je near DrawTexturedEdgeLeft_31B
         imul esi, byte 64h
         mov ecx, 19h
-        mov edi, dword_1D804C
-        lea esi, [dword esi+unk_1D7994]
+        mov edi, TexRightRow
+        lea esi, [dword esi+TexEdgeTable]
         rep movsd
         jmp short .1
 .3:
         mov ebx, dword [byte esp+020h]
 .4:
-        cmp dword [dword_1D7FFC], byte 0
+        cmp dword [TexLeftDone], byte 0
         jg short .6
         inc ebp
         cmp ebp, ebx
@@ -2290,13 +2290,13 @@ DrawTexturedEdgeLeft:
 .5:
         imul esi, ebp, byte 64h
         mov ecx, 19h
-        mov edi, dword_1D7FDC
-        lea esi, [dword esi+unk_1D7994]
+        mov edi, TexDestRow
+        lea esi, [dword esi+TexEdgeTable]
         rep movsd
         jmp short .4
 .6:
-        mov edx, dword [dword_1D7FFC]
-        mov eax, dword [dword_1D806C]
+        mov edx, dword [TexLeftDone]
+        mov eax, dword [TexRightDone]
         cmp eax, edx
         jge short .7
         mov esi, eax
@@ -2309,142 +2309,142 @@ DrawTexturedEdgeLeft:
         je near .1
         call DrawTexturedSpan
         mov eax, dword [dword_16E670]
-        mov ecx, dword [dword_1D7FD8]
-        mov edi, dword [dword_1D7FDC]
+        mov ecx, dword [TexRowY]
+        mov edi, dword [TexDestRow]
         add ecx, eax
-        mov eax, dword [dword_1D7FE0]
-        mov edx, dword [dword_1D801C]
+        mov eax, dword [TexLeftTop]
+        mov edx, dword [TexLeftX]
         add edi, eax
-        add edx, dword [dword_1D8020]
-        mov dword [dword_1D7FD8], ecx
-        mov dword [dword_1D801C], edx
+        add edx, dword [TexLeftDx]
+        mov dword [TexRowY], ecx
+        mov dword [TexLeftX], edx
         mov ebx, edx
-        mov edx, dword [dword_1D80B0]
-        mov dword [dword_1D7FDC], edi
+        mov edx, dword [TexSpanWidth]
+        mov dword [TexDestRow], edi
         mov eax, 0
         div ebx
-        mov ebx, dword [dword_1D7FFC]
-        mov ecx, dword [dword_1D7FEC]
-        mov edi, dword [dword_1D7FE8]
-        mov dword [dword_1D8034], eax
-        mov eax, dword [dword_1D7FE4]
+        mov ebx, dword [TexLeftDone]
+        mov ecx, dword [TexLeftStep]
+        mov edi, dword [TexLeftHeight]
+        mov dword [TexSpanUV], eax
+        mov eax, dword [TexLeftBottom]
         dec ebx
         add ecx, eax
-        mov dword [dword_1D7FFC], ebx
-        mov dword [dword_1D7FEC], ecx
+        mov dword [TexLeftDone], ebx
+        mov dword [TexLeftStep], ecx
         cmp ecx, edi
         jl short .9
         mov edx, ecx
-        mov eax, dword [dword_1D7FDC]
+        mov eax, dword [TexDestRow]
         sub edx, edi
         inc eax
-        mov dword [dword_1D7FEC], edx
-        mov dword [dword_1D7FDC], eax
+        mov dword [TexLeftStep], edx
+        mov dword [TexDestRow], eax
 .9:
-        mov ebx, dword [dword_1D7FF8]
+        mov ebx, dword [TexLeftStepCount]
         inc ebx
-        mov ah, byte [byte_1D8018]
-        mov dword [dword_1D7FF8], ebx
+        mov ah, byte [TexLeftFlags]
+        mov dword [TexLeftStepCount], ebx
         test ah, 1
         je short .10
-        mov eax, dword [dword_1D8028]
-        imul eax, dword [dword_1D7FF8]
-        mov edx, dword [dword_1D7FE8]
-        mov ebx, dword [dword_1D8034]
+        mov eax, dword [TexLeftDv]
+        imul eax, dword [TexLeftStepCount]
+        mov edx, dword [TexLeftHeight]
+        mov ebx, dword [TexSpanUV]
         shl eax, 2
         imul dword [nosplit edx*4+ReciprocalTable]
-        mov eax, dword [dword_1D8024]
+        mov eax, dword [TexLeftDu]
         add eax, edx
         mov edx, ebx
         imul edx
         shl edx, 10h
         shr eax, 10h
         adc eax, edx
-        mov dword [dword_1D8000], eax
+        mov dword [TexLeftPos], eax
 .10:
-        test byte [byte_1D8018], 2
+        test byte [TexLeftFlags], 2
         je short .11
-        mov eax, dword [dword_1D8030]
-        imul eax, dword [dword_1D7FF8]
-        mov edx, dword [dword_1D7FE8]
-        mov ebx, dword [dword_1D8034]
+        mov eax, dword [TexLeftVertex]
+        imul eax, dword [TexLeftStepCount]
+        mov edx, dword [TexLeftHeight]
+        mov ebx, dword [TexSpanUV]
         shl eax, 2
         imul dword [nosplit edx*4+ReciprocalTable]
-        mov eax, dword [dword_1D802C]
+        mov eax, dword [TexLeftDz]
         add eax, edx
         mov edx, ebx
         imul edx
         shl edx, 10h
         shr eax, 10h
         adc eax, edx
-        mov dword [dword_1D800C], eax
+        mov dword [TexLeftFrac], eax
 .11:
-        mov eax, dword [dword_1D8050]
-        mov edx, dword [dword_1D804C]
-        mov ebx, dword [dword_1D808C]
+        mov eax, dword [TexRightTop]
+        mov edx, dword [TexRightRow]
+        mov ebx, dword [TexRightX]
         add edx, eax
-        mov eax, dword [dword_1D8090]
-        mov dword [dword_1D804C], edx
+        mov eax, dword [TexRightDx]
+        mov dword [TexRightRow], edx
         add ebx, eax
-        mov edx, dword [dword_1D80B0]
-        mov dword [dword_1D808C], ebx
+        mov edx, dword [TexSpanWidth]
+        mov dword [TexRightX], ebx
         mov eax, 0
         div ebx
-        mov ecx, dword [dword_1D806C]
-        mov edi, dword [dword_1D805C]
-        mov edx, dword [dword_1D8058]
-        mov dword [dword_1D80A4], eax
-        mov eax, dword [dword_1D8054]
+        mov ecx, dword [TexRightDone]
+        mov edi, dword [TexRightStep]
+        mov edx, dword [TexRightHeight]
+        mov dword [TexSpanStep], eax
+        mov eax, dword [TexRightBottom]
         dec ecx
         add edi, eax
-        mov dword [dword_1D806C], ecx
-        mov dword [dword_1D805C], edi
+        mov dword [TexRightDone], ecx
+        mov dword [TexRightStep], edi
         cmp edi, edx
         jl short .12
         mov ecx, edi
-        mov ebx, dword [dword_1D804C]
+        mov ebx, dword [TexRightRow]
         sub ecx, edx
         inc ebx
-        mov dword [dword_1D805C], ecx
-        mov dword [dword_1D804C], ebx
+        mov dword [TexRightStep], ecx
+        mov dword [TexRightRow], ebx
 .12:
-        mov edi, dword [dword_1D8068]
+        mov edi, dword [TexRightStepCount]
         inc edi
-        mov dh, byte [byte_1D8088]
-        mov dword [dword_1D8068], edi
+        mov dh, byte [TexRightFlags]
+        mov dword [TexRightStepCount], edi
         test dh, 1
         je short .13
-        mov eax, dword [dword_1D8098]
+        mov eax, dword [TexRightDv]
         imul eax, edi
-        mov edx, dword [dword_1D8058]
-        mov ebx, dword [dword_1D80A4]
+        mov edx, dword [TexRightHeight]
+        mov ebx, dword [TexSpanStep]
         shl eax, 2
         imul dword [nosplit edx*4+ReciprocalTable]
-        mov eax, dword [dword_1D8094]
+        mov eax, dword [TexRightDu]
         add eax, edx
         mov edx, ebx
         imul edx
         shl edx, 10h
         shr eax, 10h
         adc eax, edx
-        mov dword [dword_1D8070], eax
+        mov dword [TexRightPos], eax
 .13:
-        test byte [byte_1D8088], 2
+        test byte [TexRightFlags], 2
         je near .8
-        mov eax, dword [dword_1D80A0]
-        imul eax, dword [dword_1D8068]
-        mov edx, dword [dword_1D8058]
-        mov ebx, dword [dword_1D80A4]
+        mov eax, dword [TexRightVertex]
+        imul eax, dword [TexRightStepCount]
+        mov edx, dword [TexRightHeight]
+        mov ebx, dword [TexSpanStep]
         shl eax, 2
         imul dword [nosplit edx*4+ReciprocalTable]
-        mov eax, dword [dword_1D809C]
+        mov eax, dword [TexRightDz]
         add eax, edx
         mov edx, ebx
         imul edx
         shl edx, 10h
         shr eax, 10h
         adc eax, edx
-        mov dword [dword_1D807C], eax
+        mov dword [TexRightFrac], eax
         jmp near .8
 DrawTexturedEdgeLeft_31B:
         add esp, byte 4
@@ -2470,23 +2470,23 @@ DrawTexturedEdgeRight:
         sub eax, edx
         shl eax, 3
         add eax, edx
-        lea esi, [nosplit eax*4+unk_1D7994]
+        lea esi, [nosplit eax*4+TexEdgeTable]
         lea eax, [nosplit ebp*4+00h]
         mov ecx, 19h
         sub eax, ebp
-        mov edi, dword_1D7FDC
+        mov edi, TexDestRow
         shl eax, 3
         rep movsd
         add eax, ebp
         mov ecx, 19h
-        lea esi, [nosplit eax*4+unk_1D7994]
+        lea esi, [nosplit eax*4+TexEdgeTable]
         mov eax, dword [byte esp+020h]
-        mov edi, dword_1D804C
+        mov edi, TexRightRow
         dec eax
         rep movsd
         mov dword [esp], eax
 .1:
-        cmp dword [dword_1D7FFC], byte 0
+        cmp dword [TexLeftDone], byte 0
         jg short .3
         mov ebx, dword [byte esp+018h]
         dec ebx
@@ -2501,14 +2501,14 @@ DrawTexturedEdgeRight:
         je near DrawTexturedEdgeLeft_31B
         imul esi, byte 64h
         mov ecx, 19h
-        mov edi, dword_1D7FDC
-        lea esi, [dword esi+unk_1D7994]
+        mov edi, TexDestRow
+        lea esi, [dword esi+TexEdgeTable]
         rep movsd
         jmp short .1
 .3:
         mov ebx, dword [byte esp+020h]
 .4:
-        mov eax, dword [dword_1D806C]
+        mov eax, dword [TexRightDone]
         test eax, eax
         jg short .6
         inc ebp
@@ -2518,12 +2518,12 @@ DrawTexturedEdgeRight:
 .5:
         imul esi, ebp, byte 64h
         mov ecx, 19h
-        mov edi, dword_1D804C
-        lea esi, [dword esi+unk_1D7994]
+        mov edi, TexRightRow
+        lea esi, [dword esi+TexEdgeTable]
         rep movsd
         jmp short .4
 .6:
-        mov edx, dword [dword_1D7FFC]
+        mov edx, dword [TexLeftDone]
         cmp eax, edx
         jge short .7
         mov esi, eax
@@ -2536,142 +2536,142 @@ DrawTexturedEdgeRight:
         je near .1
         call DrawTexturedSpan
         mov eax, dword [dword_16E670]
-        mov ecx, dword [dword_1D7FD8]
-        mov edi, dword [dword_1D7FDC]
+        mov ecx, dword [TexRowY]
+        mov edi, dword [TexDestRow]
         add ecx, eax
-        mov eax, dword [dword_1D7FE0]
-        mov edx, dword [dword_1D801C]
+        mov eax, dword [TexLeftTop]
+        mov edx, dword [TexLeftX]
         add edi, eax
-        add edx, dword [dword_1D8020]
-        mov dword [dword_1D7FD8], ecx
-        mov dword [dword_1D801C], edx
+        add edx, dword [TexLeftDx]
+        mov dword [TexRowY], ecx
+        mov dword [TexLeftX], edx
         mov ebx, edx
-        mov edx, dword [dword_1D80B0]
-        mov dword [dword_1D7FDC], edi
+        mov edx, dword [TexSpanWidth]
+        mov dword [TexDestRow], edi
         mov eax, 0
         div ebx
-        mov ebx, dword [dword_1D7FFC]
-        mov ecx, dword [dword_1D7FEC]
-        mov edi, dword [dword_1D7FE8]
-        mov dword [dword_1D8034], eax
-        mov eax, dword [dword_1D7FE4]
+        mov ebx, dword [TexLeftDone]
+        mov ecx, dword [TexLeftStep]
+        mov edi, dword [TexLeftHeight]
+        mov dword [TexSpanUV], eax
+        mov eax, dword [TexLeftBottom]
         dec ebx
         add ecx, eax
-        mov dword [dword_1D7FFC], ebx
-        mov dword [dword_1D7FEC], ecx
+        mov dword [TexLeftDone], ebx
+        mov dword [TexLeftStep], ecx
         cmp ecx, edi
         jl short .9
         mov edx, ecx
-        mov eax, dword [dword_1D7FDC]
+        mov eax, dword [TexDestRow]
         sub edx, edi
         inc eax
-        mov dword [dword_1D7FEC], edx
-        mov dword [dword_1D7FDC], eax
+        mov dword [TexLeftStep], edx
+        mov dword [TexDestRow], eax
 .9:
-        mov ebx, dword [dword_1D7FF8]
+        mov ebx, dword [TexLeftStepCount]
         inc ebx
-        mov ah, byte [byte_1D8018]
-        mov dword [dword_1D7FF8], ebx
+        mov ah, byte [TexLeftFlags]
+        mov dword [TexLeftStepCount], ebx
         test ah, 1
         je short .10
-        mov eax, dword [dword_1D8028]
-        imul eax, dword [dword_1D7FF8]
-        mov edx, dword [dword_1D7FE8]
-        mov ebx, dword [dword_1D8034]
+        mov eax, dword [TexLeftDv]
+        imul eax, dword [TexLeftStepCount]
+        mov edx, dword [TexLeftHeight]
+        mov ebx, dword [TexSpanUV]
         shl eax, 2
         imul dword [nosplit edx*4+ReciprocalTable]
-        mov eax, dword [dword_1D8024]
+        mov eax, dword [TexLeftDu]
         add eax, edx
         mov edx, ebx
         imul edx
         shl edx, 10h
         shr eax, 10h
         adc eax, edx
-        mov dword [dword_1D8000], eax
+        mov dword [TexLeftPos], eax
 .10:
-        test byte [byte_1D8018], 2
+        test byte [TexLeftFlags], 2
         je short .11
-        mov eax, dword [dword_1D8030]
-        imul eax, dword [dword_1D7FF8]
-        mov edx, dword [dword_1D7FE8]
-        mov ebx, dword [dword_1D8034]
+        mov eax, dword [TexLeftVertex]
+        imul eax, dword [TexLeftStepCount]
+        mov edx, dword [TexLeftHeight]
+        mov ebx, dword [TexSpanUV]
         shl eax, 2
         imul dword [nosplit edx*4+ReciprocalTable]
-        mov eax, dword [dword_1D802C]
+        mov eax, dword [TexLeftDz]
         add eax, edx
         mov edx, ebx
         imul edx
         shl edx, 10h
         shr eax, 10h
         adc eax, edx
-        mov dword [dword_1D800C], eax
+        mov dword [TexLeftFrac], eax
 .11:
-        mov eax, dword [dword_1D8050]
-        mov edx, dword [dword_1D804C]
-        mov ebx, dword [dword_1D808C]
+        mov eax, dword [TexRightTop]
+        mov edx, dword [TexRightRow]
+        mov ebx, dword [TexRightX]
         add edx, eax
-        mov eax, dword [dword_1D8090]
-        mov dword [dword_1D804C], edx
+        mov eax, dword [TexRightDx]
+        mov dword [TexRightRow], edx
         add ebx, eax
-        mov edx, dword [dword_1D80B0]
-        mov dword [dword_1D808C], ebx
+        mov edx, dword [TexSpanWidth]
+        mov dword [TexRightX], ebx
         mov eax, 0
         div ebx
-        mov ecx, dword [dword_1D806C]
-        mov edi, dword [dword_1D805C]
-        mov edx, dword [dword_1D8058]
-        mov dword [dword_1D80A4], eax
-        mov eax, dword [dword_1D8054]
+        mov ecx, dword [TexRightDone]
+        mov edi, dword [TexRightStep]
+        mov edx, dword [TexRightHeight]
+        mov dword [TexSpanStep], eax
+        mov eax, dword [TexRightBottom]
         dec ecx
         add edi, eax
-        mov dword [dword_1D806C], ecx
-        mov dword [dword_1D805C], edi
+        mov dword [TexRightDone], ecx
+        mov dword [TexRightStep], edi
         cmp edi, edx
         jl short .12
         mov ecx, edi
-        mov ebx, dword [dword_1D804C]
+        mov ebx, dword [TexRightRow]
         sub ecx, edx
         inc ebx
-        mov dword [dword_1D805C], ecx
-        mov dword [dword_1D804C], ebx
+        mov dword [TexRightStep], ecx
+        mov dword [TexRightRow], ebx
 .12:
-        mov edi, dword [dword_1D8068]
+        mov edi, dword [TexRightStepCount]
         inc edi
-        mov dh, byte [byte_1D8088]
-        mov dword [dword_1D8068], edi
+        mov dh, byte [TexRightFlags]
+        mov dword [TexRightStepCount], edi
         test dh, 1
         je short .13
-        mov eax, dword [dword_1D8098]
+        mov eax, dword [TexRightDv]
         imul eax, edi
-        mov edx, dword [dword_1D8058]
-        mov ebx, dword [dword_1D80A4]
+        mov edx, dword [TexRightHeight]
+        mov ebx, dword [TexSpanStep]
         shl eax, 2
         imul dword [nosplit edx*4+ReciprocalTable]
-        mov eax, dword [dword_1D8094]
+        mov eax, dword [TexRightDu]
         add eax, edx
         mov edx, ebx
         imul edx
         shl edx, 10h
         shr eax, 10h
         adc eax, edx
-        mov dword [dword_1D8070], eax
+        mov dword [TexRightPos], eax
 .13:
-        test byte [byte_1D8088], 2
+        test byte [TexRightFlags], 2
         je near .8
-        mov eax, dword [dword_1D80A0]
-        imul eax, dword [dword_1D8068]
-        mov edx, dword [dword_1D8058]
-        mov ebx, dword [dword_1D80A4]
+        mov eax, dword [TexRightVertex]
+        imul eax, dword [TexRightStepCount]
+        mov edx, dword [TexRightHeight]
+        mov ebx, dword [TexSpanStep]
         shl eax, 2
         imul dword [nosplit edx*4+ReciprocalTable]
-        mov eax, dword [dword_1D809C]
+        mov eax, dword [TexRightDz]
         add eax, edx
         mov edx, ebx
         imul edx
         shl edx, 10h
         shr eax, 10h
         adc eax, edx
-        mov dword [dword_1D807C], eax
+        mov dword [TexRightFrac], eax
         jmp near .8
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
@@ -2780,7 +2780,7 @@ DrawTexturedPoly:
         mov eax, dword [byte esp+0Ch]
         shl eax, 2
         mov esi, dword [dword_16E684]
-        mov dword [dword_1D80B0], eax
+        mov dword [TexSpanWidth], eax
         cmp edi, esi
         jge short .10
         mov eax, dword [byte esp+010h]
@@ -2969,7 +2969,7 @@ DrawTexturedPoly:
         mov edx, dword [byte esp+044h]
         mov eax, ebp
         call SetupTextureSpans
-        fld dword [dword_1D8044]
+        fld dword [TexDepthScale]
         fabs
         push eax
         fistp dword [esp]
@@ -2984,7 +2984,7 @@ DrawTexturedPoly:
         xor ebx, ebx
         test ebp, ebp
         jle short .32
-        mov esi, unk_1D7994
+        mov esi, TexEdgeTable
 .31:
         push eax
         push ebx
@@ -3008,16 +3008,16 @@ DrawTexturedPoly:
         xor eax, eax
 .33:
         mov ebx, dword [byte esp+034h]
-        mov dword [dword_1D8048], ebx
+        mov dword [TexVertexCount], ebx
         mov ebx, dword [byte ebx+02h]
         sar ebx, 10h
-        mov dword [dword_1D7FD4], ebx
+        mov dword [TexRowCount], ebx
         mov ebx, dword [dword_16E698]
         mov ecx, dword [dword_16E69C]
         mov ebx, dword [ebx+edi*4]
         add ecx, ebx
         mov ebx, dword [byte esp+048h]
-        mov dword [dword_1D7FD8], ecx
+        mov dword [TexRowY], ecx
         test ebx, ebx
         jge short .34
         push ebp
@@ -3295,12 +3295,12 @@ ClipEdgeTop:
         push ebp
         mov edx, eax
         mov ebx, dword [byte eax+02h]
-        mov ecx, dword [dword_1D8AC0]
+        mov ecx, dword [ClipEdgeOutPtr]
         sar ebx, 10h
         cmp ebx, ecx
         jne short .1
         mov eax, dword [byte eax+04h]
-        mov esi, dword [dword_1D8ABC]
+        mov esi, dword [ClipEdgePrev]
         sar eax, 10h
         cmp eax, esi
         jle short .4
@@ -3309,16 +3309,16 @@ ClipEdgeTop:
         imul eax, esi
         jmp short .2
 .1:
-        mov dword [dword_1D8AC0], ebx
+        mov dword [ClipEdgeOutPtr], ebx
         xor eax, eax
         xor ecx, ecx
 .2:
         mov edx, dword [byte edx+04h]
         sar edx, 10h
-        mov dword [dword_1D8ABC], edx
+        mov dword [ClipEdgePrev], edx
         lea edx, [nosplit ecx*4+00h]
-        mov edi, dword [dword_1D8ABC]
-        add edx, dword_1D8334
+        mov edi, dword [ClipEdgePrev]
+        add edx, ClipPolyOut
         cmp ecx, edi
         jge short .4
 .3:
@@ -3331,7 +3331,7 @@ ClipEdgeTop:
         add eax, ebx
         mov dword [byte edx-04h], eax
         add ecx, byte 4
-        mov ebp, dword [dword_1D8ABC]
+        mov ebp, dword [ClipEdgePrev]
         add eax, ebx
         cmp ecx, ebp
         jl short .3
@@ -3496,14 +3496,14 @@ ClipPolygon:
         mov dword [byte esp+020h], eax
         lea eax, [nosplit edi*4+00h]
         add eax, edi
-        mov edx, unk_1D80B4
+        mov edx, ClipPolyVerts
         shl eax, 3
         add edx, eax
         mov eax, dword [byte esp+01Ch]
         mov dword [eax], edx
         lea eax, [nosplit esi*4+00h]
         add eax, esi
-        mov edx, unk_1D80B4
+        mov edx, ClipPolyVerts
         shl eax, 3
         add edx, eax
         mov eax, dword [byte esp+020h]
@@ -3521,7 +3521,7 @@ ClipPolygon:
         jge short .4
         mov edi, dword [byte esp+014h]
         imul eax, edi, byte 28h
-        mov ebx, unk_1D80B4
+        mov ebx, ClipPolyVerts
         mov edx, dword [byte esp+01Ch]
         add ebx, eax
         mov dword [edx], ebx
@@ -3545,7 +3545,7 @@ ClipPolygon:
         jl short .7
         mov eax, dword [byte esp+020h]
         xor esi, esi
-        mov dword [eax], unk_1D80B4
+        mov dword [eax], ClipPolyVerts
         jmp short .6
 .7:
         mov eax, dword [byte esp+020h]
@@ -3602,11 +3602,11 @@ ClipPolygon:
         test eax, eax
         jge short .12
         neg eax
-        mov eax, dword [nosplit eax*4+dword_1D8334]
+        mov eax, dword [nosplit eax*4+ClipPolyOut]
         neg eax
         jmp short .13
 .12:
-        mov eax, dword [nosplit eax*4+dword_1D8334]
+        mov eax, dword [nosplit eax*4+ClipPolyOut]
 .13:
         mov edx, dword [byte esp+018h]
         sar edx, 10h
@@ -3614,17 +3614,17 @@ ClipPolygon:
         mov edx, dword [byte esp+04h]
         push ebx
         mov edx, dword [byte edx+01Ch]
-        mov ebx, dword [dword_1D8AC0]
+        mov ebx, dword [ClipEdgeOutPtr]
         sar edx, 10h
         push eax
         shl edx, 2
         add eax, ebx
         mov dword [byte esp+010h], edx
-        mov edx, dword [dword_1D8AB8]
+        mov edx, dword [ClipPolyOutCount]
         mov ecx, dword [byte esp+010h]
         add edx, byte 10h
         push eax
-        add edx, dword [dword ecx+dword_1D8334]
+        add edx, dword [dword ecx+ClipPolyOut]
         mov eax, dword [byte esp+01Ch]
         mov dword [byte esp+014h], edx
         mov edx, dword [byte esp+010h]
@@ -3641,17 +3641,17 @@ ClipPolygon:
         mov edx, dword [byte eax+018h]
         push edx
         mov edx, dword [byte esp+020h]
-        mov eax, dword [dword_1D8AB4]
+        mov eax, dword [ClipPolyCount]
         add eax, dword [edx]
         push eax
         push ecx
-        call dword [dword_1D8AC4]
+        call dword [ClipPolyDrawFn]
         mov eax, dword [dword_16E670]
-        mov ecx, dword [dword_1D8AB4]
+        mov ecx, dword [ClipPolyCount]
         add esp, byte 24h
         add ecx, eax
         mov eax, dword [byte esp+04h]
-        mov dword [dword_1D8AB4], ecx
+        mov dword [ClipPolyCount], ecx
         mov edx, dword [byte eax+04h]
         add dword [eax], edx
         mov eax, dword [byte esp+04h]
@@ -3934,15 +3934,15 @@ DrawClippedPoly:
         jl short .20
 .23:
         mov eax, dword [byte esp+034h]
-        mov eax, dword [nosplit eax*4+off_1706D0]
+        mov eax, dword [nosplit eax*4+PolySpanFns]
         mov ebx, dword [byte esp+024h]
-        mov dword [dword_1D8AC4], eax
+        mov dword [ClipPolyDrawFn], eax
         mov eax, dword [byte esp+024h]
         xor esi, esi
         dec eax
         test ebx, ebx
         jle short .25
-        mov ebp, unk_1D80B4
+        mov ebp, ClipPolyVerts
 .24:
         mov ebx, dword [byte esp+028h]
         mov edx, dword [byte esp+02Ch]
@@ -3965,13 +3965,13 @@ DrawClippedPoly:
         xor edx, edx
 .26:
         mov eax, dword [byte esp+020h]
-        mov dword [dword_1D8AB8], eax
+        mov dword [ClipPolyOutCount], eax
         call ClipEdgeTop
         mov eax, dword [dword_16E698]
         mov ebx, dword [dword_16E69C]
         mov eax, dword [eax+edi*4]
         add ebx, eax
-        mov dword [dword_1D8AB4], ebx
+        mov dword [ClipPolyCount], ebx
         cmp dword [byte esp+030h], byte 0
         setg al
         xor ecx, ecx

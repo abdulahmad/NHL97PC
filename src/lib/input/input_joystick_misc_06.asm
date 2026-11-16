@@ -2,9 +2,9 @@
 bits 32
 %include "hockey.inc"
 section s_10CFB4 progbits alloc exec nowrite align=1
-extern byte_1D1D8C, byte_1D1FBC, dword_16E464, dword_16E468, str_Punct_DrawRinkSurface, dword_17024C, str_D_SetCameraAngles, dword_170254
+extern OverlayModels, OverlaySprites, dword_16E464, dword_16E468, str_Punct_DrawRinkSurface, dword_17024C, str_D_SetCameraAngles, dword_170254
 extern dword_170258, dword_17025C, str_D_ProjectPointsPersp, dword_170264, dword_170268, dword_17026C, dword_170270, dword_170274
-extern dword_1D204C, dword_1D2050, memcpy_, AngleOfVector, SubVec3, TransformVecFull, FixedLerp, DrawClippedPoly
+extern OverlayViewMatrix, OverlayCamera, memcpy_, AngleOfVector, SubVec3, TransformVecFull, FixedLerp, DrawClippedPoly
 extern RotatePoint2D, RotateModelPoint, AngleFromDelta, SinLookup, CosLookup, ProjectPointsPersp, MultiplyMatrix, TransposeMatrix
 extern FreeMemBlock, MakeColor, FillRectColor, ModelSlots, vecdist
 global SetCameraAngles_2E, ClipSurfPolyLeft_292, ClipSurfPolyRight_2A6, SetViewScreenOrigin, SetCameraAngles, ClipSurfEdgeAtX, ClipSurfEdgeAtY, ClipSurfPolyLeft
@@ -1470,12 +1470,12 @@ DrawOverlayModels:
         sub esp, byte 40h
         mov dword [byte esp+030h], eax
         mov dword [byte esp+034h], edx
-        mov dword [dword_1D2050], eax
+        mov dword [OverlayCamera], eax
         mov eax, esp
         push eax
-        mov ebx, byte_1D1D8C
+        mov ebx, OverlayModels
         push edx
-        mov dword [dword_1D204C], edx
+        mov dword [OverlayViewMatrix], edx
         lea edi, [byte ebx+024h]
         call TransposeMatrix
         lea eax, [byte ebx+048h]
@@ -1613,8 +1613,8 @@ AllocOverlaySlot:
         push ecx
         push edx
         mov ebx, eax
-        mov eax, byte_1D1FBC
-        mov cl, byte [byte_1D1FBC]
+        mov eax, OverlaySprites
+        mov cl, byte [OverlaySprites]
         xor edx, edx
         test cl, 1
         jne short .1
@@ -1793,8 +1793,8 @@ AllocOverlayModel:
         push esi
         push edi
         sub esp, byte 48h
-        mov ebx, byte_1D1D8C
-        mov dl, byte [byte_1D1D8C]
+        mov ebx, OverlayModels
+        mov dl, byte [OverlayModels]
         xor eax, eax
         test dl, 1
         jne short .1
@@ -1854,8 +1854,8 @@ FreeOverlaySlots:
         push ecx
         push edx
         push esi
-        mov eax, byte_1D1FBC
-        mov ebx, byte_1D1D8C
+        mov eax, OverlaySprites
+        mov ebx, OverlayModels
         xor esi, esi
 .1:
         mov dl, byte [eax]
