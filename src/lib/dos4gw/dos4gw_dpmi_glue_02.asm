@@ -8,6 +8,7 @@ extern _Extender
 global _dos_getvect_, _dos_setvect_
 ;-----------------------------------------------------------------------------
 ; _dos_setvect_                                                121A56  library
+; Run-time library _dos_setvect: sets an interrupt vector
 ;-----------------------------------------------------------------------------
 _dos_setvect_:
         push edx
@@ -37,6 +38,7 @@ _dos_setvect_:
         ret
 ;-----------------------------------------------------------------------------
 ; _dos_getvect_                                                121A83  library
+; Run-time library _dos_getvect: reads an interrupt vector
 ;-----------------------------------------------------------------------------
 _dos_getvect_:
         push ebx

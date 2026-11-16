@@ -8,6 +8,7 @@ extern SavedTextMode, SavedTextPage, SavedTextRows, AddExitHandler, ShapeRowByte
 global RestoreTextMode, SaveTextMode, PrefetchMemory, PrefetchShape, CopyMemFast
 ;-----------------------------------------------------------------------------
 ; SaveTextMode                                126480  96 PC, medium confidence
+; Saves the BIOS text mode, page, columns and rows before the game changes the screen
 ;-----------------------------------------------------------------------------
 SaveTextMode:
         push ebx
@@ -30,6 +31,7 @@ SaveTextMode:
         ret
 ;-----------------------------------------------------------------------------
 ; RestoreTextMode                             1264C2  96 PC, medium confidence
+; Restores the text mode saved by SaveTextMode
 ;-----------------------------------------------------------------------------
 RestoreTextMode:
         pusha

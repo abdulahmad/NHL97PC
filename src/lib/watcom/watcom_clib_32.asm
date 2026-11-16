@@ -14,6 +14,7 @@ global BigIntCallHook, BigIntNullHook, SignalHookFpu, HookFpuExceptions, UnhookF
 global FpuClassifyException, FpuFixupResult, FpuLoadInfinity, FpuRestoreStackTop, FpuStoreResult, SetScreenTarget
 ;-----------------------------------------------------------------------------
 ; modf_                                                        13B9C2  library
+; Run-time library modf: splits a double into integer and fraction
 ;-----------------------------------------------------------------------------
 modf_:
         push eax
@@ -29,6 +30,7 @@ modf_:
         db 00h
 ;-----------------------------------------------------------------------------
 ; __CmpBigInt                                                  13B9DC  library
+; Run-time library: compares two big integers (float conversion)
 ;-----------------------------------------------------------------------------
 __CmpBigInt:
         push edi
@@ -65,6 +67,7 @@ __CmpBigInt:
         ret
 ;-----------------------------------------------------------------------------
 ; __Rnd2Int                                                    13BA16  library
+; Run-time library: rounds a double to an integer
 ;-----------------------------------------------------------------------------
 __Rnd2Int:
         push ebx
@@ -122,6 +125,7 @@ __Rnd2Int:
         ret
 ;-----------------------------------------------------------------------------
 ; __Bin2String                                                 13BA81  library
+; Run-time library: a binary value to decimal digits
 ;-----------------------------------------------------------------------------
 __Bin2String:
         push ebp
@@ -210,6 +214,7 @@ BigIntNullHook:
         ret
 ;-----------------------------------------------------------------------------
 ; frexp_                                                       13BBA2  library
+; Run-time library frexp: splits a double into mantissa and exponent
 ;-----------------------------------------------------------------------------
 frexp_:
         push eax
@@ -251,6 +256,7 @@ frexp_:
         ret 0Ch
 ;-----------------------------------------------------------------------------
 ; abort_                                                       13BC11  library
+; Run-time library abort: ends the program abnormally
 ;-----------------------------------------------------------------------------
 abort_:
         call dword [AbortHandler]
@@ -272,6 +278,7 @@ SignalHookFpu:
         jmp near __GrabFP87_
 ;-----------------------------------------------------------------------------
 ; __GrabFP87_                                                  13BC2E  library
+; Run-time library: takes over the FPU exception vector
 ;-----------------------------------------------------------------------------
 __GrabFP87_:
         push ebx
@@ -692,6 +699,7 @@ FpuStoreResult:
         ret
 ;-----------------------------------------------------------------------------
 ; __Phar_hook_init_                                            13BF7A  library
+; Run-time library: FPU hook setup under the Phar Lap extender
 ;-----------------------------------------------------------------------------
 __Phar_hook_init_:
         push ds
@@ -762,6 +770,7 @@ __Phar_hook_init_:
         ret
 ;-----------------------------------------------------------------------------
 ; __Phar_hook_fini_                                            13C03D  library
+; Run-time library: FPU hook removal under the Phar Lap extender
 ;-----------------------------------------------------------------------------
 __Phar_hook_fini_:
         push ds
@@ -779,6 +788,7 @@ __Phar_hook_fini_:
         ret
 ;-----------------------------------------------------------------------------
 ; __DOS4G_hook_init_                                           13C06A  library
+; Run-time library: FPU hook setup under DOS/4GW
 ;-----------------------------------------------------------------------------
 __DOS4G_hook_init_:
         push ds
@@ -797,6 +807,7 @@ __DOS4G_hook_init_:
         ret
 ;-----------------------------------------------------------------------------
 ; __DOS4G_hook_fini_                                           13C097  library
+; Run-time library: FPU hook removal under DOS/4GW
 ;-----------------------------------------------------------------------------
 __DOS4G_hook_fini_:
         push ds
@@ -809,6 +820,7 @@ __DOS4G_hook_fini_:
         ret
 ;-----------------------------------------------------------------------------
 ; __Ergo_hook_init_                                            13C0B0  library
+; Run-time library: FPU hook setup under the Ergo extender
 ;-----------------------------------------------------------------------------
 __Ergo_hook_init_:
         push ds
@@ -833,6 +845,7 @@ __Ergo_hook_init_:
         ret
 ;-----------------------------------------------------------------------------
 ; __Ergo_hook_fini_                                            13C0EE  library
+; Run-time library: FPU hook removal under the Ergo extender
 ;-----------------------------------------------------------------------------
 __Ergo_hook_fini_:
         push ds
@@ -846,6 +859,7 @@ __Ergo_hook_fini_:
         db 00h
 ;-----------------------------------------------------------------------------
 ; __Intel_hook_init_                                           13C108  library
+; Run-time library: FPU hook setup under the Intel extender
 ;-----------------------------------------------------------------------------
 __Intel_hook_init_:
         mov ax, 204h
@@ -873,6 +887,7 @@ __Intel_hook_init_:
         ret
 ;-----------------------------------------------------------------------------
 ; __Intel_hook_fini_                                           13C160  library
+; Run-time library: FPU hook removal under the Intel extender
 ;-----------------------------------------------------------------------------
 __Intel_hook_fini_:
         ret

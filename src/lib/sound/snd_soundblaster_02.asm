@@ -55,6 +55,7 @@ ParseHexValue:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; ParseBlasterEnv                             12C64C  96 PC, medium confidence
+; (port, irq, dma, type): reads the BLASTER environment variable settings
 ;-----------------------------------------------------------------------------
 ParseBlasterEnv:
         push esi

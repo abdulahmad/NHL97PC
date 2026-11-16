@@ -9,6 +9,7 @@ extern RandState, RandIndex
 global SetClipWindow, ResetClipWindow, Random32, SeedRandom, SetRemapTable, GetRemapTable
 ;-----------------------------------------------------------------------------
 ; SetClipWindow                               102BB8  96 PC, medium confidence
+; (x0, y0, x1, y1): sets the drawing clip window, limited to the screen
 ;-----------------------------------------------------------------------------
 SetClipWindow:
         push ebx

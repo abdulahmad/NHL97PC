@@ -1229,6 +1229,7 @@ GusServiceIrq:
         ret
 ;-----------------------------------------------------------------------------
 ; inpw_                                                        13A241  library
+; Run-time library inpw: reads a word from an I/O port
 ;-----------------------------------------------------------------------------
 inpw_:
         push edx
@@ -1311,6 +1312,7 @@ GusRunInitTable:
         ret
 ;-----------------------------------------------------------------------------
 ; outpw_                                                       13A2B7  library
+; Run-time library outpw: writes a word to an I/O port
 ;-----------------------------------------------------------------------------
 outpw_:
         push ebx
@@ -2150,6 +2152,7 @@ GusDramDmaDone:
         ret
 ;-----------------------------------------------------------------------------
 ; __int23_handler_                                             13AB04  library
+; Run-time library: the Ctrl+C (int 23h) handler
 ;-----------------------------------------------------------------------------
 __int23_handler_:
         pusha
@@ -2209,6 +2212,7 @@ __int23_handler__75:
         iret
 ;-----------------------------------------------------------------------------
 ; __int_ctrl_break_handler_                                    13AB99  library
+; Run-time library: the Ctrl+Break handler
 ;-----------------------------------------------------------------------------
 __int_ctrl_break_handler_:
         pusha
@@ -2251,6 +2255,7 @@ __int_ctrl_break_handler_:
         jmp near __int23_handler__70
 ;-----------------------------------------------------------------------------
 ; __DPMI_hosted_                                               13AC11  library
+; Run-time library: whether the program runs under a DPMI host
 ;-----------------------------------------------------------------------------
 __DPMI_hosted_:
         push ebx
@@ -2309,6 +2314,7 @@ __DPMI_hosted_:
         ret
 ;-----------------------------------------------------------------------------
 ; __restore_int23_                                             13ACA5  library
+; Run-time library: restores the original Ctrl+C handler
 ;-----------------------------------------------------------------------------
 __restore_int23_:
         push ebx
@@ -2447,6 +2453,7 @@ __restore_int23__1AC:
         ret
 ;-----------------------------------------------------------------------------
 ; __restore_int_                                               13AE56  library
+; Run-time library: restores the original Ctrl+Break handler
 ;-----------------------------------------------------------------------------
 __restore_int_:
         call __restore_int23_
@@ -2470,6 +2477,7 @@ __restore_int_ctrl_break_:
         jmp near __restore_int23__105
 ;-----------------------------------------------------------------------------
 ; __grab_int23_                                                13AE93  library
+; Run-time library: installs the Ctrl+C handler
 ;-----------------------------------------------------------------------------
 __grab_int23_:
         push ebx
@@ -2561,6 +2569,7 @@ __grab_int23_:
         ret
 ;-----------------------------------------------------------------------------
 ; __grab_int_ctrl_break_                                       13AFAE  library
+; Run-time library: installs the Ctrl+Break handler
 ;-----------------------------------------------------------------------------
 __grab_int_ctrl_break_:
         push ebx

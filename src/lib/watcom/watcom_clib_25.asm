@@ -9,6 +9,7 @@ extern BlitConverted, ConvertArtAt, CMainHook, SetScreenTarget, InitRtnsEntry, F
 global __CMain, __FiniRtns, __InitRtns, PrintScreen
 ;-----------------------------------------------------------------------------
 ; __CMain                                                      12F9E3  library
+; Run-time library: calls main
 ;-----------------------------------------------------------------------------
 __CMain:
         push edx
@@ -38,6 +39,7 @@ __CMain:
         db 089h,0ECh,05Dh,05Ah,0C3h
 ;-----------------------------------------------------------------------------
 ; __InitRtns                                                   12FA32  library
+; Run-time library: runs the init routine table by priority
 ;-----------------------------------------------------------------------------
 __InitRtns:
         push esi
@@ -88,6 +90,7 @@ __InitRtns:
         ret
 ;-----------------------------------------------------------------------------
 ; __FiniRtns                                                   12FA7D  library
+; Run-time library: runs the fini routine table by priority
 ;-----------------------------------------------------------------------------
 __FiniRtns:
         push esi

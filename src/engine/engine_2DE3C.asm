@@ -311,6 +311,10 @@ LineSlotsPtr:
         lea eax, [dword ecx+020EDh]
         mov edi, 3
         jmp short CoachLineChange_259
+;-----------------------------------------------------------------------------
+; LineSlotsPtr_33                                          2E15F  97 PC, low confidence
+; Entry inside LineSlotsPtr for the home team: loads the home team record and joins it
+;-----------------------------------------------------------------------------
 LineSlotsPtr_33:
         mov eax, hmtmstruct
         jmp short LineSlotsPtr

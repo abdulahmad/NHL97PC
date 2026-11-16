@@ -8,6 +8,7 @@ extern RandSeed
 global __STOSB, __STOSD, rand_, srand_, GetRandState
 ;-----------------------------------------------------------------------------
 ; __STOSB                                                       FBD60  library
+; Run-time library: fills bytes (memset helper)
 ;-----------------------------------------------------------------------------
 __STOSB:
         or ecx, ecx
@@ -40,6 +41,7 @@ __STOSB:
         db 090h,090h,090h,090h,090h,090h
 ;-----------------------------------------------------------------------------
 ; __STOSD                                                       FBD97  library
+; Run-time library: fills dwords (memset helper)
 ;-----------------------------------------------------------------------------
 __STOSD:
         or ecx, ecx
@@ -106,6 +108,7 @@ GetRandState:
         ret
 ;-----------------------------------------------------------------------------
 ; rand_                                                         FBE09  library
+; Run-time library rand: the next random number
 ;-----------------------------------------------------------------------------
 rand_:
         push edx
@@ -123,6 +126,7 @@ rand_:
         ret
 ;-----------------------------------------------------------------------------
 ; srand_                                                        FBE2D  library
+; Run-time library srand: seeds the random numbers
 ;-----------------------------------------------------------------------------
 srand_:
         push edx

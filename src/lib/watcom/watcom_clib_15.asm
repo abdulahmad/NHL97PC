@@ -40,6 +40,7 @@ global GetCurrentFont, SetTextOrigin, uncget_string_, NetPollMsgBlank, NetAnnoun
 global vsscanf_
 ;-----------------------------------------------------------------------------
 ; fputc_                                                       11B20A  library
+; Run-time library fputc: writes a character to a stream
 ;-----------------------------------------------------------------------------
 fputc_:
         push ebx
@@ -117,6 +118,7 @@ fputc_:
         ret
 ;-----------------------------------------------------------------------------
 ; fwrite_                                                      11B2AE  library
+; Run-time library fwrite: writes to a stream
 ;-----------------------------------------------------------------------------
 fwrite_:
         push esi
@@ -296,6 +298,7 @@ fwrite_:
         ret
 ;-----------------------------------------------------------------------------
 ; fgets_                                                       11B46E  library
+; Run-time library fgets: reads a line from a stream
 ;-----------------------------------------------------------------------------
 fgets_:
         push ecx
@@ -351,6 +354,7 @@ fgets_:
         ret
 ;-----------------------------------------------------------------------------
 ; byteswap_                                                    11B4D7  library
+; Run-time library: swaps two memory blocks (qsort helper)
 ;-----------------------------------------------------------------------------
 byteswap_:
         push es
@@ -381,6 +385,7 @@ byteswap_:
         ret
 ;-----------------------------------------------------------------------------
 ; med3_                                                        11B4FD  library
+; Run-time library: the median of three elements (qsort helper)
 ;-----------------------------------------------------------------------------
 med3_:
         push esi
@@ -434,6 +439,7 @@ med3__4F:
         ret
 ;-----------------------------------------------------------------------------
 ; qsort_                                                       11B555  library
+; Run-time library qsort: sorts an array
 ;-----------------------------------------------------------------------------
 qsort_:
         push esi
@@ -1109,6 +1115,7 @@ FreeArtArchive:
         ret
 ;-----------------------------------------------------------------------------
 ; memmove_                                                     11BC80  library
+; Run-time library memmove: copies a block that may overlap
 ;-----------------------------------------------------------------------------
 memmove_:
         push ecx
@@ -1162,6 +1169,7 @@ memmove_:
         ret
 ;-----------------------------------------------------------------------------
 ; memcmp_                                                      11BCCD  library
+; Run-time library memcmp: compares two blocks
 ;-----------------------------------------------------------------------------
 memcmp_:
         push ecx
@@ -1186,6 +1194,7 @@ memcmp_:
         ret
 ;-----------------------------------------------------------------------------
 ; cget_string_                                                 11BCEB  library
+; Run-time library: reads the next character of a string (sscanf input)
 ;-----------------------------------------------------------------------------
 cget_string_:
         push ebx
@@ -1212,12 +1221,14 @@ cget_string_:
         ret
 ;-----------------------------------------------------------------------------
 ; uncget_string_                                               11BD14  library
+; Run-time library: puts a character back (sscanf input)
 ;-----------------------------------------------------------------------------
 uncget_string_:
         dec dword [byte edx+08h]
         ret
 ;-----------------------------------------------------------------------------
 ; vsscanf_                                                     11BD18  library
+; Run-time library vsscanf: reads formatted data from a string
 ;-----------------------------------------------------------------------------
 vsscanf_:
         push ecx
@@ -1238,6 +1249,7 @@ vsscanf_:
         ret
 ;-----------------------------------------------------------------------------
 ; sscanf_                                                      11BD3F  library
+; Run-time library sscanf: reads formatted data from a string
 ;-----------------------------------------------------------------------------
 sscanf_:
         push ebx
@@ -1255,6 +1267,7 @@ sscanf_:
         ret
 ;-----------------------------------------------------------------------------
 ; fprintf_                                                     11BD60  library
+; Run-time library fprintf: formats to a stream
 ;-----------------------------------------------------------------------------
 fprintf_:
         push ebx
@@ -1468,6 +1481,7 @@ CountFrameTick:
         ret
 ;-----------------------------------------------------------------------------
 ; segread_                                                     11BF84  library
+; Run-time library segread: reads the segment registers
 ;-----------------------------------------------------------------------------
 segread_:
         push edx
@@ -1488,6 +1502,7 @@ segread_:
         ret
 ;-----------------------------------------------------------------------------
 ; int386x_                                                     11BFAC  library
+; Run-time library int386x: calls an interrupt with segment registers
 ;-----------------------------------------------------------------------------
 int386x_:
         push esi

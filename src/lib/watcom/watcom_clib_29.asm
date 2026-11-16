@@ -12,6 +12,7 @@ global __fpatan_chk_18B, __fpatan_chk_1A0, __fpatan_chk_1B3, __fpatan_chk_1C8, _
 global str_0123456789abcdefghijklmnopqr_ultoa_, utoa_
 ;-----------------------------------------------------------------------------
 ; utoa_                                                        135C52  library
+; Run-time library utoa: an unsigned integer to a string
 ;-----------------------------------------------------------------------------
 utoa_:
         push ecx
@@ -53,6 +54,7 @@ utoa_:
         ret
 ;-----------------------------------------------------------------------------
 ; itoa_                                                        135C9C  library
+; Run-time library itoa: an integer to a string
 ;-----------------------------------------------------------------------------
 itoa_:
         push ecx
@@ -76,6 +78,7 @@ str_0123456789abcdefghijklmnopqr_ultoa_:        ; string "0123456789abcdefghijkl
         db 077h,078h,079h,07Ah,00h
 ;-----------------------------------------------------------------------------
 ; ultoa_                                                       135CDC  library
+; Run-time library ultoa: an unsigned long to a string
 ;-----------------------------------------------------------------------------
 ultoa_:
         push ecx
@@ -117,6 +120,7 @@ ultoa_:
         ret
 ;-----------------------------------------------------------------------------
 ; ltoa_                                                        135D26  library
+; Run-time library ltoa: a long to a string
 ;-----------------------------------------------------------------------------
 ltoa_:
         push ecx
@@ -165,6 +169,7 @@ CheckPentiumFdiv:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
 ; __fpatan_chk                                                 135DA0  library
+; Run-time library: checked fpatan
 ;-----------------------------------------------------------------------------
 __fpatan_chk:
         push eax
@@ -363,6 +368,7 @@ __fpatan_chk_1DB:
         ret
 ;-----------------------------------------------------------------------------
 ; __math87_err_                                                135FA0  library
+; Run-time library: reports an x87 math error
 ;-----------------------------------------------------------------------------
 __math87_err_:
         push ebp
@@ -425,6 +431,7 @@ __math87_err_:
         ret 0Ch
 ;-----------------------------------------------------------------------------
 ; __math1err_                                                  13601B  library
+; Run-time library: reports a math error of a one-argument function
 ;-----------------------------------------------------------------------------
 __math1err_:
         push ebx
@@ -434,6 +441,7 @@ __math1err_:
         ret
 ;-----------------------------------------------------------------------------
 ; __math2err_                                                  136025  library
+; Run-time library: reports a math error of a two-argument function
 ;-----------------------------------------------------------------------------
 __math2err_:
         push ebp

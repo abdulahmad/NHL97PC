@@ -82,6 +82,7 @@ global ConvertArtXY, ConvertArtKeepPos, FormatString, SaveTextState, RestoreText
 global SerialIsrJumpTable
 ;-----------------------------------------------------------------------------
 ; strncmp_                                                     1131E4  library
+; Run-time library strncmp: compares at most n characters
 ;-----------------------------------------------------------------------------
 strncmp_:
         push ecx
@@ -4493,6 +4494,7 @@ CreateBitmapForArt:
         ret
 ;-----------------------------------------------------------------------------
 ; strupr_                                                      115874  library
+; Run-time library strupr: makes a string upper case
 ;-----------------------------------------------------------------------------
 strupr_:
         push ebx
@@ -4907,6 +4909,7 @@ RestoreDrawContext:
         ret
 ;-----------------------------------------------------------------------------
 ; copypart_                                                    115BF9  library
+; Run-time library: copies one part of a path (for _splitpath)
 ;-----------------------------------------------------------------------------
 copypart_:
         push esi
@@ -4937,6 +4940,7 @@ copypart_:
         ret
 ;-----------------------------------------------------------------------------
 ; _splitpath_                                                  115C2F  library
+; Run-time library _splitpath: splits a path into drive, directory, name and extension
 ;-----------------------------------------------------------------------------
 _splitpath_:
         push esi
@@ -5033,6 +5037,7 @@ _splitpath_:
         ret 4
 ;-----------------------------------------------------------------------------
 ; pickup_                                                      115D08  library
+; Run-time library: notes the path separator in use (for _makepath)
 ;-----------------------------------------------------------------------------
 pickup_:
         cmp eax, byte 5Ch
@@ -5049,6 +5054,7 @@ pickup_:
         ret
 ;-----------------------------------------------------------------------------
 ; _makepath_                                                   115D1C  library
+; Run-time library _makepath: builds a path from its parts
 ;-----------------------------------------------------------------------------
 _makepath_:
         push esi
@@ -5248,6 +5254,7 @@ _makepath_:
         ret 4
 ;-----------------------------------------------------------------------------
 ; strnicmp_                                                    115F07  library
+; Run-time library strnicmp: compares at most n characters, ignoring case
 ;-----------------------------------------------------------------------------
 strnicmp_:
         push ecx
@@ -5509,6 +5516,7 @@ ReadBits:
         db 00h,00h
 ;-----------------------------------------------------------------------------
 ; start                                                        116150  library
+; Program entry point: the C run-time start-up
 ;-----------------------------------------------------------------------------
 start:
         jmp short start_74.1
@@ -6407,6 +6415,7 @@ PrintBoxedText:
         db 00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
 ; memset_                                                      116A50  library
+; Run-time library memset: fills a block of memory
 ;-----------------------------------------------------------------------------
 memset_:
         push eax
@@ -10119,6 +10128,7 @@ SerialISR_B1:
         jmp near SerialISR_85
 ;-----------------------------------------------------------------------------
 ; atoi_                                                        1194D5  library
+; Run-time library atoi: a decimal string to an integer
 ;-----------------------------------------------------------------------------
 atoi_:
         push ebx
@@ -10453,11 +10463,13 @@ LoadNameFile:
         ret
 ;-----------------------------------------------------------------------------
 ; __null_int23_exit_                                           1197C7  library
+; Run-time library: empty Ctrl+C exit hook
 ;-----------------------------------------------------------------------------
 __null_int23_exit_:
         ret
 ;-----------------------------------------------------------------------------
 ; exit_                                                        1197C8  library
+; Run-time library exit: runs the exit routines and ends the program
 ;-----------------------------------------------------------------------------
 exit_:
         push edx
@@ -10470,6 +10482,7 @@ exit_:
         ret
 ;-----------------------------------------------------------------------------
 ; _exit_                                                       1197E0  library
+; Run-time library _exit: ends the program at once
 ;-----------------------------------------------------------------------------
 _exit_:
         push edx
@@ -10896,6 +10909,7 @@ InitMemoryPoolArgs:
         ret
 ;-----------------------------------------------------------------------------
 ; open_                                                        119C8D  library
+; Run-time library open: opens a file
 ;-----------------------------------------------------------------------------
 open_:
         push ebx
@@ -10916,6 +10930,7 @@ open_:
         ret
 ;-----------------------------------------------------------------------------
 ; sopen_                                                       119CB1  library
+; Run-time library sopen: opens a file with a share mode
 ;-----------------------------------------------------------------------------
 sopen_:
         push ebx
@@ -11109,6 +11124,7 @@ sopen_:
         ret
 ;-----------------------------------------------------------------------------
 ; __set_binary_                                                119E9A  library
+; Run-time library: puts a file handle in binary mode
 ;-----------------------------------------------------------------------------
 __set_binary_:
         push ebx
@@ -11163,6 +11179,7 @@ __set_binary_:
         ret
 ;-----------------------------------------------------------------------------
 ; close_                                                       119EFF  library
+; Run-time library close: closes a file handle
 ;-----------------------------------------------------------------------------
 close_:
         test eax, eax
@@ -11369,6 +11386,7 @@ InstallErrorHandlers:
         ret
 ;-----------------------------------------------------------------------------
 ; getcwd_                                                      11A13F  library
+; Run-time library getcwd: the current directory
 ;-----------------------------------------------------------------------------
 getcwd_:
         push ebx
@@ -11439,6 +11457,7 @@ getcwd_:
         db 00h
 ;-----------------------------------------------------------------------------
 ; _dos_getdiskfree_                                            11A1C8  library
+; Run-time library _dos_getdiskfree: free space of a drive
 ;-----------------------------------------------------------------------------
 _dos_getdiskfree_:
         push edi

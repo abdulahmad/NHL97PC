@@ -35,6 +35,7 @@ global SeatBenchPlayer, ResetPlayers, ResetPlayersForPeriod, ReplaceFaceoffPlaye
 global RefreshRinkPalette, ClockTick, StartPeriod, FindStartingGoalies, ReleaseBoxPlayers, CodeStartPad
 ;-----------------------------------------------------------------------------
 ; CodeStartTrap                                                   10000  97 PC
+; First bytes of the code: an int3 and a jump to itself, so a call through a null code pointer traps
 ;-----------------------------------------------------------------------------
 CodeStartTrap:
         int3

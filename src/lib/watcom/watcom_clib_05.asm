@@ -8,6 +8,7 @@ extern DebugMode, DebugShowLines, vsprintf_
 global _dos_getdate_, _dos_gettime_
 ;-----------------------------------------------------------------------------
 ; _dos_getdate_                                                 FC804  library
+; Run-time library _dos_getdate: the DOS date
 ;-----------------------------------------------------------------------------
 _dos_getdate_:
         push edx
@@ -27,6 +28,7 @@ _dos_getdate_:
         ret
 ;-----------------------------------------------------------------------------
 ; _dos_gettime_                                                 FC81F  library
+; Run-time library _dos_gettime: the DOS time
 ;-----------------------------------------------------------------------------
 _dos_gettime_:
         push edx

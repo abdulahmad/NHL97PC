@@ -71,6 +71,7 @@ SaveDataFile:
         db 090h
 ;-----------------------------------------------------------------------------
 ; savefileblocka                              11B1A0  96 PC, medium confidence
+; EA library: writes a memory block to a file (size and pointer from its descriptor)
 ;-----------------------------------------------------------------------------
 savefileblocka:
         push ebx

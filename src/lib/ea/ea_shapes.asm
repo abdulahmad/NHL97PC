@@ -110,6 +110,7 @@ FillRowTable:
         ret
 ;-----------------------------------------------------------------------------
 ; removewindow                                10382C  96 PC, medium confidence
+; EA library: releases a drawing window (drops its reference and frees it at zero)
 ;-----------------------------------------------------------------------------
 removewindow:
         push ebx
@@ -1511,6 +1512,7 @@ BuildUniformArt_3CC:
         ret
 ;-----------------------------------------------------------------------------
 ; bcopy_                                                       104780  library
+; Run-time library bcopy: copies a block of memory
 ;-----------------------------------------------------------------------------
 bcopy_:
         push ecx

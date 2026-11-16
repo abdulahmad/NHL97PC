@@ -184,6 +184,7 @@ CosInterp:
         db 00h
 ;-----------------------------------------------------------------------------
 ; IF@DFMOD                                                     1008A2  library
+; Run-time library fmod core: x87 partial remainder (checked version when the FDIV workaround is on)
 ;-----------------------------------------------------------------------------
 IF@DFMOD:
         test byte [MathErrorFlags], 1

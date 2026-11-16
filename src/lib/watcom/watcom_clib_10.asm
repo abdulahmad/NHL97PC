@@ -7,6 +7,7 @@ section s_10ADAA progbits alloc exec nowrite align=1
 global stricmp_, strlen_
 ;-----------------------------------------------------------------------------
 ; strlen_                                                      10ADAA  library
+; Run-time library strlen: the length of a string
 ;-----------------------------------------------------------------------------
 strlen_:
         push ecx
@@ -28,6 +29,7 @@ strlen_:
         ret
 ;-----------------------------------------------------------------------------
 ; stricmp_                                                     10ADC3  library
+; Run-time library stricmp: compares two strings, ignoring case
 ;-----------------------------------------------------------------------------
 stricmp_:
         push ebx

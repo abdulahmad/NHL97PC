@@ -8,6 +8,7 @@ extern _FtoS_, forcedecpt_
 global _EFG_Format_
 ;-----------------------------------------------------------------------------
 ; _EFG_Format_                                                 13270C  library
+; Run-time library: the float format hook for printf (%e, %f, %g)
 ;-----------------------------------------------------------------------------
 _EFG_Format_:
         push ecx

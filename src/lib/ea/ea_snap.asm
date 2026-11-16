@@ -9,6 +9,7 @@ extern NoFloatSupport_38D, NoFloatSupport_3FD, str_Punct_InitFpuFlags, SavedEsSe
 global InitFpuFlags, MakeFpuGate, HookCoprocessorVector, SetSystemFpuFlag
 ;-----------------------------------------------------------------------------
 ; InitFpuFlags                                                   121B00  95 PC
+; Sets the FPU present flags, reads CR0's FPU bits and finds the coprocessor interrupt gate
 ;-----------------------------------------------------------------------------
 InitFpuFlags:
         mov byte [__8087], 3

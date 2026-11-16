@@ -18,6 +18,7 @@ ReadPortStable:
         ret
 ;-----------------------------------------------------------------------------
 ; WaitRetrace                                 13C187  96 PC, medium confidence
+; Waits for the start of the next vertical retrace (port 3DAh bit 3), with a timeout
 ;-----------------------------------------------------------------------------
 WaitRetrace:
         mov dx, 3DAh
@@ -40,6 +41,7 @@ WaitRetrace_2D:
         ret
 ;-----------------------------------------------------------------------------
 ; WaitRetraceEdges                                               13C1BF  96 PC
+; Waits for the end and then the start of a vertical retrace, with a timeout
 ;-----------------------------------------------------------------------------
 WaitRetraceEdges:
         mov dx, 3DAh
@@ -58,6 +60,7 @@ WaitRetraceEdges:
         ret
 ;-----------------------------------------------------------------------------
 ; WaitDisplayRetrace                                             13C1EA  96 PC
+; Waits for display time and then the next retrace, with a timeout
 ;-----------------------------------------------------------------------------
 WaitDisplayRetrace:
         mov dx, 3DAh
@@ -82,6 +85,7 @@ WaitDisplayRetrace:
         db 00h,00h,00h
 ;-----------------------------------------------------------------------------
 ; fprem_common                                                 13C228  library
+; Run-time library: shared part of the checked x87 partial remainder
 ;-----------------------------------------------------------------------------
 fprem_common:
         push eax
@@ -237,6 +241,7 @@ fprem_common:
         ret
 ;-----------------------------------------------------------------------------
 ; __fprem_chk                                                  13C42E  library
+; Run-time library: x87 partial remainder that avoids the Pentium FDIV bug
 ;-----------------------------------------------------------------------------
 __fprem_chk:
         push edx
@@ -299,6 +304,7 @@ __fprem_chk:
         ret
 ;-----------------------------------------------------------------------------
 ; fprem1_common                                                13C4E0  library
+; Run-time library: shared part of the checked IEEE partial remainder
 ;-----------------------------------------------------------------------------
 fprem1_common:
         push eax

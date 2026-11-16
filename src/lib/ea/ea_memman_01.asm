@@ -337,6 +337,7 @@ AllocMemBlockEx:
         db 090h
 ;-----------------------------------------------------------------------------
 ; findmemblock                                                    FAEF8  96 PC
+; EA library: finds the memory block that holds a pointer, through the block lists
 ;-----------------------------------------------------------------------------
 findmemblock:
         push ebx
@@ -1205,6 +1206,7 @@ MemDescSize:
         ret
 ;-----------------------------------------------------------------------------
 ; type_info__raw_name                                             FB63C  95 PC
+; Run-time library: returns the name field of a type info record
 ;-----------------------------------------------------------------------------
 type_info__raw_name:
         mov eax, dword [byte esp+04h]

@@ -2272,6 +2272,7 @@ AudioStreamCallback:
         ret
 ;-----------------------------------------------------------------------------
 ; strstr_                                     10911D  96 PC, medium confidence
+; Run-time library strstr: finds a substring
 ;-----------------------------------------------------------------------------
 strstr_:
         push ebx

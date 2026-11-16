@@ -85,6 +85,7 @@ bcopy:
         ret
 ;-----------------------------------------------------------------------------
 ; _os_handle                                                   100AD0  library
+; Run-time library: returns the operating system handle of a file handle
 ;-----------------------------------------------------------------------------
 _os_handle:
         mov eax, dword [byte esp+04h]
@@ -1125,6 +1126,10 @@ PacketChecksum:
         leave
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
+;-----------------------------------------------------------------------------
+; PacketChecksum_90                                       1012C0  97 PC, low confidence
+; Entry inside PacketChecksum, reached from outside it
+;-----------------------------------------------------------------------------
 PacketChecksum_90:
         push ecx
         sar ebx, 1

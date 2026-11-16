@@ -8,6 +8,7 @@ extern __set_errno_, access_, getcwd_, getenv_, strcat_, strcpy_, strlen_, Errno
 global _searchenv_
 ;-----------------------------------------------------------------------------
 ; _searchenv_                                                   F9B40  library
+; Run-time library _searchenv: finds a file on the paths of an environment variable
 ;-----------------------------------------------------------------------------
 _searchenv_:
         push ecx

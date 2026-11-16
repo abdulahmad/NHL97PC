@@ -1102,18 +1102,38 @@ PickSampleRate:
 ;-----------------------------------------------------------------------------
 SampleRateResults:
         ret
+;-----------------------------------------------------------------------------
+; SampleRateResults_1                                     1079C5  97 PC, low confidence
+; Sample rate picker result: 11025 Hz
+;-----------------------------------------------------------------------------
 SampleRateResults_1:
         mov eax, 2B11h
         ret
+;-----------------------------------------------------------------------------
+; SampleRateResults_7                                     1079CB  97 PC, low confidence
+; Sample rate picker result: 16000 Hz
+;-----------------------------------------------------------------------------
 SampleRateResults_7:
         mov eax, 3E80h
         ret
+;-----------------------------------------------------------------------------
+; SampleRateResults_D                                     1079D1  97 PC, low confidence
+; Sample rate picker result: 32000 Hz
+;-----------------------------------------------------------------------------
 SampleRateResults_D:
         mov eax, 7D00h
         ret
+;-----------------------------------------------------------------------------
+; SampleRateResults_13                                    1079D7  97 PC, low confidence
+; Sample rate picker result: 44100 Hz
+;-----------------------------------------------------------------------------
 SampleRateResults_13:
         mov eax, 0AC44h
         ret
+;-----------------------------------------------------------------------------
+; SampleRateResults_19                                    1079DD  97 PC, low confidence
+; Sample rate picker result: 22050 Hz
+;-----------------------------------------------------------------------------
 SampleRateResults_19:
         mov eax, 5622h
         ret

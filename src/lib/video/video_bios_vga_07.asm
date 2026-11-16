@@ -65,6 +65,7 @@ SinCosLookup:
         db 0C3h                                 ; insn: ret
 ;-----------------------------------------------------------------------------
 ; _mbsnccnt_                                                   12F2F1  library
+; Run-time library: counts multibyte characters in the first n bytes
 ;-----------------------------------------------------------------------------
 _mbsnccnt_:
         db 053h                                 ; insn: push ebx
@@ -103,6 +104,7 @@ _mbsnccnt_:
         ret
 ;-----------------------------------------------------------------------------
 ; _mbsnbcnt_                                                   12F32F  library
+; Run-time library: counts the bytes of the first n multibyte characters
 ;-----------------------------------------------------------------------------
 _mbsnbcnt_:
         push ebx
@@ -132,6 +134,7 @@ _mbsnbcnt_:
         ret
 ;-----------------------------------------------------------------------------
 ; _mbsninc_                                                    12F360  library
+; Run-time library: steps over n multibyte characters
 ;-----------------------------------------------------------------------------
 _mbsninc_:
         push ebx
@@ -148,6 +151,7 @@ _mbsninc_:
         ret
 ;-----------------------------------------------------------------------------
 ; __mbsninc_                                                   12F379  library
+; Run-time library: inner step of _mbsninc
 ;-----------------------------------------------------------------------------
 __mbsninc_:
         push ebx
@@ -184,6 +188,7 @@ __mbsninc_:
         ret
 ;-----------------------------------------------------------------------------
 ; _mbscat_                                                     12F3BE  library
+; Run-time library: multibyte string concatenation
 ;-----------------------------------------------------------------------------
 _mbscat_:
         push ebx
@@ -238,6 +243,7 @@ _mbscat__34:
         ret
 ;-----------------------------------------------------------------------------
 ; _mbscpy_                                                     12F40F  library
+; Run-time library: multibyte string copy
 ;-----------------------------------------------------------------------------
 _mbscpy_:
         push ebx
@@ -463,6 +469,7 @@ _mbscpy__B6:
         ret
 ;-----------------------------------------------------------------------------
 ; _mbsncpy_                                                    12F5BE  library
+; Run-time library: copies n multibyte characters
 ;-----------------------------------------------------------------------------
 _mbsncpy_:
         push ecx
@@ -482,6 +489,7 @@ _mbsncpy_:
         ret
 ;-----------------------------------------------------------------------------
 ; _mbsnbcpy_                                                   12F5DD  library
+; Run-time library: copies n bytes of a multibyte string
 ;-----------------------------------------------------------------------------
 _mbsnbcpy_:
         push ecx
@@ -566,6 +574,7 @@ _mbsnbcpy_:
         jmp near _mbscpy__B6
 ;-----------------------------------------------------------------------------
 ; _mbptov_                                                     12F691  library
+; Run-time library: multibyte character at a pointer to its value
 ;-----------------------------------------------------------------------------
 _mbptov_:
         push edx
@@ -595,6 +604,7 @@ _mbptov_:
         ret
 ;-----------------------------------------------------------------------------
 ; _mbvtop_                                                     12F6CF  library
+; Run-time library: stores a multibyte character value at a pointer
 ;-----------------------------------------------------------------------------
 _mbvtop_:
         push ebx
@@ -614,6 +624,7 @@ _mbvtop_:
         ret
 ;-----------------------------------------------------------------------------
 ; __mbvtop_                                                    12F6E9  library
+; Run-time library: inner store of _mbvtop
 ;-----------------------------------------------------------------------------
 __mbvtop_:
         push edx
@@ -636,6 +647,7 @@ __mbvtop_:
         ret
 ;-----------------------------------------------------------------------------
 ; __checkIsDBCS_                                               12F71D  library
+; Run-time library: whether the DOS code page uses double-byte characters
 ;-----------------------------------------------------------------------------
 __checkIsDBCS_:
         push edx
@@ -659,6 +671,7 @@ __checkIsDBCS_:
         ret
 ;-----------------------------------------------------------------------------
 ; dos_get_dbcs_lead_table_                                     12F74B  library
+; Run-time library: reads the DOS table of double-byte lead bytes
 ;-----------------------------------------------------------------------------
 dos_get_dbcs_lead_table_:
         push ebx
@@ -748,6 +761,7 @@ dos_get_dbcs_lead_table_:
         ret
 ;-----------------------------------------------------------------------------
 ; _mbgetcode_                                                  12F858  library
+; Run-time library: reads one multibyte character code
 ;-----------------------------------------------------------------------------
 _mbgetcode_:
         push ebx
@@ -809,6 +823,7 @@ _mbgetcode_:
         ret
 ;-----------------------------------------------------------------------------
 ; _mbsnextc_                                                   12F8C5  library
+; Run-time library: the next multibyte character of a string
 ;-----------------------------------------------------------------------------
 _mbsnextc_:
         push ebx
@@ -852,6 +867,7 @@ _mbsnextc_:
         ret
 ;-----------------------------------------------------------------------------
 ; _mbsinc_                                                     12F917  library
+; Run-time library: steps over one multibyte character
 ;-----------------------------------------------------------------------------
 _mbsinc_:
         push ebx
@@ -888,6 +904,7 @@ _mbsinc_:
         ret
 ;-----------------------------------------------------------------------------
 ; _mbsdec_                                                     12F95D  library
+; Run-time library: steps back one multibyte character
 ;-----------------------------------------------------------------------------
 _mbsdec_:
         push ebx

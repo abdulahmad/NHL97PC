@@ -14,6 +14,7 @@ global _nfree_, _nmalloc_, close_file_, fclose_, fopen_, fread_, fseek_, ftell_
 global strcat_, strcpy_
 ;-----------------------------------------------------------------------------
 ; strcpy_                                                       F9C34  library
+; Run-time library strcpy: copies a string
 ;-----------------------------------------------------------------------------
 strcpy_:
         push ecx
@@ -35,6 +36,7 @@ strcpy_:
         ret
 ;-----------------------------------------------------------------------------
 ; strcat_                                                       F9C53  library
+; Run-time library strcat: appends a string
 ;-----------------------------------------------------------------------------
 strcat_:
         push ecx
@@ -72,6 +74,7 @@ strcat_:
         ret
 ;-----------------------------------------------------------------------------
 ; __open_flags_                                                 F9C86  library
+; Run-time library: turns an fopen mode string into open flags
 ;-----------------------------------------------------------------------------
 __open_flags_:
         push ebx
@@ -166,6 +169,7 @@ __open_flags_:
         ret
 ;-----------------------------------------------------------------------------
 ; __doopen_                                                     F9D57  library
+; Run-time library: opens a file for a stream
 ;-----------------------------------------------------------------------------
 __doopen_:
         push esi
@@ -246,6 +250,7 @@ __doopen_:
         ret 4
 ;-----------------------------------------------------------------------------
 ; _fsopen_                                                      F9E1B  library
+; Run-time library _fsopen: opens a stream with a share mode
 ;-----------------------------------------------------------------------------
 _fsopen_:
         push ecx
@@ -278,6 +283,7 @@ _fsopen_:
         ret
 ;-----------------------------------------------------------------------------
 ; fopen_                                                        F9E54  library
+; Run-time library fopen: opens a stream
 ;-----------------------------------------------------------------------------
 fopen_:
         push ebx
@@ -287,6 +293,7 @@ fopen_:
         ret
 ;-----------------------------------------------------------------------------
 ; close_file_                                                   F9E5E  library
+; Run-time library: closes the file of a stream
 ;-----------------------------------------------------------------------------
 close_file_:
         push ebx
@@ -371,6 +378,7 @@ close_file_:
         ret
 ;-----------------------------------------------------------------------------
 ; __update_buffer_                                              F9F08  library
+; Run-time library: syncs a stream's buffer after a seek
 ;-----------------------------------------------------------------------------
 __update_buffer_:
         push ebx
@@ -408,6 +416,7 @@ __update_buffer_:
         ret
 ;-----------------------------------------------------------------------------
 ; fseek_                                                        F9F4A  library
+; Run-time library fseek: moves a stream's file position
 ;-----------------------------------------------------------------------------
 fseek_:
         push ecx
@@ -525,6 +534,7 @@ fseek_:
         ret
 ;-----------------------------------------------------------------------------
 ; ftell_                                                        FA046  library
+; Run-time library ftell: a stream's file position
 ;-----------------------------------------------------------------------------
 ftell_:
         push ebx
@@ -560,6 +570,7 @@ ftell_:
         ret
 ;-----------------------------------------------------------------------------
 ; fclose_                                                       FA088  library
+; Run-time library fclose: closes a stream
 ;-----------------------------------------------------------------------------
 fclose_:
         push ebx
@@ -587,6 +598,7 @@ fclose_:
         ret
 ;-----------------------------------------------------------------------------
 ; __shutdown_stream_                                            FA0B5  library
+; Run-time library: flushes and closes a stream
 ;-----------------------------------------------------------------------------
 __shutdown_stream_:
         push ebx
@@ -600,6 +612,7 @@ __shutdown_stream_:
         ret
 ;-----------------------------------------------------------------------------
 ; __hex_                                                        FA0CA  library
+; Run-time library: a value 0-15 to its lower case hex digit
 ;-----------------------------------------------------------------------------
 __hex_:
         add eax, byte 30h
@@ -610,6 +623,7 @@ __hex_:
         ret
 ;-----------------------------------------------------------------------------
 ; __MkTmpFile_                                                  FA0D6  library
+; Run-time library: makes the name of a temporary file
 ;-----------------------------------------------------------------------------
 __MkTmpFile_:
         push ebx
@@ -654,6 +668,7 @@ __MkTmpFile_:
         ret
 ;-----------------------------------------------------------------------------
 ; __doclose_                                                    FA13B  library
+; Run-time library: closes a stream and frees its buffer
 ;-----------------------------------------------------------------------------
 __doclose_:
         push ebx
@@ -719,6 +734,7 @@ __doclose_:
         ret
 ;-----------------------------------------------------------------------------
 ; _nmalloc_                                                     FA1CB  library
+; Run-time library: allocates from the near heap
 ;-----------------------------------------------------------------------------
 _nmalloc_:
         push ebx
@@ -820,6 +836,7 @@ _nmalloc_:
         ret
 ;-----------------------------------------------------------------------------
 ; fread_                                                        FA2AE  library
+; Run-time library fread: reads from a stream
 ;-----------------------------------------------------------------------------
 fread_:
         push esi
@@ -1004,6 +1021,7 @@ fread_:
         ret
 ;-----------------------------------------------------------------------------
 ; _nfree_                                                       FA489  library
+; Run-time library: frees near heap memory
 ;-----------------------------------------------------------------------------
 _nfree_:
         push ebx

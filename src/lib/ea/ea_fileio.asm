@@ -55,6 +55,7 @@ DosOpenReadOnly:
         jmp short openhandle_2C
 ;-----------------------------------------------------------------------------
 ; openhandle                                  10942E  96 PC, medium confidence
+; EA library: opens a file with the DOS create or open call and returns its handle
 ;-----------------------------------------------------------------------------
 openhandle:
         push ebp

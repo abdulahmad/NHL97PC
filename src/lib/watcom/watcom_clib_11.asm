@@ -38,6 +38,7 @@ DosFileInfo:
         ret
 ;-----------------------------------------------------------------------------
 ; printf_                                                      10AF13  library
+; Run-time library printf: formats to standard output
 ;-----------------------------------------------------------------------------
 printf_:
         push ebx
@@ -56,6 +57,7 @@ printf_:
         db 00h,00h,00h
 ;-----------------------------------------------------------------------------
 ; DetectCPU                                   10AF38  96 PC, medium confidence
+; Detects the CPU type (386, 486, Pentium) and its CPUID features
 ;-----------------------------------------------------------------------------
 DetectCPU:
         push ebx
@@ -113,6 +115,7 @@ DetectCPU:
         ret
 ;-----------------------------------------------------------------------------
 ; _dos_close_                                                  10AFCA  library
+; Run-time library _dos_close: closes a DOS file handle
 ;-----------------------------------------------------------------------------
 _dos_close_:
         push ebx
@@ -124,6 +127,7 @@ _dos_close_:
         ret
 ;-----------------------------------------------------------------------------
 ; _dos_commit_                                                 10AFD9  library
+; Run-time library _dos_commit: flushes a DOS file to disk
 ;-----------------------------------------------------------------------------
 _dos_commit_:
         push ebx
@@ -136,6 +140,7 @@ _dos_commit_:
         ret
 ;-----------------------------------------------------------------------------
 ; _dos_open_                                                   10AFE9  library
+; Run-time library _dos_open: opens a DOS file
 ;-----------------------------------------------------------------------------
 _dos_open_:
         xchg edx, eax

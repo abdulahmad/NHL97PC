@@ -18,6 +18,7 @@ CMainHook:
         ret
 ;-----------------------------------------------------------------------------
 ; __CommonInit_                                                138C99  library
+; Run-time library: common start-up (DPMI lock of the DS restore code)
 ;-----------------------------------------------------------------------------
 __CommonInit_:
         push ebx

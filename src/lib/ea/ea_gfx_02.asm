@@ -1589,6 +1589,7 @@ FillRect:
         ret
 ;-----------------------------------------------------------------------------
 ; mem_putc_                                                     FDDC1  library
+; Run-time library: stores one character into a memory string stream (sprintf output)
 ;-----------------------------------------------------------------------------
 mem_putc_:
         push ebx

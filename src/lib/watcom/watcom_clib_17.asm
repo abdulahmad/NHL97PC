@@ -10,6 +10,7 @@ global __filbuf_, __fill_buffer_, __ioalloc_, __qread_, fgetc_, ResetMemLock, Me
 global PathBaseName, SetBlockGuard, CheckBlockGuards
 ;-----------------------------------------------------------------------------
 ; __ioalloc_                                                   121264  library
+; Run-time library: allocates a stream's buffer
 ;-----------------------------------------------------------------------------
 __ioalloc_:
         push ecx
@@ -57,6 +58,7 @@ __ioalloc_:
         ret
 ;-----------------------------------------------------------------------------
 ; __qread_                                                     1212DB  library
+; Run-time library: reads from a file handle
 ;-----------------------------------------------------------------------------
 __qread_:
         push ecx
@@ -77,6 +79,7 @@ __qread_:
         ret
 ;-----------------------------------------------------------------------------
 ; fgetc_                                                       1212FA  library
+; Run-time library fgetc: reads a character from a stream
 ;-----------------------------------------------------------------------------
 fgetc_:
         push ebx
@@ -142,6 +145,7 @@ fgetc_:
         ret
 ;-----------------------------------------------------------------------------
 ; __filbuf_                                                    121383  library
+; Run-time library: fills a stream's buffer and returns its first character
 ;-----------------------------------------------------------------------------
 __filbuf_:
         push ebx
@@ -171,6 +175,7 @@ __filbuf_:
         ret
 ;-----------------------------------------------------------------------------
 ; __fill_buffer_                                               1213B2  library
+; Run-time library: reads the next block into a stream's buffer
 ;-----------------------------------------------------------------------------
 __fill_buffer_:
         push ebx

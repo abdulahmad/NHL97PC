@@ -9,6 +9,7 @@ extern CameraFlags, fputc_
 global __doserror_, __fprtf_, file_putc_, ProjectPointsPersp
 ;-----------------------------------------------------------------------------
 ; file_putc_                                                   12D24F  library
+; Run-time library: writes one character to a stream (fprintf output)
 ;-----------------------------------------------------------------------------
 file_putc_:
         push ebx
@@ -21,6 +22,7 @@ file_putc_:
         ret
 ;-----------------------------------------------------------------------------
 ; __fprtf_                                                     12D260  library
+; Run-time library: the fprintf engine
 ;-----------------------------------------------------------------------------
 __fprtf_:
         push ecx
@@ -80,6 +82,7 @@ __fprtf_:
         db 00h
 ;-----------------------------------------------------------------------------
 ; __doserror_                                                  12D2E0  library
+; Run-time library: sets errno from a DOS error
 ;-----------------------------------------------------------------------------
 __doserror_:
         jae short .1

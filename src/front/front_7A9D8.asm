@@ -2412,6 +2412,7 @@ PlayMovie:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
 ; putchar                                      7C600  96 PC, medium confidence
+; Run-time library putchar slot; here it passes its second argument to ModemReset
 ;-----------------------------------------------------------------------------
 putchar:
         push str_ATZS760S1155

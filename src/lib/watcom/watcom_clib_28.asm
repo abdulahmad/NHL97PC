@@ -25,6 +25,7 @@ global EmuRegRing, EmuRegTagMasks
 global EmuCompareCcBits, EmuFpremCcBits, EmuEaModRmTable, EmuEaSibTable
 ;-----------------------------------------------------------------------------
 ; forcedecpt_                                                  1327F6  library
+; Run-time library: makes sure a formatted float has a decimal point
 ;-----------------------------------------------------------------------------
 forcedecpt_:
         push ebx
@@ -78,6 +79,7 @@ forcedecpt_:
         ret
 ;-----------------------------------------------------------------------------
 ; __cnvs2d_                                                    132855  library
+; Run-time library: a decimal string to a double
 ;-----------------------------------------------------------------------------
 __cnvs2d_:
         push ebx

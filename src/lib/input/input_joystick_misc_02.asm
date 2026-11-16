@@ -60,6 +60,7 @@ SetKbdIdleHook:
         ret
 ;-----------------------------------------------------------------------------
 ; WaitKey                                                         FBE88  96 PC
+; Waits for a key, calling the keyboard idle hook until one arrives
 ;-----------------------------------------------------------------------------
 WaitKey:
         call dword [KbdIdleHook]
@@ -225,6 +226,7 @@ TimerISR:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; addtimer                                     FBFDC  96 PC, medium confidence
+; Adds a routine to the timer callback list
 ;-----------------------------------------------------------------------------
 addtimer:
         mov edx, dword [timercallbacks]

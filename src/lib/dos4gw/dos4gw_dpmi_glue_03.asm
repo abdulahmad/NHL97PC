@@ -8,6 +8,7 @@ extern _Extender, _ExtenderSubtype, _STACKTOP, _curbrk, ErrnoPtr
 global __brk_, sbrk_
 ;-----------------------------------------------------------------------------
 ; sbrk_                                                        13255C  library
+; Run-time library sbrk: grows the program's data break
 ;-----------------------------------------------------------------------------
 sbrk_:
         push ebx
@@ -96,6 +97,7 @@ sbrk_:
         ret
 ;-----------------------------------------------------------------------------
 ; __brk_                                                       132624  library
+; Run-time library brk: sets the program's data break
 ;-----------------------------------------------------------------------------
 __brk_:
         push ebx

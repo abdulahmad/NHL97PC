@@ -8,6 +8,7 @@ extern InitFpuFlags, _EFG_Format_, __cnvs2d_, __EFG_printf, __EFG_scanf, Default
 global __setEFGfmt_, __sys_init_387_emulator
 ;-----------------------------------------------------------------------------
 ; __setEFGfmt_                                                 121AB5  library
+; Run-time library: installs the float format hook for printf
 ;-----------------------------------------------------------------------------
 __setEFGfmt_:
         push ebx
@@ -21,6 +22,7 @@ __setEFGfmt_:
         ret
 ;-----------------------------------------------------------------------------
 ; __sys_init_387_emulator                                      121AD0  library
+; Run-time library: installs the x87 emulator when there is no FPU
 ;-----------------------------------------------------------------------------
 __sys_init_387_emulator:
         push es

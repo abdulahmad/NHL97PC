@@ -22,6 +22,7 @@ global ScanBuildCharSet, ScanCharSet, ScanFloatField, ScanIntegerField, HexDigit
 global FillRectList, IntrStubs, unlink_
 ;-----------------------------------------------------------------------------
 ; _nexpand_                                                    1301FF  library
+; Run-time library: grows a near heap block in place
 ;-----------------------------------------------------------------------------
 _nexpand_:
         push ebx
@@ -48,6 +49,7 @@ _nexpand__10:
         jmp near __HeapManager_expand__1F0
 ;-----------------------------------------------------------------------------
 ; __HeapManager_expand_                                        130237  library
+; Run-time heap: grows a block in place
 ;-----------------------------------------------------------------------------
 __HeapManager_expand_:
         push esi
@@ -256,6 +258,7 @@ __HeapManager_expand__1F0:
         ret
 ;-----------------------------------------------------------------------------
 ; _nmsize_                                                     13042F  library
+; Run-time library: the size of a near heap block
 ;-----------------------------------------------------------------------------
 _nmsize_:
         mov eax, dword [byte eax-04h]
@@ -264,6 +267,7 @@ _nmsize_:
         ret
 ;-----------------------------------------------------------------------------
 ; isatty_                                                      130438  library
+; Run-time library isatty: whether a handle is a terminal
 ;-----------------------------------------------------------------------------
 isatty_:
         push ebx
@@ -288,6 +292,7 @@ isatty_:
         ret
 ;-----------------------------------------------------------------------------
 ; _dosret0_                                                    13045F  library
+; Run-time library: returns 0 or sets errno from a DOS call
 ;-----------------------------------------------------------------------------
 _dosret0_:
         test edx, edx
@@ -354,6 +359,7 @@ __set_errno_dos_:
         ret
 ;-----------------------------------------------------------------------------
 ; __IOMode_                                                    1304DB  library
+; Run-time library: the mode bits of a file handle
 ;-----------------------------------------------------------------------------
 __IOMode_:
         push ebx
@@ -395,6 +401,7 @@ __IOMode_:
         ret
 ;-----------------------------------------------------------------------------
 ; __SetIOMode_                                                 130530  library
+; Run-time library: sets the mode bits of a file handle
 ;-----------------------------------------------------------------------------
 __SetIOMode_:
         push ebx
@@ -767,6 +774,7 @@ RegisterHotkey:
         jmp short .4
 ;-----------------------------------------------------------------------------
 ; __qwrite_                                                    13086E  library
+; Run-time library: writes to a file handle
 ;-----------------------------------------------------------------------------
 __qwrite_:
         push ecx
@@ -826,6 +834,7 @@ __qwrite_:
         ret
 ;-----------------------------------------------------------------------------
 ; unlink_                                                      1308E2  library
+; Run-time library unlink: deletes a file
 ;-----------------------------------------------------------------------------
 unlink_:
         push edx
@@ -3114,6 +3123,7 @@ ScanGetCharWidth:
         db 00h
 ;-----------------------------------------------------------------------------
 ; __int386x_                                                   132020  library
+; Run-time library: inner part of int386x
 ;-----------------------------------------------------------------------------
 __int386x_:
         push ebp
@@ -3165,6 +3175,7 @@ IntrLoadSegRegs:
         ret
 ;-----------------------------------------------------------------------------
 ; _DoINTR_                                                     13207D  library
+; Run-time library: the intr call helper
 ;-----------------------------------------------------------------------------
 _DoINTR_:
         pusha
@@ -3320,6 +3331,7 @@ FillRectList:
         ret
 ;-----------------------------------------------------------------------------
 ; __InitFiles_                                                 132448  library
+; Run-time library: sets up the standard streams
 ;-----------------------------------------------------------------------------
 __InitFiles_:
         push ebx
@@ -3364,6 +3376,7 @@ __InitFiles_:
         ret
 ;-----------------------------------------------------------------------------
 ; __full_io_exit_                                              1324BF  library
+; Run-time library: closes all streams at exit
 ;-----------------------------------------------------------------------------
 __full_io_exit_:
         xor eax, eax
@@ -3418,6 +3431,7 @@ docloseall_:
         ret
 ;-----------------------------------------------------------------------------
 ; flushall_                                                    132528  library
+; Run-time library flushall: writes out every stream
 ;-----------------------------------------------------------------------------
 flushall_:
         mov eax, 0FFFFFFFFh

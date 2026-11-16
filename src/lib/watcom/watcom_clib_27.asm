@@ -8,6 +8,7 @@ extern UngetChar
 global getche_
 ;-----------------------------------------------------------------------------
 ; getche_                                                      1326EF  library
+; Run-time library getche: reads a key and echoes it
 ;-----------------------------------------------------------------------------
 getche_:
         push edx

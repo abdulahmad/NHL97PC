@@ -71,6 +71,7 @@ RemoveTimerCallback:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; RestoreTimer                                 FC078  96 PC, medium confidence
+; Puts the original timer interrupt handler and the timer rate back
 ;-----------------------------------------------------------------------------
 RestoreTimer:
         push ebx

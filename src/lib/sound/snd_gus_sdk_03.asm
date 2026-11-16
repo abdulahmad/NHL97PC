@@ -67,12 +67,14 @@ GusConvertAddr16:
         ret
 ;-----------------------------------------------------------------------------
 ; __sigabort_                                                  13B7B5  library
+; Run-time library: raises SIGABRT
 ;-----------------------------------------------------------------------------
 __sigabort_:
         mov eax, 1
         jmp near raise_
 ;-----------------------------------------------------------------------------
 ; __sigfpe_handler_                                            13B7BF  library
+; Run-time library: the floating point exception signal handler
 ;-----------------------------------------------------------------------------
 __sigfpe_handler_:
         push edx
@@ -98,6 +100,7 @@ __sigfpe_handler_:
         ret
 ;-----------------------------------------------------------------------------
 ; signal_                                                      13B7F4  library
+; Run-time library signal: sets the handler of a signal
 ;-----------------------------------------------------------------------------
 signal_:
         push ebx
@@ -165,6 +168,7 @@ raise_JumpTable:                                ; jump table for the switch case
         dd raise__96
 ;-----------------------------------------------------------------------------
 ; raise_                                                       13B8A9  library
+; Run-time library raise: sends a signal to the program
 ;-----------------------------------------------------------------------------
 raise_:
         push ebx
@@ -242,6 +246,7 @@ raise__96:
         db 00h
 ;-----------------------------------------------------------------------------
 ; _chain_intr_                                                 13B96C  library
+; Run-time library _chain_intr: jumps to another interrupt handler
 ;-----------------------------------------------------------------------------
 _chain_intr_:
         mov ecx, eax
@@ -262,6 +267,7 @@ _chain_intr_:
         retf
 ;-----------------------------------------------------------------------------
 ; __log87_err_                                                 13B985  library
+; Run-time library: reports an x87 log domain error
 ;-----------------------------------------------------------------------------
 __log87_err_:
         push ebp

@@ -18,6 +18,7 @@ global SetBlitSource, CopyMappedSpan, CopyScaledSpan, ShapeRowBytes, BuildSpanOf
 global ClipEdgeAtY, ClipPolyLeft, ClipPolyRight, ClipPolyTop, ClipPolyBottom, vsprintf_
 ;-----------------------------------------------------------------------------
 ; __sys_fini_387_emulator                                      121C55  library
+; Run-time library: removes the x87 emulator
 ;-----------------------------------------------------------------------------
 __sys_fini_387_emulator:
         cmp byte [__real87], 1
@@ -108,6 +109,7 @@ EmuRestoreRealVector:
         ret
 ;-----------------------------------------------------------------------------
 ; __save_8087_                                                 121D2B  library
+; Run-time library: saves the FPU state
 ;-----------------------------------------------------------------------------
 __save_8087_:
         wait
@@ -116,6 +118,7 @@ __save_8087_:
         ret
 ;-----------------------------------------------------------------------------
 ; __rest_8087_                                                 121D30  library
+; Run-time library: restores the FPU state
 ;-----------------------------------------------------------------------------
 __rest_8087_:
         frstor [eax]
@@ -123,6 +126,7 @@ __rest_8087_:
         ret
 ;-----------------------------------------------------------------------------
 ; __init_8087_                                                 121D34  library
+; Run-time library: initialises the FPU
 ;-----------------------------------------------------------------------------
 __init_8087_:
         push ebx
@@ -142,6 +146,7 @@ __init_8087_:
         ret
 ;-----------------------------------------------------------------------------
 ; _fpreset_                                                    121D65  library
+; Run-time library _fpreset: resets the floating point package
 ;-----------------------------------------------------------------------------
 _fpreset_:
         cmp byte [FpuType], 0
@@ -149,6 +154,7 @@ _fpreset_:
         ret
 ;-----------------------------------------------------------------------------
 ; __chk8087_                                                   121D6F  library
+; Run-time library: detects the FPU at start-up
 ;-----------------------------------------------------------------------------
 __chk8087_:
         push edx
@@ -186,11 +192,13 @@ EmuNoHook:
         ret
 ;-----------------------------------------------------------------------------
 ; __exit_with_msg_                                             121DBA  library
+; Run-time library: prints a message and exits
 ;-----------------------------------------------------------------------------
 __exit_with_msg_:
         jmp near WriteConsoleMessage
 ;-----------------------------------------------------------------------------
 ; __fatal_runtime_error_                                       121DBF  library
+; Run-time library: prints a fatal run-time error and exits
 ;-----------------------------------------------------------------------------
 __fatal_runtime_error_:
         push ebx
@@ -740,6 +748,7 @@ LocateArchiveEntries:
         ret
 ;-----------------------------------------------------------------------------
 ; mem_putc__0                                                  122259  library
+; Run-time library: stores one character into a memory string stream (vsprintf output)
 ;-----------------------------------------------------------------------------
 mem_putc__0:
         push ebx
@@ -755,6 +764,7 @@ mem_putc__0:
         ret
 ;-----------------------------------------------------------------------------
 ; vsprintf_                                                    12226C  library
+; Run-time library vsprintf: formats into a string
 ;-----------------------------------------------------------------------------
 vsprintf_:
         push ecx

@@ -28,6 +28,7 @@ global CosLookup, Div64By32, Shl64, Convert565To555, Convert555To565, ConvertInd
 global ConvertIndexedTo16, SwapRedBlue555, Convert32To565, ConvertNibbleTo16, FindPaletteChunk, ExpandPalette6To8, CopyPaletteRGB, zupstr_
 ;-----------------------------------------------------------------------------
 ; __prtf_                                                      123FEA  library
+; Run-time library: the printf formatting engine
 ;-----------------------------------------------------------------------------
 __prtf_:
         push esi
@@ -309,6 +310,7 @@ __prtf_:
         ret
 ;-----------------------------------------------------------------------------
 ; getprintspecs_                                               124389  library
+; Run-time library: reads one printf format specification
 ;-----------------------------------------------------------------------------
 getprintspecs_:
         push ecx
@@ -467,6 +469,7 @@ getprintspecs_:
         ret
 ;-----------------------------------------------------------------------------
 ; evalflags_                                                   1244C7  library
+; Run-time library: reads the flags of a printf specification
 ;-----------------------------------------------------------------------------
 evalflags_:
         push ebx
@@ -517,6 +520,7 @@ evalflags_:
         ret
 ;-----------------------------------------------------------------------------
 ; far_strlen_                                                  124526  library
+; Run-time library: length of a far string (printf)
 ;-----------------------------------------------------------------------------
 far_strlen_:
         push ecx
@@ -546,6 +550,7 @@ far_strlen__1F:
         ret
 ;-----------------------------------------------------------------------------
 ; far_other_strlen_                                            12454A  library
+; Run-time library: length of a far wide string (printf)
 ;-----------------------------------------------------------------------------
 far_other_strlen_:
         push ecx
@@ -569,6 +574,7 @@ far_other_strlen_:
         jmp short .1
 ;-----------------------------------------------------------------------------
 ; fmt4hex_                                                     12456D  library
+; Run-time library: formats a value as four hex digits
 ;-----------------------------------------------------------------------------
 fmt4hex_:
         push ecx
@@ -625,6 +631,7 @@ fmt4hex_:
         ret
 ;-----------------------------------------------------------------------------
 ; FixedPoint_Format_                                           1245CB  library
+; Run-time library: formats a fixed point value
 ;-----------------------------------------------------------------------------
 FixedPoint_Format_:
         push ecx
@@ -744,12 +751,14 @@ FixedPoint_Format_:
         ret
 ;-----------------------------------------------------------------------------
 ; float_format_                                                1246C0  library
+; Run-time library: formats a float for printf
 ;-----------------------------------------------------------------------------
 float_format_:
         call dword [__EFG_printf]
         ret
 ;-----------------------------------------------------------------------------
 ; formstring_                                                  1246C7  library
+; Run-time library: formats an integer into its digits for printf
 ;-----------------------------------------------------------------------------
 formstring_:
         push esi
@@ -1222,6 +1231,7 @@ formstring_:
         ret
 ;-----------------------------------------------------------------------------
 ; zupstr_                                                      124BB0  library
+; Run-time library: makes a string upper case (printf %X)
 ;-----------------------------------------------------------------------------
 zupstr_:
         push edx
@@ -1570,6 +1580,7 @@ DrawGlyphScaled:
         db 00h
 ;-----------------------------------------------------------------------------
 ; IF@DACOS                                                     124F22  library
+; Run-time library acos core
 ;-----------------------------------------------------------------------------
 IF@DACOS:
         fld st0
@@ -1651,6 +1662,7 @@ SetTextScale:
         db 00h,00h
 ;-----------------------------------------------------------------------------
 ; __fpatan_wrap                                                124FC8  library
+; Run-time library: wraps fpatan with the FDIV bug check
 ;-----------------------------------------------------------------------------
 __fpatan_wrap:
         push eax
@@ -1671,6 +1683,7 @@ __fpatan_wrap:
         ret
 ;-----------------------------------------------------------------------------
 ; sqrt_                                                        124FFC  library
+; Run-time library sqrt: square root
 ;-----------------------------------------------------------------------------
 sqrt_:
         test byte [byte esp+0Bh], 80h
@@ -1691,6 +1704,7 @@ sqrt_:
         ret 8
 ;-----------------------------------------------------------------------------
 ; IF@SQRT                                                      12502C  library
+; Run-time library sqrt core
 ;-----------------------------------------------------------------------------
 IF@SQRT:
         mov al, 3
@@ -1727,6 +1741,7 @@ __@DSQRT:
         ret
 ;-----------------------------------------------------------------------------
 ; __pow87_err_                                                 125063  library
+; Run-time library: reports a pow error
 ;-----------------------------------------------------------------------------
 __pow87_err_:
         push ebp
@@ -1797,6 +1812,7 @@ __pow87_err_:
         ret 14h
 ;-----------------------------------------------------------------------------
 ; __@DEXP1                                                     1250EC  library
+; Run-time library: exp helper
 ;-----------------------------------------------------------------------------
 __@DEXP1:
         push ebp
@@ -1805,6 +1821,7 @@ __@DEXP1:
         jmp short __@DEXP_2F
 ;-----------------------------------------------------------------------------
 ; IF@EXP                                                       1250F4  library
+; Run-time library exp core
 ;-----------------------------------------------------------------------------
 IF@EXP:
         mov al, 4
@@ -1833,6 +1850,10 @@ __@DEXP:
         mov esp, ebp
         pop ebp
         ret
+;-----------------------------------------------------------------------------
+; __@DEXP_2F                                              125125  97 PC, low confidence
+; Run-time library: second entry of the exp helper
+;-----------------------------------------------------------------------------
 __@DEXP_2F:
         fcom qword [F64_neg709p783]
         wait
@@ -1866,6 +1887,7 @@ __@DEXP_2F:
         db 00h,00h
 ;-----------------------------------------------------------------------------
 ; fdiv_main_routine                                            125164  library
+; Run-time library: division that avoids the Pentium FDIV bug
 ;-----------------------------------------------------------------------------
 fdiv_main_routine:
         fld tword [byte esp+010h]
@@ -1963,6 +1985,7 @@ fdiv_main_routine:
         ret
 ;-----------------------------------------------------------------------------
 ; __fdiv_fpr                                                   12527B  library
+; Run-time library: checked fdiv on FPU registers
 ;-----------------------------------------------------------------------------
 __fdiv_fpr:
         sub esp, byte 2Ch
@@ -2442,6 +2465,7 @@ __fdiv_fpr_488:
         ret
 ;-----------------------------------------------------------------------------
 ; __fdivp_sti_st                                               125717  library
+; Run-time library: checked fdivp st(i), st
 ;-----------------------------------------------------------------------------
 __fdivp_sti_st:
         sub esp, byte 2Ch
@@ -2452,6 +2476,7 @@ __fdivp_sti_st:
         ret
 ;-----------------------------------------------------------------------------
 ; __fdivrp_sti_st                                              12572A  library
+; Run-time library: checked fdivrp st(i), st
 ;-----------------------------------------------------------------------------
 __fdivrp_sti_st:
         sub esp, byte 2Ch
@@ -2462,6 +2487,7 @@ __fdivrp_sti_st:
         ret
 ;-----------------------------------------------------------------------------
 ; __fdiv_chk                                                   12573D  library
+; Run-time library: checked fdiv entry
 ;-----------------------------------------------------------------------------
 __fdiv_chk:
         sub esp, byte 2Ch
@@ -2499,6 +2525,7 @@ __fdiv_chk:
         ret 4
 ;-----------------------------------------------------------------------------
 ; __fdiv_m64                                                   12579C  library
+; Run-time library: checked fdiv by a 64-bit memory operand
 ;-----------------------------------------------------------------------------
 __fdiv_m64:
         push eax
@@ -3035,6 +3062,7 @@ Shl64:
         ret
 ;-----------------------------------------------------------------------------
 ; _Full_at_exit_rtn_                                           125C7B  library
+; Run-time library: runs the atexit routines
 ;-----------------------------------------------------------------------------
 _Full_at_exit_rtn_:
         push ebx
@@ -3062,6 +3090,7 @@ _Full_at_exit_rtn_:
         ret
 ;-----------------------------------------------------------------------------
 ; atexit_                                                      125CB6  library
+; Run-time library atexit: registers an exit routine
 ;-----------------------------------------------------------------------------
 atexit_:
         push ebx
@@ -3090,6 +3119,7 @@ atexit_:
         ret
 ;-----------------------------------------------------------------------------
 ; strrchr_                                                     125CF2  library
+; Run-time library strrchr: the last place of a character in a string
 ;-----------------------------------------------------------------------------
 strrchr_:
         push ebx
@@ -3947,6 +3977,7 @@ CopyPaletteRGB:
         ret
 ;-----------------------------------------------------------------------------
 ; int386_                                                      126463  library
+; Run-time library int386: calls an interrupt
 ;-----------------------------------------------------------------------------
 int386_:
         push ecx

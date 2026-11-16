@@ -26,6 +26,7 @@ global SetFocalLength, SetProjectionCenter, PerspectiveScale, ProjectCoord, Proj
 global ProjectPointInt, ClipProjectPoints
 ;-----------------------------------------------------------------------------
 ; sprintf_                                                      FDDD4  library
+; Run-time library sprintf: formats into a string
 ;-----------------------------------------------------------------------------
 sprintf_:
         push ebx
@@ -3587,6 +3588,7 @@ ProjectPointFloat:
         ret
 ;-----------------------------------------------------------------------------
 ; IF@ATAN                                                      10023C  library
+; Run-time library atan core
 ;-----------------------------------------------------------------------------
 IF@ATAN:
         fld1
@@ -3600,6 +3602,7 @@ IF@ATAN:
         ret
 ;-----------------------------------------------------------------------------
 ; IF@ATAN2                                                     100251  library
+; Run-time library atan2 core
 ;-----------------------------------------------------------------------------
 IF@ATAN2:
         fxch
@@ -3620,6 +3623,7 @@ IF@ATAN2:
         ret 10h
 ;-----------------------------------------------------------------------------
 ; hypot_                                                       100282  library
+; Run-time library hypot: the length of a 2D vector
 ;-----------------------------------------------------------------------------
 hypot_:
         push eax
@@ -3633,6 +3637,7 @@ hypot_:
         ret 10h
 ;-----------------------------------------------------------------------------
 ; IF@DPOW                                                      10029A  library
+; Run-time library pow core
 ;-----------------------------------------------------------------------------
 IF@DPOW:
         push ebp

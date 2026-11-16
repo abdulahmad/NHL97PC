@@ -54,6 +54,7 @@ global SaveStatsScreen, RestoreStatsScreen, DrawListHighlight, ShowLoadingScreen
 global MainMenuItemMetrics
 ;-----------------------------------------------------------------------------
 ; main_                                                         7D059  library
+; Program entry from the C start-up: sets up the game and runs the front end
 ;-----------------------------------------------------------------------------
 main_:
         push ebx

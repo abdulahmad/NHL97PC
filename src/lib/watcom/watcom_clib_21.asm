@@ -329,6 +329,7 @@ CdDirSearch:
         ret
 ;-----------------------------------------------------------------------------
 ; toupper_                                                     1269F5  library
+; Run-time library toupper: a character to upper case
 ;-----------------------------------------------------------------------------
 toupper_:
         cmp eax, byte 61h

@@ -8,6 +8,7 @@ extern RefPackSize, RefPackUnpack, UnpackBytePairs, PrepareBankSampleData
 global UnpackShared, UnpackPlain, UnpackedSize, unpack
 ;-----------------------------------------------------------------------------
 ; unpack                                      106EC0  96 PC, medium confidence
+; EA library: unpacks a compressed block (the packed size is in its big-endian header)
 ;-----------------------------------------------------------------------------
 unpack:
         push ebx

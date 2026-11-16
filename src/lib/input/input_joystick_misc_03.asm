@@ -8,12 +8,14 @@ extern LastTickCount, RunIdleHandlers, tickcount, tickdeadline
 global GetTicks, SetTickDeadline, TickDeadlinePassed, TicksSince, WaitTickDeadline, memcpy_, TicksSinceLast, WaitTicks
 ;-----------------------------------------------------------------------------
 ; GetTicks                                     FC280  96 PC, medium confidence
+; Returns the timer tick count
 ;-----------------------------------------------------------------------------
 GetTicks:
         mov eax, dword [tickcount]
         ret
 ;-----------------------------------------------------------------------------
 ; TicksSince                                   FC286  96 PC, medium confidence
+; (start): ticks since the given tick count
 ;-----------------------------------------------------------------------------
 TicksSince:
         mov eax, dword [tickcount]
@@ -34,6 +36,7 @@ TicksSinceLast:
         ret
 ;-----------------------------------------------------------------------------
 ; SetTickDeadline                                                 FC2AB  96 PC
+; (ticks): sets the tick deadline that many ticks from now
 ;-----------------------------------------------------------------------------
 SetTickDeadline:
         mov eax, dword [byte esp+04h]
@@ -42,6 +45,7 @@ SetTickDeadline:
         ret
 ;-----------------------------------------------------------------------------
 ; WaitTickDeadline                                                FC2BB  96 PC
+; Waits until the tick deadline has passed
 ;-----------------------------------------------------------------------------
 WaitTickDeadline:
         mov eax, dword [tickcount]
@@ -50,6 +54,7 @@ WaitTickDeadline:
         ret
 ;-----------------------------------------------------------------------------
 ; TickDeadlinePassed                           FC2C9  96 PC, medium confidence
+; Returns 1 when the tick deadline has passed, else 0
 ;-----------------------------------------------------------------------------
 TickDeadlinePassed:
         mov edx, dword [tickcount]
@@ -59,6 +64,7 @@ TickDeadlinePassed:
         ret
 ;-----------------------------------------------------------------------------
 ; WaitTicks                                                       FC2D9  96 PC
+; (ticks): waits that many ticks, running the idle handlers
 ;-----------------------------------------------------------------------------
 WaitTicks:
         mov eax, dword [byte esp+04h]
@@ -75,6 +81,7 @@ WaitTicks:
         ret
 ;-----------------------------------------------------------------------------
 ; memcpy_                                                       FC2FD  library
+; Run-time library memcpy: copies a block of memory
 ;-----------------------------------------------------------------------------
 memcpy_:
         push ecx

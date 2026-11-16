@@ -9,6 +9,7 @@ extern AngleFromDelta, SinLookup, CosLookup
 global AngleOfVectorJumpTable, vecdist
 ;-----------------------------------------------------------------------------
 ; vecdist                                     100674  96 PC, medium confidence
+; (dx, dy): approximate length of a vector from its angle
 ;-----------------------------------------------------------------------------
 vecdist:
         push ebp

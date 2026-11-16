@@ -28,6 +28,7 @@ global PlayQueuedSpeech, SetSpeechEnabled, FileExistsPath, FileSizePath, LoadFil
 global LoadFileCore
 ;-----------------------------------------------------------------------------
 ; strncpy_                                                     104A2C  library
+; Run-time library strncpy: copies at most n characters
 ;-----------------------------------------------------------------------------
 strncpy_:
         push ecx
@@ -802,6 +803,7 @@ FreeInverseTable:
         db 00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
 ; strcmp_                                                      105380  library
+; Run-time library strcmp: compares two strings
 ;-----------------------------------------------------------------------------
 strcmp_:
         push ebx

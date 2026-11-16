@@ -62,6 +62,7 @@ MouseSetSensitivity:
         ret
 ;-----------------------------------------------------------------------------
 ; MouseRead                                    FC5F8  95 PC, medium confidence
+; (x, y): sets the mouse position
 ;-----------------------------------------------------------------------------
 MouseRead:
         push ebp
@@ -90,6 +91,7 @@ MouseRead:
         ret
 ;-----------------------------------------------------------------------------
 ; SetViewRect                                                     FC635  96 PC
+; (x0, y0, x1, y1): sets the mouse range
 ;-----------------------------------------------------------------------------
 SetViewRect:
         push ebp
@@ -108,6 +110,7 @@ SetViewRect:
         ret
 ;-----------------------------------------------------------------------------
 ; MouseReadMotion                              FC65F  96 PC, medium confidence
+; Reads the mouse motion counters (int 33h function 0Bh) into the mouse position
 ;-----------------------------------------------------------------------------
 MouseReadMotion:
         pusha
