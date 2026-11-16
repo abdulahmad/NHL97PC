@@ -64,8 +64,11 @@ address,name,auto_name,source,confidence,evidence,file
 1E268,assexit,sub_1E268,94G,high,94G assexit: ends the current assignment (index + 1) and sets the new-assignment flag,src/engine/engine_15AC2.asm
 1EC5C,check4bench,sub_1EC5C,94G,medium,"94G check4bench: whether player a3 should go to the bench; if so assreplace with assbench (17h); 0 when he stays (joystick-controlled, penalty shot, ...)",src/engine/engine_15AC2.asm
 1EF88,SwapPosition,sub_1EF88,96PC,medium,"96 PC SwapPosition: (player, position) gives the player the position and hands his old one to the teammate who held it; returns the player number",src/engine/engine_15AC2.asm
+1F5B4,asscoverdefd,sub_1F5B4,96PC,low,"assignment 10h (set by asscoverdefo): the defending half of the cover, SwapPosition back when it ends",src/engine/engine_15AC2.asm
+1F7D0,asscoverdefo,sub_1F7D0,96PC,low,"assignment 0Fh (given from the Setplass jump table): a forward covering a defence spot; uses SwapPosition and moves on to 10h (asscoverdefd), as 96 PC asscoverdefo / asscoverdefd",src/engine/engine_15AC2.asm
 1FB6C,Setplass,sub_1FB6C,94G,medium,"94G Setplass: sets the player's starting assignment by position from the list byte_1689C0 (goalie 2, defence 3, wings 4, centre 5), after SwapPosition",src/engine/engine_15AC2.asm
 20508,Endfaceoff,sub_20508,96PC,medium,"from puckfaceoff2: decides the faceoff (randomd0 21h / 0Ah as in 96 PC), gives the puck assignment 41h (pucknorm) and the referee 31h (assreffollow)",src/engine/engine_15AC2.asm
+209E0,assbenchwait,sub_209E0,96PC,low,"assignment 1 (set by setpersonel, AddPenalty2): an off-ice player waits at the bench (x -2232 / -4440), check4bench, flags +0C1h",src/engine/engine_15AC2.asm
 21B20,assgoalie,sub_21B20,94G,medium,"94G assgoalie: assignment 2 (Setplass list for the goalie), the goalie AI",src/engine/engine_15AC2.asm
 22828,assextra4,sub_22828,96PC,low,96 PC assextra4 (placeholder name): called from the offence assignments,src/engine/engine_15AC2.asm
 22B8C,assdefo,sub_22B8C,94G,low,"94G assdefo: assignment 0Bh, defenceman on offence (SwapPosition, assextra4, as 96 PC assdefo)",src/engine/engine_15AC2.asm
@@ -77,6 +80,7 @@ address,name,auto_name,source,confidence,evidence,file
 23B88,asscenterd,sub_23B88,94G,medium,"94G asscenterd: assignment 5 (Setplass list for the centre), centre on defence",src/engine/engine_15AC2.asm
 23E90,assfaceoff,sub_23E90,94G,medium,"94G assfaceoff: assignment 7, players idle until the faceoff is over (puckfaceoff2 gives it to everyone but the centre, as 94G afaceoff)",src/engine/engine_15AC2.asm
 23F44,assfaceoffpl,sub_23F44,94G,medium,"94G assfaceoffpl: assignment 8, the faceoff player (puckfaceoff2 gives it to the centre, as 94G afaceoffpl)",src/engine/engine_15AC2.asm
+25F64,asspuckc,sub_25F64,94G,low,"assignment 9, the computer puck carrier: steps out when its team does not have the puck (off_168CF0), runs its checks on a reaction timer (+56h), and goes to 1Bh when skating in close on the goal",src/engine/engine_25894.asm
 265FC,assnearest,sub_265FC,94G,medium,"94G assnearest: assignment 0Ah (off_19C3F4), the main skater AI (forcepldata gives it to the centre, as in 94G)",src/engine/engine_25894.asm
 27500,ChkPullGoalieLate,sub_27500,96PC,medium,"96 PC ChkPullGoalieLate: (team) third period, last 60 seconds, losing by 1-2 and no goalie pulled yet: pull the goalie (from assbench)",src/engine/engine_25894.asm
 275C0,assbench,sub_275C0,94G,medium,"94G assbench: assignment 17h, skating off to the bench (check4bench gives it); setplayer for the replacement",src/engine/engine_25894.asm

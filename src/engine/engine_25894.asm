@@ -47,7 +47,7 @@ extern penshotmode, word_19CBE0, penshotlive, word_19CBE6, word_19CBEA, word_19C
 extern word_19CBF4, word_19CC04, word_19CC24, word_19CC26, word_19CC2C, word_19CC2E, word_19DAD9, word_19EABE
 extern word_19EBCA
 global jpt_2B4B4, sub_25894_D1, sub_2B4D4_424, sub_2B4D4_43B, sub_2B4D4_452, sub_2B4D4_469, sub_25894, sub_2596C
-global sub_25AEC, sub_25BD0, sub_25D40, sub_25E24, sub_25F64, sub_2625C, sub_264CC, assnearest
+global sub_25AEC, sub_25BD0, sub_25D40, sub_25E24, asspuckc, sub_2625C, sub_264CC, assnearest
 global sub_27210, sub_27274, ChkPullGoalieLate, assbench, sub_27A00, sub_27A78, sub_27AD8, sub_27D10
 global sub_27F80, sub_27FF0, sub_28110, asseben, sub_2842C, asspenalty, assdopen, assepen
 global sub_28C0C, assrefpenshot, assrefsignal, assrefwhistle, assrefgoalpa, assrefgoalline, assreffollow, assrefdrop
@@ -683,9 +683,12 @@ sub_25E24:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_25F64                                                       25F64  97 PC
+; asspuckc                                          25F64  94G, low confidence
+; Assignment 9, the computer puck carrier: steps out when its team does not
+; have the puck (off_168CF0), runs its checks on a reaction timer (+56h), and
+; goes to 1Bh when skating in close on the goal
 ;-----------------------------------------------------------------------------
-sub_25F64:
+asspuckc:
         push ebx
         push ecx
         push edx

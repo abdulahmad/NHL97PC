@@ -130,14 +130,14 @@
 ;  1F32C  sub_1F32C                                engine/engine_15AC2.asm                      1
 ;  1F4EC  sub_1F4EC                                engine/engine_15AC2.asm                      1
 ;  1F538  sub_1F538                                engine/engine_15AC2.asm                      1
-;  1F5B4  sub_1F5B4                                engine/engine_15AC2.asm                      1
-;  1F7D0  sub_1F7D0                                engine/engine_15AC2.asm                      1
+;  1F5B4  asscoverdefd                             engine/engine_15AC2.asm                      1
+;  1F7D0  asscoverdefo                             engine/engine_15AC2.asm                      1
 ;  1FB6C  Setplass                                 engine/engine_15AC2.asm                      3
 ;  1FBF4  sub_1FBF4                                engine/engine_15AC2.asm                      1
 ;  1FF5C  sub_1FF5C                                engine/engine_15AC2.asm                      2
 ;  20508  Endfaceoff                               engine/engine_15AC2.asm                      1
 ;  209D0  sub_209D0                                engine/engine_15AC2.asm                      1
-;  209E0  sub_209E0                                engine/engine_15AC2.asm                      1
+;  209E0  assbenchwait                             engine/engine_15AC2.asm                      1
 ;  20A80  sub_20A80                                engine/engine_15AC2.asm                      1
 ;  20CB0  sub_20CB0                                engine/engine_15AC2.asm                      3
 ;  218B8  sub_218B8                                engine/engine_15AC2.asm                      1
@@ -167,7 +167,7 @@
 ;  25730  sub_25730                                engine/engine_15AC2.asm                      1
 ;  2596C  sub_2596C                                engine/engine_25894.asm                      1
 ;  25AEC  sub_25AEC                                engine/engine_25894.asm                      1
-;  25F64  sub_25F64                                engine/engine_25894.asm                      1
+;  25F64  asspuckc                                 engine/engine_25894.asm                      1
 ;  265FC  assnearest                               engine/engine_25894.asm                      1
 ;  27274  sub_27274                                engine/engine_25894.asm                      1
 ;  275C0  assbench                                 engine/engine_25894.asm                      1

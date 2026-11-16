@@ -99,8 +99,8 @@ global sub_1D09C, sub_1D0BC, sub_1D16C, sub_1D1D4, sub_1D1DC, sub_1D208, sub_1D2
 global sub_1D4FC, sub_1D828, sub_1D858, sub_1D914, sub_1DB8C, sub_1DBA0, sub_1DBF0, sub_1DCB0
 global sub_1DD5C, sub_1DDE4, sub_1DEB8, sub_1DEE4, sub_1DFA0, sub_1E014, sub_1E184, assreplace
 global assinsert, assexit, sub_1E284, sub_1E354, sub_1E4E4, sub_1E7C4, sub_1E810, sub_1E8B0
-global check4bench, SwapPosition, sub_1F32C, sub_1F4EC, sub_1F538, sub_1F5B4, sub_1F7D0, Setplass
-global sub_1FBF4, sub_1FF5C, Endfaceoff, sub_209CC, sub_209D0, sub_209E0, sub_20A80, sub_20C50
+global check4bench, SwapPosition, sub_1F32C, sub_1F4EC, sub_1F538, asscoverdefd, asscoverdefo, Setplass
+global sub_1FBF4, sub_1FF5C, Endfaceoff, sub_209CC, sub_209D0, assbenchwait, sub_20A80, sub_20C50
 global sub_20CB0, sub_218B8, sub_21A4C, sub_21AB4, assgoalie, sub_21E98, sub_22050, assextra4
 global assdefo, asswingo, asscentero, sub_22FF0, assextra3, assdefd, asswingd, asscenterd
 global sub_23C98, assfaceoff, assfaceoffpl, sub_240D0, sub_24220, sub_244BC, sub_2471C, sub_248E8
@@ -13067,9 +13067,11 @@ sub_1F538:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1F5B4                                                       1F5B4  97 PC
+; asscoverdefd                                    1F5B4  96 PC, low confidence
+; Assignment 10h (set by asscoverdefo): the defending half of the cover,
+; SwapPosition back when it ends
 ;-----------------------------------------------------------------------------
-sub_1F5B4:
+asscoverdefd:
         push ebx
         push ecx
         push edx
@@ -13227,9 +13229,12 @@ sub_1F5B4:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1F7D0                                                       1F7D0  97 PC
+; asscoverdefo                                    1F7D0  96 PC, low confidence
+; Assignment 0Fh (given from the Setplass jump table): a forward covering a
+; defence spot; uses SwapPosition and moves on to 10h (asscoverdefd), as 96
+; PC asscoverdefo / asscoverdefd
 ;-----------------------------------------------------------------------------
-sub_1F7D0:
+asscoverdefo:
         push ebx
         push ecx
         push edx
@@ -14556,9 +14561,11 @@ sub_209D0:
         jmp near sub_69B78
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_209E0                                                       209E0  97 PC
+; assbenchwait                                    209E0  95 PC, low confidence
+; Assignment 1 (set by setpersonel, AddPenalty2): an off-ice player waits at
+; the bench (x -2232 / -4440), check4bench, flags +0C1h
 ;-----------------------------------------------------------------------------
-sub_209E0:
+assbenchwait:
         push ebx
         push ecx
         push edx

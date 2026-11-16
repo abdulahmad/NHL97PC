@@ -3,9 +3,9 @@ bits 32
 %include "hockey.inc"
 section s_19C3D8 progbits alloc noexec write align=1
 extern __InitFiles_, __checkIsDBCS_, __chk8087_, __full_io_exit_, __setEFGfmt_, __setenvp_, fini_, init_
-extern puckfaceoff, sub_135D41, sub_1F5B4, sub_1F7D0, sub_209D0, sub_209E0, assgoalie, assdefo
+extern puckfaceoff, sub_135D41, asscoverdefd, asscoverdefo, sub_209D0, assbenchwait, assgoalie, assdefo
 extern asswingo, asscentero, assdefd, asswingd, asscenterd, sub_23C98, assfaceoff, assfaceoffpl
-extern sub_244BC, sub_25F64, assnearest, sub_27274, assbench, sub_27AD8, sub_27D10, sub_28110
+extern sub_244BC, asspuckc, assnearest, sub_27274, assbench, sub_27AD8, sub_27D10, sub_28110
 extern asseben, sub_2842C, asspenalty, assdopen, assepen, assrefpenshot, assrefsignal, assrefwhistle
 extern assrefgoalpa, assrefgoalline, assreffollow, assrefdrop, assrefatdot, assintrostand, assintroline, asstakeposition
 extern assstanley, pucknorm, puckfaceoff2, sub_30674, assfight, assfwatch, sub_FC210, sub_FC215
@@ -38,7 +38,7 @@ word_19C3F2:
         db 00h,00h
 off_19C3F4:
         dd sub_209D0
-        dd sub_209E0
+        dd assbenchwait
         dd assgoalie
         dd assdefd
         dd asswingd
@@ -46,14 +46,14 @@ off_19C3F4:
         dd sub_23C98
         dd assfaceoff
         dd assfaceoffpl
-        dd sub_25F64
+        dd asspuckc
         dd assnearest
         dd assdefo
         dd asswingo
         dd asscentero
         dd sub_244BC
-        dd sub_1F7D0
-        dd sub_1F5B4
+        dd asscoverdefo
+        dd asscoverdefd
         dd sub_30674
         dd asspenalty
         dd assdopen
