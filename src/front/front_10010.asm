@@ -8,7 +8,7 @@ extern PenaltyBoxCount, gmode, PuckFlags, PlayFlags, holdreset, GripLinkByte, Ch
 extern DefenseByDefense, ForwardsByOffense, HmPlayerSlots, HmRosterMap, AwPlayerSlots, AwRosterMap, GripDriverPtr, GripDriverData
 extern GripLinked, LinePlayerSlots, LinePlayerOffsets, dword_16E344, dword_16E348, dword_16E34C, dword_16E350, PersonnelTable
 extern LastTouchPlayer, penshottimer, PuckX, GameObjects, GameTick, PlayerPointsTable, HmTeamData, HmScore
-extern AwTeamData, AwScore, GameSettings, GameOptionFlags, SeasonActive, dword_1B1410, dword_1B8FA0, dword_1B9554
+extern AwTeamData, AwScore, GameSettings, GameOptionFlags, SeasonActive, ObjectPositions, ReplayPlaying, dword_1B9554
 extern dword_1B9558, fclose_, fopen_, fread_, fseek_, ftell_, hmtmstruct, PtrPuckTarget
 extern PtrPuckState, PtrPuckOwner, PtrPuckZone, PtrPuckFlags, PtrPuckObject, F64_0p013, F64_0p01, rand_
 extern randomd0, regd1, str_CGRIP, str_GRIP, str_GRIPGLL, strcat_, strcpy_, GetPlayerJerseyNumber
@@ -1737,7 +1737,7 @@ StartCrowdMusic_A6:
         mov eax, dword [GameOptionFlags]
         test byte [byte eax+02h], 20h
         jne near .6
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne near .6
         mov dx, word [BreakawayFlag]
         cmp dx, byte 5
@@ -2310,7 +2310,7 @@ RefreshPlayerModel:
         call DrawJerseyLettering
         test byte [gmode], 1
         jne short .2
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         je short .3
 .2:
         xor eax, eax
@@ -2926,7 +2926,7 @@ ResetPlayers:
         mov dword [dword edx+0102h], eax
         cmp ecx, byte 0Dh
         jge short .9
-        mov eax, dword_1B1410
+        mov eax, ObjectPositions
         add eax, dword [esp]
         mov dword [dword edx+0F2h], eax
         mov eax, GameObjects

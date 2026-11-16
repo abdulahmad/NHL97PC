@@ -8,7 +8,7 @@ global FrameObjectCount, ScoreboardPos, NetFrames, NetArtFront, NetArtBack, NetD
 global GoalLightOn, GoalLightModelNear, GoalLightTimerNear, GoalLightModelFar, GoalLightTimerFar, GoalLightSpinNear, GoalLightFrame, GoalLightSpinFar
 global RinkMarkingGeometry
 
-global dword_1AE684, ArenaArtSize, dword_1AEEA4
+global RinkGeometryCount, ArenaArtSize, RinkSideCount
 
 
 
@@ -117,7 +117,7 @@ RinkMarkingGeometry:
         resb 4
         resb 4
         resb 252
-dword_1AE684:
+RinkGeometryCount:
         resb 4
 NetGeometry:
         resb 72
@@ -152,7 +152,7 @@ ArenaArtSize:
         resb 4
 IceTextures:
         resb 156
-dword_1AEEA4:
+RinkSideCount:
         resb 4
 RinkSideGeometry:
         resb 600

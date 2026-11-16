@@ -22,7 +22,7 @@ extern F32_63, F32_0p005_DetailLevelMenu, F32_0p003125_DetailLevelMenu, F32_55_D
 extern ClockShown, InGameMenuRequest, ShowFrameRate, ShowStands, ShowRink, ShowCenterLogo, ShowOverlay, ShowCrowd
 extern ShowBenches, CameraScenesEnabled, dword_16D2BC, dword_16DA9C, dword_16E30C, mousex, mousey, dword_16E464
 extern dword_16E468, QuantizePalette, DrawDestPitch, VideoModePanelMode, VideoModeChanged, GameObjects, ActiveCameraScene, ViewSizeChanged
-extern FadeDone, GameSettings, AudioOptions, GameOptionFlags, ArenaArchive, dword_1B1410, dword_1B1464, dword_1B8578
+extern FadeDone, GameSettings, AudioOptions, GameOptionFlags, ArenaArchive, ObjectPositions, ReplayFrames, PlayerNamesOn
 extern dword_1C5DE4, dword_1CEF88, dword_1CEF8C, dword_1CEF90, dword_1CEF94, dword_1CEF98, dword_1CEF9C, dword_1CEFA0
 extern dword_1CEFA4, dword_1CEFA8, dword_1CEFB0, dword_1CEFB4, dword_1CEFB8, dword_1CEFBC, PresentFuncInput, F64_65536_LoadPauseArt
 extern F64_0p003125, F64_0p005, F64_200, F64_0p00208333, F64_320, F64_0p0015625, F64_0p003125_PickEditLinesTeam, F64_0p005_PickEditLinesTeam
@@ -3284,9 +3284,9 @@ ReturnToGame:
         call SetRinkDetail
 .2:
         imul eax, ecx, dword 760h
-        mov ebx, dword_1B1410
+        mov ebx, ObjectPositions
         add ebx, eax
-        mov edx, dword [dword eax+dword_1B1464]
+        mov edx, dword [dword eax+ReplayFrames]
         add ebx, byte 58h
         mov eax, dword [nosplit ecx*4+GameObjects]
         inc ecx
@@ -7600,7 +7600,7 @@ DetailLevelMenu:
         fxch
         fstp dword [byte ebp-02Ah]
         fstp dword [byte ebp-01Ah]
-        cmp dword [dword_1B8578], byte 0
+        cmp dword [PlayerNamesOn], byte 0
         je short .16
         push dword [byte ebp+076h]
         movsx eax, word [word_1CEFC0]
@@ -8680,14 +8680,14 @@ DetailLevelMenu_165B:
         push dword [byte ebp-04Ah]
         call FreeBitmap
         add esp, byte 4
-        cmp dword [dword_1B8578], byte 0
+        cmp dword [PlayerNamesOn], byte 0
         je short .37
         push dword [byte ebp+076h]
         movsx eax, word [word_1CEFC0]
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
-        mov dword [dword_1B8578], 0
+        mov dword [PlayerNamesOn], 0
         call GetLangText
         fld dword [byte ebp+03Eh]
         fld dword [byte ebp-0Eh]
@@ -8720,7 +8720,7 @@ DetailLevelMenu_165B:
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
-        mov dword [dword_1B8578], 1
+        mov dword [PlayerNamesOn], 1
         call GetLangText
         fld dword [byte ebp+03Eh]
         fld dword [byte ebp-0Eh]
@@ -8798,7 +8798,7 @@ DetailLevelMenu_17B7:
         and byte [DetailLevel], 0FBh
         shl eax, 1Ah
         or dword [AudioOptions], eax
-        mov eax, dword [dword_1B8578]
+        mov eax, dword [PlayerNamesOn]
         and eax, byte 1
         and byte [DetailLevel], 0F7h
         shl eax, 1Bh

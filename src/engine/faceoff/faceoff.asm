@@ -16,8 +16,8 @@ extern GameFrame, penshottimer, PuckX, RefTarget, RefPlayer, bholdtimer, InputAc
 extern PuckChasers, FaceoffCenter, ChangePlayer, LastChangePlayer, LinkSides, LinkCounter, VideoModePanelMode, VideoModeSel
 extern DisplayWidth, DisplayHeight, ViewWindowX, ViewWindowY, ViewWindowW, ViewWindowH, VideoModeChanged, DisplayFlags
 extern GameEventPtr, DisplayBuffer, DisplayBufferSize, ReplayLoaded, GameKeyState, GameObjects, GameTick, GameLoopTime
-extern DemoFrame, PlayerPointsTable, ViewSizeIndex, GameSettings, AudioOptions, Brightness, GameOptionFlags, dword_1B1404
-extern dword_1B1410, dword_1B1464, dword_1B8578, dword_1B8F4C, dword_1B8FA0, dword_1B8FA4, dword_1B906F, dword_1C1334
+extern DemoFrame, PlayerPointsTable, ViewSizeIndex, GameSettings, AudioOptions, Brightness, GameOptionFlags, GameRecord
+extern ObjectPositions, ReplayFrames, PlayerNamesOn, ReplayMode, ReplayPlaying, ReplayTick, CameraStateRecords, dword_1C1334
 extern dword_1C1346, dword_1C5DE4, dword_1C5EF4, hmtmstruct, memcpy_, PtrPuckOwner, PtrPuckZone, PtrPuckFlags
 extern PtrPuckObject, PtrHomeIce, PtrAwayIce, F64_0p000244141, F64_1p2, F64_neg8, F64_0p5, F64_50
 extern F64_0p01_StickReachZ, F64_0p392699, F64_0p159155, F64_65536, rand_, randomd0, regd1, StartCrowdMusic
@@ -47,7 +47,7 @@ extern fofdata2, PuckOwner, PuckOwnerTeam, Period, SimFrames, StoppageFlag, Last
 extern gameclock, StatsPanelOn, FaceoffSpot, FaceoffZone, PeriodLength, OneTimerReady, OneTimerPasser, OneTimerTarget
 extern PuckZone, penshotmode, BenchRequest, penshotlive, FaceoffRequest, PuckY, DelayedPen, MessagePanel
 extern PenCntDwn, GoalLineFlag, BreakawayFlag, SlotAssign, HomeGoalieOff, AwayGoalieOff, HomeControlSlot, AwayControlSlot
-extern HomeEbenPlayer, FaceoffTakers, FaceoffTakerAway, ChantIndex, word_19CD9C, DemoInput, PlayerAssignWords, HomeTeamRecord
+extern HomeEbenPlayer, FaceoffTakers, FaceoffTakerAway, ChantIndex, LineChangeKeyLow, DemoInput, PlayerAssignWords, HomeTeamRecord
 extern AwayTeamRecord, word_1C3415, word_1C3417, word_1C5538, word_1C553A
 global AllInPlace, Intermission, StartGame, InitGameVars, RunOpeningFrames, PlaceOpeningPlayers, OpeningSequence, BeginGame
 global EndGameCleanup, GetPlayerJerseyNumber, LinkSideFlags, ClearLinkCounters, PickGameEvents, SpeedScaleAligned, SpeedScale, ReachScale
@@ -365,7 +365,7 @@ RunOpeningFrames:
         sub esp, byte 0Ch
         mov esi, 1
         xor edx, edx
-        mov eax, dword_1B1410
+        mov eax, ObjectPositions
         mov dword [byte esp+08h], edx
         add eax, byte 58h
         mov dword [esp], edx
@@ -437,7 +437,7 @@ RunOpeningFrames:
         mov eax, dword [dword ebp+GameObjects]
         add ebp, byte 4
         add edi, 760h
-        mov edx, dword [dword edx+dword_1B1464]
+        mov edx, dword [dword edx+ReplayFrames]
         inc ecx
         call UpdateAllPoses
         cmp ecx, byte 0Dh
@@ -1302,7 +1302,7 @@ CheckLineChangeKeys:
         push ebx
         push edx
         push edi
-        mov dx, word [word_19CD9C]
+        mov dx, word [LineChangeKeyLow]
         test dx, 3C0h
         je short .5
         mov eax, edx
@@ -1335,7 +1335,7 @@ CheckLineChangeKeys:
 .5:
         test byte [LineChangeKeyFlags], 3Ch
         je near .10
-        mov ax, word [word_19CD9C]
+        mov ax, word [LineChangeKeyLow]
         xor al, al
         mov edx, 1
         and ah, 3Ch
@@ -1399,7 +1399,7 @@ RunSimFrames:
         cmp word [gameover], byte 0
         jne near .5
         mov eax, dword [GameSettings]
-        mov dl, byte [word_19CD9C]
+        mov dl, byte [LineChangeKeyLow]
         and eax, byte 70h
         test dl, 1
         je short .3
@@ -1427,7 +1427,7 @@ RunSimFrames:
         sar edx, 18h
         cmp byte [dword edx+eax+0B2h], 44h
         je short .5
-        test byte [word_19CD9C], 2
+        test byte [LineChangeKeyLow], 2
         je short .4
         call ReplayHasFrames
         test eax, eax
@@ -1453,7 +1453,7 @@ JoystickAxisScale:
         push ebx
         push edx
         sub esp, byte 4
-        fld dword [dword_1B906F]
+        fld dword [CameraStateRecords+17h]
         fadd qword [F64_0p392699]
         fmul qword [F64_0p159155]
         fmul qword [F64_65536]
@@ -2357,13 +2357,13 @@ GameLoop:
         push str_RPEVENT2
         call AllocMemBlock
         add esp, byte 0Ch
-        mov dword [dword_1B8F4C], eax
+        mov dword [ReplayMode], eax
         call IsInputRecording
         test eax, eax
         je short .1
         call StartInputRecording
 .1:
-        mov ebp, dword_1B1410
+        mov ebp, ObjectPositions
         add ebp, byte 58h
 .2:
         cmp word [gameover], byte 0
@@ -2389,27 +2389,27 @@ GameLoop:
         call TakeInputRecord
         test byte [PlayFlags], 4
         jne short .5
-        cmp edi, dword [dword_1B8FA4]
+        cmp edi, dword [ReplayTick]
         je short .5
-        cmp edi, dword [dword_1B8FA0]
+        cmp edi, dword [ReplayPlaying]
         jne short .5
-        mov ecx, dword [dword_1B8F4C]
+        mov ecx, dword [ReplayMode]
         and byte [ecx], 0F0h
-        mov ecx, dword [dword_1B8F4C]
+        mov ecx, dword [ReplayMode]
         or byte [ecx], 3
-        mov eax, dword [dword_1B8F4C]
+        mov eax, dword [ReplayMode]
         mov word [byte eax+02h], 0
-        mov eax, dword [dword_1B8F4C]
+        mov eax, dword [ReplayMode]
         or byte [byte eax+02h], 18h
         mov edx, PadStates
-        mov eax, dword [dword_1B8F4C]
+        mov eax, dword [ReplayMode]
         mov ebx, 14h
         add eax, byte 4
         call memcpy_
-        mov eax, dword [dword_1B8F4C]
+        mov eax, dword [ReplayMode]
         call ReplayRecordTick
 .5:
-        mov eax, dword [word_19CD9C]
+        mov eax, dword [LineChangeKeyLow]
         sar eax, 10h
         mov edx, dword [RefPlayer]
         add esi, eax
@@ -2423,29 +2423,29 @@ GameLoop:
         call RunSimFrames
         test byte [PlayFlags], 4
         jne short .7
-        mov ecx, dword [dword_1B8FA4]
+        mov ecx, dword [ReplayTick]
         cmp edi, ecx
         jne short .7
-        cmp ecx, dword [dword_1B8FA0]
+        cmp ecx, dword [ReplayPlaying]
         jne short .7
         call ReplayPauseRecording
         jmp short .8
 .7:
         test byte [PlayFlags], 4
         je short .8
-        cmp edi, dword [dword_1B8FA4]
+        cmp edi, dword [ReplayTick]
         je short .8
-        cmp edi, dword [dword_1B8FA0]
+        cmp edi, dword [ReplayPlaying]
         jne short .8
-        mov eax, dword [dword_1B8F4C]
+        mov eax, dword [ReplayMode]
         and byte [eax], 0F0h
-        mov eax, dword [dword_1B8F4C]
+        mov eax, dword [ReplayMode]
         or byte [eax], 4
-        mov eax, dword [dword_1B8F4C]
+        mov eax, dword [ReplayMode]
         mov word [byte eax+02h], 0
-        mov eax, dword [dword_1B8F4C]
+        mov eax, dword [ReplayMode]
         or byte [byte eax+02h], 4
-        mov eax, dword [dword_1B8F4C]
+        mov eax, dword [ReplayMode]
         call ReplayRecordTick
         call ReplayRecordFinal
 .8:
@@ -2466,7 +2466,7 @@ GameLoop:
         mov eax, dword [dword edi+GameObjects]
         add edi, byte 4
         add ecx, 760h
-        mov edx, dword [dword edx+dword_1B1464]
+        mov edx, dword [dword edx+ReplayFrames]
         inc esi
         call UpdateAllPoses
         cmp esi, byte 0Dh
@@ -2570,7 +2570,7 @@ GameLoop:
         call EndGameCleanup
         mov eax, 4
         call FadeOut
-        mov ebx, dword [dword_1B8F4C]
+        mov ebx, dword [ReplayMode]
         push ebx
         call FreeMemBlock
         add esp, byte 4
@@ -2686,7 +2686,7 @@ InitGameDisplay:
         mov dword [ShowShadows], ecx
         shr eax, 1Fh
         mov dword [CameraScenesEnabled], ecx
-        mov dword [dword_1B8578], eax
+        mov dword [PlayerNamesOn], eax
         add esp, byte 14h
         pop edi
         pop esi
@@ -2969,7 +2969,7 @@ PlayGame:
 .3:
         add eax, 760h
         xor edi, edi
-        mov dword [dword eax+dword_1B1404], edi
+        mov dword [dword eax+GameRecord], edi
         cmp eax, 5FE0h
         jne short .3
         cmp byte [byte_1C6040], 0

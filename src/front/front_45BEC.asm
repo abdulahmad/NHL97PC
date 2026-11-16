@@ -7,7 +7,7 @@ extern CommentaryClip, SpeechBanksReady, SoundCardType, SoundDriverId, SpeechStr
 extern SpeechFileIds, SpeechDataId, PaQueueHead, PaQueueTail, PaQueueCount, PaQueueClip, PaQueueTime, StreamTimerHandle
 extern CommentaryLast, CommentaryCurrent, CommentaryPrev, CommentaryTime, CommentaryDelay, CommentaryEventId, SpeechPlaying, CommentaryPriority
 extern CommentarySpeaker, SpeechBankHome, SpeechBankAway, SpeechFileHandle, SpeechStreamBuf, SpeechStreamLen, SpeechStreamRead, SpeechStreamEnd
-extern SpeechStreamClip, GameSettings, GameOptionFlags, dword_1B8FA0, jpt_45A64, jpt_45B20, jpt_45B38, jpt_45B60
+extern SpeechStreamClip, GameSettings, GameOptionFlags, ReplayPlaying, jpt_45A64, jpt_45B20, jpt_45B38, jpt_45B60
 extern jpt_45B70, jpt_45B84, jpt_45BC0, jpt_45BD8, PaEvent_4D6, PaEvent_4EC, PaEvent_502, PaEvent_518
 extern PaEvent_536, PaEvent_572, PaEvent_5AE, PaEvent_5D6, PaEvent_5FE, PaEvent_64E, PaEvent_69E, PaEvent_745
 extern PaEvent_7FF, PaEvent_87E, PaEvent_8CF, PaEvent_8F5, PaEvent_91B, PaEvent_941, PaEvent_967, PaEvent_14CD
@@ -37,7 +37,7 @@ global CountRecordGame, RecordPctClip, RecordStreakClips
 ;-----------------------------------------------------------------------------
 ; CommentaryEvent                                 45BEC  97 PC, low confidence
 ; The play-by-play commentary: (event 0A0000001h-0A000002Fh, args...) with
-; speech on, not in a replay (dword_1B8FA0); jump table jpt_45A64 by event,
+; speech on, not in a replay (ReplayPlaying); jump table jpt_45A64 by event,
 ; each case queues commentary clips. The arena PA announcer is PaEvent (B/C
 ; events)
 ;-----------------------------------------------------------------------------
@@ -55,7 +55,7 @@ CommentaryEvent:
         sub ebp, byte 7Ah
         cmp word [SfxBankLoaded], byte 0
         je near CommentaryEvent_1FE8.273
-        mov edx, dword [dword_1B8FA0]
+        mov edx, dword [ReplayPlaying]
         test edx, edx
         jne near CommentaryEvent_1FE8.273
         cmp dword [SoundCardType], byte 0

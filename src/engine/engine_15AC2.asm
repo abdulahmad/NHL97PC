@@ -33,9 +33,9 @@ extern CameraPathVec, CameraViewPair, CameraViewNear, CameraViewFar, SplineIndex
 extern CameraDistance, CameraAngles, CameraFov, CameraFovTarget, CameraViewParams, CameraLag, CameraSpeed, CameraFollowObj
 extern TargetPointObj, CameraSceneCenter, CameraSceneYaw, CameraSceneDist, CameraTracking, ActiveCameraScene, CameraPathActive, CameraDebugText
 extern TargetVecX, TargetVecY, TargetVecZ, PassTargetAngle, PenaltyRecord, PlayerAssignPtrs, HmScore, AwScore
-extern ViewSizeIndex, GameSettings, GameOptionFlags, ScoreboardAngle, dword_1B1410, dword_1B141C, dword_1B8FA0, dword_1B905F
-extern dword_1B9063, dword_1B9067, dword_1B906B, dword_1B906F, dword_1B9077, dword_1B907B, dword_1B907F, dword_1B9083
-extern dword_1B9087, dword_1B908B, dword_1B908F, dword_1B9093, dword_1B9CA4, dword_1B9CAC, dword_1C95B0, dword_1C95B4
+extern ViewSizeIndex, GameSettings, GameOptionFlags, ScoreboardAngle, ObjectPositions, TargetPoints, ReplayPlaying, CameraStateRecords
+extern CameraStateRecords
+extern CameraStateRecords, dword_1B9CA4, dword_1B9CAC, dword_1C95B0, dword_1C95B4
 extern dword_1C95BC, dword_1C95C4, TextAlign, TextColorTable, TextColor, DrawGlyphFn, ProjOffsetX, ProjOffsetY
 extern hmtmstruct, hypot_, DrawGlyph_494, OverlayPanelFuncs, ClockPanelFunc, PtrPuckTarget, PtrPuckState, PtrPuckOwner
 extern PtrPuckZone, PtrPuckFlags, PtrPuckObject, PtrHomeIce, PtrAwayIce, F64_0p000333333, F64_1p2_UpdateCameraView, F64_neg0p000454545
@@ -67,7 +67,7 @@ extern CameraViewDefs
 extern CameraViewDefs
 extern IntermissionCamPath, IntermissionTimes, ExtraAttackerSpots, ExtraAttackerFlags, ViewDistanceTable, DebugTagStr, SplineCoefs, OverlayPanelQueue
 extern ReplayCamPos, MenuCamPos, MenuCamTarget, CameraPathPoints, SplineCoefsX, SplineCoefsY, CameraEye, CameraCenter
-extern HomeTeamRecord, ScoreboardCorners, RinkViewPoints, RinkCameraPoints, unk_1B9038, unk_1B92AB, vecdist, vtoa
+extern HomeTeamRecord, ScoreboardCorners, RinkViewPoints, RinkCameraPoints, CameraViewNames, CameraStateRecords, vecdist, vtoa
 extern str_D_ChangeViewSize, FightCameraReady, FaceoffSpotX, FaceoffSpotY, RimTargetX, RimTargetY, HomeSkaters, AwaySkaters
 extern DefendFlags, ShootSpotY, GoalieTarget, ZoneTargetY, PassPlayer, PassPending, PassTarget, LastTouchTeam
 extern PassDistX, PassDistY, PassReceiver, OneTimerPlayer, PassState, StatsPanelPlayer, AssistOne, AssistTwo
@@ -1675,7 +1675,7 @@ DrawVideoModePanel:
         add dword [ecx], byte 4
         cmp edx, byte 1
         jne short .1
-        mov edx, unk_1B9038
+        mov edx, CameraViewNames
         lea eax, [byte ebp-038h]
         call strcpy_
         jmp short .5
@@ -3054,7 +3054,7 @@ DrawClockPanel:
         mov eax, dword [esi]
         call DrawGameClock
         mov dword [ClockShownMinutes], 0FFFFFFFFh
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         je short .1
         cmp dword [VideoModeChanged], byte 0
         sete al
@@ -4360,7 +4360,7 @@ QueueOverlayPanel:
         push edx
         push esi
         enter 4, 0
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne near DrawPowerPlayClock_18E
         mov eax, OverlayPanelQueue
         xor edx, edx
@@ -4804,7 +4804,7 @@ unk_191AC:
 ;-----------------------------------------------------------------------------
 ; GetCameraTarget                                 191F8  97 PC, low confidence
 ; (target 4-10h and up): the position record of a camera target (player
-; records at dword_1B1410, then fixed targets); 0 when none
+; records at ObjectPositions, then fixed targets); 0 when none
 ;-----------------------------------------------------------------------------
 GetCameraTarget:
         push ebx
@@ -4824,7 +4824,7 @@ GetCameraTarget:
         shl eax, 2
         sub eax, ebx
         shl eax, 5
-        add eax, dword_1B1410
+        add eax, ObjectPositions
         lea ebx, [dword eax-01D80h]
         lea edi, [byte esp+03Ch]
         mov esi, ebx
@@ -4839,7 +4839,7 @@ GetCameraTarget:
         lea ebx, [byte esp+030h]
         call VecMulMat
         mov ebx, TargetVecX
-        mov edx, dword_1B905F
+        mov edx, CameraStateRecords+7
         lea eax, [byte esp+03Ch]
         call VecSub
         call VecLength
@@ -5140,7 +5140,7 @@ GetTargetPoint:
         shl eax, 2
         sub eax, ebx
         shl eax, 5
-        mov ebx, dword [dword eax+dword_1B141C]
+        mov ebx, dword [dword eax+TargetPoints]
         mov dword [edx], ebx
         jmp near .10
 .1:
@@ -5347,7 +5347,7 @@ UpdateCameraView_11B:
         sub dword [SplineCount], eax
 .3:
         mov edi, CameraLookAt
-        mov esi, dword_1B905F
+        mov esi, CameraStateRecords+7
         movsd
         movsd
         movsd
@@ -5388,7 +5388,7 @@ UpdateCameraView_1AC:
         call VecAdd
         mov eax, dword [dword esp+012Ch]
         mov dword [dword ecx+0FCh], eax
-        mov eax, dword [dword_1B9063]
+        mov eax, dword [CameraStateRecords+0Bh]
         mov dword [dword ecx+0100h], eax
         mov eax, dword [dword esp+0134h]
         mov dword [dword ecx+0104h], eax
@@ -5425,7 +5425,7 @@ UpdateCameraView_272:
         lea eax, [dword esp+0F0h]
         call VecAdd
         mov eax, dword [dword esp+0F0h]
-        fld dword [dword_1B9063]
+        fld dword [CameraStateRecords+0Bh]
         mov dword [CameraLookAt], eax
         mov eax, dword [dword esp+0F8h]
         fstp dword [CameraHeight]
@@ -5495,7 +5495,7 @@ UpdateCameraView_326:
         lea eax, [dword esp+0114h]
         call VecAdd
         mov eax, dword [dword esp+0114h]
-        fld dword [dword_1B9063]
+        fld dword [CameraStateRecords+0Bh]
         mov dword [CameraLookAt], eax
         mov eax, dword [dword esp+011Ch]
         fstp dword [CameraHeight]
@@ -5591,7 +5591,7 @@ UpdateCameraView_461:
         lea eax, [dword esp+0E4h]
         call VecAdd
         mov eax, dword [dword esp+0E4h]
-        fld dword [dword_1B9063]
+        fld dword [CameraStateRecords+0Bh]
         mov dword [CameraLookAt], eax
         mov eax, dword [dword esp+0ECh]
         fstp dword [CameraHeight]
@@ -6125,7 +6125,7 @@ UpdateCameraTrack:
         jmp dword [nosplit cs:eax*4+jpt_1A304]
 UpdateCameraTrack_30:
         mov ebx, esp
-        mov edx, dword_1B905F
+        mov edx, CameraStateRecords+7
         lea eax, [dword ecx+0E4h]
         call VecSub
         fld dword [byte esp+08h]
@@ -6154,7 +6154,7 @@ UpdateCameraTrack_30:
         ret
 UpdateCameraTrack_8E:
         mov ebx, esp
-        mov edx, dword_1B905F
+        mov edx, CameraStateRecords+7
         lea eax, [dword ecx+0E4h]
         call VecSub
         fld dword [byte esp+08h]
@@ -6242,7 +6242,7 @@ UpdateCameraTrack_8E:
         ret
 UpdateCameraTrack_19B:
         mov ebx, esp
-        mov edx, dword_1B905F
+        mov edx, CameraStateRecords+7
         lea eax, [dword ecx+0E4h]
         call VecSub
         fld dword [byte esp+08h]
@@ -6257,7 +6257,7 @@ UpdateCameraTrack_19B:
         fld qword [byte esp+0Ch]
         call IF@ATAN2
         fstp dword [dword ecx+029Ch]
-        mov eax, dword [dword_1B905F]
+        mov eax, dword [CameraStateRecords+7]
         mov dword [byte esp+014h], eax
         mov eax, dword [dword ecx+0278h]
         mov dword [byte esp+01Ch], eax
@@ -6280,7 +6280,7 @@ UpdateCameraTrack_19B:
         jmp near UpdateCameraTrack_22F.10
 UpdateCameraTrack_22F:
         mov ebx, esp
-        mov edx, dword_1B905F
+        mov edx, CameraStateRecords+7
         lea eax, [dword ecx+0E4h]
         call VecSub
         fld dword [byte esp+08h]
@@ -6295,7 +6295,7 @@ UpdateCameraTrack_22F:
         fld qword [byte esp+0Ch]
         call IF@ATAN2
         fstp dword [dword ecx+029Ch]
-        mov eax, dword [dword_1B9067]
+        mov eax, dword [CameraStateRecords+0Fh]
         mov dword [byte esp+018h], eax
         mov eax, dword [dword ecx+0280h]
         mov dword [byte esp+020h], eax
@@ -6768,11 +6768,11 @@ SetCameraView_4AE:
 SetCameraView_532:
         mov edx, str_THRILLCAMTm
         mov edi, CameraLookAt
-        mov esi, dword_1B905F
+        mov esi, CameraStateRecords+7
         call strcpy_
-        fld dword [dword_1B906B]
-        fld dword [dword_1B906F]
-        fld dword [dword_1B9077]
+        fld dword [CameraStateRecords+13h]
+        fld dword [CameraStateRecords+17h]
+        fld dword [CameraStateRecords+1Fh]
         movsd
         movsd
         movsd
@@ -6797,18 +6797,18 @@ SetCameraView_5A5:
         mov edx, str_USERCHASE
         call strcpy_
         mov edx, CameraPos
-        mov eax, dword_1B905F
+        mov eax, CameraStateRecords+7
         mov dword [byte ebx+024h], 1
         call VecDistance
         mov dword [byte ebx+028h], 4
         fstp dword [dword ebx+0114h]
-        fld dword [dword_1B9063]
+        fld dword [CameraStateRecords+0Bh]
         mov dword [byte ebx+02Ch], 1
         mov dword [byte ebx+030h], 0
         mov dword [dword ebx+0128h], 0
         mov dword [byte ebx+034h], 0
         fstp dword [dword ebx+027Ch]
-        mov eax, dword [dword_1B9077]
+        mov eax, dword [CameraStateRecords+1Fh]
         mov dword [dword ebx+02C4h], eax
 SetCameraView_608:
         pop edi
@@ -6848,7 +6848,7 @@ BuildSplinePath:
         call VecSub
         jmp short .2
 .1:
-        mov edx, dword_1B905F
+        mov edx, CameraStateRecords+7
         mov ebx, edi
         mov eax, ecx
         call VecSub
@@ -7134,10 +7134,10 @@ SetCameraPathPoint:
         test ebx, ebx
         jle short .1
         mov eax, dword [byte esp+0Ch]
-        mov dword [dword_1B9087], eax
+        mov dword [CameraStateRecords+2Fh], eax
         mov eax, dword [byte esp+010h]
         mov edx, ebx
-        mov dword [dword_1B908B], eax
+        mov dword [CameraStateRecords+33h], eax
         mov eax, 3
         call SetCameraPathTarget
         mov eax, 4
@@ -7194,9 +7194,9 @@ StartCameraPath:
         fld dword [CameraFovTarget]
         mov eax, 3
         fxch
-        fstp dword [dword_1B9087]
+        fstp dword [CameraStateRecords+2Fh]
         mov edx, ecx
-        fstp dword [dword_1B908B]
+        fstp dword [CameraStateRecords+33h]
         call SetCameraPathTarget
         mov eax, 4
         mov edx, ecx
@@ -7484,15 +7484,15 @@ SelectCameraView:
         fld dword [CameraViewParams]
         fld dword [CameraFollowObj]
         fxch st6
-        fstp dword [dword_1B907B]
+        fstp dword [CameraStateRecords+23h]
         fxch st4
-        fstp dword [dword_1B907F]
+        fstp dword [CameraStateRecords+27h]
         fxch st2
-        fstp dword [dword_1B9083]
-        fstp dword [dword_1B9087]
-        fstp dword [dword_1B908B]
-        fstp dword [dword_1B908F]
-        fstp dword [dword_1B9093]
+        fstp dword [CameraStateRecords+2Bh]
+        fstp dword [CameraStateRecords+2Fh]
+        fstp dword [CameraStateRecords+33h]
+        fstp dword [CameraStateRecords+37h]
+        fstp dword [CameraStateRecords+3Bh]
 .2:
         mov edx, ecx
         mov eax, ebx
@@ -7511,7 +7511,7 @@ SelectCameraView:
         call SetCameraMode
 .4:
         mov edx, CameraPathPoints
-        mov eax, unk_1B9038
+        mov eax, CameraViewNames
         call strcpy_
         pop esi
         pop ecx
@@ -7532,11 +7532,11 @@ UpdateGameCamera:
         push ebp
         mov ecx, eax
         mov ebp, edx
-        fld dword [dword_1B906B]
-        fld dword [dword_1B906F]
+        fld dword [CameraStateRecords+13h]
+        fld dword [CameraStateRecords+17h]
         mov edi, CameraElevation
-        mov esi, dword_1B905F
-        fld dword [dword_1B9077]
+        mov esi, CameraStateRecords+7
+        fld dword [CameraStateRecords+1Fh]
         movsd
         movsd
         movsd
@@ -7947,7 +7947,7 @@ PenaltyCameraDistance:
         shl eax, 2
         sub eax, edx
         shl eax, 5
-        add eax, dword_1B1410
+        add eax, ObjectPositions
         cmp dword [eax], 44FF0000h
         jle short .1
         xor esi, esi
@@ -10154,7 +10154,7 @@ DrawCameraDebug:
         je near .4
         lea edi, [byte esp+028h]
         mov esi, CameraSceneCenter
-        mov edx, dword_1B905F
+        mov edx, CameraStateRecords+7
         xor ebx, ebx
         movsd
         movsd
@@ -10164,7 +10164,7 @@ DrawCameraDebug:
         lea ebx, [byte esp+034h]
         call VecSub
         lea ebx, [byte esp+040h]
-        mov edx, unk_1B92AB
+        mov edx, CameraStateRecords+253h
         lea eax, [byte esp+034h]
         call VecMulMat
         cmp dword [byte esp+048h], 42C80000h
@@ -10375,7 +10375,7 @@ ReplayCamDrag:
         fld qword [byte esp+08h]
         fld qword [esp]
         call IF@ATAN2
-        fadd dword [dword_1B906F]
+        fadd dword [CameraStateRecords+17h]
         fchs
         fld st0
         fsin
@@ -10646,7 +10646,7 @@ ReplayCamOrbitMode:
         je short .2
         mov ebx, esp
         mov edx, eax
-        mov eax, dword_1B905F
+        mov eax, CameraStateRecords+7
         call VecSub
         call VecLength
         fstp dword [CameraPathTime]
@@ -10838,7 +10838,7 @@ ReplayCamOrbit:
         mov eax, dword [ReplayCamPitch]
         xor esi, esi
         mov dword [byte esp+034h], eax
-        mov eax, unk_1B92AB
+        mov eax, CameraStateRecords+253h
         mov dword [byte esp+038h], esi
         call MatTranspose
         mov edx, esp
@@ -10846,7 +10846,7 @@ ReplayCamOrbit:
         call VecMulMat
         lea ebx, [byte esp+030h]
         lea edx, [byte esp+024h]
-        mov eax, dword_1B905F
+        mov eax, CameraStateRecords+7
         call VecAdd
         lea ebx, [byte esp+030h]
         mov edx, CameraPos
@@ -10899,10 +10899,10 @@ ReplayCamFreeMode:
         mov ebx, esp
         mov dword [CameraMode], edx
         mov dword [CameraViewX], edx
-        mov edx, dword_1B905F
+        mov edx, CameraStateRecords+7
         call VecSub
         mov ebx, ReplayCamPos
-        mov edx, unk_1B92AB
+        mov edx, CameraStateRecords+253h
         mov eax, esp
         call VecMulMat
         add esp, byte 0Ch
@@ -10983,14 +10983,14 @@ ReplayCamMove:
         push edx
         sub esp, byte 30h
         mov edx, esp
-        mov eax, unk_1B92AB
+        mov eax, CameraStateRecords+253h
         lea ebx, [byte esp+024h]
         call MatTranspose
         mov edx, esp
         mov eax, ReplayCamPos
         call VecMulMat
         mov ebx, CameraSceneCenter
-        mov edx, dword_1B905F
+        mov edx, CameraStateRecords+7
         lea eax, [byte esp+024h]
         call VecAdd
         xor edx, edx
@@ -11051,7 +11051,7 @@ ReplayCamZoomMode:
         mov ebx, esp
         call GetCameraTarget
         mov edx, eax
-        mov eax, dword_1B905F
+        mov eax, CameraStateRecords+7
         mov edi, 1
         call VecSub
         call VecLength
@@ -11104,7 +11104,7 @@ ReplayCamZoom:
 .2:
         lea ebx, [byte esp+024h]
         mov edx, CameraPos
-        mov eax, dword_1B905F
+        mov eax, CameraStateRecords+7
         call VecSub
         lea eax, [byte esp+024h]
         push eax
@@ -11116,7 +11116,7 @@ ReplayCamZoom:
         jmp short .4
 .3:
         fild dword [byte esp+03Ch]
-        mov eax, unk_1B92AB
+        mov eax, CameraStateRecords+253h
         lea ebx, [byte esp+030h]
         mov dword [byte esp+028h], edx
         mov dword [byte esp+024h], edx
@@ -11128,7 +11128,7 @@ ReplayCamZoom:
         call VecMulMat
         mov ebx, CameraLookAt
         lea edx, [byte esp+030h]
-        mov eax, dword_1B905F
+        mov eax, CameraStateRecords+7
 .4:
         call VecAdd
         add esp, byte 40h
@@ -14348,7 +14348,7 @@ Endfaceoff:
         push ebp
         sub esp, byte 1Ch
         mov edi, eax
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne short .1
         xor eax, eax
         call ResetRenderTimers
@@ -14865,7 +14865,7 @@ DelayedPenaltyEnd:
 .9:
         call SetCrowdMood
 .10:
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne near .12
         mov ecx, dword [dword edx+0FEh]
         mov eax, dword [dword ecx+0108h]
@@ -15182,7 +15182,7 @@ Goal:
         mov al, byte [byte_1C135A]
         cmp al, byte [byte_1C135B]
         jne near .30
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne near .30
         xor eax, eax
         jmp short .24
@@ -15259,7 +15259,7 @@ Goal:
 .30:
         cmp word [PuckOwner], byte 0
         jne short .32
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne short .31
         inc byte [byte_1C135A]
 .31:
@@ -15268,7 +15268,7 @@ Goal:
         mov eax, 0Ah
         jmp short .34
 .32:
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne short .33
         inc byte [byte_1C135B]
 .33:
@@ -15282,7 +15282,7 @@ Goal:
         mov al, byte [byte_1C135A]
         cmp al, byte [byte_1C135B]
         jne near .39
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne near .39
         xor eax, eax
 .35:
@@ -15313,7 +15313,7 @@ Goal:
         mov dword [LastTouchPlayer], edx
         mov dword [byte esp+08h], eax
 .39:
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne near .66
         mov dx, word [byte esi+0Eh]
         mov ax, word [byte ecx+0Eh]
@@ -15660,7 +15660,7 @@ Goal:
         add ebx, 108h
         cmp cx, byte 6
         jl near .71
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne short .79
         mov eax, dword [gameover]
         sar eax, 10h
@@ -19041,7 +19041,7 @@ CreditPass:
         and eax, 0FFh
         cmp eax, ebx
         jne near .6
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne short .1
         mov eax, dword [dword edx+0FEh]
         mov eax, dword [dword eax+0108h]
@@ -19746,7 +19746,7 @@ MakePass:
         fstp dword [byte eax+040h]
         test edx, edx
         je near .4
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne short .1
         mov eax, dword [dword ecx+0FEh]
         mov eax, dword [dword eax+0108h]
@@ -20191,7 +20191,7 @@ StartPass:
 .1:
         test ax, ax
         jne near .6
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne short .2
         mov ebx, dword [dword ecx+0FEh]
         mov ebx, dword [dword ebx+0108h]

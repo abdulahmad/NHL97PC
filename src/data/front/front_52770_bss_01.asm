@@ -3,8 +3,8 @@ bits 32
 %include "hockey.inc"
 section s_1B001C nobits alloc noexec write align=1
 global OpeningArt, OpeningArtPalette, OpeningArtSize, RinkTexturePtrs, RinkTextureRows, RinkTextureInfo, StandsDetailLevel, FlashSpotTime
-global dword_1B0088, dword_1B0208, dword_1B020C, dword_1B0210, dword_1B022C, dword_1B0248, dword_1B0254, dword_1B0258
-global dword_1B0264, FlashSpotPos
+global FlashSpotTable, FlashModel, BenchModelData, HomeBenchModels, AwayBenchModels, SeatPositions, BenchSideModel, BoxModels
+global BoxModelData, FlashSpotPos
 OpeningArt:
         resb 4
 OpeningArtPalette:
@@ -23,21 +23,21 @@ FlashSpotPos:
         resb 12
 FlashSpotTime:
         resb 4
-dword_1B0088:
+FlashSpotTable:
         resb 384
-dword_1B0208:
+FlashModel:
         resb 4
-dword_1B020C:
+BenchModelData:
         resb 4
-dword_1B0210:
+HomeBenchModels:
         resb 28
-dword_1B022C:
+AwayBenchModels:
         resb 28
-dword_1B0248:
+SeatPositions:
         resb 12
-dword_1B0254:
+BenchSideModel:
         resb 4
-dword_1B0258:
+BoxModels:
         resb 12
-dword_1B0264:
+BoxModelData:
         resb 4

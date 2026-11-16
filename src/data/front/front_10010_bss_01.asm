@@ -6,7 +6,7 @@ global GripLinkByte, ChantPlayed, ChantState, PadStates, LineChangeKeyFlags, Whi
 global VideoModePanelMode, VideoModeSel, DisplayWidth, DisplayHeight, ViewWindowX, ViewWindowY, ViewWindowW, ViewWindowH
 global VideoModeChanged, DisplayFlags, GameEventPtr, DisplayBuffer, DisplayBufferSize, ReplayLoaded, GameKeyState, GameObjects
 global GameTick, GameLoopTime, DemoFrame, GripCallOffset, GripFarCall, DemoState, GripDriverSeg, GripDriverSel
-global GripCodeSel, GripDataSeg, GripResult, ChantIndex, word_19CD9C, DemoInput
+global GripCodeSel, GripDataSeg, GripResult, ChantIndex, LineChangeKeyLow, DemoInput
 GripLinkByte:
         resb 1
 GripCallOffset:
@@ -71,7 +71,7 @@ GameTick:
         resb 4
 PadStates:
         resb 16
-word_19CD9C:
+LineChangeKeyLow:
         resb 1
 LineChangeKeyFlags:
         resb 3

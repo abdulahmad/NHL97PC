@@ -13,7 +13,7 @@ extern str_Punct_assintrostand, IntroLineX, IntroLineY, IntroLineCount, RefState
 extern ZoneFlags, FaceoffWinner, penshottimer, PuckX, RefTarget, RefPlayer, SlotPlayers, SlotPuckPlayer
 extern InputActive, PuckChasers, FaceoffCenter, ChangePlayer, WhistleTime, StanleyPlayer, FaceoffPuckX, FaceoffPuckY
 extern PlayerPointsTable, PlayerScoreTable, PuckStickTimers, PuckCarrierPos, PuckPathTable, HomeTeamRecord, AwayTeamRecord
-extern AwayTeamRecord, HmAssignPlayer, HmGoalieOnIce, AwAssignPlayer, AwGoalieOnIce, GameSettings, GameOptionFlags, dword_1B8FA0
+extern AwayTeamRecord, HmAssignPlayer, HmGoalieOnIce, AwAssignPlayer, AwGoalieOnIce, GameSettings, GameOptionFlags, ReplayPlaying
 extern dword_1B9CA4, dword_1B9CAC, dword_1BAAF8, dword_1BAB00, dword_1BF060, dword_1BF068, hmtmstruct, hypot_
 extern PtrPuckTarget, PtrPuckState, PtrPuckOwner, PtrPuckZone, PtrPuckFlags, PtrPuckObject, PtrHomeIce, PtrAwayIce
 extern F64_neg12, F64_1435, F64_3312, F64_720, F64_240, F64_2040, F64_4800, F64_0p01_DeflectPuck
@@ -6270,7 +6270,7 @@ PlayerGetsPuck:
         je near .9
         mov ah, al
         and ah, 0EFh
-        mov ebx, dword [dword_1B8FA0]
+        mov ebx, dword [ReplayPlaying]
         mov byte [holdreset], ah
         test ebx, ebx
         jne short .6
@@ -8578,7 +8578,7 @@ PuckEntersZone:
 .1:
         cmp word [penshotmode], byte 0
         jne short .4
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne short .4
         mov eax, dword [PtrPuckZone]
         cmp byte [eax], 5

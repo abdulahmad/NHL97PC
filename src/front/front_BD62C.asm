@@ -8,8 +8,8 @@ extern str_S12, str_NOIS, str_ARWD, gmode, byte_1C6040, byte_1CB004, F32_0p005_R
 extern F32_0p005_DrawReplayTimeline, F32_0p003125_DrawReplayTimeline, F32_0p003125_PickReplayScreen, F32_0p005_PickReplayScreen, F32_0p003125_DrawReplayEntry, F32_0p005_DrawReplayEntry, F32_0p003125_ReplayMenuScreen, F32_0p005_ReplayMenuScreen
 extern ClockShown, InGameMenuRequest, dword_16CCF1, dword_16D500, dword_16DA9C, dword_16E464, dword_16E468, MenuScreenBitmap
 extern VideoModeCount, QuantizePalette, VideoModePanelMode, VideoModeSel, ViewWindowX, ViewWindowY, ViewWindowW, ViewWindowH
-extern VideoModeChanged, DisplayFlags, ReplayLoaded, GameObjects, ViewSizeIndex, GameSettings, GameOptionFlags, dword_1B1B64
-extern dword_1B8F4C, dword_1C1334, dword_1C1338, dword_1C5DA4, dword_1C5DE4, dword_1C5E78, dword_1C5EF4, dword_1C95B4
+extern VideoModeChanged, DisplayFlags, ReplayLoaded, GameObjects, ViewSizeIndex, GameSettings, GameOptionFlags, ReplayData
+extern ReplayMode, dword_1C1334, dword_1C1338, dword_1C5DA4, dword_1C5DE4, dword_1C5E78, dword_1C5EF4, dword_1C95B4
 extern dword_1C95BC, dword_1CAECC, dword_1CAED0, dword_1CAED4, dword_1CAED8, dword_1CAEDC, dword_1CAEE0, dword_1CAEE4
 extern dword_1CAEE8, dword_1CAEEC, dword_1CAEF0, dword_1CAEF4, dword_1CAEF8, dword_1CAF8C, dword_1CAF90, dword_1CAF94
 extern dword_1CAF98, dword_1CAF9C, dword_1CAFA0, dword_1CAFA4, dword_1CAFA8, dword_1CAFAC, dword_1CAFDC, dword_1CAFE0
@@ -328,7 +328,7 @@ LoadReplay:
 .1:
         imul edx, eax, dword 760h
         inc eax
-        mov dword [dword edx+dword_1B1B64], 0
+        mov dword [dword edx+ReplayData], 0
         cmp eax, byte 0Dh
         jl short .1
         call InitGameDisplay
@@ -628,10 +628,10 @@ VideoOptionsScreen:
         push str_RPEVENT
         call AllocMemBlock
         add esp, byte 0Ch
-        mov dword [dword_1B8F4C], eax
+        mov dword [ReplayMode], eax
         call ReplayCameraOn
         call ReplayScreen
-        push dword [dword_1B8F4C]
+        push dword [ReplayMode]
         call FreeMemBlock
         add esp, byte 4
         call FreeMenuBitmap

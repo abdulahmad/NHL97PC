@@ -2,37 +2,37 @@
 bits 32
 %include "hockey.inc"
 section s_1B0610 nobits alloc noexec write align=1
-global dword_1B080C, dword_1B0810, dword_1B0950, dword_1B0954, dword_1B0958, dword_1B095C, dword_1B0960, dword_1B0964
-global dword_1B0968, dword_1B096C, dword_1B0A70, dword_1B0A74, unk_1B0610, unk_1B0710, unk_1B0850, unk_1B0970
-unk_1B0610:
+global ArenaArchiveSize, StandsArt, RinkModelHeader, RinkModelVerts, RinkModelPolys, RinkModelNormals, RinkModelTexInfo, RinkModelBounds
+global RinkModelSize, RinkModelFlags, GoalCheerTeam, GoalCheerOn, RinkPaletteBase, RinkPaletteRemap, StandsPalette, BenchPalette
+RinkPaletteBase:
         resb 256
-unk_1B0710:
+RinkPaletteRemap:
         resb 252
-dword_1B080C:
+ArenaArchiveSize:
         resb 4
-dword_1B0810:
+StandsArt:
         resb 64
-unk_1B0850:
+StandsPalette:
         resb 256
-dword_1B0950:
+RinkModelHeader:
         resb 4
-dword_1B0954:
+RinkModelVerts:
         resb 4
-dword_1B0958:
+RinkModelPolys:
         resb 4
-dword_1B095C:
+RinkModelNormals:
         resb 4
-dword_1B0960:
+RinkModelTexInfo:
         resb 4
-dword_1B0964:
+RinkModelBounds:
         resb 4
-dword_1B0968:
+RinkModelSize:
         resb 4
-dword_1B096C:
+RinkModelFlags:
         resb 4
-unk_1B0970:
+BenchPalette:
         resb 256
-dword_1B0A70:
+GoalCheerTeam:
         resb 4
-dword_1B0A74:
+GoalCheerOn:
         resb 4

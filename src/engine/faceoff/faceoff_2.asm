@@ -13,7 +13,7 @@ extern InputButtons, InputDir, ShotState, LastTouchPlayer, PuckHitFlag, ExtraAtt
 extern GoalScorerFlags, FaceoffWinner, penshottimer, PuckX, RefTarget, RefPlayer, SlotPlayers, InputSlotPlayers
 extern bholdtimer, InputActive, PassButtonTimes, PassButtonHeld, PuckChasers, ChangePlayer, LineSortKeys, LineSortIndex
 extern LineSortOrder, PenaltyRecord, HmPenaltyPlayer, HmScore, AwPenaltyPlayer, AwScore, LinkChannelAData, LinkChannelBData
-extern GameSettings, GameOptionFlags, dword_1B8FA0, dword_1BF060, dword_1C13FF, dword_1C3522, hmtmstruct, hypot_
+extern GameSettings, GameOptionFlags, ReplayPlaying, dword_1BF060, dword_1C13FF, dword_1C3522, hmtmstruct, hypot_
 extern SeasonGameScreen_13F, SeasonGameScreen_14D, SeasonGameScreen_17B, SeasonGameScreen_182, SeasonGameScreen_1DA, SeasonGameScreen_1E3, SeasonGameScreen_1EC, SeasonGameScreen_1F3
 extern SeasonGameScreen_238, SeasonGameScreen_2B1, SeasonGameScreen_2CF, SeasonGameScreen_3D3, SeasonGameScreen_3DF, SeasonGameScreen_3EB, PtrPuckTarget, PtrPuckOwner
 extern PtrPuckMotion, PtrPuckZone, PtrPuckFlags, PtrPuckObject, PtrHomeIce, PtrAwayIce, off_19C61F, F64_480_PenaltyChance
@@ -4743,7 +4743,7 @@ AddPenalty2_354:
         mov byte [dword ecx+0C0h], dh
         cmp ax, 0Eh
         jl near AddPenalty2_2CB
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne near AddPenalty2_2CB
         cmp ax, 1Ch
         je near AddPenalty2_2CB
@@ -4849,7 +4849,7 @@ Stop4Pen:
         push esi
         push edi
         mov edx, eax
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne short .1
         mov eax, 1
         call ResetRenderTimers
@@ -5093,7 +5093,7 @@ updatepwrplay:
         mov cl, ah
         or cl, 20h
         mov byte [PlayFlags], cl
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne short .5
         mov eax, dword [dword ebx+0108h]
         inc word [dword eax+020CBh]
@@ -5112,7 +5112,7 @@ updatepwrplay:
 ;-----------------------------------------------------------------------------
 chkatop:
         push edx
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne near .6
         mov eax, dword [PtrPuckOwner]
         mov dx, word [eax]
@@ -5166,7 +5166,7 @@ chkatop:
         mov ah, byte [PlayFlags]
         test ah, 20h
         je short .9
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne short .9
         test ah, 40h
         jne short .7
@@ -5712,7 +5712,7 @@ updatepentime:
         mov bl, byte [PlayFlags]
         test bl, 20h
         je short .3
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne short .3
         test bl, 40h
         jne short .1
@@ -6019,7 +6019,7 @@ SetupPenaltyShot:
         cmp cx, byte 5
         setg al
         xor ah, ah
-        mov edx, dword [dword_1B8FA0]
+        mov edx, dword [ReplayPlaying]
         mov word [PuckY], ax
         test edx, edx
         jne short .3
@@ -6412,7 +6412,7 @@ InProgress:
         je near .20
         cmp bh, 0Eh
         jb near .19
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne near .19
         cmp bh, 1Dh
         jne short .16
@@ -6640,7 +6640,7 @@ InProgress:
 .34:
         mov ecx, 0FFFFFFFFh
 .35:
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne near .39
         mov eax, dword [byte ebp-08h]
         mov eax, dword [dword eax+0108h]
@@ -8961,7 +8961,7 @@ OneTimerShot:
         dec edx
         call SetAnimFrame
 .12:
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne short .13
         mov eax, dword [dword ecx+0FEh]
         mov eax, dword [dword eax+0108h]

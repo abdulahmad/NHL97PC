@@ -32,8 +32,8 @@ extern SpeechReqHead, SpeechReqTail, SpeechRequests, SpeechPlaying, SfxChannelId
 extern SfxBankPtrs, SfxBankNames, GameAudioState, SfxBankData, SfxBankSizes, GameSoundsOn, SpeechQueueRead, SpeechQueueWrite
 extern SpeechClipIndex, SpeechBankHandle, SpeechClipTable, SpeechQueueClipId, SpeechQueueDelay, SpeechQueueStage, SpeechQueuePriority, SpeechQueueTime
 extern SpeechBanksLoaded, SpeechRequestId, SpeechRequestA, SpeechRequestB, GameSettings, AudioOptions, SeasonUserTeam, GameOptionFlags
-extern SeasonPhase, SeasonActive, dword_1ACF65, dword_1AD226, dword_1AD45A, dword_1AD6AB, dword_1B8FA0, dword_1B905F
-extern dword_1B9067, dword_1B906F, BoxSeatPlayer, BoxSeatTeam, BenchSeats, SeatTable, dword_1B9D20, dword_1BAB04
+extern SeasonPhase, SeasonActive, dword_1ACF65, dword_1AD226, dword_1AD45A, dword_1AD6AB, ReplayPlaying, CameraStateRecords
+extern CameraStateRecords, BoxSeatPlayer, BoxSeatTeam, BenchSeats, SeatTable, dword_1B9D20, dword_1BAB04
 extern dword_1BB258, dword_1BF17C, dword_1C1334, dword_1C5E74, hypot_, jpt_380E6, jpt_38102, jpt_3811A
 extern memcpy_, PtrPuckZone, PtrPuckFlags, SfxBankNameTable, SfxGroupTable, F64_neg3p14159_GoToBoxAnim, F64_0p2_RefDodgePuck, F64_6p28319_ReachForPuckAnim
 extern F64_3p14159_ReachForPuckAnim, F64_neg6p28319_ReachForPuckAnim, F64_neg3p14159_ReachForPuckAnim, F64_0p785398_ReachForPuckAnim, F64_0p0001, F64_0p6, F64_96, F64_0p00347222
@@ -7077,7 +7077,7 @@ RemoveOverlayWindow:
 .1:
         cmp eax, dword [ebx]
         jne near .7
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne short .2
         mov dword [ViewSizeChanged], 1
 .2:
@@ -15178,15 +15178,15 @@ PositionSfx:
         mov esi, dword [byte ebp+020h]
         fld dword [byte ebp+01Ch]
         fld dword [byte ebp+018h]
-        fsub dword [dword_1B905F]
+        fsub dword [CameraStateRecords+7]
         fxch
-        fsub dword [dword_1B9067]
+        fsub dword [CameraStateRecords+0Fh]
         fxch
         fstp dword [byte esp+018h]
         fst dword [byte esp+01Ch]
         fld dword [byte esp+018h]
         call IF@ATAN2
-        fadd dword [dword_1B906F]
+        fadd dword [CameraStateRecords+17h]
         fst dword [byte esp+014h]
         fst qword [byte esp+0Ch]
         fcomp qword [F64_3p14159_PositionSfx]
