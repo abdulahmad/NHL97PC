@@ -224,6 +224,22 @@ int emulate_low_memory(ctx_t *c, uint8_t *ip)
 {
     if (!low_memory_rewrite(c, ip, tramp)) return 0;
     TRACE("low memory access at %08x\n", (unsigned)(uintptr_t)ip);
+    {   /* NHL97_LOWLOG=1: each game instruction that reads below 0x10000, once, with the address (stderr) */
+        static int on = -1, n; static uint32_t seen[256];
+        int i;
+        if (on < 0) on = getenv("NHL97_LOWLOG") != 0;
+        if (on && n < 256) {
+            uint32_t o = ORIG_FROM(ip);
+            for (i = 0; i < n && seen[i] != o; i++) ;
+            if (i == n) {
+                uint32_t a; memcpy(&a, tramp + (tramp[0] >= 0xA0 && tramp[0] <= 0xA3 ? 1 : 0), 4);
+                seen[n++] = o;
+                fprintf(stderr, "lowmem: game %05x eax=%08x ebx=%08x ecx=%08x edx=%08x esi=%08x edi=%08x ebp=%08x\n", (unsigned)o,
+                        (unsigned)R(c, EAX), (unsigned)R(c, EBX), (unsigned)R(c, ECX), (unsigned)R(c, EDX), (unsigned)R(c, ESI), (unsigned)R(c, EDI), (unsigned)R(c, EBP));
+                (void)a;
+            }
+        }
+    }
     R(c, EIP) = (uint32_t)(uintptr_t)tramp;
     return 1;
 }
