@@ -758,7 +758,7 @@
 ;  69654  sub_69654                                front/front_57324.asm                        1
 ;  69A44  sub_69A44                                front/front_57324.asm                        1
 ;  69B08  sub_69B08                                front/front_57324.asm                        1
-;  69B78  sub_69B78                                front/front_57324.asm                        3
+;  69B78  ClearVelocity                            front/front_57324.asm                        3
 ;  69BA0  sub_69BA0                                front/front_57324.asm                        1
 ;  69DF4  sub_69DF4                                front/front_57324.asm                        1
 ;  69F3C  sub_69F3C                                front/front_57324.asm                        1
@@ -846,7 +846,7 @@
 ;  77FA8  sub_77FA8                                front/front_57324.asm                        1
 ;  78044  sub_78044                                front/front_57324.asm                        1
 ;  780F0  sub_780F0                                front/front_57324.asm                        1
-;  78810  sub_78810                                front/front_57324.asm                        2
+;  78810  DoGameFrame                              front/front_57324.asm                        2
 ;  78930  unk_78930                                front/front_57324.asm                        1
 ;  78938  sub_78938                                front/front_57324.asm                        1
 ;  789F0  sub_789F0                                front/front_789F0.asm                        2

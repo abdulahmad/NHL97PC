@@ -198,13 +198,28 @@ address,name,auto_name,source,confidence,evidence,file
 5BEDC,SetReplayRecording,sub_5BEDC,new,low,"(on/off): starts or stops replay recording (dword_1B8FA0), allocating the ""RP_GAME"" block on start",src/front/front_57324.asm
 5CCE0,AllocSpriteBuffers,sub_5CCE0,new,low,"allocates the ""RSPRITE"" block (0C240h): 12 sprite buffers of 1010h bytes",src/front/front_57324.asm
 5ED80,SetSPA,sub_5ED80,94G,medium,"94G SetSPA: (player, animation 0-17Ch, flags, speed) sets the player's animation; restarts it unless it is already playing",src/front/front_57324.asm
+65830,LoadSkateAnims,sub_65830,new,medium,"InitAnimPoints: loads the ""skate"" animations (and ""stop"")",src/front/front_57324.asm
 6590A,CamShot23D,sub_6590A,96PC,medium,NHL96PC 603FF (similar 0.81): mnemonic similarity 0.81 over 16 instructions,src/front/front_57324.asm
+6593E,LoadActAnims,sub_6593E,new,medium,"InitAnimPoints: loads the ""pl_act"" animations",src/front/front_57324.asm
+6596B,LoadFallAnims,sub_6596B,new,medium,"InitAnimPoints: loads the ""pl_fall"" animations",src/front/front_57324.asm
+659C6,LoadInterferAnims,sub_659C6,new,medium,"InitAnimPoints: loads the ""interfer"" animations",src/front/front_57324.asm
+65B64,LoadGoalieAnims,sub_65B64,new,medium,"InitAnimPoints: loads the ""goalie"" animations",src/front/front_57324.asm
+65BFD,LoadRefSkateAnims,sub_65BFD,new,medium,"InitAnimPoints: loads the ""refskate"" animations",src/front/front_57324.asm
+65C2D,LoadRefCallAnims,sub_65C2D,new,medium,"InitAnimPoints: loads the ""refcalls"" animations",src/front/front_57324.asm
+65C5D,LoadRefAmbiAnims,sub_65C5D,new,medium,"InitAnimPoints: loads the ""refambi"" animations",src/front/front_57324.asm
+65C8D,LoadFightAnims,sub_65C8D,new,medium,"InitAnimPoints: loads the ""fight"" animations",src/front/front_57324.asm
+65CBD,LoadCupAnims,sub_65CBD,new,medium,"loads the ""cup"" animations (Stanley Cup presentation, from sub_780F0)",src/front/front_57324.asm
 65CED,InitAnimPoints,sub_65CED,new,low,"looks up the animation attachment points (puck, stickheel, origin, chin, rhand, lshldr, rshldr) and loads ANIMS.VIV",src/front/front_57324.asm
+69B78,ClearVelocity,sub_69B78,new,medium,"(object): zeroes the object's velocity vector (+0FAh -> +4, +8, +0Ch)",src/front/front_57324.asm
 6E290,checkcx,sub_6E290,94G,low,"94G checkcx: (player a3, player a2, ...) a collision between two players (x87): bounces, checking animations, interference (checkint), checkfight",src/front/front_57324.asm
 6F604,checkplcoll,sub_6F604,94G,low,"94G checkplcoll: a player's collisions with the other players (checkcx, sub_6E9A4) and the rest",src/front/front_57324.asm
+76010,LoadAnimFile,sub_76010,new,medium,"(name, ...): loads a "".4da"" animation file (_splitpath_ / _makepath_), from the InitAnimPoints loaders",src/front/front_57324.asm
 77630,AllocAnimStates,sub_77630,new,low,"(count): allocates the ""ANIMSTAT"" block (count x 358h) and clears it",src/front/front_57324.asm
 779C8,LoadAiIcons,sub_779C8,new,low,"loads the ""cross"" icon shapes from aicons.viv",src/front/front_57324.asm
+77A88,updateplayers,sub_77A88,94G,medium,"the per-frame player update: reads the joypads (ReadJoy1), runs each object's assignment from off_19C3F4, collisions and animation, as 94G updateplayers",src/front/front_57324.asm
 77F88,GameOver,sub_77F88,96PC,medium,sets gameover (word_19CBA0); 96 PC GameOver without its already-over check,src/front/front_57324.asm
+785E8,periodicevents,sub_785E8,94G,low,"from DoGameFrame before updateplayers: chkprogress, line changes (StartFaceoffLineChange), the Stanley Cup start (sub_780F0)",src/front/front_57324.asm
+78810,DoGameFrame,sub_78810,95PC,medium,"one frame of game logic, from RunSimFrames, RunOpeningFrames and PlaceOpeningPlayers: periodicevents, updateplayers, then the crowd sounds and commentary",src/front/front_57324.asm
 7C600,putchar,,96PC,medium,NHL96PC 17675 (sem): S:ATZS7=60S11=55; D:164110,
 7C690,ModemHangup,sub_7C690,96PC,medium,NHL96PC 1779C (sem 0.94): S:ATH0; D:16412C; C:1054; C:1053,src/front/front_7A9D8.asm
 7C7A4,ModemAutoAnswer,sub_7C7A4,96PC,medium,NHL96PC 17887 (sem 1.00): S:ATS0=1; D:164140; S:ATA ; D:164148,src/front/front_7A9D8.asm

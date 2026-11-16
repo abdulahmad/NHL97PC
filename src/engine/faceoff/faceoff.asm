@@ -30,7 +30,7 @@ extern sub_424CC, CommentaryEvent, LoadDataFileLib, LoadDataFile, sub_4B5C4, sub
 extern sub_4BA00, sub_4BCB4, sub_4C0C4, PeriodOver, sub_52E28, sub_55000, sub_5BD3C, sub_5BD94
 extern InitReplayBuffer, sub_5BE74, sub_5BEB0, sub_5C134, sub_5C160, sub_5C180, sub_5C894, sub_6539C
 extern InitAnimPoints, sub_65DE8, sub_76D3C, sub_76E20, sub_77610, AllocAnimStates, GameOver, sub_77FA8
-extern sub_78810, sub_7F0D8, sub_81678, ShowLoadingScreen, sub_842E8, sub_842F4, LoadLangText, FreeLangText
+extern DoGameFrame, sub_7F0D8, sub_81678, ShowLoadingScreen, sub_842E8, sub_842F4, LoadLangText, FreeLangText
 extern sub_AA498, sub_AADEF, sub_AB0A6, sub_B2F49, RunReplay, FadeOut, sub_DA7EB, sub_DB6AC
 extern LoadExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, sub_E1744, sub_E304C, sub_E30F4, sub_E3174, sub_E3190
 extern InputRecordAvail, TakeInputRecord, sub_E341C, sub_E4248, sub_F1FF8, sub_F207F, sub_F30A0, sub_F30D7
@@ -404,7 +404,7 @@ RunOpeningFrames:
 .7:
         test esi, esi
         je short .8
-        call sub_78810
+        call DoGameFrame
 .8:
         mov ebx, dword [byte esp+08h]
         call sub_E341C
@@ -662,8 +662,8 @@ PlaceOpeningPlayers:
         or bl, 4
         xor edx, edx
         mov byte [byte_19CBCA], bl
-        call sub_78810
-        call sub_78810
+        call DoGameFrame
+        call DoGameFrame
         mov eax, 64h
         mov ebx, 1
         mov dword [dword_19CBD0], edx
@@ -1377,7 +1377,7 @@ RunSimFrames:
         jne short .1
         call ClockTick
 .1:
-        call sub_78810
+        call DoGameFrame
         cmp dword [InGameMenuRequest], byte 0
         jne near .5
         cmp word [word_19CBB2], byte 0

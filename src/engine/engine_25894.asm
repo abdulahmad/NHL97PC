@@ -36,7 +36,7 @@ extern PlaySfxOr, PlaySfxVolume, sub_424CC, CommentaryEvent, PaEvent, sub_4C0C4,
 extern sub_4DDB0, sub_4FD24, sub_51B5C, sub_51BD8, sub_55648, SetPenaltyBoxDoor, sub_56AE4, sub_56CD0
 extern sub_56CE4, sub_56CF8, sub_572D4, sub_57304, sub_57324, sub_576EC, sub_57738, LoadCupArt
 extern sub_5AC28, SetSPA, sub_60D6C, sub_60F48, sub_64EBC, sub_650A4, sub_650E8, sub_6619C
-extern sub_66524, sub_6947C, sub_69654, sub_69A44, sub_69B08, sub_69B78, sub_6A0BC, sub_6A244
+extern sub_66524, sub_6947C, sub_69654, sub_69A44, sub_69B08, ClearVelocity, sub_6A0BC, sub_6A244
 extern sub_72E58, sub_72E94, sub_72EF4, sub_72F34, sub_72FE8, sub_73028, sub_75B94, sub_78044
 extern FadePalette, FadeOut, sub_FAA64, sub_FAF34, sub_FBE5D, unk_19E060, vtoa, word_168A4C
 extern word_168A4E, word_168A68, word_168A6A, word_19CB60, word_19CB64, word_19CB68, word_19CB82, word_19CB84
@@ -2207,7 +2207,7 @@ assscore:
         jne short .1
         mov byte [eax], 0FFh
         mov eax, dword [off_168CFC]
-        call sub_69B78
+        call ClearVelocity
         mov eax, dword [off_168CFC]
         mov edx, dword [dword eax+0AEh]
         sar edx, 18h
@@ -4397,7 +4397,7 @@ assrefpenshot:
         mov eax, dword [off_168CF0]
         mov byte [eax], 0FFh
         mov eax, dword [off_168CFC]
-        call sub_69B78
+        call ClearVelocity
         call sub_4DD9C
         mov eax, dword [off_168CFC]
         mov dword [byte eax+028h], 0
@@ -6187,7 +6187,7 @@ sub_2A6B8:
         mov byte [eax], bl
         call sub_4DDB0
         mov eax, dword [off_168CFC]
-        call sub_69B78
+        call ClearVelocity
         cmp word [dword edx+0A9h], byte 0
         jne short .1
         mov eax, dword [dword edx+0FAh]
@@ -9585,7 +9585,7 @@ pucknorm_body:
         mov eax, dword [byte ebp-04h]
         cmp dword [byte eax+024h], 3F800000h
         jge short .56
-        call sub_69B78
+        call ClearVelocity
 .56:
         mov esp, ebp
         pop ebp
@@ -9670,7 +9670,7 @@ puckfaceoff2:
         mov byte [dword edi+0BFh], bl
         xor edx, edx
         mov word [word_19CBE0], cx
-        call sub_69B78
+        call ClearVelocity
         mov bh, byte [byte_19CBC8]
         mov cl, byte [byte_19CBCA]
         mov word [word_19CBDC], si

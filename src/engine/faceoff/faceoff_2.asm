@@ -29,7 +29,7 @@ extern sub_1E184, assreplace, assinsert, assexit, sub_1E8B0, Setplass, Goal, sub
 extern sub_2471C, sub_248E8, sub_25010, sub_2596C, sub_27F80, sub_28C0C, CompLine, StartFaceoffLineChange
 extern sub_3AAE8, sub_3AB28, sub_3B09C, sub_3B690, PlaySfxOr, PlaySfxVolume, sub_424CC, CommentaryEvent
 extern PaEvent, sub_4B8DC, sub_56CD0, sub_56CE4, sub_56CF8, sub_60F48, sub_650A4, sub_650E8
-extern sub_657BF, sub_6619C, sub_69B78, sub_69F3C, sub_6A0BC, sub_6A13C, sub_71808, sub_71ABC
+extern sub_657BF, sub_6619C, ClearVelocity, sub_69F3C, sub_6A0BC, sub_6A13C, sub_71808, sub_71ABC
 extern sub_71D48, sub_71E58, sub_71F4C, sub_76FE8, sub_77F94, sub_780F0, sub_AA588, sub_F9A88
 extern sub_FAAB4, sub_FAF34, sub_FB71C, addtimer, sub_FC008, WaitTicks, unk_19CA98, unk_19D474
 extern unk_19D4A6, unk_19D4D8, unk_19D50A, unk_19D56E, unk_19D5A0, unk_19D5D2, unk_19D668, unk_19E060
@@ -101,7 +101,7 @@ puckfaceoff:
         cmp byte [eax], 0
         jl short .2
         mov eax, dword [off_168CFC]
-        call sub_69B78
+        call ClearVelocity
 .2:
         mov eax, dword [off_168CF0]
         mov byte [eax], 0FFh
