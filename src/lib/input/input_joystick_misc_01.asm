@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_FB8AE progbits alloc exec nowrite align=1
-extern byte_16E354, byte_16E358, byte_16E35C, JoyCalibrating, JoyButtons, JoyButtonsPrev, JoyDirection, JoyDirTable
-extern JoyPresent, dword_16E344, dword_16E360, dword_16E364, dword_16E368, dword_16E36C, dword_16E370, JoyCalibrateTicks
+extern JoyButtonBits, JoyButtonMask, JoyPortMask, JoyCalibrating, JoyButtons, JoyButtonsPrev, JoyDirection, JoyDirTable
+extern JoyPresent, JoyAxisValues, JoyPort, JoyTimeX, JoyTimeY, JoyTimeSecondX, JoyTimeSecondY, JoyCalibrateTicks
 extern JoyReadTimeout, JoyAxisX1, JoyAxisY1, JoyAxisX2, JoyAxisY2, JoyAxisMask, str_P_ReadJoystickPorts, JoyX1Min
 extern JoyX1Center, JoyX1Max, JoyX1Settle, JoyY1Min, JoyY1Max, JoyDeadZone, JoyY1MinSeen, JoyY1Center
 extern JoyY1MaxSeen, JoyY1Settle, JoyX2Min, JoyX2Max, JoyXScale, JoyYScale, TimerCalibration, Random32
@@ -19,7 +19,7 @@ CalibrateJoystick:
         LD mov, bh, al
         LD xor, eax, eax
         mov ecx, 186A0h
-        mov edx, dword [dword_16E360]
+        mov edx, dword [JoyPort]
         pushf
         cli
         out dx, al
@@ -29,13 +29,13 @@ CalibrateJoystick:
         LD mov, ah, al
         in al, 40h
         xchg al, ah
-        mov dword [dword_16E364], eax
-        mov dword [dword_16E368], eax
-        mov dword [dword_16E36C], eax
-        mov dword [dword_16E370], eax
+        mov dword [JoyTimeX], eax
+        mov dword [JoyTimeY], eax
+        mov dword [JoyTimeSecondX], eax
+        mov dword [JoyTimeSecondY], eax
         mov dword [JoyCalibrateTicks], eax
         mov byte [JoyCalibrating], 0
-        mov bl, byte [byte_16E35C]
+        mov bl, byte [JoyPortMask]
 .2:
         in al, dx
         LD mov, ah, al
@@ -52,23 +52,23 @@ CalibrateJoystick:
         xchg al, ah
         shr dl, 1
         jae short .3
-        mov dword [dword_16E368], eax
+        mov dword [JoyTimeY], eax
 .3:
         shr dl, 1
         jae short .4
-        mov dword [dword_16E36C], eax
+        mov dword [JoyTimeSecondX], eax
 .4:
         shr dl, 1
         jae short .5
-        mov dword [dword_16E370], eax
+        mov dword [JoyTimeSecondY], eax
 .5:
         shr dl, 1
         jae short .6
         mov dword [JoyCalibrateTicks], eax
 .6:
         LD mov, eax, edx
-        db 08Bh,015h                            ; insn: mov edx,[0E360h]
-        dd dword_16E360
+        db 08Bh,015h                            ; insn: mov edx,[JoyPort]
+        dd JoyPort
 .7:
         sub ecx, byte 1
         je short .13
@@ -81,32 +81,32 @@ CalibrateJoystick:
 .9:
         popf
         shr ah, 4
-        xor ah, byte [byte_16E358]
-        mov byte [byte_16E354], ah
+        xor ah, byte [JoyButtonMask]
+        mov byte [JoyButtonBits], ah
         cmp byte [JoyCalibrating], 0
         jne near .1
         mov ebx, 0Ch
 .10:
-        mov eax, dword [dword_16E364]
-        sub eax, dword [dword ebx+dword_16E368]
+        mov eax, dword [JoyTimeX]
+        sub eax, dword [dword ebx+JoyTimeY]
         jge short .11
         add eax, dword [TimerCalibration]
         jl short .12
 .11:
-        mov dword [dword ebx+dword_16E344], eax
+        mov dword [dword ebx+JoyAxisValues], eax
 .12:
         sub ebx, byte 4
         jge short .10
         LD xor, eax, eax
-        mov al, byte [byte_16E354]
-        mov ah, byte [byte_16E35C]
+        mov al, byte [JoyButtonBits]
+        mov ah, byte [JoyPortMask]
         pop ebx
         ret
 .13:
         LD mov, bl, ah
         not bl
         and bl, 0Fh
-        mov byte [byte_16E35C], bl
+        mov byte [JoyPortMask], bl
         jmp short .9
 .14:
         popf
@@ -119,11 +119,11 @@ CalibrateJoystick:
         or byte [JoyCalibrating], al
         jmp short .8
         LD xor, eax, eax
-        mov edx, dword [dword_16E360]
+        mov edx, dword [JoyPort]
         in al, dx
         shr al, 4
-        xor al, byte [byte_16E358]
-        mov byte [byte_16E354], al
+        xor al, byte [JoyButtonMask]
+        mov byte [JoyButtonBits], al
         ret
         db 00h,00h
 ;-----------------------------------------------------------------------------

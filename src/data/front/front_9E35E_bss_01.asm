@@ -2,46 +2,46 @@
 bits 32
 %include "hockey.inc"
 section s_1C8E4C nobits alloc noexec write align=1
-global dword_1C8E4C, dword_1C8E50, dword_1C8E54, dword_1C8E58, dword_1C8E5C, dword_1C8E60, dword_1C8E64, dword_1C8E88
-global dword_1C8E8C, dword_1C8E90, dword_1C8E94, dword_1C8E98, dword_1C8E9C, dword_1C8EA4, dword_1C8EB4, dword_1C8EB8
-global dword_1C8EF6, dword_1C8F4C, word_1C8EA0, word_1C8EA2
-dword_1C8E4C:
+global HomePanelTick, TeamSelectSoundOn, TeamSelectDrawn, HomePanelShapes, AwayPanelShapes, AwayPanelTick, TeamSelectValues, HomePanelLayer
+global AwayPanelLayer, TeamSelectItems, TeamSelectTargets, HomePanelPos, AwayPanelPos, IndexPickChoice, IndexItemType, IndexItemValue
+global IndexItemTemplate, IndexSoundMode, AwayPanelTeam, HomePanelTeam
+HomePanelTick:
         resb 4
-dword_1C8E50:
+TeamSelectSoundOn:
         resb 4
-dword_1C8E54:
+TeamSelectDrawn:
         resb 4
-dword_1C8E58:
+HomePanelShapes:
         resb 4
-dword_1C8E5C:
+AwayPanelShapes:
         resb 4
-dword_1C8E60:
+AwayPanelTick:
         resb 4
-dword_1C8E64:
+TeamSelectValues:
         resb 36
-dword_1C8E88:
+HomePanelLayer:
         resb 4
-dword_1C8E8C:
+AwayPanelLayer:
         resb 4
-dword_1C8E90:
+TeamSelectItems:
         resb 4
-dword_1C8E94:
+TeamSelectTargets:
         resb 4
-dword_1C8E98:
+HomePanelPos:
         resb 4
-dword_1C8E9C:
+AwayPanelPos:
         resb 4
-word_1C8EA0:
+AwayPanelTeam:
         resb 2
-word_1C8EA2:
+HomePanelTeam:
         resb 2
-dword_1C8EA4:
+IndexPickChoice:
         resb 16
-dword_1C8EB4:
+IndexItemType:
         resb 4
-dword_1C8EB8:
+IndexItemValue:
         resb 62
-dword_1C8EF6:
+IndexItemTemplate:
         resb 86
-dword_1C8F4C:
+IndexSoundMode:
         resb 12

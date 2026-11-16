@@ -45,9 +45,9 @@ __InitRtns:
         push es
         mov edx, eax
 .1:
-        db 03Eh,0BEh                            ; insn: mov esi,3C648h
+        db 03Eh,0BEh                            ; insn: mov esi,InitRtnsEntry
         dd InitRtnsEntry
-        db 03Eh,0BFh                            ; insn: mov edi,3C67Eh
+        db 03Eh,0BFh                            ; insn: mov edi,FiniRtnsEntry
         dd FiniRtnsEntry
         mov ebx, edi
         mov al, dl
@@ -95,9 +95,9 @@ __FiniRtns:
         mov dh, dl
         mov dl, al
 .1:
-        db 03Eh,0BEh                            ; insn: mov esi,3C67Eh
+        db 03Eh,0BEh                            ; insn: mov esi,FiniRtnsEntry
         dd FiniRtnsEntry
-        db 03Eh,0BFh                            ; insn: mov edi,3C690h
+        db 03Eh,0BFh                            ; insn: mov edi,VideoCodePtr
         dd VideoCodePtr
         mov ebx, edi
         mov al, dl

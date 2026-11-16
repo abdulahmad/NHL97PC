@@ -4,7 +4,7 @@ bits 32
 section s_100674 progbits alloc exec nowrite align=1
 extern AngleOfVector_91, AngleOfVector_93, AngleOfVector_9A, AngleOfVector_A3, AngleOfVector_A7, AngleOfVector_AE, AngleOfVector_B0, AngleOfVector_B5
 extern AngleFromDelta, SinLookup, CosLookup
-global jpt_1006E0, vecdist
+global AngleOfVectorJumpTable, vecdist
 ;-----------------------------------------------------------------------------
 ; vecdist                                     100674  96 PC, medium confidence
 ;-----------------------------------------------------------------------------
@@ -59,7 +59,7 @@ vecdist:
         leave
         ret
         db 00h,00h,00h
-jpt_1006E0:
+AngleOfVectorJumpTable:
         dd AngleOfVector_B5
         dd AngleOfVector_91
         dd AngleOfVector_9A

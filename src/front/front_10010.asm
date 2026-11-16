@@ -3,13 +3,13 @@ bits 32
 %include "hockey.inc"
 section s_10000 progbits alloc exec nowrite align=1
 extern SortCords, __STOSB, _nfree_, _nmalloc_, _searchenv_, str_PATH2, str_JSTICKS, str_DOSJoystick
-extern awtmstruct, GripFlags, byte_16E35C, LinePlayersHome, LinePlayersAway, LinePickOrder, PenaltyPending, PenaltyTeam
-extern PenaltyBoxCount, gmode, PuckFlags, PlayFlags, holdreset, byte_19CCAF, byte_19CCC6, byte_19CD05
+extern awtmstruct, GripFlags, JoyPortMask, LinePlayersHome, LinePlayersAway, LinePickOrder, PenaltyPending, PenaltyTeam
+extern PenaltyBoxCount, gmode, PuckFlags, PlayFlags, holdreset, GripLinkByte, ChantPlayed, ChantState
 extern DefenseByDefense, ForwardsByOffense, HmPlayerSlots, HmRosterMap, AwPlayerSlots, AwRosterMap, GripDriverPtr, GripDriverData
-extern GripLinked, LinePlayerSlots, LinePlayerOffsets, dword_16E344, dword_16E348, dword_16E34C, dword_16E350, PersonnelTable
-extern LastTouchPlayer, penshottimer, PuckX, dword_19CD54, dword_19CD88, PlayerPointsTable, HmTeamData, HmScore
-extern AwTeamData, AwScore, GameSettings, GameOptionFlags, SeasonActive, dword_1B1410, dword_1B8FA0, dword_1B9554
-extern dword_1B9558, fclose_, fopen_, fread_, fseek_, ftell_, hmtmstruct, PtrPuckTarget
+extern GripLinked, LinePlayerSlots, LinePlayerOffsets, JoyAxisValues, JoyAxisY, JoyAxisSecondX, JoyAxisSecondY, PersonnelTable
+extern LastTouchPlayer, penshottimer, PuckX, GameObjects, GameTick, PlayerPointsTable, HmTeamData, HmScore
+extern AwTeamData, AwScore, GameSettings, GameOptionFlags, SeasonActive, ObjectPositions, ReplayPlaying, PlayerStartDist
+extern PlayerStartScale, fclose_, fopen_, fread_, fseek_, ftell_, hmtmstruct, PtrPuckTarget
 extern PtrPuckState, PtrPuckOwner, PtrPuckZone, PtrPuckFlags, PtrPuckObject, F64_0p013, F64_0p01, rand_
 extern randomd0, regd1, str_CGRIP, str_GRIP, str_GRIPGLL, strcat_, strcpy_, GetPlayerJerseyNumber
 extern ShowCameraView, ClearOverlayWindows, ResetSceneCamera, assreplace, assinsert, Setplass, FaceoffSpotPosition, asspsclear
@@ -17,27 +17,27 @@ extern ResetCoachModes, UpdateCoachModes, EndPenaltyShot, SetPlayerTarget, PickB
 extern RequestMusicStop, MusicFileName, StopAllSfx, SetCrowdMood, CommentaryEvent, PaEvent, SetCameraMode, UpdateRinkPalette
 extern RefreshFaceTextures, SetModelSlotValue, SetupPlayerModel, DrawJerseyLettering, LoadGoalieMask, UpdateFaceTextures, ResetAnimTimer, UpdateGameDisplay
 extern InitPlayerAnims, DoGameFrame, LogPeriodEnd, AllocMemBlock, ZeroMem, CalibrateJoystick, ResetJoystickRange, str_Rb
-extern LinePlayerOrder, ResetPlayerSpots, unk_19CCB8, DefenseByOffense, ForwardsByDefense, BenchPlayerTable, HomeTeamRecord
-extern AwayTeamRecord, unk_1B9520, unk_1C135C, unk_1C347F, GripPortWord, GripSlot, GripReady, CrowdChantTable
+extern LinePlayerOrder, ResetPlayerSpots, GripFarCall, DefenseByOffense, ForwardsByDefense, BenchPlayerTable, HomeTeamRecord
+extern AwayTeamRecord, PlayerStartRecords, AutoLineData, HomeLines, GripPortWord, GripSlot, GripReady, CrowdChantTable
 extern DebugModelRefresh, DebugModelIndex, PeriodLengths, LineChangeHome, LineChangeAway, DefendFlags, ShootSpotY, GoalieTarget
 extern ZoneTargetY, PassState, StatsPanelPlayer, PuckOwnerTeam, LastPlayerTouch, gsp, gameclock, StatsPanelOn
 extern FaceoffSpot, FaceoffZone, PeriodLength, OneTimerTarget, PuckZone, penshotmode, BenchRequest, penshotlive
-extern FaceoffRequest, BreakawayFlag, SlotAssign, HomeGoalieOff, AwayGoalieOff, HomeControlSlot, AwayControlSlot, word_19CCB2
-extern word_19CCB6, word_19CCBC, word_19CCBE, word_19CCC0, word_19CCC4, PlayerAssignWords, PlayerControlWords, HomeTeamRecord
+extern FaceoffRequest, BreakawayFlag, SlotAssign, HomeGoalieOff, AwayGoalieOff, HomeControlSlot, AwayControlSlot, GripDriverSeg
+extern GripDriverSel, GripCodeSel, GripDataSeg, GripResult, ChantIndex, PlayerAssignWords, PlayerControlWords, HomeTeamRecord
 extern AwayTeamRecord, HomeIceSlots, AwayIceSlots, HmCounters, HmLineState, AwCounters, AwLineState
-global SetupTeamForIntermission, clearteams, jpt_11318, loc_10000, StartCrowdMusic_26, StartCrowdMusic_4F, StartCrowdMusic_78, StartCrowdMusic_A6
+global SetupTeamForIntermission, clearteams, StartCrowdMusicJumpTable, CodeStartTrap, StartCrowdMusic_26, StartCrowdMusic_4F, StartCrowdMusic_78, StartCrowdMusic_A6
 global forcepldata_E, ReplaceFaceoffPlayers_62, ReplaceFaceoffPlayers_81, GripLinkLibrary, CallGripDriver, LoadGripLibrary, InitGripDriver, LoadJoystickConfig
 global SetupOptionsAnim, DrawOptionsAnimFrame, UpdateOptionsAnim, PickCrowdChant, StartCrowdMusic, RestartGameMusic, forcepldata, SetupFaceoffPlayers
 global ClearPlayerFlags, ResetTeamStats, ResetBench, IsPlayoffGame, RefreshPlayerModel, setplayer, reenergizeteam, ResetForIntermission
 global SeatBenchPlayer, ResetPlayers, ResetPlayersForPeriod, ReplaceFaceoffPlayers, PlayerInLine, PickLinePlayers, setpersonel, PeriodLengthSetting
-global RefreshRinkPalette, ClockTick, StartPeriod, FindStartingGoalies, ReleaseBoxPlayers, unk_10003
+global RefreshRinkPalette, ClockTick, StartPeriod, FindStartingGoalies, ReleaseBoxPlayers, CodeStartPad
 ;-----------------------------------------------------------------------------
-; loc_10000                                                       10000  97 PC
+; CodeStartTrap                                                   10000  97 PC
 ;-----------------------------------------------------------------------------
-loc_10000:
+CodeStartTrap:
         int3
-        jmp short loc_10000
-unk_10003:
+        jmp short CodeStartTrap
+CodeStartPad:
         db 090h,090h,090h,090h,090h,090h,090h,090h,090h,090h,090h,090h,090h
 ;-----------------------------------------------------------------------------
 ; GripLinkLibrary                              10010  96 PC, medium confidence
@@ -177,7 +177,7 @@ GripLinkLibrary:
         pop ebx
         ret
 .9:
-        mov ecx, word_19CCBE
+        mov ecx, GripDataSeg
         mov ebx, edi
         mov eax, 100h
         int 31h
@@ -222,10 +222,10 @@ GripLinkLibrary:
         jae short .14
         xor eax, eax
 .14:
-        mov word [word_19CCC0], ax
+        mov word [GripResult], ax
         test ax, ax
         jne short .16
-        mov dx, word [word_19CCBE]
+        mov dx, word [GripDataSeg]
         mov eax, 101h
         int 31h
         jb short .15
@@ -260,11 +260,11 @@ GripLinkLibrary:
 .17:
         test al, al
         je short .19
-        mov bx, word [word_19CCC0]
+        mov bx, word [GripResult]
         mov eax, 1
         int 31h
         setb al
-        mov dx, word [word_19CCBE]
+        mov dx, word [GripDataSeg]
         mov eax, 101h
         int 31h
         jb short .18
@@ -280,7 +280,7 @@ GripLinkLibrary:
         pop ebx
         ret
 .19:
-        mov bx, word [word_19CCC0]
+        mov bx, word [GripResult]
         mov cx, cs
         lar ecx, ecx
         shr cx, 8
@@ -289,11 +289,11 @@ GripLinkLibrary:
         setb al
         test al, al
         je short .21
-        mov bx, word [word_19CCC0]
+        mov bx, word [GripResult]
         mov eax, 1
         int 31h
         setb al
-        mov dx, word [word_19CCBE]
+        mov dx, word [GripDataSeg]
         mov eax, 101h
         int 31h
         jb short .20
@@ -315,28 +315,28 @@ GripLinkLibrary:
         inc edx
         mov al, byte [ebx]
         inc ebx
-        mov byte [dword edx+byte_19CCAF], al
+        mov byte [dword edx+GripLinkByte], al
         cmp edx, byte 0Eh
         jb short .22
         xor edx, edx
-        mov ax, word [word_19CCC0]
-        mov word [word_19CCB2], dx
-        mov word [word_19CCB6], ax
-        mov word [word_19CCBC], ax
+        mov ax, word [GripResult]
+        mov word [GripDriverSeg], dx
+        mov word [GripDriverSel], ax
+        mov word [GripCodeSel], ax
         mov word [byte ebp+012h], dx
         mov word [byte ebp+016h], dx
         mov word [byte ebp+010h], dx
-        mov ax, word [word_19CCBE]
+        mov ax, word [GripDataSeg]
         mov word [byte ebp+014h], ax
         mov ax, 8490h
-        call far [unk_19CCB8]
+        call far [GripFarCall]
         test ax, ax
         jne short .24
-        mov bx, word [word_19CCC0]
+        mov bx, word [GripResult]
         mov eax, 1
         int 31h
         setb al
-        mov dx, word [word_19CCBE]
+        mov dx, word [GripDataSeg]
         mov eax, 101h
         int 31h
         jb short .23
@@ -380,8 +380,8 @@ CallGripDriver:
         ret
 .1:
         mov ax, 8491h
-        call far [unk_19CCB8]
-        mov bx, word [word_19CCC0]
+        call far [GripFarCall]
+        mov bx, word [GripResult]
         mov eax, 1
         int 31h
         setb al
@@ -392,7 +392,7 @@ CallGripDriver:
         pop ebx
         ret
 .2:
-        mov dx, word [word_19CCBE]
+        mov dx, word [GripDataSeg]
         mov eax, 101h
         int 31h
         jb short .3
@@ -415,8 +415,8 @@ CallGripDriver:
 ;-----------------------------------------------------------------------------
 ; LoadGripLibrary                              10354  96 PC, medium confidence
 ; Finds GRIP.GLL on the GRIP and PATH environment variables or in C:\GRIP\,
-; reads it (at most 32 KB) and links it with GripLinkLibrary; failure clears
-; dword_114CD3
+; reads it (at most 32 KB) and links it with GripLinkLibrary; the result is kept
+; in GripFlags
 ;-----------------------------------------------------------------------------
 LoadGripLibrary:
         push ebx
@@ -524,7 +524,7 @@ InitGripDriver:
         test byte [GripFlags], 2
         je short .1
         mov ax, 84A2h
-        call far [unk_19CCB8]
+        call far [GripFarCall]
         and byte [GripFlags], 0FDh
 .1:
         test byte [GripFlags], 1
@@ -551,7 +551,7 @@ LoadJoystickConfig:
         test byte [GripFlags], 1
         je short .1
         mov ax, 84A1h
-        call far [unk_19CCB8]
+        call far [GripFarCall]
         test ax, ax
         je short .1
         or byte [GripFlags], 2
@@ -613,7 +613,7 @@ LoadJoystickConfig:
 .4:
         mov edx, ebx
         mov ax, 84A0h
-        call far [unk_19CCB8]
+        call far [GripFarCall]
         mov eax, dword [byte esp+050h]
         inc eax
         mov dword [byte esp+050h], eax
@@ -624,7 +624,7 @@ LoadJoystickConfig:
         xor ecx, ecx
         mov word [GripSlot], di
         mov ax, 84B0h
-        call far [unk_19CCB8]
+        call far [GripFarCall]
         mov dword [byte esp+050h], ebx
         mov dword [byte esp+054h], eax
         mov eax, dword [byte esp+050h]
@@ -641,7 +641,7 @@ LoadJoystickConfig:
         mov edi, esp
         mov bh, cl
         mov ax, 84D0h
-        call far [unk_19CCB8]
+        call far [GripFarCall]
         mov dword [edi], ebx
         mov dword [byte edi+04h], ecx
         mov dword [byte edi+08h], edx
@@ -649,7 +649,7 @@ LoadJoystickConfig:
         lea edi, [byte esp+028h]
         mov bh, byte [byte esp+050h]
         mov ax, 84D1h
-        call far [unk_19CCB8]
+        call far [GripFarCall]
         mov dword [edi], ebx
         mov dword [byte edi+04h], ecx
         mov dword [byte edi+08h], edx
@@ -657,13 +657,13 @@ LoadJoystickConfig:
         mov bh, byte [byte esp+050h]
         mov edx, 1
         mov ax, 84B1h
-        call far [unk_19CCB8]
+        call far [GripFarCall]
         test al, 2
         je short .6
         mov bl, 1
         mov bh, byte [byte esp+050h]
         mov ax, 84B3h
-        call far [unk_19CCB8]
+        call far [GripFarCall]
         inc al
         mov byte [byte esp+068h], al
         cmp al, 2
@@ -675,13 +675,13 @@ LoadJoystickConfig:
         je short .9
         mov bh, byte [byte esp+050h]
         mov ax, 84B1h
-        call far [unk_19CCB8]
+        call far [GripFarCall]
         test al, 4
         je short .9
         mov bl, 2
         mov bh, byte [byte esp+050h]
         mov ax, 84B3h
-        call far [unk_19CCB8]
+        call far [GripFarCall]
         cmp al, 1
         jae short .8
         xor edx, edx
@@ -692,13 +692,13 @@ LoadJoystickConfig:
         xor ch, ch
         mov bh, byte [byte esp+050h]
         mov ax, 84B4h
-        call far [unk_19CCB8]
+        call far [GripFarCall]
         mov bl, 2
         mov ch, 1
         mov bh, byte [byte esp+050h]
         mov dword [byte esp+060h], eax
         mov ax, 84B4h
-        call far [unk_19CCB8]
+        call far [GripFarCall]
         mov dword [byte esp+05Ch], eax
         jmp short .10
 .9:
@@ -764,7 +764,7 @@ LoadJoystickConfig:
         mov bh, byte [byte esp+050h]
         mov dword [byte edx+eax+0Ch], edi
         mov ax, 84C0h
-        call far [unk_19CCB8]
+        call far [GripFarCall]
         mov ebx, dword [GripDriverData]
         and eax, 0FFFFh
         mov dword [byte edx+ebx+010h], eax
@@ -772,7 +772,7 @@ LoadJoystickConfig:
         mov ch, 1
         mov bh, byte [byte esp+050h]
         mov ax, 84C0h
-        call far [unk_19CCB8]
+        call far [GripFarCall]
         xor ebx, ebx
         mov bx, ax
         mov eax, dword [GripDriverData]
@@ -807,7 +807,7 @@ LoadJoystickConfig:
         jmp near .5
 .14:
         call CalibrateJoystick
-        mov eax, dword [byte_16E35C]
+        mov eax, dword [JoyPortMask]
         and eax, byte 0Fh
         cmp eax, byte 0Fh
         sete al
@@ -815,13 +815,13 @@ LoadJoystickConfig:
         inc eax
         push eax
         call ResetJoystickRange
-        mov bh, byte [byte_16E35C]
+        mov bh, byte [JoyPortMask]
         add esp, byte 4
         test bh, 3
         je near .16
-        cmp dword [dword_16E344], byte 0
+        cmp dword [JoyAxisValues], byte 0
         jne short .15
-        cmp dword [dword_16E348], byte 0
+        cmp dword [JoyAxisY], byte 0
         je near .16
 .15:
         mov eax, dword [GripDriverPtr]
@@ -841,27 +841,27 @@ LoadJoystickConfig:
         mov eax, dword [GripDriverData]
         mov word [byte eax+02Ah], 0
         mov eax, dword [GripDriverData]
-        mov edx, dword [dword_16E344]
+        mov edx, dword [JoyAxisValues]
         mov dword [eax], edx
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E344]
+        mov eax, dword [JoyAxisValues]
         mov dword [byte edx+08h], eax
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E348]
+        mov eax, dword [JoyAxisY]
         mov dword [byte edx+04h], eax
         mov edx, dword [GripDriverData]
         mov dword [byte edx+0Ch], eax
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E344]
+        mov eax, dword [JoyAxisValues]
         mov dword [byte edx+010h], eax
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E348]
+        mov eax, dword [JoyAxisY]
         mov dword [byte edx+014h], eax
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E344]
+        mov eax, dword [JoyAxisValues]
         mov dword [byte edx+018h], eax
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E348]
+        mov eax, dword [JoyAxisY]
         mov dword [byte edx+01Ch], eax
         mov eax, dword [GripDriverData]
         mov dword [byte eax+020h], 0F8h
@@ -870,11 +870,11 @@ LoadJoystickConfig:
 .16:
         mov eax, dword [GripDriverPtr]
         or byte [eax], 2
-        test byte [byte_16E35C], 0Ch
+        test byte [JoyPortMask], 0Ch
         je near .18
-        cmp dword [dword_16E34C], byte 0
+        cmp dword [JoyAxisSecondX], byte 0
         jne short .17
-        cmp dword [dword_16E350], byte 0
+        cmp dword [JoyAxisSecondY], byte 0
         je near .18
 .17:
         mov eax, dword [GripDriverPtr]
@@ -897,26 +897,26 @@ LoadJoystickConfig:
         mov eax, dword [GripDriverData]
         mov word [byte eax+056h], 0
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E34C]
+        mov eax, dword [JoyAxisSecondX]
         mov dword [byte edx+02Ch], eax
         mov edx, dword [GripDriverData]
         mov dword [byte edx+034h], eax
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E350]
+        mov eax, dword [JoyAxisSecondY]
         mov dword [byte edx+030h], eax
         mov edx, dword [GripDriverData]
         mov dword [byte edx+038h], eax
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E34C]
+        mov eax, dword [JoyAxisSecondX]
         mov dword [byte edx+03Ch], eax
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E350]
+        mov eax, dword [JoyAxisSecondY]
         mov dword [byte edx+040h], eax
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E34C]
+        mov eax, dword [JoyAxisSecondX]
         mov dword [byte edx+044h], eax
         mov eax, dword [GripDriverData]
-        mov edx, dword [dword_16E350]
+        mov edx, dword [JoyAxisSecondY]
         mov dword [byte eax+048h], edx
         mov eax, dword [GripDriverData]
         mov dword [byte eax+04Ch], 0F8h
@@ -956,7 +956,7 @@ SetupOptionsAnim:
         test byte [edx+eax*8], 2
         je near .6
         call CalibrateJoystick
-        mov eax, dword [byte_16E35C]
+        mov eax, dword [JoyPortMask]
         and eax, byte 0Fh
         cmp eax, byte 0Fh
         sete al
@@ -967,11 +967,11 @@ SetupOptionsAnim:
         add esp, byte 4
         test bx, bx
         jne near .3
-        test byte [byte_16E35C], 3
+        test byte [JoyPortMask], 3
         je near .2
-        cmp dword [dword_16E344], byte 0
+        cmp dword [JoyAxisValues], byte 0
         jne short .1
-        cmp dword [dword_16E348], byte 0
+        cmp dword [JoyAxisY], byte 0
         je near .2
 .1:
         mov eax, dword [GripDriverPtr]
@@ -991,27 +991,27 @@ SetupOptionsAnim:
         mov eax, dword [GripDriverData]
         mov word [byte eax+02Ah], 0
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E344]
+        mov eax, dword [JoyAxisValues]
         mov dword [edx], eax
         mov edx, dword [GripDriverData]
         mov dword [byte edx+08h], eax
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E348]
+        mov eax, dword [JoyAxisY]
         mov dword [byte edx+04h], eax
         mov eax, dword [GripDriverData]
-        mov edx, dword [dword_16E348]
+        mov edx, dword [JoyAxisY]
         mov dword [byte eax+0Ch], edx
         mov eax, dword [GripDriverData]
-        mov edx, dword [dword_16E344]
+        mov edx, dword [JoyAxisValues]
         mov dword [byte eax+010h], edx
         mov eax, dword [GripDriverData]
-        mov edx, dword [dword_16E348]
+        mov edx, dword [JoyAxisY]
         mov dword [byte eax+014h], edx
         mov eax, dword [GripDriverData]
-        mov edx, dword [dword_16E344]
+        mov edx, dword [JoyAxisValues]
         mov dword [byte eax+018h], edx
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E348]
+        mov eax, dword [JoyAxisY]
         mov dword [byte edx+01Ch], eax
         mov eax, dword [GripDriverData]
         mov dword [byte eax+020h], 0F8h
@@ -1029,11 +1029,11 @@ SetupOptionsAnim:
         pop ebx
         ret
 .3:
-        test byte [byte_16E35C], 0Ch
+        test byte [JoyPortMask], 0Ch
         je near .5
-        cmp dword [dword_16E34C], byte 0
+        cmp dword [JoyAxisSecondX], byte 0
         jne short .4
-        cmp dword [dword_16E350], byte 0
+        cmp dword [JoyAxisSecondY], byte 0
         je near .5
 .4:
         mov eax, dword [GripDriverPtr]
@@ -1056,26 +1056,26 @@ SetupOptionsAnim:
         mov eax, dword [GripDriverData]
         mov word [byte eax+056h], 0
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E34C]
+        mov eax, dword [JoyAxisSecondX]
         mov dword [byte edx+02Ch], eax
         mov edx, dword [GripDriverData]
         mov dword [byte edx+034h], eax
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E350]
+        mov eax, dword [JoyAxisSecondY]
         mov dword [byte edx+030h], eax
         mov edx, dword [GripDriverData]
         mov dword [byte edx+038h], eax
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E34C]
+        mov eax, dword [JoyAxisSecondX]
         mov dword [byte edx+03Ch], eax
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E350]
+        mov eax, dword [JoyAxisSecondY]
         mov dword [byte edx+040h], eax
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E34C]
+        mov eax, dword [JoyAxisSecondX]
         mov dword [byte edx+044h], eax
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E350]
+        mov eax, dword [JoyAxisSecondY]
         mov dword [byte edx+048h], eax
         mov eax, dword [GripDriverData]
         mov dword [byte eax+04Ch], 0F8h
@@ -1398,7 +1398,7 @@ UpdateOptionsAnim:
         je near .3
         mov edx, 1
         mov ax, 84A0h
-        call far [unk_19CCB8]
+        call far [GripFarCall]
         mov eax, dword [GripDriverPtr]
         mov eax, dword [eax+ebp]
         mov bl, 1
@@ -1410,13 +1410,13 @@ UpdateOptionsAnim:
         mov bh, dl
         xor ch, ch
         mov ax, 84C1h
-        call far [unk_19CCB8]
+        call far [GripFarCall]
         mov bl, 2
         xor ch, ch
         mov bh, dl
         mov edi, eax
         mov ax, 84C0h
-        call far [unk_19CCB8]
+        call far [GripFarCall]
         xor ebx, ebx
         mov bx, ax
         mov eax, dword [GripDriverData]
@@ -1429,7 +1429,7 @@ UpdateOptionsAnim:
         mov dword [esp], eax
         xor edx, edx
         mov ax, 84C0h
-        call far [unk_19CCB8]
+        call far [GripFarCall]
         mov dx, ax
         mov eax, dword [esp]
         mov eax, dword [byte eax+0Ch]
@@ -1443,69 +1443,69 @@ UpdateOptionsAnim:
         cmp dword [byte esp+0Ch], byte 0
         jne near .8
         mov eax, dword [GripDriverData]
-        mov ebx, dword [dword_16E344]
+        mov ebx, dword [JoyAxisValues]
         cmp ebx, dword [eax]
         jge short .4
         mov dword [eax], ebx
 .4:
         mov eax, dword [GripDriverData]
-        mov ecx, dword [dword_16E344]
+        mov ecx, dword [JoyAxisValues]
         cmp ecx, dword [byte eax+08h]
         jle short .5
         mov dword [byte eax+08h], ecx
 .5:
         mov eax, dword [GripDriverData]
-        mov edi, dword [dword_16E348]
+        mov edi, dword [JoyAxisY]
         cmp edi, dword [byte eax+04h]
         jge short .6
         mov dword [byte eax+04h], edi
 .6:
         mov edi, dword [GripDriverData]
-        mov edx, dword [dword_16E348]
+        mov edx, dword [JoyAxisY]
         cmp edx, dword [byte edi+0Ch]
         jle short .7
         mov dword [byte edi+0Ch], edx
 .7:
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E344]
+        mov eax, dword [JoyAxisValues]
         mov dword [byte edx+010h], eax
         mov edi, dword [byte esp+08h]
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E348]
+        mov eax, dword [JoyAxisY]
         not edi
         mov dword [byte edx+014h], eax
         jmp near .13
 .8:
         mov eax, dword [GripDriverData]
-        mov edx, dword [dword_16E34C]
+        mov edx, dword [JoyAxisSecondX]
         cmp edx, dword [byte eax+02Ch]
         jge short .9
         mov dword [byte eax+02Ch], edx
 .9:
         mov edi, dword [GripDriverData]
-        mov ebx, dword [dword_16E34C]
+        mov ebx, dword [JoyAxisSecondX]
         cmp ebx, dword [byte edi+034h]
         jle short .10
         mov dword [byte edi+034h], ebx
 .10:
         mov eax, dword [GripDriverData]
-        mov ecx, dword [dword_16E350]
+        mov ecx, dword [JoyAxisSecondY]
         cmp ecx, dword [byte eax+030h]
         jge short .11
         mov dword [byte eax+030h], ecx
 .11:
         mov eax, dword [GripDriverData]
-        mov edx, dword [dword_16E350]
+        mov edx, dword [JoyAxisSecondY]
         cmp edx, dword [byte eax+038h]
         jle short .12
         mov dword [byte eax+038h], edx
 .12:
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E34C]
+        mov eax, dword [JoyAxisSecondX]
         mov dword [byte edx+03Ch], eax
         mov edi, dword [byte esp+04h]
         mov edx, dword [GripDriverData]
-        mov eax, dword [dword_16E350]
+        mov eax, dword [JoyAxisSecondY]
         not edi
         mov dword [byte edx+040h], eax
 .13:
@@ -1537,17 +1537,17 @@ UpdateOptionsAnim:
         push ecx
         push edx
         mov ecx, 3Fh
-        mov eax, byte_19CCC6
+        mov eax, ChantPlayed
         xor edx, edx
         call __STOSB
         xor ah, ah
-        mov byte [byte_19CD05], ah
+        mov byte [ChantState], ah
         mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
         shr eax, 1Ah
         mov ax, word [nosplit eax*2+CrowdChantTable]
-        mov word [word_19CCC4], ax
+        mov word [ChantIndex], ax
         pop edx
         pop ecx
         ret
@@ -1616,7 +1616,7 @@ PickCrowdChant:
         mov word [esi], dx
         xor edx, edx
         mov dx, word [esi]
-        cmp byte [dword edx+byte_19CCC6], 0
+        cmp byte [dword edx+ChantPlayed], 0
         je short .5
         inc ebx
         cmp ebx, byte 5
@@ -1624,18 +1624,18 @@ PickCrowdChant:
 .5:
         cmp ebx, byte 5
         jl short .6
-        mov eax, byte_19CCC6
+        mov eax, ChantPlayed
         mov ecx, ebp
         xor edx, edx
         call __STOSB
         xor al, al
         mov edx, dword [GameOptionFlags]
-        mov byte [byte_19CD05], al
+        mov byte [ChantState], al
         mov edx, dword [byte edx+01h]
         shl edx, 0Ch
         shr edx, 1Ah
         mov dx, word [nosplit edx*2+CrowdChantTable]
-        mov word [word_19CCC4], dx
+        mov word [ChantIndex], dx
         jmp near .1
 .6:
         mov di, word [esi]
@@ -1643,7 +1643,7 @@ PickCrowdChant:
         jae short .7
         xor edx, edx
         mov dx, di
-        mov byte [dword edx+byte_19CCC6], 1
+        mov byte [dword edx+ChantPlayed], 1
 .7:
         add esp, byte 4
         pop ebp
@@ -1653,7 +1653,7 @@ PickCrowdChant:
         pop ebx
         ret
         db 090h
-jpt_11318:
+StartCrowdMusicJumpTable:
         dd StartCrowdMusic_26
         dd StartCrowdMusic_4F
         dd StartCrowdMusic_78
@@ -1673,14 +1673,14 @@ StartCrowdMusic:
         cmp ax, 3
         ja near StartCrowdMusic_A6.1
         and eax, 0FFFFh
-        jmp dword [nosplit cs:eax*4+jpt_11318]
+        jmp dword [nosplit cs:eax*4+StartCrowdMusicJumpTable]
 StartCrowdMusic_26:
         mov eax, 0Dh
         call SetCrowdMood
         mov eax, 5Bh
         mov ch, 1
         call StartMusicTrack
-        mov byte [byte_19CD05], ch
+        mov byte [ChantState], ch
         call RequestMusicStop
         add esp, byte 54h
         pop esi
@@ -1694,7 +1694,7 @@ StartCrowdMusic_4F:
         mov eax, 5Ah
         mov cl, 1
         call StartMusicTrack
-        mov byte [byte_19CD05], cl
+        mov byte [ChantState], cl
         call RequestMusicStop
         add esp, byte 54h
         pop esi
@@ -1711,7 +1711,7 @@ StartCrowdMusic_78:
         lea eax, [byte edx+05Dh]
         mov bh, 1
         call StartMusicTrack
-        mov byte [byte_19CD05], bh
+        mov byte [ChantState], bh
         call RequestMusicStop
         add esp, byte 54h
         pop esi
@@ -1723,7 +1723,7 @@ StartCrowdMusic_A6:
         mov eax, 61h
         mov bl, 1
         call StartMusicTrack
-        mov byte [byte_19CD05], bl
+        mov byte [ChantState], bl
         call RequestMusicStop
         add esp, byte 54h
         pop esi
@@ -1737,7 +1737,7 @@ StartCrowdMusic_A6:
         mov eax, dword [GameOptionFlags]
         test byte [byte eax+02h], 20h
         jne near .6
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne near .6
         mov dx, word [BreakawayFlag]
         cmp dx, byte 5
@@ -1791,7 +1791,7 @@ StartCrowdMusic_A6:
         mov eax, esp
         mov dh, 1
         call ChkMenuMusic
-        mov byte [byte_19CD05], dh
+        mov byte [ChantState], dh
         call RequestMusicStop
 .6:
         add esp, byte 54h
@@ -1807,11 +1807,11 @@ StartCrowdMusic_A6:
 ;-----------------------------------------------------------------------------
 RestartGameMusic:
         push edx
-        cmp byte [byte_19CD05], 0
+        cmp byte [ChantState], 0
         je short .1
         xor dl, dl
         call QueueMusicRestart
-        mov byte [byte_19CD05], dl
+        mov byte [ChantState], dl
 .1:
         pop edx
         ret
@@ -2037,10 +2037,10 @@ clearteams:
         cmp ebx, 218h
         jb short .2
         mov edx, SortCords
-        mov ebx, unk_1C135C
+        mov ebx, AutoLineData
         mov ah, 0FFh
         mov ecx, HomeTeamRecord+420h
-        mov esi, unk_1C347F
+        mov esi, HomeLines
         mov dword [HmTeamData], edx
         mov dword [HmScore], ebx
         mov byte [HmPlayerSlots], ah
@@ -2310,7 +2310,7 @@ RefreshPlayerModel:
         call DrawJerseyLettering
         test byte [gmode], 1
         jne short .2
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         je short .3
 .2:
         xor eax, eax
@@ -2926,30 +2926,30 @@ ResetPlayers:
         mov dword [dword edx+0102h], eax
         cmp ecx, byte 0Dh
         jge short .9
-        mov eax, dword_1B1410
+        mov eax, ObjectPositions
         add eax, dword [esp]
         mov dword [dword edx+0F2h], eax
-        mov eax, dword_19CD54
+        mov eax, GameObjects
         add eax, edi
         mov dword [dword edx+0F6h], eax
-        mov eax, unk_1B9520
+        mov eax, PlayerStartRecords
         add eax, esi
         mov dword [dword edx+0FAh], eax
         call ResetAnimTimer
-        mov dword [dword esi+dword_1B9558], 3F800000h
-        mov dword [dword esi+dword_1B9554], 461C4000h
+        mov dword [dword esi+PlayerStartScale], 3F800000h
+        mov dword [dword esi+PlayerStartDist], 461C4000h
         mov eax, edx
         call InitPlayerAnims
         jmp near .13
 .9:
         mov dword [dword edx+0F2h], 0
-        mov eax, unk_1B9520
+        mov eax, PlayerStartRecords
         mov dword [dword edx+0F6h], 0
         add eax, esi
         mov dword [dword edx+0FAh], eax
         call ResetAnimTimer
-        mov dword [dword esi+dword_1B9558], 3F800000h
-        mov dword [dword esi+dword_1B9554], 461C4000h
+        mov dword [dword esi+PlayerStartScale], 3F800000h
+        mov dword [dword esi+PlayerStartDist], 461C4000h
         cmp ecx, byte 0Fh
         je short .10
         cmp ecx, byte 0Eh
@@ -3838,11 +3838,11 @@ StartPeriod:
         push edx
         push esi
         push edi
-        cmp byte [byte_19CD05], 0
+        cmp byte [ChantState], 0
         je short .1
         xor dl, dl
         call QueueMusicRestart
-        mov byte [byte_19CD05], dl
+        mov byte [ChantState], dl
 .1:
         xor edx, edx
         call StopAllSfx
@@ -3935,7 +3935,7 @@ StartPeriod:
         mov byte [PlayFlags], bl
         call DoGameFrame
         call DoGameFrame
-        mov dword [dword_19CD88], edx
+        mov dword [GameTick], edx
         pop edi
         pop esi
         pop edx

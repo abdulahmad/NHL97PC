@@ -2,74 +2,73 @@
 bits 32
 %include "hockey.inc"
 section s_1C95C8 nobits alloc noexec write align=1
-global dword_1C95C8, dword_1C95CC, dword_1C95D0, dword_1C95D4, dword_1C95D8, dword_1C95DC, dword_1C95E0, dword_1C95E4
-global dword_1C95E8, dword_1C95EC, dword_1C95F0, dword_1C95F4, dword_1C95F8, dword_1C95FC, dword_1C9600, dword_1C9610
-global dword_1C9614, dword_1C9618, dword_1C961C, dword_1C9620, dword_1C9624, dword_1C9628, dword_1C9630, dword_1C9634
-global dword_1C9660, dword_1C9664, dword_1C967A, dword_1C967E, dword_1C9686, dword_1C968A, dword_1C96C2, dword_1C96C6
-global word_1C962C
-dword_1C95C8:
+global StatsShapeLists, TeamStatsShapeTop, TeamStatsShapeBottom, StatsHeaderShape, TeamStatsLogoShape, TeamStatsNameShape, StatsRowShape, TeamStatsBarShape
+global TeamStatsBarEnd, StatsArrowUp, StatsArrowDown, TeamStatsPanelShape, StatsSparkleShape, TeamStatsGlowShape, TeamStatsBitmap, StatsMenuItems
+global StatTableRows, StatsSoundPlayed, StatTableSortText, StatTableSortKeys, StatTableAlpha, StatTableColumns, UserRecordKinds, UserRecordArt
+global UserRecordsData, UserRecordItems, UserRecordItemKind, UserRecordItemArt, UserRecordItemX, UserRecordItemY, UserDetailPopupFields
+global StatTableSortColumn
+StatsShapeLists:
         resb 4
-dword_1C95CC:
+TeamStatsShapeTop:
         resb 4
-dword_1C95D0:
+TeamStatsShapeBottom:
         resb 4
-dword_1C95D4:
+StatsHeaderShape:
         resb 4
-dword_1C95D8:
+TeamStatsLogoShape:
         resb 4
-dword_1C95DC:
+TeamStatsNameShape:
         resb 4
-dword_1C95E0:
+StatsRowShape:
         resb 4
-dword_1C95E4:
+TeamStatsBarShape:
         resb 4
-dword_1C95E8:
+TeamStatsBarEnd:
         resb 4
-dword_1C95EC:
+StatsArrowUp:
         resb 4
-dword_1C95F0:
+StatsArrowDown:
         resb 4
-dword_1C95F4:
+TeamStatsPanelShape:
         resb 4
-dword_1C95F8:
+StatsSparkleShape:
         resb 4
-dword_1C95FC:
+TeamStatsGlowShape:
         resb 4
-dword_1C9600:
+TeamStatsBitmap:
         resb 16
-dword_1C9610:
+StatsMenuItems:
         resb 4
-dword_1C9614:
+StatTableRows:
         resb 4
-dword_1C9618:
+StatsSoundPlayed:
         resb 4
-dword_1C961C:
+StatTableSortText:
         resb 4
-dword_1C9620:
+StatTableSortKeys:
         resb 4
-dword_1C9624:
+StatTableAlpha:
         resb 4
-dword_1C9628:
+StatTableColumns:
         resb 4
-word_1C962C:
+StatTableSortColumn:
         resb 4
-dword_1C9630:
+UserRecordKinds:
         resb 4
-dword_1C9634:
+UserRecordArt:
         resb 44
-dword_1C9660:
+UserRecordsData:
         resb 4
-dword_1C9664:
+UserRecordItems:
         resb 22
-dword_1C967A:
+UserRecordItemKind:
         resb 4
-dword_1C967E:
+UserRecordItemArt:
         resb 8
-dword_1C9686:
+UserRecordItemX:
         resb 4
-dword_1C968A:
+UserRecordItemY:
         resb 56
-dword_1C96C2:
+UserDetailPopupFields:
         resb 4
-dword_1C96C6:
         resb 6

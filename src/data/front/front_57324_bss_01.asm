@@ -2,462 +2,356 @@
 bits 32
 %include "hockey.inc"
 section s_1B1258 nobits alloc noexec write align=1
-global byte_1B1378, byte_1B1398, byte_1B8571, byte_1B8580, byte_1B8581, byte_1B8582, byte_1B9058, dword_1B1258
-global dword_1B1260, dword_1B1264, dword_1B126C, dword_1B1270, dword_1B1278, dword_1B127C, dword_1B1284, dword_1B1288
-global dword_1B12FC, dword_1B1300, dword_1B137C, dword_1B1380, dword_1B1384, dword_1B1388, dword_1B138C, dword_1B1390
-global dword_1B13B0, dword_1B13B4, dword_1B13B8, dword_1B13BC, dword_1B13C0, dword_1B13C4, dword_1B13C8, dword_1B13E0
-global dword_1B13E4, dword_1B1404, dword_1B1410, dword_1B141C, dword_1B145C, dword_1B1464, dword_1B1B64, dword_1B82AC
-global dword_1B82B0, dword_1B82B4, dword_1B82B8, dword_1B82BC, dword_1B82C0, dword_1B82C4, dword_1B82C8, dword_1B82CC
-global dword_1B82D0, dword_1B82D4, dword_1B82D8, dword_1B82DC, dword_1B82E0, dword_1B82E4, dword_1B82F0, dword_1B82F4
-global dword_1B82FC, dword_1B8300, dword_1B8304, dword_1B830C, dword_1B8318, dword_1B8324, dword_1B8330, dword_1B833C
-global dword_1B834C, dword_1B8358, dword_1B8364, dword_1B8368, dword_1B836C, dword_1B8370, dword_1B8374, dword_1B8380
-global dword_1B838C, dword_1B8394, dword_1B8398, dword_1B83A0, dword_1B83A4, dword_1B83C8, dword_1B83D4, dword_1B83E0
-global dword_1B83EC, dword_1B8410, dword_1B841C, dword_1B8428, dword_1B8434, dword_1B8440, dword_1B8444, dword_1B8450
-global dword_1B8454, dword_1B8458, dword_1B845C, dword_1B8468, dword_1B846C, dword_1B8478, dword_1B8484, dword_1B8488
-global dword_1B848C, dword_1B84B0, dword_1B84B4, dword_1B84C0, dword_1B84C4, dword_1B84C8, dword_1B84CC, dword_1B84D8
-global dword_1B84DC, dword_1B84E8, dword_1B84F4, dword_1B84F8, dword_1B84FC, dword_1B8500, dword_1B8520, dword_1B8530
-global dword_1B8534, dword_1B8538, dword_1B853C, dword_1B8540, dword_1B8544, dword_1B8548, dword_1B854C, dword_1B8550
-global dword_1B8554, dword_1B8558, dword_1B855C, dword_1B8560, dword_1B8564, dword_1B8568, dword_1B856C, dword_1B8570
-global dword_1B8574, dword_1B8578, dword_1B857C, dword_1B857F, dword_1B88D8, dword_1B88DC, dword_1B8910, dword_1B8944
-global dword_1B8978, dword_1B89AC, dword_1B89B0, dword_1B89D4, dword_1B89D8, dword_1B89F0, dword_1B8A14, dword_1B8A18
-global dword_1B8BCC, dword_1B8D84, dword_1B8F44, dword_1B8F48, dword_1B8F4C, dword_1B8F50, dword_1B8F54, dword_1B8F58
-global dword_1B8F5C, dword_1B8F60, dword_1B8F64, dword_1B8F68, dword_1B8F6C, dword_1B8F70, dword_1B8F74, dword_1B8F78
-global dword_1B8F7C, dword_1B8F80, dword_1B8F84, dword_1B8F88, dword_1B8F8C, dword_1B8F90, dword_1B8F94, dword_1B8F98
-global dword_1B8F9C, dword_1B8FA0, dword_1B8FA4, dword_1B9018, dword_1B901C, dword_1B9020, dword_1B9024, dword_1B9028
-global dword_1B902C, dword_1B9030, dword_1B9034, dword_1B905F, dword_1B9063, dword_1B9067, dword_1B906B, dword_1B906F
-global dword_1B9077, dword_1B907B, dword_1B907F, dword_1B9083, dword_1B9087, dword_1B908B, dword_1B908F, dword_1B9093
-global dword_1B9097, dword_1B90B3, dword_1B90CF, dword_1B90EB, dword_1B90EF, dword_1B90F3, dword_1B90F7, dword_1B90FB
-global dword_1B90FF, dword_1B92D0, dword_1B9358, dword_1B935C, unk_1B13E8, unk_1B73F0, unk_1B7448, unk_1B7BA8
-global unk_1B8583, unk_1B85DC, unk_1B8BD0, unk_1B8D88, unk_1B8FA8, unk_1B9038, unk_1B91AF, unk_1B92AB
-dword_1B1258:
+global TeamColorSet, ModelLoadedFlags, TeamModelFlags, SeatModelCount, SeatModelTeam, SeatModelFlag, CameraStateRecords, MarkerPoints
+global DrawFuncTable
+global DrawPartCount, DrawSortList, CommonArt, StickModels, StickArt, GoalieStickModels, GoalieStickArt, PuckArrowArt
+global SkateArt, GloveArt, HelmetArt, PadArt, ShadowArt, PlayerModelData, SeatModelSlots, HeadArt
+global BodyArt, GameRecord, ObjectPositions, TargetPoints, ModelPairs, ReplayFrames, ReplayData, LodScale
+global HeadLodNear, HeadLodFar, StickLodDist, HeadLodMid, ModelLodNear, ModelLodFar, PlayerLodNear, PlayerLodFar
+global ArmLodDist, ShadowLodDist, DrawPartsDone, PlayerArtTables
+
+
+
+
+
+
+
+
+global HeadDetail
+global HeadModelData, PlayerNamesOn, RenderTimersOn, SeatModelBase, FaceArtCount, HomeFaceTextures, AwayFaceTextures, HomeFaceSwap
+global AwayFaceSwap, FaceTextureCount, ReplayObjects, ReplayObjectCount, ReplayRestoreFuncs, ReplayObjectSizes, ReplayPlayerStateCount, ReplayStatesPlayers
+global ReplayPuckStateCount, ReplayCameraStateCount, InstantReplayOn, ReplaySoundOn, ReplayMode, ReplayFrame, ReplayDrawn, InstantReplayStart
+global InstantReplayEnd, ReplayObjectsSet, ReplayWritePos, ReplayFrameCount, ReplayBuffer, ReplayRecording, ReplayStateSize, ReplayPackBuf
+global ReplayPackPos, ReplayHeader, ReplayBufferEnd, ReplayReadPos, ReplayFull, ReplayFrameSize, ReplayFinalFrame, ReplayUnpackPos
+global ReplayStateTotal, ReplayPlaying, ReplayTick, OffscreenFov, OffscreenAspect, OffscreenNear, OffscreenFar, SpriteBuffersOn
+global PaletteDirtyFlag, PortraitCamera, OffscreenTarget
+
+
+global GoalieAnimData, GoalieAnimFiles, GoalieFreezeAnims, PlayerDrawParams, PortraitModels, SavedPalette, SavedPaletteRemap
+global SeatModelList, PlayerModels, ReplayStatesPuck, ReplayStatesCamera, OffscreenState, CameraViewNames
+MarkerPoints:
         resb 8
-dword_1B1260:
         resb 4
-dword_1B1264:
         resb 8
-dword_1B126C:
         resb 4
-dword_1B1270:
         resb 8
-dword_1B1278:
         resb 4
-dword_1B127C:
         resb 8
-dword_1B1284:
         resb 4
-dword_1B1288:
+DrawFuncTable:
         resb 116
-dword_1B12FC:
+DrawPartCount:
         resb 4
-dword_1B1300:
+DrawSortList:
         resb 120
-byte_1B1378:
+TeamColorSet:
         resb 4
-dword_1B137C:
+CommonArt:
         resb 4
-dword_1B1380:
+StickModels:
         resb 4
-dword_1B1384:
+StickArt:
         resb 4
-dword_1B1388:
+GoalieStickModels:
         resb 4
-dword_1B138C:
+GoalieStickArt:
         resb 4
-dword_1B1390:
+PuckArrowArt:
         resb 8
-byte_1B1398:
+ModelLoadedFlags:
         resb 24
-dword_1B13B0:
+SkateArt:
         resb 4
-dword_1B13B4:
+GloveArt:
         resb 4
-dword_1B13B8:
+HelmetArt:
         resb 4
-dword_1B13BC:
+PadArt:
         resb 4
-dword_1B13C0:
+ShadowArt:
         resb 4
-dword_1B13C4:
+PlayerModelData:
         resb 4
-dword_1B13C8:
+SeatModelSlots:
         resb 24
-dword_1B13E0:
+HeadArt:
         resb 4
-dword_1B13E4:
+BodyArt:
         resb 4
-unk_1B13E8:
+PlayerDrawParams:
         resb 28
-dword_1B1404:
+GameRecord:
         resb 12
-dword_1B1410:
+ObjectPositions:
         resb 12
-dword_1B141C:
+TargetPoints:
         resb 64
-dword_1B145C:
+ModelPairs:
         resb 8
-dword_1B1464:
+ReplayFrames:
         resb 1792
-dword_1B1B64:
+ReplayData:
         resb 22668
-unk_1B73F0:
+PortraitModels:
         resb 88
-unk_1B7448:
+SavedPalette:
         resb 1888
-unk_1B7BA8:
+SavedPaletteRemap:
         resb 1796
-dword_1B82AC:
+LodScale:
         resb 4
-dword_1B82B0:
+HeadLodNear:
         resb 4
-dword_1B82B4:
+HeadLodFar:
         resb 4
-dword_1B82B8:
+StickLodDist:
         resb 4
-dword_1B82BC:
+HeadLodMid:
         resb 4
-dword_1B82C0:
+ModelLodNear:
         resb 4
-dword_1B82C4:
+ModelLodFar:
         resb 4
-dword_1B82C8:
+PlayerLodNear:
         resb 4
-dword_1B82CC:
+PlayerLodFar:
         resb 4
-dword_1B82D0:
+ArmLodDist:
         resb 4
-dword_1B82D4:
+ShadowLodDist:
         resb 4
-dword_1B82D8:
+DrawPartsDone:
         resb 4
-dword_1B82DC:
+PlayerArtTables:
         resb 4
-dword_1B82E0:
         resb 4
-dword_1B82E4:
         resb 12
-dword_1B82F0:
         resb 4
-dword_1B82F4:
         resb 8
-dword_1B82FC:
         resb 4
-dword_1B8300:
         resb 4
-dword_1B8304:
         resb 8
-dword_1B830C:
         resb 12
-dword_1B8318:
         resb 12
-dword_1B8324:
         resb 12
-dword_1B8330:
         resb 12
-dword_1B833C:
         resb 16
-dword_1B834C:
         resb 12
-dword_1B8358:
         resb 12
-dword_1B8364:
         resb 4
-dword_1B8368:
         resb 4
-dword_1B836C:
         resb 4
-dword_1B8370:
         resb 4
-dword_1B8374:
         resb 12
-dword_1B8380:
         resb 12
-dword_1B838C:
         resb 8
-dword_1B8394:
         resb 4
-dword_1B8398:
         resb 8
-dword_1B83A0:
         resb 4
-dword_1B83A4:
         resb 36
-dword_1B83C8:
         resb 12
-dword_1B83D4:
         resb 12
-dword_1B83E0:
         resb 12
-dword_1B83EC:
         resb 36
-dword_1B8410:
         resb 12
-dword_1B841C:
         resb 12
-dword_1B8428:
         resb 12
-dword_1B8434:
         resb 12
-dword_1B8440:
         resb 4
-dword_1B8444:
         resb 12
-dword_1B8450:
         resb 4
-dword_1B8454:
         resb 4
-dword_1B8458:
         resb 4
-dword_1B845C:
         resb 12
-dword_1B8468:
         resb 4
-dword_1B846C:
         resb 12
-dword_1B8478:
         resb 12
-dword_1B8484:
         resb 4
-dword_1B8488:
         resb 4
-dword_1B848C:
         resb 36
-dword_1B84B0:
         resb 4
-dword_1B84B4:
         resb 12
-dword_1B84C0:
         resb 4
-dword_1B84C4:
         resb 4
-dword_1B84C8:
         resb 4
-dword_1B84CC:
         resb 12
-dword_1B84D8:
         resb 4
-dword_1B84DC:
         resb 12
-dword_1B84E8:
         resb 12
-dword_1B84F4:
         resb 4
-dword_1B84F8:
         resb 4
-dword_1B84FC:
         resb 4
-dword_1B8500:
         resb 32
-dword_1B8520:
         resb 16
-dword_1B8530:
         resb 4
-dword_1B8534:
         resb 4
-dword_1B8538:
         resb 4
-dword_1B853C:
         resb 4
-dword_1B8540:
         resb 4
-dword_1B8544:
         resb 4
-dword_1B8548:
         resb 4
-dword_1B854C:
         resb 4
-dword_1B8550:
         resb 4
-dword_1B8554:
         resb 4
-dword_1B8558:
         resb 4
-dword_1B855C:
         resb 4
-dword_1B8560:
         resb 4
-dword_1B8564:
         resb 4
-dword_1B8568:
         resb 4
-dword_1B856C:
         resb 4
-dword_1B8570:
+HeadDetail:
         resb 1
-byte_1B8571:
+TeamModelFlags:
         resb 3
-dword_1B8574:
+HeadModelData:
         resb 4
-dword_1B8578:
+PlayerNamesOn:
         resb 4
-dword_1B857C:
+RenderTimersOn:
         resb 3
-dword_1B857F:
+SeatModelBase:
         resb 1
-byte_1B8580:
+SeatModelCount:
         resb 1
-byte_1B8581:
+SeatModelTeam:
         resb 1
-byte_1B8582:
+SeatModelFlag:
         resb 1
-unk_1B8583:
+SeatModelList:
         resb 89
-unk_1B85DC:
+PlayerModels:
         resb 764
-dword_1B88D8:
+FaceArtCount:
         resb 4
-dword_1B88DC:
+HomeFaceTextures:
         resb 52
-dword_1B8910:
+AwayFaceTextures:
         resb 52
-dword_1B8944:
+HomeFaceSwap:
         resb 52
-dword_1B8978:
+AwayFaceSwap:
         resb 52
-dword_1B89AC:
+FaceTextureCount:
         resb 4
-dword_1B89B0:
+ReplayObjects:
         resb 36
-dword_1B89D4:
+ReplayObjectCount:
         resb 4
-dword_1B89D8:
+ReplayRestoreFuncs:
         resb 24
-dword_1B89F0:
+ReplayObjectSizes:
         resb 36
-dword_1B8A14:
+ReplayPlayerStateCount:
         resb 4
-dword_1B8A18:
+ReplayStatesPlayers:
         resb 436
-dword_1B8BCC:
+ReplayPuckStateCount:
         resb 4
-unk_1B8BD0:
+ReplayStatesPuck:
         resb 436
-dword_1B8D84:
+ReplayCameraStateCount:
         resb 4
-unk_1B8D88:
+ReplayStatesCamera:
         resb 444
-dword_1B8F44:
+InstantReplayOn:
         resb 4
-dword_1B8F48:
+ReplaySoundOn:
         resb 4
-dword_1B8F4C:
+ReplayMode:
         resb 4
-dword_1B8F50:
+ReplayFrame:
         resb 4
-dword_1B8F54:
+ReplayDrawn:
         resb 4
-dword_1B8F58:
+InstantReplayStart:
         resb 4
-dword_1B8F5C:
+InstantReplayEnd:
         resb 4
-dword_1B8F60:
+ReplayObjectsSet:
         resb 4
-dword_1B8F64:
+ReplayWritePos:
         resb 4
-dword_1B8F68:
+ReplayFrameCount:
         resb 4
-dword_1B8F6C:
+ReplayBuffer:
         resb 4
-dword_1B8F70:
+ReplayRecording:
         resb 4
-dword_1B8F74:
+ReplayStateSize:
         resb 4
-dword_1B8F78:
+ReplayPackBuf:
         resb 4
-dword_1B8F7C:
+ReplayPackPos:
         resb 4
-dword_1B8F80:
+ReplayHeader:
         resb 4
-dword_1B8F84:
+ReplayBufferEnd:
         resb 4
-dword_1B8F88:
+ReplayReadPos:
         resb 4
-dword_1B8F8C:
+ReplayFull:
         resb 4
-dword_1B8F90:
+ReplayFrameSize:
         resb 4
-dword_1B8F94:
+ReplayFinalFrame:
         resb 4
-dword_1B8F98:
+ReplayUnpackPos:
         resb 4
-dword_1B8F9C:
+ReplayStateTotal:
         resb 4
-dword_1B8FA0:
+ReplayPlaying:
         resb 4
-dword_1B8FA4:
+ReplayTick:
         resb 4
-unk_1B8FA8:
+OffscreenState:
         resb 112
-dword_1B9018:
+OffscreenFov:
         resb 4
-dword_1B901C:
+OffscreenAspect:
         resb 4
-dword_1B9020:
+OffscreenNear:
         resb 4
-dword_1B9024:
+OffscreenFar:
         resb 4
-dword_1B9028:
+SpriteBuffersOn:
         resb 4
-dword_1B902C:
+PaletteDirtyFlag:
         resb 4
-dword_1B9030:
+PortraitCamera:
         resb 4
-dword_1B9034:
+OffscreenTarget:
         resb 4
-unk_1B9038:
+CameraViewNames:
         resb 32
-byte_1B9058:
+CameraStateRecords:
         resb 7
-dword_1B905F:
         resb 4
-dword_1B9063:
         resb 4
-dword_1B9067:
         resb 4
-dword_1B906B:
         resb 4
-dword_1B906F:
         resb 8
-dword_1B9077:
         resb 4
-dword_1B907B:
         resb 4
-dword_1B907F:
         resb 4
-dword_1B9083:
         resb 4
-dword_1B9087:
         resb 4
-dword_1B908B:
         resb 4
-dword_1B908F:
         resb 4
-dword_1B9093:
         resb 4
-dword_1B9097:
         resb 28
-dword_1B90B3:
         resb 28
-dword_1B90CF:
         resb 28
-dword_1B90EB:
         resb 4
-dword_1B90EF:
         resb 4
-dword_1B90F3:
         resb 4
-dword_1B90F7:
         resb 4
-dword_1B90FB:
         resb 4
-dword_1B90FF:
         resb 176
-unk_1B91AF:
         resb 252
-unk_1B92AB:
         resb 37
-dword_1B92D0:
+GoalieAnimData:
         resb 136
-dword_1B9358:
+GoalieAnimFiles:
         resb 4
-dword_1B935C:
+GoalieFreezeAnims:
         resb 124

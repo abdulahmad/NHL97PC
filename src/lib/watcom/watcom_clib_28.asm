@@ -18,9 +18,9 @@ extern EmuFdivrSt, EmuFldSt, EmuFxch, EmuFtstFxam, EmuSignOps, EmuLogOps, EmuRem
 extern EmuDispatchDBReg, EmuFaddToSt, EmuFmulToSt, EmuFsubrToSt, EmuFsubToSt, EmuFdivrToSt, EmuFdivToSt, EmuFfree
 extern EmuFstSt, EmuFucom, EmuFucomp, EmuFstpSt, EmuFaddp, EmuFmulp, EmuFcompp, EmuFsubrp
 extern EmuFsubp, EmuFdivrp, EmuFdivp, EmuDispatchDFReg
-global __cnvs2d_, forcedecpt_, jpt_1329F0, jpt_132AF0, jpt_132AF0_100, jpt_132AF0_170, NoFloatSupport, unk_132878
-global unk_13287C, unk_132880, str_Punct_jpt, str_F, unk_132886, unk_1328D2, unk_1328D4, unk_1328D8
-global unk_1328DA, unk_132922, unk_132926, unk_132930, unk_132990
+global __cnvs2d_, forcedecpt_, EmuOpcodeJumpTable, EmuModRmJumpTable, NoFloatSupport_38D, NoFloatSupport_3FD, NoFloatSupport, EmuZeroTbyte
+global EmuRegRing, EmuRegTagMasks
+global EmuCompareCcBits, EmuFpremCcBits, EmuEaModRmTable, EmuEaSibTable
 ;-----------------------------------------------------------------------------
 ; forcedecpt_                                                  1327F6  library
 ;-----------------------------------------------------------------------------
@@ -97,39 +97,46 @@ NoFloatSupport:
         pop edx
         ret
         db 00h,00h,00h
-unk_132878:
+;-----------------------------------------------------------------------------
+; EmuZeroTbyte                                   132878  97 PC, low confidence
+; X87 emulator: an 80-bit zero loaded into a stack register
+;-----------------------------------------------------------------------------
+EmuZeroTbyte:
         db 00h,00h,00h,00h
-unk_13287C:
         db 00h,00h,00h,00h
-unk_132880:
         db 00h,00h
-str_Punct_jpt:
+;-----------------------------------------------------------------------------
+; EmuRegRing                                     132882  97 PC, low confidence
+; X87 emulator: 8 ten-byte stack register records (next and previous register
+; offsets, top-of-stack status bits)
+;-----------------------------------------------------------------------------
+EmuRegRing:
         db 0Ah,00h
-str_F:
         db 046h,00h
-unk_132886:
         db 00h,00h,00h,00h,00h,00h,014h,00h,00h,00h,00h,08h,01h,00h,00h,00h
         db 01Eh,00h,0Ah,00h,00h,010h,02h,00h,00h,00h,028h,00h,014h,00h,00h,018h
         db 03h,00h,00h,00h,032h,00h,01Eh,00h,00h,020h,04h,00h,00h,00h,03Ch,00h
         db 028h,00h,00h,028h,05h,00h,00h,00h,046h,00h,032h,00h,00h,030h,06h,00h
         db 00h,00h,00h,00h,03Ch,00h,00h,038h,07h,00h,00h,00h
-unk_1328D2:
+;-----------------------------------------------------------------------------
+; EmuRegTagMasks                                 1328D2  97 PC, low confidence
+; X87 emulator: 8 ten-byte tag word records per register (clear mask, then
+; the valid, zero and empty tag bits)
+;-----------------------------------------------------------------------------
+EmuRegTagMasks:
         db 0FCh,0FFh
-unk_1328D4:
         db 01h,00h,00h,00h
-unk_1328D8:
         db 02h,00h
-unk_1328DA:
         db 03h,00h,0F3h,0FFh,04h,00h,00h,00h,08h,00h,0Ch,00h,0CFh,0FFh,010h,00h
         db 00h,00h,020h,00h,030h,00h,03Fh,0FFh,040h,00h,00h,00h,080h,00h,0C0h,00h
         db 0FFh,0FCh,00h,01h,00h,00h,00h,02h,00h,03h,0FFh,0F3h,00h,04h,00h,00h
         db 00h,08h,00h,0Ch,0FFh,0CFh,00h,010h,00h,00h,00h,020h,00h,030h,0FFh,03Fh
         db 00h,040h,00h,00h,00h,080h,00h,0C0h
-unk_132922:
+EmuCompareCcBits:
         db 01h,040h,00h,045h
-unk_132926:
+EmuFpremCcBits:
         db 00h,02h,040h,042h,01h,03h,041h,043h,087h,0DBh
-unk_132930:
+EmuEaModRmTable:
         dd EaEax
         dd EaEcx
         dd EaEdx
@@ -154,7 +161,7 @@ unk_132930:
         dd EaEbpDisp32
         dd EaEsiDisp32
         dd EaEdiDisp32
-unk_132990:
+EmuEaSibTable:
         dd EaEax
         dd EaEcx
         dd EaEdx
@@ -179,7 +186,7 @@ unk_132990:
         dd EaEbpDisp32
         dd EaEsiDisp32
         dd EaEdiDisp32
-jpt_1329F0:
+EmuOpcodeJumpTable:
         dd EmuFaddM32
         dd EmuFldM32
         dd EmuFiaddM32
@@ -244,7 +251,7 @@ jpt_1329F0:
         dd EmuFstswM16
         dd EmuFidivrM16
         dd EmuFistpM64
-jpt_132AF0:
+EmuModRmJumpTable:
         dd EmuFaddSt
         dd EmuFldSt
         dd EmuReservedOp
@@ -310,9 +317,9 @@ jpt_132AF0:
         dd EmuFdivp
         dd EmuReservedOp
 ;-----------------------------------------------------------------------------
-; jpt_132AF0_100                                                      132BF0  
+; NoFloatSupport_38D                                                  132BF0  
 ;-----------------------------------------------------------------------------
-jpt_132AF0_100:
+NoFloatSupport_38D:
         sti
         pusha
         LD mov, ebp, esp
@@ -368,9 +375,9 @@ jpt_132AF0_100:
         iret
         db 087h,0DBh
 ;-----------------------------------------------------------------------------
-; jpt_132AF0_170                                                      132C60  
+; NoFloatSupport_3FD                                                  132C60  
 ;-----------------------------------------------------------------------------
-jpt_132AF0_170:
+NoFloatSupport_3FD:
         sti
         sub esp, byte 0Ch
         push eax

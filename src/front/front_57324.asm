@@ -17,9 +17,9 @@ extern str_Skate, str_Stop, str_Puckh, str_PlAct, str_PlFall, str_Interfer, str_
 extern str_Refcalls, str_Refambi, str_Fight, str_Cup2, str_Puck3, str_Stickheel, str_Origin, str_Chin
 extern str_Rhand, str_Lshldr, str_Rshldr, str_ANIMSVIV, str_MIRROR, str_SCALED, str_LOOP, str_MASTER
 extern str_SLAVE, str_FADING, str_4da, str_ANIMSTAT, str_AiconsViv, str_Cross, str_ANIMSVIV2, awtmstruct
-extern byte_16C429, IdentityRemap, PuckArrowColors, PenaltyPending, NearestPlayer, gmode, PuckFlags, PlayFlags
-extern holdreset, byte_19CD8C, PlayerControlFlags, byte_1AD72B, byte_1B1378, byte_1B1398, byte_1B8571, byte_1B8580
-extern byte_1B8582, byte_1B9058, byte_1BF670, chkprogress, F32_50_DrawPlayerModel, F32_200, F32_neg30, F32_20_DrawPlayerMarkers
+extern MoveContactFlags, IdentityRemap, PuckArrowColors, PenaltyPending, NearestPlayer, gmode, PuckFlags, PlayFlags
+extern holdreset, PadStates, PlayerControlFlags, PlayoffRound, TeamColorSet, ModelLoadedFlags, TeamModelFlags, SeatModelCount
+extern SeatModelFlag, CameraStateRecords, MoveFlags, chkprogress, F32_50_DrawPlayerModel, F32_200, F32_neg30, F32_20_DrawPlayerMarkers
 extern F32_neg20_DrawPlayerMarkers, F32_30, F32_65536_LoadFaceTexture, F32_4096, F32_464, F32_65536_BeginOffscreenRender, F32_65536_SetPortraitProjection, F32_2_CameraSplinePoint
 extern F32_3_CameraSplinePoint, F32_3_CameraEasePoint, F32_2_CameraEasePoint, F32_2_SetCameraTarget, F32_3_SetCameraTarget, F32_2_UpdateCameraMotion, F32_3_UpdateCameraMotion, F32_neg10_PlaySkateSounds
 extern F32_0p5_StickHandleScaled, F32_0p5_StickHandleSpeed, F32_neg4272_GoalieReadShot, F32_176, F32_neg4, F32_4_GoalieReadShot, F32_480, F32_288
@@ -42,54 +42,54 @@ extern F32_neg4608, F32_4608, F32_neg1848, F32_1392_ResolveBodyCheck, F32_1848, 
 extern F32_neg3_CelebrationJumpMove, F32_0p5_SkateToBenchStep, F32_0p1_RefWhistleAnim, F32_30_PokeCheckMove, F32_96_PokeCheckMove, F32_30_SweepCheckMove, F32_30_HookMove, F32_0p5_BlockReach
 extern F32_12_BlockShotMove, F32_0p1_BlockShotMove, F32_120, F32_168, F32_10_GoalieSave, F32_96_GoalieSave, F32_240, F32_144_GoalieMoves
 extern F32_24_GoalieMoves, F32_2_GoalieMoves, F32_480_GoalieMoves, F32_neg1_GoalieMoves, F32_672, ScoreClockShown, SavedCameraView, InGameMenuRequest
-extern PlayoffColumns, dword_16AF5C, F32_2000_ScaleModelLods, F32_1, dword_16B1A4, dword_16B1A8, dword_16B3F4, dword_16B550
-extern dword_16B724, dword_16B72C, str_Punct_LoadAnimData, dword_16C360, dword_16C364, dword_16C368, dword_16C374, dword_16C384
-extern dword_16C388, dword_16C38C, dword_16C390, dword_16C394, dword_16C398, dword_16C39C, dword_16C3A0, dword_16C3A4
-extern dword_16C3A8, dword_16C3AC, dword_16C3B0, dword_16C3F0, dword_16C54C, dword_16C550, dword_16C55C, dword_16C568
-extern dword_16C574, dword_16C580, dword_16C58C, dword_16C618, dword_16C63C, dword_16C648, F32_7p84727eneg44, F32_0
-extern dword_16C6B0, dword_16C6B4, dword_16C6B8, dword_16C6BC, dword_16E308, GoalieTickData, str_Punct_DrawRinkSurface, F32_50p0_View
+extern PlayoffColumns, CameraScenesEnabled, F32_2000_ScaleModelLods, F32_1, LetterOffsets, LetterMasks, LetterColors, SeatModelsUsed
+extern ReplayStatesSet, F32_ViewAngle, str_Punct_LoadAnimData, MoveState, PlayerAnimBase, PlayerAnimSize, PlayerAnimScale, PlayerAnimMove
+extern SkateAnimData, ShotAnimData, ActAnimData, FallAnimData, InterferAnimData, GoalieAnimDataPtr, RefSkateAnimData, RefAmbiAnimData
+extern RefCallAnimData, FightAnimData, CupAnimData, MoveAnimIds, SpaEnabled, IdleAnims, AnimPointUnset, CollideAnimsFront
+extern CollideAnimsSide, CollideAnimsBack, RefGoalLineAnims, BlockShotAnims, BlockShotMoveLeft, BlockShotMoveRight, F32_7p84727eneg44, F32_0
+extern ClockDataTicks, ClockDataRate, ClockDataBase, CupCelebrationActive, AudioDriverVersion, GoalieTickData, str_Punct_DrawRinkSurface, F32_50p0_View
 extern ViewCenterY, str_D_ProjectPointsPersp, ShotState, LastTouchPlayer, PassFrom, PassTo, PuckHitFlag, ZoneTargetX
-extern RefPlayer, SlotPlayers, bholdtimer, dword_19CD54, PlayerUpdateFlags, PlayerUpdateTable, HmSkaterCount, HmTeamData
+extern RefPlayer, SlotPlayers, bholdtimer, GameObjects, PlayerUpdateFlags, PlayerUpdateTable, HmSkaterCount, HmTeamData
 extern HmScore, AwSkaterCount, AwTeamData, AwScore, ViewPixelWidth, ViewPixelHeight, GameSettings, GameOptionFlags
-extern dword_1AD437, dword_1AD69F, dword_1AD6A3, dword_1ADC88, dword_1ADC90, dword_1B0CFC, dword_1B1258, dword_1B1260
-extern dword_1B1264, dword_1B126C, dword_1B1270, dword_1B1278, dword_1B127C, dword_1B1284, dword_1B1288, dword_1B12FC
-extern dword_1B1300, dword_1B137C, dword_1B1380, dword_1B1384, dword_1B1388, dword_1B138C, dword_1B1390, dword_1B13B0
-extern dword_1B13B4, dword_1B13B8, dword_1B13BC, dword_1B13C0, dword_1B13C4, dword_1B13C8, dword_1B13E0, dword_1B13E4
-extern dword_1B1410, dword_1B145C, dword_1B1464, dword_1B82AC, dword_1B82B0, dword_1B82B4, dword_1B82B8, dword_1B82BC
-extern dword_1B82C0, dword_1B82C4, dword_1B82C8, dword_1B82CC, dword_1B82D0, dword_1B82D4, dword_1B82D8, dword_1B82DC
-extern dword_1B82E0, dword_1B82E4, dword_1B82F0, dword_1B82F4, dword_1B82FC, dword_1B8300, dword_1B8304, dword_1B830C
-extern dword_1B8318, dword_1B8324, dword_1B8330, dword_1B833C, dword_1B834C, dword_1B8358, dword_1B8364, dword_1B8368
-extern dword_1B836C, dword_1B8370, dword_1B8374, dword_1B8380, dword_1B838C, dword_1B8394, dword_1B8398, dword_1B83A0
-extern dword_1B83A4, dword_1B83C8, dword_1B83D4, dword_1B83E0, dword_1B83EC, dword_1B8410, dword_1B841C, dword_1B8428
-extern dword_1B8434, dword_1B8440, dword_1B8444, dword_1B8450, dword_1B8454, dword_1B8458, dword_1B845C, dword_1B8468
-extern dword_1B846C, dword_1B8478, dword_1B8484, dword_1B8488, dword_1B848C, dword_1B84B0, dword_1B84B4, dword_1B84C0
-extern dword_1B84C4, dword_1B84C8, dword_1B84CC, dword_1B84D8, dword_1B84DC, dword_1B84E8, dword_1B84F4, dword_1B84F8
-extern dword_1B84FC, dword_1B8500, dword_1B8520, dword_1B8530, dword_1B8534, dword_1B8538, dword_1B853C, dword_1B8540
-extern dword_1B8544, dword_1B8548, dword_1B854C, dword_1B8550, dword_1B8554, dword_1B8558, dword_1B855C, dword_1B8560
-extern dword_1B8564, dword_1B8568, dword_1B856C, dword_1B8570, dword_1B8574, dword_1B8578, dword_1B857C, dword_1B88D8
-extern dword_1B88DC, dword_1B8910, dword_1B8944, dword_1B8978, dword_1B89AC, dword_1B89B0, dword_1B89D4, dword_1B89D8
-extern dword_1B89F0, dword_1B8A14, dword_1B8A18, dword_1B8BCC, dword_1B8D84, dword_1B8F44, dword_1B8F48, dword_1B8F4C
-extern dword_1B8F50, dword_1B8F54, dword_1B8F58, dword_1B8F5C, dword_1B8F60, dword_1B8F64, dword_1B8F68, dword_1B8F6C
-extern dword_1B8F70, dword_1B8F74, dword_1B8F78, dword_1B8F7C, dword_1B8F80, dword_1B8F84, dword_1B8F88, dword_1B8F8C
-extern dword_1B8F90, dword_1B8F94, dword_1B8F98, dword_1B8F9C, dword_1B8FA0, dword_1B8FA4, dword_1B9018, dword_1B901C
-extern dword_1B9020, dword_1B9024, dword_1B9028, dword_1B902C, dword_1B9030, dword_1B9034, dword_1B905F, dword_1B9063
-extern dword_1B9067, dword_1B906B, dword_1B906F, dword_1B9077, dword_1B907B, dword_1B9087, dword_1B908B, dword_1B9093
-extern dword_1B9097, dword_1B90B3, dword_1B90CF, dword_1B90EB, dword_1B90EF, dword_1B90F3, dword_1B90F7, dword_1B90FB
-extern dword_1B90FF, dword_1B92D0, dword_1B9358, dword_1B935C, dword_1B94DC, dword_1B9A14, dword_1B9A18, dword_1B9AB8
-extern dword_1B9ABC, dword_1B9AC0, dword_1B9C50, dword_1B9C8C, dword_1B9C90, dword_1B9CB0, dword_1B9CFC, dword_1B9D04
-extern dword_1B9D08, dword_1B9D18, dword_1B9D20, dword_1B9D28, dword_1BA050, dword_1BA068, dword_1BA088, dword_1BA0A0
-extern dword_1BB258, dword_1BF050, dword_1BF054, dword_1BF058, dword_1BF05C, dword_1BF060, dword_1BF064, dword_1BF068
-extern dword_1BF06C, dword_1BF070, dword_1BF074, dword_1BF078, dword_1BF07C, dword_1BF084, dword_1BF0B8, dword_1BF0BC
-extern dword_1BF1B4, dword_1BF248, dword_1BF7F0, dword_1BF7F4, dword_1BF7F8, dword_1BF7FC, dword_1BF800, dword_1BF888
-extern dword_1BF88C, dword_1BF890, dword_1BF894, dword_1BF898, dword_1BF89C, dword_1BF8A0, dword_1BF8A4, dword_1BF8A8
-extern dword_1BF8B0, dword_1BF8B4, dword_1C0EE0, dword_1C0EEC, dword_1C0EF0, dword_1C0EF8, dword_1C0EFC, FontGlyphColors
+extern PlayoffRoundBits, PlayoffCurrentRound, PlayoffFinalRound, ArenaArchive, RinkLineArt, ModelSlotTable, MarkerPoints
+extern MarkerPoints, DrawFuncTable, DrawPartCount
+extern DrawSortList, CommonArt, StickModels, StickArt, GoalieStickModels, GoalieStickArt, PuckArrowArt, SkateArt
+extern GloveArt, HelmetArt, PadArt, ShadowArt, PlayerModelData, SeatModelSlots, HeadArt, BodyArt
+extern ObjectPositions, ModelPairs, ReplayFrames, LodScale, HeadLodNear, HeadLodFar, StickLodDist, HeadLodMid
+extern ModelLodNear, ModelLodFar, PlayerLodNear, PlayerLodFar, ArmLodDist, ShadowLodDist, DrawPartsDone, PlayerArtTables
+extern PlayerArtTables
+extern PlayerArtTables
+extern PlayerArtTables
+extern PlayerArtTables
+extern PlayerArtTables
+extern PlayerArtTables
+extern PlayerArtTables
+extern PlayerArtTables
+extern PlayerArtTables
+extern PlayerArtTables, HeadDetail, HeadModelData, PlayerNamesOn, RenderTimersOn, FaceArtCount
+extern HomeFaceTextures, AwayFaceTextures, HomeFaceSwap, AwayFaceSwap, FaceTextureCount, ReplayObjects, ReplayObjectCount, ReplayRestoreFuncs
+extern ReplayObjectSizes, ReplayPlayerStateCount, ReplayStatesPlayers, ReplayPuckStateCount, ReplayCameraStateCount, InstantReplayOn, ReplaySoundOn, ReplayMode
+extern ReplayFrame, ReplayDrawn, InstantReplayStart, InstantReplayEnd, ReplayObjectsSet, ReplayWritePos, ReplayFrameCount, ReplayBuffer
+extern ReplayRecording, ReplayStateSize, ReplayPackBuf, ReplayPackPos, ReplayHeader, ReplayBufferEnd, ReplayReadPos, ReplayFull
+extern ReplayFrameSize, ReplayFinalFrame, ReplayUnpackPos, ReplayStateTotal, ReplayPlaying, ReplayTick, OffscreenFov, OffscreenAspect
+extern OffscreenNear, OffscreenFar, SpriteBuffersOn, PaletteDirtyFlag, PortraitCamera, OffscreenTarget, CameraStateRecords
+extern CameraStateRecords
+extern CameraStateRecords
+extern CameraStateRecords, GoalieAnimData, GoalieAnimFiles, GoalieFreezeAnims, DepthSortCount, ObjectSortCount, DepthSortOrder, GoalieAnimTime
+extern GoalieAnimFrame, GoalieAnimPoses, DepthSortList, AnimPointIds, DeflectAnims, StickContactPts, SkateAnimSpeeds, SkateAnimAccel
+extern SkateStrideTable, TurnAnimAngles, StrideSpeeds, SkateMoveTable, SkateAnimSteps, SkateAnimTurns, SkateAnimStops, SkateAnimFrames
+extern DodgeScale, GoalieTickCount, GoalieMoveLimit, SkateAnimScale, SkateAnimBase, StickPointId, FistPointId, PunchPointId
+extern BodyPointId, GoalieReachLimit, SwingPointId, HeadPointId, MoveFuncPair, PlayerAnimSet, SkateAnimCount, SkateAnimIndex
+extern PlayerAnimTable, FallAnimPtrs, SkateAnimMem, SkateAnimMemSize, StopTableForward, StopTableBackward, GoalieMoveTable, AnimStateBlocks
+extern AnimNodesFree, AnimNodeFreeList, AnimNodePool, AnimStatesReady, AnimDecodePtr, AnimDecodeEnd, AnimDecodeFrame, AnimStateCount
+extern AnimBlend, ReplayRecordBuf, AiIconArt, CameraDebugArt, AiIconSize, CameraDebugLoaded, AiIconCount, FontGlyphColors
 extern DrawGlyphFn, ProjOffsetX, ProjOffsetY, ProjDetailScale, ProjAspect, UniformArtBuf, ModelFileCount, BitReaderBits
 extern hmtmstruct, hypot_, kaufmfont, memcpy_, PtrPuckTarget, PtrPuckState, PtrPuckOwner, PtrPuckZone
-extern PtrPuckFlags, PtrPuckObject, PtrHomeIce, PtrAwayIce, off_16B6F8, off_16B708, off_16B738, off_16B7CC
-extern off_16B830, off_16B8C0, off_16B958, off_16B9A4, off_16BB54, off_16BC44, off_16BC5C, off_16BC98
-extern off_16BD14, off_16BD2C, off_16C3B4, AssignFuncTable, F64_0p002, F64_0p785398_DrawModelParts, F64_0p159155_DrawModelParts, F64_65536_DrawModelParts
-extern F64_1p25, F64_0p1_CameraSplinePoint, F64_3p14159_CameraSmoothStep, F64_neg3p14159_CameraSmoothStep, F64_6p28319_CameraSmoothStep, F64_neg6p28319_CameraSmoothStep, qword_161B78, qword_161B80
-extern qword_161B88, qword_161B90, F64_neg0p1, F64_0p00872665, F64_neg0p00872665, F64_neg1p6, F64_0p25_PlaySkateSounds, F64_0p2_PlaySkateSounds
+extern PtrPuckFlags, PtrPuckObject, PtrHomeIce, PtrAwayIce, ModelPartLinksLeft, ModelPartLinksRight, SkateAnimNames, ShotAnimNames
+extern ActAnimNames, FallAnimNames, InterferAnimNames, GoalieAnimNames, RefSkateAnimNames, RefAmbiAnimNames, RefCallAnimNames, FightAnimNames
+extern CupAnimNames, MoveFuncTable, AnimPointNames, AssignFuncTable, F64_0p002, F64_0p785398_DrawModelParts, F64_0p159155_DrawModelParts, F64_65536_DrawModelParts
+extern F64_1p25, F64_0p1_CameraSplinePoint, F64_3p14159_CameraSmoothStep, F64_neg3p14159_CameraSmoothStep, F64_6p28319_CameraSmoothStep, F64_neg6p28319_CameraSmoothStep, CamSmoothMinX, CamSmoothStepX
+extern CamSmoothMinY, CamSmoothStepY, F64_neg0p1, F64_0p00872665, F64_neg0p00872665, F64_neg1p6, F64_0p25_PlaySkateSounds, F64_0p2_PlaySkateSounds
 extern F64_neg0p2, F64_0p785398_PuckOnStickPhysics, F64_2p35619, F64_1p1, F64_1p1_StickHandleSpeed, F64_6p28319_GoalieReadShot, F64_3p14159_GoalieReadShot, F64_neg6p28319_GoalieReadShot
 extern F64_neg3p14159_GoalieReadShot, F64_0p785398_GoalieReadShot, F64_180, F64_240_GoalieReadShot, F64_1896, F64_4656, F64_1272, F64_4032
 extern F64_6p28319_GoalieAngle, F64_3p14159_GoalieAngle, F64_neg6p28319_GoalieAngle, F64_neg3p14159_GoalieAngle, F64_6p28319_GoalieCoverPost, F64_3p14159_GoalieCoverPost, F64_neg6p28319_GoalieCoverPost, F64_neg3p14159_GoalieCoverPost
@@ -151,7 +151,7 @@ extern F64_neg6p28319_BlockShotMove, F64_neg3p14159_BlockShotMove, F64_24_BlockS
 extern F64_240_PickSaveAnim, F64_72, F64_144_PickSaveAnim, F64_4272_GoalieSave, F64_2832, F64_72_GoalieSave, F64_6p28319_GoalieSave, F64_3p14159_GoalieSave
 extern F64_neg6p28319_GoalieSave, F64_neg3p14159_GoalieSave, F64_1p0472_GoalieSave, F64_384_GoalieSave, F64_neg0p785398_GoalieSave, F64_0p785398_GoalieSave, F64_48, F64_0p0001_GoalieMoves
 extern F64_144_GoalieMoves, F64_576_GoalieMoves, F64_4272_GoalieMoves, F64_240_GoalieMoves, F64_6p28319_GoalieMoves, F64_3p14159_GoalieMoves, F64_neg6p28319_GoalieMoves, F64_neg3p14159_GoalieMoves
-extern F64_0p349066_GoalieMoves, F64_48_GoalieMoves, F64_2_GoalieMoves, F64_0p6_GoalieMoves, F64_480_PuckDeflect, F64_0p00613592, F64_0p00613592_UpdateMovePose, qword_163DB1
+extern F64_0p349066_GoalieMoves, F64_48_GoalieMoves, F64_2_GoalieMoves, F64_0p6_GoalieMoves, F64_480_PuckDeflect, F64_0p00613592, F64_0p00613592_UpdateMovePose, F64_PoseScale
 extern F64_0p001, rand_, randomd0, regd1, sprintf_, str_Back, str_Uarm, strcpy_
 extern strncmp_, strncpy_, strnicmp_, strupr_, LoadResourceDataShared, AngleOfVector, SortIndices, bcopy
 extern BlitShape2, FindShape, OpenArtArchive, OpenArtArchiveErr, Random32, DrawLimbSegment, DrawLimbSegmentFlat, BuildUniformArt
@@ -176,19 +176,19 @@ extern FreeBitmap, SetDrawTarget, FillPolygon, FillPolygonPoints, FillRectColor,
 extern SetTextColors, ClearIfNaN, FloatsToInts, MatRotX, MatRotY, MatTranspose, MatMul, VecMulMat
 extern TransformVecs, TransformTranslateVecs, VecAdd, VecSub, OffsetVecs, SubVecs, VecCross, VecDistance
 extern VecLength, VecScale, VecDot, PerspectiveScale, ProjectCoord, ProjectPoints, ProjectPointInt, ClipProjectPoints
-extern tickcount, unk_16B534, unk_16B718, unk_16B728, unk_16C338, DebugTagStr, BenchPlayerTable, HomeTeamRecord
-extern GlobalSetVersion, unk_1B1120, unk_1B13E8, unk_1B73F0, unk_1B7448, unk_1B7BA8, unk_1B85DC, unk_1B8BD0
-extern unk_1B8D88, unk_1B8FA8, unk_1B91AF, unk_1B92AB, unk_1B94E0, unk_1B9520, unk_1B9A58, unk_1B9CF8
-extern unk_1BA510, unk_1BAA88, unk_1BB268, unk_1BBAB8, unk_1BBEE0, unk_1BD680, unk_1BE3A0, unk_1BE4F0
-extern unk_1BE838, unk_1BEF00, unk_1BF110, unk_1BF174, unk_1BF204, unk_1BF29C, unk_1BF2E8, unk_1BF498
-extern unk_1BF588, unk_1BF5A0, unk_1BF5DC, unk_1BF658, unk_1C135C, unk_1C347F, unk_56790, unk_56794
+extern tickcount, TeamColorRanges, MarkerColors, ReplayFrameMarker, AnimPointTable, DebugTagStr, BenchPlayerTable, HomeTeamRecord
+extern GlobalSetVersion, SeatModels, PlayerDrawParams, PortraitModels, SavedPalette, SavedPaletteRemap, PlayerModels, ReplayStatesPuck
+extern ReplayStatesCamera, OffscreenState, CameraStateRecords, DepthSortKeys, PlayerStartRecords, FallAnimSlots, AnimDataBase
+extern ShotAnimPoses, ActAnimFrames, FallAnimFrames, InterferAnimFrames, GoalieAnimFrames, RefSkateAnimFrames, RefAmbiAnimFrames, RefCallAnimFrames
+extern FightAnimFrames, CupAnimFrames, ShotAnimIndex, ActAnimIndex, FallAnimIndex, InterferAnimIndex, GoalieAnimIndex, RefSkateAnimIndex
+extern RefAmbiAnimIndex, RefCallAnimIndex, FightAnimIndex, CupAnimIndex, AutoLineData, HomeLines, UniformFontColors, UniformFontShadow
 extern vecdist, DebugModelRefresh, GoalieTarget, ZoneTargetY, ShotTarget, ShotTimer, ShotType, ShotSpeed
 extern PassPending, PassReceiver, OneTimerPlayer, StatsPanelPlayer, gameover, PuckOwner, PuckOwnerTeam, Period
 extern SimFrames, gsp, gameclock, StatsPanelOn, FaceoffSpot, FaceoffZone, OneTimerReady, OneTimerPasser
 extern OneTimerTarget, PenCntDwn, GoalLineFlag, BreakawayFlag, SlotAssign, HomeGoalieOff, AwayGoalieOff, HomeControlSlot
 extern HmActiveCount, HmLineCount, AwActiveCount, AwLineCount
-global jpt_628A8, jpt_62EF8, jpt_633C8, jpt_63A88, jpt_649C0, jpt_64AC0, jpt_657A3, jpt_700A0
-global jpt_73FAC, SetupPlayerModel_CD, SetupPlayerModel_D8, DrawPlayerModel_BC, DrawLeftArmModel_80, DrawRightArmModel_80, DrawRightArmModel_C0, DrawRightArmModel_100
+global GlideForwardMoveJumpTable, SkateForwardMoveJumpTable, SkateBackwardMoveJumpTable, TurnForwardMoveJumpTable, GlideBackwardMoveJumpTable, TurnBackwardMoveJumpTable, ShotAnimFramesJumpTable, SortPlayersByDepthJumpTable
+global BlockShotMoveJumpTable, SetupPlayerModel_CD, SetupPlayerModel_D8, DrawPlayerModel_BC, DrawLeftArmModel_80, DrawRightArmModel_80, DrawRightArmModel_C0, DrawRightArmModel_100
 global DrawRightArmModel_140, DrawRightArmModel_180, ReplayRecordTick_29, ReplayRecordFinal_C, GlideForwardMove_220, GlideForwardMove_230, GlideForwardMove_240, GlideForwardMove_250
 global GlideForwardMove_260, SkateForwardMove_89, SkateForwardMove_99, SkateForwardMove_A9, SkateForwardMove_3AE, SkateForwardMove_3E0, SkateForwardMove_41B, SkateBackwardMove_31
 global SkateBackwardMove_41, SkateBackwardMove_51, SkateBackwardMove_345, SkateBackwardMove_377, SkateBackwardMove_3B2, TurnForwardMove_31, TurnForwardMove_41, TurnForwardMove_51
@@ -247,8 +247,8 @@ global ReadAnimValue, DecodeAnimFrame, DecodeAnimDelta, GetAnimId, UpdateObjectP
 global SetAnimClock, AddAnimClock, UpdateAnimBlends, AnimClockTick, SetAnimFrame, SetAnimFlags, ClearAnimFlags, InitAnimState
 global AllocAnimStateBlocks, StartAnim, StartAnimNow, BlendToAnim, ChangeAnim, InitAnimNodePool, FreeAnimStates, AllocAnimStates
 global BuildCameraDebugView, DrawCameraPath, LoadAiIcons, FreeCameraDebug, updateplayers, GameOver, RequestPauseMenu, CheckIntermission
-global CupCelebration, clockcont_0, periodicevents, PlayCrowdAmbience, DoGameFrame, RandomCrowdDelay, unk_65475, unk_704AC
-global unk_704C0, unk_717E0, unk_717F4, unk_71A94, unk_71AA8, unk_78930
+global CupCelebration, clockcont_0, periodicevents, PlayCrowdAmbience, DoGameFrame, RandomCrowdDelay, GoalieAnimBlank, FightPunchMoveJumpTable
+global FightPunchHitJumpTable, StartFightPunchJumpTable, StartFightPunchHitJumpTable, StartFightBlockJumpTable, StartFightBlockHitJumpTable, SimGameBlankPair
 ;-----------------------------------------------------------------------------
 ; SetupPlayerModel                                57324  97 PC, low confidence
 ; Builds a player's 3D model: jersey, number and team textures for one roster
@@ -267,7 +267,7 @@ SetupPlayerModel:
         sub eax, esi
         shl eax, 2
         sub eax, esi
-        mov edi, dword_1B1410
+        mov edi, ObjectPositions
         shl eax, 5
         add edi, eax
         lea ebp, [dword edi+06E8h]
@@ -286,13 +286,13 @@ SetupPlayerModel:
         mov dword [ModelFileCount], edx
         mov edx, ecx
         call LoadPlayerFace
-        mov ebx, unk_1B85DC
+        mov ebx, PlayerModels
         mov dword [dword edi+06F0h], eax
         xor ecx, ecx
         mov edx, dword [esp]
-        mov eax, dword [dword_1ADC88]
+        mov eax, dword [ArenaArchive]
         call RemapArtPixels
-        mov eax, dword [dword_1B89AC]
+        mov eax, dword [FaceTextureCount]
         mov ebx, dword [dword edi+06F0h]
         mov dword [dword edi+06D4h], eax
         xor ebp, ebp
@@ -610,7 +610,7 @@ BuildCupPatchArt:
         push ecx
         push edx
         push byte 20h
-        mov edx, dword [nosplit eax*4+dword_1B8444]
+        mov edx, dword [nosplit eax*4+PlayerArtTables+168h]
         push edx
         call CreateBitmapForArt
         add esp, byte 8
@@ -619,7 +619,7 @@ BuildCupPatchArt:
         call SetDrawTarget
         add esp, byte 4
         push str_CUPP
-        mov ecx, dword [dword_1B84C8]
+        mov ecx, dword [PlayerArtTables+1ECh]
         push ecx
         call FindShape
         add esp, byte 8
@@ -652,17 +652,17 @@ DrawJerseyLettering:
         shl esi, 2
         sub esi, eax
         shl esi, 5
-        add esi, dword_1B1410
+        add esi, ObjectPositions
         cmp dword [dword esi+074Ch], byte 0
         jne near .1
         mov eax, dword [dword esi+0700h]
-        mov eax, dword [nosplit eax*4+dword_1B8478]
+        mov eax, dword [nosplit eax*4+PlayerArtTables+19Ch]
         call ShapePixelSize
         push eax
         mov ebx, dword [dword esi+06E4h]
         mov eax, dword [dword esi+0700h]
         push ebx
-        mov ecx, dword [nosplit eax*4+dword_1B8478]
+        mov ecx, dword [nosplit eax*4+PlayerArtTables+19Ch]
         push ecx
         call bcopy
         add esp, byte 0Ch
@@ -676,7 +676,7 @@ DrawJerseyLettering:
         call SetDrawTarget
         mov eax, dword [dword esi+0700h]
         add esp, byte 4
-        mov edx, dword [nosplit eax*4+dword_1B830C]
+        mov edx, dword [nosplit eax*4+PlayerArtTables+30h]
         push edx
         mov ebx, 14h
         call SelectFont
@@ -692,9 +692,9 @@ DrawJerseyLettering:
         call MeasureText
         mov edi, dword [dword esi+0700h]
         add esp, byte 4
-        mov edi, dword [nosplit edi*4+dword_1B8428]
+        mov edi, dword [nosplit edi*4+PlayerArtTables+14Ch]
         push byte 0
-        mov ecx, dword [nosplit edi*4+dword_16B3F4]
+        mov ecx, dword [nosplit edi*4+LetterColors]
         push ecx
         mov ebx, eax
         call MatchColor
@@ -721,12 +721,12 @@ DrawJerseyLettering:
         call DrawTextAt
         mov eax, dword [dword esi+0700h]
         add esp, byte 0Ch
-        mov edx, dword [nosplit eax*4+dword_1B846C]
+        mov edx, dword [nosplit eax*4+PlayerArtTables+190h]
         push edx
         call SelectFont
         add esp, byte 4
-        mov edx, dword [nosplit edi*8+dword_16B1A4]
-        mov eax, dword [nosplit edi*8+dword_16B1A8]
+        mov edx, dword [nosplit edi*8+LetterOffsets]
+        mov eax, dword [nosplit edi*8+LetterMasks]
         call LayoutJerseyNumber
         push ebp
         mov ebx, SetupPlayerModel_D8
@@ -780,28 +780,28 @@ FreeGoalieMask:
         lea ebx, [nosplit eax*4+00h]
         sub ebx, eax
         lea esi, [nosplit ebx*4+00h]
-        cmp dword [dword esi+dword_1B84FC], byte 0
+        cmp dword [dword esi+PlayerArtTables+220h], byte 0
         je short .2
         mov ebx, esi
         add esi, byte 0Ch
 .1:
-        mov ecx, dword [dword ebx+dword_1B83EC]
+        mov ecx, dword [dword ebx+PlayerArtTables+110h]
         push ecx
         call FreeModelInstance
         add esp, byte 4
-        mov ebp, dword [dword ebx+dword_1B84FC]
+        mov ebp, dword [dword ebx+PlayerArtTables+220h]
         xor edi, edi
         push ebp
-        mov dword [dword ebx+dword_1B83EC], edi
+        mov dword [dword ebx+PlayerArtTables+110h], edi
         call FreeModelFile
         add esp, byte 4
-        mov edx, dword [dword ebx+dword_1B848C]
+        mov edx, dword [dword ebx+PlayerArtTables+1B0h]
         add ebx, byte 4
         push edx
-        mov dword [dword ebx+dword_1B84F8], edi
+        mov dword [dword ebx+PlayerArtTables+21Ch], edi
         call FreeMemBlock
         add esp, byte 4
-        mov dword [dword ebx+dword_1B8488], edi
+        mov dword [dword ebx+PlayerArtTables+1ACh], edi
         cmp ebx, esi
         jne short .1
 .2:
@@ -828,7 +828,7 @@ LoadCupArt:
         sub eax, edx
         shl eax, 2
         sub eax, edx
-        mov esi, dword_1B1410
+        mov esi, ObjectPositions
         shl eax, 5
         add esi, eax
         mov eax, str_PLYRCOMNVIV
@@ -837,42 +837,42 @@ LoadCupArt:
         mov eax, str_Cup
         call LoadModelByName
         push eax
-        mov dword [dword_1B84F8], eax
+        mov dword [PlayerArtTables+21Ch], eax
         call InitModelInstance
         add esp, byte 4
-        mov edx, dword [dword_1B8540]
-        mov eax, dword [dword_1B84F8]
+        mov edx, dword [PlayerArtTables+264h]
+        mov eax, dword [PlayerArtTables+21Ch]
         call AttachModel
-        mov eax, dword [dword_1B84F8]
+        mov eax, dword [PlayerArtTables+21Ch]
         push byte 0
         add eax, byte 2Ch
         push eax
         xor ebx, ebx
         call OpenArtArchiveErr
-        mov ecx, dword [dword_1ADC88]
+        mov ecx, dword [ArenaArchive]
         add esp, byte 8
-        mov dword [dword_1B84D8], eax
+        mov dword [PlayerArtTables+1FCh], eax
         mov edx, eax
         mov eax, ecx
         call RemapBankToRange
         mov ebx, 0Ah
-        mov eax, dword [dword_1B84F8]
+        mov eax, dword [PlayerArtTables+21Ch]
         xor edx, edx
         call CreateModelInstance
-        mov dword [dword_1B8458], eax
+        mov dword [PlayerArtTables+17Ch], eax
         push eax
-        mov dword [dword_1B8454], eax
-        mov dword [dword_1B8450], eax
+        mov dword [PlayerArtTables+178h], eax
+        mov dword [PlayerArtTables+174h], eax
         call UpdateModelInstance
         add esp, byte 4
-        mov edx, dword [dword_1B84D8]
+        mov edx, dword [PlayerArtTables+1FCh]
         push edx
-        mov ebx, dword [dword_1B8450]
+        mov ebx, dword [PlayerArtTables+174h]
         push ebx
         call BindModelShapes
         add esp, byte 8
         push byte 0
-        mov dword [dword esi+06C0h], dword_1B8450
+        mov dword [dword esi+06C0h], PlayerArtTables+174h
         call OpenResourceArchive
         add esp, byte 4
         pop esi
@@ -897,7 +897,7 @@ LoadGoalieMask:
         shl eax, 2
         sub eax, ebx
         mov edx, 1
-        mov ecx, dword [nosplit eax*4+dword_1B84FC]
+        mov ecx, dword [nosplit eax*4+PlayerArtTables+220h]
         mov dword [ModelFileCount], edx
         test ecx, ecx
         je short .1
@@ -927,14 +927,14 @@ LoadGoalieMask:
         push str_MASK02db
         lea eax, [byte esp+08h]
         push eax
-        mov dword [dword ebx+dword_1B84FC], edx
+        mov dword [dword ebx+PlayerArtTables+220h], edx
         call sprintf_
         add esp, byte 0Ch
         xor edx, edx
         mov eax, esp
         call LoadModelByName
         push esi
-        mov dword [dword ebx+dword_1B8500], eax
+        mov dword [dword ebx+PlayerArtTables+224h], eax
         push str_MASK02dc
         lea eax, [byte esp+08h]
         mov edi, ebx
@@ -947,16 +947,16 @@ LoadGoalieMask:
         add ebx, byte 0Ch
         call LoadModelByName
         mov dword [byte esp+020h], ebx
-        mov dword [dword ebx+dword_1B84F8], eax
+        mov dword [dword ebx+PlayerArtTables+21Ch], eax
 .3:
-        mov eax, dword [dword esi+dword_1B84FC]
+        mov eax, dword [dword esi+PlayerArtTables+220h]
         push eax
         call InitModelInstance
         add esp, byte 4
-        mov edx, dword [dword_1B8540]
-        mov eax, dword [dword esi+dword_1B84FC]
+        mov edx, dword [PlayerArtTables+264h]
+        mov eax, dword [dword esi+PlayerArtTables+220h]
         call AttachModel
-        mov eax, dword [dword esi+dword_1B84FC]
+        mov eax, dword [dword esi+PlayerArtTables+220h]
         push byte 0
         add eax, byte 2Ch
         push eax
@@ -965,15 +965,15 @@ LoadGoalieMask:
         mov edx, eax
         mov ebp, eax
         mov ebx, dword [byte esp+024h]
-        mov dword [dword esi+dword_1B848C], eax
+        mov dword [dword esi+PlayerArtTables+1B0h], eax
         test ebx, ebx
         je short .4
-        mov eax, dword [dword_1ADC88]
+        mov eax, dword [ArenaArchive]
         xor ebx, ebx
         call RemapBankToRange
         jmp short .5
 .4:
-        mov eax, dword [dword_1ADC88]
+        mov eax, dword [ArenaArchive]
         mov ebx, edx
         xor ecx, ecx
         mov edx, eax
@@ -981,12 +981,12 @@ LoadGoalieMask:
         call RemapArtBank
 .5:
         mov ebx, 0Ah
-        mov eax, dword [dword edi+dword_1B84FC]
+        mov eax, dword [dword edi+PlayerArtTables+220h]
         xor edx, edx
         call CreateModelInstance
         push eax
         mov ebx, eax
-        mov dword [dword edi+dword_1B83EC], eax
+        mov dword [dword edi+PlayerArtTables+110h], eax
         call UpdateModelInstance
         add esp, byte 4
         push ebp
@@ -1037,40 +1037,40 @@ LoadPlayerCommonArt:
         call ServiceIdle
         push byte 0
         push str_HndfistFsh
-        mov ebx, dword_1B82E0
+        mov ebx, PlayerArtTables+4
         call OpenArtArchiveErr
         add esp, byte 8
-        mov edx, dword_1B82DC
-        mov dword [dword_1B84C4], eax
+        mov edx, PlayerArtTables
+        mov dword [PlayerArtTables+1E8h], eax
         call BuildUniformArt
         mov ecx, esi
         push byte 0
-        mov ebx, dword [dword_1B84C4]
-        mov edx, dword [dword_1ADC88]
-        mov dword [dword_1B8364], eax
+        mov ebx, dword [PlayerArtTables+1E8h]
+        mov edx, dword [ArenaArchive]
+        mov dword [PlayerArtTables+88h], eax
         mov eax, str_Fist
         call AddBankToRange
         call ServiceIdle
         mov eax, str_Torso0
         xor edx, edx
         call LoadModelByName
-        mov dword [dword_1B8560], eax
+        mov dword [PlayerArtTables+284h], eax
         xor edx, edx
         mov eax, str_Torso1
         call LoadModelByName
-        mov dword [dword_1B8564], eax
+        mov dword [PlayerArtTables+288h], eax
         xor edx, edx
         mov eax, str_Torso2
         xor esi, esi
         call LoadModelByName
-        mov dword [dword_1B8568], eax
+        mov dword [PlayerArtTables+28Ch], eax
 .1:
-        mov edx, dword [dword esi+dword_1B8560]
+        mov edx, dword [dword esi+PlayerArtTables+284h]
         push edx
         call InitModelInstance
-        mov edx, dword [dword_1B8540]
+        mov edx, dword [PlayerArtTables+264h]
         add esp, byte 4
-        mov eax, dword [dword esi+dword_1B8560]
+        mov eax, dword [dword esi+PlayerArtTables+284h]
         add esi, byte 4
         call AttachModel
         cmp esi, byte 0Ch
@@ -1086,13 +1086,13 @@ LoadPlayerCommonArt:
         add esp, byte 0Ch
         mov eax, esp
         push eax
-        mov ecx, dword [dword_1B8568]
+        mov ecx, dword [PlayerArtTables+28Ch]
         push ecx
         add ebx, byte 4
         inc esi
         call FindModelPartByName
         add esp, byte 8
-        mov dword [dword ebx+dword_1B13E4], eax
+        mov dword [dword ebx+BodyArt], eax
         cmp esi, byte 0Ah
         jl short .2
         call ServiceIdle
@@ -1101,36 +1101,36 @@ LoadPlayerCommonArt:
         call LoadModelByName
         push str_Face
         push eax
-        mov dword [dword_1B8530], eax
+        mov dword [PlayerArtTables+254h], eax
         call FindModelShapeByName
         add esp, byte 8
-        mov dword [dword_1B856C], eax
+        mov dword [PlayerArtTables+290h], eax
         xor edx, edx
         mov eax, str_Helmet1
         call LoadModelByName
         push str_Face
         push eax
-        mov dword [dword_1B8534], eax
+        mov dword [PlayerArtTables+258h], eax
         call FindModelShapeByName
         add esp, byte 8
-        mov dword [dword_1B8570], eax
+        mov dword [HeadDetail], eax
         xor edx, edx
         mov eax, str_Helmet2
         call LoadModelByName
         push str_Face
         push eax
         xor esi, esi
-        mov dword [dword_1B8538], eax
+        mov dword [PlayerArtTables+25Ch], eax
         call FindModelShapeByName
         add esp, byte 8
-        mov dword [dword_1B8574], eax
+        mov dword [HeadModelData], eax
 .3:
-        mov edi, dword [dword esi+dword_1B8530]
+        mov edi, dword [dword esi+PlayerArtTables+254h]
         push edi
         call InitModelInstance
-        mov edx, dword [dword_1B8540]
+        mov edx, dword [PlayerArtTables+264h]
         add esp, byte 4
-        mov eax, dword [dword esi+dword_1B8530]
+        mov eax, dword [dword esi+PlayerArtTables+254h]
         add esi, byte 4
         call AttachModel
         cmp esi, byte 0Ch
@@ -1139,27 +1139,27 @@ LoadPlayerCommonArt:
         mov eax, str_Stick0
         xor edx, edx
         call LoadModelByName
-        mov dword [dword_1B13B0], eax
+        mov dword [SkateArt], eax
         xor edx, edx
         mov eax, str_Stick1
         call LoadModelByName
-        mov dword [dword_1B13B4], eax
+        mov dword [GloveArt], eax
         xor edx, edx
         mov eax, str_Stick2
         call LoadModelByName
-        mov dword [dword_1B13B8], eax
+        mov dword [HelmetArt], eax
         xor edx, edx
         mov eax, str_Lstick2
         xor esi, esi
         call LoadModelByName
-        mov dword [dword_1B13BC], eax
+        mov dword [PadArt], eax
 .4:
-        mov eax, dword [dword esi+dword_1B13B0]
+        mov eax, dword [dword esi+SkateArt]
         push eax
         call InitModelInstance
-        mov edx, dword [dword_1B8540]
+        mov edx, dword [PlayerArtTables+264h]
         add esp, byte 4
-        mov eax, dword [dword esi+dword_1B13B0]
+        mov eax, dword [dword esi+SkateArt]
         add esi, byte 4
         call AttachModel
         cmp esi, byte 10h
@@ -1168,9 +1168,9 @@ LoadPlayerCommonArt:
         push byte 0
         push str_Stick2Fsh
         call OpenArtArchiveErr
-        mov edx, dword [dword_1ADC88]
+        mov edx, dword [ArenaArchive]
         add esp, byte 8
-        mov dword [dword_1B8468], eax
+        mov dword [PlayerArtTables+18Ch], eax
         mov edi, eax
         mov ebx, eax
         xor ecx, ecx
@@ -1179,50 +1179,50 @@ LoadPlayerCommonArt:
         call RemapArtBank
 .5:
         mov ebx, 0Ah
-        mov eax, dword [dword esi+dword_1B13B0]
+        mov eax, dword [dword esi+SkateArt]
         xor edx, edx
         call CreateModelInstance
         push edi
         add esi, byte 4
         push eax
-        mov dword [dword esi+dword_1B82FC], eax
+        mov dword [dword esi+PlayerArtTables+20h], eax
         call BindModelShapes
         add esp, byte 8
         cmp esi, byte 0Ch
         jne short .5
-        mov eax, dword [dword_1B8300]
+        mov eax, dword [PlayerArtTables+24h]
         mov ebx, 0Ah
-        mov dword [dword_1B8368], eax
-        mov eax, dword [dword_1B8304]
+        mov dword [PlayerArtTables+8Ch], eax
+        mov eax, dword [PlayerArtTables+28h]
         xor edx, edx
-        mov dword [dword_1B836C], eax
-        mov eax, dword [dword_1B13BC]
+        mov dword [PlayerArtTables+090h], eax
+        mov eax, dword [PadArt]
         call CreateModelInstance
         push edi
         push eax
-        mov dword [dword_1B8370], eax
+        mov dword [PlayerArtTables+094h], eax
         call BindModelShapes
         add esp, byte 8
         mov eax, str_Gstick0
         xor edx, edx
         call LoadModelByName
-        mov dword [dword_1B8554], eax
+        mov dword [PlayerArtTables+278h], eax
         xor edx, edx
         mov eax, str_Gstick1
         call LoadModelByName
-        mov dword [dword_1B8558], eax
+        mov dword [PlayerArtTables+27Ch], eax
         xor edx, edx
         mov eax, str_Gstick2
         xor esi, esi
         call LoadModelByName
-        mov dword [dword_1B855C], eax
+        mov dword [PlayerArtTables+280h], eax
 .6:
-        mov edx, dword [dword esi+dword_1B8554]
+        mov edx, dword [dword esi+PlayerArtTables+278h]
         push edx
         call InitModelInstance
-        mov edx, dword [dword_1B8540]
+        mov edx, dword [PlayerArtTables+264h]
         add esp, byte 4
-        mov eax, dword [dword esi+dword_1B8554]
+        mov eax, dword [dword esi+PlayerArtTables+278h]
         add esi, byte 4
         call AttachModel
         cmp esi, byte 0Ch
@@ -1231,9 +1231,9 @@ LoadPlayerCommonArt:
         push byte 0
         push str_Gstick2Fsh
         call OpenArtArchiveErr
-        mov edx, dword [dword_1ADC88]
+        mov edx, dword [ArenaArchive]
         add esp, byte 8
-        mov dword [dword_1B84F4], eax
+        mov dword [PlayerArtTables+218h], eax
         mov edi, eax
         mov ebx, eax
         xor ecx, ecx
@@ -1242,13 +1242,13 @@ LoadPlayerCommonArt:
         call RemapArtBank
 .7:
         mov ebx, 0Ah
-        mov eax, dword [dword esi+dword_1B8554]
+        mov eax, dword [dword esi+PlayerArtTables+278h]
         xor edx, edx
         call CreateModelInstance
         push edi
         add esi, byte 4
         push eax
-        mov dword [dword esi+dword_1B8394], eax
+        mov dword [dword esi+PlayerArtTables+0B8h], eax
         call BindModelShapes
         add esp, byte 8
         cmp esi, byte 0Ch
@@ -1257,79 +1257,79 @@ LoadPlayerCommonArt:
         xor edx, edx
         call LoadModelByName
         push eax
-        mov dword [dword_1B8548], eax
+        mov dword [PlayerArtTables+26Ch], eax
         call InitModelInstance
         add esp, byte 4
-        mov edx, dword [dword_1B8540]
-        mov eax, dword [dword_1B8548]
+        mov edx, dword [PlayerArtTables+264h]
+        mov eax, dword [PlayerArtTables+26Ch]
         call AttachModel
         call ServiceIdle
         mov eax, str_Grleg
         xor edx, edx
         call LoadModelByName
         push eax
-        mov dword [dword_1B84B0], eax
+        mov dword [PlayerArtTables+1D4h], eax
         call InitModelInstance
         add esp, byte 4
-        mov edx, dword [dword_1B8540]
-        mov eax, dword [dword_1B84B0]
+        mov edx, dword [PlayerArtTables+264h]
+        mov eax, dword [PlayerArtTables+1D4h]
         call AttachModel
         mov eax, str_Rblkr
         xor edx, edx
         call LoadModelByName
         push eax
-        mov dword [dword_1B8488], eax
+        mov dword [PlayerArtTables+1ACh], eax
         call InitModelInstance
         add esp, byte 4
-        mov edx, dword [dword_1B8540]
-        mov eax, dword [dword_1B8488]
+        mov edx, dword [PlayerArtTables+264h]
+        mov eax, dword [PlayerArtTables+1ACh]
         call AttachModel
         mov eax, str_Lblkr
         xor edx, edx
         call LoadModelByName
         push eax
-        mov dword [dword_1B8484], eax
+        mov dword [PlayerArtTables+1A8h], eax
         call InitModelInstance
         add esp, byte 4
-        mov edx, dword [dword_1B8540]
-        mov eax, dword [dword_1B8484]
+        mov edx, dword [PlayerArtTables+264h]
+        mov eax, dword [PlayerArtTables+1A8h]
         call AttachModel
         call ServiceIdle
         mov eax, str_Ltrap2
         xor edx, edx
         call LoadModelByName
         push eax
-        mov dword [dword_1B84C0], eax
+        mov dword [PlayerArtTables+1E4h], eax
         call InitModelInstance
         add esp, byte 4
-        mov edx, dword [dword_1B8540]
-        mov eax, dword [dword_1B84C0]
+        mov edx, dword [PlayerArtTables+264h]
+        mov eax, dword [PlayerArtTables+1E4h]
         call AttachModel
         mov eax, str_Rtrap2
         xor edx, edx
         call LoadModelByName
         push eax
-        mov dword [dword_1B8440], eax
+        mov dword [PlayerArtTables+164h], eax
         call InitModelInstance
         add esp, byte 4
-        mov edx, dword [dword_1B8540]
-        mov eax, dword [dword_1B8440]
+        mov edx, dword [PlayerArtTables+264h]
+        mov eax, dword [PlayerArtTables+164h]
         call AttachModel
         call ServiceIdle
         mov eax, str_Lskate0
         xor edx, edx
         call LoadModelByName
-        mov dword [dword_1B13E0], eax
+        mov dword [HeadArt], eax
         xor edx, edx
         mov eax, str_Lskate1
         call LoadModelByName
         push byte 0
         push str_Lskate1Fsh
-        mov dword [dword_1B13E4], eax
+        mov dword [BodyArt], eax
         call OpenArtArchiveErr
-        mov edx, dword [dword_1ADC88]
+        mov edx, dword [ArenaArchive]
         add esp, byte 8
-        mov dword [dword_1B82F0], eax
+        mov dword [PlayerArtTables+14h], eax
         mov edi, eax
         mov ebx, eax
         xor ecx, ecx
@@ -1337,21 +1337,21 @@ LoadPlayerCommonArt:
         xor esi, esi
         call RemapArtBank
 .8:
-        mov ebx, dword [dword esi+dword_1B13E0]
+        mov ebx, dword [dword esi+HeadArt]
         push ebx
         call InitModelInstance
-        mov edx, dword [dword_1B8540]
+        mov edx, dword [PlayerArtTables+264h]
         add esp, byte 4
-        mov eax, dword [dword esi+dword_1B13E0]
+        mov eax, dword [dword esi+HeadArt]
         mov ebx, 0Ah
         call AttachModel
-        mov eax, dword [dword esi+dword_1B13E0]
+        mov eax, dword [dword esi+HeadArt]
         xor edx, edx
         call CreateModelInstance
         push edi
         add esi, byte 4
         push eax
-        mov dword [dword esi+dword_1B137C], eax
+        mov dword [dword esi+CommonArt], eax
         call BindModelShapes
         add esp, byte 8
         cmp esi, byte 8
@@ -1360,28 +1360,28 @@ LoadPlayerCommonArt:
         mov eax, str_Rskate0
         xor edx, edx
         call LoadModelByName
-        mov dword [dword_1B13C0], eax
+        mov dword [ShadowArt], eax
         xor edx, edx
         mov eax, str_Rskate1
         xor esi, esi
         call LoadModelByName
-        mov dword [dword_1B13C4], eax
+        mov dword [PlayerModelData], eax
 .9:
-        mov ecx, dword [dword esi+dword_1B13C0]
+        mov ecx, dword [dword esi+ShadowArt]
         push ecx
         call InitModelInstance
-        mov edx, dword [dword_1B8540]
+        mov edx, dword [PlayerArtTables+264h]
         add esp, byte 4
-        mov eax, dword [dword esi+dword_1B13C0]
+        mov eax, dword [dword esi+ShadowArt]
         mov ebx, 0Ah
         call AttachModel
-        mov eax, dword [dword esi+dword_1B13C0]
+        mov eax, dword [dword esi+ShadowArt]
         xor edx, edx
         call CreateModelInstance
         push edi
         add esi, byte 4
         push eax
-        mov dword [dword esi+dword_1B1384], eax
+        mov dword [dword esi+StickArt], eax
         call BindModelShapes
         add esp, byte 8
         cmp esi, byte 8
@@ -1419,7 +1419,7 @@ LoadUniformArt:
         push str_Uni04dViv
         lea eax, [byte esp+08h]
         push eax
-        mov dword [dword ebx+dword_1B8428], edx
+        mov dword [dword ebx+PlayerArtTables+14Ch], edx
         call sprintf_
         add esp, byte 0Ch
         mov eax, esp
@@ -1443,10 +1443,10 @@ LoadUniformArt:
         push str_NumbersFfn
         call LoadResourceDataShared
         add esp, byte 8
-        mov edi, dword [unk_56790]
+        mov edi, dword [UniformFontColors]
         push eax
-        mov esi, dword [unk_56794]
-        mov dword [dword ebx+dword_1B846C], eax
+        mov esi, dword [UniformFontShadow]
+        mov dword [dword ebx+PlayerArtTables+190h], eax
         call SelectFont
         add esp, byte 4
         mov edx, esi
@@ -1458,15 +1458,15 @@ LoadUniformArt:
         mov dword [DrawGlyphFn], ecx
         call LoadResourceDataShared
         add esp, byte 8
-        mov dword [dword ebx+dword_1B830C], eax
+        mov dword [dword ebx+PlayerArtTables+30h], eax
         jmp short .2
 .1:
         push byte 0
         push str_Cuppatch
         call OpenArtArchiveErr
-        mov edx, dword [dword_1ADC88]
+        mov edx, dword [ArenaArchive]
         add esp, byte 8
-        mov dword [dword_1B84C8], eax
+        mov dword [PlayerArtTables+1ECh], eax
         mov ebx, eax
         push byte 0
         mov ecx, dword [byte esp+034h]
@@ -1481,33 +1481,33 @@ LoadUniformArt:
         mov esi, dword [byte esp+030h]
         push eax
         mov ebx, eax
-        mov dword [nosplit esi*4+dword_1B8520], eax
+        mov dword [nosplit esi*4+PlayerArtTables+244h], eax
         call FindShape
         add esp, byte 8
         push str_Fron
         push ebx
-        mov dword [nosplit esi*4+dword_1B8478], eax
+        mov dword [nosplit esi*4+PlayerArtTables+19Ch], eax
         call FindShape
-        mov edx, dword [dword_1ADC88]
+        mov edx, dword [ArenaArchive]
         add esp, byte 8
         xor ecx, ecx
-        mov dword [nosplit esi*4+dword_1B8444], eax
+        mov dword [nosplit esi*4+PlayerArtTables+168h], eax
         mov eax, str_Ori
         call RemapArtBank
         call ServiceIdle
         push byte 0
         push str_Helmet0Fsh
         call OpenArtArchiveErr
-        mov edx, dword [dword_1ADC88]
+        mov edx, dword [ArenaArchive]
         add esp, byte 8
         mov edi, eax
         mov ebx, eax
         xor ecx, ecx
-        mov dword [nosplit esi*4+dword_1B84B4], eax
+        mov dword [nosplit esi*4+PlayerArtTables+1D8h], eax
         mov eax, str_Ori
         call RemapArtBank
         mov ebx, 0Ah
-        mov eax, dword [dword_1B8530]
+        mov eax, dword [PlayerArtTables+254h]
         xor edx, edx
         call CreateModelInstance
         mov ebx, eax
@@ -1516,7 +1516,7 @@ LoadUniformArt:
         shl eax, 2
         push edi
         mov dword [byte esp+024h], eax
-        mov dword [dword eax+dword_1B83A4], ebx
+        mov dword [dword eax+PlayerArtTables+0C8h], ebx
         mov eax, ebx
         push eax
         call BindModelShapes
@@ -1525,26 +1525,26 @@ LoadUniformArt:
         push str_Helmet2Fsh
         mov edi, 1
         call OpenArtArchiveErr
-        mov edx, dword [dword_1ADC88]
+        mov edx, dword [ArenaArchive]
         add esp, byte 8
         mov ebx, eax
         mov ebp, eax
         xor ecx, ecx
-        mov dword [nosplit esi*4+dword_1B84DC], eax
+        mov dword [nosplit esi*4+PlayerArtTables+200h], eax
         mov eax, str_Ori
         mov esi, dword [byte esp+020h]
         call RemapArtBank
         add esi, byte 4
 .3:
         mov ebx, 0Ah
-        mov eax, dword [nosplit edi*4+dword_1B8530]
+        mov eax, dword [nosplit edi*4+PlayerArtTables+254h]
         xor edx, edx
         call CreateModelInstance
         push ebp
         add esi, byte 4
         push eax
         inc edi
-        mov dword [dword esi+dword_1B83A0], eax
+        mov dword [dword esi+PlayerArtTables+0C4h], eax
         call BindModelShapes
         add esp, byte 8
         cmp edi, byte 3
@@ -1556,43 +1556,43 @@ LoadUniformArt:
         push esi
         push str_GllegFsh
         call OpenArtArchiveErr
-        mov edx, dword [dword_1ADC88]
+        mov edx, dword [ArenaArchive]
         add esp, byte 8
         mov edi, eax
         mov esi, dword [byte esp+02Ch]
         mov ebx, eax
         shl esi, 2
         xor ecx, ecx
-        mov dword [dword esi+dword_1B84E8], eax
+        mov dword [dword esi+PlayerArtTables+20Ch], eax
         mov eax, str_Ori
         call RemapArtBank
         mov ebx, 0Ah
-        mov eax, dword [dword_1B8548]
+        mov eax, dword [PlayerArtTables+26Ch]
         xor edx, edx
         call CreateModelInstance
         push edi
         push eax
-        mov dword [dword esi+dword_1B833C], eax
+        mov dword [dword esi+PlayerArtTables+60h], eax
         call BindModelShapes
         add esp, byte 8
         push byte 0
         push str_GrlegFsh
         call OpenArtArchiveErr
-        mov edx, dword [dword_1ADC88]
+        mov edx, dword [ArenaArchive]
         add esp, byte 8
         mov edi, eax
         mov ebx, eax
         xor ecx, ecx
-        mov dword [dword esi+dword_1B84CC], eax
+        mov dword [dword esi+PlayerArtTables+1F0h], eax
         mov eax, str_Ori
         call RemapArtBank
         mov ebx, 0Ah
-        mov eax, dword [dword_1B84B0]
+        mov eax, dword [PlayerArtTables+1D4h]
         xor edx, edx
         call CreateModelInstance
         push edi
         push eax
-        mov dword [dword esi+dword_1B841C], eax
+        mov dword [dword esi+PlayerArtTables+140h], eax
         call BindModelShapes
         add esp, byte 8
         push byte 0
@@ -1600,94 +1600,94 @@ LoadUniformArt:
         call OpenArtArchiveErr
         add esp, byte 8
         mov edi, eax
-        mov dword [dword esi+dword_1B8434], eax
-        mov edx, dword [dword_1ADC88]
+        mov dword [dword esi+PlayerArtTables+158h], eax
+        mov edx, dword [ArenaArchive]
         mov ebx, eax
         xor ecx, ecx
         mov eax, str_Ori
         call RemapArtBank
         call ServiceIdle
         mov ebx, 0Ah
-        mov eax, dword [dword_1B8488]
+        mov eax, dword [PlayerArtTables+1ACh]
         xor edx, edx
         call CreateModelInstance
         push edi
         push eax
         mov ebx, 0Ah
-        mov dword [dword esi+dword_1B83D4], eax
+        mov dword [dword esi+PlayerArtTables+0F8h], eax
         call BindModelShapes
         add esp, byte 8
-        mov eax, dword [dword_1B8484]
+        mov eax, dword [PlayerArtTables+1A8h]
         xor edx, edx
         call CreateModelInstance
         push edi
         push eax
-        mov dword [dword esi+dword_1B838C], eax
+        mov dword [dword esi+PlayerArtTables+0B0h], eax
         call BindModelShapes
         add esp, byte 8
         push byte 0
         push str_Rtrap2Fsh
         call OpenArtArchiveErr
-        mov edx, dword [dword_1ADC88]
+        mov edx, dword [ArenaArchive]
         add esp, byte 8
         mov edi, eax
         mov ebx, eax
         xor ecx, ecx
-        mov dword [dword esi+dword_1B845C], eax
+        mov dword [dword esi+PlayerArtTables+180h], eax
         mov eax, str_Ori
         call RemapArtBank
         mov ebx, 0Ah
-        mov eax, dword [dword_1B8440]
+        mov eax, dword [PlayerArtTables+164h]
         xor edx, edx
         call CreateModelInstance
         push edi
         push eax
         mov ebx, 0Ah
-        mov dword [dword esi+dword_1B8358], eax
+        mov dword [dword esi+PlayerArtTables+7Ch], eax
         call BindModelShapes
         add esp, byte 8
-        mov eax, dword [dword_1B84C0]
+        mov eax, dword [PlayerArtTables+1E4h]
         xor edx, edx
         call CreateModelInstance
         push edi
         push eax
-        mov dword [dword esi+dword_1B8374], eax
+        mov dword [dword esi+PlayerArtTables+098h], eax
         call BindModelShapes
         add esp, byte 8
 .4:
         call ServiceIdle
         push byte 0
         push str_Uarm
-        mov ebx, dword_1B82E0
+        mov ebx, PlayerArtTables+4
         call OpenArtArchiveErr
         add esp, byte 8
-        mov edx, dword_1B82DC
+        mov edx, PlayerArtTables
         mov esi, dword [byte esp+02Ch]
         mov edi, eax
         shl esi, 2
         mov ecx, dword [byte esp+030h]
-        mov dword [dword esi+dword_1B8324], eax
+        mov dword [dword esi+PlayerArtTables+48h], eax
         call BuildUniformArt
         push byte 0
-        mov edx, dword [dword_1ADC88]
+        mov edx, dword [ArenaArchive]
         mov ebx, edi
-        mov dword [dword esi+dword_1B83E0], eax
+        mov dword [dword esi+PlayerArtTables+104h], eax
         mov eax, str_Uarm
         call AddBankToRange
         push byte 0
         push str_Larm
-        mov ebx, dword_1B82E0
+        mov ebx, PlayerArtTables+4
         call OpenArtArchiveErr
-        mov edx, dword_1B82DC
+        mov edx, PlayerArtTables
         add esp, byte 8
         mov edi, eax
-        mov dword [dword esi+dword_1B8380], eax
+        mov dword [dword esi+PlayerArtTables+0A4h], eax
         call BuildUniformArt
         push byte 0
         mov ecx, dword [byte esp+034h]
-        mov edx, dword [dword_1ADC88]
+        mov edx, dword [ArenaArchive]
         mov ebx, edi
-        mov dword [dword esi+dword_1B83C8], eax
+        mov dword [dword esi+PlayerArtTables+0ECh], eax
         mov eax, str_Larm
         call AddBankToRange
         call ServiceIdle
@@ -1696,48 +1696,48 @@ LoadUniformArt:
         call OpenArtArchiveErr
         add esp, byte 8
         mov edi, eax
-        mov dword [dword esi+dword_1B8410], eax
-        mov ebx, dword_1B82E0
-        mov edx, dword_1B82DC
+        mov dword [dword esi+PlayerArtTables+134h], eax
+        mov ebx, PlayerArtTables+4
+        mov edx, PlayerArtTables
         mov ecx, dword [byte esp+030h]
         call BuildUniformArt
         push byte 0
-        mov edx, dword [dword_1ADC88]
+        mov edx, dword [ArenaArchive]
         mov ebx, edi
-        mov dword [dword esi+dword_1B834C], eax
+        mov dword [dword esi+PlayerArtTables+70h], eax
         mov eax, str_Uleg
         call AddBankToRange
         push byte 0
         push str_Lleg
-        mov ebx, dword_1B82E0
+        mov ebx, PlayerArtTables+4
         call OpenArtArchiveErr
-        mov edx, dword_1B82DC
+        mov edx, PlayerArtTables
         add esp, byte 8
         mov edi, eax
-        mov dword [dword esi+dword_1B82F4], eax
+        mov dword [dword esi+PlayerArtTables+18h], eax
         call BuildUniformArt
         push byte 0
         mov ecx, dword [byte esp+034h]
-        mov edx, dword [dword_1ADC88]
+        mov edx, dword [ArenaArchive]
         mov ebx, edi
-        mov dword [dword esi+dword_1B8330], eax
+        mov dword [dword esi+PlayerArtTables+54h], eax
         mov eax, str_Lleg
         call AddBankToRange
         call ServiceIdle
         push byte 0
         push str_Glove
         mov ebp, 1
-        mov ebx, dword_1B82E0
+        mov ebx, PlayerArtTables+4
         call OpenArtArchiveErr
-        mov edx, dword_1B82DC
+        mov edx, PlayerArtTables
         add esp, byte 8
         mov edi, eax
         mov dword [UniformArtBuf], ebp
-        mov dword [dword esi+dword_1B82E4], eax
+        mov dword [dword esi+PlayerArtTables+8], eax
         call BuildUniformArt
         mov ecx, dword [byte esp+030h]
-        mov edx, dword [dword_1ADC88]
-        mov dword [dword esi+dword_1B8318], eax
+        mov edx, dword [ArenaArchive]
+        mov dword [dword esi+PlayerArtTables+3Ch], eax
         xor eax, eax
         mov ebx, edi
         push eax
@@ -1811,17 +1811,17 @@ SetupJerseyBackTexture:
         sub eax, ebx
         shl eax, 2
         sub eax, ebx
-        mov ebp, dword_1B1410
+        mov ebp, ObjectPositions
         shl eax, 5
         add ebp, eax
         lea eax, [nosplit edx*4+00h]
         test esi, esi
         je short .1
-        mov eax, dword [dword eax+dword_1B8478]
+        mov eax, dword [dword eax+PlayerArtTables+19Ch]
         call CopyShape
         jmp short .2
 .1:
-        mov eax, dword [dword eax+dword_1B8478]
+        mov eax, dword [dword eax+PlayerArtTables+19Ch]
 .2:
         mov dword [dword ebp+06E4h], eax
         shl edx, 2
@@ -1830,13 +1830,13 @@ SetupJerseyBackTexture:
         mov dword [esp], edx
 .3:
         mov ebx, 0Ah
-        mov eax, dword [nosplit edi*4+dword_1B8560]
+        mov eax, dword [nosplit edi*4+PlayerArtTables+284h]
         xor edx, edx
         call CreateModelInstance
         mov ebx, eax
         mov dword [dword esi+06D8h], eax
         mov eax, dword [esp]
-        mov edx, dword [dword eax+dword_1B8520]
+        mov edx, dword [dword eax+PlayerArtTables+244h]
         push edx
         push ebx
         call BindModelShapes
@@ -1873,7 +1873,7 @@ InitPlayerModelSlots:
         push esi
         push edi
         push ebp
-        mov esi, dword_1B1410
+        mov esi, ObjectPositions
         xor edi, edi
         mov ebp, 1
 .1:
@@ -1893,12 +1893,12 @@ InitPlayerModelSlots:
         mov ecx, 0FFFFFFFFh
         xor edx, edx
 .2:
-        mov ebx, dword [dword edx+dword_1B13C8]
+        mov ebx, dword [dword edx+SeatModelSlots]
         test ebx, ebx
         jl short .3
         mov eax, ebx
         call FindModelName
-        mov dword [dword edx+dword_1B13C8], ecx
+        mov dword [dword edx+SeatModelSlots], ecx
 .3:
         add edx, byte 4
         cmp edx, byte 18h
@@ -1906,10 +1906,10 @@ InitPlayerModelSlots:
         xor ebp, ebp
         xor edi, edi
 .4:
-        cmp byte [dword edi+byte_1B8580], 0
+        cmp byte [dword edi+SeatModelCount], 0
         jne short .5
         mov eax, edi
-        add eax, byte_1B8580
+        add eax, SeatModelCount
         push eax
         mov ecx, DrawPortraitModels
         mov ebx, ModelViewDepth
@@ -1917,9 +1917,9 @@ InitPlayerModelSlots:
         mov edx, esi
         mov eax, str_BOGIE
         call AddModelName
-        mov byte [dword edi+byte_1B8582], al
+        mov byte [dword edi+SeatModelFlag], al
         movsx eax, al
-        mov dword [dword ebp+dword_1B13C8], eax
+        mov dword [dword ebp+SeatModelSlots], eax
 .5:
         add ebp, byte 4
         add edi, byte 0Fh
@@ -1949,7 +1949,7 @@ LoadGameModels:
         mov edx, 1
         xor ebx, ebx
         mov dword [ModelFileCount], edx
-        mov dword [dword_1B8550], ebx
+        mov dword [PlayerArtTables+274h], ebx
         call AllocSpriteBuffers
         mov eax, str_PlyrcomnViv
         call SetArtArchive
@@ -1960,14 +1960,14 @@ LoadGameModels:
         call OpenArtArchiveErr
         mov ecx, 0FFFFFFFFh
         add esp, byte 8
-        mov dword [dword_1B8544], eax
+        mov dword [PlayerArtTables+268h], eax
         xor edx, edx
         xor eax, eax
 .1:
         add eax, byte 4
         add edx, byte 0Fh
-        mov dword [dword eax+dword_1B13C4], ecx
-        mov byte [dword edx+byte_1B8571], bl
+        mov dword [dword eax+PlayerModelData], ecx
+        mov byte [dword edx+TeamModelFlags], bl
         cmp eax, byte 18h
         jne short .1
         xor esi, esi
@@ -1981,33 +1981,33 @@ LoadGameModels:
         add esp, byte 0Ch
         mov eax, esp
         push eax
-        mov edi, dword [dword_1B8544]
+        mov edi, dword [PlayerArtTables+268h]
         push edi
         add esi, byte 4
         inc ebx
         call FindShape
         add esp, byte 8
-        mov dword [dword esi+dword_1B138C], eax
+        mov dword [dword esi+GoalieStickArt], eax
         cmp ebx, byte 4
         jl short .2
         mov eax, str_Player2
         xor edx, edx
-        mov ecx, unk_1B85DC
+        mov ecx, PlayerModels
         call LoadModelFile
-        mov dword [dword_1B8540], eax
+        mov dword [PlayerArtTables+264h], eax
         call ScaleModelVerts
         call ServiceIdle
-        mov eax, dword [dword_1B8540]
+        mov eax, dword [PlayerArtTables+264h]
         mov ebx, 100h
         call LoadFaceArt
         push byte 0
         mov eax, str_Faces
-        mov edx, dword [dword_1ADC88]
+        mov edx, dword [ArenaArchive]
         call AddColorTable
         mov eax, InitPlayerModelSlots
         mov ebx, 5Ah
         call ReplayRegisterObjects
-        mov eax, byte_1B8580
+        mov eax, SeatModelCount
         mov edx, ebx
         call ReplayRegisterStates
         mov eax, dword [byte esp+014h]
@@ -2015,7 +2015,7 @@ LoadGameModels:
         add eax, byte 2
         mov dword [byte esp+018h], ebp
         mov dword [byte esp+010h], eax
-        mov eax, dword_1B1410
+        mov eax, ObjectPositions
         mov edx, dword [byte esp+010h]
         mov dword [byte esp+01Ch], eax
         test edx, edx
@@ -2032,7 +2032,7 @@ LoadGameModels:
         mov ebx, edx
         call ReplayRegisterStates
 .4:
-        mov eax, dword [dword_1B8540]
+        mov eax, dword [PlayerArtTables+264h]
         mov dword [dword ebp+0740h], 0FFFFFFFFh
         mov dword [dword ebp+0744h], 0
         mov dword [byte ebp+04Ch], 0FFFFFFFFh
@@ -2078,8 +2078,8 @@ LoadGameModels:
         cmp ecx, esi
         jl near .3
 .7:
-        mov eax, dword [dword_1B8540]
-        mov edi, dword [dword_16B550]
+        mov eax, dword [PlayerArtTables+264h]
+        mov edi, dword [SeatModelsUsed]
         mov eax, dword [byte eax+0Ch]
         test edi, edi
         jne short .8
@@ -2088,7 +2088,7 @@ LoadGameModels:
         mov ebp, 1
         mov edx, dword [byte esp+0Ch]
         xor ebx, ebx
-        mov dword [dword_16B550], ebp
+        mov dword [SeatModelsUsed], ebp
         call LoadPlayerCommonArt
         call ServiceIdle
         xor eax, eax
@@ -2205,7 +2205,7 @@ SetupTeamModels:
         push edi
         push ebp
         sub esp, byte 0Ch
-        mov ebx, dword_1B8300
+        mov ebx, PlayerArtTables+24h
         xor esi, esi
 .1:
         mov edx, dword [ebx]
@@ -2216,9 +2216,9 @@ SetupTeamModels:
         add esp, byte 4
         cmp esi, byte 3
         jl short .1
-        mov ebx, dword [dword_1B8370]
+        mov ebx, dword [PlayerArtTables+094h]
         push ebx
-        mov esi, dword_1B8398
+        mov esi, PlayerArtTables+0BCh
         call UpdateModelInstance
         add esp, byte 4
         xor ebx, ebx
@@ -2231,7 +2231,7 @@ SetupTeamModels:
         add esp, byte 4
         cmp ebx, byte 3
         jl short .2
-        mov ebx, dword_1B1380
+        mov ebx, StickModels
         xor esi, esi
 .3:
         mov edi, dword [ebx]
@@ -2242,7 +2242,7 @@ SetupTeamModels:
         add esp, byte 4
         cmp esi, byte 2
         jl short .3
-        mov ebx, dword_1B1388
+        mov ebx, GoalieStickModels
         xor esi, esi
 .4:
         mov ebp, dword [ebx]
@@ -2253,7 +2253,7 @@ SetupTeamModels:
         add esp, byte 4
         cmp esi, byte 2
         jl short .4
-        mov ebx, dword_1B83EC
+        mov ebx, PlayerArtTables+110h
         xor esi, esi
 .5:
         mov eax, dword [ebx]
@@ -2268,7 +2268,7 @@ SetupTeamModels:
         call MatchColor
         xor esi, esi
         add esp, byte 4
-        mov dword [dword_1B854C], eax
+        mov dword [PlayerArtTables+270h], eax
 .6:
         push byte 0
         push str_05dFsh
@@ -2291,11 +2291,11 @@ SetupTeamModels:
         cmp esi, byte 0Dh
         jl short .6
         mov ecx, 8
-        mov eax, byte_1B1378
+        mov eax, TeamColorSet
         xor edx, edx
         call __STOSB
-        mov edx, unk_16B534
-        mov eax, dword [dword_1ADC90]
+        mov edx, TeamColorRanges
+        mov eax, dword [RinkLineArt]
         call SetRangeColors
         add esp, byte 0Ch
         pop ebp
@@ -2318,21 +2318,21 @@ FreeGameModels:
         push edi
         push ebp
         call FreeReplayMem
-        mov edx, dword [dword_1B8544]
+        mov edx, dword [PlayerArtTables+268h]
         push edx
         call FreeMemBlock
         add esp, byte 4
-        mov ebx, dword [dword_1B8540]
+        mov ebx, dword [PlayerArtTables+264h]
         push ebx
         call FreeMemBlock
         add esp, byte 4
         xor ebx, ebx
 .1:
-        mov ecx, dword [dword ebx+dword_1B846C]
+        mov ecx, dword [dword ebx+PlayerArtTables+190h]
         push ecx
         call FreeMemBlock
         add esp, byte 4
-        mov esi, dword [dword ebx+dword_1B830C]
+        mov esi, dword [dword ebx+PlayerArtTables+30h]
         push esi
         add ebx, byte 4
         call FreeMemBlock
@@ -2341,7 +2341,7 @@ FreeGameModels:
         jne short .1
         xor ebx, ebx
 .2:
-        mov edi, dword [dword ebx+dword_1B83A4]
+        mov edi, dword [dword ebx+PlayerArtTables+0C8h]
         push edi
         add ebx, byte 4
         call FreeModelInstance
@@ -2350,20 +2350,20 @@ FreeGameModels:
         jne short .2
         xor ebx, ebx
 .3:
-        mov ebp, dword [dword ebx+dword_1B8300]
+        mov ebp, dword [dword ebx+PlayerArtTables+24h]
         push ebp
         add ebx, byte 4
         call FreeModelInstance
         add esp, byte 4
         cmp ebx, byte 0Ch
         jne short .3
-        mov eax, dword [dword_1B8370]
+        mov eax, dword [PlayerArtTables+094h]
         push eax
         xor ebx, ebx
         call FreeModelInstance
         add esp, byte 4
 .4:
-        mov edx, dword [dword ebx+dword_1B8398]
+        mov edx, dword [dword ebx+PlayerArtTables+0BCh]
         push edx
         add ebx, byte 4
         call FreeModelInstance
@@ -2372,7 +2372,7 @@ FreeGameModels:
         jne short .4
         xor ebx, ebx
 .5:
-        mov ecx, dword [dword ebx+dword_1B833C]
+        mov ecx, dword [dword ebx+PlayerArtTables+60h]
         push ecx
         add ebx, byte 4
         call FreeModelInstance
@@ -2381,7 +2381,7 @@ FreeGameModels:
         jne short .5
         xor ebx, ebx
 .6:
-        mov esi, dword [dword ebx+dword_1B841C]
+        mov esi, dword [dword ebx+PlayerArtTables+140h]
         push esi
         add ebx, byte 4
         call FreeModelInstance
@@ -2390,7 +2390,7 @@ FreeGameModels:
         jne short .6
         xor ebx, ebx
 .7:
-        mov edi, dword [dword ebx+dword_1B83D4]
+        mov edi, dword [dword ebx+PlayerArtTables+0F8h]
         push edi
         add ebx, byte 4
         call FreeModelInstance
@@ -2399,7 +2399,7 @@ FreeGameModels:
         jne short .7
         xor ebx, ebx
 .8:
-        mov ebp, dword [dword ebx+dword_1B838C]
+        mov ebp, dword [dword ebx+PlayerArtTables+0B0h]
         push ebp
         add ebx, byte 4
         call FreeModelInstance
@@ -2408,7 +2408,7 @@ FreeGameModels:
         jne short .8
         xor ebx, ebx
 .9:
-        mov eax, dword [dword ebx+dword_1B8358]
+        mov eax, dword [dword ebx+PlayerArtTables+7Ch]
         push eax
         add ebx, byte 4
         call FreeModelInstance
@@ -2417,7 +2417,7 @@ FreeGameModels:
         jne short .9
         xor ebx, ebx
 .10:
-        mov edx, dword [dword ebx+dword_1B8374]
+        mov edx, dword [dword ebx+PlayerArtTables+098h]
         push edx
         add ebx, byte 4
         call FreeModelInstance
@@ -2426,7 +2426,7 @@ FreeGameModels:
         jne short .10
         xor ebx, ebx
 .11:
-        mov ecx, dword [dword ebx+dword_1B1380]
+        mov ecx, dword [dword ebx+StickModels]
         push ecx
         add ebx, byte 4
         call FreeModelInstance
@@ -2435,64 +2435,64 @@ FreeGameModels:
         jne short .11
         xor ebx, ebx
 .12:
-        mov esi, dword [dword ebx+dword_1B1388]
+        mov esi, dword [dword ebx+GoalieStickModels]
         push esi
         add ebx, byte 4
         call FreeModelInstance
         add esp, byte 4
         cmp ebx, byte 8
         jne short .12
-        cmp dword [dword_1B84F8], byte 0
+        cmp dword [PlayerArtTables+21Ch], byte 0
         je short .13
-        mov ebp, dword [dword_1B8450]
+        mov ebp, dword [PlayerArtTables+174h]
         push ebp
         call FreeModelInstance
         add esp, byte 4
-        mov eax, dword [dword_1B84F8]
+        mov eax, dword [PlayerArtTables+21Ch]
         push eax
         call FreeModelFile
         add esp, byte 4
-        mov edx, dword [dword_1B84D8]
+        mov edx, dword [PlayerArtTables+1FCh]
         push edx
         call FreeMemBlock
         add esp, byte 4
 .13:
         xor ebx, ebx
 .14:
-        mov ecx, dword [dword ebx+dword_1B8560]
+        mov ecx, dword [dword ebx+PlayerArtTables+284h]
         push ecx
         add ebx, byte 4
         call FreeModelFile
         add esp, byte 4
         cmp ebx, byte 0Ch
         jne short .14
-        mov esi, dword [dword_1B8548]
+        mov esi, dword [PlayerArtTables+26Ch]
         push esi
         call FreeModelFile
         add esp, byte 4
-        mov edi, dword [dword_1B84B0]
+        mov edi, dword [PlayerArtTables+1D4h]
         push edi
         call FreeModelFile
         add esp, byte 4
-        mov ebp, dword [dword_1B8488]
+        mov ebp, dword [PlayerArtTables+1ACh]
         push ebp
         call FreeModelFile
         add esp, byte 4
-        mov eax, dword [dword_1B8484]
+        mov eax, dword [PlayerArtTables+1A8h]
         push eax
         call FreeModelFile
         add esp, byte 4
-        mov edx, dword [dword_1B8440]
+        mov edx, dword [PlayerArtTables+164h]
         push edx
         call FreeModelFile
         add esp, byte 4
-        mov ebx, dword [dword_1B84C0]
+        mov ebx, dword [PlayerArtTables+1E4h]
         push ebx
         call FreeModelFile
         add esp, byte 4
         xor ebx, ebx
 .15:
-        mov ecx, dword [dword ebx+dword_1B8530]
+        mov ecx, dword [dword ebx+PlayerArtTables+254h]
         push ecx
         add ebx, byte 4
         call FreeModelFile
@@ -2501,7 +2501,7 @@ FreeGameModels:
         jne short .15
         xor ebx, ebx
 .16:
-        mov esi, dword [dword ebx+dword_1B13B0]
+        mov esi, dword [dword ebx+SkateArt]
         push esi
         add ebx, byte 4
         call FreeModelFile
@@ -2510,7 +2510,7 @@ FreeGameModels:
         jne short .16
         xor ebx, ebx
 .17:
-        mov edi, dword [dword ebx+dword_1B8554]
+        mov edi, dword [dword ebx+PlayerArtTables+278h]
         push edi
         add ebx, byte 4
         call FreeModelFile
@@ -2519,7 +2519,7 @@ FreeGameModels:
         jne short .17
         xor ebx, ebx
 .18:
-        mov ebp, dword [dword ebx+dword_1B13E0]
+        mov ebp, dword [dword ebx+HeadArt]
         push ebp
         add ebx, byte 4
         call FreeModelFile
@@ -2528,14 +2528,14 @@ FreeGameModels:
         jne short .18
         xor ebx, ebx
 .19:
-        mov eax, dword [dword ebx+dword_1B13C0]
+        mov eax, dword [dword ebx+ShadowArt]
         push eax
         add ebx, byte 4
         call FreeModelFile
         add esp, byte 4
         cmp ebx, byte 8
         jne short .19
-        mov edi, dword_1B1410
+        mov edi, ObjectPositions
         xor ebp, ebp
 .20:
         mov esi, edi
@@ -2560,7 +2560,7 @@ FreeGameModels:
         add edi, 760h
         cmp ebp, byte 0Fh
         jl short .20
-        mov ebx, dword_1B8520
+        mov ebx, PlayerArtTables+244h
         xor esi, esi
 .23:
         mov edi, dword [ebx]
@@ -2571,7 +2571,7 @@ FreeGameModels:
         add esp, byte 4
         cmp esi, byte 3
         jl short .23
-        mov ebx, dword_1B84B4
+        mov ebx, PlayerArtTables+1D8h
         xor esi, esi
 .24:
         mov ebp, dword [ebx]
@@ -2582,7 +2582,7 @@ FreeGameModels:
         add esp, byte 4
         cmp esi, byte 3
         jl short .24
-        mov ebx, dword_1B84DC
+        mov ebx, PlayerArtTables+200h
         xor esi, esi
 .25:
         mov eax, dword [ebx]
@@ -2593,90 +2593,90 @@ FreeGameModels:
         add esp, byte 4
         cmp esi, byte 3
         jl short .25
-        mov edx, dword [dword_1B84F4]
+        mov edx, dword [PlayerArtTables+218h]
         push edx
         call FreeMemBlock
         add esp, byte 4
-        mov ebx, dword [dword_1B8468]
+        mov ebx, dword [PlayerArtTables+18Ch]
         push ebx
         call FreeMemBlock
         add esp, byte 4
-        mov ecx, dword [dword_1B82F0]
+        mov ecx, dword [PlayerArtTables+14h]
         push ecx
         call FreeMemBlock
         add esp, byte 4
-        mov esi, dword [dword_1B84C8]
+        mov esi, dword [PlayerArtTables+1ECh]
         push esi
         xor ebx, ebx
         call FreeMemBlock
         add esp, byte 4
 .26:
-        mov edi, dword [dword ebx+dword_1B8324]
+        mov edi, dword [dword ebx+PlayerArtTables+48h]
         push edi
         call FreeMemBlock
         add esp, byte 4
-        mov ebp, dword [dword ebx+dword_1B8380]
+        mov ebp, dword [dword ebx+PlayerArtTables+0A4h]
         push ebp
         call FreeMemBlock
         add esp, byte 4
-        mov eax, dword [dword ebx+dword_1B8410]
+        mov eax, dword [dword ebx+PlayerArtTables+134h]
         push eax
         call FreeMemBlock
         add esp, byte 4
-        mov edx, dword [dword ebx+dword_1B82F4]
+        mov edx, dword [dword ebx+PlayerArtTables+18h]
         push edx
         call FreeMemBlock
         add esp, byte 4
-        mov ecx, dword [dword ebx+dword_1B82E4]
+        mov ecx, dword [dword ebx+PlayerArtTables+8]
         push ecx
         call FreeMemBlock
         add esp, byte 4
-        mov esi, dword [dword ebx+dword_1B83E0]
+        mov esi, dword [dword ebx+PlayerArtTables+104h]
         push esi
         call FreeMemBlock
         add esp, byte 4
-        mov edi, dword [dword ebx+dword_1B83C8]
+        mov edi, dword [dword ebx+PlayerArtTables+0ECh]
         push edi
         call FreeMemBlock
         add esp, byte 4
-        mov ebp, dword [dword ebx+dword_1B834C]
+        mov ebp, dword [dword ebx+PlayerArtTables+70h]
         push ebp
         call FreeMemBlock
         add esp, byte 4
-        mov eax, dword [dword ebx+dword_1B8330]
+        mov eax, dword [dword ebx+PlayerArtTables+54h]
         push eax
         call FreeMemBlock
         add esp, byte 4
-        mov edx, dword [dword ebx+dword_1B8318]
+        mov edx, dword [dword ebx+PlayerArtTables+3Ch]
         push edx
         add ebx, byte 4
         call FreeMemBlock
         add esp, byte 4
         cmp ebx, byte 0Ch
         jne near .26
-        mov ebx, dword [dword_1B84C4]
+        mov ebx, dword [PlayerArtTables+1E8h]
         push ebx
         call FreeMemBlock
         add esp, byte 4
-        mov ecx, dword [dword_1B8364]
+        mov ecx, dword [PlayerArtTables+88h]
         push ecx
         xor ebx, ebx
         call FreeMemBlock
         add esp, byte 4
 .27:
-        mov esi, dword [dword ebx+dword_1B84E8]
+        mov esi, dword [dword ebx+PlayerArtTables+20Ch]
         push esi
         call FreeMemBlock
         add esp, byte 4
-        mov edi, dword [dword ebx+dword_1B84CC]
+        mov edi, dword [dword ebx+PlayerArtTables+1F0h]
         push edi
         call FreeMemBlock
         add esp, byte 4
-        mov ebp, dword [dword ebx+dword_1B8434]
+        mov ebp, dword [dword ebx+PlayerArtTables+158h]
         push ebp
         call FreeMemBlock
         add esp, byte 4
-        mov eax, dword [dword ebx+dword_1B845C]
+        mov eax, dword [dword ebx+PlayerArtTables+180h]
         push eax
         add ebx, byte 4
         call FreeMemBlock
@@ -2692,7 +2692,7 @@ FreeGameModels:
 .28:
         add ebx, 760h
         xor ah, ah
-        mov byte [dword ebx+byte_1B1398], ah
+        mov byte [dword ebx+ModelLoadedFlags], ah
         cmp ebx, 5FE0h
         jne short .28
         pop ebp
@@ -2737,10 +2737,10 @@ UpdateViewMatrix:
         and esp, byte 0FFFFFFF8h
         mov dword [dword esp+0148h], eax
         lea ebx, [byte esp+060h]
-        mov edx, dword_1B905F
+        mov edx, CameraStateRecords+7
         call VecSub
         mov ebx, dword [dword esp+0148h]
-        mov edx, unk_1B92AB
+        mov edx, CameraStateRecords+253h
         lea eax, [byte esp+060h]
         add ebx, 41Ch
         call VecMulMat
@@ -2764,7 +2764,7 @@ UpdateViewMatrix:
         lea eax, [byte esp+04h]
         fstp dword [byte edx+050h]
         call MatRotY
-        mov edx, unk_1B92AB
+        mov edx, CameraStateRecords+253h
         mov eax, esp
         call MatMul
         mov eax, dword [dword esp+0148h]
@@ -3157,10 +3157,10 @@ UpdateViewMatrix:
         mov edi, ebx
         mov eax, edx
         lea ebx, [byte esp+06Ch]
-        mov edx, dword_1B905F
+        mov edx, CameraStateRecords+7
         call VecSub
         lea ecx, [dword esi+041Ch]
-        mov edx, unk_1B92AB
+        mov edx, CameraStateRecords+253h
         lea eax, [byte esp+06Ch]
         mov ebx, ecx
         call VecMulMat
@@ -3174,7 +3174,7 @@ UpdateViewMatrix:
         call IF@ATAN2
         push dword [byte esi+0Ch]
         lea ebx, [byte esp+028h]
-        mov edx, unk_1B92AB
+        mov edx, CameraStateRecords+253h
         lea eax, [byte esp+04h]
         fstp dword [byte esi+050h]
         call MatRotY
@@ -3455,7 +3455,7 @@ DrawModelByDetail:
         jle short .4
         fild dword [byte esp+04h]
         fst dword [esp]
-        fcomp dword [dword_1B82C0]
+        fcomp dword [ModelLodNear]
         fnstsw ax
         sahf
         jbe short .1
@@ -3464,7 +3464,7 @@ DrawModelByDetail:
         jmp short .3
 .1:
         fld dword [esp]
-        fcomp dword [dword_1B82C4]
+        fcomp dword [ModelLodFar]
         fnstsw ax
         sahf
         jbe short .2
@@ -3514,7 +3514,7 @@ DrawPlayerModel:
         xor edi, edi
         fild dword [esp]
         fst dword [byte esp+04h]
-        fcomp dword [dword_1B82C8]
+        fcomp dword [PlayerLodNear]
         fnstsw ax
         sahf
         jbe short .1
@@ -3522,7 +3522,7 @@ DrawPlayerModel:
         jmp short .3
 .1:
         fld dword [byte esp+04h]
-        fcomp dword [dword_1B82CC]
+        fcomp dword [PlayerLodFar]
         fnstsw ax
         sahf
         jbe short .2
@@ -3552,7 +3552,7 @@ DrawPlayerModel:
         je short .4
         push byte 0
         push byte 0
-        push unk_1B13E8
+        push PlayerDrawParams
         mov edx, dword [dword esi+080h]
         push edx
         push byte 0Ah
@@ -3595,7 +3595,7 @@ DrawObjectShadow:
         mov edx, dword [dword eax+0288h]
         mov dword [byte esp+024h], edx
         fld dword [byte esp+024h]
-        fcomp dword [dword_1B82D4]
+        fcomp dword [ShadowLodDist]
         fnstsw ax
         sahf
         ja near .1
@@ -3647,7 +3647,7 @@ DrawObjectShadow:
         mov eax, dword [byte esp+020h]
         sar ebx, 2
         push eax
-        mov eax, dword [dword_1B854C]
+        mov eax, dword [PlayerArtTables+270h]
         add ecx, ebx
         push eax
         sar edx, 2
@@ -3690,7 +3690,7 @@ DrawHeadModel:
         mov dword [esp], eax
         fild dword [byte esp+04h]
         fst dword [byte esp+08h]
-        fcomp dword [dword_1B82B0]
+        fcomp dword [HeadLodNear]
         fnstsw ax
         sahf
         jbe short .1
@@ -3699,7 +3699,7 @@ DrawHeadModel:
         jmp short .4
 .1:
         fld dword [byte esp+08h]
-        fcomp dword [dword_1B82B4]
+        fcomp dword [HeadLodFar]
         fnstsw ax
         sahf
         jbe short .2
@@ -3708,7 +3708,7 @@ DrawHeadModel:
         mov edi, dword [byte edi+04h]
         test ebx, ebx
         jne short .4
-        mov edx, dword [dword_1B8570]
+        mov edx, dword [HeadDetail]
         jmp short .3
 .2:
         mov edi, dword [dword esi+06BCh]
@@ -3716,7 +3716,7 @@ DrawHeadModel:
         mov edi, dword [byte edi+08h]
         test edx, edx
         jne short .4
-        mov edx, dword [dword_1B8574]
+        mov edx, dword [HeadModelData]
 .3:
         mov eax, edi
         mov ebx, dword [dword esi+073Ch]
@@ -3742,11 +3742,11 @@ DrawHeadModel:
         test edi, edi
         jne near .15
         fild dword [esp]
-        fcomp dword [dword_1B82BC]
+        fcomp dword [HeadLodMid]
         fnstsw ax
         sahf
         jae near .15
-        cmp dword [dword_1B857C], byte 0
+        cmp dword [RenderTimersOn], byte 0
         jne near .15
         mov eax, dword [byte esi+048h]
         mov ebx, dword [dword esi+06F0h]
@@ -3881,7 +3881,7 @@ DrawLeftArmModel:
         mov dword [esp], eax
         add edx, 428h
         fild dword [esp]
-        fcomp dword [dword_1B82D0]
+        fcomp dword [ArmLodDist]
         fnstsw ax
         sahf
         jbe short .2
@@ -3913,7 +3913,7 @@ DrawLeftArmModel_80:
         mov dword [esp], eax
         add edx, 560h
         fild dword [esp]
-        fcomp dword [dword_1B82D0]
+        fcomp dword [ArmLodDist]
         fnstsw ax
         sahf
         jbe short .4
@@ -3963,7 +3963,7 @@ DrawRightArmModel:
         mov dword [esp], eax
         add edx, 45Ch
         fild dword [esp]
-        fcomp dword [dword_1B82D0]
+        fcomp dword [ArmLodDist]
         fnstsw ax
         sahf
         jbe short .2
@@ -3995,7 +3995,7 @@ DrawRightArmModel_80:
         mov dword [esp], eax
         add edx, 594h
         fild dword [esp]
-        fcomp dword [dword_1B82D0]
+        fcomp dword [ArmLodDist]
         fnstsw ax
         sahf
         jbe short .4
@@ -4021,7 +4021,7 @@ DrawRightArmModel_C0:
         mov dword [esp], eax
         add edx, 4C4h
         fild dword [esp]
-        fcomp dword [dword_1B82D0]
+        fcomp dword [ArmLodDist]
         fnstsw ax
         sahf
         jbe short .5
@@ -4047,7 +4047,7 @@ DrawRightArmModel_100:
         mov dword [esp], eax
         add edx, 490h
         fild dword [esp]
-        fcomp dword [dword_1B82D0]
+        fcomp dword [ArmLodDist]
         fnstsw ax
         sahf
         jbe short .6
@@ -4073,7 +4073,7 @@ DrawRightArmModel_140:
         mov dword [esp], eax
         add edx, 52Ch
         fild dword [esp]
-        fcomp dword [dword_1B82D0]
+        fcomp dword [ArmLodDist]
         fnstsw ax
         sahf
         jbe short .7
@@ -4108,14 +4108,14 @@ DrawStickModel:
         pop eax
         mov dword [esp], eax
         fild dword [esp]
-        fcomp dword [dword_1B82B8]
+        fcomp dword [StickLodDist]
         fnstsw ax
         sahf
         jbe short .1
-        mov ebx, dword [dword_1B1380]
+        mov ebx, dword [StickModels]
         jmp short .2
 .1:
-        mov ebx, dword [dword_1B1384]
+        mov ebx, dword [StickArt]
 .2:
         add ecx, 190h
         mov eax, ebx
@@ -4152,14 +4152,14 @@ DrawGoalieStickModel:
         pop eax
         mov dword [esp], eax
         fild dword [esp]
-        fcomp dword [dword_1B82B8]
+        fcomp dword [StickLodDist]
         fnstsw ax
         sahf
         jbe short .1
-        mov ebx, dword [dword_1B1388]
+        mov ebx, dword [GoalieStickModels]
         jmp short .2
 .1:
-        mov ebx, dword [dword_1B138C]
+        mov ebx, dword [GoalieStickArt]
 .2:
         add ecx, 190h
         mov eax, ebx
@@ -4259,7 +4259,7 @@ DrawLeftHandModel:
         mov dword [esp], eax
         add edx, 5FCh
         fild dword [esp]
-        fcomp dword [dword_1B82D0]
+        fcomp dword [ArmLodDist]
         fnstsw ax
         sahf
         jbe short .3
@@ -4315,7 +4315,7 @@ DrawRightHandModel:
         mov dword [esp], eax
         add edx, 5C8h
         fild dword [esp]
-        fcomp dword [dword_1B82D0]
+        fcomp dword [ArmLodDist]
         fnstsw ax
         sahf
         jbe short .3
@@ -4349,7 +4349,7 @@ ScaleModelLods:
         fld dword [dword eax+F32_2000_ScaleModelLods]
         fmul st1
         add eax, byte 4
-        fstp dword [dword eax+dword_1B82AC]
+        fstp dword [dword eax+LodScale]
         cmp eax, byte 28h
         jne short .1
         fstp st0
@@ -4385,7 +4385,7 @@ DrawModelParts:
         fmul qword [F64_0p159155_DrawModelParts]
         fmul qword [F64_65536_DrawModelParts]
         lea ecx, [dword eax+0190h]
-        mov ebx, dword [dword_1B82D8]
+        mov ebx, dword [DrawPartsDone]
         push eax
         fistp dword [esp]
         pop eax
@@ -4395,10 +4395,10 @@ DrawModelParts:
         lea edi, [nosplit eax*4+00h]
         test edx, edx
         je short .1
-        mov edi, dword [dword edi+off_16B6F8]
+        mov edi, dword [dword edi+ModelPartLinksLeft]
         jmp short .2
 .1:
-        mov edi, dword [dword edi+off_16B708]
+        mov edi, dword [dword edi+ModelPartLinksRight]
 .2:
         fld dword [byte ecx+068h]
         push eax
@@ -4406,150 +4406,150 @@ DrawModelParts:
         pop eax
         mov edx, dword [edi]
         add edx, eax
-        mov eax, dword [dword_1B82D8]
-        mov dword [nosplit eax*4+dword_1B1300], edx
+        mov eax, dword [DrawPartsDone]
+        mov dword [nosplit eax*4+DrawSortList], edx
         lea edx, [nosplit eax*4+00h]
         inc eax
-        mov dword [dword edx+dword_1B1288], DrawRightArmModel_140
-        mov dword [dword_1B82D8], eax
+        mov dword [dword edx+DrawFuncTable], DrawRightArmModel_140
+        mov dword [DrawPartsDone], eax
         fld dword [byte ecx+05Ch]
         push eax
         fistp dword [esp]
         pop eax
         add eax, dword [byte edi+08h]
-        mov edx, dword [dword_1B82D8]
+        mov edx, dword [DrawPartsDone]
         shl edx, 2
-        mov dword [dword edx+dword_1B1300], eax
-        mov eax, dword [dword_1B82D8]
+        mov dword [dword edx+DrawSortList], eax
+        mov eax, dword [DrawPartsDone]
         lea edx, [nosplit eax*4+00h]
         inc eax
-        mov dword [dword edx+dword_1B1288], DrawRightArmModel_180
-        mov dword [dword_1B82D8], eax
+        mov dword [dword edx+DrawFuncTable], DrawRightArmModel_180
+        mov dword [DrawPartsDone], eax
         fld dword [byte ecx+044h]
         push eax
         fistp dword [esp]
         pop eax
         mov edx, dword [byte edi+04h]
         add edx, eax
-        mov eax, dword [dword_1B82D8]
-        mov dword [nosplit eax*4+dword_1B1300], edx
+        mov eax, dword [DrawPartsDone]
+        mov dword [nosplit eax*4+DrawSortList], edx
         lea edx, [nosplit eax*4+00h]
         inc eax
-        mov dword [dword edx+dword_1B1288], DrawRightArmModel_C0
-        mov dword [dword_1B82D8], eax
+        mov dword [dword edx+DrawFuncTable], DrawRightArmModel_C0
+        mov dword [DrawPartsDone], eax
         fld dword [byte ecx+038h]
         push eax
         fistp dword [esp]
         pop eax
         mov edx, dword [byte edi+0Ch]
         add edx, eax
-        mov eax, dword [dword_1B82D8]
-        mov dword [nosplit eax*4+dword_1B1300], edx
+        mov eax, dword [DrawPartsDone]
+        mov dword [nosplit eax*4+DrawSortList], edx
         lea edx, [nosplit eax*4+00h]
         inc eax
-        mov dword [dword edx+dword_1B1288], DrawRightArmModel_100
-        mov dword [dword_1B82D8], eax
+        mov dword [dword edx+DrawFuncTable], DrawRightArmModel_100
+        mov dword [DrawPartsDone], eax
         fld dword [dword ecx+080h]
         push eax
         fistp dword [esp]
         pop eax
         add eax, dword [byte edi+018h]
-        mov edx, dword [dword_1B82D8]
+        mov edx, dword [DrawPartsDone]
         shl edx, 2
-        mov dword [dword edx+dword_1B1300], eax
-        mov eax, dword [dword_1B82D8]
+        mov dword [dword edx+DrawSortList], eax
+        mov eax, dword [DrawPartsDone]
         lea edx, [nosplit eax*4+00h]
         inc eax
-        mov dword [dword edx+dword_1B1288], DrawRightArmModel
-        mov dword [dword_1B82D8], eax
+        mov dword [dword edx+DrawFuncTable], DrawRightArmModel
+        mov dword [DrawPartsDone], eax
         fld dword [byte ecx+074h]
         push eax
         fistp dword [esp]
         pop eax
         add eax, dword [byte edi+010h]
-        mov edx, dword [dword_1B82D8]
+        mov edx, dword [DrawPartsDone]
         shl edx, 2
-        mov dword [dword edx+dword_1B1300], eax
-        mov eax, dword [dword_1B82D8]
+        mov dword [dword edx+DrawSortList], eax
+        mov eax, dword [DrawPartsDone]
         lea edx, [nosplit eax*4+00h]
         inc eax
-        mov dword [dword edx+dword_1B1288], DrawRightArmModel_80
-        mov dword [dword_1B82D8], eax
+        mov dword [dword edx+DrawFuncTable], DrawRightArmModel_80
+        mov dword [DrawPartsDone], eax
         fld dword [dword ecx+0A4h]
         push eax
         fistp dword [esp]
         pop eax
         add eax, dword [byte edi+01Ch]
-        mov edx, dword [dword_1B82D8]
+        mov edx, dword [DrawPartsDone]
         shl edx, 2
-        mov dword [dword edx+dword_1B1300], eax
-        mov eax, dword [dword_1B82D8]
+        mov dword [dword edx+DrawSortList], eax
+        mov eax, dword [DrawPartsDone]
         lea edx, [nosplit eax*4+00h]
         inc eax
-        mov dword [dword edx+dword_1B1288], DrawLeftArmModel
-        mov dword [dword_1B82D8], eax
+        mov dword [dword edx+DrawFuncTable], DrawLeftArmModel
+        mov dword [DrawPartsDone], eax
         fld dword [dword ecx+098h]
         push eax
         fistp dword [esp]
         pop eax
         add eax, dword [byte edi+014h]
-        mov edx, dword [dword_1B82D8]
+        mov edx, dword [DrawPartsDone]
         shl edx, 2
-        mov dword [dword edx+dword_1B1300], eax
-        mov eax, dword [dword_1B82D8]
+        mov dword [dword edx+DrawSortList], eax
+        mov eax, dword [DrawPartsDone]
         lea edx, [nosplit eax*4+00h]
         inc eax
-        mov dword [dword edx+dword_1B1288], DrawLeftArmModel_80
-        mov dword [dword_1B82D8], eax
+        mov dword [dword edx+DrawFuncTable], DrawLeftArmModel_80
+        mov dword [DrawPartsDone], eax
         fld dword [byte ecx+020h]
         push eax
         fistp dword [esp]
         pop eax
-        mov edx, dword [dword_1B82D8]
+        mov edx, dword [DrawPartsDone]
         shl edx, 2
-        mov dword [dword edx+dword_1B1300], eax
-        mov eax, dword [dword_1B82D8]
+        mov dword [dword edx+DrawSortList], eax
+        mov eax, dword [DrawPartsDone]
         lea edx, [nosplit eax*4+00h]
         inc eax
-        mov dword [dword edx+dword_1B1288], DrawHeadModel
-        mov dword [dword_1B82D8], eax
+        mov dword [dword edx+DrawFuncTable], DrawHeadModel
+        mov dword [DrawPartsDone], eax
         fld dword [byte ecx+014h]
         push eax
         fistp dword [esp]
         pop eax
-        mov edx, dword [dword_1B82D8]
+        mov edx, dword [DrawPartsDone]
         shl edx, 2
-        mov dword [dword edx+dword_1B1300], eax
-        mov eax, dword [dword_1B82D8]
+        mov dword [dword edx+DrawSortList], eax
+        mov eax, dword [DrawPartsDone]
         lea edx, [nosplit eax*4+00h]
         inc eax
-        mov dword [dword edx+dword_1B1288], DrawPlayerModel_BC
-        mov dword [dword_1B82D8], eax
+        mov dword [dword edx+DrawFuncTable], DrawPlayerModel_BC
+        mov dword [DrawPartsDone], eax
         fld dword [byte ecx+044h]
         push eax
         fistp dword [esp]
         pop eax
         mov edx, dword [byte edi+024h]
         add edx, eax
-        mov eax, dword [dword_1B82D8]
-        mov dword [nosplit eax*4+dword_1B1300], edx
+        mov eax, dword [DrawPartsDone]
+        mov dword [nosplit eax*4+DrawSortList], edx
         lea edx, [nosplit eax*4+00h]
         inc eax
-        mov dword [dword edx+dword_1B1288], DrawRightHandModel
-        mov dword [dword_1B82D8], eax
+        mov dword [dword edx+DrawFuncTable], DrawRightHandModel
+        mov dword [DrawPartsDone], eax
         fld dword [byte ecx+068h]
         push eax
         fistp dword [esp]
         pop eax
         add eax, dword [byte edi+020h]
-        mov edx, dword [dword_1B82D8]
+        mov edx, dword [DrawPartsDone]
         shl edx, 2
-        mov dword [dword edx+dword_1B1300], eax
-        mov eax, dword [dword_1B82D8]
+        mov dword [dword edx+DrawSortList], eax
+        mov eax, dword [DrawPartsDone]
         lea edx, [nosplit eax*4+00h]
         inc eax
-        mov dword [dword edx+dword_1B1288], DrawLeftHandModel
-        mov dword [dword_1B82D8], eax
+        mov dword [dword edx+DrawFuncTable], DrawLeftHandModel
+        mov dword [DrawPartsDone], eax
         mov eax, dword [byte ebp+038h]
         test eax, eax
         je short .3
@@ -4569,13 +4569,13 @@ DrawModelParts:
         mov edx, dword [esp]
         add eax, dword [byte edx+028h]
         mov dword [esp], eax
-        mov eax, dword [dword_1B82D8]
+        mov eax, dword [DrawPartsDone]
         mov edx, dword [esp]
-        mov dword [nosplit eax*4+dword_1B1300], edx
+        mov dword [nosplit eax*4+DrawSortList], edx
         lea edx, [nosplit eax*4+00h]
         inc eax
-        mov dword [dword edx+dword_1B1288], DrawModelByDetail
-        mov dword [dword_1B82D8], eax
+        mov dword [dword edx+DrawFuncTable], DrawModelByDetail
+        mov dword [DrawPartsDone], eax
 .3:
         cmp dword [byte ebp+034h], byte 0
         jne short .4
@@ -4586,37 +4586,37 @@ DrawModelParts:
         push eax
         fistp dword [esp]
         pop eax
-        mov edx, dword [dword_1B82D8]
-        mov dword [nosplit edx*4+dword_1B1300], eax
+        mov edx, dword [DrawPartsDone]
+        mov dword [nosplit edx*4+DrawSortList], eax
         mov eax, edx
         inc eax
         mov edx, DrawGoalieStickModel
-        mov dword [dword_1B82D8], eax
-        mov dword [nosplit eax*4+dword_1B1284], edx
+        mov dword [DrawPartsDone], eax
+        mov dword [nosplit eax*4+MarkerPoints+2Ch], edx
         fild dword [byte edi+030h]
         fadd dword [dword ecx+08Ch]
         push eax
         fistp dword [esp]
         pop eax
-        mov edx, dword [dword_1B82D8]
+        mov edx, dword [DrawPartsDone]
         mov ecx, DrawStickModel
-        mov dword [nosplit edx*4+dword_1B1300], eax
+        mov dword [nosplit edx*4+DrawSortList], eax
         lea eax, [byte edx+01h]
-        mov dword [nosplit edx*4+dword_1B1288], ecx
-        mov dword [dword_1B82D8], eax
+        mov dword [nosplit edx*4+DrawFuncTable], ecx
+        mov dword [DrawPartsDone], eax
 .4:
-        mov ecx, dword [dword_1B82D8]
+        mov ecx, dword [DrawPartsDone]
         lea eax, [nosplit ebx*4+00h]
         shl ecx, 2
 .5:
         cmp eax, ecx
         jge near SetupPlayerModel_CD
-        mov edx, dword [dword eax+dword_1B1300]
+        mov edx, dword [dword eax+DrawSortList]
         add edx, edx
         add eax, byte 4
         add edx, esi
         inc ebx
-        mov dword [dword eax+dword_1B12FC], edx
+        mov dword [dword eax+DrawPartCount], edx
         jmp short .5
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
@@ -4641,7 +4641,7 @@ DrawPlayersSorted:
         sub eax, ebx
         shl eax, 2
         sub eax, ebx
-        mov edi, dword_1B1410
+        mov edi, ObjectPositions
         shl eax, 5
         add edi, eax
         lea edx, [dword edi+041Ch]
@@ -4663,7 +4663,7 @@ DrawPlayersSorted:
         mov eax, esi
         xor ecx, ecx
         xor edx, edx
-        mov dword [dword_1B82D8], ecx
+        mov dword [DrawPartsDone], ecx
         call DrawPlayerModel
         mov eax, esi
         call DrawModelParts
@@ -4679,19 +4679,19 @@ DrawPlayersSorted:
         mov eax, edi
         call DrawModelParts
 .3:
-        push dword_1B1288
-        push dword_1B1300
-        mov ebp, dword [dword_1B82D8]
+        push DrawFuncTable
+        push DrawSortList
+        mov ebp, dword [DrawPartsDone]
         push ebp
         xor ebx, ebx
         call SortIndices
-        mov eax, dword [dword_1B82D8]
+        mov eax, dword [DrawPartsDone]
         add esp, byte 0Ch
         test eax, eax
         jle short .7
         xor edx, edx
 .4:
-        mov ah, byte [dword edx+dword_1B1300]
+        mov ah, byte [dword edx+DrawSortList]
         mov ecx, edx
         test ah, 1
         je short .5
@@ -4700,8 +4700,8 @@ DrawPlayersSorted:
 .5:
         mov eax, esi
 .6:
-        call dword [dword ecx+dword_1B1288]
-        mov ecx, dword [dword_1B82D8]
+        call dword [dword ecx+DrawFuncTable]
+        mov ecx, dword [DrawPartsDone]
         inc ebx
         add edx, byte 4
         cmp ebx, ecx
@@ -4724,11 +4724,11 @@ DrawPlayersSorted:
         mov ebp, eax
         mov ecx, esp
         lea edx, [dword eax+0714h]
-        mov ebx, dword_1B905F
+        mov ebx, CameraStateRecords+7
         mov eax, 3
         call SubVecs
         mov ecx, esp
-        mov ebx, unk_1B92AB
+        mov ebx, CameraStateRecords+253h
         mov edx, esp
         mov eax, 3
         mov esi, esp
@@ -4827,18 +4827,18 @@ RenderModelPortrait:
         sub eax, ecx
         fild dword [esi]
         shl eax, 2
-        fld dword [dword_1B905F]
+        fld dword [CameraStateRecords+7]
         sub eax, ecx
-        mov ecx, unk_1B73F0
+        mov ecx, PortraitModels
         shl eax, 5
         faddp
         add ecx, eax
         fstp dword [ecx]
         fild dword [byte esi+04h]
-        fadd dword [dword_1B9063]
+        fadd dword [CameraStateRecords+0Bh]
         fstp dword [byte ecx+04h]
         fild dword [byte esi+08h]
-        fadd dword [dword_1B9067]
+        fadd dword [CameraStateRecords+0Fh]
         mov eax, ecx
         fstp dword [byte ecx+08h]
         call UpdateViewMatrix
@@ -4930,13 +4930,13 @@ DrawPuckMarker:
         fmul st1
         fxch st2
         fadd st2
-        fstp dword [dword_1B1258]
+        fstp dword [MarkerPoints]
         fld dword [byte ebx+08h]
         fsub st2
         fsub st3
         fild dword [byte ebp+0Ch]
         fxch
-        fstp dword [dword_1B1260]
+        fstp dword [MarkerPoints+8]
         fld dword [ebx]
         fsub st4
         fxch
@@ -4945,37 +4945,37 @@ DrawPuckMarker:
         fxch st5
         fstp st4
         fxch st4
-        fstp dword [dword_1B1264]
+        fstp dword [MarkerPoints+0Ch]
         fsubr dword [byte ebx+08h]
         fld st2
         fxch
         faddp st2
         fmul dword [byte esp+064h]
         fxch
-        fstp dword [dword_1B126C]
+        fstp dword [MarkerPoints+14h]
         fld dword [edx]
         fadd st1
         fxch st2
         fmulp st3
         fxch
         fsub st2
-        fstp dword [dword_1B1270]
+        fstp dword [MarkerPoints+18h]
         fld dword [byte edx+08h]
         fadd st2
         fadd st1
-        fstp dword [dword_1B1278]
+        fstp dword [MarkerPoints+20h]
         fld dword [edx]
         fadd st1
         mov ecx, esp
         fadd st2
         mov eax, 4
-        fstp dword [dword_1B127C]
+        fstp dword [MarkerPoints+24h]
         fld dword [byte edx+08h]
         faddp st2
         lea ebx, [dword esi+0698h]
         fsubp
-        mov edx, dword_1B1258
-        fstp dword [dword_1B1284]
+        mov edx, MarkerPoints
+        fstp dword [MarkerPoints+2Ch]
         call TransformVecs
         mov edx, esp
         mov eax, 4
@@ -5039,30 +5039,30 @@ DrawPlayerMarkers:
         jbe short .3
         fld dword [ebx]
         fadd dword [F32_neg30]
-        fstp dword [dword_1B1258]
+        fstp dword [MarkerPoints]
         fld dword [byte ebx+08h]
         fadd dword [F32_neg20_DrawPlayerMarkers]
-        fstp dword [dword_1B1260]
+        fstp dword [MarkerPoints+8]
         fld dword [ecx]
         fadd dword [F32_neg20_DrawPlayerMarkers]
-        fstp dword [dword_1B1264]
+        fstp dword [MarkerPoints+0Ch]
         fld dword [byte ecx+08h]
         fadd dword [F32_20_DrawPlayerMarkers]
-        fstp dword [dword_1B126C]
+        fstp dword [MarkerPoints+14h]
         jmp short .4
 .3:
         fld dword [ebx]
         fadd dword [F32_neg30]
-        fstp dword [dword_1B1264]
+        fstp dword [MarkerPoints+0Ch]
         fld dword [byte ebx+08h]
         fadd dword [F32_20_DrawPlayerMarkers]
-        fstp dword [dword_1B126C]
+        fstp dword [MarkerPoints+14h]
         fld dword [ecx]
         fadd dword [F32_neg20_DrawPlayerMarkers]
-        fstp dword [dword_1B1258]
+        fstp dword [MarkerPoints]
         fld dword [byte ecx+08h]
         fadd dword [F32_neg20_DrawPlayerMarkers]
-        fstp dword [dword_1B1260]
+        fstp dword [MarkerPoints+8]
 .4:
         fld dword [byte edx+08h]
         fcomp dword [byte esi+08h]
@@ -5071,33 +5071,33 @@ DrawPlayerMarkers:
         jbe short .5
         fld dword [esi]
         fadd dword [F32_30]
-        fstp dword [dword_1B127C]
+        fstp dword [MarkerPoints+24h]
         fld dword [byte esi+08h]
         fadd dword [F32_neg20_DrawPlayerMarkers]
-        fstp dword [dword_1B1284]
+        fstp dword [MarkerPoints+2Ch]
         fld dword [edx]
         fadd dword [F32_20_DrawPlayerMarkers]
-        fstp dword [dword_1B1270]
+        fstp dword [MarkerPoints+18h]
         fld dword [byte edx+08h]
         fadd dword [F32_20_DrawPlayerMarkers]
-        fstp dword [dword_1B1278]
+        fstp dword [MarkerPoints+20h]
         jmp short .6
 .5:
         fld dword [esi]
         fadd dword [F32_30]
-        fstp dword [dword_1B1270]
+        fstp dword [MarkerPoints+18h]
         fld dword [byte esi+08h]
         fadd dword [F32_20_DrawPlayerMarkers]
-        fstp dword [dword_1B1278]
+        fstp dword [MarkerPoints+20h]
         fld dword [edx]
         fadd dword [F32_20_DrawPlayerMarkers]
-        fstp dword [dword_1B127C]
+        fstp dword [MarkerPoints+24h]
         fld dword [byte edx+08h]
         fadd dword [F32_neg20_DrawPlayerMarkers]
-        fstp dword [dword_1B1284]
+        fstp dword [MarkerPoints+2Ch]
 .6:
         mov ecx, esp
-        mov edx, dword_1B1258
+        mov edx, MarkerPoints
         mov eax, 4
         lea ebx, [dword edi+0698h]
         call TransformVecs
@@ -5124,7 +5124,7 @@ DrawPlayerMarkers:
         add esp, byte 14h
         push byte 1
         push byte 0FFFFFFFFh
-        push unk_16B718
+        push MarkerColors
         lea eax, [byte esp+03Ch]
         push eax
         push byte 3
@@ -5211,7 +5211,7 @@ DrawIceMarkers:
         call DrawPuckMarker
 .3:
         fld dword [dword esi+0424h]
-        fcomp dword [dword_1B82C8]
+        fcomp dword [PlayerLodNear]
         fnstsw ax
         sahf
         jae short .4
@@ -5229,7 +5229,7 @@ DrawIceMarkers:
         call DrawPuckMarker
 .4:
         fld dword [dword esi+0424h]
-        fcomp dword [dword_1B82C8]
+        fcomp dword [PlayerLodNear]
         fnstsw ax
         sahf
         jae short .5
@@ -5262,18 +5262,18 @@ DrawPlayerNames:
         push edi
         push ebp
         sub esp, byte 8
-        cmp dword [dword_1B8550], byte 0
+        cmp dword [PlayerArtTables+274h], byte 0
         je near .2
-        cmp dword [dword_1B8578], byte 0
+        cmp dword [PlayerNamesOn], byte 0
         je near .2
         mov eax, dword [tickcount]
-        cmp eax, dword [dword_1B853C]
+        cmp eax, dword [PlayerArtTables+260h]
         jle short .1
         xor ebp, ebp
-        mov dword [dword_1B8550], ebp
+        mov dword [PlayerArtTables+274h], ebp
         jmp near .2
 .1:
-        mov eax, dword [dword_1B8550]
+        mov eax, dword [PlayerArtTables+274h]
         fld dword [dword eax+0424h]
         fcomp dword [F32_50p0_View]
         fnstsw ax
@@ -5281,12 +5281,12 @@ DrawPlayerNames:
         jb near .2
         push DebugTagStr
         call SelectFont
-        mov eax, dword [dword_1B8550]
+        mov eax, dword [PlayerArtTables+274h]
         add esp, byte 4
         mov edx, esp
         add eax, 41Ch
         call ProjectPointInt
-        mov eax, dword [dword_1B8550]
+        mov eax, dword [PlayerArtTables+274h]
         add eax, byte 14h
         push eax
         call MeasureText
@@ -5309,7 +5309,7 @@ DrawPlayerNames:
         add eax, byte 6
         push eax
         mov edi, dword [byte esp+04h]
-        mov eax, dword [dword_1B8550]
+        mov eax, dword [PlayerArtTables+274h]
         push edi
         add eax, byte 14h
         push eax
@@ -5328,7 +5328,7 @@ DrawPlayerNames:
         mov eax, dword [byte esp+04h]
         inc eax
         push eax
-        mov eax, dword [dword_1B8550]
+        mov eax, dword [PlayerArtTables+274h]
         add eax, byte 14h
         push eax
         call DrawTextAt
@@ -5454,7 +5454,7 @@ DrawPuckArrow:
         add eax, edx
         sar ebx, 0Eh
         push eax
-        mov ecx, dword [nosplit ebx*4+dword_1B1390]
+        mov ecx, dword [nosplit ebx*4+PuckArrowArt]
         push ecx
         call BlitShapeAt
         add esp, byte 0Ch
@@ -5526,14 +5526,14 @@ LinkModelPair:
         shl eax, 2
         sub eax, ecx
         shl eax, 5
-        mov dword [dword eax+dword_1B145C], edx
+        mov dword [dword eax+ModelPairs], edx
         mov eax, edx
         shl eax, 4
         sub eax, edx
         shl eax, 2
         sub eax, edx
         shl eax, 5
-        mov dword [dword eax+dword_1B145C], ecx
+        mov dword [dword eax+ModelPairs], ecx
         pop ecx
         ret
         db 08Dh,040h,00h
@@ -5547,7 +5547,7 @@ ClearModelSlots:
         xor eax, eax
 .1:
         add eax, 760h
-        mov dword [dword eax+dword_1B0CFC], edx
+        mov dword [dword eax+ModelSlotTable], edx
         cmp eax, 5FE0h
         jne short .1
         pop edx
@@ -5560,13 +5560,13 @@ RestoreSavedPalette:
         push ecx
         push edx
         push dword 138h
-        push unk_1B7448
-        push unk_1B1120
+        push SavedPalette
+        push SeatModels
         call bcopy
         add esp, byte 0Ch
         push dword 138h
-        push unk_1B7BA8
-        push unk_1B1120
+        push SavedPaletteRemap
+        push SeatModels
         call bcopy
         add esp, byte 0Ch
         call MarkPaletteDirty
@@ -5581,18 +5581,18 @@ SaveGamePalette:
         push ecx
         push edx
         push dword 138h
-        push unk_1B1120
+        push SeatModels
         push eax
         call bcopy
         add esp, byte 0Ch
         push dword 138h
-        push unk_1B7448
-        push unk_1B1120
+        push SavedPalette
+        push SeatModels
         call bcopy
         add esp, byte 0Ch
         push dword 138h
-        push unk_1B7BA8
-        push unk_1B1120
+        push SavedPaletteRemap
+        push SeatModels
         call bcopy
         add esp, byte 0Ch
         call MarkPaletteDirty
@@ -5614,7 +5614,7 @@ UpdateFaceTextures:
         shl eax, 2
         sub eax, ecx
         shl eax, 5
-        add eax, dword_1B1410
+        add eax, ObjectPositions
         mov dword [byte eax+028h], edx
         cmp dword [byte eax+034h], byte 0
         je short .1
@@ -5628,12 +5628,12 @@ UpdateFaceTextures:
 .1:
         test ebx, ebx
         je short .2
-        mov dword [dword eax+06C0h], dword_1B8368
+        mov dword [dword eax+06C0h], PlayerArtTables+8Ch
         pop ecx
         pop ebx
         ret
 .2:
-        mov dword [dword eax+06C0h], dword_1B8300
+        mov dword [dword eax+06C0h], PlayerArtTables+24h
         pop ecx
         pop ebx
         ret
@@ -5764,7 +5764,7 @@ LoadFaceArt:
         add esp, byte 8
         lea edx, [byte eax+010h]
         mov ebx, 300h
-        mov eax, unk_1B85DC
+        mov eax, PlayerModels
         call memcpy_
         push edi
         call FreeMemBlock
@@ -5772,15 +5772,15 @@ LoadFaceArt:
         mov eax, str_Face2
         xor edx, edx
         call LoadModelByName
-        mov dword [dword_1B89AC], eax
+        mov dword [FaceTextureCount], eax
         call ServiceIdle
-        mov ebx, dword [dword_1B89AC]
+        mov ebx, dword [FaceTextureCount]
         push ebx
         call InitModelInstance
         add esp, byte 4
         test esi, esi
         je short .1
-        mov eax, dword [dword_1B89AC]
+        mov eax, dword [FaceTextureCount]
         mov edx, esi
         call AttachModelFrame
 .1:
@@ -5788,12 +5788,12 @@ LoadFaceArt:
         mov esi, 0Bh
         xor edi, edi
 .2:
-        mov eax, dword [dword_1B89AC]
+        mov eax, dword [FaceTextureCount]
         mov ebx, esi
         mov edx, edi
         add ecx, byte 4
         call CreateModelInstance
-        mov dword [dword ecx+dword_1B88D8], eax
+        mov dword [dword ecx+FaceArtCount], eax
         cmp ecx, byte 34h
         jne short .2
         push byte 0
@@ -5820,25 +5820,25 @@ FreeFaceTextures:
         push ebp
         xor ebx, ebx
 .1:
-        mov edx, dword [dword ebx+dword_1B88DC]
+        mov edx, dword [dword ebx+HomeFaceTextures]
         push edx
         call FreeModelInstance
         add esp, byte 4
         xor ecx, ecx
-        mov esi, dword [dword ebx+dword_1B8910]
-        mov dword [dword ebx+dword_1B88DC], ecx
+        mov esi, dword [dword ebx+AwayFaceTextures]
+        mov dword [dword ebx+HomeFaceTextures], ecx
         test esi, esi
         je short .2
         push esi
         call FreeMemBlock
         xor ebp, ebp
         add esp, byte 4
-        mov dword [dword ebx+dword_1B8910], ebp
+        mov dword [dword ebx+AwayFaceTextures], ebp
 .2:
         add ebx, byte 4
         cmp ebx, byte 34h
         jne short .1
-        mov eax, dword [dword_1B89AC]
+        mov eax, dword [FaceTextureCount]
         push eax
         call FreeModelFile
         add esp, byte 4
@@ -5865,13 +5865,13 @@ SwapFaceTexture:
         mov dword [esp], ebp
         lea ebp, [nosplit ebx*4+00h]
         mov dword [byte eax+08h], 2
-        mov edx, dword [dword ebp+dword_1B8978]
+        mov edx, dword [dword ebp+AwayFaceSwap]
         mov ecx, edi
         push edx
         xor ebx, ebx
         mov edx, 6
         call LoadFaceTexture
-        mov ebx, dword [dword ebp+dword_1B8944]
+        mov ebx, dword [dword ebp+HomeFaceSwap]
         push ebx
         push edi
         push esi
@@ -5900,12 +5900,12 @@ LoadPlayerFace:
         mov dword [byte esp+018h], eax
         mov edi, edx
         lea edx, [nosplit eax*4+00h]
-        mov ebp, dword [dword_1B89AC]
+        mov ebp, dword [FaceTextureCount]
         mov eax, str_FacesViv
         mov ebp, dword [byte ebp+014h]
-        mov esi, dword [dword edx+dword_1B88DC]
+        mov esi, dword [dword edx+HomeFaceTextures]
         call SetArtArchive
-        mov ecx, dword [dword edx+dword_1B8910]
+        mov ecx, dword [dword edx+AwayFaceTextures]
         test ecx, ecx
         je short .1
         push ecx
@@ -5943,10 +5943,10 @@ LoadPlayerFace:
         push str_Face3
         shl edx, 2
         push esi
-        mov dword [dword edx+dword_1B8944], eax
+        mov dword [dword edx+HomeFaceSwap], eax
         mov eax, dword [byte esp+024h]
         mov dword [byte esp+01Ch], edx
-        mov dword [dword edx+dword_1B8910], eax
+        mov dword [dword edx+AwayFaceTextures], eax
         call FindInstanceShape
         mov dword [byte esp+018h], eax
         add esp, byte 8
@@ -5970,13 +5970,13 @@ LoadPlayerFace:
         mov eax, edi
         call FindChunkByIndex
         mov edx, dword [byte esp+014h]
-        mov dword [dword edx+dword_1B8978], eax
+        mov dword [dword edx+AwayFaceSwap], eax
         mov dword [byte eax+04h], 0
-        mov eax, dword [dword edx+dword_1B8978]
+        mov eax, dword [dword edx+AwayFaceSwap]
         lea ebx, [nosplit ebp*4+00h]
         mov dword [byte eax+0Ch], 0
         sub ebx, ebp
-        mov edx, dword [dword_1B89AC]
+        mov edx, dword [FaceTextureCount]
         shl ebx, 2
         mov eax, dword [byte esi+070h]
         mov edx, dword [byte edx+018h]
@@ -6023,19 +6023,19 @@ ReplayPackFrame:
         push esi
         push edi
         mov ecx, eax
-        mov edi, dword [dword_1B8F7C]
-        mov esi, dword [dword_1B8F78]
+        mov edi, dword [ReplayPackPos]
+        mov esi, dword [ReplayPackBuf]
         sub esi, edi
         cmp esi, eax
         jg short .1
         mov byte [edi], 1
-        mov eax, dword [dword_1B8F88]
+        mov eax, dword [ReplayReadPos]
         mov esi, 1
-        mov dword [dword_1B8F7C], eax
+        mov dword [ReplayPackPos], eax
         jmp short .3
 .1:
-        mov esi, dword [dword_1B8F84]
-        cmp edi, dword [nosplit esi*4+dword_1B89B0]
+        mov esi, dword [ReplayBufferEnd]
+        cmp edi, dword [nosplit esi*4+ReplayObjects]
         jae short .2
         mov esi, 1
         jmp short .3
@@ -6045,28 +6045,28 @@ ReplayPackFrame:
         test ebx, ebx
         je short .4
         mov ebx, 4
-        mov eax, dword [dword_1B8F7C]
+        mov eax, dword [ReplayPackPos]
         jmp short .5
 .4:
-        mov eax, dword [dword_1B8F7C]
+        mov eax, dword [ReplayPackPos]
         mov ebx, ecx
 .5:
         call memcpy_
-        mov eax, dword [dword_1B8F7C]
+        mov eax, dword [ReplayPackPos]
         add eax, ecx
-        mov dword [dword_1B8F7C], eax
+        mov dword [ReplayPackPos], eax
         test esi, esi
         je short .6
-        mov edx, dword [dword_1B8F84]
-        cmp eax, dword [nosplit edx*4+dword_1B89B0]
+        mov edx, dword [ReplayBufferEnd]
+        cmp eax, dword [nosplit edx*4+ReplayObjects]
         jb short .6
         inc edx
         mov ebx, 0Ah
         mov eax, edx
         sar edx, 1Fh
         idiv ebx
-        dec dword [dword_1B8F8C]
-        mov dword [dword_1B8F84], edx
+        dec dword [ReplayFull]
+        mov dword [ReplayBufferEnd], edx
 .6:
         pop edi
         pop esi
@@ -6082,19 +6082,19 @@ ReplayUnpackFrame:
         push ecx
         mov ecx, eax
         mov eax, edx
-        mov edx, dword [dword_1B8F98]
+        mov edx, dword [ReplayUnpackPos]
         cmp byte [edx], 1
         jne short .1
-        mov edx, dword [dword_1B8F88]
-        mov dword [dword_1B8F98], edx
+        mov edx, dword [ReplayReadPos]
+        mov dword [ReplayUnpackPos], edx
 .1:
         test eax, eax
         je short .2
-        mov edx, dword [dword_1B8F98]
+        mov edx, dword [ReplayUnpackPos]
         mov ebx, ecx
         call memcpy_
 .2:
-        add dword [dword_1B8F98], ecx
+        add dword [ReplayUnpackPos], ecx
         pop ecx
         pop ebx
         ret
@@ -6109,16 +6109,16 @@ ReplayWriteFrame:
         push edx
         mov ecx, eax
 .1:
-        mov edx, dword [dword_1B8F64]
-        mov eax, dword [dword_1BF8B4]
+        mov edx, dword [ReplayWritePos]
+        mov eax, dword [ReplayRecordBuf]
         sub eax, edx
         cmp eax, 0FFFh
         jle short .2
-        mov edx, unk_16B728
+        mov edx, ReplayFrameMarker
         mov eax, 4
         xor ebx, ebx
         call ReplayPackFrame
-        add dword [dword_1B8F64], 0FFFh
+        add dword [ReplayWritePos], 0FFFh
         jmp short .1
 .2:
         mov dx, word [ecx]
@@ -6128,8 +6128,8 @@ ReplayWriteFrame:
         mov word [ecx], dx
         shl eax, 4
         or dword [ecx], eax
-        mov eax, dword [dword_1BF8B4]
-        mov dword [dword_1B8F64], eax
+        mov eax, dword [ReplayRecordBuf]
+        mov dword [ReplayWritePos], eax
         mov ah, byte [ecx]
         xor ebx, ebx
         test ah, 0Fh
@@ -6156,12 +6156,12 @@ ReplaySaveState:
         mov esi, edx
         test eax, eax
         je short .1
-        mov ecx, unk_1B8BD0
+        mov ecx, ReplayStatesPuck
         jmp short .2
 .1:
-        mov ecx, unk_1B8D88
+        mov ecx, ReplayStatesCamera
 .2:
-        mov edx, dword [dword_1B8F74]
+        mov edx, dword [ReplayStateSize]
         xor edi, edi
         test edx, edx
         jle short .5
@@ -6171,11 +6171,11 @@ ReplaySaveState:
         test eax, eax
         je short .4
         mov ebx, eax
-        mov edx, dword [dword edx+dword_1B8A18]
+        mov edx, dword [dword edx+ReplayStatesPlayers]
         mov eax, esi
         call memcpy_
 .4:
-        mov ebp, dword [dword_1B8F74]
+        mov ebp, dword [ReplayStateSize]
         mov ebx, dword [ecx]
         add ecx, byte 4
         inc edi
@@ -6203,12 +6203,12 @@ ReplayRestoreState:
         mov esi, edx
         test eax, eax
         je short .1
-        mov ecx, unk_1B8BD0
+        mov ecx, ReplayStatesPuck
         jmp short .2
 .1:
-        mov ecx, unk_1B8D88
+        mov ecx, ReplayStatesCamera
 .2:
-        mov edx, dword [dword_1B8F74]
+        mov edx, dword [ReplayStateSize]
         xor edi, edi
         test edx, edx
         jle short .5
@@ -6218,11 +6218,11 @@ ReplayRestoreState:
         test edx, edx
         je short .4
         mov ebx, edx
-        mov eax, dword [dword eax+dword_1B8A18]
+        mov eax, dword [dword eax+ReplayStatesPlayers]
         mov edx, esi
         call memcpy_
 .4:
-        mov ebp, dword [dword_1B8F74]
+        mov ebp, dword [ReplayStateSize]
         mov ebx, dword [ecx]
         add ecx, byte 4
         inc edi
@@ -6230,7 +6230,7 @@ ReplayRestoreState:
         cmp edi, ebp
         jl short .3
 .5:
-        mov eax, dword [dword_1B8F60]
+        mov eax, dword [ReplayObjectsSet]
         xor edx, edx
         test eax, eax
         jle short .7
@@ -6238,8 +6238,8 @@ ReplayRestoreState:
 .6:
         mov eax, ecx
         inc edx
-        call dword [dword eax+dword_1B89D8]
-        mov ebx, dword [dword_1B8F60]
+        call dword [dword eax+ReplayRestoreFuncs]
+        mov ebx, dword [ReplayObjectsSet]
         add ecx, byte 4
         cmp edx, ebx
         jl short .6
@@ -6262,14 +6262,14 @@ ReplayRecordFrame:
         push esi
         push edi
         sub esp, byte 4
-        mov edx, dword [dword_1B8F84]
-        add edx, dword [dword_1B8F8C]
+        mov edx, dword [ReplayBufferEnd]
+        add edx, dword [ReplayFull]
         mov ebx, 0Ah
         mov eax, edx
         sar edx, 1Fh
         idiv ebx
         mov ecx, dword [esp]
-        mov eax, dword [dword_1B8F90]
+        mov eax, dword [ReplayFrameSize]
         and ecx, 0FFF0h
         add eax, byte 4
         mov dword [esp], ecx
@@ -6282,20 +6282,20 @@ ReplayRecordFrame:
         mov dword [esp], esi
         call ReplayWriteFrame
         mov eax, dword [esp]
-        mov edx, dword [dword_1B8F7C]
+        mov edx, dword [ReplayPackPos]
         shr eax, 10h
-        mov edi, dword [dword_1B8F90]
+        mov edi, dword [ReplayFrameSize]
         sub edx, eax
-        mov eax, dword [dword_1BF8B4]
-        mov dword [nosplit ebx*4+dword_1B89B0], edx
-        mov edx, dword [dword_1B8F7C]
-        mov dword [nosplit ebx*4+dword_1B89F0], eax
+        mov eax, dword [ReplayRecordBuf]
+        mov dword [nosplit ebx*4+ReplayObjects], edx
+        mov edx, dword [ReplayPackPos]
+        mov dword [nosplit ebx*4+ReplayObjectSizes], eax
         mov eax, 1
         sub edx, edi
         call ReplaySaveState
-        cmp dword [dword_1B8F8C], byte 0
+        cmp dword [ReplayFull], byte 0
         je short .1
-        mov eax, dword [dword_1B8F84]
+        mov eax, dword [ReplayBufferEnd]
         cmp ebx, eax
         jne short .1
         lea edx, [byte eax+01h]
@@ -6303,14 +6303,14 @@ ReplayRecordFrame:
         mov eax, edx
         sar edx, 1Fh
         idiv ebx
-        mov dword [dword_1B8F84], edx
+        mov dword [ReplayBufferEnd], edx
         jmp short .2
 .1:
-        inc dword [dword_1B8F8C]
+        inc dword [ReplayFull]
 .2:
-        mov eax, dword [dword_1BF8B4]
+        mov eax, dword [ReplayRecordBuf]
         add eax, 249F0h
-        mov dword [dword_1B8F68], eax
+        mov dword [ReplayFrameCount], eax
         add esp, byte 4
         pop edi
         pop esi
@@ -6323,33 +6323,33 @@ ReplayRecordFrame:
         push edx
         push esi
         mov ecx, eax
-        mov eax, dword [nosplit eax*4+dword_1B89B0]
-        mov dword [dword_1B8F98], eax
-        mov esi, dword [dword_1B8F90]
-        mov edx, dword [dword_1B8F98]
+        mov eax, dword [nosplit eax*4+ReplayObjects]
+        mov dword [ReplayUnpackPos], eax
+        mov esi, dword [ReplayFrameSize]
+        mov edx, dword [ReplayUnpackPos]
         add esi, byte 4
         mov bl, byte [edx]
         xor eax, eax
         cmp bl, 1
         jne short .3
-        mov edx, dword [dword_1B8F88]
-        mov dword [dword_1B8F98], edx
+        mov edx, dword [ReplayReadPos]
+        mov dword [ReplayUnpackPos], edx
 .3:
         test eax, eax
         je short .4
-        mov edx, dword [dword_1B8F98]
+        mov edx, dword [ReplayUnpackPos]
         mov ebx, esi
         call memcpy_
 .4:
-        mov edx, dword [dword_1B8F98]
+        mov edx, dword [ReplayUnpackPos]
         mov eax, 1
         add edx, esi
-        mov ebx, dword [dword_1B8F90]
-        mov dword [dword_1B8F98], edx
+        mov ebx, dword [ReplayFrameSize]
+        mov dword [ReplayUnpackPos], edx
         sub edx, ebx
         call ReplayRestoreState
-        mov eax, dword [nosplit ecx*4+dword_1B89F0]
-        mov dword [dword_1B8F70], eax
+        mov eax, dword [nosplit ecx*4+ReplayObjectSizes]
+        mov dword [ReplayRecording], eax
         pop esi
         pop edx
         pop ecx
@@ -6364,20 +6364,20 @@ ReplayRegisterStates:
         push edi
         push ebp
         mov ecx, eax
-        cmp dword [dword_16B724], byte 0
+        cmp dword [ReplayStatesSet], byte 0
         je short .1
-        mov eax, dword [dword_1B8F74]
-        mov edi, dword [dword_1B8F90]
-        mov ebp, dword [dword_1B8F9C]
+        mov eax, dword [ReplayStateSize]
+        mov edi, dword [ReplayFrameSize]
+        mov ebp, dword [ReplayStateTotal]
         inc eax
         add edi, edx
         add ebp, ebx
-        mov dword [nosplit eax*4+dword_1B8A14], ecx
-        mov dword [nosplit eax*4+dword_1B8BCC], edx
-        mov dword [nosplit eax*4+dword_1B8D84], ebx
-        mov dword [dword_1B8F90], edi
-        mov dword [dword_1B8F9C], ebp
-        mov dword [dword_1B8F74], eax
+        mov dword [nosplit eax*4+ReplayPlayerStateCount], ecx
+        mov dword [nosplit eax*4+ReplayPuckStateCount], edx
+        mov dword [nosplit eax*4+ReplayCameraStateCount], ebx
+        mov dword [ReplayFrameSize], edi
+        mov dword [ReplayStateTotal], ebp
+        mov dword [ReplayStateSize], eax
 .1:
         pop ebp
         pop edi
@@ -6391,12 +6391,12 @@ ReplayRegisterStates:
 ReplayRegisterObjects:
         push edx
         mov edx, eax
-        cmp dword [dword_16B724], byte 0
+        cmp dword [ReplayStatesSet], byte 0
         je short .1
-        mov eax, dword [dword_1B8F60]
+        mov eax, dword [ReplayObjectsSet]
         inc eax
-        mov dword [nosplit eax*4+dword_1B89D4], edx
-        mov dword [dword_1B8F60], eax
+        mov dword [nosplit eax*4+ReplayObjectCount], edx
+        mov dword [ReplayObjectsSet], eax
 .1:
         pop edx
         ret
@@ -6411,15 +6411,15 @@ FreeReplayBuffer:
         push esi
         mov esi, 1
         xor edx, edx
-        mov eax, dword [dword_1B8F88]
-        mov dword [dword_1B8F84], edx
-        mov dword [dword_1B8F68], edx
-        mov dword [dword_1B8F94], esi
-        mov dword [dword_1B8F7C], eax
-        mov dword [dword_1B8FA0], edx
-        mov dword [dword_1B8FA4], edx
-        mov eax, dword [dword_1B8F6C]
-        mov dword [dword_1B8F8C], edx
+        mov eax, dword [ReplayReadPos]
+        mov dword [ReplayBufferEnd], edx
+        mov dword [ReplayFrameCount], edx
+        mov dword [ReplayFinalFrame], esi
+        mov dword [ReplayPackPos], eax
+        mov dword [ReplayPlaying], edx
+        mov dword [ReplayTick], edx
+        mov eax, dword [ReplayBuffer]
+        mov dword [ReplayFull], edx
         test eax, eax
         je short .1
         push eax
@@ -6427,7 +6427,7 @@ FreeReplayBuffer:
         add esp, byte 4
 .1:
         xor ebx, ebx
-        mov dword [dword_1B8F6C], ebx
+        mov dword [ReplayBuffer], ebx
         pop esi
         pop edx
         pop ecx
@@ -6442,20 +6442,20 @@ ResetReplayBuffer:
         push edx
         xor edx, edx
         mov ebx, 1
-        mov dword [dword_1B8F9C], edx
-        mov dword [dword_1B8F74], edx
-        mov dword [dword_1B8F60], edx
-        mov dword [dword_1B8F88], edx
-        mov dword [dword_1B8F8C], edx
-        mov dword [dword_1B8F84], edx
-        mov dword [dword_1B8F68], edx
-        mov dword [dword_1B8F94], ebx
-        mov dword [dword_1B8F7C], edx
-        mov dword [dword_1B8FA0], edx
-        mov dword [dword_1B8FA4], edx
-        mov dword [dword_1B8F6C], edx
-        mov dword [dword_16B724], ebx
-        mov dword [dword_1B8F90], edx
+        mov dword [ReplayStateTotal], edx
+        mov dword [ReplayStateSize], edx
+        mov dword [ReplayObjectsSet], edx
+        mov dword [ReplayReadPos], edx
+        mov dword [ReplayFull], edx
+        mov dword [ReplayBufferEnd], edx
+        mov dword [ReplayFrameCount], edx
+        mov dword [ReplayFinalFrame], ebx
+        mov dword [ReplayPackPos], edx
+        mov dword [ReplayPlaying], edx
+        mov dword [ReplayTick], edx
+        mov dword [ReplayBuffer], edx
+        mov dword [ReplayStatesSet], ebx
+        mov dword [ReplayFrameSize], edx
         pop edx
         pop ebx
         ret
@@ -6476,25 +6476,25 @@ InitReplayBuffer:
         cmp eax, ebx
         jl short .2
         sub eax, 30D40h
-        mov dword [dword_1B8F80], eax
+        mov dword [ReplayHeader], eax
         cmp eax, 0EA60h
         jle short .1
-        mov dword [dword_1B8F80], 0EA60h
+        mov dword [ReplayHeader], 0EA60h
 .1:
         push byte 20h
-        mov ecx, dword [dword_1B8F80]
+        mov ecx, dword [ReplayHeader]
         push ecx
         push str_REPLAY
         xor edi, edi
         call AllocMemData
-        mov esi, dword [dword_1B8F80]
-        mov dword [dword_1B8F88], eax
-        mov dword [dword_1B8F7C], eax
+        mov esi, dword [ReplayHeader]
+        mov dword [ReplayReadPos], eax
+        mov dword [ReplayPackPos], eax
         add eax, esi
         add esp, byte 0Ch
         sub eax, byte 8
-        mov dword [dword_16B724], edi
-        mov dword [dword_1B8F78], eax
+        mov dword [ReplayStatesSet], edi
+        mov dword [ReplayPackBuf], eax
 .2:
         pop edi
         pop esi
@@ -6508,7 +6508,7 @@ InitReplayBuffer:
 ; Returns 1 when the replay is recording
 ;-----------------------------------------------------------------------------
 IsReplayRecording:
-        cmp dword [dword_1B8F88], byte 0
+        cmp dword [ReplayReadPos], byte 0
         setne al
         and eax, 0FFh
         ret
@@ -6518,11 +6518,11 @@ IsReplayRecording:
 ; the counters
 ;-----------------------------------------------------------------------------
 ReplayHasFrames:
-        cmp dword [dword_1B8F88], byte 0
+        cmp dword [ReplayReadPos], byte 0
         setne al
         and eax, 0FFh
         je short .1
-        cmp dword [dword_1B8F8C], byte 0
+        cmp dword [ReplayFull], byte 0
         jle short .1
         mov eax, 1
         ret
@@ -6530,12 +6530,12 @@ ReplayHasFrames:
         xor eax, eax
         ret
         db 090h
-        mov eax, dword [dword_1B8F88]
+        mov eax, dword [ReplayReadPos]
         ret
         db 08Bh,0C0h
         push edx
-        mov edx, dword [dword_1B8F80]
-        mov eax, dword [dword_1B8F88]
+        mov edx, dword [ReplayHeader]
+        mov eax, dword [ReplayReadPos]
         add eax, edx
         pop edx
         ret
@@ -6546,14 +6546,14 @@ ReplayHasFrames:
 ReplayFreeFrames:
         push ecx
         push edx
-        mov edx, dword [dword_1B8F88]
+        mov edx, dword [ReplayReadPos]
         test edx, edx
         je short .1
         push edx
         call FreeMemBlock
         add esp, byte 4
 .1:
-        mov ecx, dword [dword_1B8F6C]
+        mov ecx, dword [ReplayBuffer]
         test ecx, ecx
         je short .2
         push ecx
@@ -6566,7 +6566,7 @@ ReplayFreeFrames:
         db 090h
 ;-----------------------------------------------------------------------------
 ; SetReplayRecording                              5BEDC  97 PC, low confidence
-; (on/off): starts or stops replay recording (dword_1B8FA0), allocating the
+; (on/off): starts or stops replay recording (ReplayPlaying), allocating the
 ; "RP_GAME" block on start
 ;-----------------------------------------------------------------------------
 SetReplayRecording:
@@ -6575,51 +6575,51 @@ SetReplayRecording:
         push esi
         push edi
         push ebp
-        cmp dword [dword_1B8F88], byte 0
+        cmp dword [ReplayReadPos], byte 0
         setne dl
         and edx, 0FFh
         je near .4
-        mov dword [dword_1B8FA0], eax
+        mov dword [ReplayPlaying], eax
         test eax, eax
         je short .3
-        mov ebp, dword [dword_1B8F8C]
+        mov ebp, dword [ReplayFull]
         test ebp, ebp
         jne short .1
-        mov dword [dword_1B8FA0], ebp
+        mov dword [ReplayPlaying], ebp
         jmp short .4
 .1:
         call IsReplayRecordingOn
         test eax, eax
         jne short .2
         push byte 20h
-        mov eax, dword [dword_1B8F9C]
+        mov eax, dword [ReplayStateTotal]
         push eax
         push str_RPGAME
         call AllocMemBlock
         add esp, byte 0Ch
-        mov dword [dword_1B8F6C], eax
+        mov dword [ReplayBuffer], eax
         mov edx, eax
         xor eax, eax
         call ReplaySaveState
 .2:
-        mov eax, dword [dword_1B8F64]
+        mov eax, dword [ReplayWritePos]
         xor edx, edx
-        mov dword [dword_1B8F70], eax
-        mov dword [dword_1B8FA4], edx
+        mov dword [ReplayRecording], eax
+        mov dword [ReplayTick], edx
         jmp short .4
 .3:
-        mov ecx, dword [dword_1B8F6C]
+        mov ecx, dword [ReplayBuffer]
         test ecx, ecx
         je short .4
         mov eax, 1
         mov edx, ecx
         call ReplayRestoreState
-        mov esi, dword [dword_1B8F6C]
+        mov esi, dword [ReplayBuffer]
         push esi
         xor edi, edi
         call FreeMemBlock
         add esp, byte 4
-        mov dword [dword_1B8F6C], edi
+        mov dword [ReplayBuffer], edi
 .4:
         pop ebp
         pop edi
@@ -6640,10 +6640,10 @@ ReplayReadFrame:
         push edi
         push ebp
         mov esi, eax
-        mov ecx, dword [dword_1B8F84]
+        mov ecx, dword [ReplayBufferEnd]
         mov edi, 0Ah
         lea edx, [byte ecx+01h]
-        mov ebx, dword [dword_1B8F8C]
+        mov ebx, dword [ReplayFull]
         mov eax, edx
         sar edx, 1Fh
         dec ebx
@@ -6653,7 +6653,7 @@ ReplayReadFrame:
         dec ebx
         test eax, eax
         jle short .2
-        cmp esi, dword [nosplit edx*4+dword_1B89F0]
+        cmp esi, dword [nosplit edx*4+ReplayObjectSizes]
         jl short .2
         mov ecx, edx
         inc edx
@@ -6662,19 +6662,19 @@ ReplayReadFrame:
         sar edx, 1Fh
         jmp short .1
 .2:
-        mov eax, dword [nosplit ecx*4+dword_1B89B0]
-        mov dword [dword_1B8F98], eax
-        mov eax, dword [dword_1B8F90]
+        mov eax, dword [nosplit ecx*4+ReplayObjects]
+        mov dword [ReplayUnpackPos], eax
+        mov eax, dword [ReplayFrameSize]
         xor edx, edx
         add eax, byte 4
         call ReplayUnpackFrame
-        mov edx, dword [dword_1B8F98]
-        mov ebp, dword [dword_1B8F90]
+        mov edx, dword [ReplayUnpackPos]
+        mov ebp, dword [ReplayFrameSize]
         mov eax, 1
         sub edx, ebp
         call ReplayRestoreState
-        mov eax, dword [nosplit ecx*4+dword_1B89F0]
-        mov dword [dword_1B8F70], eax
+        mov eax, dword [nosplit ecx*4+ReplayObjectSizes]
+        mov dword [ReplayRecording], eax
         pop ebp
         pop edi
         pop esi
@@ -6695,27 +6695,27 @@ ReplaySeekStart:
         push edi
         push ebp
         mov esi, eax
-        mov edx, dword [dword_1B8F64]
-        cmp edx, dword [dword_1B8F70]
+        mov edx, dword [ReplayWritePos]
+        cmp edx, dword [ReplayRecording]
         jg short .1
         mov eax, 0FFFFFFFFh
         jmp near .5
 .1:
         mov ebx, 0Fh
 .2:
-        mov ecx, dword [dword_1B8F98]
+        mov ecx, dword [ReplayUnpackPos]
         mov eax, dword [ecx]
         shl eax, 10h
-        mov edi, dword [dword_1B8F70]
+        mov edi, dword [ReplayRecording]
         shr eax, 14h
         add edi, eax
-        mov dword [dword_1B8F70], edi
+        mov dword [ReplayRecording], edi
         mov eax, dword [ecx]
         and eax, ebx
         cmp eax, byte 1
         jne short .3
-        mov eax, dword [dword_1B8F88]
-        mov dword [dword_1B8F98], eax
+        mov eax, dword [ReplayReadPos]
+        mov dword [ReplayUnpackPos], eax
         jmp short .2
 .3:
         mov ebp, dword [ecx]
@@ -6724,7 +6724,7 @@ ReplaySeekStart:
         mov eax, ebp
         shr eax, 10h
         add ecx, eax
-        mov dword [dword_1B8F98], ecx
+        mov dword [ReplayUnpackPos], ecx
         jmp short .2
 .4:
         mov ebx, ebp
@@ -6733,11 +6733,11 @@ ReplaySeekStart:
         shr ebx, 10h
         call memcpy_
         mov eax, dword [ecx]
-        mov edx, dword [dword_1B8F98]
+        mov edx, dword [ReplayUnpackPos]
         shr eax, 10h
         add edx, eax
-        mov eax, dword [dword_1B8F70]
-        mov dword [dword_1B8F98], edx
+        mov eax, dword [ReplayRecording]
+        mov dword [ReplayUnpackPos], edx
 .5:
         pop ebp
         pop edi
@@ -6756,9 +6756,9 @@ ReplayStepFrame:
         push edx
         push esi
         push edi
-        mov edx, dword [dword_1B8F70]
-        mov ebx, dword [dword_1B8F64]
-        mov eax, dword [dword_1B8F98]
+        mov edx, dword [ReplayRecording]
+        mov ebx, dword [ReplayWritePos]
+        mov eax, dword [ReplayUnpackPos]
         cmp edx, ebx
         jl short .1
         mov eax, 0FFFFFFFFh
@@ -6770,28 +6770,28 @@ ReplayStepFrame:
         and edx, byte 0Fh
         cmp edx, byte 1
         jne short .2
-        mov eax, dword [dword_1B8F88]
-        mov dword [dword_1B8F98], eax
+        mov eax, dword [ReplayReadPos]
+        mov dword [ReplayUnpackPos], eax
         jmp short .3
 .2:
         mov edx, dword [eax]
         shl edx, 10h
-        mov esi, dword [dword_1B8F70]
+        mov esi, dword [ReplayRecording]
         shr edx, 14h
         add esi, edx
-        mov dword [dword_1B8F70], esi
+        mov dword [ReplayRecording], esi
         mov eax, dword [eax]
-        mov edi, dword [dword_1B8F98]
+        mov edi, dword [ReplayUnpackPos]
         shr eax, 10h
         add edi, eax
-        mov dword [dword_1B8F98], edi
+        mov dword [ReplayUnpackPos], edi
 .3:
-        mov eax, dword [dword_1B8F98]
+        mov eax, dword [ReplayUnpackPos]
         jmp short .1
 .4:
         mov eax, dword [eax]
         shl eax, 10h
-        mov ecx, dword [dword_1B8F70]
+        mov ecx, dword [ReplayRecording]
         shr eax, 14h
         add eax, ecx
         call ReplayReadFrame
@@ -6811,10 +6811,10 @@ ReplayRecordTick:
         push ecx
         push edx
         mov edx, eax
-        cmp dword [dword_1B8FA4], byte 0
+        cmp dword [ReplayTick], byte 0
         je short .2
-        mov ecx, dword [dword_1B8F68]
-        cmp ecx, dword [dword_1BF8B4]
+        mov ecx, dword [ReplayFrameCount]
+        cmp ecx, dword [ReplayRecordBuf]
         jg short .1
         call ReplayRecordFrame
 .1:
@@ -6831,7 +6831,7 @@ ReplayRecordTick_29:
 ; Stops recording for a while
 ;-----------------------------------------------------------------------------
 ReplayPauseRecording:
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne short ReplayRecordTick_29
         call IsReplayRecording
         test eax, eax
@@ -6845,27 +6845,27 @@ ReplayPauseRecording:
 ; Records the last frame before playback
 ;-----------------------------------------------------------------------------
 ReplayRecordFinal:
-        cmp dword [dword_1B8FA4], byte 0
+        cmp dword [ReplayTick], byte 0
         je short ReplayRecordTick_29
         xor eax, eax
         nop
 ReplayRecordFinal_C:
         push edx
         push esi
-        cmp dword [dword_1B8F88], byte 0
+        cmp dword [ReplayReadPos], byte 0
         setne dl
         and edx, 0FFh
         je short .2
-        mov dword [dword_1B8FA4], eax
+        mov dword [ReplayTick], eax
         test eax, eax
         je short .2
-        cmp dword [dword_1B8F94], byte 0
+        cmp dword [ReplayFinalFrame], byte 0
         je short .1
-        mov eax, dword [dword_1BF8B4]
-        mov dword [dword_1B8F64], eax
+        mov eax, dword [ReplayRecordBuf]
+        mov dword [ReplayWritePos], eax
 .1:
         xor esi, esi
-        mov dword [dword_1B8F94], esi
+        mov dword [ReplayFinalFrame], esi
         call ReplayRecordFrame
 .2:
         pop esi
@@ -6876,9 +6876,9 @@ ReplayRecordFinal_C:
 ; Returns whether sounds may play during replay playback
 ;-----------------------------------------------------------------------------
 ReplaySoundAllowed:
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         je short .1
-        cmp dword [dword_1B8F48], 258h
+        cmp dword [ReplaySoundOn], 258h
         jne short .2
 .1:
         mov eax, 1
@@ -6930,7 +6930,7 @@ ReplayDrawFrame:
         je short .2
         mov eax, 1
         call RefreshRinkPalette
-        mov eax, dword [dword_1B8F54]
+        mov eax, dword [ReplayDrawn]
         jmp short .3
 .2:
         mov eax, dword [tickcount]
@@ -6946,7 +6946,7 @@ ReplayDrawFrame:
         ret
         push edx
         sub esp, byte 0Ch
-        mov eax, dword [dword_1B8F50]
+        mov eax, dword [ReplayFrame]
         call SetAnimClock
         mov edx, dword [PtrPuckFlags]
         mov eax, dword [byte edx+020h]
@@ -6954,7 +6954,7 @@ ReplayDrawFrame:
         mov eax, dword [byte edx+024h]
         mov dword [byte esp+04h], eax
         mov eax, dword [byte edx+028h]
-        mov edx, dword_16C6B0
+        mov edx, ClockDataTicks
         mov dword [byte esp+08h], eax
         mov eax, esp
         call RefreshViewDistance
@@ -6975,10 +6975,10 @@ ReplayCmdPlay:
         call SetCrowdNoise
         call StopAllSfx
         call RestartGameMusic
-        cmp dword [dword_1B8F48], byte 0
+        cmp dword [ReplaySoundOn], byte 0
         sete al
         and eax, 0FFh
-        mov dword [dword_1B8F48], eax
+        mov dword [ReplaySoundOn], eax
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
@@ -6990,7 +6990,7 @@ ReplayCmdStop:
         mov eax, 64h
         mov edx, 258h
         call SetCrowdNoise
-        mov dword [dword_1B8F48], edx
+        mov dword [ReplaySoundOn], edx
         pop edx
         ret
 ;-----------------------------------------------------------------------------
@@ -7004,7 +7004,7 @@ ReplayCmdRewind:
         call SetCrowdNoise
         call StopAllSfx
         call RestartGameMusic
-        mov dword [dword_1B8F48], edx
+        mov dword [ReplaySoundOn], edx
         pop edx
         ret
         db 090h
@@ -7019,7 +7019,7 @@ ReplayCmdForward:
         call SetCrowdNoise
         call StopAllSfx
         call RestartGameMusic
-        mov dword [dword_1B8F48], edx
+        mov dword [ReplaySoundOn], edx
         pop edx
         ret
         db 090h
@@ -7042,43 +7042,43 @@ ReplayPlayFrames:
         call StopAllSfx
         call RestartGameMusic
         mov eax, esi
-        mov dword [dword_1B8F48], edx
+        mov dword [ReplaySoundOn], edx
         call ReplayReadFrame
-        mov dword [dword_1B8F50], eax
+        mov dword [ReplayFrame], eax
         call SetAnimClock
-        cmp esi, dword [dword_1B8F50]
+        cmp esi, dword [ReplayFrame]
         jle near .8
         xor edi, edi
 .1:
-        mov eax, dword [dword_1B8F48]
+        mov eax, dword [ReplaySoundOn]
         cmp eax, 12Ch
         jne near .8
-        mov ecx, dword [dword_1B8F50]
-        mov ebx, dword [dword_1BF8B4]
+        mov ecx, dword [ReplayFrame]
+        mov ebx, dword [ReplayRecordBuf]
         add ecx, eax
         cmp ecx, ebx
         jle near .7
 .2:
-        mov eax, dword [dword_1B8F4C]
+        mov eax, dword [ReplayMode]
         call ReplaySeekStart
         test eax, eax
         jge short .3
-        mov dword [dword_1B8F48], edi
+        mov dword [ReplaySoundOn], edi
         jmp short .7
 .3:
-        mov edx, dword [dword_1B8F4C]
+        mov edx, dword [ReplayMode]
         mov eax, dword [edx]
         and eax, byte 0Fh
         cmp eax, byte 3
         jne short .4
         mov ebx, 14h
-        mov eax, byte_19CD8C
+        mov eax, PadStates
         add edx, byte 4
         call memcpy_
         mov eax, 1
         call RunSimFrames
-        mov eax, dword [dword_1BF8B4]
-        mov dword [dword_1B8F50], eax
+        mov eax, dword [ReplayRecordBuf]
+        mov dword [ReplayFrame], eax
         jmp short .6
 .4:
         cmp eax, byte 4
@@ -7086,34 +7086,34 @@ ReplayPlayFrames:
         call ReplayStepFrame
         test eax, eax
         jge short .5
-        mov dword [dword_1B8F48], edi
+        mov dword [ReplaySoundOn], edi
         jmp short .7
 .5:
-        mov dword [dword_1B8F50], eax
+        mov dword [ReplayFrame], eax
         call SetAnimClock
 .6:
-        cmp ecx, dword [dword_1BF8B4]
+        cmp ecx, dword [ReplayRecordBuf]
         jg short .2
 .7:
-        cmp esi, dword [dword_1B8F50]
+        cmp esi, dword [ReplayFrame]
         jg near .1
 .8:
-        mov esi, dword_1B1410
+        mov esi, ObjectPositions
         xor edi, edi
         xor ecx, ecx
         add esi, byte 58h
 .9:
         imul edx, ecx, dword 760h
         mov ebx, esi
-        mov eax, dword [dword edi+dword_19CD54]
+        mov eax, dword [dword edi+GameObjects]
         add edi, byte 4
         add esi, 760h
-        mov edx, dword [dword edx+dword_1B1464]
+        mov edx, dword [dword edx+ReplayFrames]
         inc ecx
         call UpdateAllPoses
         cmp ecx, byte 0Dh
         jl short .9
-        mov eax, dword [dword_1B8F50]
+        mov eax, dword [ReplayFrame]
         call SetAnimClock
         mov edx, dword [PtrPuckFlags]
         mov eax, dword [byte edx+020h]
@@ -7121,7 +7121,7 @@ ReplayPlayFrames:
         mov eax, dword [byte edx+024h]
         mov dword [byte esp+04h], eax
         mov eax, dword [byte edx+028h]
-        mov edx, dword_16C6B0
+        mov edx, ClockDataTicks
         mov dword [byte esp+08h], eax
         mov eax, esp
         call RefreshViewDistance
@@ -7130,8 +7130,8 @@ ReplayPlayFrames:
         mov eax, 1
         call ReplayDrawFrame
         xor edx, edx
-        mov eax, dword [dword_1B8F50]
-        mov dword [dword_1B8F48], edx
+        mov eax, dword [ReplayFrame]
+        mov dword [ReplaySoundOn], edx
         add esp, byte 0Ch
         pop edi
         pop esi
@@ -7179,15 +7179,15 @@ ReplayCamFree:
 StartInstantReplay:
         push edx
         mov eax, dword [tickcount]
-        mov dword [dword_1B8F54], eax
-        mov eax, dword [dword_16AF5C]
+        mov dword [ReplayDrawn], eax
+        mov eax, dword [CameraScenesEnabled]
         xor edx, edx
-        mov dword [dword_1B8F58], eax
-        mov eax, dword [dword_1B8FA4]
-        mov dword [dword_16AF5C], edx
-        mov dword [dword_1B8F44], eax
+        mov dword [InstantReplayStart], eax
+        mov eax, dword [ReplayTick]
+        mov dword [CameraScenesEnabled], edx
+        mov dword [InstantReplayOn], eax
         mov eax, 1
-        mov dword [dword_1B8FA4], edx
+        mov dword [ReplayTick], edx
         call SetReplayRecording
         call ClearOverlayWindows
         call OpenFreeOverlay
@@ -7195,8 +7195,8 @@ StartInstantReplay:
         call ResetRenderTimers
         mov eax, 3
         call ResetRenderTimers
-        mov eax, dword [dword_1BF8B4]
-        mov dword [dword_1B8F5C], eax
+        mov eax, dword [ReplayRecordBuf]
+        mov dword [InstantReplayEnd], eax
         xor eax, eax
         call ReplayPlayFrames
         call SetViewWindow
@@ -7214,14 +7214,14 @@ StartInstantReplay:
 ;-----------------------------------------------------------------------------
 EndInstantReplay:
         push edx
-        mov eax, dword [dword_1B8F5C]
+        mov eax, dword [InstantReplayEnd]
         call SetAnimClock
         xor eax, eax
         call SetReplayRecording
-        mov eax, dword [dword_1B8F44]
-        mov dword [dword_1B8FA4], eax
-        mov eax, dword [dword_1B8F58]
-        mov dword [dword_16AF5C], eax
+        mov eax, dword [InstantReplayOn]
+        mov dword [ReplayTick], eax
+        mov eax, dword [InstantReplayStart]
+        mov dword [CameraScenesEnabled], eax
         call ClearOverlayWindows
         test byte [gmode], 1
         je short .1
@@ -7254,45 +7254,45 @@ PlaySavedReplay:
         push esi
         push edi
         sub esp, byte 0Ch
-        mov edx, dword [dword_1B8F48]
+        mov edx, dword [ReplaySoundOn]
         test edx, edx
         je near .12
         cmp edx, byte 1
         jne short .1
-        mov esi, dword [dword_1B8F50]
+        mov esi, dword [ReplayFrame]
         add esi, 12Ch
         jmp short .2
 .1:
-        mov esi, dword [dword_1B8F50]
+        mov esi, dword [ReplayFrame]
         add esi, edx
 .2:
-        cmp esi, dword [dword_1BF8B4]
+        cmp esi, dword [ReplayRecordBuf]
         jle near .8
         mov edi, 1
 .3:
-        cmp esi, dword [dword_1BF8B4]
+        cmp esi, dword [ReplayRecordBuf]
         jle near .9
-        mov eax, dword [dword_1B8F4C]
+        mov eax, dword [ReplayMode]
         call ReplaySeekStart
         test eax, eax
         jge short .4
         xor edx, edx
-        mov dword [dword_1B8F48], edx
+        mov dword [ReplaySoundOn], edx
         jmp near .9
 .4:
-        mov eax, dword [dword_1B8F4C]
+        mov eax, dword [ReplayMode]
         mov edx, dword [eax]
         and edx, byte 0Fh
         cmp edx, byte 3
         jne short .5
         lea edx, [byte eax+04h]
         mov ebx, 14h
-        mov eax, byte_19CD8C
+        mov eax, PadStates
         call memcpy_
         mov eax, edi
         call RunSimFrames
-        mov eax, dword [dword_1BF8B4]
-        mov dword [dword_1B8F50], eax
+        mov eax, dword [ReplayRecordBuf]
+        mov dword [ReplayFrame], eax
         jmp short .7
 .5:
         cmp edx, byte 4
@@ -7301,10 +7301,10 @@ PlaySavedReplay:
         test eax, eax
         jge short .6
         xor eax, eax
-        mov dword [dword_1B8F48], eax
+        mov dword [ReplaySoundOn], eax
         jmp short .9
 .6:
-        mov dword [dword_1B8F50], eax
+        mov dword [ReplayFrame], eax
         call SetAnimClock
         mov ecx, dword [PtrPuckFlags]
         mov eax, dword [byte ecx+020h]
@@ -7312,7 +7312,7 @@ PlaySavedReplay:
         mov eax, dword [byte ecx+024h]
         mov dword [byte esp+04h], eax
         mov eax, dword [byte ecx+028h]
-        mov edx, dword_16C6B0
+        mov edx, ClockDataTicks
         mov dword [byte esp+08h], eax
         mov eax, esp
         call RefreshViewDistance
@@ -7324,24 +7324,24 @@ PlaySavedReplay:
         call ServiceIdle
         jmp near .3
 .8:
-        mov dword [dword_1B8F50], esi
+        mov dword [ReplayFrame], esi
 .9:
-        cmp dword [dword_1B8F48], byte 1
+        cmp dword [ReplaySoundOn], byte 1
         jne short .10
         xor ecx, ecx
-        mov dword [dword_1B8F48], ecx
+        mov dword [ReplaySoundOn], ecx
 .10:
-        mov ecx, dword_1B1410
+        mov ecx, ObjectPositions
         xor edi, edi
         xor esi, esi
         add ecx, byte 58h
 .11:
         imul edx, esi, dword 760h
         mov ebx, ecx
-        mov eax, dword [dword edi+dword_19CD54]
+        mov eax, dword [dword edi+GameObjects]
         add edi, byte 4
         add ecx, 760h
-        mov edx, dword [dword edx+dword_1B1464]
+        mov edx, dword [dword edx+ReplayFrames]
         inc esi
         call UpdateAllPoses
         cmp esi, byte 0Dh
@@ -7349,7 +7349,7 @@ PlaySavedReplay:
 .12:
         xor eax, eax
         call ReplayDrawFrame
-        mov eax, dword [dword_1B8F50]
+        mov eax, dword [ReplayFrame]
         add esp, byte 0Ch
         pop edi
         pop esi
@@ -7364,8 +7364,8 @@ PlaySavedReplay:
 ;-----------------------------------------------------------------------------
 ReplayFramesLeft:
         push edx
-        mov edx, dword [dword_1B8F50]
-        mov eax, dword [dword_1B8F64]
+        mov edx, dword [ReplayFrame]
+        mov eax, dword [ReplayWritePos]
         sub eax, edx
         pop edx
         ret
@@ -7374,7 +7374,7 @@ ReplayFramesLeft:
 ; Returns the current replay frame
 ;-----------------------------------------------------------------------------
 ReplayCurrentFrame:
-        mov eax, dword [dword_1B8F50]
+        mov eax, dword [ReplayFrame]
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
@@ -7387,15 +7387,15 @@ ReplayRestoreObjects:
         push edx
         push esi
         push edi
-        cmp dword [dword_1BF898], byte 0
+        cmp dword [AnimStatesReady], byte 0
         je short .4
         mov esi, SortCords
         xor ecx, ecx
 .1:
-        mov edi, dword [dword_1BF898]
-        mov eax, dword [dword ecx+dword_19CD54]
+        mov edi, dword [AnimStatesReady]
+        mov eax, dword [dword ecx+GameObjects]
         add eax, edi
-        mov dword [dword ecx+dword_19CD54], eax
+        mov dword [dword ecx+GameObjects], eax
         je short .3
         mov edx, esi
 .2:
@@ -7409,17 +7409,17 @@ ReplayRestoreObjects:
         cmp ecx, byte 34h
         jne short .1
 .4:
-        mov esi, dword_1B1410
+        mov esi, ObjectPositions
         xor edi, edi
         xor ecx, ecx
         add esi, byte 58h
 .5:
         imul edx, ecx, dword 760h
         mov ebx, esi
-        mov eax, dword [dword edi+dword_19CD54]
+        mov eax, dword [dword edi+GameObjects]
         add edi, byte 4
         add esi, 760h
-        mov edx, dword [dword edx+dword_1B1464]
+        mov edx, dword [dword edx+ReplayFrames]
         inc ecx
         call UpdateAllPoses
         cmp ecx, byte 0Dh
@@ -7520,8 +7520,8 @@ ReplaySetupObjects:
         cmp ecx, byte 2
         jl short .2
         mov ebx, 34h
-        mov eax, dword_19CD54
-        mov ecx, unk_1B9520
+        mov eax, GameObjects
+        mov ecx, PlayerStartRecords
         mov edx, ebx
         mov edi, 3Ch
         call ReplayRegisterStates
@@ -7538,12 +7538,12 @@ ReplaySetupObjects:
         mov eax, kaufmfont
         mov edx, ebx
         call ReplayRegisterStates
-        cmp dword [dword_16B724], byte 0
+        cmp dword [ReplayStatesSet], byte 0
         je short .4
-        mov eax, dword [dword_1B8F60]
+        mov eax, dword [ReplayObjectsSet]
         inc eax
-        mov dword [nosplit eax*4+dword_1B89D4], ReplayRestoreObjects
-        mov dword [dword_1B8F60], eax
+        mov dword [nosplit eax*4+ReplayObjectCount], ReplayRestoreObjects
+        mov dword [ReplayObjectsSet], eax
 .4:
         pop edi
         pop esi
@@ -7592,8 +7592,8 @@ SaveReplayHeader:
         lea eax, [esi+edi]
         call memcpy_
 .3:
-        mov eax, dword [dword_1B8F80]
-        mov edx, dword [dword_1B8F88]
+        mov eax, dword [ReplayHeader]
+        mov edx, dword [ReplayReadPos]
         add edi, byte 2
         add eax, edx
         mov dword [byte esp+08h], edx
@@ -7612,7 +7612,7 @@ SaveReplayHeader:
         test ebp, ebp
         je short .5
         mov ebx, 4
-        mov edx, dword_1B8F84
+        mov edx, ReplayBufferEnd
         lea eax, [esi+edi]
         call memcpy_
 .5:
@@ -7620,7 +7620,7 @@ SaveReplayHeader:
         test ebp, ebp
         je short .6
         mov ebx, 4
-        mov edx, dword_1B8F8C
+        mov edx, ReplayFull
         lea eax, [esi+edi]
         call memcpy_
 .6:
@@ -7628,7 +7628,7 @@ SaveReplayHeader:
         test ebp, ebp
         je short .7
         mov ebx, 28h
-        mov edx, dword_1B89F0
+        mov edx, ReplayObjectSizes
         lea eax, [esi+edi]
         call memcpy_
 .7:
@@ -7636,7 +7636,7 @@ SaveReplayHeader:
         test ebp, ebp
         je short .8
         mov ebx, 4
-        mov edx, dword_1B8F64
+        mov edx, ReplayWritePos
         lea eax, [esi+edi]
         call memcpy_
 .8:
@@ -7644,8 +7644,8 @@ SaveReplayHeader:
         xor ecx, ecx
         add esi, edi
 .9:
-        mov ebx, dword [dword_1B8F88]
-        mov eax, dword [dword ecx+dword_1B89B0]
+        mov ebx, dword [ReplayReadPos]
+        mov eax, dword [dword ecx+ReplayObjects]
         sub eax, ebx
         mov dword [byte esp+04h], eax
         test ebp, ebp
@@ -7715,8 +7715,8 @@ LoadReplayData:
         mov dword [GameSettings], edx
         lea edx, [dword esi+01EBh]
         call memcpy_
-        mov eax, dword [dword_1B8F88]
-        mov edi, dword [dword_1B8F80]
+        mov eax, dword [ReplayReadPos]
+        mov edi, dword [ReplayHeader]
         add edi, eax
         sub edi, eax
         lea edx, [dword esi+01EDh]
@@ -7724,23 +7724,23 @@ LoadReplayData:
         call memcpy_
         mov ebx, 4
         add edi, 1EDh
-        mov eax, dword_1B8F84
+        mov eax, ReplayBufferEnd
         lea edx, [esi+edi]
         call memcpy_
         mov ebx, 4
         add edi, byte 4
-        mov eax, dword_1B8F8C
+        mov eax, ReplayFull
         lea edx, [esi+edi]
         call memcpy_
         mov ebx, 28h
         add edi, byte 4
-        mov eax, dword_1B89F0
+        mov eax, ReplayObjectSizes
         lea edx, [esi+edi]
         xor ecx, ecx
         call memcpy_
         mov ebx, 4
         add edi, byte 28h
-        mov eax, dword_1B8F64
+        mov eax, ReplayWritePos
         lea edx, [esi+edi]
         add edi, byte 4
         call memcpy_
@@ -7753,11 +7753,11 @@ LoadReplayData:
         call memcpy_
         add edi, byte 4
         mov ebx, dword [byte esp+04h]
-        mov eax, dword [dword_1B8F88]
+        mov eax, dword [ReplayReadPos]
         add ecx, byte 4
         add eax, ebx
         add esi, byte 4
-        mov dword [dword ecx+dword_1B89AC], eax
+        mov dword [dword ecx+FaceTextureCount], eax
         cmp ecx, byte 28h
         jne short .1
         mov eax, SortCords
@@ -7788,10 +7788,10 @@ LoadReplayData:
         cmp edx, byte 0Dh
         jge short .7
         mov ebp, esi
-        add ebp, dword_1B1410
+        add ebp, ObjectPositions
         mov dword [dword eax+0F2h], ebp
         mov ebp, edi
-        add ebp, dword_19CD54
+        add ebp, GameObjects
         mov dword [dword eax+0F6h], ebp
         mov ebp, ebx
         jmp short .8
@@ -7800,7 +7800,7 @@ LoadReplayData:
         mov ebp, ebx
         mov dword [dword eax+0F2h], 0
 .8:
-        add ebp, unk_1B9520
+        add ebp, PlayerStartRecords
         mov dword [dword eax+0FAh], ebp
         add ebx, byte 3Ch
         add edi, byte 4
@@ -7810,9 +7810,9 @@ LoadReplayData:
         add ecx, byte 39h
         cmp edx, byte 10h
         jl near .2
-        mov esi, unk_1C135C
+        mov esi, AutoLineData
         mov edi, HomeTeamRecord+420h
-        mov ebp, unk_1C347F
+        mov ebp, HomeLines
         mov ecx, SortCords
         mov eax, 1
         mov dword [HmScore], esi
@@ -7836,12 +7836,12 @@ FreeReplayMem:
         push ebx
         push ecx
         push edx
-        mov edx, dword [dword_1B902C]
+        mov edx, dword [PaletteDirtyFlag]
         push edx
         xor ebx, ebx
         call FreeMemBlock
         add esp, byte 4
-        mov dword [dword_1B9028], ebx
+        mov dword [SpriteBuffersOn], ebx
         pop edx
         pop ecx
         pop ebx
@@ -7863,10 +7863,10 @@ AllocSpriteBuffers:
         xor esi, esi
         call AllocMemBlock
         add esp, byte 0Ch
-        mov dword [dword_1B902C], eax
+        mov dword [PaletteDirtyFlag], eax
         lea edi, [dword eax+0180h]
 .1:
-        mov ebx, dword [dword_1B902C]
+        mov ebx, dword [PaletteDirtyFlag]
         mov dword [byte esi+ebx+01Ch], edi
         mov edx, dword [edi]
         and edx, 0FFh
@@ -7887,7 +7887,7 @@ AllocSpriteBuffers:
         mov dword [byte esi+ebx-08h], 0FFFFFFFFh
         cmp esi, 180h
         jne short .1
-        mov dword [dword_1B9028], 1
+        mov dword [SpriteBuffersOn], 1
         pop edi
         pop esi
         pop edx
@@ -7901,11 +7901,11 @@ AllocSpriteBuffers:
 ;-----------------------------------------------------------------------------
 MarkPaletteDirty:
         push edx
-        cmp dword [dword_1B9028], byte 0
+        cmp dword [SpriteBuffersOn], byte 0
         je short .2
         xor eax, eax
 .1:
-        mov edx, dword [dword_1B902C]
+        mov edx, dword [PaletteDirtyFlag]
         add eax, byte 20h
         mov dword [byte edx+eax-08h], 0FFFFFFFFh
         cmp eax, 180h
@@ -7936,11 +7936,11 @@ BeginOffscreenRender:
         mov dword [byte esp+08h], eax
         mov eax, dword [byte edx+04h]
         fxch st3
-        fstp dword [dword_1B9018]
+        fstp dword [OffscreenFov]
         fxch
-        fstp dword [dword_1B901C]
-        fstp dword [dword_1B9020]
-        fstp dword [dword_1B9024]
+        fstp dword [OffscreenAspect]
+        fstp dword [OffscreenNear]
+        fstp dword [OffscreenFar]
         mov dword [byte esp+0Ch], eax
         mov eax, dword [edi]
         mov dword [byte esp+01Ch], eax
@@ -8172,11 +8172,11 @@ BeginOffscreenRender:
         push edi
         call CreateBitmapForArt
         add esp, byte 8
-        push unk_1B8FA8
-        mov dword [dword_1B9034], eax
+        push OffscreenState
+        mov dword [OffscreenTarget], eax
         call SaveDrawContext
         add esp, byte 4
-        mov ebp, dword [dword_1B9034]
+        mov ebp, dword [OffscreenTarget]
         push ebp
         call SetDrawTarget
         add esp, byte 4
@@ -8231,7 +8231,7 @@ SavePortraitCamera:
         mov ebp, eax
         mov dword [byte esp+08h], edx
         mov dword [byte esp+0Ch], ebx
-        mov edx, dword [dword_1B902C]
+        mov edx, dword [PaletteDirtyFlag]
         xor ebx, ebx
 .1:
         cmp ebp, dword [byte edx+018h]
@@ -8308,9 +8308,9 @@ SavePortraitCamera:
         cmp ebx, byte 0Ch
         jl short .6
 .11:
-        mov eax, dword [dword_1B9030]
+        mov eax, dword [PortraitCamera]
         lea edx, [byte eax+01h]
-        mov dword [dword_1B9030], edx
+        mov dword [PortraitCamera], edx
         mov edx, dword [esp]
         mov dword [byte edx+014h], eax
         mov eax, edx
@@ -8335,7 +8335,7 @@ RestorePortraitCamera:
         mov dword [esp], eax
         mov edi, edx
         mov esi, ebx
-        mov eax, dword [dword_1B902C]
+        mov eax, dword [PaletteDirtyFlag]
         mov edx, 1
         mov ecx, eax
         mov ebx, dword [byte eax+014h]
@@ -8351,9 +8351,9 @@ RestorePortraitCamera:
         add eax, byte 20h
         cmp edx, byte 0Ch
         jl short .1
-        mov eax, dword [dword_1B9030]
+        mov eax, dword [PortraitCamera]
         lea edx, [byte eax+01h]
-        mov dword [dword_1B9030], edx
+        mov dword [PortraitCamera], edx
         mov dword [byte ecx+014h], eax
         mov dword [byte ecx+08h], edi
         mov dword [byte ecx+0Ch], esi
@@ -8374,11 +8374,11 @@ RestorePortraitCamera:
 EndOffscreenRender:
         push ecx
         push edx
-        fld dword [dword_1B9018]
-        fld dword [dword_1B901C]
-        fld dword [dword_1B9020]
-        fld dword [dword_1B9024]
-        mov edx, dword [dword_1B9034]
+        fld dword [OffscreenFov]
+        fld dword [OffscreenAspect]
+        fld dword [OffscreenNear]
+        fld dword [OffscreenFar]
+        mov edx, dword [OffscreenTarget]
         fxch st3
         fstp dword [ProjOffsetY]
         fxch
@@ -8388,7 +8388,7 @@ EndOffscreenRender:
         fstp dword [ProjAspect]
         call FreeBitmap
         add esp, byte 4
-        push unk_1B8FA8
+        push OffscreenState
         call RestoreDrawContext
         add esp, byte 4
         pop edx
@@ -8618,7 +8618,7 @@ ResetCameraState:
         shl eax, 3
         sub eax, edx
         shl eax, 2
-        add eax, dword_1B90EB
+        add eax, CameraStateRecords+093h
         mov edx, dword [byte esp+08h]
         mov dword [byte eax+0Ch], edx
         mov edx, dword [byte esp+0Ch]
@@ -8630,12 +8630,12 @@ ResetCameraState:
         db 08Dh,040h,00h
         push edx
         mov eax, dword [byte esp+08h]
-        mov dword [dword_1B90F7], eax
+        mov dword [CameraStateRecords+09Fh], eax
         mov eax, dword [byte esp+0Ch]
-        mov dword [dword_1B90FB], eax
+        mov dword [CameraStateRecords+0A3h], eax
         mov eax, dword [byte esp+010h]
-        mov dword [dword_1B90FF], eax
-        mov eax, dword_1B90EB
+        mov dword [CameraStateRecords+0A7h], eax
+        mov eax, CameraStateRecords+093h
         add eax, byte 1Ch
         mov edx, dword [byte esp+08h]
         mov dword [byte eax+0Ch], edx
@@ -8643,7 +8643,7 @@ ResetCameraState:
         mov dword [byte eax+010h], edx
         mov edx, dword [byte esp+010h]
         mov dword [byte eax+014h], edx
-        mov eax, dword_1B90EB
+        mov eax, CameraStateRecords+093h
         add eax, byte 38h
         mov edx, dword [byte esp+08h]
         mov dword [byte eax+0Ch], edx
@@ -8655,7 +8655,7 @@ ResetCameraState:
         ret 0Ch
         db 08Bh,0C0h
         push edx
-        mov eax, dword_1B90EB
+        mov eax, CameraStateRecords+093h
         add eax, byte 54h
         mov edx, dword [byte esp+08h]
         mov dword [byte eax+0Ch], edx
@@ -8663,7 +8663,7 @@ ResetCameraState:
         mov dword [byte eax+010h], edx
         mov edx, dword [byte esp+010h]
         mov dword [byte eax+014h], edx
-        mov eax, dword_1B90EB
+        mov eax, CameraStateRecords+093h
         add eax, byte 70h
         mov edx, dword [byte esp+08h]
         mov dword [byte eax+0Ch], edx
@@ -8671,7 +8671,7 @@ ResetCameraState:
         mov dword [byte eax+010h], edx
         mov edx, dword [byte esp+010h]
         mov dword [byte eax+014h], edx
-        mov eax, dword_1B90EB
+        mov eax, CameraStateRecords+093h
         add eax, 8Ch
         mov edx, dword [byte esp+08h]
         mov dword [byte eax+0Ch], edx
@@ -8683,7 +8683,7 @@ ResetCameraState:
         ret 0Ch
         db 08Bh,0C0h
         push edx
-        mov eax, dword_1B90EB
+        mov eax, CameraStateRecords+093h
         add eax, 0A8h
         mov edx, dword [byte esp+08h]
         mov dword [byte eax+0Ch], edx
@@ -8701,19 +8701,19 @@ CopyCameraState:
         push ebx
         push ecx
         push edx
-        mov byte [dword eax+byte_1B9058], 1
+        mov byte [dword eax+CameraStateRecords], 1
         lea edx, [nosplit eax*4+00h]
         mov ebx, eax
         shl eax, 3
-        mov ecx, dword_1B905F
+        mov ecx, CameraStateRecords+7
         sub eax, ebx
         add ecx, edx
-        mov ebx, dword_1B907B
-        mov dword [nosplit eax*4+dword_1B90EB], ecx
+        mov ebx, CameraStateRecords+23h
+        mov dword [nosplit eax*4+CameraStateRecords+093h], ecx
         add ebx, edx
-        add edx, dword_1B9097
-        mov dword [nosplit eax*4+dword_1B90EF], ebx
-        mov dword [nosplit eax*4+dword_1B90F3], edx
+        add edx, CameraStateRecords+3Fh
+        mov dword [nosplit eax*4+CameraStateRecords+097h], ebx
+        mov dword [nosplit eax*4+CameraStateRecords+09Bh], edx
         pop edx
         pop ecx
         pop ebx
@@ -8776,22 +8776,22 @@ CameraSmoothStep:
         jg short .5
         fld dword [byte esp+010h]
         fst qword [esp]
-        fcomp qword [qword_161B78]
+        fcomp qword [CamSmoothMinX]
         fnstsw ax
         sahf
         jbe short .4
         fld qword [esp]
-        fadd qword [qword_161B80]
+        fadd qword [CamSmoothStepX]
         fstp dword [byte esp+010h]
 .4:
         fld dword [byte esp+010h]
         fst qword [byte esp+08h]
-        fcomp qword [qword_161B88]
+        fcomp qword [CamSmoothMinY]
         fnstsw ax
         sahf
         jae short .5
         fld qword [byte esp+08h]
-        fadd qword [qword_161B90]
+        fadd qword [CamSmoothStepY]
         fstp dword [byte esp+010h]
 .5:
         fld dword [byte esp+010h]
@@ -8814,7 +8814,7 @@ SetCameraTarget:
         mov dword [byte esp+010h], edx
         shl eax, 3
         add eax, ecx
-        mov ebx, unk_1B91AF
+        mov ebx, CameraStateRecords+157h
         shl eax, 2
         add ebx, eax
         lea eax, [byte ebp+010h]
@@ -8828,10 +8828,10 @@ SetCameraTarget:
         fild dword [byte esp+010h]
         fld1
         fdivrp
-        mov byte [dword ecx+byte_1B9058], 2
-        mov eax, dword [nosplit ecx*4+dword_1B905F]
+        mov byte [dword ecx+CameraStateRecords], 2
+        mov eax, dword [nosplit ecx*4+CameraStateRecords+7]
         mov dword [byte ebx+010h], eax
-        fld dword [nosplit ecx*4+dword_1B9097]
+        fld dword [nosplit ecx*4+CameraStateRecords+3Fh]
         mov dword [byte ebx+01Ch], 0
         mov eax, ecx
         fstp dword [byte ebx+014h]
@@ -8841,10 +8841,10 @@ SetCameraTarget:
         push dword [byte ebp+010h]
         call CameraSmoothStep
         fild dword [byte ebx+020h]
-        fld dword [nosplit ecx*4+dword_1B9097]
+        fld dword [nosplit ecx*4+CameraStateRecords+3Fh]
         fmul st1
         fld dword [byte ebp+014h]
-        mov eax, dword [nosplit ecx*4+dword_1B905F]
+        mov eax, dword [nosplit ecx*4+CameraStateRecords+7]
         fmulp st2
         mov dword [byte esp+0Ch], eax
         mov eax, dword [byte ebp+010h]
@@ -8896,33 +8896,33 @@ SetCameraPathTarget:
         mov esi, edx
         shl eax, 3
         add eax, ebx
-        mov ebp, unk_1B91AF
+        mov ebp, CameraStateRecords+157h
         shl eax, 2
         add ebp, eax
         lea eax, [nosplit ebx*8+00h]
         push byte 0
         sub eax, ebx
-        mov edi, dword_1B90EB
+        mov edi, CameraStateRecords+093h
         shl eax, 2
         lea ecx, [nosplit ebx*4+00h]
         add edi, eax
         mov eax, ebx
-        push dword [dword ecx+dword_1B907B]
+        push dword [dword ecx+CameraStateRecords+23h]
         call SetCameraTarget
-        mov byte [dword ebx+byte_1B9058], 3
-        mov eax, dword_1B90B3
+        mov byte [dword ebx+CameraStateRecords], 3
+        mov eax, CameraStateRecords+5Bh
         add eax, ecx
         mov dword [edi], eax
-        mov eax, dword_1B90CF
+        mov eax, CameraStateRecords+77h
         add eax, ecx
         mov dword [byte edi+08h], eax
-        mov eax, dword_1B907B
+        mov eax, CameraStateRecords+23h
         add eax, ecx
         xor edx, edx
         mov dword [byte edi+04h], eax
-        mov dword [dword ecx+dword_1B90CF], edx
-        mov eax, dword [dword ecx+dword_1B907B]
-        mov dword [dword ecx+dword_1B90B3], eax
+        mov dword [dword ecx+CameraStateRecords+77h], edx
+        mov eax, dword [dword ecx+CameraStateRecords+23h]
+        mov dword [dword ecx+CameraStateRecords+5Bh], eax
         mov dword [byte ebp+020h], esi
         pop ebp
         pop edi
@@ -8943,10 +8943,10 @@ SetCameraPathTarget:
         test eax, eax
         jne short .1
         mov eax, dword [byte esp+0Ch]
-        mov dword [dword_1B9087], eax
+        mov dword [CameraStateRecords+2Fh], eax
         mov eax, dword [byte esp+010h]
         mov edx, ebx
-        mov dword [dword_1B908B], eax
+        mov dword [CameraStateRecords+33h], eax
         mov eax, 3
         call SetCameraPathTarget
         mov eax, 4
@@ -9029,11 +9029,11 @@ UpdateCameraMotion:
         call ClearIfNaN
         test eax, eax
         je short .1
-        mov eax, dword [nosplit edx*4+dword_1B907B]
+        mov eax, dword [nosplit edx*4+CameraStateRecords+23h]
         mov dword [byte esp+030h], eax
 .1:
         lea edx, [nosplit esi*4+00h]
-        add edx, dword_1B905F
+        add edx, CameraStateRecords+7
         mov eax, esi
         push dword [byte esp+030h]
         call CameraSmoothStep
@@ -9053,15 +9053,15 @@ UpdateCameraMotion:
         jne near .11
         lea eax, [nosplit esi*8+00h]
         sub eax, esi
-        mov edi, dword_1B90EB
+        mov edi, CameraStateRecords+093h
         shl eax, 2
-        mov dl, byte [dword esi+byte_1B9058]
+        mov dl, byte [dword esi+CameraStateRecords]
         add edi, eax
         cmp dl, 2
         jb short .4
         lea eax, [nosplit esi*8+00h]
         add eax, esi
-        mov ebx, unk_1B91AF
+        mov ebx, CameraStateRecords+157h
         shl eax, 2
         add ebx, eax
         cmp dl, 2
@@ -9080,7 +9080,7 @@ UpdateCameraMotion:
         jne near .11
         mov eax, dword [byte esp+030h]
         mov edx, dword [byte esp+010h]
-        mov dword [dword ecx+dword_1B907B], eax
+        mov dword [dword ecx+CameraStateRecords+23h], eax
         mov eax, edi
         call CameraSplinePoint
         add esp, byte 18h
@@ -9092,7 +9092,7 @@ UpdateCameraMotion:
         ret 8
 .5:
         mov eax, dword [byte esp+030h]
-        mov dword [dword ecx+dword_1B907B], eax
+        mov dword [dword ecx+CameraStateRecords+23h], eax
         mov eax, dword [byte esp+010h]
         mov ebp, dword [byte ebx+01Ch]
         add ebp, eax
@@ -9105,12 +9105,12 @@ UpdateCameraMotion:
         call CameraLerpPoint
         push dword 3F800000h
         mov eax, ebx
-        fstp dword [dword ecx+dword_1B905F]
+        fstp dword [dword ecx+CameraStateRecords+7]
         call CameraEasePoint
         fmul dword [byte ebx+018h]
         mov ah, 1
-        fstp dword [dword ecx+dword_1B9097]
-        mov byte [dword esi+byte_1B9058], ah
+        fstp dword [dword ecx+CameraStateRecords+3Fh]
+        mov byte [dword esi+CameraStateRecords], ah
         add esp, byte 18h
         pop ebp
         pop edi
@@ -9127,10 +9127,10 @@ UpdateCameraMotion:
         call CameraLerpPoint
         push dword [esp]
         mov eax, ebx
-        fstp dword [dword ecx+dword_1B905F]
+        fstp dword [dword ecx+CameraStateRecords+7]
         call CameraEasePoint
         fmul dword [byte ebx+018h]
-        fstp dword [dword ecx+dword_1B9097]
+        fstp dword [dword ecx+CameraStateRecords+3Fh]
         add esp, byte 18h
         pop ebp
         pop edi
@@ -9140,7 +9140,7 @@ UpdateCameraMotion:
         ret 8
 .7:
         mov eax, dword [byte esp+030h]
-        mov dword [dword ecx+dword_1B907B], eax
+        mov dword [dword ecx+CameraStateRecords+23h], eax
         mov eax, dword [byte esp+010h]
         mov edx, dword [byte ebx+020h]
         cmp eax, edx
@@ -9149,13 +9149,13 @@ UpdateCameraMotion:
         call CameraSplinePoint
         mov eax, esi
         call CopyCameraState
-        fld dword [dword ecx+dword_1B90CF]
-        fld dword [dword ecx+dword_1B90B3]
+        fld dword [dword ecx+CameraStateRecords+77h]
+        fld dword [dword ecx+CameraStateRecords+5Bh]
         mov eax, dword [byte esp+010h]
         push ebp
         fxch
-        fstp dword [dword ecx+dword_1B9097]
-        fstp dword [dword ecx+dword_1B905F]
+        fstp dword [dword ecx+CameraStateRecords+3Fh]
+        fstp dword [dword ecx+CameraStateRecords+7]
         mov edi, dword [byte ebx+020h]
         mov edx, esi
         sub eax, edi
@@ -9178,19 +9178,19 @@ UpdateCameraMotion:
         fild dword [byte ebx+020h]
         fxch
         fstp dword [byte ebx+018h]
-        fmul dword [dword ecx+dword_1B90CF]
+        fmul dword [dword ecx+CameraStateRecords+77h]
         fild dword [byte esp+010h]
         fmul dword [byte ebx+018h]
         fild dword [byte ebx+020h]
-        fld dword [dword ecx+dword_1B9097]
+        fld dword [dword ecx+CameraStateRecords+3Fh]
         fmul st1
-        mov eax, dword [dword ecx+dword_1B905F]
-        fld dword [dword ecx+dword_1B90CF]
+        mov eax, dword [dword ecx+CameraStateRecords+7]
+        fld dword [dword ecx+CameraStateRecords+77h]
         mov dword [byte esp+014h], eax
         fmulp st2
         fld dword [byte esp+014h]
         fxch st4
-        fadd dword [dword ecx+dword_1B90B3]
+        fadd dword [dword ecx+CameraStateRecords+5Bh]
         fld st0
         fsub dword [byte esp+014h]
         fxch st5
@@ -9223,11 +9223,11 @@ UpdateCameraMotion:
         call CameraLerpPoint
         push dword [byte esp+04h]
         mov eax, ebx
-        fstp dword [dword ecx+dword_1B905F]
+        fstp dword [dword ecx+CameraStateRecords+7]
         call CameraEasePoint
         fmul dword [byte ebx+018h]
         mov eax, dword [byte esp+010h]
-        fstp dword [dword ecx+dword_1B9097]
+        fstp dword [dword ecx+CameraStateRecords+3Fh]
         sub dword [byte ebx+020h], eax
         add esp, byte 18h
         pop ebp
@@ -9239,11 +9239,11 @@ UpdateCameraMotion:
 .9:
         mov eax, dword [byte esp+030h]
         xor edi, edi
-        mov dword [dword ecx+dword_1B905F], eax
-        mov dword [dword ecx+dword_1B9097], edi
-        fld dword [dword ecx+dword_1B905F]
+        mov dword [dword ecx+CameraStateRecords+7], eax
+        mov dword [dword ecx+CameraStateRecords+3Fh], edi
+        fld dword [dword ecx+CameraStateRecords+7]
         mov eax, esi
-        fstp dword [dword ecx+dword_1B907B]
+        fstp dword [dword ecx+CameraStateRecords+23h]
         call CopyCameraState
         add esp, byte 18h
         pop ebp
@@ -9253,16 +9253,16 @@ UpdateCameraMotion:
         pop ebx
         ret 8
 .10:
-        fld dword [dword ecx+dword_1B905F]
+        fld dword [dword ecx+CameraStateRecords+7]
         fsub dword [byte esp+030h]
         fild dword [byte esp+010h]
         fdivp
         mov eax, dword [byte esp+030h]
-        mov dword [dword ecx+dword_1B905F], eax
-        fld dword [dword ecx+dword_1B905F]
+        mov dword [dword ecx+CameraStateRecords+7], eax
+        fld dword [dword ecx+CameraStateRecords+7]
         mov eax, esi
-        fstp dword [dword ecx+dword_1B907B]
-        fstp dword [dword ecx+dword_1B9097]
+        fstp dword [dword ecx+CameraStateRecords+23h]
+        fstp dword [dword ecx+CameraStateRecords+3Fh]
         call CopyCameraState
 .11:
         add esp, byte 18h
@@ -9321,11 +9321,11 @@ BuildCameraMatrix:
         mov eax, ebx
         push dword [byte esp+060h]
         call UpdateCameraMotion
-        push dword [dword_1B906B]
+        push dword [CameraStateRecords+13h]
         lea eax, [byte esp+04h]
-        mov ebx, unk_1B92AB
+        mov ebx, CameraStateRecords+253h
         call MatRotX
-        push dword [dword_1B906F]
+        push dword [CameraStateRecords+17h]
         lea eax, [byte esp+028h]
         lea edx, [byte esp+04h]
         call MatRotY
@@ -9348,26 +9348,26 @@ UpdateCameraProjection:
         mov edx, 6
         push dword [byte esp+0Ch]
         call UpdateCameraMotion
-        mov eax, dword [dword_1B9077]
-        mov dword [dword_16B72C], eax
+        mov eax, dword [CameraStateRecords+1Fh]
+        mov dword [F32_ViewAngle], eax
         pop edx
         ret 8
         db 08Bh,0C0h
         push ebx
         push edx
         sub esp, byte 48h
-        push dword [dword_1B906B]
+        push dword [CameraStateRecords+13h]
         lea eax, [byte esp+028h]
-        mov ebx, unk_1B92AB
+        mov ebx, CameraStateRecords+253h
         call MatRotX
-        push dword [dword_1B906F]
+        push dword [CameraStateRecords+17h]
         lea eax, [byte esp+04h]
         lea edx, [byte esp+028h]
         call MatRotY
         mov eax, esp
         call MatMul
-        mov eax, dword [dword_1B9077]
-        mov dword [dword_16B72C], eax
+        mov eax, dword [CameraStateRecords+1Fh]
+        mov dword [F32_ViewAngle], eax
         add esp, byte 48h
         pop edx
         pop ebx
@@ -9379,9 +9379,9 @@ UpdateCameraProjection:
         mov ecx, edx
         mov esi, ebx
         mov ebx, esp
-        mov edx, dword_1B905F
+        mov edx, CameraStateRecords+7
         call VecSub
-        mov edx, unk_1B92AB
+        mov edx, CameraStateRecords+253h
         mov eax, esp
         mov ebx, ecx
         call VecMulMat
@@ -9414,9 +9414,9 @@ ProjectRinkPoints:
         mov ecx, edx
         mov esi, ebx
         mov ebx, esp
-        mov edx, dword_1B905F
+        mov edx, CameraStateRecords+7
         call VecSub
-        mov edx, unk_1B92AB
+        mov edx, CameraStateRecords+253h
         mov eax, esp
         mov ebx, ecx
         call VecMulMat
@@ -9445,7 +9445,7 @@ ProjectRinkPoints:
         mov ecx, ebx
         fild dword [eax]
         lea ebx, [byte esp+0Ch]
-        mov edx, dword_1B905F
+        mov edx, CameraStateRecords+7
         fstp dword [byte esp+018h]
         fild dword [byte eax+04h]
         fstp dword [byte esp+01Ch]
@@ -9454,7 +9454,7 @@ ProjectRinkPoints:
         fstp dword [byte esp+020h]
         call VecSub
         mov ebx, esp
-        mov edx, unk_1B92AB
+        mov edx, CameraStateRecords+253h
         lea eax, [byte esp+0Ch]
         call VecMulMat
         mov edx, esp
@@ -9484,13 +9484,13 @@ ProjectRinkPoints:
         mov esi, eax
         mov ecx, edx
         mov edx, esp
-        mov eax, unk_1B92AB
+        mov eax, CameraStateRecords+253h
         call MatTranspose
         mov ebx, ecx
         mov edx, esp
         mov eax, esi
         call VecMulMat
-        mov edx, dword_1B905F
+        mov edx, CameraStateRecords+7
         mov ebx, ecx
         mov eax, ecx
         call VecAdd
@@ -9549,8 +9549,8 @@ InitCameraParams:
         push dword 40E00000h
         mov edx, 3F060A92h
         call ResetCameraState
-        mov dword [dword_1B9093], edx
-        mov dword [dword_1B9077], edx
+        mov dword [CameraStateRecords+3Bh], edx
+        mov dword [CameraStateRecords+1Fh], edx
         pop edx
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -10406,7 +10406,7 @@ PuckOnStickFromState:
         push edx
         sub esp, byte 4
         call PuckOnStickPhysics
-        mov ebx, dword [nosplit eax*4+dword_1BF07C]
+        mov ebx, dword [nosplit eax*4+MoveFuncPair]
         mov edx, eax
         xor eax, eax
         mov al, byte [byte ebx+0Dh]
@@ -10418,7 +10418,7 @@ PuckOnStickFromState:
         fstp dword [byte esp+010h]
         sub eax, edx
         fld dword [byte esp+010h]
-        fadd dword [nosplit eax*8+dword_1B9D08]
+        fadd dword [nosplit eax*8+SkateStrideTable]
         fst dword [byte esp+010h]
         add esp, byte 4
         pop edx
@@ -10554,7 +10554,7 @@ StickHandleScaled:
         shl eax, 3
         sub eax, ebx
         fld dword [byte ebp+0Ch]
-        fdiv dword [nosplit eax*8+dword_1B9D20]
+        fdiv dword [nosplit eax*8+StrideSpeeds]
         fst dword [esp]
         fcomp dword [F32_0p5_StickHandleScaled]
         fnstsw ax
@@ -10572,7 +10572,7 @@ StickHandleScaled:
         lea eax, [nosplit ebx*8+00h]
         sub eax, ebx
         fld dword [esp]
-        fmul dword [nosplit eax*8+dword_1B9D08]
+        fmul dword [nosplit eax*8+SkateStrideTable]
         mov esp, ebp
         pop ebp
         pop ebx
@@ -10592,7 +10592,7 @@ StickHandleSpeed:
         lea eax, [nosplit edx*8+00h]
         sub eax, edx
         fld dword [byte ebp+010h]
-        fdiv dword [nosplit eax*8+dword_1B9D20]
+        fdiv dword [nosplit eax*8+StrideSpeeds]
         fst dword [esp]
         fcomp dword [F32_0p5_StickHandleSpeed]
         fnstsw ax
@@ -10753,7 +10753,7 @@ StartCheckedAnim:
         mov eax, dword [eax]
         mov edi, dword [byte eax+028h]
         and edi, 0FFFFh
-        mov edx, dword_16C360
+        mov edx, MoveState
         cmp esi, edi
         jne short .1
         test byte [byte eax+01Ch], 80h
@@ -10799,7 +10799,7 @@ StartCheckedAnim:
 .8:
         mov eax, dword [byte esp+014h]
         mov dword [byte edx+010h], eax
-        mov eax, dword [nosplit esi*4+dword_1BF07C]
+        mov eax, dword [nosplit esi*4+MoveFuncPair]
         mov al, byte [byte eax+0Dh]
         and eax, 0FFh
         cmp eax, dword [byte edx+010h]
@@ -10807,7 +10807,7 @@ StartCheckedAnim:
         mov dword [byte edx+010h], 0
 .9:
         mov dword [edx], esi
-        mov eax, dword [nosplit esi*4+dword_1BF07C]
+        mov eax, dword [nosplit esi*4+MoveFuncPair]
         mov dword [byte edx+08h], eax
         mov dword [byte edx+04h], ecx
         mov eax, dword [byte esp+010h]
@@ -10816,7 +10816,7 @@ StartCheckedAnim:
         fld dword [byte eax+03Ch]
         mov dword [byte edx+0Ch], 0
         fstp dword [byte edx+014h]
-        mov eax, dword [nosplit esi*4+off_16BD2C]
+        mov eax, dword [nosplit esi*4+MoveFuncTable]
         mov dword [byte edx+024h], eax
         cmp byte [dword ecx+0D0h], 0
         je short .10
@@ -10855,7 +10855,7 @@ StartNextMove:
         mov ecx, eax
         mov esi, edx
         mov edi, dword [byte esp+018h]
-        mov edx, dword_16C360
+        mov edx, MoveState
         test edi, edi
         je short .1
         mov al, byte [dword eax+0BFh]
@@ -10891,7 +10891,7 @@ StartNextMove:
 .6:
         mov eax, dword [byte esp+014h]
         mov dword [byte edx+010h], eax
-        mov eax, dword [nosplit esi*4+dword_1BF07C]
+        mov eax, dword [nosplit esi*4+MoveFuncPair]
         mov al, byte [byte eax+0Dh]
         and eax, 0FFh
         cmp eax, dword [byte edx+010h]
@@ -10907,7 +10907,7 @@ StartNextMove:
         mov dword [byte eax+038h], edi
         mov eax, dword [byte esp+014h]
         mov dword [byte edx+010h], eax
-        mov eax, dword [nosplit esi*4+dword_1BF07C]
+        mov eax, dword [nosplit esi*4+MoveFuncPair]
         mov al, byte [byte eax+0Dh]
         and eax, 0FFh
         cmp eax, dword [byte edx+010h]
@@ -10915,7 +10915,7 @@ StartNextMove:
         mov dword [byte edx+010h], 0
 .9:
         mov dword [edx], esi
-        mov eax, dword [nosplit esi*4+dword_1BF07C]
+        mov eax, dword [nosplit esi*4+MoveFuncPair]
         mov dword [byte edx+08h], eax
         mov dword [byte edx+04h], ecx
         mov eax, dword [byte esp+010h]
@@ -10924,7 +10924,7 @@ StartNextMove:
         fld dword [byte eax+03Ch]
         mov dword [byte edx+0Ch], 0
         fstp dword [byte edx+014h]
-        mov eax, dword [nosplit esi*4+off_16BD2C]
+        mov eax, dword [nosplit esi*4+MoveFuncTable]
         mov dword [byte edx+024h], eax
         cmp byte [dword ecx+0D0h], 0
         je short .10
@@ -10962,7 +10962,7 @@ SetSPA:
         mov ebx, dword [ebx]
         mov eax, dword [byte ebx+028h]
         and eax, 0FFFFh
-        mov edx, dword_16C360
+        mov edx, MoveState
         mov dword [byte esp+04h], eax
         cmp ecx, eax
         jne short .1
@@ -11001,17 +11001,17 @@ SetSPA:
         and byte [byte eax+031h], 0F7h
 .6:
         mov dword [byte edx+010h], 0
-        mov eax, dword [nosplit ecx*4+dword_1BF07C]
+        mov eax, dword [nosplit ecx*4+MoveFuncPair]
         test byte [byte eax+0Eh], 10h
         je short .7
         mov eax, dword [byte esp+04h]
-        mov eax, dword [nosplit eax*4+dword_1BF07C]
+        mov eax, dword [nosplit eax*4+MoveFuncPair]
         test byte [byte eax+0Eh], 10h
         je short .7
         mov eax, dword [byte ebx+04h]
         mov dword [byte edx+010h], eax
 .7:
-        mov eax, dword [nosplit ecx*4+dword_1BF07C]
+        mov eax, dword [nosplit ecx*4+MoveFuncPair]
         mov al, byte [byte eax+0Dh]
         and eax, 0FFh
         mov dword [esp], eax
@@ -11021,7 +11021,7 @@ SetSPA:
         mov dword [byte edx+010h], 0
 .8:
         mov dword [edx], ecx
-        mov eax, dword [nosplit ecx*4+dword_1BF07C]
+        mov eax, dword [nosplit ecx*4+MoveFuncPair]
         mov dword [byte edx+08h], eax
         mov dword [byte edx+04h], esi
         mov eax, dword [byte esp+01Ch]
@@ -11030,7 +11030,7 @@ SetSPA:
         fld dword [byte eax+03Ch]
         mov dword [byte edx+0Ch], 0
         fstp dword [byte edx+014h]
-        mov eax, dword [nosplit ecx*4+off_16BD2C]
+        mov eax, dword [nosplit ecx*4+MoveFuncTable]
         mov dword [byte edx+024h], eax
         cmp byte [dword esi+0D0h], 0
         je short .9
@@ -11043,7 +11043,7 @@ SetSPA:
         je short .11
         or dword [byte edx+0Ch], edi
 .11:
-        cmp dword [dword_16C54C], byte 0
+        cmp dword [SpaEnabled], byte 0
         je short .14
         test byte [gmode], 1
         je short .12
@@ -11080,7 +11080,7 @@ SetSPAInPlace:
         mov eax, dword [eax]
         mov edi, dword [byte eax+028h]
         mov eax, dword [dword ecx+0FAh]
-        mov edx, dword_16C360
+        mov edx, MoveState
         and edi, 0FFFFh
         and byte [byte eax+031h], 0FEh
         cmp esi, 17Dh
@@ -11113,10 +11113,10 @@ SetSPAInPlace:
         mov ebp, dword [byte esp+014h]
         mov dword [byte eax+038h], ebp
         mov dword [byte edx+010h], 0
-        mov eax, dword [nosplit esi*4+dword_1BF07C]
+        mov eax, dword [nosplit esi*4+MoveFuncPair]
         test byte [byte eax+0Eh], 10h
         je short .6
-        mov eax, dword [nosplit edi*4+dword_1BF07C]
+        mov eax, dword [nosplit edi*4+MoveFuncPair]
         test byte [byte eax+0Eh], 10h
         je short .6
         mov eax, dword [dword ecx+0F6h]
@@ -11124,7 +11124,7 @@ SetSPAInPlace:
         mov eax, dword [byte eax+04h]
         mov dword [byte edx+010h], eax
 .6:
-        mov eax, dword [nosplit esi*4+dword_1BF07C]
+        mov eax, dword [nosplit esi*4+MoveFuncPair]
         mov al, byte [byte eax+0Dh]
         and eax, 0FFh
         cmp eax, dword [byte edx+010h]
@@ -11132,7 +11132,7 @@ SetSPAInPlace:
         mov dword [byte edx+010h], 0
 .7:
         mov dword [edx], esi
-        mov eax, dword [nosplit esi*4+dword_1BF07C]
+        mov eax, dword [nosplit esi*4+MoveFuncPair]
         mov dword [byte edx+08h], eax
         mov dword [byte edx+04h], ecx
         mov eax, dword [byte esp+014h]
@@ -11141,7 +11141,7 @@ SetSPAInPlace:
         fld dword [byte eax+03Ch]
         mov dword [byte edx+0Ch], 0
         fstp dword [byte edx+014h]
-        mov eax, dword [nosplit esi*4+off_16BD2C]
+        mov eax, dword [nosplit esi*4+MoveFuncTable]
         mov dword [byte edx+024h], eax
         cmp byte [dword ecx+0D0h], 0
         je short .8
@@ -13455,7 +13455,7 @@ UpdateGoalie:
         fstp dword [byte esp+010h]
         sub ecx, esi
         fld dword [byte esp+010h]
-        fmul dword [nosplit ecx*8+dword_1B9D08]
+        fmul dword [nosplit ecx*8+SkateStrideTable]
         mov eax, dword [byte edx+018h]
         fstp dword [byte esp+010h]
         cmp eax, 43C00000h
@@ -13562,10 +13562,10 @@ GoalieTick:
         sub eax, ecx
         mov edx, dword [GoalieTickData]
         add eax, esi
-        mov ebx, dword [dword_1BF050]
+        mov ebx, dword [GoalieTickCount]
         sub eax, edx
         add ebx, eax
-        mov dword [dword_1BF050], ebx
+        mov dword [GoalieTickCount], ebx
         pop esi
         pop edx
         pop ecx
@@ -13718,7 +13718,7 @@ PickIdleAnim:
         mov eax, 3
         call randomd0
         cwde
-        mov edx, dword [nosplit eax*4+dword_16C550]
+        mov edx, dword [nosplit eax*4+IdleAnims]
 .12:
         cmp edx, esi
         jne short .13
@@ -14618,7 +14618,7 @@ PickTurnAnim:
         mov eax, edx
         shl edx, 3
         sub edx, eax
-        fld dword [nosplit edx*8+dword_1B9D18]
+        fld dword [nosplit edx*8+TurnAnimAngles]
         fabs
         fld dword [byte esp+0Ch]
         fabs
@@ -15439,7 +15439,7 @@ PickStrideAnim:
         lea eax, [nosplit esi*8+00h]
         sub eax, esi
         fld dword [byte esp+04h]
-        fdiv dword [nosplit eax*8+dword_1B9D20]
+        fdiv dword [nosplit eax*8+StrideSpeeds]
         fst dword [byte esp+020h]
         fcomp dword [F32_0p5_PickStrideAnim]
         fnstsw ax
@@ -15653,7 +15653,7 @@ PickForwardTurn:
         fdiv dword [byte eax+038h]
         lea eax, [nosplit edx*8+00h]
         sub eax, edx
-        fdiv dword [nosplit eax*8+dword_1B9D20]
+        fdiv dword [nosplit eax*8+StrideSpeeds]
         fst dword [byte esp+018h]
         fcomp qword [F64_0p2_PickForwardTurn]
         fnstsw ax
@@ -15807,7 +15807,7 @@ PickBackwardTurn:
         fdiv dword [byte eax+038h]
         lea eax, [nosplit edx*8+00h]
         sub eax, edx
-        fdiv dword [nosplit eax*8+dword_1B9D20]
+        fdiv dword [nosplit eax*8+StrideSpeeds]
         fst dword [byte esp+018h]
         fcomp qword [F64_0p2_PickBackwardTurn]
         fnstsw ax
@@ -15847,7 +15847,7 @@ PickBackwardTurn:
         pop ebx
         ret
         db 08Dh,040h,00h
-jpt_628A8:
+GlideForwardMoveJumpTable:
         dd GlideForwardMove_240
         dd GlideForwardMove_260
         dd GlideForwardMove_250
@@ -16037,7 +16037,7 @@ GlideForwardMove:
         dec eax
         cmp eax, byte 6
         ja short GlideForwardMove_260
-        jmp dword [nosplit cs:eax*4+jpt_628A8]
+        jmp dword [nosplit cs:eax*4+GlideForwardMoveJumpTable]
 GlideForwardMove_220:
         mov eax, ecx
         call PickStrideAnim
@@ -16420,7 +16420,7 @@ LimitSkateSpeed:
         pop ecx
         pop ebx
         ret
-jpt_62EF8:
+SkateForwardMoveJumpTable:
         dd SkateForwardMove_3E0
         dd SkateForwardMove_A9
         dd SkateForwardMove_3AE
@@ -16474,7 +16474,7 @@ SkateForwardMove:
         dec edx
         cmp edx, byte 6
         ja near SkateForwardMove_41B
-        jmp dword [nosplit cs:edx*4+jpt_62EF8]
+        jmp dword [nosplit cs:edx*4+SkateForwardMoveJumpTable]
 SkateForwardMove_89:
         mov eax, ecx
         call PickForwardTurn
@@ -16506,7 +16506,7 @@ SkateForwardMove_A9:
         mov dword [byte esp+018h], eax
         mov eax, ecx
         call PuckOnStickPhysics
-        mov edi, dword [nosplit eax*4+dword_1BF07C]
+        mov edi, dword [nosplit eax*4+MoveFuncPair]
         mov dword [byte esp+030h], eax
         xor eax, eax
         mov al, byte [byte edi+0Dh]
@@ -16520,14 +16520,14 @@ SkateForwardMove_A9:
         fstp dword [byte esp+01Ch]
         sub eax, edi
         fld dword [byte esp+01Ch]
-        fadd dword [nosplit eax*8+dword_1B9D08]
+        fadd dword [nosplit eax*8+SkateStrideTable]
         fstp dword [byte esp+01Ch]
         mov eax, dword [byte esp+01Ch]
         mov dword [byte esp+024h], eax
         lea eax, [nosplit esi*8+00h]
         sub eax, esi
         fld dword [byte ecx+038h]
-        fadd dword [nosplit eax*8+dword_1B9D28]
+        fadd dword [nosplit eax*8+SkateMoveTable]
         mov eax, dword [dword ecx+0EEh]
         mov esi, dword [byte eax+08h]
         fstp dword [byte esp+028h]
@@ -16550,7 +16550,7 @@ SkateForwardMove_A9:
         fstp dword [byte esp+014h]
         sub eax, esi
         fld dword [byte esp+014h]
-        fmul dword [nosplit eax*8+dword_1B9D08]
+        fmul dword [nosplit eax*8+SkateStrideTable]
         fstp dword [byte esp+014h]
         mov eax, dword [byte esp+014h]
         mov dword [byte esp+034h], eax
@@ -16588,12 +16588,12 @@ SkateForwardMove_A9:
         shl eax, 3
         cmp byte [dword ecx+0D0h], 0
         je short .6
-        fld dword [dword eax+dword_1B9D04]
+        fld dword [dword eax+SkateAnimAccel]
         fchs
         fstp dword [byte esp+02Ch]
         jmp short .7
 .6:
-        mov eax, dword [dword eax+dword_1B9D04]
+        mov eax, dword [dword eax+SkateAnimAccel]
         mov dword [byte esp+02Ch], eax
 .7:
         fld dword [byte ebx+010h]
@@ -16618,7 +16618,7 @@ SkateForwardMove_A9:
         mov dword [byte ebx+0Ch], 0
         sub eax, edx
         fld qword [byte esp+044h]
-        mov eax, dword [nosplit eax*8+dword_1B9CFC]
+        mov eax, dword [nosplit eax*8+SkateAnimSpeeds]
         fadd qword [byte esp+064h]
         mov dword [byte esp+074h], eax
         mov ah, byte [dword ecx+0D0h]
@@ -16842,7 +16842,7 @@ SkateForwardMove_41B:
         pop ebx
         ret
         db 090h
-jpt_633C8:
+SkateBackwardMoveJumpTable:
         dd SkateBackwardMove_377
         dd SkateBackwardMove_51
         dd SkateBackwardMove_345
@@ -16872,7 +16872,7 @@ SkateBackwardMove:
         dec eax
         cmp eax, byte 7
         ja near SkateBackwardMove_3B2
-        jmp dword [nosplit cs:eax*4+jpt_633C8]
+        jmp dword [nosplit cs:eax*4+SkateBackwardMoveJumpTable]
 SkateBackwardMove_31:
         mov eax, ecx
         call PickBackwardTurn
@@ -16904,7 +16904,7 @@ SkateBackwardMove_51:
         mov dword [byte esp+020h], eax
         mov eax, ecx
         call PuckOnStickPhysics
-        mov ebx, dword [nosplit eax*4+dword_1BF07C]
+        mov ebx, dword [nosplit eax*4+MoveFuncPair]
         mov dword [byte esp+014h], eax
         xor eax, eax
         mov al, byte [byte ebx+0Dh]
@@ -16916,7 +16916,7 @@ SkateBackwardMove_51:
         fstp dword [byte esp+01Ch]
         sub ebx, eax
         fld dword [byte esp+01Ch]
-        fadd dword [nosplit ebx*8+dword_1B9D08]
+        fadd dword [nosplit ebx*8+SkateStrideTable]
         fld dword [byte ecx+038h]
         fxch
         fstp dword [byte esp+01Ch]
@@ -16925,7 +16925,7 @@ SkateBackwardMove_51:
         sub ebx, edi
         mov dword [byte esp+028h], eax
         mov eax, dword [dword ecx+0EEh]
-        fadd dword [nosplit ebx*8+dword_1B9D28]
+        fadd dword [nosplit ebx*8+SkateMoveTable]
         mov ebx, dword [byte eax+08h]
         fstp dword [byte esp+038h]
         cmp ebx, 41400000h
@@ -16947,7 +16947,7 @@ SkateBackwardMove_51:
         fstp dword [byte esp+018h]
         sub ebx, eax
         fld dword [byte esp+018h]
-        fmul dword [nosplit ebx*8+dword_1B9D08]
+        fmul dword [nosplit ebx*8+SkateStrideTable]
         fstp dword [byte esp+018h]
         mov eax, dword [byte esp+018h]
         mov dword [byte esp+030h], eax
@@ -16980,12 +16980,12 @@ SkateBackwardMove_51:
         shl ebx, 3
         test ah, ah
         je short .4
-        fld dword [dword ebx+dword_1B9D04]
+        fld dword [dword ebx+SkateAnimAccel]
         fchs
         fstp dword [byte esp+034h]
         jmp short .5
 .4:
-        mov eax, dword [dword ebx+dword_1B9D04]
+        mov eax, dword [dword ebx+SkateAnimAccel]
         mov dword [byte esp+034h], eax
 .5:
         fld dword [byte edx+010h]
@@ -17012,7 +17012,7 @@ SkateBackwardMove_51:
         fadd qword [byte esp+074h]
         sub ebx, esi
         fstp dword [byte esp+024h]
-        mov eax, dword [nosplit ebx*8+dword_1B9CFC]
+        mov eax, dword [nosplit ebx*8+SkateAnimSpeeds]
         mov bl, byte [dword ecx+0D0h]
         mov dword [byte esp+07Ch], eax
         test bl, bl
@@ -17450,7 +17450,7 @@ TurnStickPos:
         pop ecx
         pop ebx
         ret
-jpt_63A88:
+TurnForwardMoveJumpTable:
         dd TurnForwardMove_51
         dd TurnForwardMove_61
         dd TurnForwardMove_71
@@ -17478,7 +17478,7 @@ TurnForwardMove:
         and edi, 0FFFFh
         cmp eax, byte 6
         ja near TurnForwardMove_BC
-        jmp dword [nosplit cs:eax*4+jpt_63A88]
+        jmp dword [nosplit cs:eax*4+TurnForwardMoveJumpTable]
 TurnForwardMove_31:
         mov eax, ecx
         call PickForwardTurn
@@ -18903,7 +18903,7 @@ SlowSkateMove:
         pop ebx
         ret
         db 08Dh,040h,00h
-jpt_649C0:
+GlideBackwardMoveJumpTable:
         dd GlideBackwardMove_3B
         dd GlideBackwardMove_53
         dd GlideBackwardMove_47
@@ -18929,7 +18929,7 @@ GlideBackwardMove:
         dec edx
         cmp edx, byte 7
         ja short GlideBackwardMove_53
-        jmp dword [nosplit cs:edx*4+jpt_649C0]
+        jmp dword [nosplit cs:edx*4+GlideBackwardMoveJumpTable]
 GlideBackwardMove_23:
         mov eax, esi
         call PickStrideAnim
@@ -19000,7 +19000,7 @@ GlideBackwardMove_53:
         pop ecx
         pop ebx
         ret
-jpt_64AC0:
+TurnBackwardMoveJumpTable:
         dd TurnBackwardMove_51
         dd TurnBackwardMove_61
         dd TurnBackwardMove_71
@@ -19029,7 +19029,7 @@ TurnBackwardMove:
         and edi, 0FFFFh
         cmp eax, byte 7
         ja near TurnBackwardMove_BC
-        jmp dword [nosplit cs:eax*4+jpt_64AC0]
+        jmp dword [nosplit cs:eax*4+TurnBackwardMoveJumpTable]
 TurnBackwardMove_31:
         mov eax, esi
         call PickBackwardTurn
@@ -19653,7 +19653,7 @@ UpdateScoreClockData:
         fild dword [byte eax+08h]
         mov ebx, dword [byte eax+0Ch]
         mov edi, dword [byte eax+08h]
-        mov eax, dword [dword_1BF8B4]
+        mov eax, dword [ReplayRecordBuf]
         sub ebx, edi
         sub eax, ebx
         mov dword [byte esp+08h], eax
@@ -19682,7 +19682,7 @@ UpdateScoreClockData:
         fnstsw ax
         sahf
         jb near .7
-        mov edi, dword [dword_16E308]
+        mov edi, dword [AudioDriverVersion]
         test edi, edi
         je near .7
         test ecx, ecx
@@ -19783,13 +19783,13 @@ ResetClockData:
         push edi
         sub esp, byte 8
         mov edx, eax
-        mov ebx, dword [dword_16C6B0]
+        mov ebx, dword [ClockDataTicks]
         mov dword [eax], ebx
         test dword [byte esp+01Ch], 7FFFFFFFh
         jne short .1
-        mov edx, dword [dword_16C6B4]
+        mov edx, dword [ClockDataRate]
         mov dword [byte eax+04h], edx
-        mov edx, dword [dword_16C6B8]
+        mov edx, dword [ClockDataBase]
         mov dword [byte eax+08h], edx
         jmp short .2
 .1:
@@ -19800,10 +19800,10 @@ ResetClockData:
         fsincos
         fstp dword [edi]
         fstp dword [esi]
-        fld dword [dword_16C6B4]
+        fld dword [ClockDataRate]
         fmul dword [byte esp+04h]
         fstp dword [byte edx+04h]
-        fld dword [dword_16C6B4]
+        fld dword [ClockDataRate]
         fmul dword [esp]
         fstp dword [byte edx+08h]
 .2:
@@ -19897,7 +19897,7 @@ UpdateGameDisplay:
         pop ecx
         pop ebx
         ret
-unk_65475:
+GoalieAnimBlank:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
 ; LoadAnimData                                    65481  97 PC, low confidence
@@ -19915,7 +19915,7 @@ LoadAnimData:
         mov dword [byte ebp-01Ch], eax
         mov eax, edx
         mov ecx, 38h
-        sub eax, unk_1B9CF8
+        sub eax, AnimDataBase
         xor edx, edx
         div ecx
         push ecx
@@ -19935,7 +19935,7 @@ LoadAnimData:
         mov eax, dword [byte ebp-024h]
         call DecodeAnimFile
         mov eax, dword [byte ebp-04h]
-        mov byte [dword eax+byte_1BF670], 0FFh
+        mov byte [dword eax+MoveFlags], 0FFh
         cmp eax, byte 62h
         jl short .1
         cmp eax, 88h
@@ -19950,13 +19950,13 @@ LoadAnimData:
         call GetAnimEntry
         mov edx, dword [byte ebp-04h]
         movzx eax, word [byte eax+02h]
-        cmp byte [dword edx+byte_1BF670], 0FFh
+        cmp byte [dword edx+MoveFlags], 0FFh
         jne short .3
         test al, 10h
         je short .3
         mov esi, dword [byte ebp-04h]
         mov dl, byte [byte ebp-018h]
-        mov byte [dword esi+byte_1BF670], dl
+        mov byte [dword esi+MoveFlags], dl
 .3:
         cmp dword [byte ebp-04h], byte 62h
         jl short .5
@@ -19969,7 +19969,7 @@ LoadAnimData:
         mov al, byte [byte ebp-018h]
         mov edx, dword [byte ebp-04h]
         dec al
-        mov byte [dword edx+byte_16C429], al
+        mov byte [dword edx+MoveContactFlags], al
 .4:
         mov edx, dword [byte ebp-04h]
         shl edx, 2
@@ -19993,7 +19993,7 @@ LoadAnimData:
         mov al, byte [byte ebp-018h]
         mov edx, dword [byte ebp-04h]
         dec al
-        mov byte [dword edx+dword_16C3F0], al
+        mov byte [dword edx+MoveAnimIds], al
 .6:
         fld dword [byte ecx+04h]
         fadd dword [byte ebx+0Ch]
@@ -20048,17 +20048,17 @@ LoadAnimData:
         cmp eax, dword [byte ebp-01Ch]
         jl near .2
         mov eax, dword [byte ebp-04h]
-        cmp byte [dword eax+byte_1BF670], 0FFh
+        cmp byte [dword eax+MoveFlags], 0FFh
         jne short .11
         cmp dword [byte ebp-01Ch], byte 5
         jl short .10
         mov al, byte [byte ebp-01Ch]
         mov edx, dword [byte ebp-04h]
         sub al, 5
-        mov byte [dword edx+byte_1BF670], al
+        mov byte [dword edx+MoveFlags], al
         jmp short .11
 .10:
-        mov byte [dword eax+byte_1BF670], 0
+        mov byte [dword eax+MoveFlags], 0
 .11:
         fld dword [byte ebx+08h]
         fld dword [ebx]
@@ -20112,12 +20112,12 @@ GetStopTable:
         mov ebx, eax
         cmp edx, byte 0Fh
         jne short .1
-        mov eax, dword [dword_1BF7F8]
+        mov eax, dword [StopTableForward]
         fld dword [eax+ebx*4]
         pop ebx
         ret
 .1:
-        mov eax, dword [dword_1BF7FC]
+        mov eax, dword [StopTableBackward]
         fld dword [eax+ebx*4]
         pop ebx
         ret
@@ -20215,7 +20215,7 @@ LoadAnimByName:
         pop edi
         pop esi
         ret 4
-jpt_657A3:
+ShotAnimFramesJumpTable:
         dd ShotAnimFrames_10
         dd ShotAnimFrames_1D
         dd ShotAnimFrames_25
@@ -20231,7 +20231,7 @@ ShotAnimFrames:
         sub eax, byte 29h
         cmp eax, byte 6
         ja short ShotAnimFrames_59.2
-        jmp dword [nosplit cs:eax*4+jpt_657A3]
+        jmp dword [nosplit cs:eax*4+ShotAnimFramesJumpTable]
 ShotAnimFrames_10:
         mov dword [edx], 15h
 .1:
@@ -20275,26 +20275,26 @@ LoadSkateAnims:
         push edx
         mov edx, 20h
         mov eax, str_Skate
-        mov ecx, dword_1BF07C
-        mov ebx, off_16B738
+        mov ecx, MoveFuncPair
+        mov ebx, SkateAnimNames
         call LoadAnimFile
-        push unk_1B9CF8
+        push AnimDataBase
         mov edx, 25h
-        mov dword [dword_16C388], eax
+        mov dword [SkateAnimData], eax
         call LoadAnimByName
-        fld dword [dword_1BA068]
-        fld dword [dword_1BA050]
-        fadd dword [dword_1BA088]
+        fld dword [SkateAnimTurns]
+        fld dword [SkateAnimSteps]
+        fadd dword [SkateAnimStops]
         fxch
-        fadd dword [dword_1BA0A0]
-        fxch
-        fmul dword [F32_0p5_LoadSkateAnims]
+        fadd dword [SkateAnimFrames]
         fxch
         fmul dword [F32_0p5_LoadSkateAnims]
-        mov eax, dword [dword_1BF0B8]
         fxch
-        fstp dword [dword_1BF058]
-        fstp dword [dword_1BF05C]
+        fmul dword [F32_0p5_LoadSkateAnims]
+        mov eax, dword [SkateAnimCount]
+        fxch
+        fstp dword [SkateAnimScale]
+        fstp dword [SkateAnimBase]
         movzx eax, byte [byte eax+0Dh]
         push byte 20h
         shl eax, 2
@@ -20302,13 +20302,13 @@ LoadSkateAnims:
         push str_Stop
         call AllocMemBlock
         mov edx, eax
-        mov dword [dword_1BF7F8], eax
-        mov eax, dword [dword_1BF0B8]
+        mov dword [StopTableForward], eax
+        mov eax, dword [SkateAnimCount]
         movzx ebx, byte [byte eax+0Dh]
         add esp, byte 0Ch
-        mov dword [dword_1BF7F0], ebx
+        mov dword [SkateAnimMem], ebx
         call LoadSkateAnimFile
-        mov eax, dword [dword_1BF0BC]
+        mov eax, dword [SkateAnimIndex]
         movzx eax, byte [byte eax+0Dh]
         push byte 20h
         shl eax, 2
@@ -20316,11 +20316,11 @@ LoadSkateAnims:
         push str_Stop
         call AllocMemBlock
         mov edx, eax
-        mov dword [dword_1BF7FC], eax
-        mov eax, dword [dword_1BF0BC]
+        mov dword [StopTableBackward], eax
+        mov eax, dword [SkateAnimIndex]
         movzx ebx, byte [byte eax+0Dh]
         add esp, byte 0Ch
-        mov dword [dword_1BF7F4], ebx
+        mov dword [SkateAnimMemSize], ebx
         call LoadSkateAnimFile
         pop edx
         pop ecx
@@ -20337,12 +20337,12 @@ CamShot23D:
         push edx
         mov edx, 20h
         mov eax, str_Puckh
-        mov ecx, unk_1BF110
-        mov ebx, off_16B7CC
+        mov ecx, ShotAnimIndex
+        mov ebx, ShotAnimNames
         call LoadAnimFile
-        push unk_1BA510
+        push ShotAnimPoses
         mov edx, 19h
-        mov dword [dword_16C38C], eax
+        mov dword [ShotAnimData], eax
 CamShot23D_2B:
         call LoadAnimByName
         pop edx
@@ -20359,12 +20359,12 @@ LoadActAnims:
         push edx
         mov edx, 20h
         mov eax, str_PlAct
-        mov ecx, unk_1BF174
-        mov ebx, off_16B830
+        mov ecx, ActAnimIndex
+        mov ebx, ActAnimNames
         call LoadAnimFile
-        push unk_1BAA88
+        push ActAnimFrames
         mov edx, 24h
-        mov dword [dword_16C390], eax
+        mov dword [ActAnimData], eax
         jmp short CamShot23D_2B
 ;-----------------------------------------------------------------------------
 ; LoadFallAnims                                6596B  97 PC, medium confidence
@@ -20377,20 +20377,20 @@ LoadFallAnims:
         push esi
         mov edx, 20h
         mov eax, str_PlFall
-        mov ecx, unk_1BF204
-        mov ebx, off_16B8C0
+        mov ecx, FallAnimIndex
+        mov ebx, FallAnimNames
         call LoadAnimFile
         xor esi, esi
-        push unk_1BB268
+        push FallAnimFrames
         mov edx, 26h
-        mov dword [dword_16C394], eax
+        mov dword [FallAnimData], eax
         call LoadAnimByName
 .1:
         imul ecx, esi, byte 0Ch
-        mov ebx, dword [dword_1BF06C]
-        mov eax, dword [nosplit esi*4+dword_1BF248]
+        mov ebx, dword [BodyPointId]
+        mov eax, dword [nosplit esi*4+FallAnimPtrs]
         xor edx, edx
-        add ecx, unk_1B9A58
+        add ecx, FallAnimSlots
         inc esi
         call DecodeAnimTree
         cmp esi, byte 8
@@ -20410,12 +20410,12 @@ LoadInterferAnims:
         push edx
         mov edx, 20h
         mov eax, str_Interfer
-        mov ecx, unk_1BF29C
-        mov ebx, off_16B958
+        mov ecx, InterferAnimIndex
+        mov ebx, InterferAnimNames
         call LoadAnimFile
-        push unk_1BBAB8
+        push InterferAnimFrames
         mov edx, 13h
-        mov dword [dword_16C398], eax
+        mov dword [InterferAnimData], eax
         jmp near CamShot23D_2B
 ;-----------------------------------------------------------------------------
 ; LoadGoalieAnimFile                              659F6  97 PC, low confidence
@@ -20430,10 +20430,10 @@ LoadGoalieAnimFile:
         enter 38h, 0
         push eax
         lea edi, [byte ebp-038h]
-        mov eax, dword [nosplit eax*4+dword_16C3F0]
-        mov esi, unk_65475
+        mov eax, dword [nosplit eax*4+MoveAnimIds]
+        mov esi, GoalieAnimBlank
         mov dword [byte ebp-014h], 0
-        mov eax, dword [nosplit eax*4+dword_1BF07C]
+        mov eax, dword [nosplit eax*4+MoveFuncPair]
         movsd
         movsd
         movsd
@@ -20507,10 +20507,10 @@ LoadGoalieAnimFile:
         mov eax, dword [byte ebp-04h]
         lea ecx, [byte ebp-02Ch]
         mov edx, eax
-        mov dword [nosplit ebx*4+dword_1B9358], eax
-        fstp dword [nosplit ebx*4+dword_1B92D0]
+        mov dword [nosplit ebx*4+GoalieAnimFiles], eax
+        fstp dword [nosplit ebx*4+GoalieAnimData]
         mov eax, dword [byte ebp-08h]
-        mov ebx, dword [dword_1BF06C]
+        mov ebx, dword [BodyPointId]
         call DecodeAnimTree
         imul ebx, dword [byte ebp-03Ch], byte 0Ch
         lea edi, [byte ebp-020h]
@@ -20528,7 +20528,7 @@ LoadGoalieAnimFile:
         fmul dword [byte ebp-020h]
         mov eax, dword [byte ebp-028h]
         fld dword [byte ebp-02Ch]
-        mov dword [dword ebx+dword_1B9ABC], eax
+        mov dword [dword ebx+GoalieAnimFrame], eax
         fchs
         fmul dword [byte ebp-018h]
         push dword [byte ebp-010h]
@@ -20540,8 +20540,8 @@ LoadGoalieAnimFile:
         fxch
         fadd dword [byte ebp-030h]
         fxch
-        fstp dword [dword ebx+dword_1B9AB8]
-        fstp dword [dword ebx+dword_1B9AC0]
+        fstp dword [dword ebx+GoalieAnimTime]
+        fstp dword [dword ebx+GoalieAnimPoses]
         call FreeMemBlock
         add esp, byte 4
 LoadGoalieAnimFile_167:
@@ -20563,38 +20563,38 @@ LoadGoalieAnims:
         push edx
         mov edx, 20h
         mov eax, str_Goalie
-        mov ecx, unk_1BF2E8
-        mov ebx, off_16B9A4
+        mov ecx, GoalieAnimIndex
+        mov ebx, GoalieAnimNames
         call LoadAnimFile
-        push unk_1BBEE0
+        push GoalieAnimFrames
         mov edx, 6Ch
-        mov dword [dword_16C39C], eax
+        mov dword [GoalieAnimDataPtr], eax
         call LoadAnimByName
-        mov dword [dword_1BF070], 461C4000h
-        mov dword [dword_1BF054], 0BF800000h
+        mov dword [GoalieReachLimit], 461C4000h
+        mov dword [GoalieMoveLimit], 0BF800000h
         xor edx, edx
 .1:
         mov ebx, edx
         mov eax, edx
         shl ebx, 2
         call LoadGoalieAnimFile
-        fld dword [dword ebx+dword_1B92D0]
-        fcomp dword [dword_1BF054]
+        fld dword [dword ebx+GoalieAnimData]
+        fcomp dword [GoalieMoveLimit]
         fnstsw ax
         sahf
         jbe short .2
-        mov eax, dword [dword ebx+dword_1B92D0]
-        mov dword [dword_1BF054], eax
+        mov eax, dword [dword ebx+GoalieAnimData]
+        mov dword [GoalieMoveLimit], eax
 .2:
         mov ebx, edx
         shl ebx, 2
-        fld dword [dword ebx+dword_1B92D0]
-        fcomp dword [dword_1BF070]
+        fld dword [dword ebx+GoalieAnimData]
+        fcomp dword [GoalieReachLimit]
         fnstsw ax
         sahf
         jae short .3
-        mov eax, dword [dword ebx+dword_1B92D0]
-        mov dword [dword_1BF070], eax
+        mov eax, dword [dword ebx+GoalieAnimData]
+        mov dword [GoalieReachLimit], eax
 .3:
         inc edx
         cmp edx, byte 22h
@@ -20613,12 +20613,12 @@ LoadRefSkateAnims:
         push edx
         mov edx, 20h
         mov eax, str_Refskate
-        mov ecx, unk_1BF498
-        mov ebx, off_16BB54
+        mov ecx, RefSkateAnimIndex
+        mov ebx, RefSkateAnimNames
         call LoadAnimFile
-        push unk_1BD680
+        push RefSkateAnimFrames
         mov edx, 3Ch
-        mov dword [dword_16C3A0], eax
+        mov dword [RefSkateAnimData], eax
         jmp near CamShot23D_2B
 ;-----------------------------------------------------------------------------
 ; LoadRefCallAnims                             65C2D  97 PC, medium confidence
@@ -20630,12 +20630,12 @@ LoadRefCallAnims:
         push edx
         mov edx, 20h
         mov eax, str_Refcalls
-        mov ecx, unk_1BF5A0
-        mov ebx, off_16BC5C
+        mov ecx, RefCallAnimIndex
+        mov ebx, RefCallAnimNames
         call LoadAnimFile
-        push unk_1BE4F0
+        push RefCallAnimFrames
         mov edx, 0Fh
-        mov dword [dword_16C3A8], eax
+        mov dword [RefCallAnimData], eax
         jmp near CamShot23D_2B
 ;-----------------------------------------------------------------------------
 ; LoadRefAmbiAnims                             65C5D  97 PC, medium confidence
@@ -20647,12 +20647,12 @@ LoadRefAmbiAnims:
         push edx
         mov edx, 20h
         mov eax, str_Refambi
-        mov ecx, unk_1BF588
-        mov ebx, off_16BC44
+        mov ecx, RefAmbiAnimIndex
+        mov ebx, RefAmbiAnimNames
         call LoadAnimFile
-        push unk_1BE3A0
+        push RefAmbiAnimFrames
         mov edx, 6
-        mov dword [dword_16C3A4], eax
+        mov dword [RefAmbiAnimData], eax
         jmp near CamShot23D_2B
 ;-----------------------------------------------------------------------------
 ; LoadFightAnims                               65C8D  97 PC, medium confidence
@@ -20664,12 +20664,12 @@ LoadFightAnims:
         push edx
         mov edx, 20h
         mov eax, str_Fight
-        mov ecx, unk_1BF5DC
-        mov ebx, off_16BC98
+        mov ecx, FightAnimIndex
+        mov ebx, FightAnimNames
         call LoadAnimFile
-        push unk_1BE838
+        push FightAnimFrames
         mov edx, 1Fh
-        mov dword [dword_16C3AC], eax
+        mov dword [FightAnimData], eax
         jmp near CamShot23D_2B
 ;-----------------------------------------------------------------------------
 ; LoadCupAnims                                 65CBD  97 PC, medium confidence
@@ -20681,12 +20681,12 @@ LoadCupAnims:
         push edx
         mov edx, 20h
         mov eax, str_Cup2
-        mov ecx, unk_1BF658
-        mov ebx, off_16BD14
+        mov ecx, CupAnimIndex
+        mov ebx, CupAnimNames
         call LoadAnimFile
-        push unk_1BEF00
+        push CupAnimFrames
         mov edx, 6
-        mov dword [dword_16C3B0], eax
+        mov dword [CupAnimData], eax
         jmp near CamShot23D_2B
 ;-----------------------------------------------------------------------------
 ; InitAnimPoints                                  65CED  97 PC, low confidence
@@ -20700,45 +20700,45 @@ InitAnimPoints:
         push esi
         push edi
         mov ecx, 0Ah
-        mov ebx, dword [dword_1B1464]
-        mov edi, dword_16C360
-        mov esi, unk_16C338
+        mov ebx, dword [ReplayFrames]
+        mov edi, MoveState
+        mov esi, AnimPointTable
         mov edx, str_Puck3
         mov eax, ebx
         rep movsd
         call FindModelPart
         mov edx, str_Stickheel
-        mov dword [dword_1BF06C], eax
+        mov dword [BodyPointId], eax
         mov eax, ebx
         call FindModelPart
         mov edx, str_Origin
-        mov dword [dword_1BF060], eax
+        mov dword [StickPointId], eax
         mov eax, ebx
         call FindModelPart
         mov edx, str_Chin
-        mov dword [dword_16C55C], eax
+        mov dword [AnimPointUnset], eax
         mov eax, ebx
         call FindModelPart
         mov edx, str_Rhand
-        mov dword [dword_1BF068], eax
+        mov dword [PunchPointId], eax
         mov eax, ebx
         call FindModelPart
         mov edx, str_Lshldr
-        mov dword [dword_1BF078], eax
+        mov dword [HeadPointId], eax
         mov eax, ebx
         call FindModelPart
         mov edx, str_Rshldr
-        mov dword [dword_1BF074], eax
+        mov dword [SwingPointId], eax
         mov eax, ebx
         xor esi, esi
         call FindModelPart
-        mov dword [dword_1BF064], eax
+        mov dword [FistPointId], eax
 .1:
         mov eax, ebx
-        mov edx, dword [nosplit esi*4+off_16C3B4]
+        mov edx, dword [nosplit esi*4+AnimPointNames]
         inc esi
         call FindModelPart
-        mov dword [nosplit esi*4+dword_1B9C8C], eax
+        mov dword [nosplit esi*4+AnimPointIds], eax
         cmp esi, byte 0Fh
         jl short .1
         mov eax, str_ANIMSVIV
@@ -20770,20 +20770,20 @@ FreeAnimTables:
 .1:
         mov ebx, esi
         shl ebx, 2
-        cmp dword [dword ebx+dword_16C388], byte 0
+        cmp dword [dword ebx+SkateAnimData], byte 0
         je short .2
-        push dword [dword ebx+dword_16C388]
+        push dword [dword ebx+SkateAnimData]
         call FreeMemBlock
         add esp, byte 4
-        mov dword [dword ebx+dword_16C388], 0
+        mov dword [dword ebx+SkateAnimData], 0
 .2:
         inc esi
         cmp esi, byte 0Bh
         jl short .1
-        push dword [dword_1BF7F8]
+        push dword [StopTableForward]
         call FreeMemBlock
         add esp, byte 4
-        push dword [dword_1BF7FC]
+        push dword [StopTableBackward]
         call FreeMemBlock
         add esp, byte 4
         pop esi
@@ -20819,16 +20819,16 @@ InitPlayerAnims:
         mov dword [dword edi+0754h], 0
         cmp byte [dword esi+0A4h], 0
         jne short .1
-        mov dword [dword_16C360], 4Eh
-        mov dword [dword_16C384], 0
-        mov eax, dword [dword_1BF1B4]
-        mov dword [dword_16C364], esi
-        mov dword [dword_16C368], eax
+        mov dword [MoveState], 4Eh
+        mov dword [PlayerAnimMove], 0
+        mov eax, dword [PlayerAnimTable]
+        mov dword [PlayerAnimBase], esi
+        mov dword [PlayerAnimSize], eax
         mov ecx, dword [dword esi+0F2h]
-        mov edx, dword_16C360
+        mov edx, MoveState
         mov eax, dword [byte ebp-04h]
         mov ebx, dword [byte ecx+03Ch]
-        mov dword [dword_16C374], ebx
+        mov dword [PlayerAnimScale], ebx
         call StartAnimNow
         lea ecx, [byte edi+058h]
         mov eax, dword [byte ebp-04h]
@@ -20839,16 +20839,16 @@ InitPlayerAnims:
         mov eax, ecx
         call SaveGamePalette
 .1:
-        mov dword [dword_16C360], 2
-        mov dword [dword_16C384], SkateForwardMove
-        mov eax, dword [dword_1BF084]
-        mov dword [dword_16C364], esi
-        mov dword [dword_16C368], eax
+        mov dword [MoveState], 2
+        mov dword [PlayerAnimMove], SkateForwardMove
+        mov eax, dword [PlayerAnimSet]
+        mov dword [PlayerAnimBase], esi
+        mov dword [PlayerAnimSize], eax
         mov ecx, dword [dword esi+0F2h]
-        mov edx, dword_16C360
+        mov edx, MoveState
         mov eax, dword [byte ebp-04h]
         mov ebx, dword [byte ecx+03Ch]
-        mov dword [dword_16C374], ebx
+        mov dword [PlayerAnimScale], ebx
         call StartAnimNow
         mov eax, dword [byte ebp-04h]
         lea ebx, [byte edi+058h]
@@ -21190,11 +21190,11 @@ TryStickTouch:
         fstp dword [byte esp+04Ch]
 .4:
         lea ebx, [byte esp+018h]
-        mov edx, dword [dword_1BF060]
+        mov edx, dword [StickPointId]
         mov eax, ecx
         call ObjectFramePos
         lea ebx, [byte esp+0Ch]
-        mov edx, dword [dword_1BF060]
+        mov edx, dword [StickPointId]
         mov eax, esi
         call ObjectFramePos
         mov eax, dword [byte ecx+02Ch]
@@ -21370,7 +21370,7 @@ PuckBounceOffPlayer:
         mov esi, eax
         mov ecx, edx
         mov ebx, esp
-        mov edx, dword [dword_1BF060]
+        mov edx, dword [StickPointId]
         mov eax, ecx
         call ObjectFramePos
         fld dword [byte esi+024h]
@@ -25874,7 +25874,7 @@ UpdatePuckCarrier:
         je short .2
         cmp edx, 0CAh
         jne short .1
-        mov edx, dword [dword_1BF06C]
+        mov edx, dword [BodyPointId]
         jmp short .5
 .1:
         cmp byte [dword esi+0D0h], 0
@@ -25890,10 +25890,10 @@ UpdatePuckCarrier:
         cmp edx, 83h
         jg short .4
 .3:
-        mov edx, dword [dword_1BF06C]
+        mov edx, dword [BodyPointId]
         jmp short .5
 .4:
-        mov edx, dword [dword_1BF060]
+        mov edx, dword [StickPointId]
 .5:
         mov ebx, esp
         mov eax, esi
@@ -26510,7 +26510,7 @@ StartPassAnim:
         lea eax, [nosplit esi*8+00h]
         sub eax, esi
         fld dword [byte ecx+038h]
-        fsub dword [nosplit eax*8+dword_1B9D20]
+        fsub dword [nosplit eax*8+StrideSpeeds]
         mov dword [byte edx+034h], 461C4000h
         fld st0
         fmul qword [F64_0p6_StartPassAnim]
@@ -26656,7 +26656,7 @@ StartDropPassAnim:
         lea eax, [nosplit esi*8+00h]
         sub eax, esi
         fld dword [byte ecx+038h]
-        fsub dword [nosplit eax*8+dword_1B9D20]
+        fsub dword [nosplit eax*8+StrideSpeeds]
         mov dword [byte edx+034h], 461C4000h
         fld st0
         fmul qword [F64_0p6_StartDropPassAnim]
@@ -26784,7 +26784,7 @@ StartShotAnim:
         lea eax, [nosplit edx*8+00h]
         sub eax, edx
         fld dword [byte ecx+038h]
-        fsub dword [nosplit eax*8+dword_1B9D20]
+        fsub dword [nosplit eax*8+StrideSpeeds]
         mov dword [byte esi+034h], 461C4000h
         fstp dword [byte esi+08h]
         mov bl, byte [dword ecx+0BFh]
@@ -26949,7 +26949,7 @@ StartPuckReceiveAnim:
         mov ecx, eax
         mov edi, dword [dword eax+0F6h]
         mov edi, dword [edi]
-        mov esi, dword_16C360
+        mov esi, MoveState
         mov edx, dword [byte edi+028h]
         mov bx, word [dword eax+0A9h]
         and edx, 0FFFFh
@@ -27172,7 +27172,7 @@ StartPuckReceiveAnim:
         jne near .22
         mov dword [esi], 34h
         mov eax, dword [esi]
-        mov eax, dword [nosplit eax*4+dword_1BF07C]
+        mov eax, dword [nosplit eax*4+MoveFuncPair]
         mov dword [byte esi+018h], 3F800000h
         mov dword [byte esi+08h], eax
         mov eax, dword [dword ecx+0F2h]
@@ -27181,7 +27181,7 @@ StartPuckReceiveAnim:
         mov dword [byte esi+04h], ecx
         mov eax, dword [esi]
         fstp dword [byte esi+014h]
-        mov eax, dword [nosplit eax*4+off_16BD2C]
+        mov eax, dword [nosplit eax*4+MoveFuncTable]
         mov dword [byte esi+024h], eax
         cmp byte [dword ecx+0D0h], 0
         je near .20
@@ -27711,7 +27711,7 @@ ShotReach:
         mov ecx, eax
         mov eax, edx
         mov ebx, esp
-        mov edx, dword [dword_1BF060]
+        mov edx, dword [StickPointId]
         call ObjectFramePos
         fld dword [byte ecx+024h]
         fsub dword [byte esp+04h]
@@ -27827,7 +27827,7 @@ ShotMove:
 .6:
         cmp word [OneTimerReady], byte 0
         je short .7
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne short .7
         mov eax, dword [dword ecx+0FEh]
         mov eax, dword [dword eax+0108h]
@@ -28115,7 +28115,7 @@ ShotMove:
         jne short .39
         mov eax, dword [byte esi+028h]
         and eax, 0FFFFh
-        mov al, byte [dword eax+byte_1BF670]
+        mov al, byte [dword eax+MoveFlags]
         and eax, 0FFh
         cmp eax, dword [byte esi+04h]
         jg short .39
@@ -28417,7 +28417,7 @@ CheckBoardsContact:
 .4:
         fild dword [dword esp+08Ch]
         fld dword [dword esp+0F4h]
-        mov edx, dword [dword_1BF060]
+        mov edx, dword [StickPointId]
         mov eax, ecx
         fld st0
         fxch st2
@@ -29971,7 +29971,7 @@ BodyCollide:
         test byte [dword ecx+0C0h], 1
         jne short .9
         lea ebx, [byte ebp-068h]
-        mov edx, dword [dword_1BF060]
+        mov edx, dword [StickPointId]
         mov eax, ecx
         call ObjectFramePos
         push dword 42000000h
@@ -30250,7 +30250,7 @@ BodyBounce:
         test byte [dword ecx+0C0h], 1
         jne short .11
         lea ebx, [byte ebp-06Ch]
-        mov edx, dword [dword_1BF060]
+        mov edx, dword [StickPointId]
         mov eax, ecx
         call ObjectFramePos
         push dword 42000000h
@@ -30958,7 +30958,7 @@ CheckPlayerVsBoards:
         cmp dword [byte eax+038h], byte 0
         je short .23
         mov ebx, esp
-        mov edx, dword [dword_1BF060]
+        mov edx, dword [StickPointId]
         mov eax, ecx
         call ObjectFramePos
         push dword 42000000h
@@ -31039,7 +31039,7 @@ PlayerBoardsTest:
         ret
 .3:
         mov ebx, esp
-        mov edx, dword [dword_1BF060]
+        mov edx, dword [StickPointId]
         mov eax, ecx
         call ObjectFramePos
         push dword 42000000h
@@ -31101,7 +31101,7 @@ PlayerCollisions:
         test eax, eax
         jne near .4
         mov ebx, esp
-        mov edx, dword [dword_1BF060]
+        mov edx, dword [StickPointId]
         mov eax, ecx
         call ObjectFramePos
         cmp byte [dword ecx+0A4h], 0Ch
@@ -31377,7 +31377,7 @@ HitKnockback:
         mov edx, dword [dword eax+0FAh]
         lea eax, [nosplit esi*8+00h]
         sub eax, esi
-        mov eax, dword [nosplit eax*8+dword_1B9D20]
+        mov eax, dword [nosplit eax*8+StrideSpeeds]
         lea esi, [nosplit ecx*4+00h]
         mov dword [byte esp+020h], eax
         fld dword [dword esi+str_Punct_LoadAnimData]
@@ -31426,7 +31426,7 @@ HitKnockback:
         lea eax, [nosplit ecx*8+00h]
         fsub dword [byte ebx+01Ch]
         sub eax, ecx
-        fsub dword [nosplit eax*8+dword_1B9CFC]
+        fsub dword [nosplit eax*8+SkateAnimSpeeds]
         fld qword [F64_6p28319_HitKnockback]
         fxch
         call IF@DFMOD
@@ -32104,7 +32104,7 @@ ResolveBodyCheck:
         call HitKnockback
         xor eax, eax
         push byte 1
-        mov al, byte [dword esi+byte_16C429]
+        mov al, byte [dword esi+MoveContactFlags]
         push eax
         mov eax, dword [dword ecx+0FAh]
         xor ebx, ebx
@@ -32168,7 +32168,7 @@ StartFallAnim:
         lea eax, [nosplit edx*8+00h]
         sub eax, edx
         fld dword [byte ecx+038h]
-        fsub dword [nosplit eax*8+dword_1B9D20]
+        fsub dword [nosplit eax*8+StrideSpeeds]
         mov eax, dword [dword ecx+0FAh]
         fstp dword [byte eax+08h]
         mov eax, dword [dword ecx+0FAh]
@@ -32420,7 +32420,7 @@ checkcx:
         mov eax, 3
         call randomd0
         cwde
-        mov ecx, dword [nosplit eax*4+dword_16C568]
+        mov ecx, dword [nosplit eax*4+CollideAnimsFront]
         jmp near .18
 .13:
         fld dword [byte esp+044h]
@@ -32494,13 +32494,13 @@ checkcx:
         mov eax, 3
         call randomd0
         movsx ecx, ax
-        mov ecx, dword [nosplit ecx*4+dword_16C574]
+        mov ecx, dword [nosplit ecx*4+CollideAnimsSide]
         jmp short .18
 .17:
         mov eax, 3
         call randomd0
         cwde
-        mov ecx, dword [nosplit eax*4+dword_16C580]
+        mov ecx, dword [nosplit eax*4+CollideAnimsBack]
 .18:
         mov eax, dword [dword edi+0FAh]
         or byte [byte eax+031h], 1
@@ -32508,7 +32508,7 @@ checkcx:
         mov dword [byte eax+038h], 3F800000h
         xor eax, eax
         push byte 0
-        mov al, byte [dword ecx+dword_16C3F0]
+        mov al, byte [dword ecx+MoveAnimIds]
         mov edx, ecx
         push eax
         xor ebx, ebx
@@ -32560,7 +32560,7 @@ checkcx:
         shl ecx, 3
         sub ecx, eax
         fld dword [byte esi+038h]
-        fsub dword [nosplit ecx*8+dword_1B9D20]
+        fsub dword [nosplit ecx*8+StrideSpeeds]
         mov eax, dword [dword esi+0FAh]
         fstp dword [byte eax+08h]
         mov eax, dword [dword esi+0FAh]
@@ -32745,7 +32745,7 @@ checkcx:
         mov dword [byte esi+064h], 32h
         test byte [gmode], 1
         jne short .38
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne short .38
         mov eax, dword [dword edi+0FEh]
         mov eax, dword [dword eax+0108h]
@@ -33153,7 +33153,7 @@ ResolvePlayerContact:
         mov edx, dword [byte esp+014h]
         xor eax, eax
         push byte 1
-        mov al, byte [dword edx+byte_16C429]
+        mov al, byte [dword edx+MoveContactFlags]
         push eax
         mov eax, dword [dword edi+0FAh]
         xor ebx, ebx
@@ -33296,7 +33296,7 @@ ResolvePlayerContact:
         call HitKnockback
         xor eax, eax
         push byte 1
-        mov al, byte [dword ecx+byte_16C429]
+        mov al, byte [dword ecx+MoveContactFlags]
         push eax
         mov eax, dword [dword esi+0FAh]
         xor ebx, ebx
@@ -33476,7 +33476,7 @@ StickContact:
         ret
 .9:
         mov ebx, esp
-        mov edx, dword [dword_1B9CB0]
+        mov edx, dword [StickContactPts]
         mov eax, edi
         call ObjectFramePos
         cmp dword [byte esp+04h], 43100000h
@@ -33493,7 +33493,7 @@ StickContact:
         mov eax, esi
         call ResetAnimTimer
         fld dword [byte ecx+038h]
-        fdiv dword [dword_1BB258]
+        fdiv dword [DodgeScale]
         fstp dword [byte esi+04h]
         cmp dword [byte esi+04h], 3F800000h
         jle short .11
@@ -34544,21 +34544,21 @@ SortPlayersByDepth:
         fistp dword [esp]
         pop eax
         add ecx, 108h
-        mov dword [dword ebx+dword_1B9A14], edx
+        mov dword [dword ebx+ObjectSortCount], edx
         inc edx
-        mov dword [dword ebx+dword_1B94DC], eax
+        mov dword [dword ebx+DepthSortCount], eax
         cmp edx, byte 0Dh
         jl short .1
-        push dword_1B9A18
-        push unk_1B94E0
+        push DepthSortOrder
+        push DepthSortKeys
         push byte 0Dh
         xor ebx, ebx
         call SortIndices
         add esp, byte 0Ch
         xor edx, edx
 .2:
-        mov eax, dword [dword ebx+dword_1B9A18]
-        mov dword [nosplit eax*4+dword_1B9C50], edx
+        mov eax, dword [dword ebx+DepthSortOrder]
+        mov dword [nosplit eax*4+DepthSortList], edx
         inc edx
         add ebx, byte 4
         cmp edx, byte 0Dh
@@ -34573,7 +34573,7 @@ SortPlayersByDepth:
         and eax, 0FFh
         ret
         db 08Dh,040h,00h
-jpt_700A0:
+SortPlayersByDepthJumpTable:
         dd .1
         dd .2
         dd .2
@@ -34582,7 +34582,7 @@ jpt_700A0:
         lea eax, [byte ebx-01h]
         cmp eax, byte 4
         ja short .5
-        jmp dword [nosplit cs:eax*4+jpt_700A0]
+        jmp dword [nosplit cs:eax*4+SortPlayersByDepthJumpTable]
 .1:
         dec dword [byte edx+056h]
         ret
@@ -34637,7 +34637,7 @@ MoveToAnimPose:
         mov ecx, esp
         mov edx, dword [dword edi+0F2h]
         mov eax, dword [dword edi+0F6h]
-        mov ebx, dword [dword_1BF06C]
+        mov ebx, dword [BodyPointId]
         mov edx, dword [byte edx+054h]
         mov eax, dword [eax]
         call UpdateObjectPose
@@ -34976,13 +34976,13 @@ FightHoldMove:
         pop ecx
         pop ebx
         ret
-unk_704AC:
+FightPunchMoveJumpTable:
         dd FightPunchMove_1B3
         dd FightPunchMove_1B8
         dd FightPunchMove_1B8
         dd FightPunchMove_1BE
         dd FightPunchMove_1C4
-unk_704C0:
+FightPunchHitJumpTable:
         dd FightPunchMove_288
         dd FightPunchMove_28D
         dd FightPunchMove_28D
@@ -35042,12 +35042,12 @@ FightPunchMove:
 .4:
         fild dword [byte ebp-08h]
         lea ebx, [byte ebp-030h]
-        mov edx, dword [dword_1BF078]
+        mov edx, dword [HeadPointId]
         mov eax, esi
         fstp dword [byte ebp-04h]
         call ObjectFramePos
         lea ebx, [byte ebp-024h]
-        mov edx, dword [dword_1BF068]
+        mov edx, dword [PunchPointId]
         mov eax, ecx
         call ObjectFramePos
         fld dword [byte ebp-024h]
@@ -35118,7 +35118,7 @@ FightPunchMove:
         call SetFaceBlink
         xor edx, edx
         mov eax, ecx
-        jmp dword [dword cs:edx+unk_704AC]
+        jmp dword [dword cs:edx+FightPunchMoveJumpTable]
 FightPunchMove_1B3:
         dec dword [byte ecx+056h]
         jmp short FightPunchMove_1C4.6
@@ -35179,7 +35179,7 @@ FightPunchMove_1C4:
         call SetFaceBlink
         mov edx, 4
         mov eax, ecx
-        jmp dword [dword cs:edx+unk_704C0]
+        jmp dword [dword cs:edx+FightPunchHitJumpTable]
 FightPunchMove_288:
         dec dword [byte ecx+056h]
         jmp short FightPunchMove_299.12
@@ -35657,7 +35657,7 @@ FightPositionMove:
         mov esi, eax
         mov ecx, edx
         mov ebx, esp
-        mov edx, dword [dword_1BF06C]
+        mov edx, dword [BodyPointId]
         call ObjectFramePos
         fld dword [esp]
         fld dword [byte esp+08h]
@@ -35886,15 +35886,15 @@ FightSwingMove:
         test byte [byte eax+031h], 1
         jne near .4
         lea ebx, [byte esp+018h]
-        mov edx, dword [dword_1BF078]
+        mov edx, dword [HeadPointId]
         mov eax, ecx
         call ObjectFramePos
         mov ebx, esp
-        mov edx, dword [dword_1BF074]
+        mov edx, dword [SwingPointId]
         mov eax, edi
         call ObjectFramePos
         lea ebx, [byte esp+024h]
-        mov edx, dword [dword_1BF064]
+        mov edx, dword [FistPointId]
         mov eax, edi
         call ObjectFramePos
         fld dword [esp]
@@ -36675,13 +36675,13 @@ FightFallMove:
         pop ecx
         pop ebx
         ret
-unk_717E0:
+StartFightPunchJumpTable:
         dd StartFightPunch_86
         dd StartFightPunch_8B
         dd StartFightPunch_8B
         dd StartFightPunch_91
         dd StartFightPunch_97
-unk_717F4:
+StartFightPunchHitJumpTable:
         dd StartFightPunch_186
         dd StartFightPunch_18B
         dd StartFightPunch_18B
@@ -36729,7 +36729,7 @@ StartFightPunch:
         mov esi, 8
         call SetSPA
         mov eax, ecx
-        jmp dword [dword cs:esi+unk_717E0]
+        jmp dword [dword cs:esi+StartFightPunchJumpTable]
 StartFightPunch_86:
         dec dword [byte ecx+056h]
         jmp short StartFightPunch_97.1
@@ -36803,7 +36803,7 @@ StartFightPunch_97:
         mov esi, 10h
         call SetSPA
         mov eax, ecx
-        jmp dword [dword cs:esi+unk_717F4]
+        jmp dword [dword cs:esi+StartFightPunchHitJumpTable]
 StartFightPunch_186:
         dec dword [byte ecx+056h]
         jmp short StartFightPunch_197.6
@@ -36893,13 +36893,13 @@ StartFightPunch_197:
         pop ebx
         ret
         db 08Bh,0C0h
-unk_71A94:
+StartFightBlockJumpTable:
         dd StartFightBlock_86
         dd StartFightBlock_8B
         dd StartFightBlock_8B
         dd StartFightBlock_91
         dd StartFightBlock_97
-unk_71AA8:
+StartFightBlockHitJumpTable:
         dd StartFightBlock_186
         dd StartFightBlock_18B
         dd StartFightBlock_18B
@@ -36947,7 +36947,7 @@ StartFightBlock:
         mov esi, 0Ch
         call SetSPA
         mov eax, ecx
-        jmp dword [dword cs:esi+unk_71A94]
+        jmp dword [dword cs:esi+StartFightBlockJumpTable]
 StartFightBlock_86:
         dec dword [byte ecx+056h]
         jmp short StartFightBlock_97.1
@@ -37021,7 +37021,7 @@ StartFightBlock_97:
         mov esi, 10h
         call SetSPA
         mov eax, ecx
-        jmp dword [dword cs:esi+unk_71AA8]
+        jmp dword [dword cs:esi+StartFightBlockHitJumpTable]
 StartFightBlock_186:
         dec dword [byte ecx+056h]
         jmp short StartFightBlock_197.6
@@ -37714,7 +37714,7 @@ DejectedMove:
         jne short .2
         mov edx, dword [byte ebx+028h]
         and edx, 0FFFFh
-        mov dl, byte [dword edx+byte_1BF670]
+        mov dl, byte [dword edx+MoveFlags]
         and edx, 0FFh
         cmp edx, dword [byte ebx+04h]
         jg short .2
@@ -37772,7 +37772,7 @@ DejectedSkateMove:
         jne short .2
         mov edx, dword [byte ebx+028h]
         and edx, 0FFFFh
-        mov dl, byte [dword edx+byte_1BF670]
+        mov dl, byte [dword edx+MoveFlags]
         and edx, 0FFh
         cmp edx, dword [byte ebx+04h]
         jg short .2
@@ -37852,7 +37852,7 @@ CheerMove:
         jne short .4
         mov eax, dword [byte ebx+028h]
         and eax, 0FFFFh
-        mov al, byte [dword eax+byte_1BF670]
+        mov al, byte [dword eax+MoveFlags]
         and eax, 0FFh
         cmp eax, dword [byte ebx+04h]
         jg short .4
@@ -37948,7 +37948,7 @@ BenchCheerMove:
         jne short .4
         mov eax, dword [byte ecx+028h]
         and eax, 0FFFFh
-        mov al, byte [dword eax+byte_1BF670]
+        mov al, byte [dword eax+MoveFlags]
         and eax, 0FFh
         cmp eax, dword [byte ecx+04h]
         jg short .4
@@ -38008,7 +38008,7 @@ SkateToBenchStep:
         mov ebx, esp
         mov eax, ecx
         mov dword [byte esp+018h], edx
-        mov edx, dword [dword_1BF06C]
+        mov edx, dword [BodyPointId]
         call ObjectFramePos
         fld dword [byte esi+028h]
         fld dword [byte esi+020h]
@@ -38193,7 +38193,7 @@ SkateToBenchMove:
         jne near .4
         mov eax, dword [byte ebx+028h]
         and eax, 0FFFFh
-        mov al, byte [dword eax+byte_1BF670]
+        mov al, byte [dword eax+MoveFlags]
         and eax, 0FFh
         cmp eax, dword [byte ebx+04h]
         jg short .4
@@ -38810,13 +38810,13 @@ RefSignalAnim:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; RefGoalLineAnim                                 73028  97 PC, low confidence
-; (ref, n) assrefgoalline's referee move: SPA from table dword_16C58C
+; (ref, n) assrefgoalline's referee move: SPA from table RefGoalLineAnims
 ;-----------------------------------------------------------------------------
 RefGoalLineAnim:
         push ebx
         push ecx
         mov ecx, eax
-        mov edx, dword [nosplit edx*4+dword_16C58C]
+        mov edx, dword [nosplit edx*4+RefGoalLineAnims]
         mov eax, dword [dword eax+0FAh]
         test edx, edx
         jl short .1
@@ -39619,7 +39619,7 @@ HookMove:
         fnstsw ax
         sahf
         ja short .14
-        mov ebx, dword [nosplit edx*4+dword_1BF07C]
+        mov ebx, dword [nosplit edx*4+MoveFuncPair]
         xor eax, eax
         mov al, byte [byte ebx+0Dh]
         mov dword [byte esp+02Ch], eax
@@ -39758,13 +39758,13 @@ GoalieFreezeMove:
 .1:
         cmp edx, 0D6h
         jne short .2
-        mov edx, dword [dword_1B9358]
+        mov edx, dword [GoalieAnimFiles]
         add edx, byte 8
         jmp short .4
 .2:
         cmp edx, 0D7h
         jne short .3
-        mov edx, dword [dword_1B935C]
+        mov edx, dword [GoalieFreezeAnims]
         add edx, byte 8
         jmp short .4
 .3:
@@ -40210,7 +40210,7 @@ KneelMove:
         pop ebx
         ret
         db 090h
-jpt_73FAC:
+BlockShotMoveJumpTable:
         dd BlockShotMove_671
         dd BlockShotMove_481
         dd BlockShotMove_63F
@@ -40447,7 +40447,7 @@ BlockShotMove:
         call randomd0
         movsx esi, ax
         mov eax, edx
-        mov esi, dword [nosplit esi*4+dword_16C648]
+        mov esi, dword [nosplit esi*4+BlockShotMoveRight]
         call ResetAnimTimer
         mov dh, byte [dword ecx+0BFh]
         xor ebx, ebx
@@ -40498,7 +40498,7 @@ BlockShotMove:
         mov eax, 3
         call randomd0
         cwde
-        mov esi, dword [nosplit eax*4+dword_16C63C]
+        mov esi, dword [nosplit eax*4+BlockShotMoveLeft]
         mov eax, edx
         call ResetAnimTimer
         mov dl, byte [dword ecx+0BFh]
@@ -40528,7 +40528,7 @@ BlockShotMove:
         cmp esi, byte 9
         jge short .18
         mov eax, edx
-        mov esi, dword [nosplit esi*4+dword_16C618]
+        mov esi, dword [nosplit esi*4+BlockShotAnims]
         call ResetAnimTimer
         mov ah, byte [dword ecx+0BFh]
         xor ebx, ebx
@@ -40579,7 +40579,7 @@ BlockShotMove:
         dec eax
         cmp eax, byte 3
         ja near BlockShotMove_671.34
-        jmp dword [nosplit cs:eax*4+jpt_73FAC]
+        jmp dword [nosplit cs:eax*4+BlockShotMoveJumpTable]
 BlockShotMove_471:
         mov eax, ecx
         call PickStrideAnim
@@ -40605,7 +40605,7 @@ BlockShotMove_481:
         sub ebx, eax
         fld dword [byte ecx+038h]
         mov eax, dword [dword ecx+0EEh]
-        fadd dword [nosplit ebx*8+dword_1B9D28]
+        fadd dword [nosplit ebx*8+SkateMoveTable]
         mov edi, dword [byte eax+08h]
         fstp dword [byte esp+02Ch]
         cmp edi, 41400000h
@@ -40649,12 +40649,12 @@ BlockShotMove_481:
         shl ebx, 3
         test al, al
         je short .24
-        fld dword [dword ebx+dword_1B9D04]
+        fld dword [dword ebx+SkateAnimAccel]
         fchs
         fstp dword [byte esp+034h]
         jmp short .25
 .24:
-        mov eax, dword [dword ebx+dword_1B9D04]
+        mov eax, dword [dword ebx+SkateAnimAccel]
         mov dword [byte esp+034h], eax
 .25:
         fld dword [byte edx+010h]
@@ -40781,13 +40781,13 @@ BlockShotMove_671:
         mov eax, 3
         call randomd0
         cwde
-        mov esi, dword [nosplit eax*4+dword_16C63C]
+        mov esi, dword [nosplit eax*4+BlockShotMoveLeft]
         jmp short .33
 .32:
         mov eax, 9
         call randomd0
         cwde
-        mov esi, dword [nosplit eax*4+dword_16C618]
+        mov esi, dword [nosplit eax*4+BlockShotAnims]
 .33:
         mov eax, edx
         call ResetAnimTimer
@@ -41025,7 +41025,7 @@ GoalieCoverMove:
         jne near .10
         mov byte [eax], 0FFh
         mov ebx, esp
-        mov edx, dword [dword_1BF06C]
+        mov edx, dword [BodyPointId]
         mov eax, esi
         call ObjectFramePos
         mov edx, dword [PtrPuckFlags]
@@ -41153,7 +41153,7 @@ GoalieRecoverMove:
         setne al
         and eax, 0FFh
         lea ebx, [byte ebp-014h]
-        mov edx, dword [nosplit eax*4+dword_1B9C90]
+        mov edx, dword [nosplit eax*4+DeflectAnims]
         mov eax, ecx
         call ObjectFramePos
         mov edx, dword [PtrPuckFlags]
@@ -41849,7 +41849,7 @@ GoalieSave:
         mov dl, al
         add edx, byte 12h
         shl edx, 2
-        fld dword [dword edx+dword_1B92D0]
+        fld dword [dword edx+GoalieAnimData]
         fadd dword [F32_10_GoalieSave]
         fcomp dword [byte esp+014h]
         fnstsw ax
@@ -41862,7 +41862,7 @@ GoalieSave:
         xor ebx, ebx
         mov byte [dword esi+0BFh], cl
         mov eax, esi
-        mov edx, dword [dword edx+dword_16C3F0]
+        mov edx, dword [dword edx+MoveAnimIds]
         push dword 3F19999Ah
         call SetSPA
         mov eax, 1
@@ -42012,19 +42012,19 @@ GoalieSave:
         mov ebx, 0B4h
         mov edx, 3Ch
 .13:
-        fld dword [dword edx+dword_1B92D0]
+        fld dword [dword edx+GoalieAnimData]
         fmul dword [byte ecx+02Ch]
         fld dword [byte esi+020h]
-        fadd dword [dword ebx+dword_1B9AB8]
+        fadd dword [dword ebx+GoalieAnimTime]
         fxch
         fadd dword [byte ecx+020h]
         fld st0
         fsub st2
         fstp st1
         fabs
-        fld dword [dword edx+dword_1B92D0]
+        fld dword [dword edx+GoalieAnimData]
         fmul dword [byte ecx+030h]
-        fld dword [dword edx+dword_1B92D0]
+        fld dword [dword edx+GoalieAnimData]
         fmul dword [byte ecx+034h]
         fxch
         fadd dword [byte ecx+024h]
@@ -42060,7 +42060,7 @@ GoalieSave:
         xor ebx, ebx
         mov byte [dword esi+0BFh], ch
         mov eax, esi
-        mov edx, dword [dword edx+dword_16C3F0]
+        mov edx, dword [dword edx+MoveAnimIds]
         push dword 3F19999Ah
         call SetSPA
         mov eax, 1
@@ -42294,7 +42294,7 @@ GoalieMoves:
         fxch
         fstp dword [byte ebp+05Ah]
         mov eax, 1
-        fadd dword [dword_1BF054]
+        fadd dword [GoalieMoveLimit]
         mov dword [byte ebp+036h], eax
         fcomp dword [byte ebp+05Ah]
         fnstsw ax
@@ -42401,7 +42401,7 @@ GoalieMoves:
 .11:
         xor esi, esi
 .12:
-        mov eax, dword [nosplit esi*4+dword_1BF800]
+        mov eax, dword [nosplit esi*4+GoalieMoveTable]
         mov dword [byte ebp+06Eh], eax
         jmp near .22
 .13:
@@ -42423,12 +42423,12 @@ GoalieMoves:
         cmp cl, byte [eax]
         jle near .21
 .15:
-        fld dword [dword edx+dword_1B9ABC]
+        fld dword [dword edx+GoalieAnimFrame]
         fsub dword [byte ebp+05Eh]
         fabs
         fmul qword [F64_2_GoalieMoves]
         sub esp, byte 8
-        fld dword [dword edx+dword_1B9AC0]
+        fld dword [dword edx+GoalieAnimPoses]
         fsub dword [byte ebp+06Ah]
         mov eax, dword [byte ebp+07Ah]
         fstp qword [esp]
@@ -42436,12 +42436,12 @@ GoalieMoves:
         fstp qword [byte ebp+01Ah]
         cmp cl, ch
         je short .16
-        fld dword [dword edx+dword_1B9AB8]
+        fld dword [dword edx+GoalieAnimTime]
         fchs
         fstp dword [byte ebp+072h]
         jmp short .17
 .16:
-        mov eax, dword [dword edx+dword_1B9AB8]
+        mov eax, dword [dword edx+GoalieAnimTime]
         mov dword [byte ebp+072h], eax
 .17:
         fld dword [byte ebp+072h]
@@ -42450,47 +42450,47 @@ GoalieMoves:
         fstp qword [esp]
         call hypot_
         fadd qword [byte ebp+01Ah]
-        fst dword [dword ebx+dword_1BF800]
+        fst dword [dword ebx+GoalieMoveTable]
         fcomp dword [byte ebp+06Eh]
         fnstsw ax
         sahf
         ja short .20
-        mov eax, dword [dword ebx+dword_1BF800]
+        mov eax, dword [dword ebx+GoalieMoveTable]
         mov dword [byte ebp+06Eh], eax
         mov eax, dword [byte ebp+07Ah]
         mov ch, byte [dword eax+0D0h]
         mov esi, dword [byte ebp+07Eh]
         cmp cl, ch
         je short .18
-        fld dword [dword edx+dword_1B9AB8]
+        fld dword [dword edx+GoalieAnimTime]
         fchs
         fstp dword [byte ebp+076h]
         jmp short .19
 .18:
-        mov eax, dword [dword edx+dword_1B9AB8]
+        mov eax, dword [dword edx+GoalieAnimTime]
         mov dword [byte ebp+076h], eax
 .19:
         fld dword [byte ebp+066h]
         fld dword [byte ebp+06Ah]
-        fsub dword [dword edx+dword_1B9AC0]
+        fsub dword [dword edx+GoalieAnimPoses]
         fxch
         fsub dword [byte ebp+076h]
         fxch
         fstp dword [byte ebp+056h]
         fstp dword [byte ebp+052h]
 .20:
-        fld dword [dword ebx+dword_1BF800]
+        fld dword [dword ebx+GoalieMoveTable]
         fcomp dword [byte ebp+062h]
         fnstsw ax
         sahf
         ja short .21
-        fld dword [dword ebx+dword_1B92D0]
+        fld dword [dword ebx+GoalieAnimData]
         fadd dword [F32_neg1_GoalieMoves]
         fcomp dword [byte ebp+05Ah]
         fnstsw ax
         sahf
         jae short .21
-        mov eax, dword [dword ebx+dword_1BF800]
+        mov eax, dword [dword ebx+GoalieMoveTable]
         mov dword [byte ebp+062h], eax
 .21:
         mov edi, dword [byte ebp+07Eh]
@@ -42502,7 +42502,7 @@ GoalieMoves:
         jl near .14
 .22:
         fld dword [byte ebp+05Ah]
-        fsub dword [nosplit esi*4+dword_1B92D0]
+        fsub dword [nosplit esi*4+GoalieAnimData]
         mov edx, dword [byte ebp+07Eh]
         fstp dword [byte ebp+02Eh]
         cmp edx, byte 5
@@ -42527,11 +42527,11 @@ GoalieMoves:
         mov eax, dword [dword eax+0FAh]
         call ResetAnimTimer
         lea eax, [nosplit esi*4+00h]
-        cmp dword [dword eax+dword_1B9358], byte 1
+        cmp dword [dword eax+GoalieAnimFiles], byte 1
         jle near .25
         fld dword [byte ebp+056h]
         sub esp, byte 8
-        fild dword [dword eax+dword_1B9358]
+        fild dword [dword eax+GoalieAnimFiles]
         fxch
         fstp qword [esp]
         sub esp, byte 8
@@ -42567,7 +42567,7 @@ GoalieMoves:
         mov eax, dword [byte ebp+07Ah]
         or byte [dword eax+0BFh], 20h
         xor ebx, ebx
-        mov edx, dword [nosplit esi*4+dword_16C3F0]
+        mov edx, dword [nosplit esi*4+MoveAnimIds]
         push dword 3F19999Ah
         call SetSPA
 .26:
@@ -42726,7 +42726,7 @@ PuckDeflect:
         setne cl
         lea ebx, [byte esp+0Ch]
         mov eax, ebp
-        mov edx, dword [nosplit ecx*4+dword_1B9C90]
+        mov edx, dword [nosplit ecx*4+DeflectAnims]
         mov dword [byte esp+038h], ecx
         call ObjectFramePos
         fld dword [byte esp+0Ch]
@@ -42803,7 +42803,7 @@ PuckDeflect:
         je near .8
         lea ebx, [byte esp+0Ch]
         mov eax, ebp
-        mov edx, dword [nosplit esi*4+dword_1B9C90]
+        mov edx, dword [nosplit esi*4+DeflectAnims]
         call ObjectFramePos
         fld dword [byte esp+0Ch]
         fld dword [byte esp+010h]
@@ -42941,14 +42941,14 @@ PuckDeflect:
 ;-----------------------------------------------------------------------------
 AllocAnimNode:
         push edx
-        mov eax, dword [dword_1BF890]
+        mov eax, dword [AnimNodeFreeList]
         mov edx, dword [byte eax+020h]
-        mov dword [dword_1BF890], edx
+        mov dword [AnimNodeFreeList], edx
         mov dword [byte eax+024h], 0
         mov dword [byte eax+01Ch], 0
         mov edx, dword [byte eax+024h]
         mov dword [byte eax+020h], edx
-        dec dword [dword_1BF88C]
+        dec dword [AnimNodesFree]
         pop edx
         ret
         db 090h
@@ -43035,13 +43035,13 @@ FreeAnimNode:
         mov ecx, dword [byte eax+020h]
         mov dword [byte ebx+020h], ecx
 .2:
-        mov ebx, dword [dword_1BF890]
+        mov ebx, dword [AnimNodeFreeList]
         mov dword [byte eax+020h], ebx
-        mov ecx, dword [dword_1BF88C]
-        mov dword [dword_1BF890], eax
+        mov ecx, dword [AnimNodesFree]
+        mov dword [AnimNodeFreeList], eax
         inc ecx
         mov eax, edx
-        mov dword [dword_1BF88C], ecx
+        mov dword [AnimNodesFree], ecx
         pop edx
         pop ecx
         pop ebx
@@ -43466,12 +43466,12 @@ DecodeAnimFile:
         call SetBitReader
         mov eax, dword [ebx]
         mov eax, dword [byte eax+010h]
-        mov dword [dword_1BF8A4], eax
+        mov dword [AnimDecodeFrame], eax
         mov eax, ebx
         add eax, 0D4h
         add ebx, 214h
-        mov dword [dword_1BF8A0], eax
-        mov dword [dword_1BF89C], ebx
+        mov dword [AnimDecodeEnd], eax
+        mov dword [AnimDecodePtr], ebx
         pop edx
         pop ebx
         ret
@@ -43625,53 +43625,53 @@ DecodeAnimFrame:
         je near .10
         test ebp, ebp
         je short .8
-        mov edx, dword [dword_1BF89C]
+        mov edx, dword [AnimDecodePtr]
         add edx, eax
         push dword [edx]
-        mov edx, dword [dword_1BF8A0]
+        mov edx, dword [AnimDecodeEnd]
         add eax, edx
         push dword [eax]
-        mov eax, dword [dword_1BF8A4]
+        mov eax, dword [AnimDecodeFrame]
         mov al, byte [ebx+eax]
         and eax, 0FFh
         call ReadAnimValue
         fchs
         jmp short .9
 .8:
-        mov edx, dword [dword_1BF89C]
+        mov edx, dword [AnimDecodePtr]
         add edx, eax
         push dword [edx]
-        mov edx, dword [dword_1BF8A0]
+        mov edx, dword [AnimDecodeEnd]
         add eax, edx
         push dword [eax]
-        mov eax, dword [dword_1BF8A4]
+        mov eax, dword [AnimDecodeFrame]
         mov al, byte [ebx+eax]
         and eax, 0FFh
         call ReadAnimValue
 .9:
         fstp dword [ecx]
         inc ebx
-        mov edx, dword [dword_1BF89C]
+        mov edx, dword [AnimDecodePtr]
         lea eax, [nosplit ebx*4+00h]
         add edx, eax
         push dword [edx]
-        mov edx, dword [dword_1BF8A0]
+        mov edx, dword [AnimDecodeEnd]
         add eax, edx
         push dword [eax]
-        mov eax, dword [dword_1BF8A4]
+        mov eax, dword [AnimDecodeFrame]
         mov al, byte [ebx+eax]
         and eax, 0FFh
         inc ebx
         call ReadAnimValue
         fstp dword [byte ecx+04h]
-        mov edx, dword [dword_1BF89C]
+        mov edx, dword [AnimDecodePtr]
         lea eax, [nosplit ebx*4+00h]
         add edx, eax
         push dword [edx]
-        mov edx, dword [dword_1BF8A0]
+        mov edx, dword [AnimDecodeEnd]
         add eax, edx
         push dword [eax]
-        mov eax, dword [dword_1BF8A4]
+        mov eax, dword [AnimDecodeFrame]
         mov al, byte [ebx+eax]
         and eax, 0FFh
         call ReadAnimValue
@@ -43681,25 +43681,25 @@ DecodeAnimFrame:
         inc ebx
         test ebp, ebp
         je short .11
-        mov edx, dword [dword_1BF8A0]
+        mov edx, dword [AnimDecodeEnd]
         add eax, edx
         fld dword [eax]
         fchs
         fstp dword [ecx]
         jmp short .12
 .11:
-        mov edx, dword [dword_1BF8A0]
+        mov edx, dword [AnimDecodeEnd]
         add eax, edx
         mov edx, dword [eax]
         mov dword [ecx], edx
 .12:
-        mov edx, dword [dword_1BF8A0]
+        mov edx, dword [AnimDecodeEnd]
         lea eax, [nosplit ebx*4+00h]
         add eax, edx
         inc ebx
         fld dword [eax]
         fstp dword [byte ecx+04h]
-        mov eax, dword [dword_1BF8A0]
+        mov eax, dword [AnimDecodeEnd]
         mov edx, dword [eax+ebx*4]
         mov dword [byte ecx+08h], edx
 .13:
@@ -43776,17 +43776,17 @@ DecodeAnimDelta:
         test byte [byte eax+01Dh], 1
         je short .1
         fld dword [byte esp+018h]
-        fmul dword [dword_1BF8B0]
-        fld dword [dword_1BF8B0]
+        fmul dword [AnimBlend]
+        fld dword [AnimBlend]
         fxch
         fstp dword [byte esp+018h]
         fsub dword [byte esp+018h]
-        fstp dword [dword_1BF8B0]
+        fstp dword [AnimBlend]
         jmp short .2
 .1:
         test byte [byte eax+01Dh], 2
         je short .2
-        mov eax, dword [dword_1BF8B0]
+        mov eax, dword [AnimBlend]
         mov dword [byte esp+018h], eax
 .2:
         fldz
@@ -43865,26 +43865,26 @@ DecodeAnimDelta:
         je near .10
         test edi, edi
         je short .8
-        mov edx, dword [dword_1BF89C]
+        mov edx, dword [AnimDecodePtr]
         add edx, eax
         push dword [edx]
-        mov edx, dword [dword_1BF8A0]
+        mov edx, dword [AnimDecodeEnd]
         add eax, edx
         push dword [eax]
-        mov eax, dword [dword_1BF8A4]
+        mov eax, dword [AnimDecodeFrame]
         mov al, byte [ecx+eax]
         and eax, 0FFh
         call ReadAnimValue
         fchs
         jmp short .9
 .8:
-        mov edx, dword [dword_1BF89C]
+        mov edx, dword [AnimDecodePtr]
         add edx, eax
         push dword [edx]
-        mov edx, dword [dword_1BF8A0]
+        mov edx, dword [AnimDecodeEnd]
         add eax, edx
         push dword [eax]
-        mov eax, dword [dword_1BF8A4]
+        mov eax, dword [AnimDecodeFrame]
         mov al, byte [ecx+eax]
         and eax, 0FFh
         call ReadAnimValue
@@ -43893,14 +43893,14 @@ DecodeAnimDelta:
         fadd dword [ebx]
         fstp dword [ebx]
         inc ecx
-        mov edx, dword [dword_1BF89C]
+        mov edx, dword [AnimDecodePtr]
         lea eax, [nosplit ecx*4+00h]
         add edx, eax
         push dword [edx]
-        mov edx, dword [dword_1BF8A0]
+        mov edx, dword [AnimDecodeEnd]
         add eax, edx
         push dword [eax]
-        mov eax, dword [dword_1BF8A4]
+        mov eax, dword [AnimDecodeFrame]
         mov al, byte [ecx+eax]
         and eax, 0FFh
         call ReadAnimValue
@@ -43908,14 +43908,14 @@ DecodeAnimDelta:
         fadd dword [byte ebx+04h]
         inc ecx
         fstp dword [byte ebx+04h]
-        mov edx, dword [dword_1BF89C]
+        mov edx, dword [AnimDecodePtr]
         lea eax, [nosplit ecx*4+00h]
         add edx, eax
         push dword [edx]
-        mov edx, dword [dword_1BF8A0]
+        mov edx, dword [AnimDecodeEnd]
         add eax, edx
         push dword [eax]
-        mov eax, dword [dword_1BF8A4]
+        mov eax, dword [AnimDecodeFrame]
         mov al, byte [ecx+eax]
         and eax, 0FFh
         call ReadAnimValue
@@ -43926,13 +43926,13 @@ DecodeAnimDelta:
         inc ecx
         test edi, edi
         je short .11
-        mov edx, dword [dword_1BF8A0]
+        mov edx, dword [AnimDecodeEnd]
         add eax, edx
         fld dword [eax]
         fchs
         jmp short .12
 .11:
-        mov edx, dword [dword_1BF8A0]
+        mov edx, dword [AnimDecodeEnd]
         add eax, edx
         fld dword [eax]
 .12:
@@ -43942,14 +43942,14 @@ DecodeAnimDelta:
         lea eax, [nosplit ecx*4+00h]
         mov dword [esp], eax
         mov edx, dword [esp]
-        mov eax, dword [dword_1BF8A0]
+        mov eax, dword [AnimDecodeEnd]
         add eax, edx
         fld dword [byte esp+018h]
         fld dword [eax]
         fmul st1
         fadd dword [byte ebx+04h]
         fstp dword [byte ebx+04h]
-        mov eax, dword [dword_1BF8A0]
+        mov eax, dword [AnimDecodeEnd]
         fmul dword [byte eax+ecx*4+04h]
         fadd dword [byte ebx+08h]
         inc ecx
@@ -44003,23 +44003,23 @@ UpdateObjectPose:
         call SetBitReader
         mov eax, dword [esi]
         mov eax, dword [byte eax+010h]
-        mov dword [dword_1BF8A4], eax
+        mov dword [AnimDecodeFrame], eax
         mov eax, esi
         mov ecx, ebx
         add eax, 0D4h
         push ebx
-        mov dword [dword_1BF8A0], eax
+        mov dword [AnimDecodeEnd], eax
         mov eax, esi
         mov edx, ebp
         add eax, 214h
         mov ebx, dword [byte esp+04h]
-        mov dword [dword_1BF89C], eax
+        mov dword [AnimDecodePtr], eax
         mov eax, esi
         call DecodeAnimFrame
         fld dword [byte esi+010h]
         fld1
         fsubrp
-        fstp dword [dword_1BF8B0]
+        fstp dword [AnimBlend]
 .1:
         mov esi, dword [byte esi+020h]
         test esi, esi
@@ -44036,13 +44036,13 @@ UpdateObjectPose:
         mov ebx, dword [esp]
         mov eax, dword [byte eax+010h]
         mov ecx, edi
-        mov dword [dword_1BF8A4], eax
+        mov dword [AnimDecodeFrame], eax
         lea eax, [dword esi+0D4h]
         push edi
-        mov dword [dword_1BF8A0], eax
+        mov dword [AnimDecodeEnd], eax
         lea eax, [dword esi+0214h]
         mov edx, ebp
-        mov dword [dword_1BF89C], eax
+        mov dword [AnimDecodePtr], eax
         mov eax, esi
         call DecodeAnimDelta
         jmp short .1
@@ -44076,16 +44076,16 @@ UpdateMovePose:
         call SetBitReader
         mov eax, dword [esi]
         mov eax, dword [byte eax+010h]
-        mov dword [dword_1BF8A4], eax
+        mov dword [AnimDecodeFrame], eax
         mov eax, esi
         add eax, 0D4h
         mov ecx, 19h
-        mov dword [dword_1BF8A0], eax
+        mov dword [AnimDecodeEnd], eax
         mov eax, esi
         push byte 19h
         add eax, 214h
         mov edx, ebp
-        mov dword [dword_1BF89C], eax
+        mov dword [AnimDecodePtr], eax
         mov eax, esi
         call DecodeAnimFrame
         fld dword [edi]
@@ -44136,23 +44136,23 @@ UpdateMovePose:
         mov eax, dword [byte esp+034h]
         mov eax, dword [eax]
         mov eax, dword [byte eax+010h]
-        mov dword [dword_1BF8A4], eax
+        mov dword [AnimDecodeFrame], eax
         mov eax, dword [byte esp+034h]
         mov ecx, 19h
         add eax, 0D4h
         push byte 19h
-        mov dword [dword_1BF8A0], eax
+        mov dword [AnimDecodeEnd], eax
         mov eax, dword [byte esp+038h]
         mov ebx, dword [byte esp+034h]
         add eax, 214h
         mov edx, dword [byte esp+030h]
-        mov dword [dword_1BF89C], eax
+        mov dword [AnimDecodePtr], eax
         mov eax, dword [byte esp+038h]
         call DecodeAnimFrame
         mov ebx, dword [byte esp+030h]
         fld dword [ebx]
         fld st0
-        fmul qword [qword_163DB1]
+        fmul qword [F64_PoseScale]
         mov eax, dword [byte esp+034h]
         xor edi, edi
         mov eax, dword [byte eax+01Ch]
@@ -44162,12 +44162,12 @@ UpdateMovePose:
         je short .3
         fld dword [byte ebx+04h]
         fchs
-        fmul qword [qword_163DB1]
+        fmul qword [F64_PoseScale]
         jmp short .4
 .3:
         fld dword [byte ebx+04h]
         fld st0
-        fmul qword [qword_163DB1]
+        fmul qword [F64_PoseScale]
         fstp st1
 .4:
         fstp dword [byte ebx+04h]
@@ -44203,7 +44203,7 @@ UpdateMovePose:
         fld dword [byte eax+010h]
         fld1
         fsubrp
-        fstp dword [dword_1BF8B0]
+        fstp dword [AnimBlend]
 .7:
         mov eax, dword [byte esp+034h]
         mov eax, dword [byte eax+020h]
@@ -44223,22 +44223,22 @@ UpdateMovePose:
         mov eax, dword [byte esp+034h]
         mov eax, dword [eax]
         mov eax, dword [byte eax+010h]
-        mov dword [dword_1BF8A4], eax
+        mov dword [AnimDecodeFrame], eax
         mov eax, dword [byte esp+034h]
         mov ecx, 19h
         add eax, 0D4h
         push byte 19h
-        mov dword [dword_1BF8A0], eax
+        mov dword [AnimDecodeEnd], eax
         mov eax, dword [byte esp+038h]
         lea ebx, [byte esp+04h]
         add eax, 214h
         mov edx, dword [byte esp+030h]
-        mov dword [dword_1BF89C], eax
+        mov dword [AnimDecodePtr], eax
         mov eax, dword [byte esp+038h]
         call DecodeAnimFrame
         fld dword [esp]
         fld st0
-        fmul qword [qword_163DB1]
+        fmul qword [F64_PoseScale]
         and esi, byte 8
         fstp st1
         fstp dword [esp]
@@ -44246,12 +44246,12 @@ UpdateMovePose:
         je short .8
         fld dword [byte esp+04h]
         fchs
-        fmul qword [qword_163DB1]
+        fmul qword [F64_PoseScale]
         jmp short .9
 .8:
         fld dword [byte esp+04h]
         fld st0
-        fmul qword [qword_163DB1]
+        fmul qword [F64_PoseScale]
         fstp st1
 .9:
         fstp dword [byte esp+04h]
@@ -44343,13 +44343,13 @@ UpdateAllPoses:
         call SetBitReader
         mov eax, dword [esi]
         mov eax, dword [byte eax+010h]
-        mov dword [dword_1BF8A4], eax
+        mov dword [AnimDecodeFrame], eax
         mov eax, esi
         add eax, 0D4h
-        mov dword [dword_1BF8A0], eax
+        mov dword [AnimDecodeEnd], eax
         mov eax, esi
         add eax, 214h
-        mov dword [dword_1BF89C], eax
+        mov dword [AnimDecodePtr], eax
         mov eax, dword [esi]
         mov al, byte [byte eax+0Ch]
         and eax, 0FFh
@@ -44362,7 +44362,7 @@ UpdateAllPoses:
         fld dword [byte esi+010h]
         fld1
         fsubrp
-        fstp dword [dword_1BF8B0]
+        fstp dword [AnimBlend]
 .1:
         mov esi, dword [byte esi+020h]
         test esi, esi
@@ -44377,11 +44377,11 @@ UpdateAllPoses:
         call SetBitReader
         mov eax, dword [esi]
         mov eax, dword [byte eax+010h]
-        mov dword [dword_1BF8A4], eax
+        mov dword [AnimDecodeFrame], eax
         lea eax, [dword esi+0D4h]
-        mov dword [dword_1BF8A0], eax
+        mov dword [AnimDecodeEnd], eax
         lea eax, [dword esi+0214h]
-        mov dword [dword_1BF89C], eax
+        mov dword [AnimDecodePtr], eax
         mov eax, dword [esi]
         mov al, byte [byte eax+0Ch]
         and eax, 0FFh
@@ -44414,7 +44414,7 @@ ScaleAnimTime:
 ; Sets the animation clock
 ;-----------------------------------------------------------------------------
 SetAnimClock:
-        mov dword [dword_1BF8B4], eax
+        mov dword [ReplayRecordBuf], eax
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
@@ -44422,7 +44422,7 @@ SetAnimClock:
 ; Adds to the animation clock
 ;-----------------------------------------------------------------------------
 AddAnimClock:
-        add dword [dword_1BF8B4], eax
+        add dword [ReplayRecordBuf], eax
         ret
         db 090h
 ;-----------------------------------------------------------------------------
@@ -44445,7 +44445,7 @@ UpdateAnimBlends:
         je short .1
         mov ebx, dword [byte edx+020h]
 .1:
-        mov ecx, dword [dword_1BF8B4]
+        mov ecx, dword [ReplayRecordBuf]
         mov eax, dword [byte edx+0Ch]
         mov esi, dword [edx]
         cmp eax, ecx
@@ -44564,7 +44564,7 @@ UpdateAnimBlends:
         sahf
         jae short .14
 .13:
-        mov ebp, dword [dword_1BF8B4]
+        mov ebp, dword [ReplayRecordBuf]
         cmp ebp, dword [byte edx+0Ch]
         jge near .2
         jmp short .15
@@ -44595,7 +44595,7 @@ AnimClockTick:
         je short .4
 .1:
         mov eax, dword [edx]
-        mov esi, dword [dword_1BF8B4]
+        mov esi, dword [ReplayRecordBuf]
         cmp esi, dword [byte eax+0Ch]
         jl short .2
         mov eax, edx
@@ -44784,10 +44784,10 @@ InitAnimState:
         ret
         db 08Bh,0C0h
         push edx
-        mov edx, dword [dword_1BF894]
-        mov eax, dword [dword_1BF8A8]
+        mov edx, dword [AnimNodePool]
+        mov eax, dword [AnimStateCount]
         sub eax, edx
-        mov dword [dword_1BF898], eax
+        mov dword [AnimStatesReady], eax
         pop edx
         ret
         db 08Dh,040h,00h
@@ -44802,25 +44802,25 @@ AllocAnimStateBlocks:
         push esi
         push edi
         push ebp
-        mov edx, dword [dword_1BF894]
-        mov eax, dword [dword_1BF8A8]
+        mov edx, dword [AnimNodePool]
+        mov eax, dword [AnimStateCount]
         sub eax, edx
-        mov dword [dword_1BF898], eax
+        mov dword [AnimStatesReady], eax
         mov edx, eax
         je short .4
-        mov ebx, dword [dword_1BF894]
+        mov ebx, dword [AnimNodePool]
         add ebx, eax
-        mov dword [dword_1BF894], ebx
-        mov ebx, dword [dword_1BF890]
+        mov dword [AnimNodePool], ebx
+        mov ebx, dword [AnimNodeFreeList]
         add ebx, eax
-        mov ecx, dword [dword_1BF888]
-        mov dword [dword_1BF890], ebx
+        mov ecx, dword [AnimStateBlocks]
+        mov dword [AnimNodeFreeList], ebx
         xor ebx, ebx
         test ecx, ecx
         jle short .4
         xor ecx, ecx
 .1:
-        mov edx, dword [dword_1BF894]
+        mov edx, dword [AnimNodePool]
         add edx, ecx
         mov edi, dword [byte edx+020h]
         test edi, edi
@@ -44834,27 +44834,27 @@ AllocAnimStateBlocks:
         lea esi, [eax+ebp]
         mov dword [byte edx+024h], esi
 .3:
-        mov esi, dword [dword_1BF888]
+        mov esi, dword [AnimStateBlocks]
         inc ebx
         add ecx, 358h
         cmp ebx, esi
         jl short .1
 .4:
-        mov eax, dword [dword_1BF888]
+        mov eax, dword [AnimStateBlocks]
         xor ebx, ebx
         test eax, eax
         jle short .7
         xor ecx, ecx
 .5:
-        mov edx, dword [dword_1BF894]
+        mov edx, dword [AnimNodePool]
         add edx, ecx
         cmp dword [edx], byte 0
         je short .6
         mov eax, dword [byte edx+028h]
-        mov eax, dword [nosplit eax*4+dword_1BF07C]
+        mov eax, dword [nosplit eax*4+MoveFuncPair]
         mov dword [edx], eax
         mov eax, dword [byte edx+028h]
-        mov eax, dword [nosplit eax*4+off_16BD2C]
+        mov eax, dword [nosplit eax*4+MoveFuncTable]
         mov dword [byte edx+030h], eax
         mov eax, edx
         call InitAnimState
@@ -44865,7 +44865,7 @@ AllocAnimStateBlocks:
         add eax, esi
         mov dword [dword edx+0354h], eax
 .6:
-        mov edx, dword [dword_1BF888]
+        mov edx, dword [AnimStateBlocks]
         inc ebx
         add ecx, 358h
         cmp ebx, edx
@@ -44947,7 +44947,7 @@ StartAnimNow:
         mov ebx, dword [ebx]
         mov eax, ebx
         call StartAnim
-        mov eax, dword [dword_1BF8B4]
+        mov eax, dword [ReplayRecordBuf]
         mov esi, dword [byte ebx+08h]
         mov dword [byte ebx+010h], 3F800000h
         add eax, esi
@@ -44988,7 +44988,7 @@ BlendToAnim:
         mov ecx, eax
         mov ebx, eax
         call StartAnim
-        mov eax, dword [dword_1BF8B4]
+        mov eax, dword [ReplayRecordBuf]
         mov edi, dword [byte ecx+08h]
         add eax, edi
         mov dword [byte ecx+0Ch], eax
@@ -45242,35 +45242,35 @@ InitAnimNodePool:
         push ebx
         push ecx
         push edx
-        mov ebx, dword [dword_1BF888]
+        mov ebx, dword [AnimStateBlocks]
         xor edx, edx
         test ebx, ebx
         jle short .2
         xor eax, eax
 .1:
-        mov ebx, dword [dword_1BF894]
+        mov ebx, dword [AnimNodePool]
         add ebx, eax
         lea ecx, [dword ebx+0358h]
         mov dword [byte ebx+020h], ecx
-        mov ebx, dword [dword_1BF894]
+        mov ebx, dword [AnimNodePool]
         mov dword [byte ebx+eax+01Ch], 0
-        mov ebx, dword [dword_1BF894]
+        mov ebx, dword [AnimNodePool]
         mov dword [ebx+eax], 0
         inc edx
-        mov ecx, dword [dword_1BF888]
+        mov ecx, dword [AnimStateBlocks]
         add eax, 358h
         cmp edx, ecx
         jl short .1
 .2:
-        mov eax, dword [dword_1BF888]
+        mov eax, dword [AnimStateBlocks]
         dec eax
         imul edx, eax, dword 358h
-        mov eax, dword [dword_1BF894]
+        mov eax, dword [AnimNodePool]
         mov dword [byte edx+eax+020h], 0
-        mov eax, dword [dword_1BF888]
-        mov dword [dword_1BF88C], eax
-        mov eax, dword [dword_1BF894]
-        mov dword [dword_1BF890], eax
+        mov eax, dword [AnimStateBlocks]
+        mov dword [AnimNodesFree], eax
+        mov eax, dword [AnimNodePool]
+        mov dword [AnimNodeFreeList], eax
         pop edx
         pop ecx
         pop ebx
@@ -45284,10 +45284,10 @@ FreeAnimStates:
         push ebx
         push ecx
         push edx
-        mov ebx, dword [dword_1BF894]
+        mov ebx, dword [AnimNodePool]
         xor edx, edx
         push ebx
-        mov dword [dword_1BF888], edx
+        mov dword [AnimStateBlocks], edx
         call FreeMemBlock
         add esp, byte 4
         pop edx
@@ -45304,7 +45304,7 @@ AllocAnimStates:
         push ecx
         push esi
         push edi
-        mov dword [dword_1BF888], eax
+        mov dword [AnimStateBlocks], eax
         imul eax, dword 358h
         push edx
         push eax
@@ -45312,26 +45312,26 @@ AllocAnimStates:
         mov ebx, 10h
         call AllocMemBlock
         add esp, byte 0Ch
-        mov dword [dword_1BF894], eax
-        mov dword [dword_1BF8A8], eax
+        mov dword [AnimNodePool], eax
+        mov dword [AnimStateCount], eax
         lea ecx, [byte eax+034h]
         mov edx, ebx
         sub ecx, eax
-        mov eax, dword_1BF888
+        mov eax, AnimStateBlocks
         call ReplayRegisterStates
-        mov edx, dword [dword_1BF888]
+        mov edx, dword [AnimStateBlocks]
         xor edi, edi
         test edx, edx
         jle short .2
         xor esi, esi
 .1:
-        mov eax, dword [dword_1BF894]
+        mov eax, dword [AnimNodePool]
         mov ebx, ecx
         mov edx, ecx
         add eax, esi
         inc edi
         call ReplayRegisterStates
-        mov ebx, dword [dword_1BF888]
+        mov ebx, dword [AnimStateBlocks]
         add esi, 358h
         cmp edi, ebx
         jl short .1
@@ -45411,11 +45411,11 @@ BuildCameraDebugView:
         lea ebx, [dword esp+02D4h]
         call UpdateModelPart
         add esp, byte 0Ch
-        mov edx, dword_1B905F
+        mov edx, CameraStateRecords+7
         mov eax, dword [dword esp+02FCh]
         call VecSub
         lea ebx, [dword esp+02D4h]
-        mov edx, unk_1B92AB
+        mov edx, CameraStateRecords+253h
         lea eax, [dword esp+02C8h]
         call VecMulMat
         cmp dword [dword esp+02DCh], 43480000h
@@ -45423,7 +45423,7 @@ BuildCameraDebugView:
         push dword [dword esp+02F8h]
         lea eax, [dword esp+02A8h]
         lea ebx, [dword esp+0284h]
-        mov edx, unk_1B92AB
+        mov edx, CameraStateRecords+253h
         call MatRotY
         lea eax, [dword esp+02A4h]
         call MatMul
@@ -45472,7 +45472,7 @@ DrawCameraPath:
         mov ebx, dword [byte esp+014h]
         push dword [byte esp+018h]
         push ebx
-        mov eax, dword [dword_1C0EEC]
+        mov eax, dword [CameraDebugArt]
         push dword [byte esp+018h]
         call BuildCameraDebugView
         pop edx
@@ -45486,7 +45486,7 @@ DrawCameraPath:
         mov ebx, dword [byte esp+014h]
         push dword [byte esp+018h]
         push ebx
-        mov eax, dword [dword_1C0EFC]
+        mov eax, dword [AiIconCount]
         push dword [byte esp+018h]
         call BuildCameraDebugView
         pop edx
@@ -45500,7 +45500,7 @@ DrawCameraPath:
         mov ebx, dword [byte esp+014h]
         push dword [byte esp+018h]
         push ebx
-        mov eax, dword [dword_1C0EF0]
+        mov eax, dword [AiIconSize]
         push dword [byte esp+018h]
         call BuildCameraDebugView
         pop edx
@@ -45514,7 +45514,7 @@ DrawCameraPath:
         mov ebx, dword [byte esp+014h]
         push dword [byte esp+018h]
         push ebx
-        mov eax, dword [dword_1C0EE0]
+        mov eax, dword [AiIconArt]
         push dword [byte esp+018h]
         call BuildCameraDebugView
         pop edx
@@ -45529,18 +45529,18 @@ DrawCameraPath:
         mov ecx, edx
         mov esi, ebx
         mov ebx, esp
-        mov edx, dword_1B905F
+        mov edx, CameraStateRecords+7
         call VecSub
         lea ebx, [byte esp+0Ch]
-        mov edx, unk_1B92AB
+        mov edx, CameraStateRecords+253h
         mov eax, esp
         call VecMulMat
         mov ebx, esp
-        mov edx, dword_1B905F
+        mov edx, CameraStateRecords+7
         mov eax, ecx
         call VecSub
         lea ebx, [byte esp+018h]
-        mov edx, unk_1B92AB
+        mov edx, CameraStateRecords+253h
         mov eax, esp
         call VecMulMat
         cmp dword [byte esp+014h], 42C80000h
@@ -45580,10 +45580,10 @@ DrawCameraPath:
         sub esp, byte 20h
         mov ecx, edx
         mov ebx, esp
-        mov edx, dword_1B905F
+        mov edx, CameraStateRecords+7
         call VecSub
         lea ebx, [byte esp+0Ch]
-        mov edx, unk_1B92AB
+        mov edx, CameraStateRecords+253h
         mov eax, esp
         call VecMulMat
         cmp dword [byte esp+014h], 42C80000h
@@ -45621,21 +45621,21 @@ LoadAiIcons:
         call LoadModelByName
         push eax
         mov ebx, 8
-        mov dword [dword_1C0EF8], eax
+        mov dword [CameraDebugLoaded], eax
         call InitModelInstance
         add esp, byte 4
-        mov eax, dword [dword_1C0EF8]
+        mov eax, dword [CameraDebugLoaded]
         xor edx, edx
         call CreateModelInstance
         push eax
-        mov dword [dword_1C0EEC], eax
+        mov dword [CameraDebugArt], eax
         call UpdateModelInstance
         add esp, byte 4
-        mov eax, dword [dword_1C0EEC]
+        mov eax, dword [CameraDebugArt]
         push byte 0
-        mov dword [dword_1C0EE0], eax
-        mov dword [dword_1C0EF0], eax
-        mov dword [dword_1C0EFC], eax
+        mov dword [AiIconArt], eax
+        mov dword [AiIconSize], eax
+        mov dword [AiIconCount], eax
         call OpenResourceArchive
         add esp, byte 4
         pop edx
@@ -45650,11 +45650,11 @@ FreeCameraDebug:
         push ebx
         push ecx
         push edx
-        mov edx, dword [dword_1C0EF8]
+        mov edx, dword [CameraDebugLoaded]
         push edx
         call FreeModelFile
         add esp, byte 4
-        mov ebx, dword [dword_1C0EEC]
+        mov ebx, dword [CameraDebugArt]
         push ebx
         call FreeModelInstance
         add esp, byte 4
@@ -45794,7 +45794,7 @@ updateplayers:
 .6:
         test eax, eax
         je near .15
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne near .15
         cmp word [byte edi+010h], byte 0
         jl near .15
@@ -45847,7 +45847,7 @@ updateplayers:
 .14:
         test eax, eax
         je short .15
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne short .15
         cmp word [dword ebx+0A9h], byte 0
         jle short .15
@@ -46115,7 +46115,7 @@ CupCelebration:
         push ecx
         push edx
         mov edx, eax
-        cmp dword [dword_16C6BC], byte 0
+        cmp dword [CupCelebrationActive], byte 0
         je short .1
         cwde
         pop edx
@@ -46126,11 +46126,11 @@ CupCelebration:
         call IsPlayoffGame
         test eax, eax
         je near .3
-        cmp byte [byte_1AD72B], 3
+        cmp byte [PlayoffRound], 3
         jne near .3
-        mov eax, dword [dword_1AD437]
+        mov eax, dword [PlayoffRoundBits]
         and eax, byte 7
-        mov ecx, dword [dword_1AD69F]
+        mov ecx, dword [PlayoffCurrentRound]
         shr eax, 1
         cmp eax, ecx
         jne short .2
@@ -46151,7 +46151,7 @@ CupCelebration:
         pop ebx
         ret
 .2:
-        cmp eax, dword [dword_1AD6A3]
+        cmp eax, dword [PlayoffFinalRound]
         jne short .3
         movsx ebx, dx
         mov eax, ebx
@@ -46195,7 +46195,7 @@ clockcont_0:
         mov dx, word [gsp]
         cmp dx, byte 2
         jge short .2
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne short .1
         mov eax, dword [PuckOwnerTeam]
         mov edx, 1
@@ -46273,7 +46273,7 @@ clockcont_0:
         call CommentaryEvent
         add esp, byte 8
 .6:
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne near .36
         mov eax, dword [PuckOwnerTeam]
         mov edx, 1
@@ -46496,7 +46496,7 @@ clockcont_0:
         mov byte [gmode], dl
         mov edx, 2
         call AddPenalty2
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne short .32
         mov eax, dword [PuckOwnerTeam]
         mov edx, 1
@@ -46755,7 +46755,7 @@ DoGameFrame:
         call CommentaryEvent
         add esp, byte 18h
 .3:
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne short .5
         mov ecx, SortCords
         xor esi, esi
@@ -46783,7 +46783,7 @@ DoGameFrame:
         pop ebx
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-unk_78930:
+SimGameBlankPair:
         db 00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
 ; RandomCrowdDelay                                78938  97 PC, low confidence

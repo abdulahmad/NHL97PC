@@ -2,142 +2,142 @@
 bits 32
 %include "hockey.inc"
 section s_1B0FA4 nobits alloc noexec write align=1
-global dword_1B0FA8, dword_1B0FB0, dword_1B0FB4, dword_1B0FB8, dword_1B0FBC, dword_1B0FCC, dword_1B0FD0, dword_1B0FD4
-global dword_1B0FD8, dword_1B0FDC, dword_1B0FE0, dword_1B0FE4, dword_1B0FE8, dword_1B0FEC, dword_1B0FF0, dword_1B0FF4
-global dword_1B0FF8, dword_1B0FFC, dword_1B1000, dword_1B1008, dword_1B100C, dword_1B1010, dword_1B1014, dword_1B1018
-global dword_1B101C, dword_1B1020, dword_1B1024, dword_1B1028, dword_1B102C, dword_1B1030, dword_1B1034, dword_1B1038
-global dword_1B103C, dword_1B1040, dword_1B1044, dword_1B1048, dword_1B104C, dword_1B1050, dword_1B1054, dword_1B1058
-global dword_1B105C, dword_1B1060, dword_1B1064, dword_1B108C, dword_1B10CC, dword_1B10D0, dword_1B10D4, dword_1B10D8
-global dword_1B10DC, dword_1B10E0, dword_1B10E4, dword_1B10E8, dword_1B10F4, dword_1B10F8, dword_1B1108, dword_1B110C
-global dword_1B1114, dword_1B1118, dword_1B111C, unk_1B0FA4, unk_1B0FC0, unk_1B1068, unk_1B1090, unk_1B10FC
-global unk_1B1120
-unk_1B0FA4:
+global ProjectionFar, BoardAdModel, RinkLineModel, RinkModelData, ArenaModel, BenchCheerModel, StandsEndModel, NearSideModel
+global RinkLinesLoaded, NearSideParts, FarSideParts, GlassModel, FaceoffSpotModel, BenchCheerParts, BenchCheerFrames, CreaseArcModel
+global GlassParts, BenchModelParts, EndSpotModels, FarSideModel, SideParts, BenchCheerData, FarSideData, RinkLineData
+global StandsRowModel, RinkPaletteData, AwayBlueLineModel, BenchCheerArt, HomeBlueLineModel, NeutralSpotModel, RinkMarkingModel, CreaseModel
+global RinkGeometryModel, RinkGeometryParts, CenterSpotModel, CreasePolyModel, BoardsTopModel, RinkGeometryData, CenterCircleModel, BenchLineModel
+global CameraFlashOn, SpotModelData, BenchSideIndex, LogosLoaded, RinkOverlayModel, RinkSidesModel, PauseArtModel, RinkExtraModel
+global ScoreboardAngle, ScoreboardFrameNo, ScoreboardHeight, FlashSpots, RinkSidesData, GameGraphicsFlags, CrowdCenter, RinkModelPieces
+global RinkViewWidth, RinkViewHeight, RinkSurfaceDrawn, ProjectionNear, NetsHookPos, FlashPolys, RinkCameraPoints, ProjectionCenter
+global SeatModels
+ProjectionNear:
         resb 4
-dword_1B0FA8:
+ProjectionFar:
         resb 8
-dword_1B0FB0:
+BoardAdModel:
         resb 4
-dword_1B0FB4:
+RinkLineModel:
         resb 4
-dword_1B0FB8:
+RinkModelData:
         resb 4
-dword_1B0FBC:
+ArenaModel:
         resb 4
-unk_1B0FC0:
+NetsHookPos:
         resb 12
-dword_1B0FCC:
+BenchCheerModel:
         resb 4
-dword_1B0FD0:
+StandsEndModel:
         resb 4
-dword_1B0FD4:
+NearSideModel:
         resb 4
-dword_1B0FD8:
+RinkLinesLoaded:
         resb 4
-dword_1B0FDC:
+NearSideParts:
         resb 4
-dword_1B0FE0:
+FarSideParts:
         resb 4
-dword_1B0FE4:
+GlassModel:
         resb 4
-dword_1B0FE8:
+FaceoffSpotModel:
         resb 4
-dword_1B0FEC:
+BenchCheerParts:
         resb 4
-dword_1B0FF0:
+BenchCheerFrames:
         resb 4
-dword_1B0FF4:
+CreaseArcModel:
         resb 4
-dword_1B0FF8:
+GlassParts:
         resb 4
-dword_1B0FFC:
+BenchModelParts:
         resb 4
-dword_1B1000:
+EndSpotModels:
         resb 8
-dword_1B1008:
+FarSideModel:
         resb 4
-dword_1B100C:
+SideParts:
         resb 4
-dword_1B1010:
+BenchCheerData:
         resb 4
-dword_1B1014:
+FarSideData:
         resb 4
-dword_1B1018:
+RinkLineData:
         resb 4
-dword_1B101C:
+StandsRowModel:
         resb 4
-dword_1B1020:
+RinkPaletteData:
         resb 4
-dword_1B1024:
+AwayBlueLineModel:
         resb 4
-dword_1B1028:
+BenchCheerArt:
         resb 4
-dword_1B102C:
+HomeBlueLineModel:
         resb 4
-dword_1B1030:
+NeutralSpotModel:
         resb 4
-dword_1B1034:
+RinkMarkingModel:
         resb 4
-dword_1B1038:
+CreaseModel:
         resb 4
-dword_1B103C:
+RinkGeometryModel:
         resb 4
-dword_1B1040:
+RinkGeometryParts:
         resb 4
-dword_1B1044:
+CenterSpotModel:
         resb 4
-dword_1B1048:
+CreasePolyModel:
         resb 4
-dword_1B104C:
+BoardsTopModel:
         resb 4
-dword_1B1050:
+RinkGeometryData:
         resb 4
-dword_1B1054:
+CenterCircleModel:
         resb 4
-dword_1B1058:
+BenchLineModel:
         resb 4
-dword_1B105C:
+CameraFlashOn:
         resb 4
-dword_1B1060:
+SpotModelData:
         resb 4
-dword_1B1064:
+BenchSideIndex:
         resb 4
-unk_1B1068:
+FlashPolys:
         resb 36
-dword_1B108C:
+LogosLoaded:
         resb 4
-unk_1B1090:
+RinkCameraPoints:
         resb 60
-dword_1B10CC:
+RinkOverlayModel:
         resb 4
-dword_1B10D0:
+RinkSidesModel:
         resb 4
-dword_1B10D4:
+PauseArtModel:
         resb 4
-dword_1B10D8:
+RinkExtraModel:
         resb 4
-dword_1B10DC:
+ScoreboardAngle:
         resb 4
-dword_1B10E0:
+ScoreboardFrameNo:
         resb 4
-dword_1B10E4:
+ScoreboardHeight:
         resb 4
-dword_1B10E8:
+FlashSpots:
         resb 12
-dword_1B10F4:
+RinkSidesData:
         resb 4
-dword_1B10F8:
+GameGraphicsFlags:
         resb 4
-unk_1B10FC:
+ProjectionCenter:
         resb 12
-dword_1B1108:
+CrowdCenter:
         resb 4
-dword_1B110C:
+RinkModelPieces:
         resb 8
-dword_1B1114:
+RinkViewWidth:
         resb 4
-dword_1B1118:
+RinkViewHeight:
         resb 4
-dword_1B111C:
+RinkSurfaceDrawn:
         resb 4
-unk_1B1120:
+SeatModels:
         resb 312

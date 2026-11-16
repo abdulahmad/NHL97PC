@@ -2,84 +2,84 @@
 bits 32
 %include "hockey.inc"
 section s_19CCAF nobits alloc noexec write align=1
-global byte_19CCAF, byte_19CCC6, byte_19CD05, byte_19CD8C, byte_19CD9D, dword_19CCC2, dword_19CD08, dword_19CD0C
-global dword_19CD10, dword_19CD14, dword_19CD18, dword_19CD1C, dword_19CD20, dword_19CD24, dword_19CD28, dword_19CD2C
-global dword_19CD30, dword_19CD34, dword_19CD40, dword_19CD44, dword_19CD48, dword_19CD4C, dword_19CD50, dword_19CD54
-global dword_19CD88, dword_19CDA0, dword_19CDA5, unk_19CCB0, unk_19CCB8, unk_19CDA4, word_19CCB2, word_19CCB6
-global word_19CCBC, word_19CCBE, word_19CCC0, word_19CCC4, word_19CD9C, word_19CDA7
-byte_19CCAF:
+global GripLinkByte, ChantPlayed, ChantState, PadStates, LineChangeKeyFlags, WhistleTime, LinkSides, LinkCounter
+global VideoModePanelMode, VideoModeSel, DisplayWidth, DisplayHeight, ViewWindowX, ViewWindowY, ViewWindowW, ViewWindowH
+global VideoModeChanged, DisplayFlags, GameEventPtr, DisplayBuffer, DisplayBufferSize, ReplayLoaded, GameKeyState, GameObjects
+global GameTick, GameLoopTime, DemoFrame, GripCallOffset, GripFarCall, DemoState, GripDriverSeg, GripDriverSel
+global GripCodeSel, GripDataSeg, GripResult, ChantIndex, LineChangeKeyLow, DemoInput
+GripLinkByte:
         resb 1
-unk_19CCB0:
+GripCallOffset:
         resb 2
-word_19CCB2:
+GripDriverSeg:
         resb 4
-word_19CCB6:
+GripDriverSel:
         resb 2
-unk_19CCB8:
+GripFarCall:
         resb 4
-word_19CCBC:
+GripCodeSel:
         resb 2
-word_19CCBE:
+GripDataSeg:
         resb 2
-word_19CCC0:
+GripResult:
         resb 2
-dword_19CCC2:
+WhistleTime:
         resb 2
-word_19CCC4:
+ChantIndex:
         resb 2
-byte_19CCC6:
+ChantPlayed:
         resb 63
-byte_19CD05:
+ChantState:
         resb 3
-dword_19CD08:
+LinkSides:
         resb 4
-dword_19CD0C:
+LinkCounter:
         resb 4
-dword_19CD10:
+VideoModePanelMode:
         resb 4
-dword_19CD14:
+VideoModeSel:
         resb 4
-dword_19CD18:
+DisplayWidth:
         resb 4
-dword_19CD1C:
+DisplayHeight:
         resb 4
-dword_19CD20:
+ViewWindowX:
         resb 4
-dword_19CD24:
+ViewWindowY:
         resb 4
-dword_19CD28:
+ViewWindowW:
         resb 4
-dword_19CD2C:
+ViewWindowH:
         resb 4
-dword_19CD30:
+VideoModeChanged:
         resb 4
-dword_19CD34:
+DisplayFlags:
         resb 12
-dword_19CD40:
+GameEventPtr:
         resb 4
-dword_19CD44:
+DisplayBuffer:
         resb 4
-dword_19CD48:
+DisplayBufferSize:
         resb 4
-dword_19CD4C:
+ReplayLoaded:
         resb 4
-dword_19CD50:
+GameKeyState:
         resb 4
-dword_19CD54:
+GameObjects:
         resb 52
-dword_19CD88:
+GameTick:
         resb 4
-byte_19CD8C:
+PadStates:
         resb 16
-word_19CD9C:
+LineChangeKeyLow:
         resb 1
-byte_19CD9D:
+LineChangeKeyFlags:
         resb 3
-dword_19CDA0:
+GameLoopTime:
         resb 4
-unk_19CDA4:
+DemoState:
         resb 1
-dword_19CDA5:
+DemoFrame:
         resb 2
-word_19CDA7:
+DemoInput:
         resb 485

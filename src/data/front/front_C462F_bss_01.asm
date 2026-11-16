@@ -2,312 +2,178 @@
 bits 32
 %include "hockey.inc"
 section s_1CB11C nobits alloc noexec write align=1
-global byte_1CBB8C, dword_1CB11C, dword_1CB128, dword_1CB12C, dword_1CB130, dword_1CB138, dword_1CB13C, dword_1CB140
-global dword_1CB14C, dword_1CB162, dword_1CB166, dword_1CB16A, dword_1CB16E, dword_1CB172, dword_1CB19A, dword_1CB1F0
-global dword_1CB1FC, dword_1CB200, dword_1CB206, dword_1CB20A, dword_1CB20E, dword_1CB212, dword_1CB216, dword_1CB242
-global dword_1CB24E, dword_1CB252, dword_1CB258, dword_1CB25C, dword_1CB260, dword_1CB264, dword_1CB268, dword_1CB2A0
-global dword_1CB2A4, dword_1CB2AA, dword_1CB2AE, dword_1CB2B2, dword_1CB2B6, dword_1CB2BA, dword_1CB2F2, dword_1CB2F6
-global dword_1CB2FC, dword_1CB300, dword_1CB304, dword_1CB308, dword_1CB30C, dword_1CB344, dword_1CB348, dword_1CB34E
-global dword_1CB352, dword_1CB356, dword_1CB35A, dword_1CB35E, dword_1CB396, dword_1CB39A, dword_1CB3A0, dword_1CB3A4
-global dword_1CB3A8, dword_1CB3AC, dword_1CB3B0, dword_1CB3E8, dword_1CB3EC, dword_1CB3F2, dword_1CB3F6, dword_1CB3FA
-global dword_1CB3FE, dword_1CB402, dword_1CB43A, dword_1CB43E, dword_1CB444, dword_1CB448, dword_1CB44C, dword_1CB450
-global dword_1CB454, dword_1CB48C, dword_1CB490, dword_1CB496, dword_1CB49A, dword_1CB49E, dword_1CB4A2, dword_1CB4A6
-global dword_1CB4DE, dword_1CB4E2, dword_1CB4E8, dword_1CB4EC, dword_1CB4F0, dword_1CB4F4, dword_1CB4F8, dword_1CB530
-global dword_1CB534, dword_1CB53A, dword_1CB53E, dword_1CB542, dword_1CB546, dword_1CB54A, dword_1CB5D4, dword_1CB5D8
-global dword_1CB5DE, dword_1CB5E2, dword_1CB5E6, dword_1CB5EA, dword_1CB5EE, dword_1CB626, dword_1CB62A, dword_1CB630
-global dword_1CB634, dword_1CB638, dword_1CB63C, dword_1CB640, dword_1CB678, dword_1CB67C, dword_1CB6CA, dword_1CB6CE
-global dword_1CB71C, dword_1CB720, dword_1CB76E, dword_1CB772, dword_1CB7C0, dword_1CB7C4, dword_1CB812, dword_1CB816
-global dword_1CB864, dword_1CB868, dword_1CB8B6, dword_1CB8BA, dword_1CB908, dword_1CB90C, dword_1CB95A, dword_1CB95E
-global dword_1CB9AC, dword_1CB9B0, dword_1CB9FE, dword_1CBA02, dword_1CBA50, dword_1CBA54, dword_1CBAA2, dword_1CBAA6
-global dword_1CBAF4, dword_1CBAF8, dword_1CBB46, dword_1CBB4A, dword_1CBB88, dword_1CBB8D, unk_1CB148, unk_1CB1EC
-global unk_1CB23E
-dword_1CB11C:
+global OptionsMenuChoice, OptionsMusicShapes, OptionsButtonOff, OptionsButtonOnShapes, OptionsButtonLit, OptionsLabelShapes, OptionsButtonDownShapes, OptionsButtonDownLit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+global OptionsAnimChoice, OptionsSoundPlayed, OptionsMenuItems
+
+OptionsMusicShapes:
         resb 12
-dword_1CB128:
+OptionsButtonOff:
         resb 4
-dword_1CB12C:
+OptionsButtonOnShapes:
         resb 4
-dword_1CB130:
+OptionsButtonLit:
         resb 8
-dword_1CB138:
+OptionsLabelShapes:
         resb 4
-dword_1CB13C:
+OptionsButtonDownShapes:
         resb 4
-dword_1CB140:
+OptionsButtonDownLit:
         resb 8
-unk_1CB148:
+OptionsMenuItems:
         resb 4
-dword_1CB14C:
         resb 22
-dword_1CB162:
         resb 4
-dword_1CB166:
         resb 4
-dword_1CB16A:
         resb 4
-dword_1CB16E:
         resb 4
-dword_1CB172:
         resb 40
-dword_1CB19A:
         resb 82
-unk_1CB1EC:
         resb 4
-dword_1CB1F0:
         resb 12
-dword_1CB1FC:
         resb 4
-dword_1CB200:
         resb 6
-dword_1CB206:
         resb 4
-dword_1CB20A:
         resb 4
-dword_1CB20E:
         resb 4
-dword_1CB212:
         resb 4
-dword_1CB216:
         resb 40
-unk_1CB23E:
         resb 4
-dword_1CB242:
         resb 12
-dword_1CB24E:
         resb 4
-dword_1CB252:
         resb 6
-dword_1CB258:
         resb 4
-dword_1CB25C:
         resb 4
-dword_1CB260:
         resb 4
-dword_1CB264:
         resb 4
-dword_1CB268:
         resb 56
-dword_1CB2A0:
         resb 4
-dword_1CB2A4:
         resb 6
-dword_1CB2AA:
         resb 4
-dword_1CB2AE:
         resb 4
-dword_1CB2B2:
         resb 4
-dword_1CB2B6:
         resb 4
-dword_1CB2BA:
         resb 56
-dword_1CB2F2:
         resb 4
-dword_1CB2F6:
         resb 6
-dword_1CB2FC:
         resb 4
-dword_1CB300:
         resb 4
-dword_1CB304:
         resb 4
-dword_1CB308:
         resb 4
-dword_1CB30C:
         resb 56
-dword_1CB344:
         resb 4
-dword_1CB348:
         resb 6
-dword_1CB34E:
         resb 4
-dword_1CB352:
         resb 4
-dword_1CB356:
         resb 4
-dword_1CB35A:
         resb 4
-dword_1CB35E:
         resb 56
-dword_1CB396:
         resb 4
-dword_1CB39A:
         resb 6
-dword_1CB3A0:
         resb 4
-dword_1CB3A4:
         resb 4
-dword_1CB3A8:
         resb 4
-dword_1CB3AC:
         resb 4
-dword_1CB3B0:
         resb 56
-dword_1CB3E8:
         resb 4
-dword_1CB3EC:
         resb 6
-dword_1CB3F2:
         resb 4
-dword_1CB3F6:
         resb 4
-dword_1CB3FA:
         resb 4
-dword_1CB3FE:
         resb 4
-dword_1CB402:
         resb 56
-dword_1CB43A:
         resb 4
-dword_1CB43E:
         resb 6
-dword_1CB444:
         resb 4
-dword_1CB448:
         resb 4
-dword_1CB44C:
         resb 4
-dword_1CB450:
         resb 4
-dword_1CB454:
         resb 56
-dword_1CB48C:
         resb 4
-dword_1CB490:
         resb 6
-dword_1CB496:
         resb 4
-dword_1CB49A:
         resb 4
-dword_1CB49E:
         resb 4
-dword_1CB4A2:
         resb 4
-dword_1CB4A6:
         resb 56
-dword_1CB4DE:
         resb 4
-dword_1CB4E2:
         resb 6
-dword_1CB4E8:
         resb 4
-dword_1CB4EC:
         resb 4
-dword_1CB4F0:
         resb 4
-dword_1CB4F4:
         resb 4
-dword_1CB4F8:
         resb 56
-dword_1CB530:
         resb 4
-dword_1CB534:
         resb 6
-dword_1CB53A:
         resb 4
-dword_1CB53E:
         resb 4
-dword_1CB542:
         resb 4
-dword_1CB546:
         resb 4
-dword_1CB54A:
         resb 138
-dword_1CB5D4:
         resb 4
-dword_1CB5D8:
         resb 6
-dword_1CB5DE:
         resb 4
-dword_1CB5E2:
         resb 4
-dword_1CB5E6:
         resb 4
-dword_1CB5EA:
         resb 4
-dword_1CB5EE:
         resb 56
-dword_1CB626:
         resb 4
-dword_1CB62A:
         resb 6
-dword_1CB630:
         resb 4
-dword_1CB634:
         resb 4
-dword_1CB638:
         resb 4
-dword_1CB63C:
         resb 4
-dword_1CB640:
         resb 56
-dword_1CB678:
         resb 4
-dword_1CB67C:
         resb 78
-dword_1CB6CA:
         resb 4
-dword_1CB6CE:
         resb 78
-dword_1CB71C:
         resb 4
-dword_1CB720:
         resb 78
-dword_1CB76E:
         resb 4
-dword_1CB772:
         resb 78
-dword_1CB7C0:
         resb 4
-dword_1CB7C4:
         resb 78
-dword_1CB812:
         resb 4
-dword_1CB816:
         resb 78
-dword_1CB864:
         resb 4
-dword_1CB868:
         resb 78
-dword_1CB8B6:
         resb 4
-dword_1CB8BA:
         resb 78
-dword_1CB908:
         resb 4
-dword_1CB90C:
         resb 78
-dword_1CB95A:
         resb 4
-dword_1CB95E:
         resb 78
-dword_1CB9AC:
         resb 4
-dword_1CB9B0:
         resb 78
-dword_1CB9FE:
         resb 4
-dword_1CBA02:
         resb 78
-dword_1CBA50:
         resb 4
-dword_1CBA54:
         resb 78
-dword_1CBAA2:
         resb 4
-dword_1CBAA6:
         resb 78
-dword_1CBAF4:
         resb 4
-dword_1CBAF8:
         resb 78
-dword_1CBB46:
         resb 4
-dword_1CBB4A:
         resb 62
-dword_1CBB88:
+OptionsAnimChoice:
         resb 4
-byte_1CBB8C:
+OptionsMenuChoice:
         resb 1
-dword_1CBB8D:
+OptionsSoundPlayed:
         resb 7

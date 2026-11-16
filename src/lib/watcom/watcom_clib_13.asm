@@ -11,8 +11,8 @@ extern str_4db, str_DxDxD, str_CmnFrateC, str_FramerateTIMERHZNOTSET, str_Rate2d
 extern str_PATH, str_DOS4GWEXE, str_CS3, str_0123456789abcdef, str_Null, str_0123456789ABCDEF, str_FILESLINED, ScreenBitsPerPixel
 extern IdentityRemap, KbdCapsLock, KeyStateTable, KbdShiftDown, KbdCtrlDown, KbdAltDown, KbdNumLock, KbdScrollLock
 extern KbdPrefixByte, KbdInsertMode, KbdPauseState, ScanToAscii, ScanToAsciiShift, ScanToAsciiCaps, ScanToAsciiCtrl, ScanToAsciiCapsShift
-extern ShadeTable, __MBCSTable, VideoCodeLengths, dword_16E32C, dword_16E330, dword_16E334, TimerTicks, GraphicsModeSet
-extern MousePresent, dword_16E464, dword_16E468, MenuScreenBitmap, ScreenModeWidth, ScreenModeHeight, str_D_UpdateFrameRate, MessageBoxActive
+extern ShadeTable, __MBCSTable, VideoCodeLengths, MemPoolEnd, MemPoolBase, MemPoolSize, TimerTicks, GraphicsModeSet
+extern MousePresent, ViewScreenWidth, ViewScreenHeight, MenuScreenBitmap, ScreenModeWidth, ScreenModeHeight, str_D_UpdateFrameRate, MessageBoxActive
 extern DebugMode, ScreenWidth, ClipTopRow, ClipLeftCol, ClipRight, ScreenHeight, ScreenBuffer, DrawDestBuffer
 extern DrawDestPitch, DrawDestOffset, BackBufferWidth, ExitHandler, RowTable, ResourceArchive, ResourceArchiveSize, ResourceArchiveData
 extern KeyedBlitState, FpuFlags, BiosKeyFunc, KbdHandlerInstalled, KeyBuffer, KeyBufferHead, KeyBufferTail, KeyBufferMask
@@ -20,12 +20,12 @@ extern SavedKbdVecOffset, SavedInt16Offset, SavedRealKbdOffset, AssertLine, Asse
 extern FrameRateCount, FrameRateStart, FrameRateTicks, FrameRateValue, FrameRateMin, FrameRateMax, PlatformState, PlatformFirstInit
 extern _fmode, StackLow, LoadFileHook, __MBCSFlag, _umaskval, __NHandles, VideoCodePtr, VideoBitCount
 extern VideoBitBuffer, VideoOutPtr, VideoBlockX, VideoBlockY, VideoBlockTemp, VideoBlockSum, VideoIdctScale, F32_0p541196
-extern F32_1p30656, F32_0p382683, F32_6p7554e15, dword_1CF260, dword_1CF264, dword_1CF268, TextOriginX, ModelSetupMode
+extern F32_1p30656, F32_0p382683, F32_6p7554e15, MemLockHandle, MemFreeStart, MemFreeBytes, TextOriginX, ModelSetupMode
 extern PrimColor, ModelFileCount, BitReaderPtr, BitReaderBits, VideoCodeTableA, VideoDecoderA, VideoCodeTableB, VideoGammaTable
 extern VideoDecoderB, VideoCodeTableC, FrameRateState, FrameRateSamples, FrameRateLast, VideoCoefs, MemPoolSizes, MemPoolTable
 extern MemPoolCount, PaletteWords, int386_, isatty_, memcpy_, KeyedRowFuncs, KeyDownTable, SerialPortTable
-extern SerialIsrPort1, SerialIsrPort2, ExitHook, Int23Hook, FpuExitHook, ArtConvertFuncs, VideoCodeJumpTable, off_19C6E2
-extern off_19C6E3, F64_0p1_ScaleModelVerts, F64_1p25_ScaleModelVerts, F64_0p5_ReadBits, sprintf_, strcat_, strcpy_, strlen_
+extern SerialIsrPort1, SerialIsrPort2, ExitHook, Int23Hook, FpuExitHook, ArtConvertFuncs, VideoCodeJumpTable, VideoCodeLengthsFrom2
+extern VideoCodeLengthsFrom1, F64_0p1_ScaleModelVerts, F64_1p25_ScaleModelVerts, F64_0p5_ReadBits, sprintf_, strcat_, strcpy_, strlen_
 extern strncpy_, LoadResourceData, bcopy, AddExitHandler, PresentScreen, ConvertArtPalette, Random32, VesaSetBank
 extern SetGraphicsMode, WritePaletteRegs, FreeRowTable, FillRowTable, BytesPerPixelForDepth, FileExistsPath, UnpackShared, DosOpenFile
 extern DosCloseFile, DosReadFile, DosSeekFile, SetViewScreenOrigin, SetCameraAngles, DrawPolyArray, ResetMemLock, MemLock
@@ -36,9 +36,9 @@ extern RegisterHotkey, SetScreenTarget, NoOpPlatformHook, AddMemRegion, AddMemRe
 extern AllocMemBlockMovable, AllocMemBlock, AllocMemBlockFull, FreeMemBlock, InitMemDescriptors, MemDescPtr, ZeroMem, SetKbdIdleHook
 extern InstallTimer, CurrentArchiveName, MakeColor, MouseInit, DebugSetLine, SelectFont, LoadDrawContext, ClearScreen
 extern FillPolygon, FillRectColor, SetTextColors, DrawTextBoxedAt, RefreshTextColors, MatTranspose, TransformVecs, VecAdd
-extern VecSub, AddVecs, VecCross, VecScale, VecNormalize, VecCrossUnit, unk_10003, DebugTagStr
+extern VecSub, AddVecs, VecCross, VecScale, VecNormalize, VecCrossUnit, CodeStartPad, DebugTagStr
 extern SerialPorts
-extern VideoOptionsText, unk_19CCB0, PartFuncTable, VideoCoefs
+extern VideoOptionsText, GripCallOffset, PartFuncTable, VideoCoefs
 extern VideoCoefs, VideoIdctTemp
 extern VideoIdctTemp
 extern VideoIdctTemp, VideoIdctOut
@@ -50,13 +50,13 @@ extern VideoIdctOut
 extern VideoIdctOut, StartupStack, vsprintf_, str_Punct_InitFpuFlags, SavedKbdVecSelector, SavedInt16Selector, SavedRealKbdSegment, KbdDataSelector
 extern SerialIrqMask, SerialBaudDivisors, KeyRowTable
 global __null_int23_exit_, __set_binary_, _dos_getdiskfree_, _exit_, _makepath_, _splitpath_, atoi_, close_
-global copypart_, exit_, getcwd_, jpt_114394, jpt_114B90, jpt_114CB4, PrimRectDebug_30, PrimTriTexCcw_6C
+global copypart_, exit_, getcwd_, DrawPrimListJumpTable, TransformModelPartsJumpTable, TransformModelPartsWithJumpTable, PrimRectDebug_30, PrimTriTexCcw_6C
 global PrimQuadDebugCcw_80, PrimQuadSplit_EC, PrimQuadTexCcw_6C, DrawPrimList_A3, DrawPrimList_D6, DrawPrimList_10C, DrawPrimList_1A6, DrawPrimList_39E
 global DrawPrimList_401, DrawPrimList_48F, DrawPrimList_53A, DrawPrimList_607, DrawPrimList_65B, DrawPrimList_6FD, TransformModelParts_5F, TransformModelParts_6C
 global TransformModelParts_D3, TransformModelParts_DF, TransformModelParts_EA, TransformModelParts_EF, TransformModelPartsWith_9F, TransformModelPartsWith_BF, TransformModelPartsWith_DD, AttachModelFrame_4C
 global FixedSinCos_70, BlitRowKey32_1C, start_74, start_28F, WriteConsoleMessage_23, ReadVideoCodes_5B, ReadVideoCodes_6B, ReadVideoCodes_7D
 global ReadVideoCodes_8A, ReadVideoCodes_D4, ReadVideoCodes_E6, ReadVideoCodes_115, SerialWriteIfRoom_20, SerialWrite_6, SerialRead_46, SerialISR_9
-global SerialISR_12, SerialISR_1B, SerialISR_85, unk_1193EA_10, _dos_getdiskfree__38, memset_, open_, pickup_
+global SerialISR_12, SerialISR_1B, SerialISR_85, SerialISR_B1, _dos_getdiskfree__38, memset_, open_, pickup_
 global sopen_, start, strncmp_, strnicmp_, strupr_, PrimRect, PrimRectDebug, PrimTriFlat
 global PrimTriLitCcw, PrimTriShade, PrimTriShadeBlend, PrimTriShadeCcw, PrimTriDebug, PrimTriDebugCw, PrimTriDebugCcw, CopyTriScreenVerts
 global TriVertsIfCw, TriVertsIfCcw, CopyTriTexVerts, TriTexVertsIfCw, TriTexVertsIfCcw, CopyTriShadeVerts, TriShadeVertsIfCw, TriShadeVertsIfCcw
@@ -76,8 +76,8 @@ global SerialCloseAll, SerialIsOpen, SerialSetBaud, SerialProgramUart, SerialRai
 global SerialRxCount, SerialTxFree, SerialFlushTx, SerialWaitTxEmpty, SerialRead, SerialFlushRx, SerialISR, LoadNamedResource
 global LoadNamedResourceEx, LoadNameFile, GrabLargestBlock, InitMemoryPool, InitMemoryPoolDefault, InitMemoryPoolArgs, ExitGraphics, FindDos4gw
 global InitPlatform, InstallErrorHandlers, CopyPixels8, CopyPixels16, CopyPixels24, CopyPixels32, ConvertArtAt, ConvertArtInPlace
-global ConvertArtXY, ConvertArtKeepPos, FormatString, SaveTextState, RestoreTextState, __saved_DS, unk_116427, unk_1166EF
-global unk_1193EA
+global ConvertArtXY, ConvertArtKeepPos, FormatString, SaveTextState, RestoreTextState, __saved_DS, RestoreDSEnd, IretStub
+global SerialIsrJumpTable
 ;-----------------------------------------------------------------------------
 ; strncmp_                                                     1131E4  library
 ;-----------------------------------------------------------------------------
@@ -2412,7 +2412,7 @@ PrimQuadRandomFillCcw:
         pop ecx
         pop ebx
         ret
-jpt_114394:
+DrawPrimListJumpTable:
         dd DrawPrimList_A3
         dd DrawPrimList_D6
         dd DrawPrimList_10C
@@ -2486,7 +2486,7 @@ DrawPrimList:
         mov dword [byte esp+0Ch], esi
         cmp edx, byte 0Fh
         ja near DrawPrimList_6FD
-        jmp dword [nosplit cs:edx*4+jpt_114394]
+        jmp dword [nosplit cs:edx*4+DrawPrimListJumpTable]
 DrawPrimList_A3:
         mov edx, dword [byte esp+014h]
         lea ecx, [byte edx+020h]
@@ -3120,7 +3120,7 @@ GetModelVertex:
         pop ecx
         ret
         db 08Bh,0C0h
-jpt_114B90:
+TransformModelPartsJumpTable:
         dd TransformModelParts_5F
         dd TransformModelParts_DF
         dd TransformModelParts_DF
@@ -3169,7 +3169,7 @@ TransformModelParts:
         sub eax, byte 5
         cmp eax, byte 0Bh
         ja near TransformModelParts_DF
-        jmp dword [nosplit cs:eax*4+jpt_114B90]
+        jmp dword [nosplit cs:eax*4+TransformModelPartsJumpTable]
 TransformModelParts_5F:
         mov eax, dword [edx]
         mov dword [byte eax+040h], ebx
@@ -3228,7 +3228,7 @@ TransformModelParts_EF:
         pop ecx
         ret
         db 08Bh,0C0h
-jpt_114CB4:
+TransformModelPartsWithJumpTable:
         dd TransformModelPartsWith_9F
         dd TransformModelPartsWith_DD
         dd TransformModelPartsWith_DD
@@ -3303,7 +3303,7 @@ TransformModelPartsWith:
         sub edx, byte 5
         cmp edx, byte 0Bh
         ja short TransformModelPartsWith_DD
-        jmp dword [nosplit cs:edx*4+jpt_114CB4]
+        jmp dword [nosplit cs:edx*4+TransformModelPartsWithJumpTable]
 TransformModelPartsWith_9F:
         mov edx, dword [byte esp+010h]
         shl eax, 3
@@ -5558,7 +5558,7 @@ start:
         db 065h,073h, start_74.6-($+3)
         jb short start_74.7
         db 065h,064h,02Eh,08Dh,040h,00h         ; insn: lea eax,[eax]
-        dd unk_10003
+        dd CodeStartPad
 start_74:
         arpl word [byte edi+06Eh], bp
         db 00h
@@ -5672,13 +5672,13 @@ start_74:
         mov byte [_Extender], al
         mov byte [_ExtenderSubtype], ah
         mov es, ebx
-        db 066h,026h,08Ch,01Dh                  ; insn: o16 mov [es:106425h],ds
+        db 066h,026h,08Ch,01Dh                  ; insn: o16 mov [es:__saved_DS],ds
         dd __saved_DS
         mov dword [_Envptr], esi
         mov word [_Envptr_w4], cx
         push esi
         o16 mov es, word [_psp]
-        db 03Eh,0BAh                            ; insn: mov edx,7EC00h
+        db 03Eh,0BAh                            ; insn: mov edx,StartupStack
         dd StartupStack
         add edx, byte 0Fh
         and dl, 0F0h
@@ -5733,10 +5733,10 @@ start_74:
         mov word [__no87], bp
         mov dword [_STACKLOW], edi
         mov dword [_dynend], ebx
-        db 03Eh,0B9h                            ; insn: mov ecx,7EC00h
+        db 03Eh,0B9h                            ; insn: mov ecx,StartupStack
         dd StartupStack
-        db 03Eh,0BFh                            ; insn: mov edi,3CCB0h
-        dd unk_19CCB0
+        db 03Eh,0BFh                            ; insn: mov edi,GripCallOffset
+        dd GripCallOffset
         sub ecx, edi
         cmp byte [_Extender], 1
         jne short .19
@@ -5751,7 +5751,7 @@ start_74:
         mov cl, dl
         and cl, 3
         rep stosb
-        db 03Eh,0B8h                            ; insn: mov eax,7EC00h
+        db 03Eh,0B8h                            ; insn: mov eax,StartupStack
         dd StartupStack
         add eax, byte 0Fh
         and al, 0F0h
@@ -5770,7 +5770,7 @@ start_28F:
 WriteConsoleMessage:
         push edx
         push eax
-        db 0BAh                                 ; insn: mov edx,1061C4h
+        db 0BAh                                 ; insn: mov edx,start_74
         dd start_74
         mov ax, 3D01h
         int 21h
@@ -5802,12 +5802,12 @@ WriteConsoleMessage_23:
 ; Loads the saved data segment (for interrupt handlers)
 ;-----------------------------------------------------------------------------
 RestoreDS:
-        db 066h,02Eh,08Eh,01Dh                  ; insn: o16 mov ds,[cs:106425h]
+        db 066h,02Eh,08Eh,01Dh                  ; insn: o16 mov ds,[cs:__saved_DS]
         dd __saved_DS
         ret
 __saved_DS:
         db 00h,00h
-unk_116427:
+RestoreDSEnd:
         db 00h
 ;-----------------------------------------------------------------------------
 ; InstallKeyboardHandler                         116428  97 PC, low confidence
@@ -5841,24 +5841,24 @@ InstallKeyboardHandler:
         mov word [SavedRealKbdSegment], dx
         mov dx, cs
         mov ebx, 9
-        db 0B8h                                 ; insn: mov eax,106559h
+        db 0B8h                                 ; insn: mov eax,KeyboardISR
         dd KeyboardISR
         call DosSetVector
         mov dx, cs
         mov ebx, 16h
-        db 0B8h                                 ; insn: mov eax,1066F0h
+        db 0B8h                                 ; insn: mov eax,Int16Handler
         dd Int16Handler
         mov dx, cs
         mov ebx, 23h
-        db 0B8h                                 ; insn: mov eax,1066EFh
-        dd unk_1166EF
+        db 0B8h                                 ; insn: mov eax,IretStub
+        dd IretStub
         call DosSetVector
         pop eax
         out 21h, al
-        db 0BBh                                 ; insn: mov ebx,10673Ah
+        db 0BBh                                 ; insn: mov ebx,Int16Service
         dd Int16Service
         mov dword [BiosKeyFunc], ebx
-        db 068h                                 ; insn: push 1064E8h
+        db 068h                                 ; insn: push RemoveKeyboardHandler
         dd RemoveKeyboardHandler
         call AddExitHandler
         add esp, byte 4
@@ -5893,7 +5893,7 @@ RemoveKeyboardHandler:
         and byte [0417h], 0F0h
         pop eax
         out 21h, al
-        db 0BBh                                 ; insn: mov ebx,1067BDh
+        db 0BBh                                 ; insn: mov ebx,BiosKeyCall
         dd BiosKeyCall
         mov dword [BiosKeyFunc], ebx
         popa
@@ -5918,7 +5918,7 @@ KeyboardISR:
         LD xor, eax, eax
         in al, 60h
         LD mov, ebx, eax
-        db 066h,02Eh,08Eh,01Dh                  ; insn: o16 mov ds,[cs:107F6h]
+        db 066h,02Eh,08Eh,01Dh                  ; insn: o16 mov ds,[cs:KbdDataSelector]
         dd KbdDataSelector
         mov byte [KbdPauseState], 0
         cmp byte [KbdPrefixByte], 0E0h
@@ -6037,7 +6037,7 @@ KeyboardISR:
         cmp dword [KbdHandlerInstalled], byte 0
         je near .7
         call dword [ExitHandler]
-unk_1166EF:
+IretStub:
         db 0CFh
 ;-----------------------------------------------------------------------------
 ; Int16Handler                                   1166F0  97 PC, low confidence
@@ -7518,7 +7518,7 @@ UpdateFrameRate:
         ret
         push ebx
         push byte 0
-        db 068h                                 ; insn: push 1069F0h
+        db 068h                                 ; insn: push PrintBoxedText
         dd PrintBoxedText
         mov edx, dword [ScreenModeHeight]
         push edx
@@ -7588,7 +7588,7 @@ ReadVideoCodes_7D:
         jmp short ReadVideoCodes_8A.2
 ReadVideoCodes_8A:
         mov dword [nosplit ebx*4+VideoCoefs], 0
-        mov bl, byte [dword edi+off_19C6E3]
+        mov bl, byte [dword edi+VideoCodeLengthsFrom1]
         dec edi
         mov dword [nosplit ebx*4+VideoCoefs], 0
 .2:
@@ -7611,7 +7611,7 @@ ReadVideoCodes_8A:
         ret
 ReadVideoCodes_D4:
         mov dword [nosplit ebx*4+VideoCoefs], 0
-        mov bl, byte [dword edi+off_19C6E3]
+        mov bl, byte [dword edi+VideoCodeLengthsFrom1]
         dec edi
 ReadVideoCodes_E6:
         LD mov, eax, ebp
@@ -7620,9 +7620,9 @@ ReadVideoCodes_E6:
         shr eax, 3
 .4:
         mov dword [nosplit ebx*4+VideoCoefs], edx
-        mov bl, byte [dword edi+off_19C6E3]
+        mov bl, byte [dword edi+VideoCodeLengthsFrom1]
         mov dword [nosplit ebx*4+VideoCoefs], edx
-        mov bl, byte [dword edi+off_19C6E2]
+        mov bl, byte [dword edi+VideoCodeLengthsFrom2]
         sub edi, byte 2
         dec eax
         jne short .4
@@ -9365,7 +9365,7 @@ SerialOpen:
         LD and, al, dl
         out 21h, al
         popf
-        db 068h                                 ; insn: push 108F67h
+        db 068h                                 ; insn: push SerialCloseAll
         dd SerialCloseAll
         call AddExitHandler
         add esp, byte 4
@@ -9965,7 +9965,7 @@ SerialISR_1B:
         push esi
         push edi
         push ds
-        db 066h,02Eh,0A1h                       ; insn: mov ax,[cs:10B24h]
+        db 066h,02Eh,0A1h                       ; insn: mov ax,[cs:SerialIrqMask]
         dd SerialIrqMask
         mov ds, ax
         inc dword [byte ebx+044h]
@@ -9976,7 +9976,7 @@ SerialISR_1B:
         in al, dx
         test al, 1
         je short SerialISR_85.2
-        jmp short unk_1193EA_10
+        jmp short SerialISR_B1
         db 01Fh,05Fh,05Eh,05Ah,059h,058h,03Bh,01Dh
         dd SerialPortTable
         db 075h,08h,05Bh,0EAh
@@ -9998,21 +9998,18 @@ SerialISR_85:
         LD xor, eax, eax
         in al, dx
         test al, 1
-        jne short unk_1193EA_10
+        jne short SerialISR_B1
 .2:
         LD mov, esi, eax
         and esi, byte 6
-        db 02Eh,0FFh,024h,075h                  ; insn: jmp dword [cs:esi*2+1093EAh]
-        dd unk_1193EA
-unk_1193EA:
-        dd unk_1193EA_10.1
-        dd unk_1193EA_10.6
-        dd unk_1193EA_10.12
-        dd unk_1193EA_10.12
-;-----------------------------------------------------------------------------
-; unk_1193EA_10                                                       1193FA  
-;-----------------------------------------------------------------------------
-unk_1193EA_10:
+        db 02Eh,0FFh,024h,075h                  ; insn: jmp dword [cs:esi*2+SerialIsrJumpTable]
+        dd SerialIsrJumpTable
+SerialIsrJumpTable:
+        dd SerialISR_B1.1
+        dd SerialISR_B1.6
+        dd SerialISR_B1.12
+        dd SerialISR_B1.12
+SerialISR_B1:
         mov al, 20h
         out 20h, al
         pop ds
@@ -10531,7 +10528,7 @@ InitMemoryPool:
         call ResetMemLock
         push eax
         mov ebx, 40h
-        mov dword [dword_1CF260], eax
+        mov dword [MemLockHandle], eax
         call MemLock
         add esp, byte 4
         mov eax, MemPoolTable
@@ -10584,33 +10581,33 @@ InitMemoryPool:
         and al, 0F0h
         inc ebp
         call _nmalloc_
-        mov dword [dword_16E330], eax
+        mov dword [MemPoolBase], eax
         mov dword [nosplit ebp*4+MemPoolSizes], eax
-        mov ebx, dword [dword_16E330]
+        mov ebx, dword [MemPoolBase]
         lea eax, [ebx+edx]
         mov edx, dword [byte esp+058h]
         lea edi, [nosplit edx*4+00h]
         push edx
         push ebx
-        mov dword [dword_16E32C], eax
+        mov dword [MemPoolEnd], eax
         add edi, edx
         call InitMemDescriptors
         add esp, byte 8
         push byte 0
         push byte 0
         push byte 10h
-        mov eax, dword [dword_16E32C]
+        mov eax, dword [MemPoolEnd]
         push byte 10h
         shl edi, 3
         push eax
-        mov eax, dword [dword_16E330]
+        mov eax, dword [MemPoolBase]
         add eax, edi
         push eax
         push byte 0
         push str_MBRAM2
         call AddMemRegion
-        mov edi, dword [dword_16E32C]
-        mov edx, dword [dword_16E330]
+        mov edi, dword [MemPoolEnd]
+        mov edx, dword [MemPoolBase]
         add esp, byte 20h
         sub edi, edx
         mov ebx, dword [byte esp+068h]
@@ -10635,14 +10632,14 @@ InitMemoryPool:
         mov ebx, dword [byte esp+064h]
         sub eax, edx
         mov word [byte esp+01Ch], cx
-        mov dword [dword_16E334], eax
+        mov dword [MemPoolSize], eax
         test ebx, ebx
         je short .9
         cmp eax, ebx
         jle short .9
-        mov dword [dword_16E334], ebx
+        mov dword [MemPoolSize], ebx
 .9:
-        mov eax, dword [dword_16E334]
+        mov eax, dword [MemPoolSize]
         test eax, eax
         jg short .10
         xor eax, eax
@@ -10667,7 +10664,7 @@ InitMemoryPool:
         xor eax, eax
         mov ax, word [byte esp+04h]
         shl eax, 4
-        mov dword [dword_16E334], eax
+        mov dword [MemPoolSize], eax
 .11:
         cmp dword [byte esp+068h], byte 0
         je short .12
@@ -10766,7 +10763,7 @@ InitMemoryPool:
         call AddHighMemRegion
         add esp, byte 10h
 .18:
-        mov ecx, dword [dword_16E334]
+        mov ecx, dword [MemPoolSize]
         test ecx, ecx
         jle short .19
         push byte 0
@@ -10796,11 +10793,11 @@ InitMemoryPool:
         mov word [byte esp+01Ch], cx
         call int386_
 .20:
-        mov ecx, dword [dword_1CF260]
+        mov ecx, dword [MemLockHandle]
         mov ebx, 0A0000h
         push ecx
-        mov dword [dword_1CF268], edi
-        mov dword [dword_1CF264], ebx
+        mov dword [MemFreeBytes], edi
+        mov dword [MemFreeStart], ebx
         call MemUnlock
         add esp, byte 4
         mov eax, edi
@@ -11269,7 +11266,7 @@ InitPlatform:
         call FindDos4gw
         add esp, byte 4
 .1:
-        cmp dword [dword_16E330], byte 0
+        cmp dword [MemPoolBase], byte 0
         jne short .2
         push dword 0C8h
         call InitMemoryPoolDefault
@@ -11283,16 +11280,16 @@ InitPlatform:
         test esi, esi
         jne short .3
         call SaveTextScreen
-        db 068h                                 ; insn: push 109F20h
+        db 068h                                 ; insn: push ExitGraphics
         dd ExitGraphics
         mov dword [PlatformState], eax
         call AddExitHandler
         add esp, byte 4
         mov edi, dword [MenuScreenBitmap]
         push edi
-        mov ebp, dword [dword_16E468]
+        mov ebp, dword [ViewScreenHeight]
         push ebp
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         push eax
         call SetGraphicsMode
         add esp, byte 0Ch
@@ -11334,9 +11331,9 @@ InitPlatform:
         call SetKbdIdleHook
         add esp, byte 4
         call InstallErrorHandlers
-        mov ebx, dword [dword_16E468]
+        mov ebx, dword [ViewScreenHeight]
         push ebx
-        mov ecx, dword [dword_16E464]
+        mov ecx, dword [ViewScreenWidth]
         push ecx
         push byte 14h
         push byte 1Eh

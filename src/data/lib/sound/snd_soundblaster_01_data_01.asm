@@ -5,7 +5,7 @@ section s_1680A4 progbits alloc noexec write align=1
 global _IsTable, str_DMA, str_IRQ, str_SBIRQ, str_SBEnable, str_FALSE, str_WavePort, str_ExitYN
 global str_UnableToAllocateRealModeS, str_UnableToSetLimitOfRealMod, str_In, str_ABNORMALTERMINATION, ScanBitMasks, str_Inf, str_Nan, HugeValHi
 global RunTimeErrorMessages, F64_1eneg08, F64_neg1_floor_, HugeValLo, str_BLASTER, str_FloatingPointSupportNot, str_NotEnoughMemoryTo, str_PAUSEPRESSANYKEY
-global str_RATIONALDOS4G, str_RMHandler, str_SaveText, str_Punct_IniFindKey, unk_168184, str_Asin, str_Sqrt, str_Exp
+global str_RATIONALDOS4G, str_RMHandler, str_SaveText, str_Punct_IniFindKey, str_Acos_MathErr, str_Asin, str_Sqrt, str_Exp
 global str_Cosh, str_Sinh, str_Pow, str_Acosh, str_Log2, str_Log, str_Log10, str_Atanh
 global str_Atan2, str_Ipow, str_Dpowi, str_Cos, str_Sin, str_Tan, str_Y0, str_Y1
 global str_Yn, str_Mod, str_Cotan, str_ULTRASND, str_DomainError, str_ArgumentSingularity, str_OverflowRangeError, str_UnderflowRangeError
@@ -45,7 +45,7 @@ str_RATIONALDOS4G:
         db 052h,041h,054h,049h,04Fh,04Eh,041h,04Ch,020h,044h,04Fh,053h,02Fh,034h,047h,00h
 F64_1eneg08:
         db 03Ah,08Ch,030h,0E2h,08Eh,079h,045h,03Eh
-unk_168184:
+str_Acos_MathErr:
         db 061h,063h,06Fh,073h,00h
 str_Asin:
         db 061h,073h,069h,06Eh,00h

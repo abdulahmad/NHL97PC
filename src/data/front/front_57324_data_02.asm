@@ -34,7 +34,7 @@ extern str_HIGHST, str_ELBOWR, str_ELBOWL, str_HIPR, str_HIPL, str_SHOULR, str_S
 extern str_POKECH, str_PkGlid, str_Setpos, str_Relaxset, str_Buterfl, str_Casual, str_HugL, str_HugR
 extern str_GLIDEL, str_GLIDER, str_PturnL, str_PturnR, str_Getset, str_Intobut, str_Butset, str_Po2poL
 extern str_Po2poR, str_Bt2relbt, str_Bt2chest, str_Fr24, str_R24, str_L24, str_All42but, str_GetupF
-extern str_GetupS, str_GetupL, str_GetupR, str_HitF, str_HitL, str_HitR, unk_16228C, str_Sk8
+extern str_GetupS, str_GetupL, str_GetupR, str_HitF, str_HitL, str_HitR, str_startF, str_Sk8
 extern str_StepL, str_StepR, str_BigstpL, str_BigstpR, str_StepFL, str_StepFR, str_StepbkL, str_StepbkR
 extern str_Snowpl, str_Icing, str_DropL, str_DropR, str_DropF, str_Chuckpuk, str_Lookhand, str_Juggle
 extern str_Twitch, str_Bang, str_Post, str_LookL, str_LookR, str_CaslooL, str_CaslooR, str_WtonL
@@ -58,23 +58,23 @@ extern str_ClUnspo, str_ClPenal, str_READY, str_THRWGLVS, str_JABBED, str_JABEDN
 extern str_HOKEDUP, str_HOKEDBK, str_GETUPBK, str_GRAB, str_GRABBED, str_GRABJAB, str_GRABHOK, str_GRBDJBD
 extern str_GRBDHKD, str_GRJBDND, str_GRHKDND, str_SHFLFWD, str_SHFLBKW, str_PULLJER, str_JERPULD, str_PULLJHK
 extern str_JPLDHKD, str_PLDHKDD, str_BRKGRAB, str_RLSGRAB, str_MISGRAB, str_BRKPULJ, str_RLSPULJ, str_UP
-extern str_THGLVOD, str_CUPSK8, str_CUPCASK, str_CUPKISS, str_CUPUPDW, str_CUPGLAU, str_CUPGLAD, unk_162A48
-extern str_Lhand, unk_162A58, str_Sticktip, str_Lknee, str_Lankle, str_Rknee, str_Rankle, str_Pelvis
-extern unk_162A98, unk_162AA0, str_Lelbow, str_Relbow, unk_162AB8, unk_162AC0
-global byte_16C429, F32_1, dword_16B1A4, dword_16B1A8, dword_16B3F4, dword_16B550, dword_16B724, dword_16B72C
-global str_Punct_LoadAnimData, dword_16C360, dword_16C364, dword_16C368, dword_16C374, dword_16C384, dword_16C388, dword_16C38C
-global dword_16C390, dword_16C394, dword_16C398, dword_16C39C, dword_16C3A0, dword_16C3A4, dword_16C3A8, dword_16C3AC
-global dword_16C3B0, dword_16C3F0, dword_16C54C, dword_16C550, dword_16C55C, dword_16C568, dword_16C574, dword_16C580
-global dword_16C58C, dword_16C618, dword_16C63C, dword_16C648, F32_7p84727eneg44, F32_0, dword_16C6B0, dword_16C6B4
-global dword_16C6B8, dword_16C6BC, str_D_SimulateGame, dword_16C730, off_16B6F8, off_16B708, off_16B738, off_16B7CC
-global off_16B830, off_16B8C0, off_16B958, off_16B9A4, off_16BB54, off_16BC44, off_16BC5C, off_16BC98
-global off_16BD14, off_16BD2C, off_16C3B4, unk_16B51C, unk_16B534, unk_16B558, unk_16B590, unk_16B5C8
-global unk_16B600, unk_16B638, unk_16B668, unk_16B698, unk_16B6C8, unk_16B718, unk_16B728, unk_16C338
+extern str_THGLVOD, str_CUPSK8, str_CUPCASK, str_CUPKISS, str_CUPUPDW, str_CUPGLAU, str_CUPGLAD, str_rhand
+extern str_Lhand, str_stickheel, str_Sticktip, str_Lknee, str_Lankle, str_Rknee, str_Rankle, str_Pelvis
+extern str_back, str_chin, str_Lelbow, str_Relbow, str_lshldr, str_rshldr
+global MoveContactFlags, F32_1, LetterOffsets, LetterMasks, LetterColors, SeatModelsUsed, ReplayStatesSet, F32_ViewAngle
+global str_Punct_LoadAnimData, MoveState, PlayerAnimBase, PlayerAnimSize, PlayerAnimScale, PlayerAnimMove, SkateAnimData, ShotAnimData
+global ActAnimData, FallAnimData, InterferAnimData, GoalieAnimDataPtr, RefSkateAnimData, RefAmbiAnimData, RefCallAnimData, FightAnimData
+global CupAnimData, MoveAnimIds, SpaEnabled, IdleAnims, AnimPointUnset, CollideAnimsFront, CollideAnimsSide, CollideAnimsBack
+global RefGoalLineAnims, BlockShotAnims, BlockShotMoveLeft, BlockShotMoveRight, F32_7p84727eneg44, F32_0, ClockDataTicks, ClockDataRate
+global ClockDataBase, CupCelebrationActive, str_D_SimulateGame, SimGameResult, ModelPartLinksLeft, ModelPartLinksRight, SkateAnimNames, ShotAnimNames
+global ActAnimNames, FallAnimNames, InterferAnimNames, GoalieAnimNames, RefSkateAnimNames, RefAmbiAnimNames, RefCallAnimNames, FightAnimNames
+global CupAnimNames, MoveFuncTable, AnimPointNames, TeamColorTable, TeamColorRanges, ModelPartLinkRows
+global MarkerColors, ReplayFrameMarker, AnimPointTable
 F32_1:
         db 00h,00h,080h,03Fh
-dword_16B1A4:
+LetterOffsets:
         db 0FFh,0FFh,0FFh,0FFh
-dword_16B1A8:
+LetterMasks:
         db 0FFh,0FFh,00h,0FFh,02Dh,0Eh,030h,0FFh,039h,059h,0Bh,0FFh,0FFh,0FFh,0FFh,0FFh
         db 039h,059h,0Bh,0FFh,00h,00h,00h,0FFh,01h,0A8h,0FEh,0FFh,01h,0A8h,0FEh,0FFh
         db 0FFh,0FFh,0FFh,0FFh,00h,00h,00h,0FFh,00h,00h,0BBh,0FFh,0FFh,0FFh,0FFh,0FFh
@@ -112,7 +112,7 @@ dword_16B1A8:
         db 00h,00h,0C2h,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,08h,00h,0D8h,0FFh
         db 05Eh,022h,07h,0FFh,0FFh,0FFh,0FFh,0FFh,08h,00h,0D8h,0FFh,08Eh,033h,0Ah,0FFh
         db 00h,0C0h,0E1h,0FFh,00h,0C0h,0E1h,0FFh,0FFh,0FFh,0FFh,0FFh
-dword_16B3F4:
+LetterColors:
         db 00h,00h,0FFh,0FFh,02Dh,0Eh,030h,0FFh,0FFh,0FFh,0FFh,0FFh,00h,00h,00h,0FFh
         db 01h,0A8h,0FEh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,00h,00h,0FFh,0FFh
         db 0FFh,0FFh,0FFh,0FFh,00h,00h,00h,0FFh,0FFh,0FFh,0FFh,0FFh,062h,030h,0Fh,0FFh
@@ -132,69 +132,62 @@ dword_16B3F4:
         db 00h,00h,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,00h,00h,0C2h,0FFh,0FFh,0FFh,0FFh,0FFh
         db 00h,00h,0C2h,0FFh,0FFh,0FFh,0FFh,0FFh,08h,00h,0D8h,0FFh,0FFh,0FFh,0FFh,0FFh
         db 08Eh,033h,0Ah,0FFh,00h,0C0h,0E1h,0FFh
-unk_16B51C:
+TeamColorTable:
         db 0FFh,00h,00h,031h,086h,0FFh,031h,0EFh,018h,0FFh,0EFh,08h,0FFh,059h,00h,0FFh
         db 010h,0F7h,0DFh,041h,0D7h,00h,0EFh,0EFh
-unk_16B534:
+TeamColorRanges:
         db 096h,00h,00h,020h,051h,0B4h,018h,097h,010h,0B2h,0AAh,00h,09Eh,039h,00h,09Ch
         db 00h,094h,071h,020h,069h,00h,071h,071h,0E4h,0CEh,05h,00h
-dword_16B550:
+SeatModelsUsed:
         db 00h,00h,00h,00h,01h,00h,00h,00h
-unk_16B558:
+ModelPartLinkRows:
         db 0E2h,0FFh,0FFh,0FFh,0E2h,0FFh,0FFh,0FFh,0F6h,0FFh,0FFh,0FFh,0F6h,0FFh,0FFh,0FFh
         db 046h,00h,00h,00h,046h,00h,00h,00h,050h,00h,00h,00h,050h,00h,00h,00h
         db 0CEh,0FFh,0FFh,0FFh,0CEh,0FFh,0FFh,0FFh,0E2h,0FFh,0FFh,0FFh,0E2h,0FFh,0FFh,0FFh
         db 03Ch,00h,00h,00h,03Ch,00h,00h,00h
-unk_16B590:
         db 01Eh,00h,00h,00h,01Eh,00h,00h,00h,0Ah,00h,00h,00h,0Ah,00h,00h,00h
         db 032h,00h,00h,00h,032h,00h,00h,00h,03Ch,00h,00h,00h,03Ch,00h,00h,00h
         db 032h,00h,00h,00h,032h,00h,00h,00h,01Eh,00h,00h,00h,01Eh,00h,00h,00h
         db 032h,00h,00h,00h,032h,00h,00h,00h
-unk_16B5C8:
         db 0E2h,0FFh,0FFh,0FFh,0Ah,00h,00h,00h,0F6h,0FFh,0FFh,0FFh,0Ah,00h,00h,00h
         db 032h,00h,00h,00h,046h,00h,00h,00h,03Ch,00h,00h,00h,050h,00h,00h,00h
         db 0E2h,0FFh,0FFh,0FFh,01Eh,00h,00h,00h,0E2h,0FFh,0FFh,0FFh,014h,00h,00h,00h
         db 032h,00h,00h,00h,046h,00h,00h,00h
-unk_16B600:
         db 0E2h,0FFh,0FFh,0FFh,0Ah,00h,00h,00h,0F6h,0FFh,0FFh,0FFh,0Ah,00h,00h,00h
         db 046h,00h,00h,00h,032h,00h,00h,00h,050h,00h,00h,00h,03Ch,00h,00h,00h
         db 01Eh,00h,00h,00h,0E2h,0FFh,0FFh,0FFh,014h,00h,00h,00h,0E2h,0FFh,0FFh,0FFh
         db 046h,00h,00h,00h,032h,00h,00h,00h
-unk_16B638:
         db 0E2h,0FFh,0FFh,0FFh,0E2h,0FFh,0FFh,0FFh,0F6h,0FFh,0FFh,0FFh,0F6h,0FFh,0FFh,0FFh
         db 046h,00h,00h,00h,046h,00h,00h,00h,0F6h,0FFh,0FFh,0FFh,0F6h,0FFh,0FFh,0FFh
         db 0CEh,0FFh,0FFh,0FFh,0CEh,0FFh,0FFh,0FFh,0E2h,0FFh,0FFh,0FFh,0E2h,0FFh,0FFh,0FFh
-unk_16B668:
         db 01Eh,00h,00h,00h,01Eh,00h,00h,00h,014h,00h,00h,00h,014h,00h,00h,00h
         db 028h,00h,00h,00h,028h,00h,00h,00h,032h,00h,00h,00h,032h,00h,00h,00h
         db 0Ah,00h,00h,00h,0Ah,00h,00h,00h,01Eh,00h,00h,00h,01Eh,00h,00h,00h
-unk_16B698:
         db 0E2h,0FFh,0FFh,0FFh,0F6h,0FFh,0FFh,0FFh,0F6h,0FFh,0FFh,0FFh,0Ah,00h,00h,00h
         db 03Ch,00h,00h,00h,050h,00h,00h,00h,0F6h,0FFh,0FFh,0FFh,01Eh,00h,00h,00h
         db 0CEh,0FFh,0FFh,0FFh,0E2h,0FFh,0FFh,0FFh,0E2h,0FFh,0FFh,0FFh,0E2h,0FFh,0FFh,0FFh
-unk_16B6C8:
         db 0F6h,0FFh,0FFh,0FFh,0E2h,0FFh,0FFh,0FFh,0Ah,00h,00h,00h,0F6h,0FFh,0FFh,0FFh
         db 050h,00h,00h,00h,03Ch,00h,00h,00h,01Eh,00h,00h,00h,0F6h,0FFh,0FFh,0FFh
         db 0E2h,0FFh,0FFh,0FFh,0CEh,0FFh,0FFh,0FFh,0E2h,0FFh,0FFh,0FFh,0E2h,0FFh,0FFh,0FFh
-off_16B6F8:
-        dd unk_16B668
-        dd unk_16B698
-        dd unk_16B638
-        dd unk_16B6C8
-off_16B708:
-        dd unk_16B590
-        dd unk_16B5C8
-        dd unk_16B558
-        dd unk_16B600
-unk_16B718:
+ModelPartLinksLeft:
+        dd ModelPartLinkRows+110h
+        dd ModelPartLinkRows+140h
+        dd ModelPartLinkRows+0E0h
+        dd ModelPartLinkRows+170h
+ModelPartLinksRight:
+        dd ModelPartLinkRows+38h
+        dd ModelPartLinkRows+70h
+        dd ModelPartLinkRows
+        dd ModelPartLinkRows+0A8h
+MarkerColors:
         db 02h,00h,00h,00h,03h,00h,00h,00h,00h,00h,00h,00h
-dword_16B724:
+ReplayStatesSet:
         db 00h,00h,00h,00h
-unk_16B728:
+ReplayFrameMarker:
         db 0F2h,0FFh,04h,00h
-dword_16B72C:
+F32_ViewAngle:
         db 0DBh,0Fh,0C9h,03Eh,00h,0C8h,02Fh,040h,00h,040h,09Ch,03Eh
-off_16B738:
+SkateAnimNames:
         dd str_BASEPOS
         dd str_Standing
         dd str_Glide
@@ -232,7 +225,7 @@ off_16B738:
         dd str_BcsovR
         dd str_AcclL
         dd str_AcclR
-off_16B7CC:
+ShotAnimNames:
         dd str_PFHSW
         dd str_PFHFWD
         dd str_PBKHSW
@@ -258,7 +251,7 @@ off_16B7CC:
         dd str_PSTARTF
         dd str_PACCLL
         dd str_PACCLR
-off_16B830:
+ActAnimNames:
         dd str_BENCICE
         dd str_ICEBENC
         dd str_GOPENAL
@@ -295,7 +288,7 @@ off_16B830:
         dd str_SINGAD
         dd str_SINGAU
         dd str_HURDAL
-off_16B8C0:
+FallAnimNames:
         dd str_HIPHITR
         dd str_HIPHITL
         dd str_HIHITR
@@ -334,7 +327,7 @@ off_16B8C0:
         dd str_SPINL
         dd str_SPINR
         dd str_SPINB
-off_16B958:
+InterferAnimNames:
         dd str_HOLD
         dd str_HOOKR
         dd str_HOOKL
@@ -354,7 +347,7 @@ off_16B958:
         dd str_SHOULL
         dd str_SHOULF
         dd str_POKECH
-off_16B9A4:
+GoalieAnimNames:
         dd str_Glide
         dd str_PkGlid
         dd str_Setpos
@@ -385,7 +378,7 @@ off_16B9A4:
         dd str_HitF
         dd str_HitL
         dd str_HitR
-        dd unk_16228C
+        dd str_startF
         dd str_Sk8
         dd str_StepL
         dd str_StepR
@@ -463,7 +456,7 @@ off_16B9A4:
         dd str_Btcover
         dd str_Btcover
         dd str_Btcover
-off_16BB54:
+RefSkateAnimNames:
         dd str_RefGlid
         dd str_RfGldau
         dd str_RefStnd
@@ -524,14 +517,14 @@ off_16BB54:
         dd str_RbcsvLa
         dd str_RbcsovR
         dd str_RbcsvRa
-off_16BC44:
+RefAmbiAnimNames:
         dd str_ADropuk
         dd str_APikpuk
         dd str_RefGetp
         dd str_ClGoal
         dd str_ClIcing
         dd str_ClWsnog
-off_16BC5C:
+RefCallAnimNames:
         dd str_ClCharg
         dd str_ClBoard
         dd str_ClElbow
@@ -547,7 +540,7 @@ off_16BC5C:
         dd str_ClSpear
         dd str_ClUnspo
         dd str_ClPenal
-off_16BC98:
+FightAnimNames:
         dd str_READY
         dd str_THRWGLVS
         dd str_JABBED
@@ -579,14 +572,14 @@ off_16BC98:
         dd str_RLSPULJ
         dd str_UP
         dd str_THGLVOD
-off_16BD14:
+CupAnimNames:
         dd str_CUPSK8
         dd str_CUPCASK
         dd str_CUPKISS
         dd str_CUPUPDW
         dd str_CUPGLAU
         dd str_CUPGLAD
-off_16BD2C:
+MoveFuncTable:
         dd SkateForwardMove
         dd SkateForwardMove
         dd SkateForwardMove
@@ -971,64 +964,64 @@ off_16BD2C:
         db 029h,00h,00h,00h,02Ah,00h,00h,00h,02Bh,00h,00h,00h
 str_Punct_LoadAnimData:
         db 02Ch,00h,00h,00h,02Eh,00h,00h,00h,02Fh,00h,00h,00h
-unk_16C338:
+AnimPointTable:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,080h,03Fh,00h,00h,080h,03Fh,00h,00h,080h,03Fh
         db 00h,00h,080h,03Fh,00h,00h,00h,00h
-dword_16C360:
+MoveState:
         db 00h,00h,00h,00h
-dword_16C364:
+PlayerAnimBase:
         db 00h,00h,00h,00h
-dword_16C368:
+PlayerAnimSize:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-dword_16C374:
+PlayerAnimScale:
         db 00h,00h,080h,03Fh,00h,00h,080h,03Fh,00h,00h,080h,03Fh,00h,00h,080h,03Fh
-dword_16C384:
+PlayerAnimMove:
         db 00h,00h,00h,00h
-dword_16C388:
+SkateAnimData:
         db 00h,00h,00h,00h
-dword_16C38C:
+ShotAnimData:
         db 00h,00h,00h,00h
-dword_16C390:
+ActAnimData:
         db 00h,00h,00h,00h
-dword_16C394:
+FallAnimData:
         db 00h,00h,00h,00h
-dword_16C398:
+InterferAnimData:
         db 00h,00h,00h,00h
-dword_16C39C:
+GoalieAnimDataPtr:
         db 00h,00h,00h,00h
-dword_16C3A0:
+RefSkateAnimData:
         db 00h,00h,00h,00h
-dword_16C3A4:
+RefAmbiAnimData:
         db 00h,00h,00h,00h
-dword_16C3A8:
+RefCallAnimData:
         db 00h,00h,00h,00h
-dword_16C3AC:
+FightAnimData:
         db 00h,00h,00h,00h
-dword_16C3B0:
+CupAnimData:
         db 00h,00h,00h,00h
-off_16C3B4:
-        dd unk_162A48
+AnimPointNames:
+        dd str_rhand
         dd str_Lhand
-        dd unk_162A58
+        dd str_stickheel
         dd str_Sticktip
         dd str_Lknee
         dd str_Lankle
         dd str_Rknee
         dd str_Rankle
         dd str_Pelvis
-        dd unk_162A98
-        dd unk_162AA0
+        dd str_back
+        dd str_chin
         dd str_Lelbow
         dd str_Relbow
-        dd unk_162AB8
-        dd unk_162AC0
-dword_16C3F0:
+        dd str_lshldr
+        dd str_rshldr
+MoveAnimIds:
         db 0D6h,00h,00h,00h,0D7h,00h,00h,00h,0D8h,00h,00h,00h,0D9h,00h,00h,00h
         db 0DAh,00h,00h,00h,0DBh,00h,00h,00h,0DCh,00h,00h,00h,0DDh,00h,00h,00h
         db 0DEh,00h,00h,00h,0DFh,00h,00h,00h,0E0h,00h,00h,00h,0E1h,00h,00h,00h
         db 0E2h,00h,00h,00h,0E3h,00h,00h,00h,02h
-byte_16C429:
+MoveContactFlags:
         db 01h,00h,00h,0E6h,00h,00h,00h,0E7h,00h,00h,00h,0E8h,00h,00h,00h,0EBh
         db 00h,00h,00h,0ECh,00h,00h,00h,0A8h,00h,00h,00h,0EDh,00h,00h,00h,0EEh
         db 00h,00h,00h,0EFh,00h,00h,00h,0F0h,00h,00h,00h,0F1h,00h,00h,00h,0F3h
@@ -1048,19 +1041,19 @@ byte_16C429:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h
-dword_16C54C:
+SpaEnabled:
         db 01h,00h,00h,00h
-dword_16C550:
+IdleAnims:
         db 06h,00h,00h,00h,05h,00h,00h,00h,04h,00h,00h,00h
-dword_16C55C:
+AnimPointUnset:
         db 0FFh,0FFh,0FFh,0FFh,08Eh,00h,00h,00h,099h,00h,00h,00h
-dword_16C568:
+CollideAnimsFront:
         db 092h,00h,00h,00h,090h,00h,00h,00h,091h,00h,00h,00h
-dword_16C574:
+CollideAnimsSide:
         db 08Ch,00h,00h,00h,097h,00h,00h,00h,093h,00h,00h,00h
-dword_16C580:
+CollideAnimsBack:
         db 08Dh,00h,00h,00h,098h,00h,00h,00h,094h,00h,00h,00h
-dword_16C58C:
+RefGoalLineAnims:
         db 0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh
         db 047h,01h,00h,00h,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh
         db 0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,0FFh,048h,01h,00h,00h
@@ -1070,13 +1063,13 @@ dword_16C58C:
         db 051h,01h,00h,00h,04Ah,01h,00h,00h,04Ah,01h,00h,00h,0FFh,0FFh,0FFh,0FFh
         db 053h,01h,00h,00h,0FFh,0FFh,0FFh,0FFh,056h,01h,00h,00h,0FFh,0FFh,0FFh,0FFh
         db 04Eh,01h,00h,00h,055h,01h,00h,00h,057h,01h,00h,00h
-dword_16C618:
+BlockShotAnims:
         db 0CBh,00h,00h,00h,0CCh,00h,00h,00h,0CDh,00h,00h,00h,0D1h,00h,00h,00h
         db 0D0h,00h,00h,00h,0D3h,00h,00h,00h,0D2h,00h,00h,00h,0D5h,00h,00h,00h
         db 01h,01h,00h,00h
-dword_16C63C:
+BlockShotMoveLeft:
         db 0C8h,00h,00h,00h,0C9h,00h,00h,00h,0CAh,00h,00h,00h
-dword_16C648:
+BlockShotMoveRight:
         db 0D4h,00h,00h,00h,0CFh,00h,00h,00h,0CEh,00h,00h,00h
 F32_7p84727eneg44:
         db 038h,00h,00h,00h,03Ch,00h,00h,00h,044h,00h,00h,00h,00h,00h,00h,00h
@@ -1086,13 +1079,13 @@ F32_0:
         db 081h,080h,080h,03Bh,020h,040h,00h,03Bh,08h,020h,080h,03Ah,02h,010h,00h,03Ah
         db 01h,08h,080h,039h,00h,04h,00h,039h,00h,02h,080h,038h,00h,01h,00h,038h
         db 01h,00h,00h,00h,01h,00h,00h,00h,0FFh,0FFh,0FFh,0FFh
-dword_16C6B0:
+ClockDataTicks:
         db 00h,00h,00h,00h
-dword_16C6B4:
+ClockDataRate:
         db 00h,00h,0A0h,041h
-dword_16C6B8:
+ClockDataBase:
         db 00h,00h,00h,00h
-dword_16C6BC:
+CupCelebrationActive:
         db 00h,00h,00h,00h
 str_D_SimulateGame:
         db 064h,00h,00h,00h,064h,00h,00h,00h,04Bh,00h,00h,00h,064h,00h,00h,00h
@@ -1102,5 +1095,5 @@ str_D_SimulateGame:
         db 04Bh,00h,00h,00h,064h,00h,00h,00h,064h,00h,00h,00h,064h,00h,00h,00h
         db 064h,00h,00h,00h,064h,00h,00h,00h,05Ah,00h,00h,00h,064h,00h,00h,00h
         db 05Ah,00h,00h,00h,055h,00h,00h,00h,064h,00h,00h,00h,064h,00h,00h,00h
-dword_16C730:
+SimGameResult:
         db 00h,00h,00h,00h

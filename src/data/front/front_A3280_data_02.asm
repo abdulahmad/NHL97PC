@@ -3,67 +3,67 @@ bits 32
 %include "hockey.inc"
 section s_16D25C progbits alloc noexec write align=1
 extern str_OKAYMAN, str_GETBENT, str_IPASS
-global byte_16D27A, byte_16D2A2, dword_16D29E, dword_16D2A8, dword_16D2B8, dword_16D2BC, dword_16D2CC, dword_16D2EC
-global dword_16D30C, dword_16D34C, dword_16D350, dword_16D360, dword_16D400, dword_16D404, unk_16D262, str_S_RunLinkGameScreens
-global word_16D25C, word_16D25E, word_16D260, word_16D27E, word_16D28C, word_16D29C, word_16D2A6, word_16D2AC
-global word_16D2B0, word_16D2B2, word_16D2B4, word_16D408
-word_16D25C:
+global LinkButtonLetters, LinkSetupCursorFlags, LinkSetupMaxPlayers, LinkSetupSoundTick, LinesChangedInGame, InIntermission, HomeUserSlot, AwayUserSlot
+global PlayoffRoundSlots, PlayoffRoundGames, PlayoffWinsNeeded, PlayoffPairings, StatsColumn, StatsPlayoffMode, LinkSetupShapeName, str_S_RunLinkGameScreens
+global LinkSetupItemX, LinkSetupSlotY, LinkSetupStatusX, LinkButtonX, LinkButtonY, LinkSetupTitleY, LinkSetupSoundIndex, LinkSetupSoundOn
+global ThreeStarsSoundOn, GameStatsSoundOn, GameStatsAnimSoundOn, StatsColumnFields
+LinkSetupItemX:
         db 0BAh,00h
-word_16D25E:
+LinkSetupSlotY:
         db 019h,01h
-word_16D260:
+LinkSetupStatusX:
         db 07Ch,01h
-unk_16D262:
+LinkSetupShapeName:
         db 0D1h,00h,0FEh,00h,02Bh,01h,059h,01h
 str_S_RunLinkGameScreens:
         db 073h,00h,0A0h,00h,0CCh,00h,0FAh,00h,02Ah,01h,057h,01h,085h,01h,0B2h,01h
-byte_16D27A:
+LinkButtonLetters:
         db 06h,04h,05h,08h
-word_16D27E:
+LinkButtonX:
         db 07h,02h,03h,01h,021h,01h,0FEh,00h,0F8h,00h,0E9h,00h,0CDh,00h
-word_16D28C:
+LinkButtonY:
         db 0C3h,00h,0A8h,00h,0FEh,00h,0E2h,00h,0E9h,00h,0D4h,00h,0B4h,00h,0BAh,00h
-word_16D29C:
+LinkSetupTitleY:
         db 0B5h,00h
-dword_16D29E:
+LinkSetupMaxPlayers:
         db 00h,00h,00h,00h
-byte_16D2A2:
+LinkSetupCursorFlags:
         db 00h,00h,00h,00h
-word_16D2A6:
+LinkSetupSoundIndex:
         db 00h,00h
-dword_16D2A8:
+LinkSetupSoundTick:
         db 00h,00h,00h,00h
-word_16D2AC:
+LinkSetupSoundOn:
         db 00h,00h,00h,00h
-word_16D2B0:
+ThreeStarsSoundOn:
         db 00h,00h
-word_16D2B2:
+GameStatsSoundOn:
         db 00h,00h
-word_16D2B4:
+GameStatsAnimSoundOn:
         db 00h,00h,00h,00h
-dword_16D2B8:
+LinesChangedInGame:
         db 00h,00h,00h,00h
-dword_16D2BC:
+InIntermission:
         db 00h,00h,00h,00h
         dd str_OKAYMAN
         dd str_GETBENT
         dd str_IPASS
-dword_16D2CC:
+HomeUserSlot:
         db 00h,00h,00h,00h,02h,00h,00h,00h,04h,00h,00h,00h,06h,00h,00h,00h
         db 07h,00h,00h,00h,05h,00h,00h,00h,03h,00h,00h,00h,01h,00h,00h,00h
-dword_16D2EC:
+AwayUserSlot:
         db 08h,00h,00h,00h,0Ah,00h,00h,00h,0Ch,00h,00h,00h,0Eh,00h,00h,00h
         db 0Fh,00h,00h,00h,0Dh,00h,00h,00h,0Bh,00h,00h,00h,09h,00h,00h,00h
-dword_16D30C:
+PlayoffRoundSlots:
         db 00h,00h,00h,00h,02h,00h,00h,00h,04h,00h,00h,00h,06h,00h,00h,00h
         db 07h,00h,00h,00h,05h,00h,00h,00h,03h,00h,00h,00h,01h,00h,00h,00h
         db 08h,00h,00h,00h,0Ah,00h,00h,00h,0Ch,00h,00h,00h,0Eh,00h,00h,00h
         db 0Fh,00h,00h,00h,0Dh,00h,00h,00h,0Bh,00h,00h,00h,09h,00h,00h,00h
-dword_16D34C:
+PlayoffRoundGames:
         db 00h,00h,00h,00h
-dword_16D350:
+PlayoffWinsNeeded:
         db 010h,00h,00h,00h,018h,00h,00h,00h,01Ch,00h,00h,00h,01Eh,00h,00h,00h
-dword_16D360:
+PlayoffPairings:
         db 010h,00h,00h,00h,012h,00h,00h,00h,013h,00h,00h,00h,011h,00h,00h,00h
         db 014h,00h,00h,00h,016h,00h,00h,00h,017h,00h,00h,00h,015h,00h,00h,00h
         db 018h,00h,00h,00h,019h,00h,00h,00h,01Ah,00h,00h,00h,01Bh,00h,00h,00h
@@ -74,11 +74,11 @@ dword_16D360:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-dword_16D400:
+StatsColumn:
         db 0FFh,0FFh,0FFh,0FFh
-dword_16D404:
+StatsPlayoffMode:
         db 00h,00h,00h,00h
-word_16D408:
+StatsColumnFields:
         db 055h,01h,056h,01h,059h,01h,05Ah,01h,065h,01h,066h,01h,069h,01h,06Ah,01h
         db 095h,01h,096h,01h,099h,01h,09Ah,01h,0A5h,01h,0A6h,01h,0A9h,01h,0AAh,01h
         db 055h,02h,056h,02h,059h,02h,05Ah,02h,065h,02h,066h,02h,069h,02h,06Ah,02h

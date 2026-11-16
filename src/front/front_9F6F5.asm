@@ -7,12 +7,12 @@ extern str_DATAEXHIBITNDX2, str_DATASEASONNDX2, str_DATAPLAYOFFNDX2, str_Replayb
 extern str_PLY, str_S5, str_IdlistFfc, str_SharedFfc, str_WHATEVER, str_04d3, str_TRBL, str_TRBR
 extern str_TRLS, str_TRRS, str_TRSE, str_TRSS, str_TRSP, str_PICT, str_Roster3, str_Rosids
 extern str_Rtids, str_Games, str_Ros, str_Lros, str_CRUSHER, str_CRUSHERPack, atoi_, IndexFlags
-extern byte_1ACF62, byte_1ACF63, byte_1AD457, byte_1AD458, dword_16CB7C, dword_16DA9C, GameSettings, SeasonUserTeam
-extern GameOptionFlags, TeamSelectFlags, SeasonSlot, SeasonActive, dword_1AD244, dword_1AD248, dword_1AD24C, dword_1AD62B
-extern dword_1C1334, dword_1C1338, dword_1C5DA4, dword_1C5DE0, dword_1C8EA4, dword_1C8EB4, dword_1C8EB8, dword_1C8EF6
-extern dword_1C8F58, dword_1C8F5C, dword_1C8F62, dword_1C8F66, dword_1C8F6A, dword_1C8F6E, dword_1C8F72, dword_1C93C4
-extern dword_1C93C8, dword_1C93CC, dword_1C93D8, dword_1C93DC, dword_1C93E0, dword_1C94B8, jpt_9F6DD, memcpy_
-extern off_16D254, off_16D258, rand_, sprintf_, strcat_, strcmp_, strcpy_, strlen_
+extern SeasonUserHuman, SeasonUserActive, PlayoffUserHuman, PlayoffUserActive, ScreenWipeMode, LinkGameActive, GameSettings, SeasonUserTeam
+extern GameOptionFlags, TeamSelectFlags, SeasonSlot, SeasonActive, SeasonScheduleData, SeasonScheduleOffset, SeasonScheduleSize, PlayoffFileHandle
+extern SeasonFileName, ReplayIndexHandle, ReplayBufferSize, PlayMenuGameFlag, IndexPickChoice, IndexItemType, IndexItemValue, IndexItemTemplate
+extern IndexDialogType, IndexDialogText, IndexDialogShape, IndexDialogFrame, IndexDialogBack, IndexDialogWidth, IndexDialogHeight, TransferOffset
+extern TransferPackBuffer, TransferBuffer, IndexDialogShapeMid, IndexDialogShapeEnd, IndexDialogShapeTop, LinkSetupBuffer, PickIndexEntryScreenJumpTable, memcpy_
+extern ReplayIndexSendBuf, ReplayIndexRecvBuf, rand_, sprintf_, strcat_, strcmp_, strcpy_, strlen_
 extern BlitConverted, BlitShape2, BlitArt, BlitShape, PresentScreen, FindShape, LoadFileAlloc, LoadFileToBlockShared
 extern ConvertArtXY, SaveDataFileNew, UnlinkJump, GetFileTimes, FileDateText, FreeArtArchive, SetScreenTarget, SecondsToSamples
 extern WaitSoundTime, StopAllSfx, PlaySfx, MakeDirPath, LoadDataFile, FadeInScreen, ShowScreen, SetRegionRect
@@ -24,11 +24,11 @@ extern ClearReplayEntry, KeysEqual, FindPlayerRecord, UpdatePlayerRecord, OpenLe
 extern AddPlayerStatAt, FindPlayerStat, UpdatePlayerStat, FindTeamStat, UpdateTeamStat, AddReplayIndexEntry, FindReplayIndexEntry, OpenReplayFile
 extern RenameReplayIndexEntry, ClearLinkAbort, ServiceIdle, LinkSyncMenu, LinkSendBlock, LinkReceiveBlock, LinkReceiveChunk, LinkSendFile
 extern AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, DrawShapeAtOwnPos, DrawShape, CreateBitmap, SetDrawTarget
-extern FillRectColor, DrawTextAt, SetTextColors, tickcount, str_D_LinkSendData, unk_16D7F4, GlobalSetVersion, IndexEntrySettings
-extern SeasonName, SeasonPath, SeasonIndexPath, unk_1AD22E, unk_1AD236, unk_1AD250, unk_1AD255, unk_1AD35D
-extern unk_1AD73A, unk_1C5EF8, unk_1C5F4A, unk_1C8F9A, unk_1C93D0, str_Punct_PickIndexEntry, unk_9F611, unk_9F631
-extern unk_9F651, TeamSelectMode, word_1AD240, word_1AD242, word_1C13C2, word_1C34E5, word_1C9450, word_1C94EE
-global jpt_A31C6, PickIndexEntryScreen_393, PickIndexEntryScreen_3A4, PickIndexEntryScreen_3B5, PickIndexEntryScreen_470, PickIndexEntryScreen_4D9, PickIndexEntryScreen_4EE, PickIndexEntryScreen_1080
+extern FillRectColor, DrawTextAt, SetTextColors, tickcount, str_D_LinkSendData, DbKeyBuffer, GlobalSetVersion, IndexEntrySettings
+extern SeasonName, SeasonPath, SeasonIndexPath, SeasonFilePath, SeasonStatsPath, PlayoffSettings, PlayoffIndexSettings, PlayoffIndexFlags
+extern PlayoffStatsPath, ScreenTitleItem, BlankMenuItem, IndexListBox, LinkMessageText, str_Punct_PickIndexEntry, PickIndexTopBar, PickIndexLeftBar
+extern PickIndexRightBar, TeamSelectMode, SeasonLastHome, SeasonLastAway, IndexEntryList, HomeTeamCode, LinkSetupValues, LinkSetupItemCount
+global ResetLinkSetupJumpTable, PickIndexEntryScreen_393, PickIndexEntryScreen_3A4, PickIndexEntryScreen_3B5, PickIndexEntryScreen_470, PickIndexEntryScreen_4D9, PickIndexEntryScreen_4EE, PickIndexEntryScreen_1080
 global SendLeagueFile_6F3, SendLeagueFile_6FD, SendLeagueFile_6FE, LinkSendData_BB, ResetLinkSetup_20, ResetLinkSetup_45, ResetLinkSetup_50, ResetLinkSetup_57
 global ResetLinkSetup_5E, PickIndexEntryScreen, DrawIndexEntry, LoadIndexFile, PickIndexEntry, SendLeagueData, ReceiveLeagueData, SendLeagueFile
 global ReceiveLeagueFile, AllocCrusherBuffers, FreeTransferBuffers, CopyToTransfer, LinkSendData, LinkReceiveData, AppendToTransfer, DrawLinkStatusText
@@ -102,15 +102,15 @@ PickIndexEntryScreen:
         add esp, byte 8
         push str_DL02
         push esi
-        mov dword [dword_1C93D8], eax
+        mov dword [IndexDialogShapeMid], eax
         call FindShape
         add esp, byte 8
         push str_DL03
         push esi
-        mov dword [dword_1C93DC], eax
+        mov dword [IndexDialogShapeEnd], eax
         call FindShape
         add esp, byte 8
-        mov dword [dword_1C93E0], eax
+        mov dword [IndexDialogShapeTop], eax
         cmp dword [dword ebp-042Ah], byte 7
         jb short .1
         jbe short .2
@@ -152,7 +152,7 @@ PickIndexEntryScreen:
         call NameIndexNew
         mov dword [byte ebp+07Ah], eax
 .6:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .7
         mov edx, dword [dword ebp-042Ah]
         mov eax, dword [byte ebp+07Ah]
@@ -164,7 +164,7 @@ PickIndexEntryScreen:
         mov dword [byte ebp+07Eh], eax
         mov eax, dword [byte ebp+07Eh]
         add eax, byte 6Eh
-        mov edx, dword_1C8EA4
+        mov edx, IndexPickChoice
         mov dword [byte ebp+062h], eax
         mov eax, 10h
         xor esi, esi
@@ -184,9 +184,9 @@ PickIndexEntryScreen:
         call SetRegionRect
         lea eax, [byte esi+06h]
         imul eax, byte 52h
-        mov dword [dword eax+dword_1C8EB4], 4
+        mov dword [dword eax+IndexItemType], 4
         inc esi
-        mov dword [dword eax+dword_1C8EB8], edi
+        mov dword [dword eax+IndexItemValue], edi
         cmp esi, byte 0Ah
         jl short .9
         mov ecx, dword [byte ebp+05Ah]
@@ -215,7 +215,7 @@ PickIndexEntryScreen:
         mov ebx, dword [byte ebp+07Eh]
         mov ecx, 0Ah
         push dword [byte eax+02Ch]
-        mov edx, unk_1C8F9A
+        mov edx, IndexListBox
         push byte 0
         mov ebx, dword [byte ebx+066h]
         lea eax, [dword ebp-0166h]
@@ -225,37 +225,37 @@ PickIndexEntryScreen:
         mov dword [dword ebp-0142h], 0
 .11:
         mov ecx, 52h
-        mov edi, dword_1C8EA4
-        mov esi, unk_1C5EF8
+        mov edi, IndexPickChoice
+        mov esi, ScreenTitleItem
         rep movsb
         mov ecx, 52h
-        mov edi, dword_1C8EF6
-        mov esi, unk_1C5F4A
-        mov dword [dword_1C8EA4], 0
+        mov edi, IndexItemTemplate
+        mov esi, BlankMenuItem
+        mov dword [IndexPickChoice], 0
         push str_DL00
         rep movsb
         push dword [byte ebp+066h]
-        mov dword [dword_1C8EF6], 1
+        mov dword [IndexItemTemplate], 1
         call FindShape
         add esp, byte 8
         push str_DL01
         push dword [byte ebp+066h]
-        mov dword [dword_1C8F62], eax
+        mov dword [IndexDialogShape], eax
         call FindShape
         add esp, byte 8
         push str_DL01
         push dword [byte ebp+066h]
-        mov dword [dword_1C8F66], eax
+        mov dword [IndexDialogFrame], eax
         call FindShape
-        mov dword [dword_1C8F6A], eax
+        mov dword [IndexDialogBack], eax
         lea eax, [dword ebp-0426h]
-        mov dword [dword_1C8F5C], eax
-        mov eax, dword [dword_1C8F62]
-        mov dword [dword_1C8F58], 4
+        mov dword [IndexDialogText], eax
+        mov eax, dword [IndexDialogShape]
+        mov dword [IndexDialogType], 4
         movsx edx, word [byte eax+0Ch]
-        mov dword [dword_1C8F6E], edx
+        mov dword [IndexDialogWidth], edx
         movsx edx, word [byte eax+0Eh]
-        mov dword [dword_1C8F72], edx
+        mov dword [IndexDialogHeight], edx
         add esp, byte 8
         movsx edx, word [byte eax+06h]
         movsx ecx, word [byte eax+04h]
@@ -369,14 +369,14 @@ PickIndexEntryScreen_470:
         mov ecx, IndexScreenSound
         mov ebx, 0FFFFFFFFh
         push eax
-        mov edx, dword_1C8EA4
+        mov edx, IndexPickChoice
         mov eax, 10h
         call RunMenu
         mov ebx, eax
         cmp dword [byte ebp+056h], byte 5
         ja short PickIndexEntryScreen_4EE.22
         mov eax, dword [byte ebp+056h]
-        jmp dword [nosplit cs:eax*4+jpt_9F6DD]
+        jmp dword [nosplit cs:eax*4+PickIndexEntryScreenJumpTable]
 PickIndexEntryScreen_4D9:
         lea eax, [dword ebp-0166h]
         xor edx, edx
@@ -423,7 +423,7 @@ PickIndexEntryScreen_4EE:
         call atoi_
         mov dword [byte ebp+06Ah], eax
 .25:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je near .68
         call ClearLinkAbort
         test eax, eax
@@ -443,14 +443,14 @@ PickIndexEntryScreen_4EE:
         test eax, eax
         jne short .28
         mov edx, 8
-        mov eax, dword [off_16D258]
+        mov eax, dword [ReplayIndexRecvBuf]
         xor ebx, ebx
         mov esi, 1
         call LinkSendBlock
         jmp short .29
 .28:
         mov edx, 8
-        mov eax, dword [off_16D254]
+        mov eax, dword [ReplayIndexSendBuf]
         xor ebx, ebx
         call LinkSendBlock
         xor esi, esi
@@ -460,7 +460,7 @@ PickIndexEntryScreen_4EE:
         xor ebx, ebx
         call LinkReceiveBlock
         lea eax, [byte ebp+042h]
-        mov edx, dword [off_16D254]
+        mov edx, dword [ReplayIndexSendBuf]
         call strcmp_
         test eax, eax
         jne near .41
@@ -469,29 +469,29 @@ PickIndexEntryScreen_4EE:
         cmp dword [dword ebp-042Ah], byte 5
         jne short .30
         mov edx, 4A78h
-        mov eax, dword_1C1334
+        mov eax, SeasonFileName
         xor ebx, ebx
         call LinkReceiveBlock
         push byte 0
-        push dword [dword_1C5DA4]
+        push dword [ReplayBufferSize]
         push str_Replaybuf
         xor ebx, ebx
         call AllocMemBlock
         add esp, byte 0Ch
-        mov edx, dword [dword_1C5DA4]
+        mov edx, dword [ReplayBufferSize]
         mov esi, eax
         call LinkReceiveBlock
-        mov eax, dword_1C1334
-        mov ebx, dword [dword_1C5DA4]
+        mov eax, SeasonFileName
+        mov ebx, dword [ReplayBufferSize]
         mov edx, esi
         call AddReplayIndexEntry
         push esi
         call FreeMemBlock
         add esp, byte 4
         push edi
-        push dword [dword_1C1338]
+        push dword [ReplayIndexHandle]
         mov ebx, 0Dh
-        push dword [dword_1C1334]
+        push dword [SeasonFileName]
         mov edx, edi
         call ClearReplayEntry
         lea eax, [byte ebp-01Eh]
@@ -512,9 +512,9 @@ PickIndexEntryScreen_4EE:
         xor esi, esi
 .32:
         imul eax, esi, byte 1Ch
-        cmp byte [dword eax+byte_1ACF63], 0
+        cmp byte [dword eax+SeasonUserActive], 0
         je short .33
-        mov byte [dword eax+byte_1ACF62], 1
+        mov byte [dword eax+SeasonUserHuman], 1
 .33:
         inc esi
         cmp esi, byte 1Ah
@@ -559,15 +559,15 @@ PickIndexEntryScreen_4EE:
         cmp dword [SeasonActive], byte 0
         je near .39
         mov edx, 4F7h
-        mov eax, unk_1AD250
+        mov eax, PlayoffSettings
         xor ebx, ebx
         call LinkReceiveBlock
         xor esi, esi
 .34:
         imul eax, esi, byte 1Ch
-        cmp byte [dword eax+byte_1AD458], 0
+        cmp byte [dword eax+PlayoffUserActive], 0
         je short .35
-        mov byte [dword eax+byte_1AD457], 1
+        mov byte [dword eax+PlayoffUserHuman], 1
 .35:
         inc esi
         cmp esi, byte 10h
@@ -594,7 +594,7 @@ PickIndexEntryScreen_4EE:
         call sprintf_
         add esp, byte 10h
         push dword 4F7h
-        push unk_1AD250
+        push PlayoffSettings
         lea eax, [byte ebp-03Eh]
         push eax
         call SaveDataFileNew
@@ -604,15 +604,15 @@ PickIndexEntryScreen_4EE:
         cmp dword [dword ebp-042Ah], byte 9
         jne near .39
         mov edx, 4F7h
-        mov eax, unk_1AD250
+        mov eax, PlayoffSettings
         xor ebx, ebx
         call LinkReceiveBlock
         xor esi, esi
 .37:
         imul eax, esi, byte 1Ch
-        cmp byte [dword eax+byte_1AD458], 0
+        cmp byte [dword eax+PlayoffUserActive], 0
         je short .38
-        mov byte [dword eax+byte_1AD457], 1
+        mov byte [dword eax+PlayoffUserHuman], 1
 .38:
         inc esi
         cmp esi, byte 10h
@@ -641,7 +641,7 @@ PickIndexEntryScreen_4EE:
         call sprintf_
         add esp, byte 10h
         push dword 4F7h
-        push unk_1AD250
+        push PlayoffSettings
         lea eax, [byte ebp+02h]
         push eax
         call SaveDataFileNew
@@ -678,23 +678,23 @@ PickIndexEntryScreen_4EE:
         mov edx, edi
         lea eax, [byte ebp-01Eh]
         call memcpy_
-        mov edx, dword_1C1334
+        mov edx, SeasonFileName
         lea eax, [byte ebp+04Eh]
         call FindReplayIndexEntry
         push byte 0
-        push dword [dword_1C5DA4]
+        push dword [ReplayBufferSize]
         push str_Replaybuf
         call AllocMemBlock
         mov esi, eax
         add esp, byte 0Ch
         mov edx, eax
-        mov eax, dword_1C1334
+        mov eax, SeasonFileName
         xor ebx, ebx
         call OpenReplayFile
         mov edx, 4A78h
-        mov eax, dword_1C1334
+        mov eax, SeasonFileName
         call LinkSendBlock
-        mov edx, dword [dword_1C5DA4]
+        mov edx, dword [ReplayBufferSize]
         mov eax, esi
         xor ebx, ebx
         call LinkSendBlock
@@ -716,7 +716,7 @@ PickIndexEntryScreen_4EE:
         mov eax, SeasonName
         call LinkSendBlock
         mov edx, SeasonUserTeam
-        mov eax, unk_1AD22E
+        mov eax, SeasonFilePath
         call OpenLeagueFile
         mov edx, 1
         mov eax, dword [SeasonUserTeam]
@@ -741,33 +741,33 @@ PickIndexEntryScreen_4EE:
         mov byte [byte esi+ebp-03Eh], 0
         call strcat_
         call ServiceIdle
-        push unk_1AD250
+        push PlayoffSettings
         lea eax, [byte ebp-03Eh]
         push eax
         xor ebx, ebx
         call LoadFileToBlockShared
         add esp, byte 8
         mov edx, 4F7h
-        mov eax, unk_1AD250
+        mov eax, PlayoffSettings
         call LinkSendBlock
         mov edx, SeasonUserTeam
-        mov eax, unk_1AD236
+        mov eax, SeasonStatsPath
         jmp near .67
 .47:
         cmp dword [dword ebp-042Ah], byte 9
         jne near .68
         call ServiceIdle
-        push unk_1AD250
+        push PlayoffSettings
         lea eax, [byte ebp+02h]
         push eax
         xor ebx, ebx
         call LoadFileToBlockShared
         add esp, byte 8
         mov edx, 4F7h
-        mov eax, unk_1AD250
+        mov eax, PlayoffSettings
         call LinkSendBlock
         mov edx, SeasonUserTeam
-        mov eax, unk_1AD73A
+        mov eax, PlayoffStatsPath
         jmp near .67
 .48:
         call LinkSyncMenu
@@ -789,20 +789,20 @@ PickIndexEntryScreen_4EE:
         test eax, eax
         jne short .51
         mov edx, 8
-        mov eax, dword [off_16D258]
+        mov eax, dword [ReplayIndexRecvBuf]
         xor ebx, ebx
         mov esi, 1
         call LinkSendBlock
         jmp short .52
 .51:
         mov edx, 8
-        mov eax, dword [off_16D254]
+        mov eax, dword [ReplayIndexSendBuf]
         xor ebx, ebx
         call LinkSendBlock
         xor esi, esi
 .52:
         lea eax, [byte ebp+042h]
-        mov edx, dword [off_16D254]
+        mov edx, dword [ReplayIndexSendBuf]
         call strcmp_
         test eax, eax
         jne near .63
@@ -811,20 +811,20 @@ PickIndexEntryScreen_4EE:
         cmp dword [dword ebp-042Ah], byte 5
         jne short .53
         mov edx, 4A78h
-        mov eax, dword_1C1334
+        mov eax, SeasonFileName
         xor ebx, ebx
         call LinkReceiveBlock
         push byte 0
-        push dword [dword_1C5DA4]
+        push dword [ReplayBufferSize]
         push str_Replaybuf
         xor ebx, ebx
         call AllocMemBlock
         add esp, byte 0Ch
-        mov edx, dword [dword_1C5DA4]
+        mov edx, dword [ReplayBufferSize]
         mov esi, eax
         call LinkReceiveBlock
-        mov edx, dword_1C1334
-        mov ecx, dword [dword_1C5DA4]
+        mov edx, SeasonFileName
+        mov ecx, dword [ReplayBufferSize]
         mov ebx, esi
         mov eax, edx
         call RenameReplayIndexEntry
@@ -832,9 +832,9 @@ PickIndexEntryScreen_4EE:
         call FreeMemBlock
         add esp, byte 4
         push edi
-        push dword [dword_1C1338]
+        push dword [ReplayIndexHandle]
         mov ebx, 0Dh
-        push dword [dword_1C1334]
+        push dword [SeasonFileName]
         mov edx, edi
         call ClearReplayEntry
         lea eax, [byte ebp-01Eh]
@@ -855,9 +855,9 @@ PickIndexEntryScreen_4EE:
         xor esi, esi
 .55:
         imul eax, esi, byte 1Ch
-        cmp byte [dword eax+byte_1ACF63], 0
+        cmp byte [dword eax+SeasonUserActive], 0
         je short .56
-        mov byte [dword eax+byte_1ACF62], 1
+        mov byte [dword eax+SeasonUserHuman], 1
 .56:
         inc esi
         cmp esi, byte 1Ah
@@ -902,15 +902,15 @@ PickIndexEntryScreen_4EE:
         cmp dword [SeasonActive], byte 0
         je near .62
         mov edx, 4F7h
-        mov eax, unk_1AD250
+        mov eax, PlayoffSettings
         xor ebx, ebx
         call LinkReceiveBlock
         xor esi, esi
 .57:
         imul eax, esi, byte 1Ch
-        cmp byte [dword eax+byte_1AD458], 0
+        cmp byte [dword eax+PlayoffUserActive], 0
         je short .58
-        mov byte [dword eax+byte_1AD457], 1
+        mov byte [dword eax+PlayoffUserHuman], 1
 .58:
         inc esi
         cmp esi, byte 10h
@@ -937,7 +937,7 @@ PickIndexEntryScreen_4EE:
         call sprintf_
         add esp, byte 10h
         push dword 4F7h
-        push unk_1AD250
+        push PlayoffSettings
         lea eax, [byte ebp-03Eh]
         push eax
         call SaveDataFileNew
@@ -947,15 +947,15 @@ PickIndexEntryScreen_4EE:
         cmp dword [dword ebp-042Ah], byte 9
         jne near .62
         mov edx, 4F7h
-        mov eax, unk_1AD250
+        mov eax, PlayoffSettings
         xor ebx, ebx
         call LinkReceiveBlock
         xor esi, esi
 .60:
         imul eax, esi, byte 1Ch
-        cmp byte [dword eax+byte_1AD458], 0
+        cmp byte [dword eax+PlayoffUserActive], 0
         je short .61
-        mov byte [dword eax+byte_1AD457], 1
+        mov byte [dword eax+PlayoffUserHuman], 1
 .61:
         inc esi
         cmp esi, byte 10h
@@ -984,7 +984,7 @@ PickIndexEntryScreen_4EE:
         call sprintf_
         add esp, byte 10h
         push dword 4F7h
-        push unk_1AD250
+        push PlayoffSettings
         lea eax, [byte ebp+02h]
         push eax
         call SaveDataFileNew
@@ -1021,7 +1021,7 @@ PickIndexEntryScreen_4EE:
         mov eax, SeasonName
         call LinkSendBlock
         mov edx, SeasonUserTeam
-        mov eax, unk_1AD22E
+        mov eax, SeasonFilePath
         call OpenLeagueFile
         mov edx, 1
         mov eax, dword [SeasonUserTeam]
@@ -1045,17 +1045,17 @@ PickIndexEntryScreen_4EE:
         cmp dword [dword ebp-042Ah], byte 9
         jne short .68
         call ServiceIdle
-        push unk_1AD250
+        push PlayoffSettings
         lea eax, [byte ebp+02h]
         push eax
         xor ebx, ebx
         call LoadFileToBlockShared
         add esp, byte 8
         mov edx, 4F7h
-        mov eax, unk_1AD250
+        mov eax, PlayoffSettings
         call LinkSendBlock
         mov edx, SeasonUserTeam
-        mov eax, unk_1AD73A
+        mov eax, PlayoffStatsPath
 .67:
         call OpenLeagueFile
         mov eax, dword [SeasonUserTeam]
@@ -1095,7 +1095,7 @@ PickIndexEntryScreen_4EE:
         mov byte [byte esi+ebp+02h], 0
         call strcat_
         call ServiceIdle
-        push unk_1AD250
+        push PlayoffSettings
         lea eax, [byte ebp+02h]
         push eax
         call LoadFileToBlockShared
@@ -1104,11 +1104,11 @@ PickIndexEntryScreen_4EE:
         cmp dword [SeasonActive], byte 0
         jne short .74
         mov edx, SeasonUserTeam
-        mov eax, unk_1AD22E
+        mov eax, SeasonFilePath
         jmp short .75
 .74:
         mov edx, SeasonUserTeam
-        mov eax, unk_1AD236
+        mov eax, SeasonStatsPath
 .75:
         call OpenLeagueFile
         call SendLeagueFile
@@ -1122,11 +1122,11 @@ PickIndexEntryScreen_4EE:
         cmp dword [SeasonActive], byte 0
         jne short .78
         mov edx, SeasonUserTeam
-        mov eax, unk_1AD22E
+        mov eax, SeasonFilePath
         jmp short .79
 .78:
         mov edx, SeasonUserTeam
-        mov eax, unk_1AD236
+        mov eax, SeasonStatsPath
 .79:
         call OpenLeagueFile
         mov eax, dword [byte ebp+06Ah]
@@ -1134,13 +1134,13 @@ PickIndexEntryScreen_4EE:
         jmp near .86
 .80:
         call ServiceIdle
-        push unk_1AD250
+        push PlayoffSettings
         lea eax, [byte ebp+02h]
         push eax
         call LoadFileToBlockShared
         add esp, byte 8
         mov edx, SeasonUserTeam
-        mov eax, unk_1AD73A
+        mov eax, PlayoffStatsPath
         call OpenLeagueFile
         call ReceiveLeagueFile
         cmp eax, byte 1
@@ -1151,10 +1151,10 @@ PickIndexEntryScreen_4EE:
         mov dword [byte ebp+072h], 0Dh
 .82:
         mov edx, SeasonUserTeam
-        mov eax, unk_1AD73A
+        mov eax, PlayoffStatsPath
         call OpenLeagueFile
         mov eax, dword [byte ebp+06Ah]
-        mov dword [dword_1AD62B], eax
+        mov dword [PlayoffFileHandle], eax
         jmp near .86
 .83:
         lea edi, [byte ebp+02h]
@@ -1166,18 +1166,18 @@ PickIndexEntryScreen_4EE:
         cmp byte [edi], 5Ch
         jne short .84
         lea esi, [byte ebp+04Eh]
-        mov edx, dword_1C1334
+        mov edx, SeasonFileName
         call ReplayNameToKey
         lea eax, [byte ebp+04Eh]
         call FindReplayIndexEntry
-        movsx eax, word [word_1C13C2]
+        movsx eax, word [IndexEntryList]
         and eax, byte 3Fh
         and dword [TeamSelectFlags], 0FFF03FFFh
         shl eax, 0Eh
         mov dword [byte ebp+072h], 0Eh
         or dword [TeamSelectFlags], eax
-        movsx eax, word [word_1C34E5]
-        mov dword [dword_1C5DE0], 1
+        movsx eax, word [HomeTeamCode]
+        mov dword [PlayMenuGameFlag], 1
         and eax, byte 3Fh
         and word [TeamSelectMode], 0FC0Fh
         shl eax, 14h
@@ -1190,7 +1190,7 @@ PickIndexEntryScreen_4EE:
         call memcpy_
         mov ebx, 8
         mov edx, IndexFlags
-        mov eax, unk_1AD35D
+        mov eax, PlayoffIndexFlags
         call memcpy_
         mov ebx, 108h
         mov edx, IndexEntrySettings
@@ -1198,7 +1198,7 @@ PickIndexEntryScreen_4EE:
         call memcpy_
         mov ebx, 108h
         mov edx, IndexEntrySettings
-        mov eax, unk_1AD255
+        mov eax, PlayoffIndexSettings
         call memcpy_
 .87:
         mov eax, dword [byte ebp+07Eh]
@@ -1208,7 +1208,7 @@ PickIndexEntryScreen_4EE:
         call FreeScrollList
 .88:
         push dword [byte ebp+076h]
-        mov dword [dword_16CB7C], 4
+        mov dword [ScreenWipeMode], 4
         call FreeBitmap
         add esp, byte 4
         push dword [byte ebp+05Eh]
@@ -1697,16 +1697,16 @@ PickIndexEntry:
         rep movsd
         mov ecx, 8
         lea edi, [byte ebp-01Eh]
-        mov esi, unk_9F611
+        mov esi, PickIndexTopBar
         rep movsd
         mov ecx, 8
         lea edi, [byte ebp-03Eh]
-        mov esi, unk_9F631
+        mov esi, PickIndexLeftBar
         rep movsd
         push str_TRBL
         mov ecx, 8
         lea edi, [byte ebp+022h]
-        mov esi, unk_9F651
+        mov esi, PickIndexRightBar
         push edx
         rep movsd
         call FindShape
@@ -2193,15 +2193,15 @@ SendLeagueData:
         cmp dword [byte ebp-0Ch], byte 0
         je short .3
         mov edx, 4
-        mov eax, dword_1AD24C
+        mov eax, SeasonScheduleSize
         xor ebx, ebx
         mov dword [byte ebp-04h], 0
         call LinkSendBlock
         jmp short .2
 .1:
-        mov eax, dword [dword_1AD244]
+        mov eax, dword [SeasonScheduleData]
         mov dword [byte ebp-014h], eax
-        mov eax, dword [dword_1AD248]
+        mov eax, dword [SeasonScheduleOffset]
         add eax, dword [byte ebp-04h]
         lea edx, [byte ebp-03Ch]
         mov dword [byte ebp-010h], eax
@@ -2213,7 +2213,7 @@ SendLeagueData:
         call CopyToTransfer
 .2:
         mov eax, dword [byte ebp-04h]
-        cmp eax, dword [dword_1AD24C]
+        cmp eax, dword [SeasonScheduleSize]
         jl short .1
         xor eax, eax
         call LinkSendData
@@ -2479,7 +2479,7 @@ SendLeagueData:
         shl ebx, 4
         mov eax, dword [byte esi+020h]
         add eax, ebx
-        mov edx, unk_16D7F4
+        mov edx, DbKeyBuffer
         add eax, byte 8
         call KeysEqual
         test eax, eax
@@ -2490,11 +2490,11 @@ SendLeagueData:
         add eax, ebx
         movsx ebx, byte [eax]
         imul ebx, byte 1Ch
-        cmp byte [dword ebx+byte_1ACF63], 1
+        cmp byte [dword ebx+SeasonUserActive], 1
         je short .32
         movsx eax, byte [byte eax+01h]
         imul eax, byte 1Ch
-        cmp byte [dword eax+byte_1ACF63], 1
+        cmp byte [dword eax+SeasonUserActive], 1
         jne near .35
 .32:
         mov eax, dword [byte ebp-04h]
@@ -2539,11 +2539,11 @@ SendLeagueData:
         add eax, edx
         movsx ebx, byte [eax]
         imul ebx, byte 1Ch
-        cmp byte [dword ebx+byte_1AD458], 1
+        cmp byte [dword ebx+PlayoffUserActive], 1
         je short .36
         movsx eax, byte [byte eax+01h]
         imul eax, byte 1Ch
-        cmp byte [dword eax+byte_1AD458], 1
+        cmp byte [dword eax+PlayoffUserActive], 1
         jne near .39
 .36:
         mov eax, dword [byte ebp-04h]
@@ -2587,10 +2587,10 @@ SendLeagueData:
         jg near .31
 .41:
         call HideWorkingBox
-        push dword [dword_1C93CC]
+        push dword [TransferBuffer]
         call FreeMemBlock
         add esp, byte 4
-        push dword [dword_1C93C8]
+        push dword [TransferPackBuffer]
         call FreeMemBlock
         add esp, byte 4
         leave
@@ -2623,16 +2623,16 @@ ReceiveLeagueData:
         xor eax, eax
         mov ebx, 24h
         call LinkReceiveData
-        mov edx, dword [dword_1C93CC]
+        mov edx, dword [TransferBuffer]
         lea eax, [byte ebp+052h]
-        add edx, dword [dword_1C93C4]
+        add edx, dword [TransferOffset]
         call memcpy_
         movsx eax, word [byte ebp+052h]
         push byte 0
         shl eax, 3
         push eax
         push str_Rosids
-        add dword [dword_1C93C4], byte 24h
+        add dword [TransferOffset], byte 24h
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [byte ebp+06Eh], eax
@@ -2663,43 +2663,43 @@ ReceiveLeagueData:
         mov dword [byte ebp+06Ah], eax
         shl ecx, 3
         mov eax, dword [byte ebp+066h]
-        mov edx, dword [dword_1C93CC]
+        mov edx, dword [TransferBuffer]
         mov ebx, ecx
-        add edx, dword [dword_1C93C4]
+        add edx, dword [TransferOffset]
         call memcpy_
         mov eax, dword [byte ebp+06Eh]
-        add dword [dword_1C93C4], ecx
+        add dword [TransferOffset], ecx
         movsx ecx, word [byte ebp+052h]
-        mov edx, dword [dword_1C93CC]
+        mov edx, dword [TransferBuffer]
         shl ecx, 3
-        add edx, dword [dword_1C93C4]
+        add edx, dword [TransferOffset]
         mov ebx, ecx
         call memcpy_
         mov eax, dword [byte ebp+06Ah]
-        add dword [dword_1C93C4], ecx
+        add dword [TransferOffset], ecx
         movsx ecx, word [byte ebp+052h]
-        mov edx, dword [dword_1C93CC]
+        mov edx, dword [TransferBuffer]
         shl ecx, 3
-        add edx, dword [dword_1C93C4]
+        add edx, dword [TransferOffset]
         mov ebx, ecx
         call memcpy_
         xor eax, eax
-        add dword [dword_1C93C4], ecx
+        add dword [TransferOffset], ecx
         call LinkReceiveData
         movsx ecx, word [byte ebp+054h]
         mov eax, dword [byte ebp+072h]
-        mov edx, dword [dword_1C93CC]
+        mov edx, dword [TransferBuffer]
         shl ecx, 4
-        add edx, dword [dword_1C93C4]
+        add edx, dword [TransferOffset]
         mov ebx, ecx
         call memcpy_
         lea eax, [byte ebp+052h]
-        add dword [dword_1C93C4], ecx
+        add dword [TransferOffset], ecx
         call WriteLeagueHeader
         cmp dword [dword ebp-04B4Eh], byte 0
         je short .3
         mov edx, 4
-        mov eax, dword_1AD24C
+        mov eax, SeasonScheduleSize
         xor ebx, ebx
         call LinkReceiveBlock
         xor eax, eax
@@ -2707,23 +2707,23 @@ ReceiveLeagueData:
         call LinkReceiveData
         jmp short .2
 .1:
-        mov eax, dword [dword_1AD244]
+        mov eax, dword [SeasonScheduleData]
         mov ebx, 27h
         mov dword [byte ebp+076h], eax
-        mov eax, dword [dword_1AD248]
-        mov edx, dword [dword_1C93CC]
+        mov eax, dword [SeasonScheduleOffset]
+        mov edx, dword [TransferBuffer]
         add eax, edi
-        add edx, dword [dword_1C93C4]
+        add edx, dword [TransferOffset]
         mov dword [byte ebp+07Ah], eax
         lea eax, [byte ebp+02Ah]
         inc edi
         call memcpy_
         lea edx, [byte ebp+076h]
         lea eax, [byte ebp+02Ah]
-        add dword [dword_1C93C4], byte 27h
+        add dword [TransferOffset], byte 27h
         call AddPlayerStatAt
 .2:
-        cmp edi, dword [dword_1AD24C]
+        cmp edi, dword [SeasonScheduleSize]
         jl short .1
 .3:
         xor eax, eax
@@ -2732,13 +2732,13 @@ ReceiveLeagueData:
         jmp near .29
 .4:
         mov ebx, 194Fh
-        mov edx, dword [dword_1C93CC]
+        mov edx, dword [TransferBuffer]
         mov eax, esi
-        add edx, dword [dword_1C93C4]
+        add edx, dword [TransferOffset]
         xor ecx, ecx
         call memcpy_
         mov eax, esi
-        add dword [dword_1C93C4], 194Fh
+        add dword [TransferOffset], 194Fh
         call UpdateGameRecord
         jmp near .10
 .5:
@@ -2746,48 +2746,48 @@ ReceiveLeagueData:
         cmp dword [dword esi+eax+0D21h], byte 0
         je short .6
         mov ebx, 0BCh
-        mov edx, dword [dword_1C93CC]
+        mov edx, dword [TransferBuffer]
         lea eax, [dword ebp-0D2h]
-        add edx, dword [dword_1C93C4]
+        add edx, dword [TransferOffset]
         call memcpy_
         lea eax, [dword ebp-0D2h]
-        add dword [dword_1C93C4], 0BCh
+        add dword [TransferOffset], 0BCh
         call UpdatePlayerRecord
 .6:
         imul eax, ecx, byte 38h
         cmp dword [dword esi+eax+0D39h], byte 0
         je short .7
         mov ebx, 27h
-        mov edx, dword [dword_1C93CC]
+        mov edx, dword [TransferBuffer]
         lea eax, [byte ebp+02Ah]
-        add edx, dword [dword_1C93C4]
+        add edx, dword [TransferOffset]
         call memcpy_
         lea eax, [byte ebp+02Ah]
-        add dword [dword_1C93C4], byte 27h
+        add dword [TransferOffset], byte 27h
         call UpdatePlayerStat
 .7:
         imul eax, ecx, byte 38h
         cmp dword [dword esi+eax+0D31h], byte 0
         je short .8
         mov ebx, 27h
-        mov edx, dword [dword_1C93CC]
+        mov edx, dword [TransferBuffer]
         lea eax, [byte ebp+02Ah]
-        add edx, dword [dword_1C93C4]
+        add edx, dword [TransferOffset]
         call memcpy_
         lea eax, [byte ebp+02Ah]
-        add dword [dword_1C93C4], byte 27h
+        add dword [TransferOffset], byte 27h
         call UpdatePlayerStat
 .8:
         imul eax, ecx, byte 38h
         cmp dword [dword esi+eax+0D29h], byte 0
         je short .9
         mov ebx, 3Dh
-        mov edx, dword [dword_1C93CC]
+        mov edx, dword [TransferBuffer]
         lea eax, [byte ebp-016h]
-        add edx, dword [dword_1C93C4]
+        add edx, dword [TransferOffset]
         call memcpy_
         lea eax, [byte ebp-016h]
-        add dword [dword_1C93C4], byte 3Dh
+        add dword [TransferOffset], byte 3Dh
         call UpdateTeamStat
 .9:
         inc ecx
@@ -2802,48 +2802,48 @@ ReceiveLeagueData:
         cmp dword [dword esi+eax+0129Bh], byte 0
         je short .12
         mov ebx, 0BCh
-        mov edx, dword [dword_1C93CC]
+        mov edx, dword [TransferBuffer]
         lea eax, [dword ebp-0D2h]
-        add edx, dword [dword_1C93C4]
+        add edx, dword [TransferOffset]
         call memcpy_
         lea eax, [dword ebp-0D2h]
-        add dword [dword_1C93C4], 0BCh
+        add dword [TransferOffset], 0BCh
         call UpdatePlayerRecord
 .12:
         imul eax, ecx, byte 38h
         cmp dword [dword esi+eax+012B3h], byte 0
         je short .13
         mov ebx, 27h
-        mov edx, dword [dword_1C93CC]
+        mov edx, dword [TransferBuffer]
         lea eax, [byte ebp+02Ah]
-        add edx, dword [dword_1C93C4]
+        add edx, dword [TransferOffset]
         call memcpy_
         lea eax, [byte ebp+02Ah]
-        add dword [dword_1C93C4], byte 27h
+        add dword [TransferOffset], byte 27h
         call UpdatePlayerStat
 .13:
         imul eax, ecx, byte 38h
         cmp dword [dword esi+eax+012ABh], byte 0
         je short .14
         mov ebx, 27h
-        mov edx, dword [dword_1C93CC]
+        mov edx, dword [TransferBuffer]
         lea eax, [byte ebp+02Ah]
-        add edx, dword [dword_1C93C4]
+        add edx, dword [TransferOffset]
         call memcpy_
         lea eax, [byte ebp+02Ah]
-        add dword [dword_1C93C4], byte 27h
+        add dword [TransferOffset], byte 27h
         call UpdatePlayerStat
 .14:
         imul eax, ecx, byte 38h
         cmp dword [dword esi+eax+012A3h], byte 0
         je short .15
         mov ebx, 3Dh
-        mov edx, dword [dword_1C93CC]
+        mov edx, dword [TransferBuffer]
         lea eax, [byte ebp-016h]
-        add edx, dword [dword_1C93C4]
+        add edx, dword [TransferOffset]
         call memcpy_
         lea eax, [byte ebp-016h]
-        add dword [dword_1C93C4], byte 3Dh
+        add dword [TransferOffset], byte 3Dh
         call UpdateTeamStat
 .15:
         inc ecx
@@ -2858,48 +2858,48 @@ ReceiveLeagueData:
         cmp dword [dword esi+eax+01345h], byte 0
         je short .18
         mov ebx, 0BCh
-        mov edx, dword [dword_1C93CC]
+        mov edx, dword [TransferBuffer]
         lea eax, [dword ebp-0D2h]
-        add edx, dword [dword_1C93C4]
+        add edx, dword [TransferOffset]
         call memcpy_
         lea eax, [dword ebp-0D2h]
-        add dword [dword_1C93C4], 0BCh
+        add dword [TransferOffset], 0BCh
         call UpdatePlayerRecord
 .18:
         imul eax, ecx, byte 38h
         cmp dword [dword esi+eax+0135Dh], byte 0
         je short .19
         mov ebx, 27h
-        mov edx, dword [dword_1C93CC]
+        mov edx, dword [TransferBuffer]
         lea eax, [byte ebp+02Ah]
-        add edx, dword [dword_1C93C4]
+        add edx, dword [TransferOffset]
         call memcpy_
         lea eax, [byte ebp+02Ah]
-        add dword [dword_1C93C4], byte 27h
+        add dword [TransferOffset], byte 27h
         call UpdatePlayerStat
 .19:
         imul eax, ecx, byte 38h
         cmp dword [dword esi+eax+01355h], byte 0
         je short .20
         mov ebx, 27h
-        mov edx, dword [dword_1C93CC]
+        mov edx, dword [TransferBuffer]
         lea eax, [byte ebp+02Ah]
-        add edx, dword [dword_1C93C4]
+        add edx, dword [TransferOffset]
         call memcpy_
         lea eax, [byte ebp+02Ah]
-        add dword [dword_1C93C4], byte 27h
+        add dword [TransferOffset], byte 27h
         call UpdatePlayerStat
 .20:
         imul eax, ecx, byte 38h
         cmp dword [dword esi+eax+0134Dh], byte 0
         je short .21
         mov ebx, 3Dh
-        mov edx, dword [dword_1C93CC]
+        mov edx, dword [TransferBuffer]
         lea eax, [byte ebp-016h]
-        add edx, dword [dword_1C93C4]
+        add edx, dword [TransferOffset]
         call memcpy_
         lea eax, [byte ebp-016h]
-        add dword [dword_1C93C4], byte 3Dh
+        add dword [TransferOffset], byte 3Dh
         call UpdateTeamStat
 .21:
         inc ecx
@@ -2914,48 +2914,48 @@ ReceiveLeagueData:
         cmp dword [dword esi+eax+018BFh], byte 0
         je short .24
         mov ebx, 0BCh
-        mov edx, dword [dword_1C93CC]
+        mov edx, dword [TransferBuffer]
         lea eax, [dword ebp-0D2h]
-        add edx, dword [dword_1C93C4]
+        add edx, dword [TransferOffset]
         call memcpy_
         lea eax, [dword ebp-0D2h]
-        add dword [dword_1C93C4], 0BCh
+        add dword [TransferOffset], 0BCh
         call UpdatePlayerRecord
 .24:
         imul eax, ecx, byte 38h
         cmp dword [dword esi+eax+018D7h], byte 0
         je short .25
         mov ebx, 27h
-        mov edx, dword [dword_1C93CC]
+        mov edx, dword [TransferBuffer]
         lea eax, [byte ebp+02Ah]
-        add edx, dword [dword_1C93C4]
+        add edx, dword [TransferOffset]
         call memcpy_
         lea eax, [byte ebp+02Ah]
-        add dword [dword_1C93C4], byte 27h
+        add dword [TransferOffset], byte 27h
         call UpdatePlayerStat
 .25:
         imul eax, ecx, byte 38h
         cmp dword [dword esi+eax+018CFh], byte 0
         je short .26
         mov ebx, 27h
-        mov edx, dword [dword_1C93CC]
+        mov edx, dword [TransferBuffer]
         lea eax, [byte ebp+02Ah]
-        add edx, dword [dword_1C93C4]
+        add edx, dword [TransferOffset]
         call memcpy_
         lea eax, [byte ebp+02Ah]
-        add dword [dword_1C93C4], byte 27h
+        add dword [TransferOffset], byte 27h
         call UpdatePlayerStat
 .26:
         imul eax, ecx, byte 38h
         cmp dword [dword esi+eax+018C7h], byte 0
         je short .27
         mov ebx, 3Dh
-        mov edx, dword [dword_1C93CC]
+        mov edx, dword [TransferBuffer]
         lea eax, [byte ebp-016h]
-        add edx, dword [dword_1C93C4]
+        add edx, dword [TransferOffset]
         call memcpy_
         lea eax, [byte ebp-016h]
-        add dword [dword_1C93C4], byte 3Dh
+        add dword [TransferOffset], byte 3Dh
         call UpdateTeamStat
 .27:
         inc ecx
@@ -2986,7 +2986,7 @@ ReceiveLeagueData:
         mov eax, dword [byte ebp+072h]
         shl ecx, 4
         add eax, ecx
-        mov edx, unk_16D7F4
+        mov edx, DbKeyBuffer
         add eax, byte 8
         call KeysEqual
         test eax, eax
@@ -2997,21 +2997,21 @@ ReceiveLeagueData:
         add eax, ecx
         movsx ecx, byte [eax]
         imul ecx, byte 1Ch
-        cmp byte [dword ecx+byte_1ACF63], 1
+        cmp byte [dword ecx+SeasonUserActive], 1
         je short .32
         movsx eax, byte [byte eax+01h]
         imul eax, byte 1Ch
-        cmp byte [dword eax+byte_1ACF63], 1
+        cmp byte [dword eax+SeasonUserActive], 1
         jne near .34
 .32:
         mov eax, 1
         mov ebx, 4A78h
         call LinkReceiveData
-        mov edx, dword [dword_1C93CC]
+        mov edx, dword [TransferBuffer]
         lea eax, [dword ebp-04B4Ah]
-        add edx, dword [dword_1C93C4]
+        add edx, dword [TransferOffset]
         call memcpy_
-        add dword [dword_1C93C4], 4A78h
+        add dword [TransferOffset], 4A78h
         cmp dword [dword ebp-0DAh], byte 0
         je short .33
         push byte 0
@@ -3019,13 +3019,13 @@ ReceiveLeagueData:
         push str_Replaybuf
         call AllocMemBlock
         mov ecx, dword [dword ebp-0DAh]
-        mov edx, dword [dword_1C93CC]
+        mov edx, dword [TransferBuffer]
         add esp, byte 0Ch
         mov ebx, ecx
-        add edx, dword [dword_1C93C4]
+        add edx, dword [TransferOffset]
         mov dword [byte ebp+07Eh], eax
         call memcpy_
-        add dword [dword_1C93C4], ecx
+        add dword [TransferOffset], ecx
 .33:
         mov ebx, dword [dword ebp-0DAh]
         mov edx, dword [byte ebp+07Eh]
@@ -3044,21 +3044,21 @@ ReceiveLeagueData:
         add eax, dword [byte ebp+072h]
         movsx ecx, byte [eax]
         imul ecx, byte 1Ch
-        cmp byte [dword ecx+byte_1AD458], 1
+        cmp byte [dword ecx+PlayoffUserActive], 1
         je short .35
         movsx eax, byte [byte eax+01h]
         imul eax, byte 1Ch
-        cmp byte [dword eax+byte_1AD458], 1
+        cmp byte [dword eax+PlayoffUserActive], 1
         jne near .37
 .35:
         mov eax, 1
         mov ebx, 4A78h
         call LinkReceiveData
-        mov edx, dword [dword_1C93CC]
+        mov edx, dword [TransferBuffer]
         lea eax, [dword ebp-04B4Ah]
-        add edx, dword [dword_1C93C4]
+        add edx, dword [TransferOffset]
         call memcpy_
-        add dword [dword_1C93C4], 4A78h
+        add dword [TransferOffset], 4A78h
         cmp dword [dword ebp-0DAh], byte 0
         je short .36
         push byte 0
@@ -3066,13 +3066,13 @@ ReceiveLeagueData:
         push str_Replaybuf
         call AllocMemBlock
         mov ecx, dword [dword ebp-0DAh]
-        mov edx, dword [dword_1C93CC]
+        mov edx, dword [TransferBuffer]
         add esp, byte 0Ch
         mov ebx, ecx
-        add edx, dword [dword_1C93C4]
+        add edx, dword [TransferOffset]
         mov dword [byte ebp+07Eh], eax
         call memcpy_
-        add dword [dword_1C93C4], ecx
+        add dword [TransferOffset], ecx
 .36:
         mov ebx, dword [dword ebp-0DAh]
         mov edx, dword [byte ebp+07Eh]
@@ -3097,10 +3097,10 @@ ReceiveLeagueData:
         mov dword [byte eax+08h], 0FFCh
 .40:
         call HideWorkingBox
-        push dword [dword_1C93CC]
+        push dword [TransferBuffer]
         call FreeMemBlock
         add esp, byte 4
-        push dword [dword_1C93C8]
+        push dword [TransferPackBuffer]
         call FreeMemBlock
         add esp, byte 4
         push dword [byte ebp+06Eh]
@@ -3140,7 +3140,7 @@ SendLeagueFile:
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [byte ebp-014h], eax
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je near .69
         call ClearLinkAbort
         test eax, eax
@@ -3188,7 +3188,7 @@ SendLeagueFile:
         jmp near .12
 .7:
         imul eax, dword [byte ebp-04h], byte 1Ch
-        cmp byte [dword eax+byte_1ACF63], 0
+        cmp byte [dword eax+SeasonUserActive], 0
         jne short .9
         cmp byte [dword eax+ebp-032Ch], 1
         jne short .9
@@ -3202,14 +3202,14 @@ SendLeagueFile:
         imul eax, dword [byte ebp-04h], byte 1Ch
         cmp byte [dword eax+ebp-032Ch], 0
         jne short .11
-        cmp byte [dword eax+byte_1ACF63], 1
+        cmp byte [dword eax+SeasonUserActive], 1
         jne short .11
-        cmp byte [dword eax+byte_1ACF62], 0
+        cmp byte [dword eax+SeasonUserHuman], 0
         jne short .10
         mov esi, 3
         jmp short .11
 .10:
-        mov byte [dword eax+byte_1ACF63], 0
+        mov byte [dword eax+SeasonUserActive], 0
 .11:
         inc dword [byte ebp-04h]
 .12:
@@ -3240,13 +3240,13 @@ SendLeagueFile:
         movsx eax, word [byte ebp-04Fh]
         cmp eax, byte 0FFFFFFFFh
         je short .17
-        movsx eax, word [word_1AD240]
+        movsx eax, word [SeasonLastHome]
         cmp eax, byte 0FFFFFFFFh
         jne short .17
         mov eax, dword [byte ebp-04Fh]
-        mov word [word_1AD240], ax
+        mov word [SeasonLastHome], ax
         mov eax, dword [byte ebp-04Dh]
-        mov word [word_1AD242], ax
+        mov word [SeasonLastAway], ax
 .17:
         call ClearLinkAbort
         test eax, eax
@@ -3275,9 +3275,9 @@ SendLeagueFile:
         mov dword [byte ebp-04h], eax
 .21:
         imul ecx, dword [byte ebp-04h], byte 1Ch
-        cmp byte [dword ecx+byte_1ACF63], 1
+        cmp byte [dword ecx+SeasonUserActive], 1
         jne short .22
-        cmp byte [dword ecx+byte_1ACF62], 0
+        cmp byte [dword ecx+SeasonUserHuman], 0
         jne short .22
         inc eax
 .22:
@@ -3294,9 +3294,9 @@ SendLeagueFile:
         mov dword [byte ebp-04h], eax
 .24:
         imul ecx, dword [byte ebp-04h], byte 1Ch
-        cmp byte [dword ecx+byte_1ACF63], 1
+        cmp byte [dword ecx+SeasonUserActive], 1
         jne short .25
-        cmp byte [dword ecx+byte_1ACF62], 0
+        cmp byte [dword ecx+SeasonUserHuman], 0
         jne short .25
         inc eax
 .25:
@@ -3350,9 +3350,9 @@ SendLeagueFile:
         jmp near .47
 .33:
         imul eax, dword [byte ebp-04h], byte 1Ch
-        cmp byte [dword eax+byte_1ACF63], 1
+        cmp byte [dword eax+SeasonUserActive], 1
         jne near .46
-        cmp byte [dword eax+byte_1ACF62], 0
+        cmp byte [dword eax+SeasonUserHuman], 0
         jne near .46
         mov eax, dword [byte ebp-04h]
         mov edx, dword [byte ecx+01Ch]
@@ -3473,12 +3473,12 @@ SendLeagueFile:
         cmp byte [dword eax+ebp-032Dh], 0
         jne near .62
         mov ebx, 194Fh
-        mov edx, dword [dword_1C93CC]
+        mov edx, dword [TransferBuffer]
         mov eax, dword [byte ebp-08h]
-        add edx, dword [dword_1C93C4]
+        add edx, dword [TransferOffset]
         call memcpy_
         mov edx, dword [byte ebp-04h]
-        add dword [dword_1C93C4], 194Fh
+        add dword [TransferOffset], 194Fh
         mov eax, dword [SeasonUserTeam]
         shl edx, 3
         mov esi, dword [byte eax+01Ch]
@@ -3507,12 +3507,12 @@ SendLeagueFile:
         cmp dword [dword eax+0D31h], byte 0
         je short .51
         mov ebx, 27h
-        mov edx, dword [dword_1C93CC]
+        mov edx, dword [TransferBuffer]
         lea eax, [byte ebp-03Ch]
-        add edx, dword [dword_1C93C4]
+        add edx, dword [TransferOffset]
         call memcpy_
         lea eax, [byte ebp-03Ch]
-        add dword [dword_1C93C4], byte 27h
+        add dword [TransferOffset], byte 27h
         call UpdatePlayerStat
 .51:
         inc ecx
@@ -3529,12 +3529,12 @@ SendLeagueFile:
         cmp dword [dword eax+012ABh], byte 0
         je short .54
         mov ebx, 27h
-        mov edx, dword [dword_1C93CC]
+        mov edx, dword [TransferBuffer]
         lea eax, [byte ebp-03Ch]
-        add edx, dword [dword_1C93C4]
+        add edx, dword [TransferOffset]
         call memcpy_
         lea eax, [byte ebp-03Ch]
-        add dword [dword_1C93C4], byte 27h
+        add dword [TransferOffset], byte 27h
         call UpdatePlayerStat
 .54:
         inc ecx
@@ -3551,12 +3551,12 @@ SendLeagueFile:
         cmp dword [dword eax+01355h], byte 0
         je short .57
         mov ebx, 27h
-        mov edx, dword [dword_1C93CC]
+        mov edx, dword [TransferBuffer]
         lea eax, [byte ebp-03Ch]
-        add edx, dword [dword_1C93C4]
+        add edx, dword [TransferOffset]
         call memcpy_
         lea eax, [byte ebp-03Ch]
-        add dword [dword_1C93C4], byte 27h
+        add dword [TransferOffset], byte 27h
         call UpdatePlayerStat
 .57:
         inc ecx
@@ -3573,12 +3573,12 @@ SendLeagueFile:
         cmp dword [dword eax+018CFh], byte 0
         je short .60
         mov ebx, 27h
-        mov edx, dword [dword_1C93CC]
+        mov edx, dword [TransferBuffer]
         lea eax, [byte ebp-03Ch]
-        add edx, dword [dword_1C93C4]
+        add edx, dword [TransferOffset]
         call memcpy_
         lea eax, [byte ebp-03Ch]
-        add dword [dword_1C93C4], byte 27h
+        add dword [TransferOffset], byte 27h
         call UpdatePlayerStat
 .60:
         inc ecx
@@ -3595,10 +3595,10 @@ SendLeagueFile:
         cmp eax, dword [byte ebp-04h]
         jg near .49
 .64:
-        push dword [dword_1C93CC]
+        push dword [TransferBuffer]
         call FreeMemBlock
         add esp, byte 4
-        push dword [dword_1C93C8]
+        push dword [TransferPackBuffer]
         inc dword [byte ebp-010h]
         call FreeMemBlock
         add esp, byte 4
@@ -3608,18 +3608,18 @@ SendLeagueFile:
         mov dword [byte ebp-04h], 0
 .66:
         imul eax, dword [byte ebp-04h], byte 1Ch
-        cmp byte [dword eax+byte_1ACF62], 0
+        cmp byte [dword eax+SeasonUserHuman], 0
         je short .67
-        cmp byte [dword eax+byte_1ACF63], 1
+        cmp byte [dword eax+SeasonUserActive], 1
         jne short .67
-        mov byte [dword eax+byte_1ACF62], 1
+        mov byte [dword eax+SeasonUserHuman], 1
 .67:
         imul eax, dword [byte ebp-04h], byte 1Ch
         cmp byte [dword eax+ebp-032Dh], 0
         jne short .68
         cmp byte [dword eax+ebp-032Ch], 1
         jne short .68
-        mov byte [dword eax+byte_1ACF62], 2
+        mov byte [dword eax+SeasonUserHuman], 2
 .68:
         inc dword [byte ebp-04h]
         cmp dword [byte ebp-04h], byte 1Ah
@@ -3632,11 +3632,11 @@ SendLeagueFile:
         mov dword [byte ebp-04h], esi
 .70:
         imul eax, dword [byte ebp-04h], byte 1Ch
-        cmp byte [dword eax+byte_1ACF62], 2
+        cmp byte [dword eax+SeasonUserHuman], 2
         jne short .71
-        cmp byte [dword eax+byte_1ACF63], 1
+        cmp byte [dword eax+SeasonUserActive], 1
         jne short .71
-        mov byte [dword eax+byte_1ACF62], 1
+        mov byte [dword eax+SeasonUserHuman], 1
 .71:
         inc dword [byte ebp-04h]
         cmp dword [byte ebp-04h], byte 1Ah
@@ -3683,13 +3683,13 @@ ReceiveLeagueFile:
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [byte ebp-010h], eax
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je near .63
         call ClearLinkAbort
         test eax, eax
         je short .1
         mov edx, 4F7h
-        mov eax, unk_1AD250
+        mov eax, PlayoffSettings
         xor ebx, ebx
         call LinkSendBlock
         mov edx, 4F7h
@@ -3703,7 +3703,7 @@ ReceiveLeagueFile:
         xor ebx, ebx
         call LinkReceiveBlock
         mov edx, 4F7h
-        mov eax, unk_1AD250
+        mov eax, PlayoffSettings
         xor ebx, ebx
         call LinkSendBlock
 .2:
@@ -3711,7 +3711,7 @@ ReceiveLeagueFile:
         jmp near .8
 .3:
         imul eax, dword [byte ebp-04h], byte 1Ch
-        cmp byte [dword eax+byte_1AD458], 0
+        cmp byte [dword eax+PlayoffUserActive], 0
         jne short .5
         cmp byte [dword eax+ebp-0328h], 1
         jne short .5
@@ -3725,14 +3725,14 @@ ReceiveLeagueFile:
         imul eax, dword [byte ebp-04h], byte 1Ch
         cmp byte [dword eax+ebp-0328h], 0
         jne short .7
-        cmp byte [dword eax+byte_1AD458], 1
+        cmp byte [dword eax+PlayoffUserActive], 1
         jne short .7
-        cmp byte [dword eax+byte_1AD457], 0
+        cmp byte [dword eax+PlayoffUserHuman], 0
         jne short .6
         mov esi, 3
         jmp short .7
 .6:
-        mov byte [dword eax+byte_1AD458], 0
+        mov byte [dword eax+PlayoffUserActive], 0
 .7:
         inc dword [byte ebp-04h]
 .8:
@@ -3786,9 +3786,9 @@ ReceiveLeagueFile:
         mov dword [byte ebp-04h], eax
 .16:
         imul ecx, dword [byte ebp-04h], byte 1Ch
-        cmp byte [dword ecx+byte_1AD458], 1
+        cmp byte [dword ecx+PlayoffUserActive], 1
         jne short .17
-        cmp byte [dword ecx+byte_1AD457], 0
+        cmp byte [dword ecx+PlayoffUserHuman], 0
         jne short .17
         inc eax
 .17:
@@ -3803,9 +3803,9 @@ ReceiveLeagueFile:
         mov dword [byte ebp-04h], eax
 .19:
         imul ecx, dword [byte ebp-04h], byte 1Ch
-        cmp byte [dword ecx+byte_1AD458], 1
+        cmp byte [dword ecx+PlayoffUserActive], 1
         jne short .20
-        cmp byte [dword ecx+byte_1AD457], 0
+        cmp byte [dword ecx+PlayoffUserHuman], 0
         jne short .20
         inc eax
 .20:
@@ -3854,9 +3854,9 @@ ReceiveLeagueFile:
         jmp near .42
 .28:
         imul eax, dword [byte ebp-04h], byte 1Ch
-        cmp byte [dword eax+byte_1AD458], 1
+        cmp byte [dword eax+PlayoffUserActive], 1
         jne near .41
-        cmp byte [dword eax+byte_1AD457], 0
+        cmp byte [dword eax+PlayoffUserHuman], 0
         jne near .41
         mov edx, dword [byte ebp-04h]
         mov eax, dword [byte ecx+01Ch]
@@ -3977,12 +3977,12 @@ ReceiveLeagueFile:
         cmp byte [dword eax+ebp-0329h], 0
         jne near .57
         mov ebx, 194Fh
-        mov edx, dword [dword_1C93CC]
+        mov edx, dword [TransferBuffer]
         mov eax, dword [byte ebp-08h]
-        add edx, dword [dword_1C93C4]
+        add edx, dword [TransferOffset]
         call memcpy_
         mov edx, dword [byte ebp-04h]
-        add dword [dword_1C93C4], 194Fh
+        add dword [TransferOffset], 194Fh
         mov eax, dword [SeasonUserTeam]
         shl edx, 3
         mov esi, dword [byte eax+01Ch]
@@ -4011,12 +4011,12 @@ ReceiveLeagueFile:
         cmp dword [dword eax+0D31h], byte 0
         je short .46
         mov ebx, 27h
-        mov edx, dword [dword_1C93CC]
+        mov edx, dword [TransferBuffer]
         lea eax, [byte ebp-038h]
-        add edx, dword [dword_1C93C4]
+        add edx, dword [TransferOffset]
         call memcpy_
         lea eax, [byte ebp-038h]
-        add dword [dword_1C93C4], byte 27h
+        add dword [TransferOffset], byte 27h
         call UpdatePlayerStat
 .46:
         inc ecx
@@ -4033,12 +4033,12 @@ ReceiveLeagueFile:
         cmp dword [dword eax+012ABh], byte 0
         je short .49
         mov ebx, 27h
-        mov edx, dword [dword_1C93CC]
+        mov edx, dword [TransferBuffer]
         lea eax, [byte ebp-038h]
-        add edx, dword [dword_1C93C4]
+        add edx, dword [TransferOffset]
         call memcpy_
         lea eax, [byte ebp-038h]
-        add dword [dword_1C93C4], byte 27h
+        add dword [TransferOffset], byte 27h
         call UpdatePlayerStat
 .49:
         inc ecx
@@ -4055,12 +4055,12 @@ ReceiveLeagueFile:
         cmp dword [dword eax+01355h], byte 0
         je short .52
         mov ebx, 27h
-        mov edx, dword [dword_1C93CC]
+        mov edx, dword [TransferBuffer]
         lea eax, [byte ebp-038h]
-        add edx, dword [dword_1C93C4]
+        add edx, dword [TransferOffset]
         call memcpy_
         lea eax, [byte ebp-038h]
-        add dword [dword_1C93C4], byte 27h
+        add dword [TransferOffset], byte 27h
         call UpdatePlayerStat
 .52:
         inc ecx
@@ -4077,12 +4077,12 @@ ReceiveLeagueFile:
         cmp dword [dword eax+018CFh], byte 0
         je short .55
         mov ebx, 27h
-        mov edx, dword [dword_1C93CC]
+        mov edx, dword [TransferBuffer]
         lea eax, [byte ebp-038h]
-        add edx, dword [dword_1C93C4]
+        add edx, dword [TransferOffset]
         call memcpy_
         lea eax, [byte ebp-038h]
-        add dword [dword_1C93C4], byte 27h
+        add dword [TransferOffset], byte 27h
         call UpdatePlayerStat
 .55:
         inc ecx
@@ -4099,10 +4099,10 @@ ReceiveLeagueFile:
         cmp eax, dword [byte ebp-04h]
         jg near .44
 .59:
-        push dword [dword_1C93CC]
+        push dword [TransferBuffer]
         call FreeMemBlock
         add esp, byte 4
-        push dword [dword_1C93C8]
+        push dword [TransferPackBuffer]
         inc dword [byte ebp-0Ch]
         call FreeMemBlock
         add esp, byte 4
@@ -4111,18 +4111,18 @@ ReceiveLeagueFile:
         mov dword [byte ebp-04h], 0
 .60:
         imul eax, dword [byte ebp-04h], byte 1Ch
-        cmp byte [dword eax+byte_1AD457], 0
+        cmp byte [dword eax+PlayoffUserHuman], 0
         je short .61
-        cmp byte [dword eax+byte_1AD458], 1
+        cmp byte [dword eax+PlayoffUserActive], 1
         jne short .61
-        mov byte [dword eax+byte_1AD457], 1
+        mov byte [dword eax+PlayoffUserHuman], 1
 .61:
         imul eax, dword [byte ebp-04h], byte 1Ch
         cmp byte [dword eax+ebp-0329h], 0
         jne short .62
         cmp byte [dword eax+ebp-0328h], 1
         jne short .62
-        mov byte [dword eax+byte_1AD457], 2
+        mov byte [dword eax+PlayoffUserHuman], 2
 .62:
         inc dword [byte ebp-04h]
         cmp dword [byte ebp-04h], byte 10h
@@ -4133,11 +4133,11 @@ ReceiveLeagueFile:
         mov dword [byte ebp-04h], esi
 .64:
         imul eax, dword [byte ebp-04h], byte 1Ch
-        cmp byte [dword eax+byte_1AD457], 2
+        cmp byte [dword eax+PlayoffUserHuman], 2
         jne short .65
-        cmp byte [dword eax+byte_1AD458], 1
+        cmp byte [dword eax+PlayoffUserActive], 1
         jne short .65
-        mov byte [dword eax+byte_1AD457], 1
+        mov byte [dword eax+PlayoffUserHuman], 1
 .65:
         inc dword [byte ebp-04h]
         cmp dword [byte ebp-04h], byte 10h
@@ -4164,11 +4164,11 @@ AllocCrusherBuffers:
         push byte 0
         push dword 186A0h
         push str_CRUSHERPack
-        mov dword [dword_1C93CC], eax
+        mov dword [TransferBuffer], eax
         call AllocMemBlock
-        mov dword [dword_1C93C4], 0
+        mov dword [TransferOffset], 0
         add esp, byte 0Ch
-        mov dword [dword_1C93C8], eax
+        mov dword [TransferPackBuffer], eax
         pop edx
         pop ecx
         ret
@@ -4179,10 +4179,10 @@ AllocCrusherBuffers:
 FreeTransferBuffers:
         push ecx
         push edx
-        push dword [dword_1C93CC]
+        push dword [TransferBuffer]
         call FreeMemBlock
         add esp, byte 4
-        push dword [dword_1C93C8]
+        push dword [TransferPackBuffer]
         call FreeMemBlock
         add esp, byte 4
         pop edx
@@ -4197,13 +4197,13 @@ CopyToTransfer:
         push ecx
         push esi
         mov ecx, edx
-        mov esi, dword [dword_1C93CC]
+        mov esi, dword [TransferBuffer]
         mov ebx, edx
-        add esi, dword [dword_1C93C4]
+        add esi, dword [TransferOffset]
         mov edx, eax
         mov eax, esi
         call memcpy_
-        add dword [dword_1C93C4], ecx
+        add dword [TransferOffset], ecx
         pop esi
         pop ecx
         pop ebx
@@ -4224,9 +4224,9 @@ LinkSendData:
         call GetLangText
         call ShowLinkMessage
         xor ecx, ecx
-        mov ebx, dword [dword_1C93C8]
-        mov edx, dword [dword_1C93C4]
-        mov eax, dword [dword_1C93CC]
+        mov ebx, dword [TransferPackBuffer]
+        mov edx, dword [TransferOffset]
+        mov eax, dword [TransferBuffer]
         call LinkSendFile
         mov ecx, eax
         call HideLinkBox
@@ -4242,7 +4242,7 @@ LinkSendData:
         call LinkSendBlock
         test esi, esi
         je short .1
-        mov eax, dword [dword_1C93C8]
+        mov eax, dword [TransferPackBuffer]
         mov edx, ecx
         xor ebx, ebx
         call LinkSendBlock
@@ -4255,7 +4255,7 @@ LinkSendData:
         mov edx, ecx
         call GetLangText
         call ShowWorkingBox
-        mov eax, dword [dword_1C93C8]
+        mov eax, dword [TransferPackBuffer]
         mov edx, ecx
         call LinkSendBlock
         call HideWorkingBox
@@ -4266,12 +4266,12 @@ LinkSendData:
         call ShowLinkMessage
         mov edx, ecx
         xor ebx, ebx
-        mov eax, dword [dword_1C93C8]
+        mov eax, dword [TransferPackBuffer]
         call LinkSendBlock
 LinkSendData_BB:
         call HideLinkBox
 .3:
-        mov dword [dword_1C93C4], 0
+        mov dword [TransferOffset], 0
         leave
         pop esi
         pop edx
@@ -4309,7 +4309,7 @@ LinkReceiveData:
         mov ecx, eax
         test esi, esi
         je short .3
-        mov eax, dword [dword_1C93C8]
+        mov eax, dword [TransferPackBuffer]
         mov edx, ecx
         xor ebx, ebx
         call LinkReceiveBlock
@@ -4322,7 +4322,7 @@ LinkReceiveData:
         call ShowLinkMessage
         mov edx, ecx
         xor ebx, ebx
-        mov eax, dword [dword_1C93C8]
+        mov eax, dword [TransferPackBuffer]
         call LinkReceiveBlock
         call HideLinkBox
         jmp short .5
@@ -4332,17 +4332,17 @@ LinkReceiveData:
         mov edx, ecx
         call GetLangText
         call ShowWorkingBox
-        mov eax, dword [dword_1C93C8]
+        mov eax, dword [TransferPackBuffer]
         mov edx, ecx
         call LinkReceiveBlock
         call HideWorkingBox
 .5:
         mov eax, 236h
-        mov edx, unk_1C93D0
+        mov edx, LinkMessageText
         call GetLangText
         call ShowLinkMessage
-        mov ebx, dword [dword_1C93CC]
-        mov eax, dword [dword_1C93C8]
+        mov ebx, dword [TransferBuffer]
+        mov eax, dword [TransferPackBuffer]
         call LinkReceiveChunk
         jmp near LinkSendData_BB
 ;-----------------------------------------------------------------------------
@@ -4353,11 +4353,11 @@ AppendToTransfer:
         push ebx
         push ecx
         mov ecx, edx
-        mov edx, dword [dword_1C93CC]
+        mov edx, dword [TransferBuffer]
         mov ebx, ecx
-        add edx, dword [dword_1C93C4]
+        add edx, dword [TransferOffset]
         call memcpy_
-        add dword [dword_1C93C4], ecx
+        add dword [TransferOffset], ecx
         pop ecx
         pop ebx
         ret
@@ -4426,7 +4426,7 @@ DrawLinkStatusText:
         pop edi
         pop esi
         ret
-jpt_A31C6:
+ResetLinkSetupJumpTable:
         dd ResetLinkSetup_20
         dd ResetLinkSetup_45
         dd ResetLinkSetup_50
@@ -4448,9 +4448,9 @@ ResetLinkSetup:
         cmp al, 5
         ja near ResetLinkSetup_5E.5
         movzx eax, al
-        jmp dword [nosplit cs:eax*4+jpt_A31C6]
+        jmp dword [nosplit cs:eax*4+ResetLinkSetupJumpTable]
 ResetLinkSetup_20:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short ResetLinkSetup_45.2
         call ClearLinkAbort
         test eax, eax
@@ -4480,7 +4480,7 @@ ResetLinkSetup_5E:
         xor eax, eax
 .3:
         mov dh, dl
-        movsx esi, word [nosplit eax*2+word_1C9450]
+        movsx esi, word [nosplit eax*2+LinkSetupValues]
         and dh, 78h
         mov dword [byte ebp-04h], esi
         movzx esi, dh
@@ -4492,10 +4492,10 @@ ResetLinkSetup_5E:
 .4:
         add ebx, eax
 .5:
-        movsx eax, word [word_1C94EE]
+        movsx eax, word [LinkSetupItemCount]
         imul eax, ecx
         add eax, ebx
-        mov ebx, dword [dword_1C94B8]
+        mov ebx, dword [LinkSetupBuffer]
         mov eax, dword [ebx+eax*4]
         mov eax, dword [byte eax+02Ch]
         leave

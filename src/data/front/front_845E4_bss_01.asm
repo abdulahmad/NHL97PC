@@ -2,88 +2,88 @@
 bits 32
 %include "hockey.inc"
 section s_1C826C nobits alloc noexec write align=1
-global byte_1C82B3, byte_1C82B4, byte_1C8338, byte_1C833C, dword_1C826C, dword_1C829C, dword_1C82A0, dword_1C82A4
-global dword_1C82A8, dword_1C82AC, dword_1C82B0, dword_1C82C0, dword_1C82C4, dword_1C82C8, dword_1C82CC, dword_1C82D0
-global dword_1C82D4, dword_1C82D8, dword_1C82DC, dword_1C82E0, dword_1C82E4, dword_1C82F4, dword_1C8318, dword_1C831C
-global dword_1C8320, dword_1C8324, dword_1C8328, dword_1C832C, dword_1C8330, dword_1C8334, unk_1C8300, unk_1C830C
-global unk_1C834C, unk_1C8360, word_1C8340, word_1C8342, word_1C8344, word_1C8346, word_1C8348, word_1C834A
-dword_1C826C:
+global MainMenuAnimEnd, MainMenuAnimDone, StatsMenuDrawn, ModemFlags, MainMenuAnimFrames, MainMenuAnimTimer, MainMenuAnimFrame, MainMenuAnimStart
+global MainMenuAnimRate, MainMenuAnimShape, MainMenuAnimMode, MainMenuAnimX, MainMenuAnimY, MainMenuAnimArt, MainMenuAnimBack, MainMenuAnimLogo
+global MainMenuAnimTitle, MainMenuAnimCursor, MainMenuAnimItems, MainMenuAnimPanel, MainMenuAnimSprites, MainMenuButtons, MainMenuChoice, MainMenuAnimTick
+global MainMenuCursor, MainMenuWindow, MainMenuAnimRunning, MainMenuResult, MainMenuScreenArt, SeasonMenuExit, MainMenuButtonRect, MainMenuTextRect
+global ModemInitString, ModemPhoneNumber, ModemPort, ModemIrq, ModemBaudRate, ModemDialMode, ModemAnswer, ModemSpeed
+MainMenuAnimFrames:
         resb 48
-dword_1C829C:
+MainMenuAnimTimer:
         resb 4
-dword_1C82A0:
+MainMenuAnimFrame:
         resb 4
-dword_1C82A4:
+MainMenuAnimStart:
         resb 4
-dword_1C82A8:
+MainMenuAnimRate:
         resb 4
-dword_1C82AC:
+MainMenuAnimShape:
         resb 4
-dword_1C82B0:
+MainMenuAnimMode:
         resb 3
-byte_1C82B3:
+MainMenuAnimEnd:
         resb 1
-byte_1C82B4:
+MainMenuAnimDone:
         resb 12
-dword_1C82C0:
+MainMenuAnimX:
         resb 4
-dword_1C82C4:
+MainMenuAnimY:
         resb 4
-dword_1C82C8:
+MainMenuAnimArt:
         resb 4
-dword_1C82CC:
+MainMenuAnimBack:
         resb 4
-dword_1C82D0:
+MainMenuAnimLogo:
         resb 4
-dword_1C82D4:
+MainMenuAnimTitle:
         resb 4
-dword_1C82D8:
+MainMenuAnimCursor:
         resb 4
-dword_1C82DC:
+MainMenuAnimItems:
         resb 4
-dword_1C82E0:
+MainMenuAnimPanel:
         resb 4
-dword_1C82E4:
+MainMenuAnimSprites:
         resb 16
-dword_1C82F4:
+MainMenuButtons:
         resb 12
-unk_1C8300:
+MainMenuButtonRect:
         resb 12
-unk_1C830C:
+MainMenuTextRect:
         resb 12
-dword_1C8318:
+MainMenuChoice:
         resb 4
-dword_1C831C:
+MainMenuAnimTick:
         resb 4
-dword_1C8320:
+MainMenuCursor:
         resb 4
-dword_1C8324:
+MainMenuWindow:
         resb 4
-dword_1C8328:
+MainMenuAnimRunning:
         resb 4
-dword_1C832C:
+MainMenuResult:
         resb 4
-dword_1C8330:
+MainMenuScreenArt:
         resb 4
-dword_1C8334:
+SeasonMenuExit:
         resb 4
-byte_1C8338:
+StatsMenuDrawn:
         resb 4
-byte_1C833C:
+ModemFlags:
         resb 4
-word_1C8340:
+ModemPort:
         resb 2
-word_1C8342:
+ModemIrq:
         resb 2
-word_1C8344:
+ModemBaudRate:
         resb 2
-word_1C8346:
+ModemDialMode:
         resb 2
-word_1C8348:
+ModemAnswer:
         resb 2
-word_1C834A:
+ModemSpeed:
         resb 2
-unk_1C834C:
+ModemInitString:
         resb 20
-unk_1C8360:
+ModemPhoneNumber:
         resb 40

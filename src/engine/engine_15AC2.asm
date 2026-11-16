@@ -8,8 +8,8 @@ extern str_SSDD, str_SD, str_SDCS, str_Punct, str_2d01d, str_SD2, str_CHASE, str
 extern str_USERCHASE, str_IntroD3cp, str_ArenaViv, str_DDD, awtmstruct, CameraFlagsByte, GoalSceneActive, ReplayCameraActive
 extern FaceoffDropScene, CameraScenesOn, IntermissionActive, FightSceneActive, PlayerAssignOrder, FaceoffSpotIndex, PenaltyPending, PenaltyTeam
 extern GoalieOut, gmode, PuckFlags, PlayFlags, holdreset, PanelNameBuf, GoalFlags, GoalieFlags
-extern PlayerControlFlags, HmPlayerFlags, HmCoachOffense, HmCoachDefense, AwPlayerFlags, AwCoachOffense, AwCoachDefense, byte_1C135A
-extern byte_1C135B, F32_0p5, F32_65536, F32_100, F32_2000, F32_500, F32_neg500, F32_neg1800
+extern PlayerControlFlags, HmPlayerFlags, HmCoachOffense, HmCoachDefense, AwPlayerFlags, AwCoachOffense, AwCoachDefense, PeriodHomeTeam
+extern PeriodAwayTeam, F32_0p5, F32_65536, F32_100, F32_2000, F32_500, F32_neg500, F32_neg1800
 extern F32_neg4000, F32_neg1000, F32_neg500_UpdateCameraView, F32_neg2000, F32_neg0p000147059, F32_0p000232558, F32_0p000357143, F32_neg0p000188679
 extern F32_20, F32_10_UpdateCameraView, F32_neg10, F32_neg1050, F32_neg1000_UpdateCameraZoom, F32_neg4600, F32_neg4100, F32_1340
 extern F32_neg1340, F32_4100, F32_2040, F32_4800, F32_700, F32_neg700, F32_3600, F32_neg3600
@@ -19,10 +19,10 @@ extern F32_neg700_MenuOrbitScene, F32_neg200, F32_neg300, F32_neg750, F32_750, F
 extern F32_50, F32_0p001, F32_80, F32_6, F32_neg2000_ReplayCamMove, F32_neg4800_ReplayCamMove, F32_4272, F32_1392
 extern F32_neg4272, F32_neg1392, F32_10_CanReachPuck, F32_24, F32_neg3984, F32_neg4272_InCrease, F32_4272_InCrease, F32_1272
 extern F32_4032, F32_768, F32_192, F32_48, F32_0p166667, CameraSceneId, SavedCameraView, ClockShown
-extern PenaltyPanelIds, MessagePanelIds, PenaltyNameIds, F32_CameraNear, PenaltySceneYaw, PenaltySceneDist, dword_16AF5C, dword_16B168
-extern dword_16E464, dword_16E468, ScreenWidth, LastTouchPlayer, PassFrom, PassTo, DefendTarget, ShootSpotX
-extern ExtraAttacker, ZoneTargetX, ZoneFlags, GoalScorerFlags, FaceoffWinner, penshottimer, dword_19CD10, dword_19CD14
-extern dword_19CD20, dword_19CD24, dword_19CD28, dword_19CD2C, dword_19CD30, dword_19CD34, ScorePanelHome, ScorePanelAway
+extern PenaltyPanelIds, MessagePanelIds, PenaltyNameIds, F32_CameraNear, PenaltySceneYaw, PenaltySceneDist, CameraScenesEnabled, ScoreboardOn
+extern ViewScreenWidth, ViewScreenHeight, ScreenWidth, LastTouchPlayer, PassFrom, PassTo, DefendTarget, ShootSpotX
+extern ExtraAttacker, ZoneTargetX, ZoneFlags, GoalScorerFlags, FaceoffWinner, penshottimer, VideoModePanelMode, VideoModeSel
+extern ViewWindowX, ViewWindowY, ViewWindowW, ViewWindowH, VideoModeChanged, DisplayFlags, ScorePanelHome, ScorePanelAway
 extern ScorePanelValues, AwayPanelValue, ClockShownSeconds, ClockShownMinutes, FightSceneTimer, FightSceneState, ReplayCamTarget, ReplayCamYaw
 extern ReplayCamPitch, PenShotSceneTimer, PenShotSceneState, MenuOrbitAngle, SceneStepCount, SceneSavedView, OpeningCamFrame, OpeningCamActive
 extern OpeningCamData, OpeningCamFrames, PenaltyCamDistance, PenaltyCamTimer, CameraSceneFunc, CameraSceneStep, CameraSceneArg, CameraDebugMarks
@@ -33,10 +33,10 @@ extern CameraPathVec, CameraViewPair, CameraViewNear, CameraViewFar, SplineIndex
 extern CameraDistance, CameraAngles, CameraFov, CameraFovTarget, CameraViewParams, CameraLag, CameraSpeed, CameraFollowObj
 extern TargetPointObj, CameraSceneCenter, CameraSceneYaw, CameraSceneDist, CameraTracking, ActiveCameraScene, CameraPathActive, CameraDebugText
 extern TargetVecX, TargetVecY, TargetVecZ, PassTargetAngle, PenaltyRecord, PlayerAssignPtrs, HmScore, AwScore
-extern ViewSizeIndex, GameSettings, GameOptionFlags, dword_1B10DC, dword_1B1410, dword_1B141C, dword_1B8FA0, dword_1B905F
-extern dword_1B9063, dword_1B9067, dword_1B906B, dword_1B906F, dword_1B9077, dword_1B907B, dword_1B907F, dword_1B9083
-extern dword_1B9087, dword_1B908B, dword_1B908F, dword_1B9093, dword_1B9CA4, dword_1B9CAC, dword_1C95B0, dword_1C95B4
-extern dword_1C95BC, dword_1C95C4, TextAlign, TextColorTable, TextColor, DrawGlyphFn, ProjOffsetX, ProjOffsetY
+extern ViewSizeIndex, GameSettings, GameOptionFlags, ScoreboardAngle, ObjectPositions, TargetPoints, ReplayPlaying, CameraStateRecords
+extern CameraStateRecords
+extern CameraStateRecords, CreaseBounds, GoalLineY, PanelArtLarge, ClockFontSmall
+extern ClockFontLarge, PanelArtSmall, TextAlign, TextColorTable, TextColor, DrawGlyphFn, ProjOffsetX, ProjOffsetY
 extern hmtmstruct, hypot_, DrawGlyph_494, OverlayPanelFuncs, ClockPanelFunc, PtrPuckTarget, PtrPuckState, PtrPuckOwner
 extern PtrPuckZone, PtrPuckFlags, PtrPuckObject, PtrHomeIce, PtrAwayIce, F64_0p000333333, F64_1p2_UpdateCameraView, F64_neg0p000454545
 extern F64_neg0p000357143, F64_neg99p9, F64_0p785398, F64_0p0004, F64_3, F64_10, F64_8, F64_neg4
@@ -61,13 +61,13 @@ extern GetLangText, LogGoal, DrawClockOverlay, NextVideoMode, PrevVideoMode, Fre
 extern FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, DrawShapeScaledBy, FillPolygon, FillRectColor
 extern FillRect, MeasureText, DrawTextAt, SetTextColors, DrawTextBoxedAt, FillRectCorners, MatRotY, MatTranspose
 extern VecMulMat, VecAdd, VecSub, VecDistance, VecLength, VecScale, VecNormalizeTo, ProjectPointInt
-extern tickcount, unk_158E2, unk_15932, unk_15982, unk_159D2, unk_15A22, unk_15A72, str_S_DrawPenaltyPanel
+extern tickcount, PenaltyPanelBlank, PenaltyShotPanelBlank, SpecialTeamsPanelBlank, InjuryPanelBlank, PeriodPanelBlank, GoalScorerPanelBlank, str_S_DrawPenaltyPanel
 extern str_Punct_DrawGoalScorerPanel, str_CommaSpace, str_CloseParen, CameraViewDefs
 extern CameraViewDefs
 extern CameraViewDefs
-extern IntermissionCamPath, IntermissionTimes, ExtraAttackerSpots, ExtraAttackerFlags, unk_16AF14, DebugTagStr, SplineCoefs, OverlayPanelQueue
+extern IntermissionCamPath, IntermissionTimes, ExtraAttackerSpots, ExtraAttackerFlags, ViewDistanceTable, DebugTagStr, SplineCoefs, OverlayPanelQueue
 extern ReplayCamPos, MenuCamPos, MenuCamTarget, CameraPathPoints, SplineCoefsX, SplineCoefsY, CameraEye, CameraCenter
-extern HomeTeamRecord, unk_1B0AD0, unk_1B0AE8, unk_1B1090, unk_1B9038, unk_1B92AB, vecdist, vtoa
+extern HomeTeamRecord, ScoreboardCorners, RinkViewPoints, RinkCameraPoints, CameraViewNames, CameraStateRecords, vecdist, vtoa
 extern str_D_ChangeViewSize, FightCameraReady, FaceoffSpotX, FaceoffSpotY, RimTargetX, RimTargetY, HomeSkaters, AwaySkaters
 extern DefendFlags, ShootSpotY, GoalieTarget, ZoneTargetY, PassPlayer, PassPending, PassTarget, LastTouchTeam
 extern PassDistX, PassDistY, PassReceiver, OneTimerPlayer, PassState, StatsPanelPlayer, AssistOne, AssistTwo
@@ -76,7 +76,7 @@ extern SimFrames, StoppageFlag, LastPlayerTouch, gsp, gameclock, StatsPanelOn, F
 extern OneTimerReady, OneTimerPasser, OneTimerTarget, PuckZone, penshotmode, BenchRequest, penshotlive, FaceoffRequest
 extern PuckY, MessagePanel, BreakawayFlag, HomeGoalieOff, AwayGoalieOff, FaceoffTakers, PlayerAssignWords, HomeTeamRecord
 extern HmPlayersInBox, HmLineState, AwPlayersInBox, AwLineState
-global jpt_19604, jpt_19F18, jpt_1A304, jpt_1A680, jpt_1A708, jpt_1B9C4, jpt_1F03C, PrevVideoModeKey_20A
+global UpdateCameraViewJumpTable, UpdateCameraZoomJumpTable, UpdateCameraTrackJumpTable, EaseCameraAnglesJumpTable, SetCameraViewJumpTable, PenaltySceneStepJumpTable, SwapPositionJumpTable, PrevVideoModeKey_20A
 global PrevVideoModeKey_20E, PrevVideoModeKey_216, PrevVideoModeKey_217, DrawMessagePanel_15D, DrawMessagePanel_15F, DrawPenaltyPanel_26F, DrawSpecialTeamsPanel, DrawPenaltyShotPanel_48E
 global DrawPenaltyShotPanel_49A, DrawPenaltyShotPanel_4D7, DrawPowerPlayClock_18E, UpdateCameraView_28, UpdateCameraView_54, UpdateCameraView_AC, UpdateCameraView_11B, UpdateCameraView_1AC
 global UpdateCameraView_272, UpdateCameraView_326, UpdateCameraView_461, UpdateCameraView_5F0, UpdateCameraView_7F5, UpdateCameraView_8D3, UpdateCameraZoom_21, UpdateCameraZoom_169
@@ -104,8 +104,8 @@ global GoaliePosTarget, FaceoffSpotPosition, Endfaceoff, AssNoop, assnull, assbe
 global Goal, InCrease, UpdateCreaseFlag, FindCreasePlayer, assgoalie, KeepInsideRink, DefendPuck, assextra4
 global assdefo, asswingo, asscentero, FindManToCover, assextra3, assdefd, asswingd, asscenterd
 global asstofaceoff, assfaceoff, assfaceoffpl, BuildPassTargets, CreditPass, assonetimer, CarrierInShotArea, CanReceivePass
-global MakePass, RimPuck, StartPass, TargetInAngle, AIPassDecision, ChkAIShoot, unk_19178, unk_19180
-global unk_19188, unk_19194, unk_191A0, unk_191AC
+global MakePass, RimPuck, StartPass, TargetInAngle, AIPassDecision, ChkAIShoot, FaceoffCloseupInit, FaceoffSweepInit
+global GoalSceneCamFrom, GoalSceneCamTo, GoalCameraFrom, GoalCameraTo
 ;-----------------------------------------------------------------------------
 ; ChangeViewSize                               15AC2  97 PC, medium confidence
 ; (+1 / -1): the game view size in steps of 10 between 28h and 64h percent
@@ -135,14 +135,14 @@ ChangeViewSize:
         mov word [str_D_ChangeViewSize], 28h
         jmp near PrevVideoModeKey_216
 .2:
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         movsx ebx, word [str_D_ChangeViewSize]
         imul eax, ebx
         mov ecx, 64h
         cdq
         idiv ecx
         mov ecx, eax
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         imul eax, ebx
         mov ebx, 64h
         cdq
@@ -153,7 +153,7 @@ ChangeViewSize:
         je short .3
         sar ebx, 1
 .3:
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         cdq
         LD sub, eax, edx
         sar eax, 1
@@ -165,7 +165,7 @@ ChangeViewSize:
         sub edi, eax
         mov eax, dword [ViewSizeIndex]
         mov dword [byte ebp-04h], eax
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         cdq
         LD sub, eax, edx
         sar eax, 1
@@ -183,11 +183,11 @@ ChangeViewSize:
         sub esi, eax
 .5:
         mov eax, dword [ViewSizeIndex]
-        mov dword [dword_19CD28], ecx
-        mov dword [dword_19CD2C], ebx
-        mov dword [dword_19CD20], edi
+        mov dword [ViewWindowW], ecx
+        mov dword [ViewWindowH], ebx
+        mov dword [ViewWindowX], edi
         mov edx, ecx
-        mov dword [dword_19CD24], esi
+        mov dword [ViewWindowY], esi
         call SetViewSize
         mov eax, dword [ViewSizeIndex]
         mov ebx, esi
@@ -196,31 +196,31 @@ ChangeViewSize:
         jmp near PrevVideoModeKey_216
 ;-----------------------------------------------------------------------------
 ; SetViewWindow                                   15BC5  97 PC, low confidence
-; The game view window from the view size and the screen size (dword_16E464 x
-; dword_16E468)
+; The game view window from the view size and the screen size (ViewScreenWidth x
+; ViewScreenHeight)
 ;-----------------------------------------------------------------------------
 SetViewWindow:
         push ebx
         push ecx
         push edx
-        imul eax, dword [dword_16E468], byte 2Dh
+        imul eax, dword [ViewScreenHeight], byte 2Dh
         mov ebx, 0C8h
         cdq
         idiv ebx
-        mov ebx, dword [dword_16E468]
+        mov ebx, dword [ViewScreenHeight]
         sub ebx, eax
         mov eax, dword [ViewSizeIndex]
-        mov ecx, dword [dword_16E464]
+        mov ecx, dword [ViewScreenWidth]
         test byte [byte eax+04h], 2
         je short .1
         sar ebx, 1
 .1:
-        mov dword [dword_19CD20], 0
-        mov dword [dword_19CD24], 0
+        mov dword [ViewWindowX], 0
+        mov dword [ViewWindowY], 0
         mov eax, dword [ViewSizeIndex]
-        mov dword [dword_19CD28], ecx
+        mov dword [ViewWindowW], ecx
         mov edx, ecx
-        mov dword [dword_19CD2C], ebx
+        mov dword [ViewWindowH], ebx
         call SetViewSize
         mov eax, dword [ViewSizeIndex]
         xor ebx, ebx
@@ -242,9 +242,9 @@ PrevVideoModeKey:
         push esi
         push edi
         enter 18h, 0
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         jne near .9
-        cmp dword [dword_19CD34], byte 0
+        cmp dword [DisplayFlags], byte 0
         jne near .9
         call ClearOverlayWindows
         lea eax, [byte ebp-018h]
@@ -253,42 +253,42 @@ PrevVideoModeKey:
         mov eax, dword [byte ebp-018h]
         call SetVideoMode
         mov eax, dword [byte ebp-018h]
-        mov dword [dword_19CD10], eax
+        mov dword [VideoModePanelMode], eax
         mov eax, dword [byte ebp-014h]
-        mov dword [dword_19CD14], eax
+        mov dword [VideoModeSel], eax
         cmp eax, 100h
         jl short .1
         mov eax, dword [ViewSizeIndex]
         call SetViewInterlaced
-        mov dword [dword_19CD30], 1
+        mov dword [VideoModeChanged], 1
         jmp short .2
 .1:
         mov eax, dword [ViewSizeIndex]
         call ClearViewInterlaced
-        mov dword [dword_19CD30], 0
+        mov dword [VideoModeChanged], 0
 .2:
         mov eax, dword [ViewSizeIndex]
         call ShowView
         movsx ebx, word [str_D_ChangeViewSize]
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         imul eax, ebx
         mov ecx, 64h
         cdq
         idiv ecx
         mov ecx, eax
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         imul eax, ebx
         mov ebx, 64h
         cdq
         idiv ebx
         mov ebx, eax
         mov eax, dword [ViewSizeIndex]
-        mov dword [dword_19CD34], 0
+        mov dword [DisplayFlags], 0
         test byte [byte eax+04h], 2
         je short .3
         sar ebx, 1
 .3:
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         cdq
         LD sub, eax, edx
         sar eax, 1
@@ -300,7 +300,7 @@ PrevVideoModeKey:
         sub edi, eax
         mov eax, dword [ViewSizeIndex]
         mov dword [byte ebp-04h], eax
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         cdq
         LD sub, eax, edx
         sar eax, 1
@@ -318,22 +318,22 @@ PrevVideoModeKey:
         sub esi, eax
 .5:
         mov eax, dword [ViewSizeIndex]
-        mov dword [dword_19CD28], ecx
-        mov dword [dword_19CD2C], ebx
-        mov dword [dword_19CD20], edi
+        mov dword [ViewWindowW], ecx
+        mov dword [ViewWindowH], ebx
+        mov dword [ViewWindowX], edi
         mov edx, ecx
-        mov dword [dword_19CD24], esi
+        mov dword [ViewWindowY], esi
         call SetViewSize
         mov eax, dword [ViewSizeIndex]
         mov ebx, esi
         mov edx, edi
         call SetViewOrigin
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .6
-        push dword [dword_1C95B4]
+        push dword [ClockFontSmall]
         jmp short .7
 .6:
-        push dword [dword_1C95BC]
+        push dword [ClockFontLarge]
 .7:
         call SelectFont
         add esp, byte 4
@@ -358,21 +358,21 @@ PrevVideoModeKey:
         add esp, byte 0Ch
         jmp short PrevVideoModeKey_20A
 .9:
-        cmp dword [dword_19CD34], byte 0
+        cmp dword [DisplayFlags], byte 0
         je short .10
         mov eax, dword [ViewSizeIndex]
-        mov dword [dword_19CD30], 0
+        mov dword [VideoModeChanged], 0
         call ClearViewInterlaced
         mov eax, dword [ViewSizeIndex]
-        mov dword [dword_19CD34], 0
+        mov dword [DisplayFlags], 0
         call ShowView
         jmp short PrevVideoModeKey_20A
 .10:
         mov eax, dword [ViewSizeIndex]
-        mov dword [dword_19CD30], 1
+        mov dword [VideoModeChanged], 1
         call SetViewInterlaced
         mov eax, dword [ViewSizeIndex]
-        mov dword [dword_19CD34], 1
+        mov dword [DisplayFlags], 1
         call HideView
 PrevVideoModeKey_20A:
         push byte 50h
@@ -401,12 +401,12 @@ NextVideoModeKey:
         push esi
         push edi
         enter 18h, 0
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         je short .1
-        cmp dword [dword_19CD34], byte 0
+        cmp dword [DisplayFlags], byte 0
         je short .2
 .1:
-        cmp dword [dword_19CD14], 100h
+        cmp dword [VideoModeSel], 100h
         jge near .9
 .2:
         call ClearOverlayWindows
@@ -416,34 +416,34 @@ NextVideoModeKey:
         mov eax, dword [byte ebp-018h]
         call SetVideoMode
         mov eax, dword [byte ebp-018h]
-        mov dword [dword_19CD10], eax
+        mov dword [VideoModePanelMode], eax
         mov eax, dword [byte ebp-014h]
-        mov dword [dword_19CD14], eax
+        mov dword [VideoModeSel], eax
         mov eax, dword [ViewSizeIndex]
         call ClearViewInterlaced
         mov eax, dword [ViewSizeIndex]
-        mov dword [dword_19CD30], 0
+        mov dword [VideoModeChanged], 0
         call ShowView
         movsx ebx, word [str_D_ChangeViewSize]
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         imul eax, ebx
         mov ecx, 64h
         cdq
         idiv ecx
         mov ecx, eax
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         imul eax, ebx
         mov ebx, 64h
         cdq
         idiv ebx
         mov ebx, eax
         mov eax, dword [ViewSizeIndex]
-        mov dword [dword_19CD34], 0
+        mov dword [DisplayFlags], 0
         test byte [byte eax+04h], 2
         je short .3
         sar ebx, 1
 .3:
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         cdq
         LD sub, eax, edx
         sar eax, 1
@@ -453,7 +453,7 @@ NextVideoModeKey:
         LD sub, eax, edx
         sar eax, 1
         sub esi, eax
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         cdq
         LD sub, eax, edx
         sar eax, 1
@@ -472,23 +472,23 @@ NextVideoModeKey:
         sub esi, eax
 .5:
         mov eax, dword [byte ebp-04h]
-        mov dword [dword_19CD28], ecx
-        mov dword [dword_19CD2C], ebx
+        mov dword [ViewWindowW], ecx
+        mov dword [ViewWindowH], ebx
         mov edx, ecx
-        mov dword [dword_19CD20], eax
+        mov dword [ViewWindowX], eax
         mov eax, dword [ViewSizeIndex]
-        mov dword [dword_19CD24], esi
+        mov dword [ViewWindowY], esi
         call SetViewSize
         mov edx, dword [byte ebp-04h]
         mov eax, dword [ViewSizeIndex]
         mov ebx, esi
         call SetViewOrigin
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .6
-        push dword [dword_1C95B4]
+        push dword [ClockFontSmall]
         jmp short .7
 .6:
-        push dword [dword_1C95BC]
+        push dword [ClockFontLarge]
 .7:
         call SelectFont
         add esp, byte 4
@@ -513,27 +513,27 @@ NextVideoModeKey:
         add esp, byte 0Ch
         jmp near PrevVideoModeKey_20A
 .9:
-        cmp dword [dword_19CD34], byte 0
+        cmp dword [DisplayFlags], byte 0
         je short .10
         mov eax, dword [ViewSizeIndex]
         call ShowView
-        mov dword [dword_19CD34], 0
+        mov dword [DisplayFlags], 0
         jmp near PrevVideoModeKey_20A
 .10:
         mov eax, dword [ViewSizeIndex]
         call HideView
         mov eax, dword [ViewSizeIndex]
-        mov dword [dword_19CD34], 1
+        mov dword [DisplayFlags], 1
         call SetViewInterlaced
-        mov dword [dword_19CD30], 1
+        mov dword [VideoModeChanged], 1
         jmp near PrevVideoModeKey_20A
 ;-----------------------------------------------------------------------------
 ; ApplyDisplayFlags                               1603A  97 PC, low confidence
-; Sets the doubled / interlaced display flags (dword_19CD30, dword_19CD34) in
+; Sets the doubled / interlaced display flags (VideoModeChanged, DisplayFlags) in
 ; the screen record
 ;-----------------------------------------------------------------------------
 ApplyDisplayFlags:
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         je short .1
         mov eax, dword [ViewSizeIndex]
         call SetViewInterlaced
@@ -542,7 +542,7 @@ ApplyDisplayFlags:
         mov eax, dword [ViewSizeIndex]
         call ClearViewInterlaced
 .2:
-        cmp dword [dword_19CD34], byte 0
+        cmp dword [DisplayFlags], byte 0
         je short .3
         mov eax, dword [ViewSizeIndex]
         jmp near HideView
@@ -618,10 +618,10 @@ DrawPanelArtScaled:
         rep movsd
         test eax, eax
         je short .1
-        mov ebx, dword [dword_1C95C4]
+        mov ebx, dword [PanelArtSmall]
         jmp short .2
 .1:
-        mov ebx, dword [dword_1C95B0]
+        mov ebx, dword [PanelArtLarge]
 .2:
         fld dword [byte ebp+01Ch]
         fcomp dword [F32_0p5]
@@ -723,91 +723,91 @@ DrawPanelPlayerCard:
         mov edi, edx
         mov dword [byte ebp-08h], ebx
         mov dword [byte ebp-0Ch], ecx
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .1
-        imul eax, dword [dword_16E464], dword 226h
+        imul eax, dword [ViewScreenWidth], dword 226h
         jmp short .2
 .1:
-        imul eax, dword [dword_16E464], dword 1C2h
+        imul eax, dword [ViewScreenWidth], dword 1C2h
 .2:
         mov ebx, 280h
         cdq
         idiv ebx
         mov dword [byte ebp-030h], eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .3
-        imul eax, dword [dword_16E468], byte 41h
+        imul eax, dword [ViewScreenHeight], byte 41h
         jmp short .4
 .3:
-        imul eax, dword [dword_16E468], byte 37h
+        imul eax, dword [ViewScreenHeight], byte 37h
 .4:
         mov ebx, 190h
         cdq
         idiv ebx
         mov ebx, eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .5
-        imul eax, dword [dword_16E468], byte 0Ah
+        imul eax, dword [ViewScreenHeight], byte 0Ah
         jmp short .6
 .5:
-        imul eax, dword [dword_16E468], byte 14h
+        imul eax, dword [ViewScreenHeight], byte 14h
 .6:
         mov ecx, 190h
         cdq
         idiv ecx
         add ebx, eax
         mov dword [byte ebp-02Ch], ebx
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .7
-        imul eax, dword [dword_16E464], dword 258h
+        imul eax, dword [ViewScreenWidth], dword 258h
         jmp short .8
 .7:
-        imul eax, dword [dword_16E464], dword 1F4h
+        imul eax, dword [ViewScreenWidth], dword 1F4h
 .8:
         mov ebx, 280h
         cdq
         idiv ebx
         mov dword [byte ebp-028h], eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .9
-        imul eax, dword [dword_16E468], byte 0Ah
+        imul eax, dword [ViewScreenHeight], byte 0Ah
         jmp short .10
 .9:
-        imul eax, dword [dword_16E468], byte 14h
+        imul eax, dword [ViewScreenHeight], byte 14h
 .10:
         mov ebx, 190h
         cdq
         idiv ebx
         mov ebx, eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .11
-        imul eax, dword [dword_16E468], byte 41h
+        imul eax, dword [ViewScreenHeight], byte 41h
         jmp short .12
 .11:
-        imul eax, dword [dword_16E468], byte 37h
+        imul eax, dword [ViewScreenHeight], byte 37h
 .12:
         mov ecx, 190h
         cdq
         idiv ecx
         add ebx, eax
         mov dword [byte ebp-024h], ebx
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .13
-        imul eax, dword [dword_16E464], dword 258h
+        imul eax, dword [ViewScreenWidth], dword 258h
         jmp short .14
 .13:
-        imul eax, dword [dword_16E464], dword 1F4h
+        imul eax, dword [ViewScreenWidth], dword 1F4h
 .14:
         mov ebx, 280h
         cdq
         idiv ebx
         mov dword [byte ebp-020h], eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .15
-        imul eax, dword [dword_16E468], byte 0Ah
+        imul eax, dword [ViewScreenHeight], byte 0Ah
         jmp short .16
 .15:
-        imul eax, dword [dword_16E468], byte 14h
+        imul eax, dword [ViewScreenHeight], byte 14h
 .16:
         mov ebx, 190h
         cdq
@@ -831,32 +831,32 @@ DrawPanelPlayerCard:
         call MatchColor
         add esp, byte 4
         push eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .17
-        imul eax, dword [dword_16E468], byte 0Ah
+        imul eax, dword [ViewScreenHeight], byte 0Ah
         jmp short .18
 .17:
-        imul eax, dword [dword_16E468], byte 14h
+        imul eax, dword [ViewScreenHeight], byte 14h
 .18:
         mov ebx, 190h
         cdq
         idiv ebx
         mov ebx, eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .19
         mov ecx, 0Ah
         jmp short .20
 .19:
         mov ecx, 0Eh
 .20:
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         shl eax, 2
         mov dword [byte ebp-04h], 280h
         cdq
         idiv dword [byte ebp-04h]
         add eax, ecx
         add ebx, eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .21
         mov eax, 0FFFFFFFDh
         jmp short .22
@@ -865,37 +865,37 @@ DrawPanelPlayerCard:
 .22:
         add eax, ebx
         push eax
-        imul eax, dword [dword_16E464], dword 1C2h
+        imul eax, dword [ViewScreenWidth], dword 1C2h
         mov ebx, 280h
         cdq
         idiv ebx
         push eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .23
-        imul eax, dword [dword_16E468], byte 0Ah
+        imul eax, dword [ViewScreenHeight], byte 0Ah
         jmp short .24
 .23:
-        imul eax, dword [dword_16E468], byte 14h
+        imul eax, dword [ViewScreenHeight], byte 14h
 .24:
         mov ebx, 190h
         cdq
         idiv ebx
         mov ebx, eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .25
         mov ecx, 0Ah
         jmp short .26
 .25:
         mov ecx, 0Eh
 .26:
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         shl eax, 2
         mov dword [byte ebp-04h], 280h
         cdq
         idiv dword [byte ebp-04h]
         add eax, ecx
         add ebx, eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .27
         mov eax, 0FFFFFFFDh
         jmp short .28
@@ -904,7 +904,7 @@ DrawPanelPlayerCard:
 .28:
         add eax, ebx
         push eax
-        imul eax, dword [dword_16E464], byte 7Dh
+        imul eax, dword [ViewScreenWidth], byte 7Dh
         mov ebx, 280h
         cdq
         idiv ebx
@@ -915,31 +915,31 @@ DrawPanelPlayerCard:
         call MatchColor
         add esp, byte 4
         push eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .29
-        imul eax, dword [dword_16E468], byte 0Ah
+        imul eax, dword [ViewScreenHeight], byte 0Ah
         jmp short .30
 .29:
-        imul eax, dword [dword_16E468], byte 14h
+        imul eax, dword [ViewScreenHeight], byte 14h
 .30:
         mov ebx, 190h
         cdq
         idiv ebx
         mov ebx, eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .31
         mov ecx, 0Ah
         jmp short .32
 .31:
         mov ecx, 0Eh
 .32:
-        imul eax, dword [dword_16E464], byte 5
+        imul eax, dword [ViewScreenWidth], byte 5
         mov dword [byte ebp-04h], 280h
         cdq
         idiv dword [byte ebp-04h]
         add eax, ecx
         add ebx, eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .33
         mov eax, 0FFFFFFFDh
         jmp short .34
@@ -948,36 +948,36 @@ DrawPanelPlayerCard:
 .34:
         add eax, ebx
         push eax
-        imul eax, dword [dword_16E464], dword 1C2h
+        imul eax, dword [ViewScreenWidth], dword 1C2h
         mov ebx, 280h
         cdq
         idiv ebx
         push eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .35
-        imul eax, dword [dword_16E468], byte 0Ah
+        imul eax, dword [ViewScreenHeight], byte 0Ah
         jmp short .36
 .35:
-        imul eax, dword [dword_16E468], byte 14h
+        imul eax, dword [ViewScreenHeight], byte 14h
 .36:
         mov ebx, 190h
         cdq
         idiv ebx
         mov ebx, eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .37
         mov ecx, 0Ah
         jmp short .38
 .37:
         mov ecx, 0Eh
 .38:
-        imul eax, dword [dword_16E464], byte 5
+        imul eax, dword [ViewScreenWidth], byte 5
         mov dword [byte ebp-04h], 280h
         cdq
         idiv dword [byte ebp-04h]
         add eax, ecx
         add ebx, eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .39
         mov eax, 0FFFFFFFDh
         jmp short .40
@@ -986,7 +986,7 @@ DrawPanelPlayerCard:
 .40:
         add eax, ebx
         push eax
-        imul eax, dword [dword_16E464], byte 7Dh
+        imul eax, dword [ViewScreenWidth], byte 7Dh
         mov ebx, 280h
         cdq
         idiv ebx
@@ -994,12 +994,12 @@ DrawPanelPlayerCard:
         call FillRectColor
         add esp, byte 14h
         push dword 0FFh
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .41
-        imul eax, dword [dword_16E468], byte 0Ah
+        imul eax, dword [ViewScreenHeight], byte 0Ah
         jmp short .42
 .41:
-        imul eax, dword [dword_16E468], byte 14h
+        imul eax, dword [ViewScreenHeight], byte 14h
 .42:
         mov ebx, 190h
         cdq
@@ -1011,24 +1011,24 @@ DrawPanelPlayerCard:
         call FillRect
         add esp, byte 14h
         push dword 0FFh
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .43
-        imul eax, dword [dword_16E468], byte 0Ah
+        imul eax, dword [ViewScreenHeight], byte 0Ah
         jmp short .44
 .43:
-        imul eax, dword [dword_16E468], byte 14h
+        imul eax, dword [ViewScreenHeight], byte 14h
 .44:
         mov ebx, 190h
         cdq
         idiv ebx
         mov ecx, dword [byte esi+04h]
         sub ecx, eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .45
-        imul eax, dword [dword_16E468], byte 41h
+        imul eax, dword [ViewScreenHeight], byte 41h
         jmp short .46
 .45:
-        imul eax, dword [dword_16E468], byte 37h
+        imul eax, dword [ViewScreenHeight], byte 37h
 .46:
         mov ebx, 190h
         cdq
@@ -1036,23 +1036,23 @@ DrawPanelPlayerCard:
         sub ecx, eax
         push ecx
         push dword [esi]
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .47
-        imul eax, dword [dword_16E468], byte 41h
+        imul eax, dword [ViewScreenHeight], byte 41h
         jmp short .48
 .47:
-        imul eax, dword [dword_16E468], byte 37h
+        imul eax, dword [ViewScreenHeight], byte 37h
 .48:
         mov ebx, 190h
         cdq
         idiv ebx
         mov ebx, eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .49
-        imul eax, dword [dword_16E468], byte 0Ah
+        imul eax, dword [ViewScreenHeight], byte 0Ah
         jmp short .50
 .49:
-        imul eax, dword [dword_16E468], byte 14h
+        imul eax, dword [ViewScreenHeight], byte 14h
 .50:
         mov ecx, 190h
         cdq
@@ -1070,11 +1070,11 @@ DrawPanelPlayerCard:
         idiv edi
         mov edi, edx
 .51:
-        imul eax, dword [dword_16E464], byte 32h
+        imul eax, dword [ViewScreenWidth], byte 32h
         mov ebx, 280h
         cdq
         idiv ebx
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .52
         mov edx, dword [byte esi+04h]
         sar edx, 1
@@ -1116,33 +1116,33 @@ DrawPanelPlayerCard:
         push eax
         call sprintf_
         add esp, byte 10h
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jl near .58
-        imul eax, dword [dword_16E468], byte 0Ah
+        imul eax, dword [ViewScreenHeight], byte 0Ah
         mov ebx, 190h
         cdq
         idiv ebx
-        imul ecx, dword [dword_16E468], byte 14h
+        imul ecx, dword [ViewScreenHeight], byte 14h
         mov ebx, eax
         mov eax, ecx
         mov esi, 190h
         cdq
         idiv esi
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .56
         lea edx, [byte ebp-018h]
         push edx
         jl short .55
         mov ebx, eax
 .55:
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         add eax, eax
         mov ecx, 190h
         cdq
         idiv ecx
         add eax, ebx
         push eax
-        imul eax, dword [dword_16E464], dword 1C2h
+        imul eax, dword [ViewScreenWidth], dword 1C2h
         mov ebx, 280h
         cdq
         idiv ebx
@@ -1161,14 +1161,14 @@ DrawPanelPlayerCard:
         jl short .57
         mov ebx, eax
 .57:
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         add eax, eax
         mov ecx, 190h
         cdq
         idiv ecx
         add eax, ebx
         push eax
-        imul eax, dword [dword_16E464], dword 1C2h
+        imul eax, dword [ViewScreenWidth], dword 1C2h
         mov ebx, 280h
         cdq
         idiv ebx
@@ -1184,30 +1184,30 @@ DrawPanelPlayerCard:
         call DrawTextAt
         add esp, byte 0Ch
 .58:
-        imul eax, dword [dword_16E468], byte 0Ah
+        imul eax, dword [ViewScreenHeight], byte 0Ah
         mov ebx, 190h
         cdq
         idiv ebx
-        imul ecx, dword [dword_16E468], byte 14h
+        imul ecx, dword [ViewScreenHeight], byte 14h
         mov ebx, eax
         mov eax, ecx
         mov esi, 190h
         cdq
         idiv esi
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .60
         push dword [byte ebp-08h]
         jl short .59
         mov ebx, eax
 .59:
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         add eax, eax
         mov ecx, 190h
         cdq
         idiv ecx
         add eax, ebx
         push eax
-        imul eax, dword [dword_16E464], byte 7Dh
+        imul eax, dword [ViewScreenWidth], byte 7Dh
         mov ebx, 280h
         cdq
         idiv ebx
@@ -1220,14 +1220,14 @@ DrawPanelPlayerCard:
         jl short .61
         mov ebx, eax
 .61:
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         add eax, eax
         mov ecx, 190h
         cdq
         idiv ecx
         add eax, ebx
         push eax
-        imul eax, dword [dword_16E464], byte 7Dh
+        imul eax, dword [ViewScreenWidth], byte 7Dh
         mov ebx, 280h
         cdq
         idiv ebx
@@ -1236,7 +1236,7 @@ DrawPanelPlayerCard:
         call DrawTextAt
         add esp, byte 0Ch
 .62:
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge near .69
         push dword [byte ebp-0Ch]
         jge short .63
@@ -1245,13 +1245,13 @@ DrawPanelPlayerCard:
 .63:
         mov ebx, 0Eh
 .64:
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         shl eax, 2
         mov ecx, 280h
         cdq
         idiv ecx
         add ebx, eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .65
         mov eax, 0FFFFFFFDh
         jmp short .66
@@ -1259,24 +1259,24 @@ DrawPanelPlayerCard:
         xor eax, eax
 .66:
         lea ecx, [ebx+eax]
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         add eax, eax
         mov ebx, 190h
         cdq
         idiv ebx
         add ecx, eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .67
-        imul eax, dword [dword_16E468], byte 0Ah
+        imul eax, dword [ViewScreenHeight], byte 0Ah
         jmp short .68
 .67:
-        imul eax, dword [dword_16E468], byte 14h
+        imul eax, dword [ViewScreenHeight], byte 14h
 .68:
         cdq
         idiv ebx
         add eax, ecx
         push eax
-        imul eax, dword [dword_16E464], byte 7Dh
+        imul eax, dword [ViewScreenWidth], byte 7Dh
         mov ebx, 280h
         cdq
         idiv ebx
@@ -1292,13 +1292,13 @@ DrawPanelPlayerCard:
 .70:
         mov ebx, 0Eh
 .71:
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         shl eax, 2
         mov ecx, 280h
         cdq
         idiv ecx
         add ebx, eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .72
         mov eax, 0FFFFFFFDh
         jmp short .73
@@ -1306,24 +1306,24 @@ DrawPanelPlayerCard:
         xor eax, eax
 .73:
         lea ecx, [ebx+eax]
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         add eax, eax
         mov ebx, 190h
         cdq
         idiv ebx
         add ecx, eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .74
-        imul eax, dword [dword_16E468], byte 0Ah
+        imul eax, dword [ViewScreenHeight], byte 0Ah
         jmp short .75
 .74:
-        imul eax, dword [dword_16E468], byte 14h
+        imul eax, dword [ViewScreenHeight], byte 14h
 .75:
         cdq
         idiv ebx
         add eax, ecx
         push eax
-        imul eax, dword [dword_16E464], byte 7Dh
+        imul eax, dword [ViewScreenWidth], byte 7Dh
         mov ebx, 280h
         cdq
         idiv ebx
@@ -1332,7 +1332,7 @@ DrawPanelPlayerCard:
         call DrawTextAt
         add esp, byte 0Ch
 .76:
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge near .83
         push dword [byte ebp+010h]
         jge short .77
@@ -1341,13 +1341,13 @@ DrawPanelPlayerCard:
 .77:
         mov ebx, 0Eh
 .78:
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         shl eax, 2
         mov ecx, 280h
         cdq
         idiv ecx
         add ebx, eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .79
         mov eax, 0FFFFFFFDh
         jmp short .80
@@ -1355,25 +1355,25 @@ DrawPanelPlayerCard:
         xor eax, eax
 .80:
         lea ecx, [eax+ebx]
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         add eax, eax
         mov ebx, 190h
         cdq
         idiv ebx
         add ecx, ecx
         add ecx, eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .81
-        imul eax, dword [dword_16E468], byte 0Ah
+        imul eax, dword [ViewScreenHeight], byte 0Ah
         jmp short .82
 .81:
-        imul eax, dword [dword_16E468], byte 14h
+        imul eax, dword [ViewScreenHeight], byte 14h
 .82:
         cdq
         idiv ebx
         add eax, ecx
         push eax
-        imul eax, dword [dword_16E464], byte 7Dh
+        imul eax, dword [ViewScreenWidth], byte 7Dh
         mov ebx, 280h
         cdq
         idiv ebx
@@ -1389,13 +1389,13 @@ DrawPanelPlayerCard:
 .84:
         mov ebx, 0Eh
 .85:
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         shl eax, 2
         mov ecx, 280h
         cdq
         idiv ecx
         add ebx, eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .86
         mov eax, 0FFFFFFFDh
         jmp short .87
@@ -1403,25 +1403,25 @@ DrawPanelPlayerCard:
         xor eax, eax
 .87:
         lea ecx, [eax+ebx]
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         add eax, eax
         mov ebx, 190h
         cdq
         idiv ebx
         add ecx, ecx
         add ecx, eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .88
-        imul eax, dword [dword_16E468], byte 0Ah
+        imul eax, dword [ViewScreenHeight], byte 0Ah
         jmp short .89
 .88:
-        imul eax, dword [dword_16E468], byte 14h
+        imul eax, dword [ViewScreenHeight], byte 14h
 .89:
         cdq
         idiv ebx
         add eax, ecx
         push eax
-        imul eax, dword [dword_16E464], byte 7Dh
+        imul eax, dword [ViewScreenWidth], byte 7Dh
         mov ebx, 280h
         cdq
         idiv ebx
@@ -1465,7 +1465,7 @@ GetPlayerPanelName:
         push edx
         mov edx, dword [dword eax+0FEh]
         mov edx, dword [dword edx+0108h]
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .3
         cmp byte [dword eax+0A6h], 19h
         jge short .1
@@ -1562,7 +1562,7 @@ DrawMessagePanel:
         mov edx, eax
         lea eax, [byte ebp-024h]
         call strcpy_
-        imul eax, dword [dword_16E464], byte 14h
+        imul eax, dword [ViewScreenWidth], byte 14h
         mov ebx, 280h
         cdq
         idiv ebx
@@ -1580,14 +1580,14 @@ DrawMessagePanel:
         je short .2
         sub ecx, edx
 .2:
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .3
         mov ebx, 0Ah
         jmp short .4
 .3:
         mov ebx, 0Eh
 .4:
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         shl eax, 3
         mov dword [byte ebp-04h], 190h
         cdq
@@ -1607,18 +1607,18 @@ DrawMessagePanel:
         call ClearScreen
         add esp, byte 4
         call SetOverlayFont
-        imul eax, dword [dword_16E464], byte 0Ah
+        imul eax, dword [ViewScreenWidth], byte 0Ah
         mov ecx, 280h
         cdq
         idiv ecx
-        mov ebx, dword [dword_16E468]
+        mov ebx, dword [ViewScreenHeight]
         shl ebx, 2
         mov ecx, eax
         mov eax, ebx
         mov edi, 190h
         cdq
         idiv edi
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .5
         lea edx, [byte ebp-024h]
         push edx
@@ -1636,7 +1636,7 @@ DrawMessagePanel:
         call DrawTextAt
         add esp, byte 0Ch
 .6:
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         sete al
         movzx eax, al
         shl eax, 4
@@ -1644,7 +1644,7 @@ DrawMessagePanel:
         mov ecx, eax
         mov eax, dword [esi]
         mov ebx, dword [byte eax+02Ch]
-        imul eax, dword [dword_16E468], byte 14h
+        imul eax, dword [ViewScreenHeight], byte 14h
         mov esi, 190h
         cdq
         idiv esi
@@ -1675,23 +1675,23 @@ DrawVideoModePanel:
         add dword [ecx], byte 4
         cmp edx, byte 1
         jne short .1
-        mov edx, unk_1B9038
+        mov edx, CameraViewNames
         lea eax, [byte ebp-038h]
         call strcpy_
         jmp short .5
 .1:
         cmp edx, byte 2
         jne short .5
-        push dword [dword_19CD14]
-        push dword [dword_19CD10]
+        push dword [VideoModeSel]
+        push dword [VideoModePanelMode]
         push str_DXD
         lea eax, [byte ebp-038h]
         push eax
         call sprintf_
         add esp, byte 10h
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         je short .3
-        cmp dword [dword_19CD34], byte 0
+        cmp dword [DisplayFlags], byte 0
         je short .2
         mov edx, str_Doubled
         jmp short .4
@@ -1704,7 +1704,7 @@ DrawVideoModePanel:
         lea eax, [byte ebp-038h]
         call strcat_
 .5:
-        imul eax, dword [dword_16E464], byte 14h
+        imul eax, dword [ViewScreenWidth], byte 14h
         mov ebx, 280h
         cdq
         idiv ebx
@@ -1714,14 +1714,14 @@ DrawVideoModePanel:
         call MeasureText
         add esp, byte 4
         lea ecx, [eax+ebx]
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .6
         mov ebx, 0Ah
         jmp short .7
 .6:
         mov ebx, 0Eh
 .7:
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         shl eax, 3
         mov dword [byte ebp-04h], 190h
         cdq
@@ -1741,18 +1741,18 @@ DrawVideoModePanel:
         call ClearScreen
         add esp, byte 4
         call SetOverlayFont
-        imul eax, dword [dword_16E464], byte 0Ah
+        imul eax, dword [ViewScreenWidth], byte 0Ah
         mov ecx, 280h
         cdq
         idiv ecx
-        mov ebx, dword [dword_16E468]
+        mov ebx, dword [ViewScreenHeight]
         shl ebx, 2
         mov ecx, eax
         mov eax, ebx
         mov edi, 190h
         cdq
         idiv edi
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .8
         lea edx, [byte ebp-038h]
         push edx
@@ -1770,7 +1770,7 @@ DrawVideoModePanel:
         call DrawTextAt
         add esp, byte 0Ch
 .9:
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         sete al
         movzx ecx, al
         shl ecx, 4
@@ -1794,7 +1794,7 @@ DrawPenaltyPanel:
         mov edx, ecx
         mov ecx, 14h
         lea edi, [byte ebp-022h]
-        mov esi, unk_158E2
+        mov esi, PenaltyPanelBlank
         mov eax, 100h
         rep movsd
         call RemoveOverlayPanel
@@ -1814,12 +1814,12 @@ DrawPenaltyPanel:
         imul eax, dword 108h
         mov ebx, SortCords
         add ebx, eax
-        imul eax, dword [dword_16E464], dword 1F4h
+        imul eax, dword [ViewScreenWidth], dword 1F4h
         mov ecx, 280h
         cdq
         idiv ecx
         mov ecx, eax
-        imul eax, dword [dword_16E468], byte 5Ah
+        imul eax, dword [ViewScreenHeight], byte 5Ah
         mov edi, 190h
         cdq
         idiv edi
@@ -1960,14 +1960,14 @@ DrawPenaltyPanel:
         mov edx, esi
         mov eax, dword [eax]
         call DrawPanelPlayerCard
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         sete al
         movzx eax, al
         mov ecx, eax
         mov eax, dword [byte ebp-076h]
         mov eax, dword [eax]
         mov ebx, dword [byte eax+02Ch]
-        imul eax, dword [dword_16E468], dword 140h
+        imul eax, dword [ViewScreenHeight], dword 140h
         mov esi, 190h
         cdq
         idiv esi
@@ -1997,7 +1997,7 @@ DrawPenaltyShotPanel:
         mov ebx, ecx
         mov ecx, 14h
         lea edi, [byte ebp-022h]
-        mov esi, unk_15932
+        mov esi, PenaltyShotPanelBlank
         mov eax, 100h
         rep movsd
         call RemoveOverlayPanel
@@ -2018,12 +2018,12 @@ DrawPenaltyShotPanel:
         imul eax, dword 108h
         mov esi, SortCords
         add esi, eax
-        imul eax, dword [dword_16E464], dword 1F4h
+        imul eax, dword [ViewScreenWidth], dword 1F4h
         mov ecx, 280h
         cdq
         idiv ecx
         mov ecx, eax
-        imul eax, dword [dword_16E468], byte 5Ah
+        imul eax, dword [ViewScreenHeight], byte 5Ah
         mov edi, 190h
         cdq
         idiv edi
@@ -2087,14 +2087,14 @@ DrawPenaltyShotPanel:
         mov ebx, eax
         mov eax, esi
         call DrawPanelPlayerCard
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         sete al
         movzx eax, al
         mov ecx, eax
         mov eax, dword [byte ebp-026h]
         mov eax, dword [eax]
         mov ebx, dword [byte eax+02Ch]
-        imul eax, dword [dword_16E468], dword 140h
+        imul eax, dword [ViewScreenHeight], dword 140h
         cdq
         idiv edi
         jmp near DrawPenaltyShotPanel_49A.30
@@ -2112,7 +2112,7 @@ DrawSpecialTeamsPanel:
         sub ebp, 0CEh
         mov ecx, 14h
         lea edi, [byte ebp+02Eh]
-        mov esi, unk_15982
+        mov esi, SpecialTeamsPanelBlank
         rep movsd
         movsx eax, word [HmPlayersInBox]
         movsx ebx, word [AwPlayersInBox]
@@ -2123,12 +2123,12 @@ DrawSpecialTeamsPanel:
         call RemoveOverlayPanel
         mov eax, dword [byte ebp-026h]
         mov dword [byte eax+04h], 100h
-        imul eax, dword [dword_16E464], dword 1F4h
+        imul eax, dword [ViewScreenWidth], dword 1F4h
         mov ecx, 280h
         cdq
         idiv ecx
         mov ecx, eax
-        imul eax, dword [dword_16E468], byte 5Ah
+        imul eax, dword [ViewScreenHeight], byte 5Ah
         mov esi, 190h
         cdq
         idiv esi
@@ -2370,14 +2370,14 @@ DrawPenaltyShotPanel_48E:
         mov eax, dword [eax]
 DrawPenaltyShotPanel_49A:
         call DrawPanelPlayerCard
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         sete al
         movzx eax, al
         mov ecx, eax
         mov eax, dword [byte ebp-026h]
         mov eax, dword [eax]
         mov ebx, dword [byte eax+02Ch]
-        imul eax, dword [dword_16E468], dword 140h
+        imul eax, dword [ViewScreenHeight], dword 140h
         mov esi, 190h
         cdq
         idiv esi
@@ -2407,7 +2407,7 @@ DrawInjuryPanel:
         mov edx, ecx
         mov ecx, 14h
         lea edi, [byte ebp+07Eh]
-        mov esi, unk_159D2
+        mov esi, InjuryPanelBlank
         mov eax, 100h
         rep movsd
         call RemoveOverlayPanel
@@ -2420,12 +2420,12 @@ DrawInjuryPanel:
         imul eax, dword 108h
         mov ebx, SortCords
         add ebx, eax
-        imul eax, dword [dword_16E464], dword 1F4h
+        imul eax, dword [ViewScreenWidth], dword 1F4h
         mov ecx, 280h
         cdq
         idiv ecx
         mov ecx, eax
-        imul eax, dword [dword_16E468], byte 5Ah
+        imul eax, dword [ViewScreenHeight], byte 5Ah
         mov esi, 190h
         cdq
         idiv esi
@@ -2480,7 +2480,7 @@ DrawPeriodPanel:
         sub ebp, 0CEh
         mov ecx, 14h
         lea edi, [byte ebp-022h]
-        mov esi, unk_15A22
+        mov esi, PeriodPanelBlank
         mov eax, 100h
         rep movsd
         call IsOverlayShown
@@ -2488,12 +2488,12 @@ DrawPeriodPanel:
         jne near DrawPenaltyShotPanel_4D7
         mov eax, dword [byte ebp-026h]
         mov dword [byte eax+04h], 100h
-        imul eax, dword [dword_16E464], dword 1F4h
+        imul eax, dword [ViewScreenWidth], dword 1F4h
         mov ebx, 280h
         cdq
         idiv ebx
         mov ebx, eax
-        imul eax, dword [dword_16E468], byte 5Ah
+        imul eax, dword [ViewScreenHeight], byte 5Ah
         mov ecx, 190h
         cdq
         idiv ecx
@@ -2518,7 +2518,7 @@ DrawPeriodPanel:
         push eax
         call sprintf_
         add esp, byte 10h
-        movzx eax, byte [byte_1C135B]
+        movzx eax, byte [PeriodAwayTeam]
         push eax
         mov eax, dword [AwScore]
         call TeamNameField
@@ -2528,7 +2528,7 @@ DrawPeriodPanel:
         push eax
         call sprintf_
         add esp, byte 10h
-        movzx eax, byte [byte_1C135A]
+        movzx eax, byte [PeriodHomeTeam]
         push eax
         mov eax, dword [HmScore]
         call TeamNameField
@@ -2560,7 +2560,7 @@ DrawGoalScorerPanel:
         mov edx, ecx
         mov ecx, 14h
         lea edi, [byte ebp-026h]
-        mov esi, unk_15A72
+        mov esi, GoalScorerPanelBlank
         mov eax, 100h
         rep movsd
         call RemoveOverlayPanel
@@ -2601,7 +2601,7 @@ DrawGoalScorerPanel:
         add eax, 0A3h
         add eax, edi
         lea edx, [byte eax+08h]
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .4
 .3:
         push edx
@@ -2632,7 +2632,7 @@ DrawGoalScorerPanel:
         add eax, 1D42h
         add eax, edx
         lea edx, [byte eax+08h]
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jl short .3
         push edx
         lea edx, [byte eax+018h]
@@ -2730,13 +2730,13 @@ DrawGoalScorerPanel:
         mov edx, str_CloseParen
         lea eax, [byte ebp+02Ah]
         call strcat_
-        imul eax, dword [dword_16E468], byte 5Ah
+        imul eax, dword [ViewScreenHeight], byte 5Ah
         mov ebx, 190h
         cdq
         idiv ebx
         push byte 20h
         push eax
-        imul eax, dword [dword_16E464], dword 1F4h
+        imul eax, dword [ViewScreenWidth], dword 1F4h
         mov ebx, 280h
         cdq
         idiv ebx
@@ -2755,14 +2755,14 @@ DrawGoalScorerPanel:
         lea ecx, [byte ebp+02Ah]
         mov eax, dword [eax]
         call DrawPanelPlayerCard
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         sete al
         movzx eax, al
         mov ecx, eax
         mov eax, dword [byte ebp-07Ah]
         mov eax, dword [eax]
         mov ebx, dword [byte eax+02Ch]
-        imul eax, dword [dword_16E468], dword 140h
+        imul eax, dword [ViewScreenHeight], dword 140h
         mov edi, 190h
         cdq
         idiv edi
@@ -2798,9 +2798,9 @@ DrawGameClock:
         mov dword [ClockShownSeconds], eax
         call SetDrawTarget
         add esp, byte 4
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .3
-        push dword [dword_1C95B4]
+        push dword [ClockFontSmall]
         jmp short .4
 .3:
         push dword [ClockShown]
@@ -2852,17 +2852,17 @@ DrawGameClock:
         push eax
         call sprintf_
         add esp, byte 10h
-        imul eax, dword [dword_16E464], byte 6
+        imul eax, dword [ViewScreenWidth], byte 6
         mov ecx, 280h
         cdq
         idiv ecx
-        imul esi, dword [dword_16E468], byte 0Eh
+        imul esi, dword [ViewScreenHeight], byte 0Eh
         mov ecx, eax
         mov eax, esi
         mov edi, 190h
         cdq
         idiv edi
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .8
         push eax
         add ecx, byte 0Ah
@@ -2904,29 +2904,29 @@ DrawPowerPlayClock:
         push ebx
         call SetDrawTarget
         add esp, byte 4
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .2
-        push dword [dword_1C95BC]
+        push dword [ClockFontLarge]
         jmp short .3
 .2:
         push dword [ClockShown]
 .3:
         call SelectFont
         add esp, byte 4
-        imul eax, dword [dword_16E468], byte 14h
+        imul eax, dword [ViewScreenHeight], byte 14h
         mov ecx, 190h
         cdq
         idiv ecx
         mov edx, dword [byte ebx+04h]
         sub edx, eax
-        imul eax, dword [dword_16E464], byte 64h
+        imul eax, dword [ViewScreenWidth], byte 64h
         push dword 0FEh
         mov ecx, 280h
         push edx
         cdq
         idiv ecx
         push eax
-        imul eax, dword [dword_16E468], byte 0Ah
+        imul eax, dword [ViewScreenHeight], byte 0Ah
         mov ecx, 190h
         cdq
         idiv ecx
@@ -2954,13 +2954,13 @@ DrawPowerPlayClock:
         lea eax, [byte ebp-014h]
         push eax
         call sprintf_
-        imul eax, dword [dword_16E468], byte 18h
+        imul eax, dword [ViewScreenHeight], byte 18h
         mov esi, 190h
         cdq
         idiv esi
         add esp, byte 10h
         push eax
-        imul eax, dword [dword_16E464], byte 6
+        imul eax, dword [ViewScreenWidth], byte 6
         mov ecx, 280h
         cdq
         idiv ecx
@@ -2970,16 +2970,16 @@ DrawPowerPlayClock:
         call DrawTextBoxedAt
         add esp, byte 0Ch
         call SetOverlayFont
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .4
         mov eax, 36h
         call GetLangText
         push eax
-        imul eax, dword [dword_16E468], byte 37h
+        imul eax, dword [ViewScreenHeight], byte 37h
         cdq
         idiv esi
         push eax
-        imul eax, dword [dword_16E464], byte 6
+        imul eax, dword [ViewScreenWidth], byte 6
         mov esi, 280h
         cdq
         idiv esi
@@ -2989,11 +2989,11 @@ DrawPowerPlayClock:
         add esp, byte 10h
         jmp short .5
 .4:
-        imul eax, dword [dword_16E468], byte 37h
+        imul eax, dword [ViewScreenHeight], byte 37h
         cdq
         idiv esi
         push eax
-        imul eax, dword [dword_16E464], byte 6
+        imul eax, dword [ViewScreenWidth], byte 6
         mov ecx, 280h
         cdq
         idiv ecx
@@ -3028,12 +3028,12 @@ DrawClockPanel:
         mov eax, 700h
         mov dword [byte esi+04h], 300h
         call RemoveOverlayPanel
-        imul eax, dword [dword_16E464], byte 64h
+        imul eax, dword [ViewScreenWidth], byte 64h
         mov ebx, 280h
         cdq
         idiv ebx
         mov ebx, eax
-        imul eax, dword [dword_16E468], byte 37h
+        imul eax, dword [ViewScreenHeight], byte 37h
         mov ecx, 190h
         cdq
         idiv ecx
@@ -3054,30 +3054,30 @@ DrawClockPanel:
         mov eax, dword [esi]
         call DrawGameClock
         mov dword [ClockShownMinutes], 0FFFFFFFFh
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         je short .1
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         sete al
         movzx eax, al
         mov ecx, eax
         mov eax, dword [esi]
         mov ebx, dword [byte eax+02Ch]
-        imul eax, dword [dword_16E468], dword 0F0h
+        imul eax, dword [ViewScreenHeight], dword 0F0h
         jmp short .2
 .1:
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         sete al
         movzx eax, al
         mov ecx, eax
         mov eax, dword [esi]
         mov ebx, dword [byte eax+02Ch]
-        imul eax, dword [dword_16E468], dword 140h
+        imul eax, dword [ViewScreenHeight], dword 140h
 .2:
         mov esi, 190h
         cdq
         idiv esi
         mov esi, eax
-        imul eax, dword [dword_16E464], dword 1F4h
+        imul eax, dword [ViewScreenWidth], dword 1F4h
         mov edi, 280h
         cdq
         idiv edi
@@ -3107,12 +3107,12 @@ PowerPlayPanel:
         cmp word [byte eax-04h], byte 0
         setl al
         movzx edi, al
-        imul eax, dword [dword_16E464], dword 0BEh
+        imul eax, dword [ViewScreenWidth], dword 0BEh
         mov ebx, 280h
         cdq
         idiv ebx
         mov ebx, eax
-        imul eax, dword [dword_16E468], byte 4Bh
+        imul eax, dword [ViewScreenHeight], byte 4Bh
         mov ecx, 190h
         cdq
         idiv ecx
@@ -3127,7 +3127,7 @@ PowerPlayPanel:
         add esp, byte 4
         push dword 0FEh
         call ClearScreen
-        imul eax, dword [dword_16E468], byte 0Ah
+        imul eax, dword [ViewScreenHeight], byte 0Ah
         mov ecx, 190h
         cdq
         idiv ecx
@@ -3139,32 +3139,32 @@ PowerPlayPanel:
         push byte 0
         mov dword [ClockShownMinutes], 0
         call FillRect
-        imul eax, dword [dword_16E468], byte 0Ah
+        imul eax, dword [ViewScreenHeight], byte 0Ah
         mov ecx, 190h
         cdq
         idiv ecx
         add esp, byte 14h
         push dword 0FFh
         push eax
-        imul eax, dword [dword_16E468], byte 41h
+        imul eax, dword [ViewScreenHeight], byte 41h
         cdq
         idiv ecx
         push ebx
         push eax
         push byte 0
         call FillRect
-        imul eax, dword [dword_16E464], dword 96h
+        imul eax, dword [ViewScreenWidth], dword 96h
         mov ebx, 280h
         cdq
         idiv ebx
-        imul ecx, dword [dword_16E468], byte 28h
+        imul ecx, dword [ViewScreenHeight], byte 28h
         mov ebx, eax
         mov eax, ecx
         mov dword [byte ebp-04h], 190h
         cdq
         idiv dword [byte ebp-04h]
         add esp, byte 14h
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jle short .1
         push eax
         push ebx
@@ -3183,18 +3183,18 @@ PowerPlayPanel:
         mov dword [byte esi+08h], eax
         mov eax, dword [esi]
         call DrawPowerPlayClock
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         sete al
         movzx eax, al
         mov ecx, eax
         mov eax, dword [esi]
         mov ebx, dword [byte eax+02Ch]
-        imul eax, dword [dword_16E468], dword 140h
+        imul eax, dword [ViewScreenHeight], dword 140h
         mov esi, 190h
         cdq
         idiv esi
         mov esi, eax
-        imul eax, dword [dword_16E464], dword 1C2h
+        imul eax, dword [ViewScreenWidth], dword 1C2h
         mov edi, 280h
         cdq
         idiv edi
@@ -3236,7 +3236,7 @@ UpdateScoreboardPanel:
         call SetOverlayFont
         push ebx
         call SetDrawTarget
-        imul eax, dword [dword_16E464], byte 64h
+        imul eax, dword [ViewScreenWidth], byte 64h
         mov ecx, 280h
         cdq
         idiv ecx
@@ -3263,7 +3263,7 @@ UpdateScoreboardPanel:
         cdq
         idiv ecx
         push eax
-        imul eax, dword [dword_16E464], byte 64h
+        imul eax, dword [ViewScreenWidth], byte 64h
         mov ecx, 280h
         cdq
         idiv ecx
@@ -3276,7 +3276,7 @@ UpdateScoreboardPanel:
         push dword 0FFh
         movsx eax, word [byte eax+06h]
         push eax
-        imul eax, dword [dword_16E464], byte 3Ch
+        imul eax, dword [ViewScreenWidth], byte 3Ch
         push ecx
         mov ecx, 280h
         cdq
@@ -3295,12 +3295,12 @@ UpdateScoreboardPanel:
         cdq
         idiv ecx
         push eax
-        imul eax, dword [dword_16E464], byte 64h
+        imul eax, dword [ViewScreenWidth], byte 64h
         mov ecx, 280h
         cdq
         idiv ecx
         push eax
-        imul eax, dword [dword_16E464], byte 3Ch
+        imul eax, dword [ViewScreenWidth], byte 3Ch
         cdq
         idiv ecx
         push byte 0
@@ -3368,7 +3368,7 @@ UpdateScoreboardPanel:
         cmp dword [byte ebp-08h], byte 0
         je near .18
         push ecx
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .14
         mov eax, 0Ah
         jmp short .15
@@ -3376,20 +3376,20 @@ UpdateScoreboardPanel:
         mov eax, 0Eh
 .15:
         push eax
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         imul eax, edi
         mov ecx, 280h
         cdq
         idiv ecx
         push eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .16
         mov ecx, 0Ah
         jmp short .17
 .16:
         mov ecx, 0Eh
 .17:
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         shl eax, 3
         mov dword [byte ebp-04h], 190h
         cdq
@@ -3397,7 +3397,7 @@ UpdateScoreboardPanel:
         mov edx, esi
         add eax, ecx
         imul edx, eax
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         mov ecx, 190h
         shl eax, 2
         mov dword [byte ebp-04h], edx
@@ -3405,13 +3405,13 @@ UpdateScoreboardPanel:
         idiv ecx
         add eax, dword [byte ebp-04h]
         push eax
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         imul eax, edi
         mov ecx, 280h
         cdq
         idiv ecx
         mov ecx, eax
-        imul eax, dword [dword_16E464], byte 64h
+        imul eax, dword [ViewScreenWidth], byte 64h
         mov dword [byte ebp-04h], 280h
         cdq
         idiv dword [byte ebp-04h]
@@ -3419,7 +3419,7 @@ UpdateScoreboardPanel:
         jmp near .23
 .18:
         push ecx
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .19
         mov eax, 0Ah
         jmp short .20
@@ -3427,26 +3427,26 @@ UpdateScoreboardPanel:
         mov eax, 0Eh
 .20:
         push eax
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         imul eax, edi
         mov ecx, 280h
         cdq
         idiv ecx
         push eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .21
         mov ecx, 0Ah
         jmp short .22
 .21:
         mov ecx, 0Eh
 .22:
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         shl eax, 3
         mov dword [byte ebp-04h], 190h
         cdq
         idiv dword [byte ebp-04h]
         add ecx, eax
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         shl eax, 2
         mov dword [byte ebp-04h], 190h
         cdq
@@ -3454,7 +3454,7 @@ UpdateScoreboardPanel:
         imul ecx, esi
         add eax, ecx
         push eax
-        imul eax, dword [dword_16E464], byte 3Ch
+        imul eax, dword [ViewScreenWidth], byte 3Ch
         mov ecx, 280h
         cdq
         idiv ecx
@@ -3472,14 +3472,14 @@ UpdateScoreboardPanel:
         call MatchColor
         add esp, byte 4
         push eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .24
         mov ecx, 0Ah
         jmp short .25
 .24:
         mov ecx, 0Eh
 .25:
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         shl eax, 3
         mov dword [byte ebp-04h], 190h
         cdq
@@ -3487,7 +3487,7 @@ UpdateScoreboardPanel:
         mov edx, esi
         add eax, ecx
         imul edx, eax
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         mov ecx, 190h
         shl eax, 2
         mov dword [byte ebp-04h], edx
@@ -3495,7 +3495,7 @@ UpdateScoreboardPanel:
         idiv ecx
         mov edx, dword [byte ebp-04h]
         add edx, eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .26
         mov eax, 0Ah
         jmp short .27
@@ -3505,20 +3505,20 @@ UpdateScoreboardPanel:
         add eax, edx
         dec eax
         push eax
-        imul eax, dword [dword_16E464], byte 64h
+        imul eax, dword [ViewScreenWidth], byte 64h
         mov ecx, 280h
         cdq
         idiv ecx
         dec eax
         push eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .28
         mov ecx, 0Ah
         jmp short .29
 .28:
         mov ecx, 0Eh
 .29:
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         shl eax, 3
         mov dword [byte ebp-04h], 190h
         cdq
@@ -3526,20 +3526,20 @@ UpdateScoreboardPanel:
         add eax, ecx
         mov ecx, esi
         imul ecx, eax
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         shl eax, 2
         mov dword [byte ebp-04h], 190h
         cdq
         idiv dword [byte ebp-04h]
         add eax, ecx
         push eax
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         imul eax, edi
         mov ecx, 280h
         cdq
         idiv ecx
         mov ecx, eax
-        imul eax, dword [dword_16E464], byte 64h
+        imul eax, dword [ViewScreenWidth], byte 64h
         mov edi, 280h
         cdq
         idiv edi
@@ -3550,27 +3550,27 @@ UpdateScoreboardPanel:
         call MatchColor
         add esp, byte 4
         push eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .31
         mov ecx, 0Ah
         jmp short .32
 .31:
         mov ecx, 0Eh
 .32:
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         shl eax, 3
         mov dword [byte ebp-04h], 190h
         cdq
         idiv dword [byte ebp-04h]
         add ecx, eax
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         shl eax, 2
         mov dword [byte ebp-04h], 190h
         cdq
         idiv dword [byte ebp-04h]
         imul ecx, esi
         add ecx, eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .33
         mov eax, 0Ah
         jmp short .34
@@ -3580,27 +3580,27 @@ UpdateScoreboardPanel:
         add eax, ecx
         dec eax
         push eax
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         imul eax, edi
         mov ecx, 280h
         cdq
         idiv ecx
         mov ecx, eax
-        imul eax, dword [dword_16E464], byte 3Ch
+        imul eax, dword [ViewScreenWidth], byte 3Ch
         mov edi, 280h
         cdq
         idiv edi
         add eax, ecx
         dec eax
         push eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .35
         mov ecx, 0Ah
         jmp short .36
 .35:
         mov ecx, 0Eh
 .36:
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         shl eax, 3
         mov edi, 190h
         cdq
@@ -3608,14 +3608,14 @@ UpdateScoreboardPanel:
         mov edi, esi
         add eax, ecx
         imul edi, eax
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         shl eax, 2
         mov ecx, 190h
         cdq
         idiv ecx
         add eax, edi
         push eax
-        imul eax, dword [dword_16E464], byte 3Ch
+        imul eax, dword [ViewScreenWidth], byte 3Ch
         mov ecx, 280h
         cdq
         idiv ecx
@@ -3649,7 +3649,7 @@ UpdateScoreboardPanel:
         add esp, byte 10h
         cmp dword [byte ebp-08h], byte 0
         je near .48
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .45
         lea eax, [byte ebp-028h]
         push eax
@@ -3659,7 +3659,7 @@ UpdateScoreboardPanel:
 .42:
         mov ecx, 0Eh
 .43:
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         shl eax, 3
         mov edi, 190h
         cdq
@@ -3667,7 +3667,7 @@ UpdateScoreboardPanel:
         mov edi, esi
         add eax, ecx
         imul edi, eax
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         shl eax, 2
         mov ecx, 190h
         cdq
@@ -3687,7 +3687,7 @@ UpdateScoreboardPanel:
 .46:
         mov ecx, 0Eh
 .47:
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         shl eax, 3
         mov edi, 190h
         cdq
@@ -3695,7 +3695,7 @@ UpdateScoreboardPanel:
         mov edi, esi
         add eax, ecx
         imul edi, eax
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         shl eax, 2
         mov ecx, 190h
         cdq
@@ -3705,7 +3705,7 @@ UpdateScoreboardPanel:
         push byte 0
         jmp near .54
 .48:
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .51
         lea eax, [byte ebp-028h]
         push eax
@@ -3715,7 +3715,7 @@ UpdateScoreboardPanel:
 .49:
         mov ecx, 0Eh
 .50:
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         shl eax, 3
         mov edi, 190h
         cdq
@@ -3723,13 +3723,13 @@ UpdateScoreboardPanel:
         add eax, ecx
         mov ecx, esi
         imul ecx, eax
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         shl eax, 2
         cdq
         idiv edi
         add eax, ecx
         push eax
-        imul eax, dword [dword_16E464], dword 0A0h
+        imul eax, dword [ViewScreenWidth], dword 0A0h
         mov ecx, 280h
         cdq
         idiv ecx
@@ -3748,7 +3748,7 @@ UpdateScoreboardPanel:
 .52:
         mov ecx, 0Eh
 .53:
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         shl eax, 3
         mov edi, 190h
         cdq
@@ -3756,14 +3756,14 @@ UpdateScoreboardPanel:
         mov edi, esi
         add eax, ecx
         imul edi, eax
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         shl eax, 2
         mov ecx, 190h
         cdq
         idiv ecx
         add eax, edi
         push eax
-        imul eax, dword [dword_16E464], dword 0A0h
+        imul eax, dword [ViewScreenWidth], dword 0A0h
         mov ecx, 280h
         cdq
         idiv ecx
@@ -3813,19 +3813,19 @@ HomeTeamPanel:
         mov eax, 501h
         call RemoveOverlayPanel
         mov dword [byte esi+04h], 500h
-        imul eax, dword [dword_16E464], dword 0A0h
+        imul eax, dword [ViewScreenWidth], dword 0A0h
         mov ebx, 280h
         cdq
         idiv ebx
         mov ecx, eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .1
         mov ebx, 0Ah
         jmp short .2
 .1:
         mov ebx, 0Eh
 .2:
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         shl eax, 3
         mov dword [byte ebp-04h], 190h
         cdq
@@ -3844,13 +3844,13 @@ HomeTeamPanel:
         add esp, byte 4
         push dword 0FFh
         call ClearScreen
-        imul eax, dword [dword_16E464], byte 1Eh
+        imul eax, dword [ViewScreenWidth], byte 1Eh
         mov ecx, 280h
         cdq
         idiv ecx
         sar ebx, 1
         add esp, byte 4
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jle short .3
         push ebx
         push eax
@@ -3868,13 +3868,13 @@ HomeTeamPanel:
         xor edx, edx
         mov eax, dword [esi]
         call UpdateScoreboardPanel
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         sete al
         movzx eax, al
         mov ecx, eax
         mov eax, dword [esi]
         mov ebx, dword [byte eax+02Ch]
-        imul eax, dword [dword_16E468], byte 28h
+        imul eax, dword [ViewScreenHeight], byte 28h
         mov esi, 190h
         cdq
         idiv esi
@@ -3904,19 +3904,19 @@ AwayTeamPanel:
         mov eax, 601h
         call RemoveOverlayPanel
         mov dword [byte esi+04h], 600h
-        imul eax, dword [dword_16E464], dword 0A0h
+        imul eax, dword [ViewScreenWidth], dword 0A0h
         mov ecx, 280h
         cdq
         idiv ecx
         mov ecx, eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .1
         mov edi, 0Ah
         jmp short .2
 .1:
         mov edi, 0Eh
 .2:
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         shl eax, 3
         mov dword [byte ebp-04h], 190h
         cdq
@@ -3934,13 +3934,13 @@ AwayTeamPanel:
         add esp, byte 4
         push dword 0FFh
         call ClearScreen
-        imul eax, dword [dword_16E464], dword 82h
+        imul eax, dword [ViewScreenWidth], dword 82h
         mov ecx, 280h
         cdq
         idiv ecx
         sar edi, 1
         add esp, byte 4
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jle short .3
         push edi
         push eax
@@ -3959,18 +3959,18 @@ AwayTeamPanel:
         mov edx, 1
         mov eax, dword [esi]
         call UpdateScoreboardPanel
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         sete al
         movzx eax, al
         mov ecx, eax
         mov eax, dword [esi]
         mov ebx, dword [byte eax+02Ch]
-        imul eax, dword [dword_16E468], byte 28h
+        imul eax, dword [ViewScreenHeight], byte 28h
         mov esi, 190h
         cdq
         idiv esi
         mov esi, eax
-        imul eax, dword [dword_16E464], dword 1E0h
+        imul eax, dword [ViewScreenWidth], dword 1E0h
         mov edi, 280h
         cdq
         idiv edi
@@ -4029,19 +4029,19 @@ HomeStatPanel:
         push eax
         call sprintf_
         add esp, byte 10h
-        imul eax, dword [dword_16E464], dword 0A0h
+        imul eax, dword [ViewScreenWidth], dword 0A0h
         mov ebx, 280h
         cdq
         idiv ebx
         mov edi, eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .4
         mov ebx, 0Ah
         jmp short .5
 .4:
         mov ebx, 0Eh
 .5:
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         shl eax, 3
         mov ecx, 190h
         cdq
@@ -4061,14 +4061,14 @@ HomeStatPanel:
         call ClearScreen
         add esp, byte 4
         push dword 0FEh
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .6
         mov ecx, 0Ah
         jmp short .7
 .6:
         mov ecx, 0Eh
 .7:
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         shl eax, 3
         mov dword [byte ebp-04h], 190h
         cdq
@@ -4076,14 +4076,14 @@ HomeStatPanel:
         add eax, ecx
         push eax
         push edi
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .8
         mov ecx, 0Ah
         jmp short .9
 .8:
         mov ecx, 0Eh
 .9:
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         shl eax, 3
         mov edi, 190h
         cdq
@@ -4096,7 +4096,7 @@ HomeStatPanel:
         mov ecx, 3
         cdq
         idiv ecx
-        imul edi, dword [dword_16E464], dword 0A0h
+        imul edi, dword [ViewScreenWidth], dword 0A0h
         mov ecx, eax
         mov eax, edi
         mov dword [byte ebp-04h], 280h
@@ -4104,7 +4104,7 @@ HomeStatPanel:
         idiv dword [byte ebp-04h]
         add esp, byte 14h
         mov edi, eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .10
         lea eax, [byte ebp-028h]
         push eax
@@ -4131,12 +4131,12 @@ HomeStatPanel:
         call DrawTextAt
         add esp, byte 0Ch
 .11:
-        imul eax, dword [dword_16E464], byte 1Eh
+        imul eax, dword [ViewScreenWidth], byte 1Eh
         mov ecx, 280h
         cdq
         idiv ecx
         sar ebx, 1
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jle short .12
         push ebx
         push eax
@@ -4152,7 +4152,7 @@ HomeStatPanel:
         call DrawPanelArtScaled
         mov eax, dword [byte ebp-08h]
         mov dword [byte esi+08h], eax
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         sete al
         movzx eax, al
         shl eax, 4
@@ -4160,7 +4160,7 @@ HomeStatPanel:
         mov ecx, eax
         mov eax, dword [esi]
         mov ebx, dword [byte eax+02Ch]
-        imul eax, dword [dword_16E468], byte 28h
+        imul eax, dword [ViewScreenHeight], byte 28h
         mov esi, 190h
         cdq
         idiv esi
@@ -4191,21 +4191,21 @@ AwayStatPanel:
         call RemoveOverlayPanel
         mov dword [byte esi+04h], 601h
         add dword [ecx], byte 4
-        imul eax, dword [dword_16E464], dword 0A0h
+        imul eax, dword [ViewScreenWidth], dword 0A0h
         mov ebx, dword [ecx]
         mov ecx, 280h
         cdq
         idiv ecx
         mov ebx, dword [byte ebx-04h]
         mov dword [byte ebp-04h], eax
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .1
         mov ecx, 0Ah
         jmp short .2
 .1:
         mov ecx, 0Eh
 .2:
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         shl eax, 3
         mov edi, 190h
         cdq
@@ -4250,14 +4250,14 @@ AwayStatPanel:
         call ClearScreen
         add esp, byte 4
         push dword 0FEh
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .6
         mov ebx, 0Ah
         jmp short .7
 .6:
         mov ebx, 0Eh
 .7:
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         shl eax, 3
         mov ecx, 190h
         cdq
@@ -4265,14 +4265,14 @@ AwayStatPanel:
         add eax, ebx
         push eax
         push dword [byte ebp-04h]
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .8
         mov ebx, 0Ah
         jmp short .9
 .8:
         mov ebx, 0Eh
 .9:
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         shl eax, 3
         mov ecx, 190h
         cdq
@@ -4286,7 +4286,7 @@ AwayStatPanel:
         cdq
         idiv ebx
         add esp, byte 14h
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .10
         lea ebx, [byte ebp-01Ch]
         push ebx
@@ -4304,12 +4304,12 @@ AwayStatPanel:
         call DrawTextAt
         add esp, byte 0Ch
 .11:
-        imul eax, dword [dword_16E464], dword 82h
+        imul eax, dword [ViewScreenWidth], dword 82h
         mov ebx, 280h
         cdq
         idiv ebx
         sar edi, 1
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jle short .12
         push edi
         push eax
@@ -4325,18 +4325,18 @@ AwayStatPanel:
         call DrawPanelArtScaled
         mov eax, dword [byte ebp-08h]
         mov dword [byte esi+08h], eax
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         sete al
         movzx eax, al
         mov ecx, eax
         mov eax, dword [esi]
         mov ebx, dword [byte eax+02Ch]
-        imul eax, dword [dword_16E468], byte 28h
+        imul eax, dword [ViewScreenHeight], byte 28h
         mov esi, 190h
         cdq
         idiv esi
         mov esi, eax
-        imul eax, dword [dword_16E464], dword 1E0h
+        imul eax, dword [ViewScreenWidth], dword 1E0h
         mov edi, 280h
         cdq
         idiv edi
@@ -4360,7 +4360,7 @@ QueueOverlayPanel:
         push edx
         push esi
         enter 4, 0
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne near DrawPowerPlayClock_18E
         mov eax, OverlayPanelQueue
         xor edx, edx
@@ -4580,12 +4580,12 @@ SetOverlayFont:
         push ebx
         push ecx
         push edx
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .1
-        mov eax, dword [dword_1C95B4]
+        mov eax, dword [ClockFontSmall]
         jmp short .2
 .1:
-        mov eax, dword [dword_1C95BC]
+        mov eax, dword [ClockFontLarge]
 .2:
         cmp eax, dword [TextColor]
         je short .3
@@ -4639,8 +4639,8 @@ SetOverlayFont:
         ret
 ;-----------------------------------------------------------------------------
 ; DrawGameOverlays                             1900F  96 PC, medium confidence
-; (ticks): per frame draws the overlay for the view state (byte_179DC1 9,
-; 0Dh, 11h), the queued panels, the clock, time-left and score panels
+; (ticks): per frame draws the overlay for the view state,
+; the queued panels, the clock, time-left and score panels
 ;-----------------------------------------------------------------------------
 DrawGameOverlays:
         push ebx
@@ -4762,17 +4762,17 @@ IsOverlayShown:
         ret
         db 00h,00h,00h,00h,0FFh,0C4h,00h,00h,0C8h,042h,00h,00h,096h,0C5h,00h,00h
         db 0FFh,044h,00h,00h,07Ah,045h,00h,00h,096h,045h
-unk_19178:
+FaceoffCloseupInit:
         db 02Ch,01h,00h,00h,02Ch,01h,00h,00h
-unk_19180:
+FaceoffSweepInit:
         db 0F4h,01h,00h,00h,0F4h,01h,00h,00h
-unk_19188:
+GoalSceneCamFrom:
         db 00h,0C0h,05h,0C5h,00h,00h,048h,043h,00h,020h,099h,0C5h
-unk_19194:
+GoalSceneCamTo:
         db 00h,0C0h,05h,045h,00h,080h,0BBh,044h,00h,020h,099h,045h
-unk_191A0:
+GoalCameraFrom:
         db 00h,080h,018h,0C5h,00h,00h,0C8h,043h,00h,080h,0A2h,0C5h
-unk_191AC:
+GoalCameraTo:
         db 00h,080h,018h,045h,00h,080h,0BBh,044h,00h,080h,0A2h,045h
         push eax
         push ebx
@@ -4804,7 +4804,7 @@ unk_191AC:
 ;-----------------------------------------------------------------------------
 ; GetCameraTarget                                 191F8  97 PC, low confidence
 ; (target 4-10h and up): the position record of a camera target (player
-; records at dword_1B1410, then fixed targets); 0 when none
+; records at ObjectPositions, then fixed targets); 0 when none
 ;-----------------------------------------------------------------------------
 GetCameraTarget:
         push ebx
@@ -4824,7 +4824,7 @@ GetCameraTarget:
         shl eax, 2
         sub eax, ebx
         shl eax, 5
-        add eax, dword_1B1410
+        add eax, ObjectPositions
         lea ebx, [dword eax-01D80h]
         lea edi, [byte esp+03Ch]
         mov esi, ebx
@@ -4839,7 +4839,7 @@ GetCameraTarget:
         lea ebx, [byte esp+030h]
         call VecMulMat
         mov ebx, TargetVecX
-        mov edx, dword_1B905F
+        mov edx, CameraStateRecords+7
         lea eax, [byte esp+03Ch]
         call VecSub
         call VecLength
@@ -4935,7 +4935,7 @@ GetCameraTarget:
         pop ebx
         ret
 .9:
-        mov eax, unk_16AF14
+        mov eax, ViewDistanceTable
         add esp, byte 68h
         pop ebp
         pop edi
@@ -4945,10 +4945,10 @@ GetCameraTarget:
         pop ebx
         ret
 .10:
-        mov eax, dword [dword_16B168]
+        mov eax, dword [ScoreboardOn]
         test eax, eax
         je near .26
-        mov eax, dword_1B10DC
+        mov eax, ScoreboardAngle
         add esp, byte 68h
         pop ebp
         pop edi
@@ -5018,7 +5018,7 @@ GetCameraTarget:
         pop ebx
         ret
 .18:
-        mov eax, unk_1B1090
+        mov eax, RinkCameraPoints
         add eax, ebx
         sub eax, byte 54h
         add esp, byte 68h
@@ -5030,7 +5030,7 @@ GetCameraTarget:
         pop ebx
         ret
 .19:
-        mov eax, unk_1B0AE8
+        mov eax, RinkViewPoints
         add eax, ebx
         sub eax, byte 0Ch
         add esp, byte 68h
@@ -5046,7 +5046,7 @@ GetCameraTarget:
         lea eax, [nosplit ebx*4+00h]
         sub eax, ebx
         mov edi, TargetVecX
-        lea esi, [nosplit eax*4+unk_1B0AD0]
+        lea esi, [nosplit eax*4+ScoreboardCorners]
         movsd
         movsd
         movsd
@@ -5140,7 +5140,7 @@ GetTargetPoint:
         shl eax, 2
         sub eax, ebx
         shl eax, 5
-        mov ebx, dword [dword eax+dword_1B141C]
+        mov ebx, dword [dword eax+TargetPoints]
         mov dword [edx], ebx
         jmp near .10
 .1:
@@ -5215,7 +5215,7 @@ GetTargetPoint:
         pop edi
         pop esi
         ret
-jpt_19604:
+UpdateCameraViewJumpTable:
         dd UpdateCameraView_8D3
         dd UpdateCameraView_54
         dd UpdateCameraView_28
@@ -5248,7 +5248,7 @@ UpdateCameraView:
         mov edx, dword [byte ecx+024h]
         cmp edx, byte 0Dh
         ja near UpdateCameraView_8D3
-        jmp dword [nosplit cs:edx*4+jpt_19604]
+        jmp dword [nosplit cs:edx*4+UpdateCameraViewJumpTable]
 UpdateCameraView_28:
         cmp dword [CameraTracking], byte 0
         je near UpdateCameraView_8D3
@@ -5347,7 +5347,7 @@ UpdateCameraView_11B:
         sub dword [SplineCount], eax
 .3:
         mov edi, CameraLookAt
-        mov esi, dword_1B905F
+        mov esi, CameraStateRecords+7
         movsd
         movsd
         movsd
@@ -5388,7 +5388,7 @@ UpdateCameraView_1AC:
         call VecAdd
         mov eax, dword [dword esp+012Ch]
         mov dword [dword ecx+0FCh], eax
-        mov eax, dword [dword_1B9063]
+        mov eax, dword [CameraStateRecords+0Bh]
         mov dword [dword ecx+0100h], eax
         mov eax, dword [dword esp+0134h]
         mov dword [dword ecx+0104h], eax
@@ -5425,7 +5425,7 @@ UpdateCameraView_272:
         lea eax, [dword esp+0F0h]
         call VecAdd
         mov eax, dword [dword esp+0F0h]
-        fld dword [dword_1B9063]
+        fld dword [CameraStateRecords+0Bh]
         mov dword [CameraLookAt], eax
         mov eax, dword [dword esp+0F8h]
         fstp dword [CameraHeight]
@@ -5495,7 +5495,7 @@ UpdateCameraView_326:
         lea eax, [dword esp+0114h]
         call VecAdd
         mov eax, dword [dword esp+0114h]
-        fld dword [dword_1B9063]
+        fld dword [CameraStateRecords+0Bh]
         mov dword [CameraLookAt], eax
         mov eax, dword [dword esp+011Ch]
         fstp dword [CameraHeight]
@@ -5591,7 +5591,7 @@ UpdateCameraView_461:
         lea eax, [dword esp+0E4h]
         call VecAdd
         mov eax, dword [dword esp+0E4h]
-        fld dword [dword_1B9063]
+        fld dword [CameraStateRecords+0Bh]
         mov dword [CameraLookAt], eax
         mov eax, dword [dword esp+0ECh]
         fstp dword [CameraHeight]
@@ -5805,7 +5805,7 @@ UpdateCameraView_8D3:
         pop ebx
         ret
         db 090h
-jpt_19F18:
+UpdateCameraZoomJumpTable:
         dd UpdateCameraZoom_3CB
         dd UpdateCameraZoom_169
         dd UpdateCameraZoom_3CB
@@ -5827,7 +5827,7 @@ UpdateCameraZoom:
         mov eax, dword [byte eax+028h]
         cmp eax, byte 5
         ja near UpdateCameraZoom_3CB
-        jmp dword [nosplit cs:eax*4+jpt_19F18]
+        jmp dword [nosplit cs:eax*4+UpdateCameraZoomJumpTable]
 UpdateCameraZoom_21:
         fld dword [dword esi+0FCh]
         fcomp dword [F32_neg1050]
@@ -6096,7 +6096,7 @@ UpdateCameraZoom_3CB:
         pop esi
         ret
         db 08Dh,040h,00h
-jpt_1A304:
+UpdateCameraTrackJumpTable:
         dd UpdateCameraTrack_2D2
         dd UpdateCameraTrack_30
         dd UpdateCameraTrack_2D2
@@ -6122,10 +6122,10 @@ UpdateCameraTrack:
         mov eax, dword [byte eax+02Ch]
         cmp eax, byte 5
         ja near UpdateCameraTrack_2D2
-        jmp dword [nosplit cs:eax*4+jpt_1A304]
+        jmp dword [nosplit cs:eax*4+UpdateCameraTrackJumpTable]
 UpdateCameraTrack_30:
         mov ebx, esp
-        mov edx, dword_1B905F
+        mov edx, CameraStateRecords+7
         lea eax, [dword ecx+0E4h]
         call VecSub
         fld dword [byte esp+08h]
@@ -6154,7 +6154,7 @@ UpdateCameraTrack_30:
         ret
 UpdateCameraTrack_8E:
         mov ebx, esp
-        mov edx, dword_1B905F
+        mov edx, CameraStateRecords+7
         lea eax, [dword ecx+0E4h]
         call VecSub
         fld dword [byte esp+08h]
@@ -6242,7 +6242,7 @@ UpdateCameraTrack_8E:
         ret
 UpdateCameraTrack_19B:
         mov ebx, esp
-        mov edx, dword_1B905F
+        mov edx, CameraStateRecords+7
         lea eax, [dword ecx+0E4h]
         call VecSub
         fld dword [byte esp+08h]
@@ -6257,7 +6257,7 @@ UpdateCameraTrack_19B:
         fld qword [byte esp+0Ch]
         call IF@ATAN2
         fstp dword [dword ecx+029Ch]
-        mov eax, dword [dword_1B905F]
+        mov eax, dword [CameraStateRecords+7]
         mov dword [byte esp+014h], eax
         mov eax, dword [dword ecx+0278h]
         mov dword [byte esp+01Ch], eax
@@ -6280,7 +6280,7 @@ UpdateCameraTrack_19B:
         jmp near UpdateCameraTrack_22F.10
 UpdateCameraTrack_22F:
         mov ebx, esp
-        mov edx, dword_1B905F
+        mov edx, CameraStateRecords+7
         lea eax, [dword ecx+0E4h]
         call VecSub
         fld dword [byte esp+08h]
@@ -6295,7 +6295,7 @@ UpdateCameraTrack_22F:
         fld qword [byte esp+0Ch]
         call IF@ATAN2
         fstp dword [dword ecx+029Ch]
-        mov eax, dword [dword_1B9067]
+        mov eax, dword [CameraStateRecords+0Fh]
         mov dword [byte esp+018h], eax
         mov eax, dword [dword ecx+0280h]
         mov dword [byte esp+020h], eax
@@ -6391,7 +6391,7 @@ EaseAngle:
         pop ebp
         pop ecx
         ret
-jpt_1A680:
+EaseCameraAnglesJumpTable:
         dd EaseCameraAngles_57
         dd EaseCameraAngles_15
         dd EaseCameraAngles_40
@@ -6408,7 +6408,7 @@ EaseCameraAngles:
         mov eax, dword [byte eax+030h]
         cmp eax, byte 3
         ja short EaseCameraAngles_57
-        jmp dword [nosplit cs:eax*4+jpt_1A680]
+        jmp dword [nosplit cs:eax*4+EaseCameraAnglesJumpTable]
 EaseCameraAngles_15:
         lea ebx, [dword ecx+02ACh]
         lea edx, [dword ecx+02A8h]
@@ -6443,7 +6443,7 @@ EaseCameraAngles_57:
         pop edx
         ret
         db 090h
-jpt_1A708:
+SetCameraViewJumpTable:
         dd SetCameraView_16
         dd SetCameraView_AF
         dd SetCameraView_14F
@@ -6470,7 +6470,7 @@ SetCameraView:
         mov ebx, eax
         cmp edx, byte 0Dh
         ja near SetCameraView_608
-        jmp dword [nosplit cs:edx*4+jpt_1A708]
+        jmp dword [nosplit cs:edx*4+SetCameraViewJumpTable]
 SetCameraView_16:
         mov eax, 86h
         call GetLangText
@@ -6768,11 +6768,11 @@ SetCameraView_4AE:
 SetCameraView_532:
         mov edx, str_THRILLCAMTm
         mov edi, CameraLookAt
-        mov esi, dword_1B905F
+        mov esi, CameraStateRecords+7
         call strcpy_
-        fld dword [dword_1B906B]
-        fld dword [dword_1B906F]
-        fld dword [dword_1B9077]
+        fld dword [CameraStateRecords+13h]
+        fld dword [CameraStateRecords+17h]
+        fld dword [CameraStateRecords+1Fh]
         movsd
         movsd
         movsd
@@ -6797,18 +6797,18 @@ SetCameraView_5A5:
         mov edx, str_USERCHASE
         call strcpy_
         mov edx, CameraPos
-        mov eax, dword_1B905F
+        mov eax, CameraStateRecords+7
         mov dword [byte ebx+024h], 1
         call VecDistance
         mov dword [byte ebx+028h], 4
         fstp dword [dword ebx+0114h]
-        fld dword [dword_1B9063]
+        fld dword [CameraStateRecords+0Bh]
         mov dword [byte ebx+02Ch], 1
         mov dword [byte ebx+030h], 0
         mov dword [dword ebx+0128h], 0
         mov dword [byte ebx+034h], 0
         fstp dword [dword ebx+027Ch]
-        mov eax, dword [dword_1B9077]
+        mov eax, dword [CameraStateRecords+1Fh]
         mov dword [dword ebx+02C4h], eax
 SetCameraView_608:
         pop edi
@@ -6848,7 +6848,7 @@ BuildSplinePath:
         call VecSub
         jmp short .2
 .1:
-        mov edx, dword_1B905F
+        mov edx, CameraStateRecords+7
         mov ebx, edi
         mov eax, ecx
         call VecSub
@@ -7134,10 +7134,10 @@ SetCameraPathPoint:
         test ebx, ebx
         jle short .1
         mov eax, dword [byte esp+0Ch]
-        mov dword [dword_1B9087], eax
+        mov dword [CameraStateRecords+2Fh], eax
         mov eax, dword [byte esp+010h]
         mov edx, ebx
-        mov dword [dword_1B908B], eax
+        mov dword [CameraStateRecords+33h], eax
         mov eax, 3
         call SetCameraPathTarget
         mov eax, 4
@@ -7194,9 +7194,9 @@ StartCameraPath:
         fld dword [CameraFovTarget]
         mov eax, 3
         fxch
-        fstp dword [dword_1B9087]
+        fstp dword [CameraStateRecords+2Fh]
         mov edx, ecx
-        fstp dword [dword_1B908B]
+        fstp dword [CameraStateRecords+33h]
         call SetCameraPathTarget
         mov eax, 4
         mov edx, ecx
@@ -7484,15 +7484,15 @@ SelectCameraView:
         fld dword [CameraViewParams]
         fld dword [CameraFollowObj]
         fxch st6
-        fstp dword [dword_1B907B]
+        fstp dword [CameraStateRecords+23h]
         fxch st4
-        fstp dword [dword_1B907F]
+        fstp dword [CameraStateRecords+27h]
         fxch st2
-        fstp dword [dword_1B9083]
-        fstp dword [dword_1B9087]
-        fstp dword [dword_1B908B]
-        fstp dword [dword_1B908F]
-        fstp dword [dword_1B9093]
+        fstp dword [CameraStateRecords+2Bh]
+        fstp dword [CameraStateRecords+2Fh]
+        fstp dword [CameraStateRecords+33h]
+        fstp dword [CameraStateRecords+37h]
+        fstp dword [CameraStateRecords+3Bh]
 .2:
         mov edx, ecx
         mov eax, ebx
@@ -7511,7 +7511,7 @@ SelectCameraView:
         call SetCameraMode
 .4:
         mov edx, CameraPathPoints
-        mov eax, unk_1B9038
+        mov eax, CameraViewNames
         call strcpy_
         pop esi
         pop ecx
@@ -7532,11 +7532,11 @@ UpdateGameCamera:
         push ebp
         mov ecx, eax
         mov ebp, edx
-        fld dword [dword_1B906B]
-        fld dword [dword_1B906F]
+        fld dword [CameraStateRecords+13h]
+        fld dword [CameraStateRecords+17h]
         mov edi, CameraElevation
-        mov esi, dword_1B905F
-        fld dword [dword_1B9077]
+        mov esi, CameraStateRecords+7
+        fld dword [CameraStateRecords+1Fh]
         movsd
         movsd
         movsd
@@ -7947,7 +7947,7 @@ PenaltyCameraDistance:
         shl eax, 2
         sub eax, edx
         shl eax, 5
-        add eax, dword_1B1410
+        add eax, ObjectPositions
         cmp dword [eax], 44FF0000h
         jle short .1
         xor esi, esi
@@ -7989,7 +7989,7 @@ PenaltyCameraDistance:
         pop eax
         ret
         db 08Dh,040h,00h
-jpt_1B9C4:
+PenaltySceneStepJumpTable:
         dd PenaltySceneStep_1C
         dd PenaltySceneStep_73
         dd PenaltySceneStep_C6
@@ -8008,7 +8008,7 @@ PenaltySceneStep:
         mov eax, dword [CameraSceneStep]
         cmp eax, byte 3
         ja near PenaltySceneStep_108.1
-        jmp dword [nosplit cs:eax*4+jpt_1B9C4]
+        jmp dword [nosplit cs:eax*4+PenaltySceneStepJumpTable]
 PenaltySceneStep_1C:
         call PenaltyCameraDistance
         fcomp dword [F32_2000_PenaltySceneStep]
@@ -8129,7 +8129,7 @@ PenaltyCameraScene:
         lea eax, [byte ebx+04h]
         mov dword [CameraPathActive], ebp
         call StartCameraPath
-        mov dword [dword_16AF5C], edi
+        mov dword [CameraScenesEnabled], edi
         call DrawClockOverlay
 .1:
         pop ebp
@@ -8497,7 +8497,7 @@ LoadOpeningCamera:
         xor eax, eax
         mov dword [CameraFocus], ecx
         call UpdateCameraMotion
-        mov dword [dword_16AF5C], ebx
+        mov dword [CameraScenesEnabled], ebx
         call DrawClockOverlay
         mov dword [CameraSceneId], ebx
         add esp, byte 14h
@@ -8821,7 +8821,7 @@ FaceoffCloseupScene:
         push ebp
         sub esp, byte 2Ch
         lea edi, [byte esp+024h]
-        mov esi, unk_19178
+        mov esi, FaceoffCloseupInit
         mov ecx, FaceoffSceneStep
         mov eax, 9
         movsd
@@ -9118,7 +9118,7 @@ FaceoffSweepScene:
         lea edi, [byte esp+018h]
         mov edx, 453E0000h
         mov ebx, 458CA000h
-        mov esi, unk_19180
+        mov esi, FaceoffSweepInit
         xor ecx, ecx
         mov dword [esp], edx
         mov dword [byte esp+04h], ebx
@@ -9177,7 +9177,7 @@ FaceoffCameraScene2:
         call CanStartCameraScene
         test eax, eax
         je near .5
-        mov dword [dword_16AF5C], 1
+        mov dword [CameraScenesEnabled], 1
         call DrawClockOverlay
         call rand_
         mov edx, eax
@@ -9630,12 +9630,12 @@ GoalSceneStep:
         push edi
         sub esp, byte 18h
         lea edi, [byte esp+0Ch]
-        mov esi, unk_19188
+        mov esi, GoalSceneCamFrom
         movsd
         movsd
         movsd
         mov edi, esp
-        mov esi, unk_19194
+        mov esi, GoalSceneCamTo
         movsd
         movsd
         movsd
@@ -9686,12 +9686,12 @@ GoalCameraScene:
         sub esp, byte 20h
         mov ebx, eax
         lea edi, [byte esp+0Ch]
-        mov esi, unk_191A0
+        mov esi, GoalCameraFrom
         movsd
         movsd
         movsd
         mov edi, esp
-        mov esi, unk_191AC
+        mov esi, GoalCameraTo
         mov eax, 5
         movsd
         movsd
@@ -9810,7 +9810,7 @@ FaceoffDropSceneStep:
         xor edx, edx
         call StartCameraPath
         xor eax, eax
-        mov dword [dword_16AF5C], eax
+        mov dword [CameraScenesEnabled], eax
         pop ebp
         pop edi
         pop edx
@@ -10154,7 +10154,7 @@ DrawCameraDebug:
         je near .4
         lea edi, [byte esp+028h]
         mov esi, CameraSceneCenter
-        mov edx, dword_1B905F
+        mov edx, CameraStateRecords+7
         xor ebx, ebx
         movsd
         movsd
@@ -10164,7 +10164,7 @@ DrawCameraDebug:
         lea ebx, [byte esp+034h]
         call VecSub
         lea ebx, [byte esp+040h]
-        mov edx, unk_1B92AB
+        mov edx, CameraStateRecords+253h
         lea eax, [byte esp+034h]
         call VecMulMat
         cmp dword [byte esp+048h], 42C80000h
@@ -10375,7 +10375,7 @@ ReplayCamDrag:
         fld qword [byte esp+08h]
         fld qword [esp]
         call IF@ATAN2
-        fadd dword [dword_1B906F]
+        fadd dword [CameraStateRecords+17h]
         fchs
         fld st0
         fsin
@@ -10646,7 +10646,7 @@ ReplayCamOrbitMode:
         je short .2
         mov ebx, esp
         mov edx, eax
-        mov eax, dword_1B905F
+        mov eax, CameraStateRecords+7
         call VecSub
         call VecLength
         fstp dword [CameraPathTime]
@@ -10838,7 +10838,7 @@ ReplayCamOrbit:
         mov eax, dword [ReplayCamPitch]
         xor esi, esi
         mov dword [byte esp+034h], eax
-        mov eax, unk_1B92AB
+        mov eax, CameraStateRecords+253h
         mov dword [byte esp+038h], esi
         call MatTranspose
         mov edx, esp
@@ -10846,7 +10846,7 @@ ReplayCamOrbit:
         call VecMulMat
         lea ebx, [byte esp+030h]
         lea edx, [byte esp+024h]
-        mov eax, dword_1B905F
+        mov eax, CameraStateRecords+7
         call VecAdd
         lea ebx, [byte esp+030h]
         mov edx, CameraPos
@@ -10899,10 +10899,10 @@ ReplayCamFreeMode:
         mov ebx, esp
         mov dword [CameraMode], edx
         mov dword [CameraViewX], edx
-        mov edx, dword_1B905F
+        mov edx, CameraStateRecords+7
         call VecSub
         mov ebx, ReplayCamPos
-        mov edx, unk_1B92AB
+        mov edx, CameraStateRecords+253h
         mov eax, esp
         call VecMulMat
         add esp, byte 0Ch
@@ -10983,14 +10983,14 @@ ReplayCamMove:
         push edx
         sub esp, byte 30h
         mov edx, esp
-        mov eax, unk_1B92AB
+        mov eax, CameraStateRecords+253h
         lea ebx, [byte esp+024h]
         call MatTranspose
         mov edx, esp
         mov eax, ReplayCamPos
         call VecMulMat
         mov ebx, CameraSceneCenter
-        mov edx, dword_1B905F
+        mov edx, CameraStateRecords+7
         lea eax, [byte esp+024h]
         call VecAdd
         xor edx, edx
@@ -11051,7 +11051,7 @@ ReplayCamZoomMode:
         mov ebx, esp
         call GetCameraTarget
         mov edx, eax
-        mov eax, dword_1B905F
+        mov eax, CameraStateRecords+7
         mov edi, 1
         call VecSub
         call VecLength
@@ -11104,7 +11104,7 @@ ReplayCamZoom:
 .2:
         lea ebx, [byte esp+024h]
         mov edx, CameraPos
-        mov eax, dword_1B905F
+        mov eax, CameraStateRecords+7
         call VecSub
         lea eax, [byte esp+024h]
         push eax
@@ -11116,7 +11116,7 @@ ReplayCamZoom:
         jmp short .4
 .3:
         fild dword [byte esp+03Ch]
-        mov eax, unk_1B92AB
+        mov eax, CameraStateRecords+253h
         lea ebx, [byte esp+030h]
         mov dword [byte esp+028h], edx
         mov dword [byte esp+024h], edx
@@ -11128,7 +11128,7 @@ ReplayCamZoom:
         call VecMulMat
         mov ebx, CameraLookAt
         lea edx, [byte esp+030h]
-        mov eax, dword_1B905F
+        mov eax, CameraStateRecords+7
 .4:
         call VecAdd
         add esp, byte 40h
@@ -12746,7 +12746,7 @@ SwapPosition:
         pop ebx
         ret
         db 090h
-jpt_1F03C:
+SwapPositionJumpTable:
         dd .4
         dd .6
         dd .13
@@ -12810,7 +12810,7 @@ jpt_1F03C:
         cmp cx, byte 4
         ja near .20
         and ecx, 0FFFFh
-        jmp dword [nosplit cs:ecx*4+jpt_1F03C]
+        jmp dword [nosplit cs:ecx*4+SwapPositionJumpTable]
 .4:
         test edx, edx
         je short .5
@@ -14348,7 +14348,7 @@ Endfaceoff:
         push ebp
         sub esp, byte 1Ch
         mov edi, eax
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne short .1
         xor eax, eax
         call ResetRenderTimers
@@ -14865,7 +14865,7 @@ DelayedPenaltyEnd:
 .9:
         call SetCrowdMood
 .10:
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne near .12
         mov ecx, dword [dword edx+0FEh]
         mov eax, dword [dword ecx+0108h]
@@ -15179,10 +15179,10 @@ Goal:
         mov eax, dword [PassPlayer]
         sar eax, 10h
         call GoalCameraScene
-        mov al, byte [byte_1C135A]
-        cmp al, byte [byte_1C135B]
+        mov al, byte [PeriodHomeTeam]
+        cmp al, byte [PeriodAwayTeam]
         jne near .30
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne near .30
         xor eax, eax
         jmp short .24
@@ -15259,18 +15259,18 @@ Goal:
 .30:
         cmp word [PuckOwner], byte 0
         jne short .32
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne short .31
-        inc byte [byte_1C135A]
+        inc byte [PeriodHomeTeam]
 .31:
         mov eax, 102h
         call StartCrowdMusic
         mov eax, 0Ah
         jmp short .34
 .32:
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne short .33
-        inc byte [byte_1C135B]
+        inc byte [PeriodAwayTeam]
 .33:
         mov eax, 2
         call randomd0
@@ -15279,10 +15279,10 @@ Goal:
         and eax, 0FFh
 .34:
         call SetCrowdMood
-        mov al, byte [byte_1C135A]
-        cmp al, byte [byte_1C135B]
+        mov al, byte [PeriodHomeTeam]
+        cmp al, byte [PeriodAwayTeam]
         jne near .39
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne near .39
         xor eax, eax
 .35:
@@ -15313,7 +15313,7 @@ Goal:
         mov dword [LastTouchPlayer], edx
         mov dword [byte esp+08h], eax
 .39:
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne near .66
         mov dx, word [byte esi+0Eh]
         mov ax, word [byte ecx+0Eh]
@@ -15660,7 +15660,7 @@ Goal:
         add ebx, 108h
         cmp cx, byte 6
         jl near .71
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne short .79
         mov eax, dword [gameover]
         sar eax, 10h
@@ -15790,10 +15790,10 @@ InCrease:
         mov ecx, eax
         mov esi, edx
         mov ebx, esp
-        mov edx, dword [dword_1B9CA4]
+        mov edx, dword [CreaseBounds]
         call ObjectFramePos
         lea ebx, [byte esp+0Ch]
-        mov edx, dword [dword_1B9CAC]
+        mov edx, dword [GoalLineY]
         mov eax, ecx
         call ObjectFramePos
         test esi, esi
@@ -19041,7 +19041,7 @@ CreditPass:
         and eax, 0FFh
         cmp eax, ebx
         jne near .6
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne short .1
         mov eax, dword [dword edx+0FEh]
         mov eax, dword [dword eax+0108h]
@@ -19746,7 +19746,7 @@ MakePass:
         fstp dword [byte eax+040h]
         test edx, edx
         je near .4
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne short .1
         mov eax, dword [dword ecx+0FEh]
         mov eax, dword [dword eax+0108h]
@@ -20191,7 +20191,7 @@ StartPass:
 .1:
         test ax, ax
         jne near .6
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne short .2
         mov ebx, dword [dword ecx+0FEh]
         mov ebx, dword [dword ebx+0108h]

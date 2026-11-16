@@ -4,7 +4,7 @@ bits 32
 section s_2EEE8 progbits alloc exec nowrite align=1
 extern IF@ATAN2, ReturnGoalies, SortCords, __CHP, str_Pktbuffer, awtmstruct, LineSlotPositions, LineSlotOffsets
 extern LineReplaceTable, SlotJoyMap, PenaltyPending, PenaltyTeam, PenaltySlots, PenaltyQueue, PenaltyBoxCount, gmode
-extern PuckFlags, PlayFlags, holdreset, RefSignal, byte_19CD8C, LineSlotTaken, LineSlotStart, DefenseByDefense
+extern PuckFlags, PlayFlags, holdreset, RefSignal, PadStates, LineSlotTaken, LineSlotStart, DefenseByDefense
 extern ForwardsByOffense, GoalieFlags, PlayerControlFlags, PlayerStateFlags, HmPlayerFlags, HmCoachGoalie, HmPlayerEnergy, AwPlayerFlags
 extern AwCoachGoalie, AwPlayerEnergy, F32_neg1392_PickShotTarget, F32_neg432, F32_neg1392_updatepentime_ut_chk, F32_144_assfwatch, F32_48_assfwatch, ShotTargetX
 extern ShotTargetY, LineReplaceOrder, PenaltyMinutes, PenaltyFlags, PenaltyPaCodes, PenaltyTypes, PacketLinkOpen, PacketLinkMode
@@ -13,10 +13,10 @@ extern InputButtons, InputDir, ShotState, LastTouchPlayer, PuckHitFlag, ExtraAtt
 extern GoalScorerFlags, FaceoffWinner, penshottimer, PuckX, RefTarget, RefPlayer, SlotPlayers, InputSlotPlayers
 extern bholdtimer, InputActive, PassButtonTimes, PassButtonHeld, PuckChasers, ChangePlayer, LineSortKeys, LineSortIndex
 extern LineSortOrder, PenaltyRecord, HmPenaltyPlayer, HmScore, AwPenaltyPlayer, AwScore, LinkChannelAData, LinkChannelBData
-extern GameSettings, GameOptionFlags, dword_1B8FA0, dword_1BF060, dword_1C13FF, dword_1C3522, hmtmstruct, hypot_
+extern GameSettings, GameOptionFlags, ReplayPlaying, StickPointId, HomePlayerRecords, AwayPlayerRecords, hmtmstruct, hypot_
 extern SeasonGameScreen_13F, SeasonGameScreen_14D, SeasonGameScreen_17B, SeasonGameScreen_182, SeasonGameScreen_1DA, SeasonGameScreen_1E3, SeasonGameScreen_1EC, SeasonGameScreen_1F3
 extern SeasonGameScreen_238, SeasonGameScreen_2B1, SeasonGameScreen_2CF, SeasonGameScreen_3D3, SeasonGameScreen_3DF, SeasonGameScreen_3EB, PtrPuckTarget, PtrPuckOwner
-extern PtrPuckMotion, PtrPuckZone, PtrPuckFlags, PtrPuckObject, PtrHomeIce, PtrAwayIce, off_19C61F, F64_480_PenaltyChance
+extern PtrPuckMotion, PtrPuckZone, PtrPuckFlags, PtrPuckObject, PtrHomeIce, PtrAwayIce, LinePickOrderFrom1, F64_480_PenaltyChance
 extern F64_105, F64_130, F64_10_PickShotTarget, F64_20_PickShotTarget, F64_240_ChkGrabPuckOnSwitch, F64_0p392699_FaceDirFromMotion, F64_0p159155_FaceDirFromMotion, F64_65536_FaceDirFromMotion
 extern F64_0p785398_doplayeracc, F64_0p785398_SetSkateDir, F64_0p75, F64_0p392699_JoySkate, F64_0p159155_JoySkate, F64_65536_JoySkate, F64_0p392699_ChkPassTo, F64_0p159155_ChkPassTo
 extern F64_65536_ChkPassTo, F64_0p392699_DoPassButton, F64_0p159155_DoPassButton, F64_65536_DoPassButton, F64_0p392699_DoShootButton, F64_0p159155_DoShootButton, F64_65536_DoShootButton, F64_0p392699_doinput
@@ -33,7 +33,7 @@ extern ShotAnimFrames, ObjectFramePos, StopObject, StartShotAnim, StartOneTimerA
 extern StartFightGrab, StartFightPull, StartFightAnim, SetAnimFrame, RequestPauseMenu, clockcont_0, LogPenalty, RunIdleHandlers
 extern AllocMemData, FreeMemBlock, FillMem, addtimer, RemoveTimerCallback, WaitTicks, JoyStateTable, CentersByOffense
 extern RightWingsByDefense, CentersByDefense, LeftWingsByOffense, LeftWingsByDefense, RightWingsByOffense, DefenseByOffense, ForwardsByDefense, HomeTeamRecord
-extern LinkChannelA, LinkChannelB, unk_1C135C, unk_1C347F, vecdist, vtoa, ForcePenaltyCall, ProgressTimes
+extern LinkChannelA, LinkChannelB, AutoLineData, HomeLines, vecdist, vtoa, ForcePenaltyCall, ProgressTimes
 extern ProgressLimit, str_Punct_InProgress, LineChangeKeys, FaceoffHomePlayer, FaceoffAwayPlayer, RimTargetX, RimTargetY, FaceoffX
 extern FaceoffDropX, FaceoffY, FaceoffDropY, JoyButtonsTable, LineChangeHome, LineChangeAway, HomeSkaters, DefendFlags
 extern GoalieTarget, ZoneTargetY, ProgressTimer, ShotTarget, ShotTimer, ShotType, ShotSpeed, ShotPending
@@ -45,8 +45,8 @@ extern DelayedPen, MessagePanel, PenCntDwn, GoalLineFlag, BreakawayFlag, SlotAss
 extern HomeControlSlot, AwayControlSlot, HomeEbenPlayer, AwayEbenPlayer, FaceoffTakers, FaceoffTakerAway, LineBuildLine, LineBuildSlot
 extern LineBuildPlayer, PlayerControlWords, HmFaceoffCenter, HmFaceoffWinger, HmPlayersInBox, HmLineState, AwFaceoffCenter, AwFaceoffWinger
 extern AwPlayersInBox, AwLineState
-global CountTeamSlots, GiveControl, ReadJoy1, SlotToJoy, changeplayer, chkprogress, jpt_2FB20, jpt_30890
-global jpt_32328, jpt_380E6, jpt_38102, jpt_3811A, ChkBodyContact_229, ChkBodyContact_2CE, ChkBodyContact_2EB, ChkBodyContact_30C
+global CountTeamSlots, GiveControl, ReadJoy1, SlotToJoy, changeplayer, chkprogress, ChkBodyContactJumpTable, PositionSlotJumpTable
+global AddPenalty2JumpTable, SeasonGameMenuJumpTable, SeasonOpponentJumpTable, SeasonOpponentTextJumpTable, ChkBodyContact_229, ChkBodyContact_2CE, ChkBodyContact_2EB, ChkBodyContact_30C
 global ChkBodyContact_32D, ChkBodyContact_370, PositionSlot_1D, PositionSlot_21, PositionSlot_25, PositionSlot_29, PositionSlot_2D, PositionSlot_31
 global PositionSlot_35, AddPenalty2_2BD, AddPenalty2_2CB, AddPenalty2_2D2, AddPenalty2_308, AddPenalty2_32E, AddPenalty2_354, InProgress_8B2
 global InProgress_96E, FindPassTarget_E0, assfwatch_1EC, SendPacket_DE, LinkPoll_24C, puckfaceoff, restorepl, ChkPenaltyCall
@@ -982,7 +982,7 @@ NetCollide2:
         pop ebx
         ret
         db 08Bh,0C0h
-jpt_2FB20:
+ChkBodyContactJumpTable:
         dd ChkBodyContact_229
         dd ChkBodyContact_229
         dd ChkBodyContact_229
@@ -1149,7 +1149,7 @@ ChkBodyContact:
         lea eax, [dword edi-08Ch]
         cmp eax, byte 7
         ja near ChkBodyContact_370.26
-        jmp dword [nosplit cs:eax*4+jpt_2FB20]
+        jmp dword [nosplit cs:eax*4+ChkBodyContactJumpTable]
 ChkBodyContact_229:
         mov eax, dword [dword esi+0F6h]
         mov eax, dword [eax]
@@ -2064,7 +2064,7 @@ ForceShoot:
         pop edx
         ret
         db 00h
-jpt_30890:
+PositionSlotJumpTable:
         dd PositionSlot_2D
         dd PositionSlot_29
         dd PositionSlot_31
@@ -2083,7 +2083,7 @@ PositionSlot:
         cmp dx, byte 6
         ja short PositionSlot_35.1
         and edx, 0FFFFh
-        jmp dword [nosplit cs:edx*4+jpt_30890]
+        jmp dword [nosplit cs:edx*4+PositionSlotJumpTable]
 PositionSlot_1D:
         xor al, al
         pop edx
@@ -2410,7 +2410,7 @@ SetupAutoLines:
         push edi
         push ebp
         sub esp, 0E4h
-        mov edi, unk_1C135C
+        mov edi, AutoLineData
         xor esi, esi
 .1:
         lea eax, [dword edi+0A3h]
@@ -2661,7 +2661,7 @@ SetupAutoLines:
         add ecx, ebx
         add ebx, eax
         mov eax, ebp
-        mov edi, unk_1C347F
+        mov edi, HomeLines
         call BuildTeamLines
         cmp si, byte 2
         jl near .1
@@ -4416,7 +4416,7 @@ AddPenalty:
         pop ecx
         ret
         db 08Bh,0C0h
-jpt_32328:
+AddPenalty2JumpTable:
         dd AddPenalty2_2D2
         dd AddPenalty2_2BD
         dd AddPenalty2_2CB
@@ -4533,7 +4533,7 @@ AddPenalty2:
         mov eax, dword [nosplit eax*8+PenaltyRecord]
         sar eax, 18h
         imul eax, dword 125h
-        add eax, dword_1C3522
+        add eax, AwayPlayerRecords
         jmp short .12
 .11:
         mov edx, dword [penshottimer]
@@ -4544,7 +4544,7 @@ AddPenalty2:
         mov eax, dword [nosplit eax*8+PenaltyRecord]
         sar eax, 18h
         imul eax, dword 125h
-        add eax, dword_1C13FF
+        add eax, HomePlayerRecords
 .12:
         push eax
         push dword 0A0000027h
@@ -4616,7 +4616,7 @@ AddPenalty2:
         cmp dx, byte 5
         ja near AddPenalty2_2CB
         and edx, 0FFFFh
-        jmp dword [nosplit cs:edx*4+jpt_32328]
+        jmp dword [nosplit cs:edx*4+AddPenalty2JumpTable]
 AddPenalty2_2BD:
         push eax
         push dword 0A0000028h
@@ -4743,7 +4743,7 @@ AddPenalty2_354:
         mov byte [dword ecx+0C0h], dh
         cmp ax, 0Eh
         jl near AddPenalty2_2CB
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne near AddPenalty2_2CB
         cmp ax, 1Ch
         je near AddPenalty2_2CB
@@ -4849,7 +4849,7 @@ Stop4Pen:
         push esi
         push edi
         mov edx, eax
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne short .1
         mov eax, 1
         call ResetRenderTimers
@@ -5093,7 +5093,7 @@ updatepwrplay:
         mov cl, ah
         or cl, 20h
         mov byte [PlayFlags], cl
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne short .5
         mov eax, dword [dword ebx+0108h]
         inc word [dword eax+020CBh]
@@ -5112,7 +5112,7 @@ updatepwrplay:
 ;-----------------------------------------------------------------------------
 chkatop:
         push edx
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne near .6
         mov eax, dword [PtrPuckOwner]
         mov dx, word [eax]
@@ -5166,7 +5166,7 @@ chkatop:
         mov ah, byte [PlayFlags]
         test ah, 20h
         je short .9
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne short .9
         test ah, 40h
         jne short .7
@@ -5183,7 +5183,7 @@ chkatop:
 ; releasepl                                                         32CEC  94G
 ; 94G releasepl (player's penalty time is up, let him out): first sort object
 ; off the ice, one more on the ice (+0Eh), line-change flags, position from
-; the priority list (off_19C61F), Setplass, setplayer
+; the priority list (LinePickOrderFrom1), Setplass, setplayer
 ;-----------------------------------------------------------------------------
 releasepl:
         push ebx
@@ -5208,7 +5208,7 @@ releasepl:
         mov eax, dword [byte eax+0Ch]
         and ecx, 0FFh
         sar eax, 10h
-        movsx ax, byte [dword ecx+eax+off_19C61F]
+        movsx ax, byte [dword ecx+eax+LinePickOrderFrom1]
         mov word [dword ebx+0A9h], ax
         mov eax, ebx
         movsx edx, dx
@@ -5712,7 +5712,7 @@ updatepentime:
         mov bl, byte [PlayFlags]
         test bl, 20h
         je short .3
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne short .3
         test bl, 40h
         jne short .1
@@ -6019,7 +6019,7 @@ SetupPenaltyShot:
         cmp cx, byte 5
         setg al
         xor ah, ah
-        mov edx, dword [dword_1B8FA0]
+        mov edx, dword [ReplayPlaying]
         mov word [PuckY], ax
         test edx, edx
         jne short .3
@@ -6412,7 +6412,7 @@ InProgress:
         je near .20
         cmp bh, 0Eh
         jb near .19
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne near .19
         cmp bh, 1Dh
         jne short .16
@@ -6640,7 +6640,7 @@ InProgress:
 .34:
         mov ecx, 0FFFFFFFFh
 .35:
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne near .39
         mov eax, dword [byte ebp-08h]
         mov eax, dword [dword eax+0108h]
@@ -7169,7 +7169,7 @@ ChkGrabPuckOnSwitch:
         cmp word [dword eax+0A9h], byte 0
         jle short .1
         mov ebx, esp
-        mov edx, dword [dword_1BF060]
+        mov edx, dword [StickPointId]
         call ObjectFramePos
         mov ebx, dword [PtrPuckFlags]
         fld dword [byte esp+08h]
@@ -7559,7 +7559,7 @@ SlotToJoy:
         push ebx
         push edx
         xor edx, edx
-        mov dx, word [nosplit eax*2+byte_19CD8C]
+        mov dx, word [nosplit eax*2+PadStates]
         mov ebx, eax
         mov eax, edx
         shl ebx, 4
@@ -8961,7 +8961,7 @@ OneTimerShot:
         dec edx
         call SetAnimFrame
 .12:
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne short .13
         mov eax, dword [dword ecx+0FEh]
         mov eax, dword [dword eax+0108h]
@@ -12527,7 +12527,7 @@ ClosePacketLink:
         pop esi
         pop ebx
         ret
-jpt_380E6:
+SeasonGameMenuJumpTable:
         dd SeasonGameScreen_13F
         dd SeasonGameScreen_14D
         dd SeasonGameScreen_1EC
@@ -12535,14 +12535,14 @@ jpt_380E6:
         dd SeasonGameScreen_238
         dd SeasonGameScreen_2B1
         dd SeasonGameScreen_2CF
-jpt_38102:
+SeasonOpponentJumpTable:
         dd SeasonGameScreen_17B
         dd SeasonGameScreen_182
         dd SeasonGameScreen_1DA
         dd SeasonGameScreen_182
         dd SeasonGameScreen_1DA
         dd SeasonGameScreen_1E3
-jpt_3811A:
+SeasonOpponentTextJumpTable:
         dd SeasonGameScreen_3D3
         dd SeasonGameScreen_3DF
         dd SeasonGameScreen_3D3

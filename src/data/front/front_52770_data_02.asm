@@ -2,20 +2,20 @@
 bits 32
 %include "hockey.inc"
 section s_16AF60 progbits alloc noexec write align=1
-global dword_16AF60, dword_16AF64, dword_16AF68, dword_16AF9C, dword_16AFAC, unk_16AF6C
-dword_16AF60:
+global RinkModelBuffer, RinkPassCount, ArenaArchiveHandle, OverlayFrameSize, OverlayFrameStride, RinkTextureDefs
+RinkModelBuffer:
         db 00h,00h,00h,00h
-dword_16AF64:
+RinkPassCount:
         db 00h,00h,00h,00h
-dword_16AF68:
+ArenaArchiveHandle:
         db 00h,00h,00h,00h
-unk_16AF6C:
+RinkTextureDefs:
         db 031h,06h,00h,00h,058h,01Bh,00h,00h,031h,06h,00h,00h,031h,06h,00h,00h
         db 058h,01Bh,00h,00h,0CFh,0F9h,0FFh,0FFh,0CFh,0F9h,0FFh,0FFh,058h,01Bh,00h,00h
         db 031h,06h,00h,00h,0CFh,0F9h,0FFh,0FFh,058h,01Bh,00h,00h,0CFh,0F9h,0FFh,0FFh
-dword_16AF9C:
+OverlayFrameSize:
         db 020h,03h,00h,00h,084h,03h,00h,00h,0E8h,03h,00h,00h,04Ch,04h,00h,00h
-dword_16AFAC:
+OverlayFrameStride:
         db 04Ch,04h,00h,00h,084h,03h,00h,00h,0E8h,03h,00h,00h,020h,03h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,080h,017h,043h,00h,00h,04h,0C2h
         db 00h,00h,00h,00h,00h,00h,046h,042h,00h,00h,04h,0C3h,00h,00h,00h,00h

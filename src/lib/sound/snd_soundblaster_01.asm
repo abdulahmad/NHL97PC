@@ -6,7 +6,7 @@ extern ParseBlasterEnv, str_DMABUFFER3, str_DMABUF, str_DMABUF2, str_DMABUFFER4,
 extern str_SoundFX, str_Port, str_DMA, str_IRQ, str_SBIRQ, str_SBEnable, str_FALSE, str_WavePort
 extern atoi_, SbProIrqVectors, SbProDmaChannelTable, Sb16DmaPageTable, Sb16DmaAddrTable, Sb16DmaCountTable, Sb16DmaMaskTable, SoundscapeIrqFlags
 extern SoundscapeIrqCodes, str_D_UpdateFrameRate, SpeechQueueVolume, AudioWorkHook, AudioStreamHook, AudioSpeechHook, SbDriverBuffer, SbDriverRunning
-extern SbProDriverBuffer, SbProDriverRunning, SbProChannels, dword_172C20, Sb16DriverActive, Sb16BufferSize, Sb16SavedIrqVector, SoundscapeBasePort
+extern SbProDriverBuffer, SbProDriverRunning, SbProChannels, Sb16DriverReady, Sb16DriverActive, Sb16BufferSize, Sb16SavedIrqVector, SoundscapeBasePort
 extern str_Punct_ReadSoundscapeIni, SoundscapeCodecType, SoundscapeDmaChannel, SoundscapeWavePort, SoundscapeIrq, SoundscapeMidiIrq, SoundscapeDmaBuffer, SoundscapeSavedIrq
 extern AudioDeferredPending, AudioDeferredArg, AudioBusyCount, AudioLockCount, AudioDeferredFunc, ChannelSampleTable, DigitalAudioHandle, DigitalAudioRate
 extern SbDmaBuffer, SbRate, SbDmaChannel, SbDmaBufSize, SbIrqLine, SbBlockSize, SbHalfSize, SbOldIrqHandler
@@ -15,13 +15,13 @@ extern SbProDmaChannel, SbProIrqLine, SbProIrqNum, SbProHalfSize, SbProOldMask, 
 extern SbProStartTime, Sb16OldIrq, Sb16IrqVector, Sb16IrqMask, Sb16DmaBufSize, Sb16Config, Sb16Rate, Sb16DmaChannel
 extern Sb16BlockSize, Sb16DmaBuffer, Sb16HalfSize, Sb16IrqLine, Sb16Format, Sb16Stereo, Sb16StartTime, ScapeDmaBufSize
 extern ScapeCodecBase, ScapeCodecState, ScapeBasePort, ScapeIrq, ScapeDmaChannel, ScapeDmaBuffer, ScapeCodecPort, ScapeRate
-extern fclose_, fgets_, fopen_, fseek_, getenv_, unk_137FE1_2, str_WSSDMA, strcmp_
+extern fclose_, fgets_, fopen_, fseek_, getenv_, SbRateFromConstant_2B, str_WSSDMA, strcmp_
 extern strstr_, strupr_, AudioDriverUpdate, ApplyChannelVolume, PickSampleRate, StopChannel, RestoreDS, MixerInit
 extern MixerFillBuffer, SbReadData, SbWriteDsp, SbMixerWrite, SbMixerRead, SbResetDsp, SbDetectDsp, SbSetRate
 extern StartChannel, SetChannelCount, DmaMaskChannel, DmaProgram, IrqAck, IrqVector, IrqUnmask, IrqMask
 extern IrqSetHandler, AllocDosDmaBuffer, FreeDosDmaBuffer, SbTimeConstant, SbRateFromConstant, ReturnArg, AllocMemData, FreeMemBlock
-extern unk_128990, unk_1289A0, SbRateConstLo, SbRateConstMid, SbRateConstHi, SbProStereoFlag, SbProRateConst, unk_140000
-extern unk_14000D, unk_14001A, unk_14002B, str_Rt_ReadSoundscapeIni, str_Punct_IniFindKey, Sb16DmaSetupCode, SbConfig, SbProConfig
+extern WssBasePortsBlaster, BlasterCodeList, SbRateConstLo, SbRateConstMid, SbRateConstHi, SbProStereoFlag, SbProRateConst, SbIrqStub220
+extern SbIrqStub240, SbIrqStub220Slave, SbIrqStub240Slave, str_Rt_ReadSoundscapeIni, str_Punct_IniFindKey, Sb16DmaSetupCode, SbConfig, SbProConfig
 extern Sb16SavedIrqSelector, Sb16DmaPortPatch, str_Punct_Sb16SetupDma, SbDspVersion, SbOldIrqSelector, SbProOldSelector, Sb16DspVersion, Sb16IrqStatusPort
 extern Sb16DmaBits
 global AudioEnter_6, ReadBlasterPort, ProbeDspReset, SbDriverId, SbDriverInit, SbDriverShutdown, SbDriverStart, SbSetupDma
@@ -41,14 +41,14 @@ ReadBlasterPort:
         push edi
         sub esp, byte 20h
         mov edi, esp
-        mov esi, unk_128990
+        mov esi, WssBasePortsBlaster
         movsd
         movsd
         movsd
         movsd
         mov ecx, 0FFFFFFFFh
         lea edi, [byte esp+010h]
-        mov esi, unk_1289A0
+        mov esi, BlasterCodeList
         mov ebx, 1
         xor edx, edx
         movsd
@@ -826,7 +826,7 @@ SbProSetupDma:
         call MixerFillBuffer
         add esp, byte 8
         mov eax, dword [SbProIrqNum]
-        mov ebx, unk_137FE1_2
+        mov ebx, SbRateFromConstant_2B
         call IrqMask
         mov ecx, cs
         mov eax, dword [SbProIrqNum]
@@ -840,24 +840,24 @@ SbProSetupDma:
         jne short .1
         push byte 20h
         mov edx, SbProIrqVector
-        mov ebx, unk_140000
+        mov ebx, SbIrqStub220
         jmp short .4
 .1:
         push byte 20h
         mov edx, SbProIrqVector
-        mov ebx, unk_14000D
+        mov ebx, SbIrqStub240
         jmp short .4
 .2:
         cmp dword [SbProBasePort], 220h
         jne short .3
         push byte 20h
         mov edx, SbProIrqVector
-        mov ebx, unk_14001A
+        mov ebx, SbIrqStub220Slave
         jmp short .4
 .3:
         push byte 20h
         mov edx, SbProIrqVector
-        mov ebx, unk_14002B
+        mov ebx, SbIrqStub240Slave
 .4:
         push SbProOldIrq
         mov eax, edi
@@ -1190,7 +1190,7 @@ Sb16DriverInit:
         mov dword [Sb16DriverActive], ebp
 .14:
         xor eax, eax
-        mov dword [dword_172C20], eax
+        mov dword [Sb16DriverReady], eax
         mov eax, 0FFFFFFFFh
         pop ebp
         pop edi
@@ -1215,7 +1215,7 @@ Sb16DriverInit:
 .16:
         xor ecx, ecx
         mov eax, 0FFFFFFFBh
-        mov dword [dword_172C20], ecx
+        mov dword [Sb16DriverReady], ecx
         pop ebp
         pop edi
         pop esi
@@ -1227,7 +1227,7 @@ Sb16DriverInit:
         mov eax, ebx
         mov ebp, 1
         shl eax, 10h
-        mov dword [dword_172C20], ebp
+        mov dword [Sb16DriverReady], ebp
         or al, 3
 .18:
         pop ebp
@@ -1277,7 +1277,7 @@ Sb16DriverShutdown:
         mov dword [Sb16DriverActive], esi
 .2:
         xor edi, edi
-        mov dword [dword_172C20], edi
+        mov dword [Sb16DriverReady], edi
         pop edi
         pop esi
         pop edx
@@ -1299,7 +1299,7 @@ Sb16DriverStart:
         mov dword [Sb16StartTime], eax
         test eax, eax
         jl short .1
-        cmp dword [dword_172C20], byte 0
+        cmp dword [Sb16DriverReady], byte 0
         je short .1
         mov ebx, dword [Sb16Rate]
         mov edx, dword [Sb16Format]

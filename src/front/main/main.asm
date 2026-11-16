@@ -9,19 +9,19 @@ extern str_Punct11, str_YouMustFirstUseTheSETUPPr, str_SystemBeforeRunningHOCKEY
 extern str_NHL97MustBeInstalledAndRu, str_CDFILEIVIV, str_BitteLegenSieDieNHL97CDIn, str_PleaseInsertTheNHL97CDROM, str_CHK12, str_X12, str_CB003, str_CHKD
 extern str_XD2, str_CB02d, str_N, str_E, str_W, str_S14, str_NW, str_NE
 extern str_SW, str_SE, str_LX02d, str_LC02d, str_UNPACKLOGO, str_LOGO8, str_LX004, str_LC004
-extern str_DisD, str_REL1, str_RELD, str_Ldn2, ShadeTable, StartupFlag, MusicOptions, byte_1C1267
-extern byte_1C6040, close_, dword_16AEB4, dword_16CAB0, dword_16CAB4, str_Punct_DrawScreenBackground, dword_16CAF4, dword_16CB78
-extern dword_16CB7C, dword_16CB80, dword_16DA9C, dword_16E464, dword_16E468, MenuScreenBitmap, DebugMode, ScreenWidth
-extern ExitHandler, KbdHandlerInstalled, GameSettings, dword_1C5DAC, dword_1C5DB0, dword_1C5DB4, dword_1C5DDC, dword_1C5DE4
-extern dword_1C5DE8, dword_1C5E74, dword_1C5E78, dword_1C5E7C, dword_1C5E80, dword_1C5E84, dword_1C5EA0, dword_1C5EA4
-extern dword_1C5EA8, dword_1C5EC4, dword_1C5EC8, dword_1C5ECC, dword_1C5ED0, dword_1C5EEC, dword_1C5EF0, dword_1C5EF4
-extern dword_1C5F08, dword_1C5F0C, dword_1C5F12, dword_1C5F16, dword_1C5F1A, dword_1C5F1E, dword_1C5F22, dword_1C5F26
-extern dword_1C5F5A, dword_1C5F5E, dword_1C5F64, dword_1C5F68, dword_1C5F6C, dword_1C5F70, dword_1C5F74, dword_1C5F78
-extern dword_1C5FAC, dword_1C5FB0, dword_1C5FB6, dword_1C5FBA, dword_1C5FBE, dword_1C5FC2, dword_1C5FC6, dword_1C5FCA
-extern dword_1C5FFE, dword_1C6002, dword_1C6008, dword_1C600C, dword_1C6010, dword_1C6014, dword_1C6018, dword_1C601C
-extern dword_1C6080, dword_1C6084, dword_1C60C0, dword_1C60C4, dword_1C8184, dword_1C8188, dword_1C818C, dword_1C8190
-extern dword_1C8194, dword_1C8198, dword_1C819C, dword_1C81A0, dword_1C81A4, dword_1C81A8, dword_1C81AC, dword_1C81B0
-extern dword_1C81B4, dword_1C81B8, dword_1C8268, TextAlign, LinkTextFont, TextColorIndex, TextColorTable, TextColor
+extern str_DisD, str_REL1, str_RELD, str_Ldn2, ShadeTable, StartupFlag, MusicOptions, MainCmdLine
+extern FrontMusicOn, close_, DirPathTable, EntryListItems, EntryRowOffsets, str_Punct_DrawScreenBackground, EntryColumnOffsets, HighlightTextOn
+extern ScreenWipeMode, LinkBoxShown, LinkGameActive, ViewScreenWidth, ViewScreenHeight, MenuScreenBitmap, DebugMode, ScreenWidth
+extern ExitHandler, KbdHandlerInstalled, GameSettings, ScreenBackgrounds, BackgroundFrameArt, BackgroundCornerArt, MainLogFile, FrontShapeFile
+extern LogoNames, ShadowShape, FrontFonts, EntryListArt, EntryListFrameArt, EntryListCornerArt, ScreenTitleArt, ScreenTitleFrame
+extern ScreenTitleCorner, StatsBackBitmaps, StatsBackLayers, StatsBackFrame, StatsBackCorner, StatsBackArt, LogoArtFile, FrontTextFile
+extern ScreenTitleItem
+extern BlankMenuItem
+extern ScreenFrameItem
+extern StatsBackItem
+extern EntryRowX, EntryRowY, EntryColumnX, EntryColumnY, LoadingScreenShown, StatsScreenSave, LinkBoxWidth, LinkBoxHeight
+extern LinkBoxBitmap, LinkBoxTimer, WorkingBoxX, WorkingBoxY, WorkingBoxWidth, WorkingBoxHeight, WorkingBoxSave, WorkingBoxBitmap
+extern TextColourBase, TextColourLast, TextFonts, TextAlign, LinkTextFont, TextColorIndex, TextColorTable, TextColor
 extern TextShadowColor, TextBuffer, DrawGlyphFn, exit_, getcwd_, MainMenuAnim_32E, MainMenuAnim_344, MainMenuAnim_35A
 extern MainMenuAnim_370, memcpy_, open_, printf_, sprintf_, srand_, strcat_, strcpy_
 extern strlen_, GetPaletteRange, bcopy, BlitConverted, BlitShape2, BlitArt, BlitShape, PresentScreen
@@ -35,12 +35,12 @@ extern RunIntro, AllocStaticBuffer, InitDbState, ServiceIdle, NetInit, NetShutdo
 extern WaitForOtherComputer, FillBox, InitVideoModeList, AllocMemBlock, FreeMemBlock, MemFreeSize, ZeroMem, FillMemPattern
 extern KbdGetKey, KbdFlush, MakeColor, MouseInit, SelectFont, FreeBitmap, DrawShapeAtOwnPos, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRectColor, FillRect, MeasureText, DrawTextAt, SetTextColors
-extern FillRectCorners, DrawGlyph, tickcount, unk_1643C2, unk_16445A, unk_1644A0, unk_1644EF, unk_1645E7
-extern unk_164636, unk_164686, unk_1646D4, unk_164724, unk_16480B, unk_1648DA, unk_16491D, unk_1649E0
-extern unk_164A6A, unk_164B4D, unk_164BFD, unk_164C3F, unk_164C6C, unk_164D67, unk_164F96, str_Punct_main_
-extern unk_16508B, str_X, str_S_EditText, unk_16CB30, DebugTagStr, unk_1C1264, unk_1C12B4, unk_1C5EF8
-extern unk_1C5F4A, unk_1C5F9C, unk_1C5FEE, unk_1C6044, unk_1C6104, unk_1C7144, unk_1C81BC
-global jpt_816D8, jpt_845CC, PlayerBioScreen_425, PlayerBioScreen_438, PlayerBioScreen_44A, PlayerBioScreen_45A, main_, CheckDiskSpace
+extern FillRectCorners, DrawGlyph, tickcount, str_Win95DetectedGerman, str_Win95ProblemsGerman, str_Win95DosWindowGerman, str_Win95QuitGerman, str_Win95DetectedSwedish
+extern str_Win95ProblemsSwedish, str_Win95DosWindowSwedish, str_Win95EnterSwedish, str_Win95AnyKeySwedish, str_DiskSpaceGerman, str_DiskSpaceSwedish, str_DiskSpaceFreeSwedish, str_NoMouseGerman
+extern str_NoMouseSwedish, str_RunSetupGerman, str_RunSetupSwedish, str_ConfigureSwedish, str_MemoryGerman, str_MemorySwedish, str_NeedCdSwedish, str_Punct_main_
+extern str_InsertCdSwedish, str_X, str_S_EditText, LinkFrameTitle, DebugTagStr, MainArgFlag, MainPathBuffer, ScreenTitleItem
+extern BlankMenuItem, ScreenFrameItem, StatsBackItem, StatsBackMenuItems, TextColourTable, TextShadowTable, SavedTextState
+global PlayerBioScreenJumpTable, MainMenuAnimJumpTable, PlayerBioScreen_425, PlayerBioScreen_438, PlayerBioScreen_44A, PlayerBioScreen_45A, main_, CheckDiskSpace
 global DrawShadedButton, DrawShadedField, ShadeShape, DrawShadedLogo, DrawShadowBox, DrawScreenBackground, FadeInScreen, ShowScreen
 global ExitScreen, SetRegionRect, DrawEditBox, SetTextColor, DrawTextAligned, DrawFrameBox, ShowMessageBox, ShowMessageBoxNoWait
 global MessageBox, EditTextField, EditFileName, InitKeyCharMap, EditText, LoadTeamLogo, FreeLogoArt, DrawTeamBanner
@@ -49,7 +49,7 @@ global SetHighlightText, SetNormalText, PoundsToKg, InchesToCm, PlayerBioScreen,
 global ShowStatScreen, DrawStatHeader, ShowWorkingBox, DrawWorkingBox, UpdateWorkingBox, HideWorkingBox, ShowLinkWait, ShowLinkMessage
 global DrawLinkBox, HideLinkBox, DrawHighlightBar, WaitShortDelay, ShowPopupScreen, DrawStatsBackground, FreeStatsBitmap, ShowStatsScreen
 global SaveStatsScreen, RestoreStatsScreen, DrawListHighlight, ShowLoadingScreen, ClearMenuGameFlag, ShowLoadingBar, TintPortrait, ChangeMenuMusic
-global unk_845C0
+global MainMenuItemMetrics
 ;-----------------------------------------------------------------------------
 ; main_                                                         7D059  library
 ;-----------------------------------------------------------------------------
@@ -85,19 +85,19 @@ main_:
         push str_Punct6
         call printf_
         add esp, byte 4
-        push unk_1643C2
+        push str_Win95DetectedGerman
         call printf_
         add esp, byte 4
         push str_SpielsUnterWindows95Laufe
         call printf_
         add esp, byte 4
-        push unk_16445A
+        push str_Win95ProblemsGerman
         call printf_
         add esp, byte 4
-        push unk_1644A0
+        push str_Win95DosWindowGerman
         call printf_
         add esp, byte 4
-        push unk_1644EF
+        push str_Win95QuitGerman
         call printf_
         add esp, byte 4
         push str_UmTrotzdemFortzufahrenOde
@@ -109,19 +109,19 @@ main_:
         push str_Punct7
         call printf_
         add esp, byte 4
-        push unk_1645E7
+        push str_Win95DetectedSwedish
         call printf_
         add esp, byte 4
-        push unk_164636
+        push str_Win95ProblemsSwedish
         call printf_
         add esp, byte 4
-        push unk_164686
+        push str_Win95DosWindowSwedish
         call printf_
         add esp, byte 4
-        push unk_1646D4
+        push str_Win95EnterSwedish
         call printf_
         add esp, byte 4
-        push unk_164724
+        push str_Win95AnyKeySwedish
         call printf_
         add esp, byte 4
         call WaitKey
@@ -143,7 +143,7 @@ main_:
         push str_Punct8
         call printf_
         add esp, byte 4
-        push unk_16480B
+        push str_DiskSpaceGerman
         call printf_
         add esp, byte 4
         push str_BitteMachenSieSovielPlatz
@@ -152,10 +152,10 @@ main_:
         push str_Punct9
         call printf_
         add esp, byte 4
-        push unk_1648DA
+        push str_DiskSpaceSwedish
         call printf_
         add esp, byte 4
-        push unk_16491D
+        push str_DiskSpaceFreeSwedish
         call printf_
         add esp, byte 4
         mov eax, 1
@@ -170,13 +170,13 @@ main_:
         push str_Punct10
         call printf_
         add esp, byte 4
-        push unk_1649E0
+        push str_NoMouseGerman
         call printf_
         add esp, byte 4
         push str_Punct11
         call printf_
         add esp, byte 4
-        push unk_164A6A
+        push str_NoMouseSwedish
         call printf_
         add esp, byte 4
         mov eax, 1
@@ -199,7 +199,7 @@ main_:
         push str_Punct12
         call printf_
         add esp, byte 4
-        push unk_164B4D
+        push str_RunSetupGerman
         call printf_
         add esp, byte 4
         push str_KonfigurierenStartenBevor
@@ -208,10 +208,10 @@ main_:
         push str_Punct13
         call printf_
         add esp, byte 4
-        push unk_164BFD
+        push str_RunSetupSwedish
         call printf_
         add esp, byte 4
-        push unk_164C3F
+        push str_ConfigureSwedish
         call printf_
         add esp, byte 4
         mov eax, 1
@@ -231,12 +231,12 @@ main_:
         and eax, byte 0Ch
         cmp eax, byte 8
         jne short .5
-        push unk_164C6C
+        push str_MemoryGerman
         jmp short .7
 .5:
         cmp eax, byte 4
         jne short .6
-        push unk_164D67
+        push str_MemorySwedish
         jmp short .7
 .6:
         push str_ThisGameRequiresAtLeastAn
@@ -246,7 +246,7 @@ main_:
         mov eax, 1
         call exit_
 .8:
-        mov eax, dword [dword_16AEB4]
+        mov eax, dword [DirPathTable]
         movzx eax, byte [eax]
         and al, 0DFh
         sub eax, byte 41h
@@ -264,7 +264,7 @@ main_:
 .9:
         cmp eax, byte 4
         jne short .10
-        push unk_164F96
+        push str_NeedCdSwedish
         jmp short .11
 .10:
         push str_NHL97MustBeInstalledAndRu
@@ -275,51 +275,51 @@ main_:
         call exit_
 .12:
         mov ebx, 1
-        mov eax, unk_1C1264
+        mov eax, MainArgFlag
         mov edx, ebx
         call MakeDirPath
         mov edx, str_CDFILEIVIV
-        mov eax, unk_1C1264
+        mov eax, MainArgFlag
         call strcat_
         push byte 0
-        push unk_1C1264
+        push MainArgFlag
         call open_
         add esp, byte 8
-        mov dword [dword_1C5DDC], eax
+        mov dword [MainLogFile], eax
         cmp eax, byte 0FFFFFFFFh
         jne short .16
         push str_Punct_main_
-        mov byte [byte_1C1267], 0
+        mov byte [MainCmdLine], 0
         call printf_
         mov eax, dword [GameSettings]
         and eax, byte 0Ch
         add esp, byte 4
         cmp eax, byte 8
         jne short .13
-        push unk_1C1264
+        push MainArgFlag
         push str_BitteLegenSieDieNHL97CDIn
         jmp short .15
 .13:
         cmp eax, byte 4
         jne short .14
-        push unk_1C1264
-        push unk_16508B
+        push MainArgFlag
+        push str_InsertCdSwedish
         jmp short .15
 .14:
-        push unk_1C1264
+        push MainArgFlag
         push str_PleaseInsertTheNHL97CDROM
 .15:
         call printf_
         add esp, byte 8
-        push unk_1C12B4
+        push MainPathBuffer
         call printf_
         add esp, byte 4
         mov eax, 1
         call exit_
 .16:
-        cmp dword [dword_1C5DDC], byte 0FFFFFFFFh
+        cmp dword [MainLogFile], byte 0FFFFFFFFh
         je short .17
-        mov eax, dword [dword_1C5DDC]
+        mov eax, dword [MainLogFile]
         call close_
 .17:
         push byte 0
@@ -332,16 +332,16 @@ main_:
         add esp, byte 4
         cmp eax, 81B320h
         setl al
-        mov byte [byte_1C6040], al
+        mov byte [FrontMusicOn], al
         test al, al
         je short .18
         and byte [MusicOptions], 0F7h
 .18:
         call InitPlatform
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         sar eax, 1
         push eax
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         sar eax, 2
         push eax
         call MouseRead
@@ -2143,22 +2143,22 @@ DrawScreenBackground:
         mov esi, ScreenWidth
         rep movsd
         push str_CHK12
-        mov edx, dword [dword_1C5DE4]
+        mov edx, dword [FrontShapeFile]
         push edx
         call FindShape
         add esp, byte 8
         push str_X12
-        mov ebx, dword [dword_1C5DE4]
+        mov ebx, dword [FrontShapeFile]
         push ebx
         mov dword [dword esp+094h], eax
         call FindShape
         add esp, byte 8
-        mov ecx, dword [dword_16DA9C]
+        mov ecx, dword [LinkGameActive]
         mov dword [byte esp+068h], eax
         test ecx, ecx
         je short .1
         push str_CB003
-        mov esi, dword [dword_1C5DE4]
+        mov esi, dword [FrontShapeFile]
         push esi
         call FindShape
         add esp, byte 8
@@ -2175,7 +2175,7 @@ DrawScreenBackground:
         add esp, byte 0Ch
         lea eax, [dword esp+0B0h]
         push eax
-        mov edi, dword [dword_1C5DE4]
+        mov edi, dword [FrontShapeFile]
         push edi
         call FindShape
         add esp, byte 8
@@ -2188,7 +2188,7 @@ DrawScreenBackground:
         add esp, byte 0Ch
         lea eax, [dword esp+0B0h]
         push eax
-        mov eax, dword [dword_1C5DE4]
+        mov eax, dword [FrontShapeFile]
         push eax
         add esi, byte 4
         call FindShape
@@ -2197,7 +2197,7 @@ DrawScreenBackground:
         mov dword [byte esp+esi+064h], eax
         cmp ebx, byte 9
         jl short .2
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .4
         mov ebx, 4
         xor esi, esi
@@ -2210,7 +2210,7 @@ DrawScreenBackground:
         add esp, byte 0Ch
         lea eax, [dword esp+0B0h]
         push eax
-        mov ecx, dword [dword_1C5DE4]
+        mov ecx, dword [FrontShapeFile]
         push ecx
         add ebx, byte 4
         call FindShape
@@ -2289,7 +2289,7 @@ DrawScreenBackground:
         mov eax, dword [dword esp+0C8h]
         push eax
         call DrawArt
-        mov edx, dword [dword_16DA9C]
+        mov edx, dword [LinkGameActive]
         add esp, byte 0Ch
         test edx, edx
         je short .5
@@ -2331,7 +2331,7 @@ DrawScreenBackground:
 .5:
         xor ebx, ebx
 .6:
-        mov ecx, dword [dword ebx+dword_1C5EA0]
+        mov ecx, dword [dword ebx+ScreenTitleArt]
         push ecx
         call SetDrawTarget
         add esp, byte 4
@@ -2347,7 +2347,7 @@ DrawScreenBackground:
         push edx
         call DrawArt
         add esp, byte 0Ch
-        mov ecx, dword [dword ebx+dword_1C5E7C]
+        mov ecx, dword [dword ebx+EntryListArt]
         push ecx
         call SetDrawTarget
         add esp, byte 4
@@ -2366,11 +2366,11 @@ DrawScreenBackground:
         add esp, byte 0Ch
         cmp ebx, byte 24h
         jne short .6
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .8
         xor ebx, ebx
 .7:
-        mov ecx, dword [dword ebx+dword_1C5DAC]
+        mov ecx, dword [dword ebx+ScreenBackgrounds]
         push ecx
         call SetDrawTarget
         add esp, byte 4
@@ -2401,7 +2401,7 @@ DrawScreenBackground:
         push byte 0
         mov ebx, 0Bh
         push byte 0
-        mov edx, dword [dword_1C5EA0]
+        mov edx, dword [ScreenTitleArt]
         xor ecx, ecx
         push byte 0
         mov edx, dword [byte edx+02Ch]
@@ -2418,13 +2418,13 @@ DrawScreenBackground:
         push byte 0
         mov ebx, 0Bh
         push byte 0
-        mov edx, dword [dword_1C5E7C]
+        mov edx, dword [EntryListArt]
         xor ecx, ecx
         push byte 0
         mov edx, dword [byte edx+02Ch]
         mov eax, dword [byte edi+02Ch]
         call ShadeShape
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .9
         mov eax, dword [byte esp+038h]
         mov eax, dword [byte eax+04h]
@@ -2437,7 +2437,7 @@ DrawScreenBackground:
         push byte 0
         mov ebx, 0Bh
         push byte 0
-        mov edx, dword [dword_1C5DAC]
+        mov edx, dword [ScreenBackgrounds]
         xor ecx, ecx
         push byte 0
         mov edx, dword [byte edx+02Ch]
@@ -2449,7 +2449,7 @@ DrawScreenBackground:
         add esp, byte 4
         push edi
         call FreeBitmap
-        mov ecx, dword [dword_16DA9C]
+        mov ecx, dword [LinkGameActive]
         add esp, byte 4
         test ecx, ecx
         je short .10
@@ -2457,71 +2457,71 @@ DrawScreenBackground:
         call FreeBitmap
         add esp, byte 4
 .10:
-        mov edx, unk_1C5F4A
+        mov edx, BlankMenuItem
         mov eax, 1
         mov esi, 5
-        mov edi, dword_16CAB0
+        mov edi, EntryListItems
         call InitMenuItems
-        mov eax, dword [dword_1C5EA0]
-        mov dword [dword_1C5F5A], esi
-        mov dword [dword_1C5F5E], edi
+        mov eax, dword [ScreenTitleArt]
+        mov dword [BlankMenuItem+10h], esi
+        mov dword [BlankMenuItem+14h], edi
         mov eax, dword [byte eax+02Ch]
-        mov dword [dword_1C5F64], eax
-        mov eax, dword [dword_1C5EA4]
+        mov dword [BlankMenuItem+1Ah], eax
+        mov eax, dword [ScreenTitleFrame]
         mov eax, dword [byte eax+02Ch]
         mov ebp, 101h
-        mov dword [dword_1C5F68], eax
-        mov eax, dword [dword_1C5EA8]
+        mov dword [BlankMenuItem+1Eh], eax
+        mov eax, dword [ScreenTitleCorner]
         mov ebx, 8
         mov ecx, str_Punct_DrawScreenBackground
         mov eax, dword [byte eax+02Ch]
         mov edx, 1A2h
-        mov dword [dword_1C5F6C], eax
-        mov dword [dword_1C5F74], edx
+        mov dword [BlankMenuItem+22h], eax
+        mov dword [BlankMenuItem+2Ah], edx
         mov eax, 240h
-        mov edx, unk_1C5EF8
-        mov dword [dword_1C5F70], eax
+        mov edx, ScreenTitleItem
+        mov dword [BlankMenuItem+26h], eax
         mov eax, 1
-        mov dword [dword_1C5F78], ebp
+        mov dword [BlankMenuItem+2Eh], ebp
         call InitMenuItems
-        mov eax, dword [dword_1C5E7C]
-        mov dword [dword_1C5F08], ebx
-        mov dword [dword_1C5F0C], ecx
+        mov eax, dword [EntryListArt]
+        mov dword [ScreenTitleItem+10h], ebx
+        mov dword [ScreenTitleItem+14h], ecx
         mov eax, dword [byte eax+02Ch]
-        mov dword [dword_1C5F12], eax
-        mov eax, dword [dword_1C5E80]
+        mov dword [ScreenTitleItem+1Ah], eax
+        mov eax, dword [EntryListFrameArt]
         mov eax, dword [byte eax+02Ch]
-        mov dword [dword_1C5F16], eax
-        mov eax, dword [dword_1C5E84]
+        mov dword [ScreenTitleItem+1Eh], eax
+        mov eax, dword [EntryListCornerArt]
         mov eax, dword [byte eax+02Ch]
-        mov edx, unk_1C5F9C
-        mov dword [dword_1C5F1A], eax
-        mov dword [dword_1C5F26], ebp
-        mov dword [dword_1C5F1E], esi
+        mov edx, ScreenFrameItem
+        mov dword [ScreenTitleItem+22h], eax
+        mov dword [ScreenTitleItem+2Eh], ebp
+        mov dword [ScreenTitleItem+26h], esi
         mov ebp, 19Ch
         mov eax, 1
-        mov dword [dword_1C5F22], ebp
+        mov dword [ScreenTitleItem+2Ah], ebp
         call InitMenuItems
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .11
-        mov dword [dword_1C5FAC], ebx
-        mov ebx, unk_16CB30
-        mov eax, dword [dword_1C5DAC]
-        mov dword [dword_1C5FB0], ebx
+        mov dword [ScreenFrameItem+10h], ebx
+        mov ebx, LinkFrameTitle
+        mov eax, dword [ScreenBackgrounds]
+        mov dword [ScreenFrameItem+14h], ebx
         mov eax, dword [byte eax+02Ch]
-        mov dword [dword_1C5FB6], eax
-        mov eax, dword [dword_1C5DB0]
+        mov dword [ScreenFrameItem+1Ah], eax
+        mov eax, dword [BackgroundFrameArt]
         mov eax, dword [byte eax+02Ch]
-        mov dword [dword_1C5FBA], eax
-        mov eax, dword [dword_1C5DB4]
+        mov dword [ScreenFrameItem+1Eh], eax
+        mov eax, dword [BackgroundCornerArt]
         mov ecx, 101h
         mov esi, 22Ch
         mov eax, dword [byte eax+02Ch]
         mov edi, 0Ah
-        mov dword [dword_1C5FBE], eax
-        mov dword [dword_1C5FCA], ecx
-        mov dword [dword_1C5FC2], esi
-        mov dword [dword_1C5FC6], edi
+        mov dword [ScreenFrameItem+22h], eax
+        mov dword [ScreenFrameItem+2Eh], ecx
+        mov dword [ScreenFrameItem+26h], esi
+        mov dword [ScreenFrameItem+2Ah], edi
 .11:
         cmp dword [esp], byte 0
         jle short .12
@@ -2563,10 +2563,10 @@ FadeInScreen:
         mov ebx, 3
 .2:
         call SetScreenTarget
-        mov edx, dword [dword_1C5F74]
+        mov edx, dword [BlankMenuItem+2Ah]
         push edx
-        mov ecx, dword [dword_1C5F70]
-        mov eax, dword [nosplit ebx*4+dword_1C5EA0]
+        mov ecx, dword [BlankMenuItem+26h]
+        mov eax, dword [nosplit ebx*4+ScreenTitleArt]
         push ecx
         mov esi, dword [byte eax+02Ch]
         push esi
@@ -2586,10 +2586,10 @@ FadeInScreen:
         cmp ebx, byte 9
         jl short .1
         call SetScreenTarget
-        mov edi, dword [dword_1C5F74]
+        mov edi, dword [BlankMenuItem+2Ah]
         push edi
-        mov ebp, dword [dword_1C5F70]
-        mov eax, dword [dword_1C5EA4]
+        mov ebp, dword [BlankMenuItem+26h]
+        mov eax, dword [ScreenTitleFrame]
         push ebp
         mov edx, dword [byte eax+02Ch]
         push edx
@@ -2598,7 +2598,7 @@ FadeInScreen:
         mov ebx, 2
         call PresentScreen
         mov ecx, dword [esp]
-        mov dword [dword_16CB7C], ebx
+        mov dword [ScreenWipeMode], ebx
         test ecx, ecx
         jle short .5
         mov eax, esp
@@ -2638,10 +2638,10 @@ ShowScreen:
         mov ebx, 3
 .2:
         call SetScreenTarget
-        mov edx, dword [dword_1C5F22]
+        mov edx, dword [ScreenTitleItem+2Ah]
         push edx
-        mov ecx, dword [dword_1C5F1E]
-        mov eax, dword [nosplit ebx*4+dword_1C5E7C]
+        mov ecx, dword [ScreenTitleItem+26h]
+        mov eax, dword [nosplit ebx*4+EntryListArt]
         push ecx
         mov esi, dword [byte eax+02Ch]
         push esi
@@ -2661,17 +2661,17 @@ ShowScreen:
         cmp ebx, byte 9
         jl short .1
         call SetScreenTarget
-        mov edi, dword [dword_1C5F22]
+        mov edi, dword [ScreenTitleItem+2Ah]
         push edi
-        mov ebp, dword [dword_1C5F1E]
-        mov eax, dword [dword_1C5E80]
+        mov ebp, dword [ScreenTitleItem+26h]
+        mov eax, dword [EntryListFrameArt]
         push ebp
         mov edx, dword [byte eax+02Ch]
         push edx
         mov ebx, 1
         call BlitArt
         add esp, byte 0Ch
-        mov dword [dword_16CB7C], ebx
+        mov dword [ScreenWipeMode], ebx
         call PresentScreen
         cmp dword [esp], byte 0
         jle short .5
@@ -2714,16 +2714,16 @@ ExitScreen:
         call PlaySfx
 .1:
         call SetScreenTarget
-        mov edx, dword [dword_1C5FC6]
+        mov edx, dword [ScreenFrameItem+2Ah]
         push edx
-        mov ecx, dword [dword_1C5FC2]
+        mov ecx, dword [ScreenFrameItem+26h]
         mov eax, ebx
         push ecx
         mov edx, ebx
         mov ecx, 0Bh
         sar edx, 1Fh
         idiv ecx
-        mov eax, dword [nosplit edx*4+dword_1C5DB0]
+        mov eax, dword [nosplit edx*4+BackgroundFrameArt]
         mov esi, dword [byte eax+02Ch]
         push esi
         call BlitArt
@@ -2849,16 +2849,16 @@ SetTextColor:
         push edx
         push esi
         mov esi, eax
-        cmp eax, dword [dword_1C8268]
+        cmp eax, dword [TextFonts]
         jne short .1
-        mov ebx, dword [dword_1C81B8]
+        mov ebx, dword [TextColourLast]
         cmp ebx, dword [TextColor]
         je short .4
 .1:
         mov edx, dword [TextBuffer]
         mov ecx, dword [MenuScreenBitmap]
-        mov dword [dword_1C8268], esi
-        mov dword [dword_1C81B4], edx
+        mov dword [TextFonts], esi
+        mov dword [TextColourBase], edx
         cmp ecx, byte 8
         jne short .2
         push byte 0
@@ -2870,20 +2870,20 @@ SetTextColor:
 .3:
         call SetTextColors
         add esp, byte 8
-        mov eax, unk_1C6104
-        mov ebx, dword [dword_1C81B4]
+        mov eax, TextColourTable
+        mov ebx, dword [TextColourBase]
         mov edx, dword [TextShadowColor]
         call memcpy_
         push byte 0
         push esi
         call SetTextColors
-        mov eax, unk_1C7144
+        mov eax, TextShadowTable
         add esp, byte 8
-        mov ebx, dword [dword_1C81B4]
+        mov ebx, dword [TextColourBase]
         mov edx, dword [TextShadowColor]
         call memcpy_
         mov edx, dword [TextColor]
-        mov dword [dword_1C81B8], edx
+        mov dword [TextColourLast], edx
 .4:
         pop esi
         pop edx
@@ -2957,7 +2957,7 @@ DrawTextAligned:
         call DrawTextAt
         add esp, byte 0Ch
         push byte 0
-        mov edi, dword [dword_1C8268]
+        mov edi, dword [TextFonts]
         push edi
         call SetTextColors
         add esp, byte 8
@@ -2965,8 +2965,8 @@ DrawTextAligned:
         push ebp
         jmp short .5
 .4:
-        mov edx, unk_1C6104
-        mov ebx, dword [dword_1C81B4]
+        mov edx, TextColourTable
+        mov ebx, dword [TextColourBase]
         mov eax, dword [TextShadowColor]
         call memcpy_
         push edi
@@ -2974,8 +2974,8 @@ DrawTextAligned:
         lea eax, [byte esp+08h]
         push eax
         call DrawTextAt
-        mov edx, unk_1C7144
-        mov ebx, dword [dword_1C81B4]
+        mov edx, TextShadowTable
+        mov ebx, dword [TextColourBase]
         add esp, byte 0Ch
         mov eax, dword [TextShadowColor]
         mov ecx, dword [dword esp+0120h]
@@ -3010,19 +3010,19 @@ DrawFrameBox:
         mov dword [byte esp+01Ch], ebx
         mov dword [byte esp+020h], ecx
         push str_N
-        mov edx, dword [dword_1C5DE4]
+        mov edx, dword [FrontShapeFile]
         push edx
         call FindShape
         add esp, byte 8
         push str_E
-        mov ebx, dword [dword_1C5DE4]
+        mov ebx, dword [FrontShapeFile]
         push ebx
         mov edi, eax
         mov dword [byte esp+014h], eax
         call FindShape
         add esp, byte 8
         push str_W
-        mov ecx, dword [dword_1C5DE4]
+        mov ecx, dword [FrontShapeFile]
         push ecx
         mov esi, eax
         mov dword [byte esp+018h], eax
@@ -3031,7 +3031,7 @@ DrawFrameBox:
         mov ebp, eax
         push str_S14
         mov dword [byte esp+018h], eax
-        mov eax, dword [dword_1C5DE4]
+        mov eax, dword [FrontShapeFile]
         add edi, byte 10h
         push eax
         xor ebx, ebx
@@ -3220,7 +3220,7 @@ DrawFrameBox:
         mov ecx, dword [byte esp+02Ch]
         push ecx
         push str_NW
-        mov esi, dword [dword_1C5DE4]
+        mov esi, dword [FrontShapeFile]
         push esi
         call FindShape
         add esp, byte 8
@@ -3231,7 +3231,7 @@ DrawFrameBox:
         mov ebp, dword [byte esp+0Ch]
         push ebp
         push str_NE
-        mov eax, dword [dword_1C5DE4]
+        mov eax, dword [FrontShapeFile]
         push eax
         call FindShape
         add esp, byte 8
@@ -3244,7 +3244,7 @@ DrawFrameBox:
         mov ecx, dword [byte esp+02Ch]
         push ecx
         push str_SW
-        mov esi, dword [dword_1C5DE4]
+        mov esi, dword [FrontShapeFile]
         push esi
         call FindShape
         add esp, byte 8
@@ -3254,7 +3254,7 @@ DrawFrameBox:
         push ebx
         push ebp
         push str_SE
-        mov ebp, dword [dword_1C5DE4]
+        mov ebp, dword [FrontShapeFile]
         push ebp
         call FindShape
         add esp, byte 8
@@ -3309,17 +3309,17 @@ MessageBox:
         mov dword [dword esp+0700h], ebx
         mov ebp, ecx
         mov edx, 1Eh
-        push unk_1C81BC
+        push SavedTextState
         mov dword [dword esp+0728h], edx
         call SaveTextState
         add esp, byte 4
-        mov ebx, dword [dword_1C5EF4]
+        mov ebx, dword [FrontTextFile]
         push ebx
         lea edi, [dword esp+06B4h]
         mov esi, ScreenWidth
         call SelectFont
         mov ecx, DrawGlyph
-        mov eax, dword [dword_1C8268]
+        mov eax, dword [TextFonts]
         add esp, byte 4
         mov dword [DrawGlyphFn], ecx
         mov ecx, 0Eh
@@ -3610,7 +3610,7 @@ MessageBox:
         push byte 0
         lea eax, [dword esp+06F0h]
         push eax
-        mov edx, dword [dword_1C5DE4]
+        mov edx, dword [FrontShapeFile]
         push edx
         call FindShape
         add esp, byte 8
@@ -3879,7 +3879,7 @@ MessageBox:
         call SetDrawTarget
         add esp, byte 4
 .42:
-        push unk_1C81BC
+        push SavedTextState
         call RestoreTextState
         add esp, byte 4
         mov eax, dword [dword esp+06F8h]
@@ -3978,7 +3978,7 @@ EditText:
         call RemoveKeyboardHandler
         mov ecx, 0Eh
         mov dword [dword esp+0650h], ebx
-        push unk_1C81BC
+        push SavedTextState
         rep movsd
         call SaveTextState
         add esp, byte 4
@@ -3986,12 +3986,12 @@ EditText:
         xor ebx, ebx
         cmp ecx, byte 10h
         jne short .1
-        mov esi, dword [dword_1C5EF4]
+        mov esi, dword [FrontTextFile]
         push esi
         mov edi, DrawGlyph
         call SelectFont
         add esp, byte 4
-        mov eax, dword [dword_1C8268]
+        mov eax, dword [TextFonts]
         mov dword [DrawGlyphFn], edi
         call SetTextColor
 .1:
@@ -4012,7 +4012,7 @@ EditText:
         cmp eax, 0FFh
         jl short .3
 .4:
-        mov eax, dword [dword_16DA9C]
+        mov eax, dword [LinkGameActive]
         test eax, eax
         je short .5
         mov edx, dword [dword esp+0638h]
@@ -4097,14 +4097,14 @@ EditText:
         add eax, byte 0Ch
         mov dword [dword esp+063Ch], eax
         mov edi, dword [dword esp+063Ch]
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         mov ecx, dword [dword esp+0650h]
         sub eax, edi
         push byte 0
         sar eax, 1
         add ecx, byte 0Ch
         mov dword [dword esp+066Ch], eax
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         push ecx
         sub eax, ecx
         push edi
@@ -4485,7 +4485,7 @@ EditText:
 .34:
         mov byte [esi+ebp], 0
 .35:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je near .39
         cmp dword [dword esp+069Ch], byte 0
         je near .39
@@ -4515,25 +4515,25 @@ EditText:
         mov eax, ebp
         xor ebx, ebx
         call LinkReceiveBlock
-        cmp dword [dword_16CB80], byte 0
+        cmp dword [LinkBoxShown], byte 0
         je short .39
         call SetScreenTarget
-        mov edx, dword [dword_1C8190]
+        mov edx, dword [LinkBoxHeight]
         push edx
-        mov ebx, dword [dword_1C818C]
-        mov eax, dword [dword_1C8194]
+        mov ebx, dword [LinkBoxWidth]
+        mov eax, dword [LinkBoxBitmap]
         push ebx
         mov ecx, dword [byte eax+02Ch]
         push ecx
         call BlitArt
         add esp, byte 0Ch
         call PresentScreen
-        mov esi, dword [dword_1C8194]
+        mov esi, dword [LinkBoxBitmap]
         push esi
         xor edi, edi
         call FreeBitmap
         add esp, byte 4
-        mov dword [dword_16CB80], edi
+        mov dword [LinkBoxShown], edi
 .39:
         cmp dword [dword esp+0600h], byte 0
         jle short .40
@@ -4542,7 +4542,7 @@ EditText:
         call SetDrawTarget
         add esp, byte 4
 .40:
-        push unk_1C81BC
+        push SavedTextState
         call RestoreTextState
         add esp, byte 4
         xor ebx, ebx
@@ -4587,7 +4587,7 @@ LoadTeamLogo:
         push edi
         push ebp
         mov ebx, eax
-        mov edx, dword [dword_1C5EF0]
+        mov edx, dword [LogoArtFile]
         test edx, edx
         je short .1
         push edx
@@ -4595,7 +4595,7 @@ LoadTeamLogo:
         add esp, byte 4
 .1:
         push byte 0
-        mov esi, dword [nosplit ebx*4+dword_1C5DE8]
+        mov esi, dword [nosplit ebx*4+LogoNames]
         push esi
         call UnpackedSize
         add esp, byte 4
@@ -4604,13 +4604,13 @@ LoadTeamLogo:
         call AllocMemBlock
         add esp, byte 0Ch
         push eax
-        mov edi, dword [nosplit ebx*4+dword_1C5DE8]
+        mov edi, dword [nosplit ebx*4+LogoNames]
         push edi
-        mov dword [dword_1C5EF0], eax
+        mov dword [LogoArtFile], eax
         call UnpackShared
         add esp, byte 8
         push str_LOGO8
-        mov ebp, dword [dword_1C5EF0]
+        mov ebp, dword [LogoArtFile]
         push ebp
         call FindShape
         add esp, byte 8
@@ -4619,16 +4619,16 @@ LoadTeamLogo:
         mov eax, dword [MenuScreenBitmap]
         push eax
         push str_LOGO8
-        mov edx, dword [dword_1C5EF0]
+        mov edx, dword [LogoArtFile]
         push edx
         call FindShape
         add esp, byte 8
         push eax
         call ConvertArtNew
         add esp, byte 8
-        mov ebx, dword [dword_1C5EF0]
+        mov ebx, dword [LogoArtFile]
         push ebx
-        mov dword [dword_1C5E74], eax
+        mov dword [ShadowShape], eax
         call FreeMemBlock
         add esp, byte 4
         pop ebp
@@ -4647,12 +4647,12 @@ FreeLogoArt:
         push ebx
         push ecx
         push edx
-        mov edx, dword [dword_1C5E74]
+        mov edx, dword [ShadowShape]
         push edx
         xor ebx, ebx
         call FreeMemBlock
         add esp, byte 4
-        mov dword [dword_1C5EF0], ebx
+        mov dword [LogoArtFile], ebx
         pop edx
         pop ecx
         pop ebx
@@ -4671,7 +4671,7 @@ DrawTeamBanner:
         mov dword [byte esp+04h], eax
         mov dword [esp], edx
         mov edi, ecx
-        mov edx, dword [dword_1C5E74]
+        mov edx, dword [ShadowShape]
         push byte 0
         mov edx, dword [byte edx+04h]
         mov eax, esi
@@ -4680,7 +4680,7 @@ DrawTeamBanner:
         shl edx, 10h
         shr eax, 10h
         adc eax, edx
-        mov edx, dword [dword_1C5E74]
+        mov edx, dword [ShadowShape]
         push eax
         mov edx, dword [byte edx+02h]
         mov eax, esi
@@ -4692,7 +4692,7 @@ DrawTeamBanner:
         push eax
         call CreateBitmap
         add esp, byte 0Ch
-        mov edx, dword [dword_1C5E74]
+        mov edx, dword [ShadowShape]
         mov ebp, eax
         push byte 0
         mov edx, dword [byte edx+04h]
@@ -4702,7 +4702,7 @@ DrawTeamBanner:
         shl edx, 10h
         shr eax, 10h
         adc eax, edx
-        mov edx, dword [dword_1C5E74]
+        mov edx, dword [ShadowShape]
         push eax
         mov edx, dword [byte edx+02h]
         mov eax, esi
@@ -4723,7 +4723,7 @@ DrawTeamBanner:
         add esp, byte 4
         test ebx, ebx
         je short .1
-        mov edx, dword [dword_1C5E74]
+        mov edx, dword [ShadowShape]
         mov edx, dword [byte edx+08h]
         mov eax, esi
         sar edx, 10h
@@ -4736,7 +4736,7 @@ DrawTeamBanner:
         mov eax, dword [byte esp+024h]
         neg eax
         sub eax, edx
-        mov edx, dword [dword_1C5E74]
+        mov edx, dword [ShadowShape]
         push eax
         mov edx, dword [byte edx+06h]
         mov eax, esi
@@ -4757,7 +4757,7 @@ DrawTeamBanner:
 .1:
         push byte 0
         push byte 0
-        mov edx, dword [dword_1C5E74]
+        mov edx, dword [ShadowShape]
         push edx
         push esi
         call DrawShapeBlended
@@ -4766,7 +4766,7 @@ DrawTeamBanner:
         cmp ecx, byte 20h
         je short .2
         push byte 10h
-        mov edx, dword [dword_1C5E74]
+        mov edx, dword [ShadowShape]
         mov eax, dword [byte esp+020h]
         push ecx
         mov edx, dword [byte edx+08h]
@@ -4780,7 +4780,7 @@ DrawTeamBanner:
         shr eax, 10h
         adc eax, edx
         sub ecx, eax
-        mov edx, dword [dword_1C5E74]
+        mov edx, dword [ShadowShape]
         push ecx
         mov edx, dword [byte edx+06h]
         mov eax, esi
@@ -4818,7 +4818,7 @@ DrawTeamBanner:
         mov edx, dword [esp]
         push edx
         call SetDrawTarget
-        mov edx, dword [dword_1C5E74]
+        mov edx, dword [ShadowShape]
         add esp, byte 4
         mov edx, dword [byte edx+08h]
         mov eax, esi
@@ -4830,7 +4830,7 @@ DrawTeamBanner:
         mov edx, dword [byte esp+01Ch]
         sub edx, eax
         push edx
-        mov edx, dword [dword_1C5E74]
+        mov edx, dword [ShadowShape]
         mov edx, dword [byte edx+06h]
         mov eax, esi
         sar edx, 10h
@@ -4883,7 +4883,7 @@ DrawMatchBanner:
         mov esi, dword [byte esp+05Ch]
         push esi
         mov edi, dword [byte esp+05Ch]
-        mov dword [dword_1C5E74], eax
+        mov dword [ShadowShape], eax
         push edi
         mov eax, dword [byte esp+05Ch]
         mov edx, ebp
@@ -4891,7 +4891,7 @@ DrawMatchBanner:
         mov ecx, dword [byte esp+05Ch]
         mov eax, dword [byte esp+048h]
         call DrawTeamBanner
-        mov edx, dword [dword_1C5E74]
+        mov edx, dword [ShadowShape]
         push edx
         call FreeMemBlock
         add esp, byte 4
@@ -4936,13 +4936,13 @@ DrawTeamLogoBanner:
         mov ecx, dword [byte esp+058h]
         mov eax, ebp
         call DrawTeamBanner
-        mov edx, dword [dword_1C5E74]
+        mov edx, dword [ShadowShape]
         push edx
         call FreeMemBlock
         add esp, byte 4
         xor ebx, ebx
         mov ecx, dword [esp]
-        mov dword [dword_1C5EF0], ebx
+        mov dword [LogoArtFile], ebx
         test ecx, ecx
         jle short .1
         mov eax, esp
@@ -5038,10 +5038,10 @@ WipeScreen:
         rep movsd
         test edx, edx
         jge short .1
-        mov edx, dword [dword_16CB7C]
+        mov edx, dword [ScreenWipeMode]
 .1:
         xor ecx, ecx
-        mov dword [dword_16CB7C], ecx
+        mov dword [ScreenWipeMode], ecx
         test ebp, ebp
         je near .16
         test edx, edx
@@ -5501,12 +5501,12 @@ DrawEntryList:
         mov esi, ScreenWidth
         rep movsd
         push str_CHK12
-        mov edx, dword [dword_1C5DE4]
+        mov edx, dword [FrontShapeFile]
         push edx
         call FindShape
         add esp, byte 8
         push str_X12
-        mov ebx, dword [dword_1C5DE4]
+        mov ebx, dword [FrontShapeFile]
         push ebx
         mov esi, 4
         mov dword [byte esp+064h], eax
@@ -5523,7 +5523,7 @@ DrawEntryList:
         add esp, byte 0Ch
         lea eax, [dword esp+080h]
         push eax
-        mov ecx, dword [dword_1C5DE4]
+        mov ecx, dword [FrontShapeFile]
         push ecx
         call FindShape
         add esp, byte 8
@@ -5536,7 +5536,7 @@ DrawEntryList:
         add esp, byte 0Ch
         lea eax, [dword esp+080h]
         push eax
-        mov edi, dword [dword_1C5DE4]
+        mov edi, dword [FrontShapeFile]
         push edi
         add esi, byte 4
         call FindShape
@@ -5547,7 +5547,7 @@ DrawEntryList:
         jl short .1
         push byte 10h
         mov ecx, dword [dword esp+098h]
-        mov eax, dword [dword_1C5EA0]
+        mov eax, dword [ScreenTitleArt]
         mov ebx, dword [dword esp+098h]
         push eax
         mov ecx, dword [byte ecx+0Ch]
@@ -5566,7 +5566,7 @@ DrawEntryList:
         push byte 10h
         mov eax, dword [dword esp+0B0h]
         mov ecx, dword [byte ebp+0Ch]
-        mov edx, dword [dword_1C5E7C]
+        mov edx, dword [EntryListArt]
         sar ecx, 10h
         mov ebx, dword [byte ebp+0Ah]
         sub eax, ecx
@@ -5582,7 +5582,7 @@ DrawEntryList:
         mov ebx, 4
         xor esi, esi
 .2:
-        mov ecx, dword [dword ebx+dword_1C5EA0]
+        mov ecx, dword [dword ebx+ScreenTitleArt]
         push ecx
         call SetDrawTarget
         add esp, byte 4
@@ -5608,7 +5608,7 @@ DrawEntryList:
         push edi
         call DrawArt
         add esp, byte 0Ch
-        mov eax, dword [dword ebx+dword_1C5E7C]
+        mov eax, dword [dword ebx+EntryListArt]
         push eax
         call SetDrawTarget
         add esp, byte 4
@@ -5639,70 +5639,70 @@ DrawEntryList:
         mov eax, dword [dword esp+08Ch]
         mov edx, dword [dword esp+090h]
         xor ebx, ebx
-        mov dword [dword_1C5F5A], ebp
+        mov dword [BlankMenuItem+10h], ebp
         mov ebp, 1A2h
         sub esi, eax
         sub ebp, edx
 .3:
-        mov eax, dword [dword ebx+dword_16CAB0]
+        mov eax, dword [dword ebx+EntryListItems]
         sub eax, esi
-        mov dword [dword ebx+dword_1C6084], eax
-        mov eax, dword [dword ebx+dword_16CAB4]
+        mov dword [dword ebx+EntryRowY], eax
+        mov eax, dword [dword ebx+EntryRowOffsets]
         add ebx, byte 8
         sub eax, ebp
-        mov dword [dword ebx+dword_1C6080], eax
+        mov dword [dword ebx+EntryRowX], eax
         cmp ebx, byte 28h
         jne short .3
-        mov ebx, dword_1C6084
-        mov eax, dword [dword_1C5EA0]
-        mov dword [dword_1C5F5E], ebx
+        mov ebx, EntryRowY
+        mov eax, dword [ScreenTitleArt]
+        mov dword [BlankMenuItem+14h], ebx
         mov eax, dword [byte eax+02Ch]
-        mov dword [dword_1C5F64], eax
-        mov eax, dword [dword_1C5EA4]
+        mov dword [BlankMenuItem+1Ah], eax
+        mov eax, dword [ScreenTitleFrame]
         mov eax, dword [byte eax+02Ch]
         mov ecx, 8
-        mov dword [dword_1C5F68], eax
-        mov eax, dword [dword_1C5EA8]
+        mov dword [BlankMenuItem+1Eh], eax
+        mov eax, dword [ScreenTitleCorner]
         mov esi, 5
         mov edi, dword [dword esp+0A8h]
         mov eax, dword [byte eax+02Ch]
         mov ebp, 19Ch
-        mov dword [dword_1C5F6C], eax
+        mov dword [BlankMenuItem+22h], eax
         mov eax, dword [dword esp+08Ch]
         sub esi, edi
-        mov dword [dword_1C5F70], eax
+        mov dword [BlankMenuItem+26h], eax
         mov eax, dword [dword esp+090h]
         xor ebx, ebx
-        mov dword [dword_1C5F74], eax
+        mov dword [BlankMenuItem+2Ah], eax
         mov eax, dword [dword esp+0ACh]
-        mov dword [dword_1C5F08], ecx
+        mov dword [ScreenTitleItem+10h], ecx
         sub ebp, eax
 .4:
         mov eax, dword [dword ebx+str_Punct_DrawScreenBackground]
         sub eax, esi
-        mov dword [dword ebx+dword_1C60C4], eax
-        mov eax, dword [dword ebx+dword_16CAF4]
+        mov dword [dword ebx+EntryColumnY], eax
+        mov eax, dword [dword ebx+EntryColumnOffsets]
         add ebx, byte 8
         sub eax, ebp
-        mov dword [dword ebx+dword_1C60C0], eax
+        mov dword [dword ebx+EntryColumnX], eax
         cmp ebx, byte 40h
         jne short .4
-        mov edx, dword_1C60C4
-        mov eax, dword [dword_1C5E7C]
-        mov dword [dword_1C5F0C], edx
+        mov edx, EntryColumnY
+        mov eax, dword [EntryListArt]
+        mov dword [ScreenTitleItem+14h], edx
         mov eax, dword [byte eax+02Ch]
-        mov dword [dword_1C5F12], eax
-        mov eax, dword [dword_1C5E80]
+        mov dword [ScreenTitleItem+1Ah], eax
+        mov eax, dword [EntryListFrameArt]
         mov eax, dword [byte eax+02Ch]
-        mov dword [dword_1C5F16], eax
-        mov eax, dword [dword_1C5E84]
+        mov dword [ScreenTitleItem+1Eh], eax
+        mov eax, dword [EntryListCornerArt]
         mov eax, dword [byte eax+02Ch]
-        mov dword [dword_1C5F1A], eax
+        mov dword [ScreenTitleItem+22h], eax
         mov eax, dword [dword esp+0A8h]
-        mov dword [dword_1C5F1E], eax
+        mov dword [ScreenTitleItem+26h], eax
         mov eax, dword [dword esp+0ACh]
         mov ebx, dword [esp]
-        mov dword [dword_1C5F22], eax
+        mov dword [ScreenTitleItem+2Ah], eax
         test ebx, ebx
         jle short .5
         mov eax, esp
@@ -5733,7 +5733,7 @@ DrawEntryRow:
         mov esi, ScreenWidth
         rep movsd
         push str_LX004
-        mov edx, dword [dword_1C5DE4]
+        mov edx, dword [FrontShapeFile]
         push edx
         xor ebx, ebx
         call FindShape
@@ -5749,7 +5749,7 @@ DrawEntryRow:
         add esp, byte 0Ch
         lea eax, [byte esp+05Ch]
         push eax
-        mov ecx, dword [dword_1C5DE4]
+        mov ecx, dword [FrontShapeFile]
         push ecx
         add esi, byte 4
         call FindShape
@@ -5768,7 +5768,7 @@ DrawEntryRow:
         sar ebx, 10h
         mov ecx, eax
         mov eax, dword [byte esp+070h]
-        mov esi, dword [dword_1C5E7C]
+        mov esi, dword [EntryListArt]
         sub eax, ebx
         push esi
         mov ebx, eax
@@ -5777,7 +5777,7 @@ DrawEntryRow:
         xor ebx, ebx
         xor esi, esi
 .2:
-        mov edi, dword [dword ebx+dword_1C5E80]
+        mov edi, dword [dword ebx+EntryListFrameArt]
         push edi
         call SetDrawTarget
         add esp, byte 4
@@ -5807,7 +5807,7 @@ DrawEntryRow:
         mov eax, dword [byte esp+06Ch]
         mov esi, 19Ch
         mov edx, dword [byte esp+068h]
-        mov dword [dword_1C5F08], ebp
+        mov dword [ScreenTitleItem+10h], ebp
         mov ebp, 5
         sub esi, edx
         sub ebp, eax
@@ -5815,29 +5815,29 @@ DrawEntryRow:
 .3:
         mov ebx, dword [dword eax+str_Punct_DrawScreenBackground]
         sub ebx, ebp
-        mov dword [dword eax+dword_1C60C4], ebx
-        mov ebx, dword [dword eax+dword_16CAF4]
+        mov dword [dword eax+EntryColumnY], ebx
+        mov ebx, dword [dword eax+EntryColumnOffsets]
         add eax, byte 8
         sub ebx, esi
-        mov dword [dword eax+dword_1C60C0], ebx
+        mov dword [dword eax+EntryColumnX], ebx
         cmp eax, byte 40h
         jne short .3
-        mov ebx, dword_1C60C4
-        mov eax, dword [dword_1C5E7C]
-        mov dword [dword_1C5F0C], ebx
+        mov ebx, EntryColumnY
+        mov eax, dword [EntryListArt]
+        mov dword [ScreenTitleItem+14h], ebx
         mov eax, dword [byte eax+02Ch]
-        mov dword [dword_1C5F12], eax
-        mov eax, dword [dword_1C5E80]
+        mov dword [ScreenTitleItem+1Ah], eax
+        mov eax, dword [EntryListFrameArt]
         mov eax, dword [byte eax+02Ch]
-        mov dword [dword_1C5F16], eax
-        mov eax, dword [dword_1C5E84]
+        mov dword [ScreenTitleItem+1Eh], eax
+        mov eax, dword [EntryListCornerArt]
         mov eax, dword [byte eax+02Ch]
-        mov dword [dword_1C5F1A], eax
+        mov dword [ScreenTitleItem+22h], eax
         mov eax, dword [byte esp+06Ch]
-        mov dword [dword_1C5F1E], eax
+        mov dword [ScreenTitleItem+26h], eax
         mov eax, dword [byte esp+068h]
         mov ecx, dword [esp]
-        mov dword [dword_1C5F22], eax
+        mov dword [ScreenTitleItem+2Ah], eax
         test ecx, ecx
         jle short .4
         mov eax, esp
@@ -5901,13 +5901,13 @@ SetHighlightText:
         push ebx
         push ecx
         push edx
-        mov edx, dword [dword_1C5E78]
+        mov edx, dword [FrontFonts]
         push edx
         xor ebx, ebx
         call SelectFont
         add esp, byte 4
-        mov eax, dword [dword_1C8268]
-        mov dword [dword_16CB78], ebx
+        mov eax, dword [TextFonts]
+        mov dword [HighlightTextOn], ebx
         call SetTextColor
         pop edx
         pop ecx
@@ -5921,12 +5921,12 @@ SetNormalText:
         push ebx
         push ecx
         push edx
-        mov edx, dword [dword_1C5EF4]
+        mov edx, dword [FrontTextFile]
         push edx
         mov ebx, DrawGlyph
         call SelectFont
         add esp, byte 4
-        mov eax, dword [dword_1C8268]
+        mov eax, dword [TextFonts]
         mov dword [DrawGlyphFn], ebx
         call SetTextColor
         pop edx
@@ -5969,7 +5969,7 @@ InchesToCm:
         pop ebx
         ret
         db 08Bh,0C0h
-jpt_816D8:
+PlayerBioScreenJumpTable:
         dd PlayerBioScreen_425
         dd PlayerBioScreen_438
         dd PlayerBioScreen_44A
@@ -6053,7 +6053,7 @@ PlayerBioScreen:
         mov byte [dword esp+03A7h], al
         lea eax, [dword esp+03A4h]
         push eax
-        mov eax, dword [dword_1C5DE4]
+        mov eax, dword [FrontShapeFile]
         push eax
         call FindShape
         mov ebx, eax
@@ -6247,7 +6247,7 @@ PlayerBioScreen:
         cmp ecx, byte 3
         ja near PlayerBioScreen_45A.9
         mov edx, ecx
-        jmp dword [nosplit cs:edx*4+jpt_816D8]
+        jmp dword [nosplit cs:edx*4+PlayerBioScreenJumpTable]
 PlayerBioScreen_425:
         lea eax, [dword esp+0148h]
         mov edx, edi
@@ -8202,39 +8202,39 @@ DrawWorkingBox:
         push byte 50h
         add eax, byte 14h
         push eax
-        mov dword [dword_1C81A8], eax
+        mov dword [WorkingBoxHeight], eax
         call CreateBitmap
         add esp, byte 0Ch
         push byte 0
         push byte 50h
-        mov ecx, dword [dword_1C81A8]
+        mov ecx, dword [WorkingBoxHeight]
         push ecx
         mov ebp, 0C8h
-        mov dword [dword_1C81AC], eax
+        mov dword [WorkingBoxSave], eax
         call CreateBitmap
         mov ecx, 140h
-        mov dword [dword_1C81B0], eax
-        mov eax, dword [dword_1C81A8]
+        mov dword [WorkingBoxBitmap], eax
+        mov eax, dword [WorkingBoxHeight]
         add esp, byte 0Ch
         sar eax, 1
-        mov dword [dword_1C81A4], ebp
+        mov dword [WorkingBoxWidth], ebp
         sub ecx, eax
-        mov dword [dword_1C819C], edi
-        mov dword [dword_1C81A0], ecx
+        mov dword [WorkingBoxX], edi
+        mov dword [WorkingBoxY], ecx
         call SetScreenTarget
-        mov eax, dword [dword_1C81A4]
+        mov eax, dword [WorkingBoxWidth]
         push eax
-        mov edx, dword [dword_1C81A0]
-        mov eax, dword [dword_1C81AC]
+        mov edx, dword [WorkingBoxY]
+        mov eax, dword [WorkingBoxSave]
         push edx
         mov ecx, dword [byte eax+02Ch]
         push ecx
         call ConvertArtXY
         add esp, byte 0Ch
-        mov edi, dword [dword_1C81A4]
+        mov edi, dword [WorkingBoxWidth]
         push edi
-        mov ebp, dword [dword_1C81A0]
-        mov eax, dword [dword_1C81B0]
+        mov ebp, dword [WorkingBoxY]
+        mov eax, dword [WorkingBoxBitmap]
         push ebp
         mov edx, dword [byte eax+02Ch]
         push edx
@@ -8245,8 +8245,8 @@ DrawWorkingBox:
         jne short .1
         push byte 50h
         mov edx, 10h
-        mov ecx, dword [dword_1C81A8]
-        mov eax, dword [dword_1C81B0]
+        mov ecx, dword [WorkingBoxHeight]
+        mov eax, dword [WorkingBoxBitmap]
         xor ebx, ebx
         push ecx
         mov eax, dword [byte eax+02Ch]
@@ -8267,10 +8267,10 @@ DrawWorkingBox:
         push dword 8000h
         call TintRect
         add esp, byte 0Ch
-        mov ebx, dword [dword_1C81B0]
+        mov ebx, dword [WorkingBoxBitmap]
         push ebx
         call SetDrawTarget
-        mov ecx, dword [dword_1C81B0]
+        mov ecx, dword [WorkingBoxBitmap]
         mov ecx, dword [byte ecx+02Ch]
         add esp, byte 4
         xor ebx, ebx
@@ -8283,11 +8283,11 @@ DrawWorkingBox:
         lea eax, [dword esp+0304h]
         call FillBox
 .2:
-        mov edi, dword [dword_1C81B0]
+        mov edi, dword [WorkingBoxBitmap]
         push edi
         call SetDrawTarget
         mov ecx, 50h
-        mov ebx, dword [dword_1C81A8]
+        mov ebx, dword [WorkingBoxHeight]
         add esp, byte 4
         xor edx, edx
         xor eax, eax
@@ -8297,7 +8297,7 @@ DrawWorkingBox:
         add esp, byte 4
         call SetTextColor
         push esi
-        mov eax, dword [dword_1C81A8]
+        mov eax, dword [WorkingBoxHeight]
         push byte 0Ah
         sar eax, 1
         push eax
@@ -8305,11 +8305,11 @@ DrawWorkingBox:
         call DrawTextAligned
         add esp, byte 10h
         call SetScreenTarget
-        mov ebp, dword [dword_1C81A4]
+        mov ebp, dword [WorkingBoxWidth]
         push ebp
-        mov eax, dword [dword_1C81A0]
+        mov eax, dword [WorkingBoxY]
         push eax
-        mov eax, dword [dword_1C81B0]
+        mov eax, dword [WorkingBoxBitmap]
         mov edx, dword [byte eax+02Ch]
         push edx
         call BlitArt
@@ -8334,25 +8334,25 @@ UpdateWorkingBox:
         push edi
         push ebp
         mov ebx, eax
-        mov edx, dword [dword_1C81B0]
+        mov edx, dword [WorkingBoxBitmap]
         push edx
         call SetDrawTarget
         add esp, byte 4
         push byte 1
-        mov ecx, dword [dword_1C819C]
+        mov ecx, dword [WorkingBoxX]
         push ecx
         mov edx, 32h
         mov ecx, 0Ah
         push ebx
-        mov ebx, dword [dword_1C81A8]
+        mov ebx, dword [WorkingBoxHeight]
         mov eax, ecx
         sub ebx, byte 14h
         call DrawProgressBar
         call SetScreenTarget
-        mov esi, dword [dword_1C81A4]
+        mov esi, dword [WorkingBoxWidth]
         push esi
-        mov edi, dword [dword_1C81A0]
-        mov ebx, dword [dword_1C81B0]
+        mov edi, dword [WorkingBoxY]
+        mov ebx, dword [WorkingBoxBitmap]
         push edi
         mov ebp, dword [byte ebx+02Ch]
         push ebp
@@ -8377,21 +8377,21 @@ HideWorkingBox:
         push esi
         push edi
         call SetScreenTarget
-        mov edx, dword [dword_1C81A4]
+        mov edx, dword [WorkingBoxWidth]
         push edx
-        mov ebx, dword [dword_1C81A0]
-        mov eax, dword [dword_1C81AC]
+        mov ebx, dword [WorkingBoxY]
+        mov eax, dword [WorkingBoxSave]
         push ebx
         mov ecx, dword [byte eax+02Ch]
         push ecx
         call BlitArt
         add esp, byte 0Ch
         call PresentScreen
-        mov esi, dword [dword_1C81AC]
+        mov esi, dword [WorkingBoxSave]
         push esi
         call FreeBitmap
         add esp, byte 4
-        mov edi, dword [dword_1C81B0]
+        mov edi, dword [WorkingBoxBitmap]
         push edi
         call FreeBitmap
         add esp, byte 4
@@ -8437,7 +8437,7 @@ DrawLinkBox:
         sub esp, 400h
         mov esi, eax
         mov edi, edx
-        cmp dword [dword_16CB80], byte 0
+        cmp dword [LinkBoxShown], byte 0
         jne near .6
         push str_X
         call MeasureText
@@ -8447,7 +8447,7 @@ DrawLinkBox:
         call MeasureText
         add eax, ebx
         add esp, byte 4
-        mov dword [dword_1C8198], eax
+        mov dword [LinkBoxTimer], eax
         test eax, eax
         jg short .1
         push DebugTagStr
@@ -8461,56 +8461,56 @@ DrawLinkBox:
         call MeasureText
         add eax, ebx
         add esp, byte 4
-        mov dword [dword_1C8198], eax
+        mov dword [LinkBoxTimer], eax
 .1:
         mov edx, dword [LinkTextFont]
         lea eax, [nosplit edx*4+00h]
         push byte 0
         sub eax, edx
         push eax
-        mov ecx, dword [dword_1C8198]
+        mov ecx, dword [LinkBoxTimer]
         push ecx
         call CreateBitmap
         mov edx, dword [LinkTextFont]
         add esp, byte 0Ch
-        mov dword [dword_1C8194], eax
+        mov dword [LinkBoxBitmap], eax
         lea eax, [nosplit edx*4+00h]
         push byte 0
         sub eax, edx
         push eax
-        mov ebp, dword [dword_1C8198]
+        mov ebp, dword [LinkBoxTimer]
         push ebp
         call CreateBitmap
-        mov edx, dword [dword_16E464]
+        mov edx, dword [ViewScreenWidth]
         mov ebx, eax
         mov ebp, eax
-        mov eax, dword [dword_1C8198]
+        mov eax, dword [LinkBoxTimer]
         sar edx, 1
         sar eax, 1
         sub edx, eax
-        mov dword [dword_1C818C], edx
+        mov dword [LinkBoxWidth], edx
         mov edx, dword [LinkTextFont]
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
-        mov edx, dword [dword_16E468]
+        mov edx, dword [ViewScreenHeight]
         sar eax, 1
         sar edx, 1
         sub edx, eax
         add esp, byte 0Ch
-        mov dword [dword_1C8190], edx
+        mov dword [LinkBoxHeight], edx
         call SetScreenTarget
-        mov eax, dword [dword_1C8190]
+        mov eax, dword [LinkBoxHeight]
         push eax
-        mov edx, dword [dword_1C818C]
-        mov eax, dword [dword_1C8194]
+        mov edx, dword [LinkBoxWidth]
+        mov eax, dword [LinkBoxBitmap]
         push edx
         mov ecx, dword [byte eax+02Ch]
         push ecx
         call ConvertArtXY
         add esp, byte 0Ch
-        mov eax, dword [dword_1C8190]
+        mov eax, dword [LinkBoxHeight]
         push eax
-        mov edx, dword [dword_1C818C]
+        mov edx, dword [LinkBoxWidth]
         push edx
         mov ecx, dword [byte ebx+02Ch]
         push ecx
@@ -8524,7 +8524,7 @@ DrawLinkBox:
         sub eax, edx
         xor ecx, ecx
         push eax
-        mov eax, dword [dword_1C8198]
+        mov eax, dword [LinkBoxTimer]
         mov edx, edi
         push eax
         mov eax, dword [byte ebx+02Ch]
@@ -8573,7 +8573,7 @@ DrawLinkBox:
         sub eax, ebx
         dec eax
         push eax
-        mov eax, dword [dword_1C8198]
+        mov eax, dword [LinkBoxTimer]
         dec eax
         push eax
         push byte 0
@@ -8583,7 +8583,7 @@ DrawLinkBox:
         jmp short .5
 .4:
         mov edx, dword [LinkTextFont]
-        mov ebx, dword [dword_1C8198]
+        mov ebx, dword [LinkBoxTimer]
         lea ecx, [nosplit edx*4+00h]
         xor eax, eax
         sub ecx, edx
@@ -8596,7 +8596,7 @@ DrawLinkBox:
         call SetTextColor
         push esi
         mov edx, dword [LinkTextFont]
-        mov eax, dword [dword_1C8198]
+        mov eax, dword [LinkBoxTimer]
         push edx
         sar eax, 1
         push eax
@@ -8604,9 +8604,9 @@ DrawLinkBox:
         call DrawTextAligned
         add esp, byte 10h
         call SetScreenTarget
-        mov ebx, dword [dword_1C8190]
+        mov ebx, dword [LinkBoxHeight]
         push ebx
-        mov ecx, dword [dword_1C818C]
+        mov ecx, dword [LinkBoxWidth]
         push ecx
         mov esi, dword [byte ebp+02Ch]
         push esi
@@ -8617,7 +8617,7 @@ DrawLinkBox:
         mov edi, 1
         call FreeBitmap
         add esp, byte 4
-        mov dword [dword_16CB80], edi
+        mov dword [LinkBoxShown], edi
 .6:
         add esp, 400h
         pop ebp
@@ -8638,25 +8638,25 @@ HideLinkBox:
         push esi
         push edi
         push ebp
-        cmp dword [dword_16CB80], byte 0
+        cmp dword [LinkBoxShown], byte 0
         je short .1
         call SetScreenTarget
-        mov ebx, dword [dword_1C8190]
+        mov ebx, dword [LinkBoxHeight]
         push ebx
-        mov ecx, dword [dword_1C818C]
-        mov eax, dword [dword_1C8194]
+        mov ecx, dword [LinkBoxWidth]
+        mov eax, dword [LinkBoxBitmap]
         push ecx
         mov esi, dword [byte eax+02Ch]
         push esi
         call BlitArt
         add esp, byte 0Ch
         call PresentScreen
-        mov edi, dword [dword_1C8194]
+        mov edi, dword [LinkBoxBitmap]
         push edi
         xor ebp, ebp
         call FreeBitmap
         add esp, byte 4
-        mov dword [dword_16CB80], ebp
+        mov dword [LinkBoxShown], ebp
 .1:
         pop ebp
         pop edi
@@ -9038,7 +9038,7 @@ ShowPopupScreen:
         add esp, byte 4
         mov eax, esp
         push eax
-        mov edx, dword [dword_1C5DE4]
+        mov edx, dword [FrontShapeFile]
         push edx
         call FindShape
         add esp, byte 8
@@ -9116,7 +9116,7 @@ DrawStatsBackground:
 .1:
         push byte 0
         push esi
-        mov edx, dword [dword_1C5DE4]
+        mov edx, dword [FrontShapeFile]
         push edx
         call FindShape
         mov eax, dword [byte eax+04h]
@@ -9124,7 +9124,7 @@ DrawStatsBackground:
         sar eax, 10h
         push eax
         push esi
-        mov ecx, dword [dword_1C5DE4]
+        mov ecx, dword [FrontShapeFile]
         push ecx
         call FindShape
         mov eax, dword [byte eax+02h]
@@ -9134,12 +9134,12 @@ DrawStatsBackground:
         add ebx, byte 4
         call CreateBitmap
         add esp, byte 0Ch
-        mov dword [dword ebx+dword_1C5EC4], eax
+        mov dword [dword ebx+StatsBackBitmaps], eax
         cmp ebx, byte 20h
         jne short .1
         push byte 0
         push str_REL1
-        mov esi, dword [dword_1C5DE4]
+        mov esi, dword [FrontShapeFile]
         push esi
         call FindShape
         mov eax, dword [byte eax+04h]
@@ -9147,7 +9147,7 @@ DrawStatsBackground:
         sar eax, 10h
         push eax
         push str_REL1
-        mov edi, dword [dword_1C5DE4]
+        mov edi, dword [FrontShapeFile]
         push edi
         call FindShape
         mov eax, dword [byte eax+02h]
@@ -9159,10 +9159,10 @@ DrawStatsBackground:
         call CreateBitmap
         mov ecx, 0Eh
         add esp, byte 0Ch
-        mov dword [dword_1C5EEC], eax
+        mov dword [StatsBackArt], eax
         rep movsd
         push str_REL1
-        mov eax, dword [dword_1C5DE4]
+        mov eax, dword [FrontShapeFile]
         push eax
         mov ebx, 1
         call FindShape
@@ -9178,7 +9178,7 @@ DrawStatsBackground:
         add esp, byte 0Ch
         lea eax, [byte esp+05Ch]
         push eax
-        mov edx, dword [dword_1C5DE4]
+        mov edx, dword [FrontShapeFile]
         push edx
         add esi, byte 4
         call FindShape
@@ -9221,7 +9221,7 @@ DrawStatsBackground:
         push ebp
         call DrawArt
         add esp, byte 0Ch
-        mov edi, dword [dword_1C5EEC]
+        mov edi, dword [StatsBackArt]
         push edi
         call SetDrawTarget
         mov eax, dword [byte ebp+0Ch]
@@ -9236,19 +9236,19 @@ DrawStatsBackground:
         push eax
         push ebp
         call DrawArt
-        mov eax, dword [dword_1C5EEC]
+        mov eax, dword [StatsBackArt]
         add esp, byte 0Ch
         mov eax, dword [byte eax+02Ch]
         mov edx, dword [byte esp+068h]
         mov word [byte eax+0Ch], dx
-        mov eax, dword [dword_1C5EEC]
+        mov eax, dword [StatsBackArt]
         mov eax, dword [byte eax+02Ch]
         mov edx, dword [byte esp+064h]
         xor ebx, ebx
         mov word [byte eax+0Eh], dx
         xor ebp, ebp
 .3:
-        mov ecx, dword [dword ebx+dword_1C5EC8]
+        mov ecx, dword [dword ebx+StatsBackLayers]
         push ecx
         call SetDrawTarget
         add esp, byte 4
@@ -9278,7 +9278,7 @@ DrawStatsBackground:
         push byte 0
         mov ebx, 0Bh
         push byte 0
-        mov edx, dword [dword_1C5EC8]
+        mov edx, dword [StatsBackLayers]
         xor ecx, ecx
         push byte 0
         mov edx, dword [byte edx+02Ch]
@@ -9286,16 +9286,16 @@ DrawStatsBackground:
         call ShadeShape
         push esi
         call FreeBitmap
-        mov edx, unk_1C5FEE
+        mov edx, StatsBackItem
         add esp, byte 4
         mov eax, 1
-        mov ebx, unk_1C6044
+        mov ebx, StatsBackMenuItems
         call InitMenuItems
         mov edx, 4
         mov eax, dword [byte esp+038h]
         mov ecx, dword [byte esp+038h]
-        mov dword [dword_1C6002], ebx
-        mov dword [dword_1C5FFE], edx
+        mov dword [StatsBackItem+14h], ebx
+        mov dword [StatsBackItem+10h], edx
         mov ebx, dword [byte esp+064h]
         mov eax, dword [byte eax+04h]
         mov edx, dword [byte esp+068h]
@@ -9303,24 +9303,24 @@ DrawStatsBackground:
         mov ecx, dword [byte ecx+02h]
         push eax
         sar ecx, 10h
-        mov eax, unk_1C6044
+        mov eax, StatsBackMenuItems
         call SetRegionRect
-        mov eax, dword [dword_1C5EC8]
+        mov eax, dword [StatsBackLayers]
         mov eax, dword [byte eax+02Ch]
-        mov dword [dword_1C6008], eax
-        mov eax, dword [dword_1C5ECC]
+        mov dword [StatsBackItem+1Ah], eax
+        mov eax, dword [StatsBackFrame]
         mov eax, dword [byte eax+02Ch]
-        mov dword [dword_1C600C], eax
-        mov eax, dword [dword_1C5ED0]
+        mov dword [StatsBackItem+1Eh], eax
+        mov eax, dword [StatsBackCorner]
         mov eax, dword [byte eax+02Ch]
         mov ecx, 101h
-        mov dword [dword_1C6010], eax
+        mov dword [StatsBackItem+22h], eax
         mov eax, dword [byte esp+068h]
         mov esi, dword [esp]
-        mov dword [dword_1C6014], eax
+        mov dword [StatsBackItem+26h], eax
         mov eax, dword [byte esp+064h]
-        mov dword [dword_1C601C], ecx
-        mov dword [dword_1C6018], eax
+        mov dword [StatsBackItem+2Eh], ecx
+        mov dword [StatsBackItem+2Ah], eax
         test esi, esi
         jle short .4
         mov eax, esp
@@ -9347,21 +9347,21 @@ FreeStatsBitmap:
         push edi
         xor ebx, ebx
 .1:
-        mov edx, dword [dword ebx+dword_1C5EC8]
+        mov edx, dword [dword ebx+StatsBackLayers]
         push edx
         add ebx, byte 4
         call FreeBitmap
         xor ecx, ecx
         add esp, byte 4
-        mov dword [dword ebx+dword_1C5EC4], ecx
+        mov dword [dword ebx+StatsBackBitmaps], ecx
         cmp ebx, byte 20h
         jne short .1
-        mov esi, dword [dword_1C5EEC]
+        mov esi, dword [StatsBackArt]
         push esi
         xor edi, edi
         call FreeBitmap
         add esp, byte 4
-        mov dword [dword_1C5EEC], edi
+        mov dword [StatsBackArt], edi
         pop edi
         pop esi
         pop edx
@@ -9392,10 +9392,10 @@ ShowStatsScreen:
         mov ebx, ebp
 .2:
         call SetScreenTarget
-        mov edx, dword [dword_1C6018]
+        mov edx, dword [StatsBackItem+2Ah]
         push edx
-        mov ecx, dword [dword_1C6014]
-        mov eax, dword [dword ebx+dword_1C5EC8]
+        mov ecx, dword [StatsBackItem+26h]
+        mov eax, dword [dword ebx+StatsBackLayers]
         push ecx
         mov edx, dword [byte eax+02Ch]
         push edx
@@ -9444,10 +9444,10 @@ SaveStatsScreen:
         push dword 280h
         call CreateBitmap
         add esp, byte 0Ch
-        mov dword [dword_1C8188], eax
+        mov dword [StatsScreenSave], eax
         call SetScreenTarget
         push byte 0
-        mov eax, dword [dword_1C8188]
+        mov eax, dword [StatsScreenSave]
         push byte 0
         mov edx, dword [byte eax+02Ch]
         push edx
@@ -9467,13 +9467,13 @@ RestoreStatsScreen:
         push ecx
         push edx
         call SetScreenTarget
-        mov eax, dword [dword_1C8188]
+        mov eax, dword [StatsScreenSave]
         mov edx, dword [byte eax+02Ch]
         push edx
         call BlitShape2
         add esp, byte 4
         call PresentScreen
-        mov ebx, dword [dword_1C8188]
+        mov ebx, dword [StatsScreenSave]
         push ebx
         call FreeBitmap
         add esp, byte 4
@@ -9557,7 +9557,7 @@ ShowLoadingScreen:
         push edx
         push esi
         push edi
-        mov dword [dword_1C8184], 1
+        mov dword [LoadingScreenShown], 1
         call SetScreenTarget
         push dword 0FF000000h
         call MakeColor
@@ -9574,13 +9574,13 @@ ShowLoadingScreen:
         mov esi, eax
         call FindShape
         add esp, byte 8
-        mov ecx, dword [dword_1C5EF4]
+        mov ecx, dword [FrontTextFile]
         push ecx
         mov edi, DrawGlyph
         mov ebx, eax
         call SelectFont
         add esp, byte 4
-        mov eax, dword [dword_1C8268]
+        mov eax, dword [TextFonts]
         mov dword [DrawGlyphFn], edi
         call SetTextColor
         push byte 0FFFFFFFFh
@@ -9606,7 +9606,7 @@ ShowLoadingScreen:
         mov eax, 1E4h
         call GetLangText
         push eax
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         push dword 96h
         sar eax, 1
         push eax
@@ -9630,7 +9630,7 @@ ShowLoadingScreen:
 ClearMenuGameFlag:
         push edx
         xor edx, edx
-        mov dword [dword_1C8184], edx
+        mov dword [LoadingScreenShown], edx
         pop edx
         ret
         db 090h
@@ -9643,7 +9643,7 @@ ShowLoadingBar:
         push ecx
         push edx
         mov ebx, eax
-        cmp dword [dword_1C8184], byte 0
+        cmp dword [LoadingScreenShown], byte 0
         je short .1
         call SetScreenTarget
         push byte 1
@@ -9890,9 +9890,9 @@ ChangeMenuMusic:
         pop ecx
         pop ebx
         ret
-unk_845C0:
+MainMenuItemMetrics:
         db 0Eh,00h,00h,00h,0Ah,00h,00h,00h,018h,00h,00h,00h
-jpt_845CC:
+MainMenuAnimJumpTable:
         dd MainMenuAnim_32E
         dd MainMenuAnim_344
         dd MainMenuAnim_35A

@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_FC590 progbits alloc exec nowrite align=1
-extern MousePresent, mousex, mousey, MouseMoved, MouseHideCount, MouseInitDone, dword_16E464, dword_16E468
+extern MousePresent, mousex, mousey, MouseMoved, MouseHideCount, MouseInitDone, ViewScreenWidth, ViewScreenHeight
 extern mouseminx, mouseminy, mousemaxx, mousemaxy, MouseDeltaX, MouseButtonState, MouseSavedSensX, MouseSavedSensY
 extern MouseSavedThreshold, PresentFunc, PresentFuncMenu, PresentFuncGame, PresentFuncInput, AddExitHandler
 global MouseRead, MouseReadMotion, MouseReadButtons, MouseSetSensitivity, SetViewRect, MouseHide, MouseShow, MouseRestoreSensitivity
@@ -79,7 +79,7 @@ MouseRead:
         mov ecx, dword [mousex]
         mov ebx, dword [byte ebp+0Ch]
         db 089h,0Bh                             ; insn: mov [ebx],ecx
-        db 08Bh,015h                            ; insn: mov edx,[0E450h]
+        db 08Bh,015h                            ; insn: mov edx,[mousey]
         dd mousey
         mov ebx, dword [byte ebp+010h]
         mov dword [ebx], edx
@@ -199,15 +199,15 @@ MouseInit:
         LD or, ax, ax
         je near .1
         inc dword [MousePresent]
-        push dword [dword_16E468]
-        push dword [dword_16E464]
+        push dword [ViewScreenHeight]
+        push dword [ViewScreenWidth]
         push byte 0
         push byte 0
         call SetViewRect
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         shr eax, 1
         mov dword [mousex], eax
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         shr eax, 1
         mov dword [mousey], eax
         mov eax, 1Bh

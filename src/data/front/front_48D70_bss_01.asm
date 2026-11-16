@@ -2,284 +2,198 @@
 bits 32
 %include "hockey.inc"
 section s_1AD748 nobits alloc noexec write align=1
-global byte_1AEDED, byte_1AEDEE, byte_1AEDEF, dword_1AD748, dword_1ADBF8, dword_1ADC70, dword_1ADC74, dword_1ADC78
-global dword_1ADC7C, dword_1ADC80, dword_1ADC84, dword_1ADC88, dword_1ADC8C, dword_1ADC90, dword_1ADC94, dword_1ADC98
-global dword_1ADC9C, dword_1ADCA8, dword_1ADCB8, dword_1ADCC0, dword_1ADCC8, dword_1ADCD0, dword_1ADCD8, dword_1ADCE4
-global dword_1ADCE8, dword_1ADCEC, dword_1ADCF4, dword_1ADCF8, dword_1ADD00, dword_1ADD04, dword_1ADD0C, dword_1ADD10
-global dword_1ADD18, dword_1ADD80, dword_1ADDEC, dword_1ADF98, dword_1ADF9C, dword_1ADFA0, dword_1AE000, dword_1AE00C
-global dword_1AE030, dword_1AE03C, dword_1AE178, dword_1AE17C, dword_1AE1C0, dword_1AE1C4, dword_1AE3F8, dword_1AE408
-global dword_1AE40C, dword_1AE410, dword_1AE580, dword_1AE584, dword_1AE684, dword_1AEE04, dword_1AEEA4, dword_1AF100
-global dword_1AF1C8, dword_1AF1F0, dword_1AF238, dword_1AF254, dword_1AF2B8, dword_1AF2BC, dword_1AF2C0, dword_1AF318
-global dword_1AF31C, dword_1AF338, dword_1AF33C, dword_1AF344, dword_1AF348, dword_1AF3C0, dword_1AF3C4, dword_1AF3C8
-global dword_1AF3CC, dword_1AF3D0, dword_1AF428, dword_1AF42C, dword_1AF448, dword_1AF44C, dword_1AF454, dword_1AF458
-global dword_1AF4D0, dword_1AF4D4, dword_1AFC44, dword_1AFC48, dword_1AFD10, dword_1AFEA0, dword_1AFF68, dword_1B0004
-global dword_1B0008, dword_1B0018, unk_1AD7C0, unk_1ADCA0, unk_1ADD38, unk_1ADD40, unk_1ADD58, unk_1ADD60
-global unk_1ADD78, unk_1ADDE4, unk_1ADEF8, unk_1ADF38, unk_1ADFF8, unk_1AE028, unk_1AE058, unk_1AE0B8
-global unk_1AE118, unk_1AE278, unk_1AE588, unk_1AE688, unk_1AE6D0, unk_1AE748, unk_1AE7C0, unk_1AE808
-global unk_1AE850, unk_1AE8B0, unk_1AE910, unk_1AE9B8, unk_1AE9E8, unk_1AEA30, unk_1AEA60, unk_1AEB08
-global unk_1AEB50, unk_1AEB98, unk_1AEC40, unk_1AECB8, unk_1AED30, unk_1AEDD8, unk_1AEDF0, unk_1AEE08
-global unk_1AEEA8, unk_1AF340, unk_1AF450, unk_1AFB38
-dword_1AD748:
+global ArenaColorR, ArenaColorG, ArenaColorB, ModelNamePtrs, FrameDrawList, GameVideoMode, RenderTimer, ModelNameCount
+global FrameBuffer, RenderTicks, ModelList, ArenaArchive, ArenaArt, RinkLineArt, GameGraphicsReady, FlashTimer
+global FrameObjectCount, ScoreboardPos, NetFrames, NetArtFront, NetArtBack, NetDistance, NetFrameData, GoalCheerTimer
+global GoalLightOn, GoalLightModelNear, GoalLightTimerNear, GoalLightModelFar, GoalLightTimerFar, GoalLightSpinNear, GoalLightFrame, GoalLightSpinFar
+global RinkMarkingGeometry
+
+global RinkGeometryCount, ArenaArtSize, RinkSideCount
+
+
+
+global RinkTextureCount
+global RinkTextures, RinkTextureArt, ModelNames, NetArt
+
+global NetGeometry
+
+global ArenaPalette, ArenaPaletteRange, IceTextures
+global RinkSideGeometry
+ModelNamePtrs:
         resb 120
-unk_1AD7C0:
+ModelNames:
         resb 1080
-dword_1ADBF8:
+FrameDrawList:
         resb 120
-dword_1ADC70:
+GameVideoMode:
         resb 4
-dword_1ADC74:
+RenderTimer:
         resb 4
-dword_1ADC78:
+ModelNameCount:
         resb 4
-dword_1ADC7C:
+FrameBuffer:
         resb 4
-dword_1ADC80:
+RenderTicks:
         resb 4
-dword_1ADC84:
+ModelList:
         resb 4
-dword_1ADC88:
+ArenaArchive:
         resb 4
-dword_1ADC8C:
+ArenaArt:
         resb 4
-dword_1ADC90:
+RinkLineArt:
         resb 4
-dword_1ADC94:
+GameGraphicsReady:
         resb 4
-dword_1ADC98:
+FlashTimer:
         resb 4
-dword_1ADC9C:
+FrameObjectCount:
         resb 4
-unk_1ADCA0:
+NetArt:
         resb 8
-dword_1ADCA8:
+ScoreboardPos:
         resb 16
-dword_1ADCB8:
+NetFrames:
         resb 8
-dword_1ADCC0:
+NetArtFront:
         resb 8
-dword_1ADCC8:
+NetArtBack:
         resb 8
-dword_1ADCD0:
+NetDistance:
         resb 8
-dword_1ADCD8:
+NetFrameData:
         resb 12
-dword_1ADCE4:
+GoalCheerTimer:
         resb 4
-dword_1ADCE8:
+GoalLightOn:
         resb 4
-dword_1ADCEC:
+GoalLightModelNear:
         resb 8
-dword_1ADCF4:
+GoalLightTimerNear:
         resb 4
-dword_1ADCF8:
+GoalLightModelFar:
         resb 8
-dword_1ADD00:
+GoalLightTimerFar:
         resb 4
-dword_1ADD04:
+GoalLightSpinNear:
         resb 8
-dword_1ADD0C:
+GoalLightFrame:
         resb 4
-dword_1ADD10:
+GoalLightSpinFar:
         resb 8
-dword_1ADD18:
+RinkMarkingGeometry:
         resb 32
-unk_1ADD38:
         resb 8
-unk_1ADD40:
         resb 24
-unk_1ADD58:
         resb 8
-unk_1ADD60:
         resb 24
-unk_1ADD78:
         resb 8
-dword_1ADD80:
         resb 100
-unk_1ADDE4:
         resb 8
-dword_1ADDEC:
         resb 268
-unk_1ADEF8:
         resb 64
-unk_1ADF38:
         resb 96
-dword_1ADF98:
         resb 4
-dword_1ADF9C:
         resb 4
-dword_1ADFA0:
         resb 88
-unk_1ADFF8:
         resb 8
-dword_1AE000:
         resb 12
-dword_1AE00C:
         resb 28
-unk_1AE028:
         resb 8
-dword_1AE030:
         resb 12
-dword_1AE03C:
         resb 28
-unk_1AE058:
         resb 96
-unk_1AE0B8:
         resb 96
-unk_1AE118:
         resb 96
-dword_1AE178:
         resb 4
-dword_1AE17C:
         resb 68
-dword_1AE1C0:
         resb 4
-dword_1AE1C4:
         resb 180
-unk_1AE278:
         resb 384
-dword_1AE3F8:
         resb 16
-dword_1AE408:
         resb 4
-dword_1AE40C:
         resb 4
-dword_1AE410:
         resb 368
-dword_1AE580:
         resb 4
-dword_1AE584:
         resb 4
-unk_1AE588:
         resb 252
-dword_1AE684:
+RinkGeometryCount:
         resb 4
-unk_1AE688:
+NetGeometry:
         resb 72
-unk_1AE6D0:
         resb 120
-unk_1AE748:
         resb 120
-unk_1AE7C0:
         resb 72
-unk_1AE808:
         resb 72
-unk_1AE850:
         resb 96
-unk_1AE8B0:
         resb 96
-unk_1AE910:
         resb 168
-unk_1AE9B8:
         resb 48
-unk_1AE9E8:
         resb 72
-unk_1AEA30:
         resb 48
-unk_1AEA60:
         resb 168
-unk_1AEB08:
         resb 72
-unk_1AEB50:
         resb 72
-unk_1AEB98:
         resb 168
-unk_1AEC40:
         resb 120
-unk_1AECB8:
         resb 120
-unk_1AED30:
         resb 168
-unk_1AEDD8:
+ArenaPalette:
         resb 21
-byte_1AEDED:
+ArenaColorR:
         resb 1
-byte_1AEDEE:
+ArenaColorG:
         resb 1
-byte_1AEDEF:
+ArenaColorB:
         resb 1
-unk_1AEDF0:
+ArenaPaletteRange:
         resb 20
-dword_1AEE04:
+ArenaArtSize:
         resb 4
-unk_1AEE08:
+IceTextures:
         resb 156
-dword_1AEEA4:
+RinkSideCount:
         resb 4
-unk_1AEEA8:
+RinkSideGeometry:
         resb 600
-dword_1AF100:
         resb 200
-dword_1AF1C8:
         resb 40
-dword_1AF1F0:
         resb 72
-dword_1AF238:
         resb 28
-dword_1AF254:
         resb 100
-dword_1AF2B8:
         resb 4
-dword_1AF2BC:
         resb 4
-dword_1AF2C0:
         resb 88
-dword_1AF318:
         resb 4
-dword_1AF31C:
         resb 28
-dword_1AF338:
         resb 4
-dword_1AF33C:
         resb 4
-unk_1AF340:
         resb 4
-dword_1AF344:
         resb 4
-dword_1AF348:
         resb 120
-dword_1AF3C0:
         resb 4
-dword_1AF3C4:
         resb 4
-dword_1AF3C8:
         resb 4
-dword_1AF3CC:
         resb 4
-dword_1AF3D0:
         resb 88
-dword_1AF428:
         resb 4
-dword_1AF42C:
         resb 28
-dword_1AF448:
         resb 4
-dword_1AF44C:
         resb 4
-unk_1AF450:
         resb 4
-dword_1AF454:
         resb 4
-dword_1AF458:
         resb 120
-dword_1AF4D0:
         resb 4
-dword_1AF4D4:
         resb 1636
-unk_1AFB38:
         resb 268
-dword_1AFC44:
         resb 4
-dword_1AFC48:
         resb 200
-dword_1AFD10:
         resb 400
-dword_1AFEA0:
         resb 200
-dword_1AFF68:
         resb 156
-dword_1B0004:
+RinkTextureCount:
         resb 4
-dword_1B0008:
+RinkTextures:
         resb 16
-dword_1B0018:
+RinkTextureArt:
         resb 4

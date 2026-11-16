@@ -21,7 +21,7 @@ global SetModelPosition, FindModelPartByName, FindInstancePart, FindModelGroupBy
 global GetModelMatrixEntry, BuildNetGeometry, ProjectModelBounds, TexelStep, SetupTextureSpans, DrawTextureSpans, DrawTexturedSpan, DrawTexturedEdgeLeft
 global DrawTexturedEdgeRight, DrawTexturedPoly, DrawTexturedQuad, DrawFlatPoly, DrawPolyOutline, FixedLerp, ClipEdgeTop, ClipEdgeSide
 global ClipPolygon, DrawClippedPoly, DrawPolyList, DrawPolyArray, RotatePoint2D, RotateModelPoint, FillSpanRow, FillSpanRows
-global unk_1100B0
+global ModelInstanceDefault
 ;-----------------------------------------------------------------------------
 ; AllocModelHeader                               10FEE8  97 PC, low confidence
 ; Model library: allocates a model header with its tables
@@ -228,7 +228,7 @@ InitModelInstance:
         pop ebx
         ret
         db 00h,00h,00h,00h,00h,00h
-unk_1100B0:
+ModelInstanceDefault:
         db 00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
 ; CreateModelInstance                            1100B4  97 PC, low confidence
@@ -249,7 +249,7 @@ CreateModelInstance:
         mov eax, dword [esp]
         mov eax, dword [byte eax+038h]
         mov dword [byte esp+08h], eax
-        mov eax, dword [unk_1100B0]
+        mov eax, dword [ModelInstanceDefault]
         mov dword [byte esp+014h], eax
         mov eax, dword [esp]
         mov edx, dword [byte eax+0Ch]

@@ -4,22 +4,22 @@ bits 32
 section s_E7D6D progbits alloc exec nowrite align=1
 extern SetClipWindow, str_BACK14, str_TITL14, str_LB02d6, str_AB025, str_AB015, str_AB005, str_AB055
 extern str_AB045, str_AB035, str_FRAM, str_000011, str_FART5, str_DSS4, str_D02d4, str_D01d3
-extern str_SSDD3, byte_16E264, byte_1CD7A9, byte_1CD7B3, byte_1CD7B4, byte_1CD7FC, byte_1CD7FD, byte_1CD7FE
-extern byte_1CD85E, byte_1CDA5F, byte_1CDC60, byte_1CDDFF, byte_1CDE61, dword_16E1AC, dword_16E22C, MenuScreenBitmap
-extern seed, GameSettings, SeasonUserTeam, dword_1AD62F, dword_1AD6AB, dword_1AD71B, dword_1AD71F, dword_1AD723
-extern dword_1C5E74, dword_1CD760, dword_1CD764, dword_1CD768, dword_1CD76C, dword_1CD770, dword_1CD774, dword_1CD778
-extern dword_1CD77C, dword_1CD780, dword_1CD784, dword_1CD7DF, off_16E174, sprintf_, strcpy_, BlitArt
+extern str_SSDD3, HexDigits, SeasonIntroLeaders, SeasonIntroLeaderStats
+extern SeasonIntroLeaderStats, SeasonIntroLeaderOn, SeasonIntroLogoIds, MenuScreenBitmap
+extern seed, GameSettings, SeasonUserTeam, PlayoffTeamNames, PlayoffTeams, PlayoffSeriesMatch, PlayoffFinalHome, PlayoffFinalAway
+extern ShadowShape, SeasonIntroList, SeasonIntroLayer, SeasonIntroDialogText, SeasonIntroDialogType, SeasonIntroPageShown, SeasonIntroTitleFile, SeasonIntroTeamKey
+extern SeasonIntroShapes, SeasonIntroIcons, SeasonIntroBackFile, SeasonIntroLeaders, SeasonIntroArtFiles, sprintf_, strcpy_, BlitArt
 extern BlitShape, PresentScreen, FindShape, FindShapeQuiet, OpenArtArchive, OpenArtArchiveErr, DrawShapeBlended, ConvertArtNew
 extern SetScreenTarget, SecondsToSamples, WaitSoundTime, OpenDataLibrary, DrawShadowBox, DrawScreenBackground, SetTextColor, DrawTextAligned
 extern LoadTeamLogo, FreeLogoArt, InitMenuItems, GetLangText, InitListBox, InitShapeListBox, FreeDbBlock, FindTeamRecord
 extern FindPlayerRecord, OpenLeagueFile, FindGameRecord, FindTeamStat, ServiceIdle, FreeMemBlock, FillMem, MakeColor
-extern DrawArt, SetDrawTarget, str_D_DrawSeasonIntro, unk_16E1E4, str_Punct_BuildSeasonIntro, unk_1AD22E, unk_1AD443, unk_1C5F4A
-extern unk_1C5F9C, unk_1CD78C, unk_1CD7FA, unk_1CD833, unk_1CD8DE, unk_1CD989, unk_1CDA34, unk_1CDADF
-extern unk_1CDB8A, unk_1CDC35, unk_1CDCE0, unk_1CDD8F, unk_1CDDFD, unk_1CDE36, unk_1CE03B, unk_1CE0A9
-extern seed, word_1CD788, word_1CD78A, word_1CD7CD, word_1CD7CF, word_1CD7D1, word_1CD7D3, word_1CD7D5
-extern word_1CD7D7, word_1CD7D9, word_1CD7DB, word_1CD7DD, word_1CD7E5, word_1CD7E7, word_1CD7E9, word_1CD7EB
-extern word_1CD878, word_1CD87E, word_1CDA7B, word_1CDA95, word_1CDC7A, word_1CDC7C, word_1CDD8B, word_1CDD8D
-extern word_1CDE7B, word_1CDE81, word_1CE037, word_1CE039
+extern DrawArt, SetDrawTarget, str_D_DrawSeasonIntro, SeasonIntroEmptyText, str_Punct_BuildSeasonIntro, SeasonFilePath, PlayoffUserRecords, BlankMenuItem
+extern ScreenFrameItem, SeasonIntroLeaders, SeasonIntroLeaderStats
+extern SeasonIntroLeaderStats
+extern seed, SeasonIntroLeaders
+extern SeasonIntroLeaders, SeasonIntroLeaderStats
+extern SeasonIntroLeaderStats
+extern SeasonIntroLeaderStats
 global BuildSeasonIntro_61F, randomd0, BuildSeasonIntro, IsTopScorer, IsTopAssister, IsTopGoalie, CompareLeader, TeamRankValue
 global SetupSeasonIntro, SeasonIntroPage, DrawSeasonIntro, vtoa
 ;-----------------------------------------------------------------------------
@@ -36,31 +36,31 @@ BuildSeasonIntro:
         sub ebp, 82h
         push byte 0
         push dword 95Ah
-        push word_1CD788
+        push SeasonIntroLeaders
         mov dword [byte ebp+076h], 0
         call FillMem
         add esp, byte 0Ch
 .1:
         mov eax, dword [byte ebp+076h]
-        cmp dword [nosplit eax*4+dword_16E1AC], byte 1
+        cmp dword [nosplit eax*4+SeasonIntroLeaderOn], byte 1
         jne short .2
         imul eax, dword 0ABh
-        mov word [dword eax+word_1CD788], 0FFFFh
+        mov word [dword eax+SeasonIntroLeaders], 0FFFFh
 .2:
         inc dword [byte ebp+076h]
         cmp dword [byte ebp+076h], byte 0Eh
         jl short .1
         mov dword [byte ebp+06Eh], 0
-        mov dword [dword_1CD76C], 4
-        mov dword [dword_1CD768], str_Punct_BuildSeasonIntro
+        mov dword [SeasonIntroDialogType], 4
+        mov dword [SeasonIntroDialogText], str_Punct_BuildSeasonIntro
         mov eax, dword [GameSettings]
-        mov dword [dword_1CD770], 0
+        mov dword [SeasonIntroPageShown], 0
         and eax, byte 70h
         mov dword [byte ebp+07Ah], 0
         cmp eax, byte 10h
         jne near .23
-        mov edx, dword_1CD778
-        mov eax, unk_1AD22E
+        mov edx, SeasonIntroTeamKey
+        mov eax, SeasonFilePath
         mov dword [byte ebp+076h], 0
         call OpenLeagueFile
         call ServiceIdle
@@ -96,7 +96,7 @@ BuildSeasonIntro:
 .5:
         cmp ebx, dword [byte ebp+07Ah]
         jg short .7
-        movsx eax, word [word_1CDD8B]
+        movsx eax, word [SeasonIntroLeaderStats+5A0h]
         cmp eax, byte 0FFFFFFFFh
         je short .7
         cmp ebx, dword [byte ebp+07Ah]
@@ -109,19 +109,19 @@ BuildSeasonIntro:
         cmp edx, dword [byte ebp+06Eh]
         jne short .8
         mov al, byte [dword ebp-0198Eh]
-        cmp al, byte [byte_1CDDFF]
+        cmp al, byte [SeasonIntroLeaderStats+614h]
         jbe short .8
 .7:
         mov eax, dword [byte ebp+076h]
         lea esi, [dword ebp-019CEh]
-        mov edi, unk_1CDD8F
-        mov word [word_1CDD8D], ax
-        mov word [word_1CDD8B], ax
+        mov edi, SeasonIntroLeaderStats+5A4h
+        mov word [SeasonIntroLeaderStats+5A2h], ax
+        mov word [SeasonIntroLeaderStats+5A0h], ax
         movsd
         movsd
         mov ecx, 39h
         lea esi, [dword ebp-01990h]
-        mov edi, unk_1CDDFD
+        mov edi, SeasonIntroLeaderStats+612h
         mov dword [byte ebp+07Ah], ebx
         mov dword [byte ebp+06Eh], edx
         rep movsb
@@ -133,7 +133,7 @@ BuildSeasonIntro:
         lea eax, [dword ebp-0CD5h]
         lea edx, [byte ebp+02Eh]
         add edi, eax
-        mov esi, word_1CD788
+        mov esi, SeasonIntroLeaders
         lea eax, [byte edi+020h]
         mov ebx, dword [byte ebp+076h]
         call FindTeamStat
@@ -141,14 +141,14 @@ BuildSeasonIntro:
         lea edx, [byte ebp+02Eh]
         cmp word [byte ebp+046h], byte 0
         jle short .11
-        cmp byte [byte_1CD7B3], 0
+        cmp byte [SeasonIntroLeaders+2Bh], 0
         je short .10
         mov eax, dword [byte ebp+048h]
-        cmp ax, word [word_1CD7CF]
+        cmp ax, word [SeasonIntroLeaders+47h]
         jg short .10
         jne short .11
         mov eax, dword [byte ebp+046h]
-        cmp ax, word [word_1CD7CD]
+        cmp ax, word [SeasonIntroLeaders+45h]
         jge short .11
 .10:
         mov word [esi], bx
@@ -163,20 +163,20 @@ BuildSeasonIntro:
 .11:
         imul edi, dword [byte ebp+07Eh], byte 38h
         lea eax, [dword ebp-0CD5h]
-        mov esi, unk_1CD833
+        mov esi, SeasonIntroLeaderStats+48h
         lea edx, [byte ebp+02Eh]
         mov ebx, dword [byte ebp+076h]
         add edi, eax
         cmp word [byte ebp+046h], byte 0
         jle short .13
-        cmp byte [byte_1CD85E], 0
+        cmp byte [SeasonIntroLeaderStats+73h], 0
         je short .12
         mov eax, dword [byte ebp+04Ch]
-        cmp ax, word [word_1CD87E]
+        cmp ax, word [SeasonIntroLeaderStats+093h]
         jg short .12
         jne short .13
         mov eax, dword [byte ebp+046h]
-        cmp ax, word [word_1CD878]
+        cmp ax, word [SeasonIntroLeaderStats+8Dh]
         jge short .13
 .12:
         mov word [esi], bx
@@ -194,37 +194,37 @@ BuildSeasonIntro:
         mov ecx, dword [byte ebp+076h]
         lea edx, [byte ebp+02Eh]
         add edi, eax
-        mov eax, unk_1CD8DE
+        mov eax, SeasonIntroLeaderStats+0F3h
         mov ebx, edi
         call IsTopScorer
         mov ecx, dword [byte ebp+076h]
         lea edx, [byte ebp+02Eh]
-        mov eax, unk_1CD989
+        mov eax, SeasonIntroLeaderStats+19Eh
         mov ebx, edi
         call IsTopAssister
         mov ecx, dword [byte ebp+076h]
         lea edx, [byte ebp+02Eh]
-        mov eax, unk_1CDB8A
+        mov eax, SeasonIntroLeaderStats+39Fh
         mov ebx, edi
         call IsTopGoalie
         mov ecx, dword [byte ebp+076h]
         lea edx, [byte ebp+02Eh]
-        mov eax, unk_1CDCE0
+        mov eax, SeasonIntroLeaderStats+4F5h
         mov ebx, edi
-        mov esi, unk_1CDC35
+        mov esi, SeasonIntroLeaderStats+44Ah
         call CompareLeader
         lea edx, [byte ebp+02Eh]
         mov ebx, dword [byte ebp+076h]
         cmp word [byte ebp+046h], byte 0
         jle short .15
-        cmp byte [byte_1CDC60], 0
+        cmp byte [SeasonIntroLeaderStats+475h], 0
         je short .14
         mov eax, dword [byte ebp+048h]
-        cmp ax, word [word_1CDC7C]
+        cmp ax, word [SeasonIntroLeaderStats+491h]
         jg short .14
         jne short .15
         mov eax, dword [byte ebp+046h]
-        cmp ax, word [word_1CDC7A]
+        cmp ax, word [SeasonIntroLeaderStats+48Fh]
         jge short .15
 .14:
         mov word [esi], bx
@@ -250,7 +250,7 @@ BuildSeasonIntro:
         add ebx, eax
         lea edx, [byte ebp+02Eh]
         lea eax, [byte ebx+020h]
-        mov esi, unk_1CDA34
+        mov esi, SeasonIntroLeaderStats+249h
         call FindTeamStat
         call ServiceIdle
         lea eax, [byte ebp+02Eh]
@@ -259,14 +259,14 @@ BuildSeasonIntro:
         mov dword [byte ebp+072h], eax
         cmp word [byte ebp+046h], byte 0
         jle short .19
-        cmp byte [byte_1CDA5F], 0
+        cmp byte [SeasonIntroLeaderStats+274h], 0
         je short .18
         mov eax, dword [byte ebp+048h]
-        cmp ax, word [word_1CDA7B]
+        cmp ax, word [SeasonIntroLeaderStats+290h]
         jg short .18
         jne short .19
         mov eax, dword [byte ebp+062h]
-        cmp ax, word [word_1CDA95]
+        cmp ax, word [SeasonIntroLeaderStats+2AAh]
         jle short .19
 .18:
         mov byte [byte esi+02Bh], 47h
@@ -283,12 +283,12 @@ BuildSeasonIntro:
         mov ecx, dword [byte ebp+076h]
         lea edx, [byte ebp+02Eh]
         add esi, eax
-        mov eax, unk_1CDADF
+        mov eax, SeasonIntroLeaderStats+2F4h
         mov ebx, esi
         call TeamRankValue
         mov ecx, dword [byte ebp+076h]
         lea edx, [byte ebp+02Eh]
-        mov eax, unk_1CDCE0
+        mov eax, SeasonIntroLeaderStats+4F5h
         mov ebx, esi
         inc dword [byte ebp+07Eh]
         call CompareLeader
@@ -299,14 +299,14 @@ BuildSeasonIntro:
 .21:
         inc dword [byte ebp+076h]
 .22:
-        mov eax, dword [dword_1CD778]
+        mov eax, dword [SeasonIntroTeamKey]
         movsx edx, word [eax]
         cmp edx, dword [byte ebp+076h]
         jg near .3
-        mov eax, dword_1CD778
+        mov eax, SeasonIntroTeamKey
         call FreeDbBlock
-        mov dword [dword_1CD76C], 0Eh
-        mov dword [dword_1CD768], unk_16E1E4
+        mov dword [SeasonIntroDialogType], 0Eh
+        mov dword [SeasonIntroDialogText], SeasonIntroEmptyText
 .23:
         mov dword [byte ebp+076h], 0
         jmp near .33
@@ -321,16 +321,16 @@ BuildSeasonIntro:
         je near .32
         call ServiceIdle
         mov eax, dword [byte ebp+076h]
-        mov edx, dword [dword_1AD71B]
+        mov edx, dword [PlayoffSeriesMatch]
         shl eax, 2
         mov dword [byte ebp+07Eh], 0
-        cmp edx, dword [dword eax+dword_1AD6AB]
+        cmp edx, dword [dword eax+PlayoffTeams]
         jne short .25
         mov dword [byte ebp+07Eh], 0Bh
         jmp short .26
 .25:
-        mov edx, dword [dword_1AD71F]
-        cmp edx, dword [dword eax+dword_1AD6AB]
+        mov edx, dword [PlayoffFinalHome]
+        cmp edx, dword [dword eax+PlayoffTeams]
         jne short .26
         mov dword [byte ebp+07Eh], 0Ch
 .26:
@@ -338,35 +338,35 @@ BuildSeasonIntro:
         jle short .27
         imul eax, dword [byte ebp+07Eh], dword 0ABh
         mov edx, dword [byte ebp+076h]
-        mov dx, word [nosplit edx*4+dword_1AD6AB]
+        mov dx, word [nosplit edx*4+PlayoffTeams]
         lea esi, [dword ebp-019CEh]
-        mov word [dword eax+word_1CD788], dx
+        mov word [dword eax+SeasonIntroLeaders], dx
         mov edx, dword [byte ebp+076h]
-        lea edi, [dword eax+unk_1CD78C]
-        mov word [dword eax+word_1CD78A], dx
+        lea edi, [dword eax+SeasonIntroLeaders+4]
+        mov word [dword eax+SeasonIntroLeaders+2], dx
         movsd
         movsd
         mov ecx, 39h
         lea esi, [dword ebp-01990h]
-        lea edi, [dword eax+unk_1CD7FA]
+        lea edi, [dword eax+SeasonIntroLeaderStats+0Fh]
         rep movsb
 .27:
         mov eax, dword [byte ebp+076h]
         shl eax, 2
-        mov edx, dword [dword_1AD723]
-        cmp edx, dword [dword eax+dword_1AD6AB]
+        mov edx, dword [PlayoffFinalAway]
+        cmp edx, dword [dword eax+PlayoffTeams]
         jne near .32
-        mov ax, word [dword eax+dword_1AD6AB]
+        mov ax, word [dword eax+PlayoffTeams]
         lea esi, [dword ebp-019CEh]
-        mov word [word_1CE037], ax
+        mov word [SeasonIntroLeaderStats+84Ch], ax
         mov eax, dword [byte ebp+076h]
-        mov edi, unk_1CE03B
-        mov word [word_1CE039], ax
+        mov edi, SeasonIntroLeaderStats+850h
+        mov word [SeasonIntroLeaderStats+84Eh], ax
         movsd
         movsd
         mov ecx, 39h
         lea esi, [dword ebp-01990h]
-        mov edi, unk_1CE0A9
+        mov edi, SeasonIntroLeaderStats+8BEh
         mov dword [byte ebp+07Eh], 0
         rep movsb
         jmp near .31
@@ -377,21 +377,21 @@ BuildSeasonIntro:
         add edi, eax
         mov ebx, dword [byte ebp+076h]
         lea eax, [byte edi+020h]
-        mov esi, unk_1CDE36
+        mov esi, SeasonIntroLeaderStats+64Bh
         call FindTeamStat
         call ServiceIdle
         lea edx, [byte ebp+02Eh]
-        mov ebx, dword [nosplit ebx*4+dword_1AD6AB]
+        mov ebx, dword [nosplit ebx*4+PlayoffTeams]
         cmp word [byte ebp+046h], byte 0
         jle short .30
-        cmp byte [byte_1CDE61], 0
+        cmp byte [SeasonIntroLeaderStats+676h], 0
         je short .29
         mov eax, dword [byte ebp+04Ch]
-        cmp ax, word [word_1CDE81]
+        cmp ax, word [SeasonIntroLeaderStats+696h]
         jg short .29
         jne short .30
         mov eax, dword [byte ebp+046h]
-        cmp ax, word [word_1CDE7B]
+        cmp ax, word [SeasonIntroLeaderStats+690h]
         jge short .30
 .29:
         mov word [esi], bx
@@ -420,11 +420,11 @@ BuildSeasonIntro:
 .34:
         mov edx, dword [byte ebp+076h]
         imul eax, edx, dword 0ABh
-        mov esi, word_1CD788
+        mov esi, SeasonIntroLeaders
         add esi, eax
-        cmp dword [nosplit edx*4+dword_16E1AC], byte 0
+        cmp dword [nosplit edx*4+SeasonIntroLeaderOn], byte 0
         jne short .35
-        cmp byte [dword eax+byte_1CD7B3], 0
+        cmp byte [dword eax+SeasonIntroLeaders+2Bh], 0
         jbe short .37
         lea edx, [dword ebp-08Eh]
         lea eax, [byte esi+03Dh]
@@ -440,7 +440,7 @@ BuildSeasonIntro:
         call strcpy_
         jmp short .36
 .35:
-        cmp word [dword eax+word_1CD788], byte 0
+        cmp word [dword eax+SeasonIntroLeaders], byte 0
         jl short .37
         lea edx, [byte esi+0Ch]
         lea eax, [byte esi+04h]
@@ -728,7 +728,7 @@ TeamRankValue:
         enter 4, 0
         mov esi, eax
         mov dword [byte ebp-04h], edx
-        mov eax, dword [dword_1CD778]
+        mov eax, dword [SeasonIntroTeamKey]
         movsx eax, word [byte eax+02h]
         imul eax, byte 6
         mov edi, 82h
@@ -801,25 +801,25 @@ SetupSeasonIntro:
         call InitListBox
         cmp esi, byte 5
         jl short .1
-        push dword [dword_1CD764]
+        push dword [SeasonIntroLayer]
         call SetDrawTarget
         add esp, byte 4
         push str_BACK14
-        push dword [dword_1CD784]
+        push dword [SeasonIntroBackFile]
         call FindShape
         add esp, byte 8
         push eax
         call BlitShape
         add esp, byte 4
         push str_TITL14
-        push dword [dword_1CD774]
+        push dword [SeasonIntroTitleFile]
         call FindShape
         add esp, byte 8
         push eax
         call BlitShape
-        mov eax, dword [dword_1CD764]
+        mov eax, dword [SeasonIntroLayer]
         mov edi, dword [byte ebp-014h]
-        mov esi, unk_1C5F4A
+        mov esi, BlankMenuItem
         mov eax, dword [byte eax+02Ch]
         add esp, byte 4
         mov ebx, eax
@@ -831,17 +831,17 @@ SetupSeasonIntro:
         mov ecx, 52h
         mov edi, eax
         mov dword [eax], 0
-        mov esi, unk_1C5F9C
+        mov esi, ScreenFrameItem
         lea edi, [byte edi+052h]
         rep movsb
         mov dword [byte eax+052h], 1
         xor esi, esi
         jmp short .3
 .2:
-        mov eax, dword [dword_1CD768]
+        mov eax, dword [SeasonIntroDialogText]
         mov ebx, esi
         mov eax, dword [eax+ebx*4]
-        push dword [nosplit eax*4+dword_16E22C]
+        push dword [nosplit eax*4+SeasonIntroLogoIds]
         push str_LB02d6
         lea eax, [byte ebp-010h]
         push eax
@@ -849,63 +849,63 @@ SetupSeasonIntro:
         add esp, byte 0Ch
         lea eax, [byte ebp-010h]
         push eax
-        push dword [dword_1CD784]
+        push dword [SeasonIntroBackFile]
         call FindShape
         mov ecx, eax
-        mov eax, dword [dword_1CD780]
+        mov eax, dword [SeasonIntroIcons]
         add esp, byte 8
         mov dword [eax+ebx*4], ecx
         lea eax, [byte ebp-010h]
         push eax
-        push dword [dword_1CD784]
+        push dword [SeasonIntroBackFile]
         mov byte [byte ebp-0Fh], 59h
         call FindShape
         mov edx, eax
-        mov eax, dword [dword_1CD77C]
+        mov eax, dword [SeasonIntroShapes]
         inc esi
         add esp, byte 8
         mov dword [eax+ebx*4], edx
 .3:
-        cmp esi, dword [dword_1CD76C]
+        cmp esi, dword [SeasonIntroDialogType]
         jl short .2
-        mov eax, dword [dword_1CD780]
+        mov eax, dword [SeasonIntroIcons]
         mov eax, dword [eax]
         movsx edx, word [byte eax+06h]
         movsx ecx, word [byte eax+04h]
         movsx ebx, word [byte eax+0Eh]
         push edx
         movsx edx, word [byte eax+0Ch]
-        mov eax, dword [dword_1CD760]
+        mov eax, dword [SeasonIntroList]
         add eax, 0A4h
         call InitListBox
-        mov esi, dword [dword_1CD770]
-        mov eax, dword [dword_1CD780]
+        mov esi, dword [SeasonIntroPageShown]
+        mov eax, dword [SeasonIntroIcons]
         shl esi, 2
         add esi, eax
-        mov eax, dword [dword_1CD760]
+        mov eax, dword [SeasonIntroList]
         mov edx, dword [esi]
         mov dword [dword eax+0BEh], edx
-        mov esi, dword [dword_1CD770]
-        mov eax, dword [dword_1CD77C]
+        mov esi, dword [SeasonIntroPageShown]
+        mov eax, dword [SeasonIntroShapes]
         shl esi, 2
         add esi, eax
-        mov eax, dword [dword_1CD760]
+        mov eax, dword [SeasonIntroList]
         mov edx, dword [esi]
         mov dword [dword eax+0C6h], edx
-        mov eax, dword [dword_1CD760]
+        mov eax, dword [SeasonIntroList]
         push str_AB025
         mov ecx, str_AB015
         mov dword [dword eax+0C2h], edx
         mov ebx, str_AB005
-        mov edx, dword [dword_1CD760]
-        mov eax, dword [dword_1CD784]
+        mov edx, dword [SeasonIntroList]
+        mov eax, dword [SeasonIntroBackFile]
         add edx, 0F6h
         call InitShapeListBox
         push str_AB055
         mov ecx, str_AB045
         mov ebx, str_AB035
-        mov edx, dword [dword_1CD760]
-        mov eax, dword [dword_1CD784]
+        mov edx, dword [SeasonIntroList]
+        mov eax, dword [SeasonIntroBackFile]
         add edx, 148h
         call InitShapeListBox
         xor eax, eax
@@ -917,21 +917,21 @@ SetupSeasonIntro:
         pop ebx
         ret
         push edx
-        mov eax, dword [dword_1CD770]
-        mov edx, dword [dword_1CD780]
+        mov eax, dword [SeasonIntroPageShown]
+        mov edx, dword [SeasonIntroIcons]
         shl eax, 2
         add eax, edx
-        mov edx, dword [dword_1CD760]
+        mov edx, dword [SeasonIntroList]
         mov eax, dword [eax]
         mov dword [dword edx+0BEh], eax
-        mov edx, dword [dword_1CD770]
-        mov eax, dword [dword_1CD77C]
+        mov edx, dword [SeasonIntroPageShown]
+        mov eax, dword [SeasonIntroShapes]
         shl edx, 2
         add edx, eax
-        mov eax, dword [dword_1CD760]
+        mov eax, dword [SeasonIntroList]
         mov edx, dword [edx]
         mov dword [dword eax+0C6h], edx
-        mov eax, dword [dword_1CD760]
+        mov eax, dword [SeasonIntroList]
         mov dword [dword eax+0C2h], edx
         pop edx
         ret
@@ -973,8 +973,8 @@ SeasonIntroPage:
         jmp short .6
 .4:
         movsx ecx, word [byte ebp-04h]
-        mov ecx, dword [nosplit ecx*4+dword_1AD6AB]
-        cmp ecx, dword [nosplit eax*4+dword_1AD6AB]
+        mov ecx, dword [nosplit ecx*4+PlayoffTeams]
+        cmp ecx, dword [nosplit eax*4+PlayoffTeams]
         jne short .5
         mov esi, eax
         jmp short .7
@@ -1002,48 +1002,48 @@ DrawSeasonIntro:
         push edi
         enter 18h, 0
         push eax
-        push dword [dword_1CD764]
+        push dword [SeasonIntroLayer]
         call SetDrawTarget
         add esp, byte 4
         push str_BACK14
-        push dword [dword_1CD784]
+        push dword [SeasonIntroBackFile]
         call FindShape
         add esp, byte 8
         push eax
         call BlitShape
         add esp, byte 4
         push str_TITL14
-        push dword [dword_1CD774]
+        push dword [SeasonIntroTitleFile]
         call FindShape
         add esp, byte 8
         push eax
         call BlitShape
         add esp, byte 4
         push str_FRAM
-        push dword [dword_1CD784]
+        push dword [SeasonIntroBackFile]
         call FindShape
         add esp, byte 8
         push eax
         call BlitShape
-        mov eax, dword [dword_1CD770]
-        mov edx, dword [dword_1CD780]
-        mov ebx, dword [dword_1CD760]
+        mov eax, dword [SeasonIntroPageShown]
+        mov edx, dword [SeasonIntroIcons]
+        mov ebx, dword [SeasonIntroList]
         mov eax, dword [edx+eax*4]
         mov dword [dword ebx+0BEh], eax
-        mov eax, dword [dword_1CD770]
-        mov ebx, dword [dword_1CD77C]
+        mov eax, dword [SeasonIntroPageShown]
+        mov ebx, dword [SeasonIntroShapes]
         shl eax, 2
         add ebx, eax
-        mov eax, dword [dword_1CD760]
+        mov eax, dword [SeasonIntroList]
         mov edx, dword [ebx]
         mov dword [dword eax+0C6h], edx
-        mov eax, dword [dword_1CD760]
+        mov eax, dword [SeasonIntroList]
         xor edi, edi
         add esp, byte 4
         mov dword [dword eax+0C2h], edx
 .1:
         imul edx, edi, byte 52h
-        mov eax, dword [dword_1CD760]
+        mov eax, dword [SeasonIntroList]
         add eax, edx
         cmp dword [byte eax+01Ah], byte 0
         je short .2
@@ -1056,8 +1056,8 @@ DrawSeasonIntro:
         inc edi
         cmp edi, byte 5
         jl short .1
-        mov eax, dword [dword_1CD770]
-        mov edi, dword [dword_1CD768]
+        mov eax, dword [SeasonIntroPageShown]
+        mov edi, dword [SeasonIntroDialogText]
         mov edi, dword [edi+eax*4]
         imul esi, edi, dword 0ABh
         mov eax, 6Bh
@@ -1066,7 +1066,7 @@ DrawSeasonIntro:
         call SecondsToSamples
         call WaitSoundTime
         push byte 0
-        push dword [nosplit edi*4+off_16E174]
+        push dword [nosplit edi*4+SeasonIntroArtFiles]
         call OpenArtArchiveErr
         add esp, byte 8
         push str_000011
@@ -1079,11 +1079,11 @@ DrawSeasonIntro:
         add esp, byte 4
         push ebx
         call FreeMemBlock
-        mov eax, dword [dword_1CD770]
-        mov edx, dword [dword_1CD768]
+        mov eax, dword [SeasonIntroPageShown]
+        mov edx, dword [SeasonIntroDialogText]
         mov eax, dword [edx+eax*4]
         add esp, byte 4
-        cmp dword [nosplit eax*4+dword_16E1AC], byte 0
+        cmp dword [nosplit eax*4+SeasonIntroLeaderOn], byte 0
         jne near .15
         mov eax, 37h
         call OpenDataLibrary
@@ -1093,12 +1093,12 @@ DrawSeasonIntro:
         push dword 17Dh
         call SetClipWindow
         add esp, byte 10h
-        cmp byte [dword esi+byte_1CD7A9], 0
+        cmp byte [dword esi+SeasonIntroLeaders+21h], 0
         je near .4
         mov eax, 3
         call SecondsToSamples
         call WaitSoundTime
-        mov eax, word_1CD788
+        mov eax, SeasonIntroLeaders
         add eax, esi
         push byte 0
         add eax, byte 21h
@@ -1147,20 +1147,20 @@ DrawSeasonIntro:
         push dword 115h
         mov ecx, 64h
         mov ebx, 17Dh
-        mov eax, dword [dword_1CD764]
+        mov eax, dword [SeasonIntroLayer]
         push dword 0F2h
         mov edx, 18h
         mov eax, dword [byte eax+02Ch]
         call DrawShadowBox
         imul ebx, edi, dword 0ABh
-        mov eax, word_1CD788
+        mov eax, SeasonIntroLeaders
         add eax, ebx
         lea edx, [byte eax+011h]
         push edx
         inc eax
         inc eax
         push eax
-        movzx eax, byte [dword ebx+byte_1CD7B4]
+        movzx eax, byte [dword ebx+SeasonIntroLeaders+2Ch]
         push eax
         push str_DSS4
         push dword 168h
@@ -1169,7 +1169,7 @@ DrawSeasonIntro:
         mov dword [byte ebp-08h], 0Eh
         call DrawTextAligned
         add esp, byte 1Ch
-        cmp byte [dword ebx+byte_1CD7B3], 47h
+        cmp byte [dword ebx+SeasonIntroLeaders+2Bh], 47h
         jne near .10
         mov eax, 19Ah
         call GetLangText
@@ -1179,7 +1179,7 @@ DrawSeasonIntro:
         push byte 2
         call DrawTextAligned
         add esp, byte 10h
-        movsx eax, word [dword ebx+word_1CD7CD]
+        movsx eax, word [dword ebx+SeasonIntroLeaders+45h]
         push eax
         push str_D_DrawSeasonIntro
         push byte 68h
@@ -1195,7 +1195,7 @@ DrawSeasonIntro:
         push byte 2
         call DrawTextAligned
         add esp, byte 10h
-        movsx eax, word [dword ebx+word_1CD7CF]
+        movsx eax, word [dword ebx+SeasonIntroLeaders+47h]
         push eax
         push str_D_DrawSeasonIntro
         push byte 79h
@@ -1211,7 +1211,7 @@ DrawSeasonIntro:
         push byte 2
         call DrawTextAligned
         add esp, byte 10h
-        movsx eax, word [dword ebx+word_1CD7D1]
+        movsx eax, word [dword ebx+SeasonIntroLeaders+49h]
         push eax
         push str_D_DrawSeasonIntro
         push dword 8Ah
@@ -1227,7 +1227,7 @@ DrawSeasonIntro:
         push byte 2
         call DrawTextAligned
         add esp, byte 10h
-        movsx eax, word [dword ebx+word_1CD7D3]
+        movsx eax, word [dword ebx+SeasonIntroLeaders+4Bh]
         push eax
         push str_D_DrawSeasonIntro
         push dword 9Bh
@@ -1243,7 +1243,7 @@ DrawSeasonIntro:
         push byte 2
         call DrawTextAligned
         add esp, byte 10h
-        movsx eax, word [dword ebx+word_1CD7D5]
+        movsx eax, word [dword ebx+SeasonIntroLeaders+4Dh]
         push eax
         push str_D_DrawSeasonIntro
         push byte 68h
@@ -1258,7 +1258,7 @@ DrawSeasonIntro:
         push dword 232h
         push byte 2
         call DrawTextAligned
-        mov eax, dword [dword ebx+dword_1CD7DF]
+        mov eax, dword [dword ebx+SeasonIntroLeaders+57h]
         mov ecx, 3Ch
         cdq
         idiv ecx
@@ -1277,7 +1277,7 @@ DrawSeasonIntro:
         push dword 232h
         push byte 2
         call DrawTextAligned
-        movsx esi, word [dword ebx+word_1CD7E5]
+        movsx esi, word [dword ebx+SeasonIntroLeaders+5Dh]
         mov eax, esi
         mov ecx, 64h
         cdq
@@ -1304,11 +1304,11 @@ DrawSeasonIntro:
         mov dword [byte ebp-04h], 232h
         call DrawTextAligned
         add esp, byte 10h
-        cmp word [dword ebx+word_1CD7E7], byte 0
+        cmp word [dword ebx+SeasonIntroLeaders+5Fh], byte 0
         jle short .5
-        movsx eax, word [dword ebx+word_1CD7E9]
+        movsx eax, word [dword ebx+SeasonIntroLeaders+61h]
         imul eax, dword 3E8h
-        movsx ebx, word [dword ebx+word_1CD7E7]
+        movsx ebx, word [dword ebx+SeasonIntroLeaders+5Fh]
         cdq
         idiv ebx
         mov ebx, eax
@@ -1342,7 +1342,7 @@ DrawSeasonIntro:
 .7:
         imul eax, edi, dword 0ABh
         mov edx, ebx
-        movsx eax, word [dword eax+edx*2+word_1CD7EB]
+        movsx eax, word [dword eax+edx*2+SeasonIntroLeaderStats]
         lea eax, [eax+eax*4]
         inc ebx
         add dword [byte ebp-08h], eax
@@ -1369,7 +1369,7 @@ DrawSeasonIntro:
         push byte 2
         call DrawTextAligned
         add esp, byte 10h
-        movsx eax, word [dword ebx+word_1CD7CD]
+        movsx eax, word [dword ebx+SeasonIntroLeaders+45h]
         push eax
         push str_D_DrawSeasonIntro
         push byte 68h
@@ -1385,7 +1385,7 @@ DrawSeasonIntro:
         push byte 2
         call DrawTextAligned
         add esp, byte 10h
-        movsx eax, word [dword ebx+word_1CD7CF]
+        movsx eax, word [dword ebx+SeasonIntroLeaders+47h]
         push eax
         push str_D_DrawSeasonIntro
         push byte 79h
@@ -1401,7 +1401,7 @@ DrawSeasonIntro:
         push byte 2
         call DrawTextAligned
         add esp, byte 10h
-        movsx eax, word [dword ebx+word_1CD7D1]
+        movsx eax, word [dword ebx+SeasonIntroLeaders+49h]
         push eax
         push str_D_DrawSeasonIntro
         push dword 8Ah
@@ -1417,7 +1417,7 @@ DrawSeasonIntro:
         push byte 2
         call DrawTextAligned
         add esp, byte 10h
-        movsx eax, word [dword ebx+word_1CD7D3]
+        movsx eax, word [dword ebx+SeasonIntroLeaders+4Bh]
         push eax
         push str_D_DrawSeasonIntro
         push dword 9Bh
@@ -1433,7 +1433,7 @@ DrawSeasonIntro:
         push byte 2
         call DrawTextAligned
         add esp, byte 10h
-        movsx eax, word [dword ebx+word_1CD7D9]
+        movsx eax, word [dword ebx+SeasonIntroLeaders+51h]
         push eax
         push str_D_DrawSeasonIntro
         push byte 68h
@@ -1449,7 +1449,7 @@ DrawSeasonIntro:
         push byte 2
         call DrawTextAligned
         add esp, byte 10h
-        movsx eax, word [dword ebx+word_1CD7DD]
+        movsx eax, word [dword ebx+SeasonIntroLeaders+55h]
         push eax
         push str_D_DrawSeasonIntro
         push byte 79h
@@ -1465,7 +1465,7 @@ DrawSeasonIntro:
         push byte 2
         call DrawTextAligned
         add esp, byte 10h
-        movsx eax, word [dword ebx+word_1CD7D5]
+        movsx eax, word [dword ebx+SeasonIntroLeaders+4Dh]
         push eax
         push str_D_DrawSeasonIntro
         push dword 8Ah
@@ -1481,7 +1481,7 @@ DrawSeasonIntro:
         push byte 2
         call DrawTextAligned
         add esp, byte 10h
-        movsx eax, word [dword ebx+word_1CD7D7]
+        movsx eax, word [dword ebx+SeasonIntroLeaders+4Fh]
         push eax
         push str_D_DrawSeasonIntro
         push dword 9Bh
@@ -1498,7 +1498,7 @@ DrawSeasonIntro:
 .11:
         imul eax, edi, dword 0ABh
         mov edx, ebx
-        movsx eax, word [dword eax+edx*2+dword_1CD7DF]
+        movsx eax, word [dword eax+edx*2+SeasonIntroLeaders+57h]
         lea eax, [eax+eax*4]
         inc ebx
         add dword [byte ebp-08h], eax
@@ -1506,11 +1506,11 @@ DrawSeasonIntro:
         jl short .11
         jmp near .8
 .12:
-        cmp word [dword ebx+word_1CD7DB], byte 0
+        cmp word [dword ebx+SeasonIntroLeaders+53h], byte 0
         jle short .13
-        movsx eax, word [dword ebx+word_1CD7CF]
+        movsx eax, word [dword ebx+SeasonIntroLeaders+47h]
         imul eax, dword 3E8h
-        movsx ebx, word [dword ebx+word_1CD7DB]
+        movsx ebx, word [dword ebx+SeasonIntroLeaders+53h]
         cdq
         idiv ebx
         mov ebx, eax
@@ -1551,7 +1551,7 @@ DrawSeasonIntro:
         push dword 17Dh
         call SetClipWindow
         add esp, byte 10h
-        movsx eax, word [dword esi+word_1CD788]
+        movsx eax, word [dword esi+SeasonIntroLeaders]
         mov dword [byte ebp-04h], 1C2h
         call LoadTeamLogo
         mov esi, 0DAh
@@ -1561,7 +1561,7 @@ DrawSeasonIntro:
 .16:
         push esi
         push dword [byte ebp-04h]
-        push dword [dword_1C5E74]
+        push dword [ShadowShape]
         push dword 0CCCCh
         call DrawShapeBlended
         add esp, byte 10h
@@ -1569,7 +1569,7 @@ DrawSeasonIntro:
         call FreeLogoArt
         push dword 115h
         mov ecx, 64h
-        mov eax, dword [dword_1CD764]
+        mov eax, dword [SeasonIntroLayer]
         push dword 0F2h
         mov edx, 18h
         mov eax, dword [byte eax+02Ch]
@@ -1586,7 +1586,7 @@ DrawSeasonIntro:
         push byte 2
         call DrawTextAligned
         add esp, byte 10h
-        movzx eax, byte [dword ebx+byte_1CD7FC]
+        movzx eax, byte [dword ebx+SeasonIntroLeaderStats+11h]
         push eax
         push str_D_DrawSeasonIntro
         push esi
@@ -1602,7 +1602,7 @@ DrawSeasonIntro:
         push byte 2
         call DrawTextAligned
         add esp, byte 10h
-        movzx eax, byte [dword ebx+byte_1CD7FD]
+        movzx eax, byte [dword ebx+SeasonIntroLeaderStats+12h]
         push eax
         push str_D_DrawSeasonIntro
         push byte 79h
@@ -1618,7 +1618,7 @@ DrawSeasonIntro:
         push byte 2
         call DrawTextAligned
         add esp, byte 10h
-        movzx eax, byte [dword ebx+byte_1CD7FE]
+        movzx eax, byte [dword ebx+SeasonIntroLeaderStats+13h]
         push eax
         push str_D_DrawSeasonIntro
         push dword 8Ah
@@ -1633,8 +1633,8 @@ DrawSeasonIntro:
         push dword 1F0h
         push byte 2
         call DrawTextAligned
-        movzx eax, byte [dword ebx+byte_1CD7FC]
-        movzx edx, byte [dword ebx+byte_1CD7FE]
+        movzx eax, byte [dword ebx+SeasonIntroLeaderStats+11h]
+        movzx edx, byte [dword ebx+SeasonIntroLeaderStats+13h]
         add eax, eax
         add esp, byte 10h
         add eax, edx
@@ -1645,7 +1645,7 @@ DrawSeasonIntro:
         push byte 0
         jmp near .9
 .17:
-        movsx eax, word [dword ebx+word_1CD78A]
+        movsx eax, word [dword ebx+SeasonIntroLeaders+2]
         mov dword [byte ebp-04h], 1F6h
         mov dword [byte ebp-0Ch], eax
         xor ebx, ebx
@@ -1683,11 +1683,11 @@ DrawSeasonIntro:
         add esp, byte 4
         call SetTextColor
         mov eax, dword [byte ebp-010h]
-        push dword [nosplit eax*4+dword_1AD62F]
+        push dword [nosplit eax*4+PlayoffTeamNames]
         mov eax, dword [byte ebp-0Ch]
-        push dword [nosplit eax*4+dword_1AD62F]
+        push dword [nosplit eax*4+PlayoffTeamNames]
         imul eax, dword [byte ebp-018h], byte 1Ch
-        add eax, unk_1AD443
+        add eax, PlayoffUserRecords
         push eax
         mov eax, 1A3h
         call GetLangText
@@ -1718,7 +1718,7 @@ DrawSeasonIntro:
         je short .22
         call SetScreenTarget
         push byte 0
-        mov eax, dword [dword_1CD764]
+        mov eax, dword [SeasonIntroLayer]
         push byte 0
         push dword [byte eax+02Ch]
         call BlitArt
@@ -1812,7 +1812,7 @@ vtoa:
         jb short .5
         or ebx, byte 8
 .5:
-        mov al, byte [dword ebx+byte_16E264]
+        mov al, byte [dword ebx+HexDigits]
         cbw
         pop edx
         pop ecx

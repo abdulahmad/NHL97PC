@@ -1,0 +1,1 @@
+unk_1BA510 ShotAnimPoses {confidence=low} shot animation frames

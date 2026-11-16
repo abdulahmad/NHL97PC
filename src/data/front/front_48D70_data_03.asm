@@ -2,31 +2,31 @@
 bits 32
 %include "hockey.inc"
 section s_16B084 progbits alloc noexec write align=1
-global dword_16B164, dword_16B168, dword_16B174, F32_2000_ScaleModelLods, unk_16B084, unk_16B0E4, unk_16B144, unk_16B16C
-unk_16B084:
+global RinkGeometryBuilt, ScoreboardOn, OverlayFrame, F32_2000_ScaleModelLods, IceSurfaceDef, IceGeometryDef, RinkMarkingDefs, NetArtDefs
+IceSurfaceDef:
         db 090h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,0A2h,00h,00h,00h
         db 00h,00h,00h,00h,05Ah,00h,00h,00h,081h,00h,00h,00h,00h,00h,00h,00h
         db 09Ch,00h,00h,00h,05Dh,00h,00h,00h,00h,00h,00h,00h,0ACh,00h,00h,00h
         db 0A3h,0FFh,0FFh,0FFh,00h,00h,00h,00h,0ACh,00h,00h,00h,07Fh,0FFh,0FFh,0FFh
         db 00h,00h,00h,00h,09Ch,00h,00h,00h,05Eh,0FFh,0FFh,0FFh,00h,00h,00h,00h
         db 05Ah,00h,00h,00h,070h,0FFh,0FFh,0FFh,00h,00h,00h,00h,00h,00h,00h,00h
-unk_16B0E4:
+IceGeometryDef:
         db 093h,00h,00h,00h,00h,00h,00h,00h,012h,00h,00h,00h,0B1h,00h,00h,00h
         db 00h,00h,00h,00h,012h,00h,00h,00h,093h,00h,00h,00h,00h,00h,00h,00h
         db 0EEh,0FFh,0FFh,0FFh,0B1h,00h,00h,00h,00h,00h,00h,00h,0EEh,0FFh,0FFh,0FFh
         db 06Dh,0FFh,0FFh,0FFh,00h,00h,00h,00h,012h,00h,00h,00h,04Fh,0FFh,0FFh,0FFh
         db 00h,00h,00h,00h,012h,00h,00h,00h,06Dh,0FFh,0FFh,0FFh,00h,00h,00h,00h
         db 0EEh,0FFh,0FFh,0FFh,04Fh,0FFh,0FFh,0FFh,00h,00h,00h,00h,0EEh,0FFh,0FFh,0FFh
-unk_16B144:
+RinkMarkingDefs:
         db 00h,00h,00h,00h,01h,00h,00h,00h,02h,00h,00h,00h,03h,00h,00h,00h
         db 04h,00h,00h,00h,05h,00h,00h,00h,06h,00h,00h,00h,07h,00h,00h,00h
-dword_16B164:
+RinkGeometryBuilt:
         db 00h,00h,00h,00h
-dword_16B168:
+ScoreboardOn:
         db 00h,00h,00h,00h
-unk_16B16C:
+NetArtDefs:
         db 00h,00h,00h,00h,01h,00h,00h,00h
-dword_16B174:
+OverlayFrame:
         db 00h,00h,00h,00h
 F32_2000_ScaleModelLods:
         db 00h,00h,0FAh,044h,00h,00h,096h,044h,00h,080h,0BBh,044h,00h,00h,07Ah,044h

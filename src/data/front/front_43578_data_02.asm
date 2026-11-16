@@ -4,30 +4,30 @@ bits 32
 section s_169780 progbits alloc noexec write align=1
 extern str_CentreArea, str_CentreIce, str_BlueLine, str_Point, str_OwnBlueLine, str_InFront, str_InFrontOfTheNet, str_OwnZone
 extern str_Corner, str_NeutralZone, str_Slot, str_Wing, str_BehindNet, str_BesideNet, str_OffensiveZone, str_WideOfNet
-extern str_Deep, str_Right, str_Left, str_PointBlank, str_NetExt, str_EndBoards, str_ERROR, unk_1692F8
-extern unk_169300, unk_169308, unk_16933C, unk_169370, unk_1693D0, unk_169488, unk_1694E8, unk_1695A0
-extern unk_169600, unk_169660, unk_1696C0, unk_169778
-global dword_1697B4, dword_1697B8, dword_169818, dword_16981C, dword_169820, dword_169844, off_169780, off_1697BC
-global off_169814, unk_169848, word_169824
-off_169780:
-        dd unk_1692F8
-        dd unk_169300
-        dd unk_169308
-        dd unk_16933C
-        dd unk_169370
-        dd unk_1693D0
-        dd unk_169488
-        dd unk_1694E8
-        dd unk_1695A0
-        dd unk_169600
-        dd unk_169660
-        dd unk_1696C0
-        dd unk_169778
-dword_1697B4:
+extern str_Deep, str_Right, str_Left, str_PointBlank, str_NetExt, str_EndBoards, str_ERROR, SpeechClipDefs
+extern SpeechClipDefs
+extern SpeechClipDefs
+global CommentaryLast, PlayerCallStart, PlayerCallClip, CommentaryCurrent, CommentaryPrev, BackgroundAudioOn, SpeechClipDefTable, SpeechTableNames
+global SpeechTableError, DataDirPath, PaNameRanges
+SpeechClipDefTable:
+        dd SpeechClipDefs+60h
+        dd SpeechClipDefs+68h
+        dd SpeechClipDefs+70h
+        dd SpeechClipDefs+0A4h
+        dd SpeechClipDefs+0D8h
+        dd SpeechClipDefs+138h
+        dd SpeechClipDefs+1F0h
+        dd SpeechClipDefs+250h
+        dd SpeechClipDefs+308h
+        dd SpeechClipDefs+368h
+        dd SpeechClipDefs+3C8h
+        dd SpeechClipDefs+428h
+        dd SpeechClipDefs+4E0h
+CommentaryLast:
         db 0FFh,0FFh,0FFh,0FFh
-dword_1697B8:
+PlayerCallStart:
         db 00h,00h,00h,00h
-off_1697BC:
+SpeechTableNames:
         dd str_CentreArea
         dd str_CentreIce
         dd str_BlueLine
@@ -50,20 +50,20 @@ off_1697BC:
         dd str_PointBlank
         dd str_NetExt
         dd str_EndBoards
-off_169814:
+SpeechTableError:
         dd str_ERROR
-dword_169818:
+PlayerCallClip:
         db 00h,00h,00h,00h
-dword_16981C:
+CommentaryCurrent:
         db 00h,00h,00h,00h
-dword_169820:
+CommentaryPrev:
         db 0FEh,0FFh,0FFh,0FFh
-word_169824:
+PaNameRanges:
         db 0Ah,01h,0Ch,01h,018h,03h,07h,04h,014h,04h,017h,07h,03h,08h,00h,0Bh
         db 017h,0Ch,0Dh,0Fh,0Eh,0Fh,011h,013h,09h,016h,0Fh,017h,0Fh,018h,00h,00h
-dword_169844:
+BackgroundAudioOn:
         db 00h,00h,00h,00h
-unk_169848:
+DataDirPath:
         db 02Eh,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,044h
         db 041h,054h,041h,00h,00h,00h,00h,00h,00h,00h,00h,00h,01h,00h,04Ch,041h
         db 04Eh,047h,055h,041h,047h,045h,00h,00h,00h,00h,00h,02h,00h,055h,053h,045h

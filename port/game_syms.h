@@ -36,7 +36,7 @@
 #define SYM_InputRecordHead    0x16D910u   /* data/front/front_DA66D_data_02.asm */
 #define SYM_InputRecordCount   0x16D914u   /* data/front/front_DA66D_data_02.asm */
 #define SYM_InputRecordStamp   0x16D91Cu   /* data/front/front_DA66D_data_02.asm */
-#define SYM_dword_16DA9C       0x16DA9Cu   /* data/front/front_DA66D_data_02.asm */
+#define SYM_LinkGameActive     0x16DA9Cu   /* data/front/front_DA66D_data_02.asm */
 #define SYM_tickcount          0x16E3F0u   /* data/lib/input/input_joystick_misc_01_data_01.asm */
 #define SYM_tickdeadline       0x16E42Cu   /* data/lib/input/input_joystick_misc_01_data_01.asm */
 #define SYM_mousex             0x16E44Cu   /* data/lib/input/input_joystick_misc_01_data_01.asm */

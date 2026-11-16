@@ -7,10 +7,10 @@ extern str_RIGH, str_BOTM4, str_BB00, str_BB04, str_BB08, str_AB004, str_AB034, 
 extern str_BarassoPIT199596, str_MASK0000FSH, str_FRNT2, str_BB02d, str_SS14, str_BB01, str_BB05, str_BB09
 extern str_AB024, str_AB014, str_AB054, str_AB044, str_MASK0002dFSH, str_SSS4, str_Scr1, str_Scr2
 extern str_Pal3, str_Bkgd, str_D2, str_Ring, str_EAC1, str_EAC2, str_QCRD, str_PAGESTACK
-extern byte_16D784, dword_16D754, dword_16D760, dword_16D764, dword_16D768, dword_16D76C, dword_16D770, dword_16D774
-extern dword_16D778, dword_16D77C, dword_16D780, MouseMoved, dword_1CCEB8, dword_1CCEBC, dword_1CCEE8, dword_1CCEEC
-extern dword_1CCEF0, dword_1CCEF8, dword_1CCEFC, dword_1CCF12, dword_1CCF16, dword_1CCF1E, dword_1CCF22, dword_1CD0F4
-extern dword_1CD0F8, dword_1CD0FE, dword_1CD102, dword_1CD106, dword_1CD10A, dword_1CD10E, fclose_, fgets_
+extern DbFlags, GoalieMaskSoundOn, CreditsLastLine, CreditsLastY, CreditsKeyTimer, CreditsKeyFlag, DbPageNext, DbPageStack
+extern DbPageEnd, DbPageBuffer, DbPageWanted, MouseMoved, GoalieMaskAnimKinds, GoalieMaskAnimFrames, CreditsScrollY, CreditsLine
+extern CreditsBitmap, GoalieMaskItems
+extern GoalieMaskItems, fclose_, fgets_
 extern fopen_, memcpy_, memset_, PresentFuncInput, rand_, sprintf_, sscanf_, str_CRD1
 extern str_CRD2, str_Nhll, str_Nhlp, str_Pl0, str_Pl1, strlen_, GetPaletteRange, BlitShape2
 extern BlitArt, BlitShape, PresentScreen, FindShape, OpenArtArchiveErr, SetGraphicsMode, IsKeyDown, ConvertArtXY
@@ -21,9 +21,9 @@ extern SetNormalText, DrawStatTable, DrawPortrait, ShowPopupScreen, InitMenuItem
 extern FreePtr, CopyBytesOk, CopyAndClear, ZeroBytesOk, CompareKeyBytes, FileCreate, FileOpen, FileSeek
 extern FileReadRecord, FileWriteRecord, FileClose, ServiceIdle, FreeVideoBuffer, AllocGfxFixBuffer, AllocMemBlock, FreeMemBlock
 extern KbdGetKey, KbdIdleCall, OpenResourceArchive, MakeColor, FreeBitmap, DrawShapeCore, DrawShapeAtOwnPos, DrawArt
-extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, tickcount, str_Rt_CreditsScreen, unk_1C5F4A, unk_1CC8B8
-extern unk_1CCBB8, unk_1CCF4A, unk_1CCF9C, unk_1CCFEE, unk_1CD040, unk_1CD092, unk_1CD138, unk_D4CB0
-global jpt_D5460, GoalieMaskScreen_715, GoalieMaskScreen_72B, GoalieMaskScreen_89F, GoalieMaskScreen_A13, GoalieMaskScreen_B89, GoalieMaskScreen_DBB, GoalieMaskScreen_FF0
+extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, tickcount, str_Rt_CreditsScreen, BlankMenuItem, FadePaletteBuffer
+extern IntroPalette, GoalieMaskItems, DbPageSlots, GoalieMaskList
+global GoalieMaskScreenJumpTable, GoalieMaskScreen_715, GoalieMaskScreen_72B, GoalieMaskScreen_89F, GoalieMaskScreen_A13, GoalieMaskScreen_B89, GoalieMaskScreen_DBB, GoalieMaskScreen_FF0
 global GoalieMaskIntro, GoalieMaskAnim, GoalieMaskScreen, FadePalette, FadeOut, RunIntroMovie, RunIntro, DrawCreditsPage
 global ScrollCredits, CreditsKeyPressed, PlayCreditsMusic, CreditsScreen, AllocPageStack, FreeDbPages, OldestDbPageSlot, ReadDbPage
 global WriteDbPage, GetDbPage, InitDbFileHeader, CreateDbFile, OpenDbFile, CloseDbFile, CopyIndexNode, FlushDbPage
@@ -521,28 +521,28 @@ GoalieMaskAnim:
         mov edi, 52h
         xor ebp, ebp
 .1:
-        mov edx, dword [dword edi+dword_1CCEFC]
+        mov edx, dword [dword edi+GoalieMaskItems+4]
         cmp edx, byte 1
         jne short .4
         mov ebx, edi
         mov ebp, edx
         xor esi, esi
 .2:
-        mov ecx, dword [dword esi+dword_1CCEB8]
-        cmp ecx, dword [dword ebx+dword_1CCF12]
+        mov ecx, dword [dword esi+GoalieMaskAnimKinds]
+        cmp ecx, dword [dword ebx+GoalieMaskItems+1Ah]
         jne short .3
         call rand_
         mov edx, eax
         mov ecx, 3
         sar edx, 1Fh
         idiv ecx
-        mov edx, dword [dword esi+edx*4+dword_1CCEBC]
-        mov eax, dword [dword ebx+dword_1CCF22]
-        mov dword [dword ebx+dword_1CCF16], edx
+        mov edx, dword [dword esi+edx*4+GoalieMaskAnimFrames]
+        mov eax, dword [dword ebx+GoalieMaskItems+2Ah]
+        mov dword [dword ebx+GoalieMaskItems+1Eh], edx
         push eax
-        mov edx, dword [dword ebx+dword_1CCF1E]
+        mov edx, dword [dword ebx+GoalieMaskItems+26h]
         push edx
-        mov ecx, dword [dword ebx+dword_1CCF16]
+        mov ecx, dword [dword ebx+GoalieMaskItems+1Eh]
         push ecx
         call BlitArt
         add esp, byte 0Ch
@@ -556,19 +556,19 @@ GoalieMaskAnim:
         jne short .1
         test ebp, ebp
         je short .5
-        cmp dword [dword_16D754], byte 0
+        cmp dword [GoalieMaskSoundOn], byte 0
         jne short .5
         mov edi, 1
         mov eax, 309h
-        mov dword [dword_16D754], edi
+        mov dword [GoalieMaskSoundOn], edi
         call PlaySfx
 .5:
         test ebp, ebp
         jne short .6
-        cmp dword [dword_16D754], byte 0
+        cmp dword [GoalieMaskSoundOn], byte 0
         je short .6
         xor eax, eax
-        mov dword [dword_16D754], eax
+        mov dword [GoalieMaskSoundOn], eax
         call StopAllSfx
 .6:
         pop ebp
@@ -578,7 +578,7 @@ GoalieMaskAnim:
         pop ecx
         pop ebx
         ret
-jpt_D5460:
+GoalieMaskScreenJumpTable:
         dd GoalieMaskScreen_715
         dd GoalieMaskScreen_72B
         dd GoalieMaskScreen_89F
@@ -603,7 +603,7 @@ GoalieMaskScreen:
         lea edi, [dword esp+0180h]
         mov eax, 3
         xor edx, edx
-        mov esi, unk_D4CB0
+        mov esi, GoalieMaskList
         mov dword [dword esp+0578h], edx
         mov word [dword esp+057Ch], dx
         rep movsd
@@ -899,7 +899,7 @@ GoalieMaskScreen:
         shl ebp, 4
         call FindShape
         add esp, byte 8
-        mov dword [dword ebp+esi*4+dword_1CCEB8], eax
+        mov dword [dword ebp+esi*4+GoalieMaskAnimKinds], eax
         cmp bx, byte 4
         jl short .2
         inc edi
@@ -984,7 +984,7 @@ GoalieMaskScreen:
         mov dword [dword esp+edi*4+03ECh], eax
         cmp si, byte 1Fh
         jl near .3
-        mov edx, dword_1CCEF8
+        mov edx, GoalieMaskItems
         mov eax, 7
         call InitMenuItems
         push str_RIGH
@@ -1002,7 +1002,7 @@ GoalieMaskScreen:
         mov esi, eax
         mov eax, edi
         push eax
-        mov edi, dword_1CCEF8
+        mov edi, GoalieMaskItems
         call FindShape
         add esp, byte 8
         mov edx, esi
@@ -1010,15 +1010,15 @@ GoalieMaskScreen:
         call DrawScreenBackground
         mov eax, esp
         mov ebx, str_BB00
-        mov esi, unk_1C5F4A
+        mov esi, BlankMenuItem
         xor edx, edx
         push eax
         rep movsd
         movsw
         push str_BB00
         mov ecx, str_BB01
-        mov eax, unk_1CCF4A
-        mov dword [dword_1CCEF8], edx
+        mov eax, GoalieMaskItems+52h
+        mov dword [GoalieMaskItems], edx
         mov edx, dword [dword esp+0574h]
         call DrawStatTable
         lea eax, [byte esp+040h]
@@ -1027,7 +1027,7 @@ GoalieMaskScreen:
         mov ebx, str_BB04
         push str_BB04
         mov edx, dword [dword esp+0574h]
-        mov eax, unk_1CCF9C
+        mov eax, GoalieMaskItems+0A4h
         call DrawStatTable
         lea eax, [dword esp+080h]
         push eax
@@ -1035,7 +1035,7 @@ GoalieMaskScreen:
         mov ebx, str_BB08
         push str_BB08
         mov edx, dword [dword esp+0574h]
-        mov eax, unk_1CCFEE
+        mov eax, GoalieMaskItems+0F6h
         call DrawStatTable
         lea eax, [dword esp+0C0h]
         push eax
@@ -1043,7 +1043,7 @@ GoalieMaskScreen:
         mov ebx, str_AB004
         push str_AB024
         mov edx, dword [dword esp+0568h]
-        mov eax, unk_1CD040
+        mov eax, GoalieMaskItems+148h
         call DrawStatTable
         lea eax, [dword esp+0100h]
         push eax
@@ -1051,23 +1051,23 @@ GoalieMaskScreen:
         mov ebx, str_AB034
         push str_AB054
         mov edx, dword [dword esp+0568h]
-        mov eax, unk_1CD092
+        mov eax, GoalieMaskItems+19Ah
         call DrawStatTable
         mov eax, dword [dword esp+0468h]
-        mov dword [dword_1CD0FE], eax
+        mov dword [GoalieMaskItems+206h], eax
         mov eax, dword [dword esp+03ECh]
-        mov dword [dword_1CD102], eax
-        mov dword [dword_1CD106], eax
+        mov dword [GoalieMaskItems+20Ah], eax
+        mov dword [GoalieMaskItems+20Eh], eax
         mov eax, dword [byte ebp+0Ah]
         sar eax, 10h
-        mov dword [dword_1CD10A], eax
+        mov dword [GoalieMaskItems+212h], eax
         mov eax, dword [byte ebp+0Ch]
         sar eax, 10h
         mov ebx, 4
-        mov dword [dword_1CD10E], eax
+        mov dword [GoalieMaskItems+216h], eax
         lea eax, [dword esp+0140h]
-        mov dword [dword_1CD0F4], ebx
-        mov dword [dword_1CD0F8], eax
+        mov dword [GoalieMaskItems+1FCh], ebx
+        mov dword [GoalieMaskItems+200h], eax
         mov eax, dword [byte ebp+04h]
         mov ecx, dword [byte ebp+02h]
         mov ebx, dword [byte ebp+0Ch]
@@ -1087,21 +1087,21 @@ GoalieMaskScreen:
         mov ecx, GoalieMaskAnim
         mov ebx, 0FFFFFFFFh
         push eax
-        mov edx, dword_1CCEF8
+        mov edx, GoalieMaskItems
         mov eax, 7
         call RunMenu
         mov edx, dword [dword esp+055Ch]
         cmp edx, byte 6
         ja near GoalieMaskScreen_FF0.13
         mov eax, edx
-        jmp dword [nosplit cs:eax*4+jpt_D5460]
+        jmp dword [nosplit cs:eax*4+GoalieMaskScreenJumpTable]
 GoalieMaskScreen_715:
         mov ecx, 1
         call FadeInScreen
         mov dword [dword esp+0578h], ecx
         jmp near GoalieMaskScreen_FF0.13
 GoalieMaskScreen_72B:
-        mov eax, unk_1CCF4A
+        mov eax, GoalieMaskItems+52h
         mov ebx, dword [dword esp+0568h]
         call ShowPopupScreen
         push ebx
@@ -1213,7 +1213,7 @@ GoalieMaskScreen_72B:
         add esp, byte 4
         jmp near GoalieMaskScreen_FF0.12
 GoalieMaskScreen_89F:
-        mov eax, unk_1CCF9C
+        mov eax, GoalieMaskItems+0A4h
         mov ecx, dword [dword esp+0568h]
         call ShowPopupScreen
         push ecx
@@ -1325,7 +1325,7 @@ GoalieMaskScreen_89F:
         add esp, byte 4
         jmp near GoalieMaskScreen_FF0.12
 GoalieMaskScreen_A13:
-        mov eax, unk_1CCFEE
+        mov eax, GoalieMaskItems+0F6h
         call ShowPopupScreen
         mov eax, dword [dword esp+0568h]
         push eax
@@ -1448,12 +1448,12 @@ GoalieMaskScreen_B89:
         mov ebx, dword [dword esp+057Ah]
         sar ebx, 10h
         mov edx, dword [dword esp+ebx*4+0468h]
-        mov dword [dword_1CD0FE], edx
+        mov dword [GoalieMaskItems+206h], edx
         mov ecx, dword [dword esp+0570h]
         mov edx, dword [dword esp+ebx*4+03ECh]
         push ecx
-        mov dword [dword_1CD102], edx
-        mov dword [dword_1CD106], edx
+        mov dword [GoalieMaskItems+20Ah], edx
+        mov dword [GoalieMaskItems+20Eh], edx
         call FreeMemBlock
         add esp, byte 4
         push ebx
@@ -1605,12 +1605,12 @@ GoalieMaskScreen_DBB:
         mov ebx, dword [dword esp+057Ah]
         sar ebx, 10h
         mov edx, dword [dword esp+ebx*4+0468h]
-        mov dword [dword_1CD0FE], edx
+        mov dword [GoalieMaskItems+206h], edx
         mov esi, dword [dword esp+0570h]
         mov edx, dword [dword esp+ebx*4+03ECh]
         push esi
-        mov dword [dword_1CD102], edx
-        mov dword [dword_1CD106], edx
+        mov dword [GoalieMaskItems+20Ah], edx
+        mov dword [GoalieMaskItems+20Eh], edx
         call FreeMemBlock
         add esp, byte 4
         push ebx
@@ -1779,12 +1779,12 @@ GoalieMaskScreen_FF0:
         mov edi, dword [dword esp+057Ah]
         sar edi, 10h
         mov edx, dword [dword esp+edi*4+0468h]
-        mov dword [dword_1CD0FE], edx
+        mov dword [GoalieMaskItems+206h], edx
         mov eax, dword [dword esp+0570h]
         mov edx, dword [dword esp+edi*4+03ECh]
         push eax
-        mov dword [dword_1CD102], edx
-        mov dword [dword_1CD106], edx
+        mov dword [GoalieMaskItems+20Ah], edx
+        mov dword [GoalieMaskItems+20Eh], edx
         call FreeMemBlock
         add esp, byte 4
         push edi
@@ -1993,11 +1993,11 @@ GoalieMaskScreen_FF0:
         push ecx
         push edx
         mov ebx, 300h
-        mov eax, unk_1CC8B8
+        mov eax, FadePaletteBuffer
         xor edx, edx
         call memset_
         call WaitRetraceEdges
-        push unk_1CC8B8
+        push FadePaletteBuffer
         push dword 100h
         push byte 0
         call CountFrameTick
@@ -2027,7 +2027,7 @@ FadePalette:
         test eax, eax
         jne short .2
         mov ebx, 300h
-        mov eax, unk_1CC8B8
+        mov eax, FadePaletteBuffer
         mov edx, edi
         call memcpy_
         push edi
@@ -2038,13 +2038,13 @@ FadePalette:
         jmp short .3
 .2:
         mov ebx, 300h
-        mov eax, unk_1CC8B8
+        mov eax, FadePaletteBuffer
         xor edx, edx
         call memset_
 .3:
         mov ebp, 1
 .4:
-        mov edx, unk_1CC8B8
+        mov edx, FadePaletteBuffer
         mov eax, edi
         xor ebx, ebx
         xor esi, esi
@@ -2119,7 +2119,7 @@ FadeOut:
         push ecx
         push edx
         mov ebx, eax
-        push unk_1CCBB8
+        push IntroPalette
         push dword 100h
         push byte 0
         call GetPaletteRange
@@ -2128,7 +2128,7 @@ FadeOut:
         jne short .1
         inc ebx
 .1:
-        mov edx, unk_1CCBB8
+        mov edx, IntroPalette
         mov eax, 1
         call FadePalette
         pop edx
@@ -2390,12 +2390,12 @@ RunIntro:
         call ServiceIdle
         jmp short .4
 .6:
-        push unk_1CCBB8
+        push IntroPalette
         push dword 100h
         push byte 0
         mov ebx, 1
         call GetPaletteRange
-        mov edx, unk_1CCBB8
+        mov edx, IntroPalette
         add esp, byte 0Ch
         mov eax, ebx
         mov edi, dword [byte esp+050h]
@@ -2560,10 +2560,10 @@ DrawCreditsPage:
         push byte 32h
         call CreateBitmap
         add esp, byte 0Ch
-        mov dword [dword_1CCEF0], eax
+        mov dword [CreditsBitmap], eax
         call SetScreenTarget
         push dword 0D7h
-        mov eax, dword [dword_1CCEF0]
+        mov eax, dword [CreditsBitmap]
         push dword 127h
         mov edx, dword [byte eax+02Ch]
         push edx
@@ -2572,8 +2572,8 @@ DrawCreditsPage:
         mov ebx, 140h
         call PresentScreen
         mov ecx, 0F0h
-        mov dword [dword_1CCEEC], ebx
-        mov dword [dword_1CCEE8], ecx
+        mov dword [CreditsLine], ebx
+        mov dword [CreditsScrollY], ecx
         pop ecx
         ret
         db 08Dh,040h,00h
@@ -2605,13 +2605,13 @@ ScrollCredits:
         jmp near .7
 .2:
         mov edx, dword [byte esp+010h]
-        mov ecx, dword [dword_1CCEEC]
+        mov ecx, dword [CreditsLine]
         sub edx, ecx
         imul edx, esi
         mov eax, edx
         sar edx, 1Fh
         idiv ebx
-        mov edi, dword [dword_1CCEE8]
+        mov edi, dword [CreditsScrollY]
         mov edx, dword [byte esp+014h]
         sub edx, edi
         imul edx, esi
@@ -2620,14 +2620,14 @@ ScrollCredits:
         sar edx, 1Fh
         idiv ebx
         add edi, eax
-        cmp ebp, dword [dword_16D760]
+        cmp ebp, dword [CreditsLastLine]
         jne short .3
-        cmp edi, dword [dword_16D764]
+        cmp edi, dword [CreditsLastY]
         je near .6
 .3:
         call SetScreenTarget
         mov edx, dword [byte esp+014h]
-        mov ecx, dword [dword_1CCEE8]
+        mov ecx, dword [CreditsScrollY]
         mov eax, dword [byte esp+018h]
         sub edx, ecx
         imul edx, eax
@@ -2637,7 +2637,7 @@ ScrollCredits:
         add eax, ecx
         mov edx, dword [byte esp+010h]
         sub eax, byte 19h
-        mov ecx, dword [dword_1CCEEC]
+        mov ecx, dword [CreditsLine]
         push eax
         sub edx, ecx
         mov eax, dword [byte esp+01Ch]
@@ -2648,7 +2648,7 @@ ScrollCredits:
         add eax, ecx
         sub eax, byte 19h
         push eax
-        mov eax, dword [dword_1CCEF0]
+        mov eax, dword [CreditsBitmap]
         mov ecx, dword [byte eax+02Ch]
         push ecx
         call BlitArt
@@ -2659,7 +2659,7 @@ ScrollCredits:
         lea eax, [byte ebp-019h]
         mov dword [byte esp+08h], eax
         push eax
-        mov eax, dword [dword_1CCEF0]
+        mov eax, dword [CreditsBitmap]
         mov ecx, dword [byte eax+02Ch]
         push ecx
         call ConvertArtXY
@@ -2682,8 +2682,8 @@ ScrollCredits:
         call ServiceIdle
         jmp short .4
 .5:
-        mov dword [dword_16D764], edi
-        mov dword [dword_16D760], ebp
+        mov dword [CreditsLastY], edi
+        mov dword [CreditsLastLine], ebp
 .6:
         mov ecx, dword [byte esp+018h]
         inc ecx
@@ -2693,8 +2693,8 @@ ScrollCredits:
         jle near .1
 .7:
         mov eax, dword [byte esp+08h]
-        mov dword [dword_1CCEE8], edi
-        mov dword [dword_1CCEEC], ebp
+        mov dword [CreditsScrollY], edi
+        mov dword [CreditsLine], ebp
         add esp, byte 1Ch
         pop ebp
         pop edi
@@ -2705,25 +2705,25 @@ ScrollCredits:
         push ecx
         push edx
         call SetScreenTarget
-        mov eax, dword [dword_1CCEE8]
+        mov eax, dword [CreditsScrollY]
         sub eax, byte 19h
         push eax
-        mov eax, dword [dword_1CCEEC]
+        mov eax, dword [CreditsLine]
         sub eax, byte 19h
         push eax
-        mov eax, dword [dword_1CCEF0]
+        mov eax, dword [CreditsBitmap]
         mov edx, dword [byte eax+02Ch]
         push edx
         call BlitArt
         add esp, byte 0Ch
         call PresentScreen
-        mov ebx, dword [dword_1CCEF0]
+        mov ebx, dword [CreditsBitmap]
         push ebx
         call FreeBitmap
         xor ecx, ecx
         add esp, byte 4
-        mov dword [dword_1CCEE8], ecx
-        mov dword [dword_1CCEEC], ecx
+        mov dword [CreditsScrollY], ecx
+        mov dword [CreditsLine], ecx
         pop edx
         pop ecx
         pop ebx
@@ -2761,18 +2761,18 @@ CreditsKeyPressed:
         cmp al, 78h
         jne short .4
         xor esi, esi
-        mov dword [dword_16D76C], esi
-        mov dword [dword_16D768], esi
+        mov dword [CreditsKeyFlag], esi
+        mov dword [CreditsKeyTimer], esi
         jmp short .5
 .4:
-        mov ecx, dword [dword_16D768]
+        mov ecx, dword [CreditsKeyTimer]
         and eax, 0FFh
         add ecx, eax
-        mov dword [dword_16D768], ecx
+        mov dword [CreditsKeyTimer], ecx
 .5:
-        cmp dword [dword_16D768], 2F2h
+        cmp dword [CreditsKeyTimer], 2F2h
         jne short .6
-        mov dword [dword_16D76C], 1
+        mov dword [CreditsKeyFlag], 1
 .6:
         mov eax, ebx
         pop esi
@@ -3049,10 +3049,10 @@ CreditsScreen:
         push byte 32h
         call CreateBitmap
         add esp, byte 0Ch
-        mov dword [dword_1CCEF0], eax
+        mov dword [CreditsBitmap], eax
         call SetScreenTarget
         push dword 0D7h
-        mov eax, dword [dword_1CCEF0]
+        mov eax, dword [CreditsBitmap]
         push dword 127h
         mov edx, dword [byte eax+02Ch]
         push edx
@@ -3062,8 +3062,8 @@ CreditsScreen:
         xor esi, esi
         call PresentScreen
         mov ecx, 0F0h
-        mov dword [dword_1CCEEC], ebx
-        mov dword [dword_1CCEE8], ecx
+        mov dword [CreditsLine], ebx
+        mov dword [CreditsScrollY], ecx
 .4:
         imul ebp, esi, dword 0A8h
         call SetScreenTarget
@@ -3127,28 +3127,28 @@ CreditsScreen:
         cmp esi, byte 1Ch
         jl near .4
         call SetScreenTarget
-        mov eax, dword [dword_1CCEE8]
+        mov eax, dword [CreditsScrollY]
         sub eax, byte 19h
         push eax
-        mov eax, dword [dword_1CCEEC]
+        mov eax, dword [CreditsLine]
         sub eax, byte 19h
         push eax
-        mov eax, dword [dword_1CCEF0]
+        mov eax, dword [CreditsBitmap]
         mov esi, dword [byte eax+02Ch]
         push esi
         call BlitArt
         add esp, byte 0Ch
         call PresentScreen
-        mov ebp, dword [dword_1CCEF0]
+        mov ebp, dword [CreditsBitmap]
         push ebp
         call FreeBitmap
         add esp, byte 4
         xor eax, eax
         xor ch, ch
         mov ebx, dword [dword esp+06B54h]
-        mov dword [dword_1CCEE8], eax
+        mov dword [CreditsScrollY], eax
         push ebx
-        mov dword [dword_1CCEEC], eax
+        mov dword [CreditsLine], eax
         mov byte [dword esp+06B7Ch], ch
         call SetDrawTarget
         add esp, byte 4
@@ -3173,10 +3173,10 @@ CreditsScreen:
         push byte 32h
         call CreateBitmap
         add esp, byte 0Ch
-        mov dword [dword_1CCEF0], eax
+        mov dword [CreditsBitmap], eax
         call SetScreenTarget
         push dword 0D7h
-        mov eax, dword [dword_1CCEF0]
+        mov eax, dword [CreditsBitmap]
         push dword 127h
         mov ebp, dword [byte eax+02Ch]
         push ebp
@@ -3187,32 +3187,32 @@ CreditsScreen:
         call PresentScreen
         mov eax, 140h
         mov edx, 0F0h
-        mov dword [dword_1CCEEC], eax
-        mov dword [dword_1CCEE8], edx
+        mov dword [CreditsLine], eax
+        mov dword [CreditsScrollY], edx
 .8:
         cmp byte [dword esp+06B78h], 0
         je near .11
 .9:
         call SetScreenTarget
-        mov eax, dword [dword_1CCEE8]
+        mov eax, dword [CreditsScrollY]
         sub eax, byte 19h
         push eax
-        mov eax, dword [dword_1CCEEC]
+        mov eax, dword [CreditsLine]
         sub eax, byte 19h
         push eax
-        mov eax, dword [dword_1CCEF0]
+        mov eax, dword [CreditsBitmap]
         mov ebx, dword [byte eax+02Ch]
         push ebx
         call BlitArt
         add esp, byte 0Ch
         call PresentScreen
-        mov ecx, dword [dword_1CCEF0]
+        mov ecx, dword [CreditsBitmap]
         push ecx
         xor esi, esi
         call FreeBitmap
         add esp, byte 4
-        mov dword [dword_1CCEE8], esi
-        mov dword [dword_1CCEEC], esi
+        mov dword [CreditsScrollY], esi
+        mov dword [CreditsLine], esi
         call SetHighlightText
         push str_CRD2
         mov ebp, dword [dword esp+06B5Ch]
@@ -3453,15 +3453,15 @@ AllocPageStack:
         push edx
         mov ebx, eax
         mov edx, 20h
-        mov eax, unk_1CD138
+        mov eax, DbPageSlots
         call ZeroBytesOk
         test ebx, ebx
         jge short .1
         xor ebx, ebx
 .1:
         add ebx, byte 16h
-        mov edx, dword [dword_16D774]
-        mov dword [dword_16D770], ebx
+        mov edx, dword [DbPageStack]
+        mov dword [DbPageNext], ebx
         test edx, edx
         jne near .4
         mov edx, ebx
@@ -3470,46 +3470,46 @@ AllocPageStack:
         shl edx, 2
         mov eax, str_PAGESTACK
         sub edx, ebx
-        mov ebx, dword_16D774
+        mov ebx, DbPageStack
         shl edx, 2
         call AllocClearBlock
         test eax, eax
         je near .5
-        mov ebx, dword [dword_16D770]
+        mov ebx, dword [DbPageNext]
         mov edx, ebx
         shl edx, 8
         add edx, ebx
         shl edx, 2
         sub edx, ebx
-        mov eax, dword [dword_16D774]
+        mov eax, dword [DbPageStack]
         shl edx, 2
         call ZeroBytesOk
-        mov ebx, dword [dword_16D770]
-        mov eax, dword [dword_16D774]
+        mov ebx, dword [DbPageNext]
+        mov eax, dword [DbPageStack]
         shl ebx, 0Ch
         add eax, ebx
-        mov dword [dword_16D77C], eax
-        mov eax, dword [dword_16D770]
-        mov ebx, dword [dword_16D77C]
+        mov dword [DbPageBuffer], eax
+        mov eax, dword [DbPageNext]
+        mov ebx, dword [DbPageBuffer]
         shl eax, 2
         add ebx, eax
         xor edx, edx
-        mov dword [dword_16D778], ebx
+        mov dword [DbPageEnd], ebx
         jmp short .3
 .2:
-        mov ecx, dword [dword_16D77C]
+        mov ecx, dword [DbPageBuffer]
         mov dword [ecx+eax*4], 0FFFFFFFFh
-        mov ebx, dword [dword_16D778]
+        mov ebx, dword [DbPageEnd]
         mov dword [ebx+eax*8], 0
-        mov ebx, dword [dword_16D778]
+        mov ebx, dword [DbPageEnd]
         inc edx
         mov dword [byte ebx+eax*8+04h], 0FFFFFFFFh
 .3:
-        mov ebx, dword [dword_16D770]
+        mov ebx, dword [DbPageNext]
         movsx eax, dx
         cmp eax, ebx
         jl short .2
-        or byte [byte_16D784], 1
+        or byte [DbFlags], 1
         mov eax, 1
         pop edx
         pop ecx
@@ -3529,14 +3529,14 @@ AllocPageStack:
 ;-----------------------------------------------------------------------------
 FreeDbPages:
         push edx
-        test byte [byte_16D784], 1
+        test byte [DbFlags], 1
         je short .1
-        mov eax, dword_16D774
+        mov eax, DbPageStack
         call FreePtr
-        mov dl, byte [byte_16D784]
+        mov dl, byte [DbFlags]
         and dl, 0FEh
         mov eax, 1
-        mov byte [byte_16D784], dl
+        mov byte [DbFlags], dl
         pop edx
         ret
 .1:
@@ -3550,7 +3550,7 @@ FreeDbPages:
         je short .2
         mov ebx, 20h
         mov edx, eax
-        mov eax, unk_1CD138
+        mov eax, DbPageSlots
         call CopyBytesOk
 .2:
         pop edx
@@ -3560,14 +3560,14 @@ FreeDbPages:
 ;-----------------------------------------------------------------------------
 ; OldestDbPageSlot                                D7BB0  97 PC, low confidence
 ; Database page cache: the slot to reuse (a free one, else the least recently
-; used by the counters at dword_16D77C)
+; used by the counters at DbPageBuffer)
 ;-----------------------------------------------------------------------------
 OldestDbPageSlot:
         push ebx
         push ecx
         push edx
         push esi
-        mov eax, dword [dword_16D77C]
+        mov eax, dword [DbPageBuffer]
         cmp dword [eax], byte 0FFFFFFFFh
         jne short .1
         xor eax, eax
@@ -3578,12 +3578,12 @@ OldestDbPageSlot:
         ret
 .1:
         mov eax, 1
-        mov ebx, dword [dword_16D770]
+        mov ebx, dword [DbPageNext]
         xor ecx, ecx
         cmp ebx, eax
         jle short .4
 .2:
-        mov ebx, dword [dword_16D77C]
+        mov ebx, dword [DbPageBuffer]
         lea edx, [nosplit eax*4+00h]
         lea esi, [nosplit ecx*4+00h]
         add edx, ebx
@@ -3594,9 +3594,9 @@ OldestDbPageSlot:
         mov ecx, eax
         cmp ebx, byte 0FFFFFFFFh
         jne short .3
-        mov eax, dword [dword_16D770]
+        mov eax, dword [DbPageNext]
 .3:
-        mov esi, dword [dword_16D770]
+        mov esi, dword [DbPageNext]
         inc eax
         cmp eax, esi
         jl short .2
@@ -3611,7 +3611,7 @@ OldestDbPageSlot:
 ;-----------------------------------------------------------------------------
 ; ReadDbPage                                   D7C14  97 PC, medium confidence
 ; Database page cache: (db, page, slot) seeks to page * 1000h and reads the
-; 1000h-byte page into cache slot (dword_16D774)
+; 1000h-byte page into cache slot (DbPageStack)
 ;-----------------------------------------------------------------------------
 ReadDbPage:
         push ecx
@@ -3619,7 +3619,7 @@ ReadDbPage:
         mov ecx, eax
         test ebx, ebx
         jl short .1
-        cmp ebx, dword [dword_16D770]
+        cmp ebx, dword [DbPageNext]
         jl short .2
 .1:
         xor eax, eax
@@ -3639,7 +3639,7 @@ ReadDbPage:
         pop ecx
         ret
 .4:
-        mov esi, dword [dword_16D774]
+        mov esi, dword [DbPageStack]
         shl edx, 0Ch
         mov eax, dword [ecx]
         shl ebx, 0Ch
@@ -3670,7 +3670,7 @@ WriteDbPage:
         mov ecx, eax
         test ebx, ebx
         jl short .1
-        cmp ebx, dword [dword_16D770]
+        cmp ebx, dword [DbPageNext]
         jl short .2
 .1:
         xor eax, eax
@@ -3690,7 +3690,7 @@ WriteDbPage:
         pop ecx
         ret
 .4:
-        mov esi, dword [dword_16D774]
+        mov esi, dword [DbPageStack]
         shl edx, 0Ch
         mov eax, dword [ecx]
         shl ebx, 0Ch
@@ -3713,7 +3713,7 @@ WriteDbPage:
 ;-----------------------------------------------------------------------------
 ; GetDbPage                                       D7CD4  97 PC, low confidence
 ; Database page cache: finds a db file's page in the cache slots
-; (dword_16D778) or reads it in (ReadDbPage), bumps its use counter, returns
+; (DbPageEnd) or reads it in (ReadDbPage), bumps its use counter, returns
 ; the slot
 ;-----------------------------------------------------------------------------
 GetDbPage:
@@ -3727,13 +3727,13 @@ GetDbPage:
         mov esi, edx
         mov dword [ebx], 0FFFFFFFFh
         mov eax, ebx
-        mov edx, dword [dword_16D770]
+        mov edx, dword [DbPageNext]
         sar esi, 3
         xor eax, ebx
         test edx, edx
         jle near .5
 .1:
-        mov edx, dword [dword_16D778]
+        mov edx, dword [DbPageEnd]
         lea edi, [nosplit eax*8+00h]
         add edx, edi
         mov ebx, dword [edx]
@@ -3746,13 +3746,13 @@ GetDbPage:
         jne short .4
         mov edx, dword [esp]
         mov dword [edx], eax
-        mov eax, dword [dword_16D77C]
+        mov eax, dword [DbPageBuffer]
         add ebp, eax
-        mov edx, dword [dword_16D780]
+        mov edx, dword [DbPageWanted]
         cmp edx, dword [byte ebp+00h]
         je short .3
         lea ebx, [byte edx+01h]
-        mov dword [dword_16D780], ebx
+        mov dword [DbPageWanted], ebx
         mov dword [byte ebp+00h], ebx
         jmp short .3
 .2:
@@ -3764,25 +3764,25 @@ GetDbPage:
         call ReadDbPage
         test eax, eax
         je near .8
-        mov eax, dword [dword_16D778]
+        mov eax, dword [DbPageEnd]
         mov dword [edi+eax], ecx
-        mov eax, dword [dword_16D778]
+        mov eax, dword [DbPageEnd]
         mov dword [byte edi+eax+04h], esi
-        mov edi, dword [dword_16D780]
-        mov eax, dword [dword_16D77C]
+        mov edi, dword [DbPageWanted]
+        mov eax, dword [DbPageBuffer]
         inc edi
         add ebp, eax
-        mov dword [dword_16D780], edi
+        mov dword [DbPageWanted], edi
         mov dword [byte ebp+00h], edi
 .3:
-        mov eax, dword [dword_16D770]
+        mov eax, dword [DbPageNext]
 .4:
-        mov ebx, dword [dword_16D770]
+        mov ebx, dword [DbPageNext]
         inc eax
         cmp eax, ebx
         jl near .1
 .5:
-        cmp eax, dword [dword_16D770]
+        cmp eax, dword [DbPageNext]
         jne short .6
         call OldestDbPageSlot
         mov edi, eax
@@ -3792,16 +3792,16 @@ GetDbPage:
         call ReadDbPage
         test eax, eax
         je short .8
-        mov edx, dword [dword_16D778]
+        mov edx, dword [DbPageEnd]
         mov dword [byte edx+edi*8+04h], esi
-        mov edx, dword [dword_16D778]
+        mov edx, dword [DbPageEnd]
         mov dword [edx+edi*8], ecx
-        mov eax, dword [dword_16D77C]
-        mov ebp, dword [dword_16D780]
+        mov eax, dword [DbPageBuffer]
+        mov ebp, dword [DbPageWanted]
         lea edx, [nosplit edi*4+00h]
         inc ebp
         add eax, edx
-        mov dword [dword_16D780], ebp
+        mov dword [DbPageWanted], ebp
         mov dword [eax], ebp
         mov eax, dword [esp]
         mov dword [eax], edi
@@ -3841,7 +3841,7 @@ InitDbFileHeader:
         mov word [dword ecx+01F3h], dx
         mov dword [edi], eax
         mov esi, dword [ebx]
-        mov eax, dword [dword_16D774]
+        mov eax, dword [DbPageStack]
         shl esi, 0Ch
         add esi, eax
         mov edx, 1000h
@@ -3870,7 +3870,7 @@ InitDbFileHeader:
         jmp short .3
 .1:
         mov edx, dword [esp]
-        mov eax, dword [dword_16D774]
+        mov eax, dword [DbPageStack]
         shl edx, 0Ch
         mov ebx, 1FEh
         add edx, eax
@@ -3929,7 +3929,7 @@ CreateDbFile:
         test eax, eax
         je near .7
         mov eax, dword [byte ebp+00h]
-        mov edx, dword [dword_16D774]
+        mov edx, dword [DbPageStack]
         shl eax, 0Ch
         add edx, eax
         xor eax, eax
@@ -3983,7 +3983,7 @@ CreateDbFile:
         test eax, eax
         je short .7
         mov eax, dword [esp]
-        mov edx, dword [dword_16D774]
+        mov edx, dword [DbPageStack]
         shl eax, 0Ch
         mov ebx, 1FEh
         add edx, eax
@@ -4060,7 +4060,7 @@ CreateDbFile:
         ret
 .9:
         mov eax, dword [byte esp+04h]
-        mov edx, dword [dword_16D774]
+        mov edx, dword [DbPageStack]
         shl eax, 0Ch
         add edx, eax
         or byte [dword edx+0FF0h], 1
@@ -4333,7 +4333,7 @@ FlushDbPage:
         test eax, eax
         je short .3
         mov edx, dword [esp]
-        mov eax, dword [dword_16D774]
+        mov eax, dword [DbPageStack]
         shl edx, 0Ch
         add edx, eax
         mov eax, dword [esi]
@@ -4564,7 +4564,7 @@ InsertKeyUp:
         test eax, eax
         je near .6
         mov edx, dword [byte esp+02Ch]
-        mov eax, dword [dword_16D774]
+        mov eax, dword [DbPageStack]
         shl edx, 0Ch
         add eax, edx
         mov dword [byte esp+014h], eax
@@ -4655,7 +4655,7 @@ InsertKeyUp:
         test eax, eax
         je near .6
         mov edx, dword [byte esp+018h]
-        mov eax, dword [dword_16D774]
+        mov eax, dword [DbPageStack]
         shl edx, 0Ch
         mov ebx, 1FEh
         add edx, eax
@@ -4858,7 +4858,7 @@ InsertKeyInNode:
         test eax, eax
         je near .4
         mov edx, dword [byte esp+018h]
-        mov eax, dword [dword_16D774]
+        mov eax, dword [DbPageStack]
         shl edx, 0Ch
         add eax, edx
         mov edx, ecx
@@ -5041,7 +5041,7 @@ AddIndexKey:
         test eax, eax
         je near .5
         mov edx, dword [byte esp+060h]
-        mov eax, dword [dword_16D774]
+        mov eax, dword [DbPageStack]
         shl edx, 0Ch
         mov ebx, 1FEh
         add edx, eax
@@ -5061,7 +5061,7 @@ AddIndexKey:
         test eax, eax
         je near .5
         mov eax, dword [byte esp+068h]
-        mov edx, dword [dword_16D774]
+        mov edx, dword [DbPageStack]
         shl eax, 0Ch
         add edx, eax
         mov dword [byte esp+070h], edx
@@ -5197,7 +5197,7 @@ MergeIndexNodes:
         ret 10h
 .4:
         mov edx, dword [byte esp+04h]
-        mov eax, dword [dword_16D774]
+        mov eax, dword [DbPageStack]
         shl edx, 0Ch
         lea ebx, [eax+edx]
         mov edx, dword [byte esp+08h]
@@ -5455,7 +5455,7 @@ MergeIndexNodes:
         ret 10h
 .18:
         mov eax, dword [esp]
-        mov edx, dword [dword_16D774]
+        mov edx, dword [DbPageStack]
         shl eax, 0Ch
         mov ebx, 1FEh
         add edx, eax
@@ -5948,7 +5948,7 @@ RemoveKeyFromNode:
         test eax, eax
         je near .2
         mov eax, dword [byte esp+030h]
-        mov edx, dword [dword_16D774]
+        mov edx, dword [DbPageStack]
         shl eax, 0Ch
         lea ecx, [edx+eax]
         mov edx, dword [byte esp+034h]
@@ -6012,7 +6012,7 @@ DeleteKeyFromNode:
         test eax, eax
         je near .10
         mov eax, dword [byte esp+048h]
-        mov edx, dword [dword_16D774]
+        mov edx, dword [DbPageStack]
         shl eax, 0Ch
         add edx, eax
         mov dword [byte esp+038h], edx
@@ -6094,7 +6094,7 @@ DeleteKeyFromNode:
         test eax, eax
         je near .10
         mov edx, dword [byte esp+03Ch]
-        mov eax, dword [dword_16D774]
+        mov eax, dword [DbPageStack]
         shl edx, 0Ch
         add eax, edx
         mov edx, ecx
@@ -6240,7 +6240,7 @@ DeleteIndexKey:
         test eax, eax
         je near .4
         mov edx, dword [byte esp+030h]
-        mov eax, dword [dword_16D774]
+        mov eax, dword [DbPageStack]
         shl edx, 0Ch
         add edx, eax
         xor eax, eax
@@ -6280,7 +6280,7 @@ DeleteIndexKey:
         test eax, eax
         je short .4
         mov edx, dword [byte esp+030h]
-        mov eax, dword [dword_16D774]
+        mov eax, dword [DbPageStack]
         shl edx, 0Ch
         mov ebx, 1FEh
         add edx, eax
@@ -6341,7 +6341,7 @@ SearchIndexNode:
         and ecx, byte 7
         imul ecx, dword 1FEh
         mov eax, dword [byte esp+04h]
-        mov ebx, dword [dword_16D774]
+        mov ebx, dword [DbPageStack]
         shl eax, 0Ch
         add eax, ebx
         add ecx, eax
@@ -6619,7 +6619,7 @@ LeftmostKey:
 .1:
         mov edx, dword [esp]
         mov ecx, dword [byte esp+018h]
-        mov eax, dword [dword_16D774]
+        mov eax, dword [DbPageStack]
         shl edx, 0Ch
         and ecx, byte 7
         add edx, eax
@@ -6688,7 +6688,7 @@ RightmostKey:
         jmp near .3
 .1:
         mov eax, dword [esp]
-        mov edx, dword [dword_16D774]
+        mov edx, dword [DbPageStack]
         shl eax, 0Ch
         lea ecx, [edx+eax]
         mov edx, dword [byte esp+018h]
@@ -6826,7 +6826,7 @@ PrevKeyInNode:
         jmp near .4
 .1:
         mov eax, dword [byte esp+04h]
-        mov edx, dword [dword_16D774]
+        mov edx, dword [DbPageStack]
         shl eax, 0Ch
         lea ecx, [edx+eax]
         mov edx, dword [byte esp+01Ch]
@@ -6931,7 +6931,7 @@ NextKeyInNode:
 .1:
         mov ecx, dword [byte esp+04h]
         mov edx, dword [byte esp+01Ch]
-        mov eax, dword [dword_16D774]
+        mov eax, dword [DbPageStack]
         shl ecx, 0Ch
         and edx, byte 7
         add ecx, eax
@@ -7042,7 +7042,7 @@ StepIndexKey:
         jmp near .9
 .1:
         mov edx, dword [esp]
-        mov eax, dword [dword_16D774]
+        mov eax, dword [DbPageStack]
         mov ebx, ecx
         shl edx, 0Ch
         and ebx, byte 7

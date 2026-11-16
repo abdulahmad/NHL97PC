@@ -4,7 +4,7 @@ bits 32
 section s_1301FF progbits alloc exec nowrite align=1
 extern _Extender, _ExtenderSubtype, _IsTable, __ExpandDGROUP_, __FDFS, __fatal_runtime_error_, __flush_, __set_doserrno_
 extern __set_errno_, __shutdown_stream_, _nfree_, _nmalloc_, _osmajor, ScanBitMasks, ShadeTable, __iob_flags
-extern HotkeyScanTable, HotkeyModTable, __HeapFlags, dword_16E318, ClipTopRow, ClipLeftCol, ClipRight, ScreenHeight
+extern HotkeyScanTable, HotkeyModTable, __HeapFlags, HeapList, ClipTopRow, ClipLeftCol, ClipRight, ScreenHeight
 extern DrawDestBuffer, DrawDestOffset, DosErrnoTable, __NHandles, __io_mode, SavedBreakOffset, BreakCallFunc, HotkeyNesting
 extern HotkeyFuncTable, TextOriginX, __OpenStreams, __ClosedStreams, ScaledRowBuffer, __freefp__39, memset_, __EFG_scanf
 extern str_NotEnoughMemoryTo, str_SaveText, bcopy, AddExitHandler, RestoreDS, SetBlitSource, CopyMappedSpan, BuildSpanOffsets
@@ -17,7 +17,7 @@ global _nexpand__10, __HeapManager_expand__18F, __HeapManager_expand__1F0, Clear
 global InitTextOutput, ClearNumLock, InstallBreakHandler, RemoveBreakHandler, DispatchHotkey, RegisterHotkey, RasterShapeTriangle, DrawShapeTriangleMapped
 global ScanGetChar, ScanUngetChar, ScanFormat, ScanParseSpec, ScanSkipSpace, ScanStoreCount, ScanChars, ScanStoreInt
 global ScanBuildCharSet, ScanCharSet, ScanFloatField, ScanIntegerField, HexDigitValue, ScanGetCharWidth, IntrLoadSegRegs, IntrLoadRegs
-global FillRectList, unk_1320FE, unlink_
+global FillRectList, IntrStubs, unlink_
 ;-----------------------------------------------------------------------------
 ; _nexpand_                                                    1301FF  library
 ;-----------------------------------------------------------------------------
@@ -31,7 +31,7 @@ _nexpand_:
         mov edi, edx
         and byte [byte esp+04h], 0FEh
 _nexpand__10:
-        mov eax, dword_16E318
+        mov eax, HeapList
         mov edx, ds
         mov ecx, esp
         xor eax, eax
@@ -88,10 +88,10 @@ __HeapManager_expand_:
         mov eax, dword [byte ebx+04h]
         mov edx, ds
         mov dword [byte esp+0Ch], eax
-        mov eax, dword_16E318
+        mov eax, HeapList
         cmp dx, word [esp]
         jne short .8
-        mov esi, dword [dword_16E318]
+        mov esi, dword [HeapList]
         jmp short .7
 .5:
         cmp esi, edi
@@ -174,14 +174,14 @@ __HeapManager_expand_:
         or dl, 1
         mov dword [ecx], ebx
         lea ebx, [ecx+eax]
-        mov eax, dword_16E318
+        mov eax, HeapList
         mov dword [byte esp+04h], ebx
         mov dword [ebx], edx
         mov edx, ds
         mov ebx, dword [esp]
         cmp dx, bx
         jne short .18
-        mov esi, dword [dword_16E318]
+        mov esi, dword [HeapList]
         jmp short .17
 .15:
         cmp esi, edi
@@ -3149,7 +3149,7 @@ __int386x_:
 ;-----------------------------------------------------------------------------
 IntrLoadSegRegs:
         lea esi, [esi+esi*2]
-        lea eax, [dword cs:esi+unk_1320FE]
+        lea eax, [dword cs:esi+IntrStubs]
         push eax
         mov es, word [ebx]
         mov bp, word [byte ebx+06h]
@@ -3207,7 +3207,7 @@ _DoINTR_:
 IntrLoadRegs:
         and eax, 0FFh
         lea eax, [eax+eax*2]
-        lea eax, [dword cs:eax+unk_1320FE]
+        lea eax, [dword cs:eax+IntrStubs]
         push eax
         mov ebx, edx
         push dword [byte ebx+01Ch]
@@ -3223,7 +3223,7 @@ IntrLoadRegs:
         mov ebx, dword [byte ebx+04h]
         pop ds
         ret
-unk_1320FE:
+IntrStubs:
         db 0CDh,00h
         ret
         db 0CDh,01h,0C3h,0CDh,02h,0C3h,0CCh,090h,0C3h,0CDh,04h,0C3h,0CDh,05h,0C3h,0CDh

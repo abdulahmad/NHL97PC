@@ -2,16 +2,40 @@
 bits 32
 %include "hockey.inc"
 section s_150000 progbits alloc noexec write align=1
-global byte_150000, byte_150004, byte_150008, byte_15000C, byte_150010, byte_150014
-byte_150000:
+global SbDmaPagePorts, SbDmaMaskPorts, SbDmaModePorts, SbDmaFlipFlopPorts, SbDmaAddressPorts, SbDmaCountPorts
+;-----------------------------------------------------------------------------
+; SbDmaPagePorts                                 150000  97 PC, low confidence
+; Sound Blaster 8237 DMA page register port for each channel 0-3
+;-----------------------------------------------------------------------------
+SbDmaPagePorts:
         db 087h,083h,081h,082h
-byte_150004:
+;-----------------------------------------------------------------------------
+; SbDmaMaskPorts                                 150004  97 PC, low confidence
+; Sound Blaster 8237 DMA single-channel mask register port for each channel
+;-----------------------------------------------------------------------------
+SbDmaMaskPorts:
         db 0Ah,0Ah,0Ah,0Ah
-byte_150008:
+;-----------------------------------------------------------------------------
+; SbDmaModePorts                                 150008  97 PC, low confidence
+; Sound Blaster 8237 DMA mode register port for each channel
+;-----------------------------------------------------------------------------
+SbDmaModePorts:
         db 0Bh,0Bh,0Bh,0Bh
-byte_15000C:
+;-----------------------------------------------------------------------------
+; SbDmaFlipFlopPorts                               15000C  97 PC, low confidence
+; 8237 DMA clear flip-flop register port for each channel
+;-----------------------------------------------------------------------------
+SbDmaFlipFlopPorts:
         db 0Ch,0Ch,0Ch,0Ch
-byte_150010:
+;-----------------------------------------------------------------------------
+; SbDmaAddressPorts                              150010  97 PC, low confidence
+; Sound Blaster 8237 DMA base address register port for each channel
+;-----------------------------------------------------------------------------
+SbDmaAddressPorts:
         db 00h,02h,04h,06h
-byte_150014:
+;-----------------------------------------------------------------------------
+; SbDmaCountPorts                                150014  97 PC, low confidence
+; Sound Blaster 8237 DMA count register port for each channel
+;-----------------------------------------------------------------------------
+SbDmaCountPorts:
         db 01h,03h,05h,07h

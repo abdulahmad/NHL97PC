@@ -6,14 +6,14 @@ extern str_DMABUFFER, str_DMABUFFER2, DacPortTable, DacPortBits, DacRateTable, G
 extern GusDriverIsOpen, GusDriverStreaming, GusDriverFound, GusDriverRunning, DacDriverBuffer, DacDriverRunning, GusStreamRefillB, UnpackSrcPtr
 extern UnpackDestPtr, UnpackCount, UnpackStackPtr, UnpackPairTable, ChannelSampleTable, PatlChannelParams, GusDriverCardMem, GusDriverDmaBuf
 extern DacTimerRate, DacBuffer, DacIrq, DacPort, DacTimerDivisor, DacBufPos, DacBufSize, DacState
-extern jpt_12C300_24, memset_, AdvanceStreamOffset, AudioNullFunc, StartTmplSample, PickSampleRate, ReadBlasterPort, AudioEnter
+extern PlayPatchNote_4E8, memset_, AdvanceStreamOffset, AudioNullFunc, StartTmplSample, PickSampleRate, ReadBlasterPort, AudioEnter
 extern AudioLeaveCheck, MixerInit, MixerFillBuffer, PlayPatchNote, StartChannel, MixNoise, UpdateChannels, SetChannelCount
 extern GusGetEnvConfig, GusProbePort, GusOpen, GusClose, GusMemAlloc, GusStopStream, GusStreamBusy, GusServiceStream
 extern GusStartStream, TimerCalibrate, TimerRestore, TimerSetRate, IrqAck, AllocMemData, FreeMemBlock, GusDriverConfig
 extern GusDriverBasePort
-global jpt_127FC0, PrepareBankSampleData_B3, PrepareBankSampleData_F0, PrepareBankSampleData_FD, PrepareBankSampleData_124, PrepareBankSampleData_1B0, ExpandBytePair, UnpackBytePairs
+global PrepareBankSampleDataJumpTable, PrepareBankSampleData_B3, PrepareBankSampleData_F0, PrepareBankSampleData_FD, PrepareBankSampleData_124, PrepareBankSampleData_1B0, ExpandBytePair, UnpackBytePairs
 global PrepareBankSampleData, LoadSampleHeader, PlayPatlSample, PlaySoundEntry, GusDetect, GusDriverStartStream, GusDriverCaps, GusDriverOpen
-global GusDriverClose, GusDriverUpdate, DacDriverCaps, DacDriverOpen, DacDriverClose, DacDriverUpdate, unk_128990, unk_1289A0
+global GusDriverClose, GusDriverUpdate, DacDriverCaps, DacDriverOpen, DacDriverClose, DacDriverUpdate, WssBasePortsBlaster, BlasterCodeList
 ;-----------------------------------------------------------------------------
 ; ExpandBytePair                                 127D70  97 PC, low confidence
 ; Expands one byte of byte-pair coded data through the pair tables
@@ -214,7 +214,7 @@ UnpackBytePairs:
         pop ebx
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-jpt_127FC0:
+PrepareBankSampleDataJumpTable:
         dd PrepareBankSampleData_B3
         dd PrepareBankSampleData_F0
         dd PrepareBankSampleData_FD
@@ -281,7 +281,7 @@ PrepareBankSampleData:
         mov dword [byte esp+0Ch], ecx
         cmp eax, byte 3
         ja near PrepareBankSampleData_124.6
-        jmp dword [nosplit cs:eax*4+jpt_127FC0]
+        jmp dword [nosplit cs:eax*4+PrepareBankSampleDataJumpTable]
 PrepareBankSampleData_B3:
         mov esi, dword [byte esp+0Ch]
         mov edi, dword [byte esp+04h]
@@ -497,7 +497,7 @@ LoadSampleHeader:
         cmp dword [eax], 6C544150h
         je near PrepareBankSampleData_1B0
         cmp word [eax], 5450h
-        je near jpt_12C300_24
+        je near PlayPatchNote_4E8
         mov eax, 0FFFFFFFFh
         ret
         db 08Dh,040h,00h
@@ -1192,9 +1192,9 @@ GusDriverUpdate:
         pop ecx
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-unk_128990:
+WssBasePortsBlaster:
         db 030h,05h,00h,00h,04h,06h,00h,00h,080h,0Eh,00h,00h,040h,0Fh,00h,00h
-unk_1289A0:
+BlasterCodeList:
         db 011h,00h,00h,00h,012h,00h,00h,00h,0FFh,0FFh,0FFh,0FFh,013h,00h,00h,00h
 ;-----------------------------------------------------------------------------
 ; DacDriverCaps                                  1289B0  97 PC, low confidence

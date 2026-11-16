@@ -8,7 +8,7 @@ extern FshExtension, ConvertPalette, ProjAspect, PaletteWords, exit_, BlitRowFun
 extern ArtRowFuncs16, sprintf_, strrchr_, LoadResourceFile, BytesPerPixelForDepth, PlotPixelRGB, FindCachedFile, BlitCore
 extern ShapeRowBytes, StoreBigEndian, Convert32To565Keyed, Convert32To555Keyed, SwapRedBlue555, Convert32To565, FindPaletteChunk, ExpandPalette6To8
 extern CopyPaletteRGB, AllocMemBlock, FreeMemBlock, MakeColor, IndexTo16Entries
-global _os_handle, jpt_1015B0, jpt_101980, PacketChecksum_90, FindShapeQuiet_2, BlendPixelMode_30, BlendPixelMode_54, BlendPixelMode_6E
+global _os_handle, BlendPixelModeJumpTable, BlendPixelsJumpTable, PacketChecksum_90, FindShapeQuiet_2, BlendPixelMode_30, BlendPixelMode_54, BlendPixelMode_6E
 global BlendPixelMode_94, BlendPixelMode_B9, BlendPixelMode_10C, BlendPixelMode_153, BlendPixelMode_1A6, BlendPixelMode_1BC, BlendPixelMode_204, BlendPixelMode_232
 global BlendPixelMode_27B, BlendPixelMode_2A1, BlendPixelMode_2F4, BlendPixelMode_33A, BlendPixelMode_38A, BlendPixels_14, BlendPixels_2D, BlendPixels_46
 global BlendPixels_6F, BlendPixels_81, BlendPixels_AC, BlendPixels_C4, BlendPixels_DB, DrawShapeBlended_1F4, bcopy, QueueFreeChain
@@ -1517,7 +1517,7 @@ OpenArtArchiveErr:
         pop ebx
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-jpt_1015B0:
+BlendPixelModeJumpTable:
         dd BlendPixelMode_38A
         dd BlendPixelMode_30
         dd BlendPixelMode_54
@@ -1551,7 +1551,7 @@ BlendPixelMode:
         add esi, edi
         cmp esi, byte 0Fh
         ja near BlendPixelMode_38A
-        jmp dword [nosplit cs:esi*4+jpt_1015B0]
+        jmp dword [nosplit cs:esi*4+BlendPixelModeJumpTable]
 BlendPixelMode_30:
         mov ebx, eax
         shr edx, 2
@@ -1851,7 +1851,7 @@ BlendPixelMode_38A:
         pop esi
         ret 8
         db 090h
-jpt_101980:
+BlendPixelsJumpTable:
         dd BlendPixels_DB
         dd BlendPixels_14
         dd BlendPixels_2D
@@ -1868,7 +1868,7 @@ BlendPixels:
         sar ebx, 0Dh
         cmp ebx, byte 7
         ja near BlendPixels_DB
-        jmp dword [nosplit cs:ebx*4+jpt_101980]
+        jmp dword [nosplit cs:ebx*4+BlendPixelsJumpTable]
 BlendPixels_14:
         mov ebx, eax
         shr ebx, 3

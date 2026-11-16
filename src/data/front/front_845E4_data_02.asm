@@ -3,72 +3,72 @@ bits 32
 %include "hockey.inc"
 section s_16CCC4 progbits alloc noexec write align=1
 extern str_Error
-global byte_16CCF0, dword_16CCC4, dword_16CCE8, dword_16CCEC, dword_16CCF1, dword_16CCFA, dword_16CCFE, dword_16CD02
-global dword_16CD08, dword_16CD0C, dword_16CD10, dword_16CD14, dword_16CD18, dword_16CD1C, dword_16CD24, dword_16CD28
-global dword_16CD2C, dword_16CD30, str_3_LoadLangText, dword_16CD40, dword_16CD4C, dword_16CD50, dword_16CD54, dword_16CD58
-global str_F_NewSeasonScreen, dword_16CD64, unk_16CCC8, word_16CCF8, word_16CD04, word_16CD20, word_16CD22
-dword_16CCC4:
+global FrontEndExit, MainMenuSelection, MainMenuFirstShow, MainMenuAnimStop, StatsMenuMode, ModemSettingsChanged, NetworkGameReady, MenuLinkWordPad
+global MenuMouseX, MenuMouseY, MenuMouseButtons, MenuStartSelection, MenuBitmapReady, MenuMouseMode, MenuInputDelay, MenuViewCallback
+global MenuRepeatTick, MenuLinkKey, str_3_LoadLangText, LangTextFiles, ErrorTextPtr, LangTextLoaded, LangTextHandle, LinkTransferReady
+global str_F_NewSeasonScreen, NewSeasonArtOffsets, MainMenuAnimName, ConnectRetry, MenuLinkActive, MenuViewSaved, MenuClipActive
+MainMenuSelection:
         db 0FFh,0FFh,0FFh,0FFh
-unk_16CCC8:
+MainMenuAnimName:
         db 00h,00h,00h,00h,00h,00h,00h,00h,096h,00h,00h,00h,028h,00h,00h,00h
         db 096h,00h,00h,00h,046h,00h,00h,00h,00h,00h,00h,00h,01Eh,00h,00h,00h
-dword_16CCE8:
+MainMenuFirstShow:
         db 01h,00h,00h,00h
-dword_16CCEC:
+MainMenuAnimStop:
         db 00h,00h,00h,00h
-byte_16CCF0:
+FrontEndExit:
         db 00h
-dword_16CCF1:
+StatsMenuMode:
         db 00h,00h,00h,00h,00h,00h,00h
-word_16CCF8:
+ConnectRetry:
         db 00h,00h
-dword_16CCFA:
+ModemSettingsChanged:
         db 00h,00h,00h,00h
-dword_16CCFE:
+NetworkGameReady:
         db 00h,00h,00h,00h
-dword_16CD02:
+MenuLinkWordPad:
         db 00h,00h
-word_16CD04:
+MenuLinkActive:
         db 00h,00h,00h,00h
-dword_16CD08:
+MenuMouseX:
         db 00h,00h,00h,00h
-dword_16CD0C:
+MenuMouseY:
         db 00h,00h,00h,00h
-dword_16CD10:
+MenuMouseButtons:
         db 00h,00h,00h,00h
-dword_16CD14:
+MenuStartSelection:
         db 0FFh,0FFh,0FFh,0FFh
-dword_16CD18:
+MenuBitmapReady:
         db 00h,00h,00h,00h
-dword_16CD1C:
+MenuMouseMode:
         db 00h,00h,00h,00h
-word_16CD20:
+MenuViewSaved:
         db 00h,00h
-word_16CD22:
+MenuClipActive:
         db 00h,00h
-dword_16CD24:
+MenuInputDelay:
         db 00h,00h,00h,00h
-dword_16CD28:
+MenuViewCallback:
         db 00h,00h,00h,00h
-dword_16CD2C:
+MenuRepeatTick:
         db 00h,00h,00h,00h
-dword_16CD30:
+MenuLinkKey:
         db 00h,00h,00h,00h
 str_3_LoadLangText:
         db 033h,00h,00h,00h,034h,00h,00h,00h,035h,00h,00h,00h
-dword_16CD40:
+LangTextFiles:
         db 0D6h,00h,00h,00h,0D7h,00h,00h,00h,0D8h,00h,00h,00h
-dword_16CD4C:
+ErrorTextPtr:
         dd str_Error
-dword_16CD50:
+LangTextLoaded:
         db 00h,00h,00h,00h
-dword_16CD54:
+LangTextHandle:
         db 00h,00h,00h,00h
-dword_16CD58:
+LinkTransferReady:
         db 00h,00h,00h,00h,00h,00h,00h,00h
 str_F_NewSeasonScreen:
         db 046h,00h,00h,00h
-dword_16CD64:
+NewSeasonArtOffsets:
         db 09Bh,00h,00h,00h,0A0h,00h,00h,00h,09Bh,00h,00h,00h,0FAh,00h,00h,00h
         db 09Bh,00h,00h,00h,046h,00h,00h,00h,0F5h,00h,00h,00h,0A0h,00h,00h,00h
         db 0F5h,00h,00h,00h,0FAh,00h,00h,00h,0F5h,00h,00h,00h,0A0h,00h,00h,00h

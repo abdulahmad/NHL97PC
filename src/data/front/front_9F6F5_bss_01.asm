@@ -2,37 +2,37 @@
 bits 32
 %include "hockey.inc"
 section s_1C8F58 nobits alloc noexec write align=1
-global dword_1C8F58, dword_1C8F5C, dword_1C8F62, dword_1C8F66, dword_1C8F6A, dword_1C8F6E, dword_1C8F72, dword_1C93C4
-global dword_1C93C8, dword_1C93CC, dword_1C93D4, dword_1C93D8, dword_1C93DC, dword_1C93E0, unk_1C8F9A, unk_1C93D0
-dword_1C8F58:
+global IndexDialogType, IndexDialogText, IndexDialogShape, IndexDialogFrame, IndexDialogBack, IndexDialogWidth, IndexDialogHeight, TransferOffset
+global TransferPackBuffer, TransferBuffer, IndexSoundPlayed, IndexDialogShapeMid, IndexDialogShapeEnd, IndexDialogShapeTop, IndexListBox, LinkMessageText
+IndexDialogType:
         resb 4
-dword_1C8F5C:
+IndexDialogText:
         resb 6
-dword_1C8F62:
+IndexDialogShape:
         resb 4
-dword_1C8F66:
+IndexDialogFrame:
         resb 4
-dword_1C8F6A:
+IndexDialogBack:
         resb 4
-dword_1C8F6E:
+IndexDialogWidth:
         resb 4
-dword_1C8F72:
+IndexDialogHeight:
         resb 40
-unk_1C8F9A:
+IndexListBox:
         resb 1066
-dword_1C93C4:
+TransferOffset:
         resb 4
-dword_1C93C8:
+TransferPackBuffer:
         resb 4
-dword_1C93CC:
+TransferBuffer:
         resb 4
-unk_1C93D0:
+LinkMessageText:
         resb 4
-dword_1C93D4:
+IndexSoundPlayed:
         resb 4
-dword_1C93D8:
+IndexDialogShapeMid:
         resb 4
-dword_1C93DC:
+IndexDialogShapeEnd:
         resb 4
-dword_1C93E0:
+IndexDialogShapeTop:
         resb 16

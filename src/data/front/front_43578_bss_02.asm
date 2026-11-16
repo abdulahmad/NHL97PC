@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_1C3526 nobits alloc noexec write align=1
-global byte_1C35E0, dword_1C3526
-dword_1C3526:
+global AwaySpeechLoaded, AwaySpeechNames
+AwaySpeechNames:
         resb 186
-byte_1C35E0:
+AwaySpeechLoaded:
         resb 77

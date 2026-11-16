@@ -2,180 +2,111 @@
 bits 32
 %include "hockey.inc"
 section s_1CBB94 nobits alloc noexec write align=1
-global dword_1CBB94, dword_1CBB98, dword_1CBBA4, dword_1CBBB4, dword_1CBBC4, dword_1CBBD4, dword_1CBBE4, dword_1CBBE8
-global dword_1CBBEC, dword_1CBBF0, dword_1CBBF4, dword_1CBC04, dword_1CBC14, dword_1CBC1C, dword_1CBC28, dword_1CBC2C
-global dword_1CBC32, dword_1CBC36, dword_1CBC3A, dword_1CBC3E, dword_1CBC42, dword_1CBC46, dword_1CBC7A, dword_1CBC7E
-global dword_1CBC84, dword_1CBC88, dword_1CBC8C, dword_1CBC90, dword_1CBC94, dword_1CBC98, dword_1CBCCC, dword_1CBCD0
-global dword_1CBCD6, dword_1CBCE2, dword_1CBCE6, dword_1CBD1E, dword_1CBD22, dword_1CBD28, dword_1CBD34, dword_1CBD38
-global dword_1CBD70, dword_1CBD74, dword_1CBD7A, dword_1CBD86, dword_1CBD8A, dword_1CBE14, dword_1CBE18, dword_1CBE1E
-global dword_1CBE2A, dword_1CBE2E, dword_1CBE66, dword_1CBE6A, dword_1CBE70, dword_1CBE7C, dword_1CBE80, dword_1CBEB8
-global dword_1CBEBC, dword_1CBEC2, dword_1CBECE, dword_1CBED2, dword_1CBF0A, dword_1CBF0E, dword_1CBF14, dword_1CBF20
-global dword_1CBF24, dword_1CBF5C, dword_1CBF60, dword_1CBF66, dword_1CBF72, dword_1CBF76, dword_1CBFAE, dword_1CBFB2
-global dword_1CC000, dword_1CC004, dword_1CC052, dword_1CC056, dword_1CC0A4, dword_1CC0A8, dword_1CC0F6, dword_1CC0FA
-global dword_1CC148, dword_1CC14C, unk_1CBC18
-dword_1CBB94:
+global SeasonSetupItemKinds, SeasonSetupItemArt, SeasonModeShapes, SeasonAutoShapes, SeasonLength50Shapes, SeasonLength10Shapes, SeasonLength20Shape, SeasonLeagueShape
+global SeasonLeagueShapeLit, SeasonLeagueShapeEnd, SeasonSetupNameShapes, SeasonInjuryShapes, SeasonSetupShapeFile
+
+
+
+
+
+
+
+
+global SeasonSetupItems
+SeasonSetupItemKinds:
         resb 4
-dword_1CBB98:
+SeasonSetupItemArt:
         resb 12
-dword_1CBBA4:
+SeasonModeShapes:
         resb 16
-dword_1CBBB4:
+SeasonAutoShapes:
         resb 16
-dword_1CBBC4:
+SeasonLength50Shapes:
         resb 16
-dword_1CBBD4:
+SeasonLength10Shapes:
         resb 16
-dword_1CBBE4:
+SeasonLength20Shape:
         resb 4
-dword_1CBBE8:
+SeasonLeagueShape:
         resb 4
-dword_1CBBEC:
+SeasonLeagueShapeLit:
         resb 4
-dword_1CBBF0:
+SeasonLeagueShapeEnd:
         resb 4
-dword_1CBBF4:
+SeasonSetupNameShapes:
         resb 16
-dword_1CBC04:
+SeasonInjuryShapes:
         resb 16
-dword_1CBC14:
+SeasonSetupShapeFile:
         resb 4
-unk_1CBC18:
+SeasonSetupItems:
         resb 4
-dword_1CBC1C:
         resb 12
-dword_1CBC28:
         resb 4
-dword_1CBC2C:
         resb 6
-dword_1CBC32:
         resb 4
-dword_1CBC36:
         resb 4
-dword_1CBC3A:
         resb 4
-dword_1CBC3E:
         resb 4
-dword_1CBC42:
         resb 4
-dword_1CBC46:
         resb 52
-dword_1CBC7A:
         resb 4
-dword_1CBC7E:
         resb 6
-dword_1CBC84:
         resb 4
-dword_1CBC88:
         resb 4
-dword_1CBC8C:
         resb 4
-dword_1CBC90:
         resb 4
-dword_1CBC94:
         resb 4
-dword_1CBC98:
         resb 52
-dword_1CBCCC:
         resb 4
-dword_1CBCD0:
         resb 6
-dword_1CBCD6:
         resb 12
-dword_1CBCE2:
         resb 4
-dword_1CBCE6:
         resb 56
-dword_1CBD1E:
         resb 4
-dword_1CBD22:
         resb 6
-dword_1CBD28:
         resb 12
-dword_1CBD34:
         resb 4
-dword_1CBD38:
         resb 56
-dword_1CBD70:
         resb 4
-dword_1CBD74:
         resb 6
-dword_1CBD7A:
         resb 12
-dword_1CBD86:
         resb 4
-dword_1CBD8A:
         resb 138
-dword_1CBE14:
         resb 4
-dword_1CBE18:
         resb 6
-dword_1CBE1E:
         resb 12
-dword_1CBE2A:
         resb 4
-dword_1CBE2E:
         resb 56
-dword_1CBE66:
         resb 4
-dword_1CBE6A:
         resb 6
-dword_1CBE70:
         resb 12
-dword_1CBE7C:
         resb 4
-dword_1CBE80:
         resb 56
-dword_1CBEB8:
         resb 4
-dword_1CBEBC:
         resb 6
-dword_1CBEC2:
         resb 12
-dword_1CBECE:
         resb 4
-dword_1CBED2:
         resb 56
-dword_1CBF0A:
         resb 4
-dword_1CBF0E:
         resb 6
-dword_1CBF14:
         resb 12
-dword_1CBF20:
         resb 4
-dword_1CBF24:
         resb 56
-dword_1CBF5C:
         resb 4
-dword_1CBF60:
         resb 6
-dword_1CBF66:
         resb 12
-dword_1CBF72:
         resb 4
-dword_1CBF76:
         resb 56
-dword_1CBFAE:
         resb 4
-dword_1CBFB2:
         resb 78
-dword_1CC000:
         resb 4
-dword_1CC004:
         resb 78
-dword_1CC052:
         resb 4
-dword_1CC056:
         resb 78
-dword_1CC0A4:
         resb 4
-dword_1CC0A8:
         resb 78
-dword_1CC0F6:
         resb 4
-dword_1CC0FA:
         resb 78
-dword_1CC148:
         resb 4
-dword_1CC14C:
         resb 64

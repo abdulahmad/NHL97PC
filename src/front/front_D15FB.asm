@@ -4,33 +4,33 @@ bits 32
 section s_D15FB progbits alloc exec nowrite align=1
 extern str_PANL2, str_TITL12, str_00009, str_03dLFSH, str_03dRFSH, str_GSTS, str_DD5, str_PSTS
 extern str_002dFSH, str_FRNT, str_FART4, str_NOFACEFSH4, str_PortraitNotFound, str_DSS3, str_Homestats, str_Awaystats
-extern str_ST02d, byte_1C3449, byte_1C344A, byte_1C344B, byte_1C3455, byte_1C3456, byte_1C347D, byte_1C556C
-extern byte_1C556D, byte_1C556E, byte_1C5578, byte_1C5579, byte_1C55A0, byte_1C6040, byte_1CC8B4, dword_16D6E8
-extern dword_16D6EC, dword_16D6F0, dword_16D6F4, dword_16D6F8, dword_16D6FC, dword_16D700, dword_16D704, dword_16D708
-extern dword_16D71C, dword_16D720, dword_16D724, dword_16D728, dword_16D73C, dword_16D740, dword_16D74C, dword_16D750
-extern GameSettings, GameOptionFlags, SeasonActive, dword_1C13FF, dword_1C309E, dword_1C3522, dword_1C51C1, dword_1CC2C8
-extern dword_1CC328, dword_1CC32C, dword_1CC330, dword_1CC334, dword_1CC338, dword_1CC33C, dword_1CC340, dword_1CC344
-extern dword_1CC348, dword_1CC34C, dword_1CC4B0, dword_1CC4B4, dword_1CC4B8, dword_1CC4BC, dword_1CC4C0, dword_1CC4C4
-extern dword_1CC4C8, dword_1CC4CC, dword_1CC5B0, dword_1CC5C8, dword_1CC5CC, dword_1CC5D0, dword_1CC5EC, dword_1CC5F0
-extern dword_1CC5F4, dword_1CC5F8, dword_1CC638, dword_1CC63C, dword_1CC640, dword_1CC644, dword_1CC648, dword_1CC64C
-extern dword_1CC650, dword_1CC654, dword_1CC658, dword_1CC65C, dword_1CC660, dword_1CC664, dword_1CC668, dword_1CC684
-extern dword_1CC688, dword_1CC6A4, dword_1CC6A8, dword_1CC6AC, dword_1CC6E8, dword_1CC6EC, dword_1CC6F8, dword_1CC6FC
-extern dword_1CC700, dword_1CC78C, dword_1CC790, dword_1CC794, dword_1CC798, dword_1CC79C, dword_1CC7A0, dword_1CC7A4
-extern dword_1CC7A8, dword_1CC7AC, dword_1CC7B0, dword_1CC7B4, dword_1CC7B8, dword_1CC7BC, dword_1CC7C0, dword_1CC7C4
-extern dword_1CC7C8, dword_1CC7CC, dword_1CC7D0, dword_1CC7D4, dword_1CC7D8, dword_1CC8A0, PreGameRostersScreen_B6A, PreGameRostersScreen_BA7
+extern str_ST02d, HomeGoalieIndex, HomeCenterIndex, HomeWingIndex, HomeDefenceIndex, HomeDefencePartner, HomeBackupGoalie, AwayGoalieIndex
+extern AwayCenterIndex, AwayWingIndex, AwayDefenceIndex, AwayDefencePartner, AwayBackupGoalie, FrontMusicOn, RostersSparkleCount, MatchupArt
+extern MatchupStatsX, MatchupStatsY, MatchupStatsWidth, MatchupPanelBottom, MatchupPanelRects
+extern MatchupPanelRects, MatchupLayout, MatchupLeftSide, RostersSparkleTick, RostersSparkleFrame
+extern GameSettings, GameOptionFlags, SeasonActive, HomePlayerRecords, HomeRosterData, AwayPlayerRecords, AwayRosterData, MatchupSparkleShapes
+extern MatchupPortraitShown, MatchupPlayerCount, MatchupRightRegions
+extern MatchupRightRegions, MatchupLeftRegion
+extern MatchupLeftRegion, MatchupPortraitLayers, MatchupStatsLayer
+extern MatchupStatsArt, MatchupPortraitDrawn, MatchupPlayers
+extern MatchupPlayers, MatchupPlayerLayers
+extern MatchupPlayerLayers, MatchupLeftSlots, MatchupRightSlots, MatchupRightSlotShape, MatchupRightSlotText, MatchupRightSlotArt
+extern MatchupArtBuffer, MatchupStatRows, MatchupHomeBar, MatchupAwayBar, MatchupBitmap, MatchupMusicOn, MatchupSparkleTick, MatchupHomeStats
+extern MatchupSparkleFrame, MatchupSparkleOn, MatchupSpeechDone, MatchupLastSpeech, MatchupHomeLine, MatchupLayer, MatchupAnimDone, MatchupHomeGoalie
+extern MatchupNoteBuffer, MatchupStatsFile, MatchupAwayStats, MatchupShapeFile, RostersShapeLists, RostersSparkleShapes, PreGameRostersScreen_B6A, PreGameRostersScreen_BA7
 extern PreGameRostersScreen_BB5, PreGameRostersScreen_BC3, memset_, rand_, sprintf_, strcpy_, BlitShape2, BlitArt
 extern BlitShape, PresentScreen, FindShape, FindShapeQuiet, OpenArtArchive, OpenArtArchiveErr, Random32, ConvertArtXY
 extern FindShapeList, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, PlayMenuSfx, PlaySfx
 extern PaEvent, LoadDataFile, OpenDataLibrary, LoadLogoNames, FreeTempArt, DrawScreenBackground, FadeInScreen, ShowScreen
 extern ExitScreen, SetTextColor, DrawTextAligned, WipeScreen, DrawPortrait, TintPortrait, InitMenuItems, RunMenu
 extern ReadTeamStats, ServiceIdle, AllocMemBlock, FreeMemBlock, OpenResourceArchive, MakeColor, FreeBitmap, DrawArt
-extern DrawShape, CreateBitmap, SetDrawTarget, ClearScreen, tickcount, str_D_DrawMatchupStats, unk_16D7FC, unk_16D804
-extern unk_1AD22E, unk_1AD236, unk_1AD73A, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, str_Xx00xx01xx02xx03xx10xx11xx12, str_G0LWC0RWLDRD
-extern word_1C340D, word_1C5530
-global jpt_D1917, jpt_D3102, LayoutMatchupLeft_1E9, PreGameMatchupScreen_4E0, PreGameMatchupScreen_4EC, PreGameMatchupScreen_516, PreGameMatchupScreen_522, PreGameMatchupScreen_658
+extern DrawShape, CreateBitmap, SetDrawTarget, ClearScreen, tickcount, str_D_DrawMatchupStats, PlayoffDbKey, SeasonDbKey
+extern SeasonFilePath, SeasonStatsPath, PlayoffStatsPath, ScreenTitleItem, BlankMenuItem, ScreenFrameItem, str_Xx00xx01xx02xx03xx10xx11xx12, str_G0LWC0RWLDRD
+extern HomeSlotRatings, AwaySlotRatings
+global PreGameMatchupScreenJumpTable, PreGameRostersScreenJumpTable, LayoutMatchupLeft_1E9, PreGameMatchupScreen_4E0, PreGameMatchupScreen_4EC, PreGameMatchupScreen_516, PreGameMatchupScreen_522, PreGameMatchupScreen_658
 global PreGameStatsPanel_4DF, PreGameStatsPanel_4E0, LayoutMatchupLeft, LayoutMatchupRight, PreGameMatchupScreen, DrawMatchupStats, DrawPlayerPortrait, DrawMatchupPlayer
 global PreGameStatsPanel, FreeMatchupScreen, ReadMatchupStats, MatchupBarLength, LoadMatchupArt, MatchupSparkle, AnimateMatchup, RostersSparkle
-global unk_D3057, unk_D305F, unk_D3067
+global MatchupNotesBlankRect, MatchupNotesBlankPos, MatchupNotesBlankSize
 ;-----------------------------------------------------------------------------
 ; LayoutMatchupLeft                               D15FB  97 PC, low confidence
 ; Lays out the left side of the matchup screen
@@ -50,18 +50,18 @@ LayoutMatchupLeft:
         cmp dword [SeasonActive], byte 0
         je short .2
 .1:
-        mov dword [dword_16D740], 0
-        mov dword [dword_16D73C], 3
+        mov dword [MatchupLeftSide], 0
+        mov dword [MatchupLayout], 3
         jmp short .4
 .2:
-        mov dword [dword_16D740], 0
-        mov dword [dword_16D73C], 2
+        mov dword [MatchupLeftSide], 0
+        mov dword [MatchupLayout], 2
         jmp short .4
 .3:
         cmp eax, byte 20h
         je short .1
-        mov dword [dword_16D740], 1
-        mov dword [dword_16D73C], 0
+        mov dword [MatchupLeftSide], 1
+        mov dword [MatchupLayout], 0
 .4:
         xor eax, eax
         mov dword [byte ebp-04h], eax
@@ -103,7 +103,7 @@ LayoutMatchupLeft:
 .8:
         mov eax, esi
         shl eax, 4
-        add eax, dword_1CC6A8
+        add eax, MatchupLeftSlots
         push eax
         mov eax, esi
         lea edx, [dword ebp-0104h]
@@ -116,51 +116,51 @@ LayoutMatchupLeft:
         add esp, byte 0Ch
         cmp esi, byte 4
         jl short .8
-        mov eax, dword [dword_16D73C]
+        mov eax, dword [MatchupLayout]
         shl eax, 4
-        mov eax, dword [dword eax+dword_1CC6A8]
+        mov eax, dword [dword eax+MatchupLeftSlots]
         movsx eax, word [byte eax+0Ch]
         mov dword [byte ebx+026h], eax
-        mov eax, dword [dword_16D73C]
+        mov eax, dword [MatchupLayout]
         shl eax, 4
-        mov eax, dword [dword eax+dword_1CC6A8]
+        mov eax, dword [dword eax+MatchupLeftSlots]
         movsx eax, word [byte eax+0Eh]
         mov dword [byte ebx+02Ah], eax
-        mov eax, dword [dword_16D73C]
+        mov eax, dword [MatchupLayout]
         shl eax, 4
-        mov eax, dword [dword eax+dword_1CC6A8]
+        mov eax, dword [dword eax+MatchupLeftSlots]
         mov dword [byte ebx+01Ah], eax
-        mov eax, dword [dword_16D73C]
+        mov eax, dword [MatchupLayout]
         shl eax, 4
-        mov eax, dword [dword eax+dword_1CC6AC]
+        mov eax, dword [dword eax+MatchupLeftSlots+4]
         mov dword [byte ebx+01Eh], eax
-        mov eax, dword [dword_16D73C]
+        mov eax, dword [MatchupLayout]
         shl eax, 4
-        mov eax, dword [dword eax+dword_1CC6A8]
+        mov eax, dword [dword eax+MatchupLeftSlots]
         mov dword [byte ebx+010h], 4
         mov dword [byte ebx+022h], eax
-        mov eax, dword [dword_16D73C]
+        mov eax, dword [MatchupLayout]
         shl eax, 4
-        mov eax, dword [dword eax+dword_1CC6A8]
+        mov eax, dword [dword eax+MatchupLeftSlots]
         movsx edx, word [byte eax+0Ch]
-        mov dword [dword_1CC4B0], edx
+        mov dword [MatchupLeftRegion], edx
         movsx edx, word [byte eax+0Eh]
-        mov dword [dword_1CC4B4], edx
-        mov esi, dword [dword_1CC4B0]
+        mov dword [MatchupLeftRegion+4], edx
+        mov esi, dword [MatchupLeftRegion]
         movsx edx, word [byte eax+04h]
         add edx, esi
-        mov dword [dword_1CC4B8], edx
-        mov edx, dword [dword_1CC4B4]
-        mov dword [dword_1CC4BC], edx
-        mov edx, dword [dword_1CC4B8]
-        mov dword [dword_1CC4C0], edx
+        mov dword [MatchupLeftRegion+8], edx
+        mov edx, dword [MatchupLeftRegion+4]
+        mov dword [MatchupLeftRegion+0Ch], edx
+        mov edx, dword [MatchupLeftRegion+8]
+        mov dword [MatchupLeftRegion+10h], edx
         movsx edx, word [byte eax+06h]
-        mov eax, dword [dword_1CC4B4]
+        mov eax, dword [MatchupLeftRegion+4]
         add eax, edx
-        mov dword [dword_1CC4C8], esi
-        mov dword [dword_1CC4C4], eax
-        mov dword [dword_1CC4CC], eax
-        mov dword [byte ebx+014h], dword_1CC4B0
+        mov dword [MatchupLeftRegion+18h], esi
+        mov dword [MatchupLeftRegion+14h], eax
+        mov dword [MatchupLeftRegion+1Ch], eax
+        mov dword [byte ebx+014h], MatchupLeftRegion
 LayoutMatchupLeft_1E9:
         leave
         pop edi
@@ -202,7 +202,7 @@ LayoutMatchupRight:
         cmp eax, byte 1Ch
         jl short .2
         imul ebx, esi, byte 1Ch
-        mov eax, dword_1CC6E8
+        mov eax, MatchupRightSlots
         add eax, ebx
         push eax
         lea eax, [byte ebp-030h]
@@ -211,49 +211,49 @@ LayoutMatchupRight:
         call FindShapeList
         imul edx, esi, byte 52h
         add edx, dword [byte ebp-038h]
-        mov eax, dword [dword ebx+dword_1CC6E8]
+        mov eax, dword [dword ebx+MatchupRightSlots]
         mov dword [byte edx+01Ah], eax
-        mov eax, dword [dword ebx+dword_1CC6EC]
+        mov eax, dword [dword ebx+MatchupRightSlotShape]
         mov dword [byte edx+01Eh], eax
-        mov eax, dword [dword ebx+dword_1CC6F8]
+        mov eax, dword [dword ebx+MatchupRightSlotText]
         mov dword [byte edx+022h], eax
-        mov eax, dword [dword ebx+dword_1CC6E8]
+        mov eax, dword [dword ebx+MatchupRightSlots]
         movsx eax, word [byte eax+0Ch]
         mov dword [byte edx+026h], eax
-        mov eax, dword [dword ebx+dword_1CC6E8]
+        mov eax, dword [dword ebx+MatchupRightSlots]
         movsx eax, word [byte eax+0Eh]
         mov dword [byte edx+010h], 4
         mov dword [byte edx+02Ah], eax
         mov eax, esi
-        mov ebx, dword [dword ebx+dword_1CC6E8]
+        mov ebx, dword [dword ebx+MatchupRightSlots]
         shl eax, 6
         movsx ecx, word [byte ebx+0Ch]
-        mov dword [dword eax+dword_1CC330], ecx
+        mov dword [dword eax+MatchupRightRegions], ecx
         movsx ecx, word [byte ebx+0Eh]
-        mov dword [dword eax+dword_1CC334], ecx
+        mov dword [dword eax+MatchupRightRegions+4], ecx
         movsx ecx, word [byte ebx+04h]
-        add ecx, dword [dword eax+dword_1CC330]
-        mov dword [dword eax+dword_1CC338], ecx
-        mov ecx, dword [dword eax+dword_1CC334]
-        mov dword [dword eax+dword_1CC33C], ecx
-        mov ecx, dword [dword eax+dword_1CC338]
-        mov dword [dword eax+dword_1CC340], ecx
+        add ecx, dword [dword eax+MatchupRightRegions]
+        mov dword [dword eax+MatchupRightRegions+8], ecx
+        mov ecx, dword [dword eax+MatchupRightRegions+4]
+        mov dword [dword eax+MatchupRightRegions+0Ch], ecx
+        mov ecx, dword [dword eax+MatchupRightRegions+8]
+        mov dword [dword eax+MatchupRightRegions+10h], ecx
         movsx ebx, word [byte ebx+06h]
-        add ebx, dword [dword eax+dword_1CC334]
-        mov dword [dword eax+dword_1CC344], ebx
-        mov ebx, dword [dword eax+dword_1CC330]
-        mov dword [dword eax+dword_1CC348], ebx
-        mov ebx, dword [dword eax+dword_1CC344]
+        add ebx, dword [dword eax+MatchupRightRegions+4]
+        mov dword [dword eax+MatchupRightRegions+14h], ebx
+        mov ebx, dword [dword eax+MatchupRightRegions]
+        mov dword [dword eax+MatchupRightRegions+18h], ebx
+        mov ebx, dword [dword eax+MatchupRightRegions+14h]
         add esp, byte 0Ch
-        mov dword [dword eax+dword_1CC34C], ebx
-        add eax, dword_1CC330
+        mov dword [dword eax+MatchupRightRegions+1Ch], ebx
+        add eax, MatchupRightRegions
         inc esi
         mov dword [byte edx+014h], eax
         cmp esi, byte 6
         jl near .1
-        mov dword [dword_1CC7C0], 0
+        mov dword [MatchupAnimDone], 0
         jmp near LayoutMatchupLeft_1E9
-jpt_D1917:
+PreGameMatchupScreenJumpTable:
         dd PreGameMatchupScreen_4E0
         dd PreGameMatchupScreen_4EC
         dd PreGameMatchupScreen_522
@@ -274,49 +274,49 @@ PreGameMatchupScreen:
         mov dword [byte ebp+07Eh], 0
         mov dword [byte ebp+076h], 0
         mov dword [byte ebp+072h], 0
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .1
         call FreeTempArt
         call MusicEnabled
 .1:
-        mov dword [dword_1CC79C], 0
+        mov dword [MatchupMusicOn], 0
         mov eax, 3
-        mov dword [dword_1CC7B0], 0
+        mov dword [MatchupSpeechDone], 0
         call SecondsToSamples
         call WaitSoundTime
         xor edx, edx
         mov eax, 22h
         call LoadDataFile
-        mov dword [dword_1CC7D4], eax
+        mov dword [MatchupShapeFile], eax
         mov eax, 3
         xor edx, edx
         call SecondsToSamples
         call WaitSoundTime
         mov eax, 23h
         call LoadDataFile
-        mov dword [dword_1CC7CC], eax
-        mov eax, dword [dword_1CC7D4]
+        mov dword [MatchupStatsFile], eax
+        mov eax, dword [MatchupShapeFile]
         lea edx, [dword ebp-02D2h]
         call LoadMatchupArt
         mov eax, 0Ah
         call InitMenuItems
         lea edx, [dword ebp-02D2h]
-        mov eax, dword [dword_1CC7CC]
+        mov eax, dword [MatchupStatsFile]
         call LayoutMatchupRight
         lea edx, [dword ebp-0E6h]
-        mov eax, dword [dword_1CC7CC]
+        mov eax, dword [MatchupStatsFile]
         call LayoutMatchupLeft
         push str_TITL12
-        push dword [dword_1CC7CC]
+        push dword [MatchupStatsFile]
         call FindShape
         add esp, byte 8
         push str_PANL2
-        push dword [dword_1CC7D4]
+        push dword [MatchupShapeFile]
         mov ebx, eax
         call FindShape
         add esp, byte 8
         push str_PANL2
-        push dword [dword_1CC7D4]
+        push dword [MatchupShapeFile]
         mov esi, eax
         call FindShape
         add esp, byte 8
@@ -324,35 +324,35 @@ PreGameMatchupScreen:
         call DrawScreenBackground
         mov ecx, 52h
         lea edi, [dword ebp-094h]
-        mov esi, unk_1C5EF8
+        mov esi, ScreenTitleItem
         rep movsb
         mov ecx, 52h
         lea edi, [byte ebp-042h]
-        mov esi, unk_1C5F4A
+        mov esi, BlankMenuItem
         mov dword [dword ebp-094h], 7
         lea eax, [dword ebp-02D2h]
         rep movsb
         push byte 0
         mov ecx, 52h
         lea edi, [byte ebp+010h]
-        mov esi, unk_1C5F9C
+        mov esi, ScreenFrameItem
         mov dword [byte ebp-042h], 8
         push dword 1E0h
         rep movsb
         push dword 280h
         mov dword [byte ebp+010h], 9
-        mov dword [dword_1CC798], eax
+        mov dword [MatchupBitmap], eax
         call CreateBitmap
         add esp, byte 0Ch
         push eax
-        mov dword [dword_1CC7BC], eax
+        mov dword [MatchupLayer], eax
         call SetDrawTarget
         add esp, byte 4
         push byte 0
         call ClearScreen
         add esp, byte 4
         push str_00009
-        push dword [dword_1CC7D4]
+        push dword [MatchupShapeFile]
         call FindShape
         add esp, byte 8
         movsx edx, word [byte eax+0Eh]
@@ -363,7 +363,7 @@ PreGameMatchupScreen:
         call DrawArt
         add esp, byte 0Ch
         push str_PANL2
-        push dword [dword_1CC7D4]
+        push dword [MatchupShapeFile]
         call FindShape
         add esp, byte 8
         movsx edx, word [byte eax+0Eh]
@@ -374,7 +374,7 @@ PreGameMatchupScreen:
         call DrawArt
         add esp, byte 0Ch
         push str_TITL12
-        push dword [dword_1CC7CC]
+        push dword [MatchupStatsFile]
         call FindShape
         add esp, byte 8
         movsx edx, word [byte eax+0Eh]
@@ -451,8 +451,8 @@ PreGameMatchupScreen:
         add esp, byte 0Ch
         push ebx
         call FreeMemBlock
-        mov dword [dword_1CC7C8], 0
-        mov eax, dword [dword_1CC700]
+        mov dword [MatchupNoteBuffer], 0
+        mov eax, dword [MatchupArtBuffer]
         add esp, byte 4
         xor ebx, ebx
         mov dword [dword ebp-02B0h], eax
@@ -475,11 +475,11 @@ PreGameMatchupScreen:
         call MakeColor
         add esp, byte 4
         call SetTextColor
-        mov eax, dword [dword_1CC7BC]
+        mov eax, dword [MatchupLayer]
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte eax+02Ch]
         call WipeScreen
-        push dword [dword_1CC7BC]
+        push dword [MatchupLayer]
         call FreeBitmap
         add esp, byte 4
         call PreGameStatsPanel
@@ -488,37 +488,37 @@ PreGameMatchupScreen:
         call PaEvent
         add esp, byte 4
         xor edx, edx
-        mov eax, dword [dword_1CC7C8]
+        mov eax, dword [MatchupNoteBuffer]
 .4:
         call DrawMatchupPlayer
         jmp near PreGameMatchupScreen_522.16
 .5:
         cmp dword [byte ebp+072h], byte 5
         ja near .9
-        mov eax, dword [dword_1CC7C8]
+        mov eax, dword [MatchupNoteBuffer]
         cmp eax, dword [byte ebp+072h]
         je near PreGameMatchupScreen_522.16
         imul ebx, eax, byte 1Ch
         imul eax, byte 52h
-        mov edx, dword [dword ebx+dword_1CC6E8]
+        mov edx, dword [dword ebx+MatchupRightSlots]
         mov dword [dword eax+ebp-02B8h], edx
-        imul ebx, dword [dword_1CC7C8], byte 1Ch
-        imul eax, dword [dword_1CC7C8], byte 52h
-        mov edx, dword [dword ebx+dword_1CC6EC]
+        imul ebx, dword [MatchupNoteBuffer], byte 1Ch
+        imul eax, dword [MatchupNoteBuffer], byte 52h
+        mov edx, dword [dword ebx+MatchupRightSlotShape]
         mov dword [dword eax+ebp-02B4h], edx
-        imul ebx, dword [dword_1CC7C8], byte 1Ch
-        imul eax, dword [dword_1CC7C8], byte 52h
-        mov edx, dword [dword ebx+dword_1CC6F8]
+        imul ebx, dword [MatchupNoteBuffer], byte 1Ch
+        imul eax, dword [MatchupNoteBuffer], byte 52h
+        mov edx, dword [dword ebx+MatchupRightSlotText]
         mov dword [dword eax+ebp-02B0h], edx
         call SetScreenTarget
-        imul eax, dword [dword_1CC7C8], byte 52h
+        imul eax, dword [MatchupNoteBuffer], byte 52h
         push dword [dword eax+ebp-02B8h]
         call BlitShape
         add esp, byte 4
         call PresentScreen
         imul ebx, dword [byte ebp+072h], byte 1Ch
         imul eax, dword [byte ebp+072h], byte 52h
-        mov edx, dword [dword ebx+dword_1CC700]
+        mov edx, dword [dword ebx+MatchupArtBuffer]
         mov dword [dword eax+ebp-02B0h], edx
         mov dword [dword eax+ebp-02B4h], edx
         xor ebx, ebx
@@ -526,23 +526,23 @@ PreGameMatchupScreen:
 .6:
         mov eax, dword [tickcount]
         add eax, byte 9
-        mov dword [dword_1CC7C0], eax
+        mov dword [MatchupAnimDone], eax
         call SetScreenTarget
         imul edx, dword [byte ebp+072h], byte 1Ch
         mov eax, ebx
-        push dword [dword edx+eax*4+dword_1CC6FC]
+        push dword [dword edx+eax*4+MatchupRightSlotArt]
         call BlitShape
-        imul edx, dword [dword_1CC7C8], byte 1Ch
+        imul edx, dword [MatchupNoteBuffer], byte 1Ch
         mov eax, 5
         add esp, byte 4
         sub eax, ebx
-        push dword [dword edx+eax*4+dword_1CC6E8]
+        push dword [dword edx+eax*4+MatchupRightSlots]
         call BlitShape
         add esp, byte 4
         call PresentScreen
 .7:
         mov eax, dword [tickcount]
-        cmp eax, dword [dword_1CC7C0]
+        cmp eax, dword [MatchupAnimDone]
         jge short .8
         call SetScreenTarget
         call MatchupSparkle
@@ -554,7 +554,7 @@ PreGameMatchupScreen:
         cmp ebx, byte 2
         jl short .6
         call SetScreenTarget
-        imul eax, dword [dword_1CC7C8], byte 52h
+        imul eax, dword [MatchupNoteBuffer], byte 52h
         push dword [dword eax+ebp-02B8h]
         call BlitShape
         add esp, byte 4
@@ -562,46 +562,46 @@ PreGameMatchupScreen:
         call PresentScreen
         mov eax, dword [byte ebp+072h]
         xor edx, edx
-        mov dword [dword_1CC7C8], eax
+        mov dword [MatchupNoteBuffer], eax
         jmp near .4
 .9:
-        mov eax, dword [dword_16D740]
-        mov dword [dword_16D73C], eax
+        mov eax, dword [MatchupLeftSide]
+        mov dword [MatchupLayout], eax
         cmp eax, byte 3
         ja short PreGameMatchupScreen_522.12
-        jmp dword [nosplit cs:eax*4+jpt_D1917]
+        jmp dword [nosplit cs:eax*4+PreGameMatchupScreenJumpTable]
 PreGameMatchupScreen_4E0:
-        mov dword [dword_16D740], 1
+        mov dword [MatchupLeftSide], 1
         jmp short PreGameMatchupScreen_522.13
 PreGameMatchupScreen_4EC:
         mov eax, dword [GameSettings]
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .10
-        mov dword [dword_16D740], 2
+        mov dword [MatchupLeftSide], 2
         jmp short PreGameMatchupScreen_522.13
 .10:
         cmp eax, byte 20h
         jne short PreGameMatchupScreen_516
 .11:
-        mov dword [dword_16D740], 3
+        mov dword [MatchupLeftSide], 3
         jmp short PreGameMatchupScreen_522.13
 PreGameMatchupScreen_516:
-        mov dword [dword_16D740], 0
+        mov dword [MatchupLeftSide], 0
         jmp short PreGameMatchupScreen_522.13
 PreGameMatchupScreen_522:
         cmp dword [SeasonActive], byte 0
         jne short PreGameMatchupScreen_4EC.11
         jmp short PreGameMatchupScreen_516
 .12:
-        mov dword [dword_16D740], 1
-        mov dword [dword_16D73C], 0
+        mov dword [MatchupLeftSide], 1
+        mov dword [MatchupLayout], 0
 .13:
-        mov ebx, dword [dword_16D73C]
+        mov ebx, dword [MatchupLayout]
         shl ebx, 4
-        mov eax, dword [dword ebx+dword_1CC6A8]
+        mov eax, dword [dword ebx+MatchupLeftSlots]
         mov dword [dword ebp-0CCh], eax
-        mov eax, dword [dword ebx+dword_1CC6AC]
+        mov eax, dword [dword ebx+MatchupLeftSlots+4]
         mov dword [dword ebp-0C8h], eax
         mov eax, dword [dword ebp-0CCh]
         mov dword [dword ebp-0C4h], eax
@@ -611,7 +611,7 @@ PreGameMatchupScreen_522:
         add esp, byte 4
         mov ebx, 4
         call PresentScreen
-        mov eax, dword [dword_1CC7C8]
+        mov eax, dword [MatchupNoteBuffer]
         xor edx, edx
         jmp near PreGameMatchupScreen.4
 .14:
@@ -655,15 +655,15 @@ PreGameMatchupScreen_522:
         call OpenResourceArchive
         add esp, byte 4
         call FreeMatchupScreen
-        push dword [dword_1CC7CC]
+        push dword [MatchupStatsFile]
         call FreeMemBlock
         add esp, byte 4
-        push dword [dword_1CC7D4]
+        push dword [MatchupShapeFile]
         call FreeMemBlock
         add esp, byte 4
         cmp dword [byte ebp+076h], byte 0
         je short .20
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .20
         call LoadLogoNames
         call LoadFrontEndSfx
@@ -685,44 +685,44 @@ DrawMatchupStats:
         push edi
         enter 8Ch, 0
         sub ebp, 82h
-        imul edx, dword [dword_16D73C], byte 6
+        imul edx, dword [MatchupLayout], byte 6
         add edx, eax
         imul edx, byte 3Dh
         mov ecx, 3Dh
-        mov esi, dword [dword_1CC7D0]
+        mov esi, dword [MatchupAwayStats]
         lea edi, [byte ebp+036h]
         add esi, edx
         rep movsb
         mov ecx, 3Dh
-        mov esi, dword [dword_1CC7A4]
+        mov esi, dword [MatchupHomeStats]
         lea edi, [byte ebp-0Ah]
         add esi, edx
         rep movsb
         test eax, eax
         jne near .5
-        push dword [dword_1CC5F0]
+        push dword [MatchupStatsLayer]
         call SetDrawTarget
         add esp, byte 4
         push str_GSTS
-        push dword [dword_1CC7CC]
+        push dword [MatchupStatsFile]
         call FindShape
         add esp, byte 8
         push byte 0
         mov ebx, eax
-        mov eax, dword [dword_1CC5F4]
+        mov eax, dword [MatchupStatsArt]
         push byte 0
         push dword [byte eax+02Ch]
         call BlitArt
         movsx eax, word [byte ebx+0Eh]
         add esp, byte 0Ch
-        sub eax, dword [dword_16D6F0]
+        sub eax, dword [MatchupStatsY]
         push eax
         movsx eax, word [byte ebx+0Ch]
-        sub eax, dword [dword_16D6EC]
+        sub eax, dword [MatchupStatsX]
         push eax
         push ebx
         call BlitArt
-        mov eax, dword [dword_1CC5F0]
+        mov eax, dword [MatchupStatsLayer]
         mov eax, dword [byte eax+02Ch]
         movsx eax, word [byte eax+06h]
         add eax, byte 0Ah
@@ -798,7 +798,7 @@ DrawMatchupStats:
         movsx eax, word [byte ebp+0Eh]
         push eax
         push str_D_DrawMatchupStats
-        mov esi, dword [dword_16D6F4]
+        mov esi, dword [MatchupStatsWidth]
         push byte 0
         sub esi, byte 1Ah
         push esi
@@ -858,29 +858,29 @@ DrawMatchupStats:
         push ebx
         jmp near .6
 .5:
-        push dword [dword_1CC5F0]
+        push dword [MatchupStatsLayer]
         call SetDrawTarget
         add esp, byte 4
         push str_PSTS
-        push dword [dword_1CC7CC]
+        push dword [MatchupStatsFile]
         call FindShape
         add esp, byte 8
         push byte 0
         mov ebx, eax
-        mov eax, dword [dword_1CC5F4]
+        mov eax, dword [MatchupStatsArt]
         push byte 0
         push dword [byte eax+02Ch]
         call BlitArt
         movsx eax, word [byte ebx+0Eh]
         add esp, byte 0Ch
-        sub eax, dword [dword_16D6F0]
+        sub eax, dword [MatchupStatsY]
         push eax
         movsx eax, word [byte ebx+0Ch]
-        sub eax, dword [dword_16D6EC]
+        sub eax, dword [MatchupStatsX]
         push eax
         push ebx
         call BlitArt
-        mov eax, dword [dword_1CC5F0]
+        mov eax, dword [MatchupStatsLayer]
         mov eax, dword [byte eax+02Ch]
         movsx eax, word [byte eax+06h]
         add eax, byte 0Ah
@@ -940,7 +940,7 @@ DrawMatchupStats:
         movsx eax, word [byte ebp+0Eh]
         push eax
         push str_D_DrawMatchupStats
-        mov esi, dword [dword_16D6F4]
+        mov esi, dword [MatchupStatsWidth]
         push byte 0
         sub esi, byte 1Ah
         push esi
@@ -1000,20 +1000,20 @@ DrawPlayerPortrait:
         shl eax, 2
         add ebx, eax
         mov dword [byte ebp-04h], 1
-        cmp dword [dword ebx+dword_1CC5F8], byte 0
+        cmp dword [dword ebx+MatchupPortraitDrawn], byte 0
         jne near .10
-        push dword [dword ebx+dword_1CC5B0]
+        push dword [dword ebx+MatchupPortraitLayers]
         call SetDrawTarget
         add esp, byte 4
         test edi, edi
         jne short .1
         mov edx, esi
         shl edx, 2
-        cmp dword [dword edx+dword_1CC328], byte 0
+        cmp dword [dword edx+MatchupPortraitShown], byte 0
         je short .1
         mov eax, 0F8h
         call OpenDataLibrary
-        push dword [dword edx+dword_1CC328]
+        push dword [dword edx+MatchupPortraitShown]
         push str_002dFSH
         lea ebx, [byte ebp-024h]
         push ebx
@@ -1027,7 +1027,7 @@ DrawPlayerPortrait:
         mov eax, 37h
         call OpenDataLibrary
         mov eax, edi
-        mov ebx, dword [dword edx+eax*4+dword_1CC638]
+        mov ebx, dword [dword edx+eax*4+MatchupPlayers]
         mov edx, str_FART4
         lea eax, [byte ebp-014h]
         add ebx, byte 27h
@@ -1074,13 +1074,13 @@ DrawPlayerPortrait:
         shl ebx, 2
         shl eax, 5
         add ebx, eax
-        mov edx, dword [dword ebx+dword_1CC5B0]
-        mov eax, dword [dword eax+dword_1CC5C8]
+        mov edx, dword [dword ebx+MatchupPortraitLayers]
+        mov eax, dword [dword eax+MatchupPortraitLayers+18h]
         add esp, byte 0Ch
         mov edx, dword [byte edx+02Ch]
         mov eax, dword [byte eax+02Ch]
         call TintPortrait
-        mov eax, dword [dword ebx+dword_1CC5B0]
+        mov eax, dword [dword ebx+MatchupPortraitLayers]
         xor ecx, ecx
         mov edx, dword [byte eax+02Ch]
         xor ebx, ebx
@@ -1112,16 +1112,16 @@ DrawPlayerPortrait:
         mov edx, esi
         mov eax, edi
         shl edx, 5
-        mov dword [dword edx+eax*4+dword_1CC5F8], 1
+        mov dword [dword edx+eax*4+MatchupPortraitDrawn], 1
 .10:
         cmp dword [byte ebp-04h], byte 0
         je short .11
         mov eax, esi
         shl eax, 5
-        push dword [dword eax+edi*4+dword_1CC668]
+        push dword [dword eax+edi*4+MatchupPlayerLayers]
         call SetDrawTarget
         imul edx, esi, byte 18h
-        mov edx, dword [dword edx+edi*4+dword_1CC638]
+        mov edx, dword [dword edx+edi*4+MatchupPlayers]
         add esp, byte 4
         lea eax, [byte edx+08h]
         push eax
@@ -1131,7 +1131,7 @@ DrawPlayerPortrait:
         push eax
         shl esi, 4
         push str_DSS3
-        mov eax, dword [dword esi+dword_16D724]
+        mov eax, dword [dword esi+MatchupPanelRects+28h]
         push byte 0
         sar eax, 1
         push eax
@@ -1176,43 +1176,43 @@ DrawMatchupPlayer:
         mov dword [byte ebp-04h], 2
 .3:
         mov esi, edi
-        mov eax, dword [dword_1CC5CC]
+        mov eax, dword [MatchupPortraitLayers+1Ch]
         shl esi, 2
         mov ebx, dword [byte eax+02Ch]
-        mov eax, dword [dword esi+dword_1CC5B0]
+        mov eax, dword [dword esi+MatchupPortraitLayers]
         mov edx, dword [byte eax+02Ch]
-        mov eax, dword [dword_1CC790]
-        mov eax, dword [nosplit eax*4+dword_1CC5B0]
+        mov eax, dword [MatchupHomeBar]
+        mov eax, dword [nosplit eax*4+MatchupPortraitLayers]
         mov ecx, dword [byte ebp-04h]
         mov eax, dword [byte eax+02Ch]
         call MatchupBarLength
-        mov eax, dword [dword_1CC5EC]
+        mov eax, dword [MatchupPortraitLayers+3Ch]
         mov ebx, dword [byte eax+02Ch]
-        mov eax, dword [dword esi+dword_1CC5D0]
+        mov eax, dword [dword esi+MatchupPortraitLayers+20h]
         mov edx, dword [byte eax+02Ch]
-        mov eax, dword [dword_1CC794]
-        mov eax, dword [nosplit eax*4+dword_1CC5D0]
+        mov eax, dword [MatchupAwayBar]
+        mov eax, dword [nosplit eax*4+MatchupPortraitLayers+20h]
         mov ecx, dword [byte ebp-04h]
         mov eax, dword [byte eax+02Ch]
         call MatchupBarLength
         test byte [byte ebp-04h], 2
         je short .4
         call ServiceIdle
-        mov eax, dword [dword_1CC684]
+        mov eax, dword [MatchupPlayerLayers+1Ch]
         mov ebx, dword [byte eax+02Ch]
-        mov eax, dword [dword esi+dword_1CC668]
+        mov eax, dword [dword esi+MatchupPlayerLayers]
         mov edx, dword [byte eax+02Ch]
-        mov eax, dword [dword_1CC790]
-        mov eax, dword [nosplit eax*4+dword_1CC668]
+        mov eax, dword [MatchupHomeBar]
+        mov eax, dword [nosplit eax*4+MatchupPlayerLayers]
         mov ecx, dword [byte ebp-04h]
         mov eax, dword [byte eax+02Ch]
         call MatchupBarLength
-        mov eax, dword [dword_1CC6A4]
+        mov eax, dword [MatchupPlayerLayers+3Ch]
         mov ebx, dword [byte eax+02Ch]
-        mov eax, dword [dword esi+dword_1CC688]
+        mov eax, dword [dword esi+MatchupPlayerLayers+20h]
         mov edx, dword [byte eax+02Ch]
-        mov eax, dword [dword_1CC794]
-        mov eax, dword [nosplit eax*4+dword_1CC688]
+        mov eax, dword [MatchupAwayBar]
+        mov eax, dword [nosplit eax*4+MatchupPlayerLayers+20h]
         mov ecx, dword [byte ebp-04h]
         mov eax, dword [byte eax+02Ch]
         call MatchupBarLength
@@ -1224,10 +1224,10 @@ DrawMatchupPlayer:
         mov eax, dword [byte ebp-010h]
         add dword [byte ebp-0Ch], eax
         call SetScreenTarget
-        mov eax, dword [dword_1CC5CC]
+        mov eax, dword [MatchupPortraitLayers+1Ch]
         push dword [byte eax+02Ch]
         call BlitShape
-        mov eax, dword [dword_1CC5EC]
+        mov eax, dword [MatchupPortraitLayers+3Ch]
         add esp, byte 4
         push dword [byte eax+02Ch]
         call BlitShape
@@ -1235,10 +1235,10 @@ DrawMatchupPlayer:
         test byte [byte ebp-04h], 2
         je short .5
         call ServiceIdle
-        mov eax, dword [dword_1CC684]
+        mov eax, dword [MatchupPlayerLayers+1Ch]
         push dword [byte eax+02Ch]
         call BlitShape
-        mov eax, dword [dword_1CC6A4]
+        mov eax, dword [MatchupPlayerLayers+3Ch]
         add esp, byte 4
         push dword [byte eax+02Ch]
         call BlitShape
@@ -1260,23 +1260,23 @@ DrawMatchupPlayer:
         shl esi, 5
         shl eax, 2
         add esi, eax
-        mov eax, dword [dword esi+dword_1CC5B0]
+        mov eax, dword [dword esi+MatchupPortraitLayers]
         push dword [byte eax+02Ch]
         call BlitShape
         add esp, byte 4
-        mov eax, dword [dword esi+dword_1CC668]
+        mov eax, dword [dword esi+MatchupPlayerLayers]
         push dword [byte eax+02Ch]
         call BlitShape
         mov eax, dword [byte ebp-04h]
         add esp, byte 4
         inc dword [byte ebp-04h]
-        mov dword [nosplit eax*4+dword_1CC790], edi
+        mov dword [nosplit eax*4+MatchupHomeBar], edi
         cmp dword [byte ebp-04h], byte 2
         jl short .7
 .8:
         test byte [byte ebp-08h], 4
         je short .9
-        mov eax, dword [dword_1CC5F0]
+        mov eax, dword [MatchupStatsLayer]
         push dword [byte eax+02Ch]
         call BlitShape
         add esp, byte 4
@@ -1310,96 +1310,96 @@ PreGameStatsPanel:
         or edx, ebx
         shl ebx, 0Bh
         or ebx, eax
-        movzx eax, byte [byte_1C3449]
+        movzx eax, byte [HomeGoalieIndex]
         imul eax, dword 125h
-        mov dword [dword_1CC7C4], edx
-        mov edx, dword_1C13FF
+        mov dword [MatchupHomeGoalie], edx
+        mov edx, HomePlayerRecords
         add edx, eax
-        movzx eax, byte [byte_1C344A]
+        movzx eax, byte [HomeCenterIndex]
         imul eax, dword 125h
-        mov dword [dword_1CC63C], edx
-        mov edx, dword_1C13FF
+        mov dword [MatchupPlayers+4], edx
+        mov edx, HomePlayerRecords
         add edx, eax
-        movzx eax, byte [byte_1C344B]
+        movzx eax, byte [HomeWingIndex]
         imul eax, dword 125h
-        mov dword [dword_1CC640], edx
-        mov edx, dword_1C13FF
+        mov dword [MatchupPlayers+8], edx
+        mov edx, HomePlayerRecords
         add edx, eax
-        movzx eax, byte [byte_1C3455]
+        movzx eax, byte [HomeDefenceIndex]
         imul eax, dword 125h
-        mov dword [dword_1CC644], edx
-        mov edx, dword_1C13FF
+        mov dword [MatchupPlayers+0Ch], edx
+        mov edx, HomePlayerRecords
         add edx, eax
-        movzx eax, byte [byte_1C3456]
+        movzx eax, byte [HomeDefencePartner]
         imul eax, dword 125h
         add esp, byte 4
-        mov dword [dword_1CC648], edx
-        mov edx, dword_1C13FF
-        mov dword [dword_1CC7B8], ebx
+        mov dword [MatchupPlayers+10h], edx
+        mov edx, HomePlayerRecords
+        mov dword [MatchupHomeLine], ebx
         add edx, eax
-        movzx eax, byte [byte_1C347D]
-        mov dword [dword_1CC64C], edx
+        movzx eax, byte [HomeBackupGoalie]
+        mov dword [MatchupPlayers+14h], edx
         cmp eax, byte 19h
         jl short .1
         sub eax, byte 19h
 .1:
         imul edx, eax, dword 125h
-        mov ebx, dword_1C309E
+        mov ebx, HomeRosterData+1B94h
         add ebx, edx
-        movsx eax, word [nosplit eax*2+word_1C340D]
-        mov dword [dword_1CC638], ebx
+        movsx eax, word [nosplit eax*2+HomeSlotRatings]
+        mov dword [MatchupPlayers], ebx
         cmp eax, byte 64h
         jge short .2
         cmp eax, byte 31h
         je short .2
-        mov dword [dword_1CC328], eax
+        mov dword [MatchupPortraitShown], eax
         jmp short .3
 .2:
-        mov dword [dword_1CC328], 0
+        mov dword [MatchupPortraitShown], 0
 .3:
-        movzx eax, byte [byte_1C556C]
+        movzx eax, byte [AwayGoalieIndex]
         imul eax, dword 125h
-        mov edx, dword_1C3522
+        mov edx, AwayPlayerRecords
         add edx, eax
-        movzx eax, byte [byte_1C556D]
+        movzx eax, byte [AwayCenterIndex]
         imul eax, dword 125h
-        mov dword [dword_1CC654], edx
-        mov edx, dword_1C3522
+        mov dword [MatchupPlayers+1Ch], edx
+        mov edx, AwayPlayerRecords
         add edx, eax
-        movzx eax, byte [byte_1C556E]
+        movzx eax, byte [AwayWingIndex]
         imul eax, dword 125h
-        mov dword [dword_1CC658], edx
-        mov edx, dword_1C3522
+        mov dword [MatchupPlayers+20h], edx
+        mov edx, AwayPlayerRecords
         add edx, eax
-        movzx eax, byte [byte_1C5578]
+        movzx eax, byte [AwayDefenceIndex]
         imul eax, dword 125h
-        mov dword [dword_1CC65C], edx
-        mov edx, dword_1C3522
+        mov dword [MatchupPlayers+24h], edx
+        mov edx, AwayPlayerRecords
         add edx, eax
-        movzx eax, byte [byte_1C5579]
+        movzx eax, byte [AwayDefencePartner]
         imul eax, dword 125h
-        mov dword [dword_1CC660], edx
-        mov edx, dword_1C3522
+        mov dword [MatchupPlayers+28h], edx
+        mov edx, AwayPlayerRecords
         add edx, eax
-        movzx eax, byte [byte_1C55A0]
-        mov dword [dword_1CC664], edx
+        movzx eax, byte [AwayBackupGoalie]
+        mov dword [MatchupPlayers+2Ch], edx
         cmp eax, byte 19h
         jl short .4
         sub eax, byte 19h
 .4:
         imul edx, eax, dword 125h
-        mov ebx, dword_1C51C1
+        mov ebx, AwayRosterData+1B94h
         add ebx, edx
-        movsx eax, word [nosplit eax*2+word_1C5530]
-        mov dword [dword_1CC650], ebx
+        movsx eax, word [nosplit eax*2+AwaySlotRatings]
+        mov dword [MatchupPlayers+18h], ebx
         cmp eax, byte 64h
         jge short .5
         cmp eax, byte 31h
         je short .5
-        mov dword [dword_1CC32C], eax
+        mov dword [MatchupPlayerCount], eax
         jmp short .6
 .5:
-        mov dword [dword_1CC32C], 0
+        mov dword [MatchupPlayerCount], 0
 .6:
         push byte 0
         push dword 5B8h
@@ -1410,24 +1410,24 @@ PreGameStatsPanel:
         push dword 5B8h
         push str_Awaystats
         mov ebx, 5B8h
-        mov dword [dword_1CC7D0], eax
+        mov dword [MatchupAwayStats], eax
         call AllocMemBlock
         add esp, byte 0Ch
-        mov dword [dword_1CC7A4], eax
+        mov dword [MatchupHomeStats], eax
         xor edx, edx
-        mov eax, dword [dword_1CC7D0]
+        mov eax, dword [MatchupAwayStats]
         call memset_
         mov ebx, 5B8h
-        mov eax, dword [dword_1CC7A4]
+        mov eax, dword [MatchupHomeStats]
         xor edx, edx
         call memset_
-        mov ebx, unk_16D7FC
-        mov edx, dword [dword_1CC7A4]
-        mov eax, dword [dword_1CC7D0]
+        mov ebx, PlayoffDbKey
+        mov edx, dword [MatchupHomeStats]
+        mov eax, dword [MatchupAwayStats]
         call ReadMatchupStats
-        mov ebx, unk_16D804
-        mov edx, dword [dword_1CC7A4]
-        mov eax, dword [dword_1CC7D0]
+        mov ebx, SeasonDbKey
+        mov edx, dword [MatchupHomeStats]
+        mov eax, dword [MatchupAwayStats]
         add edx, 16Eh
         add eax, 16Eh
         call ReadMatchupStats
@@ -1435,23 +1435,23 @@ PreGameStatsPanel:
         and eax, byte 70h
         cmp eax, byte 10h
         jne short .7
-        mov ebx, unk_1AD22E
-        mov edx, dword [dword_1CC7A4]
-        mov eax, dword [dword_1CC7D0]
+        mov ebx, SeasonFilePath
+        mov edx, dword [MatchupHomeStats]
+        mov eax, dword [MatchupAwayStats]
         add edx, 2DCh
         add eax, 2DCh
         call ReadMatchupStats
         cmp dword [SeasonActive], byte 0
         je short .9
-        mov ebx, unk_1AD236
+        mov ebx, SeasonStatsPath
         jmp short .8
 .7:
         cmp eax, byte 20h
         jne short .9
-        mov ebx, unk_1AD73A
+        mov ebx, PlayoffStatsPath
 .8:
-        mov edx, dword [dword_1CC7A4]
-        mov eax, dword [dword_1CC7D0]
+        mov edx, dword [MatchupHomeStats]
+        mov eax, dword [MatchupAwayStats]
         add edx, 44Ah
         add eax, 44Ah
         call ReadMatchupStats
@@ -1468,71 +1468,71 @@ PreGameStatsPanel:
         shl esi, 2
         shl ebx, 4
         mov dword [byte ebp-08h], eax
-        push dword [dword ebx+dword_16D708]
+        push dword [dword ebx+MatchupPanelRects+0Ch]
         add esi, eax
-        push dword [dword ebx+dword_16D704]
-        mov dword [dword esi+dword_1CC5F8], 0
+        push dword [dword ebx+MatchupPanelRects+8]
+        mov dword [dword esi+MatchupPortraitDrawn], 0
         call CreateBitmap
         add esp, byte 0Ch
         push byte 0
-        push dword [dword ebx+dword_16D728]
-        push dword [dword ebx+dword_16D724]
-        mov dword [dword esi+dword_1CC5B0], eax
+        push dword [dword ebx+MatchupPanelRects+2Ch]
+        push dword [dword ebx+MatchupPanelRects+28h]
+        mov dword [dword esi+MatchupPortraitLayers], eax
         call CreateBitmap
         add esp, byte 0Ch
-        mov dword [dword esi+dword_1CC668], eax
+        mov dword [dword esi+MatchupPlayerLayers], eax
         cmp dword [byte ebp-04h], byte 0
         jne short .12
         call SetScreenTarget
-        push dword [dword ebx+dword_16D700]
-        mov eax, dword [dword esi+dword_1CC5B0]
-        push dword [dword ebx+dword_16D6FC]
+        push dword [dword ebx+MatchupPanelRects+4]
+        mov eax, dword [dword esi+MatchupPortraitLayers]
+        push dword [dword ebx+MatchupPanelRects]
         push dword [byte eax+02Ch]
         call ConvertArtXY
         add esp, byte 0Ch
-        push dword [dword ebx+dword_16D720]
-        mov eax, dword [dword esi+dword_1CC668]
-        push dword [dword ebx+dword_16D71C]
+        push dword [dword ebx+MatchupPanelRects+24h]
+        mov eax, dword [dword esi+MatchupPlayerLayers]
+        push dword [dword ebx+MatchupPanelRects+20h]
         push dword [byte eax+02Ch]
         call ConvertArtXY
         add esp, byte 0Ch
         call PresentScreen
         jmp near .13
 .12:
-        push dword [dword esi+dword_1CC5B0]
+        push dword [dword esi+MatchupPortraitLayers]
         call SetDrawTarget
         add esp, byte 4
         mov eax, dword [byte ebp-08h]
         push byte 0
-        mov eax, dword [dword eax+dword_1CC5B0]
+        mov eax, dword [dword eax+MatchupPortraitLayers]
         push byte 0
         push dword [byte eax+02Ch]
         call BlitArt
-        mov eax, dword [dword esi+dword_1CC5B0]
+        mov eax, dword [dword esi+MatchupPortraitLayers]
         mov eax, dword [byte eax+02Ch]
-        mov dx, word [dword ebx+dword_16D6FC]
+        mov dx, word [dword ebx+MatchupPanelRects]
         mov word [byte eax+0Ch], dx
-        mov eax, dword [dword esi+dword_1CC5B0]
+        mov eax, dword [dword esi+MatchupPortraitLayers]
         mov eax, dword [byte eax+02Ch]
-        mov dx, word [dword ebx+dword_16D700]
+        mov dx, word [dword ebx+MatchupPanelRects+4]
         add esp, byte 0Ch
         mov word [byte eax+0Eh], dx
-        push dword [dword esi+dword_1CC668]
+        push dword [dword esi+MatchupPlayerLayers]
         call SetDrawTarget
         add esp, byte 4
         mov eax, dword [byte ebp-08h]
         push byte 0
-        mov eax, dword [dword eax+dword_1CC668]
+        mov eax, dword [dword eax+MatchupPlayerLayers]
         push byte 0
         push dword [byte eax+02Ch]
         call BlitArt
-        mov eax, dword [dword esi+dword_1CC668]
+        mov eax, dword [dword esi+MatchupPlayerLayers]
         mov eax, dword [byte eax+02Ch]
-        mov dx, word [dword ebx+dword_16D71C]
+        mov dx, word [dword ebx+MatchupPanelRects+20h]
         mov word [byte eax+0Ch], dx
-        mov eax, dword [dword esi+dword_1CC668]
+        mov eax, dword [dword esi+MatchupPlayerLayers]
         mov eax, dword [byte eax+02Ch]
-        mov dx, word [dword ebx+dword_16D720]
+        mov dx, word [dword ebx+MatchupPanelRects+24h]
         add esp, byte 0Ch
         mov word [byte eax+0Eh], dx
 .13:
@@ -1541,47 +1541,47 @@ PreGameStatsPanel:
         cmp dword [byte ebp-04h], byte 8
         jl near .11
         inc edi
-        mov dword [nosplit edi*4+dword_1CC78C], 6
+        mov dword [nosplit edi*4+MatchupStatRows], 6
         cmp edi, byte 2
         jl near .10
         push str_PSTS
-        push dword [dword_1CC7CC]
+        push dword [MatchupStatsFile]
         call FindShape
         movsx edx, word [byte eax+0Ch]
         sub edx, byte 24h
-        mov dword [dword_16D6EC], edx
+        mov dword [MatchupStatsX], edx
         movsx edx, word [byte eax+0Eh]
         sub edx, byte 4
-        mov dword [dword_16D6F0], edx
+        mov dword [MatchupStatsY], edx
         movsx edx, word [byte eax+04h]
         add edx, byte 48h
-        mov dword [dword_16D6F4], edx
+        mov dword [MatchupStatsWidth], edx
         movsx eax, word [byte eax+06h]
         xor edi, edi
         add eax, byte 8
         add esp, byte 8
-        mov dword [dword_16D6F8], eax
+        mov dword [MatchupPanelBottom], eax
 .14:
         push byte 0
-        push dword [dword_16D6F8]
-        push dword [dword_16D6F4]
+        push dword [MatchupPanelBottom]
+        push dword [MatchupStatsWidth]
         call CreateBitmap
-        mov dword [nosplit edi*4+dword_1CC5F0], eax
+        mov dword [nosplit edi*4+MatchupStatsLayer], eax
         mov ebx, dword [byte eax+02Ch]
-        mov dx, word [dword_16D6EC]
+        mov dx, word [MatchupStatsX]
         mov word [byte ebx+0Ch], dx
-        mov eax, dword [nosplit edi*4+dword_1CC5F0]
+        mov eax, dword [nosplit edi*4+MatchupStatsLayer]
         inc edi
         mov eax, dword [byte eax+02Ch]
-        mov dx, word [dword_16D6F0]
+        mov dx, word [MatchupStatsY]
         add esp, byte 0Ch
         mov word [byte eax+0Eh], dx
         cmp edi, byte 2
         jl short .14
         call SetScreenTarget
-        push dword [dword_16D6F0]
-        mov eax, dword [dword_1CC5F4]
-        push dword [dword_16D6EC]
+        push dword [MatchupStatsY]
+        mov eax, dword [MatchupStatsArt]
+        push dword [MatchupStatsX]
         push dword [byte eax+02Ch]
         call ConvertArtXY
         add esp, byte 0Ch
@@ -1614,11 +1614,11 @@ FreeMatchupScreen:
         shl esi, 5
         shl eax, 2
         add esi, eax
-        push dword [dword esi+dword_1CC5B0]
-        mov dword [dword esi+dword_1CC5F8], 0
+        push dword [dword esi+MatchupPortraitLayers]
+        mov dword [dword esi+MatchupPortraitDrawn], 0
         call FreeBitmap
         add esp, byte 4
-        push dword [dword esi+dword_1CC668]
+        push dword [dword esi+MatchupPlayerLayers]
         inc edi
         call FreeBitmap
         add esp, byte 4
@@ -1634,22 +1634,22 @@ FreeMatchupScreen:
 .4:
         mov eax, edi
         inc edi
-        mov dword [dword esi+eax*4+dword_1CC638], 0
+        mov dword [dword esi+eax*4+MatchupPlayers], 0
         cmp edi, byte 6
         jl short .4
         inc ebx
         cmp ebx, byte 2
         jl short .3
-        push dword [dword_1CC5F0]
+        push dword [MatchupStatsLayer]
         call FreeBitmap
         add esp, byte 4
-        push dword [dword_1CC5F4]
+        push dword [MatchupStatsArt]
         call FreeBitmap
         add esp, byte 4
-        push dword [dword_1CC7D0]
+        push dword [MatchupAwayStats]
         call FreeMemBlock
         add esp, byte 4
-        push dword [dword_1CC7A4]
+        push dword [MatchupHomeStats]
         call FreeMemBlock
         add esp, byte 4
         jmp near PreGameStatsPanel_4E0
@@ -1671,7 +1671,7 @@ ReadMatchupStats:
 .1:
         imul ebx, ecx, byte 3Dh
         mov eax, esi
-        mov edx, dword [nosplit ecx*4+dword_1CC638]
+        mov edx, dword [nosplit ecx*4+MatchupPlayers]
         add ebx, dword [byte ebp-04h]
         call ReadTeamStats
         test eax, eax
@@ -1680,7 +1680,7 @@ ReadMatchupStats:
 .2:
         imul ebx, ecx, byte 3Dh
         mov eax, esi
-        mov edx, dword [nosplit ecx*4+dword_1CC650]
+        mov edx, dword [nosplit ecx*4+MatchupPlayers+18h]
         add ebx, dword [byte ebp-08h]
         call ReadTeamStats
         test eax, eax
@@ -1721,9 +1721,9 @@ MatchupBarLength:
         lea eax, [byte edi+010h]
         shl esi, 2
         lea edi, [edx+esi]
-        mov esi, dword [dword_1CC7C4]
+        mov esi, dword [MatchupHomeGoalie]
         mov dword [byte ebp-08h], esi
-        mov esi, dword [dword_1CC7B8]
+        mov esi, dword [MatchupHomeLine]
         mov dword [byte ebp-04h], esi
         shl esi, 5
         mov dword [byte ebp-01Ch], edi
@@ -1788,8 +1788,8 @@ LoadMatchupArt:
         push edi
         enter 10h, 0
         mov edi, eax
-        mov dword [dword_1CC7AC], 1
-        mov dword [dword_1CC7A8], 0
+        mov dword [MatchupSparkleOn], 1
+        mov dword [MatchupSparkleFrame], 0
         xor esi, esi
 .1:
         lea ebx, [byte esi+01h]
@@ -1804,22 +1804,22 @@ LoadMatchupArt:
         push edi
         call FindShape
         add esp, byte 8
-        mov dword [nosplit esi*4+dword_1CC2C8], eax
+        mov dword [nosplit esi*4+MatchupSparkleShapes], eax
         mov esi, ebx
         cmp ebx, byte 17h
         jl short .1
         mov eax, dword [tickcount]
-        mov dword [dword_1CC7A0], eax
+        mov dword [MatchupSparkleTick], eax
         jmp near PreGameStatsPanel_4DF
         push ecx
         push edx
-        cmp dword [dword_16D6E8], byte 0
+        cmp dword [MatchupArt], byte 0
         je short .2
-        push dword [dword_16D6E8]
+        push dword [MatchupArt]
         call FreeMemBlock
         add esp, byte 4
 .2:
-        mov dword [dword_16D6E8], 0
+        mov dword [MatchupArt], 0
         pop edx
         pop ecx
         ret
@@ -1831,47 +1831,47 @@ MatchupSparkle:
         push ecx
         push edx
         mov eax, dword [tickcount]
-        cmp eax, dword [dword_1CC7A0]
+        cmp eax, dword [MatchupSparkleTick]
         jbe near .5
         mov eax, dword [tickcount]
         add eax, byte 0Ah
-        mov dword [dword_1CC7A0], eax
-        mov eax, dword [dword_1CC7AC]
-        add dword [dword_1CC7A8], eax
+        mov dword [MatchupSparkleTick], eax
+        mov eax, dword [MatchupSparkleOn]
+        add dword [MatchupSparkleFrame], eax
         add eax, byte 16h
-        cmp eax, dword [dword_1CC7A8]
+        cmp eax, dword [MatchupSparkleFrame]
         jne short .1
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         jne short .1
         mov eax, 207h
         call PlaySfx
 .1:
-        cmp dword [dword_1CC7A8], byte 17h
+        cmp dword [MatchupSparkleFrame], byte 17h
         jb short .2
         call Random32
         and eax, byte 1
-        mov dword [dword_1CC7A8], eax
+        mov dword [MatchupSparkleFrame], eax
         call Random32
         and eax, byte 1
         inc eax
-        mov dword [dword_1CC7AC], eax
+        mov dword [MatchupSparkleOn], eax
         jmp short .4
 .2:
-        cmp dword [dword_1CC7A8], byte 16h
+        cmp dword [MatchupSparkleFrame], byte 16h
         je short .3
-        cmp dword [dword_1CC7A8], byte 15h
+        cmp dword [MatchupSparkleFrame], byte 15h
         jne short .4
-        cmp dword [dword_1CC7AC], byte 2
+        cmp dword [MatchupSparkleOn], byte 2
         jne short .4
 .3:
         call Random32
         and eax, byte 0Fh
         imul eax, byte 0Ah
-        mov dword [dword_1CC7A8], 16h
-        add dword [dword_1CC7A0], eax
+        mov dword [MatchupSparkleFrame], 16h
+        add dword [MatchupSparkleTick], eax
 .4:
-        mov eax, dword [dword_1CC7A8]
-        push dword [nosplit eax*4+dword_1CC2C8]
+        mov eax, dword [MatchupSparkleFrame]
+        push dword [nosplit eax*4+MatchupSparkleShapes]
         call DrawShape
         add esp, byte 4
 .5:
@@ -1888,87 +1888,87 @@ AnimateMatchup:
         push edx
         call MatchupSparkle
         mov eax, dword [tickcount]
-        cmp eax, dword [dword_1CC7C0]
+        cmp eax, dword [MatchupAnimDone]
         jle near .6
-        mov dword [dword_1CC7B0], 0
+        mov dword [MatchupSpeechDone], 0
         xor ebx, ebx
 .1:
         imul edx, ebx, byte 52h
-        mov eax, dword [dword_1CC798]
+        mov eax, dword [MatchupBitmap]
         cmp dword [byte edx+eax+04h], byte 1
         jne short .3
-        cmp ebx, dword [dword_1CC7C8]
+        cmp ebx, dword [MatchupNoteBuffer]
         je short .3
         call Random32
         mov ecx, 3
         xor edx, edx
         div ecx
-        cmp edx, dword [dword_1CC7B4]
+        cmp edx, dword [MatchupLastSpeech]
         jl short .2
         inc edx
 .2:
         imul eax, ebx, byte 1Ch
         imul ecx, ebx, byte 52h
-        mov dword [dword_1CC7B4], edx
+        mov dword [MatchupLastSpeech], edx
         shl edx, 2
         add edx, eax
-        mov eax, dword [dword_1CC798]
-        mov edx, dword [dword edx+dword_1CC6E8]
+        mov eax, dword [MatchupBitmap]
+        mov edx, dword [dword edx+MatchupRightSlots]
         mov dword [byte ecx+eax+01Eh], edx
-        mov edx, dword [dword_1CC798]
+        mov edx, dword [MatchupBitmap]
         push dword [byte ecx+edx+02Ah]
         push dword [byte ecx+edx+026h]
         push dword [byte ecx+edx+01Eh]
         call BlitArt
-        mov dword [dword_1CC7B0], 1
+        mov dword [MatchupSpeechDone], 1
         add esp, byte 0Ch
 .3:
         inc ebx
         cmp ebx, byte 6
         jl short .1
-        mov edx, dword [dword_1CC798]
+        mov edx, dword [MatchupBitmap]
         cmp dword [dword edx+01F0h], byte 1
         jne short .5
         call Random32
         mov ebx, 3
         xor edx, edx
         div ebx
-        cmp edx, dword [dword_1CC7B4]
+        cmp edx, dword [MatchupLastSpeech]
         jl short .4
         inc edx
 .4:
-        mov ebx, dword [dword_16D73C]
-        mov dword [dword_1CC7B4], edx
+        mov ebx, dword [MatchupLayout]
+        mov dword [MatchupLastSpeech], edx
         mov eax, edx
         shl ebx, 4
-        mov edx, dword [dword_1CC798]
-        mov eax, dword [dword ebx+eax*4+dword_1CC6A8]
+        mov edx, dword [MatchupBitmap]
+        mov eax, dword [dword ebx+eax*4+MatchupLeftSlots]
         mov dword [dword edx+020Ah], eax
-        mov eax, dword [dword_1CC798]
+        mov eax, dword [MatchupBitmap]
         push dword [dword eax+020Ah]
         call BlitShape
-        mov dword [dword_1CC7B0], 1
+        mov dword [MatchupSpeechDone], 1
         add esp, byte 4
 .5:
         mov eax, dword [tickcount]
         add eax, byte 4
-        mov dword [dword_1CC7C0], eax
+        mov dword [MatchupAnimDone], eax
 .6:
-        cmp dword [dword_1CC79C], byte 0
+        cmp dword [MatchupMusicOn], byte 0
         je short .7
-        cmp dword [dword_1CC7B0], byte 0
+        cmp dword [MatchupSpeechDone], byte 0
         jne short .7
         mov eax, 309h
         call PlayMenuSfx
-        mov dword [dword_1CC79C], 0
+        mov dword [MatchupMusicOn], 0
 .7:
-        cmp dword [dword_1CC79C], byte 0
+        cmp dword [MatchupMusicOn], byte 0
         jne short .8
-        cmp dword [dword_1CC7B0], byte 0
+        cmp dword [MatchupSpeechDone], byte 0
         je short .8
         mov eax, 309h
         call PlaySfx
-        mov dword [dword_1CC79C], 1
+        mov dword [MatchupMusicOn], 1
 .8:
         pop edx
         pop ecx
@@ -1976,11 +1976,11 @@ AnimateMatchup:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-unk_D3057:
+MatchupNotesBlankRect:
         db 00h,00h,00h,00h,00h,00h,00h,00h
-unk_D305F:
+MatchupNotesBlankPos:
         db 00h,00h,00h,00h,00h,00h,00h,00h
-unk_D3067:
+MatchupNotesBlankSize:
         db 00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
 ; RostersSparkle                                  D306F  97 PC, low confidence
@@ -1991,17 +1991,17 @@ RostersSparkle:
         push ecx
         push edx
         mov eax, dword [tickcount]
-        cmp eax, dword [dword_16D74C]
+        cmp eax, dword [RostersSparkleTick]
         jle near .4
         xor ebx, ebx
 .1:
         call rand_
-        movzx ecx, byte [byte_1CC8B4]
+        movzx ecx, byte [RostersSparkleCount]
         cdq
         idiv ecx
         mov eax, edx
         imul edx, ebx, byte 14h
-        push dword [dword edx+eax*4+dword_1CC7D8]
+        push dword [dword edx+eax*4+RostersShapeLists]
         call BlitShape2
         inc ebx
         add esp, byte 4
@@ -2009,22 +2009,22 @@ RostersSparkle:
         jl short .1
         mov eax, dword [tickcount]
         add eax, byte 0Ah
-        mov ecx, dword [dword_16D750]
-        mov dword [dword_16D74C], eax
+        mov ecx, dword [RostersSparkleFrame]
+        mov dword [RostersSparkleTick], eax
 .2:
-        cmp ecx, dword [dword_16D750]
+        cmp ecx, dword [RostersSparkleFrame]
         jne short .3
         call rand_
-        movzx ebx, byte [byte_1CC8B4]
+        movzx ebx, byte [RostersSparkleCount]
         cdq
         idiv ebx
-        mov dword [dword_16D750], edx
+        mov dword [RostersSparkleFrame], edx
         jmp short .2
 .3:
         push dword 104h
-        mov eax, dword [dword_16D750]
+        mov eax, dword [RostersSparkleFrame]
         push byte 4Bh
-        mov eax, dword [nosplit eax*4+dword_1CC8A0]
+        mov eax, dword [nosplit eax*4+RostersSparkleShapes]
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
@@ -2033,7 +2033,7 @@ RostersSparkle:
         pop ecx
         pop ebx
         ret
-jpt_D3102:
+PreGameRostersScreenJumpTable:
         dd PreGameRostersScreen_B6A
         dd PreGameRostersScreen_BA7
         dd PreGameRostersScreen_BB5

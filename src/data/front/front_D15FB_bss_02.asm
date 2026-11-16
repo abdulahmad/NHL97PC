@@ -2,63 +2,63 @@
 bits 32
 %include "hockey.inc"
 section s_1C5530 nobits alloc noexec write align=1
-global byte_1C556C, byte_1C556D, byte_1C556E, byte_1C5578, byte_1C5579, byte_1C559C, byte_1C559D, byte_1C559E
-global byte_1C559F, byte_1C55A0, byte_1C55A4, byte_1C55A5, byte_1C55A6, byte_1C55A7, byte_1C55A8, byte_1C55A9
-global byte_1C55AA, byte_1C55AB, dword_1C5DA4, dword_1C5DA8, dword_1C5DAC, word_1C5530, word_1C5536, word_1C5538
-global word_1C553A, word_1C553C, word_1C554A, word_1C55A2
-word_1C5530:
+global AwayGoalieIndex, AwayCenterIndex, AwayWingIndex, AwayDefenceIndex, AwayDefencePartner, ScoringLogPrevPeriod, ScoringLogPrevTime, ScoringLogPrevMinute
+global ScoringLogPrevType, AwayBackupGoalie, ScoringLogPeriod, ScoringLogTime, ScoringLogMinute, ScoringLogType, ScoringLogTeam, ScoringLogPlayer
+global ScoringLogAssist, ScoringLogSecondAssist, ReplayBufferSize, ReplayFileOpen, ScreenBackgrounds, AwaySlotRatings, AwayPeriodShots, AwaySimGoals
+global AwaySimShots, AwayShotTotals, AwayGoalTotals, GameLogCount
+AwaySlotRatings:
         resb 6
-word_1C5536:
+AwayPeriodShots:
         resb 2
-word_1C5538:
+AwaySimGoals:
         resb 2
-word_1C553A:
+AwaySimShots:
         resb 2
-word_1C553C:
+AwayShotTotals:
         resb 14
-word_1C554A:
+AwayGoalTotals:
         resb 34
-byte_1C556C:
+AwayGoalieIndex:
         resb 1
-byte_1C556D:
+AwayCenterIndex:
         resb 1
-byte_1C556E:
+AwayWingIndex:
         resb 10
-byte_1C5578:
+AwayDefenceIndex:
         resb 1
-byte_1C5579:
+AwayDefencePartner:
         resb 35
-byte_1C559C:
+ScoringLogPrevPeriod:
         resb 1
-byte_1C559D:
+ScoringLogPrevTime:
         resb 1
-byte_1C559E:
+ScoringLogPrevMinute:
         resb 1
-byte_1C559F:
+ScoringLogPrevType:
         resb 1
-byte_1C55A0:
+AwayBackupGoalie:
         resb 2
-word_1C55A2:
+GameLogCount:
         resb 2
-byte_1C55A4:
+ScoringLogPeriod:
         resb 1
-byte_1C55A5:
+ScoringLogTime:
         resb 1
-byte_1C55A6:
+ScoringLogMinute:
         resb 1
-byte_1C55A7:
+ScoringLogType:
         resb 1
-byte_1C55A8:
+ScoringLogTeam:
         resb 1
-byte_1C55A9:
+ScoringLogPlayer:
         resb 1
-byte_1C55AA:
+ScoringLogAssist:
         resb 1
-byte_1C55AB:
+ScoringLogSecondAssist:
         resb 2041
-dword_1C5DA4:
+ReplayBufferSize:
         resb 4
-dword_1C5DA8:
+ReplayFileOpen:
         resb 4
-dword_1C5DAC:
+ScreenBackgrounds:
         resb 4

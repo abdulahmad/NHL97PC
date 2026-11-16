@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_FA5B8 progbits alloc exec nowrite align=1
-extern str_LOW8s, str_GAP, dword_16E340, dword_1CF0E0, dword_1CF25C, dword_1CF260, memlist1, sprintf_
+extern str_LOW8s, str_GAP, MemListEndFunc, MemBlockGuards, MemDescriptorTop, MemLockHandle, memlist1, sprintf_
 extern str_HIGHMEM, strncpy_, PresentScreen, MemLock, MemUnlock, AllocMemBlockEx
 global AddMemRegion, AddMemRegions, AddHighMemRegion, TrimMemList, MemListEnd, AllocMemBlockFixed, AllocMemBlockMovable, AllocMemBlock
 global AllocMemData, AllocMemBlockFull
@@ -37,11 +37,11 @@ AddMemRegion:
 .1:
         mov esi, dword [byte esp+0Ch]
         mov dword [byte ebx+014h], edx
-        mov edx, dword [dword_1CF25C]
+        mov edx, dword [MemDescriptorTop]
         push esi
         mov eax, dword [byte edx+020h]
         push str_LOW8s
-        mov dword [dword_1CF25C], eax
+        mov dword [MemDescriptorTop], eax
         lea eax, [byte edx+04h]
         push eax
         call sprintf_
@@ -56,11 +56,11 @@ AddMemRegion:
         or ah, 80h
         mov dword [byte edx+018h], eax
         mov dword [ebx], edx
-        mov edx, dword [dword_1CF25C]
+        mov edx, dword [MemDescriptorTop]
         push esi
         mov eax, dword [byte edx+020h]
         push str_HIGHMEM
-        mov dword [dword_1CF25C], eax
+        mov dword [MemDescriptorTop], eax
         lea eax, [byte edx+04h]
         push eax
         call sprintf_
@@ -169,11 +169,11 @@ AddHighMemRegion:
         shl ecx, 3
         mov ebx, dword [byte esp+010h]
         add esi, ecx
-        mov ecx, dword [dword_1CF25C]
+        mov ecx, dword [MemDescriptorTop]
         push ebx
         mov eax, dword [byte ecx+020h]
         push str_HIGHMEM
-        mov dword [dword_1CF25C], eax
+        mov dword [MemDescriptorTop], eax
         lea eax, [byte ecx+04h]
         push eax
         call sprintf_
@@ -211,7 +211,7 @@ AddHighMemRegion:
         push esi
         push edi
         push ebp
-        mov edi, dword [dword_1CF25C]
+        mov edi, dword [MemDescriptorTop]
         mov ecx, dword [byte esp+018h]
         mov edx, dword [byte esp+014h]
         and edx, 0F00h
@@ -280,7 +280,7 @@ AddHighMemRegion:
         mov dword [ebx], eax
 .6:
         mov eax, ecx
-        mov dword [dword_1CF25C], edi
+        mov dword [MemDescriptorTop], edi
         pop ebp
         pop edi
         pop esi
@@ -325,18 +325,18 @@ TrimMemList:
         mov esi, ecx
         mov ecx, dword [byte eax+010h]
         mov dword [byte eax+014h], ecx
-        mov ecx, dword [dword_1CF25C]
+        mov ecx, dword [MemDescriptorTop]
         mov dword [byte edx+04h], eax
         mov dword [byte ebx+020h], ecx
         sub esi, edi
         mov ebp, dword [edx]
-        mov dword [dword_1CF25C], ebx
+        mov dword [MemDescriptorTop], ebx
         cmp eax, ebp
         jne short .2
         mov dword [byte ebp+020h], ebx
         mov dword [byte edx+04h], 0
         mov eax, dword [byte edx+04h]
-        mov dword [dword_1CF25C], ebp
+        mov dword [MemDescriptorTop], ebp
         mov dword [edx], eax
 .2:
         mov eax, esi
@@ -383,7 +383,7 @@ MemListEnd:
         ret
         db 090h
         push ebx
-        mov ebx, dword [dword_1CF0E0]
+        mov ebx, dword [MemBlockGuards]
         xor edx, edx
         xor eax, eax
         test ebx, ebx
@@ -398,14 +398,14 @@ MemListEnd:
         inc edx
         cmp eax, 180h
         jge short .4
-        cmp dword [dword eax+dword_1CF0E0], byte 0
+        cmp dword [dword eax+MemBlockGuards], byte 0
         je short .2
         jmp short .3
 .4:
         xor eax, eax
         pop ebx
         ret
-        mov dword [dword_16E340], PresentScreen
+        mov dword [MemListEndFunc], PresentScreen
         ret
         db 090h
 ;-----------------------------------------------------------------------------
@@ -420,7 +420,7 @@ AllocMemBlockFixed:
         mov ebp, dword [byte esp+014h]
         mov edi, dword [byte esp+018h]
         mov ebx, dword [byte esp+01Ch]
-        mov edx, dword [dword_1CF260]
+        mov edx, dword [MemLockHandle]
         mov esi, 1
         test edx, edx
         je short .1
@@ -433,7 +433,7 @@ AllocMemBlockFixed:
         push edi
         push ebp
         call AllocMemBlockEx
-        mov esi, dword [dword_1CF260]
+        mov esi, dword [MemLockHandle]
         add esp, byte 10h
         mov ebx, eax
         test esi, esi
@@ -460,7 +460,7 @@ AllocMemBlockMovable:
         mov ebp, dword [byte esp+014h]
         mov edi, dword [byte esp+018h]
         mov ebx, dword [byte esp+01Ch]
-        mov edx, dword [dword_1CF260]
+        mov edx, dword [MemLockHandle]
         xor esi, esi
         test edx, edx
         je short .1
@@ -473,7 +473,7 @@ AllocMemBlockMovable:
         push edi
         push ebp
         call AllocMemBlockEx
-        mov esi, dword [dword_1CF260]
+        mov esi, dword [MemLockHandle]
         add esp, byte 10h
         mov ebx, eax
         test esi, esi
@@ -502,7 +502,7 @@ AllocMemBlock:
         mov edi, dword [byte esp+014h]
         mov ebp, dword [byte esp+018h]
         mov ebx, dword [byte esp+01Ch]
-        mov edx, dword [dword_1CF260]
+        mov edx, dword [MemLockHandle]
         mov esi, 1
         test edx, edx
         je short .1
@@ -515,7 +515,7 @@ AllocMemBlock:
         push ebp
         push edi
         call AllocMemBlockEx
-        mov esi, dword [dword_1CF260]
+        mov esi, dword [MemLockHandle]
         add esp, byte 10h
         mov ebx, eax
         test esi, esi
@@ -542,7 +542,7 @@ AllocMemData:
         mov ebp, dword [byte esp+014h]
         mov esi, dword [byte esp+018h]
         mov edi, dword [byte esp+01Ch]
-        mov edx, dword [dword_1CF260]
+        mov edx, dword [MemLockHandle]
         xor ebx, ebx
         test edx, edx
         je short .1
@@ -555,7 +555,7 @@ AllocMemData:
         push esi
         push ebp
         call AllocMemBlockEx
-        mov esi, dword [dword_1CF260]
+        mov esi, dword [MemLockHandle]
         add esp, byte 10h
         mov ebx, eax
         test esi, esi
@@ -586,7 +586,7 @@ AllocMemData:
         mov ebp, dword [byte esp+014h]
         mov edi, dword [byte esp+018h]
         mov esi, dword [byte esp+01Ch]
-        mov edx, dword [dword_1CF260]
+        mov edx, dword [MemLockHandle]
         mov ebx, dword [byte esp+020h]
         test edx, edx
         je short .4
@@ -599,7 +599,7 @@ AllocMemData:
         push edi
         push ebp
         call AllocMemBlockEx
-        mov esi, dword [dword_1CF260]
+        mov esi, dword [MemLockHandle]
         add esp, byte 10h
         mov ebx, eax
         test esi, esi
@@ -634,7 +634,7 @@ AllocMemBlockFull:
         push esi
         push edi
         push ebp
-        mov edx, dword [dword_1CF260]
+        mov edx, dword [MemLockHandle]
         test edx, edx
         je short .1
         push edx
@@ -651,7 +651,7 @@ AllocMemBlockFull:
         push ebp
         call AllocMemBlockEx
         mov ebx, eax
-        mov eax, dword [dword_1CF260]
+        mov eax, dword [MemLockHandle]
         add esp, byte 10h
         test eax, eax
         je short .2

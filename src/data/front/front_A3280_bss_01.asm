@@ -2,161 +2,161 @@
 bits 32
 %include "hockey.inc"
 section s_1C93F0 nobits alloc noexec write align=1
-global byte_1C944A, byte_1C944C, byte_1C9472, dword_1C93F0, dword_1C9410, dword_1C9430, dword_1C9473, dword_1C94A4
-global dword_1C94A8, dword_1C94B4, dword_1C94B8, dword_1C94BC, dword_1C94C0, dword_1C94C4, dword_1C94C8, dword_1C94CC
-global dword_1C94D0, dword_1C94D4, dword_1C94D8, dword_1C94DC, dword_1C94E0, dword_1C94E4, dword_1C94E8, dword_1C950C
-global dword_1C9510, dword_1C9514, dword_1C9524, dword_1C9534, dword_1C9538, dword_1C953C, dword_1C9540, dword_1C9544
-global dword_1C9548, dword_1C954C, dword_1C9558, dword_1C955C, dword_1C9560, dword_1C9564, dword_1C9568, dword_1C956C
-global dword_1C9570, dword_1C9574, dword_1C9578, dword_1C957C, dword_1C9580, dword_1C9584, dword_1C9588, dword_1C958C
-global dword_1C9590, dword_1C9594, dword_1C9598, dword_1C959C, dword_1C95A0, dword_1C95A4, dword_1C95A8, dword_1C95AA
-global dword_1C95B0, dword_1C95B4, dword_1C95B8, dword_1C95BC, dword_1C95C0, dword_1C95C4, unk_1C94F4, word_1C9448
-global word_1C9450, word_1C9470, word_1C94EC, word_1C94EE, word_1C94F0, word_1C94F6, word_1C94F8, word_1C94FA
-global word_1C95AC, word_1C95AE
-dword_1C93F0:
+global LinkSetupCursorRow, LinkSetupCursorCol, LinkSetupItemFlags, LinkSetupLogos, LinkSetupNames, LinkSetupArt, LinkSetupItemShape, LinkSetupShapes
+global LinkSetupSounds, LinkSetupScrollUp, LinkSetupBuffer, LinkSetupSlots, LinkSetupScrollDown, LinkSetupTop, LinkSetupRow, LinkSetupItems
+global LinkSetupShapeFile, LinkSetupCount, LinkSetupSettings, LinkPlayerCount, LinkLogoFile, LinkShapeFile, LinkScreensDone, ScoringHomeLayer
+global ScoringAwayLayer, GoldStarShapes, StarFrameShapes, StatsLineTotals, StatsLineGoals, StatsLineAssists, StatsLinePoints, StatsLinePenalties
+global StatsLineNames, ThreeStarsLayers, PostGameLayer, GameStatsPage, GameStatsRow, GameStatsTeam, GameStatsList, GameStatsLine
+global ScoringEntryCount, ThreeStarsChoice, GameStatsBackFile, GameStatsTable, GameStatsTitleFile, GameStatsColumn, GameStatsScroll, GameStatsDrawn
+global ThreeStarsTimer, ThreeStarsPos, GameStatsSpeechCount, PostGameArtFile, ThreeStarsSpeechCount, PostGameShapeFile, PostGameLastSpeech, ScoringLogPad
+global PanelArtLarge, ClockFontSmall, GameLogoShape, ClockFontLarge, GameLogoBitmap, PanelArtSmall, ThreeStarsData, LinkSetupOrder
+global LinkSetupValues, LinkSetupItemType, LinkHomeChoice, LinkSetupItemCount, LinkAwayChoice, ThreeStarsPlayer, ThreeStarsTeam, ThreeStarsPoints
+global ScoringLogCount, PenaltyLogCount
+LinkSetupLogos:
         resb 32
-dword_1C9410:
+LinkSetupNames:
         resb 32
-dword_1C9430:
+LinkSetupArt:
         resb 24
-word_1C9448:
+LinkSetupOrder:
         resb 2
-byte_1C944A:
+LinkSetupCursorRow:
         resb 2
-byte_1C944C:
+LinkSetupCursorCol:
         resb 4
-word_1C9450:
+LinkSetupValues:
         resb 32
-word_1C9470:
+LinkSetupItemType:
         resb 2
-byte_1C9472:
+LinkSetupItemFlags:
         resb 1
-dword_1C9473:
+LinkSetupItemShape:
         resb 49
-dword_1C94A4:
+LinkSetupShapes:
         resb 4
-dword_1C94A8:
+LinkSetupSounds:
         resb 12
-dword_1C94B4:
+LinkSetupScrollUp:
         resb 4
-dword_1C94B8:
+LinkSetupBuffer:
         resb 4
-dword_1C94BC:
+LinkSetupSlots:
         resb 4
-dword_1C94C0:
+LinkSetupScrollDown:
         resb 4
-dword_1C94C4:
+LinkSetupTop:
         resb 4
-dword_1C94C8:
+LinkSetupRow:
         resb 4
-dword_1C94CC:
+LinkSetupItems:
         resb 4
-dword_1C94D0:
+LinkSetupShapeFile:
         resb 4
-dword_1C94D4:
+LinkSetupCount:
         resb 4
-dword_1C94D8:
+LinkSetupSettings:
         resb 4
-dword_1C94DC:
+LinkPlayerCount:
         resb 4
-dword_1C94E0:
+LinkLogoFile:
         resb 4
-dword_1C94E4:
+LinkShapeFile:
         resb 4
-dword_1C94E8:
+LinkScreensDone:
         resb 4
-word_1C94EC:
+LinkHomeChoice:
         resb 2
-word_1C94EE:
+LinkSetupItemCount:
         resb 2
-word_1C94F0:
+LinkAwayChoice:
         resb 4
-unk_1C94F4:
+ThreeStarsData:
         resb 2
-word_1C94F6:
+ThreeStarsPlayer:
         resb 2
-word_1C94F8:
+ThreeStarsTeam:
         resb 2
-word_1C94FA:
+ThreeStarsPoints:
         resb 18
-dword_1C950C:
+ScoringHomeLayer:
         resb 4
-dword_1C9510:
+ScoringAwayLayer:
         resb 4
-dword_1C9514:
+GoldStarShapes:
         resb 16
-dword_1C9524:
+StarFrameShapes:
         resb 16
-dword_1C9534:
+StatsLineTotals:
         resb 4
-dword_1C9538:
+StatsLineGoals:
         resb 4
-dword_1C953C:
+StatsLineAssists:
         resb 4
-dword_1C9540:
+StatsLinePoints:
         resb 4
-dword_1C9544:
+StatsLinePenalties:
         resb 4
-dword_1C9548:
+StatsLineNames:
         resb 4
-dword_1C954C:
+ThreeStarsLayers:
         resb 12
-dword_1C9558:
+PostGameLayer:
         resb 4
-dword_1C955C:
+GameStatsPage:
         resb 4
-dword_1C9560:
+GameStatsRow:
         resb 4
-dword_1C9564:
+GameStatsTeam:
         resb 4
-dword_1C9568:
+GameStatsList:
         resb 4
-dword_1C956C:
+GameStatsLine:
         resb 4
-dword_1C9570:
+ScoringEntryCount:
         resb 4
-dword_1C9574:
+ThreeStarsChoice:
         resb 4
-dword_1C9578:
+GameStatsBackFile:
         resb 4
-dword_1C957C:
+GameStatsTable:
         resb 4
-dword_1C9580:
+GameStatsTitleFile:
         resb 4
-dword_1C9584:
+GameStatsColumn:
         resb 4
-dword_1C9588:
+GameStatsScroll:
         resb 4
-dword_1C958C:
+GameStatsDrawn:
         resb 4
-dword_1C9590:
+ThreeStarsTimer:
         resb 4
-dword_1C9594:
+ThreeStarsPos:
         resb 4
-dword_1C9598:
+GameStatsSpeechCount:
         resb 4
-dword_1C959C:
+PostGameArtFile:
         resb 4
-dword_1C95A0:
+ThreeStarsSpeechCount:
         resb 4
-dword_1C95A4:
+PostGameShapeFile:
         resb 4
-dword_1C95A8:
+PostGameLastSpeech:
         resb 2
-dword_1C95AA:
+ScoringLogPad:
         resb 2
-word_1C95AC:
+ScoringLogCount:
         resb 2
-word_1C95AE:
+PenaltyLogCount:
         resb 2
-dword_1C95B0:
+PanelArtLarge:
         resb 4
-dword_1C95B4:
+ClockFontSmall:
         resb 4
-dword_1C95B8:
+GameLogoShape:
         resb 4
-dword_1C95BC:
+ClockFontLarge:
         resb 4
-dword_1C95C0:
+GameLogoBitmap:
         resb 4
-dword_1C95C4:
+PanelArtSmall:
         resb 4

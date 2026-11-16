@@ -3,8 +3,8 @@ bits 32
 %include "hockey.inc"
 section s_F9C34 progbits alloc exec nowrite align=1
 extern __ExpandDGROUP_, __MemAllocator, __MemFree, __allocfp_, __chktty_, __close_, __fill_buffer_, __flush_
-extern __freefp_, __ioalloc_, __qread_, __set_errno_, str_MBRAM, __nheap_clean, dword_16E318, dword_16E31C
-extern dword_16E320, dword_16E32C, dword_16E330, _fmode, dword_1CF0D8, dword_1CF25C, dword_1CF260, dword_1CF268
+extern __freefp_, __ioalloc_, __qread_, __set_errno_, str_MBRAM, __nheap_clean, HeapList, HeapRover
+extern HeapLargestFree, MemPoolEnd, MemPoolBase, _fmode, HeapFreeList, MemDescriptorTop, MemLockHandle, MemFreeBytes
 extern __OpenStreams, __ClosedStreams, fflush_, lseek_, sopen_, UnlinkJump, GetPsp, McgaNoWindow
 extern ResetMemLock, MemLock, MemUnlock, AddMemRegion, tell_, tolower_
 global __MkTmpFile_, __doclose_, __doopen_, __hex_, __open_flags_, __shutdown_stream_, __update_buffer_, _fsopen_
@@ -738,7 +738,7 @@ _nmalloc_:
         xor eax, eax
         jmp near .13
 .2:
-        mov ebp, dword_16E318
+        mov ebp, HeapList
         lea edi, [byte esi+03h]
         xor ah, ah
         xor edx, edx
@@ -750,14 +750,14 @@ _nmalloc_:
         jae short .4
         mov eax, 0Ch
 .4:
-        cmp eax, dword [dword_16E320]
+        cmp eax, dword [HeapLargestFree]
         jbe short .6
-        mov ecx, dword [dword_16E31C]
+        mov ecx, dword [HeapRover]
         test ecx, ecx
         jne short .9
 .5:
-        mov dword [dword_16E320], ecx
-        mov ecx, dword [dword_16E318]
+        mov dword [HeapLargestFree], ecx
+        mov ecx, dword [HeapList]
         jmp short .9
 .6:
         xor ecx, ecx
@@ -765,7 +765,7 @@ _nmalloc_:
 .7:
         mov edx, ds
         mov eax, ebp
-        mov dword [dword_16E31C], ecx
+        mov dword [HeapRover], ecx
         and edx, 0FFFFh
         mov ebx, ecx
         mov eax, esi
@@ -773,11 +773,11 @@ _nmalloc_:
         mov edx, eax
         test eax, eax
         jne short .12
-        mov ebx, dword [dword_16E320]
+        mov ebx, dword [HeapLargestFree]
         mov eax, dword [byte ecx+014h]
         cmp eax, ebx
         jbe short .8
-        mov dword [dword_16E320], eax
+        mov dword [HeapLargestFree], eax
 .8:
         mov ecx, dword [byte ecx+08h]
 .9:
@@ -1012,7 +1012,7 @@ _nfree_:
         mov esi, eax
         test eax, eax
         je near .7
-        mov ecx, dword [dword_1CF0D8]
+        mov ecx, dword [HeapFreeList]
         test ecx, ecx
         je short .1
         cmp ecx, eax
@@ -1020,7 +1020,7 @@ _nfree_:
         cmp eax, dword [byte ecx+08h]
         jb short .5
 .1:
-        mov ecx, dword [dword_16E318]
+        mov ecx, dword [HeapList]
         jmp short .4
 .2:
         cmp ecx, esi
@@ -1034,21 +1034,21 @@ _nfree_:
         test ebx, ebx
         jne short .2
 .5:
-        mov eax, dword_16E318
+        mov eax, HeapList
         mov edx, ds
         and edx, 0FFFFh
         mov ebx, ecx
         mov eax, esi
         call __MemFree
-        mov ebp, dword [dword_16E31C]
-        mov dword [dword_1CF0D8], ecx
+        mov ebp, dword [HeapRover]
+        mov dword [HeapFreeList], ecx
         cmp ecx, ebp
         jae short .6
-        mov eax, dword [dword_16E320]
+        mov eax, dword [HeapLargestFree]
         mov edx, dword [byte ecx+014h]
         cmp edx, eax
         jbe short .6
-        mov dword [dword_16E320], edx
+        mov dword [HeapLargestFree], edx
 .6:
         xor ah, ah
         mov byte [__nheap_clean], ah
@@ -1067,14 +1067,14 @@ _nfree_:
         mov esi, dword [byte esp+014h]
         call ResetMemLock
         push eax
-        mov dword [dword_1CF260], eax
+        mov dword [MemLockHandle], eax
         call MemLock
         add esp, byte 4
-        mov dword [dword_16E330], esi
+        mov dword [MemPoolBase], esi
         mov edx, ebx
         mov eax, esi
         lea ecx, [nosplit ebx*4+00h]
-        mov dword [dword_1CF25C], esi
+        mov dword [MemDescriptorTop], esi
         add ecx, ebx
         xor edx, ebx
         dec ebx
@@ -1096,21 +1096,21 @@ _nfree_:
         push byte 10h
         add eax, esi
         push byte 10h
-        mov dword [dword_16E32C], eax
+        mov dword [MemPoolEnd], eax
         push eax
-        mov eax, dword [dword_16E330]
+        mov eax, dword [MemPoolBase]
         add eax, ecx
         push eax
         push byte 0
         push str_MBRAM
         call AddMemRegion
-        mov eax, dword [dword_16E32C]
-        mov ebx, dword [dword_16E330]
+        mov eax, dword [MemPoolEnd]
+        mov ebx, dword [MemPoolBase]
         add esp, byte 20h
-        mov ecx, dword [dword_1CF260]
+        mov ecx, dword [MemLockHandle]
         sub eax, ebx
         push ecx
-        mov dword [dword_1CF268], eax
+        mov dword [MemFreeBytes], eax
         call MemUnlock
         add esp, byte 4
         pop edi

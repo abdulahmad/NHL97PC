@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_12FB20 progbits alloc exec nowrite align=1
-extern str_ExitYN, dword_16E464, dword_16E468, MenuScreenBitmap, MessageBoxActive, BackBufferWidth, ExitHandler, SavedEbx
+extern str_ExitYN, ViewScreenWidth, ViewScreenHeight, MenuScreenBitmap, MessageBoxActive, BackBufferWidth, ExitHandler, SavedEbx
 extern SavedEcx, SavedEdx, SavedEsi, SavedEdi, SavedRetAddr, PresentFunc, PresentFuncMenu, PresentFuncGame
 extern PresentFuncInput, str_PAUSEPRESSANYKEY, BlitConverted, PresentScreen, SaveDrawContext, RestoreDrawContext, CreateBitmapDefault, ConvertArtAt
 extern SaveTextState, RestoreTextState, DebugPrintf, DebugPrintAt, DebugPrintLine, DebugLineCount, SetScreenTarget, KbdGetKey
@@ -205,13 +205,13 @@ ShowKeyMessageBox:
 ;-----------------------------------------------------------------------------
 AskExitGame:
         push ebx
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         mov edx, eax
         sar edx, 1Fh
         LD sub, eax, edx
         sar eax, 1
         lea ebx, [byte eax-08h]
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         mov edx, eax
         sar edx, 1Fh
         LD sub, eax, edx
@@ -246,7 +246,7 @@ AskExitGame:
         mov ebx, dword [MenuScreenBitmap]
         push ebx
         push byte 0Ah
-        mov ecx, dword [dword_16E464]
+        mov ecx, dword [ViewScreenWidth]
         push ecx
         call CreateBitmapDefault
         add esp, byte 10h
@@ -265,18 +265,18 @@ AskExitGame:
         push ebx
         call SetDrawTarget
         add esp, byte 4
-        mov edi, dword [dword_16E468]
+        mov edi, dword [ViewScreenHeight]
         push edi
         lea eax, [byte edi-0Ah]
         push eax
-        mov ebp, dword [dword_16E464]
+        mov ebp, dword [ViewScreenWidth]
         push ebp
         push byte 0
         push BackBufferWidth
         call DebugPrintf
         add esp, byte 14h
         call dword [PresentFuncMenu]
-        mov edi, dword [dword_16E468]
+        mov edi, dword [ViewScreenHeight]
         sub edi, byte 0Ah
         call SetScreenTarget
         push edi
@@ -291,8 +291,8 @@ AskExitGame:
         add esp, byte 4
         push eax
         push byte 0Ah
-        mov edx, dword [dword_16E464]
-        mov eax, dword [dword_16E468]
+        mov edx, dword [ViewScreenWidth]
+        mov eax, dword [ViewScreenHeight]
         push edx
         sub eax, byte 0Ah
         push eax
@@ -305,7 +305,7 @@ AskExitGame:
         add esp, byte 4
         push eax
         call SetTextColors
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         add esp, byte 8
         sub eax, byte 9
         push eax
@@ -320,7 +320,7 @@ AskExitGame:
         call DebugLineCount
         add esp, byte 4
         call dword [PresentFunc]
-        mov edi, dword [dword_16E468]
+        mov edi, dword [ViewScreenHeight]
         sub edi, byte 0Ah
         call SetScreenTarget
         push edi
@@ -357,13 +357,13 @@ AskExitGame:
 ;-----------------------------------------------------------------------------
 ShowPauseMessage:
         push ebx
-        mov eax, dword [dword_16E468]
+        mov eax, dword [ViewScreenHeight]
         mov edx, eax
         sar edx, 1Fh
         LD sub, eax, edx
         sar eax, 1
         lea ebx, [byte eax-08h]
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         mov edx, eax
         sar edx, 1Fh
         LD sub, eax, edx

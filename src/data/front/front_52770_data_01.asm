@@ -5,7 +5,7 @@ section s_16154C progbits alloc noexec write align=1
 global str_LogosFsh, str_LOGOS, str_Blogos, str_Floor, str_Puck2, str_04d, str_Lonet, str_Hinet
 global str_Net, str_Goal0, str_Goal1, str_Gt304, str_FLOOR, str_Boxback, str_B00, str_XD
 global str_FaceoffD, str_Flash, str_Fla0, str_Fla1, str_PAL, str_Light6, str_BOGIE, str_Front
-global F64_3p14159_DrawPortraitModels, F64_neg3p14159_DrawPortraitModels, F64_0p6_FaceDistance, qword_1617EE, F64_0p6_SetModelHeading, str_Benchbk, str_Benchdiv, str_Benchx
+global F64_3p14159_DrawPortraitModels, F64_neg3p14159_DrawPortraitModels, F64_0p6_FaceDistance, F64_FaceDistance, F64_0p6_SetModelHeading, str_Benchbk, str_Benchdiv, str_Benchx
 global str_Benchz0, str_Benchz1, str_Boardback, str_Crease, str_Door00, str_Door01, str_Door02, str_Door10
 global str_Door11, str_Door12, str_DoorZ0, str_DoorZ1, str_Flatboards, str_Glite0, str_Glite1, str_Grnlite
 global str_Gt004, str_Gt007, str_Gt302, str_IceLine, str_Lites, str_Maxx, str_Maxz, str_Minx
@@ -177,7 +177,7 @@ str_BOGIE:
         db 042h,04Fh,047h,049h,045h,00h
 F64_0p6_FaceDistance:
         db 033h,033h,033h,033h,033h,033h,0E3h,03Fh
-qword_1617EE:
+F64_FaceDistance:
         db 033h,033h,033h,033h,033h,033h,0E3h,03Fh
 F64_0p6_SetModelHeading:
         db 033h,033h,033h,033h,033h,033h,0E3h,03Fh,00h,00h

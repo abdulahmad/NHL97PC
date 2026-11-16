@@ -2,35 +2,35 @@
 bits 32
 %include "hockey.inc"
 section s_16CAB0 progbits alloc noexec write align=1
-global dword_16CAB0, dword_16CAB4, str_Punct_DrawScreenBackground, dword_16CAF4, dword_16CB74, dword_16CB78, dword_16CB7C, dword_16CB80
-global unk_16CB30
-dword_16CAB0:
+global EntryListItems, EntryRowOffsets, str_Punct_DrawScreenBackground, EntryColumnOffsets, LogoNamesLoaded, HighlightTextOn, ScreenWipeMode, LinkBoxShown
+global LinkFrameTitle
+EntryListItems:
         db 044h,02h,00h,00h
-dword_16CAB4:
+EntryRowOffsets:
         db 0BDh,01h,00h,00h,051h,02h,00h,00h,0B0h,01h,00h,00h,06Dh,02h,00h,00h
         db 0A1h,01h,00h,00h,079h,02h,00h,00h,0AFh,01h,00h,00h,055h,02h,00h,00h
         db 0D3h,01h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 str_Punct_DrawScreenBackground:
         db 09h,00h,00h,00h
-dword_16CAF4:
+EntryColumnOffsets:
         db 0ADh,01h,00h,00h,013h,00h,00h,00h,0A0h,01h,00h,00h,02Eh,00h,00h,00h
         db 098h,01h,00h,00h,03Dh,00h,00h,00h,0A5h,01h,00h,00h,03Dh,00h,00h,00h
         db 0C3h,01h,00h,00h,033h,00h,00h,00h,0D0h,01h,00h,00h,019h,00h,00h,00h
         db 0D7h,01h,00h,00h,09h,00h,00h,00h,0CCh,01h,00h,00h
-unk_16CB30:
+LinkFrameTitle:
         db 078h,02h,00h,00h,01Bh,00h,00h,00h,077h,02h,00h,00h,02Ah,00h,00h,00h
         db 05Ch,02h,00h,00h,037h,00h,00h,00h,046h,02h,00h,00h,037h,00h,00h,00h
         db 02Dh,02h,00h,00h,029h,00h,00h,00h,02Dh,02h,00h,00h,019h,00h,00h,00h
         db 044h,02h,00h,00h,0Ah,00h,00h,00h,061h,02h,00h,00h,0Ah,00h,00h,00h
         db 00h,00h,00h,00h
-dword_16CB74:
+LogoNamesLoaded:
         db 00h,00h,00h,00h
-dword_16CB78:
+HighlightTextOn:
         db 01h,00h,00h,00h
-dword_16CB7C:
+ScreenWipeMode:
         db 00h,00h,00h,00h
-dword_16CB80:
+LinkBoxShown:
         db 00h,00h,00h,00h,032h,00h,00h,00h,0C8h,00h,00h,00h,0FAh,00h,00h,00h
         db 0C8h,00h,00h,00h,0FAh,00h,00h,00h,0F9h,00h,00h,00h,031h,00h,00h,00h
         db 0F9h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h

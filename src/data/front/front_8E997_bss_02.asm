@@ -2,42 +2,42 @@
 bits 32
 %include "hockey.inc"
 section s_1C84D8 nobits alloc noexec write align=1
-global byte_1C8700, dword_1C84D8, dword_1C8540, dword_1C8568, dword_1C85D0, dword_1C8618, dword_1C8680, dword_1C86E8
-global dword_1C86EC, dword_1C86F0, dword_1C86F4, dword_1C86F8, dword_1C86FC, unk_1C85DC, unk_1C85E8, unk_1C85F4
-global unk_1C8600, unk_1C860C
-dword_1C84D8:
+global SeasonTypeCode, StandingsGoalsFor, SeasonSparkleShapes, StandingsTies, SeasonMenuShapeLists, StandingsWins, StandingsGoalsAgainst, StandingsSortKey
+global SeasonSparkleSoundOn, SeasonMenuItems, StandingsBuffer, NewSeasonItems, ExhibitionData, NewSeasonShapes, SeasonNameShapes, SeasonRecordShapes
+global SeasonGameShapes, SeasonDateShapes
+StandingsGoalsFor:
         resb 104
-dword_1C8540:
+SeasonSparkleShapes:
         resb 40
-dword_1C8568:
+StandingsTies:
         resb 104
-dword_1C85D0:
+SeasonMenuShapeLists:
         resb 12
-unk_1C85DC:
+NewSeasonShapes:
         resb 12
-unk_1C85E8:
+SeasonNameShapes:
         resb 12
-unk_1C85F4:
+SeasonRecordShapes:
         resb 12
-unk_1C8600:
+SeasonGameShapes:
         resb 12
-unk_1C860C:
+SeasonDateShapes:
         resb 12
-dword_1C8618:
+StandingsWins:
         resb 104
-dword_1C8680:
+StandingsGoalsAgainst:
         resb 104
-dword_1C86E8:
+StandingsSortKey:
         resb 4
-dword_1C86EC:
+SeasonSparkleSoundOn:
         resb 4
-dword_1C86F0:
+SeasonMenuItems:
         resb 4
-dword_1C86F4:
+StandingsBuffer:
         resb 4
-dword_1C86F8:
+NewSeasonItems:
         resb 4
-dword_1C86FC:
+ExhibitionData:
         resb 4
-byte_1C8700:
+SeasonTypeCode:
         resb 4

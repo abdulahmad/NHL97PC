@@ -2,13 +2,13 @@
 bits 32
 %include "hockey.inc"
 section s_789F0 progbits alloc exec nowrite align=1
-extern byte_1C135A, byte_1C135B, byte_1C31A7, byte_1C347D, byte_1C52CA, byte_1C55A0, str_D_SimulateGame, dword_16C730
-extern SeasonUserTeam, GameOptionFlags, dword_1AD22A, dword_1AD743, dword_1C13C0, dword_1C13FB, dword_1C34E3, dword_1C351E
+extern PeriodHomeTeam, PeriodAwayTeam, HomeRosterData, HomeBackupGoalie, AwayRosterData, AwayBackupGoalie, str_D_SimulateGame, SimGameResult
+extern SeasonUserTeam, GameOptionFlags, SeasonRandomSeed, PlayoffRandomSeed, PaEventValue, ThreeStarsCount, HomeTeamRating, HomeInjuredCount
 extern memset_, rand_, srand_, RandomCrowdDelay, PlayerOverall, FindPlayerRecord, FindGameRecord, FindPlayerStat
-extern ReadTeamStats, ServiceIdle, ZeroMem, unk_16D7FC, unk_16D804, unk_1C135C, unk_1C347F, unk_78930
-extern word_1C150A, word_1C319B, word_1C319D, word_1C31A3, word_1C3415, word_1C3417, word_1C3419, word_1C3427
-extern word_1C362D, word_1C52BE, word_1C52C0, word_1C52C6, word_1C5538, word_1C553A, word_1C553C, word_1C554A
-global SimulateGame, SimPlayerRating, SimTeamStrength, unk_7A788
+extern ReadTeamStats, ServiceIdle, ZeroMem, PlayoffDbKey, SeasonDbKey, AutoLineData, HomeLines, SimGameBlankPair
+extern HomeRosterData, HomeSimGoals, HomeSimShots, HomeShotTotals, HomeGoalTotals
+extern AwayRosterData, AwaySimGoals, AwaySimShots, AwayShotTotals, AwayGoalTotals
+global SimulateGame, SimPlayerRating, SimTeamStrength, SimTeamStrengthJumpTable
 ;-----------------------------------------------------------------------------
 ; SimulateGame                                    789F0  97 PC, low confidence
 ; Simulates a game without playing it
@@ -22,15 +22,15 @@ SimulateGame:
         sub esp, 162Ch
         mov dword [dword esp+0150Ch], edx
         lea edi, [dword esp+014DCh]
-        mov esi, unk_78930
+        mov esi, SimGameBlankPair
         movsd
         movsd
         test edx, edx
         jne short .1
-        add eax, dword [dword_1AD22A]
+        add eax, dword [SeasonRandomSeed]
         jmp short .2
 .1:
-        add eax, dword [dword_1AD743]
+        add eax, dword [PlayoffRandomSeed]
 .2:
         call srand_
         call ServiceIdle
@@ -46,10 +46,10 @@ SimulateGame:
 .3:
         cmp dword [dword esp+0152Ch], byte 0
         jne short .4
-        mov dword [dword esp+01524h], unk_1C135C
+        mov dword [dword esp+01524h], AutoLineData
         jmp short .5
 .4:
-        mov dword [dword esp+01524h], unk_1C347F
+        mov dword [dword esp+01524h], HomeLines
 .5:
         mov ebx, 339h
         mov eax, dword [dword esp+0159Ch]
@@ -116,14 +116,14 @@ SimulateGame:
         add edx, edi
         test eax, eax
         je short .9
-        mov eax, unk_16D804
+        mov eax, SeasonDbKey
         mov ebx, ecx
         call ReadTeamStats
         test eax, eax
         jne short .11
         jmp short .10
 .9:
-        mov eax, unk_16D7FC
+        mov eax, PlayoffDbKey
         mov ebx, ecx
         call ReadTeamStats
         test eax, eax
@@ -299,7 +299,7 @@ SimulateGame:
         mov ecx, dword [dword esp+01594h]
         mov edx, ebp
         add ecx, eax
-        mov eax, unk_16D7FC
+        mov eax, PlayoffDbKey
         mov ebx, ecx
         call ReadTeamStats
         mov eax, dword [dword esp+01558h]
@@ -364,7 +364,7 @@ SimulateGame:
         add edx, eax
         mov esi, dword [dword esp+014CCh]
         add edx, edx
-        mov eax, dword [dword_1C13C0]
+        mov eax, dword [PaEventValue]
         add edx, esi
         sar eax, 10h
         sar edx, 1
@@ -380,7 +380,7 @@ SimulateGame:
         add edx, eax
         mov ebp, dword [dword esp+014D0h]
         add edx, edx
-        mov eax, dword [dword_1C34E3]
+        mov eax, dword [HomeTeamRating]
         add edx, ebp
         sar eax, 10h
         sar edx, 1
@@ -672,14 +672,14 @@ SimulateGame:
 .40:
         cmp dword [dword esp+01628h], byte 0
         jne short .41
-        mov ebx, unk_1C347F
-        mov edx, unk_1C135C
+        mov ebx, HomeLines
+        mov edx, AutoLineData
         mov dword [dword esp+01604h], ebx
         mov dword [dword esp+01608h], edx
         jmp short .42
 .41:
-        mov eax, unk_1C347F
-        mov ebp, unk_1C135C
+        mov eax, HomeLines
+        mov ebp, AutoLineData
         mov dword [dword esp+01608h], eax
         mov dword [dword esp+01604h], ebp
 .42:
@@ -819,7 +819,7 @@ SimulateGame:
         sete dl
         and edx, 0FFh
         xor ebx, ebx
-        mov dword [dword_16C730], edx
+        mov dword [SimGameResult], edx
         test eax, eax
         jle short .61
         mov edx, dword [dword esp+01574h]
@@ -1551,102 +1551,102 @@ SimulateGame:
         cmp eax, byte 2
         jl near .40
         mov al, byte [dword esp+014E4h]
-        mov byte [byte_1C135A], al
+        mov byte [PeriodHomeTeam], al
         mov eax, dword [dword esp+014E4h]
-        mov word [word_1C3415], ax
+        mov word [HomeSimGoals], ax
         mov eax, dword [dword esp+014E8h]
-        mov word [word_1C3417], ax
+        mov word [HomeSimShots], ax
         mov al, byte [dword esp+014E8h]
-        mov byte [byte_1C135B], al
+        mov byte [PeriodAwayTeam], al
         mov eax, dword [dword esp+014E8h]
-        mov word [word_1C5538], ax
+        mov word [AwaySimGoals], ax
         mov eax, dword [dword esp+014E4h]
-        mov word [word_1C553A], ax
+        mov word [AwaySimShots], ax
         mov eax, dword [dword esp+014F4h]
         xor ebx, ebx
-        mov bl, byte [dword eax+byte_1C347D]
+        mov bl, byte [dword eax+HomeBackupGoalie]
         imul edx, ebx, dword 125h
         mov eax, dword [dword esp+014E8h]
-        mov word [dword edx+word_1C31A3], ax
+        mov word [dword edx+HomeRosterData+1C99h], ax
         mov eax, dword [GameOptionFlags]
         test byte [byte eax+02h], 18h
         jne short .121
-        mov word [dword edx+word_1C319B], 384h
+        mov word [dword edx+HomeRosterData+1C91h], 384h
         jmp short .123
 .121:
         mov eax, dword [byte eax+01h]
         and eax, 1800h
         cmp eax, 800h
         jne short .122
-        mov word [dword edx+word_1C319B], 708h
+        mov word [dword edx+HomeRosterData+1C91h], 708h
         jmp short .123
 .122:
-        mov word [dword edx+word_1C319B], 0E10h
+        mov word [dword edx+HomeRosterData+1C91h], 0E10h
 .123:
         imul eax, ebx, dword 125h
         mov ch, 1
         xor edx, edx
         xor ebx, ebx
-        mov byte [dword eax+byte_1C31A7], ch
+        mov byte [dword eax+HomeRosterData+1C9Dh], ch
         mov ecx, eax
         jmp short .125
 .124:
-        mov si, word [dword ecx+word_1C319D]
-        mov ax, word [dword ebx+word_1C362D]
+        mov si, word [dword ecx+HomeRosterData+1C93h]
+        mov ax, word [dword ebx+AwayRosterData]
         add ebx, 125h
         add esi, eax
         inc edx
-        mov word [dword ecx+word_1C319D], si
+        mov word [dword ecx+HomeRosterData+1C93h], si
 .125:
-        mov eax, dword [dword_1C351E]
+        mov eax, dword [HomeInjuredCount]
         sar eax, 10h
         cmp edx, eax
         jl short .124
         mov eax, dword [dword esp+014E0h]
-        mov dx, word [word_1C3427]
-        mov bx, word [word_1C3419]
+        mov dx, word [HomeGoalTotals]
+        mov bx, word [HomeShotTotals]
         add edx, eax
         mov eax, dword [dword esp+014DCh]
-        mov word [word_1C3427], dx
+        mov word [HomeGoalTotals], dx
         add ebx, eax
         mov eax, dword [dword esp+014F8h]
-        mov word [word_1C3419], bx
+        mov word [HomeShotTotals], bx
         xor ebx, ebx
-        mov bl, byte [dword eax+byte_1C55A0]
+        mov bl, byte [dword eax+AwayBackupGoalie]
         imul edx, ebx, dword 125h
         mov eax, dword [dword esp+014E4h]
-        mov word [dword edx+word_1C52C6], ax
+        mov word [dword edx+AwayRosterData+1C99h], ax
         mov eax, dword [GameOptionFlags]
         test byte [byte eax+02h], 18h
         jne short .126
-        mov word [dword edx+word_1C52BE], 384h
+        mov word [dword edx+AwayRosterData+1C91h], 384h
         jmp short .128
 .126:
         mov eax, dword [byte eax+01h]
         and eax, 1800h
         cmp eax, 800h
         jne short .127
-        mov word [dword edx+word_1C52BE], 708h
+        mov word [dword edx+AwayRosterData+1C91h], 708h
         jmp short .128
 .127:
-        mov word [dword edx+word_1C52BE], 0E10h
+        mov word [dword edx+AwayRosterData+1C91h], 0E10h
 .128:
         imul eax, ebx, dword 125h
         mov ch, 1
         xor edx, edx
         xor ebx, ebx
-        mov byte [dword eax+byte_1C52CA], ch
+        mov byte [dword eax+AwayRosterData+1C9Dh], ch
         mov ecx, eax
         jmp short .130
 .129:
-        mov si, word [dword ecx+word_1C52C0]
-        mov ax, word [dword edx+word_1C150A]
+        mov si, word [dword ecx+AwayRosterData+1C93h]
+        mov ax, word [dword edx+HomeRosterData]
         add edx, 125h
         add esi, eax
         inc ebx
-        mov word [dword ecx+word_1C52C0], si
+        mov word [dword ecx+AwayRosterData+1C93h], si
 .130:
-        mov eax, dword [dword_1C13FB]
+        mov eax, dword [ThreeStarsCount]
         sar eax, 10h
         cmp ebx, eax
         jge near .141
@@ -1661,10 +1661,10 @@ SimulateGame:
 .132:
         cmp dword [dword esp+0160Ch], byte 0
         jne short .133
-        mov esi, unk_1C135C
+        mov esi, AutoLineData
         jmp short .134
 .133:
-        mov esi, unk_1C347F
+        mov esi, HomeLines
 .134:
         mov eax, esi
         xor edx, edx
@@ -1731,16 +1731,16 @@ SimulateGame:
 .141:
         mov eax, dword [dword esp+014DCh]
         mov esi, 5
-        mov di, word [word_1C554A]
+        mov di, word [AwayGoalTotals]
         xor ebx, ebx
-        mov dx, word [word_1C553C]
+        mov dx, word [AwayShotTotals]
         mov dword [dword esp+0161Ch], ebx
         add edi, eax
         mov eax, dword [dword esp+014E0h]
         mov dword [dword esp+015F0h], esi
         add edx, eax
-        mov word [word_1C554A], di
-        mov word [word_1C553C], dx
+        mov word [AwayGoalTotals], di
+        mov word [AwayShotTotals], dx
 .142:
         cmp ebx, byte 3
         jl near .131
@@ -2025,7 +2025,7 @@ SimTeamStrength:
         pop ecx
         ret
         db 08Bh,0C0h
-unk_7A788:
+SimTeamStrengthJumpTable:
         dd .2
         dd .3
         dd .4
@@ -2046,7 +2046,7 @@ unk_7A788:
         cmp ebp, byte 4
         ja short .7
         mov eax, dword [dword esp+01A0Ch]
-        jmp dword [dword cs:eax+unk_7A788]
+        jmp dword [dword cs:eax+SimTeamStrengthJumpTable]
 .2:
         mov ecx, 2Dh
         jmp short .7
@@ -2144,7 +2144,7 @@ unk_7A788:
         call FindPlayerStat
         lea ebx, [byte ebp-04Eh]
         lea edx, [dword ebp-010Ah]
-        mov eax, unk_16D7FC
+        mov eax, PlayoffDbKey
         xor ecx, ecx
         call ReadTeamStats
         push byte 0
@@ -2189,7 +2189,7 @@ unk_7A788:
         call FindPlayerStat
         lea ebx, [byte ebp-04Eh]
         lea edx, [dword ebp-010Ah]
-        mov eax, unk_16D7FC
+        mov eax, PlayoffDbKey
         lea esi, [byte ebp+01Ah]
         call ReadTeamStats
         push byte 0

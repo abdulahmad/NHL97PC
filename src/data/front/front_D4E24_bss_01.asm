@@ -2,59 +2,42 @@
 bits 32
 %include "hockey.inc"
 section s_1CC8B8 nobits alloc noexec write align=1
-global dword_1CCEB8, dword_1CCEBC, dword_1CCEE8, dword_1CCEEC, dword_1CCEF0, dword_1CCEF8, dword_1CCEFC, dword_1CCF12
-global dword_1CCF16, dword_1CCF1E, dword_1CCF22, dword_1CD0F4, dword_1CD0F8, dword_1CD0FE, dword_1CD102, dword_1CD106
-global dword_1CD10A, dword_1CD10E, unk_1CC8B8, unk_1CCBB8, unk_1CCF4A, unk_1CCF9C, unk_1CCFEE, unk_1CD040
-global unk_1CD092, unk_1CD138
-unk_1CC8B8:
+global GoalieMaskAnimKinds, GoalieMaskAnimFrames, CreditsScrollY, CreditsLine, CreditsBitmap, GoalieMaskItems
+
+global FadePaletteBuffer, IntroPalette
+global DbPageSlots
+FadePaletteBuffer:
         resb 768
-unk_1CCBB8:
+IntroPalette:
         resb 768
-dword_1CCEB8:
+GoalieMaskAnimKinds:
         resb 4
-dword_1CCEBC:
+GoalieMaskAnimFrames:
         resb 44
-dword_1CCEE8:
+CreditsScrollY:
         resb 4
-dword_1CCEEC:
+CreditsLine:
         resb 4
-dword_1CCEF0:
+CreditsBitmap:
         resb 8
-dword_1CCEF8:
+GoalieMaskItems:
         resb 4
-dword_1CCEFC:
         resb 22
-dword_1CCF12:
         resb 4
-dword_1CCF16:
         resb 8
-dword_1CCF1E:
         resb 4
-dword_1CCF22:
         resb 40
-unk_1CCF4A:
         resb 82
-unk_1CCF9C:
         resb 82
-unk_1CCFEE:
         resb 82
-unk_1CD040:
         resb 82
-unk_1CD092:
         resb 98
-dword_1CD0F4:
         resb 4
-dword_1CD0F8:
         resb 6
-dword_1CD0FE:
         resb 4
-dword_1CD102:
         resb 4
-dword_1CD106:
         resb 4
-dword_1CD10A:
         resb 4
-dword_1CD10E:
         resb 42
-unk_1CD138:
+DbPageSlots:
         resb 32

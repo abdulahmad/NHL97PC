@@ -1,0 +1,3 @@
+off_169780 SpeechClipDefTable {confidence=low} speech clip definition per clip
+dword_16925C SpeechStreamBytes {confidence=low} speech stream size
+dword_1B0CFC ModelSlotTable {confidence=low} model slots

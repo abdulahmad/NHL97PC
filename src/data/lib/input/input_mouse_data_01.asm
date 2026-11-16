@@ -5,7 +5,7 @@ section s_16E604 progbits alloc noexec write align=1
 extern FreeBitmap_30, FillRectColor_48, FillRectColor_5C, FillRectColor_6C, FillRectColor_80, ExitProgram, CopyRowKeyed8, CopyRowKeyed16
 extern CopyRowKeyed24, CopyRowKeyed32, FillRowColor, str_Jan, str_Feb, str_Mar, str_Apr, str_May
 extern str_Jun, str_Jul, str_Aug, str_Sep, str_Oct, str_Nov, str_Dec
-global DebugTextColor, DebugBackColor, byte_16E63A, ScreenBitsPerPixel, str_Punct_FreeArtArchive, ModeBitsPerPixel, str_Punct_SetGraphicsMode, mouseminx
+global DebugTextColor, DebugBackColor, DebugLineScale, ScreenBitsPerPixel, str_Punct_FreeArtArchive, ModeBitsPerPixel, str_Punct_SetGraphicsMode, mouseminx
 global mouseminy, mousemaxx, mousemaxy, MouseDeltaX, MouseButtonState, MouseSavedSensX, MouseSavedSensY, MouseSavedThreshold
 global DebugMode, DebugLineY, DebugLineWidth, DebugLineTable, ScreenWidth, ClipBottom, ClipLeft, ClipTopRow
 global ClipTop, ClipLeftCol, ClipRightEdge, ClipRight, ClipBottomEdge, ScreenHeight, ScreenPitch, ScreenBuffer
@@ -41,7 +41,7 @@ DebugTextColor:
         db 00h
 DebugBackColor:
         db 07h
-byte_16E63A:
+DebugLineScale:
         db 08h,00h
 DebugLineTable:
         db 00h,00h,00h,00h

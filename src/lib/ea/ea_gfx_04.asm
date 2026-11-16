@@ -9,11 +9,11 @@ extern ProbeSoundPorts, CloseDigitalAudio, StopChannel, DosOpenFile, DosCloseFil
 extern LoadSampleHeader, GusDetect, ReadSoundscapeIni, SoundscapeCodecReady, AudioLeave, SampleFormatSize, MixerStartSample, MixerFadeChannel
 extern MixerSetPanVolume, MixerSetPitch, MixerSamplesLeft, ReadLittleEndian, FreeMemBlock, MemPtrSize, addtimer, RemoveTimerCallback
 extern SampleRateTable
-global jpt_1074C0, StartPatchSample_B1, StartPatchSample_C2, StartPatchSample_D3, StartPatchSample_E7, StartPatchSample_FB, StartPatchSample_10F, StartPatchSample_123
+global StartPatchSampleJumpTable, StartPatchSample_B1, StartPatchSample_C2, StartPatchSample_D3, StartPatchSample_E7, StartPatchSample_FB, StartPatchSample_10F, StartPatchSample_123
 global StartPatchSample_135, StartPatchSample_140, SampleRateResults_1, SampleRateResults_7, SampleRateResults_D, SampleRateResults_13, SampleRateResults_19, LoadFileToBlock
 global LoadFileToBlockShared, LoadFileToBlockPlain, RegisterSoundBank, UnregisterSoundBank, PrepareBankSamples, CheckBankIndex, DetectAudioDriver, OpenAudioDriver
 global CloseAudioDriver, AdvanceStreamOffset, AudioNullFunc, StartTmplSample, StartPatchSample, ParsePatchTags, AudioDriverUpdate, ApplyChannelVolume
-global FadeOutChannel, ChannelTimeLeft, SetChannelPitch, InitStreamHeader, PickSampleRate, SampleRateResults, DetectAudioHardware, unk_1072E0
+global FadeOutChannel, ChannelTimeLeft, SetChannelPitch, InitStreamHeader, PickSampleRate, SampleRateResults, DetectAudioHardware, WssBasePorts
 ;-----------------------------------------------------------------------------
 ; LoadFileToBlock                                107000  97 PC, low confidence
 ; Returns a file already held in a named memory block, or loads it from disk
@@ -356,7 +356,7 @@ CheckBankIndex:
         xor eax, eax
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-unk_1072E0:
+WssBasePorts:
         db 030h,05h,00h,00h,04h,06h,00h,00h,080h,0Eh,00h,00h,040h,0Fh,00h,00h
 ;-----------------------------------------------------------------------------
 ; DetectAudioDriver                              1072F0  97 PC, low confidence
@@ -562,7 +562,7 @@ StartTmplSample:
         pop esi
         ret 14h
         db 08Dh,040h,00h
-jpt_1074C0:
+StartPatchSampleJumpTable:
         dd StartPatchSample_D3
         dd StartPatchSample_E7
         dd StartPatchSample_10F
@@ -629,7 +629,7 @@ StartPatchSample:
         sub ecx, 81h
         cmp ecx, byte 9
         ja near StartPatchSample_140
-        jmp dword [nosplit cs:ecx*4+jpt_1074C0]
+        jmp dword [nosplit cs:ecx*4+StartPatchSampleJumpTable]
 StartPatchSample_B1:
         mov edx, ebx
         mov eax, esi

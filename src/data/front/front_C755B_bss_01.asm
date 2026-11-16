@@ -2,101 +2,101 @@
 bits 32
 %include "hockey.inc"
 section s_1CC18C nobits alloc noexec write align=1
-global byte_1CC240, dword_1CC18C, dword_1CC19C, dword_1CC1AC, dword_1CC1BC, dword_1CC1C0, dword_1CC1C4, dword_1CC1C8
-global dword_1CC1CC, dword_1CC1D0, dword_1CC1D4, dword_1CC1D8, dword_1CC1DC, dword_1CC1E0, dword_1CC1E4, dword_1CC1E8
-global dword_1CC1EC, dword_1CC1F0, dword_1CC1F4, dword_1CC1F8, dword_1CC1FC, dword_1CC200, dword_1CC204, dword_1CC208
-global dword_1CC20C, dword_1CC210, dword_1CC214, dword_1CC218, dword_1CC21C, dword_1CC220, dword_1CC224, dword_1CC228
-global dword_1CC22C, dword_1CC230, dword_1CC234, dword_1CC238, dword_1CC23C, dword_1CC2A4, dword_1CC2A8, dword_1CC2AC
-global dword_1CC2B0, dword_1CC2B4, dword_1CC2B8, dword_1CC2BC, dword_1CC2C0, dword_1CC2C4
-dword_1CC18C:
+global NewPlayerRecord, RosterSpeechHome, RosterSpeechTrade, RosterSpeechAway, RosterListBox, RosterOtherListBox, RosterTeam, RosterOtherTeam
+global CreateSkaterRatings, RatingBarArt, CreatePlayerSlot, RatingBarBackArt, RatingBarLitArt, CreateGoalieMode, RatingBarLitBackArt, CreateGoalieRatings
+global JerseyMenuItems, RatingPanelShapeFile, RatingPointsLeft, JerseyChoice, CreatePlayerItems, RosterLastSpeech, RosterListArea, RosterMode
+global RosterRow, RosterScrollArea, RosterPanelBitmap, RosterPanelShape, RosterPanelLayers, RosterTitleShape, RosterLogoBitmap, RosterMenuItems
+global RosterTradeOn, RosterScrollList, RosterMenuArea, RosterInfoLoaded, RosterInfoAnim, DeletionCount, RosterPlayerInfo, RosterTeams
+global RosterChanged, JerseyHomeArt, JerseyAwayArt, RosterEditOpen, RosterShapeFile, RosterBackFile
+RosterSpeechHome:
         resb 16
-dword_1CC19C:
+RosterSpeechTrade:
         resb 16
-dword_1CC1AC:
+RosterSpeechAway:
         resb 16
-dword_1CC1BC:
+RosterListBox:
         resb 4
-dword_1CC1C0:
+RosterOtherListBox:
         resb 4
-dword_1CC1C4:
+RosterTeam:
         resb 4
-dword_1CC1C8:
+RosterOtherTeam:
         resb 4
-dword_1CC1CC:
+CreateSkaterRatings:
         resb 4
-dword_1CC1D0:
+RatingBarArt:
         resb 4
-dword_1CC1D4:
+CreatePlayerSlot:
         resb 4
-dword_1CC1D8:
+RatingBarBackArt:
         resb 4
-dword_1CC1DC:
+RatingBarLitArt:
         resb 4
-dword_1CC1E0:
+CreateGoalieMode:
         resb 4
-dword_1CC1E4:
+RatingBarLitBackArt:
         resb 4
-dword_1CC1E8:
+CreateGoalieRatings:
         resb 4
-dword_1CC1EC:
+JerseyMenuItems:
         resb 4
-dword_1CC1F0:
+RatingPanelShapeFile:
         resb 4
-dword_1CC1F4:
+RatingPointsLeft:
         resb 4
-dword_1CC1F8:
+JerseyChoice:
         resb 4
-dword_1CC1FC:
+CreatePlayerItems:
         resb 4
-dword_1CC200:
+RosterLastSpeech:
         resb 4
-dword_1CC204:
+RosterListArea:
         resb 4
-dword_1CC208:
+RosterMode:
         resb 4
-dword_1CC20C:
+RosterRow:
         resb 4
-dword_1CC210:
+RosterScrollArea:
         resb 4
-dword_1CC214:
+RosterPanelBitmap:
         resb 4
-dword_1CC218:
+RosterPanelShape:
         resb 4
-dword_1CC21C:
+RosterPanelLayers:
         resb 4
-dword_1CC220:
+RosterTitleShape:
         resb 4
-dword_1CC224:
+RosterLogoBitmap:
         resb 4
-dword_1CC228:
+RosterMenuItems:
         resb 4
-dword_1CC22C:
+RosterTradeOn:
         resb 4
-dword_1CC230:
+RosterScrollList:
         resb 4
-dword_1CC234:
+RosterMenuArea:
         resb 4
-dword_1CC238:
+RosterInfoLoaded:
         resb 4
-dword_1CC23C:
+RosterInfoAnim:
         resb 4
-byte_1CC240:
+NewPlayerRecord:
         resb 100
-dword_1CC2A4:
+DeletionCount:
         resb 4
-dword_1CC2A8:
+RosterPlayerInfo:
         resb 4
-dword_1CC2AC:
+RosterTeams:
         resb 4
-dword_1CC2B0:
+RosterChanged:
         resb 4
-dword_1CC2B4:
+JerseyHomeArt:
         resb 4
-dword_1CC2B8:
+JerseyAwayArt:
         resb 4
-dword_1CC2BC:
+RosterEditOpen:
         resb 4
-dword_1CC2C0:
+RosterShapeFile:
         resb 4
-dword_1CC2C4:
+RosterBackFile:
         resb 4

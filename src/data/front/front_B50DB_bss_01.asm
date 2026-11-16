@@ -2,95 +2,95 @@
 bits 32
 %include "hockey.inc"
 section s_1CA9DC nobits alloc noexec write align=1
-global byte_1CAEC8, dword_1CAA00, dword_1CAB00, dword_1CAC00, dword_1CACDC, dword_1CAD28, dword_1CAD2C, dword_1CAD38
-global dword_1CAD48, dword_1CAE24, dword_1CAE28, dword_1CAE2C, dword_1CAE34, dword_1CAE6C, dword_1CAE70, dword_1CAE74
-global dword_1CAE78, dword_1CAE7C, dword_1CAE80, dword_1CAE84, dword_1CAE88, dword_1CAE8C, dword_1CAE90, dword_1CAE94
-global dword_1CAE98, dword_1CAE9C, dword_1CAEA0, dword_1CAEA4, dword_1CAEA8, dword_1CAEAC, dword_1CAEB0, dword_1CAEB4
-global dword_1CAEB8, dword_1CAEBC, dword_1CAEC0, dword_1CAEC4, unk_1CA9DC, unk_1CAADC, unk_1CABDC, unk_1CACE8
-global unk_1CACF4, unk_1CAD00, unk_1CAD24
-unk_1CA9DC:
+global RatingsTeamSide, RatingsListFont, RatingsSkaterRow, RatingsGoalieRow, PlayerStatsShapeLists, StatsCardBackArt, StatsCardFrameArt, StatsCardPortrait
+global StatsCardRow, RatingsSoundPlayed, RatingsShapeCount, RatingsShapes, RatingsTeamShapes, RatingsShapeFile, RatingsSkaterShown, RatingsSkaterTick
+global StatsCardBitmap, StatsCardShown, RatingsGoalieOrder, RatingsSkaterOrder, RatingsSkaterBitmap, RatingsGoalieBitmap, RatingsSkaterLast, RatingsSkaterDrawn
+global StatsCardTick, RatingsGoalieTick, RatingsPageDrawn, RatingsGoalieDrawn, PlayerStatRecords, RatingsTeam, RatingsGoalieShown, RatingsCompact
+global GoalieStatRecords, StatsCardDrawn, RatingsGoalieLast, StatsCardPlayer, RatingsScrollBar, RatingsSkaterList, RatingsGoalieList, PlayerStatsPageShapes
+global PlayerStatsArrowShapes, PlayerStatsTitleShapes, StatsCardList
+RatingsScrollBar:
         resb 36
-dword_1CAA00:
+RatingsListFont:
         resb 220
-unk_1CAADC:
+RatingsSkaterList:
         resb 36
-dword_1CAB00:
+RatingsSkaterRow:
         resb 220
-unk_1CABDC:
+RatingsGoalieList:
         resb 36
-dword_1CAC00:
+RatingsGoalieRow:
         resb 220
-dword_1CACDC:
+PlayerStatsShapeLists:
         resb 12
-unk_1CACE8:
+PlayerStatsPageShapes:
         resb 12
-unk_1CACF4:
+PlayerStatsArrowShapes:
         resb 12
-unk_1CAD00:
+PlayerStatsTitleShapes:
         resb 36
-unk_1CAD24:
+StatsCardList:
         resb 4
-dword_1CAD28:
+StatsCardBackArt:
         resb 4
-dword_1CAD2C:
+StatsCardFrameArt:
         resb 12
-dword_1CAD38:
+StatsCardPortrait:
         resb 16
-dword_1CAD48:
+StatsCardRow:
         resb 220
-dword_1CAE24:
+RatingsSoundPlayed:
         resb 4
-dword_1CAE28:
+RatingsShapeCount:
         resb 4
-dword_1CAE2C:
+RatingsShapes:
         resb 8
-dword_1CAE34:
+RatingsTeamShapes:
         resb 56
-dword_1CAE6C:
+RatingsShapeFile:
         resb 4
-dword_1CAE70:
+RatingsSkaterShown:
         resb 4
-dword_1CAE74:
+RatingsSkaterTick:
         resb 4
-dword_1CAE78:
+StatsCardBitmap:
         resb 4
-dword_1CAE7C:
+StatsCardShown:
         resb 4
-dword_1CAE80:
+RatingsGoalieOrder:
         resb 4
-dword_1CAE84:
+RatingsSkaterOrder:
         resb 4
-dword_1CAE88:
+RatingsSkaterBitmap:
         resb 4
-dword_1CAE8C:
+RatingsGoalieBitmap:
         resb 4
-dword_1CAE90:
+RatingsSkaterLast:
         resb 4
-dword_1CAE94:
+RatingsSkaterDrawn:
         resb 4
-dword_1CAE98:
+StatsCardTick:
         resb 4
-dword_1CAE9C:
+RatingsGoalieTick:
         resb 4
-dword_1CAEA0:
+RatingsPageDrawn:
         resb 4
-dword_1CAEA4:
+RatingsGoalieDrawn:
         resb 4
-dword_1CAEA8:
+PlayerStatRecords:
         resb 4
-dword_1CAEAC:
+RatingsTeam:
         resb 4
-dword_1CAEB0:
+RatingsGoalieShown:
         resb 4
-dword_1CAEB4:
+RatingsCompact:
         resb 4
-dword_1CAEB8:
+GoalieStatRecords:
         resb 4
-dword_1CAEBC:
+StatsCardDrawn:
         resb 4
-dword_1CAEC0:
+RatingsGoalieLast:
         resb 4
-dword_1CAEC4:
+StatsCardPlayer:
         resb 4
-byte_1CAEC8:
+RatingsTeamSide:
         resb 4

@@ -4,7 +4,7 @@ bits 32
 section s_13B740 progbits alloc exec nowrite align=1
 extern __grab_int23_, __grab_int_ctrl_break_, __math1err_, __restore_int23_, __restore_int_ctrl_break_, __set_errno_, __terminate_, SignalTable
 extern SigFpeHandler, AbortHandler, SignalHookFpu
-global __log87_err_, __sigabort_, __sigfpe_handler_, _chain_intr_, jpt_13B879, raise__2A, raise__3F, raise__4A
+global __log87_err_, __sigabort_, __sigfpe_handler_, _chain_intr_, raise_JumpTable, raise__2A, raise__3F, raise__4A
 global raise__73, raise__96, raise_, signal_, GusConvertAddr16
 ;-----------------------------------------------------------------------------
 ; GusConvertAddr16                               13B740  97 PC, low confidence
@@ -148,7 +148,7 @@ signal_:
         mov dword [nosplit ebx*4+SignalTable], edx
         pop ebx
         ret
-jpt_13B879:
+raise_JumpTable:
         dd raise__3F
         dd raise__2A
         dd raise__96
@@ -178,7 +178,7 @@ raise_:
         lea ebx, [byte edx-01h]
         cmp ebx, byte 0Bh
         ja near raise__96.5
-        jmp dword [nosplit cs:ebx*4+jpt_13B879]
+        jmp dword [nosplit cs:ebx*4+raise_JumpTable]
 raise__2A:
         mov eax, 8Ch
         call __sigfpe_handler_

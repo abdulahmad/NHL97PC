@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_11313C progbits alloc exec nowrite align=1
 extern AngleOctantTable
-global AngleFromDelta, unk_113189
+global AngleFromDelta, AngleFromDeltaJumpTable
 ;-----------------------------------------------------------------------------
 ; AngleFromDelta                                 11313C  97 PC, low confidence
 ; Returns the angle of a 2D vector from the ratio of its components
@@ -36,11 +36,11 @@ AngleFromDelta:
         shr eax, 18h
         adc eax, byte 0
         movzx eax, byte [dword eax+AngleOctantTable]
-        jmp dword [dword cs:ebx+unk_113189]
+        jmp dword [dword cs:ebx+AngleFromDeltaJumpTable]
 .4:
         mov eax, 80h
-        jmp dword [dword cs:ebx+unk_113189]
-unk_113189:
+        jmp dword [dword cs:ebx+AngleFromDeltaJumpTable]
+AngleFromDeltaJumpTable:
         dd .2
         dd .1
         dd .3

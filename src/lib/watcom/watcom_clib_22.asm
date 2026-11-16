@@ -8,9 +8,9 @@ extern MixerSampleStep, MixerLoopLength, MixerLoopLimit, MixerLoopStart, MixerFr
 extern ChannelSampleTable, PatchRegionParams, MixerChannelTable, StartPatchSample, ParsePatchTags, AudioEnter, AudioLeaveCheck, SbReadData
 extern SbWaitRead, StartChannel, MixNoise, UpdateChannels, SetChannelCount, InitFloatFormat, FormatFloat, MixerChunkBuffer
 extern PatchDefaultHandle, SbBasePort, SbIrq, SbMixerAddrPort, SbMixerDataPort, SbResetPort, SbWritePort, SbReadPort
-global jpt_12C300, MixerChunkLength_4A, MixerChunkLength_8F, MixerChunkLength_10C, MixerChunkLength_21B, MixerChunkLength_341, MixSample16_7B, MixSample16_102
+global PlayPatchNoteJumpTable, MixerChunkLength_4A, MixerChunkLength_8F, MixerChunkLength_10C, MixerChunkLength_21B, MixerChunkLength_341, MixSample16_7B, MixSample16_102
 global MixSample16_184, MixSample16_20B, MixSample16_291, MixSample16_2B4, MixSample16_330, MixSample16_3AD, MixOutStereo16_46, MixOutStereo16_8A
-global jpt_12C300_24, MixerInit, MixerFillBuffer, MixerMixChunk, MixerStartSample, MixerFadeChannel, MixerSetPanVolume, MixerSetPitch
+global PlayPatchNote_4E8, MixerInit, MixerFillBuffer, MixerMixChunk, MixerStartSample, MixerFadeChannel, MixerSetPanVolume, MixerSetPitch
 global MixerSamplesLeft, MixerSamplePosition, MixerStopChannel, MixerPickMixRoutine, MixerChunkLength, MixerCalcStep, MixerBuildVolumeTables, MixMono8
 global MixSample16, MixFadeOut8, MixOutStereo16, MixOutStereo16Unsigned, MixOutStereo8Signed, MixOutMono16, MixOutMono16Unsigned, MixOutMono8Signed
 global MixerClearAccumulator, ReadLittleEndian, InitPatchParams, PlayPatchNote
@@ -49,7 +49,7 @@ MixerInit:
         cmp eax, byte 5
         je near .5
         cmp eax, byte 4
-        db 0Fh,084h                             ; insn: je near 0012AC8Bh
+        db 0Fh,084h                             ; insn: je near .6-$-4
         dd .6-$-4
         db 083h,0F8h,03h                        ; insn: cmp eax,3
         je near .7
@@ -2068,20 +2068,17 @@ PlayPatchNote:
         pop esi
         ret 10h
         db 08Bh,0C0h
-jpt_12C300:
-        dd jpt_12C300_24.12
-        dd jpt_12C300_24.28
-        dd jpt_12C300_24.15
-        dd jpt_12C300_24.16
-        dd jpt_12C300_24.19
-        dd jpt_12C300_24.20
-        dd jpt_12C300_24.23
-        dd jpt_12C300_24.24
-        dd jpt_12C300_24.27
-;-----------------------------------------------------------------------------
-; jpt_12C300_24                                                       12C324  
-;-----------------------------------------------------------------------------
-jpt_12C300_24:
+PlayPatchNoteJumpTable:
+        dd PlayPatchNote_4E8.12
+        dd PlayPatchNote_4E8.28
+        dd PlayPatchNote_4E8.15
+        dd PlayPatchNote_4E8.16
+        dd PlayPatchNote_4E8.19
+        dd PlayPatchNote_4E8.20
+        dd PlayPatchNote_4E8.23
+        dd PlayPatchNote_4E8.24
+        dd PlayPatchNote_4E8.27
+PlayPatchNote_4E8:
         push ecx
         push esi
         push edi
@@ -2195,7 +2192,7 @@ jpt_12C300_24:
         lea eax, [byte ebx-012h]
         cmp eax, byte 8
         ja near .28
-        jmp dword [nosplit cs:eax*4+jpt_12C300]
+        jmp dword [nosplit cs:eax*4+PlayPatchNoteJumpTable]
 .12:
         mov ebx, dword [byte esp+030h]
         mov edx, ebp

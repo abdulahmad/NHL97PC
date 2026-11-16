@@ -4,36 +4,36 @@ bits 32
 section s_C462F progbits alloc exec nowrite align=1
 extern str_BAK0, str_BAK1, str_BOTM3, str_TTL02, str_BAL1, str_ON0D, str_OF0D, str_MB0D
 extern str_MB003, str_MB013, str_MB043, str_MB052, str_CENT, str_LFT02, str_LFT2, str_RIT02
-extern str_RIT2, SfxOptions, MusicOptions, byte_1C6040, GripDriverPtr, AudioOptions, dword_1CB108, dword_1CB10C
-extern dword_1CB11C, dword_1CB128, dword_1CB12C, dword_1CB130, dword_1CB138, dword_1CB13C, dword_1CB140, dword_1CB14C
-extern dword_1CB162, dword_1CB166, dword_1CB16A, dword_1CB16E, dword_1CB172, dword_1CB19A, dword_1CB1F0, dword_1CB1FC
-extern dword_1CB200, dword_1CB206, dword_1CB20A, dword_1CB20E, dword_1CB212, dword_1CB216, dword_1CB242, dword_1CB24E
-extern dword_1CB252, dword_1CB258, dword_1CB25C, dword_1CB260, dword_1CB264, dword_1CB268, dword_1CB2A0, dword_1CB2A4
-extern dword_1CB2AA, dword_1CB2AE, dword_1CB2B2, dword_1CB2B6, dword_1CB2BA, dword_1CB2F2, dword_1CB2F6, dword_1CB2FC
-extern dword_1CB300, dword_1CB304, dword_1CB308, dword_1CB30C, dword_1CB344, dword_1CB348, dword_1CB34E, dword_1CB352
-extern dword_1CB356, dword_1CB35A, dword_1CB35E, dword_1CB396, dword_1CB39A, dword_1CB3A0, dword_1CB3A4, dword_1CB3A8
-extern dword_1CB3AC, dword_1CB3B0, dword_1CB3E8, dword_1CB3EC, dword_1CB3F2, dword_1CB3F6, dword_1CB3FA, dword_1CB3FE
-extern dword_1CB402, dword_1CB43A, dword_1CB43E, dword_1CB444, dword_1CB448, dword_1CB44C, dword_1CB450, dword_1CB454
-extern dword_1CB48C, dword_1CB490, dword_1CB496, dword_1CB49A, dword_1CB49E, dword_1CB4A2, dword_1CB4A6, dword_1CB4DE
-extern dword_1CB4E2, dword_1CB4E8, dword_1CB4EC, dword_1CB4F0, dword_1CB4F4, dword_1CB4F8, dword_1CB530, dword_1CB534
-extern dword_1CB53A, dword_1CB53E, dword_1CB542, dword_1CB546, dword_1CB54A, dword_1CB5D4, dword_1CB5D8, dword_1CB5DE
-extern dword_1CB5E2, dword_1CB5E6, dword_1CB5EA, dword_1CB5EE, dword_1CB626, dword_1CB62A, dword_1CB630, dword_1CB634
-extern dword_1CB638, dword_1CB63C, dword_1CB640, dword_1CB678, dword_1CB67C, dword_1CB6CA, dword_1CB6CE, dword_1CB71C
-extern dword_1CB720, dword_1CB76E, dword_1CB772, dword_1CB7C0, dword_1CB7C4, dword_1CB812, dword_1CB816, dword_1CB864
-extern dword_1CB868, dword_1CB8B6, dword_1CB8BA, dword_1CB908, dword_1CB90C, dword_1CB95A, dword_1CB95E, dword_1CB9AC
-extern dword_1CB9B0, dword_1CB9FE, dword_1CBA02, dword_1CBA50, dword_1CBA54, dword_1CBAA2, dword_1CBAA6, dword_1CBAF4
-extern dword_1CBAF8, dword_1CBB46, dword_1CBB4A, dword_1CBB88, dword_1CBB8D, rand_, sprintf_, BlitShape2
+extern str_RIT2, SfxOptions, MusicOptions, FrontMusicOn, GripDriverPtr, AudioOptions, OptionsButtonShapes, OptionsSoundShapes
+extern OptionsMusicShapes, OptionsButtonOff, OptionsButtonOnShapes, OptionsButtonLit, OptionsLabelShapes, OptionsButtonDownShapes, OptionsButtonDownLit, OptionsMenuItems
+extern OptionsMenuItems
+extern OptionsMenuItems
+extern OptionsMenuItems
+extern OptionsMenuItems
+extern OptionsMenuItems
+extern OptionsMenuItems
+extern OptionsMenuItems
+extern OptionsMenuItems
+extern OptionsMenuItems
+extern OptionsMenuItems
+extern OptionsMenuItems
+extern OptionsMenuItems
+extern OptionsMenuItems
+extern OptionsMenuItems
+extern OptionsMenuItems
+extern OptionsMenuItems
+extern OptionsMenuItems, OptionsAnimChoice, OptionsSoundPlayed, rand_, sprintf_, BlitShape2
 extern PresentScreen, FindShape, UpdateOptionsAnim, ConvertArtXY, SetScreenTarget, SetMusicVolume, SetSfxVolume, SecondsToSamples
 extern WaitSoundTime, ChkMenuMusic, PauseMusic, RequestMusicStop, WaitMusicEnd, ArenaFileName, PlayMenuSfx, PlaySfx
 extern LoadDataFile, DrawScreenBackground, FadeInScreen, SetRegionRect, SetTextColor, DrawTextAligned, WipeScreen, ShowPopupScreen
 extern InitMenuItems, RunMenu, DetailLevelScreen, FreeMemBlock, MemFreeSize, MakeColor, FreeBitmap, DrawShapeCore
-extern DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, FillRectCorners, str_D_OptionsScreen, unk_1C5F4A, unk_1CB148
-extern unk_1CB1EC, unk_1CB23E, GripPortWord
-global jpt_C4822, OptionsScreen_F0A, OptionsScreen_F22, OptionsScreen_10AA, OptionsScreen_10D0, OptionsScreen_1125, OptionsScreen_117A, OptionsScreen_11CF
+extern DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, FillRectCorners, str_D_OptionsScreen, BlankMenuItem, OptionsMenuItems
+extern OptionsMenuItems, GripPortWord
+global OptionsScreenJumpTable, OptionsScreen_F0A, OptionsScreen_F22, OptionsScreen_10AA, OptionsScreen_10D0, OptionsScreen_1125, OptionsScreen_117A, OptionsScreen_11CF
 global OptionsScreen_1285, OptionsScreen_12DA, OptionsScreen_1359, OptionsScreen_136C, OptionsScreen_137F, OptionsScreen_13A6, OptionsScreen_140D, OptionsScreen_1431
 global OptionsScreen_1435, OptionsScreen_1439, OptionsScreen_143D, OptionsScreen_1441, OptionsScreen_1447, OptionsScreen_144D, OptionsScreen_1451, OptionsScreen_147B
 global OptionsScreen_14BA, OptionsScreen_14FE, OptionsScreen_1519, OptionsScreen_1534, OptionsScreen_154F, OptionsScreen_156A, OptionsScreen_1588, OptionsScreen_15A6
-global DrawOptionsSlider, OptionsSound, OptionsScreen, unk_C5ED2
+global DrawOptionsSlider, OptionsSound, OptionsScreen, SeasonSetupRowY
 ;-----------------------------------------------------------------------------
 ; DrawOptionsSlider                               C462F  97 PC, low confidence
 ; Draws an options slider
@@ -124,32 +124,32 @@ OptionsSound:
         push edx
         push esi
         xor edx, edx
-        cmp dword [dword_1CB1F0], byte 1
+        cmp dword [OptionsMenuItems+0A8h], byte 1
         jne short .1
         call rand_
         mov ebx, 3
         cdq
         idiv ebx
-        push dword [dword_1CB216]
-        push dword [dword_1CB212]
-        mov eax, dword [nosplit edx*4+dword_1CB11C]
+        push dword [OptionsMenuItems+0CEh]
+        push dword [OptionsMenuItems+0CAh]
+        mov eax, dword [nosplit edx*4+OptionsMusicShapes]
         push eax
-        mov dword [dword_1CB20A], eax
+        mov dword [OptionsMenuItems+0C2h], eax
         call DrawArt
         mov edx, 1
         add esp, byte 0Ch
 .1:
-        cmp dword [dword_1CB242], byte 1
+        cmp dword [OptionsMenuItems+0FAh], byte 1
         jne short .2
         call rand_
         mov ebx, 3
         cdq
         idiv ebx
-        push dword [dword_1CB268]
-        push dword [dword_1CB264]
-        mov eax, dword [nosplit edx*4+dword_1CB10C]
+        push dword [OptionsMenuItems+120h]
+        push dword [OptionsMenuItems+11Ch]
+        mov eax, dword [nosplit edx*4+OptionsSoundShapes]
         push eax
-        mov dword [dword_1CB25C], eax
+        mov dword [OptionsMenuItems+114h], eax
         call DrawArt
         mov edx, 1
         add esp, byte 0Ch
@@ -157,29 +157,29 @@ OptionsSound:
         mov esi, 4
 .3:
         imul ebx, esi, byte 52h
-        cmp dword [dword ebx+dword_1CB14C], byte 1
+        cmp dword [dword ebx+OptionsMenuItems+4], byte 1
         jne short .6
-        mov eax, dword [dword ebx+dword_1CB162]
-        cmp eax, dword [dword_1CB128]
+        mov eax, dword [dword ebx+OptionsMenuItems+1Ah]
+        cmp eax, dword [OptionsButtonOff]
         jne short .4
         call rand_
         mov ecx, 3
         cdq
         idiv ecx
-        mov eax, dword [nosplit edx*4+dword_1CB12C]
+        mov eax, dword [nosplit edx*4+OptionsButtonOnShapes]
         jmp short .5
 .4:
         call rand_
         mov ecx, 3
         cdq
         idiv ecx
-        mov eax, dword [nosplit edx*4+dword_1CB13C]
+        mov eax, dword [nosplit edx*4+OptionsButtonDownShapes]
 .5:
-        mov dword [dword ebx+dword_1CB166], eax
+        mov dword [dword ebx+OptionsMenuItems+1Eh], eax
         imul eax, esi, byte 52h
-        push dword [dword eax+dword_1CB172]
-        push dword [dword eax+dword_1CB16E]
-        push dword [dword eax+dword_1CB166]
+        push dword [dword eax+OptionsMenuItems+2Ah]
+        push dword [dword eax+OptionsMenuItems+26h]
+        push dword [dword eax+OptionsMenuItems+1Eh]
         call DrawArt
         mov edx, 1
         add esp, byte 0Ch
@@ -189,26 +189,26 @@ OptionsSound:
         jle short .3
         test edx, edx
         je short .7
-        cmp dword [dword_1CBB8D], byte 0
+        cmp dword [OptionsSoundPlayed], byte 0
         jne short .7
         mov eax, 309h
         call PlaySfx
-        mov dword [dword_1CBB8D], 1
+        mov dword [OptionsSoundPlayed], 1
 .7:
         test edx, edx
         jne short .8
-        cmp dword [dword_1CBB8D], byte 0
+        cmp dword [OptionsSoundPlayed], byte 0
         je short .8
         mov eax, 309h
         call PlayMenuSfx
-        mov dword [dword_1CBB8D], edx
+        mov dword [OptionsSoundPlayed], edx
 .8:
         pop esi
         pop edx
         pop ecx
         pop ebx
         ret
-jpt_C4822:
+OptionsScreenJumpTable:
         dd OptionsScreen_14BA
         dd OptionsScreen_F0A
         dd OptionsScreen_F22
@@ -292,7 +292,7 @@ OptionsScreen:
         cmp bx, byte 10h
         jl short .3
 .7:
-        mov edx, unk_1CB148
+        mov edx, OptionsMenuItems
         mov eax, 20h
         call InitMenuItems
         mov eax, 3
@@ -335,7 +335,7 @@ OptionsScreen:
         add esp, byte 8
         push edi
         push str_OF0D
-        mov dword [nosplit edi*4+dword_1CB128], eax
+        mov dword [nosplit edi*4+OptionsButtonOff], eax
         lea eax, [byte ebp+03Eh]
         push eax
         call sprintf_
@@ -347,7 +347,7 @@ OptionsScreen:
         add esp, byte 8
         push edi
         push str_MB0D
-        mov dword [nosplit edi*4+dword_1CB138], eax
+        mov dword [nosplit edi*4+OptionsLabelShapes], eax
         lea eax, [byte ebp+03Eh]
         push eax
         call sprintf_
@@ -361,7 +361,7 @@ OptionsScreen:
         add edi, byte 4
         push edi
         push str_MB0D
-        mov dword [nosplit edi*4+dword_1CB108], eax
+        mov dword [nosplit edi*4+OptionsButtonShapes], eax
         lea eax, [byte ebp+03Eh]
         push eax
         call sprintf_
@@ -372,7 +372,7 @@ OptionsScreen:
         inc ebx
         call FindShape
         add esp, byte 8
-        mov dword [nosplit esi*4+dword_1CB108], eax
+        mov dword [nosplit esi*4+OptionsButtonShapes], eax
 .9:
         cmp bx, byte 4
         jl near .8
@@ -427,8 +427,8 @@ OptionsScreen:
         mov ebx, dword [byte ebp+06Ah]
         call FillRectCorners
         add esp, byte 14h
-        mov edi, dword_1CB19A
-        mov esi, unk_1C5F4A
+        mov edi, OptionsMenuItems+52h
+        mov esi, BlankMenuItem
         call PresentScreen
         mov edx, ebx
         mov eax, ebx
@@ -437,42 +437,42 @@ OptionsScreen:
         push str_MB003
         rep movsb
         push dword [byte ebp+06Eh]
-        mov dword [dword_1CB19A], 1
+        mov dword [OptionsMenuItems+52h], 1
         call FindShape
         add esp, byte 8
         push str_MB013
         push dword [byte ebp+06Eh]
-        mov dword [dword_1CB206], eax
+        mov dword [OptionsMenuItems+0BEh], eax
         call FindShape
         add esp, byte 8
-        mov dword [dword_1CB20A], eax
+        mov dword [OptionsMenuItems+0C2h], eax
         push str_MB013
         push dword [byte ebp+06Eh]
         call FindShape
         add esp, byte 8
         push str_MB003
         push dword [byte ebp+06Eh]
-        mov dword [dword_1CB20E], eax
+        mov dword [OptionsMenuItems+0C6h], eax
         call FindShape
         add esp, byte 8
         push str_MB003
         movsx eax, word [byte eax+0Ch]
         push dword [byte ebp+06Eh]
-        mov dword [dword_1CB212], eax
+        mov dword [OptionsMenuItems+0CAh], eax
         call FindShape
         movsx eax, word [byte eax+0Eh]
-        mov dword [dword_1CB216], eax
+        mov dword [OptionsMenuItems+0CEh], eax
         lea eax, [dword ebp-078Ah]
         add esp, byte 8
-        mov dword [dword_1CB200], eax
-        mov eax, dword [dword_1CB206]
-        mov dword [dword_1CB1FC], 4
-        mov ebx, dword [dword_1CB216]
+        mov dword [OptionsMenuItems+0B8h], eax
+        mov eax, dword [OptionsMenuItems+0BEh]
+        mov dword [OptionsMenuItems+0B4h], 4
+        mov ebx, dword [OptionsMenuItems+0CEh]
         movsx edx, word [byte eax+06h]
         movsx ecx, word [byte eax+04h]
         push edx
         lea eax, [dword ebp-078Ah]
-        mov edx, dword [dword_1CB212]
+        mov edx, dword [OptionsMenuItems+0CAh]
         call SetRegionRect
         push str_MB043
         push dword [byte ebp+06Eh]
@@ -480,60 +480,60 @@ OptionsScreen:
         add esp, byte 8
         push str_MB052
         push dword [byte ebp+06Eh]
-        mov dword [dword_1CB258], eax
+        mov dword [OptionsMenuItems+110h], eax
         call FindShape
         add esp, byte 8
         push str_MB052
         push dword [byte ebp+06Eh]
-        mov dword [dword_1CB25C], eax
+        mov dword [OptionsMenuItems+114h], eax
         call FindShape
         add esp, byte 8
         push str_MB043
         push dword [byte ebp+06Eh]
-        mov dword [dword_1CB260], eax
+        mov dword [OptionsMenuItems+118h], eax
         call FindShape
         add esp, byte 8
         push str_MB043
         movsx eax, word [byte eax+0Ch]
         push dword [byte ebp+06Eh]
-        mov dword [dword_1CB264], eax
+        mov dword [OptionsMenuItems+11Ch], eax
         call FindShape
         movsx eax, word [byte eax+0Eh]
-        mov dword [dword_1CB268], eax
+        mov dword [OptionsMenuItems+120h], eax
         lea eax, [dword ebp-074Ah]
         add esp, byte 8
-        mov dword [dword_1CB252], eax
-        mov eax, dword [dword_1CB258]
-        mov dword [dword_1CB24E], 4
-        mov ebx, dword [dword_1CB268]
+        mov dword [OptionsMenuItems+10Ah], eax
+        mov eax, dword [OptionsMenuItems+110h]
+        mov dword [OptionsMenuItems+106h], 4
+        mov ebx, dword [OptionsMenuItems+120h]
         movsx edx, word [byte eax+06h]
         movsx ecx, word [byte eax+04h]
         push edx
         lea eax, [dword ebp-074Ah]
-        mov edx, dword [dword_1CB264]
+        mov edx, dword [OptionsMenuItems+11Ch]
         call SetRegionRect
         test byte [SfxOptions], 2
         je short .10
-        mov eax, dword [dword_1CB128]
-        mov dword [dword_1CB2AA], eax
-        mov eax, dword [dword_1CB12C]
-        mov dword [dword_1CB2AE], eax
-        mov eax, dword [dword_1CB130]
+        mov eax, dword [OptionsButtonOff]
+        mov dword [OptionsMenuItems+162h], eax
+        mov eax, dword [OptionsButtonOnShapes]
+        mov dword [OptionsMenuItems+166h], eax
+        mov eax, dword [OptionsButtonLit]
         jmp short .11
 .10:
-        mov eax, dword [dword_1CB138]
-        mov dword [dword_1CB2AA], eax
-        mov eax, dword [dword_1CB13C]
-        mov dword [dword_1CB2AE], eax
-        mov eax, dword [dword_1CB140]
+        mov eax, dword [OptionsLabelShapes]
+        mov dword [OptionsMenuItems+162h], eax
+        mov eax, dword [OptionsButtonDownShapes]
+        mov dword [OptionsMenuItems+166h], eax
+        mov eax, dword [OptionsButtonDownLit]
 .11:
-        mov dword [dword_1CB2B2], eax
-        mov dword [dword_1CB2B6], 140h
+        mov dword [OptionsMenuItems+16Ah], eax
+        mov dword [OptionsMenuItems+16Eh], 140h
         lea eax, [dword ebp-070Ah]
-        mov dword [dword_1CB2BA], 5Eh
-        mov dword [dword_1CB2A4], eax
-        mov eax, dword [dword_1CB2AA]
-        mov dword [dword_1CB2A0], 4
+        mov dword [OptionsMenuItems+172h], 5Eh
+        mov dword [OptionsMenuItems+15Ch], eax
+        mov eax, dword [OptionsMenuItems+162h]
+        mov dword [OptionsMenuItems+158h], 4
         mov ebx, 5Eh
         movsx edx, word [byte eax+06h]
         movsx ecx, word [byte eax+04h]
@@ -543,26 +543,26 @@ OptionsScreen:
         call SetRegionRect
         test byte [MusicOptions], 4
         je short .12
-        mov eax, dword [dword_1CB128]
-        mov dword [dword_1CB2FC], eax
-        mov eax, dword [dword_1CB12C]
-        mov dword [dword_1CB300], eax
-        mov eax, dword [dword_1CB130]
+        mov eax, dword [OptionsButtonOff]
+        mov dword [OptionsMenuItems+1B4h], eax
+        mov eax, dword [OptionsButtonOnShapes]
+        mov dword [OptionsMenuItems+1B8h], eax
+        mov eax, dword [OptionsButtonLit]
         jmp short .13
 .12:
-        mov eax, dword [dword_1CB138]
-        mov dword [dword_1CB2FC], eax
-        mov eax, dword [dword_1CB13C]
-        mov dword [dword_1CB300], eax
-        mov eax, dword [dword_1CB140]
+        mov eax, dword [OptionsLabelShapes]
+        mov dword [OptionsMenuItems+1B4h], eax
+        mov eax, dword [OptionsButtonDownShapes]
+        mov dword [OptionsMenuItems+1B8h], eax
+        mov eax, dword [OptionsButtonDownLit]
 .13:
-        mov dword [dword_1CB304], eax
-        mov dword [dword_1CB308], 140h
+        mov dword [OptionsMenuItems+1BCh], eax
+        mov dword [OptionsMenuItems+1C0h], 140h
         lea eax, [dword ebp-06CAh]
-        mov dword [dword_1CB30C], 8Fh
-        mov dword [dword_1CB2F6], eax
-        mov eax, dword [dword_1CB2FC]
-        mov dword [dword_1CB2F2], 4
+        mov dword [OptionsMenuItems+1C4h], 8Fh
+        mov dword [OptionsMenuItems+1AEh], eax
+        mov eax, dword [OptionsMenuItems+1B4h]
+        mov dword [OptionsMenuItems+1AAh], 4
         mov ebx, 8Fh
         movsx edx, word [byte eax+06h]
         movsx ecx, word [byte eax+04h]
@@ -572,26 +572,26 @@ OptionsScreen:
         call SetRegionRect
         test byte [MusicOptions], 10h
         je short .14
-        mov eax, dword [dword_1CB128]
-        mov dword [dword_1CB34E], eax
-        mov eax, dword [dword_1CB12C]
-        mov dword [dword_1CB352], eax
-        mov eax, dword [dword_1CB130]
+        mov eax, dword [OptionsButtonOff]
+        mov dword [OptionsMenuItems+206h], eax
+        mov eax, dword [OptionsButtonOnShapes]
+        mov dword [OptionsMenuItems+20Ah], eax
+        mov eax, dword [OptionsButtonLit]
         jmp short .15
 .14:
-        mov eax, dword [dword_1CB138]
-        mov dword [dword_1CB34E], eax
-        mov eax, dword [dword_1CB13C]
-        mov dword [dword_1CB352], eax
-        mov eax, dword [dword_1CB140]
+        mov eax, dword [OptionsLabelShapes]
+        mov dword [OptionsMenuItems+206h], eax
+        mov eax, dword [OptionsButtonDownShapes]
+        mov dword [OptionsMenuItems+20Ah], eax
+        mov eax, dword [OptionsButtonDownLit]
 .15:
-        mov dword [dword_1CB356], eax
-        mov dword [dword_1CB35A], 140h
+        mov dword [OptionsMenuItems+20Eh], eax
+        mov dword [OptionsMenuItems+212h], 140h
         lea eax, [dword ebp-068Ah]
-        mov dword [dword_1CB35E], 13Eh
-        mov dword [dword_1CB348], eax
-        mov eax, dword [dword_1CB34E]
-        mov dword [dword_1CB344], 4
+        mov dword [OptionsMenuItems+216h], 13Eh
+        mov dword [OptionsMenuItems+200h], eax
+        mov eax, dword [OptionsMenuItems+206h]
+        mov dword [OptionsMenuItems+1FCh], 4
         mov ebx, 13Eh
         movsx edx, word [byte eax+06h]
         movsx ecx, word [byte eax+04h]
@@ -601,26 +601,26 @@ OptionsScreen:
         call SetRegionRect
         test byte [AudioOptions], 2
         je short .16
-        mov eax, dword [dword_1CB128]
-        mov dword [dword_1CB3A0], eax
-        mov eax, dword [dword_1CB12C]
-        mov dword [dword_1CB3A4], eax
-        mov eax, dword [dword_1CB130]
+        mov eax, dword [OptionsButtonOff]
+        mov dword [OptionsMenuItems+258h], eax
+        mov eax, dword [OptionsButtonOnShapes]
+        mov dword [OptionsMenuItems+25Ch], eax
+        mov eax, dword [OptionsButtonLit]
         jmp short .17
 .16:
-        mov eax, dword [dword_1CB138]
-        mov dword [dword_1CB3A0], eax
-        mov eax, dword [dword_1CB13C]
-        mov dword [dword_1CB3A4], eax
-        mov eax, dword [dword_1CB140]
+        mov eax, dword [OptionsLabelShapes]
+        mov dword [OptionsMenuItems+258h], eax
+        mov eax, dword [OptionsButtonDownShapes]
+        mov dword [OptionsMenuItems+25Ch], eax
+        mov eax, dword [OptionsButtonDownLit]
 .17:
-        mov dword [dword_1CB3A8], eax
-        mov dword [dword_1CB3AC], 140h
+        mov dword [OptionsMenuItems+260h], eax
+        mov dword [OptionsMenuItems+264h], 140h
         lea eax, [dword ebp-064Ah]
-        mov dword [dword_1CB3B0], 111h
-        mov dword [dword_1CB39A], eax
-        mov eax, dword [dword_1CB3A0]
-        mov dword [dword_1CB396], 4
+        mov dword [OptionsMenuItems+268h], 111h
+        mov dword [OptionsMenuItems+252h], eax
+        mov eax, dword [OptionsMenuItems+258h]
+        mov dword [OptionsMenuItems+24Eh], 4
         mov ebx, 111h
         movsx edx, word [byte eax+06h]
         movsx ecx, word [byte eax+04h]
@@ -630,26 +630,26 @@ OptionsScreen:
         call SetRegionRect
         test byte [MusicOptions], 2
         je short .18
-        mov eax, dword [dword_1CB128]
-        mov dword [dword_1CB3F2], eax
-        mov eax, dword [dword_1CB12C]
-        mov dword [dword_1CB3F6], eax
-        mov eax, dword [dword_1CB130]
+        mov eax, dword [OptionsButtonOff]
+        mov dword [OptionsMenuItems+2AAh], eax
+        mov eax, dword [OptionsButtonOnShapes]
+        mov dword [OptionsMenuItems+2AEh], eax
+        mov eax, dword [OptionsButtonLit]
         jmp short .19
 .18:
-        mov eax, dword [dword_1CB138]
-        mov dword [dword_1CB3F2], eax
-        mov eax, dword [dword_1CB13C]
-        mov dword [dword_1CB3F6], eax
-        mov eax, dword [dword_1CB140]
+        mov eax, dword [OptionsLabelShapes]
+        mov dword [OptionsMenuItems+2AAh], eax
+        mov eax, dword [OptionsButtonDownShapes]
+        mov dword [OptionsMenuItems+2AEh], eax
+        mov eax, dword [OptionsButtonDownLit]
 .19:
-        mov dword [dword_1CB3FA], eax
-        mov dword [dword_1CB3FE], 140h
+        mov dword [OptionsMenuItems+2B2h], eax
+        mov dword [OptionsMenuItems+2B6h], 140h
         lea eax, [dword ebp-060Ah]
-        mov dword [dword_1CB402], 0C1h
-        mov dword [dword_1CB3EC], eax
-        mov eax, dword [dword_1CB3F2]
-        mov dword [dword_1CB3E8], 4
+        mov dword [OptionsMenuItems+2BAh], 0C1h
+        mov dword [OptionsMenuItems+2A4h], eax
+        mov eax, dword [OptionsMenuItems+2AAh]
+        mov dword [OptionsMenuItems+2A0h], 4
         mov ebx, 0C1h
         movsx edx, word [byte eax+06h]
         movsx ecx, word [byte eax+04h]
@@ -659,28 +659,28 @@ OptionsScreen:
         call SetRegionRect
         test byte [MusicOptions], 8
         je short .20
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         jne short .20
-        mov eax, dword [dword_1CB128]
-        mov dword [dword_1CB444], eax
-        mov eax, dword [dword_1CB12C]
-        mov dword [dword_1CB448], eax
-        mov eax, dword [dword_1CB130]
+        mov eax, dword [OptionsButtonOff]
+        mov dword [OptionsMenuItems+2FCh], eax
+        mov eax, dword [OptionsButtonOnShapes]
+        mov dword [OptionsMenuItems+300h], eax
+        mov eax, dword [OptionsButtonLit]
         jmp short .21
 .20:
-        mov eax, dword [dword_1CB138]
-        mov dword [dword_1CB444], eax
-        mov eax, dword [dword_1CB13C]
-        mov dword [dword_1CB448], eax
-        mov eax, dword [dword_1CB140]
+        mov eax, dword [OptionsLabelShapes]
+        mov dword [OptionsMenuItems+2FCh], eax
+        mov eax, dword [OptionsButtonDownShapes]
+        mov dword [OptionsMenuItems+300h], eax
+        mov eax, dword [OptionsButtonDownLit]
 .21:
-        mov dword [dword_1CB44C], eax
-        mov dword [dword_1CB450], 140h
+        mov dword [OptionsMenuItems+304h], eax
+        mov dword [OptionsMenuItems+308h], 140h
         lea eax, [dword ebp-05CAh]
-        mov dword [dword_1CB454], 16Ah
-        mov dword [dword_1CB43E], eax
-        mov eax, dword [dword_1CB444]
-        mov dword [dword_1CB43A], 4
+        mov dword [OptionsMenuItems+30Ch], 16Ah
+        mov dword [OptionsMenuItems+2F6h], eax
+        mov eax, dword [OptionsMenuItems+2FCh]
+        mov dword [OptionsMenuItems+2F2h], 4
         mov ebx, 16Ah
         movsx edx, word [byte eax+06h]
         movsx ecx, word [byte eax+04h]
@@ -690,19 +690,19 @@ OptionsScreen:
         call SetRegionRect
         mov eax, dword [byte ebp+04Eh]
         mov eax, dword [byte eax+02Ch]
-        mov dword [dword_1CB496], eax
+        mov dword [OptionsMenuItems+34Eh], eax
         mov eax, dword [byte ebp+052h]
         mov eax, dword [byte eax+02Ch]
-        mov dword [dword_1CB49A], eax
+        mov dword [OptionsMenuItems+352h], eax
         mov eax, dword [byte ebp+052h]
         mov eax, dword [byte eax+02Ch]
-        mov dword [dword_1CB4A2], 203h
-        mov dword [dword_1CB49E], eax
+        mov dword [OptionsMenuItems+35Ah], 203h
+        mov dword [OptionsMenuItems+356h], eax
         lea eax, [dword ebp-058Ah]
-        mov dword [dword_1CB4A6], 4Ch
-        mov dword [dword_1CB490], eax
-        mov eax, dword [dword_1CB496]
-        mov dword [dword_1CB48C], 4
+        mov dword [OptionsMenuItems+35Eh], 4Ch
+        mov dword [OptionsMenuItems+348h], eax
+        mov eax, dword [OptionsMenuItems+34Eh]
+        mov dword [OptionsMenuItems+344h], 4
         mov ebx, 4Ch
         movsx edx, word [byte eax+06h]
         movsx ecx, word [byte eax+04h]
@@ -712,19 +712,19 @@ OptionsScreen:
         call SetRegionRect
         mov eax, dword [byte ebp+04Eh]
         mov eax, dword [byte eax+02Ch]
-        mov dword [dword_1CB4E8], eax
+        mov dword [OptionsMenuItems+3A0h], eax
         mov eax, dword [byte ebp+052h]
         mov eax, dword [byte eax+02Ch]
-        mov dword [dword_1CB4EC], eax
+        mov dword [OptionsMenuItems+3A4h], eax
         mov eax, dword [byte ebp+052h]
         mov eax, dword [byte eax+02Ch]
-        mov dword [dword_1CB4F4], 203h
-        mov dword [dword_1CB4F0], eax
+        mov dword [OptionsMenuItems+3ACh], 203h
+        mov dword [OptionsMenuItems+3A8h], eax
         lea eax, [dword ebp-054Ah]
-        mov dword [dword_1CB4F8], 0A2h
-        mov dword [dword_1CB4E2], eax
-        mov eax, dword [dword_1CB4E8]
-        mov dword [dword_1CB4DE], 4
+        mov dword [OptionsMenuItems+3B0h], 0A2h
+        mov dword [OptionsMenuItems+39Ah], eax
+        mov eax, dword [OptionsMenuItems+3A0h]
+        mov dword [OptionsMenuItems+396h], 4
         mov ebx, 0A2h
         movsx edx, word [byte eax+06h]
         movsx ecx, word [byte eax+04h]
@@ -734,28 +734,28 @@ OptionsScreen:
         call SetRegionRect
         mov eax, dword [byte ebp+04Eh]
         mov eax, dword [byte eax+02Ch]
-        mov dword [dword_1CB53A], eax
+        mov dword [OptionsMenuItems+3F2h], eax
         cmp word [byte ebp+07Eh], byte 0
         je short .22
         mov eax, dword [byte ebp+052h]
         mov eax, dword [byte eax+02Ch]
-        mov dword [dword_1CB53E], eax
+        mov dword [OptionsMenuItems+3F6h], eax
         mov eax, dword [byte ebp+052h]
         jmp short .23
 .22:
         mov eax, dword [byte ebp+04Eh]
         mov eax, dword [byte eax+02Ch]
-        mov dword [dword_1CB53E], eax
+        mov dword [OptionsMenuItems+3F6h], eax
         mov eax, dword [byte ebp+04Eh]
 .23:
         mov eax, dword [byte eax+02Ch]
-        mov dword [dword_1CB542], eax
-        mov dword [dword_1CB546], 203h
+        mov dword [OptionsMenuItems+3FAh], eax
+        mov dword [OptionsMenuItems+3FEh], 203h
         lea eax, [dword ebp-050Ah]
-        mov dword [dword_1CB54A], 113h
-        mov dword [dword_1CB534], eax
-        mov eax, dword [dword_1CB53A]
-        mov dword [dword_1CB530], 4
+        mov dword [OptionsMenuItems+402h], 113h
+        mov dword [OptionsMenuItems+3ECh], eax
+        mov eax, dword [OptionsMenuItems+3F2h]
+        mov dword [OptionsMenuItems+3E8h], 4
         mov ebx, 113h
         movsx edx, word [byte eax+06h]
         movsx ecx, word [byte eax+04h]
@@ -769,30 +769,30 @@ OptionsScreen:
         add esp, byte 8
         push str_LFT02
         push dword [byte ebp+072h]
-        mov dword [dword_1CB5DE], eax
+        mov dword [OptionsMenuItems+496h], eax
         call FindShape
         add esp, byte 8
         push str_LFT2
         push dword [byte ebp+072h]
-        mov dword [dword_1CB5E2], eax
+        mov dword [OptionsMenuItems+49Ah], eax
         call FindShape
         add esp, byte 8
         push str_LFT02
         push dword [byte ebp+072h]
-        mov dword [dword_1CB5E6], eax
+        mov dword [OptionsMenuItems+49Eh], eax
         call FindShape
         add esp, byte 8
         push str_LFT02
         movsx eax, word [byte eax+0Ch]
         push dword [byte ebp+072h]
-        mov dword [dword_1CB5EA], eax
+        mov dword [OptionsMenuItems+4A2h], eax
         call FindShape
         movsx eax, word [byte eax+0Eh]
-        mov dword [dword_1CB5EE], eax
+        mov dword [OptionsMenuItems+4A6h], eax
         lea eax, [dword ebp-04CAh]
-        mov dword [dword_1CB5D8], eax
-        mov eax, dword [dword_1CB5E2]
-        mov dword [dword_1CB5D4], 4
+        mov dword [OptionsMenuItems+490h], eax
+        mov eax, dword [OptionsMenuItems+49Ah]
+        mov dword [OptionsMenuItems+48Ch], 4
         add esp, byte 8
         movsx edx, word [byte eax+06h]
         movsx eax, word [byte eax+04h]
@@ -800,8 +800,8 @@ OptionsScreen:
         cdq
         LD sub, eax, edx
         sar eax, 1
-        mov ebx, dword [dword_1CB5EE]
-        mov edx, dword [dword_1CB5EA]
+        mov ebx, dword [OptionsMenuItems+4A6h]
+        mov edx, dword [OptionsMenuItems+4A2h]
         mov ecx, eax
         lea eax, [dword ebp-04CAh]
         call SetRegionRect
@@ -811,30 +811,30 @@ OptionsScreen:
         add esp, byte 8
         push str_RIT02
         push dword [byte ebp+072h]
-        mov dword [dword_1CB630], eax
+        mov dword [OptionsMenuItems+4E8h], eax
         call FindShape
         add esp, byte 8
-        mov dword [dword_1CB634], eax
+        mov dword [OptionsMenuItems+4ECh], eax
         push str_RIT2
         push dword [byte ebp+072h]
         call FindShape
         add esp, byte 8
         push str_RIT02
         push dword [byte ebp+072h]
-        mov dword [dword_1CB638], eax
+        mov dword [OptionsMenuItems+4F0h], eax
         call FindShape
         add esp, byte 8
         push str_RIT02
         movsx eax, word [byte eax+0Ch]
         push dword [byte ebp+072h]
-        mov dword [dword_1CB63C], eax
+        mov dword [OptionsMenuItems+4F4h], eax
         call FindShape
         movsx eax, word [byte eax+0Eh]
-        mov dword [dword_1CB640], eax
+        mov dword [OptionsMenuItems+4F8h], eax
         lea eax, [dword ebp-048Ah]
-        mov dword [dword_1CB62A], eax
-        mov eax, dword [dword_1CB634]
-        mov dword [dword_1CB626], 4
+        mov dword [OptionsMenuItems+4E2h], eax
+        mov eax, dword [OptionsMenuItems+4ECh]
+        mov dword [OptionsMenuItems+4DEh], 4
         add esp, byte 8
         movsx edx, word [byte eax+06h]
         movsx eax, word [byte eax+04h]
@@ -842,139 +842,139 @@ OptionsScreen:
         cdq
         LD sub, eax, edx
         sar eax, 1
-        mov ebx, dword [dword_1CB640]
-        mov edx, dword [dword_1CB63C]
+        mov ebx, dword [OptionsMenuItems+4F8h]
+        mov edx, dword [OptionsMenuItems+4F4h]
         mov ecx, eax
         add edx, eax
         lea eax, [dword ebp-048Ah]
         call SetRegionRect
-        mov dword [dword_1CB678], 4
+        mov dword [OptionsMenuItems+530h], 4
         lea eax, [dword ebp-044Ah]
         push byte 15h
         mov ecx, 0Bh
         mov ebx, 110h
         mov edx, 0C4h
-        mov dword [dword_1CB67C], eax
+        mov dword [OptionsMenuItems+534h], eax
         call SetRegionRect
-        mov dword [dword_1CB6CA], 4
+        mov dword [OptionsMenuItems+582h], 4
         lea eax, [dword ebp-040Ah]
         push byte 18h
         mov ecx, 0Bh
         mov ebx, 10Fh
         mov edx, 0D1h
-        mov dword [dword_1CB6CE], eax
+        mov dword [OptionsMenuItems+586h], eax
         call SetRegionRect
-        mov dword [dword_1CB71C], 4
+        mov dword [OptionsMenuItems+5D4h], 4
         lea eax, [dword ebp-03CAh]
         push byte 1Ch
         mov ecx, 0Ch
         mov ebx, 10Ch
         mov edx, 0DCh
-        mov dword [dword_1CB720], eax
+        mov dword [OptionsMenuItems+5D8h], eax
         call SetRegionRect
-        mov dword [dword_1CB76E], 4
+        mov dword [OptionsMenuItems+626h], 4
         lea eax, [dword ebp-038Ah]
         push byte 1Fh
         mov ecx, 0Ch
         mov ebx, 10Bh
         mov edx, 0E8h
-        mov dword [dword_1CB772], eax
+        mov dword [OptionsMenuItems+62Ah], eax
         call SetRegionRect
-        mov dword [dword_1CB7C0], 4
+        mov dword [OptionsMenuItems+678h], 4
         lea eax, [dword ebp-034Ah]
         push byte 25h
         mov ecx, 0Ah
         mov ebx, 108h
         mov edx, 0F6h
-        mov dword [dword_1CB7C4], eax
+        mov dword [OptionsMenuItems+67Ch], eax
         call SetRegionRect
-        mov dword [dword_1CB812], 4
+        mov dword [OptionsMenuItems+6CAh], 4
         lea eax, [dword ebp-030Ah]
         push byte 2Dh
         mov ecx, 0Ah
         mov ebx, 104h
         mov edx, 102h
-        mov dword [dword_1CB816], eax
+        mov dword [OptionsMenuItems+6CEh], eax
         call SetRegionRect
-        mov dword [dword_1CB864], 4
+        mov dword [OptionsMenuItems+71Ch], 4
         lea eax, [dword ebp-02CAh]
         push byte 30h
         mov ecx, 0Ah
         mov ebx, 102h
         mov edx, 10Eh
-        mov dword [dword_1CB868], eax
+        mov dword [OptionsMenuItems+720h], eax
         call SetRegionRect
-        mov dword [dword_1CB8B6], 4
+        mov dword [OptionsMenuItems+76Eh], 4
         lea eax, [dword ebp-028Ah]
         push byte 39h
         mov ecx, 0Ah
         mov ebx, 0FEh
         mov edx, 11Ah
-        mov dword [dword_1CB8BA], eax
+        mov dword [OptionsMenuItems+772h], eax
         call SetRegionRect
-        mov dword [dword_1CB908], 4
+        mov dword [OptionsMenuItems+7C0h], 4
         lea eax, [dword ebp-024Ah]
         push byte 15h
         mov ecx, 0Bh
         mov ebx, 5Eh
         mov edx, 0C4h
-        mov dword [dword_1CB90C], eax
+        mov dword [OptionsMenuItems+7C4h], eax
         call SetRegionRect
-        mov dword [dword_1CB95A], 4
+        mov dword [OptionsMenuItems+812h], 4
         lea eax, [dword ebp-020Ah]
         push byte 18h
         mov ecx, 0Bh
         mov ebx, 5Bh
         mov edx, 0D1h
-        mov dword [dword_1CB95E], eax
+        mov dword [OptionsMenuItems+816h], eax
         call SetRegionRect
-        mov dword [dword_1CB9AC], 4
+        mov dword [OptionsMenuItems+864h], 4
         lea eax, [dword ebp-01CAh]
         push byte 1Ch
         mov ecx, 0Ch
         mov ebx, 57h
         mov edx, 0DCh
-        mov dword [dword_1CB9B0], eax
+        mov dword [OptionsMenuItems+868h], eax
         call SetRegionRect
-        mov dword [dword_1CB9FE], 4
+        mov dword [OptionsMenuItems+8B6h], 4
         lea eax, [dword ebp-018Ah]
         push byte 1Fh
         mov ecx, 0Ch
         mov ebx, 55h
         mov edx, 0E8h
-        mov dword [dword_1CBA02], eax
+        mov dword [OptionsMenuItems+8BAh], eax
         call SetRegionRect
-        mov dword [dword_1CBA50], 4
+        mov dword [OptionsMenuItems+0908h], 4
         lea eax, [dword ebp-014Ah]
         push byte 25h
         mov ecx, 0Ah
         mov ebx, 52h
         mov edx, 0F6h
-        mov dword [dword_1CBA54], eax
+        mov dword [OptionsMenuItems+090Ch], eax
         call SetRegionRect
-        mov dword [dword_1CBAA2], 4
+        mov dword [OptionsMenuItems+095Ah], 4
         lea eax, [dword ebp-010Ah]
         push byte 2Dh
         mov ecx, 0Ah
         mov ebx, 4Fh
         mov edx, 102h
-        mov dword [dword_1CBAA6], eax
+        mov dword [OptionsMenuItems+095Eh], eax
         call SetRegionRect
-        mov dword [dword_1CBAF4], 4
+        mov dword [OptionsMenuItems+09ACh], 4
         lea eax, [dword ebp-0CAh]
         push byte 30h
         mov ecx, 0Ah
         mov ebx, 4Dh
         mov edx, 10Eh
-        mov dword [dword_1CBAF8], eax
+        mov dword [OptionsMenuItems+09B0h], eax
         call SetRegionRect
-        mov dword [dword_1CBB46], 4
+        mov dword [OptionsMenuItems+09FEh], 4
         lea eax, [dword ebp-08Ah]
         push byte 39h
         mov ecx, 0Ah
         mov ebx, 49h
         mov edx, 11Ah
-        mov dword [dword_1CBB4A], eax
+        mov dword [OptionsMenuItems+0A02h], eax
         call SetRegionRect
         push byte 0
         push byte 0Fh
@@ -1034,11 +1034,11 @@ OptionsScreen:
 .24:
         movsx eax, bx
         imul eax, byte 52h
-        cmp dword [dword eax+dword_1CB162], byte 0
+        cmp dword [dword eax+OptionsMenuItems+1Ah], byte 0
         je short .25
-        push dword [dword eax+dword_1CB172]
-        push dword [dword eax+dword_1CB16E]
-        push dword [dword eax+dword_1CB162]
+        push dword [dword eax+OptionsMenuItems+2Ah]
+        push dword [dword eax+OptionsMenuItems+26h]
+        push dword [dword eax+OptionsMenuItems+1Ah]
         call DrawArt
         add esp, byte 0Ch
 .25:
@@ -1151,7 +1151,7 @@ OptionsScreen:
         call PresentScreen
         movsx eax, word [byte ebp+ebx*2+01Eh]
 .28:
-        mov dword [dword_1CBB88], eax
+        mov dword [OptionsAnimChoice], eax
         jmp near OptionsScreen_14BA
 OptionsScreen_F0A:
         call FadeInScreen
@@ -1159,7 +1159,7 @@ OptionsScreen_F0A:
         mov dword [byte ebp+066h], 1Ah
         jmp near OptionsScreen_14BA
 OptionsScreen_F22:
-        mov eax, unk_1CB1EC
+        mov eax, OptionsMenuItems+0A4h
         call ShowPopupScreen
         or byte [SfxOptions], 2
         and dword [AudioOptions], 0FFFE03FFh
@@ -1170,7 +1170,7 @@ OptionsScreen_F22:
         or byte [MusicOptions], 10h
         or byte [AudioOptions], 2
         or byte [MusicOptions], 2
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         jne short .29
         or byte [MusicOptions], 8
         jmp short .30
@@ -1187,7 +1187,7 @@ OptionsScreen_F22:
         shr eax, 19h
         cwde
         call SetSfxVolume
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .31
         and byte [MusicOptions], 0F7h
 .31:
@@ -1220,26 +1220,26 @@ OptionsScreen_F22:
 .32:
         cmp bx, byte 9
         jne short .33
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .33
         movsx eax, bx
         imul eax, byte 52h
-        mov edx, dword [dword_1CB138]
-        mov dword [dword eax+dword_1CB162], edx
-        mov edx, dword [dword_1CB13C]
-        mov dword [dword eax+dword_1CB166], edx
-        mov edx, dword [dword_1CB140]
+        mov edx, dword [OptionsLabelShapes]
+        mov dword [dword eax+OptionsMenuItems+1Ah], edx
+        mov edx, dword [OptionsButtonDownShapes]
+        mov dword [dword eax+OptionsMenuItems+1Eh], edx
+        mov edx, dword [OptionsButtonDownLit]
         jmp short .34
 .33:
         movsx eax, bx
         imul eax, byte 52h
-        mov edx, dword [dword_1CB128]
-        mov dword [dword eax+dword_1CB162], edx
-        mov edx, dword [dword_1CB12C]
-        mov dword [dword eax+dword_1CB166], edx
-        mov edx, dword [dword_1CB130]
+        mov edx, dword [OptionsButtonOff]
+        mov dword [dword eax+OptionsMenuItems+1Ah], edx
+        mov edx, dword [OptionsButtonOnShapes]
+        mov dword [dword eax+OptionsMenuItems+1Eh], edx
+        mov edx, dword [OptionsButtonLit]
 .34:
-        mov dword [dword eax+dword_1CB16A], edx
+        mov dword [dword eax+OptionsMenuItems+22h], edx
         inc ebx
 .35:
         cmp bx, byte 0Ah
@@ -1255,7 +1255,7 @@ OptionsScreen_F22:
         mov ecx, 55h
         jmp near OptionsScreen_147B.50
 OptionsScreen_10AA:
-        mov eax, unk_1CB23E
+        mov eax, OptionsMenuItems+0F6h
         mov edx, dword [byte ebp+06Eh]
         call ShowPopupScreen
         mov eax, dword [byte ebp+072h]
@@ -1268,84 +1268,84 @@ OptionsScreen_10AA:
 OptionsScreen_10D0:
         test byte [SfxOptions], 2
         je short .37
-        mov eax, dword [dword_1CB138]
-        mov dword [dword_1CB2AA], eax
-        mov eax, dword [dword_1CB13C]
-        mov dword [dword_1CB2AE], eax
-        mov eax, dword [dword_1CB140]
+        mov eax, dword [OptionsLabelShapes]
+        mov dword [OptionsMenuItems+162h], eax
+        mov eax, dword [OptionsButtonDownShapes]
+        mov dword [OptionsMenuItems+166h], eax
+        mov eax, dword [OptionsButtonDownLit]
         and byte [SfxOptions], 0FDh
 .36:
-        mov dword [dword_1CB2B2], eax
+        mov dword [OptionsMenuItems+16Ah], eax
         jmp near OptionsScreen_14BA
 .37:
-        mov eax, dword [dword_1CB128]
-        mov dword [dword_1CB2AA], eax
-        mov eax, dword [dword_1CB12C]
-        mov dword [dword_1CB2AE], eax
-        mov eax, dword [dword_1CB130]
+        mov eax, dword [OptionsButtonOff]
+        mov dword [OptionsMenuItems+162h], eax
+        mov eax, dword [OptionsButtonOnShapes]
+        mov dword [OptionsMenuItems+166h], eax
+        mov eax, dword [OptionsButtonLit]
         or byte [SfxOptions], 2
         jmp short .36
 OptionsScreen_1125:
         test byte [MusicOptions], 4
         je short .39
-        mov eax, dword [dword_1CB138]
-        mov dword [dword_1CB2FC], eax
-        mov eax, dword [dword_1CB13C]
-        mov dword [dword_1CB300], eax
-        mov eax, dword [dword_1CB140]
+        mov eax, dword [OptionsLabelShapes]
+        mov dword [OptionsMenuItems+1B4h], eax
+        mov eax, dword [OptionsButtonDownShapes]
+        mov dword [OptionsMenuItems+1B8h], eax
+        mov eax, dword [OptionsButtonDownLit]
         and byte [MusicOptions], 0FBh
 .38:
-        mov dword [dword_1CB304], eax
+        mov dword [OptionsMenuItems+1BCh], eax
         jmp near OptionsScreen_14BA
 .39:
-        mov eax, dword [dword_1CB128]
-        mov dword [dword_1CB2FC], eax
-        mov eax, dword [dword_1CB12C]
-        mov dword [dword_1CB300], eax
-        mov eax, dword [dword_1CB130]
+        mov eax, dword [OptionsButtonOff]
+        mov dword [OptionsMenuItems+1B4h], eax
+        mov eax, dword [OptionsButtonOnShapes]
+        mov dword [OptionsMenuItems+1B8h], eax
+        mov eax, dword [OptionsButtonLit]
         or byte [MusicOptions], 4
         jmp short .38
 OptionsScreen_117A:
         test byte [MusicOptions], 10h
         je short .41
-        mov eax, dword [dword_1CB138]
-        mov dword [dword_1CB34E], eax
-        mov eax, dword [dword_1CB13C]
-        mov dword [dword_1CB352], eax
-        mov eax, dword [dword_1CB140]
+        mov eax, dword [OptionsLabelShapes]
+        mov dword [OptionsMenuItems+206h], eax
+        mov eax, dword [OptionsButtonDownShapes]
+        mov dword [OptionsMenuItems+20Ah], eax
+        mov eax, dword [OptionsButtonDownLit]
         and byte [MusicOptions], 0EFh
 .40:
-        mov dword [dword_1CB356], eax
+        mov dword [OptionsMenuItems+20Eh], eax
         jmp near OptionsScreen_14BA
 .41:
-        mov eax, dword [dword_1CB128]
-        mov dword [dword_1CB34E], eax
-        mov eax, dword [dword_1CB12C]
-        mov dword [dword_1CB352], eax
-        mov eax, dword [dword_1CB130]
+        mov eax, dword [OptionsButtonOff]
+        mov dword [OptionsMenuItems+206h], eax
+        mov eax, dword [OptionsButtonOnShapes]
+        mov dword [OptionsMenuItems+20Ah], eax
+        mov eax, dword [OptionsButtonLit]
         or byte [MusicOptions], 10h
         jmp short .40
 OptionsScreen_11CF:
         test byte [AudioOptions], 2
         je short .42
-        mov eax, dword [dword_1CB138]
-        mov dword [dword_1CB3A0], eax
-        mov eax, dword [dword_1CB13C]
-        mov dword [dword_1CB3A4], eax
-        mov eax, dword [dword_1CB140]
+        mov eax, dword [OptionsLabelShapes]
+        mov dword [OptionsMenuItems+258h], eax
+        mov eax, dword [OptionsButtonDownShapes]
+        mov dword [OptionsMenuItems+25Ch], eax
+        mov eax, dword [OptionsButtonDownLit]
         and byte [AudioOptions], 0FDh
-        mov dword [dword_1CB3A8], eax
+        mov dword [OptionsMenuItems+260h], eax
         call WaitMusicEnd
         jmp near OptionsScreen_14BA
 .42:
-        mov eax, dword [dword_1CB128]
-        mov dword [dword_1CB3A0], eax
-        mov eax, dword [dword_1CB12C]
+        mov eax, dword [OptionsButtonOff]
+        mov dword [OptionsMenuItems+258h], eax
+        mov eax, dword [OptionsButtonOnShapes]
         mov ebx, 2
-        mov dword [dword_1CB3A4], eax
-        mov eax, dword [dword_1CB130]
+        mov dword [OptionsMenuItems+25Ch], eax
+        mov eax, dword [OptionsButtonLit]
         or byte [AudioOptions], 2
-        mov dword [dword_1CB3A8], eax
+        mov dword [OptionsMenuItems+260h], eax
         call PauseMusic
         call rand_
         cdq
@@ -1373,39 +1373,39 @@ OptionsScreen_11CF:
 OptionsScreen_1285:
         test byte [MusicOptions], 2
         je short .44
-        mov eax, dword [dword_1CB138]
-        mov dword [dword_1CB3F2], eax
-        mov eax, dword [dword_1CB13C]
-        mov dword [dword_1CB3F6], eax
-        mov eax, dword [dword_1CB140]
+        mov eax, dword [OptionsLabelShapes]
+        mov dword [OptionsMenuItems+2AAh], eax
+        mov eax, dword [OptionsButtonDownShapes]
+        mov dword [OptionsMenuItems+2AEh], eax
+        mov eax, dword [OptionsButtonDownLit]
         and byte [MusicOptions], 0FDh
 .43:
-        mov dword [dword_1CB3FA], eax
+        mov dword [OptionsMenuItems+2B2h], eax
         jmp near OptionsScreen_14BA
 .44:
-        mov eax, dword [dword_1CB128]
-        mov dword [dword_1CB3F2], eax
-        mov eax, dword [dword_1CB12C]
-        mov dword [dword_1CB3F6], eax
-        mov eax, dword [dword_1CB130]
+        mov eax, dword [OptionsButtonOff]
+        mov dword [OptionsMenuItems+2AAh], eax
+        mov eax, dword [OptionsButtonOnShapes]
+        mov dword [OptionsMenuItems+2AEh], eax
+        mov eax, dword [OptionsButtonLit]
         or byte [MusicOptions], 2
         jmp short .43
 OptionsScreen_12DA:
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .45
         and byte [MusicOptions], 0F7h
         jmp near OptionsScreen_14BA
 .45:
         test byte [MusicOptions], 8
         je short .47
-        mov eax, dword [dword_1CB138]
-        mov dword [dword_1CB444], eax
-        mov eax, dword [dword_1CB13C]
-        mov dword [dword_1CB448], eax
-        mov eax, dword [dword_1CB140]
+        mov eax, dword [OptionsLabelShapes]
+        mov dword [OptionsMenuItems+2FCh], eax
+        mov eax, dword [OptionsButtonDownShapes]
+        mov dword [OptionsMenuItems+300h], eax
+        mov eax, dword [OptionsButtonDownLit]
         and byte [MusicOptions], 0F7h
 .46:
-        mov dword [dword_1CB44C], eax
+        mov dword [OptionsMenuItems+304h], eax
         jmp near OptionsScreen_14BA
 .47:
         push byte 0
@@ -1413,11 +1413,11 @@ OptionsScreen_12DA:
         add esp, byte 4
         cmp eax, 600000h
         jle near OptionsScreen_14BA
-        mov eax, dword [dword_1CB128]
-        mov dword [dword_1CB444], eax
-        mov eax, dword [dword_1CB12C]
-        mov dword [dword_1CB448], eax
-        mov eax, dword [dword_1CB130]
+        mov eax, dword [OptionsButtonOff]
+        mov dword [OptionsMenuItems+2FCh], eax
+        mov eax, dword [OptionsButtonOnShapes]
+        mov dword [OptionsMenuItems+300h], eax
+        mov eax, dword [OptionsButtonLit]
         or byte [MusicOptions], 8
         jmp short .46
 OptionsScreen_1359:
@@ -1538,7 +1538,7 @@ OptionsScreen_14BA:
         mov ecx, OptionsSound
         mov ebx, 0FFFFFFFFh
         push eax
-        mov edx, unk_1CB148
+        mov edx, OptionsMenuItems
         mov eax, 20h
         call RunMenu
         cmp dword [byte ebp+056h], byte 1Fh
@@ -1546,7 +1546,7 @@ OptionsScreen_14BA:
         mov eax, dword [AudioOptions]
         mov ebx, dword [byte ebp+056h]
         and ax, 0FE03h
-        jmp dword [nosplit cs:ebx*4+jpt_C4822]
+        jmp dword [nosplit cs:ebx*4+OptionsScreenJumpTable]
 OptionsScreen_14FE:
         call SetScreenTarget
         and dword [AudioOptions], 0FFFE03FFh
@@ -1623,7 +1623,7 @@ OptionsScreen_15A6:
         pop ecx
         pop ebx
         ret
-unk_C5ED2:
+SeasonSetupRowY:
         db 0D4h,00h,00h,00h,0E5h,00h,00h,00h,0F8h,00h,00h,00h,0Ah,01h,00h,00h
         db 01Dh,01h,00h,00h,02Fh,01h,00h,00h,053h,08Bh,05Ah,01h,083h,0E3h,07h,080h
         db 060h,01h,0F8h,09h,058h,01h,08Bh,05Ah,01h,083h,0E3h,08h,080h,060h,01h,0F7h

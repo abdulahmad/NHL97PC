@@ -11,7 +11,7 @@ extern AsyncStreamEnd, ChannelSampleTable, str_ASYNCFILE, strcmp_, strncpy_, CdO
 extern CdRead, CdSeek, CdFindFile, DriveLetterIndex, IsCdDrive, CheckBankIndex, SetMusicStreamVolume, ChannelPlaying
 extern StopChannel, PlaySample, LoadSampleHeader, AudioEnter, AudioLeaveCheck, IsChannelActive, ChannelPosition, ChannelTimeLeftLocked
 extern AllocMemBlockFixed, AllocMemBlock, FreeMemBlock, UnlinkMemBlockLocked, addtimer, RemoveTimerCallback, AsyncSeekRegs, SpeechQueueClip
-global jpt_109E64, AsyncStreamStep_2E, AsyncStreamStep_57B, AsyncStreamStep_613, AsyncStreamStep_78F, AsyncInit, AsyncClose, AsyncRequestOpen
+global AsyncStreamStepJumpTable, AsyncStreamStep_2E, AsyncStreamStep_57B, AsyncStreamStep_613, AsyncStreamStep_78F, AsyncInit, AsyncClose, AsyncRequestOpen
 global AsyncRequestSection, AsyncResetRequest, AsyncStreamStep, AsyncTick, AsyncFreeRequest, AsyncPopRequest, SpeechBufferSize, RegisterStreamBank
 global AddStreamSample, ReleaseBankSample, StartSpeechQueue, QueueSpeechClip, SpeechQueueGo, StopSpeechQueue, SpeechQueueState, ShutdownSpeechQueue
 global AdvanceSpeechQueue, ResetSpeechQueueState, SetChannelVolumeChecked
@@ -309,7 +309,7 @@ AsyncResetRequest:
         mov dword [dword eax+097h], 0FFFFFFFFh
         ret
         db 090h
-jpt_109E64:
+AsyncStreamStepJumpTable:
         dd AsyncStreamStep_2E
         dd AsyncStreamStep_57B
         dd AsyncStreamStep_613
@@ -332,7 +332,7 @@ AsyncStreamStep:
         dec eax
         cmp eax, byte 3
         ja near AsyncStreamStep_78F.41
-        jmp dword [nosplit cs:eax*4+jpt_109E64]
+        jmp dword [nosplit cs:eax*4+AsyncStreamStepJumpTable]
 AsyncStreamStep_2E:
         xor eax, eax
         mov edx, dword [AsyncCurFile]

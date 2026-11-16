@@ -11,10 +11,10 @@ extern F32_0p25, F32_7, F32_0p125, F32_0p125_KnockPuckAway, F32_48_PuckHitsGoali
 extern F32_3_PuckHitsGoalie, F32_0p142857, F32_7_PuckPlayerContact, F32_0p125_PuckPlayerContact, F32_0p5_pucknorm_body, F32_neg1872, F32_neg1152, F32_neg1392_pucknorm_body
 extern str_Punct_assintrostand, IntroLineX, IntroLineY, IntroLineCount, RefState, LastTouchPlayer, PuckHitFlag, ZoneTargetX
 extern ZoneFlags, FaceoffWinner, penshottimer, PuckX, RefTarget, RefPlayer, SlotPlayers, SlotPuckPlayer
-extern InputActive, PuckChasers, FaceoffCenter, ChangePlayer, dword_19CCC2, StanleyPlayer, FaceoffPuckX, FaceoffPuckY
+extern InputActive, PuckChasers, FaceoffCenter, ChangePlayer, WhistleTime, StanleyPlayer, FaceoffPuckX, FaceoffPuckY
 extern PlayerPointsTable, PlayerScoreTable, PuckStickTimers, PuckCarrierPos, PuckPathTable, HomeTeamRecord, AwayTeamRecord
-extern AwayTeamRecord, HmAssignPlayer, HmGoalieOnIce, AwAssignPlayer, AwGoalieOnIce, GameSettings, GameOptionFlags, dword_1B8FA0
-extern dword_1B9CA4, dword_1B9CAC, dword_1BAAF8, dword_1BAB00, dword_1BF060, dword_1BF068, hmtmstruct, hypot_
+extern AwayTeamRecord, HmAssignPlayer, HmGoalieOnIce, AwAssignPlayer, AwGoalieOnIce, GameSettings, GameOptionFlags, ReplayPlaying
+extern CreaseBounds, GoalLineY, PenaltyAnimPos, PenaltyAnimTime, StickPointId, PunchPointId, hmtmstruct, hypot_
 extern PtrPuckTarget, PtrPuckState, PtrPuckOwner, PtrPuckZone, PtrPuckFlags, PtrPuckObject, PtrHomeIce, PtrAwayIce
 extern F64_neg12, F64_1435, F64_3312, F64_720, F64_240, F64_2040, F64_4800, F64_0p01_DeflectPuck
 extern F64_6p28319_DeflectPuck, F64_3p14159_DeflectPuck, F64_neg6p28319_DeflectPuck, F64_neg3p14159_DeflectPuck, F64_DeflectScale, F64_0p00277778, F64_24, F64_6p28319_PuckHitsGoalie
@@ -46,7 +46,7 @@ extern gameclock, StatsPanelOn, FaceoffSpot, FaceoffZone, OneTimerReady, OneTime
 extern penshotmode, BenchRequest, penshotlive, FaceoffRequest, PuckY, DelayedPen, MessagePanel, GoalLineFlag
 extern BreakawayFlag, SlotAssign, HomeGoalieOff, AwayGoalieOff, HomeEbenPlayer, AwayEbenPlayer, PlayerAssignWords, HmPlayersInBox
 extern AwPlayersInBox
-global jpt_2B4B4, PlayerPastLine_D1, PuckToStick_424, PuckToStick_43B, PuckToStick_452, PuckToStick_469, PlayerPastLine, checkob
+global PuckToStickJumpTable, PlayerPastLine_D1, PuckToStick_424, PuckToStick_43B, PuckToStick_452, PuckToStick_469, PlayerPastLine, checkob
 global GetLowestPen, chk4lc, SkateOnside, SkateToEndBoards, asspuckc, ChkDefenseSwitch, ChasePuck, assnearest
 global StartScoreCelebration, assscore, ChkPullGoalieLate, assbench, PutBoxPlayerOnBench, ReleaseBoxToBench, assleavebox, asspsclear
 global AssignControlSlots, PenShotStart, asspenshot, asseben, assleaveice, asspenalty, assdopen, assepen
@@ -95,11 +95,11 @@ PlayerPastLine:
         mov dword [byte esp+020h], esi
 .4:
         mov ebx, esp
-        mov edx, dword [dword_1B9CA4]
+        mov edx, dword [CreaseBounds]
         mov eax, ecx
         call ObjectFramePos
         lea ebx, [byte esp+0Ch]
-        mov edx, dword [dword_1B9CAC]
+        mov edx, dword [GoalLineY]
         mov eax, ecx
         call ObjectFramePos
         test byte [dword ecx+0BFh], 80h
@@ -3247,7 +3247,7 @@ asspsclear:
 ;-----------------------------------------------------------------------------
 ; AssignControlSlots                              27F80  97 PC, low confidence
 ; From puckfaceoff: for each of the 8 control slots, the team's first free
-; skater becomes the controlled player (restorepl via sub_343F8)
+; skater becomes the controlled player (restorepl via SetSlotPlayer)
 ;-----------------------------------------------------------------------------
 AssignControlSlots:
         push ebx
@@ -3837,9 +3837,9 @@ asspenalty:
         mov eax, ebx
         call SetPlayerTarget
 .1:
-        mov eax, dword [dword_1BAAF8]
+        mov eax, dword [PenaltyAnimPos]
         mov dword [byte esp+010h], eax
-        mov eax, dword [dword_1BAB00]
+        mov eax, dword [PenaltyAnimTime]
         mov dword [byte esp+0Ch], eax
         mov ah, byte [dword ebx+0BFh]
         xor edx, edx
@@ -4868,7 +4868,7 @@ assrefwhistle:
         test byte [dword ebx+0C1h], 10h
         jne short .4
         call ReleaseBoxPlayers
-        mov eax, dword [dword_19CCC2]
+        mov eax, dword [WhistleTime]
         sar eax, 10h
         call StartCrowdMusic
         and byte [dword ebx+0C1h], 0FDh
@@ -5023,7 +5023,7 @@ assrefgoalpa:
         mov dword [RefTarget], esi
         mov dword [byte ebx+060h], 0
         call ReleaseBoxPlayers
-        mov eax, dword [dword_19CCC2]
+        mov eax, dword [WhistleTime]
         sar eax, 10h
         call StartCrowdMusic
         mov cl, byte [dword ebx+0C1h]
@@ -6270,7 +6270,7 @@ PlayerGetsPuck:
         je near .9
         mov ah, al
         and ah, 0EFh
-        mov ebx, dword [dword_1B8FA0]
+        mov ebx, dword [ReplayPlaying]
         mov byte [holdreset], ah
         test ebx, ebx
         jne short .6
@@ -7046,7 +7046,7 @@ PuckHitsGoalie:
         mov dword [byte ebp-04h], ebx
 .9:
         lea ebx, [byte ebp-014h]
-        mov edx, dword [dword_1BF060]
+        mov edx, dword [StickPointId]
         mov eax, ecx
         call ObjectFramePos
         fld dword [byte ecx+038h]
@@ -7071,7 +7071,7 @@ PuckHitsGoalie:
         jmp near .13
 .10:
         lea ebx, [byte ebp-014h]
-        mov edx, dword [dword_1BF068]
+        mov edx, dword [PunchPointId]
         mov eax, ecx
         call ObjectFramePos
         fld dword [byte esi+024h]
@@ -7205,7 +7205,7 @@ PuckHitsGoalie:
         pop ebx
         ret
         db 08Bh,0C0h
-jpt_2B4B4:
+PuckToStickJumpTable:
         dd PuckToStick_424
         dd PuckToStick_424
         dd PuckToStick_43B
@@ -7443,8 +7443,8 @@ PuckToStick:
         fstp dword [byte edx+040h]
         cmp ebx, byte 7
         ja near PuckToStick_469.21
-        db 02Eh,0FFh,024h,09Dh                  ; insn: jmp dword [cs:ebx*4+1B4B4h]
-        dd jpt_2B4B4
+        db 02Eh,0FFh,024h,09Dh                  ; insn: jmp dword [cs:ebx*4+PuckToStickJumpTable]
+        dd PuckToStickJumpTable
 .16:
         xor eax, eax
         mov al, byte [dword ecx+0A4h]
@@ -7502,8 +7502,8 @@ PuckToStick:
 .20:
         cmp ebx, byte 7
         ja near PuckToStick_469.21
-        db 02Eh,0FFh,024h,09Dh                  ; insn: jmp dword [cs:ebx*4+1B4B4h]
-        dd jpt_2B4B4
+        db 02Eh,0FFh,024h,09Dh                  ; insn: jmp dword [cs:ebx*4+PuckToStickJumpTable]
+        dd PuckToStickJumpTable
 PuckToStick_424:
         push dword [byte ecx+028h]
         mov edx, 64h
@@ -8578,7 +8578,7 @@ PuckEntersZone:
 .1:
         cmp word [penshotmode], byte 0
         jne short .4
-        cmp dword [dword_1B8FA0], byte 0
+        cmp dword [ReplayPlaying], byte 0
         jne short .4
         mov eax, dword [PtrPuckZone]
         cmp byte [eax], 5
@@ -9663,7 +9663,7 @@ pucknorm_body:
 ;-----------------------------------------------------------------------------
 ; pucknorm                           2D308  94G logic94.asm, medium confidence
 ; Slot $18; head identical to 93G pucknorm: bclr pfna; clr temp1(+26h);
-; temp2(+28h)=$78; then calls the body sub_4D6B4
+; temp2(+28h)=$78; then calls pucknorm_body
 ;-----------------------------------------------------------------------------
 pucknorm:
         push edx

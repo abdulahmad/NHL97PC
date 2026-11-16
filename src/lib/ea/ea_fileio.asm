@@ -81,7 +81,7 @@ openhandle_2C:
         LD mov, ebx, eax
         mov eax, 4202h
         LD xor, edx, edx
-        db 0E8h                                 ; insn: call 001093E8h
+        db 0E8h                                 ; insn: call DosCallSplitDx-$-4
         dd DosCallSplitDx-$-4
         jb short .1
         mov ebx, dword [byte ebp+014h]

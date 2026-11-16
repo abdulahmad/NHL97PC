@@ -4,7 +4,7 @@ bits 32
 section s_160D70 progbits alloc noexec write align=1
 global str_03dDAT, str_03dHDR, str_TEMPBANK, str_EVENTDAT, str_CBANK03dHDR, str_TEAM04dHDR, str_PBP, str_Mous
 global str_Remo, str_PlayByPlayNeedsToBeInstal, str_PlayByPlayNeedsToBeInstal2, str_InstallingPlayByPlay, str_CarrySS, str_GKSF, str_SPEECH, F64_0p5_SayShotCall
-global F64_0p5_SaySaveCall, F64_0p5_SayPlayerCall, F64_0p5_SayRandomFiller, unk_160DD4, unk_160E8C, unk_160FD4, unk_161068
+global F64_0p5_SaySaveCall, F64_0p5_SayPlayerCall, F64_0p5_SayRandomFiller, str_DerHome, str_PlayHome, str_DerAway, str_PlayAway
 str_03dDAT:
         db 025h,030h,033h,064h,02Eh,044h,041h,054h,00h,00h,00h,00h
 str_03dHDR:
@@ -23,7 +23,7 @@ str_Mous:
         db 06Dh,06Fh,075h,073h,00h,00h,00h,00h
 str_Remo:
         db 072h,065h,06Dh,06Fh,00h,00h,00h,00h
-unk_160DD4:
+str_DerHome:
         db 044h,065h,072h,020h,053h,070h,069h,065h,06Ch,06Bh,06Fh,06Dh,06Dh,065h,06Eh,074h
         db 061h,072h,020h,06Dh,075h,0DFh,020h,065h,072h,073h,074h,020h,069h,06Eh,073h,074h
         db 061h,06Ch,06Ch,069h,065h,072h,074h,020h,077h,065h,072h,064h,065h,06Eh,02Ch,020h
@@ -36,7 +36,7 @@ unk_160DD4:
         db 06Ch,061h,074h,069h,06Fh,06Eh,02Eh,020h,053h,069h,065h,020h,062h,072h,061h,075h
         db 063h,068h,065h,06Eh,0Ah,025h,064h,06Bh,020h,06Dh,065h,068h,072h,020h,050h,06Ch
         db 061h,074h,07Ah,02Eh,00h,00h,00h,00h
-unk_160E8C:
+str_PlayHome:
         db 050h,06Ch,061h,079h,020h,062h,079h,020h,050h,06Ch,061h,079h,020h,062h,065h,068h
         db 0F6h,076h,065h,072h,020h,069h,06Eh,073h,074h,061h,06Ch,06Ch,065h,072h,061h,073h
         db 020h,069h,06Eh,06Eh,061h,06Eh,0Ah,064h,065h,074h,020h,06Bh,061h,06Eh,020h,061h
@@ -59,7 +59,7 @@ str_PlayByPlayNeedsToBeInstal:
         db 074h,02Eh,020h,020h,059h,06Fh,075h,020h,072h,065h,071h,075h,069h,072h,065h,0Ah
         db 025h,064h,06Bh,020h,06Dh,06Fh,072h,065h,020h,064h,069h,073h,06Bh,020h,073h,070h
         db 061h,063h,065h,02Eh,00h,00h,00h,00h
-unk_160FD4:
+str_DerAway:
         db 044h,065h,072h,020h,053h,070h,069h,065h,06Ch,06Bh,06Fh,06Dh,06Dh,065h,06Eh,074h
         db 061h,072h,020h,06Dh,075h,0DFh,020h,065h,072h,073h,074h,020h,069h,06Eh,073h,074h
         db 061h,06Ch,06Ch,069h,065h,072h,074h,020h,077h,065h,072h,064h,065h,06Eh,02Ch,020h
@@ -70,7 +70,7 @@ unk_160FD4:
         db 070h,06Ch,061h,074h,07Ah,02Eh,020h,057h,06Fh,06Ch,06Ch,065h,06Eh,020h,053h,069h
         db 065h,020h,069h,068h,06Eh,020h,069h,06Eh,073h,074h,061h,06Ch,06Ch,069h,065h,072h
         db 065h,06Eh,03Fh,00h
-unk_161068:
+str_PlayAway:
         db 050h,06Ch,061h,079h,020h,062h,079h,020h,050h,06Ch,061h,079h,020h,06Dh,0E5h,073h
         db 074h,065h,020h,069h,06Eh,073h,074h,061h,06Ch,06Ch,065h,072h,061h,073h,020h,069h
         db 06Eh,06Eh,061h,06Eh,0Ah,064h,065h,074h,020h,06Bh,061h,06Eh,020h,061h,06Eh,076h

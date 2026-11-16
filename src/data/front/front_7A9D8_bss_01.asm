@@ -2,103 +2,103 @@
 bits 32
 %include "hockey.inc"
 section s_1C0F00 nobits alloc noexec write align=1
-global byte_1C1267, byte_1C135A, byte_1C135B, dword_1C1200, dword_1C1204, dword_1C1208, dword_1C120C, dword_1C1210
-global dword_1C1214, dword_1C1218, dword_1C121C, dword_1C1220, dword_1C1224, dword_1C1228, dword_1C122C, dword_1C1230
-global dword_1C1234, dword_1C1238, dword_1C123C, dword_1C1240, dword_1C1244, dword_1C1248, dword_1C124C, dword_1C1250
-global dword_1C1254, dword_1C1258, dword_1C125C, dword_1C1260, dword_1C1334, dword_1C1338, dword_1C1346, dword_1C13C0
-global dword_1C13FB, dword_1C13FF, unk_1C0F00, unk_1C1264, unk_1C12B4, unk_1C133C, unk_1C134A, unk_1C1352
-global unk_1C135C, unk_1C1364, unk_1C1382, unk_1C139A, word_1C1344, word_1C1348, word_1C13C2
-unk_1C0F00:
+global MainCmdLine, PeriodHomeTeam, PeriodAwayTeam, MovieFrameCount, MovieFrameShown, MovieAudioStream, MovieLastFrame, MovieEndReached
+global MovieFlags, MovieFrameIndex, MovieAudioDone, MovieFramesAhead, MovieSkippable, MovieState, MovieSkipped, MovieNextFrame
+global MovieVideoDone, MovieStartTick, MoviePageFlip, MovieSoundChannel, MovieChunkTag, MovieVideoBuffer, MovieDropCount, MovieHasAudio
+global MovieStreamBuffer, MovieChunkSize, MovieChunkData, MovieCdStream, SeasonFileName, ReplayIndexHandle, AllStarTeamCode, PaEventValue
+global ThreeStarsCount, HomePlayerRecords, MoviePalette, MainArgFlag, MainPathBuffer, AllStarTeamIds, AllStarHomeLines, AllStarAwayLines
+global AutoLineData, AllStarRoster, MatchupNoteText, MatchupNoteLine, AllStarDay, AllStarArena, IndexEntryList
+MoviePalette:
         resb 768
-dword_1C1200:
+MovieFrameCount:
         resb 4
-dword_1C1204:
+MovieFrameShown:
         resb 4
-dword_1C1208:
+MovieAudioStream:
         resb 4
-dword_1C120C:
+MovieLastFrame:
         resb 4
-dword_1C1210:
+MovieEndReached:
         resb 4
-dword_1C1214:
+MovieFlags:
         resb 4
-dword_1C1218:
+MovieFrameIndex:
         resb 4
-dword_1C121C:
+MovieAudioDone:
         resb 4
-dword_1C1220:
+MovieFramesAhead:
         resb 4
-dword_1C1224:
+MovieSkippable:
         resb 4
-dword_1C1228:
+MovieState:
         resb 4
-dword_1C122C:
+MovieSkipped:
         resb 4
-dword_1C1230:
+MovieNextFrame:
         resb 4
-dword_1C1234:
+MovieVideoDone:
         resb 4
-dword_1C1238:
+MovieStartTick:
         resb 4
-dword_1C123C:
+MoviePageFlip:
         resb 4
-dword_1C1240:
+MovieSoundChannel:
         resb 4
-dword_1C1244:
+MovieChunkTag:
         resb 4
-dword_1C1248:
+MovieVideoBuffer:
         resb 4
-dword_1C124C:
+MovieDropCount:
         resb 4
-dword_1C1250:
+MovieHasAudio:
         resb 4
-dword_1C1254:
+MovieStreamBuffer:
         resb 4
-dword_1C1258:
+MovieChunkSize:
         resb 4
-dword_1C125C:
+MovieChunkData:
         resb 4
-dword_1C1260:
+MovieCdStream:
         resb 4
-unk_1C1264:
+MainArgFlag:
         resb 3
-byte_1C1267:
+MainCmdLine:
         resb 77
-unk_1C12B4:
+MainPathBuffer:
         resb 128
-dword_1C1334:
+SeasonFileName:
         resb 4
-dword_1C1338:
+ReplayIndexHandle:
         resb 4
-unk_1C133C:
+AllStarTeamIds:
         resb 8
-word_1C1344:
+AllStarDay:
         resb 2
-dword_1C1346:
+AllStarTeamCode:
         resb 2
-word_1C1348:
+AllStarArena:
         resb 2
-unk_1C134A:
+AllStarHomeLines:
         resb 8
-unk_1C1352:
+AllStarAwayLines:
         resb 8
-byte_1C135A:
+PeriodHomeTeam:
         resb 1
-byte_1C135B:
+PeriodAwayTeam:
         resb 1
-unk_1C135C:
+AutoLineData:
         resb 8
-unk_1C1364:
+AllStarRoster:
         resb 30
-unk_1C1382:
+MatchupNoteText:
         resb 24
-unk_1C139A:
+MatchupNoteLine:
         resb 38
-dword_1C13C0:
+PaEventValue:
         resb 2
-word_1C13C2:
+IndexEntryList:
         resb 57
-dword_1C13FB:
+ThreeStarsCount:
         resb 4
-dword_1C13FF:
+HomePlayerRecords:
         resb 4

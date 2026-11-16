@@ -2,25 +2,25 @@
 bits 32
 %include "hockey.inc"
 section s_16D668 progbits alloc noexec write align=1
-global dword_16D668, dword_16D66C, dword_16D670, dword_16D674, dword_16D678, dword_16D67C, dword_16D680, str_Punct_InitRosterScreen
-global str_X_InitRosterScreen, str_7_SetupRosterLists, str_I_SetupRosterLists, str_Punct_DrawRosterList, str_X_DrawRosterList, dword_16D6AC, str_X_SetupRosterLists, dword_16D6B4
-global str_X_ShowRosterLogo, dword_16D6BC, dword_16D6C0, dword_16D6E8, dword_16D6EC, dword_16D6F0, dword_16D6F4, dword_16D6F8
-global dword_16D6FC, dword_16D700, dword_16D704, dword_16D708, dword_16D71C, dword_16D720, dword_16D724, dword_16D728
-global dword_16D73C, dword_16D740, dword_16D744, dword_16D748, dword_16D74C, dword_16D750, dword_16D754, dword_16D760
-global dword_16D764, word_16D6C4, word_16D6D2, word_16D6E4
-dword_16D668:
+global RosterScreenOpen, RosterData, RosterFreeAgents, RosterSpeechCount, RatingPanelTick, RatingPanelFrame, RosterScreenReady, str_Punct_InitRosterScreen
+global str_X_InitRosterScreen, str_7_SetupRosterLists, str_I_SetupRosterLists, str_Punct_DrawRosterList, str_X_DrawRosterList, RosterTitleX, str_X_SetupRosterLists, RosterTitleY
+global str_X_ShowRosterLogo, RosterTitleWidth, RosterTitleRight, MatchupArt, MatchupStatsX, MatchupStatsY, MatchupStatsWidth, MatchupPanelBottom
+global MatchupPanelRects
+global MatchupLayout, MatchupLeftSide, MatchupNoteCount, MatchupNoteLength, RostersSparkleTick, RostersSparkleFrame, GoalieMaskSoundOn, CreditsLastLine
+global CreditsLastY, CreateSkaterRows, CreateGoalieRows, RosterSoundOn
+RosterScreenOpen:
         db 01h,00h,00h,00h
-dword_16D66C:
+RosterData:
         db 00h,00h,00h,00h
-dword_16D670:
+RosterFreeAgents:
         db 00h,00h,00h,00h
-dword_16D674:
+RosterSpeechCount:
         db 00h,00h,00h,00h
-dword_16D678:
+RatingPanelTick:
         db 00h,00h,00h,00h
-dword_16D67C:
+RatingPanelFrame:
         db 00h,00h,00h,00h
-dword_16D680:
+RosterScreenReady:
         db 00h,00h,00h,00h
 str_Punct_InitRosterScreen:
         db 0Ah,00h,00h,00h
@@ -34,68 +34,61 @@ str_Punct_DrawRosterList:
         db 028h,00h,00h,00h
 str_X_DrawRosterList:
         db 078h,00h,00h,00h
-dword_16D6AC:
+RosterTitleX:
         db 0A4h,01h,00h,00h
 str_X_SetupRosterLists:
         db 078h,00h,00h,00h
-dword_16D6B4:
+RosterTitleY:
         db 0DCh,00h,00h,00h
 str_X_ShowRosterLogo:
         db 078h,00h,00h,00h
-dword_16D6BC:
+RosterTitleWidth:
         db 0A4h,01h,00h,00h
-dword_16D6C0:
+RosterTitleRight:
         db 068h,01h,00h,00h
-word_16D6C4:
+CreateSkaterRows:
         db 03Eh,01h,050h,01h,062h,01h,075h,01h,088h,01h,09Bh,01h,0AEh,01h
-word_16D6D2:
+CreateGoalieRows:
         db 063h,01h,06Dh,01h,075h,01h,07Fh,01h,087h,01h,091h,01h,09Ah,01h,0A4h,01h
         db 0ADh,01h
-word_16D6E4:
+RosterSoundOn:
         db 00h,00h,00h,00h
-dword_16D6E8:
+MatchupArt:
         db 00h,00h,00h,00h
-dword_16D6EC:
+MatchupStatsX:
         db 0DCh,00h,00h,00h
-dword_16D6F0:
+MatchupStatsY:
         db 0CAh,00h,00h,00h
-dword_16D6F4:
+MatchupStatsWidth:
         db 0B4h,00h,00h,00h
-dword_16D6F8:
+MatchupPanelBottom:
         db 082h,00h,00h,00h
-dword_16D6FC:
+MatchupPanelRects:
         db 08h,00h,00h,00h
-dword_16D700:
         db 08Ch,00h,00h,00h
-dword_16D704:
         db 0C4h,00h,00h,00h
-dword_16D708:
         db 0F0h,00h,00h,00h,0B4h,01h,00h,00h,08Ch,00h,00h,00h,0C4h,00h,00h,00h
         db 0F0h,00h,00h,00h
-dword_16D71C:
         db 04h,00h,00h,00h
-dword_16D720:
         db 089h,01h,00h,00h
-dword_16D724:
         db 0F0h,00h,00h,00h
-dword_16D728:
         db 010h,00h,00h,00h,08Ch,01h,00h,00h,089h,01h,00h,00h,0F0h,00h,00h,00h
         db 010h,00h,00h,00h
-dword_16D73C:
+MatchupLayout:
         db 00h,00h,00h,00h
-dword_16D740:
+MatchupLeftSide:
         db 01h,00h,00h,00h
-dword_16D744:
+MatchupNoteCount:
         db 00h,00h,00h,00h
-dword_16D748:
+MatchupNoteLength:
         db 00h,00h,00h,00h
-dword_16D74C:
+RostersSparkleTick:
         db 00h,00h,00h,00h
-dword_16D750:
+RostersSparkleFrame:
         db 00h,00h,00h,00h
-dword_16D754:
+GoalieMaskSoundOn:
         db 00h,00h,00h,00h,0Fh,00h,00h,00h,00h,00h,00h,00h
-dword_16D760:
+CreditsLastLine:
         db 0FFh,0FFh,0FFh,0FFh
-dword_16D764:
+CreditsLastY:
         db 0FFh,0FFh,0FFh,0FFh

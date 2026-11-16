@@ -3,49 +3,49 @@ bits 32
 %include "hockey.inc"
 section s_16D894 progbits alloc noexec write align=1
 extern str_DOSCompatibleIPX, str_DOSKompatibelIPX, str_DOSKompatiblesIPX
-global str_GenericHayesCompatible, byte_16D8FA, byte_16D8FD, byte_16D93B, byte_16DA42, dword_16D894, dword_16D898, dword_16D89C
-global dword_16D8A0, dword_16D8A8, dword_16D8AC, dword_16D8B0, dword_16D8B4, dword_16D8B8, dword_16D8BC, dword_16D8D8
-global dword_16D8DC, InputRecordTail, InputRecordHead, InputRecordCount, dword_16D918, InputRecordStamp, dword_16D93A, dword_16DA9C
-global dword_16DAA0, dword_16DAA4, dword_16DAA8, dword_16DAAC, dword_16DAB0, dword_16DAB4, dword_16DAB6, dword_16DABC
-global str_Punct_ModemSettingsScreen, dword_16DAC4, dword_16DAC8, dword_16DACA, dword_16DAD2, dword_16E124, dword_16E128, dword_16E12A
-global dword_16E130, dword_16E134, dword_16E138, dword_16E13C, dword_16E140, dword_16E144, off_16E0FC, unk_16D992
-global unk_16E110, word_16D8A4, SlotWords, word_16D920, str_Punct_ReadJoystickPads, word_16D924, word_16D926, word_16D928
-global word_16D92A, word_16D92C, word_16DAB8, word_16DACC, word_16DACE, word_16DAD0, word_16E0F8, word_16E0FA
-global word_16E108, word_16E10A, word_16E10C, word_16E120, word_16E12C, word_16E148, word_16E15E, word_16E16E
-global word_16E170
-dword_16D894:
+global str_GenericHayesCompatible, PadChanged, PadSlotFlags, KeyboardControlOn, JoystickButtonMap, InputPlaybackOn, InputRecordPaused, LinkInputFrame
+global SlotTableCount, InputRecordStopped, PadPollTick, KeyPollTick, KeyRepeatTick, KeyRepeatOn, PadHoldTicks, PadHoldCount
+global PadRepeatTicks, InputRecordTail, InputRecordHead, InputRecordCount, InputRecordTaken, InputRecordStamp, KeyboardControls, LinkGameActive
+global NetActive, NetDriverHandle, LinkFrameDelay, LinkRemoteSequence, LinkHandshakeDone, LinkBlockDone, LinkAbortPad, LinkTimeout
+global str_Punct_ModemSettingsScreen, LinkServiceTick, LinkTimerActive, ModemPortBasePad, ModemPortChoice, NetPlayerNameSet, IpxBuffer, NetFoundCountPad
+global NetGameList, NetListTick, NetListChoice, NetListFirst, NetJoinedOk, OptionsAnimIndex, IpxDriverNames, DefaultControls
+global NetHostSessionName, InputRecordOn, SlotWords, JoystickUpKey, str_Punct_ReadJoystickPads, JoystickDownKey, JoystickLeftKey, JoystickRightKey
+global JoystickFireKey, JoystickAltKey, LinkSequence, ModemPortIrqs, ModemPortCount, ModemPortBases, NetSessionActive, NetSessionPort
+global IpxSocketOpen, IpxSocketHandle, NetJoinPending, NetPlayerNameLength, NetFoundCount, OptionsAnimItemFrames, OptionsAnimItemState, OptionsAnimItem
+global OptionsAnimOn
+InputPlaybackOn:
         db 00h,00h,00h,00h
-dword_16D898:
+InputRecordPaused:
         db 00h,00h,00h,00h
-dword_16D89C:
+LinkInputFrame:
         db 00h,00h,00h,00h
-dword_16D8A0:
+SlotTableCount:
         db 00h,00h,00h,00h
-word_16D8A4:
+InputRecordOn:
         db 00h,00h,00h,00h
-dword_16D8A8:
+InputRecordStopped:
         db 00h,00h,00h,00h
-dword_16D8AC:
+PadPollTick:
         db 00h,00h,00h,00h
-dword_16D8B0:
+KeyPollTick:
         db 00h,00h,00h,00h
-dword_16D8B4:
+KeyRepeatTick:
         db 00h,00h,00h,00h
-dword_16D8B8:
+KeyRepeatOn:
         db 00h,00h,00h,00h
-dword_16D8BC:
+PadHoldTicks:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-dword_16D8D8:
+PadHoldCount:
         db 00h,00h,00h,00h
-dword_16D8DC:
+PadRepeatTicks:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-byte_16D8FA:
+PadChanged:
         db 00h,00h
 SlotWords:
         db 00h
-byte_16D8FD:
+PadSlotFlags:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 InputRecordTail:
         db 00h,00h,00h,00h
@@ -53,34 +53,34 @@ InputRecordHead:
         db 00h,00h,00h,00h
 InputRecordCount:
         db 00h,00h,00h,00h
-dword_16D918:
+InputRecordTaken:
         db 00h,00h,00h,00h
 InputRecordStamp:
         db 00h,00h,00h,00h
-word_16D920:
+JoystickUpKey:
         db 010h,00h
 str_Punct_ReadJoystickPads:
         db 020h,00h
-word_16D924:
+JoystickDownKey:
         db 00h,00h
-word_16D926:
+JoystickLeftKey:
         db 00h,00h
-word_16D928:
+JoystickRightKey:
         db 00h,00h
-word_16D92A:
+JoystickFireKey:
         db 00h,00h
-word_16D92C:
+JoystickAltKey:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-dword_16D93A:
+KeyboardControls:
         db 00h
-byte_16D93B:
+KeyboardControlOn:
         db 00h,01h,00h,00h,00h,013h,00h,00h,01h,038h,00h,00h,00h,039h,00h,00h
         db 00h,047h,00h,00h,00h,048h,00h,00h,00h,049h,00h,00h,00h,04Bh,00h,00h
         db 00h,04Dh,00h,00h,00h,04Fh,00h,00h,00h,050h,00h,00h,00h,051h,00h,00h
         db 00h,03Bh,00h,00h,00h,03Ch,00h,00h,00h,03Dh,00h,00h,00h,03Eh,00h,00h
         db 00h,03Fh,00h,00h,00h,040h,00h,00h,00h,041h,00h,00h,00h,042h,00h,00h
         db 00h,043h,00h,00h,00h,044h,00h
-unk_16D992:
+DefaultControls:
         db 00h,00h,01h,00h,00h,00h,013h,00h,00h,01h,038h,00h,00h,00h,039h,00h
         db 00h,00h,047h,00h,00h,00h,048h,00h,00h,00h,049h,00h,00h,00h,04Bh,00h
         db 00h,00h,04Dh,00h,00h,00h,04Fh,00h,00h,00h,050h,00h,00h,00h,051h,00h
@@ -92,48 +92,48 @@ unk_16D992:
         db 00h,00h,02Dh,00h,00h,00h,02Eh,00h,00h,00h,03Bh,00h,00h,00h,03Ch,00h
         db 00h,00h,03Dh,00h,00h,00h,03Eh,00h,00h,00h,03Fh,00h,00h,00h,040h,00h
         db 00h,00h,041h,00h,00h,00h,042h,00h,00h,00h,043h,00h,00h,00h,044h,00h
-byte_16DA42:
+JoystickButtonMap:
         db 00h,01h,02h,00h,04h,05h,06h,00h,08h,09h,0Ah,00h,09h,06h,00h,05h
         db 01h,04h,00h,0Ah,08h,02h,00h,08h,04h,00h,01h,09h,05h,00h,02h,0Ah
         db 06h,00h,0Ah,05h,00h,09h,08h,01h,00h,06h,02h,04h,00h,02h,01h,00h
         db 08h,0Ah,09h,00h,04h,06h,05h,00h,06h,09h,00h,0Ah,02h,08h,00h,05h
         db 04h,01h,00h,04h,08h,00h,02h,06h,0Ah,00h,01h,05h,09h,00h,05h,0Ah
         db 00h,06h,04h,02h,00h,09h,01h,08h,00h,00h
-dword_16DA9C:
+LinkGameActive:
         db 00h,00h,00h,00h
-dword_16DAA0:
+NetActive:
         db 00h,00h,00h,00h
-dword_16DAA4:
+NetDriverHandle:
         db 00h,00h,00h,00h
-dword_16DAA8:
+LinkFrameDelay:
         db 03h,00h,00h,00h
-dword_16DAAC:
+LinkRemoteSequence:
         db 00h,00h,00h,00h
-dword_16DAB0:
+LinkHandshakeDone:
         db 00h,00h,00h,00h
-dword_16DAB4:
+LinkBlockDone:
         db 00h,00h
-dword_16DAB6:
+LinkAbortPad:
         db 00h,00h
-word_16DAB8:
+LinkSequence:
         db 01h,00h,00h,00h
-dword_16DABC:
+LinkTimeout:
         db 00h,00h,00h,00h
 str_Punct_ModemSettingsScreen:
         db 020h,00h,00h,00h
-dword_16DAC4:
+LinkServiceTick:
         db 00h,00h,00h,00h
-dword_16DAC8:
+LinkTimerActive:
         db 00h,00h
-dword_16DACA:
+ModemPortBasePad:
         db 00h,00h
-word_16DACC:
+ModemPortIrqs:
         db 02h,00h
-word_16DACE:
+ModemPortCount:
         db 03h,00h
-word_16DAD0:
+ModemPortBases:
         db 04h,00h
-dword_16DAD2:
+ModemPortChoice:
         db 07h,00h,02h,00h,01h,00h,02h,00h,01h,00h
 str_GenericHayesCompatible:
         db 047h,065h,06Eh,065h,072h,069h,063h,020h,048h,061h,079h,065h,073h,02Dh,043h,06Fh
@@ -234,50 +234,50 @@ str_GenericHayesCompatible:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,041h,054h
         db 026h,046h,026h,04Bh,030h,026h,051h,030h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-word_16E0F8:
+NetSessionActive:
         db 00h,00h
-word_16E0FA:
+NetSessionPort:
         db 00h,00h
-off_16E0FC:
+IpxDriverNames:
         dd str_DOSCompatibleIPX
         dd str_DOSKompatibelIPX
         dd str_DOSKompatiblesIPX
-word_16E108:
+IpxSocketOpen:
         db 00h,00h
-word_16E10A:
+IpxSocketHandle:
         db 0FFh,0FFh
-word_16E10C:
+NetJoinPending:
         db 00h,00h,00h,00h
-unk_16E110:
+NetHostSessionName:
         db 00h,09Bh,067h,0A0h,0C2h,096h,0CFh,011h,0ADh,01Ch,00h,020h,0AFh,0D3h,0BDh,03Fh
-word_16E120:
+NetPlayerNameLength:
         db 00h,00h,00h,00h
-dword_16E124:
+NetPlayerNameSet:
         db 00h,00h,00h,00h
-dword_16E128:
+IpxBuffer:
         db 00h,00h
-dword_16E12A:
+NetFoundCountPad:
         db 00h,00h
-word_16E12C:
+NetFoundCount:
         db 0E8h,03h,00h,00h
-dword_16E130:
+NetGameList:
         db 00h,00h,00h,00h
-dword_16E134:
+NetListTick:
         db 00h,00h,00h,00h
-dword_16E138:
+NetListChoice:
         db 0FFh,0FFh,0FFh,0FFh
-dword_16E13C:
+NetListFirst:
         db 00h,00h,00h,00h
-dword_16E140:
+NetJoinedOk:
         db 00h,00h,00h,00h
-dword_16E144:
+OptionsAnimIndex:
         db 00h,00h,00h,00h
-word_16E148:
+OptionsAnimItemFrames:
         db 0FFh,0FFh,00h,00h,04h,00h,0FFh,0FFh,02h,00h,01h,00h,03h,00h,0FFh,0FFh
         db 06h,00h,07h,00h,05h,00h
-word_16E15E:
+OptionsAnimItemState:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-word_16E16E:
+OptionsAnimItem:
         db 00h,00h
-word_16E170:
+OptionsAnimOn:
         db 00h,00h,00h,00h

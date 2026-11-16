@@ -2,199 +2,199 @@
 bits 32
 %include "hockey.inc"
 section s_1B94DC nobits alloc noexec write align=1
-global byte_1BF670, dword_1B94DC, dword_1B9554, dword_1B9558, dword_1B9A14, dword_1B9A18, dword_1B9AB8, dword_1B9ABC
-global dword_1B9AC0, dword_1B9C50, dword_1B9C8C, dword_1B9C90, dword_1B9CA4, dword_1B9CAC, dword_1B9CB0, dword_1B9CFC
-global dword_1B9D04, dword_1B9D08, dword_1B9D18, dword_1B9D20, dword_1B9D28, dword_1BA050, dword_1BA068, dword_1BA088
-global dword_1BA0A0, dword_1BAAF8, dword_1BAB00, dword_1BAB04, dword_1BB258, dword_1BF050, dword_1BF054, dword_1BF058
-global dword_1BF05C, dword_1BF060, dword_1BF064, dword_1BF068, dword_1BF06C, dword_1BF070, dword_1BF074, dword_1BF078
-global dword_1BF07C, dword_1BF084, dword_1BF0B8, dword_1BF0BC, dword_1BF17C, dword_1BF1B4, dword_1BF248, dword_1BF7F0
-global dword_1BF7F4, dword_1BF7F8, dword_1BF7FC, dword_1BF800, dword_1BF888, dword_1BF88C, dword_1BF890, dword_1BF894
-global dword_1BF898, dword_1BF89C, dword_1BF8A0, dword_1BF8A4, dword_1BF8A8, dword_1BF8B0, dword_1BF8B4, dword_1C0EE0
-global dword_1C0EEC, dword_1C0EF0, dword_1C0EF8, dword_1C0EFC, unk_1B94E0, unk_1B9520, unk_1B9A58, unk_1B9CF8
-global unk_1BA510, unk_1BAA88, unk_1BB268, unk_1BBAB8, unk_1BBEE0, unk_1BD680, unk_1BE3A0, unk_1BE4F0
-global unk_1BE838, unk_1BEF00, unk_1BF110, unk_1BF174, unk_1BF204, unk_1BF29C, unk_1BF2E8, unk_1BF498
-global unk_1BF588, unk_1BF5A0, unk_1BF5DC, unk_1BF658
-dword_1B94DC:
+global MoveFlags, DepthSortCount, PlayerStartDist, PlayerStartScale, ObjectSortCount, DepthSortOrder, GoalieAnimTime, GoalieAnimFrame
+global GoalieAnimPoses, DepthSortList, AnimPointIds, DeflectAnims, CreaseBounds, GoalLineY, StickContactPts, SkateAnimSpeeds
+global SkateAnimAccel, SkateStrideTable, TurnAnimAngles, StrideSpeeds, SkateMoveTable, SkateAnimSteps, SkateAnimTurns, SkateAnimStops
+global SkateAnimFrames, PenaltyAnimPos, PenaltyAnimTime, BoxAnimFrames, DodgeScale, GoalieTickCount, GoalieMoveLimit, SkateAnimScale
+global SkateAnimBase, StickPointId, FistPointId, PunchPointId, BodyPointId, GoalieReachLimit, SwingPointId, HeadPointId
+global MoveFuncPair, PlayerAnimSet, SkateAnimCount, SkateAnimIndex, BoxAnimIndex, PlayerAnimTable, FallAnimPtrs, SkateAnimMem
+global SkateAnimMemSize, StopTableForward, StopTableBackward, GoalieMoveTable, AnimStateBlocks, AnimNodesFree, AnimNodeFreeList, AnimNodePool
+global AnimStatesReady, AnimDecodePtr, AnimDecodeEnd, AnimDecodeFrame, AnimStateCount, AnimBlend, ReplayRecordBuf, AiIconArt
+global CameraDebugArt, AiIconSize, CameraDebugLoaded, AiIconCount, DepthSortKeys, PlayerStartRecords, FallAnimSlots, AnimDataBase
+global ShotAnimPoses, ActAnimFrames, FallAnimFrames, InterferAnimFrames, GoalieAnimFrames, RefSkateAnimFrames, RefAmbiAnimFrames, RefCallAnimFrames
+global FightAnimFrames, CupAnimFrames, ShotAnimIndex, ActAnimIndex, FallAnimIndex, InterferAnimIndex, GoalieAnimIndex, RefSkateAnimIndex
+global RefAmbiAnimIndex, RefCallAnimIndex, FightAnimIndex, CupAnimIndex
+DepthSortCount:
         resb 4
-unk_1B94E0:
+DepthSortKeys:
         resb 64
-unk_1B9520:
+PlayerStartRecords:
         resb 52
-dword_1B9554:
+PlayerStartDist:
         resb 4
-dword_1B9558:
+PlayerStartScale:
         resb 1212
-dword_1B9A14:
+ObjectSortCount:
         resb 4
-dword_1B9A18:
+DepthSortOrder:
         resb 64
-unk_1B9A58:
+FallAnimSlots:
         resb 96
-dword_1B9AB8:
+GoalieAnimTime:
         resb 4
-dword_1B9ABC:
+GoalieAnimFrame:
         resb 4
-dword_1B9AC0:
+GoalieAnimPoses:
         resb 400
-dword_1B9C50:
+DepthSortList:
         resb 60
-dword_1B9C8C:
+AnimPointIds:
         resb 4
-dword_1B9C90:
+DeflectAnims:
         resb 20
-dword_1B9CA4:
+CreaseBounds:
         resb 8
-dword_1B9CAC:
+GoalLineY:
         resb 4
-dword_1B9CB0:
+StickContactPts:
         resb 72
-unk_1B9CF8:
+AnimDataBase:
         resb 4
-dword_1B9CFC:
+SkateAnimSpeeds:
         resb 8
-dword_1B9D04:
+SkateAnimAccel:
         resb 4
-dword_1B9D08:
+SkateStrideTable:
         resb 16
-dword_1B9D18:
+TurnAnimAngles:
         resb 8
-dword_1B9D20:
+StrideSpeeds:
         resb 8
-dword_1B9D28:
+SkateMoveTable:
         resb 808
-dword_1BA050:
+SkateAnimSteps:
         resb 24
-dword_1BA068:
+SkateAnimTurns:
         resb 32
-dword_1BA088:
+SkateAnimStops:
         resb 24
-dword_1BA0A0:
+SkateAnimFrames:
         resb 1136
-unk_1BA510:
+ShotAnimPoses:
         resb 1400
-unk_1BAA88:
+ActAnimFrames:
         resb 112
-dword_1BAAF8:
+PenaltyAnimPos:
         resb 8
-dword_1BAB00:
+PenaltyAnimTime:
         resb 4
-dword_1BAB04:
+BoxAnimFrames:
         resb 1876
-dword_1BB258:
+DodgeScale:
         resb 16
-unk_1BB268:
+FallAnimFrames:
         resb 2128
-unk_1BBAB8:
+InterferAnimFrames:
         resb 1064
-unk_1BBEE0:
+GoalieAnimFrames:
         resb 6048
-unk_1BD680:
+RefSkateAnimFrames:
         resb 3360
-unk_1BE3A0:
+RefAmbiAnimFrames:
         resb 336
-unk_1BE4F0:
+RefCallAnimFrames:
         resb 840
-unk_1BE838:
+FightAnimFrames:
         resb 1736
-unk_1BEF00:
+CupAnimFrames:
         resb 336
-dword_1BF050:
+GoalieTickCount:
         resb 4
-dword_1BF054:
+GoalieMoveLimit:
         resb 4
-dword_1BF058:
+SkateAnimScale:
         resb 4
-dword_1BF05C:
+SkateAnimBase:
         resb 4
-dword_1BF060:
+StickPointId:
         resb 4
-dword_1BF064:
+FistPointId:
         resb 4
-dword_1BF068:
+PunchPointId:
         resb 4
-dword_1BF06C:
+BodyPointId:
         resb 4
-dword_1BF070:
+GoalieReachLimit:
         resb 4
-dword_1BF074:
+SwingPointId:
         resb 4
-dword_1BF078:
+HeadPointId:
         resb 4
-dword_1BF07C:
+MoveFuncPair:
         resb 8
-dword_1BF084:
+PlayerAnimSet:
         resb 52
-dword_1BF0B8:
+SkateAnimCount:
         resb 4
-dword_1BF0BC:
+SkateAnimIndex:
         resb 84
-unk_1BF110:
+ShotAnimIndex:
         resb 100
-unk_1BF174:
+ActAnimIndex:
         resb 8
-dword_1BF17C:
+BoxAnimIndex:
         resb 56
-dword_1BF1B4:
+PlayerAnimTable:
         resb 80
-unk_1BF204:
+FallAnimIndex:
         resb 68
-dword_1BF248:
+FallAnimPtrs:
         resb 84
-unk_1BF29C:
+InterferAnimIndex:
         resb 76
-unk_1BF2E8:
+GoalieAnimIndex:
         resb 432
-unk_1BF498:
+RefSkateAnimIndex:
         resb 240
-unk_1BF588:
+RefAmbiAnimIndex:
         resb 24
-unk_1BF5A0:
+RefCallAnimIndex:
         resb 60
-unk_1BF5DC:
+FightAnimIndex:
         resb 124
-unk_1BF658:
+CupAnimIndex:
         resb 24
-byte_1BF670:
+MoveFlags:
         resb 384
-dword_1BF7F0:
+SkateAnimMem:
         resb 4
-dword_1BF7F4:
+SkateAnimMemSize:
         resb 4
-dword_1BF7F8:
+StopTableForward:
         resb 4
-dword_1BF7FC:
+StopTableBackward:
         resb 4
-dword_1BF800:
+GoalieMoveTable:
         resb 136
-dword_1BF888:
+AnimStateBlocks:
         resb 4
-dword_1BF88C:
+AnimNodesFree:
         resb 4
-dword_1BF890:
+AnimNodeFreeList:
         resb 4
-dword_1BF894:
+AnimNodePool:
         resb 4
-dword_1BF898:
+AnimStatesReady:
         resb 4
-dword_1BF89C:
+AnimDecodePtr:
         resb 4
-dword_1BF8A0:
+AnimDecodeEnd:
         resb 4
-dword_1BF8A4:
+AnimDecodeFrame:
         resb 4
-dword_1BF8A8:
+AnimStateCount:
         resb 8
-dword_1BF8B0:
+AnimBlend:
         resb 4
-dword_1BF8B4:
+ReplayRecordBuf:
         resb 5676
-dword_1C0EE0:
+AiIconArt:
         resb 12
-dword_1C0EEC:
+CameraDebugArt:
         resb 4
-dword_1C0EF0:
+AiIconSize:
         resb 8
-dword_1C0EF8:
+CameraDebugLoaded:
         resb 4
-dword_1C0EFC:
+AiIconCount:
         resb 4

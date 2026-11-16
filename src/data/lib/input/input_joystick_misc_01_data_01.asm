@@ -7,8 +7,8 @@ global __8087, JoyCalibrating, JoyButtons, JoyButtonsPrev, JoyDirection, JoyDirT
 global JoyCalibrateTicks, JoyReadTimeout, JoyAxisX1, JoyAxisY1, JoyAxisX2, JoyAxisY2, JoyAxisMask, str_P_ReadJoystickPorts
 global JoyX1Min, JoyX1Center, JoyX1Max, JoyX1Settle, JoyY1Min, JoyY1Max, JoyDeadZone, JoyY1MinSeen
 global JoyY1Center, JoyY1MaxSeen, JoyY1Settle, JoyX2Min, JoyX2Max, JoyXScale, JoyYScale, KbdIdleHook
-global TimerTicks, TimerTickStep, TimerRate, dword_16E402, GoalieTickData, dword_16E410, LastTickCount, GraphicsModeSet
-global MousePresent, mousex, mousey, MouseMoved, MouseHideCount, MouseInitDone, dword_16E464, dword_16E468
+global TimerTicks, TimerTickStep, TimerRate, TimerOldVector, GoalieTickData, TimerInISR, LastTickCount, GraphicsModeSet
+global MousePresent, mousex, mousey, MouseMoved, MouseHideCount, MouseInitDone, ViewScreenWidth, ViewScreenHeight
 global MenuScreenBitmap, VideoModeCount, SelectedVideoMode, ScreenModeWidth, ScreenModeHeight, DefaultModeWidth, DefaultModeHeight, str_StackOverflow
 global tickcount, tickdeadline, RandSeed, TimerSavedSelector, SavedStackSegment
 JoyCalibrateTicks:
@@ -80,13 +80,13 @@ TimerTickStep:
         db 00h,00h,00h,00h
 TimerRate:
         db 00h,010h,00h,00h,00h,00h
-dword_16E402:
+TimerOldVector:
         db 00h,00h,00h,00h
 TimerSavedSelector:
         db 00h,00h
 GoalieTickData:
         db 00h,00h,00h,00h,00h,00h,00h,00h
-dword_16E410:
+TimerInISR:
         db 00h,00h,00h,00h
 __8087:
         db 00h
@@ -118,9 +118,9 @@ MouseInitDone:
         db 00h,00h,00h,00h
 JoyPresent:
         db 00h,00h,00h,00h
-dword_16E464:
+ViewScreenWidth:
         db 00h,00h,00h,00h
-dword_16E468:
+ViewScreenHeight:
         db 00h,00h,00h,00h
 MenuScreenBitmap:
         db 00h,00h,00h,00h,05h,00h,00h,00h

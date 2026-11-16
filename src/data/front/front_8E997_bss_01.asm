@@ -2,103 +2,103 @@
 bits 32
 %include "hockey.inc"
 section s_1ACF4A nobits alloc noexec write align=1
-global byte_1ACF62, byte_1ACF63, byte_1ACF69, byte_1AD23E, byte_1AD252, byte_1AD457, byte_1AD458, byte_1AD45E
-global byte_1AD72B, byte_1AD739, byte_1AD742, dword_1ACF4A, dword_1ACF65, dword_1AD226, dword_1AD22A, dword_1AD244
-global dword_1AD248, dword_1AD24C, dword_1AD251, dword_1AD437, dword_1AD45A, dword_1AD62B, dword_1AD62F, dword_1AD69F
-global dword_1AD6A3, dword_1AD6A7, dword_1AD6AB, dword_1AD6AF, dword_1AD70F, dword_1AD71B, dword_1AD71F, dword_1AD723
-global dword_1AD727, dword_1AD743, unk_1ACF4E, unk_1AD22E, unk_1AD236, unk_1AD250, unk_1AD255, unk_1AD35D
-global unk_1AD443, unk_1AD603, unk_1AD73A, word_1AD240, word_1AD242, word_1AD68F, word_1AD693
-dword_1ACF4A:
+global SeasonUserHuman, SeasonUserActive, SeasonUserLocked, SeasonCreated, PlayoffOptionFlags, PlayoffUserHuman, PlayoffUserActive, PlayoffUserLocked
+global PlayoffRound, PlayoffStarted, PlayoffUserIndex, NewSeasonUserCount, SeasonUserReplay, SeasonDefaultUser, SeasonRandomSeed, SeasonScheduleData
+global SeasonScheduleOffset, SeasonScheduleSize, PlayoffOptionBits, PlayoffRoundBits, PlayoffUserReplay, PlayoffFileHandle, PlayoffTeamNames, PlayoffCurrentRound
+global PlayoffFinalRound, GameRecordIds, PlayoffTeams, PlayoffOpponents, PlayoffRoundMatch, PlayoffSeriesMatch, PlayoffFinalHome, PlayoffFinalAway
+global PlayoffGameCount, PlayoffRandomSeed, SeasonUserRecords, SeasonFilePath, SeasonStatsPath, PlayoffSettings, PlayoffIndexSettings, PlayoffIndexFlags
+global PlayoffUserRecords, PlayoffName, PlayoffStatsPath, SeasonLastHome, SeasonLastAway, PlayoffRecordWins, PlayoffRecordLosses
+NewSeasonUserCount:
         resb 4
-unk_1ACF4E:
+SeasonUserRecords:
         resb 20
-byte_1ACF62:
+SeasonUserHuman:
         resb 1
-byte_1ACF63:
+SeasonUserActive:
         resb 2
-dword_1ACF65:
+SeasonUserReplay:
         resb 4
-byte_1ACF69:
+SeasonUserLocked:
         resb 701
-dword_1AD226:
+SeasonDefaultUser:
         resb 4
-dword_1AD22A:
+SeasonRandomSeed:
         resb 4
-unk_1AD22E:
+SeasonFilePath:
         resb 8
-unk_1AD236:
+SeasonStatsPath:
         resb 8
-byte_1AD23E:
+SeasonCreated:
         resb 2
-word_1AD240:
+SeasonLastHome:
         resb 2
-word_1AD242:
+SeasonLastAway:
         resb 2
-dword_1AD244:
+SeasonScheduleData:
         resb 4
-dword_1AD248:
+SeasonScheduleOffset:
         resb 4
-dword_1AD24C:
+SeasonScheduleSize:
         resb 4
-unk_1AD250:
+PlayoffSettings:
         resb 1
-dword_1AD251:
+PlayoffOptionBits:
         resb 1
-byte_1AD252:
+PlayoffOptionFlags:
         resb 3
-unk_1AD255:
+PlayoffIndexSettings:
         resb 264
-unk_1AD35D:
+PlayoffIndexFlags:
         resb 218
-dword_1AD437:
+PlayoffRoundBits:
         resb 12
-unk_1AD443:
+PlayoffUserRecords:
         resb 20
-byte_1AD457:
+PlayoffUserHuman:
         resb 1
-byte_1AD458:
+PlayoffUserActive:
         resb 2
-dword_1AD45A:
+PlayoffUserReplay:
         resb 4
-byte_1AD45E:
+PlayoffUserLocked:
         resb 421
-unk_1AD603:
+PlayoffName:
         resb 40
-dword_1AD62B:
+PlayoffFileHandle:
         resb 4
-dword_1AD62F:
+PlayoffTeamNames:
         resb 96
-word_1AD68F:
+PlayoffRecordWins:
         resb 4
-word_1AD693:
+PlayoffRecordLosses:
         resb 12
-dword_1AD69F:
+PlayoffCurrentRound:
         resb 4
-dword_1AD6A3:
+PlayoffFinalRound:
         resb 4
-dword_1AD6A7:
+GameRecordIds:
         resb 4
-dword_1AD6AB:
+PlayoffTeams:
         resb 4
-dword_1AD6AF:
+PlayoffOpponents:
         resb 96
-dword_1AD70F:
+PlayoffRoundMatch:
         resb 12
-dword_1AD71B:
+PlayoffSeriesMatch:
         resb 4
-dword_1AD71F:
+PlayoffFinalHome:
         resb 4
-dword_1AD723:
+PlayoffFinalAway:
         resb 4
-dword_1AD727:
+PlayoffGameCount:
         resb 4
-byte_1AD72B:
+PlayoffRound:
         resb 14
-byte_1AD739:
+PlayoffStarted:
         resb 1
-unk_1AD73A:
+PlayoffStatsPath:
         resb 8
-byte_1AD742:
+PlayoffUserIndex:
         resb 1
-dword_1AD743:
+PlayoffRandomSeed:
         resb 5

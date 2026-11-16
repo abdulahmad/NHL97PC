@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_102F40 progbits alloc exec nowrite align=1
-extern SaveTextMode, str_VESAMEM, str_Rowtbl, ModeBitsPerPixel, str_Punct_SetGraphicsMode, PaletteDirty, GraphicsModeSet, dword_16E464
-extern dword_16E468, MenuScreenBitmap, ScreenModeWidth, ScreenModeHeight, DefaultModeWidth, DefaultModeHeight, ModeSetCount, FrameCounter
+extern SaveTextMode, str_VESAMEM, str_Rowtbl, ModeBitsPerPixel, str_Punct_SetGraphicsMode, PaletteDirty, GraphicsModeSet, ViewScreenWidth
+extern ViewScreenHeight, MenuScreenBitmap, ScreenModeWidth, ScreenModeHeight, DefaultModeWidth, DefaultModeHeight, ModeSetCount, FrameCounter
 extern MessageBoxActive, ScreenWidth, BackBufferWidth, ModeHeight, ModeFrameBuffer, ModeBankSize, ModeWidth, BackBufferHeight
 extern VideoModeNumber, VideoWindowHandle, ModePitch, ModeLinear, VideoWindowTable, VesaBank, VesaBankFunc, VideoModeIndex
 extern ModeTableWidth, ModeTableHeight, ModeTableBpp, ModeTableNumber, VesaModeInfo, VesaWindowActive, RowTableBytes, RowTable
@@ -551,11 +551,11 @@ SetGraphicsMode:
         mov edi, eax
 .22:
         mov eax, dword [dword esp+0178h]
-        mov dword [dword_16E464], ebx
+        mov dword [ViewScreenWidth], ebx
         mov edx, ebx
         mov dword [MenuScreenBitmap], eax
         mov eax, dword [ScreenModeWidth]
-        mov dword [dword_16E468], ecx
+        mov dword [ViewScreenHeight], ecx
         sub edx, eax
         mov eax, dword [ScreenModeHeight]
         mov dword [DefaultModeWidth], edx

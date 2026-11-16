@@ -117,7 +117,7 @@ BuildAntiAliasTable:
         ret 4
 ;-----------------------------------------------------------------------------
 ; ClipLineY                                   10B780  96 PC, medium confidence
-; Clips the current line to the view's top and bottom (dword_17DC1C / 17DC24)
+; Clips the current line to the view's top and bottom (ViewOriginY, ViewHeight, LineClipMaxY)
 ;-----------------------------------------------------------------------------
 ClipLineY:
         push ebx
@@ -323,7 +323,7 @@ ClipLineY:
         db 090h
 ;-----------------------------------------------------------------------------
 ; ClipLineX                                   10B99C  96 PC, medium confidence
-; Clips the current line to the view's left and right (dword_17DC18 / 17DC28)
+; Clips the current line to the view's left and right (ViewOriginX, ViewWidth, LineClipMaxX)
 ;-----------------------------------------------------------------------------
 ClipLineX:
         push ebx

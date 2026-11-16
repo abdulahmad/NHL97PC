@@ -1,0 +1,7 @@
+unk_167144 str_NJ_GoalieMaskList {confidence=low} team abbreviation NJ in the goalie mask list
+unk_167168 str_NYI_GoalieMaskList {confidence=low} team abbreviation NYI in the goalie mask list
+unk_167178 str_SJ_GoalieMaskList {confidence=low} team abbreviation SJ in the goalie mask list
+unk_1671E0 str_LA_GoalieMaskList {confidence=low} team abbreviation LA in the goalie mask list
+unk_1671F0 str_TB_GoalieMaskList {confidence=low} team abbreviation TB in the goalie mask list
+unk_167234 str_NYR_GoalieMaskList {confidence=low} team abbreviation NYR in the goalie mask list
+unk_D4CB0 GoalieMaskList {confidence=low} goalie mask list: name, team and seasons per goalie

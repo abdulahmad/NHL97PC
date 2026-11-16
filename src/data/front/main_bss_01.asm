@@ -2,178 +2,146 @@
 bits 32
 %include "hockey.inc"
 section s_1C5DB0 nobits alloc noexec write align=1
-global byte_1C6040, dword_1C5DB0, dword_1C5DB4, dword_1C5DDC, dword_1C5DE0, dword_1C5DE4, dword_1C5DE8, dword_1C5E74
-global dword_1C5E78, dword_1C5E7C, dword_1C5E80, dword_1C5E84, dword_1C5E9C, dword_1C5EA0, dword_1C5EA4, dword_1C5EA8
-global dword_1C5EC4, dword_1C5EC8, dword_1C5ECC, dword_1C5ED0, dword_1C5EEC, dword_1C5EF0, dword_1C5EF4, dword_1C5F08
-global dword_1C5F0C, dword_1C5F12, dword_1C5F16, dword_1C5F1A, dword_1C5F1E, dword_1C5F22, dword_1C5F26, dword_1C5F5A
-global dword_1C5F5E, dword_1C5F64, dword_1C5F68, dword_1C5F6C, dword_1C5F70, dword_1C5F74, dword_1C5F78, dword_1C5FAC
-global dword_1C5FB0, dword_1C5FB6, dword_1C5FBA, dword_1C5FBE, dword_1C5FC2, dword_1C5FC6, dword_1C5FCA, dword_1C5FFE
-global dword_1C6002, dword_1C6008, dword_1C600C, dword_1C6010, dword_1C6014, dword_1C6018, dword_1C601C, dword_1C6080
-global dword_1C6084, dword_1C60C0, dword_1C60C4, dword_1C8184, dword_1C8188, dword_1C818C, dword_1C8190, dword_1C8194
-global dword_1C8198, dword_1C819C, dword_1C81A0, dword_1C81A4, dword_1C81A8, dword_1C81AC, dword_1C81B0, dword_1C81B4
-global dword_1C81B8, dword_1C8268, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C5FEE, unk_1C6044, unk_1C6104
-global unk_1C7144, unk_1C81BC
-dword_1C5DB0:
+global FrontMusicOn, BackgroundFrameArt, BackgroundCornerArt, MainLogFile, PlayMenuGameFlag, FrontShapeFile, LogoNames, ShadowShape
+global FrontFonts, EntryListArt, EntryListFrameArt, EntryListCornerArt, FrontFontsLoaded, ScreenTitleArt, ScreenTitleFrame, ScreenTitleCorner
+global StatsBackBitmaps, StatsBackLayers, StatsBackFrame, StatsBackCorner, StatsBackArt, LogoArtFile, FrontTextFile
+
+
+
+global EntryRowX
+global EntryRowY, EntryColumnX, EntryColumnY, LoadingScreenShown, StatsScreenSave, LinkBoxWidth, LinkBoxHeight, LinkBoxBitmap
+global LinkBoxTimer, WorkingBoxX, WorkingBoxY, WorkingBoxWidth, WorkingBoxHeight, WorkingBoxSave, WorkingBoxBitmap, TextColourBase
+global TextColourLast, TextFonts, ScreenTitleItem, BlankMenuItem, ScreenFrameItem, StatsBackItem, StatsBackMenuItems, TextColourTable
+global TextShadowTable, SavedTextState
+BackgroundFrameArt:
         resb 4
-dword_1C5DB4:
+BackgroundCornerArt:
         resb 40
-dword_1C5DDC:
+MainLogFile:
         resb 4
-dword_1C5DE0:
+PlayMenuGameFlag:
         resb 4
-dword_1C5DE4:
+FrontShapeFile:
         resb 4
-dword_1C5DE8:
+LogoNames:
         resb 140
-dword_1C5E74:
+ShadowShape:
         resb 4
-dword_1C5E78:
+FrontFonts:
         resb 4
-dword_1C5E7C:
+EntryListArt:
         resb 4
-dword_1C5E80:
+EntryListFrameArt:
         resb 4
-dword_1C5E84:
+EntryListCornerArt:
         resb 24
-dword_1C5E9C:
+FrontFontsLoaded:
         resb 4
-dword_1C5EA0:
+ScreenTitleArt:
         resb 4
-dword_1C5EA4:
+ScreenTitleFrame:
         resb 4
-dword_1C5EA8:
+ScreenTitleCorner:
         resb 28
-dword_1C5EC4:
+StatsBackBitmaps:
         resb 4
-dword_1C5EC8:
+StatsBackLayers:
         resb 4
-dword_1C5ECC:
+StatsBackFrame:
         resb 4
-dword_1C5ED0:
+StatsBackCorner:
         resb 28
-dword_1C5EEC:
+StatsBackArt:
         resb 4
-dword_1C5EF0:
+LogoArtFile:
         resb 4
-dword_1C5EF4:
+FrontTextFile:
         resb 4
-unk_1C5EF8:
+ScreenTitleItem:
         resb 16
-dword_1C5F08:
         resb 4
-dword_1C5F0C:
         resb 6
-dword_1C5F12:
         resb 4
-dword_1C5F16:
         resb 4
-dword_1C5F1A:
         resb 4
-dword_1C5F1E:
         resb 4
-dword_1C5F22:
         resb 4
-dword_1C5F26:
         resb 36
-unk_1C5F4A:
+BlankMenuItem:
         resb 16
-dword_1C5F5A:
         resb 4
-dword_1C5F5E:
         resb 6
-dword_1C5F64:
         resb 4
-dword_1C5F68:
         resb 4
-dword_1C5F6C:
         resb 4
-dword_1C5F70:
         resb 4
-dword_1C5F74:
         resb 4
-dword_1C5F78:
         resb 36
-unk_1C5F9C:
+ScreenFrameItem:
         resb 16
-dword_1C5FAC:
         resb 4
-dword_1C5FB0:
         resb 6
-dword_1C5FB6:
         resb 4
-dword_1C5FBA:
         resb 4
-dword_1C5FBE:
         resb 4
-dword_1C5FC2:
         resb 4
-dword_1C5FC6:
         resb 4
-dword_1C5FCA:
         resb 36
-unk_1C5FEE:
+StatsBackItem:
         resb 16
-dword_1C5FFE:
         resb 4
-dword_1C6002:
         resb 6
-dword_1C6008:
         resb 4
-dword_1C600C:
         resb 4
-dword_1C6010:
         resb 4
-dword_1C6014:
         resb 4
-dword_1C6018:
         resb 4
-dword_1C601C:
         resb 36
-byte_1C6040:
+FrontMusicOn:
         resb 4
-unk_1C6044:
+StatsBackMenuItems:
         resb 60
-dword_1C6080:
+EntryRowX:
         resb 4
-dword_1C6084:
+EntryRowY:
         resb 60
-dword_1C60C0:
+EntryColumnX:
         resb 4
-dword_1C60C4:
+EntryColumnY:
         resb 64
-unk_1C6104:
+TextColourTable:
         resb 4160
-unk_1C7144:
+TextShadowTable:
         resb 4160
-dword_1C8184:
+LoadingScreenShown:
         resb 4
-dword_1C8188:
+StatsScreenSave:
         resb 4
-dword_1C818C:
+LinkBoxWidth:
         resb 4
-dword_1C8190:
+LinkBoxHeight:
         resb 4
-dword_1C8194:
+LinkBoxBitmap:
         resb 4
-dword_1C8198:
+LinkBoxTimer:
         resb 4
-dword_1C819C:
+WorkingBoxX:
         resb 4
-dword_1C81A0:
+WorkingBoxY:
         resb 4
-dword_1C81A4:
+WorkingBoxWidth:
         resb 4
-dword_1C81A8:
+WorkingBoxHeight:
         resb 4
-dword_1C81AC:
+WorkingBoxSave:
         resb 4
-dword_1C81B0:
+WorkingBoxBitmap:
         resb 4
-dword_1C81B4:
+TextColourBase:
         resb 4
-dword_1C81B8:
+TextColourLast:
         resb 4
-unk_1C81BC:
+SavedTextState:
         resb 172
-dword_1C8268:
+TextFonts:
         resb 4

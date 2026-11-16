@@ -3,8 +3,8 @@ bits 32
 %include "hockey.inc"
 section s_F20A1 progbits alloc exec nowrite align=1
 extern SortCords, __CHP, str_Mous6, str_Remo4, str_D02dD, str_D02dD2, str_CB0D, str_CB002
-extern str_Chat, str_SS15, str_D4, IntermissionActive, gmode, MusicOptions, DetailLevel, byte_1AD23E
-extern byte_1C135A, byte_1C135B, F32_3_DrawPauseButton, F32_4_DrawPauseButton, F32_3_DrawMenuItem, F32_4_DrawMenuItem, F32_12_DrawPauseButtons, F32_100_DrawPauseButtons
+extern str_Chat, str_SS15, str_D4, IntermissionActive, gmode, MusicOptions, DetailLevel, SeasonCreated
+extern PeriodHomeTeam, PeriodAwayTeam, F32_3_DrawPauseButton, F32_4_DrawPauseButton, F32_3_DrawMenuItem, F32_4_DrawMenuItem, F32_12_DrawPauseButtons, F32_100_DrawPauseButtons
 extern F32_155, F32_10_DrawPauseButtons, F32_165, F32_129, F32_117, F32_105, F32_141, F32_153
 extern F32_178, F32_40_PickEditLinesTeam, F32_130, F32_0p5_PickEditLinesTeam, F32_55, F32_150, F32_50_PickEditLinesTeam, F32_10_PickEditLinesTeam
 extern F32_5, F32_75, F32_65, F32_7_PickEditLinesTeam, F32_90, F32_20_PickEditLinesTeam, F32_28, F32_36
@@ -19,12 +19,12 @@ extern F32_180_DetailLevelMenu, F32_130_DetailLevelMenu, F32_90_DetailLevelMenu,
 extern F32_64_DetailLevelMenu, F32_81_DetailLevelMenu, F32_98_DetailLevelMenu, F32_115_DetailLevelMenu, F32_132_DetailLevelMenu, F32_178_DetailLevelMenu, F32_5_DetailLevelMenu, F32_19_DetailLevelMenu
 extern F32_36_DetailLevelMenu, F32_53_DetailLevelMenu, F32_87_DetailLevelMenu, F32_104_DetailLevelMenu, F32_121_DetailLevelMenu, F32_37, F32_18, F32_15_DetailLevelMenu
 extern F32_63, F32_0p005_DetailLevelMenu, F32_0p003125_DetailLevelMenu, F32_55_DetailLevelMenu, F32_40_DetailLevelMenu, F32_100_DetailLevelMenu, F32_85_DetailLevelMenu, F32_25_DetailLevelMenu
-extern ClockShown, InGameMenuRequest, dword_16AF3C, dword_16AF40, dword_16AF44, dword_16AF48, dword_16AF50, dword_16AF54
-extern dword_16AF58, dword_16AF5C, dword_16D2BC, dword_16DA9C, dword_16E30C, mousex, mousey, dword_16E464
-extern dword_16E468, QuantizePalette, DrawDestPitch, dword_19CD10, dword_19CD30, dword_19CD54, ActiveCameraScene, ViewSizeChanged
-extern FadeDone, GameSettings, AudioOptions, GameOptionFlags, dword_1ADC88, dword_1B1410, dword_1B1464, dword_1B8578
-extern dword_1C5DE4, dword_1CEF88, dword_1CEF8C, dword_1CEF90, dword_1CEF94, dword_1CEF98, dword_1CEF9C, dword_1CEFA0
-extern dword_1CEFA4, dword_1CEFA8, dword_1CEFB0, dword_1CEFB4, dword_1CEFB8, dword_1CEFBC, PresentFuncInput, F64_65536_LoadPauseArt
+extern ClockShown, InGameMenuRequest, ShowFrameRate, ShowStands, ShowRink, ShowCenterLogo, ShowOverlay, ShowCrowd
+extern ShowBenches, CameraScenesEnabled, InIntermission, LinkGameActive, GfxFixBuffer, mousex, mousey, ViewScreenWidth
+extern ViewScreenHeight, QuantizePalette, DrawDestPitch, VideoModePanelMode, VideoModeChanged, GameObjects, ActiveCameraScene, ViewSizeChanged
+extern FadeDone, GameSettings, AudioOptions, GameOptionFlags, ArenaArchive, ObjectPositions, ReplayFrames, PlayerNamesOn
+extern FrontShapeFile, PauseRemoteShape, PauseMouseShape, PauseRemoteLitShape, PauseBitmap, MenuItemHighlight, PauseClockArea, MenuFrameColour
+extern PauseResumeTick, IntermissionOverlay, MenuFontSmall, MenuFontLarge, MenuTextColour, PauseFrameMode, PresentFuncInput, F64_65536_LoadPauseArt
 extern F64_0p003125, F64_0p005, F64_200, F64_0p00208333, F64_320, F64_0p0015625, F64_0p003125_PickEditLinesTeam, F64_0p005_PickEditLinesTeam
 extern F64_0p003125_ConfirmQuitGame, F64_0p005_ConfirmQuitGame, F64_0p5_SetupPauseButtons, F64_0p5_PauseMenu, F64_0p5_DrawIntermissionTitle, F64_0p5_RunPauseIntermission, F64_0p003125_RulesMenu, F64_0p005_RulesMenu
 extern F64_0p5_RulesMenu, F64_0p003125_DetailLevelMenu, F64_0p005_DetailLevelMenu, F64_0p5_DetailLevelMenu, rand_, sprintf_, sscanf_, GetPaletteRange
@@ -42,8 +42,8 @@ extern FadePalette, FadeOut, OpenGameDatabase, CloseGameDatabase, ServiceIdle, S
 extern WaitForOtherComputer, SetupPauseArt, FreeMemBlock, OpenResourceArchive, MatchColor, SelectFont, FreeBitmap, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, MeasureText, DrawTextAt, SetTextColors, DrawTextBoxedAt
 extern FillRectCorners, tickcount, str_D_DrawPauseClock, PeriodLengths, Period, SimFrames, gsp, gameclock
-extern StatsPanelOn, word_1C3413, word_1C5536, word_1CEFC0
-global jpt_F4167, jpt_F56E5, jpt_F7BB6, PickEditLinesTeam_5B2, PickEditLinesTeam_5B5, PauseMenu_16C, PauseMenu_26F, PauseMenu_29A
+extern StatsPanelOn, HomePeriodShots, AwayPeriodShots, PauseMenuMode
+global PauseMenuJumpTable, RulesMenuJumpTable, DetailLevelMenuJumpTable, PickEditLinesTeam_5B2, PickEditLinesTeam_5B5, PauseMenu_16C, PauseMenu_26F, PauseMenu_29A
 global PauseMenu_4BB, PauseMenu_4EF, PauseMenu_60A, PauseMenu_62A, PauseMenu_640, PauseMenu_66D, PauseMenu_726, PauseMenu_72C
 global PauseMenu_72D, RulesMenu_1583, RulesMenu_176B, RulesMenu_19CD, RulesMenu_1C04, RulesMenu_1D78, RulesMenu_1F1F, RulesMenu_2056
 global RulesMenu_218D, RulesMenu_22F1, RulesMenu_2464, DetailLevelMenu_C81, DetailLevelMenu_E31, DetailLevelMenu_10E6, DetailLevelMenu_12B8, DetailLevelMenu_13D7
@@ -71,13 +71,13 @@ LoadPauseArt:
         push byte 20h
         push str_Mous6
         push eax
-        mov dword [dword_1C5DE4], eax
+        mov dword [FrontShapeFile], eax
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
         push str_Mous6
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+04h]
@@ -86,14 +86,14 @@ LoadPauseArt:
         add esp, byte 0Ch
         push byte 20h
         push str_Remo4
-        push dword [dword_1C5DE4]
-        mov dword [dword_1CEF88], eax
+        push dword [FrontShapeFile]
+        mov dword [PauseRemoteShape], eax
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
         push str_Remo4
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+04h]
@@ -102,8 +102,8 @@ LoadPauseArt:
         add esp, byte 0Ch
         push byte 20h
         push str_Mous6
-        push dword [dword_1C5DE4]
-        mov dword [dword_1CEF8C], eax
+        push dword [FrontShapeFile]
+        mov dword [PauseMouseShape], eax
         call FindShape
         movsx eax, word [byte eax+06h]
         cdq
@@ -112,7 +112,7 @@ LoadPauseArt:
         add esp, byte 8
         push eax
         push str_Mous6
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         movsx eax, word [byte eax+04h]
         cdq
@@ -124,8 +124,8 @@ LoadPauseArt:
         add esp, byte 0Ch
         push byte 20h
         push str_Remo4
-        push dword [dword_1C5DE4]
-        mov dword [dword_1CEF90], eax
+        push dword [FrontShapeFile]
+        mov dword [PauseRemoteLitShape], eax
         call FindShape
         movsx eax, word [byte eax+06h]
         cdq
@@ -134,7 +134,7 @@ LoadPauseArt:
         add esp, byte 8
         push eax
         push str_Remo4
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         movsx eax, word [byte eax+04h]
         cdq
@@ -144,7 +144,7 @@ LoadPauseArt:
         push eax
         call CreateBitmap
         add esp, byte 0Ch
-        mov dword [dword_1CEF94], eax
+        mov dword [PauseBitmap], eax
         xor esi, esi
         jmp near .6
 .1:
@@ -155,7 +155,7 @@ LoadPauseArt:
         movsx edx, bx
         mov eax, edi
         shl edx, 2
-        push dword [dword edx+eax*8+dword_1CEF88]
+        push dword [dword edx+eax*8+PauseRemoteShape]
         call SetDrawTarget
         add esp, byte 4
         inc edi
@@ -172,7 +172,7 @@ LoadPauseArt:
         push byte 10h
         push str_Remo4
 .4:
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         push eax
@@ -205,9 +205,9 @@ LoadPauseArt:
         call PresentScreen
         mov eax, 1
         call SetMenuMode
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FreeMemBlock
-        mov dword [dword_1C5DE4], 0
+        mov dword [FrontShapeFile], 0
         add esp, byte 4
         jmp near PickEditLinesTeam_5B5
 ;-----------------------------------------------------------------------------
@@ -228,7 +228,7 @@ FreePauseArt:
         movsx edx, bx
         movsx eax, si
         shl edx, 3
-        push dword [dword edx+eax*4+dword_1CEF88]
+        push dword [dword edx+eax*4+PauseRemoteShape]
         inc esi
         call FreeBitmap
         add esp, byte 4
@@ -288,7 +288,7 @@ DrawMenuFrame:
         push eax
         call FillRectCorners
         add esp, byte 14h
-        push dword [dword_1CEFA0]
+        push dword [MenuFrameColour]
         lea eax, [byte ebx-03h]
         push eax
         mov eax, dword [byte ebp-04h]
@@ -378,7 +378,7 @@ DrawPauseButton:
         call __CHP
         fxch
         call __CHP
-        push dword [dword_1CEFA0]
+        push dword [MenuFrameColour]
         fxch st3
         fstp dword [byte ebp-010h]
         fxch
@@ -431,7 +431,7 @@ DrawPauseButton:
         jne short .3
         fld dword [byte ebp-0Ch]
         fld dword [byte ebp-020h]
-        push dword [dword_1CEFB8]
+        push dword [MenuTextColour]
         fxch
         call __CHP
         fxch
@@ -440,7 +440,7 @@ DrawPauseButton:
 .3:
         cmp esi, byte 2
         jne short .5
-        push dword [dword_1CEFB8]
+        push dword [MenuTextColour]
         push dword [byte ebp-014h]
         push dword [byte ebp-08h]
         push dword [byte ebp-018h]
@@ -498,19 +498,19 @@ DrawMenuItem:
         mov dword [esi+eax*4], edx
         cmp word [byte ebp+018h], byte 2
         je short .2
-        push dword [dword_1CEFB0]
+        push dword [MenuFontSmall]
         jmp short .3
 .2:
-        push dword [dword_1CEFB4]
+        push dword [MenuFontLarge]
 .3:
         call SelectFont
         add esp, byte 4
         test bx, bx
         jne short .4
-        mov eax, dword [dword_1CEFA0]
+        mov eax, dword [MenuFrameColour]
         jmp short .5
 .4:
-        mov eax, dword [dword_1CEFB8]
+        mov eax, dword [MenuTextColour]
 .5:
         call SetTextColor
         movsx eax, bx
@@ -537,7 +537,7 @@ DrawMenuItem:
         call __CHP
         fxch
         call __CHP
-        push dword [dword_1CEFA0]
+        push dword [MenuFrameColour]
         fxch st3
         fstp dword [byte ebp-024h]
         fxch
@@ -554,7 +554,7 @@ DrawMenuItem:
         push dword [byte ebp-020h]
         fistp dword [byte ebp-010h]
         push dword [byte ebp-010h]
-        mov dword [dword_1CEF98], 0
+        mov dword [MenuItemHighlight], 0
         call FillRect
         fld dword [byte ebp+01Ch]
         fmul dword [F32_4_DrawMenuItem]
@@ -591,7 +591,7 @@ DrawMenuItem:
         jne short .8
         fld dword [byte ebp-014h]
         fld dword [byte ebp-0Ch]
-        push dword [dword_1CEFB8]
+        push dword [MenuTextColour]
         fxch
         call __CHP
         fxch
@@ -600,7 +600,7 @@ DrawMenuItem:
 .8:
         cmp bx, byte 2
         jne short .10
-        push dword [dword_1CEFB8]
+        push dword [MenuTextColour]
         push dword [byte ebp-018h]
         push dword [byte ebp-01Ch]
         push dword [byte ebp-020h]
@@ -851,7 +851,7 @@ DrawPauseClock:
         push byte 46h
         call PrintBoxedText
         add esp, byte 18h
-        movzx eax, byte [byte_1C135A]
+        movzx eax, byte [PeriodHomeTeam]
         push eax
         push str_D_DrawPauseClock
         lea eax, [byte ebp+07Eh]
@@ -870,7 +870,7 @@ DrawPauseClock:
         push eax
         call DrawTextBoxedAt
         add esp, byte 0Ch
-        movzx eax, byte [byte_1C135B]
+        movzx eax, byte [PeriodAwayTeam]
         push eax
         push str_D_DrawPauseClock
         lea eax, [byte ebp+07Eh]
@@ -889,7 +889,7 @@ DrawPauseClock:
         push eax
         call DrawTextBoxedAt
         add esp, byte 0Ch
-        movsx eax, word [word_1C3413]
+        movsx eax, word [HomePeriodShots]
         push eax
         push str_D_DrawPauseClock
         lea eax, [byte ebp+07Eh]
@@ -908,7 +908,7 @@ DrawPauseClock:
         push eax
         call DrawTextBoxedAt
         add esp, byte 0Ch
-        movsx eax, word [word_1C5536]
+        movsx eax, word [AwayPeriodShots]
         push eax
         push str_D_DrawPauseClock
         lea eax, [byte ebp+07Eh]
@@ -950,13 +950,13 @@ DrawClockOverlay:
         push ecx
         push edx
         enter 0ACh, 0
-        cmp dword [dword_16AF5C], byte 0
+        cmp dword [CameraScenesEnabled], byte 0
         je short .1
         lea eax, [dword ebp-0ACh]
         push eax
         call SaveTextState
         add esp, byte 4
-        mov eax, dword [dword_1CEF9C]
+        mov eax, dword [PauseClockArea]
         call DrawPauseClock
         lea eax, [dword ebp-0ACh]
         push eax
@@ -983,9 +983,9 @@ DrawPauseButtons:
         lea eax, [dword ebp-0114h]
         push eax
         call SaveTextState
-        fild dword [dword_16E464]
+        fild dword [ViewScreenWidth]
         fmul qword [F64_0p003125]
-        fild dword [dword_16E468]
+        fild dword [ViewScreenHeight]
         fmul qword [F64_0p005]
         add esp, byte 4
         fxch
@@ -993,10 +993,10 @@ DrawPauseButtons:
         fstp dword [byte ebp-050h]
         cmp word [dword ebp-0118h], byte 2
         je short .1
-        push dword [dword_1CEFB0]
+        push dword [MenuFontSmall]
         jmp short .2
 .1:
-        push dword [dword_1CEFB4]
+        push dword [MenuFontLarge]
 .2:
         call SelectFont
         add esp, byte 4
@@ -1007,10 +1007,10 @@ DrawPauseButtons:
 .3:
         test di, di
         jne short .4
-        mov eax, dword [dword_1CEFA0]
+        mov eax, dword [MenuFrameColour]
         jmp short .5
 .4:
-        mov eax, dword [dword_1CEFB8]
+        mov eax, dword [MenuTextColour]
 .5:
         call SetTextColor
         push dword [byte ebp-050h]
@@ -1305,7 +1305,7 @@ DrawPauseButtons:
         call WaitSoundTime
         mov eax, 100h
         call LoadDataFile
-        mov dword [dword_1C5DE4], eax
+        mov dword [FrontShapeFile], eax
         cmp word [dword ebp-0118h], byte 2
         je near .14
         xor edi, edi
@@ -1320,21 +1320,21 @@ DrawPauseButtons:
         add esp, byte 0Ch
         lea eax, [byte ebp-068h]
         push eax
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         call DrawPauseDivider
         push byte 20h
         lea eax, [byte ebp-068h]
         push eax
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
         lea eax, [byte ebp-068h]
         push eax
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+04h]
@@ -1351,7 +1351,7 @@ DrawPauseButtons:
         push byte 0
         lea eax, [byte ebp-068h]
         push eax
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         push eax
@@ -1384,7 +1384,7 @@ DrawPauseButtons:
         cwde
         push eax
         push str_CB002
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         fild word [byte eax+04h]
         fmul qword [F64_320]
@@ -1399,12 +1399,12 @@ DrawPauseButtons:
         lea eax, [byte esi+06Ch]
         call DrawMenuItem
 .15:
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FreeMemBlock
         add esp, byte 4
         lea eax, [dword ebp-0114h]
         push eax
-        mov dword [dword_1C5DE4], 0
+        mov dword [FrontShapeFile], 0
         call RestoreTextState
         add esp, byte 4
         leave
@@ -1421,14 +1421,14 @@ OpenInGameMenu:
         push edx
         cmp ax, 2
         jne short .1
-        mov eax, dword [dword_1CEF94]
+        mov eax, dword [PauseBitmap]
         mov edx, dword [byte eax+02Ch]
-        mov eax, dword [dword_1CEF90]
+        mov eax, dword [PauseRemoteLitShape]
         jmp short .2
 .1:
-        mov eax, dword [dword_1CEF8C]
+        mov eax, dword [PauseMouseShape]
         mov edx, dword [byte eax+02Ch]
-        mov eax, dword [dword_1CEF88]
+        mov eax, dword [PauseRemoteShape]
 .2:
         mov eax, dword [byte eax+02Ch]
         call CreateMenuBitmap
@@ -1462,9 +1462,9 @@ PickEditLinesTeam:
         lea edx, [dword ebp-021Ch]
         mov eax, 3
         call InitMenuItems
-        fild dword [dword_16E464]
+        fild dword [ViewScreenWidth]
         fmul qword [F64_0p003125_PickEditLinesTeam]
-        fild dword [dword_16E468]
+        fild dword [ViewScreenHeight]
         fmul qword [F64_0p005_PickEditLinesTeam]
         fxch
         fstp dword [byte ebp-02Ch]
@@ -1484,8 +1484,8 @@ PickEditLinesTeam:
         fstp dword [byte ebp-024h]
         cmp di, byte 1
         jne short .2
-        fild dword [dword_16E468]
-        fild dword [dword_16E464]
+        fild dword [ViewScreenHeight]
+        fild dword [ViewScreenWidth]
         fsub dword [byte ebp-020h]
         fxch
         fsub dword [byte ebp-024h]
@@ -1507,8 +1507,8 @@ PickEditLinesTeam:
 .2:
         test di, di
         jne short .4
-        fild dword [dword_16E468]
-        fild dword [dword_16E464]
+        fild dword [ViewScreenHeight]
+        fild dword [ViewScreenWidth]
         fsub dword [byte ebp-020h]
         fxch
         fsub dword [byte ebp-024h]
@@ -1592,17 +1592,17 @@ PickEditLinesTeam:
         push eax
         call ClearScreen
         add esp, byte 4
-        push dword [dword_1CEFB0]
+        push dword [MenuFontSmall]
         call SelectFont
         add esp, byte 4
-        mov eax, dword [dword_1CEFA0]
+        mov eax, dword [MenuFrameColour]
         call SetTextColor
         fld dword [byte ebp-018h]
         fmul dword [F32_5]
         fstp dword [byte ebp-028h]
-        cmp word [word_1CEFC0], byte 2
+        cmp word [PauseMenuMode], byte 2
         je short .9
-        push dword [dword_1CEFB0]
+        push dword [MenuFontSmall]
         call SelectFont
         fld dword [byte ebp-018h]
         fmul dword [F32_50_PickEditLinesTeam]
@@ -1627,7 +1627,7 @@ PickEditLinesTeam:
         fmul dword [F32_65]
         jmp short .10
 .9:
-        push dword [dword_1CEFB4]
+        push dword [MenuFontLarge]
         call SelectFont
         fld dword [byte ebp-018h]
         fmul dword [F32_55]
@@ -1896,9 +1896,9 @@ ConfirmQuitGame:
         lea edx, [dword ebp-021Ch]
         mov eax, 2
         call InitMenuItems
-        fild dword [dword_16E464]
+        fild dword [ViewScreenWidth]
         fmul qword [F64_0p003125_ConfirmQuitGame]
-        fild dword [dword_16E468]
+        fild dword [ViewScreenHeight]
         fmul qword [F64_0p005_ConfirmQuitGame]
         fxch
         fstp dword [byte ebp-018h]
@@ -1921,8 +1921,8 @@ ConfirmQuitGame:
         cmp word [dword ebp-0220h], byte 0
         jne short .3
 .2:
-        fild dword [dword_16E468]
-        fild dword [dword_16E464]
+        fild dword [ViewScreenHeight]
+        fild dword [ViewScreenWidth]
         fsub dword [byte ebp-020h]
         fxch
         fsub dword [byte ebp-01Ch]
@@ -2005,10 +2005,10 @@ ConfirmQuitGame:
         push eax
         call ClearScreen
         add esp, byte 4
-        push dword [dword_1CEFB0]
+        push dword [MenuFontSmall]
         call SelectFont
         add esp, byte 4
-        mov eax, dword [dword_1CEFA0]
+        mov eax, dword [MenuFrameColour]
         call SetTextColor
         fld dword [byte ebp-02Ch]
         fld st0
@@ -2018,7 +2018,7 @@ ConfirmQuitGame:
         fxch
         fstp dword [byte ebp-024h]
         fstp dword [byte ebp-028h]
-        cmp word [word_1CEFC0], byte 2
+        cmp word [PauseMenuMode], byte 2
         je short .8
         fld dword [byte ebp-02Ch]
         fmul dword [F32_40_ConfirmQuitGame]
@@ -2036,7 +2036,7 @@ ConfirmQuitGame:
         mov ecx, dword [byte ebp-038h]
         mov ebx, dword [byte ebp-03Ch]
         call DrawMenuFrame
-        push dword [dword_1CEFB0]
+        push dword [MenuFontSmall]
         call SelectFont
         add esp, byte 4
         mov eax, 71h
@@ -2045,7 +2045,7 @@ ConfirmQuitGame:
         fmul dword [F32_60]
         jmp short .9
 .8:
-        push dword [dword_1CEFB4]
+        push dword [MenuFontLarge]
         call SelectFont
         fld dword [byte ebp-02Ch]
         fmul dword [F32_45]
@@ -2243,7 +2243,7 @@ ConfirmQuitGame:
         mov eax, 2
         call RunMenu
         call SetScreenTarget
-        cmp word [word_1CEFC0], byte 2
+        cmp word [PauseMenuMode], byte 2
         je short .14
         movsx eax, word [byte ebp-0Ch]
         push eax
@@ -2310,10 +2310,10 @@ RunIntermission:
         call QueueMusicRestart
         lea eax, [dword ebp-011Ch]
         push eax
-        mov dword [dword_16AF5C], 1
+        mov dword [CameraScenesEnabled], 1
         call SaveTextState
         add esp, byte 4
-        mov eax, dword [dword_1CEF9C]
+        mov eax, dword [PauseClockArea]
         call DrawPauseClock
         lea eax, [dword ebp-011Ch]
         push eax
@@ -2328,14 +2328,14 @@ RunIntermission:
         mov eax, 3
         call FadeOut
         call ResetForIntermission
-        mov dword [dword_16D2BC], 1
-        mov eax, dword [dword_16AF58]
-        mov dword [dword_16AF58], 0
+        mov dword [InIntermission], 1
+        mov eax, dword [ShowBenches]
+        mov dword [ShowBenches], 0
         mov dword [byte ebp-04h], eax
         call WaitMusicEnd
         mov eax, 1
         call InitGameSounds
-        movzx eax, byte [byte_1C135B]
+        movzx eax, byte [PeriodAwayTeam]
         push eax
         mov eax, dword [GameOptionFlags]
         mov edx, dword [byte eax+01h]
@@ -2343,7 +2343,7 @@ RunIntermission:
         shr edx, 1Ah
         mov eax, dword [byte eax+01h]
         push edx
-        movzx edx, byte [byte_1C135A]
+        movzx edx, byte [PeriodHomeTeam]
         shl eax, 0Ch
         push edx
         shr eax, 1Ah
@@ -2378,14 +2378,14 @@ RunIntermission:
         call ArenaFileName
         test di, di
         je short .4
-        mov al, byte [byte_1C135A]
-        cmp al, byte [byte_1C135B]
+        mov al, byte [PeriodHomeTeam]
+        cmp al, byte [PeriodAwayTeam]
         jb short .5
 .4:
         test bx, bx
         je short .6
-        mov al, byte [byte_1C135B]
-        cmp al, byte [byte_1C135A]
+        mov al, byte [PeriodAwayTeam]
+        cmp al, byte [PeriodHomeTeam]
         jae short .6
 .5:
         lea edx, [byte ebp-070h]
@@ -2418,11 +2418,11 @@ RunIntermission:
         call FadePalette
         push byte 0
         push byte 14h
-        push dword [dword_16E464]
+        push dword [ViewScreenWidth]
         call CreateBitmap
         add esp, byte 0Ch
         mov ebx, eax
-        push dword [dword_1CEFB0]
+        push dword [MenuFontSmall]
         mov esi, eax
         call SelectFont
         add esp, byte 4
@@ -2438,7 +2438,7 @@ RunIntermission:
         call GetLangText
         push eax
         call MeasureText
-        mov edx, dword [dword_16E464]
+        mov edx, dword [ViewScreenWidth]
         sub edx, eax
         mov eax, edx
         cdq
@@ -2452,9 +2452,9 @@ RunIntermission:
         call DrawTextAt
         add esp, byte 0Ch
         call PresentScreen
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         sete al
-        mov edx, dword [dword_16E468]
+        mov edx, dword [ViewScreenHeight]
         movzx eax, al
         mov ebx, dword [byte ebx+02Ch]
         mov ecx, eax
@@ -2482,7 +2482,7 @@ RunIntermission:
         mov dword [byte ebp-01Ch], eax
         mov eax, dword [mousey]
         mov dword [byte ebp-0Ch], eax
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .8
         lea eax, [byte ebp-08h]
         push eax
@@ -2506,7 +2506,7 @@ RunIntermission:
         call SecondsToSamples
         call WaitSoundTime
         mov eax, dword [byte ebp-04h]
-        mov dword [dword_16AF58], eax
+        mov dword [ShowBenches], eax
         jmp near PickEditLinesTeam_5B5
 ;-----------------------------------------------------------------------------
 ; RefreshModelFromMenu                            F3F33  97 PC, low confidence
@@ -2590,9 +2590,9 @@ SetupPauseButtons:
         push eax
         mov esi, edx
         mov dword [byte ebp-08h], ebx
-        cmp dword [dword_16E464], 140h
+        cmp dword [ViewScreenWidth], 140h
         jl short .1
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .2
 .1:
         mov dword [byte ebp-04h], 2
@@ -2631,9 +2631,9 @@ SetupPauseButtons:
         mov dword [byte edx+esi+010h], 4
         add ebx, eax
         mov dword [byte edx+esi+014h], ebx
-        imul eax, dword [dword_16E468], byte 5
+        imul eax, dword [ViewScreenHeight], byte 5
         mov dword [byte ebp-0Ch], eax
-        imul eax, dword [dword_16E464], byte 50h
+        imul eax, dword [ViewScreenWidth], byte 50h
         fild dword [byte ebp-0Ch]
         fmul dword [F32_0p005_SetupPauseButtons]
         mov dword [byte ebp-0Ch], eax
@@ -2682,7 +2682,7 @@ SetupPauseButtons:
         pop esi
         pop ecx
         ret
-jpt_F4167:
+PauseMenuJumpTable:
         dd PauseMenu_4BB
         dd PauseMenu_16C
         dd PauseMenu_26F
@@ -2732,36 +2732,36 @@ PauseMenu:
         jl short .2
         lea eax, [dword ebp-0B6h]
         push eax
-        mov dword [dword_16AF5C], 1
+        mov dword [CameraScenesEnabled], 1
         call SaveTextState
         add esp, byte 4
-        mov eax, dword [dword_1CEF9C]
+        mov eax, dword [PauseClockArea]
         call DrawPauseClock
         lea eax, [dword ebp-0B6h]
         push eax
         call RestoreTextState
         add esp, byte 4
-        cmp dword [dword_16E464], 140h
+        cmp dword [ViewScreenWidth], 140h
         jl short .4
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .5
 .4:
-        mov word [word_1CEFC0], 2
+        mov word [PauseMenuMode], 2
         jmp short .6
 .5:
-        mov word [word_1CEFC0], 1
+        mov word [PauseMenuMode], 1
 .6:
-        mov ax, word [word_1CEFC0]
+        mov ax, word [PauseMenuMode]
         cmp ax, 2
         jne short .7
-        mov eax, dword [dword_1CEF94]
+        mov eax, dword [PauseBitmap]
         mov edx, dword [byte eax+02Ch]
-        mov eax, dword [dword_1CEF90]
+        mov eax, dword [PauseRemoteLitShape]
         jmp short .8
 .7:
-        mov eax, dword [dword_1CEF8C]
+        mov eax, dword [PauseMouseShape]
         mov edx, dword [byte eax+02Ch]
-        mov eax, dword [dword_1CEF88]
+        mov eax, dword [PauseRemoteShape]
 .8:
         mov eax, dword [byte eax+02Ch]
         call CreateMenuBitmap
@@ -2793,7 +2793,7 @@ PauseMenu:
         cmp dword [byte ebp+06Eh], byte 9
         ja near PauseMenu_4BB
         mov eax, dword [byte ebp+06Eh]
-        jmp dword [nosplit cs:eax*4+jpt_F4167]
+        jmp dword [nosplit cs:eax*4+PauseMenuJumpTable]
 PauseMenu_16C:
         call ReplayHasFrames
         test eax, eax
@@ -2801,19 +2801,19 @@ PauseMenu_16C:
         lea eax, [byte ebp-0Ah]
         call FreePauseBitmap
         call FreeMenuBitmap
-        mov eax, dword [dword_1CEFA8]
+        mov eax, dword [IntermissionOverlay]
         mov eax, dword [byte eax+02Ch]
         call RemoveOverlayWindow
         call RunReplay
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         sete al
         movzx eax, al
         mov ecx, eax
-        mov eax, dword [dword_1CEFA8]
+        mov eax, dword [IntermissionOverlay]
         mov ebx, dword [byte eax+02Ch]
-        imul eax, dword [dword_16E468], byte 52h
+        imul eax, dword [ViewScreenHeight], byte 52h
         mov dword [byte ebp+072h], eax
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         fild dword [byte ebp+072h]
         shl eax, 2
         fmul dword [F32_0p005_PauseMenu]
@@ -2833,28 +2833,28 @@ PauseMenu_16C:
         mov eax, dword [byte ebp+072h]
         call AddOverlayWindow
         lea ebx, [dword ebp-0336h]
-        mov eax, dword [dword_1CEF9C]
+        mov eax, dword [PauseClockArea]
         lea edx, [dword ebp-066Ah]
         call DrawPauseClock
         lea eax, [byte ebp-0Ah]
         call SetupPauseButtons
         call MenuCameraScene
         call FreeMenuBitmap
-        cmp word [word_1CEFC0], byte 2
+        cmp word [PauseMenuMode], byte 2
         jne short .11
-        mov eax, dword [dword_1CEF94]
+        mov eax, dword [PauseBitmap]
         mov edx, dword [byte eax+02Ch]
-        mov eax, dword [dword_1CEF90]
+        mov eax, dword [PauseRemoteLitShape]
         jmp short .12
 .11:
-        mov eax, dword [dword_1CEF8C]
+        mov eax, dword [PauseMouseShape]
         mov edx, dword [byte eax+02Ch]
-        mov eax, dword [dword_1CEF88]
+        mov eax, dword [PauseRemoteShape]
 .12:
         mov eax, dword [byte eax+02Ch]
         call CreateMenuBitmap
         call ApplyDisplayFlags
-        mov eax, dword [dword_1CEFBC]
+        mov eax, dword [PauseFrameMode]
         call DrawGameFrame
         jmp near PauseMenu_29A.30
 PauseMenu_26F:
@@ -2863,7 +2863,7 @@ PauseMenu_26F:
         call WaitSoundTime
         call RulesMenu
         call RefreshOverlayWindows
-        mov eax, dword [dword_1CEFA8]
+        mov eax, dword [IntermissionOverlay]
         mov eax, dword [byte eax+02Ch]
         call RefreshOverlayWindow
         jmp near PauseMenu_29A.29
@@ -2900,7 +2900,7 @@ PauseMenu_29A:
         test di, di
         jne short .19
 .18:
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         mov ebx, 1
         call PickEditLinesTeam
         mov dword [byte ebp+07Eh], eax
@@ -2910,10 +2910,10 @@ PauseMenu_29A:
 .19:
         lea eax, [byte ebp-0Ah]
         call FreePauseBitmap
-        mov eax, dword [dword_1CEFA8]
+        mov eax, dword [IntermissionOverlay]
         mov eax, dword [byte eax+02Ch]
         call RemoveOverlayWindow
-        push dword [dword_1CEFA8]
+        push dword [IntermissionOverlay]
         call FreeBitmap
         add esp, byte 4
         call FreeLangText
@@ -2972,24 +2972,24 @@ PauseMenu_29A:
         call FreeFrontEnd
         movsx eax, si
         call ReturnToGame
-        mov ax, word [word_1CEFC0]
+        mov ax, word [PauseMenuMode]
         cmp ax, 2
         jne short .26
-        mov eax, dword [dword_1CEF94]
+        mov eax, dword [PauseBitmap]
         mov edx, dword [byte eax+02Ch]
-        mov eax, dword [dword_1CEF90]
+        mov eax, dword [PauseRemoteLitShape]
         jmp short .27
 .26:
-        mov eax, dword [dword_1CEF8C]
+        mov eax, dword [PauseMouseShape]
         mov edx, dword [byte eax+02Ch]
-        mov eax, dword [dword_1CEF88]
+        mov eax, dword [PauseRemoteShape]
 .27:
         mov eax, dword [byte eax+02Ch]
         call CreateMenuBitmap
         mov eax, 100h
         lea ebx, [dword ebp-0336h]
         call SetMenuSelection
-        mov eax, dword [dword_1CEF9C]
+        mov eax, dword [PauseClockArea]
         lea edx, [dword ebp-066Ah]
         call DrawPauseClock
         lea eax, [byte ebp-0Ah]
@@ -2997,17 +2997,17 @@ PauseMenu_29A:
         lea eax, [byte ebp-0Ah]
         movsx edx, si
         call DrawIntermissionTitle
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         sete al
         movzx eax, al
         shl eax, 4
         or al, 8
         mov ecx, eax
-        mov eax, dword [dword_1CEFA8]
+        mov eax, dword [IntermissionOverlay]
         mov ebx, dword [byte eax+02Ch]
-        imul eax, dword [dword_16E468], byte 52h
+        imul eax, dword [ViewScreenHeight], byte 52h
         mov dword [byte ebp+072h], eax
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         fild dword [byte ebp+072h]
         shl eax, 2
         fmul dword [F32_0p005_PauseMenu]
@@ -3034,7 +3034,7 @@ PauseMenu_29A:
 PauseMenu_4BB:
         cmp dword [byte ebp+07Ah], byte 0FFFFFFFFh
         jne near PauseMenu_66D.36
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je near PauseMenu.9
         push byte 3
         lea eax, [byte ebp+06Eh]
@@ -3047,10 +3047,10 @@ PauseMenu_4BB:
 PauseMenu_4EF:
         lea eax, [byte ebp-0Ah]
         call FreePauseBitmap
-        mov eax, dword [dword_1CEFA8]
+        mov eax, dword [IntermissionOverlay]
         mov eax, dword [byte eax+02Ch]
         call RemoveOverlayWindow
-        push dword [dword_1CEFA8]
+        push dword [IntermissionOverlay]
         call FreeBitmap
         add esp, byte 4
         call FreeLangText
@@ -3069,24 +3069,24 @@ PauseMenu_4EF:
         call FreeFrontEnd
         mov eax, edx
         call ReturnToGame
-        mov ax, word [word_1CEFC0]
+        mov ax, word [PauseMenuMode]
         cmp ax, 2
         jne short .31
-        mov eax, dword [dword_1CEF94]
+        mov eax, dword [PauseBitmap]
         mov edx, dword [byte eax+02Ch]
-        mov eax, dword [dword_1CEF90]
+        mov eax, dword [PauseRemoteLitShape]
         jmp short .32
 .31:
-        mov eax, dword [dword_1CEF8C]
+        mov eax, dword [PauseMouseShape]
         mov edx, dword [byte eax+02Ch]
-        mov eax, dword [dword_1CEF88]
+        mov eax, dword [PauseRemoteShape]
 .32:
         mov eax, dword [byte eax+02Ch]
         call CreateMenuBitmap
         mov eax, 100h
         lea ebx, [dword ebp-0336h]
         call SetMenuSelection
-        mov eax, dword [dword_1CEF9C]
+        mov eax, dword [PauseClockArea]
         lea edx, [dword ebp-066Ah]
         call DrawPauseClock
         lea eax, [byte ebp-0Ah]
@@ -3094,15 +3094,15 @@ PauseMenu_4EF:
         lea eax, [byte ebp-0Ah]
         movsx edx, si
         call DrawIntermissionTitle
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         sete al
         movzx eax, al
         mov ecx, eax
-        mov eax, dword [dword_1CEFA8]
+        mov eax, dword [IntermissionOverlay]
         mov ebx, dword [byte eax+02Ch]
-        imul eax, dword [dword_16E468], byte 52h
+        imul eax, dword [ViewScreenHeight], byte 52h
         mov dword [byte ebp+072h], eax
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         fild dword [byte ebp+072h]
         shl eax, 2
         fmul dword [F32_0p005_PauseMenu]
@@ -3115,7 +3115,7 @@ PauseMenu_4EF:
         or cl, 8
         jmp near PauseMenu_29A.28
 PauseMenu_60A:
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         call ConfirmQuitGame
         test eax, eax
         je near PauseMenu_4BB
@@ -3131,17 +3131,17 @@ PauseMenu_640:
         call MenuOrbitScene
         mov dword [ViewSizeChanged], 1
         call RefreshOverlayWindows
-        mov eax, dword [dword_1CEFA8]
+        mov eax, dword [IntermissionOverlay]
         mov eax, dword [byte eax+02Ch]
         call RefreshOverlayWindow
         jmp near PauseMenu_29A.30
 PauseMenu_66D:
-        cmp word [word_1CEFC0], byte 2
+        cmp word [PauseMenuMode], byte 2
         je short .33
-        push dword [dword_1CEFB0]
+        push dword [MenuFontSmall]
         jmp short .34
 .33:
-        push dword [dword_1CEFB4]
+        push dword [MenuFontLarge]
 .34:
         call SelectFont
         add esp, byte 4
@@ -3153,7 +3153,7 @@ PauseMenu_66D:
         call DetailLevelMenu
         mov dword [ViewSizeChanged], 1
         call RefreshOverlayWindows
-        mov eax, dword [dword_1CEFA8]
+        mov eax, dword [IntermissionOverlay]
         mov eax, dword [byte eax+02Ch]
         call RefreshOverlayWindow
         call RedrawGameView
@@ -3181,7 +3181,7 @@ PauseMenu_66D:
         movsx eax, si
         call CloseIntermission
         mov eax, dword [tickcount]
-        mov dword [dword_1CEFA4], eax
+        mov dword [PauseResumeTick], eax
         mov eax, dword [byte ebp+07Ah]
 PauseMenu_726:
         lea esp, [dword ebp+082h]
@@ -3216,7 +3216,7 @@ LeaveGameForMenu:
         push byte 1
         call SetTextFont
         add esp, byte 4
-        push dword [dword_1CEF9C]
+        push dword [PauseClockArea]
         call FreeBitmap
         add esp, byte 4
         test ebx, ebx
@@ -3268,7 +3268,7 @@ ReturnToGame:
         jne short .1
         call InitGameAudio
 .1:
-        mov eax, dword_19CD10
+        mov eax, VideoModePanelMode
         call InitGameGraphics
         call MenuCameraScene
         call InitGameVideo
@@ -3277,18 +3277,18 @@ ReturnToGame:
         call ChangeViewSize
         call LoadGameLogos
         call SetupPauseArt
-        mov eax, dword [dword_1ADC88]
+        mov eax, dword [ArenaArchive]
         call SetRangePalette
         mov eax, 947Ah
         xor ecx, ecx
         call SetRinkDetail
 .2:
         imul eax, ecx, dword 760h
-        mov ebx, dword_1B1410
+        mov ebx, ObjectPositions
         add ebx, eax
-        mov edx, dword [dword eax+dword_1B1464]
+        mov edx, dword [dword eax+ReplayFrames]
         add ebx, byte 58h
-        mov eax, dword [nosplit ecx*4+dword_19CD54]
+        mov eax, dword [nosplit ecx*4+GameObjects]
         inc ecx
         call UpdateAllPoses
         cmp ecx, byte 0Dh
@@ -3297,13 +3297,13 @@ ReturnToGame:
         call RestoreSavedPalette
         xor eax, eax
         call UpdateGameDisplay
-        cmp dword [dword_16AF5C], byte 0
+        cmp dword [CameraScenesEnabled], byte 0
         je short .3
         lea eax, [dword ebp-0ACh]
         push eax
         call SaveTextState
         add esp, byte 4
-        mov eax, dword [dword_1CEF9C]
+        mov eax, dword [PauseClockArea]
         call DrawPauseClock
         lea eax, [dword ebp-0ACh]
         push eax
@@ -3314,13 +3314,13 @@ ReturnToGame:
         mov eax, 0FFFFFFFFh
         xor ebx, ebx
         call FadeGamePalette
-        cmp dword [dword_16AF5C], byte 0
+        cmp dword [CameraScenesEnabled], byte 0
         je short .4
         lea eax, [dword ebp-0158h]
         push eax
         call SaveTextState
         add esp, byte 4
-        mov eax, dword [dword_1CEF9C]
+        mov eax, dword [PauseClockArea]
         call DrawPauseClock
         lea eax, [dword ebp-0158h]
         push eax
@@ -3347,7 +3347,7 @@ RestartGameAudio:
         call WaitMusicEnd
         mov eax, 1
         call InitGameSounds
-        movzx eax, byte [byte_1C135B]
+        movzx eax, byte [PeriodAwayTeam]
         push eax
         mov eax, dword [GameOptionFlags]
         mov edx, dword [byte eax+01h]
@@ -3355,7 +3355,7 @@ RestartGameAudio:
         shr edx, 1Ah
         mov eax, dword [byte eax+01h]
         push edx
-        movzx edx, byte [byte_1C135A]
+        movzx edx, byte [PeriodHomeTeam]
         shl eax, 0Ch
         push edx
         shr eax, 1Ah
@@ -3405,18 +3405,18 @@ DrawIntermissionTitle:
         sub ebp, 82h
         mov esi, eax
         mov ebx, edx
-        cmp dword [dword_16E464], 140h
+        cmp dword [ViewScreenWidth], 140h
         jl short .1
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jge short .2
 .1:
-        push dword [dword_1CEFB4]
+        push dword [MenuFontLarge]
         call SelectFont
         add esp, byte 4
 .2:
-        imul eax, dword [dword_16E468], byte 6Eh
+        imul eax, dword [ViewScreenHeight], byte 6Eh
         mov dword [byte ebp+07Ah], eax
-        imul eax, dword [dword_16E464], byte 64h
+        imul eax, dword [ViewScreenWidth], byte 64h
         fild dword [byte ebp+07Ah]
         fmul dword [F32_0p005_DrawIntermissionTitle]
         mov dword [byte ebp+07Ah], eax
@@ -3435,21 +3435,21 @@ DrawIntermissionTitle:
         call CreateBitmap
         add esp, byte 0Ch
         push eax
-        mov dword [dword_1CEFA8], eax
+        mov dword [IntermissionOverlay], eax
         call SetDrawTarget
         add esp, byte 4
         push dword 0FFh
         call ClearScreen
         add esp, byte 4
-        cmp dword [dword_16E464], 140h
+        cmp dword [ViewScreenWidth], 140h
         jl near .3
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jl near .3
-        imul eax, dword [dword_16E468], byte 6Eh
+        imul eax, dword [ViewScreenHeight], byte 6Eh
         mov dword [byte ebp+07Eh], eax
-        imul eax, dword [dword_16E464], byte 50h
+        imul eax, dword [ViewScreenWidth], byte 50h
         mov dword [byte ebp+07Ah], eax
-        imul eax, dword [dword_16E464], byte 64h
+        imul eax, dword [ViewScreenWidth], byte 64h
         fild dword [byte ebp+07Eh]
         fmul dword [F32_0p005_DrawIntermissionTitle]
         fadd qword [F64_0p5_DrawIntermissionTitle]
@@ -3484,12 +3484,12 @@ DrawIntermissionTitle:
         call MatchColor
         add esp, byte 4
         push eax
-        imul eax, dword [dword_16E464], byte 5Ah
+        imul eax, dword [ViewScreenWidth], byte 5Ah
         mov dword [byte ebp+07Ah], eax
-        imul eax, dword [dword_16E468], byte 0Ch
+        imul eax, dword [ViewScreenHeight], byte 0Ch
         mov dword [byte ebp+07Eh], eax
-        imul eax, dword [dword_16E464], byte 5
-        fild dword [dword_16E468]
+        imul eax, dword [ViewScreenWidth], byte 5
+        fild dword [ViewScreenHeight]
         fmul dword [F32_0p005_DrawIntermissionTitle]
         fild dword [byte ebp+07Ah]
         fmul dword [F32_0p003125_DrawIntermissionTitle]
@@ -3520,13 +3520,13 @@ DrawIntermissionTitle:
         push dword [byte ebp+07Ah]
         call FillRect
         add esp, byte 14h
-        push dword [dword_1CEFB0]
-        mov dword [dword_1CEF98], 0
+        push dword [MenuFontSmall]
+        mov dword [MenuItemHighlight], 0
         jmp short .4
 .3:
-        imul eax, dword [dword_16E468], byte 6Eh
+        imul eax, dword [ViewScreenHeight], byte 6Eh
         mov dword [byte ebp+07Ah], eax
-        imul eax, dword [dword_16E464], dword 82h
+        imul eax, dword [ViewScreenWidth], dword 82h
         fild dword [byte ebp+07Ah]
         fmul dword [F32_0p005_DrawIntermissionTitle]
         fadd qword [F64_0p5_DrawIntermissionTitle]
@@ -3550,15 +3550,15 @@ DrawIntermissionTitle:
         push dword 0FEh
         call DrawTitleBand
         add esp, byte 28h
-        push dword [dword_1CEFB4]
+        push dword [MenuFontLarge]
 .4:
         call SelectFont
         add esp, byte 4
-        mov eax, dword [dword_1CEFA0]
+        mov eax, dword [MenuFrameColour]
         call SetTextColor
-        cmp dword [dword_16E464], 140h
+        cmp dword [ViewScreenWidth], 140h
         jl near .13
-        cmp dword [dword_16E468], 12Ch
+        cmp dword [ViewScreenHeight], 12Ch
         jl near .13
         test bx, bx
         jne short .7
@@ -3566,9 +3566,9 @@ DrawIntermissionTitle:
 .5:
         call GetLangText
         push eax
-        imul eax, dword [dword_16E468], byte 5
+        imul eax, dword [ViewScreenHeight], byte 5
         mov dword [byte ebp+07Eh], eax
-        imul eax, dword [dword_16E464], byte 5
+        imul eax, dword [ViewScreenWidth], byte 5
         fild dword [byte ebp+07Eh]
         fmul dword [F32_0p005_DrawIntermissionTitle]
         mov dword [byte ebp+07Eh], eax
@@ -3596,9 +3596,9 @@ DrawIntermissionTitle:
         mov eax, 60h
         call GetLangText
         push eax
-        imul eax, dword [dword_16E468], byte 5
+        imul eax, dword [ViewScreenHeight], byte 5
         mov dword [byte ebp+07Ah], eax
-        imul eax, dword [dword_16E464], byte 5
+        imul eax, dword [ViewScreenWidth], byte 5
         fild dword [byte ebp+07Ah]
         fmul dword [F32_0p005_DrawIntermissionTitle]
         mov dword [byte ebp+07Ah], eax
@@ -3608,15 +3608,15 @@ DrawIntermissionTitle:
 .9:
         cmp word [gsp], byte 2
         jl short .10
-        mov al, byte [byte_1C135A]
-        cmp al, byte [byte_1C135B]
+        mov al, byte [PeriodHomeTeam]
+        cmp al, byte [PeriodAwayTeam]
         je short .10
         mov eax, 63h
         call GetLangText
         push eax
-        imul eax, dword [dword_16E468], byte 5
+        imul eax, dword [ViewScreenHeight], byte 5
         mov dword [byte ebp+07Eh], eax
-        imul eax, dword [dword_16E464], byte 5
+        imul eax, dword [ViewScreenWidth], byte 5
         fild dword [byte ebp+07Eh]
         fmul dword [F32_0p005_DrawIntermissionTitle]
         mov dword [byte ebp+07Eh], eax
@@ -3635,9 +3635,9 @@ DrawIntermissionTitle:
         mov eax, 61h
         call GetLangText
         push eax
-        imul eax, dword [dword_16E468], byte 5
+        imul eax, dword [ViewScreenHeight], byte 5
         mov dword [byte ebp+07Eh], eax
-        imul eax, dword [dword_16E464], byte 5
+        imul eax, dword [ViewScreenWidth], byte 5
         fild dword [byte ebp+07Eh]
         fmul dword [F32_0p005_DrawIntermissionTitle]
         mov dword [byte ebp+07Eh], eax
@@ -3655,9 +3655,9 @@ DrawIntermissionTitle:
         mov eax, 62h
         call GetLangText
         push eax
-        imul eax, dword [dword_16E468], byte 5
+        imul eax, dword [ViewScreenHeight], byte 5
         mov dword [byte ebp+07Ah], eax
-        imul eax, dword [dword_16E464], byte 5
+        imul eax, dword [ViewScreenWidth], byte 5
         fild dword [byte ebp+07Ah]
         fmul dword [F32_0p005_DrawIntermissionTitle]
         mov dword [byte ebp+07Ah], eax
@@ -3680,8 +3680,8 @@ DrawIntermissionTitle:
         add esp, byte 10h
         lea eax, [byte ebp+02Ah]
         push eax
-        imul eax, dword [dword_16E464], byte 5
-        fild dword [dword_16E468]
+        imul eax, dword [ViewScreenWidth], byte 5
+        fild dword [ViewScreenHeight]
         fmul dword [F32_0p005_DrawIntermissionTitle]
         mov dword [byte ebp+07Eh], eax
         fadd qword [F64_0p5_DrawIntermissionTitle]
@@ -3700,9 +3700,9 @@ DrawIntermissionTitle:
         add esp, byte 10h
         lea eax, [byte ebp-026h]
         push eax
-        imul eax, dword [dword_16E468], byte 9
+        imul eax, dword [ViewScreenHeight], byte 9
         mov dword [byte ebp+07Eh], eax
-        imul eax, dword [dword_16E464], byte 5
+        imul eax, dword [ViewScreenWidth], byte 5
         fild dword [byte ebp+07Eh]
         fmul dword [F32_0p005_DrawIntermissionTitle]
         mov dword [byte ebp+07Eh], eax
@@ -3743,8 +3743,8 @@ DrawIntermissionTitle:
 .19:
         cmp word [gsp], byte 2
         jl short .20
-        mov al, byte [byte_1C135A]
-        cmp al, byte [byte_1C135B]
+        mov al, byte [PeriodHomeTeam]
+        cmp al, byte [PeriodAwayTeam]
         je short .20
         lea eax, [byte ebp-026h]
         push eax
@@ -3766,8 +3766,8 @@ DrawIntermissionTitle:
         add esp, byte 10h
         lea eax, [byte ebp+02Ah]
         push eax
-        imul eax, dword [dword_16E464], byte 5
-        fild dword [dword_16E468]
+        imul eax, dword [ViewScreenWidth], byte 5
+        fild dword [ViewScreenHeight]
         fmul dword [F32_0p005_DrawIntermissionTitle]
         mov dword [byte ebp+07Eh], eax
         fadd qword [F64_0p5_DrawIntermissionTitle]
@@ -3786,9 +3786,9 @@ DrawIntermissionTitle:
         add esp, byte 10h
         lea eax, [byte ebp-026h]
         push eax
-        imul eax, dword [dword_16E468], byte 9
+        imul eax, dword [ViewScreenHeight], byte 9
         mov dword [byte ebp+07Eh], eax
-        imul eax, dword [dword_16E464], byte 5
+        imul eax, dword [ViewScreenWidth], byte 5
         fild dword [byte ebp+07Eh]
         fmul dword [F32_0p005_DrawIntermissionTitle]
         mov dword [byte ebp+07Eh], eax
@@ -3813,7 +3813,7 @@ DrawIntermissionTitle:
         je short .23
         imul eax, ebx, byte 0Ch
         mov edx, dword [esi+eax]
-        imul eax, dword [dword_16E468], byte 52h
+        imul eax, dword [ViewScreenHeight], byte 52h
         mov dword [byte ebp+07Eh], eax
         mov edx, dword [byte edx+02Ch]
         fild dword [byte ebp+07Eh]
@@ -3825,7 +3825,7 @@ DrawIntermissionTitle:
         fistp dword [byte ebp+07Eh]
         sub eax, dword [byte ebp+07Eh]
         push eax
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         shl eax, 2
         mov dword [byte ebp+07Eh], eax
         fild dword [byte ebp+07Eh]
@@ -3878,13 +3878,13 @@ RunPauseIntermission:
         call QueueMusicRestart
         xor eax, eax
         call SetAmbientVolume
-        cmp dword [dword_16AF5C], byte 0
+        cmp dword [CameraScenesEnabled], byte 0
         je short .1
         lea eax, [dword ebp-018Ah]
         push eax
         call SaveTextState
         add esp, byte 4
-        mov eax, dword [dword_1CEF9C]
+        mov eax, dword [PauseClockArea]
         call DrawPauseClock
         lea eax, [dword ebp-018Ah]
         push eax
@@ -3896,10 +3896,10 @@ RunPauseIntermission:
         call DrawIntermissionTitle
         lea eax, [byte ebp-032h]
         push eax
-        mov dword [dword_16AF5C], 1
+        mov dword [CameraScenesEnabled], 1
         call SaveTextState
         add esp, byte 4
-        mov eax, dword [dword_1CEF9C]
+        mov eax, dword [PauseClockArea]
         call DrawPauseClock
         lea eax, [byte ebp-032h]
         push eax
@@ -3910,15 +3910,15 @@ RunPauseIntermission:
         add eax, 12Ch
         mov ebx, 0FFFFFFB0h
         mov dword [byte ebp+07Eh], eax
-        cmp dword [dword_19CD30], byte 0
+        cmp dword [VideoModeChanged], byte 0
         sete al
         movzx eax, al
         mov ecx, eax
-        mov eax, dword [dword_1CEFA8]
+        mov eax, dword [IntermissionOverlay]
         mov edx, dword [byte eax+02Ch]
-        imul eax, dword [dword_16E468], byte 52h
+        imul eax, dword [ViewScreenHeight], byte 52h
         mov dword [byte ebp+07Ah], eax
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         imul eax, ebx
         fild dword [byte ebp+07Ah]
         fmul dword [F32_0p005_RunPauseIntermission]
@@ -3961,10 +3961,10 @@ RunPauseIntermission:
         jle short .3
         xor ebx, eax
 .3:
-        imul eax, dword [dword_16E468], byte 52h
+        imul eax, dword [ViewScreenHeight], byte 52h
         add ebx, byte 4
         mov dword [byte ebp+07Ah], eax
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         imul eax, ebx
         fild dword [byte ebp+07Ah]
         fmul dword [F32_0p005_RunPauseIntermission]
@@ -3976,7 +3976,7 @@ RunPauseIntermission:
         call __CHP
         fistp dword [byte ebp+07Ah]
         mov ebx, dword [byte ebp+07Ah]
-        mov eax, dword [dword_1CEFA8]
+        mov eax, dword [IntermissionOverlay]
         fadd qword [F64_0p5_RunPauseIntermission]
         mov eax, dword [byte eax+02Ch]
         call __CHP
@@ -3992,9 +3992,9 @@ RunPauseIntermission:
         lea eax, [byte edx+014h]
         cmp ebx, eax
         jle near .2
-        imul eax, dword [dword_16E468], byte 52h
+        imul eax, dword [ViewScreenHeight], byte 52h
         mov dword [byte ebp+07Ah], eax
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         fild dword [byte ebp+07Ah]
         shl eax, 2
         fmul dword [F32_0p005_RunPauseIntermission]
@@ -4003,7 +4003,7 @@ RunPauseIntermission:
         fmul dword [F32_0p003125_RunPauseIntermission]
         fxch
         fadd qword [F64_0p5_RunPauseIntermission]
-        mov eax, dword [dword_1CEFA8]
+        mov eax, dword [IntermissionOverlay]
         call __CHP
         fistp dword [byte ebp+07Ah]
         mov eax, dword [byte eax+02Ch]
@@ -4019,13 +4019,13 @@ RunPauseIntermission:
         jmp near .9
 .5:
         call RestartGameAudio
-        cmp dword [dword_16AF5C], byte 0
+        cmp dword [CameraScenesEnabled], byte 0
         je short .6
         lea eax, [dword ebp-0DEh]
         push eax
         call SaveTextState
         add esp, byte 4
-        mov eax, dword [dword_1CEF9C]
+        mov eax, dword [PauseClockArea]
         call DrawPauseClock
         lea eax, [dword ebp-0DEh]
         push eax
@@ -4046,9 +4046,9 @@ RunPauseIntermission:
         jl short .7
         xor eax, eax
         call MenuOrbitScene
-        imul eax, dword [dword_16E468], byte 52h
+        imul eax, dword [ViewScreenHeight], byte 52h
         mov dword [byte ebp+07Ah], eax
-        mov eax, dword [dword_16E464]
+        mov eax, dword [ViewScreenWidth]
         fild dword [byte ebp+07Ah]
         shl eax, 2
         fmul dword [F32_0p005_RunPauseIntermission]
@@ -4057,7 +4057,7 @@ RunPauseIntermission:
         fmul dword [F32_0p003125_RunPauseIntermission]
         fxch
         fadd qword [F64_0p5_RunPauseIntermission]
-        mov eax, dword [dword_1CEFA8]
+        mov eax, dword [IntermissionOverlay]
         call __CHP
         fistp dword [byte ebp+07Ah]
         mov eax, dword [byte eax+02Ch]
@@ -4082,7 +4082,7 @@ RunPauseIntermission:
         call FadeGamePalette
 .9:
         mov eax, dword [tickcount]
-        mov dword [dword_1CEFBC], eax
+        mov dword [PauseFrameMode], eax
         lea esp, [dword ebp+082h]
         pop ebp
         pop edi
@@ -4100,11 +4100,11 @@ CloseIntermission:
         push esi
         mov ebx, eax
         mov esi, edx
-        mov eax, dword [dword_1CEFA8]
-        mov dword [dword_16AF5C], 0
+        mov eax, dword [IntermissionOverlay]
+        mov dword [CameraScenesEnabled], 0
         mov eax, dword [byte eax+02Ch]
         call RemoveOverlayWindow
-        push dword [dword_1CEFA8]
+        push dword [IntermissionOverlay]
         call FreeBitmap
         add esp, byte 4
         mov dword [ActiveCameraScene], 0
@@ -4131,7 +4131,7 @@ CloseIntermission:
         ret
 ;-----------------------------------------------------------------------------
 ; FillBox                                      F5601  96 PC, medium confidence
-; Fills a rectangle clipped to the draw bitmap (dword_1228FC)
+; Fills a rectangle clipped to the draw bitmap (DrawDestPitch)
 ;-----------------------------------------------------------------------------
 FillBox:
         push esi
@@ -4227,7 +4227,7 @@ FillBox:
         pop edi
         pop esi
         ret 4
-jpt_F56E5:
+RulesMenuJumpTable:
         dd RulesMenu_1583
         dd RulesMenu_176B
         dd RulesMenu_19CD
@@ -4251,9 +4251,9 @@ RulesMenu:
         push edi
         enter 750h, 0
         sub ebp, 82h
-        fild dword [dword_16E464]
+        fild dword [ViewScreenWidth]
         fmul qword [F64_0p003125_RulesMenu]
-        fild dword [dword_16E468]
+        fild dword [ViewScreenHeight]
         fmul qword [F64_0p005_RulesMenu]
         fxch
         fstp dword [byte ebp+072h]
@@ -4270,7 +4270,7 @@ RulesMenu:
         fstp dword [byte ebp+03Ah]
         fstp dword [byte ebp-022h]
         fstp dword [byte ebp+02h]
-        cmp word [word_1CEFC0], byte 2
+        cmp word [PauseMenuMode], byte 2
         je short .1
         push dword 0FF000000h
         call MatchColor
@@ -4356,13 +4356,13 @@ RulesMenu:
         fxch
         fstp dword [byte ebp+06Ah]
         fstp dword [byte ebp-052h]
-        cmp word [word_1CEFC0], byte 2
+        cmp word [PauseMenuMode], byte 2
         je near .11
         mov eax, dword [GameOptionFlags]
         test byte [byte eax+01h], 8
         je short .3
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 58h
@@ -4394,7 +4394,7 @@ RulesMenu:
         jmp short .4
 .3:
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 59h
@@ -4451,7 +4451,7 @@ RulesMenu:
         test byte [byte eax+01h], 20h
         je short .5
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 58h
@@ -4483,7 +4483,7 @@ RulesMenu:
         jmp short .6
 .5:
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 59h
@@ -4540,7 +4540,7 @@ RulesMenu:
         test byte [byte eax+01h], 10h
         je short .7
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 58h
@@ -4572,7 +4572,7 @@ RulesMenu:
         jmp short .8
 .7:
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 59h
@@ -4629,7 +4629,7 @@ RulesMenu:
         test byte [byte eax+02h], 2
         je short .10
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 56h
@@ -4665,7 +4665,7 @@ RulesMenu:
         jmp near .19
 .10:
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 54h
@@ -4700,7 +4700,7 @@ RulesMenu:
         test byte [byte eax+01h], 8
         je short .12
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
@@ -4722,7 +4722,7 @@ RulesMenu:
         jmp short .13
 .12:
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
@@ -4779,7 +4779,7 @@ RulesMenu:
         test byte [byte eax+01h], 20h
         je short .14
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
@@ -4814,7 +4814,7 @@ RulesMenu:
         jmp short .15
 .14:
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
@@ -4871,7 +4871,7 @@ RulesMenu:
         test byte [byte eax+01h], 10h
         je short .16
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
@@ -4903,7 +4903,7 @@ RulesMenu:
         jmp short .17
 .16:
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
@@ -4960,7 +4960,7 @@ RulesMenu:
         test byte [byte eax+02h], 2
         je short .18
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 57h
@@ -4995,7 +4995,7 @@ RulesMenu:
         jmp short .19
 .18:
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 55h
@@ -5053,7 +5053,7 @@ RulesMenu:
         test byte [byte eax+02h], 1
         je short .20
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
@@ -5088,7 +5088,7 @@ RulesMenu:
         jmp short .21
 .20:
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
@@ -5145,7 +5145,7 @@ RulesMenu:
         test byte [byte eax+02h], 4
         je short .22
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
@@ -5180,7 +5180,7 @@ RulesMenu:
         jmp short .23
 .22:
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
@@ -5235,7 +5235,7 @@ RulesMenu:
         add esp, byte 0Ch
         fmul dword [F32_20_RulesMenu]
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         fxch
         call __CHP
@@ -5267,7 +5267,7 @@ RulesMenu:
         fld dword [byte ebp+066h]
         fmul dword [F32_81]
         fstp dword [byte ebp-03Eh]
-        cmp word [word_1CEFC0], byte 2
+        cmp word [PauseMenuMode], byte 2
         je near .28
         mov eax, dword [GameOptionFlags]
         mov eax, dword [byte eax+01h]
@@ -5276,7 +5276,7 @@ RulesMenu:
         jne short .26
         push dword [byte ebp+066h]
         push dword [byte ebp+072h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         mov ecx, edi
         push eax
         mov eax, 54h
@@ -5297,7 +5297,7 @@ RulesMenu:
         jne short .27
         push dword [byte ebp+066h]
         push dword [byte ebp+072h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         mov ecx, edi
         push eax
         mov eax, 56h
@@ -5312,7 +5312,7 @@ RulesMenu:
 .27:
         push dword [byte ebp+066h]
         push dword [byte ebp+072h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         mov ecx, edi
         push eax
         mov eax, 53h
@@ -5323,11 +5323,11 @@ RulesMenu:
         and eax, 0C0h
         cmp eax, 80h
         jne short .29
-        cmp word [word_1CEFC0], byte 2
+        cmp word [PauseMenuMode], byte 2
         jne short .29
         push dword [byte ebp+066h]
         push dword [byte ebp+072h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         mov ecx, edi
         push eax
         mov eax, 55h
@@ -5356,7 +5356,7 @@ RulesMenu:
         cmp eax, byte 40h
         jne short .32
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 57h
@@ -5395,7 +5395,7 @@ RulesMenu:
         jmp near .34
 .32:
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
@@ -5427,7 +5427,7 @@ RulesMenu:
         jmp short .30
 .33:
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 5Dh
@@ -5468,7 +5468,7 @@ RulesMenu:
         call DrawMenuItem
         push dword [byte ebp+066h]
         push dword [byte ebp+072h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         mov ecx, edi
         push eax
         mov eax, 5Dh
@@ -5484,7 +5484,7 @@ RulesMenu:
         lea eax, [dword ebp-0DEh]
         call DrawMenuItem
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 5Dh
@@ -5502,7 +5502,7 @@ RulesMenu:
         lea eax, [dword ebp-0D2h]
         call DrawMenuItem
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 5Dh
@@ -5541,7 +5541,7 @@ RulesMenu:
         test byte [byte eax+02h], 20h
         je short .35
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
@@ -5576,7 +5576,7 @@ RulesMenu:
         jmp short .36
 .35:
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
@@ -5613,7 +5613,7 @@ RulesMenu:
         lea eax, [dword ebp-0BAh]
         call DrawMenuItem
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 51h
@@ -5686,9 +5686,9 @@ RulesMenu:
         mov dword [dword edx+ebp-06BEh], 4
         add edi, eax
         mov dword [dword edx+ebp-06BAh], edi
-        imul eax, dword [dword_16E468], byte 5
+        imul eax, dword [ViewScreenHeight], byte 5
         mov dword [byte ebp-02Eh], eax
-        imul eax, dword [dword_16E464], byte 46h
+        imul eax, dword [ViewScreenWidth], byte 46h
         fild dword [byte ebp-02Eh]
         fmul dword [F32_0p005_RulesMenu]
         mov dword [byte ebp-02Eh], eax
@@ -5712,20 +5712,20 @@ RulesMenu:
 .39:
         cmp si, byte 0Ah
         jl near .37
-        mov dword [dword_1CEF98], 0
-        cmp word [word_1CEFC0], byte 2
+        mov dword [MenuItemHighlight], 0
+        cmp word [PauseMenuMode], byte 2
         je short .40
-        push dword [dword_1CEFB0]
+        push dword [MenuFontSmall]
         jmp short .41
 .40:
-        push dword [dword_1CEFB4]
+        push dword [MenuFontLarge]
 .41:
         call SelectFont
         add esp, byte 4
-        mov eax, dword [dword_1CEFB8]
+        mov eax, dword [MenuTextColour]
         mov dword [byte ebp+07Eh], 1
         call SetTextColor
-        cmp word [word_1CEFC0], byte 2
+        cmp word [PauseMenuMode], byte 2
         je short .42
         fld dword [byte ebp+066h]
         fmul dword [F32_5_RulesMenu]
@@ -5783,7 +5783,7 @@ RulesMenu:
         push byte 0
         call DrawTextAligned
         add esp, byte 10h
-        cmp byte [byte_1AD23E], 0
+        cmp byte [SeasonCreated], 0
         je short .43
         mov eax, 0F8h
         call SetTextColor
@@ -5849,9 +5849,9 @@ RulesMenu:
         push byte 0
         call DrawTextAligned
         add esp, byte 10h
-        cmp byte [byte_1AD23E], 0
+        cmp byte [SeasonCreated], 0
         je short .44
-        mov eax, dword [dword_1CEFB8]
+        mov eax, dword [MenuTextColour]
         call SetTextColor
 .44:
         mov eax, 50h
@@ -5903,7 +5903,7 @@ RulesMenu:
         fstp dword [byte ebp-046h]
         fstp dword [byte ebp+06Eh]
         fstp dword [byte ebp-042h]
-        jmp dword [nosplit cs:eax*4+jpt_F56E5]
+        jmp dword [nosplit cs:eax*4+RulesMenuJumpTable]
 RulesMenu_1583:
         call SetScreenTarget
         movsx eax, si
@@ -5931,10 +5931,10 @@ RulesMenu_1583:
         test byte [byte eax+01h], 8
         je near .48
         and byte [byte eax+01h], 0F7h
-        cmp word [word_1CEFC0], byte 2
+        cmp word [PauseMenuMode], byte 2
         je short .47
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 59h
@@ -5971,24 +5971,24 @@ RulesMenu_1583:
         jmp near .50
 .47:
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
         jmp short .46
 .48:
         or byte [byte eax+01h], 8
-        cmp word [word_1CEFC0], byte 2
+        cmp word [PauseMenuMode], byte 2
         je short .49
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 58h
         jmp near .46
 .49:
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
@@ -6065,10 +6065,10 @@ RulesMenu_176B:
         test byte [byte eax+01h], 20h
         je near .53
         and byte [byte eax+01h], 0DFh
-        cmp word [word_1CEFC0], byte 2
+        cmp word [PauseMenuMode], byte 2
         je near .52
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 59h
@@ -6108,7 +6108,7 @@ RulesMenu_176B:
         jmp near .55
 .52:
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
@@ -6147,17 +6147,17 @@ RulesMenu_176B:
         jmp near .55
 .53:
         or byte [byte eax+01h], 20h
-        cmp word [word_1CEFC0], byte 2
+        cmp word [PauseMenuMode], byte 2
         je short .54
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 58h
         jmp near .51
 .54:
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
@@ -6234,10 +6234,10 @@ RulesMenu_19CD:
         test byte [byte eax+01h], 10h
         je near .58
         and byte [byte eax+01h], 0EFh
-        cmp word [word_1CEFC0], byte 2
+        cmp word [PauseMenuMode], byte 2
         je short .56
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 59h
@@ -6270,7 +6270,7 @@ RulesMenu_19CD:
         jmp near .60
 .56:
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
@@ -6304,17 +6304,17 @@ RulesMenu_19CD:
         jmp near .60
 .58:
         or byte [byte eax+01h], 10h
-        cmp word [word_1CEFC0], byte 2
+        cmp word [PauseMenuMode], byte 2
         je short .59
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 58h
         jmp short .57
 .59:
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
@@ -6389,34 +6389,34 @@ RulesMenu_1C04:
         test byte [byte eax+02h], 2
         je short .62
         and byte [byte eax+02h], 0FDh
-        cmp word [word_1CEFC0], byte 2
+        cmp word [PauseMenuMode], byte 2
         je short .61
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 54h
         jmp short .64
 .61:
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 55h
         jmp short .64
 .62:
         or byte [byte eax+02h], 2
-        cmp word [word_1CEFC0], byte 2
+        cmp word [PauseMenuMode], byte 2
         je short .63
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 56h
         jmp short .64
 .63:
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 57h
@@ -6497,17 +6497,17 @@ RulesMenu_1D78:
         jne short .66
         and byte [byte eax+01h], 3Fh
         or byte [byte eax+01h], 40h
-        cmp word [word_1CEFC0], byte 2
+        cmp word [PauseMenuMode], byte 2
         je short .65
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 56h
         jmp near .69
 .65:
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 57h
@@ -6519,17 +6519,17 @@ RulesMenu_1D78:
         jne short .68
         and byte [byte eax+01h], 3Fh
         or byte [byte eax+01h], 80h
-        cmp word [word_1CEFC0], byte 2
+        cmp word [PauseMenuMode], byte 2
         je short .67
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 54h
         jmp short .69
 .67:
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 55h
@@ -6537,7 +6537,7 @@ RulesMenu_1D78:
 .68:
         and byte [byte eax+01h], 3Fh
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 8Eh
@@ -6614,7 +6614,7 @@ RulesMenu_1F1F:
         je short .70
         and byte [byte eax+02h], 0FEh
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
@@ -6622,7 +6622,7 @@ RulesMenu_1F1F:
 .70:
         or byte [byte eax+02h], 1
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
@@ -6699,7 +6699,7 @@ RulesMenu_2056:
         je short .72
         and byte [byte eax+02h], 0FBh
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
@@ -6707,7 +6707,7 @@ RulesMenu_2056:
 .72:
         or byte [byte eax+02h], 4
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
@@ -6809,7 +6809,7 @@ RulesMenu_218D:
         add esp, byte 0Ch
         fmul dword [F32_180_RulesMenu]
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         fxch st3
         call __CHP
@@ -6878,7 +6878,7 @@ RulesMenu_22F1:
         je short .75
         and byte [byte eax+02h], 0DFh
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
@@ -6911,7 +6911,7 @@ RulesMenu_22F1:
 .75:
         or byte [byte eax+02h], 20h
         push dword [byte ebp+066h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
@@ -6978,7 +6978,7 @@ RulesMenu_2464:
         cmp si, byte 0Ah
         jl short .78
         jmp near PauseMenu_726
-jpt_F7BB6:
+DetailLevelMenuJumpTable:
         dd DetailLevelMenu_C81
         dd DetailLevelMenu_E31
         dd DetailLevelMenu_10E6
@@ -7000,9 +7000,9 @@ DetailLevelMenu:
         push edi
         enter 5ACh, 0
         sub ebp, 86h
-        fild dword [dword_16E464]
+        fild dword [ViewScreenWidth]
         fmul qword [F64_0p003125_DetailLevelMenu]
-        fild dword [dword_16E468]
+        fild dword [ViewScreenHeight]
         fmul qword [F64_0p005_DetailLevelMenu]
         fxch
         fstp dword [byte ebp+072h]
@@ -7019,7 +7019,7 @@ DetailLevelMenu:
         fstp dword [byte ebp+032h]
         fstp dword [byte ebp+03Ah]
         fstp dword [byte ebp+02Eh]
-        cmp word [word_1CEFC0], byte 2
+        cmp word [PauseMenuMode], byte 2
         je short .1
         push dword 0FF000000h
         call MatchColor
@@ -7061,13 +7061,13 @@ DetailLevelMenu:
         mov edx, dword [byte ebp-0Ah]
         mov eax, dword [byte ebp-012h]
         call DrawMenuFrame
-        cmp dword [dword_16AF50], byte 0
+        cmp dword [ShowOverlay], byte 0
         jne short .3
-        cmp dword [dword_16AF54], byte 0
+        cmp dword [ShowCrowd], byte 0
         je near .4
 .3:
         push dword [byte ebp+076h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
@@ -7106,7 +7106,7 @@ DetailLevelMenu:
         jmp short .5
 .4:
         push dword [byte ebp+076h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
@@ -7162,10 +7162,10 @@ DetailLevelMenu:
         fxch
         fstp dword [byte ebp-032h]
         fstp dword [byte ebp+046h]
-        cmp dword [dword_16AF44], byte 0
+        cmp dword [ShowRink], byte 0
         je short .6
         push dword [byte ebp+076h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
@@ -7197,7 +7197,7 @@ DetailLevelMenu:
         jmp short .7
 .6:
         push dword [byte ebp+076h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
@@ -7249,10 +7249,10 @@ DetailLevelMenu:
         fxch
         fstp dword [byte ebp-022h]
         fstp dword [byte ebp+016h]
-        cmp dword [dword_16AF40], byte 0
+        cmp dword [ShowStands], byte 0
         je short .8
         push dword [byte ebp+076h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
@@ -7281,7 +7281,7 @@ DetailLevelMenu:
         jmp short .9
 .8:
         push dword [byte ebp+076h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
@@ -7333,10 +7333,10 @@ DetailLevelMenu:
         fxch
         fstp dword [byte ebp+04Eh]
         fstp dword [byte ebp+042h]
-        cmp dword [dword_16AF3C], byte 0
+        cmp dword [ShowFrameRate], byte 0
         je short .10
         push dword [byte ebp+076h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
@@ -7371,7 +7371,7 @@ DetailLevelMenu:
         jmp short .11
 .10:
         push dword [byte ebp+076h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
@@ -7423,10 +7423,10 @@ DetailLevelMenu:
         fxch
         fstp dword [byte ebp+062h]
         fstp dword [byte ebp-02h]
-        cmp dword [dword_16AF48], byte 0
+        cmp dword [ShowCenterLogo], byte 0
         je short .12
         push dword [byte ebp+076h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
@@ -7461,7 +7461,7 @@ DetailLevelMenu:
         jmp short .13
 .12:
         push dword [byte ebp+076h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
@@ -7513,10 +7513,10 @@ DetailLevelMenu:
         fxch
         fstp dword [byte ebp+066h]
         fstp dword [byte ebp+0Ah]
-        cmp dword [dword_16AF58], byte 0
+        cmp dword [ShowBenches], byte 0
         je short .14
         push dword [byte ebp+076h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
@@ -7548,7 +7548,7 @@ DetailLevelMenu:
         jmp short .15
 .14:
         push dword [byte ebp+076h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
@@ -7600,10 +7600,10 @@ DetailLevelMenu:
         fxch
         fstp dword [byte ebp-02Ah]
         fstp dword [byte ebp-01Ah]
-        cmp dword [dword_1B8578], byte 0
+        cmp dword [PlayerNamesOn], byte 0
         je short .16
         push dword [byte ebp+076h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
@@ -7635,7 +7635,7 @@ DetailLevelMenu:
         jmp short .17
 .16:
         push dword [byte ebp+076h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
@@ -7672,7 +7672,7 @@ DetailLevelMenu:
         lea eax, [byte ebp-04Eh]
         call DrawMenuItem
         push dword [byte ebp+076h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 51h
@@ -7743,9 +7743,9 @@ DetailLevelMenu:
         mov dword [dword edx+ebp-0516h], 4
         add edi, eax
         mov dword [dword edx+ebp-0512h], edi
-        imul eax, dword [dword_16E468], byte 5
+        imul eax, dword [ViewScreenHeight], byte 5
         mov dword [byte ebp-012h], eax
-        imul eax, dword [dword_16E464], byte 50h
+        imul eax, dword [ViewScreenWidth], byte 50h
         fild dword [byte ebp-012h]
         fmul dword [F32_0p005_DetailLevelMenu]
         mov dword [byte ebp-012h], eax
@@ -7768,20 +7768,20 @@ DetailLevelMenu:
 .19:
         cmp si, byte 8
         jl near .18
-        mov dword [dword_1CEF98], 0
-        cmp word [word_1CEFC0], byte 2
+        mov dword [MenuItemHighlight], 0
+        cmp word [PauseMenuMode], byte 2
         je short .20
-        push dword [dword_1CEFB0]
+        push dword [MenuFontSmall]
         jmp short .21
 .20:
-        push dword [dword_1CEFB4]
+        push dword [MenuFontLarge]
 .21:
         call SelectFont
         add esp, byte 4
-        mov eax, dword [dword_1CEFB8]
+        mov eax, dword [MenuTextColour]
         mov dword [dword ebp+082h], 1
         call SetTextColor
-        cmp word [word_1CEFC0], byte 2
+        cmp word [PauseMenuMode], byte 2
         je short .22
         fld dword [byte ebp+076h]
         fmul dword [F32_5_DetailLevelMenu]
@@ -7903,7 +7903,7 @@ DetailLevelMenu:
         call __CHP
         fxch st2
         fadd dword [byte ebp+01Ah]
-        push dword [dword_1CEFB8]
+        push dword [MenuTextColour]
         call __CHP
         fistp dword [byte ebp-012h]
         push dword [byte ebp-012h]
@@ -7920,7 +7920,7 @@ DetailLevelMenu:
         fmul dword [F32_63]
         push byte 2
         fadd dword [byte ebp+01Ah]
-        push dword [dword_1CEFB8]
+        push dword [MenuTextColour]
         call __CHP
         fistp dword [byte ebp-0Ah]
         push dword [byte ebp-0Ah]
@@ -7930,7 +7930,7 @@ DetailLevelMenu:
         call DrawShadowRect
         add esp, byte 18h
         push byte 2
-        push dword [dword_1CEFB8]
+        push dword [MenuTextColour]
         push dword [byte ebp-0Ah]
         push dword [byte ebp-06h]
         push dword [byte ebp-0Ah]
@@ -7964,18 +7964,18 @@ DetailLevelMenu_C81:
         push dword [dword ebp-092h]
         call FreeBitmap
         add esp, byte 4
-        cmp dword [dword_16AF50], byte 0
+        cmp dword [ShowOverlay], byte 0
         jne short .23
-        cmp dword [dword_16AF54], byte 0
+        cmp dword [ShowCrowd], byte 0
         je near .24
 .23:
         push dword [byte ebp+076h]
         push dword [byte ebp+072h]
-        movsx eax, word [word_1CEFC0]
-        mov dword [dword_16AF50], 0
+        movsx eax, word [PauseMenuMode]
+        mov dword [ShowOverlay], 0
         push eax
         mov eax, 53h
-        mov dword [dword_16AF54], 0
+        mov dword [ShowCrowd], 0
         call GetLangText
         fld dword [byte ebp+076h]
         fmul dword [F32_9_DetailLevelMenu]
@@ -8009,11 +8009,11 @@ DetailLevelMenu_C81:
 .24:
         push dword [byte ebp+076h]
         push dword [byte ebp+072h]
-        movsx eax, word [word_1CEFC0]
-        mov dword [dword_16AF50], 1
+        movsx eax, word [PauseMenuMode]
+        mov dword [ShowOverlay], 1
         push eax
         mov eax, 52h
-        mov dword [dword_16AF54], 1
+        mov dword [ShowCrowd], 1
         call GetLangText
         fld dword [byte ebp+076h]
         fmul dword [F32_25_DetailLevelMenu]
@@ -8089,15 +8089,15 @@ DetailLevelMenu_E31:
         push dword [dword ebp-086h]
         call FreeBitmap
         add esp, byte 4
-        cmp dword [dword_16AF44], byte 0
+        cmp dword [ShowRink], byte 0
         je near .26
         push dword [byte ebp+076h]
         push dword [byte ebp+072h]
-        movsx eax, word [word_1CEFC0]
-        mov dword [dword_16AF44], 0
+        movsx eax, word [PauseMenuMode]
+        mov dword [ShowRink], 0
         push eax
         mov eax, 53h
-        mov dword [dword_16AF40], 0
+        mov dword [ShowStands], 0
         call GetLangText
         fld dword [byte ebp+03Eh]
         fld dword [byte ebp-0Eh]
@@ -8140,7 +8140,7 @@ DetailLevelMenu_E31:
         call FreeBitmap
         add esp, byte 4
         push dword [byte ebp+076h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         mov ecx, dword [byte ebp-06h]
         push eax
@@ -8158,11 +8158,11 @@ DetailLevelMenu_E31:
         jmp short .28
 .26:
         push dword [byte ebp+076h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
-        mov dword [dword_16AF44], 1
+        mov dword [ShowRink], 1
         call GetLangText
         fld dword [byte ebp+03Eh]
         fld dword [byte ebp-0Eh]
@@ -8251,7 +8251,7 @@ DetailLevelMenu_E31:
         fstp dword [byte ebp+06Ah]
         fstp dword [byte ebp+026h]
         fstp dword [byte ebp+02Ah]
-        jmp dword [nosplit cs:eax*4+jpt_F7BB6]
+        jmp dword [nosplit cs:eax*4+DetailLevelMenuJumpTable]
 DetailLevelMenu_10E6:
         call SetScreenTarget
         mov eax, dword [byte ebp-07Eh]
@@ -8284,14 +8284,14 @@ DetailLevelMenu_10E6:
         push dword [byte ebp-07Ah]
         call FreeBitmap
         add esp, byte 4
-        cmp dword [dword_16AF40], byte 0
+        cmp dword [ShowStands], byte 0
         je short .30
         push dword [byte ebp+076h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
-        mov dword [dword_16AF40], 0
+        mov dword [ShowStands], 0
         call GetLangText
         fld dword [byte ebp+03Eh]
         fld dword [byte ebp-0Eh]
@@ -8326,11 +8326,11 @@ DetailLevelMenu_10E6:
 .30:
         push dword [byte ebp+076h]
         push dword [byte ebp+072h]
-        movsx eax, word [word_1CEFC0]
-        mov dword [dword_16AF40], 1
+        movsx eax, word [PauseMenuMode]
+        mov dword [ShowStands], 1
         push eax
         mov eax, 52h
-        mov dword [dword_16AF44], 1
+        mov dword [ShowRink], 1
         call GetLangText
         fld dword [byte ebp+03Eh]
         fld dword [byte ebp-0Eh]
@@ -8373,7 +8373,7 @@ DetailLevelMenu_10E6:
         call FreeBitmap
         add esp, byte 4
         push dword [byte ebp+076h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         mov edx, dword [byte ebp-012h]
         push eax
@@ -8412,22 +8412,22 @@ DetailLevelMenu_12B8:
         fmul dword [F32_70_DetailLevelMenu]
         add esp, byte 4
         fstp dword [byte ebp+022h]
-        cmp dword [dword_16AF3C], byte 0
+        cmp dword [ShowFrameRate], byte 0
         je short .31
         push dword [byte ebp+076h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
-        mov dword [dword_16AF3C], 0
+        mov dword [ShowFrameRate], 0
         jmp short .32
 .31:
         push dword [byte ebp+076h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
-        mov dword [dword_16AF3C], 1
+        mov dword [ShowFrameRate], 1
 .32:
         call GetLangText
         fld dword [byte ebp+03Eh]
@@ -8494,22 +8494,22 @@ DetailLevelMenu_13D7:
         fmul dword [F32_85_DetailLevelMenu]
         add esp, byte 4
         fstp dword [byte ebp+02h]
-        cmp dword [dword_16AF48], byte 0
+        cmp dword [ShowCenterLogo], byte 0
         je short .33
         push dword [byte ebp+076h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
-        mov dword [dword_16AF48], 0
+        mov dword [ShowCenterLogo], 0
         jmp short .34
 .33:
         push dword [byte ebp+076h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
-        mov dword [dword_16AF48], 1
+        mov dword [ShowCenterLogo], 1
 .34:
         call GetLangText
         fld dword [byte ebp+03Eh]
@@ -8573,14 +8573,14 @@ DetailLevelMenu_14F6:
         push dword [byte ebp-056h]
         call FreeBitmap
         add esp, byte 4
-        cmp dword [dword_16AF58], byte 0
+        cmp dword [ShowBenches], byte 0
         je short .35
         push dword [byte ebp+076h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
-        mov dword [dword_16AF58], 0
+        mov dword [ShowBenches], 0
         call GetLangText
         fld dword [byte ebp+03Eh]
         fld dword [byte ebp-0Eh]
@@ -8612,11 +8612,11 @@ DetailLevelMenu_14F6:
         jmp short .36
 .35:
         push dword [byte ebp+076h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
-        mov dword [dword_16AF58], 1
+        mov dword [ShowBenches], 1
         call GetLangText
         fld dword [byte ebp+03Eh]
         fld dword [byte ebp-0Eh]
@@ -8680,14 +8680,14 @@ DetailLevelMenu_165B:
         push dword [byte ebp-04Ah]
         call FreeBitmap
         add esp, byte 4
-        cmp dword [dword_1B8578], byte 0
+        cmp dword [PlayerNamesOn], byte 0
         je short .37
         push dword [byte ebp+076h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 53h
-        mov dword [dword_1B8578], 0
+        mov dword [PlayerNamesOn], 0
         call GetLangText
         fld dword [byte ebp+03Eh]
         fld dword [byte ebp-0Eh]
@@ -8716,11 +8716,11 @@ DetailLevelMenu_165B:
         jmp short .38
 .37:
         push dword [byte ebp+076h]
-        movsx eax, word [word_1CEFC0]
+        movsx eax, word [PauseMenuMode]
         push dword [byte ebp+072h]
         push eax
         mov eax, 52h
-        mov dword [dword_1B8578], 1
+        mov dword [PlayerNamesOn], 1
         call GetLangText
         fld dword [byte ebp+03Eh]
         fld dword [byte ebp-0Eh]
@@ -8764,9 +8764,9 @@ DetailLevelMenu_165B:
         mov dword [dword ebp-0318h], eax
         jmp near DetailLevelMenu_E31.29
 DetailLevelMenu_17B7:
-        cmp dword [dword_16AF50], byte 0
+        cmp dword [ShowOverlay], byte 0
         jne short .39
-        cmp dword [dword_16AF54], byte 0
+        cmp dword [ShowCrowd], byte 0
         je short .40
 .39:
         mov eax, 1
@@ -8778,32 +8778,32 @@ DetailLevelMenu_17B7:
         and byte [MusicOptions], 0DFh
         shl eax, 15h
         or dword [AudioOptions], eax
-        mov eax, dword [dword_16AF44]
+        mov eax, dword [ShowRink]
         and eax, byte 1
         and byte [MusicOptions], 0BFh
         shl eax, 16h
         or dword [AudioOptions], eax
-        mov eax, dword [dword_16AF40]
+        mov eax, dword [ShowStands]
         and eax, byte 1
         and byte [DetailLevel], 0FEh
         shl eax, 18h
         or dword [AudioOptions], eax
-        mov eax, dword [dword_16AF3C]
+        mov eax, dword [ShowFrameRate]
         and eax, byte 1
         and byte [DetailLevel], 0FDh
         shl eax, 19h
         or dword [AudioOptions], eax
-        mov eax, dword [dword_16AF48]
+        mov eax, dword [ShowCenterLogo]
         and eax, byte 1
         and byte [DetailLevel], 0FBh
         shl eax, 1Ah
         or dword [AudioOptions], eax
-        mov eax, dword [dword_1B8578]
+        mov eax, dword [PlayerNamesOn]
         and eax, byte 1
         and byte [DetailLevel], 0F7h
         shl eax, 1Bh
         or dword [AudioOptions], eax
-        mov eax, dword [dword_16AF58]
+        mov eax, dword [ShowBenches]
         and eax, byte 1
         and byte [DetailLevel], 0DFh
         shl eax, 1Dh
@@ -8836,11 +8836,11 @@ DetailLevelMenu_17B7:
 FreeVideoBuffer:
         push ecx
         push edx
-        cmp dword [dword_16E30C], byte 0
+        cmp dword [GfxFixBuffer], byte 0
         je short .1
-        push dword [dword_16E30C]
+        push dword [GfxFixBuffer]
         call FreeMemBlock
-        mov dword [dword_16E30C], 0
+        mov dword [GfxFixBuffer], 0
         add esp, byte 4
 .1:
         pop edx

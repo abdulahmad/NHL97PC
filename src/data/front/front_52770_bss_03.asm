@@ -2,159 +2,87 @@
 bits 32
 %include "hockey.inc"
 section s_1B0DF4 nobits alloc noexec write align=1
-global dword_1B0DF4, dword_1B0DF8, dword_1B0DFC, dword_1B0E00, dword_1B0E04, dword_1B0E08, dword_1B0E0C, dword_1B0E10
-global dword_1B0E14, dword_1B0E18, dword_1B0E24, dword_1B0E28, dword_1B0E2C, dword_1B0E30, dword_1B0E34, dword_1B0E38
-global dword_1B0E4C, dword_1B0E50, dword_1B0E54, dword_1B0E58, dword_1B0E5C, dword_1B0E60, dword_1B0E64, dword_1B0E68
-global dword_1B0E6C, dword_1B0E70, dword_1B0E74, dword_1B0E78, dword_1B0E7C, dword_1B0E80, dword_1B0E84, dword_1B0E88
-global dword_1B0E8C, dword_1B0E90, dword_1B0E94, dword_1B0E98, dword_1B0E9C, dword_1B0EA0, dword_1B0EA4, dword_1B0EA8
-global dword_1B0EAC, dword_1B0EB0, dword_1B0EB4, dword_1B0EBC, dword_1B0EC0, dword_1B0ECC, dword_1B0ED4, dword_1B0ED8
-global dword_1B0EE0, dword_1B0EE4, dword_1B0EE8, dword_1B0EEC, dword_1B0EF0, dword_1B0EF4, dword_1B0EF8, dword_1B0F00
-global dword_1B0F04, dword_1B0F08, dword_1B0F0C, dword_1B0F10, dword_1B0F1C, dword_1B0F20, dword_1B0F24, dword_1B0F34
-global dword_1B0F38, dword_1B0F3C, dword_1B0F40, dword_1B0F44, dword_1B0F98, dword_1B0F9C, dword_1B0FA0, unk_1B0F14
-global unk_1B0F28
-dword_1B0DF4:
+global RinkPartModels
+
+
+
+
+
+
+
+
+
+RinkPartModels:
         resb 4
-dword_1B0DF8:
         resb 4
-dword_1B0DFC:
         resb 4
-dword_1B0E00:
         resb 4
-dword_1B0E04:
         resb 4
-dword_1B0E08:
         resb 4
-dword_1B0E0C:
         resb 4
-dword_1B0E10:
         resb 4
-dword_1B0E14:
         resb 4
-dword_1B0E18:
         resb 12
-dword_1B0E24:
         resb 4
-dword_1B0E28:
         resb 4
-dword_1B0E2C:
         resb 4
-dword_1B0E30:
         resb 4
-dword_1B0E34:
         resb 4
-dword_1B0E38:
         resb 20
-dword_1B0E4C:
         resb 4
-dword_1B0E50:
         resb 4
-dword_1B0E54:
         resb 4
-dword_1B0E58:
         resb 4
-dword_1B0E5C:
         resb 4
-dword_1B0E60:
         resb 4
-dword_1B0E64:
         resb 4
-dword_1B0E68:
         resb 4
-dword_1B0E6C:
         resb 4
-dword_1B0E70:
         resb 4
-dword_1B0E74:
         resb 4
-dword_1B0E78:
         resb 4
-dword_1B0E7C:
         resb 4
-dword_1B0E80:
         resb 4
-dword_1B0E84:
         resb 4
-dword_1B0E88:
         resb 4
-dword_1B0E8C:
         resb 4
-dword_1B0E90:
         resb 4
-dword_1B0E94:
         resb 4
-dword_1B0E98:
         resb 4
-dword_1B0E9C:
         resb 4
-dword_1B0EA0:
         resb 4
-dword_1B0EA4:
         resb 4
-dword_1B0EA8:
         resb 4
-dword_1B0EAC:
         resb 4
-dword_1B0EB0:
         resb 4
-dword_1B0EB4:
         resb 8
-dword_1B0EBC:
         resb 4
-dword_1B0EC0:
         resb 12
-dword_1B0ECC:
         resb 8
-dword_1B0ED4:
         resb 4
-dword_1B0ED8:
         resb 8
-dword_1B0EE0:
         resb 4
-dword_1B0EE4:
         resb 4
-dword_1B0EE8:
         resb 4
-dword_1B0EEC:
         resb 4
-dword_1B0EF0:
         resb 4
-dword_1B0EF4:
         resb 4
-dword_1B0EF8:
         resb 8
-dword_1B0F00:
         resb 4
-dword_1B0F04:
         resb 4
-dword_1B0F08:
         resb 4
-dword_1B0F0C:
         resb 4
-dword_1B0F10:
         resb 4
-unk_1B0F14:
         resb 8
-dword_1B0F1C:
         resb 4
-dword_1B0F20:
         resb 4
-dword_1B0F24:
         resb 4
-unk_1B0F28:
         resb 12
-dword_1B0F34:
         resb 4
-dword_1B0F38:
         resb 4
-dword_1B0F3C:
         resb 4
-dword_1B0F40:
         resb 4
-dword_1B0F44:
         resb 84
-dword_1B0F98:
         resb 4
-dword_1B0F9C:
         resb 4
-dword_1B0FA0:
         resb 4

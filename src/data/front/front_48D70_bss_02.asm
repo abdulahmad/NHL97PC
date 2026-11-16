@@ -2,27 +2,27 @@
 bits 32
 %include "hockey.inc"
 section s_1B0268 nobits alloc noexec write align=1
-global byte_1B0300, dword_1B0268, dword_1B026C, dword_1B0270, dword_1B0274, dword_1B0278, dword_1B02C0, dword_1B0400
-global dword_1B0408, unk_1B0410, unk_1B0510
-dword_1B0268:
+global RinkColorUsed, RinkFov, RinkAspect, RinkViewCenter, RinkModel, RinkViewTable, RinkModelParts, ScoreboardFrames
+global ScoreboardSpin, GlassRemap, BenchRemap
+RinkFov:
         resb 4
-dword_1B026C:
+RinkAspect:
         resb 4
-dword_1B0270:
+RinkViewCenter:
         resb 4
-dword_1B0274:
+RinkModel:
         resb 4
-dword_1B0278:
+RinkViewTable:
         resb 72
-dword_1B02C0:
+RinkModelParts:
         resb 64
-byte_1B0300:
+RinkColorUsed:
         resb 256
-dword_1B0400:
+ScoreboardFrames:
         resb 8
-dword_1B0408:
+ScoreboardSpin:
         resb 8
-unk_1B0410:
+GlassRemap:
         resb 256
-unk_1B0510:
+BenchRemap:
         resb 256

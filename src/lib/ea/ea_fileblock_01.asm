@@ -2,13 +2,13 @@
 bits 32
 %include "hockey.inc"
 section s_FC88C progbits alloc exec nowrite align=1
-extern _dos_getdate_, _dos_gettime_, str_02d3s02d, str_2d02d02d, DebugTextColor, DebugBackColor, byte_16E63A, ScreenBitsPerPixel
-extern ShadeTable, DebugMode, DebugLineY, DebugLineWidth, DebugLineTable, ShapeRowFunc, dword_1CF298, FontAscent
+extern _dos_getdate_, _dos_gettime_, str_02d3s02d, str_2d02d02d, DebugTextColor, DebugBackColor, DebugLineScale, ScreenBitsPerPixel
+extern ShadeTable, DebugMode, DebugLineY, DebugLineWidth, DebugLineTable, ShapeRowFunc, ShapeDrawDest, FontAscent
 extern FontDescent, TextAlign, CurrentFont, FontHeight, FontWidth, LinkTextFont, FontFirstChar, FontLastChar
 extern FontGlyphTable, FontFlags, TextColor, FontGlyphCount, FontKernTable, TextNextCharFn, FontSpacing, PaletteWords
 extern ShapeRowFuncTable, removewindow, sprintf_, bcopy, ConvertArtPalette16, NextTextByte, NextTextChar, BlitCore
 extern FreeMemBlock, ZeroMem, PrepareTextDraw, vsprintf_
-global jpt_FC910, DebugShowLines_BA, DebugShowLines_CB, DebugShowLines_11F, DebugShowLines_149, DebugShowLines_153, FreeBitmap_30, CopyRowKeyed32_1C
+global DebugShowLinesJumpTable, DebugShowLines_BA, DebugShowLines_CB, DebugShowLines_11F, DebugShowLines_149, DebugShowLines_153, FreeBitmap_30, CopyRowKeyed32_1C
 global DebugSetLine, DebugShowLines, DebugStatusLine, SelectFont, FreeBitmap, CopyRowKeyed8, CopyRowKeyed16, CopyRowKeyed24
 global CopyRowKeyed32, DrawShapeCore
 ;-----------------------------------------------------------------------------
@@ -54,7 +54,7 @@ DebugSetLine:
         pop ebx
         ret
         db 08Bh,0C0h
-jpt_FC910:
+DebugShowLinesJumpTable:
         dd DebugShowLines_BA
         dd DebugShowLines_CB
         dd DebugShowLines_11F
@@ -125,14 +125,14 @@ DebugShowLines:
         cmp al, 4
         ja near DebugShowLines_153.7
         and eax, 0FFh
-        jmp dword [nosplit cs:eax*4+jpt_FC910]
+        jmp dword [nosplit cs:eax*4+DebugShowLinesJumpTable]
 DebugShowLines_BA:
         cmp ebx, byte 2
         jl near DebugShowLines_153.7
         sub ebx, byte 2
         jmp near DebugShowLines_153.7
 DebugShowLines_CB:
-        cmp byte [byte_16E63A], 1
+        cmp byte [DebugLineScale], 1
         jbe near DebugShowLines_153.7
         mov dword [byte esp+04h], 0A0h
         mov edx, ebx
@@ -149,7 +149,7 @@ DebugShowLines_CB:
         sar eax, 1
         xor ebx, ebx
         mov edx, eax
-        mov bl, byte [byte_16E63A]
+        mov bl, byte [DebugLineScale]
         sar edx, 1Fh
         idiv ebx
         inc eax
@@ -286,7 +286,7 @@ DebugStatusLine:
         mov eax, dword [byte esp+04h]
         cmp eax, byte 1
         jl short .5
-        mov byte [byte_16E63A], al
+        mov byte [DebugLineScale], al
 .5:
         ret
         db 090h
@@ -628,7 +628,7 @@ CopyRowKeyed32_1C:
         push ecx
         push esi
         push edi
-        mov edi, dword [dword_1CF298]
+        mov edi, dword [ShapeDrawDest]
         mov esi, edi
 .3:
         mov cl, byte [eax]
@@ -642,7 +642,7 @@ CopyRowKeyed32_1C:
         add edx, byte 2
         dec ebx
         jne short .3
-        mov dword [dword_1CF298], edi
+        mov dword [ShapeDrawDest], edi
         pop edi
         pop esi
         pop ecx
@@ -681,7 +681,7 @@ DrawShapeCore:
         mov edx, esp
         mov eax, esi
         call ConvertArtPalette16
-        mov dword [dword_1CF298], eax
+        mov dword [ShapeDrawDest], eax
         mov dword [ShapeRowFunc], CopyRowKeyed32_1C
 .3:
         mov ecx, ShapeRowFuncTable

@@ -4,49 +4,49 @@ bits 32
 section s_16D768 progbits alloc noexec write align=1
 extern str_STATICS, str_DYNAMICS, str_PLAYERS, str_ROSTERS, str_STATS, str_BRAINS, str_GAMES, str_USERLOGS
 extern str_NHL9596, str_DATA, str_HDB, str_BIX
-global byte_16D784, dword_16D768, dword_16D76C, dword_16D770, dword_16D774, dword_16D778, dword_16D77C, dword_16D780
-global dword_16D788, dword_16D78C, dword_16D790, dword_16D794, dword_16D798, dword_16D79C, dword_16D7A0, dword_16D7A4
-global dword_16D7A8, dword_16D7D0, dword_16D7D4, dword_16D7D8, dword_16D7F0, off_16D7AC, off_16D7B4, off_16D7DC
-global off_16D7E0, off_16D7E4, off_16D7E8, unk_16D7F4, unk_16D7FC, unk_16D804, word_16D7EC, word_16D7EE
-global str_Punct_SetMatchupTeams, word_16D80E, str_Punct_DaysToYear, word_16D860
-dword_16D768:
+global DbFlags, CreditsKeyTimer, CreditsKeyFlag, DbPageNext, DbPageStack, DbPageEnd, DbPageBuffer, DbPageWanted
+global DbGameRecordCount, DbPlayerRecordCount, DbStatRecordCount, DbTeamRecordCount, DbGameRecords, DbPlayerRecords, DbStatRecords, DbTeamRecords
+global DbRecordsLoaded, DbIndexRoot, DbPlayerIndex, DbGameIndex, StaticBuffer, DbFileNames, DbFileExtensions, LeagueFileDir
+global LeagueFilePrefix, DbDirName, DbFileSuffix, DbKeyBuffer, PlayoffDbKey, SeasonDbKey, StaticBufferReady, DbOpen
+global str_Punct_SetMatchupTeams, MatchupTeamCodes, str_Punct_DaysToYear, MonthStartDays
+CreditsKeyTimer:
         db 00h,00h,00h,00h
-dword_16D76C:
+CreditsKeyFlag:
         db 00h,00h,00h,00h
-dword_16D770:
+DbPageNext:
         db 016h,00h,00h,00h
-dword_16D774:
+DbPageStack:
         db 00h,00h,00h,00h
-dword_16D778:
+DbPageEnd:
         db 00h,00h,00h,00h
-dword_16D77C:
+DbPageBuffer:
         db 00h,00h,00h,00h
-dword_16D780:
+DbPageWanted:
         db 00h,00h,00h,00h
-byte_16D784:
+DbFlags:
         db 00h,00h,00h,00h
-dword_16D788:
+DbGameRecordCount:
         db 00h,00h,00h,00h
-dword_16D78C:
+DbPlayerRecordCount:
         db 00h,00h,00h,00h
-dword_16D790:
+DbStatRecordCount:
         db 00h,00h,00h,00h
-dword_16D794:
+DbTeamRecordCount:
         db 00h,00h,00h,00h
-dword_16D798:
+DbGameRecords:
         db 00h,00h,00h,00h
-dword_16D79C:
+DbPlayerRecords:
         db 00h,00h,00h,00h
-dword_16D7A0:
+DbStatRecords:
         db 00h,00h,00h,00h
-dword_16D7A4:
+DbTeamRecords:
         db 00h,00h,00h,00h
-dword_16D7A8:
+DbRecordsLoaded:
         db 00h,00h,00h,00h
-off_16D7AC:
+DbFileNames:
         dd str_STATICS
         dd str_DYNAMICS
-off_16D7B4:
+DbFileExtensions:
         dd str_STATICS
         dd str_PLAYERS
         dd str_ROSTERS
@@ -54,35 +54,35 @@ off_16D7B4:
         dd str_BRAINS
         dd str_GAMES
         dd str_USERLOGS
-dword_16D7D0:
+DbIndexRoot:
         db 00h,00h,00h,00h
-dword_16D7D4:
+DbPlayerIndex:
         db 00h,00h,00h,00h
-dword_16D7D8:
+DbGameIndex:
         db 00h,00h,00h,00h
-off_16D7DC:
+LeagueFileDir:
         dd str_NHL9596
-off_16D7E0:
+LeagueFilePrefix:
         dd str_DATA
-off_16D7E4:
+DbDirName:
         dd str_HDB
-off_16D7E8:
+DbFileSuffix:
         dd str_BIX
-word_16D7EC:
+StaticBufferReady:
         db 00h,00h
-word_16D7EE:
+DbOpen:
         db 00h,00h
-dword_16D7F0:
+StaticBuffer:
         db 00h,00h,00h,00h
-unk_16D7F4:
+DbKeyBuffer:
         db 00h,00h,00h,00h,0FFh,0FFh,0FFh,0FFh
-unk_16D7FC:
+PlayoffDbKey:
         db 00h,00h,00h,00h,00h,00h,00h,00h
-unk_16D804:
+SeasonDbKey:
         db 00h,00h,00h,00h,01h,00h,00h,00h
 str_Punct_SetMatchupTeams:
         db 0Dh,00h
-word_16D80E:
+MatchupTeamCodes:
         db 02Dh,00h,02Ah,00h,01Bh,00h,054h,00h,01Ch,00h,09Eh,00h,01Dh,00h,0C5h,00h
         db 01Eh,00h,0ECh,00h,01Fh,00h,012h,01h,020h,00h,037h,01h,021h,00h,048h,01h
         db 024h,00h,076h,01h,022h,00h,07Bh,01h,023h,00h,0DCh,01h,025h,00h,0E1h,01h
@@ -90,7 +90,7 @@ word_16D80E:
         db 02Ah,00h,0D4h,02h,02Ch,00h,0F4h,02h,02Bh,00h,050h,03h,02Eh,00h,05Dh,03h
 str_Punct_DaysToYear:
         db 02Fh,00h
-word_16D860:
+MonthStartDays:
         db 00h,00h,01Fh,00h,03Bh,00h,05Ah,00h,078h,00h,097h,00h,0B5h,00h,0D4h,00h
         db 0F3h,00h,011h,01h,030h,01h,04Eh,01h,06Dh,01h,00h,00h,01Fh,00h,03Ch,00h
         db 05Bh,00h,079h,00h,098h,00h,0B6h,00h,0D5h,00h,0F4h,00h,012h,01h,031h,01h

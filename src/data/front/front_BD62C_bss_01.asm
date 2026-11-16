@@ -2,76 +2,76 @@
 bits 32
 %include "hockey.inc"
 section s_1CAECC nobits alloc noexec write align=1
-global byte_1CB004, dword_1CAECC, dword_1CAED0, dword_1CAED4, dword_1CAED8, dword_1CAEDC, dword_1CAEE0, dword_1CAEE4
-global dword_1CAEE8, dword_1CAEEC, dword_1CAEF0, dword_1CAEF4, dword_1CAEF8, dword_1CAF8C, dword_1CAF90, dword_1CAF94
-global dword_1CAF98, dword_1CAF9C, dword_1CAFA0, dword_1CAFA4, dword_1CAFA8, dword_1CAFAC, dword_1CAFDC, dword_1CAFE0
-global dword_1CAFE4, dword_1CAFE8, dword_1CAFEC, dword_1CAFF0, dword_1CAFF4, dword_1CAFF8, dword_1CAFFC, dword_1CB000
-global unk_1CAEFC, unk_1CAF3C
-dword_1CAECC:
+global ReplayButtonLit, ReplayMenuX, ReplayControlsX, ReplayCameraX, ReplaySaveX, ReplayMenuY, ReplayControlsY, ReplayCameraY
+global ReplaySaveY, ReplayMenuShape, ReplayControlsShape, ReplayCameraShape, ReplaySaveShape, ReplayMenuResult, ReplayFrameNow, ReplayRemoteShape
+global ReplayBitmap, ReplayLoadBuffer, ReplayFrameTotal, ReplayFont, ReplayMenuBitmap, ReplaySpeedText, ReplayPlayText, ReplayPauseText
+global ReplayRecordText, ReplayStopText, ReplayCameraText, ReplaySpeed, ReplayRecordingOn, ReplayMenuItems, ReplayLastFrame, ReplayStartFrame
+global ReplaySavedPanelModes, ReplayIndexData
+ReplayMenuX:
         resb 4
-dword_1CAED0:
+ReplayControlsX:
         resb 4
-dword_1CAED4:
+ReplayCameraX:
         resb 4
-dword_1CAED8:
+ReplaySaveX:
         resb 4
-dword_1CAEDC:
+ReplayMenuY:
         resb 4
-dword_1CAEE0:
+ReplayControlsY:
         resb 4
-dword_1CAEE4:
+ReplayCameraY:
         resb 4
-dword_1CAEE8:
+ReplaySaveY:
         resb 4
-dword_1CAEEC:
+ReplayMenuShape:
         resb 4
-dword_1CAEF0:
+ReplayControlsShape:
         resb 4
-dword_1CAEF4:
+ReplayCameraShape:
         resb 4
-dword_1CAEF8:
+ReplaySaveShape:
         resb 4
-unk_1CAEFC:
+ReplaySavedPanelModes:
         resb 64
-unk_1CAF3C:
+ReplayIndexData:
         resb 80
-dword_1CAF8C:
+ReplayMenuResult:
         resb 4
-dword_1CAF90:
+ReplayFrameNow:
         resb 4
-dword_1CAF94:
+ReplayRemoteShape:
         resb 4
-dword_1CAF98:
+ReplayBitmap:
         resb 4
-dword_1CAF9C:
+ReplayLoadBuffer:
         resb 4
-dword_1CAFA0:
+ReplayFrameTotal:
         resb 4
-dword_1CAFA4:
+ReplayFont:
         resb 4
-dword_1CAFA8:
+ReplayMenuBitmap:
         resb 4
-dword_1CAFAC:
+ReplaySpeedText:
         resb 48
-dword_1CAFDC:
+ReplayPlayText:
         resb 4
-dword_1CAFE0:
+ReplayPauseText:
         resb 4
-dword_1CAFE4:
+ReplayRecordText:
         resb 4
-dword_1CAFE8:
+ReplayStopText:
         resb 4
-dword_1CAFEC:
+ReplayCameraText:
         resb 4
-dword_1CAFF0:
+ReplaySpeed:
         resb 4
-dword_1CAFF4:
+ReplayRecordingOn:
         resb 4
-dword_1CAFF8:
+ReplayMenuItems:
         resb 4
-dword_1CAFFC:
+ReplayLastFrame:
         resb 4
-dword_1CB000:
+ReplayStartFrame:
         resb 4
-byte_1CB004:
+ReplayButtonLit:
         resb 16

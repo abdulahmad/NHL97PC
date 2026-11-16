@@ -11,13 +11,13 @@ extern str_SR01, str_SR00, str_SG02, str_SG01, str_SG00, str_DT02, str_DT01, str
 extern str_LG02d, str_DIV3, str_DIV4, str_DIV1, str_DIV2, str_Factoid, str_Rts, str_Ross
 extern str_Standmenu, str_FACT, str_LBL1LBL2LBL3LBR1LBR2LTL1L3, str_DDD3, str_Ptlist, str_Idlist, str_List, str_SSSDSS
 extern str_SSDSS, str_SSDSS2, str_SSD02dSS, str_S3, str_S4, str_SSEASDSET, str_Importagents, str_FakeEXHIBIT
-extern str_FakeAGENTS, str_Agents, byte_169038, byte_16CCF0, SeasonFlags, byte_1ACF62, byte_1ACF63, byte_1ACF69
-extern byte_1AD23E, byte_1C6040, byte_1C8700, StandingsColumns, PlayoffColumns, dword_168FB8, dword_168FD0, dword_169004
-extern dword_16CB7C, dword_16CD50, dword_16CD54, dword_16CD58, str_F_NewSeasonScreen, dword_16CD64, dword_16CDD0, dword_16DA9C
-extern SeasonUserTeam, GameOptionFlags, SeasonSlot, SeasonPhase, PlayoffRounds, SeasonActive, dword_1ACF4A, dword_1AD226
-extern dword_1AD22A, dword_1AD244, dword_1C1334, dword_1C5DE0, dword_1C8334, dword_1C84D8, dword_1C8540, dword_1C8568
-extern dword_1C85D0, dword_1C8618, dword_1C8680, dword_1C86E8, dword_1C86EC, dword_1C86F0, dword_1C86F4, dword_1C86F8
-extern dword_1C86FC, dword_1C8A8C, dword_1C8A90, dword_1C94E8, jpt_8E977, jpt_8E987, memcpy_, memset_
+extern str_FakeAGENTS, str_Agents, NewSeasonBannerTeams, FrontEndExit, SeasonFlags, SeasonUserHuman, SeasonUserActive, SeasonUserLocked
+extern SeasonCreated, FrontMusicOn, SeasonTypeCode, StandingsColumns, PlayoffColumns, NewSeasonTeamOrderSmall, NewSeasonTeamOrderLarge, NewSeasonTeamOrderMid
+extern ScreenWipeMode, LangTextLoaded, LangTextHandle, LinkTransferReady, str_F_NewSeasonScreen, NewSeasonArtOffsets, PlayoffFormatTeams, LinkGameActive
+extern SeasonUserTeam, GameOptionFlags, SeasonSlot, SeasonPhase, PlayoffRounds, SeasonActive, NewSeasonUserCount, SeasonDefaultUser
+extern SeasonRandomSeed, SeasonScheduleData, SeasonFileName, PlayMenuGameFlag, SeasonMenuExit, StandingsGoalsFor, SeasonSparkleShapes, StandingsTies
+extern SeasonMenuShapeLists, StandingsWins, StandingsGoalsAgainst, StandingsSortKey, SeasonSparkleSoundOn, SeasonMenuItems, StandingsBuffer, NewSeasonItems
+extern ExhibitionData, PlayoffTeamCount, PlayoffFormat, LinkScreensDone, SeasonLengthJumpTable, PlayoffRoundsJumpTable, memcpy_, memset_
 extern qsort_, rand_, sprintf_, srand_, strcat_, strcpy_, strlen_, BlitShape2
 extern BlitArt, BlitShape, BlitClippedY, PresentScreen, FindShape, Random32, DosFileInfo, FindShapeList
 extern SaveDataFileNew, SetScreenTarget, SeasonGameScreen, MusicEnabled, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx
@@ -32,10 +32,10 @@ extern FindGameRecord, UpdateGameRecord, MakeGoalieStatKey, AddPlayerStat, AddPl
 extern LoadExhibitionFile, SaveExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, ImportTradedPlayers, ImportNewPlayers, AllocImportBuffer, FindReplayIndexEntry
 extern AllocClearBlock, ClearLinkAbort, LinkSendBlock, LinkReceiveBlock, SeasonIntroScreen, AllStarScreen, AllocMemBlock, FreeMemBlock
 extern MakeColor, FreeBitmap, DrawShapeCore, DrawShapeAtOwnPos, DrawArt, CreateBitmap, SetDrawTarget, str_Punct_SeasonMenuScreen
-extern str_Punct_StandingsScreen, str_D_StandingsScreen, unk_16D7F4, unk_16D7FC, GlobalSetVersion, SeasonName, MatchupNote, unk_1ACF4E
-extern unk_1AD22E, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C85DC, unk_1C85E8, unk_1C85F4, unk_1C8600
-extern unk_1C860C, word_1AD240, word_1AD242
-global jpt_912BF, RunNewSeason_DD, RunNewSeason_E6, RunNewSeason_EF, RunNewSeason_F8, RunNewSeason_16F, RunNewSeason_17B, RunNewSeason_187
+extern str_Punct_StandingsScreen, str_D_StandingsScreen, DbKeyBuffer, PlayoffDbKey, GlobalSetVersion, SeasonName, MatchupNote, SeasonUserRecords
+extern SeasonFilePath, ScreenTitleItem, BlankMenuItem, ScreenFrameItem, NewSeasonShapes, SeasonNameShapes, SeasonRecordShapes, SeasonGameShapes
+extern SeasonDateShapes, SeasonLastHome, SeasonLastAway
+global StandingsScreenJumpTable, RunNewSeason_DD, RunNewSeason_E6, RunNewSeason_EF, RunNewSeason_F8, RunNewSeason_16F, RunNewSeason_17B, RunNewSeason_187
 global RunNewSeason_193, NewSeasonScreen_DCB, NewSeasonScreen_DCE, CreateSeason_55B, CreateSeason_561, CreateSeason_562, StandingsScreen_65C, StandingsScreen_685
 global StandingsScreen_699, StandingsScreen_6AD, StandingsScreen_6C1, StandingsScreen_6DD, StandingsScreen_6F4, StandingsScreen_70B, StandingsScreen_718, SortStandings_1EA
 global RunNewSeason, NewSeasonSound, NewSeasonScreen, CreateSeason, RunSeasonMenus, SeasonMenuSparkle, SeasonMenuScreen, StandingsSparkle
@@ -64,7 +64,7 @@ RunNewSeason:
         call memcpy_
         mov dword [GameOptionFlags], SeasonName
         push byte 1
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je short .1
         call ClearLinkAbort
         test eax, eax
@@ -103,15 +103,15 @@ RunNewSeason:
         mov dword [SeasonPhase], ebx
         cmp eax, byte 3
         ja short RunNewSeason_F8.3
-        jmp dword [nosplit cs:eax*4+jpt_8E977]
+        jmp dword [nosplit cs:eax*4+SeasonLengthJumpTable]
 RunNewSeason_DD:
-        mov byte [byte_1C8700], 52h
+        mov byte [SeasonTypeCode], 52h
         jmp short RunNewSeason_F8.3
 RunNewSeason_E6:
-        mov byte [byte_1C8700], 32h
+        mov byte [SeasonTypeCode], 32h
         jmp short RunNewSeason_F8.3
 RunNewSeason_EF:
-        mov byte [byte_1C8700], 19h
+        mov byte [SeasonTypeCode], 19h
         jmp short RunNewSeason_F8.3
 RunNewSeason_F8:
         mov esi, 1
@@ -146,7 +146,7 @@ RunNewSeason_F8:
         lea eax, [byte edi-01h]
         cmp eax, byte 3
         ja short RunNewSeason_193.6
-        jmp dword [nosplit cs:eax*4+jpt_8E987]
+        jmp dword [nosplit cs:eax*4+PlayoffRoundsJumpTable]
 RunNewSeason_16F:
         mov dword [PlayoffRounds], 7
         jmp short RunNewSeason_193.6
@@ -161,21 +161,21 @@ RunNewSeason_193:
 .6:
         cmp esi, byte 1
         jne short .7
-        mov dword [dword_16CB7C], 3
+        mov dword [ScreenWipeMode], 3
 .7:
-        mov eax, dword_1C86FC
+        mov eax, ExhibitionData
         call LoadExhibitionFile
         test eax, eax
         jne short .8
         call ResetExhibitionFile
-        mov eax, dword_1C86FC
+        mov eax, ExhibitionData
         call LoadExhibitionFile
 .8:
-        cmp dword [dword_16CD58], byte 0
+        cmp dword [LinkTransferReady], byte 0
         jne short .9
-        mov eax, dword [dword_1C86FC]
+        mov eax, dword [ExhibitionData]
         call LinkTransferSetup
-        mov dword [dword_16CD58], 1
+        mov dword [LinkTransferReady], 1
 .9:
         cmp esi, byte 1
         je short .12
@@ -188,7 +188,7 @@ RunNewSeason_193:
         je short .11
         jmp short .9
 .10:
-        mov eax, dword [dword_1C86FC]
+        mov eax, dword [ExhibitionData]
         call NewSeasonScreen
         mov esi, eax
         jmp short .9
@@ -196,15 +196,15 @@ RunNewSeason_193:
         xor eax, eax
         mov esi, 6
         call RosterScreen
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         jne short .9
-        mov eax, dword_1C86FC
+        mov eax, ExhibitionData
         call FreeExhibitionFile
-        mov eax, dword_1C86FC
+        mov eax, ExhibitionData
         call LoadExhibitionFile
         jmp short .9
 .12:
-        mov eax, dword_1C86FC
+        mov eax, ExhibitionData
         call FreeExhibitionFile
         mov eax, esi
         jmp near NewSeasonScreen_DCE
@@ -228,7 +228,7 @@ NewSeasonSound:
         mov ebx, 0Ah
         xor edx, edx
         div ebx
-        push dword [nosplit edx*4+dword_1C8540]
+        push dword [nosplit edx*4+SeasonSparkleShapes]
         call DrawShapeAtOwnPos
         add esp, byte 4
 .1:
@@ -236,7 +236,7 @@ NewSeasonSound:
 .2:
         lea eax, [byte ebx+010h]
         imul edx, eax, byte 52h
-        mov eax, dword [dword_1C86F8]
+        mov eax, dword [NewSeasonItems]
         cmp dword [byte edx+eax+04h], byte 1
         jne short .3
         call Random32
@@ -245,7 +245,7 @@ NewSeasonSound:
         div esi
         mov eax, edx
         imul edx, ebx, byte 0Ch
-        push dword [dword edx+eax*4+dword_1C85D0]
+        push dword [dword edx+eax*4+SeasonMenuShapeLists]
         mov esi, 1
         call BlitShape2
         add esp, byte 4
@@ -255,18 +255,18 @@ NewSeasonSound:
         jl short .2
         test esi, esi
         je short .4
-        cmp dword [dword_1C86EC], byte 0
+        cmp dword [SeasonSparkleSoundOn], byte 0
         jne short .4
         mov eax, 309h
         call PlaySfx
-        mov dword [dword_1C86EC], 1
+        mov dword [SeasonSparkleSoundOn], 1
 .4:
         test esi, esi
         jne short .5
-        cmp dword [dword_1C86EC], byte 0
+        cmp dword [SeasonSparkleSoundOn], byte 0
         je short .5
         call StopAllSfx
-        mov dword [dword_1C86EC], esi
+        mov dword [SeasonSparkleSoundOn], esi
 .5:
         pop esi
         pop edx
@@ -288,7 +288,7 @@ NewSeasonScreen:
         push eax
         mov dword [byte ebp-024h], 0
         mov dword [byte ebp-02Ch], 0FFFFFFFFh
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .1
         call MusicEnabled
 .1:
@@ -299,7 +299,7 @@ NewSeasonScreen:
         mov dword [byte ebp-04Ch], eax
         call AllocMemBlock
         add esp, byte 0Ch
-        mov dword [dword_1C86F8], eax
+        mov dword [NewSeasonItems], eax
         mov edx, eax
         mov eax, 13h
         call InitMenuItems
@@ -334,13 +334,13 @@ NewSeasonScreen:
         mov dword [byte ebp-0Ch], eax
         call FindShape
         add esp, byte 8
-        push dword_1C85D0
+        push SeasonMenuShapeLists
         push str_012R013R014R
         push dword [byte ebp-01Ch]
         mov dword [byte ebp-030h], eax
         call FindShapeList
         add esp, byte 0Ch
-        push unk_1C85DC
+        push NewSeasonShapes
         push str_12SR13SR14SR
         push dword [byte ebp-01Ch]
         call FindShapeList
@@ -356,84 +356,84 @@ NewSeasonScreen:
         mov eax, esi
         mov ecx, 52h
         call DrawScreenBackground
-        mov edi, dword [dword_1C86F8]
-        mov esi, unk_1C5EF8
+        mov edi, dword [NewSeasonItems]
+        mov esi, ScreenTitleItem
         rep movsb
-        mov eax, dword [dword_1C86F8]
+        mov eax, dword [NewSeasonItems]
         mov dword [eax], 0
-        mov esi, dword [dword_1C86F8]
+        mov esi, dword [NewSeasonItems]
         mov ecx, 52h
         lea edi, [byte esi+052h]
-        mov esi, unk_1C5F4A
+        mov esi, BlankMenuItem
         rep movsb
-        mov eax, dword [dword_1C86F8]
+        mov eax, dword [NewSeasonItems]
         mov dword [byte eax+052h], 1
-        mov esi, dword [dword_1C86F8]
+        mov esi, dword [NewSeasonItems]
         mov ecx, 52h
         lea edi, [dword esi+05C4h]
-        mov esi, unk_1C5F9C
+        mov esi, ScreenFrameItem
         rep movsb
         push str_WC00
-        mov eax, dword [dword_1C86F8]
+        mov eax, dword [NewSeasonItems]
         push dword [byte ebp-01Ch]
         mov dword [dword eax+05C4h], 12h
         call FindShape
         add esp, byte 8
         push str_WC01
         mov edx, eax
-        mov eax, dword [dword_1C86F8]
+        mov eax, dword [NewSeasonItems]
         push dword [byte ebp-01Ch]
         mov dword [dword eax+04E8h], edx
         call FindShape
         add esp, byte 8
         push str_WC01
         mov edx, eax
-        mov eax, dword [dword_1C86F8]
+        mov eax, dword [NewSeasonItems]
         push dword [byte ebp-01Ch]
         mov dword [dword eax+04ECh], edx
         call FindShape
         add esp, byte 8
         push str_011R
         mov edx, eax
-        mov eax, dword [dword_1C86F8]
+        mov eax, dword [NewSeasonItems]
         push dword [byte ebp-01Ch]
         mov dword [dword eax+04F0h], edx
         call FindShape
         mov edx, eax
-        mov eax, dword [dword_1C86F8]
+        mov eax, dword [NewSeasonItems]
         mov dword [dword eax+0542h], edx
-        mov esi, dword [dword_1C86F8]
+        mov esi, dword [NewSeasonItems]
         mov eax, edx
         add esp, byte 8
         mov dword [dword esi+053Eh], eax
         push str_11SR
-        mov eax, dword [dword_1C86F8]
+        mov eax, dword [NewSeasonItems]
         push dword [byte ebp-01Ch]
         mov dword [dword eax+053Ah], edx
         call FindShape
         mov edx, eax
-        mov eax, dword [dword_1C86F8]
+        mov eax, dword [NewSeasonItems]
         mov dword [dword eax+0594h], edx
-        mov eax, dword [dword_1C86F8]
+        mov eax, dword [NewSeasonItems]
         mov dword [dword eax+0590h], edx
-        mov eax, dword [dword_1C86F8]
+        mov eax, dword [NewSeasonItems]
         mov esi, 0Fh
         add esp, byte 8
         mov dword [dword eax+058Ch], edx
 .2:
         imul eax, esi, byte 52h
         mov dword [byte ebp-044h], eax
-        mov eax, dword [dword_1C86F8]
+        mov eax, dword [NewSeasonItems]
         add eax, dword [byte ebp-044h]
         mov edx, dword [byte eax+01Ah]
         movsx edx, word [byte edx+0Ch]
         mov dword [byte eax+026h], edx
-        mov eax, dword [dword_1C86F8]
+        mov eax, dword [NewSeasonItems]
         add eax, dword [byte ebp-044h]
         mov edx, dword [byte eax+01Ah]
         movsx edx, word [byte edx+0Eh]
         mov dword [byte eax+02Ah], edx
-        mov edi, dword [dword_1C86F8]
+        mov edi, dword [NewSeasonItems]
         add edi, dword [byte ebp-044h]
         mov eax, dword [byte edi+01Ah]
         movsx edx, word [byte eax+06h]
@@ -448,16 +448,16 @@ NewSeasonScreen:
         add edi, eax
         mov eax, edi
         call SetRegionRect
-        mov eax, dword [dword_1C86F8]
+        mov eax, dword [NewSeasonItems]
         add eax, dword [byte ebp-044h]
         mov dword [byte eax+014h], edi
-        mov eax, dword [dword_1C86F8]
+        mov eax, dword [NewSeasonItems]
         add eax, dword [byte ebp-044h]
         inc esi
         mov dword [byte eax+010h], 4
         cmp esi, byte 12h
         jl short .2
-        push dword_1C8540
+        push SeasonSparkleShapes
         push str_LBL1LBL2LBL3LBR1LBR2LTL1L
         push dword [byte ebp-034h]
         call FindShapeList
@@ -473,7 +473,7 @@ NewSeasonScreen:
         call BlitShape2
         add esp, byte 4
 .3:
-        push dword [nosplit esi*4+dword_1C8540]
+        push dword [nosplit esi*4+SeasonSparkleShapes]
         call DrawShapeAtOwnPos
         inc esi
         inc esi
@@ -505,7 +505,7 @@ NewSeasonScreen:
         call SetDrawTarget
         mov eax, dword [byte ebp-0Ch]
         add esp, byte 4
-        sub eax, dword [nosplit esi*8+dword_16CD64]
+        sub eax, dword [nosplit esi*8+NewSeasonArtOffsets]
         push eax
         mov eax, dword [nosplit esi*8+str_F_NewSeasonScreen]
         neg eax
@@ -513,7 +513,7 @@ NewSeasonScreen:
         push dword [byte ebp-08h]
         call BlitArt
         add esp, byte 0Ch
-        mov eax, dword [nosplit esi*8+dword_16CD64]
+        mov eax, dword [nosplit esi*8+NewSeasonArtOffsets]
         push dword 5999h
         sub eax, dword [byte ebp-0Ch]
         push eax
@@ -526,13 +526,13 @@ NewSeasonScreen:
         add eax, dword [byte ebp-018h]
         mov ebx, dword [dword ebx+ebp-0B4h]
         push byte 2Dh
-        movzx eax, byte [dword eax+byte_169038]
+        movzx eax, byte [dword eax+NewSeasonBannerTeams]
         call DrawTeamLogoBanner
         push dword [byte ebp-03Ch]
         call SetDrawTarget
         add esp, byte 4
         mov eax, dword [byte ebp-044h]
-        push dword [nosplit esi*8+dword_16CD64]
+        push dword [nosplit esi*8+NewSeasonArtOffsets]
         mov eax, dword [dword eax+ebp-0B4h]
         push dword [nosplit esi*8+str_F_NewSeasonScreen]
         push dword [byte eax+02Ch]
@@ -582,7 +582,7 @@ NewSeasonScreen:
         mov edx, dword [byte ebp-044h]
         mov eax, dword [byte ebp-0Ch]
         add esp, byte 4
-        sub eax, dword [dword edx+dword_16CD64]
+        sub eax, dword [dword edx+NewSeasonArtOffsets]
         push eax
         mov eax, dword [dword edx+str_F_NewSeasonScreen]
         neg eax
@@ -595,7 +595,7 @@ NewSeasonScreen:
         mov edx, dword [byte ebp-044h]
         mov eax, dword [byte ebp-0Ch]
         add esp, byte 4
-        sub eax, dword [dword edx+dword_16CD64]
+        sub eax, dword [dword edx+NewSeasonArtOffsets]
         push eax
         mov eax, dword [dword edx+str_F_NewSeasonScreen]
         neg eax
@@ -604,7 +604,7 @@ NewSeasonScreen:
         call BlitArt
         mov eax, dword [byte ebp-044h]
         add esp, byte 0Ch
-        mov eax, dword [dword eax+dword_16CD64]
+        mov eax, dword [dword eax+NewSeasonArtOffsets]
         push dword 5999h
         sub eax, dword [byte ebp-0Ch]
         push eax
@@ -618,11 +618,11 @@ NewSeasonScreen:
         add edx, eax
         push byte 2Dh
         mov dword [byte ebp-038h], edx
-        movzx eax, byte [dword edx+byte_169038]
+        movzx eax, byte [dword edx+NewSeasonBannerTeams]
         mov edx, 20h
         call DrawTeamLogoBanner
         mov eax, dword [byte ebp-044h]
-        mov eax, dword [dword eax+dword_16CD64]
+        mov eax, dword [dword eax+NewSeasonArtOffsets]
         push dword 5999h
         sub eax, dword [byte ebp-0Ch]
         push eax
@@ -634,7 +634,7 @@ NewSeasonScreen:
         mov eax, dword [byte ebp-038h]
         mov ebx, dword [dword edi+ebp-0E8h]
         push byte 2Dh
-        movzx eax, byte [dword eax+byte_169038]
+        movzx eax, byte [dword eax+NewSeasonBannerTeams]
         call DrawTeamLogoBanner
         push dword [dword edi+ebp-0E8h]
         call SetDrawTarget
@@ -644,19 +644,19 @@ NewSeasonScreen:
         add esp, byte 4
         call SetTextColor
         mov eax, dword [byte ebp-038h]
-        movzx eax, byte [dword eax+byte_169038]
+        movzx eax, byte [dword eax+NewSeasonBannerTeams]
         imul eax, byte 1Ch
-        add eax, unk_1ACF4E
+        add eax, SeasonUserRecords
         push eax
         push byte 46h
         push byte 2Dh
         push byte 1
         call DrawTextAligned
         mov eax, dword [byte ebp-038h]
-        movzx eax, byte [dword eax+byte_169038]
+        movzx eax, byte [dword eax+NewSeasonBannerTeams]
         imul eax, byte 1Ch
         add esp, byte 10h
-        add eax, unk_1ACF4E
+        add eax, SeasonUserRecords
         call strlen_
         mov edx, eax
         lea eax, [byte esi+02h]
@@ -664,14 +664,14 @@ NewSeasonScreen:
         test edx, edx
         je short .10
         mov ebx, dword [dword edi+ebp-0E8h]
-        mov edx, dword [dword_1C86F8]
+        mov edx, dword [NewSeasonItems]
         mov ebx, dword [byte ebx+02Ch]
         mov dword [byte edx+eax+01Ah], ebx
         mov ebx, dword [dword edi+ebp-0E8h]
-        mov edx, dword [dword_1C86F8]
+        mov edx, dword [NewSeasonItems]
         mov ebx, dword [byte ebx+02Ch]
         mov dword [byte edx+eax+01Eh], ebx
-        mov edx, dword [dword_1C86F8]
+        mov edx, dword [NewSeasonItems]
         mov edi, dword [dword edi+ebp-0E8h]
         add eax, edx
         mov edx, dword [byte edi+02Ch]
@@ -679,42 +679,42 @@ NewSeasonScreen:
         jmp short .11
 .10:
         mov edx, dword [dword edi+ebp-0B4h]
-        mov ebx, dword [dword_1C86F8]
+        mov ebx, dword [NewSeasonItems]
         mov edx, dword [byte edx+02Ch]
         mov dword [byte ebx+eax+01Ah], edx
         mov edx, dword [byte edi+ebp-080h]
-        mov edi, dword [dword_1C86F8]
+        mov edi, dword [NewSeasonItems]
         mov edx, dword [byte edx+02Ch]
         mov dword [byte edi+eax+022h], edx
         mov ebx, edx
-        mov edx, dword [dword_1C86F8]
+        mov edx, dword [NewSeasonItems]
         mov dword [byte edx+eax+01Eh], ebx
 .11:
         lea eax, [byte esi+02h]
         imul eax, byte 52h
         mov dword [byte ebp-044h], eax
-        mov eax, dword [dword_1C86F8]
+        mov eax, dword [NewSeasonItems]
         add eax, dword [byte ebp-044h]
         mov dword [byte eax+010h], 4
         mov eax, esi
         lea edx, [dword ebp-04E8h]
         shl eax, 6
         add eax, edx
-        mov edx, dword [dword_1C86F8]
+        mov edx, dword [NewSeasonItems]
         add edx, dword [byte ebp-044h]
         push byte 63h
         mov dword [byte edx+014h], eax
         mov ecx, 63h
-        mov ebx, dword [nosplit esi*8+dword_16CD64]
+        mov ebx, dword [nosplit esi*8+NewSeasonArtOffsets]
         mov edx, dword [nosplit esi*8+str_F_NewSeasonScreen]
         call SetRegionRect
-        mov eax, dword [dword_1C86F8]
+        mov eax, dword [NewSeasonItems]
         add eax, dword [byte ebp-044h]
         mov edx, dword [nosplit esi*8+str_F_NewSeasonScreen]
         mov dword [byte eax+026h], edx
-        mov eax, dword [dword_1C86F8]
+        mov eax, dword [NewSeasonItems]
         add eax, dword [byte ebp-044h]
-        mov edx, dword [nosplit esi*8+dword_16CD64]
+        mov edx, dword [nosplit esi*8+NewSeasonArtOffsets]
         inc esi
         mov dword [byte eax+02Ah], edx
         cmp esi, byte 0Dh
@@ -727,7 +727,7 @@ NewSeasonScreen:
         mov ecx, NewSeasonSound
         mov ebx, 0FFFFFFFFh
         push eax
-        mov edx, dword [dword_1C86F8]
+        mov edx, dword [NewSeasonItems]
         mov eax, 12h
         call RunMenu
         mov edx, eax
@@ -752,18 +752,18 @@ NewSeasonScreen:
         jmp short .12
 .15:
         call FadeInScreen
-        mov dword [dword_1ACF4A], 0
+        mov dword [NewSeasonUserCount], 0
         xor esi, esi
 .16:
         imul eax, esi, byte 1Ch
-        cmp byte [dword eax+byte_1ACF63], 1
+        cmp byte [dword eax+SeasonUserActive], 1
         jne short .17
-        inc dword [dword_1ACF4A]
+        inc dword [NewSeasonUserCount]
 .17:
         inc esi
         cmp esi, byte 1Ah
         jl short .16
-        cmp dword [dword_1ACF4A], byte 0
+        cmp dword [NewSeasonUserCount], byte 0
         jne short .18
         push byte 0
         mov eax, 30h
@@ -782,14 +782,14 @@ NewSeasonScreen:
         call ExitScreen
         jmp near .12
 .20:
-        mov eax, dword [dword_1C86F8]
+        mov eax, dword [NewSeasonItems]
         add eax, 520h
         call ShowPopupScreen
         mov eax, 2
         call SeasonSetupScreen
         jmp near .12
 .21:
-        mov eax, dword [dword_1C86F8]
+        mov eax, dword [NewSeasonItems]
         add eax, 572h
         mov dword [byte ebp-02Ch], 19h
         call ShowPopupScreen
@@ -814,7 +814,7 @@ NewSeasonScreen:
         add esp, byte 8
         push str_EC01
         mov edx, eax
-        mov eax, dword [dword_1C86F8]
+        mov eax, dword [NewSeasonItems]
         push dword [byte ebp-020h]
         mov dword [dword eax+04E8h], edx
         call FindShape
@@ -838,7 +838,7 @@ NewSeasonScreen:
         add esp, byte 8
         push str_WC01
         mov edx, eax
-        mov eax, dword [dword_1C86F8]
+        mov eax, dword [NewSeasonItems]
         push dword [byte ebp-020h]
         mov dword [dword eax+04E8h], edx
         call FindShape
@@ -846,12 +846,12 @@ NewSeasonScreen:
         push str_WC01
 .24:
         mov edx, eax
-        mov eax, dword [dword_1C86F8]
+        mov eax, dword [NewSeasonItems]
         push dword [byte ebp-020h]
         mov dword [dword eax+04ECh], edx
         call FindShape
         mov edx, eax
-        mov eax, dword [dword_1C86F8]
+        mov eax, dword [NewSeasonItems]
         add esp, byte 8
         mov dword [dword eax+04F0h], edx
         mov ebx, dword [byte ebp-08h]
@@ -899,7 +899,7 @@ NewSeasonScreen:
         call SetDrawTarget
         mov eax, dword [byte ebp-0Ch]
         add esp, byte 4
-        sub eax, dword [dword edi+dword_16CD64]
+        sub eax, dword [dword edi+NewSeasonArtOffsets]
         push eax
         mov eax, dword [dword edi+str_F_NewSeasonScreen]
         neg eax
@@ -912,7 +912,7 @@ NewSeasonScreen:
         call SetDrawTarget
         mov eax, dword [byte ebp-0Ch]
         add esp, byte 4
-        sub eax, dword [dword edi+dword_16CD64]
+        sub eax, dword [dword edi+NewSeasonArtOffsets]
         push eax
         mov eax, dword [dword edi+str_F_NewSeasonScreen]
         neg eax
@@ -925,7 +925,7 @@ NewSeasonScreen:
         call SetDrawTarget
         mov eax, dword [byte ebp-0Ch]
         add esp, byte 4
-        sub eax, dword [dword edi+dword_16CD64]
+        sub eax, dword [dword edi+NewSeasonArtOffsets]
         push eax
         mov eax, dword [dword edi+str_F_NewSeasonScreen]
         neg eax
@@ -933,7 +933,7 @@ NewSeasonScreen:
         push dword [byte ebp-08h]
         call BlitArt
         add esp, byte 0Ch
-        mov eax, dword [dword edi+dword_16CD64]
+        mov eax, dword [dword edi+NewSeasonArtOffsets]
         push dword 5999h
         sub eax, dword [byte ebp-0Ch]
         push eax
@@ -947,10 +947,10 @@ NewSeasonScreen:
         add edx, eax
         push byte 2Dh
         mov dword [byte ebp-028h], edx
-        movzx eax, byte [dword edx+byte_169038]
+        movzx eax, byte [dword edx+NewSeasonBannerTeams]
         mov edx, 10h
         call DrawTeamLogoBanner
-        mov eax, dword [dword edi+dword_16CD64]
+        mov eax, dword [dword edi+NewSeasonArtOffsets]
         push dword 5999h
         sub eax, dword [byte ebp-0Ch]
         push eax
@@ -962,9 +962,9 @@ NewSeasonScreen:
         mov eax, dword [byte ebp-028h]
         mov ebx, dword [byte ebx+ebp-080h]
         push byte 2Dh
-        movzx eax, byte [dword eax+byte_169038]
+        movzx eax, byte [dword eax+NewSeasonBannerTeams]
         call DrawTeamLogoBanner
-        mov eax, dword [dword edi+dword_16CD64]
+        mov eax, dword [dword edi+NewSeasonArtOffsets]
         push dword 5999h
         sub eax, dword [byte ebp-0Ch]
         push eax
@@ -976,12 +976,12 @@ NewSeasonScreen:
         mov eax, dword [byte ebp-028h]
         mov ebx, dword [dword ebx+ebp-0E8h]
         push byte 2Dh
-        movzx eax, byte [dword eax+byte_169038]
+        movzx eax, byte [dword eax+NewSeasonBannerTeams]
         call DrawTeamLogoBanner
         mov eax, dword [byte ebp-028h]
-        movzx eax, byte [dword eax+byte_169038]
+        movzx eax, byte [dword eax+NewSeasonBannerTeams]
         imul eax, byte 1Ch
-        add eax, unk_1ACF4E
+        add eax, SeasonUserRecords
         call strlen_
         mov edx, eax
         lea eax, [byte esi+02h]
@@ -990,12 +990,12 @@ NewSeasonScreen:
         je near .30
         mov edx, dword [byte ebp-010h]
         mov edx, dword [dword edx+ebp-0E8h]
-        mov ebx, dword [dword_1C86F8]
+        mov ebx, dword [NewSeasonItems]
         mov edx, dword [byte edx+02Ch]
         mov dword [byte ebx+eax+01Ah], edx
         mov edx, dword [byte ebp-010h]
         mov edx, dword [dword edx+ebp-0E8h]
-        mov ebx, dword [dword_1C86F8]
+        mov ebx, dword [NewSeasonItems]
         mov edx, dword [byte edx+02Ch]
         mov dword [byte ebx+eax+01Eh], edx
         mov eax, dword [byte ebp-010h]
@@ -1003,7 +1003,7 @@ NewSeasonScreen:
         call SetDrawTarget
         mov eax, dword [byte ebp-0Ch]
         add esp, byte 4
-        sub eax, dword [dword edi+dword_16CD64]
+        sub eax, dword [dword edi+NewSeasonArtOffsets]
         push eax
         mov eax, dword [dword edi+str_F_NewSeasonScreen]
         neg eax
@@ -1011,7 +1011,7 @@ NewSeasonScreen:
         push dword [byte ebp-08h]
         call BlitArt
         add esp, byte 0Ch
-        mov eax, dword [dword edi+dword_16CD64]
+        mov eax, dword [dword edi+NewSeasonArtOffsets]
         push dword 5999h
         sub eax, dword [byte ebp-0Ch]
         push eax
@@ -1023,7 +1023,7 @@ NewSeasonScreen:
         mov eax, dword [byte ebp-028h]
         mov ebx, dword [dword ebx+ebp-0E8h]
         push byte 2Dh
-        movzx eax, byte [dword eax+byte_169038]
+        movzx eax, byte [dword eax+NewSeasonBannerTeams]
         call DrawTeamLogoBanner
         mov eax, dword [byte ebp-010h]
         push dword [dword eax+ebp-0E8h]
@@ -1034,9 +1034,9 @@ NewSeasonScreen:
         add esp, byte 4
         call SetTextColor
         mov eax, dword [byte ebp-028h]
-        movzx eax, byte [dword eax+byte_169038]
+        movzx eax, byte [dword eax+NewSeasonBannerTeams]
         imul eax, byte 1Ch
-        add eax, unk_1ACF4E
+        add eax, SeasonUserRecords
         push eax
         push byte 46h
         push byte 2Dh
@@ -1047,12 +1047,12 @@ NewSeasonScreen:
 .30:
         mov edx, dword [byte ebp-010h]
         mov edx, dword [dword edx+ebp-0B4h]
-        mov edi, dword [dword_1C86F8]
+        mov edi, dword [NewSeasonItems]
         mov edx, dword [byte edx+02Ch]
         mov dword [byte edi+eax+01Ah], edx
         mov edx, dword [byte ebp-010h]
         mov edx, dword [byte edx+ebp-080h]
-        mov ebx, dword [dword_1C86F8]
+        mov ebx, dword [NewSeasonItems]
         mov edx, dword [byte edx+02Ch]
         mov dword [byte ebx+eax+01Eh], edx
 .31:
@@ -1068,7 +1068,7 @@ NewSeasonScreen:
         call BlitShape2
         add esp, byte 4
 .32:
-        push dword [nosplit esi*4+dword_1C8540]
+        push dword [nosplit esi*4+SeasonSparkleShapes]
         call DrawShapeAtOwnPos
         inc esi
         inc esi
@@ -1084,18 +1084,18 @@ NewSeasonScreen:
         je short .35
         cmp dword [byte ebp-048h], byte 8
         jle short .34
-        mov edi, dword [dword esi+dword_168FD0]
+        mov edi, dword [dword esi+NewSeasonTeamOrderLarge]
         jmp short .36
 .34:
-        mov edi, dword [dword esi+dword_169004]
+        mov edi, dword [dword esi+NewSeasonTeamOrderMid]
         jmp short .36
 .35:
-        mov edi, dword [dword esi+dword_168FB8]
+        mov edi, dword [dword esi+NewSeasonTeamOrderSmall]
 .36:
         imul esi, edi, byte 1Ch
         push byte 1
         mov eax, 2Fh
-        mov ebx, unk_1ACF4E
+        mov ebx, SeasonUserRecords
         call GetLangText
         mov ecx, edx
         add ebx, esi
@@ -1113,13 +1113,13 @@ NewSeasonScreen:
         test edx, edx
         je near .38
         mov edx, dword [dword eax+ebp-0F0h]
-        mov eax, dword [dword_1C86F8]
+        mov eax, dword [NewSeasonItems]
         mov edx, dword [byte edx+02Ch]
         mov dword [byte ebx+eax+01Ah], edx
         mov eax, dword [byte ebp-048h]
         mov edx, dword [dword ebp+eax*4-0F0h]
         imul eax, byte 52h
-        mov ebx, dword [dword_1C86F8]
+        mov ebx, dword [NewSeasonItems]
         mov edx, dword [byte edx+02Ch]
         mov dword [byte ebx+eax+01Eh], edx
         mov eax, dword [byte ebp-048h]
@@ -1128,8 +1128,8 @@ NewSeasonScreen:
         mov eax, dword [byte ebp-048h]
         mov edx, dword [byte ebp-0Ch]
         add esp, byte 4
-        sub edx, dword [nosplit eax*8+dword_16CD54]
-        mov eax, dword [nosplit eax*8+dword_16CD50]
+        sub edx, dword [nosplit eax*8+LangTextHandle]
+        mov eax, dword [nosplit eax*8+LangTextLoaded]
         push edx
         neg eax
         push eax
@@ -1137,11 +1137,11 @@ NewSeasonScreen:
         call BlitArt
         mov eax, dword [byte ebp-048h]
         add esp, byte 0Ch
-        mov edx, dword [nosplit eax*8+dword_16CD54]
+        mov edx, dword [nosplit eax*8+LangTextHandle]
         push dword 5999h
         sub edx, dword [byte ebp-0Ch]
         push edx
-        push dword [nosplit eax*8+dword_16CD50]
+        push dword [nosplit eax*8+LangTextLoaded]
         push byte 28h
         mov ecx, dword [byte ebp-08h]
         mov ebx, dword [dword ebp+eax*4-0F0h]
@@ -1159,38 +1159,38 @@ NewSeasonScreen:
         push byte 1
         call DrawTextAligned
         add esp, byte 10h
-        mov byte [dword esi+byte_1ACF63], 1
-        cmp dword [dword_16DA9C], byte 0
+        mov byte [dword esi+SeasonUserActive], 1
+        cmp dword [LinkGameActive], byte 0
         je short .37
         call ClearLinkAbort
         test eax, eax
         jne short .37
-        mov byte [dword esi+byte_1ACF62], 2
+        mov byte [dword esi+SeasonUserHuman], 2
         jmp short .39
 .37:
         imul eax, edi, byte 1Ch
-        mov byte [dword eax+byte_1ACF62], 0
+        mov byte [dword eax+SeasonUserHuman], 0
         jmp short .39
 .38:
         mov eax, dword [dword eax+ebp-0BCh]
-        mov edx, dword [dword_1C86F8]
+        mov edx, dword [NewSeasonItems]
         mov eax, dword [byte eax+02Ch]
         mov dword [byte edx+ebx+01Ah], eax
         mov eax, dword [byte ebp-048h]
         mov edx, dword [dword ebp+eax*4-088h]
         imul eax, byte 52h
-        mov ebx, dword [dword_1C86F8]
+        mov ebx, dword [NewSeasonItems]
         mov edx, dword [byte edx+02Ch]
         mov dword [byte ebx+eax+01Eh], edx
-        mov byte [dword esi+byte_1ACF63], 0
+        mov byte [dword esi+SeasonUserActive], 0
 .39:
-        mov dword [dword_1ACF4A], 0
+        mov dword [NewSeasonUserCount], 0
         xor esi, esi
         imul eax, edi, byte 1Ch
 .40:
-        cmp byte [dword eax+byte_1ACF63], 1
+        cmp byte [dword eax+SeasonUserActive], 1
         jne short .41
-        inc dword [dword_1ACF4A]
+        inc dword [NewSeasonUserCount]
 .41:
         inc esi
         cmp esi, byte 1Ah
@@ -1211,7 +1211,7 @@ NewSeasonScreen:
         add esp, byte 4
         cmp esi, byte 0Dh
         jl short .43
-        push dword [dword_1C86F8]
+        push dword [NewSeasonItems]
         call FreeMemBlock
         add esp, byte 4
         push dword [byte ebp-034h]
@@ -1220,7 +1220,7 @@ NewSeasonScreen:
         push dword [byte ebp-020h]
         call FreeMemBlock
         add esp, byte 4
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short NewSeasonScreen_DCB
         call MusicEnabled
 NewSeasonScreen_DCB:
@@ -1254,29 +1254,29 @@ CreateSeason:
         xor edx, edx
         call rand_
         div ebx
-        mov dword [dword_1AD22A], edx
-        cmp dword [dword_16DA9C], byte 0
+        mov dword [SeasonRandomSeed], edx
+        cmp dword [LinkGameActive], byte 0
         je short .2
         call ClearLinkAbort
         test eax, eax
         je short .1
         mov edx, 4
-        mov eax, dword_1AD22A
+        mov eax, SeasonRandomSeed
         xor ebx, ebx
         call LinkSendBlock
         jmp short .2
 .1:
         mov edx, 4
-        mov eax, dword_1AD22A
+        mov eax, SeasonRandomSeed
         xor ebx, ebx
         call LinkReceiveBlock
 .2:
         lea edx, [byte ebp+076h]
-        mov eax, unk_16D7FC
+        mov eax, PlayoffDbKey
         call OpenLeagueFile
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         jne short .4
-        movzx eax, byte [byte_1C8700]
+        movzx eax, byte [SeasonTypeCode]
         imul eax, byte 1Ah
         cdq
         LD sub, eax, edx
@@ -1284,7 +1284,7 @@ CreateSeason:
         lea ebx, [byte ebp+072h]
         cwde
         mov edx, esi
-        mov edi, dword_1AD244
+        mov edi, SeasonScheduleData
         call CreateSeasonSchedule
 .3:
         lea eax, [byte ebp+032h]
@@ -1315,7 +1315,7 @@ CreateSeason:
         call LinkSendBlock
         lea eax, [byte ebp+062h]
         push eax
-        movzx eax, byte [byte_1C8700]
+        movzx eax, byte [SeasonTypeCode]
         imul eax, byte 1Ah
         cdq
         LD sub, eax, edx
@@ -1324,7 +1324,7 @@ CreateSeason:
         lea ebx, [byte ebp+072h]
         cwde
         mov edx, esi
-        mov edi, dword_1AD244
+        mov edi, SeasonScheduleData
         call CreateSeasonFile
         jmp near .3
 .5:
@@ -1342,7 +1342,7 @@ CreateSeason:
         call LinkReceiveBlock
         lea eax, [byte ebp+062h]
         push eax
-        movzx eax, byte [byte_1C8700]
+        movzx eax, byte [SeasonTypeCode]
         imul eax, byte 1Ah
         cdq
         LD sub, eax, edx
@@ -1351,7 +1351,7 @@ CreateSeason:
         lea ebx, [byte ebp+072h]
         cwde
         mov edx, esi
-        mov edi, dword_1AD244
+        mov edi, SeasonScheduleData
         call CreateSeasonFile
         lea edx, [byte ebp+05Ah]
         lea eax, [byte ebp+032h]
@@ -1377,9 +1377,9 @@ CreateSeason:
         mov dword [byte ebp+07Eh], edi
         jmp near .14
 .9:
-        cmp byte [byte_1C8700], 52h
+        cmp byte [SeasonTypeCode], 52h
         je short .11
-        cmp byte [byte_1C8700], 32h
+        cmp byte [SeasonTypeCode], 32h
         jne short .10
         mov edx, dword [byte ebp+07Eh]
         mov eax, dword [byte ebp+076h]
@@ -1393,7 +1393,7 @@ CreateSeason:
         cmp byte [dword eax+ebp-03CAh], 0
         je short .11
 .10:
-        cmp byte [byte_1C8700], 19h
+        cmp byte [SeasonTypeCode], 19h
         jne near .13
         mov edx, dword [byte ebp+07Eh]
         mov eax, dword [byte ebp+076h]
@@ -1442,7 +1442,7 @@ CreateSeason:
         movsx esi, byte [byte esi+eax+01h]
         add esi, edx
         inc byte [dword esi+ebp-03CAh]
-        cmp byte [byte_1C8700], 32h
+        cmp byte [SeasonTypeCode], 32h
         je short .12
         mov ebx, dword [byte ebp+076h]
         mov edx, dword [byte ebx+020h]
@@ -1464,16 +1464,16 @@ CreateSeason:
         mov eax, dword [byte ebp+072h]
         call WriteLeagueHeader
         mov esi, dword [byte ebp+072h]
-        mov edi, unk_1AD22E
+        mov edi, SeasonFilePath
         lea esi, [byte esi+04h]
         mov edx, 1
         xor ebx, ebx
         movsd
         movsd
         lea eax, [byte ebp-06Eh]
-        mov byte [byte_1AD23E], 1
-        mov word [word_1AD240], 0FFFFh
-        mov word [word_1AD242], 0FFFFh
+        mov byte [SeasonCreated], 1
+        mov word [SeasonLastHome], 0FFFFh
+        mov word [SeasonLastAway], 0FFFFh
         call MakeDirPath
         lea eax, [byte ebp-06Eh]
         push eax
@@ -1521,7 +1521,7 @@ CreateSeason:
         mov dword [SeasonSlot], eax
 .17:
         imul ebx, dword [byte ebp+07Eh], byte 1Ch
-        cmp byte [dword ebx+unk_1ACF4E], 0
+        cmp byte [dword ebx+SeasonUserRecords], 0
         jne short .18
         mov edx, dword [byte ebp+07Eh]
         mov eax, dword [byte ebp+072h]
@@ -1530,7 +1530,7 @@ CreateSeason:
         add eax, edx
         lea edx, [dword ebp-0126h]
         call FindTeamRecord
-        mov eax, unk_1ACF4E
+        mov eax, SeasonUserRecords
         lea edx, [dword ebp-0E8h]
         add eax, ebx
         call strcpy_
@@ -1561,7 +1561,7 @@ CreateSeason:
         call FreeDbBlock
 .19:
         mov edx, SeasonUserTeam
-        mov eax, unk_1AD22E
+        mov eax, SeasonFilePath
         call OpenLeagueFile
         mov dword [GameOptionFlags], SeasonName
         test byte [SeasonFlags], 1
@@ -1633,10 +1633,10 @@ CreateSeason_562:
 RunSeasonMenus:
         push edx
         mov edx, 0Ch
-        cmp dword [dword_1C8334], byte 0
+        cmp dword [SeasonMenuExit], byte 0
         je short .7
         mov edx, 1Ch
-        mov dword [dword_1C8334], 0
+        mov dword [SeasonMenuExit], 0
         jmp short .7
 .1:
         cmp edx, byte 0Ch
@@ -1687,7 +1687,7 @@ RunSeasonMenus:
         jmp short .4
 .11:
         mov edx, 0Ch
-        mov byte [byte_16CCF0], 0
+        mov byte [FrontEndExit], 0
         call RunStatsMenu
         jmp short .7
 .12:
@@ -1703,7 +1703,7 @@ RunSeasonMenus:
         cmp edx, byte 0Eh
         jne short .15
         call ClearTeamInjuries
-        mov dword [dword_1C94E8], 1
+        mov dword [LinkScreensDone], 1
 .15:
         mov eax, edx
         pop edx
@@ -1728,7 +1728,7 @@ SeasonMenuSparkle:
         mov ebx, 0Ah
         xor edx, edx
         div ebx
-        push dword [nosplit edx*4+dword_1C8540]
+        push dword [nosplit edx*4+SeasonSparkleShapes]
         call DrawShapeAtOwnPos
         add esp, byte 4
 .1:
@@ -1736,7 +1736,7 @@ SeasonMenuSparkle:
 .2:
         lea eax, [byte ebx+02h]
         imul edx, eax, byte 52h
-        mov eax, dword [dword_1C86F0]
+        mov eax, dword [SeasonMenuItems]
         cmp dword [byte edx+eax+04h], byte 1
         jne short .3
         call Random32
@@ -1745,7 +1745,7 @@ SeasonMenuSparkle:
         div esi
         mov eax, edx
         imul edx, ebx, byte 0Ch
-        push dword [dword edx+eax*4+dword_1C85D0]
+        push dword [dword edx+eax*4+SeasonMenuShapeLists]
         mov esi, 1
         call BlitShape2
         add esp, byte 4
@@ -1755,18 +1755,18 @@ SeasonMenuSparkle:
         jl short .2
         test esi, esi
         je short .4
-        cmp dword [dword_1C86EC], byte 0
+        cmp dword [SeasonSparkleSoundOn], byte 0
         jne short .4
         mov eax, 309h
         call PlaySfx
-        mov dword [dword_1C86EC], 1
+        mov dword [SeasonSparkleSoundOn], 1
 .4:
         test esi, esi
         jne short .5
-        cmp dword [dword_1C86EC], byte 0
+        cmp dword [SeasonSparkleSoundOn], byte 0
         je short .5
         call StopAllSfx
-        mov dword [dword_1C86EC], esi
+        mov dword [SeasonSparkleSoundOn], esi
 .5:
         pop esi
         pop edx
@@ -1795,7 +1795,7 @@ SeasonMenuScreen:
         xor esi, esi
 .1:
         imul eax, esi, byte 1Ch
-        cmp byte [dword eax+byte_1ACF63], 1
+        cmp byte [dword eax+SeasonUserActive], 1
         jne short .2
         mov eax, dword [nosplit esi*4+PlayoffColumns]
         mov dword [byte ebp-024h], eax
@@ -1816,7 +1816,7 @@ SeasonMenuScreen:
         mov dword [byte ebp-034h], eax
         call AllocMemBlock
         add esp, byte 0Ch
-        mov dword [dword_1C86F0], eax
+        mov dword [SeasonMenuItems], eax
         mov eax, 3
         xor edx, edx
         call SecondsToSamples
@@ -1836,43 +1836,43 @@ SeasonMenuScreen:
         mov eax, 3
         call SecondsToSamples
         call WaitSoundTime
-        push dword_1C85D0
+        push SeasonMenuShapeLists
         push str_SD00SD01SD02SD03
         push ebx
         call FindShapeList
         add esp, byte 0Ch
-        push unk_1C85DC
+        push NewSeasonShapes
         push str_RL00RL01RL02RL03
         push ebx
         call FindShapeList
         add esp, byte 0Ch
-        push unk_1C85E8
+        push SeasonNameShapes
         push str_SN00SN01SN02SN03
         push ebx
         call FindShapeList
         add esp, byte 0Ch
-        push unk_1C85F4
+        push SeasonRecordShapes
         push str_SR00SR01SR02SR03
         push ebx
         call FindShapeList
         add esp, byte 0Ch
-        push unk_1C8600
+        push SeasonGameShapes
         push str_SG00SG01SG02SG03
         push ebx
         call FindShapeList
         add esp, byte 0Ch
-        push unk_1C860C
+        push SeasonDateShapes
         push str_DT00DT01DT02DT03
         push ebx
         call FindShapeList
         add esp, byte 0Ch
-        push dword_1C8540
+        push SeasonSparkleShapes
         push str_LBL1LBL2LBL3LBR1LBR2LTL1L2
         push esi
         call FindShapeList
         add esp, byte 0Ch
         mov eax, 24h
-        mov edx, dword [dword_1C86F0]
+        mov edx, dword [SeasonMenuItems]
         call InitMenuItems
         cmp dword [byte ebp-024h], byte 3
         jne short .3
@@ -1889,32 +1889,32 @@ SeasonMenuScreen:
         mov ecx, 52h
         mov edx, ebx
         mov eax, ebx
-        mov esi, unk_1C5EF8
+        mov esi, ScreenTitleItem
         call DrawScreenBackground
-        mov edi, dword [dword_1C86F0]
+        mov edi, dword [SeasonMenuItems]
         rep movsb
-        mov eax, dword [dword_1C86F0]
+        mov eax, dword [SeasonMenuItems]
         mov dword [eax], 0
-        mov esi, dword [dword_1C86F0]
+        mov esi, dword [SeasonMenuItems]
         mov ecx, 52h
         lea edi, [byte esi+052h]
-        mov esi, unk_1C5F4A
+        mov esi, BlankMenuItem
         rep movsb
-        mov eax, dword [dword_1C86F0]
+        mov eax, dword [SeasonMenuItems]
         mov dword [byte eax+052h], 1
-        mov esi, dword [dword_1C86F0]
+        mov esi, dword [SeasonMenuItems]
         mov ecx, 52h
         lea edi, [dword esi+0B36h]
-        mov esi, unk_1C5F9C
+        mov esi, ScreenFrameItem
         rep movsb
-        mov eax, dword [dword_1C86F0]
+        mov eax, dword [SeasonMenuItems]
         mov dword [dword eax+0B36h], 23h
         lea eax, [dword ebp-09C0h]
         push eax
         mov ebx, str_SD00
         mov edx, dword [byte ebp-018h]
         push str_SD02
-        mov eax, dword [dword_1C86F0]
+        mov eax, dword [SeasonMenuItems]
         mov ecx, str_SD01
         add eax, 0A4h
         call DrawStatTable
@@ -1923,7 +1923,7 @@ SeasonMenuScreen:
         mov ecx, str_RL01
         mov ebx, str_RL00
         push str_RL02
-        mov eax, dword [dword_1C86F0]
+        mov eax, dword [SeasonMenuItems]
         mov edx, dword [byte ebp-018h]
         add eax, 0F6h
         call DrawStatTable
@@ -1932,7 +1932,7 @@ SeasonMenuScreen:
         mov ecx, str_SN01
         mov ebx, str_SN00
         push str_SN02
-        mov eax, dword [dword_1C86F0]
+        mov eax, dword [SeasonMenuItems]
         mov edx, dword [byte ebp-018h]
         add eax, 148h
         call DrawStatTable
@@ -1941,7 +1941,7 @@ SeasonMenuScreen:
         mov ecx, str_SR01
         mov ebx, str_SR00
         push str_SR02
-        mov eax, dword [dword_1C86F0]
+        mov eax, dword [SeasonMenuItems]
         mov edx, dword [byte ebp-018h]
         add eax, 19Ah
         call DrawStatTable
@@ -1950,7 +1950,7 @@ SeasonMenuScreen:
         mov ecx, str_SG01
         mov ebx, str_SG00
         push str_SG02
-        mov eax, dword [dword_1C86F0]
+        mov eax, dword [SeasonMenuItems]
         mov edx, dword [byte ebp-018h]
         add eax, 1ECh
         call DrawStatTable
@@ -1959,7 +1959,7 @@ SeasonMenuScreen:
         mov ecx, str_DT01
         mov ebx, str_DT00
         push str_DT02
-        mov eax, dword [dword_1C86F0]
+        mov eax, dword [SeasonMenuItems]
         mov edx, dword [byte ebp-018h]
         add eax, 23Eh
         call DrawStatTable
@@ -1978,7 +1978,7 @@ SeasonMenuScreen:
         mov ebx, str_EC00
         push str_EC01
 .6:
-        mov eax, dword [dword_1C86F0]
+        mov eax, dword [SeasonMenuItems]
         mov edx, dword [byte ebp-018h]
         add eax, 0AE4h
         call DrawStatTable
@@ -2041,7 +2041,7 @@ SeasonMenuScreen:
         mov dword [dword ebx+ebp-0B0h], eax
         imul eax, esi, byte 1Ch
         add esp, byte 0Ch
-        cmp byte [dword eax+byte_1ACF63], 1
+        cmp byte [dword eax+SeasonUserActive], 1
         jne near .21
         xor ebx, ebx
 .12:
@@ -2060,7 +2060,7 @@ SeasonMenuScreen:
         call SetDrawTarget
         imul eax, esi, byte 1Ch
         add esp, byte 4
-        cmp byte [dword eax+byte_1ACF62], 1
+        cmp byte [dword eax+SeasonUserHuman], 1
         je short .14
         push byte 0FFFFFFFFh
         jmp short .17
@@ -2127,7 +2127,7 @@ SeasonMenuScreen:
         call DrawArt
         imul eax, esi, byte 1Ch
         add esp, byte 0Ch
-        add eax, unk_1ACF4E
+        add eax, SeasonUserRecords
         push eax
         push byte 0
         push byte 3Ch
@@ -2139,7 +2139,7 @@ SeasonMenuScreen:
         jl near .12
         jmp near .24
 .21:
-        cmp byte [dword eax+byte_1ACF63], 0
+        cmp byte [dword eax+SeasonUserActive], 0
         jne near .24
         push dword [dword ebx+ebp-0118h]
         call SetDrawTarget
@@ -2192,7 +2192,7 @@ SeasonMenuScreen:
         call DrawArt
         imul eax, esi, byte 1Ch
         add esp, byte 0Ch
-        add eax, unk_1ACF4E
+        add eax, SeasonUserRecords
         push eax
         push byte 0
         push byte 3Ch
@@ -2202,14 +2202,14 @@ SeasonMenuScreen:
 .24:
         lea ebx, [byte esi+08h]
         imul ebx, byte 52h
-        mov eax, dword [dword_1C86F0]
+        mov eax, dword [SeasonMenuItems]
         mov edx, dword [byte ebp-028h]
         mov dword [byte ebx+eax+026h], edx
-        mov eax, dword [dword_1C86F0]
+        mov eax, dword [SeasonMenuItems]
         mov edx, dword [byte ebp-030h]
         mov dword [byte ebx+eax+02Ah], edx
         imul eax, esi, byte 1Ch
-        cmp byte [dword eax+byte_1ACF63], 1
+        cmp byte [dword eax+SeasonUserActive], 1
         jne near .26
         mov eax, esi
         shl eax, 2
@@ -2219,31 +2219,31 @@ SeasonMenuScreen:
         cmp byte [byte ebp-014h], 0
         je short .25
         mov edi, dword [dword eax+ebp-0B0h]
-        mov edx, dword [dword_1C86F0]
+        mov edx, dword [SeasonMenuItems]
         mov ecx, dword [byte edi+02Ch]
         mov dword [byte edx+ebx+01Ah], ecx
         mov edx, dword [dword eax+ebp-0B0h]
-        mov edi, dword [dword_1C86F0]
+        mov edi, dword [SeasonMenuItems]
         mov edx, dword [byte edx+02Ch]
         mov dword [byte edi+ebx+01Eh], edx
         mov eax, dword [dword eax+ebp-0B0h]
-        mov edx, dword [dword_1C86F0]
+        mov edx, dword [SeasonMenuItems]
         mov eax, dword [byte eax+02Ch]
         mov dword [byte edx+ebx+022h], eax
         mov byte [byte ebp-014h], 0
-        mov dword [dword_1AD226], esi
+        mov dword [SeasonDefaultUser], esi
         jmp near .27
 .25:
         mov edi, dword [dword eax+ebp-0118h]
-        mov edx, dword [dword_1C86F0]
+        mov edx, dword [SeasonMenuItems]
         mov ecx, dword [byte edi+02Ch]
         mov dword [byte edx+ebx+01Ah], ecx
         mov edi, dword [dword eax+ebp-0B0h]
-        mov edx, dword [dword_1C86F0]
+        mov edx, dword [SeasonMenuItems]
         mov ecx, dword [byte edi+02Ch]
         mov dword [byte edx+ebx+01Eh], ecx
         mov eax, dword [dword eax+ebp-0B0h]
-        mov edx, dword [dword_1C86F0]
+        mov edx, dword [SeasonMenuItems]
         mov eax, dword [byte eax+02Ch]
         mov dword [byte edx+ebx+022h], eax
         jmp short .27
@@ -2256,15 +2256,15 @@ SeasonMenuScreen:
         lea edi, [byte esi+08h]
         imul edi, byte 52h
         mov edx, dword [dword eax+ebp-0118h]
-        mov ebx, dword [dword_1C86F0]
+        mov ebx, dword [SeasonMenuItems]
         mov edx, dword [byte edx+02Ch]
         mov dword [byte edi+ebx+01Ah], edx
         mov edx, dword [dword eax+ebp-0118h]
-        mov ebx, dword [dword_1C86F0]
+        mov ebx, dword [SeasonMenuItems]
         mov edx, dword [byte edx+02Ch]
         mov dword [byte edi+ebx+01Eh], edx
         mov edx, dword [dword eax+ebp-0118h]
-        mov eax, dword [dword_1C86F0]
+        mov eax, dword [SeasonMenuItems]
         mov edx, dword [byte edx+02Ch]
         mov dword [byte edi+eax+022h], edx
 .27:
@@ -2273,7 +2273,7 @@ SeasonMenuScreen:
         jne short .28
         lea edx, [byte esi+08h]
         imul edx, byte 52h
-        mov eax, dword [dword_1C86F0]
+        mov eax, dword [SeasonMenuItems]
         mov dword [byte edx+eax+010h], 4
         mov eax, esi
         shl eax, 6
@@ -2281,7 +2281,7 @@ SeasonMenuScreen:
         add eax, 180h
         push byte 14h
         add edi, eax
-        mov eax, dword [dword_1C86F0]
+        mov eax, dword [SeasonMenuItems]
         mov ecx, 0A0h
         mov ebx, dword [byte ebp-030h]
         mov dword [byte edx+eax+014h], edi
@@ -2347,7 +2347,7 @@ SeasonMenuScreen:
         add esp, byte 4
         mov esi, 1
 .31:
-        push dword [nosplit esi*4+dword_1C8540]
+        push dword [nosplit esi*4+SeasonSparkleShapes]
         call DrawShapeAtOwnPos
         inc esi
         inc esi
@@ -2358,7 +2358,7 @@ SeasonMenuScreen:
 .32:
         lea edx, [byte esi+02h]
         imul edx, byte 52h
-        mov eax, dword [dword_1C86F0]
+        mov eax, dword [SeasonMenuItems]
         push dword [byte edx+eax+02Ah]
         push dword [byte edx+eax+026h]
         push dword [byte edx+eax+01Ah]
@@ -2381,7 +2381,7 @@ SeasonMenuScreen:
         mov ecx, SeasonMenuSparkle
         mov ebx, 0FFFFFFFFh
         push eax
-        mov edx, dword [dword_1C86F0]
+        mov edx, dword [SeasonMenuItems]
         mov eax, 23h
         call RunMenu
         cmp dword [byte ebp-040h], byte 4
@@ -2415,8 +2415,8 @@ SeasonMenuScreen:
         jmp near .34
 .38:
         call FadeInScreen
-        imul eax, dword [dword_1AD226], byte 1Ch
-        cmp byte [dword eax+byte_1ACF62], 1
+        imul eax, dword [SeasonDefaultUser], byte 1Ch
+        cmp byte [dword eax+SeasonUserHuman], 1
         jne short .41
         push byte 1
         mov edx, 1
@@ -2435,21 +2435,21 @@ SeasonMenuScreen:
         call ExitScreen
         jmp near .34
 .43:
-        mov eax, dword [dword_1C86F0]
+        mov eax, dword [SeasonMenuItems]
         add eax, 0A4h
         mov dword [byte ebp-02Ch], 1Dh
 .44:
         call ShowPopupScreen
         jmp near .34
 .45:
-        mov eax, dword [dword_1C86F0]
+        mov eax, dword [SeasonMenuItems]
         add eax, 0F6h
         call ShowPopupScreen
         mov eax, 2
         call SeasonSetupScreen
         jmp near .34
 .46:
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         jne short .47
         push byte 0
         mov eax, 248h
@@ -2458,13 +2458,13 @@ SeasonMenuScreen:
         mov edx, ecx
         jmp short .40
 .47:
-        imul eax, dword [dword_1AD226], byte 1Ch
-        cmp byte [dword eax+byte_1ACF62], 2
+        imul eax, dword [SeasonDefaultUser], byte 1Ch
+        cmp byte [dword eax+SeasonUserHuman], 2
         jne short .48
-        mov byte [dword eax+byte_1ACF62], 0
+        mov byte [dword eax+SeasonUserHuman], 0
         jmp near .33
 .48:
-        cmp byte [dword eax+byte_1ACF62], 1
+        cmp byte [dword eax+SeasonUserHuman], 1
         jne short .49
         push byte 0
         mov eax, 249h
@@ -2475,17 +2475,17 @@ SeasonMenuScreen:
         call ShowMessageBox
         jmp near .33
 .49:
-        cmp byte [dword eax+byte_1ACF62], 0
+        cmp byte [dword eax+SeasonUserHuman], 0
         jne near .33
-        mov byte [dword eax+byte_1ACF62], 2
+        mov byte [dword eax+SeasonUserHuman], 2
         jmp near .33
 .50:
-        mov eax, dword [dword_1C86F0]
+        mov eax, dword [SeasonMenuItems]
         add eax, 19Ah
         mov dword [byte ebp-02Ch], 19h
         jmp near .44
 .51:
-        mov eax, dword [dword_1C86F0]
+        mov eax, dword [SeasonMenuItems]
         add eax, 1ECh
         mov dword [byte ebp-02Ch], 2
         jmp near .44
@@ -2500,19 +2500,19 @@ SeasonMenuScreen:
         call strcpy_
 .53:
         imul eax, esi, byte 1Ch
-        cmp byte [dword eax+byte_1ACF63], 1
+        cmp byte [dword eax+SeasonUserActive], 1
         jne short .54
         inc dword [byte ebp-03Ch]
 .54:
-        cmp esi, dword [dword_1AD226]
+        cmp esi, dword [SeasonDefaultUser]
         je short .55
         imul eax, esi, byte 1Ch
-        cmp byte [dword eax+byte_1ACF62], 1
+        cmp byte [dword eax+SeasonUserHuman], 1
         jne short .56
 .55:
         imul edx, esi, byte 1Ch
         mov eax, dword [byte ebp-034h]
-        add edx, unk_1ACF4E
+        add edx, SeasonUserRecords
         call strcat_
         mov edx, str_Punct_SeasonMenuScreen
         mov eax, dword [byte ebp-034h]
@@ -2540,15 +2540,15 @@ SeasonMenuScreen:
         mov byte [byte ebp-014h], 1
         xor esi, esi
 .58:
-        cmp esi, dword [dword_1AD226]
+        cmp esi, dword [SeasonDefaultUser]
         je short .59
         imul eax, esi, byte 1Ch
-        cmp byte [dword eax+byte_1ACF62], 1
+        cmp byte [dword eax+SeasonUserHuman], 1
         jne near .64
 .59:
         imul eax, esi, byte 1Ch
         push dword 0FF505050h
-        mov byte [dword eax+byte_1ACF63], 0
+        mov byte [dword eax+SeasonUserActive], 0
         call MakeColor
         add esp, byte 4
         call SetTextColor
@@ -2559,7 +2559,7 @@ SeasonMenuScreen:
         add esp, byte 4
         cmp dword [nosplit esi*4+PlayoffColumns], byte 3
         jne short .60
-        mov edx, dword [dword_1C86F0]
+        mov edx, dword [SeasonMenuItems]
         add eax, edx
         mov edx, dword [byte ebp-01Ch]
         movsx edx, word [byte edx+0Eh]
@@ -2571,7 +2571,7 @@ SeasonMenuScreen:
         push str_BGWS
         jmp short .61
 .60:
-        mov edx, dword [dword_1C86F0]
+        mov edx, dword [SeasonMenuItems]
         add eax, edx
         mov edx, dword [byte ebp-01Ch]
         movsx edx, word [byte edx+0Eh]
@@ -2605,7 +2605,7 @@ SeasonMenuScreen:
         call DrawArt
         imul eax, esi, byte 1Ch
         add esp, byte 0Ch
-        add eax, unk_1ACF4E
+        add eax, SeasonUserRecords
         push eax
         push byte 0
         push byte 3Ch
@@ -2619,7 +2619,7 @@ SeasonMenuScreen:
         add esp, byte 4
         cmp dword [nosplit esi*4+PlayoffColumns], byte 3
         jne short .62
-        mov edx, dword [dword_1C86F0]
+        mov edx, dword [SeasonMenuItems]
         add eax, edx
         mov edx, dword [byte ebp-01Ch]
         movsx edx, word [byte edx+0Eh]
@@ -2631,7 +2631,7 @@ SeasonMenuScreen:
         push str_BGWS
         jmp short .63
 .62:
-        mov edx, dword [dword_1C86F0]
+        mov edx, dword [SeasonMenuItems]
         add eax, edx
         mov edx, dword [byte ebp-01Ch]
         movsx edx, word [byte edx+0Eh]
@@ -2665,7 +2665,7 @@ SeasonMenuScreen:
         call DrawArt
         imul eax, esi, byte 1Ch
         add esp, byte 0Ch
-        add eax, unk_1ACF4E
+        add eax, SeasonUserRecords
         push eax
         push byte 0
         push byte 3Ch
@@ -2679,18 +2679,18 @@ SeasonMenuScreen:
         xor esi, esi
 .65:
         imul eax, esi, byte 1Ch
-        cmp byte [dword eax+byte_1ACF63], 1
+        cmp byte [dword eax+SeasonUserActive], 1
         jne short .66
         cmp byte [byte ebp-014h], 0
         je short .66
         lea edx, [byte esi+08h]
         imul edx, byte 52h
         mov eax, dword [dword ebp+esi*4-0B0h]
-        mov ebx, dword [dword_1C86F0]
+        mov ebx, dword [SeasonMenuItems]
         mov eax, dword [byte eax+02Ch]
         mov dword [byte edx+ebx+01Ah], eax
         mov byte [byte ebp-014h], 0
-        mov dword [dword_1AD226], esi
+        mov dword [SeasonDefaultUser], esi
 .66:
         inc esi
         cmp esi, byte 1Ah
@@ -2713,7 +2713,7 @@ SeasonMenuScreen:
         mov ecx, str_EC01
         mov ebx, str_EC00
         push str_EC01
-        mov eax, dword [dword_1C86F0]
+        mov eax, dword [SeasonMenuItems]
         mov edx, dword [byte ebp-018h]
         add eax, 0AE4h
         call DrawStatTable
@@ -2759,7 +2759,7 @@ SeasonMenuScreen:
         mov ecx, str_WC01
         mov ebx, str_WC00
         push str_WC01
-        mov eax, dword [dword_1C86F0]
+        mov eax, dword [SeasonMenuItems]
         mov edx, dword [byte ebp-018h]
         add eax, 0AE4h
         call DrawStatTable
@@ -2794,7 +2794,7 @@ SeasonMenuScreen:
         add esp, byte 4
         mov esi, 1
 .70:
-        push dword [nosplit esi*4+dword_1C8540]
+        push dword [nosplit esi*4+SeasonSparkleShapes]
         call DrawShapeAtOwnPos
         inc esi
         inc esi
@@ -2805,7 +2805,7 @@ SeasonMenuScreen:
 .71:
         lea eax, [byte esi+02h]
         imul edx, eax, byte 52h
-        mov eax, dword [dword_1C86F0]
+        mov eax, dword [SeasonMenuItems]
         push dword [byte edx+eax+02Ah]
         push dword [byte edx+eax+026h]
         push dword [byte edx+eax+01Ah]
@@ -2831,45 +2831,45 @@ SeasonMenuScreen:
         cmp edx, dword [dword eax+PlayoffColumns]
         jne near .77
         imul edx, esi, byte 1Ch
-        cmp byte [dword edx+byte_1ACF63], 1
+        cmp byte [dword edx+SeasonUserActive], 1
         jne short .75
-        cmp esi, dword [dword_1AD226]
+        cmp esi, dword [SeasonDefaultUser]
         jne short .73
         mov eax, dword [dword eax+ebp-0B0h]
         jmp short .74
 .73:
         mov eax, dword [dword eax+ebp-0118h]
 .74:
-        mov edx, dword [dword_1C86F0]
+        mov edx, dword [SeasonMenuItems]
         mov eax, dword [byte eax+02Ch]
         mov dword [byte edx+ebx+01Ah], eax
         lea edx, [byte esi+08h]
         imul edx, byte 52h
         mov dword [byte ebp-038h], edx
-        mov edx, dword [dword_1C86F0]
+        mov edx, dword [SeasonMenuItems]
         mov ebx, dword [dword ebp+esi*4-0B0h]
         add edx, dword [byte ebp-038h]
         mov ebx, dword [byte ebx+02Ch]
         mov dword [byte edx+01Eh], ebx
-        mov edx, dword [dword_1C86F0]
+        mov edx, dword [SeasonMenuItems]
         mov eax, dword [dword ebp+esi*4-0B0h]
         add edx, dword [byte ebp-038h]
         mov eax, dword [byte eax+02Ch]
         mov dword [byte edx+022h], eax
         jmp short .76
 .75:
-        mov ecx, dword [dword_1C86F0]
+        mov ecx, dword [SeasonMenuItems]
         mov edx, dword [dword eax+ebp-0118h]
         add ecx, ebx
         mov edx, dword [byte edx+02Ch]
         mov dword [byte ecx+01Ah], edx
-        mov ecx, dword [dword_1C86F0]
+        mov ecx, dword [SeasonMenuItems]
         mov edx, dword [dword eax+ebp-0118h]
         add ecx, ebx
         mov edx, dword [byte edx+02Ch]
         mov dword [byte ecx+01Eh], edx
         mov eax, dword [dword eax+ebp-0118h]
-        mov edx, dword [dword_1C86F0]
+        mov edx, dword [SeasonMenuItems]
         mov eax, dword [byte eax+02Ch]
         mov dword [byte edx+ebx+022h], eax
 .76:
@@ -2877,16 +2877,16 @@ SeasonMenuScreen:
         imul edx, byte 52h
         mov ebx, esi
         shl ebx, 6
-        mov eax, dword [dword_1C86F0]
+        mov eax, dword [SeasonMenuItems]
         add ebx, 180h
         mov dword [byte edx+eax+010h], 4
         lea eax, [dword ebp-09C0h]
         add eax, ebx
         mov dword [byte ebp-038h], eax
-        mov eax, dword [dword_1C86F0]
+        mov eax, dword [SeasonMenuItems]
         mov ebx, dword [byte ebp-038h]
         mov dword [byte edx+eax+014h], ebx
-        mov eax, dword [dword_1C86F0]
+        mov eax, dword [SeasonMenuItems]
         push byte 14h
         mov ecx, 0A0h
         mov ebx, dword [byte edx+eax+02Ah]
@@ -2895,14 +2895,14 @@ SeasonMenuScreen:
         call SetRegionRect
         jmp short .78
 .77:
-        mov eax, dword [dword_1C86F0]
+        mov eax, dword [SeasonMenuItems]
         mov dword [byte ebx+eax+022h], 0
         mov edx, dword [byte ebx+eax+022h]
-        mov eax, dword [dword_1C86F0]
+        mov eax, dword [SeasonMenuItems]
         mov dword [byte ebx+eax+01Eh], edx
-        mov eax, dword [dword_1C86F0]
+        mov eax, dword [SeasonMenuItems]
         mov dword [byte ebx+eax+01Ah], edx
-        mov eax, dword [dword_1C86F0]
+        mov eax, dword [SeasonMenuItems]
         mov dword [byte ebx+eax+010h], 0
 .78:
         inc esi
@@ -2913,57 +2913,57 @@ SeasonMenuScreen:
         mov ebx, dword [byte ebp-040h]
         sub ebx, byte 8
         imul eax, ebx, byte 1Ch
-        cmp byte [dword eax+byte_1ACF63], 1
+        cmp byte [dword eax+SeasonUserActive], 1
         jne near .33
-        imul eax, dword [dword_1AD226], byte 1Ch
-        cmp byte [dword eax+byte_1ACF62], 0
+        imul eax, dword [SeasonDefaultUser], byte 1Ch
+        cmp byte [dword eax+SeasonUserHuman], 0
         je short .80
-        cmp byte [dword eax+byte_1ACF62], 1
+        cmp byte [dword eax+SeasonUserHuman], 1
         jne short .81
 .80:
-        mov eax, dword [dword_1AD226]
+        mov eax, dword [SeasonDefaultUser]
         shl eax, 2
         mov edx, dword [dword eax+PlayoffColumns]
         cmp edx, dword [byte ebp-024h]
         jne short .82
-        mov edx, dword [dword_1AD226]
+        mov edx, dword [SeasonDefaultUser]
         add edx, byte 8
         imul edx, byte 52h
         mov eax, dword [dword eax+ebp-0118h]
-        mov ecx, dword [dword_1C86F0]
+        mov ecx, dword [SeasonMenuItems]
         mov eax, dword [byte eax+02Ch]
         mov dword [byte ecx+edx+01Ah], eax
         jmp short .82
 .81:
-        mov eax, dword [dword_1AD226]
+        mov eax, dword [SeasonDefaultUser]
         shl eax, 2
         mov edx, dword [dword eax+PlayoffColumns]
         cmp edx, dword [byte ebp-024h]
         jne short .82
         mov edx, dword [dword eax+ebp-0180h]
-        mov eax, dword [dword_1AD226]
+        mov eax, dword [SeasonDefaultUser]
         add eax, byte 8
         imul eax, byte 52h
-        mov ecx, dword [dword_1C86F0]
+        mov ecx, dword [SeasonMenuItems]
         mov edx, dword [byte edx+02Ch]
         mov dword [byte ecx+eax+01Ah], edx
 .82:
         imul ecx, dword [byte ebp-040h], byte 52h
         mov edx, dword [dword ebp+ebx*4-0B0h]
-        mov eax, dword [dword_1C86F0]
+        mov eax, dword [SeasonMenuItems]
         mov edx, dword [byte edx+02Ch]
         mov dword [byte ecx+eax+01Ah], edx
-        mov dword [dword_1AD226], ebx
+        mov dword [SeasonDefaultUser], ebx
         jmp near .33
 .83:
-        mov eax, dword [dword_1AD226]
+        mov eax, dword [SeasonDefaultUser]
         call FindSeasonReplay
         test eax, eax
         je short .84
         cmp dword [byte ebp-02Ch], byte 1Ch
         jne short .84
         mov dword [byte ebp-02Ch], 0Eh
-        mov dword [dword_1C5DE0], 1
+        mov dword [PlayMenuGameFlag], 1
 .84:
         push dword [byte ebp-020h]
         call FreeMemBlock
@@ -2988,7 +2988,7 @@ SeasonMenuScreen:
         push dword [byte ebp-034h]
         call FreeMemBlock
         add esp, byte 4
-        push dword [dword_1C86F0]
+        push dword [SeasonMenuItems]
         call FreeMemBlock
         add esp, byte 4
         push edi
@@ -3014,7 +3014,7 @@ StandingsSparkle:
         mov ebx, 0Ah
         xor edx, edx
         div ebx
-        push dword [nosplit edx*4+dword_1C8540]
+        push dword [nosplit edx*4+SeasonSparkleShapes]
         call DrawShapeAtOwnPos
         add esp, byte 4
 .1:
@@ -3022,7 +3022,7 @@ StandingsSparkle:
         pop ecx
         pop ebx
         ret
-jpt_912BF:
+StandingsScreenJumpTable:
         dd StandingsScreen_65C
         dd StandingsScreen_685
         dd StandingsScreen_699
@@ -3073,7 +3073,7 @@ StandingsScreen:
         mov dword [byte ebp+07Ah], eax
         call AllocMemBlock
         add esp, byte 0Ch
-        mov dword [dword_1C86F4], eax
+        mov dword [StandingsBuffer], eax
 .1:
         imul eax, esi, byte 64h
         mov edx, dword [byte ebp+032h]
@@ -3084,7 +3084,7 @@ StandingsScreen:
         cmp esi, byte 1Ah
         jl short .1
         lea edx, [byte ebp+022h]
-        mov eax, unk_1AD22E
+        mov eax, SeasonFilePath
         call OpenLeagueFile
         call SetHighlightText
         mov ebx, dword [byte ebp+022h]
@@ -3129,7 +3129,7 @@ StandingsScreen:
         mov dword [byte ebp+03Eh], eax
         call FindShape
         add esp, byte 8
-        push dword_1C8540
+        push SeasonSparkleShapes
         push str_LBL1LBL2LBL3LBR1LBR2LTL1L3
         push ebx
         mov dword [byte ebp+02Ah], eax
@@ -3144,57 +3144,57 @@ StandingsScreen:
         mov dword [byte ebp+066h], eax
         mov edx, ebx
         mov eax, ebx
-        mov esi, unk_1C5F4A
+        mov esi, BlankMenuItem
         call DrawScreenBackground
         mov eax, 13h
-        mov edx, dword [dword_1C86F4]
+        mov edx, dword [StandingsBuffer]
         mov ecx, 52h
         call InitMenuItems
-        mov edi, dword [dword_1C86F4]
+        mov edi, dword [StandingsBuffer]
         rep movsb
-        mov eax, dword [dword_1C86F4]
+        mov eax, dword [StandingsBuffer]
         mov dword [eax], 0
-        mov esi, dword [dword_1C86F4]
+        mov esi, dword [StandingsBuffer]
         mov ecx, 52h
         lea edi, [dword esi+05C4h]
-        mov esi, unk_1C5F9C
+        mov esi, ScreenFrameItem
         rep movsb
-        mov eax, dword [dword_1C86F4]
+        mov eax, dword [StandingsBuffer]
         mov dword [dword eax+05C4h], 12h
-        mov eax, dword [dword_1C86F4]
+        mov eax, dword [StandingsBuffer]
         push str_WC00
         mov dword [byte eax+062h], 4
         lea edx, [dword ebp-074Ah]
-        mov eax, dword [dword_1C86F4]
+        mov eax, dword [StandingsBuffer]
         push dword [byte ebp+06Ah]
         mov dword [byte eax+066h], edx
         call FindShape
         add esp, byte 8
         push str_WC01
         mov edx, eax
-        mov eax, dword [dword_1C86F4]
+        mov eax, dword [StandingsBuffer]
         push dword [byte ebp+06Ah]
         mov dword [byte eax+06Ch], edx
         call FindShape
         add esp, byte 8
         push str_WC01
         mov edx, eax
-        mov eax, dword [dword_1C86F4]
+        mov eax, dword [StandingsBuffer]
         push dword [byte ebp+06Ah]
         mov dword [byte eax+070h], edx
         call FindShape
         mov edx, eax
-        mov eax, dword [dword_1C86F4]
+        mov eax, dword [StandingsBuffer]
         mov dword [byte eax+074h], edx
-        mov eax, dword [dword_1C86F4]
+        mov eax, dword [StandingsBuffer]
         mov edx, dword [byte eax+06Ch]
         movsx edx, word [byte edx+0Ch]
         mov dword [byte eax+078h], edx
-        mov eax, dword [dword_1C86F4]
+        mov eax, dword [StandingsBuffer]
         mov edx, dword [byte eax+06Ch]
         movsx edx, word [byte edx+0Eh]
         mov dword [byte eax+07Ch], edx
-        mov eax, dword [dword_1C86F4]
+        mov eax, dword [StandingsBuffer]
         mov eax, dword [byte eax+06Ch]
         add esp, byte 8
         movsx edx, word [byte eax+06h]
@@ -3213,7 +3213,7 @@ StandingsScreen:
         mov ebx, 9
         lea eax, [dword ebp-01F6h]
         push dword [byte ebp+062h]
-        mov edx, dword [dword_1C86F4]
+        mov edx, dword [StandingsBuffer]
         push byte 0
         add edx, 0A4h
         xor esi, esi
@@ -3221,14 +3221,14 @@ StandingsScreen:
 .2:
         lea edx, [byte esi+05h]
         imul edx, byte 52h
-        mov eax, dword [dword_1C86F4]
+        mov eax, dword [StandingsBuffer]
         mov dword [byte edx+eax+010h], 4
         mov eax, esi
         shl eax, 6
         lea ebx, [dword ebp-074Ah]
         add eax, byte 40h
         add eax, ebx
-        mov ebx, dword [dword_1C86F4]
+        mov ebx, dword [StandingsBuffer]
         mov dword [byte edx+ebx+014h], eax
         cmp esi, byte 8
         jge short .3
@@ -3386,19 +3386,19 @@ StandingsScreen:
         call DrawShapeAtOwnPos
         add esp, byte 4
 .19:
-        push dword [nosplit esi*4+dword_1C8540]
+        push dword [nosplit esi*4+SeasonSparkleShapes]
         call DrawShapeAtOwnPos
         inc esi
         inc esi
         add esp, byte 4
         cmp esi, byte 8
         jl short .19
-        mov eax, dword [dword_1C86F4]
+        mov eax, dword [StandingsBuffer]
         push dword [byte eax+02Ah]
         push dword [byte eax+026h]
         push dword [byte eax+01Ah]
         call BlitArt
-        mov eax, dword [dword_1C86F4]
+        mov eax, dword [StandingsBuffer]
         add esp, byte 0Ch
         push dword [byte eax+07Ch]
         push dword [byte eax+078h]
@@ -3508,7 +3508,7 @@ StandingsScreen:
         add eax, ebx
         cmp eax, byte 8
         ja near StandingsScreen_718.33
-        jmp dword [nosplit cs:eax*4+jpt_912BF]
+        jmp dword [nosplit cs:eax*4+StandingsScreenJumpTable]
 StandingsScreen_65C:
         movzx eax, byte [byte esi+ebp-026h]
         imul eax, dword 194Fh
@@ -3618,7 +3618,7 @@ StandingsScreen_718:
         lea eax, [byte ebp+01Eh]
         mov ecx, StandingsSparkle
         mov ebx, 0FFFFFFFFh
-        mov edx, dword [dword_1C86F4]
+        mov edx, dword [StandingsBuffer]
         push eax
         mov eax, 12h
         mov dword [byte ebp+036h], 0
@@ -3660,19 +3660,19 @@ StandingsScreen_718:
         add esp, byte 8
         push str_EC01
         mov edx, eax
-        mov eax, dword [dword_1C86F4]
+        mov eax, dword [StandingsBuffer]
         push dword [byte ebp+076h]
         mov dword [byte eax+06Ch], edx
         call FindShape
         add esp, byte 8
         push str_EC01
         mov edx, eax
-        mov eax, dword [dword_1C86F4]
+        mov eax, dword [StandingsBuffer]
         push dword [byte ebp+076h]
         mov dword [byte eax+070h], edx
         call FindShape
         mov edx, eax
-        mov eax, dword [dword_1C86F4]
+        mov eax, dword [StandingsBuffer]
         mov dword [byte ebp+05Eh], 0Ch
         jmp short .41
 .40:
@@ -3692,19 +3692,19 @@ StandingsScreen_718:
         add esp, byte 8
         push str_WC01
         mov edx, eax
-        mov eax, dword [dword_1C86F4]
+        mov eax, dword [StandingsBuffer]
         push dword [byte ebp+076h]
         mov dword [byte eax+06Ch], edx
         call FindShape
         add esp, byte 8
         push str_WC01
         mov edx, eax
-        mov eax, dword [dword_1C86F4]
+        mov eax, dword [StandingsBuffer]
         push dword [byte ebp+076h]
         mov dword [byte eax+070h], edx
         call FindShape
         mov edx, eax
-        mov eax, dword [dword_1C86F4]
+        mov eax, dword [StandingsBuffer]
         mov dword [byte ebp+05Eh], 3
 .41:
         add esp, byte 8
@@ -3724,7 +3724,7 @@ StandingsScreen_718:
         mov ebx, 9
         lea eax, [dword ebp-01F6h]
         push dword [byte ebp+072h]
-        mov edx, dword [dword_1C86F4]
+        mov edx, dword [StandingsBuffer]
         push byte 0
         add edx, 0A4h
         mov dword [byte ebp+06Eh], 0FFFFFFFFh
@@ -3764,7 +3764,7 @@ StandingsScreen_718:
         push dword [byte ebp+07Ah]
         call FreeMemBlock
         add esp, byte 4
-        push dword [dword_1C86F4]
+        push dword [StandingsBuffer]
         call FreeMemBlock
         add esp, byte 4
         push dword [byte ebp+04Ah]
@@ -3785,7 +3785,7 @@ StandingsScreen_718:
 ;-----------------------------------------------------------------------------
 CompareStandingsValue:
         push ebx
-        mov ebx, dword [dword_1C86E8]
+        mov ebx, dword [StandingsSortKey]
         mov edx, dword [edx]
         mov eax, dword [eax]
         mov edx, dword [ebx+edx*4]
@@ -3805,12 +3805,12 @@ CompareStandings:
         movzx eax, byte [ebx]
         shl edx, 2
         shl eax, 2
-        mov ecx, dword [dword edx+dword_1C8618]
-        mov ebx, dword [dword eax+dword_1C8618]
+        mov ecx, dword [dword edx+StandingsWins]
+        mov ebx, dword [dword eax+StandingsWins]
         add ecx, ecx
         add ebx, ebx
-        add ecx, dword [dword edx+dword_1C8568]
-        add ebx, dword [dword eax+dword_1C8568]
+        add ecx, dword [dword edx+StandingsTies]
+        add ebx, dword [dword eax+StandingsTies]
         cmp ecx, ebx
         je short .1
         mov eax, ebx
@@ -3819,18 +3819,18 @@ CompareStandings:
         pop ebx
         ret
 .1:
-        mov ebx, dword [dword edx+dword_1C8618]
-        cmp ebx, dword [dword eax+dword_1C8618]
+        mov ebx, dword [dword edx+StandingsWins]
+        cmp ebx, dword [dword eax+StandingsWins]
         je short .2
-        mov eax, dword [dword eax+dword_1C8618]
+        mov eax, dword [dword eax+StandingsWins]
         sub eax, ebx
         pop ecx
         pop ebx
         ret
 .2:
-        mov ebx, dword [dword edx+dword_1C84D8]
+        mov ebx, dword [dword edx+StandingsGoalsFor]
         sub eax, eax
-        sub ebx, dword [dword edx+dword_1C8680]
+        sub ebx, dword [dword edx+StandingsGoalsAgainst]
         sub eax, ebx
         pop ecx
         pop ebx
@@ -3864,18 +3864,18 @@ SortStandings:
         call FindGameRecord
         mov eax, dword [byte ebp+06Eh]
         movzx edx, byte [dword ebp-0197Eh]
-        mov dword [nosplit eax*4+dword_1C8618], edx
+        mov dword [nosplit eax*4+StandingsWins], edx
         movzx edx, byte [dword ebp-0197Ch]
-        mov dword [nosplit eax*4+dword_1C8568], edx
+        mov dword [nosplit eax*4+StandingsTies], edx
         movsx edx, word [dword ebp-01969h]
-        mov dword [nosplit eax*4+dword_1C8680], edx
+        mov dword [nosplit eax*4+StandingsGoalsAgainst], edx
         movsx edx, word [dword ebp-0196Bh]
-        mov dword [nosplit eax*4+dword_1C84D8], edx
+        mov dword [nosplit eax*4+StandingsGoalsFor], edx
         movsx edx, word [dword ebp-01980h]
         mov dword [byte ebp+eax*4-07Eh], edx
-        mov edx, dword [nosplit eax*4+dword_1C8618]
+        mov edx, dword [nosplit eax*4+StandingsWins]
         add edx, edx
-        add edx, dword [nosplit eax*4+dword_1C8568]
+        add edx, dword [nosplit eax*4+StandingsTies]
         inc dword [byte ebp+06Eh]
         mov dword [byte ebp+eax*4-016h], edx
         cmp dword [byte ebp+06Eh], byte 1Ah
@@ -4138,14 +4138,14 @@ BuildStandingsFactoids:
         mov ecx, CompareStandingsValue
         mov ebx, 4
         mov edx, dword [byte ebp+076h]
-        mov dword [dword_1C86E8], eax
+        mov dword [StandingsSortKey], eax
         mov eax, dword [byte ebp+06Eh]
         call qsort_
         mov eax, dword [byte ebp+06Ah]
         mov ecx, CompareStandingsValue
         mov ebx, 4
         mov edx, dword [byte ebp+05Ah]
-        mov dword [dword_1C86E8], eax
+        mov dword [StandingsSortKey], eax
         mov eax, dword [byte ebp+066h]
         mov dword [byte ebp+07Eh], 0
         call qsort_
@@ -4541,9 +4541,9 @@ SeasonYearText:
         xor edx, edx
 .1:
         imul eax, ecx, byte 1Ch
-        cmp byte [dword eax+byte_1ACF63], 1
+        cmp byte [dword eax+SeasonUserActive], 1
         jne short .2
-        cmp byte [dword eax+byte_1ACF62], 1
+        cmp byte [dword eax+SeasonUserHuman], 1
         jne short .2
         mov edx, 1
 .2:
@@ -4556,7 +4556,7 @@ SeasonYearText:
         test edx, edx
         sete bl
         inc ecx
-        mov byte [dword eax+byte_1ACF69], bl
+        mov byte [dword eax+SeasonUserLocked], bl
         cmp ecx, byte 1Ah
         jl short .3
         xor ecx, ecx
@@ -4579,11 +4579,11 @@ SeasonYearText:
         je short .5
         movsx edx, byte [edx]
         imul edx, byte 1Ch
-        mov byte [dword edx+byte_1ACF69], 0
+        mov byte [dword edx+SeasonUserLocked], 0
         mov eax, dword [byte eax+020h]
         movsx eax, byte [byte edi+eax+01h]
         imul eax, byte 1Ch
-        mov byte [dword eax+byte_1ACF69], 0
+        mov byte [dword eax+SeasonUserLocked], 0
 .5:
         inc ecx
 .6:
@@ -4622,9 +4622,9 @@ DrawSeasonTitle:
         push dword 0FFFFFEFCh
         push ebx
         call BlitArt
-        imul eax, dword [dword_1AD226], byte 1Ch
+        imul eax, dword [SeasonDefaultUser], byte 1Ch
         add esp, byte 0Ch
-        cmp byte [dword eax+byte_1ACF62], 0
+        cmp byte [dword eax+SeasonUserHuman], 0
         jne short .1
         push byte 0FFFFFFFFh
         call MakeColor
@@ -4633,7 +4633,7 @@ DrawSeasonTitle:
         mov eax, 246h
         jmp short .3
 .1:
-        cmp byte [dword eax+byte_1ACF62], 1
+        cmp byte [dword eax+SeasonUserHuman], 1
         jne short .2
         push dword 0FFAAAAAAh
         call MakeColor
@@ -4702,7 +4702,7 @@ FindSeasonReplay:
         shl esi, 4
         mov eax, dword [byte eax+020h]
         add eax, esi
-        mov edx, unk_16D7F4
+        mov edx, DbKeyBuffer
         add eax, byte 8
         call KeysEqual
         test eax, eax
@@ -4710,7 +4710,7 @@ FindSeasonReplay:
         mov eax, dword [SeasonUserTeam]
         mov eax, dword [byte eax+020h]
         add eax, esi
-        mov edx, dword_1C1334
+        mov edx, SeasonFileName
         add eax, byte 8
         call FindReplayIndexEntry
         mov eax, 1
@@ -4746,7 +4746,7 @@ LinkTransferSetup:
         enter 110h, 0
         sub ebp, 92h
         mov esi, eax
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         je near .34
         mov eax, 227h
         call GetLangText
@@ -5149,7 +5149,7 @@ LoadFakeExhibition:
         push ecx
         push edx
         mov ecx, eax
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         jne short .1
         call LoadExhibitionFile
         pop edx
@@ -5162,7 +5162,7 @@ LoadFakeExhibition:
         mov eax, str_FakeEXHIBIT
         call AllocClearBlock
         mov ebx, 383C5h
-        mov edx, dword [dword_1C86FC]
+        mov edx, dword [ExhibitionData]
         mov eax, dword [ecx]
         call memcpy_
         mov eax, dword [ecx]
@@ -5176,7 +5176,7 @@ LoadFakeExhibition:
         mov eax, dword [ecx]
         movsx ebx, word [eax]
         imul ebx, byte 38h
-        mov ecx, dword [dword_1C86FC]
+        mov ecx, dword [ExhibitionData]
         mov edx, dword [dword ecx+0383C1h]
         mov eax, dword [dword eax+0383C1h]
         call memcpy_
@@ -5196,7 +5196,7 @@ SaveAgents:
         push edx
         push esi
         mov esi, eax
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         jne short .2
 .1:
         call SaveExhibitionFile
@@ -5206,7 +5206,7 @@ SaveAgents:
         pop ebx
         ret
 .2:
-        mov eax, dword [dword_1C86FC]
+        mov eax, dword [ExhibitionData]
         cmp dword [dword eax+0383C1h], byte 0
         je short .3
         cmp word [esi], byte 0
@@ -5216,7 +5216,7 @@ SaveAgents:
         add esp, byte 4
 .3:
         mov ebx, 383C5h
-        mov eax, dword [dword_1C86FC]
+        mov eax, dword [ExhibitionData]
         mov edx, esi
         call memcpy_
         cmp word [esi], byte 0
@@ -5228,11 +5228,11 @@ SaveAgents:
         push str_Agents
         call AllocMemBlock
         mov edx, eax
-        mov eax, dword [dword_1C86FC]
+        mov eax, dword [ExhibitionData]
         mov dword [dword eax+0383C1h], edx
         movsx ebx, word [esi]
         imul ebx, byte 38h
-        mov eax, dword [dword_1C86FC]
+        mov eax, dword [ExhibitionData]
         add esp, byte 0Ch
         mov edx, dword [dword esi+0383C1h]
         mov eax, dword [dword eax+0383C1h]
@@ -5258,7 +5258,7 @@ SaveAgentsOnly:
         push ebx
         mov ebx, eax
         mov eax, edx
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         jne short .2
         movsx edx, dx
         mov eax, ebx
@@ -5294,7 +5294,7 @@ SaveTradesLink:
         mov esi, eax
         mov edi, edx
         mov dword [byte ebp-04h], ebx
-        cmp dword [dword_16DA9C], byte 0
+        cmp dword [LinkGameActive], byte 0
         jne short .2
         push dword [byte ebp+014h]
         movzx eax, byte [byte ebp+010h]
@@ -5363,10 +5363,10 @@ SaveTradesLink:
 SetPlayoffFormat:
         push edx
         mov edx, dword [eax]
-        mov edx, dword [nosplit edx*4+dword_16CDD0]
-        mov dword [dword_1C8A8C], edx
+        mov edx, dword [nosplit edx*4+PlayoffFormatTeams]
+        mov dword [PlayoffTeamCount], edx
         mov eax, dword [eax]
         sub eax, byte 3
-        mov dword [dword_1C8A90], eax
+        mov dword [PlayoffFormat], eax
         pop edx
         ret

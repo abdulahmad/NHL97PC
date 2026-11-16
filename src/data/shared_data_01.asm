@@ -4,8 +4,8 @@ bits 32
 section s_160000 progbits alloc noexec write align=1
 global str_PATH2, str_JSTICKS, str_RPEVENT2, str_WaitingForOtherComputer2, str_WarteAufAnderenComputer, str_BREAKIN, str_BREAKOUT, F32_10
 global F32_neg8, F32_neg8_StickReachZ, F64_0p013, F64_0p01, F64_0p000244141, F64_1p2, F64_neg8, F64_0p5
-global F64_50, F64_0p01_StickReachZ, F64_0p392699, F64_0p159155, F64_65536, unk_160000, str_Rb, unk_1600A4
-unk_160000:
+global F64_50, F64_0p01_StickReachZ, F64_0p392699, F64_0p159155, F64_65536, SharedDataFlags, str_Rb, str_VantarPaAnnanDator
+SharedDataFlags:
         db 01h,01h,01h,00h
 str_PATH2:
         db 050h,041h,054h,048h,00h,00h,00h,00h
@@ -46,7 +46,7 @@ str_RPEVENT2:
 str_WaitingForOtherComputer2:
         db 057h,061h,069h,074h,069h,06Eh,067h,020h,066h,06Fh,072h,020h,06Fh,074h,068h,065h
         db 072h,020h,063h,06Fh,06Dh,070h,075h,074h,065h,072h,00h,00h
-unk_1600A4:
+str_VantarPaAnnanDator:
         db 056h,0E4h,06Eh,074h,061h,072h,020h,070h,0E5h,020h,061h,06Eh,06Eh,061h,06Eh,020h
         db 064h,061h,074h,06Fh,072h,00h,00h,00h
 str_WarteAufAnderenComputer:
