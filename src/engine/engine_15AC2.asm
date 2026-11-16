@@ -21,7 +21,7 @@ extern dword_16057C, dword_160580, dword_160584, dword_1605A0, dword_1605FC, dwo
 extern dword_160614, dword_160618, dword_16061C, dword_160620, dword_16062C, dword_168628, dword_1686BA, dword_1686C0
 extern dword_1686D2, dword_1686E6, dword_16875E, dword_1687B8, dword_168934, dword_16893C, dword_16AF5C, dword_16B168
 extern dword_16E464, dword_16E468, dword_16E670, dword_19CB48, dword_19CB4C, dword_19CB50, dword_19CB5A, dword_19CB5E
-extern dword_19CB62, dword_19CB66, dword_19CB6A, dword_19CB7B, dword_19CBAA, dword_19CBE4, dword_19CD10, dword_19CD14
+extern dword_19CB62, dword_19CB66, dword_19CB6A, dword_19CB7B, dword_19CBAA, penshottimer, dword_19CD10, dword_19CD14
 extern dword_19CD20, dword_19CD24, dword_19CD28, dword_19CD2C, dword_19CD30, dword_19CD34, dword_19D004, dword_19D008
 extern dword_19D00C, dword_19D010, dword_19D014, dword_19D018, dword_19D020, dword_19D024, dword_19D034, dword_19D038
 extern dword_19D03C, dword_19D040, dword_19D044, dword_19D048, dword_19D058, dword_19D068, dword_19D06C, dword_19D070
@@ -49,7 +49,7 @@ extern qword_1605B4, qword_1605BC, qword_1605C4, qword_1605CC, qword_1605D4, qwo
 extern qword_1605F4, qword_160604, qword_160624, qword_160630, qword_160638, qword_160640, qword_160648, qword_160650
 extern qword_160658, rand_, randomd0, regd1, sprintf_, strcat_, strcpy_, sub_100498
 extern sub_100700, sub_1007C0, sub_100830, sub_11328, sub_114C4, sub_13D50, sub_25AEC, sub_2E11C
-extern sub_2E8F0, sub_30778, sub_3085C, sub_32260, sub_32340, sub_32D88, sub_33880, sub_34CF4
+extern UpdateCoachModes, sub_30778, sub_3085C, sub_32260, sub_32340, sub_32D88, EndPenaltyShot, sub_34CF4
 extern sub_34EF8, sub_35588, sub_35690, sub_356A8, sub_3A06C, sub_3A404, sub_3AAE8, sub_3AB28
 extern sub_3B1EC, sub_3B738, sub_3C75C, sub_3CA28, sub_3CAB8, sub_3CB00, sub_3CB38, sub_3CB48
 extern sub_3CB70, sub_3CD70, sub_3CE58, sub_3CFB0, sub_3E5F0, sub_424CC, sub_45BEC, sub_4B1C4
@@ -71,9 +71,9 @@ extern unk_19E060, unk_1B0AD0, unk_1B0AE8, unk_1B1090, unk_1B9038, unk_1B92AB, v
 extern word_1686E4, word_1689BE, word_1689C8, word_1689CA, word_19C628, word_19C62A, word_19CB34, word_19CB36
 extern word_19CB5C, word_19CB60, word_19CB64, word_19CB68, word_19CB82, word_19CB84, word_19CB86, word_19CB8C
 extern word_19CB8E, word_19CB90, word_19CB92, word_19CB94, word_19CB96, word_19CB98, word_19CB9A, word_19CB9C
-extern word_19CB9E, word_19CBA0, word_19CBA2, word_19CBA4, word_19CBA6, word_19CBA8, word_19CBAC, word_19CBAE
-extern word_19CBB2, word_19CBB4, word_19CBB6, word_19CBB8, word_19CBBA, word_19CBBC, word_19CBBE, word_19CBC0
-extern word_19CBD6, word_19CBD8, word_19CBDA, word_19CBDC, word_19CBDE, word_19CBE0, word_19CBE2, word_19CBE6
+extern word_19CB9E, gameover, word_19CBA2, word_19CBA4, word_19CBA6, word_19CBA8, word_19CBAC, word_19CBAE
+extern word_19CBB2, word_19CBB4, word_19CBB6, gsp, gameclock, word_19CBBC, word_19CBBE, word_19CBC0
+extern word_19CBD6, word_19CBD8, word_19CBDA, word_19CBDC, word_19CBDE, word_19CBE0, penshotlive, word_19CBE6
 extern word_19CBEA, word_19CBEE, word_19CBF4, word_19CC24, word_19CC26, word_19CC50, word_19DAD9, word_19E109
 extern word_19EABE, word_19EAC0, word_19EBCA, word_19EBCC
 global jpt_19604, jpt_19F18, jpt_1A304, jpt_1A680, jpt_1A708, jpt_1B9C4, jpt_1F03C, sub_15C30_20A
@@ -1077,11 +1077,11 @@ sub_161F0:
         push dword 3F000000h
 .53:
         call sub_160E2
-        movsx esi, word [word_19CBBA]
+        movsx esi, word [gameclock]
         movsx eax, word [word_19CB98]
         sub eax, esi
         mov esi, eax
-        cmp word [word_19CBBA], byte 3Ch
+        cmp word [gameclock], byte 3Ch
         jge short .54
         cmp word [word_19CBBC], byte 0
         je short .54
@@ -2475,7 +2475,7 @@ sub_1771B:
         mov eax, 30h
         call sub_8E7E0
         push eax
-        movsx eax, word [word_19CBB8]
+        movsx eax, word [gsp]
         add eax, byte 2Ch
         call sub_8E7E0
         push eax
@@ -2742,19 +2742,19 @@ sub_17AD1:
         push edi
         enter 14h, 0
         mov ebx, eax
-        cmp word [word_19CBBA], byte 3Ch
+        cmp word [gameclock], byte 3Ch
         jle short .1
-        movsx eax, word [word_19CBBA]
+        movsx eax, word [gameclock]
         cmp eax, dword [dword_19D018]
         je near sub_15C30_216
 .1:
-        cmp word [word_19CBBA], byte 3Dh
+        cmp word [gameclock], byte 3Dh
         jge short .2
         movsx eax, word [word_19CBBC]
         cmp eax, dword [dword_19D014]
         je near sub_15C30_216
 .2:
-        movsx eax, word [word_19CBBA]
+        movsx eax, word [gameclock]
         mov dword [dword_19D018], eax
         movsx eax, word [word_19CBBC]
         push ebx
@@ -2770,7 +2770,7 @@ sub_17AD1:
 .4:
         call sub_FCC40
         add esp, byte 4
-        cmp word [word_19CBBA], byte 3Bh
+        cmp word [gameclock], byte 3Bh
         jne short .5
         push dword 0FEh
         call sub_FD110
@@ -2782,7 +2782,7 @@ sub_17AD1:
         add esp, byte 4
         push eax
         call sub_FE180
-        movsx ecx, word [word_19CBBA]
+        movsx ecx, word [gameclock]
         mov eax, ecx
         mov esi, 3Ch
         cdq
@@ -2851,7 +2851,7 @@ sub_17C2C:
         push esi
         enter 14h, 0
         mov ebx, eax
-        movsx eax, word [word_19CBBA]
+        movsx eax, word [gameclock]
         cmp eax, dword [dword_19D018]
         je near sub_17C2C_18E
         mov dword [dword_19D018], eax
@@ -3173,7 +3173,7 @@ sub_18025:
         mov dword [byte ebp-08h], edx
         mov eax, edx
         shl eax, 2
-        movsx edx, word [word_19CBBA]
+        movsx edx, word [gameclock]
         cmp edx, dword [dword eax+dword_19D004]
         jne short .1
         mov ecx, dword [byte ebp-08h]
@@ -3182,7 +3182,7 @@ sub_18025:
         je near .57
 .1:
         mov eax, dword [byte ebp-08h]
-        movsx edx, word [word_19CBBA]
+        movsx edx, word [gameclock]
         mov dword [nosplit eax*4+dword_19D004], edx
         movsx edx, word [nosplit eax*2+word_19CB34]
         movsx esi, word [word_19EBCA]
@@ -4432,7 +4432,7 @@ sub_18E76:
 sub_18E9A:
         push ebx
         push edx
-        movsx eax, word [word_19CBBA]
+        movsx eax, word [gameclock]
         mov ebx, 78h
         cdq
         idiv ebx
@@ -4450,7 +4450,7 @@ sub_18E9A:
         pop ebx
         ret
 .2:
-        cmp word [word_19CBBA], byte 41h
+        cmp word [gameclock], byte 41h
         jne short .3
         cmp word [word_19CBBC], byte 0Ah
         jge short .3
@@ -4472,7 +4472,7 @@ sub_18EEE:
         movsx ebx, word [word_19EABE]
         sub ebx, eax
         je short .1
-        movsx eax, word [word_19CBBA]
+        movsx eax, word [gameclock]
         mov ecx, 1Eh
         cdq
         idiv ecx
@@ -4496,7 +4496,7 @@ sub_18EEE:
         ret
         push ebx
         push edx
-        movsx eax, word [word_19CBBA]
+        movsx eax, word [gameclock]
         mov ebx, 5Ah
         cdq
         idiv ebx
@@ -4663,7 +4663,7 @@ sub_1900F:
         call sub_18EEE
         test eax, eax
         jne near sub_15C30_216
-        movsx eax, word [word_19CBBA]
+        movsx eax, word [gameclock]
         mov ebx, 5Ah
         cdq
         idiv ebx
@@ -9414,7 +9414,7 @@ sub_1CBD8:
         je near .2
         mov edi, sub_1CB9C
         mov ebp, 1
-        mov eax, dword [dword_19CBE4]
+        mov eax, dword [penshottimer]
         mov dword [dword_19D040], ebx
         add edx, byte 4
         xor ecx, ecx
@@ -12290,7 +12290,7 @@ sub_1EC5C:
         ret
 .7:
         mov si, word [word_19CB98]
-        cmp si, word [word_19CBBA]
+        cmp si, word [gameclock]
         jne near .9
         cmp word [word_19CBBC], byte 0
         jne near .9
@@ -12418,7 +12418,7 @@ sub_1EC5C:
         test byte [byte_19CBC2], 1
         je near .20
         mov di, word [word_19CB98]
-        cmp di, word [word_19CBBA]
+        cmp di, word [gameclock]
         jne short .15
         cmp word [word_19CBBC], byte 0
         je short .16
@@ -14615,7 +14615,7 @@ sub_20A80:
         mov bh, byte [dword edx+0BFh]
         test bh, 40h
         je short .5
-        cmp word [word_19CBE2], byte 0
+        cmp word [penshotlive], byte 0
         je short .7
         mov eax, 9
         jmp short .9
@@ -14897,12 +14897,12 @@ sub_20CB0:
         pop ebx
         ret
 .17:
-        cmp word [word_19CBE2], byte 0
+        cmp word [penshotlive], byte 0
         je short .18
         mov dx, word [word_19CBEA]
         cmp dx, word [word_19CBAC]
         je short .18
-        call sub_33880
+        call EndPenaltyShot
         add esp, byte 2Ch
         pop ebp
         pop edi
@@ -15251,7 +15251,7 @@ sub_20CB0:
         mov eax, dword [dword ecx+0108h]
         inc word [dword eax+020DDh]
 .59:
-        cmp word [word_19CBE2], byte 0
+        cmp word [penshotlive], byte 0
         jne near .64
         mov dx, word [byte ecx+0Eh]
         cmp dx, word [byte esi+0Eh]
@@ -15315,7 +15315,7 @@ sub_20CB0:
         add esp, byte 10h
         jmp short .69
 .66:
-        cmp word [word_19CBE2], byte 0
+        cmp word [penshotlive], byte 0
         jne short .67
         mov eax, dword [dword_19CBAA]
         sar eax, 10h
@@ -15435,7 +15435,7 @@ sub_20CB0:
         jl near .71
         cmp dword [dword_1B8FA0], byte 0
         jne short .79
-        mov eax, dword [word_19CBA0]
+        mov eax, dword [gameover]
         sar eax, 10h
         mov ecx, dword [word_19CB98]
         push eax
@@ -15449,7 +15449,7 @@ sub_20CB0:
         sar eax, 10h
         sar ebx, 10h
         push eax
-        mov eax, dword [word_19CBB8]
+        mov eax, dword [gsp]
         sar edx, 10h
         sar eax, 10h
         call sub_AA4BC
@@ -15458,7 +15458,7 @@ sub_20CB0:
         mov eax, dword [dword esi+0104h]
         xor ebx, ebx
         call sub_32340
-        call sub_33880
+        call EndPenaltyShot
         mov eax, dword [off_168D04]
         mov edx, dword [dword eax+0AEh]
         sar edx, 18h
@@ -15536,7 +15536,7 @@ sub_20CB0:
         dec cl
         mov byte [byte_19EC61], cl
 .85:
-        call sub_2E8F0
+        call UpdateCoachModes
 .86:
         add esp, byte 2Ch
         pop ebp
@@ -20467,9 +20467,9 @@ sub_25730:
         push edx
         push edi
         mov ebx, eax
-        cmp word [word_19CBE2], byte 0
+        cmp word [penshotlive], byte 0
         jne short .1
-        cmp word [word_19CBBA], byte 4
+        cmp word [gameclock], byte 4
         jge short .1
         mov eax, dword [dword eax+0FEh]
         mov edx, dword [dword ebx+0102h]

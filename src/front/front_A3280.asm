@@ -31,7 +31,7 @@ extern sub_100A68, sub_101390, sub_1013AC, sub_1013FC, sub_101429, sub_101430, s
 extern sub_102B94, sub_102C10, sub_102C30, sub_106D80, sub_106F64, sub_106F94, sub_110D70, sub_117338
 extern sub_11A318, sub_11A350, sub_13B50, sub_13B98, sub_13C164, PlayGame, sub_397FD, sub_39824
 extern sub_4123C, sub_415A0, sub_415F8, sub_41670, sub_419B0, sub_419B8, sub_41FA0, sub_41FDC
-extern sub_48D70, sub_4A280, sub_4B074, sub_4B108, sub_4B19C, sub_7CBD6, sub_7CDD8, sub_7DA28
+extern PaEvent, sub_4A280, sub_4B074, sub_4B108, sub_4B19C, sub_7CBD6, sub_7CDD8, sub_7DA28
 extern sub_7DFC0, sub_7E52C, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, sub_7F0D8, sub_7F16C
 extern sub_7F29C, sub_80758, sub_80808, sub_80A38, sub_80AB8, sub_80BBC, sub_81650, sub_81678
 extern sub_823F0, sub_83C08, sub_84204, sub_842F4, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10
@@ -43,7 +43,7 @@ extern sub_FAF34, sub_FB704, sub_FC330, sub_FC510, sub_FCC40, sub_FCD90, sub_FCE
 extern sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FD110, sub_FDE44, tickcount, unk_165EA0, unk_166010
 extern unk_16609C, unk_16D262, unk_16D26A, unk_1AC8E4, unk_1C135C, unk_1C347F, unk_1C5EF8, unk_1C5F4A
 extern unk_1C5F9C, unk_1C94F4, word_1684BE, word_16D25C, word_16D25E, word_16D260, word_16D27E, word_16D28C
-extern word_16D29C, word_16D2A6, word_16D2AC, word_16D2B0, word_16D2B2, word_16D2B4, word_19CB96, word_19CBA0
+extern word_16D29C, word_16D2A6, word_16D2AC, word_16D2B0, word_16D2B2, word_16D2B4, word_19CB96, gameover
 extern word_1C1348, word_1C55A2, word_1C9448, word_1C9450, word_1C9470, word_1C94EC, word_1C94EE, word_1C94F0
 extern word_1C94F6, word_1C94F8, word_1C94FA, word_1C95AC, word_1C95AE
 global jpt_A3B51, jpt_A4B35, jpt_A4B4D, jpt_A4B65, jpt_A6680, jpt_A7D7C, sub_A3280_8CA, sub_A3280_8CB
@@ -3862,7 +3862,7 @@ sub_A64FC:
 .18:
         push esi
         push dword 0B0000003h
-        call sub_48D70
+        call PaEvent
         add esp, byte 18h
         jmp near sub_A3280_8CB
 jpt_A6680:
@@ -7738,7 +7738,7 @@ sub_A9640:
         mov eax, dword [dword_1C953C]
         mov word [ebx+eax], 0
 .9:
-        cmp word [word_19CBA0], byte 0
+        cmp word [gameover], byte 0
         je short .11
         cmp word [ecx], byte 0
         jle short .10

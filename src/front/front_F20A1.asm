@@ -34,14 +34,14 @@ extern sub_11FB11, sub_12A10, sub_13C164, sub_15AC2, sub_1603A, sub_16090, sub_1
 extern sub_18F67, sub_1BC18, sub_1C854, sub_1C9F0, sub_1D09C, sub_3CD70, sub_3CE58, sub_3CF68
 extern sub_3CFB0, sub_3D020, sub_3E480, sub_3E5F0, sub_4123C, sub_41670, sub_419B0, sub_419B8
 extern sub_41A28, sub_41CF0, sub_41D18, sub_41D30, sub_41DB8, sub_41DD8, sub_41EA4, sub_423B4
-extern sub_48D70, sub_4A280, sub_4B108, sub_4B5C4, sub_4B80C, sub_4B928, sub_4BA00, sub_4BCB4
+extern PaEvent, sub_4A280, sub_4B108, sub_4B5C4, sub_4B80C, sub_4B928, sub_4BA00, sub_4BCB4
 extern sub_4C0C4, sub_5B4D4, sub_5BE74, sub_6539C, sub_76D3C, sub_7CBD6, sub_7CDD8, sub_7F028
 extern sub_7F0D8, sub_7F16C, sub_8BE60, sub_8BEF8, InitMenuItems, sub_8BFA0, sub_8BFAC, sub_8D6E0
 extern sub_8E790, sub_8E7E0, sub_8E840, sub_9623E, sub_A7D9C, sub_AADEF, sub_AB0A6, sub_BD62C
 extern sub_D67D4, FadeOut, sub_DA7EB, sub_DB6AC, sub_E341C, sub_E3798, sub_E4218, sub_E4230
 extern sub_E4908, sub_F1FF8, sub_FAF34, sub_FC330, sub_FC4BC, sub_FCC40, sub_FCD90, sub_FCFCC
 extern sub_FD08C, sub_FD0F8, sub_FD110, sub_FDD1C, sub_FDE44, sub_FE150, sub_FE180, sub_FE3AC
-extern sub_FE3D0, tickcount, unk_167A4B, word_168D18, word_19CBB0, word_19CBB2, word_19CBB8, word_19CBBA
+extern sub_FE3D0, tickcount, unk_167A4B, word_168D18, word_19CBB0, word_19CBB2, gsp, gameclock
 extern word_19CBBC, word_1C3413, word_1C5536, word_1CEFC0
 global jpt_F4167, jpt_F56E5, jpt_F7BB6, sub_F30F1_5B2, sub_F30F1_5B5, sub_F418F_16C, sub_F418F_26F, sub_F418F_29A
 global sub_F418F_4BB, sub_F418F_4EF, sub_F418F_60A, sub_F418F_62A, sub_F418F_640, sub_F418F_66D, sub_F418F_726, sub_F418F_72C
@@ -776,7 +776,7 @@ sub_F27A4:
         call sub_11984
         test eax, eax
         jne short .7
-        cmp word [word_19CBB8], byte 2
+        cmp word [gsp], byte 2
         jl short .7
         movsx eax, word [word_168D18]
         jmp short .8
@@ -805,7 +805,7 @@ sub_F27A4:
         push asc_167A5A
         jmp short .13
 .11:
-        movsx ecx, word [word_19CBBA]
+        movsx ecx, word [gameclock]
         mov eax, ecx
         mov ebx, 3Ch
         cdq
@@ -2337,7 +2337,7 @@ sub_F3C43:
         push dword 0B0000004h
         xor ebx, ebx
         xor esi, esi
-        call sub_48D70
+        call PaEvent
         add esp, byte 18h
 .1:
         mov eax, dword [dword_1AC944]
@@ -3339,7 +3339,7 @@ sub_F4A8F:
         movsx eax, word [word_19CBB0]
         push eax
         push dword 0B0000004h
-        call sub_48D70
+        call PaEvent
         add esp, byte 18h
         mov ebx, 2
         call sub_41D18
@@ -3560,12 +3560,12 @@ sub_F4B3F:
         push dword [byte ebp+07Ah]
         jmp near .21
 .7:
-        cmp word [word_19CBB8], byte 0
+        cmp word [gsp], byte 0
         jne short .8
         mov eax, 5Fh
         jmp short .5
 .8:
-        cmp word [word_19CBB8], byte 1
+        cmp word [gsp], byte 1
         jne short .9
         mov eax, 60h
         call sub_8E7E0
@@ -3580,7 +3580,7 @@ sub_F4B3F:
         fild dword [byte ebp+07Ah]
         jmp near .15
 .9:
-        cmp word [word_19CBB8], byte 2
+        cmp word [gsp], byte 2
         jl short .10
         mov al, byte [byte_1C135A]
         cmp al, byte [byte_1C135B]
@@ -3604,7 +3604,7 @@ sub_F4B3F:
         push dword [byte ebp+07Eh]
         jmp near .6
 .10:
-        cmp word [word_19CBB8], byte 2
+        cmp word [gsp], byte 2
         jne short .12
         mov eax, 61h
         call sub_8E7E0
@@ -3695,7 +3695,7 @@ sub_F4B3F:
         push dword [byte ebp+07Eh]
         jmp near .21
 .17:
-        cmp word [word_19CBB8], byte 0
+        cmp word [gsp], byte 0
         jne short .18
         lea eax, [byte ebp-026h]
         push eax
@@ -3705,7 +3705,7 @@ sub_F4B3F:
         mov eax, 5Fh
         jmp near .14
 .18:
-        cmp word [word_19CBB8], byte 1
+        cmp word [gsp], byte 1
         jne short .19
         lea eax, [byte ebp-026h]
         push eax
@@ -3715,7 +3715,7 @@ sub_F4B3F:
         mov eax, 60h
         jmp near .14
 .19:
-        cmp word [word_19CBB8], byte 2
+        cmp word [gsp], byte 2
         jl short .20
         mov al, byte [byte_1C135A]
         cmp al, byte [byte_1C135B]

@@ -10,7 +10,7 @@ extern dword_16E46C, dword_1AC814, dword_1AC940, dword_1AC944, dword_1ACF46, dwo
 extern dword_1AD62F, dword_1AD6AB, dword_1CC7D8, dword_1CC828, dword_1CC860, dword_1CC864, dword_1CC8A0, jpt_D3102
 extern memset_, rand_, sprintf_, str_EASports, str_TXTD, strcpy_, sub_101324, sub_101390
 extern sub_1013AC, sub_1013FC, sub_101429, sub_101584, sub_101EAC, sub_102B94, sub_10CD98, sub_13C164
-extern sub_39824, sub_419B0, sub_419B8, sub_41FA0, sub_41FDC, sub_48D70, sub_4A280, sub_4B108
+extern sub_39824, sub_419B0, sub_419B8, sub_41FA0, sub_41FDC, PaEvent, sub_4A280, sub_4B108
 extern sub_4B19C, sub_7B84B, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, sub_7F0D8, sub_7F16C
 extern sub_80BBC, sub_80F48, sub_83BF4, InitMenuItems, sub_8BFAC, sub_8E7E0, sub_D306F, sub_DA7D6
 extern sub_DB75E, sub_DB7B1, sub_DC653, sub_DCBB0, sub_DE3CF, sub_E036F, sub_E117B, sub_E12D1
@@ -2122,7 +2122,7 @@ sub_D4AAC:
         push eax
         push dword [dword_1AD226]
         push dword 0B0000005h
-        call sub_48D70
+        call PaEvent
         add esp, byte 0Ch
         jmp near .32
 .12:
@@ -2246,7 +2246,7 @@ sub_D4AAC:
         push dword [dword ebx+dword_1AD6AB]
 .31:
         push dword 0B0000006h
-        call sub_48D70
+        call PaEvent
         add esp, byte 14h
 .32:
         leave

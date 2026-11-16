@@ -164,7 +164,7 @@ extern sub_119A8, sub_11B38, sub_12A10, Intermission, sub_13D50, sub_13DA4, sub_
 extern sub_13F28, RunSimFrames, sub_15AC2, sub_15BC5, sub_18DF7, sub_18E35, sub_1900F, sub_1B09C
 extern sub_1B3F4, sub_1DFA0, sub_1E014, sub_1E208, sub_1E224, sub_1E354, sub_1FBF4, sub_20CB0
 extern sub_218B8, sub_21A4C, sub_2A6B8, sub_2BE2C, sub_2C064, sub_2DD54, sub_2E11C, sub_2E168
-extern sub_2E208, sub_2EDB8, sub_2F4B8, sub_2FED8, sub_32260, sub_32340, sub_33880, sub_34330
+extern sub_2E208, sub_2EDB8, sub_2F4B8, sub_2FED8, sub_32260, sub_32340, EndPenaltyShot, sub_34330
 extern sub_358E4, sub_365FC, sub_3DA80, sub_3DAC4, sub_3DBCC, sub_3DC2C, sub_3DCBC, sub_3DE08
 extern sub_41ACC, sub_41FA0, sub_42098, sub_42220, sub_42354, sub_4241C, sub_424CC, sub_45BEC
 extern sub_4A280, sub_4B1C4, sub_4B4B0, sub_4B4C4, sub_4B540, sub_4B8DC, sub_4BA00, sub_4BCB4
@@ -183,8 +183,8 @@ extern unk_1BA510, unk_1BAA88, unk_1BB268, unk_1BBAB8, unk_1BBEE0, unk_1BD680, u
 extern unk_1BE838, unk_1BEF00, unk_1BF110, unk_1BF174, unk_1BF204, unk_1BF29C, unk_1BF2E8, unk_1BF498
 extern unk_1BF588, unk_1BF5A0, unk_1BF5DC, unk_1BF658, unk_1C135C, unk_1C347F, unk_56790, unk_56794
 extern vecdist, word_1686D8, word_19CB64, word_19CB68, word_19CB76, word_19CB78, word_19CB7A, word_19CB7C
-extern word_19CB84, word_19CB92, word_19CB94, word_19CB98, word_19CBA0, word_19CBAC, word_19CBAE, word_19CBB0
-extern word_19CBB2, word_19CBB8, word_19CBBA, word_19CBBC, word_19CBBE, word_19CBC0, word_19CBD6, word_19CBD8
+extern word_19CB84, word_19CB92, word_19CB94, word_19CB98, gameover, word_19CBAC, word_19CBAE, word_19CBB0
+extern word_19CBB2, gsp, gameclock, word_19CBBC, word_19CBBE, word_19CBC0, word_19CBD6, word_19CBD8
 extern word_19CBDA, word_19CBF0, word_19CBF2, word_19CBF4, word_19CC04, word_19CC24, word_19CC26, word_19CC28
 extern word_19EBAC, word_19EBB2, word_19ECB8, word_19ECBE
 global jpt_628A8, jpt_62EF8, jpt_633C8, jpt_63A88, jpt_649C0, jpt_64AC0, jpt_657A3, jpt_700A0
@@ -21442,7 +21442,7 @@ sub_66758:
         xor ebx, ebx
         call sub_32340
 .6:
-        call sub_33880
+        call EndPenaltyShot
         xor edi, edi
         xor eax, eax
         mov word [word_19CBD8], di
@@ -21475,7 +21475,7 @@ sub_66758:
         mov edx, 8
         xor esi, esi
         call sub_32340
-        call sub_33880
+        call EndPenaltyShot
         mov word [word_19CBD8], si
         mov word [word_19CBD6], si
         mov word [word_19CBDA], si
@@ -21844,7 +21844,7 @@ sub_66758:
         sahf
         jbe short .37
 .36:
-        call sub_33880
+        call EndPenaltyShot
 .37:
         xor edx, edx
         mov word [word_19CBD6], dx
@@ -24154,7 +24154,7 @@ sub_68378:
         call sub_68030
 .16:
         xor edx, edx
-        call sub_33880
+        call EndPenaltyShot
         mov word [word_19CBD8], dx
         mov word [word_19CBD6], dx
         mov word [word_19CBDA], dx
@@ -24632,7 +24632,7 @@ sub_6889C:
         call sub_68030
 .16:
         xor edx, edx
-        call sub_33880
+        call EndPenaltyShot
         mov word [word_19CBD8], dx
         mov word [word_19CBD6], dx
         mov word [word_19CBDA], dx
@@ -25179,7 +25179,7 @@ sub_68DBC:
         call sub_67BD0
 .17:
         xor edx, edx
-        call sub_33880
+        call EndPenaltyShot
         mov word [word_19CBD8], dx
         mov word [word_19CBD6], dx
         mov word [word_19CBDA], dx
@@ -45381,7 +45381,7 @@ sub_77A88:
         mov byte [dword ebx+0A5h], al
         test byte [byte_19CBCC], 40h
         je near .15
-        cmp word [word_19CBBA], byte 0
+        cmp word [gameclock], byte 0
         jne short .4
         cmp word [word_19CBBC], byte 0
         je short .5
@@ -45434,7 +45434,7 @@ sub_77A88:
 .11:
         test byte [byte_19CBCC], 40h
         je short .15
-        cmp word [word_19CBBA], byte 0
+        cmp word [gameclock], byte 0
         jne short .12
         cmp word [word_19CBBC], byte 0
         je short .13
@@ -45649,7 +45649,7 @@ sub_77A88:
 ; gsp = 4)
 ;-----------------------------------------------------------------------------
 GameOver:
-        mov word [word_19CBA0], 1
+        mov word [gameover], 1
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
@@ -45669,24 +45669,24 @@ sub_77FA8:
         sar eax, 10h
         cmp eax, byte 0FFFFFFFFh
         je near .3
-        mov dx, word [word_19CBB8]
+        mov dx, word [gsp]
         mov bx, word [word_19CBB0]
         mov ah, byte [byte_19CBC2]
         inc edx
         inc ebx
         xor ah, 2
-        mov word [word_19CBB8], dx
+        mov word [gsp], dx
         mov word [word_19CBB0], bx
         mov byte [byte_19CBC2], ah
         cmp dx, byte 2
         jle short .3
         cmp dx, byte 3
         jle short .1
-        mov word [word_19CBB8], 3
+        mov word [gsp], 3
         call sub_11984
         test eax, eax
         jne short .2
-        mov word [word_19CBB8], 4
+        mov word [gsp], 4
         jmp short .2
 .1:
         call sub_11984
@@ -45697,7 +45697,7 @@ sub_77FA8:
         mov dx, word [awtmstruct]
         cmp dx, word [hmtmstruct]
         je short .3
-        mov word [word_19CBB8], 4
+        mov word [gsp], 4
 .3:
         call Intermission
         pop edx
@@ -45786,7 +45786,7 @@ sub_780F0:
         mov edx, 41h
         mov eax, dword [off_168CFC]
         call sub_1E224
-        mov dx, word [word_19CBB8]
+        mov dx, word [gsp]
         cmp dx, byte 2
         jge short .2
         cmp dword [dword_1B8FA0], byte 0
@@ -46097,9 +46097,9 @@ sub_780F0:
         sar eax, 10h
         call sub_AA650
 .32:
-        cmp word [word_19CBB8], byte 3
+        cmp word [gsp], byte 3
         jne short .34
-        cmp word [word_19CBBA], byte 0
+        cmp word [gameclock], byte 0
         jne short .33
         cmp word [word_19CBBC], byte 0
         je short .34
@@ -46136,7 +46136,7 @@ sub_785E8:
         call chkprogress
         test byte [byte_19CBC2], 1
         jne short .1
-        cmp word [word_19CBBA], byte 0
+        cmp word [gameclock], byte 0
         jne short .1
         cmp word [word_19CBBC], byte 0
         jne short .1
@@ -46160,7 +46160,7 @@ sub_785E8:
         and eax, 0C0h
         cmp eax, byte 40h
         jne near .4
-        cmp word [word_19CBBA], byte 0
+        cmp word [gameclock], byte 0
         jne short .2
         cmp word [word_19CBBC], byte 0
         je near .4

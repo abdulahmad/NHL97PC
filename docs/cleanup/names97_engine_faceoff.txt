@@ -19,3 +19,31 @@ sub_14FE0 SaveGameDisplay {confidence=low} writes the game's display options bac
 sub_151A8 SetGameBrightness {confidence=low} the brightness (28h-64h) from the display options
 sub_15578 RunDemoGame {source=96PC,confidence=medium} 96 PC RunDemoGame: the attract mode game (gameopts 40h, a seed from the DOS time)
 
+word_19CBB8 gsp {source=94G,confidence=medium} 94G gsp, the game segment (period 0-3, 4 = game over), as in 96 PC StartGame / Intermission / ClockTick
+word_19CBBA gameclock {source=94G,confidence=medium} 94G gameclock: seconds left in the period (ClockTick)
+word_19CBE2 penshotlive {source=96PC,confidence=medium} 96 PC penshotlive: a penalty shot is running (ClockTick)
+dword_19CBE4 penshottimer {source=96PC,confidence=medium} 96 PC penshottimer: ticks left of the penalty shot
+word_19CBA0 gameover {source=96PC,confidence=medium} 96 PC gameover (GameOver sets it, RunSimFrames checks it)
+sub_33880 EndPenaltyShot {source=96PC,confidence=medium} 96 PC EndPenaltyShot: from ClockTick when the penalty shot time runs out
+sub_2E8F0 UpdateCoachModes {source=96PC,confidence=medium} 96 PC UpdateCoachModes: from ClockTick at the same minutes of periods 2 and 3
+sub_48D70 PaEvent {source=96PC,confidence=low} the play-by-play event call: ClockTick posts 0C0000004h with the period at one minute left, where 96 PC posts PaEvent(100h)
+sub_48D70_14CD PaEvent_14CD {no_record}
+sub_48D70_4D6 PaEvent_4D6 {no_record}
+sub_48D70_4EC PaEvent_4EC {no_record}
+sub_48D70_502 PaEvent_502 {no_record}
+sub_48D70_518 PaEvent_518 {no_record}
+sub_48D70_536 PaEvent_536 {no_record}
+sub_48D70_572 PaEvent_572 {no_record}
+sub_48D70_5AE PaEvent_5AE {no_record}
+sub_48D70_5D6 PaEvent_5D6 {no_record}
+sub_48D70_5FE PaEvent_5FE {no_record}
+sub_48D70_64E PaEvent_64E {no_record}
+sub_48D70_69E PaEvent_69E {no_record}
+sub_48D70_745 PaEvent_745 {no_record}
+sub_48D70_7FF PaEvent_7FF {no_record}
+sub_48D70_87E PaEvent_87E {no_record}
+sub_48D70_8CF PaEvent_8CF {no_record}
+sub_48D70_8F5 PaEvent_8F5 {no_record}
+sub_48D70_91B PaEvent_91B {no_record}
+sub_48D70_941 PaEvent_941 {no_record}
+sub_48D70_967 PaEvent_967 {no_record}

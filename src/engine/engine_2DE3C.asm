@@ -6,10 +6,10 @@ extern SortCords, __CHP, awtmstruct, byte_19CB7E, byte_19CBC2, byte_19CBC8, byte
 extern byte_19EB56, byte_19EB57, byte_19EC60, byte_19EC61, byte_19EC62, byte_19EC63, dword_1608AF, dword_1608B3
 extern dword_19CB32, dword_19CB48, dword_19EB58, dword_19EC64, dword_1AC944, hmtmstruct, off_19C5F4, randomd0
 extern sub_127D4, sub_16090, sub_18D8A, sub_2DCC8, sub_45BEC, word_19CA90, word_19CA92, word_19CA94
-extern word_19CA96, word_19CB34, word_19CB98, word_19CBB8, word_19CBBA, word_19CBBE, word_19CBEC, word_19CBEE
+extern word_19CA96, word_19CB34, word_19CB98, gsp, gameclock, word_19CBBE, word_19CBEC, word_19CBEE
 extern word_19CC24, word_19CC26, word_19EAC0
 global ReturnGoalies, sub_2DE94_1A5, sub_2DE94_259, sub_2E12C_33, sub_2DE94, sub_2E11C, sub_2E12C, sub_2E168
-global sub_2E208, sub_2E310, sub_2E378, sub_2E6D4, sub_2E7D8, sub_2E8F0, sub_2EDB8
+global sub_2E208, sub_2E310, sub_2E378, sub_2E6D4, sub_2E7D8, UpdateCoachModes, sub_2EDB8
 ;-----------------------------------------------------------------------------
 ; ReturnGoalies                    2DE3C  93G logic93_4.asm, medium confidence
 ; (computer returns a pulled goalie), from puckfaceoff.
@@ -519,10 +519,10 @@ sub_2E378:
         sub esp, byte 10h
         mov esi, eax
         mov ebx, edx
-        cmp word [word_19CBB8], byte 0
+        cmp word [gsp], byte 0
         jg short .1
         mov di, word [word_19CB98]
-        cmp di, word [word_19CBBA]
+        cmp di, word [gameclock]
         jle near .37
 .1:
         mov dx, word [byte esi+0Eh]
@@ -616,10 +616,10 @@ sub_2E378:
         mov ecx, 3
         jmp short .18
 .15:
-        cmp word [word_19CBB8], byte 0
+        cmp word [gsp], byte 0
         jg short .16
         mov dx, word [word_19CB98]
-        cmp dx, word [word_19CBBA]
+        cmp dx, word [gameclock]
         jle short .18
 .16:
         mov cx, word [byte esi+02h]
@@ -916,7 +916,7 @@ sub_2E7D8:
         mov byte [byte_19EC60], ch
         mov byte [byte_19EB54], ch
         mov ah, 2
-        mov cx, word [word_19CBB8]
+        mov cx, word [gsp]
         mov byte [byte_19EC61], ah
         mov byte [byte_19EB55], ah
         cmp cx, byte 2
@@ -961,7 +961,7 @@ sub_2E7D8:
         mov eax, dword [dword_1AC944]
         test byte [byte eax+01h], 0C0h
         je short .5
-        cmp word [word_19CBB8], byte 0
+        cmp word [gsp], byte 0
         jle short .5
         cmp word [word_19CC26], byte 0
         je short .4
@@ -980,9 +980,11 @@ sub_2E7D8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_2E8F0                                                       2E8F0  97 PC
+; UpdateCoachModes                             2E8F0  95 PC, medium confidence
+; coach AI, once a second from ClockTick. Picks each team's mode (team D2h..D6h) from the
+; score difference, time left and penalties (details not traced).
 ;-----------------------------------------------------------------------------
-sub_2E8F0:
+UpdateCoachModes:
         push ebx
         push ecx
         push edx
@@ -991,11 +993,11 @@ sub_2E8F0:
         push ebp
         mov bx, word [awtmstruct]
         mov dx, word [hmtmstruct]
-        mov cx, word [word_19CBB8]
+        mov cx, word [gsp]
         sub edx, ebx
         cmp cx, byte 1
         jne near .6
-        cmp word [word_19CBBA], 258h
+        cmp word [gameclock], 258h
         jg near .6
         xor eax, eax
         mov bl, byte [byte_19EB57]
@@ -1019,7 +1021,7 @@ sub_2E8F0:
         je short .2
         or byte [byte_19EC62], 40h
 .2:
-        cmp word [word_19CBBA], 258h
+        cmp word [gameclock], 258h
         jne near .26
         movsx eax, dx
         cmp eax, byte 0FFFFFFFFh
@@ -1061,9 +1063,9 @@ sub_2E8F0:
         pop ebx
         ret
 .6:
-        cmp word [word_19CBB8], byte 2
+        cmp word [gsp], byte 2
         jl near .26
-        mov ax, word [word_19CBBA]
+        mov ax, word [gameclock]
         mov cl, byte [byte_19EB57]
         cmp ax, 3Ch
         jg short .7
@@ -1083,7 +1085,7 @@ sub_2E8F0:
         mov byte [byte_19EB54], bh
         jmp near .15
 .7:
-        cmp word [word_19CBBA], byte 78h
+        cmp word [gameclock], byte 78h
         jg short .8
         cmp dx, byte 1
         jge short .8
@@ -1100,7 +1102,7 @@ sub_2E8F0:
         mov byte [byte_19EB57], bh
         jmp near .15
 .8:
-        cmp word [word_19CBBA], 0B4h
+        cmp word [gameclock], 0B4h
         jg short .9
         movsx eax, dx
         cmp eax, byte 0FFFFFFFFh
@@ -1118,7 +1120,7 @@ sub_2E8F0:
         mov byte [byte_19EB55], ah
         jmp near .15
 .9:
-        cmp word [word_19CBBA], 12Ch
+        cmp word [gameclock], 12Ch
         jg short .10
         movsx eax, dx
         cmp eax, byte 0FFFFFFFFh
@@ -1136,7 +1138,7 @@ sub_2E8F0:
         mov byte [byte_19EB54], ah
         jmp near .15
 .10:
-        cmp word [word_19CBBA], 258h
+        cmp word [gameclock], 258h
         jg near .14
         movsx eax, dx
         cmp eax, byte 0FFFFFFFFh
@@ -1182,7 +1184,7 @@ sub_2E8F0:
         je short .16
         or byte [byte_19EB56], 40h
 .16:
-        mov cx, word [word_19CBBA]
+        mov cx, word [gameclock]
         mov bl, byte [byte_19EC63]
         cmp cx, byte 3Ch
         jg short .17
@@ -1201,7 +1203,7 @@ sub_2E8F0:
         mov byte [byte_19EC60], dh
         jmp near .25
 .17:
-        cmp word [word_19CBBA], byte 78h
+        cmp word [gameclock], byte 78h
         jg short .18
         cmp dx, byte 1
         jle short .18
@@ -1218,7 +1220,7 @@ sub_2E8F0:
         mov byte [byte_19EC60], ch
         jmp near .25
 .18:
-        cmp word [word_19CBBA], 0B4h
+        cmp word [gameclock], 0B4h
         jg short .19
         cmp dx, byte 1
         jle short .19
@@ -1235,7 +1237,7 @@ sub_2E8F0:
         mov byte [byte_19EC63], ah
         jmp near .25
 .19:
-        cmp word [word_19CBBA], 12Ch
+        cmp word [gameclock], 12Ch
         jg short .20
         cmp dx, byte 1
         jle short .20
@@ -1252,7 +1254,7 @@ sub_2E8F0:
         mov byte [byte_19EC62], dh
         jmp near .25
 .20:
-        cmp word [word_19CBBA], 258h
+        cmp word [gameclock], 258h
         jg near .24
         cmp dx, byte 1
         jle short .21

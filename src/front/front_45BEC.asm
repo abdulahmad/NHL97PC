@@ -8,9 +8,9 @@ extern dword_16926C, dword_169274, dword_169278, dword_16927A, dword_16927C, dwo
 extern dword_1697B4, dword_16981C, dword_169820, dword_1AC4F0, dword_1AC4F4, dword_1AC4F8, dword_1AC4FC, dword_1AC500
 extern dword_1AC504, dword_1AC5C8, dword_1AC5D0, dword_1AC78C, dword_1AC790, dword_1AC794, dword_1AC798, dword_1AC79C
 extern dword_1AC7A0, dword_1AC814, dword_1AC944, dword_1B8FA0, jpt_45A64, jpt_45B20, jpt_45B38, jpt_45B60
-extern jpt_45B70, jpt_45B84, jpt_45BC0, jpt_45BD8, sub_48D70_4D6, sub_48D70_4EC, sub_48D70_502, sub_48D70_518
-extern sub_48D70_536, sub_48D70_572, sub_48D70_5AE, sub_48D70_5D6, sub_48D70_5FE, sub_48D70_64E, sub_48D70_69E, sub_48D70_745
-extern sub_48D70_7FF, sub_48D70_87E, sub_48D70_8CF, sub_48D70_8F5, sub_48D70_91B, sub_48D70_941, sub_48D70_967, sub_48D70_14CD
+extern jpt_45B70, jpt_45B84, jpt_45BC0, jpt_45BD8, PaEvent_4D6, PaEvent_4EC, PaEvent_502, PaEvent_518
+extern PaEvent_536, PaEvent_572, PaEvent_5AE, PaEvent_5D6, PaEvent_5FE, PaEvent_64E, PaEvent_69E, PaEvent_745
+extern PaEvent_7FF, PaEvent_87E, PaEvent_8CF, PaEvent_8F5, PaEvent_91B, PaEvent_941, PaEvent_967, PaEvent_14CD
 extern rand_, sprintf_, strcat_, sub_106AA6, sub_106C74, sub_106CBB, sub_107154, sub_109417
 extern sub_109545, sub_10955B, sub_1095AD, sub_109870, AsyncInit, AsyncClose, AsyncRequestOpen, AsyncRequestSection
 extern sub_109E74, sub_10A7D0, sub_10A860, sub_10A868, sub_10A8C4, sub_10A930, sub_10A980, sub_10AA38
@@ -4219,24 +4219,24 @@ RecordStreakClips:
         ret
         db 08Bh,0C0h
 jpt_48D20:
-        dd sub_48D70_4D6
-        dd sub_48D70_4EC
-        dd sub_48D70_502
-        dd sub_48D70_518
-        dd sub_48D70_536
-        dd sub_48D70_572
-        dd sub_48D70_5AE
-        dd sub_48D70_5D6
-        dd sub_48D70_14CD
-        dd sub_48D70_5FE
-        dd sub_48D70_64E
-        dd sub_48D70_69E
+        dd PaEvent_4D6
+        dd PaEvent_4EC
+        dd PaEvent_502
+        dd PaEvent_518
+        dd PaEvent_536
+        dd PaEvent_572
+        dd PaEvent_5AE
+        dd PaEvent_5D6
+        dd PaEvent_14CD
+        dd PaEvent_5FE
+        dd PaEvent_64E
+        dd PaEvent_69E
 jpt_48D50:
-        dd sub_48D70_745
-        dd sub_48D70_7FF
-        dd sub_48D70_87E
-        dd sub_48D70_8CF
-        dd sub_48D70_8F5
-        dd sub_48D70_91B
-        dd sub_48D70_941
-        dd sub_48D70_967
+        dd PaEvent_745
+        dd PaEvent_7FF
+        dd PaEvent_87E
+        dd PaEvent_8CF
+        dd PaEvent_8F5
+        dd PaEvent_91B
+        dd PaEvent_941
+        dd PaEvent_967

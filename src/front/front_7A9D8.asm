@@ -19,7 +19,7 @@ extern sub_108A60, sub_108BA0, sub_108D78, sub_108DC4, sub_108E74, sub_1091E0, s
 extern sub_116E84, sub_116F78, sub_117338, sub_11756C, sub_117C26, sub_118C88, sub_119054, sub_11910D
 extern sub_1191D1, sub_1191F2, sub_119780, sub_13C164, sub_3E818, sub_3EB40, sub_3EC58, sub_3EE74
 extern CdStreamService, sub_3FBE4, sub_3FC7C, sub_3FD0C, sub_419B0, sub_419B8, sub_41A28, sub_41D18
-extern sub_41DB8, sub_41DD8, sub_41EA4, sub_48D70, MakeDataPath, sub_4B074, sub_4B108, WriteGlobalSet
+extern sub_41DB8, sub_41DD8, sub_41EA4, PaEvent, MakeDataPath, sub_4B074, sub_4B108, WriteGlobalSet
 extern sub_7F5A4, sub_80BBC, sub_81678, sub_84B55, sub_85A15, sub_85D1D, sub_8BDCF, sub_8BE23
 extern sub_8BE60, sub_8BEF8, sub_8BFA0, sub_8E740, sub_8E7E0, sub_8E840, sub_9CFD3, sub_9D333
 extern sub_C3594, sub_D547C, sub_D70C4, sub_DA7D6, sub_DA7EB, sub_DB6AC, sub_DCBB0, sub_E036F
@@ -3375,7 +3375,7 @@ sub_7CF94:
         call sub_419B0
         call sub_419B8
         push dword 0B0000001h
-        call sub_48D70
+        call PaEvent
         add esp, byte 4
         mov eax, dword [tickcount]
         lea ebx, [dword eax+01F4h]

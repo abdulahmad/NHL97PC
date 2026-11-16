@@ -12,7 +12,7 @@ extern dword_1686C8, dword_1686CC, dword_1686D0, dword_1686DC, InGameMenuRequest
 extern dword_16AF44, dword_16AF48, dword_16AF4C, dword_16AF50, dword_16AF54, dword_16AF58, dword_16AF5C, dword_16C6BC
 extern InputRecordStamp, dword_16DA9C, dword_16E464, dword_16E468, dword_16E500, dword_19CB30, dword_19CB38, dword_19CB3C
 extern dword_19CB40, dword_19CB44, dword_19CB48, dword_19CB4C, dword_19CB50, dword_19CB58, dword_19CBAA, seed
-extern dword_19CBD0, dword_19CBE4, dword_19CBE8, dword_19CBF8, dword_19CC00, dword_19CC54, dword_19CC58, dword_19CC78
+extern dword_19CBD0, penshottimer, dword_19CBE8, dword_19CBF8, dword_19CC00, dword_19CC54, dword_19CC58, dword_19CC78
 extern dword_19CC9C, dword_19CCA0, dword_19CCA4, dword_19CCA8, dword_19CD08, dword_19CD0C, dword_19CD10, dword_19CD14
 extern dword_19CD18, dword_19CD1C, dword_19CD20, dword_19CD24, dword_19CD28, dword_19CD2C, dword_19CD30, dword_19CD34
 extern dword_19CD40, dword_19CD44, dword_19CD48, dword_19CD4C, dword_19CD50, dword_19CD54, dword_19CD88, dword_19CDA0
@@ -42,10 +42,10 @@ extern word_19C3EE, word_19C3F0, word_19C3F2, word_19CA90, word_19CA92, word_19C
 extern word_19CB28, word_19CB2A, word_19CB2C, word_19CB2E, word_19CB34, word_19CB36, word_19CB5C, word_19CB60
 extern word_19CB64, word_19CB68, word_19CB72, word_19CB76, word_19CB78, word_19CB7A, word_19CB7C, word_19CB80
 extern word_19CB82, word_19CB84, word_19CB86, word_19CB88, word_19CB8C, word_19CB8E, word_19CB90, word_19CB92
-extern word_19CB96, word_19CB9A, word_19CB9C, word_19CB9E, word_19CBA0, word_19CBA2, word_19CBA4, word_19CBA6
-extern word_19CBA8, word_19CBAC, word_19CBAE, word_19CBB0, word_19CBB2, word_19CBB4, word_19CBB6, word_19CBB8
-extern word_19CBBA, word_19CBBC, word_19CBBE, word_19CBC0, word_19CBD4, word_19CBD6, word_19CBD8, word_19CBDA
-extern word_19CBDC, word_19CBDE, word_19CBE0, word_19CBE2, word_19CBE6, word_19CBEA, word_19CBEC, word_19CBEE
+extern word_19CB96, word_19CB9A, word_19CB9C, word_19CB9E, gameover, word_19CBA2, word_19CBA4, word_19CBA6
+extern word_19CBA8, word_19CBAC, word_19CBAE, word_19CBB0, word_19CBB2, word_19CBB4, word_19CBB6, gsp
+extern gameclock, word_19CBBC, word_19CBBE, word_19CBC0, word_19CBD4, word_19CBD6, word_19CBD8, word_19CBDA
+extern word_19CBDC, word_19CBDE, word_19CBE0, penshotlive, word_19CBE6, word_19CBEA, word_19CBEC, word_19CBEE
 extern word_19CBF0, word_19CBF2, word_19CBF4, word_19CC04, word_19CC24, word_19CC26, word_19CC28, word_19CC2A
 extern word_19CC2C, word_19CC50, word_19CC52, word_19CCC4, word_19CD9C, word_19CDA7, word_19DAD9, word_19DCFA
 extern word_19E32A, word_1C3415, word_1C3417, word_1C5538, word_1C553A
@@ -89,7 +89,7 @@ AllInPlace:
 Intermission:
         push ebx
         push edx
-        cmp word [word_19CBB8], byte 4
+        cmp word [gsp], byte 4
         jne short .1
         call GameOver
         pop edx
@@ -161,7 +161,7 @@ StartGame:
         call clearteams
         mov word [word_19CB82], bx
         mov word [word_19CBB0], dx
-        mov word [word_19CBB8], bx
+        mov word [gsp], bx
         call sub_11808
         call sub_30BD8
         xor eax, eax
@@ -170,7 +170,7 @@ StartGame:
         call sub_31F88
         mov eax, dword [off_168D04]
         mov dword [byte eax+05Ah], 0FFFFFFFFh
-        cmp word [word_19CBB8], byte 4
+        cmp word [gsp], byte 4
         jne short .1
         call GameOver
         jmp short .2
@@ -219,7 +219,7 @@ InitGameVars:
         mov word [word_19CB88], bx
         mov dword [dword_19CC00], ebp
         mov word [word_19CBB2], bx
-        mov word [word_19CBA0], bx
+        mov word [gameover], bx
         mov dword [dword_19CBD0], ecx
         mov word [word_19CBF2], bx
         mov word [word_19CBF4], bx
@@ -233,7 +233,7 @@ InitGameVars:
         mov word [word_19CBE0], bx
         mov word [word_19CBDC], si
         mov word [word_19CBDA], bx
-        mov word [dword_19CBE4], bx
+        mov word [penshottimer], bx
         mov dword [dword_19CB48], ecx
         mov dword [dword_19CB50], ecx
         mov dword [dword_19CB4C], ecx
@@ -284,7 +284,7 @@ InitGameVars:
         mov word [word_19CB2A], ax
         mov word [word_19CBB4], dx
         xor bl, bl
-        mov word [word_19CBE2], dx
+        mov word [penshotlive], dx
         mov byte [byte_19CB71], bl
         xor edx, edx
         xor bh, bh
@@ -773,7 +773,7 @@ BeginGame:
         push edx
         push esi
         call InitGameVars
-        mov dx, word [word_19CBBA]
+        mov dx, word [gameclock]
         mov esi, 1
         test dx, dx
         jne short .1
@@ -782,7 +782,7 @@ BeginGame:
         xor eax, eax
         jmp short .2
 .1:
-        mov ebx, dword [word_19CBB8]
+        mov ebx, dword [gsp]
         mov eax, dword [word_19CB96]
         sar ebx, 10h
         sar eax, 10h
@@ -1382,7 +1382,7 @@ RunSimFrames:
         jne near .5
         cmp word [word_19CBB2], byte 0
         jne near .5
-        cmp word [word_19CBA0], byte 0
+        cmp word [gameover], byte 0
         jne near .5
         mov eax, dword [dword_1AC814]
         mov dl, byte [word_19CD9C]
@@ -1732,9 +1732,9 @@ DebugKeys:
         mov edx, 2
         mov word [word_19CBBC], si
         mov word [word_19CBB0], dx
-        mov word [word_19CBB8], dx
+        mov word [gsp], dx
         mov dh, byte [byte_19CBC2]
-        mov word [word_19CBBA], si
+        mov word [gameclock], si
         or dh, 40h
         mov word [awtmstruct], ax
         mov byte [byte_19CBC2], dh
@@ -1757,13 +1757,13 @@ DebugKeys:
         mov word [word_1C5538], di
         mov word [word_1C3417], di
         mov word [word_19CBBC], ax
-        mov word [word_19CBBA], ax
+        mov word [gameclock], ax
         mov ch, 1
         mov esi, 2
         mov al, byte [byte_19CBC2]
         mov byte [byte_1C135B], ch
         mov word [word_19CBB0], si
-        mov word [word_19CBB8], si
+        mov word [gsp], si
         or al, 40h
         xor ch, ch
         mov byte [byte_19CBC2], al
@@ -1791,8 +1791,8 @@ DebugKeys:
         mov byte [byte_1C135B], dh
         mov word [word_1C5538], dx
         mov word [word_19CBB0], si
-        mov word [word_19CBB8], si
-        mov word [word_19CBBA], dx
+        mov word [gsp], si
+        mov word [gameclock], dx
         mov eax, 1
         pop edi
         pop esi
@@ -1803,7 +1803,7 @@ DebugKeys:
 .17:
         xor ecx, ecx
         xor ebx, ebx
-        mov word [word_19CBBA], cx
+        mov word [gameclock], cx
         mov word [word_19CBBC], bx
         mov eax, 1
         pop edi
@@ -1817,17 +1817,17 @@ DebugKeys:
         mov di, word [awtmstruct]
         xor esi, esi
         xor ecx, ecx
-        mov word [word_19CBBA], si
+        mov word [gameclock], si
         mov word [word_19CBBC], cx
         cmp ax, di
         jne short .19
         mov ebx, 3
-        mov word [word_19CBB8], bx
+        mov word [gsp], bx
         mov word [word_19CBB0], bx
         jmp short .20
 .19:
         mov eax, 2
-        mov word [word_19CBB8], ax
+        mov word [gsp], ax
         mov word [word_19CBB0], ax
 .20:
         or byte [byte_19CBC2], 40h
@@ -2348,7 +2348,7 @@ GameLoop:
         mov ebp, dword_1B1410
         add ebp, byte 58h
 .2:
-        cmp word [word_19CBA0], byte 0
+        cmp word [gameover], byte 0
         jne near .21
         cmp dword [dword_19CB58], byte 0
         jne near .21

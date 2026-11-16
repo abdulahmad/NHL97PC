@@ -94,13 +94,13 @@ extern unk_1B0510, unk_1B0970, unk_1B0AA8, unk_1B0AD0, unk_1B0B3C, unk_1B0BA0, u
 extern unk_1B0CF0, unk_1B0F14, unk_1B0F28, unk_1B0FA4, unk_1B0FC0, unk_1B1068, unk_1B10FC, unk_1B92AB
 extern unk_1D1D20, vecdist, word_1691A4, word_1691B2, word_1691B4, word_1691B6, word_169282, word_169284
 extern word_1B0B62
-global jpt_4A73C, jpt_4AD42, jpt_4AE54, jpt_4B8CC, jpt_52484, sub_48D70_4D6, sub_48D70_4EC, sub_48D70_502
-global sub_48D70_518, sub_48D70_536, sub_48D70_572, sub_48D70_5AE, sub_48D70_5D6, sub_48D70_5FE, sub_48D70_64E, sub_48D70_69E
-global sub_48D70_745, sub_48D70_7FF, sub_48D70_87E, sub_48D70_8CF, sub_48D70_8F5, sub_48D70_91B, sub_48D70_941, sub_48D70_967
-global sub_48D70_14CD, sub_4A74C_34, sub_4A74C_4B, sub_4A74C_105, sub_4A74C_277, MakeDataPath_41, MakeDataPath_49, MakeDataPath_4F
+global jpt_4A73C, jpt_4AD42, jpt_4AE54, jpt_4B8CC, jpt_52484, PaEvent_4D6, PaEvent_4EC, PaEvent_502
+global PaEvent_518, PaEvent_536, PaEvent_572, PaEvent_5AE, PaEvent_5D6, PaEvent_5FE, PaEvent_64E, PaEvent_69E
+global PaEvent_745, PaEvent_7FF, PaEvent_87E, PaEvent_8CF, PaEvent_8F5, PaEvent_91B, PaEvent_941, PaEvent_967
+global PaEvent_14CD, sub_4A74C_34, sub_4A74C_4B, sub_4A74C_105, sub_4A74C_277, MakeDataPath_41, MakeDataPath_49, MakeDataPath_4F
 global MakeDataPath_62, MakeDataPath_111, MakeDataPath_119, MakeDataPath_11F, MakeDataPath_132, jpt_4AE54_137, sub_4B8DC_27, sub_4B8DC_33
 global sub_4B8DC_3D, sub_4B8DC_47, sub_4E8EC_30, sub_4FD24_59, sub_50AF4_184, sub_51A74_58, sub_51AEC_50, sub_52494_2C
-global sub_52494_42, sub_52494_58, sub_52494_7D, sub_48D70, sub_4A248, sub_4A280, sub_4A4F4, sub_4A558
+global sub_52494_42, sub_52494_58, sub_52494_7D, PaEvent, sub_4A248, sub_4A280, sub_4A4F4, sub_4A558
 global sub_4A6F8, sub_4A74C, sub_4AA78, MakeDataPath, sub_4AE14, LoadDataFileHandle, sub_4B074, sub_4B108
 global sub_4B12D, sub_4B19C, sub_4B1C4, sub_4B307, WriteGlobalSet, sub_4B4AC, sub_4B4B0, sub_4B4C4
 global sub_4B540, sub_4B5C4, sub_4B80C, sub_4B8DC, sub_4B928, sub_4B944, sub_4BA00, sub_4BCB4
@@ -118,9 +118,12 @@ global sub_511AC, sub_51254, sub_51408, sub_51434, sub_516B8, sub_519E0, sub_51A
 global sub_51B5C, sub_51BD8, sub_51C4C, BuildRinkSides, sub_52494, sub_525E0, sub_52648, sub_526EC
 global unk_4AB70, unk_4AB80, unk_4B4A0, unk_4BCC0, unk_4BCCC
 ;-----------------------------------------------------------------------------
-; sub_48D70                                                       48D70  97 PC
+; PaEvent                                         48D70  96 PC, low confidence
+; The play-by-play announcer: (event bit, args...) from PostGoalEvent,
+; PostPenaltyEvent, ClockTick (100h, end of period), the three stars and the
+; screens; jump table jpt_6799B by event, each case queues clips
 ;-----------------------------------------------------------------------------
-sub_48D70:
+PaEvent:
         push dword 5Ch
         call __CHK
         push ebx
@@ -131,34 +134,34 @@ sub_48D70:
         push ebp
         sub esp, byte 40h
         test byte [byte_1AC81B], 2
-        je near sub_48D70_14CD
+        je near PaEvent_14CD
         cmp dword [dword_169254], byte 1
-        jl near sub_48D70_14CD
+        jl near PaEvent_14CD
         mov eax, 0FFFFFFFFh
         call sub_5C1CC
         test eax, eax
-        je near sub_48D70_14CD
+        je near PaEvent_14CD
         mov ebx, dword [byte esp+05Ch]
         lea edx, [byte esp+060h]
         cmp ebx, 0B0000006h
         jb short .2
-        jbe near sub_48D70_69E.53
+        jbe near PaEvent_69E.53
         cmp ebx, 0C0000001h
         jb short .1
         lea eax, [byte edx+04h]
-        jbe near sub_48D70_967.70
+        jbe near PaEvent_967.70
         cmp ebx, 0C0000003h
-        jb near sub_48D70_967.89
-        jbe near sub_48D70_967.105
+        jb near PaEvent_967.89
+        jbe near PaEvent_967.105
         cmp ebx, 0C0000004h
-        je near sub_48D70_967.158
-        jmp near sub_48D70_14CD
+        je near PaEvent_967.158
+        jmp near PaEvent_14CD
 .1:
         cmp ebx, 0B0000007h
-        jbe near sub_48D70_967.64
+        jbe near PaEvent_967.64
         cmp ebx, 0B0000008h
         je near .19
-        jmp near sub_48D70_14CD
+        jmp near PaEvent_14CD
 .2:
         cmp ebx, 0B0000003h
         jb short .3
@@ -168,16 +171,16 @@ sub_48D70:
         jmp near .48
 .3:
         cmp ebx, 0B0000001h
-        jb near sub_48D70_14CD
+        jb near PaEvent_14CD
         ja near .20
         cmp dword [dword_169254], byte 1
-        jne near sub_48D70_14CD
+        jne near PaEvent_14CD
         xor edx, edx
         xor eax, eax
-        jmp near sub_48D70_967.161
+        jmp near PaEvent_967.161
 .4:
         cmp dword [dword_169254], byte 1
-        jne near sub_48D70_14CD
+        jne near PaEvent_14CD
         xor eax, eax
         shl eax, 2
 .5:
@@ -226,7 +229,7 @@ sub_48D70:
         xor eax, eax
 .14:
         test eax, eax
-        je near sub_48D70_14CD
+        je near PaEvent_14CD
         mov ebx, dword [esp]
         cmp ebx, byte 0FFFFFFFFh
         jne short .15
@@ -295,7 +298,7 @@ sub_48D70:
         ret
 .19:
         cmp dword [dword_169254], byte 1
-        jne near sub_48D70_14CD
+        jne near PaEvent_14CD
         mov edx, 1A2h
         xor eax, eax
         call sub_4880C
@@ -309,7 +312,7 @@ sub_48D70:
         ret
 .20:
         cmp dword [dword_169254], byte 1
-        jne near sub_48D70_14CD
+        jne near PaEvent_14CD
         mov edx, 1A1h
         xor eax, eax
         call sub_4880C
@@ -323,7 +326,7 @@ sub_48D70:
         ret
 .21:
         cmp dword [dword_169254], byte 1
-        jne near sub_48D70_14CD
+        jne near PaEvent_14CD
         xor eax, eax
         shl eax, 2
 .22:
@@ -375,7 +378,7 @@ sub_48D70:
         xor eax, eax
 .32:
         test eax, eax
-        je near sub_48D70_14CD
+        je near PaEvent_14CD
         mov edx, dword [byte esp+010h]
         mov eax, dword [byte esp+0Ch]
         call sub_48864
@@ -507,7 +510,7 @@ sub_48D70:
 .48:
         mov edi, dword [dword_169254]
         cmp edi, byte 1
-        jne near sub_48D70_14CD
+        jne near PaEvent_14CD
         mov eax, dword [edx]
         add edx, byte 4
         mov ebx, edi
@@ -531,7 +534,7 @@ sub_48D70:
         xor ebx, ebx
 .52:
         test ebx, ebx
-        je near sub_48D70_14CD
+        je near PaEvent_14CD
         lea ecx, [byte esp+038h]
         lea ebx, [byte esp+03Ch]
         lea edx, [byte esp+034h]
@@ -544,10 +547,10 @@ sub_48D70:
         mov eax, dword [byte esp+034h]
         dec eax
         cmp ax, 0Bh
-        ja near sub_48D70_14CD
+        ja near PaEvent_14CD
         and eax, 0FFFFh
         jmp dword [nosplit cs:eax*4+jpt_48D20]
-sub_48D70_4D6:
+PaEvent_4D6:
         mov edx, 15Bh
         xor eax, eax
         call sub_4880C
@@ -559,7 +562,7 @@ sub_48D70_4D6:
         pop ecx
         pop ebx
         ret
-sub_48D70_4EC:
+PaEvent_4EC:
         mov edx, 15Ah
         xor eax, eax
         call sub_4880C
@@ -571,7 +574,7 @@ sub_48D70_4EC:
         pop ecx
         pop ebx
         ret
-sub_48D70_502:
+PaEvent_502:
         mov edx, 15Ch
         xor eax, eax
         call sub_4880C
@@ -583,7 +586,7 @@ sub_48D70_502:
         pop ecx
         pop ebx
         ret
-sub_48D70_518:
+PaEvent_518:
         mov edx, dword [byte esp+03Ah]
         sar edx, 10h
         xor eax, eax
@@ -597,7 +600,7 @@ sub_48D70_518:
         pop ecx
         pop ebx
         ret
-sub_48D70_536:
+PaEvent_536:
         call rand_
         mov edx, eax
         mov ebx, 3
@@ -619,7 +622,7 @@ sub_48D70_536:
         pop ecx
         pop ebx
         ret
-sub_48D70_572:
+PaEvent_572:
         call rand_
         mov edx, eax
         mov ebx, 4
@@ -641,7 +644,7 @@ sub_48D70_572:
         pop ecx
         pop ebx
         ret
-sub_48D70_5AE:
+PaEvent_5AE:
         call rand_
         mov edx, eax
         mov ebx, 2
@@ -658,7 +661,7 @@ sub_48D70_5AE:
         pop ecx
         pop ebx
         ret
-sub_48D70_5D6:
+PaEvent_5D6:
         call rand_
         mov edx, eax
         mov ebx, 2
@@ -675,7 +678,7 @@ sub_48D70_5D6:
         pop ecx
         pop ebx
         ret
-sub_48D70_5FE:
+PaEvent_5FE:
         call rand_
         mov edx, eax
         mov ebx, 2
@@ -702,7 +705,7 @@ sub_48D70_5FE:
         pop ecx
         pop ebx
         ret
-sub_48D70_64E:
+PaEvent_64E:
         call rand_
         mov edx, eax
         mov ebx, 3
@@ -729,7 +732,7 @@ sub_48D70_64E:
         pop ecx
         pop ebx
         ret
-sub_48D70_69E:
+PaEvent_69E:
         call rand_
         mov edx, eax
         mov ebx, 4
@@ -759,7 +762,7 @@ sub_48D70_69E:
 .53:
         mov ecx, dword [dword_169254]
         cmp ecx, byte 1
-        jne near sub_48D70_14CD
+        jne near PaEvent_14CD
         mov eax, dword [edx]
         add edx, byte 4
         mov ebx, ecx
@@ -782,13 +785,13 @@ sub_48D70_69E:
         xor ebx, ebx
 .57:
         test ebx, ebx
-        je near sub_48D70_14CD
+        je near PaEvent_14CD
         mov eax, dword [byte esp+04h]
         dec eax
         cmp eax, byte 7
-        ja near sub_48D70_14CD
+        ja near PaEvent_14CD
         jmp dword [nosplit cs:eax*4+jpt_48D50]
-sub_48D70_745:
+PaEvent_745:
         mov eax, dword [edx]
         add edx, byte 4
         mov dword [byte esp+08h], eax
@@ -800,14 +803,14 @@ sub_48D70_745:
         xor ebx, ebx
 .59:
         test ebx, ebx
-        je near sub_48D70_14CD
+        je near PaEvent_14CD
         mov eax, dword [edx]
         add edx, byte 4
         mov dword [byte esp+0Ch], eax
         test eax, eax
-        jl near sub_48D70_14CD
+        jl near PaEvent_14CD
         cmp eax, dword [byte esp+08h]
-        jge near sub_48D70_14CD
+        jge near PaEvent_14CD
         mov edx, dword [esp]
         xor eax, eax
         add edx, 129h
@@ -856,7 +859,7 @@ sub_48D70_745:
         pop ecx
         pop ebx
         ret
-sub_48D70_7FF:
+PaEvent_7FF:
         mov eax, dword [edx]
         add edx, byte 4
         mov dword [byte esp+08h], eax
@@ -868,14 +871,14 @@ sub_48D70_7FF:
         xor ebx, ebx
 .63:
         test ebx, ebx
-        je near sub_48D70_14CD
+        je near PaEvent_14CD
         mov eax, dword [edx]
         add edx, byte 4
         mov dword [byte esp+0Ch], eax
         test eax, eax
-        jle near sub_48D70_14CD
+        jle near PaEvent_14CD
         cmp eax, dword [byte esp+08h]
-        jle near sub_48D70_14CD
+        jle near PaEvent_14CD
         mov edx, dword [esp]
         xor eax, eax
         add edx, 129h
@@ -899,14 +902,14 @@ sub_48D70_7FF:
         pop ecx
         pop ebx
         ret
-sub_48D70_87E:
+PaEvent_87E:
         mov eax, dword [edx]
         add edx, byte 4
         mov dword [byte esp+08h], eax
         test eax, eax
-        jle near sub_48D70_14CD
+        jle near PaEvent_14CD
         cmp eax, byte 4
-        jge near sub_48D70_14CD
+        jge near PaEvent_14CD
         mov edx, dword [esp]
         xor eax, eax
         add edx, 129h
@@ -926,7 +929,7 @@ sub_48D70_87E:
         pop ecx
         pop ebx
         ret
-sub_48D70_8CF:
+PaEvent_8CF:
         mov edx, dword [esp]
         xor eax, eax
         add edx, 129h
@@ -942,7 +945,7 @@ sub_48D70_8CF:
         pop ecx
         pop ebx
         ret
-sub_48D70_8F5:
+PaEvent_8F5:
         mov edx, dword [esp]
         xor eax, eax
         add edx, 129h
@@ -958,7 +961,7 @@ sub_48D70_8F5:
         pop ecx
         pop ebx
         ret
-sub_48D70_91B:
+PaEvent_91B:
         mov edx, dword [esp]
         xor eax, eax
         add edx, 129h
@@ -974,7 +977,7 @@ sub_48D70_91B:
         pop ecx
         pop ebx
         ret
-sub_48D70_941:
+PaEvent_941:
         mov edx, dword [esp]
         xor eax, eax
         add edx, 129h
@@ -990,7 +993,7 @@ sub_48D70_941:
         pop ecx
         pop ebx
         ret
-sub_48D70_967:
+PaEvent_967:
         mov edx, dword [esp]
         xor eax, eax
         add edx, 129h
@@ -1008,7 +1011,7 @@ sub_48D70_967:
         ret
 .64:
         cmp dword [dword_169254], byte 1
-        jne near sub_48D70_14CD
+        jne near PaEvent_14CD
         xor eax, eax
         shl eax, 2
 .65:
@@ -1036,7 +1039,7 @@ sub_48D70_967:
         xor eax, eax
 .69:
         test eax, eax
-        je near sub_48D70_14CD
+        je near PaEvent_14CD
         mov edx, dword [esp]
         xor eax, eax
         add edx, 129h
@@ -1056,7 +1059,7 @@ sub_48D70_967:
 .70:
         mov ebp, dword [dword_169254]
         cmp ebp, byte 2
-        jne near sub_48D70_14CD
+        jne near PaEvent_14CD
         mov edx, eax
         mov eax, dword [byte eax-04h]
         mov ebx, 1
@@ -1155,7 +1158,7 @@ sub_48D70_967:
         xor ebx, ebx
 .85:
         test ebx, ebx
-        je near sub_48D70_14CD
+        je near PaEvent_14CD
         mov edx, dword [byte esp+04h]
         mov eax, 2
         call sub_4880C
@@ -1175,7 +1178,7 @@ sub_48D70_967:
         call sub_4880C
 .86:
         cmp dword [esp], byte 0
-        jle near sub_48D70_14CD
+        jle near PaEvent_14CD
         mov edx, 47Fh
         mov eax, 2
         call sub_4880C
@@ -1206,11 +1209,11 @@ sub_48D70_967:
         call sub_4880C
         mov eax, dword [byte esp+030h]
         cmp dword [eax], byte 0
-        jne near sub_48D70_14CD
+        jne near PaEvent_14CD
         mov eax, dword [dword_1AC814]
         and eax, byte 0Ch
         cmp eax, byte 8
-        je near sub_48D70_14CD
+        je near PaEvent_14CD
         mov edx, dword [byte esp+01Ch]
         mov eax, 2
         add edx, 518h
@@ -1230,11 +1233,11 @@ sub_48D70_967:
         call sub_4880C
         mov eax, dword [byte esp+02Ch]
         cmp dword [eax], byte 0
-        jne near sub_48D70_14CD
+        jne near PaEvent_14CD
         mov eax, dword [dword_1AC814]
         and eax, byte 0Ch
         cmp eax, byte 8
-        je near sub_48D70_14CD
+        je near PaEvent_14CD
         mov edx, dword [byte esp+014h]
         mov eax, 2
         add edx, 518h
@@ -1249,7 +1252,7 @@ sub_48D70_967:
         ret
 .89:
         cmp dword [dword_169254], byte 2
-        jne near sub_48D70_14CD
+        jne near PaEvent_14CD
         mov edx, eax
         mov eax, dword [byte eax-04h]
         mov ebx, 1
@@ -1323,7 +1326,7 @@ sub_48D70_967:
         xor ebx, ebx
 .101:
         test ebx, ebx
-        je near sub_48D70_14CD
+        je near PaEvent_14CD
         mov edx, dword [esp]
         mov eax, 2
         add edx, byte 46h
@@ -1387,9 +1390,9 @@ sub_48D70_967:
 .104:
         mov edx, dword [byte esp+02Ch]
         cmp dword [edx], byte 0
-        jne near sub_48D70_14CD
+        jne near PaEvent_14CD
         cmp eax, byte 8
-        je near sub_48D70_14CD
+        je near PaEvent_14CD
         mov edx, dword [byte esp+0Ch]
         mov eax, 2
         add edx, 518h
@@ -1404,7 +1407,7 @@ sub_48D70_967:
         ret
 .105:
         cmp dword [dword_169254], byte 2
-        jne near sub_48D70_14CD
+        jne near PaEvent_14CD
         mov edx, eax
         mov eax, dword [byte eax-04h]
         mov ebx, 1
@@ -1518,7 +1521,7 @@ sub_48D70_967:
         xor ebx, ebx
 .121:
         test ebx, ebx
-        je near sub_48D70_14CD
+        je near PaEvent_14CD
         mov eax, dword [byte esp+010h]
         cmp eax, 70000009h
         jg near .126
@@ -1798,7 +1801,7 @@ sub_48D70_967:
         mov dword [byte esp+04h], 1
 .152:
         cmp dword [byte esp+010h], byte 0
-        jle near sub_48D70_14CD
+        jle near PaEvent_14CD
         mov edx, dword [esp]
         mov eax, 2
         add edx, byte 23h
@@ -1838,7 +1841,7 @@ sub_48D70_967:
 .156:
         mov ebp, dword [byte esp+04h]
         cmp ebp, byte 2
-        jne near sub_48D70_14CD
+        jne near PaEvent_14CD
         mov edx, 480h
         mov eax, ebp
         call sub_4880C
@@ -1862,7 +1865,7 @@ sub_48D70_967:
         mov eax, 2
         call sub_4880C
         cmp dword [byte esp+024h], byte 0
-        je short sub_48D70_14CD
+        je short PaEvent_14CD
         mov edx, 4B0h
         mov eax, 2
         call sub_4880C
@@ -1876,11 +1879,11 @@ sub_48D70_967:
         ret
 .158:
         cmp dword [dword_169254], byte 2
-        jne short sub_48D70_14CD
+        jne short PaEvent_14CD
         mov eax, dword [byte eax-04h]
         mov dword [esp], eax
         test eax, eax
-        jl short sub_48D70_14CD
+        jl short PaEvent_14CD
         cmp eax, byte 4
         jge short .159
         mov edx, eax
@@ -1891,7 +1894,7 @@ sub_48D70_967:
         mov eax, 1
 .161:
         call sub_4880C
-sub_48D70_14CD:
+PaEvent_14CD:
         add esp, byte 40h
         pop ebp
         pop edi
