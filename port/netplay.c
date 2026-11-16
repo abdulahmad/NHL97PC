@@ -184,7 +184,7 @@ static void read_local(uint32_t step)
     uint16_t *slots = (uint16_t *)GAME_ADDR(D_SLOTS), saved[8], w;
     int i;
     if (getenv("NHL97_AUTOPAD")) {
-        w = (uint16_t)(((my_cfg & 0x87u) << 8) | (1u + step / 6u % 8u) | (step % 13u == 0 ? 0x10u : 0) | (step % 29u == 0 ? 0x20u : 0));
+        w = (uint16_t)(((my_cfg & 0x87u) << 8) | (step < 100u ? 0u : (1u + step / 6u % 8u) | (step % 13u == 5u ? 0x10u : 0)));
         nh_local[0] = w; nh_local[1] = 0;
         return;
     }
