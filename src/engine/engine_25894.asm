@@ -30,7 +30,7 @@ extern sub_1DEE4, sub_1E184, assreplace, assexit, sub_1E284, sub_1E8B0, check4be
 extern sub_1F4EC, sub_1F538, sub_1FB6C, sub_1FF5C, sub_20508, sub_20A80, sub_21B20, sub_21E98
 extern sub_22050, sub_22828, sub_22FF0, sub_23284, sub_240D0, sub_24220, sub_2471C, sub_248E8
 extern sub_25010, sub_251F0, sub_25730, sub_2E310, CompLine, sub_30778, sub_3085C, sub_31C14
-extern sub_32260, sub_32340, EndPenaltyShot, sub_34330, sub_343F8, sub_34EF8, sub_39DA4, sub_39EC0
+extern sub_32260, sub_32340, EndPenaltyShot, sub_34330, sub_343F8, doplayeracc, sub_39DA4, sub_39EC0
 extern sub_3A164, sub_3AB68, sub_3ABD8, sub_3AC3C, sub_3AD34, sub_3AD9C, sub_41CF0, sub_41D48
 extern sub_42098, PlaySfx, sub_424CC, sub_45BEC, PaEvent, sub_4C0C4, PeriodOver, sub_4DD9C
 extern sub_4DDB0, sub_4FD24, sub_51B5C, sub_51BD8, sub_55648, SetPenaltyBoxDoor, sub_56AE4, sub_56CD0
@@ -48,7 +48,7 @@ extern word_19CBF4, word_19CC04, word_19CC24, word_19CC26, word_19CC2C, word_19C
 extern word_19EBCA
 global jpt_2B4B4, sub_25894_D1, sub_2B4D4_424, sub_2B4D4_43B, sub_2B4D4_452, sub_2B4D4_469, sub_25894, sub_2596C
 global sub_25AEC, sub_25BD0, sub_25D40, sub_25E24, sub_25F64, sub_2625C, sub_264CC, assnearest
-global sub_27210, sub_27274, sub_27500, assbench, sub_27A00, sub_27A78, sub_27AD8, sub_27D10
+global sub_27210, sub_27274, ChkPullGoalieLate, assbench, sub_27A00, sub_27A78, sub_27AD8, sub_27D10
 global sub_27F80, sub_27FF0, sub_28110, asseben, sub_2842C, asspenalty, assdopen, assepen
 global sub_28C0C, assrefpenshot, sub_29064, sub_293A8, sub_295CC, sub_298E8, sub_29A90, sub_29BFC
 global sub_29E2C, sub_29F30, sub_2A000, sub_2A1C8, sub_2A3A0, assstanley, sub_2A6B8, sub_2AA50
@@ -719,7 +719,7 @@ sub_25F64:
         jne near .15
         mov edx, 8
         mov eax, ebx
-        call sub_34EF8
+        call doplayeracc
         pop ebp
         pop edi
         pop esi
@@ -1563,7 +1563,7 @@ assnearest:
         jne near .87
         mov edx, 8
         mov eax, esi
-        call sub_34EF8
+        call doplayeracc
         add esp, byte 0Ch
         pop ebp
         pop edi
@@ -1774,7 +1774,7 @@ assnearest:
         jne near .87
         mov edx, 8
         mov eax, esi
-        call sub_34EF8
+        call doplayeracc
         add esp, byte 0Ch
         pop ebp
         pop edi
@@ -2396,9 +2396,12 @@ sub_27274:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_27500                                                       27500  97 PC
+; ChkPullGoalieLate                            27500  95 PC, medium confidence
+; Player logic caller: 0 unless 3rd period (gsp 2) with at most 60 s left and
+; the team is not human-controlled; then a team-struct check (likely the
+; score: pull the goalie late, not fully traced)
 ;-----------------------------------------------------------------------------
-sub_27500:
+ChkPullGoalieLate:
         push ebx
         push ecx
         push edx
@@ -2515,7 +2518,7 @@ assbench:
         jne near .22
         mov edx, 8
         mov eax, ebx
-        call sub_34EF8
+        call doplayeracc
         jmp near .22
 .2:
         test byte [byte_19CBC2], 1
@@ -2532,7 +2535,7 @@ assbench:
         setne al
         xor ah, ah
         cwde
-        call sub_27500
+        call ChkPullGoalieLate
         test ax, ax
         jne short .4
         mov byte [dword ebx+0A8h], 0FFh
@@ -3381,7 +3384,7 @@ sub_28110:
         jne near .10
         mov edx, 8
         mov eax, ebx
-        call sub_34EF8
+        call doplayeracc
         mov esp, ebp
         pop ebp
         pop edi

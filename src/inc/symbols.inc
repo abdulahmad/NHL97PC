@@ -234,7 +234,7 @@
 ;  34950  sub_34950                                engine/faceoff/faceoff_2.asm                 1
 ;  349E4  ReadJoy1                                 engine/faceoff/faceoff_2.asm                 1
 ;  34CF4  sub_34CF4                                engine/faceoff/faceoff_2.asm                 1
-;  34EF8  sub_34EF8                                engine/faceoff/faceoff_2.asm                 2
+;  34EF8  doplayeracc                              engine/faceoff/faceoff_2.asm                 2
 ;  35588  sub_35588                                engine/faceoff/faceoff_2.asm                 1
 ;  35690  sub_35690                                engine/faceoff/faceoff_2.asm                 1
 ;  356A8  sub_356A8                                engine/faceoff/faceoff_2.asm                 1

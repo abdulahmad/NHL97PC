@@ -59,6 +59,7 @@ address,name,auto_name,source,confidence,evidence,file
 1E268,assexit,sub_1E268,94G,high,94G assexit: ends the current assignment (index + 1) and sets the new-assignment flag,src/engine/engine_15AC2.asm
 1EC5C,check4bench,sub_1EC5C,94G,medium,"94G check4bench: whether player a3 should go to the bench; if so assreplace with assbench (17h); 0 when he stays (joystick-controlled, penalty shot, ...)",src/engine/engine_15AC2.asm
 265FC,assnearest,sub_265FC,94G,medium,"94G assnearest: assignment 0Ah (off_19C3F4), the main skater AI (forcepldata gives it to the centre, as in 94G)",src/engine/engine_25894.asm
+27500,ChkPullGoalieLate,sub_27500,96PC,medium,"96 PC ChkPullGoalieLate: (team) third period, last 60 seconds, losing by 1-2 and no goalie pulled yet: pull the goalie (from assbench)",src/engine/engine_25894.asm
 275C0,assbench,sub_275C0,94G,medium,"94G assbench: assignment 17h, skating off to the bench (check4bench gives it); setplayer for the replacement",src/engine/engine_25894.asm
 282B8,asseben,sub_282B8,94G,medium,"94G asseben: assignment 16h, coming on from the bench (setplayer gives it for a player from the bench, as in 94G)",src/engine/engine_25894.asm
 28698,asspenalty,sub_28698,94G,medium,"94G asspenalty: assignment 12h, the penalised player skates to the penalty box (InProgress gives it, as in 94G)",src/engine/engine_25894.asm
@@ -85,6 +86,7 @@ address,name,auto_name,source,confidence,evidence,file
 34560,changeplayer,,96PC,medium,NHL96PC 4666C (sem): C:364; D:19CC04; D:19DA30,
 34980,SlotToJoy,,96PC,medium,NHL96PC 3987A (similar): mnemonic similarity 0.92 over 36 instructions,
 349E4,ReadJoy1,,96PC,medium,NHL96PC 398DB (sem): C:371,
+34EF8,doplayeracc,sub_34EF8,94G,medium,"94G doplayeracc: (player, direction 0-7, 8+ = none) the player accelerates toward the direction (x87 heading, sub_34CF4)",src/engine/faceoff/faceoff_2.asm
 362E0,CountTeamSlots,,96PC,medium,NHL96PC 3A2F6 (similar): mnemonic similarity 0.82 over 32 instructions,
 3C75C,SetVideoMode,sub_3C75C,new,medium,"(width, height): switches the screen mode when it differs from the current one (dword_1A8E84 x dword_1A8E88)",src/engine/engine_3812E.asm
 3E850,CdStreamOpen,sub_3E850,96PC,medium,"96 PC CdStreamOpen: allocates and opens a CD stream (""CDSTREAM"" block)",src/engine/engine_3812E.asm

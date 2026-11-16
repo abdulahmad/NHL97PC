@@ -50,7 +50,7 @@ extern qword_1605F4, qword_160604, qword_160624, qword_160630, qword_160638, qwo
 extern qword_160658, rand_, randomd0, regd1, sprintf_, strcat_, strcpy_, sub_100498
 extern sub_100700, sub_1007C0, sub_100830, sub_11328, sub_114C4, sub_13D50, sub_25AEC, sub_2E11C
 extern UpdateCoachModes, sub_30778, sub_3085C, sub_32260, sub_32340, sub_32D88, EndPenaltyShot, sub_34CF4
-extern sub_34EF8, sub_35588, sub_35690, sub_356A8, sub_3A06C, sub_3A404, sub_3AAE8, sub_3AB28
+extern doplayeracc, sub_35588, sub_35690, sub_356A8, sub_3A06C, sub_3A404, sub_3AAE8, sub_3AB28
 extern sub_3B1EC, sub_3B738, SetVideoMode, sub_3CA28, sub_3CAB8, sub_3CB00, sub_3CB38, sub_3CB48
 extern sub_3CB70, sub_3CD70, sub_3CE58, sub_3CFB0, sub_3E5F0, sub_424CC, sub_45BEC, SetArtArchive
 extern sub_4B8DC, sub_4C0C4, sub_4DDB0, sub_504E0, sub_55000, sub_56CD0, sub_56CE4, sub_56CF8
@@ -13076,7 +13076,7 @@ sub_1F5B4:
         jne near .8
         mov edx, 8
         mov eax, ebx
-        call sub_34EF8
+        call doplayeracc
         jmp near .8
 .1:
         mov dh, byte [dword ebx+0BFh]
@@ -13236,7 +13236,7 @@ sub_1F7D0:
         jne near .17
         mov edx, 8
         mov eax, ebx
-        call sub_34EF8
+        call doplayeracc
         jmp near .17
 .1:
         mov dh, byte [dword ebx+0BFh]
@@ -14521,7 +14521,7 @@ sub_20508:
         test dl, 8
         jne short .30
         mov edx, 8
-        call sub_34EF8
+        call doplayeracc
 .30:
         pop edx
 sub_209CC:
@@ -17061,7 +17061,7 @@ sub_22B8C:
         jne near .6
         mov edx, 8
         mov eax, ebx
-        call sub_34EF8
+        call doplayeracc
         pop edi
         pop edx
         pop ecx
@@ -17178,7 +17178,7 @@ sub_22CEC:
         jne near .5
         mov edx, 8
         mov eax, ebx
-        call sub_34EF8
+        call doplayeracc
         pop esi
         pop edx
         pop ecx
@@ -17300,7 +17300,7 @@ sub_22E70:
         jne near .5
         mov edx, 8
         mov eax, ebx
-        call sub_34EF8
+        call doplayeracc
         pop esi
         pop edx
         pop ecx
@@ -18037,7 +18037,7 @@ sub_238E8:
         jne near .7
         mov edx, 8
         mov eax, ebx
-        call sub_34EF8
+        call doplayeracc
         pop edi
         pop edx
         pop ecx
@@ -18169,7 +18169,7 @@ sub_23A78:
         jne near .4
         mov edx, 8
         mov eax, ebx
-        call sub_34EF8
+        call doplayeracc
         pop esi
         pop edx
         pop ecx
@@ -18262,7 +18262,7 @@ sub_23B88:
         jne near .4
         mov edx, 8
         mov eax, ebx
-        call sub_34EF8
+        call doplayeracc
         pop esi
         pop edx
         pop ecx
@@ -19082,7 +19082,7 @@ sub_244BC:
         jne near .12
         mov edx, 8
         mov eax, ebx
-        call sub_34EF8
+        call doplayeracc
         jmp near .12
 .8:
         mov eax, dword [off_168CF0]

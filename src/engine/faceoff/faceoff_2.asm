@@ -56,7 +56,7 @@ global sub_30BD8, sub_31070, sub_313F4, sub_31540, sub_31A2C, sub_31A5C, sub_31B
 global sub_31F88, sub_32184, sub_32260, sub_32340, sub_32888, sub_32B68, sub_32C04, sub_32CEC
 global sub_32D88, sub_32FF8, sub_3319C, updatepentime, checkfornewpen, sub_335CC, sub_336E4, EndPenaltyShot
 global sub_33904, InProgress, sub_34330, sub_343F8, sub_34500, sub_348DC, sub_34950, sub_34A48
-global sub_34B04, sub_34B78, sub_34C18, sub_34CF4, sub_34EF8, sub_34F58, sub_34FD0, sub_3505C
+global sub_34B04, sub_34B78, sub_34C18, sub_34CF4, doplayeracc, sub_34F58, sub_34FD0, sub_3505C
 global sub_3509C, sub_35188, sub_35234, sub_353B4, sub_35464, sub_35588, sub_35690, sub_356A8
 global sub_358E4, sub_36370, sub_363EC, sub_36524, sub_365FC, sub_36754, sub_36778, sub_36AB0
 global sub_36E34, sub_37044, sub_3708C, sub_37134, sub_37198, sub_3727C, sub_37374, sub_373D8
@@ -7717,7 +7717,7 @@ sub_34B78:
         mov edx, dword [dword_19CB66]
         mov eax, ebx
         sar edx, 10h
-        call sub_34EF8
+        call doplayeracc
 .4:
         pop edx
         pop ecx
@@ -7977,9 +7977,11 @@ sub_34CF4:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_34EF8                                                       34EF8  97 PC
+; doplayeracc                                    34EF8  94G, medium confidence
+; 94G doplayeracc: (player, direction 0-7, 8+ = none) the player accelerates
+; toward the direction (x87 heading, sub_34CF4)
 ;-----------------------------------------------------------------------------
-sub_34EF8:
+doplayeracc:
         push ebp
         mov ebp, esp
         sub esp, byte 4
@@ -8097,7 +8099,7 @@ sub_34FD0:
         mov edx, dword [byte esp-02h]
         mov eax, ebx
         sar edx, 10h
-        call sub_34EF8
+        call doplayeracc
         mov eax, ebx
         call sub_1E8B0
         add esp, byte 4
@@ -8129,7 +8131,7 @@ sub_3505C:
         call sub_34F58
         movsx edx, cx
         mov eax, ebx
-        call sub_34EF8
+        call doplayeracc
         mov eax, 1
         pop ecx
         pop ebx
@@ -9601,7 +9603,7 @@ sub_358E4:
         mov edx, dword [dword_19CB3E]
         mov eax, ebx
         sar edx, 10h
-        call sub_34EF8
+        call doplayeracc
 .55:
         add esp, byte 4
         pop ebp

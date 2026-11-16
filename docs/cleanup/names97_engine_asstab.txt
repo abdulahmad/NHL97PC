@@ -8,3 +8,5 @@ sub_275C0 assbench {source=94G,confidence=medium} 94G assbench: assignment 17h, 
 sub_28D88 assrefpenshot {source=96PC,confidence=low} 96 PC assrefpenshot: assignment 29h (last referee handler): waits for AllInPlace before the penalty shot, with a sound
 sub_5585C SetPenaltyBoxDoor {source=96PC,confidence=medium} 96 PC SetPenaltyBoxDoor: (team, open) sets a penalty box door's state (dword_1B0A80) and starts its animation when it opens
 sub_42220 PlaySfx {source=96PC,confidence=medium} 96 PC PlaySfx: (id, volume, ...) plays a sound effect from the loaded banks (id high byte = bank 1-6) at the globalset volume
+sub_34EF8 doplayeracc {source=94G,confidence=medium} 94G doplayeracc: (player, direction 0-7, 8+ = none) the player accelerates toward the direction (x87 heading, sub_34CF4)
+sub_27500 ChkPullGoalieLate {source=96PC,confidence=medium} 96 PC ChkPullGoalieLate: (team) third period, last 60 seconds, losing by 1-2 and no goalie pulled yet: pull the goalie (from assbench)
