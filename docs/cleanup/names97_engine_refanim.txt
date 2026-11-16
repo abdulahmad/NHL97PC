@@ -1,0 +1,7 @@
+sub_72E58 RefAtDotAnim {confidence=low} assrefatdot's referee move: SPA 107h (sub_5EEEC)
+sub_72E94 RefFaceoffAnim {confidence=low} puckfaceoff2's referee move: SPA 143h, with the referee's two sprite flags (sub_56D0C)
+sub_72EF4 RefGoalPaAnim {confidence=low} assrefgoalpa's referee move: SPA 144h
+sub_72FE8 RefSignalAnim {confidence=low} assrefsignal's referee move: SPA 146h
+sub_73028 RefGoalLineAnim {confidence=low} (ref, n) assrefgoalline's referee move: SPA from table dword_16C58C
+sub_72F34 RefWhistleAnim {confidence=low} assrefwhistle's referee move, PeriodOver aware
+sub_71F4C StartFightAnim {confidence=low} from StartFight: the fighter's start move (SPA 176h or 159h by +0D0h)

@@ -758,7 +758,7 @@
 ;  69654  sub_69654                                front/front_57324.asm                        1
 ;  69A44  sub_69A44                                front/front_57324.asm                        1
 ;  69B08  sub_69B08                                front/front_57324.asm                        1
-;  69B78  ClearVelocity                            front/front_57324.asm                        3
+;  69B78  sub_69B78                                front/front_57324.asm                        3
 ;  69BA0  sub_69BA0                                front/front_57324.asm                        1
 ;  69DF4  sub_69DF4                                front/front_57324.asm                        1
 ;  69F3C  sub_69F3C                                front/front_57324.asm                        1
@@ -793,7 +793,7 @@
 ;  71ABC  sub_71ABC                                front/front_57324.asm                        1
 ;  71D48  sub_71D48                                front/front_57324.asm                        1
 ;  71E58  sub_71E58                                front/front_57324.asm                        1
-;  71F4C  sub_71F4C                                front/front_57324.asm                        1
+;  71F4C  StartFightAnim                           front/front_57324.asm                        1
 ;  72050  sub_72050                                front/front_57324.asm                        1
 ;  72170  sub_72170                                front/front_57324.asm                        1
 ;  72324  sub_72324                                front/front_57324.asm                        1
@@ -807,12 +807,12 @@
 ;  72BF8  sub_72BF8                                front/front_57324.asm                        1
 ;  72C70  sub_72C70                                front/front_57324.asm                        1
 ;  72D74  sub_72D74                                front/front_57324.asm                        1
-;  72E58  sub_72E58                                front/front_57324.asm                        1
-;  72E94  sub_72E94                                front/front_57324.asm                        1
-;  72EF4  sub_72EF4                                front/front_57324.asm                        1
-;  72F34  sub_72F34                                front/front_57324.asm                        1
-;  72FE8  sub_72FE8                                front/front_57324.asm                        1
-;  73028  sub_73028                                front/front_57324.asm                        1
+;  72E58  RefAtDotAnim                             front/front_57324.asm                        1
+;  72E94  RefFaceoffAnim                           front/front_57324.asm                        1
+;  72EF4  RefGoalPaAnim                            front/front_57324.asm                        1
+;  72F34  RefWhistleAnim                           front/front_57324.asm                        1
+;  72FE8  RefSignalAnim                            front/front_57324.asm                        1
+;  73028  RefGoalLineAnim                          front/front_57324.asm                        1
 ;  7320C  sub_7320C                                front/front_57324.asm                        1
 ;  73464  sub_73464                                front/front_57324.asm                        1
 ;  73578  sub_73578                                front/front_57324.asm                        1

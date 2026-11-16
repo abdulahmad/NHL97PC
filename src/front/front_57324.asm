@@ -227,7 +227,7 @@ global LoadRefSkateAnims, LoadRefCallAnims, LoadRefAmbiAnims, LoadFightAnims, Lo
 global sub_65F50, sub_660F0, sub_6619C, sub_66224, sub_66524, sub_666CC, sub_66758, sub_66E38
 global sub_67248, sub_67540, sub_67A30, sub_67A98, sub_67B10, sub_67BD0, sub_67CC0, sub_68030
 global sub_68378, sub_6889C, sub_68DBC, sub_69410, sub_6947C, sub_69654, sub_69750, sub_69970
-global sub_699D4, sub_69A44, sub_69B08, ClearVelocity, sub_69BA0, sub_69D98, sub_69DF4, sub_69F3C
+global sub_699D4, sub_69A44, sub_69B08, sub_69B78, sub_69BA0, sub_69D98, sub_69DF4, sub_69F3C
 global sub_6A0BC, sub_6A13C, sub_6A244, sub_6A604, sub_6A6D8, sub_6A77C, sub_6AB88, sub_6ABEC
 global sub_6B140, sub_6B28C, sub_6B380, sub_6BC94, sub_6C0FC, sub_6C73C, sub_6CA24, sub_6CD58
 global sub_6CED0, sub_6D3E4, sub_6D4AC, sub_6D59C, sub_6D678, sub_6D7F8, sub_6D980, sub_6DAB0
@@ -235,10 +235,10 @@ global sub_6E170, checkcx, sub_6E9A4, sub_6F104, sub_6F300, sub_6F55C, checkplco
 global sub_7002C, sub_700D8, sub_701B8, sub_70260, sub_70324, sub_70378, sub_70424, sub_704D4
 global sub_708B0, sub_708F4, sub_709D0, sub_70A14, sub_70A58, sub_70B38, sub_70B74, sub_70C24
 global sub_70D60, sub_70E48, sub_71108, sub_71298, sub_71380, sub_713E0, sub_7147C, sub_71574
-global sub_716F8, sub_71808, sub_71ABC, sub_71D48, sub_71E58, sub_71F4C, sub_71FD0, sub_72050
+global sub_716F8, sub_71808, sub_71ABC, sub_71D48, sub_71E58, StartFightAnim, sub_71FD0, sub_72050
 global sub_72170, sub_72324, sub_7242C, sub_724C8, sub_72564, sub_72648, sub_7275C, sub_7291C
-global sub_72A84, sub_72AF0, sub_72B78, sub_72BF8, sub_72C70, sub_72D74, sub_72E58, sub_72E94
-global sub_72EF4, sub_72F34, sub_72FE8, sub_73028, sub_73070, sub_730C4, sub_7320C, sub_73464
+global sub_72A84, sub_72AF0, sub_72B78, sub_72BF8, sub_72C70, sub_72D74, RefAtDotAnim, RefFaceoffAnim
+global RefGoalPaAnim, RefWhistleAnim, RefSignalAnim, RefGoalLineAnim, sub_73070, sub_730C4, sub_7320C, sub_73464
 global sub_73578, sub_7370C, sub_739B8, sub_73A58, sub_73A60, sub_73B3C, sub_73CE8, sub_73F00
 global sub_73FBC, sub_74708, sub_747E8, sub_74A20, sub_74B74, sub_74BA8, sub_74C64, sub_74CEC
 global sub_74FA4, sub_75068, sub_75500, sub_75AE8, sub_75B94, sub_75F14, sub_75F40, sub_75F70
@@ -26147,10 +26147,9 @@ sub_69B08:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; ClearVelocity                                69B78  97 PC, medium confidence
-; (object): zeroes the object's velocity vector (+0FAh -> +4, +8, +0Ch)
+; sub_69B78                                                       69B78  97 PC
 ;-----------------------------------------------------------------------------
-ClearVelocity:
+sub_69B78:
         mov eax, dword [dword eax+0FAh]
         mov dword [byte eax+0Ch], 0
         mov dword [byte eax+08h], 0
@@ -36995,9 +36994,10 @@ sub_71E58:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_71F4C                                                       71F4C  97 PC
+; StartFightAnim                                  71F4C  97 PC, low confidence
+; From StartFight: the fighter's start move (SPA 176h or 159h by +0D0h)
 ;-----------------------------------------------------------------------------
-sub_71F4C:
+StartFightAnim:
         push ebx
         push ecx
         push edx
@@ -38347,9 +38347,10 @@ sub_72D74:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_72E58                                                       72E58  97 PC
+; RefAtDotAnim                                    72E58  97 PC, low confidence
+; Assrefatdot's referee move: SPA 107h (sub_5EEEC)
 ;-----------------------------------------------------------------------------
-sub_72E58:
+RefAtDotAnim:
         push ebx
         push ecx
         push edx
@@ -38370,9 +38371,11 @@ sub_72E58:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_72E94                                                       72E94  97 PC
+; RefFaceoffAnim                                  72E94  97 PC, low confidence
+; Puckfaceoff2's referee move: SPA 143h, with the referee's two sprite flags
+; (sub_56D0C)
 ;-----------------------------------------------------------------------------
-sub_72E94:
+RefFaceoffAnim:
         push ebx
         push ecx
         push edx
@@ -38402,9 +38405,10 @@ sub_72E94:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_72EF4                                                       72EF4  97 PC
+; RefGoalPaAnim                                   72EF4  97 PC, low confidence
+; Assrefgoalpa's referee move: SPA 144h
 ;-----------------------------------------------------------------------------
-sub_72EF4:
+RefGoalPaAnim:
         push ebx
         push ecx
         push edx
@@ -38426,9 +38430,10 @@ sub_72EF4:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_72F34                                                       72F34  97 PC
+; RefWhistleAnim                                  72F34  97 PC, low confidence
+; Assrefwhistle's referee move, PeriodOver aware
 ;-----------------------------------------------------------------------------
-sub_72F34:
+RefWhistleAnim:
         push ebx
         push ecx
         push edx
@@ -38486,9 +38491,10 @@ sub_72F34:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_72FE8                                                       72FE8  97 PC
+; RefSignalAnim                                   72FE8  97 PC, low confidence
+; Assrefsignal's referee move: SPA 146h
 ;-----------------------------------------------------------------------------
-sub_72FE8:
+RefSignalAnim:
         push ebx
         push ecx
         push edx
@@ -38510,9 +38516,10 @@ sub_72FE8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_73028                                                       73028  97 PC
+; RefGoalLineAnim                                 73028  97 PC, low confidence
+; (ref, n) assrefgoalline's referee move: SPA from table dword_16C58C
 ;-----------------------------------------------------------------------------
-sub_73028:
+RefGoalLineAnim:
         push ebx
         push ecx
         mov ecx, eax

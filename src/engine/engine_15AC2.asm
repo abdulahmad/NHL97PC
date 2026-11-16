@@ -55,7 +55,7 @@ extern sub_3B1EC, sub_3B738, SetVideoMode, sub_3CA28, sub_3CAB8, sub_3CB00, sub_
 extern sub_3CB70, sub_3CD70, sub_3CE58, sub_3CFB0, sub_3E5F0, sub_424CC, CommentaryEvent, SetArtArchive
 extern sub_4B8DC, sub_4C0C4, sub_4DDB0, sub_504E0, sub_55000, sub_56CD0, sub_56CE4, sub_56CF8
 extern sub_5D6A8, sub_5D7A4, sub_5D878, sub_5D900, sub_5DC1C, sub_5DC50, sub_5DCBC, sub_5DE74
-extern SetSPA, sub_60D6C, sub_60F48, sub_650A4, sub_65F50, sub_6619C, sub_66224, ClearVelocity
+extern SetSPA, sub_60D6C, sub_60F48, sub_650A4, sub_65F50, sub_6619C, sub_66224, sub_69B78
 extern sub_69BA0, sub_69DF4, sub_74BA8, sub_74C64, sub_75500, sub_77838, sub_7F0D8, DrawTextAligned
 extern GetLangText, sub_AA4BC, sub_F2AA0, sub_F98E4, sub_F994D, sub_FAF34, sub_FC4BC, sub_FCC40
 extern sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FD110, sub_FD528, sub_FD954, sub_FDC68
@@ -14558,7 +14558,7 @@ sub_209CC:
 sub_209D0:
         cmp byte [dword eax+0A4h], 0Dh
         jne short sub_209CC
-        jmp near ClearVelocity
+        jmp near sub_69B78
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; assbenchwait                                    209E0  95 PC, low confidence

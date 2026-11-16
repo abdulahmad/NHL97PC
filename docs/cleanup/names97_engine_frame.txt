@@ -12,4 +12,3 @@ sub_65C2D LoadRefCallAnims {confidence=medium} InitAnimPoints: loads the "refcal
 sub_65C5D LoadRefAmbiAnims {confidence=medium} InitAnimPoints: loads the "refambi" animations
 sub_65C8D LoadFightAnims {confidence=medium} InitAnimPoints: loads the "fight" animations
 sub_65CBD LoadCupAnims {confidence=medium} loads the "cup" animations (Stanley Cup presentation, from sub_780F0)
-sub_69B78 ClearVelocity {confidence=medium} (object): zeroes the object's velocity vector (+0FAh -> +4, +8, +0Ch)

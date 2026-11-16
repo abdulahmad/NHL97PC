@@ -210,9 +210,15 @@ address,name,auto_name,source,confidence,evidence,file
 65C8D,LoadFightAnims,sub_65C8D,new,medium,"InitAnimPoints: loads the ""fight"" animations",src/front/front_57324.asm
 65CBD,LoadCupAnims,sub_65CBD,new,medium,"loads the ""cup"" animations (Stanley Cup presentation, from sub_780F0)",src/front/front_57324.asm
 65CED,InitAnimPoints,sub_65CED,new,low,"looks up the animation attachment points (puck, stickheel, origin, chin, rhand, lshldr, rshldr) and loads ANIMS.VIV",src/front/front_57324.asm
-69B78,ClearVelocity,sub_69B78,new,medium,"(object): zeroes the object's velocity vector (+0FAh -> +4, +8, +0Ch)",src/front/front_57324.asm
 6E290,checkcx,sub_6E290,94G,low,"94G checkcx: (player a3, player a2, ...) a collision between two players (x87): bounces, checking animations, interference (checkint), checkfight",src/front/front_57324.asm
 6F604,checkplcoll,sub_6F604,94G,low,"94G checkplcoll: a player's collisions with the other players (checkcx, sub_6E9A4) and the rest",src/front/front_57324.asm
+71F4C,StartFightAnim,sub_71F4C,new,low,from StartFight: the fighter's start move (SPA 176h or 159h by +0D0h),src/front/front_57324.asm
+72E58,RefAtDotAnim,sub_72E58,new,low,assrefatdot's referee move: SPA 107h (sub_5EEEC),src/front/front_57324.asm
+72E94,RefFaceoffAnim,sub_72E94,new,low,"puckfaceoff2's referee move: SPA 143h, with the referee's two sprite flags (sub_56D0C)",src/front/front_57324.asm
+72EF4,RefGoalPaAnim,sub_72EF4,new,low,assrefgoalpa's referee move: SPA 144h,src/front/front_57324.asm
+72F34,RefWhistleAnim,sub_72F34,new,low,"assrefwhistle's referee move, PeriodOver aware",src/front/front_57324.asm
+72FE8,RefSignalAnim,sub_72FE8,new,low,assrefsignal's referee move: SPA 146h,src/front/front_57324.asm
+73028,RefGoalLineAnim,sub_73028,new,low,"(ref, n) assrefgoalline's referee move: SPA from table dword_16C58C",src/front/front_57324.asm
 76010,LoadAnimFile,sub_76010,new,medium,"(name, ...): loads a "".4da"" animation file (_splitpath_ / _makepath_), from the InitAnimPoints loaders",src/front/front_57324.asm
 77630,AllocAnimStates,sub_77630,new,low,"(count): allocates the ""ANIMSTAT"" block (count x 358h) and clears it",src/front/front_57324.asm
 779C8,LoadAiIcons,sub_779C8,new,low,"loads the ""cross"" icon shapes from aicons.viv",src/front/front_57324.asm
