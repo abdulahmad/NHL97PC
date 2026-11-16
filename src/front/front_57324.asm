@@ -171,7 +171,7 @@ extern ResetStreamAudio, SetArtArchive, RefreshViewDistance, AddModelName, FindM
 extern TriggerCameraFlashes, DrawNetShadows, PeriodOver, IsCameraOnPuck, SetCameraMode, StartCrowdReaction, StartBenchCheer, UpdateScoreboardPos
 extern UpdateScoreboardSpin, ShapePixelSize, DrawShadowShape, ModelViewDepth, DrawPortraitModels, PickMarkerShape, SetTeamColours, SetFaceMouth
 extern SetFaceExpression, SetFaceBlink, SetModelHeading, BuildFaceTextures, LogPeriodEnd, IsReplayRecordingOn, ServiceIdle, AllocMemBlock
-extern sub_FAAB4, FreeMemBlock, sub_FB4A4, ZeroMem, FillMem, sub_FC330, sub_FC4BC, sub_FCC40
+extern sub_FAAB4, FreeMemBlock, MemFreeSizeAny, ZeroMem, FillMem, sub_FC330, sub_FC4BC, sub_FCC40
 extern FreeBitmap, SetDrawTarget, sub_FD954, sub_FDC0C, sub_FDC68, FillRect, MeasureText, DrawTextAt
 extern SetTextColors, ClearIfNaN, FloatsToInts, MatRotX, MatRotY, MatTranspose, MatMul, VecMulMat
 extern TransformVecs, TransformTranslateVecs, VecAdd, VecSub, OffsetVecs, SubVecs, VecCross, VecDistance
@@ -6472,7 +6472,7 @@ InitReplayBuffer:
         push edi
         mov ebx, eax
         add ebx, 30D40h
-        call sub_FB4A4
+        call MemFreeSizeAny
         cmp eax, ebx
         jl short .2
         sub eax, 30D40h

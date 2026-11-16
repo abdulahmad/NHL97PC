@@ -33,7 +33,7 @@ extern sub_121494, sub_12189C, sub_121A43, ArchiveEntryOffset, BlitCore, sub_123
 extern Convert32To565Keyed, sub_12D520, sub_12F270, sub_12FACC, sub_12FDC8, sub_12FF9C, sub_12FFD8, sub_12FFF0
 extern sub_13005A, TgvCopyBlock, TgvFillBlock, SaveTextScreen, RestoreTextScreen, InitTextOutput, ClearNumLock, InstallBreakHandler
 extern RegisterHotkey, SetScreenTarget, NoOpPlatformHook, sub_FA5B8, sub_FA6A0, sub_FA734, sub_FA8AC, sub_FA954
-extern sub_FAA14, AllocMemBlock, sub_FAB68, FreeMemBlock, sub_FB5C8, sub_FB62C, ZeroMem, sub_FBE78
+extern sub_FAA14, AllocMemBlock, sub_FAB68, FreeMemBlock, InitMemDescriptors, MemDescPtr, ZeroMem, sub_FBE78
 extern sub_FC0F0, sub_FC410, MakeColor, sub_FC73E, sub_FC88C, sub_FCC40, sub_FD0DC, ClearScreen
 extern sub_FD954, sub_FDC68, SetTextColors, DrawTextBoxedAt, RefreshTextColors, MatTranspose, TransformVecs, VecAdd
 extern VecSub, AddVecs, VecCross, VecScale, VecNormalize, VecCrossUnit, unk_10003, unk_16E8A0
@@ -10397,7 +10397,7 @@ LoadNamedResourceEx:
         test eax, eax
         je short .2
         push eax
-        call sub_FB62C
+        call MemDescPtr
         add esp, byte 4
         mov dword [ebx], eax
 .2:
@@ -10594,7 +10594,7 @@ InitMemoryPool:
         push ebx
         mov dword [dword_16E32C], eax
         add edi, edx
-        call sub_FB5C8
+        call InitMemDescriptors
         add esp, byte 8
         push byte 0
         push byte 0

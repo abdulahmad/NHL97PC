@@ -9,8 +9,8 @@ extern dword_1D2088, dword_1D208C, dword_1D2090, dword_1D2094, dword_1D2418, dwo
 extern dword_1D2428, dword_1D2430, dword_1D2438, dword_1D243C, dword_1D2440, dword_1D2444, dword_1D2448, dword_1D244C
 extern dword_1D2450, dword_1D2454, dword_1D3350, dword_1D3354, dword_1D3358, dword_1D335C, dword_1D3364, dword_1D3368
 extern strncpy_, strnicmp_, FindShapeQuiet, sub_102EBC, DrawClippedPoly, DrawPolyList, FillSpanRows, sub_112BCC
-extern sub_112F3C, GetModelVertex, TransformModelParts, TransformModelPartsWith, UpdateModelParts, sub_12D740, sub_12D784, sub_12DD3C
-extern sub_12DE84, sub_12DFC4, sub_12E108, sub_FC4BC, sub_FD954, sub_FDC68, unk_1D2098, unk_1D3D6C
+extern sub_112F3C, GetModelVertex, TransformModelParts, TransformModelPartsWith, UpdateModelParts, PolyCrossProduct, TexSpanCopy, ClipTexPolyLeft
+extern ClipTexPolyRight, ClipTexPolyTop, ClipTexPolyBottom, sub_FC4BC, sub_FD954, sub_FDC68, unk_1D2098, unk_1D3D6C
 global DrawTileEdgeLeft_24E, SetRinkView, TransformRinkPoints, TransformRinkObject, ProjectRinkObject, DrawRinkPolyStrip, DrawRinkFan, DrawRinkPolys
 global DrawRinkRing, RinkNoOpA, DrawRinkPrimFlat, DrawRinkPrimShaded, DrawRinkPrimTextured, RinkNoOpB, DrawRinkLineFlat, DrawRinkLineShaded
 global DrawRinkLineTextured, DrawIceSpans, SetupTileSpans, DrawTileSpan, DrawTileEdgeLeft, DrawTileEdgeRight, DrawTileTexture, DrawTilePage
@@ -143,7 +143,7 @@ ProjectRinkObject:
         push edx
         mov ebx, dword [dword_1D2058]
         push ebx
-        call sub_12D740
+        call PolyCrossProduct
         add esp, byte 8
         pop ebx
         ret
@@ -1328,7 +1328,7 @@ DrawTileSpan:
         push eax
         add esi, edi
         push esi
-        call sub_12D784
+        call TexSpanCopy
         add esp, byte 24h
 .1:
         add esp, byte 8
@@ -1786,7 +1786,7 @@ DrawTileTexture:
         lea eax, [byte esp+038h]
         push eax
         push edi
-        call sub_12DD3C
+        call ClipTexPolyLeft
         add esp, byte 0Ch
         mov edi, eax
         cmp eax, byte 3
@@ -1800,7 +1800,7 @@ DrawTileTexture:
         lea eax, [byte esp+038h]
         push eax
         push edi
-        call sub_12DE84
+        call ClipTexPolyRight
         add esp, byte 0Ch
         mov edi, eax
         cmp eax, byte 3
@@ -1815,7 +1815,7 @@ DrawTileTexture:
         lea eax, [byte esp+038h]
         push eax
         push edi
-        call sub_12DFC4
+        call ClipTexPolyTop
         add esp, byte 0Ch
         mov edi, eax
         cmp eax, byte 3
@@ -1830,7 +1830,7 @@ DrawTileTexture:
         lea eax, [byte esp+038h]
         push eax
         push edi
-        call sub_12E108
+        call ClipTexPolyBottom
         add esp, byte 0Ch
         mov edi, eax
         cmp eax, byte 3

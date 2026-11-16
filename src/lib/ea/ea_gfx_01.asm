@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_FA5B8 progbits alloc exec nowrite align=1
 extern str_LOW8s, str_GAP, dword_16E340, dword_1CF0E0, dword_1CF25C, dword_1CF260, memlist1, sprintf_
-extern str_HIGHMEM, strncpy_, PresentScreen, sub_121470, sub_121494, sub_FABB8
+extern str_HIGHMEM, strncpy_, PresentScreen, sub_121470, sub_121494, AllocMemBlockEx
 global sub_FA5B8, sub_FA6A0, sub_FA734, sub_FA8AC, sub_FA954, sub_FA9C4, sub_FAA14, AllocMemBlock
 global sub_FAAB4, sub_FAB68
 ;-----------------------------------------------------------------------------
@@ -423,7 +423,7 @@ sub_FA9C4:
         push ebx
         push edi
         push ebp
-        call sub_FABB8
+        call AllocMemBlockEx
         mov esi, dword [dword_1CF260]
         add esp, byte 10h
         mov ebx, eax
@@ -462,7 +462,7 @@ sub_FAA14:
         push ebx
         push edi
         push ebp
-        call sub_FABB8
+        call AllocMemBlockEx
         mov esi, dword [dword_1CF260]
         add esp, byte 10h
         mov ebx, eax
@@ -504,7 +504,7 @@ AllocMemBlock:
         push ebx
         push ebp
         push edi
-        call sub_FABB8
+        call AllocMemBlockEx
         mov esi, dword [dword_1CF260]
         add esp, byte 10h
         mov ebx, eax
@@ -543,7 +543,7 @@ sub_FAAB4:
         push edi
         push esi
         push ebp
-        call sub_FABB8
+        call AllocMemBlockEx
         mov esi, dword [dword_1CF260]
         add esp, byte 10h
         mov ebx, eax
@@ -587,7 +587,7 @@ sub_FAAB4:
         push esi
         push edi
         push ebp
-        call sub_FABB8
+        call AllocMemBlockEx
         mov esi, dword [dword_1CF260]
         add esp, byte 10h
         mov ebx, eax
@@ -636,7 +636,7 @@ sub_FAB68:
         push edi
         mov ebp, dword [byte esp+020h]
         push ebp
-        call sub_FABB8
+        call AllocMemBlockEx
         mov ebx, eax
         mov eax, dword [dword_1CF260]
         add esp, byte 10h

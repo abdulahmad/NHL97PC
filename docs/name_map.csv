@@ -2096,11 +2096,33 @@ FA1CB,_nmalloc_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FA2AE,fread_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FA489,_nfree_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FAA64,AllocMemBlock,sub_FAA64,95PC,high,"memory manager: allocate a named block (name, size, flags), e.g. ""DMAN"", ""HIST""; under the memory lock",src/lib/ea/ea_gfx_01.asm
+FABB8,AllocMemBlockEx,sub_FABB8,new,low,the allocator under AllocMemBlock: finds room in the block's memory list (compacting if needed) and links a named block,src/lib/ea/ea_memman_01.asm
 FAEF8,findmemblock,sub_FAEF8,96PC,high,NHL96PC ABEEC (callsite 0.90): called at the same place of sub_AC9B8,src/lib/ea/ea_memman_01.asm
 FAF34,FreeMemBlock,sub_FAF34,95PC,high,memory manager: findmemblock on the pointer and frees the block (under the memory lock dword_1CF260); 600+ calls,src/lib/ea/ea_memman_01.asm
+FAF70,UnlinkMemBlockLocked,sub_FAF70,new,low,"under the memory lock, unlinks a block from its list and returns its descriptor to the free list",src/lib/ea/ea_memman_01.asm
+FAFB0,UnlinkMemBlock,sub_FAFB0,new,low,unlinks a block descriptor from its list and pushes it on the free descriptor list; followed by its free helpers,src/lib/ea/ea_memman_01.asm
+FB0BC,MergeFreeSpace,sub_FB0BC,new,low,walks a memory list and works out the free space around movable blocks for the requested placement,src/lib/ea/ea_memman_01.asm
+FB168,FindNamedBlock,sub_FB168,new,low,returns the first block in a memory list whose name matches,src/lib/ea/ea_memman_01.asm
+FB1DC,CompactDownLocked,sub_FB1DC,new,low,"under the memory lock, slides the movable blocks of the main list down to close gaps",src/lib/ea/ea_memman_01.asm
+FB214,CompactMemListDown,sub_FB214,new,low,slides movable blocks toward the start of a memory list to close gaps between them,src/lib/ea/ea_memman_01.asm
+FB338,CompactUpLocked,sub_FB338,new,low,"under the memory lock, slides the movable blocks of the main list up to close gaps",src/lib/ea/ea_memman_01.asm
+FB370,CompactMemListUp,sub_FB370,new,low,slides movable blocks toward the end of a memory list to close gaps between them,src/lib/ea/ea_memman_01.asm
+FB4A4,MemFreeSizeAny,sub_FB4A4,new,low,"under the memory lock, returns the largest free space in the default memory list",src/lib/ea/ea_memman_01.asm
+FB4D4,MemFreeSize,sub_FB4D4,new,low,"under the memory lock, returns the largest free space in the memory list chosen by the flags",src/lib/ea/ea_memman_01.asm
+FB508,LargestFreeSpace,sub_FB508,new,low,compacts a memory list when allowed and returns its largest free gap,src/lib/ea/ea_memman_01.asm
+FB5C8,InitMemDescriptors,sub_FB5C8,new,low,chains the block descriptor array into the free descriptor list,src/lib/ea/ea_memman_01.asm
+FB5F4,PushMemDescriptor,sub_FB5F4,new,low,returns a block descriptor to the free list; followed by the pop,src/lib/ea/ea_memman_01.asm
+FB618,MemPtrSize,sub_FB618,new,low,returns the size of the block that holds a pointer,src/lib/ea/ea_memman_01.asm
+FB62C,MemDescPtr,sub_FB62C,new,low,returns the data pointer of a block descriptor,src/lib/ea/ea_memman_01.asm
+FB634,MemDescSize,sub_FB634,new,low,returns the size of a block descriptor's data,src/lib/ea/ea_memman_01.asm
 FB63C,type_info__raw_name,,95PC,high,NHL95PC 8DBE4 (exact): 6 instructions,
+FB64C,UnlockMemBlock,sub_FB64C,new,low,clears the locked flag of a block so it can move again,src/lib/ea/ea_memman_01.asm
+FB658,LockMemBlock,sub_FB658,new,low,sets the locked flag of a block so compaction leaves it in place; followed by the purge-flag setter by pointer,src/lib/ea/ea_memman_01.asm
+FB6E4,SetMemBlockPurge,sub_FB6E4,new,low,marks a block purgeable (or clears the mark),src/lib/ea/ea_memman_01.asm
 FB704,ZeroMem,sub_FB704,new,medium,"(ptr, n): fills n bytes with zero (sub_FB73D, 8 bytes at a time through the FPU)",src/lib/ea/ea_memman_01.asm
 FB71C,FillMem,sub_FB71C,new,medium,"(ptr, n, byte): fills n bytes with a byte value (sub_FB731 spreads it over a dword)",src/lib/ea/ea_memman_01.asm
+FB731,FillMemExpandByte,sub_FB731,new,low,repeats the fill byte across a dword before falling into the fill loop,src/lib/ea/ea_memman_01.asm
+FB73D,FillMemPattern,sub_FB73D,new,low,"fills memory with a byte pattern, using 64-bit FPU stores for long aligned runs",src/lib/ea/ea_memman_01.asm
 FBD60,__STOSB,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FBD97,__STOSD,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FBE03,GetRandState,sub_FBE03,new,high,returns the C library's rand state address,src/lib/watcom/watcom_clib_02.asm
@@ -2967,6 +2989,25 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 12D24F,file_putc_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 12D260,__fprtf_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 12D2E0,__doserror_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+12D6C4,TransposeMatrix,sub_12D6C4,new,low,"transposes a 3x3 matrix, in place or into another matrix",src/lib/input/input_joystick_misc_08.asm
+12D740,PolyCrossProduct,sub_12D740,new,low,returns the 2D cross product of three indexed polygon points (its winding),src/lib/input/input_joystick_misc_08.asm
+12D784,TexSpanCopy,sub_12D784,new,low,draws one span of a texture by stepping 16.16 source coordinates,src/lib/input/input_joystick_misc_08.asm
+12DAC4,ClipTexEdgeAtX,sub_12DAC4,new,low,"clips a textured polygon edge at a vertical line, interpolating its texture coordinates",src/lib/input/input_joystick_misc_08.asm
+12DC04,ClipTexEdgeAtY,sub_12DC04,new,low,"clips a textured polygon edge at a horizontal line, interpolating its texture coordinates",src/lib/input/input_joystick_misc_08.asm
+12DD3C,ClipTexPolyLeft,sub_12DD3C,new,low,clips a textured polygon against the left edge of the clip window,src/lib/input/input_joystick_misc_08.asm
+12DE84,ClipTexPolyRight,sub_12DE84,new,low,clips a textured polygon against the right edge of the clip window,src/lib/input/input_joystick_misc_08.asm
+12DFC4,ClipTexPolyTop,sub_12DFC4,new,low,clips a textured polygon against the top edge of the clip window,src/lib/input/input_joystick_misc_08.asm
+12E108,ClipTexPolyBottom,sub_12E108,new,low,clips a textured polygon against the bottom edge of the clip window,src/lib/input/input_joystick_misc_08.asm
+12E2B8,MakeRotationZ,sub_12E2B8,new,low,builds a 3x3 matrix that rotates about Z by an angle,src/lib/input/input_joystick_misc_08.asm
+12E390,DrawShapeTransformed,sub_12E390,new,low,converts a shape to 32-bit if needed and draws it rotated and scaled through the polygon filler,src/lib/input/input_joystick_misc_08.asm
+12E864,TexSpanKeyed,sub_12E864,new,low,"draws one span of a texture, skipping transparent (FFh) pixels",src/lib/input/input_joystick_misc_08.asm
+12E9D8,TexSpanShadow,sub_12E9D8,new,low,"draws one span of a texture, skipping transparent pixels and darkening under shadow (FEh) pixels",src/lib/input/input_joystick_misc_08.asm
+12EBD0,ClipDrawEdgeAtX,sub_12EBD0,new,low,"clips an edge of a drawn polygon at a vertical line, interpolating its vertex values",src/lib/input/input_joystick_misc_08.asm
+12EC9C,ClipDrawEdgeAtY,sub_12EC9C,new,low,"clips an edge of a drawn polygon at a horizontal line, interpolating its vertex values",src/lib/input/input_joystick_misc_08.asm
+12ED68,ClipDrawPolyLeft,sub_12ED68,new,low,clips a drawn polygon against the left edge of the clip window,src/lib/input/input_joystick_misc_08.asm
+12EEAC,ClipDrawPolyRight,sub_12EEAC,new,low,clips a drawn polygon against the right edge of the clip window,src/lib/input/input_joystick_misc_08.asm
+12EFE8,ClipDrawPolyTop,sub_12EFE8,new,low,clips a drawn polygon against the top edge of the clip window,src/lib/input/input_joystick_misc_08.asm
+12F12C,ClipDrawPolyBottom,sub_12F12C,new,low,clips a drawn polygon against the bottom edge of the clip window,src/lib/input/input_joystick_misc_08.asm
 12F2F1,_mbsnccnt_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 12F32F,_mbsnbcnt_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 12F360,_mbsninc_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),

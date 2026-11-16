@@ -12,9 +12,9 @@ extern dword_1D8054, dword_1D8058, dword_1D805C, dword_1D8068, dword_1D806C, dwo
 extern dword_1D8090, dword_1D8094, dword_1D8098, dword_1D809C, dword_1D80A0, dword_1D80A4, dword_1D80B0, dword_1D8334
 extern dword_1D8AB4, dword_1D8AB8, dword_1D8ABC, dword_1D8AC0, dword_1D8AC4, memcpy_, off_1706D0, qword_167E9D
 extern qword_167EA5, str_ORIINST, strcat_, strcpy_, strlen_, strnicmp_, sub_1004B8, sub_10B18C
-extern sub_10CF34, UpdateModelInstance, sub_112F3C, DrawPrimList, ResetMorphVerts, FixedSinCos, sub_12D784, sub_12DD3C
-extern sub_12DE84, sub_12DFC4, sub_12E108, sub_12E2B8, sub_12E390, sub_12ED68, sub_12EEAC, sub_12EFE8
-extern sub_12F12C, AllocMemBlock, FreeMemBlock, FillMem, VecScale, unk_199738, unk_1D1D20, unk_1D3D6C
+extern sub_10CF34, UpdateModelInstance, sub_112F3C, DrawPrimList, ResetMorphVerts, FixedSinCos, TexSpanCopy, ClipTexPolyLeft
+extern ClipTexPolyRight, ClipTexPolyTop, ClipTexPolyBottom, MakeRotationZ, DrawShapeTransformed, ClipDrawPolyLeft, ClipDrawPolyRight, ClipDrawPolyTop
+extern ClipDrawPolyBottom, AllocMemBlock, FreeMemBlock, FillMem, VecScale, unk_199738, unk_1D1D20, unk_1D3D6C
 extern unk_1D3D94, unk_1D5B94, unk_1D7994, unk_1D80B4
 global DrawTexturedEdgeLeft_31B, AllocModelHeader, LoadModelByName, FreeModelFile, InitModelInstance, CreateModelInstance, FreeModelInstance, SetModelMatrix
 global SetModelPosition, FindModelPartByName, FindInstancePart, FindModelGroupByName, FindInstanceGroup, GetModelGroupEntry, GetInstanceGroupEntry, GetModelPartEntry
@@ -595,7 +595,7 @@ SetModelMatrix:
         lea eax, [byte esp+04h]
         push eax
         lea esi, [byte esp+08h]
-        call sub_12E2B8
+        call MakeRotationZ
         mov ecx, 9
         lea edi, [byte ebx+028h]
         add esp, byte 8
@@ -1493,7 +1493,7 @@ ProjectModelBounds:
         lea eax, [byte esp+04h]
         push eax
         push edx
-        call sub_12E390
+        call DrawShapeTransformed
         add esp, byte 0Ch
         add esp, byte 20h
         pop ebp
@@ -2144,7 +2144,7 @@ DrawTexturedSpan:
         push eax
         mov esi, dword [byte esp+020h]
         push esi
-        call sub_12D784
+        call TexSpanCopy
         mov edi, dword [dword_1702B8]
         add esp, byte 24h
         test edi, edi
@@ -2212,7 +2212,7 @@ DrawTexturedSpan:
         push eax
         mov esi, dword [byte esp+020h]
         push esi
-        call sub_12D784
+        call TexSpanCopy
         mov edi, dword [dword_1702B8]
         add esp, byte 24h
         test edi, edi
@@ -2834,7 +2834,7 @@ DrawTexturedPoly:
         lea eax, [byte esp+048h]
         push eax
         push ebp
-        call sub_12DD3C
+        call ClipTexPolyLeft
         add esp, byte 0Ch
         mov ebp, eax
         cmp eax, byte 3
@@ -2857,7 +2857,7 @@ DrawTexturedPoly:
         lea eax, [byte esp+048h]
         push eax
         push ebp
-        call sub_12DE84
+        call ClipTexPolyRight
         add esp, byte 0Ch
         mov ebp, eax
         cmp eax, byte 3
@@ -2879,7 +2879,7 @@ DrawTexturedPoly:
         lea eax, [byte esp+048h]
         push eax
         push ebp
-        call sub_12DFC4
+        call ClipTexPolyTop
         add esp, byte 0Ch
         mov ebp, eax
         cmp eax, byte 3
@@ -2902,7 +2902,7 @@ DrawTexturedPoly:
         lea eax, [byte esp+048h]
         push eax
         push ebp
-        call sub_12E108
+        call ClipTexPolyBottom
         add esp, byte 0Ch
         mov ebp, eax
         cmp eax, byte 3
@@ -3774,7 +3774,7 @@ DrawClippedPoly:
         push eax
         mov eax, dword [byte esp+02Ch]
         push eax
-        call sub_12ED68
+        call ClipDrawPolyLeft
         add esp, byte 0Ch
         mov dword [byte esp+024h], eax
         cmp eax, byte 3
@@ -3803,7 +3803,7 @@ DrawClippedPoly:
         push eax
         mov eax, dword [byte esp+02Ch]
         push eax
-        call sub_12EEAC
+        call ClipDrawPolyRight
         add esp, byte 0Ch
         mov dword [byte esp+024h], eax
         cmp eax, byte 3
@@ -3837,7 +3837,7 @@ DrawClippedPoly:
         push eax
         mov esi, dword [byte esp+02Ch]
         push esi
-        call sub_12EFE8
+        call ClipDrawPolyTop
         add esp, byte 0Ch
         mov dword [byte esp+024h], eax
         cmp eax, byte 3
@@ -3871,7 +3871,7 @@ DrawClippedPoly:
         push eax
         mov ecx, dword [byte esp+02Ch]
         push ecx
-        call sub_12F12C
+        call ClipDrawPolyBottom
         add esp, byte 0Ch
         mov dword [byte esp+024h], eax
         cmp eax, byte 3

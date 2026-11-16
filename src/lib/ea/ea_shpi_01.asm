@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_100400 progbits alloc exec nowrite align=1
 extern bcopy, LoadFileCore, sub_106F94, sub_10955B, sub_1095AD, CreateBitmapForMem, CreateBitmapCore, sub_FAB68
-extern sub_FAF70, sub_FB1DC, sub_FB338, sub_FB634, sub_FB64C, sub_FB658, unpack
+extern UnlinkMemBlockLocked, CompactDownLocked, CompactUpLocked, MemDescSize, UnlockMemBlock, LockMemBlock, unpack
 global sub_100400, sub_100498, sub_1004B8, sub_1004F8, sub_100510, sub_100528
 ;-----------------------------------------------------------------------------
 ; sub_100400                                                          100400  
@@ -170,7 +170,7 @@ sub_100528:
         test eax, eax
         je near .6
         push eax
-        call sub_FB634
+        call MemDescSize
         mov dword [byte esp+08h], eax
         add esp, byte 4
         mov edi, dword [esi]
@@ -183,7 +183,7 @@ sub_100528:
         test eax, eax
         je near .6
         push esi
-        call sub_FB658
+        call LockMemBlock
         add esp, byte 4
         add edi, 400h
         push edi
@@ -216,12 +216,12 @@ sub_100528:
         call bcopy
         add esp, byte 0Ch
         push edi
-        call sub_FB634
+        call MemDescSize
         add esp, byte 4
         mov ebp, eax
 .1:
         push ebx
-        call sub_FAF70
+        call UnlinkMemBlockLocked
         add esp, byte 4
         mov ebx, dword [esp]
 .2:
@@ -232,7 +232,7 @@ sub_100528:
         test ebx, ebx
         je short .6
         push ebx
-        call sub_FAF70
+        call UnlinkMemBlockLocked
         add esp, byte 4
         xor ebx, ebx
         jmp short .6
@@ -264,15 +264,15 @@ sub_100528:
         add esp, byte 0Ch
         test byte [byte esp+028h], 20h
         je short .4
-        call sub_FB1DC
+        call CompactDownLocked
         jmp short .5
 .4:
-        call sub_FB338
+        call CompactUpLocked
 .5:
         test byte [byte esp+028h], 10h
         jne short .6
         push ebx
-        call sub_FB64C
+        call UnlockMemBlock
         add esp, byte 4
 .6:
         mov eax, ebx

@@ -10,7 +10,7 @@ extern dword_1CFCC8, dword_1CFCCC, dword_1CFCD0, dword_1CFCD4, dword_1CFCD8, dwo
 extern dword_1CFCE8, dword_1DCF38, str_ASYNCFILE, strcmp_, strncpy_, CdOpenStream, CdHandleEntry, CdCloseFile
 extern CdRead, CdSeek, CdFindFile, DriveLetterIndex, IsCdDrive, CheckBankIndex, SetMusicStreamVolume, ChannelPlaying
 extern StopChannel, PlaySample, sub_128280, AudioEnter, AudioLeaveCheck, IsChannelActive, sub_12D1C0, sub_12D210
-extern sub_FA9C4, AllocMemBlock, FreeMemBlock, sub_FAF70, addtimer, sub_FC008, unk_1CFCBC, word_170162
+extern sub_FA9C4, AllocMemBlock, FreeMemBlock, UnlinkMemBlockLocked, addtimer, sub_FC008, unk_1CFCBC, word_170162
 global jpt_109E64, sub_109E74_2E, sub_109E74_57B, sub_109E74_613, sub_109E74_78F, AsyncInit, AsyncClose, AsyncRequestOpen
 global AsyncRequestSection, sub_109E54, sub_109E74, sub_10A788, sub_10A7D0, sub_10A844, sub_10A860, sub_10A868
 global sub_10A8C4, sub_10A930, sub_10A980, sub_10AA38, sub_10AB1C, sub_10AB2C, sub_10AB94, sub_10ABC8
@@ -761,7 +761,7 @@ sub_109E74_613:
         mov edi, 0FFFFFFFFh
         push ebp
         mov dword [dword_1CFC88], edi
-        call sub_FAF70
+        call UnlinkMemBlockLocked
         mov eax, dword [dword_1CFC84]
         mov edx, dword [dword_1CFC80]
         mov dword [dword eax+0A7h], edx

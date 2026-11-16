@@ -32,7 +32,7 @@ extern SetScreenTarget, LoadMainSfxBank, OpenAudioStream, ShutdownGameAudio, Chk
 extern StopAllSfx, PlaySfx, MakeDirPath, LoadDataFile, LoadStartupData, RunFrontEnd, InitMenuItems, RunMenu
 extern InitScrollList, ScrollUp, ScrollDown, FreeScrollList, SetScrollBarPos, ScrollToMouse, GetLangText, FreeLangText
 extern RunIntro, AllocStaticBuffer, InitDbState, ServiceIdle, NetInit, NetShutdown, LinkSendBlock, LinkReceiveBlock
-extern WaitForOtherComputer, FillBox, sub_F9650, AllocMemBlock, FreeMemBlock, sub_FB4D4, ZeroMem, sub_FB73D
+extern WaitForOtherComputer, FillBox, sub_F9650, AllocMemBlock, FreeMemBlock, MemFreeSize, ZeroMem, FillMemPattern
 extern sub_FBE40, sub_FBE94, MakeColor, sub_FC73E, sub_FCC40, FreeBitmap, sub_FCF84, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, sub_FDC68, FillRect, MeasureText, DrawTextAt, SetTextColors
 extern FillRectCorners, DrawGlyph, tickcount, unk_1643C2, unk_16445A, unk_1644A0, unk_1644EF, unk_1645E7
@@ -218,11 +218,11 @@ main_:
         call exit_
 .4:
         push byte 0
-        call sub_FB4D4
+        call MemFreeSize
         add esp, byte 4
         push dword 220h
         mov ebx, eax
-        call sub_FB4D4
+        call MemFreeSize
         add eax, ebx
         add esp, byte 4
         cmp eax, 4C4B40h
@@ -323,11 +323,11 @@ main_:
         call close_
 .17:
         push byte 0
-        call sub_FB4D4
+        call MemFreeSize
         add esp, byte 4
         push dword 220h
         mov ebx, eax
-        call sub_FB4D4
+        call MemFreeSize
         add eax, ebx
         add esp, byte 4
         cmp eax, 81B320h
@@ -8782,7 +8782,7 @@ DrawHighlightBar:
         mov ebx, dword [byte esp+040h]
         sar edx, 1
         mov eax, esi
-        call sub_FB73D
+        call FillMemPattern
         jmp near .17
 .6:
         add eax, eax

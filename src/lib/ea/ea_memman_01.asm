@@ -6,14 +6,16 @@ extern byte_16E354, byte_16E358, byte_16E35C, dword_16E324, dword_16E338, dword_
 extern dword_16E34C, dword_16E350, dword_16E360, dword_1CF0E0, dword_1CF25C, dword_1CF260, dword_1CF264, dword_1CF268
 extern memlist1, strncmp_, strncpy_, bcopy, sub_121470, sub_121494, sub_1214A0, sub_1214D0
 extern sub_12175C
-global sub_FABB8, findmemblock, FreeMemBlock, sub_FAF70, sub_FAFB0, sub_FB0BC, sub_FB168, sub_FB1DC
-global sub_FB214, sub_FB338, sub_FB370, sub_FB4A4, sub_FB4D4, sub_FB508, sub_FB5C8, sub_FB5F4
-global sub_FB618, sub_FB62C, sub_FB634, sub_FB64C, sub_FB658, sub_FB6E4, ZeroMem, FillMem
-global sub_FB731, sub_FB73D, type_info__raw_name
+global AllocMemBlockEx, findmemblock, FreeMemBlock, UnlinkMemBlockLocked, UnlinkMemBlock, MergeFreeSpace, FindNamedBlock, CompactDownLocked
+global CompactMemListDown, CompactUpLocked, CompactMemListUp, MemFreeSizeAny, MemFreeSize, LargestFreeSpace, InitMemDescriptors, PushMemDescriptor
+global MemPtrSize, MemDescPtr, MemDescSize, UnlockMemBlock, LockMemBlock, SetMemBlockPurge, ZeroMem, FillMem
+global FillMemExpandByte, FillMemPattern, type_info__raw_name
 ;-----------------------------------------------------------------------------
-; sub_FABB8                                                            FABB8  
+; AllocMemBlockEx                                 FABB8  97 PC, low confidence
+; The allocator under AllocMemBlock: finds room in the block's memory list
+; (compacting if needed) and links a named block
 ;-----------------------------------------------------------------------------
-sub_FABB8:
+AllocMemBlockEx:
         push ebx
         push esi
         push edi
@@ -65,7 +67,7 @@ sub_FABB8:
         push edx
         mov ecx, dword [byte esi+04h]
         push ecx
-        call sub_FB214
+        call CompactMemListDown
         add esp, byte 8
 .3:
         xor ebp, ebp
@@ -141,7 +143,7 @@ sub_FABB8:
         cmp dword [dword_16E33C], byte 0
         je short .12
         push dword 200h
-        call sub_FB508
+        call LargestFreeSpace
         mov edx, dword [dword_1CF264]
         add esp, byte 4
         cmp eax, edx
@@ -149,7 +151,7 @@ sub_FABB8:
         mov dword [dword_1CF264], eax
 .11:
         push byte 0
-        call sub_FB508
+        call LargestFreeSpace
         mov ebx, dword [dword_1CF268]
         add esp, byte 4
         cmp eax, ebx
@@ -188,7 +190,7 @@ sub_FABB8:
         push edx
         mov ecx, dword [byte esi+04h]
         push ecx
-        call sub_FB214
+        call CompactMemListDown
         add esp, byte 8
         jmp near .4
 .16:
@@ -200,7 +202,7 @@ sub_FABB8:
         push edi
         push edx
 .17:
-        call sub_FB370
+        call CompactMemListUp
         add esp, byte 8
 .18:
         mov edi, dword [byte esi+04h]
@@ -277,7 +279,7 @@ sub_FABB8:
         cmp dword [dword_16E33C], byte 0
         je short .27
         push dword 200h
-        call sub_FB508
+        call LargestFreeSpace
         mov esi, dword [dword_1CF264]
         add esp, byte 4
         cmp eax, esi
@@ -285,7 +287,7 @@ sub_FABB8:
         mov dword [dword_1CF264], eax
 .26:
         push byte 0
-        call sub_FB508
+        call LargestFreeSpace
         mov edi, dword [dword_1CF268]
         add esp, byte 4
         cmp eax, edi
@@ -381,7 +383,7 @@ FreeMemBlock:
         call sub_121470
         add esp, byte 4
         push ebx
-        call sub_FAFB0
+        call UnlinkMemBlock
         add esp, byte 4
         mov esi, dword [dword_1CF260]
         push esi
@@ -392,9 +394,11 @@ FreeMemBlock:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_FAF70                                                            FAF70  
+; UnlinkMemBlockLocked                            FAF70  97 PC, low confidence
+; Under the memory lock, unlinks a block from its list and returns its
+; descriptor to the free list
 ;-----------------------------------------------------------------------------
-sub_FAF70:
+UnlinkMemBlockLocked:
         push ebx
         mov ebx, dword [byte esp+08h]
         mov edx, dword [dword_1CF260]
@@ -408,7 +412,7 @@ sub_FAF70:
         mov eax, dword [byte ebx+024h]
         push ebx
         mov dword [byte edx+024h], eax
-        call sub_FB5F4
+        call PushMemDescriptor
         add esp, byte 4
         mov ebx, dword [dword_1CF260]
         push ebx
@@ -418,9 +422,11 @@ sub_FAF70:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_FAFB0                                                            FAFB0  
+; UnlinkMemBlock                                  FAFB0  97 PC, low confidence
+; Unlinks a block descriptor from its list and pushes it on the free
+; descriptor list; followed by its free helpers
 ;-----------------------------------------------------------------------------
-sub_FAFB0:
+UnlinkMemBlock:
         push ebx
         mov eax, dword [byte esp+08h]
         mov ebx, dword [byte eax+024h]
@@ -455,7 +461,7 @@ sub_FAFB0:
         mov ebx, dword [byte ebx+020h]
         mov esi, dword [byte ebx+024h]
         push esi
-        call sub_FAFB0
+        call UnlinkMemBlock
         mov dl, byte [byte ebx+018h]
         add esp, byte 4
         test dl, 20h
@@ -489,7 +495,7 @@ sub_FAFB0:
         mov ecx, dword [byte eax+024h]
         push eax
         mov dword [byte edx+024h], ecx
-        call sub_FB5F4
+        call PushMemDescriptor
         mov dl, byte [byte ebx+018h]
         add esp, byte 4
         test dl, 20h
@@ -509,7 +515,7 @@ sub_FAFB0:
         add esp, byte 4
         mov ebx, dword [byte esp+08h]
         push ebx
-        call sub_FB0BC
+        call MergeFreeSpace
         add esp, byte 4
         mov ecx, dword [dword_1CF260]
         push ecx
@@ -521,9 +527,11 @@ sub_FAFB0:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_FB0BC                                                            FB0BC  
+; MergeFreeSpace                                  FB0BC  97 PC, low confidence
+; Walks a memory list and works out the free space around movable blocks for
+; the requested placement
 ;-----------------------------------------------------------------------------
-sub_FB0BC:
+MergeFreeSpace:
         push ebx
         push esi
         push edi
@@ -581,7 +589,7 @@ sub_FB0BC:
         mov eax, dword [byte edi+024h]
         push edi
         mov dword [byte edx+024h], eax
-        call sub_FB5F4
+        call PushMemDescriptor
         mov eax, 1
         add esp, byte 4
         jmp short .6
@@ -595,9 +603,10 @@ sub_FB0BC:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_FB168                                                            FB168  
+; FindNamedBlock                                  FB168  97 PC, low confidence
+; Returns the first block in a memory list whose name matches
 ;-----------------------------------------------------------------------------
-sub_FB168:
+FindNamedBlock:
         push ebx
         push esi
         push edi
@@ -644,13 +653,15 @@ sub_FB168:
         push byte 0
         mov edx, dword [byte esp+08h]
         push edx
-        call sub_FB168
+        call FindNamedBlock
         add esp, byte 8
         ret
 ;-----------------------------------------------------------------------------
-; sub_FB1DC                                                            FB1DC  
+; CompactDownLocked                               FB1DC  97 PC, low confidence
+; Under the memory lock, slides the movable blocks of the main list down to
+; close gaps
 ;-----------------------------------------------------------------------------
-sub_FB1DC:
+CompactDownLocked:
         push ebx
         push esi
         mov edx, dword [dword_1CF260]
@@ -662,7 +673,7 @@ sub_FB1DC:
         push ebx
         mov ecx, dword [byte eax+04h]
         push ecx
-        call sub_FB214
+        call CompactMemListDown
         add esp, byte 8
         mov esi, dword [dword_1CF260]
         push esi
@@ -673,9 +684,11 @@ sub_FB1DC:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_FB214                                                            FB214  
+; CompactMemListDown                              FB214  97 PC, low confidence
+; Slides movable blocks toward the start of a memory list to close gaps
+; between them
 ;-----------------------------------------------------------------------------
-sub_FB214:
+CompactMemListDown:
         push ebx
         push esi
         push edi
@@ -805,9 +818,11 @@ sub_FB214:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_FB338                                                            FB338  
+; CompactUpLocked                                 FB338  97 PC, low confidence
+; Under the memory lock, slides the movable blocks of the main list up to
+; close gaps
 ;-----------------------------------------------------------------------------
-sub_FB338:
+CompactUpLocked:
         push ebx
         push esi
         mov edx, dword [dword_1CF260]
@@ -819,7 +834,7 @@ sub_FB338:
         push ebx
         mov ecx, dword [eax]
         push ecx
-        call sub_FB370
+        call CompactMemListUp
         add esp, byte 8
         mov esi, dword [dword_1CF260]
         push esi
@@ -830,9 +845,11 @@ sub_FB338:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_FB370                                                            FB370  
+; CompactMemListUp                                FB370  97 PC, low confidence
+; Slides movable blocks toward the end of a memory list to close gaps between
+; them
 ;-----------------------------------------------------------------------------
-sub_FB370:
+CompactMemListUp:
         push ebx
         push esi
         push edi
@@ -954,7 +971,7 @@ sub_FB370:
         push ecx
         push edx
         push dword 200h
-        call sub_FB508
+        call LargestFreeSpace
         mov edx, dword [dword_1CF264]
         add esp, byte 4
         cmp eax, edx
@@ -962,7 +979,7 @@ sub_FB370:
         mov dword [dword_1CF264], eax
 .11:
         push byte 0
-        call sub_FB508
+        call LargestFreeSpace
         mov ebx, dword [dword_1CF268]
         add esp, byte 4
         cmp eax, ebx
@@ -976,16 +993,18 @@ sub_FB370:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_FB4A4                                                            FB4A4  
+; MemFreeSizeAny                                  FB4A4  97 PC, low confidence
+; Under the memory lock, returns the largest free space in the default memory
+; list
 ;-----------------------------------------------------------------------------
-sub_FB4A4:
+MemFreeSizeAny:
         push ebx
         mov edx, dword [dword_1CF260]
         push edx
         call sub_121470
         add esp, byte 4
         push byte 0
-        call sub_FB508
+        call LargestFreeSpace
         add esp, byte 4
         mov ecx, dword [dword_1CF260]
         push ecx
@@ -997,9 +1016,11 @@ sub_FB4A4:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_FB4D4                                                            FB4D4  
+; MemFreeSize                                     FB4D4  97 PC, low confidence
+; Under the memory lock, returns the largest free space in the memory list
+; chosen by the flags
 ;-----------------------------------------------------------------------------
-sub_FB4D4:
+MemFreeSize:
         push ebx
         mov edx, dword [dword_1CF260]
         push edx
@@ -1007,7 +1028,7 @@ sub_FB4D4:
         add esp, byte 4
         mov ebx, dword [byte esp+08h]
         push ebx
-        call sub_FB508
+        call LargestFreeSpace
         add esp, byte 4
         mov ecx, dword [dword_1CF260]
         push ecx
@@ -1019,9 +1040,10 @@ sub_FB4D4:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_FB508                                                            FB508  
+; LargestFreeSpace                                FB508  97 PC, low confidence
+; Compacts a memory list when allowed and returns its largest free gap
 ;-----------------------------------------------------------------------------
-sub_FB508:
+LargestFreeSpace:
         push ebx
         push esi
         push edi
@@ -1041,7 +1063,7 @@ sub_FB508:
         push ebx
         mov ecx, dword [byte esi+04h]
         push ecx
-        call sub_FB214
+        call CompactMemListDown
         add esp, byte 8
 .1:
         mov ebx, dword [esi]
@@ -1072,7 +1094,7 @@ sub_FB508:
         ret
         db 08Bh,0C0h
         push byte 0
-        call sub_FB4D4
+        call MemFreeSize
         add esp, byte 4
         sar eax, 4
         ret
@@ -1110,9 +1132,10 @@ sub_FB508:
         mov eax, edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_FB5C8                                                            FB5C8  
+; InitMemDescriptors                              FB5C8  97 PC, low confidence
+; Chains the block descriptor array into the free descriptor list
 ;-----------------------------------------------------------------------------
-sub_FB5C8:
+InitMemDescriptors:
         push ebx
         mov eax, dword [byte esp+08h]
         mov ebx, dword [byte esp+0Ch]
@@ -1134,9 +1157,10 @@ sub_FB5C8:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_FB5F4                                                            FB5F4  
+; PushMemDescriptor                               FB5F4  97 PC, low confidence
+; Returns a block descriptor to the free list; followed by the pop
 ;-----------------------------------------------------------------------------
-sub_FB5F4:
+PushMemDescriptor:
         mov edx, dword [byte esp+04h]
         mov eax, dword [dword_1CF25C]
         mov dword [dword_1CF25C], edx
@@ -1149,9 +1173,10 @@ sub_FB5F4:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_FB618                                                            FB618  
+; MemPtrSize                                      FB618  97 PC, low confidence
+; Returns the size of the block that holds a pointer
 ;-----------------------------------------------------------------------------
-sub_FB618:
+MemPtrSize:
         mov edx, dword [byte esp+04h]
         push edx
         call findmemblock
@@ -1160,17 +1185,19 @@ sub_FB618:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_FB62C                                                            FB62C  
+; MemDescPtr                                      FB62C  97 PC, low confidence
+; Returns the data pointer of a block descriptor
 ;-----------------------------------------------------------------------------
-sub_FB62C:
+MemDescPtr:
         mov eax, dword [byte esp+04h]
         mov eax, dword [eax]
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_FB634                                                            FB634  
+; MemDescSize                                     FB634  97 PC, low confidence
+; Returns the size of a block descriptor's data
 ;-----------------------------------------------------------------------------
-sub_FB634:
+MemDescSize:
         mov eax, dword [byte esp+04h]
         mov eax, dword [byte eax+014h]
         ret
@@ -1185,17 +1212,20 @@ type_info__raw_name:
         mov eax, dword [byte eax+018h]
         ret
 ;-----------------------------------------------------------------------------
-; sub_FB64C                                                            FB64C  
+; UnlockMemBlock                                  FB64C  97 PC, low confidence
+; Clears the locked flag of a block so it can move again
 ;-----------------------------------------------------------------------------
-sub_FB64C:
+UnlockMemBlock:
         mov eax, dword [byte esp+04h]
         and byte [byte eax+018h], 0EFh
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_FB658                                                            FB658  
+; LockMemBlock                                    FB658  97 PC, low confidence
+; Sets the locked flag of a block so compaction leaves it in place; followed
+; by the purge-flag setter by pointer
 ;-----------------------------------------------------------------------------
-sub_FB658:
+LockMemBlock:
         mov eax, dword [byte esp+04h]
         or byte [byte eax+018h], 10h
         ret
@@ -1215,7 +1245,7 @@ sub_FB658:
         mov esi, dword [byte esp+014h]
         push esi
         push ebx
-        call sub_FB6E4
+        call SetMemBlockPurge
         add esp, byte 8
         mov edi, dword [dword_1CF260]
         push edi
@@ -1248,9 +1278,10 @@ sub_FB658:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_FB6E4                                                            FB6E4  
+; SetMemBlockPurge                                FB6E4  97 PC, low confidence
+; Marks a block purgeable (or clears the mark)
 ;-----------------------------------------------------------------------------
-sub_FB6E4:
+SetMemBlockPurge:
         push ebx
         mov eax, dword [byte esp+08h]
         mov edx, eax
@@ -1267,7 +1298,7 @@ sub_FB6E4:
         db 00h
 ;-----------------------------------------------------------------------------
 ; ZeroMem                                      FB704  97 PC, medium confidence
-; (ptr, n): fills n bytes with zero (sub_FB73D, 8 bytes at a time through the
+; (ptr, n): fills n bytes with zero (FillMemPattern, 8 bytes at a time through the
 ; FPU)
 ;-----------------------------------------------------------------------------
 ZeroMem:
@@ -1277,14 +1308,14 @@ ZeroMem:
         mov eax, dword [byte ebp+08h]
         mov edx, dword [byte ebp+0Ch]
         mov ebx, 0
-        call sub_FB73D
+        call FillMemPattern
         pop ebx
         leave
         ret
         db 090h
 ;-----------------------------------------------------------------------------
 ; FillMem                                      FB71C  97 PC, medium confidence
-; (ptr, n, byte): fills n bytes with a byte value (sub_FB731 spreads it over
+; (ptr, n, byte): fills n bytes with a byte value (FillMemExpandByte spreads it over
 ; a dword)
 ;-----------------------------------------------------------------------------
 FillMem:
@@ -1294,20 +1325,26 @@ FillMem:
         mov eax, dword [byte ebp+08h]
         mov edx, dword [byte ebp+0Ch]
         mov ebx, dword [byte ebp+010h]
-        call sub_FB731
+        call FillMemExpandByte
         pop ebx
         leave
         ret
 ;-----------------------------------------------------------------------------
-; sub_FB731                                                            FB731  
+; FillMemExpandByte                               FB731  97 PC, low confidence
+; Repeats the fill byte across a dword before falling into the fill loop
 ;-----------------------------------------------------------------------------
-sub_FB731:
+FillMemExpandByte:
         LD mov, bh, bl
         shl ebx, 8
         LD mov, bl, bh
         shl ebx, 8
         LD mov, bl, bh
-sub_FB73D:
+;-----------------------------------------------------------------------------
+; FillMemPattern                                  FB73D  97 PC, low confidence
+; Fills memory with a byte pattern, using 64-bit FPU stores for long aligned
+; runs
+;-----------------------------------------------------------------------------
+FillMemPattern:
         test eax, 7
         jne near .16
 .1:

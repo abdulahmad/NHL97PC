@@ -59,7 +59,7 @@ extern ShowMessageBox, LoadTeamLogo, FreeLogoArt, WipeScreen, SetHighlightText, 
 extern RunScrollList, GetLangText, FillStatBar, FinishLeagueGame, InitShapeListBox, FreeDbBlock, DaysToYear, FindNextSeasonGame
 extern OpenLeagueFile, StartSeasonGame, FindGameRecord, UpdateGameRecord, FileExists, FileCreate, FileSeek, FileReadRecord
 extern FileWriteRecord, FileClose, ServiceIdle, BuildAllStarTeams, FreeVideoBuffer, sub_F94BC, sub_F99C0, sub_F9A28
-extern AllocMemBlock, FreeMemBlock, sub_FB4D4, ZeroMem, FillMem, addtimer, sub_FC008, sub_FC290
+extern AllocMemBlock, FreeMemBlock, MemFreeSize, ZeroMem, FillMem, addtimer, sub_FC008, sub_FC290
 extern WaitTicks, sub_FC330, sub_FC410, MakeColor, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget
 extern ClearScreen, sub_FDC68, SetTextColors, SetFocalLength, SetProjectionCenter, tickcount, unk_160A56, unk_160B68
 extern unk_160C94, unk_160C98, unk_19ED78, unk_19F548, unk_1A0CB8, unk_1A8D48, unk_1A8E8C, unk_1A9C8C
@@ -13168,7 +13168,7 @@ LoadSfxBank:
         jne short .4
 .3:
         push byte 0
-        call sub_FB4D4
+        call MemFreeSize
         add esp, byte 4
         cmp eax, 800000h
         jle short .8
@@ -13186,7 +13186,7 @@ LoadSfxBank:
         jne short .7
 .6:
         push byte 0
-        call sub_FB4D4
+        call MemFreeSize
         add esp, byte 4
         cmp eax, 800000h
         jle short .8
@@ -13224,7 +13224,7 @@ LoadSfxBank:
         jne short .13
 .12:
         push byte 0
-        call sub_FB4D4
+        call MemFreeSize
         add esp, byte 4
         cmp eax, 800000h
         jle short .17
@@ -13240,7 +13240,7 @@ LoadSfxBank:
         jne short .16
 .15:
         push byte 0
-        call sub_FB4D4
+        call MemFreeSize
         add esp, byte 4
         cmp eax, 800000h
         jle short .17
@@ -13929,7 +13929,7 @@ InitGameAudio:
         jne short .5
 .4:
         push byte 0
-        call sub_FB4D4
+        call MemFreeSize
         add esp, byte 4
         cmp eax, 800000h
         jle short .6

@@ -8,7 +8,7 @@ extern byte_199A24, byte_199AA4, byte_1DA4C5, dword_16E318, dword_16E678, dword_
 extern dword_16E698, dword_16E6A0, dword_1999A5, dword_1999C0, dword_199A14, dword_199A18, dword_199A1E, dword_199B2A
 extern dword_199B2E, dword_1CF528, dword_1DA4BC, dword_1DA4C0, dword_1DA8D8, __freefp__39, memset_, off_199C54
 extern str_NotEnoughMemoryTo, str_SaveText, bcopy, AddExitHandler, RestoreDS, SetBlitSource, CopyMappedSpan, BuildSpanOffsets
-extern sub_12FFD8, sub_12FFF0, sub_138F20, sub_138F5A, sub_FA9C4, sub_FAF70, sub_FB62C, ZeroMem
+extern sub_12FFD8, sub_12FFF0, sub_138F20, sub_138F5A, sub_FA9C4, UnlinkMemBlockLocked, MemDescPtr, ZeroMem
 extern sub_FBE63, MakeColor, sub_FCC40, FillRect, SetTextColors, FreeTextBuffers, tolower_, unk_16E8A0
 extern unk_1722C0, unk_172342, word_199A1C, word_199A22
 global _DoINTR_, __HeapManager_expand_, __IOMode_, __InitFiles_, __SetIOMode_, __flushall_, __full_io_exit_, __int386x_
@@ -475,7 +475,7 @@ SaveTextScreen:
         add esp, byte 0Ch
         push eax
         mov edi, eax
-        call sub_FB62C
+        call MemDescPtr
         add esp, byte 4
         mov ebx, eax
         push byte 10h
@@ -519,7 +519,7 @@ RestoreTextScreen:
         test eax, eax
         je short .2
         push eax
-        call sub_FB62C
+        call MemDescPtr
         add esp, byte 4
         mov esi, dword [eax]
         push esi
@@ -549,7 +549,7 @@ RestoreTextScreen:
         call bcopy
         add esp, byte 0Ch
         push ebx
-        call sub_FAF70
+        call UnlinkMemBlockLocked
         add esp, byte 4
 .2:
         add esp, byte 20h

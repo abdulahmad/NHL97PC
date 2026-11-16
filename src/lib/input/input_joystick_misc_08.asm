@@ -6,13 +6,14 @@ extern byte_16E688, byte_16F794, byte_171C90, dword_16E678, dword_16E67C, dword_
 extern ConvertArtNew, FixedLerp, sub_12F270, DrawCharMono, DrawCharShadow, DrawCharOutline, DrawCharBold, FreeMemBlock
 extern unk_1DD4B8, unk_1DD5B8, unk_1DD738, unk_1DD838, unk_1DD938, unk_1DDA38, unk_1DDBB8, unk_1DDD38
 extern unk_1DDEB8, unk_1DDFB8, unk_1DE0B8, unk_1DE1B8, unk_1DE2B8, unk_1DE3B8, unk_1DE4B8, unk_1DE5B8
-global sub_12DD3C_13C, sub_12ED68_137, sub_12D6C4, sub_12D740, sub_12D784, sub_12DAC4, sub_12DC04, sub_12DD3C
-global sub_12DE84, sub_12DFC4, sub_12E108, sub_12E2B8, sub_12E390, sub_12E864, sub_12E9D8, sub_12EBD0
-global sub_12EC9C, sub_12ED68, sub_12EEAC, sub_12EFE8, sub_12F12C
+global ClipTexPolyLeft_13C, ClipDrawPolyLeft_137, TransposeMatrix, PolyCrossProduct, TexSpanCopy, ClipTexEdgeAtX, ClipTexEdgeAtY, ClipTexPolyLeft
+global ClipTexPolyRight, ClipTexPolyTop, ClipTexPolyBottom, MakeRotationZ, DrawShapeTransformed, TexSpanKeyed, TexSpanShadow, ClipDrawEdgeAtX
+global ClipDrawEdgeAtY, ClipDrawPolyLeft, ClipDrawPolyRight, ClipDrawPolyTop, ClipDrawPolyBottom
 ;-----------------------------------------------------------------------------
-; sub_12D6C4                                                          12D6C4  
+; TransposeMatrix                                12D6C4  97 PC, low confidence
+; Transposes a 3x3 matrix, in place or into another matrix
 ;-----------------------------------------------------------------------------
-sub_12D6C4:
+TransposeMatrix:
         push ebp
         LD mov, ebp, esp
         push ebx
@@ -63,9 +64,10 @@ sub_12D6C4:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_12D740                                                          12D740  
+; PolyCrossProduct                               12D740  97 PC, low confidence
+; Returns the 2D cross product of three indexed polygon points (its winding)
 ;-----------------------------------------------------------------------------
-sub_12D740:
+PolyCrossProduct:
         push ebx
         push esi
         mov eax, dword [byte esp+0Ch]
@@ -96,9 +98,10 @@ sub_12D740:
         ret
         db 00h,00h
 ;-----------------------------------------------------------------------------
-; sub_12D784                                                          12D784  
+; TexSpanCopy                                    12D784  97 PC, low confidence
+; Draws one span of a texture by stepping 16.16 source coordinates
 ;-----------------------------------------------------------------------------
-sub_12D784:
+TexSpanCopy:
         push ebx
         push esi
         push edi
@@ -421,9 +424,11 @@ sub_12D784:
         ret 0Ch
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_12DAC4                                                          12DAC4  
+; ClipTexEdgeAtX                                 12DAC4  97 PC, low confidence
+; Clips a textured polygon edge at a vertical line, interpolating its texture
+; coordinates
 ;-----------------------------------------------------------------------------
-sub_12DAC4:
+ClipTexEdgeAtX:
         push ebx
         push esi
         push edi
@@ -556,9 +561,11 @@ sub_12DAC4:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_12DC04                                                          12DC04  
+; ClipTexEdgeAtY                                 12DC04  97 PC, low confidence
+; Clips a textured polygon edge at a horizontal line, interpolating its
+; texture coordinates
 ;-----------------------------------------------------------------------------
-sub_12DC04:
+ClipTexEdgeAtY:
         push ebx
         push esi
         push edi
@@ -689,9 +696,10 @@ sub_12DC04:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_12DD3C                                                          12DD3C  
+; ClipTexPolyLeft                                12DD3C  97 PC, low confidence
+; Clips a textured polygon against the left edge of the clip window
 ;-----------------------------------------------------------------------------
-sub_12DD3C:
+ClipTexPolyLeft:
         push ebx
         push esi
         push edi
@@ -729,7 +737,7 @@ sub_12DD3C:
         push eax
         mov ecx, dword [byte esp+024h]
         push ecx
-        call sub_12DAC4
+        call ClipTexEdgeAtX
         add esp, byte 1Ch
         test eax, eax
         je near .5
@@ -764,7 +772,7 @@ sub_12DD3C:
         mov edi, dword [byte esp+020h]
         push edi
         push eax
-        call sub_12DAC4
+        call ClipTexEdgeAtX
         add esp, byte 1Ch
         test eax, eax
         je short .3
@@ -797,7 +805,7 @@ sub_12DD3C:
         dec edi
         mov dword [byte esp+028h], edi
         test edi, edi
-        jle short sub_12DD3C_13C
+        jle short ClipTexPolyLeft_13C
         mov edx, dword [byte esp+08h]
         mov eax, dword [byte esp+0Ch]
         cmp edi, byte 1
@@ -813,7 +821,7 @@ sub_12DD3C:
         mov dword [byte esp+08h], edi
         mov dword [byte esp+0Ch], esi
         jmp near .1
-sub_12DD3C_13C:
+ClipTexPolyLeft_13C:
         mov eax, dword [byte esp+010h]
         add esp, byte 14h
         pop ebp
@@ -822,9 +830,10 @@ sub_12DD3C_13C:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_12DE84                                                          12DE84  
+; ClipTexPolyRight                               12DE84  97 PC, low confidence
+; Clips a textured polygon against the right edge of the clip window
 ;-----------------------------------------------------------------------------
-sub_12DE84:
+ClipTexPolyRight:
         push ebx
         push esi
         push edi
@@ -862,7 +871,7 @@ sub_12DE84:
         push eax
         mov ecx, dword [byte esp+024h]
         push ecx
-        call sub_12DAC4
+        call ClipTexEdgeAtX
         add esp, byte 1Ch
         test eax, eax
         je near .5
@@ -897,7 +906,7 @@ sub_12DE84:
         mov edi, dword [byte esp+020h]
         push edi
         push eax
-        call sub_12DAC4
+        call ClipTexEdgeAtX
         add esp, byte 1Ch
         test eax, eax
         je short .3
@@ -930,7 +939,7 @@ sub_12DE84:
         dec edi
         mov dword [byte esp+028h], edi
         test edi, edi
-        jle near sub_12DD3C_13C
+        jle near ClipTexPolyLeft_13C
         mov edx, dword [byte esp+08h]
         mov eax, dword [byte esp+0Ch]
         cmp edi, byte 1
@@ -947,9 +956,10 @@ sub_12DE84:
         mov dword [byte esp+0Ch], esi
         jmp near .1
 ;-----------------------------------------------------------------------------
-; sub_12DFC4                                                          12DFC4  
+; ClipTexPolyTop                                 12DFC4  97 PC, low confidence
+; Clips a textured polygon against the top edge of the clip window
 ;-----------------------------------------------------------------------------
-sub_12DFC4:
+ClipTexPolyTop:
         push ebx
         push esi
         push edi
@@ -987,7 +997,7 @@ sub_12DFC4:
         push eax
         mov ecx, dword [byte esp+024h]
         push ecx
-        call sub_12DC04
+        call ClipTexEdgeAtY
         add esp, byte 1Ch
         test eax, eax
         je near .5
@@ -1022,7 +1032,7 @@ sub_12DFC4:
         mov edi, dword [byte esp+020h]
         push edi
         push eax
-        call sub_12DC04
+        call ClipTexEdgeAtY
         add esp, byte 1Ch
         test eax, eax
         je short .3
@@ -1055,7 +1065,7 @@ sub_12DFC4:
         dec edi
         mov dword [byte esp+028h], edi
         test edi, edi
-        jle near sub_12DD3C_13C
+        jle near ClipTexPolyLeft_13C
         mov edx, dword [byte esp+08h]
         mov eax, dword [byte esp+0Ch]
         cmp edi, byte 1
@@ -1073,9 +1083,10 @@ sub_12DFC4:
         jmp near .1
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_12E108                                                          12E108  
+; ClipTexPolyBottom                              12E108  97 PC, low confidence
+; Clips a textured polygon against the bottom edge of the clip window
 ;-----------------------------------------------------------------------------
-sub_12E108:
+ClipTexPolyBottom:
         push ebx
         push esi
         push edi
@@ -1113,7 +1124,7 @@ sub_12E108:
         push eax
         mov ecx, dword [byte esp+024h]
         push ecx
-        call sub_12DC04
+        call ClipTexEdgeAtY
         add esp, byte 1Ch
         test eax, eax
         je near .5
@@ -1148,7 +1159,7 @@ sub_12E108:
         mov edi, dword [byte esp+020h]
         push edi
         push eax
-        call sub_12DC04
+        call ClipTexEdgeAtY
         add esp, byte 1Ch
         test eax, eax
         je short .3
@@ -1181,7 +1192,7 @@ sub_12E108:
         dec edi
         mov dword [byte esp+028h], edi
         test edi, edi
-        jle near sub_12DD3C_13C
+        jle near ClipTexPolyLeft_13C
         mov edx, dword [byte esp+08h]
         mov eax, dword [byte esp+0Ch]
         cmp edi, byte 1
@@ -1230,9 +1241,10 @@ sub_12E108:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_12E2B8                                                          12E2B8  
+; MakeRotationZ                                  12E2B8  97 PC, low confidence
+; Builds a 3x3 matrix that rotates about Z by an angle
 ;-----------------------------------------------------------------------------
-sub_12E2B8:
+MakeRotationZ:
         push ebx
         sub esp, byte 8
         mov ebx, dword [byte esp+010h]
@@ -1296,9 +1308,11 @@ sub_12E2B8:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_12E390                                                          12E390  
+; DrawShapeTransformed                           12E390  97 PC, low confidence
+; Converts a shape to 32-bit if needed and draws it rotated and scaled
+; through the polygon filler
 ;-----------------------------------------------------------------------------
-sub_12E390:
+DrawShapeTransformed:
         push ebx
         push esi
         push edi
@@ -1642,9 +1656,10 @@ sub_12E390:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_12E864                                                          12E864  
+; TexSpanKeyed                                   12E864  97 PC, low confidence
+; Draws one span of a texture, skipping transparent (FFh) pixels
 ;-----------------------------------------------------------------------------
-sub_12E864:
+TexSpanKeyed:
         push ebx
         push esi
         push edi
@@ -1791,9 +1806,11 @@ sub_12E864:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_12E9D8                                                          12E9D8  
+; TexSpanShadow                                  12E9D8  97 PC, low confidence
+; Draws one span of a texture, skipping transparent pixels and darkening
+; under shadow (FEh) pixels
 ;-----------------------------------------------------------------------------
-sub_12E9D8:
+TexSpanShadow:
         push ebx
         push esi
         push edi
@@ -1976,9 +1993,11 @@ sub_12E9D8:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_12EBD0                                                          12EBD0  
+; ClipDrawEdgeAtX                                12EBD0  97 PC, low confidence
+; Clips an edge of a drawn polygon at a vertical line, interpolating its
+; vertex values
 ;-----------------------------------------------------------------------------
-sub_12EBD0:
+ClipDrawEdgeAtX:
         push ebx
         push esi
         push edi
@@ -2071,9 +2090,11 @@ sub_12EBD0:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_12EC9C                                                          12EC9C  
+; ClipDrawEdgeAtY                                12EC9C  97 PC, low confidence
+; Clips an edge of a drawn polygon at a horizontal line, interpolating its
+; vertex values
 ;-----------------------------------------------------------------------------
-sub_12EC9C:
+ClipDrawEdgeAtY:
         push ebx
         push esi
         push edi
@@ -2166,9 +2187,10 @@ sub_12EC9C:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_12ED68                                                          12ED68  
+; ClipDrawPolyLeft                               12ED68  97 PC, low confidence
+; Clips a drawn polygon against the left edge of the clip window
 ;-----------------------------------------------------------------------------
-sub_12ED68:
+ClipDrawPolyLeft:
         push ebx
         push esi
         push edi
@@ -2206,7 +2228,7 @@ sub_12ED68:
         push eax
         mov ecx, dword [byte esp+024h]
         push ecx
-        call sub_12EBD0
+        call ClipDrawEdgeAtX
         add esp, byte 1Ch
         test eax, eax
         je near .5
@@ -2240,7 +2262,7 @@ sub_12ED68:
         mov edi, dword [byte esp+020h]
         push edi
         push eax
-        call sub_12EBD0
+        call ClipDrawEdgeAtX
         add esp, byte 1Ch
         test eax, eax
         je short .3
@@ -2272,7 +2294,7 @@ sub_12ED68:
         dec edi
         mov dword [byte esp+028h], edi
         test edi, edi
-        jle short sub_12ED68_137
+        jle short ClipDrawPolyLeft_137
         mov edx, dword [byte esp+08h]
         mov eax, dword [byte esp+0Ch]
         cmp edi, byte 1
@@ -2288,7 +2310,7 @@ sub_12ED68:
         mov dword [byte esp+08h], edi
         mov dword [byte esp+0Ch], esi
         jmp near .1
-sub_12ED68_137:
+ClipDrawPolyLeft_137:
         mov eax, dword [byte esp+010h]
         add esp, byte 14h
         pop ebp
@@ -2298,9 +2320,10 @@ sub_12ED68_137:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_12EEAC                                                          12EEAC  
+; ClipDrawPolyRight                              12EEAC  97 PC, low confidence
+; Clips a drawn polygon against the right edge of the clip window
 ;-----------------------------------------------------------------------------
-sub_12EEAC:
+ClipDrawPolyRight:
         push ebx
         push esi
         push edi
@@ -2338,7 +2361,7 @@ sub_12EEAC:
         push eax
         mov ecx, dword [byte esp+024h]
         push ecx
-        call sub_12EBD0
+        call ClipDrawEdgeAtX
         add esp, byte 1Ch
         test eax, eax
         je near .5
@@ -2372,7 +2395,7 @@ sub_12EEAC:
         mov edi, dword [byte esp+020h]
         push edi
         push eax
-        call sub_12EBD0
+        call ClipDrawEdgeAtX
         add esp, byte 1Ch
         test eax, eax
         je short .3
@@ -2404,7 +2427,7 @@ sub_12EEAC:
         dec edi
         mov dword [byte esp+028h], edi
         test edi, edi
-        jle near sub_12ED68_137
+        jle near ClipDrawPolyLeft_137
         mov edx, dword [byte esp+08h]
         mov eax, dword [byte esp+0Ch]
         cmp edi, byte 1
@@ -2422,9 +2445,10 @@ sub_12EEAC:
         jmp near .1
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_12EFE8                                                          12EFE8  
+; ClipDrawPolyTop                                12EFE8  97 PC, low confidence
+; Clips a drawn polygon against the top edge of the clip window
 ;-----------------------------------------------------------------------------
-sub_12EFE8:
+ClipDrawPolyTop:
         push ebx
         push esi
         push edi
@@ -2462,7 +2486,7 @@ sub_12EFE8:
         push eax
         mov ecx, dword [byte esp+024h]
         push ecx
-        call sub_12EC9C
+        call ClipDrawEdgeAtY
         add esp, byte 1Ch
         test eax, eax
         je near .5
@@ -2496,7 +2520,7 @@ sub_12EFE8:
         mov edi, dword [byte esp+020h]
         push edi
         push eax
-        call sub_12EC9C
+        call ClipDrawEdgeAtY
         add esp, byte 1Ch
         test eax, eax
         je short .3
@@ -2528,7 +2552,7 @@ sub_12EFE8:
         dec edi
         mov dword [byte esp+028h], edi
         test edi, edi
-        jle near sub_12ED68_137
+        jle near ClipDrawPolyLeft_137
         mov edx, dword [byte esp+08h]
         mov eax, dword [byte esp+0Ch]
         cmp edi, byte 1
@@ -2546,9 +2570,10 @@ sub_12EFE8:
         jmp near .1
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_12F12C                                                          12F12C  
+; ClipDrawPolyBottom                             12F12C  97 PC, low confidence
+; Clips a drawn polygon against the bottom edge of the clip window
 ;-----------------------------------------------------------------------------
-sub_12F12C:
+ClipDrawPolyBottom:
         push ebx
         push esi
         push edi
@@ -2586,7 +2611,7 @@ sub_12F12C:
         push eax
         mov ecx, dword [byte esp+024h]
         push ecx
-        call sub_12EC9C
+        call ClipDrawEdgeAtY
         add esp, byte 1Ch
         test eax, eax
         je near .5
@@ -2620,7 +2645,7 @@ sub_12F12C:
         mov edi, dword [byte esp+020h]
         push edi
         push eax
-        call sub_12EC9C
+        call ClipDrawEdgeAtY
         add esp, byte 1Ch
         test eax, eax
         je short .3
@@ -2652,7 +2677,7 @@ sub_12F12C:
         dec edi
         mov dword [byte esp+028h], edi
         test edi, edi
-        jle near sub_12ED68_137
+        jle near ClipDrawPolyLeft_137
         mov edx, dword [byte esp+08h]
         mov eax, dword [byte esp+0Ch]
         cmp edi, byte 1

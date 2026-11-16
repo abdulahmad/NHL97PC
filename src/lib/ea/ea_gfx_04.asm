@@ -7,7 +7,7 @@ extern dword_17003C, dword_170040, dword_172AC0, dword_172AC4, dword_1CFBF4, dwo
 extern dword_1DCF62, off_16FFC8, off_16FFCC, off_16FFD0, off_16FFD4, bcopy, AddExitHandler, DetectSoundCard
 extern ProbeSoundPorts, CloseDigitalAudio, StopChannel, sub_109401, sub_109545, sub_10955B, sub_10A930, sub_121888
 extern sub_128280, sub_1286F0, ReadSoundscapeIni, SoundscapeCodecReady, AudioLeave, SampleFormatSize, MixerStartSample, MixerFadeChannel
-extern MixerSetPanVolume, MixerSetPitch, MixerSamplesLeft, ReadLittleEndian, FreeMemBlock, sub_FB618, addtimer, sub_FC008
+extern MixerSetPanVolume, MixerSetPitch, MixerSamplesLeft, ReadLittleEndian, FreeMemBlock, MemPtrSize, addtimer, sub_FC008
 extern word_1CFBF0
 global jpt_1074C0, StartPatchSample_B1, StartPatchSample_C2, StartPatchSample_D3, StartPatchSample_E7, StartPatchSample_FB, StartPatchSample_10F, StartPatchSample_123
 global StartPatchSample_135, StartPatchSample_140, SampleRateResults_1, SampleRateResults_7, SampleRateResults_D, SampleRateResults_13, SampleRateResults_19, LoadFileToBlock
@@ -33,7 +33,7 @@ LoadFileToBlock:
         test eax, eax
         je short .1
         push eax
-        call sub_FB618
+        call MemPtrSize
         add esp, byte 4
         push eax
         push esi

@@ -4,7 +4,7 @@ bits 32
 section s_1216B0 progbits alloc exec nowrite align=1
 extern GetTicks, TicksSince, byte_172518, dword_16E324, dword_16E338, dword_1724D4, dword_17251B, dword_1CF260
 extern memlist1, off_16E4E0, strncmp_, bcopy, sub_121470, sub_121494, sub_1214A0, DispatchHotkey
-extern sub_FABB8, sub_FAF70, sub_FAFB0, sub_FB0BC, sub_FB9D8, sub_FBE40, word_172514, word_172516
+extern AllocMemBlockEx, UnlinkMemBlockLocked, UnlinkMemBlock, MergeFreeSpace, sub_FB9D8, sub_FBE40, word_172514, word_172516
 extern word_172519
 global sub_1216B0, sub_12175C, sub_121888, sub_12189C
 ;-----------------------------------------------------------------------------
@@ -101,7 +101,7 @@ sub_12175C:
         cmp dword [byte ecx+010h], byte 0
         jne short .1
         push ebx
-        call sub_FB0BC
+        call MergeFreeSpace
         add esp, byte 4
         mov edi, eax
         jmp near .9
@@ -160,7 +160,7 @@ sub_12175C:
         push edx
         lea eax, [byte esp+0Ch]
         push eax
-        call sub_FABB8
+        call AllocMemBlockEx
         add esp, byte 10h
         mov dword [byte esp+010h], eax
         test eax, eax
@@ -183,7 +183,7 @@ sub_12175C:
         call bcopy
         add esp, byte 0Ch
         push edi
-        call sub_FAFB0
+        call UnlinkMemBlock
         mov edi, 1
         add esp, byte 4
         mov ebp, dword [dword_16E338]
@@ -246,7 +246,7 @@ sub_12189C:
         mov ecx, dword [byte ebx+014h]
         push ecx
         push edi
-        call sub_FABB8
+        call AllocMemBlockEx
         mov esi, eax
         add esp, byte 10h
         test eax, eax
@@ -260,7 +260,7 @@ sub_12189C:
         call bcopy
         add esp, byte 0Ch
         push ebx
-        call sub_FAF70
+        call UnlinkMemBlockLocked
         add esp, byte 4
         mov ebx, esi
         jmp short .4
@@ -282,7 +282,7 @@ sub_12189C:
         mov ebx, dword [byte eax+014h]
         push ebx
         push edi
-        call sub_FABB8
+        call AllocMemBlockEx
         add esp, byte 10h
         mov ecx, dword [byte esi+014h]
         push ecx
