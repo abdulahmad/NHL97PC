@@ -42,7 +42,7 @@
 /* ---- the game's code and data (original linear addresses) ---- */
 #define O_PLAYGAME     SYM_PlayGame            /* PlayGame: push 28h (5 bytes), call __CHK ... */
 #define O_LOOP         SYM_GameLoop            /* GameLoop, up to the next routine */
-#define O_LOOP_END     SYM_sub_14E60
+#define O_LOOP_END     SYM_InitGameDisplay     /* InitGameDisplay, the routine after GameLoop */
 #define O_SAMPLER      SYM_InputRecordTimer    /* push ebx, ecx, edx, esi, edi, ebp */
 #define O_AVAIL        SYM_InputRecordAvail    /* push 4 / call __CHK / mov eax, InputRecordCount / ret */
 #define O_READPADS     SYM_PollControllers     /* the controllers into SlotWords, the hot keys into HotKeyFlags */
