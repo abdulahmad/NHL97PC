@@ -29,8 +29,8 @@ extern sub_13DA4, RemoveOverlayPanel, QueueOverlayPanel, StartCameraPath, Select
 extern sub_1DEE4, sub_1E184, assreplace, assexit, sub_1E284, sub_1E8B0, check4bench, sub_1F32C
 extern sub_1F4EC, sub_1F538, Setplass, sub_1FF5C, Endfaceoff, sub_20A80, assgoalie, sub_21E98
 extern sub_22050, assextra4, sub_22FF0, assextra3, sub_240D0, sub_24220, sub_2471C, sub_248E8
-extern sub_25010, sub_251F0, sub_25730, sub_2E310, CompLine, sub_30778, sub_3085C, sub_31C14
-extern AddPenalty, AddPenalty2, EndPenaltyShot, sub_34330, sub_343F8, doplayeracc, sub_39DA4, sub_39EC0
+extern sub_25010, sub_251F0, sub_25730, sub_2E310, CompLine, ChkShoot, ForceShoot, UpdateLinesForAbsent
+extern AddPenalty, AddPenalty2, EndPenaltyShot, SetPlayerTarget, SetSlotPlayer, doplayeracc, sub_39DA4, sub_39EC0
 extern sub_3A164, sub_3AB68, sub_3ABD8, sub_3AC3C, sub_3AD34, sub_3AD9C, sub_41CF0, MusicPlaying
 extern PlaySfxOr, PlaySfxVolume, sub_424CC, CommentaryEvent, PaEvent, sub_4C0C4, PeriodOver, sub_4DD9C
 extern sub_4DDB0, sub_4FD24, sub_51B5C, sub_51BD8, sub_55648, SetPenaltyBoxDoor, sub_56AE4, sub_56CD0
@@ -46,19 +46,22 @@ extern gameclock, word_19CBBC, word_19CBBE, word_19CBC0, word_19CBD6, word_19CBD
 extern penshotmode, word_19CBE0, penshotlive, word_19CBE6, word_19CBEA, word_19CBEC, word_19CBEE, word_19CBF2
 extern word_19CBF4, word_19CC04, word_19CC24, word_19CC26, word_19CC2C, word_19CC2E, word_19DAD9, word_19EABE
 extern word_19EBCA
-global jpt_2B4B4, sub_25894_D1, sub_2B4D4_424, sub_2B4D4_43B, sub_2B4D4_452, sub_2B4D4_469, sub_25894, sub_2596C
-global sub_25AEC, sub_25BD0, sub_25D40, sub_25E24, asspuckc, sub_2625C, sub_264CC, assnearest
-global sub_27210, assscore, ChkPullGoalieLate, assbench, sub_27A00, sub_27A78, assleavebox, asspsclear
-global sub_27F80, sub_27FF0, sub_28110, asseben, assleaveice, asspenalty, assdopen, assepen
-global sub_28C0C, assrefpenshot, assrefsignal, assrefwhistle, assrefgoalpa, assrefgoalline, assreffollow, assrefdrop
-global assrefatdot, assintrostand, assintroline, asstakeposition, sub_2A3A0, assstanley, sub_2A6B8, sub_2AA50
-global sub_2AC40, sub_2AD18, sub_2AFD8, sub_2B4D4, sub_2B9EC, sub_2BAC0, sub_2BE2C, a2offsides
-global sub_2BFC4, a2touchpuck, sub_2C42C, sub_2C4E8, sub_2C5C8, sub_2C900, pucknorm_body, pucknorm
+global jpt_2B4B4, PlayerPastLine_D1, PuckToStick_424, PuckToStick_43B, PuckToStick_452, PuckToStick_469, PlayerPastLine, checkob
+global GetLowestPen, chk4lc, SkateOnside, SkateToEndBoards, asspuckc, ChkDefenseSwitch, ChasePuck, assnearest
+global StartScoreCelebration, assscore, ChkPullGoalieLate, assbench, PutBoxPlayerOnBench, ReleaseBoxToBench, assleavebox, asspsclear
+global AssignControlSlots, PenShotStart, asspenshot, asseben, assleaveice, asspenalty, assdopen, assepen
+global ResetFaceoffAssigns, assrefpenshot, assrefsignal, assrefwhistle, assrefgoalpa, assrefgoalline, assreffollow, assrefdrop
+global assrefatdot, assintrostand, assintroline, asstakeposition, TakeBenchPlayer, assstanley, PlayerGetsPuck, DeflectPuck
+global KnockPuckAway, PuckHitsPlayer, PuckHitsGoalie, PuckToStick, ChkDelayedOffside, PuckPlayerContact, ChkPuckContacts, ChkTwoLinePass
+global a2offsides, a2touchpuck, PuckIChk, PuckEntersZone, ChkOffsides, MarkTwoLinePlayers, pucknorm_body, pucknorm
 global puckfaceoff2, CPgoalie, ChkGoalies
 ;-----------------------------------------------------------------------------
-; sub_25894                                                       25894  97 PC
+; PlayerPastLine                                  25894  97 PC, low confidence
+; (player, line y 0 / +-56Bh): whether both of the player's tracked points
+; are past the line in his attacking direction (red line +-18h, blue line
+; +-30h)
 ;-----------------------------------------------------------------------------
-sub_25894:
+PlayerPastLine:
         push ebx
         push ecx
         push esi
@@ -135,16 +138,19 @@ sub_25894:
 .7:
         add esp, byte 24h
         pop edi
-sub_25894_D1:
+PlayerPastLine_D1:
         pop esi
         pop ecx
         pop ebx
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_2596C                                                       2596C  97 PC
+; checkob                                        2596C  94G, medium confidence
+; 94G checkob (warning ref when a player on your team is over the blue line):
+; offsides option, a teammate past the blue line as the carrier comes up sets
+; byte_19CBCA 80h and shows overlay 5
 ;-----------------------------------------------------------------------------
-sub_2596C:
+checkob:
         push ebx
         push ecx
         push edx
@@ -203,7 +209,7 @@ sub_2596C:
         mov edx, 0FFFFFA95h
 .6:
         mov eax, ebx
-        call sub_25894
+        call PlayerPastLine
         test eax, eax
         je short .7
         mov edi, 1
@@ -271,9 +277,11 @@ sub_2596C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_25AEC                                                       25AEC  97 PC
+; GetLowestPen                                                      25AEC  94G
+; 94G GetLowestPen: power play time left from the two teams' penalty box
+; lists (coincidental entries skipped); 0 when the teams are even
 ;-----------------------------------------------------------------------------
-sub_25AEC:
+GetLowestPen:
         push ebx
         push ecx
         push edx
@@ -381,9 +389,12 @@ sub_25AEC:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_25BD0                                                       25BD0  97 PC
+; chk4lc                                            25BD0  94G, low confidence
+; 94G chk4lc (see if the computer should call a line change): line option
+; 40h, puck in its own half, 1 in 4, enough clock and power play time, tired
+; line (sub_2E310 > 800h) -> CompLine, setpersonel
 ;-----------------------------------------------------------------------------
-sub_25BD0:
+chk4lc:
         push ebx
         push ecx
         push edx
@@ -438,7 +449,7 @@ sub_25BD0:
         jl short .6
         test ax, ax
         je short .7
-        call sub_25AEC
+        call GetLowestPen
         cmp ax, 0Fh
         jge short .7
 .6:
@@ -488,7 +499,7 @@ sub_25BD0:
         mov eax, ecx
         call setpersonel
         mov eax, ebx
-        call sub_3085C
+        call ForceShoot
         mov eax, dword [ecx]
         sar eax, 10h
         push eax
@@ -518,9 +529,11 @@ sub_25BD0:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_25D40                                                       25D40  97 PC
+; SkateOnside                                     25D40  97 PC, low confidence
+; Offside warning on (byte_19CBCA 80h): send the player to his onside spot
+; (word_168A4C table by formation, mirrored by team), speed 25
 ;-----------------------------------------------------------------------------
-sub_25D40:
+SkateOnside:
         push ebx
         push ecx
         push edx
@@ -582,9 +595,11 @@ sub_25D40:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_25E24                                                       25E24  97 PC
+; SkateToEndBoards                                25E24  97 PC, low confidence
+; Sends the player toward the end boards (y +-0F30h) when his slot neighbour
+; is free, random approach angle
 ;-----------------------------------------------------------------------------
-sub_25E24:
+SkateToEndBoards:
         push ebx
         push ecx
         push edx
@@ -775,7 +790,7 @@ asspuckc:
         mov eax, ebx
         call sub_240D0
         mov eax, ebx
-        call sub_2596C
+        call checkob
         cmp word [word_19CBDA], byte 0
         je short .7
         cmp word [byte ebx+0Eh], byte 0
@@ -804,7 +819,7 @@ asspuckc:
         ret
 .7:
         mov eax, ebx
-        call sub_25BD0
+        call chk4lc
         test ax, ax
         jne near .15
         mov eax, ebx
@@ -863,11 +878,11 @@ asspuckc:
         mov dword [dword eax+dword_19CC9C], edx
 .13:
         mov eax, ebx
-        call sub_25D40
+        call SkateOnside
         test ax, ax
         jne near .15
         mov eax, ebx
-        call sub_25E24
+        call SkateToEndBoards
         test ax, ax
         jne near .15
         mov ax, word [dword ebx+0ABh]
@@ -918,9 +933,12 @@ asspuckc:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_2625C                                                       2625C  97 PC
+; ChkDefenseSwitch                                2625C  97 PC, low confidence
+; From assnearest: decides when a defenceman switches sides with his partner
+; (SwapPosition helpers sub_1F538 / sub_1F4EC) by puck carrier, zone (0B10h,
+; 0FC0h) and side
 ;-----------------------------------------------------------------------------
-sub_2625C:
+ChkDefenseSwitch:
         push ecx
         push esi
         push edi
@@ -1130,9 +1148,11 @@ sub_2625C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_264CC                                                       264CC  97 PC
+; ChasePuck                                       264CC  97 PC, low confidence
+; From assnearest: aims the player at the puck (or its carrier) plus its
+; velocity lead, speed by skill level (dword_1AC814 bits 7-8)
 ;-----------------------------------------------------------------------------
-sub_264CC:
+ChasePuck:
         push ebx
         push ecx
         push edx
@@ -1897,11 +1917,11 @@ assnearest:
         mov ebx, 1
         add edx, eax
         mov eax, esi
-        call sub_2625C
+        call ChkDefenseSwitch
         test eax, eax
         je short .57
         mov eax, esi
-        call sub_264CC
+        call ChasePuck
         mov eax, esi
         call sub_1E8B0
         add esp, byte 0Ch
@@ -2014,7 +2034,7 @@ assnearest:
         mov edx, dword [word_19CB68]
         mov eax, esi
         xor ebx, ebx
-        call sub_2625C
+        call ChkDefenseSwitch
         test eax, eax
         jne short .66
         mov dword [word_19CB68], eax
@@ -2152,9 +2172,11 @@ assnearest:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_27210                                                       27210  97 PC
+; StartScoreCelebration                           27210  97 PC, low confidence
+; From assscore: resets the motion and starts the celebration animation
+; (SetSPA +48h), clears the stick sounds
 ;-----------------------------------------------------------------------------
-sub_27210:
+StartScoreCelebration:
         push ebx
         push ecx
         mov ecx, eax
@@ -2187,7 +2209,7 @@ sub_27210:
 ; assscore                                          27274  94G, low confidence
 ; Assignment 18h (set by Goal): goal celebration: stops the puck (41h to
 ; 40h), a random celebration time, the scorer (word_19CB84) gets one of 5
-; celebrations (sub_27210)
+; celebrations (StartScoreCelebration)
 ;-----------------------------------------------------------------------------
 assscore:
         push ebx
@@ -2223,7 +2245,7 @@ assscore:
         je near .5
         mov edx, 0FFFFFFFFh
         mov eax, ebx
-        call sub_34330
+        call SetPlayerTarget
         mov dh, byte [dword ebx+0BFh]
         test dh, 20h
         jne near .18
@@ -2258,12 +2280,12 @@ assscore:
         xor edx, edx
 .3:
         mov eax, ebx
-        call sub_27210
+        call StartScoreCelebration
         jmp near .18
 .4:
         mov eax, ebx
         xor edx, edx
-        call sub_27210
+        call StartScoreCelebration
         mov esp, ebp
         pop ebp
         pop edi
@@ -2371,7 +2393,7 @@ assscore:
         xor edx, edx
         mov dword [byte ebx+060h], eax
         mov eax, ebx
-        call sub_27210
+        call StartScoreCelebration
         mov esp, ebp
         pop ebp
         pop edi
@@ -2792,9 +2814,11 @@ assbench:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_27A00                                                       27A00  97 PC
+; PutBoxPlayerOnBench                             27A00  97 PC, low confidence
+; From assleavebox: the first roster entry flagged 8 goes to the bench spot
+; (position 8002h, sub_3A164), heading set
 ;-----------------------------------------------------------------------------
-sub_27A00:
+PutBoxPlayerOnBench:
         push ebx
         push ecx
         push edx
@@ -2838,9 +2862,11 @@ sub_27A00:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_27A78                                                       27A78  97 PC
+; ReleaseBoxToBench                               27A78  97 PC, low confidence
+; From puckfaceoff2: every player flagged in the box (flag 8) on both teams
+; goes to the bench (position 8002h), box counts byte_19CB70 down
 ;-----------------------------------------------------------------------------
-sub_27A78:
+ReleaseBoxToBench:
         push ebx
         push ecx
         push edx
@@ -3039,7 +3065,7 @@ assleavebox:
         mov byte [dword ebx+0C0h], dh
         mov eax, ebx
         mov byte [dword ebx+0C1h], cl
-        call sub_27A00
+        call PutBoxPlayerOnBench
 .10:
         add esp, byte 20h
         pop edx
@@ -3130,7 +3156,7 @@ asspsclear:
         and byte [byte eax+029h], 0FEh
         mov edx, 0FFFFFFFFh
         mov eax, ebx
-        call sub_34330
+        call SetPlayerTarget
         mov cl, byte [dword ebx+0C1h]
         mov byte [dword ebx+0A7h], 0FFh
         and cl, 0EFh
@@ -3219,9 +3245,11 @@ asspsclear:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_27F80                                                       27F80  97 PC
+; AssignControlSlots                              27F80  97 PC, low confidence
+; From puckfaceoff: for each of the 8 control slots, the team's first free
+; skater becomes the controlled player (restorepl via sub_343F8)
 ;-----------------------------------------------------------------------------
-sub_27F80:
+AssignControlSlots:
         push ebx
         push edx
         push esi
@@ -3251,7 +3279,7 @@ sub_27F80:
         xor edx, edx
         mov dl, byte [dword eax+0A4h]
         mov eax, ebx
-        call sub_343F8
+        call SetSlotPlayer
         jmp short .6
 .5:
         inc edx
@@ -3270,9 +3298,11 @@ sub_27F80:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_27FF0                                                       27FF0  97 PC
+; PenShotStart                                 27FF0  95 PC, medium confidence
+; From puckfaceoff2: penalty shot start: shooter faces the goal, assignment
+; 1Bh, puck to him, penshottimer 3E8h, penshotlive on
 ;-----------------------------------------------------------------------------
-sub_27FF0:
+PenShotStart:
         push ebx
         push ecx
         push edx
@@ -3354,9 +3384,11 @@ sub_27FF0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_28110                                                       28110  97 PC
+; asspenshot                                   28110  97 PC, medium confidence
+; Asstab 1Bh (given by PenShotStart): the penalty shot shooter skates in on
+; goal (y +-0F30h) and shoots
 ;-----------------------------------------------------------------------------
-sub_28110:
+asspenshot:
         push ebx
         push ecx
         push edx
@@ -3472,7 +3504,7 @@ sub_28110:
         cmp edx, 0CF0h
         jge short .10
         mov eax, ebx
-        call sub_30778
+        call ChkShoot
 .10:
         mov esp, ebp
         pop ebp
@@ -3758,7 +3790,7 @@ assleaveice:
         setne al
         xor ah, ah
         cwde
-        call sub_31C14
+        call UpdateLinesForAbsent
 .10:
         and byte [dword ebx+0C0h], 0EFh
         mov eax, dword [dword ebx+0AEh]
@@ -3803,7 +3835,7 @@ asspenalty:
         je short .1
         mov edx, 0FFFFFFFFh
         mov eax, ebx
-        call sub_34330
+        call SetPlayerTarget
 .1:
         mov eax, dword [dword_1BAAF8]
         mov dword [byte esp+010h], eax
@@ -3952,7 +3984,7 @@ asspenalty:
         or ch, 4
         mov eax, ebx
         mov byte [dword ebx+0BFh], ch
-        call sub_34330
+        call SetPlayerTarget
         and byte [dword ebx+0C0h], 0EFh
         mov eax, dword [dword ebx+0FEh]
         mov dx, word [byte eax+0Eh]
@@ -4108,7 +4140,7 @@ assepen:
         mov byte [dword ebx+0A7h], 0FFh
         mov eax, ebx
         mov byte [dword ebx+0A8h], 0FFh
-        call sub_34330
+        call SetPlayerTarget
         mov dh, byte [dword ebx+0BFh]
         mov cl, byte [dword ebx+0C0h]
         mov al, byte [dword ebx+0B1h]
@@ -4181,9 +4213,11 @@ assepen:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_28C0C                                                       28C0C  97 PC
+; ResetFaceoffAssigns                             28C0C  97 PC, low confidence
+; From puckfaceoff: each idle skater of a team goes back to assignment 6; in
+; a penalty shot the shooter keeps assignment 19h
 ;-----------------------------------------------------------------------------
-sub_28C0C:
+ResetFaceoffAssigns:
         push ebx
         push ecx
         push edx
@@ -5926,9 +5960,11 @@ asstakeposition:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_2A3A0                                                       2A3A0  97 PC
+; TakeBenchPlayer                                 2A3A0  97 PC, low confidence
+; From assstanley: the team's first bench player (8002h) is marked on the ice
+; (8001h)
 ;-----------------------------------------------------------------------------
-sub_2A3A0:
+TakeBenchPlayer:
         push ebx
         push ecx
         push esi
@@ -5957,7 +5993,7 @@ sub_2A3A0:
         inc eax
         add edx, byte 2
         cmp eax, byte 19h
-        jge near sub_25894_D1
+        jge near PlayerPastLine_D1
         cmp word [byte edx+050h], 8002h
         je short .1
         jmp short .2
@@ -6030,7 +6066,7 @@ assstanley:
         sar esi, 10h
         mov eax, ecx
         mov edx, esi
-        call sub_2A3A0
+        call TakeBenchPlayer
         mov edi, dword [dword ecx+0A4h]
         sar edi, 18h
         imul edi, dword 125h
@@ -6173,9 +6209,11 @@ assstanley:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_2A6B8                                                       2A6B8  97 PC
+; PlayerGetsPuck                                  2A6B8  97 PC, low confidence
+; The player takes the puck: puck carrier set, period / penalty shot end
+; checks, shot and pass stats, play-by-play
 ;-----------------------------------------------------------------------------
-sub_2A6B8:
+PlayerGetsPuck:
         push ebx
         push ecx
         push edx
@@ -6411,9 +6449,10 @@ sub_2A6B8:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_2AA50                                                       2AA50  97 PC
+; DeflectPuck                                     2AA50  97 PC, low confidence
+; Puck off a player: random new speed and angle (+-7), wrapped
 ;-----------------------------------------------------------------------------
-sub_2AA50:
+DeflectPuck:
         push ebx
         push edx
         push ebp
@@ -6561,9 +6600,11 @@ sub_2AA50:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_2AC40                                                       2AC40  97 PC
+; KnockPuckAway                                   2AC40  97 PC, low confidence
+; Stick knocks the puck loose: slower puck heading away from the player,
+; sound 417h, no carrier, play-by-play 16h
 ;-----------------------------------------------------------------------------
-sub_2AC40:
+KnockPuckAway:
         push ebx
         push ecx
         push edx
@@ -6628,9 +6669,11 @@ sub_2AC40:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_2AD18                                                       2AD18  97 PC
+; PuckHitsPlayer                                  2AD18  97 PC, low confidence
+; From PuckPlayerContact: the puck reaches a player's body / stick: deflect,
+; take it or knock it on
 ;-----------------------------------------------------------------------------
-sub_2AD18:
+PuckHitsPlayer:
         push ebx
         push ecx
         push esi
@@ -6797,7 +6840,7 @@ sub_2AD18:
         and dl, 0F7h
         mov eax, edi
         mov byte [byte_19CBC8], dl
-        call sub_2AA50
+        call DeflectPuck
         mov eax, ebx
         call sub_1DEE4
 .12:
@@ -6818,7 +6861,7 @@ sub_2AD18:
 .14:
         mov eax, ebx
         mov edx, 64h
-        call sub_2A6B8
+        call PlayerGetsPuck
         push dword [byte ebx+028h]
         mov eax, 405h
         push dword [byte ebx+020h]
@@ -6835,9 +6878,11 @@ sub_2AD18:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_2AFD8                                                       2AFD8  97 PC
+; PuckHitsGoalie                                  2AFD8  97 PC, low confidence
+; From PuckPlayerContact: puck against the goalie: save, rebound or catch
+; (sounds, play-by-play, a2touchpuck)
 ;-----------------------------------------------------------------------------
-sub_2AFD8:
+PuckHitsGoalie:
         push ebx
         push ecx
         push esi
@@ -7161,18 +7206,20 @@ sub_2AFD8:
         ret
         db 08Bh,0C0h
 jpt_2B4B4:
-        dd sub_2B4D4_424
-        dd sub_2B4D4_424
-        dd sub_2B4D4_43B
-        dd sub_2B4D4_43B
-        dd sub_2B4D4_469
-        dd sub_2B4D4_452
-        dd sub_2B4D4_469
-        dd sub_2B4D4_452
+        dd PuckToStick_424
+        dd PuckToStick_424
+        dd PuckToStick_43B
+        dd PuckToStick_43B
+        dd PuckToStick_469
+        dd PuckToStick_452
+        dd PuckToStick_469
+        dd PuckToStick_452
 ;-----------------------------------------------------------------------------
-; sub_2B4D4                                                       2B4D4  97 PC
+; PuckToStick                                     2B4D4  97 PC, low confidence
+; From PuckPlayerContact: puck onto a skater's stick: pass reception /
+; one-timer / take the puck (a2touchpuck, PlayerGetsPuck)
 ;-----------------------------------------------------------------------------
-sub_2B4D4:
+PuckToStick:
         push ecx
         push esi
         push edi
@@ -7194,7 +7241,7 @@ sub_2B4D4:
         setl al
         and eax, 0FFh
         cmp eax, edx
-        je near sub_2B4D4_469.26
+        je near PuckToStick_469.26
 .1:
         xor eax, eax
         call sub_20A80
@@ -7219,7 +7266,7 @@ sub_2B4D4:
         jne short .3
         mov eax, ecx
         mov edx, 64h
-        call sub_2A6B8
+        call PlayerGetsPuck
         push dword [byte ecx+028h]
         mov eax, 418h
         push dword [byte ecx+020h]
@@ -7241,7 +7288,7 @@ sub_2B4D4:
 .2:
         mov eax, dword [off_168CFC]
         mov word [byte eax+06Dh], 4
-        jmp near sub_2B4D4_469.26
+        jmp near PuckToStick_469.26
 .3:
         cmp ebx, byte 2
         je short .4
@@ -7261,7 +7308,7 @@ sub_2B4D4:
 .5:
         mov eax, ecx
         mov edx, 64h
-        call sub_2A6B8
+        call PlayerGetsPuck
         push dword [byte ecx+028h]
         mov eax, 416h
         push dword [byte ecx+020h]
@@ -7395,7 +7442,7 @@ sub_2B4D4:
         fadd qword [qword_160783]
         fstp dword [byte edx+040h]
         cmp ebx, byte 7
-        ja near sub_2B4D4_469.21
+        ja near PuckToStick_469.21
         db 02Eh,0FFh,024h,09Dh                  ; insn: jmp dword [cs:ebx*4+1B4B4h]
         dd jpt_2B4B4
 .16:
@@ -7454,31 +7501,31 @@ sub_2B4D4:
         mov dword [byte eax+030h], 0C1200000h
 .20:
         cmp ebx, byte 7
-        ja near sub_2B4D4_469.21
+        ja near PuckToStick_469.21
         db 02Eh,0FFh,024h,09Dh                  ; insn: jmp dword [cs:ebx*4+1B4B4h]
         dd jpt_2B4B4
-sub_2B4D4_424:
+PuckToStick_424:
         push dword [byte ecx+028h]
         mov edx, 64h
         mov eax, 418h
         push dword [byte ecx+020h]
         mov ebx, 4001h
-        jmp short sub_2B4D4_469.22
-sub_2B4D4_43B:
+        jmp short PuckToStick_469.22
+PuckToStick_43B:
         push dword [byte ecx+028h]
         mov edx, 64h
         mov eax, 416h
         push dword [byte ecx+020h]
         mov ebx, 400Ah
-        jmp short sub_2B4D4_469.22
-sub_2B4D4_452:
+        jmp short PuckToStick_469.22
+PuckToStick_452:
         push dword [byte ecx+028h]
         mov edx, 64h
         mov eax, 415h
         push dword [byte ecx+020h]
         mov ebx, 4008h
-        jmp short sub_2B4D4_469.22
-sub_2B4D4_469:
+        jmp short PuckToStick_469.22
+PuckToStick_469:
         push dword [byte ecx+028h]
         mov edx, 64h
         mov eax, 419h
@@ -7533,9 +7580,11 @@ sub_2B4D4_469:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_2B9EC                                                       2B9EC  97 PC
+; ChkDelayedOffside                               2B9EC  95 PC, low confidence
+; Offsides option with the warning on: the flagged team touching the puck
+; inside the zone calls offsides (AddPenalty2 5)
 ;-----------------------------------------------------------------------------
-sub_2B9EC:
+ChkDelayedOffside:
         push ebx
         push edx
         push esi
@@ -7621,9 +7670,11 @@ sub_2B9EC:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_2BAC0                                                       2BAC0  97 PC
+; PuckPlayerContact                               2BAC0  97 PC, low confidence
+; (puck, player): puck near a player: picks the contact kind (goalie, stick,
+; body) and its handler
 ;-----------------------------------------------------------------------------
-sub_2BAC0:
+PuckPlayerContact:
         push ebx
         push ecx
         push esi
@@ -7656,7 +7707,7 @@ sub_2BAC0:
         cmp edx, byte 47h
         jg short .1
         mov eax, ecx
-        call sub_2AC40
+        call KnockPuckAway
         test eax, eax
         jne near .12
 .1:
@@ -7798,7 +7849,7 @@ sub_2BAC0:
         call a2touchpuck
         mov dword [byte ecx+064h], 10h
         mov eax, dword [off_168CFC]
-        call sub_2AA50
+        call DeflectPuck
         mov eax, ecx
         call sub_1DEE4
         mov esp, ebp
@@ -7817,10 +7868,10 @@ sub_2BAC0:
         test eax, eax
         jl near .12
         mov eax, ecx
-        call sub_2B9EC
+        call ChkDelayedOffside
         mov edx, ecx
         mov eax, esi
-        call sub_2B4D4
+        call PuckToStick
         mov esp, ebp
         pop ebp
         pop edi
@@ -7868,7 +7919,7 @@ sub_2BAC0:
 .10:
         mov edx, ecx
         mov eax, esi
-        call sub_2AD18
+        call PuckHitsPlayer
         mov esp, ebp
         pop ebp
         pop edi
@@ -7879,7 +7930,7 @@ sub_2BAC0:
 .11:
         mov edx, ecx
         mov eax, esi
-        call sub_2AFD8
+        call PuckHitsGoalie
 .12:
         mov esp, ebp
         pop ebp
@@ -7889,9 +7940,11 @@ sub_2BAC0:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_2BE2C                                                       2BE2C  97 PC
+; ChkPuckContacts                                 2BE2C  97 PC, low confidence
+; From updateplayers: with the puck low (below 384), every one of the 13
+; objects close enough (1E0h / 0F0h) gets PuckPlayerContact
 ;-----------------------------------------------------------------------------
-sub_2BE2C:
+ChkPuckContacts:
         push ebx
         push ecx
         push edx
@@ -7952,7 +8005,7 @@ sub_2BE2C:
         je short .6
         mov edx, ebx
         mov eax, ecx
-        call sub_2BAC0
+        call PuckPlayerContact
 .6:
         inc esi
         add ebx, 108h
@@ -7969,11 +8022,11 @@ sub_2BE2C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; a2offsides                                        2BEF0  94G, low confidence
-; 94G a2offsides: (player) from a2touchpuck: offsides when the rule is on and
+; ChkTwoLinePass                                        2BEF0  94G, low confidence
+; 94G ChkTwoLinePass: (player) from a2touchpuck: offsides when the rule is on and
 ; the touching player's team is past the line
 ;-----------------------------------------------------------------------------
-a2offsides:
+ChkTwoLinePass:
         push ebx
         push ecx
         push edx
@@ -8065,9 +8118,11 @@ a2offsides:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_2BFC4                                                       2BFC4  97 PC
+; a2offsides                                     2BFC4  94G, medium confidence
+; 94G a2offsides (player touched the puck: offsides if his team is flagged,
+; tmflags bit 4, and the puck is in the zone): AddPenalty 5
 ;-----------------------------------------------------------------------------
-sub_2BFC4:
+a2offsides:
         push ebx
         push ecx
         push edx
@@ -8163,7 +8218,7 @@ a2touchpuck:
         cmp word [word_19CBF4], byte 0
         jne short .1
         mov eax, ecx
-        call a2offsides
+        call ChkTwoLinePass
         mov edx, eax
         test ax, ax
         jne short .1
@@ -8217,7 +8272,7 @@ a2touchpuck:
         and byte [byte_19CBCA], 0EFh
 .6:
         mov eax, ecx
-        call sub_2BFC4
+        call a2offsides
         test ax, ax
         jne short .7
         test dx, dx
@@ -8406,9 +8461,11 @@ a2touchpuck:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_2C42C                                                       2C42C  97 PC
+; PuckIChk                                       2C42C  94G, medium confidence
+; 94G PuckIChk (icing check, from pucknorm): loose puck past the goal line
+; within the posts sets the icing flag (byte_19CB8A)
 ;-----------------------------------------------------------------------------
-sub_2C42C:
+PuckIChk:
         push edx
         push ebp
         mov ebp, esp
@@ -8475,9 +8532,11 @@ sub_2C42C:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_2C4E8                                                       2C4E8  97 PC
+; PuckEntersZone                                  2C4E8  97 PC, low confidence
+; Puck crossing a blue line: play-by-play 0Eh with the carrier, team
+; zone-entry stat (+20DFh)
 ;-----------------------------------------------------------------------------
-sub_2C4E8:
+PuckEntersZone:
         push ebx
         push edx
         call sub_2471C
@@ -8539,9 +8598,12 @@ sub_2C4E8:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_2C5C8                                                       2C5C8  97 PC
+; ChkOffsides                                                       2C5C8  94G
+; 94G ChkOffsides (from pucknorm): drops a team's offsides flag (tmflags bit
+; 4) when no one is past the line, flags the team when the puck crosses the
+; blue line with a skater ahead (overlay 5)
 ;-----------------------------------------------------------------------------
-sub_2C5C8:
+ChkOffsides:
         push ebx
         push ecx
         push edx
@@ -8574,7 +8636,7 @@ sub_2C5C8:
         mov edx, 0FFFFFA95h
 .4:
         mov eax, ebx
-        call sub_25894
+        call PlayerPastLine
         test eax, eax
         jne short .6
 .5:
@@ -8615,7 +8677,7 @@ sub_2C5C8:
         fnstsw ax
         sahf
         jae near .20
-        call sub_2C4E8
+        call PuckEntersZone
         mov eax, dword [dword_1AC944]
         test byte [byte eax+01h], 8
         je near .20
@@ -8659,7 +8721,7 @@ sub_2C5C8:
         jl short .13
         mov edx, edi
         mov eax, ebx
-        call sub_25894
+        call PlayerPastLine
         test eax, eax
         je short .13
         push byte 5
@@ -8708,7 +8770,7 @@ sub_2C5C8:
         fnstsw ax
         sahf
         jbe near .20
-        call sub_2C4E8
+        call PuckEntersZone
         mov eax, dword [dword_1AC944]
         test byte [byte eax+01h], 8
         je near .20
@@ -8758,7 +8820,7 @@ sub_2C5C8:
         jg short .19
         mov edx, ebp
         mov eax, ebx
-        call sub_25894
+        call PlayerPastLine
         test eax, eax
         je short .19
         push byte 5
@@ -8794,9 +8856,11 @@ sub_2C5C8:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_2C900                                                       2C900  97 PC
+; MarkTwoLinePlayers                           2C900  95 PC, medium confidence
+; Two-line pass option (bit 10h): as the puck crosses the red line marks the
+; skaters past it (+0C0h bit 7)
 ;-----------------------------------------------------------------------------
-sub_2C900:
+MarkTwoLinePlayers:
         push ebx
         push ecx
         push edx
@@ -8840,7 +8904,7 @@ sub_2C900:
         jg short .4
         mov edx, edi
         mov eax, ecx
-        call sub_25894
+        call PlayerPastLine
         test eax, eax
         je short .4
         or byte [dword ecx+0C0h], 80h
@@ -8878,7 +8942,7 @@ sub_2C900:
         jg short .8
         mov edx, edi
         mov eax, ebx
-        call sub_25894
+        call PlayerPastLine
         test eax, eax
         je short .8
         or byte [dword ebx+0C0h], 80h
@@ -9498,9 +9562,9 @@ pucknorm_body:
         dec dh
         mov byte [dword eax+0CEh], dh
 .50:
-        call sub_2C42C
-        call sub_2C5C8
-        call sub_2C900
+        call PuckIChk
+        call ChkOffsides
+        call MarkTwoLinePlayers
         cmp word [penshotlive], byte 0
         je near .55
         test byte [byte_19CBC2], 2
@@ -9693,7 +9757,7 @@ puckfaceoff2:
         call SetPenaltyBoxDoor
         call sub_4FD24
         mov dword [dword_19CB54], ebx
-        call sub_27A78
+        call ReleaseBoxToBench
         mov eax, dword [word_19CBEC]
         xor ch, bh
         sar eax, 10h
@@ -9880,7 +9944,7 @@ puckfaceoff2:
         mov edx, dword [penshottimer]
         mov eax, esi
         sar edx, 10h
-        call sub_343F8
+        call SetSlotPlayer
         jmp short .13
 .12:
         add eax, byte 2
@@ -9928,13 +9992,13 @@ puckfaceoff2:
         je short .18
         mov edx, esi
         mov eax, ecx
-        call sub_343F8
+        call SetSlotPlayer
         mov esi, 0FFFFFFFFh
         jmp short .19
 .18:
         mov edx, 0FFFFFFFFh
         mov eax, ecx
-        call sub_343F8
+        call SetSlotPlayer
 .19:
         inc ecx
         add ebx, byte 2
@@ -9957,7 +10021,7 @@ puckfaceoff2:
         mov byte [dword edi+eax+0B2h], dl
         or byte [dword edi+0BFh], 2
         call sub_114C4
-        call sub_27FF0
+        call PenShotStart
         mov esp, ebp
         pop ebp
         pop edi
@@ -9982,7 +10046,7 @@ puckfaceoff2:
 .21:
         mov edx, 0FFFFFFFFh
         mov eax, ecx
-        call sub_34330
+        call SetPlayerTarget
         xor ebx, ebx
         mov edx, 0FFFFFFFFh
         mov eax, dword [dword ecx+0F2h]

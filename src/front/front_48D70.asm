@@ -59,7 +59,7 @@ extern sprintf_, str_Botboards, str_Center, str_CrowdD, str_EMPTYFSH, str_FatBlu
 extern str_Glassline, str_Gt002d, str_Gt102d, str_Gt202d, str_Gt302d, str_HALFFSH, str_Icelogo, str_STANDSFSH
 extern str_SideD, str_Stands2, str_Topboards, str_WALL, str_Zamboni, str_Zambpath, strcat_, stricmp_
 extern strlen_, strncpy_, sub_1001F8, sub_100498, sub_1004B8, sub_1004F8, sub_100510, sub_100700
-extern sub_1007C0, sub_100830, sub_100940, FindShape, sub_10150C, sub_101524, sub_101560, sub_101584
+extern sub_1007C0, sub_100830, SortIndices, FindShape, sub_10150C, sub_101524, sub_101560, sub_101584
 extern Random32, sub_102CDC, sub_102CF4, sub_103648, sub_104948, sub_106C74, sub_106D80, sub_106DA0
 extern sub_106DE0, sub_106DF8, sub_107098, sub_1070B0, sub_108144, sub_108640, sub_108900, sub_108A60
 extern sub_108BA0, sub_108E74, sub_1091E0, sub_109210, sub_109545, sub_109557, sub_109E54, sub_109E74
@@ -4090,7 +4090,7 @@ DrawGameFrame:
         push dword_1ADBF8
         mov edx, dword [dword_1ADC84]
         push edx
-        call sub_100940
+        call SortIndices
         add esp, byte 0Ch
         call sub_55FE4
         call sub_52E14

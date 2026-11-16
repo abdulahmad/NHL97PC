@@ -37,8 +37,8 @@ extern strcpy_, stricmp_, strlen_, strncpy_, bcopy, BlitShape2, BlitArt, BlitSha
 extern sub_1013FC, FindShape, sub_102B94, sub_106D08, sub_1070B0, sub_107D30, sub_10A68, sub_10AED0
 extern sub_10FAC, sub_1167AE, sub_11A318, sub_11A350, sub_11B104, sub_11B98E, sub_11BFC5, sub_11C134
 extern sub_11C41C, sub_11D2D0, sub_11D364, sub_11D508, sub_11D5C0, sub_11D690, sub_11D780, sub_11D8D8
-extern sub_11DA0C, sub_11DE04, sub_11F850, sub_11F8D0, SetScreenTarget, sub_14140, sub_379AC, sub_37A1C
-extern sub_37F4C, sub_37FC8, sub_419B0, sub_419B8, sub_41A28, sub_41D18, sub_41DB8, WaitMusicEnd
+extern sub_11DA0C, sub_11DE04, sub_11F850, sub_11F8D0, SetScreenTarget, sub_14140, InitPacketLink, ShutdownPacketLink
+extern PacketLinkSend, ClosePacketLink, sub_419B0, sub_419B8, sub_41A28, sub_41D18, sub_41DB8, WaitMusicEnd
 extern ArenaFileName, StopAllSfx, PlaySfx, sub_4AA78, LoadDataFile, sub_7DFC0, sub_7E860, sub_7EDF0
 extern sub_7EF70, SetRegionRect, sub_7F04C, SetTextColor, DrawTextAligned, sub_7F29C, sub_7F5A4, sub_7F5B8
 extern sub_80BBC, sub_81D1C, sub_83314, sub_834EC, sub_83558, sub_835AC, sub_835BC, sub_83850
@@ -12751,7 +12751,7 @@ sub_E3798:
         push eax
         mov eax, dword [dword_1CD2A4]
         push eax
-        call sub_37F4C
+        call PacketLinkSend
         add esp, byte 0Ch
         test eax, eax
         jne near .9
@@ -12998,7 +12998,7 @@ sub_E3AFC:
         push unk_1CD2BA
         call ZeroMem
         add esp, byte 8
-        call sub_379AC
+        call InitPacketLink
         test byte [dword esi+08Dh], 1
         je near .4
         mov ebx, 1
@@ -13022,7 +13022,7 @@ sub_E3AFC:
         test eax, eax
         jne near .12
         call sub_E5D6C
-        call sub_37A1C
+        call ShutdownPacketLink
         xor eax, eax
         add esp, 100h
         pop ebp
@@ -13033,7 +13033,7 @@ sub_E3AFC:
         pop ebx
         ret
 .3:
-        call sub_37A1C
+        call ShutdownPacketLink
         push byte 0
         mov ecx, ebx
         mov eax, 238h
@@ -13092,7 +13092,7 @@ sub_E3AFC:
         call sub_E5808
         test eax, eax
         jne short .5
-        call sub_37A1C
+        call ShutdownPacketLink
         call sub_83850
         push byte 0
         mov eax, 23Ah
@@ -13120,7 +13120,7 @@ sub_E3AFC:
         push eax
         mov edi, dword [dword_1CD2A4]
         push edi
-        call sub_37F4C
+        call PacketLinkSend
         add esp, byte 0Ch
         test eax, eax
         jne short .8
@@ -13172,7 +13172,7 @@ sub_E3AFC:
         call GetLangText
         call sub_7F5A4
         call sub_E59A8
-        call sub_37A1C
+        call ShutdownPacketLink
         xor eax, eax
         add esp, 100h
         pop ebp
@@ -13279,7 +13279,7 @@ NetDisconnect:
         add esp, byte 4
         xor esi, esi
         call sub_83850
-        call sub_37A1C
+        call ShutdownPacketLink
         mov dword [dword_16DA9C], esi
 .3:
         pop esi
@@ -13344,7 +13344,7 @@ sub_E3F04:
         push eax
         mov edx, dword [dword_1CD2A4]
         push edx
-        call sub_37F4C
+        call PacketLinkSend
         add esp, byte 0Ch
         test eax, eax
         jne near .8
@@ -13479,7 +13479,7 @@ sub_E3F04:
         push eax
         mov edi, dword [dword_1CD2A4]
         push edi
-        call sub_37F4C
+        call PacketLinkSend
         add esp, byte 0Ch
         test eax, eax
         jne near .23
@@ -13699,7 +13699,7 @@ sub_E4288:
         or eax, edx
         mov dword [dword_1CD2B6], ebx
         mov word [word_1CD2B4], ax
-        call sub_37F4C
+        call PacketLinkSend
         add esp, byte 0Ch
         test eax, eax
         je short .5
@@ -13946,7 +13946,7 @@ LinkSendBlock:
         push eax
         mov ecx, dword [dword_1CD2A4]
         push ecx
-        call sub_37F4C
+        call PacketLinkSend
         add esp, byte 0Ch
         test eax, eax
         jne short .8
@@ -13989,7 +13989,7 @@ LinkSendBlock:
         push eax
         mov edx, dword [dword_1CD2A4]
         push edx
-        call sub_37F4C
+        call PacketLinkSend
         add esp, byte 0Ch
         test eax, eax
         jne short .11
@@ -14781,7 +14781,7 @@ WaitForOtherComputer:
         push eax
         mov ecx, dword [dword_1CD2A4]
         push ecx
-        call sub_37F4C
+        call PacketLinkSend
         add esp, byte 0Ch
         test eax, eax
         jne near .35
@@ -15316,7 +15316,7 @@ sub_E59A8:
         cmp word [word_16E0FA], byte 0
         je short .1
         push unk_1CD408
-        call sub_37FC8
+        call ClosePacketLink
         xor ecx, ecx
         add esp, byte 4
         mov word [word_16E0FA], cx
@@ -15344,7 +15344,7 @@ sub_E59D8:
         test bx, bx
         je short .1
         push unk_1CD408
-        call sub_37FC8
+        call ClosePacketLink
         xor edi, edi
         add esp, byte 4
         mov word [word_16E0FA], di

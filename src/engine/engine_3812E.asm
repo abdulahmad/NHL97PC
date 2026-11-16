@@ -49,7 +49,7 @@ extern sub_106F7C, sub_106F94, sub_1070B0, sub_1070D0, sub_107154, sub_1072F0, s
 extern sub_107B70, sub_107CB0, sub_107D30, sub_107D70, sub_107E74, sub_107F48, sub_108040, sub_108144
 extern sub_10815C, sub_1081B0, sub_108640, sub_1086BF, sub_108CE8, sub_1091E0, sub_109210, sub_109250
 extern sub_1092B0, sub_109352, sub_109384, sub_109417, sub_109545, sub_10955B, SetScreenTarget, sub_1E7C4
-extern sub_2F8D8, sub_2FA00, sub_2FB40, InitSpeechBanks, OpenSpeechFile, sub_47D70, sub_47EA4, ShutdownSound
+extern NetCollide, NetCollide2, ChkBodyContact, InitSpeechBanks, OpenSpeechFile, sub_47D70, sub_47EA4, ShutdownSound
 extern sub_4AA78, MakeDataPath, LoadDataFile, OpenDataLibrary, sub_52D4C, sub_55648, sub_5696C, sub_56A08
 extern sub_56CD0, sub_56CE4, sub_56CF8, sub_56D0C, sub_5AC30, sub_5B4B8, sub_5C1CC, sub_5CD68
 extern sub_5DF50, SetSPA, sub_5EEEC, sub_60D6C, sub_60F48, sub_612E4, sub_613AC, sub_6152C
@@ -3966,7 +3966,7 @@ sub_3AD9C:
 ;-----------------------------------------------------------------------------
 ; checkgoal                                         3AF30  94G, low confidence
 ; From the off_16BD2C handler table: the puck against a net; the two net
-; checks (sub_2F8D8 / sub_2FA00) call Goal, as 93G/94G checkgoal does for the
+; checks (NetCollide / NetCollide2) call Goal, as 93G/94G checkgoal does for the
 ; puck
 ;-----------------------------------------------------------------------------
 checkgoal:
@@ -4023,7 +4023,7 @@ checkgoal:
         test ax, ax
         je short .5
         mov eax, edx
-        call sub_2F8D8
+        call NetCollide
         pop edi
         pop esi
         pop edx
@@ -4032,7 +4032,7 @@ checkgoal:
         ret
 .5:
         mov eax, edx
-        call sub_2FA00
+        call NetCollide2
 .6:
         pop edi
         pop esi
@@ -4060,7 +4060,7 @@ sub_3AFDC:
         and byte [byte edx+031h], 0FEh
 .1:
         mov eax, ebx
-        call sub_2FB40
+        call ChkBodyContact
         mov al, byte [byte ebx+01Ch]
         test al, 80h
         jne short .2

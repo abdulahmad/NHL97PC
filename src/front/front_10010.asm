@@ -13,7 +13,7 @@ extern dword_1B9558, fclose_, fopen_, fread_, fseek_, ftell_, hmtmstruct, off_16
 extern off_168CE0, off_168CE8, off_168CF0, off_168CFC, off_168D04, qword_160018, qword_160020, rand_
 extern randomd0, regd1, str_CGRIP, str_GRIP, str_GRIPGLL, strcat_, strcpy_, sub_13AF0
 extern ShowCameraView, ClearOverlayWindows, sub_1B3D8, assreplace, assinsert, Setplass, sub_1FF5C, asspsclear
-extern sub_2E7D8, UpdateCoachModes, EndPenaltyShot, sub_34330, sub_3A06C, sub_41A28, sub_41ACC, sub_41CF0
+extern sub_2E7D8, UpdateCoachModes, EndPenaltyShot, SetPlayerTarget, sub_3A06C, sub_41A28, sub_41ACC, sub_41CF0
 extern sub_41DB8, MusicFileName, StopAllSfx, sub_424CC, CommentaryEvent, PaEvent, sub_4DDB0, sub_52E28
 extern sub_57298, sub_57304, sub_57324, sub_57738, LoadGoalieMask, sub_5B558, sub_60D6C, sub_6539C
 extern sub_65E3B, DoGameFrame, sub_AA650, AllocMemBlock, ZeroMem, sub_FB8AE, sub_FBCD8, unk_16000C
@@ -3869,7 +3869,7 @@ sub_12C2C:
         mov word [nosplit eax*2+word_19CC04], 2
         mov edx, 0FFFFFFFFh
         mov eax, unk_19DC40
-        call sub_34330
+        call SetPlayerTarget
         mov ax, word [word_19CC28]
         mov word [word_19DCFA], ax
 .5:
@@ -3881,7 +3881,7 @@ sub_12C2C:
         mov edx, 0FFFFFFFFh
         mov word [nosplit eax*2+word_19CC04], cx
         mov eax, unk_19E270
-        call sub_34330
+        call SetPlayerTarget
         mov ax, word [word_19CC2A]
         mov word [word_19E32A], ax
 .6:

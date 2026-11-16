@@ -23,7 +23,7 @@ extern CommentaryEvent_1871, CommentaryEvent_189C, CommentaryEvent_18A1, Comment
 extern CommentaryEvent_1A44, CommentaryEvent_1B16, CommentaryEvent_1B57, CommentaryEvent_1B97, CommentaryEvent_1BF5, CommentaryEvent_1C3D, CommentaryEvent_1CB2, CommentaryEvent_1DD1
 extern CommentaryEvent_1E49, CommentaryEvent_1ECB, CommentaryEvent_1F28, CommentaryEvent_1F56, CommentaryEvent_1FE8, off_169780, off_1697BC, off_169814
 extern qword_161173, qword_16117B, qword_161183, qword_16118B, rand_, sprintf_, strcmp_, strcpy_
-extern sub_100940, bcopy, FindShape, sub_106036, sub_106D08, sub_1070B0, sub_1086BF, sub_10884C
+extern SortIndices, bcopy, FindShape, sub_106036, sub_106D08, sub_1070B0, sub_1086BF, sub_10884C
 extern sub_109775, sub_1097F0, sub_42550, sub_425CC, sub_42910, sub_42960, sub_42C38, sub_42D38
 extern OpenSpeechBanks, sub_431E8, LoadTeamSpeech, MakeDataPath, MakeDirPath, LoadDataFileLib, LoadDataFile, sub_7D539
 extern SetTextColor, sub_7F5B8, sub_81678, sub_83314, sub_834EC, sub_83558, sub_842F4, sub_8BE60
@@ -652,7 +652,7 @@ InitSpeechBanks:
         push esi
         mov edi, dword [dword_1AC7A8]
         push edi
-        call sub_100940
+        call SortIndices
         add esp, byte 0Ch
         call sub_E341C
         push byte 20h
@@ -1357,7 +1357,7 @@ InitSpeechBanks:
         push eax
         push edx
         xor edi, edi
-        call sub_100940
+        call SortIndices
         mov ebx, dword [dword_1AC7A8]
         add esp, byte 0Ch
         add ebx, 0AFh

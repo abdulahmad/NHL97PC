@@ -48,9 +48,9 @@ extern qword_160553, qword_16055B, qword_16056C, qword_160588, qword_160590, qwo
 extern qword_1605B4, qword_1605BC, qword_1605C4, qword_1605CC, qword_1605D4, qword_1605DC, qword_1605E4, qword_1605EC
 extern qword_1605F4, qword_160604, qword_160624, qword_160630, qword_160638, qword_160640, qword_160648, qword_160650
 extern qword_160658, rand_, randomd0, regd1, sprintf_, strcat_, strcpy_, sub_100498
-extern sub_100700, sub_1007C0, sub_100830, sub_11328, sub_114C4, sub_13D50, sub_25AEC, sub_2E11C
-extern UpdateCoachModes, sub_30778, sub_3085C, AddPenalty, AddPenalty2, PenGoalStuff, EndPenaltyShot, sub_34CF4
-extern doplayeracc, sub_35588, sub_35690, sub_356A8, sub_3A06C, sub_3A404, sub_3AAE8, sub_3AB28
+extern sub_100700, sub_1007C0, sub_100830, sub_11328, sub_114C4, sub_13D50, GetLowestPen, sub_2E11C
+extern UpdateCoachModes, ChkShoot, ForceShoot, AddPenalty, AddPenalty2, PenGoalStuff, EndPenaltyShot, FaceDirFromMotion
+extern doplayeracc, ChkOneTimerSpot, ClearLastPasser, OneTimerShot, sub_3A06C, sub_3A404, sub_3AAE8, sub_3AB28
 extern sub_3B1EC, sub_3B738, SetVideoMode, sub_3CA28, sub_3CAB8, sub_3CB00, sub_3CB38, sub_3CB48
 extern sub_3CB70, AddOverlayWindow, RemoveOverlayWindow, RefreshOverlayWindow, sub_3E5F0, sub_424CC, CommentaryEvent, SetArtArchive
 extern sub_4B8DC, sub_4C0C4, sub_4DDB0, sub_504E0, sub_55000, sub_56CD0, sub_56CE4, sub_56CF8
@@ -103,7 +103,7 @@ global check4bench, SwapPosition, sub_1F32C, sub_1F4EC, sub_1F538, asscoverdefd,
 global sub_1FBF4, sub_1FF5C, Endfaceoff, sub_209CC, sub_209D0, assbenchwait, sub_20A80, sub_20C50
 global Goal, sub_218B8, sub_21A4C, sub_21AB4, assgoalie, sub_21E98, sub_22050, assextra4
 global assdefo, asswingo, asscentero, sub_22FF0, assextra3, assdefd, asswingd, asscenterd
-global sub_23C98, assfaceoff, assfaceoffpl, sub_240D0, sub_24220, sub_244BC, sub_2471C, sub_248E8
+global sub_23C98, assfaceoff, assfaceoffpl, sub_240D0, sub_24220, assonetimer, sub_2471C, sub_248E8
 global sub_249F8, sub_24C00, sub_25010, sub_25188, sub_251F0, sub_25730, unk_19178, unk_19180
 global unk_19188, unk_19194, unk_191A0, unk_191AC
 ;-----------------------------------------------------------------------------
@@ -2882,7 +2882,7 @@ DrawPowerPlayClock:
         cmp eax, dword [dword_19D018]
         je near DrawPowerPlayClock_18E
         mov dword [dword_19D018], eax
-        call sub_25AEC
+        call GetLowestPen
         movsx esi, ax
         test esi, esi
         jne short .1
@@ -17643,7 +17643,7 @@ sub_22FF0:
         mov eax, esi
         call sub_1E284
         mov eax, esi
-        call sub_34CF4
+        call FaceDirFromMotion
         pop ebp
         pop edi
         pop esi
@@ -18069,7 +18069,7 @@ assextra3:
         mov eax, edx
         call sub_1E284
         mov eax, edx
-        call sub_34CF4
+        call FaceDirFromMotion
         pop edi
         pop esi
         pop edx
@@ -19052,9 +19052,10 @@ sub_24220:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_244BC                                                       244BC  97 PC
+; assonetimer                                     244BC  97 PC, low confidence
+; Asstab 0Eh: the one-timer: waits for the pass, then shoots (OneTimerShot)
 ;-----------------------------------------------------------------------------
-sub_244BC:
+assonetimer:
         push ebx
         push ecx
         push edx
@@ -19081,9 +19082,9 @@ sub_244BC:
         test cl, 8
         je short .2
         mov eax, ebx
-        call sub_35690
+        call ClearLastPasser
         mov eax, ebx
-        call sub_356A8
+        call OneTimerShot
         jmp near .13
 .2:
         test cl, 2
@@ -19107,7 +19108,7 @@ sub_244BC:
         test ax, ax
         jne short .5
         mov eax, ebx
-        call sub_35588
+        call ChkOneTimerSpot
         test ax, ax
         je short .5
         mov word [word_19CBD6], 1
@@ -19119,7 +19120,7 @@ sub_244BC:
         je short .6
         mov word [regd1], ax
         mov eax, ebx
-        call sub_356A8
+        call OneTimerShot
         pop edi
         pop esi
         pop edx
@@ -19131,7 +19132,7 @@ sub_244BC:
         je near .13
         mov word [regd1], ax
         mov eax, ebx
-        call sub_35690
+        call ClearLastPasser
         pop edi
         pop esi
         pop edx
@@ -20498,7 +20499,7 @@ sub_251F0:
         cmp dword [byte esp+08h], byte 0
         je short .33
         mov eax, ebp
-        call sub_3085C
+        call ForceShoot
         xor eax, eax
         mov al, byte [dword esi+0A4h]
         mov word [word_19CB94], ax
@@ -20686,7 +20687,7 @@ sub_25730:
         ret
 .11:
         mov eax, ebx
-        call sub_30778
+        call ChkShoot
         mov eax, 1
         pop edi
         pop edx

@@ -15,7 +15,7 @@ extern off_1721B8, putchar, sprintf_, strncmp_, strncpy_, bcopy, sub_100B88, sub
 extern sub_100BCC, sub_100C08, sub_100C50, sub_100D8C, sub_100DC4, sub_100DCC, sub_100FCC, sub_101154
 extern sub_101220, sub_102B78, sub_11313C, sub_118D54, sub_118E3F, sub_118F7B, sub_118F91, sub_118FB7
 extern sub_11908E, sub_1190E8, sub_11910D, sub_1191A4, sub_1191B8, sub_1191D1, sub_119255, sub_119328
-extern sub_11FAD6, sub_120763, sub_123FA8, sub_12F270, sub_13130C, sub_1313FD, sub_37AB4, ModemReset
+extern sub_11FAD6, sub_120763, sub_123FA8, sub_12F270, sub_13130C, sub_1313FD, OpenPacketLink, ModemReset
 extern ModemHangup, ModemDial, ModemAutoAnswer, ModemWaitConnect, ModemSpeakerOff, sub_F99C0, sub_F9A28, sub_F9A88
 extern AllocMemBlock, sub_FAAB4, FreeMemBlock, ZeroMem, FillMem, addtimer, sub_FC008, WaitTicks
 extern unk_167FA4, unk_172264, unk_17226C, unk_172274, unk_1DA3C4, unk_1DA418, unk_1DA448, unk_1DA464
@@ -1707,7 +1707,7 @@ sub_11C134:
         push off_172140
         mov edi, dword [byte esp+024h]
         push edi
-        call sub_37AB4
+        call OpenPacketLink
         add esp, byte 18h
         pop edi
         pop esi
@@ -2049,7 +2049,7 @@ sub_11C41C:
         push off_17216C
         mov edi, dword [byte esp+024h]
         push edi
-        call sub_37AB4
+        call OpenPacketLink
         add esp, byte 18h
         pop edi
         pop esi
@@ -4441,7 +4441,7 @@ sub_11DE04:
         push ebp
         push off_1721B8
         push eax
-        call sub_37AB4
+        call OpenPacketLink
         add esp, byte 18h
         pop ebp
         pop edi

@@ -153,7 +153,7 @@ extern qword_163CA4, qword_163CAC, qword_163CBC, qword_163CC4, qword_163CCC, qwo
 extern qword_163CEC, qword_163CF4, qword_163CFC, qword_163D04, qword_163D0C, qword_163D14, qword_163D1C, qword_163D24
 extern qword_163D2C, qword_163D34, qword_163D44, qword_163D54, qword_163D64, qword_163DA1, qword_163DA9, qword_163DB1
 extern qword_163EF8, rand_, randomd0, regd1, sprintf_, str_Back, str_Uarm, strcpy_
-extern strncmp_, strncpy_, strnicmp_, strupr_, sub_100498, sub_100700, sub_100940, bcopy
+extern strncmp_, strncpy_, strnicmp_, strupr_, sub_100498, sub_100700, SortIndices, bcopy
 extern BlitShape2, FindShape, sub_101560, sub_101584, Random32, sub_1038B0, sub_103E14, sub_1043A4
 extern sub_1049D0, sub_106D80, sub_10B0D4, sub_10B580, sub_10CDE0, sub_10FB50, sub_10FB98, sub_10FBB0
 extern sub_10FD58, sub_10FE10, sub_10FE58, sub_10FE88, sub_10FFBC, sub_11002C, sub_11004C, sub_1100B4
@@ -163,9 +163,9 @@ extern sub_115830, sub_1158A0, sub_115B78, sub_115BB0, sub_115BD8, sub_115F98, s
 extern sub_119A8, setplayer, sub_12A10, Intermission, sub_13D50, sub_13DA4, sub_13EB4, sub_13EF0
 extern sub_13F28, RunSimFrames, ChangeViewSize, SetViewWindow, sub_18DF7, ClearOverlayWindows, DrawGameOverlays, StartCameraPath
 extern SelectCameraView, sub_1DFA0, sub_1E014, assreplace, assinsert, sub_1E354, sub_1FBF4, Goal
-extern sub_218B8, sub_21A4C, sub_2A6B8, sub_2BE2C, a2touchpuck, ChkGoalies, sub_2E11C, RestoreBenchEnergy
-extern sub_2E208, StartFaceoffLineChange, sub_2F4B8, checkint, AddPenalty, AddPenalty2, EndPenaltyShot, sub_34330
-extern sub_358E4, checkfight, sub_3DA80, sub_3DAC4, sub_3DBCC, sub_3DC2C, sub_3DCBC, sub_3DE08
+extern sub_218B8, sub_21A4C, PlayerGetsPuck, ChkPuckContacts, a2touchpuck, ChkGoalies, sub_2E11C, RestoreBenchEnergy
+extern sub_2E208, StartFaceoffLineChange, ChkPenaltyCall, checkint, AddPenalty, AddPenalty2, EndPenaltyShot, SetPlayerTarget
+extern doinput, checkfight, sub_3DA80, sub_3DAC4, sub_3DBCC, sub_3DC2C, sub_3DCBC, sub_3DE08
 extern sub_41ACC, StopAllSfx, PlaySfxOr, PlaySfxVolume, sub_42354, sub_4241C, sub_424CC, CommentaryEvent
 extern sub_4A280, SetArtArchive, sub_4B4B0, sub_4B4C4, sub_4B540, sub_4B8DC, DrawGameFrame, sub_4BCB4
 extern sub_4C0C4, sub_4DA84, PeriodOver, sub_4DD9C, sub_4DDB0, sub_4FC50, sub_50050, sub_51B5C
@@ -4653,7 +4653,7 @@ sub_5AAB8:
         mov ebp, dword [dword_1B82D8]
         push ebp
         xor ebx, ebx
-        call sub_100940
+        call SortIndices
         mov eax, dword [dword_1B82D8]
         add esp, byte 0Ch
         test eax, eax
@@ -31885,7 +31885,7 @@ sub_6DAB0:
         mov edx, dword [byte ecx+068h]
         mov eax, ecx
         sar edx, 10h
-        call sub_2F4B8
+        call ChkPenaltyCall
 .35:
         mov eax, 1
         mov esp, ebp
@@ -34304,7 +34304,7 @@ sub_7002C:
         push unk_1B94E0
         push byte 0Dh
         xor ebx, ebx
-        call sub_100940
+        call SortIndices
         add esp, byte 0Ch
         xor edx, edx
 .2:
@@ -42548,7 +42548,7 @@ sub_75B94:
         jne short .7
 .6:
         mov eax, ebp
-        call sub_2A6B8
+        call PlayerGetsPuck
         mov eax, dword [off_168CFC]
         mov word [byte eax+06Dh], 4
         mov eax, dword [off_168CFC]
@@ -45565,7 +45565,7 @@ updateplayers:
         mov edx, dword [dword ebx+0B8h]
         mov eax, ebx
         sar edx, 10h
-        call sub_358E4
+        call doinput
 .22:
         cmp esi, byte 0Dh
         jne near .27
@@ -45626,7 +45626,7 @@ updateplayers:
         sar edx, 18h
         cmp byte [dword edx+eax+0B2h], 41h
         jne short .26
-        call sub_2BE2C
+        call ChkPuckContacts
 .26:
         call sub_699D4
         jmp short .30
@@ -45885,7 +45885,7 @@ clockcont_0:
         mov edx, ecx
         add eax, SortCords
         inc ebx
-        call sub_34330
+        call SetPlayerTarget
         cmp bx, byte 0Ch
         jl short .4
         mov ah, byte [byte_19CBC2]
@@ -45953,7 +45953,7 @@ clockcont_0:
         mov edx, ecx
         add eax, SortCords
         inc ebx
-        call sub_34330
+        call SetPlayerTarget
         cmp bx, byte 0Ch
         jl short .9
         test di, di
