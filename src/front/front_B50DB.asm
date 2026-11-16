@@ -15,9 +15,9 @@ extern str_SC02, str_SC01, str_SC00, str_SC01SC02SC03, str_SC10, str_SC09, str_S
 extern str_SC06, str_SC05, str_SC04, str_SC05SC06SC07, str_SC14, str_SC13, str_SC12, str_SC13SC14SC15
 extern str_SC18, str_SC17, str_SC16, str_SC17SC18SC19, str_SC30, str_SC29, str_SC28, str_SC29SC30SC31
 extern str_AB08, str_AB07, str_AB06, str_AB11, str_AB10, str_AB09, str_SC09SC10SC11, str_Rroster
-extern str_Lroster, str_POWR2, str_01d02d, FrontEndExit, PlayoffStarted, byte_1C6040, StatsMenuDrawn, RatingsTeamSide
+extern str_Lroster, str_POWR2, str_01d02d, FrontEndExit, PlayoffStarted, FrontMusicOn, StatsMenuDrawn, RatingsTeamSide
 extern StatsMenuMode, StatsColumn, StatsPlayoffMode, RatingsColumn, RatingsGoalieMode, RatingsColumnLimit, RatingsColumnBase, RatingsHeaderText
-extern GoalieRatingsHeaderText, RatingsLabelText, LinkGameActive, MenuScreenBitmap, GameSettings, SeasonActive, PlayoffTeams, dword_1C5EEC
+extern GoalieRatingsHeaderText, RatingsLabelText, LinkGameActive, MenuScreenBitmap, GameSettings, SeasonActive, PlayoffTeams, StatsBackArt
 extern RatingsListFont, RatingsSkaterRow, RatingsGoalieRow, PlayerStatsShapeLists, StatsCardBackArt, StatsCardFrameArt, StatsCardPortrait, StatsCardRow
 extern RatingsSoundPlayed, RatingsShapeCount, RatingsShapes, RatingsTeamShapes, RatingsShapeFile, RatingsSkaterShown, RatingsSkaterTick, StatsCardBitmap
 extern StatsCardShown, RatingsGoalieOrder, RatingsSkaterOrder, RatingsSkaterBitmap, RatingsGoalieBitmap, RatingsSkaterLast, RatingsSkaterDrawn, StatsCardTick
@@ -36,7 +36,7 @@ extern VideoOptionsScreen, KeysEqual, FreeDbBlock, AgeFromBirthDate, FindTeamRec
 extern FindPlayerStat, FindTeamStat, ServiceIdle, LinkSyncMenu, LinkSyncScreen, AllocMemBlock, FreeMemBlock, MakeColor
 extern FreeBitmap, DrawShapeCore, DrawShapeAtOwnPos, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, tickcount
 extern str_Ai_PlayerStatsScreen, str_Rp, str_D_DrawPlayerRatings, str_0_DrawPlayerStatsText, str_S_DrawPlayerBio, str_Wt_ExportPlayerCard, str_Punct_ExportPlayerCard, CardExportSeparator
-extern PlayoffDbKey, SeasonDbKey, SeasonFilePath, SeasonStatsPath, PlayoffStatsPath, unk_1C5F4A, unk_1C5F9C, unk_1C5FEE
+extern PlayoffDbKey, SeasonDbKey, SeasonFilePath, SeasonStatsPath, PlayoffStatsPath, BlankMenuItem, ScreenFrameItem, StatsBackItem
 extern RatingsScrollBar, RatingsSkaterList, RatingsGoalieList, PlayerStatsPageShapes, PlayerStatsArrowShapes, PlayerStatsTitleShapes, StatsCardList
 global jpt_B585D, jpt_B6B27, jpt_B6B53, jpt_B6B7F, jpt_B6BAB, jpt_B6BD7, jpt_B6BFB, jpt_B6C1F
 global jpt_B6C43, jpt_B7214, jpt_B724C, jpt_B7758, jpt_B7790, jpt_B77B4, jpt_B77E0, jpt_B780C
@@ -658,7 +658,7 @@ PlayerStatsScreen:
         mov dword [byte ebp+02Eh], 0
         mov dword [byte ebp+066h], 1
         mov dword [byte ebp+056h], 0FFFFFFFFh
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .1
         call MusicEnabled
 .1:
@@ -905,7 +905,7 @@ PlayerStatsScreen:
         mov dword [byte ebp+052h], eax
         mov edx, ebx
         mov eax, ebx
-        mov esi, unk_1C5F4A
+        mov esi, BlankMenuItem
         call DrawScreenBackground
         mov ebx, 1A9h
         mov edx, 1F4h
@@ -919,14 +919,14 @@ PlayerStatsScreen:
         mov esi, dword [RatingsTeam]
         mov ecx, 52h
         lea edi, [dword esi+0386h]
-        mov esi, unk_1C5F9C
+        mov esi, ScreenFrameItem
         rep movsb
         mov eax, dword [RatingsTeam]
         mov dword [dword eax+0386h], 0Bh
         mov esi, dword [RatingsTeam]
         mov ecx, 52h
         lea edi, [dword esi+03D8h]
-        mov esi, unk_1C5FEE
+        mov esi, StatsBackItem
         rep movsb
         push dword [byte ebp+06Eh]
         mov eax, dword [RatingsTeam]
@@ -1099,7 +1099,7 @@ PlayerStatsScreen:
         add eax, byte 0Ch
         cmp ebx, eax
         jl short .19
-        mov eax, dword [dword_1C5EEC]
+        mov eax, dword [StatsBackArt]
         push dword [byte eax+02Ch]
         call BlitShape2
         add esp, byte 4
@@ -1757,7 +1757,7 @@ PlayerStatsScreen_DC7:
         cmp dword [byte ebp+072h], byte 0
         jne short .71
         call SetScreenTarget
-        mov eax, dword [dword_1C5EEC]
+        mov eax, dword [StatsBackArt]
         push dword [byte eax+02Ch]
         call BlitShape2
         add esp, byte 4
@@ -1938,7 +1938,7 @@ PlayerStatsScreen_1114:
         mov eax, StatsCardList
         call FreeScrollList
         call SetNormalText
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .84
         cmp byte [StatsMenuDrawn], 0
         je short .84
@@ -4288,7 +4288,7 @@ DrawPlayerRatingsPage:
         mov edx, 10h
         mov edi, eax
         call FindColorRange
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         jne short .21
         push dword [MenuScreenBitmap]
         push edi
@@ -4296,7 +4296,7 @@ DrawPlayerRatingsPage:
         add esp, byte 8
         mov edi, eax
 .21:
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         jne short .22
         fild word [byte edi+04h]
         fmul qword [F64_0p9_DrawPlayerRatingsPage]
@@ -4339,7 +4339,7 @@ DrawPlayerRatingsPage:
         call CreateBitmap
         add esp, byte 0Ch
         mov esi, eax
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         jne short .23
         push dword [byte ebp-0Ch]
         call SetDrawTarget
@@ -4423,7 +4423,7 @@ DrawPlayerRatingsPage:
         push eax
         call DrawShapeCore
         add esp, byte 0Ch
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .26
         push dword 0CBh
         push dword 12Fh
@@ -4497,7 +4497,7 @@ DrawPlayerRatingsPage:
         call DrawShapeCore
         add esp, byte 0Ch
         call PresentScreen
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         jne short .30
         push edi
         call FreeMemBlock
@@ -4643,7 +4643,7 @@ DrawPlayerRatingsPage:
         mov edx, 10h
         mov edi, eax
         call FindColorRange
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         jne short .37
         push dword [MenuScreenBitmap]
         push edi
@@ -4651,7 +4651,7 @@ DrawPlayerRatingsPage:
         add esp, byte 8
         mov edi, eax
 .37:
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         jne short .38
         fild word [byte edi+04h]
         fmul qword [F64_0p9_DrawPlayerRatingsPage]
@@ -4694,7 +4694,7 @@ DrawPlayerRatingsPage:
         call CreateBitmap
         add esp, byte 0Ch
         mov esi, eax
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         jne short .39
         push dword [byte ebp-0Ch]
         call SetDrawTarget
@@ -4787,7 +4787,7 @@ DrawPlayerRatingsPage:
         push eax
         call DrawArt
         add esp, byte 0Ch
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         jne short .42
         push byte 0Ch
         mov eax, dword [byte ebp-08h]
@@ -4861,7 +4861,7 @@ DrawPlayerRatingsPage:
         call DrawArt
         add esp, byte 0Ch
         call PresentScreen
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         jne short .46
         push edi
         call FreeMemBlock
@@ -5003,7 +5003,7 @@ PlayerRatingsScreen:
         mov dword [RatingsSkaterLast], 0FFFFFFFFh
         mov byte [RatingsTeamSide], 0
         mov dword [byte ebp+052h], 0FFFFFFFFh
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .1
         call MusicEnabled
 .1:
@@ -5286,7 +5286,7 @@ PlayerRatingsScreen:
         add eax, byte 0Ah
         push eax
         mov ebx, edi
-        mov esi, unk_1C5F4A
+        mov esi, BlankMenuItem
         call CreateBitmap
         add esp, byte 0Ch
         mov dword [byte ebp+02Eh], eax
@@ -5301,7 +5301,7 @@ PlayerRatingsScreen:
         mov esi, dword [RatingsTeam]
         mov ecx, 52h
         lea edi, [dword esi+0668h]
-        mov esi, unk_1C5F9C
+        mov esi, ScreenFrameItem
         rep movsb
         mov eax, dword [RatingsTeam]
         mov dword [dword eax+0668h], 14h
@@ -5905,7 +5905,7 @@ PlayerRatingsScreen_D42:
         mov dword [byte ebp+052h], 64h
         jmp near PlayerRatingsScreen_2040.186
 PlayerRatingsScreen_D4E:
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .51
         cmp byte [StatsMenuDrawn], 0
         je short .52
@@ -7450,7 +7450,7 @@ PlayerRatingsScreen_21FD:
         call FreeBitmap
         add esp, byte 4
         call SetNormalText
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .195
         cmp byte [StatsMenuDrawn], 0
         je short .195

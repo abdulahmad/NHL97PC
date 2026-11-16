@@ -7,14 +7,14 @@ extern str_AB045, str_AB035, str_FRAM, str_000011, str_FART5, str_DSS4, str_D02d
 extern str_SSDD3, HexDigits, SeasonIntroLeaders, SeasonIntroLeaderStats
 extern SeasonIntroLeaderStats, SeasonIntroLeaderOn, SeasonIntroLogoIds, MenuScreenBitmap
 extern seed, GameSettings, SeasonUserTeam, PlayoffTeamNames, PlayoffTeams, PlayoffSeriesMatch, PlayoffFinalHome, PlayoffFinalAway
-extern dword_1C5E74, SeasonIntroList, SeasonIntroLayer, SeasonIntroDialogText, SeasonIntroDialogType, SeasonIntroPageShown, SeasonIntroTitleFile, SeasonIntroTeamKey
+extern ShadowShape, SeasonIntroList, SeasonIntroLayer, SeasonIntroDialogText, SeasonIntroDialogType, SeasonIntroPageShown, SeasonIntroTitleFile, SeasonIntroTeamKey
 extern SeasonIntroShapes, SeasonIntroIcons, SeasonIntroBackFile, SeasonIntroLeaders, SeasonIntroArtFiles, sprintf_, strcpy_, BlitArt
 extern BlitShape, PresentScreen, FindShape, FindShapeQuiet, OpenArtArchive, OpenArtArchiveErr, DrawShapeBlended, ConvertArtNew
 extern SetScreenTarget, SecondsToSamples, WaitSoundTime, OpenDataLibrary, DrawShadowBox, DrawScreenBackground, SetTextColor, DrawTextAligned
 extern LoadTeamLogo, FreeLogoArt, InitMenuItems, GetLangText, InitListBox, InitShapeListBox, FreeDbBlock, FindTeamRecord
 extern FindPlayerRecord, OpenLeagueFile, FindGameRecord, FindTeamStat, ServiceIdle, FreeMemBlock, FillMem, MakeColor
-extern DrawArt, SetDrawTarget, str_D_DrawSeasonIntro, SeasonIntroEmptyText, str_Punct_BuildSeasonIntro, SeasonFilePath, PlayoffUserRecords, unk_1C5F4A
-extern unk_1C5F9C, SeasonIntroLeaders, SeasonIntroLeaderStats
+extern DrawArt, SetDrawTarget, str_D_DrawSeasonIntro, SeasonIntroEmptyText, str_Punct_BuildSeasonIntro, SeasonFilePath, PlayoffUserRecords, BlankMenuItem
+extern ScreenFrameItem, SeasonIntroLeaders, SeasonIntroLeaderStats
 extern SeasonIntroLeaderStats
 extern seed, SeasonIntroLeaders
 extern SeasonIntroLeaders, SeasonIntroLeaderStats
@@ -819,7 +819,7 @@ SetupSeasonIntro:
         call BlitShape
         mov eax, dword [SeasonIntroLayer]
         mov edi, dword [byte ebp-014h]
-        mov esi, unk_1C5F4A
+        mov esi, BlankMenuItem
         mov eax, dword [byte eax+02Ch]
         add esp, byte 4
         mov ebx, eax
@@ -831,7 +831,7 @@ SetupSeasonIntro:
         mov ecx, 52h
         mov edi, eax
         mov dword [eax], 0
-        mov esi, unk_1C5F9C
+        mov esi, ScreenFrameItem
         lea edi, [byte edi+052h]
         rep movsb
         mov dword [byte eax+052h], 1
@@ -1561,7 +1561,7 @@ DrawSeasonIntro:
 .16:
         push esi
         push dword [byte ebp-04h]
-        push dword [dword_1C5E74]
+        push dword [ShadowShape]
         push dword 0CCCCh
         call DrawShapeBlended
         add esp, byte 10h

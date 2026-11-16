@@ -17,8 +17,8 @@ extern str_BG00, str_BG01, str_BACK5, str_TITL3, str_LT002, str_LB002, str_RB00,
 extern str_TOP0, str_BOT0, str_LFTD, str_RITD, str_LT0D, str_LB0D, str_RT0D, str_RB0D
 extern str_LFT0, str_RIT0, str_BTTM, MenuOptionFlags, LinkFlags, LinkSettingsRest, IndexFlags, IndexSettingsRest
 extern ModemFlags, NetworkGameFlags, ModemSettingsChanged, NetworkGameReady, MenuStartSelection, MenuBitmapReady, str_Punct_ModemSettingsScreen, dword_16E464
-extern dword_16E468, MenuScreenBitmap, GameSettings, NetworkGameIndex, dword_1C5DE4, dword_1C5F12, dword_1C5F1E, dword_1C5F22
-extern dword_1C5F64, dword_1C5F70, dword_1C5F74, PhonebookData, MenuBitmap, MenuBitmapPixels, MenuRemoteCursorArt, MenuCursorArt
+extern dword_16E468, MenuScreenBitmap, GameSettings, NetworkGameIndex, FrontShapeFile, ScreenTitleItem
+extern BlankMenuItem, PhonebookData, MenuBitmap, MenuBitmapPixels, MenuRemoteCursorArt, MenuCursorArt
 extern MenuScreenCopy, MenuCursorPixels, fclose_, fgets_, fread_, fseek_, fwrite_, memcpy_
 extern memset_, sprintf_, strcmp_, strcpy_, strlen_, strstr_, bcopy, BlitConverted
 extern BlitShape2, BlitArt, PresentScreen, FindShape, ConvertArtNew, ConvertArtXY, SetScreenTarget, SecondsToSamples
@@ -28,8 +28,8 @@ extern DrawEntryList, SetNormalText, ShowLinkMessage, HideLinkBox, WritePhoneboo
 extern ScrollUp, DrawScrollBar, ScrollDown, FreeScrollList, ScrollToMouse, GetLangText, InitLinkSettings, ClearLinkAbort
 extern ServiceIdle, StartNetworkLink, LinkSendBlock, LinkReceiveBlock, DefaultModemName, LoadServerList, AllocMemBlock, FreeMemBlock
 extern MakeColor, FreeBitmap, DrawShapeAtOwnPos, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, FillRect
-extern MeasureText, str_S_ModemSettingsScreen, ModemSettings, LinkSettings, LinkSettingsData, GlobalSetVersion, IndexEntrySettings, unk_1C5EF8
-extern unk_1C5F4A, ModemInitString, ModemPhoneNumber, ModemDialCommand, NetworkGameName, ConnectRetry, ModemPortIrqs, ModemPortBases
+extern MeasureText, str_S_ModemSettingsScreen, ModemSettings, LinkSettings, LinkSettingsData, GlobalSetVersion, IndexEntrySettings, ScreenTitleItem
+extern BlankMenuItem, ModemInitString, ModemPhoneNumber, ModemDialCommand, NetworkGameName, ConnectRetry, ModemPortIrqs, ModemPortBases
 extern NetworkSettings, ModemPort, ModemIrq, ModemBaudRate, ModemDialMode, ModemAnswer, ModemSpeed, NetworkGameNumber
 global jpt_86C99, jpt_87AF7, jpt_89053, SavePhonebook_5F, PhonebookEntryScreen_4B8, PhonebookEntryScreen_4C9, PhonebookEntryScreen_5DB, PhonebookEntryScreen_60C
 global PhonebookEntryScreen_6C5, PhonebookEntryScreen_752, ModemSettingsScreen_AE3, ModemSettingsScreen_AF4, ModemSettingsScreen_CC6, ModemSettingsScreen_D31, ModemSettingsScreen_D5E, ModemSettingsScreen_E4D
@@ -557,33 +557,33 @@ PhonebookEntryScreen:
         lea eax, [dword ebp-076Ch]
         call SetRegionRect
         push str_1TOP
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         push str_2TOP
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         mov dword [dword ebp-0EF0h], eax
         call FindShape
         add esp, byte 8
         push str_3TOP
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         mov dword [dword ebp-0EECh], eax
         call FindShape
         add esp, byte 8
         push str_1BOT
         mov dword [dword ebp-0EE4h], 50h
         mov dword [dword ebp-0EE0h], 8Ch
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         mov dword [dword ebp-0EE8h], eax
         call FindShape
         add esp, byte 8
         push str_2BOT
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         mov dword [dword ebp-0E4Ch], eax
         call FindShape
         add esp, byte 8
         push str_3BOT
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         mov dword [dword ebp-0E48h], eax
         call FindShape
         mov dword [dword ebp-0E44h], eax
@@ -730,13 +730,13 @@ PhonebookEntryScreen:
         mov eax, dword [byte eax+02Ch]
         push byte 50h
         mov edx, eax
-        mov esi, unk_1C5EF8
+        mov esi, ScreenTitleItem
         call DrawEntryList
         mov ecx, 52h
         rep movsb
         mov ecx, 52h
         lea edi, [dword ebp-0F5Ch]
-        mov esi, unk_1C5F4A
+        mov esi, BlankMenuItem
         mov dword [dword ebp-01000h], 0
         rep movsb
         mov dword [dword ebp-0F5Ch], 2
@@ -1553,7 +1553,7 @@ ModemSettingsScreen:
         mov dword [byte ebp-034h], eax
         xor edx, edx
         mov eax, 66h
-        mov esi, unk_1C5EF8
+        mov esi, ScreenTitleItem
         call LoadDataFileLib
         mov dword [byte ebp-020h], eax
         rep movsb
@@ -1562,7 +1562,7 @@ ModemSettingsScreen:
         mov ecx, 52h
         lea edi, [dword ebp-0DC6h]
         lea eax, [dword ebp-0668h]
-        mov esi, unk_1C5F4A
+        mov esi, BlankMenuItem
         mov edx, dword [byte ebp-020h]
         push eax
         rep movsb
@@ -3186,13 +3186,13 @@ NetworkGamesScreen:
         call BlitShape2
         add esp, byte 4
         lea edi, [dword ebp-0D64h]
-        mov esi, unk_1C5EF8
+        mov esi, ScreenTitleItem
         call PresentScreen
         mov ecx, 52h
         rep movsb
         mov ecx, 52h
         lea edi, [dword ebp-0D12h]
-        mov esi, unk_1C5F4A
+        mov esi, BlankMenuItem
         mov dword [dword ebp-0D64h], 0
         lea eax, [dword ebp-06A8h]
         rep movsb
@@ -3254,33 +3254,33 @@ NetworkGamesScreen:
         cmp dword [byte ebp-03Ch], byte 0Ah
         jle near .5
         push str_1TOP
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         push str_2TOP
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         mov dword [dword ebp-0BB0h], eax
         call FindShape
         add esp, byte 8
         push str_3TOP
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         mov dword [dword ebp-0BACh], eax
         call FindShape
         add esp, byte 8
         push str_1BOT
         mov dword [dword ebp-0BA4h], 69h
         mov dword [dword ebp-0BA0h], 0DCh
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         mov dword [dword ebp-0BA8h], eax
         call FindShape
         add esp, byte 8
         push str_2BOT
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         mov dword [dword ebp-0B0Ch], eax
         call FindShape
         add esp, byte 8
         push str_3BOT
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         mov dword [dword ebp-0B08h], eax
         call FindShape
         mov dword [dword ebp-0B04h], eax
@@ -4867,14 +4867,14 @@ ModemConnectScreen:
         call DrawScreenBackground
         mov word [ConnectRetry], 1
 .1:
-        push dword [dword_1C5F22]
-        push dword [dword_1C5F1E]
-        push dword [dword_1C5F12]
+        push dword [ScreenTitleItem+2Ah]
+        push dword [ScreenTitleItem+26h]
+        push dword [ScreenTitleItem+1Ah]
         call DrawArt
         add esp, byte 0Ch
-        push dword [dword_1C5F74]
-        push dword [dword_1C5F70]
-        push dword [dword_1C5F64]
+        push dword [BlankMenuItem+2Ah]
+        push dword [BlankMenuItem+26h]
+        push dword [BlankMenuItem+1Ah]
         call DrawArt
         add esp, byte 0Ch
         call PresentScreen
@@ -6310,14 +6310,14 @@ NetworkConnectScreen:
         call DrawScreenBackground
         mov word [ConnectRetry], 1
 .3:
-        push dword [dword_1C5F74]
-        push dword [dword_1C5F70]
-        push dword [dword_1C5F64]
+        push dword [BlankMenuItem+2Ah]
+        push dword [BlankMenuItem+26h]
+        push dword [BlankMenuItem+1Ah]
         call DrawArt
         add esp, byte 0Ch
-        push dword [dword_1C5F22]
-        push dword [dword_1C5F1E]
-        push dword [dword_1C5F12]
+        push dword [ScreenTitleItem+2Ah]
+        push dword [ScreenTitleItem+26h]
+        push dword [ScreenTitleItem+1Ah]
         call DrawArt
         add esp, byte 0Ch
         call PresentScreen

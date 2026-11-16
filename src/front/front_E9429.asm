@@ -10,8 +10,8 @@ extern str_AB092, str_POWR3, str_EC002, str_EC012, str_BAK12, str_C, str_D3, str
 extern str_AR02d3, str_AllStarPlayerInfo, str_AllStarGoalieInfo, str_WestAllStars, str_EastAllStars, str_AllStarRosters, str_AllStarAirecs, str_AllStarRawPlrs
 extern str_AllStarStatrecs, str_MB044, str_FrANKGBarchard, str_100, str_REF, str_Refpack, str_F10, FrontEndExit
 extern AllStarSlotOrderPrev, AllStarSlotOrder, AllStarSlotOrderNext, AllStarArtDigits, PeriodHomeTeam, PeriodAwayTeam, HomeGoalieIndex, AwayGoalieIndex
-extern byte_1C6040, AllStarSlotPlayers, AllStarLogoSlotsPrev, AllStarLogoSlots, LinkGameActive, str_Punct_LoadAllStarArt, SeasonUserTeam, SeasonFileName
-extern AllStarTeamCode, dword_1C5DE4, dword_1C5E74, AllStarListChoice, AllStarRosterBase, AllStarLogoTables, AllStarSlotPicked, AllStarSlot
+extern FrontMusicOn, AllStarSlotPlayers, AllStarLogoSlotsPrev, AllStarLogoSlots, LinkGameActive, str_Punct_LoadAllStarArt, SeasonUserTeam, SeasonFileName
+extern AllStarTeamCode, FrontShapeFile, ShadowShape, AllStarListChoice, AllStarRosterBase, AllStarLogoTables, AllStarSlotPicked, AllStarSlot
 extern AllStarSlotFirst, AllStarLogoData, AllStarForwardKeyBase, AllStarForwardStatKeys
 extern AllStarForwardStatKeys, AllStarDefenceKeyBase, AllStarDefenceStatKeys
 extern AllStarDefenceStatKeys
@@ -38,7 +38,7 @@ extern str_K, str_L, str_Semicolon_KeyName, str_Apostrophe_KeyName, str_Backquot
 extern str_C_GetKeyName, str_V, str_B, str_N_GetKeyName, str_M, str_Comma_KeyName, str_Period_KeyName, str_Slash_KeyName
 extern str_Asterisk_KeyName, str_F1, str_F2, str_F3, str_F4, str_F5, str_F6, str_F7
 extern str_F8, str_F9, DbKeyBuffer, AllStarTeamIds, AllStarHomeLines, AllStarAwayLines, AutoLineData, AllStarRoster
-extern HomeLines, HomeTeamName, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C5FEE, KeyNames, KeyNameSlots
+extern HomeLines, HomeTeamName, ScreenTitleItem, BlankMenuItem, ScreenFrameItem, StatsBackItem, KeyNames, KeyNameSlots
 extern KeyNameSlots
 extern KeyNameSlots
 extern KeyNameSlots
@@ -217,7 +217,7 @@ AllStarScreen:
         inc esi
 .10:
         mov edi, 0Eh
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je near .35
         test esi, esi
         je near .35
@@ -816,7 +816,7 @@ InitAllStarScreen:
         add esp, byte 4
         mov ebx, eax
         mov edx, eax
-        mov esi, unk_1C5FEE
+        mov esi, StatsBackItem
         call DrawScreenBackground
         mov eax, dword [AllStarConference]
         mov ebx, 19Ah
@@ -828,20 +828,20 @@ InitAllStarScreen:
         rep movsb
         mov eax, dword [byte ebp-0Ch]
         mov ecx, 52h
-        mov esi, unk_1C5EF8
+        mov esi, ScreenTitleItem
         mov edi, eax
         mov dword [dword eax+01004h], 32h
         rep movsb
         mov ecx, 52h
         mov edi, eax
         mov dword [eax], 0
-        mov esi, unk_1C5F4A
+        mov esi, BlankMenuItem
         lea edi, [byte edi+052h]
         rep movsb
         mov ecx, 52h
         mov edi, eax
         mov dword [byte eax+052h], 1
-        mov esi, unk_1C5F9C
+        mov esi, ScreenFrameItem
         lea edi, [dword edi+0A4h]
         push str_WC002
         mov ebx, str_WC002
@@ -923,19 +923,19 @@ InitAllStarScreen:
         mov dword [dword eax+03ACh], 266h
         push str_1TOP6
         mov dword [dword eax+03B0h], 80h
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp-0Ch]
         push str_2TOP6
         mov dword [dword edx+03A0h], eax
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp-0Ch]
         push str_3TOP6
         mov dword [dword edx+03A4h], eax
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         mov edx, dword [byte ebp-0Ch]
         mov dword [dword edx+03A8h], eax
@@ -948,19 +948,19 @@ InitAllStarScreen:
         mov eax, dword [byte ebp-0Ch]
         push str_1BOT6
         mov dword [dword eax+0454h], edx
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp-0Ch]
         push str_2BOT6
         mov dword [dword edx+0444h], eax
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         mov edx, dword [byte ebp-0Ch]
         add esp, byte 8
         mov dword [dword edx+0448h], eax
         push str_3BOT6
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         mov edx, dword [byte ebp-0Ch]
         mov ebx, str_AB006
@@ -1550,7 +1550,7 @@ DrawAllStarTeam:
         mov eax, dword [nosplit eax*4+AllStarSlot]
         call LoadTeamLogo
         mov eax, 960000h
-        mov ebx, dword [dword_1C5E74]
+        mov ebx, dword [ShadowShape]
         cdq
         movsx ecx, word [byte ebx+04h]
         idiv ecx
@@ -1572,7 +1572,7 @@ DrawAllStarTeam:
         add esp, byte 4
         push byte 0
         push byte 0
-        push dword [dword_1C5E74]
+        push dword [ShadowShape]
         push dword [byte ebp-028h]
         call DrawShapeBlended
         add esp, byte 10h
@@ -2175,7 +2175,7 @@ DrawAllStarList:
         add eax, byte 1Ah
         call LoadTeamLogo
         mov eax, 8C0000h
-        mov esi, dword [dword_1C5E74]
+        mov esi, dword [ShadowShape]
         cdq
         movsx ebx, word [byte esi+04h]
         idiv ebx
@@ -2197,7 +2197,7 @@ DrawAllStarList:
         add esp, byte 4
         push byte 0
         push byte 0
-        push dword [dword_1C5E74]
+        push dword [ShadowShape]
         push edi
         call DrawShapeBlended
         add esp, byte 10h

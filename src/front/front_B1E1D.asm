@@ -11,7 +11,7 @@ extern str_UL02, str_UL04, str_UL05, str_UL06, str_ULA0, str_ULA1, str_ULA2, str
 extern str_ULA4, str_ULA5, PlayoffRound, ScoringLogPeriod, ScoringLogTime, ScoringLogMinute, ScoringLogType, ScoringLogTeam
 extern StatsMenuChoice, PlayoffColumns, StatsMenuMode, StatsColumn, UserNameIndex, UserRecordsTop, UserRecordsFirst, UserRecordsRow
 extern RatingsColumn, LinkGameActive, MenuScreenBitmap, GameSettings, GameOptionFlags, SeasonActive, PlayoffOptionBits, PlayoffRoundBits
-extern PlayoffCurrentRound, PlayoffFinalRound, PlayoffRoundMatch, PlayoffSeriesMatch, dword_1C5DE4, UserRecordKinds, UserRecordArt, UserRecordsData
+extern PlayoffCurrentRound, PlayoffFinalRound, PlayoffRoundMatch, PlayoffSeriesMatch, FrontShapeFile, UserRecordKinds, UserRecordArt, UserRecordsData
 extern UserRecordItems, UserRecordItemKind, UserRecordItemArt, UserRecordItemX, UserRecordItemY, UserDetailPopupFields, UserDetailPopupShapes
 extern UserDetailPopupShapes, UserGamesPopup
 extern UserGamesPopup, UserCupsPopup
@@ -31,7 +31,7 @@ extern SetScrollBarPos, ScrollToMouse, GetLangText, AllocStatTable, FreeStatTabl
 extern SortStatTable, DrawStatTableRows, DrawStatTableArt, ExportStatTable, OpenGameDatabase, CloseGameDatabase, LoadExhibitionFile, FreeExhibitionFile
 extern SaveUserRecord, LoadUserRecord, DeleteUserRecord, ServiceIdle, LinkSyncMenu, LinkSyncScreen, WaitForOtherComputer, AllocMemBlock
 extern FreeMemBlock, MakeColor, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, MeasureText, tickcount
-extern str_D_ParseUserName, str_S_DrawUserName, UserListFileSeason, UserListFilePlayoff, unk_1C5F4A, UserGamesPopup, UserCupsPopup, UserGamesListBox
+extern str_D_ParseUserName, str_S_DrawUserName, UserListFileSeason, UserListFilePlayoff, BlankMenuItem, UserGamesPopup, UserCupsPopup, UserGamesListBox
 extern unk_B1DF1, unk_B1DFD, unk_B1E09, unk_B1E11, UserRecordsSoundOn, PlayoffRecordWins, PlayoffRecordLosses, HomePeriodShots
 extern AwayPeriodShots, GameLogCount
 global jpt_B234C, jpt_B41D3, NewUser_C7, NewUser_C8, UserLogScreen_71B, UserLogScreen_77D, UserLogScreen_884, UserLogScreen_89E
@@ -627,13 +627,13 @@ UserLogScreen:
 .1:
         push byte 0
         push str_LX00
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
         push str_LX00
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+04h]
@@ -646,14 +646,14 @@ UserLogScreen:
         shl ebx, 2
         push str_LC00
         mov dword [byte ebx+ebp-05Eh], eax
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         mov dword [byte ebp+05Eh], edx
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
         push str_LC00
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+04h]
@@ -711,7 +711,7 @@ UserLogScreen:
         jne short .2
         push dword [MenuScreenBitmap]
         push str_LX00
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         push eax
@@ -743,7 +743,7 @@ UserLogScreen:
         push dword [MenuScreenBitmap]
         lea eax, [byte ebp+032h]
         push eax
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         push eax
@@ -773,7 +773,7 @@ UserLogScreen:
         jne short .4
         push dword [MenuScreenBitmap]
         push str_LC00
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         push eax
@@ -805,7 +805,7 @@ UserLogScreen:
         push dword [MenuScreenBitmap]
         lea eax, [byte ebp+032h]
         push eax
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         push eax
@@ -850,7 +850,7 @@ UserLogScreen:
         mov eax, dword [byte eax+02Ch]
         push str_LC00
         movsx eax, word [byte eax+0Eh]
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         mov dword [dword ebp-0D30h], eax
         lea eax, [dword ebp-069Eh]
         mov dword [dword ebp-0D2Ch], 101h
@@ -860,7 +860,7 @@ UserLogScreen:
         movsx eax, word [byte eax+06h]
         push eax
         push str_LC00
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         mov ebx, dword [dword ebp-0D30h]
         mov edx, dword [dword ebp-0D34h]
@@ -886,7 +886,7 @@ UserLogScreen:
         mov eax, dword [byte eax+02Ch]
         push str_LX00
         movsx eax, word [byte eax+0Eh]
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         mov dword [dword ebp-0CDEh], eax
         lea eax, [dword ebp-065Eh]
         mov dword [dword ebp-0CDAh], 101h
@@ -896,7 +896,7 @@ UserLogScreen:
         movsx eax, word [byte eax+06h]
         push eax
         push str_LX00
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         mov ebx, dword [dword ebp-0CDEh]
         mov edx, dword [dword ebp-0CE2h]
@@ -905,16 +905,16 @@ UserLogScreen:
         lea eax, [dword ebp-065Eh]
         call SetRegionRect
         push str_1TOP4
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         mov dword [dword ebp-0C4Ah], eax
         push str_2TOP4
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         push str_3TOP4
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         mov dword [dword ebp-0C46h], eax
         call FindShape
         mov dword [dword ebp-0C42h], eax
@@ -925,17 +925,17 @@ UserLogScreen:
         push str_1BOT4
         mov dword [dword ebp-0C3Eh], eax
         mov eax, dword [byte ebp+072h]
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         mov dword [dword ebp-0C3Ah], eax
         call FindShape
         add esp, byte 8
         push str_2BOT4
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         mov dword [dword ebp-0BA6h], eax
         call FindShape
         add esp, byte 8
         push str_3BOT4
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         mov dword [dword ebp-0BA2h], eax
         call FindShape
         mov dword [dword ebp-0B9Eh], eax
@@ -3131,7 +3131,7 @@ UserRecordsScreen:
         mov ecx, 52h
         mov eax, dword [byte eax+02Ch]
         mov edi, UserRecordsData
-        mov esi, unk_1C5F4A
+        mov esi, BlankMenuItem
         mov word [byte eax+0Eh], 5Ah
         push str_UL08
         rep movsb

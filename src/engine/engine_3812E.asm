@@ -10,7 +10,7 @@ extern str_BKH, str_BKD, str_SFX4S, str_AUDSTREAM, str_CROWDCRD, str_GAMEDATAAUD
 extern str_TEMP, str_SAUDPBP3TSF, str_KTSF, str_SAUDPBP2VIV, str_CBANK03dDAT, str_TEAM04dDAT, AudioStreamChannel, QuantizeByte
 extern QuantizeTable, RemapTable, IdentityRemap, gmode, OverlayMask, FadePalCurrent, FadePalBytes, FadePalTarget
 extern FadePalTargetG, FadePalTargetBytes, MusicTrackTable, SfxOptions, MusicOptions, SeasonUserHuman, SeasonUserActive, PlayoffUserHuman
-extern PlayoffUserActive, PlayoffUserIndex, BoxSeatSlot, BoxSeatFlags, MoveFlags, PeriodHomeTeam, PeriodAwayTeam, byte_1C6040
+extern PlayoffUserActive, PlayoffUserIndex, BoxSeatSlot, BoxSeatFlags, MoveFlags, PeriodHomeTeam, PeriodAwayTeam, FrontMusicOn
 extern F32_10_RefDodgePuck, F32_3_RefDodgePuck, F32_15, F32_0p0666667, F32_0p5_RefDodgePuck, F32_144_PokeCheckAnim, F32_336, F32_192_TryBodyCheck
 extern F32_144_TryBodyCheck, F32_98, F32_42, SeasonGameDayOffsets, SeasonPanelText, MatchupLogoIds, str_G_DrawLockedGame, MatchupLogoPos
 extern str_Punct_DrawLockedGame, str_O_FaceoffStanceMove, str_C_FaceoffSwipeAnim, str_U_FaceoffDrawAnim, ViewBorderColor, ViewBorderRows, StreamBlockCount, StreamBlockSize
@@ -34,7 +34,7 @@ extern SpeechClipIndex, SpeechBankHandle, SpeechClipTable, SpeechQueueClipId, Sp
 extern SpeechBanksLoaded, SpeechRequestId, SpeechRequestA, SpeechRequestB, GameSettings, AudioOptions, SeasonUserTeam, GameOptionFlags
 extern SeasonPhase, SeasonActive, SeasonUserReplay, SeasonDefaultUser, PlayoffUserReplay, PlayoffTeams, ReplayPlaying, CameraStateRecords
 extern CameraStateRecords, BoxSeatPlayer, BoxSeatTeam, BenchSeats, SeatTable, StrideSpeeds, BoxAnimFrames
-extern DodgeScale, BoxAnimIndex, SeasonFileName, dword_1C5E74, hypot_, jpt_380E6, jpt_38102, jpt_3811A
+extern DodgeScale, BoxAnimIndex, SeasonFileName, ShadowShape, hypot_, jpt_380E6, jpt_38102, jpt_3811A
 extern memcpy_, PtrPuckZone, PtrPuckFlags, SfxBankNameTable, SfxGroupTable, F64_neg3p14159_GoToBoxAnim, F64_0p2_RefDodgePuck, F64_6p28319_ReachForPuckAnim
 extern F64_3p14159_ReachForPuckAnim, F64_neg6p28319_ReachForPuckAnim, F64_neg3p14159_ReachForPuckAnim, F64_0p785398_ReachForPuckAnim, F64_0p0001, F64_0p6, F64_96, F64_0p00347222
 extern F64_0p8, F64_1p2_PokeCheckAnim, F64_6p28319_TryBodyCheck, F64_3p14159_TryBodyCheck, F64_neg6p28319_TryBodyCheck, F64_neg3p14159_TryBodyCheck, F64_1p0472, F64_1p5708
@@ -63,7 +63,7 @@ extern AllocMemBlock, FreeMemBlock, MemFreeSize, ZeroMem, FillMem, addtimer, Rem
 extern WaitTicks, OpenResourceArchive, CurrentArchiveName, MakeColor, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget
 extern ClearScreen, FillRectColor, SetTextColors, SetFocalLength, SetProjectionCenter, tickcount, str_D_DrawSeasonGamePanel, StreamReadBuf
 extern str_16, str_8, DisplayViewRecords, DirtySpans, OverlayMaskBase, RinkPalette, FadePalCount, PaletteRanges
-extern SeasonFilePath, BoxSeats, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, SeasonStartYears, SeasonMonthDays, str_Punct_DrawSeasonGamePanel
+extern SeasonFilePath, BoxSeats, ScreenTitleItem, BlankMenuItem, ScreenFrameItem, SeasonStartYears, SeasonMonthDays, str_Punct_DrawSeasonGamePanel
 extern SparkleTimer, SfxBankLoaded, MusicBlock, MusicStopRequest, SfxVolumeScale, SfxVolumeWord, MusicVolumeScale, SeasonDate
 extern SeasonLastGame, FadePalStepR, FadePalStepG, FadePalSteps, FadeAccumR, FadeAccumG, FadeAccumB, FadeAccumNext
 extern FadeAccumLast, FadeAccums, SpeechQueuePrio, SeasonLastHome, SeasonLastAway, AllStarDay
@@ -113,7 +113,7 @@ SeasonGameScreen:
         push edi
         enter 4F4h, 0
         sub ebp, 82h
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .1
         call MusicEnabled
 .1:
@@ -399,7 +399,7 @@ SeasonGameScreen_3EB:
         push dword [AllStarLogoArt]
         call FreeMemBlock
         add esp, byte 4
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .21
         cmp dword [SeasonPlayedFlag], byte 0
         jne short .21
@@ -515,7 +515,7 @@ InitSeasonGameScreen:
         call BlitShape
         mov eax, dword [SeasonScreenArt]
         mov edi, dword [byte ebp-018h]
-        mov esi, unk_1C5EF8
+        mov esi, ScreenTitleItem
         mov eax, dword [byte eax+02Ch]
         add esp, byte 4
         mov ebx, eax
@@ -527,13 +527,13 @@ InitSeasonGameScreen:
         mov ecx, 52h
         mov edi, eax
         mov dword [eax], 0
-        mov esi, unk_1C5F4A
+        mov esi, BlankMenuItem
         lea edi, [byte edi+052h]
         rep movsb
         mov ecx, 52h
         mov edi, eax
         mov dword [byte eax+052h], 1
-        mov esi, unk_1C5F9C
+        mov esi, ScreenFrameItem
         lea edi, [dword edi+0A4h]
         push str_AB02
         mov ebx, str_AB00
@@ -768,7 +768,7 @@ InitSeasonGameScreen:
         add esp, byte 4
         push byte 2
         push byte 0FFFFFFF4h
-        push dword [dword_1C5E74]
+        push dword [ShadowShape]
         push dword 6666h
         call DrawShapeBlended
         add esp, byte 10h

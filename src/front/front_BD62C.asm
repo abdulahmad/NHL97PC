@@ -4,12 +4,12 @@ bits 32
 section s_BD62C progbits alloc exec nowrite align=1
 extern SortCords, __CHP, __STOSD, str_Mous4, str_Remo3, str_Replload, str_RPEVENT, str_Replmenu
 extern str_Replregs, str_REPLAYNDX, str_DATAREPLAYNDX2, str_DONTHAVEIT2, str_Replay, str_SS10, str_Replbuff, str_SREPLAYNDX
-extern str_S12, str_NOIS, str_ARWD, gmode, byte_1C6040, ReplayButtonLit, F32_0p005_ReplayScreen, F32_0p003125_ReplayScreen
+extern str_S12, str_NOIS, str_ARWD, gmode, FrontMusicOn, ReplayButtonLit, F32_0p005_ReplayScreen, F32_0p003125_ReplayScreen
 extern F32_0p005_DrawReplayTimeline, F32_0p003125_DrawReplayTimeline, F32_0p003125_PickReplayScreen, F32_0p005_PickReplayScreen, F32_0p003125_DrawReplayEntry, F32_0p005_DrawReplayEntry, F32_0p003125_ReplayMenuScreen, F32_0p005_ReplayMenuScreen
 extern ClockShown, InGameMenuRequest, StatsMenuMode, ReplayListTop, LinkGameActive, dword_16E464, dword_16E468, MenuScreenBitmap
 extern VideoModeCount, QuantizePalette, VideoModePanelMode, VideoModeSel, ViewWindowX, ViewWindowY, ViewWindowW, ViewWindowH
 extern VideoModeChanged, DisplayFlags, ReplayLoaded, GameObjects, ViewSizeIndex, GameSettings, GameOptionFlags, ReplayData
-extern ReplayMode, SeasonFileName, ReplayIndexHandle, ReplayBufferSize, dword_1C5DE4, dword_1C5E78, dword_1C5EF4, ClockFontSmall
+extern ReplayMode, SeasonFileName, ReplayIndexHandle, ReplayBufferSize, FrontShapeFile, FrontFonts, FrontTextFile, ClockFontSmall
 extern ClockFontLarge, ReplayMenuX, ReplayControlsX, ReplayCameraX, ReplaySaveX, ReplayMenuY, ReplayControlsY, ReplayCameraY
 extern ReplaySaveY, ReplayMenuShape, ReplayControlsShape, ReplayCameraShape, ReplaySaveShape, ReplayMenuResult, ReplayFrameNow, ReplayRemoteShape
 extern ReplayBitmap, ReplayLoadBuffer, ReplayFrameTotal, ReplayFont, ReplayMenuBitmap, ReplaySpeedText, ReplayPlayText, ReplayPauseText
@@ -85,13 +85,13 @@ RunReplay:
         push byte 0
         push str_Mous4
         push eax
-        mov dword [dword_1C5DE4], eax
+        mov dword [FrontShapeFile], eax
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
         push str_Mous4
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+04h]
@@ -100,14 +100,14 @@ RunReplay:
         add esp, byte 0Ch
         push byte 0
         push str_Remo3
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         mov dword [ReplayRemoteShape], eax
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
         push str_Remo3
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+04h]
@@ -271,10 +271,10 @@ RunReplay:
         push dword [ReplayBitmap]
         call FreeBitmap
         add esp, byte 4
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FreeMemBlock
         add esp, byte 4
-        mov dword [dword_1C5DE4], 0
+        mov dword [FrontShapeFile], 0
         call ReplayCameraOff
         mov eax, 64h
         call SetAmbientVolume
@@ -341,7 +341,7 @@ LoadReplay:
         mov eax, dword [dword_16E468]
         mov dword [DisplayFlags], 0
         mov dword [VideoModeSel], eax
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         sete al
         movzx eax, al
         mov dword [ReplayLoaded], eax
@@ -443,13 +443,13 @@ VideoOptionsScreen:
         push byte 0
         push str_Mous4
         push eax
-        mov dword [dword_1C5DE4], eax
+        mov dword [FrontShapeFile], eax
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
         push str_Mous4
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+04h]
@@ -458,14 +458,14 @@ VideoOptionsScreen:
         add esp, byte 0Ch
         push byte 0
         push str_Remo3
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         mov dword [ReplayRemoteShape], eax
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
         push str_Remo3
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+04h]
@@ -482,7 +482,7 @@ VideoOptionsScreen:
         push byte 0
         push byte 0
         push str_Mous4
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         push eax
@@ -498,7 +498,7 @@ VideoOptionsScreen:
         push byte 0
         push byte 0
         push str_Remo3
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         push eax
@@ -518,8 +518,8 @@ VideoOptionsScreen:
         mov eax, 2Fh
         call LoadDataFileLib
         mov dword [ReplayFont], eax
-        mov dword [dword_1C5E78], eax
-        mov dword [dword_1C5EF4], eax
+        mov dword [FrontFonts], eax
+        mov dword [FrontTextFile], eax
         cmp dword [ClockShown], byte 0
         jne short .2
         mov eax, 70h
@@ -530,7 +530,7 @@ VideoOptionsScreen:
         push byte 0
         call OpenResourceArchive
         add esp, byte 4
-        mov eax, dword [dword_1C5EF4]
+        mov eax, dword [FrontTextFile]
         push dword 0FF000000h
         mov dword [ClockFontLarge], eax
         mov dword [ClockFontSmall], eax
@@ -547,11 +547,11 @@ VideoOptionsScreen:
         call SelectFont
         add esp, byte 4
         push str_Remo3
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         push str_Mous4
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         mov ebx, eax
         call FindShape
         add esp, byte 8
@@ -560,11 +560,11 @@ VideoOptionsScreen:
         call PickReplayScreen
         test eax, eax
         jne near .4
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FreeMemBlock
         add esp, byte 4
         push dword [ReplayRemoteShape]
-        mov dword [dword_1C5DE4], 0
+        mov dword [FrontShapeFile], 0
         call FreeBitmap
         add esp, byte 4
         push dword [ReplayBitmap]
@@ -574,8 +574,8 @@ VideoOptionsScreen:
         call FreeLangText
         push dword [ReplayFont]
         call FreeMemBlock
-        mov dword [dword_1C5E78], 0
-        mov dword [dword_1C5EF4], 0
+        mov dword [FrontFonts], 0
+        mov dword [FrontTextFile], 0
         add esp, byte 4
         cmp dword [ClockShown], byte 0
         je short .3
@@ -586,11 +586,11 @@ VideoOptionsScreen:
 .3:
         call InitFrontEnd
         push str_Remo3
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         push str_Mous4
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         mov ebx, eax
         call FindShape
         add esp, byte 8
@@ -644,11 +644,11 @@ VideoOptionsScreen:
         add esp, byte 0Ch
         call AllocGfxFixBuffer
         push str_Remo3
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         push str_Mous4
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         mov ebx, eax
         call FindShape
         add esp, byte 8
@@ -671,8 +671,8 @@ VideoOptionsScreen:
         call FreeLangText
         push dword [ReplayFont]
         call FreeMemBlock
-        mov dword [dword_1C5E78], 0
-        mov dword [dword_1C5EF4], 0
+        mov dword [FrontFonts], 0
+        mov dword [FrontTextFile], 0
         add esp, byte 4
         cmp dword [ClockShown], byte 0
         je short .8
@@ -681,11 +681,11 @@ VideoOptionsScreen:
         mov dword [ClockShown], 0
         add esp, byte 4
 .8:
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FreeMemBlock
         add esp, byte 4
         mov ebx, 2
-        mov dword [dword_1C5DE4], 0
+        mov dword [FrontShapeFile], 0
         call OpenGameDatabase
         call InitFrontEnd
         call WaitMusicEnd
@@ -1043,7 +1043,7 @@ ReplayScreen_EF:
 .5:
         call RestoreMenuView
         push str_Mous4
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         movsx eax, word [byte eax+06h]
         cdq
@@ -1062,7 +1062,7 @@ ReplayScreen_EF:
         sub eax, dword [byte ebp-04h]
         push eax
         push str_Mous4
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         movsx eax, word [byte eax+04h]
         cdq
@@ -3447,14 +3447,14 @@ ReplayMenuScreen:
         push esi
         push edi
         enter 130h, 0
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FreeMemBlock
         add esp, byte 4
         mov eax, 0FDh
         xor edx, edx
         call LoadDataFile
         push dword [ReplayRemoteShape]
-        mov dword [dword_1C5DE4], eax
+        mov dword [FrontShapeFile], eax
         call SetDrawTarget
         add esp, byte 4
         push dword 0FFh
@@ -3463,7 +3463,7 @@ ReplayMenuScreen:
         push byte 0
         push byte 0
         push str_Mous4
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         push eax
@@ -3479,7 +3479,7 @@ ReplayMenuScreen:
         push byte 0
         push byte 0
         push str_Remo3
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         push eax
@@ -3493,7 +3493,7 @@ ReplayMenuScreen:
         mov eax, dword [byte eax+02Ch]
         call CreateMenuBitmap
         push str_NOIS
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         mov edx, dword [eax]
         xor ebx, ebx
@@ -3549,7 +3549,7 @@ ReplayMenuScreen:
         add esp, byte 0Ch
         lea eax, [byte ebp-030h]
         push eax
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         mov edx, eax
         mov eax, esi
@@ -4091,7 +4091,7 @@ ReplayMenuScreen:
         call DrawReplayMenu
 .17:
         push str_Mous4
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         movsx eax, word [byte eax+06h]
         cdq
@@ -4110,7 +4110,7 @@ ReplayMenuScreen:
         sub eax, dword [byte ebp-018h]
         push eax
         push str_Mous4
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         movsx eax, word [byte eax+04h]
         cdq

@@ -7,7 +7,7 @@ extern str_SLRT, F32_0p003125, F32_0p005, F32_0p003125_ScrollPosToValue, F32_0p0
 extern F32_0p5_InitScrollTable, F32_14_InitScrollTable, F32_0p5_ScrollToMouse, F32_0p5_SetListSelection, MenuLinkWordPad, MenuMouseX, MenuMouseY, MenuMouseButtons
 extern MenuStartSelection, MenuBitmapReady, MenuMouseMode, MenuInputDelay, MenuViewCallback, MenuRepeatTick, MenuLinkKey, str_3_LoadLangText
 extern LangTextFiles, ErrorTextPtr, LangTextLoaded, LangTextHandle, LinkGameActive, mousex, mousey, dword_16E464
-extern dword_16E468, MenuScreenBitmap, GameSettings, dword_1C5DE4, MenuSavedMouseMode, MenuLastButtons, MenuRemoteItem, MenuButtons
+extern dword_16E468, MenuScreenBitmap, GameSettings, FrontShapeFile, MenuSavedMouseMode, MenuLastButtons, MenuRemoteItem, MenuButtons
 extern RemoteMouseButtons, RemoteLastButtons, RemoteLastMouseY, RemoteLastMouseX, RemoteMouseX, RemoteMouseY, MenuSavedRemoteArt, MenuLocalItem
 extern MenuLastMouseY, MenuLastMouseX, MenuSavedCursorArt, MenuRemoteLayer, MenuLocalCursorY, MenuLocalCursorX, MenuItemLeaveFunc, MenuLocalLayer
 extern MenuViewTop, MenuViewBottom, MenuItemEnterFunc, MenuViewLeft, MenuViewRight, MenuRemoteCursorY, MenuRemoteCursorX, MenuItemHoverFunc
@@ -2134,7 +2134,7 @@ InitScrollList:
         add esp, byte 0Ch
         push str_PNS
         mov dword [byte esi+018h], eax
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         push dword [byte esi+018h]
@@ -2169,7 +2169,7 @@ InitScrollList:
         push byte 0
         push byte 0
         push str_SLUP
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         push eax
@@ -2180,7 +2180,7 @@ InitScrollList:
         push edi
         push byte 0
         push str_SLDN
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         push eax
@@ -2331,7 +2331,7 @@ InitScrollTable:
         add esp, byte 0Ch
         push str_PWE
         mov dword [byte esi+018h], eax
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         push dword [byte esi+018h]
@@ -2350,7 +2350,7 @@ InitScrollTable:
         push byte 0
         push byte 0
         push str_SLLT
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         push eax
@@ -2361,7 +2361,7 @@ InitScrollTable:
         sub edi, byte 15h
         push edi
         push str_SLRT
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         push eax

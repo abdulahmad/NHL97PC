@@ -12,10 +12,10 @@ extern str_LG02d, str_DIV3, str_DIV4, str_DIV1, str_DIV2, str_Factoid, str_Rts, 
 extern str_Standmenu, str_FACT, str_LBL1LBL2LBL3LBR1LBR2LTL1L3, str_DDD3, str_Ptlist, str_Idlist, str_List, str_SSSDSS
 extern str_SSDSS, str_SSDSS2, str_SSD02dSS, str_S3, str_S4, str_SSEASDSET, str_Importagents, str_FakeEXHIBIT
 extern str_FakeAGENTS, str_Agents, NewSeasonBannerTeams, FrontEndExit, SeasonFlags, SeasonUserHuman, SeasonUserActive, SeasonUserLocked
-extern SeasonCreated, byte_1C6040, SeasonTypeCode, StandingsColumns, PlayoffColumns, NewSeasonTeamOrderSmall, NewSeasonTeamOrderLarge, NewSeasonTeamOrderMid
-extern dword_16CB7C, LangTextLoaded, LangTextHandle, LinkTransferReady, str_F_NewSeasonScreen, NewSeasonArtOffsets, PlayoffFormatTeams, LinkGameActive
+extern SeasonCreated, FrontMusicOn, SeasonTypeCode, StandingsColumns, PlayoffColumns, NewSeasonTeamOrderSmall, NewSeasonTeamOrderLarge, NewSeasonTeamOrderMid
+extern ScreenWipeMode, LangTextLoaded, LangTextHandle, LinkTransferReady, str_F_NewSeasonScreen, NewSeasonArtOffsets, PlayoffFormatTeams, LinkGameActive
 extern SeasonUserTeam, GameOptionFlags, SeasonSlot, SeasonPhase, PlayoffRounds, SeasonActive, NewSeasonUserCount, SeasonDefaultUser
-extern SeasonRandomSeed, SeasonScheduleData, SeasonFileName, dword_1C5DE0, SeasonMenuExit, StandingsGoalsFor, SeasonSparkleShapes, StandingsTies
+extern SeasonRandomSeed, SeasonScheduleData, SeasonFileName, PlayMenuGameFlag, SeasonMenuExit, StandingsGoalsFor, SeasonSparkleShapes, StandingsTies
 extern SeasonMenuShapeLists, StandingsWins, StandingsGoalsAgainst, StandingsSortKey, SeasonSparkleSoundOn, SeasonMenuItems, StandingsBuffer, NewSeasonItems
 extern ExhibitionData, PlayoffTeamCount, PlayoffFormat, LinkScreensDone, jpt_8E977, jpt_8E987, memcpy_, memset_
 extern qsort_, rand_, sprintf_, srand_, strcat_, strcpy_, strlen_, BlitShape2
@@ -33,7 +33,7 @@ extern LoadExhibitionFile, SaveExhibitionFile, FreeExhibitionFile, ResetExhibiti
 extern AllocClearBlock, ClearLinkAbort, LinkSendBlock, LinkReceiveBlock, SeasonIntroScreen, AllStarScreen, AllocMemBlock, FreeMemBlock
 extern MakeColor, FreeBitmap, DrawShapeCore, DrawShapeAtOwnPos, DrawArt, CreateBitmap, SetDrawTarget, str_Punct_SeasonMenuScreen
 extern str_Punct_StandingsScreen, str_D_StandingsScreen, DbKeyBuffer, PlayoffDbKey, GlobalSetVersion, SeasonName, MatchupNote, SeasonUserRecords
-extern SeasonFilePath, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, NewSeasonShapes, SeasonNameShapes, SeasonRecordShapes, SeasonGameShapes
+extern SeasonFilePath, ScreenTitleItem, BlankMenuItem, ScreenFrameItem, NewSeasonShapes, SeasonNameShapes, SeasonRecordShapes, SeasonGameShapes
 extern SeasonDateShapes, SeasonLastHome, SeasonLastAway
 global jpt_912BF, RunNewSeason_DD, RunNewSeason_E6, RunNewSeason_EF, RunNewSeason_F8, RunNewSeason_16F, RunNewSeason_17B, RunNewSeason_187
 global RunNewSeason_193, NewSeasonScreen_DCB, NewSeasonScreen_DCE, CreateSeason_55B, CreateSeason_561, CreateSeason_562, StandingsScreen_65C, StandingsScreen_685
@@ -161,7 +161,7 @@ RunNewSeason_193:
 .6:
         cmp esi, byte 1
         jne short .7
-        mov dword [dword_16CB7C], 3
+        mov dword [ScreenWipeMode], 3
 .7:
         mov eax, ExhibitionData
         call LoadExhibitionFile
@@ -288,7 +288,7 @@ NewSeasonScreen:
         push eax
         mov dword [byte ebp-024h], 0
         mov dword [byte ebp-02Ch], 0FFFFFFFFh
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .1
         call MusicEnabled
 .1:
@@ -357,21 +357,21 @@ NewSeasonScreen:
         mov ecx, 52h
         call DrawScreenBackground
         mov edi, dword [NewSeasonItems]
-        mov esi, unk_1C5EF8
+        mov esi, ScreenTitleItem
         rep movsb
         mov eax, dword [NewSeasonItems]
         mov dword [eax], 0
         mov esi, dword [NewSeasonItems]
         mov ecx, 52h
         lea edi, [byte esi+052h]
-        mov esi, unk_1C5F4A
+        mov esi, BlankMenuItem
         rep movsb
         mov eax, dword [NewSeasonItems]
         mov dword [byte eax+052h], 1
         mov esi, dword [NewSeasonItems]
         mov ecx, 52h
         lea edi, [dword esi+05C4h]
-        mov esi, unk_1C5F9C
+        mov esi, ScreenFrameItem
         rep movsb
         push str_WC00
         mov eax, dword [NewSeasonItems]
@@ -1220,7 +1220,7 @@ NewSeasonScreen:
         push dword [byte ebp-020h]
         call FreeMemBlock
         add esp, byte 4
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short NewSeasonScreen_DCB
         call MusicEnabled
 NewSeasonScreen_DCB:
@@ -1889,7 +1889,7 @@ SeasonMenuScreen:
         mov ecx, 52h
         mov edx, ebx
         mov eax, ebx
-        mov esi, unk_1C5EF8
+        mov esi, ScreenTitleItem
         call DrawScreenBackground
         mov edi, dword [SeasonMenuItems]
         rep movsb
@@ -1898,14 +1898,14 @@ SeasonMenuScreen:
         mov esi, dword [SeasonMenuItems]
         mov ecx, 52h
         lea edi, [byte esi+052h]
-        mov esi, unk_1C5F4A
+        mov esi, BlankMenuItem
         rep movsb
         mov eax, dword [SeasonMenuItems]
         mov dword [byte eax+052h], 1
         mov esi, dword [SeasonMenuItems]
         mov ecx, 52h
         lea edi, [dword esi+0B36h]
-        mov esi, unk_1C5F9C
+        mov esi, ScreenFrameItem
         rep movsb
         mov eax, dword [SeasonMenuItems]
         mov dword [dword eax+0B36h], 23h
@@ -2963,7 +2963,7 @@ SeasonMenuScreen:
         cmp dword [byte ebp-02Ch], byte 1Ch
         jne short .84
         mov dword [byte ebp-02Ch], 0Eh
-        mov dword [dword_1C5DE0], 1
+        mov dword [PlayMenuGameFlag], 1
 .84:
         push dword [byte ebp-020h]
         call FreeMemBlock
@@ -3144,7 +3144,7 @@ StandingsScreen:
         mov dword [byte ebp+066h], eax
         mov edx, ebx
         mov eax, ebx
-        mov esi, unk_1C5F4A
+        mov esi, BlankMenuItem
         call DrawScreenBackground
         mov eax, 13h
         mov edx, dword [StandingsBuffer]
@@ -3157,7 +3157,7 @@ StandingsScreen:
         mov esi, dword [StandingsBuffer]
         mov ecx, 52h
         lea edi, [dword esi+05C4h]
-        mov esi, unk_1C5F9C
+        mov esi, ScreenFrameItem
         rep movsb
         mov eax, dword [StandingsBuffer]
         mov dword [dword eax+05C4h], 12h

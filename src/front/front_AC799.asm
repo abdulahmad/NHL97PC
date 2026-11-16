@@ -21,8 +21,8 @@ extern str_RS06, str_RS05, str_RS04, str_RS05RS06RS07, str_LAHL, str_LABL, str_R
 extern str_RS09RS11RS11, str_RS22, str_RS21, str_RS20, str_RS21RS22RS23, str_RS26, str_RS25, str_RS24
 extern str_RS25RS26RS27, str_RS30, str_RS29, str_RS28, str_RS29RS30RS31, str_RS38, str_RS37, str_RS36
 extern str_RS37RS38RS39, str_LB02d2, str_LH02d, str_LH26, str_TTL0, str_SDDSDD, str_SD02dSD02d, str_SD02dSDD
-extern str_SDDSD2, str_CSS, FrontEndExit, byte_1C6040, StatsMenuDrawn, StandingsColumns, StatsMenuMode, StatsColumn
-extern StatsPlayoffMode, LinkGameActive, MenuScreenBitmap, GameSettings, SeasonActive, PlayoffTeams, dword_1C5EEC, StatsShapeLists
+extern str_SDDSD2, str_CSS, FrontEndExit, FrontMusicOn, StatsMenuDrawn, StandingsColumns, StatsMenuMode, StatsColumn
+extern StatsPlayoffMode, LinkGameActive, MenuScreenBitmap, GameSettings, SeasonActive, PlayoffTeams, StatsBackArt, StatsShapeLists
 extern TeamStatsShapeTop, TeamStatsShapeBottom, StatsHeaderShape, TeamStatsLogoShape, TeamStatsNameShape, StatsRowShape, TeamStatsBarShape, TeamStatsBarEnd
 extern StatsArrowUp, StatsArrowDown, TeamStatsPanelShape, StatsSparkleShape, TeamStatsGlowShape, TeamStatsBitmap, StatsMenuItems, StatTableRows
 extern StatsSoundPlayed, StatTableSortText, StatTableSortKeys, StatTableAlpha, StatTableColumns, fclose_, fopen_, fprintf_
@@ -38,7 +38,7 @@ extern FreeDbBlock, FindTeamRecord, FindPlayerRecord, OpenLeagueFile, FindGameRe
 extern LinkSyncMenu, LinkSyncScreen, AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, DrawArt, CreateBitmap
 extern SetDrawTarget, ClearScreen, str_D_ExportStatTable, str_S_ExportStatTable, str_Punct_WriteCsvLine, str_Rt, str_Wt, str_Punct_ExportStatTable
 extern StatExportSeparator, str_Punct_StatsTablesScreen, str_Ai, PlayoffDbKey, SeasonDbKey, SeasonFilePath, SeasonStatsPath, PlayoffStatsPath
-extern unk_1C5F4A, unk_1C5F9C, unk_1C5FEE, StatsColumnFields, StatTableSortColumn
+extern BlankMenuItem, ScreenFrameItem, StatsBackItem, StatsColumnFields, StatTableSortColumn
 global jpt_ACD96, jpt_AD11D, jpt_ADBD6, jpt_AF064, AllocStatTable_2AA, SortStatTable_301, SortStatTable_303, SortStatTable_310
 global SortStatTable_321, SortStatTable_323, SortStatTable_36B, DrawStatTableRows_2A9, DrawStatTableRows_2C4, DrawStatTableRows_2ED, DrawStatTableRows_34B, DrawStatTableRows_36C
 global DrawStatTableRows_3D1, DrawStatTableRows_3FD, DrawStatTableRows_435, DrawStatTableRows_470, DrawStatTableRows_48D, DrawStatTableRows_4D7, ExportStatTable_19A, ExportStatTable_1BA
@@ -2445,7 +2445,7 @@ TeamStatsScreen:
         mov ebx, 190h
         mov edx, 12Ch
         mov eax, dword [byte ebp+072h]
-        mov esi, unk_1C5F4A
+        mov esi, BlankMenuItem
         call DrawStatsBackground
         mov edi, dword [StatsMenuItems]
         rep movsb
@@ -2454,14 +2454,14 @@ TeamStatsScreen:
         mov esi, dword [StatsMenuItems]
         mov ecx, 52h
         lea edi, [dword esi+0238Eh]
-        mov esi, unk_1C5F9C
+        mov esi, ScreenFrameItem
         rep movsb
         mov eax, dword [StatsMenuItems]
         mov dword [dword eax+0238Eh], 6Fh
         mov esi, dword [StatsMenuItems]
         mov ecx, 52h
         lea edi, [dword esi+023E0h]
-        mov esi, unk_1C5FEE
+        mov esi, StatsBackItem
         rep movsb
         push dword [byte ebp+076h]
         mov eax, dword [StatsMenuItems]
@@ -2760,7 +2760,7 @@ TeamStatsScreen:
         je near .47
         mov dword [StatsPlayoffMode], 0
         call SetScreenTarget
-        mov eax, dword [dword_1C5EEC]
+        mov eax, dword [StatsBackArt]
         push dword [byte eax+02Ch]
         call BlitShape2
         add esp, byte 4
@@ -3506,7 +3506,7 @@ StatsTablesScreen:
         mov dword [byte ebp+012h], 0
         mov byte [byte ebp+07Eh], 0
         mov dword [byte ebp+04Eh], 0
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .1
         call MusicEnabled
 .1:
@@ -3748,7 +3748,7 @@ StatsTablesScreen:
         mov eax, 3
         call SecondsToSamples
         call WaitSoundTime
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         jne short .16
         push byte 0
         push dword 12Ch
@@ -3797,7 +3797,7 @@ StatsTablesScreen:
         push edi
         call BlitShape2
         add esp, byte 4
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .17
         push byte 78h
         push dword 8Ch
@@ -3876,7 +3876,7 @@ StatsTablesScreen:
         mov ebx, 1A4h
         mov edx, 12Ch
         mov eax, dword [byte eax+02Ch]
-        mov esi, unk_1C5F4A
+        mov esi, BlankMenuItem
         call DrawStatsBackground
         mov edi, dword [StatsMenuItems]
         rep movsb
@@ -3885,14 +3885,14 @@ StatsTablesScreen:
         mov esi, dword [StatsMenuItems]
         mov ecx, 52h
         lea edi, [dword esi+03622h]
-        mov esi, unk_1C5F9C
+        mov esi, ScreenFrameItem
         rep movsb
         mov eax, dword [StatsMenuItems]
         mov dword [dword eax+03622h], 0A9h
         mov esi, dword [StatsMenuItems]
         mov ecx, 52h
         lea edi, [dword esi+03674h]
-        mov esi, unk_1C5FEE
+        mov esi, StatsBackItem
         rep movsb
         push dword [byte ebp+072h]
         mov eax, dword [StatsMenuItems]
@@ -4058,7 +4058,7 @@ StatsTablesScreen:
 .26:
         test esi, esi
         jne short .27
-        mov eax, dword [dword_1C5EEC]
+        mov eax, dword [StatsBackArt]
         push dword [byte eax+02Ch]
         call BlitShape2
         add esp, byte 4
@@ -5043,7 +5043,7 @@ StatsTablesScreen_D0E:
         call ConvertArtNew
         add esp, byte 8
         mov dword [byte ebp+066h], eax
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         jne short .106
         push dword [byte ebp+036h]
         call SetDrawTarget
@@ -5094,7 +5094,7 @@ StatsTablesScreen_D0E:
         inc ebx
         cmp ebx, byte 8
         jl short .109
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .111
         push byte 78h
         push dword 8Ch
@@ -5219,7 +5219,7 @@ StatsTablesScreen_D0E:
         push dword [byte ebp+076h]
         call FreeBitmap
         add esp, byte 4
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         jne short .115
         push dword [byte ebp+036h]
         call FreeBitmap
@@ -5227,7 +5227,7 @@ StatsTablesScreen_D0E:
 .115:
         call FreeStatsBitmap
         call SetNormalText
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .116
         call LoadFrontEndSfx
 .116:

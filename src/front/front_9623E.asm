@@ -10,8 +10,8 @@ extern str_SW00, str_Roster2, str_ELPopupMenu, str_ELPopupRegions, str_1TOP2, st
 extern str_2BOT2, str_3BOT2, str_Punct4, str_SL02d2, str_BTTM2, str_POWR, str_CHEK, str_CS
 extern str_SS5, str_SS6, str_TB05, str_TB04, str_TB03, str_TB02, str_TB01, str_TB00
 extern str_PB022, str_PB002, str_PB03, str_PB012, str_AR02d, str_FART, str_NOFACEFSH, str_FRR0
-extern LinesArtDigits, byte_1C6040, str_Punct_LoadLinesArt, LinesSoundPlayed, LinesChangedInGame, MenuScreenBitmap, GameOptionFlags, PlayoffTeams
-extern dword_1C5DE4, dword_1C5DE8, LinesGridX, LinesGridHeaderArt, LinesGridHeaderPtr, LinesGridLabelPtr, LinesForwardList, LinesForwardListShapes
+extern LinesArtDigits, FrontMusicOn, str_Punct_LoadLinesArt, LinesSoundPlayed, LinesChangedInGame, MenuScreenBitmap, GameOptionFlags, PlayoffTeams
+extern FrontShapeFile, LogoNames, LinesGridX, LinesGridHeaderArt, LinesGridHeaderPtr, LinesGridLabelPtr, LinesForwardList, LinesForwardListShapes
 extern LinesForwardGrid, LinesDefenceList, LinesDefenceListShapes, LinesDefenceGrid, LinesHighlightShape, LinesForwardShape, LinesForwardStatKeys
 extern LinesForwardStatKeys, LinesIntroShapes
 extern LinesSparkleShapes, LinesDefenceKeyBase, LinesDefenceStatKeys
@@ -36,7 +36,7 @@ extern ScrollDown, FreeScrollList, SetScrollBarPos, ScrollToMouse, RunScrollList
 extern SkaterOverall, GoalieOverall, InitListBox, InitShapeListBox, KeysEqual, FindGameRecord, FindPlayerStat, ServiceIdle
 extern AllocMemBlock, FreeMemBlock, KbdIdleCall, MakeColor, FreeBitmap, DrawArt, DrawShape, CreateBitmap
 extern SetDrawTarget, ClearScreen, FillRect, MeasureText, tickcount, str_D_DrawLinesCardDetails, str_C_DrawForwardLines, DbKeyBuffer
-extern AllStarHomeLines, AllStarAwayLines, AutoLineData, HomeLines, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, AllStarDay
+extern AllStarHomeLines, AllStarAwayLines, AutoLineData, HomeLines, ScreenTitleItem, BlankMenuItem, ScreenFrameItem, AllStarDay
 extern LinesSlotPositions, LinesGridSlotIds
 global jpt_9861E, jpt_9AC47, EditLinesScreen_17F, EditLinesScreen_18C, EditLinesScreen_2C7, EditLinesScreen_49D, EditLinesScreen_4C4, EditLinesScreen_5BA
 global EditLinesScreen_5EF, EditLinesScreen_61B, EditLinesScreen_69D, EditLinesScreen_8E8, LayoutLinesCard_39D, CopyTeamRoster_203, EditLinesGridScreen_A49, EditLinesGridScreen_C5B
@@ -67,7 +67,7 @@ EditLinesScreen:
         mov edi, eax
         mov dword [byte ebp+07Ah], edx
         mov dword [byte ebp+072h], 0
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .1
         test eax, eax
         jl short .1
@@ -135,7 +135,7 @@ EditLinesScreen:
         call CreateBitmap
         add esp, byte 0Ch
         mov dword [LinesIntroBitmap], eax
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         jne short .2
         mov eax, 3
         call SecondsToSamples
@@ -338,7 +338,7 @@ EditLinesScreen_2C7:
         lea edx, [dword esi+0290h]
         call InitShapeListBox
 .21:
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         jne short .22
         cmp dword [LinesFontFile], byte 0
         jne short .22
@@ -545,7 +545,7 @@ EditLinesScreen_69D:
         mov dword [LinesIntroArt], 0
         add esp, byte 4
 .35:
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .36
         push dword [LinesShapeFile]
         call FreeMemBlock
@@ -569,7 +569,7 @@ EditLinesScreen_69D:
         mov eax, esi
         sub edx, byte 0Ah
         call EditLinesGridScreen
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je near EditLinesScreen_2C7.22
         push dword [LinesScreenBitmap]
         call FreeBitmap
@@ -608,7 +608,7 @@ EditLinesScreen_69D:
         push dword [LinesCardBitmap]
         call FreeBitmap
         add esp, byte 4
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         jne short .39
         push dword [LinesScreenBitmap]
         call FreeBitmap
@@ -635,7 +635,7 @@ EditLinesScreen_69D:
         push esi
         call FreeMemBlock
         add esp, byte 4
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .41
         test edi, edi
         jl short .40
@@ -724,7 +724,7 @@ InitEditLinesScreen:
         call BlitShape
         mov eax, dword [LinesScreenBitmap]
         mov edi, dword [byte ebp-024h]
-        mov esi, unk_1C5EF8
+        mov esi, ScreenTitleItem
         mov eax, dword [byte eax+02Ch]
         add esp, byte 4
         mov ebx, eax
@@ -736,13 +736,13 @@ InitEditLinesScreen:
         mov ecx, 52h
         mov edi, eax
         mov dword [eax], 0
-        mov esi, unk_1C5F4A
+        mov esi, BlankMenuItem
         lea edi, [byte edi+052h]
         rep movsb
         mov ecx, 52h
         mov edi, eax
         mov dword [byte eax+052h], 1
-        mov esi, unk_1C5F9C
+        mov esi, ScreenFrameItem
         lea edi, [dword edi+0A4h]
         rep movsb
         mov ebx, 3
@@ -881,7 +881,7 @@ InitEditLinesScreen:
         xor edx, edx
         mov eax, dword [byte eax+02Ch]
         call WipeScreen
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .9
         push dword [LinesScreenBitmap]
         call FreeBitmap
@@ -1199,7 +1199,7 @@ DrawLinesCardLogo:
         add esp, byte 8
         mov edi, eax
 .1:
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .2
         call SetScreenTarget
 .2:
@@ -1216,7 +1216,7 @@ DrawLinesCardLogo:
         add esp, byte 0Ch
         cmp ebx, byte 4
         jl short .3
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .4
         call PresentScreen
 .4:
@@ -1231,7 +1231,7 @@ DrawLinesCardLogo:
         call FindShape
         mov ebx, eax
         add esp, byte 8
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .6
         call SetScreenTarget
         push ebx
@@ -1304,7 +1304,7 @@ EditLinesSetup:
 .5:
         mov dword [EditLinesMode], eax
 .6:
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .7
         call FreeTempArt
 .7:
@@ -1362,11 +1362,11 @@ EditLinesSetup:
         call FindShape
         add esp, byte 8
         mov dword [LinesSwapShape], eax
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         jne near EditLinesScreen_8E8
         push byte 0
         mov eax, dword [EditLinesMode]
-        push dword [nosplit eax*4+dword_1C5DE8]
+        push dword [nosplit eax*4+LogoNames]
         call UnpackedSize
         add esp, byte 4
         push eax
@@ -1376,7 +1376,7 @@ EditLinesSetup:
         push eax
         mov esi, eax
         mov eax, dword [EditLinesMode]
-        push dword [nosplit eax*4+dword_1C5DE8]
+        push dword [nosplit eax*4+LogoNames]
         call UnpackShared
         add esp, byte 8
         push str_LOGO3
@@ -3413,14 +3413,14 @@ EditLinesGridScreen:
         mov edi, dword [byte ebp+076h]
         mov ebx, eax
         mov edx, eax
-        mov esi, unk_1C5EF8
+        mov esi, ScreenTitleItem
         call DrawScreenBackground
         rep movsb
         mov eax, dword [byte ebp+076h]
         mov ecx, 52h
         mov edi, eax
         mov dword [eax], 0
-        mov esi, unk_1C5F4A
+        mov esi, BlankMenuItem
         lea edi, [byte edi+052h]
         rep movsb
         mov dword [byte eax+052h], 1
@@ -3467,19 +3467,19 @@ EditLinesGridScreen:
         mov dword [dword eax+0212h], 266h
         push str_1TOP2
         mov dword [dword eax+0216h], 46h
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+076h]
         push str_2TOP2
         mov dword [dword edx+0206h], eax
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+076h]
         push str_3TOP2
         mov dword [dword edx+020Ah], eax
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         mov edx, dword [byte ebp+076h]
         mov dword [dword edx+020Eh], eax
@@ -3492,19 +3492,19 @@ EditLinesGridScreen:
         mov eax, dword [byte ebp+076h]
         push str_1BOT2
         mov dword [dword eax+02BAh], edx
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+076h]
         push str_2BOT2
         mov dword [dword edx+02AAh], eax
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         mov edx, dword [byte ebp+076h]
         push str_3BOT2
         mov dword [dword edx+02AEh], eax
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         mov edx, dword [byte ebp+076h]
         mov dword [dword edx+02B2h], eax
@@ -4294,7 +4294,7 @@ EditLinesGridScreen_10DB:
         push dword [byte ebp+076h]
         call FreeMemBlock
         add esp, byte 4
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         jne near EditLinesScreen_8E8
         mov eax, dword [dword ebp-015Ah]
         xor edx, edx
@@ -4414,7 +4414,7 @@ DrawScoringLines:
         mov byte [byte ebp+07Ch], 30h
         mov byte [byte ebp+07Eh], 0
         mov byte [byte ebp+07Ah], 54h
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         jne short .1
         cmp dword [LinesFontFile], byte 0
         jne near .13
@@ -6060,7 +6060,7 @@ DrawLinesScreen:
         call FindShape
         add esp, byte 8
         mov ebx, eax
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .1
         call SetScreenTarget
         jmp short .2
@@ -6095,7 +6095,7 @@ DrawLinesScreen:
         push eax
         call BlitShape
         add esp, byte 4
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je near .5
         call PresentScreen
         xor esi, esi
@@ -6233,13 +6233,13 @@ DrawLinesScreen:
 .6:
         mov ecx, 52h
         mov edi, dword [byte ebp-01Ch]
-        mov esi, unk_1C5EF8
+        mov esi, ScreenTitleItem
         rep movsb
         mov eax, dword [byte ebp-01Ch]
         mov ecx, 52h
         mov edi, eax
         mov dword [eax], 0
-        mov esi, unk_1C5F4A
+        mov esi, BlankMenuItem
         lea edi, [byte edi+052h]
         rep movsb
         mov edx, 1
@@ -6325,7 +6325,7 @@ DrawLinesScreen_32B:
         mov eax, dword [LinesShapeFile]
         add edx, 290h
         call InitShapeListBox
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         jne short .9
         push dword [LinesScreenBitmap]
         call SetDrawTarget
@@ -6401,7 +6401,7 @@ DrawLinesScreen_32B:
         add eax, dword [byte ebp-01Ch]
         call InitListBox
 .13:
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .14
         call SetScreenTarget
         jmp short .15
@@ -6435,13 +6435,13 @@ DrawLinesScreen_32B:
         inc esi
         cmp esi, byte 0Ah
         jl short .17
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .19
         call PresentScreen
 .19:
         mov dword [LinesTextPos], 0
         mov dword [LinesTextLength], 0
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         jne near CopyTeamRoster_203
         cmp dword [byte ebp-020h], byte 0
         je near CopyTeamRoster_203
@@ -6670,14 +6670,14 @@ DrawLinesPlayerCard:
         mov edx, DrawLinesCardDetails_16C
         mov eax, DrawLinesCardDetails
         call DrawRatingMeters
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .1
         call SetScreenTarget
 .1:
         mov edx, DrawLinesCardDetails_517
         mov eax, DrawLinesCardDetails_41B
         call DrawRatingMeters
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .2
         call PresentScreen
 .2:
@@ -6699,7 +6699,7 @@ DrawLinesCardDetails:
         mov byte [byte ebp-04h], bl
         cmp bl, 19h
         jae near .5
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .1
         call SetScreenTarget
 .1:
@@ -6786,7 +6786,7 @@ DrawLinesCardDetails:
         push byte 1
         call DrawTextAligned
         add esp, byte 14h
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .4
         call PresentScreen
 .4:
@@ -6817,7 +6817,7 @@ DrawLinesCardDetails_16C:
         mov byte [byte ebp-04h], bl
         cmp bl, 3
         jae near .15
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .6
         call SetScreenTarget
 .6:
@@ -6859,7 +6859,7 @@ DrawLinesCardDetails_16C:
         lea edx, [eax+esi]
         mov eax, dword [byte ebp-08h]
         add eax, dword [byte ebp-014h]
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .8
         push eax
         push dword [byte ebp-08h]
@@ -7010,7 +7010,7 @@ DrawLinesCardDetails_16C:
         push byte 1
         call DrawTextAligned
         add esp, byte 14h
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .14
         call PresentScreen
 .14:
@@ -7522,7 +7522,7 @@ DrawCardRatings:
         call MakeColor
         add esp, byte 4
         mov edi, eax
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .1
         call SetScreenTarget
 .1:
@@ -7999,7 +7999,7 @@ DrawCardRatings:
         call DrawArt
         add esp, byte 0Ch
 .15:
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je near LayoutLinesCard_39D
         call PresentScreen
         jmp near LayoutLinesCard_39D
@@ -8331,7 +8331,7 @@ ShowLinesIntro:
         push ecx
         push edx
         enter 14h, 0
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .1
         mov dword [LinesIntroArt], 0
         jmp short .2

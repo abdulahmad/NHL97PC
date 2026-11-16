@@ -16,7 +16,7 @@ extern FadeInScreen, ShowScreen, ExitScreen, SetRegionRect, DrawTeamLogoBanner, 
 extern HideLinkBox, ShowPopupScreen, InitMenuItems, RunMenu, RunScrollList, GetLangText, LinkTransferSetup, SeasonSetupScreen
 extern LoadExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, PickDemoTeams, ClearLinkAbort, ServiceIdle, LinkSendBlock, LinkReceiveBlock
 extern AllocMemBlock, FreeMemBlock, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, tickcount, TeamSelectArtBase
-extern GlobalSetVersion, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, TeamSelectMode, AwayPanelTeam, HomePanelTeam
+extern GlobalSetVersion, ScreenTitleItem, BlankMenuItem, ScreenFrameItem, TeamSelectMode, AwayPanelTeam, HomePanelTeam
 global jpt_9E8E8, jpt_9F6DD, DrawHomeTeamPanel_1C9, DrawHomeTeamPanel_1EC, TeamSelectScreen_7BE, TeamSelectScreen_7CF, TeamSelectScreen_7E0, TeamSelectScreen_7FC
 global TeamSelectScreen_815, TeamSelectScreen_8C4, TeamSelectScreen_918, TeamSelectScreen_94F, TeamSelectScreen_A05, TeamSelectScreen_A43, TeamSelectScreen_ACB, TeamSelectScreen_B55
 global TeamSelectScreen_B61, DrawHomeTeamPanel, DrawAwayTeamPanel, TeamSelectSparkle, TeamSelectScreen, IndexScreenSound, str_Punct_PickIndexEntry, unk_9F611
@@ -635,20 +635,20 @@ TeamSelectScreen:
         mov dword [byte ebp+06Ah], eax
         mov edx, esi
         mov eax, esi
-        mov esi, unk_1C5EF8
+        mov esi, ScreenTitleItem
         call DrawScreenBackground
         rep movsb
         mov eax, dword [byte ebp+07Eh]
         mov ecx, 52h
         mov edi, eax
         mov dword [eax], 0
-        mov esi, unk_1C5F4A
+        mov esi, BlankMenuItem
         lea edi, [byte edi+052h]
         rep movsb
         mov ecx, 52h
         mov edi, eax
         mov dword [byte eax+052h], 1
-        mov esi, unk_1C5F9C
+        mov esi, ScreenFrameItem
         lea edi, [dword edi+03D8h]
         rep movsb
         push str_011R3

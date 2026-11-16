@@ -11,10 +11,10 @@ extern str_02ST03ST04ST, str_03DE, str_02DE, str_02DE03DE04DE, str_03RU, str_02R
 extern str_02TR, str_02TR03TR04TR, str_03SR, str_02SR, str_02SR03SR04SR, str_03SD, str_02SD, str_02SD03SD04SD
 extern str_03AW, str_02AW, str_02AW03AW04AW, str_BG012, str_BG022, str_BG03, str_NHL0, str_SD3
 extern str_LG27, str_LG28, str_SSEASDPLY, str_SPLAYDSET, FrontEndExit, PlayoffSeedOrder, PlayoffUserHuman, PlayoffUserActive
-extern PlayoffRound, PlayoffStarted, PlayoffUserIndex, byte_1C6040, PlayoffSlotCustom, PlayoffSlotNamed, PlayoffSlotNames, StandingsColumns
+extern PlayoffRound, PlayoffStarted, PlayoffUserIndex, FrontMusicOn, PlayoffSlotCustom, PlayoffSlotNamed, PlayoffSlotNames, StandingsColumns
 extern PlayoffColumns, LinkTransferReady, PlayoffTreeTimer, PlayoffDefaultTeams, PlayoffSlotTeams, PlayoffSlotLogos, PlayoffEditCursor, PlayoffRoundShown
 extern LinkGameActive, GameSettings, SeasonUserTeam, GameOptionFlags, SeasonSlot, SeasonDefaultUser, PlayoffRoundBits, PlayoffFileHandle
-extern PlayoffTeamNames, PlayoffTeams, PlayoffRandomSeed, dword_1C5DE0, SeasonMenuExit, ExhibitionData, PlayoffTreeSlotX, PlayoffTreeSlotY
+extern PlayoffTeamNames, PlayoffTeams, PlayoffRandomSeed, PlayMenuGameFlag, SeasonMenuExit, ExhibitionData, PlayoffTreeSlotX, PlayoffTreeSlotY
 extern PlayoffShapeLists, PlayoffSetupShapes, PlayoffLogoArt, PlayoffTreeLayer, PlayoffTreeArt, PlayoffTreeData, PlayoffTreeLogos, PlayoffMenuBuffer
 extern PlayoffSetupArt, PlayoffFormat, PlayoffSparkleSoundOn, PlayoffNameFont, PlayoffSetupItems, PlayoffTeamFont, LinkScreensDone, EditLinesScreen_17F
 extern EditLinesScreen_18C, EditLinesScreen_2C7, EditLinesScreen_49D, EditLinesScreen_4C4, EditLinesScreen_5BA, EditLinesScreen_5EF, EditLinesScreen_61B, EditLinesScreen_69D
@@ -30,7 +30,7 @@ extern MakeLeagueKeyBase, CreatePlayoffFile, CreatePlayoffSchedule, OpenLeagueFi
 extern LoadExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, ClearLinkAbort, LinkSendBlock, LinkReceiveBlock, SeasonIntroScreen, AllocMemBlock
 extern FreeMemBlock, MakeColor, SelectFont, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen
 extern str_Punct_PlayoffTreeScreen, PlayoffTreeLayout, PlayoffDbKey, GlobalSetVersion, SeasonName, SeasonUserRecords, PlayoffSettings, PlayoffUserRecords
-extern PlayoffName, PlayoffStatsPath, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, PlayoffRoundShapes, PlayoffStatShapes, PlayoffTeamRecordShapes
+extern PlayoffName, PlayoffStatsPath, ScreenTitleItem, BlankMenuItem, ScreenFrameItem, PlayoffRoundShapes, PlayoffStatShapes, PlayoffTeamRecordShapes
 extern PlayoffSeriesShapes, PlayoffScheduleShapes
 global jpt_93502, jpt_9621A, RunNewPlayoffs_F7, RunNewPlayoffs_100, RunNewPlayoffs_104, RunNewPlayoffs_108, RunNewPlayoffs_1A6, PlayoffSetupScreen_952
 global PlayoffSetupScreen_959, EditPlayoffTeamName_96, EditPlayoffTeamName_9B, DrawPlayoffSetup, PlayoffSetupSound, RunNewPlayoffs, PlayoffSetupScreen, CreatePlayoffs
@@ -672,7 +672,7 @@ PlayoffSetupScreen:
         mov eax, 29h
         call InitMenuItems
         mov eax, dword [PlayoffTeamFont]
-        mov esi, unk_1C5EF8
+        mov esi, ScreenTitleItem
         mov ebx, eax
         mov edx, eax
         mov ecx, 52h
@@ -684,14 +684,14 @@ PlayoffSetupScreen:
         mov esi, dword [PlayoffSetupItems]
         mov ecx, 52h
         lea edi, [byte esi+052h]
-        mov esi, unk_1C5F4A
+        mov esi, BlankMenuItem
         rep movsb
         mov eax, dword [PlayoffSetupItems]
         mov dword [byte eax+052h], 1
         mov esi, dword [PlayoffSetupItems]
         mov ecx, 52h
         lea edi, [dword esi+0CD0h]
-        mov esi, unk_1C5F4A
+        mov esi, BlankMenuItem
         rep movsb
         mov eax, dword [PlayoffSetupItems]
         mov dword [dword eax+0CD0h], 28h
@@ -2105,7 +2105,7 @@ PlayoffTreeScreen:
         enter 7E0h, 0
         sub ebp, 82h
         mov dword [byte ebp+06Eh], 0FFFFFFFFh
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .1
         call MusicEnabled
 .1:
@@ -2214,7 +2214,7 @@ PlayoffTreeScreen:
         call InitMenuItems
         push str_Pan2
         push dword [byte ebp+066h]
-        mov esi, unk_1C5EF8
+        mov esi, ScreenTitleItem
         call FindShape
         add esp, byte 8
         mov edx, eax
@@ -2227,14 +2227,14 @@ PlayoffTreeScreen:
         mov esi, dword [PlayoffTreeData]
         mov ecx, 52h
         lea edi, [dword esi+08A6h]
-        mov esi, unk_1C5F9C
+        mov esi, ScreenFrameItem
         rep movsb
         mov eax, dword [PlayoffTreeData]
         mov dword [dword eax+08A6h], 1Bh
         mov esi, dword [PlayoffTreeData]
         mov ecx, 52h
         lea edi, [byte esi+052h]
-        mov esi, unk_1C5F4A
+        mov esi, BlankMenuItem
         rep movsb
         mov eax, dword [PlayoffTreeData]
         mov dword [byte eax+052h], 1
@@ -3426,7 +3426,7 @@ PlayoffTreeScreen:
         jne short .94
 .93:
         mov dword [byte ebp+06Eh], 0Eh
-        mov dword [dword_1C5DE0], 1
+        mov dword [PlayMenuGameFlag], 1
 .94:
         call PlayoffSettingsPath
         xor esi, esi
@@ -3484,7 +3484,7 @@ PlayoffTreeScreen:
         push dword [PlayoffTreeArt]
         call FreeMemBlock
         add esp, byte 4
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .99
         call LoadFrontEndSfx
 .99:

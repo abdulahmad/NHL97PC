@@ -14,11 +14,11 @@ extern str_SD4, str_GS24, str_GS25, str_GS20, str_GS21, str_GS16, str_GS17, str_
 extern str_GS13, str_CDCS, str_GS02d, str_S6, str_S7, str_DSSDSSSSD02d, str_SSSSSSSD02d, str_Logo02dQfs2
 extern str_UnpackLogo, str_LOGO5, str_DEBUG, LinkButtonLetters, LinkSetupCursorFlags, MenuOptionFlags, ControlSetupFlags, PlayoffUserIndex
 extern PeriodHomeTeam, PeriodAwayTeam, ScoringLogPrevPeriod, ScoringLogPrevTime, ScoringLogPrevMinute, ScoringLogPrevType, ScoringLogPeriod, ScoringLogTime
-extern ScoringLogMinute, ScoringLogType, ScoringLogTeam, ScoringLogPlayer, ScoringLogAssist, ScoringLogSecondAssist, byte_1C6040, LinkSetupCursorRow
+extern ScoringLogMinute, ScoringLogType, ScoringLogTeam, ScoringLogPlayer, ScoringLogAssist, ScoringLogSecondAssist, FrontMusicOn, LinkSetupCursorRow
 extern LinkSetupCursorCol, LinkSetupItemFlags, GripDriverPtr, LinkSetupMaxPlayers, LinkSetupSoundTick, LinesChangedInGame, InIntermission, KeyboardControls
 extern LinkGameActive, dword_16E464, dword_16E468, GameRunning, GameSettings, GameOptionFlags, SeasonActive, PlayoffTeamNames
 extern PlayoffTeams, SeasonFileName, ThreeStarsCount, HomePlayerRecords, HomeRosterData, HomeInjuredCount, AwayPlayerRecords
-extern AwayRosterData, dword_1C5DE0, dword_1C5DE4, dword_1C5E74, LinkSetupLogos, LinkSetupNames, LinkSetupArt
+extern AwayRosterData, PlayMenuGameFlag, FrontShapeFile, ShadowShape, LinkSetupLogos, LinkSetupNames, LinkSetupArt
 extern LinkSetupItemShape, LinkSetupShapes, LinkSetupSounds, LinkSetupScrollUp, LinkSetupBuffer, LinkSetupSlots, LinkSetupScrollDown, LinkSetupTop
 extern LinkSetupRow, LinkSetupItems, LinkSetupShapeFile, LinkSetupCount, LinkSetupSettings, LinkPlayerCount, LinkLogoFile, LinkShapeFile
 extern LinkScreensDone, ScoringHomeLayer, ScoringAwayLayer, GoldStarShapes, StarFrameShapes, StatsLineTotals, StatsLineGoals, StatsLineAssists
@@ -41,8 +41,8 @@ extern SortStatTable, DrawStatTableRows, DrawStatTableArt, UserLogScreen, InitLi
 extern ClearLinkAbort, ServiceIdle, LinkSyncMenu, LinkSyncScreen, LinkSendBlock, LinkReceiveBlock, CopyControlSettings, AllocMemBlock
 extern FreeMemBlock, ZeroMem, OpenResourceArchive, MakeColor, SelectFont, FreeBitmap, DrawShapeCore, DrawShapeAtOwnPos
 extern DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, MeasureText, tickcount, str_D_RunLinkGameScreens, str_D_DrawTeamStatLine
-extern str_Punct_GoalTypeSuffix, LinkSetupShapeName, str_S_RunLinkGameScreens, ControlSetup, AutoLineData, HomeLines, unk_1C5EF8, unk_1C5F4A
-extern unk_1C5F9C, ThreeStarsData, GripPortWord, LinkSetupItemX, LinkSetupSlotY, LinkSetupStatusX, LinkButtonX, LinkButtonY
+extern str_Punct_GoalTypeSuffix, LinkSetupShapeName, str_S_RunLinkGameScreens, ControlSetup, AutoLineData, HomeLines, ScreenTitleItem, BlankMenuItem
+extern ScreenFrameItem, ThreeStarsData, GripPortWord, LinkSetupItemX, LinkSetupSlotY, LinkSetupStatusX, LinkButtonX, LinkButtonY
 extern LinkSetupTitleY, LinkSetupSoundIndex, LinkSetupSoundOn, ThreeStarsSoundOn, GameStatsSoundOn, GameStatsAnimSoundOn, PassState, gameover
 extern AllStarArena, GameLogCount, LinkSetupOrder, LinkSetupValues, LinkSetupItemType, LinkHomeChoice, LinkSetupItemCount, LinkAwayChoice
 extern ThreeStarsPlayer, ThreeStarsTeam, ThreeStarsPoints, ScoringLogCount, PenaltyLogCount
@@ -2022,7 +2022,7 @@ RunLinkGameScreens_30:
         inc esi
         cmp esi, byte 8
         jl short RunLinkGameScreens.1
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .2
         call MusicEnabled
 .2:
@@ -3329,7 +3329,7 @@ RunLinkGameScreens_112:
         inc eax
         inc eax
         imul eax, byte 52h
-        mov esi, unk_1C5EF8
+        mov esi, ScreenTitleItem
         mov edi, dword [LinkSetupItems]
         mov ecx, 52h
         add edi, eax
@@ -3353,7 +3353,7 @@ RunLinkGameScreens_112:
         imul eax, dword [LinkPlayerCount], byte 3
         add eax, byte 3
         imul eax, byte 52h
-        mov esi, unk_1C5F4A
+        mov esi, BlankMenuItem
         mov edi, dword [LinkSetupItems]
         mov ecx, 52h
         add edi, eax
@@ -3484,7 +3484,7 @@ RunLinkGameScreens_112:
         imul eax, byte 52h
         mov ecx, 52h
         mov edi, dword [LinkSetupItems]
-        mov esi, unk_1C5F9C
+        mov esi, ScreenFrameItem
         add edi, eax
         rep movsb
         imul edx, dword [LinkPlayerCount], byte 3
@@ -3706,7 +3706,7 @@ RunLinkGameScreens_112:
         call FreeMemBlock
         add esp, byte 4
         call ResetStreamAudio
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .98
         call LoadFrontEndSfx
 .98:
@@ -4461,14 +4461,14 @@ PostGameScreen:
         mov dword [dword esp+0580h], edx
         mov ebx, eax
         mov edx, eax
-        mov esi, unk_1C5F4A
+        mov esi, BlankMenuItem
         call DrawScreenBackground
         rep movsd
         movsw
         mov ebx, 1
         mov ecx, 14h
         lea edi, [dword esp+0A4h]
-        mov esi, unk_1C5F9C
+        mov esi, ScreenFrameItem
         mov dword [byte esp+052h], ebx
         rep movsd
         movsw
@@ -4551,7 +4551,7 @@ PostGameScreen:
         shr eax, 1Ah
         call LoadTeamLogo
         push byte 76h
-        mov eax, dword [dword_1C5E74]
+        mov eax, dword [ShadowShape]
         mov ebx, 0Ch
         push ebp
         mov edx, dword [byte eax+04h]
@@ -6008,7 +6008,7 @@ InitGameStatsScreen:
         shl eax, 0Ch
         shr eax, 1Ah
         call LoadTeamLogo
-        mov edx, dword [dword_1C5E74]
+        mov edx, dword [ShadowShape]
         mov eax, dword [byte edx+02h]
         sar eax, 10h
         imul eax, dword 0B333h
@@ -6031,7 +6031,7 @@ InitGameStatsScreen:
         add esp, byte 4
         push byte 0
         push byte 0
-        mov edx, dword [dword_1C5E74]
+        mov edx, dword [ShadowShape]
         push edx
         push dword 0B333h
         call DrawShapeBlended
@@ -6042,7 +6042,7 @@ InitGameStatsScreen:
         shl eax, 6
         shr eax, 1Ah
         call LoadTeamLogo
-        mov edx, dword [dword_1C5E74]
+        mov edx, dword [ShadowShape]
         mov eax, dword [byte edx+02h]
         sar eax, 10h
         imul eax, dword 0B333h
@@ -6065,7 +6065,7 @@ InitGameStatsScreen:
         add esp, byte 4
         push byte 0
         push byte 0
-        mov ecx, dword [dword_1C5E74]
+        mov ecx, dword [ShadowShape]
         push ecx
         push dword 0B333h
         call DrawShapeBlended
@@ -6125,7 +6125,7 @@ InitGameStatsScreen:
         add esp, byte 8
         push eax
         call BlitShape
-        mov ah, byte [byte_1C6040]
+        mov ah, byte [FrontMusicOn]
         add esp, byte 4
         test ah, ah
         je short .2
@@ -6143,7 +6143,7 @@ InitGameStatsScreen:
         push eax
         call BlitShape
         mov eax, dword [GameStatsList]
-        mov esi, unk_1C5EF8
+        mov esi, ScreenTitleItem
         mov eax, dword [byte eax+02Ch]
         add esp, byte 4
         mov ebx, eax
@@ -6157,7 +6157,7 @@ InitGameStatsScreen:
         mov dword [eax], 0
         mov edi, dword [GameStatsColumn]
         mov ecx, 14h
-        mov esi, unk_1C5F9C
+        mov esi, ScreenFrameItem
         lea edi, [byte edi+052h]
         rep movsd
         movsw
@@ -6268,42 +6268,42 @@ InitGameStatsList:
         mov eax, dword [GameStatsColumn]
         mov dword [dword eax+0120h], edi
         push str_1TOP3
-        mov ebx, dword [dword_1C5DE4]
+        mov ebx, dword [FrontShapeFile]
         push ebx
         call FindShape
         mov edx, dword [GameStatsColumn]
         add esp, byte 8
         mov dword [dword edx+0110h], eax
         push str_2TOP3
-        mov ecx, dword [dword_1C5DE4]
+        mov ecx, dword [FrontShapeFile]
         push ecx
         call FindShape
         mov edx, dword [GameStatsColumn]
         add esp, byte 8
         mov dword [dword edx+0114h], eax
         push str_3TOP3
-        mov eax, dword [dword_1C5DE4]
+        mov eax, dword [FrontShapeFile]
         push eax
         call FindShape
         mov edx, dword [GameStatsColumn]
         add esp, byte 8
         mov dword [dword edx+0118h], eax
         push str_1BOT3
-        mov edx, dword [dword_1C5DE4]
+        mov edx, dword [FrontShapeFile]
         push edx
         call FindShape
         mov edx, dword [GameStatsColumn]
         add esp, byte 8
         mov dword [dword edx+01B4h], eax
         push str_2BOT3
-        mov ebx, dword [dword_1C5DE4]
+        mov ebx, dword [FrontShapeFile]
         push ebx
         call FindShape
         mov edx, dword [GameStatsColumn]
         add esp, byte 8
         mov dword [dword edx+01B8h], eax
         push str_3BOT3
-        mov ecx, dword [dword_1C5DE4]
+        mov ecx, dword [FrontShapeFile]
         push ecx
         call FindShape
         mov edx, dword [GameStatsColumn]
@@ -6671,7 +6671,7 @@ GameStatsPlayersPage:
         add esp, byte 8
         push eax
         call BlitShape
-        mov ah, byte [byte_1C6040]
+        mov ah, byte [FrontMusicOn]
         add esp, byte 4
         test ah, ah
         je short .18
@@ -7870,7 +7870,7 @@ DrawPlayerStatsPage:
         shr esi, 1Ah
         mov eax, esi
         call LoadTeamLogo
-        mov eax, dword [dword_1C5E74]
+        mov eax, dword [ShadowShape]
         mov edx, dword [byte eax+04h]
         sar edx, 10h
         push edx
@@ -10043,10 +10043,10 @@ PlayMenuGame:
         mov eax, 37h
         call ShowLoadingBar
         mov dword [LinesChangedInGame], 1
-        mov eax, dword [dword_1C5DE0]
+        mov eax, dword [PlayMenuGameFlag]
         mov dword [InIntermission], 0
         call PlayGame
-        mov dword [dword_1C5DE0], 0
+        mov dword [PlayMenuGameFlag], 0
         mov dword [LinesChangedInGame], 0
         call FreeLangText
         push dword [ClockFontLarge]

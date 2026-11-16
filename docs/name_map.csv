@@ -5623,29 +5623,50 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1642FB,str_NowAndRunTheWindows95Nati,asc_1642FB,new,high,"string ""now and run the Windows 95-native version of the game. """,src/data/front/main_data_01.asm
 164333,str_PressENTERToRunTheGameAny,asc_164333,new,high,"string ""Press ENTER to run the game anyway, or any other key to quit. """,src/data/front/main_data_01.asm
 164372,str_Punct6,asc_164372,new,high,"string ""------------------------------------------------------------------------------ """,src/data/front/main_data_01.asm
+1643C2,str_Win95DetectedGerman,unk_1643C2,new,low,German message: Windows 95 detected,src/data/front/main_data_01.asm
 164411,str_SpielsUnterWindows95Laufe,asc_164411,new,high,"string ""Spiels unter Windows 95 laufen zu lassen, kann ernste Leistungsprobleme """,src/data/front/main_data_01.asm
+16445A,str_Win95ProblemsGerman,unk_16445A,new,low,German message: the DOS version may misbehave,src/data/front/main_data_01.asm
+1644A0,str_Win95DosWindowGerman,unk_1644A0,new,low,German message: running in a DOS window,src/data/front/main_data_01.asm
+1644EF,str_Win95QuitGerman,unk_1644EF,new,low,German message: quit and start the Windows 95 version,src/data/front/main_data_01.asm
 16453F,str_UmTrotzdemFortzufahrenOde,asc_16453F,new,high,"string ""um trotzdem fortzufahren, oder eine beliebige andere Taste, """,src/data/front/main_data_01.asm
 16457C,str_UmDasSpielAbzubrechen,asc_16457C,new,high,"string ""um das Spiel abzubrechen. """,src/data/front/main_data_01.asm
 164597,str_Punct7,asc_164597,new,high,"string ""------------------------------------------------------------------------------ """,src/data/front/main_data_01.asm
+1645E7,str_Win95DetectedSwedish,unk_1645E7,new,low,Swedish message: Windows 95 detected,src/data/front/main_data_01.asm
+164636,str_Win95ProblemsSwedish,unk_164636,new,low,Swedish message: the DOS version may misbehave,src/data/front/main_data_01.asm
+164686,str_Win95DosWindowSwedish,unk_164686,new,low,Swedish message: running in a DOS window,src/data/front/main_data_01.asm
+1646D4,str_Win95EnterSwedish,unk_1646D4,new,low,Swedish message: press Enter to run the game anyway,src/data/front/main_data_01.asm
+164724,str_Win95AnyKeySwedish,unk_164724,new,low,Swedish message: press any key to quit,src/data/front/main_data_01.asm
 164746,str_NHL97RequiresAtLeast1MBOf,asc_164746,new,high,"string ""NHL 97 requires at least 1 MB of free hard drive space in order """,src/data/front/main_data_01.asm
 164787,str_ToOperateYouMustFreeUpThi,asc_164787,new,high,"string "" to operate. You must free up this space before running the game """,src/data/front/main_data_01.asm
 1647C9,str_Punct8,asc_1647C9,new,high,"string "" --------------------------------------------------------------  """,src/data/front/main_data_01.asm
+16480B,str_DiskSpaceGerman,unk_16480B,new,low,German message: needs 1 MB of free disk space,src/data/front/main_data_01.asm
 164855,str_BitteMachenSieSovielPlatz,asc_164855,new,high,"string "" Bitte machen Sie soviel Platz frei, bevor Sie das Spiel starten. """,src/data/front/main_data_01.asm
 164898,str_Punct9,asc_164898,new,high,"string "" --------------------------------------------------------------  """,src/data/front/main_data_01.asm
+1648DA,str_DiskSpaceSwedish,unk_1648DA,new,low,Swedish message: needs 1 MB of free disk space,src/data/front/main_data_01.asm
+16491D,str_DiskSpaceFreeSwedish,unk_16491D,new,low,Swedish message: free the space before running,src/data/front/main_data_01.asm
 164957,str_NHL97RequiresAMouseAMouse,asc_164957,new,high,"string "" NHL 97 requires a mouse.  A mouse could not be found on your system. """,src/data/front/main_data_01.asm
 16499E,str_Punct10,asc_16499E,new,high,"string "" --------------------------------------------------------------  """,src/data/front/main_data_01.asm
+1649E0,str_NoMouseGerman,unk_1649E0,new,low,German message: no mouse found,src/data/front/main_data_01.asm
 164A28,str_Punct11,asc_164A28,new,high,"string "" --------------------------------------------------------------  """,src/data/front/main_data_01.asm
+164A6A,str_NoMouseSwedish,unk_164A6A,new,low,Swedish message: no mouse found,src/data/front/main_data_01.asm
 164AA7,str_YouMustFirstUseTheSETUPPr,asc_164AA7,new,high,"string ""You must first use the SETUP program to install and configure your """,src/data/front/main_data_01.asm
 164AEB,str_SystemBeforeRunningHOCKEY,asc_164AEB,new,high,"string ""system before running HOCKEY.  """,src/data/front/main_data_01.asm
 164B0B,str_Punct12,asc_164B0B,new,high,"string "" --------------------------------------------------------------  """,src/data/front/main_data_01.asm
+164B4D,str_RunSetupGerman,unk_164B4D,new,low,German message: run SETUP first,src/data/front/main_data_01.asm
 164B89,str_KonfigurierenStartenBevor,asc_164B89,new,high,"string ""Konfigurieren starten, bevor Sie HOCKEY starten. """,src/data/front/main_data_01.asm
 164BBB,str_Punct13,asc_164BBB,new,high,"string "" --------------------------------------------------------------  """,src/data/front/main_data_01.asm
+164BFD,str_RunSetupSwedish,unk_164BFD,new,low,Swedish message: run SETUP first,src/data/front/main_data_01.asm
+164C3F,str_ConfigureSwedish,unk_164C3F,new,low,Swedish message: configure the system before running HOCKEY,src/data/front/main_data_01.asm
+164C6C,str_MemoryGerman,unk_164C6C,new,low,German message: needs 8 MB of RAM,src/data/front/main_data_01.asm
+164D67,str_MemorySwedish,unk_164D67,new,low,Swedish message: needs 8 MB of RAM,src/data/front/main_data_01.asm
 164E34,str_ThisGameRequiresAtLeastAn,asc_164E34,new,high,"string ""  This game requires at least an 8Mb machine. There is not enough RAM installed in your machine. If you have tried to run the game from the setup program, please try running HOCKEY.EXE from the command line.  """,src/data/front/main_data_01.asm
 164F06,str_KonnteDieNHL97CDNichtFind,asc_164F06,new,high,"string ""  Konnte die NHL 97 CD nicht finden. Bitte stellen Sie sicher, dass alle CD-Treiber geladen sind und sich die NHL 97 CD im Laufwerk befindet.  """,src/data/front/main_data_01.asm
+164F96,str_NeedCdSwedish,unk_164F96,new,low,Swedish message: must run from the CD-ROM,src/data/front/main_data_01.asm
 164FBD,str_NHL97MustBeInstalledAndRu,asc_164FBD,new,high,"string ""  NHL 97 must be installed and run from a CDROM. Make sure that  proper CDROM drivers are loaded and try again.  """,src/data/front/main_data_01.asm
 16502F,str_CDFILEIVIV,asc_16502F,new,high,"string ""CDFILEI.VIV""",src/data/front/main_data_01.asm
 16503B,str_Punct_main_,unk_16503B,new,high,"string ""\n""",src/data/front/main_data_01.asm
 16503D,str_BitteLegenSieDieNHL97CDIn,asc_16503D,new,high,"string ""Bitte legen Sie die NHL 97-CD in Laufwerk %s, und versuchen Sie es noch mal. """,src/data/front/main_data_01.asm
+16508B,str_InsertCdSwedish,unk_16508B,new,low,Swedish message: insert the NHL 97 CD,src/data/front/main_data_01.asm
 1650CC,str_PleaseInsertTheNHL97CDROM,asc_1650CC,new,high,"string ""Please insert the NHL 97 CDROM into drive %s and try again. """,src/data/front/main_data_01.asm
 16510C,str_CHK12,asc_16510C,new,high,"string ""CHK1""",src/data/front/main_data_01.asm
 165114,str_X12,asc_165114,new,high,"string ""X1  """,src/data/front/main_data_01.asm
@@ -7812,7 +7833,15 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 16C9C0,ModemResultCodeTable,off_16C9C0,new,low,modem result code string table,src/data/front/front_7A9D8_data_02.asm
 16CAA8,ModemResultCount,dword_16CAA8,new,low,number of modem result codes,src/data/front/front_7A9D8_data_02.asm
 16CAAC,ModemLastResult,dword_16CAAC,new,low,last modem result code,src/data/front/front_7A9D8_data_02.asm
+16CAB0,EntryListItems,dword_16CAB0,new,low,entry list menu item template,src/data/front/main_data_02.asm
+16CAB4,EntryRowOffsets,dword_16CAB4,new,low,entry row offsets (8 bytes each),src/data/front/main_data_02.asm
 16CAF0,str_Punct_DrawScreenBackground,dword_16CAF0,new,high,"string ""\t""",src/data/front/main_data_02.asm
+16CAF4,EntryColumnOffsets,dword_16CAF4,new,low,entry column offsets (8 bytes each),src/data/front/main_data_02.asm
+16CB30,LinkFrameTitle,unk_16CB30,new,low,link screen frame title,src/data/front/main_data_02.asm
+16CB74,LogoNamesLoaded,dword_16CB74,new,low,set once the logo names are loaded,src/data/front/main_data_02.asm
+16CB78,HighlightTextOn,dword_16CB78,new,low,set while highlight text is used,src/data/front/main_data_02.asm
+16CB7C,ScreenWipeMode,dword_16CB7C,new,low,screen wipe mode,src/data/front/main_data_02.asm
+16CB80,LinkBoxShown,dword_16CB80,new,low,set while the link box shows,src/data/front/main_data_02.asm
 16CCC4,MainMenuSelection,dword_16CCC4,new,low,main menu selection,src/data/front/front_845E4_data_02.asm
 16CCC8,MainMenuAnimName,unk_16CCC8,new,low,main menu animation file name,src/data/front/front_845E4_data_02.asm
 16CCE8,MainMenuFirstShow,dword_16CCE8,new,low,set on the first main menu show,src/data/front/front_845E4_data_02.asm
@@ -9915,6 +9944,56 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1C5DA4,ReplayBufferSize,dword_1C5DA4,new,low,replay buffer size,src/data/front/front_D15FB_bss_02.asm
 1C5DA8,ReplayFileOpen,dword_1C5DA8,new,low,set while the replay file is open,src/data/front/front_D15FB_bss_02.asm
 1C5DAC,ScreenBackgrounds,dword_1C5DAC,new,low,screen background bitmaps,src/data/front/front_D15FB_bss_02.asm
+1C5DB0,BackgroundFrameArt,dword_1C5DB0,new,low,background frame art,src/data/front/main_bss_01.asm
+1C5DB4,BackgroundCornerArt,dword_1C5DB4,new,low,background corner art,src/data/front/main_bss_01.asm
+1C5DDC,MainLogFile,dword_1C5DDC,new,low,main log file handle,src/data/front/main_bss_01.asm
+1C5DE0,PlayMenuGameFlag,dword_1C5DE0,new,low,set while a game is played from the menus,src/data/front/main_bss_01.asm
+1C5DE4,FrontShapeFile,dword_1C5DE4,new,low,front end shape file,src/data/front/main_bss_01.asm
+1C5DE8,LogoNames,dword_1C5DE8,new,low,team logo names,src/data/front/main_bss_01.asm
+1C5E74,ShadowShape,dword_1C5E74,new,low,shadow shape,src/data/front/main_bss_01.asm
+1C5E78,FrontFonts,dword_1C5E78,new,low,front end fonts,src/data/front/main_bss_01.asm
+1C5E7C,EntryListArt,dword_1C5E7C,new,low,entry list art,src/data/front/main_bss_01.asm
+1C5E80,EntryListFrameArt,dword_1C5E80,new,low,entry list frame art,src/data/front/main_bss_01.asm
+1C5E84,EntryListCornerArt,dword_1C5E84,new,low,entry list corner art,src/data/front/main_bss_01.asm
+1C5E9C,FrontFontsLoaded,dword_1C5E9C,new,low,loaded flag per front end font,src/data/front/main_bss_01.asm
+1C5EA0,ScreenTitleArt,dword_1C5EA0,new,low,screen title art,src/data/front/main_bss_01.asm
+1C5EA4,ScreenTitleFrame,dword_1C5EA4,new,low,screen title frame art,src/data/front/main_bss_01.asm
+1C5EA8,ScreenTitleCorner,dword_1C5EA8,new,low,screen title corner art,src/data/front/main_bss_01.asm
+1C5EC4,StatsBackBitmaps,dword_1C5EC4,new,low,stats background bitmaps,src/data/front/main_bss_01.asm
+1C5EC8,StatsBackLayers,dword_1C5EC8,new,low,stats background layers,src/data/front/main_bss_01.asm
+1C5ECC,StatsBackFrame,dword_1C5ECC,new,low,stats background frame art,src/data/front/main_bss_01.asm
+1C5ED0,StatsBackCorner,dword_1C5ED0,new,low,stats background corner art,src/data/front/main_bss_01.asm
+1C5EEC,StatsBackArt,dword_1C5EEC,new,low,stats background art,src/data/front/main_bss_01.asm
+1C5EF0,LogoArtFile,dword_1C5EF0,new,low,team logo art file,src/data/front/main_bss_01.asm
+1C5EF4,FrontTextFile,dword_1C5EF4,new,low,front end text file,src/data/front/main_bss_01.asm
+1C5EF8,ScreenTitleItem,unk_1C5EF8,97PC,low,screen title menu item template,src/data/front/main_bss_01.asm
+1C5F4A,BlankMenuItem,unk_1C5F4A,97PC,low,blank menu item template copied into new item lists,src/data/front/main_bss_01.asm
+1C5F9C,ScreenFrameItem,unk_1C5F9C,97PC,low,screen frame menu item template,src/data/front/main_bss_01.asm
+1C5FEE,StatsBackItem,unk_1C5FEE,97PC,low,stats background menu item template,src/data/front/main_bss_01.asm
+1C6040,FrontMusicOn,byte_1C6040,new,low,front end music enabled,src/data/front/main_bss_01.asm
+1C6044,StatsBackMenuItems,unk_1C6044,new,low,stats background menu items,src/data/front/main_bss_01.asm
+1C6080,EntryRowX,dword_1C6080,new,low,entry row x (8 bytes each),src/data/front/main_bss_01.asm
+1C6084,EntryRowY,dword_1C6084,new,low,entry row y,src/data/front/main_bss_01.asm
+1C60C0,EntryColumnX,dword_1C60C0,new,low,entry column x (8 bytes each),src/data/front/main_bss_01.asm
+1C60C4,EntryColumnY,dword_1C60C4,new,low,entry column y,src/data/front/main_bss_01.asm
+1C6104,TextColourTable,unk_1C6104,new,low,text colour table,src/data/front/main_bss_01.asm
+1C7144,TextShadowTable,unk_1C7144,new,low,text shadow colour table,src/data/front/main_bss_01.asm
+1C8184,LoadingScreenShown,dword_1C8184,new,low,set while the loading screen shows,src/data/front/main_bss_01.asm
+1C8188,StatsScreenSave,dword_1C8188,new,low,saved stats screen bitmap,src/data/front/main_bss_01.asm
+1C818C,LinkBoxWidth,dword_1C818C,new,low,link box width,src/data/front/main_bss_01.asm
+1C8190,LinkBoxHeight,dword_1C8190,new,low,link box height,src/data/front/main_bss_01.asm
+1C8194,LinkBoxBitmap,dword_1C8194,new,low,link box bitmap,src/data/front/main_bss_01.asm
+1C8198,LinkBoxTimer,dword_1C8198,new,low,link box timer,src/data/front/main_bss_01.asm
+1C819C,WorkingBoxX,dword_1C819C,new,low,working box x,src/data/front/main_bss_01.asm
+1C81A0,WorkingBoxY,dword_1C81A0,new,low,working box y,src/data/front/main_bss_01.asm
+1C81A4,WorkingBoxWidth,dword_1C81A4,new,low,working box width,src/data/front/main_bss_01.asm
+1C81A8,WorkingBoxHeight,dword_1C81A8,new,low,working box height,src/data/front/main_bss_01.asm
+1C81AC,WorkingBoxSave,dword_1C81AC,new,low,working box saved screen,src/data/front/main_bss_01.asm
+1C81B0,WorkingBoxBitmap,dword_1C81B0,new,low,working box bitmap,src/data/front/main_bss_01.asm
+1C81B4,TextColourBase,dword_1C81B4,new,low,text colour base,src/data/front/main_bss_01.asm
+1C81B8,TextColourLast,dword_1C81B8,new,low,text colour used last,src/data/front/main_bss_01.asm
+1C81BC,SavedTextState,unk_1C81BC,new,low,saved text state,src/data/front/main_bss_01.asm
+1C8268,TextFonts,dword_1C8268,new,low,text fonts,src/data/front/main_bss_01.asm
 1C826C,MainMenuAnimFrames,dword_1C826C,new,low,main menu animation frames,src/data/front/front_845E4_bss_01.asm
 1C829C,MainMenuAnimTimer,dword_1C829C,new,low,main menu animation timer,src/data/front/front_845E4_bss_01.asm
 1C82A0,MainMenuAnimFrame,dword_1C82A0,new,low,main menu animation frame,src/data/front/front_845E4_bss_01.asm

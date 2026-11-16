@@ -21,7 +21,7 @@ extern SetNormalText, DrawStatTable, DrawPortrait, ShowPopupScreen, InitMenuItem
 extern FreePtr, CopyBytesOk, CopyAndClear, ZeroBytesOk, CompareKeyBytes, FileCreate, FileOpen, FileSeek
 extern FileReadRecord, FileWriteRecord, FileClose, ServiceIdle, FreeVideoBuffer, AllocGfxFixBuffer, AllocMemBlock, FreeMemBlock
 extern KbdGetKey, KbdIdleCall, OpenResourceArchive, MakeColor, FreeBitmap, DrawShapeCore, DrawShapeAtOwnPos, DrawArt
-extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, tickcount, str_Rt_CreditsScreen, unk_1C5F4A, FadePaletteBuffer
+extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, tickcount, str_Rt_CreditsScreen, BlankMenuItem, FadePaletteBuffer
 extern IntroPalette, GoalieMaskItems, DbPageSlots, GoalieMaskList
 global jpt_D5460, GoalieMaskScreen_715, GoalieMaskScreen_72B, GoalieMaskScreen_89F, GoalieMaskScreen_A13, GoalieMaskScreen_B89, GoalieMaskScreen_DBB, GoalieMaskScreen_FF0
 global GoalieMaskIntro, GoalieMaskAnim, GoalieMaskScreen, FadePalette, FadeOut, RunIntroMovie, RunIntro, DrawCreditsPage
@@ -1010,7 +1010,7 @@ GoalieMaskScreen:
         call DrawScreenBackground
         mov eax, esp
         mov ebx, str_BB00
-        mov esi, unk_1C5F4A
+        mov esi, BlankMenuItem
         xor edx, edx
         push eax
         rep movsd

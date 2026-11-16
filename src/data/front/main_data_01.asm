@@ -8,10 +8,10 @@ global str_Punct9, str_NHL97RequiresAMouseAMouse, str_Punct10, str_Punct11, str_
 global str_Punct13, str_ThisGameRequiresAtLeastAn, str_KonnteDieNHL97CDNichtFind, str_NHL97MustBeInstalledAndRu, str_CDFILEIVIV, str_BitteLegenSieDieNHL97CDIn, str_PleaseInsertTheNHL97CDROM, str_CHK12
 global str_X12, str_CB003, str_CHKD, str_XD2, str_CB02d, str_N, str_E, str_W
 global str_S14, str_NW, str_NE, str_SW, str_SE, str_LX02d, str_LC02d, str_UNPACKLOGO
-global str_LOGO8, str_LX004, str_LC004, str_DisD, str_REL1, str_RELD, str_Ldn2, unk_1643C2
-global unk_16445A, unk_1644A0, unk_1644EF, unk_1645E7, unk_164636, unk_164686, unk_1646D4, unk_164724
-global unk_16480B, unk_1648DA, unk_16491D, unk_1649E0, unk_164A6A, unk_164B4D, unk_164BFD, unk_164C3F
-global unk_164C6C, unk_164D67, unk_164F96, str_Punct_main_, unk_16508B, str_X, str_S_EditText
+global str_LOGO8, str_LX004, str_LC004, str_DisD, str_REL1, str_RELD, str_Ldn2, str_Win95DetectedGerman
+global str_Win95ProblemsGerman, str_Win95DosWindowGerman, str_Win95QuitGerman, str_Win95DetectedSwedish, str_Win95ProblemsSwedish, str_Win95DosWindowSwedish, str_Win95EnterSwedish, str_Win95AnyKeySwedish
+global str_DiskSpaceGerman, str_DiskSpaceSwedish, str_DiskSpaceFreeSwedish, str_NoMouseGerman, str_NoMouseSwedish, str_RunSetupGerman, str_RunSetupSwedish, str_ConfigureSwedish
+global str_MemoryGerman, str_MemorySwedish, str_NeedCdSwedish, str_Punct_main_, str_InsertCdSwedish, str_X, str_S_EditText
 str_Punct5:
         db 0Ah,0Ah,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh
         db 02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh
@@ -58,7 +58,7 @@ str_Punct6:
         db 02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh
         db 02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh
         db 02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,0Ah,00h
-unk_1643C2:
+str_Win95DetectedGerman:
         db 04Eh,048h,06Ch,020h,039h,037h,020h,068h,061h,074h,020h,065h,06Eh,074h,064h,065h
         db 063h,06Bh,074h,02Ch,020h,064h,061h,0E1h,020h,065h,073h,020h,065h,076h,074h,06Ch
         db 02Eh,020h,075h,06Eh,074h,065h,072h,020h,057h,069h,06Eh,064h,06Fh,077h,073h,020h
@@ -70,19 +70,19 @@ str_SpielsUnterWindows95Laufe:
         db 075h,020h,06Ch,061h,073h,073h,065h,06Eh,02Ch,020h,06Bh,061h,06Eh,06Eh,020h,065h
         db 072h,06Eh,073h,074h,065h,020h,04Ch,065h,069h,073h,074h,075h,06Eh,067h,073h,070h
         db 072h,06Fh,062h,06Ch,065h,06Dh,065h,0Ah,00h
-unk_16445A:
+str_Win95ProblemsGerman:
         db 068h,065h,072h,076h,06Fh,072h,072h,075h,066h,065h,06Eh,020h,075h,06Eh,064h,020h
         db 064h,069h,065h,020h,046h,075h,06Eh,06Bh,074h,069h,06Fh,06Eh,061h,06Ch,069h,074h
         db 084h,074h,020h,065h,069h,06Eh,069h,067h,065h,072h,020h,046h,065h,061h,074h,075h
         db 072h,065h,073h,020h,062h,065h,065h,069h,06Eh,074h,072h,084h,063h,068h,074h,069h
         db 067h,065h,06Eh,02Eh,0Ah,00h
-unk_1644A0:
+str_Win95DosWindowGerman:
         db 057h,065h,06Eh,06Eh,020h,053h,069h,065h,020h,064h,061h,073h,020h,053h,070h,069h
         db 065h,06Ch,020h,069h,06Eh,020h,065h,069h,06Eh,065h,06Dh,020h,044h,04Fh,053h,02Dh
         db 046h,065h,06Eh,073h,074h,065h,072h,020h,06Ch,061h,075h,066h,065h,06Eh,020h,06Ch
         db 061h,073h,073h,065h,06Eh,02Ch,020h,065h,06Dh,070h,066h,065h,068h,06Ch,065h,06Eh
         db 020h,077h,069h,072h,02Ch,020h,064h,061h,0E1h,020h,053h,069h,065h,0Ah,00h
-unk_1644EF:
+str_Win95QuitGerman:
         db 065h,073h,020h,06Ah,065h,074h,07Ah,074h,020h,062h,065h,065h,06Eh,064h,065h,06Eh
         db 020h,075h,06Eh,064h,020h,064h,069h,065h,020h,057h,069h,06Eh,064h,06Fh,077h,073h
         db 020h,039h,035h,02Dh,04Eh,061h,074h,069h,076h,065h,02Dh,056h,065h,072h,073h,069h
@@ -102,31 +102,31 @@ str_Punct7:
         db 02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh
         db 02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh
         db 02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,0Ah,00h
-unk_1645E7:
+str_Win95DetectedSwedish:
         db 04Eh,048h,04Ch,020h,039h,037h,020h,068h,061h,072h,020h,075h,070h,070h,074h,084h
         db 063h,06Bh,074h,020h,061h,074h,074h,020h,064h,075h,020h,06Bh,094h,072h,020h,075h
         db 06Eh,064h,065h,072h,020h,057h,069h,06Eh,064h,06Fh,077h,073h,020h,039h,035h,02Eh
         db 020h,047h,065h,06Eh,06Fh,06Dh,020h,061h,074h,074h,020h,06Bh,094h,072h,061h,020h
         db 044h,04Fh,053h,020h,076h,065h,072h,073h,069h,06Fh,06Eh,065h,06Eh,0Ah,00h
-unk_164636:
+str_Win95ProblemsSwedish:
         db 075h,06Eh,064h,065h,072h,020h,057h,069h,06Eh,064h,06Fh,077h,073h,020h,039h,035h
         db 020h,06Bh,061h,06Eh,020h,061h,06Ch,06Ch,076h,061h,072h,06Ch,069h,067h,061h,020h
         db 070h,072h,06Fh,062h,06Ch,065h,06Dh,020h,075h,070h,070h,073h,074h,086h,02Ch,020h
         db 06Fh,063h,068h,020h,076h,069h,073h,073h,061h,020h,065h,066h,066h,065h,06Bh,074h
         db 065h,072h,020h,06Bh,061h,06Eh,073h,06Bh,065h,020h,069h,06Eh,074h,065h,0Ah,00h
-unk_164686:
+str_Win95DosWindowSwedish:
         db 066h,075h,06Eh,067h,065h,072h,061h,072h,02Eh,020h,04Fh,06Dh,020h,064h,075h,020h
         db 06Bh,094h,072h,020h,069h,020h,065h,074h,074h,020h,044h,04Fh,053h,020h,066h,094h
         db 06Eh,073h,074h,065h,072h,02Ch,020h,072h,065h,06Bh,06Fh,06Dh,06Dh,065h,06Eh,064h
         db 065h,072h,061h,073h,020h,061h,074h,074h,020h,064h,075h,020h,061h,076h,073h,06Ch
         db 075h,074h,061h,072h,020h,06Fh,063h,068h,020h,06Bh,094h,072h,0Ah,00h
-unk_1646D4:
+str_Win95EnterSwedish:
         db 057h,069h,06Eh,064h,06Fh,077h,073h,020h,039h,035h,020h,076h,065h,072h,073h,069h
         db 06Fh,06Eh,065h,06Eh,020h,061h,076h,020h,073h,070h,065h,06Ch,065h,074h,02Eh,020h
         db 054h,072h,079h,063h,06Bh,020h,070h,086h,020h,045h,04Eh,054h,045h,052h,020h,066h
         db 094h,072h,020h,061h,074h,074h,020h,06Bh,094h,072h,061h,020h,073h,070h,065h,06Ch
         db 065h,074h,020h,084h,06Eh,064h,086h,02Ch,020h,065h,06Ch,06Ch,065h,072h,0Ah,00h
-unk_164724:
+str_Win95AnyKeySwedish:
         db 076h,061h,06Ch,066h,072h,069h,020h,074h,061h,06Eh,067h,065h,06Eh,074h,020h,066h
         db 094h,072h,020h,061h,074h,074h,020h,061h,076h,073h,06Ch,075h,074h,061h,02Eh,0Ah
         db 0Ah,00h
@@ -148,7 +148,7 @@ str_Punct8:
         db 02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh
         db 02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,0Ah
         db 0Ah,00h
-unk_16480B:
+str_DiskSpaceGerman:
         db 04Eh,048h,04Ch,020h,039h,037h,020h,062h,065h,06Eh,094h,074h,069h,067h,074h,020h
         db 06Dh,069h,06Eh,064h,065h,073h,074h,065h,06Eh,073h,020h,031h,020h,04Dh,042h,020h
         db 066h,072h,065h,069h,065h,06Eh,020h,046h,065h,073h,074h,070h,06Ch,061h,074h,074h
@@ -166,13 +166,13 @@ str_Punct9:
         db 02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh
         db 02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,0Ah
         db 0Ah,00h
-unk_1648DA:
+str_DiskSpaceSwedish:
         db 04Eh,048h,04Ch,020h,039h,037h,020h,06Bh,072h,084h,076h,065h,072h,020h,06Dh,069h
         db 06Eh,073h,074h,020h,031h,020h,04Dh,042h,020h,06Ch,065h,064h,069h,067h,074h,020h
         db 068h,086h,072h,064h,064h,069h,073h,06Bh,020h,075h,074h,072h,079h,06Dh,06Dh,065h
         db 020h,066h,094h,072h,020h,061h,074h,074h,020h,066h,075h,06Eh,067h,065h,072h,061h
         db 02Eh,0Ah,00h
-unk_16491D:
+str_DiskSpaceFreeSwedish:
         db 020h,04Dh,086h,073h,074h,065h,020h,064h,075h,020h,067h,094h,072h,061h,020h,064h
         db 065h,074h,074h,061h,020h,075h,074h,072h,079h,06Dh,06Dh,065h,020h,06Ch,065h,064h
         db 069h,067h,074h,020h,069h,06Eh,06Eh,061h,06Eh,020h,064h,075h,020h,06Bh,094h,072h
@@ -189,7 +189,7 @@ str_Punct10:
         db 02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh
         db 02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,0Ah
         db 0Ah,00h
-unk_1649E0:
+str_NoMouseGerman:
         db 0Ah,04Eh,048h,04Ch,020h,039h,037h,020h,062h,065h,06Eh,094h,074h,069h,067h,074h
         db 020h,065h,069h,06Eh,065h,020h,04Dh,061h,075h,073h,02Eh,020h,049h,06Eh,020h,049h
         db 068h,072h,065h,06Dh,020h,053h,079h,073h,074h,065h,06Dh,020h,077h,075h,072h,064h
@@ -201,7 +201,7 @@ str_Punct11:
         db 02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh
         db 02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,0Ah
         db 0Ah,00h
-unk_164A6A:
+str_NoMouseSwedish:
         db 0Ah,04Eh,048h,04Ch,020h,039h,037h,020h,06Bh,072h,084h,076h,065h,072h,020h,065h
         db 06Eh,020h,06Dh,075h,073h,02Eh,020h,049h,06Eh,067h,065h,06Eh,020h,06Dh,075h,073h
         db 020h,06Bh,075h,06Eh,064h,065h,020h,068h,069h,074h,074h,061h,073h,020h,069h,020h
@@ -221,7 +221,7 @@ str_Punct12:
         db 02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh
         db 02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,0Ah
         db 0Ah,00h
-unk_164B4D:
+str_RunSetupGerman:
         db 0Ah,053h,069h,065h,020h,06Dh,081h,073h,073h,065h,06Eh,020h,07Ah,075h,065h,072h
         db 073h,074h,020h,064h,061h,073h,020h,053h,045h,054h,055h,050h,02Dh,050h,072h,06Fh
         db 067h,072h,061h,06Dh,06Dh,020h,07Ah,075h,06Dh,020h,049h,06Eh,073h,074h,061h,06Ch
@@ -237,17 +237,17 @@ str_Punct13:
         db 02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh
         db 02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,0Ah
         db 0Ah,00h
-unk_164BFD:
+str_RunSetupSwedish:
         db 0Ah,044h,075h,020h,06Dh,086h,073h,074h,065h,020h,066h,094h,072h,073h,074h,020h
         db 061h,06Eh,076h,084h,06Eh,064h,061h,020h,020h,053h,045h,054h,055h,050h,020h,070h
         db 072h,06Fh,067h,072h,061h,06Dh,06Dh,065h,074h,020h,066h,094h,072h,020h,061h,074h
         db 074h,020h,069h,06Eh,073h,074h,061h,06Ch,06Ch,065h,072h,061h,020h,06Fh,063h,068h
         db 0Ah,00h
-unk_164C3F:
+str_ConfigureSwedish:
         db 06Bh,06Fh,06Eh,066h,069h,067h,075h,072h,065h,072h,061h,020h,064h,069h,074h,074h
         db 020h,073h,079h,073h,074h,065h,06Dh,020h,069h,06Eh,06Eh,061h,06Eh,020h,064h,075h
         db 020h,06Bh,094h,072h,020h,048h,04Fh,043h,04Bh,045h,059h,0Ah,00h
-unk_164C6C:
+str_MemoryGerman:
         db 0Ah,0Ah,044h,069h,065h,073h,065h,073h,020h,053h,070h,069h,065h,06Ch,020h,062h
         db 065h,06Eh,094h,074h,069h,067h,074h,020h,06Dh,069h,06Eh,064h,065h,073h,074h,065h
         db 06Eh,073h,020h,038h,020h,04Dh,042h,020h,052h,041h,04Dh,02Eh,020h,049h,06Eh,020h
@@ -264,7 +264,7 @@ unk_164C6C:
         db 06Dh,06Dh,0Ah,020h,048h,04Fh,043h,04Bh,045h,059h,02Eh,045h,058h,045h,020h,069h
         db 06Dh,020h,04Eh,048h,04Ch,039h,037h,02Dh,056h,065h,072h,07Ah,065h,069h,063h,068h
         db 06Eh,069h,073h,020h,061h,075h,066h,02Eh,0Ah,0Ah,00h
-unk_164D67:
+str_MemorySwedish:
         db 0Ah,0Ah,044h,065h,074h,074h,061h,020h,073h,070h,065h,06Ch,020h,06Bh,072h,084h
         db 076h,065h,072h,020h,06Dh,069h,06Eh,073h,074h,020h,065h,06Eh,020h,038h,04Dh,062h
         db 020h,06Dh,061h,073h,06Bh,069h,06Eh,02Eh,020h,044h,065h,074h,020h,066h,069h,06Eh
@@ -303,7 +303,7 @@ str_KonnteDieNHL97CDNichtFind:
         db 020h,075h,06Eh,064h,020h,073h,069h,063h,068h,020h,064h,069h,065h,020h,04Eh,048h
         db 04Ch,020h,039h,037h,020h,043h,044h,020h,069h,06Dh,020h,04Ch,061h,075h,066h,077h
         db 065h,072h,06Bh,020h,062h,065h,066h,069h,06Eh,064h,065h,074h,02Eh,0Ah,0Ah,00h
-unk_164F96:
+str_NeedCdSwedish:
         db 0Ah,0Ah,04Eh,048h,04Ch,020h,039h,037h,020h,06Dh,086h,073h,074h,065h,020h,06Bh
         db 094h,072h,061h,073h,020h,066h,072h,086h,06Eh,020h,065h,06Eh,020h,043h,044h,02Dh
         db 052h,04Fh,04Dh,02Eh,0Ah,0Ah,00h
@@ -326,7 +326,7 @@ str_BitteLegenSieDieNHL97CDIn:
         db 020h,04Ch,061h,075h,066h,077h,065h,072h,06Bh,020h,025h,073h,02Ch,020h,075h,06Eh
         db 064h,020h,076h,065h,072h,073h,075h,063h,068h,065h,06Eh,020h,053h,069h,065h,020h
         db 065h,073h,020h,06Eh,06Fh,063h,068h,020h,06Dh,061h,06Ch,02Eh,0Ah,00h
-unk_16508B:
+str_InsertCdSwedish:
         db 056h,084h,06Eh,06Ch,069h,067h,065h,06Eh,020h,073h,084h,074h,074h,020h,069h,06Eh
         db 020h,04Eh,048h,04Ch,020h,039h,037h,020h,043h,044h,020h,073h,06Bh,069h,076h,061h
         db 06Eh,020h,069h,020h,073h,070h,065h,06Ch,061h,072h,065h,020h,025h,073h,020h,06Fh

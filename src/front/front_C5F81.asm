@@ -5,8 +5,8 @@ section s_C5F81 progbits alloc exec nowrite align=1
 extern str_00007, str_ON00, str_OF00, str_MA00, str_AUOO, str_5000, str_1000, str_2000
 extern str_NA00, str_10IL, str_102L, str_103L, str_ONDL, str_OFDL, str_MADL, str_AUDL
 extern str_50DL, str_20DL, str_NADL, str_OFF, str_LX002, str_LC002, str_LX0D2, str_LC0D2
-extern str_BALL, SeasonCreated, PlayoffOptionFlags, PlayoffStarted, byte_1C6040, SeasonMenuSoundOn, MenuScreenBitmap, GameSettings
-extern GameOptionFlags, PlayoffOptionBits, dword_1C5DE4, SeasonSetupItemKinds, SeasonSetupItemArt, SeasonModeShapes, SeasonAutoShapes, SeasonLength50Shapes
+extern str_BALL, SeasonCreated, PlayoffOptionFlags, PlayoffStarted, FrontMusicOn, SeasonMenuSoundOn, MenuScreenBitmap, GameSettings
+extern GameOptionFlags, PlayoffOptionBits, FrontShapeFile, SeasonSetupItemKinds, SeasonSetupItemArt, SeasonModeShapes, SeasonAutoShapes, SeasonLength50Shapes
 extern SeasonLength10Shapes, SeasonLength20Shape, SeasonLeagueShape, SeasonLeagueShapeLit, SeasonLeagueShapeEnd, SeasonSetupNameShapes, SeasonInjuryShapes, SeasonSetupShapeFile
 extern SeasonSetupItems
 extern SeasonSetupItems
@@ -128,7 +128,7 @@ SeasonSetupScreen:
         movsd
         movsd
         mov dword [dword ebp+0314h], 0
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .1
         call MusicEnabled
 .1:
@@ -424,13 +424,13 @@ SeasonSetupScreen:
 .4:
         push byte 0
         push str_LX002
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
         push str_LX002
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+04h]
@@ -443,14 +443,14 @@ SeasonSetupScreen:
         shl ebx, 2
         push str_LC002
         mov dword [dword ebx+ebp+0264h], eax
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         mov dword [dword ebp+02F0h], edx
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
         push str_LC002
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+04h]
@@ -508,7 +508,7 @@ SeasonSetupScreen:
         jne short .5
         push dword [MenuScreenBitmap]
         push str_LX002
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         push eax
@@ -541,7 +541,7 @@ SeasonSetupScreen:
         push byte 0
         lea eax, [dword ebp+02C4h]
         push eax
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         push eax
@@ -556,7 +556,7 @@ SeasonSetupScreen:
         jne short .7
         push dword [MenuScreenBitmap]
         push str_LC002
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         push eax
@@ -588,7 +588,7 @@ SeasonSetupScreen:
         push byte 0
         lea eax, [dword ebp+02C4h]
         push eax
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         push eax
@@ -623,7 +623,7 @@ SeasonSetupScreen:
         add eax, edx
         push str_LC002
         sub eax, byte 32h
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         mov dword [SeasonSetupItems+2Ah], eax
         lea eax, [dword ebp-03C4h]
         mov dword [SeasonSetupItems+2Eh], 101h
@@ -633,7 +633,7 @@ SeasonSetupScreen:
         movsx eax, word [byte eax+06h]
         push eax
         push str_LC002
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         mov ebx, dword [SeasonSetupItems+2Ah]
         mov edx, dword [SeasonSetupItems+26h]
@@ -659,7 +659,7 @@ SeasonSetupScreen:
         add eax, edx
         push str_LX002
         sub eax, byte 32h
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         mov dword [SeasonSetupItems+7Ch], eax
         lea eax, [dword ebp-0384h]
         mov dword [SeasonSetupItems+80h], 101h
@@ -669,7 +669,7 @@ SeasonSetupScreen:
         movsx eax, word [byte eax+06h]
         push eax
         push str_LX002
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         mov ebx, dword [SeasonSetupItems+7Ch]
         mov edx, dword [SeasonSetupItems+78h]
@@ -1444,7 +1444,7 @@ SeasonSetupScreen_139E:
         push dword [dword ebp+02ECh]
         call FreeMemBlock
         add esp, byte 4
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .83
         call LoadFrontEndSfx
 .83:

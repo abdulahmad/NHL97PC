@@ -23,7 +23,7 @@ extern ClockShown, InGameMenuRequest, ShowFrameRate, ShowStands, ShowRink, ShowC
 extern ShowBenches, CameraScenesEnabled, InIntermission, LinkGameActive, GfxFixBuffer, mousex, mousey, dword_16E464
 extern dword_16E468, QuantizePalette, DrawDestPitch, VideoModePanelMode, VideoModeChanged, GameObjects, ActiveCameraScene, ViewSizeChanged
 extern FadeDone, GameSettings, AudioOptions, GameOptionFlags, ArenaArchive, ObjectPositions, ReplayFrames, PlayerNamesOn
-extern dword_1C5DE4, PauseRemoteShape, PauseMouseShape, PauseRemoteLitShape, PauseBitmap, MenuItemHighlight, PauseClockArea, MenuFrameColour
+extern FrontShapeFile, PauseRemoteShape, PauseMouseShape, PauseRemoteLitShape, PauseBitmap, MenuItemHighlight, PauseClockArea, MenuFrameColour
 extern PauseResumeTick, IntermissionOverlay, MenuFontSmall, MenuFontLarge, MenuTextColour, PauseFrameMode, PresentFuncInput, F64_65536_LoadPauseArt
 extern F64_0p003125, F64_0p005, F64_200, F64_0p00208333, F64_320, F64_0p0015625, F64_0p003125_PickEditLinesTeam, F64_0p005_PickEditLinesTeam
 extern F64_0p003125_ConfirmQuitGame, F64_0p005_ConfirmQuitGame, F64_0p5_SetupPauseButtons, F64_0p5_PauseMenu, F64_0p5_DrawIntermissionTitle, F64_0p5_RunPauseIntermission, F64_0p003125_RulesMenu, F64_0p005_RulesMenu
@@ -71,13 +71,13 @@ LoadPauseArt:
         push byte 20h
         push str_Mous6
         push eax
-        mov dword [dword_1C5DE4], eax
+        mov dword [FrontShapeFile], eax
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
         push str_Mous6
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+04h]
@@ -86,14 +86,14 @@ LoadPauseArt:
         add esp, byte 0Ch
         push byte 20h
         push str_Remo4
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         mov dword [PauseRemoteShape], eax
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
         push str_Remo4
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+04h]
@@ -102,7 +102,7 @@ LoadPauseArt:
         add esp, byte 0Ch
         push byte 20h
         push str_Mous6
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         mov dword [PauseMouseShape], eax
         call FindShape
         movsx eax, word [byte eax+06h]
@@ -112,7 +112,7 @@ LoadPauseArt:
         add esp, byte 8
         push eax
         push str_Mous6
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         movsx eax, word [byte eax+04h]
         cdq
@@ -124,7 +124,7 @@ LoadPauseArt:
         add esp, byte 0Ch
         push byte 20h
         push str_Remo4
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         mov dword [PauseRemoteLitShape], eax
         call FindShape
         movsx eax, word [byte eax+06h]
@@ -134,7 +134,7 @@ LoadPauseArt:
         add esp, byte 8
         push eax
         push str_Remo4
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         movsx eax, word [byte eax+04h]
         cdq
@@ -172,7 +172,7 @@ LoadPauseArt:
         push byte 10h
         push str_Remo4
 .4:
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         push eax
@@ -205,9 +205,9 @@ LoadPauseArt:
         call PresentScreen
         mov eax, 1
         call SetMenuMode
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FreeMemBlock
-        mov dword [dword_1C5DE4], 0
+        mov dword [FrontShapeFile], 0
         add esp, byte 4
         jmp near PickEditLinesTeam_5B5
 ;-----------------------------------------------------------------------------
@@ -1305,7 +1305,7 @@ DrawPauseButtons:
         call WaitSoundTime
         mov eax, 100h
         call LoadDataFile
-        mov dword [dword_1C5DE4], eax
+        mov dword [FrontShapeFile], eax
         cmp word [dword ebp-0118h], byte 2
         je near .14
         xor edi, edi
@@ -1320,21 +1320,21 @@ DrawPauseButtons:
         add esp, byte 0Ch
         lea eax, [byte ebp-068h]
         push eax
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         call DrawPauseDivider
         push byte 20h
         lea eax, [byte ebp-068h]
         push eax
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
         lea eax, [byte ebp-068h]
         push eax
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+04h]
@@ -1351,7 +1351,7 @@ DrawPauseButtons:
         push byte 0
         lea eax, [byte ebp-068h]
         push eax
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         push eax
@@ -1384,7 +1384,7 @@ DrawPauseButtons:
         cwde
         push eax
         push str_CB002
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         fild word [byte eax+04h]
         fmul qword [F64_320]
@@ -1399,12 +1399,12 @@ DrawPauseButtons:
         lea eax, [byte esi+06Ch]
         call DrawMenuItem
 .15:
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FreeMemBlock
         add esp, byte 4
         lea eax, [dword ebp-0114h]
         push eax
-        mov dword [dword_1C5DE4], 0
+        mov dword [FrontShapeFile], 0
         call RestoreTextState
         add esp, byte 4
         leave

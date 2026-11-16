@@ -9,7 +9,7 @@ extern SpeechBankCountFront, SoundCardType, PlayerCallStart, PlayerCallClip, Pla
 extern SpeechBankAway, SpeechBankAwaySize, PlayerCallLast, PlayerCallTime, GameSoundsOn, SpeechChainCount, SpeechClipIndex, SpeechBankHandle
 extern SpeechClipTable, SpeechBanksLoaded, SpeechBankList, SpeechChainLen, GameSettings, GameOptionFlags, ThreeStarsCount, HomePlayerRecords
 extern HomeSpeechNames, HomeRosterData, HomeInjuredCount, AwayPlayerRecords, AwaySpeechNames, AwayRosterData
-extern AwayRosterData, dword_1C5DE4, dword_1C5EF4, CommentaryEvent_66, CommentaryEvent_135, CommentaryEvent_2DE, CommentaryEvent_36D
+extern AwayRosterData, FrontShapeFile, FrontTextFile, CommentaryEvent_66, CommentaryEvent_135, CommentaryEvent_2DE, CommentaryEvent_36D
 extern CommentaryEvent_3F6, CommentaryEvent_3FF, CommentaryEvent_408, CommentaryEvent_411, CommentaryEvent_41A, CommentaryEvent_423, CommentaryEvent_48A, CommentaryEvent_4E4
 extern CommentaryEvent_4ED, CommentaryEvent_4F6, CommentaryEvent_4FF, CommentaryEvent_508, CommentaryEvent_511, CommentaryEvent_51A, CommentaryEvent_523, CommentaryEvent_52C
 extern CommentaryEvent_535, CommentaryEvent_58C, CommentaryEvent_5E2, CommentaryEvent_5EB, CommentaryEvent_5F4, CommentaryEvent_5FD, CommentaryEvent_654, CommentaryEvent_6D5
@@ -983,18 +983,18 @@ InitSpeechBanks:
         mov eax, 2Eh
         xor edx, edx
         call LoadDataFile
-        mov dword [dword_1C5DE4], eax
+        mov dword [FrontShapeFile], eax
         xor edx, edx
         mov eax, 2Fh
         call LoadDataFileLib
         push str_Remo
-        mov ebx, dword [dword_1C5DE4]
+        mov ebx, dword [FrontShapeFile]
         push ebx
-        mov dword [dword_1C5EF4], eax
+        mov dword [FrontTextFile], eax
         call FindShape
         add esp, byte 8
         push str_Mous
-        mov ecx, dword [dword_1C5DE4]
+        mov ecx, dword [FrontShapeFile]
         push ecx
         mov ebx, eax
         call FindShape
@@ -1125,17 +1125,17 @@ InitSpeechBanks:
         mov byte [MusicOptions], ah
 .53:
         call FreeMenuBitmap
-        mov ecx, dword [dword_1C5DE4]
+        mov ecx, dword [FrontShapeFile]
         push ecx
         call FreeMemBlock
         add esp, byte 4
-        mov eax, dword [dword_1C5EF4]
+        mov eax, dword [FrontTextFile]
         xor ebp, ebp
         push eax
-        mov dword [dword_1C5DE4], ebp
+        mov dword [FrontShapeFile], ebp
         call FreeMemBlock
         add esp, byte 4
-        mov dword [dword_1C5EF4], ebp
+        mov dword [FrontTextFile], ebp
         test esi, esi
         je near .80
 .54:

@@ -6,7 +6,7 @@ extern CountTeamSlots, SetupTeamForIntermission, SortCords, __CHK, __CHP, __STOS
 extern str_RPEVENT2, str_WaitingForOtherComputer2, str_WarteAufAnderenComputer, str_BREAKIN, str_BREAKOUT, awtmstruct, LinePlayersHome, PenaltyBoxCount
 extern ShotFlagsReset, NearestPlayer, NearestTeam, GoalieOut, OneTimerFlag, iflags, IcingTeam, gmode
 extern PuckFlags, PlayFlags, holdreset, RefSignal, ChantPlayed, ChantState, PadStates, LineChangeKeyFlags
-extern PlayerControlRest, MusicOptions, DetailLevel, DisplayOptions, PeriodHomeTeam, PeriodAwayTeam, byte_1C6040, clearteams
+extern PlayerControlRest, MusicOptions, DetailLevel, DisplayOptions, PeriodHomeTeam, PeriodAwayTeam, FrontMusicOn, clearteams
 extern F32_10, F32_neg8, F32_neg8_StickReachZ, GameEventTable, GameEventFlags, SavedCameraView, ClockShown, F32_62
 extern F32_54, F32_0p8, F32_ReachFactor, OpeningFrames, InGameMenuRequest, BrightnessLevel, ShowFrameRate, ShowStands
 extern ShowRink, ShowCenterLogo, ShowShadows, ShowOverlay, ShowCrowd, ShowBenches, CameraScenesEnabled, CupCelebrationActive
@@ -18,7 +18,7 @@ extern DisplayWidth, DisplayHeight, ViewWindowX, ViewWindowY, ViewWindowW, ViewW
 extern GameEventPtr, DisplayBuffer, DisplayBufferSize, ReplayLoaded, GameKeyState, GameObjects, GameTick, GameLoopTime
 extern DemoFrame, PlayerPointsTable, ViewSizeIndex, GameSettings, AudioOptions, Brightness, GameOptionFlags, GameRecord
 extern ObjectPositions, ReplayFrames, PlayerNamesOn, ReplayMode, ReplayPlaying, ReplayTick, CameraStateRecords, SeasonFileName
-extern AllStarTeamCode, dword_1C5DE4, dword_1C5EF4, hmtmstruct, memcpy_, PtrPuckOwner, PtrPuckZone, PtrPuckFlags
+extern AllStarTeamCode, FrontShapeFile, FrontTextFile, hmtmstruct, memcpy_, PtrPuckOwner, PtrPuckZone, PtrPuckFlags
 extern PtrPuckObject, PtrHomeIce, PtrAwayIce, F64_0p000244141, F64_1p2, F64_neg8, F64_0p5, F64_50
 extern F64_0p01_StickReachZ, F64_0p392699, F64_0p159155, F64_65536, rand_, randomd0, regd1, StartCrowdMusic
 extern SetupFaceoffPlayers, ClearPlayerFlags, ResetTeamStats, IsPlayoffGame, ResetForIntermission, RefreshRinkPalette, ClockTick, StartPeriod
@@ -2972,7 +2972,7 @@ PlayGame:
         mov dword [dword eax+GameRecord], edi
         cmp eax, 5FE0h
         jne short .3
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         sete al
         and eax, 0FFh
         mov dword [ReplayLoaded], eax
@@ -3007,11 +3007,11 @@ PlayGame:
         mov eax, 2Eh
         xor edx, edx
         call LoadDataFile
-        mov dword [dword_1C5DE4], eax
+        mov dword [FrontShapeFile], eax
         xor edx, edx
         mov eax, 2Fh
         call LoadDataFileLib
-        mov dword [dword_1C5EF4], eax
+        mov dword [FrontTextFile], eax
         call SetNormalText
         push byte 0FFFFFFFFh
         call MatchColor
@@ -3039,17 +3039,17 @@ PlayGame:
 .8:
         call LinkSyncGame
 .9:
-        mov edx, dword [dword_1C5DE4]
+        mov edx, dword [FrontShapeFile]
         push edx
         call FreeMemBlock
         add esp, byte 4
-        mov ecx, dword [dword_1C5EF4]
+        mov ecx, dword [FrontTextFile]
         xor ebx, ebx
         push ecx
-        mov dword [dword_1C5DE4], ebx
+        mov dword [FrontShapeFile], ebx
         call FreeMemBlock
         add esp, byte 4
-        mov dword [dword_1C5EF4], ebx
+        mov dword [FrontTextFile], ebx
 .10:
         call ClearMenuGameFlag
         call InitGameVideo
@@ -3263,7 +3263,7 @@ RunDemoGame:
         mov dword [GameOptionFlags], ecx
         call LoadDataFileLib
         push byte 0FFFFFFFFh
-        mov dword [dword_1C5EF4], eax
+        mov dword [FrontTextFile], eax
         call MatchColor
         add esp, byte 4
         call SetTextColor
@@ -3273,12 +3273,12 @@ RunDemoGame:
         call LoadLangText
         call ShowLoadingScreen
         call FreeLangText
-        mov ebp, dword [dword_1C5EF4]
+        mov ebp, dword [FrontTextFile]
         push ebp
         call FreeMemBlock
         xor eax, eax
         add esp, byte 4
-        mov dword [dword_1C5EF4], eax
+        mov dword [FrontTextFile], eax
         call CloseGameDatabase
         call InitGameAudio
         mov eax, 37h

@@ -8,9 +8,9 @@ extern str_TITL2, str_GMT1, str_BOTM, str_LB00, str_LB07, str_MB02, str_MB01, st
 extern str_MB06, str_MB05, str_MB04, str_MB10, str_MB09, str_MB08, str_BACK4, str_SY02d
 extern str_SY00, str_SY01, str_SY02, str_SY03, str_SY04, str_SY05, str_SY06, str_GL00
 extern str_GR00, str_Mous3, str_DATAREPLAYNDX, FrontEndExit, MenuOptionFlags, LinkMenuCursor, IndexMenuCursor, PlayoffUserIndex
-extern byte_1C6040, MainMenuAnimEnd, MainMenuAnimDone, StatsMenuDrawn, StatsMenuChoice, OptionsMenuChoice, MainMenuSelection, MainMenuFirstShow
+extern FrontMusicOn, MainMenuAnimEnd, MainMenuAnimDone, StatsMenuDrawn, StatsMenuChoice, OptionsMenuChoice, MainMenuSelection, MainMenuFirstShow
 extern MainMenuAnimStop, StatsMenuMode, LinkTransferReady, CreditsKeyFlag, LinkGameActive, MenuScreenBitmap, GameSettings, GameOptionFlags
-extern SeasonDefaultUser, GameRecordIds, dword_1C5DE0, dword_1C5DE4, dword_1C8268, MainMenuAnimFrames, MainMenuAnimTimer, MainMenuAnimFrame
+extern SeasonDefaultUser, GameRecordIds, PlayMenuGameFlag, FrontShapeFile, TextFonts, MainMenuAnimFrames, MainMenuAnimTimer, MainMenuAnimFrame
 extern MainMenuAnimStart, MainMenuAnimRate, MainMenuAnimShape, MainMenuAnimMode, MainMenuAnimX, MainMenuAnimY, MainMenuAnimArt, MainMenuAnimBack
 extern MainMenuAnimLogo, MainMenuAnimTitle, MainMenuAnimCursor, MainMenuAnimItems, MainMenuAnimPanel, MainMenuAnimSprites, MainMenuButtons, MainMenuChoice
 extern MainMenuAnimTick, MainMenuCursor, MainMenuWindow, MainMenuAnimRunning, MainMenuResult, MainMenuScreenArt, SeasonMenuExit, LinkScreensDone
@@ -28,7 +28,7 @@ extern RunVideoOptions, HistoryScreen, RosterScreen, PreGameMatchupScreen, PreGa
 extern ClearLinkAbort, ServiceIdle, NetDisconnect, LinkSendBlock, LinkReceiveBlock, AllocMemBlock, FreeMemBlock, ZeroMem
 extern OpenResourceArchive, FreeBitmap, DrawShapeCore, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, tickcount
 extern str_Rb_WritePhonebookFile, str_Wb, MainMenuAnimName, SeasonDbKey, LinkSettings, LinkSettingsData, GlobalSetVersion, IndexEntrySettings
-extern unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, MainMenuButtonRect, MainMenuTextRect, unk_845C0
+extern ScreenTitleItem, BlankMenuItem, ScreenFrameItem, MainMenuButtonRect, MainMenuTextRect, unk_845C0
 global jpt_84AF5, jpt_84B15, jpt_84B25, jpt_84B3D, jpt_85CFD, MainMenuAnim_32E, MainMenuAnim_344, MainMenuAnim_35A
 global MainMenuAnim_370, MainMenuAnim_50B, MainMenuScreen_911, MainMenuScreen_999, MainMenuScreen_A17, MainMenuScreen_A23, MainMenuScreen_A2F, MainMenuScreen_A3B
 global MainMenuScreen_A68, MainMenuScreen_A79, MainMenuScreen_A82, MainMenuScreen_A94, MainMenuScreen_A9D, MainMenuScreen_AAF, MainMenuScreen_AB8, MainMenuScreen_BA5
@@ -610,7 +610,7 @@ MainMenuScreen:
         inc ebx
         call OpenArtArchiveErr
         add esp, byte 8
-        mov dword [nosplit ebx*4+dword_1C8268], eax
+        mov dword [nosplit ebx*4+TextFonts], eax
 .17:
         cmp ebx, dword [MainMenuAnimRate]
         jl short .16
@@ -754,7 +754,7 @@ MainMenuScreen:
         call FindShape
         add esp, byte 8
         push str_BOTM
-        mov esi, unk_1C5EF8
+        mov esi, ScreenTitleItem
         push dword [byte ebp+076h]
         mov dword [MainMenuAnimMode], eax
         call FindShape
@@ -772,7 +772,7 @@ MainMenuScreen:
         mov esi, dword [MainMenuCursor]
         mov ecx, 52h
         lea edi, [byte esi+052h]
-        mov esi, unk_1C5F4A
+        mov esi, BlankMenuItem
         rep movsb
         mov eax, dword [MainMenuCursor]
         mov dword [byte eax+052h], 1
@@ -781,7 +781,7 @@ MainMenuScreen:
         mov esi, dword [MainMenuCursor]
         mov ecx, 52h
         lea edi, [dword esi+023Eh]
-        mov esi, unk_1C5F9C
+        mov esi, ScreenFrameItem
         rep movsb
         mov eax, dword [MainMenuCursor]
         mov dword [dword eax+023Eh], 7
@@ -1558,7 +1558,7 @@ RunGameScreens:
         mov ebx, eax
         cmp eax, byte 1Ah
         jne short .19
-        mov dword [dword_1C5DE0], 0
+        mov dword [PlayMenuGameFlag], 0
         test byte [GameSettings], 70h
         jne short .16
         mov ebx, 4
@@ -1610,7 +1610,7 @@ RunGameScreens:
         movzx eax, byte [PlayoffUserIndex]
         jmp short .21
 .25:
-        cmp dword [dword_1C5DE0], byte 0
+        cmp dword [PlayMenuGameFlag], byte 0
         jmp short .22
 .26:
         mov eax, 1
@@ -1950,7 +1950,7 @@ StatsMenuScreen:
         mov edx, 41h
         mov eax, dword [byte ebp+06Ah]
         lea edi, [dword ebp-0412h]
-        mov esi, unk_1C5EF8
+        mov esi, ScreenTitleItem
         call DrawEntryRow
         mov ecx, 52h
         lea eax, [dword ebp-0182h]
@@ -2055,7 +2055,7 @@ StatsMenuScreen:
         cmp dword [byte ebp+076h], byte 0FFFFFFFFh
         jne near .14
         push str_Mous3
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         movsx edx, word [byte eax+06h]
         mov eax, dword [StatsMenuMode]
@@ -2064,7 +2064,7 @@ StatsMenuScreen:
         sub eax, edx
         push eax
         push str_Mous3
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         xor ebx, ebx
         call FindShape
         movsx ecx, word [byte eax+04h]
@@ -2169,7 +2169,7 @@ StatsMenuScreen:
         add esp, byte 4
         cmp ebx, byte 7
         jl short .15
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .16
         push dword [StatsMenuMode]
         call FreeBitmap

@@ -6,8 +6,8 @@ extern SetClipWindow, str_POPM, str_BACK9, str_TITL10, str_MAP0, str_BDOT, str_R
 extern str_ARED, str_MB022, str_MB012, str_MB002, str_LB003, str_LD00, str_LB02d4, str_FNL0
 extern str_LTL0, str_CSV, str_HistoryCsv, str_MNTR2, str_MB042, str_MB02d, str_1TOP5, str_2TOP5
 extern str_3TOP5, str_1BOT5, str_2BOT5, str_3BOT5, str_BAK0, str_BAK1, str_BOTM3, str_BACK10
-extern str_TTL12, str_BOT1, str_TTL02, str_None, HistoryTeamFlags, MusicOptions, DetailLevel, byte_1C6040
-extern OptionsMenuChoice, str_E_BuildHistoryList, HistoryEntries, LinkGameActive, AudioOptions, dword_1C5DE4, dword_1C5E74, HistoryTextX
+extern str_TTL12, str_BOT1, str_TTL02, str_None, HistoryTeamFlags, MusicOptions, DetailLevel, FrontMusicOn
+extern OptionsMenuChoice, str_E_BuildHistoryList, HistoryEntries, LinkGameActive, AudioOptions, FrontShapeFile, ShadowShape, HistoryTextX
 extern HistoryTextY, HistoryDotShape, HistoryArrowShape, HistoryArrowLitShape, HistoryArrowEndShape, HistoryHighlightText, HistoryShineList, HistorySparkleFrame
 extern HistorySelectedTeam, HistoryTrophyIndex, HistoryDetailsOpen, HistoryTextBuffer, HistorySoundOn, HistoryLineLimit, HistoryTextBitmap, HistoryLineCount
 extern HistoryTextList, HistoryShineFrame, HistoryLastTeam, HistoryPopupBitmap, HistoryShineTimer, HistoryTrophyTick, HistorySparkleTimer, HistoryTrophyList
@@ -22,7 +22,7 @@ extern DrawTextAligned, DrawFrameBox, LoadTeamLogo, FreeLogoArt, WipeScreen, Set
 extern InitMenuItems, RunMenu, InitScrollList, ScrollUp, DrawScrollBar, ScrollDown, FreeScrollList, ScrollToMouse
 extern RunScrollList, GetLangText, OptionsScreen, InitListBox, InitShapeListBox, ServiceIdle, LinkSyncMenu, LinkSyncScreen
 extern OptionsAnimScreen, ControlSetupScreen, AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, DrawShapeCore, DrawArt
-extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, tickcount, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C
+extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, tickcount, ScreenTitleItem, BlankMenuItem, ScreenFrameItem
 global jpt_C36A2, HistoryScreen_60E, DrawHistoryScreen_73D, DrawHistoryScreen_73E, HistoryLineWidth_42, DetailLevelScreen_A25, DetailLevelScreen_A36, DetailLevelScreen_A93
 global DetailLevelScreen_B18, DetailLevelScreen_B7E, DetailLevelScreen_C26, DetailLevelScreen_C86, DetailLevelScreen_CE6, DetailLevelScreen_D46, HistoryScreen, DrawHistoryScreen
 global FindHistoryTeam, BuildHistoryList, HistoryEntryText, ShowHistoryArt, ExportHistoryCsv, HistoryLineWidth, WrapHistoryText, HistoryLabel
@@ -40,7 +40,7 @@ HistoryScreen:
         push edi
         enter 1A68h, 0
         sub ebp, 82h
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .1
         call MusicEnabled
 .1:
@@ -389,7 +389,7 @@ HistoryScreen:
         push dword [HistoryBackBitmap]
         call FreeMemBlock
         add esp, byte 4
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .30
         call LoadFrontEndSfx
 .30:
@@ -434,7 +434,7 @@ DrawHistoryScreen:
         mov eax, ebx
         call LoadTeamLogo
         mov eax, 500000h
-        mov ebx, dword [dword_1C5E74]
+        mov ebx, dword [ShadowShape]
         cdq
         movsx ecx, word [byte ebx+04h]
         idiv ecx
@@ -576,14 +576,14 @@ DrawHistoryScreen:
         mov esi, dword [HistoryEntryList]
         mov ecx, 52h
         lea edi, [dword esi+0334h]
-        mov esi, unk_1C5EF8
+        mov esi, ScreenTitleItem
         rep movsb
         mov eax, dword [HistoryEntryList]
         mov dword [dword eax+0334h], 0Ah
         mov esi, dword [HistoryEntryList]
         mov ecx, 52h
         lea edi, [byte esi+052h]
-        mov esi, unk_1C5F9C
+        mov esi, ScreenFrameItem
         rep movsb
         mov eax, dword [HistoryEntryList]
         push str_MB022
@@ -2986,21 +2986,21 @@ ShowHistoryDetails:
         mov eax, dword [HistoryEntryList]
         push str_1TOP5
         mov dword [dword eax+0268h], edx
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         mov edx, eax
         mov eax, dword [HistoryEntryList]
         push str_2TOP5
         mov dword [dword eax+0258h], edx
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         mov edx, eax
         mov eax, dword [HistoryEntryList]
         push str_3TOP5
         mov dword [dword eax+025Ch], edx
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         mov edx, eax
         mov eax, dword [HistoryEntryList]
@@ -3023,21 +3023,21 @@ ShowHistoryDetails:
         add esp, byte 8
         mov dword [dword eax+030Ch], ebx
         push str_1BOT5
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         mov edx, eax
         mov eax, dword [HistoryEntryList]
         push str_2BOT5
         mov dword [dword eax+02FCh], edx
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         mov edx, eax
         mov eax, dword [HistoryEntryList]
         push str_3BOT5
         mov dword [dword eax+0300h], edx
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         mov edx, eax
         mov eax, dword [HistoryEntryList]
@@ -3428,7 +3428,7 @@ DetailLevelScreen:
         mov dword [dword ebp-0540h], eax
         test byte [MusicOptions], 40h
         je short .9
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         jne short .9
         mov eax, dword [byte ebp-040h]
         mov eax, dword [byte eax+02Ch]
@@ -3451,7 +3451,7 @@ DetailLevelScreen:
         mov dword [dword ebp-04EEh], eax
         test byte [DetailLevel], 1
         je short .11
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         jne short .11
         mov eax, dword [byte ebp-040h]
         mov eax, dword [byte eax+02Ch]
@@ -3918,7 +3918,7 @@ DetailLevelScreen:
         call DrawScreenBackground
         push byte 0
         lea edi, [dword ebp-05B4h]
-        mov esi, unk_1C5F4A
+        mov esi, BlankMenuItem
         push dword 10Eh
         rep movsb
         push byte 1Eh
@@ -3965,7 +3965,7 @@ DetailLevelScreen_A36:
         mov dword [dword ebp-0540h], eax
         jmp short DetailLevelScreen_A93.30
 DetailLevelScreen_A93:
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .28
         and byte [MusicOptions], 0BFh
         jmp short DetailLevelScreen_B18
@@ -4029,7 +4029,7 @@ DetailLevelScreen_B18:
 DetailLevelScreen_B7E:
         mov edx, dword [AudioOptions]
         and edx, 0FEFFFFFFh
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .33
         mov dword [AudioOptions], edx
         jmp near DetailLevelScreen_B18

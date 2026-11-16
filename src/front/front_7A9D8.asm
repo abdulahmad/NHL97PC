@@ -5,13 +5,13 @@ section s_7A9D8 progbits alloc exec nowrite align=1
 extern str_Roster, str_SS2, str_VIDEO, str_AUDSTRMHACK, str_ATE1Q0X4F1, str_Punct2, str_LogoNames, str_Logo02dQfs
 extern str_Mous2, str_Remo2, str_CHK1, str_X1, str_CB00, str_CB01, str_BACK2, str_LOGO2
 extern atoi_, ScheduleDivisionFlags, FrontEndExit, SeasonUserActive, PlayoffUserActive, ScheduleWeekDays, ScheduleMonthDays, str_1_BuildSeasonSchedule
-extern ScheduleMonthLengths, ScheduleGameCounts, ScheduleHomeCounts, MovieFileHandle, MovieFileOffset, ModemResultCount, ModemLastResult, dword_16CB74
+extern ScheduleMonthLengths, ScheduleGameCounts, ScheduleHomeCounts, MovieFileHandle, MovieFileOffset, ModemResultCount, ModemLastResult, LogoNamesLoaded
 extern LinkGameActive, str_D_UpdateFrameRate, DrawDestBuffer, DrawDestPitch, DrawDestOffset, BackBufferWidth, BackBufferHeight, MovieWidth
 extern GameSettings, SeasonUserTeam, SeasonActive, SeasonRandomSeed, SeasonScheduleData, SeasonScheduleOffset, SeasonScheduleSize, MovieFrameCount
 extern MovieFrameShown, MovieAudioStream, MovieLastFrame, MovieEndReached, MovieFlags, MovieFrameIndex, MovieAudioDone, MovieFramesAhead
 extern MovieSkippable, MovieState, MovieSkipped, MovieNextFrame, MovieVideoDone, MovieStartTick, MoviePageFlip, MovieSoundChannel
 extern MovieChunkTag, MovieVideoBuffer, MovieDropCount, MovieHasAudio, MovieStreamBuffer, MovieChunkSize, MovieChunkData, MovieCdStream
-extern ReplayFileOpen, ScreenBackgrounds, dword_1C5DE4, dword_1C5DE8, dword_1C5E78, dword_1C5E9C, dword_1C5EA0, dword_1C5EF4
+extern ReplayFileOpen, ScreenBackgrounds, FrontShapeFile, LogoNames, FrontFonts, FrontFontsLoaded, ScreenTitleArt, FrontTextFile
 extern memcpy_, ModemResultTextTable, ModemResultCodeTable, rand_, sprintf_, srand_, str_ATA, str_ATD
 extern str_ATH0, str_ATM0, str_ATS01, str_ATZS760S1155, strcat_, strcpy_, strlen_, strncmp_
 extern strstr_, bcopy, BlitShape, PresentScreen, FindShape, CloseVideoWindow, BlitFrameToScreen, OpenAudioStreamChannel
@@ -2973,7 +2973,7 @@ LoadLogoNames:
         push ecx
         push edx
         enter 0C8h, 0
-        cmp dword [dword_16CB74], byte 0
+        cmp dword [LogoNamesLoaded], byte 0
         jne near .2
         mov eax, 3
         call SecondsToSamples
@@ -3006,7 +3006,7 @@ LoadLogoNames:
         call OpenResourceArchive
         add esp, byte 4
         push byte 20h
-        push dword_1C5DE8
+        push LogoNames
         lea eax, [dword ebp-0C8h]
         push eax
         push byte 23h
@@ -3017,7 +3017,7 @@ LoadLogoNames:
         add esp, byte 4
         push ebx
         call FreeMemBlock
-        mov dword [dword_16CB74], 1
+        mov dword [LogoNamesLoaded], 1
         add esp, byte 4
 .2:
         leave
@@ -3034,23 +3034,23 @@ FreeTempArt:
         push ecx
         push edx
         push esi
-        cmp dword [dword_16CB74], byte 0
+        cmp dword [LogoNamesLoaded], byte 0
         je short FreeTempArt_45
         xor esi, esi
 .1:
         mov ebx, esi
         shl ebx, 2
-        cmp dword [dword ebx+dword_1C5DE8], byte 0
+        cmp dword [dword ebx+LogoNames], byte 0
         je short .2
-        push dword [dword ebx+dword_1C5DE8]
+        push dword [dword ebx+LogoNames]
         call FreeMemBlock
         add esp, byte 4
-        mov dword [dword ebx+dword_1C5DE8], 0
+        mov dword [dword ebx+LogoNames], 0
 .2:
         inc esi
         cmp esi, byte 23h
         jl short .1
-        mov dword [dword_16CB74], 0
+        mov dword [LogoNamesLoaded], 0
 FreeTempArt_45:
         pop esi
         pop edx
@@ -3071,37 +3071,37 @@ InitFrontEnd:
         mov eax, 3
         call SecondsToSamples
         call WaitSoundTime
-        cmp dword [dword_1C5DE4], byte 0
+        cmp dword [FrontShapeFile], byte 0
         jne short .1
         mov eax, 2Eh
         xor edx, edx
         call LoadDataFile
-        mov dword [dword_1C5DE4], eax
+        mov dword [FrontShapeFile], eax
 .1:
-        cmp dword [dword_1C5EF4], byte 0
+        cmp dword [FrontTextFile], byte 0
         jne short .2
         mov eax, 2Fh
         xor edx, edx
         call LoadDataFileLib
-        mov dword [dword_1C5EF4], eax
+        mov dword [FrontTextFile], eax
 .2:
-        cmp dword [dword_1C5E78], byte 0
+        cmp dword [FrontFonts], byte 0
         jne short .3
         mov eax, 0F6h
         xor edx, edx
         call LoadDataFileLib
-        mov dword [dword_1C5E78], eax
+        mov dword [FrontFonts], eax
 .3:
         mov eax, 3
         call SecondsToSamples
         call WaitSoundTime
         call SetNormalText
         push str_Remo2
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         push str_Mous2
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         mov ebx, eax
         call FindShape
         add esp, byte 8
@@ -3120,13 +3120,13 @@ InitFrontEnd:
 .4:
         push byte 0
         push str_CHK1
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
         push str_CHK1
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+04h]
@@ -3135,14 +3135,14 @@ InitFrontEnd:
         add esp, byte 0Ch
         push byte 0
         push str_X1
-        push dword [dword_1C5DE4]
-        mov dword [nosplit ebx*4+dword_1C5EA0], eax
+        push dword [FrontShapeFile]
+        mov dword [nosplit ebx*4+ScreenTitleArt], eax
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
         push str_X1
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+04h]
@@ -3150,20 +3150,20 @@ InitFrontEnd:
         inc ebx
         call CreateBitmap
         add esp, byte 0Ch
-        mov dword [nosplit ebx*4+dword_1C5E78], eax
+        mov dword [nosplit ebx*4+FrontFonts], eax
         cmp ebx, byte 9
         jl near .4
         xor ebx, ebx
 .5:
         push byte 0
         push str_CB00
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
         push str_CB00
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+04h]
@@ -3178,13 +3178,13 @@ InitFrontEnd:
 .6:
         push byte 0
         push str_CB01
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+06h]
         push eax
         push str_CB01
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FindShape
         add esp, byte 8
         movsx eax, word [byte eax+04h]
@@ -3208,31 +3208,31 @@ FreeFrontEnd:
         push ecx
         push edx
         push esi
-        push dword [dword_1C5DE4]
+        push dword [FrontShapeFile]
         call FreeMemBlock
         add esp, byte 4
-        push dword [dword_1C5EF4]
-        mov dword [dword_1C5DE4], 0
+        push dword [FrontTextFile]
+        mov dword [FrontShapeFile], 0
         call FreeMemBlock
         add esp, byte 4
-        push dword [dword_1C5E78]
-        mov dword [dword_1C5EF4], 0
+        push dword [FrontFonts]
+        mov dword [FrontTextFile], 0
         call FreeMemBlock
         add esp, byte 4
         xor esi, esi
-        mov dword [dword_1C5E78], 0
+        mov dword [FrontFonts], 0
         call FreeLangText
         call FreeMenuBitmap
 .1:
-        push dword [nosplit esi*4+dword_1C5EA0]
+        push dword [nosplit esi*4+ScreenTitleArt]
         inc esi
         call FreeBitmap
         add esp, byte 4
-        push dword [nosplit esi*4+dword_1C5E78]
-        mov dword [nosplit esi*4+dword_1C5E9C], 0
+        push dword [nosplit esi*4+FrontFonts]
+        mov dword [nosplit esi*4+FrontFontsLoaded], 0
         call FreeBitmap
         add esp, byte 4
-        mov dword [nosplit esi*4+dword_1C5E78], 0
+        mov dword [nosplit esi*4+FrontFonts], 0
         cmp esi, byte 9
         jl short .1
         xor esi, esi

@@ -7,9 +7,9 @@ extern str_DATAEXHIBITNDX2, str_DATASEASONNDX2, str_DATAPLAYOFFNDX2, str_Replayb
 extern str_PLY, str_S5, str_IdlistFfc, str_SharedFfc, str_WHATEVER, str_04d3, str_TRBL, str_TRBR
 extern str_TRLS, str_TRRS, str_TRSE, str_TRSS, str_TRSP, str_PICT, str_Roster3, str_Rosids
 extern str_Rtids, str_Games, str_Ros, str_Lros, str_CRUSHER, str_CRUSHERPack, atoi_, IndexFlags
-extern SeasonUserHuman, SeasonUserActive, PlayoffUserHuman, PlayoffUserActive, dword_16CB7C, LinkGameActive, GameSettings, SeasonUserTeam
+extern SeasonUserHuman, SeasonUserActive, PlayoffUserHuman, PlayoffUserActive, ScreenWipeMode, LinkGameActive, GameSettings, SeasonUserTeam
 extern GameOptionFlags, TeamSelectFlags, SeasonSlot, SeasonActive, SeasonScheduleData, SeasonScheduleOffset, SeasonScheduleSize, PlayoffFileHandle
-extern SeasonFileName, ReplayIndexHandle, ReplayBufferSize, dword_1C5DE0, IndexPickChoice, IndexItemType, IndexItemValue, IndexItemTemplate
+extern SeasonFileName, ReplayIndexHandle, ReplayBufferSize, PlayMenuGameFlag, IndexPickChoice, IndexItemType, IndexItemValue, IndexItemTemplate
 extern IndexDialogType, IndexDialogText, IndexDialogShape, IndexDialogFrame, IndexDialogBack, IndexDialogWidth, IndexDialogHeight, TransferOffset
 extern TransferPackBuffer, TransferBuffer, IndexDialogShapeMid, IndexDialogShapeEnd, IndexDialogShapeTop, LinkSetupBuffer, jpt_9F6DD, memcpy_
 extern ReplayIndexSendBuf, ReplayIndexRecvBuf, rand_, sprintf_, strcat_, strcmp_, strcpy_, strlen_
@@ -26,7 +26,7 @@ extern RenameReplayIndexEntry, ClearLinkAbort, ServiceIdle, LinkSyncMenu, LinkSe
 extern AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, DrawShapeAtOwnPos, DrawShape, CreateBitmap, SetDrawTarget
 extern FillRectColor, DrawTextAt, SetTextColors, tickcount, str_D_LinkSendData, DbKeyBuffer, GlobalSetVersion, IndexEntrySettings
 extern SeasonName, SeasonPath, SeasonIndexPath, SeasonFilePath, SeasonStatsPath, PlayoffSettings, PlayoffIndexSettings, PlayoffIndexFlags
-extern PlayoffStatsPath, unk_1C5EF8, unk_1C5F4A, IndexListBox, LinkMessageText, str_Punct_PickIndexEntry, unk_9F611, unk_9F631
+extern PlayoffStatsPath, ScreenTitleItem, BlankMenuItem, IndexListBox, LinkMessageText, str_Punct_PickIndexEntry, unk_9F611, unk_9F631
 extern unk_9F651, TeamSelectMode, SeasonLastHome, SeasonLastAway, IndexEntryList, HomeTeamCode, LinkSetupValues, LinkSetupItemCount
 global jpt_A31C6, PickIndexEntryScreen_393, PickIndexEntryScreen_3A4, PickIndexEntryScreen_3B5, PickIndexEntryScreen_470, PickIndexEntryScreen_4D9, PickIndexEntryScreen_4EE, PickIndexEntryScreen_1080
 global SendLeagueFile_6F3, SendLeagueFile_6FD, SendLeagueFile_6FE, LinkSendData_BB, ResetLinkSetup_20, ResetLinkSetup_45, ResetLinkSetup_50, ResetLinkSetup_57
@@ -226,11 +226,11 @@ PickIndexEntryScreen:
 .11:
         mov ecx, 52h
         mov edi, IndexPickChoice
-        mov esi, unk_1C5EF8
+        mov esi, ScreenTitleItem
         rep movsb
         mov ecx, 52h
         mov edi, IndexItemTemplate
-        mov esi, unk_1C5F4A
+        mov esi, BlankMenuItem
         mov dword [IndexPickChoice], 0
         push str_DL00
         rep movsb
@@ -1177,7 +1177,7 @@ PickIndexEntryScreen_4EE:
         mov dword [byte ebp+072h], 0Eh
         or dword [TeamSelectFlags], eax
         movsx eax, word [HomeTeamCode]
-        mov dword [dword_1C5DE0], 1
+        mov dword [PlayMenuGameFlag], 1
         and eax, byte 3Fh
         and word [TeamSelectMode], 0FC0Fh
         shl eax, 14h
@@ -1208,7 +1208,7 @@ PickIndexEntryScreen_4EE:
         call FreeScrollList
 .88:
         push dword [byte ebp+076h]
-        mov dword [dword_16CB7C], 4
+        mov dword [ScreenWipeMode], 4
         call FreeBitmap
         add esp, byte 4
         push dword [byte ebp+05Eh]

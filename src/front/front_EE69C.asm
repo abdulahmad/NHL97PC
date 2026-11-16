@@ -6,7 +6,7 @@ extern str_LTDA, str_LTDB, str_BACK15, str_ROT0, str_BOT02, str_TITL16, str_ROTD
 extern str_BB012, str_BB02, str_BB052, str_KMB4, str_KMB5, str_KMBD, str_TOP02, str_TL0D
 extern str_MID1, str_BL0D, str_BR0D, str_BL01, str_BR012, str_TL01, str_TR012, str_Mous5
 extern str_BOX0, str_BOX1, str_BB03, str_BB042, str_KMB0, str_KMB1, str_S13, str_TB012
-extern str_TB002, str_TB032, str_TB022, str_GLWD, str_SCRB, ControlSetupFlags, byte_1C6040, RinkOverlayModel
+extern str_TB002, str_TB032, str_TB022, str_GLWD, str_SCRB, ControlSetupFlags, FrontMusicOn, RinkOverlayModel
 extern PauseArtModel, ClockFontSmall, ClockFontLarge, AllStarCandidates, AllStarItems, ControlBitmaps, ControlKeyArt, ControlKeyLitArt
 extern ControlPadArt, ControlPadLitArt, ControlLabelLayers, ControlLabelLitLayers, ControlKeyShapes, ControlPadShapes, ControlPadShapesNext, ControlShapeFile
 extern ControlSetupItems
@@ -21,7 +21,7 @@ extern DrawScreenBackground, FadeInScreen, ExitScreen, SetRegionRect, SetTextCol
 extern SetModemButton, InitMenuItems, RunMenu, GetLangText, ServiceIdle, WaitForOtherComputer, GetKeyName, LoadPauseArt
 extern FreePauseArt, DrawPauseClock, FreeMemBlock, MatchColor, MakeColor, FreeBitmap, DrawShapeAtOwnPos, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, tickcount, str_S_DrawControlKey, DefaultControls, ControlSetup
-extern unk_1C5F4A, ControlSetupItems, KeyNames, str_Punct_DrawControlLabel, unk_EDE3F, unk_EDE53
+extern BlankMenuItem, ControlSetupItems, KeyNames, str_Punct_DrawControlLabel, unk_EDE3F, unk_EDE53
 extern unk_EE053, str_Punct_ControlSetupScreen, unk_EE0E3, ControlSetupDelay, ControlSetupItem, ControlSetupSoundOn
 global jpt_F031D, ShowReservedKey_20A, ControlSetupMain_3F3, ControlSetupMain_3FB, ControlSetupScreen_B8D, ControlSetupScreen_BB1, ControlSetupScreen_BC0, ControlSetupScreen_BF3
 global ControlSetupScreen_C3A, ControlSetupScreen_F11, ControlSetupScreen_1064, ShowReservedKey, CopyControlSettings, ControlSetupMain, ControlSetupKeys, ControlSetupPads
@@ -253,7 +253,7 @@ ControlSetupMain:
         mov eax, 2
         call SecondsToSamples
         call WaitSoundTime
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         jne near .5
         push byte 0
         push dword 1E0h
@@ -3040,7 +3040,7 @@ ControlSetupScreen:
         mov word [byte eax+0Eh], 17Ch
         mov edi, ControlSetupItems
         mov eax, dword [byte ebx+02Ch]
-        mov esi, unk_1C5F4A
+        mov esi, BlankMenuItem
         mov ebx, eax
         mov edx, eax
         mov ecx, 52h

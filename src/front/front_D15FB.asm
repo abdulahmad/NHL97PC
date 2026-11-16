@@ -5,7 +5,7 @@ section s_D15FB progbits alloc exec nowrite align=1
 extern str_PANL2, str_TITL12, str_00009, str_03dLFSH, str_03dRFSH, str_GSTS, str_DD5, str_PSTS
 extern str_002dFSH, str_FRNT, str_FART4, str_NOFACEFSH4, str_PortraitNotFound, str_DSS3, str_Homestats, str_Awaystats
 extern str_ST02d, HomeGoalieIndex, HomeCenterIndex, HomeWingIndex, HomeDefenceIndex, HomeDefencePartner, HomeBackupGoalie, AwayGoalieIndex
-extern AwayCenterIndex, AwayWingIndex, AwayDefenceIndex, AwayDefencePartner, AwayBackupGoalie, byte_1C6040, RostersSparkleCount, MatchupArt
+extern AwayCenterIndex, AwayWingIndex, AwayDefenceIndex, AwayDefencePartner, AwayBackupGoalie, FrontMusicOn, RostersSparkleCount, MatchupArt
 extern MatchupStatsX, MatchupStatsY, MatchupStatsWidth, MatchupPanelBottom, MatchupPanelRects
 extern MatchupPanelRects, MatchupLayout, MatchupLeftSide, RostersSparkleTick, RostersSparkleFrame
 extern GameSettings, GameOptionFlags, SeasonActive, HomePlayerRecords, HomeRosterData, AwayPlayerRecords, AwayRosterData, MatchupSparkleShapes
@@ -25,7 +25,7 @@ extern PaEvent, LoadDataFile, OpenDataLibrary, LoadLogoNames, FreeTempArt, DrawS
 extern ExitScreen, SetTextColor, DrawTextAligned, WipeScreen, DrawPortrait, TintPortrait, InitMenuItems, RunMenu
 extern ReadTeamStats, ServiceIdle, AllocMemBlock, FreeMemBlock, OpenResourceArchive, MakeColor, FreeBitmap, DrawArt
 extern DrawShape, CreateBitmap, SetDrawTarget, ClearScreen, tickcount, str_D_DrawMatchupStats, PlayoffDbKey, SeasonDbKey
-extern SeasonFilePath, SeasonStatsPath, PlayoffStatsPath, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, str_Xx00xx01xx02xx03xx10xx11xx12, str_G0LWC0RWLDRD
+extern SeasonFilePath, SeasonStatsPath, PlayoffStatsPath, ScreenTitleItem, BlankMenuItem, ScreenFrameItem, str_Xx00xx01xx02xx03xx10xx11xx12, str_G0LWC0RWLDRD
 extern HomeSlotRatings, AwaySlotRatings
 global jpt_D1917, jpt_D3102, LayoutMatchupLeft_1E9, PreGameMatchupScreen_4E0, PreGameMatchupScreen_4EC, PreGameMatchupScreen_516, PreGameMatchupScreen_522, PreGameMatchupScreen_658
 global PreGameStatsPanel_4DF, PreGameStatsPanel_4E0, LayoutMatchupLeft, LayoutMatchupRight, PreGameMatchupScreen, DrawMatchupStats, DrawPlayerPortrait, DrawMatchupPlayer
@@ -274,7 +274,7 @@ PreGameMatchupScreen:
         mov dword [byte ebp+07Eh], 0
         mov dword [byte ebp+076h], 0
         mov dword [byte ebp+072h], 0
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .1
         call FreeTempArt
         call MusicEnabled
@@ -324,18 +324,18 @@ PreGameMatchupScreen:
         call DrawScreenBackground
         mov ecx, 52h
         lea edi, [dword ebp-094h]
-        mov esi, unk_1C5EF8
+        mov esi, ScreenTitleItem
         rep movsb
         mov ecx, 52h
         lea edi, [byte ebp-042h]
-        mov esi, unk_1C5F4A
+        mov esi, BlankMenuItem
         mov dword [dword ebp-094h], 7
         lea eax, [dword ebp-02D2h]
         rep movsb
         push byte 0
         mov ecx, 52h
         lea edi, [byte ebp+010h]
-        mov esi, unk_1C5F9C
+        mov esi, ScreenFrameItem
         mov dword [byte ebp-042h], 8
         push dword 1E0h
         rep movsb
@@ -663,7 +663,7 @@ PreGameMatchupScreen_522:
         add esp, byte 4
         cmp dword [byte ebp+076h], byte 0
         je short .20
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .20
         call LoadLogoNames
         call LoadFrontEndSfx
@@ -1841,7 +1841,7 @@ MatchupSparkle:
         add eax, byte 16h
         cmp eax, dword [MatchupSparkleFrame]
         jne short .1
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         jne short .1
         mov eax, 207h
         call PlaySfx

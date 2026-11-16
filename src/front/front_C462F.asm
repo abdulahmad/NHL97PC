@@ -4,7 +4,7 @@ bits 32
 section s_C462F progbits alloc exec nowrite align=1
 extern str_BAK0, str_BAK1, str_BOTM3, str_TTL02, str_BAL1, str_ON0D, str_OF0D, str_MB0D
 extern str_MB003, str_MB013, str_MB043, str_MB052, str_CENT, str_LFT02, str_LFT2, str_RIT02
-extern str_RIT2, SfxOptions, MusicOptions, byte_1C6040, GripDriverPtr, AudioOptions, OptionsButtonShapes, OptionsSoundShapes
+extern str_RIT2, SfxOptions, MusicOptions, FrontMusicOn, GripDriverPtr, AudioOptions, OptionsButtonShapes, OptionsSoundShapes
 extern OptionsMusicShapes, OptionsButtonOff, OptionsButtonOnShapes, OptionsButtonLit, OptionsLabelShapes, OptionsButtonDownShapes, OptionsButtonDownLit, OptionsMenuItems
 extern OptionsMenuItems
 extern OptionsMenuItems
@@ -27,7 +27,7 @@ extern PresentScreen, FindShape, UpdateOptionsAnim, ConvertArtXY, SetScreenTarge
 extern WaitSoundTime, ChkMenuMusic, PauseMusic, RequestMusicStop, WaitMusicEnd, ArenaFileName, PlayMenuSfx, PlaySfx
 extern LoadDataFile, DrawScreenBackground, FadeInScreen, SetRegionRect, SetTextColor, DrawTextAligned, WipeScreen, ShowPopupScreen
 extern InitMenuItems, RunMenu, DetailLevelScreen, FreeMemBlock, MemFreeSize, MakeColor, FreeBitmap, DrawShapeCore
-extern DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, FillRectCorners, str_D_OptionsScreen, unk_1C5F4A, OptionsMenuItems
+extern DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, FillRectCorners, str_D_OptionsScreen, BlankMenuItem, OptionsMenuItems
 extern OptionsMenuItems, GripPortWord
 global jpt_C4822, OptionsScreen_F0A, OptionsScreen_F22, OptionsScreen_10AA, OptionsScreen_10D0, OptionsScreen_1125, OptionsScreen_117A, OptionsScreen_11CF
 global OptionsScreen_1285, OptionsScreen_12DA, OptionsScreen_1359, OptionsScreen_136C, OptionsScreen_137F, OptionsScreen_13A6, OptionsScreen_140D, OptionsScreen_1431
@@ -428,7 +428,7 @@ OptionsScreen:
         call FillRectCorners
         add esp, byte 14h
         mov edi, OptionsMenuItems+52h
-        mov esi, unk_1C5F4A
+        mov esi, BlankMenuItem
         call PresentScreen
         mov edx, ebx
         mov eax, ebx
@@ -659,7 +659,7 @@ OptionsScreen:
         call SetRegionRect
         test byte [MusicOptions], 8
         je short .20
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         jne short .20
         mov eax, dword [OptionsButtonOff]
         mov dword [OptionsMenuItems+2FCh], eax
@@ -1170,7 +1170,7 @@ OptionsScreen_F22:
         or byte [MusicOptions], 10h
         or byte [AudioOptions], 2
         or byte [MusicOptions], 2
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         jne short .29
         or byte [MusicOptions], 8
         jmp short .30
@@ -1187,7 +1187,7 @@ OptionsScreen_F22:
         shr eax, 19h
         cwde
         call SetSfxVolume
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .31
         and byte [MusicOptions], 0F7h
 .31:
@@ -1220,7 +1220,7 @@ OptionsScreen_F22:
 .32:
         cmp bx, byte 9
         jne short .33
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .33
         movsx eax, bx
         imul eax, byte 52h
@@ -1391,7 +1391,7 @@ OptionsScreen_1285:
         or byte [MusicOptions], 2
         jmp short .43
 OptionsScreen_12DA:
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .45
         and byte [MusicOptions], 0F7h
         jmp near OptionsScreen_14BA

@@ -17,7 +17,7 @@ extern InputRecordTaken, InputRecordStamp, KeyboardControls, LinkGameActive, Net
 extern LinkHandshakeDone, LinkBlockDone, LinkAbortPad, LinkTimeout, str_Punct_ModemSettingsScreen, LinkServiceTick, LinkTimerActive, ModemPortBasePad
 extern ModemPortChoice, NetPlayerNameSet, IpxBuffer, NetFoundCountPad, NetGameList, NetListTick, NetListChoice, NetListFirst
 extern NetJoinedOk, OptionsAnimIndex, mousex, mousey, dword_16E464, dword_16E468, MenuScreenBitmap, IpxPresent
-extern GameSettings, dword_1C5DE4, DbFileTable, DbKeyIndex, DbRecordSizes, DbStaticBuffer, DbRecordCounts, DbPlayerFile
+extern GameSettings, FrontShapeFile, DbFileTable, DbKeyIndex, DbRecordSizes, DbStaticBuffer, DbRecordCounts, DbPlayerFile
 extern DbGameFile, DbTeamStatFile, DbPlayerStatFile, DbReplayFile, DbUserFile, DosCallRegs
 extern DosCallRegs, KeyboardPadHomeOn, KeyboardPadAwayOn, LinkInputSent, LinkInputTickCount, LinkInputChanged, LinkRemoteFlags, LinkInputAck
 extern LinkInputResend, LinkPacketBuffer, LinkSentPackets, LinkRecvPackets, LinkSendBuffer, LinkSentBytes, LinkSentErrors, LinkRecvBytes
@@ -47,7 +47,7 @@ extern CloseDbFile, AddIndexKey, DeleteIndexKey, FindIndexKey, FindLastKey, Find
 extern BuildKeyFromLong, BuildKeyFromString, KeyToLong, BuildSeasonIntro, SetupSeasonIntro, DrawSeasonIntro, RunIdleHandlers, AllocMemBlock
 extern AllocMemData, FreeMemBlock, ZeroMem, KbdGetKey, addtimer, RemoveTimerCallback, WaitTicks, MakeColor
 extern FreeBitmap, DrawShapeAtOwnPos, DrawArt, CreateBitmap, SetDrawTarget, FillRectColor, FillRect, MeasureText
-extern DrawTextAt, FillRectCorners, tickcount, str_X_WaitForOtherComputer, DbKeyBuffer, PlayoffDbKey, NetHostSessionName, unk_1C5F4A
+extern DrawTextAt, FillRectCorners, tickcount, str_X_WaitForOtherComputer, DbKeyBuffer, PlayoffDbKey, NetHostSessionName, BlankMenuItem
 extern DosCallRegs, InputRecordRing, LinkPacketQueues, LinkQueueCounters, NetSessionState, NetSocket
 extern NetJoinRequest, NetJoinedGame, NetJoinedInfo, NetHostName, OptionsAnimItems, GripPortWord, StaticBufferReady, DbOpen
 extern str_Punct_SetMatchupTeams, MatchupTeamCodes, str_Punct_DaysToYear, MonthStartDays, InputRecordOn, SlotWords, JoystickUpKey, str_Punct_ReadJoystickPads
@@ -16538,7 +16538,7 @@ ChooseNetworkGameScreen:
 .1:
         push byte 0
         push str_LX003
-        mov eax, dword [dword_1C5DE4]
+        mov eax, dword [FrontShapeFile]
         push eax
         call FindShape
         mov eax, dword [byte eax+04h]
@@ -16546,7 +16546,7 @@ ChooseNetworkGameScreen:
         sar eax, 10h
         push eax
         push str_LX003
-        mov edx, dword [dword_1C5DE4]
+        mov edx, dword [FrontShapeFile]
         push edx
         call FindShape
         mov eax, dword [byte eax+02h]
@@ -16558,7 +16558,7 @@ ChooseNetworkGameScreen:
         push byte 0
         mov dword [byte esp+esi+04h], eax
         push str_LC003
-        mov ebx, dword [dword_1C5DE4]
+        mov ebx, dword [FrontShapeFile]
         push ebx
         call FindShape
         mov eax, dword [byte eax+04h]
@@ -16566,7 +16566,7 @@ ChooseNetworkGameScreen:
         sar eax, 10h
         push eax
         push str_LC003
-        mov ecx, dword [dword_1C5DE4]
+        mov ecx, dword [FrontShapeFile]
         push ecx
         call FindShape
         mov eax, dword [byte eax+02h]
@@ -16656,7 +16656,7 @@ ChooseNetworkGameScreen:
         mov ebx, dword [MenuScreenBitmap]
         push ebx
         push str_LX003
-        mov ecx, dword [dword_1C5DE4]
+        mov ecx, dword [FrontShapeFile]
         push ecx
         call FindShape
         add esp, byte 8
@@ -16690,7 +16690,7 @@ ChooseNetworkGameScreen:
         push byte 0
         lea eax, [byte esp+02Ch]
         push eax
-        mov edx, dword [dword_1C5DE4]
+        mov edx, dword [FrontShapeFile]
         push edx
         call FindShape
         add esp, byte 8
@@ -16707,7 +16707,7 @@ ChooseNetworkGameScreen:
         mov ebx, dword [MenuScreenBitmap]
         push ebx
         push str_LC003
-        mov ecx, dword [dword_1C5DE4]
+        mov ecx, dword [FrontShapeFile]
         push ecx
         call FindShape
         add esp, byte 8
@@ -16741,7 +16741,7 @@ ChooseNetworkGameScreen:
         push byte 0
         lea eax, [byte esp+02Ch]
         push eax
-        mov edx, dword [dword_1C5DE4]
+        mov edx, dword [FrontShapeFile]
         push edx
         call FindShape
         add esp, byte 8
@@ -16918,7 +16918,7 @@ ChooseNetworkGameScreen:
         add esp, byte 0Ch
         lea eax, [byte esp+024h]
         push eax
-        mov edx, dword [dword_1C5DE4]
+        mov edx, dword [FrontShapeFile]
         push edx
         call FindShape
         add esp, byte 8
@@ -16963,7 +16963,7 @@ ChooseNetworkGameScreen:
         add esp, byte 0Ch
         lea eax, [byte esp+024h]
         push eax
-        mov ecx, dword [dword_1C5DE4]
+        mov ecx, dword [FrontShapeFile]
         push ecx
         call FindShape
         add esp, byte 8
@@ -17967,7 +17967,7 @@ OptionsAnimScreen:
         mov edx, dword [byte ebp+076h]
         push str_MB023
         mov eax, OptionsAnimItems
-        mov esi, unk_1C5F4A
+        mov esi, BlankMenuItem
         call DrawStatTable
         mov ecx, 52h
         rep movsb

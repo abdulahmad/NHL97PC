@@ -15,10 +15,10 @@ extern str_GRON, str_SLOF, str_SLON, str_GLOF, str_GLON, str_POB1, str_PBOF, str
 extern str_STSG, str_AN02d, str_CreatePlrMenu, str_CreatePlrRegion, str_00008, str_NAON, str_JNON, str_JNOF
 extern str_PBON, str_HEON, str_HEOF, str_WEON, str_WEOF, str_AGON, str_AGOF, str_Aiplayers
 extern str_Statplayers, str_Statgoalies, SeasonUserHuman, SeasonUserActive, SeasonUserLocked, SeasonCreated, PlayoffUserHuman, PlayoffUserActive
-extern PlayoffUserLocked, PlayoffStarted, byte_1C6040, NewPlayerRecord, RosterScreenOpen, RosterData, RosterFreeAgents, RosterSpeechCount
+extern PlayoffUserLocked, PlayoffStarted, FrontMusicOn, NewPlayerRecord, RosterScreenOpen, RosterData, RosterFreeAgents, RosterSpeechCount
 extern RatingPanelTick, RatingPanelFrame, RosterScreenReady, str_Punct_InitRosterScreen, str_X_InitRosterScreen, str_7_SetupRosterLists, str_I_SetupRosterLists, str_Punct_DrawRosterList
 extern str_X_DrawRosterList, RosterTitleX, str_X_SetupRosterLists, RosterTitleY, str_X_ShowRosterLogo, RosterTitleWidth, RosterTitleRight, LinkGameActive
-extern GameSettings, SeasonUserTeam, GameOptionFlags, SeasonActive, SeasonDefaultUser, PlayoffTeams, dword_1C5E74, RosterSpeechHome
+extern GameSettings, SeasonUserTeam, GameOptionFlags, SeasonActive, SeasonDefaultUser, PlayoffTeams, ShadowShape, RosterSpeechHome
 extern RosterSpeechTrade, RosterSpeechAway, RosterListBox, RosterOtherListBox, RosterTeam, RosterOtherTeam, CreateSkaterRatings, RatingBarArt
 extern CreatePlayerSlot, RatingBarBackArt, RatingBarLitArt, CreateGoalieMode, RatingBarLitBackArt, CreateGoalieRatings, JerseyMenuItems, RatingPanelShapeFile
 extern RatingPointsLeft, JerseyChoice, CreatePlayerItems, RosterLastSpeech, RosterListArea, RosterMode, RosterRow, RosterScrollArea
@@ -37,7 +37,7 @@ extern SetListSelection, GetLangText, PositionAbbrev, LoadFakeExhibition, SaveAg
 extern BuildAutoLines, PlayerRatingsScreen, KeysEqual, DaysToYear, AgeFromBirthDate, FindTeamRecord, FindPlayerRecord, FindGameRecord
 extern UpdateGameRecord, FindPlayerStat, FindTeamStat, FreeExhibitionFile, ResetExhibitionStats, AllocMemBlock, FreeMemBlock, MakeColor
 extern FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, FillRect, MeasureText, tickcount
-extern str_D_JerseyScreen, str_S_DrawCreatePlayerLabel, DbKeyBuffer, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C5FEE, CreateSkaterRows
+extern str_D_JerseyScreen, str_S_DrawCreatePlayerLabel, DbKeyBuffer, ScreenTitleItem, BlankMenuItem, ScreenFrameItem, StatsBackItem, CreateSkaterRows
 extern CreateGoalieRows, RosterSoundOn
 global jpt_CBFAA, jpt_CD7E3, RosterScreen_11C, RosterScreen_157, RosterScreen_172, RosterScreen_246, RosterScreen_2EC, RosterScreen_3B9
 global RosterScreen_42C, RosterScreen_49B, RosterScreen_4ED, RosterScreen_53E, RosterScreen_596, RosterScreen_5AB, RosterScreen_5AF, RosterScreen_5CF
@@ -82,7 +82,7 @@ RosterScreen:
         movsd
         movsd
         mov dword [byte ebp+07Eh], 0
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .1
         call MusicEnabled
 .1:
@@ -310,7 +310,7 @@ RosterScreen_3B9:
         lea edx, [byte ebp+06Ah]
         mov eax, 1
         call GetRosterPlayerNumber
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .7
         call FreeRosterInfoAnim
         test eax, eax
@@ -324,7 +324,7 @@ RosterScreen_3B9:
         lea eax, [byte ebp+062h]
         xor ebx, ebx
         call PlayerRatingsScreen
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je short .9
         call LoadRosterInfoAnim
 .9:
@@ -575,7 +575,7 @@ RosterScreen_66C:
         push edi
         call FreeMemBlock
         add esp, byte 4
-        cmp byte [byte_1C6040], 0
+        cmp byte [FrontMusicOn], 0
         je near ShowTradeRejected_102
         cmp dword [dword ebp-0292h], byte 0
         je near ShowTradeRejected_102
@@ -2579,7 +2579,7 @@ DrawRosterLogo:
         push eax
         mov eax, edx
         call LoadTeamLogo
-        mov eax, dword [dword_1C5E74]
+        mov eax, dword [ShadowShape]
         movsx edi, word [byte eax+04h]
         imul edi, dword 0B333h
         movsx eax, word [byte eax+06h]
@@ -2601,7 +2601,7 @@ DrawRosterLogo:
         add esp, byte 4
         push byte 0
         push byte 0
-        push dword [dword_1C5E74]
+        push dword [ShadowShape]
         push dword 0B333h
         call DrawShapeBlended
         add esp, byte 10h
@@ -2921,7 +2921,7 @@ InitRosterScreen:
         call ShowRosterLogo
         mov eax, dword [RosterPanelBitmap]
         mov eax, dword [byte eax+02Ch]
-        mov esi, unk_1C5EF8
+        mov esi, ScreenTitleItem
         mov ebx, eax
         mov edx, eax
         mov ecx, 52h
@@ -2933,14 +2933,14 @@ InitRosterScreen:
         mov esi, dword [RosterRow]
         mov ecx, 52h
         lea edi, [byte esi+052h]
-        mov esi, unk_1C5F4A
+        mov esi, BlankMenuItem
         rep movsb
         mov eax, dword [RosterRow]
         mov dword [byte eax+052h], 1
         mov esi, dword [RosterRow]
         mov ecx, 52h
         lea edi, [dword esi+0A4h]
-        mov esi, unk_1C5F9C
+        mov esi, ScreenFrameItem
         rep movsb
         mov eax, dword [RosterRow]
         mov dword [dword eax+0A4h], 2
@@ -11490,7 +11490,7 @@ InitCreatePlayerScreen:
         add esp, byte 4
         mov ebx, eax
         mov edx, eax
-        mov esi, unk_1C5EF8
+        mov esi, ScreenTitleItem
         call DrawScreenBackground
         mov ebx, 64h
         mov edx, 0Ah
@@ -11502,19 +11502,19 @@ InitCreatePlayerScreen:
         mov ecx, 52h
         mov edi, eax
         mov dword [eax], 0
-        mov esi, unk_1C5F4A
+        mov esi, BlankMenuItem
         lea edi, [byte edi+052h]
         rep movsb
         mov ecx, 52h
         mov edi, eax
         mov dword [byte eax+052h], 1
-        mov esi, unk_1C5F9C
+        mov esi, ScreenFrameItem
         lea edi, [dword edi+0A4h]
         rep movsb
         mov ecx, 52h
         mov edi, eax
         mov dword [dword eax+0A4h], 2
-        mov esi, unk_1C5FEE
+        mov esi, StatsBackItem
         lea edi, [dword edi+0C7Eh]
         rep movsb
         inc dword [byte ebp-04h]
