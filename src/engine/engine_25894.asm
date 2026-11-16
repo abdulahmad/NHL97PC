@@ -48,7 +48,7 @@ extern word_19CBF4, word_19CC04, word_19CC24, word_19CC26, word_19CC2C, word_19C
 extern word_19EBCA
 global jpt_2B4B4, sub_25894_D1, sub_2B4D4_424, sub_2B4D4_43B, sub_2B4D4_452, sub_2B4D4_469, sub_25894, sub_2596C
 global sub_25AEC, sub_25BD0, sub_25D40, sub_25E24, asspuckc, sub_2625C, sub_264CC, assnearest
-global sub_27210, sub_27274, ChkPullGoalieLate, assbench, sub_27A00, sub_27A78, sub_27AD8, sub_27D10
+global sub_27210, sub_27274, ChkPullGoalieLate, assbench, sub_27A00, sub_27A78, sub_27AD8, asspsclear
 global sub_27F80, sub_27FF0, sub_28110, asseben, sub_2842C, asspenalty, assdopen, assepen
 global sub_28C0C, assrefpenshot, assrefsignal, assrefwhistle, assrefgoalpa, assrefgoalline, assreffollow, assrefdrop
 global assrefatdot, assintrostand, assintroline, asstakeposition, sub_2A3A0, assstanley, sub_2A6B8, sub_2AA50
@@ -3041,9 +3041,12 @@ sub_27AD8:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_27D10                                                       27D10  97 PC
+; asspsclear                                   27D10  95 PC, medium confidence
+; Assignment 19h (from setpersonel): skaters clear to a spot by the side
+; boards (x -1898, y +-2B8h plus a random multiple of 90h) and stop facing
+; the play; 96 PC asspsclear's spot scaled to 97 units
 ;-----------------------------------------------------------------------------
-sub_27D10:
+asspsclear:
         push ebx
         push ecx
         push edx

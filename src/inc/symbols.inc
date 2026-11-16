@@ -172,7 +172,7 @@
 ;  27274  sub_27274                                engine/engine_25894.asm                      1
 ;  275C0  assbench                                 engine/engine_25894.asm                      1
 ;  27AD8  sub_27AD8                                engine/engine_25894.asm                      1
-;  27D10  sub_27D10                                engine/engine_25894.asm                      2
+;  27D10  asspsclear                               engine/engine_25894.asm                      2
 ;  27F80  sub_27F80                                engine/engine_25894.asm                      1
 ;  28110  sub_28110                                engine/engine_25894.asm                      1
 ;  282B8  asseben                                  engine/engine_25894.asm                      1

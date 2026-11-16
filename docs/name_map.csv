@@ -84,6 +84,7 @@ address,name,auto_name,source,confidence,evidence,file
 265FC,assnearest,sub_265FC,94G,medium,"94G assnearest: assignment 0Ah (off_19C3F4), the main skater AI (forcepldata gives it to the centre, as in 94G)",src/engine/engine_25894.asm
 27500,ChkPullGoalieLate,sub_27500,96PC,medium,"96 PC ChkPullGoalieLate: (team) third period, last 60 seconds, losing by 1-2 and no goalie pulled yet: pull the goalie (from assbench)",src/engine/engine_25894.asm
 275C0,assbench,sub_275C0,94G,medium,"94G assbench: assignment 17h, skating off to the bench (check4bench gives it); setplayer for the replacement",src/engine/engine_25894.asm
+27D10,asspsclear,sub_27D10,96PC,medium,"assignment 19h (from setpersonel): skaters clear to a spot by the side boards (x -1898, y +-2B8h plus a random multiple of 90h) and stop facing the play; 96 PC asspsclear's spot scaled to 97 units",src/engine/engine_25894.asm
 282B8,asseben,sub_282B8,94G,medium,"94G asseben: assignment 16h, coming on from the bench (setplayer gives it for a player from the bench, as in 94G)",src/engine/engine_25894.asm
 28698,asspenalty,sub_28698,94G,medium,"94G asspenalty: assignment 12h, the penalised player skates to the penalty box (InProgress gives it, as in 94G)",src/engine/engine_25894.asm
 289AC,assdopen,sub_289AC,96PC,low,"96 PC assdopen: assignment 13h, opens the penalty box door (SetPenaltyBoxDoor, sound)",src/engine/engine_25894.asm
