@@ -13,7 +13,8 @@ static volatile uint32_t pending;               /* bit n: IRQ n is raised (0-15)
 static volatile int ticks_queued;
 static volatile uint32_t pic_mask = 0xFFFC;     /* bit n set: IRQ n masked; the BIOS leaves the timer and keyboard on */
 static int pic_icw[2], pic_icw_left[2];
-volatile int vif = 1;                   /* the game's interrupt flag (cli / sti) */
+volatile int vif = 1;
+volatile int64_t irq0_taken_ns;           /* when the last timer interrupt was delivered (the tick-locked rdtsc reads it) */                   /* the game's interrupt flag (cli / sti) */
 volatile uint8_t isr_active;
 static volatile unsigned pit_divisor = 0x10000;
 static volatile uint32_t taken[16], raised[16];   /* NHL97_AUDIOLOG: per second */
@@ -91,6 +92,7 @@ int irq_try_deliver(ctx_t *c)
     }
     { extern volatile uint32_t trap_ring[256]; extern volatile unsigned trap_ring_n; trap_ring[trap_ring_n++ & 255] = 0x80000000u | vec; }
     taken[irq]++;
+    if (irq == 0) irq0_taken_ns = plat_now_ns();
     if (stats_on) stats_irq(irq, 1);
     if (irq > 1) TRACE("irq %d -> vector %02x\n", irq, vec);
     sp = (uint32_t *)R(c, ESP) - 4;

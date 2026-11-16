@@ -42,16 +42,21 @@ void install_flag_traps(void)
  * dword_16E308), and each frame it places the players between two simulation steps by the cycles since the last one (14CDD, the
  * players' drawing positions in sub_6539C). A modern counter runs at several GHz: the one-second count overflows 32 bits and the
  * drawn positions land far off, so the shadows and sprites were drawn as rows from the screen's left edge. Each rdtsc of the game
- * is replaced by int3, nop and answered from the host's clock as a Pentium's counter (200 MHz; NHL97_CPUMHZ sets another rate). */
+ * is replaced by int3, nop and answered as a 200 MHz Pentium's counter (NHL97_CPUMHZ sets another rate). The answer is locked to the
+ * game's own tick count, as patch 1.1 does with the timer chip on CPUs without the counter (sub_F9650, 14CDD, sub_65164 in 1.1), so
+ * the time since a simulation step always agrees with the ticks the game has counted; NHL97_TSC=host uses the host clock instead. */
 static const uint32_t rdtsc_sites[] = { 0x14CDD, 0x60D2E, 0x60D4A, 0xE2F3A, 0xE461E, 0xF967D, 0xF968E };
 #define NRDTSC (int)(sizeof rdtsc_sites / sizeof *rdtsc_sites)
 static uint64_t tsc_mhz = 200;
+static int tsc_host;                    /* NHL97_TSC=host: the host clock instead of the tick-locked counter */
 
 void install_rdtsc_traps(void)
 {
     const char *e = getenv("NHL97_CPUMHZ");
     int i;
     if (e && atoi(e) > 0) tsc_mhz = (uint64_t)atoi(e);
+    e = getenv("NHL97_TSC");
+    tsc_host = e && !strcmp(e, "host");
     for (i = 0; i < NRDTSC; i++) {
         uint8_t *p = GAME_ADDR(rdtsc_sites[i]);
         if (p[0] == 0x0F && p[1] == 0x31) { p[0] = 0xCC; p[1] = 0x90; }
@@ -67,7 +72,20 @@ static int emulate_rdtsc(ctx_t *c, const uint8_t *ip)
     if (ip[1] != 0x90) return 0;
     for (i = 0; i < NRDTSC && rdtsc_sites[i] != orig; i++) ;
     if (i == NRDTSC) return 0;
-    t = (uint64_t)plat_now_ns() * tsc_mhz / 1000u;
+    if (tsc_host) t = (uint64_t)plat_now_ns() * tsc_mhz / 1000u;
+    else {
+        /* patch 1.1's way for a CPU without the counter: the game's tick count times the counts per tick, plus how far into the
+         * current tick we are (1.1 reads the timer chip; here the time since the tick was delivered), never past the next tick */
+        extern volatile int64_t irq0_taken_ns;
+        static uint64_t last;
+        uint64_t per = tsc_mhz * 1000000u / (irq_pit_hz() ? irq_pit_hz() : 100), in;
+        int64_t since = plat_now_ns() - irq0_taken_ns;
+        in = since <= 0 ? 0 : (uint64_t)since * tsc_mhz / 1000u;
+        if (in >= per) in = per - 1;
+        t = (uint64_t)*(volatile uint32_t *)GAME_ADDR(ORIG_TICKCOUNT) * per + in;
+        if (t < last) t = last;
+        last = t;
+    }
     R(c, EAX) = (uint32_t)t; R(c, EDX) = (uint32_t)(t >> 32);
     return 2;
 }
