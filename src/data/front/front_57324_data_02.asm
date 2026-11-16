@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_16B1A0 progbits alloc noexec write align=1
 extern sub_3A2E8, sub_3A3C8, sub_3A440, sub_3A564, sub_3A65C, sub_3A75C, sub_3A814, sub_3A884
-extern sub_3A920, sub_3A9D0, sub_3AA48, sub_3AF30, sub_3AFDC, sub_3B05C, sub_61540, sub_628C4
+extern sub_3A920, sub_3A9D0, sub_3AA48, checkgoal, sub_3AFDC, sub_3B05C, sub_61540, sub_628C4
 extern sub_62F14, sub_633E8, sub_63AA4, sub_63E8C, sub_640D0, sub_64490, sub_64700, sub_64820
 extern sub_648B4, sub_649E0, sub_64AE0, sub_64D54, sub_6A604, sub_6A77C, sub_6ABEC, sub_6B140
 extern sub_6B28C, sub_70378, sub_70424, sub_704D4, sub_708B0, sub_708F4, sub_709D0, sub_70A14
@@ -723,10 +723,10 @@ off_16BD2C:
         dd sub_72170
         dd sub_72170
         dd sub_72170
-        dd sub_3AF30
-        dd sub_3AF30
-        dd sub_3AF30
-        dd sub_3AF30
+        dd checkgoal
+        dd checkgoal
+        dd checkgoal
+        dd checkgoal
         dd sub_3AFDC
         dd sub_3AFDC
         dd sub_3AFDC

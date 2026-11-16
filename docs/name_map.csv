@@ -9,6 +9,7 @@ address,name,auto_name,source,confidence,evidence,file
 11F10,SetupTeamForIntermission,,96PC,medium,NHL96PC 4AF89 (similar): mnemonic similarity 0.88 over 32 instructions,
 127D4,setpersonel,sub_127D4,94G,medium,94G setpersonel (96 PC body): clears the team's 6 on-ice slots and sets the personnel,src/front/front_10010.asm
 12A70,ClockTick,sub_12A70,96PC,medium,"96 PC ClockTick: counts the game clock down (word_19CBBA minutes, word_19CBBC seconds) and posts the clock events; from RunSimFrames",src/front/front_10010.asm
+12E50,ReleaseBoxPlayers,sub_12E50,new,low,"at a stoppage (assrefwhistle, assrefgoalpa): players whose penalty is over get assignment 15h (assleavebox) inserted",src/front/front_10010.asm
 1303C,AllInPlace,,96PC,medium,NHL96PC 3ABAE (similar): mnemonic similarity 0.87 over 21 instructions,
 1306C,Intermission,sub_1306C,96PC,medium,"96 PC Intermission: GameOver when gsp is 4, else SetupTeamForIntermission and resets the players for the next period",src/engine/faceoff/faceoff.asm
 130C8,StartGame,sub_130C8,96PC,medium,"96 PC StartGame: CountTeamSlots, clears the game vars and teams, restores the teams and starts the period",src/engine/faceoff/faceoff.asm
@@ -69,6 +70,7 @@ address,name,auto_name,source,confidence,evidence,file
 1FB6C,Setplass,sub_1FB6C,94G,medium,"94G Setplass: sets the player's starting assignment by position from the list byte_1689C0 (goalie 2, defence 3, wings 4, centre 5), after SwapPosition",src/engine/engine_15AC2.asm
 20508,Endfaceoff,sub_20508,96PC,medium,"from puckfaceoff2: decides the faceoff (randomd0 21h / 0Ah as in 96 PC), gives the puck assignment 41h (pucknorm) and the referee 31h (assreffollow)",src/engine/engine_15AC2.asm
 209E0,assbenchwait,sub_209E0,96PC,low,"assignment 1 (set by setpersonel, AddPenalty2): an off-ice player waits at the bench (x -2232 / -4440), check4bench, flags +0C1h",src/engine/engine_15AC2.asm
+20CB0,Goal,sub_20CB0,95PC,medium,"the puck is in a goal: offside goals become AddPenalty / AddPenalty2, the goal and its bookkeeping, the goal commentary (CommentaryEvent), the scorer's team to assscore (18h), the puck to 40h and the referee to 31h; also from DebugKeys",src/engine/engine_15AC2.asm
 21B20,assgoalie,sub_21B20,94G,medium,"94G assgoalie: assignment 2 (Setplass list for the goalie), the goalie AI",src/engine/engine_15AC2.asm
 22828,assextra4,sub_22828,96PC,low,96 PC assextra4 (placeholder name): called from the offence assignments,src/engine/engine_15AC2.asm
 22B8C,assdefo,sub_22B8C,94G,low,"94G assdefo: assignment 0Bh, defenceman on offence (SwapPosition, assextra4, as 96 PC assdefo)",src/engine/engine_15AC2.asm
@@ -136,6 +138,7 @@ address,name,auto_name,source,confidence,evidence,file
 365FC,checkfight,sub_365FC,93G,medium,"NHLPA 93 checkfight: (player a3, player a2) after a hit, with fighting on in the options: counts the hits and may start a fight (StartFight); the others get assfwatch (1Dh)",src/engine/faceoff/faceoff_2.asm
 36AB0,assfight,sub_36AB0,93G,medium,"NHLPA 93 assfight: assignment 1Ch (StartFight gives it to both fighters), the fighting logic",src/engine/faceoff/faceoff_2.asm
 36E34,assfwatch,sub_36E34,93G,medium,"NHLPA 93 assfwatch: assignment 1Dh (checkfight gives it to the others), players watching the fight",src/engine/faceoff/faceoff_2.asm
+3AF30,checkgoal,sub_3AF30,94G,low,"from the off_16BD2C handler table: the puck against a net; the two net checks (sub_2F8D8 / sub_2FA00) call Goal, as 93G/94G checkgoal does for the puck",src/engine/engine_3812E.asm
 3C75C,SetVideoMode,sub_3C75C,new,medium,"(width, height): switches the screen mode when it differs from the current one (dword_1A8E84 x dword_1A8E88)",src/engine/engine_3812E.asm
 3E850,CdStreamOpen,sub_3E850,96PC,medium,"96 PC CdStreamOpen: allocates and opens a CD stream (""CDSTREAM"" block)",src/engine/engine_3812E.asm
 3E904,setstreamspeed,sub_3E904,96PC,medium,"96 PC setstreamspeed (""STREAM"" block), measures the stream's read speed",src/engine/engine_3812E.asm

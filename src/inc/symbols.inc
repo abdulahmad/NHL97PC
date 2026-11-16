@@ -27,7 +27,7 @@
 ;  12A70  ClockTick                                front/front_10010.asm                        1
 ;  12C2C  sub_12C2C                                front/front_10010.asm                        1
 ;  12DE8  sub_12DE8                                front/front_10010.asm                        1
-;  12E50  sub_12E50                                front/front_10010.asm                        1
+;  12E50  ReleaseBoxPlayers                        front/front_10010.asm                        1
 ;  1303C  AllInPlace                               engine/faceoff/faceoff.asm                   1
 ;  1306C  Intermission                             engine/faceoff/faceoff.asm                   1
 ;  13AF0  sub_13AF0                                engine/faceoff/faceoff.asm                   1
@@ -139,7 +139,7 @@
 ;  209D0  sub_209D0                                engine/engine_15AC2.asm                      1
 ;  209E0  assbenchwait                             engine/engine_15AC2.asm                      1
 ;  20A80  sub_20A80                                engine/engine_15AC2.asm                      1
-;  20CB0  sub_20CB0                                engine/engine_15AC2.asm                      3
+;  20CB0  Goal                                     engine/engine_15AC2.asm                      3
 ;  218B8  sub_218B8                                engine/engine_15AC2.asm                      1
 ;  21A4C  sub_21A4C                                engine/engine_15AC2.asm                      1
 ;  21B20  assgoalie                                engine/engine_15AC2.asm                      2
@@ -294,7 +294,7 @@
 ;  3AC3C  sub_3AC3C                                engine/engine_3812E.asm                      1
 ;  3AD34  sub_3AD34                                engine/engine_3812E.asm                      1
 ;  3AD9C  sub_3AD9C                                engine/engine_3812E.asm                      1
-;  3AF30  sub_3AF30                                engine/engine_3812E.asm                      1
+;  3AF30  checkgoal                                engine/engine_3812E.asm                      1
 ;  3AFDC  sub_3AFDC                                engine/engine_3812E.asm                      1
 ;  3B05C  sub_3B05C                                engine/engine_3812E.asm                      1
 ;  3B09C  sub_3B09C                                engine/engine_3812E.asm                      1

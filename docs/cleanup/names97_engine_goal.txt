@@ -1,0 +1,3 @@
+sub_20CB0 Goal {source=95PC,confidence=medium} the puck is in a goal: offside goals become AddPenalty / AddPenalty2, the goal and its bookkeeping, the goal commentary (CommentaryEvent), the scorer's team to assscore (18h), the puck to 40h and the referee to 31h; also from DebugKeys
+sub_12E50 ReleaseBoxPlayers {confidence=low} at a stoppage (assrefwhistle, assrefgoalpa): players whose penalty is over get assignment 15h (assleavebox) inserted
+sub_3AF30 checkgoal {source=94G,confidence=low} from the off_16BD2C handler table: the puck against a net; the two net checks (sub_2F8D8 / sub_2FA00) call Goal, as 93G/94G checkgoal does for the puck

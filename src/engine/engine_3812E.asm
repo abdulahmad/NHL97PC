@@ -78,7 +78,7 @@ global sub_38BFC, sub_38C79, sub_38D84, sub_38E26, sub_38F7A, sub_39052, sub_397
 global sub_39851, sub_39882, sub_39B20, sub_39BB6, sub_39CE0, sub_39D1C, sub_39DA4, sub_39EC0
 global sub_3A06C, sub_3A164, sub_3A2E8, sub_3A3C8, sub_3A404, sub_3A440, sub_3A564, sub_3A65C
 global sub_3A75C, sub_3A814, sub_3A884, sub_3A920, sub_3A9D0, sub_3AA48, sub_3AAE8, sub_3AB28
-global sub_3AB68, sub_3ABD8, sub_3AC3C, sub_3AD34, sub_3AD9C, sub_3AF30, sub_3AFDC, sub_3B05C
+global sub_3AB68, sub_3ABD8, sub_3AC3C, sub_3AD34, sub_3AD9C, checkgoal, sub_3AFDC, sub_3B05C
 global sub_3B09C, sub_3B1EC, sub_3B334, sub_3B690, sub_3B738, sub_3B75B, sub_3B760, sub_3B8AC
 global sub_3B900, sub_3B954, sub_3C0B4, sub_3C544, sub_3C580, sub_3C5D4, SetVideoMode, sub_3C880
 global sub_3C8DC, sub_3C944, sub_3C9C8, sub_3CA28, sub_3CAB8, sub_3CB00, sub_3CB38, sub_3CB48
@@ -3957,9 +3957,12 @@ sub_3AD9C:
         ret
         db 00h,00h
 ;-----------------------------------------------------------------------------
-; sub_3AF30                                                       3AF30  97 PC
+; checkgoal                                         3AF30  94G, low confidence
+; From the off_16BD2C handler table: the puck against a net; the two net
+; checks (sub_2F8D8 / sub_2FA00) call Goal, as 93G/94G checkgoal does for the
+; puck
 ;-----------------------------------------------------------------------------
-sub_3AF30:
+checkgoal:
         push ebx
         push ecx
         push edx
