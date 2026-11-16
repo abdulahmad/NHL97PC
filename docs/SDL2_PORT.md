@@ -38,10 +38,25 @@ The game addresses the host uses are `SYM_<label>` names of this source tree (`p
   kept a NaN vertex: rows of jersey colour from the left edge of the screen to each player. DOSBox ignores the overflow.
   `NHL97_X87DUMMIES=1` keeps the four `fldz` (`port/overrides.c`).
 - The on-screen keyboard opens by itself in `EditText` (7FEC4), the routine every name entry goes through.
-- Not wired yet (96 addresses that 97 has elsewhere): online play (`port/netplay_off.c` stands in; 97's game loop is new, none of
-  96's hook points matched) and the sound start-up log.
+- Not wired yet: the sound start-up log.
 - GLOBAL.SET: when neither the game folder nor `$NHL97_CD` has one, the port writes a real SETUP-written 97 file (magic 16059h, install
   mode 3, CD at D:\); `NHL97_NO_DEFAULT_SET=1` turns that off.
 
 Escape skips the intro movie (`NHL97_KEYS="20000:Escape"` in tests). `NHL97_VLOG=1` logs, once a second, the video hardware use,
 the tick count and every file open.
+
+## Online play
+
+The same rollback design as the 96 port (`port/netplay.c`; Overbar's `overbar/net.h`, `overbar/rollback.h`, `overbar/netgame.h`):
+
+- each pass of GameLoop is one step: InputRecordAvail asks netplay.c, which pushes a record (14h bytes: the 8 SlotWords, the
+  HotKeyFlags without the pause bit, 3 ticks) made of both machines' slot word and flags (two Overbar pads a machine); the record
+  timer InputRecordTimer does nothing;
+- tickcount counts 3 a step from the first step (TimerISR's `inc dword [tickcount]` is redirected);
+- the players are not drawn between steps online (the rdtsc at 14CDD reads InputRecordStamp), as the game does in its own network play;
+- the host's options (the 130h block), set-up (teams, user logs, the 8 controller bytes) and both seeds go to the guest; slot 0 is
+  the host's team, slot 1 the other; RunInGameMenu is skipped online;
+- a state is the game's image and DOS / DPMI memory without the key table, SlotWords and hot keys, plus the game thread's stack.
+
+Test aid (two copies on one machine): `NHL97_ONLINE=host` / `join` (port `NHL97_PORT`, default 41970), `NHL97_NETSIM=delay,jitter,loss%`,
+`NHL97_AUTOPAD=1`, `NHL97_REGIONS=1`, `NHL97_SOUND=none` (the sound cards are not in the states yet).

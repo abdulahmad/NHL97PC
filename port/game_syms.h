@@ -4,7 +4,17 @@
 #ifndef GAME_SYMS_H
 #define GAME_SYMS_H
 
+#define SYM_GameLoop           0x14AC8u   /* engine/faceoff/faceoff.asm */
+#define SYM_sub_14E60          0x14E60u   /* engine/faceoff/faceoff.asm */
+#define SYM_PlayGame           0x152C4u   /* engine/faceoff/faceoff.asm */
+#define SYM_RunInGameMenu      0x1583Fu   /* engine/faceoff/faceoff.asm */
 #define SYM_EditText           0x7FEC4u   /* front/main/main.asm */
+#define SYM_PollControllers    0xE2AF4u   /* front/front_DA66D.asm */
+#define SYM_InputRecordTimer   0xE2E28u   /* front/front_DA66D.asm */
+#define SYM_InitSlotTable      0xE2F98u   /* front/front_DA66D.asm */
+#define SYM_InputRecordAvail   0xE3208u   /* front/front_DA66D.asm */
+#define SYM_GetRandState       0xFBE03u   /* lib/watcom/watcom_clib_02.asm */
+#define SYM_TimerISR           0xFBF24u   /* lib/input/input_joystick_misc_02.asm */
 #define SYM_SetTickDeadline    0xFC2ABu   /* lib/input/input_joystick_misc_03.asm */
 #define SYM_WaitTickDeadline   0xFC2BBu   /* lib/input/input_joystick_misc_03.asm */
 #define SYM_TickDeadlinePassed 0xFC2C9u   /* lib/input/input_joystick_misc_03.asm */
@@ -21,6 +31,12 @@
 #define SYM_WaitRetrace        0x13C187u   /* lib/video/video_bios_vga_09.asm */
 #define SYM_WaitRetraceEdges   0x13C1BFu   /* lib/video/video_bios_vga_09.asm */
 #define SYM_WaitDisplayRetrace 0x13C1EAu   /* lib/video/video_bios_vga_09.asm */
+#define SYM_InGameMenuRequest  0x1686E0u   /* data/engine/faceoff_data_01.asm */
+#define SYM_SlotWords          0x16D8FCu   /* data/front/front_DA66D_data_02.asm */
+#define SYM_InputRecordHead    0x16D910u   /* data/front/front_DA66D_data_02.asm */
+#define SYM_InputRecordCount   0x16D914u   /* data/front/front_DA66D_data_02.asm */
+#define SYM_InputRecordStamp   0x16D91Cu   /* data/front/front_DA66D_data_02.asm */
+#define SYM_dword_16DA9C       0x16DA9Cu   /* data/front/front_DA66D_data_02.asm */
 #define SYM_tickcount          0x16E3F0u   /* data/lib/input/input_joystick_misc_01_data_01.asm */
 #define SYM_tickdeadline       0x16E42Cu   /* data/lib/input/input_joystick_misc_01_data_01.asm */
 #define SYM_mousex             0x16E44Cu   /* data/lib/input/input_joystick_misc_01_data_01.asm */
@@ -46,5 +62,10 @@
 #define SYM__osminor           0x1725ACu   /* data/lib/ea/ea_memman_02_data_01.asm */
 #define SYM__environ           0x199C40u   /* data/lib/watcom/watcom_clib_26_data_01.asm */
 #define SYM____env_mask        0x199C44u   /* data/lib/watcom/watcom_clib_26_data_01.asm */
+#define SYM_seed               0x19CBC4u   /* data/engine/faceoff_data_03.asm */
+#define SYM_dword_1AC810       0x1AC810u   /* data/engine/engine_3812E_bss_02.asm */
+#define SYM_unk_1ACB44         0x1ACB44u   /* data/engine/engine_3812E_bss_02.asm */
+#define SYM_InputRecordRing    0x1CD1E0u   /* data/front/front_DA66D_bss_01.asm */
+#define SYM_HotKeyFlags        0x1CD24Cu   /* data/front/front_DA66D_bss_01.asm */
 
 #endif

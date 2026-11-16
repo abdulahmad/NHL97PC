@@ -72,6 +72,12 @@ static int emulate_rdtsc(ctx_t *c, const uint8_t *ip)
     if (ip[1] != 0x90) return 0;
     for (i = 0; i < NRDTSC && rdtsc_sites[i] != orig; i++) ;
     if (i == NRDTSC) return 0;
+    if (orig == 0x14CDD && netplay_running()) {
+        /* online: no drawing between steps (as the game itself does in its own network play); the time since the last record is 0 */
+        t = *(volatile uint32_t *)GAME_ADDR(SYM_InputRecordStamp);
+        R(c, EAX) = (uint32_t)t; R(c, EDX) = 0;
+        return 2;
+    }
     if (tsc_host) t = (uint64_t)plat_now_ns() * tsc_mhz / 1000u;
     else {
         /* patch 1.1's way for a CPU without the counter: the game's tick count times the counts per tick, plus how far into the
