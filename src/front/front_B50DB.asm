@@ -3156,8 +3156,8 @@ jpt_B78D0:
         dd ExportPlayerCard_956
 ;-----------------------------------------------------------------------------
 ; ExportPlayerCard                                B78F4  96 PC, low confidence
-; Asks a file name and writes the player's card as text (fopen "wt", "#%d %s
-; %s.")
+; Writes the player's card (height, weight, born, birthplace, draft) to a
+; text file, like 96 PC ExportPlayerCard
 ;-----------------------------------------------------------------------------
 ExportPlayerCard:
         push esi

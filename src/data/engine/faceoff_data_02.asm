@@ -3,11 +3,11 @@ bits 32
 %include "hockey.inc"
 section s_19C3D8 progbits alloc noexec write align=1
 extern __InitFiles_, __checkIsDBCS_, __chk8087_, __full_io_exit_, __setEFGfmt_, __setenvp_, fini_, init_
-extern puckfaceoff, sub_135D41, sub_1F5B4, sub_1F7D0, sub_209D0, sub_209E0, assgoalie, assdefo
+extern puckfaceoff, sub_135D41, asscoverdefd, asscoverdefo, sub_209D0, assbenchwait, assgoalie, assdefo
 extern asswingo, asscentero, assdefd, asswingd, asscenterd, sub_23C98, assfaceoff, assfaceoffpl
-extern sub_244BC, sub_25F64, assnearest, sub_27274, assbench, sub_27AD8, sub_27D10, sub_28110
-extern asseben, sub_2842C, asspenalty, assdopen, assepen, assrefpenshot, sub_29064, sub_293A8
-extern sub_295CC, sub_298E8, sub_29A90, sub_29BFC, sub_29E2C, assintrostand, assintroline, asstakeposition
+extern sub_244BC, asspuckc, assnearest, sub_27274, assbench, sub_27AD8, asspsclear, sub_28110
+extern asseben, sub_2842C, asspenalty, assdopen, assepen, assrefpenshot, assrefsignal, assrefwhistle
+extern assrefgoalpa, assrefgoalline, assreffollow, assrefdrop, assrefatdot, assintrostand, assintroline, asstakeposition
 extern assstanley, pucknorm, puckfaceoff2, sub_30674, assfight, assfwatch, sub_FC210, sub_FC215
 extern sub_FC238
 global byte_19C3E0, byte_19C3E6, byte_19C620, dword_19C3DD, dword_19C690, off_19C3F4, off_19C5F4, off_19C61F
@@ -38,7 +38,7 @@ word_19C3F2:
         db 00h,00h
 off_19C3F4:
         dd sub_209D0
-        dd sub_209E0
+        dd assbenchwait
         dd assgoalie
         dd assdefd
         dd asswingd
@@ -46,14 +46,14 @@ off_19C3F4:
         dd sub_23C98
         dd assfaceoff
         dd assfaceoffpl
-        dd sub_25F64
+        dd asspuckc
         dd assnearest
         dd assdefo
         dd asswingo
         dd asscentero
         dd sub_244BC
-        dd sub_1F7D0
-        dd sub_1F5B4
+        dd asscoverdefo
+        dd asscoverdefd
         dd sub_30674
         dd asspenalty
         dd assdopen
@@ -62,7 +62,7 @@ off_19C3F4:
         dd asseben
         dd assbench
         dd sub_27274
-        dd sub_27D10
+        dd asspsclear
         dd sub_2842C
         dd sub_28110
         dd assfight
@@ -76,13 +76,13 @@ off_19C3F4:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h
         dd sub_209D0
-        dd sub_29A90
-        dd sub_29BFC
-        dd sub_29E2C
-        dd sub_295CC
-        dd sub_293A8
-        dd sub_298E8
-        dd sub_29064
+        dd assreffollow
+        dd assrefdrop
+        dd assrefatdot
+        dd assrefgoalpa
+        dd assrefwhistle
+        dd assrefgoalline
+        dd assrefsignal
         dd assrefpenshot
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h

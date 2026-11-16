@@ -151,9 +151,12 @@ def name_sources96(cur, old):
         elif s in ('93G', '94G'): tag = s
         elif s == 'WATCOM': tag = 'library'
         else: tag = DEFAULT_TAG
+        # a description written for 97 (not a 95 / 96 PC match note) wins over the carried 95 / 96 PC header
+        own = s in ('95PC', '96PC') and bool(r['evidence']) and not re.match(r'(NHL)?9[56] ?PC\b', r['evidence'])
+        if own: desc = None
         if conf in ('medium', 'low') and s != 'WATCOM': tag += ', %s confidence' % conf
         ev = '' if s == 'WATCOM' or desc else re.sub(r'\b(sub|loc|dword|word|byte|off|unk)_([0-9A-F]{5,6})\b', old, r['evidence']).strip()
-        if s in ('95PC', '96PC') and not desc: ev = ''
+        if s in ('95PC', '96PC') and not desc and not own: ev = ''
         out[a] = (tag, ev, not name.startswith(('str_', 'byte_', 'word_', 'dword_', 'off_', 'unk_')), desc)
     return out
 

@@ -64,7 +64,11 @@ address,name,auto_name,source,confidence,evidence,file
 1E268,assexit,sub_1E268,94G,high,94G assexit: ends the current assignment (index + 1) and sets the new-assignment flag,src/engine/engine_15AC2.asm
 1EC5C,check4bench,sub_1EC5C,94G,medium,"94G check4bench: whether player a3 should go to the bench; if so assreplace with assbench (17h); 0 when he stays (joystick-controlled, penalty shot, ...)",src/engine/engine_15AC2.asm
 1EF88,SwapPosition,sub_1EF88,96PC,medium,"96 PC SwapPosition: (player, position) gives the player the position and hands his old one to the teammate who held it; returns the player number",src/engine/engine_15AC2.asm
+1F5B4,asscoverdefd,sub_1F5B4,96PC,low,"assignment 10h (set by asscoverdefo): the defending half of the cover, SwapPosition back when it ends",src/engine/engine_15AC2.asm
+1F7D0,asscoverdefo,sub_1F7D0,96PC,low,"assignment 0Fh (given from the Setplass jump table): a forward covering a defence spot; uses SwapPosition and moves on to 10h (asscoverdefd), as 96 PC asscoverdefo / asscoverdefd",src/engine/engine_15AC2.asm
 1FB6C,Setplass,sub_1FB6C,94G,medium,"94G Setplass: sets the player's starting assignment by position from the list byte_1689C0 (goalie 2, defence 3, wings 4, centre 5), after SwapPosition",src/engine/engine_15AC2.asm
+20508,Endfaceoff,sub_20508,96PC,medium,"from puckfaceoff2: decides the faceoff (randomd0 21h / 0Ah as in 96 PC), gives the puck assignment 41h (pucknorm) and the referee 31h (assreffollow)",src/engine/engine_15AC2.asm
+209E0,assbenchwait,sub_209E0,96PC,low,"assignment 1 (set by setpersonel, AddPenalty2): an off-ice player waits at the bench (x -2232 / -4440), check4bench, flags +0C1h",src/engine/engine_15AC2.asm
 21B20,assgoalie,sub_21B20,94G,medium,"94G assgoalie: assignment 2 (Setplass list for the goalie), the goalie AI",src/engine/engine_15AC2.asm
 22828,assextra4,sub_22828,96PC,low,96 PC assextra4 (placeholder name): called from the offence assignments,src/engine/engine_15AC2.asm
 22B8C,assdefo,sub_22B8C,94G,low,"94G assdefo: assignment 0Bh, defenceman on offence (SwapPosition, assextra4, as 96 PC assdefo)",src/engine/engine_15AC2.asm
@@ -76,23 +80,32 @@ address,name,auto_name,source,confidence,evidence,file
 23B88,asscenterd,sub_23B88,94G,medium,"94G asscenterd: assignment 5 (Setplass list for the centre), centre on defence",src/engine/engine_15AC2.asm
 23E90,assfaceoff,sub_23E90,94G,medium,"94G assfaceoff: assignment 7, players idle until the faceoff is over (puckfaceoff2 gives it to everyone but the centre, as 94G afaceoff)",src/engine/engine_15AC2.asm
 23F44,assfaceoffpl,sub_23F44,94G,medium,"94G assfaceoffpl: assignment 8, the faceoff player (puckfaceoff2 gives it to the centre, as 94G afaceoffpl)",src/engine/engine_15AC2.asm
+25F64,asspuckc,sub_25F64,94G,low,"assignment 9, the computer puck carrier: steps out when its team does not have the puck (off_168CF0), runs its checks on a reaction timer (+56h), and goes to 1Bh when skating in close on the goal",src/engine/engine_25894.asm
 265FC,assnearest,sub_265FC,94G,medium,"94G assnearest: assignment 0Ah (off_19C3F4), the main skater AI (forcepldata gives it to the centre, as in 94G)",src/engine/engine_25894.asm
 27500,ChkPullGoalieLate,sub_27500,96PC,medium,"96 PC ChkPullGoalieLate: (team) third period, last 60 seconds, losing by 1-2 and no goalie pulled yet: pull the goalie (from assbench)",src/engine/engine_25894.asm
 275C0,assbench,sub_275C0,94G,medium,"94G assbench: assignment 17h, skating off to the bench (check4bench gives it); setplayer for the replacement",src/engine/engine_25894.asm
+27D10,asspsclear,sub_27D10,96PC,medium,"assignment 19h (from setpersonel): skaters clear to a spot by the side boards (x -1898, y +-2B8h plus a random multiple of 90h) and stop facing the play; 96 PC asspsclear's spot scaled to 97 units",src/engine/engine_25894.asm
 282B8,asseben,sub_282B8,94G,medium,"94G asseben: assignment 16h, coming on from the bench (setplayer gives it for a player from the bench, as in 94G)",src/engine/engine_25894.asm
 28698,asspenalty,sub_28698,94G,medium,"94G asspenalty: assignment 12h, the penalised player skates to the penalty box (InProgress gives it, as in 94G)",src/engine/engine_25894.asm
 289AC,assdopen,sub_289AC,96PC,low,"96 PC assdopen: assignment 13h, opens the penalty box door (SetPenaltyBoxDoor, sound)",src/engine/engine_25894.asm
 28A08,assepen,sub_28A08,94G,medium,"94G assepen: assignment 14h, leaving the penalty box (setplayer gives it for a player from the box, as in 94G)",src/engine/engine_25894.asm
-28D88,assrefpenshot,sub_28D88,96PC,low,"96 PC assrefpenshot: assignment 29h (last referee handler): waits for AllInPlace before the penalty shot, with a sound",src/engine/engine_25894.asm
-29F30,assintrostand,sub_29F30,96PC,medium,"96 PC assintrostand: assignment 1Eh (PlaceOpeningPlayers gives it), players stand during the opening, random idle animations",src/engine/engine_25894.asm
-2A000,assintroline,sub_2A000,96PC,low,"96 PC assintroline: assignment 1Fh, after assintrostand as in 96 PC: the opening line-up",src/engine/engine_25894.asm
-2A1C8,asstakeposition,sub_2A1C8,96PC,low,"96 PC asstakeposition: assignment 20h, after assintroline as in 96 PC: skate to the starting position",src/engine/engine_25894.asm
-2A3F4,assstanley,sub_2A3F4,96PC,low,"96 PC assstanley: player handler 46, the Stanley Cup presentation (cuppal, LoadCupArt, fade, camera path)",src/engine/engine_25894.asm
+28D88,assrefpenshot,sub_28D88,96PC,low,"96 PC assrefpenshot: assignment 38h (last referee handler): waits for AllInPlace before the penalty shot, with a sound",src/engine/engine_25894.asm
+29064,assrefsignal,sub_29064,96PC,low,"referee assignment 37h: plays move 0A3Dh, skates to the signalling spot, queues the overlay panel, then moves on to assignment 34h and calls the goal PA (PaEvent 0C0000001h) with the scorer's jersey",src/engine/engine_25894.asm
+293A8,assrefwhistle,sub_293A8,96PC,medium,"referee assignment 35h: on a stoppage (clock 0, or a tie broken in the last period) sets RefStep (dword_19CBF8) -1, the puck to assignment 42h (puckfaceoff) and the referee to 33h (assrefatdot); otherwise skates the referee along",src/engine/engine_25894.asm
+295CC,assrefgoalpa,sub_295CC,96PC,medium,"referee assignment 34h: set by assrefsignal, assrefpenshot and EndPenaltyShot as in 96 PC; after the goal call sends the referee on (32h / 33h / 35h) and the puck to 42h (puckfaceoff)",src/engine/engine_25894.asm
+298E8,assrefgoalline,sub_298E8,96PC,low,"referee assignment 36h, set by nothing (as in 96 PC): skates the referee to a fixed spot at one end and then to 34h",src/engine/engine_25894.asm
+29A90,assreffollow,sub_29A90,96PC,low,"referee assignment 31h: while the clock runs, picks a spot from the puck's side and position and skates the referee there",src/engine/engine_25894.asm
+29BFC,assrefdrop,sub_29BFC,96PC,low,"referee assignment 32h (after assintrostand and assrefgoalpa): in a penalty shot goes to 38h (assrefpenshot), else to 33h (assrefatdot) for the faceoff",src/engine/engine_25894.asm
+29E2C,assrefatdot,sub_29E2C,96PC,medium,"referee assignment 33h: holds the referee at the faceoff spot while play is stopped, with a random idle timer; assrefwhistle puts the referee here",src/engine/engine_25894.asm
+29F30,assintrostand,sub_29F30,96PC,medium,"96 PC assintrostand: assignment 1Eh (PlaceOpeningPlayers gives it), players stand during the opening, random idle animations; when the puck leaves assignment 40h the referee (type 0Ch) goes to 32h and the skaters to 6",src/engine/engine_25894.asm
+2A000,assintroline,sub_2A000,96PC,low,"96 PC assintroline: assignment 20h, after assintrostand as in 96 PC: the opening line-up",src/engine/engine_25894.asm
+2A1C8,asstakeposition,sub_2A1C8,96PC,low,"96 PC asstakeposition: assignment 21h, after assintroline as in 96 PC: skate to the starting position",src/engine/engine_25894.asm
+2A3F4,assstanley,sub_2A3F4,96PC,low,"96 PC assstanley: assignment 44h, the Stanley Cup presentation (cuppal, LoadCupArt, fade, camera path)",src/engine/engine_25894.asm
 2BEF0,a2offsides,sub_2BEF0,94G,low,94G a2offsides: (player) from a2touchpuck: offsides when the rule is on and the touching player's team is past the line,src/engine/engine_25894.asm
 2C064,a2touchpuck,sub_2C064,94G,medium,"94G a2touchpuck: (player) the player touches the puck: records the last touch (player word_19CBAE, position), then checks offsides and the other rules",src/engine/engine_25894.asm
 2CA40,pucknorm_body,sub_2CA40,96PC,medium,"96 PC pucknorm_body: the puck's handler body: the puck carrier (off_168CF0), goals and the puck physics",src/engine/engine_25894.asm
-2D308,pucknorm,sub_2D308,96PC,medium,"96 PC pucknorm: player handler 43 (off_19C3F4), the puck's normal handler: clears the new-assignment flag (+0BFh bit 1) and its counter, then pucknorm_body",src/engine/engine_25894.asm
-2D330,puckfaceoff2,sub_2D330,96PC,low,"96 PC puckfaceoff2: player handler 45, after puckfaceoff: waits for AllInPlace, resets the bench and the personnel, then drops the puck",src/engine/engine_25894.asm
+2D308,pucknorm,sub_2D308,96PC,medium,"96 PC pucknorm: assignment 41h (off_19C3F4), the puck's normal handler: clears the new-assignment flag (+0BFh bit 1) and its counter, then pucknorm_body",src/engine/engine_25894.asm
+2D330,puckfaceoff2,sub_2D330,96PC,low,"96 PC puckfaceoff2: assignment 43h, after puckfaceoff: waits for AllInPlace, resets the bench and the personnel, then drops the puck",src/engine/engine_25894.asm
 2DCC8,CPgoalie,sub_2DCC8,94G,medium,94G CPgoalie (96 PC body): pulls the computer team's goalie late in the third period,src/engine/engine_25894.asm
 2DE3C,ReturnGoalies,,96PC,medium,NHL96PC 463AE (similar): mnemonic similarity 0.81 over 33 instructions,
 2E378,CompLine,sub_2E378,94G,medium,"94G CompLine: (team, other team) picks the line for the computer team to change to (0F33h threshold, as 96 PC)",src/engine/engine_2DE3C.asm
@@ -150,7 +163,7 @@ address,name,auto_name,source,confidence,evidence,file
 4890C,CountRecordGame,sub_4890C,96PC,medium,96 PC CountRecordGame: counts one game of a W/L/T byte string,src/front/front_45BEC.asm
 48950,RecordPctClip,sub_48950,96PC,medium,NHL96PC 67636 (similar 0.91): mnemonic similarity 0.91 over 69 instructions,src/front/front_45BEC.asm
 489F4,RecordStreakClips,sub_489F4,96PC,medium,NHL96PC 676D4 (sem 0.91): C:560,src/front/front_45BEC.asm
-48D70,PaEvent,sub_48D70,96PC,low,"the play-by-play event call: ClockTick posts 0C0000004h with the period at one minute left, where 96 PC posts PaEvent(100h)",src/front/front_48D70.asm
+48D70,PaEvent,sub_48D70,96PC,low,"the arena PA announcer: B events (0B000001h-0B000006h) from the front end and pre-game screens, C events (0C000001h-0C000004h) in game; ClockTick posts 0C0000004h at one minute left in a period. The play-by-play is CommentaryEvent",src/front/front_48D70.asm
 4AB90,MakeDataPath,sub_4AB90,96PC,medium,NHL96PC 1E3E8 (sem 0.84): C:1920; C:1834; R:579; R:572,src/front/front_48D70.asm
 4AE14,MakeDirPath,sub_4AE14,96PC,high,"96 PC MakeDirPath: (out, dir, language) a game directory path (language prefix, directory from unk_169848, backslash)",src/front/front_48D70.asm
 4AF9F,LoadDataFileHandle,sub_4AF9F,96PC,medium,NHL96PC 1E779 (sem 1.00): C:2267,src/front/front_48D70.asm

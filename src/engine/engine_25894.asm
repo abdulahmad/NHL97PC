@@ -27,7 +27,7 @@ extern qword_1608A7, randomd0, regd1, slotteam, sub_100700, sub_1008CC, sub_1132
 extern forcepldata, sub_116B0, ResetBench, setplayer, sub_123A0, setpersonel, sub_12E50, sub_13D50
 extern sub_13DA4, RemoveOverlayPanel, QueueOverlayPanel, StartCameraPath, SelectCameraView, sub_1BB18, sub_1CBD8, sub_1D008
 extern sub_1DEE4, sub_1E184, assreplace, assexit, sub_1E284, sub_1E8B0, check4bench, sub_1F32C
-extern sub_1F4EC, sub_1F538, Setplass, sub_1FF5C, sub_20508, sub_20A80, assgoalie, sub_21E98
+extern sub_1F4EC, sub_1F538, Setplass, sub_1FF5C, Endfaceoff, sub_20A80, assgoalie, sub_21E98
 extern sub_22050, assextra4, sub_22FF0, assextra3, sub_240D0, sub_24220, sub_2471C, sub_248E8
 extern sub_25010, sub_251F0, sub_25730, sub_2E310, CompLine, sub_30778, sub_3085C, sub_31C14
 extern AddPenalty, AddPenalty2, EndPenaltyShot, sub_34330, sub_343F8, doplayeracc, sub_39DA4, sub_39EC0
@@ -47,11 +47,11 @@ extern penshotmode, word_19CBE0, penshotlive, word_19CBE6, word_19CBEA, word_19C
 extern word_19CBF4, word_19CC04, word_19CC24, word_19CC26, word_19CC2C, word_19CC2E, word_19DAD9, word_19EABE
 extern word_19EBCA
 global jpt_2B4B4, sub_25894_D1, sub_2B4D4_424, sub_2B4D4_43B, sub_2B4D4_452, sub_2B4D4_469, sub_25894, sub_2596C
-global sub_25AEC, sub_25BD0, sub_25D40, sub_25E24, sub_25F64, sub_2625C, sub_264CC, assnearest
-global sub_27210, sub_27274, ChkPullGoalieLate, assbench, sub_27A00, sub_27A78, sub_27AD8, sub_27D10
+global sub_25AEC, sub_25BD0, sub_25D40, sub_25E24, asspuckc, sub_2625C, sub_264CC, assnearest
+global sub_27210, sub_27274, ChkPullGoalieLate, assbench, sub_27A00, sub_27A78, sub_27AD8, asspsclear
 global sub_27F80, sub_27FF0, sub_28110, asseben, sub_2842C, asspenalty, assdopen, assepen
-global sub_28C0C, assrefpenshot, sub_29064, sub_293A8, sub_295CC, sub_298E8, sub_29A90, sub_29BFC
-global sub_29E2C, assintrostand, assintroline, asstakeposition, sub_2A3A0, assstanley, sub_2A6B8, sub_2AA50
+global sub_28C0C, assrefpenshot, assrefsignal, assrefwhistle, assrefgoalpa, assrefgoalline, assreffollow, assrefdrop
+global assrefatdot, assintrostand, assintroline, asstakeposition, sub_2A3A0, assstanley, sub_2A6B8, sub_2AA50
 global sub_2AC40, sub_2AD18, sub_2AFD8, sub_2B4D4, sub_2B9EC, sub_2BAC0, sub_2BE2C, a2offsides
 global sub_2BFC4, a2touchpuck, sub_2C42C, sub_2C4E8, sub_2C5C8, sub_2C900, pucknorm_body, pucknorm
 global puckfaceoff2, CPgoalie, sub_2DD54
@@ -683,9 +683,12 @@ sub_25E24:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_25F64                                                       25F64  97 PC
+; asspuckc                                          25F64  94G, low confidence
+; Assignment 9, the computer puck carrier: steps out when its team does not
+; have the puck (off_168CF0), runs its checks on a reaction timer (+56h), and
+; goes to 1Bh when skating in close on the goal
 ;-----------------------------------------------------------------------------
-sub_25F64:
+asspuckc:
         push ebx
         push ecx
         push edx
@@ -3038,9 +3041,12 @@ sub_27AD8:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_27D10                                                       27D10  97 PC
+; asspsclear                                   27D10  95 PC, medium confidence
+; Assignment 19h (from setpersonel): skaters clear to a spot by the side
+; boards (x -1898, y +-2B8h plus a random multiple of 90h) and stop facing
+; the play; 96 PC asspsclear's spot scaled to 97 units
 ;-----------------------------------------------------------------------------
-sub_27D10:
+asspsclear:
         push ebx
         push ecx
         push edx
@@ -4491,9 +4497,12 @@ assrefpenshot:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_29064                                                       29064  97 PC
+; assrefsignal                                    29064  95 PC, low confidence
+; Referee assignment 37h: plays move 0A3Dh, skates to the signalling spot,
+; queues the overlay panel, then moves on to assignment 34h and calls the
+; goal PA (PaEvent 0C0000001h) with the scorer's jersey
 ;-----------------------------------------------------------------------------
-sub_29064:
+assrefsignal:
         push ebx
         push ecx
         push edx
@@ -4735,9 +4744,13 @@ sub_29064:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_293A8                                                       293A8  97 PC
+; assrefwhistle                                293A8  95 PC, medium confidence
+; Referee assignment 35h: on a stoppage (clock 0, or a tie broken in the last
+; period) sets RefStep (dword_19CBF8) -1, the puck to assignment 42h
+; (puckfaceoff) and the referee to 33h (assrefatdot); otherwise skates the
+; referee along
 ;-----------------------------------------------------------------------------
-sub_293A8:
+assrefwhistle:
         push ebx
         push ecx
         push edx
@@ -4883,9 +4896,12 @@ sub_293A8:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_295CC                                                       295CC  97 PC
+; assrefgoalpa                                 295CC  95 PC, medium confidence
+; Referee assignment 34h: set by assrefsignal, assrefpenshot and
+; EndPenaltyShot as in 96 PC; after the goal call sends the referee on (32h /
+; 33h / 35h) and the puck to 42h (puckfaceoff)
 ;-----------------------------------------------------------------------------
-sub_295CC:
+assrefgoalpa:
         push ebx
         push ecx
         push edx
@@ -5100,9 +5116,11 @@ sub_295CC:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_298E8                                                       298E8  97 PC
+; assrefgoalline                                  298E8  95 PC, low confidence
+; Referee assignment 36h, set by nothing (as in 96 PC): skates the referee to
+; a fixed spot at one end and then to 34h
 ;-----------------------------------------------------------------------------
-sub_298E8:
+assrefgoalline:
         push ebx
         push ecx
         push edx
@@ -5220,9 +5238,11 @@ sub_298E8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_29A90                                                       29A90  97 PC
+; assreffollow                                    29A90  95 PC, low confidence
+; Referee assignment 31h: while the clock runs, picks a spot from the puck's
+; side and position and skates the referee there
 ;-----------------------------------------------------------------------------
-sub_29A90:
+assreffollow:
         push ebx
         push ecx
         push edx
@@ -5322,9 +5342,11 @@ sub_29A90:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_29BFC                                                       29BFC  97 PC
+; assrefdrop                                      29BFC  95 PC, low confidence
+; Referee assignment 32h (after assintrostand and assrefgoalpa): in a penalty
+; shot goes to 38h (assrefpenshot), else to 33h (assrefatdot) for the faceoff
 ;-----------------------------------------------------------------------------
-sub_29BFC:
+assrefdrop:
         push ebx
         push ecx
         push edx
@@ -5477,9 +5499,11 @@ sub_29BFC:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_29E2C                                                       29E2C  97 PC
+; assrefatdot                                  29E2C  95 PC, medium confidence
+; Referee assignment 33h: holds the referee at the faceoff spot while play is
+; stopped, with a random idle timer; assrefwhistle puts the referee here
 ;-----------------------------------------------------------------------------
-sub_29E2C:
+assrefatdot:
         push ebx
         push ecx
         push edx
@@ -10223,7 +10247,7 @@ puckfaceoff2:
         cmp dword [byte eax+024h], 41C00000h
         jg short .45
         mov eax, edi
-        call sub_20508
+        call Endfaceoff
 .45:
         mov esp, ebp
         pop ebp

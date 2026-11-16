@@ -11922,7 +11922,7 @@ InputRecordTimer:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; InitSlotTable                                E2F98  96 PC, medium confidence
-; Builds the controller slot table (SlotTable) from the game set-up
+; Slot words and teams from the 8 controller set-up bytes
 ;-----------------------------------------------------------------------------
 InitSlotTable:
         push ebx

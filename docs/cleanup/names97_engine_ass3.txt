@@ -1,0 +1,1 @@
+sub_27D10 asspsclear {source=96PC,confidence=medium} assignment 19h (from setpersonel): skaters clear to a spot by the side boards (x -1898, y +-2B8h plus a random multiple of 90h) and stop facing the play; 96 PC asspsclear's spot scaled to 97 units

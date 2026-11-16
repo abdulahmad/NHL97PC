@@ -1,0 +1,4 @@
+sub_25F64 asspuckc {source=94G,confidence=low} assignment 9, the computer puck carrier: steps out when its team does not have the puck (off_168CF0), runs its checks on a reaction timer (+56h), and goes to 1Bh when skating in close on the goal
+sub_1F7D0 asscoverdefo {source=96PC,confidence=low} assignment 0Fh (given from the Setplass jump table): a forward covering a defence spot; uses SwapPosition and moves on to 10h (asscoverdefd), as 96 PC asscoverdefo / asscoverdefd
+sub_1F5B4 asscoverdefd {source=96PC,confidence=low} assignment 10h (set by asscoverdefo): the defending half of the cover, SwapPosition back when it ends
+sub_209E0 assbenchwait {source=96PC,confidence=low} assignment 1 (set by setpersonel, AddPenalty2): an off-ice player waits at the bench (x -2232 / -4440), check4bench, flags +0C1h
