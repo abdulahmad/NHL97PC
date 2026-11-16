@@ -3,12 +3,12 @@ bits 32
 %include "hockey.inc"
 section s_121C55 progbits alloc exec nowrite align=1
 extern _Extender, __8087, __EnterWVIDEO_, __init_80x87, __no87, __prtf_, __real87, __unhook387
-extern _curbrk, byte_16E415, byte_16E688, byte_16E689, byte_16F794, byte_16FA40, byte_171C90, byte_1725A4
+extern _curbrk, byte_16E415, byte_16E688, str_Punct_FreeArtArchive, byte_16F794, byte_16FA40, byte_171C90, byte_1725A4
 extern dword_16E678, dword_16E67C, dword_16E680, dword_16E684, dword_16E690, dword_16E694, dword_16E698, dword_16E69C
-extern dword_16E6A0, dword_16E718, dword_170704, dword_172524, dword_172564, dword_172674, dword_172678, dword_17267C
+extern dword_16E6A0, str_F_BlitCore, dword_170704, dword_172524, dword_172564, dword_172674, dword_172678, dword_17267C
 extern dword_1DA8D0, dword_1DA8D4, off_199CDC, off_199CE0, strchr_, strcpy_, stricmp_, strlen_
 extern bcopy, ConvertArtRows, ConvertArtShape, VesaSetBank, FixedLerp, WriteConsoleMessage, FreeMemBlock, unk_1DA4CC
-extern unk_1DC118, unk_1DC218, unk_1DC318, unk_1DC418, word_170708, word_172568, word_17256A, word_199CD8
+extern unk_1DC118, unk_1DC218, unk_1DC318, unk_1DC418, str_Punct_InitFpuFlags, word_172568, word_17256A, word_199CD8
 global __chk8087_, __exit_with_msg_, __fatal_runtime_error_, __init_8087_, __rest_8087_, __save_8087_, __sys_fini_387_emulator, _fpreset_
 global NextTextChar_54, ClipPolyLeft_B8, mem_putc__0, EmuRestoreFpuVector, EmuRestoreRealVector, EmuNoHook, GetArchiveType, GetArchiveHeaderSize
 global FindArchiveEntry, ArchiveEntryOffset, ArchiveEntryOffsetAt, LocateArchiveEntry, LocateArchiveEntries, NextTextByte, NextTextChar, BlitCore
@@ -48,7 +48,7 @@ __sys_fini_387_emulator:
 .4:
         cmp al, 1
         jne short .5
-        mov dx, word [word_170708]
+        mov dx, word [str_Punct_InitFpuFlags]
         sub eax, eax
         call __unhook387
         jmp short .6
@@ -871,7 +871,7 @@ BlitCore:
         mov dword [byte ebp-054h], eax
         xor ecx, ecx
         mov dword [dword_1DA8D4], edx
-        mov cl, byte [byte_16E689]
+        mov cl, byte [str_Punct_FreeArtArchive]
         test esi, esi
         je short .1
         mov ecx, esi
@@ -1112,7 +1112,7 @@ BlitCore:
         je short .22
         mov edi, dword [byte ebp-018h]
         mov edx, dword [byte ebp-024h]
-        mov edi, dword [nosplit edi*4+dword_16E718]
+        mov edi, dword [nosplit edi*4+str_F_BlitCore]
         sub edi, edx
         jmp short .23
 .22:

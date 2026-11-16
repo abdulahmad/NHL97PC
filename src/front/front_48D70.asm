@@ -11,14 +11,14 @@ extern str_C303, str_C310, str_C311, str_C312, str_C313, str_C320, str_C321, str
 extern str_C323, str_C330, str_C331, str_C332, str_C333, str_GLASS, str_ArenaViv2, str_Zamtrack
 extern str_Netback, str_Netfrnt, str_BlogoDC, str_L02da, str_L02db, str_L02dc, str_L02dC, byte_16FA40
 extern byte_1AC638, byte_1AC818, byte_1AC81A, byte_1AC81B, byte_1AC948, byte_1AC95B, byte_1AEDED, byte_1AEDEE
-extern byte_1AEDEF, dword_161252, dword_161256, dword_161391, dword_1613AD, dword_1613B9, dword_1613E5, dword_1613E9
-extern dword_1613ED, dword_1613F1, dword_1613F5, dword_1691A8, dword_1691AC, dword_1691AE, dword_1691B0, dword_1691B8
+extern byte_1AEDEF, F32_neg4264, F32_neg2040, F32_65536_ScaleLineWidth, F32_65536_InitRinkView, F32_600, F32_6_BuildRinkGeometry, F32_10_BuildRinkGeometry
+extern F32_14, F32_4, F32_8, dword_1691A8, dword_1691AC, dword_1691AE, dword_1691B0, dword_1691B8
 extern dword_1691BC, dword_1691C0, dword_1691C4, dword_1691C8, dword_1691CC, dword_1691D0, dword_1691D4, dword_1691D8
 extern dword_1691E0, dword_169224, dword_169228, dword_16922C, dword_169230, dword_169250, dword_169254, dword_169258
 extern dword_169264, dword_169278, dword_16927A, dword_16927C, dword_16927E, dword_169280, dword_169844, dword_1698AF
 extern dword_169996, dword_16AEB4, dword_16AF30, dword_16AF34, dword_16AF38, dword_16AF3C, dword_16AF48, dword_16AF54
-extern dword_16AF68, dword_16B164, dword_16B168, dword_16DA9C, dword_16E464, dword_16E468, dword_16E4A8, dword_16F144
-extern dword_16F148, dword_17025C, dword_170260, dword_170264, dword_170268, dword_170274, dword_1702CC, dword_1AC790
+extern dword_16AF68, dword_16B164, dword_16B168, dword_16DA9C, dword_16E464, dword_16E468, str_Punct_DrawRinkSurface, dword_16F144
+extern dword_16F148, dword_17025C, str_D_ProjectPointsPersp, dword_170264, dword_170268, dword_170274, dword_1702CC, dword_1AC790
 extern dword_1AC794, dword_1AC798, dword_1AC79C, dword_1AC810, dword_1AC814, dword_1AC819, dword_1AC944, dword_1AD748
 extern dword_1ADBF8, dword_1ADC70, dword_1ADC74, dword_1ADC78, dword_1ADC7C, dword_1ADC80, dword_1ADC84, dword_1ADC88
 extern dword_1ADC8C, dword_1ADC90, dword_1ADC94, dword_1ADC98, dword_1ADC9C, dword_1ADCA8, dword_1ADCB8, dword_1ADCC0
@@ -53,8 +53,8 @@ extern dword_1B105C, dword_1B1060, dword_1B1064, dword_1B108C, dword_1B10D0, dwo
 extern dword_1B10E8, dword_1B10F4, dword_1B10F8, dword_1B1108, dword_1B1114, dword_1B1118, dword_1B1410, dword_1B857C
 extern dword_1B905F, dword_1B9067, dword_1C13C0, dword_1C34E3, dword_1CF5EC, dword_1D1D38, dword_1D1D5C, dword_1D2054
 extern dword_1D2058, dword_1D205C, hypot_, jpt_48D20, jpt_48D50, memcpy_, openhandle, printf_
-extern qword_161389, qword_161395, qword_16139D, qword_1613A5, qword_1613B1, qword_1613BD, qword_1613C5, qword_1613CD
-extern qword_1613D5, qword_1613DD, qword_16142D, qword_161435, qword_16143D, qword_161445, qword_16144D, rand_
+extern F64_0p5_ScaleLineWidth, F64_1p5708_InitRinkView, F64_0p31831, F64_65536_InitRinkView, F64_0p04, F64_6p28319_DrawCreaseArc, F64_6p28319_BuildRinkGeometry, F64_80
+extern F64_110, F64_40, F64_0p00138889, F64_65536_DrawScoreboard, F64_0p31831_UpdateScoreboardSpin, F64_0p5_UpdateScoreboardSpin, F64_65536_UpdateScoreboardSpin, rand_
 extern sprintf_, str_Botboards, str_Center, str_CrowdD, str_EMPTYFSH, str_FatBlueLines, str_FatRedLines, str_Glass
 extern str_Glassline, str_Gt002d, str_Gt102d, str_Gt202d, str_Gt302d, str_HALFFSH, str_Icelogo, str_STANDSFSH
 extern str_SideD, str_Stands2, str_Topboards, str_WALL, str_Zamboni, str_Zambpath, strcat_, stricmp_
@@ -82,8 +82,8 @@ extern DrawPlayersSorted, DrawIceMarkers, DrawPlayerNames, DrawPuckArrow, NoOpDr
 extern FreeCameraDebug, PlayMovie, ShowLoadingBar, ClearLinkAbort, ServiceIdle, AllocMemBlock, FreeMemBlock, ZeroMem
 extern WaitTicks, OpenResourceArchive, CurrentArchiveName, MatchColor, SelectFont, FillPolygon, DrawTextAt, SetTextColors
 extern IntsToFloats, FloatsToInts, ScaleFloatsToInts, VecMulMat, TransformVecs, VecAdd, AddVecs, VecDistance
-extern SetViewScale, ProjectCoord, ProjectCoordInt, ProjectPoints, ProjectPointsWithZ, ProjectPointsToScreen, tickcount, unk_1611B4
-extern unk_169848, unk_1698A2, unk_169989, unk_16AF14, unk_16AF6C, unk_16B084, unk_16B0E4, unk_16B144
+extern SetViewScale, ProjectCoord, ProjectCoordInt, ProjectPoints, ProjectPointsWithZ, ProjectPointsToScreen, tickcount, str_Punct_MakeDataPath
+extern unk_169848, unk_1698A2, str_X_SetArtArchive, unk_16AF14, unk_16AF6C, unk_16B084, unk_16B0E4, unk_16B144
 extern unk_16B16C, unk_16E8A0, unk_1AC7DC, unk_1AC95D, unk_1ACB44, unk_1AD7C0, unk_1ADCA0, unk_1ADD38
 extern unk_1ADD40, unk_1ADD58, unk_1ADD60, unk_1ADD78, unk_1ADDE4, unk_1ADEF8, unk_1ADF38, unk_1ADFF8
 extern unk_1AE028, unk_1AE058, unk_1AE0B8, unk_1AE118, unk_1AE278, unk_1AE588, unk_1AE688, unk_1AE6D0
@@ -116,7 +116,7 @@ global FindNearestBenchPlayer, StartBenchCheer, BenchCheerStep, UpdateBenchCheer
 global TransformRink, DrawBenchLines, DrawBoardsTop, DrawStandsSides, DrawBenchDoors, DrawGlass, DrawBenchPlayers, DrawBenchArea
 global DrawPenaltyBox, DrawBenches, ScoreboardTransform, LoadScoreboardArt, DrawScoreboard, NetFrameDistance, SetupNetArt, ResetNetArt
 global UpdateScoreboardPos, UpdateScoreboardSpin, LoadNetArt, BuildRinkSides, OpenArenaArchive, LoadBoardLogo, LoadTeamLogoShape, LoadTeamLogoCopy
-global unk_4AB70, unk_4AB80, unk_4B4A0, unk_4BCC0, unk_4BCCC
+global unk_4AB70, unk_4AB80, unk_4B4A0, unk_4BCC0, str_Light
 ;-----------------------------------------------------------------------------
 ; PaEvent                                         48D70  96 PC, low confidence
 ; The arena PA announcer: B events (0B000001h-0B000006h) from the front end
@@ -2668,7 +2668,7 @@ MakeDataPath:
         mov edx, dword [dword_1AC814]
         and edx, byte 3
         mov eax, edx
-        add esi, unk_169989
+        add esi, str_X_SetArtArchive
         shl eax, 2
         cmp dword [byte esi+0Dh], byte 0
         jge near MakeDataPath_62.10
@@ -2703,7 +2703,7 @@ MakeDataPath_62:
         add edx, eax
         mov eax, ebx
         call strcat_
-        mov edx, unk_1611B4
+        mov edx, str_Punct_MakeDataPath
         mov eax, ebx
         call strcat_
 .3:
@@ -2784,7 +2784,7 @@ MakeDataPath_132:
         add edx, eax
         mov eax, ebx
         call strcat_
-        mov edx, unk_1611B4
+        mov edx, str_Punct_MakeDataPath
         mov eax, ebx
         call strcat_
 .13:
@@ -2870,7 +2870,7 @@ jpt_4AD42:
         add edx, eax
         mov eax, ebx
         call strcat_
-        mov edx, unk_1611B4
+        mov edx, str_Punct_MakeDataPath
         mov eax, ebx
         call strcat_
 .7:
@@ -2930,7 +2930,7 @@ MakeDirPath:
         mov eax, ecx
         add edx, unk_169848
         call strcat_
-        mov edx, unk_1611B4
+        mov edx, str_Punct_MakeDataPath
         mov eax, ecx
         call strcat_
         pop esi
@@ -2986,7 +2986,7 @@ jpt_4AE54:
         lea eax, [byte ebp-028h]
         add edx, unk_169848
         call strcat_
-        mov edx, unk_1611B4
+        mov edx, str_Punct_MakeDataPath
         lea eax, [byte ebp-028h]
         call strcat_
 .8:
@@ -3281,7 +3281,7 @@ SetArtArchive:
 .2:
         imul eax, ebx, byte 15h
         mov edx, esi
-        add eax, unk_169989
+        add eax, str_X_SetArtArchive
         call stricmp_
         test eax, eax
         jne short .3
@@ -3343,7 +3343,7 @@ SetArtArchive:
         imul eax, edx, byte 15h
         cmp ebx, dword [dword eax+dword_169996]
         jne short .10
-        add eax, unk_169989
+        add eax, str_X_SetArtArchive
         push eax
         push str_S
         call printf_
@@ -3370,7 +3370,7 @@ SetArtArchive:
         neg ecx
         cmp ecx, dword [dword eax+dword_169996]
         jne short .13
-        add eax, unk_169989
+        add eax, str_X_SetArtArchive
         push eax
         push str_S
         call printf_
@@ -4115,7 +4115,7 @@ DrawGameFrame:
         cmp dword [dword edx+dword_1B1410], 44FF0000h
         jge short .8
         fld dword [dword edx+dword_1B1410]
-        fcomp dword [dword_161256]
+        fcomp dword [F32_neg2040]
         fnstsw ax
         sahf
         jbe short .8
@@ -4131,7 +4131,7 @@ DrawGameFrame:
         call DrawCameraDebug
         call DrawCameraDebugMarks
         fld dword [dword_1B9067]
-        fcomp dword [dword_161252]
+        fcomp dword [F32_neg4264]
         fnstsw ax
         sahf
         jae short .9
@@ -4183,7 +4183,7 @@ DrawGameFrame:
         cmp dword [dword edx+dword_1B1410], 44FF0000h
         jge short .13
         fld dword [dword edx+dword_1B1410]
-        fcomp dword [dword_161256]
+        fcomp dword [F32_neg2040]
         fnstsw ax
         sahf
         jbe short .13
@@ -4211,12 +4211,12 @@ RedrawGameView:
         db 00h,00h,00h,00h,00h,00h,00h
 unk_4BCC0:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-unk_4BCCC:
+str_Light:
         db 06Ch,069h,067h,068h,074h,00h,00h,00h
         push ebx
         sub esp, byte 4
         mov dword [esp], edx
-        mov ebx, dword [dword_16E4A8]
+        mov ebx, dword [str_Punct_DrawRinkSurface]
         cmp ebx, dword [byte eax+08h]
         jl short .1
         xor eax, eax
@@ -4249,7 +4249,7 @@ SetStandsClip:
         xor edx, edx
         test ecx, ecx
         jle short .3
-        mov esi, dword [dword_16E4A8]
+        mov esi, dword [str_Punct_DrawRinkSurface]
 .1:
         cmp esi, dword [byte eax+08h]
         jge short .2
@@ -4293,7 +4293,7 @@ SetStandsDetail:
         mov ebp, dword [dword_1D1D38]
         mov ebx, ecx
 .1:
-        mov edi, dword [dword_16E4A8]
+        mov edi, dword [str_Punct_DrawRinkSurface]
         cmp edi, dword [byte ebx+08h]
         jge short .2
         mov ecx, dword [byte eax+04h]
@@ -4579,7 +4579,7 @@ DrawCameraFlashes:
         inc eax
         mov dword [byte ebx+0Ch], eax
         mov eax, dword [byte esp+014h]
-        mov ecx, dword [dword_16E4A8]
+        mov ecx, dword [str_Punct_DrawRinkSurface]
         mov ebx, dword [dword esi+dword_1B0208]
         cmp eax, ecx
         jle near .4
@@ -4601,7 +4601,7 @@ DrawCameraFlashes:
         mov eax, dword [byte esi+04h]
         imul dword [dword_170268]
         idiv dword [byte esi+08h]
-        add eax, dword [dword_170260]
+        add eax, dword [str_D_ProjectPointsPersp]
         mov dword [byte edi+04h], eax
         jmp short .3
 .2:
@@ -4930,7 +4930,7 @@ SetTextureDetail:
         add ecx, esi
         add edi, ebp
         mov esi, dword [ecx]
-        mov ebp, dword [dword_16E4A8]
+        mov ebp, dword [str_Punct_DrawRinkSurface]
         mov edi, dword [byte edi+08h]
         mov ecx, dword [byte ecx+04h]
         cmp edi, ebp
@@ -5822,7 +5822,7 @@ ClipLinePoint:
         mov esi, eax
         mov edi, edx
         mov ebp, ebx
-        mov ebx, dword [dword_16E4A8]
+        mov ebx, dword [str_Punct_DrawRinkSurface]
         mov eax, dword [byte edx+08h]
         mov edx, dword [byte esi+08h]
         mov ecx, dword [byte esi+08h]
@@ -5865,7 +5865,7 @@ ClipLinePoint:
         mov eax, dword [byte esi+04h]
         add eax, edx
         mov dword [byte ebp+04h], eax
-        mov ebx, dword [dword_16E4A8]
+        mov ebx, dword [str_Punct_DrawRinkSurface]
         inc ebx
         mov dword [byte ebp+08h], ebx
         pop ebp
@@ -5885,7 +5885,7 @@ ProjectLinePoints:
         mov ebp, eax
         mov edi, edx
         mov esi, ebx
-        mov edx, dword [dword_16E4A8]
+        mov edx, dword [str_Punct_DrawRinkSurface]
         cmp edx, dword [byte ebx+08h]
         jl short .2
         cmp edx, dword [byte ecx+08h]
@@ -6326,7 +6326,7 @@ DrawRinkCircle:
         test eax, eax
         jne near .5
         mov eax, dword [byte esp+08h]
-        cmp eax, dword [dword_16E4A8]
+        cmp eax, dword [str_Punct_DrawRinkSurface]
         jg short .1
         xor eax, eax
         jmp short .2
@@ -6446,7 +6446,7 @@ DrawRinkLine:
         test eax, eax
         jne near .7
         mov eax, dword [byte esp+014h]
-        cmp eax, dword [dword_16E4A8]
+        cmp eax, dword [str_Punct_DrawRinkSurface]
         jg short .1
         xor eax, eax
         jmp short .2
@@ -6459,7 +6459,7 @@ DrawRinkLine:
         fstp dword [esp]
         call ProjectCoordInt
 .2:
-        mov ecx, dword [dword_16E4A8]
+        mov ecx, dword [str_Punct_DrawRinkSurface]
         mov ebx, eax
         cmp ecx, dword [byte esp+08h]
         jl short .3
@@ -6547,7 +6547,7 @@ ScaleLineWidth:
         fild dword [byte ebx+08h]
         fld1
         fdivrp
-        mov ecx, dword [dword_16E4A8]
+        mov ecx, dword [str_Punct_DrawRinkSurface]
         mov eax, dword [byte ebx+08h]
         fstp dword [byte esp+014h]
         cmp eax, ecx
@@ -6596,14 +6596,14 @@ ScaleLineWidth:
         jne short .4
         fld1
         fadd dword [byte esp+024h]
-        fmul qword [qword_161389]
+        fmul qword [F64_0p5_ScaleLineWidth]
         fmul dword [byte esp+028h]
         fstp dword [byte esp+028h]
 .4:
         fld dword [byte esp+028h]
         fmul dword [byte esp+018h]
         fst dword [byte esp+01Ch]
-        fmul dword [dword_161391]
+        fmul dword [F32_65536_ScaleLineWidth]
         push eax
         fistp dword [esp]
         pop eax
@@ -6616,7 +6616,7 @@ ScaleLineWidth:
         ret 4
 .5:
         fld dword [byte esp+01Ch]
-        fmul dword [dword_161391]
+        fmul dword [F32_65536_ScaleLineWidth]
         push eax
         fistp dword [esp]
         pop eax
@@ -6631,7 +6631,7 @@ ScaleLineWidth:
 ;-----------------------------------------------------------------------------
 SetLineWidth:
         push edi
-        mov edi, dword [dword_16E4A8]
+        mov edi, dword [str_Punct_DrawRinkSurface]
         cmp edi, dword [byte ebx+08h]
         jl short .1
         xor eax, eax
@@ -6770,12 +6770,12 @@ DrawFaceoffDot:
 .1:
         mov edx, dword [ebx]
         imul eax, edx, byte 0Ch
-        mov ecx, dword [dword_16E4A8]
+        mov ecx, dword [str_Punct_DrawRinkSurface]
         cmp ecx, dword [byte eax+ebp+08h]
         jge short .2
         imul eax, dword [byte ebx+04h], byte 0Ch
         shl edx, 3
-        mov ecx, dword [dword_16E4A8]
+        mov ecx, dword [str_Punct_DrawRinkSurface]
         mov eax, dword [byte eax+ebp+08h]
         add edx, edi
         cmp eax, ecx
@@ -6838,12 +6838,12 @@ DrawLineSegment:
 .1:
         mov edx, dword [ebx]
         imul eax, edx, byte 0Ch
-        mov ecx, dword [dword_16E4A8]
+        mov ecx, dword [str_Punct_DrawRinkSurface]
         cmp ecx, dword [byte eax+ebp+08h]
         jge short .2
         lea eax, [nosplit edx*8+00h]
         imul edx, dword [byte ebx+04h], byte 0Ch
-        mov ecx, dword [dword_16E4A8]
+        mov ecx, dword [str_Punct_DrawRinkSurface]
         mov edx, dword [byte edx+ebp+08h]
         add eax, edi
         cmp edx, ecx
@@ -6905,7 +6905,7 @@ SetNetPositions:
 .1:
         imul eax, dword [edx], byte 0Ch
         add eax, esi
-        mov ebp, dword [dword_16E4A8]
+        mov ebp, dword [str_Punct_DrawRinkSurface]
         cmp ebp, dword [byte eax+08h]
         jge short .5
         mov ecx, dword [eax]
@@ -6964,7 +6964,7 @@ DrawNets:
         sub esp, 120h
         mov edi, eax
         mov dword [dword esp+011Ch], edx
-        mov eax, dword [dword_16E4A8]
+        mov eax, dword [str_Punct_DrawRinkSurface]
         add eax, byte 50h
         mov dword [dword esp+0118h], eax
         fild dword [dword esp+0118h]
@@ -7062,7 +7062,7 @@ DrawNetShadows:
         sub esp, 120h
         mov edi, eax
         mov dword [dword esp+011Ch], edx
-        mov eax, dword [dword_16E4A8]
+        mov eax, dword [str_Punct_DrawRinkSurface]
         add eax, byte 6Eh
         mov dword [dword esp+0118h], eax
         fild dword [dword esp+0118h]
@@ -7155,7 +7155,7 @@ DrawNetShadows:
         sub esp, 0A8h
         mov edi, eax
         mov dword [dword esp+0A4h], edx
-        mov eax, dword [dword_16E4A8]
+        mov eax, dword [str_Punct_DrawRinkSurface]
         add eax, byte 28h
         mov dword [dword esp+0A0h], eax
         fild dword [dword esp+0A0h]
@@ -7335,7 +7335,7 @@ InitRinkView:
         and esp, byte 0FFFFFFF8h
         cmp dword [dword_1B0ACC], byte 0
         je near .17
-        fild dword [dword_16E4A8]
+        fild dword [str_Punct_DrawRinkSurface]
         fcomp dword [dword_1B0F1C]
         fnstsw ax
         sahf
@@ -7372,9 +7372,9 @@ InitRinkView:
         fxch
         call IF@ATAN2
         fchs
-        fadd qword [qword_161395]
-        fmul qword [qword_16139D]
-        fmul qword [qword_1613A5]
+        fadd qword [F64_1p5708_InitRinkView]
+        fmul qword [F64_0p31831]
+        fmul qword [F64_65536_InitRinkView]
         push eax
         fistp dword [esp]
         pop eax
@@ -7440,7 +7440,7 @@ InitRinkView:
         mov eax, dword [dword_1B026C]
         fld dword [dword esp+0F0h]
         mov dword [dword esp+0ACh], eax
-        fcomp qword [qword_1613B1]
+        fcomp qword [F64_0p04]
         fnstsw ax
         sahf
         jae short .8
@@ -7538,11 +7538,11 @@ InitRinkView:
         push dword 3F0CCCCDh
         push dword [dword_1B0F1C]
         call ProjectCoord
-        fmul dword [dword_1613AD]
+        fmul dword [F32_65536_InitRinkView]
         call __CHP
         fistp dword [dword esp+0F4h]
         fild dword [dword esp+0F4h]
-        fcomp qword [qword_1613B1]
+        fcomp qword [F64_0p04]
         fnstsw ax
         sahf
         jae short .10
@@ -7722,7 +7722,7 @@ UpdateViewDistance:
         mov ecx, edx
         mov edx, unk_1B10FC
         call VecDistance
-        fcomp dword [dword_1613B9]
+        fcomp dword [F32_600]
         fnstsw ax
         sahf
         jae short .1
@@ -8386,7 +8386,7 @@ DrawCreaseArc:
         mov edx, eax
         fld dword [byte esp+018h]
         fld st0
-        fmul qword [qword_1613BD]
+        fmul qword [F64_6p28319_DrawCreaseArc]
         fstp st1
         fdiv dword [byte esp+01Ch]
         fst dword [byte esp+018h]
@@ -8426,17 +8426,17 @@ BuildRinkGeometry:
 .1:
         fild dword [byte esp+038h]
         fld st0
-        fmul qword [qword_1613C5]
+        fmul qword [F64_6p28319_BuildRinkGeometry]
         fst st1
-        fdiv dword [dword_1613E5]
+        fdiv dword [F32_6_BuildRinkGeometry]
         fst st1
         fsin
         fxch
         fcos
         fxch
-        fmul qword [qword_1613CD]
+        fmul qword [F64_80]
         fxch
-        fmul qword [qword_1613CD]
+        fmul qword [F64_80]
         mov ecx, dword [byte esp+038h]
         add ebx, byte 0Ch
         inc ecx
@@ -8453,17 +8453,17 @@ BuildRinkGeometry:
 .2:
         fild dword [byte esp+054h]
         fld st0
-        fmul qword [qword_1613C5]
+        fmul qword [F64_6p28319_BuildRinkGeometry]
         fst st1
-        fdiv dword [dword_1613E9]
+        fdiv dword [F32_10_BuildRinkGeometry]
         fst st1
         fsin
         fxch
         fcos
         fxch
-        fmul qword [qword_1613CD]
+        fmul qword [F64_80]
         fxch
-        fmul qword [qword_1613CD]
+        fmul qword [F64_80]
         add ebx, byte 0Ch
         mov eax, dword [byte esp+054h]
         mov dword [byte ebx-08h], 0
@@ -8480,17 +8480,17 @@ BuildRinkGeometry:
 .3:
         fild dword [byte esp+050h]
         fld st0
-        fmul qword [qword_1613C5]
+        fmul qword [F64_6p28319_BuildRinkGeometry]
         fst st1
-        fdiv dword [dword_1613ED]
+        fdiv dword [F32_14]
         fst st1
         fsin
         fxch
         fcos
         fxch
-        fmul qword [qword_1613CD]
+        fmul qword [F64_80]
         fxch
-        fmul qword [qword_1613CD]
+        fmul qword [F64_80]
         mov ecx, dword [byte esp+050h]
         add ebx, byte 0Ch
         inc ecx
@@ -8507,17 +8507,17 @@ BuildRinkGeometry:
 .4:
         fild dword [byte esp+04Ch]
         fld st0
-        fmul qword [qword_1613C5]
+        fmul qword [F64_6p28319_BuildRinkGeometry]
         fst st1
-        fdiv dword [dword_1613E5]
+        fdiv dword [F32_6_BuildRinkGeometry]
         fst st1
         fsin
         fxch
         fcos
         fxch
-        fmul qword [qword_1613D5]
+        fmul qword [F64_110]
         fxch
-        fmul qword [qword_1613D5]
+        fmul qword [F64_110]
         add ebx, byte 0Ch
         mov eax, dword [byte esp+04Ch]
         mov dword [byte ebx-08h], 0
@@ -8534,17 +8534,17 @@ BuildRinkGeometry:
 .5:
         fild dword [byte esp+040h]
         fld st0
-        fmul qword [qword_1613C5]
+        fmul qword [F64_6p28319_BuildRinkGeometry]
         fst st1
-        fdiv dword [dword_1613E9]
+        fdiv dword [F32_10_BuildRinkGeometry]
         fst st1
         fsin
         fxch
         fcos
         fxch
-        fmul qword [qword_1613D5]
+        fmul qword [F64_110]
         fxch
-        fmul qword [qword_1613D5]
+        fmul qword [F64_110]
         mov ecx, dword [byte esp+040h]
         add ebx, byte 0Ch
         inc ecx
@@ -8561,17 +8561,17 @@ BuildRinkGeometry:
 .6:
         fild dword [byte esp+044h]
         fld st0
-        fmul qword [qword_1613C5]
+        fmul qword [F64_6p28319_BuildRinkGeometry]
         fst st1
-        fdiv dword [dword_1613ED]
+        fdiv dword [F32_14]
         fst st1
         fsin
         fxch
         fcos
         fxch
-        fmul qword [qword_1613D5]
+        fmul qword [F64_110]
         fxch
-        fmul qword [qword_1613D5]
+        fmul qword [F64_110]
         add ebx, byte 0Ch
         mov eax, dword [byte esp+044h]
         mov dword [byte ebx-08h], 0
@@ -8588,17 +8588,17 @@ BuildRinkGeometry:
 .7:
         fild dword [byte esp+03Ch]
         fld st0
-        fmul qword [qword_1613C5]
+        fmul qword [F64_6p28319_BuildRinkGeometry]
         fst st1
-        fdiv dword [dword_1613F1]
+        fdiv dword [F32_4]
         fst st1
         fsin
         fxch
         fcos
         fxch
-        fmul qword [qword_1613DD]
+        fmul qword [F64_40]
         fxch
-        fmul qword [qword_1613DD]
+        fmul qword [F64_40]
         mov ecx, dword [byte esp+03Ch]
         add ebx, byte 0Ch
         inc ecx
@@ -8615,17 +8615,17 @@ BuildRinkGeometry:
 .8:
         fild dword [byte esp+034h]
         fld st0
-        fmul qword [qword_1613C5]
+        fmul qword [F64_6p28319_BuildRinkGeometry]
         fst st1
-        fdiv dword [dword_1613E5]
+        fdiv dword [F32_6_BuildRinkGeometry]
         fst st1
         fsin
         fxch
         fcos
         fxch
-        fmul qword [qword_1613DD]
+        fmul qword [F64_40]
         fxch
-        fmul qword [qword_1613DD]
+        fmul qword [F64_40]
         add ebx, byte 0Ch
         mov eax, dword [byte esp+034h]
         mov dword [byte ebx-08h], 0
@@ -8642,17 +8642,17 @@ BuildRinkGeometry:
 .9:
         fild dword [byte esp+048h]
         fld st0
-        fmul qword [qword_1613C5]
+        fmul qword [F64_6p28319_BuildRinkGeometry]
         fst st1
-        fdiv dword [dword_1613F5]
+        fdiv dword [F32_8]
         fst st1
         fsin
         fxch
         fcos
         fxch
-        fmul qword [qword_1613DD]
+        fmul qword [F64_40]
         fxch
-        fmul qword [qword_1613DD]
+        fmul qword [F64_40]
         mov ecx, dword [byte esp+048h]
         add ebx, byte 0Ch
         inc ecx
@@ -8886,7 +8886,7 @@ DrawCreases:
         push esi
         mov ebx, eax
         mov esi, edx
-        mov edx, dword [dword_16E4A8]
+        mov edx, dword [str_Punct_DrawRinkSurface]
         mov eax, dword [dword_1B1048]
         mov ecx, dword [byte ebx+08h]
         add eax, edx
@@ -9004,7 +9004,7 @@ DrawRinkMarkings:
         call ProjectPointsToScreen
         mov ecx, dword [dword_1B1060]
         mov eax, dword [dword_1AE000]
-        mov edi, dword [dword_16E4A8]
+        mov edi, dword [str_Punct_DrawRinkSurface]
         mov ebx, dword [dword_1B1030]
         cmp eax, edi
         jg short .2
@@ -9032,7 +9032,7 @@ DrawRinkMarkings:
         mov esi, 4
         mov ecx, dword [dword_1B1060]
         mov eax, dword [dword_1AE030]
-        mov edx, dword [dword_16E4A8]
+        mov edx, dword [str_Punct_DrawRinkSurface]
         mov ebx, dword [dword_1B1030]
         cmp eax, edx
         jg short .6
@@ -9326,11 +9326,11 @@ DrawGoalLines:
         mov dword [dword esp+esi+088h], eax
         xor ebx, ebx
         mov esi, dword [dword_1ADD80]
-        mov ecx, dword [dword_16E4A8]
+        mov ecx, dword [str_Punct_DrawRinkSurface]
         xor eax, eax
         cmp esi, ecx
         jle short .8
-        mov ecx, dword [dword_16E4A8]
+        mov ecx, dword [str_Punct_DrawRinkSurface]
 .7:
         mov esi, dword [dword eax+dword_1AE178]
         sar esi, 10h
@@ -9369,12 +9369,12 @@ DrawGoalLines:
         call DrawLineSegment
         mov ebx, 6Ch
         mov esi, dword [dword_1ADDEC]
-        mov ebp, dword [dword_16E4A8]
+        mov ebp, dword [str_Punct_DrawRinkSurface]
         xor edx, edx
         xor eax, eax
         cmp esi, ebp
         jle short .11
-        mov ecx, dword [dword_16E4A8]
+        mov ecx, dword [str_Punct_DrawRinkSurface]
 .10:
         mov esi, dword [dword eax+dword_1AE1C0]
         sar esi, 10h
@@ -11055,7 +11055,7 @@ DrawGoalLight:
         push esi
         call SubVec3
         add esp, byte 0Ch
-        mov ecx, dword [dword_16E4A8]
+        mov ecx, dword [str_Punct_DrawRinkSurface]
         cmp ecx, dword [byte esp+edi+08h]
         jg short .2
         inc ebx
@@ -12562,8 +12562,8 @@ DrawScoreboard:
         sub eax, ecx
         mov dword [byte esp+018h], eax
         fild dword [byte esp+018h]
-        fmul qword [qword_16142D]
-        fmul qword [qword_161435]
+        fmul qword [F64_0p00138889]
+        fmul qword [F64_65536_DrawScoreboard]
         mov esi, dword [dword_1B0B38]
         call __CHP
         fistp dword [byte esp+018h]
@@ -12956,9 +12956,9 @@ UpdateScoreboardSpin:
         cmp eax, byte 1
         jg short .1
         fld dword [byte esp+03Ch]
-        fmul qword [qword_16143D]
-        fmul qword [qword_161445]
-        fmul qword [qword_16144D]
+        fmul qword [F64_0p31831_UpdateScoreboardSpin]
+        fmul qword [F64_0p5_UpdateScoreboardSpin]
+        fmul qword [F64_65536_UpdateScoreboardSpin]
         call __CHP
         fistp dword [byte esp+024h]
         mov edx, dword [byte esp+024h]

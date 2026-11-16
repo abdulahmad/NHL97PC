@@ -10,7 +10,7 @@ extern str_SW00, str_Roster2, str_ELPopupMenu, str_ELPopupRegions, str_1TOP2, st
 extern str_2BOT2, str_3BOT2, str_Punct4, str_SL02d2, str_BTTM2, str_POWR, str_CHEK, str_CS
 extern str_SS5, str_SS6, str_TB05, str_TB04, str_TB03, str_TB02, str_TB01, str_TB00
 extern str_PB022, str_PB002, str_PB03, str_PB012, str_AR02d, str_FART, str_NOFACEFSH, str_FRR0
-extern byte_16CF98, byte_1C6040, dword_16CFBC, dword_16CFF4, dword_16D2B8, dword_16E46C, dword_1AC944, dword_1AD6AB
+extern byte_16CF98, byte_1C6040, str_Punct_LoadLinesArt, dword_16CFF4, dword_16D2B8, dword_16E46C, dword_1AC944, dword_1AD6AB
 extern dword_1C5DE4, dword_1C5DE8, dword_1C8AA4, dword_1C8AA8, dword_1C8AAC, dword_1C8AB0, dword_1C8AB4, dword_1C8AF8
 extern dword_1C8AFC, dword_1C8B44, dword_1C8B90, dword_1C8B94, dword_1C8BE4, dword_1C8BE8, dword_1C8BEC, dword_1C8BF0
 extern dword_1C8BF4, dword_1C8BF8, dword_1C8BFC, dword_1C8C00, dword_1C8C04, dword_1C8C08, dword_1C8C0C, dword_1C8C34
@@ -35,7 +35,7 @@ extern WipeScreen, SetNormalText, DrawPortrait, DrawStatHeader, InitMenuItems, R
 extern ScrollDown, FreeScrollList, SetScrollBarPos, ScrollToMouse, RunScrollList, GetLangText, PositionAbbrev, SetRosterMode
 extern SkaterOverall, GoalieOverall, InitListBox, InitShapeListBox, KeysEqual, FindGameRecord, FindPlayerStat, ServiceIdle
 extern AllocMemBlock, FreeMemBlock, KbdIdleCall, MakeColor, FreeBitmap, DrawArt, DrawShape, CreateBitmap
-extern SetDrawTarget, ClearScreen, FillRect, MeasureText, tickcount, unk_165BAB, unk_165BAE, unk_16D7F4
+extern SetDrawTarget, ClearScreen, FillRect, MeasureText, tickcount, str_D_DrawLinesCardDetails, str_C_DrawForwardLines, unk_16D7F4
 extern unk_1C134A, unk_1C1352, unk_1C135C, unk_1C347F, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, word_1C1344
 extern word_1C8CD4, word_1C8CEC
 global jpt_9861E, jpt_9AC47, EditLinesScreen_17F, EditLinesScreen_18C, EditLinesScreen_2C7, EditLinesScreen_49D, EditLinesScreen_4C4, EditLinesScreen_5BA
@@ -5226,7 +5226,7 @@ DrawForwardLines:
         add esp, byte 10h
         movzx eax, byte [dword ebx+eax+015Fh]
         push eax
-        push unk_165BAB
+        push str_D_DrawLinesCardDetails
         lea eax, [byte ebp-058h]
         push eax
         call sprintf_
@@ -5243,7 +5243,7 @@ DrawForwardLines:
         call PositionAbbrev
         movzx eax, al
         push eax
-        push unk_165BAE
+        push str_C_DrawForwardLines
         lea eax, [byte ebp-058h]
         push eax
         call sprintf_
@@ -5441,7 +5441,7 @@ DrawDefenceLines:
         add esp, byte 10h
         movzx eax, byte [dword ebx+eax+015Fh]
         push eax
-        push unk_165BAB
+        push str_D_DrawLinesCardDetails
         lea eax, [byte ebp-060h]
         push eax
         call sprintf_
@@ -5458,7 +5458,7 @@ DrawDefenceLines:
         call PositionAbbrev
         movzx eax, al
         push eax
-        push unk_165BAE
+        push str_C_DrawForwardLines
         lea eax, [byte ebp-060h]
         push eax
         call sprintf_
@@ -5635,7 +5635,7 @@ DrawSpecialLines:
         add esp, byte 10h
         movzx eax, byte [dword ebx+eax+01DFEh]
         push eax
-        push unk_165BAB
+        push str_D_DrawLinesCardDetails
         lea eax, [byte ebp-058h]
         push eax
         call sprintf_
@@ -5651,7 +5651,7 @@ DrawSpecialLines:
         call PositionAbbrev
         movzx eax, al
         push eax
-        push unk_165BAE
+        push str_C_DrawForwardLines
         lea eax, [byte ebp-058h]
         push eax
         call sprintf_
@@ -6777,7 +6777,7 @@ DrawLinesCardDetails:
         movzx eax, byte [dword edx+eax+015Fh]
         push eax
         mov eax, dword [dword ebx+dword_1C8D00]
-        push unk_165BAB
+        push str_D_DrawLinesCardDetails
         add eax, byte 2Fh
         push eax
         mov eax, dword [dword ebx+dword_1C8CFC]
@@ -7002,7 +7002,7 @@ DrawLinesCardDetails_16C:
         movzx eax, byte [dword edx+eax+01DFEh]
         push eax
         mov eax, dword [byte ebp-08h]
-        push unk_165BAB
+        push str_D_DrawLinesCardDetails
         add eax, byte 0Bh
         push eax
         add esi, byte 1Bh
@@ -8084,7 +8084,7 @@ LoadLinesArt:
         xor ebx, ebx
         jmp short .6
 .5:
-        push dword [nosplit ebx*4+dword_16CFBC]
+        push dword [nosplit ebx*4+str_Punct_LoadLinesArt]
         push str_AR02d
         lea eax, [byte ebp-010h]
         push eax

@@ -3,14 +3,14 @@ bits 32
 %include "hockey.inc"
 section s_FDDD4 progbits alloc exec nowrite align=1
 extern IF@DACOS, IF@SQRT, __@DEXP, __CHP, __fdiv_fpr, __fpatan_wrap, __pow87_err_, __prtf_
-extern str_Acos, byte_16E688, byte_17268C, dword_167D99, dword_167D9D, dword_167DC1, dword_167DC5, dword_16E678
+extern str_Acos, byte_16E688, byte_17268C, F32_1p52588eneg05, F32_65536_ScaleFloatsToInts, F32_0p5_SetProjectionCenter, F32_65536_SetProjectionCenter, dword_16E678
 extern dword_16E67C, dword_16E680, dword_16E684, dword_16E690, dword_16E694, dword_16E698, dword_16E69C, dword_16E6A0
-extern dword_16F140, dword_16F144, dword_16F148, dword_170254, dword_170258, dword_17025C, dword_170260, dword_170264
+extern dword_16F140, dword_16F144, dword_16F148, dword_170254, dword_170258, dword_17025C, str_D_ProjectPointsPersp, dword_170264
 extern dword_170268, dword_1CF528, dword_1CF52C, dword_1CF530, dword_1CF534, dword_1CF538, dword_1CF53C, dword_1CF540
 extern dword_1CF544, dword_1CF550, dword_1CF554, dword_1CF558, dword_1CF598, dword_1CF59C, dword_1CF5A8, dword_1CF5AC
 extern dword_1CF5B0, dword_1CF5B4, dword_1CF5B8, dword_1CF5BC, dword_1CF5C0, dword_1CF5C4, dword_1CF5C8, dword_1CF5CC
 extern dword_1CF5D0, dword_1CF5D4, dword_1CF5D8, dword_1CF5DC, dword_1CF5E0, dword_1CF5E4, dword_1CF5E8, dword_1CF5EC
-extern dword_1CF5F0, dword_1DA4D0, mem_putc_, qword_167DA1, qword_167DA9, qword_167DB1, qword_167DB9, strcmp_
+extern dword_1CF5F0, dword_1DA4D0, mem_putc_, F64_1p5259eneg05, F64_0p9_SetFocalLength, F64_1p1_SetFocalLength, F64_0p5_SetProjectionCenter, strcmp_
 extern Random32, PlotPixelRGB, PlotPixel, SaveTextState, RestoreTextState, AllocNetBuffer, FreeNetBuffer, SetTextOrigin
 extern SetTextFont, DrawTextLimited, DrawTextString, ConvertColor555, DrawGlyphScaled, SetTextScale, MakeColor, FillRect
 global IF@ATAN, IF@ATAN2, IF@DPOW, hypot_, DrawGlyph_494, DrawGlyph_590, PrepareTextDraw_72, FloatsToInts_47
@@ -1761,28 +1761,28 @@ IntsToFloats:
         jle short .5
 .4:
         fild dword [edx]
-        fmul dword [dword_167D99]
+        fmul dword [F32_1p52588eneg05]
         fstp dword [ebx]
         fild dword [byte edx+04h]
-        fmul dword [dword_167D99]
+        fmul dword [F32_1p52588eneg05]
         fstp dword [byte ebx+04h]
         fild dword [byte edx+08h]
-        fmul dword [dword_167D99]
+        fmul dword [F32_1p52588eneg05]
         fstp dword [byte ebx+08h]
         fild dword [byte edx+0Ch]
-        fmul dword [dword_167D99]
+        fmul dword [F32_1p52588eneg05]
         fstp dword [byte ebx+0Ch]
         fild dword [byte edx+010h]
-        fmul dword [dword_167D99]
+        fmul dword [F32_1p52588eneg05]
         fstp dword [byte ebx+010h]
         fild dword [byte edx+014h]
-        fmul dword [dword_167D99]
+        fmul dword [F32_1p52588eneg05]
         fstp dword [byte ebx+014h]
         fild dword [byte edx+018h]
-        fmul dword [dword_167D99]
+        fmul dword [F32_1p52588eneg05]
         fstp dword [byte ebx+018h]
         fild dword [byte edx+01Ch]
-        fmul dword [dword_167D99]
+        fmul dword [F32_1p52588eneg05]
         add ebx, byte 20h
         sub eax, byte 8
         add edx, byte 20h
@@ -1795,7 +1795,7 @@ IntsToFloats:
         test ecx, ecx
         jle short .3
         fild dword [edx]
-        fmul dword [dword_167D99]
+        fmul dword [F32_1p52588eneg05]
         add ebx, byte 4
         add edx, byte 4
         fstp dword [byte ebx-04h]
@@ -1859,7 +1859,7 @@ ScaleFloatsToInts:
         jle short FloatsToInts_47
         mov eax, edx
         fld dword [eax]
-        fmul dword [dword_167D9D]
+        fmul dword [F32_65536_ScaleFloatsToInts]
         add ebx, byte 4
         add edx, byte 4
         push eax
@@ -2833,7 +2833,7 @@ VecAngle:
         mov dword [esp], eax
         mov dword [byte esp+04h], edx
         fild qword [esp]
-        fmul qword [qword_167DA1]
+        fmul qword [F64_1p5259eneg05]
         add esp, byte 8
         pop edx
         pop ecx
@@ -2876,12 +2876,12 @@ SetFocalLength:
         mov eax, dword [byte ebp+0Ch]
         fst qword [esp]
         mov dword [dword_16F144], eax
-        fcomp qword [qword_167DA9]
+        fcomp qword [F64_0p9_SetFocalLength]
         fnstsw ax
         sahf
         jbe short .1
         fld qword [esp]
-        fcomp qword [qword_167DB1]
+        fcomp qword [F64_1p1_SetFocalLength]
         fnstsw ax
         sahf
         jae short .1
@@ -2924,18 +2924,18 @@ SetProjectionCenter:
         sar eax, 1
         lea edi, [byte esp+04h]
         fild dword [dword_17025C]
-        fadd qword [qword_167DB9]
+        fadd qword [F64_0p5_SetProjectionCenter]
         mov esi, dword [dword_170258]
         fstp dword [dword_1CF5E8]
         add eax, esi
         mov esi, esp
-        mov dword [dword_170260], eax
+        mov dword [str_D_ProjectPointsPersp], eax
         mov eax, dword [dword_17025C]
-        fild dword [dword_170260]
+        fild dword [str_D_ProjectPointsPersp]
         shl eax, 10h
-        fadd qword [qword_167DB9]
+        fadd qword [F64_0p5_SetProjectionCenter]
         mov dword [byte esp+08h], eax
-        mov eax, dword [dword_170260]
+        mov eax, dword [str_D_ProjectPointsPersp]
         fstp dword [dword_1CF5E4]
         shl eax, 10h
         fild dword [byte esp+08h]
@@ -2950,15 +2950,15 @@ SetProjectionCenter:
         fstp dword [esi]
         fild dword [byte esp+020h]
         fmul dword [byte esp+04h]
-        fmul dword [dword_167DC1]
+        fmul dword [F32_0p5_SetProjectionCenter]
         fdiv dword [esp]
         fst dword [dword_1CF5EC]
         fmul dword [dword_16F144]
         fld dword [dword_1CF5EC]
-        fmul dword [dword_167DC5]
+        fmul dword [F32_65536_SetProjectionCenter]
         fxch
         fst dword [dword_1CF5F0]
-        fmul dword [dword_167DC5]
+        fmul dword [F32_65536_SetProjectionCenter]
         mov eax, dword_170264
         fld dword [dword_1CF5EC]
         fxch st2

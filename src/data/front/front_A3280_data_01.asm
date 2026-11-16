@@ -12,8 +12,8 @@ global str_TITL7, str_1TOP3, str_2TOP3, str_3TOP3, str_1BOT3, str_2BOT3, str_3BO
 global str_GS09, str_PlayerStats, str_GS04, str_GS05, str_D01d, str_00, str_BoxScores, str_SD4
 global str_GS24, str_GS25, str_GS20, str_GS21, str_GS16, str_GS17, str_GS12, str_GS13
 global str_CDCS, str_GS02d, str_S6, str_S7, str_DSSDSSSSD02d, str_SSSSSSSD02d, str_Logo02dQfs2, str_UnpackLogo
-global str_LOGO5, str_DEBUG, str_DD, unk_165EA0, unk_166010, unk_16609C, unk_166108, unk_166110
-global unk_166118
+global str_LOGO5, str_DEBUG, str_DD, str_D_RunLinkGameScreens, str_D_DrawTeamStatLine, str_Punct_GoalTypeSuffix, str_OKAYMAN, str_GETBENT
+global str_IPASS
 str_LOG6:
         db 04Ch,04Fh,047h,036h,00h
 str_BUTD:
@@ -44,7 +44,7 @@ str_ICN2:
         db 049h,043h,04Eh,032h,00h
 str_ICN3:
         db 049h,043h,04Eh,033h,00h
-unk_165EA0:
+str_D_RunLinkGameScreens:
         db 025h,064h,00h
 str_CPU:
         db 043h,050h,055h,00h
@@ -136,7 +136,7 @@ str_GS04:
         db 047h,053h,030h,034h,00h,00h,00h,00h
 str_GS05:
         db 047h,053h,030h,035h,00h,00h,00h,00h
-unk_166010:
+str_D_DrawTeamStatLine:
         db 025h,064h,00h,00h
 str_D01d:
         db 025h,064h,02Eh,025h,030h,031h,064h,00h
@@ -170,7 +170,7 @@ str_GS02d:
         db 047h,053h,025h,030h,032h,064h,00h,00h
 str_S6:
         db 020h,028h,025h,073h,00h,00h,00h,00h
-unk_16609C:
+str_Punct_GoalTypeSuffix:
         db 029h,00h,00h,00h
 str_S7:
         db 02Ch,020h,025h,073h,00h,00h,00h,00h
@@ -188,9 +188,9 @@ str_LOGO5:
         db 04Ch,04Fh,047h,04Fh,00h
 str_DEBUG:
         db 044h,045h,042h,055h,047h,00h
-unk_166108:
+str_OKAYMAN:
         db 04Fh,04Bh,041h,059h,04Dh,041h,04Eh,00h
-unk_166110:
+str_GETBENT:
         db 047h,045h,054h,042h,045h,04Eh,054h,00h
-unk_166118:
+str_IPASS:
         db 049h,020h,050h,041h,053h,053h,020h,00h

@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_789F0 progbits alloc exec nowrite align=1
-extern byte_1C135A, byte_1C135B, byte_1C31A7, byte_1C347D, byte_1C52CA, byte_1C55A0, dword_16C6C0, dword_16C730
+extern byte_1C135A, byte_1C135B, byte_1C31A7, byte_1C347D, byte_1C52CA, byte_1C55A0, str_D_SimulateGame, dword_16C730
 extern dword_1AC940, dword_1AC944, dword_1AD22A, dword_1AD743, dword_1C13C0, dword_1C13FB, dword_1C34E3, dword_1C351E
 extern memset_, rand_, srand_, RandomCrowdDelay, PlayerOverall, FindPlayerRecord, FindGameRecord, FindPlayerStat
 extern ReadTeamStats, ServiceIdle, ZeroMem, unk_16D7FC, unk_16D804, unk_1C135C, unk_1C347F, unk_78930
@@ -368,7 +368,7 @@ SimulateGame:
         add edx, esi
         sar eax, 10h
         sar edx, 1
-        imul edx, dword [nosplit eax*4+dword_16C6C0]
+        imul edx, dword [nosplit eax*4+str_D_SimulateGame]
         mov ebx, 64h
         mov eax, edx
         sar edx, 1Fh
@@ -384,7 +384,7 @@ SimulateGame:
         add edx, ebp
         sar eax, 10h
         sar edx, 1
-        imul edx, dword [nosplit eax*4+dword_16C6C0]
+        imul edx, dword [nosplit eax*4+str_D_SimulateGame]
         mov ebx, 64h
         mov eax, edx
         sar edx, 1Fh

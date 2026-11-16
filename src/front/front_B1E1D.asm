@@ -31,7 +31,7 @@ extern SetScrollBarPos, ScrollToMouse, GetLangText, AllocStatTable, FreeStatTabl
 extern SortStatTable, DrawStatTableRows, DrawStatTableArt, ExportStatTable, OpenGameDatabase, CloseGameDatabase, LoadExhibitionFile, FreeExhibitionFile
 extern SaveUserRecord, LoadUserRecord, DeleteUserRecord, ServiceIdle, LinkSyncMenu, LinkSyncScreen, WaitForOtherComputer, AllocMemBlock
 extern FreeMemBlock, MakeColor, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, MeasureText, tickcount
-extern unk_1665C8, unk_1665CB, unk_16661B, unk_166648, unk_1C5F4A, unk_1C9704, unk_1C9756, unk_1C989E
+extern str_D_ParseUserName, str_S_DrawUserName, unk_16661B, unk_166648, unk_1C5F4A, unk_1C9704, unk_1C9756, unk_1C989E
 extern unk_B1DF1, unk_B1DFD, unk_B1E09, unk_B1E11, word_16D450, word_1AD68F, word_1AD693, word_1C3413
 extern word_1C5536, word_1C55A2
 global jpt_B234C, jpt_B41D3, NewUser_C7, NewUser_C8, UserLogScreen_71B, UserLogScreen_77D, UserLogScreen_884, UserLogScreen_89E
@@ -61,7 +61,7 @@ ParseUserName:
         jl short .1
         lea eax, [byte ebp-08h]
         push eax
-        push unk_1665C8
+        push str_D_ParseUserName
         lea eax, [byte ebp-04h]
         push eax
         call sscanf_
@@ -364,7 +364,7 @@ NewUser:
         jmp short .3
 .1:
         push ebx
-        push unk_1665C8
+        push str_D_ParseUserName
         lea eax, [byte ebp-0Ch]
         push eax
         lea edx, [byte ebp-0Ch]
@@ -550,7 +550,7 @@ DrawUserName:
         lea eax, [byte ebp-02Ch]
         push eax
         imul eax, ebx, byte 0Dh
-        push unk_1665CB
+        push str_S_DrawUserName
         add eax, byte 0Fh
         push eax
         push dword 0B1h

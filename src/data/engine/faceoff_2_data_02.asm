@@ -7,7 +7,7 @@ extern unk_19E7A8, unk_19E7AC, unk_19E7B0, unk_19E840, unk_19E8A0, unk_19E9A8
 global byte_168B60, byte_168B69, byte_168C04, byte_168E50, dword_168B66, dword_168D20, dword_168D8E, dword_168DA4
 global dword_168DCC, dword_168E70, dword_168E74, dword_168E7C, dword_168E80, dword_168F58, off_168CD8, off_168CE0
 global off_168CE8, off_168CEC, off_168CF0, off_168CFC, off_168D04, off_168D08, off_168D0C, unk_168C38
-global word_168D18, word_168E2C, word_168E2E, word_168E34, word_168E60
+global word_168D18, word_168E2C, word_168E2E, str_Punct_InProgress, word_168E60
 byte_168B60:
         db 00h,00h,02h,01h,01h,00h
 dword_168B66:
@@ -92,7 +92,7 @@ word_168E2C:
         db 00h,00h
 word_168E2E:
         db 00h,00h,020h,00h,00h,00h
-word_168E34:
+str_Punct_InProgress:
         db 040h,00h,00h,00h,00h,00h,00h,00h,060h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,080h,00h,00h,00h
 byte_168E50:

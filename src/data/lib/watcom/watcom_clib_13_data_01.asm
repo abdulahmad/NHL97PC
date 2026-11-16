@@ -8,11 +8,11 @@ global str_FILESLINED, byte_17075C, byte_170764, byte_170781, byte_17078E, byte_
 global byte_1707FC, byte_170800, byte_170804, byte_170810, byte_17086B, byte_1708C6, byte_170921, byte_17097C
 global byte_171C90, byte_171D33, byte_171D34, dword_1706F8, dword_170704, dword_17070C, dword_170710, dword_170714
 global dword_170754, dword_170758, dword_170760, dword_1707E4, dword_1707EA, dword_1707F0, dword_1709D8, dword_1709ED
-global dword_1709F1, dword_1709F8, dword_170ACC, dword_170AF8, dword_170AFC, dword_170B00, dword_170B04, dword_170B08
+global dword_1709F1, dword_1709F8, str_BK, dword_170AF8, dword_170AFC, dword_170B00, dword_170B04, dword_170B08
 global dword_170B0C, dword_170B10, dword_1712CC, dword_171C88, dword_171C8C, dword_171E34, off_1706E0, off_1706E4
 global off_170B14, off_170B18, off_170B1C, off_171C7C, off_171C80, off_171C84, off_171D10, unk_170B26
 global unk_170B30, unk_170F72, unk_170F7C, unk_1713BE, unk_1713C8, unk_17180A, unk_171814, unk_171E38
-global word_170708, word_17070A, word_1707E8, word_1707EE, word_1707F4, word_1707F6, word_170B24, word_171C56
+global str_Punct_InitFpuFlags, word_17070A, word_1707E8, word_1707EE, word_1707F4, word_1707F6, word_170B24, word_171C56
 off_1706E0:
         dd FixedSinCos_70
 off_1706E4:
@@ -25,7 +25,7 @@ dword_1706F8:
         db 00h,00h,00h,00h,01h,00h,00h,00h,00h,00h,00h,00h
 dword_170704:
         db 00h,00h,00h,00h
-word_170708:
+str_Punct_InitFpuFlags:
         db 020h,00h
 word_17070A:
         db 00h,00h
@@ -141,7 +141,7 @@ dword_1709F8:
         db 0BAh,028h,00h,00h,0D6h,033h,00h,00h,042h,04Bh,00h,00h,09Fh,093h,00h,00h
         db 021h,03Bh,00h,00h,0A1h,02Ah,00h,00h,041h,02Dh,00h,00h,049h,032h,00h,00h
         db 021h,03Bh,00h,00h
-dword_170ACC:
+str_BK:
         db 042h,04Bh,00h,00h,041h,06Dh,00h,00h,050h,0D6h,00h,00h,0FCh,073h,00h,00h
         db 09Fh,053h,00h,00h,0C5h,058h,00h,00h,0A3h,062h,00h,00h,0FCh,073h,00h,00h
         db 09Fh,093h,00h,00h,050h,0D6h,00h,00h,063h,0A4h,01h,00h

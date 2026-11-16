@@ -4,7 +4,7 @@ bits 32
 section s_16E48C progbits alloc noexec write align=1
 extern PresentScreen
 global byte_16E503, byte_16E504, dword_16E48C, dword_16E490, dword_16E494, dword_16E498, dword_16E49C, dword_16E4A0
-global dword_16E4A4, dword_16E4A8, dword_16E4B0, dword_16E4B4, dword_16E4B8, dword_16E4BC, dword_16E4C8, dword_16E4D0
+global dword_16E4A4, str_Punct_DrawRinkSurface, str_D_UpdateFrameRate, dword_16E4B4, dword_16E4B8, dword_16E4BC, dword_16E4C8, dword_16E4D0
 global dword_16E500, off_16E4D4, off_16E4D8, off_16E4DC, off_16E4E0, str_Viv
 dword_16E48C:
         db 00h,00h,00h,00h
@@ -20,9 +20,9 @@ dword_16E4A0:
         db 00h,00h,00h,00h
 dword_16E4A4:
         db 00h,00h,00h,00h
-dword_16E4A8:
+str_Punct_DrawRinkSurface:
         db 0Ah,00h,00h,00h,0F0h,00h,00h,00h
-dword_16E4B0:
+str_D_UpdateFrameRate:
         db 064h,00h,00h,00h
 dword_16E4B4:
         db 09Ch,02Eh,00h,00h

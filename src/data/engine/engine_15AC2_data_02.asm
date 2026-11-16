@@ -3,10 +3,10 @@ bits 32
 %include "hockey.inc"
 section s_16875E progbits alloc noexec write align=1
 extern str_CHASE, DrawSpecialTeamsPanel, DrawMessagePanel, DrawVideoModePanel, DrawPenaltyPanel, DrawPenaltyShotPanel, DrawInjuryPanel, DrawPeriodPanel
-extern DrawGoalScorerPanel, DrawClockPanel, PowerPlayPanel, HomeTeamPanel, AwayTeamPanel, HomeStatPanel, AwayStatPanel, unk_160208
-extern unk_160218, unk_160220, unk_160228, unk_160230, unk_160238, unk_160240, unk_160248, unk_160250
-extern unk_160258, unk_160260, unk_160268, unk_160270, unk_160278, unk_160280, unk_160288, unk_160290
-extern unk_160298, unk_1602A0, unk_1602A8, unk_1602B0, unk_1602B8, unk_1602C0, unk_1602C8, unk_1602D0
+extern DrawGoalScorerPanel, DrawClockPanel, PowerPlayPanel, HomeTeamPanel, AwayTeamPanel, HomeStatPanel, AwayStatPanel, str_NONE
+extern str_OFFST, str_RELTV, unk_160228, str_PUCK, unk_160238, unk_160240, str_PLYR0, str_SCORE
+extern str_USER, str_ZAMB, str_MULTI, str_PEN0, str_PEN1, str_BNCH0, str_BNCH1, str_CENTR
+extern str_CIRC1, str_CIRC2, str_CIRC3, str_CIRC4, str_DOT1, str_DOT2, str_DOT3, str_DOT4
 global byte_1687B4, byte_16892C, byte_16892D, byte_16892E, byte_16892F, byte_168930, byte_1689BC, byte_1689C0
 global byte_1689E4, dword_16875E, dword_1687B8, dword_168934, dword_16893C, off_168772, off_16877E, unk_1687BC
 global unk_1687C8, unk_1687D4, unk_1687E0, unk_1687EC, unk_1687F8, unk_168810, unk_16881C, unk_168828
@@ -82,32 +82,32 @@ unk_1688AC:
         db 00h,00h,061h,0C5h,00h,080h,0BBh,044h,00h,00h,0E1h,044h
 unk_1688B8:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-        dd unk_160208
+        dd str_NONE
         dd str_CHASE
-        dd unk_160218
-        dd unk_160220
+        dd str_OFFST
+        dd str_RELTV
         dd unk_160228
-        dd unk_160230
+        dd str_PUCK
         dd unk_160238
         dd unk_160240
-        dd unk_160248
-        dd unk_160250
-        dd unk_160258
-        dd unk_160260
-        dd unk_160268
-        dd unk_160270
-        dd unk_160278
-        dd unk_160280
-        dd unk_160288
-        dd unk_160290
-        dd unk_160298
-        dd unk_1602A0
-        dd unk_1602A8
-        dd unk_1602B0
-        dd unk_1602B8
-        dd unk_1602C0
-        dd unk_1602C8
-        dd unk_1602D0
+        dd str_PLYR0
+        dd str_SCORE
+        dd str_USER
+        dd str_ZAMB
+        dd str_MULTI
+        dd str_PEN0
+        dd str_PEN1
+        dd str_BNCH0
+        dd str_BNCH1
+        dd str_CENTR
+        dd str_CIRC1
+        dd str_CIRC2
+        dd str_CIRC3
+        dd str_CIRC4
+        dd str_DOT1
+        dd str_DOT2
+        dd str_DOT3
+        dd str_DOT4
 byte_16892C:
         db 00h
 byte_16892D:

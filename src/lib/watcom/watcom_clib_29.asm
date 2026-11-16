@@ -2,9 +2,9 @@
 bits 32
 %include "hockey.inc"
 section s_135C52 progbits alloc exec nowrite align=1
-extern __fdiv_fpr, _matherr_, byte_16E415, byte_17268C, dword_16841C, dword_19A6E0, dword_19C8C8, dword_19C8CC
-extern off_19C894, qword_16817C, qword_168418, qword_19C884, tbyte_19C8B4, tbyte_19C8BE, tbyte_19C8D0, tbyte_19C8DA
-extern tbyte_19C8E4, tbyte_19C8EE, tbyte_19C8F8, tbyte_19C902, tbyte_19C90C, unk_135C2D
+extern __fdiv_fpr, _matherr_, byte_16E415, byte_17268C, dword_16841C, dword_19A6E0, F32_16___fpatan_chk, F32_0p0625
+extern off_19C894, F64_1eneg08, qword_168418, F64_1, F80_3p14159, F80_1p5708___fpatan_chk, F80_neg0p333333, F80_0p2
+extern F80_neg0p142857, F80_0p111111, F80_neg0p0909076, F80_0p0764169, F80_0, unk_135C2D
 global __fpatan_chk, __math1err_, __math2err_, __math87_err_, itoa_, __fpatan_chk_160, __fpatan_chk_16B, __fpatan_chk_178
 global __fpatan_chk_18B, __fpatan_chk_1A0, __fpatan_chk_1B3, __fpatan_chk_1C8, __fpatan_chk_1DB, ltoa_, CheckPentiumFdiv, ultoa_
 global unk_135CB7, utoa_
@@ -151,7 +151,7 @@ CheckPentiumFdiv:
         fdiv st1
         fmulp
         fsubp
-        fcomp qword [qword_16817C]
+        fcomp qword [F64_1eneg08]
         fnstsw ax
         sahf
         jbe short .1
@@ -210,18 +210,18 @@ __fpatan_chk:
         mov eax, 0Fh
         call __fdiv_fpr
         pop eax
-        fld dword [dword_19C8C8]
+        fld dword [F32_16___fpatan_chk]
         fmul st1
         fistp dword [byte esp+020h]
         mov ecx, dword [byte esp+020h]
         shl ecx, 4
         fild dword [byte esp+020h]
-        fmul dword [dword_19C8CC]
+        fmul dword [F32_0p0625]
         fld st1
         fsub st1
         fxch
         fmulp st2
-        fld qword [qword_19C884]
+        fld qword [F64_1]
         faddp st2
         push eax
         mov eax, 0Fh
@@ -233,23 +233,23 @@ __fpatan_chk:
         fmul st1
         fld st0
         fmul st1
-        fld tword [tbyte_19C902]
-        fld tword [tbyte_19C8F8]
+        fld tword [F80_0p0764169]
+        fld tword [F80_neg0p0909076]
         fxch
         fmul st2
-        fld tword [tbyte_19C8EE]
+        fld tword [F80_0p111111]
         fxch st2
         fmul st3
-        fld tword [tbyte_19C8E4]
+        fld tword [F80_neg0p142857]
         fxch st2
         fmul st5
         fxch st3
         fmulp st4
-        fld tword [tbyte_19C8DA]
+        fld tword [F80_0p2]
         fxch st3
         faddp st4
         mov eax, dword [byte esp+014h]
-        fld tword [tbyte_19C8D0]
+        fld tword [F80_neg0p333333]
         fxch
         shl eax, 10h
         fmul st6
@@ -274,7 +274,7 @@ __fpatan_chk:
         faddp
         fmul st1
         faddp
-        fld tword [dword ecx+tbyte_19C90C]
+        fld tword [dword ecx+F80_0]
         faddp
         jmp dword [nosplit edx*4+off_19C894]
 __fpatan_chk_160:
@@ -293,7 +293,7 @@ __fpatan_chk_16B:
         pop eax
         ret
 __fpatan_chk_178:
-        fld tword [tbyte_19C8B4]
+        fld tword [F80_3p14159]
         fsubrp
         fldcw word [byte esp+018h]
         add esp, byte 24h
@@ -302,7 +302,7 @@ __fpatan_chk_178:
         pop eax
         ret
 __fpatan_chk_18B:
-        fld tword [tbyte_19C8B4]
+        fld tword [F80_3p14159]
         fsubrp
         fchs
         fldcw word [byte esp+018h]
@@ -312,7 +312,7 @@ __fpatan_chk_18B:
         pop eax
         ret
 __fpatan_chk_1A0:
-        fld tword [tbyte_19C8BE]
+        fld tword [F80_1p5708___fpatan_chk]
         fsubrp
         fldcw word [byte esp+018h]
         add esp, byte 24h
@@ -321,7 +321,7 @@ __fpatan_chk_1A0:
         pop eax
         ret
 __fpatan_chk_1B3:
-        fld tword [tbyte_19C8BE]
+        fld tword [F80_1p5708___fpatan_chk]
         fsubrp
         fchs
         fldcw word [byte esp+018h]
@@ -331,7 +331,7 @@ __fpatan_chk_1B3:
         pop eax
         ret
 __fpatan_chk_1C8:
-        fld tword [tbyte_19C8BE]
+        fld tword [F80_1p5708___fpatan_chk]
         faddp
         fldcw word [byte esp+018h]
         add esp, byte 24h
@@ -340,7 +340,7 @@ __fpatan_chk_1C8:
         pop eax
         ret
 __fpatan_chk_1DB:
-        fld tword [tbyte_19C8BE]
+        fld tword [F80_1p5708___fpatan_chk]
         faddp
         fchs
         fldcw word [byte esp+018h]

@@ -3,12 +3,12 @@ bits 32
 %include "hockey.inc"
 section s_1680A4 progbits alloc noexec write align=1
 global _IsTable, str_DMA, str_IRQ, str_SBIRQ, str_SBEnable, str_FALSE, str_WavePort, str_ExitYN
-global str_UnableToAllocateRealModeS, str_UnableToSetLimitOfRealMod, str_In, str_ABNORMALTERMINATION, byte_168410, dword_1682E4, dword_1682E8, dword_16841C
-global dword_168420, qword_16817C, qword_1682EC, qword_168418, str_BLASTER, str_FloatingPointSupportNot, str_NotEnoughMemoryTo, str_PAUSEPRESSANYKEY
-global str_RATIONALDOS4G, str_RMHandler, str_SaveText, unk_1680D4, unk_168184, unk_168189, unk_16818E, unk_168193
-global unk_168197, unk_16819C, unk_1681A1, unk_1681A5, unk_1681AB, unk_1681B0, unk_1681B4, unk_1681BA
-global unk_1681C0, unk_1681C6, unk_1681CB, unk_1681D1, unk_1681D5, unk_1681D9, unk_1681DD, unk_1681E0
-global unk_1681E3, unk_1681E6, unk_1681EA, unk_1681F0, unk_168258, unk_168265, unk_16827A, unk_16828F
+global str_UnableToAllocateRealModeS, str_UnableToSetLimitOfRealMod, str_In, str_ABNORMALTERMINATION, byte_168410, str_Inf, str_Nan, dword_16841C
+global dword_168420, F64_1eneg08, F64_neg1_floor_, qword_168418, str_BLASTER, str_FloatingPointSupportNot, str_NotEnoughMemoryTo, str_PAUSEPRESSANYKEY
+global str_RATIONALDOS4G, str_RMHandler, str_SaveText, str_Punct_IniFindKey, unk_168184, str_Asin, str_Sqrt, str_Exp
+global str_Cosh, str_Sinh, str_Pow, str_Acosh, str_Log2, str_Log, str_Log10, str_Atanh
+global str_Atan2, str_Ipow, str_Dpowi, str_Cos, str_Sin, str_Tan, str_Y0, str_Y1
+global str_Yn, str_Mod, str_Cotan, str_ULTRASND, str_DomainError, unk_168265, unk_16827A, unk_16828F
 global unk_1682A5, unk_1682C0
 str_DMA:
         db 044h,04Dh,041h,00h
@@ -22,7 +22,7 @@ str_FALSE:
         db 046h,041h,04Ch,053h,045h,00h,00h,00h
 str_WavePort:
         db 057h,061h,076h,065h,050h,06Fh,072h,074h,00h,00h,00h,00h
-unk_1680D4:
+str_Punct_IniFindKey:
         db 03Dh,00h,00h,00h
 str_BLASTER:
         db 042h,04Ch,041h,053h,054h,045h,052h,00h
@@ -43,55 +43,55 @@ str_FloatingPointSupportNot:
         db 064h,0Dh,0Ah,00h
 str_RATIONALDOS4G:
         db 052h,041h,054h,049h,04Fh,04Eh,041h,04Ch,020h,044h,04Fh,053h,02Fh,034h,047h,00h
-qword_16817C:
+F64_1eneg08:
         db 03Ah,08Ch,030h,0E2h,08Eh,079h,045h,03Eh
 unk_168184:
         db 061h,063h,06Fh,073h,00h
-unk_168189:
+str_Asin:
         db 061h,073h,069h,06Eh,00h
-unk_16818E:
+str_Sqrt:
         db 073h,071h,072h,074h,00h
-unk_168193:
+str_Exp:
         db 065h,078h,070h,00h
-unk_168197:
+str_Cosh:
         db 063h,06Fh,073h,068h,00h
-unk_16819C:
+str_Sinh:
         db 073h,069h,06Eh,068h,00h
-unk_1681A1:
+str_Pow:
         db 070h,06Fh,077h,00h
-unk_1681A5:
+str_Acosh:
         db 061h,063h,06Fh,073h,068h,00h
-unk_1681AB:
+str_Log2:
         db 06Ch,06Fh,067h,032h,00h
-unk_1681B0:
+str_Log:
         db 06Ch,06Fh,067h,00h
-unk_1681B4:
+str_Log10:
         db 06Ch,06Fh,067h,031h,030h,00h
-unk_1681BA:
+str_Atanh:
         db 061h,074h,061h,06Eh,068h,00h
-unk_1681C0:
+str_Atan2:
         db 061h,074h,061h,06Eh,032h,00h
-unk_1681C6:
+str_Ipow:
         db 069h,070h,06Fh,077h,00h
-unk_1681CB:
+str_Dpowi:
         db 064h,070h,06Fh,077h,069h,00h
-unk_1681D1:
+str_Cos:
         db 063h,06Fh,073h,00h
-unk_1681D5:
+str_Sin:
         db 073h,069h,06Eh,00h
-unk_1681D9:
+str_Tan:
         db 074h,061h,06Eh,00h
-unk_1681DD:
+str_Y0:
         db 079h,030h,00h
-unk_1681E0:
+str_Y1:
         db 079h,031h,00h
-unk_1681E3:
+str_Yn:
         db 079h,06Eh,00h
-unk_1681E6:
+str_Mod:
         db 06Dh,06Fh,064h,00h
-unk_1681EA:
+str_Cotan:
         db 063h,06Fh,074h,061h,06Eh,00h
-unk_1681F0:
+str_ULTRASND:
         db 055h,04Ch,054h,052h,041h,053h,04Eh,044h,00h,00h,00h,00h
 str_RMHandler:
         db 052h,04Dh,048h,061h,06Eh,064h,06Ch,065h,072h,00h,00h,00h
@@ -103,7 +103,7 @@ str_UnableToSetLimitOfRealMod:
         db 055h,06Eh,061h,062h,06Ch,065h,020h,074h,06Fh,020h,073h,065h,074h,020h,06Ch,069h
         db 06Dh,069h,074h,020h,06Fh,066h,020h,072h,065h,061h,06Ch,020h,06Dh,06Fh,064h,065h
         db 020h,073h,065h,06Ch,065h,063h,074h,06Fh,072h,00h
-unk_168258:
+str_DomainError:
         db 044h,06Fh,06Dh,061h,069h,06Eh,020h,065h,072h,072h,06Fh,072h,00h
 unk_168265:
         db 041h,072h,067h,075h,06Dh,065h,06Eh,074h,020h,073h,069h,06Eh,067h,075h,06Ch,061h
@@ -122,11 +122,11 @@ unk_1682C0:
         db 073h,069h,067h,06Eh,069h,066h,069h,063h,061h,06Eh,063h,065h,00h
 str_In:
         db 020h,069h,06Eh,020h,00h,00h,00h
-dword_1682E4:
+str_Inf:
         db 069h,06Eh,066h,00h
-dword_1682E8:
+str_Nan:
         db 06Eh,061h,06Eh,00h
-qword_1682EC:
+F64_neg1_floor_:
         db 00h,00h,00h,00h,00h,00h,0F0h,0BFh
 str_ABNORMALTERMINATION:
         db 041h,042h,04Eh,04Fh,052h,04Dh,041h,04Ch,020h,054h,045h,052h,04Dh,049h,04Eh,041h
@@ -157,7 +157,7 @@ dword_16841C:
         db 00h,00h,0F0h,07Fh
 dword_168420:
         db 00h,00h,00h,00h
-        dd unk_168258
+        dd str_DomainError
         dd unk_168265
         dd unk_16827A
         dd unk_16828F

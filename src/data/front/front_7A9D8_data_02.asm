@@ -2,15 +2,15 @@
 bits 32
 %include "hockey.inc"
 section s_16C734 progbits alloc noexec write align=1
-extern unk_163F20, unk_163F24, unk_163F28, unk_163F2C, unk_163F38, unk_163F3C, unk_163F40, unk_163F48
-extern unk_163F4C, unk_163F50, unk_163F5C, unk_163F60, unk_163F64, unk_163F6C, unk_163F70, unk_163F74
-extern unk_163F84, unk_163F88, unk_163F8C, unk_163F9C, unk_163FA0, unk_163FA4, unk_163FB4, unk_163FBC
-extern unk_163FC0, unk_163FC4, unk_163FD0, unk_163FD4, unk_163FD8, unk_163FE8, unk_163FF0, unk_163FF4
-extern unk_164004, unk_16400C, unk_164010, unk_164024, unk_16402C, unk_164030, unk_164044, unk_16404C
-extern unk_164050, unk_164068, unk_164070, unk_164074, unk_164084, unk_16408C, unk_164090, unk_1640A4
-extern unk_1640AC, unk_1640B0, unk_1640C4, unk_1640CC, unk_1640D0, unk_1640E8, unk_1640F0, unk_1640F4
-extern unk_164104, unk_16410C
-global byte_16C914, dword_16C734, dword_16C738, dword_16C75C, dword_16C760, dword_16C982, dword_16C996, dword_16C9AC
+extern str_OK, str_0, unk_163F28, str_CONNECT, unk_163F38, unk_163F3C, str_RING, str_2
+extern unk_163F4C, str_NOCARRIER, str_3, unk_163F60, unk_163F64, str_4, unk_163F70, str_CONNECT1200
+extern str_5, unk_163F88, str_NODIALTONE, str_6, unk_163FA0, unk_163FA4, str_BUSY, str_7
+extern unk_163FC0, str_NOANSWER, unk_163FD0, unk_163FD4, str_CONNECT2400, str_10, unk_163FF0, str_CONNECT9600
+extern str_13, unk_16400C, unk_164010, str_17, unk_16402C, unk_164030, str_23, unk_16404C
+extern unk_164050, str_27, unk_164070, str_CONNECT14400, str_25, unk_16408C, unk_164090, str_26
+extern unk_1640AC, unk_1640B0, str_35, unk_1640CC, unk_1640D0, str_36, unk_1640F0, str_CONNECT28800
+extern str_107, unk_16410C
+global byte_16C914, dword_16C734, dword_16C738, str_1_BuildSeasonSchedule, dword_16C760, dword_16C982, dword_16C996, dword_16C9AC
 global dword_16C9B0, dword_16CAA8, dword_16CAAC, off_16C9B8, off_16C9C0
 dword_16C734:
         db 081h,00h,00h,00h
@@ -18,7 +18,7 @@ dword_16C738:
         db 081h,00h,00h,00h,082h,00h,00h,00h,082h,00h,00h,00h,083h,00h,00h,00h
         db 084h,00h,00h,00h,085h,00h,00h,00h,086h,00h,00h,00h,087h,00h,00h,00h
         db 088h,00h,00h,00h
-dword_16C75C:
+str_1_BuildSeasonSchedule:
         db 031h,00h,00h,00h
 dword_16C760:
         db 031h,00h,00h,00h,032h,00h,00h,00h,034h,00h,00h,00h,033h,00h,00h,00h
@@ -68,66 +68,66 @@ dword_16C9AC:
 dword_16C9B0:
         db 00h,00h,00h,00h,00h,00h,00h,00h
 off_16C9B8:
-        dd unk_163F20
-        dd unk_163F24
+        dd str_OK
+        dd str_0
 off_16C9C0:
         dd unk_163F28
-        dd unk_163F2C
+        dd str_CONNECT
         dd unk_163F38
         dd unk_163F3C
-        dd unk_163F40
-        dd unk_163F48
+        dd str_RING
+        dd str_2
         dd unk_163F4C
-        dd unk_163F50
-        dd unk_163F5C
+        dd str_NOCARRIER
+        dd str_3
         dd unk_163F60
         dd unk_163F64
-        dd unk_163F6C
+        dd str_4
         dd unk_163F70
-        dd unk_163F74
-        dd unk_163F84
+        dd str_CONNECT1200
+        dd str_5
         dd unk_163F88
-        dd unk_163F8C
-        dd unk_163F9C
+        dd str_NODIALTONE
+        dd str_6
         dd unk_163FA0
         dd unk_163FA4
-        dd unk_163F9C
+        dd str_6
         dd unk_163FA0
-        dd unk_163FB4
-        dd unk_163FBC
+        dd str_BUSY
+        dd str_7
         dd unk_163FC0
-        dd unk_163FC4
+        dd str_NOANSWER
         dd unk_163FD0
         dd unk_163FD4
-        dd unk_163FD8
-        dd unk_163FE8
+        dd str_CONNECT2400
+        dd str_10
         dd unk_163FF0
-        dd unk_163FF4
-        dd unk_164004
+        dd str_CONNECT9600
+        dd str_13
         dd unk_16400C
         dd unk_164010
-        dd unk_164024
+        dd str_17
         dd unk_16402C
         dd unk_164030
-        dd unk_164044
+        dd str_23
         dd unk_16404C
         dd unk_164050
-        dd unk_164068
+        dd str_27
         dd unk_164070
-        dd unk_164074
-        dd unk_164084
+        dd str_CONNECT14400
+        dd str_25
         dd unk_16408C
         dd unk_164090
-        dd unk_1640A4
+        dd str_26
         dd unk_1640AC
         dd unk_1640B0
-        dd unk_1640C4
+        dd str_35
         dd unk_1640CC
         dd unk_1640D0
-        dd unk_1640E8
+        dd str_36
         dd unk_1640F0
-        dd unk_1640F4
-        dd unk_164104
+        dd str_CONNECT28800
+        dd str_107
         dd unk_16410C
 dword_16CAA8:
         db 014h,00h,00h,00h

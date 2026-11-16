@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_16CFF8 progbits alloc noexec write align=1
-extern unk_165D00, unk_165D08
+extern str_HAVEIT, str_WANTIT
 global dword_16CFF8, dword_16D23C, dword_16D250, off_16D254, off_16D258, unk_16CFFC
 dword_16CFF8:
         db 00h,00h,00h,00h
@@ -49,6 +49,6 @@ dword_16D23C:
 dword_16D250:
         db 0C4h,01h,00h,00h
 off_16D254:
-        dd unk_165D00
+        dd str_HAVEIT
 off_16D258:
-        dd unk_165D08
+        dd str_WANTIT

@@ -13,7 +13,7 @@ extern BlitShape, PresentScreen, FindShape, FindShapeQuiet, OpenArtArchive, Open
 extern SetScreenTarget, SecondsToSamples, WaitSoundTime, OpenDataLibrary, DrawShadowBox, DrawScreenBackground, SetTextColor, DrawTextAligned
 extern LoadTeamLogo, FreeLogoArt, InitMenuItems, GetLangText, InitListBox, InitShapeListBox, FreeDbBlock, FindTeamRecord
 extern FindPlayerRecord, OpenLeagueFile, FindGameRecord, FindTeamStat, ServiceIdle, FreeMemBlock, FillMem, MakeColor
-extern DrawArt, SetDrawTarget, unk_167731, unk_16E1E4, unk_16E21C, unk_1AD22E, unk_1AD443, unk_1C5F4A
+extern DrawArt, SetDrawTarget, str_D_DrawSeasonIntro, unk_16E1E4, str_Punct_BuildSeasonIntro, unk_1AD22E, unk_1AD443, unk_1C5F4A
 extern unk_1C5F9C, unk_1CD78C, unk_1CD7FA, unk_1CD833, unk_1CD8DE, unk_1CD989, unk_1CDA34, unk_1CDADF
 extern unk_1CDB8A, unk_1CDC35, unk_1CDCE0, unk_1CDD8F, unk_1CDDFD, unk_1CDE36, unk_1CE03B, unk_1CE0A9
 extern word_19CBC6, word_1CD788, word_1CD78A, word_1CD7CD, word_1CD7CF, word_1CD7D1, word_1CD7D3, word_1CD7D5
@@ -52,7 +52,7 @@ BuildSeasonIntro:
         jl short .1
         mov dword [byte ebp+06Eh], 0
         mov dword [dword_1CD76C], 4
-        mov dword [dword_1CD768], unk_16E21C
+        mov dword [dword_1CD768], str_Punct_BuildSeasonIntro
         mov eax, dword [dword_1AC814]
         mov dword [dword_1CD770], 0
         and eax, byte 70h
@@ -1181,7 +1181,7 @@ DrawSeasonIntro:
         add esp, byte 10h
         movsx eax, word [dword ebx+word_1CD7CD]
         push eax
-        push unk_167731
+        push str_D_DrawSeasonIntro
         push byte 68h
         push dword 1C7h
         push byte 0
@@ -1197,7 +1197,7 @@ DrawSeasonIntro:
         add esp, byte 10h
         movsx eax, word [dword ebx+word_1CD7CF]
         push eax
-        push unk_167731
+        push str_D_DrawSeasonIntro
         push byte 79h
         push dword 1C7h
         push byte 0
@@ -1213,7 +1213,7 @@ DrawSeasonIntro:
         add esp, byte 10h
         movsx eax, word [dword ebx+word_1CD7D1]
         push eax
-        push unk_167731
+        push str_D_DrawSeasonIntro
         push dword 8Ah
         push dword 1C7h
         push byte 0
@@ -1229,7 +1229,7 @@ DrawSeasonIntro:
         add esp, byte 10h
         movsx eax, word [dword ebx+word_1CD7D3]
         push eax
-        push unk_167731
+        push str_D_DrawSeasonIntro
         push dword 9Bh
         push dword 1C7h
         push byte 0
@@ -1245,7 +1245,7 @@ DrawSeasonIntro:
         add esp, byte 10h
         movsx eax, word [dword ebx+word_1CD7D5]
         push eax
-        push unk_167731
+        push str_D_DrawSeasonIntro
         push byte 68h
         push dword 240h
         push byte 0
@@ -1264,7 +1264,7 @@ DrawSeasonIntro:
         idiv ecx
         add esp, byte 10h
         push eax
-        push unk_167731
+        push str_D_DrawSeasonIntro
         push byte 79h
         push dword 240h
         push byte 0
@@ -1371,7 +1371,7 @@ DrawSeasonIntro:
         add esp, byte 10h
         movsx eax, word [dword ebx+word_1CD7CD]
         push eax
-        push unk_167731
+        push str_D_DrawSeasonIntro
         push byte 68h
         push dword 1C7h
         push byte 0
@@ -1387,7 +1387,7 @@ DrawSeasonIntro:
         add esp, byte 10h
         movsx eax, word [dword ebx+word_1CD7CF]
         push eax
-        push unk_167731
+        push str_D_DrawSeasonIntro
         push byte 79h
         push dword 1C7h
         push byte 0
@@ -1403,7 +1403,7 @@ DrawSeasonIntro:
         add esp, byte 10h
         movsx eax, word [dword ebx+word_1CD7D1]
         push eax
-        push unk_167731
+        push str_D_DrawSeasonIntro
         push dword 8Ah
         push dword 1C7h
         push byte 0
@@ -1419,7 +1419,7 @@ DrawSeasonIntro:
         add esp, byte 10h
         movsx eax, word [dword ebx+word_1CD7D3]
         push eax
-        push unk_167731
+        push str_D_DrawSeasonIntro
         push dword 9Bh
         push dword 1C7h
         push byte 0
@@ -1435,7 +1435,7 @@ DrawSeasonIntro:
         add esp, byte 10h
         movsx eax, word [dword ebx+word_1CD7D9]
         push eax
-        push unk_167731
+        push str_D_DrawSeasonIntro
         push byte 68h
         push dword 240h
         push byte 0
@@ -1451,7 +1451,7 @@ DrawSeasonIntro:
         add esp, byte 10h
         movsx eax, word [dword ebx+word_1CD7DD]
         push eax
-        push unk_167731
+        push str_D_DrawSeasonIntro
         push byte 79h
         push dword 240h
         push byte 0
@@ -1467,7 +1467,7 @@ DrawSeasonIntro:
         add esp, byte 10h
         movsx eax, word [dword ebx+word_1CD7D5]
         push eax
-        push unk_167731
+        push str_D_DrawSeasonIntro
         push dword 8Ah
         push dword 240h
         push byte 0
@@ -1483,7 +1483,7 @@ DrawSeasonIntro:
         add esp, byte 10h
         movsx eax, word [dword ebx+word_1CD7D7]
         push eax
-        push unk_167731
+        push str_D_DrawSeasonIntro
         push dword 9Bh
         push dword 240h
         push byte 0
@@ -1588,7 +1588,7 @@ DrawSeasonIntro:
         add esp, byte 10h
         movzx eax, byte [dword ebx+byte_1CD7FC]
         push eax
-        push unk_167731
+        push str_D_DrawSeasonIntro
         push esi
         push dword 204h
         push byte 0
@@ -1604,7 +1604,7 @@ DrawSeasonIntro:
         add esp, byte 10h
         movzx eax, byte [dword ebx+byte_1CD7FD]
         push eax
-        push unk_167731
+        push str_D_DrawSeasonIntro
         push byte 79h
         push dword 204h
         push byte 0
@@ -1620,7 +1620,7 @@ DrawSeasonIntro:
         add esp, byte 10h
         movzx eax, byte [dword ebx+byte_1CD7FE]
         push eax
-        push unk_167731
+        push str_D_DrawSeasonIntro
         push dword 8Ah
         push dword 204h
         push byte 0
@@ -1639,7 +1639,7 @@ DrawSeasonIntro:
         add esp, byte 10h
         add eax, edx
         push eax
-        push unk_167731
+        push str_D_DrawSeasonIntro
         push dword 19Fh
         push dword 204h
         push byte 0

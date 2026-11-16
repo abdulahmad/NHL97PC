@@ -6,7 +6,7 @@ global byte_172BC5, byte_172BF4, byte_172BF5, byte_172BF6, byte_172C14, byte_172
 global byte_172C2E, byte_172C2F, byte_172C88, byte_172C89, dword_172BC1, dword_172BC8, dword_172BCC, dword_172BD0
 global dword_172BD4, dword_172BD8, dword_172BDC, dword_172BE0, dword_172BE4, dword_172BE8, dword_172BEC, dword_172BF0
 global dword_172C00, dword_172C04, dword_172C08, dword_172C0C, dword_172C10, dword_172C20, dword_172C24, dword_172C28
-global dword_172C3E, dword_172C64, dword_172C68, dword_172C6C, dword_172C70, dword_172C74, dword_172C78, dword_172C7C
+global dword_172C3E, dword_172C64, str_Punct_ReadSoundscapeIni, dword_172C6C, dword_172C70, dword_172C74, dword_172C78, dword_172C7C
 global dword_172C80, dword_172C84, dword_172C90, dword_172C94, dword_172C98, dword_172C9C, dword_172CA0, dword_172CA4
 global unk_172C44, word_172C42, word_172C48, word_172C4C
 dword_172BC1:
@@ -82,7 +82,7 @@ word_172C4C:
         db 058h,0CFh,00h,00h,00h,00h,00h,00h
 dword_172C64:
         db 030h,03h,00h,00h
-dword_172C68:
+str_Punct_ReadSoundscapeIni:
         db 09h,00h,00h,00h
 dword_172C6C:
         db 00h,00h,00h,00h

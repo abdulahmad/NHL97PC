@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_13C180 progbits alloc exec nowrite align=1
-extern byte_19C840, dword_171E34, qword_19C858, qword_19C860, qword_19C870, tbyte_19C878
+extern byte_19C840, dword_171E34, qword_19C858, F64_5p42101eneg20, F64_0p5_fprem_common, tbyte_19C878
 global WaitDisplayRetrace, WaitRetrace, __fprem_chk, fprem1_common, fprem_common, WaitRetrace_2D, ReadPortStable, WaitRetraceEdges
 ;-----------------------------------------------------------------------------
 ; ReadPortStable                                 13C180  97 PC, low confidence
@@ -181,7 +181,7 @@ fprem_common:
         fsub st1
 .5:
         fxch
-        fmul qword [qword_19C870]
+        fmul qword [F64_0p5_fprem_common]
         fxch
         sub ecx, byte 1
         jne short .4
@@ -213,7 +213,7 @@ fprem_common:
         or eax, 300h
         mov dword [byte esp+038h], eax
         fldcw word [byte esp+038h]
-        fmul qword [qword_19C860]
+        fmul qword [F64_5p42101eneg20]
         fldcw word [byte esp+034h]
 .8:
         mov eax, dword [byte esp+03Ch]
@@ -398,7 +398,7 @@ fprem1_common:
         fsub st1
 .5:
         fxch
-        fmul qword [qword_19C870]
+        fmul qword [F64_0p5_fprem_common]
         fxch
         sub ecx, byte 1
         jne short .4
@@ -430,7 +430,7 @@ fprem1_common:
         or eax, 300h
         mov dword [byte esp+038h], eax
         fldcw word [byte esp+038h]
-        fmul qword [qword_19C860]
+        fmul qword [F64_5p42101eneg20]
         fldcw word [byte esp+034h]
 .8:
         mov eax, dword [byte esp+03Ch]

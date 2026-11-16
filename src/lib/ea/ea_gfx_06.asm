@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_10B040 progbits alloc exec nowrite align=1
-extern dword_16E4A8, dword_170218, dword_1D1CF8, dword_1D1CFC, dword_1D1D00, dword_1D1D04, dword_1D1D08, dword_1D1D0C
+extern str_Punct_DrawRinkSurface, str_Punct_SetScreenScale, dword_1D1CF8, dword_1D1CFC, dword_1D1D00, dword_1D1D04, dword_1D1D08, dword_1D1D0C
 extern dword_1D1D10, dword_1D1D14, dword_1D1D2C, off_170278, off_170284, off_170290, off_17029C, off_1702A8
 extern SortIndices, SubVec3, TransformVecFull, SetRinkView, TransformRinkPoints, TransformRinkObject, ProjectRinkObject, DrawRinkPolyStrip
 extern DrawFlatPoly, DrawPolyOutline, CallModelPartFuncs, CallAllPartFuncs, ProjectPointsPersp, MultiplyMatrix, ProjectPoints, unk_17021C
@@ -47,9 +47,9 @@ SetRinkTranslation:
 ;-----------------------------------------------------------------------------
 SetScreenScale:
         mov eax, dword [byte esp+04h]
-        mov dword [dword_170218], eax
+        mov dword [str_Punct_SetScreenScale], eax
         dec eax
-        mov dword [dword_16E4A8], eax
+        mov dword [str_Punct_DrawRinkSurface], eax
         ret
 ;-----------------------------------------------------------------------------
 ; ProjectRinkObjectPoints                        10B084  97 PC, low confidence

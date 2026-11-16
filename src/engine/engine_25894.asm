@@ -5,25 +5,25 @@ section s_25894 progbits alloc exec nowrite align=1
 extern AllInPlace, GiveControl, IF@ATAN2, IF@DFMOD, SortCords, __CHP, str_Cuppal, awtmstruct
 extern byte_19CB70, byte_19CB74, byte_19CB7E, byte_19CB8A, byte_19CB8B, byte_19CBC2, byte_19CBC8, byte_19CBCA
 extern byte_19CBCC, byte_19CBFC, byte_19DAD4, byte_19DAD6, byte_19DAEF, byte_19EAC6, byte_19EBD2, changeplayer
-extern dword_160688, dword_16068C, dword_160690, dword_160694, dword_160698, dword_16069C, dword_1606A0, dword_1606A4
-extern dword_1606A8, dword_1606AC, dword_1606B0, dword_1606B4, dword_1606B8, dword_1606CC, dword_1606D0, dword_1606DB
-extern dword_1606DF, dword_16070B, dword_16070F, dword_160723, dword_160727, dword_160733, dword_160737, dword_160753
-extern dword_160757, dword_16079B, dword_1607C7, dword_1607CB, dword_160877, dword_160893, dword_160897, dword_1608A3
-extern dword_168A84, dword_168AA4, dword_168AA8, dword_168B14, dword_19CB38, dword_19CB48, dword_19CB54, dword_19CB66
+extern F32_144, F32_96, F32_144_assleavebox, F32_48_assleavebox, F32_144_asspsclear, F32_96_asspsclear, F32_96_assleaveice, F32_144_asspenalty
+extern F32_96_asspenalty, F32_40, F32_96_assrefpenshot, F32_96_assrefsignal, F32_96_assrefwhistle, F32_96_assrefgoalline, F32_96_assrefdrop, F32_3
+extern F32_0p25, F32_7, F32_0p125, F32_0p125_KnockPuckAway, F32_48_PuckHitsGoalie, F32_0p25_PuckHitsGoalie, F32_0p166667_PuckHitsGoalie, F32_0p333333
+extern F32_3_PuckHitsGoalie, F32_0p142857, F32_7_PuckPlayerContact, F32_0p125_PuckPlayerContact, F32_0p5_pucknorm_body, F32_neg1872, F32_neg1152, F32_neg1392_pucknorm_body
+extern str_Punct_assintrostand, dword_168AA4, dword_168AA8, dword_168B14, dword_19CB38, dword_19CB48, dword_19CB54, dword_19CB66
 extern dword_19CB6A, dword_19CBAA, penshottimer, dword_19CBE8, dword_19CBF8, dword_19CC00, dword_19CC02, dword_19CC12
 extern dword_19CC58, dword_19CC9C, dword_19CCA0, dword_19CCA4, dword_19CCC2, dword_19D39C, dword_19D3A0, dword_19D3A4
 extern dword_19DA50, dword_19DA58, dword_19DA94, dword_19DADE, dword_19DB12, dword_19DC60, dword_19DC68, dword_19E290
 extern dword_19E298, dword_19EAAE, dword_19EBB0, dword_19EBBA, dword_19ECBC, dword_1AC814, dword_1AC944, dword_1B8FA0
 extern dword_1B9CA4, dword_1B9CAC, dword_1BAAF8, dword_1BAB00, dword_1BF060, dword_1BF068, hmtmstruct, hypot_
 extern off_168CD8, off_168CE0, off_168CE8, off_168CF0, off_168CFC, off_168D04, off_168D08, off_168D0C
-extern qword_160660, qword_160668, qword_160670, qword_160678, qword_160680, qword_1606BC, qword_1606C4, qword_1606E3
-extern qword_1606EB, qword_1606F3, qword_1606FB, qword_160703, qword_160713, qword_16071B, qword_16072B, qword_16073B
-extern qword_160743, qword_16074B, qword_16075B, qword_160763, qword_16076B, qword_160773, qword_16077B, qword_160783
-extern qword_16078B, qword_160793, qword_16079F, qword_1607A7, qword_1607AF, qword_1607B7, qword_1607BF, qword_1607CF
-extern qword_1607D7, qword_1607DF, qword_1607E7, qword_1607EF, qword_1607F7, qword_1607FF, qword_160807, qword_16080F
-extern qword_160817, qword_16081F, qword_160827, qword_16082F, qword_160837, qword_16083F, qword_160847, qword_16084F
-extern qword_160857, qword_16085F, qword_160867, qword_16086F, qword_16087B, qword_160883, qword_16088B, qword_16089B
-extern qword_1608A7, randomd0, regd1, slotteam, AngleOfVector, GetPaletteRange, StartCrowdMusic, RestartGameMusic
+extern F64_neg12, F64_1435, F64_3312, F64_720, F64_240, F64_2040, F64_4800, F64_0p01_DeflectPuck
+extern F64_6p28319_DeflectPuck, F64_3p14159_DeflectPuck, F64_neg6p28319_DeflectPuck, F64_neg3p14159_DeflectPuck, qword_160713, F64_0p00277778, F64_24, F64_6p28319_PuckHitsGoalie
+extern F64_0p00277778_PuckHitsGoalie, F64_20, F64_3p14159_PuckToStick, F64_0p00555556, F64_neg0p698132, F64_0p698132, F64_0p5_PuckToStick, F64_6p28319_PuckToStick
+extern F64_neg6p28319_PuckToStick, F64_neg3p14159_PuckToStick, F64_0p0174533, F64_5p49779, F64_12, F64_4272_ChkDelayedOffside, F64_2, F64_6p28319_PuckPlayerContact
+extern F64_0p00277778_PuckPlayerContact, F64_neg12_a2offsides, F64_1440, F64_4272_a2touchpuck, F64_neg12_PuckIChk, F64_4276, F64_12_PuckIChk, F64_neg4276
+extern F64_288_PuckIChk, F64_neg12_ChkOffsides, F64_1435_ChkOffsides, F64_12_ChkOffsides, F64_neg1435, F64_neg12_MarkTwoLinePlayers, F64_24_MarkTwoLinePlayers, F64_12_MarkTwoLinePlayers
+extern F64_neg24, F64_4272_pucknorm_body, F64_1392, F64_1080_pucknorm_body, F64_0p392699_pucknorm_body, F64_0p159155_pucknorm_body, F64_65536_pucknorm_body, F64_4284
+extern F64_3p14159_puckfaceoff2, randomd0, regd1, slotteam, AngleOfVector, GetPaletteRange, StartCrowdMusic, RestartGameMusic
 extern forcepldata, ClearPlayerFlags, ResetBench, setplayer, ReplaceFaceoffPlayers, setpersonel, ReleaseBoxPlayers, SpeedScale
 extern ReachScale, RemoveOverlayPanel, QueueOverlayPanel, StartCameraPath, SelectCameraView, PenaltyCameraScene, PenaltyShotCameraScene, FaceoffDropCameraScene
 extern CrowdForPuckZone, LineChangeCommentary, assreplace, assexit, AimAtPuckTarget, ChkPokeOrCheck, check4bench, ChkForwardSwap
@@ -194,8 +194,8 @@ checkob:
         mov dword [esp], edx
 .3:
         fild dword [esp]
-        fadd qword [qword_160660]
-        fcomp qword [qword_160668]
+        fadd qword [F64_neg12]
+        fcomp qword [F64_1435]
         fnstsw ax
         sahf
         jae short .8
@@ -2353,7 +2353,7 @@ assscore:
 .14:
         fld dword [byte esp+010h]
         fabs
-        fcomp qword [qword_160670]
+        fcomp qword [F64_3312]
         fnstsw ax
         sahf
         jbe short .16
@@ -2370,14 +2370,14 @@ assscore:
         fld dword [byte ebx+020h]
         fsub dword [esp]
         fabs
-        fcomp qword [qword_160678]
+        fcomp qword [F64_720]
         fnstsw ax
         sahf
         jae short .17
         fld dword [byte ebx+028h]
         fsub dword [byte esp+010h]
         fabs
-        fcomp qword [qword_160680]
+        fcomp qword [F64_240]
         fnstsw ax
         sahf
         jae short .17
@@ -2704,7 +2704,7 @@ assbench:
         mov dword [byte esp+0Ch], eax
 .13:
         fld dword [byte esp+0Ch]
-        fcomp dword [dword_160688]
+        fcomp dword [F32_144]
         fnstsw ax
         sahf
         ja near .22
@@ -2729,7 +2729,7 @@ assbench:
         mov dword [byte esp+014h], eax
 .15:
         fld dword [byte esp+014h]
-        fcomp dword [dword_16068C]
+        fcomp dword [F32_96]
         fnstsw ax
         sahf
         ja near .22
@@ -3029,7 +3029,7 @@ assleavebox:
         mov dword [byte esp+018h], eax
 .7:
         fld dword [byte esp+018h]
-        fcomp dword [dword_160690]
+        fcomp dword [F32_144_assleavebox]
         fnstsw ax
         sahf
         ja short .10
@@ -3054,7 +3054,7 @@ assleavebox:
         mov dword [byte esp+01Ch], eax
 .9:
         fld dword [byte esp+01Ch]
-        fcomp dword [dword_160694]
+        fcomp dword [F32_48_assleavebox]
         fnstsw ax
         sahf
         ja short .10
@@ -3189,7 +3189,7 @@ asspsclear:
         mov dword [byte esp+01Ch], eax
 .6:
         fld dword [byte esp+01Ch]
-        fcomp dword [dword_160698]
+        fcomp dword [F32_144_asspsclear]
         fnstsw ax
         sahf
         ja near .10
@@ -3214,7 +3214,7 @@ asspsclear:
         mov dword [byte esp+018h], eax
 .8:
         fld dword [byte esp+018h]
-        fcomp dword [dword_16069C]
+        fcomp dword [F32_96_asspsclear]
         fnstsw ax
         sahf
         ja short .10
@@ -3731,7 +3731,7 @@ assleaveice:
         mov dword [byte esp+010h], eax
 .6:
         fld dword [byte esp+010h]
-        fcomp dword [dword_1606A0]
+        fcomp dword [F32_96_assleaveice]
         fnstsw ax
         sahf
         ja near .11
@@ -3756,7 +3756,7 @@ assleaveice:
         mov dword [byte esp+018h], eax
 .8:
         fld dword [byte esp+018h]
-        fcomp dword [dword_1606A0]
+        fcomp dword [F32_96_assleaveice]
         fnstsw ax
         sahf
         ja near .11
@@ -3950,7 +3950,7 @@ asspenalty:
         mov dword [byte esp+018h], eax
 .8:
         fld dword [byte esp+018h]
-        fcomp dword [dword_1606A4]
+        fcomp dword [F32_144_asspenalty]
         fnstsw ax
         sahf
         ja near .12
@@ -3975,7 +3975,7 @@ asspenalty:
         mov dword [byte esp+01Ch], eax
 .10:
         fld dword [byte esp+01Ch]
-        fcomp dword [dword_1606A8]
+        fcomp dword [F32_96_asspenalty]
         fnstsw ax
         sahf
         ja near .12
@@ -4094,7 +4094,7 @@ assepen:
         and eax, 0FFh
         call GetSeatPos
         fild dword [eax]
-        fadd dword [dword_1606AC]
+        fadd dword [F32_40]
         fstp dword [byte ebx+020h]
         mov ecx, dword [byte eax+08h]
         mov edx, eax
@@ -4474,7 +4474,7 @@ assrefpenshot:
         mov dword [byte esp+0Ch], eax
 .8:
         fld dword [byte esp+0Ch]
-        fcomp dword [dword_1606B0]
+        fcomp dword [F32_96_assrefpenshot]
         fnstsw ax
         sahf
         ja near .12
@@ -4499,7 +4499,7 @@ assrefpenshot:
         mov dword [byte esp+014h], eax
 .10:
         fld dword [byte esp+014h]
-        fcomp dword [dword_1606B0]
+        fcomp dword [F32_96_assrefpenshot]
         fnstsw ax
         sahf
         ja short .12
@@ -4660,7 +4660,7 @@ assrefsignal:
         mov dword [byte esp+010h], eax
 .7:
         fld dword [byte esp+010h]
-        fcomp dword [dword_1606B4]
+        fcomp dword [F32_96_assrefsignal]
         fnstsw ax
         sahf
         ja near .16
@@ -4685,7 +4685,7 @@ assrefsignal:
         mov dword [byte esp+0Ch], eax
 .9:
         fld dword [byte esp+0Ch]
-        fcomp dword [dword_1606B4]
+        fcomp dword [F32_96_assrefsignal]
         fnstsw ax
         sahf
         ja near .16
@@ -4896,7 +4896,7 @@ assrefwhistle:
         mov dword [byte esp+010h], eax
 .6:
         fld dword [byte esp+010h]
-        fcomp dword [dword_1606B8]
+        fcomp dword [F32_96_assrefwhistle]
         fnstsw ax
         sahf
         ja short .9
@@ -4921,7 +4921,7 @@ assrefwhistle:
         mov dword [byte esp+08h], eax
 .8:
         fld dword [byte esp+08h]
-        fcomp dword [dword_1606B8]
+        fcomp dword [F32_96_assrefwhistle]
         fnstsw ax
         sahf
         ja short .9
@@ -4958,13 +4958,13 @@ assrefgoalpa:
         mov edx, dword [off_168CFC]
         fld dword [byte edx+020h]
         fabs
-        fcomp qword [qword_1606BC]
+        fcomp qword [F64_2040]
         fnstsw ax
         sahf
         ja short .1
         fld dword [byte edx+028h]
         fabs
-        fcomp qword [qword_1606C4]
+        fcomp qword [F64_4800]
         fnstsw ax
         sahf
         jbe short .2
@@ -5222,7 +5222,7 @@ assrefgoalline:
         mov dword [esp], eax
 .3:
         fld dword [esp]
-        fcomp dword [dword_1606CC]
+        fcomp dword [F32_96_assrefgoalline]
         fnstsw ax
         sahf
         ja near .8
@@ -5247,7 +5247,7 @@ assrefgoalline:
         mov dword [byte esp+04h], eax
 .5:
         fld dword [byte esp+04h]
-        fcomp dword [dword_1606CC]
+        fcomp dword [F32_96_assrefgoalline]
         fnstsw ax
         sahf
         ja short .8
@@ -5498,7 +5498,7 @@ assrefdrop:
         mov dword [esp], eax
 .9:
         fld dword [esp]
-        fcomp dword [dword_1606D0]
+        fcomp dword [F32_96_assrefdrop]
         fnstsw ax
         sahf
         ja short .12
@@ -5523,7 +5523,7 @@ assrefdrop:
         mov dword [byte esp+010h], eax
 .11:
         fld dword [byte esp+010h]
-        fcomp dword [dword_1606D0]
+        fcomp dword [F32_96_assrefdrop]
         fnstsw ax
         sahf
         ja short .12
@@ -5675,7 +5675,7 @@ assintrostand:
         xor ebx, ebx
         mov byte [dword ecx+0BFh], al
         mov eax, ecx
-        mov edx, dword [nosplit edx*4+dword_168A84]
+        mov edx, dword [nosplit edx*4+str_Punct_assintrostand]
         push dword 3F800000h
         call SetSPA
 .3:
@@ -6483,37 +6483,37 @@ DeflectPuck:
         fild dword [byte esp+04h]
         fstp dword [byte eax+040h]
         mov ebx, dword [off_168CFC]
-        fld qword [qword_1606EB]
+        fld qword [F64_6p28319_DeflectPuck]
         fld dword [byte ebx+040h]
         call IF@DFMOD
         fstp dword [byte ebx+040h]
         mov ebx, dword [off_168CFC]
         fld dword [byte ebx+040h]
         fst qword [byte esp+0Ch]
-        fcomp qword [qword_1606F3]
+        fcomp qword [F64_3p14159_DeflectPuck]
         fnstsw ax
         sahf
         jbe short .1
         fld qword [byte esp+0Ch]
-        fadd qword [qword_1606FB]
+        fadd qword [F64_neg6p28319_DeflectPuck]
         fstp dword [byte ebx+040h]
 .1:
         mov ebx, dword [off_168CFC]
         fld dword [byte ebx+040h]
         fst qword [byte esp+014h]
-        fcomp qword [qword_160703]
+        fcomp qword [F64_neg3p14159_DeflectPuck]
         fnstsw ax
         sahf
         jae short .3
         fld qword [byte esp+014h]
-        fadd qword [qword_1606EB]
+        fadd qword [F64_6p28319_DeflectPuck]
         fstp dword [byte ebx+040h]
         jmp short .3
 .2:
         mov eax, dword [off_168CFC]
         fld dword [byte eax+038h]
-        fmul dword [dword_1606DB]
-        fmul dword [dword_1606DF]
+        fmul dword [F32_3]
+        fmul dword [F32_0p25]
         fstp dword [byte eax+038h]
         mov eax, 0C8h
         call randomd0
@@ -6522,7 +6522,7 @@ DeflectPuck:
         mov dword [byte esp+04h], eax
         fild dword [byte esp+04h]
         mov eax, dword [off_168CFC]
-        fmul qword [qword_1606E3]
+        fmul qword [F64_0p01_DeflectPuck]
         fadd dword [byte eax+040h]
         fstp dword [byte eax+040h]
 .3:
@@ -6547,8 +6547,8 @@ DeflectPuck:
         sub esp, byte 10h
         mov edx, eax
         fld dword [byte eax+038h]
-        fmul dword [dword_16070B]
-        fmul dword [dword_16070F]
+        fmul dword [F32_7]
+        fmul dword [F32_0p125]
         fstp dword [byte eax+038h]
         mov eax, 1Eh
         call randomd0
@@ -6557,7 +6557,7 @@ DeflectPuck:
         mov dword [byte esp+0Ch], eax
         fild dword [byte esp+0Ch]
         fmul qword [qword_160713]
-        fmul qword [qword_16071B]
+        fmul qword [F64_0p00277778]
         fld dword [byte edx+040h]
         fxch
         fadd st1
@@ -6614,7 +6614,7 @@ KnockPuckAway:
         jl near .2
         mov eax, dword [off_168CFC]
         fld dword [byte eax+038h]
-        fmul dword [dword_160723]
+        fmul dword [F32_0p125_KnockPuckAway]
         fstp dword [byte eax+038h]
         mov edx, dword [off_168CFC]
         fld dword [byte edx+020h]
@@ -6913,8 +6913,8 @@ PuckHitsGoalie:
         jne near .14
         mov edx, dword [off_168CFC]
         fld dword [byte edx+038h]
-        fmul dword [dword_160757]
-        fmul dword [dword_160733]
+        fmul dword [F32_3_PuckHitsGoalie]
+        fmul dword [F32_0p25_PuckHitsGoalie]
         fstp dword [byte edx+038h]
         fld dword [byte esi+020h]
         fsub dword [byte ecx+020h]
@@ -6966,7 +6966,7 @@ PuckHitsGoalie:
         jle near .14
         mov eax, dword [off_168CFC]
         fld dword [byte eax+038h]
-        fmul dword [dword_160753]
+        fmul dword [F32_0p333333]
         fstp dword [byte eax+038h]
         fld dword [byte esi+020h]
         fsub dword [byte ecx+020h]
@@ -7020,8 +7020,8 @@ PuckHitsGoalie:
         sub eax, byte 5
         mov dword [byte ebp-08h], eax
         fild dword [byte ebp-08h]
-        fmul qword [qword_16073B]
-        fmul qword [qword_160743]
+        fmul qword [F64_6p28319_PuckHitsGoalie]
+        fmul qword [F64_0p00277778_PuckHitsGoalie]
         call __CHP
         fistp dword [byte ebp-04h]
         jmp short .9
@@ -7036,8 +7036,8 @@ PuckHitsGoalie:
         sub eax, byte 3
         mov dword [byte ebp-08h], eax
         fild dword [byte ebp-08h]
-        fmul qword [qword_16073B]
-        fmul qword [qword_160743]
+        fmul qword [F64_6p28319_PuckHitsGoalie]
+        fmul qword [F64_0p00277778_PuckHitsGoalie]
         call __CHP
         fistp dword [byte ebp-04h]
         jmp short .9
@@ -7050,7 +7050,7 @@ PuckHitsGoalie:
         mov eax, ecx
         call ObjectFramePos
         fld dword [byte ecx+038h]
-        fadd qword [qword_16074B]
+        fadd qword [F64_20]
         mov eax, dword [off_168CFC]
         fstp dword [byte eax+038h]
         fld dword [byte ebp-0Ch]
@@ -7088,7 +7088,7 @@ PuckHitsGoalie:
 .11:
         mov eax, dword [off_168CFC]
         fld dword [byte eax+038h]
-        fmul dword [dword_160737]
+        fmul dword [F32_0p166667_PuckHitsGoalie]
         fstp dword [byte eax+038h]
         fld dword [byte esi+020h]
         fsub dword [byte ecx+020h]
@@ -7139,7 +7139,7 @@ PuckHitsGoalie:
         cmp dword [byte eax+038h], 42480000h
         jle near .13
         fld dword [byte ebp-010h]
-        fadd dword [dword_160727]
+        fadd dword [F32_48_PuckHitsGoalie]
         fcomp dword [byte esi+024h]
         fnstsw ax
         sahf
@@ -7153,7 +7153,7 @@ PuckHitsGoalie:
         sub esp, byte 8
         fstp qword [esp]
         call hypot_
-        fcomp qword [qword_16072B]
+        fcomp qword [F64_24]
         fnstsw ax
         sahf
         jae short .13
@@ -7168,7 +7168,7 @@ PuckHitsGoalie:
         call SetFaceBlink
         mov eax, dword [off_168CFC]
         fld dword [byte eax+038h]
-        fmul dword [dword_160733]
+        fmul dword [F32_0p25_PuckHitsGoalie]
         fstp dword [byte eax+038h]
         fld dword [byte esi+020h]
         fsub dword [byte ecx+020h]
@@ -7393,18 +7393,18 @@ PuckToStick:
         call randomd0
         mov dword [byte esp+014h], eax
         fild word [byte esp+014h]
-        fmul qword [qword_16075B]
-        fmul qword [qword_160763]
-        fadd qword [qword_160773]
+        fmul qword [F64_3p14159_PuckToStick]
+        fmul qword [F64_0p00555556]
+        fadd qword [F64_0p698132]
         jmp short .14
 .13:
         mov eax, 0Fh
         call randomd0
         mov dword [byte esp+014h], eax
         fild word [byte esp+014h]
-        fmul qword [qword_16075B]
-        fmul qword [qword_160763]
-        fsubr qword [qword_16076B]
+        fmul qword [F64_3p14159_PuckToStick]
+        fmul qword [F64_0p00555556]
+        fsubr qword [F64_neg0p698132]
 .14:
         fstp dword [byte esp+010h]
         mov eax, dword [off_168CFC]
@@ -7413,33 +7413,33 @@ PuckToStick:
         fstp dword [byte eax+040h]
         mov eax, dword [off_168CFC]
         fld dword [byte eax+038h]
-        fmul qword [qword_16077B]
+        fmul qword [F64_0p5_PuckToStick]
         fstp dword [byte eax+038h]
         mov edx, dword [off_168CFC]
-        fld qword [qword_160783]
+        fld qword [F64_6p28319_PuckToStick]
         fld dword [byte edx+040h]
         call IF@DFMOD
         fstp dword [byte edx+040h]
         mov edx, dword [off_168CFC]
         fld dword [byte edx+040h]
         fst qword [byte esp+030h]
-        fcomp qword [qword_16075B]
+        fcomp qword [F64_3p14159_PuckToStick]
         fnstsw ax
         sahf
         jbe short .15
         fld qword [byte esp+030h]
-        fadd qword [qword_16078B]
+        fadd qword [F64_neg6p28319_PuckToStick]
         fstp dword [byte edx+040h]
 .15:
         mov edx, dword [off_168CFC]
         fld dword [byte edx+040h]
         fst qword [byte esp+020h]
-        fcomp qword [qword_160793]
+        fcomp qword [F64_neg3p14159_PuckToStick]
         fnstsw ax
         sahf
         jae near .20
         fld qword [byte esp+020h]
-        fadd qword [qword_160783]
+        fadd qword [F64_6p28319_PuckToStick]
         fstp dword [byte edx+040h]
         cmp ebx, byte 7
         ja near PuckToStick_469.21
@@ -7451,14 +7451,14 @@ PuckToStick:
         mov word [word_19CBAE], ax
         mov eax, dword [off_168CFC]
         fld dword [byte eax+038h]
-        fmul dword [dword_16079B]
+        fmul dword [F32_0p142857]
         fstp dword [byte eax+038h]
         mov eax, 5Ah
         call randomd0
         mov dword [byte esp+014h], eax
         fild word [byte esp+014h]
-        fmul qword [qword_16079F]
-        fadd qword [qword_1607A7]
+        fmul qword [F64_0p0174533]
+        fadd qword [F64_5p49779]
         mov eax, dword [off_168CFC]
         fstp dword [byte eax+040h]
         test byte [dword ecx+0BFh], 80h
@@ -7466,35 +7466,35 @@ PuckToStick:
         mov eax, dword [off_168CFC]
         fld dword [byte eax+040h]
         fld st0
-        fadd qword [qword_16075B]
+        fadd qword [F64_3p14159_PuckToStick]
         fstp st1
         fstp dword [byte eax+040h]
 .17:
         mov edx, dword [off_168CFC]
-        fld qword [qword_160783]
+        fld qword [F64_6p28319_PuckToStick]
         fld dword [byte edx+040h]
         call IF@DFMOD
         fstp dword [byte edx+040h]
         mov edx, dword [off_168CFC]
         fld dword [byte edx+040h]
         fst qword [byte esp+018h]
-        fcomp qword [qword_16075B]
+        fcomp qword [F64_3p14159_PuckToStick]
         fnstsw ax
         sahf
         jbe short .18
         fld qword [byte esp+018h]
-        fadd qword [qword_16078B]
+        fadd qword [F64_neg6p28319_PuckToStick]
         fstp dword [byte edx+040h]
 .18:
         mov edx, dword [off_168CFC]
         fld dword [byte edx+040h]
         fst qword [byte esp+028h]
-        fcomp qword [qword_160793]
+        fcomp qword [F64_neg3p14159_PuckToStick]
         fnstsw ax
         sahf
         jae short .19
         fld qword [byte esp+028h]
-        fadd qword [qword_160783]
+        fadd qword [F64_6p28319_PuckToStick]
         fstp dword [byte edx+040h]
 .19:
         mov eax, dword [off_168CFC]
@@ -7619,8 +7619,8 @@ ChkDelayedOffside:
         mov dword [esp], eax
 .4:
         fild dword [esp]
-        fadd qword [qword_1607AF]
-        fcomp qword [qword_1607B7]
+        fadd qword [F64_12]
+        fcomp qword [F64_4272_ChkDelayedOffside]
         fnstsw ax
         sahf
         jbe short .5
@@ -7762,8 +7762,8 @@ PuckPlayerContact:
         mov edx, dword [off_168CFC]
         mov byte [byte_19CBCA], al
         fld dword [byte edx+038h]
-        fmul dword [dword_1607C7]
-        fmul dword [dword_1607CB]
+        fmul dword [F32_7_PuckPlayerContact]
+        fmul dword [F32_0p125_PuckPlayerContact]
         mov eax, 1Eh
         fstp dword [byte edx+038h]
         call randomd0
@@ -7771,8 +7771,8 @@ PuckPlayerContact:
         sub eax, byte 0Fh
         mov dword [byte esp+08h], eax
         fild dword [byte esp+08h]
-        fmul qword [qword_1607CF]
-        fmul qword [qword_1607D7]
+        fmul qword [F64_6p28319_PuckPlayerContact]
+        fmul qword [F64_0p00277778_PuckPlayerContact]
         fld dword [byte edx+040h]
         fxch
         fadd st1
@@ -7892,7 +7892,7 @@ PuckPlayerContact:
         sahf
         jbe short .9
         fld dword [byte ecx+050h]
-        fmul qword [qword_1607BF]
+        fmul qword [F64_2]
         fstp dword [byte esp+018h]
 .9:
         fld dword [byte ecx+020h]
@@ -8170,8 +8170,8 @@ a2offsides:
         mov word [word_19CB68], si
 .5:
         fild word [word_19CB68]
-        fadd qword [qword_1607DF]
-        fcomp qword [qword_1607E7]
+        fadd qword [F64_neg12_a2offsides]
+        fcomp qword [F64_1440]
         fnstsw ax
         sahf
         jae short .6
@@ -8383,7 +8383,7 @@ a2touchpuck:
         mov eax, dword [off_168CFC]
         fld dword [byte eax+028h]
         fabs
-        fcomp qword [qword_1607EF]
+        fcomp qword [F64_4272_a2touchpuck]
         fnstsw ax
         sahf
         jb short .9
@@ -8483,8 +8483,8 @@ PuckIChk:
         jne short .1
         mov eax, dword [off_168CE8]
         fild word [eax]
-        fadd qword [qword_160807]
-        fcomp qword [qword_16080F]
+        fadd qword [F64_12_PuckIChk]
+        fcomp qword [F64_neg4276]
         fnstsw ax
         sahf
         jae short .6
@@ -8492,8 +8492,8 @@ PuckIChk:
 .1:
         mov eax, dword [off_168CE8]
         fild word [eax]
-        fadd qword [qword_1607F7]
-        fcomp qword [qword_1607FF]
+        fadd qword [F64_neg12_PuckIChk]
+        fcomp qword [F64_4276]
         fnstsw ax
         sahf
         jbe short .6
@@ -8513,8 +8513,8 @@ PuckIChk:
         mov dword [esp], eax
 .4:
         fild dword [esp]
-        fadd qword [qword_1607F7]
-        fcomp qword [qword_160817]
+        fadd qword [F64_neg12_PuckIChk]
+        fcomp qword [F64_288_PuckIChk]
         fnstsw ax
         sahf
         ja short .5
@@ -8665,15 +8665,15 @@ ChkOffsides:
         mov word [word_19CB68], 56Bh
         mov edx, dword [off_168CE8]
         fild word [edx]
-        fadd qword [qword_16081F]
-        fcomp qword [qword_160827]
+        fadd qword [F64_neg12_ChkOffsides]
+        fcomp qword [F64_1435_ChkOffsides]
         fnstsw ax
         sahf
         jb near .14
         mov eax, dword [off_168CFC]
         fild word [byte eax+054h]
-        fadd qword [qword_16081F]
-        fcomp qword [qword_160827]
+        fadd qword [F64_neg12_ChkOffsides]
+        fcomp qword [F64_1435_ChkOffsides]
         fnstsw ax
         sahf
         jae near .20
@@ -8758,15 +8758,15 @@ ChkOffsides:
 .14:
         mov word [word_19CB68], 0FA95h
         fild word [edx]
-        fadd qword [qword_16082F]
-        fcomp qword [qword_160837]
+        fadd qword [F64_12_ChkOffsides]
+        fcomp qword [F64_neg1435]
         fnstsw ax
         sahf
         ja near .20
         mov eax, dword [off_168CFC]
         fild word [byte eax+054h]
-        fadd qword [qword_16082F]
-        fcomp qword [qword_160837]
+        fadd qword [F64_12_ChkOffsides]
+        fcomp qword [F64_neg1435]
         fnstsw ax
         sahf
         jbe near .20
@@ -8885,15 +8885,15 @@ MarkTwoLinePlayers:
         mov eax, dword [off_168CE8]
         fild word [eax]
         fst qword [esp]
-        fadd qword [qword_16083F]
-        fcomp qword [qword_160847]
+        fadd qword [F64_neg12_MarkTwoLinePlayers]
+        fcomp qword [F64_24_MarkTwoLinePlayers]
         fnstsw ax
         sahf
         jbe short .6
         mov eax, dword [off_168CFC]
         fild word [byte eax+054h]
-        fadd qword [qword_16083F]
-        fcomp qword [qword_160847]
+        fadd qword [F64_neg12_MarkTwoLinePlayers]
+        fcomp qword [F64_24_MarkTwoLinePlayers]
         fnstsw ax
         sahf
         ja near .10
@@ -8923,15 +8923,15 @@ MarkTwoLinePlayers:
         jmp short .3
 .6:
         fld qword [esp]
-        fadd qword [qword_16084F]
-        fcomp qword [qword_160857]
+        fadd qword [F64_12_MarkTwoLinePlayers]
+        fcomp qword [F64_neg24]
         fnstsw ax
         sahf
         jae short .10
         mov eax, dword [off_168CFC]
         fild word [byte eax+054h]
-        fadd qword [qword_16084F]
-        fcomp qword [qword_160857]
+        fadd qword [F64_12_MarkTwoLinePlayers]
+        fcomp qword [F64_neg24]
         fnstsw ax
         sahf
         jb short .10
@@ -9030,15 +9030,15 @@ pucknorm_body:
         cmp dword [byte eax+05Ah], byte 18h
         jne near .25
         call ReachScale
-        fmul dword [dword_160877]
+        fmul dword [F32_0p5_pucknorm_body]
         fcomp dword [byte edi+038h]
         fnstsw ax
         sahf
         ja near .25
         fld dword [byte edi+040h]
-        fadd qword [qword_16087B]
-        fmul qword [qword_160883]
-        fmul qword [qword_16088B]
+        fadd qword [F64_0p392699_pucknorm_body]
+        fmul qword [F64_0p159155_pucknorm_body]
+        fmul qword [F64_65536_pucknorm_body]
         call __CHP
         fistp dword [byte ebp-08h]
         mov eax, dword [byte ebp-08h]
@@ -9073,7 +9073,7 @@ pucknorm_body:
         test byte [dword edi+0106h], 2
         je short .4
         fld dword [byte edi+028h]
-        fcomp dword [dword_160897]
+        fcomp dword [F32_neg1152]
         fnstsw ax
         sahf
         jae short .4
@@ -9182,7 +9182,7 @@ pucknorm_body:
         sahf
         jbe near .25
         fld dword [byte edi+028h]
-        fcomp dword [dword_160893]
+        fcomp dword [F32_neg1872]
         fnstsw ax
         sahf
         jbe near .25
@@ -9206,7 +9206,7 @@ pucknorm_body:
         cmp word [dword edx+0A9h], byte 0
         jle short .18
         fld dword [byte edx+028h]
-        fcomp dword [dword_1608A3]
+        fcomp dword [F32_neg1392_pucknorm_body]
         fnstsw ax
         sahf
         ja short .18
@@ -9235,7 +9235,7 @@ pucknorm_body:
         cmp word [dword edx+0A9h], byte 0
         jle short .22
         fld dword [byte edx+028h]
-        fcomp dword [dword_1608A3]
+        fcomp dword [F32_neg1392_pucknorm_body]
         fnstsw ax
         sahf
         jae short .22
@@ -9425,7 +9425,7 @@ pucknorm_body:
         fld dword [byte eax+028h]
         fabs
         fst qword [byte ebp-010h]
-        fcomp qword [qword_160867]
+        fcomp qword [F64_1392]
         fnstsw ax
         sahf
         jae short .38
@@ -9433,14 +9433,14 @@ pucknorm_body:
         jmp short .40
 .38:
         fld qword [byte ebp-010h]
-        fcomp qword [qword_16085F]
+        fcomp qword [F64_4272_pucknorm_body]
         fnstsw ax
         sahf
         jbe short .40
         mov eax, dword [byte ebp-04h]
         fld dword [byte eax+020h]
         fabs
-        fcomp qword [qword_16086F]
+        fcomp qword [F64_1080_pucknorm_body]
         fnstsw ax
         sahf
         jbe short .39
@@ -9512,7 +9512,7 @@ pucknorm_body:
         mov eax, dword [byte ebp-04h]
         fld dword [byte eax+028h]
         fabs
-        fcomp qword [qword_16085F]
+        fcomp qword [F64_4272_pucknorm_body]
         fnstsw ax
         sahf
         jbe short .44
@@ -9579,7 +9579,7 @@ pucknorm_body:
         mov ebx, dword [off_168CFC]
         fld dword [byte ebx+028h]
         fabs
-        fcomp qword [qword_16089B]
+        fcomp qword [F64_4284]
         fnstsw ax
         sahf
         ja near .54
@@ -9591,7 +9591,7 @@ pucknorm_body:
         sahf
         jbe short .51
         fld dword [byte ebx+028h]
-        fcomp dword [dword_1608A3]
+        fcomp dword [F32_neg1392_pucknorm_body]
         fnstsw ax
         sahf
         jb near .54
@@ -9627,7 +9627,7 @@ pucknorm_body:
         sahf
         jae short .55
         fld dword [byte edx+028h]
-        fcomp dword [dword_1608A3]
+        fcomp dword [F32_neg1392_pucknorm_body]
         fnstsw ax
         sahf
         jae short .55
@@ -9879,7 +9879,7 @@ puckfaceoff2:
         mov eax, dword [off_168D0C]
         sub esp, byte 4
         fld dword [byte eax+01Ch]
-        fadd qword [qword_1608A7]
+        fadd qword [F64_3p14159_puckfaceoff2]
         xor eax, eax
         fstp dword [esp]
         call UpdateScoreboardSpin
@@ -9902,7 +9902,7 @@ puckfaceoff2:
         mov eax, dword [off_168D08]
         sub esp, byte 4
         fld dword [byte eax+01Ch]
-        fadd qword [qword_1608A7]
+        fadd qword [F64_3p14159_puckfaceoff2]
         mov eax, 1
         fstp dword [esp]
         call UpdateScoreboardSpin

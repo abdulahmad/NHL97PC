@@ -2,12 +2,12 @@
 bits 32
 %include "hockey.inc"
 section s_16D440 progbits alloc noexec write align=1
-extern unk_166B38, unk_166B3C, unk_166B40, unk_166B44, unk_166B48, unk_166B4C, unk_166B50, unk_166B54
-extern unk_166B58, unk_166B5C, unk_166B60, unk_166B64, unk_166B67, unk_166B6B, unk_166B6E, unk_166B72
-extern unk_166B76, unk_166B7A, unk_166B7E, unk_166B82, unk_166B86, unk_166B8A, unk_166B8D, unk_166B90
-extern unk_166B94, unk_166B98
+extern str_Ana, str_Bos, str_Buf, str_Cal, str_Chi, str_Col, str_Dal, str_Det
+extern str_Edm, str_Fla, str_Har, str_LA, str_Mon, str_NJ, str_NYI, str_NYR
+extern str_Ott, str_Phi, str_Pho, str_Pit, str_StL, str_SJ, str_TB, str_Tor
+extern str_Van, str_Was
 global str_None, byte_16D5DC, dword_16D440, dword_16D444, dword_16D448, dword_16D44C, dword_16D454, dword_16D458
-global dword_16D45C, dword_16D470, dword_16D484, dword_16D4B0, dword_16D4D4, dword_16D500, dword_16D504, dword_16D508
+global dword_16D45C, dword_16D470, dword_16D484, dword_16D4B0, dword_16D4D4, dword_16D500, str_E_BuildHistoryList, dword_16D508
 global dword_16D664, off_16D5F7, word_16D450
 dword_16D440:
         db 00h,00h,00h,00h
@@ -43,7 +43,7 @@ dword_16D4D4:
         db 064h,02h,00h,00h,045h,01h,00h,00h,058h,02h,00h,00h
 dword_16D500:
         db 0FFh,0FFh,0FFh,0FFh
-dword_16D504:
+str_E_BuildHistoryList:
         db 065h,00h,00h,00h
 dword_16D508:
         db 033h,01h,00h,00h,00h,02h,00h,00h,0CDh,00h,00h,00h,0C4h,01h,00h,00h
@@ -64,32 +64,32 @@ byte_16D5DC:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,01h,01h,01h
         db 00h,01h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 off_16D5F7:
-        dd unk_166B38
-        dd unk_166B3C
-        dd unk_166B40
-        dd unk_166B44
-        dd unk_166B48
-        dd unk_166B4C
-        dd unk_166B50
-        dd unk_166B54
-        dd unk_166B58
-        dd unk_166B5C
-        dd unk_166B60
-        dd unk_166B64
-        dd unk_166B67
-        dd unk_166B6B
-        dd unk_166B6E
-        dd unk_166B72
-        dd unk_166B76
-        dd unk_166B7A
-        dd unk_166B7E
-        dd unk_166B82
-        dd unk_166B86
-        dd unk_166B8A
-        dd unk_166B8D
-        dd unk_166B90
-        dd unk_166B94
-        dd unk_166B98
+        dd str_Ana
+        dd str_Bos
+        dd str_Buf
+        dd str_Cal
+        dd str_Chi
+        dd str_Col
+        dd str_Dal
+        dd str_Det
+        dd str_Edm
+        dd str_Fla
+        dd str_Har
+        dd str_LA
+        dd str_Mon
+        dd str_NJ
+        dd str_NYI
+        dd str_NYR
+        dd str_Ott
+        dd str_Phi
+        dd str_Pho
+        dd str_Pit
+        dd str_StL
+        dd str_SJ
+        dd str_TB
+        dd str_Tor
+        dd str_Van
+        dd str_Was
 str_None:
         db 04Eh,06Fh,06Eh,065h,00h
 dword_16D664:

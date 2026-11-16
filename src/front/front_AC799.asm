@@ -36,8 +36,8 @@ extern DrawListHighlight, ChangeMenuMusic, InitMenuItems, RunMenu, InitScrollLis
 extern ScrollDown, FreeScrollList, SetScrollBarPos, ScrollToMouse, RunScrollList, SetListSelection, GetLangText, KeysEqual
 extern FreeDbBlock, FindTeamRecord, FindPlayerRecord, OpenLeagueFile, FindGameRecord, FindPlayerStat, FindTeamStat, ServiceIdle
 extern LinkSyncMenu, LinkSyncScreen, AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, DrawArt, CreateBitmap
-extern SetDrawTarget, ClearScreen, unk_16620D, unk_16622A, unk_16622D, unk_16622F, unk_166232, unk_166235
-extern unk_16623E, unk_1663A5, unk_1663B8, unk_16D7FC, unk_16D804, unk_1AD22E, unk_1AD236, unk_1AD73A
+extern SetDrawTarget, ClearScreen, str_D_ExportStatTable, str_S_ExportStatTable, str_Punct_WriteCsvLine, str_Rt, str_Wt, str_Punct_ExportStatTable
+extern unk_16623E, str_Punct_StatsTablesScreen, str_Ai, unk_16D7FC, unk_16D804, unk_1AD22E, unk_1AD236, unk_1AD73A
 extern unk_1C5F4A, unk_1C5F9C, unk_1C5FEE, word_16D408, word_1C962C
 global jpt_ACD96, jpt_AD11D, jpt_ADBD6, jpt_AF064, AllocStatTable_2AA, SortStatTable_301, SortStatTable_303, SortStatTable_310
 global SortStatTable_321, SortStatTable_323, SortStatTable_36B, DrawStatTableRows_2A9, DrawStatTableRows_2C4, DrawStatTableRows_2ED, DrawStatTableRows_34B, DrawStatTableRows_36C
@@ -1271,7 +1271,7 @@ DrawStatTableRows_2C4:
 .15:
         push eax
 .16:
-        push unk_16620D
+        push str_D_ExportStatTable
 .17:
         lea eax, [byte ebp-074h]
         push eax
@@ -1429,7 +1429,7 @@ DrawStatTableRows_48D:
         mov edx, dword [byte esi+012h]
         add eax, ebx
         push dword [edx+eax*4]
-        push unk_16622A
+        push str_S_ExportStatTable
         jmp near DrawStatTableRows_2C4.17
 .24:
         mov edx, edi
@@ -1483,7 +1483,7 @@ WriteCsvField:
         mov edx, eax
         jmp short .2
 .1:
-        push unk_16622D
+        push str_Punct_WriteCsvLine
         push ecx
         inc edx
         call fprintf_
@@ -1512,7 +1512,7 @@ WriteCsvLine:
         xor edx, edx
         jmp short .2
 .1:
-        push unk_16622D
+        push str_Punct_WriteCsvLine
         push esi
         inc edx
         call fprintf_
@@ -1530,7 +1530,7 @@ WriteCsvLine:
         add edx, eax
         jmp short .4
 .3:
-        push unk_16622D
+        push str_Punct_WriteCsvLine
         push esi
         inc edx
         call fprintf_
@@ -1571,7 +1571,7 @@ AskExportFile:
         call strlen_
         test eax, eax
         jbe short .4
-        mov edx, unk_16622F
+        mov edx, str_Rt
         mov eax, esi
         call fopen_
         mov dword [byte ebp-04h], eax
@@ -1652,7 +1652,7 @@ ExportStatTable:
 .4:
         cmp dx, byte 32h
         jl short .3
-        mov edx, unk_166232
+        mov edx, str_Wt
         lea eax, [byte ebp-02Ch]
         call fopen_
         mov esi, eax
@@ -1686,7 +1686,7 @@ ExportStatTable:
         movsx ebx, dx
         cmp ebx, dword [byte ecx+08h]
         jl short .6
-        push unk_16622D
+        push str_Punct_WriteCsvLine
         lea eax, [byte ebp-07Ch]
         push eax
         mov ebx, 23h
@@ -1703,7 +1703,7 @@ ExportStatTable:
         shl eax, 2
         add eax, edx
         push dword [eax]
-        push unk_16622A
+        push str_S_ExportStatTable
         lea eax, [byte ebp-07Ch]
         push eax
         lea edx, [byte ebp-07Ch]
@@ -1717,7 +1717,7 @@ ExportStatTable:
         movsx ebx, di
         cmp ebx, dword [byte ecx+08h]
         jl short .8
-        push unk_166235
+        push str_Punct_ExportStatTable
         push esi
         mov dword [byte ebp-08h], 0
         jmp near ExportStatTable_221.16
@@ -1738,7 +1738,7 @@ ExportStatTable:
         mov eax, dword [edx+eax*4]
         mov edx, dword [dword_1C9624]
         push dword [edx+eax*4]
-        push unk_16622A
+        push str_S_ExportStatTable
         lea eax, [byte ebp-07Ch]
         push eax
         mov ebx, 1Eh
@@ -1783,7 +1783,7 @@ ExportStatTable_1BA:
         mov eax, dword [edx+eax*4]
         movsx eax, word [eax]
         push eax
-        push unk_16620D
+        push str_D_ExportStatTable
         lea eax, [byte ebp-07Ch]
         push eax
         call sprintf_
@@ -1804,7 +1804,7 @@ ExportStatTable_1EB:
 .12:
         push eax
 .13:
-        push unk_16620D
+        push str_D_ExportStatTable
 .14:
         lea eax, [byte ebp-07Ch]
         push eax
@@ -1943,7 +1943,7 @@ ExportStatTable_38A:
         shl edx, 2
         mov eax, dword [byte ecx+012h]
         push dword [edx+eax]
-        push unk_16622A
+        push str_S_ExportStatTable
         jmp near ExportStatTable_1EB.14
 ;-----------------------------------------------------------------------------
 ; TeamStatsSound                                  ADB4F  97 PC, low confidence
@@ -3517,7 +3517,7 @@ StatsTablesScreen:
         add esp, byte 0Ch
         push byte 0
         push dword 7D0h
-        push unk_1663A5
+        push str_Punct_StatsTablesScreen
         mov dword [byte ebp+02Ah], eax
         call AllocMemBlock
         add esp, byte 0Ch
@@ -3535,7 +3535,7 @@ StatsTablesScreen:
         add esp, byte 0Ch
         push byte 0
         push dword 9858h
-        push unk_1663B8
+        push str_Ai
         mov dword [byte ebp+06Ah], eax
         call AllocMemBlock
         add esp, byte 0Ch

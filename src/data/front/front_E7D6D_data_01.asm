@@ -7,7 +7,7 @@ global str_AB035, str_FRAM, str_000011, str_FART5, str_DSS4, str_D02d4, str_D01d
 global str_MB02d2, str_BAK02, str_TITL15, str_WC002, str_WC012, str_LB005, str_LH00, str_AR00
 global str_AT00, str_MB082, str_MB12, str_MB005, str_MB16, str_MB20, str_1TOP6, str_2TOP6
 global str_3TOP6, str_1BOT6, str_2BOT6, str_3BOT6, str_AB026, str_AB016, str_AB006, str_AB056
-global str_AB046, str_AB036, str_AB082, str_AB072, str_AB062, str_AB112, str_AB102, unk_167731
+global str_AB046, str_AB036, str_AB082, str_AB072, str_AB062, str_AB112, str_AB102, str_D_DrawSeasonIntro
 str_BACK14:
         db 042h,041h,043h,04Bh,00h
 str_TITL14:
@@ -34,7 +34,7 @@ str_FART5:
         db 046h,041h,052h,054h,00h
 str_DSS4:
         db 023h,025h,064h,020h,025h,073h,020h,025h,073h,00h
-unk_167731:
+str_D_DrawSeasonIntro:
         db 025h,064h,00h
 str_D02d4:
         db 025h,064h,02Eh,025h,030h,032h,064h,00h

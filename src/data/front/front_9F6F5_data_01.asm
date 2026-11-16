@@ -6,7 +6,7 @@ global str_DL01, str_DL02, str_DL03, str_SEASONNDX2, str_PLAYOFFNDX2, str_EXHIBI
 global str_DATAEXHIBITNDX2, str_DATASEASONNDX2, str_DATAPLAYOFFNDX2, str_Replaybuf, str_SEAS04dSET2, str_SS7, str_SEAS04dPLY, str_PLAY04dSET2
 global str_PLY, str_S5, str_IdlistFfc, str_SharedFfc, str_WHATEVER, str_04d3, str_TRBL, str_TRBR
 global str_TRLS, str_TRRS, str_TRSE, str_TRSS, str_TRSP, str_PICT, str_Roster3, str_Rosids
-global str_Rtids, str_Games, str_Ros, str_Lros, str_CRUSHER, str_CRUSHERPack, unk_165E4A
+global str_Rtids, str_Games, str_Ros, str_Lros, str_CRUSHER, str_CRUSHERPack, str_D_LinkSendData
 str_DL01:
         db 044h,04Ch,030h,031h,00h
 str_DL02:
@@ -85,5 +85,5 @@ str_CRUSHER:
         db 043h,052h,055h,053h,048h,045h,052h,00h
 str_CRUSHERPack:
         db 043h,052h,055h,053h,048h,045h,052h,020h,070h,061h,063h,06Bh,00h
-unk_165E4A:
+str_D_LinkSendData:
         db 025h,064h,00h,00h,00h,00h

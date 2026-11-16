@@ -4,7 +4,7 @@ bits 32
 section s_FB8AE progbits alloc exec nowrite align=1
 extern byte_16E354, byte_16E358, byte_16E35C, byte_16E378, byte_16E394, byte_16E395, byte_16E396, byte_16E3D7
 extern byte_16E460, dword_16E344, dword_16E360, dword_16E364, dword_16E368, dword_16E36C, dword_16E370, dword_16E374
-extern dword_16E37C, dword_16E380, dword_16E384, dword_16E388, dword_16E38C, dword_16E390, dword_16E397, dword_16E39B
+extern dword_16E37C, dword_16E380, dword_16E384, dword_16E388, dword_16E38C, dword_16E390, str_P_ReadJoystickPorts, dword_16E39B
 extern dword_16E39F, dword_16E3A3, dword_16E3A7, dword_16E3AB, dword_16E3AF, dword_16E3B3, dword_16E3B7, dword_16E3BB
 extern dword_16E3BF, dword_16E3C3, dword_16E3C7, dword_16E3CB, dword_16E3CF, dword_16E3D3, dword_16E4B4, Random32
 global CalibrateJoystick, ReadJoystickPorts, ResetJoystickRange
@@ -223,7 +223,7 @@ ReadJoystickPorts:
         add dword [dword_16E390], eax
 .10:
         mov eax, dword [dword_16E38C]
-        cmp eax, dword [dword_16E397]
+        cmp eax, dword [str_P_ReadJoystickPorts]
         jge short .14
         dec dword [dword_16E3A7]
         jle short .11
@@ -233,10 +233,10 @@ ReadJoystickPorts:
         jmp near .17
 .11:
         mov ebx, dword [dword_16E39B]
-        mov dword [dword_16E397], ebx
+        mov dword [str_P_ReadJoystickPorts], ebx
         mov ebx, dword [dword_16E39F]
 .12:
-        sub ebx, dword [dword_16E397]
+        sub ebx, dword [str_P_ReadJoystickPorts]
         jle short .13
         LD xor, edx, edx
         mov eax, 4000h
@@ -248,7 +248,7 @@ ReadJoystickPorts:
         shr eax, 1
         LD mov, ebx, eax
         shr ebx, 1
-        add eax, dword [dword_16E397]
+        add eax, dword [str_P_ReadJoystickPorts]
         LD add, eax, ebx
         mov dword [dword_16E3AF], eax
         LD sub, eax, ebx
@@ -368,7 +368,7 @@ ReadJoystickPorts:
 ResetJoystickRange:
         push ebx
         mov byte [byte_16E460], 1
-        mov dword [dword_16E397], 50h
+        mov dword [str_P_ReadJoystickPorts], 50h
         mov dword [dword_16E39F], 0
         mov dword [dword_16E3B3], 50h
         mov dword [dword_16E3BB], 0
@@ -387,7 +387,7 @@ ResetJoystickRange:
         ret
         push ebx
         mov eax, dword [dword_16E38C]
-        sub eax, dword [dword_16E397]
+        sub eax, dword [str_P_ReadJoystickPorts]
         jge short .1
         LD xor, eax, eax
 .1:

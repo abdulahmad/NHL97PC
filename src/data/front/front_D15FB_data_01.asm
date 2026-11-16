@@ -6,7 +6,7 @@ global str_PANL2, str_TITL12, str_00009, str_03dLFSH, str_03dRFSH, str_GSTS, str
 global str_002dFSH, str_FRNT, str_FART4, str_NOFACEFSH4, str_PortraitNotFound, str_DSS3, str_Homestats, str_Awaystats
 global str_ST02d, str_Hros, str_Vros, str_Blurb, str_STAR, str_FIR1, str_FDPD, str_FIRD
 global str_000010, str_DOOR, str_TXT1, str_TRM1, str_TITL13, str_LOGO02dFSH2, str_LOGO7, str_LOGO28FSH
-global str_SS12, str_SDD, str_TXTD, unk_166FF4
+global str_SS12, str_SDD, str_TXTD, str_D_DrawMatchupStats
 str_PANL2:
         db 050h,041h,04Eh,04Ch,00h
 str_TITL12:
@@ -19,7 +19,7 @@ str_03dRFSH:
         db 025h,030h,033h,064h,052h,02Eh,046h,053h,048h,00h
 str_GSTS:
         db 047h,053h,054h,053h,00h
-unk_166FF4:
+str_D_DrawMatchupStats:
         db 025h,064h,00h
 str_DD5:
         db 025h,064h,02Eh,025h,064h,00h

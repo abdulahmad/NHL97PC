@@ -7,8 +7,8 @@ extern str_RPEVENT2, str_WaitingForOtherComputer2, str_WarteAufAnderenComputer, 
 extern byte_19CB71, byte_19CB74, byte_19CB75, byte_19CB7E, byte_19CB7F, byte_19CB8A, byte_19CB8B, byte_19CBC2
 extern byte_19CBC8, byte_19CBCA, byte_19CBCC, byte_19CBFC, byte_19CCC6, byte_19CD05, byte_19CD8C, byte_19CD9D
 extern byte_19DAF1, byte_1AC81B, byte_1AC81C, byte_1AC81D, byte_1C135A, byte_1C135B, byte_1C6040, clearteams
-extern dword_160028, dword_160044, dword_160048, dword_16862E, dword_168630, dword_1686BA, dword_1686C0, dword_1686C4
-extern dword_1686C8, dword_1686CC, dword_1686D0, dword_1686DC, InGameMenuRequest, dword_1686E2, dword_16AF3C, dword_16AF40
+extern F32_10, F32_neg8, F32_neg8_StickReachZ, dword_16862E, dword_168630, dword_1686BA, dword_1686C0, F32_62
+extern F32_54, F32_0p8, dword_1686D0, dword_1686DC, InGameMenuRequest, dword_1686E2, dword_16AF3C, dword_16AF40
 extern dword_16AF44, dword_16AF48, dword_16AF4C, dword_16AF50, dword_16AF54, dword_16AF58, dword_16AF5C, dword_16C6BC
 extern InputRecordStamp, dword_16DA9C, dword_16E464, dword_16E468, dword_16E500, dword_19CB30, dword_19CB38, dword_19CB3C
 extern dword_19CB40, dword_19CB44, dword_19CB48, dword_19CB4C, dword_19CB50, dword_19CB58, dword_19CBAA, seed
@@ -19,8 +19,8 @@ extern dword_19CD40, dword_19CD44, dword_19CD48, dword_19CD4C, dword_19CD50, dwo
 extern dword_19CDA5, dword_19DA50, dword_1A8E80, dword_1AC814, dword_1AC819, dword_1AC835, dword_1AC944, dword_1B1404
 extern dword_1B1410, dword_1B1464, dword_1B8578, dword_1B8F4C, dword_1B8FA0, dword_1B8FA4, dword_1B906F, dword_1C1334
 extern dword_1C1346, dword_1C5DE4, dword_1C5EF4, hmtmstruct, memcpy_, off_168CE8, off_168CF0, off_168CFC
-extern off_168D04, off_168D08, off_168D0C, qword_16002C, qword_160034, qword_16003C, qword_16004C, qword_160054
-extern qword_16005C, qword_160064, qword_16006C, qword_160074, rand_, randomd0, regd1, StartCrowdMusic
+extern off_168D04, off_168D08, off_168D0C, F64_0p000244141, F64_1p2, F64_neg8, F64_0p5, F64_50
+extern F64_0p01_StickReachZ, F64_0p392699, F64_0p159155, F64_65536, rand_, randomd0, regd1, StartCrowdMusic
 extern SetupFaceoffPlayers, ClearPlayerFlags, ResetTeamStats, IsPlayoffGame, ResetForIntermission, RefreshRinkPalette, ClockTick, StartPeriod
 extern FindStartingGoalies, ChangeViewSize, PrevVideoModeKey, NextVideoModeKey, QueueOverlayPanel, ClearOverlayWindows, DrawGameOverlays, StartCameraPath
 extern ResetSceneCamera, SelectCameraView, ToggleCameraFollow, EndOpeningCamera, LoadOpeningCamera, assreplace, Goal, CoachLineChange
@@ -37,7 +37,7 @@ extern InputRecordAvail, TakeInputRecord, ServiceIdle, LinkSyncGame, SetupPauseA
 extern PauseMenu, InitVideoModeList, GetVideoModeList, PickVideoMode, AllocMemBlock, FreeMemBlock, KbdGetKey, TicksSinceLast
 extern OpenResourceArchive, MatchColor, SetViewRect, DebugSetLine, tickcount, unk_1600A4, unk_16AED4, unk_19CDA4
 extern unk_19DC40, unk_19E270, unk_19E588, unk_1AC821, word_1684EC, word_1686BC, word_1686D4, word_1686D6
-extern word_1686D8, word_1686DA, word_1686E4, word_19C3D8, word_19C3DA, word_19C3DC, word_19C3DE, word_19C3EC
+extern word_1686D8, word_1686DA, str_D_ChangeViewSize, word_19C3D8, word_19C3DA, word_19C3DC, word_19C3DE, word_19C3EC
 extern word_19C3EE, word_19C3F0, word_19C3F2, word_19CA90, word_19CA92, word_19CA94, word_19CA96, word_19CB16
 extern word_19CB28, word_19CB2A, word_19CB2C, word_19CB2E, word_19CB34, word_19CB36, word_19CB5C, word_19CB60
 extern word_19CB64, word_19CB68, word_19CB72, word_19CB76, word_19CB78, word_19CB7A, word_19CB7C, word_19CB80
@@ -1102,7 +1102,7 @@ SpeedScale:
         cmp eax, 80h
         jne short .2
         mov dword [esp], 3F59999Ah
-        fld dword [dword_1686C4]
+        fld dword [F32_62]
         fmul dword [esp]
         add esp, byte 4
         pop eax
@@ -1110,7 +1110,7 @@ SpeedScale:
 .2:
         mov dword [esp], 3F666666h
 .3:
-        fld dword [dword_1686C4]
+        fld dword [F32_62]
         fmul dword [esp]
         add esp, byte 4
         pop eax
@@ -1133,7 +1133,7 @@ ReachScale:
         cmp eax, 80h
         jne short .2
         mov dword [esp], 3F59999Ah
-        fld dword [dword_1686C8]
+        fld dword [F32_54]
         fmul dword [esp]
         add esp, byte 4
         pop eax
@@ -1141,7 +1141,7 @@ ReachScale:
 .2:
         mov dword [esp], 3F666666h
 .3:
-        fld dword [dword_1686C8]
+        fld dword [F32_54]
         fmul dword [esp]
         add esp, byte 4
         pop eax
@@ -1160,15 +1160,15 @@ GoalieReachFactor:
         mov edx, eax
         cmp byte [dword eax+0A4h], 0Ch
         jne short .1
-        fld dword [dword_1686CC]
-        fmul dword [dword_160028]
+        fld dword [F32_0p8]
+        fmul dword [F32_10]
         jmp short .2
 .1:
         xor eax, eax
         mov al, byte [dword edx+0C4h]
         mov dword [byte esp+04h], eax
         fild word [byte esp+04h]
-        fmul dword [dword_1686CC]
+        fmul dword [F32_0p8]
 .2:
         fstp dword [esp]
         call SpeedScaleAligned
@@ -1202,7 +1202,7 @@ PlayerReachFactor:
         mov eax, dword [dword eax+0FEh]
         fild word [byte eax+edx*2+018h]
         fmul dword [dword_1686D0]
-        fmul qword [qword_16002C]
+        fmul qword [F64_0p000244141]
         fld dword [dword_1686D0]
         fld1
         fsubrp
@@ -1227,9 +1227,9 @@ StickReachX:
         sub esp, byte 8
         mov edx, eax
         call SpeedScaleAligned
-        fmul dword [dword_1686C4]
-        fmul qword [qword_160034]
-        fadd qword [qword_16003C]
+        fmul dword [F32_62]
+        fmul qword [F64_1p2]
+        fadd qword [F64_neg8]
         mov eax, edx
         fstp qword [esp]
         call GoalieReachFactor
@@ -1250,12 +1250,12 @@ StickReachY:
         sub esp, byte 4
         mov edx, eax
         call SpeedScaleAligned
-        fmul dword [dword_1686C8]
+        fmul dword [F32_54]
         mov eax, edx
         fstp dword [esp]
         call GoalieReachFactor
         fld dword [esp]
-        fadd dword [dword_160044]
+        fadd dword [F32_neg8]
         faddp
         mov eax, edx
         fstp dword [esp]
@@ -1277,18 +1277,18 @@ StickReachZ:
         fstp dword [esp]
         call GoalieReachFactor
         fld dword [esp]
-        fadd dword [dword_160048]
+        fadd dword [F32_neg8_StickReachZ]
         faddp
         mov eax, edx
         fstp dword [esp]
         call PlayerReachFactor
         mov edx, dword [dword edx+0EEh]
         fld dword [byte edx+024h]
-        fmul qword [qword_16004C]
-        fadd qword [qword_160054]
+        fmul qword [F64_0p5]
+        fadd qword [F64_50]
         fxch
         fmul dword [esp]
-        fmul qword [qword_16005C]
+        fmul qword [F64_0p01_StickReachZ]
         fmulp
         add esp, byte 4
         pop edx
@@ -1454,9 +1454,9 @@ JoystickAxisScale:
         push edx
         sub esp, byte 4
         fld dword [dword_1B906F]
-        fadd qword [qword_160064]
-        fmul qword [qword_16006C]
-        fmul qword [qword_160074]
+        fadd qword [F64_0p392699]
+        fmul qword [F64_0p159155]
+        fmul qword [F64_65536]
         call __CHP
         fistp dword [esp]
         mov edx, dword [esp]
@@ -2837,15 +2837,15 @@ SetGameBrightness:
         add ebx, eax
         add ebx, ebx
         add ebx, byte 28h
-        mov word [word_1686E4], bx
+        mov word [str_D_ChangeViewSize], bx
         cmp bx, byte 64h
         jle short .1
-        mov word [word_1686E4], 64h
+        mov word [str_D_ChangeViewSize], 64h
         jmp short .2
 .1:
         cmp bx, byte 28h
         jge short .2
-        mov word [word_1686E4], 28h
+        mov word [str_D_ChangeViewSize], 28h
 .2:
         mov ebx, dword [dword_1686E2]
         mov edx, dword [dword_16E464]

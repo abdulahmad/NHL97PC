@@ -4,7 +4,7 @@ bits 32
 section s_16E374 progbits alloc noexec write align=1
 extern PollHotkeys
 global __8087, byte_16E378, byte_16E394, byte_16E395, byte_16E396, byte_16E3D7, byte_16E415, byte_16E460
-global dword_16E374, dword_16E37C, dword_16E380, dword_16E384, dword_16E388, dword_16E38C, dword_16E390, dword_16E397
+global dword_16E374, dword_16E37C, dword_16E380, dword_16E384, dword_16E388, dword_16E38C, dword_16E390, str_P_ReadJoystickPorts
 global dword_16E39B, dword_16E39F, dword_16E3A3, dword_16E3A7, dword_16E3AB, dword_16E3AF, dword_16E3B3, dword_16E3B7
 global dword_16E3BB, dword_16E3BF, dword_16E3C3, dword_16E3C7, dword_16E3CB, dword_16E3CF, dword_16E3D3, dword_16E3EC
 global dword_16E3F4, dword_16E3F8, dword_16E3FC, dword_16E402, dword_16E408, dword_16E410, dword_16E430, dword_16E444
@@ -33,7 +33,7 @@ byte_16E395:
         db 00h
 byte_16E396:
         db 00h
-dword_16E397:
+str_P_ReadJoystickPorts:
         db 050h,00h,00h,00h
 dword_16E39B:
         db 00h,00h,00h,00h

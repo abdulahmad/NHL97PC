@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_102F40 progbits alloc exec nowrite align=1
-extern SaveTextMode, str_VESAMEM, str_Rowtbl, byte_16E6C0, byte_16E6C1, byte_1DA8CF, dword_16E444, dword_16E464
+extern SaveTextMode, str_VESAMEM, str_Rowtbl, byte_16E6C0, str_Punct_SetGraphicsMode, byte_1DA8CF, dword_16E444, dword_16E464
 extern dword_16E468, dword_16E46C, dword_16E47C, dword_16E480, dword_16E484, dword_16E488, dword_16E4B8, dword_16E4BC
 extern dword_16E4C8, dword_16E670, dword_16E6A8, dword_16E6AC, dword_16E6B0, dword_16E6B4, dword_16E6B8, dword_16E6BC
 extern dword_16E6CC, dword_16E6D0, dword_16E6D4, dword_16E6D8, dword_16E714, dword_16F894, dword_16F898, dword_16F8A8
@@ -576,7 +576,7 @@ SetGraphicsMode:
         call BytesPerPixelForDepth
         add esp, byte 4
         mov edx, esi
-        mov byte [byte_16E6C1], al
+        mov byte [str_Punct_SetGraphicsMode], al
         sar edx, 3
         xor eax, eax
         call FillRowTable

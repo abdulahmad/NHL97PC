@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_10CFB4 progbits alloc exec nowrite align=1
-extern byte_1D1D8C, byte_1D1FBC, dword_16E464, dword_16E468, dword_16E4A8, dword_17024C, dword_170250, dword_170254
-extern dword_170258, dword_17025C, dword_170260, dword_170264, dword_170268, dword_17026C, dword_170270, dword_170274
+extern byte_1D1D8C, byte_1D1FBC, dword_16E464, dword_16E468, str_Punct_DrawRinkSurface, dword_17024C, str_D_SetCameraAngles, dword_170254
+extern dword_170258, dword_17025C, str_D_ProjectPointsPersp, dword_170264, dword_170268, dword_17026C, dword_170270, dword_170274
 extern dword_1D204C, dword_1D2050, memcpy_, AngleOfVector, SubVec3, TransformVecFull, FixedLerp, DrawClippedPoly
 extern RotatePoint2D, RotateModelPoint, AngleFromDelta, SinLookup, CosLookup, ProjectPointsPersp, MultiplyMatrix, TransposeMatrix
 extern FreeMemBlock, MakeColor, FillRectColor, unk_1D1D20, vecdist
@@ -24,8 +24,8 @@ SetViewScreenOrigin:
         mov dword [dword_17025C], eax
         mov eax, dword [byte ebp+0Ch]
         mov dword [dword_170258], eax
-        add eax, dword [dword_170250]
-        mov dword [dword_170260], eax
+        add eax, dword [str_D_SetCameraAngles]
+        mov dword [str_D_ProjectPointsPersp], eax
         leave
         ret
         push ebp
@@ -69,10 +69,10 @@ SetCameraAngles_2E:
         mov dword [dword_17025C], eax
         mov eax, dword [byte ebp+014h]
         shr eax, 1
-        mov dword [dword_170250], eax
+        mov dword [str_D_SetCameraAngles], eax
         add eax, dword [dword_170258]
         db 0A3h                                 ; insn: mov [10260h],eax
-        dd dword_170260
+        dd str_D_ProjectPointsPersp
         db 0FFh,035h                            ; insn: push dword [1026Ch]
         dd dword_17026C
         call CosLookup
@@ -92,7 +92,7 @@ SetCameraAngles_2E:
         push dword [dword_170270]
         call CosLookup
         add esp, byte 4
-        mul dword [dword_170250]
+        mul dword [str_D_SetCameraAngles]
         LD mov, esi, eax
         push dword [dword_170270]
         call SinLookup
@@ -116,7 +116,7 @@ SetCameraAngles_2E:
         neg eax
         mov dword [dword_170268], eax
         neg eax
-        push dword [dword_170250]
+        push dword [str_D_SetCameraAngles]
         push eax
         call AngleFromDelta
         add esp, byte 8
@@ -139,7 +139,7 @@ SetCameraAngles_2E:
         mov eax, dword [byte ebx+04h]
         imul dword [dword_170268]
         idiv dword [byte ebx+08h]
-        add eax, dword [dword_170260]
+        add eax, dword [str_D_ProjectPointsPersp]
         mov dword [byte ecx+04h], eax
         pop ebx
         ret
@@ -1160,7 +1160,7 @@ DrawSurfacePolys:
         imul eax, ebp, byte 0Ch
         mov dword [dword esp+0274h], eax
         mov eax, dword [dword esp+0278h]
-        mov edx, dword [dword_16E4A8]
+        mov edx, dword [str_Punct_DrawRinkSurface]
         cmp edx, dword [byte eax+08h]
         jg near .20
         lea eax, [dword esp+0230h]
@@ -1179,7 +1179,7 @@ DrawSurfacePolys:
         push eax
         call TransformVecFull
         add esp, byte 0Ch
-        mov edx, dword [dword_16E4A8]
+        mov edx, dword [str_Punct_DrawRinkSurface]
         cmp edx, dword [dword esp+0244h]
         jg near .20
         mov edi, esp
@@ -1197,7 +1197,7 @@ DrawSurfacePolys:
         mov eax, dword [byte esi+04h]
         imul dword [dword_170268]
         idiv dword [byte esi+08h]
-        add eax, dword [dword_170260]
+        add eax, dword [str_D_ProjectPointsPersp]
         mov dword [byte edi+04h], eax
         jmp short .3
 .2:
@@ -1553,7 +1553,7 @@ DrawOverlayModels:
         mov eax, dword [byte esi+04h]
         imul dword [dword_170268]
         idiv dword [byte esi+08h]
-        add eax, dword [dword_170260]
+        add eax, dword [str_D_ProjectPointsPersp]
         mov dword [byte edi+04h], eax
         jmp short .4
 .3:

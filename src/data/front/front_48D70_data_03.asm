@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_16B084 progbits alloc noexec write align=1
-global dword_16B164, dword_16B168, dword_16B174, dword_16B178, unk_16B084, unk_16B0E4, unk_16B144, unk_16B16C
+global dword_16B164, dword_16B168, dword_16B174, F32_2000_ScaleModelLods, unk_16B084, unk_16B0E4, unk_16B144, unk_16B16C
 unk_16B084:
         db 090h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,0A2h,00h,00h,00h
         db 00h,00h,00h,00h,05Ah,00h,00h,00h,081h,00h,00h,00h,00h,00h,00h,00h
@@ -28,7 +28,7 @@ unk_16B16C:
         db 00h,00h,00h,00h,01h,00h,00h,00h
 dword_16B174:
         db 00h,00h,00h,00h
-dword_16B178:
+F32_2000_ScaleModelLods:
         db 00h,00h,0FAh,044h,00h,00h,096h,044h,00h,080h,0BBh,044h,00h,00h,07Ah,044h
         db 00h,040h,01Ch,045h,00h,080h,0BBh,044h,00h,040h,01Ch,045h,00h,00h,07Ah,044h
         db 00h,080h,03Bh,045h,00h,080h,0BBh,044h

@@ -15,10 +15,10 @@ global str_NET0, str_BG02, str_ATDT, str_Atdt, str_ATDP, str_Atdp, str_S2, str_T
 global str_TPB2, str_TPB1, str_TPB0, str_TPB4, str_TPB3, str_MOD1, str_MOD0, str_BG00
 global str_BG01, str_BACK5, str_TITL3, str_LT002, str_LB002, str_RB00, str_RT00, str_TOP0
 global str_BOT0, str_LFTD, str_RITD, str_LT0D, str_LB0D, str_RT0D, str_RB0D, str_LFT0
-global str_RIT0, str_BTTM, unk_165330
+global str_RIT0, str_BTTM, str_S_ModemSettingsScreen
 str_Phonebook:
         db 070h,068h,06Fh,06Eh,065h,062h,06Fh,06Fh,06Bh,00h
-unk_165330:
+str_S_ModemSettingsScreen:
         db 025h,073h,00h
 str_Delete:
         db 044h,065h,06Ch,065h,074h,065h,00h

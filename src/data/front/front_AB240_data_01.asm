@@ -4,7 +4,7 @@ bits 32
 section s_166120 progbits alloc noexec write align=1
 global str_Xferdata, str_Replaybuf2, str_Gdata, str_Ros2, str_SEXHIBITNDX, str_EXHIBITNDX2, str_Saverepl, str_Statthingy
 global str_StatthingyFlg, str_StatthingyCol, str_StatthingySort, str_StatthingyNames, str_StatthingyAlpha, str_StatthingyStringsort, str_StatthingyColNames, str_StatthingySort2
-global str_DDD4, str_DS3, str_D, str_NA, str_D02d, str_DD2, unk_16620D
+global str_DDD4, str_DS3, str_D, str_NA, str_D02d, str_DD2, str_D_ExportStatTable
 str_Xferdata:
         db 078h,066h,065h,072h,064h,061h,074h,061h,00h
 str_Replaybuf2:
@@ -47,7 +47,7 @@ str_DS3:
         db 025h,064h,02Eh,020h,025h,073h,00h
 str_D:
         db 025h,064h,02Eh,00h
-unk_16620D:
+str_D_ExportStatTable:
         db 025h,064h,00h
 str_NA:
         db 04Eh,02Fh,041h,00h

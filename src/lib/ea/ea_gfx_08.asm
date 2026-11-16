@@ -2,16 +2,16 @@
 bits 32
 %include "hockey.inc"
 section s_10FEE8 progbits alloc exec nowrite align=1
-extern str_INVMATRX, str_Ori2, byte_1D8018, byte_1D8088, dword_16E4A8, dword_16E670, dword_16E678, dword_16E67C
-extern dword_16E680, dword_16E684, dword_16E698, dword_16E69C, dword_17025C, dword_170260, dword_170264, dword_170268
-extern dword_170274, dword_1702B8, dword_1702C0, dword_1702C4, dword_1702C8, dword_1CFCF0, dword_1D1D30, dword_1D1D38
+extern str_INVMATRX, str_Ori2, byte_1D8018, byte_1D8088, str_Punct_DrawRinkSurface, dword_16E670, dword_16E678, dword_16E67C
+extern dword_16E680, dword_16E684, dword_16E698, dword_16E69C, dword_17025C, str_D_ProjectPointsPersp, dword_170264, dword_170268
+extern dword_170274, dword_1702B8, str_Punct_DrawTexturedPoly, str_Punct_DrawTexturedSpan, F32_7p00649eneg41, dword_1CFCF0, dword_1D1D30, dword_1D1D38
 extern dword_1D1D5C, dword_1D1D60, dword_1D7FD4, dword_1D7FD8, dword_1D7FDC, dword_1D7FE0, dword_1D7FE4, dword_1D7FE8
 extern dword_1D7FEC, dword_1D7FF8, dword_1D7FFC, dword_1D8000, dword_1D800C, dword_1D801C, dword_1D8020, dword_1D8024
 extern dword_1D8028, dword_1D802C, dword_1D8030, dword_1D8034, dword_1D8044, dword_1D8048, dword_1D804C, dword_1D8050
 extern dword_1D8054, dword_1D8058, dword_1D805C, dword_1D8068, dword_1D806C, dword_1D8070, dword_1D807C, dword_1D808C
 extern dword_1D8090, dword_1D8094, dword_1D8098, dword_1D809C, dword_1D80A0, dword_1D80A4, dword_1D80B0, dword_1D8334
-extern dword_1D8AB4, dword_1D8AB8, dword_1D8ABC, dword_1D8AC0, dword_1D8AC4, memcpy_, off_1706D0, qword_167E9D
-extern qword_167EA5, str_ORIINST, strcat_, strcpy_, strlen_, strnicmp_, LoadResourceData, SetModelFrame
+extern dword_1D8AB4, dword_1D8AB8, dword_1D8ABC, dword_1D8AC0, dword_1D8AC4, memcpy_, off_1706D0, F64_0p1_InitModelInstance
+extern F64_1p25_InitModelInstance, str_ORIINST, strcat_, strcpy_, strlen_, strnicmp_, LoadResourceData, SetModelFrame
 extern TransformVecFull, UpdateModelInstance, ClipTexPolyToNear, DrawPrimList, ResetMorphVerts, FixedSinCos, TexSpanCopy, ClipTexPolyLeft
 extern ClipTexPolyRight, ClipTexPolyTop, ClipTexPolyBottom, MakeRotationZ, DrawShapeTransformed, ClipDrawPolyLeft, ClipDrawPolyRight, ClipDrawPolyTop
 extern ClipDrawPolyBottom, AllocMemBlock, FreeMemBlock, FillMem, VecScale, unk_199738, unk_1D1D20, unk_1D3D6C
@@ -205,16 +205,16 @@ InitModelInstance:
         jle short .2
 .1:
         fild dword [eax]
-        fmul qword [qword_167E9D]
-        fmul qword [qword_167EA5]
+        fmul qword [F64_0p1_InitModelInstance]
+        fmul qword [F64_1p25_InitModelInstance]
         fstp dword [edx]
         fild dword [byte eax+04h]
-        fmul qword [qword_167E9D]
-        fmul qword [qword_167EA5]
+        fmul qword [F64_0p1_InitModelInstance]
+        fmul qword [F64_1p25_InitModelInstance]
         fstp dword [byte edx+04h]
         fild dword [byte eax+08h]
-        fmul qword [qword_167E9D]
-        fmul qword [qword_167EA5]
+        fmul qword [F64_0p1_InitModelInstance]
+        fmul qword [F64_1p25_InitModelInstance]
         inc ebx
         add eax, byte 0Ch
         fstp dword [byte edx+08h]
@@ -1673,7 +1673,7 @@ SetupTextureSpans:
         je short .7
         fld1
         fdiv dword [dword_1D8044]
-        fild dword [dword_1702C8]
+        fild dword [F32_7p00649eneg41]
         fdivp
         fstp dword [dword_1D8044]
         jmp short .8
@@ -2029,7 +2029,7 @@ DrawTexturedSpan:
         test eax, eax
         jle near .4
         mov edi, dword [dword_1D800C]
-        mov ecx, dword [dword_1702C4]
+        mov ecx, dword [str_Punct_DrawTexturedSpan]
         mov esi, dword [dword_1D8000]
         mov ebp, edx
         cmp eax, ecx
@@ -2058,7 +2058,7 @@ DrawTexturedSpan:
         imul dword [nosplit edx*4+dword_1CFCF0]
         mov dword [byte esp+0Ch], edx
         xor eax, eax
-        mov edx, dword [dword_1702C4]
+        mov edx, dword [str_Punct_DrawTexturedSpan]
         mov dword [byte esp+02Ch], eax
         cmp edx, dword [byte esp+034h]
         jg near .3
@@ -2071,7 +2071,7 @@ DrawTexturedSpan:
         mov dword [byte esp+030h], ebx
         mov eax, 0
         div ebx
-        add ecx, dword [dword_1702C4]
+        add ecx, dword [str_Punct_DrawTexturedSpan]
         mov edx, dword [byte esp+020h]
         mov dword [byte esp+02Ch], ecx
         mov ecx, dword [byte esp+014h]
@@ -2098,13 +2098,13 @@ DrawTexturedSpan:
         add edx, eax
         mov eax, dword [byte esp+028h]
         mov dword [byte esp+024h], edx
-        mov edx, dword [dword_1702C4]
+        mov edx, dword [str_Punct_DrawTexturedSpan]
         sub eax, esi
         shl eax, 2
         imul dword [nosplit edx*4+dword_1CFCF0]
         mov eax, dword [byte esp+024h]
         mov ebx, edx
-        mov edx, dword [dword_1702C4]
+        mov edx, dword [str_Punct_DrawTexturedSpan]
         sub eax, edi
         shl eax, 2
         imul dword [nosplit edx*4+dword_1CFCF0]
@@ -2129,7 +2129,7 @@ DrawTexturedSpan:
         mov ecx, dword [byte esp+08h]
         add ecx, dword [byte esp+04h]
         mov dword [esp], ecx
-        mov ecx, dword [dword_1702C4]
+        mov ecx, dword [str_Punct_DrawTexturedSpan]
         push ecx
         mov ecx, dword [dword_1D7FD4]
         push eax
@@ -2154,7 +2154,7 @@ DrawTexturedSpan:
 .2:
         mov ebx, dword [byte esp+034h]
         mov esi, dword [byte esp+028h]
-        mov eax, dword [dword_1702C4]
+        mov eax, dword [str_Punct_DrawTexturedSpan]
         mov edi, dword [byte esp+024h]
         sub ebx, eax
         add ebp, eax
@@ -2685,7 +2685,7 @@ DrawTexturedPoly:
         push ebp
         sub esp, byte 20h
         mov ebp, dword [byte esp+038h]
-        mov eax, dword [dword_16E4A8]
+        mov eax, dword [str_Punct_DrawRinkSurface]
         inc eax
         push eax
         mov ecx, dword [byte esp+040h]
@@ -2974,11 +2974,11 @@ DrawTexturedPoly:
         push eax
         fistp dword [esp]
         pop eax
-        mov esi, dword [dword_1702C0]
-        mov dword [dword_1702C4], eax
+        mov esi, dword [str_Punct_DrawTexturedPoly]
+        mov dword [str_Punct_DrawTexturedSpan], eax
         cmp eax, esi
         jge short .30
-        mov dword [dword_1702C4], esi
+        mov dword [str_Punct_DrawTexturedSpan], esi
 .30:
         lea eax, [byte ebp-01h]
         xor ebx, ebx
@@ -4272,7 +4272,7 @@ FillSpanRows:
         mov eax, dword [byte esi+04h]
         imul dword [dword_170268]
         idiv dword [byte esi+08h]
-        add eax, dword [dword_170260]
+        add eax, dword [str_D_ProjectPointsPersp]
         mov dword [byte edi+04h], eax
         jmp short .2
 .1:

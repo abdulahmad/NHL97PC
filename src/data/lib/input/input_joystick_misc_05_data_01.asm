@@ -5,7 +5,7 @@ section s_16F188 progbits alloc noexec write align=1
 extern dword_1DA4D0, PacketChecksum_90, DrawShapeBlended_1F4, CopyRow8, CopyRow16, CopyRow24, CopyRow32, ConvertRow4To8
 extern ConvertRow4To16, ConvertRow8To8, ConvertRow8To16, ConvertRow16To16, ConvertRow16To8, ConvertRow16To15, ConvertRow15To15, ConvertRow15To16
 extern ConvertRow15To8, ConvertRow24To24, ConvertRow32To16, ConvertRow24To16, ConvertRow32To32, ConvertRowPalTo16, Convert565To555, Convert555To565
-extern ConvertIndexedTo32, Convert32To565Keyed, Convert32To555Keyed, ConvertIndexedTo16, SwapRedBlue555, Convert32To565, ConvertNibbleTo16, unk_167DCC
+extern ConvertIndexedTo32, Convert32To565Keyed, Convert32To555Keyed, ConvertIndexedTo16, SwapRedBlue555, Convert32To565, ConvertNibbleTo16, str_Fsh
 global byte_16F748, dword_16F188, dword_16F5AC, dword_16F5B4, dword_16F5B8, off_16F588, off_16F5BC, off_16F5C0
 global off_16F684
 dword_16F188:
@@ -82,7 +82,7 @@ off_16F588:
         dd CopyRow32
         db 00h,00h,00h,00h,02h,00h,00h,00h,00h,00h,00h,00h
 dword_16F5AC:
-        dd unk_167DCC
+        dd str_Fsh
         db 00h,00h,00h,00h
 dword_16F5B4:
         db 00h,00h,00h,00h

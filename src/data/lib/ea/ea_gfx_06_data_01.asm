@@ -4,7 +4,7 @@ bits 32
 section s_170278 progbits alloc noexec write align=1
 extern RinkNoOpA, DrawRinkPrimFlat, DrawRinkPrimShaded, DrawRinkPrimTextured, RinkNoOpB, DrawRinkLineFlat, DrawRinkLineShaded, DrawRinkLineTextured
 extern TexSpanCopy, TexSpanKeyed, TexSpanShadow
-global dword_1702B4, dword_1702B8, dword_1702C0, dword_1702C4, dword_1702C8, dword_1702CC, dword_1706CC, off_170278
+global dword_1702B4, dword_1702B8, str_Punct_DrawTexturedPoly, str_Punct_DrawTexturedSpan, F32_7p00649eneg41, dword_1702CC, dword_1706CC, off_170278
 global off_170284, off_170290, off_17029C, off_1702A8, off_1706D0
 off_170278:
         dd RinkNoOpA
@@ -30,11 +30,11 @@ dword_1702B4:
         db 01h,00h,00h,00h
 dword_1702B8:
         db 00h,00h,00h,00h,080h,00h,00h,00h
-dword_1702C0:
+str_Punct_DrawTexturedPoly:
         db 020h,00h,00h,00h
-dword_1702C4:
+str_Punct_DrawTexturedSpan:
         db 020h,00h,00h,00h
-dword_1702C8:
+F32_7p00649eneg41:
         db 050h,0C3h,00h,00h
 dword_1702CC:
         db 00h,00h,00h,00h,092h,01h,00h,00h,024h,03h,00h,00h,0B6h,04h,00h,00h

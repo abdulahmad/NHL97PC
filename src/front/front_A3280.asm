@@ -40,8 +40,8 @@ extern DrawLinkStatusText, ResetLinkSetup, AllocStatTable, FreeStatTable, SetSta
 extern SortStatTable, DrawStatTableRows, DrawStatTableArt, UserLogScreen, InitListBox, InitShapeListBox, InitSlotTable, InitLinkSettings
 extern ClearLinkAbort, ServiceIdle, LinkSyncMenu, LinkSyncScreen, LinkSendBlock, LinkReceiveBlock, CopyControlSettings, AllocMemBlock
 extern FreeMemBlock, ZeroMem, OpenResourceArchive, MakeColor, SelectFont, FreeBitmap, DrawShapeCore, DrawShapeAtOwnPos
-extern DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, MeasureText, tickcount, unk_165EA0, unk_166010
-extern unk_16609C, unk_16D262, unk_16D26A, unk_1AC8E4, unk_1C135C, unk_1C347F, unk_1C5EF8, unk_1C5F4A
+extern DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, MeasureText, tickcount, str_D_RunLinkGameScreens, str_D_DrawTeamStatLine
+extern str_Punct_GoalTypeSuffix, unk_16D262, unk_16D26A, unk_1AC8E4, unk_1C135C, unk_1C347F, unk_1C5EF8, unk_1C5F4A
 extern unk_1C5F9C, unk_1C94F4, word_1684BE, word_16D25C, word_16D25E, word_16D260, word_16D27E, word_16D28C
 extern word_16D29C, word_16D2A6, word_16D2AC, word_16D2B0, word_16D2B2, word_16D2B4, word_19CB96, gameover
 extern word_1C1348, word_1C55A2, word_1C9448, word_1C9450, word_1C9470, word_1C94EC, word_1C94EE, word_1C94F0
@@ -2374,7 +2374,7 @@ RunLinkGameScreens_112:
         movsx eax, word [nosplit edi*2+word_1C9448]
         inc eax
         push eax
-        push unk_165EA0
+        push str_D_RunLinkGameScreens
         lea eax, [byte ebp-040h]
         push eax
         call sprintf_
@@ -6968,7 +6968,7 @@ DrawTeamStatLine:
         mov eax, dword [dword eax+020B7h]
         sar eax, 10h
         push eax
-        push unk_166010
+        push str_D_DrawTeamStatLine
         push ebx
         push edx
         push byte 1
@@ -6977,7 +6977,7 @@ DrawTeamStatLine:
         add esp, byte 14h
         sar eax, 10h
         push eax
-        push unk_166010
+        push str_D_DrawTeamStatLine
         add ebx, ebp
         push ebx
         push edi
@@ -7044,7 +7044,7 @@ DrawTeamStatLine:
         mov eax, dword [dword esi+020C9h]
         sar eax, 10h
         push eax
-        push unk_166010
+        push str_D_DrawTeamStatLine
         add ebx, ebp
         push ebx
         push edi
@@ -7059,7 +7059,7 @@ DrawTeamStatLine:
         idiv ecx
         add esp, byte 14h
         push eax
-        push unk_166010
+        push str_D_DrawTeamStatLine
         add ebx, ebp
         push ebx
         push edi
@@ -7069,7 +7069,7 @@ DrawTeamStatLine:
         add esp, byte 14h
         sar eax, 10h
         push eax
-        push unk_166010
+        push str_D_DrawTeamStatLine
         add ebx, ebp
         push ebx
         push edi
@@ -7079,7 +7079,7 @@ DrawTeamStatLine:
         add esp, byte 14h
         sar eax, 10h
         push eax
-        push unk_166010
+        push str_D_DrawTeamStatLine
         add ebx, ebp
         push ebx
         push edi
@@ -7128,7 +7128,7 @@ DrawTeamStatLine:
         add esp, byte 18h
         sar eax, 10h
         push eax
-        push unk_166010
+        push str_D_DrawTeamStatLine
         add ebx, ebp
         push ebx
         push edi
@@ -7138,7 +7138,7 @@ DrawTeamStatLine:
         mov eax, dword [dword esi+020E5h]
         sar eax, 10h
         push eax
-        push unk_166010
+        push str_D_DrawTeamStatLine
         add ebx, ebp
         push ebx
         push edi
@@ -7166,7 +7166,7 @@ DrawTeamStatLine:
         idiv ecx
         add esp, byte 18h
         push eax
-        push unk_166010
+        push str_D_DrawTeamStatLine
         add ebx, ebp
         push ebx
         push edi
@@ -9512,7 +9512,7 @@ GoalTypeSuffix:
         push eax
         call sprintf_
         add esp, byte 0Ch
-        push unk_16609C
+        push str_Punct_GoalTypeSuffix
         lea eax, [byte esp+02Ch]
         push eax
         call sprintf_

@@ -20,9 +20,9 @@ extern SetScreenTarget, CameraNoop, SecondsToSamples, WaitSoundTime, PlayMenuSfx
 extern DrawScreenBackground, FadeInScreen, ExitScreen, SetRegionRect, SetTextColor, DrawTextAligned, ShowMessageBoxNoWait, WipeScreen
 extern SetModemButton, InitMenuItems, RunMenu, GetLangText, ServiceIdle, WaitForOtherComputer, GetKeyName, LoadPauseArt
 extern FreePauseArt, DrawPauseClock, FreeMemBlock, MatchColor, MakeColor, FreeBitmap, DrawShapeAtOwnPos, DrawArt
-extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, tickcount, unk_167A1A, unk_16D992, unk_1AC8E4
-extern unk_1C5F4A, unk_1CE3D0, unk_1CE422, unk_1CE474, unk_1CEA8A, unk_EDDEF, unk_EDE3F, unk_EDE53
-extern unk_EE053, unk_EE093, unk_EE0E3, word_16E2EC, word_16E2EE, word_16E2F0
+extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, tickcount, str_S_DrawControlKey, unk_16D992, unk_1AC8E4
+extern unk_1C5F4A, unk_1CE3D0, unk_1CE422, unk_1CE474, unk_1CEA8A, str_Punct_DrawControlLabel, unk_EDE3F, unk_EDE53
+extern unk_EE053, str_Punct_ControlSetupScreen, unk_EE0E3, word_16E2EC, word_16E2EE, word_16E2F0
 global jpt_F031D, ShowReservedKey_20A, ControlSetupMain_3F3, ControlSetupMain_3FB, ControlSetupScreen_B8D, ControlSetupScreen_BB1, ControlSetupScreen_BC0, ControlSetupScreen_BF3
 global ControlSetupScreen_C3A, ControlSetupScreen_F11, ControlSetupScreen_1064, ShowReservedKey, CopyControlSettings, ControlSetupMain, ControlSetupKeys, ControlSetupPads
 global ControlSetupSound, DrawControlLabel, DrawControlKey, ControlSetupScreen, ControlSetupPlayers, SetupPauseArt, CleanupPauseArt
@@ -2070,7 +2070,7 @@ DrawControlLabel:
         push ecx
         mov ecx, 14h
         lea edi, [byte ebp-064h]
-        mov esi, unk_EDDEF
+        mov esi, str_Punct_DrawControlLabel
         rep movsd
         lea edi, [byte ebp-014h]
         mov esi, unk_EDE3F
@@ -2210,7 +2210,7 @@ DrawControlKey:
         mov dword [byte ebp-04h], edx
         mov edi, ecx
         push ebx
-        push unk_167A1A
+        push str_S_DrawControlKey
         lea eax, [byte ebp-02Ch]
         push eax
         call sprintf_
@@ -2352,7 +2352,7 @@ ControlSetupScreen:
         rep movsd
         mov ecx, 14h
         lea edi, [byte ebp-05Eh]
-        mov esi, unk_EE093
+        mov esi, str_Punct_ControlSetupScreen
         push byte 58h
         lea eax, [dword ebp-0B6h]
         rep movsd

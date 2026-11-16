@@ -23,7 +23,7 @@ extern dword_1CAE24, dword_1CAE28, dword_1CAE2C, dword_1CAE34, dword_1CAE6C, dwo
 extern dword_1CAE7C, dword_1CAE80, dword_1CAE84, dword_1CAE88, dword_1CAE8C, dword_1CAE90, dword_1CAE94, dword_1CAE98
 extern dword_1CAE9C, dword_1CAEA0, dword_1CAEA4, dword_1CAEA8, dword_1CAEAC, dword_1CAEB0, dword_1CAEB4, dword_1CAEB8
 extern dword_1CAEBC, dword_1CAEC0, dword_1CAEC4, dword_1CAFF4, fclose_, fopen_, fprintf_, qsort_
-extern qword_16695B, rand_, sprintf_, strcat_, strcpy_, BlitConverted, BlitShape2, BlitArt
+extern F64_0p9_DrawPlayerRatingsPage, rand_, sprintf_, strcat_, strcpy_, BlitConverted, BlitShape2, BlitArt
 extern PresentScreen, FindShape, OpenArtArchive, OpenArtArchiveErr, DrawShapeBlended, ConvertArtNew, ResetClipWindow, DrawSpriteScaledBy
 extern ConvertArtInPlace, ConvertArtXY, FindShapeList, SetFullClip, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples
 extern WaitSoundTime, PlayMenuSfx, StopAllSfx, PlaySfx, PlayScreenMovie, LoadDataFile, OpenDataLibrary, DrawScreenBackground
@@ -35,7 +35,7 @@ extern ScrollToMouse, RunScrollList, SetListSelection, GetLangText, WriteCsvLine
 extern VideoOptionsScreen, KeysEqual, FreeDbBlock, AgeFromBirthDate, FindTeamRecord, FindPlayerRecord, OpenLeagueFile, FindGameRecord
 extern FindPlayerStat, FindTeamStat, ServiceIdle, LinkSyncMenu, LinkSyncScreen, AllocMemBlock, FreeMemBlock, MakeColor
 extern FreeBitmap, DrawShapeCore, DrawShapeAtOwnPos, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, tickcount
-extern unk_1667A4, unk_1667A7, unk_1668C2, unk_1668C5, unk_1668F8, unk_166915, unk_166946, unk_166948
+extern str_Ai_PlayerStatsScreen, str_Rp, str_D_DrawPlayerRatings, str_0_DrawPlayerStatsText, str_S_DrawPlayerBio, str_Wt_ExportPlayerCard, str_Punct_ExportPlayerCard, unk_166948
 extern unk_16D7FC, unk_16D804, unk_1AD22E, unk_1AD236, unk_1AD73A, unk_1C5F4A, unk_1C5F9C, unk_1C5FEE
 extern unk_1CA9DC, unk_1CAADC, unk_1CABDC, unk_1CACE8, unk_1CACF4, unk_1CAD00, unk_1CAD24
 global jpt_B585D, jpt_B6B27, jpt_B6B53, jpt_B6B7F, jpt_B6BAB, jpt_B6BD7, jpt_B6BFB, jpt_B6C1F
@@ -757,7 +757,7 @@ PlayerStatsScreen:
         imul ebx, dword [byte ebp+07Eh], byte 3Dh
         push byte 0
         push eax
-        push unk_1667A4
+        push str_Ai_PlayerStatsScreen
         call AllocMemBlock
         mov edi, eax
         mov dword [byte ebp+062h], eax
@@ -765,7 +765,7 @@ PlayerStatsScreen:
         add esp, byte 0Ch
         push byte 0
         push eax
-        push unk_1667A7
+        push str_Rp
         call AllocMemBlock
         add esp, byte 0Ch
         push byte 0
@@ -2154,7 +2154,7 @@ DrawPlayerStatsText_12F:
         movsx eax, word [byte eax+07Ch]
         jmp short DrawPlayerStatsText_15A.7
 DrawPlayerStatsText_135:
-        push unk_1668C5
+        push str_0_DrawPlayerStatsText
         lea eax, [byte ebp-018h]
         push eax
         call sprintf_
@@ -2174,7 +2174,7 @@ DrawPlayerStatsText_15A:
         idiv ebx
 .7:
         push eax
-        push unk_1668C2
+        push str_D_DrawPlayerRatings
         lea eax, [byte ebp-018h]
         push eax
         call sprintf_
@@ -2334,7 +2334,7 @@ DrawPlayerStatsText_312:
         movsx eax, word [byte ebx+034h]
 .14:
         push eax
-        push unk_1668C2
+        push str_D_DrawPlayerRatings
         lea eax, [byte ebp-018h]
         push eax
         call sprintf_
@@ -2441,7 +2441,7 @@ DrawPlayerStatsText_430:
         movsx eax, word [byte eax+072h]
 .23:
         push eax
-        push unk_1668C2
+        push str_D_DrawPlayerRatings
         lea eax, [byte ebp-018h]
         push eax
         call sprintf_
@@ -2570,7 +2570,7 @@ DrawPlayerStatsText_56A:
         movsx eax, word [byte ebx+028h]
 .29:
         push eax
-        push unk_1668C2
+        push str_D_DrawPlayerRatings
         lea eax, [byte ebp-018h]
         push eax
         call sprintf_
@@ -2778,7 +2778,7 @@ DrawPlayerBio:
 .8:
         call GetLangText
         push eax
-        push unk_1668F8
+        push str_S_DrawPlayerBio
         lea eax, [byte ebp-02Eh]
         push eax
         call sprintf_
@@ -2822,7 +2822,7 @@ DrawPlayerBio:
         add esp, byte 10h
         add eax, byte 32h
         push eax
-        push unk_1668F8
+        push str_S_DrawPlayerBio
         lea eax, [byte ebp-02Eh]
         push eax
         call sprintf_
@@ -3185,7 +3185,7 @@ ExportPlayerCard:
         call AskExportFile
         test eax, eax
         je near ExportPlayerCard_956.52
-        mov edx, unk_166915
+        mov edx, str_Wt_ExportPlayerCard
         lea eax, [byte ebp+03Ah]
         call fopen_
         mov edx, eax
@@ -3276,7 +3276,7 @@ ExportPlayerCard:
 .9:
         call GetLangText
         push eax
-        push unk_1668F8
+        push str_S_DrawPlayerBio
         lea eax, [byte ebp-016h]
         push eax
         call sprintf_
@@ -3498,7 +3498,7 @@ ExportPlayerCard_395:
         cmp byte [byte ebp+07Ah], 47h
         jne near ExportPlayerCard_6E8.35
         mov ebx, 0Dh
-        mov edx, unk_166946
+        mov edx, str_Punct_ExportPlayerCard
         mov eax, dword [byte ebp+05Ah]
         mov esi, dword [byte ebp+062h]
         jmp near ExportPlayerCard_463.21
@@ -3588,7 +3588,7 @@ ExportPlayerCard_505:
         movsx eax, word [byte eax+07Ch]
         jmp short ExportPlayerCard_530.25
 ExportPlayerCard_50B:
-        push unk_1668C5
+        push str_0_DrawPlayerStatsText
         lea eax, [byte ebp-016h]
         push eax
         call sprintf_
@@ -3608,7 +3608,7 @@ ExportPlayerCard_530:
         idiv ebx
 .25:
         push eax
-        push unk_1668C2
+        push str_D_DrawPlayerRatings
         lea eax, [byte ebp-016h]
         push eax
         call sprintf_
@@ -3761,7 +3761,7 @@ ExportPlayerCard_6E8:
         movsx eax, word [byte edi+034h]
 .32:
         push eax
-        push unk_1668C2
+        push str_D_DrawPlayerRatings
         lea eax, [byte ebp-016h]
         push eax
         call sprintf_
@@ -3780,7 +3780,7 @@ ExportPlayerCard_6E8:
         jmp near ExportPlayerCard_956.50
 .35:
         mov ebx, 0Dh
-        mov edx, unk_166946
+        mov edx, str_Punct_ExportPlayerCard
         mov eax, dword [byte ebp+05Ah]
         mov esi, dword [byte ebp+062h]
         jmp near ExportPlayerCard_78E.38
@@ -3858,7 +3858,7 @@ ExportPlayerCard_81C:
         movsx eax, word [byte eax+072h]
 .41:
         push eax
-        push unk_1668C2
+        push str_D_DrawPlayerRatings
         lea eax, [byte ebp-016h]
         push eax
         call sprintf_
@@ -3980,7 +3980,7 @@ ExportPlayerCard_956:
         movsx eax, word [byte edi+028h]
 .47:
         push eax
-        push unk_1668C2
+        push str_D_DrawPlayerRatings
         lea eax, [byte ebp-016h]
         push eax
         call sprintf_
@@ -4299,7 +4299,7 @@ DrawPlayerRatingsPage:
         cmp byte [byte_1C6040], 0
         jne short .22
         fild word [byte edi+04h]
-        fmul qword [qword_16695B]
+        fmul qword [F64_0p9_DrawPlayerRatingsPage]
         movsx eax, word [byte edi+06h]
         push byte 0
         sub eax, byte 52h
@@ -4309,7 +4309,7 @@ DrawPlayerRatingsPage:
         push dword [byte ebp-010h]
         call CreateBitmap
         fild word [byte edi+04h]
-        fmul qword [qword_16695B]
+        fmul qword [F64_0p9_DrawPlayerRatingsPage]
         add esp, byte 0Ch
         mov dword [byte ebp-0Ch], eax
         movsx eax, word [byte edi+06h]
@@ -4654,7 +4654,7 @@ DrawPlayerRatingsPage:
         cmp byte [byte_1C6040], 0
         jne short .38
         fild word [byte edi+04h]
-        fmul qword [qword_16695B]
+        fmul qword [F64_0p9_DrawPlayerRatingsPage]
         movsx eax, word [byte edi+06h]
         push byte 0
         sub eax, byte 52h
@@ -4664,7 +4664,7 @@ DrawPlayerRatingsPage:
         push dword [byte ebp-010h]
         call CreateBitmap
         fild word [byte edi+04h]
-        fmul qword [qword_16695B]
+        fmul qword [F64_0p9_DrawPlayerRatingsPage]
         add esp, byte 0Ch
         mov dword [byte ebp-0Ch], eax
         movsx eax, word [byte edi+06h]
@@ -5089,7 +5089,7 @@ PlayerRatingsScreen:
         imul esi, dword [byte ebp+07Eh], byte 3Dh
         push byte 0
         push eax
-        push unk_1667A4
+        push str_Ai_PlayerStatsScreen
         call AllocMemBlock
         mov dword [byte ebp+022h], eax
         mov dword [byte ebp+032h], eax
@@ -5097,7 +5097,7 @@ PlayerRatingsScreen:
         add esp, byte 0Ch
         push byte 0
         push eax
-        push unk_1667A7
+        push str_Rp
         call AllocMemBlock
         add esp, byte 0Ch
         push byte 0
@@ -9575,7 +9575,7 @@ DrawPlayerRatings_F6E:
         jmp short .149
 .148:
         push edi
-        push unk_1668C2
+        push str_D_DrawPlayerRatings
         lea eax, [byte ebp-054h]
         push eax
         call sprintf_
@@ -9610,7 +9610,7 @@ DrawPlayerRatings_F6E:
         jmp short .152
 .151:
         push esi
-        push unk_1668C2
+        push str_D_DrawPlayerRatings
         lea eax, [byte ebp-054h]
         push eax
         call sprintf_
@@ -10042,7 +10042,7 @@ DrawPlayerRatings_15AF:
         cmp edi, byte 0FFFFFFFFh
         je short .213
         push edi
-        push unk_1668C2
+        push str_D_DrawPlayerRatings
         lea eax, [byte ebp-054h]
         push eax
         call sprintf_
@@ -10058,7 +10058,7 @@ DrawPlayerRatings_15AF:
         cmp esi, byte 0FFFFFFFFh
         je short .214
         push esi
-        push unk_1668C2
+        push str_D_DrawPlayerRatings
         lea eax, [byte ebp-054h]
         push eax
         call sprintf_
@@ -10127,7 +10127,7 @@ DrawPlayerRatings_1713:
         mov dword [byte ebp-014h], eax
 .225:
         push dword [byte ebp-014h]
-        push unk_1668C2
+        push str_D_DrawPlayerRatings
         lea eax, [byte ebp-054h]
         push eax
         call sprintf_

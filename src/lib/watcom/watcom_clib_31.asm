@@ -3,8 +3,8 @@ bits 32
 %include "hockey.inc"
 section s_13B0C9 progbits alloc exec nowrite align=1
 extern __Bin2String, __CmpBigInt, __Rnd2Int, __doserror_, __fdiv_m64, __flush_, __ioalloc_, __log87_err_
-extern byte_17268C, dword_1682E4, dword_1682E8, dword_16844C, dword_168450, dword_168454, dword_168458, dword_168462
-extern fputc_, frexp_, modf_, qword_1682EC, qword_16843C, qword_168444, qword_16845E, matherr
+extern byte_17268C, str_Inf, str_Nan, dword_16844C, dword_168450, dword_168454, dword_168458, dword_168462
+extern fputc_, frexp_, modf_, F64_neg1_floor_, qword_16843C, qword_168444, qword_16845E, matherr
 extern unk_16845C, unk_1722C0
 global IF@LOG, IF@LOG10, IF@LOG2, _Scale10V_, _Scale_, __Nan_Inf_, __cvt_, __get_std_stream_
 global _dos_read_, floor_, fputs_, IF@LOG_2, ModfCore, DecimalToInt64, NormalizeDouble, CallMatherr
@@ -48,10 +48,10 @@ __Nan_Inf_:
         and ebx, 0FFFFh
         or edx, ebx
         jne short .2
-        mov edx, dword [dword_1682E4]
+        mov edx, dword [str_Inf]
         jmp short .3
 .2:
-        mov edx, dword [dword_1682E8]
+        mov edx, dword [str_Nan]
 .3:
         mov dword [eax], edx
         mov eax, 1
@@ -150,7 +150,7 @@ floor_:
         sahf
         jbe short .1
         fld qword [byte ebp-014h]
-        fadd qword [qword_1682EC]
+        fadd qword [F64_neg1_floor_]
         fstp qword [byte ebp-014h]
 .1:
         fld qword [byte ebp-014h]

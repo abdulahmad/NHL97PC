@@ -6,8 +6,8 @@ extern EmuNoHook
 global _Envptr, _Envptr_w4, _Extender, _ExtenderSubtype, _LpCmdLine, _STACKLOW, _STACKTOP, __no87
 global __real87, _curbrk, _dynend, _osmajor, _osminor, _psp, byte_172518, byte_1725A4
 global byte_17268C, dword_1724D4, dword_17251B, dword_172524, dword_172564, dword_17257C, dword_17258C, dword_172590
-global dword_172594, dword_17259C, dword_1725AD, dword_172674, dword_172678, dword_17267C, dword_1726A0, dword_1726A4
-global dword_172AAC, qword_172690, qword_172698, tbyte_172680, word_172514, word_172516, word_172519, word_172568
+global dword_172594, dword_17259C, dword_1725AD, dword_172674, dword_172678, dword_17267C, dword_1726A0, str_Punct_AngleOfVector
+global dword_172AAC, F64_709p783, F64_neg709p783, F80_1p5708, word_172514, word_172516, word_172519, word_172568
 global word_17256A
 dword_1724D4:
         db 00h,00h,00h,00h,00h,048h,00h,00h,00h,050h,00h,00h,00h,00h,00h,00h
@@ -96,17 +96,17 @@ dword_172678:
         db 00h,00h,00h,00h
 dword_17267C:
         db 00h,00h,00h,00h
-tbyte_172680:
+F80_1p5708:
         db 00h,0C0h,068h,021h,0A2h,0DAh,0Fh,0C9h,0FFh,03Fh,00h,00h
 byte_17268C:
         db 00h,00h,00h,00h
-qword_172690:
+F64_709p783:
         db 0EEh,039h,0FAh,0FEh,042h,02Eh,086h,040h
-qword_172698:
+F64_neg709p783:
         db 0EEh,039h,0FAh,0FEh,042h,02Eh,086h,0C0h
 dword_1726A0:
         db 00h,00h,00h,00h
-dword_1726A4:
+str_Punct_AngleOfVector:
         db 029h,00h,00h,00h,051h,00h,00h,00h,07Ah,00h,00h,00h,0A3h,00h,00h,00h
         db 0CCh,00h,00h,00h,0F4h,00h,00h,00h,01Dh,01h,00h,00h,046h,01h,00h,00h
         db 06Fh,01h,00h,00h,097h,01h,00h,00h,0C0h,01h,00h,00h,0E9h,01h,00h,00h

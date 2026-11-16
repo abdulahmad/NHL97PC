@@ -4,7 +4,7 @@ bits 32
 section s_1698A2 progbits alloc noexec write align=1
 global dword_1698AF, dword_169996, dword_16AEB4, dword_16AF30, dword_16AF34, dword_16AF38, dword_16AF3C, dword_16AF40
 global dword_16AF44, dword_16AF48, dword_16AF4C, dword_16AF50, dword_16AF54, dword_16AF58, dword_16AF5C, unk_1698A2
-global unk_169989, unk_16AED4, unk_16AF14
+global str_X_SetArtArchive, unk_16AED4, unk_16AF14
 unk_1698A2:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 dword_1698AF:
@@ -22,7 +22,7 @@ dword_1698AF:
         db 049h,04Eh,053h,054h,041h,04Ch,04Ch,049h,02Eh,056h,049h,056h,00h,05h,00h,00h
         db 00h,00h,00h,00h,00h,049h,04Eh,053h,054h,041h,04Ch,04Ch,024h,02Eh,056h,049h
         db 056h,00h,05h,00h,00h,00h,00h,00h,00h,00h
-unk_169989:
+str_X_SetArtArchive:
         db 078h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 dword_169996:
         db 00h,00h,00h,00h,00h,00h,00h,00h,047h,04Ch,04Fh,042h,041h,04Ch,02Eh,053h

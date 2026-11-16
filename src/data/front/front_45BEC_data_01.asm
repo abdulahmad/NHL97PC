@@ -4,7 +4,7 @@ bits 32
 section s_169240 progbits alloc noexec write align=1
 global dword_169240, dword_169244, dword_169248, dword_16924C, dword_169250, dword_169254, dword_169258, dword_16925C
 global dword_169260, dword_169264, dword_16926C, dword_169274, dword_169278, dword_16927A, dword_16927C, dword_16927E
-global dword_169280, dword_169288, dword_16928C, dword_169290, dword_169294, off_1692E8, off_1692F0, off_1692F4
+global dword_169280, dword_169288, F32_9600, F32_768_PositionSfx, dword_169294, off_1692E8, off_1692F0, off_1692F4
 global off_169338, off_16936C, off_1693C8, off_169478, off_1694E0, off_169590, off_1695F8, off_169658
 global off_1696B8, off_169768, unk_169298, unk_1692B8, unk_1692C0, unk_1692E0, unk_1692F8, unk_169300
 global unk_169308, unk_169310, unk_169330, unk_16933C, unk_169344, unk_169364, unk_169370, unk_169378
@@ -57,9 +57,9 @@ word_169284:
         db 00h,00h,00h,00h
 dword_169288:
         db 0FFh,0FFh,0FFh,0FFh
-dword_16928C:
+F32_9600:
         db 00h,00h,016h,046h
-dword_169290:
+F32_768_PositionSfx:
         db 00h,00h,040h,044h
 dword_169294:
         db 00h,00h,00h,00h

@@ -2,10 +2,10 @@
 bits 32
 %include "hockey.inc"
 section s_199C58 progbits alloc noexec write align=1
-extern EmuNoOp, unk_168184, unk_168189, unk_16818E, unk_168193, unk_168197, unk_16819C, unk_1681A1
-extern unk_1681A5, unk_1681AB, unk_1681B0, unk_1681B4, unk_1681BA, unk_1681C0, unk_1681C6, unk_1681CB
-extern unk_1681D1, unk_1681D5, unk_1681D9, unk_1681DD, unk_1681E0, unk_1681E3, unk_1681E6, unk_1681EA
-global byte_199CD4, byte_199CD5, byte_199CE4, dword_199CE8, dword_19A6E0, off_199CDC, off_199CE0, off_199CEC
+extern EmuNoOp, unk_168184, str_Asin, str_Sqrt, str_Exp, str_Cosh, str_Sinh, str_Pow
+extern str_Acosh, str_Log2, str_Log, str_Log10, str_Atanh, str_Atan2, str_Ipow, str_Dpowi
+extern str_Cos, str_Sin, str_Tan, str_Y0, str_Y1, str_Yn, str_Mod, str_Cotan
+global byte_199CD4, byte_199CD5, byte_199CE4, str_2_SetupRectFill, dword_19A6E0, off_199CDC, off_199CE0, off_199CEC
 global off_199DB2, unk_199C58, unk_199DB4, unk_199DB8, unk_199DBE, unk_199DC6, unk_199DD0, unk_199DDC
 global unk_199DEA, unk_199DFA, unk_199E0C, unk_199E20, unk_199E36, unk_199E4E, unk_199E68, unk_199E84
 global unk_199EA2, unk_199EC2, unk_199EE4, unk_199F08, unk_199F2E, unk_199F56, unk_199F80, unk_199FAC
@@ -34,7 +34,7 @@ off_199CE0:
         dd EmuNoOp
 byte_199CE4:
         db 00h,00h,00h,00h
-dword_199CE8:
+str_2_SetupRectFill:
         db 032h,00h,00h,00h
 off_199CEC:
         dd off_199DB2
@@ -305,25 +305,25 @@ unk_19A682:
 dword_19A6E0:
         db 08Dh,0F5h,0C6h,0FAh
         dd unk_168184
-        dd unk_168189
-        dd unk_16818E
-        dd unk_168193
-        dd unk_168197
-        dd unk_16819C
-        dd unk_1681A1
-        dd unk_1681A5
-        dd unk_1681AB
-        dd unk_1681B0
-        dd unk_1681B4
-        dd unk_1681BA
-        dd unk_1681C0
-        dd unk_1681C6
-        dd unk_1681CB
-        dd unk_1681D1
-        dd unk_1681D5
-        dd unk_1681D9
-        dd unk_1681DD
-        dd unk_1681E0
-        dd unk_1681E3
-        dd unk_1681E6
-        dd unk_1681EA
+        dd str_Asin
+        dd str_Sqrt
+        dd str_Exp
+        dd str_Cosh
+        dd str_Sinh
+        dd str_Pow
+        dd str_Acosh
+        dd str_Log2
+        dd str_Log
+        dd str_Log10
+        dd str_Atanh
+        dd str_Atan2
+        dd str_Ipow
+        dd str_Dpowi
+        dd str_Cos
+        dd str_Sin
+        dd str_Tan
+        dd str_Y0
+        dd str_Y1
+        dd str_Yn
+        dd str_Mod
+        dd str_Cotan

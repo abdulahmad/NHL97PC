@@ -4,7 +4,7 @@ bits 32
 section s_13B9C2 progbits alloc exec nowrite align=1
 extern _Extender, _STACKLOW, __8087, __CHP, __fatal_runtime_error_, __sigfpe_handler_, str_ABNORMALTERMINATION, byte_19C3D0
 extern byte_19C3D1, byte_19C3D2, byte_19C3D3, dword_16E670, dword_16E6A8, dword_1725AD, dword_19C1A4, dword_19C1AA
-extern dword_19C1AE, dword_19C1C6, dword_19C3CC, off_171C84, qword_19C1BE, RestoreDS, unk_19C1B4, unk_19C1CA
+extern dword_19C1AE, F32_3p40282e38, dword_19C3CC, off_171C84, F64_1p79769e308, RestoreDS, unk_19C1B4, unk_19C1CA
 extern word_19C1A8, word_19C3CA
 global __Bin2String, __CmpBigInt, __DOS4G_hook_fini_, __DOS4G_hook_init_, __Ergo_hook_fini_, __Ergo_hook_init_, __GrabFP87_, __Intel_hook_fini_
 global __Intel_hook_init_, __Phar_hook_fini_, __Phar_hook_init_, __Rnd2Int, __terminate_, abort_, frexp_, modf_
@@ -635,10 +635,10 @@ FpuLoadInfinity:
         fstp st0
         test bh, 4
         je short .1
-        fld qword [qword_19C1BE]
+        fld qword [F64_1p79769e308]
         jmp short .2
 .1:
-        fld dword [dword_19C1C6]
+        fld dword [F32_3p40282e38]
 .2:
         test word [byte ebp+014h], 100h
         je short .3

@@ -2,13 +2,13 @@
 bits 32
 %include "hockey.inc"
 section s_123FEA progbits alloc exec nowrite align=1
-extern IF@ATAN2, __fpatan_chk, __math2err_, __math87_err_, str_RESIZE, byte_16E688, byte_19C724, dword_16E4A8
-extern dword_16F5B4, dword_16F5B8, dword_1702CC, dword_19C734, dword_19C738, dword_19C73C, dword_1CF260, dword_1CF528
+extern IF@ATAN2, __fpatan_chk, __math2err_, __math87_err_, str_RESIZE, byte_16E688, byte_19C724, str_Punct_DrawRinkSurface
+extern dword_16F5B4, dword_16F5B8, dword_1702CC, F32_0p9375, F32_1p0625, F32_9p22337e18, dword_1CF260, dword_1CF528
 extern dword_1CF52C, dword_1CF548, dword_1CF5B8, dword_1CF5BC, dword_1CF5C0, dword_1CF5F2, dword_1DA4D0, dword_1DC518
 extern dword_1DC51C, dword_1DC520, dword_1DC524, dword_1DC528, dword_1DC5A8, int386x_, itoa_, ltoa_
-extern memlist1, off_16F5BC, off_171C7C, off_199C50, off_19C740, qword_172690, qword_172698, segread_
+extern memlist1, off_16F5BC, off_171C7C, off_199C50, off_19C740, F64_709p783, F64_neg709p783, segread_
 extern strncpy_, bcopy, SetTextOrigin, MemLock, MemUnlock, SetBlockGuard, AllocMemBlockEx, findmemblock
-extern CompactMemListDown, CompactMemListUp, PushMemDescriptor, DrawTextRun, tbyte_172680, toupper_, ultoa_, word_1CF5F4
+extern CompactMemListDown, CompactMemListUp, PushMemDescriptor, DrawTextRun, F80_1p5708, toupper_, ultoa_, word_1CF5F4
 global FixedPoint_Format_, IF@DACOS, IF@EXP, IF@SQRT, _Full_at_exit_rtn_, __@DEXP, __@DEXP1, __@DSQRT
 global __fdiv_chk, __fdiv_fpr, __fdiv_m64, __fdivp_sti_st, __fdivrp_sti_st, __fpatan_wrap, __pow87_err_, __prtf_
 global atexit_, evalflags_, far_other_strlen_, far_strlen_, fdiv_main_routine, float_format_, fmt4hex_, formstring_
@@ -1580,7 +1580,7 @@ IF@DACOS:
         jne short .1
         fxch
         call IF@ATAN2
-        fld tword [tbyte_172680]
+        fld tword [F80_1p5708]
         fsubrp
 .1:
         ret
@@ -1594,7 +1594,7 @@ IF@DACOS:
         push ebx
         push esi
         push edi
-        mov eax, dword [dword_16E4A8]
+        mov eax, dword [str_Punct_DrawRinkSurface]
         jmp short .2
         push ebp
         LD mov, ebp, esp
@@ -1643,7 +1643,7 @@ SetTextScale:
         push ebp
         LD mov, ebp, esp
         mov eax, dword [byte ebp+08h]
-        mov dword [dword_16E4A8], eax
+        mov dword [str_Punct_DrawRinkSurface], eax
         leave
         ret
         db 00h,00h
@@ -1813,7 +1813,7 @@ __@DEXP:
         push ebp
         mov ebp, esp
         sub esp, byte 10h
-        fcom qword [qword_172690]
+        fcom qword [F64_709p783]
         wait
         fnstsw word [byte ebp-010h]
         wait
@@ -1832,7 +1832,7 @@ __@DEXP:
         pop ebp
         ret
 __@DEXP_2F:
-        fcom qword [qword_172698]
+        fcom qword [F64_neg709p783]
         wait
         fnstsw word [byte ebp-010h]
         wait
@@ -1899,17 +1899,17 @@ fdiv_main_routine:
         and eax, 7FFFh
         cmp eax, byte 1
         je short .4
-        fmul dword [dword_19C734]
+        fmul dword [F32_0p9375]
         fxch
-        fmul dword [dword_19C734]
+        fmul dword [F32_0p9375]
         fxch
         fldcw word [byte esp+01Ch]
         fdivp
         ret
 .4:
-        fmul dword [dword_19C738]
+        fmul dword [F32_1p0625]
         fxch
-        fmul dword [dword_19C738]
+        fmul dword [F32_1p0625]
         fxch
         fldcw word [byte esp+01Ch]
         fdivp
@@ -1948,7 +1948,7 @@ fdiv_main_routine:
         fxch
         fstp st0
         fld st0
-        fmul dword [dword_19C73C]
+        fmul dword [F32_9p22337e18]
         fstp tword [byte esp+04h]
         fld tword [byte esp+010h]
         fxch

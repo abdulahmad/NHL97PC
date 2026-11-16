@@ -5,14 +5,14 @@ section s_16154C progbits alloc noexec write align=1
 global str_LogosFsh, str_LOGOS, str_Blogos, str_Floor, str_Puck2, str_04d, str_Lonet, str_Hinet
 global str_Net, str_Goal0, str_Goal1, str_Gt304, str_FLOOR, str_Boxback, str_B00, str_XD
 global str_FaceoffD, str_Flash, str_Fla0, str_Fla1, str_PAL, str_Light6, str_BOGIE, str_Front
-global qword_1617D0, qword_1617D8, qword_1617E6, qword_1617EE, qword_1617F6, str_Benchbk, str_Benchdiv, str_Benchx
+global F64_3p14159_DrawPortraitModels, F64_neg3p14159_DrawPortraitModels, F64_0p6_FaceDistance, qword_1617EE, F64_0p6_SetModelHeading, str_Benchbk, str_Benchdiv, str_Benchx
 global str_Benchz0, str_Benchz1, str_Boardback, str_Crease, str_Door00, str_Door01, str_Door02, str_Door10
 global str_Door11, str_Door12, str_DoorZ0, str_DoorZ1, str_Flatboards, str_Glite0, str_Glite1, str_Grnlite
 global str_Gt004, str_Gt007, str_Gt302, str_IceLine, str_Lites, str_Maxx, str_Maxz, str_Minx
 global str_Minz, str_Pbench0D, str_Pbench1D, str_Penback, str_Penbox0D, str_Penbox1D, str_Penboxt0, str_Penboxt1
 global str_Penboxz0, str_Penboxz1, str_R02d, str_Redlite, str_Rink, str_Rlite0, str_Rlite1, str_STAND
-global str_STAND2ND, str_Score, str_Strobe, str_ThinRedLines, unk_16175C, unk_161760, unk_161764, unk_161768
-global unk_16176C, unk_161770, unk_161774, unk_161778, unk_1617BC
+global str_STAND2ND, str_Score, str_Strobe, str_ThinRedLines, str_C3, str_C2, str_C1, str_C0
+global str_L3, str_L2, str_L1, str_L0, str_Fx
 str_LogosFsh:
         db 06Ch,06Fh,067h,06Fh,073h,02Eh,066h,073h,068h,00h,00h,00h
 str_LOGOS:
@@ -135,21 +135,21 @@ str_R02d:
         db 072h,025h,030h,02Eh,032h,064h,00h,00h
 str_XD:
         db 078h,025h,064h,00h
-unk_16175C:
+str_C3:
         db 063h,033h,00h,00h
-unk_161760:
+str_C2:
         db 063h,032h,00h,00h
-unk_161764:
+str_C1:
         db 063h,031h,00h,00h
-unk_161768:
+str_C0:
         db 063h,030h,00h,00h
-unk_16176C:
+str_L3:
         db 06Ch,033h,00h,00h
-unk_161770:
+str_L2:
         db 06Ch,032h,00h,00h
-unk_161774:
+str_L1:
         db 06Ch,031h,00h,00h
-unk_161778:
+str_L0:
         db 06Ch,030h,00h,00h
 str_FaceoffD:
         db 066h,061h,063h,065h,06Fh,066h,066h,025h,064h,00h,00h,00h
@@ -163,23 +163,23 @@ str_Fla0:
         db 066h,06Ch,061h,030h,00h,00h,00h,00h
 str_Fla1:
         db 066h,06Ch,061h,031h,00h,00h,00h,00h
-unk_1617BC:
+str_Fx:
         db 066h,078h,00h,00h
 str_PAL:
         db 021h,050h,041h,04Ch,00h,00h,00h,00h
 str_Light6:
         db 06Ch,069h,067h,068h,074h,036h,00h,00h
-qword_1617D0:
+F64_3p14159_DrawPortraitModels:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_1617D8:
+F64_neg3p14159_DrawPortraitModels:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
 str_BOGIE:
         db 042h,04Fh,047h,049h,045h,00h
-qword_1617E6:
+F64_0p6_FaceDistance:
         db 033h,033h,033h,033h,033h,033h,0E3h,03Fh
 qword_1617EE:
         db 033h,033h,033h,033h,033h,033h,0E3h,03Fh
-qword_1617F6:
+F64_0p6_SetModelHeading:
         db 033h,033h,033h,033h,033h,033h,0E3h,03Fh,00h,00h
 str_Front:
         db 066h,072h,06Fh,06Eh,074h,00h,00h,00h

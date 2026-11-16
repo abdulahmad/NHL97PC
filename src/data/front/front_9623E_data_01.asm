@@ -9,8 +9,8 @@ global str_TV00, str_LMON, str_MN02d, str_UNPACKLOGOa, str_LOGO3, str_TILE, str_
 global str_Roster2, str_ELPopupMenu, str_ELPopupRegions, str_1TOP2, str_2TOP2, str_3TOP2, str_1BOT2, str_2BOT2
 global str_3BOT2, str_Punct4, str_SL02d2, str_BTTM2, str_POWR, str_CHEK, str_CS, str_SS5
 global str_SS6, str_TB05, str_TB04, str_TB03, str_TB02, str_TB01, str_TB00, str_PB022
-global str_PB002, str_PB03, str_PB012, str_AR02d, str_FART, str_NOFACEFSH, str_FRR0, unk_165BAB
-global unk_165BAE
+global str_PB002, str_PB03, str_PB012, str_AR02d, str_FART, str_NOFACEFSH, str_FRR0, str_D_DrawLinesCardDetails
+global str_C_DrawForwardLines
 str_EditLinesMenu:
         db 065h,064h,069h,074h,020h,06Ch,069h,06Eh,065h,073h,020h,06Dh,065h,06Eh,075h,00h
 str_EditLinesRegions:
@@ -107,9 +107,9 @@ str_CHEK:
         db 043h,048h,045h,04Bh,00h
 str_CS:
         db 025h,063h,02Eh,020h,025h,073h,00h
-unk_165BAB:
+str_D_DrawLinesCardDetails:
         db 025h,064h,00h
-unk_165BAE:
+str_C_DrawForwardLines:
         db 025h,063h,00h
 str_SS5:
         db 025h,073h,020h,025h,073h,020h,02Dh,00h

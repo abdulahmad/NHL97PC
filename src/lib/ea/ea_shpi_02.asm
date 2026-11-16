@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_10C8B0 progbits alloc exec nowrite align=1
-extern byte_16E688, byte_16E689, dword_16E678, dword_16E67C, dword_16E680, dword_16E684, dword_16E690, dword_16E694
+extern byte_16E688, str_Punct_FreeArtArchive, dword_16E678, dword_16E67C, dword_16E680, dword_16E684, dword_16E690, dword_16E694
 extern dword_16E698, dword_16E6A0, dword_1DA8D8, ConvertArtSame, VesaSetBank, SetBlitSource, CopyMappedSpan, ShapeRowBytes
 extern BuildSpanOffsets, VecLengthOf, FreeMemBlock
 global AddVec3, SubVec3, ScaleVec3, DrawSpriteRow, DrawSpriteScaledCore, DrawSpriteScaledFit, DrawSpriteScaledBy, DrawSpriteScaledFlip
@@ -225,7 +225,7 @@ DrawSpriteScaledCore:
         mov eax, dword [byte esp+034h]
         mov dword [esp], edx
         mov eax, dword [eax]
-        mov dl, byte [byte_16E689]
+        mov dl, byte [str_Punct_FreeArtArchive]
         and eax, 0FFh
         cmp eax, edx
         je short .1

@@ -2,199 +2,199 @@
 bits 32
 %include "hockey.inc"
 section s_160660 progbits alloc noexec write align=1
-global str_Cuppal, dword_160688, dword_16068C, dword_160690, dword_160694, dword_160698, dword_16069C, dword_1606A0
-global dword_1606A4, dword_1606A8, dword_1606AC, dword_1606B0, dword_1606B4, dword_1606B8, dword_1606CC, dword_1606D0
-global dword_1606DB, dword_1606DF, dword_16070B, dword_16070F, dword_160723, dword_160727, dword_160733, dword_160737
-global dword_160753, dword_160757, dword_16079B, dword_1607C7, dword_1607CB, dword_160877, dword_160893, dword_160897
-global dword_1608A3, dword_1608AF, dword_1608B3, qword_160660, qword_160668, qword_160670, qword_160678, qword_160680
-global qword_1606BC, qword_1606C4, qword_1606E3, qword_1606EB, qword_1606F3, qword_1606FB, qword_160703, qword_160713
-global qword_16071B, qword_16072B, qword_16073B, qword_160743, qword_16074B, qword_16075B, qword_160763, qword_16076B
-global qword_160773, qword_16077B, qword_160783, qword_16078B, qword_160793, qword_16079F, qword_1607A7, qword_1607AF
-global qword_1607B7, qword_1607BF, qword_1607CF, qword_1607D7, qword_1607DF, qword_1607E7, qword_1607EF, qword_1607F7
-global qword_1607FF, qword_160807, qword_16080F, qword_160817, qword_16081F, qword_160827, qword_16082F, qword_160837
-global qword_16083F, qword_160847, qword_16084F, qword_160857, qword_16085F, qword_160867, qword_16086F, qword_16087B
-global qword_160883, qword_16088B, qword_16089B, qword_1608A7
-qword_160660:
+global str_Cuppal, F32_144, F32_96, F32_144_assleavebox, F32_48_assleavebox, F32_144_asspsclear, F32_96_asspsclear, F32_96_assleaveice
+global F32_144_asspenalty, F32_96_asspenalty, F32_40, F32_96_assrefpenshot, F32_96_assrefsignal, F32_96_assrefwhistle, F32_96_assrefgoalline, F32_96_assrefdrop
+global F32_3, F32_0p25, F32_7, F32_0p125, F32_0p125_KnockPuckAway, F32_48_PuckHitsGoalie, F32_0p25_PuckHitsGoalie, F32_0p166667_PuckHitsGoalie
+global F32_0p333333, F32_3_PuckHitsGoalie, F32_0p142857, F32_7_PuckPlayerContact, F32_0p125_PuckPlayerContact, F32_0p5_pucknorm_body, F32_neg1872, F32_neg1152
+global F32_neg1392_pucknorm_body, F32_40_ChkTiredPlayer, F32_0p01, F64_neg12, F64_1435, F64_3312, F64_720, F64_240
+global F64_2040, F64_4800, F64_0p01_DeflectPuck, F64_6p28319_DeflectPuck, F64_3p14159_DeflectPuck, F64_neg6p28319_DeflectPuck, F64_neg3p14159_DeflectPuck, qword_160713
+global F64_0p00277778, F64_24, F64_6p28319_PuckHitsGoalie, F64_0p00277778_PuckHitsGoalie, F64_20, F64_3p14159_PuckToStick, F64_0p00555556, F64_neg0p698132
+global F64_0p698132, F64_0p5_PuckToStick, F64_6p28319_PuckToStick, F64_neg6p28319_PuckToStick, F64_neg3p14159_PuckToStick, F64_0p0174533, F64_5p49779, F64_12
+global F64_4272_ChkDelayedOffside, F64_2, F64_6p28319_PuckPlayerContact, F64_0p00277778_PuckPlayerContact, F64_neg12_a2offsides, F64_1440, F64_4272_a2touchpuck, F64_neg12_PuckIChk
+global F64_4276, F64_12_PuckIChk, F64_neg4276, F64_288_PuckIChk, F64_neg12_ChkOffsides, F64_1435_ChkOffsides, F64_12_ChkOffsides, F64_neg1435
+global F64_neg12_MarkTwoLinePlayers, F64_24_MarkTwoLinePlayers, F64_12_MarkTwoLinePlayers, F64_neg24, F64_4272_pucknorm_body, F64_1392, F64_1080_pucknorm_body, F64_0p392699_pucknorm_body
+global F64_0p159155_pucknorm_body, F64_65536_pucknorm_body, F64_4284, F64_3p14159_puckfaceoff2
+F64_neg12:
         db 00h,00h,00h,00h,00h,00h,028h,0C0h
-qword_160668:
+F64_1435:
         db 00h,00h,00h,00h,00h,06Ch,096h,040h
-qword_160670:
+F64_3312:
         db 00h,00h,00h,00h,00h,0E0h,0A9h,040h
-qword_160678:
+F64_720:
         db 00h,00h,00h,00h,00h,080h,086h,040h
-qword_160680:
+F64_240:
         db 00h,00h,00h,00h,00h,00h,06Eh,040h
-dword_160688:
+F32_144:
         db 00h,00h,010h,043h
-dword_16068C:
+F32_96:
         db 00h,00h,0C0h,042h
-dword_160690:
+F32_144_assleavebox:
         db 00h,00h,010h,043h
-dword_160694:
+F32_48_assleavebox:
         db 00h,00h,040h,042h
-dword_160698:
+F32_144_asspsclear:
         db 00h,00h,010h,043h
-dword_16069C:
+F32_96_asspsclear:
         db 00h,00h,0C0h,042h
-dword_1606A0:
+F32_96_assleaveice:
         db 00h,00h,0C0h,042h
-dword_1606A4:
+F32_144_asspenalty:
         db 00h,00h,010h,043h
-dword_1606A8:
+F32_96_asspenalty:
         db 00h,00h,0C0h,042h
-dword_1606AC:
+F32_40:
         db 00h,00h,020h,042h
-dword_1606B0:
+F32_96_assrefpenshot:
         db 00h,00h,0C0h,042h
-dword_1606B4:
+F32_96_assrefsignal:
         db 00h,00h,0C0h,042h
-dword_1606B8:
+F32_96_assrefwhistle:
         db 00h,00h,0C0h,042h
-qword_1606BC:
+F64_2040:
         db 00h,00h,00h,00h,00h,0E0h,09Fh,040h
-qword_1606C4:
+F64_4800:
         db 00h,00h,00h,00h,00h,0C0h,0B2h,040h
-dword_1606CC:
+F32_96_assrefgoalline:
         db 00h,00h,0C0h,042h
-dword_1606D0:
+F32_96_assrefdrop:
         db 00h,00h,0C0h,042h
 str_Cuppal:
         db 063h,075h,070h,070h,061h,06Ch,00h
-dword_1606DB:
+F32_3:
         db 00h,00h,040h,040h
-dword_1606DF:
+F32_0p25:
         db 00h,00h,080h,03Eh
-qword_1606E3:
+F64_0p01_DeflectPuck:
         db 07Bh,014h,0AEh,047h,0E1h,07Ah,084h,03Fh
-qword_1606EB:
+F64_6p28319_DeflectPuck:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_1606F3:
+F64_3p14159_DeflectPuck:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_1606FB:
+F64_neg6p28319_DeflectPuck:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_160703:
+F64_neg3p14159_DeflectPuck:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-dword_16070B:
+F32_7:
         db 00h,00h,0E0h,040h
-dword_16070F:
+F32_0p125:
         db 00h,00h,00h,03Eh
 qword_160713:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_16071B:
+F64_0p00277778:
         db 016h,06Ch,0C1h,016h,06Ch,0C1h,066h,03Fh
-dword_160723:
+F32_0p125_KnockPuckAway:
         db 00h,00h,00h,03Eh
-dword_160727:
+F32_48_PuckHitsGoalie:
         db 00h,00h,040h,042h
-qword_16072B:
+F64_24:
         db 00h,00h,00h,00h,00h,00h,038h,040h
-dword_160733:
+F32_0p25_PuckHitsGoalie:
         db 00h,00h,080h,03Eh
-dword_160737:
+F32_0p166667_PuckHitsGoalie:
         db 0ABh,0AAh,02Ah,03Eh
-qword_16073B:
+F64_6p28319_PuckHitsGoalie:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_160743:
+F64_0p00277778_PuckHitsGoalie:
         db 016h,06Ch,0C1h,016h,06Ch,0C1h,066h,03Fh
-qword_16074B:
+F64_20:
         db 00h,00h,00h,00h,00h,00h,034h,040h
-dword_160753:
+F32_0p333333:
         db 0ABh,0AAh,0AAh,03Eh
-dword_160757:
+F32_3_PuckHitsGoalie:
         db 00h,00h,040h,040h
-qword_16075B:
+F64_3p14159_PuckToStick:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-qword_160763:
+F64_0p00555556:
         db 016h,06Ch,0C1h,016h,06Ch,0C1h,076h,03Fh
-qword_16076B:
+F64_neg0p698132:
         db 04Eh,0BAh,070h,050h,018h,057h,0E6h,0BFh
-qword_160773:
+F64_0p698132:
         db 04Eh,0BAh,070h,050h,018h,057h,0E6h,03Fh
-qword_16077B:
+F64_0p5_PuckToStick:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-qword_160783:
+F64_6p28319_PuckToStick:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_16078B:
+F64_neg6p28319_PuckToStick:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,0C0h
-qword_160793:
+F64_neg3p14159_PuckToStick:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,0C0h
-dword_16079B:
+F32_0p142857:
         db 025h,049h,012h,03Eh
-qword_16079F:
+F64_0p0174533:
         db 0Bh,095h,0C0h,0A6h,046h,0DFh,091h,03Fh
-qword_1607A7:
+F64_5p49779:
         db 064h,0F7h,02Eh,0EFh,0BBh,0FDh,015h,040h
-qword_1607AF:
+F64_12:
         db 00h,00h,00h,00h,00h,00h,028h,040h
-qword_1607B7:
+F64_4272_ChkDelayedOffside:
         db 00h,00h,00h,00h,00h,0B0h,0B0h,040h
-qword_1607BF:
+F64_2:
         db 00h,00h,00h,00h,00h,00h,00h,040h
-dword_1607C7:
+F32_7_PuckPlayerContact:
         db 00h,00h,0E0h,040h
-dword_1607CB:
+F32_0p125_PuckPlayerContact:
         db 00h,00h,00h,03Eh
-qword_1607CF:
+F64_6p28319_PuckPlayerContact:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,019h,040h
-qword_1607D7:
+F64_0p00277778_PuckPlayerContact:
         db 016h,06Ch,0C1h,016h,06Ch,0C1h,066h,03Fh
-qword_1607DF:
+F64_neg12_a2offsides:
         db 00h,00h,00h,00h,00h,00h,028h,0C0h
-qword_1607E7:
+F64_1440:
         db 00h,00h,00h,00h,00h,080h,096h,040h
-qword_1607EF:
+F64_4272_a2touchpuck:
         db 00h,00h,00h,00h,00h,0B0h,0B0h,040h
-qword_1607F7:
+F64_neg12_PuckIChk:
         db 00h,00h,00h,00h,00h,00h,028h,0C0h
-qword_1607FF:
+F64_4276:
         db 00h,00h,00h,00h,00h,0B4h,0B0h,040h
-qword_160807:
+F64_12_PuckIChk:
         db 00h,00h,00h,00h,00h,00h,028h,040h
-qword_16080F:
+F64_neg4276:
         db 00h,00h,00h,00h,00h,0B4h,0B0h,0C0h
-qword_160817:
+F64_288_PuckIChk:
         db 00h,00h,00h,00h,00h,00h,072h,040h
-qword_16081F:
+F64_neg12_ChkOffsides:
         db 00h,00h,00h,00h,00h,00h,028h,0C0h
-qword_160827:
+F64_1435_ChkOffsides:
         db 00h,00h,00h,00h,00h,06Ch,096h,040h
-qword_16082F:
+F64_12_ChkOffsides:
         db 00h,00h,00h,00h,00h,00h,028h,040h
-qword_160837:
+F64_neg1435:
         db 00h,00h,00h,00h,00h,06Ch,096h,0C0h
-qword_16083F:
+F64_neg12_MarkTwoLinePlayers:
         db 00h,00h,00h,00h,00h,00h,028h,0C0h
-qword_160847:
+F64_24_MarkTwoLinePlayers:
         db 00h,00h,00h,00h,00h,00h,038h,040h
-qword_16084F:
+F64_12_MarkTwoLinePlayers:
         db 00h,00h,00h,00h,00h,00h,028h,040h
-qword_160857:
+F64_neg24:
         db 00h,00h,00h,00h,00h,00h,038h,0C0h
-qword_16085F:
+F64_4272_pucknorm_body:
         db 00h,00h,00h,00h,00h,0B0h,0B0h,040h
-qword_160867:
+F64_1392:
         db 00h,00h,00h,00h,00h,0C0h,095h,040h
-qword_16086F:
+F64_1080_pucknorm_body:
         db 00h,00h,00h,00h,00h,0E0h,090h,040h
-dword_160877:
+F32_0p5_pucknorm_body:
         db 00h,00h,00h,03Fh
-qword_16087B:
+F64_0p392699_pucknorm_body:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0D9h,03Fh
-qword_160883:
+F64_0p159155_pucknorm_body:
         db 0F5h,036h,0BDh,068h,030h,05Fh,0C4h,03Fh
-qword_16088B:
+F64_65536_pucknorm_body:
         db 00h,00h,00h,00h,00h,00h,0F0h,040h
-dword_160893:
+F32_neg1872:
         db 00h,00h,0EAh,0C4h
-dword_160897:
+F32_neg1152:
         db 00h,00h,090h,0C4h
-qword_16089B:
+F64_4284:
         db 00h,00h,00h,00h,00h,0BCh,0B0h,040h
-dword_1608A3:
+F32_neg1392_pucknorm_body:
         db 00h,00h,0AEh,0C4h
-qword_1608A7:
+F64_3p14159_puckfaceoff2:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,09h,040h
-dword_1608AF:
+F32_40_ChkTiredPlayer:
         db 00h,00h,020h,042h
-dword_1608B3:
+F32_0p01:
         db 0Ah,0D7h,023h,03Ch

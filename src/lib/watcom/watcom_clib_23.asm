@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_12D24F progbits alloc exec nowrite align=1
-extern __flush_, __ioalloc_, __prtf_, __set_errno_dos_, dword_17025C, dword_170260, dword_170264, dword_170268
+extern __flush_, __ioalloc_, __prtf_, __set_errno_dos_, dword_17025C, str_D_ProjectPointsPersp, dword_170264, dword_170268
 extern dword_170274, fputc_
 global __doserror_, __fprtf_, file_putc_, ProjectPointsPersp
 ;-----------------------------------------------------------------------------
@@ -118,7 +118,7 @@ ProjectPointsPersp:
         mov eax, dword [byte esi+04h]
         imul dword [dword_170268]
         idiv dword [byte esi+08h]
-        add eax, dword [dword_170260]
+        add eax, dword [str_D_ProjectPointsPersp]
         mov dword [byte edi+04h], eax
         jmp short .3
 .2:
@@ -140,7 +140,7 @@ ProjectPointsPersp:
         mov eax, dword [byte esi+04h]
         imul dword [dword_170268]
         idiv dword [byte esi+08h]
-        add eax, dword [dword_170260]
+        add eax, dword [str_D_ProjectPointsPersp]
         mov dword [byte edi+04h], eax
         jmp short .5
 .4:
@@ -162,7 +162,7 @@ ProjectPointsPersp:
         mov eax, dword [byte esi+04h]
         imul dword [dword_170268]
         idiv dword [byte esi+08h]
-        add eax, dword [dword_170260]
+        add eax, dword [str_D_ProjectPointsPersp]
         mov dword [byte edi+04h], eax
         jmp short .7
 .6:
@@ -185,7 +185,7 @@ ProjectPointsPersp:
         mov eax, dword [byte esi+04h]
         imul dword [dword_170268]
         idiv dword [byte esi+08h]
-        add eax, dword [dword_170260]
+        add eax, dword [str_D_ProjectPointsPersp]
         mov dword [byte edi+04h], eax
         jmp short .9
 .8:
@@ -212,7 +212,7 @@ ProjectPointsPersp:
         mov eax, dword [byte esi+04h]
         imul dword [dword_170268]
         idiv dword [byte esi+08h]
-        add eax, dword [dword_170260]
+        add eax, dword [str_D_ProjectPointsPersp]
         mov dword [byte edi+04h], eax
         jmp short .12
 .11:

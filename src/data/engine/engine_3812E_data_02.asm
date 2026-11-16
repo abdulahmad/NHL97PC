@@ -2,9 +2,9 @@
 bits 32
 %include "hockey.inc"
 section s_1690D2 progbits alloc noexec write align=1
-extern unk_160B78, unk_160B80, unk_160B88, unk_160B90, unk_160B98, unk_160BA0
-global byte_1691DC, dword_1690D2, dword_1690EE, dword_16910A, dword_169126, dword_16913A, dword_169150, dword_16916C
-global dword_169178, dword_169180, dword_169184, dword_16918C, dword_169190, dword_169194, dword_169198, dword_16919C
+extern str_GLOBAL, str_FRONT1, str_FRONT2, str_GAME, str_AUXI, str_CROWD
+global byte_1691DC, dword_1690D2, dword_1690EE, str_G_DrawLockedGame, dword_169126, str_Punct_DrawLockedGame, str_O_FaceoffStanceMove, str_C_FaceoffSwipeAnim
+global str_U_FaceoffDrawAnim, dword_169180, dword_169184, dword_16918C, dword_169190, dword_169194, dword_169198, dword_16919C
 global dword_1691A0, dword_1691A2, dword_1691A8, dword_1691AC, dword_1691AE, dword_1691B0, dword_1691B8, dword_1691BC
 global dword_1691C0, dword_1691C4, dword_1691C8, dword_1691CC, dword_1691D0, dword_1691D4, dword_1691D8, dword_1691E0
 global dword_1691FC, dword_169210, dword_169214, dword_169218, dword_16921C, dword_169220, dword_169224, dword_169228
@@ -16,23 +16,23 @@ dword_1690D2:
 dword_1690EE:
         db 00h,00h,00h,00h,04Ah,00h,00h,00h,08Fh,00h,00h,00h,0D3h,00h,00h,00h
         db 018h,01h,00h,00h,05Ch,01h,00h,00h,0A1h,01h,00h,00h
-dword_16910A:
+str_G_DrawLockedGame:
         db 047h,00h,00h,00h,041h,00h,00h,00h,041h,00h,00h,00h,041h,00h,00h,00h
         db 041h,00h,00h,00h,041h,00h,00h,00h,045h,00h,00h,00h
 dword_169126:
         db 014h,00h,00h,00h,054h,00h,00h,00h,095h,00h,00h,00h,0D5h,00h,00h,00h
         db 015h,01h,00h,00h
-dword_16913A:
+str_Punct_DrawLockedGame:
         db 03Ch,00h,00h,00h,03Dh,00h,00h,00h,03Dh,00h,00h,00h,03Dh,00h,00h,00h
         db 042h,00h,00h,00h
 word_16914E:
         db 00h,00h
-dword_169150:
+str_O_FaceoffStanceMove:
         db 04Fh,00h,00h,00h,050h,00h,00h,00h,052h,00h,00h,00h,053h,00h,00h,00h
         db 05Ch,00h,00h,00h,05Eh,00h,00h,00h,042h,00h,00h,00h
-dword_16916C:
+str_C_FaceoffSwipeAnim:
         db 043h,00h,00h,00h,041h,00h,00h,00h,054h,00h,00h,00h
-dword_169178:
+str_U_FaceoffDrawAnim:
         db 055h,00h,00h,00h,055h,00h,00h,00h
 dword_169180:
         db 00h,00h,00h,00h
@@ -91,13 +91,13 @@ byte_1691DC:
 dword_1691E0:
         db 00h,00h,00h,00h
 off_1691E4:
-        dd unk_160B78
-        dd unk_160B80
-        dd unk_160B88
-        dd unk_160B90
-        dd unk_160B98
+        dd str_GLOBAL
+        dd str_FRONT1
+        dd str_FRONT2
+        dd str_GAME
+        dd str_AUXI
 off_1691F8:
-        dd unk_160BA0
+        dd str_CROWD
 dword_1691FC:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h

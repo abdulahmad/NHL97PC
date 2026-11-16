@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_10E690 progbits alloc exec nowrite align=1
-extern __STOSD, byte_1D207C, byte_1D2434, dword_16E4A8, dword_16E670, dword_16E678, dword_16E67C, dword_16E680
-extern dword_16E684, dword_16E698, dword_16E69C, dword_170218, dword_1702B4, dword_1D2054, dword_1D2058, dword_1D205C
+extern __STOSD, byte_1D207C, byte_1D2434, str_Punct_DrawRinkSurface, dword_16E670, dword_16E678, dword_16E67C, dword_16E680
+extern dword_16E684, dword_16E698, dword_16E69C, str_Punct_SetScreenScale, dword_1702B4, dword_1D2054, dword_1D2058, dword_1D205C
 extern dword_1D2060, dword_1D2064, dword_1D2068, dword_1D206C, dword_1D2070, dword_1D2078, dword_1D2080, dword_1D2084
 extern dword_1D2088, dword_1D208C, dword_1D2090, dword_1D2094, dword_1D2418, dword_1D241C, dword_1D2420, dword_1D2424
 extern dword_1D2428, dword_1D2430, dword_1D2438, dword_1D243C, dword_1D2440, dword_1D2444, dword_1D2448, dword_1D244C
@@ -36,7 +36,7 @@ TransformRinkPoints:
         push esi
         mov eax, dword [byte esp+0Ch]
         mov edx, dword [byte esp+010h]
-        mov esi, dword [dword_170218]
+        mov esi, dword [str_Punct_SetScreenScale]
 .1:
         dec eax
         cmp eax, byte 0FFFFFFFFh
@@ -251,7 +251,7 @@ DrawRinkFan:
         cmp edx, ebp
         jl short .1
 .2:
-        mov esi, dword [dword_16E4A8]
+        mov esi, dword [str_Punct_DrawRinkSurface]
         push esi
         lea eax, [dword esp+0184h]
         push eax
@@ -365,7 +365,7 @@ DrawRinkRing:
         cmp eax, ebp
         jl short .1
 .2:
-        mov edi, dword [dword_16E4A8]
+        mov edi, dword [str_Punct_DrawRinkSurface]
         push edi
         lea eax, [dword esp+0184h]
         push eax
@@ -894,7 +894,7 @@ DrawIceSpans:
         cmp esi, ecx
         jl short .3
 .6:
-        cmp edi, dword [dword_16E4A8]
+        cmp edi, dword [str_Punct_DrawRinkSurface]
         jle near .12
         mov esi, dword [byte esp+034h]
         mov edi, dword [byte ebp+01Ch]
@@ -918,7 +918,7 @@ DrawIceSpans:
         sub eax, ebx
         mov esi, dword [byte ebp+018h]
         shl eax, 2
-        mov edi, dword [dword_16E4A8]
+        mov edi, dword [str_Punct_DrawRinkSurface]
         add eax, esi
         cmp edx, edi
         jg short .7
@@ -1687,7 +1687,7 @@ DrawTileTexture:
         push ebp
         sub esp, byte 10h
         mov edi, dword [byte esp+028h]
-        mov eax, dword [dword_16E4A8]
+        mov eax, dword [str_Punct_DrawRinkSurface]
         inc eax
         push eax
         mov ecx, dword [byte esp+030h]

@@ -2,24 +2,24 @@
 bits 32
 %include "hockey.inc"
 section s_16E174 progbits alloc noexec write align=1
-extern unk_16764C, unk_167655, unk_16765E, unk_167669, unk_167673, unk_16767E, unk_16768A, unk_167695
-extern unk_1676A1, unk_1676AE, unk_1676BB, unk_1676C6, unk_1676D3, unk_1676DD
-global byte_16E264, byte_16E273, dword_16E1AC, dword_16E22C, off_16E174, unk_16E1E4, unk_16E21C
+extern str_HARTFSH, str_ROSSFSH, str_NORRISFSH, str_SELKEFSH, str_VEZINAFSH, str_JENNINGFSH, str_CALDERFSH, str_PEARSONFSH
+extern str_EATROPHYFSH, str_PRESIDNTFSH, str_SMYTHEFSH, str_CAMPBELLFSH, str_WALESFSH, str_STANLEYFSH
+global byte_16E264, byte_16E273, dword_16E1AC, dword_16E22C, off_16E174, unk_16E1E4, str_Punct_BuildSeasonIntro
 off_16E174:
-        dd unk_16764C
-        dd unk_167655
-        dd unk_16765E
-        dd unk_167669
-        dd unk_167673
-        dd unk_16767E
-        dd unk_16768A
-        dd unk_167695
-        dd unk_1676A1
-        dd unk_1676AE
-        dd unk_1676BB
-        dd unk_1676C6
-        dd unk_1676D3
-        dd unk_1676DD
+        dd str_HARTFSH
+        dd str_ROSSFSH
+        dd str_NORRISFSH
+        dd str_SELKEFSH
+        dd str_VEZINAFSH
+        dd str_JENNINGFSH
+        dd str_CALDERFSH
+        dd str_PEARSONFSH
+        dd str_EATROPHYFSH
+        dd str_PRESIDNTFSH
+        dd str_SMYTHEFSH
+        dd str_CAMPBELLFSH
+        dd str_WALESFSH
+        dd str_STANLEYFSH
 dword_16E1AC:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -30,7 +30,7 @@ unk_16E1E4:
         db 04h,00h,00h,00h,05h,00h,00h,00h,06h,00h,00h,00h,07h,00h,00h,00h
         db 08h,00h,00h,00h,09h,00h,00h,00h,0Ah,00h,00h,00h,0Bh,00h,00h,00h
         db 0Ch,00h,00h,00h,0Dh,00h,00h,00h
-unk_16E21C:
+str_Punct_BuildSeasonIntro:
         db 0Ah,00h,00h,00h,0Bh,00h,00h,00h,0Ch,00h,00h,00h,0Dh,00h,00h,00h
 dword_16E22C:
         db 00h,00h,00h,00h,01h,00h,00h,00h,02h,00h,00h,00h,03h,00h,00h,00h

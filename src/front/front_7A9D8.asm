@@ -4,9 +4,9 @@ bits 32
 section s_7A9D8 progbits alloc exec nowrite align=1
 extern str_Roster, str_SS2, str_VIDEO, str_AUDSTRMHACK, str_ATE1Q0X4F1, str_Punct2, str_LogoNames, str_Logo02dQfs
 extern str_Mous2, str_Remo2, str_CHK1, str_X1, str_CB00, str_CB01, str_BACK2, str_LOGO2
-extern atoi_, byte_16C914, byte_16CCF0, byte_1ACF63, byte_1AD458, dword_16C734, dword_16C738, dword_16C75C
+extern atoi_, byte_16C914, byte_16CCF0, byte_1ACF63, byte_1AD458, dword_16C734, dword_16C738, str_1_BuildSeasonSchedule
 extern dword_16C760, dword_16C982, dword_16C996, dword_16C9AC, dword_16C9B0, dword_16CAA8, dword_16CAAC, dword_16CB74
-extern dword_16DA9C, dword_16E4B0, dword_16E698, dword_16E69C, dword_16E6A0, dword_16E6A8, dword_16E6BC, dword_16E6C8
+extern dword_16DA9C, str_D_UpdateFrameRate, dword_16E698, dword_16E69C, dword_16E6A0, dword_16E6A8, dword_16E6BC, dword_16E6C8
 extern dword_1AC814, dword_1AC940, dword_1ACF46, dword_1AD22A, dword_1AD244, dword_1AD248, dword_1AD24C, dword_1C1200
 extern dword_1C1204, dword_1C1208, dword_1C120C, dword_1C1210, dword_1C1214, dword_1C1218, dword_1C121C, dword_1C1220
 extern dword_1C1224, dword_1C1228, dword_1C122C, dword_1C1230, dword_1C1234, dword_1C1238, dword_1C123C, dword_1C1240
@@ -25,7 +25,7 @@ extern CreateMenuBitmap, FreeMenuBitmap, SetMenuSelection, LoadLangText, GetLang
 extern RunOptionsScreens, GoalieMaskScreen, CreditsScreen, KeysEqual, OpenGameDatabase, CloseGameDatabase, FindPlayerRecord, FindGameRecord
 extern UpdateGameRecord, AddPlayerStat, AddPlayerStatAt, FindPlayerStat, UpdatePlayerStat, ClearLinkAbort, ServiceIdle, InitVideoModeList
 extern AllocMemBlock, AllocMemData, FreeMemBlock, KbdGetKey, WaitTicks, OpenResourceArchive, MakeColor, FreeBitmap
-extern CreateBitmap, SetDrawTarget, ClearScreen, tickcount, unk_164138, unk_16413C, unk_164150, unk_164158
+extern CreateBitmap, SetDrawTarget, ClearScreen, tickcount, str_T, str_P, str_Punct_ModemSendCommand, str_AT
 extern unk_1C0F00, unk_1C135C, unk_1C347F, word_1C1344
 global BuildSeasonSchedule_77E, FreeTempArt_45, putchar, BuildSeasonSchedule, UpdateTeamLines, BuildRosterLines, PlayerInjuryDays, FindInjuryEntry
 global CheckLeagueInjuries, ClearTeamInjuries, FadeMovieOut, MovieKeyPressed, OpenMovieStream, OpenVideoStream, CloseMovie, DecodeMovieFrame
@@ -115,16 +115,16 @@ BuildSeasonSchedule:
         shl ebx, 3
         add ebx, eax
         mov ecx, dword [dword ebx+dword_16C760]
-        sub ecx, dword [dword ebx+dword_16C75C]
+        sub ecx, dword [dword ebx+str_1_BuildSeasonSchedule]
         je short .6
         call rand_
         cdq
         idiv ecx
-        mov eax, dword [dword ebx+dword_16C75C]
+        mov eax, dword [dword ebx+str_1_BuildSeasonSchedule]
         add eax, edx
         jmp short .7
 .6:
-        mov eax, dword [dword ebx+dword_16C75C]
+        mov eax, dword [dword ebx+str_1_BuildSeasonSchedule]
 .7:
         mov dword [byte ebp-018h], eax
 .8:
@@ -2447,7 +2447,7 @@ ModemReset:
         pop ebx
         ret
 .2:
-        mov eax, dword [dword_16E4B0]
+        mov eax, dword [str_D_UpdateFrameRate]
         add eax, eax
         push eax
         push esi
@@ -2467,7 +2467,7 @@ ModemReset:
         pop ebx
         ret
 .3:
-        mov eax, dword [dword_16E4B0]
+        mov eax, dword [str_D_UpdateFrameRate]
         add eax, eax
         push eax
         push esi
@@ -2506,7 +2506,7 @@ ModemHangup:
         pop ebx
         ret
 .2:
-        mov eax, dword [dword_16E4B0]
+        mov eax, dword [str_D_UpdateFrameRate]
         add eax, eax
         push eax
         push ecx
@@ -2555,10 +2555,10 @@ ModemDial:
         call strcpy_
         cmp dword [byte esp+068h], byte 0
         je short .1
-        mov edx, unk_164138
+        mov edx, str_T
         jmp short .2
 .1:
-        mov edx, unk_16413C
+        mov edx, str_P
 .2:
         mov eax, esp
         call strcat_
@@ -2586,7 +2586,7 @@ ModemDial:
         call ModemAttention
         mov eax, esi
         call ModemSendCommand
-        mov eax, dword [dword_16E4B0]
+        mov eax, dword [str_D_UpdateFrameRate]
         add eax, eax
         push eax
         push esi
@@ -2628,7 +2628,7 @@ ModemAutoAnswer:
 ; an error, else the result code (1 / 5 / 10+ = CONNECT at some speed)
 ;-----------------------------------------------------------------------------
 ModemWaitConnect:
-        mov eax, dword [dword_16E4B0]
+        mov eax, dword [str_D_UpdateFrameRate]
         mov edx, eax
         sar edx, 1Fh
         shl edx, 2
@@ -2849,7 +2849,7 @@ ModemSendCommand:
         push esi
         call SerialWrite
         add esp, byte 0Ch
-        push unk_164150
+        push str_Punct_ModemSendCommand
         push byte 1
         push esi
         call SerialWrite
@@ -2912,12 +2912,12 @@ ModemAttention:
         mov ebx, ebp
         call WaitTicks
         add esp, byte 4
-        mov edx, unk_164158
+        mov edx, str_AT
         mov eax, esi
         call ModemSendCommand
         test eax, eax
         je short .2
-        mov eax, dword [dword_16E4B0]
+        mov eax, dword [str_D_UpdateFrameRate]
         add eax, eax
         push eax
         push esi
@@ -2956,7 +2956,7 @@ ModemSpeakerOff:
         mov eax, ecx
         xor ebx, ebx
         call ModemSendCommand
-        mov eax, dword [dword_16E4B0]
+        mov eax, dword [str_D_UpdateFrameRate]
         add eax, eax
         push eax
         push ecx

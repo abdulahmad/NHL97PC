@@ -4,10 +4,10 @@ bits 32
 section s_11B20A progbits alloc exec nowrite align=1
 extern SetClipWindow, __flush_, __fprtf_, __int386x_, __ioalloc_, __qwrite_, __set_errno_, str_ATD2
 extern str_EAGAME08x04x04x02x02x02x0, str_Netserv, str_IPXINTF, str_IPXSOCK, str_Galloc, str_GMEM, str_GEND, str_GFRE
-extern byte_16E689, byte_172250, byte_172251, byte_1DA8CF, dword_16E3F4, dword_16E46C, dword_16E4B0, dword_16E4BC
-extern dword_16E4C8, dword_1702CC, dword_172138, dword_17213C, dword_172168, dword_172194, dword_172198, dword_17219C
-extern dword_1721A0, dword_1721A4, dword_1721A8, dword_1721B0, dword_1721B4, dword_1721D4, dword_1721E0, dword_1721E4
-extern dword_172244, dword_172248, dword_17224C, dword_172254, dword_172258, dword_17225C, dword_172260, dword_1722BC
+extern str_Punct_FreeArtArchive, byte_172250, byte_172251, byte_1DA8CF, dword_16E3F4, dword_16E46C, str_D_UpdateFrameRate, dword_16E4BC
+extern dword_16E4C8, dword_1702CC, str_Punct_CountFrameTick, dword_17213C, dword_172168, dword_172194, dword_172198, str_D_NetHandleMessage
+extern dword_1721A0, str_Punct_NetLeaveGame, dword_1721A8, dword_1721B0, dword_1721B4, dword_1721D4, dword_1721E0, dword_1721E4
+extern dword_172244, str_Punct_IpxHookCheck, dword_17224C, dword_172254, dword_172258, dword_17225C, dword_172260, dword_1722BC
 extern dword_1CF528, dword_1CF52C, dword_1CF548, dword_1DA3B4, dword_1DA3CC, dword_1DA3E0, dword_1DA3E4, dword_1DA3E8
 extern dword_1DA3EC, dword_1DA3F0, dword_1DA3F4, dword_1DA3F8, dword_1DA3FC, dword_1DA400, dword_1DA404, dword_1DA408
 extern dword_1DA40C, dword_1DA410, dword_1DA414, dword_1DA4D0, fgetc_, int386_, off_172140, off_17216C
@@ -18,7 +18,7 @@ extern SerialCarrier, SerialWriteIfRoom, SerialWrite, SerialRxCount, SerialTxFre
 extern FillShadowRect, ErrnoPtr, StoreBigEndian, SinCosLookup, DrawShapeTriangleMapped, ScanFormat, OpenPacketLink, ModemReset
 extern ModemHangup, ModemDial, ModemAutoAnswer, ModemWaitConnect, ModemSpeakerOff, AddIdleHandler, RemoveIdleHandler, RunIdleHandlers
 extern AllocMemBlock, AllocMemData, FreeMemBlock, ZeroMem, FillMem, addtimer, RemoveTimerCallback, WaitTicks
-extern unk_167FA4, unk_172264, unk_17226C, unk_172274, unk_1DA3C4, unk_1DA418, unk_1DA448, unk_1DA464
+extern str_Punct_ModemLinkOpen, unk_172264, unk_17226C, unk_172274, unk_1DA3C4, unk_1DA418, unk_1DA448, unk_1DA464
 extern unk_1DA466, unk_1DA468, unk_1DA498, unk_1DA4A4, unlink_, word_1DA4A6, word_1DA4A8, word_1DA4AA
 extern word_1DA4AC, word_1DA4AE, word_1DA4B0, word_1DA4B2
 global byteswap_, cget_string_, fgets_, fprintf_, fputc_, fwrite_, int386x_, med3__4F
@@ -919,13 +919,13 @@ FreeArtArchive:
         mov ebx, dword [byte esp+044h]
         xor eax, eax
         mov esi, dword [ebx]
-        mov al, byte [byte_16E689]
+        mov al, byte [str_Punct_FreeArtArchive]
         and esi, 0FFh
         xor ebp, ebp
         cmp esi, eax
         je short .1
         xor eax, eax
-        mov al, byte [byte_16E689]
+        mov al, byte [str_Punct_FreeArtArchive]
         push eax
         push ebx
         call ConvertArtSame
@@ -1005,13 +1005,13 @@ FreeArtArchive:
         mov esi, dword [byte esp+054h]
         xor eax, eax
         mov edx, dword [edi]
-        mov al, byte [byte_16E689]
+        mov al, byte [str_Punct_FreeArtArchive]
         and edx, 0FFh
         xor ebp, ebp
         cmp edx, eax
         je short .3
         xor eax, eax
-        mov al, byte [byte_16E689]
+        mov al, byte [str_Punct_FreeArtArchive]
         push eax
         push edi
         call ConvertArtSame
@@ -1425,7 +1425,7 @@ CountFrameTick:
         lea eax, [nosplit eax*4-01000000h]
         mov dword [edi], eax
         mov eax, dword [byte ebp+00h]
-        and eax, dword [dword_172138]
+        and eax, dword [str_Punct_CountFrameTick]
         mov ecx, dword [dword_17213C]
         shl eax, cl
         mov dword [esp], eax
@@ -1921,7 +1921,7 @@ ModemLinkOpen:
 .12:
         cmp dword [byte ebx+028h], byte 0
         jne short .13
-        push unk_167FA4
+        push str_Punct_ModemLinkOpen
         push byte 1
         mov ecx, dword [byte ebx+02Ch]
         push ecx
@@ -2743,7 +2743,7 @@ NetHandleMessage:
         je short .14
         cmp dword [byte edi+010h], byte 0
         jne short .14
-        mov eax, dword [dword_17219C]
+        mov eax, dword [str_D_NetHandleMessage]
         mov dword [dword ebp+09Ch], eax
 .14:
         mov ecx, 4
@@ -2895,7 +2895,7 @@ NetHandleMessage:
         je near .41
         cmp dword [dword ebp+09Ch], byte 0
         je short .20
-        mov eax, dword [dword_17219C]
+        mov eax, dword [str_D_NetHandleMessage]
         mov dword [dword ebp+09Ch], eax
 .20:
         mov ecx, 4
@@ -3119,7 +3119,7 @@ NetHandleMessage:
         jne near .41
         mov eax, dword [dword_172198]
         mov dword [dword ebp+098h], eax
-        mov eax, dword [dword_17219C]
+        mov eax, dword [str_D_NetHandleMessage]
         mov dword [dword ebp+09Ch], eax
         add esp, 0CCh
         pop ebp
@@ -3198,7 +3198,7 @@ NetHandleMessage:
         je near .41
         cmp dword [dword ebp+09Ch], byte 0
         je near .41
-        mov eax, dword [dword_17219C]
+        mov eax, dword [str_D_NetHandleMessage]
         mov dword [dword ebp+09Ch], eax
         add esp, 0CCh
         pop ebp
@@ -3302,7 +3302,7 @@ NetPollMessages:
         cmp edi, byte 2
         jge short .3
         mov edx, dword [byte esp+024h]
-        mov eax, dword [dword_17219C]
+        mov eax, dword [str_D_NetHandleMessage]
         mov dword [dword edx+09Ch], eax
         mov dword [byte esp+020h], 1
         jmp short .4
@@ -3492,7 +3492,7 @@ NetOpenSession:
         add esp, byte 4
         test ebx, ebx
         jne short .1
-        mov edx, dword [dword_16E4B0]
+        mov edx, dword [str_D_UpdateFrameRate]
         add edx, byte 9
         mov ebx, 0Ah
         mov eax, edx
@@ -3841,7 +3841,7 @@ NetJoinGame:
         mov eax, dword [byte ebp+0Ch]
         mov byte [byte eax+03Ch], 0
 .5:
-        mov eax, dword [dword_16E4B0]
+        mov eax, dword [str_D_UpdateFrameRate]
         add eax, eax
         push eax
         lea ecx, [byte esp+04h]
@@ -3898,7 +3898,7 @@ NetLeaveGame:
         mov dword [dword ebp+098h], 0
 .3:
         mov edx, dword [byte esi+040h]
-        mov eax, dword [dword_1721A4]
+        mov eax, dword [str_Punct_NetLeaveGame]
         sub edx, byte 2
         push eax
         lea eax, [nosplit edx*4+00h]
@@ -3928,7 +3928,7 @@ NetLeaveGame:
         mov eax, dword [byte esp+024h]
         lea edi, [byte ebp+014h]
         mov dword [dword ebp+0A8h], eax
-        mov eax, dword [dword_17219C]
+        mov eax, dword [str_D_NetHandleMessage]
         lea esi, [byte ebp+028h]
         mov dword [dword ebp+09Ch], eax
         mov ebx, dword [byte esp+020h]
@@ -4301,7 +4301,7 @@ NetDisconnectPeer:
         mov ecx, 6
         lea edi, [byte esp+070h]
         mov ebx, 0EA726571h
-        mov eax, dword [dword_16E4B0]
+        mov eax, dword [str_D_UpdateFrameRate]
         db 0BEh                                 ; insn: mov esi,10C498h
         dd unk_11C498
         add eax, eax
@@ -4324,7 +4324,7 @@ NetDisconnectPeer:
         mov esi, dword [dword esp+084h]
         mov dword [dword esp+080h], edx
         call StoreBigEndian
-        mov eax, dword [dword_16E4B0]
+        mov eax, dword [str_D_UpdateFrameRate]
         add esp, byte 0Ch
         add eax, eax
         push eax
@@ -4353,7 +4353,7 @@ NetDisconnectPeer:
         lea eax, [byte esp+0Ch]
         push eax
         call StoreBigEndian
-        mov eax, dword [dword_16E4B0]
+        mov eax, dword [str_D_UpdateFrameRate]
         add esp, byte 0Ch
         add eax, eax
         push eax
@@ -4873,7 +4873,7 @@ IpxCloseSocketCall:
         mov edx, 300h
         mov ecx, 1
         call segread_
-        mov eax, dword [dword_172248]
+        mov eax, dword [str_Punct_IpxHookCheck]
         mov dword [byte esp+034h], edx
         mov dword [byte esp+038h], eax
         mov eax, esp
@@ -4922,7 +4922,7 @@ IpxGetAddressCall:
         mov edx, 300h
         mov ecx, 9
         call segread_
-        mov eax, dword [dword_172248]
+        mov eax, dword [str_Punct_IpxHookCheck]
         mov dword [byte esp+034h], edx
         mov dword [byte esp+010h], ecx
         mov dword [byte esp+038h], eax
@@ -4973,7 +4973,7 @@ IpxGetTargetCall:
         lea eax, [byte esp+050h]
         mov edx, 300h
         call segread_
-        mov eax, dword [dword_172248]
+        mov eax, dword [str_Punct_IpxHookCheck]
         mov ecx, 2
         mov dword [byte esp+038h], eax
         mov eax, esp
@@ -5033,7 +5033,7 @@ IpxRelinquishCall:
         mov edx, 300h
         lea ecx, [byte esp+050h]
         call segread_
-        mov eax, dword [dword_172248]
+        mov eax, dword [str_Punct_IpxHookCheck]
         mov dword [byte esp+034h], edx
         mov dword [byte esp+01Ch], ebx
         mov ebx, 0FFFFh
@@ -5080,7 +5080,7 @@ IpxOpenSocketCall:
         mov edx, 300h
         call segread_
         xor ecx, ecx
-        mov eax, dword [dword_172248]
+        mov eax, dword [str_Punct_IpxHookCheck]
         mov dword [byte esp+034h], edx
         mov dword [byte esp+038h], eax
         mov eax, esp
@@ -5628,7 +5628,7 @@ IpxPostListen:
         call IpxSetupPacket
         test eax, eax
         je short .1
-        mov edx, dword [dword_16E4B0]
+        mov edx, dword [str_D_UpdateFrameRate]
         mov eax, edx
         shl eax, 4
         sub eax, edx
@@ -5838,17 +5838,17 @@ IpxHookCheck:
         shl edx, 4
         add esp, byte 0Ch
         sub eax, edx
-        mov dword [dword_172248], edi
+        mov dword [str_Punct_IpxHookCheck], edi
         mov word [word_1DA4AA], ax
         xor ecx, ecx
 .3:
-        mov ebp, dword [dword_172248]
+        mov ebp, dword [str_Punct_IpxHookCheck]
         mov edx, 200h
         inc ebp
         mov ebx, esp
-        mov dword [dword_172248], ebp
+        mov dword [str_Punct_IpxHookCheck], ebp
         mov word [esp], dx
-        mov al, byte [dword_172248]
+        mov al, byte [str_Punct_IpxHookCheck]
         mov edx, esp
         mov byte [byte esp+04h], al
         mov eax, 31h
@@ -5879,7 +5879,7 @@ IpxHookCheck:
         xor edx, edx
         mov dl, al
 .7:
-        cmp dword [dword_172248], byte 67h
+        cmp dword [str_Punct_IpxHookCheck], byte 67h
         jge short .8
         test edx, edx
         jne short .3
@@ -5888,9 +5888,9 @@ IpxHookCheck:
         je short .9
         mov edx, 60h
         mov edi, 200h
-        mov dword [dword_172248], edx
+        mov dword [str_Punct_IpxHookCheck], edx
         mov ebx, esp
-        mov al, byte [dword_172248]
+        mov al, byte [str_Punct_IpxHookCheck]
         mov edx, esp
         mov byte [byte esp+04h], al
         mov eax, 31h
@@ -5932,7 +5932,7 @@ IpxHookCheck:
         add esp, byte 0Ch
         sub edx, eax
         mov word [esp], 201h
-        mov al, byte [dword_172248]
+        mov al, byte [str_Punct_IpxHookCheck]
         mov byte [byte esp+04h], al
         mov ax, word [word_1DA4AE]
         mov word [word_1DA4A6], dx
@@ -5989,7 +5989,7 @@ IpxRestoreVector:
         push unk_1DA448
         lea ebx, [byte esp+04h]
         call QueueNoOp
-        mov al, byte [dword_172248]
+        mov al, byte [str_Punct_IpxHookCheck]
         add esp, byte 4
         mov edx, 201h
         mov byte [byte esp+04h], al
@@ -6043,7 +6043,7 @@ IpxSetupLayer:
         mov dword [dword_172254], edi
         jmp short .2
 .1:
-        mov eax, dword [dword_1721A4]
+        mov eax, dword [str_Punct_NetLeaveGame]
         or ah, 2
         push eax
         push dword 8628h

@@ -5,9 +5,9 @@ section s_128CEC progbits alloc exec nowrite align=1
 extern ParseBlasterEnv, str_DMABUFFER3, str_DMABUF, str_DMABUF2, str_DMABUFFER4, str_SNDSCAPE, str_SNDSCAPEINI, str_Product
 extern str_SoundFX, str_Port, str_DMA, str_IRQ, str_SBIRQ, str_SBEnable, str_FALSE, str_WavePort
 extern atoi_, byte_172C14, byte_172C15, byte_172C2C, byte_172C2D, byte_172C2E, byte_172C2F, byte_172C88
-extern byte_172C89, dword_16E4B0, dword_172BC8, dword_172BCC, dword_172BD0, dword_172BD4, dword_172C00, dword_172C04
+extern byte_172C89, str_D_UpdateFrameRate, dword_172BC8, dword_172BCC, dword_172BD0, dword_172BD4, dword_172C00, dword_172C04
 extern dword_172C08, dword_172C0C, dword_172C10, dword_172C20, dword_172C24, dword_172C28, dword_172C3E, dword_172C64
-extern dword_172C68, dword_172C6C, dword_172C70, dword_172C74, dword_172C78, dword_172C7C, dword_172C80, dword_172C84
+extern str_Punct_ReadSoundscapeIni, dword_172C6C, dword_172C70, dword_172C74, dword_172C78, dword_172C7C, dword_172C80, dword_172C84
 extern dword_172C90, dword_172C94, dword_172C98, dword_172C9C, dword_172CA0, dword_1DCF38, dword_1DD378, dword_1DD37C
 extern dword_1DD3C0, dword_1DD3C8, dword_1DD3CC, dword_1DD3D0, dword_1DD3D4, dword_1DD3D8, dword_1DD3DC, dword_1DD3E4
 extern dword_1DD3EC, dword_1DD3F0, dword_1DD3F4, dword_1DD3F8, dword_1DD3FC, dword_1DD400, dword_1DD404, dword_1DD408
@@ -21,7 +21,7 @@ extern MixerFillBuffer, SbReadData, SbWriteDsp, SbMixerWrite, SbMixerRead, SbRes
 extern StartChannel, SetChannelCount, DmaMaskChannel, DmaProgram, IrqAck, IrqVector, IrqUnmask, IrqMask
 extern IrqSetHandler, AllocDosDmaBuffer, FreeDosDmaBuffer, SbTimeConstant, SbRateFromConstant, ReturnArg, AllocMemData, FreeMemBlock
 extern unk_128990, unk_1289A0, unk_137F46, unk_137F48, unk_137F4A, unk_137FDF, unk_137FE1, unk_140000
-extern unk_14000D, unk_14001A, unk_14002B, unk_168088, unk_1680D4, unk_172C44, unk_1DD3C4, unk_1DD40C
+extern unk_14000D, unk_14001A, unk_14002B, str_Rt_ReadSoundscapeIni, str_Punct_IniFindKey, unk_172C44, unk_1DD3C4, unk_1DD40C
 extern word_172C42, word_172C48, word_172C4C, word_1DD3E0, word_1DD3E8, word_1DD430, word_1DD46C, word_1DD470
 extern word_1DD472
 global AudioEnter_6, ReadBlasterPort, ProbeDspReset, SbDriverId, SbDriverInit, SbDriverShutdown, SbDriverStart, SbSetupDma
@@ -1815,7 +1815,7 @@ ReadSoundscapeIni:
         pop edi
         mov esi, str_SNDSCAPEINI
         mov edi, esp
-        mov edx, unk_168088
+        mov edx, str_Rt_ReadSoundscapeIni
         push edi
         LD sub, ecx, ecx
         dec ecx
@@ -1906,10 +1906,10 @@ ReadSoundscapeIni:
         mov eax, esp
         xor edx, edx
         call ReturnArg
-        mov dword [dword_172C68], eax
+        mov dword [str_Punct_ReadSoundscapeIni], eax
         cmp eax, byte 2
         jne short .11
-        mov dword [dword_172C68], 9
+        mov dword [str_Punct_ReadSoundscapeIni], 9
 .11:
         mov ebx, str_SBIRQ
         mov edx, esp
@@ -2133,7 +2133,7 @@ SoundscapeSetupCodec:
         out dx, al
         cmp dword [dword_172C7C], byte 0
         jne short .4
-        mov eax, dword [dword_172C68]
+        mov eax, dword [str_Punct_ReadSoundscapeIni]
         cmp eax, byte 9
         jne short .2
         xor ebx, ebx
@@ -2150,7 +2150,7 @@ SoundscapeSetupCodec:
         lea ebx, [byte eax+02h]
         jmp short .8
 .4:
-        mov esi, dword [dword_172C68]
+        mov esi, dword [str_Punct_ReadSoundscapeIni]
         cmp esi, byte 9
         jne short .5
         xor eax, eax
@@ -2608,7 +2608,7 @@ IniFindKey:
         je short .4
         cmp ah, 3Bh
         je short .4
-        mov edx, unk_1680D4
+        mov edx, str_Punct_IniFindKey
         lea eax, [dword esp+080h]
         call strstr_
         mov ebx, eax
@@ -2732,7 +2732,7 @@ AudioLeave:
         ret
 .1:
         mov dword [dword_172C90], 1
-        mov eax, dword [dword_16E4B0]
+        mov eax, dword [str_D_UpdateFrameRate]
         cmp eax, dword [dword_172C94]
         je short .2
         mov dword [dword_172C94], eax
@@ -2746,7 +2746,7 @@ AudioLeave:
         sub edx, eax
         shl edx, 3
         add eax, edx
-        mov ebx, dword [dword_16E4B0]
+        mov ebx, dword [str_D_UpdateFrameRate]
         shl eax, 2
         xor edx, edx
         div ebx

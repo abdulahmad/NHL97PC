@@ -24,8 +24,8 @@ extern FindShapeList, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToS
 extern PaEvent, LoadDataFile, OpenDataLibrary, LoadLogoNames, FreeTempArt, DrawScreenBackground, FadeInScreen, ShowScreen
 extern ExitScreen, SetTextColor, DrawTextAligned, WipeScreen, DrawPortrait, TintPortrait, InitMenuItems, RunMenu
 extern ReadTeamStats, ServiceIdle, AllocMemBlock, FreeMemBlock, OpenResourceArchive, MakeColor, FreeBitmap, DrawArt
-extern DrawShape, CreateBitmap, SetDrawTarget, ClearScreen, tickcount, unk_166FF4, unk_16D7FC, unk_16D804
-extern unk_1AD22E, unk_1AD236, unk_1AD73A, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_D15D1, unk_D15EE
+extern DrawShape, CreateBitmap, SetDrawTarget, ClearScreen, tickcount, str_D_DrawMatchupStats, unk_16D7FC, unk_16D804
+extern unk_1AD22E, unk_1AD236, unk_1AD73A, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_D15D1, str_G0LWC0RWLDRD
 extern word_1C340D, word_1C5530
 global jpt_D1917, jpt_D3102, LayoutMatchupLeft_1E9, PreGameMatchupScreen_4E0, PreGameMatchupScreen_4EC, PreGameMatchupScreen_516, PreGameMatchupScreen_522, PreGameMatchupScreen_658
 global PreGameStatsPanel_4DF, PreGameStatsPanel_4E0, LayoutMatchupLeft, LayoutMatchupRight, PreGameMatchupScreen, DrawMatchupStats, DrawPlayerPortrait, DrawMatchupPlayer
@@ -185,7 +185,7 @@ LayoutMatchupRight:
         mov esi, unk_D15D1
         rep movsb
         lea edi, [byte ebp-010h]
-        mov esi, unk_D15EE
+        mov esi, str_G0LWC0RWLDRD
         movsd
         movsd
         movsd
@@ -733,7 +733,7 @@ DrawMatchupStats:
         mov edi, eax
         movsx eax, word [byte ebp+04Eh]
         push eax
-        push unk_166FF4
+        push str_D_DrawMatchupStats
         push byte 0
         mov esi, 1Ah
         push esi
@@ -788,7 +788,7 @@ DrawMatchupStats:
         add esp, byte 18h
         movsx eax, word [byte ebp+056h]
         push eax
-        push unk_166FF4
+        push str_D_DrawMatchupStats
         add ebx, edi
         push ebx
         push esi
@@ -797,7 +797,7 @@ DrawMatchupStats:
         add esp, byte 14h
         movsx eax, word [byte ebp+0Eh]
         push eax
-        push unk_166FF4
+        push str_D_DrawMatchupStats
         mov esi, dword [dword_16D6F4]
         push byte 0
         sub esi, byte 1Ah
@@ -853,7 +853,7 @@ DrawMatchupStats:
         add esp, byte 18h
         movsx eax, word [byte ebp+016h]
         push eax
-        push unk_166FF4
+        push str_D_DrawMatchupStats
         add ebx, edi
         push ebx
         jmp near .6
@@ -891,7 +891,7 @@ DrawMatchupStats:
         mov edi, eax
         movsx eax, word [byte ebp+04Eh]
         push eax
-        push unk_166FF4
+        push str_D_DrawMatchupStats
         push byte 0
         push byte 1Ah
         push byte 1
@@ -901,7 +901,7 @@ DrawMatchupStats:
         mov dword [byte ebp+076h], eax
         movsx eax, word [byte ebp+050h]
         push eax
-        push unk_166FF4
+        push str_D_DrawMatchupStats
         push edi
         push byte 1Ah
         push byte 1
@@ -912,7 +912,7 @@ DrawMatchupStats:
         mov dword [byte ebp+07Ah], eax
         movsx eax, word [byte ebp+052h]
         push eax
-        push unk_166FF4
+        push str_D_DrawMatchupStats
         push dword [byte ebp+07Ah]
         push byte 1Ah
         push byte 1
@@ -921,7 +921,7 @@ DrawMatchupStats:
         movsx eax, word [byte ebp+05Eh]
         push eax
         mov ebx, dword [byte ebp+07Ah]
-        push unk_166FF4
+        push str_D_DrawMatchupStats
         add ebx, edi
         push ebx
         push byte 1Ah
@@ -930,7 +930,7 @@ DrawMatchupStats:
         add esp, byte 14h
         movsx eax, word [byte ebp+05Ah]
         push eax
-        push unk_166FF4
+        push str_D_DrawMatchupStats
         add edi, ebx
         push edi
         push byte 1Ah
@@ -939,7 +939,7 @@ DrawMatchupStats:
         add esp, byte 14h
         movsx eax, word [byte ebp+0Eh]
         push eax
-        push unk_166FF4
+        push str_D_DrawMatchupStats
         mov esi, dword [dword_16D6F4]
         push byte 0
         sub esi, byte 1Ah
@@ -949,7 +949,7 @@ DrawMatchupStats:
         add esp, byte 14h
         movsx eax, word [byte ebp+010h]
         push eax
-        push unk_166FF4
+        push str_D_DrawMatchupStats
         push dword [byte ebp+076h]
         push esi
         push byte 1
@@ -957,7 +957,7 @@ DrawMatchupStats:
         add esp, byte 14h
         movsx eax, word [byte ebp+012h]
         push eax
-        push unk_166FF4
+        push str_D_DrawMatchupStats
         push dword [byte ebp+07Ah]
         push esi
         push byte 1
@@ -965,7 +965,7 @@ DrawMatchupStats:
         add esp, byte 14h
         movsx eax, word [byte ebp+01Eh]
         push eax
-        push unk_166FF4
+        push str_D_DrawMatchupStats
         push ebx
         push esi
         push byte 1
@@ -973,7 +973,7 @@ DrawMatchupStats:
         add esp, byte 14h
         movsx eax, word [byte ebp+01Ah]
         push eax
-        push unk_166FF4
+        push str_D_DrawMatchupStats
         push edi
 .6:
         push esi

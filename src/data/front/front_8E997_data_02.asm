@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_168FB8 progbits alloc noexec write align=1
-global byte_169038, dword_168FB8, dword_168FD0, dword_169004, dword_16908A, word_169054, word_169066, word_1690AE
+global byte_169038, dword_168FB8, dword_168FD0, dword_169004, dword_16908A, word_169054, word_169066, str_Punct_DrawSeasonGamePanel
 dword_168FB8:
         db 03h,00h,00h,00h,0Ch,00h,00h,00h,00h,00h,00h,00h,03h,00h,00h,00h
         db 08h,00h,00h,00h,0Bh,00h,00h,00h
@@ -30,7 +30,7 @@ dword_16908A:
         db 00h,00h,00h,00h,03h,00h,00h,00h,05h,00h,00h,00h,01h,00h,00h,00h
         db 04h,00h,00h,00h,05h,00h,00h,00h,01h,00h,00h,00h,03h,00h,00h,00h
         db 06h,00h,00h,00h
-word_1690AE:
+str_Punct_DrawSeasonGamePanel:
         db 09h,00h,00h,00h,0Ah,00h,00h,00h,0Bh,00h,00h,00h,00h,00h,00h,00h
         db 01h,00h,00h,00h,02h,00h,00h,00h,03h,00h,00h,00h,04h,00h,00h,00h
         db 05h,00h,00h,00h

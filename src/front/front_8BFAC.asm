@@ -3,16 +3,16 @@ bits 32
 %include "hockey.inc"
 section s_8BFAC progbits alloc exec nowrite align=1
 extern MouseRead, WaitRetrace, __CHP, str_PNS, str_SLUP, str_SLDN, str_PWE, str_SLLT
-extern str_SLRT, dword_165548, dword_16554C, dword_165560, dword_165564, dword_165570, dword_165574, dword_165587
-extern dword_16559A, dword_16559E, dword_1655A2, dword_1655A6, dword_16CD02, dword_16CD08, dword_16CD0C, dword_16CD10
-extern dword_16CD14, dword_16CD18, dword_16CD1C, dword_16CD24, dword_16CD28, dword_16CD2C, dword_16CD30, dword_16CD34
+extern str_SLRT, F32_0p003125, F32_0p005, F32_0p003125_ScrollPosToValue, F32_0p005_ScrollPosToValue, F32_0p003125_SetupMenuView, F32_0p005_SetupMenuView, F32_0p5_InitScrollList
+extern F32_0p5_InitScrollTable, F32_14_InitScrollTable, F32_0p5_ScrollToMouse, F32_0p5_SetListSelection, dword_16CD02, dword_16CD08, dword_16CD0C, dword_16CD10
+extern dword_16CD14, dword_16CD18, dword_16CD1C, dword_16CD24, dword_16CD28, dword_16CD2C, dword_16CD30, str_3_LoadLangText
 extern dword_16CD40, dword_16CD4C, dword_16CD50, dword_16CD54, dword_16DA9C, mousex, mousey, dword_16E464
 extern dword_16E468, dword_16E46C, dword_1AC814, dword_1C5DE4, dword_1C83D0, dword_1C83D4, dword_1C83D8, dword_1C83DC
 extern dword_1C83E0, dword_1C83E4, dword_1C83E8, dword_1C83EC, dword_1C83F0, dword_1C83F4, dword_1C83F8, dword_1C83FC
 extern dword_1C8400, dword_1C8404, dword_1C8408, dword_1C840C, dword_1C8410, dword_1C8414, dword_1C8418, dword_1C841C
 extern dword_1C8420, dword_1C8424, dword_1C8428, dword_1C842C, dword_1C8430, dword_1C8434, dword_1C8438, dword_1C843C
 extern dword_1C8444, dword_1C8448, dword_1C844C, dword_1C8454, RunNewSeason_DD, RunNewSeason_E6, RunNewSeason_EF, RunNewSeason_F8
-extern RunNewSeason_16F, RunNewSeason_17B, RunNewSeason_187, RunNewSeason_193, off_16E4E0, qword_165550, qword_165558, qword_165568
+extern RunNewSeason_16F, RunNewSeason_17B, RunNewSeason_187, RunNewSeason_193, off_16E4E0, F64_0p5_RunMenu, F64_0p5_ScrollPosToValue, F64_0p5_SetupMenuView
 extern BlitArt, BlitClippedY, PresentScreen, FindShape, SumRingRange, ConvertArtXY, SetScreenTarget, PlaySfx
 extern LoadDataFileHandle, SetRegionRect, ShowLinkWait, ShowLinkMessage, HideLinkBox, InitMenuItems, ClearLinkAbort, ServiceIdle
 extern ResetLinkStats, SyncLinkGame, FreeMemBlock, MakeColor, SetViewRect, FreeBitmap, DrawArt, CreateBitmap
@@ -311,10 +311,10 @@ RunMenu:
         fild dword [dword_16E468]
         fdivp
         fxch
-        fadd qword [qword_165550]
+        fadd qword [F64_0p5_RunMenu]
         call __CHP
         fxch
-        fadd qword [qword_165550]
+        fadd qword [F64_0p5_RunMenu]
         fxch
         fistp dword [dword_16CD08]
         call __CHP
@@ -395,15 +395,15 @@ RunMenu:
         mov eax, dword [dword_1C83F4]
         imul eax, edx
         fild dword [byte esp+064h]
-        fmul dword [dword_165548]
+        fmul dword [F32_0p003125]
         mov dword [byte esp+064h], eax
-        fadd qword [qword_165550]
+        fadd qword [F64_0p5_RunMenu]
         fild dword [byte esp+064h]
-        fmul dword [dword_16554C]
+        fmul dword [F32_0p005]
         fxch
         call __CHP
         fxch
-        fadd qword [qword_165550]
+        fadd qword [F64_0p5_RunMenu]
         fxch
         fistp dword [dword_1C83F0]
         call __CHP
@@ -421,15 +421,15 @@ RunMenu:
         mov eax, dword [dword_16CD0C]
         imul eax, edx
         fild dword [byte esp+064h]
-        fmul dword [dword_165548]
+        fmul dword [F32_0p003125]
         mov dword [byte esp+064h], eax
-        fadd qword [qword_165550]
+        fadd qword [F64_0p5_RunMenu]
         fild dword [byte esp+064h]
-        fmul dword [dword_16554C]
+        fmul dword [F32_0p005]
         fxch
         call __CHP
         fxch
-        fadd qword [qword_165550]
+        fadd qword [F64_0p5_RunMenu]
         fxch
         fistp dword [dword_16CD08]
         call __CHP
@@ -1845,7 +1845,7 @@ ScrollPosToValue:
         fild dword [esp]
         fild dword [dword_16E464]
         fdivp
-        fadd qword [qword_165558]
+        fadd qword [F64_0p5_ScrollPosToValue]
         mov edi, dword [dword_16E464]
         call __CHP
         fistp dword [esp]
@@ -1853,8 +1853,8 @@ ScrollPosToValue:
         imul eax, edi
         mov dword [esp], eax
         fild dword [esp]
-        fmul dword [dword_165560]
-        fadd qword [qword_165558]
+        fmul dword [F32_0p003125_ScrollPosToValue]
+        fadd qword [F64_0p5_ScrollPosToValue]
         call __CHP
         fistp dword [edx]
         mov edx, dword [ebx]
@@ -1867,7 +1867,7 @@ ScrollPosToValue:
         fild dword [esp]
         fild dword [dword_16E468]
         fdivp
-        fadd qword [qword_165558]
+        fadd qword [F64_0p5_ScrollPosToValue]
         mov ebp, dword [dword_16E468]
         call __CHP
         fistp dword [esp]
@@ -1875,8 +1875,8 @@ ScrollPosToValue:
         imul eax, ebp
         mov dword [esp], eax
         fild dword [esp]
-        fmul dword [dword_165564]
-        fadd qword [qword_165558]
+        fmul dword [F32_0p005_ScrollPosToValue]
+        fadd qword [F64_0p5_ScrollPosToValue]
         call __CHP
         fistp dword [ebx]
 .5:
@@ -1941,7 +1941,7 @@ SetupMenuView:
         fdivrp
         fxch
         fmul st1
-        fadd qword [qword_165568]
+        fadd qword [F64_0p5_SetupMenuView]
         mov edx, dword [dword_16E464]
         call __CHP
         fistp dword [byte esp+0Ch]
@@ -1960,7 +1960,7 @@ SetupMenuView:
         fdivrp
         fxch
         fmul st1
-        fadd qword [qword_165568]
+        fadd qword [F64_0p5_SetupMenuView]
         mov ebx, dword [dword_16E468]
         call __CHP
         fistp dword [byte esp+08h]
@@ -1974,7 +1974,7 @@ SetupMenuView:
         fild dword [byte esp+0Ch]
         fmulp st2
         fxch
-        fadd qword [qword_165568]
+        fadd qword [F64_0p5_SetupMenuView]
         call __CHP
         fistp dword [byte esp+08h]
         mov eax, dword [byte esp+08h]
@@ -1989,35 +1989,35 @@ SetupMenuView:
         mov dword [byte esp+0Ch], eax
         fild dword [byte esp+0Ch]
         fmulp
-        fadd qword [qword_165568]
+        fadd qword [F64_0p5_SetupMenuView]
         call __CHP
         fistp dword [byte esp+0Ch]
         mov eax, dword [byte esp+0Ch]
         imul eax, ebx
         fild dword [byte esp+04h]
-        fmul dword [dword_165570]
+        fmul dword [F32_0p003125_SetupMenuView]
         fild dword [esp]
-        fmul dword [dword_165574]
+        fmul dword [F32_0p005_SetupMenuView]
         fild dword [byte esp+08h]
-        fmul dword [dword_165570]
+        fmul dword [F32_0p003125_SetupMenuView]
         mov dword [byte esp+0Ch], eax
         fxch st2
-        fadd qword [qword_165568]
+        fadd qword [F64_0p5_SetupMenuView]
         fild dword [byte esp+0Ch]
-        fmul dword [dword_165574]
+        fmul dword [F32_0p005_SetupMenuView]
         fxch
         call __CHP
         fxch st2
-        fadd qword [qword_165568]
+        fadd qword [F64_0p5_SetupMenuView]
         fxch st2
         fistp dword [dword_1C842C]
         fxch
         call __CHP
         fistp dword [dword_1C8420]
         mov ebp, dword [dword_1C8420]
-        fadd qword [qword_165568]
+        fadd qword [F64_0p5_SetupMenuView]
         fxch
-        fadd qword [qword_165568]
+        fadd qword [F64_0p5_SetupMenuView]
         fxch
         call __CHP
         fistp dword [dword_1C8424]
@@ -2222,7 +2222,7 @@ InitScrollList:
 .4:
         fld dword [byte esi+01Ch]
 .5:
-        fmul dword [dword_165587]
+        fmul dword [F32_0p5_InitScrollList]
         fld1
         faddp
         fstp dword [byte esi+020h]
@@ -2403,7 +2403,7 @@ InitScrollTable:
 .2:
         fld dword [byte esi+01Ch]
 .3:
-        fmul dword [dword_16559A]
+        fmul dword [F32_0p5_InitScrollTable]
         fld1
         faddp
         fstp dword [byte esi+020h]
@@ -2472,7 +2472,7 @@ InitScrollTable_1F5:
         fild dword [byte ebx+024h]
         fmul dword [byte ebx+01Ch]
         add esp, byte 0Ch
-        fadd dword [dword_16559E]
+        fadd dword [F32_14_InitScrollTable]
         push byte 2
         call __CHP
         fistp dword [byte ebp-04h]
@@ -2541,7 +2541,7 @@ DrawScrollBar:
         call BlitClippedY
         fild dword [byte ebx+024h]
         fmul dword [byte ebx+01Ch]
-        fadd dword [dword_16559E]
+        fadd dword [F32_14_InitScrollTable]
         add esp, byte 0Ch
         call __CHP
         fistp dword [byte ebp-04h]
@@ -2627,7 +2627,7 @@ ScrollToMouse:
         mov dword [byte ebp-04h], eax
         fild dword [byte ebp-04h]
         fld dword [byte ecx+01Ch]
-        fmul dword [dword_1655A2]
+        fmul dword [F32_0p5_ScrollToMouse]
         faddp
         fdiv dword [byte ecx+01Ch]
         call __CHP
@@ -3307,7 +3307,7 @@ SetListSelection:
 .3:
         fild dword [byte ebx+02Ch]
         fmul dword [byte ebx+01Ch]
-        fmul dword [dword_1655A6]
+        fmul dword [F32_0p5_SetListSelection]
         fld1
         faddp
         mov eax, dword [byte ebx+028h]
@@ -3344,7 +3344,7 @@ LoadLangText:
         mov edx, 20h
         mov ebp, 1
         xor esi, esi
-        mov eax, dword [nosplit ebx*4+dword_16CD34]
+        mov eax, dword [nosplit ebx*4+str_3_LoadLangText]
         mov dword [dword_16CD54], esi
         mov dword [dword_16CD50], esi
         call LoadDataFileHandle

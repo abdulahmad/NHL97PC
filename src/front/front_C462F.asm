@@ -27,7 +27,7 @@ extern PresentScreen, FindShape, UpdateOptionsAnim, ConvertArtXY, SetScreenTarge
 extern WaitSoundTime, ChkMenuMusic, PauseMusic, RequestMusicStop, WaitMusicEnd, ArenaFileName, PlayMenuSfx, PlaySfx
 extern LoadDataFile, DrawScreenBackground, FadeInScreen, SetRegionRect, SetTextColor, DrawTextAligned, WipeScreen, ShowPopupScreen
 extern InitMenuItems, RunMenu, DetailLevelScreen, FreeMemBlock, MemFreeSize, MakeColor, FreeBitmap, DrawShapeCore
-extern DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, FillRectCorners, unk_166C97, unk_1C5F4A, unk_1CB148
+extern DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, FillRectCorners, str_D_OptionsScreen, unk_1C5F4A, unk_1CB148
 extern unk_1CB1EC, unk_1CB23E, word_1684BE
 global jpt_C4822, OptionsScreen_F0A, OptionsScreen_F22, OptionsScreen_10AA, OptionsScreen_10D0, OptionsScreen_1125, OptionsScreen_117A, OptionsScreen_11CF
 global OptionsScreen_1285, OptionsScreen_12DA, OptionsScreen_1359, OptionsScreen_136C, OptionsScreen_137F, OptionsScreen_13A6, OptionsScreen_140D, OptionsScreen_1431
@@ -1056,7 +1056,7 @@ OptionsScreen:
         movsx eax, word [byte ebp+eax*2+01Eh]
         inc eax
         push eax
-        push unk_166C97
+        push str_D_OptionsScreen
         push dword 13Ah
         push dword 237h
         push byte 1
@@ -1142,7 +1142,7 @@ OptionsScreen:
         movsx eax, word [byte ebp+ebx*2+01Eh]
         inc eax
         push eax
-        push unk_166C97
+        push str_D_OptionsScreen
         push dword 13Ah
         push dword 237h
         push byte 1
@@ -1459,7 +1459,7 @@ OptionsScreen_13A6:
         movsx eax, word [byte ebp+eax*2+01Eh]
         inc eax
         push eax
-        push unk_166C97
+        push str_D_OptionsScreen
         push dword 13Ah
         push dword 237h
         push byte 1

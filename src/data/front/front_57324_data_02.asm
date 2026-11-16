@@ -11,66 +11,66 @@ extern FightHitMove, FightPauseMove, FightJerseyMove, FightStepMove, FightSwingM
 extern FightStartMove, FightCircleMove, FightThrowMove, FightFallMove, CelebrationMove, CelebrationJumpMove, CelebrationEndMove, DejectedMove
 extern DejectedSkateMove, CheerMove, BenchCheerMove, SkateToBenchMove, SimpleAnimMove, SkateToSpotMove, PuckRetrieveMove, PeriodEndMove
 extern PeriodEndSkateMove, PokeCheckMove, StickSlashMove, SweepCheckMove, HookMove, DiveMove, HoldPoseMoveJump, GoalieFreezeMove
-extern KneelMove, BlockShotMove, BlockSlideMove, GoalieCoverMove, GoalieRecoverMove, GoalieIdleMove, unk_161BA8, unk_161BB4
-extern unk_161BC0, unk_161BC8, unk_161BD0, unk_161BD8, unk_161BE0, unk_161BE8, unk_161BF0, unk_161BF8
-extern unk_161C00, unk_161C08, unk_161C10, unk_161C18, unk_161C24, unk_161C30, unk_161C38, unk_161C40
-extern unk_161C4C, unk_161C54, unk_161C5C, unk_161C64, unk_161C6C, unk_161C74, unk_161C7C, unk_161C84
-extern unk_161C8C, unk_161C98, unk_161CA4, unk_161CB0, unk_161CBC, unk_161CC8, unk_161CD4, unk_161CDC
-extern unk_161CE4, unk_161CEC, unk_161CF4, unk_161CFC, unk_161D04, unk_161D0C, unk_161D14, unk_161D20
-extern unk_161D2C, unk_161D34, unk_161D3C, unk_161D44, unk_161D4C, unk_161D58, unk_161D60, unk_161D6C
-extern unk_161D78, unk_161D84, unk_161D8C, unk_161D98, unk_161DA0, unk_161DA8, unk_161DB0, unk_161DBC
-extern unk_161DC4, unk_161DCC, unk_161DD8, unk_161DE0, unk_161DE8, unk_161DF4, unk_161E00, unk_161E08
-extern unk_161E14, unk_161E20, unk_161E2C, unk_161E34, unk_161E3C, unk_161E44, unk_161E4C, unk_161E54
-extern unk_161E5C, unk_161E64, unk_161E6C, unk_161E74, unk_161E7C, unk_161E88, unk_161E94, unk_161EA0
-extern unk_161EAC, unk_161EB8, unk_161EC4, unk_161ED0, unk_161EDC, unk_161EE8, unk_161EF4, unk_161F00
-extern unk_161F0C, unk_161F18, unk_161F24, unk_161F30, unk_161F3C, unk_161F48, unk_161F50, unk_161F58
-extern unk_161F60, unk_161F6C, unk_161F78, unk_161F80, unk_161F88, unk_161F90, unk_161F9C, unk_161FA8
-extern unk_161FB4, unk_161FC0, unk_161FCC, unk_161FD8, unk_161FE4, unk_161FEC, unk_161FF4, unk_161FFC
-extern unk_162008, unk_162014, unk_162020, unk_16202C, unk_162038, unk_162044, unk_162050, unk_16205C
-extern unk_162068, unk_162074, unk_162080, unk_16208C, unk_162094, unk_16209C, unk_1620A8, unk_1620B4
-extern unk_1620BC, unk_1620C4, unk_1620CC, unk_1620D4, unk_1620DC, unk_1620E4, unk_1620EC, unk_1620F4
-extern unk_1620FC, unk_162104, unk_16210C, unk_162118, unk_162124, unk_162130, unk_16213C, unk_162148
-extern unk_162154, unk_16215C, unk_162164, unk_16216C, unk_162174, unk_16217C, unk_162184, unk_16218C
-extern unk_162194, unk_16219C, unk_1621A4, unk_1621AC, unk_1621B8, unk_1621C0, unk_1621C8, unk_1621D0
-extern unk_1621D8, unk_1621E0, unk_1621E8, unk_1621F0, unk_1621F8, unk_162200, unk_162208, unk_162210
-extern unk_162218, unk_162220, unk_16222C, unk_162238, unk_162240, unk_162244, unk_162248, unk_162254
-extern unk_16225C, unk_162264, unk_16226C, unk_162274, unk_16227C, unk_162284, unk_16228C, unk_162294
-extern unk_162298, unk_1622A0, unk_1622A8, unk_1622B4, unk_1622C0, unk_1622C8, unk_1622D0, unk_1622DC
-extern unk_1622E8, unk_1622F0, unk_1622F8, unk_162300, unk_162308, unk_162310, unk_16231C, unk_162328
-extern unk_162330, unk_162338, unk_162340, unk_162348, unk_162350, unk_162358, unk_162364, unk_162370
-extern unk_162378, unk_162380, unk_16238C, unk_162394, unk_16239C, unk_1623A0, unk_1623AC, unk_1623B4
-extern unk_1623BC, unk_1623C8, unk_1623D0, unk_1623D8, unk_1623E0, unk_1623E8, unk_1623F0, unk_1623F8
-extern unk_162400, unk_162408, unk_162414, unk_16241C, unk_162424, unk_162430, unk_16243C, unk_162444
-extern unk_16244C, unk_162454, unk_16245C, unk_162468, unk_162474, unk_162480, unk_162488, unk_162494
-extern unk_16249C, unk_1624A8, unk_1624B4, unk_1624BC, unk_1624C4, unk_1624CC, unk_1624D4, unk_1624DC
-extern unk_1624E4, unk_1624EC, unk_1624F8, unk_162504, unk_16250C, unk_162514, unk_16251C, unk_162524
-extern unk_162530, unk_16253C, unk_162544, unk_162550, unk_16255C, unk_162568, unk_162574, unk_16257C
-extern unk_162588, unk_162590, unk_16259C, unk_1625A4, unk_1625B0, unk_1625BC, unk_1625C8, unk_1625D4
-extern unk_1625E0, unk_1625E8, unk_1625F4, unk_1625FC, unk_162608, unk_162614, unk_162620, unk_162628
-extern unk_162634, unk_16263C, unk_162648, unk_162650, unk_16265C, unk_162664, unk_162670, unk_162678
-extern unk_162684, unk_16268C, unk_162698, unk_1626A0, unk_1626AC, unk_1626B4, unk_1626C0, unk_1626C8
-extern unk_1626D4, unk_1626DC, unk_1626E8, unk_1626F0, unk_1626FC, unk_162708, unk_162714, unk_162720
-extern unk_16272C, unk_162738, unk_162744, unk_162750, unk_16275C, unk_162768, unk_162774, unk_162780
-extern unk_16278C, unk_162798, unk_1627A4, unk_1627B0, unk_1627BC, unk_1627C8, unk_1627D4, unk_1627E0
-extern unk_1627EC, unk_1627F4, unk_162800, unk_16280C, unk_162818, unk_162824, unk_162830, unk_16283C
-extern unk_162848, unk_162850, unk_162858, unk_162864, unk_162870, unk_16287C, unk_162888, unk_162890
-extern unk_16289C, unk_1628A8, unk_1628B4, unk_1628BC, unk_1628C8, unk_1628D0, unk_1628DC, unk_1628E0
-extern unk_1628E8, unk_1628F4, unk_162900, unk_16290C, unk_162914, unk_16291C, unk_162928, unk_162934
-extern unk_162940, unk_16294C, unk_162958, unk_162964, unk_162970, unk_16297C, unk_162988, unk_162994
-extern unk_1629A0, unk_1629AC, unk_1629B8, unk_1629C4, unk_1629D0, unk_1629DC, unk_1629E8, unk_1629F4
-extern unk_1629F8, unk_162A04, unk_162A0C, unk_162A18, unk_162A24, unk_162A30, unk_162A3C, unk_162A48
-extern unk_162A50, unk_162A58, unk_162A64, unk_162A70, unk_162A78, unk_162A80, unk_162A88, unk_162A90
-extern unk_162A98, unk_162AA0, unk_162AA8, unk_162AB0, unk_162AB8, unk_162AC0
-global byte_16C429, dword_16B1A0, dword_16B1A4, dword_16B1A8, dword_16B3F4, dword_16B550, dword_16B724, dword_16B72C
-global dword_16C32C, dword_16C360, dword_16C364, dword_16C368, dword_16C374, dword_16C384, dword_16C388, dword_16C38C
+extern KneelMove, BlockShotMove, BlockSlideMove, GoalieCoverMove, GoalieRecoverMove, GoalieIdleMove, str_BASEPOS, str_Standing
+extern str_Glide, str_StartF, str_Sk8fSu, str_Sk8fSh, str_Sk8fSd, str_Flturn, str_Frturn, str_CsovfL
+extern str_CsovfR, str_Wait, str_Wait2, str_StpfwdL, str_StpfwdR, str_QstpL, str_QstpR, str_GlidbkS
+extern str_Bsk8, str_Stpbw, str_Blturn, str_Brturn, str_Fr2bkL, str_Fr2bkR, str_Bk2frL, str_Bk2frR
+extern str_BstartL, str_BstartR, str_Turn90L, str_Turn90R, str_Trn180L, str_Trn180R, str_Bstart, str_BcsovL
+extern str_BcsovR, str_AcclL, str_AcclR, str_PFHSW, str_PFHFWD, str_PBKHSW, str_PBKHFWD, str_SSSTAND
+extern str_SSF, str_SSL, str_SSR, str_SSBKH, str_WRISTSHO, str_WSBKH, str_FLIPPFW, str_FLIPPBK
+extern str_PUKGLID, str_PUKSK8, str_PUKHAND, str_PFLTURN, str_PFRTURN, str_PSTAND, str_PGLDBKS, str_PBLTURN
+extern str_PBRTURN, str_PSTARTF, str_PACCLL, str_PACCLR, str_BENCICE, str_ICEBENC, str_GOPENAL, str_FACEOFR
+extern str_FACEOFL, str_FACEOFB, str_CATCHPU, str_BLOCR, str_BLOCF, str_BLOCL, str_CELEBR1, str_CELEBR2
+extern str_CELEBR3, str_CELEBR4, str_CELEBR5, str_CELEBR6, str_SITPOSE, str_BNMADST, str_BNMADHN, str_BNDESPH
+extern str_BNDESPK, str_BNCHEER, str_FOFPOKL, str_FOFPOKR, str_FOFSHUF1, str_FOFSHUF2, str_LEAVPEN, str_BNLOOKL
+extern str_BNLOOKR, str_BNLR2S, str_BNLS2R, str_BNLL2S, str_BNLS2L, str_SINGAD, str_SINGAU, str_HURDAL
+extern str_HIPHITR, str_HIPHITL, str_HIHITR, str_HIHITL, str_HIHITF, str_HGHITBF, str_HGHITRF, str_HGHITLF
+extern str_HGHITFF, str_BIGHITL, str_BIGHITR, str_BIGHITB, str_GETUPF, str_GETUPR, str_GETUPL, str_GTUPCHT
+extern str_GTUPTUP, str_FALBRDB, str_FALBRDF, str_FALBRDL, str_FALBRDR, str_INTBNCB, str_INTBNCF, str_INTBNCL
+extern str_INTBNCR, str_MEDHITL, str_MEDHITR, str_WRITHE, str_RECOVB, str_RECVBFS, str_GTUPB2T, str_STUMBL1
+extern str_STUMBL2, str_STUMBL3, str_SPINF, str_SPINL, str_SPINR, str_SPINB, str_HOLD, str_HOOKR
+extern str_HOOKL, str_HOOKF, str_CRSCHKR, str_CRSCHKL, str_CRSCHKF, str_SPEARING, str_SLASHING, str_ROUGHING
+extern str_HIGHST, str_ELBOWR, str_ELBOWL, str_HIPR, str_HIPL, str_SHOULR, str_SHOULL, str_SHOULF
+extern str_POKECH, str_PkGlid, str_Setpos, str_Relaxset, str_Buterfl, str_Casual, str_HugL, str_HugR
+extern str_GLIDEL, str_GLIDER, str_PturnL, str_PturnR, str_Getset, str_Intobut, str_Butset, str_Po2poL
+extern str_Po2poR, str_Bt2relbt, str_Bt2chest, str_Fr24, str_R24, str_L24, str_All42but, str_GetupF
+extern str_GetupS, str_GetupL, str_GetupR, str_HitF, str_HitL, str_HitR, unk_16228C, str_Sk8
+extern str_StepL, str_StepR, str_BigstpL, str_BigstpR, str_StepFL, str_StepFR, str_StepbkL, str_StepbkR
+extern str_Snowpl, str_Icing, str_DropL, str_DropR, str_DropF, str_Chuckpuk, str_Lookhand, str_Juggle
+extern str_Twitch, str_Bang, str_Post, str_LookL, str_LookR, str_CaslooL, str_CaslooR, str_WtonL
+extern str_WtonR, str_Handknee, str_Clean, str_CloseH, str_Gut, str_Glovsnap, str_GlovLO, str_GlovHI
+extern str_Blocsnap, str_BlocLO, str_BlocHI, str_StickL, str_StickR, str_PadL, str_PadR, str_Sweep
+extern str_Poke, str_Coverpuk, str_Hack, str_DiveF, str_DivebkR, str_DivebkL, str_FlopL, str_FlopR
+extern str_KickL, str_KickR, str_Btglvsnp, str_BtdiveL, str_BtdiveR, str_Butpoke, str_Butsweep, str_Buthack
+extern str_Butstflt, str_Btblksnp, str_BtblkHI, str_Butfist, str_Butfck, str_Pkhand, str_PStart, str_Pksnowp
+extern str_PasbkL, str_PasfwdL, str_PasfwdR, str_Pasfwd, str_Flipass, str_PkSk8, str_Scuff, str_Coverpu1
+extern str_Coverpu2, str_Btcover, str_RefGlid, str_RfGldau, str_RefStnd, str_RfStnda, str_RturnL, str_RturnLa
+extern str_RturnR, str_RturnRa, str_RefSk8, str_RfSk8au, str_RcsovfL, str_RcsvfLa, str_RcsovfR, str_RcsvfRa
+extern str_RstopL, str_RstopLa, str_RstopR, str_RstopRa, str_RstartF, str_RstrtFa, str_RacclL, str_RacclLa
+extern str_RacclR, str_RacclRa, str_Rtr90L, str_Rtr90La, str_Rtr90R, str_Rtr90Ra, str_Rt180L, str_Rt180La
+extern str_Rt180R, str_Rt180Ra, str_Rf2bL, str_Rf2bLau, str_Rf2bR, str_Rf2bRau, str_Rb2fL, str_Rb2fLau
+extern str_Rb2fR, str_Rb2fRau, str_RfBgld, str_RfBglda, str_RbturnL, str_RbtrnLa, str_RbturnR, str_RbtrnRa
+extern str_RstopBw, str_RstpBwa, str_RbstarF, str_RbstrFa, str_RbstarL, str_RbstrLa, str_RbstarR, str_RefBsk8
+extern str_RfBsk8a, str_RbcsovL, str_RbcsvLa, str_RbcsovR, str_RbcsvRa, str_ADropuk, str_APikpuk, str_RefGetp
+extern str_ClGoal, str_ClIcing, str_ClWsnog, str_ClCharg, str_ClBoard, str_ClElbow, str_ClCrchk, str_ClHigst
+extern str_ClHook, str_ClHold, str_ClIntrf, str_ClMisco, str_ClSlash, str_ClRough, str_ClTrip, str_ClSpear
+extern str_ClUnspo, str_ClPenal, str_READY, str_THRWGLVS, str_JABBED, str_JABEDND, str_JAB, str_HOOK
+extern str_HOKEDUP, str_HOKEDBK, str_GETUPBK, str_GRAB, str_GRABBED, str_GRABJAB, str_GRABHOK, str_GRBDJBD
+extern str_GRBDHKD, str_GRJBDND, str_GRHKDND, str_SHFLFWD, str_SHFLBKW, str_PULLJER, str_JERPULD, str_PULLJHK
+extern str_JPLDHKD, str_PLDHKDD, str_BRKGRAB, str_RLSGRAB, str_MISGRAB, str_BRKPULJ, str_RLSPULJ, str_UP
+extern str_THGLVOD, str_CUPSK8, str_CUPCASK, str_CUPKISS, str_CUPUPDW, str_CUPGLAU, str_CUPGLAD, unk_162A48
+extern str_Lhand, unk_162A58, str_Sticktip, str_Lknee, str_Lankle, str_Rknee, str_Rankle, str_Pelvis
+extern unk_162A98, unk_162AA0, str_Lelbow, str_Relbow, unk_162AB8, unk_162AC0
+global byte_16C429, F32_1, dword_16B1A4, dword_16B1A8, dword_16B3F4, dword_16B550, dword_16B724, dword_16B72C
+global str_Punct_LoadAnimData, dword_16C360, dword_16C364, dword_16C368, dword_16C374, dword_16C384, dword_16C388, dword_16C38C
 global dword_16C390, dword_16C394, dword_16C398, dword_16C39C, dword_16C3A0, dword_16C3A4, dword_16C3A8, dword_16C3AC
 global dword_16C3B0, dword_16C3F0, dword_16C54C, dword_16C550, dword_16C55C, dword_16C568, dword_16C574, dword_16C580
-global dword_16C58C, dword_16C618, dword_16C63C, dword_16C648, dword_16C654, dword_16C664, dword_16C6B0, dword_16C6B4
-global dword_16C6B8, dword_16C6BC, dword_16C6C0, dword_16C730, off_16B6F8, off_16B708, off_16B738, off_16B7CC
+global dword_16C58C, dword_16C618, dword_16C63C, dword_16C648, F32_7p84727eneg44, F32_0, dword_16C6B0, dword_16C6B4
+global dword_16C6B8, dword_16C6BC, str_D_SimulateGame, dword_16C730, off_16B6F8, off_16B708, off_16B738, off_16B7CC
 global off_16B830, off_16B8C0, off_16B958, off_16B9A4, off_16BB54, off_16BC44, off_16BC5C, off_16BC98
 global off_16BD14, off_16BD2C, off_16C3B4, unk_16B51C, unk_16B534, unk_16B558, unk_16B590, unk_16B5C8
 global unk_16B600, unk_16B638, unk_16B668, unk_16B698, unk_16B6C8, unk_16B718, unk_16B728, unk_16C338
-dword_16B1A0:
+F32_1:
         db 00h,00h,080h,03Fh
 dword_16B1A4:
         db 0FFh,0FFh,0FFh,0FFh
@@ -195,397 +195,397 @@ unk_16B728:
 dword_16B72C:
         db 0DBh,0Fh,0C9h,03Eh,00h,0C8h,02Fh,040h,00h,040h,09Ch,03Eh
 off_16B738:
-        dd unk_161BA8
-        dd unk_161BB4
-        dd unk_161BC0
-        dd unk_161BC8
-        dd unk_161BD0
-        dd unk_161BD8
-        dd unk_161BE0
-        dd unk_161BE8
-        dd unk_161BF0
-        dd unk_161BF8
-        dd unk_161C00
-        dd unk_161C08
-        dd unk_161C10
-        dd unk_161C18
-        dd unk_161C24
-        dd unk_161C30
-        dd unk_161C38
-        dd unk_161C40
-        dd unk_161C4C
-        dd unk_161C54
-        dd unk_161C5C
-        dd unk_161C64
-        dd unk_161C6C
-        dd unk_161C74
-        dd unk_161C7C
-        dd unk_161C84
-        dd unk_161C8C
-        dd unk_161C98
-        dd unk_161CA4
-        dd unk_161CB0
-        dd unk_161CBC
-        dd unk_161CC8
-        dd unk_161CD4
-        dd unk_161CDC
-        dd unk_161CE4
-        dd unk_161CEC
-        dd unk_161CF4
+        dd str_BASEPOS
+        dd str_Standing
+        dd str_Glide
+        dd str_StartF
+        dd str_Sk8fSu
+        dd str_Sk8fSh
+        dd str_Sk8fSd
+        dd str_Flturn
+        dd str_Frturn
+        dd str_CsovfL
+        dd str_CsovfR
+        dd str_Wait
+        dd str_Wait2
+        dd str_StpfwdL
+        dd str_StpfwdR
+        dd str_QstpL
+        dd str_QstpR
+        dd str_GlidbkS
+        dd str_Bsk8
+        dd str_Stpbw
+        dd str_Blturn
+        dd str_Brturn
+        dd str_Fr2bkL
+        dd str_Fr2bkR
+        dd str_Bk2frL
+        dd str_Bk2frR
+        dd str_BstartL
+        dd str_BstartR
+        dd str_Turn90L
+        dd str_Turn90R
+        dd str_Trn180L
+        dd str_Trn180R
+        dd str_Bstart
+        dd str_BcsovL
+        dd str_BcsovR
+        dd str_AcclL
+        dd str_AcclR
 off_16B7CC:
-        dd unk_161CFC
-        dd unk_161D04
-        dd unk_161D0C
-        dd unk_161D14
-        dd unk_161D20
-        dd unk_161D2C
-        dd unk_161D34
-        dd unk_161D3C
-        dd unk_161D44
-        dd unk_161D4C
-        dd unk_161D58
-        dd unk_161D60
-        dd unk_161D6C
-        dd unk_161D78
-        dd unk_161D84
-        dd unk_161D8C
-        dd unk_161D98
-        dd unk_161DA0
-        dd unk_161DA8
-        dd unk_161DB0
-        dd unk_161DBC
-        dd unk_161DC4
-        dd unk_161DCC
-        dd unk_161DD8
-        dd unk_161DE0
+        dd str_PFHSW
+        dd str_PFHFWD
+        dd str_PBKHSW
+        dd str_PBKHFWD
+        dd str_SSSTAND
+        dd str_SSF
+        dd str_SSL
+        dd str_SSR
+        dd str_SSBKH
+        dd str_WRISTSHO
+        dd str_WSBKH
+        dd str_FLIPPFW
+        dd str_FLIPPBK
+        dd str_PUKGLID
+        dd str_PUKSK8
+        dd str_PUKHAND
+        dd str_PFLTURN
+        dd str_PFRTURN
+        dd str_PSTAND
+        dd str_PGLDBKS
+        dd str_PBLTURN
+        dd str_PBRTURN
+        dd str_PSTARTF
+        dd str_PACCLL
+        dd str_PACCLR
 off_16B830:
-        dd unk_161DE8
-        dd unk_161DF4
-        dd unk_161E00
-        dd unk_161E08
-        dd unk_161E14
-        dd unk_161E20
-        dd unk_161E2C
-        dd unk_161E34
-        dd unk_161E3C
-        dd unk_161E44
-        dd unk_161E4C
-        dd unk_161E54
-        dd unk_161E5C
-        dd unk_161E64
-        dd unk_161E6C
-        dd unk_161E74
-        dd unk_161E7C
-        dd unk_161E88
-        dd unk_161E94
-        dd unk_161EA0
-        dd unk_161EAC
-        dd unk_161EB8
-        dd unk_161EC4
-        dd unk_161ED0
-        dd unk_161EDC
-        dd unk_161EE8
-        dd unk_161EF4
-        dd unk_161F00
-        dd unk_161F0C
-        dd unk_161F18
-        dd unk_161F24
-        dd unk_161F30
-        dd unk_161F3C
-        dd unk_161F48
-        dd unk_161F50
-        dd unk_161F58
+        dd str_BENCICE
+        dd str_ICEBENC
+        dd str_GOPENAL
+        dd str_FACEOFR
+        dd str_FACEOFL
+        dd str_FACEOFB
+        dd str_CATCHPU
+        dd str_BLOCR
+        dd str_BLOCF
+        dd str_BLOCL
+        dd str_CELEBR1
+        dd str_CELEBR2
+        dd str_CELEBR3
+        dd str_CELEBR4
+        dd str_CELEBR5
+        dd str_CELEBR6
+        dd str_SITPOSE
+        dd str_BNMADST
+        dd str_BNMADHN
+        dd str_BNDESPH
+        dd str_BNDESPK
+        dd str_BNCHEER
+        dd str_FOFPOKL
+        dd str_FOFPOKR
+        dd str_FOFSHUF1
+        dd str_FOFSHUF2
+        dd str_LEAVPEN
+        dd str_BNLOOKL
+        dd str_BNLOOKR
+        dd str_BNLR2S
+        dd str_BNLS2R
+        dd str_BNLL2S
+        dd str_BNLS2L
+        dd str_SINGAD
+        dd str_SINGAU
+        dd str_HURDAL
 off_16B8C0:
-        dd unk_161F60
-        dd unk_161F6C
-        dd unk_161F78
-        dd unk_161F80
-        dd unk_161F88
-        dd unk_161F90
-        dd unk_161F9C
-        dd unk_161FA8
-        dd unk_161FB4
-        dd unk_161FC0
-        dd unk_161FCC
-        dd unk_161FD8
-        dd unk_161FE4
-        dd unk_161FEC
-        dd unk_161FF4
-        dd unk_161FFC
-        dd unk_162008
-        dd unk_162014
-        dd unk_162020
-        dd unk_16202C
-        dd unk_162038
-        dd unk_162044
-        dd unk_162050
-        dd unk_16205C
-        dd unk_162068
-        dd unk_162074
-        dd unk_162080
-        dd unk_16208C
-        dd unk_162094
-        dd unk_16209C
-        dd unk_1620A8
-        dd unk_1620B4
-        dd unk_1620BC
-        dd unk_1620C4
-        dd unk_1620CC
-        dd unk_1620D4
-        dd unk_1620DC
-        dd unk_1620E4
+        dd str_HIPHITR
+        dd str_HIPHITL
+        dd str_HIHITR
+        dd str_HIHITL
+        dd str_HIHITF
+        dd str_HGHITBF
+        dd str_HGHITRF
+        dd str_HGHITLF
+        dd str_HGHITFF
+        dd str_BIGHITL
+        dd str_BIGHITR
+        dd str_BIGHITB
+        dd str_GETUPF
+        dd str_GETUPR
+        dd str_GETUPL
+        dd str_GTUPCHT
+        dd str_GTUPTUP
+        dd str_FALBRDB
+        dd str_FALBRDF
+        dd str_FALBRDL
+        dd str_FALBRDR
+        dd str_INTBNCB
+        dd str_INTBNCF
+        dd str_INTBNCL
+        dd str_INTBNCR
+        dd str_MEDHITL
+        dd str_MEDHITR
+        dd str_WRITHE
+        dd str_RECOVB
+        dd str_RECVBFS
+        dd str_GTUPB2T
+        dd str_STUMBL1
+        dd str_STUMBL2
+        dd str_STUMBL3
+        dd str_SPINF
+        dd str_SPINL
+        dd str_SPINR
+        dd str_SPINB
 off_16B958:
-        dd unk_1620EC
-        dd unk_1620F4
-        dd unk_1620FC
-        dd unk_162104
-        dd unk_16210C
-        dd unk_162118
-        dd unk_162124
-        dd unk_162130
-        dd unk_16213C
-        dd unk_162148
-        dd unk_162154
-        dd unk_16215C
-        dd unk_162164
-        dd unk_16216C
-        dd unk_162174
-        dd unk_16217C
-        dd unk_162184
-        dd unk_16218C
-        dd unk_162194
+        dd str_HOLD
+        dd str_HOOKR
+        dd str_HOOKL
+        dd str_HOOKF
+        dd str_CRSCHKR
+        dd str_CRSCHKL
+        dd str_CRSCHKF
+        dd str_SPEARING
+        dd str_SLASHING
+        dd str_ROUGHING
+        dd str_HIGHST
+        dd str_ELBOWR
+        dd str_ELBOWL
+        dd str_HIPR
+        dd str_HIPL
+        dd str_SHOULR
+        dd str_SHOULL
+        dd str_SHOULF
+        dd str_POKECH
 off_16B9A4:
-        dd unk_161BC0
-        dd unk_16219C
-        dd unk_1621A4
-        dd unk_1621AC
-        dd unk_1621B8
-        dd unk_1621C0
-        dd unk_1621C8
-        dd unk_1621D0
-        dd unk_1621D8
-        dd unk_1621E0
-        dd unk_1621E8
-        dd unk_1621F0
-        dd unk_1621F8
-        dd unk_162200
-        dd unk_162208
-        dd unk_162210
-        dd unk_162218
-        dd unk_162220
-        dd unk_16222C
-        dd unk_162238
-        dd unk_162240
-        dd unk_162244
-        dd unk_162248
-        dd unk_162254
-        dd unk_16225C
-        dd unk_162264
-        dd unk_16226C
-        dd unk_162274
-        dd unk_16227C
-        dd unk_162284
+        dd str_Glide
+        dd str_PkGlid
+        dd str_Setpos
+        dd str_Relaxset
+        dd str_Buterfl
+        dd str_Casual
+        dd str_HugL
+        dd str_HugR
+        dd str_GLIDEL
+        dd str_GLIDER
+        dd str_PturnL
+        dd str_PturnR
+        dd str_Getset
+        dd str_Intobut
+        dd str_Butset
+        dd str_Po2poL
+        dd str_Po2poR
+        dd str_Bt2relbt
+        dd str_Bt2chest
+        dd str_Fr24
+        dd str_R24
+        dd str_L24
+        dd str_All42but
+        dd str_GetupF
+        dd str_GetupS
+        dd str_GetupL
+        dd str_GetupR
+        dd str_HitF
+        dd str_HitL
+        dd str_HitR
         dd unk_16228C
-        dd unk_162294
-        dd unk_162298
-        dd unk_1622A0
-        dd unk_1622A8
-        dd unk_1622B4
-        dd unk_1622C0
-        dd unk_1622C8
-        dd unk_1622D0
-        dd unk_1622DC
-        dd unk_1622E8
-        dd unk_1622F0
-        dd unk_1622F8
-        dd unk_162300
-        dd unk_162308
-        dd unk_162310
-        dd unk_16231C
-        dd unk_162328
-        dd unk_162330
-        dd unk_162338
-        dd unk_162340
-        dd unk_162348
-        dd unk_162350
-        dd unk_162358
-        dd unk_162364
-        dd unk_162370
-        dd unk_162378
-        dd unk_162380
-        dd unk_16238C
-        dd unk_162394
-        dd unk_16239C
-        dd unk_1623A0
-        dd unk_1623AC
-        dd unk_1623B4
-        dd unk_1623BC
-        dd unk_1623C8
-        dd unk_1623D0
-        dd unk_1623D8
-        dd unk_1623E0
-        dd unk_1623E8
-        dd unk_1623F0
-        dd unk_1623F8
-        dd unk_162400
-        dd unk_162408
-        dd unk_162414
-        dd unk_16241C
-        dd unk_162424
-        dd unk_162430
-        dd unk_16243C
-        dd unk_162444
-        dd unk_16244C
-        dd unk_162454
-        dd unk_16245C
-        dd unk_162468
-        dd unk_162474
-        dd unk_162480
-        dd unk_162488
-        dd unk_162494
-        dd unk_16249C
-        dd unk_1624A8
-        dd unk_1624B4
-        dd unk_1624BC
-        dd unk_1624C4
-        dd unk_1624CC
-        dd unk_1624D4
-        dd unk_1624DC
-        dd unk_1624E4
-        dd unk_1624EC
-        dd unk_1624F8
-        dd unk_162504
-        dd unk_16250C
-        dd unk_162514
-        dd unk_16251C
-        dd unk_162524
-        dd unk_162530
-        dd unk_16253C
-        dd unk_16253C
-        dd unk_16253C
+        dd str_Sk8
+        dd str_StepL
+        dd str_StepR
+        dd str_BigstpL
+        dd str_BigstpR
+        dd str_StepFL
+        dd str_StepFR
+        dd str_StepbkL
+        dd str_StepbkR
+        dd str_Snowpl
+        dd str_Icing
+        dd str_DropL
+        dd str_DropR
+        dd str_DropF
+        dd str_Chuckpuk
+        dd str_Lookhand
+        dd str_Juggle
+        dd str_Twitch
+        dd str_Bang
+        dd str_Post
+        dd str_LookL
+        dd str_LookR
+        dd str_CaslooL
+        dd str_CaslooR
+        dd str_WtonL
+        dd str_WtonR
+        dd str_Handknee
+        dd str_Clean
+        dd str_CloseH
+        dd str_Gut
+        dd str_Glovsnap
+        dd str_GlovLO
+        dd str_GlovHI
+        dd str_Blocsnap
+        dd str_BlocLO
+        dd str_BlocHI
+        dd str_StickL
+        dd str_StickR
+        dd str_PadL
+        dd str_PadR
+        dd str_Sweep
+        dd str_Poke
+        dd str_Coverpuk
+        dd str_Hack
+        dd str_DiveF
+        dd str_DivebkR
+        dd str_DivebkL
+        dd str_FlopL
+        dd str_FlopR
+        dd str_KickL
+        dd str_KickR
+        dd str_Btglvsnp
+        dd str_BtdiveL
+        dd str_BtdiveR
+        dd str_Butpoke
+        dd str_Butsweep
+        dd str_Buthack
+        dd str_Butstflt
+        dd str_Btblksnp
+        dd str_BtblkHI
+        dd str_Butfist
+        dd str_Butfck
+        dd str_Pkhand
+        dd str_PStart
+        dd str_Pksnowp
+        dd str_PasbkL
+        dd str_PasfwdL
+        dd str_PasfwdR
+        dd str_Pasfwd
+        dd str_Flipass
+        dd str_PkSk8
+        dd str_Scuff
+        dd str_Coverpu1
+        dd str_Coverpu2
+        dd str_Btcover
+        dd str_Btcover
+        dd str_Btcover
 off_16BB54:
-        dd unk_162544
-        dd unk_162550
-        dd unk_16255C
-        dd unk_162568
-        dd unk_162574
-        dd unk_16257C
-        dd unk_162588
-        dd unk_162590
-        dd unk_16259C
-        dd unk_1625A4
-        dd unk_1625B0
-        dd unk_1625BC
-        dd unk_1625C8
-        dd unk_1625D4
-        dd unk_1625E0
-        dd unk_1625E8
-        dd unk_1625F4
-        dd unk_1625FC
-        dd unk_162608
-        dd unk_162614
-        dd unk_162620
-        dd unk_162628
-        dd unk_162634
-        dd unk_16263C
-        dd unk_162648
-        dd unk_162650
-        dd unk_16265C
-        dd unk_162664
-        dd unk_162670
-        dd unk_162678
-        dd unk_162684
-        dd unk_16268C
-        dd unk_162698
-        dd unk_1626A0
-        dd unk_1626AC
-        dd unk_1626B4
-        dd unk_1626C0
-        dd unk_1626C8
-        dd unk_1626D4
-        dd unk_1626DC
-        dd unk_1626E8
-        dd unk_1626F0
-        dd unk_1626FC
-        dd unk_162708
-        dd unk_162714
-        dd unk_162720
-        dd unk_16272C
-        dd unk_162738
-        dd unk_162744
-        dd unk_162750
-        dd unk_16275C
-        dd unk_162768
-        dd unk_162774
-        dd unk_162768
-        dd unk_162780
-        dd unk_16278C
-        dd unk_162798
-        dd unk_1627A4
-        dd unk_1627B0
-        dd unk_1627BC
+        dd str_RefGlid
+        dd str_RfGldau
+        dd str_RefStnd
+        dd str_RfStnda
+        dd str_RturnL
+        dd str_RturnLa
+        dd str_RturnR
+        dd str_RturnRa
+        dd str_RefSk8
+        dd str_RfSk8au
+        dd str_RcsovfL
+        dd str_RcsvfLa
+        dd str_RcsovfR
+        dd str_RcsvfRa
+        dd str_RstopL
+        dd str_RstopLa
+        dd str_RstopR
+        dd str_RstopRa
+        dd str_RstartF
+        dd str_RstrtFa
+        dd str_RacclL
+        dd str_RacclLa
+        dd str_RacclR
+        dd str_RacclRa
+        dd str_Rtr90L
+        dd str_Rtr90La
+        dd str_Rtr90R
+        dd str_Rtr90Ra
+        dd str_Rt180L
+        dd str_Rt180La
+        dd str_Rt180R
+        dd str_Rt180Ra
+        dd str_Rf2bL
+        dd str_Rf2bLau
+        dd str_Rf2bR
+        dd str_Rf2bRau
+        dd str_Rb2fL
+        dd str_Rb2fLau
+        dd str_Rb2fR
+        dd str_Rb2fRau
+        dd str_RfBgld
+        dd str_RfBglda
+        dd str_RbturnL
+        dd str_RbtrnLa
+        dd str_RbturnR
+        dd str_RbtrnRa
+        dd str_RstopBw
+        dd str_RstpBwa
+        dd str_RbstarF
+        dd str_RbstrFa
+        dd str_RbstarL
+        dd str_RbstrLa
+        dd str_RbstarR
+        dd str_RbstrLa
+        dd str_RefBsk8
+        dd str_RfBsk8a
+        dd str_RbcsovL
+        dd str_RbcsvLa
+        dd str_RbcsovR
+        dd str_RbcsvRa
 off_16BC44:
-        dd unk_1627C8
-        dd unk_1627D4
-        dd unk_1627E0
-        dd unk_1627EC
-        dd unk_1627F4
-        dd unk_162800
+        dd str_ADropuk
+        dd str_APikpuk
+        dd str_RefGetp
+        dd str_ClGoal
+        dd str_ClIcing
+        dd str_ClWsnog
 off_16BC5C:
-        dd unk_16280C
-        dd unk_162818
-        dd unk_162824
-        dd unk_162830
-        dd unk_16283C
-        dd unk_162848
-        dd unk_162850
-        dd unk_162858
-        dd unk_162864
-        dd unk_162870
-        dd unk_16287C
-        dd unk_162888
-        dd unk_162890
-        dd unk_16289C
-        dd unk_1628A8
+        dd str_ClCharg
+        dd str_ClBoard
+        dd str_ClElbow
+        dd str_ClCrchk
+        dd str_ClHigst
+        dd str_ClHook
+        dd str_ClHold
+        dd str_ClIntrf
+        dd str_ClMisco
+        dd str_ClSlash
+        dd str_ClRough
+        dd str_ClTrip
+        dd str_ClSpear
+        dd str_ClUnspo
+        dd str_ClPenal
 off_16BC98:
-        dd unk_1628B4
-        dd unk_1628BC
-        dd unk_1628C8
-        dd unk_1628D0
-        dd unk_1628DC
-        dd unk_1628E0
-        dd unk_1628E8
-        dd unk_1628F4
-        dd unk_162900
-        dd unk_16290C
-        dd unk_162914
-        dd unk_16291C
-        dd unk_162928
-        dd unk_162934
-        dd unk_162940
-        dd unk_16294C
-        dd unk_162958
-        dd unk_162964
-        dd unk_162970
-        dd unk_16297C
-        dd unk_162988
-        dd unk_162994
-        dd unk_1629A0
-        dd unk_1629AC
-        dd unk_1629B8
-        dd unk_1629C4
-        dd unk_1629D0
-        dd unk_1629DC
-        dd unk_1629E8
-        dd unk_1629F4
-        dd unk_1629F8
+        dd str_READY
+        dd str_THRWGLVS
+        dd str_JABBED
+        dd str_JABEDND
+        dd str_JAB
+        dd str_HOOK
+        dd str_HOKEDUP
+        dd str_HOKEDBK
+        dd str_GETUPBK
+        dd str_GRAB
+        dd str_GRABBED
+        dd str_GRABJAB
+        dd str_GRABHOK
+        dd str_GRBDJBD
+        dd str_GRBDHKD
+        dd str_GRJBDND
+        dd str_GRHKDND
+        dd str_SHFLFWD
+        dd str_SHFLBKW
+        dd str_PULLJER
+        dd str_JERPULD
+        dd str_PULLJHK
+        dd str_JPLDHKD
+        dd str_PLDHKDD
+        dd str_BRKGRAB
+        dd str_RLSGRAB
+        dd str_MISGRAB
+        dd str_BRKPULJ
+        dd str_RLSPULJ
+        dd str_UP
+        dd str_THGLVOD
 off_16BD14:
-        dd unk_162A04
-        dd unk_162A0C
-        dd unk_162A18
-        dd unk_162A24
-        dd unk_162A30
-        dd unk_162A3C
+        dd str_CUPSK8
+        dd str_CUPCASK
+        dd str_CUPKISS
+        dd str_CUPUPDW
+        dd str_CUPGLAU
+        dd str_CUPGLAD
 off_16BD2C:
         dd SkateForwardMove
         dd SkateForwardMove
@@ -969,7 +969,7 @@ off_16BD2C:
         dd SkateStrideMove
         dd SkateStrideMove
         db 029h,00h,00h,00h,02Ah,00h,00h,00h,02Bh,00h,00h,00h
-dword_16C32C:
+str_Punct_LoadAnimData:
         db 02Ch,00h,00h,00h,02Eh,00h,00h,00h,02Fh,00h,00h,00h
 unk_16C338:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -1009,18 +1009,18 @@ dword_16C3B0:
         db 00h,00h,00h,00h
 off_16C3B4:
         dd unk_162A48
-        dd unk_162A50
+        dd str_Lhand
         dd unk_162A58
-        dd unk_162A64
-        dd unk_162A70
-        dd unk_162A78
-        dd unk_162A80
-        dd unk_162A88
-        dd unk_162A90
+        dd str_Sticktip
+        dd str_Lknee
+        dd str_Lankle
+        dd str_Rknee
+        dd str_Rankle
+        dd str_Pelvis
         dd unk_162A98
         dd unk_162AA0
-        dd unk_162AA8
-        dd unk_162AB0
+        dd str_Lelbow
+        dd str_Relbow
         dd unk_162AB8
         dd unk_162AC0
 dword_16C3F0:
@@ -1078,9 +1078,9 @@ dword_16C63C:
         db 0C8h,00h,00h,00h,0C9h,00h,00h,00h,0CAh,00h,00h,00h
 dword_16C648:
         db 0D4h,00h,00h,00h,0CFh,00h,00h,00h,0CEh,00h,00h,00h
-dword_16C654:
+F32_7p84727eneg44:
         db 038h,00h,00h,00h,03Ch,00h,00h,00h,044h,00h,00h,00h,00h,00h,00h,00h
-dword_16C664:
+F32_0:
         db 00h,00h,00h,00h,00h,00h,080h,03Fh,0ABh,0AAh,0AAh,03Eh,025h,049h,012h,03Eh
         db 089h,088h,088h,03Dh,08h,021h,04h,03Dh,021h,08h,082h,03Ch,04h,02h,01h,03Ch
         db 081h,080h,080h,03Bh,020h,040h,00h,03Bh,08h,020h,080h,03Ah,02h,010h,00h,03Ah
@@ -1094,7 +1094,7 @@ dword_16C6B8:
         db 00h,00h,00h,00h
 dword_16C6BC:
         db 00h,00h,00h,00h
-dword_16C6C0:
+str_D_SimulateGame:
         db 064h,00h,00h,00h,064h,00h,00h,00h,04Bh,00h,00h,00h,064h,00h,00h,00h
         db 064h,00h,00h,00h,064h,00h,00h,00h,064h,00h,00h,00h,064h,00h,00h,00h
         db 064h,00h,00h,00h,064h,00h,00h,00h,064h,00h,00h,00h,064h,00h,00h,00h

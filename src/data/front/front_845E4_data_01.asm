@@ -7,7 +7,7 @@ global str_OFF0, str_SL02d, str_LB02d, str_LY02d, str_MB01MB02MB03, str_MB05MB06
 global str_TITL2, str_GMT1, str_BOTM, str_LB00, str_LB07, str_MB02, str_MB01, str_MB00
 global str_MB06, str_MB05, str_MB04, str_MB10, str_MB09, str_MB08, str_BACK4, str_SY02d
 global str_SY00, str_SY01, str_SY02, str_SY03, str_SY04, str_SY05, str_SY06, str_GL00
-global str_GR00, str_Mous3, str_DATAREPLAYNDX, str_NAMEINDEX, str_backslash3, unk_165320, unk_165323
+global str_GR00, str_Mous3, str_DATAREPLAYNDX, str_NAMEINDEX, str_backslash3, str_Rb_WritePhonebookFile, str_Wb
 str_0000:
         db 030h,030h,030h,030h,00h
 str_Menu:
@@ -101,7 +101,7 @@ str_NAMEINDEX:
         db 04Eh,041h,04Dh,045h,049h,04Eh,044h,045h,058h,00h,00h,00h
 str_backslash3:
         db 05Ch,00h,00h,00h
-unk_165320:
+str_Rb_WritePhonebookFile:
         db 072h,062h,00h
-unk_165323:
+str_Wb:
         db 077h,062h,00h

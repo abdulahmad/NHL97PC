@@ -27,7 +27,7 @@ extern GameStatsScreen, PlayMenuGame, FinishLeagueGame, TeamStatsScreen, StatsTa
 extern RunVideoOptions, HistoryScreen, RosterScreen, PreGameMatchupScreen, PreGameRostersScreen, FreeDbBlock, OpenLeagueFile, FindGameRecord
 extern ClearLinkAbort, ServiceIdle, NetDisconnect, LinkSendBlock, LinkReceiveBlock, AllocMemBlock, FreeMemBlock, ZeroMem
 extern OpenResourceArchive, FreeBitmap, DrawShapeCore, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, tickcount
-extern unk_165320, unk_165323, unk_16CCC8, unk_16D804, unk_1AC95D, unk_1AC962, unk_1ACB44, unk_1ACB49
+extern str_Rb_WritePhonebookFile, str_Wb, unk_16CCC8, unk_16D804, unk_1AC95D, unk_1AC962, unk_1ACB44, unk_1ACB49
 extern unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C8300, unk_1C830C, unk_845C0
 global jpt_84AF5, jpt_84B15, jpt_84B25, jpt_84B3D, jpt_85CFD, MainMenuAnim_32E, MainMenuAnim_344, MainMenuAnim_35A
 global MainMenuAnim_370, MainMenuAnim_50B, MainMenuScreen_911, MainMenuScreen_999, MainMenuScreen_A17, MainMenuScreen_A23, MainMenuScreen_A2F, MainMenuScreen_A3B
@@ -2764,13 +2764,13 @@ WritePhonebookFile:
         lea eax, [byte ebp-034h]
         mov dword [byte ebp-04h], 0
         call MakeDataPath
-        mov edx, unk_165320
+        mov edx, str_Rb_WritePhonebookFile
         lea eax, [byte ebp-034h]
         call fopen_
         mov ecx, eax
         test eax, eax
         jne short .3
-        mov edx, unk_165323
+        mov edx, str_Wb
         lea eax, [byte ebp-034h]
         call fopen_
         mov ecx, eax
@@ -2791,7 +2791,7 @@ WritePhonebookFile:
         cmp ebx, byte 4
         jb short .1
         mov eax, ecx
-        mov edx, unk_165320
+        mov edx, str_Rb_WritePhonebookFile
         call fclose_
         lea eax, [byte ebp-034h]
         call fopen_
@@ -2819,7 +2819,7 @@ OpenPhonebookFile:
         mov edx, 64h
         lea eax, [byte ebp-030h]
         call MakeDataPath
-        mov edx, unk_165323
+        mov edx, str_Wb
         lea eax, [byte ebp-030h]
         call fopen_
         mov ecx, eax

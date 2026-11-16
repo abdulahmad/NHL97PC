@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_2DE3C progbits alloc exec nowrite align=1
 extern SortCords, __CHP, awtmstruct, byte_19CB7E, byte_19CBC2, byte_19CBC8, byte_19EB54, byte_19EB55
-extern byte_19EB56, byte_19EB57, byte_19EC60, byte_19EC61, byte_19EC62, byte_19EC63, dword_1608AF, dword_1608B3
+extern byte_19EB56, byte_19EB57, byte_19EC60, byte_19EC61, byte_19EC62, byte_19EC63, F32_40_ChkTiredPlayer, F32_0p01
 extern dword_19CB32, dword_19CB48, dword_19EB58, dword_19EC64, dword_1AC944, hmtmstruct, off_19C5F4, randomd0
 extern setpersonel, RemoveOverlayPanel, QueueOverlayPanel, CPgoalie, CommentaryEvent, word_19CA90, word_19CA92, word_19CA94
 extern word_19CA96, word_19CB34, word_19CB98, gsp, gameclock, word_19CBBE, word_19CBEC, word_19CBEE
@@ -411,8 +411,8 @@ ChkTiredPlayer:
         mov ebx, dword [byte ebx+eax*2+016h]
         mov eax, dword [dword edx+0EEh]
         fld dword [byte eax+024h]
-        fmul dword [dword_1608AF]
-        fmul dword [dword_1608B3]
+        fmul dword [F32_40_ChkTiredPlayer]
+        fmul dword [F32_0p01]
         call __CHP
         fistp dword [esp]
         mov eax, dword [esp]

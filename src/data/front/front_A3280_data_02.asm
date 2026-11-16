@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_16D25C progbits alloc noexec write align=1
-extern unk_166108, unk_166110, unk_166118
+extern str_OKAYMAN, str_GETBENT, str_IPASS
 global byte_16D27A, byte_16D2A2, dword_16D29E, dword_16D2A8, dword_16D2B8, dword_16D2BC, dword_16D2CC, dword_16D2EC
 global dword_16D30C, dword_16D34C, dword_16D350, dword_16D360, dword_16D400, dword_16D404, unk_16D262, unk_16D26A
 global word_16D25C, word_16D25E, word_16D260, word_16D27E, word_16D28C, word_16D29C, word_16D2A6, word_16D2AC
@@ -45,9 +45,9 @@ dword_16D2B8:
         db 00h,00h,00h,00h
 dword_16D2BC:
         db 00h,00h,00h,00h
-        dd unk_166108
-        dd unk_166110
-        dd unk_166118
+        dd str_OKAYMAN
+        dd str_GETBENT
+        dd str_IPASS
 dword_16D2CC:
         db 00h,00h,00h,00h,02h,00h,00h,00h,04h,00h,00h,00h,06h,00h,00h,00h
         db 07h,00h,00h,00h,05h,00h,00h,00h,03h,00h,00h,00h,01h,00h,00h,00h

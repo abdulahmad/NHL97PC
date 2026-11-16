@@ -9,10 +9,10 @@ global str_Upk, str_Exrec, str_Seasrec, str_Plyrec, str_Urating, str_Uso, str_Uc
 global str_TITL8, str_UL2d, str_UL08, str_UL09, str_UL10, str_UL00, str_UL01, str_UL02
 global str_UL04, str_UL05, str_UL06, str_ULA0, str_ULA1, str_ULA2, str_ULA3, str_ULA4
 global str_ULA5, str_D02d2, str_Logbook, str_Logname, str_Ulstreak, str_Uname, str_Uopp, str_Upts
-global str_Urate, str_Usort, str_Ustreak, str_Uteam, unk_1665C8, unk_1665CB, unk_16661B, unk_166648
-unk_1665C8:
+global str_Urate, str_Usort, str_Ustreak, str_Uteam, str_D_ParseUserName, str_S_DrawUserName, unk_16661B, unk_166648
+str_D_ParseUserName:
         db 025h,064h,00h
-unk_1665CB:
+str_S_DrawUserName:
         db 025h,073h,00h
 str_LX00:
         db 04Ch,058h,030h,030h,00h

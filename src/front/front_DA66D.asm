@@ -14,7 +14,7 @@ extern dword_16D798, dword_16D79C, dword_16D7A0, dword_16D7A4, dword_16D7A8, dwo
 extern dword_16D7F0, dword_16D894, dword_16D898, dword_16D89C, dword_16D8A0, dword_16D8A8, dword_16D8AC, dword_16D8B0
 extern dword_16D8B4, dword_16D8B8, dword_16D8BC, dword_16D8D8, dword_16D8DC, InputRecordTail, InputRecordHead, InputRecordCount
 extern dword_16D918, InputRecordStamp, dword_16D93A, dword_16DA9C, dword_16DAA0, dword_16DAA4, dword_16DAA8, dword_16DAAC
-extern dword_16DAB0, dword_16DAB4, dword_16DAB6, dword_16DABC, dword_16DAC0, dword_16DAC4, dword_16DAC8, dword_16DACA
+extern dword_16DAB0, dword_16DAB4, dword_16DAB6, dword_16DABC, str_Punct_ModemSettingsScreen, dword_16DAC4, dword_16DAC8, dword_16DACA
 extern dword_16DAD2, dword_16E124, dword_16E128, dword_16E12A, dword_16E130, dword_16E134, dword_16E138, dword_16E13C
 extern dword_16E140, dword_16E144, mousex, mousey, dword_16E464, dword_16E468, dword_16E46C, dword_1721A8
 extern dword_1AC814, dword_1C5DE4, dword_1CD158, dword_1CD15C, dword_1CD160, dword_1CD17C, dword_1CD180, dword_1CD184
@@ -47,10 +47,10 @@ extern CloseDbFile, AddIndexKey, DeleteIndexKey, FindIndexKey, FindLastKey, Find
 extern BuildKeyFromLong, BuildKeyFromString, KeyToLong, BuildSeasonIntro, SetupSeasonIntro, DrawSeasonIntro, RunIdleHandlers, AllocMemBlock
 extern AllocMemData, FreeMemBlock, ZeroMem, KbdGetKey, addtimer, RemoveTimerCallback, WaitTicks, MakeColor
 extern FreeBitmap, DrawShapeAtOwnPos, DrawArt, CreateBitmap, SetDrawTarget, FillRectColor, FillRect, MeasureText
-extern DrawTextAt, FillRectCorners, tickcount, unk_167540, unk_16D7F4, unk_16D7FC, unk_16E110, unk_1C5F4A
+extern DrawTextAt, FillRectCorners, tickcount, str_X_WaitForOtherComputer, unk_16D7F4, unk_16D7FC, unk_16E110, unk_1C5F4A
 extern unk_1CD19C, InputRecordRing, unk_1CD2BA, unk_1CD2FC, unk_1CD33E, unk_1CD380, unk_1CD408, unk_1CD480
 extern unk_1CD570, unk_1CD59C, unk_1CD5D8, unk_1CD636, unk_1CD6AC, word_1684BE, word_16D7EC, word_16D7EE
-extern word_16D80C, word_16D80E, word_16D85E, word_16D860, word_16D8A4, SlotWords, word_16D920, word_16D922
+extern str_Punct_SetMatchupTeams, word_16D80E, str_Punct_DaysToYear, word_16D860, word_16D8A4, SlotWords, word_16D920, str_Punct_ReadJoystickPads
 extern word_16D924, word_16D926, word_16D928, word_16D92A, word_16D92C, word_16DAB8, word_16DACC, word_16DACE
 extern word_16DAD0, word_16E0F8, word_16E0FA, word_16E108, word_16E10A, word_16E10C, word_16E120, word_16E12C
 extern word_16E148, word_16E15E, word_16E16E, word_16E170, word_1CD1C0, word_1CD1CE, word_1CD1D0, HotKeyFlags
@@ -616,7 +616,7 @@ SetMatchupTeams:
         sar ebx, 1
         mov eax, ebx
         shl eax, 2
-        movzx edi, word [dword eax+word_16D80C]
+        movzx edi, word [dword eax+str_Punct_SetMatchupTeams]
         cmp edi, dword [byte edx+04h]
         jne short .2
         mov ax, word [dword eax+word_16D80E]
@@ -1584,7 +1584,7 @@ DaysToYear:
         sub eax, edx
         imul edx, byte 1Ah
         movsx ecx, si
-        add ax, word [dword edx+ecx*2+word_16D85E]
+        add ax, word [dword edx+ecx*2+str_Punct_DaysToYear]
         add eax, ebx
         pop edi
         pop esi
@@ -1637,7 +1637,7 @@ AgeFromBirthDate:
         inc word [ebx]
         jmp short .1
 .2:
-        mov ax, word [dword eax+word_16D85E]
+        mov ax, word [dword eax+str_Punct_DaysToYear]
         sub ecx, eax
         mov word [edi], cx
         leave
@@ -11465,7 +11465,7 @@ ReadJoystickPads:
         jne short .1
         or byte [eax], 10h
 .1:
-        mov di, word [word_16D922]
+        mov di, word [str_Punct_ReadJoystickPads]
         test di, di
         je short .2
         xor ecx, ecx
@@ -14022,7 +14022,7 @@ LinkSendBlock:
         mov eax, dword [tickcount]
         lea ebp, [byte eax+02h]
 .4:
-        mov eax, dword [dword_16DAC0]
+        mov eax, dword [str_Punct_ModemSettingsScreen]
         sub eax, byte 2
         cmp esi, eax
         jle short .5
@@ -14547,7 +14547,7 @@ WaitForOtherComputer:
         mov eax, dword [dword_1CF548]
         sub eax, byte 2
         push eax
-        push unk_167540
+        push str_X_WaitForOtherComputer
         call MeasureText
         add esp, byte 4
         sub eax, byte 2
@@ -14568,7 +14568,7 @@ WaitForOtherComputer:
         mov eax, dword [dword_1CF548]
         sub eax, byte 2
         push eax
-        push unk_167540
+        push str_X_WaitForOtherComputer
         call MeasureText
         add esp, byte 4
         sub eax, byte 2
@@ -14642,7 +14642,7 @@ WaitForOtherComputer:
         mov eax, dword [dword_1CF548]
         sub eax, byte 2
         push eax
-        push unk_167540
+        push str_X_WaitForOtherComputer
         call MeasureText
         add esp, byte 4
         sub eax, byte 2
@@ -14724,7 +14724,7 @@ WaitForOtherComputer:
 .18:
         cmp dword [dword esp+0188h], byte 0Dh
         je short .19
-        push unk_167540
+        push str_X_WaitForOtherComputer
         call MeasureText
         add esp, byte 4
         mov edi, dword [dword esp+0184h]
@@ -14794,7 +14794,7 @@ WaitForOtherComputer:
         mov eax, dword [dword_1CF548]
         sub eax, byte 2
         push eax
-        push unk_167540
+        push str_X_WaitForOtherComputer
         call MeasureText
         add esp, byte 4
         sub eax, byte 2
@@ -15001,7 +15001,7 @@ WaitForOtherComputer:
         mov eax, dword [dword_1CF548]
         sub eax, byte 2
         push eax
-        push unk_167540
+        push str_X_WaitForOtherComputer
         call MeasureText
         add esp, byte 4
         sub eax, byte 2
@@ -15074,7 +15074,7 @@ WaitForOtherComputer:
 .41:
         cmp dword [dword esp+0164h], byte 0Dh
         je short .42
-        push unk_167540
+        push str_X_WaitForOtherComputer
         call MeasureText
         add esp, byte 4
         lea edi, [ebx+eax]
@@ -15135,7 +15135,7 @@ WaitForOtherComputer:
         mov eax, dword [dword_1CF548]
         sub eax, byte 2
         push eax
-        push unk_167540
+        push str_X_WaitForOtherComputer
         call MeasureText
         add esp, byte 4
         sub eax, byte 2
@@ -15410,7 +15410,7 @@ OpenNetSession:
         mov edx, 20h
         mov dword [dword_1CD41C], ecx
         mov word [word_16E0FA], si
-        mov dword [dword_16DAC0], edx
+        mov dword [str_Punct_ModemSettingsScreen], edx
         mov eax, 1
         mov dword [ebx], unk_1CD408
 .11:
@@ -17585,7 +17585,7 @@ JoinNetworkGame:
 .10:
         mov ebx, 0FAh
         xor ecx, ecx
-        mov dword [dword_16DAC0], ebx
+        mov dword [str_Punct_ModemSettingsScreen], ebx
         mov ebx, 1
         mov dword [dword_1CD584], ecx
         mov word [word_16E10C], bx

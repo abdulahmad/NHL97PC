@@ -2,14 +2,14 @@
 bits 32
 %include "hockey.inc"
 section s_19A740 progbits alloc noexec write align=1
-extern unk_1681F0
+extern str_ULTRASND
 global byte_19A748, byte_19A77C, byte_19A780, byte_19A784, byte_19A7B8, byte_19A7C0, byte_19A7C8, byte_19A7D0
 global byte_19A7D8, byte_19A7E0, dword_19A744, dword_19A758, dword_19A75C, dword_19A760, dword_19A764, dword_19A768
 global dword_19A76C, dword_19A770, dword_19A774, dword_19A778, dword_19A788, dword_19A78C, dword_19A790, dword_19A794
 global dword_19A798, dword_19A79C, dword_19A7A0, dword_19A7A4, dword_19A7A8, dword_19A7B0, dword_19A7B4, dword_19A7E4
 global dword_19A7E8, off_19A740, word_19A7AC, word_19A7AE, word_19A7B2, word_19A7B6
 off_19A740:
-        dd unk_1681F0
+        dd str_ULTRASND
 dword_19A744:
         db 00h,00h,00h,00h
 byte_19A748:

@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_12F270 progbits alloc exec nowrite align=1
 extern _Extender, _nmalloc_, byte_19988D, byte_1DE6B8, byte_1DE6B9, byte_1DE6BA, dword_16FECC, dword_1702CC
-extern dword_1706CC, dword_170ACC, dword_1712CC, dword_199888, memset_, strncpy_, StrCopyEnd, NoDbcsTable
+extern dword_1706CC, str_BK, dword_1712CC, dword_199888, memset_, strncpy_, StrCopyEnd, NoDbcsTable
 extern word_1DE780
 global __checkIsDBCS_, __mbsninc_, __mbvtop_, _mbgetcode_, _mbptov_, _mbscat_, _mbscpy_, _mbsdec_
 global _mbsinc_, _mbsnbcnt_, _mbsnbcpy_, _mbsnccnt_, _mbsncpy_, _mbsnextc_, _mbsninc_, _mbvtop_
@@ -45,7 +45,7 @@ SinCosLookup:
         neg edx
         mov dword [ebx], edx
         neg eax
-        mov edx, dword [nosplit eax*4+dword_170ACC]
+        mov edx, dword [nosplit eax*4+str_BK]
         neg edx
         mov dword [ecx], edx
         pop ebx

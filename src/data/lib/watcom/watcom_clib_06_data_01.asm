@@ -3,28 +3,28 @@ bits 32
 %include "hockey.inc"
 section s_167D94 progbits alloc noexec write align=1
 global str_Acos, str_DtoD, str_VESAMEM, str_Rowtbl, str_Tube3, str_Inversetbl, str_CDROMDATA, str_CDROMBUFFER
-global str_VoxPlaybuf, str_INVMATRX, dword_167D99, dword_167D9D, dword_167DC1, dword_167DC5, dword_167E08, dword_167E1C
-global qword_167DA1, qword_167DA9, qword_167DB1, qword_167DB9, qword_167DF0, qword_167DF8, qword_167E00, qword_167E0C
-global qword_167E14, qword_167E20, str_AALIAS, str_ASYNC, str_ASYNCFILE, str_Inversetmp, unk_167DCC
+global str_VoxPlaybuf, str_INVMATRX, F32_1p52588eneg05, F32_65536_ScaleFloatsToInts, F32_0p5_SetProjectionCenter, F32_65536_SetProjectionCenter, F32_2_DrawLimbSegment, F32_2_DrawLimbSegmentFlat
+global F64_1p5259eneg05, F64_0p9_SetFocalLength, F64_1p1_SetFocalLength, F64_0p5_SetProjectionCenter, F64_0p31831_DrawLimbSegment, F64_65536_DrawLimbSegment, F64_0p5_DrawLimbSegment, F64_0p31831_DrawLimbSegmentFlat
+global F64_65536_DrawLimbSegmentFlat, F64_0p5_DrawLimbSegmentFlat, str_AALIAS, str_ASYNC, str_ASYNCFILE, str_Inversetmp, str_Fsh
 str_Acos:
         db 061h,063h,06Fh,073h,00h
-dword_167D99:
+F32_1p52588eneg05:
         db 00h,00h,080h,037h
-dword_167D9D:
+F32_65536_ScaleFloatsToInts:
         db 00h,00h,080h,047h
-qword_167DA1:
+F64_1p5259eneg05:
         db 0Fh,00h,010h,00h,010h,00h,0F0h,03Eh
-qword_167DA9:
+F64_0p9_SetFocalLength:
         db 0CDh,0CCh,0CCh,0CCh,0CCh,0CCh,0ECh,03Fh
-qword_167DB1:
+F64_1p1_SetFocalLength:
         db 09Ah,099h,099h,099h,099h,099h,0F1h,03Fh
-qword_167DB9:
+F64_0p5_SetProjectionCenter:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-dword_167DC1:
+F32_0p5_SetProjectionCenter:
         db 00h,00h,00h,03Fh
-dword_167DC5:
+F32_65536_SetProjectionCenter:
         db 00h,00h,080h,047h,00h,00h,00h
-unk_167DCC:
+str_Fsh:
         db 02Eh,066h,073h,068h,00h,00h,00h,00h
 str_DtoD:
         db 025h,064h,074h,06Fh,025h,064h,00h,00h
@@ -32,21 +32,21 @@ str_VESAMEM:
         db 056h,045h,053h,041h,020h,04Dh,045h,04Dh,00h,00h,00h,00h
 str_Rowtbl:
         db 072h,06Fh,077h,074h,062h,06Ch,00h,00h
-qword_167DF0:
+F64_0p31831_DrawLimbSegment:
         db 0F5h,036h,0BDh,068h,030h,05Fh,0D4h,03Fh
-qword_167DF8:
+F64_65536_DrawLimbSegment:
         db 00h,00h,00h,00h,00h,00h,0F0h,040h
-qword_167E00:
+F64_0p5_DrawLimbSegment:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-dword_167E08:
+F32_2_DrawLimbSegment:
         db 00h,00h,00h,040h
-qword_167E0C:
+F64_0p31831_DrawLimbSegmentFlat:
         db 0F5h,036h,0BDh,068h,030h,05Fh,0D4h,03Fh
-qword_167E14:
+F64_65536_DrawLimbSegmentFlat:
         db 00h,00h,00h,00h,00h,00h,0F0h,040h
-dword_167E1C:
+F32_2_DrawLimbSegmentFlat:
         db 00h,00h,00h,040h
-qword_167E20:
+F64_0p5_DrawLimbSegmentFlat:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
 str_Tube3:
         db 074h,075h,062h,065h,033h,00h,00h,00h

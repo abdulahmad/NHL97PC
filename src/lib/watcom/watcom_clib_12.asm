@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_112B84 progbits alloc exec nowrite align=1
-extern dword_17025C, dword_170260, dword_170264, dword_170268, dword_170274, memcpy_, FillSpanRow, unk_1D8AC8
+extern dword_17025C, str_D_ProjectPointsPersp, dword_170264, dword_170268, dword_170274, memcpy_, FillSpanRow, unk_1D8AC8
 extern unk_1D8CC8, unk_1D8EC8
 global PolySideTest, ClipPolyToNear, DrawRinkPolyList, FillTexturedSpan, ClipTexPolyToNear
 ;-----------------------------------------------------------------------------
@@ -131,7 +131,7 @@ ClipPolyToNear:
         mov eax, dword [byte esi+04h]
         imul dword [dword_170268]
         idiv dword [byte esi+08h]
-        add eax, dword [dword_170260]
+        add eax, dword [str_D_ProjectPointsPersp]
         mov dword [byte edi+04h], eax
         jmp short .4
 .3:
@@ -181,7 +181,7 @@ ClipPolyToNear:
         mov eax, dword [byte esi+04h]
         imul dword [dword_170268]
         idiv dword [byte esi+08h]
-        add eax, dword [dword_170260]
+        add eax, dword [str_D_ProjectPointsPersp]
         mov dword [byte edi+04h], eax
         jmp short .7
 .6:
@@ -346,7 +346,7 @@ FillTexturedSpan:
         mov eax, dword [byte esi+04h]
         imul dword [dword_170268]
         idiv dword [byte esi+08h]
-        add eax, dword [dword_170260]
+        add eax, dword [str_D_ProjectPointsPersp]
         mov dword [byte edi+04h], eax
         jmp short .2
 .1:

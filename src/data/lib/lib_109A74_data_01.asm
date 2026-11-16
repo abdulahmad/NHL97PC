@@ -3,8 +3,8 @@ bits 32
 %include "hockey.inc"
 section s_17015C progbits alloc noexec write align=1
 global byte_170160, byte_170161, dword_17015C, dword_170164, dword_170200, dword_170204, dword_170208, dword_17020C
-global dword_170210, dword_170214, dword_170218, dword_17024C, dword_170250, dword_170254, dword_170258, dword_17025C
-global dword_170260, dword_170264, dword_170268, dword_17026C, dword_170270, dword_170274, unk_17021C, unk_170240
+global dword_170210, dword_170214, str_Punct_SetScreenScale, dword_17024C, str_D_SetCameraAngles, dword_170254, dword_170258, dword_17025C
+global str_D_ProjectPointsPersp, dword_170264, dword_170268, dword_17026C, dword_170270, dword_170274, unk_17021C, unk_170240
 global word_170162
 dword_17015C:
         db 00h,00h,00h,00h
@@ -37,7 +37,7 @@ dword_170210:
         db 0FFh,0FFh,0FFh,0FFh
 dword_170214:
         db 0FFh,0FFh,0FFh,0FFh
-dword_170218:
+str_Punct_SetScreenScale:
         db 0Ah,00h,00h,00h
 unk_17021C:
         db 00h,00h,01h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -47,7 +47,7 @@ unk_170240:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 dword_17024C:
         db 0A0h,00h,00h,00h
-dword_170250:
+str_D_SetCameraAngles:
         db 064h,00h,00h,00h
 dword_170254:
         db 00h,00h,00h,00h
@@ -55,7 +55,7 @@ dword_170258:
         db 00h,00h,00h,00h
 dword_17025C:
         db 0A0h,00h,00h,00h
-dword_170260:
+str_D_ProjectPointsPersp:
         db 064h,00h,00h,00h
 dword_170264:
         db 00h,00h,00h,00h

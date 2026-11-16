@@ -13,7 +13,7 @@ extern str_Standmenu, str_FACT, str_LBL1LBL2LBL3LBR1LBR2LTL1L3, str_DDD3, str_Pt
 extern str_SSDSS, str_SSDSS2, str_SSD02dSS, str_S3, str_S4, str_SSEASDSET, str_Importagents, str_FakeEXHIBIT
 extern str_FakeAGENTS, str_Agents, byte_169038, byte_16CCF0, byte_1ACD2D, byte_1ACF62, byte_1ACF63, byte_1ACF69
 extern byte_1AD23E, byte_1C6040, byte_1C8700, dword_168E80, dword_168F58, dword_168FB8, dword_168FD0, dword_169004
-extern dword_16CB7C, dword_16CD50, dword_16CD54, dword_16CD58, dword_16CD60, dword_16CD64, dword_16CDD0, dword_16DA9C
+extern dword_16CB7C, dword_16CD50, dword_16CD54, dword_16CD58, str_F_NewSeasonScreen, dword_16CD64, dword_16CDD0, dword_16DA9C
 extern dword_1AC940, dword_1AC944, dword_1ACF3A, dword_1ACF3E, dword_1ACF42, dword_1ACF46, dword_1ACF4A, dword_1AD226
 extern dword_1AD22A, dword_1AD244, dword_1C1334, dword_1C5DE0, dword_1C8334, dword_1C84D8, dword_1C8540, dword_1C8568
 extern dword_1C85D0, dword_1C8618, dword_1C8680, dword_1C86E8, dword_1C86EC, dword_1C86F0, dword_1C86F4, dword_1C86F8
@@ -31,8 +31,8 @@ extern FindTeamRecord, AddTradeRecord, FindPlayerRecord, MakeLeagueKeyBase, Crea
 extern FindGameRecord, UpdateGameRecord, MakeGoalieStatKey, AddPlayerStat, AddPlayerStatAt, FindPlayerStat, MakeStandingsKey, FindTeamStat
 extern LoadExhibitionFile, SaveExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, ImportTradedPlayers, ImportNewPlayers, AllocImportBuffer, FindReplayIndexEntry
 extern AllocClearBlock, ClearLinkAbort, LinkSendBlock, LinkReceiveBlock, SeasonIntroScreen, AllStarScreen, AllocMemBlock, FreeMemBlock
-extern MakeColor, FreeBitmap, DrawShapeCore, DrawShapeAtOwnPos, DrawArt, CreateBitmap, SetDrawTarget, unk_165779
-extern unk_1657CD, unk_1657CF, unk_16D7F4, unk_16D7FC, unk_1ACB44, unk_1ACD2B, unk_1ACF12, unk_1ACF4E
+extern MakeColor, FreeBitmap, DrawShapeCore, DrawShapeAtOwnPos, DrawArt, CreateBitmap, SetDrawTarget, str_Punct_SeasonMenuScreen
+extern str_Punct_StandingsScreen, str_D_StandingsScreen, unk_16D7F4, unk_16D7FC, unk_1ACB44, unk_1ACD2B, unk_1ACF12, unk_1ACF4E
 extern unk_1AD22E, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C85DC, unk_1C85E8, unk_1C85F4, unk_1C8600
 extern unk_1C860C, word_1AD240, word_1AD242
 global jpt_912BF, RunNewSeason_DD, RunNewSeason_E6, RunNewSeason_EF, RunNewSeason_F8, RunNewSeason_16F, RunNewSeason_17B, RunNewSeason_187
@@ -507,7 +507,7 @@ NewSeasonScreen:
         add esp, byte 4
         sub eax, dword [nosplit esi*8+dword_16CD64]
         push eax
-        mov eax, dword [nosplit esi*8+dword_16CD60]
+        mov eax, dword [nosplit esi*8+str_F_NewSeasonScreen]
         neg eax
         push eax
         push dword [byte ebp-08h]
@@ -520,7 +520,7 @@ NewSeasonScreen:
         imul eax, dword [byte ebp-014h], byte 7
         mov ebx, dword [byte ebp-044h]
         mov ecx, dword [byte ebp-08h]
-        push dword [nosplit esi*8+dword_16CD60]
+        push dword [nosplit esi*8+str_F_NewSeasonScreen]
         mov edx, 10h
         push byte 28h
         add eax, dword [byte ebp-018h]
@@ -534,7 +534,7 @@ NewSeasonScreen:
         mov eax, dword [byte ebp-044h]
         push dword [nosplit esi*8+dword_16CD64]
         mov eax, dword [dword eax+ebp-0B4h]
-        push dword [nosplit esi*8+dword_16CD60]
+        push dword [nosplit esi*8+str_F_NewSeasonScreen]
         push dword [byte eax+02Ch]
         inc esi
         call BlitArt
@@ -584,7 +584,7 @@ NewSeasonScreen:
         add esp, byte 4
         sub eax, dword [dword edx+dword_16CD64]
         push eax
-        mov eax, dword [dword edx+dword_16CD60]
+        mov eax, dword [dword edx+str_F_NewSeasonScreen]
         neg eax
         push eax
         push dword [byte ebp-08h]
@@ -597,7 +597,7 @@ NewSeasonScreen:
         add esp, byte 4
         sub eax, dword [dword edx+dword_16CD64]
         push eax
-        mov eax, dword [dword edx+dword_16CD60]
+        mov eax, dword [dword edx+str_F_NewSeasonScreen]
         neg eax
         push eax
         push dword [byte ebp-08h]
@@ -609,7 +609,7 @@ NewSeasonScreen:
         sub eax, dword [byte ebp-0Ch]
         push eax
         mov eax, dword [byte ebp-044h]
-        push dword [dword eax+dword_16CD60]
+        push dword [dword eax+str_F_NewSeasonScreen]
         imul eax, dword [byte ebp-014h], byte 7
         mov edx, dword [byte ebp-018h]
         mov ecx, dword [byte ebp-08h]
@@ -628,7 +628,7 @@ NewSeasonScreen:
         push eax
         mov eax, dword [byte ebp-044h]
         mov ecx, dword [byte ebp-08h]
-        push dword [dword eax+dword_16CD60]
+        push dword [dword eax+str_F_NewSeasonScreen]
         mov edx, 20h
         push byte 28h
         mov eax, dword [byte ebp-038h]
@@ -706,11 +706,11 @@ NewSeasonScreen:
         mov dword [byte edx+014h], eax
         mov ecx, 63h
         mov ebx, dword [nosplit esi*8+dword_16CD64]
-        mov edx, dword [nosplit esi*8+dword_16CD60]
+        mov edx, dword [nosplit esi*8+str_F_NewSeasonScreen]
         call SetRegionRect
         mov eax, dword [dword_1C86F8]
         add eax, dword [byte ebp-044h]
-        mov edx, dword [nosplit esi*8+dword_16CD60]
+        mov edx, dword [nosplit esi*8+str_F_NewSeasonScreen]
         mov dword [byte eax+026h], edx
         mov eax, dword [dword_1C86F8]
         add eax, dword [byte ebp-044h]
@@ -901,7 +901,7 @@ NewSeasonScreen:
         add esp, byte 4
         sub eax, dword [dword edi+dword_16CD64]
         push eax
-        mov eax, dword [dword edi+dword_16CD60]
+        mov eax, dword [dword edi+str_F_NewSeasonScreen]
         neg eax
         push eax
         push dword [byte ebp-08h]
@@ -914,7 +914,7 @@ NewSeasonScreen:
         add esp, byte 4
         sub eax, dword [dword edi+dword_16CD64]
         push eax
-        mov eax, dword [dword edi+dword_16CD60]
+        mov eax, dword [dword edi+str_F_NewSeasonScreen]
         neg eax
         push eax
         push dword [byte ebp-08h]
@@ -927,7 +927,7 @@ NewSeasonScreen:
         add esp, byte 4
         sub eax, dword [dword edi+dword_16CD64]
         push eax
-        mov eax, dword [dword edi+dword_16CD60]
+        mov eax, dword [dword edi+str_F_NewSeasonScreen]
         neg eax
         push eax
         push dword [byte ebp-08h]
@@ -940,7 +940,7 @@ NewSeasonScreen:
         imul eax, dword [byte ebp-014h], byte 7
         mov ebx, dword [byte ebp-010h]
         mov edx, dword [byte ebp-018h]
-        push dword [dword edi+dword_16CD60]
+        push dword [dword edi+str_F_NewSeasonScreen]
         mov ecx, dword [byte ebp-08h]
         push byte 28h
         mov ebx, dword [dword ebx+ebp-0B4h]
@@ -956,7 +956,7 @@ NewSeasonScreen:
         push eax
         mov ebx, dword [byte ebp-010h]
         mov ecx, dword [byte ebp-08h]
-        push dword [dword edi+dword_16CD60]
+        push dword [dword edi+str_F_NewSeasonScreen]
         mov edx, 20h
         push byte 28h
         mov eax, dword [byte ebp-028h]
@@ -970,7 +970,7 @@ NewSeasonScreen:
         push eax
         mov ebx, dword [byte ebp-010h]
         mov ecx, dword [byte ebp-08h]
-        push dword [dword edi+dword_16CD60]
+        push dword [dword edi+str_F_NewSeasonScreen]
         mov edx, 20h
         push byte 28h
         mov eax, dword [byte ebp-028h]
@@ -1005,7 +1005,7 @@ NewSeasonScreen:
         add esp, byte 4
         sub eax, dword [dword edi+dword_16CD64]
         push eax
-        mov eax, dword [dword edi+dword_16CD60]
+        mov eax, dword [dword edi+str_F_NewSeasonScreen]
         neg eax
         push eax
         push dword [byte ebp-08h]
@@ -1017,7 +1017,7 @@ NewSeasonScreen:
         push eax
         mov ebx, dword [byte ebp-010h]
         mov ecx, dword [byte ebp-08h]
-        push dword [dword edi+dword_16CD60]
+        push dword [dword edi+str_F_NewSeasonScreen]
         mov edx, 20h
         push byte 28h
         mov eax, dword [byte ebp-028h]
@@ -2514,7 +2514,7 @@ SeasonMenuScreen:
         mov eax, dword [byte ebp-034h]
         add edx, unk_1ACF4E
         call strcat_
-        mov edx, unk_165779
+        mov edx, str_Punct_SeasonMenuScreen
         mov eax, dword [byte ebp-034h]
         inc ebx
         call strcat_
@@ -3495,7 +3495,7 @@ StandingsScreen:
         add esp, byte 10h
         cmp dword [byte ebp+07Eh], byte 3
         jge short .29
-        push unk_1657CD
+        push str_Punct_StandingsScreen
         push ebx
         push byte 41h
         push byte 0
@@ -3516,7 +3516,7 @@ StandingsScreen_65C:
         movsx eax, word [byte eax+04Eh]
 .31:
         push eax
-        push unk_1657CF
+        push str_D_StandingsScreen
         lea eax, [byte ebp+012h]
         push eax
         call sprintf_

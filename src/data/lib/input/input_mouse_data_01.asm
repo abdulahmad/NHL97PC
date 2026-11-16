@@ -3,14 +3,14 @@ bits 32
 %include "hockey.inc"
 section s_16E604 progbits alloc noexec write align=1
 extern FreeBitmap_30, FillRectColor_48, FillRectColor_5C, FillRectColor_6C, FillRectColor_80, ExitProgram, CopyRowKeyed8, CopyRowKeyed16
-extern CopyRowKeyed24, CopyRowKeyed32, FillRowColor, unk_167D44, unk_167D48, unk_167D4C, unk_167D50, unk_167D54
-extern unk_167D58, unk_167D5C, unk_167D60, unk_167D64, unk_167D68, unk_167D6C, unk_167D70
-global byte_16E638, byte_16E639, byte_16E63A, byte_16E688, byte_16E689, byte_16E6C0, byte_16E6C1, mouseminx
+extern CopyRowKeyed24, CopyRowKeyed32, FillRowColor, str_Jan, str_Feb, str_Mar, str_Apr, str_May
+extern str_Jun, str_Jul, str_Aug, str_Sep, str_Oct, str_Nov, str_Dec
+global byte_16E638, byte_16E639, byte_16E63A, byte_16E688, str_Punct_FreeArtArchive, byte_16E6C0, str_Punct_SetGraphicsMode, mouseminx
 global mouseminy, mousemaxx, mousemaxy, dword_16E614, dword_16E618, dword_16E61C, dword_16E620, dword_16E624
 global dword_16E628, dword_16E630, dword_16E634, dword_16E63C, dword_16E670, dword_16E674, dword_16E676, dword_16E678
 global dword_16E67A, dword_16E67C, dword_16E67E, dword_16E680, dword_16E682, dword_16E684, dword_16E690, dword_16E694
 global dword_16E698, dword_16E69C, dword_16E6A0, dword_16E6A8, dword_16E6AC, dword_16E6B0, dword_16E6B4, dword_16E6B8
-global dword_16E6BC, dword_16E6C8, dword_16E6CC, dword_16E6D0, dword_16E6D4, dword_16E6D8, dword_16E714, dword_16E718
+global dword_16E6BC, dword_16E6C8, dword_16E6CC, dword_16E6D0, dword_16E6D4, dword_16E6D8, dword_16E714, str_F_BlitCore
 global dword_16E870, dword_16F140, dword_16F144, dword_16F148, dword_16F14C, dword_16F150, dword_16F184, off_16E858
 global off_16E87C, unk_16E8A0, unk_16F110
 mouseminx:
@@ -45,18 +45,18 @@ byte_16E63A:
         db 08h,00h
 dword_16E63C:
         db 00h,00h,00h,00h
-        dd unk_167D44
-        dd unk_167D48
-        dd unk_167D4C
-        dd unk_167D50
-        dd unk_167D54
-        dd unk_167D58
-        dd unk_167D5C
-        dd unk_167D60
-        dd unk_167D64
-        dd unk_167D68
-        dd unk_167D6C
-        dd unk_167D70
+        dd str_Jan
+        dd str_Feb
+        dd str_Mar
+        dd str_Apr
+        dd str_May
+        dd str_Jun
+        dd str_Jul
+        dd str_Aug
+        dd str_Sep
+        dd str_Oct
+        dd str_Nov
+        dd str_Dec
 dword_16E670:
         db 080h,02h,00h,00h
 dword_16E674:
@@ -79,7 +79,7 @@ dword_16E684:
         db 0E0h,01h,00h,00h
 byte_16E688:
         db 08h
-byte_16E689:
+str_Punct_FreeArtArchive:
         db 07Bh,00h,00h,00h,00h,00h,00h
 dword_16E690:
         db 080h,02h,00h,00h
@@ -105,7 +105,7 @@ dword_16E6BC:
         db 0E0h,01h,00h,00h
 byte_16E6C0:
         db 08h
-byte_16E6C1:
+str_Punct_SetGraphicsMode:
         db 07Bh,00h,00h,00h,00h,00h,00h
 dword_16E6C8:
         db 080h,02h,00h,00h
@@ -122,7 +122,7 @@ dword_16E6D8:
         db 00h,00h,00h,00h,00h,00h,0Ah,00h,00h,00h,00h,00h
 dword_16E714:
         db 00h,00h,00h,00h
-dword_16E718:
+str_F_BlitCore:
         db 066h,00h,00h,00h,0CCh,00h,00h,00h,033h,01h,00h,00h,099h,01h,00h,00h
         db 00h,02h,00h,00h,00h,04h,00h,00h,00h,04h,00h,00h,00h,04h,00h,00h
         db 00h,04h,00h,00h,00h,04h,00h,00h,00h,04h,00h,00h,00h,04h,00h,00h

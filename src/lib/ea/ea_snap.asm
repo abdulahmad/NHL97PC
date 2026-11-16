@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_121B00 progbits alloc exec nowrite align=1
 extern _Extender, __8087, __hook387, __real87, byte_1725A4, dword_170704, dword_172524, dword_172564
-extern jpt_132AF0_100, jpt_132AF0_170, word_170708, word_17070A, word_172568, word_17256A
+extern jpt_132AF0_100, jpt_132AF0_170, str_Punct_InitFpuFlags, word_17070A, word_172568, word_17256A
 global InitFpuFlags, MakeFpuGate, HookCoprocessorVector, SetSystemFpuFlag
 ;-----------------------------------------------------------------------------
 ; InitFpuFlags                                                   121B00  95 PC
@@ -55,7 +55,7 @@ InitFpuFlags:
 .3:
         cmp byte [_Extender], 1
         jne short .4
-        mov dx, word [word_170708]
+        mov dx, word [str_Punct_InitFpuFlags]
         sub eax, eax
         call __hook387
         jmp short .5

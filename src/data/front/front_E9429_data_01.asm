@@ -4,15 +4,15 @@ bits 32
 section s_1677ED progbits alloc noexec write align=1
 global str_AB092, str_POWR3, str_EC002, str_EC012, str_BAK12, str_C, str_D3, str_LB02d7
 global str_AR02d3, str_AllStarPlayerInfo, str_AllStarGoalieInfo, str_WestAllStars, str_EastAllStars, str_AllStarRosters, str_AllStarAirecs, str_AllStarRawPlrs
-global str_AllStarStatrecs, str_MB044, str_FrANKGBarchard, str_100, str_REF, str_Refpack, str_F10, unk_167806
-global unk_167809, unk_167814, unk_1678E0, unk_1678E2, unk_1678E4, unk_1678E6, unk_1678E8, unk_1678EA
-global unk_1678EC, unk_1678EE, unk_1678F0, unk_1678F2, unk_1678F4, unk_1678F6, unk_1678F8, unk_1678FA
-global unk_1678FC, unk_1678FE, unk_167900, unk_167902, unk_167904, unk_167906, unk_167908, unk_16790A
-global unk_16790C, unk_16790E, unk_167910, unk_167912, unk_167914, unk_167916, unk_167918, unk_16791A
-global unk_16791C, unk_16791E, unk_167920, unk_167922, unk_167924, unk_167926, unk_167928, unk_16792A
-global unk_16792C, unk_16792E, unk_167930, unk_167932, unk_167934, unk_167936, unk_167938, unk_16793A
-global unk_16793C, unk_16793E, unk_167940, unk_167943, unk_167946, unk_167949, unk_16794C, unk_16794F
-global unk_167952, unk_167955, unk_167958
+global str_AllStarStatrecs, str_MB044, str_FrANKGBarchard, str_100, str_REF, str_Refpack, str_F10, str_C_DrawAllStarTeam
+global str_D_DrawAllStarTeam, str_S_DrawAllStarList, str_1_GetKeyName, str_2_GetKeyName, str_3_GetKeyName, str_4_GetKeyName, str_5_GetKeyName, str_6_GetKeyName
+global str_7_GetKeyName, str_8_GetKeyName, str_9, str_0_GetKeyName, str_Punct_GetKeyName, unk_1678F6, str_Q, str_W_GetKeyName
+global str_E_GetKeyName, str_R, str_T_GetKeyName, str_Y, str_U, str_I, str_O, str_P_GetKeyName
+global unk_16790C, unk_16790E, str_A, str_S_GetKeyName, str_D_GetKeyName, str_F_GetKeyName, str_G, str_H
+global str_J, str_K, str_L, unk_167922, unk_167924, unk_167926, unk_167928, str_Z
+global str_X_GetKeyName, str_C_GetKeyName, str_V, str_B, str_N_GetKeyName, str_M, unk_167938, unk_16793A
+global unk_16793C, unk_16793E, str_F1, str_F2, str_F3, str_F4, str_F5, str_F6
+global str_F7, str_F8, str_F9
 str_AB092:
         db 041h,042h,030h,039h,00h
 str_POWR3:
@@ -23,15 +23,15 @@ str_EC012:
         db 045h,043h,030h,031h,00h
 str_BAK12:
         db 042h,041h,04Bh,031h,00h
-unk_167806:
+str_C_DrawAllStarTeam:
         db 025h,063h,00h
-unk_167809:
+str_D_DrawAllStarTeam:
         db 025h,064h,00h
 str_C:
         db 025h,063h,02Eh,00h
 str_D3:
         db 025h,064h,02Eh,00h
-unk_167814:
+str_S_DrawAllStarList:
         db 025h,073h,00h
 str_LB02d7:
         db 04Ch,042h,025h,030h,032h,064h,00h
@@ -69,71 +69,71 @@ str_REF:
         db 052h,045h,046h,00h
 str_Refpack:
         db 052h,065h,066h,070h,061h,063h,06Bh,00h
-unk_1678E0:
+str_1_GetKeyName:
         db 031h,00h
-unk_1678E2:
+str_2_GetKeyName:
         db 032h,00h
-unk_1678E4:
+str_3_GetKeyName:
         db 033h,00h
-unk_1678E6:
+str_4_GetKeyName:
         db 034h,00h
-unk_1678E8:
+str_5_GetKeyName:
         db 035h,00h
-unk_1678EA:
+str_6_GetKeyName:
         db 036h,00h
-unk_1678EC:
+str_7_GetKeyName:
         db 037h,00h
-unk_1678EE:
+str_8_GetKeyName:
         db 038h,00h
-unk_1678F0:
+str_9:
         db 039h,00h
-unk_1678F2:
+str_0_GetKeyName:
         db 030h,00h
-unk_1678F4:
+str_Punct_GetKeyName:
         db 02Dh,00h
 unk_1678F6:
         db 03Dh,00h
-unk_1678F8:
+str_Q:
         db 051h,00h
-unk_1678FA:
+str_W_GetKeyName:
         db 057h,00h
-unk_1678FC:
+str_E_GetKeyName:
         db 045h,00h
-unk_1678FE:
+str_R:
         db 052h,00h
-unk_167900:
+str_T_GetKeyName:
         db 054h,00h
-unk_167902:
+str_Y:
         db 059h,00h
-unk_167904:
+str_U:
         db 055h,00h
-unk_167906:
+str_I:
         db 049h,00h
-unk_167908:
+str_O:
         db 04Fh,00h
-unk_16790A:
+str_P_GetKeyName:
         db 050h,00h
 unk_16790C:
         db 05Bh,00h
 unk_16790E:
         db 05Dh,00h
-unk_167910:
+str_A:
         db 041h,00h
-unk_167912:
+str_S_GetKeyName:
         db 053h,00h
-unk_167914:
+str_D_GetKeyName:
         db 044h,00h
-unk_167916:
+str_F_GetKeyName:
         db 046h,00h
-unk_167918:
+str_G:
         db 047h,00h
-unk_16791A:
+str_H:
         db 048h,00h
-unk_16791C:
+str_J:
         db 04Ah,00h
-unk_16791E:
+str_K:
         db 04Bh,00h
-unk_167920:
+str_L:
         db 04Ch,00h
 unk_167922:
         db 03Bh,00h
@@ -143,19 +143,19 @@ unk_167926:
         db 060h,00h
 unk_167928:
         db 05Ch,00h
-unk_16792A:
+str_Z:
         db 05Ah,00h
-unk_16792C:
+str_X_GetKeyName:
         db 058h,00h
-unk_16792E:
+str_C_GetKeyName:
         db 043h,00h
-unk_167930:
+str_V:
         db 056h,00h
-unk_167932:
+str_B:
         db 042h,00h
-unk_167934:
+str_N_GetKeyName:
         db 04Eh,00h
-unk_167936:
+str_M:
         db 04Dh,00h
 unk_167938:
         db 02Ch,00h
@@ -165,23 +165,23 @@ unk_16793C:
         db 02Fh,00h
 unk_16793E:
         db 02Ah,00h
-unk_167940:
+str_F1:
         db 046h,031h,00h
-unk_167943:
+str_F2:
         db 046h,032h,00h
-unk_167946:
+str_F3:
         db 046h,033h,00h
-unk_167949:
+str_F4:
         db 046h,034h,00h
-unk_16794C:
+str_F5:
         db 046h,035h,00h
-unk_16794F:
+str_F6:
         db 046h,036h,00h
-unk_167952:
+str_F7:
         db 046h,037h,00h
-unk_167955:
+str_F8:
         db 046h,038h,00h
-unk_167958:
+str_F9:
         db 046h,039h,00h
 str_F10:
         db 046h,031h,030h,00h

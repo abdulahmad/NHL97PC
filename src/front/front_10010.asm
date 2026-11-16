@@ -10,13 +10,13 @@ extern dword_1684E4, dword_168564, dword_168571, dword_16E344, dword_16E348, dwo
 extern dword_19CB48, penshottimer, dword_19CBE8, dword_19CD54, dword_19CD88, dword_19DA50, dword_19EBB4, dword_19EBB8
 extern dword_19ECC0, dword_19ECC4, dword_1AC814, dword_1AC944, dword_1ACF46, dword_1B1410, dword_1B8FA0, dword_1B9554
 extern dword_1B9558, fclose_, fopen_, fread_, fseek_, ftell_, hmtmstruct, off_168CD8
-extern off_168CE0, off_168CE8, off_168CF0, off_168CFC, off_168D04, qword_160018, qword_160020, rand_
+extern off_168CE0, off_168CE8, off_168CF0, off_168CFC, off_168D04, F64_0p013, F64_0p01, rand_
 extern randomd0, regd1, str_CGRIP, str_GRIP, str_GRIPGLL, strcat_, strcpy_, GetPlayerJerseyNumber
 extern ShowCameraView, ClearOverlayWindows, ResetSceneCamera, assreplace, assinsert, Setplass, FaceoffSpotPosition, asspsclear
 extern ResetCoachModes, UpdateCoachModes, EndPenaltyShot, SetPlayerTarget, PickBenchSeat, ChkMenuMusic, StartMusicTrack, QueueMusicRestart
 extern RequestMusicStop, MusicFileName, StopAllSfx, SetCrowdMood, CommentaryEvent, PaEvent, SetCameraMode, UpdateRinkPalette
 extern RefreshFaceTextures, SetModelSlotValue, SetupPlayerModel, DrawJerseyLettering, LoadGoalieMask, UpdateFaceTextures, ResetAnimTimer, UpdateGameDisplay
-extern InitPlayerAnims, DoGameFrame, LogPeriodEnd, AllocMemBlock, ZeroMem, CalibrateJoystick, ResetJoystickRange, unk_16000C
+extern InitPlayerAnims, DoGameFrame, LogPeriodEnd, AllocMemBlock, ZeroMem, CalibrateJoystick, ResetJoystickRange, str_Rb
 extern unk_168574, unk_168C38, unk_19CCB8, unk_19D5D2, unk_19D668, unk_19D6A0, unk_19DC40, unk_19E060
 extern unk_19E270, unk_1B9520, unk_1C135C, unk_1C347F, word_1684BE, word_1684CA, word_1684E8, word_1684EC
 extern word_1686D8, word_1686DA, word_168D18, word_19CB28, word_19CB2A, word_19CB5C, word_19CB60, word_19CB64
@@ -448,7 +448,7 @@ LoadGripLibrary:
         mov eax, esp
         call strcat_
 .2:
-        mov edx, unk_16000C
+        mov edx, str_Rb
         mov eax, esp
         call fopen_
         mov esi, eax
@@ -2334,7 +2334,7 @@ RefreshPlayerModel:
         mov word [byte esp+04h], 0FFFAh
 .5:
         fild word [byte esp+04h]
-        fmul qword [qword_160018]
+        fmul qword [F64_0p013]
         fld1
         fsubrp
         mov dx, word [word_1686DA]
@@ -2355,7 +2355,7 @@ RefreshPlayerModel:
         mov word [word_1686DA], 0FFCEh
 .7:
         fild word [word_1686DA]
-        fmul qword [qword_160020]
+        fmul qword [F64_0p01]
         fld1
         fsubrp
         fmul dword [esp]

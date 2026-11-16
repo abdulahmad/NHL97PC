@@ -2,44 +2,44 @@
 bits 32
 %include "hockey.inc"
 section s_160000 progbits alloc noexec write align=1
-global str_PATH2, str_JSTICKS, str_RPEVENT2, str_WaitingForOtherComputer2, str_WarteAufAnderenComputer, str_BREAKIN, str_BREAKOUT, dword_160028
-global dword_160044, dword_160048, qword_160018, qword_160020, qword_16002C, qword_160034, qword_16003C, qword_16004C
-global qword_160054, qword_16005C, qword_160064, qword_16006C, qword_160074, unk_160000, unk_16000C, unk_1600A4
+global str_PATH2, str_JSTICKS, str_RPEVENT2, str_WaitingForOtherComputer2, str_WarteAufAnderenComputer, str_BREAKIN, str_BREAKOUT, F32_10
+global F32_neg8, F32_neg8_StickReachZ, F64_0p013, F64_0p01, F64_0p000244141, F64_1p2, F64_neg8, F64_0p5
+global F64_50, F64_0p01_StickReachZ, F64_0p392699, F64_0p159155, F64_65536, unk_160000, str_Rb, unk_1600A4
 unk_160000:
         db 01h,01h,01h,00h
 str_PATH2:
         db 050h,041h,054h,048h,00h,00h,00h,00h
-unk_16000C:
+str_Rb:
         db 072h,062h,00h,00h
 str_JSTICKS:
         db 04Ah,053h,054h,049h,043h,04Bh,053h,00h
-qword_160018:
+F64_0p013:
         db 039h,0B4h,0C8h,076h,0BEh,09Fh,08Ah,03Fh
-qword_160020:
+F64_0p01:
         db 07Bh,014h,0AEh,047h,0E1h,07Ah,084h,03Fh
-dword_160028:
+F32_10:
         db 00h,00h,020h,041h
-qword_16002C:
+F64_0p000244141:
         db 00h,00h,00h,00h,00h,00h,030h,03Fh
-qword_160034:
+F64_1p2:
         db 033h,033h,033h,033h,033h,033h,0F3h,03Fh
-qword_16003C:
+F64_neg8:
         db 00h,00h,00h,00h,00h,00h,020h,0C0h
-dword_160044:
+F32_neg8:
         db 00h,00h,00h,0C1h
-dword_160048:
+F32_neg8_StickReachZ:
         db 00h,00h,00h,0C1h
-qword_16004C:
+F64_0p5:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-qword_160054:
+F64_50:
         db 00h,00h,00h,00h,00h,00h,049h,040h
-qword_16005C:
+F64_0p01_StickReachZ:
         db 07Bh,014h,0AEh,047h,0E1h,07Ah,084h,03Fh
-qword_160064:
+F64_0p392699:
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0D9h,03Fh
-qword_16006C:
+F64_0p159155:
         db 0F5h,036h,0BDh,068h,030h,05Fh,0C4h,03Fh
-qword_160074:
+F64_65536:
         db 00h,00h,00h,00h,00h,00h,0F0h,040h
 str_RPEVENT2:
         db 052h,050h,05Fh,045h,056h,045h,04Eh,054h,00h,00h,00h,00h

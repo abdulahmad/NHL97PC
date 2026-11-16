@@ -12,20 +12,20 @@ extern str_PATH, str_DOS4GWEXE, str_CS3, str_0123456789abcdef, str_Null, str_012
 extern byte_16FA40, byte_17075C, byte_170764, byte_170781, byte_17078E, byte_17079A, byte_17079C, byte_1707B7
 extern byte_1707FC, byte_170800, byte_170804, byte_170810, byte_17086B, byte_1708C6, byte_170921, byte_17097C
 extern byte_171C90, byte_19988D, byte_19C6E4, dword_16E32C, dword_16E330, dword_16E334, dword_16E3F4, dword_16E444
-extern dword_16E448, dword_16E464, dword_16E468, dword_16E46C, dword_16E47C, dword_16E480, dword_16E4B0, dword_16E4C8
+extern dword_16E448, dword_16E464, dword_16E468, dword_16E46C, dword_16E47C, dword_16E480, str_D_UpdateFrameRate, dword_16E4C8
 extern dword_16E628, dword_16E670, dword_16E678, dword_16E67C, dword_16E680, dword_16E684, dword_16E694, dword_16E698
 extern dword_16E69C, dword_16E6A0, dword_16E6A8, dword_16F184, dword_16FA08, dword_17014C, dword_170154, dword_170158
 extern dword_1706F8, dword_170704, dword_17070C, dword_170710, dword_170714, dword_170754, dword_170758, dword_170760
 extern dword_1707E4, dword_1707EA, dword_1707F0, dword_1709D8, dword_1709ED, dword_1709F1, dword_1709F8, dword_170AF8
 extern dword_170AFC, dword_170B00, dword_170B04, dword_170B08, dword_170B0C, dword_170B10, dword_171C88, dword_171C8C
 extern dword_1724C9, dword_17257C, dword_172ABC, dword_199888, dword_1999BC, dword_1999C0, dword_19C690, dword_19C694
-extern dword_19C698, dword_19C69C, dword_19C6A0, dword_19C6A4, dword_19C6A8, dword_19C6AC, dword_19C6B0, dword_19C6B4
-extern dword_19C6B8, dword_19C6BC, dword_19C6C0, dword_1CF260, dword_1CF264, dword_1CF268, dword_1CF528, dword_1D1D10
+extern dword_19C698, dword_19C69C, dword_19C6A0, dword_19C6A4, dword_19C6A8, dword_19C6AC, dword_19C6B0, F32_0p541196
+extern F32_1p30656, F32_0p382683, F32_6p7554e15, dword_1CF260, dword_1CF264, dword_1CF268, dword_1CF528, dword_1D1D10
 extern dword_1D91C8, dword_1D91CC, dword_1D9404, dword_1D940C, dword_1D9410, dword_1D960C, dword_1D9610, dword_1D9810
 extern dword_1D990C, dword_1D9910, dword_1D9B0C, dword_1D9B10, dword_1D9B2C, dword_1D9B30, dword_1DA34C, dword_1DA350
 extern dword_1DA390, dword_1DA4D0, int386_, isatty_, memcpy_, off_1706E0, off_1706E4, off_170B14
 extern off_170B18, off_170B1C, off_171C7C, off_171C80, off_171C84, off_171D10, off_19C6C4, off_19C6E2
-extern off_19C6E3, qword_167EC8, qword_167ED0, qword_167EE0, sprintf_, strcat_, strcpy_, strlen_
+extern off_19C6E3, F64_0p1_ScaleModelVerts, F64_1p25_ScaleModelVerts, F64_0p5_ReadBits, sprintf_, strcat_, strcpy_, strlen_
 extern strncpy_, LoadResourceData, bcopy, AddExitHandler, PresentScreen, ConvertArtPalette, Random32, VesaSetBank
 extern SetGraphicsMode, WritePaletteRegs, FreeRowTable, FillRowTable, BytesPerPixelForDepth, FileExistsPath, UnpackShared, DosOpenFile
 extern DosCloseFile, DosReadFile, DosSeekFile, SetViewScreenOrigin, SetCameraAngles, DrawPolyArray, ResetMemLock, MemLock
@@ -47,7 +47,7 @@ extern unk_1D9F30, unk_1D9F50, unk_1D9F70, unk_1D9F90, unk_1D9FB0, unk_1D9FD0, u
 extern unk_1DA030, unk_1DA050, unk_1DA070, unk_1DA090, unk_1DA0B0, unk_1DA0D0, unk_1DA0F0, unk_1DA110
 extern unk_1DA130, unk_1DA150, unk_1DA170, unk_1DA190, unk_1DA1B0, unk_1DA1D0, unk_1DA1F0, unk_1DA210
 extern unk_1DA230, unk_1DA250, unk_1DA270, unk_1DA290, unk_1DA2B0, unk_1DA2D0, unk_1DA2F0, unk_1DA310
-extern unk_1DA330, unk_1DEC00, vsprintf_, word_170708, word_1707E8, word_1707EE, word_1707F4, word_1707F6
+extern unk_1DA330, unk_1DEC00, vsprintf_, str_Punct_InitFpuFlags, word_1707E8, word_1707EE, word_1707F4, word_1707F6
 extern word_170B24, word_171C56, word_1D91FC
 global __null_int23_exit_, __set_binary_, _dos_getdiskfree_, _exit_, _makepath_, _splitpath_, atoi_, close_
 global copypart_, exit_, getcwd_, jpt_114394, jpt_114B90, jpt_114CB4, PrimRectDebug_30, PrimTriTexCcw_6C
@@ -3848,17 +3848,17 @@ ScaleModelVerts:
 .1:
         mov eax, dword [byte ecx+0Ch]
         fild dword [ebx+eax]
-        fmul qword [qword_167EC8]
+        fmul qword [F64_0p1_ScaleModelVerts]
         fild dword [byte ebx+eax+04h]
-        fmul qword [qword_167EC8]
+        fmul qword [F64_0p1_ScaleModelVerts]
         fild dword [byte ebx+eax+08h]
-        fmul qword [qword_167EC8]
+        fmul qword [F64_0p1_ScaleModelVerts]
         fxch st2
-        fmul qword [qword_167ED0]
+        fmul qword [F64_1p25_ScaleModelVerts]
         fxch
-        fmul qword [qword_167ED0]
+        fmul qword [F64_1p25_ScaleModelVerts]
         fxch st2
-        fmul qword [qword_167ED0]
+        fmul qword [F64_1p25_ScaleModelVerts]
         inc edx
         fxch
         fstp dword [ebx+eax]
@@ -5468,14 +5468,14 @@ ReadBits:
         jl short .1
 .4:
         fld dword [byte esp+08h]
-        fadd qword [qword_167EE0]
+        fadd qword [F64_0p5_ReadBits]
         call __CHP
         fistp dword [byte esp+04h]
         mov edx, dword [byte esp+04h]
         mov word [esi], dx
         fild word [esi]
         fsubr dword [esp]
-        fadd qword [qword_167EE0]
+        fadd qword [F64_0p5_ReadBits]
         call __CHP
         fistp dword [byte esp+04h]
         mov edx, dword [byte esp+04h]
@@ -5645,7 +5645,7 @@ start_74:
         mov ax, gs
         cmp ax, byte 0
         je short .11
-        mov word [word_170708], ax
+        mov word [str_Punct_InitFpuFlags], ax
 .11:
         mov ax, 6
         mov bx, ds
@@ -7381,7 +7381,7 @@ UpdateFrameRate:
         mov edi, dword [dword_16E3F4]
         mov ecx, dword [dword_170B04]
         mov ebp, edi
-        mov eax, dword [dword_16E4B0]
+        mov eax, dword [str_D_UpdateFrameRate]
         sub ebp, ecx
         test eax, eax
         jne short .1
@@ -7394,7 +7394,7 @@ UpdateFrameRate:
         add esp, byte 4
 .1:
         mov esi, dword [dword_170B08]
-        mov eax, dword [dword_16E4B0]
+        mov eax, dword [str_D_UpdateFrameRate]
         mov ebx, dword [dword_170B0C]
         cmp ebp, eax
         jge short .2
@@ -7443,7 +7443,7 @@ UpdateFrameRate:
         mov ecx, dword [byte esp+020h]
         test ecx, ecx
         je short .8
-        mov ebp, dword [dword_16E4B0]
+        mov ebp, dword [str_D_UpdateFrameRate]
         mov eax, ecx
         imul eax, ebp
         mov edx, dword [dword_170B10]
@@ -7704,18 +7704,18 @@ VideoBlockFill:
         fild dword [dword_19C6A0]
         fild dword [dword_19C6A4]
         fld st0
-        fmul dword [dword_19C6B8]
+        fmul dword [F32_1p30656]
         fxch st2
         fadd to st1
-        fmul dword [dword_19C6B4]
+        fmul dword [F32_0p541196]
         fxch
-        fmul dword [dword_19C6BC]
+        fmul dword [F32_0p382683]
         imul dword [dword_19C6B0]
         fadd to st1
         fsubp st2
-        fadd dword [dword_19C6C0]
+        fadd dword [F32_6p7554e15]
         fxch
-        fadd dword [dword_19C6C0]
+        fadd dword [F32_6p7554e15]
         mov eax, dword [byte esi+08h]
         mov ebx, dword [byte esi+018h]
         shl edx, 1
@@ -7796,18 +7796,18 @@ VideoBlockDelta:
         fild dword [dword_19C6A0]
         fild dword [dword_19C6A4]
         fld st0
-        fmul dword [dword_19C6B8]
+        fmul dword [F32_1p30656]
         fxch st2
         fadd to st1
-        fmul dword [dword_19C6B4]
+        fmul dword [F32_0p541196]
         fxch
-        fmul dword [dword_19C6BC]
+        fmul dword [F32_0p382683]
         imul dword [dword_19C6B0]
         fadd to st1
         fsubp st2
-        fadd dword [dword_19C6C0]
+        fadd dword [F32_6p7554e15]
         fxch
-        fadd dword [dword_19C6C0]
+        fadd dword [F32_6p7554e15]
         mov eax, dword [byte esi+08h]
         mov ebx, dword [byte esi+018h]
         shl edx, 1
@@ -11275,7 +11275,7 @@ InitPlatform:
         call InitMemoryPoolDefault
         add esp, byte 4
 .2:
-        mov ecx, dword [dword_16E4B0]
+        mov ecx, dword [str_D_UpdateFrameRate]
         push ecx
         call InstallTimer
         mov esi, dword [dword_16E444]

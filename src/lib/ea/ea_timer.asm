@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_FC008 progbits alloc exec nowrite align=1
-extern __STOSD, _dos_getvect_, _dos_setvect_, str_TIMERSTACK, dword_16E3FC, dword_16E402, dword_16E4B0, dword_16E4B4
+extern __STOSD, _dos_getvect_, _dos_setvect_, str_TIMERSTACK, dword_16E3FC, dword_16E402, str_D_UpdateFrameRate, dword_16E4B4
 extern dword_16E4C8, timercallbacks, dword_1CF28C, dword_1CF290, dword_1CF294, AddExitHandler, AllocMemBlock, FreeMemBlock
 extern TimerISR, word_16E406
 global RestoreTimer, RemoveTimerCallback, InstallTimer
@@ -173,7 +173,7 @@ InstallTimer:
         sar edx, 1Fh
         idiv ebx
         xor ebp, ebp
-        mov dword [dword_16E4B0], eax
+        mov dword [str_D_UpdateFrameRate], eax
         mov ebx, eax
         mov eax, 1234DBh
         shl ebx, 10h

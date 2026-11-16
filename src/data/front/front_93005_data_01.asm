@@ -10,7 +10,7 @@ global str_01TR, str_01SD, str_Pan5, str_Pan3, str_01AW, str_03ST, str_02ST, str
 global str_03DE, str_02DE, str_02DE03DE04DE, str_03RU, str_02RU, str_02RU03RU04RU, str_03TR, str_02TR
 global str_02TR03TR04TR, str_03SR, str_02SR, str_02SR03SR04SR, str_03SD, str_02SD, str_02SD03SD04SD, str_03AW
 global str_02AW, str_02AW03AW04AW, str_BG012, str_BG022, str_BG03, str_NHL0, str_SD3, str_LG27
-global str_LG28, str_SSEASDPLY, str_SPLAYDSET, unk_165A5B
+global str_LG28, str_SSEASDPLY, str_SPLAYDSET, str_Punct_PlayoffTreeScreen
 str_LG02d2:
         db 04Ch,047h,025h,030h,032h,064h,00h
 str_SCOFDEOFCHOFGOOFPOOFOVOFS:
@@ -144,7 +144,7 @@ str_LG27:
         db 04Ch,047h,032h,037h,00h
 str_LG28:
         db 04Ch,047h,032h,038h,00h
-unk_165A5B:
+str_Punct_PlayoffTreeScreen:
         db 0Ah,00h
 str_SSEASDPLY:
         db 025h,073h,053h,045h,041h,053h,025h,064h,02Eh,050h,04Ch,059h,00h

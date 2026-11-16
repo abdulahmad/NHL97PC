@@ -7,7 +7,7 @@ global str_MB022, str_MB012, str_MB002, str_LB003, str_LD00, str_LB02d4, str_FNL
 global str_CSV, str_HistoryCsv, str_MNTR2, str_MB042, str_MB02d, str_1TOP5, str_2TOP5, str_3TOP5
 global str_1BOT5, str_2BOT5, str_3BOT5, str_BAK0, str_BAK1, str_BOTM3, str_BACK10, str_TTL12
 global str_BOT1, str_TTL02, str_BAL1, str_ON0D, str_OF0D, str_MB0D, str_MB003, str_MB013
-global str_MB043, str_MB052, str_CENT, str_LFT02, str_LFT2, str_RIT02, str_RIT2, unk_166C97
+global str_MB043, str_MB052, str_CENT, str_LFT02, str_LFT2, str_RIT02, str_RIT2, str_D_OptionsScreen
 str_POPM:
         db 050h,04Fh,050h,04Dh,00h
 str_BACK9:
@@ -102,5 +102,5 @@ str_RIT02:
         db 052h,049h,054h,030h,00h
 str_RIT2:
         db 052h,049h,054h,032h,00h
-unk_166C97:
+str_D_OptionsScreen:
         db 025h,064h,00h,00h,00h

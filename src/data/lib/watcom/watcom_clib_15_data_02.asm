@@ -7,13 +7,13 @@ extern ModemLinkOpen, ModemLinkHangup, ModemLinkCarrier, ModemLinkTxFree, ModemL
 extern NetLinkWrite, NetLinkConnected, NetLinkRxCount, NetLinkTxFree, NetBroadcast, NetHashName, SetPairOneZero, IpxHookCheck
 extern IpxRestoreVector, IpxSetupLayer, IpxShutdown, IpxSocketNumber, IpxStart, IpxStop, IpxBuildHeader, IpxClearName
 extern IpxSameNode, IpxCopyAddress, IpxLookupTarget, IpxLockSend, IpxLockListen, IpxQueueSend, IpxReceive, IpxPeek
-extern unk_167FE8
-global byte_172250, byte_172251, byte_172301, dword_172138, dword_17213C, dword_172168, dword_172194, dword_172198
-global dword_17219C, dword_1721A0, dword_1721A4, dword_1721A8, dword_1721B0, dword_1721B4, dword_1721D4, dword_1721E0
-global dword_1721E4, dword_172244, dword_172248, dword_17224C, dword_172254, dword_172258, dword_17225C, dword_172260
+extern str_IPX
+global byte_172250, byte_172251, byte_172301, str_Punct_CountFrameTick, dword_17213C, dword_172168, dword_172194, dword_172198
+global str_D_NetHandleMessage, dword_1721A0, str_Punct_NetLeaveGame, dword_1721A8, dword_1721B0, dword_1721B4, dword_1721D4, dword_1721E0
+global dword_1721E4, dword_172244, str_Punct_IpxHookCheck, dword_17224C, dword_172254, dword_172258, dword_17225C, dword_172260
 global dword_1722BC, dword_1724C9, off_172140, off_17216C, off_1721B8, unk_172264, unk_17226C, unk_172274
 global unk_1722C0, unk_1722DA, unk_172342, unk_1724C8
-dword_172138:
+str_Punct_CountFrameTick:
         db 03Fh,03Fh,03Fh,00h
 dword_17213C:
         db 00h,00h,00h,00h
@@ -41,11 +41,11 @@ dword_172194:
         db 00h,00h,00h,00h
 dword_172198:
         db 0C2h,01h,00h,00h
-dword_17219C:
+str_D_NetHandleMessage:
         db 064h,00h,00h,00h
 dword_1721A0:
         db 00h,00h,00h,00h
-dword_1721A4:
+str_Punct_NetLeaveGame:
         db 020h,00h,00h,00h
 dword_1721A8:
         db 00h,00h,00h,00h,00h,00h,00h,00h
@@ -66,7 +66,7 @@ dword_1721D4:
 dword_1721E0:
         db 00h,00h,00h,00h
 dword_1721E4:
-        dd unk_167FE8
+        dd str_IPX
         db 0E0h,0C2h,01Eh,012h,09Eh,049h,0CFh,011h,0ADh,01Ch,00h,020h,0AFh,0D3h,0BDh,03Fh
         dd SetPairOneZero
         dd IpxHookCheck
@@ -89,7 +89,7 @@ dword_1721E4:
         dd IpxPeek
 dword_172244:
         db 00h,00h,00h,00h
-dword_172248:
+str_Punct_IpxHookCheck:
         db 060h,00h,00h,00h
 dword_17224C:
         db 00h,00h,00h,00h

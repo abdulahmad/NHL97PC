@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_100700 progbits alloc exec nowrite align=1
-extern __fprem_chk, byte_17268C, dword_16E46C, dword_16F14C, dword_16F150, dword_1702CC, dword_1726A0, dword_1726A4
+extern __fprem_chk, byte_17268C, dword_16E46C, dword_16F14C, dword_16F150, dword_1702CC, dword_1726A0, str_Punct_AngleOfVector
 extern dword_1DA4D0, jpt_1006E0, Div64By32, Shl64
 global IF@DFMOD, AngleOfVector_91, AngleOfVector_93, AngleOfVector_9A, AngleOfVector_A3, AngleOfVector_A7, AngleOfVector_AE, AngleOfVector_B0
 global AngleOfVector_B5, AngleOfVector, SinInterp, CosInterp, GetPaletteRange, SortIndices
@@ -53,7 +53,7 @@ AngleOfVector:
         lea edx, [nosplit eax*4+00h]
         shr esi, 8
         mov eax, dword [dword edx+dword_1726A0]
-        mov edx, dword [dword edx+dword_1726A4]
+        mov edx, dword [dword edx+str_Punct_AngleOfVector]
         and esi, 0FFFFh
         sub edx, eax
         imul edx, esi

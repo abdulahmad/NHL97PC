@@ -9,16 +9,16 @@ extern str_USERCHASE, str_IntroD3cp, str_ArenaViv, str_DDD, awtmstruct, byte_168
 extern byte_16892E, byte_16892F, byte_168930, byte_1689BC, byte_1689C0, byte_1689E4, byte_19CA30, byte_19CA31
 extern byte_19CB7E, byte_19CBC2, byte_19CBC8, byte_19CBCA, byte_19CBCC, byte_19D01C, byte_19DAD5, byte_19DAD6
 extern byte_19DAEF, byte_19EAC6, byte_19EB54, byte_19EB55, byte_19EBD2, byte_19EC60, byte_19EC61, byte_1C135A
-extern byte_1C135B, dword_160150, dword_160154, dword_1602D6, dword_1602DA, dword_1602DE, dword_1602E2, dword_1602EE
-extern dword_1602F2, dword_160306, dword_160312, dword_160316, dword_16031A, dword_16031E, dword_160322, dword_160326
-extern dword_16032A, dword_16032E, dword_160332, dword_160346, dword_16034A, dword_160386, dword_16039A, dword_16039E
-extern dword_1603A2, dword_1603A6, dword_1603AA, dword_1603AE, dword_1603B2, dword_1603B6, dword_1603C2, dword_1603C6
-extern dword_1603CA, dword_1603D6, dword_1603DA, dword_160443, dword_160457, dword_16045B, dword_16045F, dword_160463
-extern dword_160467, dword_1604B2, dword_1604B6, dword_1604BA, dword_1604BE, dword_1604C2, dword_1604C6, dword_1604CA
-extern dword_1604CE, dword_1604D2, dword_1604D6, dword_1604DA, dword_1604DE, dword_1604FF, dword_16050B, dword_16050F
-extern dword_160513, dword_16051F, dword_160533, dword_160537, dword_160563, dword_160567, dword_160574, dword_160578
-extern dword_16057C, dword_160580, dword_160584, dword_1605A0, dword_1605FC, dword_160600, dword_16060C, dword_160610
-extern dword_160614, dword_160618, dword_16061C, dword_160620, dword_16062C, dword_168628, dword_1686BA, dword_1686C0
+extern byte_1C135B, F32_0p5, F32_65536, F32_100, F32_2000, F32_500, F32_neg500, F32_neg1800
+extern F32_neg4000, F32_neg1000, F32_neg500_UpdateCameraView, F32_neg2000, F32_neg0p000147059, F32_0p000232558, F32_0p000357143, F32_neg0p000188679
+extern F32_20, F32_10_UpdateCameraView, F32_neg10, F32_neg1050, F32_neg1000_UpdateCameraZoom, F32_neg4600, F32_neg4100, F32_1340
+extern F32_neg1340, F32_4100, F32_2040, F32_4800, F32_700, F32_neg700, F32_3600, F32_neg3600
+extern F32_400, F32_4000, F32_neg4000_UpdateCameraZoom, F32_neg1, F32_2, F32_20_DrawCameraDebugMarks, F32_neg20, F32_2040_PenaltyCameraDistance
+extern F32_2000_PenaltySceneStep, F32_neg1000_FaceoffCloseupScene, F32_1500, F32_1000, F32_neg1500, F32_neg2000_FaceoffCameraScene2, F32_neg400, F32_neg1000_MenuOrbitScene
+extern F32_neg700_MenuOrbitScene, F32_neg200, F32_neg300, F32_neg750, F32_750, F32_neg2000_ReplayCamDrag, F32_neg4800, F32_neg50
+extern F32_50, F32_0p001, F32_80, F32_6, F32_neg2000_ReplayCamMove, F32_neg4800_ReplayCamMove, F32_4272, F32_1392
+extern F32_neg4272, F32_neg1392, F32_10_CanReachPuck, F32_24, F32_neg3984, F32_neg4272_InCrease, F32_4272_InCrease, F32_1272
+extern F32_4032, F32_768, F32_192, F32_48, F32_0p166667, dword_168628, dword_1686BA, dword_1686C0
 extern dword_1686D2, dword_1686E6, dword_16875E, dword_1687B8, dword_168934, dword_16893C, dword_16AF5C, dword_16B168
 extern dword_16E464, dword_16E468, dword_16E670, dword_19CB48, dword_19CB4C, dword_19CB50, dword_19CB5A, dword_19CB5E
 extern dword_19CB62, dword_19CB66, dword_19CB6A, dword_19CB7B, dword_19CBAA, penshottimer, dword_19CD10, dword_19CD14
@@ -38,16 +38,16 @@ extern dword_1B9063, dword_1B9067, dword_1B906B, dword_1B906F, dword_1B9077, dwo
 extern dword_1B9087, dword_1B908B, dword_1B908F, dword_1B9093, dword_1B9CA4, dword_1B9CAC, dword_1C95B0, dword_1C95B4
 extern dword_1C95BC, dword_1C95C4, dword_1CF538, dword_1CF554, dword_1CF5A4, dword_1CF5B8, dword_1CF5E4, dword_1CF5E8
 extern hmtmstruct, hypot_, DrawGlyph_494, off_168772, off_16877E, off_168CD8, off_168CE0, off_168CE8
-extern off_168CF0, off_168CFC, off_168D04, off_168D08, off_168D0C, qword_1602E6, qword_1602F6, qword_1602FE
-extern qword_16030A, qword_160336, qword_16033E, qword_16034E, qword_160356, qword_16035E, qword_160366, qword_16036E
-extern qword_160376, qword_16037E, qword_16038A, qword_160392, qword_1603BA, qword_1603CE, qword_1603DE, qword_1603E6
-extern qword_1603EE, qword_1603F6, qword_1603FE, qword_160406, qword_16040E, qword_160416, qword_16041E, qword_160447
-extern qword_16044F, qword_16046B, qword_160473, qword_16047B, qword_160483, qword_16048B, qword_160493, qword_1604EF
-extern qword_1604F7, qword_160503, qword_160517, qword_160523, qword_16052B, qword_16053B, qword_160543, qword_16054B
-extern qword_160553, qword_16055B, qword_16056C, qword_160588, qword_160590, qword_160598, qword_1605A4, qword_1605AC
-extern qword_1605B4, qword_1605BC, qword_1605C4, qword_1605CC, qword_1605D4, qword_1605DC, qword_1605E4, qword_1605EC
-extern qword_1605F4, qword_160604, qword_160624, qword_160630, qword_160638, qword_160640, qword_160648, qword_160650
-extern qword_160658, rand_, randomd0, regd1, sprintf_, strcat_, strcpy_, LoadResourceDataShared
+extern off_168CF0, off_168CFC, off_168D04, off_168D08, off_168D0C, F64_0p000333333, F64_1p2_UpdateCameraView, F64_neg0p000454545
+extern F64_neg0p000357143, F64_neg99p9, F64_0p785398, F64_0p0004, F64_3, F64_10, F64_8, F64_neg4
+extern F64_neg0p7536, F64_1371p5, F64_4, F64_0p7536, F64_0p38, F64_2p5, F64_0p45, F64_0p85
+extern F64_neg0p85, F64_6p66667, F64_neg0p5, F64_3p14159, F64_neg6p28319, F64_neg3p14159, F64_6p28319, F64_3p14159_DampCameraMotion
+extern F64_neg3p14159_DampCameraMotion, F64_30, F64_0p01_OpeningCameraStep, F64_3p14159_OpeningCameraStep, F64_neg3p14159_OpeningCameraStep, F64_6p28319_OpeningCameraStep, F64_neg6p28319_OpeningCameraStep, F64_3_ReplayCamDrag
+extern F64_0p714286, F64_0p2, F64_100, F64_1p05, F64_0p1, F64_0p01_ReplayCamTurn, F64_3p14159_ReplayCamTurn, F64_neg3p14159_ReplayCamTurn
+extern F64_6p28319_ReplayCamTurn, F64_neg6p28319_ReplayCamTurn, F64_576, F64_768, F64_0p159155_ChkPokeOrCheck, F64_65536_ChkPokeOrCheck, F64_0p392699_ChkPokeOrCheck, F64_3p14159_GoaliePosTarget
+extern F64_6p28319_GoaliePosTarget, F64_neg6p28319_GoaliePosTarget, F64_neg3p14159_GoaliePosTarget, F64_0p392699_GoaliePosTarget, F64_neg0p392699, F64_0p159155_GoaliePosTarget, F64_65536_GoaliePosTarget, F64_0p25
+extern F64_3p14159_Endfaceoff, F64_288, F64_480, F64_3p14159_CanReceivePass, F64_0p785398_CanReceivePass, F64_0p785398_MakePass, F64_1080, F64_4272
+extern F64_576_RimPuck, rand_, randomd0, regd1, sprintf_, strcat_, strcpy_, LoadResourceDataShared
 extern AngleOfVector, SinInterp, CosInterp, StartCrowdMusic, RestartGameMusic, SpeedScale, GetLowestPen, TeamLineSlots
 extern UpdateCoachModes, ChkShoot, ForceShoot, AddPenalty, AddPenalty2, PenGoalStuff, EndPenaltyShot, FaceDirFromMotion
 extern doplayeracc, ChkOneTimerSpot, ClearLastPasser, OneTimerShot, PickBenchSeat, FaceoffMoveResult, FaceoffSwipeAnim, FaceoffDrawAnim
@@ -61,14 +61,14 @@ extern GetLangText, LogGoal, DrawClockOverlay, NextVideoMode, PrevVideoMode, Fre
 extern FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, DrawShapeScaledBy, FillPolygon, FillRectColor
 extern FillRect, MeasureText, DrawTextAt, SetTextColors, DrawTextBoxedAt, FillRectCorners, MatRotY, MatTranspose
 extern VecMulMat, VecAdd, VecSub, VecDistance, VecLength, VecScale, VecNormalizeTo, ProjectPointInt
-extern tickcount, unk_158E2, unk_15932, unk_15982, unk_159D2, unk_15A22, unk_15A72, unk_160193
-extern unk_1601EF, unk_1601F1, unk_1601F4, unk_1687BC, unk_1687C8, unk_1687D4, unk_1687E0, unk_1687EC
+extern tickcount, unk_158E2, unk_15932, unk_15982, unk_159D2, unk_15A22, unk_15A72, str_S_DrawPenaltyPanel
+extern str_Punct_DrawGoalScorerPanel, unk_1601F1, unk_1601F4, unk_1687BC, unk_1687C8, unk_1687D4, unk_1687E0, unk_1687EC
 extern unk_1687F8, unk_168810, unk_16881C, unk_168828, unk_168834, unk_168840, unk_16884C, unk_168858
 extern unk_168864, unk_168870, unk_16887C, unk_168888, unk_168894, unk_1688A0, unk_1688AC, unk_1688B8
 extern unk_16897C, unk_1689AC, unk_1689FC, unk_168A24, unk_16AF14, unk_16E8A0, unk_16F110, unk_19CF8C
 extern unk_19D028, unk_19D04C, unk_19D05C, unk_19D0A4, unk_19D214, unk_19D298, unk_19D31C, unk_19D328
 extern unk_19E060, unk_1B0AD0, unk_1B0AE8, unk_1B1090, unk_1B9038, unk_1B92AB, vecdist, vtoa
-extern word_1686E4, word_1689BE, word_1689C8, word_1689CA, word_19C628, word_19C62A, word_19CB34, word_19CB36
+extern str_D_ChangeViewSize, word_1689BE, word_1689C8, word_1689CA, word_19C628, word_19C62A, word_19CB34, word_19CB36
 extern word_19CB5C, word_19CB60, word_19CB64, word_19CB68, word_19CB82, word_19CB84, word_19CB86, word_19CB8C
 extern word_19CB8E, word_19CB90, word_19CB92, word_19CB94, word_19CB96, word_19CB98, word_19CB9A, word_19CB9C
 extern word_19CB9E, gameover, word_19CBA2, word_19CBA4, word_19CBA6, word_19CBA8, word_19CBAC, word_19CBAE
@@ -109,7 +109,7 @@ global unk_19188, unk_19194, unk_191A0, unk_191AC
 ;-----------------------------------------------------------------------------
 ; ChangeViewSize                               15AC2  97 PC, medium confidence
 ; (+1 / -1): the game view size in steps of 10 between 28h and 64h percent
-; (word_1686E4), then the view window
+; (str_D_ChangeViewSize), then the view window
 ;-----------------------------------------------------------------------------
 ChangeViewSize:
         push ebx
@@ -120,23 +120,23 @@ ChangeViewSize:
         enter 4, 0
         cmp ax, 1
         jne short .1
-        add word [word_1686E4], byte 0Ah
-        cmp word [word_1686E4], byte 64h
+        add word [str_D_ChangeViewSize], byte 0Ah
+        cmp word [str_D_ChangeViewSize], byte 64h
         jle short .2
-        mov word [word_1686E4], 64h
+        mov word [str_D_ChangeViewSize], 64h
         jmp near PrevVideoModeKey_216
 .1:
         cwde
         cmp eax, byte 0FFFFFFFFh
         jne short .2
-        sub word [word_1686E4], byte 0Ah
-        cmp word [word_1686E4], byte 28h
+        sub word [str_D_ChangeViewSize], byte 0Ah
+        cmp word [str_D_ChangeViewSize], byte 28h
         jge short .2
-        mov word [word_1686E4], 28h
+        mov word [str_D_ChangeViewSize], 28h
         jmp near PrevVideoModeKey_216
 .2:
         mov eax, dword [dword_16E464]
-        movsx ebx, word [word_1686E4]
+        movsx ebx, word [str_D_ChangeViewSize]
         imul eax, ebx
         mov ecx, 64h
         cdq
@@ -269,7 +269,7 @@ PrevVideoModeKey:
 .2:
         mov eax, dword [dword_1A8E80]
         call ShowView
-        movsx ebx, word [word_1686E4]
+        movsx ebx, word [str_D_ChangeViewSize]
         mov eax, dword [dword_16E464]
         imul eax, ebx
         mov ecx, 64h
@@ -424,7 +424,7 @@ NextVideoModeKey:
         mov eax, dword [dword_1A8E80]
         mov dword [dword_19CD30], 0
         call ShowView
-        movsx ebx, word [word_1686E4]
+        movsx ebx, word [str_D_ChangeViewSize]
         mov eax, dword [dword_16E464]
         imul eax, ebx
         mov ecx, 64h
@@ -624,7 +624,7 @@ DrawPanelArtScaled:
         mov ebx, dword [dword_1C95B0]
 .2:
         fld dword [byte ebp+01Ch]
-        fcomp dword [dword_160150]
+        fcomp dword [F32_0p5]
         fnstsw ax
         sahf
         jne short .3
@@ -644,7 +644,7 @@ DrawPanelArtScaled:
         jmp near .4
 .3:
         fld dword [byte ebp+01Ch]
-        fmul dword [dword_160154]
+        fmul dword [F32_65536]
         push byte 20h
         movsx eax, word [byte ebx+06h]
         call __CHP
@@ -1861,7 +1861,7 @@ DrawPenaltyPanel:
         mov eax, dword [nosplit eax*4+dword_16875E]
         call GetLangText
         push eax
-        push unk_160193
+        push str_S_DrawPenaltyPanel
         lea eax, [byte ebp+02Eh]
         push eax
         call sprintf_
@@ -1942,7 +1942,7 @@ DrawPenaltyPanel:
         mov eax, dword [nosplit eax*4+dword_1686D2]
         call GetLangText
         push eax
-        push unk_160193
+        push str_S_DrawPenaltyPanel
         lea eax, [byte ebp-022h]
         push eax
         call sprintf_
@@ -2039,7 +2039,7 @@ DrawPenaltyShotPanel:
         mov eax, 8
         call GetLangText
         push eax
-        push unk_160193
+        push str_S_DrawPenaltyPanel
         lea eax, [byte ebp+07Eh]
         push eax
         call sprintf_
@@ -2157,7 +2157,7 @@ DrawSpecialTeamsPanel:
         mov eax, 34h
         call GetLangText
         push eax
-        push unk_160193
+        push str_S_DrawPenaltyPanel
         lea eax, [byte ebp-022h]
         push eax
         call sprintf_
@@ -2302,7 +2302,7 @@ DrawSpecialTeamsPanel:
         mov eax, 33h
         call GetLangText
         push eax
-        push unk_160193
+        push str_S_DrawPenaltyPanel
         lea eax, [byte ebp-022h]
         push eax
         call sprintf_
@@ -2441,7 +2441,7 @@ DrawInjuryPanel:
         mov eax, 31h
         call GetLangText
         push eax
-        push unk_160193
+        push str_S_DrawPenaltyPanel
         lea eax, [byte ebp-022h]
         push eax
         call sprintf_
@@ -2677,7 +2677,7 @@ DrawGoalScorerPanel:
         lea eax, [byte ebp-026h]
         call strcat_
 .11:
-        mov edx, unk_1601EF
+        mov edx, str_Punct_DrawGoalScorerPanel
         lea eax, [byte ebp+02Ah]
         call strcpy_
         test bx, bx
@@ -4844,7 +4844,7 @@ GetCameraTarget:
         call VecSub
         call VecLength
         fst dword [byte esp+060h]
-        fcomp dword [dword_1602DA]
+        fcomp dword [F32_2000]
         fnstsw ax
         sahf
         jbe short .1
@@ -4852,7 +4852,7 @@ GetCameraTarget:
         jmp short .3
 .1:
         fld dword [byte esp+060h]
-        fcomp dword [dword_1602DE]
+        fcomp dword [F32_500]
         fnstsw ax
         sahf
         jae short .2
@@ -4860,8 +4860,8 @@ GetCameraTarget:
         jmp short .3
 .2:
         fld dword [byte esp+060h]
-        fadd dword [dword_1602E2]
-        fmul qword [qword_1602E6]
+        fadd dword [F32_neg500]
+        fmul qword [F64_0p000333333]
         fld1
         fsubrp
         fstp dword [byte esp+05Ch]
@@ -5051,7 +5051,7 @@ GetCameraTarget:
         movsd
         movsd
         fld dword [dword_19D394]
-        fadd dword [dword_1602D6]
+        fadd dword [F32_100]
         mov eax, dword_19D390
         fstp dword [dword_19D394]
         add esp, byte 68h
@@ -5537,7 +5537,7 @@ UpdateCameraView_461:
         fld dword [dword_1687B8]
         fxch
         fstp dword [dword esp+0160h]
-        fcomp qword [qword_160336]
+        fcomp qword [F64_neg99p9]
         fnstsw ax
         sahf
         jne short .5
@@ -5562,7 +5562,7 @@ UpdateCameraView_461:
         fstp dword [dword esp+0164h]
 .7:
         fld dword [dword esp+0164h]
-        fcomp qword [qword_16033E]
+        fcomp qword [F64_0p785398]
         fnstsw ax
         sahf
         jbe short .8
@@ -5613,11 +5613,11 @@ UpdateCameraView_5F0:
         jge short .10
         fld dword [dword ecx+0ECh]
         lea eax, [dword esp+0C0h]
-        fadd dword [dword_160312]
+        fadd dword [F32_neg500_UpdateCameraView]
         push eax
-        fmul dword [dword_160326]
+        fmul dword [F32_neg0p000188679]
         sub esp, byte 4
-        fadd qword [qword_1602F6]
+        fadd qword [F64_1p2_UpdateCameraView]
         mov eax, esi
         fstp dword [esp]
         call VecScale
@@ -5628,9 +5628,9 @@ UpdateCameraView_5F0:
         jle near .13
         fld dword [dword ecx+0ECh]
         lea eax, [dword esp+0C0h]
-        fadd dword [dword_160316]
+        fadd dword [F32_neg2000]
         push eax
-        fmul dword [dword_160322]
+        fmul dword [F32_0p000357143]
         sub esp, byte 4
         fld1
         fsubrp
@@ -5641,17 +5641,17 @@ UpdateCameraView_5F0:
         jmp near .14
 .11:
         fld dword [dword ecx+0ECh]
-        fcomp dword [dword_160312]
+        fcomp dword [F32_neg500_UpdateCameraView]
         fnstsw ax
         sahf
         jbe short .12
         fld dword [dword ecx+0ECh]
         lea eax, [dword esp+0C0h]
-        fadd dword [dword_160312]
+        fadd dword [F32_neg500_UpdateCameraView]
         push eax
-        fmul dword [dword_16031E]
+        fmul dword [F32_0p000232558]
         sub esp, byte 4
-        fadd qword [qword_1602F6]
+        fadd qword [F64_1p2_UpdateCameraView]
         mov eax, esi
         fstp dword [esp]
         call VecScale
@@ -5659,15 +5659,15 @@ UpdateCameraView_5F0:
         jmp short .14
 .12:
         fld dword [dword ecx+0ECh]
-        fcomp dword [dword_160316]
+        fcomp dword [F32_neg2000]
         fnstsw ax
         sahf
         jae short .13
         fld dword [dword ecx+0ECh]
         lea eax, [dword esp+0C0h]
-        fadd dword [dword_160316]
+        fadd dword [F32_neg2000]
         push eax
-        fmul dword [dword_16031A]
+        fmul dword [F32_neg0p000147059]
         sub esp, byte 4
         fld1
         fsubrp
@@ -5708,7 +5708,7 @@ UpdateCameraView_5F0:
         fstp dword [dword esp+0154h]
 .17:
         fld dword [dword esp+0154h]
-        fcomp dword [dword_16032A]
+        fcomp dword [F32_20]
         fnstsw ax
         sahf
         jbe near UpdateCameraView_8D3
@@ -5718,7 +5718,7 @@ UpdateCameraView_5F0:
         sahf
         jbe short .18
         fld dword [dword ecx+0FCh]
-        fadd dword [dword_160332]
+        fadd dword [F32_neg10]
         fstp dword [dword ecx+0FCh]
         mov esp, ebp
         pop ebp
@@ -5729,7 +5729,7 @@ UpdateCameraView_5F0:
         ret
 .18:
         fld dword [dword ecx+0FCh]
-        fadd dword [dword_16032E]
+        fadd dword [F32_10_UpdateCameraView]
         fstp dword [dword ecx+0FCh]
         mov esp, ebp
         pop ebp
@@ -5740,18 +5740,18 @@ UpdateCameraView_5F0:
         ret
 UpdateCameraView_7F5:
         fld dword [dword ecx+0ECh]
-        fcomp dword [dword_1602EE]
+        fcomp dword [F32_neg1800]
         fnstsw ax
         sahf
         jbe short .19
         cmp dword [dword ecx+0ECh], 447A0000h
         jge short .19
         fld dword [dword ecx+0ECh]
-        fadd dword [dword_160306]
+        fadd dword [F32_neg1000]
         lea eax, [dword esp+0C0h]
-        fmul qword [qword_1602F6]
+        fmul qword [F64_1p2_UpdateCameraView]
         push eax
-        fmul qword [qword_16030A]
+        fmul qword [F64_neg0p000357143]
         sub esp, byte 4
         fld1
         faddp
@@ -5761,21 +5761,21 @@ UpdateCameraView_7F5:
         jmp short .21
 .19:
         fld dword [dword ecx+0ECh]
-        fcomp dword [dword_1602EE]
+        fcomp dword [F32_neg1800]
         fnstsw ax
         sahf
         jae short .20
         fld dword [dword ecx+0ECh]
-        fcomp dword [dword_1602F2]
+        fcomp dword [F32_neg4000]
         fnstsw ax
         sahf
         jbe short .20
-        fld dword [dword_1602F2]
+        fld dword [F32_neg4000]
         fsub dword [dword ecx+0ECh]
         lea eax, [dword esp+0C0h]
-        fmul qword [qword_1602F6]
+        fmul qword [F64_1p2_UpdateCameraView]
         push eax
-        fmul qword [qword_1602FE]
+        fmul qword [F64_neg0p000454545]
         sub esp, byte 4
         fld1
         faddp
@@ -5830,7 +5830,7 @@ UpdateCameraZoom:
         jmp dword [nosplit cs:eax*4+jpt_19F18]
 UpdateCameraZoom_21:
         fld dword [dword esi+0FCh]
-        fcomp dword [dword_160346]
+        fcomp dword [F32_neg1050]
         fnstsw ax
         sahf
         jae short .1
@@ -5843,7 +5843,7 @@ UpdateCameraZoom_21:
         cmp byte [byte_1687B4], 0
         jne near .5
         fld dword [dword esi+0104h]
-        fcomp dword [dword_160386]
+        fcomp dword [F32_neg4600]
         fnstsw ax
         sahf
         jae short .3
@@ -5855,21 +5855,21 @@ UpdateCameraZoom_21:
 .4:
         fld dword [dword esi+0104h]
         fld st0
-        fmul qword [qword_16034E]
+        fmul qword [F64_0p0004]
         fmul st1
-        fld qword [qword_160356]
+        fld qword [F64_3]
         fld st2
         call IF@DPOW
-        fld qword [qword_160366]
-        fld qword [qword_16035E]
+        fld qword [F64_8]
+        fld qword [F64_10]
         call IF@DPOW
-        fdivr qword [qword_16038A]
+        fdivr qword [F64_4]
         fmulp
         faddp
         fxch
-        fmul qword [qword_160392]
+        fmul qword [F64_0p7536]
         faddp
-        fadd qword [qword_16037E]
+        fadd qword [F64_1371p5]
         fstp dword [dword esi+0100h]
         mov esp, ebp
         pop ebp
@@ -5878,7 +5878,7 @@ UpdateCameraZoom_21:
         ret
 .5:
         fld dword [dword esi+0104h]
-        fcomp dword [dword_16034A]
+        fcomp dword [F32_neg1000_UpdateCameraZoom]
         fnstsw ax
         sahf
         jae short .6
@@ -5890,21 +5890,21 @@ UpdateCameraZoom_21:
 .7:
         fld dword [dword esi+0104h]
         fld st0
-        fmul qword [qword_16034E]
+        fmul qword [F64_0p0004]
         fmul st1
-        fld qword [qword_160356]
+        fld qword [F64_3]
         fld st2
         call IF@DPOW
-        fld qword [qword_160366]
-        fld qword [qword_16035E]
+        fld qword [F64_8]
+        fld qword [F64_10]
         call IF@DPOW
-        fdivr qword [qword_16036E]
+        fdivr qword [F64_neg4]
         fmulp
         faddp
         fxch
-        fmul qword [qword_160376]
+        fmul qword [F64_neg0p7536]
         faddp
-        fadd qword [qword_16037E]
+        fadd qword [F64_1371p5]
         fstp dword [dword esi+0100h]
         mov esp, ebp
         pop ebp
@@ -5978,16 +5978,16 @@ UpdateCameraZoom_232:
         fxch
         fstp dword [byte esp+08h]
         fst dword [byte esp+010h]
-        fadd dword [dword_16039A]
+        fadd dword [F32_neg4100]
         fld dword [byte esp+08h]
         fxch
         fstp dword [byte esp+014h]
-        fcomp dword [dword_16039E]
+        fcomp dword [F32_1340]
         fnstsw ax
         sahf
         jae short .13
         fld dword [byte esp+010h]
-        fcomp dword [dword_1603AE]
+        fcomp dword [F32_4800]
         fnstsw ax
         sahf
         jb near .19
@@ -5996,16 +5996,16 @@ UpdateCameraZoom_232:
         jmp short .15
 .13:
         fld dword [byte esp+08h]
-        fadd dword [dword_1603A2]
+        fadd dword [F32_neg1340]
         fld dword [byte esp+010h]
         fxch
         fstp dword [byte esp+018h]
-        fcomp dword [dword_1603A6]
+        fcomp dword [F32_4100]
         fnstsw ax
         sahf
         jae short .14
         fld dword [byte esp+08h]
-        fcomp dword [dword_1603AA]
+        fcomp dword [F32_2040]
         fnstsw ax
         sahf
         jb near .19
@@ -6023,14 +6023,14 @@ UpdateCameraZoom_232:
         fstp dword [byte esp+020h]
 .15:
         fld dword [byte esp+020h]
-        fcomp dword [dword_1603B2]
+        fcomp dword [F32_700]
         fnstsw ax
         sahf
         jbe near .19
         fld dword [byte esp+020h]
-        fadd dword [dword_1603B6]
+        fadd dword [F32_neg700]
         fst dword [byte esp+020h]
-        fmul qword [qword_1603BA]
+        fmul qword [F64_0p38]
         fld dword [byte esp+01Ch]
         fxch
         fadd st1
@@ -6039,13 +6039,13 @@ UpdateCameraZoom_232:
         fstp st2
         fxch
         fstp dword [byte esp+01Ch]
-        fcomp dword [dword_1603C2]
+        fcomp dword [F32_3600]
         fnstsw ax
         sahf
         jbe short .18
         fld dword [byte esp+020h]
-        fadd dword [dword_1603C6]
-        fld dword [dword_1603CA]
+        fadd dword [F32_neg3600]
+        fld dword [F32_400]
         fxch
         fstp dword [byte esp+0Ch]
         fcomp dword [byte esp+0Ch]
@@ -6059,18 +6059,18 @@ UpdateCameraZoom_232:
         mov dword [byte esp+024h], eax
 .17:
         fld dword [byte esp+024h]
-        fmul qword [qword_1603CE]
+        fmul qword [F64_2p5]
         fadd dword [byte esp+01Ch]
         fstp dword [byte esp+01Ch]
 .18:
         fld dword [byte esp+020h]
-        fcomp dword [dword_1603D6]
+        fcomp dword [F32_4000]
         fnstsw ax
         sahf
         jbe short .19
         fld dword [byte esp+020h]
-        fadd dword [dword_1603DA]
-        fmul qword [qword_1603DE]
+        fadd dword [F32_neg4000_UpdateCameraZoom]
+        fmul qword [F64_0p45]
         fadd dword [byte esp+01Ch]
         fstp dword [byte esp+01Ch]
 .19:
@@ -6194,7 +6194,7 @@ UpdateCameraTrack_8E:
         fstp qword [byte esp+034h]
 .2:
         fld qword [byte esp+034h]
-        fcomp qword [qword_1603E6]
+        fcomp qword [F64_0p85]
         fnstsw ax
         sahf
         jbe short .5
@@ -6218,8 +6218,8 @@ UpdateCameraTrack_8E:
         fstp qword [byte esp+03Ch]
 .4:
         fld qword [byte esp+03Ch]
-        fadd qword [qword_1603EE]
-        fmul qword [qword_1603F6]
+        fadd qword [F64_neg0p85]
+        fmul qword [F64_6p66667]
         fmul dword [dword ecx+0134h]
         fadd dword [dword ecx+0130h]
         fstp dword [dword ecx+0100h]
@@ -6316,7 +6316,7 @@ UpdateCameraTrack_22F:
         fld dword [dword ecx+02B4h]
         fld dword [byte esp+050h]
 .10:
-        fadd qword [qword_1603FE]
+        fadd qword [F64_neg0p5]
         fmulp
         fadd dword [dword ecx+02B0h]
         fstp dword [dword ecx+02A0h]
@@ -6349,22 +6349,22 @@ EaseAngle:
         fst qword [byte esp+0Ch]
         fxch
         fstp dword [esp]
-        fcomp qword [qword_160406]
+        fcomp qword [F64_3p14159]
         fnstsw ax
         sahf
         jbe short .1
         fld qword [byte esp+0Ch]
-        fadd qword [qword_16040E]
+        fadd qword [F64_neg6p28319]
         fstp dword [byte esp+014h]
 .1:
         fld dword [byte esp+014h]
         fst qword [byte esp+04h]
-        fcomp qword [qword_160416]
+        fcomp qword [F64_neg3p14159]
         fnstsw ax
         sahf
         jae short .2
         fld qword [byte esp+04h]
-        fadd qword [qword_16041E]
+        fadd qword [F64_6p28319]
         fstp dword [byte esp+014h]
 .2:
         fld dword [byte esp+014h]
@@ -7602,24 +7602,24 @@ DampCameraMotion:
         and esp, byte 0FFFFFFF8h
         mov edx, eax
         fld dword [dword eax+0108h]
-        fmul dword [dword_160443]
+        fmul dword [F32_neg1]
         fld dword [dword eax+0110h]
-        fmul dword [dword_160443]
+        fmul dword [F32_neg1]
         fld dword [dword eax+02B0h]
         fst qword [byte esp+08h]
         fxch st2
         fstp dword [dword eax+0108h]
         fstp dword [dword eax+0110h]
-        fcomp qword [qword_160447]
+        fcomp qword [F64_3p14159_DampCameraMotion]
         fnstsw ax
         sahf
         jbe short .1
         fld qword [byte esp+08h]
-        fadd qword [qword_16044F]
+        fadd qword [F64_neg3p14159_DampCameraMotion]
         jmp short .2
 .1:
         fld qword [byte esp+08h]
-        fadd qword [qword_160447]
+        fadd qword [F64_3p14159_DampCameraMotion]
 .2:
         fstp dword [dword edx+02B0h]
         fld dword [dword edx+0278h]
@@ -7668,7 +7668,7 @@ ToggleCameraFollow:
         jne short .1
         fld dword [dword_19D19C]
         fsub dword [dword_19D190]
-        fmul dword [dword_160457]
+        fmul dword [F32_2]
         fsubr dword [dword_19D19C]
         fstp dword [dword_19D19C]
 .1:
@@ -7739,13 +7739,13 @@ DrawCameraDebugMarks:
         call __CHP
         fistp dword [esp]
         push eax
-        fadd dword [dword_16045B]
+        fadd dword [F32_20_DrawCameraDebugMarks]
         mov ebx, dword [byte esp+04h]
         call __CHP
         fistp dword [byte esp+04h]
         push ebx
         mov ecx, dword [byte esp+08h]
-        fadd dword [dword_16045F]
+        fadd dword [F32_neg20]
         push ecx
         call __CHP
         push ebx
@@ -7765,9 +7765,9 @@ DrawCameraDebugMarks:
         fistp dword [byte esp+04h]
         push eax
         fxch
-        fadd dword [dword_16045B]
+        fadd dword [F32_20_DrawCameraDebugMarks]
         fxch
-        fadd dword [dword_16045F]
+        fadd dword [F32_neg20]
         fxch
         call __CHP
         fistp dword [byte esp+04h]
@@ -7954,7 +7954,7 @@ PenaltyCameraDistance:
         mov dword [byte esp+04h], esi
         jmp short .4
 .1:
-        fld dword [dword_160463]
+        fld dword [F32_2040_PenaltyCameraDistance]
         fild dword [dword_19D07C]
         fsubr dword [byte eax+08h]
         fxch
@@ -8011,7 +8011,7 @@ PenaltySceneStep:
         jmp dword [nosplit cs:eax*4+jpt_1B9C4]
 PenaltySceneStep_1C:
         call PenaltyCameraDistance
-        fcomp dword [dword_160467]
+        fcomp dword [F32_2000_PenaltySceneStep]
         fnstsw ax
         sahf
         ja near PenaltySceneStep_108.1
@@ -8275,8 +8275,8 @@ OpeningCameraStep:
         sub esp, byte 2Ch
         and esp, byte 0FFFFFFF8h
         fild dword [dword_19D08C]
-        fmul qword [qword_16046B]
-        fmul qword [qword_160473]
+        fmul qword [F64_30]
+        fmul qword [F64_0p01_OpeningCameraStep]
         fst dword [byte esp+018h]
         push eax
         fistp dword [esp]
@@ -8334,21 +8334,21 @@ OpeningCameraStep:
         fsub dword [byte edx+010h]
         fst dword [byte esp+028h]
         fst qword [byte esp+020h]
-        fcomp qword [qword_16047B]
+        fcomp qword [F64_3p14159_OpeningCameraStep]
         fnstsw ax
         sahf
         jbe short .2
         fld qword [byte esp+020h]
-        fadd qword [qword_160493]
+        fadd qword [F64_neg6p28319_OpeningCameraStep]
         jmp short .3
 .2:
         fld qword [byte esp+020h]
-        fcomp qword [qword_160483]
+        fcomp qword [F64_neg3p14159_OpeningCameraStep]
         fnstsw ax
         sahf
         jae short .4
         fld qword [byte esp+020h]
-        fadd qword [qword_16048B]
+        fadd qword [F64_6p28319_OpeningCameraStep]
 .3:
         fstp dword [byte esp+028h]
 .4:
@@ -8840,7 +8840,7 @@ FaceoffCloseupScene:
         movsd
         fld dword [dword_19D19C]
         mov esi, 9
-        fcomp dword [dword_1604B2]
+        fcomp dword [F32_neg1000_FaceoffCloseupScene]
         fnstsw ax
         sahf
         jbe near .2
@@ -8870,11 +8870,11 @@ FaceoffCloseupScene:
         mov dword [byte esp+010h], ebx
         mov dword [dword_19D370], ecx
         fxch st2
-        fadd dword [dword_1604B2]
+        fadd dword [F32_neg1000_FaceoffCloseupScene]
         fxch
-        fadd dword [dword_1604BE]
+        fadd dword [F32_neg1500]
         fxch st2
-        fadd dword [dword_1604B2]
+        fadd dword [F32_neg1000_FaceoffCloseupScene]
         fxch st2
         fstp dword [byte esp+08h]
         fxch
@@ -8906,11 +8906,11 @@ FaceoffCloseupScene:
         mov dword [byte esp+0Ch], eax
         mov dword [byte esp+010h], ebp
         fxch st2
-        fadd dword [dword_1604B2]
+        fadd dword [F32_neg1000_FaceoffCloseupScene]
         fxch
-        fadd dword [dword_1604B6]
+        fadd dword [F32_1500]
         fxch st2
-        fadd dword [dword_1604BA]
+        fadd dword [F32_1000]
         fxch st2
         fstp dword [byte esp+08h]
         fxch
@@ -9187,7 +9187,7 @@ FaceoffCameraScene2:
         cmp dword [dword_19D19C], 44FA0000h
         jge short .3
         fld dword [dword_19D19C]
-        fcomp dword [dword_1604C2]
+        fcomp dword [F32_neg2000_FaceoffCameraScene2]
         fnstsw ax
         sahf
         jbe short .3
@@ -9289,7 +9289,7 @@ MenuOrbitStep:
         mov ebx, 4541C000h
         fld dword [dword_19D19C]
         mov dword [byte esp+04h], ebx
-        fcomp dword [dword_1604C6]
+        fcomp dword [F32_neg400]
         fnstsw ax
         sahf
         jae short .1
@@ -9425,9 +9425,9 @@ MenuOrbitScene:
         movsd
         fld dword [dword_19D378]
         fld dword [dword_19D374]
-        fadd dword [dword_1604D2]
+        fadd dword [F32_neg200]
         fxch
-        fadd dword [dword_1604D6]
+        fadd dword [F32_neg300]
         fxch
         fstp dword [dword_19D374]
         mov edx, eax
@@ -9481,9 +9481,9 @@ MenuOrbitScene:
         mov edi, unk_19D04C
         mov dword [dword_19D37C], ebx
         fxch
-        fadd dword [dword_1604CA]
+        fadd dword [F32_neg1000_MenuOrbitScene]
         fxch
-        fadd dword [dword_1604CE]
+        fadd dword [F32_neg700_MenuOrbitScene]
         fxch
         fstp dword [dword_19D374]
         fstp dword [dword_19D378]
@@ -9965,11 +9965,11 @@ PenaltyCallSceneStep:
         sahf
         jbe short .1
         fld dword [byte esp+08h]
-        fadd dword [dword_1604DE]
+        fadd dword [F32_750]
         jmp short .2
 .1:
         fld dword [byte esp+08h]
-        fadd dword [dword_1604DA]
+        fadd dword [F32_neg750]
 .2:
         fstp dword [byte esp+08h]
         mov ebx, 12Ch
@@ -10382,7 +10382,7 @@ ReplayCamDrag:
         fxch
         fcos
         fxch st2
-        fmul qword [qword_1604EF]
+        fmul qword [F64_3_ReplayCamDrag]
         fxch
         fmul st1
         fxch st2
@@ -10395,11 +10395,11 @@ ReplayCamDrag:
         fsubr st3
         fxch st2
         fstp st1
-        fmul qword [qword_1604F7]
+        fmul qword [F64_0p714286]
         fxch
         fstp st2
         fxch
-        fmul qword [qword_1604F7]
+        fmul qword [F64_0p714286]
         xor edi, edi
         fxch
         fstp dword [dword_19D038]
@@ -10418,18 +10418,18 @@ ReplayCamDrag:
         fld dword [dword_19D038]
         mov dword [dword_19D374], eax
         fchs
-        fmul qword [qword_160503]
+        fmul qword [F64_0p2]
         jmp short .2
 .1:
         fld dword [dword_19D374]
-        fcomp dword [dword_1604FF]
+        fcomp dword [F32_neg2000_ReplayCamDrag]
         fnstsw ax
         sahf
         jae short .3
         fld dword [dword_19D038]
         mov esi, 0C4FA0000h
         fchs
-        fmul qword [qword_160503]
+        fmul qword [F64_0p2]
         mov dword [dword_19D374], esi
 .2:
         fstp dword [dword_19D038]
@@ -10439,19 +10439,19 @@ ReplayCamDrag:
         fld dword [dword_19D03C]
         mov esi, 45960000h
         fchs
-        fmul qword [qword_160503]
+        fmul qword [F64_0p2]
         mov dword [dword_19D37C], esi
         jmp short .5
 .4:
         fld dword [dword_19D37C]
-        fcomp dword [dword_16050B]
+        fcomp dword [F32_neg4800]
         fnstsw ax
         sahf
         jae short .6
         fld dword [dword_19D03C]
         mov ecx, 0C5960000h
         fchs
-        fmul qword [qword_160503]
+        fmul qword [F64_0p2]
         mov dword [dword_19D37C], ecx
 .5:
         fstp dword [dword_19D03C]
@@ -10484,7 +10484,7 @@ ReplayCamDrag:
         fld dword [edx]
         fsub dword [dword_19D374]
         fabs
-        fcomp qword [qword_160517]
+        fcomp qword [F64_100]
         fnstsw ax
         sahf
         jbe short .9
@@ -10494,7 +10494,7 @@ ReplayCamDrag:
         fld dword [byte edx+08h]
         fsub dword [dword_19D37C]
         fabs
-        fcomp qword [qword_160517]
+        fcomp qword [F64_100]
         fnstsw ax
         sahf
         jbe short .10
@@ -10531,17 +10531,17 @@ ReplayCamDrag:
         cmp edi, 42480000h
         jle short .12
         fld dword [dword_19D038]
-        fadd dword [dword_16050F]
+        fadd dword [F32_neg50]
         fstp dword [dword_19D038]
         jmp short .14
 .12:
         fld dword [dword_19D038]
-        fcomp dword [dword_16050F]
+        fcomp dword [F32_neg50]
         fnstsw ax
         sahf
         jae short .13
         fld dword [dword_19D038]
-        fadd dword [dword_160513]
+        fadd dword [F32_50]
         fstp dword [dword_19D038]
         jmp short .14
 .13:
@@ -10550,17 +10550,17 @@ ReplayCamDrag:
         cmp dword [dword_19D03C], 42480000h
         jle short .15
         fld dword [dword_19D03C]
-        fadd dword [dword_16050F]
+        fadd dword [F32_neg50]
         fstp dword [dword_19D03C]
         jmp short .17
 .15:
         fld dword [dword_19D03C]
-        fcomp dword [dword_16050F]
+        fcomp dword [F32_neg50]
         fnstsw ax
         sahf
         jae short .16
         fld dword [dword_19D03C]
-        fadd dword [dword_160513]
+        fadd dword [F32_50]
         fstp dword [dword_19D03C]
         mov edi, ebx
         jmp short .19
@@ -10694,13 +10694,13 @@ ReplayCamOrbit:
         mov edx, ecx
         lea eax, [nosplit edx*4+00h]
         fxch
-        fmul dword [dword_16051F]
+        fmul dword [F32_0p001]
         add eax, edx
         add eax, eax
         mov dword [byte esp+044h], eax
         fild dword [byte esp+044h]
         fxch st2
-        fsubr qword [qword_160523]
+        fsubr qword [F64_1p05]
         fxch st2
         fmul st2
         fxch
@@ -10708,7 +10708,7 @@ ReplayCamOrbit:
         fmul dword [byte esp+060h]
         fadd dword [dword_19D038]
         fstp dword [dword_19D038]
-        fcomp qword [qword_16052B]
+        fcomp qword [F64_0p1]
         fnstsw ax
         sahf
         jae short .1
@@ -10728,7 +10728,7 @@ ReplayCamOrbit:
         fstp dword [dword_19D03C]
 .2:
         fld dword [byte esp+060h]
-        fmul dword [dword_160533]
+        fmul dword [F32_80]
         fld dword [dword_19D038]
         fxch
         fstp dword [byte esp+050h]
@@ -10752,7 +10752,7 @@ ReplayCamOrbit:
         mov dword [dword_19D038], eax
 .5:
         fld dword [byte esp+060h]
-        fmul dword [dword_160533]
+        fmul dword [F32_80]
         fld dword [dword_19D03C]
         fxch
         fstp dword [byte esp+054h]
@@ -10776,7 +10776,7 @@ ReplayCamOrbit:
         mov dword [dword_19D03C], eax
 .8:
         fld dword [byte esp+060h]
-        fmul dword [dword_160537]
+        fmul dword [F32_6]
         fld dword [dword_19D038]
         fxch
         fstp dword [byte esp+058h]
@@ -10804,7 +10804,7 @@ ReplayCamOrbit:
         mov dword [dword_19D038], ebx
 .11:
         fld dword [byte esp+060h]
-        fmul dword [dword_160537]
+        fmul dword [F32_6]
         fld dword [dword_19D03C]
         fxch
         fstp dword [byte esp+05Ch]
@@ -10922,25 +10922,25 @@ ReplayCamTurn:
         and esp, byte 0FFFFFFF8h
         mov dword [byte esp+050h], eax
         fild dword [byte esp+050h]
-        fmul qword [qword_16053B]
+        fmul qword [F64_0p01_ReplayCamTurn]
         fsubr dword [dword_19D344]
         fst dword [dword_19D344]
         fst qword [byte esp+048h]
-        fcomp qword [qword_160543]
+        fcomp qword [F64_3p14159_ReplayCamTurn]
         fnstsw ax
         sahf
         jbe short .1
         fld qword [byte esp+048h]
-        fadd qword [qword_16055B]
+        fadd qword [F64_neg6p28319_ReplayCamTurn]
         jmp short .2
 .1:
         fld qword [byte esp+048h]
-        fcomp qword [qword_16054B]
+        fcomp qword [F64_neg3p14159_ReplayCamTurn]
         fnstsw ax
         sahf
         jae short .3
         fld qword [byte esp+048h]
-        fadd qword [qword_160553]
+        fadd qword [F64_6p28319_ReplayCamTurn]
 .2:
         fstp dword [dword_19D344]
 .3:
@@ -11002,7 +11002,7 @@ ReplayCamMove:
         jmp short .2
 .1:
         fld dword [dword_19D374]
-        fcomp dword [dword_160563]
+        fcomp dword [F32_neg2000_ReplayCamMove]
         fnstsw ax
         sahf
         jae short .2
@@ -11014,7 +11014,7 @@ ReplayCamMove:
         jmp short .4
 .3:
         fld dword [dword_19D37C]
-        fcomp dword [dword_160567]
+        fcomp dword [F32_neg4800_ReplayCamMove]
         fnstsw ax
         sahf
         jae short .4
@@ -11208,7 +11208,7 @@ CrowdForPuckZone:
 .5:
         fld dword [byte eax+020h]
         fabs
-        fcomp qword [qword_16056C]
+        fcomp qword [F64_576]
         fnstsw ax
         sahf
         jbe short .6
@@ -11746,12 +11746,12 @@ CanReachPuck:
         fld dword [byte edx+028h]
         fabs
         fst dword [esp]
-        fcomp dword [dword_160574]
+        fcomp dword [F32_4272]
         fnstsw ax
         sahf
         ja short .4
         fld dword [esp]
-        fcomp dword [dword_160578]
+        fcomp dword [F32_1392]
         fnstsw ax
         sahf
         jae short .5
@@ -11798,18 +11798,18 @@ CanReachPuck:
         test dl, 80h
         jne short .9
         fld dword [byte esp+04h]
-        fcomp dword [dword_160574]
+        fcomp dword [F32_4272]
         fnstsw ax
         sahf
         ja short .8
         fld dword [byte esp+04h]
-        fcomp dword [dword_160578]
+        fcomp dword [F32_1392]
         fnstsw ax
         sahf
         jb short .8
         mov eax, dword [off_168CFC]
         fld dword [byte eax+034h]
-        fmul dword [dword_160584]
+        fmul dword [F32_10_CanReachPuck]
         fadd dword [byte eax+028h]
         fcomp dword [byte esp+04h]
         fnstsw ax
@@ -11824,18 +11824,18 @@ CanReachPuck:
         ret
 .9:
         fld dword [byte esp+04h]
-        fcomp dword [dword_16057C]
+        fcomp dword [F32_neg4272]
         fnstsw ax
         sahf
         jb short .10
         fld dword [byte esp+04h]
-        fcomp dword [dword_160580]
+        fcomp dword [F32_neg1392]
         fnstsw ax
         sahf
         ja short .10
         mov eax, dword [off_168CFC]
         fld dword [byte eax+034h]
-        fmul dword [dword_160584]
+        fmul dword [F32_10_CanReachPuck]
         fadd dword [byte eax+028h]
         fcomp dword [byte esp+04h]
         fnstsw ax
@@ -11967,7 +11967,7 @@ CanReachPuck:
         sub esp, byte 8
         fstp qword [esp]
         call hypot_
-        fcomp qword [qword_160588]
+        fcomp qword [F64_768]
         fnstsw ax
         sahf
         jae short .23
@@ -12296,15 +12296,15 @@ ChkPokeOrCheck:
         fld dword [byte ecx+038h]
         fadd dword [byte ebx+038h]
         faddp
-        fadd dword [dword_1605A0]
+        fadd dword [F32_24]
         fcompp
         fnstsw ax
         sahf
         jb near .31
         fld dword [byte ecx+01Ch]
-        fadd qword [qword_1605A4]
-        fmul qword [qword_160590]
-        fmul qword [qword_160598]
+        fadd qword [F64_0p392699_ChkPokeOrCheck]
+        fmul qword [F64_0p159155_ChkPokeOrCheck]
+        fmul qword [F64_65536_ChkPokeOrCheck]
         fld dword [byte ebx+028h]
         fld dword [byte ebx+020h]
         fsub dword [byte ecx+020h]
@@ -13861,36 +13861,36 @@ GoaliePosTarget:
         jne short .18
         fld dword [byte esp+03Ch]
         fld st0
-        fadd qword [qword_1605AC]
+        fadd qword [F64_3p14159_GoaliePosTarget]
         fstp st1
         fstp dword [byte esp+03Ch]
 .18:
-        fld qword [qword_1605B4]
+        fld qword [F64_6p28319_GoaliePosTarget]
         fld dword [byte esp+03Ch]
         call IF@DFMOD
         fst dword [byte esp+03Ch]
         fst qword [byte esp+014h]
-        fcomp qword [qword_1605AC]
+        fcomp qword [F64_3p14159_GoaliePosTarget]
         fnstsw ax
         sahf
         jbe short .19
         fld qword [byte esp+014h]
-        fadd qword [qword_1605BC]
+        fadd qword [F64_neg6p28319_GoaliePosTarget]
         fstp dword [byte esp+03Ch]
 .19:
         fld dword [byte esp+03Ch]
         fst qword [byte esp+01Ch]
-        fcomp qword [qword_1605C4]
+        fcomp qword [F64_neg3p14159_GoaliePosTarget]
         fnstsw ax
         sahf
         jae short .20
         fld qword [byte esp+01Ch]
-        fadd qword [qword_1605B4]
+        fadd qword [F64_6p28319_GoaliePosTarget]
         fstp dword [byte esp+03Ch]
 .20:
         fld dword [byte esp+03Ch]
         fst qword [byte esp+024h]
-        fcomp qword [qword_1605CC]
+        fcomp qword [F64_0p392699_GoaliePosTarget]
         fnstsw ax
         sahf
         jbe short .21
@@ -13898,7 +13898,7 @@ GoaliePosTarget:
         jmp short .22
 .21:
         fld qword [byte esp+024h]
-        fcomp qword [qword_1605D4]
+        fcomp qword [F64_neg0p392699]
         fnstsw ax
         sahf
         jae short .22
@@ -13908,36 +13908,36 @@ GoaliePosTarget:
         jne short .23
         fld dword [byte esp+03Ch]
         fld st0
-        fadd qword [qword_1605AC]
+        fadd qword [F64_3p14159_GoaliePosTarget]
         fstp st1
         fstp dword [byte esp+03Ch]
 .23:
-        fld qword [qword_1605B4]
+        fld qword [F64_6p28319_GoaliePosTarget]
         fld dword [byte esp+03Ch]
         call IF@DFMOD
         fst dword [byte esp+03Ch]
         fst qword [byte esp+02Ch]
-        fcomp qword [qword_1605AC]
+        fcomp qword [F64_3p14159_GoaliePosTarget]
         fnstsw ax
         sahf
         jbe short .24
         fld qword [byte esp+02Ch]
-        fadd qword [qword_1605BC]
+        fadd qword [F64_neg6p28319_GoaliePosTarget]
         fstp dword [byte esp+03Ch]
 .24:
         fld dword [byte esp+03Ch]
         fst qword [byte esp+034h]
-        fcomp qword [qword_1605C4]
+        fcomp qword [F64_neg3p14159_GoaliePosTarget]
         fnstsw ax
         sahf
         jae short .25
         fld qword [byte esp+034h]
-        fadd qword [qword_1605B4]
+        fadd qword [F64_6p28319_GoaliePosTarget]
         fstp dword [byte esp+03Ch]
 .25:
         fld dword [byte esp+03Ch]
-        fmul qword [qword_1605DC]
-        fmul qword [qword_1605E4]
+        fmul qword [F64_0p159155_GoaliePosTarget]
+        fmul qword [F64_65536_GoaliePosTarget]
         call __CHP
         fistp dword [byte esp+0Ch]
         mov eax, dword [byte esp+0Ch]
@@ -14582,8 +14582,8 @@ Endfaceoff:
         jmp short .26
 .25:
         fild word [word_19CB68]
-        fmul qword [qword_1605EC]
-        fmul qword [qword_1605F4]
+        fmul qword [F64_0p25]
+        fmul qword [F64_3p14159_Endfaceoff]
 .26:
         mov eax, dword [off_168CFC]
         fstp dword [byte eax+040h]
@@ -15810,7 +15810,7 @@ InCrease:
         cmp ecx, 45858000h
         jg near .8
 .2:
-        fld dword [dword_16060C]
+        fld dword [F32_4272_InCrease]
         fsub dword [byte esp+08h]
         sub esp, byte 8
         fstp qword [esp]
@@ -15818,14 +15818,14 @@ InCrease:
         sub esp, byte 8
         fstp qword [esp]
         call hypot_
-        fcomp qword [qword_160604]
+        fcomp qword [F64_288]
         fnstsw ax
         sahf
         ja short .3
         mov eax, 1
         jmp near .9
 .3:
-        fld dword [dword_16060C]
+        fld dword [F32_4272_InCrease]
         fsub dword [byte esp+014h]
         sub esp, byte 8
         fstp qword [esp]
@@ -15833,7 +15833,7 @@ InCrease:
         sub esp, byte 8
         fstp qword [esp]
         call hypot_
-        fcomp qword [qword_160604]
+        fcomp qword [F64_288]
         fnstsw ax
         sahf
         ja near .8
@@ -15848,36 +15848,36 @@ InCrease:
         cmp esi, byte 1
         jne near .8
         fld dword [byte esp+08h]
-        fcomp dword [dword_1605FC]
+        fcomp dword [F32_neg3984]
         fnstsw ax
         sahf
         jae short .5
         fld dword [byte esp+08h]
-        fcomp dword [dword_160600]
+        fcomp dword [F32_neg4272_InCrease]
         fnstsw ax
         sahf
         jae short .6
 .5:
         fld dword [byte esp+014h]
-        fcomp dword [dword_1605FC]
+        fcomp dword [F32_neg3984]
         fnstsw ax
         sahf
         jae near .8
         fld dword [byte esp+014h]
-        fcomp dword [dword_160600]
+        fcomp dword [F32_neg4272_InCrease]
         fnstsw ax
         sahf
         jb short .8
 .6:
         fld dword [byte esp+08h]
-        fadd dword [dword_160600]
+        fadd dword [F32_neg4272_InCrease]
         sub esp, byte 8
         fstp qword [esp]
         fld dword [byte esp+08h]
         sub esp, byte 8
         fstp qword [esp]
         call hypot_
-        fcomp qword [qword_160604]
+        fcomp qword [F64_288]
         fnstsw ax
         sahf
         ja short .7
@@ -15890,14 +15890,14 @@ InCrease:
         ret
 .7:
         fld dword [byte esp+014h]
-        fadd dword [dword_160600]
+        fadd dword [F32_neg4272_InCrease]
         sub esp, byte 8
         fstp qword [esp]
         fld dword [byte esp+014h]
         sub esp, byte 8
         fstp qword [esp]
         call hypot_
-        fcomp qword [qword_160604]
+        fcomp qword [F64_288]
         fnstsw ax
         sahf
         ja short .8
@@ -16302,7 +16302,7 @@ KeepInsideRink:
         mov ebp, esp
         sub esp, byte 38h
         mov ebx, eax
-        fld dword [dword_160610]
+        fld dword [F32_1272]
         fsub dword [byte eax+050h]
         mov edx, dword [dword eax+0EEh]
         fld dword [edx]
@@ -16315,7 +16315,7 @@ KeepInsideRink:
         fnstsw ax
         sahf
         jbe near .9
-        fld dword [dword_160614]
+        fld dword [F32_4032]
         fsub dword [byte ebx+050h]
         fld dword [byte edx+04h]
         fabs
@@ -16356,7 +16356,7 @@ KeepInsideRink:
         sub esp, byte 8
         fstp qword [esp]
         call hypot_
-        fld dword [dword_160618]
+        fld dword [F32_768]
         fsub dword [byte ebx+050h]
         fcompp
         fnstsw ax
@@ -16403,7 +16403,7 @@ KeepInsideRink:
         fsincos
         fstp dword [edi]
         fstp dword [esi]
-        fld dword [dword_160618]
+        fld dword [F32_768]
         fsub dword [byte ebx+050h]
         fld st0
         fmul dword [byte ebp-030h]
@@ -16425,7 +16425,7 @@ KeepInsideRink:
         fabs
         fld dword [byte ebp-04h]
         fld dword [byte ebp-08h]
-        fld dword [dword_160618]
+        fld dword [F32_768]
         fsub dword [byte ebx+050h]
         fxch st2
         fadd st2
@@ -17109,7 +17109,7 @@ assextra4:
         mov dword [byte esp+010h], eax
 .10:
         fld dword [byte esp+010h]
-        fcomp dword [dword_16061C]
+        fcomp dword [F32_192]
         fnstsw ax
         sahf
         jae near .21
@@ -17134,7 +17134,7 @@ assextra4:
         mov dword [byte esp+08h], eax
 .12:
         fld dword [byte esp+08h]
-        fcomp dword [dword_16061C]
+        fcomp dword [F32_192]
         fnstsw ax
         sahf
         jae near .21
@@ -18643,7 +18643,7 @@ asstofaceoff:
         mov dword [byte esp+014h], eax
 .8:
         fld dword [byte esp+014h]
-        fcomp dword [dword_160620]
+        fcomp dword [F32_48]
         fnstsw ax
         sahf
         ja short .11
@@ -18668,7 +18668,7 @@ asstofaceoff:
         mov dword [byte esp+08h], eax
 .10:
         fld dword [byte esp+08h]
-        fcomp dword [dword_160620]
+        fcomp dword [F32_48]
         fnstsw ax
         sahf
         ja short .11
@@ -19333,7 +19333,7 @@ assonetimer:
         sub esp, byte 8
         fstp qword [esp]
         call hypot_
-        fcomp qword [qword_160624]
+        fcomp qword [F64_480]
         fnstsw ax
         sahf
         jae short .12
@@ -19620,7 +19620,7 @@ CanReceivePass:
         ret
 .2:
         call SpeedScale
-        fmul dword [dword_16062C]
+        fmul dword [F32_0p166667]
         fcomp dword [byte ebx+038h]
         fnstsw ax
         sahf
@@ -19660,13 +19660,13 @@ CanReceivePass:
 .6:
         fld dword [byte ebx+040h]
         fabs
-        fcomp qword [qword_160638]
+        fcomp qword [F64_0p785398_CanReceivePass]
         fnstsw ax
         sahf
         ja short .7
         fld dword [byte edx+040h]
         fabs
-        fcomp qword [qword_160638]
+        fcomp qword [F64_0p785398_CanReceivePass]
         fnstsw ax
         sahf
         jbe short .12
@@ -19698,16 +19698,16 @@ CanReceivePass:
         ret
 .10:
         fld dword [byte ebx+040h]
-        fsubr qword [qword_160630]
+        fsubr qword [F64_3p14159_CanReceivePass]
         fabs
-        fcomp qword [qword_160638]
+        fcomp qword [F64_0p785398_CanReceivePass]
         fnstsw ax
         sahf
         ja short .11
         fld dword [byte edx+040h]
-        fsubr qword [qword_160630]
+        fsubr qword [F64_3p14159_CanReceivePass]
         fabs
-        fcomp qword [qword_160638]
+        fcomp qword [F64_0p785398_CanReceivePass]
         fnstsw ax
         sahf
         jbe short .12
@@ -19741,7 +19741,7 @@ MakePass:
         mov eax, dword [off_168CFC]
         mov dword [byte eax+038h], 0
         fild word [word_19CB92]
-        fmul qword [qword_160640]
+        fmul qword [F64_0p785398_MakePass]
         mov eax, dword [off_168CFC]
         fstp dword [byte eax+040h]
         test edx, edx
@@ -19887,13 +19887,13 @@ RimPuck:
         je near .14
         fld dword [byte ebx+020h]
         fabs
-        fcomp qword [qword_160658]
+        fcomp qword [F64_576_RimPuck]
         fnstsw ax
         sahf
         jae short .3
         fld dword [byte ebx+028h]
         fabs
-        fcomp qword [qword_160650]
+        fcomp qword [F64_4272]
         fnstsw ax
         sahf
         jbe short .3
@@ -19917,13 +19917,13 @@ RimPuck:
 .3:
         fld dword [byte ebx+020h]
         fabs
-        fcomp qword [qword_160648]
+        fcomp qword [F64_1080]
         fnstsw ax
         sahf
         jbe near .11
         fld dword [byte ebx+028h]
         fabs
-        fcomp qword [qword_160650]
+        fcomp qword [F64_4272]
         fnstsw ax
         sahf
         jbe near .11
@@ -20042,13 +20042,13 @@ RimPuck:
 .24:
         fld dword [byte ebx+020h]
         fabs
-        fcomp qword [qword_160648]
+        fcomp qword [F64_1080]
         fnstsw ax
         sahf
         jbe short .27
         fld dword [byte ebx+028h]
         fabs
-        fcomp qword [qword_160650]
+        fcomp qword [F64_4272]
         fnstsw ax
         sahf
         jbe short .27

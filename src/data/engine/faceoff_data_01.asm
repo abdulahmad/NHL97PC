@@ -2,9 +2,9 @@
 bits 32
 %include "hockey.inc"
 section s_16862E progbits alloc noexec write align=1
-global dword_16862E, dword_168630, dword_1686BA, dword_1686C0, dword_1686C4, dword_1686C8, dword_1686CC, dword_1686D0
+global dword_16862E, dword_168630, dword_1686BA, dword_1686C0, F32_62, F32_54, F32_0p8, dword_1686D0
 global dword_1686D2, dword_1686DC, InGameMenuRequest, dword_1686E2, dword_1686E6, word_1686BC, word_1686D4, word_1686D6
-global word_1686D8, word_1686DA, word_1686E4
+global word_1686D8, word_1686DA, str_D_ChangeViewSize
 dword_16862E:
         db 00h,00h
 dword_168630:
@@ -23,11 +23,11 @@ word_1686BC:
         db 00h,00h,00h,00h
 dword_1686C0:
         db 00h,00h,00h,00h
-dword_1686C4:
+F32_62:
         db 00h,00h,078h,042h
-dword_1686C8:
+F32_54:
         db 00h,00h,058h,042h
-dword_1686CC:
+F32_0p8:
         db 0CDh,0CCh,04Ch,03Fh
 dword_1686D0:
         db 09Ah,099h
@@ -47,7 +47,7 @@ InGameMenuRequest:
         db 00h,00h
 dword_1686E2:
         db 00h,00h
-word_1686E4:
+str_D_ChangeViewSize:
         db 064h,00h
 dword_1686E6:
         db 00h,00h,00h,00h,01h,00h,00h,00h,02h,00h,00h,00h,03h,00h,00h,00h

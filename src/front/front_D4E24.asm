@@ -21,7 +21,7 @@ extern SetNormalText, DrawStatTable, DrawPortrait, ShowPopupScreen, InitMenuItem
 extern FreePtr, CopyBytesOk, CopyAndClear, ZeroBytesOk, CompareKeyBytes, FileCreate, FileOpen, FileSeek
 extern FileReadRecord, FileWriteRecord, FileClose, ServiceIdle, FreeVideoBuffer, AllocGfxFixBuffer, AllocMemBlock, FreeMemBlock
 extern KbdGetKey, KbdIdleCall, OpenResourceArchive, MakeColor, FreeBitmap, DrawShapeCore, DrawShapeAtOwnPos, DrawArt
-extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, tickcount, unk_1673CC, unk_1C5F4A, unk_1CC8B8
+extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, tickcount, str_Rt_CreditsScreen, unk_1C5F4A, unk_1CC8B8
 extern unk_1CCBB8, unk_1CCF4A, unk_1CCF9C, unk_1CCFEE, unk_1CD040, unk_1CD092, unk_1CD138, unk_D4CB0
 global jpt_D5460, GoalieMaskScreen_715, GoalieMaskScreen_72B, GoalieMaskScreen_89F, GoalieMaskScreen_A13, GoalieMaskScreen_B89, GoalieMaskScreen_DBB, GoalieMaskScreen_FF0
 global GoalieMaskIntro, GoalieMaskAnim, GoalieMaskScreen, FadePalette, FadeOut, RunIntroMovie, RunIntro, DrawCreditsPage
@@ -2860,7 +2860,7 @@ CreditsScreen:
         mov dword [dword esp+06B54h], eax
         lea eax, [dword esp+06AA8h]
         call MakeDataPath
-        mov edx, unk_1673CC
+        mov edx, str_Rt_CreditsScreen
         lea eax, [dword esp+06AA8h]
         call fopen_
         mov esi, eax
@@ -2936,7 +2936,7 @@ CreditsScreen:
         call fclose_
         lea eax, [dword esp+06AA8h]
         call MakeDataPath
-        mov edx, unk_1673CC
+        mov edx, str_Rt_CreditsScreen
         lea eax, [dword esp+06AA8h]
         call fopen_
         mov esi, eax
@@ -3225,7 +3225,7 @@ CreditsScreen:
         mov dword [dword esp+06B60h], eax
         lea eax, [dword esp+06AA8h]
         call MakeDataPath
-        mov edx, unk_1673CC
+        mov edx, str_Rt_CreditsScreen
         lea eax, [dword esp+06AA8h]
         call fopen_
         mov dword [dword esp+06B64h], eax

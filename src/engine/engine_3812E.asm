@@ -11,14 +11,14 @@ extern str_TEMP, str_SAUDPBP3TSF, str_KTSF, str_SAUDPBP2VIV, str_CBANK03dDAT, st
 extern byte_16E504, byte_16F794, byte_16FA40, byte_19CBC2, byte_1A0CC2, byte_1A8E89, byte_1A8E8E, byte_1A988C
 extern byte_1A988D, byte_1A988E, byte_1AC638, byte_1AC81A, byte_1AC81B, byte_1ACF62, byte_1ACF63, byte_1AD457
 extern byte_1AD458, byte_1AD742, byte_1B93DD, byte_1B93DE, byte_1BF670, byte_1C135A, byte_1C135B, byte_1C6040
-extern dword_160A64, dword_160A68, dword_160A6C, dword_160A70, dword_160A74, dword_160AC0, dword_160B0C, dword_160B10
-extern dword_160B24, dword_160D17, dword_160D1B, dword_16908A, dword_1690D2, dword_1690EE, dword_16910A, dword_169126
-extern dword_16913A, dword_169150, dword_16916C, dword_169178, dword_169180, dword_169184, dword_16918C, dword_169190
+extern F32_10_RefDodgePuck, F32_3_RefDodgePuck, F32_15, F32_0p0666667, F32_0p5_RefDodgePuck, F32_144_PokeCheckAnim, F32_336, F32_192_TryBodyCheck
+extern F32_144_TryBodyCheck, F32_98, F32_42, dword_16908A, dword_1690D2, dword_1690EE, str_G_DrawLockedGame, dword_169126
+extern str_Punct_DrawLockedGame, str_O_FaceoffStanceMove, str_C_FaceoffSwipeAnim, str_U_FaceoffDrawAnim, dword_169180, dword_169184, dword_16918C, dword_169190
 extern dword_169194, dword_169198, dword_16919C, dword_1691A0, dword_1691A2, dword_1691A8, dword_1691AC, dword_1691B0
 extern dword_1691B8, dword_1691BC, dword_1691C0, dword_1691C4, dword_1691CC, dword_1691D0, dword_1691D4, dword_1691D8
 extern dword_1691FC, dword_169210, dword_169214, dword_169218, dword_16921C, dword_169220, dword_169224, dword_169228
-extern dword_16922C, dword_16922E, dword_169230, dword_169238, dword_16923C, dword_169250, dword_169254, dword_16928C
-extern dword_169290, dword_169294, dword_16AEB4, dword_16B72C, dword_16E308, dword_16E464, dword_16E468, dword_16E46C
+extern dword_16922C, dword_16922E, dword_169230, dword_169238, dword_16923C, dword_169250, dword_169254, F32_9600
+extern F32_768_PositionSfx, dword_169294, dword_16AEB4, dword_16B72C, dword_16E308, dword_16E464, dword_16E468, dword_16E46C
 extern dword_16E500, dword_16E698, dword_16E69C, dword_16E6CC, dword_16F8A8, dword_16FA14, dword_16FFC4, dword_19CB6D
 extern dword_19ED00, dword_19ED10, dword_19ED14, dword_19ED18, dword_19ED1C, dword_19ED20, dword_19ED24, dword_19ED28
 extern dword_19ED2C, dword_19ED30, dword_19ED34, dword_19ED38, dword_19ED3C, dword_19ED40, dword_19ED44, dword_19ED48
@@ -35,10 +35,10 @@ extern dword_1AC7C8, dword_1AC7D2, dword_1AC7D4, dword_1AC7D6, dword_1AC814, dwo
 extern dword_1ACF3E, dword_1ACF46, dword_1ACF65, dword_1AD226, dword_1AD45A, dword_1AD6AB, dword_1B8FA0, dword_1B905F
 extern dword_1B9067, dword_1B906F, dword_1B93D8, dword_1B93DC, dword_1B93E4, dword_1B93E8, dword_1B9D20, dword_1BAB04
 extern dword_1BB258, dword_1BF17C, dword_1C1334, dword_1C5E74, hypot_, jpt_380E6, jpt_38102, jpt_3811A
-extern memcpy_, off_168CF0, off_168CFC, off_1691E4, off_1691F8, qword_160A5C, qword_160A78, qword_160A80
-extern qword_160A88, qword_160A90, qword_160A98, qword_160AA0, qword_160AA8, qword_160AB0, qword_160AB8, qword_160AC4
-extern qword_160ACC, qword_160AD4, qword_160ADC, qword_160AE4, qword_160AEC, qword_160AF4, qword_160AFC, qword_160B04
-extern qword_160B14, qword_160B1C, qword_160B28, qword_160B35, qword_160CF7, qword_160CFF, qword_160D07, qword_160D0F
+extern memcpy_, off_168CF0, off_168CFC, off_1691E4, off_1691F8, F64_neg3p14159_GoToBoxAnim, F64_0p2_RefDodgePuck, F64_6p28319_ReachForPuckAnim
+extern F64_3p14159_ReachForPuckAnim, F64_neg6p28319_ReachForPuckAnim, F64_neg3p14159_ReachForPuckAnim, F64_0p785398_ReachForPuckAnim, F64_0p0001, F64_0p6, F64_96, F64_0p00347222
+extern F64_0p8, F64_1p2_PokeCheckAnim, F64_6p28319_TryBodyCheck, F64_3p14159_TryBodyCheck, F64_neg6p28319_TryBodyCheck, F64_neg3p14159_TryBodyCheck, F64_1p0472, F64_1p5708
+extern F64_0p349066, F64_0p785398_TryBodyCheck, F64_0p7, F64_0p5_SetViewDrawTarget, F64_3p14159_PositionSfx, F64_neg3p14159_PositionSfx, F64_6p28319_PositionSfx, F64_neg6p28319_PositionSfx
 extern randomd0, removewindow, sprintf_, str_CDSTREAM, str_SECCDSTREAM, str_STREAM, strcat_, strcmp_
 extern strcpy_, strncpy_, strstr_, bcopy, BlitArt, BlitShape, PresentScreen, FindShape
 extern FindShapeQuiet, OpenArtArchive, DrawShapeBlended, ConvertArtNew, ResetClipWindow, Random32, SetRemapTable, VesaSetBank
@@ -61,9 +61,9 @@ extern OpenLeagueFile, StartSeasonGame, FindGameRecord, UpdateGameRecord, FileEx
 extern FileWriteRecord, FileClose, ServiceIdle, BuildAllStarTeams, FreeVideoBuffer, AllocGfxFixBuffer, AddIdleHandler, RemoveIdleHandler
 extern AllocMemBlock, FreeMemBlock, MemFreeSize, ZeroMem, FillMem, addtimer, RemoveTimerCallback, TicksSinceLast
 extern WaitTicks, OpenResourceArchive, CurrentArchiveName, MakeColor, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget
-extern ClearScreen, FillRectColor, SetTextColors, SetFocalLength, SetProjectionCenter, tickcount, unk_160A56, unk_160B68
-extern unk_160C94, unk_160C98, unk_19ED78, unk_19F548, unk_1A0CB8, unk_1A8D48, unk_1A8E8C, unk_1A9C8C
-extern unk_1AD22E, unk_1B93E0, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, word_169054, word_169066, word_1690AE
+extern ClearScreen, FillRectColor, SetTextColors, SetFocalLength, SetProjectionCenter, tickcount, str_D_DrawSeasonGamePanel, unk_160B68
+extern str_16, str_8, unk_19ED78, unk_19F548, unk_1A0CB8, unk_1A8D48, unk_1A8E8C, unk_1A9C8C
+extern unk_1AD22E, unk_1B93E0, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, word_169054, word_169066, str_Punct_DrawSeasonGamePanel
 extern word_16914E, word_1691A4, word_1691B2, word_1691B6, word_169232, word_169234, word_169236, word_19ED74
 extern word_19ED76, word_1A928A, word_1A928C, word_1A928E, word_1ABD46, word_1ABD48, word_1ABD4A, word_1ABD4C
 extern word_1ABD4E, word_1ABD50, word_1AC7D8, word_1AD240, word_1AD242, word_1C1344
@@ -905,10 +905,10 @@ DrawMatchupLogo:
         push ecx
         mov ecx, eax
         mov eax, edx
-        push dword [nosplit edx*4+dword_16913A]
+        push dword [nosplit edx*4+str_Punct_DrawLockedGame]
         mov edx, ecx
         mov eax, dword [nosplit eax*4+dword_169126]
-        push dword [nosplit edx*4+dword_16910A]
+        push dword [nosplit edx*4+str_G_DrawLockedGame]
         add eax, byte 53h
         push eax
         mov eax, dword [nosplit edx*4+dword_1690EE]
@@ -946,7 +946,7 @@ DrawAllStarLogo:
         call ConvertArtNew
         mov edx, ebx
         mov esi, eax
-        mov eax, dword [nosplit edx*4+dword_16913A]
+        mov eax, dword [nosplit edx*4+str_Punct_DrawLockedGame]
         add esp, byte 8
         dec eax
         dec eax
@@ -954,7 +954,7 @@ DrawAllStarLogo:
         push eax
         mov eax, edi
         add edx, byte 53h
-        push dword [nosplit eax*4+dword_16910A]
+        push dword [nosplit eax*4+str_G_DrawLockedGame]
         mov eax, dword [nosplit eax*4+dword_1690EE]
         push edx
         add eax, byte 4Ch
@@ -993,7 +993,7 @@ DrawGameScore:
         call SetTextColor
         mov eax, dword [byte ebp-010h]
         movsx edx, word [byte ebx+04h]
-        mov ecx, dword [nosplit eax*4+dword_16910A]
+        mov ecx, dword [nosplit eax*4+str_G_DrawLockedGame]
         sub ecx, edx
         mov eax, dword [nosplit eax*4+dword_1690EE]
         mov edx, ecx
@@ -1004,7 +1004,7 @@ DrawGameScore:
         mov eax, dword [byte ebp-014h]
         mov edx, dword [nosplit eax*4+dword_169126]
         add edx, byte 53h
-        add edx, dword [nosplit eax*4+dword_16913A]
+        add edx, dword [nosplit eax*4+str_Punct_DrawLockedGame]
         movsx eax, word [byte ebx+06h]
         sub edx, eax
         dec edx
@@ -1089,7 +1089,7 @@ DrawGameScoreLine:
         call SetTextColor
         mov eax, edi
         movsx edi, word [byte ebx+04h]
-        mov edx, dword [nosplit eax*4+dword_16910A]
+        mov edx, dword [nosplit eax*4+str_G_DrawLockedGame]
         sub edx, edi
         mov eax, dword [nosplit eax*4+dword_1690EE]
         mov edi, edx
@@ -1099,7 +1099,7 @@ DrawGameScoreLine:
         mov eax, esi
         mov edx, dword [nosplit eax*4+dword_169126]
         add edx, byte 53h
-        add edx, dword [nosplit eax*4+dword_16913A]
+        add edx, dword [nosplit eax*4+str_Punct_DrawLockedGame]
         movsx eax, word [byte ebx+06h]
         sub edx, eax
         lea esi, [byte edx-01h]
@@ -1281,8 +1281,8 @@ DrawLockedGame:
         call MakeColor
         mov edx, dword [byte ebp-08h]
         add esp, byte 4
-        mov ecx, dword [dword edi+dword_16913A]
-        mov ebx, dword [dword esi+dword_16910A]
+        mov ecx, dword [dword edi+str_Punct_DrawLockedGame]
+        mov ebx, dword [dword esi+str_G_DrawLockedGame]
         push eax
         add ecx, byte 6
         add ebx, byte 6
@@ -1296,11 +1296,11 @@ DrawLockedGame:
         push dword [dword_19ED70]
         call FindShape
         movsx edx, word [byte eax+04h]
-        mov ebx, dword [dword esi+dword_16910A]
+        mov ebx, dword [dword esi+str_G_DrawLockedGame]
         sub ebx, edx
         mov edx, ebx
         sar edx, 1
-        mov ebx, dword [dword edi+dword_16913A]
+        mov ebx, dword [dword edi+str_Punct_DrawLockedGame]
         add dword [byte ebp-04h], edx
         movsx edx, word [byte eax+06h]
         sub ebx, edx
@@ -1389,7 +1389,7 @@ DrawSeasonGamePanel:
         je near .9
         xor esi, esi
 .5:
-        mov ax, word [nosplit esi*4+word_1690AE]
+        mov ax, word [nosplit esi*4+str_Punct_DrawSeasonGamePanel]
         inc eax
         mov ebx, 1
         movsx edx, ax
@@ -1423,7 +1423,7 @@ DrawSeasonGamePanel:
         jl short .5
 .9:
         mov eax, dword [dword_19ED4C]
-        mov ax, word [nosplit eax*4+word_1690AE]
+        mov ax, word [nosplit eax*4+str_Punct_DrawSeasonGamePanel]
         inc eax
         movsx edx, ax
         mov eax, dword [dword_19ED4C]
@@ -1675,7 +1675,7 @@ DrawSeasonGamePanel:
         call GetLangText
         push eax
         mov edx, dword [nosplit esi*4+dword_1690EE]
-        mov eax, dword [nosplit esi*4+dword_16910A]
+        mov eax, dword [nosplit esi*4+str_G_DrawLockedGame]
         add edx, byte 4Ch
         sar eax, 1
         push byte 55h
@@ -1907,13 +1907,13 @@ DrawSeasonGamePanel:
         mov eax, dword [byte ebp-0Ch]
         push esi
         mov eax, dword [nosplit eax*4+dword_169126]
-        push unk_160A56
+        push str_D_DrawSeasonGamePanel
         add eax, byte 56h
         push eax
         mov eax, dword [byte ebp-028h]
         mov edx, dword [nosplit eax*4+dword_1690EE]
         add edx, byte 4Ch
-        add edx, dword [nosplit eax*4+dword_16910A]
+        add edx, dword [nosplit eax*4+str_G_DrawLockedGame]
         sub edx, byte 3
         push edx
         push byte 2
@@ -2939,7 +2939,7 @@ FaceoffStanceMove:
         call randomd0
         cwde
         xor ebx, ebx
-        mov edx, dword [nosplit eax*4+dword_169150]
+        mov edx, dword [nosplit eax*4+str_O_FaceoffStanceMove]
         mov eax, ecx
         call SetSPA
         jmp short .7
@@ -3694,7 +3694,7 @@ FaceoffSwipeAnim:
         xor ebx, ebx
         mov byte [dword ecx+0BFh], ah
         mov eax, ecx
-        mov edx, dword [nosplit edx*4+dword_16916C]
+        mov edx, dword [nosplit edx*4+str_C_FaceoffSwipeAnim]
         push dword 3F800000h
         call SetSPA
         or byte [dword ecx+0BFh], 20h
@@ -3717,7 +3717,7 @@ FaceoffDrawAnim:
         xor ebx, ebx
         mov byte [dword ecx+0BFh], ah
         mov eax, ecx
-        mov edx, dword [nosplit edx*4+dword_169178]
+        mov edx, dword [nosplit edx*4+str_U_FaceoffDrawAnim]
         push dword 3F000000h
         call SetSPA
         or byte [dword ecx+0BFh], 20h
@@ -3808,7 +3808,7 @@ GoToBoxAnim:
         mov dword [byte esp+04h], eax
         fild word [byte esp+04h]
         fld dword [dword_1BAB04]
-        fsubr qword [qword_160A5C]
+        fsubr qword [F64_neg3p14159_GoToBoxAnim]
         fdivrp
         mov eax, dword [dword ecx+0FAh]
         mov dword [byte ecx+038h], 0
@@ -3922,7 +3922,7 @@ RefDodgePuck:
         fld dword [byte esi+020h]
         fsub dword [byte edx+020h]
         fld dword [byte esi+02Ch]
-        fmul dword [dword_160A64]
+        fmul dword [F32_10_RefDodgePuck]
         faddp
         fstp dword [esp]
         fld dword [byte edx+024h]
@@ -3931,7 +3931,7 @@ RefDodgePuck:
         fld dword [byte esi+028h]
         fsub dword [byte edx+028h]
         fld dword [byte esi+034h]
-        fmul dword [dword_160A64]
+        fmul dword [F32_10_RefDodgePuck]
         faddp
         fstp dword [byte esp+08h]
         mov eax, dword [byte edx+02Ch]
@@ -3946,12 +3946,12 @@ RefDodgePuck:
         mov eax, esp
         call SaveDirection
         fst dword [byte esp+038h]
-        fcomp dword [dword_160A68]
+        fcomp dword [F32_3_RefDodgePuck]
         fnstsw ax
         sahf
         jbe near .4
         fld dword [byte esp+038h]
-        fcomp dword [dword_160A6C]
+        fcomp dword [F32_15]
         fnstsw ax
         sahf
         ja near .4
@@ -3972,9 +3972,9 @@ RefDodgePuck:
         mov eax, edx
         call ResetAnimTimer
         fld dword [byte esp+038h]
-        fmul dword [dword_160A70]
+        fmul dword [F32_0p0666667]
         fst dword [byte esp+038h]
-        fcomp dword [dword_160A74]
+        fcomp dword [F32_0p5_RefDodgePuck]
         fnstsw ax
         sahf
         jae short .1
@@ -3989,7 +3989,7 @@ RefDodgePuck:
         mov dword [byte edx+04h], 3F800000h
 .2:
         fld dword [byte edx+04h]
-        fcomp qword [qword_160A78]
+        fcomp qword [F64_0p2_RefDodgePuck]
         fnstsw ax
         sahf
         jae short .3
@@ -4212,32 +4212,32 @@ ReachForPuckAnim:
         fxch
         call IF@ATAN2
         fsub dword [byte ecx+01Ch]
-        fld qword [qword_160A80]
+        fld qword [F64_6p28319_ReachForPuckAnim]
         fxch
         call IF@DFMOD
         fst dword [byte esp+024h]
         fst qword [byte esp+014h]
-        fcomp qword [qword_160A88]
+        fcomp qword [F64_3p14159_ReachForPuckAnim]
         fnstsw ax
         sahf
         jbe short .1
         fld qword [byte esp+014h]
-        fadd qword [qword_160A90]
+        fadd qword [F64_neg6p28319_ReachForPuckAnim]
         fstp dword [byte esp+024h]
 .1:
         fld dword [byte esp+024h]
         fst qword [byte esp+01Ch]
-        fcomp qword [qword_160A98]
+        fcomp qword [F64_neg3p14159_ReachForPuckAnim]
         fnstsw ax
         sahf
         jae short .2
         fld qword [byte esp+01Ch]
-        fadd qword [qword_160A80]
+        fadd qword [F64_6p28319_ReachForPuckAnim]
         fstp dword [byte esp+024h]
 .2:
         fld dword [byte esp+024h]
         fabs
-        fcomp qword [qword_160AA0]
+        fcomp qword [F64_0p785398_ReachForPuckAnim]
         fnstsw ax
         sahf
         jbe short .5
@@ -4267,7 +4267,7 @@ ReachForPuckAnim:
         call GetStickBladePos
         fstp dword [byte esp+08h]
         fld dword [byte edx+038h]
-        fcomp qword [qword_160AA8]
+        fcomp qword [F64_0p0001]
         fnstsw ax
         sahf
         jae short .6
@@ -4285,7 +4285,7 @@ ReachForPuckAnim:
 .7:
         fld dword [byte ecx+038h]
         fld st0
-        fmul qword [qword_160AB0]
+        fmul qword [F64_0p6]
         mov eax, edx
         fstp st1
         fstp dword [byte ecx+038h]
@@ -4336,7 +4336,7 @@ PokeCheckAnim:
         call ResetAnimTimer
         fld dword [byte esp+08h]
         fabs
-        fcomp qword [qword_160AB8]
+        fcomp qword [F64_96]
         fnstsw ax
         sahf
         jae short .1
@@ -4355,7 +4355,7 @@ PokeCheckAnim:
         fld dword [byte esp+04h]
         fmul dword [byte edx+030h]
         fadd dword [byte edx+024h]
-        fcomp dword [dword_160AC0]
+        fcomp dword [F32_144_PokeCheckAnim]
         fnstsw ax
         sahf
         jae near .6
@@ -4378,16 +4378,16 @@ PokeCheckAnim:
 .3:
         fld dword [byte esp+08h]
         fabs
-        fmul qword [qword_160AC4]
+        fmul qword [F64_0p00347222]
         fst dword [byte esp+04h]
-        fcomp qword [qword_160ACC]
+        fcomp qword [F64_0p8]
         fnstsw ax
         sahf
         jae short .4
         mov dword [byte esp+04h], 3F4CCCCDh
 .4:
         fld dword [byte esp+04h]
-        fcomp qword [qword_160AD4]
+        fcomp qword [F64_1p2_PokeCheckAnim]
         fnstsw ax
         sahf
         jbe short .5
@@ -4485,34 +4485,34 @@ TryBodyCheck:
         call IF@ATAN2
         fst dword [byte esp+04h]
         fsub dword [byte esi+01Ch]
-        fld qword [qword_160ADC]
+        fld qword [F64_6p28319_TryBodyCheck]
         fxch
         call IF@DFMOD
         fxch
         fstp dword [byte esp+08h]
         fst dword [byte esp+034h]
         fst qword [byte esp+020h]
-        fcomp qword [qword_160AE4]
+        fcomp qword [F64_3p14159_TryBodyCheck]
         fnstsw ax
         sahf
         jbe short .6
         fld qword [byte esp+020h]
-        fadd qword [qword_160AEC]
+        fadd qword [F64_neg6p28319_TryBodyCheck]
         fstp dword [byte esp+034h]
 .6:
         fld dword [byte esp+034h]
         fst qword [byte esp+010h]
-        fcomp qword [qword_160AF4]
+        fcomp qword [F64_neg3p14159_TryBodyCheck]
         fnstsw ax
         sahf
         jae short .7
         fld qword [byte esp+010h]
-        fadd qword [qword_160ADC]
+        fadd qword [F64_6p28319_TryBodyCheck]
         fstp dword [byte esp+034h]
 .7:
         fld dword [byte esp+034h]
         fabs
-        fcomp qword [qword_160AFC]
+        fcomp qword [F64_1p0472]
         fnstsw ax
         sahf
         jbe short .8
@@ -4527,37 +4527,37 @@ TryBodyCheck:
 .8:
         fld dword [byte ecx+040h]
         fsub dword [byte esp+04h]
-        fld qword [qword_160ADC]
+        fld qword [F64_6p28319_TryBodyCheck]
         fxch
         call IF@DFMOD
         fst dword [byte esp+030h]
         fst qword [byte esp+028h]
-        fcomp qword [qword_160AE4]
+        fcomp qword [F64_3p14159_TryBodyCheck]
         fnstsw ax
         sahf
         jbe short .9
         fld qword [byte esp+028h]
-        fadd qword [qword_160AEC]
+        fadd qword [F64_neg6p28319_TryBodyCheck]
         fstp dword [byte esp+030h]
 .9:
         fld dword [byte esp+030h]
         fst qword [byte esp+018h]
-        fcomp qword [qword_160AF4]
+        fcomp qword [F64_neg3p14159_TryBodyCheck]
         fnstsw ax
         sahf
         jae short .10
         fld qword [byte esp+018h]
-        fadd qword [qword_160ADC]
+        fadd qword [F64_6p28319_TryBodyCheck]
         fstp dword [byte esp+030h]
 .10:
         fld dword [byte esp+030h]
         fabs
-        fcomp qword [qword_160B04]
+        fcomp qword [F64_1p5708]
         fnstsw ax
         sahf
         jbe short .12
         fld dword [byte esp+08h]
-        fcomp dword [dword_160B24]
+        fcomp dword [F32_144_TryBodyCheck]
         fnstsw ax
         sahf
         jb short .11
@@ -4574,7 +4574,7 @@ TryBodyCheck:
         jmp near .18
 .12:
         fld dword [byte esp+08h]
-        fcomp dword [dword_160B0C]
+        fcomp dword [F32_336]
         fnstsw ax
         sahf
         jb short .13
@@ -4602,12 +4602,12 @@ TryBodyCheck:
         je short .16
         fld dword [byte esp+034h]
         fabs
-        fcomp qword [qword_160B14]
+        fcomp qword [F64_0p349066]
         fnstsw ax
         sahf
         jbe short .14
         fld dword [byte esp+08h]
-        fcomp dword [dword_160B0C]
+        fcomp dword [F32_336]
         fnstsw ax
         sahf
         jae short .14
@@ -4616,7 +4616,7 @@ TryBodyCheck:
 .14:
         fld dword [byte esp+034h]
         fabs
-        fcomp qword [qword_160B1C]
+        fcomp qword [F64_0p785398_TryBodyCheck]
         fnstsw ax
         sahf
         jbe short .15
@@ -4630,7 +4630,7 @@ TryBodyCheck:
         ret
 .15:
         fld dword [byte esp+08h]
-        fcomp dword [dword_160B10]
+        fcomp dword [F32_192_TryBodyCheck]
         fnstsw ax
         sahf
         jae short .17
@@ -4638,7 +4638,7 @@ TryBodyCheck:
         jmp short .18
 .16:
         fld dword [byte esp+08h]
-        fcomp dword [dword_160B10]
+        fcomp dword [F32_192_TryBodyCheck]
         fnstsw ax
         sahf
         jae short .17
@@ -4699,7 +4699,7 @@ TryBodyCheck:
         lea eax, [nosplit edi*8+00h]
         sub eax, edi
         fld dword [nosplit eax*8+dword_1B9D20]
-        fmul qword [qword_160B28]
+        fmul qword [F64_0p7]
         fsubr dword [byte ecx+038h]
         mov eax, dword [dword ecx+0FAh]
         fstp dword [byte eax+08h]
@@ -6592,7 +6592,7 @@ SetViewDrawTarget:
         test ah, 2
         je short .1
         fld dword [dword_1A8E54]
-        fmul qword [qword_160B35]
+        fmul qword [F64_0p5_SetViewDrawTarget]
         sub esp, byte 4
         fstp dword [esp]
         jmp short .2
@@ -13174,7 +13174,7 @@ LoadSfxBank:
         jle short .8
 .4:
         mov eax, 1
-        mov edx, unk_160C94
+        mov edx, str_16
         mov dword [byte esp+038h], eax
         jmp short .9
 .5:
@@ -13194,10 +13194,10 @@ LoadSfxBank:
         mov edx, 1
         lea eax, [byte esp+024h]
         mov dword [byte esp+038h], edx
-        mov edx, unk_160C94
+        mov edx, str_16
         jmp short .10
 .8:
-        mov edx, unk_160C98
+        mov edx, str_8
 .9:
         lea eax, [byte esp+024h]
 .10:
@@ -13229,7 +13229,7 @@ LoadSfxBank:
         cmp eax, 800000h
         jle short .17
 .13:
-        mov edx, unk_160C94
+        mov edx, str_16
         jmp short .18
 .14:
         cmp edi, byte 5
@@ -13245,10 +13245,10 @@ LoadSfxBank:
         cmp eax, 800000h
         jle short .17
 .16:
-        mov edx, unk_160C94
+        mov edx, str_16
         jmp short .18
 .17:
-        mov edx, unk_160C98
+        mov edx, str_8
 .18:
         lea eax, [byte esp+014h]
         call strcat_
@@ -15189,21 +15189,21 @@ PositionSfx:
         fadd dword [dword_1B906F]
         fst dword [byte esp+014h]
         fst qword [byte esp+0Ch]
-        fcomp qword [qword_160CF7]
+        fcomp qword [F64_3p14159_PositionSfx]
         fnstsw ax
         sahf
         jbe short .1
         fld qword [byte esp+0Ch]
-        fadd qword [qword_160D0F]
+        fadd qword [F64_neg6p28319_PositionSfx]
         jmp short .2
 .1:
         fld qword [byte esp+0Ch]
-        fcomp qword [qword_160CFF]
+        fcomp qword [F64_neg3p14159_PositionSfx]
         fnstsw ax
         sahf
         jae short .3
         fld qword [byte esp+0Ch]
-        fadd qword [qword_160D07]
+        fadd qword [F64_6p28319_PositionSfx]
 .2:
         fstp dword [byte esp+014h]
 .3:
@@ -15217,12 +15217,12 @@ PositionSfx:
         fstp dword [byte esp+04h]
         mov dword [esi], 2
         fld dword [byte esp+04h]
-        fcomp dword [dword_16928C]
+        fcomp dword [F32_9600]
         fnstsw ax
         sahf
         jae short .5
         fld dword [byte esp+04h]
-        fsub dword [dword_169290]
+        fsub dword [F32_768_PositionSfx]
         fldz
         fxch
         fstp dword [byte esp+04h]
@@ -15233,10 +15233,10 @@ PositionSfx:
         mov dword [esi], 64h
         jmp short .5
 .4:
-        fld dword [dword_16928C]
-        fsub dword [dword_169290]
+        fld dword [F32_9600]
+        fsub dword [F32_768_PositionSfx]
         fld dword [byte esp+04h]
-        fmul dword [dword_160D17]
+        fmul dword [F32_98]
         fdivrp
         mov eax, 62h
         call __CHP
@@ -15255,7 +15255,7 @@ PositionSfx:
         fstp dword [edi]
         fstp dword [esi]
         fld dword [esp]
-        fmul dword [dword_160D1B]
+        fmul dword [F32_42]
         call __CHP
         fistp dword [byte esp+08h]
         mov eax, dword [byte esp+08h]

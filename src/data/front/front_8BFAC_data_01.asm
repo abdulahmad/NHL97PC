@@ -4,26 +4,26 @@ bits 32
 section s_165548 progbits alloc noexec write align=1
 global str_PNS, str_SLUP, str_SLDN, str_PWE, str_SLLT, str_SLRT, str_Newmenu, str_000W
 global str_TTLW, str_012R013R014R, str_12SR13SR14SR, str_WC00, str_WC01, str_011R, str_11SR, str_LBL1LBL2LBL3LBR1LBR2LTL1L
-global str_000E, str_TTLE, str_EC00, str_EC01, str_SSEASONNDX, str_SEASONNDX, dword_165548, dword_16554C
-global dword_165560, dword_165564, dword_165570, dword_165574, dword_165587, dword_16559A, dword_16559E, dword_1655A2
-global dword_1655A6, qword_165550, qword_165558, qword_165568, unk_1655AC
-dword_165548:
+global str_000E, str_TTLE, str_EC00, str_EC01, str_SSEASONNDX, str_SEASONNDX, F32_0p003125, F32_0p005
+global F32_0p003125_ScrollPosToValue, F32_0p005_ScrollPosToValue, F32_0p003125_SetupMenuView, F32_0p005_SetupMenuView, F32_0p5_InitScrollList, F32_0p5_InitScrollTable, F32_14_InitScrollTable, F32_0p5_ScrollToMouse
+global F32_0p5_SetListSelection, F64_0p5_RunMenu, F64_0p5_ScrollPosToValue, F64_0p5_SetupMenuView, str_Error
+F32_0p003125:
         db 0CDh,0CCh,04Ch,03Bh
-dword_16554C:
+F32_0p005:
         db 0Ah,0D7h,0A3h,03Bh
-qword_165550:
+F64_0p5_RunMenu:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-qword_165558:
+F64_0p5_ScrollPosToValue:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-dword_165560:
+F32_0p003125_ScrollPosToValue:
         db 0CDh,0CCh,04Ch,03Bh
-dword_165564:
+F32_0p005_ScrollPosToValue:
         db 0Ah,0D7h,0A3h,03Bh
-qword_165568:
+F64_0p5_SetupMenuView:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
-dword_165570:
+F32_0p003125_SetupMenuView:
         db 0CDh,0CCh,04Ch,03Bh
-dword_165574:
+F32_0p005_SetupMenuView:
         db 0Ah,0D7h,0A3h,03Bh
 str_PNS:
         db 050h,04Eh,02Fh,053h,00h
@@ -31,7 +31,7 @@ str_SLUP:
         db 053h,04Ch,055h,050h,00h
 str_SLDN:
         db 053h,04Ch,044h,04Eh,00h
-dword_165587:
+F32_0p5_InitScrollList:
         db 00h,00h,00h,03Fh
 str_PWE:
         db 050h,057h,02Fh,045h,00h
@@ -39,15 +39,15 @@ str_SLLT:
         db 053h,04Ch,04Ch,054h,00h
 str_SLRT:
         db 053h,04Ch,052h,054h,00h
-dword_16559A:
+F32_0p5_InitScrollTable:
         db 00h,00h,00h,03Fh
-dword_16559E:
+F32_14_InitScrollTable:
         db 00h,00h,060h,041h
-dword_1655A2:
+F32_0p5_ScrollToMouse:
         db 00h,00h,00h,03Fh
-dword_1655A6:
+F32_0p5_SetListSelection:
         db 00h,00h,00h,03Fh,00h,00h
-unk_1655AC:
+str_Error:
         db 045h,072h,072h,06Fh,072h,00h,00h,00h
 str_Newmenu:
         db 06Eh,065h,077h,06Dh,065h,06Eh,075h,00h

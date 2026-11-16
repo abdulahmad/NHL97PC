@@ -15,13 +15,13 @@ extern OpenDataLibrary, PlayerInjuryDays, DrawScreenBackground, FadeInScreen, Sh
 extern WipeScreen, DrawRosterPanelBox, WaitShortDelay, InitMenuItems, RunMenu, GetLangText, RostersSparkle, KeysEqual
 extern FreeDbBlock, AgeFromBirthDate, FindTeamRecord, FindPlayerRecord, OpenLeagueFile, FindGameRecord, LoadExhibitionFile, FreeExhibitionFile
 extern AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, tickcount
-extern unk_1670CF, unk_16711C, unk_167124, unk_167128, unk_167130, unk_167138, unk_16713C, unk_167144
-extern unk_167148, unk_167150, unk_167154, unk_16715C, unk_167160, unk_167168, unk_16716C, unk_167178
-extern unk_16717C, unk_167184, unk_167188, unk_167190, unk_167194, unk_16719C, unk_1671A0, unk_1671A8
-extern unk_1671AC, unk_1671B4, unk_1671B8, unk_1671BC, unk_1671C4, unk_1671CC, unk_1671D4, unk_1671D8
-extern unk_1671E0, unk_1671E4, unk_1671F0, unk_1671F4, unk_1671FC, unk_167200, unk_167208, unk_16720C
-extern unk_167214, unk_16721C, unk_167220, unk_167228, unk_16722C, unk_167234, unk_167238, unk_16723C
-extern unk_167240, unk_167244, unk_167250, unk_167260, unk_167264, unk_16726C, unk_16727C, unk_16D7FC
+extern str_S_DrawMatchupNotes, str_Barasso, str_PIT, str_199596, str_Beaupre, str_OTT, str_Brodeur, unk_167144
+extern str_Burke, str_HFD, str_Carey, str_WAS, str_Fichaud, unk_167168, str_Flaherty, unk_167178
+extern str_Fuhr, str_BUF, str_199495, str_STL, str_Hackett, str_CHI, str_Hebert, str_ANA
+extern str_Hextall, str_PHI, str_QUE, str_199293, str_Heyward, str_Hirsch, str_VAN, str_Hrudey
+extern unk_1671E0, str_Jablonski, unk_1671F0, str_Joseph, str_EDM, str_Kidd, str_CAL, str_Kolzig
+extern str_Lacher, str_BOS, str_Moog, str_DAL, str_Richter, unk_167234, str_Roy, str_COL
+extern str_MTL, str_Thibault, str_Vanbiesbrouck, str_FLA, str_Vernon, str_DET, str_EA, unk_16D7FC
 extern unk_1ACF12, unk_1C135C, unk_1C1382, unk_1C139A, unk_1C347F, unk_1C34A5, unk_1C5EF8, unk_1C5F4A
 extern unk_1C5F9C, unk_D3057, unk_D305F, unk_D3067, word_1C1344
 global jpt_D4215, PreGameRostersScreen_B6A, PreGameRostersScreen_BA7, PreGameRostersScreen_BB5, PreGameRostersScreen_BC3, PreGameRostersScreen_C3F, DrawMatchupHistory_FB, DrawMatchupHistory_FC
@@ -1119,7 +1119,7 @@ DrawRosterPlayerInfo:
         mov edx, dword [dword_16D744]
         push eax
         inc edx
-        push unk_1670CF
+        push str_S_DrawMatchupNotes
         push dword [nosplit edx*4+dword_1CC860]
         mov dword [dword_16D744], edx
         call sprintf_
@@ -1349,7 +1349,7 @@ DrawRosterLabel:
         mov eax, ebx
         push dword [nosplit ebx*4+dword_1CC864]
         shl eax, 4
-        push unk_1670CF
+        push str_S_DrawMatchupNotes
         add eax, byte 4Bh
         push eax
         push dword 140h
@@ -1712,7 +1712,7 @@ DrawMatchupNotes_14B:
         call GetLangText
         push eax
         mov ebx, dword [dword_16D744]
-        push unk_1670CF
+        push str_S_DrawMatchupNotes
         inc ebx
         push dword [nosplit ebx*4+dword_1CC860]
         mov dword [dword_16D744], ebx
@@ -1745,7 +1745,7 @@ DrawMatchupNotes_14B:
         call GetLangText
         push eax
         mov ebx, dword [dword_16D744]
-        push unk_1670CF
+        push str_S_DrawMatchupNotes
         inc ebx
         push dword [nosplit ebx*4+dword_1CC860]
         mov dword [dword_16D744], ebx
@@ -2268,96 +2268,96 @@ MatchupAnnouncement:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 unk_D4CB0:
-        dd unk_16711C
-        dd unk_167124
-        dd unk_167128
-        dd unk_167130
-        dd unk_167138
-        dd unk_167128
-        dd unk_16713C
+        dd str_Barasso
+        dd str_PIT
+        dd str_199596
+        dd str_Beaupre
+        dd str_OTT
+        dd str_199596
+        dd str_Brodeur
         dd unk_167144
-        dd unk_167128
-        dd unk_167148
-        dd unk_167150
-        dd unk_167128
-        dd unk_167154
-        dd unk_16715C
-        dd unk_167128
-        dd unk_167160
+        dd str_199596
+        dd str_Burke
+        dd str_HFD
+        dd str_199596
+        dd str_Carey
+        dd str_WAS
+        dd str_199596
+        dd str_Fichaud
         dd unk_167168
-        dd unk_167128
-        dd unk_16716C
+        dd str_199596
+        dd str_Flaherty
         dd unk_167178
-        dd unk_167128
-        dd unk_16717C
-        dd unk_167184
-        dd unk_167188
-        dd unk_16717C
-        dd unk_167190
-        dd unk_167128
-        dd unk_167194
-        dd unk_16719C
-        dd unk_167128
-        dd unk_1671A0
-        dd unk_1671A8
-        dd unk_167128
-        dd unk_1671AC
-        dd unk_1671B4
-        dd unk_167128
-        dd unk_1671AC
-        dd unk_1671B8
-        dd unk_1671BC
-        dd unk_1671C4
+        dd str_199596
+        dd str_Fuhr
+        dd str_BUF
+        dd str_199495
+        dd str_Fuhr
+        dd str_STL
+        dd str_199596
+        dd str_Hackett
+        dd str_CHI
+        dd str_199596
+        dd str_Hebert
+        dd str_ANA
+        dd str_199596
+        dd str_Hextall
+        dd str_PHI
+        dd str_199596
+        dd str_Hextall
+        dd str_QUE
+        dd str_199293
+        dd str_Heyward
         dd unk_167178
-        dd unk_1671BC
-        dd unk_1671CC
-        dd unk_1671D4
-        dd unk_167128
-        dd unk_1671D8
+        dd str_199293
+        dd str_Hirsch
+        dd str_VAN
+        dd str_199596
+        dd str_Hrudey
         dd unk_1671E0
-        dd unk_167128
-        dd unk_1671E4
+        dd str_199596
+        dd str_Jablonski
         dd unk_1671F0
-        dd unk_167188
-        dd unk_1671F4
-        dd unk_1671FC
-        dd unk_167128
-        dd unk_167200
-        dd unk_167208
-        dd unk_167128
-        dd unk_16720C
-        dd unk_16715C
-        dd unk_167128
-        dd unk_167214
-        dd unk_16721C
-        dd unk_167128
-        dd unk_167220
-        dd unk_16721C
-        dd unk_1671BC
-        dd unk_167220
-        dd unk_167228
-        dd unk_167128
-        dd unk_16722C
+        dd str_199495
+        dd str_Joseph
+        dd str_EDM
+        dd str_199596
+        dd str_Kidd
+        dd str_CAL
+        dd str_199596
+        dd str_Kolzig
+        dd str_WAS
+        dd str_199596
+        dd str_Lacher
+        dd str_BOS
+        dd str_199596
+        dd str_Moog
+        dd str_BOS
+        dd str_199293
+        dd str_Moog
+        dd str_DAL
+        dd str_199596
+        dd str_Richter
         dd unk_167234
-        dd unk_167128
-        dd unk_167238
-        dd unk_16723C
-        dd unk_167128
-        dd unk_167238
-        dd unk_167240
-        dd unk_167188
-        dd unk_167244
-        dd unk_167240
-        dd unk_167128
-        dd unk_167250
-        dd unk_167260
-        dd unk_167128
-        dd unk_167250
+        dd str_199596
+        dd str_Roy
+        dd str_COL
+        dd str_199596
+        dd str_Roy
+        dd str_MTL
+        dd str_199495
+        dd str_Thibault
+        dd str_MTL
+        dd str_199596
+        dd str_Vanbiesbrouck
+        dd str_FLA
+        dd str_199596
+        dd str_Vanbiesbrouck
         dd unk_167234
-        dd unk_1671BC
-        dd unk_167264
-        dd unk_16726C
-        dd unk_167128
+        dd str_199293
+        dd str_Vernon
+        dd str_DET
+        dd str_199596
         dd str_EASports
-        dd unk_16727C
-        dd unk_167128
+        dd str_EA
+        dd str_199596

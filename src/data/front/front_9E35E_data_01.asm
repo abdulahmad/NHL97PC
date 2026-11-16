@@ -6,7 +6,7 @@ global str_00004, str_HOM1, str_HOM2, str_AWY1, str_AWY2, str_Menu3, str_03dB, s
 global str_011R3, str_012R2, str_013R2, str_11SR3, str_12SR2, str_13SR2, str_SW002, str_SWL2
 global str_SWL3, str_01LL, str_02LL, str_03LL, str_01LR, str_02LR, str_03LR, str_01RL
 global str_02RL, str_03RL, str_01RR, str_02RR, str_03RR, str_012R013R014R12SR13SR14SRS, str_SW00SW01SW02SW03SW04SW05S, str_1
-global str_0001, str_0002, unk_165D00, unk_165D08
+global str_0001, str_0002, str_HAVEIT, str_WANTIT
 str_00004:
         db 030h,030h,030h,030h,00h
 str_HOM1:
@@ -79,7 +79,7 @@ str_0001:
         db 030h,030h,030h,031h,00h
 str_0002:
         db 030h,030h,030h,032h,00h
-unk_165D00:
+str_HAVEIT:
         db 048h,041h,056h,045h,020h,049h,054h,00h
-unk_165D08:
+str_WANTIT:
         db 057h,041h,04Eh,054h,020h,049h,054h,00h

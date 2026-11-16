@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_FCF84 progbits alloc exec nowrite align=1
-extern byte_16E688, byte_16E689, dword_16E46C, dword_16E670, dword_16E678, dword_16E67C, dword_16E680, dword_16E684
+extern byte_16E688, str_Punct_FreeArtArchive, dword_16E46C, dword_16E670, dword_16E678, dword_16E67C, dword_16E680, dword_16E684
 extern dword_16E690, dword_16E694, dword_16E698, dword_16E69C, dword_16E6A0, dword_1CF29C, dword_1CF2A0, dword_1CF524
 extern dword_1CFCF0, dword_1DA8D8, off_16E87C, ConvertArtSame, VesaSetBank, CreateBitmapEx, BlitCore, SetBlitSource
 extern CopyScaledSpan, ShapeRowBytes, BuildSpanOffsets, FillMemFast, RemapPixels, ClipPolyLeft, ClipPolyRight, ClipPolyTop
@@ -331,7 +331,7 @@ DrawShapeScaledCore:
         mov eax, dword [byte esp+034h]
         mov dword [esp], edx
         mov eax, dword [eax]
-        mov dl, byte [byte_16E689]
+        mov dl, byte [str_Punct_FreeArtArchive]
         and eax, 0FFh
         cmp eax, edx
         je short .1
@@ -1566,7 +1566,7 @@ FillRect:
         xor dl, dl
         xor eax, eax
         mov byte [esp], dl
-        mov al, byte [byte_16E689]
+        mov al, byte [str_Punct_FreeArtArchive]
         mov edx, dword [esp]
         and eax, 0FFh
         mov ecx, off_16E87C

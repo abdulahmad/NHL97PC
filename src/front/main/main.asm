@@ -10,7 +10,7 @@ extern str_NHL97MustBeInstalledAndRu, str_CDFILEIVIV, str_BitteLegenSieDieNHL97C
 extern str_XD2, str_CB02d, str_N, str_E, str_W, str_S14, str_NW, str_NE
 extern str_SW, str_SE, str_LX02d, str_LC02d, str_UNPACKLOGO, str_LOGO8, str_LX004, str_LC004
 extern str_DisD, str_REL1, str_RELD, str_Ldn2, byte_171C90, byte_1AC818, byte_1AC81B, byte_1C1267
-extern byte_1C6040, close_, dword_16AEB4, dword_16CAB0, dword_16CAB4, dword_16CAF0, dword_16CAF4, dword_16CB78
+extern byte_1C6040, close_, dword_16AEB4, dword_16CAB0, dword_16CAB4, str_Punct_DrawScreenBackground, dword_16CAF4, dword_16CB78
 extern dword_16CB7C, dword_16CB80, dword_16DA9C, dword_16E464, dword_16E468, dword_16E46C, dword_16E628, dword_16E670
 extern dword_16F184, dword_170710, dword_1AC814, dword_1C5DAC, dword_1C5DB0, dword_1C5DB4, dword_1C5DDC, dword_1C5DE4
 extern dword_1C5DE8, dword_1C5E74, dword_1C5E78, dword_1C5E7C, dword_1C5E80, dword_1C5E84, dword_1C5EA0, dword_1C5EA4
@@ -37,8 +37,8 @@ extern KbdGetKey, KbdFlush, MakeColor, MouseInit, SelectFont, FreeBitmap, DrawSh
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRectColor, FillRect, MeasureText, DrawTextAt, SetTextColors
 extern FillRectCorners, DrawGlyph, tickcount, unk_1643C2, unk_16445A, unk_1644A0, unk_1644EF, unk_1645E7
 extern unk_164636, unk_164686, unk_1646D4, unk_164724, unk_16480B, unk_1648DA, unk_16491D, unk_1649E0
-extern unk_164A6A, unk_164B4D, unk_164BFD, unk_164C3F, unk_164C6C, unk_164D67, unk_164F96, unk_16503B
-extern unk_16508B, unk_16518C, unk_165190, unk_16CB30, unk_16E8A0, unk_1C1264, unk_1C12B4, unk_1C5EF8
+extern unk_164A6A, unk_164B4D, unk_164BFD, unk_164C3F, unk_164C6C, unk_164D67, unk_164F96, str_Punct_main_
+extern unk_16508B, str_X, str_S_EditText, unk_16CB30, unk_16E8A0, unk_1C1264, unk_1C12B4, unk_1C5EF8
 extern unk_1C5F4A, unk_1C5F9C, unk_1C5FEE, unk_1C6044, unk_1C6104, unk_1C7144, unk_1C81BC
 global jpt_816D8, jpt_845CC, PlayerBioScreen_425, PlayerBioScreen_438, PlayerBioScreen_44A, PlayerBioScreen_45A, main_, CheckDiskSpace
 global DrawShadedButton, DrawShadedField, ShadeShape, DrawShadedLogo, DrawShadowBox, DrawScreenBackground, FadeInScreen, ShowScreen
@@ -288,7 +288,7 @@ main_:
         mov dword [dword_1C5DDC], eax
         cmp eax, byte 0FFFFFFFFh
         jne short .16
-        push unk_16503B
+        push str_Punct_main_
         mov byte [byte_1C1267], 0
         call printf_
         mov eax, dword [dword_1AC814]
@@ -2473,7 +2473,7 @@ DrawScreenBackground:
         mov dword [dword_1C5F68], eax
         mov eax, dword [dword_1C5EA8]
         mov ebx, 8
-        mov ecx, dword_16CAF0
+        mov ecx, str_Punct_DrawScreenBackground
         mov eax, dword [byte eax+02Ch]
         mov edx, 1A2h
         mov dword [dword_1C5F6C], eax
@@ -4083,7 +4083,7 @@ EditText:
         add esp, byte 4
         mov ebx, eax
 .12:
-        push unk_16518C
+        push str_X
         call MeasureText
         add esp, byte 4
         mov edx, dword [dword esp+0658h]
@@ -4223,7 +4223,7 @@ EditText:
         mov byte [dword esp+edx+0500h], al
         lea eax, [dword esp+0500h]
         push eax
-        push unk_165190
+        push str_S_EditText
         push edi
         mov ecx, dword [dword esp+066Ch]
         push ecx
@@ -4256,7 +4256,7 @@ EditText:
         lea eax, [nosplit edx*4+00h]
         add eax, edx
         shl eax, 2
-        push unk_165190
+        push str_S_EditText
         add eax, byte 0Ah
         push eax
         mov eax, dword [dword esp+0648h]
@@ -4287,7 +4287,7 @@ EditText:
         add esp, byte 4
         push eax
         push byte 14h
-        push unk_16518C
+        push str_X
         call MeasureText
         add esp, byte 4
         push eax
@@ -4333,7 +4333,7 @@ EditText:
         call FillRect
         add esp, byte 14h
         push ebp
-        push unk_165190
+        push str_S_EditText
         push ebx
         push edi
         push byte 0
@@ -4347,7 +4347,7 @@ EditText:
         add esp, byte 4
         push eax
         push byte 14h
-        push unk_16518C
+        push str_X
         call MeasureText
         add esp, byte 4
         push eax
@@ -4360,7 +4360,7 @@ EditText:
         add esp, byte 4
         push eax
         push byte 14h
-        push unk_16518C
+        push str_X
         call MeasureText
         add esp, byte 4
         push eax
@@ -4413,7 +4413,7 @@ EditText:
 .27:
         cmp esi, dword [dword esp+0640h]
         jge short .28
-        push unk_16518C
+        push str_X
         call MeasureText
         add esp, byte 4
         mov edx, dword [dword esp+065Ch]
@@ -5678,7 +5678,7 @@ DrawEntryList:
         mov dword [dword_1C5F08], ecx
         sub ebp, eax
 .4:
-        mov eax, dword [dword ebx+dword_16CAF0]
+        mov eax, dword [dword ebx+str_Punct_DrawScreenBackground]
         sub eax, esi
         mov dword [dword ebx+dword_1C60C4], eax
         mov eax, dword [dword ebx+dword_16CAF4]
@@ -5813,7 +5813,7 @@ DrawEntryRow:
         sub ebp, eax
         xor eax, eax
 .3:
-        mov ebx, dword [dword eax+dword_16CAF0]
+        mov ebx, dword [dword eax+str_Punct_DrawScreenBackground]
         sub ebx, ebp
         mov dword [dword eax+dword_1C60C4], ebx
         mov ebx, dword [dword eax+dword_16CAF4]
@@ -8439,7 +8439,7 @@ DrawLinkBox:
         mov edi, edx
         cmp dword [dword_16CB80], byte 0
         jne near .6
-        push unk_16518C
+        push str_X
         call MeasureText
         add esp, byte 4
         push esi
@@ -8453,7 +8453,7 @@ DrawLinkBox:
         push unk_16E8A0
         call SelectFont
         add esp, byte 4
-        push unk_16518C
+        push str_X
         call MeasureText
         add esp, byte 4
         push esi

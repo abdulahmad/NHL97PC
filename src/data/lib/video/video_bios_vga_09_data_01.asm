@@ -4,21 +4,21 @@ bits 32
 section s_19C840 progbits alloc noexec write align=1
 extern __fpatan_chk_160, __fpatan_chk_16B, __fpatan_chk_178, __fpatan_chk_18B, __fpatan_chk_1A0, __fpatan_chk_1B3, __fpatan_chk_1C8, __fpatan_chk_1DB
 extern GusSizeDram, GusInitDma
-global byte_19C840, dword_19C8C8, dword_19C8CC, kaufmfont, off_19C894, qword_19C858, qword_19C860, qword_19C870
-global qword_19C884, tbyte_19C878, tbyte_19C8B4, tbyte_19C8BE, tbyte_19C8D0, tbyte_19C8DA, tbyte_19C8E4, tbyte_19C8EE
-global tbyte_19C8F8, tbyte_19C902, tbyte_19C90C, unk_19CA1C
+global byte_19C840, F32_16___fpatan_chk, F32_0p0625, kaufmfont, off_19C894, qword_19C858, F64_5p42101eneg20, F64_0p5_fprem_common
+global F64_1, tbyte_19C878, F80_3p14159, F80_1p5708___fpatan_chk, F80_neg0p333333, F80_0p2, F80_neg0p142857, F80_0p111111
+global F80_neg0p0909076, F80_0p0764169, F80_0, unk_19CA1C
 byte_19C840:
         db 00h,01h,00h,00h,04h,00h,00h,07h,00h,00h,0Ah,00h,00h,0Dh,00h,00h
         db 00h,00h,00h,00h,00h,00h,0EEh,03Fh
 qword_19C858:
         db 00h,00h,00h,00h,00h,00h,0F0h,043h
-qword_19C860:
+F64_5p42101eneg20:
         db 00h,00h,00h,00h,00h,00h,0F0h,03Bh,00h,00h,00h,00h,00h,00h,0F0h,03Fh
-qword_19C870:
+F64_0p5_fprem_common:
         db 00h,00h,00h,00h,00h,00h,0E0h,03Fh
 tbyte_19C878:
         db 00h,00h,00h,00h,00h,00h,0FFh,0FFh,0FEh,07Fh,00h,00h
-qword_19C884:
+F64_1:
         db 00h,00h,00h,00h,00h,00h,0F0h,03Fh,00h,00h,00h,00h,00h,00h,0F0h,0BFh
 off_19C894:
         dd __fpatan_chk_160
@@ -29,27 +29,27 @@ off_19C894:
         dd __fpatan_chk_1B3
         dd __fpatan_chk_1C8
         dd __fpatan_chk_1DB
-tbyte_19C8B4:
+F80_3p14159:
         db 035h,0C2h,068h,021h,0A2h,0DAh,0Fh,0C9h,00h,040h
-tbyte_19C8BE:
+F80_1p5708___fpatan_chk:
         db 035h,0C2h,068h,021h,0A2h,0DAh,0Fh,0C9h,0FFh,03Fh
-dword_19C8C8:
+F32_16___fpatan_chk:
         db 00h,00h,080h,041h
-dword_19C8CC:
+F32_0p0625:
         db 00h,00h,080h,03Dh
-tbyte_19C8D0:
+F80_neg0p333333:
         db 0A8h,0AAh,0AAh,0AAh,0AAh,0AAh,0AAh,0AAh,0FDh,0BFh
-tbyte_19C8DA:
+F80_0p2:
         db 06Eh,02Dh,0CCh,0CCh,0CCh,0CCh,0CCh,0CCh,0FCh,03Fh
-tbyte_19C8E4:
+F80_neg0p142857:
         db 092h,048h,0F9h,041h,092h,024h,049h,092h,0FCh,0BFh
-tbyte_19C8EE:
+F80_0p111111:
         db 092h,0C5h,0ECh,0CDh,097h,038h,08Eh,0E3h,0FBh,03Fh
-tbyte_19C8F8:
+F80_neg0p0909076:
         db 0DDh,05Dh,062h,0C1h,07Bh,0C1h,02Dh,0BAh,0FBh,0BFh
-tbyte_19C902:
+F80_0p0764169:
         db 054h,048h,08Eh,0C7h,0C7h,077h,080h,09Ch,0FBh,03Fh
-tbyte_19C90C:
+F80_0:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 037h,04Eh,0EFh,067h,0B9h,0DDh,0AAh,0FFh,0FAh,03Fh,00h,00h,00h,00h,00h,00h
         db 033h,06Eh,07Bh,061h,0D5h,0D4h,0ADh,0FEh,0FBh,03Fh,00h,00h,00h,00h,00h,00h

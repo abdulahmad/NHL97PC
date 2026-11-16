@@ -22,7 +22,7 @@ extern CommentaryEvent_111C, CommentaryEvent_11C5, CommentaryEvent_1293, Comment
 extern CommentaryEvent_1871, CommentaryEvent_189C, CommentaryEvent_18A1, CommentaryEvent_18AA, CommentaryEvent_18B3, CommentaryEvent_18BC, CommentaryEvent_1931, CommentaryEvent_19C8
 extern CommentaryEvent_1A44, CommentaryEvent_1B16, CommentaryEvent_1B57, CommentaryEvent_1B97, CommentaryEvent_1BF5, CommentaryEvent_1C3D, CommentaryEvent_1CB2, CommentaryEvent_1DD1
 extern CommentaryEvent_1E49, CommentaryEvent_1ECB, CommentaryEvent_1F28, CommentaryEvent_1F56, CommentaryEvent_1FE8, off_169780, off_1697BC, off_169814
-extern qword_161173, qword_16117B, qword_161183, qword_16118B, rand_, sprintf_, strcmp_, strcpy_
+extern F64_0p5_SayShotCall, F64_0p5_SaySaveCall, F64_0p5_SayPlayerCall, F64_0p5_SayRandomFiller, rand_, sprintf_, strcmp_, strcpy_
 extern SortIndices, bcopy, FindShape, InitSpeechBank, FileSizePath, LoadFileToBlockPlain, CloseSpeechChannels, InitSpeechChannels
 extern RegisterSpeechBank, SumRingRange, QueueSpeechRequest, ResetSpeechQueue, FindSpeechClip, LoadSpeechBlock, LoadClipIfMissing, SpeechFileHeader
 extern OpenSpeechBanks, ResolveSpeechClips, LoadTeamSpeech, MakeDataPath, MakeDirPath, LoadDataFileLib, LoadDataFile, CheckDiskSpace
@@ -1570,13 +1570,13 @@ SayShotCall:
         mov esi, 12C0h
         mov ecx, dword [byte esp+024h]
         fxch st3
-        fadd qword [qword_161173]
+        fadd qword [F64_0p5_SayShotCall]
         fxch st2
-        fadd qword [qword_161173]
+        fadd qword [F64_0p5_SayShotCall]
         fxch
-        fadd qword [qword_161173]
+        fadd qword [F64_0p5_SayShotCall]
         fxch st3
-        fadd qword [qword_161173]
+        fadd qword [F64_0p5_SayShotCall]
         fxch st2
         call __CHP
         fxch
@@ -2171,9 +2171,9 @@ SaySaveCall:
         fld dword [byte esp+02Ch]
         mov ecx, 12C0h
         fxch
-        fadd qword [qword_16117B]
+        fadd qword [F64_0p5_SaySaveCall]
         fxch
-        fadd qword [qword_16117B]
+        fadd qword [F64_0p5_SaySaveCall]
         fxch
         call __CHP
         fxch
@@ -2699,9 +2699,9 @@ SayPlayerCall:
         mov esi, 12C0h
         mov dword [byte esp+08h], edx
         fxch
-        fadd qword [qword_161183]
+        fadd qword [F64_0p5_SayPlayerCall]
         fxch
-        fadd qword [qword_161183]
+        fadd qword [F64_0p5_SayPlayerCall]
         fxch
         call __CHP
         fxch
@@ -2924,9 +2924,9 @@ SayRandomFiller:
         fld dword [byte esp+018h]
         mov edx, 12C0h
         fxch
-        fadd qword [qword_16118B]
+        fadd qword [F64_0p5_SayRandomFiller]
         fxch
-        fadd qword [qword_16118B]
+        fadd qword [F64_0p5_SayRandomFiller]
         fxch
         call __CHP
         fxch

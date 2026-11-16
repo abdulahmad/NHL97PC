@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_168A4C progbits alloc noexec write align=1
-global dword_168A84, dword_168AA4, dword_168AA8, dword_168B14, dword_168B18, dword_168B1C, word_168A4C, word_168A4E
+global str_Punct_assintrostand, dword_168AA4, dword_168AA8, dword_168B14, dword_168B18, dword_168B1C, word_168A4C, word_168A4E
 global word_168A68, word_168A6A
 word_168A4C:
         db 00h,00h
@@ -14,7 +14,7 @@ word_168A68:
 word_168A6A:
         db 0B0h,010h,0F8h,0F8h,060h,06h,08h,07h,060h,06h,0F8h,0F8h,0F0h,0Ch,00h,00h
         db 0F0h,0Ch,08h,07h,0F0h,0Ch,00h,00h,0E0h,0Dh
-dword_168A84:
+str_Punct_assintrostand:
         db 05Fh,00h,00h,00h,060h,00h,00h,00h,01h,01h,00h,00h,0D1h,00h,00h,00h
         db 0D0h,00h,00h,00h,0D5h,00h,00h,00h,0D3h,00h,00h,00h,0D2h,00h,00h,00h
 dword_168AA4:

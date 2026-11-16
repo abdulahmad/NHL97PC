@@ -4,11 +4,11 @@ bits 32
 section s_167FA0 progbits alloc noexec write align=1
 global str_ATD2, str_EAGAME08x04x04x02x02x02x0, str_Netserv, str_IPXINTF, str_IPXSOCK, str_Galloc, str_GMEM, str_GEND
 global str_GFRE, str_RESIZE, str_DMABUFFER, str_DMABUFFER2, str_DMABUFFER3, str_DMABUF, str_DMABUF2, str_DMABUFFER4
-global str_SNDSCAPE, str_SNDSCAPEINI, str_Product, str_SoundFX, str_Port, str_WSSDMA, unk_167FA4, unk_167FE8
-global unk_168088
+global str_SNDSCAPE, str_SNDSCAPEINI, str_Product, str_SoundFX, str_Port, str_WSSDMA, str_Punct_ModemLinkOpen, str_IPX
+global str_Rt_ReadSoundscapeIni
 str_ATD2:
         db 041h,054h,044h,00h
-unk_167FA4:
+str_Punct_ModemLinkOpen:
         db 0Dh,00h,00h,00h
 str_EAGAME08x04x04x02x02x02x0:
         db 045h,041h,047h,041h,04Dh,045h,02Eh,025h,030h,038h,078h,02Eh,025h,030h,034h,078h
@@ -17,7 +17,7 @@ str_EAGAME08x04x04x02x02x02x0:
         db 032h,078h,025h,030h,032h,078h,00h,00h
 str_Netserv:
         db 06Eh,065h,074h,073h,065h,072h,076h,00h
-unk_167FE8:
+str_IPX:
         db 049h,050h,058h,00h
 str_IPXINTF:
         db 049h,050h,058h,049h,04Eh,054h,046h,00h
@@ -51,7 +51,7 @@ str_SNDSCAPE:
         db 053h,04Eh,044h,053h,043h,041h,050h,045h,00h,00h,00h,00h
 str_SNDSCAPEINI:
         db 05Ch,053h,04Eh,044h,053h,043h,041h,050h,045h,02Eh,049h,04Eh,049h,00h,00h,00h
-unk_168088:
+str_Rt_ReadSoundscapeIni:
         db 072h,074h,00h,00h
 str_Product:
         db 050h,072h,06Fh,064h,075h,063h,074h,00h
