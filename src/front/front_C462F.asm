@@ -24,7 +24,7 @@ extern dword_1CB868, dword_1CB8B6, dword_1CB8BA, dword_1CB908, dword_1CB90C, dwo
 extern dword_1CB9B0, dword_1CB9FE, dword_1CBA02, dword_1CBA50, dword_1CBA54, dword_1CBAA2, dword_1CBAA6, dword_1CBAF4
 extern dword_1CBAF8, dword_1CBB46, dword_1CBB4A, dword_1CBB88, dword_1CBB8D, rand_, sprintf_, sub_101340
 extern sub_1013FC, sub_101429, sub_10FAC, sub_11A318, sub_13C164, sub_414B8, sub_41550, sub_419B0
-extern sub_419B8, sub_41A28, sub_41D18, sub_41DB8, sub_41DD8, sub_41EA4, sub_41F2C, sub_41FDC
+extern sub_419B8, sub_41A28, sub_41D18, sub_41DB8, sub_41DD8, ArenaFileName, sub_41F2C, sub_41FDC
 extern sub_4B108, sub_7E860, sub_7EDF0, sub_7F028, sub_7F0D8, sub_7F16C, sub_80BBC, sub_83C08
 extern InitMenuItems, sub_8BFAC, sub_C36CA, sub_FAF34, sub_FB4D4, sub_FC510, sub_FCD90, sub_FCEEC
 extern sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FD110, sub_FE3D0, unk_166C97, unk_1C5F4A, unk_1CB148
@@ -1196,7 +1196,7 @@ sub_C48A2_F22:
         mov ebx, edx
         lea edx, [byte ebp-0Ah]
         mov eax, ebx
-        call sub_41EA4
+        call ArenaFileName
         lea eax, [byte ebp-0Ah]
         call sub_41A28
         lea eax, [byte ebx+01h]
@@ -1205,7 +1205,7 @@ sub_C48A2_F22:
         idiv ebx
         mov eax, edx
         lea edx, [byte ebp-0Ah]
-        call sub_41EA4
+        call ArenaFileName
         lea eax, [byte ebp-0Ah]
         call sub_41A28
         mov eax, ebx
@@ -1350,7 +1350,7 @@ sub_C48A2_11CF:
         mov ebx, edx
         lea edx, [byte ebp-0Ah]
         mov eax, ebx
-        call sub_41EA4
+        call ArenaFileName
         lea eax, [byte ebp-0Ah]
         call sub_41A28
         lea eax, [byte ebx+01h]
@@ -1359,7 +1359,7 @@ sub_C48A2_11CF:
         idiv ebx
         mov eax, edx
         lea edx, [byte ebp-0Ah]
-        call sub_41EA4
+        call ArenaFileName
         lea eax, [byte ebp-0Ah]
         call sub_41A28
         mov eax, ebx

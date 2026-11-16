@@ -14,7 +14,7 @@ extern dword_1DCEC0, dword_1DCEC4, dword_1DCF38, dword_1DCF62, dword_1DD378, dwo
 extern sub_107154, sub_1072B4, sub_1072F0, sub_107308, sub_107370, sub_1077D0, sub_1077F8, sub_1078E4
 extern sub_1095C4, sub_10A860, sub_10A868, sub_10A8C4, sub_10AD20, sub_128280, sub_128680, sub_128D84
 extern sub_12AB04, sub_12AB0C, sub_12C8BC, sub_12C950, sub_12C970, sub_12C9D0, sub_12CA20, sub_12CD34
-extern sub_12CEE1, sub_12D13B, sub_12D141, sub_12D150, sub_3ED60, CdStreamService, sub_3FBE4, sub_3FC7C
+extern sub_12CEE1, sub_12D13B, sub_12D141, sub_12D150, sub_3ED60, CdStreamService, CdStreamNextPacket, CdStreamFreePacket
 extern sub_FAA64, sub_FAF34, unk_1072E0, word_17004A, word_17004C, word_17004E, word_17005C, word_17005E
 global jpt_108240, sub_108250_20, sub_108250_FC, sub_108250_1C0, sub_108250_27B, strstr_, sub_107A2C, sub_107A9C
 global sub_107AE0, sub_107B70, sub_107BD8, sub_107CB0, sub_107D30, sub_107D70, sub_107E74, sub_107F48
@@ -1495,7 +1495,7 @@ sub_108900:
         call CdStreamService
         mov edx, dword [dword_170080]
         push edx
-        call sub_3FBE4
+        call CdStreamNextPacket
         add esp, byte 4
         mov edx, eax
         test eax, eax
@@ -1528,7 +1528,7 @@ sub_108900:
         call CdStreamService
         mov ecx, dword [dword_170080]
         push ecx
-        call sub_3FBE4
+        call CdStreamNextPacket
         add esp, byte 4
         mov edx, eax
         test eax, eax
@@ -1544,7 +1544,7 @@ sub_108900:
         push ebp
         inc ebx
         mov byte [byte_1700A5], cl
-        call sub_3FC7C
+        call CdStreamFreePacket
         add esp, byte 8
         cmp ebx, esi
         jge short .10
@@ -1634,7 +1634,7 @@ sub_108A60:
         call CdStreamService
         mov edx, dword [dword_170080]
         push edx
-        call sub_3FBE4
+        call CdStreamNextPacket
         add esp, byte 4
         mov edx, eax
         test eax, eax
@@ -1658,7 +1658,7 @@ sub_108A60:
         call CdStreamService
         mov ecx, dword [dword_170080]
         push ecx
-        call sub_3FBE4
+        call CdStreamNextPacket
         add esp, byte 4
         test eax, eax
         jle short .9
@@ -1667,7 +1667,7 @@ sub_108A60:
         push eax
         mov esi, dword [dword_170080]
         push esi
-        call sub_3FC7C
+        call CdStreamFreePacket
         add esp, byte 8
 .9:
         mov eax, ebx
@@ -1784,7 +1784,7 @@ sub_108BA0:
         push esi
         mov ebx, 0FFFFFFFFh
 .13:
-        call sub_3FC7C
+        call CdStreamFreePacket
         add esp, byte 8
 .14:
         call sub_12AB0C
@@ -1995,7 +1995,7 @@ sub_108E74:
         mov edx, dword [eax]
         push ebx
         mov dword [dword_170094], edx
-        call sub_3FC7C
+        call CdStreamFreePacket
         mov eax, dword [dword_170094]
         mov ecx, dword [dword_170098]
         add esp, byte 8
@@ -2067,7 +2067,7 @@ sub_108EF0:
         push eax
         mov ebx, dword [dword_170080]
         push ebx
-        call sub_3FC7C
+        call CdStreamFreePacket
         add esp, byte 8
 .5:
         mov eax, 1
@@ -2097,7 +2097,7 @@ sub_108EF0:
         push eax
         mov ecx, dword [dword_170080]
         push ecx
-        call sub_3FC7C
+        call CdStreamFreePacket
         mov eax, 2
         add esp, byte 8
         pop edx
@@ -2119,7 +2119,7 @@ sub_108EF0:
         push ebx
         mov esi, dword [dword_170080]
         push esi
-        call sub_3FC7C
+        call CdStreamFreePacket
         mov eax, 4
         add esp, byte 8
         pop esi
@@ -2138,7 +2138,7 @@ sub_108EF0:
         push eax
         mov edx, dword [dword_170080]
         push edx
-        call sub_3FC7C
+        call CdStreamFreePacket
         mov eax, 5
         add esp, byte 8
         pop edx
@@ -2164,7 +2164,7 @@ sub_10901C:
         push eax
         mov ebp, dword [dword_170080]
         push ebp
-        call sub_3FC7C
+        call CdStreamFreePacket
         mov dword [esi], 0
         add esp, byte 8
         mov dword [ebx], 0
@@ -2212,7 +2212,7 @@ sub_10901C:
         mov eax, dword [esi]
         push ebx
         mov dword [dword_170094], eax
-        call sub_3FC7C
+        call CdStreamFreePacket
         mov ecx, dword [dword_17008C]
         inc ecx
         mov eax, dword [dword_1700FD]

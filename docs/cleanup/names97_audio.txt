@@ -1,0 +1,22 @@
+sub_3E850 CdStreamOpen {source=96PC,confidence=medium} 96 PC CdStreamOpen: allocates and opens a CD stream ("CDSTREAM" block)
+sub_3E904 setstreamspeed {source=96PC,confidence=medium} 96 PC setstreamspeed ("STREAM" block), measures the stream's read speed
+sub_3EB40 delstream {source=96PC,confidence=low} closes a CD stream: removes its timer callback and frees its buffer
+sub_3EBE0 CdStreamRequest {confidence=low} the common body of the stream start / queue calls: copies the file name (8Fh) and sets the request flags
+sub_3EC58 CdStreamStart {source=96PC,confidence=low} CdStreamRequest with flags (1, 0, 1, 1)
+sub_3EC78 CdStreamQueue {source=96PC,confidence=low} CdStreamRequest with flags (1, 0, 1, 0)
+sub_3EE74 CdStreamOpenSecondary {source=96PC,confidence=medium} 96 PC CdStreamOpenSecondary ("SECCDSTREAM")
+sub_3FBE4 CdStreamNextPacket {source=96PC,confidence=medium} 96 PC CdStreamNextPacket: the next packet of the stream; 0 while waiting, -2 at the end
+sub_3FC7C CdStreamFreePacket {source=96PC,confidence=high} 96 PC CdStreamFreePacket, same body
+sub_409EC LoadSfxBank {confidence=low} (bank): with sound on, loads a sound effect bank (SFX4%s .BKH / .BKD)
+sub_40EBC OpenAudioStream {confidence=low} opens the audio stream ("AUDSTREAM" block)
+sub_4123C InitGameAudio {confidence=low} with sound on: the crowd (CROWD.CRD) and the play-by-play table (GAMEDATA\AUDPBP3.TSF)
+sub_41E64 MusicFileName {confidence=medium} (track 0-43h, buf): the music file path "%s%02d.ASF" in data folder 58h
+sub_41EA4 ArenaFileName {confidence=low} (clip 0-8, buf): the "%s%02d.ASF" path of data folder 59h (clip + 1)
+sub_42D50 OpenSpeechBanks {source=96PC,confidence=low} opens the play-by-play speech files (%sAUDPBP3.TSF, KTSF, %sAUDPBP2.VIV, CBANK%03d.DAT), like 96 PC OpenSpeechBanks
+sub_4329C LoadTeamSpeech {confidence=low} (team, other): loads the team name speech file TEAM%04d.DAT when it is not loaded
+sub_40EBC_97 OpenAudioStream_97 {no_record}
+sub_40EBC_A4 OpenAudioStream_A4 {no_record}
+sub_40EBC_B1 OpenAudioStream_B1 {no_record}
+sub_40EBC_BE OpenAudioStream_BE {no_record}
+sub_40EBC_CB OpenAudioStream_CB {no_record}
+sub_40EBC_D8 OpenAudioStream_D8 {no_record}

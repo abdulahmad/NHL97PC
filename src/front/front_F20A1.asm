@@ -32,8 +32,8 @@ extern sub_101390, sub_1013FC, sub_101429, sub_101EAC, sub_102B94, sub_10491C, s
 extern sub_119A8, sub_11A318, sub_11ADD0, sub_11ADE8, sub_11BDC0, sub_11F74, sub_11FA90, sub_11FAAC
 extern sub_11FB11, sub_12A10, sub_13C164, ChangeViewSize, ApplyDisplayFlags, RemoveOverlayPanel, sub_160E2, sub_18E76
 extern sub_18F67, sub_1BC18, sub_1C854, sub_1C9F0, sub_1D09C, sub_3CD70, sub_3CE58, sub_3CF68
-extern sub_3CFB0, sub_3D020, sub_3E480, sub_3E5F0, sub_4123C, sub_41670, sub_419B0, sub_419B8
-extern sub_41A28, sub_41CF0, sub_41D18, sub_41D30, sub_41DB8, sub_41DD8, sub_41EA4, sub_423B4
+extern sub_3CFB0, sub_3D020, sub_3E480, sub_3E5F0, InitGameAudio, sub_41670, sub_419B0, sub_419B8
+extern sub_41A28, sub_41CF0, sub_41D18, sub_41D30, sub_41DB8, sub_41DD8, ArenaFileName, sub_423B4
 extern PaEvent, sub_4A280, sub_4B108, sub_4B5C4, sub_4B80C, sub_4B928, sub_4BA00, sub_4BCB4
 extern sub_4C0C4, sub_5B4D4, sub_5BE74, sub_6539C, sub_76D3C, sub_7CBD6, sub_7CDD8, sub_7F028
 extern sub_7F0D8, sub_7F16C, sub_8BE60, sub_8BEF8, InitMenuItems, sub_8BFA0, sub_8BFAC, sub_8D6E0
@@ -2359,7 +2359,7 @@ sub_F3C43:
         call sub_41D18
         lea edx, [byte ebp-070h]
         mov eax, 2
-        call sub_41EA4
+        call ArenaFileName
         test di, di
         je short .4
         mov al, byte [byte_1C135A]
@@ -2374,7 +2374,7 @@ sub_F3C43:
 .5:
         lea edx, [byte ebp-070h]
         mov eax, 3
-        call sub_41EA4
+        call ArenaFileName
 .6:
         test di, di
         je short .7
@@ -2382,7 +2382,7 @@ sub_F3C43:
         je short .7
         lea edx, [byte ebp-070h]
         mov eax, 2
-        call sub_41EA4
+        call ArenaFileName
 .7:
         lea eax, [byte ebp-070h]
         call sub_41A28
@@ -3154,7 +3154,7 @@ sub_F418F_66D:
         call sub_8BEF8
         test si, si
         je short .37
-        call sub_4123C
+        call InitGameAudio
 .37:
         mov edx, dword [byte ebp+07Ah]
         movsx eax, si
@@ -3209,7 +3209,7 @@ sub_F48C2:
         mov ebx, edx
         lea edx, [byte ebp-050h]
         mov eax, ebx
-        call sub_41EA4
+        call ArenaFileName
         lea eax, [byte ebp-050h]
         call sub_41A28
         lea eax, [byte ebx+01h]
@@ -3218,7 +3218,7 @@ sub_F48C2:
         idiv ebx
         mov eax, edx
         lea edx, [byte ebp-050h]
-        call sub_41EA4
+        call ArenaFileName
         lea eax, [byte ebp-050h]
         call sub_41A28
 .2:
@@ -3243,7 +3243,7 @@ sub_F4978:
         call sub_DB6AC
         test ecx, ecx
         jne short .1
-        call sub_4123C
+        call InitGameAudio
 .1:
         mov eax, dword_19CD10
         call sub_4B5C4
@@ -3349,7 +3349,7 @@ sub_F4A8F:
         mov ebx, edx
         lea eax, [byte edx+04h]
         lea edx, [byte ebp-050h]
-        call sub_41EA4
+        call ArenaFileName
         lea eax, [byte ebp-050h]
         call sub_41A28
         lea eax, [byte ebx+01h]
@@ -3358,7 +3358,7 @@ sub_F4A8F:
         idiv ebx
         lea eax, [byte edx+04h]
         lea edx, [byte ebp-050h]
-        call sub_41EA4
+        call ArenaFileName
         lea eax, [byte ebp-050h]
         call sub_41A28
         call sub_41DB8

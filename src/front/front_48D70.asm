@@ -74,7 +74,7 @@ extern sub_110D70, sub_111C08, sub_111FA0, sub_112010, sub_1120F0, sub_112190, s
 extern StartCameraPath, SelectCameraView, sub_1B6E8, sub_1B71C, sub_1B85C, sub_1D2A8, sub_3B75B, SetVideoMode
 extern sub_3C880, sub_3C8DC, sub_3C944, sub_3C9C8, sub_3CA28, sub_3CAB8, sub_3CB38, sub_3CB70
 extern sub_3CCA8, sub_3D930, sub_3D95C, sub_3D988, sub_3DA18, sub_3DAC4, sub_3DBCC, sub_3DCBC
-extern sub_3E458, sub_3E590, sub_3E818, sub_3EB40, sub_3EC78, CdStreamService, sub_3FBE4, sub_3FC88
+extern sub_3E458, sub_3E590, sub_3E818, delstream, CdStreamQueue, CdStreamService, CdStreamNextPacket, sub_3FC88
 extern sub_41D94, sub_41DD8, sub_42650, sub_480CC, sub_4880C, sub_48864, RecordStreakClips, sub_52E14
 extern sub_52E8C, sub_53314, FreeRinkModel, sub_5475C, sub_55110, sub_55FE4, sub_560AC, sub_56464
 extern sub_56740, sub_57A1C, sub_5881C, sub_58B80, sub_58CA0, sub_59174, sub_5A6B4, sub_5A6E0
@@ -2163,7 +2163,7 @@ sub_4A558:
         mov edx, dword [dword_1691C0]
         push edx
         xor ebx, ebx
-        call sub_3EB40
+        call delstream
         mov ecx, 0FFFFFFFFh
         mov edi, dword [dword_1691B8]
         add esp, byte 4
@@ -2283,7 +2283,7 @@ sub_4A6F8:
         je short .1
         mov ecx, dword [dword_1691C0]
         push ecx
-        call sub_3FBE4
+        call CdStreamNextPacket
         add esp, byte 4
         test eax, eax
         je short .1
@@ -2342,7 +2342,7 @@ sub_4A74C_4B:
         add eax, byte_1AC638
         push eax
         push edx
-        call sub_3EC78
+        call CdStreamQueue
         add esp, byte 8
         test eax, eax
         jne short .3
@@ -2385,7 +2385,7 @@ sub_4A74C_105:
         je short .5
         mov ecx, dword [dword_1691C0]
         push ecx
-        call sub_3FBE4
+        call CdStreamNextPacket
         add esp, byte 4
         test eax, eax
         je short .5
@@ -2494,7 +2494,7 @@ sub_4A74C_277:
         je short .12
         mov edi, dword [dword_1691C0]
         push edi
-        call sub_3FBE4
+        call CdStreamNextPacket
         add esp, byte 4
         test eax, eax
         je short .12

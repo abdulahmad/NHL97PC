@@ -39,7 +39,7 @@ extern sub_10FAC, sub_1167AE, sub_11A318, sub_11A350, sub_11B104, sub_11B98E, su
 extern sub_11C41C, sub_11D2D0, sub_11D364, sub_11D508, sub_11D5C0, sub_11D690, sub_11D780, sub_11D8D8
 extern sub_11DA0C, sub_11DE04, sub_11F850, sub_11F8D0, sub_13C164, sub_14140, sub_379AC, sub_37A1C
 extern sub_37F4C, sub_37FC8, sub_419B0, sub_419B8, sub_41A28, sub_41D18, sub_41DB8, sub_41DD8
-extern sub_41EA4, sub_41FA0, sub_41FDC, sub_4AA78, sub_4B108, sub_7DFC0, sub_7E860, sub_7EDF0
+extern ArenaFileName, sub_41FA0, sub_41FDC, sub_4AA78, sub_4B108, sub_7DFC0, sub_7E860, sub_7EDF0
 extern sub_7EF70, sub_7F028, sub_7F04C, sub_7F0D8, sub_7F16C, sub_7F29C, sub_7F5A4, sub_7F5B8
 extern sub_80BBC, sub_81D1C, sub_83314, sub_834EC, sub_83558, sub_835AC, sub_835BC, sub_83850
 extern sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, sub_8E7E0, sub_D7A70, sub_D7B64, sub_D8130
@@ -17898,7 +17898,7 @@ sub_E7B33:
         call sub_41D18
         lea edx, [byte ebp-042h]
         mov eax, 6
-        call sub_41EA4
+        call ArenaFileName
         lea eax, [byte ebp-042h]
         call sub_41A28
         call sub_41DB8
@@ -17993,7 +17993,7 @@ sub_E7B33_19C:
         mov ebx, edx
         lea edx, [byte ebp-042h]
         mov eax, ebx
-        call sub_41EA4
+        call ArenaFileName
         lea eax, [byte ebp-042h]
         call sub_41A28
         lea eax, [byte ebx+01h]
@@ -18002,7 +18002,7 @@ sub_E7B33_19C:
         idiv ebx
         mov eax, edx
         lea edx, [byte ebp-042h]
-        call sub_41EA4
+        call ArenaFileName
         lea eax, [byte ebp-042h]
         call sub_41A28
         call sub_41DB8

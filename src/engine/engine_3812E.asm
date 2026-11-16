@@ -72,8 +72,8 @@ global sub_3812E_182, sub_3812E_1DA, sub_3812E_1E3, sub_3812E_1EC, sub_3812E_1F3
 global sub_3812E_3D3, sub_3812E_3DF, sub_3812E_3EB, sub_38675_472, sub_38E26_14D, sub_38E26_14E, sub_39BB6_6B, sub_3D030_FC
 global sub_3DE08_70, CdStreamService_20, CdStreamService_5B, CdStreamService_D6, CdStreamService_14C, CdStreamService_1A3, CdStreamService_1E3, CdStreamService_47A
 global CdStreamService_595, CdStreamService_74E, CdStreamService_81D, CdStreamService_956, CdStreamService_AC2, CdStreamService_BB8, sub_40D80_11, sub_40D80_19
-global sub_40D80_21, sub_40D80_29, sub_40D80_31, sub_40D80_39, sub_40EBC_97, sub_40EBC_A4, sub_40EBC_B1, sub_40EBC_BE
-global sub_40EBC_CB, sub_40EBC_D8, sub_3812E, sub_385C3, sub_38675, sub_38B1A, sub_38B77, sub_38BAB
+global sub_40D80_21, sub_40D80_29, sub_40D80_31, sub_40D80_39, OpenAudioStream_97, OpenAudioStream_A4, OpenAudioStream_B1, OpenAudioStream_BE
+global OpenAudioStream_CB, OpenAudioStream_D8, sub_3812E, sub_385C3, sub_38675, sub_38B1A, sub_38B77, sub_38BAB
 global sub_38BFC, sub_38C79, sub_38D84, sub_38E26, sub_38F7A, sub_39052, sub_397FD, sub_39824
 global sub_39851, sub_39882, sub_39B20, sub_39BB6, sub_39CE0, sub_39D1C, sub_39DA4, sub_39EC0
 global sub_3A06C, sub_3A164, sub_3A2E8, sub_3A3C8, sub_3A404, sub_3A440, sub_3A564, sub_3A65C
@@ -87,18 +87,18 @@ global sub_3D030, sub_3D134, sub_3D180, sub_3D2C0, sub_3D3D0, sub_3D4C4, sub_3D5
 global sub_3D660, sub_3D764, sub_3D898, sub_3D930, sub_3D95C, sub_3D988, sub_3D9E4, sub_3DA18
 global sub_3DA80, sub_3DAC4, sub_3DBCC, sub_3DC2C, sub_3DCBC, sub_3DDD8, sub_3DE08, sub_3DE94
 global sub_3DF14, sub_3DF54, sub_3E064, sub_3E140, sub_3E198, sub_3E1F8, sub_3E21C, sub_3E458
-global sub_3E480, sub_3E4B8, sub_3E590, sub_3E5F0, sub_3E6D0, sub_3E818, sub_3E850, sub_3E904
-global sub_3EB40, sub_3EBE0, sub_3EC58, sub_3EC78, sub_3ED60, sub_3EE4C, sub_3EE74, CdStreamService
-global CdStreamSkipMarks, CdStreamContigData, CdStreamSpaceLeft, sub_3FBE4, sub_3FC7C, sub_3FC88, sub_3FD0C, sub_3FDCC
+global sub_3E480, sub_3E4B8, sub_3E590, sub_3E5F0, sub_3E6D0, sub_3E818, CdStreamOpen, setstreamspeed
+global delstream, CdStreamRequest, CdStreamStart, CdStreamQueue, sub_3ED60, sub_3EE4C, CdStreamOpenSecondary, CdStreamService
+global CdStreamSkipMarks, CdStreamContigData, CdStreamSpaceLeft, CdStreamNextPacket, CdStreamFreePacket, sub_3FC88, sub_3FD0C, sub_3FDCC
 global sub_3FE54, sub_3FEE8, sub_3FF4C, sub_3FF9C, sub_4006C, sub_400E8, sub_401A0, sub_40258
 global sub_40298, sub_40380, sub_403C0, sub_40400, sub_40440, sub_404C4, sub_40574, sub_405F8
-global sub_40640, sub_40680, sub_40850, sub_4095C, sub_409EC, sub_40D80, sub_40EBC, sub_4123C
+global sub_40640, sub_40680, sub_40850, sub_4095C, LoadSfxBank, sub_40D80, OpenAudioStream, InitGameAudio
 global sub_414B8, sub_41550, sub_415A0, sub_415A8, sub_415F8, sub_41670, sub_41870, sub_419B0
 global sub_419B8, sub_41A28, sub_41ACC, sub_41CF0, sub_41D18, sub_41D30, sub_41D48, sub_41D94
-global sub_41DB8, sub_41DD8, sub_41E64, sub_41EA4, sub_41EE4, sub_41F2C, sub_41FA0, sub_41FDC
+global sub_41DB8, sub_41DD8, MusicFileName, ArenaFileName, sub_41EE4, sub_41F2C, sub_41FA0, sub_41FDC
 global sub_42098, sub_420E4, sub_42220, sub_42354, sub_423B4, sub_4241C, sub_424CC, sub_42550
 global sub_425CC, sub_42650, sub_42910, sub_42960, sub_42A98, sub_42AD0, sub_42C38, sub_42D38
-global sub_42D50, sub_431E8, sub_4329C
+global OpenSpeechBanks, sub_431E8, LoadTeamSpeech
 ;-----------------------------------------------------------------------------
 ; sub_3812E                                                       3812E  97 PC
 ;-----------------------------------------------------------------------------
@@ -9615,9 +9615,10 @@ sub_3E818:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_3E850                                                       3E850  97 PC
+; CdStreamOpen                                 3E850  96 PC, medium confidence
+; Allocates a CDSTREAM buffer and CdStreamInit
 ;-----------------------------------------------------------------------------
-sub_3E850:
+CdStreamOpen:
         push ebx
         push esi
         push edi
@@ -9669,7 +9670,7 @@ sub_3E850:
         push ebx
         mov ecx, dword [byte esp+014h]
         push ecx
-        call sub_3E850
+        call CdStreamOpen
         add esp, byte 10h
         pop ebx
         ret
@@ -9681,14 +9682,16 @@ sub_3E850:
         push ebx
         mov ecx, dword [byte esp+014h]
         push ecx
-        call sub_3E850
+        call CdStreamOpen
         add esp, byte 10h
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_3E904                                                       3E904  97 PC
+; setstreamspeed                               3E904  96 PC, medium confidence
+; EA CD stream: measures the read speed of the stream files for the data
+; stream rate; name from its debug message
 ;-----------------------------------------------------------------------------
-sub_3E904:
+setstreamspeed:
         push ebx
         push esi
         push edi
@@ -9874,9 +9877,11 @@ sub_3E904:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_3EB40                                                       3EB40  97 PC
+; delstream                                       3EB40  96 PC, low confidence
+; EA CD stream: removes a stream (stops its timer, closes its file, frees
+; it); name from its debug message ("STREAM NOT FOUND")
 ;-----------------------------------------------------------------------------
-sub_3EB40:
+delstream:
         push ebx
         mov ebx, dword [byte esp+08h]
         cmp ebx, dword [dword_1AC378]
@@ -9947,9 +9952,11 @@ sub_3EB40:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_3EBE0                                                       3EBE0  97 PC
+; CdStreamRequest                                 3EBE0  97 PC, low confidence
+; The common body of the stream start / queue calls: copies the file name
+; (8Fh) and sets the request flags
 ;-----------------------------------------------------------------------------
-sub_3EBE0:
+CdStreamRequest:
         push ebx
         push esi
         mov esi, dword [byte esp+0Ch]
@@ -9991,9 +9998,11 @@ sub_3EBE0:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_3EC58                                                       3EC58  97 PC
+; CdStreamStart                                   3EC58  96 PC, low confidence
+; (stream, file): sets the stream's file name and state 1 (open and start
+; reading)
 ;-----------------------------------------------------------------------------
-sub_3EC58:
+CdStreamStart:
         push ebx
         push byte 1
         push byte 1
@@ -10003,15 +10012,17 @@ sub_3EC58:
         push edx
         mov ebx, dword [byte esp+01Ch]
         push ebx
-        call sub_3EBE0
+        call CdStreamRequest
         add esp, byte 18h
         pop ebx
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_3EC78                                                       3EC78  97 PC
+; CdStreamQueue                                   3EC78  96 PC, low confidence
+; (stream, file): sets the stream's file name and state 0Dh (open the next
+; file)
 ;-----------------------------------------------------------------------------
-sub_3EC78:
+CdStreamQueue:
         push ebx
         push byte 0
         push byte 1
@@ -10021,7 +10032,7 @@ sub_3EC78:
         push edx
         mov ebx, dword [byte esp+01Ch]
         push ebx
-        call sub_3EBE0
+        call CdStreamRequest
         add esp, byte 18h
         pop ebx
         ret
@@ -10035,7 +10046,7 @@ sub_3EC78:
         push edx
         mov ebx, dword [byte esp+01Ch]
         push ebx
-        call sub_3EBE0
+        call CdStreamRequest
         add esp, byte 18h
         pop ebx
         ret
@@ -10049,7 +10060,7 @@ sub_3EC78:
         push edx
         mov ebx, dword [byte esp+01Ch]
         push ebx
-        call sub_3EBE0
+        call CdStreamRequest
         add esp, byte 18h
         pop ebx
         ret
@@ -10107,7 +10118,7 @@ sub_3ED60:
         push unk_160B68
         mov ebx, dword [byte esp+01Ch]
         push ebx
-        call sub_3EBE0
+        call CdStreamRequest
         add esp, byte 18h
         pop ebx
         ret
@@ -10120,7 +10131,7 @@ sub_3ED60:
         push unk_160B68
         mov ebx, dword [byte esp+01Ch]
         push ebx
-        call sub_3EBE0
+        call CdStreamRequest
         add esp, byte 18h
         pop ebx
         ret
@@ -10133,7 +10144,7 @@ sub_3ED60:
         push unk_160B68
         mov ebx, dword [byte esp+01Ch]
         push ebx
-        call sub_3EBE0
+        call CdStreamRequest
         add esp, byte 18h
         pop ebx
         ret
@@ -10146,7 +10157,7 @@ sub_3ED60:
         push unk_160B68
         mov ebx, dword [byte esp+01Ch]
         push ebx
-        call sub_3EBE0
+        call CdStreamRequest
         add esp, byte 18h
         pop ebx
         ret
@@ -10203,9 +10214,10 @@ sub_3EE4C:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_3EE74                                                       3EE74  97 PC
+; CdStreamOpenSecondary                        3EE74  96 PC, medium confidence
+; Allocates a SECCDSTREAM buffer and CdStreamInitSecondary
 ;-----------------------------------------------------------------------------
-sub_3EE74:
+CdStreamOpenSecondary:
         push ebx
         mov eax, dword [byte esp+08h]
         mov ebx, dword [byte esp+014h]
@@ -10257,7 +10269,7 @@ sub_3EE74:
         mov ecx, dword [byte esp+010h]
         push ecx
         push eax
-        call sub_3EE74
+        call CdStreamOpenSecondary
         add esp, byte 10h
         pop ebx
         ret
@@ -11349,9 +11361,11 @@ CdStreamSpaceLeft:
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_3FBE4                                                       3FBE4  97 PC
+; CdStreamNextPacket                           3FBE4  96 PC, medium confidence
+; Services the stream and returns its next packet (-2 at the end of the
+; stream)
 ;-----------------------------------------------------------------------------
-sub_3FBE4:
+CdStreamNextPacket:
         push ebx
         push esi
         mov eax, dword [byte esp+0Ch]
@@ -11435,9 +11449,10 @@ sub_3FBE4:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_3FC7C                                                       3FC7C  97 PC
+; CdStreamFreePacket                                              3FC7C  96 PC
+; Marks a packet as used (-2), so the ring buffer space comes back
 ;-----------------------------------------------------------------------------
-sub_3FC7C:
+CdStreamFreePacket:
         mov eax, dword [byte esp+08h]
         mov dword [eax], 0FFFFFFFEh
         ret
@@ -12911,9 +12926,9 @@ sub_4095C:
         call sub_FC330
         add esp, byte 4
         mov eax, 1
-        call sub_409EC
+        call LoadSfxBank
         mov eax, 2
-        call sub_409EC
+        call LoadSfxBank
         cmp byte [byte esp+050h], 0
         je short .3
         lea eax, [byte esp+050h]
@@ -12931,9 +12946,10 @@ sub_4095C:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_409EC                                                       409EC  97 PC
+; LoadSfxBank                                     409EC  97 PC, low confidence
+; (bank): with sound on, loads a sound effect bank (SFX4%s .BKH / .BKD)
 ;-----------------------------------------------------------------------------
-sub_409EC:
+LoadSfxBank:
         push ebx
         push ecx
         push edx
@@ -13385,16 +13401,17 @@ jpt_40E30:
         ret
         db 08Bh,0C0h
 jpt_40EA4:
-        dd sub_40EBC_B1
-        dd sub_40EBC_BE
-        dd sub_40EBC_CB
-        dd sub_40EBC_97
-        dd sub_40EBC_A4
-        dd sub_40EBC_D8
+        dd OpenAudioStream_B1
+        dd OpenAudioStream_BE
+        dd OpenAudioStream_CB
+        dd OpenAudioStream_97
+        dd OpenAudioStream_A4
+        dd OpenAudioStream_D8
 ;-----------------------------------------------------------------------------
-; sub_40EBC                                                       40EBC  97 PC
+; OpenAudioStream                                 40EBC  97 PC, low confidence
+; Opens the audio stream ("AUDSTREAM" block)
 ;-----------------------------------------------------------------------------
-sub_40EBC:
+OpenAudioStream:
         push ebx
         push ecx
         push esi
@@ -13405,7 +13422,7 @@ sub_40EBC:
         cmp word [word_1691A4], byte 0
         je short .1
         xor eax, eax
-        jmp near sub_40EBC_D8.22
+        jmp near OpenAudioStream_D8.22
 .1:
         mov edx, dword [dword_16AEB4]
         push edx
@@ -13436,24 +13453,24 @@ sub_40EBC:
         dec eax
         lea edx, [dword esp+0F0h]
         cmp eax, byte 5
-        ja short sub_40EBC_D8.4
+        ja short OpenAudioStream_D8.4
         jmp dword [nosplit cs:eax*4+jpt_40EA4]
-sub_40EBC_97:
+OpenAudioStream_97:
         mov dword [dword esp+0F0h], 1
-        jmp short sub_40EBC_D8.5
-sub_40EBC_A4:
+        jmp short OpenAudioStream_D8.5
+OpenAudioStream_A4:
         mov dword [dword esp+0F0h], 2
-        jmp short sub_40EBC_D8.5
-sub_40EBC_B1:
+        jmp short OpenAudioStream_D8.5
+OpenAudioStream_B1:
         mov dword [dword esp+0F0h], 3
-        jmp short sub_40EBC_D8.5
-sub_40EBC_BE:
+        jmp short OpenAudioStream_D8.5
+OpenAudioStream_BE:
         mov dword [dword esp+0F0h], 4
-        jmp short sub_40EBC_D8.5
-sub_40EBC_CB:
+        jmp short OpenAudioStream_D8.5
+OpenAudioStream_CB:
         mov dword [dword esp+0F0h], 5
-        jmp short sub_40EBC_D8.5
-sub_40EBC_D8:
+        jmp short OpenAudioStream_D8.5
+OpenAudioStream_D8:
         mov dword [dword esp+0F0h], 6
         jmp short .5
 .4:
@@ -13594,7 +13611,7 @@ sub_40EBC_D8:
         call sub_FC330
         add esp, byte 4
         xor eax, eax
-        call sub_409EC
+        call LoadSfxBank
         cmp byte [byte esp+050h], 0
         je short .16
         lea eax, [byte esp+050h]
@@ -13627,7 +13644,7 @@ sub_40EBC_D8:
         push eax
         lea eax, [byte esp+04h]
         push eax
-        call sub_3E904
+        call setstreamspeed
         mov cl, 1
         add esp, byte 8
         mov byte [byte_1691DC], cl
@@ -13658,9 +13675,11 @@ sub_40EBC_D8:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_4123C                                                       4123C  97 PC
+; InitGameAudio                                   4123C  97 PC, low confidence
+; With sound on: the crowd (CROWD.CRD) and the play-by-play table
+; (GAMEDATA\AUDPBP3.TSF)
 ;-----------------------------------------------------------------------------
-sub_4123C:
+InitGameAudio:
         push ebx
         push ecx
         push edx
@@ -13718,7 +13737,7 @@ sub_4123C:
         call sub_842F4
         call sub_E341C
         mov eax, 3
-        call sub_409EC
+        call LoadSfxBank
         test eax, eax
         setne al
         and eax, 0FFh
@@ -13739,7 +13758,7 @@ sub_4123C:
 .5:
         mov eax, 4
         mov ebp, 1
-        call sub_409EC
+        call LoadSfxBank
         mov dword [dword_16921C], ebp
         jmp short .7
 .6:
@@ -13750,7 +13769,7 @@ sub_4123C:
         mov eax, 0Fh
         call sub_842F4
         mov eax, 5
-        call sub_409EC
+        call LoadSfxBank
         test eax, eax
         setne al
         and eax, 0FFh
@@ -13991,7 +14010,7 @@ sub_415F8:
         call sub_FC330
         add esp, byte 4
         mov eax, 1
-        call sub_409EC
+        call LoadSfxBank
         cmp byte [byte esp+050h], 0
         je short .3
         lea eax, [byte esp+050h]
@@ -14138,11 +14157,11 @@ sub_41670:
         call sub_FC330
         add esp, byte 4
         mov eax, 1
-        call sub_409EC
+        call LoadSfxBank
         test ebx, ebx
         jne short .11
         mov eax, 2
-        call sub_409EC
+        call LoadSfxBank
         mov dword [dword_169220], ebx
         jmp short .12
 .11:
@@ -14670,9 +14689,10 @@ sub_41DD8:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_41E64                                                       41E64  97 PC
+; MusicFileName                                41E64  97 PC, medium confidence
+; (track 0-43h, buf): the music file path "%s%02d.ASF" in data folder 58h
 ;-----------------------------------------------------------------------------
-sub_41E64:
+MusicFileName:
         push ebx
         push ecx
         sub esp, byte 50h
@@ -14703,9 +14723,10 @@ sub_41E64:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_41EA4                                                       41EA4  97 PC
+; ArenaFileName                                   41EA4  97 PC, low confidence
+; (clip 0-8, buf): the "%s%02d.ASF" path of data folder 59h (clip + 1)
 ;-----------------------------------------------------------------------------
-sub_41EA4:
+ArenaFileName:
         push ebx
         push ecx
         sub esp, byte 50h
@@ -16007,9 +16028,12 @@ sub_42D38:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_42D50                                                       42D50  97 PC
+; OpenSpeechBanks                                 42D50  96 PC, low confidence
+; (game): stops speech, clears the clip queue, opens the speech bank files
+; (front-end or game list, MakeDataPath) with AsyncRequestOpen and reads
+; their clip tables
 ;-----------------------------------------------------------------------------
-sub_42D50:
+OpenSpeechBanks:
         push dword 128h
         call __CHK
         push ecx
@@ -16385,9 +16409,11 @@ sub_431E8:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_4329C                                                       4329C  97 PC
+; LoadTeamSpeech                                  4329C  97 PC, low confidence
+; (team, other): loads the team name speech file TEAM%04d.DAT when it is not
+; loaded
 ;-----------------------------------------------------------------------------
-sub_4329C:
+LoadTeamSpeech:
         push dword 9Ch
         call __CHK
         push ebx

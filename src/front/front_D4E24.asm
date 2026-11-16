@@ -15,7 +15,7 @@ extern fopen_, memcpy_, memset_, off_16E4E0, rand_, sprintf_, sscanf_, str_CRD1
 extern str_CRD2, str_Nhll, str_Nhlp, str_Pl0, str_Pl1, strlen_, sub_1008CC, sub_101340
 extern sub_101390, sub_1013AC, sub_1013FC, sub_101429, sub_101584, sub_103298, sub_1167AE, sub_11A318
 extern sub_11BED4, sub_13C164, WaitRetraceEdges, RunDemoGame, sub_419B0, sub_419B8, sub_41A28, sub_41D18
-extern sub_41D48, sub_41DB8, sub_41DD8, sub_41EA4, sub_41FA0, sub_41FDC, sub_4A4F4, MakeDataPath
+extern sub_41D48, sub_41DB8, sub_41DD8, ArenaFileName, sub_41FA0, sub_41FDC, sub_4A4F4, MakeDataPath
 extern sub_4B108, sub_7E860, sub_7EDF0, sub_7F028, sub_7F0D8, sub_7F16C, sub_80BBC, sub_81650
 extern sub_81678, sub_81D1C, sub_823F0, sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, sub_E2270
 extern sub_E22D0, sub_E22FC, sub_E2310, sub_E2334, sub_E2348, sub_E23BC, sub_E23E0, sub_E2404
@@ -2230,7 +2230,7 @@ sub_D6930:
         mov edx, esp
         mov dword [byte esp+050h], eax
         mov eax, 8
-        call sub_41EA4
+        call ArenaFileName
         mov eax, esp
         mov ebx, 300h
         call sub_41A28
@@ -2786,7 +2786,7 @@ sub_D705C:
         mov ebx, edx
         mov edx, esp
         mov eax, ebx
-        call sub_41EA4
+        call ArenaFileName
         mov eax, esp
         lea edx, [byte ebx+01h]
         call sub_41A28
@@ -2796,7 +2796,7 @@ sub_D705C:
         idiv ebx
         mov eax, edx
         mov edx, esp
-        call sub_41EA4
+        call ArenaFileName
         mov eax, esp
         call sub_41A28
         mov eax, ebx
@@ -2826,7 +2826,7 @@ sub_D70C4:
         call sub_41D18
         lea edx, [dword esp+06AF8h]
         mov eax, 7
-        call sub_41EA4
+        call ArenaFileName
         lea eax, [dword esp+06AF8h]
         call sub_41A28
         mov eax, 2

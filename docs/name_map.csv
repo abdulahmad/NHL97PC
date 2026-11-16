@@ -69,10 +69,26 @@ address,name,auto_name,source,confidence,evidence,file
 349E4,ReadJoy1,,96PC,medium,NHL96PC 398DB (sem): C:371,
 362E0,CountTeamSlots,,96PC,medium,NHL96PC 3A2F6 (similar): mnemonic similarity 0.82 over 32 instructions,
 3C75C,SetVideoMode,sub_3C75C,new,medium,"(width, height): switches the screen mode when it differs from the current one (dword_1A8E84 x dword_1A8E88)",src/engine/engine_3812E.asm
+3E850,CdStreamOpen,sub_3E850,96PC,medium,"96 PC CdStreamOpen: allocates and opens a CD stream (""CDSTREAM"" block)",src/engine/engine_3812E.asm
+3E904,setstreamspeed,sub_3E904,96PC,medium,"96 PC setstreamspeed (""STREAM"" block), measures the stream's read speed",src/engine/engine_3812E.asm
+3EB40,delstream,sub_3EB40,96PC,low,closes a CD stream: removes its timer callback and frees its buffer,src/engine/engine_3812E.asm
+3EBE0,CdStreamRequest,sub_3EBE0,new,low,the common body of the stream start / queue calls: copies the file name (8Fh) and sets the request flags,src/engine/engine_3812E.asm
+3EC58,CdStreamStart,sub_3EC58,96PC,low,"CdStreamRequest with flags (1, 0, 1, 1)",src/engine/engine_3812E.asm
+3EC78,CdStreamQueue,sub_3EC78,96PC,low,"CdStreamRequest with flags (1, 0, 1, 0)",src/engine/engine_3812E.asm
+3EE74,CdStreamOpenSecondary,sub_3EE74,96PC,medium,"96 PC CdStreamOpenSecondary (""SECCDSTREAM"")",src/engine/engine_3812E.asm
 3EF68,CdStreamService,sub_3EF68,96PC,medium,NHL96PC 1CB54 (sem 0.87): C:460; C:458; C:2029,src/engine/engine_3812E.asm
 3FB34,CdStreamSkipMarks,sub_3FB34,96PC,high,NHL96PC 1D54E (callsite 0.90): called at the same place of CdStreamSpaceLeft,src/engine/engine_3812E.asm
 3FB7C,CdStreamContigData,sub_3FB7C,96PC,high,"96 PC CdStreamContigData, same body",src/engine/engine_3812E.asm
 3FBBC,CdStreamSpaceLeft,sub_3FBBC,96PC,high,NHL96PC 1D5A9 (exact 1.00): 19 instructions,src/engine/engine_3812E.asm
+3FBE4,CdStreamNextPacket,sub_3FBE4,96PC,medium,"96 PC CdStreamNextPacket: the next packet of the stream; 0 while waiting, -2 at the end",src/engine/engine_3812E.asm
+3FC7C,CdStreamFreePacket,sub_3FC7C,96PC,high,"96 PC CdStreamFreePacket, same body",src/engine/engine_3812E.asm
+409EC,LoadSfxBank,sub_409EC,new,low,"(bank): with sound on, loads a sound effect bank (SFX4%s .BKH / .BKD)",src/engine/engine_3812E.asm
+40EBC,OpenAudioStream,sub_40EBC,new,low,"opens the audio stream (""AUDSTREAM"" block)",src/engine/engine_3812E.asm
+4123C,InitGameAudio,sub_4123C,new,low,with sound on: the crowd (CROWD.CRD) and the play-by-play table (GAMEDATA\AUDPBP3.TSF),src/engine/engine_3812E.asm
+41E64,MusicFileName,sub_41E64,new,medium,"(track 0-43h, buf): the music file path ""%s%02d.ASF"" in data folder 58h",src/engine/engine_3812E.asm
+41EA4,ArenaFileName,sub_41EA4,new,low,"(clip 0-8, buf): the ""%s%02d.ASF"" path of data folder 59h (clip + 1)",src/engine/engine_3812E.asm
+42D50,OpenSpeechBanks,sub_42D50,96PC,low,"opens the play-by-play speech files (%sAUDPBP3.TSF, KTSF, %sAUDPBP2.VIV, CBANK%03d.DAT), like 96 PC OpenSpeechBanks",src/engine/engine_3812E.asm
+4329C,LoadTeamSpeech,sub_4329C,new,low,"(team, other): loads the team name speech file TEAM%04d.DAT when it is not loaded",src/engine/engine_3812E.asm
 47F8C,ShutdownSound,sub_47F8C,96PC,medium,NHL96PC 699D0 (sem 0.61): C:2246,src/front/front_45BEC.asm
 4890C,CountRecordGame,sub_4890C,96PC,medium,96 PC CountRecordGame: counts one game of a W/L/T byte string,src/front/front_45BEC.asm
 48950,RecordPctClip,sub_48950,96PC,medium,NHL96PC 67636 (similar 0.91): mnemonic similarity 0.91 over 69 instructions,src/front/front_45BEC.asm

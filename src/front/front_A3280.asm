@@ -30,7 +30,7 @@ extern dword_1CF548, memcmp_, memmove_, memset_, qsort_, sprintf_, str_DD, strcp
 extern sub_100A68, sub_101390, sub_1013AC, sub_1013FC, sub_101429, sub_101430, sub_101560, sub_101EAC
 extern sub_102B94, sub_102C10, sub_102C30, sub_106D80, sub_106F64, sub_106F94, sub_110D70, sub_117338
 extern sub_11A318, sub_11A350, sub_13B50, sub_13B98, sub_13C164, PlayGame, sub_397FD, sub_39824
-extern sub_4123C, sub_415A0, sub_415F8, sub_41670, sub_419B0, sub_419B8, sub_41FA0, sub_41FDC
+extern InitGameAudio, sub_415A0, sub_415F8, sub_41670, sub_419B0, sub_419B8, sub_41FA0, sub_41FDC
 extern PaEvent, sub_4A280, sub_4B074, sub_4B108, sub_4B19C, sub_7CBD6, sub_7CDD8, sub_7DA28
 extern sub_7DFC0, sub_7E52C, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, sub_7F0D8, sub_7F16C
 extern sub_7F29C, sub_80758, sub_80808, sub_80A38, sub_80AB8, sub_80BBC, sub_81650, sub_81678
@@ -9974,7 +9974,7 @@ sub_AB0E8:
         add esp, byte 4
 .4:
         call sub_7CDD8
-        call sub_4123C
+        call InitGameAudio
         mov edx, unk_1AC8E4
         mov eax, dword_16D93A
         call sub_EE8AC

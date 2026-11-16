@@ -17,9 +17,9 @@ extern str_ATH0, str_ATM0, str_ATS01, str_ATZS760S1155, strcat_, strcpy_, strlen
 extern strstr_, sub_100A68, sub_1013AC, sub_1013FC, sub_101429, sub_103234, sub_1047D0, sub_108900
 extern sub_108A60, sub_108BA0, sub_108D78, sub_108DC4, sub_108E74, sub_1091E0, sub_109210, sub_116D38
 extern sub_116E84, sub_116F78, sub_117338, sub_11756C, sub_117C26, sub_118C88, sub_119054, sub_11910D
-extern sub_1191D1, sub_1191F2, sub_119780, sub_13C164, sub_3E818, sub_3EB40, sub_3EC58, sub_3EE74
-extern CdStreamService, sub_3FBE4, sub_3FC7C, sub_3FD0C, sub_419B0, sub_419B8, sub_41A28, sub_41D18
-extern sub_41DB8, sub_41DD8, sub_41EA4, PaEvent, MakeDataPath, sub_4B074, sub_4B108, WriteGlobalSet
+extern sub_1191D1, sub_1191F2, sub_119780, sub_13C164, sub_3E818, delstream, CdStreamStart, CdStreamOpenSecondary
+extern CdStreamService, CdStreamNextPacket, CdStreamFreePacket, sub_3FD0C, sub_419B0, sub_419B8, sub_41A28, sub_41D18
+extern sub_41DB8, sub_41DD8, ArenaFileName, PaEvent, MakeDataPath, sub_4B074, sub_4B108, WriteGlobalSet
 extern sub_7F5A4, sub_80BBC, sub_81678, sub_84B55, sub_85A15, sub_85D1D, sub_8BDCF, sub_8BE23
 extern sub_8BE60, sub_8BEF8, sub_8BFA0, sub_8E740, sub_8E7E0, sub_8E840, sub_9CFD3, sub_9D333
 extern sub_C3594, sub_D547C, sub_D70C4, sub_DA7D6, sub_DA7EB, sub_DB6AC, sub_DCBB0, sub_E036F
@@ -1688,13 +1688,13 @@ sub_7BCF0:
         push dword 0FFFFh
         push dword 4353h
         push esi
-        call sub_3EE74
+        call CdStreamOpenSecondary
         add esp, byte 10h
         push edi
         mov edx, dword [dword_1C1254]
         push edx
         mov dword [dword_1C1260], eax
-        call sub_3EC58
+        call CdStreamStart
         mov ecx, dword [dword_1C1250]
         add esp, byte 8
         test ecx, ecx
@@ -1811,11 +1811,11 @@ sub_7BE04:
         call WaitTicks
         add esp, byte 4
         push esi
-        call sub_3EB40
+        call delstream
         add esp, byte 4
         mov ebx, dword [dword_1C1208]
         push ebx
-        call sub_3EB40
+        call delstream
         add esp, byte 4
         mov ecx, dword [dword_1C1208]
         push ecx
@@ -1948,7 +1948,7 @@ sub_7C038:
         call CdStreamService
         mov edx, dword [dword_1C1254]
         push edx
-        call sub_3FBE4
+        call CdStreamNextPacket
         add esp, byte 4
         push eax
         mov ecx, dword [dword_1C1254]
@@ -2010,7 +2010,7 @@ sub_7C038:
         push edx
         mov ecx, dword [dword_1C1254]
         push ecx
-        call sub_3FC7C
+        call CdStreamFreePacket
         add esp, byte 8
 .8:
         mov eax, dword [tickcount]
@@ -2060,7 +2060,7 @@ sub_7C038:
         call CdStreamService
         mov ecx, dword [dword_1C1260]
         push ecx
-        call sub_3FBE4
+        call CdStreamNextPacket
         add esp, byte 4
         push eax
         mov dword [dword_1C1258], eax
@@ -2104,7 +2104,7 @@ sub_7C038:
         push eax
         mov edx, dword [dword_1C1260]
         push edx
-        call sub_3FC7C
+        call CdStreamFreePacket
         mov ecx, dword [dword_1C1228]
         add esp, byte 8
         cmp edi, ecx
@@ -3244,7 +3244,7 @@ sub_7CE9E:
         mov ecx, edx
         lea edx, [byte ebp-050h]
         mov eax, ecx
-        call sub_41EA4
+        call ArenaFileName
         lea eax, [byte ebp-050h]
         mov ebx, 1
         call sub_41A28
@@ -3254,7 +3254,7 @@ sub_7CE9E:
         idiv ecx
         mov eax, edx
         lea edx, [byte ebp-050h]
-        call sub_41EA4
+        call ArenaFileName
         lea eax, [byte ebp-050h]
         call sub_41A28
         call sub_41DB8
