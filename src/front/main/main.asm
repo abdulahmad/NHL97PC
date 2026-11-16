@@ -32,7 +32,7 @@ extern SetScreenTarget, LoadMainSfxBank, OpenAudioStream, ShutdownGameAudio, Chk
 extern StopAllSfx, PlaySfx, MakeDirPath, LoadDataFile, LoadStartupData, RunFrontEnd, InitMenuItems, RunMenu
 extern InitScrollList, ScrollUp, ScrollDown, FreeScrollList, SetScrollBarPos, ScrollToMouse, GetLangText, FreeLangText
 extern RunIntro, AllocStaticBuffer, InitDbState, ServiceIdle, NetInit, NetShutdown, LinkSendBlock, LinkReceiveBlock
-extern WaitForOtherComputer, FillBox, sub_F9650, AllocMemBlock, FreeMemBlock, MemFreeSize, ZeroMem, FillMemPattern
+extern WaitForOtherComputer, FillBox, InitVideoModeList, AllocMemBlock, FreeMemBlock, MemFreeSize, ZeroMem, FillMemPattern
 extern sub_FBE40, sub_FBE94, MakeColor, sub_FC73E, sub_FCC40, FreeBitmap, DrawShapeAtOwnPos, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRectColor, FillRect, MeasureText, DrawTextAt, SetTextColors
 extern FillRectCorners, DrawGlyph, tickcount, unk_1643C2, unk_16445A, unk_1644A0, unk_1644EF, unk_1645E7
@@ -358,7 +358,7 @@ main_:
         mov dword [dword_170710], 0
         call InstallErrorHandlers
         call NetInit
-        call sub_F9650
+        call InitVideoModeList
         call LoadJoystickConfig
         call AllocStaticBuffer
         mov edx, 1

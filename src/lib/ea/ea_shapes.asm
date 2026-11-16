@@ -7,12 +7,14 @@ extern dword_16FA08, dword_16FA10, dword_16FA14, dword_1CF9F8, dword_1CF9FC, dwo
 extern off_16FA1C, qword_167DF0, qword_167DF8, qword_167E00, qword_167E0C, qword_167E14, qword_167E20, SortIndices
 extern sub_104940, sub_104948, sub_10495F, sub_1049D0, DrawPolyList, BlitCore, sub_1265D0, sub_126624
 extern sub_12664C, AllocMemBlock, FloatsToInts, VecSub, VecAngle, ProjectCoord
-global bcopy_, sub_1043A4_3CC, removewindow, sub_10376C, sub_1038B0, sub_103E14, sub_1042D0, sub_104330
-global sub_1043A4, sub_104790, sub_1047A0, sub_1047BC, sub_1047D0, sub_10483C
+global bcopy_, BuildUniformArt_3CC, removewindow, FillRowTable, DrawLimbSegment, DrawLimbSegmentFlat, ParseHexChar, ParseHexByte
+global BuildUniformArt, CopyPalette16, CopyPalette24, CopyPalette32, BlitFrameToScreen, WritePaletteRange
 ;-----------------------------------------------------------------------------
-; sub_10376C                                                          10376C  
+; FillRowTable                                   10376C  97 PC, low confidence
+; Fills the screen row address table for a range of rows of the current
+; screen
 ;-----------------------------------------------------------------------------
-sub_10376C:
+FillRowTable:
         push ecx
         push esi
         push edi
@@ -171,9 +173,10 @@ removewindow:
         ret
         db 00h
 ;-----------------------------------------------------------------------------
-; sub_1038B0                                                          1038B0  
+; DrawLimbSegment                                1038B0  97 PC, low confidence
+; Projects and draws one shaded arm or leg segment of a player model
 ;-----------------------------------------------------------------------------
-sub_1038B0:
+DrawLimbSegment:
         push ebx
         push ecx
         push edx
@@ -658,9 +661,10 @@ sub_1038B0:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_103E14                                                          103E14  
+; DrawLimbSegmentFlat                            103E14  97 PC, low confidence
+; Projects and draws one flat arm or leg segment of a player model
 ;-----------------------------------------------------------------------------
-sub_103E14:
+DrawLimbSegmentFlat:
         push ebx
         push ecx
         push edx
@@ -1090,9 +1094,10 @@ sub_103E14:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1042D0                                                          1042D0  
+; ParseHexChar                                   1042D0  97 PC, low confidence
+; Converts one hex digit character to its value; returns 0 for a non-digit
 ;-----------------------------------------------------------------------------
-sub_1042D0:
+ParseHexChar:
         push ebx
         push ecx
         mov bl, byte [eax]
@@ -1141,9 +1146,10 @@ sub_1042D0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_104330                                                          104330  
+; ParseHexByte                                   104330  97 PC, low confidence
+; Reads two hex digits as one byte value
 ;-----------------------------------------------------------------------------
-sub_104330:
+ParseHexByte:
         push ecx
         push esi
         push edi
@@ -1152,7 +1158,7 @@ sub_104330:
         mov ecx, eax
         mov esi, edx
         mov edx, esp
-        call sub_1042D0
+        call ParseHexChar
         test eax, eax
         je short .1
         mov eax, dword [esp]
@@ -1160,7 +1166,7 @@ sub_104330:
         mov edx, esp
         mov dword [esi], eax
         lea eax, [byte ecx+01h]
-        call sub_1042D0
+        call ParseHexChar
         test eax, eax
         je short .1
         mov eax, dword [esp]
@@ -1171,7 +1177,7 @@ sub_104330:
         lea eax, [byte ecx+02h]
         mov edx, esp
         mov dword [esi], edi
-        call sub_1042D0
+        call ParseHexChar
         test eax, eax
         je short .1
         mov eax, dword [esp]
@@ -1179,7 +1185,7 @@ sub_104330:
         mov edx, esp
         mov dword [ebx], eax
         lea eax, [byte ecx+03h]
-        call sub_1042D0
+        call ParseHexChar
         test eax, eax
         je short .1
         mov eax, dword [esp]
@@ -1195,9 +1201,10 @@ sub_104330:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1043A4                                                          1043A4  
+; BuildUniformArt                                1043A4  97 PC, low confidence
+; Reads a uniform colour description and builds the recoloured player art
 ;-----------------------------------------------------------------------------
-sub_1043A4:
+BuildUniformArt:
         push ecx
         push esi
         push edi
@@ -1245,7 +1252,7 @@ sub_1043A4:
         add esp, byte 0Ch
         lea edx, [dword esp+04C0h]
         lea eax, [dword esp+04B8h]
-        call sub_104330
+        call ParseHexByte
         test eax, eax
         je near .7
         xor ebx, ebx
@@ -1363,7 +1370,7 @@ sub_1043A4:
         add esp, byte 0Ch
         lea edx, [dword esp+04C0h]
         lea eax, [dword esp+04B0h]
-        call sub_104330
+        call ParseHexByte
         test eax, eax
         je near .16
         xor ebx, ebx
@@ -1491,7 +1498,7 @@ sub_1043A4:
         pop ecx
         ret
         db 00h,00h,00h,00h,00h,00h
-sub_1043A4_3CC:
+BuildUniformArt_3CC:
         push ecx
         mov ecx, edx
         sar ebx, 1
@@ -1513,9 +1520,10 @@ bcopy_:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_104790                                                          104790  
+; CopyPalette16                                  104790  97 PC, low confidence
+; Copies palette entries two bytes each
 ;-----------------------------------------------------------------------------
-sub_104790:
+CopyPalette16:
         push ecx
         mov ecx, edx
         mov edx, eax
@@ -1525,9 +1533,10 @@ sub_104790:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1047A0                                                          1047A0  
+; CopyPalette24                                  1047A0  97 PC, low confidence
+; Copies palette entries three bytes each
 ;-----------------------------------------------------------------------------
-sub_1047A0:
+CopyPalette24:
         push ecx
         push esi
         mov ecx, eax
@@ -1543,9 +1552,10 @@ sub_1047A0:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1047BC                                                          1047BC  
+; CopyPalette32                                  1047BC  97 PC, low confidence
+; Copies palette entries four bytes each
 ;-----------------------------------------------------------------------------
-sub_1047BC:
+CopyPalette32:
         push ecx
         mov ecx, edx
         shl ebx, 2
@@ -1556,9 +1566,11 @@ sub_1047BC:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1047D0                                                          1047D0  
+; BlitFrameToScreen                              1047D0  97 PC, low confidence
+; Blits a movie or game frame to the screen through the blit engine; followed
+; by the clipped variant
 ;-----------------------------------------------------------------------------
-sub_1047D0:
+BlitFrameToScreen:
         push ebx
         mov eax, dword [byte esp+08h]
         mov edx, dword [byte esp+0Ch]
@@ -1597,9 +1609,11 @@ sub_1047D0:
         ret
         db 00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_10483C                                                          10483C  
+; WritePaletteRange                              10483C  97 PC, low confidence
+; Writes a range of palette entries to the VGA DAC (skipped in high-colour
+; modes)
 ;-----------------------------------------------------------------------------
-sub_10483C:
+WritePaletteRange:
         push ebx
         push esi
         push edi

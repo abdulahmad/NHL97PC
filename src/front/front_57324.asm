@@ -154,7 +154,7 @@ extern qword_163CEC, qword_163CF4, qword_163CFC, qword_163D04, qword_163D0C, qwo
 extern qword_163D2C, qword_163D34, qword_163D44, qword_163D54, qword_163D64, qword_163DA1, qword_163DA9, qword_163DB1
 extern qword_163EF8, rand_, randomd0, regd1, sprintf_, str_Back, str_Uarm, strcpy_
 extern strncmp_, strncpy_, strnicmp_, strupr_, sub_100498, sub_100700, SortIndices, bcopy
-extern BlitShape2, FindShape, OpenArtArchive, OpenArtArchiveErr, Random32, sub_1038B0, sub_103E14, sub_1043A4
+extern BlitShape2, FindShape, OpenArtArchive, OpenArtArchiveErr, Random32, DrawLimbSegment, DrawLimbSegmentFlat, BuildUniformArt
 extern sub_1049D0, LoadFileAlloc, ProjectModelPoints, DrawModel, sub_10CDE0, FindModelShapeByName, FindInstanceShape, BindModelShapes
 extern UpdateModelInstance, UpdateModelPart, SetModelShape, SetModelShapeWith, LoadModelByName, FreeModelFile, InitModelInstance, CreateModelInstance
 extern FreeModelInstance, FindModelPartByName, StartCrowdMusic, RestartGameMusic, TransformBoneVerts, SkinModelVerts, AttachModelFrame, AttachModel
@@ -1042,7 +1042,7 @@ LoadPlayerCommonArt:
         add esp, byte 8
         mov edx, dword_1B82DC
         mov dword [dword_1B84C4], eax
-        call sub_1043A4
+        call BuildUniformArt
         mov ecx, esi
         push byte 0
         mov ebx, dword [dword_1B84C4]
@@ -1667,7 +1667,7 @@ LoadUniformArt:
         shl esi, 2
         mov ecx, dword [byte esp+030h]
         mov dword [dword esi+dword_1B8324], eax
-        call sub_1043A4
+        call BuildUniformArt
         push byte 0
         mov edx, dword [dword_1ADC88]
         mov ebx, edi
@@ -1682,7 +1682,7 @@ LoadUniformArt:
         add esp, byte 8
         mov edi, eax
         mov dword [dword esi+dword_1B8380], eax
-        call sub_1043A4
+        call BuildUniformArt
         push byte 0
         mov ecx, dword [byte esp+034h]
         mov edx, dword [dword_1ADC88]
@@ -1700,7 +1700,7 @@ LoadUniformArt:
         mov ebx, dword_1B82E0
         mov edx, dword_1B82DC
         mov ecx, dword [byte esp+030h]
-        call sub_1043A4
+        call BuildUniformArt
         push byte 0
         mov edx, dword [dword_1ADC88]
         mov ebx, edi
@@ -1715,7 +1715,7 @@ LoadUniformArt:
         add esp, byte 8
         mov edi, eax
         mov dword [dword esi+dword_1B82F4], eax
-        call sub_1043A4
+        call BuildUniformArt
         push byte 0
         mov ecx, dword [byte esp+034h]
         mov edx, dword [dword_1ADC88]
@@ -1734,7 +1734,7 @@ LoadUniformArt:
         mov edi, eax
         mov dword [dword_1CF9FC], ebp
         mov dword [dword esi+dword_1B82E4], eax
-        call sub_1043A4
+        call BuildUniformArt
         mov ecx, dword [byte esp+030h]
         mov edx, dword [dword_1ADC88]
         mov dword [dword esi+dword_1B8318], eax
@@ -3886,7 +3886,7 @@ DrawLeftArmModel:
         sahf
         jbe short .2
         mov eax, edx
-        call sub_103E14
+        call DrawLimbSegmentFlat
         add esp, byte 4
         pop edx
         pop ecx
@@ -3894,7 +3894,7 @@ DrawLeftArmModel:
         ret
 .2:
         mov eax, edx
-        call sub_1038B0
+        call DrawLimbSegment
 .3:
         add esp, byte 4
         pop edx
@@ -3918,13 +3918,13 @@ DrawLeftArmModel_80:
         sahf
         jbe short .4
         mov eax, edx
-        call sub_103E14
+        call DrawLimbSegmentFlat
         add esp, byte 4
         pop edx
         ret
 .4:
         mov eax, edx
-        call sub_1038B0
+        call DrawLimbSegment
         add esp, byte 4
         pop edx
         ret
@@ -3968,7 +3968,7 @@ DrawRightArmModel:
         sahf
         jbe short .2
         mov eax, edx
-        call sub_103E14
+        call DrawLimbSegmentFlat
         add esp, byte 4
         pop edx
         pop ecx
@@ -3976,7 +3976,7 @@ DrawRightArmModel:
         ret
 .2:
         mov eax, edx
-        call sub_1038B0
+        call DrawLimbSegment
 .3:
         add esp, byte 4
         pop edx
@@ -4000,13 +4000,13 @@ DrawRightArmModel_80:
         sahf
         jbe short .4
         mov eax, edx
-        call sub_103E14
+        call DrawLimbSegmentFlat
         add esp, byte 4
         pop edx
         ret
 .4:
         mov eax, edx
-        call sub_1038B0
+        call DrawLimbSegment
         add esp, byte 4
         pop edx
         ret
@@ -4026,13 +4026,13 @@ DrawRightArmModel_C0:
         sahf
         jbe short .5
         mov eax, edx
-        call sub_103E14
+        call DrawLimbSegmentFlat
         add esp, byte 4
         pop edx
         ret
 .5:
         mov eax, edx
-        call sub_1038B0
+        call DrawLimbSegment
         add esp, byte 4
         pop edx
         ret
@@ -4052,13 +4052,13 @@ DrawRightArmModel_100:
         sahf
         jbe short .6
         mov eax, edx
-        call sub_103E14
+        call DrawLimbSegmentFlat
         add esp, byte 4
         pop edx
         ret
 .6:
         mov eax, edx
-        call sub_1038B0
+        call DrawLimbSegment
         add esp, byte 4
         pop edx
         ret
@@ -4078,19 +4078,19 @@ DrawRightArmModel_140:
         sahf
         jbe short .7
         mov eax, edx
-        call sub_103E14
+        call DrawLimbSegmentFlat
         add esp, byte 4
         pop edx
         ret
 .7:
         mov eax, edx
-        call sub_1038B0
+        call DrawLimbSegment
         add esp, byte 4
         pop edx
         ret
 DrawRightArmModel_180:
         add eax, 4F8h
-        jmp near sub_1038B0
+        jmp near DrawLimbSegment
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; DrawStickModel                                  5A484  97 PC, low confidence
@@ -4264,7 +4264,7 @@ DrawLeftHandModel:
         sahf
         jbe short .3
         mov eax, edx
-        call sub_103E14
+        call DrawLimbSegmentFlat
         add esp, byte 4
         pop edx
         pop ecx
@@ -4272,7 +4272,7 @@ DrawLeftHandModel:
         ret
 .3:
         mov eax, edx
-        call sub_1038B0
+        call DrawLimbSegment
 .4:
         add esp, byte 4
         pop edx
@@ -4320,7 +4320,7 @@ DrawRightHandModel:
         sahf
         jbe short .3
         mov eax, edx
-        call sub_103E14
+        call DrawLimbSegmentFlat
         add esp, byte 4
         pop edx
         pop ecx
@@ -4328,7 +4328,7 @@ DrawRightHandModel:
         ret
 .3:
         mov eax, edx
-        call sub_1038B0
+        call DrawLimbSegment
 .4:
         add esp, byte 4
         pop edx

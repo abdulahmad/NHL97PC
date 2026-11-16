@@ -43,7 +43,7 @@ extern str_Gt004, str_Gt007, str_Gt302, str_IceLine, str_Lites, str_Maxx, str_Ma
 extern str_Minz, str_Pbench0D, str_Pbench1D, str_Penback, str_Penbox0D, str_Penbox1D, str_Penboxt0, str_Penboxt1
 extern str_Penboxz0, str_Penboxz1, str_R02d, str_Redlite, str_Rink, str_Rlite0, str_Rlite1, str_STAND
 extern str_STAND2ND, str_Score, str_Stands2, str_Strobe, str_ThinRedLines, str_Topboards, str_WALL, sub_1007C0
-extern bcopy, FindShape, OpenArtArchiveErr, Random32, sub_102C96, sub_102CDC, sub_102CF4, sub_103648
+extern bcopy, FindShape, OpenArtArchiveErr, Random32, sub_102C96, sub_102CDC, sub_102CF4, WritePaletteRegs
 extern sub_104940, sub_104948, sub_10495F, sub_1049D0, sub_10B000, SetRinkMatrix, SetRinkTranslation, ProjectRinkObjectPoints
 extern DrawRinkObjectPolys, DrawModelInstance, DrawModel, BuildAntiAliasTable, sub_10C8E8, DrawSurfacePolys, DrawOverlayModels, ProjectOverlayPoint
 extern FreeOverlaySlots, TransformRinkPoints, DrawRinkPolyStrip, DrawRinkPolys, DrawIceSpans, FindInstanceShape, BindModelShapes, UpdateModelInstance
@@ -5483,7 +5483,7 @@ SetTeamColours:
         push eax
         push byte 1
         push edx
-        call sub_103648
+        call WritePaletteRegs
         mov ch, 1
         jmp short .2
 .1:
@@ -5493,7 +5493,7 @@ SetTeamColours:
         push eax
         push byte 1
         push edx
-        call sub_103648
+        call WritePaletteRegs
         xor ch, ch
 .2:
         add esp, byte 0Ch

@@ -2,15 +2,24 @@
 bits 32
 %include "hockey.inc"
 section s_FC280 progbits alloc exec nowrite align=1
-extern dword_16E430, sub_F9A88, tickcount, tickdeadline
+extern dword_16E430, RunIdleHandlers, tickcount, tickdeadline
 global GetTicks, SetTickDeadline, TickDeadlinePassed, TicksSince, WaitTickDeadline, memcpy_, sub_FC290, WaitTicks
+;-----------------------------------------------------------------------------
+; GetTicks                                     FC280  96 PC, medium confidence
+;-----------------------------------------------------------------------------
 GetTicks:
         mov eax, dword [tickcount]
         ret
+;-----------------------------------------------------------------------------
+; TicksSince                                   FC286  96 PC, medium confidence
+;-----------------------------------------------------------------------------
 TicksSince:
         mov eax, dword [tickcount]
         sub eax, dword [byte esp+04h]
         ret
+;-----------------------------------------------------------------------------
+; sub_FC290                                                            FC290  
+;-----------------------------------------------------------------------------
 sub_FC290:
         mov edx, dword [dword_16E430]
         mov eax, dword [tickcount]
@@ -20,22 +29,34 @@ sub_FC290:
         LD xor, eax, eax
         mov dword [tickcount], eax
         ret
+;-----------------------------------------------------------------------------
+; SetTickDeadline                                                 FC2AB  96 PC
+;-----------------------------------------------------------------------------
 SetTickDeadline:
         mov eax, dword [byte esp+04h]
         add eax, dword [tickcount]
         mov dword [tickdeadline], eax
         ret
+;-----------------------------------------------------------------------------
+; WaitTickDeadline                                                FC2BB  96 PC
+;-----------------------------------------------------------------------------
 WaitTickDeadline:
         mov eax, dword [tickcount]
         sub eax, dword [tickdeadline]
         js short WaitTickDeadline
         ret
+;-----------------------------------------------------------------------------
+; TickDeadlinePassed                           FC2C9  96 PC, medium confidence
+;-----------------------------------------------------------------------------
 TickDeadlinePassed:
         mov edx, dword [tickcount]
         sub edx, dword [tickdeadline]
         LD sbb, eax, eax
         inc eax
         ret
+;-----------------------------------------------------------------------------
+; WaitTicks                                                       FC2D9  96 PC
+;-----------------------------------------------------------------------------
 WaitTicks:
         mov eax, dword [byte esp+04h]
         mov edx, dword [tickcount]
@@ -43,12 +64,15 @@ WaitTicks:
         push eax
         push byte 0
 .1:
-        call sub_F9A88
+        call RunIdleHandlers
         mov edx, dword [tickcount]
         sub edx, dword [byte esp+04h]
         js short .1
         add esp, byte 8
         ret
+;-----------------------------------------------------------------------------
+; memcpy_                                                       FC2FD  library
+;-----------------------------------------------------------------------------
 memcpy_:
         push ecx
         push esi

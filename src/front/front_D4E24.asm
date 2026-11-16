@@ -13,13 +13,13 @@ extern dword_1CCEF0, dword_1CCEF8, dword_1CCEFC, dword_1CCF12, dword_1CCF16, dwo
 extern dword_1CD0F8, dword_1CD0FE, dword_1CD102, dword_1CD106, dword_1CD10A, dword_1CD10E, fclose_, fgets_
 extern fopen_, memcpy_, memset_, off_16E4E0, rand_, sprintf_, sscanf_, str_CRD1
 extern str_CRD2, str_Nhll, str_Nhlp, str_Pl0, str_Pl1, strlen_, sub_1008CC, BlitShape2
-extern BlitArt, BlitShape, PresentScreen, FindShape, OpenArtArchiveErr, sub_103298, IsKeyDown, ConvertArtXY
+extern BlitArt, BlitShape, PresentScreen, FindShape, OpenArtArchiveErr, SetGraphicsMode, IsKeyDown, ConvertArtXY
 extern CountFrameTick, SetScreenTarget, WaitRetraceEdges, RunDemoGame, SecondsToSamples, WaitSoundTime, ChkMenuMusic, PauseMusic
 extern MusicPlaying, RequestMusicStop, WaitMusicEnd, ArenaFileName, StopAllSfx, PlaySfx, PlayScreenMovie, MakeDataPath
 extern LoadDataFile, DrawScreenBackground, FadeInScreen, SetRegionRect, SetTextColor, DrawTextAligned, WipeScreen, SetHighlightText
 extern SetNormalText, DrawStatTable, DrawPortrait, ShowPopupScreen, InitMenuItems, RunMenu, RunScrollList, AllocClearBlock
 extern FreePtr, CopyBytesOk, CopyAndClear, ZeroBytesOk, CompareKeyBytes, FileCreate, FileOpen, FileSeek
-extern FileReadRecord, FileWriteRecord, FileClose, ServiceIdle, FreeVideoBuffer, sub_F94BC, AllocMemBlock, FreeMemBlock
+extern FileReadRecord, FileWriteRecord, FileClose, ServiceIdle, FreeVideoBuffer, AllocGfxFixBuffer, AllocMemBlock, FreeMemBlock
 extern sub_FBE40, sub_FBE5D, sub_FC330, MakeColor, FreeBitmap, sub_FCEEC, DrawShapeAtOwnPos, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, tickcount, unk_1673CC, unk_1C5F4A, unk_1CC8B8
 extern unk_1CCBB8, unk_1CCF4A, unk_1CCF9C, unk_1CCFEE, unk_1CD040, unk_1CD092, unk_1CD138, unk_D4CB0
@@ -2200,9 +2200,9 @@ RunIntro:
         push byte 8
         push dword 1E0h
         push dword 280h
-        call sub_103298
+        call SetGraphicsMode
         add esp, byte 0Ch
-        call sub_F94BC
+        call AllocGfxFixBuffer
         call SetScreenTarget
         push dword 0FF000000h
         call MakeColor
@@ -2439,9 +2439,9 @@ RunIntro:
         push byte 10h
         push dword 1E0h
         push dword 280h
-        call sub_103298
+        call SetGraphicsMode
         add esp, byte 0Ch
-        call sub_F94BC
+        call AllocGfxFixBuffer
         call SetScreenTarget
         push dword 0FF000000h
         call MakeColor

@@ -44,7 +44,7 @@ extern ExitScreen, SetRegionRect, DrawEditBox, SetTextColor, DrawTextAligned, Dr
 extern WipeScreen, DrawStatTable, ShowWorkingBox, UpdateWorkingBox, HideWorkingBox, ShowLinkWait, ShowLinkMessage, HideLinkBox
 extern ShowPopupScreen, InitMenuItems, RunMenu, RunScrollList, GetLangText, AllocPageStack, FreeDbPages, OpenDbFile
 extern CloseDbFile, AddIndexKey, DeleteIndexKey, FindIndexKey, FindLastKey, FindFirstKey, NextIndexKey, PrevIndexKey
-extern BuildKeyFromLong, BuildKeyFromString, KeyToLong, BuildSeasonIntro, SetupSeasonIntro, DrawSeasonIntro, sub_F9A88, AllocMemBlock
+extern BuildKeyFromLong, BuildKeyFromString, KeyToLong, BuildSeasonIntro, SetupSeasonIntro, DrawSeasonIntro, RunIdleHandlers, AllocMemBlock
 extern sub_FAAB4, FreeMemBlock, ZeroMem, sub_FBE40, addtimer, sub_FC008, WaitTicks, MakeColor
 extern FreeBitmap, DrawShapeAtOwnPos, DrawArt, CreateBitmap, SetDrawTarget, FillRectColor, FillRect, MeasureText
 extern DrawTextAt, FillRectCorners, tickcount, unk_167540, unk_16D7F4, unk_16D7FC, unk_16E110, unk_1C5F4A
@@ -12466,7 +12466,7 @@ ServiceIdle:
         cmp eax, dword [dword_16DAC4]
         je short .1
         push byte 0
-        call sub_F9A88
+        call RunIdleHandlers
         add esp, byte 4
         push byte 0
         push byte 0
@@ -12484,7 +12484,7 @@ ServiceIdle_34:
         cmp eax, dword [dword_16DAC4]
         je short .2
         push byte 0
-        call sub_F9A88
+        call RunIdleHandlers
         add esp, byte 4
         push byte 0
         push byte 0
@@ -12901,7 +12901,7 @@ SyncLinkGame:
         cmp eax, dword [dword_16DAC4]
         je near .3
         push esi
-        call sub_F9A88
+        call RunIdleHandlers
         add esp, byte 4
         push esi
         push esi
@@ -13234,7 +13234,7 @@ StartNetworkLink:
         cmp eax, dword [dword_16DAC4]
         je short .7
         push esi
-        call sub_F9A88
+        call RunIdleHandlers
         add esp, byte 4
         push esi
         push esi
@@ -13256,7 +13256,7 @@ StartNetworkLink:
         cmp eax, dword [dword_16DAC4]
         je short .9
         push esi
-        call sub_F9A88
+        call RunIdleHandlers
         add esp, byte 4
         push esi
         push esi
@@ -13375,13 +13375,13 @@ NetDisconnect:
         call CloseNetSession
 .2:
         push byte 0
-        call sub_F9A88
+        call RunIdleHandlers
         add esp, byte 4
         push byte 2
         call WaitTicks
         add esp, byte 4
         push byte 0
-        call sub_F9A88
+        call RunIdleHandlers
         add esp, byte 4
         xor esi, esi
         call HideLinkBox
@@ -13462,7 +13462,7 @@ LinkHandshake:
         cmp eax, dword [dword_16DAC4]
         je short .5
         push esi
-        call sub_F9A88
+        call RunIdleHandlers
         add esp, byte 4
         push esi
         push esi
@@ -13504,7 +13504,7 @@ LinkHandshake:
         cmp eax, dword [dword_16DAC4]
         je short .10
         push esi
-        call sub_F9A88
+        call RunIdleHandlers
         add esp, byte 4
         push esi
         push esi
@@ -13546,7 +13546,7 @@ LinkHandshake:
         cmp eax, dword [dword_16DAC4]
         je short .15
         push esi
-        call sub_F9A88
+        call RunIdleHandlers
         add esp, byte 4
         push esi
         push esi
@@ -13597,7 +13597,7 @@ LinkHandshake:
         cmp eax, dword [dword_16DAC4]
         je short .20
         push esi
-        call sub_F9A88
+        call RunIdleHandlers
         add esp, byte 4
         push esi
         push esi
@@ -14004,7 +14004,7 @@ LinkSendBlock:
         cmp eax, dword [dword_16DAC4]
         je short .2
         push byte 0
-        call sub_F9A88
+        call RunIdleHandlers
         add esp, byte 4
         push byte 0
         push byte 0
@@ -14069,7 +14069,7 @@ LinkSendBlock:
         cmp eax, dword [dword_16DAC4]
         je short .7
         push byte 0
-        call sub_F9A88
+        call RunIdleHandlers
         add esp, byte 4
         push byte 0
         push byte 0
@@ -14112,7 +14112,7 @@ LinkSendBlock:
         cmp eax, dword [dword_16DAC4]
         je short .10
         push esi
-        call sub_F9A88
+        call RunIdleHandlers
         add esp, byte 4
         push esi
         push esi
@@ -14175,7 +14175,7 @@ LinkReceiveBlock:
         cmp eax, dword [dword_16DAC4]
         je short .2
         push byte 0
-        call sub_F9A88
+        call RunIdleHandlers
         add esp, byte 4
         push byte 0
         push byte 0
@@ -14491,7 +14491,7 @@ WaitForOtherComputer:
         cmp eax, dword [dword_16DAC4]
         je short .7
         push ebx
-        call sub_F9A88
+        call RunIdleHandlers
         add esp, byte 4
         push ebx
         push ebx
@@ -14584,7 +14584,7 @@ WaitForOtherComputer:
         cmp eax, dword [dword_16DAC4]
         je short .13
         push byte 0
-        call sub_F9A88
+        call RunIdleHandlers
         add esp, byte 4
         push byte 0
         push byte 0
@@ -14936,7 +14936,7 @@ WaitForOtherComputer:
         cmp eax, dword [dword_16DAC4]
         je near .29
         push edi
-        call sub_F9A88
+        call RunIdleHandlers
         add esp, byte 4
         push edi
         push edi
@@ -15155,7 +15155,7 @@ WaitForOtherComputer:
         cmp eax, dword [dword_16DAC4]
         je short .48
         push byte 0
-        call sub_F9A88
+        call RunIdleHandlers
         add esp, byte 4
         push byte 0
         push byte 0

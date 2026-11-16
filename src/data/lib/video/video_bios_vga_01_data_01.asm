@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_16F77C progbits alloc noexec write align=1
-extern bcopy_, sub_1043A4_3CC, sub_104790, sub_1047A0, sub_1047BC
+extern bcopy_, BuildUniformArt_3CC, CopyPalette16, CopyPalette24, CopyPalette32
 global byte_16F794, byte_16F89C, byte_16FA3F, byte_16FA40, byte_16FA4F, dword_16F77C, dword_16F780, dword_16F784
 global dword_16F788, dword_16F78C, dword_16F790, dword_16F894, dword_16F898, dword_16F8A0, dword_16F8A8, dword_16F8AC
 global dword_16F8B0, dword_16F8B4, dword_16F8B8, dword_16F9FC, dword_16FA00, dword_16FA04, dword_16FA08, dword_16FA10
@@ -87,12 +87,12 @@ dword_16FA10:
 dword_16FA14:
         db 00h,00h,00h,00h,00h,00h,00h,00h
 off_16FA1C:
-        dd sub_1043A4_3CC
+        dd BuildUniformArt_3CC
         dd bcopy_
-        dd sub_104790
-        dd sub_104790
-        dd sub_1047A0
-        dd sub_1047BC
+        dd CopyPalette16
+        dd CopyPalette16
+        dd CopyPalette24
+        dd CopyPalette32
         db 00h,00h,00h,00h,02h,00h,00h,00h,00h,00h,00h
 byte_16FA3F:
         db 00h

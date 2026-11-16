@@ -7,12 +7,13 @@ extern dword_16E304, dword_16E308, dword_16E30C, dword_16E310, dword_16E314, dwo
 extern dword_16E46C, dword_16E474, dword_16F8A8, dword_1CEFC4, dword_1CEFC8, dword_1CEFCC, dword_1CEFD4, dword_1CEFD8
 extern dword_1CEFDC, dword_1CEFE0, dword_1CEFE4, dword_1CF0C8, bcopy, PresentScreen, sub_120650, sub_120680
 extern sub_12071C, SetScreenTarget, AllocMemBlock, FreeMemBlock, MakeColor, ClearScreen, tickcount, unk_1CEFE8
-global sub_F94BC, sub_F94E6, sub_F9650, sub_F9789, sub_F97B2, sub_F9869, NextVideoMode, PrevVideoMode
-global sub_F99C0, sub_F9A28, sub_F9A88, sub_F9B30
+global AllocGfxFixBuffer, ProbeVideoModes, InitVideoModeList, GetVideoModeList, FindNearestVideoMode, PickVideoMode, NextVideoMode, PrevVideoMode
+global AddIdleHandler, RemoveIdleHandler, RunIdleHandlers, SetIdleContext
 ;-----------------------------------------------------------------------------
-; sub_F94BC                                                            F94BC  
+; AllocGfxFixBuffer                               F94BC  97 PC, low confidence
+; Allocates the buffer used to probe video modes
 ;-----------------------------------------------------------------------------
-sub_F94BC:
+AllocGfxFixBuffer:
         push ecx
         push edx
         cmp dword [dword_16E30C], byte 0
@@ -28,9 +29,10 @@ sub_F94BC:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_F94E6                                                            F94E6  
+; ProbeVideoModes                                 F94E6  97 PC, low confidence
+; Probes which VESA modes the card supports and records them in the mode list
 ;-----------------------------------------------------------------------------
-sub_F94E6:
+ProbeVideoModes:
         push ebx
         push ecx
         push edx
@@ -78,7 +80,7 @@ sub_F94E6:
         push ebx
         call sub_12071C
         add esp, byte 4
-        call sub_F94BC
+        call AllocGfxFixBuffer
         push dword_1CEFC4
         push ebx
         call sub_120680
@@ -131,9 +133,10 @@ sub_F94E6:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_F9650                                                            F9650  
+; InitVideoModeList                               F9650  97 PC, low confidence
+; Builds the list of usable video modes once, then clears the screen
 ;-----------------------------------------------------------------------------
-sub_F9650:
+InitVideoModeList:
         push ebx
         push ecx
         push edx
@@ -159,7 +162,7 @@ sub_F9650:
         rdtsc
         sub eax, dword [dword_16E308]
         mov dword [dword_16E308], eax
-        call sub_F94E6
+        call ProbeVideoModes
         mov eax, dword [dword_1CEFD4]
         shl eax, 1Dh
         sar eax, 1Fh
@@ -204,7 +207,7 @@ sub_F9650:
         mov dword [dword_16E474], 1
         call sub_12071C
         add esp, byte 4
-        call sub_F94BC
+        call AllocGfxFixBuffer
 .7:
         call SetScreenTarget
         push dword 0FF000000h
@@ -221,15 +224,16 @@ sub_F9650:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_F9789                                                            F9789  
+; GetVideoModeList                                F9789  97 PC, low confidence
+; Copies the usable video mode list for the caller
 ;-----------------------------------------------------------------------------
-sub_F9789:
+GetVideoModeList:
         push ecx
         push edx
         mov edx, eax
         cmp dword [dword_16E2F4], byte 0
         jge short .1
-        call sub_F9650
+        call InitVideoModeList
 .1:
         test edx, edx
         je short .2
@@ -243,9 +247,10 @@ sub_F9789:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_F97B2                                                            F97B2  
+; FindNearestVideoMode                            F97B2  97 PC, low confidence
+; Returns the usable mode closest to a requested resolution
 ;-----------------------------------------------------------------------------
-sub_F97B2:
+FindNearestVideoMode:
         push ecx
         push esi
         push edi
@@ -308,9 +313,10 @@ sub_F97B2:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_F9869                                                            F9869  
+; PickVideoMode                                   F9869  97 PC, low confidence
+; Checks a requested resolution and picks the matching usable mode
 ;-----------------------------------------------------------------------------
-sub_F9869:
+PickVideoMode:
         push ebx
         push ecx
         push esi
@@ -318,7 +324,7 @@ sub_F9869:
         mov esi, edx
         cmp dword [dword_16E2F4], byte 0
         jge short .1
-        call sub_F9650
+        call InitVideoModeList
 .1:
         test ecx, ecx
         je short .4
@@ -344,14 +350,14 @@ sub_F9869:
         mov ebx, esi
         mov edx, dword [byte ecx+04h]
         mov eax, dword [ecx]
-        call sub_F97B2
+        call FindNearestVideoMode
 .4:
         test ecx, ecx
         jne short .5
         mov edx, 1E0h
         mov eax, 280h
         mov ebx, esi
-        call sub_F97B2
+        call FindNearestVideoMode
 .5:
         mov dword [dword_16E300], 1
         pop esi
@@ -370,13 +376,13 @@ NextVideoMode:
         mov ebx, eax
         cmp dword [dword_16E2F4], byte 0
         jge short .1
-        call sub_F9650
+        call InitVideoModeList
 .1:
         cmp dword [dword_16E300], byte 0
         jne short .2
         mov edx, ebx
         xor eax, eax
-        call sub_F9869
+        call PickVideoMode
         pop edx
         pop ecx
         pop ebx
@@ -415,13 +421,13 @@ PrevVideoMode:
         mov ebx, eax
         cmp dword [dword_16E2F4], byte 0
         jge short .1
-        call sub_F9650
+        call InitVideoModeList
 .1:
         cmp dword [dword_16E300], byte 0
         jne short .2
         mov edx, ebx
         xor eax, eax
-        call sub_F9869
+        call PickVideoMode
         pop edx
         pop ecx
         pop ebx
@@ -451,9 +457,10 @@ PrevVideoMode:
         ret
         db 00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_F99C0                                                            F99C0  
+; AddIdleHandler                                  F99C0  97 PC, low confidence
+; Adds a function to the idle handler table (16 slots)
 ;-----------------------------------------------------------------------------
-sub_F99C0:
+AddIdleHandler:
         push ebx
         push ebp
         mov ecx, dword [byte esp+0Ch]
@@ -493,9 +500,10 @@ sub_F99C0:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_F9A28                                                            F9A28  
+; RemoveIdleHandler                               F9A28  97 PC, low confidence
+; Removes a function from the idle handler table
 ;-----------------------------------------------------------------------------
-sub_F9A28:
+RemoveIdleHandler:
         push ebx
         push esi
         push edi
@@ -540,9 +548,10 @@ sub_F9A28:
         jmp short .2
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_F9A88                                                            F9A88  
+; RunIdleHandlers                                 F9A88  97 PC, low confidence
+; Calls each idle handler whose interval has passed
 ;-----------------------------------------------------------------------------
-sub_F9A88:
+RunIdleHandlers:
         push ebx
         push esi
         push edi
@@ -599,9 +608,10 @@ sub_F9A88:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_F9B30                                                            F9B30  
+; SetIdleContext                                  F9B30  97 PC, low confidence
+; Sets the idle handler context and returns the old one
 ;-----------------------------------------------------------------------------
-sub_F9B30:
+SetIdleContext:
         mov edx, dword [byte esp+04h]
         mov eax, dword [dword_16E310]
         mov dword [dword_16E310], edx

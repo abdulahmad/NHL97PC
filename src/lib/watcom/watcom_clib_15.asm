@@ -16,7 +16,7 @@ extern QueuePeek, QueueTakeTail, QueueTakeHead, QueueFreeAll, QueueCount, QueueF
 extern AddExitHandler, ConvertArtSame, sub_11313C, SerialConfigure, SerialOpen, SerialIsOpen, SerialSetBaud, SerialProgramUart
 extern SerialCarrier, SerialWriteIfRoom, SerialWrite, SerialRxCount, SerialTxFree, SerialFlushTx, SerialRead, SerialFlushRx
 extern sub_11FAD6, sub_120763, sub_123FA8, sub_12F270, DrawShapeTriangleMapped, ScanFormat, OpenPacketLink, ModemReset
-extern ModemHangup, ModemDial, ModemAutoAnswer, ModemWaitConnect, ModemSpeakerOff, sub_F99C0, sub_F9A28, sub_F9A88
+extern ModemHangup, ModemDial, ModemAutoAnswer, ModemWaitConnect, ModemSpeakerOff, AddIdleHandler, RemoveIdleHandler, RunIdleHandlers
 extern AllocMemBlock, sub_FAAB4, FreeMemBlock, ZeroMem, FillMem, addtimer, sub_FC008, WaitTicks
 extern unk_167FA4, unk_172264, unk_17226C, unk_172274, unk_1DA3C4, unk_1DA418, unk_1DA448, unk_1DA464
 extern unk_1DA466, unk_1DA468, unk_1DA498, unk_1DA4A4, unlink_, word_1DA4A6, word_1DA4A8, word_1DA4AA
@@ -1747,7 +1747,7 @@ ModemLinkClose:
         jne short .3
         db 068h                                 ; insn: push 10C170h
         dd ModemLinkClose
-        call sub_F9A28
+        call RemoveIdleHandler
         add esp, byte 4
 .3:
         xor eax, eax
@@ -1915,7 +1915,7 @@ ModemLinkOpen:
         mov dword [byte ebx+028h], 1
 .11:
         push esi
-        call sub_F9A88
+        call RunIdleHandlers
         add esp, byte 4
         jmp short .10
 .12:
@@ -1952,7 +1952,7 @@ ModemLinkHangup:
         push byte 0
         db 068h                                 ; insn: push 10C170h
         dd ModemLinkClose
-        call sub_F99C0
+        call AddIdleHandler
         mov eax, 1
         mov cl, byte [byte ebx+02Ch]
         shl eax, cl
@@ -3655,7 +3655,7 @@ NetCloseSession:
         xor esi, esi
 .4:
         push esi
-        call sub_F9A88
+        call RunIdleHandlers
         mov ebp, dword [dword ebx+0A4h]
         add esp, byte 4
         cmp esi, ebp
@@ -6140,7 +6140,7 @@ IpxSetupLayer:
         push byte 1
         db 068h                                 ; insn: push 10E9ECh
         dd IpxPostListen
-        call sub_F99C0
+        call AddIdleHandler
         add esp, byte 0Ch
 .7:
         push esi
@@ -6259,7 +6259,7 @@ IpxShutdown:
         jne short .1
         db 068h                                 ; insn: push 10E9ECh
         dd IpxPostListen
-        call sub_F9A28
+        call RemoveIdleHandler
         add esp, byte 4
 .1:
         lea eax, [dword ebx+08Ch]
@@ -6398,7 +6398,7 @@ IpxStop:
         xor ebx, ebx
         push ebx
         mov dword [dword_172260], ebx
-        call sub_F9A88
+        call RunIdleHandlers
         add esp, byte 4
         push byte 1
         call WaitTicks

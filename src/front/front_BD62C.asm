@@ -15,8 +15,8 @@ extern dword_1CAEE8, dword_1CAEEC, dword_1CAEF0, dword_1CAEF4, dword_1CAEF8, dwo
 extern dword_1CAF98, dword_1CAF9C, dword_1CAFA0, dword_1CAFA4, dword_1CAFA8, dword_1CAFAC, dword_1CAFDC, dword_1CAFE0
 extern dword_1CAFE4, dword_1CAFE8, dword_1CAFEC, dword_1CAFF0, dword_1CAFF4, dword_1CAFF8, dword_1CAFFC, dword_1CB000
 extern off_16D254, off_16D258, qword_166A8D, qword_166AA1, qword_166ACC, qword_166B0F, qword_166B2A, rand_
-extern sprintf_, strcmp_, strcpy_, BlitArt, PresentScreen, FindShape, DrawShapeBlended, sub_103298
-extern sub_103648, FreeInverseTable, sub_10AED0, RestartGameMusic, UnlinkJump, ResetPlayers, SetScreenTarget, InitGameDisplay
+extern sprintf_, strcmp_, strcpy_, BlitArt, PresentScreen, FindShape, DrawShapeBlended, SetGraphicsMode
+extern WritePaletteRegs, FreeInverseTable, sub_10AED0, RestartGameMusic, UnlinkJump, ResetPlayers, SetScreenTarget, InitGameDisplay
 extern ApplyDisplayFlags, ClearOverlayWindows, ReplayCameraOn, ReplayCameraOff, ReplayCamFollowMode, ReplayCamDrag, ReplayCamRestorePath, ReplayCamOrbitMode
 extern ReplayCamOrbit, ReplayCamStop, ReplayCamFreeMode, ReplayCamTurn, ReplayCamMove, ReplayCamZoomMode, ReplayCamZoom, ReplayCamClearFlag
 extern SetVideoMode, SetViewSize, ClearViewInterlaced, ShowView, SetViewOrigin, SetRinkDetail, FadeGamePalette, ChkMenuMusic
@@ -30,7 +30,7 @@ extern NameIndexNew, NameIndexLoad, NameIndexSave, NameIndexFree, LoadNameIndex,
 extern FreeMenuBitmap, InitMenuItems, RunMenu, ScrollPosToValue, ResetMouseInput, SetupMenuView, RestoreMenuView, LoadLangTextB
 extern GetLangText, FreeLangText, LoadIndexFile, WriteReplayFile, ReplayNameToKey, ClearReplayEntry, OpenGameDatabase, CloseGameDatabase
 extern AddReplayIndexEntry, FindReplayIndexEntry, OpenReplayFile, IsInputRecording, StopInputRecording, ClearLinkAbort, LinkSyncMenu, LinkSendBlock
-extern LinkReceiveBlock, WaitForOtherComputer, DrawMenuFrame, FreeVideoBuffer, sub_F94BC, sub_F9789, sub_F9869, AllocMemBlock
+extern LinkReceiveBlock, WaitForOtherComputer, DrawMenuFrame, FreeVideoBuffer, AllocGfxFixBuffer, GetVideoModeList, PickVideoMode, AllocMemBlock
 extern FreeMemBlock, ZeroMem, sub_FC330, MakeColor, sub_FCC40, FreeBitmap, DrawArt, CreateBitmap
 extern SetDrawTarget, ClearScreen, FillPolygon, FillRectColor, FillRect, SetTextColors, FillRectCorners, unk_166A8A
 extern unk_171E38, unk_1ACB44, unk_1CAEFC, unk_1CAF3C, word_1686E4
@@ -118,9 +118,9 @@ RunReplay:
         call ClearOverlayWindows
         lea eax, [byte ebp-044h]
         lea edx, [byte ebp-01Ch]
-        call sub_F9789
+        call GetVideoModeList
         lea eax, [byte ebp-030h]
-        call sub_F9869
+        call PickVideoMode
         mov edx, dword [byte ebp-018h]
         mov eax, dword [byte ebp-01Ch]
         call SetVideoMode
@@ -192,7 +192,7 @@ RunReplay:
         mov dword [dword_1CAFA4], eax
         call ReplayScreen
         lea eax, [byte ebp-044h]
-        call sub_F9869
+        call PickVideoMode
         mov edx, dword [byte ebp-018h]
         mov eax, dword [byte ebp-01Ch]
         call SetVideoMode
@@ -423,13 +423,13 @@ VideoOptionsScreen:
         push dword 1E0h
         push dword 280h
         mov dword [dword_16E474], 1
-        call sub_103298
+        call SetGraphicsMode
         add esp, byte 0Ch
-        call sub_F94BC
+        call AllocGfxFixBuffer
         push unk_171E38
         push dword 100h
         push byte 0
-        call sub_103648
+        call WritePaletteRegs
         add esp, byte 0Ch
         call FreeInverseTable
         call SetScreenTarget
@@ -640,9 +640,9 @@ VideoOptionsScreen:
         push dword 1E0h
         push dword 280h
         mov dword [dword_16E474], 1
-        call sub_103298
+        call SetGraphicsMode
         add esp, byte 0Ch
-        call sub_F94BC
+        call AllocGfxFixBuffer
         push str_Remo3
         push dword [dword_1C5DE4]
         call FindShape

@@ -12,8 +12,8 @@ extern dword_1DCAF8, dword_1DCEC4, dword_1DCED0, dword_1DCED8, dword_1DCEEC, dwo
 extern dword_1DCEFC, dword_1DCF08, dword_1DCF0C, dword_1DCF10, dword_1DCF14, dword_1DCF18, dword_1DCF1C, CheckBankIndex
 extern ChannelTimeLeft, PlaySoundEntry, AudioEnter, AudioLeaveCheck, MixerSamplePosition, IsChannelActive, ScanFloat, word_1DCECC
 extern word_1DCEE8, word_1DCEEA, word_1DCF06
-global ResetGameVars, sub_12CEE1, sub_12CF50, sub_12CF9F, sub_12D0D2, sub_12D13B, sub_12D141, sub_12D150
-global sub_12D1C0, sub_12D210
+global ResetGameVars, ResetSpeechStreamState, FillSpeechSamples, FillSpeechBuffer, ServiceSpeechBuffers, SpeechStreamFlag, ServiceSpeechIfOpen, PlayBankSample
+global ChannelPosition, ChannelTimeLeftLocked
 ;-----------------------------------------------------------------------------
 ; ResetGameVars                               12CD6C  95 PC, medium confidence
 ; Clears the per-game state (penalty / referee / line-change / penalty-shot
@@ -70,9 +70,10 @@ ResetGameVars:
         mov dword [dword_1DCEC4], 6C544150h
         ret
 ;-----------------------------------------------------------------------------
-; sub_12CEE1                                                          12CEE1  
+; ResetSpeechStreamState                         12CEE1  97 PC, low confidence
+; Clears the speech stream buffers and positions
 ;-----------------------------------------------------------------------------
-sub_12CEE1:
+ResetSpeechStreamState:
         mov dword [dword_1DCAD4], 0
         mov dword [dword_1DCAD8], 0
         mov dword [dword_1DCADC], 0
@@ -86,9 +87,10 @@ sub_12CEE1:
         mov dword [dword_1DCAD0], 0
         ret
 ;-----------------------------------------------------------------------------
-; sub_12CF50                                                          12CF50  
+; FillSpeechSamples                              12CF50  97 PC, low confidence
+; Copies a run of speech samples into the output buffer
 ;-----------------------------------------------------------------------------
-sub_12CF50:
+FillSpeechSamples:
         push ecx
         push esi
         push edi
@@ -124,9 +126,10 @@ sub_12CF50:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_12CF9F                                                          12CF9F  
+; FillSpeechBuffer                               12CF9F  97 PC, low confidence
+; Fills one speech output buffer from the stream
 ;-----------------------------------------------------------------------------
-sub_12CF9F:
+FillSpeechBuffer:
         push ebx
         push ecx
         push edx
@@ -157,7 +160,7 @@ sub_12CF9F:
         mov edx, dword [byte ebp-04h]
         mov ebx, esi
         mov eax, dword [dword ecx+dword_1DC9B4]
-        call sub_12CF50
+        call FillSpeechSamples
         mov eax, esi
         cdq
         shl edx, 4
@@ -214,13 +217,14 @@ sub_12CF9F:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_12D0D2                                                          12D0D2  
+; ServiceSpeechBuffers                           12D0D2  97 PC, low confidence
+; Refills the speech buffers the channel has finished playing
 ;-----------------------------------------------------------------------------
-sub_12D0D2:
+ServiceSpeechBuffers:
         push ebx
         push edx
         mov eax, dword [dword_1DCAE8]
-        call sub_12D1C0
+        call ChannelPosition
         add eax, eax
         mov ebx, 8C0h
         cdq
@@ -242,7 +246,7 @@ sub_12D0D2:
         jge short .3
         mov dword [dword_1DCAF8], 0
 .3:
-        call sub_12CF9F
+        call FillSpeechBuffer
         test eax, eax
         je short .4
         inc dword [dword_1DCAF8]
@@ -251,23 +255,26 @@ sub_12D0D2:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_12D13B                                                          12D13B  
+; SpeechStreamFlag                               12D13B  97 PC, low confidence
+; Returns the speech stream state flag
 ;-----------------------------------------------------------------------------
-sub_12D13B:
+SpeechStreamFlag:
         mov eax, dword [dword_1DCAF8]
         ret
 ;-----------------------------------------------------------------------------
-; sub_12D141                                                          12D141  
+; ServiceSpeechIfOpen                            12D141  97 PC, low confidence
+; Refills the speech buffers when the stream is open
 ;-----------------------------------------------------------------------------
-sub_12D141:
+ServiceSpeechIfOpen:
         cmp dword [dword_1DCAD0], byte 0
-        jne short sub_12D0D2
+        jne short ServiceSpeechBuffers
         ret
         db 00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_12D150                                                          12D150  
+; PlayBankSample                                 12D150  97 PC, low confidence
+; Checks a bank index and plays one of its samples
 ;-----------------------------------------------------------------------------
-sub_12D150:
+PlayBankSample:
         push esi
         push edi
         push ebp
@@ -316,9 +323,11 @@ sub_12D150:
         ret 0Ch
         db 00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_12D1C0                                                          12D1C0  
+; ChannelPosition                                12D1C0  97 PC, low confidence
+; Returns how far a channel is into its sample, inside the audio critical
+; section
 ;-----------------------------------------------------------------------------
-sub_12D1C0:
+ChannelPosition:
         push ecx
         push edx
         mov edx, eax
@@ -351,9 +360,10 @@ sub_12D1C0:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_12D210                                                          12D210  
+; ChannelTimeLeftLocked                          12D210  97 PC, low confidence
+; Returns how long a channel has left, inside the audio critical section
 ;-----------------------------------------------------------------------------
-sub_12D210:
+ChannelTimeLeftLocked:
         push edx
         mov edx, eax
         cmp byte [byte_172BC5], 0

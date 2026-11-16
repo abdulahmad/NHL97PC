@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_11FAAC progbits alloc exec nowrite align=1
 extern dword_16E478, dword_16E678, dword_16E67C, dword_16E680, dword_16E684, dword_16F8AC, dword_16F8B0, dword_16F8B4
-extern dword_16F8B8, dword_199C38, dword_199C3C, dword_1CF53C, sub_103024, sub_103298, sub_1049D0, sub_123414
+extern dword_16F8B8, dword_199C38, dword_199C3C, dword_1CF53C, VesaQueryMode, SetGraphicsMode, sub_1049D0, sub_123414
 extern sub_123423, sub_123D38, FillRectList, ZeroMem, FillRectColor, PrepareTextDraw
 global jpt_11FDFD, jpt_11FF3D, jpt_120116, sub_11FAD6_10, sub_11FB11_10, sub_11FB11_27, jpt_11FDFD_38, jpt_11FF3D_3B
 global jpt_120116_22F, sub_11FAAC, sub_11FAD6, sub_11FB11, sub_11FD1E, sub_11FDDC, sub_11FF0E, sub_120650
@@ -1267,7 +1267,7 @@ sub_120650:
         lea ecx, [byte ebx+01h]
         cmp eax, 100h
         jl short .2
-        call sub_103024
+        call VesaQueryMode
         test eax, eax
         je short .3
 .2:
@@ -1300,7 +1300,7 @@ sub_120680:
         lea ecx, [byte edx+01h]
         cmp eax, 100h
         jl short .2
-        call sub_103024
+        call VesaQueryMode
         test eax, eax
         je short .3
 .2:
@@ -1363,7 +1363,7 @@ sub_12071C:
         push ecx
         mov esi, dword [byte esp+08h]
         push esi
-        call sub_103298
+        call SetGraphicsMode
         add esp, byte 0Ch
         mov eax, dword [byte esp+020h]
         mov dword [dword_16E478], eax

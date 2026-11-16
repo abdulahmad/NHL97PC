@@ -27,7 +27,7 @@ extern dword_1DA390, dword_1DA4D0, int386_, isatty_, memcpy_, off_1706E0, off_17
 extern off_170B18, off_170B1C, off_171C7C, off_171C80, off_171C84, off_171D10, off_19C6C4, off_19C6E2
 extern off_19C6E3, qword_167EC8, qword_167ED0, qword_167EE0, sprintf_, strcat_, strcpy_, strlen_
 extern strncpy_, sub_1004B8, bcopy, AddExitHandler, PresentScreen, ConvertArtPalette, Random32, sub_102D3C
-extern sub_103298, sub_103648, sub_10374C, sub_10376C, sub_1049D0, FileExistsPath, sub_106F64, DosOpenFile
+extern SetGraphicsMode, WritePaletteRegs, FreeRowTable, FillRowTable, sub_1049D0, FileExistsPath, sub_106F64, DosOpenFile
 extern DosCloseFile, DosReadFile, DosSeekFile, SetViewScreenOrigin, SetCameraAngles, DrawPolyArray, sub_121460, sub_121470
 extern sub_121494, sub_12189C, sub_121A43, ArchiveEntryOffset, BlitCore, sub_123FCB, ConvertColor555, CreateBitmapFromBlock
 extern Convert32To565Keyed, sub_12D520, sub_12F270, sub_12FACC, sub_12FDC8, sub_12FF9C, sub_12FFD8, sub_12FFF0
@@ -7233,13 +7233,13 @@ CreateBitmapEx:
         mov ebx, dword [byte esp+030h]
         mov byte [byte esi+019h], al
         mov eax, 10h
-        call sub_10376C
+        call FillRowTable
         mov edx, dword [byte esp+014h]
         mov ebx, edi
         mov dword [byte esi+028h], eax
         sar edx, 3
         xor eax, eax
-        call sub_10376C
+        call FillRowTable
         mov ebx, dword [byte esi+028h]
         mov dword [byte esi+030h], eax
         test ebx, ebx
@@ -11193,7 +11193,7 @@ ExitGraphics:
         mov dword [dword_171C88], ebx
 .1:
         xor ecx, ecx
-        call sub_10374C
+        call FreeRowTable
         mov dword [dword_16E444], ecx
         pop edx
         pop ecx
@@ -11294,14 +11294,14 @@ InitPlatform:
         push ebp
         mov eax, dword [dword_16E464]
         push eax
-        call sub_103298
+        call SetGraphicsMode
         add esp, byte 0Ch
 .3:
         call InitTextOutput
         push unk_171E38
         push dword 100h
         push byte 0
-        call sub_103648
+        call WritePaletteRegs
         add esp, byte 0Ch
         push unk_16E8A0
         call sub_FCC40

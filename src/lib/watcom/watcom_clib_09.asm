@@ -14,7 +14,7 @@ extern dword_1DCEC0, dword_1DCEC4, dword_1DCF38, dword_1DCF62, dword_1DD378, dwo
 extern UnregisterSoundBank, CheckBankIndex, DetectAudioDriver, OpenAudioDriver, CloseAudioDriver, ApplyChannelVolume, FadeOutChannel, InitStreamHeader
 extern ClearSpeechBankTable, SpeechBufferSize, RegisterStreamBank, AddStreamSample, SetChannelVolumeChecked, LoadSampleHeader, PlaySoundEntry, ProbeDspReset
 extern AudioEnter, AudioLeaveCheck, SbDetectDsp, StopAllSoundChannels, StartChannel, MixNoise, RampChannelVolume, IsChannelActive
-extern sub_12CEE1, sub_12D13B, sub_12D141, sub_12D150, RequestStreamRead, CdStreamService, CdStreamNextPacket, CdStreamFreePacket
+extern ResetSpeechStreamState, SpeechStreamFlag, ServiceSpeechIfOpen, PlayBankSample, RequestStreamRead, CdStreamService, CdStreamNextPacket, CdStreamFreePacket
 extern AllocMemBlock, FreeMemBlock, unk_1072E0, word_17004A, word_17004C, word_17004E, word_17005C, word_17005E
 global jpt_108240, MixChannelFormat_20, MixChannelFormat_FC, MixChannelFormat_1C0, MixChannelFormat_27B, strstr_, DetectSoundCard, ProbeSoundPorts
 global OpenDigitalAudio, CloseDigitalAudio, SetAudioDmaChannel, StartDigitalAudio, DetectWindows, InitSoundMixer, SetMixerVolumes, SetMasterVolume
@@ -1316,7 +1316,7 @@ CloseSpeechChannels:
         call FreeMemBlock
         add esp, byte 4
 .3:
-        call sub_12CEE1
+        call ResetSpeechStreamState
         mov dword [dword_172AB8], 0
         pop edx
         pop ecx
@@ -1396,7 +1396,7 @@ AllocSpeechBuffers:
         push byte 40h
         mov edx, dword [dword_1DCAE4]
         mov eax, dword [dword_1DCAE0]
-        call sub_12D150
+        call PlayBankSample
         mov dword [dword_1DCAE8], eax
         test eax, eax
         je short .3
@@ -1422,7 +1422,7 @@ InitSpeechChannels:
         push edx
         mov dword [dword_1DCEC0], 0
         mov dword [dword_172AB8], eax
-        call sub_12CEE1
+        call ResetSpeechStreamState
         mov dword [dword_1DCAD0], 1
         mov dword [dword_1DC994], 0FFFFFFFFh
         mov dword [dword_1DC998], 0
@@ -1431,7 +1431,7 @@ InitSpeechChannels:
         test eax, eax
         je short .1
         call ClearSpeechQueue
-        mov dword [dword_172BD4], sub_12D141
+        mov dword [dword_172BD4], ServiceSpeechIfOpen
         mov eax, 1
         pop edx
         pop ecx
@@ -1453,7 +1453,7 @@ InitSpeechChannels:
         call FreeMemBlock
         add esp, byte 4
 .4:
-        call sub_12CEE1
+        call ResetSpeechStreamState
         mov dword [dword_172AB8], 0
         xor eax, eax
         pop edx
@@ -2623,7 +2623,7 @@ SpeechBusy:
         mov eax, 1
         ret
 .2:
-        call sub_12D13B
+        call SpeechStreamFlag
         test eax, eax
         jne short .1
         ret

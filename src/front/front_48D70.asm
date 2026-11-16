@@ -60,7 +60,7 @@ extern str_Glassline, str_Gt002d, str_Gt102d, str_Gt202d, str_Gt302d, str_HALFFS
 extern str_SideD, str_Stands2, str_Topboards, str_WALL, str_Zamboni, str_Zambpath, strcat_, stricmp_
 extern strlen_, strncpy_, ProjectPointFloat, sub_100498, sub_1004B8, sub_1004F8, sub_100510, sub_100700
 extern sub_1007C0, sub_100830, SortIndices, FindShape, LoadDataFileNoErr, LoadDataFileErr, OpenArtArchive, OpenArtArchiveErr
-extern Random32, sub_102CDC, sub_102CF4, sub_103648, sub_104948, PlayQueuedSpeech, LoadFileAlloc, LoadFileAllocQuiet
+extern Random32, sub_102CDC, sub_102CF4, WritePaletteRegs, sub_104948, PlayQueuedSpeech, LoadFileAlloc, LoadFileAllocQuiet
 extern LoadFileInto, LoadFileIntoQuiet, LoadFileToBlockShared, LoadFileToBlockPlain, SetSpeechVolume, SetMusicStreamVolume, OpenAudioStreamChannel, CloseAudioStreamChannel
 extern FeedAudioStream, FlushAudioStream, ChannelPlaying, StopChannel, DosCloseFile, DosWriteFile, AsyncResetRequest, AsyncStreamStep
 extern AsyncFreeRequest, ReleaseBankSample, StopSpeechQueue, SpeechQueueState, SetChannelVolumeChecked, sub_10AE10, sub_10AED0, sub_10B000
@@ -3832,7 +3832,7 @@ InitGameVideo:
         push eax
         push dword 100h
         push byte 0
-        call sub_103648
+        call WritePaletteRegs
         mov eax, dword [dword_1ADC70]
         xor ebx, ebx
         add esp, byte 0Ch

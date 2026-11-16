@@ -9,7 +9,7 @@ extern dword_1CFCA4, dword_1CFCA8, dword_1CFCAC, dword_1CFCB0, dword_1CFCB4, dwo
 extern dword_1CFCC8, dword_1CFCCC, dword_1CFCD0, dword_1CFCD4, dword_1CFCD8, dword_1CFCDC, dword_1CFCE0, dword_1CFCE4
 extern dword_1CFCE8, dword_1DCF38, str_ASYNCFILE, strcmp_, strncpy_, CdOpenStream, CdHandleEntry, CdCloseFile
 extern CdRead, CdSeek, CdFindFile, DriveLetterIndex, IsCdDrive, CheckBankIndex, SetMusicStreamVolume, ChannelPlaying
-extern StopChannel, PlaySample, LoadSampleHeader, AudioEnter, AudioLeaveCheck, IsChannelActive, sub_12D1C0, sub_12D210
+extern StopChannel, PlaySample, LoadSampleHeader, AudioEnter, AudioLeaveCheck, IsChannelActive, ChannelPosition, ChannelTimeLeftLocked
 extern sub_FA9C4, AllocMemBlock, FreeMemBlock, UnlinkMemBlockLocked, addtimer, sub_FC008, unk_1CFCBC, word_170162
 global jpt_109E64, AsyncStreamStep_2E, AsyncStreamStep_57B, AsyncStreamStep_613, AsyncStreamStep_78F, AsyncInit, AsyncClose, AsyncRequestOpen
 global AsyncRequestSection, AsyncResetRequest, AsyncStreamStep, AsyncTick, AsyncFreeRequest, AsyncPopRequest, SpeechBufferSize, RegisterStreamBank
@@ -1331,7 +1331,7 @@ QueueSpeechClip:
         ret
         db 090h
         mov eax, dword [nosplit eax*8+dword_170164]
-        jmp near sub_12D1C0
+        jmp near ChannelPosition
 ;-----------------------------------------------------------------------------
 ; SpeechQueueGo                                  10AB1C  97 PC, low confidence
 ; Marks the speech queue as running
@@ -1464,7 +1464,7 @@ AdvanceSpeechQueue:
         mov ebx, dword [edx]
         mov eax, dword [dword_170214]
         sar ebx, 10h
-        call sub_12D210
+        call ChannelTimeLeftLocked
         cmp eax, ebx
         jg short .3
         mov ebx, dword [dword_170200]

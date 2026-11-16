@@ -14,7 +14,7 @@ extern dword_1C1244, dword_1C1248, dword_1C124C, dword_1C1250, dword_1C1254, dwo
 extern dword_1C5DA8, dword_1C5DAC, dword_1C5DE4, dword_1C5DE8, dword_1C5E78, dword_1C5E9C, dword_1C5EA0, dword_1C5EF4
 extern memcpy_, off_16C9B8, off_16C9C0, rand_, sprintf_, srand_, str_ATA, str_ATD
 extern str_ATH0, str_ATM0, str_ATS01, str_ATZS760S1155, strcat_, strcpy_, strlen_, strncmp_
-extern strstr_, bcopy, BlitShape, PresentScreen, FindShape, sub_103234, sub_1047D0, OpenAudioStreamChannel
+extern strstr_, bcopy, BlitShape, PresentScreen, FindShape, CloseVideoWindow, BlitFrameToScreen, OpenAudioStreamChannel
 extern CloseAudioStreamChannel, FeedAudioStream, AudioStreamDone, StartAudioStream, FlushAudioStream, ChannelPlaying, StopChannel, InitVideoDecoder
 extern BuildVideoGammaTable, DecodeVideoChunk, CreateBitmapDefault, ResetFrameRate, DecodeVideoFrame, DecodeTgvChunk, SerialRaiseDtr, SerialWrite
 extern SerialFlushTx, SerialWaitTxEmpty, LoadNameFile, SetScreenTarget, OpenStreamBuffer, delstream, CdStreamStart, CdStreamOpenSecondary
@@ -23,7 +23,7 @@ extern RequestMusicStop, WaitMusicEnd, ArenaFileName, PaEvent, MakeDataPath, Loa
 extern ShowMessageBox, WipeScreen, SetNormalText, MainMenuScreen, RunGameScreens, RunStatsMenu, RunNetworkConnect, RunModemConnect
 extern CreateMenuBitmap, FreeMenuBitmap, SetMenuSelection, LoadLangText, GetLangText, FreeLangText, SortRosterByRating, BuildAutoLines
 extern RunOptionsScreens, GoalieMaskScreen, CreditsScreen, KeysEqual, OpenGameDatabase, CloseGameDatabase, FindPlayerRecord, FindGameRecord
-extern UpdateGameRecord, AddPlayerStat, AddPlayerStatAt, FindPlayerStat, UpdatePlayerStat, ClearLinkAbort, ServiceIdle, sub_F9650
+extern UpdateGameRecord, AddPlayerStat, AddPlayerStatAt, FindPlayerStat, UpdatePlayerStat, ClearLinkAbort, ServiceIdle, InitVideoModeList
 extern AllocMemBlock, sub_FAAB4, FreeMemBlock, sub_FBE40, WaitTicks, sub_FC330, MakeColor, FreeBitmap
 extern CreateBitmap, SetDrawTarget, ClearScreen, tickcount, unk_164138, unk_16413C, unk_164150, unk_164158
 extern unk_1C0F00, unk_1C135C, unk_1C347F, word_1C1344
@@ -1568,7 +1568,7 @@ FadeMovieOut:
         add eax, eax
         push eax
         push dword_16E6A8
-        call sub_103234
+        call CloseVideoWindow
         mov eax, dword [dword_16E6BC]
         mov edx, eax
         sar edx, 1Fh
@@ -1843,7 +1843,7 @@ CloseMovie:
         shr eax, 1
         push eax
         push dword_16E6A8
-        call sub_103234
+        call CloseVideoWindow
         mov ebp, dword [dword_16E6BC]
         add ebp, ebp
         add esp, byte 8
@@ -2230,7 +2230,7 @@ PlayMovieFrames:
         push byte 10h
         push byte 10h
         push ebx
-        call sub_1047D0
+        call BlitFrameToScreen
         add esp, byte 0Ch
         call PresentScreen
         pop edx
@@ -2287,7 +2287,7 @@ PlayMovie:
         add eax, eax
         push eax
         push dword_16E6A8
-        call sub_103234
+        call CloseVideoWindow
         mov eax, dword [dword_16E6BC]
         mov edx, eax
         sar edx, 1Fh
@@ -2336,7 +2336,7 @@ PlayMovie:
         push byte 10h
         push byte 10h
         push ebx
-        call sub_1047D0
+        call BlitFrameToScreen
         add esp, byte 0Ch
         call PresentScreen
         xor byte [dword_1C123C], 1
@@ -3066,7 +3066,7 @@ InitFrontEnd:
         push ebx
         push ecx
         push edx
-        call sub_F9650
+        call InitVideoModeList
         call OpenGameDatabase
         mov eax, 3
         call SecondsToSamples

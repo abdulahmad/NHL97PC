@@ -30,7 +30,7 @@ extern CarrierInShotArea, CanReceivePass, StartPass, checkob, AssignControlSlots
 extern FaceoffSwipeAnim, FaceoffDrawAnim, ReachForPuckAnim, DoCheckButton, PlaySfxOr, PlaySfxVolume, SetCrowdMood, CommentaryEvent
 extern PaEvent, ResetRenderTimers, SetFaceMouth, SetFaceExpression, SetFaceBlink, PickSkateAnim, SetSkateSpeedFromRating, StartWhistleStop
 extern ShotAnimFrames, ObjectFramePos, StopObject, StartShotAnim, StartOneTimerAnim, StartWristShotAnim, StartFightPunch, StartFightBlock
-extern StartFightGrab, StartFightPull, StartFightAnim, SetAnimFrame, RequestPauseMenu, clockcont_0, LogPenalty, sub_F9A88
+extern StartFightGrab, StartFightPull, StartFightAnim, SetAnimFrame, RequestPauseMenu, clockcont_0, LogPenalty, RunIdleHandlers
 extern sub_FAAB4, FreeMemBlock, FillMem, addtimer, sub_FC008, WaitTicks, unk_19CA98, unk_19D474
 extern unk_19D4A6, unk_19D4D8, unk_19D50A, unk_19D56E, unk_19D5A0, unk_19D5D2, unk_19D668, unk_19E060
 extern unk_19ECC8, unk_19ECE4, unk_1C135C, unk_1C347F, vecdist, vtoa, word_1686D6, word_168E2C
@@ -11996,7 +11996,7 @@ ShutdownPacketLink:
         call QueueNoOp
         add esp, byte 4
         push byte 0
-        call sub_F9A88
+        call RunIdleHandlers
         xor ecx, ecx
         add esp, byte 4
         mov dword [dword_168E70], ecx
@@ -12287,7 +12287,7 @@ OpenPacketLink:
         xor edi, edi
 .23:
         push edi
-        call sub_F9A88
+        call RunIdleHandlers
         add esp, byte 4
         push esi
         call dword [byte esi+014h]
@@ -12342,7 +12342,7 @@ OpenPacketLink:
         xor ebx, ebx
 .30:
         push byte 0
-        call sub_F9A88
+        call RunIdleHandlers
         add esp, byte 4
         test ebx, ebx
         setne al

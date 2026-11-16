@@ -34,7 +34,7 @@ extern DoGameFrame, SetTextColor, SetNormalText, ShowLoadingScreen, ClearMenuGam
 extern ResetScoringLog, LoadGameLogos, FreeGameText, UpdateUserRecords, RunReplay, FadeOut, OpenGameDatabase, CloseGameDatabase
 extern LoadExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, PickDemoTeams, StartInputRecording, ResetInputState, IsInputRecording, StopInputRecording
 extern InputRecordAvail, TakeInputRecord, ServiceIdle, LinkSyncGame, SetupPauseArt, CleanupPauseArt, OpenInGameMenu, LoadGameMenuText
-extern PauseMenu, sub_F9650, sub_F9789, sub_F9869, AllocMemBlock, FreeMemBlock, sub_FBE40, sub_FC290
+extern PauseMenu, InitVideoModeList, GetVideoModeList, PickVideoMode, AllocMemBlock, FreeMemBlock, sub_FBE40, sub_FC290
 extern sub_FC330, sub_FC4BC, SetViewRect, sub_FC88C, tickcount, unk_1600A4, unk_16AED4, unk_19CDA4
 extern unk_19DC40, unk_19E270, unk_19E588, unk_1AC821, word_1684EC, word_1686BC, word_1686D4, word_1686D6
 extern word_1686D8, word_1686DA, word_1686E4, word_19C3D8, word_19C3DA, word_19C3DC, word_19C3DE, word_19C3EC
@@ -2602,7 +2602,7 @@ InitGameDisplay:
         mov edx, esp
         mov eax, unk_1AC821
         rep movsd
-        call sub_F9869
+        call PickVideoMode
         mov eax, dword [esp]
         mov ebx, 1E0h
         mov dword [dword_19CD10], eax
@@ -2708,7 +2708,7 @@ SaveGameDisplay:
         push edi
         push ebp
         mov eax, unk_1AC821
-        call sub_F9789
+        call GetVideoModeList
         mov edx, dword [dword_1AC835]
         mov ebx, dword [dword_19CD30]
         and dl, 0FCh
@@ -3288,7 +3288,7 @@ RunDemoGame:
         call FreeGameText
         xor eax, eax
         call InitGameSounds
-        call sub_F9650
+        call InitVideoModeList
         mov cl, byte [dword_1AC814]
         mov eax, esi
         and cl, 8Fh

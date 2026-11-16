@@ -42,7 +42,7 @@ extern qword_160B14, qword_160B1C, qword_160B28, qword_160B35, qword_160CF7, qwo
 extern randomd0, removewindow, sprintf_, str_CDSTREAM, str_SECCDSTREAM, str_STREAM, strcat_, strcmp_
 extern strcpy_, strncpy_, strstr_, bcopy, BlitArt, BlitShape, PresentScreen, FindShape
 extern FindShapeQuiet, OpenArtArchive, DrawShapeBlended, ConvertArtNew, sub_102C10, Random32, sub_102CDC, sub_102D3C
-extern sub_102E0C, sub_102EBC, sub_103298, sub_103648, sub_1047D0, sub_10483C, sub_1048BC, sub_10491C
+extern sub_102E0C, sub_102EBC, SetGraphicsMode, WritePaletteRegs, BlitFrameToScreen, WritePaletteRange, sub_1048BC, sub_10491C
 extern sub_104940, sub_104948, sub_104980, sub_1049D0, BuildInverseTable, CdOpenStream, CdCloseFile, CdRead
 extern CdSeek, DriveLetterIndex, IsCdDrive, AllocCdBuffer, DetectMscdex, RequestSpeechEvent, FileSizePath, LoadFileAllocQuiet
 extern sub_106F7C, sub_106F94, LoadFileToBlockPlain, RegisterSoundBank, UnregisterSoundBank, DetectAudioDriver, DetectAudioHardware, OpenDigitalAudio
@@ -58,7 +58,7 @@ extern DrawShadowBox, DrawScreenBackground, FadeInScreen, ShowScreen, ExitScreen
 extern ShowMessageBox, LoadTeamLogo, FreeLogoArt, WipeScreen, SetHighlightText, ShowLoadingBar, InitMenuItems, RunMenu
 extern RunScrollList, GetLangText, FillStatBar, FinishLeagueGame, InitShapeListBox, FreeDbBlock, DaysToYear, FindNextSeasonGame
 extern OpenLeagueFile, StartSeasonGame, FindGameRecord, UpdateGameRecord, FileExists, FileCreate, FileSeek, FileReadRecord
-extern FileWriteRecord, FileClose, ServiceIdle, BuildAllStarTeams, FreeVideoBuffer, sub_F94BC, sub_F99C0, sub_F9A28
+extern FileWriteRecord, FileClose, ServiceIdle, BuildAllStarTeams, FreeVideoBuffer, AllocGfxFixBuffer, AddIdleHandler, RemoveIdleHandler
 extern AllocMemBlock, FreeMemBlock, MemFreeSize, ZeroMem, FillMem, addtimer, sub_FC008, sub_FC290
 extern WaitTicks, sub_FC330, sub_FC410, MakeColor, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget
 extern ClearScreen, FillRectColor, SetTextColors, SetFocalLength, SetProjectionCenter, tickcount, unk_160A56, unk_160B68
@@ -6381,9 +6381,9 @@ SetVideoMode:
         push byte 8
         push esi
         push ebx
-        call sub_103298
+        call SetGraphicsMode
         add esp, byte 0Ch
-        call sub_F94BC
+        call AllocGfxFixBuffer
         cmp dword [dword_16E6CC], byte 0
         sete al
         and eax, 0FFh
@@ -6392,7 +6392,7 @@ SetVideoMode:
         push eax
         push dword 100h
         push byte 0
-        call sub_103648
+        call WritePaletteRegs
         add esp, byte 0Ch
         push dword 0FF111111h
         call MakeColor
@@ -6921,7 +6921,7 @@ PresentGameView:
         push ecx
         mov esi, dword [byte eax+02Ch]
         push esi
-        call sub_1047D0
+        call BlitFrameToScreen
         add esp, byte 0Ch
         call PresentScreen
         jmp short .5
@@ -7324,7 +7324,7 @@ FadePaletteStep:
         push eax
         mov edx, dword [dword_1AC360]
         push edx
-        call sub_10483C
+        call WritePaletteRange
         add esp, byte 0Ch
         pop ebp
         pop edi
@@ -7339,7 +7339,7 @@ FadePaletteStep:
         push ebx
         mov ecx, dword [dword_1AC360]
         push ecx
-        call sub_10483C
+        call WritePaletteRange
         add esp, byte 0Ch
         pop ebp
         pop edi
@@ -7592,7 +7592,7 @@ BuildRangePalette:
         push ecx
         mov esi, dword [byte ebx+08h]
         push esi
-        call sub_10483C
+        call WritePaletteRange
         add esp, byte 0Ch
 .3:
         add esp, byte 0Ch
@@ -7696,7 +7696,7 @@ BlendRangePalette:
         push edi
         mov ebp, dword [byte ebx+08h]
         push ebp
-        call sub_10483C
+        call WritePaletteRange
         add esp, byte 0Ch
 .3:
         add esp, byte 8
@@ -9430,7 +9430,7 @@ SetRangePalette:
         push edx
         mov ebx, dword [byte eax+08h]
         push ebx
-        call sub_10483C
+        call WritePaletteRange
         add esp, byte 0Ch
         pop edx
         pop ecx
@@ -13835,7 +13835,7 @@ OpenAudioStream_D8:
         push esi
         push byte 2
         push ServiceBackgroundAudio
-        call sub_F99C0
+        call AddIdleHandler
         add esp, byte 0Ch
         jmp short .21
 .20:
@@ -14390,7 +14390,7 @@ ShutdownGameAudio:
         test eax, eax
         jne short .1
         push ServiceBackgroundAudio
-        call sub_F9A28
+        call RemoveIdleHandler
         add esp, byte 4
 .1:
         cmp word [word_1691A4], byte 0

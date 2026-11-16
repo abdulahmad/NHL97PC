@@ -2074,8 +2074,18 @@ F5601,FillBox,sub_F5601,96PC,medium,NHL96PC 64103 (similar 0.92): mnemonic simil
 F570D,RulesMenu,sub_F570D,new,medium,"the in-game rules menu (offside, icing, 2 line pass, line changes, injuries, fighting, penalties, speed game)",src/front/front_F20A1.asm
 F7BD6,DetailLevelMenu,sub_F7BD6,new,medium,"the in-game detail level menu (draw crowd, ice logos, ice texture, board advertising, glass, player benches, player names)",src/front/front_F20A1.asm
 F9496,FreeVideoBuffer,sub_F9496,new,low,frees the video buffer,src/front/front_F20A1.asm
+F94BC,AllocGfxFixBuffer,sub_F94BC,new,low,allocates the buffer used to probe video modes,src/lib/lib_F94BC.asm
+F94E6,ProbeVideoModes,sub_F94E6,new,low,probes which VESA modes the card supports and records them in the mode list,src/lib/lib_F94BC.asm
+F9650,InitVideoModeList,sub_F9650,new,low,"builds the list of usable video modes once, then clears the screen",src/lib/lib_F94BC.asm
+F9789,GetVideoModeList,sub_F9789,new,low,copies the usable video mode list for the caller,src/lib/lib_F94BC.asm
+F97B2,FindNearestVideoMode,sub_F97B2,new,low,returns the usable mode closest to a requested resolution,src/lib/lib_F94BC.asm
+F9869,PickVideoMode,sub_F9869,new,low,checks a requested resolution and picks the matching usable mode,src/lib/lib_F94BC.asm
 F98E4,NextVideoMode,sub_F98E4,new,low,"steps to the next entry of the video mode list (dword_16E304, wraps) and prints its name as a message",src/lib/lib_F94BC.asm
 F994D,PrevVideoMode,sub_F994D,new,low,"steps to the previous entry of the video mode list (dword_16E304, wraps) and prints its name as a message",src/lib/lib_F94BC.asm
+F99C0,AddIdleHandler,sub_F99C0,new,low,adds a function to the idle handler table (16 slots),src/lib/lib_F94BC.asm
+F9A28,RemoveIdleHandler,sub_F9A28,new,low,removes a function from the idle handler table,src/lib/lib_F94BC.asm
+F9A88,RunIdleHandlers,sub_F9A88,new,low,calls each idle handler whose interval has passed,src/lib/lib_F94BC.asm
+F9B30,SetIdleContext,sub_F9B30,new,low,sets the idle handler context and returns the old one,src/lib/lib_F94BC.asm
 F9B40,_searchenv_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 F9C34,strcpy_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 F9C53,strcat_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
@@ -2300,8 +2310,29 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 102B94,ConvertArtNew,sub_102B94,new,low,converts a shape into a new block,src/lib/input/input_joystick_misc_05.asm
 102BB8,SetClipWindow,,96PC,medium,NHL96PC DD760 (similar): mnemonic similarity 0.84 over 21 instructions,
 102C30,Random32,sub_102C30,new,medium,"returns a pseudo-random dword (multi-word add-with-carry generator, dword_16F77C-790)",src/lib/video/video_bios_vga_01.asm
+102F40,VesaGetModeInfo,sub_102F40,new,low,asks the VESA BIOS for a mode's information through a DOS memory buffer,src/lib/watcom/watcom_clib_07.asm
+103024,VesaQueryMode,sub_103024,new,low,returns the VESA information for a mode in a stack buffer; followed by the resolution distance helper,src/lib/watcom/watcom_clib_07.asm
+103068,FindClosestMode,sub_103068,new,low,picks the video mode closest to a wanted resolution,src/lib/watcom/watcom_clib_07.asm
+103130,VesaSetMode,sub_103130,new,low,"sets a VESA mode, or a VGA mode below 100h",src/lib/watcom/watcom_clib_07.asm
+1031C0,VesaSetWindow,sub_1031C0,new,low,moves the VESA bank window to a given position,src/lib/watcom/watcom_clib_07.asm
+103234,CloseVideoWindow,sub_103234,new,low,removes the current video window and rebuilds the row table,src/lib/watcom/watcom_clib_07.asm
+103298,SetGraphicsMode,sub_103298,new,low,"switches to a graphics mode: saves the text mode, sets the VESA or VGA mode and builds the row table",src/lib/watcom/watcom_clib_07.asm
+103648,WritePaletteRegs,sub_103648,new,low,writes a range of palette entries to the VGA DAC for the video set-up code,src/lib/watcom/watcom_clib_07.asm
+1036F0,AllocRowTable,sub_1036F0,new,low,allocates the screen row address table,src/lib/watcom/watcom_clib_07.asm
+10374C,FreeRowTable,sub_10374C,new,low,frees the screen row address table,src/lib/watcom/watcom_clib_07.asm
+10376C,FillRowTable,sub_10376C,new,low,fills the screen row address table for a range of rows of the current screen,src/lib/ea/ea_shapes.asm
 10382C,removewindow,,96PC,medium,NHL96PC C3D80 (similar): mnemonic similarity 0.81 over 65 instructions,
+1038B0,DrawLimbSegment,sub_1038B0,new,low,projects and draws one shaded arm or leg segment of a player model,src/lib/ea/ea_shapes.asm
+103E14,DrawLimbSegmentFlat,sub_103E14,new,low,projects and draws one flat arm or leg segment of a player model,src/lib/ea/ea_shapes.asm
+1042D0,ParseHexChar,sub_1042D0,new,low,converts one hex digit character to its value; returns 0 for a non-digit,src/lib/ea/ea_shapes.asm
+104330,ParseHexByte,sub_104330,new,low,reads two hex digits as one byte value,src/lib/ea/ea_shapes.asm
+1043A4,BuildUniformArt,sub_1043A4,new,low,reads a uniform colour description and builds the recoloured player art,src/lib/ea/ea_shapes.asm
 104780,bcopy_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+104790,CopyPalette16,sub_104790,new,low,copies palette entries two bytes each,src/lib/ea/ea_shapes.asm
+1047A0,CopyPalette24,sub_1047A0,new,low,copies palette entries three bytes each,src/lib/ea/ea_shapes.asm
+1047BC,CopyPalette32,sub_1047BC,new,low,copies palette entries four bytes each,src/lib/ea/ea_shapes.asm
+1047D0,BlitFrameToScreen,sub_1047D0,new,low,blits a movie or game frame to the screen through the blit engine; followed by the clipped variant,src/lib/ea/ea_shapes.asm
+10483C,WritePaletteRange,sub_10483C,new,low,writes a range of palette entries to the VGA DAC (skipped in high-colour modes),src/lib/ea/ea_shapes.asm
 104A2C,strncpy_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 104A60,InverseTableSlice,sub_104A60,new,low,builds one slice of the inverse colour table,src/lib/watcom/watcom_clib_08.asm
 104C78,InverseTablePass,sub_104C78,new,low,runs one pass of the inverse colour table,src/lib/watcom/watcom_clib_08.asm
@@ -3076,6 +3107,15 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 12CD1C,SetChannelCount,sub_12CD1C,new,low,sets the number of channels,src/lib/sound/snd_soundblaster_02.asm
 12CD34,IsChannelActive,sub_12CD34,new,low,returns whether a channel is active,src/lib/sound/snd_soundblaster_02.asm
 12CD6C,ResetGameVars,,96PC,medium,NHL96PC 1DA02 (similar): mnemonic similarity 0.82 over 68 instructions,
+12CEE1,ResetSpeechStreamState,sub_12CEE1,new,low,clears the speech stream buffers and positions,src/lib/lib_12CD6C.asm
+12CF50,FillSpeechSamples,sub_12CF50,new,low,copies a run of speech samples into the output buffer,src/lib/lib_12CD6C.asm
+12CF9F,FillSpeechBuffer,sub_12CF9F,new,low,fills one speech output buffer from the stream,src/lib/lib_12CD6C.asm
+12D0D2,ServiceSpeechBuffers,sub_12D0D2,new,low,refills the speech buffers the channel has finished playing,src/lib/lib_12CD6C.asm
+12D13B,SpeechStreamFlag,sub_12D13B,new,low,returns the speech stream state flag,src/lib/lib_12CD6C.asm
+12D141,ServiceSpeechIfOpen,sub_12D141,new,low,refills the speech buffers when the stream is open,src/lib/lib_12CD6C.asm
+12D150,PlayBankSample,sub_12D150,new,low,checks a bank index and plays one of its samples,src/lib/lib_12CD6C.asm
+12D1C0,ChannelPosition,sub_12D1C0,new,low,"returns how far a channel is into its sample, inside the audio critical section",src/lib/lib_12CD6C.asm
+12D210,ChannelTimeLeftLocked,sub_12D210,new,low,"returns how long a channel has left, inside the audio critical section",src/lib/lib_12CD6C.asm
 12D24F,file_putc_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 12D260,__fprtf_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 12D2E0,__doserror_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
