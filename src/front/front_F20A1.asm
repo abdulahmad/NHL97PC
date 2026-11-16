@@ -34,7 +34,7 @@ extern sub_11FB11, sub_12A10, sub_13C164, ChangeViewSize, ApplyDisplayFlags, Rem
 extern sub_18F67, sub_1BC18, sub_1C854, sub_1C9F0, sub_1D09C, AddOverlayWindow, RemoveOverlayWindow, sub_3CF68
 extern RefreshOverlayWindow, sub_3D020, sub_3E480, sub_3E5F0, InitGameAudio, sub_41670, sub_419B0, sub_419B8
 extern sub_41A28, sub_41CF0, sub_41D18, sub_41D30, sub_41DB8, WaitMusicEnd, ArenaFileName, sub_423B4
-extern PaEvent, sub_4A280, LoadDataFile, sub_4B5C4, sub_4B80C, sub_4B928, sub_4BA00, sub_4BCB4
+extern PaEvent, sub_4A280, LoadDataFile, InitGameGraphics, InitGameVideo, FreeGameGraphics, DrawGameFrame, sub_4BCB4
 extern sub_4C0C4, sub_5B4D4, sub_5BE74, sub_6539C, sub_76D3C, InitFrontEnd, FreeFrontEnd, SetRegionRect
 extern sub_7F0D8, DrawTextAligned, sub_8BE60, sub_8BEF8, InitMenuItems, sub_8BFA0, sub_8BFAC, sub_8D6E0
 extern LoadLangTextB, GetLangText, FreeLangText, EditLinesScreen, GameStatsScreen, sub_AADEF, sub_AB0A6, RunReplay
@@ -2401,7 +2401,7 @@ RunIntermission:
         lea edx, [dword ebp-041Ch]
         call sub_4C0C4
         mov eax, dword [tickcount]
-        call sub_4BA00
+        call DrawGameFrame
         call sub_4BCB4
         call sub_1BC18
         xor eax, eax
@@ -2462,7 +2462,7 @@ RunIntermission:
         cmp dword [byte ebp-08h], byte 0
         jne short .9
         mov eax, dword [tickcount]
-        call sub_4BA00
+        call DrawGameFrame
         call sub_E341C
         call sub_4BCB4
         call sub_E341C
@@ -2842,7 +2842,7 @@ PauseMenu_16C:
         call sub_8BE60
         call ApplyDisplayFlags
         mov eax, dword [dword_1CEFBC]
-        call sub_4BA00
+        call DrawGameFrame
         jmp near PauseMenu_29A.30
 PauseMenu_26F:
         mov eax, 3
@@ -3190,7 +3190,7 @@ sub_F48C2:
         push edx
         enter 50h, 0
         mov ebx, eax
-        call sub_4B928
+        call FreeGameGraphics
         cmp dword [dword_16E500], byte 0
         je short .1
         push dword [dword_16E500]
@@ -3254,9 +3254,9 @@ sub_F4978:
         call InitGameAudio
 .1:
         mov eax, dword_19CD10
-        call sub_4B5C4
+        call InitGameGraphics
         call sub_1C854
-        call sub_4B80C
+        call InitGameVideo
         call ApplyDisplayFlags
         xor eax, eax
         call ChangeViewSize
@@ -3313,7 +3313,7 @@ sub_F4978:
         add esp, byte 4
 .4:
         mov eax, dword [tickcount]
-        call sub_4BA00
+        call DrawGameFrame
         call sub_4BCB4
         leave
         pop edx
@@ -3929,7 +3929,7 @@ sub_F5219:
         jmp near .4
 .2:
         mov eax, dword [tickcount]
-        call sub_4BA00
+        call DrawGameFrame
         call sub_4BCB4
         mov eax, edx
         sub eax, ebx
@@ -3997,7 +3997,7 @@ sub_F5219:
         mov edx, dword [byte ebp+07Ah]
         call sub_3CF68
         mov eax, dword [tickcount]
-        call sub_4BA00
+        call DrawGameFrame
         call sub_4BCB4
         jmp near .9
 .5:
@@ -4059,7 +4059,7 @@ sub_F5219:
         call sub_12A10
         call sub_11F74
         mov eax, dword [tickcount]
-        call sub_4BA00
+        call DrawGameFrame
         call sub_4BCB4
         mov eax, 0FFFFFFFFh
         call sub_3E5F0

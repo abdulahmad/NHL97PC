@@ -21,7 +21,7 @@ extern ApplyDisplayFlags, sub_18E35, sub_1D1DC, sub_1D208, sub_1D480, sub_1D4FC,
 extern sub_1D914, sub_1DB8C, sub_1DBA0, sub_1DBF0, sub_1DCB0, sub_1DD5C, sub_1DDE4, sub_1DEB8
 extern SetVideoMode, sub_3CA28, sub_3CB00, sub_3CB48, sub_3CB70, sub_3D020, sub_3E5F0, sub_41A28
 extern sub_41D18, sub_41DB8, WaitMusicEnd, ArenaFileName, StopAllSfx, sub_423B4, sub_4241C, sub_4A280
-extern MakeDirPath, LoadDataFileLib, LoadDataFile, sub_4B5C4, sub_4B80C, sub_4B928, sub_4BA00, sub_4BCB4
+extern MakeDirPath, LoadDataFileLib, LoadDataFile, InitGameGraphics, InitGameVideo, FreeGameGraphics, DrawGameFrame, sub_4BCB4
 extern sub_5B4D4, sub_5BD94, InitReplayBuffer, sub_5BE64, sub_5BEB0, sub_5C2CC, sub_5C2F4, sub_5C30C
 extern sub_5C32C, sub_5C34C, sub_5C4CC, sub_5C4E4, sub_5C500, sub_5C584, sub_5C5EC, sub_5C74C
 extern sub_5C75C, sub_5C894, sub_5CAB0, sub_5CACC, InitAnimPoints, sub_65DE8, sub_76E20, sub_77610
@@ -347,7 +347,7 @@ LoadReplay:
         mov dword [dword_19CD4C], eax
 .2:
         mov eax, dword_19CD10
-        call sub_4B5C4
+        call InitGameGraphics
         call InitAnimPoints
         call sub_12024
         call sub_5C894
@@ -364,7 +364,7 @@ LoadReplay:
         xor edx, edx
         call __STOSD
         call sub_65DE8
-        call sub_4B928
+        call FreeGameGraphics
         cmp dword [dword_16E500], byte 0
         je short .3
         push dword [dword_16E500]
@@ -375,7 +375,7 @@ LoadReplay:
         xor eax, eax
         jmp short LoadReplay_194
 .4:
-        call sub_4B80C
+        call InitGameVideo
         mov eax, 947Ah
         mov edx, 10000h
         call sub_3D020
@@ -1022,7 +1022,7 @@ ReplayScreen_EF:
         xor edx, edx
         call __STOSD
         call sub_65DE8
-        call sub_4B928
+        call FreeGameGraphics
         call sub_DA7EB
         call LoadReplay
         test eax, eax
@@ -1559,7 +1559,7 @@ ReplayScreen_929:
         xor edx, edx
         call __STOSD
         call sub_65DE8
-        call sub_4B928
+        call FreeGameGraphics
         call sub_E3174
         test eax, eax
         jne short .34
@@ -3596,7 +3596,7 @@ sub_C04BE:
         cmp esi, byte 4
         jl near .4
         xor eax, eax
-        call sub_4BA00
+        call DrawGameFrame
         call sub_4BCB4
         call sub_13C164
         xor ebx, ebx

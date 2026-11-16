@@ -26,8 +26,8 @@ extern sub_12DE8, ChangeViewSize, sub_15C30, sub_15E4D, QueueOverlayPanel, sub_1
 extern sub_1B3D8, SelectCameraView, sub_1B67C, sub_1BCA8, LoadOpeningCamera, assreplace, Goal, sub_2DE94
 extern sub_30BD8, sub_31F88, AddPenalty, sub_34330, sub_34950, sub_36370, sub_36754, sub_3CA28
 extern sub_3CB70, sub_3D020, sub_3E5F0, InitGameAudio, sub_41670, sub_41CF0, WaitMusicEnd, sub_423B4
-extern sub_424CC, CommentaryEvent, LoadDataFileLib, LoadDataFile, sub_4B5C4, sub_4B80C, sub_4B8DC, sub_4B928
-extern sub_4BA00, sub_4BCB4, sub_4C0C4, PeriodOver, sub_52E28, sub_55000, sub_5BD3C, sub_5BD94
+extern sub_424CC, CommentaryEvent, LoadDataFileLib, LoadDataFile, InitGameGraphics, InitGameVideo, sub_4B8DC, FreeGameGraphics
+extern DrawGameFrame, sub_4BCB4, sub_4C0C4, PeriodOver, sub_52E28, sub_55000, sub_5BD3C, sub_5BD94
 extern InitReplayBuffer, sub_5BE74, sub_5BEB0, sub_5C134, sub_5C160, sub_5C180, sub_5C894, sub_6539C
 extern InitAnimPoints, sub_65DE8, sub_76D3C, sub_76E20, sub_77610, AllocAnimStates, GameOver, sub_77FA8
 extern DoGameFrame, sub_7F0D8, sub_81678, ShowLoadingScreen, sub_842E8, sub_842F4, LoadLangText, FreeLangText
@@ -445,7 +445,7 @@ RunOpeningFrames:
         xor eax, eax
         call sub_6539C
         mov eax, dword [tickcount]
-        call sub_4BA00
+        call DrawGameFrame
         call sub_E341C
         call sub_4BCB4
         mov eax, dword [byte esp+08h]
@@ -2474,7 +2474,7 @@ GameLoop:
         mov eax, dword [dword_19CDA0]
         call sub_6539C
         mov eax, dword [tickcount]
-        call sub_4BA00
+        call DrawGameFrame
         call sub_E341C
         call sub_4BCB4
 .14:
@@ -2961,7 +2961,7 @@ PlayGame:
         and eax, 0FFh
         mov dword [dword_19CD4C], eax
         mov eax, dword_19CD10
-        call sub_4B5C4
+        call InitGameGraphics
         call InitAnimPoints
         call sub_5C894
         mov eax, dword [dword_1686BA]
@@ -3036,7 +3036,7 @@ PlayGame:
         mov dword [dword_1C5EF4], ebx
 .10:
         call sub_842E8
-        call sub_4B80C
+        call InitGameVideo
         call sub_AADEF
         call SetGameBrightness
         call sub_F1FF8
@@ -3073,7 +3073,7 @@ PlayGame:
         xor edx, edx
         call __STOSD
         call sub_65DE8
-        call sub_4B928
+        call FreeGameGraphics
         mov edx, dword [dword_16E500]
         test edx, edx
         je short .13

@@ -167,7 +167,7 @@ extern sub_218B8, sub_21A4C, sub_2A6B8, sub_2BE2C, a2touchpuck, sub_2DD54, sub_2
 extern sub_2E208, StartFaceoffLineChange, sub_2F4B8, checkint, AddPenalty, AddPenalty2, EndPenaltyShot, sub_34330
 extern sub_358E4, checkfight, sub_3DA80, sub_3DAC4, sub_3DBCC, sub_3DC2C, sub_3DCBC, sub_3DE08
 extern sub_41ACC, StopAllSfx, PlaySfxOr, PlaySfxVolume, sub_42354, sub_4241C, sub_424CC, CommentaryEvent
-extern sub_4A280, SetArtArchive, sub_4B4B0, sub_4B4C4, sub_4B540, sub_4B8DC, sub_4BA00, sub_4BCB4
+extern sub_4A280, SetArtArchive, sub_4B4B0, sub_4B4C4, sub_4B540, sub_4B8DC, DrawGameFrame, sub_4BCB4
 extern sub_4C0C4, sub_4DA84, PeriodOver, sub_4DD9C, sub_4DDB0, sub_4FC50, sub_50050, sub_51B5C
 extern sub_51BD8, sub_56798, sub_567B0, sub_568CC, sub_56908, sub_56A84, sub_56AE4, sub_56CD0
 extern sub_56CE4, sub_56CF8, sub_56D0C, sub_56DDC, sub_AA650, sub_BD61B, sub_E341C, sub_FAA64
@@ -6859,7 +6859,7 @@ sub_5C1F8:
 .2:
         mov eax, dword [tickcount]
 .3:
-        call sub_4BA00
+        call DrawGameFrame
         call sub_E341C
         call sub_4BCB4
         pop edi

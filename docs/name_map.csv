@@ -184,12 +184,19 @@ address,name,auto_name,source,confidence,evidence,file
 4B19C,OpenDataLibrary,sub_4B19C,new,low,(file id): makes the data file the current library (sub_FC330),src/front/front_48D70.asm
 4B1C4,SetArtArchive,sub_4B1C4,new,low,"(file name): finds the data file by name (102h-entry table), builds its path and makes it the current art archive; a null name closes it",src/front/front_48D70.asm
 4B3F8,WriteGlobalSet,sub_4B3F8,96PC,medium,NHL96PC 6A5EB (similar 0.83): mnemonic similarity 0.83 over 47 instructions,src/front/front_48D70.asm
+4B5C4,InitGameGraphics,sub_4B5C4,new,low,"from PlayGame, LoadReplay and sub_F4978: loads the arena, rink, players' art and camera for a game",src/front/front_48D70.asm
+4B80C,InitGameVideo,sub_4B80C,new,low,"from PlayGame, LoadReplay: sets the game video mode (SetVideoMode) and the view window",src/front/front_48D70.asm
+4B928,FreeGameGraphics,sub_4B928,new,low,"from PlayGame, LoadReplay, ReplayScreen: frees what InitGameGraphics loaded (FreeRinkModel ...)",src/front/front_48D70.asm
+4BA00,DrawGameFrame,sub_4BA00,new,low,"draws one frame of the game view (rink, objects, overlays); from GameLoop, the pause menu, RunIntermission, RunOpeningFrames and the replay",src/front/front_48D70.asm
 4DD90,PeriodOver,sub_4DD90,96PC,medium,96 PC PeriodOver: called from GameLoop at the end of a period,src/front/front_48D70.asm
 50540,UpdateGoalLight,sub_50540,96PC,medium,NHL96PC 23F6A (sem 0.87): C:2025; C:2024; K:258,src/front/front_48D70.asm
 50740,DrawGoalLight,sub_50740,96PC,medium,NHL96PC 2414A (sem 0.77): C:2373; C:2305,src/front/front_48D70.asm
 507E4,TransformRink,sub_507E4,96PC,medium,NHL96PC 241F6 (sem 1.00): C:2323; K:880; K:6E8; K:550,src/front/front_48D70.asm
 50C90,DrawStandsSides,sub_50C90,96PC,medium,NHL96PC 248B0 (sem 1.00): C:2323,src/front/front_48D70.asm
+51C4C,LoadNetArt,sub_51C4C,new,low,"loads the goal net art (""netback"", ""netfrnt"")",src/front/front_48D70.asm
 51CB8,BuildRinkSides,sub_51CB8,96PC,medium,NHL96PC 2583F (sem 0.80): S:side%d; D:1614B4; S:gt0%02d; D:1614BC,src/front/front_48D70.asm
+52494,OpenArenaArchive,sub_52494,new,medium,"SetArtArchive ""arena.viv"", from the game graphics set-up (sub_4B5C4)",src/front/front_48D70.asm
+525E0,LoadBoardLogo,sub_525E0,new,low,"loads a board logo shape ""blogo%d%c""",src/front/front_48D70.asm
 5454C,FreeRinkModel,sub_5454C,96PC,medium,NHL96PC 2751C (sem 1.00): D:1B10E8; C:1863,src/front/front_52770.asm
 552E0,DrawBenchSide,sub_552E0,96PC,medium,NHL96PC 27F20 (sem 0.71): C:2080; C:2285; D:1B105C; C:2079,src/front/front_52770.asm
 5585C,SetPenaltyBoxDoor,sub_5585C,96PC,medium,"96 PC SetPenaltyBoxDoor: (team, open) sets a penalty box door's state (dword_1B0A80) and starts its animation when it opens",src/front/front_52770.asm

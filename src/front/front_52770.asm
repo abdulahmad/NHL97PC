@@ -54,7 +54,7 @@ extern sub_4B944, sub_4BF54, sub_4BF94, sub_4C0CC, sub_4C5A0, sub_4D3B4, sub_4E8
 extern sub_4E868, sub_4E894, sub_4E8C0, sub_4E8EC, sub_4E9A0, sub_4EA44, sub_4EF68, sub_4F004
 extern sub_4F068, sub_4F294, sub_4F404, sub_4FC50, sub_4FD08, DrawGoalLight, TransformRink, sub_509E8
 extern sub_50AF4, DrawStandsSides, sub_50DF4, sub_50EB8, sub_50F90, sub_510FC, sub_511AC, sub_51254
-extern sub_51B5C, sub_51BD8, sub_51C4C, BuildRinkSides, sub_525E0, sub_52648, sub_526EC, sub_59174
+extern sub_51B5C, sub_51BD8, LoadNetArt, BuildRinkSides, LoadBoardLogo, sub_52648, sub_526EC, sub_59174
 extern sub_5AAB8, sub_5AC38, sub_5B4D4, sub_5BCCC, sub_5BD1C, sub_E341C, sub_FAA64, sub_FAF34
 extern sub_FC330, sub_FC4BC, sub_FD110, sub_FD954, sub_FDD1C, sub_FF044, sub_FF444, sub_FF600
 extern sub_FF798, sub_FFBB4, sub_FFCC4, tickcount, unk_16175C, unk_161760, unk_161764, unk_161768
@@ -276,16 +276,16 @@ sub_52770:
         mov eax, ecx
         xor ebx, ebx
         mov esi, edx
-        call sub_525E0
+        call LoadBoardLogo
         mov ebx, ebp
         mov edx, esi
         mov eax, ecx
-        call sub_525E0
+        call LoadBoardLogo
         mov ebx, edi
         mov edx, esi
         mov eax, ecx
         inc ecx
-        call sub_525E0
+        call LoadBoardLogo
         cmp ecx, byte 0Ah
         jl short .18
         push byte 0
@@ -1408,9 +1408,9 @@ sub_53314:
         push dword 40490FDBh
         call sub_51BD8
         xor eax, eax
-        call sub_51C4C
+        call LoadNetArt
         mov eax, 1
-        call sub_51C4C
+        call LoadNetArt
         push str_Minx
         mov eax, dword [dword_1B1108]
         push eax
