@@ -7,8 +7,8 @@ global str_EXHIBIT, str_AGENTS, str_ORIGEXH, str_FILEdelete, str_WB, str_FILEcre
 global str_FILEseek, str_FILEseekend, str_FILEread, str_FILEclose, str_Pktlayer, str_Disconnecting, str_WaitingForOtherComputer, str_IPXMEM
 global str_NETWORK, str_SERVLIST, str_NHL97, str_GAMEADDR, str_PICKS2, str_REGS2, str_LX003, str_LC003
 global str_LX0D3, str_LC0D3, str_DTOP, str_DBOT, str_08x, str_KWKJSK122691, str_BACK13, str_MB014
-global str_MB023, str_MB03, str_AR02d2, str_LT02d2, str_MB004, str_X_WaitForOtherComputer, unk_167560, unk_167574
-global unk_167588, str_HARTFSH, str_ROSSFSH, str_NORRISFSH, str_SELKEFSH, str_VEZINAFSH, str_JENNINGFSH, str_CALDERFSH
+global str_MB023, str_MB03, str_AR02d2, str_LT02d2, str_MB004, str_X_WaitForOtherComputer, str_DOSCompatibleIPX, str_DOSKompatibelIPX
+global str_DOSKompatiblesIPX, str_HARTFSH, str_ROSSFSH, str_NORRISFSH, str_SELKEFSH, str_VEZINAFSH, str_JENNINGFSH, str_CALDERFSH
 global str_PEARSONFSH, str_EATROPHYFSH, str_PRESIDNTFSH, str_SMYTHEFSH, str_CAMPBELLFSH, str_WALESFSH, str_STANLEYFSH
 str_MEDIABUFFER:
         db 04Dh,045h,044h,049h,041h,020h,042h,055h,046h,046h,045h,052h,00h
@@ -59,13 +59,13 @@ str_X_WaitForOtherComputer:
 str_WaitingForOtherComputer:
         db 057h,061h,069h,074h,069h,06Eh,067h,020h,066h,06Fh,072h,020h,06Fh,074h,068h,065h
         db 072h,020h,063h,06Fh,06Dh,070h,075h,074h,065h,072h,00h,00h
-unk_167560:
+str_DOSCompatibleIPX:
         db 044h,04Fh,053h,02Dh,063h,06Fh,06Dh,070h,061h,074h,069h,062h,06Ch,065h,020h,049h
         db 050h,058h,00h,00h
-unk_167574:
+str_DOSKompatibelIPX:
         db 044h,04Fh,053h,02Dh,06Bh,06Fh,06Dh,070h,061h,074h,069h,062h,065h,06Ch,020h,049h
         db 050h,058h,00h,00h
-unk_167588:
+str_DOSKompatiblesIPX:
         db 044h,04Fh,053h,02Dh,06Bh,06Fh,06Dh,070h,061h,074h,069h,062h,06Ch,065h,073h,020h
         db 049h,050h,058h,00h
 str_IPXMEM:

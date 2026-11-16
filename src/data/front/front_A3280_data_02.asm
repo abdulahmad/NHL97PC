@@ -4,7 +4,7 @@ bits 32
 section s_16D25C progbits alloc noexec write align=1
 extern str_OKAYMAN, str_GETBENT, str_IPASS
 global byte_16D27A, byte_16D2A2, dword_16D29E, dword_16D2A8, dword_16D2B8, dword_16D2BC, dword_16D2CC, dword_16D2EC
-global dword_16D30C, dword_16D34C, dword_16D350, dword_16D360, dword_16D400, dword_16D404, unk_16D262, unk_16D26A
+global dword_16D30C, dword_16D34C, dword_16D350, dword_16D360, dword_16D400, dword_16D404, unk_16D262, str_S_RunLinkGameScreens
 global word_16D25C, word_16D25E, word_16D260, word_16D27E, word_16D28C, word_16D29C, word_16D2A6, word_16D2AC
 global word_16D2B0, word_16D2B2, word_16D2B4, word_16D408
 word_16D25C:
@@ -15,7 +15,7 @@ word_16D260:
         db 07Ch,01h
 unk_16D262:
         db 0D1h,00h,0FEh,00h,02Bh,01h,059h,01h
-unk_16D26A:
+str_S_RunLinkGameScreens:
         db 073h,00h,0A0h,00h,0CCh,00h,0FAh,00h,02Ah,01h,057h,01h,085h,01h,0B2h,01h
 byte_16D27A:
         db 06h,04h,05h,08h

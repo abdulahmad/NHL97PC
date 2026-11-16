@@ -4,10 +4,10 @@ bits 32
 section s_135C52 progbits alloc exec nowrite align=1
 extern __fdiv_fpr, _matherr_, byte_16E415, byte_17268C, HugeValHi, dword_19A6E0, F32_16___fpatan_chk, F32_0p0625
 extern off_19C894, F64_1eneg08, HugeValLo, F64_1, F80_3p14159, F80_1p5708___fpatan_chk, F80_neg0p333333, F80_0p2
-extern F80_neg0p142857, F80_0p111111, F80_neg0p0909076, F80_0p0764169, F80_0, unk_135C2D
+extern F80_neg0p142857, F80_0p111111, F80_neg0p0909076, F80_0p0764169, F80_0, str_0123456789abcdefghijklmnopqr
 global __fpatan_chk, __math1err_, __math2err_, __math87_err_, itoa_, __fpatan_chk_160, __fpatan_chk_16B, __fpatan_chk_178
 global __fpatan_chk_18B, __fpatan_chk_1A0, __fpatan_chk_1B3, __fpatan_chk_1C8, __fpatan_chk_1DB, ltoa_, CheckPentiumFdiv, ultoa_
-global unk_135CB7, utoa_
+global str_0123456789abcdefghijklmnopqr_ultoa_, utoa_
 ;-----------------------------------------------------------------------------
 ; utoa_                                                        135C52  library
 ;-----------------------------------------------------------------------------
@@ -29,7 +29,7 @@ utoa_:
         xor edx, edx
         div dword [ebx]
         mov dword [ebx], eax
-        mov al, byte [dword cs:edx+unk_135C2D]
+        mov al, byte [dword cs:edx+str_0123456789abcdefghijklmnopqr]
         mov byte [ecx], al
         mov eax, dword [byte esp+024h]
         inc ecx
@@ -67,7 +67,7 @@ itoa_:
         mov eax, ecx
         pop ecx
         ret
-unk_135CB7:
+str_0123456789abcdefghijklmnopqr_ultoa_:
         db 030h,031h,032h,033h,034h,035h,036h,037h,038h,039h,061h,062h,063h,064h,065h,066h
         db 067h,068h,069h,06Ah,06Bh,06Ch,06Dh,06Eh,06Fh,070h,071h,072h,073h,074h,075h,076h
         db 077h,078h,079h,07Ah,00h
@@ -93,7 +93,7 @@ ultoa_:
         div dword [ebx]
         mov dword [ebx], edx
         mov edx, dword [byte esp+024h]
-        mov dl, byte [dword cs:edx+unk_135CB7]
+        mov dl, byte [dword cs:edx+str_0123456789abcdefghijklmnopqr_ultoa_]
         mov byte [ecx], dl
         inc ecx
         test eax, eax

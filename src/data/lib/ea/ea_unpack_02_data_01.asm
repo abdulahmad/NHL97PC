@@ -8,7 +8,7 @@ global dword_172BD4, dword_172BD8, dword_172BDC, dword_172BE0, dword_172BE4, dwo
 global dword_172C00, dword_172C04, dword_172C08, dword_172C0C, dword_172C10, dword_172C20, dword_172C24, dword_172C28
 global dword_172C3E, dword_172C64, str_Punct_ReadSoundscapeIni, dword_172C6C, dword_172C70, dword_172C74, dword_172C78, dword_172C7C
 global dword_172C80, dword_172C84, dword_172C90, dword_172C94, dword_172C98, dword_172C9C, dword_172CA0, dword_172CA4
-global unk_172C44, word_172C42, word_172C48, word_172C4C
+global unk_172C44, word_172C42, word_172C48, str_Punct_Sb16SetupDma
 dword_172BC1:
         db 00h,00h,00h,00h
 byte_172BC5:
@@ -77,7 +77,7 @@ unk_172C44:
         db 050h,052h,090h,0BAh
 word_172C48:
         db 02Fh,02h,0ECh,0BAh
-word_172C4C:
+str_Punct_Sb16SetupDma:
         db 0Ah,00h,083h,0FAh,08h,072h,04h,0B0h,020h,0E6h,0A0h,0B0h,020h,0E6h,020h,05Ah
         db 058h,0CFh,00h,00h,00h,00h,00h,00h
 dword_172C64:

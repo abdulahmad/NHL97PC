@@ -57,7 +57,7 @@ global SaveTrades, ResetExhibitionRosters, ShowCreatePlayerHelp, DrawCreatePlaye
 global DrawCreatePlayerHeight, DrawCreatePlayerWeight, DrawCreatePlayerAge, DrawRatingBarSlot, DrawRatingBars, DrawRatingValues, DrawRatingPanel, DrawCreatePlayerField
 global DrawCreatePlayerText, DrawCreatePlayerNameLine, CreatePlayerScreen, DrawRatingBar, InitShapeListBox, SetupCreatePlayerLists, InitCreatePlayerScreen, NewSkaterRecord
 global NewGoalieRecord, PlayerOverall, RemoveListEntry, CompareFirstDword, CompareTeamGoalsFor, CompareTeamGoalsAgainst, CompareTeamPowerPlay, CompareTeamPenaltyKill
-global CompareTeamShots, ComparePlayerGoals, ComparePlayerAssists, CompareGoalieAverage, ComparePlayerOffence, ComparePlayerDefence, BuildTradePlayerLists, unk_D15D1
+global CompareTeamShots, ComparePlayerGoals, ComparePlayerAssists, CompareGoalieAverage, ComparePlayerOffence, ComparePlayerDefence, BuildTradePlayerLists, str_Xx00xx01xx02xx03xx10xx11xx12
 global str_G0LWC0RWLDRD
 ;-----------------------------------------------------------------------------
 ; RosterScreen                                    C755B  96 PC, low confidence
@@ -12663,7 +12663,7 @@ BuildTradePlayerLists:
         call FreeMemBlock
         add esp, byte 4
         jmp near DrawRatingBars_157
-unk_D15D1:
+str_Xx00xx01xx02xx03xx10xx11xx12:
         db 078h,078h,030h,030h,078h,078h,030h,031h,078h,078h,030h,032h,078h,078h,030h,033h
         db 078h,078h,031h,030h,078h,078h,031h,031h,078h,078h,031h,032h,00h
 str_G0LWC0RWLDRD:

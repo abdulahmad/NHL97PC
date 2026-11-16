@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_16D894 progbits alloc noexec write align=1
-extern unk_167560, unk_167574, unk_167588
+extern str_DOSCompatibleIPX, str_DOSKompatibelIPX, str_DOSKompatiblesIPX
 global str_GenericHayesCompatible, byte_16D8FA, byte_16D8FD, byte_16D93B, byte_16DA42, dword_16D894, dword_16D898, dword_16D89C
 global dword_16D8A0, dword_16D8A8, dword_16D8AC, dword_16D8B0, dword_16D8B4, dword_16D8B8, dword_16D8BC, dword_16D8D8
 global dword_16D8DC, InputRecordTail, InputRecordHead, InputRecordCount, dword_16D918, InputRecordStamp, dword_16D93A, dword_16DA9C
@@ -239,9 +239,9 @@ word_16E0F8:
 word_16E0FA:
         db 00h,00h
 off_16E0FC:
-        dd unk_167560
-        dd unk_167574
-        dd unk_167588
+        dd str_DOSCompatibleIPX
+        dd str_DOSKompatibelIPX
+        dd str_DOSKompatiblesIPX
 word_16E108:
         db 00h,00h
 word_16E10A:

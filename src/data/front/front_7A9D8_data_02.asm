@@ -6,9 +6,9 @@ extern str_OK, str_0, unk_163F28, str_CONNECT, unk_163F38, unk_163F3C, str_RING,
 extern unk_163F4C, str_NOCARRIER, str_3, unk_163F60, unk_163F64, str_4, unk_163F70, str_CONNECT1200
 extern str_5, unk_163F88, str_NODIALTONE, str_6, unk_163FA0, unk_163FA4, str_BUSY, str_7
 extern unk_163FC0, str_NOANSWER, unk_163FD0, unk_163FD4, str_CONNECT2400, str_10, unk_163FF0, str_CONNECT9600
-extern str_13, unk_16400C, unk_164010, str_17, unk_16402C, unk_164030, str_23, unk_16404C
-extern unk_164050, str_27, unk_164070, str_CONNECT14400, str_25, unk_16408C, unk_164090, str_26
-extern unk_1640AC, unk_1640B0, str_35, unk_1640CC, unk_1640D0, str_36, unk_1640F0, str_CONNECT28800
+extern str_13, unk_16400C, str_CONNECT9600ARQ, str_17, unk_16402C, str_CONNECT9600HST, str_23, unk_16404C
+extern str_CONNECT9600ARQHST, str_27, unk_164070, str_CONNECT14400, str_25, unk_16408C, str_CONNECT14400ARQ, str_26
+extern unk_1640AC, str_CONNECT14400HST, str_35, unk_1640CC, str_CONNECT14400ARQHST, str_36, unk_1640F0, str_CONNECT28800
 extern str_107, unk_16410C
 global byte_16C914, dword_16C734, dword_16C738, str_1_BuildSeasonSchedule, dword_16C760, dword_16C982, dword_16C996, dword_16C9AC
 global dword_16C9B0, dword_16CAA8, dword_16CAAC, off_16C9B8, off_16C9C0
@@ -105,25 +105,25 @@ off_16C9C0:
         dd str_CONNECT9600
         dd str_13
         dd unk_16400C
-        dd unk_164010
+        dd str_CONNECT9600ARQ
         dd str_17
         dd unk_16402C
-        dd unk_164030
+        dd str_CONNECT9600HST
         dd str_23
         dd unk_16404C
-        dd unk_164050
+        dd str_CONNECT9600ARQHST
         dd str_27
         dd unk_164070
         dd str_CONNECT14400
         dd str_25
         dd unk_16408C
-        dd unk_164090
+        dd str_CONNECT14400ARQ
         dd str_26
         dd unk_1640AC
-        dd unk_1640B0
+        dd str_CONNECT14400HST
         dd str_35
         dd unk_1640CC
-        dd unk_1640D0
+        dd str_CONNECT14400ARQHST
         dd str_36
         dd unk_1640F0
         dd str_CONNECT28800

@@ -22,7 +22,7 @@ extern StartChannel, SetChannelCount, DmaMaskChannel, DmaProgram, IrqAck, IrqVec
 extern IrqSetHandler, AllocDosDmaBuffer, FreeDosDmaBuffer, SbTimeConstant, SbRateFromConstant, ReturnArg, AllocMemData, FreeMemBlock
 extern unk_128990, unk_1289A0, SbRateConstLo, SbRateConstMid, SbRateConstHi, SbProStereoFlag, SbProRateConst, unk_140000
 extern unk_14000D, unk_14001A, unk_14002B, str_Rt_ReadSoundscapeIni, str_Punct_IniFindKey, unk_172C44, unk_1DD3C4, unk_1DD40C
-extern word_172C42, word_172C48, word_172C4C, word_1DD3E0, word_1DD3E8, word_1DD430, word_1DD46C, word_1DD470
+extern word_172C42, word_172C48, str_Punct_Sb16SetupDma, word_1DD3E0, word_1DD3E8, word_1DD430, word_1DD46C, word_1DD470
 extern word_1DD472
 global AudioEnter_6, ReadBlasterPort, ProbeDspReset, SbDriverId, SbDriverInit, SbDriverShutdown, SbDriverStart, SbSetupDma
 global SbProDriverId, SbProDriverInit, SbProDriverShutdown, SbProDriverStart, SbProSetupDma, SbProStopDma, Sb16DriverId, Sb16DriverInit
@@ -1386,7 +1386,7 @@ Sb16SetupDma:
         mov word [word_172C48], ax
         mov ax, word [word_1DD472]
         mov edx, dword_1DD43C
-        mov word [word_172C4C], ax
+        mov word [str_Punct_Sb16SetupDma], ax
         mov eax, dword [dword_1DD460]
         call AllocDosDmaBuffer
         mov dword [dword_1DD440], eax

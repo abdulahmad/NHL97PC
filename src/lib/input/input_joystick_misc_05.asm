@@ -19,7 +19,7 @@ global BlitArt, BlitShape, BlitClippedY, PresentScreen, FindShape, FindShapeQuie
 global LoadDataFileErr, OpenArtArchive, OpenArtArchiveErr, BlendPixelMode, BlendPixels, BlendShapeRows, DrawShapeBlended, ConvertRow4To8
 global ConvertRow4To16, ConvertRow8To8, ConvertRow8To16, ConvertRow16To16, ConvertRow16To8, ConvertRow16To15, ConvertRow15To15, ConvertRow15To16
 global ConvertRow15To8, ConvertRow24To24, ConvertRow32To16, ConvertRow24To16, ConvertRow32To32, ConvertRowPalTo16, MapArtType, ConvertArtPalette
-global ConvertArtPalette16, ConvertArtRows, ConvertArtShape, ConvertArtSame, ConvertArtNew, unk_101400
+global ConvertArtPalette16, ConvertArtRows, ConvertArtShape, ConvertArtSame, ConvertArtNew, str_Locateshape44sSHAPENOTFOUND
 ;-----------------------------------------------------------------------------
 ; bcopy                                       100A68  97 PC, medium confidence
 ; (src, dst, n): copies n bytes, backwards when they overlap (BSD order)
@@ -1305,18 +1305,18 @@ PresentScreen:
         LD xor, eax, eax
         ret
         db 00h
-unk_101400:
+str_Locateshape44sSHAPENOTFOUND:
         db 06Ch,06Fh,063h,061h,074h,065h,073h,068h,061h,070h,065h,020h,02Dh,020h,027h,025h
         db 02Dh,034h,02Eh,034h,073h,027h,020h,053h,048h,041h,050h,045h,020h,04Eh,04Fh,054h
         db 020h,046h,04Fh,055h,04Eh,044h,0Dh,0Ah,00h
 ;-----------------------------------------------------------------------------
 ; FindShape                                                      101429  95 PC
 ; Graphics library: find the named art in a bank (bank, name), returns its
-; pointer; error text "locateshape - '%-4.4s' SHAPE NOT FOUND" (unk_101400);
+; pointer; error text "locateshape - '%-4.4s' SHAPE NOT FOUND" (str_Locateshape44sSHAPENOTFOUND);
 ; 1500+ calls
 ;-----------------------------------------------------------------------------
 FindShape:
-        mov edx, unk_101400
+        mov edx, str_Locateshape44sSHAPENOTFOUND
         jmp short FindShapeQuiet_2
 ;-----------------------------------------------------------------------------
 ; FindShapeQuiet                              101430  97 PC, medium confidence

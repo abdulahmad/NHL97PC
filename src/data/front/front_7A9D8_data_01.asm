@@ -9,9 +9,9 @@ global unk_163F28, str_CONNECT, unk_163F38, unk_163F3C, str_RING, str_2, unk_163
 global str_3, unk_163F60, unk_163F64, str_4, unk_163F70, str_CONNECT1200, str_5, unk_163F88
 global str_NODIALTONE, str_6, unk_163FA0, unk_163FA4, str_BUSY, str_7, unk_163FC0, str_NOANSWER
 global unk_163FD0, unk_163FD4, str_CONNECT2400, str_10, unk_163FF0, str_CONNECT9600, str_13, unk_16400C
-global unk_164010, str_17, unk_16402C, unk_164030, str_23, unk_16404C, unk_164050, str_27
-global unk_164070, str_CONNECT14400, str_25, unk_16408C, unk_164090, str_26, unk_1640AC, unk_1640B0
-global str_35, unk_1640CC, unk_1640D0, str_36, unk_1640F0, str_CONNECT28800, str_107, unk_16410C
+global str_CONNECT9600ARQ, str_17, unk_16402C, str_CONNECT9600HST, str_23, unk_16404C, str_CONNECT9600ARQHST, str_27
+global unk_164070, str_CONNECT14400, str_25, unk_16408C, str_CONNECT14400ARQ, str_26, unk_1640AC, str_CONNECT14400HST
+global str_35, unk_1640CC, str_CONNECT14400ARQHST, str_36, unk_1640F0, str_CONNECT28800, str_107, unk_16410C
 global str_T, str_P, str_Punct_ModemSendCommand, str_AT
 str_Roster:
         db 072h,06Fh,073h,074h,065h,072h,00h
@@ -89,21 +89,21 @@ str_13:
         db 05Fh,031h,033h,05Fh,00h,00h,00h,00h
 unk_16400C:
         db 031h,033h,00h,00h
-unk_164010:
+str_CONNECT9600ARQ:
         db 05Fh,043h,04Fh,04Eh,04Eh,045h,043h,054h,020h,039h,036h,030h,030h,02Fh,041h,052h
         db 051h,00h,00h,00h
 str_17:
         db 05Fh,031h,037h,05Fh,00h,00h,00h,00h
 unk_16402C:
         db 031h,037h,00h,00h
-unk_164030:
+str_CONNECT9600HST:
         db 05Fh,043h,04Fh,04Eh,04Eh,045h,043h,054h,020h,039h,036h,030h,030h,02Fh,048h,053h
         db 054h,00h,00h,00h
 str_23:
         db 05Fh,032h,033h,05Fh,00h,00h,00h,00h
 unk_16404C:
         db 032h,033h,00h,00h
-unk_164050:
+str_CONNECT9600ARQHST:
         db 05Fh,043h,04Fh,04Eh,04Eh,045h,043h,054h,020h,039h,036h,030h,030h,02Fh,041h,052h
         db 051h,02Fh,048h,053h,054h,00h,00h,00h
 str_27:
@@ -116,21 +116,21 @@ str_25:
         db 05Fh,032h,035h,05Fh,00h,00h,00h,00h
 unk_16408C:
         db 032h,035h,00h,00h
-unk_164090:
+str_CONNECT14400ARQ:
         db 05Fh,043h,04Fh,04Eh,04Eh,045h,043h,054h,020h,031h,034h,034h,030h,030h,02Fh,041h
         db 052h,051h,00h,00h
 str_26:
         db 05Fh,032h,036h,05Fh,00h,00h,00h,00h
 unk_1640AC:
         db 032h,036h,00h,00h
-unk_1640B0:
+str_CONNECT14400HST:
         db 05Fh,043h,04Fh,04Eh,04Eh,045h,043h,054h,020h,031h,034h,034h,030h,030h,02Fh,048h
         db 053h,054h,00h,00h
 str_35:
         db 05Fh,033h,035h,05Fh,00h,00h,00h,00h
 unk_1640CC:
         db 033h,035h,00h,00h
-unk_1640D0:
+str_CONNECT14400ARQHST:
         db 05Fh,043h,04Fh,04Eh,04Eh,045h,043h,054h,020h,031h,034h,034h,030h,030h,02Fh,041h
         db 052h,051h,02Fh,048h,053h,054h,00h,00h
 str_36:

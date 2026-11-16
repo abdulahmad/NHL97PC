@@ -5584,13 +5584,19 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 163FE8,str_10,unk_163FE8,new,high,"string ""_10_""",src/data/front/front_7A9D8_data_01.asm
 163FF4,str_CONNECT9600,unk_163FF4,new,high,"string ""_CONNECT 9600""",src/data/front/front_7A9D8_data_01.asm
 164004,str_13,unk_164004,new,high,"string ""_13_""",src/data/front/front_7A9D8_data_01.asm
+164010,str_CONNECT9600ARQ,unk_164010,new,high,"string ""_CONNECT 9600/ARQ""",src/data/front/front_7A9D8_data_01.asm
 164024,str_17,unk_164024,new,high,"string ""_17_""",src/data/front/front_7A9D8_data_01.asm
+164030,str_CONNECT9600HST,unk_164030,new,high,"string ""_CONNECT 9600/HST""",src/data/front/front_7A9D8_data_01.asm
 164044,str_23,unk_164044,new,high,"string ""_23_""",src/data/front/front_7A9D8_data_01.asm
+164050,str_CONNECT9600ARQHST,unk_164050,new,high,"string ""_CONNECT 9600/ARQ/HST""",src/data/front/front_7A9D8_data_01.asm
 164068,str_27,unk_164068,new,high,"string ""_27_""",src/data/front/front_7A9D8_data_01.asm
 164074,str_CONNECT14400,unk_164074,new,high,"string ""_CONNECT 14400""",src/data/front/front_7A9D8_data_01.asm
 164084,str_25,unk_164084,new,high,"string ""_25_""",src/data/front/front_7A9D8_data_01.asm
+164090,str_CONNECT14400ARQ,unk_164090,new,high,"string ""_CONNECT 14400/ARQ""",src/data/front/front_7A9D8_data_01.asm
 1640A4,str_26,unk_1640A4,new,high,"string ""_26_""",src/data/front/front_7A9D8_data_01.asm
+1640B0,str_CONNECT14400HST,unk_1640B0,new,high,"string ""_CONNECT 14400/HST""",src/data/front/front_7A9D8_data_01.asm
 1640C4,str_35,unk_1640C4,new,high,"string ""_35_""",src/data/front/front_7A9D8_data_01.asm
+1640D0,str_CONNECT14400ARQHST,unk_1640D0,new,high,"string ""_CONNECT 14400/ARQ/HST""",src/data/front/front_7A9D8_data_01.asm
 1640E8,str_36,unk_1640E8,new,high,"string ""_36_""",src/data/front/front_7A9D8_data_01.asm
 1640F4,str_CONNECT28800,unk_1640F4,new,high,"string ""_CONNECT 28800""",src/data/front/front_7A9D8_data_01.asm
 164104,str_107,unk_164104,new,high,"string ""_107_""",src/data/front/front_7A9D8_data_01.asm
@@ -6970,6 +6976,9 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 167530,str_Disconnecting,asc_167530,new,high,"string ""Disconnecting""",src/data/front/front_DA66D_data_01.asm
 167540,str_X_WaitForOtherComputer,unk_167540,new,high,"string ""X""",src/data/front/front_DA66D_data_01.asm
 167544,str_WaitingForOtherComputer,asc_167544,new,high,"string ""Waiting for other computer""",src/data/front/front_DA66D_data_01.asm
+167560,str_DOSCompatibleIPX,unk_167560,new,high,"string ""DOS-compatible IPX""",src/data/front/front_DA66D_data_01.asm
+167574,str_DOSKompatibelIPX,unk_167574,new,high,"string ""DOS-kompatibel IPX""",src/data/front/front_DA66D_data_01.asm
+167588,str_DOSKompatiblesIPX,unk_167588,new,high,"string ""DOS-kompatibles IPX""",src/data/front/front_DA66D_data_01.asm
 16759C,str_IPXMEM,asc_16759C,new,high,"string ""IPXMEM""",src/data/front/front_DA66D_data_01.asm
 1675A4,str_NETWORK,asc_1675A4,new,high,"string ""NETWORK""",src/data/front/front_DA66D_data_01.asm
 1675AC,str_SERVLIST,asc_1675AC,new,high,"string ""SERVLIST""",src/data/front/front_DA66D_data_01.asm
@@ -7457,6 +7466,11 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 168208,str_UnableToAllocateRealModeS,asc_168208,new,high,"string ""Unable to allocate real mode selector""",src/data/lib/sound/snd_soundblaster_01_data_01.asm
 16822E,str_UnableToSetLimitOfRealMod,asc_16822E,new,high,"string ""Unable to set limit of real mode selector""",src/data/lib/sound/snd_soundblaster_01_data_01.asm
 168258,str_DomainError,unk_168258,new,high,"string ""Domain error""",src/data/lib/sound/snd_soundblaster_01_data_01.asm
+168265,str_ArgumentSingularity,unk_168265,new,high,"string ""Argument singularity""",src/data/lib/sound/snd_soundblaster_01_data_01.asm
+16827A,str_OverflowRangeError,unk_16827A,new,high,"string ""Overflow range error""",src/data/lib/sound/snd_soundblaster_01_data_01.asm
+16828F,str_UnderflowRangeError,unk_16828F,new,high,"string ""Underflow range error""",src/data/lib/sound/snd_soundblaster_01_data_01.asm
+1682A5,str_TotalLossOfSignificance,unk_1682A5,new,high,"string ""Total loss of significance""",src/data/lib/sound/snd_soundblaster_01_data_01.asm
+1682C0,str_PartialLossOfSignificance,unk_1682C0,new,high,"string ""Partial loss of significance""",src/data/lib/sound/snd_soundblaster_01_data_01.asm
 1682DD,str_In,asc_1682DD,new,high,"string "" in """,src/data/lib/sound/snd_soundblaster_01_data_01.asm
 1682E4,str_Inf,dword_1682E4,new,high,"string ""inf""",src/data/lib/sound/snd_soundblaster_01_data_01.asm
 1682E8,str_Nan,dword_1682E8,new,high,"string ""nan""",src/data/lib/sound/snd_soundblaster_01_data_01.asm
@@ -7498,6 +7512,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 16CD34,str_3_LoadLangText,dword_16CD34,new,high,"string ""3""",src/data/front/front_845E4_data_02.asm
 16CD60,str_F_NewSeasonScreen,dword_16CD60,new,high,"string ""F""",src/data/front/front_845E4_data_02.asm
 16CFBC,str_Punct_LoadLinesArt,dword_16CFBC,new,high,"string ""\r""",src/data/front/front_93005_data_02.asm
+16D26A,str_S_RunLinkGameScreens,unk_16D26A,new,high,"string ""s""",src/data/front/front_A3280_data_02.asm
 16D504,str_E_BuildHistoryList,dword_16D504,new,high,"string ""e""",src/data/front/front_B1E1D_data_02.asm
 16D65F,str_None,asc_16D65F,new,high,"string ""None""",src/data/front/front_B1E1D_data_02.asm
 16D684,str_Punct_InitRosterScreen,dword_16D684,new,high,"string ""\n""",src/data/front/front_C755B_data_02.asm
@@ -7568,6 +7583,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 172690,F64_709p783,qword_172690,new,high,double constant 709.7827129,src/data/lib/ea/ea_memman_02_data_01.asm
 172698,F64_neg709p783,qword_172698,new,high,double constant -709.7827129,src/data/lib/ea/ea_memman_02_data_01.asm
 1726A4,str_Punct_AngleOfVector,dword_1726A4,new,high,"string "")""",src/data/lib/ea/ea_memman_02_data_01.asm
+172C4C,str_Punct_Sb16SetupDma,word_172C4C,new,high,"string ""\n""",src/data/lib/ea/ea_unpack_02_data_01.asm
 172C68,str_Punct_ReadSoundscapeIni,dword_172C68,new,high,"string ""\t""",src/data/lib/ea/ea_unpack_02_data_01.asm
 199C40,_environ,,96PC,high,NHL96PC 14F09C (position): same fixup of __setenvp_,
 199C44,___env_mask,,96PC,high,NHL96PC 14F0A0 (position): same fixup of __setenvp_,

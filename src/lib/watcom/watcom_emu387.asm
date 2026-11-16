@@ -30,7 +30,7 @@ global StoreM32Int, StoreIntBits, LoadM32Int, LoadM64Int, LoadM64Real, StoreM32R
 global ExtToInt, EmuRemainder, RemainderStep, EmuRoundInt, RoundMantissa, EmuExamine, AddOne, EmuLog2
 global Log2Core, SinCosCore, EmuSin, EmuCos, EmuTan, EmuAtan, EmuExp2, PolyEval
 global PolyEvalOdd, EmuNoOp, unk_134C17, unk_134DCA, unk_1351C6, unk_1351E4, unk_13543A, unk_135494
-global unk_1354EE, unk_135C2D
+global unk_1354EE, str_0123456789abcdefghijklmnopqr
 ;-----------------------------------------------------------------------------
 ; EmuTrapExit                                    132C84  97 PC, low confidence
 ; X87 emulator: restores the registers and returns from the trap
@@ -4835,7 +4835,7 @@ strchr_:
 .2:
         pop ebx
         ret
-unk_135C2D:
+str_0123456789abcdefghijklmnopqr:
         db 030h,031h,032h,033h,034h,035h,036h,037h,038h,039h,061h,062h,063h,064h,065h,066h
         db 067h,068h,069h,06Ah,06Bh,06Ch,06Dh,06Eh,06Fh,070h,071h,072h,073h,074h,075h,076h
         db 077h,078h,079h,07Ah,00h

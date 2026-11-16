@@ -8,8 +8,8 @@ global RunTimeErrorMessages, F64_1eneg08, F64_neg1_floor_, HugeValLo, str_BLASTE
 global str_RATIONALDOS4G, str_RMHandler, str_SaveText, str_Punct_IniFindKey, unk_168184, str_Asin, str_Sqrt, str_Exp
 global str_Cosh, str_Sinh, str_Pow, str_Acosh, str_Log2, str_Log, str_Log10, str_Atanh
 global str_Atan2, str_Ipow, str_Dpowi, str_Cos, str_Sin, str_Tan, str_Y0, str_Y1
-global str_Yn, str_Mod, str_Cotan, str_ULTRASND, str_DomainError, unk_168265, unk_16827A, unk_16828F
-global unk_1682A5, unk_1682C0
+global str_Yn, str_Mod, str_Cotan, str_ULTRASND, str_DomainError, str_ArgumentSingularity, str_OverflowRangeError, str_UnderflowRangeError
+global str_TotalLossOfSignificance, str_PartialLossOfSignificance
 str_DMA:
         db 044h,04Dh,041h,00h
 str_IRQ:
@@ -105,19 +105,19 @@ str_UnableToSetLimitOfRealMod:
         db 020h,073h,065h,06Ch,065h,063h,074h,06Fh,072h,00h
 str_DomainError:
         db 044h,06Fh,06Dh,061h,069h,06Eh,020h,065h,072h,072h,06Fh,072h,00h
-unk_168265:
+str_ArgumentSingularity:
         db 041h,072h,067h,075h,06Dh,065h,06Eh,074h,020h,073h,069h,06Eh,067h,075h,06Ch,061h
         db 072h,069h,074h,079h,00h
-unk_16827A:
+str_OverflowRangeError:
         db 04Fh,076h,065h,072h,066h,06Ch,06Fh,077h,020h,072h,061h,06Eh,067h,065h,020h,065h
         db 072h,072h,06Fh,072h,00h
-unk_16828F:
+str_UnderflowRangeError:
         db 055h,06Eh,064h,065h,072h,066h,06Ch,06Fh,077h,020h,072h,061h,06Eh,067h,065h,020h
         db 065h,072h,072h,06Fh,072h,00h
-unk_1682A5:
+str_TotalLossOfSignificance:
         db 054h,06Fh,074h,061h,06Ch,020h,06Ch,06Fh,073h,073h,020h,06Fh,066h,020h,073h,069h
         db 067h,06Eh,069h,066h,069h,063h,061h,06Eh,063h,065h,00h
-unk_1682C0:
+str_PartialLossOfSignificance:
         db 050h,061h,072h,074h,069h,061h,06Ch,020h,06Ch,06Fh,073h,073h,020h,06Fh,066h,020h
         db 073h,069h,067h,06Eh,069h,066h,069h,063h,061h,06Eh,063h,065h,00h
 str_In:
@@ -158,8 +158,8 @@ HugeValHi:
 RunTimeErrorMessages:
         db 00h,00h,00h,00h
         dd str_DomainError
-        dd unk_168265
-        dd unk_16827A
-        dd unk_16828F
-        dd unk_1682A5
-        dd unk_1682C0
+        dd str_ArgumentSingularity
+        dd str_OverflowRangeError
+        dd str_UnderflowRangeError
+        dd str_TotalLossOfSignificance
+        dd str_PartialLossOfSignificance

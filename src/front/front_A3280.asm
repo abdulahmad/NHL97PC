@@ -41,7 +41,7 @@ extern SortStatTable, DrawStatTableRows, DrawStatTableArt, UserLogScreen, InitLi
 extern ClearLinkAbort, ServiceIdle, LinkSyncMenu, LinkSyncScreen, LinkSendBlock, LinkReceiveBlock, CopyControlSettings, AllocMemBlock
 extern FreeMemBlock, ZeroMem, OpenResourceArchive, MakeColor, SelectFont, FreeBitmap, DrawShapeCore, DrawShapeAtOwnPos
 extern DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, MeasureText, tickcount, str_D_RunLinkGameScreens, str_D_DrawTeamStatLine
-extern str_Punct_GoalTypeSuffix, unk_16D262, unk_16D26A, unk_1AC8E4, unk_1C135C, unk_1C347F, unk_1C5EF8, unk_1C5F4A
+extern str_Punct_GoalTypeSuffix, unk_16D262, str_S_RunLinkGameScreens, unk_1AC8E4, unk_1C135C, unk_1C347F, unk_1C5EF8, unk_1C5F4A
 extern unk_1C5F9C, unk_1C94F4, word_1684BE, word_16D25C, word_16D25E, word_16D260, word_16D27E, word_16D28C
 extern word_16D29C, word_16D2A6, word_16D2AC, word_16D2B0, word_16D2B2, word_16D2B4, word_19CB96, gameover
 extern word_1C1348, word_1C55A2, word_1C9448, word_1C9450, word_1C9470, word_1C94EC, word_1C94EE, word_1C94F0
@@ -2034,7 +2034,7 @@ RunLinkGameScreens_30:
 .3:
         cmp dword [dword_16DA9C], byte 0
         je short .4
-        mov dword [dword_1C94D0], unk_16D26A
+        mov dword [dword_1C94D0], str_S_RunLinkGameScreens
         mov dword [dword_1C94DC], 8
         jmp short .5
 .4:
