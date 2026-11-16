@@ -2,8 +2,12 @@
 bits 32
 %include "hockey.inc"
 section s_1300A8 progbits alloc exec nowrite align=1
-global sub_1300A8, sub_13014C
-sub_1300A8:
+global TgvCopyBlock, TgvFillBlock
+;-----------------------------------------------------------------------------
+; TgvCopyBlock                                   1300A8  97 PC, low confidence
+; Movie decoder: copies a block
+;-----------------------------------------------------------------------------
+TgvCopyBlock:
         push ebx
         push esi
         push edi
@@ -74,7 +78,11 @@ sub_1300A8:
         pop ebx
         ret
         db 00h
-sub_13014C:
+;-----------------------------------------------------------------------------
+; TgvFillBlock                                   13014C  97 PC, low confidence
+; Movie decoder: fills a block
+;-----------------------------------------------------------------------------
+TgvFillBlock:
         push ebp
         LD mov, ebp, esp
         add esp, byte 0FFFFFFF4h

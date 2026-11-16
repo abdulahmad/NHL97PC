@@ -5,8 +5,8 @@ section s_F9C34 progbits alloc exec nowrite align=1
 extern __ExpandDGROUP_, __MemAllocator, __MemFree, __allocfp_, __chktty_, __close_, __fill_buffer_, __flush_
 extern __freefp_, __ioalloc_, __qread_, __set_errno_, str_MBRAM, byte_1DA4C4, dword_16E318, dword_16E31C
 extern dword_16E320, dword_16E32C, dword_16E330, dword_1724C9, dword_1CF0D8, dword_1CF25C, dword_1CF260, dword_1CF268
-extern dword_1DA4BC, dword_1DA4C0, fflush_, lseek_, sopen_, sub_11B98E, sub_120AB8, sub_121261
-extern sub_121460, sub_121470, sub_121494, sub_FA5B8, tell_, tolower_
+extern dword_1DA4BC, dword_1DA4C0, fflush_, lseek_, sopen_, UnlinkJump, GetPsp, McgaNoWindow
+extern ResetMemLock, MemLock, MemUnlock, AddMemRegion, tell_, tolower_
 global __MkTmpFile_, __doclose_, __doopen_, __hex_, __open_flags_, __shutdown_stream_, __update_buffer_, _fsopen_
 global _nfree_, _nmalloc_, close_file_, fclose_, fopen_, fread_, fseek_, ftell_
 global strcat_, strcpy_
@@ -616,7 +616,7 @@ __MkTmpFile_:
         push edi
         mov ecx, eax
         mov edi, edx
-        call sub_120AB8
+        call GetPsp
         mov ebx, eax
         lea edx, [byte ecx+04h]
         mov byte [ecx], 74h
@@ -704,7 +704,7 @@ __doclose_:
         mov dl, byte [byte ecx+019h]
         call __MkTmpFile_
         mov eax, esp
-        call sub_11B98E
+        call UnlinkJump
 .6:
         mov eax, esi
 .7:
@@ -791,7 +791,7 @@ _nmalloc_:
         jne short .11
 .10:
         mov eax, esi
-        call sub_121261
+        call McgaNoWindow
         test eax, eax
         je short .12
         xor cl, cl
@@ -1065,10 +1065,10 @@ _nfree_:
         push edi
         mov ebx, dword [byte esp+010h]
         mov esi, dword [byte esp+014h]
-        call sub_121460
+        call ResetMemLock
         push eax
         mov dword [dword_1CF260], eax
-        call sub_121470
+        call MemLock
         add esp, byte 4
         mov dword [dword_16E330], esi
         mov edx, ebx
@@ -1103,7 +1103,7 @@ _nfree_:
         push eax
         push byte 0
         push str_MBRAM
-        call sub_FA5B8
+        call AddMemRegion
         mov eax, dword [dword_16E32C]
         mov ebx, dword [dword_16E330]
         add esp, byte 20h
@@ -1111,7 +1111,7 @@ _nfree_:
         sub eax, ebx
         push ecx
         mov dword [dword_1CF268], eax
-        call sub_121494
+        call MemUnlock
         add esp, byte 4
         pop edi
         pop esi

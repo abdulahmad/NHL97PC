@@ -2,9 +2,13 @@
 bits 32
 %include "hockey.inc"
 section s_11B104 progbits alloc exec nowrite align=1
-extern dword_16E4C8, openhandle, sub_109545, sub_109557, sub_FB62C, sub_FB634
-global savefileblocka, sub_11B104
-sub_11B104:
+extern dword_16E4C8, openhandle, DosCloseFile, DosWriteFile, MemDescPtr, MemDescSize
+global savefileblocka, SaveDataFile
+;-----------------------------------------------------------------------------
+; SaveDataFile                                   11B104  97 PC, low confidence
+; Saves a memory block to a file
+;-----------------------------------------------------------------------------
+SaveDataFile:
         sub esp, byte 28h
         mov eax, dword [byte esp+030h]
         mov dword [esp], eax
@@ -63,6 +67,9 @@ sub_11B104:
         pop ebx
         ret
         db 090h
+;-----------------------------------------------------------------------------
+; savefileblocka                              11B1A0  96 PC, medium confidence
+;-----------------------------------------------------------------------------
 savefileblocka:
         push ebx
         push esi
@@ -70,11 +77,11 @@ savefileblocka:
         sub esp, byte 0Ch
         mov esi, dword [byte esp+020h]
         push esi
-        call sub_FB634
+        call MemDescSize
         add esp, byte 4
         push esi
         mov ebx, eax
-        call sub_FB62C
+        call MemDescPtr
         add esp, byte 4
         mov esi, eax
         mov eax, esp
@@ -96,11 +103,11 @@ savefileblocka:
         push ebx
         push esi
         push ecx
-        call sub_109557
+        call DosWriteFile
         add esp, byte 0Ch
         mov edi, dword [byte esp+08h]
         push edi
-        call sub_109545
+        call DosCloseFile
         mov eax, 1
         add esp, byte 4
 .2:

@@ -3,13 +3,14 @@ bits 32
 %include "hockey.inc"
 section s_138C90 progbits alloc exec nowrite align=1
 extern _Extender, _STACKLOW, __DPMI_hosted_, dword_16E3F8, dword_16E464, dword_16E678, dword_16E67C, dword_16E680
-extern dword_16E684, dword_16E69C, dword_199C4C, dword_19C008, dword_1CF528, dword_1CF52C, RestoreDS, sub_11FA98
+extern dword_16E684, dword_16E69C, dword_199C4C, dword_19C008, dword_1CF528, dword_1CF52C, RestoreDS, SetTextOrigin
 extern MeasureText, DrawTextRun, unk_116427, vsprintf_
-global __CommonInit_, sub_138C90, sub_138D04, sub_138E00, sub_138EB0, sub_138F00
+global __CommonInit_, CMainHook, DebugPrintf, DebugPrintAt, DebugPrintLine, DebugLineCount
 ;-----------------------------------------------------------------------------
-; sub_138C90                                                          138C90  
+; CMainHook                                      138C90  97 PC, low confidence
+; Start-up hook (returns at once)
 ;-----------------------------------------------------------------------------
-sub_138C90:
+CMainHook:
         mov eax, esp
         sub eax, dword [_STACKLOW]
         ret
@@ -62,9 +63,10 @@ __CommonInit_:
         ret
         db 00h,00h
 ;-----------------------------------------------------------------------------
-; sub_138D04                                                          138D04  
+; DebugPrintf                                    138D04  97 PC, low confidence
+; Prints a formatted debug message on screen
 ;-----------------------------------------------------------------------------
-sub_138D04:
+DebugPrintf:
         push ebp
         LD mov, ebp, esp
         push ebx
@@ -131,7 +133,7 @@ sub_138D04:
         push eax
         mov ebx, dword [dword_1CF528]
         mov esi, dword [dword_1CF52C]
-        call sub_11FA98
+        call SetTextOrigin
         add esp, byte 8
         mov eax, esp
         push eax
@@ -147,9 +149,10 @@ sub_138D04:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_138E00                                                          138E00  
+; DebugPrintAt                                   138E00  97 PC, low confidence
+; Prints a debug message at a position
 ;-----------------------------------------------------------------------------
-sub_138E00:
+DebugPrintAt:
         push ebx
         push esi
         push edi
@@ -168,7 +171,7 @@ sub_138E00:
         push eax
         mov ebx, dword [dword_1CF528]
         mov esi, dword [dword_1CF52C]
-        call sub_11FA98
+        call SetTextOrigin
         add esp, byte 8
         mov edi, dword [byte esp+010h]
         push edi
@@ -198,7 +201,7 @@ sub_138E00:
         push eax
         mov ebx, dword [dword_1CF528]
         mov esi, dword [dword_1CF52C]
-        call sub_11FA98
+        call SetTextOrigin
         add esp, byte 8
         mov edi, dword [byte esp+010h]
         push edi
@@ -211,9 +214,10 @@ sub_138E00:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_138EB0                                                          138EB0  
+; DebugPrintLine                                 138EB0  97 PC, low confidence
+; Prints a debug line
 ;-----------------------------------------------------------------------------
-sub_138EB0:
+DebugPrintLine:
         push ebx
         mov eax, dword [byte esp+08h]
         mov edx, dword [byte eax+04h]
@@ -223,7 +227,7 @@ sub_138EB0:
         push ebx
         push byte 0
         push eax
-        call sub_138D04
+        call DebugPrintf
         add esp, byte 14h
         pop ebx
         ret
@@ -245,9 +249,10 @@ sub_138EB0:
         inc eax
         ret
 ;-----------------------------------------------------------------------------
-; sub_138F00                                                          138F00  
+; DebugLineCount                                 138F00  97 PC, low confidence
+; Returns the debug line count
 ;-----------------------------------------------------------------------------
-sub_138F00:
+DebugLineCount:
         push ebp
         LD mov, ebp, esp
         add esp, byte 0FFFFFFFCh

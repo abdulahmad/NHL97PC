@@ -11,21 +11,22 @@ extern dword_1D8028, dword_1D802C, dword_1D8030, dword_1D8034, dword_1D8044, dwo
 extern dword_1D8054, dword_1D8058, dword_1D805C, dword_1D8068, dword_1D806C, dword_1D8070, dword_1D807C, dword_1D808C
 extern dword_1D8090, dword_1D8094, dword_1D8098, dword_1D809C, dword_1D80A0, dword_1D80A4, dword_1D80B0, dword_1D8334
 extern dword_1D8AB4, dword_1D8AB8, dword_1D8ABC, dword_1D8AC0, dword_1D8AC4, memcpy_, off_1706D0, qword_167E9D
-extern qword_167EA5, str_ORIINST, strcat_, strcpy_, strlen_, strnicmp_, sub_1004B8, sub_10B18C
-extern sub_10CF34, sub_10FD58, sub_112F3C, DrawPrimList, ResetMorphVerts, FixedSinCos, sub_12D784, sub_12DD3C
-extern sub_12DE84, sub_12DFC4, sub_12E108, sub_12E2B8, sub_12E390, sub_12ED68, sub_12EEAC, sub_12EFE8
-extern sub_12F12C, AllocMemBlock, FreeMemBlock, FillMem, VecScale, unk_199738, unk_1D1D20, unk_1D3D6C
+extern qword_167EA5, str_ORIINST, strcat_, strcpy_, strlen_, strnicmp_, LoadResourceData, SetModelFrame
+extern TransformVecFull, UpdateModelInstance, ClipTexPolyToNear, DrawPrimList, ResetMorphVerts, FixedSinCos, TexSpanCopy, ClipTexPolyLeft
+extern ClipTexPolyRight, ClipTexPolyTop, ClipTexPolyBottom, MakeRotationZ, DrawShapeTransformed, ClipDrawPolyLeft, ClipDrawPolyRight, ClipDrawPolyTop
+extern ClipDrawPolyBottom, AllocMemBlock, FreeMemBlock, FillMem, VecScale, unk_199738, unk_1D1D20, unk_1D3D6C
 extern unk_1D3D94, unk_1D5B94, unk_1D7994, unk_1D80B4
-global sub_1115CC_31B, sub_10FEE8, sub_10FFBC, sub_11002C, sub_11004C, sub_1100B4, sub_110414, sub_110440
-global sub_1104CC, sub_1104F0, sub_110538, sub_11059C, sub_1105E4, sub_1105FC, sub_110634, sub_110658
-global sub_11066C, sub_110680, sub_110D70, sub_110DD0, sub_110E00, sub_110FB0, sub_111308, sub_1115CC
-global sub_1118F0, sub_111C08, sub_111FA0, sub_112010, sub_1120F0, sub_112190, sub_1121B0, sub_11223C
-global sub_112364, sub_1125EC, sub_112894, sub_1128F8, sub_112950, sub_1129B8, sub_112A90, sub_112B18
+global DrawTexturedEdgeLeft_31B, AllocModelHeader, LoadModelByName, FreeModelFile, InitModelInstance, CreateModelInstance, FreeModelInstance, SetModelMatrix
+global SetModelPosition, FindModelPartByName, FindInstancePart, FindModelGroupByName, FindInstanceGroup, GetModelGroupEntry, GetInstanceGroupEntry, GetModelPartEntry
+global GetModelMatrixEntry, BuildNetGeometry, ProjectModelBounds, TexelStep, SetupTextureSpans, DrawTextureSpans, DrawTexturedSpan, DrawTexturedEdgeLeft
+global DrawTexturedEdgeRight, DrawTexturedPoly, DrawTexturedQuad, DrawFlatPoly, DrawPolyOutline, FixedLerp, ClipEdgeTop, ClipEdgeSide
+global ClipPolygon, DrawClippedPoly, DrawPolyList, DrawPolyArray, RotatePoint2D, RotateModelPoint, FillSpanRow, FillSpanRows
 global unk_1100B0
 ;-----------------------------------------------------------------------------
-; sub_10FEE8                                                          10FEE8  
+; AllocModelHeader                               10FEE8  97 PC, low confidence
+; Model library: allocates a model header with its tables
 ;-----------------------------------------------------------------------------
-sub_10FEE8:
+AllocModelHeader:
         push ebx
         push esi
         push edi
@@ -112,9 +113,10 @@ sub_10FEE8:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_10FFBC                                                          10FFBC  
+; LoadModelByName                                10FFBC  97 PC, low confidence
+; Model library: loads a model file by name
 ;-----------------------------------------------------------------------------
-sub_10FFBC:
+LoadModelByName:
         push ebx
         push ecx
         push esi
@@ -149,14 +151,14 @@ sub_10FFBC:
         push esi
         lea eax, [byte esp+04h]
         push eax
-        call sub_1004B8
+        call LoadResourceData
         add esp, byte 8
         mov ebx, eax
         test eax, eax
         je short .5
         push esi
         push eax
-        call sub_10FEE8
+        call AllocModelHeader
         add esp, byte 8
 .5:
         mov eax, ebx
@@ -167,9 +169,10 @@ sub_10FFBC:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_11002C                                                          11002C  
+; FreeModelFile                                  11002C  97 PC, low confidence
+; Model library: frees a loaded model file
 ;-----------------------------------------------------------------------------
-sub_11002C:
+FreeModelFile:
         push ebx
         mov ebx, dword [byte esp+08h]
         mov edx, dword [byte ebx+074h]
@@ -185,9 +188,10 @@ sub_11002C:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_11004C                                                          11004C  
+; InitModelInstance                              11004C  97 PC, low confidence
+; Model library: sets up a model instance
 ;-----------------------------------------------------------------------------
-sub_11004C:
+InitModelInstance:
         push ebx
         push esi
         push edi
@@ -227,9 +231,10 @@ sub_11004C:
 unk_1100B0:
         db 00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_1100B4                                                          1100B4  
+; CreateModelInstance                            1100B4  97 PC, low confidence
+; Model library: creates a model instance and its vertex buffers
 ;-----------------------------------------------------------------------------
-sub_1100B4:
+CreateModelInstance:
         push ecx
         push esi
         push edi
@@ -435,7 +440,7 @@ sub_1100B4:
         or bh, 1
         push ebp
         mov byte [byte ebp+010h], bh
-        call sub_10B18C
+        call SetModelFrame
         add esp, byte 8
         test byte [byte esp+014h], 10h
         je short .15
@@ -462,7 +467,7 @@ sub_1100B4:
         mov eax, dword [byte esp+014h]
         push ebp
         mov dword [byte ebp+010h], eax
-        call sub_10FD58
+        call UpdateModelInstance
         add esp, byte 4
         mov eax, dword [esp]
         mov eax, dword [byte eax+038h]
@@ -516,9 +521,10 @@ sub_1100B4:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_110414                                                          110414  
+; FreeModelInstance                              110414  97 PC, low confidence
+; Model library: frees a model instance
 ;-----------------------------------------------------------------------------
-sub_110414:
+FreeModelInstance:
         push ebx
         mov ebx, dword [byte esp+08h]
         mov eax, dword [ebx]
@@ -537,9 +543,10 @@ sub_110414:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_110440                                                          110440  
+; SetModelMatrix                                 110440  97 PC, low confidence
+; Model library: sets a model instance's matrix
 ;-----------------------------------------------------------------------------
-sub_110440:
+SetModelMatrix:
         push esi
         push edi
         mov eax, dword [byte esp+0Ch]
@@ -588,7 +595,7 @@ sub_110440:
         lea eax, [byte esp+04h]
         push eax
         lea esi, [byte esp+08h]
-        call sub_12E2B8
+        call MakeRotationZ
         mov ecx, 9
         lea edi, [byte ebx+028h]
         add esp, byte 8
@@ -601,9 +608,10 @@ sub_110440:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1104CC                                                          1104CC  
+; SetModelPosition                               1104CC  97 PC, low confidence
+; Model library: sets a model instance's position
 ;-----------------------------------------------------------------------------
-sub_1104CC:
+SetModelPosition:
         push esi
         push edi
         mov eax, dword [byte esp+0Ch]
@@ -618,9 +626,10 @@ sub_1104CC:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_1104F0                                                          1104F0  
+; FindModelPartByName                            1104F0  97 PC, low confidence
+; Model library: finds a model part by name
 ;-----------------------------------------------------------------------------
-sub_1104F0:
+FindModelPartByName:
         push ebx
         push esi
         push edi
@@ -660,16 +669,17 @@ sub_1104F0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_110538                                                          110538  
+; FindInstancePart                               110538  97 PC, low confidence
+; Model library: finds a part of a model instance by name
 ;-----------------------------------------------------------------------------
-sub_110538:
+FindInstancePart:
         push ebx
         mov edx, dword [byte esp+0Ch]
         mov eax, dword [byte esp+08h]
         push edx
         mov ebx, dword [eax]
         push ebx
-        call sub_1104F0
+        call FindModelPartByName
         add esp, byte 8
         pop ebx
         ret
@@ -714,9 +724,10 @@ sub_110538:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_11059C                                                          11059C  
+; FindModelGroupByName                           11059C  97 PC, low confidence
+; Model library: finds a model group by name
 ;-----------------------------------------------------------------------------
-sub_11059C:
+FindModelGroupByName:
         push ebx
         push esi
         push edi
@@ -756,24 +767,26 @@ sub_11059C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1105E4                                                          1105E4  
+; FindInstanceGroup                              1105E4  97 PC, low confidence
+; Model library: finds a group of a model instance by name
 ;-----------------------------------------------------------------------------
-sub_1105E4:
+FindInstanceGroup:
         push ebx
         mov edx, dword [byte esp+0Ch]
         mov eax, dword [byte esp+08h]
         push edx
         mov ebx, dword [eax]
         push ebx
-        call sub_11059C
+        call FindModelGroupByName
         add esp, byte 8
         pop ebx
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1105FC                                                          1105FC  
+; GetModelGroupEntry                             1105FC  97 PC, low confidence
+; Model library: returns an entry of a model group
 ;-----------------------------------------------------------------------------
-sub_1105FC:
+GetModelGroupEntry:
         push ebx
         mov ecx, dword [byte esp+08h]
         mov ebx, dword [byte esp+0Ch]
@@ -795,9 +808,10 @@ sub_1105FC:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_110634                                                          110634  
+; GetInstanceGroupEntry                          110634  97 PC, low confidence
+; Model library: returns a group entry of a model instance
 ;-----------------------------------------------------------------------------
-sub_110634:
+GetInstanceGroupEntry:
         push ebx
         mov edx, dword [byte esp+014h]
         push edx
@@ -808,15 +822,16 @@ sub_110634:
         push ecx
         mov eax, dword [eax]
         push eax
-        call sub_1105FC
+        call GetModelGroupEntry
         add esp, byte 10h
         pop ebx
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_110658                                                          110658  
+; GetModelPartEntry                              110658  97 PC, low confidence
+; Model library: returns a part entry of a model
 ;-----------------------------------------------------------------------------
-sub_110658:
+GetModelPartEntry:
         push ebx
         mov ebx, eax
         lea eax, [nosplit edx*4+00h]
@@ -826,18 +841,20 @@ sub_110658:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_11066C                                                          11066C  
+; GetModelMatrixEntry                            11066C  97 PC, low confidence
+; Model library: returns a matrix entry of a model
 ;-----------------------------------------------------------------------------
-sub_11066C:
+GetModelMatrixEntry:
         shl edx, 4
         mov eax, dword [byte eax+028h]
         add eax, edx
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_110680                                                          110680  
+; BuildNetGeometry                               110680  97 PC, low confidence
+; Builds the net geometry
 ;-----------------------------------------------------------------------------
-sub_110680:
+BuildNetGeometry:
         push esi
         push edi
         push ebp
@@ -1446,9 +1463,10 @@ sub_110680:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_110D70                                                          110D70  
+; ProjectModelBounds                             110D70  97 PC, low confidence
+; Projects the bounds of a model
 ;-----------------------------------------------------------------------------
-sub_110D70:
+ProjectModelBounds:
         push ebx
         push ebp
         sub esp, byte 20h
@@ -1475,7 +1493,7 @@ sub_110D70:
         lea eax, [byte esp+04h]
         push eax
         push edx
-        call sub_12E390
+        call DrawShapeTransformed
         add esp, byte 0Ch
         add esp, byte 20h
         pop ebp
@@ -1483,9 +1501,10 @@ sub_110D70:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_110DD0                                                          110DD0  
+; TexelStep                                      110DD0  97 PC, low confidence
+; Works out a texture step for a span
 ;-----------------------------------------------------------------------------
-sub_110DD0:
+TexelStep:
         test edx, edx
         jge short .1
         neg edx
@@ -1511,9 +1530,10 @@ sub_110DD0:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_110E00                                                          110E00  
+; SetupTextureSpans                              110E00  97 PC, low confidence
+; Sets up the texture spans of a polygon
 ;-----------------------------------------------------------------------------
-sub_110E00:
+SetupTextureSpans:
         push ebx
         push ecx
         push esi
@@ -1669,9 +1689,10 @@ sub_110E00:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_110FB0                                                          110FB0  
+; DrawTextureSpans                               110FB0  97 PC, low confidence
+; Draws the texture spans of a polygon
 ;-----------------------------------------------------------------------------
-sub_110FB0:
+DrawTextureSpans:
         push ebx
         push esi
         push edi
@@ -1992,9 +2013,10 @@ sub_110FB0:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_111308                                                          111308  
+; DrawTexturedSpan                               111308  97 PC, low confidence
+; Draws one textured span
 ;-----------------------------------------------------------------------------
-sub_111308:
+DrawTexturedSpan:
         push ebx
         push esi
         push edi
@@ -2056,7 +2078,7 @@ sub_111308:
         mov ebx, dword [byte esp+02Ch]
         sub eax, edx
         mov edx, dword [byte esp+01Ch]
-        call sub_110DD0
+        call TexelStep
         mov edx, dword [byte esp+010h]
         mov ebx, eax
         imul edx
@@ -2122,7 +2144,7 @@ sub_111308:
         push eax
         mov esi, dword [byte esp+020h]
         push esi
-        call sub_12D784
+        call TexSpanCopy
         mov edi, dword [dword_1702B8]
         add esp, byte 24h
         test edi, edi
@@ -2190,7 +2212,7 @@ sub_111308:
         push eax
         mov esi, dword [byte esp+020h]
         push esi
-        call sub_12D784
+        call TexSpanCopy
         mov edi, dword [dword_1702B8]
         add esp, byte 24h
         test edi, edi
@@ -2206,9 +2228,10 @@ sub_111308:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1115CC                                                          1115CC  
+; DrawTexturedEdgeLeft                           1115CC  97 PC, low confidence
+; Draws the left edge of a textured polygon
 ;-----------------------------------------------------------------------------
-sub_1115CC:
+DrawTexturedEdgeLeft:
         push ebx
         push esi
         push edi
@@ -2248,7 +2271,7 @@ sub_1115CC:
 .2:
         mov esi, dword [byte esp+018h]
         cmp ebp, esi
-        je near sub_1115CC_31B
+        je near DrawTexturedEdgeLeft_31B
         imul esi, byte 64h
         mov ecx, 19h
         mov edi, dword_1D804C
@@ -2284,7 +2307,7 @@ sub_1115CC:
         dec esi
         cmp esi, byte 0FFFFFFFFh
         je near .1
-        call sub_111308
+        call DrawTexturedSpan
         mov eax, dword [dword_16E670]
         mov ecx, dword [dword_1D7FD8]
         mov edi, dword [dword_1D7FDC]
@@ -2423,7 +2446,7 @@ sub_1115CC:
         adc eax, edx
         mov dword [dword_1D807C], eax
         jmp near .8
-sub_1115CC_31B:
+DrawTexturedEdgeLeft_31B:
         add esp, byte 4
         pop ebp
         pop edi
@@ -2432,9 +2455,10 @@ sub_1115CC_31B:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1118F0                                                          1118F0  
+; DrawTexturedEdgeRight                          1118F0  97 PC, low confidence
+; Draws the right edge of a textured polygon
 ;-----------------------------------------------------------------------------
-sub_1118F0:
+DrawTexturedEdgeRight:
         push ebx
         push esi
         push edi
@@ -2474,7 +2498,7 @@ sub_1118F0:
 .2:
         mov esi, dword [byte esp+018h]
         cmp ebp, esi
-        je near sub_1115CC_31B
+        je near DrawTexturedEdgeLeft_31B
         imul esi, byte 64h
         mov ecx, 19h
         mov edi, dword_1D7FDC
@@ -2510,7 +2534,7 @@ sub_1118F0:
         dec esi
         cmp esi, byte 0FFFFFFFFh
         je near .1
-        call sub_111308
+        call DrawTexturedSpan
         mov eax, dword [dword_16E670]
         mov ecx, dword [dword_1D7FD8]
         mov edi, dword [dword_1D7FDC]
@@ -2651,9 +2675,10 @@ sub_1118F0:
         jmp near .8
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_111C08                                                          111C08  
+; DrawTexturedPoly                               111C08  97 PC, low confidence
+; Draws a textured polygon
 ;-----------------------------------------------------------------------------
-sub_111C08:
+DrawTexturedPoly:
         push ebx
         push esi
         push edi
@@ -2673,7 +2698,7 @@ sub_111C08:
         push ebp
         mov dword [byte esp+02Ch], edx
         mov dword [byte esp+014h], edx
-        call sub_112F3C
+        call ClipTexPolyToNear
         add esp, byte 14h
         mov ebp, eax
         cmp eax, byte 3
@@ -2809,7 +2834,7 @@ sub_111C08:
         lea eax, [byte esp+048h]
         push eax
         push ebp
-        call sub_12DD3C
+        call ClipTexPolyLeft
         add esp, byte 0Ch
         mov ebp, eax
         cmp eax, byte 3
@@ -2832,7 +2857,7 @@ sub_111C08:
         lea eax, [byte esp+048h]
         push eax
         push ebp
-        call sub_12DE84
+        call ClipTexPolyRight
         add esp, byte 0Ch
         mov ebp, eax
         cmp eax, byte 3
@@ -2854,7 +2879,7 @@ sub_111C08:
         lea eax, [byte esp+048h]
         push eax
         push ebp
-        call sub_12DFC4
+        call ClipTexPolyTop
         add esp, byte 0Ch
         mov ebp, eax
         cmp eax, byte 3
@@ -2877,7 +2902,7 @@ sub_111C08:
         lea eax, [byte esp+048h]
         push eax
         push ebp
-        call sub_12E108
+        call ClipTexPolyBottom
         add esp, byte 0Ch
         mov ebp, eax
         cmp eax, byte 3
@@ -2943,7 +2968,7 @@ sub_111C08:
 .29:
         mov edx, dword [byte esp+044h]
         mov eax, ebp
-        call sub_110E00
+        call SetupTextureSpans
         fld dword [dword_1D8044]
         fabs
         push eax
@@ -2968,7 +2993,7 @@ sub_111C08:
         mov edx, dword [byte esp+050h]
         push edx
         push esi
-        call sub_110FB0
+        call DrawTextureSpans
         add esp, byte 14h
         mov eax, ebx
         inc ebx
@@ -2998,13 +3023,13 @@ sub_111C08:
         push ebp
         push eax
         push edx
-        call sub_1118F0
+        call DrawTexturedEdgeRight
         jmp short .35
 .34:
         push ebp
         push eax
         push edx
-        call sub_1115CC
+        call DrawTexturedEdgeLeft
 .35:
         add esp, byte 0Ch
         mov eax, 1
@@ -3017,9 +3042,10 @@ sub_111C08:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_111FA0                                                          111FA0  
+; DrawTexturedQuad                               111FA0  97 PC, low confidence
+; Draws a textured quad
 ;-----------------------------------------------------------------------------
-sub_111FA0:
+DrawTexturedQuad:
         push ebx
         push ebp
         sub esp, byte 40h
@@ -3053,7 +3079,7 @@ sub_111FA0:
         push eax
         push byte 4
         push edx
-        call sub_111C08
+        call DrawTexturedPoly
         add esp, byte 18h
         add esp, byte 40h
         pop ebp
@@ -3061,9 +3087,10 @@ sub_111FA0:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_112010                                                          112010  
+; DrawFlatPoly                                   112010  97 PC, low confidence
+; Draws a flat polygon
 ;-----------------------------------------------------------------------------
-sub_112010:
+DrawFlatPoly:
         push ebx
         push esi
         push edi
@@ -3087,7 +3114,7 @@ sub_112010:
         push ebp
         mov edi, ebx
         add ebx, byte 0Ch
-        call sub_10CF34
+        call TransformVecFull
         add esp, byte 0Ch
         add ebp, byte 0Ch
         movsd
@@ -3106,7 +3133,7 @@ sub_112010:
         push esi
         push ebp
         add ebx, byte 0Ch
-        call sub_10CF34
+        call TransformVecFull
         add esp, byte 0Ch
         add ebp, byte 0Ch
         jmp short .3
@@ -3140,7 +3167,7 @@ sub_112010:
         push ebp
         mov edi, ebx
         add ebx, byte 0Ch
-        call sub_10CF34
+        call TransformVecFull
         add esp, byte 0Ch
         add ebp, byte 0Ch
         movsd
@@ -3159,15 +3186,16 @@ sub_112010:
         push esi
         push ebp
         add ebx, byte 0Ch
-        call sub_10CF34
+        call TransformVecFull
         add esp, byte 0Ch
         add ebp, byte 0Ch
         jmp short .7
         db 00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_1120F0                                                          1120F0  
+; DrawPolyOutline                                1120F0  97 PC, low confidence
+; Draws a polygon outline
 ;-----------------------------------------------------------------------------
-sub_1120F0:
+DrawPolyOutline:
         push ebx
         push esi
         push edi
@@ -3238,9 +3266,10 @@ sub_1120F0:
         jmp short .3
         db 00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_112190                                                          112190  
+; FixedLerp                                      112190  97 PC, low confidence
+; Interpolates two fixed-point values
 ;-----------------------------------------------------------------------------
-sub_112190:
+FixedLerp:
         push ebx
         mov edx, dword [byte esp+010h]
         mov eax, dword [byte esp+0Ch]
@@ -3254,9 +3283,10 @@ sub_112190:
         ret
         db 00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_1121B0                                                          1121B0  
+; ClipEdgeTop                                    1121B0  97 PC, low confidence
+; Clips a polygon edge at the top
 ;-----------------------------------------------------------------------------
-sub_1121B0:
+ClipEdgeTop:
         push ebx
         push ecx
         push edx
@@ -3315,9 +3345,10 @@ sub_1121B0:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_11223C                                                          11223C  
+; ClipEdgeSide                                   11223C  97 PC, low confidence
+; Clips a polygon edge at the sides
 ;-----------------------------------------------------------------------------
-sub_11223C:
+ClipEdgeSide:
         push esi
         push edi
         push ebp
@@ -3440,9 +3471,10 @@ sub_11223C:
         pop esi
         ret 4
 ;-----------------------------------------------------------------------------
-; sub_112364                                                          112364  
+; ClipPolygon                                    112364  97 PC, low confidence
+; Clips a polygon to the view
 ;-----------------------------------------------------------------------------
-sub_112364:
+ClipPolygon:
         push esi
         push edi
         push ebp
@@ -3674,9 +3706,10 @@ sub_112364:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1125EC                                                          1125EC  
+; DrawClippedPoly                                1125EC  97 PC, low confidence
+; Clips and draws a polygon
 ;-----------------------------------------------------------------------------
-sub_1125EC:
+DrawClippedPoly:
         push ebx
         push esi
         push edi
@@ -3741,7 +3774,7 @@ sub_1125EC:
         push eax
         mov eax, dword [byte esp+02Ch]
         push eax
-        call sub_12ED68
+        call ClipDrawPolyLeft
         add esp, byte 0Ch
         mov dword [byte esp+024h], eax
         cmp eax, byte 3
@@ -3770,7 +3803,7 @@ sub_1125EC:
         push eax
         mov eax, dword [byte esp+02Ch]
         push eax
-        call sub_12EEAC
+        call ClipDrawPolyRight
         add esp, byte 0Ch
         mov dword [byte esp+024h], eax
         cmp eax, byte 3
@@ -3804,7 +3837,7 @@ sub_1125EC:
         push eax
         mov esi, dword [byte esp+02Ch]
         push esi
-        call sub_12EFE8
+        call ClipDrawPolyTop
         add esp, byte 0Ch
         mov dword [byte esp+024h], eax
         cmp eax, byte 3
@@ -3838,7 +3871,7 @@ sub_1125EC:
         push eax
         mov ecx, dword [byte esp+02Ch]
         push ecx
-        call sub_12F12C
+        call ClipDrawPolyBottom
         add esp, byte 0Ch
         mov dword [byte esp+024h], eax
         cmp eax, byte 3
@@ -3916,7 +3949,7 @@ sub_1125EC:
         push eax
         mov ecx, esi
         mov eax, ebp
-        call sub_11223C
+        call ClipEdgeSide
         mov ecx, dword [byte esp+024h]
         mov eax, esi
         inc esi
@@ -3933,7 +3966,7 @@ sub_1125EC:
 .26:
         mov eax, dword [byte esp+020h]
         mov dword [dword_1D8AB8], eax
-        call sub_1121B0
+        call ClipEdgeTop
         mov eax, dword [dword_16E698]
         mov ebx, dword [dword_16E69C]
         mov eax, dword [eax+edi*4]
@@ -3945,7 +3978,7 @@ sub_1125EC:
         mov ebx, dword [byte esp+024h]
         mov cl, al
         mov eax, esi
-        call sub_112364
+        call ClipPolygon
         mov eax, 1
 .27:
         add esp, byte 0Ch
@@ -3956,9 +3989,10 @@ sub_1125EC:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_112894                                                          112894  
+; DrawPolyList                                   112894  97 PC, low confidence
+; Draws a list of polygons
 ;-----------------------------------------------------------------------------
-sub_112894:
+DrawPolyList:
         push ebx
         push ebp
         sub esp, byte 50h
@@ -3990,7 +4024,7 @@ sub_112894:
         push eax
         push byte 4
         push edx
-        call sub_1125EC
+        call DrawClippedPoly
         add esp, byte 18h
         add esp, byte 50h
         pop ebp
@@ -3998,9 +4032,10 @@ sub_112894:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1128F8                                                          1128F8  
+; DrawPolyArray                                  1128F8  97 PC, low confidence
+; Draws an array of polygons
 ;-----------------------------------------------------------------------------
-sub_1128F8:
+DrawPolyArray:
         push ebx
         push esi
         push edi
@@ -4032,7 +4067,7 @@ sub_1128F8:
         push ecx
         mov edi, dword [byte esp+074h]
         push edi
-        call sub_1125EC
+        call DrawClippedPoly
         add esp, byte 18h
         add esp, byte 50h
         pop edi
@@ -4041,9 +4076,10 @@ sub_1128F8:
         ret
         db 00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_112950                                                          112950  
+; RotatePoint2D                                  112950  97 PC, low confidence
+; Rotates a point in two dimensions
 ;-----------------------------------------------------------------------------
-sub_112950:
+RotatePoint2D:
         push ebx
         sub esp, byte 8
         mov ebx, dword [byte esp+010h]
@@ -4076,9 +4112,10 @@ sub_112950:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1129B8                                                          1129B8  
+; RotateModelPoint                               1129B8  97 PC, low confidence
+; Rotates a model point
 ;-----------------------------------------------------------------------------
-sub_1129B8:
+RotateModelPoint:
         push ebx
         sub esp, byte 8
         mov ebx, dword [byte esp+010h]
@@ -4142,9 +4179,10 @@ sub_1129B8:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_112A90                                                          112A90  
+; FillSpanRow                                    112A90  97 PC, low confidence
+; Fills a row of a span
 ;-----------------------------------------------------------------------------
-sub_112A90:
+FillSpanRow:
         push ebx
         push esi
         push edi
@@ -4206,9 +4244,10 @@ sub_112A90:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_112B18                                                          112B18  
+; FillSpanRows                                   112B18  97 PC, low confidence
+; Fills the rows of a span
 ;-----------------------------------------------------------------------------
-sub_112B18:
+FillSpanRows:
         push ebx
         push esi
         push edi
@@ -4220,7 +4259,7 @@ sub_112B18:
         push ebx
         mov ecx, dword [byte esp+01Ch]
         push ecx
-        call sub_112A90
+        call FillSpanRow
         add esp, byte 10h
         mov edi, dword [byte esp+01Ch]
         cmp dword [byte esi+08h], byte 0

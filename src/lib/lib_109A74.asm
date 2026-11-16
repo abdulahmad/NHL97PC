@@ -7,14 +7,14 @@ extern dword_17020C, dword_170210, dword_170214, dword_172AC0, dword_172BC8, dwo
 extern dword_1CFC80, dword_1CFC84, dword_1CFC88, dword_1CFC8C, dword_1CFC90, dword_1CFC94, dword_1CFC9C, dword_1CFCA0
 extern dword_1CFCA4, dword_1CFCA8, dword_1CFCAC, dword_1CFCB0, dword_1CFCB4, dword_1CFCB8, dword_1CFCC0, dword_1CFCC4
 extern dword_1CFCC8, dword_1CFCCC, dword_1CFCD0, dword_1CFCD4, dword_1CFCD8, dword_1CFCDC, dword_1CFCE0, dword_1CFCE4
-extern dword_1CFCE8, dword_1DCF38, str_ASYNCFILE, strcmp_, strncpy_, sub_1055D4, sub_10562C, sub_105644
-extern sub_1056F0, sub_10578C, sub_1057C0, sub_1057E8, sub_105808, sub_1072B4, sub_108640, sub_1091E0
-extern sub_109210, sub_109250, sub_128280, sub_12AB04, sub_12AB0C, sub_12CD34, sub_12D1C0, sub_12D210
-extern sub_FA9C4, AllocMemBlock, FreeMemBlock, sub_FAF70, addtimer, sub_FC008, unk_1CFCBC, word_170162
-global jpt_109E64, sub_109E74_2E, sub_109E74_57B, sub_109E74_613, sub_109E74_78F, AsyncInit, AsyncClose, AsyncRequestOpen
-global AsyncRequestSection, sub_109E54, sub_109E74, sub_10A788, sub_10A7D0, sub_10A844, sub_10A860, sub_10A868
-global sub_10A8C4, sub_10A930, sub_10A980, sub_10AA38, sub_10AB1C, sub_10AB2C, sub_10AB94, sub_10ABC8
-global sub_10AC48, sub_10ACF0, sub_10AD20
+extern dword_1CFCE8, dword_1DCF38, str_ASYNCFILE, strcmp_, strncpy_, CdOpenStream, CdHandleEntry, CdCloseFile
+extern CdRead, CdSeek, CdFindFile, DriveLetterIndex, IsCdDrive, CheckBankIndex, SetMusicStreamVolume, ChannelPlaying
+extern StopChannel, PlaySample, LoadSampleHeader, AudioEnter, AudioLeaveCheck, IsChannelActive, ChannelPosition, ChannelTimeLeftLocked
+extern AllocMemBlockFixed, AllocMemBlock, FreeMemBlock, UnlinkMemBlockLocked, addtimer, RemoveTimerCallback, unk_1CFCBC, word_170162
+global jpt_109E64, AsyncStreamStep_2E, AsyncStreamStep_57B, AsyncStreamStep_613, AsyncStreamStep_78F, AsyncInit, AsyncClose, AsyncRequestOpen
+global AsyncRequestSection, AsyncResetRequest, AsyncStreamStep, AsyncTick, AsyncFreeRequest, AsyncPopRequest, SpeechBufferSize, RegisterStreamBank
+global AddStreamSample, ReleaseBankSample, StartSpeechQueue, QueueSpeechClip, SpeechQueueGo, StopSpeechQueue, SpeechQueueState, ShutdownSpeechQueue
+global AdvanceSpeechQueue, ResetSpeechQueueState, SetChannelVolumeChecked
 ;-----------------------------------------------------------------------------
 ; AsyncInit                                   109A74  96 PC, medium confidence
 ; EA async reader: allocates the ASYNC FILE request blocks (0ABh bytes each,
@@ -77,7 +77,7 @@ AsyncInit:
         shrd eax, edx, 10h
         adc eax, byte 0
         xor ebx, ebx
-        push sub_10A788
+        push AsyncTick
         mov dword [dword_1CFCCC], eax
         mov dword [dword_1CFCC4], ebx
         call addtimer
@@ -94,21 +94,21 @@ AsyncInit:
 ;-----------------------------------------------------------------------------
 AsyncClose:
         push edi
-        push sub_10A788
-        call sub_FC008
+        push AsyncTick
+        call RemoveTimerCallback
         mov edx, dword [dword_1CFC8C]
         add esp, byte 4
         test edx, edx
         jl short .1
         push edx
-        call sub_105644
+        call CdCloseFile
         add esp, byte 4
 .1:
         mov ecx, dword [dword_1CFC88]
         test ecx, ecx
         jl short .2
         push ecx
-        call sub_105644
+        call CdCloseFile
         add esp, byte 4
 .2:
         mov edi, dword [dword_1CFC74]
@@ -120,7 +120,7 @@ AsyncClose:
         db 08Dh,040h,00h
         push ebx
         push esi
-        call sub_10A844
+        call AsyncPopRequest
         mov ebx, 8Fh
         mov edx, dword [byte esp+0Ch]
         mov ecx, eax
@@ -151,7 +151,7 @@ AsyncClose:
         db 090h
         push ebx
         push esi
-        call sub_10A844
+        call AsyncPopRequest
         mov ebx, 8Fh
         mov edx, dword [byte esp+0Ch]
         mov ecx, eax
@@ -187,7 +187,7 @@ AsyncClose:
 ;-----------------------------------------------------------------------------
 AsyncRequestOpen:
         push ebx
-        call sub_10A844
+        call AsyncPopRequest
         mov ebx, 8Fh
         mov edx, dword [byte esp+08h]
         mov ecx, eax
@@ -210,7 +210,7 @@ AsyncRequestOpen:
         ret
         push ebx
         push esi
-        call sub_10A844
+        call AsyncPopRequest
         mov ebx, 8Fh
         mov edx, dword [byte esp+0Ch]
         mov ecx, eax
@@ -247,7 +247,7 @@ AsyncRequestOpen:
 ;-----------------------------------------------------------------------------
 AsyncRequestSection:
         push ebx
-        call sub_10A844
+        call AsyncPopRequest
         mov dword [dword eax+097h], 0
         mov dword [dword eax+0A3h], 0
         mov ebx, dword [byte esp+0Ch]
@@ -275,7 +275,7 @@ AsyncRequestSection:
         ret
         db 08Dh,040h,00h
         push ebx
-        call sub_10A844
+        call AsyncPopRequest
         mov dword [dword eax+097h], 0
         mov dword [dword eax+0A3h], 0
         mov ebx, dword [byte esp+08h]
@@ -301,41 +301,44 @@ AsyncRequestSection:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_109E54                                                          109E54  
+; AsyncResetRequest                              109E54  97 PC, low confidence
+; Marks an async file request as having no open handle
 ;-----------------------------------------------------------------------------
-sub_109E54:
+AsyncResetRequest:
         mov eax, dword [byte esp+04h]
         mov dword [dword eax+097h], 0FFFFFFFFh
         ret
         db 090h
 jpt_109E64:
-        dd sub_109E74_2E
-        dd sub_109E74_57B
-        dd sub_109E74_613
-        dd sub_109E74_78F
+        dd AsyncStreamStep_2E
+        dd AsyncStreamStep_57B
+        dd AsyncStreamStep_613
+        dd AsyncStreamStep_78F
 ;-----------------------------------------------------------------------------
-; sub_109E74                                                          109E74  
+; AsyncStreamStep                                109E74  97 PC, low confidence
+; Steps the async CD file state machine: opens, seeks and reads the queued
+; request a little at a time
 ;-----------------------------------------------------------------------------
-sub_109E74:
+AsyncStreamStep:
         push ebx
         push esi
         push edi
         push ebp
         sub esp, 94h
         cmp dword [dword_1CFCC4], byte 0
-        jg near sub_109E74_78F.42
+        jg near AsyncStreamStep_78F.42
 .1:
         mov eax, dword [dword_1CFC94]
         dec eax
         cmp eax, byte 3
-        ja near sub_109E74_78F.41
+        ja near AsyncStreamStep_78F.41
         jmp dword [nosplit cs:eax*4+jpt_109E64]
-sub_109E74_2E:
+AsyncStreamStep_2E:
         xor eax, eax
         mov edx, dword [dword_1CFC78]
         mov dword [dword_1CFCC4], eax
         test edx, edx
-        je near sub_109E74_78F.42
+        je near AsyncStreamStep_78F.42
         mov ebx, edx
         mov eax, dword [dword edx+0A7h]
         mov dword [dword_1CFC84], edx
@@ -350,7 +353,7 @@ sub_109E74_2E:
         mov eax, dword [dword_1CFC80]
         mov dword [dword ebx+0A7h], eax
         mov dword [dword_1CFC80], ebx
-        jmp near sub_109E74_78F.41
+        jmp near AsyncStreamStep_78F.41
 .3:
         mov ebp, dword [dword ebx+093h]
         cmp ebp, byte 3
@@ -360,7 +363,7 @@ sub_109E74_2E:
         test eax, eax
         jl short .4
         push eax
-        call sub_10562C
+        call CdHandleEntry
         add esp, byte 4
         mov edx, eax
         mov eax, ebx
@@ -370,7 +373,7 @@ sub_109E74_2E:
         mov ecx, dword [dword_1CFC8C]
         push ecx
         mov esi, 0FFFFFFFFh
-        call sub_105644
+        call CdCloseFile
         add esp, byte 4
         mov dword [dword_1CFC8C], esi
 .4:
@@ -382,20 +385,20 @@ sub_109E74_2E:
         push dword_1CFCA4
         push dword_1CFC88
         push ebx
-        call sub_1055D4
+        call CdOpenStream
         add esp, byte 14h
         push dword 8Fh
         push ebx
         lea eax, [byte esp+08h]
         push eax
-        call sub_1057C0
+        call CdFindFile
         add esp, byte 0Ch
         mov eax, esp
         push eax
-        call sub_1057E8
+        call DriveLetterIndex
         add esp, byte 4
         push eax
-        call sub_105808
+        call IsCdDrive
         add esp, byte 4
         test eax, eax
         je short .6
@@ -440,7 +443,7 @@ sub_109E74_2E:
         mov eax, dword [dword_1CFC80]
         mov dword [dword ebx+0A7h], eax
         mov dword [dword_1CFC80], ebx
-        jmp near sub_109E74_78F.41
+        jmp near AsyncStreamStep_78F.41
 .8:
         cmp ebp, byte 2
         jne near .14
@@ -450,20 +453,20 @@ sub_109E74_2E:
         push dword_1CFCA4
         push dword_1CFC88
         push ebx
-        call sub_1055D4
+        call CdOpenStream
         add esp, byte 14h
         push dword 8Fh
         push ebx
         lea eax, [byte esp+08h]
         push eax
-        call sub_1057C0
+        call CdFindFile
         add esp, byte 0Ch
         mov eax, esp
         push eax
-        call sub_1057E8
+        call DriveLetterIndex
         add esp, byte 4
         push eax
-        call sub_105808
+        call IsCdDrive
         add esp, byte 4
         test eax, eax
         je short .10
@@ -509,7 +512,7 @@ sub_109E74_2E:
         push edi
         mov edx, dword [dword_1CFC88]
         push edx
-        call sub_10578C
+        call CdSeek
         add esp, byte 8
         mov dword [dword_1CFCB4], eax
         jmp short .13
@@ -522,7 +525,7 @@ sub_109E74_2E:
         push esi
         push ebx
         mov edi, 3
-        call sub_FA9C4
+        call AllocMemBlockFixed
         mov dword [dword_1CFCAC], eax
         mov eax, dword [dword_1CFCA8]
         add esp, byte 0Ch
@@ -547,7 +550,7 @@ sub_109E74_2E:
         push eax
         mov esi, dword [dword_1CFC8C]
         push esi
-        call sub_10578C
+        call CdSeek
         mov dword [dword_1CFCB4], eax
         mov eax, dword [dword_1CFC8C]
         mov edi, 2
@@ -575,20 +578,20 @@ sub_109E74_2E:
         push dword_1CFCA4
         push dword_1CFC88
         push ebx
-        call sub_1055D4
+        call CdOpenStream
         add esp, byte 14h
         push dword 8Fh
         push ebx
         lea eax, [byte esp+08h]
         push eax
-        call sub_1057C0
+        call CdFindFile
         add esp, byte 0Ch
         mov eax, esp
         push eax
-        call sub_1057E8
+        call DriveLetterIndex
         add esp, byte 4
         push eax
-        call sub_105808
+        call IsCdDrive
         add esp, byte 4
         test eax, eax
         je short .17
@@ -634,7 +637,7 @@ sub_109E74_2E:
         push esi
         mov eax, dword [dword_1CFC88]
         push eax
-        call sub_10578C
+        call CdSeek
         add esp, byte 8
         mov dword [dword_1CFCB4], eax
         jmp short .20
@@ -668,7 +671,7 @@ sub_109E74_2E:
         push eax
         mov ecx, dword [dword_1CFC8C]
         push ecx
-        call sub_10578C
+        call CdSeek
         mov dword [dword_1CFCB4], eax
         mov eax, dword [dword ebx+09Fh]
         mov dword [dword_1CFCB0], eax
@@ -707,7 +710,7 @@ sub_109E74_2E:
         pop esi
         pop ebx
         ret
-sub_109E74_57B:
+AsyncStreamStep_57B:
         mov eax, dword [dword_1CFC84]
         mov esi, dword [dword eax+097h]
         cmp esi, byte 0FFFFFFFFh
@@ -717,7 +720,7 @@ sub_109E74_57B:
         mov dword [dword eax+0A7h], edx
         mov ebp, 1
         mov dword [dword_1CFC80], eax
-        jmp near sub_109E74_78F.40
+        jmp near AsyncStreamStep_78F.40
 .25:
         push byte 8
         push unk_1CFCBC
@@ -725,7 +728,7 @@ sub_109E74_57B:
         xor edi, edi
         push ebp
         mov dword [dword_1CFCD4], edi
-        call sub_1056F0
+        call CdRead
         mov eax, dword [dword_1CFCD4]
         mov dword [dword_1CFCD8], eax
         mov eax, dword [dword_1CFCC0]
@@ -739,12 +742,12 @@ sub_109E74_57B:
         mov ebx, dword [dword_1CFC84]
         push ebx
         mov esi, 3
-        call sub_FA9C4
+        call AllocMemBlockFixed
         add esp, byte 0Ch
         mov dword [dword_1CFCAC], eax
         mov dword [dword_1CFCB8], edi
         mov dword [dword_1CFC94], esi
-sub_109E74_613:
+AsyncStreamStep_613:
         cmp dword [dword_1CFCA0], byte 0
         jle near .30
         mov ebx, dword [dword_1CFC84]
@@ -754,14 +757,14 @@ sub_109E74_613:
         jne short .26
         mov esi, dword [dword_1CFC88]
         push esi
-        call sub_105644
+        call CdCloseFile
         add esp, byte 4
 .26:
         mov ebp, dword [dword_1CFCAC]
         mov edi, 0FFFFFFFFh
         push ebp
         mov dword [dword_1CFC88], edi
-        call sub_FAF70
+        call UnlinkMemBlockLocked
         mov eax, dword [dword_1CFC84]
         mov edx, dword [dword_1CFC80]
         mov dword [dword eax+0A7h], edx
@@ -796,7 +799,7 @@ sub_109E74_613:
         push edx
         mov dword [dword_1CFCB4], ebp
         mov dword [dword_1CFCD4], ebp
-        call sub_1056F0
+        call CdRead
         mov eax, dword [dword_1CFCD4]
         mov ecx, dword [dword_1CFCE0]
         mov edi, dword [dword_1CFCE4]
@@ -816,17 +819,17 @@ sub_109E74_613:
         mov dword [dword_1CFCC4], esi
         mov dword [dword_1CFCA0], eax
         test esi, esi
-        jle near sub_109E74_613
+        jle near AsyncStreamStep_613
         test eax, eax
-        jg near sub_109E74_78F.42
-        jmp near sub_109E74_613
+        jg near AsyncStreamStep_78F.42
+        jmp near AsyncStreamStep_613
 .30:
         mov eax, dword [dword_1CFC84]
         cmp dword [dword eax+093h], byte 2
         jne short .31
         mov ebx, dword [dword_1CFC88]
         push ebx
-        call sub_105644
+        call CdCloseFile
         add esp, byte 4
 .31:
         mov ecx, 0FFFFFFFFh
@@ -836,8 +839,8 @@ sub_109E74_613:
         mov dword [dword_1CFC88], ecx
         mov dword [dword edx+0A3h], eax
         mov dword [dword_1CFC94], esi
-        jmp near sub_109E74_78F.41
-sub_109E74_78F:
+        jmp near AsyncStreamStep_78F.41
+AsyncStreamStep_78F:
         cmp dword [dword_1CFCA0], byte 0
         jle near .38
 .32:
@@ -848,7 +851,7 @@ sub_109E74_78F:
         jne short .33
         mov eax, dword [dword_1CFC88]
         push eax
-        call sub_105644
+        call CdCloseFile
         add esp, byte 4
 .33:
         mov edx, 0FFFFFFFFh
@@ -887,7 +890,7 @@ sub_109E74_78F:
         xor ecx, ecx
         push edi
         mov dword [dword_1CFCD4], ecx
-        call sub_1056F0
+        call CdRead
         mov eax, dword [dword_1CFCD4]
         mov ebp, dword [dword_1CFCE0]
         mov edx, dword [dword_1CFCB8]
@@ -919,7 +922,7 @@ sub_109E74_78F:
         jne short .39
         mov esi, dword [dword_1CFC88]
         push esi
-        call sub_105644
+        call CdCloseFile
         add esp, byte 4
 .39:
         mov edi, 0FFFFFFFFh
@@ -932,7 +935,7 @@ sub_109E74_78F:
         mov dword [dword_1CFC94], ebp
 .41:
         cmp dword [dword_1CFCC4], byte 0
-        jle near sub_109E74.1
+        jle near AsyncStreamStep.1
 .42:
         add esp, 94h
         pop ebp
@@ -941,9 +944,11 @@ sub_109E74_78F:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_10A788                                                          10A788  
+; AsyncTick                                      10A788  97 PC, low confidence
+; Counts down the async wait timer and counts the tick; followed by the
+; request free-list helpers
 ;-----------------------------------------------------------------------------
-sub_10A788:
+AsyncTick:
         push ebx
         push edx
         mov edx, dword [dword_1CFCC4]
@@ -969,9 +974,11 @@ sub_10A788:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_10A7D0                                                          10A7D0  
+; AsyncFreeRequest                               10A7D0  97 PC, low confidence
+; Returns a finished async request to the free list; followed by the
+; free-list initialiser
 ;-----------------------------------------------------------------------------
-sub_10A7D0:
+AsyncFreeRequest:
         mov edx, dword [byte esp+04h]
         mov eax, dword [dword edx+0A3h]
         test eax, eax
@@ -1009,25 +1016,29 @@ sub_10A7D0:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_10A844                                                          10A844  
+; AsyncPopRequest                                10A844  97 PC, low confidence
+; Takes the next request off the async free list
 ;-----------------------------------------------------------------------------
-sub_10A844:
+AsyncPopRequest:
         mov eax, dword [dword_1CFC80]
         mov edx, dword [dword eax+0A7h]
         mov dword [dword_1CFC80], edx
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_10A860                                                          10A860  
+; SpeechBufferSize                               10A860  97 PC, low confidence
+; Returns the size of one speech buffer header (208h)
 ;-----------------------------------------------------------------------------
-sub_10A860:
+SpeechBufferSize:
         mov eax, 208h
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_10A868                                                          10A868  
+; RegisterStreamBank                             10A868  97 PC, low confidence
+; Stores a streamed sample bank in a free bank slot and clears its sample
+; table
 ;-----------------------------------------------------------------------------
-sub_10A868:
+RegisterStreamBank:
         push ebx
         push ecx
         push edx
@@ -1068,9 +1079,11 @@ sub_10A868:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_10A8C4                                                          10A8C4  
+; AddStreamSample                                10A8C4  97 PC, low confidence
+; Adds a streamed sample to a free entry of a bank and loads it into the
+; sound driver
 ;-----------------------------------------------------------------------------
-sub_10A8C4:
+AddStreamSample:
         push esi
         push edi
         sub esp, byte 10h
@@ -1091,7 +1104,7 @@ sub_10A8C4:
         mov edx, dword [byte esp+0Ch]
         mov dword [esp], eax
         mov eax, esi
-        call sub_128280
+        call LoadSampleHeader
         test eax, eax
         jge short .2
         mov dword [edi], 0FFFFFFFFh
@@ -1113,12 +1126,13 @@ sub_10A8C4:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_10A930                                                          10A930  
+; ReleaseBankSample                              10A930  97 PC, low confidence
+; Checks a bank and sample index and clears that sample entry
 ;-----------------------------------------------------------------------------
-sub_10A930:
+ReleaseBankSample:
         push ebx
         mov ebx, eax
-        call sub_1072B4
+        call CheckBankIndex
         test eax, eax
         je short .1
         mov eax, 0FFFFFFF8h
@@ -1149,9 +1163,10 @@ sub_10A930:
         ret
         db 00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_10A980                                                          10A980  
+; StartSpeechQueue                               10A980  97 PC, low confidence
+; Resets the speech queue and sets its volume
 ;-----------------------------------------------------------------------------
-sub_10A980:
+StartSpeechQueue:
         push ebx
         push edx
         push edi
@@ -1167,11 +1182,11 @@ sub_10A980:
         ret
 .1:
         xor ebx, ebx
-        call sub_12AB04
+        call AudioEnter
         mov dword [dword_170208], ebx
         mov dword [dword_170200], ebx
         mov dword [dword_170204], ebx
-        call sub_12AB0C
+        call AudioLeaveCheck
         cmp edx, byte 7Fh
         jg short .2
         test edx, edx
@@ -1184,7 +1199,7 @@ sub_10A980:
         pop ebx
         ret
 .3:
-        mov edi, sub_10AC48
+        mov edi, AdvanceSpeechQueue
         mov ebp, 1
         mov dword [dword_17020C], edx
         xor eax, eax
@@ -1222,7 +1237,7 @@ sub_10A980:
         mov ebx, dword [dword_170214]
         mov edx, eax
         mov eax, ebx
-        call sub_108640
+        call SetMusicStreamVolume
 .7:
         xor eax, eax
         pop edx
@@ -1230,9 +1245,11 @@ sub_10A980:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_10AA38                                                          10AA38  
+; QueueSpeechClip                                10AA38  97 PC, low confidence
+; Adds a sample to the speech queue, or plays it at once when the queue is
+; idle
 ;-----------------------------------------------------------------------------
-sub_10AA38:
+QueueSpeechClip:
         push ecx
         push esi
         push edi
@@ -1262,7 +1279,7 @@ sub_10AA38:
         pop ecx
         ret
 .3:
-        call sub_12AB04
+        call AudioEnter
         mov edx, dword [dword_170200]
         lea eax, [byte edx+01h]
         mov dword [dword_170200], eax
@@ -1278,7 +1295,7 @@ sub_10AA38:
         mov dword [nosplit edx*8+dword_170164], edi
         mov cl, byte [byte esp+04h]
         mov byte [nosplit edx*8+byte_170161], cl
-        call sub_12AB0C
+        call AudioLeaveCheck
         mov eax, edx
 .5:
         add esp, byte 8
@@ -1296,7 +1313,7 @@ sub_10AA38:
         ret
 .6:
         mov eax, edx
-        call sub_1091E0
+        call ChannelPlaying
         cmp eax, byte 1
         jne short .7
         mov eax, 7
@@ -1314,11 +1331,12 @@ sub_10AA38:
         ret
         db 090h
         mov eax, dword [nosplit eax*8+dword_170164]
-        jmp near sub_12D1C0
+        jmp near ChannelPosition
 ;-----------------------------------------------------------------------------
-; sub_10AB1C                                                          10AB1C  
+; SpeechQueueGo                                  10AB1C  97 PC, low confidence
+; Marks the speech queue as running
 ;-----------------------------------------------------------------------------
-sub_10AB1C:
+SpeechQueueGo:
         push edx
         mov edx, 1
         xor eax, eax
@@ -1326,9 +1344,10 @@ sub_10AB1C:
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_10AB2C                                                          10AB2C  
+; StopSpeechQueue                                10AB2C  97 PC, low confidence
+; Stops both speech channels and halts the queue
 ;-----------------------------------------------------------------------------
-sub_10AB2C:
+StopSpeechQueue:
         push ebx
         cmp byte [byte_172BC5], 0
         jne short .1
@@ -1342,27 +1361,28 @@ sub_10AB2C:
         pop ebx
         ret
 .2:
-        call sub_12AB04
+        call AudioEnter
         xor ebx, ebx
         mov eax, dword [dword_170210]
         mov dword [dword_170208], ebx
-        call sub_109210
+        call StopChannel
         mov eax, dword [dword_170214]
-        call sub_109210
-        call sub_12AB04
+        call StopChannel
+        call AudioEnter
         mov dword [dword_170208], ebx
         mov dword [dword_170200], ebx
         mov dword [dword_170204], ebx
-        call sub_12AB0C
-        call sub_12AB0C
+        call AudioLeaveCheck
+        call AudioLeaveCheck
         xor eax, eax
         pop ebx
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_10AB94                                                          10AB94  
+; SpeechQueueState                               10AB94  97 PC, low confidence
+; Returns 3 while the speech queue runs, 2 when idle, or an error
 ;-----------------------------------------------------------------------------
-sub_10AB94:
+SpeechQueueState:
         cmp byte [byte_172BC5], 0
         jne short .1
         mov eax, 0FFFFFFF6h
@@ -1382,9 +1402,10 @@ sub_10AB94:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_10ABC8                                                          10ABC8  
+; ShutdownSpeechQueue                            10ABC8  97 PC, low confidence
+; Stops the speech channels and clears the queue
 ;-----------------------------------------------------------------------------
-sub_10ABC8:
+ShutdownSpeechQueue:
         push ecx
         push esi
         cmp byte [byte_172BC5], 0
@@ -1401,24 +1422,24 @@ sub_10ABC8:
         pop ecx
         ret
 .2:
-        call sub_12AB04
+        call AudioEnter
         cmp byte [byte_172BC5], 0
         je short .3
         cmp dword [dword_17015C], byte 0
         je short .3
-        call sub_12AB04
+        call AudioEnter
         xor ecx, ecx
         mov eax, dword [dword_170210]
         mov dword [dword_170208], ecx
-        call sub_109210
+        call StopChannel
         mov eax, dword [dword_170214]
-        call sub_109210
-        call sub_10ACF0
-        call sub_12AB0C
+        call StopChannel
+        call ResetSpeechQueueState
+        call AudioLeaveCheck
 .3:
         xor esi, esi
         mov dword [dword_172BC8], esi
-        call sub_12AB0C
+        call AudioLeaveCheck
         mov dword [dword_17015C], esi
         xor eax, eax
         pop esi
@@ -1426,9 +1447,10 @@ sub_10ABC8:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_10AC48                                                          10AC48  
+; AdvanceSpeechQueue                             10AC48  97 PC, low confidence
+; Starts the next queued speech clip when the current one is close to its end
 ;-----------------------------------------------------------------------------
-sub_10AC48:
+AdvanceSpeechQueue:
         push ebx
         push ecx
         push edx
@@ -1442,7 +1464,7 @@ sub_10AC48:
         mov ebx, dword [edx]
         mov eax, dword [dword_170214]
         sar ebx, 10h
-        call sub_12D210
+        call ChannelTimeLeftLocked
         cmp eax, ebx
         jg short .3
         mov ebx, dword [dword_170200]
@@ -1463,13 +1485,13 @@ sub_10AC48:
         movzx esi, byte [byte edx+01h]
         mov al, byte [edx]
         mov edx, esi
-        call sub_109250
+        call PlaySample
         mov dword [dword_170214], eax
         mov dword [nosplit ecx*8+dword_170164], eax
         jmp short .3
 .2:
         mov eax, dword [dword_170214]
-        call sub_1091E0
+        call ChannelPlaying
         test eax, eax
         je short .3
         xor ecx, ebx
@@ -1483,23 +1505,26 @@ sub_10AC48:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_10ACF0                                                          10ACF0  
+; ResetSpeechQueueState                          10ACF0  97 PC, low confidence
+; Clears the speech queue state inside the audio critical section
 ;-----------------------------------------------------------------------------
-sub_10ACF0:
+ResetSpeechQueueState:
         push edx
         xor edx, edx
-        call sub_12AB04
+        call AudioEnter
         mov dword [dword_170208], edx
         mov dword [dword_170200], edx
         mov dword [dword_170204], edx
-        call sub_12AB0C
+        call AudioLeaveCheck
         pop edx
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_10AD20                                                          10AD20  
+; SetChannelVolumeChecked                        10AD20  97 PC, low confidence
+; Checks a volume (-1..127) and sets it on an active channel inside the audio
+; critical section
 ;-----------------------------------------------------------------------------
-sub_10AD20:
+SetChannelVolumeChecked:
         push ecx
         push esi
         mov esi, eax
@@ -1522,12 +1547,12 @@ sub_10AD20:
         pop ecx
         ret
 .3:
-        call sub_12AB04
+        call AudioEnter
         mov eax, esi
-        call sub_12CD34
+        call IsChannelActive
         test eax, eax
         jge short .4
-        call sub_12AB0C
+        call AudioLeaveCheck
         mov eax, 0FFFFFFF8h
         pop esi
         pop ecx
@@ -1555,7 +1580,7 @@ sub_10AD20:
         sar edx, 1Fh
         idiv ecx
         mov dword [byte ebx+014h], eax
-        call sub_12AB0C
+        call AudioLeaveCheck
         xor eax, eax
         pop esi
         pop ecx

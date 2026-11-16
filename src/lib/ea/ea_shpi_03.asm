@@ -8,17 +8,18 @@ extern dword_1D2060, dword_1D2064, dword_1D2068, dword_1D206C, dword_1D2070, dwo
 extern dword_1D2088, dword_1D208C, dword_1D2090, dword_1D2094, dword_1D2418, dword_1D241C, dword_1D2420, dword_1D2424
 extern dword_1D2428, dword_1D2430, dword_1D2438, dword_1D243C, dword_1D2440, dword_1D2444, dword_1D2448, dword_1D244C
 extern dword_1D2450, dword_1D2454, dword_1D3350, dword_1D3354, dword_1D3358, dword_1D335C, dword_1D3364, dword_1D3368
-extern strncpy_, strnicmp_, FindShapeQuiet, sub_102EBC, sub_1125EC, sub_112894, sub_112B18, sub_112BCC
-extern sub_112F3C, GetModelVertex, TransformModelParts, TransformModelPartsWith, UpdateModelParts, sub_12D740, sub_12D784, sub_12DD3C
-extern sub_12DE84, sub_12DFC4, sub_12E108, sub_FC4BC, sub_FD954, sub_FDC68, unk_1D2098, unk_1D3D6C
-global sub_10F374_24E, sub_10E690, sub_10E6AC, sub_10E6E4, sub_10E794, sub_10E7AC, sub_10E848, sub_10E8F8
-global sub_10E960, sub_10EA08, sub_10EA0C, sub_10EB0C, sub_10EC0C, sub_10ED0C, sub_10ED10, sub_10ED78
-global sub_10EDE0, sub_10EE50, sub_10F038, sub_10F2A0, sub_10F374, sub_10F5CC, sub_10F814, sub_10FAE4
-global sub_10FB50, sub_10FB98, sub_10FBB0, sub_10FD58, sub_10FE10, sub_10FE58, sub_10FE88, sub_10FEA8
+extern strncpy_, strnicmp_, FindShapeQuiet, GetPaletteEntries, DrawClippedPoly, DrawPolyList, FillSpanRows, ClipPolyToNear
+extern ClipTexPolyToNear, GetModelVertex, TransformModelParts, TransformModelPartsWith, UpdateModelParts, PolyCrossProduct, TexSpanCopy, ClipTexPolyLeft
+extern ClipTexPolyRight, ClipTexPolyTop, ClipTexPolyBottom, MatchColor, FillPolygon, FillRectColor, unk_1D2098, unk_1D3D6C
+global DrawTileEdgeLeft_24E, SetRinkView, TransformRinkPoints, TransformRinkObject, ProjectRinkObject, DrawRinkPolyStrip, DrawRinkFan, DrawRinkPolys
+global DrawRinkRing, RinkNoOpA, DrawRinkPrimFlat, DrawRinkPrimShaded, DrawRinkPrimTextured, RinkNoOpB, DrawRinkLineFlat, DrawRinkLineShaded
+global DrawRinkLineTextured, DrawIceSpans, SetupTileSpans, DrawTileSpan, DrawTileEdgeLeft, DrawTileEdgeRight, DrawTileTexture, DrawTilePage
+global FindModelShapeByName, FindInstanceShape, BindModelShapes, UpdateModelInstance, UpdateModelPart, SetModelShape, SetModelShapeWith, SetModelPartName
 ;-----------------------------------------------------------------------------
-; sub_10E690                                                          10E690  
+; SetRinkView                                    10E690  97 PC, low confidence
+; Sets the rink view parameters
 ;-----------------------------------------------------------------------------
-sub_10E690:
+SetRinkView:
         mov eax, dword [byte esp+04h]
         mov dword [dword_1D205C], eax
         mov eax, dword [byte esp+0Ch]
@@ -27,9 +28,10 @@ sub_10E690:
         mov dword [dword_1D2058], eax
         ret
 ;-----------------------------------------------------------------------------
-; sub_10E6AC                                                          10E6AC  
+; TransformRinkPoints                            10E6AC  97 PC, low confidence
+; Transforms rink points
 ;-----------------------------------------------------------------------------
-sub_10E6AC:
+TransformRinkPoints:
         push ebx
         push esi
         mov eax, dword [byte esp+0Ch]
@@ -56,9 +58,10 @@ sub_10E6AC:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_10E6E4                                                          10E6E4  
+; TransformRinkObject                            10E6E4  97 PC, low confidence
+; Transforms a rink object
 ;-----------------------------------------------------------------------------
-sub_10E6E4:
+TransformRinkObject:
         push ebx
         push esi
         push edi
@@ -131,23 +134,25 @@ sub_10E6E4:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_10E794                                                          10E794  
+; ProjectRinkObject                              10E794  97 PC, low confidence
+; Projects a rink object
 ;-----------------------------------------------------------------------------
-sub_10E794:
+ProjectRinkObject:
         push ebx
         mov edx, dword [byte esp+08h]
         push edx
         mov ebx, dword [dword_1D2058]
         push ebx
-        call sub_12D740
+        call PolyCrossProduct
         add esp, byte 8
         pop ebx
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_10E7AC                                                          10E7AC  
+; DrawRinkPolyStrip                              10E7AC  97 PC, low confidence
+; Draws a strip of rink polygons
 ;-----------------------------------------------------------------------------
-sub_10E7AC:
+DrawRinkPolyStrip:
         push ebx
         push esi
         push edi
@@ -170,7 +175,7 @@ sub_10E7AC:
         push esi
         mov edi, dword [edx+eax*8]
         push edi
-        call sub_FDC68
+        call FillRectColor
         jmp short .4
 .1:
         test ebp, ebp
@@ -198,7 +203,7 @@ sub_10E7AC:
         push ebp
         mov ebp, dword [dword esp+0124h]
         push ebp
-        call sub_FD954
+        call FillPolygon
 .4:
         add esp, byte 14h
         add esp, 100h
@@ -209,9 +214,10 @@ sub_10E7AC:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_10E848                                                          10E848  
+; DrawRinkFan                                    10E848  97 PC, low confidence
+; Draws a fan of rink polygons
 ;-----------------------------------------------------------------------------
-sub_10E848:
+DrawRinkFan:
         push ebx
         push esi
         push edi
@@ -253,7 +259,7 @@ sub_10E848:
         push eax
         mov edi, dword [dword esp+02A4h]
         push edi
-        call sub_112BCC
+        call ClipPolyToNear
         add esp, byte 10h
         cmp eax, byte 2
         jle short .3
@@ -264,7 +270,7 @@ sub_10E848:
         push eax
         mov ebp, dword [dword esp+02A4h]
         push ebp
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .3:
         add esp, 280h
@@ -275,9 +281,10 @@ sub_10E848:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_10E8F8                                                          10E8F8  
+; DrawRinkPolys                                  10E8F8  97 PC, low confidence
+; Draws rink polygons
 ;-----------------------------------------------------------------------------
-sub_10E8F8:
+DrawRinkPolys:
         push ebx
         push esi
         push edi
@@ -310,7 +317,7 @@ sub_10E8F8:
         push eax
         push ebp
         push byte 0Ch
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .3:
         add esp, 100h
@@ -321,9 +328,10 @@ sub_10E8F8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_10E960                                                          10E960  
+; DrawRinkRing                                   10E960  97 PC, low confidence
+; Draws a ring of rink polygons
 ;-----------------------------------------------------------------------------
-sub_10E960:
+DrawRinkRing:
         push ebx
         push esi
         push edi
@@ -365,7 +373,7 @@ sub_10E960:
         push eax
         mov ebp, dword [dword esp+02A0h]
         push ebp
-        call sub_112BCC
+        call ClipPolyToNear
         add esp, byte 10h
         cmp eax, byte 2
         jle short .3
@@ -375,7 +383,7 @@ sub_10E960:
         push edx
         push eax
         push byte 0Ch
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .3:
         add esp, 280h
@@ -383,13 +391,18 @@ sub_10E960:
         pop edi
         pop esi
         pop ebx
-sub_10EA08:
+;-----------------------------------------------------------------------------
+; RinkNoOpA                                      10EA08  97 PC, low confidence
+; Does nothing (empty rink draw hook)
+;-----------------------------------------------------------------------------
+RinkNoOpA:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_10EA0C                                                          10EA0C  
+; DrawRinkPrimFlat                               10EA0C  97 PC, low confidence
+; Rink primitive: flat polygon
 ;-----------------------------------------------------------------------------
-sub_10EA0C:
+DrawRinkPrimFlat:
         push ebx
         push esi
         push edi
@@ -469,7 +482,7 @@ sub_10EA0C:
         push byte 4
         mov edx, dword [dword esp+0C4h]
         push edx
-        call sub_1125EC
+        call DrawClippedPoly
         add esp, byte 18h
         add esp, 0A0h
         pop edi
@@ -478,9 +491,10 @@ sub_10EA0C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_10EB0C                                                          10EB0C  
+; DrawRinkPrimShaded                             10EB0C  97 PC, low confidence
+; Rink primitive: shaded polygon
 ;-----------------------------------------------------------------------------
-sub_10EB0C:
+DrawRinkPrimShaded:
         push ebx
         push esi
         push edi
@@ -560,7 +574,7 @@ sub_10EB0C:
         push byte 4
         mov edx, dword [dword esp+0C4h]
         push edx
-        call sub_1125EC
+        call DrawClippedPoly
         add esp, byte 18h
         add esp, 0A0h
         pop edi
@@ -569,9 +583,10 @@ sub_10EB0C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_10EC0C                                                          10EC0C  
+; DrawRinkPrimTextured                           10EC0C  97 PC, low confidence
+; Rink primitive: textured polygon
 ;-----------------------------------------------------------------------------
-sub_10EC0C:
+DrawRinkPrimTextured:
         push ebx
         push esi
         push edi
@@ -651,20 +666,25 @@ sub_10EC0C:
         push byte 4
         mov edx, dword [dword esp+0C4h]
         push edx
-        call sub_1125EC
+        call DrawClippedPoly
         add esp, byte 18h
         add esp, 0A0h
         pop edi
         pop esi
         pop ebx
         lea eax, [byte eax+00h]
-sub_10ED0C:
+;-----------------------------------------------------------------------------
+; RinkNoOpB                                      10ED0C  97 PC, low confidence
+; Does nothing (empty rink draw hook)
+;-----------------------------------------------------------------------------
+RinkNoOpB:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_10ED10                                                          10ED10  
+; DrawRinkLineFlat                               10ED10  97 PC, low confidence
+; Rink line primitive: flat
 ;-----------------------------------------------------------------------------
-sub_10ED10:
+DrawRinkLineFlat:
         push esi
         push edi
         sub esp, byte 50h
@@ -703,16 +723,17 @@ sub_10ED10:
         push edx
         movsd
         movsd
-        call sub_112894
+        call DrawPolyList
         add esp, byte 10h
         add esp, byte 50h
         pop edi
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_10ED78                                                          10ED78  
+; DrawRinkLineShaded                             10ED78  97 PC, low confidence
+; Rink line primitive: shaded
 ;-----------------------------------------------------------------------------
-sub_10ED78:
+DrawRinkLineShaded:
         push esi
         push edi
         sub esp, byte 50h
@@ -751,16 +772,17 @@ sub_10ED78:
         push edx
         movsd
         movsd
-        call sub_112894
+        call DrawPolyList
         add esp, byte 10h
         add esp, byte 50h
         pop edi
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_10EDE0                                                          10EDE0  
+; DrawRinkLineTextured                           10EDE0  97 PC, low confidence
+; Rink line primitive: textured
 ;-----------------------------------------------------------------------------
-sub_10EDE0:
+DrawRinkLineTextured:
         push esi
         push edi
         sub esp, byte 50h
@@ -799,7 +821,7 @@ sub_10EDE0:
         push edx
         movsd
         movsd
-        call sub_112894
+        call DrawPolyList
         add esp, byte 10h
         add esp, byte 50h
         pop edi
@@ -807,9 +829,10 @@ sub_10EDE0:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_10EE50                                                          10EE50  
+; DrawIceSpans                                   10EE50  97 PC, low confidence
+; Draws the ice spans
 ;-----------------------------------------------------------------------------
-sub_10EE50:
+DrawIceSpans:
         push ebx
         push esi
         push edi
@@ -907,7 +930,7 @@ sub_10EE50:
         push edx
         push ecx
         push eax
-        call sub_112B18
+        call FillSpanRows
         add esp, byte 14h
         jmp short .8
 .7:
@@ -993,9 +1016,10 @@ sub_10EE50:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_10F038                                                          10F038  
+; SetupTileSpans                                 10F038  97 PC, low confidence
+; Sets up the spans of a texture tile
 ;-----------------------------------------------------------------------------
-sub_10F038:
+SetupTileSpans:
         push ebx
         push esi
         push edi
@@ -1237,9 +1261,10 @@ sub_10F038:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_10F2A0                                                          10F2A0  
+; DrawTileSpan                                   10F2A0  97 PC, low confidence
+; Draws one span of a texture tile
 ;-----------------------------------------------------------------------------
-sub_10F2A0:
+DrawTileSpan:
         push ebx
         push esi
         push edi
@@ -1303,7 +1328,7 @@ sub_10F2A0:
         push eax
         add esi, edi
         push esi
-        call sub_12D784
+        call TexSpanCopy
         add esp, byte 24h
 .1:
         add esp, byte 8
@@ -1314,9 +1339,10 @@ sub_10F2A0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_10F374                                                          10F374  
+; DrawTileEdgeLeft                               10F374  97 PC, low confidence
+; Draws the left edge of a texture tile
 ;-----------------------------------------------------------------------------
-sub_10F374:
+DrawTileEdgeLeft:
         push ebx
         push esi
         push edi
@@ -1348,7 +1374,7 @@ sub_10F374:
         mov ebx, dword [esp]
 .2:
         cmp ebx, ebp
-        je near sub_10F374_24E
+        je near DrawTileEdgeLeft_24E
         imul esi, ebx, byte 38h
         mov ecx, 0Eh
         mov edi, dword_1D2418
@@ -1383,7 +1409,7 @@ sub_10F374:
         dec esi
         cmp esi, byte 0FFFFFFFFh
         je short .1
-        call sub_10F2A0
+        call DrawTileSpan
         mov eax, dword [dword_16E670]
         mov edx, dword [dword_1D3358]
         mov ecx, dword [dword_1D3354]
@@ -1478,7 +1504,7 @@ sub_10F374:
         pop eax
         mov dword [dword_1D243C], eax
         jmp near .7
-sub_10F374_24E:
+DrawTileEdgeLeft_24E:
         add esp, byte 4
         pop ebp
         pop edi
@@ -1487,9 +1513,10 @@ sub_10F374_24E:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_10F5CC                                                          10F5CC  
+; DrawTileEdgeRight                              10F5CC  97 PC, low confidence
+; Draws the right edge of a texture tile
 ;-----------------------------------------------------------------------------
-sub_10F5CC:
+DrawTileEdgeRight:
         push ebx
         push esi
         push edi
@@ -1521,7 +1548,7 @@ sub_10F5CC:
         mov ebx, dword [esp]
 .2:
         cmp ebx, ebp
-        je short sub_10F374_24E
+        je short DrawTileEdgeLeft_24E
         imul esi, ebx, byte 38h
         mov ecx, 0Eh
         mov edi, dword_1D2060
@@ -1553,7 +1580,7 @@ sub_10F5CC:
         dec esi
         cmp esi, byte 0FFFFFFFFh
         je short .1
-        call sub_10F2A0
+        call DrawTileSpan
         mov eax, dword [dword_16E670]
         mov edx, dword [dword_1D3358]
         mov ecx, dword [dword_1D3354]
@@ -1650,9 +1677,10 @@ sub_10F5CC:
         jmp near .6
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_10F814                                                          10F814  
+; DrawTileTexture                                10F814  97 PC, low confidence
+; Draws a texture tile
 ;-----------------------------------------------------------------------------
-sub_10F814:
+DrawTileTexture:
         push ebx
         push esi
         push edi
@@ -1672,7 +1700,7 @@ sub_10F814:
         push edi
         mov dword [byte esp+01Ch], edx
         mov dword [byte esp+014h], edx
-        call sub_112F3C
+        call ClipTexPolyToNear
         add esp, byte 14h
         mov edi, eax
         cmp eax, byte 3
@@ -1758,7 +1786,7 @@ sub_10F814:
         lea eax, [byte esp+038h]
         push eax
         push edi
-        call sub_12DD3C
+        call ClipTexPolyLeft
         add esp, byte 0Ch
         mov edi, eax
         cmp eax, byte 3
@@ -1772,7 +1800,7 @@ sub_10F814:
         lea eax, [byte esp+038h]
         push eax
         push edi
-        call sub_12DE84
+        call ClipTexPolyRight
         add esp, byte 0Ch
         mov edi, eax
         cmp eax, byte 3
@@ -1787,7 +1815,7 @@ sub_10F814:
         lea eax, [byte esp+038h]
         push eax
         push edi
-        call sub_12DFC4
+        call ClipTexPolyTop
         add esp, byte 0Ch
         mov edi, eax
         cmp eax, byte 3
@@ -1802,7 +1830,7 @@ sub_10F814:
         lea eax, [byte esp+038h]
         push eax
         push edi
-        call sub_12E108
+        call ClipTexPolyBottom
         add esp, byte 0Ch
         mov edi, eax
         cmp eax, byte 3
@@ -1853,7 +1881,7 @@ sub_10F814:
         mov eax, dword [byte esp+040h]
         push eax
         push esi
-        call sub_10F038
+        call SetupTileSpans
         add esp, byte 14h
         mov eax, ebx
         inc ebx
@@ -1886,13 +1914,13 @@ sub_10F814:
         push edi
         push eax
         push edx
-        call sub_10F5CC
+        call DrawTileEdgeRight
         jmp short .20
 .19:
         push edi
         push eax
         push edx
-        call sub_10F374
+        call DrawTileEdgeLeft
 .20:
         add esp, byte 0Ch
 .21:
@@ -1904,9 +1932,10 @@ sub_10F814:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_10FAE4                                                          10FAE4  
+; DrawTilePage                                   10FAE4  97 PC, low confidence
+; Draws a texture page of tiles
 ;-----------------------------------------------------------------------------
-sub_10FAE4:
+DrawTilePage:
         push ebx
         push ebp
         sub esp, byte 48h
@@ -1940,7 +1969,7 @@ sub_10FAE4:
         push eax
         push byte 4
         push edx
-        call sub_10F814
+        call DrawTileTexture
         add esp, byte 18h
         add esp, byte 48h
         pop ebp
@@ -1948,9 +1977,10 @@ sub_10FAE4:
         ret
         db 00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_10FB50                                                          10FB50  
+; FindModelShapeByName                           10FB50  97 PC, low confidence
+; Model library: finds a shape of a model by name
 ;-----------------------------------------------------------------------------
-sub_10FB50:
+FindModelShapeByName:
         push ebx
         push esi
         push edi
@@ -1990,22 +2020,24 @@ sub_10FB50:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_10FB98                                                          10FB98  
+; FindInstanceShape                              10FB98  97 PC, low confidence
+; Model library: finds a shape of a model instance by name
 ;-----------------------------------------------------------------------------
-sub_10FB98:
+FindInstanceShape:
         mov edx, dword [byte esp+08h]
         mov eax, dword [byte esp+04h]
         push edx
         mov eax, dword [eax]
         push eax
-        call sub_10FB50
+        call FindModelShapeByName
         add esp, byte 8
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_10FBB0                                                          10FBB0  
+; BindModelShapes                                10FBB0  97 PC, low confidence
+; Model library: binds the shapes of a model to its art
 ;-----------------------------------------------------------------------------
-sub_10FBB0:
+BindModelShapes:
         push ebx
         push esi
         push edi
@@ -2126,7 +2158,7 @@ sub_10FBB0:
         db 08Bh,0C0h
         mov edx, dword [byte esp+04h]
         push edx
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         ret
         db 08Bh,0C0h
@@ -2142,7 +2174,7 @@ sub_10FBB0:
         add ebx, eax
         mov eax, dword [ebx]
         push eax
-        call sub_FC4BC
+        call MatchColor
         mov dword [byte ebx+04h], eax
         mov ah, byte [byte esi+011h]
         add esp, byte 4
@@ -2159,9 +2191,10 @@ sub_10FBB0:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_10FD58                                                          10FD58  
+; UpdateModelInstance                            10FD58  97 PC, low confidence
+; Model library: updates a model instance
 ;-----------------------------------------------------------------------------
-sub_10FD58:
+UpdateModelInstance:
         push ebx
         push esi
         push edi
@@ -2187,7 +2220,7 @@ sub_10FD58:
         mov eax, dword [byte eax+010h]
         push eax
         mov dword [esi], eax
-        call sub_FC4BC
+        call MatchColor
         mov dword [byte esi+04h], eax
         mov ah, byte [byte ebp+011h]
         add esp, byte 4
@@ -2226,7 +2259,7 @@ sub_10FD58:
         mov eax, dword [byte esp+018h]
         push eax
         mov dword [ebx], eax
-        call sub_FC4BC
+        call MatchColor
         mov dword [byte ebx+04h], eax
         mov ah, byte [byte esi+011h]
         add esp, byte 4
@@ -2243,9 +2276,10 @@ sub_10FD58:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_10FE10                                                          10FE10  
+; UpdateModelPart                                10FE10  97 PC, low confidence
+; Model library: updates one part of a model
 ;-----------------------------------------------------------------------------
-sub_10FE10:
+UpdateModelPart:
         push ebx
         push esi
         mov esi, dword [byte esp+0Ch]
@@ -2267,16 +2301,17 @@ sub_10FE10:
         push byte 1
         mov edx, dword [byte esp+01Ch]
         push edx
-        call sub_102EBC
+        call GetPaletteEntries
         add esp, byte 0Ch
         pop esi
         pop ebx
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_10FE58                                                          10FE58  
+; SetModelShape                                  10FE58  97 PC, low confidence
+; Model library: sets a model part's shape
 ;-----------------------------------------------------------------------------
-sub_10FE58:
+SetModelShape:
         push ebx
         push esi
         mov ecx, dword [byte esp+0Ch]
@@ -2296,9 +2331,10 @@ sub_10FE58:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_10FE88                                                          10FE88  
+; SetModelShapeWith                              10FE88  97 PC, low confidence
+; Model library: sets a model part's shape with a transform
 ;-----------------------------------------------------------------------------
-sub_10FE88:
+SetModelShapeWith:
         push ebx
         mov eax, dword [byte esp+08h]
         mov edx, dword [byte esp+0Ch]
@@ -2312,9 +2348,10 @@ sub_10FE88:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_10FEA8                                                          10FEA8  
+; SetModelPartName                               10FEA8  97 PC, low confidence
+; Model library: sets a model part's name
 ;-----------------------------------------------------------------------------
-sub_10FEA8:
+SetModelPartName:
         mov edx, dword [byte esp+08h]
         lea eax, [nosplit edx*4+00h]
         add eax, edx

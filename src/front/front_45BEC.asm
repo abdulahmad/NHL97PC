@@ -11,10 +11,10 @@ extern dword_1AC7A0, dword_1AC814, dword_1AC944, dword_1B8FA0, jpt_45A64, jpt_45
 extern jpt_45B70, jpt_45B84, jpt_45BC0, jpt_45BD8, PaEvent_4D6, PaEvent_4EC, PaEvent_502, PaEvent_518
 extern PaEvent_536, PaEvent_572, PaEvent_5AE, PaEvent_5D6, PaEvent_5FE, PaEvent_64E, PaEvent_69E, PaEvent_745
 extern PaEvent_7FF, PaEvent_87E, PaEvent_8CF, PaEvent_8F5, PaEvent_91B, PaEvent_941, PaEvent_967, PaEvent_14CD
-extern rand_, sprintf_, strcat_, sub_106AA6, sub_106C74, sub_106CBB, sub_107154, sub_109417
-extern sub_109545, sub_10955B, sub_1095AD, sub_109870, AsyncInit, AsyncClose, AsyncRequestOpen, AsyncRequestSection
-extern sub_109E74, sub_10A7D0, sub_10A860, sub_10A868, sub_10A8C4, sub_10A930, sub_10A980, sub_10AA38
-extern sub_10AB1C, sub_10ABC8, RingBufferSpace, QueuePassSpeech, QueueShotSpeech, QueuePositionSpeech, QueueHitSpeech, QueuePenaltySpeech
+extern rand_, sprintf_, strcat_, RequestSpeechEvent, PlayQueuedSpeech, SetSpeechEnabled, UnregisterSoundBank, DosOpenReadOnly
+extern DosCloseFile, DosReadFile, DosSeekFile, OpenSpeechStreamFile, AsyncInit, AsyncClose, AsyncRequestOpen, AsyncRequestSection
+extern AsyncStreamStep, AsyncFreeRequest, SpeechBufferSize, RegisterStreamBank, AddStreamSample, ReleaseBankSample, StartSpeechQueue, QueueSpeechClip
+extern SpeechQueueGo, ShutdownSpeechQueue, RingBufferSpace, QueuePassSpeech, QueueShotSpeech, QueuePositionSpeech, QueueHitSpeech, QueuePenaltySpeech
 extern QueueReceiveSpeech, QueueLoosePuckSpeech, QueueCarrySpeech, QueueTeamSpeech, QueueDeflectSpeech, QueuePickupSpeech, QueueFaceoffSpeech, QueuePenaltyEndSpeech
 extern QueueFinalSpeech, QueueTouchPuckSpeech, QueuePenaltyCallSpeech, QueueStoppageSpeech, QueuePowerPlaySpeech, SayShotCall, SaySaveCall, SpeechTableEntry
 extern SayPlayerCall, SayRandomFiller, SpeechClipExists, MakeDataPath, ServiceIdle, AllocMemBlock, FreeMemBlock, ZeroMem
@@ -515,7 +515,7 @@ CommentaryEvent_535:
         mov dword [dword ebp-046Eh], edx
         mov dword [dword ebp-046Ah], ecx
         mov dword [dword ebp-0476h], edi
-        call sub_106AA6
+        call RequestSpeechEvent
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_58C:
         mov eax, dword [ebx]
@@ -579,7 +579,7 @@ CommentaryEvent_5FD:
         mov dword [dword ebp-0566h], eax
         lea eax, [dword ebp-0566h]
         mov dword [dword ebp-055Ah], ebx
-        call sub_106AA6
+        call RequestSpeechEvent
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_654:
         mov eax, dword [ebx]
@@ -702,7 +702,7 @@ CommentaryEvent_726:
         mov dword [dword ebp-03DEh], edx
         mov dword [dword ebp-03DAh], ecx
         mov dword [dword ebp-03E6h], edi
-        call sub_106AA6
+        call RequestSpeechEvent
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_7BF:
         mov eax, dword [ebx]
@@ -844,7 +844,7 @@ CommentaryEvent_8D6:
         mov dword [dword ebp-02EEh], ebx
         mov dword [dword ebp-02EAh], ecx
         mov dword [dword ebp-02F6h], edi
-        call sub_106AA6
+        call RequestSpeechEvent
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_96F:
         mov eax, dword [ebx]
@@ -894,7 +894,7 @@ CommentaryEvent_96F:
         mov dword [dword ebp-01FEh], edx
         mov dword [dword ebp-01FAh], ecx
         mov dword [dword ebp-0206h], edi
-        call sub_106AA6
+        call RequestSpeechEvent
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_A08:
         mov eax, dword [ebx]
@@ -988,7 +988,7 @@ CommentaryEvent_A84:
         mov dword [dword ebp-019Eh], edx
         mov dword [dword ebp-019Ah], ebx
         mov dword [dword ebp-01A6h], edi
-        call sub_106AA6
+        call RequestSpeechEvent
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_B1D:
         mov eax, dword [ebx]
@@ -1038,7 +1038,7 @@ CommentaryEvent_B1D:
         mov dword [dword ebp-02BEh], ecx
         mov dword [dword ebp-02BAh], ebx
         mov dword [dword ebp-02C6h], edi
-        call sub_106AA6
+        call RequestSpeechEvent
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_BB6:
         mov eax, dword [ebx]
@@ -1204,7 +1204,7 @@ CommentaryEvent_D2A:
         lea eax, [dword ebp-0B6h]
         mov dword [dword ebp-0B2h], ebx
         mov dword [dword ebp-0B6h], ecx
-        call sub_106AA6
+        call RequestSpeechEvent
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_D86:
         mov eax, dword [ebx]
@@ -1257,7 +1257,7 @@ CommentaryEvent_D86:
         mov dword [dword ebp-0386h], eax
         lea eax, [dword ebp-0386h]
         mov dword [dword ebp-037Eh], ecx
-        call sub_106AA6
+        call RequestSpeechEvent
         jmp near CommentaryEvent_1FE8.272
 .119:
         cmp edi, byte 1
@@ -1276,7 +1276,7 @@ CommentaryEvent_D86:
         mov dword [dword ebp-0412h], ebx
         mov dword [dword ebp-040Eh], ecx
         mov dword [dword ebp-0416h], esi
-        call sub_106AA6
+        call RequestSpeechEvent
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_E79:
         mov eax, dword [ebx]
@@ -1326,7 +1326,7 @@ CommentaryEvent_E79:
         mov dword [dword ebp-031Eh], edx
         mov dword [dword ebp-031Ah], ebx
         mov dword [dword ebp-0326h], edi
-        call sub_106AA6
+        call RequestSpeechEvent
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_F12:
         mov eax, dword [ebx]
@@ -1699,7 +1699,7 @@ CommentaryEvent_1293:
         mov dword [dword ebp-028Eh], edx
         mov dword [dword ebp-028Ah], ecx
         mov dword [dword ebp-0296h], edi
-        call sub_106AA6
+        call RequestSpeechEvent
 .171:
         mov dword [dword_169240], 1
         jmp near CommentaryEvent_1FE8.272
@@ -1728,7 +1728,7 @@ CommentaryEvent_1293:
         mov dword [byte ebp-04Eh], edx
         mov dword [byte ebp-04Ah], ecx
         mov dword [byte ebp-056h], edi
-        call sub_106AA6
+        call RequestSpeechEvent
 .174:
         mov dword [dword_169240], 2
         jmp near CommentaryEvent_1FE8.272
@@ -1759,7 +1759,7 @@ CommentaryEvent_1293:
         mov dword [dword ebp-0DEh], ebx
         mov dword [dword ebp-0DAh], edx
         mov dword [dword ebp-0E6h], edi
-        call sub_106AA6
+        call RequestSpeechEvent
 .177:
         mov dword [dword_169240], 3
         jmp near CommentaryEvent_1FE8.272
@@ -1790,7 +1790,7 @@ CommentaryEvent_1293:
         mov dword [dword ebp-049Eh], edx
         mov dword [dword ebp-049Ah], ecx
         mov dword [dword ebp-04A6h], edi
-        call sub_106AA6
+        call RequestSpeechEvent
 .180:
         mov dword [dword_169240], 4
         jmp near CommentaryEvent_1FE8.272
@@ -1821,7 +1821,7 @@ CommentaryEvent_1293:
         mov dword [byte ebp+012h], edx
         mov dword [byte ebp+016h], ecx
         mov dword [byte ebp+0Ah], edi
-        call sub_106AA6
+        call RequestSpeechEvent
 .183:
         mov dword [dword_169240], 5
         jmp near CommentaryEvent_1FE8.272
@@ -2026,7 +2026,7 @@ CommentaryEvent_16BA:
         mov dword [dword ebp-025Eh], ebx
         mov dword [dword ebp-025Ah], edx
         mov dword [dword ebp-0266h], edi
-        call sub_106AA6
+        call RequestSpeechEvent
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_1771:
         lea eax, [nosplit edx*4+00h]
@@ -2040,7 +2040,7 @@ CommentaryEvent_1771:
         lea eax, [dword ebp-0146h]
         mov dword [dword ebp-0142h], edx
         mov dword [dword ebp-0146h], edi
-        call sub_106AA6
+        call RequestSpeechEvent
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_17AA:
         xor eax, eax
@@ -2056,7 +2056,7 @@ CommentaryEvent_17AA:
         lea eax, [dword ebp-04D6h]
         mov dword [dword ebp-04D2h], edx
         mov dword [dword ebp-04D6h], ecx
-        call sub_106AA6
+        call RequestSpeechEvent
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_17E6:
         mov eax, dword [ebx]
@@ -2164,7 +2164,7 @@ CommentaryEvent_18BC:
         mov dword [dword ebp-0356h], eax
         lea eax, [dword ebp-0356h]
         mov dword [dword ebp-034Ah], edx
-        call sub_106AA6
+        call RequestSpeechEvent
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_1931:
         mov eax, dword [ebx]
@@ -2371,7 +2371,7 @@ CommentaryEvent_1B97:
         mov dword [dword ebp-0232h], ebx
         mov dword [dword ebp-022Eh], edx
         mov dword [dword ebp-0236h], esi
-        call sub_106AA6
+        call RequestSpeechEvent
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_1BF5:
         mov eax, dword [ebx]
@@ -2391,7 +2391,7 @@ CommentaryEvent_1BF5:
         mov dword [dword ebp-0536h], 20h
         lea eax, [dword ebp-0536h]
         mov dword [dword ebp-0532h], edx
-        call sub_106AA6
+        call RequestSpeechEvent
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_1C3D:
         mov eax, dword [ebx]
@@ -2428,11 +2428,11 @@ CommentaryEvent_1C3D:
         mov dword [dword ebp-0172h], ebx
         mov dword [dword ebp-016Eh], edx
         mov dword [dword ebp-0176h], esi
-        call sub_106AA6
+        call RequestSpeechEvent
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_1CB2:
         xor eax, eax
-        call sub_106CBB
+        call SetSpeechEnabled
         mov eax, dword [ebx]
         add ebx, byte 4
         mov dword [byte ebp+03Ah], eax
@@ -2458,7 +2458,7 @@ CommentaryEvent_1CB2:
         mov dword [dword ebp-0446h], eax
         lea eax, [dword ebp-0446h]
         mov dword [dword ebp-043Eh], edx
-        call sub_106AA6
+        call RequestSpeechEvent
         jmp near CommentaryEvent_1FE8.272
 .244:
         mov ebx, 0FFFFFFFFh
@@ -2476,7 +2476,7 @@ CommentaryEvent_1CB2:
         mov dword [dword ebp-03B2h], ebx
         mov dword [dword ebp-03AEh], edx
         mov dword [dword ebp-03B6h], esi
-        call sub_106AA6
+        call RequestSpeechEvent
         jmp near CommentaryEvent_1FE8.272
 .246:
         cmp eax, byte 3
@@ -2508,11 +2508,11 @@ CommentaryEvent_1CB2:
         mov dword [byte ebp-01Eh], edx
         mov dword [byte ebp-01Ah], ecx
         mov dword [byte ebp-026h], edi
-        call sub_106AA6
+        call RequestSpeechEvent
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_1DD1:
         xor eax, eax
-        call sub_106CBB
+        call SetSpeechEnabled
         lea eax, [dword ebp+09Ah]
         add eax, byte 4
         mov eax, dword [byte eax-04h]
@@ -2545,7 +2545,7 @@ CommentaryEvent_1DD1:
         mov dword [dword ebp-086h], 24h
         lea eax, [dword ebp-086h]
         mov dword [dword ebp-082h], edx
-        call sub_106AA6
+        call RequestSpeechEvent
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_1E49:
         lea edx, [byte ebx+04h]
@@ -2621,7 +2621,7 @@ CommentaryEvent_1ECB:
         lea eax, [dword ebp-0116h]
         mov dword [dword ebp-0112h], edx
         mov dword [dword ebp-0116h], esi
-        call sub_106AA6
+        call RequestSpeechEvent
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_1F28:
         xor eax, eax
@@ -2634,7 +2634,7 @@ CommentaryEvent_1F28:
         mov ebx, 27h
         lea eax, [dword ebp-01D6h]
         mov dword [dword ebp-01D6h], ebx
-        call sub_106AA6
+        call RequestSpeechEvent
         jmp near CommentaryEvent_1FE8.272
 CommentaryEvent_1F56:
         lea edx, [byte ebx+04h]
@@ -2680,7 +2680,7 @@ CommentaryEvent_1F56:
         mov dword [dword ebp-04FEh], ebx
         mov dword [dword ebp-04FAh], edx
         mov dword [dword ebp-0506h], edi
-        call sub_106AA6
+        call RequestSpeechEvent
         jmp short CommentaryEvent_1FE8.272
 CommentaryEvent_1FE8:
         lea eax, [byte ebx+04h]
@@ -2691,9 +2691,9 @@ CommentaryEvent_1FE8:
 .270:
         xor eax, eax
 .271:
-        call sub_106CBB
+        call SetSpeechEnabled
 .272:
-        call sub_106C74
+        call PlayQueuedSpeech
         mov eax, dword [dword ebp+096h]
         mov dword [dword_1697B4], eax
 .273:
@@ -2776,7 +2776,7 @@ OpenSpeechFile:
         add eax, edx
         add eax, byte 8
         push eax
-        call sub_109417
+        call DosOpenReadOnly
         add esp, byte 10h
         cmp dword [byte esp+08h], byte 0
         jne short .4
@@ -2788,7 +2788,7 @@ OpenSpeechFile:
         push byte 0
         mov ebp, dword [byte esp+0Ch]
         push ebp
-        call sub_1095AD
+        call DosSeekFile
         mov eax, ebx
         shl eax, 4
         add esp, byte 8
@@ -2800,7 +2800,7 @@ OpenSpeechFile:
         push eax
         mov eax, dword [byte esp+010h]
         push eax
-        call sub_10955B
+        call DosReadFile
         mov eax, dword [dword_1AC78C]
         add esp, byte 0Ch
         mov eax, dword [ebx+eax]
@@ -2821,11 +2821,11 @@ OpenSpeechFile:
         push edx
         mov ebx, dword [byte esp+010h]
         push ebx
-        call sub_10955B
+        call DosReadFile
         add esp, byte 0Ch
         mov ecx, dword [byte esp+08h]
         push ecx
-        call sub_109545
+        call DosCloseFile
         add esp, byte 4
 .5:
         add esp, byte 0Ch
@@ -2959,7 +2959,7 @@ OpenSpeechData:
         push eax
         lea eax, [byte esp+054h]
         push eax
-        call sub_109870
+        call OpenSpeechStreamFile
         add esp, byte 8
         mov ebx, 1
         call ServiceIdle
@@ -2989,8 +2989,8 @@ InitSpeechStream:
         push byte 18h
         call AsyncInit
         add esp, byte 0Ch
-        call sub_109E74
-        call sub_10A860
+        call AsyncStreamStep
+        call SpeechBufferSize
         push byte 0
         lea ebx, [dword eax+03A0D4h]
         push ebx
@@ -3013,18 +3013,18 @@ InitSpeechStream:
         add eax, ebx
         mov dword [dword_1AC79C], ecx
         mov dword [dword_16925C], eax
-        call sub_10A860
+        call SpeechBufferSize
         mov ebx, eax
         mov eax, dword [dword_16925C]
         lea edx, [eax+ebx]
         mov dword [dword_169278], edx
         lea ebx, [dword edx+0330h]
         mov dword [dword_1AC78C], ebx
-        call sub_10A868
+        call RegisterStreamBank
         mov dword [dword_169264], eax
         mov eax, dword [dword_16922E]
         sar eax, 10h
-        call sub_10A980
+        call StartSpeechQueue
         cmp word [word_169268], byte 0
         jne short .1
         call OpenSpeechData
@@ -3052,11 +3052,11 @@ ShutdownSound:
         push esi
         cmp dword [dword_169254], byte 0FFFFFFFFh
         je near .1
-        call sub_109E74
+        call AsyncStreamStep
         mov ebx, 0FFFFFFFFh
         call AsyncClose
         mov dword [dword_169288], ebx
-        call sub_10ABC8
+        call ShutdownSpeechQueue
         xor eax, eax
         call FreeSpeechBuffers
         mov eax, 1
@@ -3064,7 +3064,7 @@ ShutdownSound:
         mov eax, 2
         call FreeSpeechBuffers
         mov eax, dword [dword_169264]
-        call sub_107154
+        call UnregisterSoundBank
         mov ecx, dword [dword_169258]
         push ecx
         call FreeMemBlock
@@ -3312,7 +3312,7 @@ ServiceSpeechStream:
         idiv ebx
         mov word [dword_169280], dx
 .7:
-        call sub_109E74
+        call AsyncStreamStep
         mov edx, dword [dword_16927C]
         sar edx, 10h
         mov eax, edx
@@ -3325,7 +3325,7 @@ ServiceSpeechStream:
         test edx, edx
         je near .10
         push edx
-        call sub_10A7D0
+        call AsyncFreeRequest
         add esp, byte 4
         test eax, eax
         je near .10
@@ -3351,7 +3351,7 @@ ServiceSpeechStream:
         lea ebx, [byte eax+04h]
         add edx, byte 1Eh
         mov eax, dword [dword_169264]
-        call sub_10A8C4
+        call AddStreamSample
         mov edx, dword [dword_16927C]
         sar edx, 10h
         mov eax, edx
@@ -3373,8 +3373,8 @@ ServiceSpeechStream:
         mov edx, dword [dword_169278]
         mov edx, dword [byte edx+eax*2+01Eh]
         mov eax, dword [dword_169264]
-        call sub_10AA38
-        call sub_10AB1C
+        call QueueSpeechClip
+        call SpeechQueueGo
         mov eax, dword [tickcount]
         mov edx, dword [dword_16927C]
         sar edx, 10h
@@ -3393,7 +3393,7 @@ ServiceSpeechStream:
         idiv ebx
         mov word [dword_16927E], dx
 .10:
-        call sub_109E74
+        call AsyncStreamStep
         mov ax, word [dword_16927C]
         cmp ax, word [dword_16927E]
         je near .23
@@ -3453,7 +3453,7 @@ ServiceSpeechStream:
         jl short .14
         mov eax, dword [dword_169264]
         mov edx, edi
-        call sub_10A930
+        call ReleaseBankSample
         mov edx, dword [dword_16927A]
         sar edx, 10h
         mov eax, edx
@@ -3544,7 +3544,7 @@ ServiceSpeechStream:
         test ebp, ebp
         je short .20
         push ebp
-        call sub_10A7D0
+        call AsyncFreeRequest
         mov edx, dword [dword_16927A]
         sar edx, 10h
         mov eax, edx

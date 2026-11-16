@@ -3,12 +3,13 @@ bits 32
 %include "hockey.inc"
 section s_12D4B8 progbits alloc exec nowrite align=1
 extern byte_16E688, dword_16E678, dword_16E67C, dword_16E680, dword_16E684, dword_16E694, dword_16E698, dword_16E69C
-extern dword_16E6A0, bcopy, sub_102D3C
-global sub_12D4B8, sub_12D520
+extern dword_16E6A0, bcopy, VesaSetBank
+global MultiplyMatrix, PlotPixelClipped
 ;-----------------------------------------------------------------------------
-; sub_12D4B8                                                          12D4B8  
+; MultiplyMatrix                                 12D4B8  97 PC, low confidence
+; Multiplies two 3x3 fixed-point matrices
 ;-----------------------------------------------------------------------------
-sub_12D4B8:
+MultiplyMatrix:
         push ebp
         LD mov, ebp, esp
         push ebx
@@ -54,9 +55,10 @@ sub_12D4B8:
         jne short .1
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_12D520                                                          12D520  
+; PlotPixelClipped                               12D520  97 PC, low confidence
+; Plots one pixel when it lies inside the clip window
 ;-----------------------------------------------------------------------------
-sub_12D520:
+PlotPixelClipped:
         push ebx
         push esi
         push edi
@@ -92,7 +94,7 @@ sub_12D520:
         mov esi, 10000h
         mov eax, edi
         and edx, 0FFFFh
-        call sub_102D3C
+        call VesaSetBank
         sub esi, edx
         xor eax, eax
         lea ecx, [nosplit esi*8+00h]
@@ -110,7 +112,7 @@ sub_12D520:
         add esp, byte 0Ch
         lea eax, [byte edi+01h]
         sub edx, esi
-        call sub_102D3C
+        call VesaSetBank
         push edx
         lea edx, [byte esp+04h]
         add edx, esi
@@ -188,7 +190,7 @@ sub_12D520:
         push edx
         mov ebx, dword [byte esp+0Ch]
         push ebx
-        call sub_12D520
+        call PlotPixelClipped
         add esp, byte 8
         pop ebx
         ret

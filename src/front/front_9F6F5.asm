@@ -13,8 +13,8 @@ extern dword_1C1334, dword_1C1338, dword_1C5DA4, dword_1C5DE0, dword_1C8EA4, dwo
 extern dword_1C8F58, dword_1C8F5C, dword_1C8F62, dword_1C8F66, dword_1C8F6A, dword_1C8F6E, dword_1C8F72, dword_1C93C4
 extern dword_1C93C8, dword_1C93CC, dword_1C93D8, dword_1C93DC, dword_1C93E0, dword_1C94B8, jpt_9F6DD, memcpy_
 extern off_16D254, off_16D258, rand_, sprintf_, strcat_, strcmp_, strcpy_, strlen_
-extern sub_101324, BlitShape2, BlitArt, BlitShape, sub_1013FC, FindShape, sub_106D80, sub_107098
-extern ConvertArtXY, sub_11B0D0, sub_11B98E, sub_11B9A0, sub_11BA08, sub_11BA50, SetScreenTarget, SecondsToSamples
+extern BlitConverted, BlitShape2, BlitArt, BlitShape, PresentScreen, FindShape, LoadFileAlloc, LoadFileToBlockShared
+extern ConvertArtXY, SaveDataFileNew, UnlinkJump, GetFileTimes, FileDateText, FreeArtArchive, SetScreenTarget, SecondsToSamples
 extern WaitSoundTime, StopAllSfx, PlaySfx, MakeDirPath, LoadDataFile, FadeInScreen, ShowScreen, SetRegionRect
 extern DrawEditBox, SetTextColor, DrawTextAligned, ShowMessageBox, DrawEntryList, SetHighlightText, ShowWorkingBox, UpdateWorkingBox
 extern HideWorkingBox, ShowLinkMessage, HideLinkBox, NameIndexNew, NameIndexLoad, NameIndexSave, NameIndexFree, LoadNameIndex
@@ -23,8 +23,8 @@ extern ScrollDown, FreeScrollList, ScrollToMouse, SetListSelection, GetLangText,
 extern ClearReplayEntry, KeysEqual, FindPlayerRecord, UpdatePlayerRecord, OpenLeagueFile, WriteLeagueHeader, FindGameRecord, UpdateGameRecord
 extern AddPlayerStatAt, FindPlayerStat, UpdatePlayerStat, FindTeamStat, UpdateTeamStat, AddReplayIndexEntry, FindReplayIndexEntry, OpenReplayFile
 extern RenameReplayIndexEntry, ClearLinkAbort, ServiceIdle, LinkSyncMenu, LinkSendBlock, LinkReceiveBlock, LinkReceiveChunk, LinkSendFile
-extern AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, sub_FCF84, DrawShape, CreateBitmap, SetDrawTarget
-extern sub_FDC68, DrawTextAt, SetTextColors, tickcount, unk_165E4A, unk_16D7F4, unk_1ACB44, unk_1ACB49
+extern AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, DrawShapeAtOwnPos, DrawShape, CreateBitmap, SetDrawTarget
+extern FillRectColor, DrawTextAt, SetTextColors, tickcount, unk_165E4A, unk_16D7F4, unk_1ACB44, unk_1ACB49
 extern unk_1ACD2B, unk_1ACD30, unk_1ACE38, unk_1AD22E, unk_1AD236, unk_1AD250, unk_1AD255, unk_1AD35D
 extern unk_1AD73A, unk_1C5EF8, unk_1C5F4A, unk_1C8F9A, unk_1C93D0, unk_9F5F1, unk_9F611, unk_9F631
 extern unk_9F651, word_1ACB47, word_1AD240, word_1AD242, word_1C13C2, word_1C34E5, word_1C9450, word_1C94EE
@@ -54,7 +54,7 @@ PickIndexEntryScreen:
         xor ebx, ebx
         xor edx, edx
         call DrawEditBox
-        call sub_1013FC
+        call PresentScreen
         push byte 0
         push dword 140h
         push dword 280h
@@ -268,7 +268,7 @@ PickIndexEntryScreen:
         mov eax, dword [byte ebp+076h]
         push dword [byte eax+02Ch]
         mov ebx, dword [byte ebp+076h]
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         mov ecx, dword [byte ebp+06Eh]
         mov edx, dword [byte ebp+07Eh]
         add esp, byte 4
@@ -282,7 +282,7 @@ PickIndexEntryScreen:
         xor edx, edx
         call DrawScrollBar
 .12:
-        call sub_1013FC
+        call PresentScreen
         jmp near PickIndexEntryScreen_470.21
 PickIndexEntryScreen_393:
         call ShowScreen
@@ -304,7 +304,7 @@ PickIndexEntryScreen_3B5:
         test eax, eax
         je short .14
         lea eax, [byte ebp+02h]
-        call sub_11B98E
+        call UnlinkJump
 .14:
         mov edx, dword [byte ebp+06Eh]
         mov eax, dword [byte ebp+07Eh]
@@ -346,7 +346,7 @@ PickIndexEntryScreen_3B5:
 .18:
         mov eax, str_DATAPLAYOFFNDX2
 .19:
-        call sub_11B98E
+        call UnlinkJump
         jmp near PickIndexEntryScreen_393.13
 PickIndexEntryScreen_470:
         lea eax, [dword ebp-0166h]
@@ -547,7 +547,7 @@ PickIndexEntryScreen_4EE:
         push unk_1ACD2B
         lea eax, [byte ebp+02h]
         push eax
-        call sub_11B0D0
+        call SaveDataFileNew
         add esp, byte 0Ch
         lea eax, [byte ebp+02h]
         lea edx, [byte ebp+02h]
@@ -597,7 +597,7 @@ PickIndexEntryScreen_4EE:
         push unk_1AD250
         lea eax, [byte ebp-03Eh]
         push eax
-        call sub_11B0D0
+        call SaveDataFileNew
         add esp, byte 0Ch
         jmp near .39
 .36:
@@ -644,7 +644,7 @@ PickIndexEntryScreen_4EE:
         push unk_1AD250
         lea eax, [byte ebp+02h]
         push eax
-        call sub_11B0D0
+        call SaveDataFileNew
         add esp, byte 0Ch
         lea eax, [byte ebp+02h]
         lea edx, [byte ebp+02h]
@@ -710,7 +710,7 @@ PickIndexEntryScreen_4EE:
         lea eax, [byte ebp+02h]
         push eax
         xor ebx, ebx
-        call sub_107098
+        call LoadFileToBlockShared
         add esp, byte 8
         mov edx, 525h
         mov eax, unk_1ACD2B
@@ -745,7 +745,7 @@ PickIndexEntryScreen_4EE:
         lea eax, [byte ebp-03Eh]
         push eax
         xor ebx, ebx
-        call sub_107098
+        call LoadFileToBlockShared
         add esp, byte 8
         mov edx, 4F7h
         mov eax, unk_1AD250
@@ -761,7 +761,7 @@ PickIndexEntryScreen_4EE:
         lea eax, [byte ebp+02h]
         push eax
         xor ebx, ebx
-        call sub_107098
+        call LoadFileToBlockShared
         add esp, byte 8
         mov edx, 4F7h
         mov eax, unk_1AD250
@@ -890,7 +890,7 @@ PickIndexEntryScreen_4EE:
         push unk_1ACD2B
         lea eax, [byte ebp+02h]
         push eax
-        call sub_11B0D0
+        call SaveDataFileNew
         add esp, byte 0Ch
         lea eax, [byte ebp+02h]
         lea edx, [byte ebp+02h]
@@ -940,7 +940,7 @@ PickIndexEntryScreen_4EE:
         push unk_1AD250
         lea eax, [byte ebp-03Eh]
         push eax
-        call sub_11B0D0
+        call SaveDataFileNew
         add esp, byte 0Ch
         jmp near .62
 .59:
@@ -987,7 +987,7 @@ PickIndexEntryScreen_4EE:
         push unk_1AD250
         lea eax, [byte ebp+02h]
         push eax
-        call sub_11B0D0
+        call SaveDataFileNew
         add esp, byte 0Ch
         lea eax, [byte ebp+02h]
         lea edx, [byte ebp+02h]
@@ -1015,7 +1015,7 @@ PickIndexEntryScreen_4EE:
         lea eax, [byte ebp+02h]
         push eax
         xor ebx, ebx
-        call sub_107098
+        call LoadFileToBlockShared
         add esp, byte 8
         mov edx, 525h
         mov eax, unk_1ACD2B
@@ -1049,7 +1049,7 @@ PickIndexEntryScreen_4EE:
         lea eax, [byte ebp+02h]
         push eax
         xor ebx, ebx
-        call sub_107098
+        call LoadFileToBlockShared
         add esp, byte 8
         mov edx, 4F7h
         mov eax, unk_1AD250
@@ -1077,7 +1077,7 @@ PickIndexEntryScreen_4EE:
         push unk_1ACD2B
         lea eax, [byte ebp+02h]
         push eax
-        call sub_107098
+        call LoadFileToBlockShared
         add esp, byte 8
         cmp dword [dword_1ACF46], byte 0
         je short .73
@@ -1098,7 +1098,7 @@ PickIndexEntryScreen_4EE:
         push unk_1AD250
         lea eax, [byte ebp+02h]
         push eax
-        call sub_107098
+        call LoadFileToBlockShared
         add esp, byte 8
 .73:
         cmp dword [dword_1ACF46], byte 0
@@ -1137,7 +1137,7 @@ PickIndexEntryScreen_4EE:
         push unk_1AD250
         lea eax, [byte ebp+02h]
         push eax
-        call sub_107098
+        call LoadFileToBlockShared
         add esp, byte 8
         mov edx, dword_1AC940
         mov eax, unk_1AD73A
@@ -1308,7 +1308,7 @@ DrawIndexEntry:
         push dword [byte edi+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         push edi
         call FreeBitmap
         add esp, byte 4
@@ -1375,7 +1375,7 @@ LoadIndexFile:
         push byte 0
         lea eax, [byte ebp+02Eh]
         push eax
-        call sub_106D80
+        call LoadFileAlloc
         add esp, byte 8
         lea esi, [dword eax+0503h]
 .4:
@@ -1391,7 +1391,7 @@ LoadIndexFile:
         push byte 0
         lea eax, [byte ebp+02Eh]
         push eax
-        call sub_106D80
+        call LoadFileAlloc
         add esp, byte 8
         lea esi, [dword eax+04EAh]
         jmp short .4
@@ -1850,7 +1850,7 @@ PickIndexEntry:
         push dword [byte ebx+02Ch]
         call ConvertArtXY
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [tickcount]
         mov dword [byte ebp+066h], eax
         mov eax, 204h
@@ -1872,13 +1872,13 @@ PickIndexEntry:
         push eax
         lea eax, [byte ebp+052h]
         push eax
-        call sub_11B9A0
+        call GetFileTimes
         add esp, byte 8
         push esi
         lea eax, [byte ebp+042h]
         push eax
         mov dword [byte ebp+07Eh], 0
-        call sub_11B9A0
+        call GetFileTimes
         add esp, byte 8
 .8:
         mov ebx, dword [byte ebp+07Eh]
@@ -1891,7 +1891,7 @@ PickIndexEntry:
         lea eax, [byte ebp+02h]
         add eax, ebx
         push eax
-        call sub_11BA08
+        call FileDateText
         lea eax, [dword ebp-0DEh]
         add esp, byte 0Ch
         add eax, ebx
@@ -1901,7 +1901,7 @@ PickIndexEntry:
         lea eax, [byte ebp-03Eh]
         add eax, ebx
         push eax
-        call sub_11BA08
+        call FileDateText
         lea eax, [dword ebp-0BEh]
         add esp, byte 0Ch
         add eax, ebx
@@ -1915,7 +1915,7 @@ PickIndexEntry:
         push eax
         add dword [dword ebx+ebp-09Ah], byte 1Fh
         add dword [dword ebx+ebp-0DAh], byte 1Fh
-        call sub_11BA08
+        call FileDateText
         lea eax, [dword ebp-011Eh]
         add esp, byte 0Ch
         add eax, ebx
@@ -1926,7 +1926,7 @@ PickIndexEntry:
         add eax, ebx
         push eax
         inc dword [byte ebp+07Eh]
-        call sub_11BA08
+        call FileDateText
         add esp, byte 0Ch
         add dword [dword ebx+ebp-0BEh], byte 3Ah
         add dword [dword ebx+ebp-011Eh], byte 3Ah
@@ -1941,27 +1941,27 @@ PickIndexEntry:
         mov eax, dword [byte ebp+06Ah]
         push byte 0
         push dword [byte eax+02Ch]
-        call sub_101324
+        call BlitConverted
         add esp, byte 0Ch
         lea eax, [dword ebp-0DEh]
         push eax
         push edi
-        call sub_11BA50
+        call FreeArtArchive
         add esp, byte 8
         lea eax, [dword ebp-011Eh]
         push eax
         push dword [byte ebp+07Ah]
-        call sub_11BA50
+        call FreeArtArchive
         add esp, byte 8
         lea eax, [dword ebp-09Eh]
         push eax
         push dword [byte ebp+076h]
-        call sub_11BA50
+        call FreeArtArchive
         add esp, byte 8
         lea eax, [dword ebp-0BEh]
         push eax
         push dword [byte ebp+072h]
-        call sub_11BA50
+        call FreeArtArchive
         add esp, byte 8
         push dword [byte ebp+06Eh]
         call DrawShape
@@ -1973,7 +1973,7 @@ PickIndexEntry:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         cmp esi, 100h
         jl near .6
         xor esi, esi
@@ -2012,13 +2012,13 @@ PickIndexEntry:
         push eax
         lea eax, [byte ebp+052h]
         push eax
-        call sub_11B9A0
+        call GetFileTimes
         add esp, byte 8
         push esi
         lea eax, [byte ebp+042h]
         push eax
         mov dword [byte ebp+07Eh], 0
-        call sub_11B9A0
+        call GetFileTimes
         add esp, byte 8
 .12:
         mov ebx, dword [byte ebp+07Eh]
@@ -2031,7 +2031,7 @@ PickIndexEntry:
         lea eax, [byte ebp-05Eh]
         add eax, ebx
         push eax
-        call sub_11BA08
+        call FileDateText
         lea eax, [dword ebp-013Eh]
         add esp, byte 0Ch
         add eax, ebx
@@ -2044,7 +2044,7 @@ PickIndexEntry:
         push eax
         inc dword [byte ebp+07Eh]
         add dword [dword ebx+ebp-0FAh], 128h
-        call sub_11BA08
+        call FileDateText
         add dword [dword ebx+ebp-013Eh], byte 3Ah
         add esp, byte 0Ch
         add dword [dword ebx+ebp-013Ah], 128h
@@ -2057,27 +2057,27 @@ PickIndexEntry:
         mov eax, dword [byte ebp+06Ah]
         push byte 0
         push dword [byte eax+02Ch]
-        call sub_101324
+        call BlitConverted
         add esp, byte 0Ch
         lea eax, [dword ebp-0FEh]
         push eax
         push edi
-        call sub_11BA50
+        call FreeArtArchive
         add esp, byte 8
         lea eax, [dword ebp-013Eh]
         push eax
         push dword [byte ebp+07Ah]
-        call sub_11BA50
+        call FreeArtArchive
         add esp, byte 8
         lea eax, [dword ebp-09Eh]
         push eax
         push dword [byte ebp+076h]
-        call sub_11BA50
+        call FreeArtArchive
         add esp, byte 8
         lea eax, [dword ebp-0BEh]
         push eax
         push dword [byte ebp+072h]
-        call sub_11BA50
+        call FreeArtArchive
         add esp, byte 8
         push dword [byte ebp+06Eh]
         call DrawShape
@@ -2089,7 +2089,7 @@ PickIndexEntry:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         cmp esi, 100h
         jl near .10
         push dword [dword ebp-0142h]
@@ -2124,7 +2124,7 @@ PickIndexEntry:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         push dword [byte ebp+06Ah]
         call FreeBitmap
         add esp, byte 4
@@ -2171,7 +2171,7 @@ SendLeagueData:
         mov eax, dword [byte esi+018h]
         shl edx, 3
         call CopyToTransfer
-        call sub_1013FC
+        call PresentScreen
         push dword 0FFAA0000h
         call MakeColor
         add esp, byte 4
@@ -2180,7 +2180,7 @@ SendLeagueData:
         push dword 222h
         push dword 190h
         push dword 222h
-        call sub_FDC68
+        call FillRectColor
         add esp, byte 14h
         xor eax, eax
         call LinkSendData

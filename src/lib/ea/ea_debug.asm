@@ -4,11 +4,12 @@ bits 32
 section s_11AE10 progbits alloc exec nowrite align=1
 extern byte_16E503, byte_16E504, byte_171D33, byte_171D34, dword_1DA394, dword_1DA398, dword_1DA39C, dword_1DA3A0
 extern dword_1DA3A4, dword_1DA3A8, dword_1DA3AC, dword_1DA3B0, FindShape, FindShapeQuiet
-global sub_11AE10, sub_11AFAC, sub_11B008, FindShapeList
+global TintRowPixels, TintRows, TintRect, FindShapeList
 ;-----------------------------------------------------------------------------
-; sub_11AE10                                                          11AE10  
+; TintRowPixels                                  11AE10  97 PC, low confidence
+; Tints one row of pixels by the current colour multipliers
 ;-----------------------------------------------------------------------------
-sub_11AE10:
+TintRowPixels:
         push ebx
         push ecx
         push esi
@@ -147,9 +148,10 @@ sub_11AE10:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_11AFAC                                                          11AFAC  
+; TintRows                                       11AFAC  97 PC, low confidence
+; Tints each row of a rectangle
 ;-----------------------------------------------------------------------------
-sub_11AFAC:
+TintRows:
         push ebx
         push esi
         push edi
@@ -170,7 +172,7 @@ sub_11AFAC:
         je short .2
         mov edx, esi
         mov eax, ebx
-        call sub_11AE10
+        call TintRowPixels
         mov byte [ecx], al
 .2:
         inc ebx
@@ -184,9 +186,10 @@ sub_11AFAC:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_11B008                                                          11B008  
+; TintRect                                       11B008  97 PC, low confidence
+; Tints a rectangle of the screen with a colour
 ;-----------------------------------------------------------------------------
-sub_11B008:
+TintRect:
         push ebx
         mov eax, dword [byte esp+08h]
         mov edx, dword [byte esp+010h]
@@ -196,7 +199,7 @@ sub_11B008:
         push eax
         push eax
         push eax
-        call sub_11AFAC
+        call TintRows
         add esp, byte 14h
         pop ebx
         ret

@@ -13,10 +13,10 @@ extern dword_1C8400, dword_1C8404, dword_1C8408, dword_1C840C, dword_1C8410, dwo
 extern dword_1C8420, dword_1C8424, dword_1C8428, dword_1C842C, dword_1C8430, dword_1C8434, dword_1C8438, dword_1C843C
 extern dword_1C8444, dword_1C8448, dword_1C844C, dword_1C8454, RunNewSeason_DD, RunNewSeason_E6, RunNewSeason_EF, RunNewSeason_F8
 extern RunNewSeason_16F, RunNewSeason_17B, RunNewSeason_187, RunNewSeason_193, off_16E4E0, qword_165550, qword_165558, qword_165568
-extern BlitArt, sub_1013CC, sub_1013FC, FindShape, sub_1097F0, ConvertArtXY, SetScreenTarget, PlaySfx
+extern BlitArt, BlitClippedY, PresentScreen, FindShape, SumRingRange, ConvertArtXY, SetScreenTarget, PlaySfx
 extern LoadDataFileHandle, SetRegionRect, ShowLinkWait, ShowLinkMessage, HideLinkBox, InitMenuItems, ClearLinkAbort, ServiceIdle
 extern ResetLinkStats, SyncLinkGame, FreeMemBlock, MakeColor, SetViewRect, FreeBitmap, DrawArt, CreateBitmap
-extern SetDrawTarget, ClearScreen, sub_FDC68, tickcount, word_16CD04, word_16CD20, word_16CD22
+extern SetDrawTarget, ClearScreen, FillRectColor, tickcount, word_16CD04, word_16CD20, word_16CD22
 global jpt_8E977, jpt_8E987, InitScrollList_223, InitScrollTable_1F5, InitScrollTable_220, RunMenu, ScrollPosToValue, ResetMouseInput
 global SetMenuMode, SetupMenuView, RestoreMenuView, InitScrollList, InitScrollTable, NoOpReturn, ScrollUp, DrawScrollBar
 global ScrollDown, FreeScrollList, SetScrollBarPos, ScrollToMouse, RunScrollList, RunScrollMenu, SetListSelection, LoadLangText
@@ -216,7 +216,7 @@ RunMenu:
         cmp eax, edx
         jl near .10
 .22:
-        call sub_1013FC
+        call PresentScreen
         call ServiceIdle
         mov eax, dword [tickcount]
         add eax, byte 2
@@ -237,7 +237,7 @@ RunMenu:
         mov eax, dword [tickcount]
         cmp eax, dword [dword_16CD24]
         jle short .24
-        call sub_1013FC
+        call PresentScreen
         call ServiceIdle
         mov eax, dword [tickcount]
         add eax, byte 2
@@ -252,7 +252,7 @@ RunMenu:
         je short .26
         cmp dword [byte esp+034h], byte 0
         jne short .26
-        call sub_1013FC
+        call PresentScreen
         call ServiceIdle
         mov eax, dword [tickcount]
         add eax, byte 2
@@ -346,7 +346,7 @@ RunMenu:
         jle near .38
         cmp dword [byte esp+034h], byte 0
         jne short .33
-        call sub_1013FC
+        call PresentScreen
         mov dword [byte esp+034h], 1
 .33:
         cmp word [word_16CD20], byte 0
@@ -565,7 +565,7 @@ RunMenu:
         push edx
         mov ebx, dword [dword_1C8444]
         push ebx
-        call sub_1013CC
+        call BlitClippedY
         add esp, byte 0Ch
         xor ecx, ecx
         mov dword [byte esp+054h], ecx
@@ -693,7 +693,7 @@ RunMenu:
         push edx
         mov ecx, dword [dword_16CD08]
         push ecx
-        call sub_1097F0
+        call SumRingRange
         add esp, byte 10h
         test eax, eax
         je near .88
@@ -1021,7 +1021,7 @@ RunMenu:
         push ecx
         mov eax, dword [dword_16CD08]
         push eax
-        call sub_1097F0
+        call SumRingRange
         add esp, byte 10h
         test eax, eax
         je short .94
@@ -1085,7 +1085,7 @@ RunMenu:
         push edx
         mov ecx, dword [dword_1C83F0]
         push ecx
-        call sub_1097F0
+        call SumRingRange
         add esp, byte 10h
         test eax, eax
         je near .117
@@ -1324,7 +1324,7 @@ RunMenu:
         push ecx
         mov eax, dword [dword_1C83F0]
         push eax
-        call sub_1097F0
+        call SumRingRange
         add esp, byte 10h
         test eax, eax
         je short .121
@@ -1708,7 +1708,7 @@ RunMenu:
         add esp, byte 0Ch
         jmp short .174
 .173:
-        call sub_1013FC
+        call PresentScreen
 .174:
         cmp word [word_16CD20], byte 0
         je short .179
@@ -1771,7 +1771,7 @@ RunMenu:
         call BlitArt
         add esp, byte 0Ch
 .183:
-        call sub_1013FC
+        call PresentScreen
 .184:
         mov edx, dword [byte ebp+010h]
         test edx, edx
@@ -2150,7 +2150,7 @@ InitScrollList:
         push dword [byte eax+02Ch]
         call ConvertArtXY
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         push dword [byte esi+018h]
         call SetDrawTarget
         add esp, byte 4
@@ -2194,7 +2194,7 @@ InitScrollList:
         push byte 7
         push byte 15h
         push byte 7
-        call sub_FDC68
+        call FillRectColor
         mov eax, ebx
         sub eax, dword [byte ebp-04h]
         mov dword [byte ebp-010h], eax
@@ -2267,7 +2267,7 @@ InitScrollList:
         mov edx, edi
         sub ebx, byte 1Fh
         call SetRegionRect
-        call sub_1013FC
+        call PresentScreen
         xor eax, eax
 .7:
         imul edi, eax, byte 52h
@@ -2375,7 +2375,7 @@ InitScrollTable:
         push edi
         push byte 7
         push byte 15h
-        call sub_FDC68
+        call FillRectColor
         mov eax, ebx
         sub eax, dword [byte ebp-04h]
         mov dword [byte ebp-010h], eax
@@ -2447,7 +2447,7 @@ InitScrollTable:
         mov ebx, edi
         sub edx, byte 15h
         call SetRegionRect
-        call sub_1013FC
+        call PresentScreen
         xor eax, eax
 .5:
         imul edx, eax, byte 52h
@@ -2468,7 +2468,7 @@ InitScrollTable_1F5:
         mov eax, dword [byte ebx+018h]
         push byte 0
         push dword [byte eax+02Ch]
-        call sub_1013CC
+        call BlitClippedY
         fild dword [byte ebx+024h]
         fmul dword [byte ebx+01Ch]
         add esp, byte 0Ch
@@ -2498,7 +2498,7 @@ InitScrollTable_220:
         add esp, byte 0Ch
         test esi, esi
         jne short .8
-        call sub_1013FC
+        call PresentScreen
 .8:
         leave
         pop esi
@@ -2538,7 +2538,7 @@ DrawScrollBar:
         mov eax, dword [byte ebx+018h]
         push byte 0
         push dword [byte eax+02Ch]
-        call sub_1013CC
+        call BlitClippedY
         fild dword [byte ebx+024h]
         fmul dword [byte ebx+01Ch]
         fadd dword [dword_16559E]
@@ -2691,7 +2691,7 @@ RunScrollList:
         push dword [byte eax+02Ch]
         call ConvertArtXY
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         lea edx, [dword ebp-0F64h]
         lea eax, [byte esi+04h]
         mov dword [byte ebp-04h], 0
@@ -2795,7 +2795,7 @@ RunScrollList:
         push dword [byte ebx+02Ch]
         call ConvertArtXY
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         lea eax, [byte esi-01h]
         mov dword [byte ebp-04h], eax
         jmp short .10
@@ -2821,7 +2821,7 @@ RunScrollList:
         push dword [byte edi+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         mov eax, 30Ah
         call PlaySfx
         mov eax, dword [tickcount]
@@ -2927,7 +2927,7 @@ RunScrollList:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         push dword [byte ebp-010h]
         call FreeBitmap
         add esp, byte 4
@@ -3002,7 +3002,7 @@ RunScrollMenu:
         push dword [byte eax+02Ch]
         call ConvertArtXY
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         lea edx, [dword ebp-0F68h]
         lea eax, [byte esi+04h]
         xor edi, edi
@@ -3109,7 +3109,7 @@ RunScrollMenu:
         push dword [byte edi+02Ch]
         call ConvertArtXY
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         lea edi, [byte esi-01h]
         jmp short .10
 .7:
@@ -3135,7 +3135,7 @@ RunScrollMenu:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         mov eax, 30Ah
         call PlaySfx
         mov eax, dword [tickcount]
@@ -3238,7 +3238,7 @@ RunScrollMenu:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         push dword [byte ebp-010h]
         call FreeBitmap
         add esp, byte 4

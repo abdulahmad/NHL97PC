@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_199C58 progbits alloc noexec write align=1
-extern sub_135BCB, unk_168184, unk_168189, unk_16818E, unk_168193, unk_168197, unk_16819C, unk_1681A1
+extern EmuNoOp, unk_168184, unk_168189, unk_16818E, unk_168193, unk_168197, unk_16819C, unk_1681A1
 extern unk_1681A5, unk_1681AB, unk_1681B0, unk_1681B4, unk_1681BA, unk_1681C0, unk_1681C6, unk_1681CB
 extern unk_1681D1, unk_1681D5, unk_1681D9, unk_1681DD, unk_1681E0, unk_1681E3, unk_1681E6, unk_1681EA
 global byte_199CD4, byte_199CD5, byte_199CE4, dword_199CE8, dword_19A6E0, off_199CDC, off_199CE0, off_199CEC
@@ -29,9 +29,9 @@ byte_199CD5:
 word_199CD8:
         db 07Fh,012h,00h,00h
 off_199CDC:
-        dd sub_135BCB
+        dd EmuNoOp
 off_199CE0:
-        dd sub_135BCB
+        dd EmuNoOp
 byte_199CE4:
         db 00h,00h,00h,00h
 dword_199CE8:

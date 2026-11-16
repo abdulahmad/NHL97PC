@@ -3,15 +3,16 @@ bits 32
 %include "hockey.inc"
 section s_123414 progbits alloc exec nowrite align=1
 extern dword_16E678, dword_16E67C, dword_16E680, dword_16E684, dword_199CE8, off_199CEC, PlotPixel, FillRect
-global jpt_123595, jpt_1235F5, jpt_1236E1, jpt_1237CB, jpt_1239B2, jpt_123D10, sub_123423_D, sub_123423_5B
-global sub_123423_165, jpt_123595_40, jpt_1235F5_D2, jpt_1236E1_DF, jpt_1237CB_14A, jpt_1237CB_1DB, jpt_1239B2_145, jpt_1239B2_153
-global jpt_1239B2_1AC, jpt_1239B2_1BF, jpt_1239B2_27F, sub_123D38_7C, sub_123D38_A2, sub_123D38_C7, sub_123D38_E7, sub_123D38_107
-global sub_123D38_14C, sub_123D38_193, sub_123D38_1DE, sub_123D38_225, sub_123414, sub_123423, sub_123D38, sub_123FA8
-global sub_123FCB
+global jpt_123595, jpt_1235F5, jpt_1236E1, jpt_1237CB, jpt_1239B2, jpt_123D10, SetupRectFill_D, SetupRectFill_5B
+global SetupRectFill_165, jpt_123595_40, jpt_1235F5_D2, jpt_1236E1_DF, jpt_1237CB_14A, jpt_1237CB_1DB, jpt_1239B2_145, jpt_1239B2_153
+global jpt_1239B2_1AC, jpt_1239B2_1BF, jpt_1239B2_27F, FillRectSpans_7C, FillRectSpans_A2, FillRectSpans_C7, FillRectSpans_E7, FillRectSpans_107
+global FillRectSpans_14C, FillRectSpans_193, FillRectSpans_1DE, FillRectSpans_225, SetupRectFillShaded, SetupRectFill, FillRectSpans, StoreBigEndian
+global StoreLittleEndian
 ;-----------------------------------------------------------------------------
-; sub_123414                                                          123414  
+; SetupRectFillShaded                            123414  97 PC, low confidence
+; Entry that sets up a rectangle fill with shading
 ;-----------------------------------------------------------------------------
-sub_123414:
+SetupRectFillShaded:
         push ebp
         LD mov, ebp, esp
         add esp, byte 0FFFFFFF8h
@@ -19,11 +20,12 @@ sub_123414:
         push esi
         push edi
         mov byte [byte ebp-05h], 1
-        jmp short sub_123423_D
+        jmp short SetupRectFill_D
 ;-----------------------------------------------------------------------------
-; sub_123423                                                          123423  
+; SetupRectFill                                  123423  97 PC, low confidence
+; Clips a rectangle and fills in its fill description
 ;-----------------------------------------------------------------------------
-sub_123423:
+SetupRectFill:
         push ebp
         LD mov, ebp, esp
         add esp, byte 0FFFFFFF8h
@@ -31,7 +33,7 @@ sub_123423:
         push esi
         push edi
         mov byte [byte ebp-05h], 0
-sub_123423_D:
+SetupRectFill_D:
         mov esi, dword [byte ebp+018h]
         mov dword [byte esi+034h], 0FFh
         LD xor, eax, eax
@@ -58,9 +60,9 @@ sub_123423_D:
         mov dword [byte esi+010h], ecx
         mov dword [byte esi+014h], eax
 .2:
-        jne short sub_123423_5B
+        jne short SetupRectFill_5B
         jmp near jpt_1239B2_1BF
-sub_123423_5B:
+SetupRectFill_5B:
         LD xor, edx, edx
         db 080h,07Dh,0FBh,00h                   ; insn: cmp byte [ebp-5],0
         jne short .11
@@ -127,7 +129,7 @@ sub_123423_5B:
         inc ecx
         mov dword [byte esi+018h], ecx
         mov byte [byte esi+034h], 2
-        jmp short sub_123423_165
+        jmp short SetupRectFill_165
 .14:
         jl short .21
         LD cmp, edx, ecx
@@ -156,7 +158,7 @@ sub_123423_5B:
         inc ecx
         jo short .12
         mov dword [byte esi+018h], ecx
-        jmp short sub_123423_165
+        jmp short SetupRectFill_165
 .19:
         mov byte [byte esi+034h], 6
         jmp short .16
@@ -179,7 +181,7 @@ sub_123423_5B:
 .24:
         inc ecx
         mov dword [byte esi+018h], ecx
-sub_123423_165:
+SetupRectFill_165:
         mov ebx, dword [byte ebp-04h]
         je short jpt_123595_40
         jmp dword [nosplit cs:ebx*4+jpt_123595]
@@ -716,7 +718,7 @@ jpt_1239B2_153:
         je short jpt_1239B2_1AC.13
         movzx edx, dl
         mov dword [byte ebp-04h], edx
-        jmp near sub_123423_165
+        jmp near SetupRectFill_165
 ;-----------------------------------------------------------------------------
 ; jpt_1239B2_1AC                                                      123B5E  
 ;-----------------------------------------------------------------------------
@@ -862,7 +864,7 @@ jpt_1239B2_27F:
         jle short .31
         cmp dword [byte esi+010h], 3E80h
         jge short .31
-        jmp near sub_123423_5B
+        jmp near SetupRectFill_5B
 .31:
         mov eax, dword [byte esi+014h]
         LD sub, eax, ecx
@@ -894,20 +896,21 @@ jpt_1239B2_27F:
         jmp short .30
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 jpt_123D10:
-        dd sub_123D38_7C
-        dd sub_123D38_7C
-        dd sub_123D38_A2
-        dd sub_123D38_C7
-        dd sub_123D38_E7
-        dd sub_123D38_107
-        dd sub_123D38_14C
-        dd sub_123D38_193
-        dd sub_123D38_1DE
-        dd sub_123D38_225
+        dd FillRectSpans_7C
+        dd FillRectSpans_7C
+        dd FillRectSpans_A2
+        dd FillRectSpans_C7
+        dd FillRectSpans_E7
+        dd FillRectSpans_107
+        dd FillRectSpans_14C
+        dd FillRectSpans_193
+        dd FillRectSpans_1DE
+        dd FillRectSpans_225
 ;-----------------------------------------------------------------------------
-; sub_123D38                                                          123D38  
+; FillRectSpans                                  123D38  97 PC, low confidence
+; Fills the rows of a set-up rectangle
 ;-----------------------------------------------------------------------------
-sub_123D38:
+FillRectSpans:
         push ebx
         push esi
         push edi
@@ -940,12 +943,12 @@ sub_123D38:
         mov dl, byte [byte eax+034h]
         and esi, 0FFFFh
         cmp dl, 9
-        ja near sub_123D38_225.7
+        ja near FillRectSpans_225.7
         and edx, 0FFh
         jmp dword [nosplit cs:edx*4+jpt_123D10]
-sub_123D38_7C:
+FillRectSpans_7C:
         test ebx, ebx
-        je near sub_123D38_225.7
+        je near FillRectSpans_225.7
         mov edi, dword [byte esp+08h]
         push edi
         push byte 1
@@ -961,10 +964,10 @@ sub_123D38_7C:
         pop esi
         pop ebx
         ret
-sub_123D38_A2:
+FillRectSpans_A2:
         mov eax, dword [byte eax+0Ch]
         test ebx, ebx
-        je near sub_123D38_225.7
+        je near FillRectSpans_225.7
         mov ecx, dword [byte esp+08h]
         push ecx
         push ebx
@@ -979,12 +982,12 @@ sub_123D38_A2:
         pop esi
         pop ebx
         ret
-sub_123D38_C7:
+FillRectSpans_C7:
         mov edi, dword [byte eax+0Ch]
 .1:
         dec ebx
         cmp ebx, byte 0FFFFFFFFh
-        je near sub_123D38_225.7
+        je near FillRectSpans_225.7
         mov ecx, dword [byte esp+08h]
         push ecx
         push edi
@@ -994,12 +997,12 @@ sub_123D38_C7:
         dec esi
         add esp, byte 0Ch
         jmp short .1
-sub_123D38_E7:
+FillRectSpans_E7:
         mov edi, dword [byte eax+0Ch]
 .2:
         dec ebx
         cmp ebx, byte 0FFFFFFFFh
-        je near sub_123D38_225.7
+        je near FillRectSpans_225.7
         mov edx, dword [byte esp+08h]
         push edx
         push edi
@@ -1009,7 +1012,7 @@ sub_123D38_E7:
         inc esi
         add esp, byte 0Ch
         jmp short .2
-sub_123D38_107:
+FillRectSpans_107:
         mov edi, dword [byte eax+0Ch]
         mov eax, dword [byte eax+030h]
         shr eax, 10h
@@ -1019,7 +1022,7 @@ sub_123D38_107:
 .3:
         dec ebx
         cmp ebx, byte 0FFFFFFFFh
-        je near sub_123D38_225.7
+        je near FillRectSpans_225.7
         mov ecx, dword [byte esp+08h]
         push ecx
         push edi
@@ -1033,7 +1036,7 @@ sub_123D38_107:
         and ebp, 0FFFFh
         dec esi
         jmp short .3
-sub_123D38_14C:
+FillRectSpans_14C:
         mov edi, dword [byte eax+0Ch]
         mov eax, dword [byte eax+030h]
         shr eax, 10h
@@ -1043,7 +1046,7 @@ sub_123D38_14C:
 .4:
         dec ebx
         cmp ebx, byte 0FFFFFFFFh
-        je near sub_123D38_225.7
+        je near FillRectSpans_225.7
         mov eax, dword [byte esp+08h]
         push eax
         push edi
@@ -1057,7 +1060,7 @@ sub_123D38_14C:
         and ebp, 0FFFFh
         inc esi
         jmp short .4
-sub_123D38_193:
+FillRectSpans_193:
         mov ebp, dword [byte eax+030h]
         shr ebp, 10h
         and edi, 0FFFFh
@@ -1065,7 +1068,7 @@ sub_123D38_193:
 .5:
         dec ebx
         cmp ebx, byte 0FFFFFFFFh
-        je near sub_123D38_225.7
+        je near FillRectSpans_225.7
         mov eax, dword [byte esp+08h]
         push eax
         mov edx, dword [byte esp+010h]
@@ -1082,7 +1085,7 @@ sub_123D38_193:
         and edi, 0FFFFh
         mov dword [byte esp+0Ch], ecx
         jmp short .5
-sub_123D38_1DE:
+FillRectSpans_1DE:
         mov ebp, dword [byte eax+030h]
         shr ebp, 10h
         and edi, 0FFFFh
@@ -1090,7 +1093,7 @@ sub_123D38_1DE:
 .6:
         dec ebx
         cmp ebx, byte 0FFFFFFFFh
-        je short sub_123D38_225.7
+        je short FillRectSpans_225.7
         mov eax, dword [byte esp+08h]
         push eax
         mov edx, dword [byte esp+010h]
@@ -1107,7 +1110,7 @@ sub_123D38_1DE:
         and edi, 0FFFFh
         mov dword [byte esp+0Ch], ecx
         jmp short .6
-sub_123D38_225:
+FillRectSpans_225:
         mov edx, dword [byte esp+08h]
         push edx
         mov ebx, dword [byte esp+010h]
@@ -1138,9 +1141,10 @@ sub_123D38_225:
         shr eax, cl
         ret
 ;-----------------------------------------------------------------------------
-; sub_123FA8                                                          123FA8  
+; StoreBigEndian                                 123FA8  97 PC, low confidence
+; Stores a value byte by byte, most significant first
 ;-----------------------------------------------------------------------------
-sub_123FA8:
+StoreBigEndian:
         mov eax, dword [byte esp+04h]
         mov edx, dword [byte esp+08h]
         mov ecx, dword [byte esp+0Ch]
@@ -1156,9 +1160,10 @@ sub_123FA8:
 .2:
         ret
 ;-----------------------------------------------------------------------------
-; sub_123FCB                                                          123FCB  
+; StoreLittleEndian                              123FCB  97 PC, low confidence
+; Stores a value byte by byte, least significant first
 ;-----------------------------------------------------------------------------
-sub_123FCB:
+StoreLittleEndian:
         mov eax, dword [byte esp+04h]
         mov edx, dword [byte esp+08h]
         mov ecx, dword [byte esp+0Ch]

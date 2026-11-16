@@ -19,11 +19,11 @@ extern dword_1CC700, dword_1CC78C, dword_1CC790, dword_1CC794, dword_1CC798, dwo
 extern dword_1CC7A8, dword_1CC7AC, dword_1CC7B0, dword_1CC7B4, dword_1CC7B8, dword_1CC7BC, dword_1CC7C0, dword_1CC7C4
 extern dword_1CC7C8, dword_1CC7CC, dword_1CC7D0, dword_1CC7D4, dword_1CC7D8, dword_1CC8A0, PreGameRostersScreen_B6A, PreGameRostersScreen_BA7
 extern PreGameRostersScreen_BB5, PreGameRostersScreen_BC3, memset_, rand_, sprintf_, strcpy_, BlitShape2, BlitArt
-extern BlitShape, sub_1013FC, FindShape, FindShapeQuiet, sub_101560, sub_101584, Random32, ConvertArtXY
+extern BlitShape, PresentScreen, FindShape, FindShapeQuiet, OpenArtArchive, OpenArtArchiveErr, Random32, ConvertArtXY
 extern FindShapeList, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, PlayMenuSfx, PlaySfx
 extern PaEvent, LoadDataFile, OpenDataLibrary, LoadLogoNames, FreeTempArt, DrawScreenBackground, FadeInScreen, ShowScreen
 extern ExitScreen, SetTextColor, DrawTextAligned, WipeScreen, DrawPortrait, TintPortrait, InitMenuItems, RunMenu
-extern ReadTeamStats, ServiceIdle, AllocMemBlock, FreeMemBlock, sub_FC330, MakeColor, FreeBitmap, DrawArt
+extern ReadTeamStats, ServiceIdle, AllocMemBlock, FreeMemBlock, OpenResourceArchive, MakeColor, FreeBitmap, DrawArt
 extern DrawShape, CreateBitmap, SetDrawTarget, ClearScreen, tickcount, unk_166FF4, unk_16D7FC, unk_16D804
 extern unk_1AD22E, unk_1AD236, unk_1AD73A, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_D15D1, unk_D15EE
 extern word_1C340D, word_1C5530
@@ -402,7 +402,7 @@ PreGameMatchupScreen:
         push byte 0
         lea eax, [byte ebp+062h]
         push eax
-        call sub_101584
+        call OpenArtArchiveErr
         add esp, byte 8
         mov ebx, eax
         lea eax, [byte ebp+062h]
@@ -435,7 +435,7 @@ PreGameMatchupScreen:
         push byte 0
         lea eax, [byte ebp+062h]
         push eax
-        call sub_101584
+        call OpenArtArchiveErr
         add esp, byte 8
         mov ebx, eax
         lea eax, [byte ebp+062h]
@@ -515,7 +515,7 @@ PreGameMatchupScreen:
         push dword [dword eax+ebp-02B8h]
         call BlitShape
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         imul ebx, dword [byte ebp+072h], byte 1Ch
         imul eax, dword [byte ebp+072h], byte 52h
         mov edx, dword [dword ebx+dword_1CC700]
@@ -539,14 +539,14 @@ PreGameMatchupScreen:
         push dword [dword edx+eax*4+dword_1CC6E8]
         call BlitShape
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
 .7:
         mov eax, dword [tickcount]
         cmp eax, dword [dword_1CC7C0]
         jge short .8
         call SetScreenTarget
         call MatchupSparkle
-        call sub_1013FC
+        call PresentScreen
         call ServiceIdle
         jmp short .7
 .8:
@@ -559,7 +559,7 @@ PreGameMatchupScreen:
         call BlitShape
         add esp, byte 4
         mov ebx, 7
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [byte ebp+072h]
         xor edx, edx
         mov dword [dword_1CC7C8], eax
@@ -610,7 +610,7 @@ PreGameMatchupScreen_522:
         call BlitShape
         add esp, byte 4
         mov ebx, 4
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [dword_1CC7C8]
         xor edx, edx
         jmp near PreGameMatchupScreen.4
@@ -652,7 +652,7 @@ PreGameMatchupScreen_522:
         jmp short .16
 .19:
         push byte 0
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         call FreeMatchupScreen
         push dword [dword_1CC7CC]
@@ -1052,7 +1052,7 @@ DrawPlayerPortrait:
         call WaitSoundTime
         push byte 0
         push ebx
-        call sub_101560
+        call OpenArtArchive
         add esp, byte 8
         mov dword [byte ebp-0Ch], eax
         test eax, eax
@@ -1246,7 +1246,7 @@ DrawMatchupPlayer:
 .5:
         call MatchupSparkle
         add dword [byte ebp-04h], byte 2
-        call sub_1013FC
+        call PresentScreen
         cmp dword [byte ebp-04h], byte 20h
         jl near .3
 .6:
@@ -1281,7 +1281,7 @@ DrawMatchupPlayer:
         call BlitShape
         add esp, byte 4
 .9:
-        call sub_1013FC
+        call PresentScreen
         leave
         pop edi
         pop esi
@@ -1496,7 +1496,7 @@ PreGameStatsPanel:
         push dword [byte eax+02Ch]
         call ConvertArtXY
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         jmp near .13
 .12:
         push dword [dword esi+dword_1CC5B0]
@@ -1585,7 +1585,7 @@ PreGameStatsPanel:
         push dword [byte eax+02Ch]
         call ConvertArtXY
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
 PreGameStatsPanel_4DF:
         leave
 PreGameStatsPanel_4E0:

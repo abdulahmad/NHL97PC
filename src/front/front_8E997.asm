@@ -19,8 +19,8 @@ extern dword_1AD22A, dword_1AD244, dword_1C1334, dword_1C5DE0, dword_1C8334, dwo
 extern dword_1C85D0, dword_1C8618, dword_1C8680, dword_1C86E8, dword_1C86EC, dword_1C86F0, dword_1C86F4, dword_1C86F8
 extern dword_1C86FC, dword_1C8A8C, dword_1C8A90, dword_1C94E8, jpt_8E977, jpt_8E987, memcpy_, memset_
 extern qsort_, rand_, sprintf_, srand_, strcat_, strcpy_, strlen_, BlitShape2
-extern BlitArt, BlitShape, sub_1013CC, sub_1013FC, FindShape, Random32, sub_10AED0, FindShapeList
-extern sub_11B0D0, SetScreenTarget, SeasonGameScreen, MusicEnabled, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx
+extern BlitArt, BlitShape, BlitClippedY, PresentScreen, FindShape, Random32, DosFileInfo, FindShapeList
+extern SaveDataFileNew, SetScreenTarget, SeasonGameScreen, MusicEnabled, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx
 extern MakeDirPath, LoadDataFile, BuildSeasonSchedule, ClearTeamInjuries, DrawScreenBackground, FadeInScreen, ShowScreen, ExitScreen
 extern SetRegionRect, SetTextColor, DrawTextAligned, ShowMessageBox, EditTextField, DrawTeamLogoBanner, WipeScreen, SetHighlightText
 extern SetNormalText, DrawStatTable, ShowLinkMessage, ShowPopupScreen, RunStatsMenu, NameIndexNew, NameIndexLoad, NameIndexFree
@@ -31,7 +31,7 @@ extern FindTeamRecord, AddTradeRecord, FindPlayerRecord, MakeLeagueKeyBase, Crea
 extern FindGameRecord, UpdateGameRecord, MakeGoalieStatKey, AddPlayerStat, AddPlayerStatAt, FindPlayerStat, MakeStandingsKey, FindTeamStat
 extern LoadExhibitionFile, SaveExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, ImportTradedPlayers, ImportNewPlayers, AllocImportBuffer, FindReplayIndexEntry
 extern AllocClearBlock, ClearLinkAbort, LinkSendBlock, LinkReceiveBlock, SeasonIntroScreen, AllStarScreen, AllocMemBlock, FreeMemBlock
-extern MakeColor, FreeBitmap, sub_FCEEC, sub_FCF84, DrawArt, CreateBitmap, SetDrawTarget, unk_165779
+extern MakeColor, FreeBitmap, DrawShapeCore, DrawShapeAtOwnPos, DrawArt, CreateBitmap, SetDrawTarget, unk_165779
 extern unk_1657CD, unk_1657CF, unk_16D7F4, unk_16D7FC, unk_1ACB44, unk_1ACD2B, unk_1ACF12, unk_1ACF4E
 extern unk_1AD22E, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C85DC, unk_1C85E8, unk_1C85F4, unk_1C8600
 extern unk_1C860C, word_1AD240, word_1AD242
@@ -229,7 +229,7 @@ NewSeasonSound:
         xor edx, edx
         div ebx
         push dword [nosplit edx*4+dword_1C8540]
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
 .1:
         xor ebx, ebx
@@ -474,7 +474,7 @@ NewSeasonScreen:
         add esp, byte 4
 .3:
         push dword [nosplit esi*4+dword_1C8540]
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         inc esi
         inc esi
         add esp, byte 4
@@ -1069,13 +1069,13 @@ NewSeasonScreen:
         add esp, byte 4
 .32:
         push dword [nosplit esi*4+dword_1C8540]
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         inc esi
         inc esi
         add esp, byte 4
         cmp esi, byte 8
         jl short .32
-        call sub_1013FC
+        call PresentScreen
         jmp near .12
 .33:
         mov esi, dword [byte ebp-048h]
@@ -1484,7 +1484,7 @@ CreateSeason:
         add esp, byte 0Ch
         lea eax, [dword ebp-0BEh]
         push eax
-        call sub_10AED0
+        call DosFileInfo
         add esp, byte 4
         test eax, eax
         jne short .15
@@ -1547,7 +1547,7 @@ CreateSeason:
         lea eax, [dword ebp-0BEh]
         push eax
         mov ebx, unk_1ACF12
-        call sub_11B0D0
+        call SaveDataFileNew
         add esp, byte 0Ch
         lea edx, [byte ebp-01Eh]
         mov eax, esi
@@ -1729,7 +1729,7 @@ SeasonMenuSparkle:
         xor edx, edx
         div ebx
         push dword [nosplit edx*4+dword_1C8540]
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
 .1:
         xor ebx, ebx
@@ -2108,7 +2108,7 @@ SeasonMenuScreen:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_1013CC
+        call BlitClippedY
         add esp, byte 0Ch
         push esi
         push str_LG02d
@@ -2173,7 +2173,7 @@ SeasonMenuScreen:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_1013CC
+        call BlitClippedY
         add esp, byte 0Ch
         push esi
         push str_LG02d
@@ -2348,7 +2348,7 @@ SeasonMenuScreen:
         mov esi, 1
 .31:
         push dword [nosplit esi*4+dword_1C8540]
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         inc esi
         inc esi
         add esp, byte 4
@@ -2363,7 +2363,7 @@ SeasonMenuScreen:
         push dword [byte edx+eax+026h]
         push dword [byte edx+eax+01Ah]
         inc esi
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
         cmp esi, byte 6
         jl short .32
@@ -2795,7 +2795,7 @@ SeasonMenuScreen:
         mov esi, 1
 .70:
         push dword [nosplit esi*4+dword_1C8540]
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         inc esi
         inc esi
         add esp, byte 4
@@ -2810,7 +2810,7 @@ SeasonMenuScreen:
         push dword [byte edx+eax+026h]
         push dword [byte edx+eax+01Ah]
         inc esi
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
         cmp esi, byte 6
         jl short .71
@@ -2821,7 +2821,7 @@ SeasonMenuScreen:
         call BlitArt
         add esp, byte 0Ch
         xor esi, esi
-        call sub_1013FC
+        call PresentScreen
 .72:
         mov eax, esi
         lea ebx, [byte esi+08h]
@@ -3015,7 +3015,7 @@ StandingsSparkle:
         xor edx, edx
         div ebx
         push dword [nosplit edx*4+dword_1C8540]
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
 .1:
         pop edx
@@ -3383,11 +3383,11 @@ StandingsScreen:
         add esp, byte 4
         push dword [byte ebp+02Ah]
         mov esi, 1
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
 .19:
         push dword [nosplit esi*4+dword_1C8540]
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         inc esi
         inc esi
         add esp, byte 4
@@ -3612,7 +3612,7 @@ StandingsScreen_718:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
 .36:
         push byte 3
         lea eax, [byte ebp+01Eh]
@@ -4520,7 +4520,7 @@ SeasonSettingsPath:
         push unk_1ACD2B
         lea eax, [byte ebp-078h]
         push eax
-        call sub_11B0D0
+        call SaveDataFileNew
         add esp, byte 0Ch
         leave
         pop edx
@@ -4661,7 +4661,7 @@ DrawSeasonTitle:
         push dword [byte esi+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         push esi
         call FreeBitmap
         add esp, byte 4

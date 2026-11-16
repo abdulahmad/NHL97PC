@@ -3,12 +3,13 @@ bits 32
 %include "hockey.inc"
 section s_1097F0 progbits alloc exec nowrite align=1
 extern dword_16E4C8, dword_1CFC9C, dword_1CFCC8, dword_1CFCCC, dword_1CFCD0, dword_1CFCDC, dword_1CFCE8, str_ASYNC
-extern sub_1055D4, sub_105644, sub_1056F0, sub_105904, AllocMemBlock, FreeMemBlock, sub_FC290
-global sub_1097F0, sub_109870
+extern CdOpenStream, CdCloseFile, CdRead, DetectMscdex, AllocMemBlock, FreeMemBlock, TicksSinceLast
+global SumRingRange, OpenSpeechStreamFile
 ;-----------------------------------------------------------------------------
-; sub_1097F0                                                          1097F0  
+; SumRingRange                                   1097F0  97 PC, low confidence
+; Sums a range of entries of a circular table
 ;-----------------------------------------------------------------------------
-sub_1097F0:
+SumRingRange:
         push ebx
         push esi
         push edi
@@ -67,9 +68,10 @@ sub_1097F0:
         ret
         db 00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_109870                                                          109870  
+; OpenSpeechStreamFile                           109870  97 PC, low confidence
+; Opens the speech data stream on the CD and reads its header
 ;-----------------------------------------------------------------------------
-sub_109870:
+OpenSpeechStreamFile:
         push ebx
         push esi
         push edi
@@ -85,7 +87,7 @@ sub_109870:
         push eax
         mov edx, dword [byte esp+040h]
         push edx
-        call sub_1055D4
+        call CdOpenStream
         add esp, byte 14h
         mov eax, esp
         push eax
@@ -97,7 +99,7 @@ sub_109870:
         push eax
         mov ebx, dword [byte esp+044h]
         push ebx
-        call sub_1055D4
+        call CdOpenStream
         add esp, byte 14h
         cmp dword [byte esp+010h], 30D40h
         jle short .1
@@ -112,14 +114,14 @@ sub_109870:
         add esp, byte 0Ch
         mov ebx, eax
         mov edi, eax
-        call sub_FC290
+        call TicksSinceLast
         push dword 800h
         push ebx
         mov eax, dword [byte esp+020h]
         push eax
-        call sub_1056F0
+        call CdRead
         add esp, byte 0Ch
-        call sub_FC290
+        call TicksSinceLast
         mov ebx, dword [byte esp+010h]
         mov ebp, eax
         test ebx, ebx
@@ -137,12 +139,12 @@ sub_109870:
         mov ecx, dword [byte esp+020h]
         push ecx
         sub ebx, esi
-        call sub_1056F0
+        call CdRead
         add esp, byte 0Ch
         test ebx, ebx
         jg short .2
 .5:
-        call sub_FC290
+        call TicksSinceLast
         lea edx, [nosplit eax*4+00h]
         add edx, eax
         add edx, edx
@@ -161,7 +163,7 @@ sub_109870:
         jne short .7
         mov dword [dword_1CFCC8], 1
 .7:
-        call sub_105904
+        call DetectMscdex
         test eax, eax
         jne short .8
         mov dword [dword_1CFCC8], 1
@@ -172,14 +174,14 @@ sub_109870:
         shrd eax, edx, 10h
         adc eax, byte 0
         mov dword [dword_1CFCCC], eax
-        call sub_FC290
+        call TicksSinceLast
         push dword 800h
         push edi
         mov eax, dword [byte esp+01Ch]
         push eax
-        call sub_1056F0
+        call CdRead
         add esp, byte 0Ch
-        call sub_FC290
+        call TicksSinceLast
         cmp eax, ebp
         jle short .9
         mov ebp, eax
@@ -191,11 +193,11 @@ sub_109870:
         push edx
         mov dword [dword_1CFCD0], ebx
         mov dword [dword_1CFCE8], ebx
-        call sub_105644
+        call CdCloseFile
         add esp, byte 4
         mov ebx, dword [byte esp+014h]
         push ebx
-        call sub_105644
+        call CdCloseFile
         add esp, byte 4
         push edi
         call FreeMemBlock

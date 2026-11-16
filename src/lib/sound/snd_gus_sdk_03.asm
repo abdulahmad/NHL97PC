@@ -3,10 +3,14 @@ bits 32
 %include "hockey.inc"
 section s_13B740 progbits alloc exec nowrite align=1
 extern __grab_int23_, __grab_int_ctrl_break_, __math1err_, __restore_int23_, __restore_int_ctrl_break_, __set_errno_, __terminate_, dword_19C170
-extern dword_19C178, dword_19C1A4, sub_13BC29
+extern dword_19C178, dword_19C1A4, SignalHookFpu
 global __log87_err_, __sigabort_, __sigfpe_handler_, _chain_intr_, jpt_13B879, raise__2A, raise__3F, raise__4A
-global raise__73, raise__96, raise_, signal_, sub_13B740
-sub_13B740:
+global raise__73, raise__96, raise_, signal_, GusConvertAddr16
+;-----------------------------------------------------------------------------
+; GusConvertAddr16                               13B740  97 PC, low confidence
+; Converts a card memory address for a 16-bit DMA transfer
+;-----------------------------------------------------------------------------
+GusConvertAddr16:
         push ebp
         mov ebp, esp
         push edx
@@ -59,9 +63,15 @@ sub_13B740:
         pop ecx
         pop ebp
         ret
+;-----------------------------------------------------------------------------
+; __sigabort_                                                  13B7B5  library
+;-----------------------------------------------------------------------------
 __sigabort_:
         mov eax, 1
         jmp near raise_
+;-----------------------------------------------------------------------------
+; __sigfpe_handler_                                            13B7BF  library
+;-----------------------------------------------------------------------------
 __sigfpe_handler_:
         push edx
         push esi
@@ -84,6 +94,9 @@ __sigfpe_handler_:
         pop esi
         pop edx
         ret
+;-----------------------------------------------------------------------------
+; signal_                                                      13B7F4  library
+;-----------------------------------------------------------------------------
 signal_:
         push ebx
         mov ebx, eax
@@ -129,7 +142,7 @@ signal_:
         je short .7
         cmp edx, byte 3
         je short .7
-        call sub_13BC29
+        call SignalHookFpu
 .7:
         mov eax, dword [nosplit ebx*4+dword_19C170]
         mov dword [nosplit ebx*4+dword_19C170], edx
@@ -148,6 +161,9 @@ jpt_13B879:
         dd raise__96
         dd raise__96
         dd raise__96
+;-----------------------------------------------------------------------------
+; raise_                                                       13B8A9  library
+;-----------------------------------------------------------------------------
 raise_:
         push ebx
         push ecx
@@ -222,6 +238,9 @@ raise__96:
         mov eax, 0FFFFFFFFh
         jmp near raise__2A.2
         db 00h
+;-----------------------------------------------------------------------------
+; _chain_intr_                                                 13B96C  library
+;-----------------------------------------------------------------------------
 _chain_intr_:
         mov ecx, eax
         mov eax, edx
@@ -239,6 +258,9 @@ _chain_intr_:
         pop ebx
         pop edx
         retf
+;-----------------------------------------------------------------------------
+; __log87_err_                                                 13B985  library
+;-----------------------------------------------------------------------------
 __log87_err_:
         push ebp
         mov ebp, esp

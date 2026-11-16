@@ -2,11 +2,11 @@
 bits 32
 %include "hockey.inc"
 section s_172138 progbits alloc noexec write align=1
-extern dword_1DA4C0, sub_11C010, sub_11C0A8, sub_11C0BC, sub_11C0C4, sub_11C0D8, sub_11C0EC, sub_11C114
-extern sub_11C1CC, sub_11C340, sub_11C384, sub_11C3AC, sub_11C3C0, sub_11C3D4, sub_11C3FC, sub_11DEE4
-extern sub_11DF4C, sub_11DFB4, sub_11DFD4, sub_11DFF0, sub_11E004, sub_11E11C, sub_11EB64, sub_11EC18
-extern sub_11EE6C, sub_11EF20, sub_11F154, sub_11F1FC, sub_11F218, sub_11F2B4, sub_11F304, sub_11F3F4
-extern sub_11F404, sub_11F42C, sub_11F440, sub_11F480, sub_11F494, sub_11F4A8, sub_11F5D8, sub_11F794
+extern dword_1DA4C0, SerialLinkOpen, SerialLinkClose, SerialLinkIsOpen, SerialLinkTxFree, SerialLinkRxCount, SerialLinkRead, SerialLinkWrite
+extern ModemLinkOpen, ModemLinkHangup, ModemLinkCarrier, ModemLinkTxFree, ModemLinkRxCount, ModemLinkRead, ModemLinkWrite, NetLinkRead
+extern NetLinkWrite, NetLinkConnected, NetLinkRxCount, NetLinkTxFree, NetBroadcast, NetHashName, SetPairOneZero, IpxHookCheck
+extern IpxRestoreVector, IpxSetupLayer, IpxShutdown, IpxSocketNumber, IpxStart, IpxStop, IpxBuildHeader, IpxClearName
+extern IpxSameNode, IpxCopyAddress, IpxLookupTarget, IpxLockSend, IpxLockListen, IpxQueueSend, IpxReceive, IpxPeek
 extern unk_167FE8
 global byte_172250, byte_172251, byte_172301, dword_172138, dword_17213C, dword_172168, dword_172194, dword_172198
 global dword_17219C, dword_1721A0, dword_1721A4, dword_1721A8, dword_1721B0, dword_1721B4, dword_1721D4, dword_1721E0
@@ -18,24 +18,24 @@ dword_172138:
 dword_17213C:
         db 00h,00h,00h,00h
 off_172140:
-        dd sub_11C010
-        dd sub_11C0A8
-        dd sub_11C0BC
-        dd sub_11C0C4
-        dd sub_11C0D8
-        dd sub_11C0EC
-        dd sub_11C114
+        dd SerialLinkOpen
+        dd SerialLinkClose
+        dd SerialLinkIsOpen
+        dd SerialLinkTxFree
+        dd SerialLinkRxCount
+        dd SerialLinkRead
+        dd SerialLinkWrite
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 dword_172168:
         db 00h,00h,00h,00h
 off_17216C:
-        dd sub_11C1CC
-        dd sub_11C340
-        dd sub_11C384
-        dd sub_11C3AC
-        dd sub_11C3C0
-        dd sub_11C3D4
-        dd sub_11C3FC
+        dd ModemLinkOpen
+        dd ModemLinkHangup
+        dd ModemLinkCarrier
+        dd ModemLinkTxFree
+        dd ModemLinkRxCount
+        dd ModemLinkRead
+        dd ModemLinkWrite
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 dword_172194:
         db 00h,00h,00h,00h
@@ -54,13 +54,13 @@ dword_1721B0:
 dword_1721B4:
         db 00h,00h,00h,00h
 off_1721B8:
-        dd sub_11DEE4
-        dd sub_11DF4C
-        dd sub_11DFB4
-        dd sub_11DFD4
-        dd sub_11DFF0
-        dd sub_11E004
-        dd sub_11E11C
+        dd NetLinkRead
+        dd NetLinkWrite
+        dd NetLinkConnected
+        dd NetLinkRxCount
+        dd NetLinkTxFree
+        dd NetBroadcast
+        dd NetHashName
 dword_1721D4:
         db 02h,01h,00h,00h,074h,00h,00h,00h,04h,00h,00h,00h
 dword_1721E0:
@@ -68,25 +68,25 @@ dword_1721E0:
 dword_1721E4:
         dd unk_167FE8
         db 0E0h,0C2h,01Eh,012h,09Eh,049h,0CFh,011h,0ADh,01Ch,00h,020h,0AFh,0D3h,0BDh,03Fh
-        dd sub_11EB64
-        dd sub_11EC18
-        dd sub_11EE6C
-        dd sub_11EF20
-        dd sub_11F154
-        dd sub_11F1FC
-        dd sub_11F218
-        dd sub_11F2B4
-        dd sub_11F304
-        dd sub_11F3F4
+        dd SetPairOneZero
+        dd IpxHookCheck
+        dd IpxRestoreVector
+        dd IpxSetupLayer
+        dd IpxShutdown
+        dd IpxSocketNumber
+        dd IpxStart
+        dd IpxStop
+        dd IpxBuildHeader
+        dd IpxClearName
         db 00h,00h,00h,00h
-        dd sub_11F404
-        dd sub_11F42C
-        dd sub_11F440
-        dd sub_11F480
-        dd sub_11F494
-        dd sub_11F4A8
-        dd sub_11F5D8
-        dd sub_11F794
+        dd IpxSameNode
+        dd IpxCopyAddress
+        dd IpxLookupTarget
+        dd IpxLockSend
+        dd IpxLockListen
+        dd IpxQueueSend
+        dd IpxReceive
+        dd IpxPeek
 dword_172244:
         db 00h,00h,00h,00h
 dword_172248:

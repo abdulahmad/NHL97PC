@@ -10,22 +10,23 @@ extern dword_17009C, dword_1700A9, dword_1700AD, dword_1700FD, dword_170101, dwo
 extern dword_172BCC, dword_172BD0, dword_172BD4, dword_172BD8, dword_1CFC70, dword_1DC994, dword_1DC998, dword_1DC99C
 extern dword_1DC9A0, dword_1DC9A4, dword_1DC9A8, dword_1DC9AC, dword_1DC9B0, dword_1DC9B4, dword_1DC9B8, dword_1DCAD0
 extern dword_1DCAD4, dword_1DCAD8, dword_1DCADC, dword_1DCAE0, dword_1DCAE4, dword_1DCAE8, dword_1DCAEC, dword_1DCAF0
-extern dword_1DCEC0, dword_1DCEC4, dword_1DCF38, dword_1DCF62, dword_1DD378, dword_1DD37C, int386_, sub_10699D
-extern sub_107154, sub_1072B4, sub_1072F0, sub_107308, sub_107370, sub_1077D0, sub_1077F8, sub_1078E4
-extern sub_1095C4, sub_10A860, sub_10A868, sub_10A8C4, sub_10AD20, sub_128280, sub_128680, sub_128D84
-extern sub_12AB04, sub_12AB0C, sub_12C8BC, sub_12C950, sub_12C970, sub_12C9D0, sub_12CA20, sub_12CD34
-extern sub_12CEE1, sub_12D13B, sub_12D141, sub_12D150, RequestStreamRead, CdStreamService, CdStreamNextPacket, CdStreamFreePacket
+extern dword_1DCEC0, dword_1DCEC4, dword_1DCF38, dword_1DCF62, dword_1DD378, dword_1DD37C, int386_, ClearSpeechQueue
+extern UnregisterSoundBank, CheckBankIndex, DetectAudioDriver, OpenAudioDriver, CloseAudioDriver, ApplyChannelVolume, FadeOutChannel, InitStreamHeader
+extern ClearSpeechBankTable, SpeechBufferSize, RegisterStreamBank, AddStreamSample, SetChannelVolumeChecked, LoadSampleHeader, PlaySoundEntry, ProbeDspReset
+extern AudioEnter, AudioLeaveCheck, SbDetectDsp, StopAllSoundChannels, StartChannel, MixNoise, RampChannelVolume, IsChannelActive
+extern ResetSpeechStreamState, SpeechStreamFlag, ServiceSpeechIfOpen, PlayBankSample, RequestStreamRead, CdStreamService, CdStreamNextPacket, CdStreamFreePacket
 extern AllocMemBlock, FreeMemBlock, unk_1072E0, word_17004A, word_17004C, word_17004E, word_17005C, word_17005E
-global jpt_108240, sub_108250_20, sub_108250_FC, sub_108250_1C0, sub_108250_27B, strstr_, sub_107A2C, sub_107A9C
-global sub_107AE0, sub_107B70, sub_107BD8, sub_107CB0, sub_107D30, sub_107D70, sub_107E74, sub_107F48
-global sub_108040, sub_108144, sub_10815C, sub_1081B0, sub_1081E4, sub_108250, sub_108584, sub_108640
-global sub_1086BF, sub_108725, sub_10884C, sub_108900, sub_108A60, sub_108BA0, sub_108CE8, sub_108D78
-global sub_108DC4, sub_108E74, sub_108EF0, sub_10901C, sub_1091E0, sub_109210, sub_109250, sub_1092B0
-global sub_109309, sub_109352, sub_109384, sub_1093CF
+global jpt_108240, MixChannelFormat_20, MixChannelFormat_FC, MixChannelFormat_1C0, MixChannelFormat_27B, strstr_, DetectSoundCard, ProbeSoundPorts
+global OpenDigitalAudio, CloseDigitalAudio, SetAudioDmaChannel, StartDigitalAudio, DetectWindows, InitSoundMixer, SetMixerVolumes, SetMasterVolume
+global SetChannelVolume, SetSpeechVolume, StopAllChannels, ResetSoundChannels, MixAudioBlock, MixChannelFormat, MixVolumeRamp, SetMusicStreamVolume
+global CloseSpeechChannels, AllocSpeechBuffers, InitSpeechChannels, OpenAudioStreamChannel, CloseAudioStreamChannel, FeedAudioStream, AudioStreamPosition, AudioStreamDone
+global StartAudioStream, FlushAudioStream, QueueStreamPacket, AudioStreamCallback, ChannelPlaying, StopChannel, PlaySample, PlaySampleVolume
+global ClearSpeechRing, PushSpeechRing, SpeechRingCount, SpeechBusy
 ;-----------------------------------------------------------------------------
-; sub_107A2C                                                          107A2C  
+; DetectSoundCard                                107A2C  97 PC, low confidence
+; Detects the sound card from the BLASTER setting
 ;-----------------------------------------------------------------------------
-sub_107A2C:
+DetectSoundCard:
         push ebx
         push ecx
         push edx
@@ -40,7 +41,7 @@ sub_107A2C:
         mov eax, 0FFFFFFFDh
         jmp short .5
 .1:
-        call sub_12C8BC
+        call SbDetectDsp
         cmp eax, 100h
         jl short .4
         cmp eax, 300h
@@ -77,9 +78,10 @@ sub_107A2C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_107A9C                                                          107A9C  
+; ProbeSoundPorts                                107A9C  97 PC, low confidence
+; Probes the sound card ports
 ;-----------------------------------------------------------------------------
-sub_107A9C:
+ProbeSoundPorts:
         push edx
         push esi
         push edi
@@ -93,7 +95,7 @@ sub_107A9C:
         movsd
 .1:
         mov eax, dword [esp+edx]
-        call sub_128D84
+        call ProbeDspReset
         test eax, eax
         jl short .2
         xor eax, eax
@@ -111,9 +113,10 @@ sub_107A9C:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_107AE0                                                          107AE0  
+; OpenDigitalAudio                               107AE0  97 PC, low confidence
+; Opens the digital audio driver
 ;-----------------------------------------------------------------------------
-sub_107AE0:
+OpenDigitalAudio:
         push ebx
         push ecx
         push esi
@@ -149,13 +152,13 @@ sub_107AE0:
         mov byte [byte_1DD381], dh
         mov edx, ebx
         mov dword [dword_172BD0], esi
-        call sub_107BD8
+        call SetAudioDmaChannel
         mov edx, ebx
-        call sub_107308
+        call OpenAudioDriver
         mov ebx, eax
         test eax, eax
         jge short .3
-        call sub_107370
+        call CloseAudioDriver
         mov eax, ebx
         pop edi
         pop esi
@@ -173,9 +176,10 @@ sub_107AE0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_107B70                                                          107B70  
+; CloseDigitalAudio                              107B70  97 PC, low confidence
+; Closes the digital audio driver
 ;-----------------------------------------------------------------------------
-sub_107B70:
+CloseDigitalAudio:
         push ebx
         push edx
         cmp byte [byte_172BC5], 0
@@ -185,10 +189,10 @@ sub_107B70:
         pop ebx
         ret
 .1:
-        call sub_12C950
+        call StopAllSoundChannels
         mov eax, 0FFFFFFFFh
-        call sub_107154
-        call sub_107370
+        call UnregisterSoundBank
+        call CloseAudioDriver
         mov edx, eax
         test eax, eax
         jl short .2
@@ -215,9 +219,10 @@ sub_107B70:
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_107BD8                                                          107BD8  
+; SetAudioDmaChannel                             107BD8  97 PC, low confidence
+; Sets the audio DMA channel
 ;-----------------------------------------------------------------------------
-sub_107BD8:
+SetAudioDmaChannel:
         push ebx
         push ecx
         mov ecx, edx
@@ -231,7 +236,7 @@ sub_107BD8:
         sub edx, ebx
 .1:
         mov eax, ecx
-        call sub_1072F0
+        call DetectAudioDriver
         mov ecx, eax
         and ebx, eax
         and edx, eax
@@ -333,9 +338,10 @@ sub_107BD8:
         ret
         db 00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_107CB0                                                          107CB0  
+; StartDigitalAudio                              107CB0  97 PC, low confidence
+; Starts the digital audio output
 ;-----------------------------------------------------------------------------
-sub_107CB0:
+StartDigitalAudio:
         push ebx
         push ecx
         push edx
@@ -359,7 +365,7 @@ sub_107CB0:
         pop ebx
         ret
 .3:
-        call sub_12AB04
+        call AudioEnter
         mov byte [byte_1DD381], dl
         xor ebx, ebx
         xor ecx, ecx
@@ -369,17 +375,17 @@ sub_107CB0:
         cmp dword [dword ecx+dword_1DCF38], byte 0
         jl short .5
         mov eax, ebx
-        call sub_12C970
+        call StartChannel
         mov edx, dword [dword ecx+dword_1DCF62]
         mov eax, ebx
         sar edx, 18h
-        call sub_1077D0
+        call ApplyChannelVolume
 .5:
         inc ebx
         add ecx, byte 44h
         cmp ebx, byte 10h
         jl short .4
-        call sub_12AB0C
+        call AudioLeaveCheck
         xor eax, eax
         pop edx
         pop ecx
@@ -387,9 +393,10 @@ sub_107CB0:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_107D30                                                          107D30  
+; DetectWindows                                  107D30  97 PC, low confidence
+; Asks DOS whether Windows is running (int 2Fh 1600h)
 ;-----------------------------------------------------------------------------
-sub_107D30:
+DetectWindows:
         push ebx
         sub esp, byte 38h
         mov edx, 1600h
@@ -416,9 +423,10 @@ sub_107D30:
         ret
         db 00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_107D70                                                          107D70  
+; InitSoundMixer                                 107D70  97 PC, low confidence
+; Sets up the sound mixer
 ;-----------------------------------------------------------------------------
-sub_107D70:
+InitSoundMixer:
         push ebx
         push ecx
         push esi
@@ -500,7 +508,7 @@ sub_107D70:
         mov byte [byte esi+05h], 1
 .6:
         mov ch, 1
-        mov eax, sub_1081E4
+        mov eax, MixAudioBlock
         mov byte [byte_170044], ch
         mov dword [dword_172BCC], eax
         xor eax, eax
@@ -514,9 +522,10 @@ sub_107D70:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_107E74                                                          107E74  
+; SetMixerVolumes                                107E74  97 PC, low confidence
+; Sets the mixer volumes
 ;-----------------------------------------------------------------------------
-sub_107E74:
+SetMixerVolumes:
         push ebx
         push ecx
         push edx
@@ -539,7 +548,7 @@ sub_107E74:
         pop ebx
         ret
 .2:
-        call sub_12AB04
+        call AudioEnter
         mov byte [byte_170048], bl
         xor ebx, ebx
         mov dword [dword_170050], ebx
@@ -567,7 +576,7 @@ sub_107E74:
         mov eax, dword [dword_170043]
         sar edx, 18h
         sar eax, 18h
-        call sub_109250
+        call PlaySample
         mov dword [dword esi+dword_170060], eax
         jmp short .6
 .5:
@@ -582,8 +591,8 @@ sub_107E74:
         mov byte [byte_170044], dh
         mov al, byte [byte eax+06h]
         and eax, 0FFh
-        call sub_107F48
-        call sub_12AB0C
+        call SetMasterVolume
+        call AudioLeaveCheck
         xor eax, eax
 .7:
         pop edi
@@ -594,9 +603,10 @@ sub_107E74:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_107F48                                                          107F48  
+; SetMasterVolume                                107F48  97 PC, low confidence
+; Sets the master volume
 ;-----------------------------------------------------------------------------
-sub_107F48:
+SetMasterVolume:
         push ebx
         push ecx
         push edx
@@ -639,7 +649,7 @@ sub_107F48:
         pop ebx
         ret
 .5:
-        call sub_12AB04
+        call AudioEnter
         mov eax, dword [dword_1CFC70]
         add ebx, eax
         mov eax, dword [byte ebx+02Ch]
@@ -680,9 +690,9 @@ sub_107F48:
         sar ebx, 18h
         sar edx, 18h
         sar eax, 18h
-        call sub_109250
+        call PlaySample
 .8:
-        call sub_12AB0C
+        call AudioLeaveCheck
         xor eax, eax
         pop edx
         pop ecx
@@ -690,9 +700,10 @@ sub_107F48:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_108040                                                          108040  
+; SetChannelVolume                               108040  97 PC, low confidence
+; Sets the volume of a sound channel
 ;-----------------------------------------------------------------------------
-sub_108040:
+SetChannelVolume:
         cmp byte [byte_172BC5], 0
         jne short .1
         mov eax, 0FFFFFFF6h
@@ -733,18 +744,18 @@ sub_108040:
         pop ebx
         ret
 .5:
-        call sub_12AB04
+        call AudioEnter
         xor ecx, ecx
 .6:
         mov ebx, 0FFFFFFFFh
         mov edx, esi
         mov eax, dword [dword ecx+dword_170060]
         add ecx, byte 4
-        call sub_10AD20
+        call SetChannelVolumeChecked
         cmp ecx, byte 20h
         jne short .6
         mov byte [byte_170044], 3
-        call sub_12AB0C
+        call AudioLeaveCheck
         xor eax, eax
         pop esi
         pop edx
@@ -773,7 +784,7 @@ sub_108040:
         pop ebx
         ret
 .8:
-        call sub_12AB04
+        call AudioEnter
         xor ecx, ecx
         xor esi, esi
 .9:
@@ -786,7 +797,7 @@ sub_108040:
         mov eax, dword [dword_170043]
         sar edx, 18h
         sar eax, 18h
-        call sub_109250
+        call PlaySample
         mov dword [dword esi+dword_170060], eax
 .10:
         inc ecx
@@ -794,7 +805,7 @@ sub_108040:
         cmp ecx, byte 8
         jl short .9
         mov byte [byte_170044], 2
-        call sub_12AB0C
+        call AudioLeaveCheck
         xor eax, eax
         pop esi
         pop edx
@@ -803,9 +814,10 @@ sub_108040:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_108144                                                          108144  
+; SetSpeechVolume                                108144  97 PC, low confidence
+; Sets the speech volume
 ;-----------------------------------------------------------------------------
-sub_108144:
+SetSpeechVolume:
         test eax, eax
         jl short .1
         cmp eax, byte 7Fh
@@ -819,9 +831,10 @@ sub_108144:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_10815C                                                          10815C  
+; StopAllChannels                                10815C  97 PC, low confidence
+; Stops all the sound channels
 ;-----------------------------------------------------------------------------
-sub_10815C:
+StopAllChannels:
         push edx
         cmp byte [byte_172BC5], 0
         jne short .1
@@ -838,24 +851,25 @@ sub_10815C:
         pop edx
         ret
 .2:
-        call sub_12AB04
+        call AudioEnter
         xor edx, edx
 .3:
         mov eax, dword [dword edx+dword_170060]
         add edx, byte 4
-        call sub_109210
+        call StopChannel
         cmp edx, byte 20h
         jne short .3
         mov byte [byte_170044], 1
-        call sub_12AB0C
+        call AudioLeaveCheck
         xor eax, eax
         pop edx
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1081B0                                                          1081B0  
+; ResetSoundChannels                             1081B0  97 PC, low confidence
+; Resets the sound channels
 ;-----------------------------------------------------------------------------
-sub_1081B0:
+ResetSoundChannels:
         push edx
         cmp byte [byte_172BC5], 0
         jne short .1
@@ -863,20 +877,21 @@ sub_1081B0:
         pop edx
         ret
 .1:
-        call sub_12AB04
+        call AudioEnter
         xor edx, edx
-        call sub_10815C
+        call StopAllChannels
         mov dword [dword_172BCC], edx
-        call sub_12AB0C
+        call AudioLeaveCheck
         xor dl, dl
         xor eax, eax
         mov byte [byte_170044], dl
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1081E4                                                          1081E4  
+; MixAudioBlock                                  1081E4  97 PC, low confidence
+; Mixes one audio block
 ;-----------------------------------------------------------------------------
-sub_1081E4:
+MixAudioBlock:
         push ecx
         push edx
         push edi
@@ -902,8 +917,8 @@ sub_1081E4:
 .2:
         mov word [word_17004E], dx
 .3:
-        call sub_108250
-        call sub_108584
+        call MixChannelFormat
+        call MixVolumeRamp
 .4:
         pop edi
         pop edx
@@ -911,14 +926,15 @@ sub_1081E4:
         ret
         db 08Dh,040h,00h
 jpt_108240:
-        dd sub_108250_20
-        dd sub_108250_FC
-        dd sub_108250_1C0
-        dd sub_108250_27B
+        dd MixChannelFormat_20
+        dd MixChannelFormat_FC
+        dd MixChannelFormat_1C0
+        dd MixChannelFormat_27B
 ;-----------------------------------------------------------------------------
-; sub_108250                                                          108250  
+; MixChannelFormat                               108250  97 PC, low confidence
+; Mixes a channel by its sample format
 ;-----------------------------------------------------------------------------
-sub_108250:
+MixChannelFormat:
         push ebx
         push ecx
         push edx
@@ -927,24 +943,24 @@ sub_108250:
         push ebp
         mov al, byte [byte_170048]
         cmp al, 3
-        ja near sub_108250_27B.15
+        ja near MixChannelFormat_27B.15
         and eax, 0FFh
         jmp dword [nosplit cs:eax*4+jpt_108240]
-sub_108250_20:
+MixChannelFormat_20:
         mov eax, dword [dword_170058]
         mov edi, dword [dword_170050]
         add edi, eax
         mov ebp, dword [dword_170054]
         mov dword [dword_170050], edi
         cmp edi, ebp
-        jl near sub_108250_27B.15
+        jl near MixChannelFormat_27B.15
         mov eax, dword [dword_1CFC70]
         mov edx, dword [byte eax+06h]
         mov eax, dword [byte eax+08h]
         mov dword [dword_170050], ebp
         sar eax, 10h
         sar edx, 10h
-        call sub_12C9D0
+        call MixNoise
         add edx, eax
         mov dword [dword_170054], edx
         cmp edx, 1FFh
@@ -997,21 +1013,21 @@ sub_108250_20:
         pop ecx
         pop ebx
         ret
-sub_108250_FC:
+MixChannelFormat_FC:
         mov eax, dword [dword_170058]
         mov esi, dword [dword_170050]
         sub esi, eax
         mov edi, dword [dword_170054]
         mov dword [dword_170050], esi
         cmp esi, edi
-        jg near sub_108250_27B.15
+        jg near MixChannelFormat_27B.15
         mov eax, dword [dword_1CFC70]
         mov edx, dword [byte eax+012h]
         mov eax, dword [byte eax+014h]
         mov dword [dword_170050], edi
         sar eax, 10h
         sar edx, 10h
-        call sub_12C9D0
+        call MixNoise
         add edx, eax
         mov dword [dword_170054], edx
         cmp edx, 1FFh
@@ -1028,7 +1044,7 @@ sub_108250_FC:
         shl ecx, 10h
         mov eax, dword [byte edx+01Ch]
         mov dword [dword_170054], ecx
-        call sub_12C9D0
+        call MixNoise
         mov ebx, dword [byte edx+018h]
         add ebx, eax
         cmp ebx, byte 1
@@ -1052,21 +1068,21 @@ sub_108250_FC:
         pop ecx
         pop ebx
         ret
-sub_108250_1C0:
+MixChannelFormat_1C0:
         mov eax, dword [dword_170058]
         mov ebx, dword [dword_170050]
         add ebx, eax
         mov ecx, dword [dword_170054]
         mov dword [dword_170050], ebx
         cmp ebx, ecx
-        jl near sub_108250_27B.15
+        jl near MixChannelFormat_27B.15
         mov eax, dword [dword_1CFC70]
         mov edx, dword [byte eax+06h]
         mov eax, dword [byte eax+08h]
         mov dword [dword_170050], ecx
         sar eax, 10h
         sar edx, 10h
-        call sub_12C9D0
+        call MixNoise
         add edx, eax
         mov dword [dword_170054], edx
         cmp edx, 1FFh
@@ -1081,7 +1097,7 @@ sub_108250_1C0:
         shl dword [dword_170054], 10h
         mov edx, dword [dword_1CFC70]
         mov eax, dword [byte edx+010h]
-        call sub_12C9D0
+        call MixNoise
         mov ebx, dword [byte edx+0Ch]
         add ebx, eax
         cmp ebx, byte 1
@@ -1105,7 +1121,7 @@ sub_108250_1C0:
         pop ecx
         pop ebx
         ret
-sub_108250_27B:
+MixChannelFormat_27B:
         mov eax, dword [dword_170058]
         mov edx, dword [dword_170050]
         sub edx, eax
@@ -1119,7 +1135,7 @@ sub_108250_27B:
         mov dword [dword_170050], ebx
         sar eax, 10h
         sar edx, 10h
-        call sub_12C9D0
+        call MixNoise
         add edx, eax
         mov dword [dword_170054], edx
         cmp edx, 1FFh
@@ -1136,7 +1152,7 @@ sub_108250_27B:
         mov edx, dword [dword_1CFC70]
         mov dword [dword_170054], eax
         mov eax, dword [byte edx+01Ch]
-        call sub_12C9D0
+        call MixNoise
         mov ebx, dword [byte edx+018h]
         mov edx, dword [dword_170050]
         add ebx, eax
@@ -1160,9 +1176,10 @@ sub_108250_27B:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_108584                                                          108584  
+; MixVolumeRamp                                  108584  97 PC, low confidence
+; Ramps a channel's volume while mixing
 ;-----------------------------------------------------------------------------
-sub_108584:
+MixVolumeRamp:
         push ebx
         push ecx
         push edx
@@ -1202,10 +1219,10 @@ sub_108584:
         mov eax, dword [dword ecx+ebx+0148h]
         movsx ecx, byte [esi+eax]
         mov eax, dword [dword ebx+dword_170060]
-        call sub_108640
+        call SetMusicStreamVolume
         mov edx, ecx
         mov eax, dword [dword ebx+dword_170060]
-        call sub_12CA20
+        call RampChannelVolume
 .2:
         add ebx, byte 4
         cmp ebx, byte 20h
@@ -1221,9 +1238,10 @@ sub_108584:
         ret
         db 00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_108640                                                          108640  
+; SetMusicStreamVolume                           108640  97 PC, low confidence
+; Sets the music stream volume
 ;-----------------------------------------------------------------------------
-sub_108640:
+SetMusicStreamVolume:
         push ebx
         push ecx
         mov ebx, eax
@@ -1244,13 +1262,13 @@ sub_108640:
         pop ebx
         ret
 .3:
-        call sub_12AB04
+        call AudioEnter
         mov eax, ebx
-        call sub_12CD34
+        call IsChannelActive
         mov ebx, eax
         test eax, eax
         jge short .4
-        call sub_12AB0C
+        call AudioLeaveCheck
         mov eax, 0FFFFFFF8h
         pop ecx
         pop ebx
@@ -1265,31 +1283,32 @@ sub_108640:
         mov dword [byte ecx+014h], 0
         mov eax, ebx
         mov dword [byte ecx+01Ch], edx
-        call sub_12C970
+        call StartChannel
         mov edx, dword [byte ecx+02Ah]
         mov eax, ebx
         sar edx, 18h
-        call sub_1077D0
-        call sub_12AB0C
+        call ApplyChannelVolume
+        call AudioLeaveCheck
         xor eax, eax
         pop ecx
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1086BF                                                          1086BF  
+; CloseSpeechChannels                            1086BF  97 PC, low confidence
+; Closes the speech channels
 ;-----------------------------------------------------------------------------
-sub_1086BF:
+CloseSpeechChannels:
         push ecx
         push edx
         cmp dword [dword_1DCAE8], byte 0
         jl short .1
         mov eax, dword [dword_1DCAE8]
-        call sub_109210
+        call StopChannel
 .1:
         cmp dword [dword_1DCAE0], byte 0
         jl short .2
         mov eax, dword [dword_1DCAE0]
-        call sub_107154
+        call UnregisterSoundBank
 .2:
         cmp dword [dword_1DCAD8], byte 0
         je short .3
@@ -1297,7 +1316,7 @@ sub_1086BF:
         call FreeMemBlock
         add esp, byte 4
 .3:
-        call sub_12CEE1
+        call ResetSpeechStreamState
         mov dword [dword_172AB8], 0
         pop edx
         pop ecx
@@ -1306,15 +1325,16 @@ sub_1086BF:
         mov dword [dword_1DC994], 0FFFFFFFFh
         ret
 ;-----------------------------------------------------------------------------
-; sub_108725                                                          108725  
+; AllocSpeechBuffers                             108725  97 PC, low confidence
+; Allocates the speech playback buffers
 ;-----------------------------------------------------------------------------
-sub_108725:
+AllocSpeechBuffers:
         push ebx
         push ecx
         push edx
         call ResetGameVars
         mov dword [dword_1DCAD4], dword_1DCEC4
-        call sub_10A860
+        call SpeechBufferSize
         push byte 0
         add eax, 3480h
         push eax
@@ -1339,14 +1359,14 @@ sub_108725:
         add edx, eax
         mov eax, edx
         mov dword [dword_1DCADC], edx
-        call sub_10A868
+        call RegisterStreamBank
         mov dword [dword_1DCAE0], eax
         test eax, eax
         jl near .3
         mov edx, dword_1DCAE4
         mov ecx, dword [dword_1DCAD8]
         mov ebx, dword [dword_1DCAD4]
-        call sub_10A8C4
+        call AddStreamSample
         mov eax, dword [dword_1DCAD4]
         mov eax, dword [byte eax+0Ch]
         mov byte [byte eax+08h], 64h
@@ -1376,12 +1396,12 @@ sub_108725:
         push byte 40h
         mov edx, dword [dword_1DCAE4]
         mov eax, dword [dword_1DCAE0]
-        call sub_12D150
+        call PlayBankSample
         mov dword [dword_1DCAE8], eax
         test eax, eax
         je short .3
         mov dword [dword_1DCAF0], 0
-        call sub_109309
+        call ClearSpeechRing
         mov eax, 1
         pop edx
         pop ecx
@@ -1394,23 +1414,24 @@ sub_108725:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_10884C                                                          10884C  
+; InitSpeechChannels                             10884C  97 PC, low confidence
+; Sets up the speech channels
 ;-----------------------------------------------------------------------------
-sub_10884C:
+InitSpeechChannels:
         push ecx
         push edx
         mov dword [dword_1DCEC0], 0
         mov dword [dword_172AB8], eax
-        call sub_12CEE1
+        call ResetSpeechStreamState
         mov dword [dword_1DCAD0], 1
         mov dword [dword_1DC994], 0FFFFFFFFh
         mov dword [dword_1DC998], 0
-        call sub_1095C4
-        call sub_108725
+        call ClearSpeechBankTable
+        call AllocSpeechBuffers
         test eax, eax
         je short .1
-        call sub_10699D
-        mov dword [dword_172BD4], sub_12D141
+        call ClearSpeechQueue
+        mov dword [dword_172BD4], ServiceSpeechIfOpen
         mov eax, 1
         pop edx
         pop ecx
@@ -1419,12 +1440,12 @@ sub_10884C:
         cmp dword [dword_1DCAE8], byte 0
         jl short .2
         mov eax, dword [dword_1DCAE8]
-        call sub_109210
+        call StopChannel
 .2:
         cmp dword [dword_1DCAE0], byte 0
         jl short .3
         mov eax, dword [dword_1DCAE0]
-        call sub_107154
+        call UnregisterSoundBank
 .3:
         cmp dword [dword_1DCAD8], byte 0
         je short .4
@@ -1432,7 +1453,7 @@ sub_10884C:
         call FreeMemBlock
         add esp, byte 4
 .4:
-        call sub_12CEE1
+        call ResetSpeechStreamState
         mov dword [dword_172AB8], 0
         xor eax, eax
         pop edx
@@ -1440,9 +1461,10 @@ sub_10884C:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_108900                                                          108900  
+; OpenAudioStreamChannel                         108900  97 PC, low confidence
+; Opens an audio stream channel
 ;-----------------------------------------------------------------------------
-sub_108900:
+OpenAudioStreamChannel:
         push esi
         push edi
         push ebp
@@ -1453,7 +1475,7 @@ sub_108900:
         mov eax, 0FFFFFFFFh
         jmp near .11
 .1:
-        mov edx, sub_10901C
+        mov edx, AudioStreamCallback
         mov dword [dword_170084], ecx
         mov dword [dword_170080], eax
         xor ebx, ebx
@@ -1506,7 +1528,7 @@ sub_108900:
         test edx, edx
         je short .6
         mov eax, edx
-        call sub_108BA0
+        call FeedAudioStream
         test eax, eax
         jl near .11
         cmp eax, byte 3
@@ -1517,7 +1539,7 @@ sub_108900:
 .5:
         cmp ebx, esi
         jge short .10
-        call sub_108CE8
+        call AudioStreamPosition
         cmp eax, byte 5Fh
         jge short .10
 .6:
@@ -1559,9 +1581,10 @@ sub_108900:
         pop esi
         ret 4
 ;-----------------------------------------------------------------------------
-; sub_108A60                                                          108A60  
+; CloseAudioStreamChannel                        108A60  97 PC, low confidence
+; Closes an audio stream channel
 ;-----------------------------------------------------------------------------
-sub_108A60:
+CloseAudioStreamChannel:
         push ebx
         push ecx
         push edx
@@ -1603,7 +1626,7 @@ sub_108A60:
         push byte 0FFFFFFFFh
         mov ebx, ecx
         mov edx, ecx
-        call sub_128680
+        call PlaySoundEntry
         mov dword [dword_170088], eax
 .4:
         cmp dword [dword_170088], byte 0
@@ -1611,7 +1634,7 @@ sub_108A60:
         or byte [byte_1700A5], 4
 .5:
         mov eax, dword [dword_170088]
-        call sub_12CD34
+        call IsChannelActive
         mov byte [byte_1700A0], al
         mov eax, dword [dword_170088]
         pop edx
@@ -1643,7 +1666,7 @@ sub_108A60:
         jg short .7
 .6:
         mov eax, edx
-        call sub_108BA0
+        call FeedAudioStream
         mov ebx, eax
         jmp short .9
 .7:
@@ -1678,9 +1701,10 @@ sub_108A60:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_108BA0                                                          108BA0  
+; FeedAudioStream                                108BA0  97 PC, low confidence
+; Feeds a packet to an audio stream
 ;-----------------------------------------------------------------------------
-sub_108BA0:
+FeedAudioStream:
         push ebx
         push ecx
         push edx
@@ -1688,7 +1712,7 @@ sub_108BA0:
         push edi
         push ebp
         mov ebx, eax
-        call sub_12AB04
+        call AudioEnter
         mov eax, dword [ebx]
         lea edx, [byte ebx+08h]
         cmp eax, 6C454353h
@@ -1709,7 +1733,7 @@ sub_108BA0:
         jmp near .12
 .2:
         mov eax, ebx
-        call sub_108EF0
+        call QueueStreamPacket
         mov ebx, eax
         jmp near .14
 .3:
@@ -1746,7 +1770,7 @@ sub_108BA0:
 .8:
         mov ebx, 3
         mov dword [dword_170098], edx
-        call sub_12AB0C
+        call AudioLeaveCheck
         mov eax, ebx
         pop ebp
         pop edi
@@ -1787,7 +1811,7 @@ sub_108BA0:
         call CdStreamFreePacket
         add esp, byte 8
 .14:
-        call sub_12AB0C
+        call AudioLeaveCheck
         mov eax, ebx
         pop ebp
         pop edi
@@ -1798,9 +1822,10 @@ sub_108BA0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_108CE8                                                          108CE8  
+; AudioStreamPosition                            108CE8  97 PC, low confidence
+; Returns the play position of an audio stream
 ;-----------------------------------------------------------------------------
-sub_108CE8:
+AudioStreamPosition:
         push ebx
         push ecx
         push edx
@@ -1825,7 +1850,7 @@ sub_108CE8:
         pop ebx
         ret
 .2:
-        call sub_12AB04
+        call AudioEnter
         xor eax, eax
 .3:
         mov ecx, dword [byte edx+04h]
@@ -1846,7 +1871,7 @@ sub_108CE8:
         sub edx, ebx
         shl edx, 3
         add edx, ebx
-        call sub_12AB0C
+        call AudioLeaveCheck
         shl edx, 2
         mov ebp, dword [dword_170084]
         mov eax, edx
@@ -1868,9 +1893,10 @@ sub_108CE8:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_108D78                                                          108D78  
+; AudioStreamDone                                108D78  97 PC, low confidence
+; Returns whether an audio stream has finished
 ;-----------------------------------------------------------------------------
-sub_108D78:
+AudioStreamDone:
         push ebx
         push ecx
         push edx
@@ -1911,9 +1937,10 @@ sub_108D78:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_108DC4                                                          108DC4  
+; StartAudioStream                               108DC4  97 PC, low confidence
+; Starts an audio stream
 ;-----------------------------------------------------------------------------
-sub_108DC4:
+StartAudioStream:
         push ebx
         push edx
         mov ah, byte [byte_1700A5]
@@ -1979,9 +2006,10 @@ sub_108DC4:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_108E74                                                          108E74  
+; FlushAudioStream                               108E74  97 PC, low confidence
+; Frees the played packets of an audio stream
 ;-----------------------------------------------------------------------------
-sub_108E74:
+FlushAudioStream:
         push ebx
         push ecx
         push edx
@@ -2028,9 +2056,10 @@ sub_108E74:
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_108EF0                                                          108EF0  
+; QueueStreamPacket                              108EF0  97 PC, low confidence
+; Queues a packet on an audio stream
 ;-----------------------------------------------------------------------------
-sub_108EF0:
+QueueStreamPacket:
         push ebx
         push ecx
         push edx
@@ -2046,7 +2075,7 @@ sub_108EF0:
         mov ebx, esp
         mov dword [dword_17009C], eax
         mov dword [esp], esi
-        call sub_128280
+        call LoadSampleHeader
         mov edi, dword [ecx]
         mov eax, ecx
         cmp edi, esi
@@ -2146,9 +2175,10 @@ sub_108EF0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_10901C                                                          10901C  
+; AudioStreamCallback                            10901C  97 PC, low confidence
+; Refills an audio stream from its packets
 ;-----------------------------------------------------------------------------
-sub_10901C:
+AudioStreamCallback:
         push ebx
         push esi
         push edi
@@ -2189,7 +2219,7 @@ sub_10901C:
         mov edx, dword [ebx]
         mov ebx, eax
         mov eax, edi
-        call sub_1078E4
+        call InitStreamHeader
         mov eax, dword [esi]
         mov dword [dword_1700A9], eax
         pop ebp
@@ -2359,15 +2389,16 @@ strstr_:
         ret
         db 00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_1091E0                                                          1091E0  
+; ChannelPlaying                                 1091E0  97 PC, low confidence
+; Returns whether a sound channel is playing
 ;-----------------------------------------------------------------------------
-sub_1091E0:
+ChannelPlaying:
         cmp byte [byte_172BC5], 0
         jne short .1
         mov eax, 0FFFFFFF6h
         ret
 .1:
-        call sub_12CD34
+        call IsChannelActive
         test eax, eax
         jge short .2
         mov eax, 1
@@ -2377,9 +2408,10 @@ sub_1091E0:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_109210                                                          109210  
+; StopChannel                                    109210  97 PC, low confidence
+; Stops a sound channel
 ;-----------------------------------------------------------------------------
-sub_109210:
+StopChannel:
         push ebx
         push edx
         mov edx, eax
@@ -2392,26 +2424,27 @@ sub_109210:
         pop ebx
         ret
 .1:
-        call sub_12AB04
+        call AudioEnter
         mov eax, edx
-        call sub_12CD34
+        call IsChannelActive
         test eax, eax
         jl short .2
-        call sub_1077F8
+        call FadeOutChannel
         jmp short .3
 .2:
         mov ebx, 0FFFFFFF8h
 .3:
-        call sub_12AB0C
+        call AudioLeaveCheck
         mov eax, ebx
         pop edx
         pop ebx
         ret
         db 00h,00h
 ;-----------------------------------------------------------------------------
-; sub_109250                                                          109250  
+; PlaySample                                     109250  97 PC, low confidence
+; Plays a sample on a free channel
 ;-----------------------------------------------------------------------------
-sub_109250:
+PlaySample:
         push ecx
         push esi
         mov esi, eax
@@ -2423,7 +2456,7 @@ sub_109250:
         ret
 .1:
         mov eax, esi
-        call sub_1072B4
+        call CheckBankIndex
         test eax, eax
         jge short .2
         mov eax, 0FFFFFFF8h
@@ -2450,15 +2483,16 @@ sub_109250:
         push byte 0FFFFFFFFh
         mov ebx, ecx
         mov edx, esi
-        call sub_128680
+        call PlaySoundEntry
         pop esi
         pop ecx
         ret
         db 00h
 ;-----------------------------------------------------------------------------
-; sub_1092B0                                                          1092B0  
+; PlaySampleVolume                               1092B0  97 PC, low confidence
+; Plays a sample at a volume
 ;-----------------------------------------------------------------------------
-sub_1092B0:
+PlaySampleVolume:
         push esi
         mov esi, eax
         cmp byte [byte_172BC5], 0
@@ -2468,7 +2502,7 @@ sub_1092B0:
         ret
 .1:
         mov eax, esi
-        call sub_1072B4
+        call CheckBankIndex
         test eax, eax
         jge short .2
         mov eax, 0FFFFFFF8h
@@ -2493,13 +2527,14 @@ sub_1092B0:
         push byte 0FFFFFFFFh
         mov edx, esi
         mov ebx, ecx
-        call sub_128680
+        call PlaySoundEntry
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_109309                                                          109309  
+; ClearSpeechRing                                109309  97 PC, low confidence
+; Clears the speech ring
 ;-----------------------------------------------------------------------------
-sub_109309:
+ClearSpeechRing:
         mov dword [dword_1DC9A0], 0
         mov dword [dword_1DC9A4], 0
         mov dword [dword_1DC99C], 0
@@ -2513,9 +2548,10 @@ sub_109309:
         jne short .1
         ret
 ;-----------------------------------------------------------------------------
-; sub_109352                                                          109352  
+; PushSpeechRing                                 109352  97 PC, low confidence
+; Adds an entry to the speech ring
 ;-----------------------------------------------------------------------------
-sub_109352:
+PushSpeechRing:
         push ebx
         push ecx
         mov ebx, eax
@@ -2535,9 +2571,10 @@ sub_109352:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_109384                                                          109384  
+; SpeechRingCount                                109384  97 PC, low confidence
+; Returns the entries in the speech ring
 ;-----------------------------------------------------------------------------
-sub_109384:
+SpeechRingCount:
         push ebx
         push ecx
         push edx
@@ -2576,16 +2613,17 @@ sub_109384:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1093CF                                                          1093CF  
+; SpeechBusy                                     1093CF  97 PC, low confidence
+; Returns whether speech is playing
 ;-----------------------------------------------------------------------------
-sub_1093CF:
+SpeechBusy:
         cmp dword [dword_1DC99C], byte 0
         jle short .2
 .1:
         mov eax, 1
         ret
 .2:
-        call sub_12D13B
+        call SpeechStreamFlag
         test eax, eax
         jne short .1
         ret

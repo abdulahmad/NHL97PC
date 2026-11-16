@@ -3,13 +3,13 @@ bits 32
 %include "hockey.inc"
 section s_19C3D8 progbits alloc noexec write align=1
 extern __InitFiles_, __checkIsDBCS_, __chk8087_, __full_io_exit_, __setEFGfmt_, __setenvp_, fini_, init_
-extern puckfaceoff, sub_135D41, asscoverdefd, asscoverdefo, assnull, assbenchwait, assgoalie, assdefo
+extern puckfaceoff, CheckPentiumFdiv, asscoverdefd, asscoverdefo, assnull, assbenchwait, assgoalie, assdefo
 extern asswingo, asscentero, assdefd, asswingd, asscenterd, asstofaceoff, assfaceoff, assfaceoffpl
 extern assonetimer, asspuckc, assnearest, assscore, assbench, assleavebox, asspsclear, asspenshot
 extern asseben, assleaveice, asspenalty, assdopen, assepen, assrefpenshot, assrefsignal, assrefwhistle
 extern assrefgoalpa, assrefgoalline, assreffollow, assrefdrop, assrefatdot, assintrostand, assintroline, asstakeposition
-extern assstanley, pucknorm, puckfaceoff2, assshoot, assfight, assfwatch, sub_FC210, sub_FC215
-extern sub_FC238
+extern assstanley, pucknorm, puckfaceoff2, assshoot, assfight, assfwatch, InitFpuEmulatorEntry, FiniFpuEmulatorEntry
+extern SaveStackSegment
 global byte_19C3E0, byte_19C3E6, byte_19C620, dword_19C3DD, dword_19C690, off_19C3F4, off_19C5F4, off_19C61F
 global unk_19C534, unk_19C544, unk_19C564, unk_19C574, unk_19C584, unk_19C594, unk_19C5A4, unk_19C5B4
 global unk_19C5C4, unk_19C5D4, unk_19C5E4, unk_19C648, unk_19C67E, word_19C3D8, word_19C3DA, word_19C3DC
@@ -141,11 +141,11 @@ unk_19C648:
         db 00h,020h
         dd __setEFGfmt_
         db 00h,01h
-        dd sub_FC210
+        dd InitFpuEmulatorEntry
         db 00h,02h
         dd __chk8087_
         db 00h,020h
-        dd sub_FC238
+        dd SaveStackSegment
         db 00h,020h
         dd __InitFiles_
         db 00h,020h
@@ -153,12 +153,12 @@ unk_19C648:
         db 00h,020h
         dd __setenvp_
         db 00h,03h
-        dd sub_135D41
+        dd CheckPentiumFdiv
         db 00h,0Ah
         dd init_
 unk_19C67E:
         db 00h,01h
-        dd sub_FC215
+        dd FiniFpuEmulatorEntry
         db 00h,020h
         dd __full_io_exit_
         db 00h,0Ah

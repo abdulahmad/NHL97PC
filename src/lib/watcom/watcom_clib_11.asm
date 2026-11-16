@@ -3,9 +3,13 @@ bits 32
 %include "hockey.inc"
 section s_10AED0 progbits alloc exec nowrite align=1
 extern __doserror_, __fprtf_, dword_16E48C, dword_16E490, dword_16E494, dword_16E498, dword_16E49C, dword_16E4A0
-extern dword_16E4A4, dword_1CFCEC, dword_1CFCF0, sub_109417, sub_109545, unk_1722DA
-global DetectCPU, _dos_close_, _dos_commit_, _dos_open_, printf_, sub_10AED0, sub_10B000
-sub_10AED0:
+extern dword_16E4A4, dword_1CFCEC, dword_1CFCF0, DosOpenReadOnly, DosCloseFile, unk_1722DA
+global DetectCPU, _dos_close_, _dos_commit_, _dos_open_, printf_, DosFileInfo, BuildReciprocalTable
+;-----------------------------------------------------------------------------
+; DosFileInfo                                    10AED0  97 PC, low confidence
+; Opens a file to learn whether it exists and its size, then closes it
+;-----------------------------------------------------------------------------
+DosFileInfo:
         push ebx
         sub esp, byte 0Ch
         mov eax, esp
@@ -16,11 +20,11 @@ sub_10AED0:
         push eax
         mov edx, dword [byte esp+020h]
         push edx
-        call sub_109417
+        call DosOpenReadOnly
         add esp, byte 10h
         mov ebx, dword [byte esp+08h]
         push ebx
-        call sub_109545
+        call DosCloseFile
         add esp, byte 4
         cmp dword [byte esp+08h], byte 0
         je short .1
@@ -30,6 +34,9 @@ sub_10AED0:
         add esp, byte 0Ch
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; printf_                                                      10AF13  library
+;-----------------------------------------------------------------------------
 printf_:
         push ebx
         push edx
@@ -45,6 +52,9 @@ printf_:
         pop ebx
         ret
         db 00h,00h,00h
+;-----------------------------------------------------------------------------
+; DetectCPU                                   10AF38  96 PC, medium confidence
+;-----------------------------------------------------------------------------
 DetectCPU:
         push ebx
         mov dword [dword_16E48C], 1
@@ -99,6 +109,9 @@ DetectCPU:
 .1:
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; _dos_close_                                                  10AFCA  library
+;-----------------------------------------------------------------------------
 _dos_close_:
         push ebx
         mov bx, ax
@@ -107,6 +120,9 @@ _dos_close_:
         call __doserror_
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; _dos_commit_                                                 10AFD9  library
+;-----------------------------------------------------------------------------
 _dos_commit_:
         push ebx
         mov bx, ax
@@ -116,6 +132,9 @@ _dos_commit_:
         call __doserror_
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; _dos_open_                                                   10AFE9  library
+;-----------------------------------------------------------------------------
 _dos_open_:
         xchg edx, eax
         mov ah, 3Dh
@@ -126,7 +145,11 @@ _dos_open_:
         call __doserror_
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h
-sub_10B000:
+;-----------------------------------------------------------------------------
+; BuildReciprocalTable                           10B000  97 PC, low confidence
+; Fills the table of fixed-point reciprocals used by the polygon fillers
+;-----------------------------------------------------------------------------
+BuildReciprocalTable:
         push ebx
         push ecx
         push edx

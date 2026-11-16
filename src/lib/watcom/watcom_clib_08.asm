@@ -12,18 +12,18 @@ extern dword_1CFA84, dword_1CFA88, dword_1CFA8C, dword_1CFA90, dword_1CFA94, dwo
 extern dword_1CFAA8, dword_1CFAAC, dword_1CFAB0, dword_1CFAB4, dword_1CFABC, dword_1CFAC0, dword_1CFACC, dword_1CFAD0
 extern dword_1CFAD4, dword_1CFAD8, dword_1DC5AC, dword_1DC994, dword_1DC998, dword_1DC99C, dword_1DCAFC, dword_1DCB00
 extern dword_1DCB04, dword_1DCB08, dword_1DCEC0, dword_1DCF20, int386_, int386x_, memset_, segread_
-extern str_Inversetmp, bcopy, Random32, sub_1048BC, sub_1093CF, sub_109401, sub_109545, sub_10955B
-extern sub_1095AD, sub_109608, sub_12189C, sub_126264, sub_126364, sub_1266FC, AllocMemBlock, sub_FAAB4
-extern sub_FAB68, FreeMemBlock, WaitTicks, tickcount, toupper_, unk_16FB44, unk_1CFAF0, word_1CFA98
+extern str_Inversetmp, bcopy, Random32, ReadPaletteRange, SpeechBusy, DosOpenFile, DosCloseFile, DosReadFile
+extern DosSeekFile, FindSpeechBank, FindCachedFile, ExpandPalette6To8, CopyPaletteRGB, CdDirSearch, AllocMemBlock, AllocMemData
+extern AllocMemBlockFull, FreeMemBlock, WaitTicks, tickcount, toupper_, unk_16FB44, unk_1CFAF0, word_1CFA98
 extern word_1CFAB8, word_1CFADE, word_1CFAE0
-global sub_105904_1FC, sub_105FAA_86, sub_1069F2_AD, sub_1069F2_AE, strcmp_, strncpy_, sub_104A60, sub_104C78
-global sub_104DFC, sub_1050A0, sub_105258, sub_105324, sub_105430, sub_1055D4, sub_10562C, sub_105644
-global sub_105688, sub_1056F0, sub_105728, sub_10578C, sub_1057C0, sub_1057E8, sub_105808, sub_10585C
-global sub_105904, sub_105B08, sub_105BDC, sub_105D5C, sub_105E64, sub_105F6C, sub_105FAA, sub_106036
-global sub_1060A8, sub_106108, sub_106223, sub_10623B, sub_1062DB, sub_106390, sub_106416, sub_106467
-global sub_1064D7, sub_106530, sub_1065F0, sub_10699D, sub_1069F2, sub_106AA6, sub_106B45, sub_106C28
-global sub_106C74, sub_106CBB, sub_106CD0, sub_106D08, sub_106D80, sub_106DA0, sub_106DE0, sub_106DF8
-global sub_106E10
+global DetectMscdex_1FC, ParseSpeechEvents_86, QueueSpeechEvent_AD, QueueSpeechEvent_AE, strcmp_, strncpy_, InverseTableSlice, InverseTablePass
+global InverseTableScan, InverseTableFill, BuildInverseTable, FreeInverseTable, CdOpenFile, CdOpenStream, CdHandleEntry, CdCloseFile
+global CdReadSectors, CdRead, CdSeekSectors, CdSeek, CdFindFile, DriveLetterIndex, IsCdDrive, AllocCdBuffer
+global DetectMscdex, CdDeviceStatus, CdReadLong, CdSeekCmd, CdDirEntry, FindSpeechEvent, ParseSpeechEvents, InitSpeechBank
+global PickRandomClip, PickClipVariant, ClipValue, PickEventClip, BuildSpeechPhrase, MatchPhraseRule, CheckRangeCondition, CheckValueCondition
+global CheckFlagCondition, CheckPhraseConditions, BuildSpeechEvent, ClearSpeechQueue, QueueSpeechEvent, RequestSpeechEvent, PickNextSpeech, SpeechAge
+global PlayQueuedSpeech, SetSpeechEnabled, FileExistsPath, FileSizePath, LoadFileAlloc, LoadFileAllocQuiet, LoadFileInto, LoadFileIntoQuiet
+global LoadFileCore
 ;-----------------------------------------------------------------------------
 ; strncpy_                                                     104A2C  library
 ;-----------------------------------------------------------------------------
@@ -57,9 +57,10 @@ strncpy_:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_104A60                                                          104A60  
+; InverseTableSlice                              104A60  97 PC, low confidence
+; Builds one slice of the inverse colour table
 ;-----------------------------------------------------------------------------
-sub_104A60:
+InverseTableSlice:
         push esi
         push edi
         push ebp
@@ -200,7 +201,7 @@ sub_104A60:
         add edx, eax
         mov dword [dword_1CFA30], ebx
         mov dword [dword_1CFA28], edx
-        call sub_104C78
+        call InverseTablePass
         mov ebx, dword [dword_1CFA30]
 .4:
         mov esi, dword [dword_1CFA24]
@@ -218,9 +219,10 @@ sub_104A60:
         ret 4
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_104C78                                                          104C78  
+; InverseTablePass                               104C78  97 PC, low confidence
+; Runs one pass of the inverse colour table
 ;-----------------------------------------------------------------------------
-sub_104C78:
+InverseTablePass:
         push ebx
         push ecx
         push edx
@@ -244,7 +246,7 @@ sub_104C78:
         jge near .4
         mov dword [dword_1CFA64], esi
 .1:
-        call sub_104DFC
+        call InverseTableScan
         test eax, eax
         je short .2
         mov edx, 1
@@ -296,7 +298,7 @@ sub_104C78:
         test ebx, ebx
         jl short .8
 .5:
-        call sub_104DFC
+        call InverseTableScan
         test eax, eax
         je short .6
         mov edx, 1
@@ -337,9 +339,10 @@ sub_104C78:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_104DFC                                                          104DFC  
+; InverseTableScan                               104DFC  97 PC, low confidence
+; Scans the colours for the inverse table
 ;-----------------------------------------------------------------------------
-sub_104DFC:
+InverseTableScan:
         push ebx
         push ecx
         push edx
@@ -378,7 +381,7 @@ sub_104DFC:
         jg near .6
         mov dword [dword_1CFA74], ecx
 .2:
-        call sub_1050A0
+        call InverseTableFill
         test eax, eax
         je short .4
         mov ecx, dword [dword_1CFA74]
@@ -456,7 +459,7 @@ sub_104DFC:
         cmp ebx, ebp
         jl near .10
 .7:
-        call sub_1050A0
+        call InverseTableFill
         test eax, eax
         je short .8
         test edx, edx
@@ -517,9 +520,10 @@ sub_104DFC:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1050A0                                                          1050A0  
+; InverseTableFill                               1050A0  97 PC, low confidence
+; Fills the inverse colour table
 ;-----------------------------------------------------------------------------
-sub_1050A0:
+InverseTableFill:
         push ebx
         push ecx
         push edx
@@ -686,9 +690,10 @@ sub_1050A0:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_105258                                                          105258  
+; BuildInverseTable                              105258  97 PC, low confidence
+; Builds the inverse colour table for the palette
 ;-----------------------------------------------------------------------------
-sub_105258:
+BuildInverseTable:
         push ebx
         push esi
         push edi
@@ -696,7 +701,7 @@ sub_105258:
         push edx
         push dword 8000h
         push str_Inversetbl
-        call sub_FAAB4
+        call AllocMemData
         mov ebx, eax
         add esp, byte 0Ch
         mov edi, eax
@@ -706,7 +711,7 @@ sub_105258:
         push ecx
         push dword 20000h
         push str_Inversetmp
-        call sub_FAAB4
+        call AllocMemData
         mov esi, eax
         add esp, byte 0Ch
         test eax, eax
@@ -716,7 +721,7 @@ sub_105258:
         mov ecx, eax
         mov ebx, 5
         mov eax, 100h
-        call sub_104A60
+        call InverseTableSlice
         push esi
         call FreeMemBlock
         add esp, byte 4
@@ -735,11 +740,11 @@ sub_105258:
         mov edx, dword [dword esp+0408h]
         push edx
         push dword 100h
-        call sub_126264
+        call ExpandPalette6To8
         add esp, byte 0Ch
         mov eax, esp
         push eax
-        call sub_105258
+        call BuildInverseTable
         add esp, byte 4
         add esp, 400h
         ret
@@ -749,18 +754,19 @@ sub_105258:
         mov edx, dword [dword esp+0408h]
         push edx
         push dword 100h
-        call sub_126364
+        call CopyPaletteRGB
         add esp, byte 0Ch
         mov eax, esp
         push eax
-        call sub_105258
+        call BuildInverseTable
         add esp, byte 4
         add esp, 400h
         ret
 ;-----------------------------------------------------------------------------
-; sub_105324                                                          105324  
+; FreeInverseTable                               105324  97 PC, low confidence
+; Frees and rebuilds the inverse colour table
 ;-----------------------------------------------------------------------------
-sub_105324:
+FreeInverseTable:
         push ebx
         sub esp, 400h
         mov edx, dword [dword_16E500]
@@ -776,11 +782,11 @@ sub_105324:
         push eax
         push dword 100h
         push byte 0
-        call sub_1048BC
+        call ReadPaletteRange
         add esp, byte 0Ch
         mov eax, esp
         push eax
-        call sub_105258
+        call BuildInverseTable
         add esp, byte 4
         mov dword [dword_16E500], eax
         test eax, eax
@@ -869,9 +875,10 @@ strcmp_:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_105430                                                          105430  
+; CdOpenFile                                     105430  97 PC, low confidence
+; Opens a file on the CD
 ;-----------------------------------------------------------------------------
-sub_105430:
+CdOpenFile:
         push ebx
         push esi
         push edi
@@ -901,22 +908,22 @@ sub_105430:
         push ecx
         lea eax, [byte esp+08h]
         push eax
-        call sub_1057C0
+        call CdFindFile
         add esp, byte 0Ch
         mov eax, esp
         push eax
-        call sub_1057E8
+        call DriveLetterIndex
         add esp, byte 4
         push eax
         mov ebx, eax
-        call sub_105808
+        call IsCdDrive
         add esp, byte 4
         test eax, eax
         je near .6
         push byte 0
         push ebx
         lea ebx, [nosplit esi*8+00h]
-        call sub_10585C
+        call AllocCdBuffer
         add ebx, esi
         mov eax, unk_16FB44
         shl ebx, 2
@@ -927,7 +934,7 @@ sub_105430:
         push eax
         lea eax, [byte esp+08h]
         push eax
-        call sub_105E64
+        call CdDirEntry
         mov eax, dword [edi]
         add esp, byte 0Ch
         test eax, eax
@@ -981,7 +988,7 @@ sub_105430:
         push eax
         mov ecx, dword [dword esp+0124h]
         push ecx
-        call sub_109401
+        call DosOpenFile
         add esp, byte 14h
         mov eax, dword [dword esp+011Ch]
         mov eax, dword [eax]
@@ -1001,9 +1008,10 @@ sub_105430:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1055D4                                                          1055D4  
+; CdOpenStream                                   1055D4  97 PC, low confidence
+; Opens a stream on the CD
 ;-----------------------------------------------------------------------------
-sub_1055D4:
+CdOpenStream:
         push ebx
         push esi
         push edi
@@ -1018,7 +1026,7 @@ sub_1055D4:
         push esi
         mov edi, dword [byte esp+024h]
         push edi
-        call sub_105430
+        call CdOpenFile
         add esp, byte 18h
         pop edi
         pop esi
@@ -1039,7 +1047,7 @@ sub_1055D4:
         push esi
         mov edi, dword [byte esp+024h]
         push edi
-        call sub_105430
+        call CdOpenFile
         add esp, byte 18h
         pop edi
         pop esi
@@ -1047,9 +1055,10 @@ sub_1055D4:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_10562C                                                          10562C  
+; CdHandleEntry                                  10562C  97 PC, low confidence
+; Returns the entry of a CD file handle
 ;-----------------------------------------------------------------------------
-sub_10562C:
+CdHandleEntry:
         mov edx, dword [byte esp+04h]
         lea eax, [nosplit edx*8+00h]
         add eax, edx
@@ -1058,9 +1067,10 @@ sub_10562C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_105644                                                          105644  
+; CdCloseFile                                    105644  97 PC, low confidence
+; Closes a CD file
 ;-----------------------------------------------------------------------------
-sub_105644:
+CdCloseFile:
         push ebx
         mov edx, dword [byte esp+08h]
         lea eax, [nosplit edx*8+00h]
@@ -1070,7 +1080,7 @@ sub_105644:
         jne short .1
         mov ebx, dword [dword eax+dword_16FB54]
         push ebx
-        call sub_109545
+        call DosCloseFile
         add esp, byte 4
 .1:
         mov edx, dword [byte esp+08h]
@@ -1082,9 +1092,10 @@ sub_105644:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_105688                                                          105688  
+; CdReadSectors                                  105688  97 PC, low confidence
+; Reads sectors of a CD file
 ;-----------------------------------------------------------------------------
-sub_105688:
+CdReadSectors:
         push ebx
         push esi
         push edi
@@ -1101,7 +1112,7 @@ sub_105688:
         push edx
         mov edx, dword [dword ebx+dword_16FB54]
         push edx
-        call sub_10955B
+        call DosReadFile
         add esp, byte 0Ch
         jmp short .2
 .1:
@@ -1111,7 +1122,7 @@ sub_105688:
         mov ebp, dword [dword ebx+dword_16FB64]
         push ebp
         push edx
-        call sub_105BDC
+        call CdReadLong
         mov eax, dword [dword ebx+dword_16FB60]
         add eax, esi
         add esp, byte 10h
@@ -1125,9 +1136,10 @@ sub_105688:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1056F0                                                          1056F0  
+; CdRead                                         1056F0  97 PC, low confidence
+; Reads from a CD file
 ;-----------------------------------------------------------------------------
-sub_1056F0:
+CdRead:
         push ebx
         push byte 1
         mov edx, dword [byte esp+014h]
@@ -1136,7 +1148,7 @@ sub_1056F0:
         push ebx
         mov ecx, dword [byte esp+014h]
         push ecx
-        call sub_105688
+        call CdReadSectors
         add esp, byte 10h
         pop ebx
         ret
@@ -1148,14 +1160,15 @@ sub_1056F0:
         push ebx
         mov ecx, dword [byte esp+014h]
         push ecx
-        call sub_105688
+        call CdReadSectors
         add esp, byte 10h
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_105728                                                          105728  
+; CdSeekSectors                                  105728  97 PC, low confidence
+; Seeks in a CD file
 ;-----------------------------------------------------------------------------
-sub_105728:
+CdSeekSectors:
         push ebx
         push edi
         push ebp
@@ -1169,7 +1182,7 @@ sub_105728:
         push edx
         mov ebp, dword [dword ebx+dword_16FB54]
         push ebp
-        call sub_1095AD
+        call DosSeekFile
         add esp, byte 8
         xor eax, eax
         pop ebp
@@ -1183,7 +1196,7 @@ sub_105728:
         mov edi, dword [dword ebx+dword_16FB64]
         push edi
         mov dword [dword ebx+dword_16FB60], eax
-        call sub_105D5C
+        call CdSeekCmd
         mov eax, dword [dword ebx+dword_16FB60]
         add esp, byte 8
         and eax, 7FFh
@@ -1193,16 +1206,17 @@ sub_105728:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_10578C                                                          10578C  
+; CdSeek                                         10578C  97 PC, low confidence
+; Seeks in a CD file and waits
 ;-----------------------------------------------------------------------------
-sub_10578C:
+CdSeek:
         push ebx
         push byte 1
         mov edx, dword [byte esp+010h]
         push edx
         mov ebx, dword [byte esp+010h]
         push ebx
-        call sub_105728
+        call CdSeekSectors
         add esp, byte 0Ch
         pop ebx
         ret
@@ -1213,21 +1227,22 @@ sub_10578C:
         push edx
         mov ebx, dword [byte esp+010h]
         push ebx
-        call sub_105728
+        call CdSeekSectors
         add esp, byte 0Ch
         pop ebx
         ret
         db 00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_1057C0                                                          1057C0  
+; CdFindFile                                     1057C0  97 PC, low confidence
+; Finds a file on the CD
 ;-----------------------------------------------------------------------------
-sub_1057C0:
+CdFindFile:
         push ebx
         mov ecx, dword [byte esp+08h]
         mov edx, dword [byte esp+0Ch]
         mov ebx, dword [byte esp+010h]
         mov eax, ecx
-        call sub_1266FC
+        call CdDirSearch
         mov edx, eax
         test eax, eax
         je short .1
@@ -1239,9 +1254,10 @@ sub_1057C0:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1057E8                                                          1057E8  
+; DriveLetterIndex                               1057E8  97 PC, low confidence
+; Returns the drive number of a path's drive letter
 ;-----------------------------------------------------------------------------
-sub_1057E8:
+DriveLetterIndex:
         mov eax, dword [byte esp+04h]
         cmp byte [byte eax+01h], 3Ah
         je short .1
@@ -1254,9 +1270,10 @@ sub_1057E8:
         sub eax, byte 41h
         ret
 ;-----------------------------------------------------------------------------
-; sub_105808                                                          105808  
+; IsCdDrive                                      105808  97 PC, low confidence
+; Returns whether a drive is a CD drive (MSCDEX)
 ;-----------------------------------------------------------------------------
-sub_105808:
+IsCdDrive:
         push ebx
         sub esp, byte 38h
         cmp dword [dword_16FFC4], byte 0
@@ -1284,9 +1301,10 @@ sub_105808:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_10585C                                                          10585C  
+; AllocCdBuffer                                  10585C  97 PC, low confidence
+; Allocates the CD transfer buffer
 ;-----------------------------------------------------------------------------
-sub_10585C:
+AllocCdBuffer:
         push ebx
         cmp dword [dword_1CFAA4], byte 0
         jne short .1
@@ -1335,9 +1353,10 @@ sub_10585C:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_105904                                                          105904  
+; DetectMscdex                                   105904  97 PC, low confidence
+; Finds MSCDEX and the CD drives
 ;-----------------------------------------------------------------------------
-sub_105904:
+DetectMscdex:
         push ebx
         push esi
         push edi
@@ -1421,7 +1440,7 @@ sub_105904:
         test byte [byte_1CFADC], 1
         je short .3
         xor eax, eax
-        jmp near sub_105904_1FC
+        jmp near DetectMscdex_1FC
 .3:
         mov ebx, 32h
         mov eax, dword [dword_1CFAA8]
@@ -1468,7 +1487,7 @@ sub_105904:
         mov word [byte esp+020h], si
         call int386_
         mov eax, ecx
-sub_105904_1FC:
+DetectMscdex_1FC:
         add esp, byte 44h
         pop ebp
         pop edi
@@ -1476,9 +1495,10 @@ sub_105904_1FC:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_105B08                                                          105B08  
+; CdDeviceStatus                                 105B08  97 PC, low confidence
+; Asks the CD driver for the device status
 ;-----------------------------------------------------------------------------
-sub_105B08:
+CdDeviceStatus:
         push ebx
         sub esp, byte 44h
         mov eax, dword [dword_1CFAA8]
@@ -1531,9 +1551,10 @@ sub_105B08:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_105BDC                                                          105BDC  
+; CdReadLong                                     105BDC  97 PC, low confidence
+; Reads sectors with the CD driver
 ;-----------------------------------------------------------------------------
-sub_105BDC:
+CdReadLong:
         push ebx
         push esi
         push edi
@@ -1635,7 +1656,7 @@ sub_105BDC:
         push ecx
         add eax, ebp
         push eax
-        call sub_105B08
+        call CdDeviceStatus
         add esp, byte 8
 .3:
         add esp, byte 48h
@@ -1646,9 +1667,10 @@ sub_105BDC:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_105D5C                                                          105D5C  
+; CdSeekCmd                                      105D5C  97 PC, low confidence
+; Sends a seek to the CD driver
 ;-----------------------------------------------------------------------------
-sub_105D5C:
+CdSeekCmd:
         push ebx
         push esi
         push edi
@@ -1706,7 +1728,7 @@ sub_105D5C:
         mov eax, dword [byte esi+01h]
         sar eax, 10h
         test ah, 80h
-        je near sub_105904_1FC
+        je near DetectMscdex_1FC
         mov eax, edi
         dec edi
         test eax, eax
@@ -1717,9 +1739,10 @@ sub_105D5C:
         jmp near .1
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_105E64                                                          105E64  
+; CdDirEntry                                     105E64  97 PC, low confidence
+; Reads the directory entry of a CD file
 ;-----------------------------------------------------------------------------
-sub_105E64:
+CdDirEntry:
         push ebx
         push esi
         push edi
@@ -1800,9 +1823,10 @@ sub_105E64:
         ret
         ret
 ;-----------------------------------------------------------------------------
-; sub_105F6C                                                          105F6C  
+; FindSpeechEvent                                105F6C  97 PC, low confidence
+; Finds an event in the speech bank
 ;-----------------------------------------------------------------------------
-sub_105F6C:
+FindSpeechEvent:
         push ebx
         push ecx
         push esi
@@ -1835,9 +1859,10 @@ sub_105F6C:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_105FAA                                                          105FAA  
+; ParseSpeechEvents                              105FAA  97 PC, low confidence
+; Parses the events of the speech bank
 ;-----------------------------------------------------------------------------
-sub_105FAA:
+ParseSpeechEvents:
         push ebx
         push ecx
         push esi
@@ -1882,7 +1907,7 @@ sub_105FAA:
         lea edx, [ecx+eax]
         mov eax, ecx
         mov dword [byte ebp-0Ch], edx
-        call sub_105F6C
+        call FindSpeechEvent
         mov edx, eax
         test eax, eax
         je short .6
@@ -1895,7 +1920,7 @@ sub_105FAA:
         jl short .4
 .6:
         mov eax, edx
-sub_105FAA_86:
+ParseSpeechEvents_86:
         leave
         pop edi
         pop esi
@@ -1903,9 +1928,10 @@ sub_105FAA_86:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_106036                                                          106036  
+; InitSpeechBank                                 106036  97 PC, low confidence
+; Sets up a speech bank
 ;-----------------------------------------------------------------------------
-sub_106036:
+InitSpeechBank:
         push ebx
         push ecx
         push edx
@@ -1935,7 +1961,7 @@ sub_106036:
         add esi, ebx
         mov eax, ebx
         mov edx, esi
-        call sub_105FAA
+        call ParseSpeechEvents
         mov edx, eax
         test eax, eax
         je short .3
@@ -1955,9 +1981,10 @@ sub_106036:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1060A8                                                          1060A8  
+; PickRandomClip                                 1060A8  97 PC, low confidence
+; Picks a random clip from a list
 ;-----------------------------------------------------------------------------
-sub_1060A8:
+PickRandomClip:
         push ecx
         push esi
         push edi
@@ -2003,9 +2030,10 @@ sub_1060A8:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_106108                                                          106108  
+; PickClipVariant                                106108  97 PC, low confidence
+; Picks a variant of a clip
 ;-----------------------------------------------------------------------------
-sub_106108:
+PickClipVariant:
         push esi
         push edi
         enter 20h, 0
@@ -2055,7 +2083,7 @@ sub_106108:
         add eax, ebx
         mov ebx, dword [byte ebp-0Ch]
         mov eax, dword [byte eax+08h]
-        call sub_1060A8
+        call PickRandomClip
         test eax, eax
         je short .4
         jmp short .3
@@ -2112,9 +2140,10 @@ sub_106108:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_106223                                                          106223  
+; ClipValue                                      106223  97 PC, low confidence
+; Returns a clip value or variable
 ;-----------------------------------------------------------------------------
-sub_106223:
+ClipValue:
         cmp word [byte eax+06h], byte 0
         jl short .1
         movsx eax, word [byte eax+06h]
@@ -2122,11 +2151,12 @@ sub_106223:
         ret
 .1:
         movsx eax, word [byte eax+04h]
-        jmp near sub_109608
+        jmp near FindSpeechBank
 ;-----------------------------------------------------------------------------
-; sub_10623B                                                          10623B  
+; PickEventClip                                  10623B  97 PC, low confidence
+; Picks the clip for an event
 ;-----------------------------------------------------------------------------
-sub_10623B:
+PickEventClip:
         push esi
         push edi
         enter 1Ch, 0
@@ -2166,7 +2196,7 @@ sub_10623B:
         mov dword [byte ebp-014h], eax
         mov edx, eax
         mov eax, dword [byte ebp-028h]
-        call sub_106108
+        call PickClipVariant
         test eax, eax
         je short .3
         mov eax, dword [byte ebp-014h]
@@ -2194,9 +2224,10 @@ sub_10623B:
         pop esi
         ret 4
 ;-----------------------------------------------------------------------------
-; sub_1062DB                                                          1062DB  
+; BuildSpeechPhrase                              1062DB  97 PC, low confidence
+; Builds a spoken phrase
 ;-----------------------------------------------------------------------------
-sub_1062DB:
+BuildSpeechPhrase:
         push ebx
         push ecx
         push esi
@@ -2216,7 +2247,7 @@ sub_1062DB:
         mov dword [byte ebp-08h], 0
 .3:
         test edi, edi
-        jle near sub_105FAA_86
+        jle near ParseSpeechEvents_86
         mov eax, dword [byte ebp-08h]
         mov dword [byte ebp-010h], 0
         add eax, dword [byte ebp-014h]
@@ -2259,9 +2290,10 @@ sub_1062DB:
         mov byte [dword ebx+ebp-0118h], al
         jmp short .4
 ;-----------------------------------------------------------------------------
-; sub_106390                                                          106390  
+; MatchPhraseRule                                106390  97 PC, low confidence
+; Matches a phrase rule
 ;-----------------------------------------------------------------------------
-sub_106390:
+MatchPhraseRule:
         push ecx
         push esi
         push edi
@@ -2322,9 +2354,10 @@ sub_106390:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_106416                                                          106416  
+; CheckRangeCondition                            106416  97 PC, low confidence
+; Checks a range condition of a phrase rule
 ;-----------------------------------------------------------------------------
-sub_106416:
+CheckRangeCondition:
         push ecx
         push esi
         push edi
@@ -2370,9 +2403,10 @@ sub_106416:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_106467                                                          106467  
+; CheckValueCondition                            106467  97 PC, low confidence
+; Checks a value condition of a phrase rule
 ;-----------------------------------------------------------------------------
-sub_106467:
+CheckValueCondition:
         push ecx
         push esi
         enter 8, 0
@@ -2427,9 +2461,10 @@ sub_106467:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1064D7                                                          1064D7  
+; CheckFlagCondition                             1064D7  97 PC, low confidence
+; Checks a flag condition of a phrase rule
 ;-----------------------------------------------------------------------------
-sub_1064D7:
+CheckFlagCondition:
         push ecx
         push esi
         push edi
@@ -2475,9 +2510,10 @@ sub_1064D7:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_106530                                                          106530  
+; CheckPhraseConditions                          106530  97 PC, low confidence
+; Checks the conditions of a phrase rule
 ;-----------------------------------------------------------------------------
-sub_106530:
+CheckPhraseConditions:
         push ecx
         push esi
         push edi
@@ -2512,17 +2548,17 @@ sub_106530:
         jne short .6
         mov ebx, edi
         mov edx, esi
-        call sub_106416
+        call CheckRangeCondition
         jmp short .5
 .3:
         mov ebx, edi
         mov edx, esi
-        call sub_1064D7
+        call CheckFlagCondition
         jmp short .5
 .4:
         mov ebx, edi
         mov edx, esi
-        call sub_106467
+        call CheckValueCondition
 .5:
         mov edx, eax
 .6:
@@ -2570,9 +2606,10 @@ sub_106530:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1065F0                                                          1065F0  
+; BuildSpeechEvent                               1065F0  97 PC, low confidence
+; Builds the speech for an event
 ;-----------------------------------------------------------------------------
-sub_1065F0:
+BuildSpeechEvent:
         push ebx
         push ecx
         push edx
@@ -2609,7 +2646,7 @@ sub_1065F0:
 .2:
         lea edx, [dword ebp-0162h]
         mov eax, esi
-        call sub_1062DB
+        call BuildSpeechPhrase
         mov eax, dword [byte esi+018h]
         mov dword [byte ebp+04Ah], eax
 .3:
@@ -2634,7 +2671,7 @@ sub_1065F0:
         mov ebx, dword [dword ebp-0166h]
         mov edx, dword [byte ebp+06Ah]
         mov eax, esi
-        call sub_106530
+        call CheckPhraseConditions
         test eax, eax
         jne short .4
         mov dword [byte ebp+07Eh], eax
@@ -2658,7 +2695,7 @@ sub_1065F0:
         mov ecx, dword [ecx]
         mov edx, dword [dword ebp-0166h]
         mov eax, ecx
-        call sub_106223
+        call ClipValue
         mov dword [byte edi+ebp-062h], eax
         test eax, eax
         jge short .6
@@ -2670,7 +2707,7 @@ sub_1065F0:
         mov ebx, eax
         sub edx, dword [byte ebp+06Eh]
         mov eax, dword [byte edi+ebp-056h]
-        call sub_10623B
+        call PickEventClip
         test eax, eax
         jne short .7
         mov dword [byte ebp+07Eh], eax
@@ -2871,15 +2908,16 @@ sub_1065F0:
         mov ebx, dword [dword ebp-0166h]
         mov edx, dword [byte ebp+06Ah]
         mov eax, esi
-        call sub_106390
+        call MatchPhraseRule
 .33:
         lea esp, [dword ebp+082h]
         pop ebp
-        jmp near sub_1069F2_AE
+        jmp near QueueSpeechEvent_AE
 ;-----------------------------------------------------------------------------
-; sub_10699D                                                          10699D  
+; ClearSpeechQueue                               10699D  97 PC, low confidence
+; Clears the speech queue
 ;-----------------------------------------------------------------------------
-sub_10699D:
+ClearSpeechQueue:
         push ebx
         push ecx
         push edx
@@ -2906,9 +2944,10 @@ sub_10699D:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1069F2                                                          1069F2  
+; QueueSpeechEvent                               1069F2  97 PC, low confidence
+; Adds an event to the speech queue
 ;-----------------------------------------------------------------------------
-sub_1069F2:
+QueueSpeechEvent:
         push ebx
         push ecx
         push edx
@@ -2976,9 +3015,9 @@ sub_1069F2:
         jl short .9
 .12:
         mov eax, edx
-sub_1069F2_AD:
+QueueSpeechEvent_AD:
         leave
-sub_1069F2_AE:
+QueueSpeechEvent_AE:
         pop edi
         pop esi
         pop edx
@@ -2986,9 +3025,10 @@ sub_1069F2_AE:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_106AA6                                                          106AA6  
+; RequestSpeechEvent                             106AA6  97 PC, low confidence
+; Requests the speech for an event
 ;-----------------------------------------------------------------------------
-sub_106AA6:
+RequestSpeechEvent:
         push ebx
         push ecx
         push edx
@@ -3000,14 +3040,14 @@ sub_106AA6:
         mov ebx, dword [byte eax+018h]
         mov ebx, dword [ebx+edx*4]
         cmp dword [ebx], 76657674h
-        jne short sub_1069F2_AE
+        jne short QueueSpeechEvent_AE
         movsx edi, byte [byte ebx+07h]
         call Random32
         mov ecx, 64h
         xor edx, edx
         div ecx
         cmp edx, edi
-        jg short sub_1069F2_AE
+        jg short QueueSpeechEvent_AE
         movzx eax, word [byte ebx+0Eh]
         cmp dword [dword_1DCEC0], byte 0
         je short .1
@@ -3015,11 +3055,11 @@ sub_106AA6:
         je short .1
         mov edx, dword [dword_1DCF20]
         cmp eax, dword [byte edx+08h]
-        jb short sub_1069F2_AE
+        jb short QueueSpeechEvent_AE
 .1:
-        call sub_1069F2
+        call QueueSpeechEvent
         test eax, eax
-        jl short sub_1069F2_AE
+        jl short QueueSpeechEvent_AE
         imul edx, eax, byte 3Ch
         mov dword [dword edx+dword_1DCB08], ebx
         mov eax, dword [tickcount]
@@ -3039,11 +3079,12 @@ sub_106AA6:
         jne short .2
         inc dword [dword_1DCAFC]
         mov dword [dword eax+dword_1DCB00], 1
-        jmp near sub_1069F2_AE
+        jmp near QueueSpeechEvent_AE
 ;-----------------------------------------------------------------------------
-; sub_106B45                                                          106B45  
+; PickNextSpeech                                 106B45  97 PC, low confidence
+; Picks the next speech to play
 ;-----------------------------------------------------------------------------
-sub_106B45:
+PickNextSpeech:
         push ebx
         push ecx
         push edx
@@ -3113,11 +3154,12 @@ sub_106B45:
         cmp ebx, byte 10h
         jl near .1
         mov eax, esi
-        jmp near sub_1069F2_AD
+        jmp near QueueSpeechEvent_AD
 ;-----------------------------------------------------------------------------
-; sub_106C28                                                          106C28  
+; SpeechAge                                      106C28  97 PC, low confidence
+; Returns how long a speech has waited
 ;-----------------------------------------------------------------------------
-sub_106C28:
+SpeechAge:
         push ebx
         push ecx
         push edx
@@ -3146,41 +3188,44 @@ sub_106C28:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_106C74                                                          106C74  
+; PlayQueuedSpeech                               106C74  97 PC, low confidence
+; Plays the next queued speech
 ;-----------------------------------------------------------------------------
-sub_106C74:
+PlayQueuedSpeech:
         push edx
         cmp dword [dword_1DCAFC], byte 0
         je short .1
-        call sub_1093CF
+        call SpeechBusy
         test eax, eax
         jne short .1
-        call sub_106B45
+        call PickNextSpeech
         mov edx, eax
         test eax, eax
         jl short .1
         imul edx, byte 3Ch
-        call sub_106C28
+        call SpeechAge
         mov eax, dword_1DCB00
         add eax, edx
         add eax, byte 0Ch
-        call sub_1065F0
+        call BuildSpeechEvent
         dec dword [dword_1DCAFC]
         mov dword [dword edx+dword_1DCB00], 0
 .1:
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_106CBB                                                          106CBB  
+; SetSpeechEnabled                               106CBB  97 PC, low confidence
+; Turns speech on or off
 ;-----------------------------------------------------------------------------
-sub_106CBB:
+SetSpeechEnabled:
         mov dword [dword_1DCEC0], eax
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_106CD0                                                          106CD0  
+; FileExistsPath                                 106CD0  97 PC, low confidence
+; Returns whether a file exists
 ;-----------------------------------------------------------------------------
-sub_106CD0:
+FileExistsPath:
         push ebx
         sub esp, byte 0Ch
         push byte 1
@@ -3192,11 +3237,11 @@ sub_106CD0:
         push eax
         mov edx, dword [byte esp+024h]
         push edx
-        call sub_109401
+        call DosOpenFile
         add esp, byte 14h
         mov ebx, dword [byte esp+08h]
         push ebx
-        call sub_109545
+        call DosCloseFile
         add esp, byte 4
         mov eax, dword [esp]
         add esp, byte 0Ch
@@ -3204,9 +3249,10 @@ sub_106CD0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_106D08                                                          106D08  
+; FileSizePath                                   106D08  97 PC, low confidence
+; Returns the size of a file
 ;-----------------------------------------------------------------------------
-sub_106D08:
+FileSizePath:
         push ebx
         sub esp, byte 0Ch
         push byte 0
@@ -3218,11 +3264,11 @@ sub_106D08:
         push eax
         mov edx, dword [byte esp+024h]
         push edx
-        call sub_109401
+        call DosOpenFile
         add esp, byte 14h
         mov ebx, dword [byte esp+08h]
         push ebx
-        call sub_109545
+        call DosCloseFile
         add esp, byte 4
         mov eax, dword [esp]
         add esp, byte 0Ch
@@ -3241,11 +3287,11 @@ sub_106D08:
         push eax
         mov ebx, dword [byte esp+024h]
         push ebx
-        call sub_109401
+        call DosOpenFile
         add esp, byte 14h
         mov ecx, dword [byte esp+08h]
         push ecx
-        call sub_109545
+        call DosCloseFile
         add esp, byte 4
         mov eax, dword [esp]
         add esp, byte 0Ch
@@ -3253,16 +3299,17 @@ sub_106D08:
         ret
         db 00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_106D80                                                          106D80  
+; LoadFileAlloc                                  106D80  97 PC, low confidence
+; Loads a file into a new block
 ;-----------------------------------------------------------------------------
-sub_106D80:
+LoadFileAlloc:
         push ebx
         push byte 1
         mov edx, dword [byte esp+010h]
         push edx
         mov ebx, dword [byte esp+010h]
         push ebx
-        call sub_106E10
+        call LoadFileCore
         add esp, byte 0Ch
         test eax, eax
         je short .1
@@ -3272,16 +3319,17 @@ sub_106D80:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_106DA0                                                          106DA0  
+; LoadFileAllocQuiet                             106DA0  97 PC, low confidence
+; Loads a file into a new block without the error message
 ;-----------------------------------------------------------------------------
-sub_106DA0:
+LoadFileAllocQuiet:
         push ebx
         push byte 0
         mov edx, dword [byte esp+010h]
         push edx
         mov ebx, dword [byte esp+010h]
         push ebx
-        call sub_106E10
+        call LoadFileCore
         add esp, byte 0Ch
         test eax, eax
         je short .1
@@ -3297,7 +3345,7 @@ sub_106DA0:
         push ebx
         mov ecx, dword [byte esp+010h]
         push ecx
-        call sub_106E10
+        call LoadFileCore
         add esp, byte 0Ch
         test eax, eax
         je short .2
@@ -3306,39 +3354,42 @@ sub_106DA0:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_106DE0                                                          106DE0  
+; LoadFileInto                                   106DE0  97 PC, low confidence
+; Loads a file into a buffer
 ;-----------------------------------------------------------------------------
-sub_106DE0:
+LoadFileInto:
         push ebx
         push byte 1
         mov edx, dword [byte esp+010h]
         push edx
         mov ebx, dword [byte esp+010h]
         push ebx
-        call sub_106E10
+        call LoadFileCore
         add esp, byte 0Ch
         pop ebx
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_106DF8                                                          106DF8  
+; LoadFileIntoQuiet                              106DF8  97 PC, low confidence
+; Loads a file into a buffer without the error message
 ;-----------------------------------------------------------------------------
-sub_106DF8:
+LoadFileIntoQuiet:
         push ebx
         push byte 0
         mov edx, dword [byte esp+010h]
         push edx
         mov ebx, dword [byte esp+010h]
         push ebx
-        call sub_106E10
+        call LoadFileCore
         add esp, byte 0Ch
         pop ebx
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_106E10                                                          106E10  
+; LoadFileCore                                   106E10  97 PC, low confidence
+; Loads a file
 ;-----------------------------------------------------------------------------
-sub_106E10:
+LoadFileCore:
         push ebx
         push esi
         push edi
@@ -3347,7 +3398,7 @@ sub_106E10:
         mov esi, dword [byte esp+020h]
         mov edi, dword [byte esp+028h]
         push esi
-        call sub_12189C
+        call FindCachedFile
         add esp, byte 4
         mov ebx, eax
         test eax, eax
@@ -3360,7 +3411,7 @@ sub_106E10:
         lea eax, [byte esp+0Ch]
         push eax
         push esi
-        call sub_109401
+        call DosOpenFile
         add esp, byte 14h
         mov edx, dword [byte esp+08h]
         test edx, edx
@@ -3370,7 +3421,7 @@ sub_106E10:
         push ebx
         push edx
         push esi
-        call sub_FAB68
+        call AllocMemBlockFull
         add esp, byte 10h
         mov ebx, eax
         test eax, eax
@@ -3381,14 +3432,14 @@ sub_106E10:
         push edx
         mov ecx, dword [byte esp+08h]
         push ecx
-        call sub_10955B
+        call DosReadFile
         add esp, byte 0Ch
         mov eax, dword [byte esp+08h]
         mov dword [dword_16E4D0], eax
 .1:
         mov ebp, dword [esp]
         push ebp
-        call sub_109545
+        call DosCloseFile
         add esp, byte 4
 .2:
         cmp dword [dword_172ABC], byte 0

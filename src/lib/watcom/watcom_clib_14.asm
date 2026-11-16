@@ -3,8 +3,12 @@ bits 32
 %include "hockey.inc"
 section s_11B0D0 progbits alloc exec nowrite align=1
 extern dword_16E4C8, savefileblocka
-global sub_11B0D0
-sub_11B0D0:
+global SaveDataFileNew
+;-----------------------------------------------------------------------------
+; SaveDataFileNew                                11B0D0  97 PC, low confidence
+; Saves a memory block to a file, creating it
+;-----------------------------------------------------------------------------
+SaveDataFileNew:
         sub esp, byte 28h
         mov eax, dword [byte esp+030h]
         mov dword [esp], eax

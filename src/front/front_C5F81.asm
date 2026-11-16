@@ -19,8 +19,8 @@ extern dword_1CBF76, dword_1CBFAE, dword_1CBFB2, dword_1CC000, dword_1CC004, dwo
 extern dword_1CC0A8, dword_1CC0F6, dword_1CC0FA, dword_1CC148, dword_1CC14C, RosterScreen_11C, RosterScreen_157, RosterScreen_172
 extern RosterScreen_246, RosterScreen_2EC, RosterScreen_3B9, RosterScreen_42C, RosterScreen_49B, RosterScreen_4ED, RosterScreen_53E, RosterScreen_596
 extern RosterScreen_5AB, RosterScreen_5AF, RosterScreen_5CF, RosterScreen_5D3, RosterScreen_604, RosterScreen_615, RosterScreen_624, RosterScreen_65B
-extern RosterScreen_66C, rand_, sprintf_, BlitShape2, BlitArt, BlitShape, sub_1013FC, FindShape
-extern sub_102B94, ConvertArtXY, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, StopAllSfx
+extern RosterScreen_66C, rand_, sprintf_, BlitShape2, BlitArt, BlitShape, PresentScreen, FindShape
+extern ConvertArtNew, ConvertArtXY, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, StopAllSfx
 extern PlaySfx, LoadDataFile, DrawShadedLogo, SetRegionRect, InitMenuItems, RunMenu, ServiceIdle, FreeMemBlock
 extern FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, tickcount, unk_1ACB44, unk_1ACD2B, unk_1CBC18
 extern unk_C5ED2
@@ -419,7 +419,7 @@ SeasonSetupScreen:
         call BlitArt
         add esp, byte 0Ch
         xor edi, edi
-        call sub_1013FC
+        call PresentScreen
         jmp near .9
 .4:
         push byte 0
@@ -512,7 +512,7 @@ SeasonSetupScreen:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_102B94
+        call ConvertArtNew
         add esp, byte 8
         movsx edx, word [byte eax+06h]
         push edx
@@ -560,7 +560,7 @@ SeasonSetupScreen:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_102B94
+        call ConvertArtNew
         add esp, byte 8
         movsx edx, word [byte eax+06h]
         push edx
@@ -595,7 +595,7 @@ SeasonSetupScreen:
         call DrawArt
         add esp, byte 0Ch
 .8:
-        call sub_1013FC
+        call PresentScreen
         inc edi
 .9:
         cmp di, byte 9
@@ -1004,7 +1004,7 @@ SeasonSetupScreen:
         push eax
         call DrawArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
 SeasonSetupScreen_E65:
         cmp word [dword ebp+0314h], byte 0
         jne near SeasonSetupScreen_139E.80
@@ -1037,7 +1037,7 @@ SeasonSetupScreen_EB8:
         push dword [byte eax+02Ch]
         call BlitShape
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [tickcount]
         mov edx, eax
         lea ebx, [byte edx+05h]
@@ -1171,7 +1171,7 @@ SeasonSetupScreen_F19:
         push dword [byte eax+02Ch]
         call BlitShape
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [tickcount]
         mov edx, eax
         lea ebx, [byte edx+05h]
@@ -1418,7 +1418,7 @@ SeasonSetupScreen_139E:
         call BlitArt
         add esp, byte 0Ch
         xor edi, edi
-        call sub_1013FC
+        call PresentScreen
         jmp short .82
 .81:
         movsx ebx, di

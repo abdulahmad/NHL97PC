@@ -3,13 +3,14 @@ bits 32
 %include "hockey.inc"
 section s_FA5B8 progbits alloc exec nowrite align=1
 extern str_LOW8s, str_GAP, dword_16E340, dword_1CF0E0, dword_1CF25C, dword_1CF260, memlist1, sprintf_
-extern str_HIGHMEM, strncpy_, sub_1013FC, sub_121470, sub_121494, sub_FABB8
-global sub_FA5B8, sub_FA6A0, sub_FA734, sub_FA8AC, sub_FA954, sub_FA9C4, sub_FAA14, AllocMemBlock
-global sub_FAAB4, sub_FAB68
+extern str_HIGHMEM, strncpy_, PresentScreen, MemLock, MemUnlock, AllocMemBlockEx
+global AddMemRegion, AddMemRegions, AddHighMemRegion, TrimMemList, MemListEnd, AllocMemBlockFixed, AllocMemBlockMovable, AllocMemBlock
+global AllocMemData, AllocMemBlockFull
 ;-----------------------------------------------------------------------------
-; sub_FA5B8                                                            FA5B8  
+; AddMemRegion                                    FA5B8  97 PC, low confidence
+; Adds a region of memory to a memory list as a named LOW block range
 ;-----------------------------------------------------------------------------
-sub_FA5B8:
+AddMemRegion:
         push ebx
         push esi
         mov ecx, dword [byte esp+010h]
@@ -83,9 +84,10 @@ sub_FA5B8:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_FA6A0                                                            FA6A0  
+; AddMemRegions                                   FA6A0  97 PC, low confidence
+; Adds each region of a list of memory areas to the memory lists
 ;-----------------------------------------------------------------------------
-sub_FA6A0:
+AddMemRegions:
         push ebx
         push esi
         push edi
@@ -114,7 +116,7 @@ sub_FA6A0:
         push edx
         mov ecx, dword [byte esp+030h]
         push ecx
-        call sub_FA5B8
+        call AddMemRegion
         mov ecx, dword [ebx]
         mov edx, dword [byte ebx+04h]
         add esp, byte 20h
@@ -149,9 +151,11 @@ sub_FA6A0:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_FA734                                                            FA734  
+; AddHighMemRegion                                FA734  97 PC, low confidence
+; Adds the HIGHMEM region to a memory list with a GAP block for the hole
+; below it
 ;-----------------------------------------------------------------------------
-sub_FA734:
+AddHighMemRegion:
         push ebx
         push esi
         push edi
@@ -284,9 +288,11 @@ sub_FA734:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_FA8AC                                                            FA8AC  
+; TrimMemList                                     FA8AC  97 PC, low confidence
+; Releases the last block of a memory list and returns how much space it
+; freed
 ;-----------------------------------------------------------------------------
-sub_FA8AC:
+TrimMemList:
         push ebx
         push esi
         push edi
@@ -344,7 +350,7 @@ sub_FA8AC:
         mov ebx, dword [byte esp+08h]
 .3:
         push ebx
-        call sub_FA8AC
+        call TrimMemList
         add esp, byte 4
         cmp eax, byte 0FFFFFFFFh
         jne short .3
@@ -352,9 +358,11 @@ sub_FA8AC:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_FA954                                                            FA954  
+; MemListEnd                                      FA954  97 PC, low confidence
+; Returns the end address of the last block of a memory list; followed by the
+; free slot search
 ;-----------------------------------------------------------------------------
-sub_FA954:
+MemListEnd:
         mov edx, dword [byte esp+04h]
         and edx, 0F00h
         sar edx, 8
@@ -397,13 +405,14 @@ sub_FA954:
         xor eax, eax
         pop ebx
         ret
-        mov dword [dword_16E340], sub_1013FC
+        mov dword [dword_16E340], PresentScreen
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_FA9C4                                                            FA9C4  
+; AllocMemBlockFixed                              FA9C4  97 PC, low confidence
+; Allocates a named block under the memory lock with the fixed flag set
 ;-----------------------------------------------------------------------------
-sub_FA9C4:
+AllocMemBlockFixed:
         push ebx
         push esi
         push edi
@@ -416,21 +425,21 @@ sub_FA9C4:
         test edx, edx
         je short .1
         push edx
-        call sub_121470
+        call MemLock
         add esp, byte 4
 .1:
         push esi
         push ebx
         push edi
         push ebp
-        call sub_FABB8
+        call AllocMemBlockEx
         mov esi, dword [dword_1CF260]
         add esp, byte 10h
         mov ebx, eax
         test esi, esi
         je short .2
         push esi
-        call sub_121494
+        call MemUnlock
         add esp, byte 4
 .2:
         mov eax, ebx
@@ -440,9 +449,10 @@ sub_FA9C4:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_FAA14                                                            FAA14  
+; AllocMemBlockMovable                            FAA14  97 PC, low confidence
+; Allocates a named block under the memory lock without the fixed flag
 ;-----------------------------------------------------------------------------
-sub_FAA14:
+AllocMemBlockMovable:
         push ebx
         push esi
         push edi
@@ -455,21 +465,21 @@ sub_FAA14:
         test edx, edx
         je short .1
         push edx
-        call sub_121470
+        call MemLock
         add esp, byte 4
 .1:
         push esi
         push ebx
         push edi
         push ebp
-        call sub_FABB8
+        call AllocMemBlockEx
         mov esi, dword [dword_1CF260]
         add esp, byte 10h
         mov ebx, eax
         test esi, esi
         je short .2
         push esi
-        call sub_121494
+        call MemUnlock
         add esp, byte 4
 .2:
         mov eax, ebx
@@ -497,21 +507,21 @@ AllocMemBlock:
         test edx, edx
         je short .1
         push edx
-        call sub_121470
+        call MemLock
         add esp, byte 4
 .1:
         push esi
         push ebx
         push ebp
         push edi
-        call sub_FABB8
+        call AllocMemBlockEx
         mov esi, dword [dword_1CF260]
         add esp, byte 10h
         mov ebx, eax
         test esi, esi
         je short .2
         push esi
-        call sub_121494
+        call MemUnlock
         add esp, byte 4
 .2:
         mov eax, dword [ebx]
@@ -521,9 +531,10 @@ AllocMemBlock:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_FAAB4                                                            FAAB4  
+; AllocMemData                                    FAAB4  97 PC, low confidence
+; Allocates a named block under the memory lock and returns its data pointer
 ;-----------------------------------------------------------------------------
-sub_FAAB4:
+AllocMemData:
         push ebx
         push esi
         push edi
@@ -536,21 +547,21 @@ sub_FAAB4:
         test edx, edx
         je short .1
         push edx
-        call sub_121470
+        call MemLock
         add esp, byte 4
 .1:
         push ebx
         push edi
         push esi
         push ebp
-        call sub_FABB8
+        call AllocMemBlockEx
         mov esi, dword [dword_1CF260]
         add esp, byte 10h
         mov ebx, eax
         test esi, esi
         je short .2
         push esi
-        call sub_121494
+        call MemUnlock
         add esp, byte 4
 .2:
         test ebx, ebx
@@ -580,21 +591,21 @@ sub_FAAB4:
         test edx, edx
         je short .4
         push edx
-        call sub_121470
+        call MemLock
         add esp, byte 4
 .4:
         push ebx
         push esi
         push edi
         push ebp
-        call sub_FABB8
+        call AllocMemBlockEx
         mov esi, dword [dword_1CF260]
         add esp, byte 10h
         mov ebx, eax
         test esi, esi
         je short .5
         push esi
-        call sub_121494
+        call MemUnlock
         add esp, byte 4
 .5:
         test ebx, ebx
@@ -614,9 +625,11 @@ sub_FAAB4:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_FAB68                                                            FAB68  
+; AllocMemBlockFull                               FAB68  97 PC, low confidence
+; Allocates a named block under the memory lock with every option passed
+; through
 ;-----------------------------------------------------------------------------
-sub_FAB68:
+AllocMemBlockFull:
         push ebx
         push esi
         push edi
@@ -625,7 +638,7 @@ sub_FAB68:
         test edx, edx
         je short .1
         push edx
-        call sub_121470
+        call MemLock
         add esp, byte 4
 .1:
         mov ecx, dword [byte esp+020h]
@@ -636,14 +649,14 @@ sub_FAB68:
         push edi
         mov ebp, dword [byte esp+020h]
         push ebp
-        call sub_FABB8
+        call AllocMemBlockEx
         mov ebx, eax
         mov eax, dword [dword_1CF260]
         add esp, byte 10h
         test eax, eax
         je short .2
         push eax
-        call sub_121494
+        call MemUnlock
         add esp, byte 4
 .2:
         mov eax, ebx

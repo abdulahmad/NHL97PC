@@ -3,10 +3,15 @@ bits 32
 %include "hockey.inc"
 section s_1093E8 progbits alloc exec nowrite align=1
 extern byte_170124, dword_17014C, dword_170150, dword_170154, dword_170158, dword_1DC5A8, dword_1DC5AC
-global openhandle_2C, sub_10955B_2, sub_10968F_5C, openhandle, sub_1093E8, sub_109401, sub_109417, sub_109545
-global sub_109557, sub_10955B, sub_1095AD, sub_1095C4, sub_109608, sub_109641, sub_10968F, sub_1096F2
-global sub_109775
-sub_1093E8:
+global openhandle_2C, DosReadFile_2, RelocateBankGroups_5C, openhandle, DosCallSplitDx, DosOpenFile, DosOpenReadOnly, DosCloseFile
+global DosWriteFile, DosReadFile, DosSeekFile, ClearSpeechBankTable, FindSpeechBank, RelocateBankOffsets, RelocateBankGroups, RelocateBankEntries
+global RegisterSpeechBank
+;-----------------------------------------------------------------------------
+; DosCallSplitDx                                 1093E8  97 PC, low confidence
+; Calls DOS with a 32-bit value split into CX:DX and joins DX:AX back into
+; EAX
+;-----------------------------------------------------------------------------
+DosCallSplitDx:
         push ecx
         push edx
         LD mov, ecx, edx
@@ -21,7 +26,11 @@ sub_1093E8:
         pop edx
         pop ecx
         ret
-sub_109401:
+;-----------------------------------------------------------------------------
+; DosOpenFile                                    109401  97 PC, low confidence
+; Opens a file through DOS with the given mode
+;-----------------------------------------------------------------------------
+DosOpenFile:
         push ebp
         LD mov, ebp, esp
         add esp, byte 0FFFFFFF8h
@@ -30,7 +39,11 @@ sub_109401:
         mov dword [byte ebp-04h], eax
         mov dword [byte ebp-08h], 3D00h
         jmp short openhandle_2C
-sub_109417:
+;-----------------------------------------------------------------------------
+; DosOpenReadOnly                                109417  97 PC, low confidence
+; Opens a file read-only through DOS
+;-----------------------------------------------------------------------------
+DosOpenReadOnly:
         push ebp
         LD mov, ebp, esp
         add esp, byte 0FFFFFFF8h
@@ -38,6 +51,9 @@ sub_109417:
         mov dword [byte ebp-04h], 0
         mov dword [byte ebp-08h], 3D00h
         jmp short openhandle_2C
+;-----------------------------------------------------------------------------
+; openhandle                                  10942E  96 PC, medium confidence
+;-----------------------------------------------------------------------------
 openhandle:
         push ebp
         LD mov, ebp, esp
@@ -66,7 +82,7 @@ openhandle_2C:
         mov eax, 4202h
         LD xor, edx, edx
         db 0E8h                                 ; insn: call 001093E8h
-        dd sub_1093E8-$-4
+        dd DosCallSplitDx-$-4
         jb short .1
         mov ebx, dword [byte ebp+014h]
         mov dword [ebx], eax
@@ -74,7 +90,7 @@ openhandle_2C:
         mov ebx, dword [ebx]
         mov eax, 4200h
         LD xor, edx, edx
-        call sub_1093E8
+        call DosCallSplitDx
         jb short .1
         mov ebx, dword [byte ebp+010h]
         LD xor, eax, eax
@@ -117,7 +133,7 @@ openhandle_2C:
         mov eax, 4200h
         mov ebx, dword [byte ebp+0Ch]
         mov ebx, dword [ebx]
-        call sub_1093E8
+        call DosCallSplitDx
         jb short .3
         pop ebx
         leave
@@ -127,7 +143,7 @@ openhandle_2C:
         mov eax, dword [ebx]
         mov dword [ebx], 0
         push eax
-        call sub_109545
+        call DosCloseFile
         add esp, byte 4
         cmp dword [byte ebp-04h], byte 0
         jne short .4
@@ -143,7 +159,11 @@ openhandle_2C:
         pop ebx
         leave
         ret
-sub_109545:
+;-----------------------------------------------------------------------------
+; DosCloseFile                                   109545  97 PC, low confidence
+; Closes a DOS file handle when it is open
+;-----------------------------------------------------------------------------
+DosCloseFile:
         push ebp
         LD mov, ebp, esp
         push ebx
@@ -156,12 +176,20 @@ sub_109545:
         pop ebx
         leave
         ret
-sub_109557:
+;-----------------------------------------------------------------------------
+; DosWriteFile                                   109557  97 PC, low confidence
+; Writes a buffer to a DOS file
+;-----------------------------------------------------------------------------
+DosWriteFile:
         mov ah, 40h
-        jmp short sub_10955B_2
-sub_10955B:
+        jmp short DosReadFile_2
+;-----------------------------------------------------------------------------
+; DosReadFile                                    10955B  97 PC, low confidence
+; Reads from a DOS file into a buffer, in chunks
+;-----------------------------------------------------------------------------
+DosReadFile:
         mov ah, 3Fh
-sub_10955B_2:
+DosReadFile_2:
         push ebp
         LD mov, ebp, esp
         add esp, byte 0FFFFFFF4h
@@ -194,18 +222,26 @@ sub_10955B_2:
         pop ebx
         leave
         ret
-sub_1095AD:
+;-----------------------------------------------------------------------------
+; DosSeekFile                                    1095AD  97 PC, low confidence
+; Moves a DOS file pointer to an absolute position
+;-----------------------------------------------------------------------------
+DosSeekFile:
         push ebp
         LD mov, ebp, esp
         push ebx
         mov ebx, dword [byte ebp+08h]
         mov eax, 4200h
         mov edx, dword [byte ebp+0Ch]
-        call sub_1093E8
+        call DosCallSplitDx
         pop ebx
         leave
         ret
-sub_1095C4:
+;-----------------------------------------------------------------------------
+; ClearSpeechBankTable                           1095C4  97 PC, low confidence
+; Clears the table of loaded speech banks; followed by the free-slot search
+;-----------------------------------------------------------------------------
+ClearSpeechBankTable:
         xor eax, eax
 .1:
         add eax, byte 4
@@ -237,7 +273,11 @@ sub_1095C4:
         pop edx
         pop ebx
         ret
-sub_109608:
+;-----------------------------------------------------------------------------
+; FindSpeechBank                                 109608  97 PC, low confidence
+; Returns the loaded speech bank with the given id
+;-----------------------------------------------------------------------------
+FindSpeechBank:
         push ebx
         push ecx
         push edx
@@ -267,7 +307,11 @@ sub_109608:
         pop ecx
         pop ebx
         ret
-sub_109641:
+;-----------------------------------------------------------------------------
+; RelocateBankOffsets                            109641  97 PC, low confidence
+; Turns the offsets of a bank's offset table into pointers
+;-----------------------------------------------------------------------------
+RelocateBankOffsets:
         push ebx
         push ecx
         push esi
@@ -311,7 +355,11 @@ sub_109641:
         ret
         mov dword [nosplit eax*4+dword_1DC5AC], 0
         ret
-sub_10968F:
+;-----------------------------------------------------------------------------
+; RelocateBankGroups                             10968F  97 PC, low confidence
+; Relocates each group table of a speech bank
+;-----------------------------------------------------------------------------
+RelocateBankGroups:
         push ebx
         push ecx
         push edx
@@ -340,7 +388,7 @@ sub_10968F:
 .2:
         mov edx, esi
         mov eax, ebx
-        call sub_109641
+        call RelocateBankOffsets
         mov eax, dword [byte ecx+010h]
         mov dword [edi+eax], esi
         add edi, byte 4
@@ -349,7 +397,7 @@ sub_10968F:
         jl short .1
 .4:
         mov eax, dword [byte ebp-08h]
-sub_10968F_5C:
+RelocateBankGroups_5C:
         leave
         pop edi
         pop esi
@@ -357,7 +405,11 @@ sub_10968F_5C:
         pop ecx
         pop ebx
         ret
-sub_1096F2:
+;-----------------------------------------------------------------------------
+; RelocateBankEntries                            1096F2  97 PC, low confidence
+; Relocates each entry table of a speech bank
+;-----------------------------------------------------------------------------
+RelocateBankEntries:
         push ebx
         push ecx
         push edx
@@ -409,8 +461,12 @@ sub_1096F2:
         jl short .1
 .7:
         mov eax, dword [byte ebp-0Ch]
-        jmp near sub_10968F_5C
-sub_109775:
+        jmp near RelocateBankGroups_5C
+;-----------------------------------------------------------------------------
+; RegisterSpeechBank                             109775  97 PC, low confidence
+; Checks a speech bank header, relocates it and stores it in a free slot
+;-----------------------------------------------------------------------------
+RegisterSpeechBank:
         push ebx
         push ecx
         push edx
@@ -439,11 +495,11 @@ sub_109775:
         test ebx, ebx
         jl short .5
         mov eax, edx
-        call sub_10968F
+        call RelocateBankGroups
         test eax, eax
         je short .5
         mov eax, edx
-        call sub_1096F2
+        call RelocateBankEntries
         test eax, eax
         je short .5
         mov dword [nosplit ebx*4+dword_1DC5AC], esi

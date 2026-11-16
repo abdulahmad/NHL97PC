@@ -10,7 +10,7 @@ extern str_0001, str_0002, dword_16CFF8, dword_16D23C, dword_16D250, dword_16D76
 extern dword_1ACB45, dword_1C1334, dword_1C86FC, dword_1C8E4C, dword_1C8E50, dword_1C8E54, dword_1C8E58, dword_1C8E5C
 extern dword_1C8E60, dword_1C8E64, dword_1C8E88, dword_1C8E8C, dword_1C8E90, dword_1C8E94, dword_1C8E98, dword_1C8E9C
 extern dword_1C8F4C, dword_1C93D4, dword_1C93D8, PickIndexEntryScreen_393, PickIndexEntryScreen_3A4, PickIndexEntryScreen_3B5, PickIndexEntryScreen_470, PickIndexEntryScreen_4D9
-extern PickIndexEntryScreen_4EE, rand_, sprintf_, BlitShape2, BlitArt, sub_1013FC, FindShape, FindShapeList
+extern PickIndexEntryScreen_4EE, rand_, sprintf_, BlitShape2, BlitArt, PresentScreen, FindShape, FindShapeList
 extern SetScreenTarget, SecondsToSamples, WaitSoundTime, PlayMenuSfx, StopAllSfx, PlaySfx, LoadDataFile, DrawScreenBackground
 extern FadeInScreen, ShowScreen, ExitScreen, SetRegionRect, DrawTeamLogoBanner, DrawProgressBar, WipeScreen, ShowLinkMessage
 extern HideLinkBox, ShowPopupScreen, InitMenuItems, RunMenu, RunScrollList, GetLangText, LinkTransferSetup, SeasonSetupScreen
@@ -84,7 +84,7 @@ DrawHomeTeamPanel:
         add esp, byte 0Ch
         cmp dword [dword_1C8E54], byte 0
         jne short .3
-        call sub_1013FC
+        call PresentScreen
 .3:
         mov eax, dword [tickcount]
         push dword [dword_1C8E88]
@@ -163,7 +163,7 @@ DrawHomeTeamPanel_1C9:
         add esp, byte 0Ch
         cmp dword [dword_1C8E54], byte 0
         jne short .7
-        call sub_1013FC
+        call PresentScreen
 .7:
         push edi
         call FreeBitmap
@@ -240,7 +240,7 @@ DrawAwayTeamPanel:
         add esp, byte 0Ch
         cmp dword [dword_1C8E54], byte 0
         jne short .3
-        call sub_1013FC
+        call PresentScreen
 .3:
         mov eax, dword [tickcount]
         push dword [dword_1C8E8C]
@@ -969,7 +969,7 @@ TeamSelectScreen_815:
         push dword [byte ebp+ebx*4-0Eh]
         call BlitShape2
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [tickcount]
         mov edx, eax
         lea ecx, [byte edx+0Ah]

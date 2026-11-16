@@ -8,8 +8,8 @@ extern str_SDD, str_SDDD, str_SSS2, str_SS13, str_SSS3, str_Roster4, str_SVsSDDD
 extern byte_1AD742, byte_1C6040, byte_1CC8B4, dword_168F58, dword_16D744, dword_16D748, dword_16D74C, dword_16D750
 extern dword_16E46C, dword_1AC814, dword_1AC940, dword_1AC944, dword_1ACF46, dword_1ACF65, dword_1AD226, dword_1AD437
 extern dword_1AD62F, dword_1AD6AB, dword_1CC7D8, dword_1CC828, dword_1CC860, dword_1CC864, dword_1CC8A0, jpt_D3102
-extern memset_, rand_, sprintf_, str_EASports, str_TXTD, strcpy_, sub_101324, BlitArt
-extern BlitShape, sub_1013FC, FindShape, sub_101584, sub_101EAC, sub_102B94, sub_10CD98, SetScreenTarget
+extern memset_, rand_, sprintf_, str_EASports, str_TXTD, strcpy_, BlitConverted, BlitArt
+extern BlitShape, PresentScreen, FindShape, OpenArtArchiveErr, DrawShapeBlended, ConvertArtNew, DrawSpriteScaledBy, SetScreenTarget
 extern IsAllStarDay, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx, PaEvent, ResetStreamAudio, LoadDataFile
 extern OpenDataLibrary, PlayerInjuryDays, DrawScreenBackground, FadeInScreen, ShowScreen, ExitScreen, SetTextColor, DrawTextAligned
 extern WipeScreen, DrawRosterPanelBox, WaitShortDelay, InitMenuItems, RunMenu, GetLangText, RostersSparkle, KeysEqual
@@ -543,7 +543,7 @@ PreGameRostersScreen:
         push byte 0
         lea eax, [byte ebp+02Ah]
         push eax
-        call sub_101584
+        call OpenArtArchiveErr
         add esp, byte 8
         push dword [dword_16E46C]
         push str_LOGO7
@@ -552,7 +552,7 @@ PreGameRostersScreen:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_102B94
+        call ConvertArtNew
         add esp, byte 8
         mov ebx, eax
         cmp byte [byte_1C6040], 0
@@ -561,14 +561,14 @@ PreGameRostersScreen:
         push byte 32h
         push eax
         push dword 0C000h
-        call sub_101EAC
+        call DrawShapeBlended
         jmp short .19
 .18:
         push byte 32h
         push byte 32h
         push eax
         push dword 0C000h
-        call sub_10CD98
+        call DrawSpriteScaledBy
 .19:
         add esp, byte 10h
         mov eax, 3
@@ -604,7 +604,7 @@ PreGameRostersScreen:
         push byte 0
         lea eax, [byte ebp+02Ah]
         push eax
-        call sub_101584
+        call OpenArtArchiveErr
         add esp, byte 8
         push dword [dword_16E46C]
         push str_LOGO7
@@ -613,7 +613,7 @@ PreGameRostersScreen:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_102B94
+        call ConvertArtNew
         add esp, byte 8
         mov ebx, eax
         cmp byte [byte_1C6040], 0
@@ -622,14 +622,14 @@ PreGameRostersScreen:
         push dword 190h
         push eax
         push dword 0C000h
-        call sub_101EAC
+        call DrawShapeBlended
         jmp short .22
 .21:
         push byte 32h
         push dword 190h
         push eax
         push dword 0C000h
-        call sub_10CD98
+        call DrawSpriteScaledBy
 .22:
         add esp, byte 10h
         mov eax, 3
@@ -689,7 +689,7 @@ PreGameRostersScreen:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_101324
+        call BlitConverted
         add esp, byte 0Ch
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte edi+02Ch]
@@ -826,7 +826,7 @@ PreGameRostersScreen:
         call BlitArt
         add esp, byte 0Ch
         add esi, byte 6
-        call sub_1013FC
+        call PresentScreen
 .30:
         push str_TXT1
         push dword [byte ebp+07Ah]

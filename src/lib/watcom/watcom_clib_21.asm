@@ -3,8 +3,12 @@ bits 32
 %include "hockey.inc"
 section s_1266FC progbits alloc exec nowrite align=1
 extern _IsTable, __CHK, __set_errno_, _nfree_, _nmalloc_, getcwd_, tolower_
-global sub_1266FC, sub_126A04, sub_126B80, toupper_
-sub_1266FC:
+global CdDirSearch, RefPackSize, RefPackUnpack, toupper_
+;-----------------------------------------------------------------------------
+; CdDirSearch                                    1266FC  97 PC, low confidence
+; Searches the CD directory for a file name and fills a find record
+;-----------------------------------------------------------------------------
+CdDirSearch:
         push dword 0B0h
         call __CHK
         push ecx
@@ -321,6 +325,9 @@ sub_1266FC:
         pop esi
         pop ecx
         ret
+;-----------------------------------------------------------------------------
+; toupper_                                                     1269F5  library
+;-----------------------------------------------------------------------------
 toupper_:
         cmp eax, byte 61h
         jl short .1
@@ -330,7 +337,11 @@ toupper_:
 .1:
         ret
         db 00h
-sub_126A04:
+;-----------------------------------------------------------------------------
+; RefPackSize                                    126A04  97 PC, low confidence
+; Returns the unpacked size from a RefPack header
+;-----------------------------------------------------------------------------
+RefPackSize:
         push ebp
         LD mov, ebp, esp
         add esp, byte 0FFFFFFFCh
@@ -485,7 +496,11 @@ sub_126A04:
         jns near .3
         jmp near .5
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-sub_126B80:
+;-----------------------------------------------------------------------------
+; RefPackUnpack                                  126B80  97 PC, low confidence
+; Decompresses RefPack data
+;-----------------------------------------------------------------------------
+RefPackUnpack:
         push ebx
         push esi
         push edi

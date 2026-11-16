@@ -8,14 +8,15 @@ extern dword_16E4C8, dword_16E670, dword_16E6A8, dword_16E6AC, dword_16E6B0, dwo
 extern dword_16E6CC, dword_16E6D0, dword_16E6D4, dword_16E6D8, dword_16E714, dword_16F894, dword_16F898, dword_16F8A8
 extern dword_16F8AC, dword_16F8B0, dword_16F8B4, dword_16F8B8, dword_16F9FC, dword_16FA00, dword_16FA04, dword_16FA08
 extern dword_172AAC, dword_1CF9F4, dword_1CF9F8, dword_1DA4D0, int386_, int386x_, memset_, removewindow
-extern segread_, sub_102D3C, sub_102DB2, sub_102DC5, sub_10376C, sub_1049D0, SetScreenTarget, AllocMemBlock
+extern segread_, VesaSetBank, VesaSetModeCall, VgaSetModeNoClear, FillRowTable, BytesPerPixelForDepth, SetScreenTarget, AllocMemBlock
 extern FreeMemBlock, FreeBitmap
-global sub_102F40, sub_103024, sub_103068, sub_103130, sub_1031C0, sub_103234, sub_103298, sub_103648
-global sub_1036F0, sub_10374C
+global VesaGetModeInfo, VesaQueryMode, FindClosestMode, VesaSetMode, VesaSetWindow, CloseVideoWindow, SetGraphicsMode, WritePaletteRegs
+global AllocRowTable, FreeRowTable
 ;-----------------------------------------------------------------------------
-; sub_102F40                                                          102F40  
+; VesaGetModeInfo                                102F40  97 PC, low confidence
+; Asks the VESA BIOS for a mode's information through a DOS memory buffer
 ;-----------------------------------------------------------------------------
-sub_102F40:
+VesaGetModeInfo:
         push ebx
         push ecx
         push esi
@@ -90,13 +91,15 @@ sub_102F40:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_103024                                                          103024  
+; VesaQueryMode                                  103024  97 PC, low confidence
+; Returns the VESA information for a mode in a stack buffer; followed by the
+; resolution distance helper
 ;-----------------------------------------------------------------------------
-sub_103024:
+VesaQueryMode:
         push edx
         sub esp, 100h
         mov edx, esp
-        call sub_102F40
+        call VesaGetModeInfo
         add esp, 100h
         pop edx
         ret
@@ -124,9 +127,10 @@ sub_103024:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_103068                                                          103068  
+; FindClosestMode                                103068  97 PC, low confidence
+; Picks the video mode closest to a wanted resolution
 ;-----------------------------------------------------------------------------
-sub_103068:
+FindClosestMode:
         push esi
         push edi
         push ebp
@@ -206,9 +210,10 @@ sub_103068:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_103130                                                          103130  
+; VesaSetMode                                    103130  97 PC, low confidence
+; Sets a VESA mode, or a VGA mode below 100h
 ;-----------------------------------------------------------------------------
-sub_103130:
+VesaSetMode:
         push ebx
         push ecx
         push edx
@@ -220,13 +225,13 @@ sub_103130:
         jge short .1
         push byte 13h
         mov ebx, 1
-        call sub_102DC5
+        call VgaSetModeNoClear
         add esp, byte 4
         jmp short .3
 .1:
         mov edx, esp
         mov eax, esi
-        call sub_102F40
+        call VesaGetModeInfo
         mov ebx, eax
         test eax, eax
         je short .3
@@ -239,7 +244,7 @@ sub_103130:
         mov eax, esi
         or ah, 0C0h
         push eax
-        call sub_102DB2
+        call VesaSetModeCall
         add esp, byte 4
         cmp ax, 4Fh
         jne short .2
@@ -249,7 +254,7 @@ sub_103130:
         jne short .3
         or si, 8000h
         push esi
-        call sub_102DB2
+        call VesaSetModeCall
         add esp, byte 4
         cmp ax, 4Fh
         jne short .3
@@ -263,9 +268,10 @@ sub_103130:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1031C0                                                          1031C0  
+; VesaSetWindow                                  1031C0  97 PC, low confidence
+; Moves the VESA bank window to a given position
 ;-----------------------------------------------------------------------------
-sub_1031C0:
+VesaSetWindow:
         push ebx
         sub esp, byte 1Ch
         cmp dword [dword_16FA00], byte 0
@@ -305,9 +311,10 @@ sub_1031C0:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_103234                                                          103234  
+; CloseVideoWindow                               103234  97 PC, low confidence
+; Removes the current video window and rebuilds the row table
 ;-----------------------------------------------------------------------------
-sub_103234:
+CloseVideoWindow:
         push ebx
         push esi
         push edi
@@ -325,7 +332,7 @@ sub_103234:
         xor eax, eax
         mov dword [byte ecx+020h], esi
         mov dword [dword_16E6D0], edi
-        call sub_10376C
+        call FillRowTable
         mov ebx, 10000h
         mov dword [byte ecx+028h], eax
         xor ecx, ecx
@@ -345,9 +352,11 @@ sub_103234:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_103298                                                          103298  
+; SetGraphicsMode                                103298  97 PC, low confidence
+; Switches to a graphics mode: saves the text mode, sets the VESA or VGA mode
+; and builds the row table
 ;-----------------------------------------------------------------------------
-sub_103298:
+SetGraphicsMode:
         push ebx
         push esi
         push edi
@@ -372,7 +381,7 @@ sub_103298:
         cmp dword [dword_16E444], byte 0
         jne short .2
         call SaveTextMode
-        call sub_1036F0
+        call AllocRowTable
 .2:
         mov eax, dword [dword_16E6D0]
         test eax, eax
@@ -408,7 +417,7 @@ sub_103298:
         mov ebx, dword [dword esp+0174h]
         mov edx, dword [dword esp+0170h]
         mov eax, ebp
-        call sub_103068
+        call FindClosestMode
         mov edx, dword [dword esp+0154h]
         add edx, byte 4
         inc ebp
@@ -434,7 +443,7 @@ sub_103298:
         cmp eax, byte 15h
         jl short .10
         mov eax, esi
-        call sub_103130
+        call VesaSetMode
         mov edi, eax
         cmp eax, byte 2
         jne short .14
@@ -442,7 +451,7 @@ sub_103298:
         shl ebx, 4
         mov edx, esp
         mov eax, dword [dword ebx+dword_16F8B8]
-        call sub_102F40
+        call VesaGetModeInfo
         mov ecx, dword [byte esp+0Eh]
         mov edi, eax
         mov edx, dword [dword ebx+dword_16F8B0]
@@ -451,7 +460,7 @@ sub_103298:
         je short .13
         imul edx, ecx
         mov eax, dword [byte esp+028h]
-        call sub_1031C0
+        call VesaSetWindow
         mov dword [dword esp+0158h], eax
         test eax, eax
         jne short .12
@@ -489,7 +498,7 @@ sub_103298:
         cmp eax, 100h
         jl near .20
         mov edx, esp
-        call sub_102F40
+        call VesaGetModeInfo
         xor eax, eax
         mov al, byte [byte esp+019h]
         mov edi, dword [byte esp+0Eh]
@@ -519,7 +528,7 @@ sub_103298:
         mov dword [dword_16F894], 1
 .19:
         mov eax, 0FFFFFFFFh
-        call sub_102D3C
+        call VesaSetBank
 .20:
         cmp dword [dword esp+0178h], byte 0
         jne short .21
@@ -564,13 +573,13 @@ sub_103298:
         push edx
         mov dword [dword_16E6BC], ecx
         mov byte [byte_16E6C0], al
-        call sub_1049D0
+        call BytesPerPixelForDepth
         add esp, byte 4
         mov edx, esi
         mov byte [byte_16E6C1], al
         sar edx, 3
         xor eax, eax
-        call sub_10376C
+        call FillRowTable
         mov dword [dword_16E6D8], eax
         test ebp, ebp
         je short .23
@@ -590,7 +599,7 @@ sub_103298:
 .24:
         push edi
         push dword_16E6A8
-        call sub_103234
+        call CloseVideoWindow
         mov edi, dword [dword_16E4B8]
         add esp, byte 8
         test edi, edi
@@ -612,9 +621,10 @@ sub_103298:
         ret
         db 00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_103648                                                          103648  
+; WritePaletteRegs                               103648  97 PC, low confidence
+; Writes a range of palette entries to the VGA DAC for the video set-up code
 ;-----------------------------------------------------------------------------
-sub_103648:
+WritePaletteRegs:
         push ebx
         push esi
         push edi
@@ -675,9 +685,10 @@ sub_103648:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_1036F0                                                          1036F0  
+; AllocRowTable                                  1036F0  97 PC, low confidence
+; Allocates the screen row address table
 ;-----------------------------------------------------------------------------
-sub_1036F0:
+AllocRowTable:
         push ebx
         push ecx
         push edx
@@ -708,9 +719,10 @@ sub_1036F0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_10374C                                                          10374C  
+; FreeRowTable                                   10374C  97 PC, low confidence
+; Frees the screen row address table
 ;-----------------------------------------------------------------------------
-sub_10374C:
+FreeRowTable:
         push ecx
         push edx
         mov edx, dword [dword_16FA08]

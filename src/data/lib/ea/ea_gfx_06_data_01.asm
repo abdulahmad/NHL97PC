@@ -2,30 +2,30 @@
 bits 32
 %include "hockey.inc"
 section s_170278 progbits alloc noexec write align=1
-extern sub_10EA08, sub_10EA0C, sub_10EB0C, sub_10EC0C, sub_10ED0C, sub_10ED10, sub_10ED78, sub_10EDE0
-extern sub_12D784, sub_12E864, sub_12E9D8
+extern RinkNoOpA, DrawRinkPrimFlat, DrawRinkPrimShaded, DrawRinkPrimTextured, RinkNoOpB, DrawRinkLineFlat, DrawRinkLineShaded, DrawRinkLineTextured
+extern TexSpanCopy, TexSpanKeyed, TexSpanShadow
 global dword_1702B4, dword_1702B8, dword_1702C0, dword_1702C4, dword_1702C8, dword_1702CC, dword_1706CC, off_170278
 global off_170284, off_170290, off_17029C, off_1702A8, off_1706D0
 off_170278:
-        dd sub_10EA08
-        dd sub_10EA08
-        dd sub_10EA08
+        dd RinkNoOpA
+        dd RinkNoOpA
+        dd RinkNoOpA
 off_170284:
-        dd sub_10EA0C
-        dd sub_10EB0C
-        dd sub_10EC0C
+        dd DrawRinkPrimFlat
+        dd DrawRinkPrimShaded
+        dd DrawRinkPrimTextured
 off_170290:
-        dd sub_10EA08
-        dd sub_10EA08
-        dd sub_10EA08
+        dd RinkNoOpA
+        dd RinkNoOpA
+        dd RinkNoOpA
 off_17029C:
-        dd sub_10ED10
-        dd sub_10EDE0
-        dd sub_10ED78
+        dd DrawRinkLineFlat
+        dd DrawRinkLineTextured
+        dd DrawRinkLineShaded
 off_1702A8:
-        dd sub_10ED0C
-        dd sub_10ED0C
-        dd sub_10ED0C
+        dd RinkNoOpB
+        dd RinkNoOpB
+        dd RinkNoOpB
 dword_1702B4:
         db 01h,00h,00h,00h
 dword_1702B8:
@@ -104,7 +104,7 @@ dword_1702CC:
 dword_1706CC:
         db 00h,00h,01h,00h
 off_1706D0:
-        dd sub_12D784
-        dd sub_12E864
-        dd sub_12E9D8
-        dd sub_12E864
+        dd TexSpanCopy
+        dd TexSpanKeyed
+        dd TexSpanShadow
+        dd TexSpanKeyed

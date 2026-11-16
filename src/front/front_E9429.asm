@@ -20,8 +20,8 @@ extern dword_1CE1C0, dword_1CE1C4, dword_1CE1C8, dword_1CE1CC, dword_1CE1D0, dwo
 extern dword_1CE1E0, dword_1CE1E4, dword_1CE1E8, dword_1CE1EC, dword_1CE1F0, dword_1CE1F4, dword_1CE1F8, dword_1CE1FC
 extern dword_1CE200, dword_1CE204, dword_1CE208, dword_1CE20C, dword_1CE210, dword_1CE214, dword_1CE218, dword_1CE21C
 extern dword_1CE220, memcpy_, memset_, qsort_, sprintf_, strcpy_, BlitArt, BlitShape
-extern sub_1013FC, FindShape, sub_101EAC, sub_102C10, Random32, ConvertArtXY, sub_11F8E0, sub_11F94C
-extern sub_11F9F0, sub_11FA34, SetScreenTarget, GetAllStarDate, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, StopAllSfx
+extern PresentScreen, FindShape, DrawShapeBlended, ResetClipWindow, Random32, ConvertArtXY, AllocNetBuffer, FreeNetBuffer
+extern ReadBigEndian, WriteBigEndian, SetScreenTarget, GetAllStarDate, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, StopAllSfx
 extern PlaySfx, PlayScreenMovie, LoadDataFile, DrawShadedLogo, DrawScreenBackground, FadeInScreen, ShowScreen, ExitScreen
 extern SetTextColor, DrawTextAligned, ShowMessageBox, LoadTeamLogo, FreeLogoArt, WipeScreen, SetHighlightText, SetNormalText
 extern ShowWorkingBox, UpdateWorkingBox, HideWorkingBox, DrawHighlightBar, ShowPopupScreen, DrawStatsBackground, FreeStatsBitmap, ShowStatsScreen
@@ -1298,7 +1298,7 @@ ShowAllStarArt:
         add esp, byte 0Ch
         test ebx, ebx
         je short .2
-        call sub_1013FC
+        call PresentScreen
 .2:
         pop edx
         pop ecx
@@ -1355,7 +1355,7 @@ DrawAllStarHighlight:
         add esp, byte 0Ch
         test ebx, ebx
         je short .4
-        call sub_1013FC
+        call PresentScreen
 .4:
         pop edx
         pop ecx
@@ -1482,8 +1482,8 @@ DrawAllStarTeam:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_102C10
-        call sub_1013FC
+        call ResetClipWindow
+        call PresentScreen
         mov eax, dword [tickcount]
         lea edx, [byte eax+014h]
 .2:
@@ -1545,7 +1545,7 @@ DrawAllStarTeam:
         call DrawArt
         add esp, byte 0Ch
 .4:
-        call sub_102C10
+        call ResetClipWindow
         mov eax, dword [dword_1CE1FC]
         mov eax, dword [nosplit eax*4+dword_1CE0FC]
         call LoadTeamLogo
@@ -1574,7 +1574,7 @@ DrawAllStarTeam:
         push byte 0
         push dword [dword_1C5E74]
         push dword [byte ebp-028h]
-        call sub_101EAC
+        call DrawShapeBlended
         add esp, byte 10h
         call FreeLogoArt
         push ebx
@@ -1838,7 +1838,7 @@ DrawAllStarTeam_68E:
         push byte 0
         call SetClipWindow
         add esp, byte 10h
-        call sub_1013FC
+        call PresentScreen
 DrawAllStarTeam_6C5:
         leave
         pop edi
@@ -2073,8 +2073,8 @@ DrawAllStarSelection:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_102C10
-        call sub_1013FC
+        call ResetClipWindow
+        call PresentScreen
 .14:
         leave
         pop edi
@@ -2113,7 +2113,7 @@ DrawAllStarList:
         push esi
         call BlitShape
         add esp, byte 4
-        call sub_102C10
+        call ResetClipWindow
         mov eax, dword [dword_1CE1EC]
         cmp dword [dword eax+02AAh], byte 0
         je short .1
@@ -2141,8 +2141,8 @@ DrawAllStarList:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_102C10
-        call sub_1013FC
+        call ResetClipWindow
+        call PresentScreen
         mov eax, dword [tickcount]
         lea edx, [byte eax+014h]
 .2:
@@ -2170,7 +2170,7 @@ DrawAllStarList:
         push eax
         call BlitShape
         add esp, byte 4
-        call sub_102C10
+        call ResetClipWindow
         mov eax, dword [dword_1CE1FC]
         add eax, byte 1Ah
         call LoadTeamLogo
@@ -2199,7 +2199,7 @@ DrawAllStarList:
         push byte 0
         push dword [dword_1C5E74]
         push edi
-        call sub_101EAC
+        call DrawShapeBlended
         add esp, byte 10h
         call FreeLogoArt
         push ebx
@@ -2556,7 +2556,7 @@ DrawAllStarList:
         add edi, byte 12h
         cmp esi, byte 3
         jl near .16
-        call sub_102C10
+        call ResetClipWindow
         cmp dword [byte ebp-010h], byte 0
         je near DrawAllStarTeam_6C5
         call SetScreenTarget
@@ -4841,7 +4841,7 @@ DrawAllStarPickList:
         push dword [dword eax+02AAh]
         call DrawArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         pop edx
         pop ecx
         pop ebx
@@ -4898,7 +4898,7 @@ DrawAllStarPickList:
         push dword [dword eax+02B6h]
         call FillRect
         add esp, byte 14h
-        call sub_1013FC
+        call PresentScreen
 .4:
         mov eax, dword [dword_1CE1EC]
         add eax, 290h
@@ -4921,7 +4921,7 @@ DrawAllStarPickList:
         push edx
         push esi
         mov eax, 84h
-        call sub_11F8E0
+        call AllocNetBuffer
         mov ecx, eax
         mov esi, eax
         test eax, eax
@@ -4970,13 +4970,13 @@ DrawAllStarPickList:
         push edx
         mov ebx, eax
         mov edx, 2
-        call sub_11F9F0
+        call ReadBigEndian
         xor ecx, ecx
         cmp eax, 10FBh
         je short .6
         mov edx, 2
         mov eax, ebx
-        call sub_11F9F0
+        call ReadBigEndian
         cmp eax, 11FBh
         jne short .7
 .6:
@@ -4992,7 +4992,7 @@ DrawAllStarPickList:
         push edx
         mov ebx, eax
         mov edx, 2
-        call sub_11F9F0
+        call ReadBigEndian
         cmp eax, 10FBh
         jne short .8
         mov edx, 3
@@ -5002,7 +5002,7 @@ DrawAllStarPickList:
         mov edx, 3
         lea eax, [byte ebx+05h]
 .9:
-        call sub_11F9F0
+        call ReadBigEndian
         pop edx
         pop ebx
         ret
@@ -5290,13 +5290,13 @@ LinkSendChunk:
         mov dword [byte esp+040h], edx
         cmp ecx, 1FFFFh
         mov eax, 40000h
-        call sub_11F8E0
+        call AllocNetBuffer
         mov edx, eax
         mov dword [byte esp+020h], eax
         test eax, eax
         je near .31
         mov eax, 80000h
-        call sub_11F8E0
+        call AllocNetBuffer
         mov dword [esp], eax
         test eax, eax
         je near .31
@@ -5691,10 +5691,10 @@ LinkSendChunk:
         add ebp, edi
 .30:
         mov eax, dword [esp]
-        call sub_11F94C
+        call FreeNetBuffer
         mov eax, dword [byte esp+020h]
         mov ebx, dword [byte esp+0Ch]
-        call sub_11F94C
+        call FreeNetBuffer
         mov eax, ebp
         sub eax, ebx
 .31:
@@ -5718,12 +5718,12 @@ LinkSendFile:
         mov ebx, 2
         mov edx, 10FBh
         mov eax, esi
-        call sub_11FA34
+        call WriteBigEndian
         mov ebx, 3
         lea eax, [byte esi+02h]
         mov edx, edi
         mov ecx, 20000h
-        call sub_11FA34
+        call WriteBigEndian
         push byte 0
         lea ebx, [byte esi+05h]
         mov edx, edi

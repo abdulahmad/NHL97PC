@@ -4,7 +4,10 @@ bits 32
 section s_12D24F progbits alloc exec nowrite align=1
 extern __flush_, __ioalloc_, __prtf_, __set_errno_dos_, dword_17025C, dword_170260, dword_170264, dword_170268
 extern dword_170274, fputc_
-global __doserror_, __fprtf_, file_putc_, sub_12D300
+global __doserror_, __fprtf_, file_putc_, ProjectPointsPersp
+;-----------------------------------------------------------------------------
+; file_putc_                                                   12D24F  library
+;-----------------------------------------------------------------------------
 file_putc_:
         push ebx
         mov ebx, eax
@@ -14,6 +17,9 @@ file_putc_:
         inc dword [byte ebx+010h]
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; __fprtf_                                                     12D260  library
+;-----------------------------------------------------------------------------
 __fprtf_:
         push ecx
         push esi
@@ -70,6 +76,9 @@ __fprtf_:
         pop ecx
         ret
         db 00h
+;-----------------------------------------------------------------------------
+; __doserror_                                                  12D2E0  library
+;-----------------------------------------------------------------------------
 __doserror_:
         jae short .1
         and eax, 0FFFFh
@@ -82,7 +91,11 @@ __doserror_:
 .2:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-sub_12D300:
+;-----------------------------------------------------------------------------
+; ProjectPointsPersp                             12D300  97 PC, low confidence
+; Projects a list of view-space points to the screen with perspective
+;-----------------------------------------------------------------------------
+ProjectPointsPersp:
         push ebx
         push esi
         push edi

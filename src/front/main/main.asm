@@ -24,17 +24,17 @@ extern dword_1C8194, dword_1C8198, dword_1C819C, dword_1C81A0, dword_1C81A4, dwo
 extern dword_1C81B4, dword_1C81B8, dword_1C8268, dword_1CF538, dword_1CF548, dword_1CF550, dword_1CF554, dword_1CF5A4
 extern dword_1CF5B0, dword_1CF5B4, dword_1CF5B8, exit_, getcwd_, MainMenuAnim_32E, MainMenuAnim_344, MainMenuAnim_35A
 extern MainMenuAnim_370, memcpy_, open_, printf_, sprintf_, srand_, strcat_, strcpy_
-extern strlen_, sub_1008CC, bcopy, sub_101324, BlitShape2, BlitArt, BlitShape, sub_1013FC
-extern FindShape, sub_101EAC, sub_102B94, sub_102C10, Random32, LoadGripLibrary, InitGripDriver, LoadJoystickConfig
-extern sub_105808, sub_106F64, sub_106F94, sub_107D30, InstallKeyboardHandler, RemoveKeyboardHandler, IsKeyDown, PlotPixelAt
-extern InitMemoryPoolArgs, InitPlatform, InstallErrorHandlers, ConvertArtXY, FormatString, SaveTextState, RestoreTextState, sub_11B008
+extern strlen_, GetPaletteRange, bcopy, BlitConverted, BlitShape2, BlitArt, BlitShape, PresentScreen
+extern FindShape, DrawShapeBlended, ConvertArtNew, ResetClipWindow, Random32, LoadGripLibrary, InitGripDriver, LoadJoystickConfig
+extern IsCdDrive, UnpackShared, UnpackedSize, DetectWindows, InstallKeyboardHandler, RemoveKeyboardHandler, IsKeyDown, PlotPixelAt
+extern InitMemoryPoolArgs, InitPlatform, InstallErrorHandlers, ConvertArtXY, FormatString, SaveTextState, RestoreTextState, TintRect
 extern SetScreenTarget, LoadMainSfxBank, OpenAudioStream, ShutdownGameAudio, ChkMenuMusic, PauseMusic, RequestMusicStop, ArenaFileName
 extern StopAllSfx, PlaySfx, MakeDirPath, LoadDataFile, LoadStartupData, RunFrontEnd, InitMenuItems, RunMenu
 extern InitScrollList, ScrollUp, ScrollDown, FreeScrollList, SetScrollBarPos, ScrollToMouse, GetLangText, FreeLangText
 extern RunIntro, AllocStaticBuffer, InitDbState, ServiceIdle, NetInit, NetShutdown, LinkSendBlock, LinkReceiveBlock
-extern WaitForOtherComputer, FillBox, sub_F9650, AllocMemBlock, FreeMemBlock, sub_FB4D4, ZeroMem, sub_FB73D
-extern sub_FBE40, sub_FBE94, MakeColor, sub_FC73E, sub_FCC40, FreeBitmap, sub_FCF84, DrawArt
-extern CreateBitmap, SetDrawTarget, ClearScreen, sub_FDC68, FillRect, MeasureText, DrawTextAt, SetTextColors
+extern WaitForOtherComputer, FillBox, InitVideoModeList, AllocMemBlock, FreeMemBlock, MemFreeSize, ZeroMem, FillMemPattern
+extern KbdGetKey, KbdFlush, MakeColor, MouseInit, SelectFont, FreeBitmap, DrawShapeAtOwnPos, DrawArt
+extern CreateBitmap, SetDrawTarget, ClearScreen, FillRectColor, FillRect, MeasureText, DrawTextAt, SetTextColors
 extern FillRectCorners, DrawGlyph, tickcount, unk_1643C2, unk_16445A, unk_1644A0, unk_1644EF, unk_1645E7
 extern unk_164636, unk_164686, unk_1646D4, unk_164724, unk_16480B, unk_1648DA, unk_16491D, unk_1649E0
 extern unk_164A6A, unk_164B4D, unk_164BFD, unk_164C3F, unk_164C6C, unk_164D67, unk_164F96, unk_16503B
@@ -58,7 +58,7 @@ main_:
         push ecx
         push edx
         enter 4, 0
-        call sub_107D30
+        call DetectWindows
         test eax, eax
         je near .1
         push str_Punct5
@@ -161,7 +161,7 @@ main_:
         mov eax, 1
         call exit_
 .2:
-        call sub_FC73E
+        call MouseInit
         test eax, eax
         jne short .3
         push str_NHL97RequiresAMouseAMouse
@@ -218,11 +218,11 @@ main_:
         call exit_
 .4:
         push byte 0
-        call sub_FB4D4
+        call MemFreeSize
         add esp, byte 4
         push dword 220h
         mov ebx, eax
-        call sub_FB4D4
+        call MemFreeSize
         add eax, ebx
         add esp, byte 4
         cmp eax, 4C4B40h
@@ -251,7 +251,7 @@ main_:
         and al, 0DFh
         sub eax, byte 41h
         push eax
-        call sub_105808
+        call IsCdDrive
         add esp, byte 4
         test eax, eax
         jne short .12
@@ -323,11 +323,11 @@ main_:
         call close_
 .17:
         push byte 0
-        call sub_FB4D4
+        call MemFreeSize
         add esp, byte 4
         push dword 220h
         mov ebx, eax
-        call sub_FB4D4
+        call MemFreeSize
         add eax, ebx
         add esp, byte 4
         cmp eax, 81B320h
@@ -358,7 +358,7 @@ main_:
         mov dword [dword_170710], 0
         call InstallErrorHandlers
         call NetInit
-        call sub_F9650
+        call InitVideoModeList
         call LoadJoystickConfig
         call AllocStaticBuffer
         mov edx, 1
@@ -2572,7 +2572,7 @@ FadeInScreen:
         push esi
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [tickcount]
         lea edx, [byte eax+05h]
 .3:
@@ -2596,7 +2596,7 @@ FadeInScreen:
         call BlitArt
         add esp, byte 0Ch
         mov ebx, 2
-        call sub_1013FC
+        call PresentScreen
         mov ecx, dword [esp]
         mov dword [dword_16CB7C], ebx
         test ecx, ecx
@@ -2647,7 +2647,7 @@ ShowScreen:
         push esi
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [tickcount]
         lea edx, [byte eax+05h]
 .3:
@@ -2672,7 +2672,7 @@ ShowScreen:
         call BlitArt
         add esp, byte 0Ch
         mov dword [dword_16CB7C], ebx
-        call sub_1013FC
+        call PresentScreen
         cmp dword [esp], byte 0
         jle short .5
         mov eax, esp
@@ -2728,7 +2728,7 @@ ExitScreen:
         push esi
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [tickcount]
         lea edx, [byte eax+02h]
 .2:
@@ -2743,7 +2743,7 @@ ExitScreen:
         jl short .1
         call SetScreenTarget
         call WaitForOtherComputer
-        call sub_1013FC
+        call PresentScreen
         cmp dword [esp], byte 0
         jle short .4
         mov eax, esp
@@ -3317,7 +3317,7 @@ MessageBox:
         push ebx
         lea edi, [dword esp+06B4h]
         mov esi, dword_16E670
-        call sub_FCC40
+        call SelectFont
         mov ecx, DrawGlyph
         mov eax, dword [dword_1C8268]
         add esp, byte 4
@@ -3459,7 +3459,7 @@ MessageBox:
         push edx
         call ConvertArtXY
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         push ebx
         call SetDrawTarget
         add esp, byte 4
@@ -3791,7 +3791,7 @@ MessageBox:
         call BlitArt
         add esp, byte 0Ch
         mov ebx, 0FFFFFFFFh
-        call sub_1013FC
+        call PresentScreen
         mov esi, dword [dword esp+0770h]
         lea eax, [dword esp+06F8h]
         push esi
@@ -3817,7 +3817,7 @@ MessageBox:
         push ebp
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [tickcount]
         lea ebx, [byte eax+05h]
 .37:
@@ -3864,7 +3864,7 @@ MessageBox:
         call BlitArt
         add esp, byte 0Ch
         mov edi, dword [dword esp+0748h]
-        call sub_1013FC
+        call PresentScreen
         push edi
         call FreeBitmap
         add esp, byte 4
@@ -3974,7 +3974,7 @@ EditText:
         xor ah, ah
         mov dword [dword esp+0680h], edx
         mov byte [dword esp+0684h], ah
-        call sub_FBE94
+        call KbdFlush
         call RemoveKeyboardHandler
         mov ecx, 0Eh
         mov dword [dword esp+0650h], ebx
@@ -3989,7 +3989,7 @@ EditText:
         mov esi, dword [dword_1C5EF4]
         push esi
         mov edi, DrawGlyph
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         mov eax, dword [dword_1C8268]
         mov dword [dword_1CF5B8], edi
@@ -4141,7 +4141,7 @@ EditText:
         push eax
         call ConvertArtXY
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         push ebx
         call SetDrawTarget
         add esp, byte 4
@@ -4151,14 +4151,14 @@ EditText:
         push eax
         push dword 100h
         push byte 0
-        call sub_1008CC
+        call GetPaletteRange
         add esp, byte 0Ch
         lea eax, [dword esp+0400h]
         push eax
         lea eax, [byte esp+04h]
         push eax
         push dword 8000h
-        call sub_11B008
+        call TintRect
         add esp, byte 0Ch
         xor ebx, ebx
         mov ecx, dword [dword esp+0650h]
@@ -4305,7 +4305,7 @@ EditText:
         push edx
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         cmp byte [dword esp+0684h], 1Bh
         je near .29
         mov eax, dword [dword esp+0658h]
@@ -4383,9 +4383,9 @@ EditText:
         push edx
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
 .23:
-        call sub_FBE40
+        call KbdGetKey
         test al, al
         jne short .24
         call ServiceIdle
@@ -4394,7 +4394,7 @@ EditText:
         and eax, 0FFh
         mov al, byte [dword esp+eax+0300h]
         mov byte [dword esp+0684h], al
-        call sub_FBE94
+        call KbdFlush
         cmp byte [dword esp+0684h], 0Dh
         je short .25
         mov eax, 30Ah
@@ -4452,7 +4452,7 @@ EditText:
         call BlitArt
         add esp, byte 0Ch
         mov ebx, dword [dword esp+0654h]
-        call sub_1013FC
+        call PresentScreen
         push ebx
         call FreeBitmap
         add esp, byte 4
@@ -4461,7 +4461,7 @@ EditText:
         call FreeBitmap
         add esp, byte 4
 .31:
-        call sub_FBE40
+        call KbdGetKey
         test eax, eax
         jne short .32
         push byte 1Ch
@@ -4527,7 +4527,7 @@ EditText:
         push ecx
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         mov esi, dword [dword_1C8194]
         push esi
         xor edi, edi
@@ -4597,7 +4597,7 @@ LoadTeamLogo:
         push byte 0
         mov esi, dword [nosplit ebx*4+dword_1C5DE8]
         push esi
-        call sub_106F94
+        call UnpackedSize
         add esp, byte 4
         push eax
         push str_UNPACKLOGO
@@ -4607,7 +4607,7 @@ LoadTeamLogo:
         mov edi, dword [nosplit ebx*4+dword_1C5DE8]
         push edi
         mov dword [dword_1C5EF0], eax
-        call sub_106F64
+        call UnpackShared
         add esp, byte 8
         push str_LOGO8
         mov ebp, dword [dword_1C5EF0]
@@ -4624,7 +4624,7 @@ LoadTeamLogo:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_102B94
+        call ConvertArtNew
         add esp, byte 8
         mov ebx, dword [dword_1C5EF0]
         push ebx
@@ -4760,7 +4760,7 @@ DrawTeamBanner:
         mov edx, dword [dword_1C5E74]
         push edx
         push esi
-        call sub_101EAC
+        call DrawShapeBlended
         add esp, byte 10h
         mov ecx, dword [byte esp+04h]
         cmp ecx, byte 20h
@@ -4876,7 +4876,7 @@ DrawMatchBanner:
         mov edx, dword [dword_16E46C]
         push edx
         push eax
-        call sub_102B94
+        call ConvertArtNew
         add esp, byte 8
         mov ecx, dword [byte esp+05Ch]
         push ecx
@@ -4998,7 +4998,7 @@ DrawProgressBar:
         mov edx, dword [byte esp+018h]
         push edx
         push esi
-        call sub_FDC68
+        call FillRectColor
         add esp, byte 14h
         inc ebp
         mov ecx, dword [esp]
@@ -5079,7 +5079,7 @@ WipeScreen:
         push ebp
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
 .4:
         mov eax, dword [tickcount]
         cmp eax, ebx
@@ -5169,7 +5169,7 @@ WipeScreen:
         push ebp
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
 .7:
         call ServiceIdle
         mov eax, dword [tickcount]
@@ -5218,7 +5218,7 @@ WipeScreen:
         push ebp
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
 .10:
         call ServiceIdle
         mov eax, dword [tickcount]
@@ -5269,7 +5269,7 @@ WipeScreen:
         push ebp
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
 .13:
         call ServiceIdle
         mov eax, dword [tickcount]
@@ -5294,7 +5294,7 @@ WipeScreen:
         push ebp
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
 .15:
         call SetScreenTarget
         push dword 1E0h
@@ -5303,7 +5303,7 @@ WipeScreen:
         push byte 0
         call SetClipWindow
         add esp, byte 10h
-        call sub_1013FC
+        call PresentScreen
         jmp short .17
 .16:
         mov dword [byte esp+044h], ecx
@@ -5904,7 +5904,7 @@ SetHighlightText:
         mov edx, dword [dword_1C5E78]
         push edx
         xor ebx, ebx
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         mov eax, dword [dword_1C8268]
         mov dword [dword_16CB78], ebx
@@ -5924,7 +5924,7 @@ SetNormalText:
         mov edx, dword [dword_1C5EF4]
         push edx
         mov ebx, DrawGlyph
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         mov eax, dword [dword_1C8268]
         mov dword [dword_1CF5B8], ebx
@@ -6030,7 +6030,7 @@ PlayerBioScreen:
         push ecx
         call ConvertArtXY
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [byte ebx+02Ch]
         mov edx, dword [byte eax+04h]
         sar edx, 10h
@@ -6219,9 +6219,9 @@ PlayerBioScreen:
         push eax
         mov edx, dword [byte edi+02Ch]
         push edx
-        call sub_101324
+        call BlitConverted
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         lea eax, [byte esi+038h]
         mov dword [dword esp+03E0h], eax
         mov eax, dword [dword esp+03F0h]
@@ -6280,7 +6280,7 @@ PlayerBioScreen_45A:
         push ecx
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
 .7:
         mov eax, dword [tickcount]
         cmp ebx, eax
@@ -6328,7 +6328,7 @@ PlayerBioScreen_45A:
         push esi
         call BlitArt
         add esp, byte 0Ch
-        call sub_102C10
+        call ResetClipWindow
         push dword 0FF000000h
         call MakeColor
         add esp, byte 4
@@ -6345,7 +6345,7 @@ PlayerBioScreen_45A:
         mov ebx, dword [dword esp+03DCh]
         mov edx, dword [dword esp+03E4h]
         call dword [dword esp+03E8h]
-        call sub_1013FC
+        call PresentScreen
 .10:
         cmp dword [dword esp+03B4h], byte 3
         jl near PlayerBioScreen.5
@@ -6357,10 +6357,10 @@ PlayerBioScreen_45A:
         push esi
         mov edx, dword [byte eax+02Ch]
         push edx
-        call sub_101324
+        call BlitConverted
         add esp, byte 0Ch
         xor ebx, ebx
-        call sub_1013FC
+        call PresentScreen
 .11:
         mov ecx, dword [dword esp+ebx+0380h]
         push ecx
@@ -7919,7 +7919,7 @@ ShowStatScreen:
         push edx
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
 .4:
         call ServiceIdle
         mov eax, dword [tickcount]
@@ -7939,7 +7939,7 @@ ShowStatScreen:
         call SetClipWindow
         add esp, byte 10h
 .6:
-        call sub_1013FC
+        call PresentScreen
         mov eax, 1
 .7:
         add esp, byte 10h
@@ -8240,7 +8240,7 @@ DrawWorkingBox:
         push edx
         call ConvertArtXY
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         cmp ebx, byte 10h
         jne short .1
         push byte 50h
@@ -8258,14 +8258,14 @@ DrawWorkingBox:
         push eax
         push dword 100h
         push byte 0
-        call sub_1008CC
+        call GetPaletteRange
         add esp, byte 0Ch
         lea eax, [dword esp+0300h]
         push eax
         lea eax, [byte esp+04h]
         push eax
         push dword 8000h
-        call sub_11B008
+        call TintRect
         add esp, byte 0Ch
         mov ebx, dword [dword_1C81B0]
         push ebx
@@ -8314,7 +8314,7 @@ DrawWorkingBox:
         push edx
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         add esp, 400h
         pop ebp
         pop edi
@@ -8358,7 +8358,7 @@ UpdateWorkingBox:
         push ebp
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         pop ebp
         pop edi
         pop esi
@@ -8386,7 +8386,7 @@ HideWorkingBox:
         push ecx
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         mov esi, dword [dword_1C81AC]
         push esi
         call FreeBitmap
@@ -8451,7 +8451,7 @@ DrawLinkBox:
         test eax, eax
         jg short .1
         push unk_16E8A0
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         push unk_16518C
         call MeasureText
@@ -8516,7 +8516,7 @@ DrawLinkBox:
         push ecx
         call ConvertArtXY
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         cmp edi, byte 10h
         jne short .2
         mov edx, dword [dword_1CF548]
@@ -8536,14 +8536,14 @@ DrawLinkBox:
         push eax
         push dword 100h
         push byte 0
-        call sub_1008CC
+        call GetPaletteRange
         add esp, byte 0Ch
         lea eax, [dword esp+0300h]
         push eax
         lea eax, [byte esp+04h]
         push eax
         push dword 8000h
-        call sub_11B008
+        call TintRect
         add esp, byte 0Ch
         push ebx
         call SetDrawTarget
@@ -8612,7 +8612,7 @@ DrawLinkBox:
         push esi
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         push ebp
         mov edi, 1
         call FreeBitmap
@@ -8650,7 +8650,7 @@ HideLinkBox:
         push esi
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         mov edi, dword [dword_1C8194]
         push edi
         xor ebp, ebp
@@ -8782,7 +8782,7 @@ DrawHighlightBar:
         mov ebx, dword [byte esp+040h]
         sar edx, 1
         mov eax, esi
-        call sub_FB73D
+        call FillMemPattern
         jmp near .17
 .6:
         add eax, eax
@@ -9015,7 +9015,7 @@ ShowPopupScreen:
         push eax
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         mov eax, 305h
         call PlaySfx
         mov eax, dword [tickcount]
@@ -9043,7 +9043,7 @@ ShowPopupScreen:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
         call SetScreenTarget
         mov ecx, dword [byte esi+02Ah]
@@ -9054,7 +9054,7 @@ ShowPopupScreen:
         push eax
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [tickcount]
         lea edx, [byte eax+0Ah]
 .3:
@@ -9079,7 +9079,7 @@ ShowPopupScreen:
         push ecx
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         push edi
         call FreeBitmap
         add esp, byte 4
@@ -9385,7 +9385,7 @@ ShowStatsScreen:
         mov edi, esp
         mov esi, dword_16E670
         rep movsd
-        call sub_FBE94
+        call KbdFlush
         xor esi, esi
         mov ebp, 4
 .1:
@@ -9401,7 +9401,7 @@ ShowStatsScreen:
         push edx
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [tickcount]
         lea edx, [byte eax+05h]
 .3:
@@ -9453,7 +9453,7 @@ SaveStatsScreen:
         push edx
         call ConvertArtXY
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         pop edx
         pop ecx
         ret
@@ -9472,7 +9472,7 @@ RestoreStatsScreen:
         push edx
         call BlitShape2
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         mov ebx, dword [dword_1C8188]
         push ebx
         call FreeBitmap
@@ -9565,7 +9565,7 @@ ShowLoadingScreen:
         push eax
         call ClearScreen
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         mov eax, 0F7h
         xor edx, edx
         call LoadDataFile
@@ -9578,7 +9578,7 @@ ShowLoadingScreen:
         push ecx
         mov edi, DrawGlyph
         mov ebx, eax
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         mov eax, dword [dword_1C8268]
         mov dword [dword_1CF5B8], edi
@@ -9613,7 +9613,7 @@ ShowLoadingScreen:
         push byte 1
         call DrawTextAligned
         add esp, byte 10h
-        call sub_1013FC
+        call PresentScreen
         push esi
         call FreeMemBlock
         add esp, byte 4
@@ -9654,7 +9654,7 @@ ShowLoadingBar:
         mov eax, 0A8h
         mov ebx, 12Ch
         call DrawProgressBar
-        call sub_1013FC
+        call PresentScreen
 .1:
         pop edx
         pop ecx

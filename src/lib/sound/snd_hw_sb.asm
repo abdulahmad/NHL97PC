@@ -7,25 +7,26 @@ extern str_UnableToAllocateRealModeS, str_UnableToSetLimitOfRealMod, str_NoError
 extern byte_150010, byte_150014, byte_1725A4, byte_19A7B8, byte_19A7C0, byte_19A7C8, byte_19A7D0, byte_19A7D8
 extern byte_19A7E0, byte_1DE770, byte_1DE771, byte_1DE772, byte_1DE773, dword_16E67C, dword_16E684, dword_19A7E4
 extern dword_19A7E8, dword_19A878, dword_19BEB8, dword_19BED8, dword_19BEDC, dword_19BEE0, dword_19BEE4, dword_1DD398
-extern dword_1DD3A8, dword_1DE768, dword_1DE76C, dword_1DE774, dword_1DE778, int386_, str_RMHandler, sub_FAAB4
+extern dword_1DD3A8, dword_1DE768, dword_1DE76C, dword_1DE774, dword_1DE778, int386_, str_RMHandler, AllocMemData
 extern FreeMemBlock, tolower_, word_17070A, word_1DE764, word_1DE766, word_1DE780
-global fini_, init_, jpt_138417, jpt_1386D1, jpt_138859, unk_137FE1_2, sub_13800A_166, jpt_138417_64
-global jpt_138417_74, jpt_138417_84, jpt_138417_94, sub_1386E1_24, sub_1386E1_34, sub_1386E1_44, sub_1386E1_54, sub_13794C
-global sub_137966, sub_137981, sub_13799D, sub_1379BE, sub_1379DD, sub_1379FF, sub_137A2E, sub_137A4F
-global sub_137A72, sub_137BEE, sub_137C20, sub_137C50, sub_137D14, sub_137D50, sub_137D7C, sub_137D90
-global sub_137DD0, sub_137E04, sub_137E28, sub_137EF8, sub_137F4C, sub_137FB8, sub_13800A, sub_138177
-global sub_13817F, sub_1381E0, sub_138288, sub_1386E1, sub_1388B1, sub_138910, sub_1389B0, sub_138A50
-global sub_138AE0, sub_138B6F, unk_137F46, unk_137F48, unk_137F4A, unk_137FDF, unk_137FE1, unk_138407
+global fini_, init_, jpt_138417, jpt_1386D1, jpt_138859, unk_137FE1_2, StrToLong_166, jpt_138417_64
+global jpt_138417_74, jpt_138417_84, jpt_138417_94, ScanFloat_24, ScanFloat_34, ScanFloat_44, ScanFloat_54, TimerCalibrate
+global TimerRestore, TimerSetRate, TimerWritePit, TimerReadCount, TimerTicksForRate, TimerMeasure, TimerSetDivisor, TimerReset
+global TimerInstall, TimerChainOld, DmaMaskChannel, DmaProgram, IrqEoi, IrqAck, IrqVector, IrqUnmask
+global IrqMask, IrqSetHandler, AllocDosDmaBuffer, FreeDosDmaBuffer, SbTimeConstant, SbRateFromConstant, StrToLong, ReturnArg
+global DigitValue, InitFloatFormat, FormatFloat, ScanFloat, RoundDigits, DrawCharMono, DrawCharShadow, DrawCharOutline
+global DrawCharBold, NoDbcsTable, unk_137F46, unk_137F48, unk_137F4A, unk_137FDF, unk_137FE1, unk_138407
 ;-----------------------------------------------------------------------------
-; sub_13794C                                                          13794C  
+; TimerCalibrate                                 13794C  97 PC, low confidence
+; Calibrates the timer
 ;-----------------------------------------------------------------------------
-sub_13794C:
+TimerCalibrate:
         push ebp
         LD mov, ebp, esp
         push esi
         push dword [byte ebp+0Ch]
         push dword [byte ebp+08h]
-        call sub_137A72
+        call TimerInstall
         add esp, byte 8
         cmp eax, byte 0
         jl short .1
@@ -34,21 +35,23 @@ sub_13794C:
         leave
         ret
 ;-----------------------------------------------------------------------------
-; sub_137966                                                          137966  
+; TimerRestore                                   137966  97 PC, low confidence
+; Restores the timer
 ;-----------------------------------------------------------------------------
-sub_137966:
+TimerRestore:
         cmp byte [byte_1DE773], 0
         je short .1
         LD xor, eax, eax
         mov byte [byte_1DE773], al
-        call sub_137BEE
-        call sub_137A4F
+        call TimerChainOld
+        call TimerReset
 .1:
         ret
 ;-----------------------------------------------------------------------------
-; sub_137981                                                          137981  
+; TimerSetRate                                   137981  97 PC, low confidence
+; Sets the timer rate
 ;-----------------------------------------------------------------------------
-sub_137981:
+TimerSetRate:
         db 055h                                 ; insn: push ebp
         LD mov, ebp, esp
         db 08Bh,045h,08h                        ; insn: mov eax,[ebp+8]
@@ -56,15 +59,16 @@ sub_137981:
         and al, 7Fh
         shr al, 1
         mov ah, 6
-        call sub_13799D
+        call TimerWritePit
         mov ah, 7
-        call sub_13799D
+        call TimerWritePit
         leave
         ret
 ;-----------------------------------------------------------------------------
-; sub_13799D                                                          13799D  
+; TimerWritePit                                  13799D  97 PC, low confidence
+; Writes the timer chip divisor
 ;-----------------------------------------------------------------------------
-sub_13799D:
+TimerWritePit:
         push edx
         mov edx, dword [dword_1DE774]
         add edx, byte 4
@@ -85,9 +89,10 @@ sub_13799D:
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1379BE                                                          1379BE  
+; TimerReadCount                                 1379BE  97 PC, low confidence
+; Reads the timer count
 ;-----------------------------------------------------------------------------
-sub_1379BE:
+TimerReadCount:
         push edx
         mov edx, dword [dword_1DE774]
         add edx, byte 4
@@ -107,9 +112,10 @@ sub_1379BE:
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1379DD                                                          1379DD  
+; TimerTicksForRate                              1379DD  97 PC, low confidence
+; Works out the ticks for a rate
 ;-----------------------------------------------------------------------------
-sub_1379DD:
+TimerTicksForRate:
         push eax
         push ecx
         push edx
@@ -133,11 +139,12 @@ sub_1379DD:
         pop eax
         ret
 ;-----------------------------------------------------------------------------
-; sub_1379FF                                                          1379FF  
+; TimerMeasure                                   1379FF  97 PC, low confidence
+; Measures the timer
 ;-----------------------------------------------------------------------------
-sub_1379FF:
+TimerMeasure:
         push ecx
-        call sub_1379DD
+        call TimerTicksForRate
         jae short .1
         pop ecx
         ret
@@ -145,14 +152,14 @@ sub_1379FF:
         mov ecx, 7530h
         mov ah, 0Bh
 .2:
-        call sub_1379BE
+        call TimerReadCount
         test al, 20h
         jne short .3
         loop .2
 .3:
         mov ecx, 7A120h
 .4:
-        call sub_1379BE
+        call TimerReadCount
         test al, 20h
         je short .5
         loop .4
@@ -161,9 +168,10 @@ sub_1379FF:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_137A2E                                                          137A2E  
+; TimerSetDivisor                                137A2E  97 PC, low confidence
+; Sets the timer divisor
 ;-----------------------------------------------------------------------------
-sub_137A2E:
+TimerSetDivisor:
         push edx
         shl al, 6
         mov byte [byte_1DE772], al
@@ -184,22 +192,24 @@ sub_137A2E:
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_137A4F                                                          137A4F  
+; TimerReset                                     137A4F  97 PC, low confidence
+; Resets the timer
 ;-----------------------------------------------------------------------------
-sub_137A4F:
-        call sub_1379DD
+TimerReset:
+        call TimerTicksForRate
         mov al, 1
-        call sub_137A2E
+        call TimerSetDivisor
         mov eax, 0A40h
-        call sub_13799D
+        call TimerWritePit
         mov al, 0
-        call sub_137A2E
-        call sub_1379FF
+        call TimerSetDivisor
+        call TimerMeasure
         ret
 ;-----------------------------------------------------------------------------
-; sub_137A72                                                          137A72  
+; TimerInstall                                   137A72  97 PC, low confidence
+; Installs the timer handler
 ;-----------------------------------------------------------------------------
-sub_137A72:
+TimerInstall:
         push ebp
         LD mov, ebp, esp
         mov eax, dword [byte ebp+08h]
@@ -209,24 +219,24 @@ sub_137A72:
         mov eax, dword [byte ebp+08h]
         and eax, 0FFFh
         mov dword [dword_1DE774], eax
-        call sub_137A4F
+        call TimerReset
         jae short .1
         mov eax, 0FFFFFED2h
         leave
         ret
 .1:
         mov al, 1
-        call sub_137A2E
+        call TimerSetDivisor
         mov eax, dword [dword_1DD398]
-        call sub_13799D
-        call sub_1379DD
+        call TimerWritePit
+        call TimerTicksForRate
         mov al, 0
-        call sub_137A2E
-        call sub_1379FF
+        call TimerSetDivisor
+        call TimerMeasure
         mov eax, 600h
-        call sub_13799D
+        call TimerWritePit
         mov eax, 700h
-        call sub_13799D
+        call TimerWritePit
         mov ebx, dword [dword_1DD3A8]
         mov dword [dword_1DE768], ebx
         shr ebx, 1
@@ -302,16 +312,16 @@ sub_137A72:
         jmp short .17
 .17:
         mov al, 1
-        call sub_137A2E
+        call TimerSetDivisor
         mov eax, 15FFh
-        call sub_13799D
+        call TimerWritePit
         mov eax, 14FFh
-        call sub_13799D
+        call TimerWritePit
         mov eax, 90Dh
-        call sub_13799D
+        call TimerWritePit
         mov al, 0
-        call sub_137A2E
-        call sub_1379FF
+        call TimerSetDivisor
+        call TimerMeasure
         mov eax, dword [dword_1DE778]
         mov dl, byte [dword ebx+byte_150004]
         out dx, al
@@ -320,7 +330,7 @@ sub_137A72:
         jmp short .19
 .19:
         mov eax, 0A00h
-        call sub_13799D
+        call TimerWritePit
         mov eax, 1
         mov byte [byte_1DE773], al
         sti
@@ -332,9 +342,10 @@ sub_137A72:
         leave
         ret
 ;-----------------------------------------------------------------------------
-; sub_137BEE                                                          137BEE  
+; TimerChainOld                                  137BEE  97 PC, low confidence
+; Chains to the old timer handler
 ;-----------------------------------------------------------------------------
-sub_137BEE:
+TimerChainOld:
         push eax
         push ebx
         push ecx
@@ -362,9 +373,10 @@ sub_137BEE:
         pop eax
         ret
 ;-----------------------------------------------------------------------------
-; sub_137C20                                                          137C20  
+; DmaMaskChannel                                 137C20  97 PC, low confidence
+; Masks a DMA channel
 ;-----------------------------------------------------------------------------
-sub_137C20:
+DmaMaskChannel:
         push ebx
         push edx
         mov ebx, eax
@@ -391,9 +403,10 @@ sub_137C20:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_137C50                                                          137C50  
+; DmaProgram                                     137C50  97 PC, low confidence
+; Programs a DMA channel
 ;-----------------------------------------------------------------------------
-sub_137C50:
+DmaProgram:
         push esi
         push edi
         push ebp
@@ -474,9 +487,10 @@ sub_137C50:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_137D14                                                          137D14  
+; IrqEoi                                         137D14  97 PC, low confidence
+; Sends end of interrupt to the interrupt controller
 ;-----------------------------------------------------------------------------
-sub_137D14:
+IrqEoi:
         push ebx
         push ecx
         push edx
@@ -512,13 +526,14 @@ sub_137D14:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_137D50                                                          137D50  
+; IrqAck                                         137D50  97 PC, low confidence
+; Acknowledges a sound interrupt
 ;-----------------------------------------------------------------------------
-sub_137D50:
+IrqAck:
         push ebx
         mov ebx, eax
         mov eax, edx
-        call sub_137D14
+        call IrqEoi
         cmp eax, ebx
         jge short .1
         xor eax, eax
@@ -537,9 +552,10 @@ sub_137D50:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_137D7C                                                          137D7C  
+; IrqVector                                      137D7C  97 PC, low confidence
+; Returns the interrupt vector of an IRQ
 ;-----------------------------------------------------------------------------
-sub_137D7C:
+IrqVector:
         push edx
         mov al, 20h
         mov edx, 20h
@@ -550,9 +566,10 @@ sub_137D7C:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_137D90                                                          137D90  
+; IrqUnmask                                      137D90  97 PC, low confidence
+; Unmasks an IRQ
 ;-----------------------------------------------------------------------------
-sub_137D90:
+IrqUnmask:
         push ebx
         push ecx
         push edx
@@ -583,9 +600,10 @@ sub_137D90:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_137DD0                                                          137DD0  
+; IrqMask                                        137DD0  97 PC, low confidence
+; Masks an IRQ
 ;-----------------------------------------------------------------------------
-sub_137DD0:
+IrqMask:
         push ebx
         push ecx
         push edx
@@ -612,9 +630,10 @@ sub_137DD0:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_137E04                                                          137E04  
+; IrqSetHandler                                  137E04  97 PC, low confidence
+; Sets an interrupt handler
 ;-----------------------------------------------------------------------------
-sub_137E04:
+IrqSetHandler:
         push esi
         push edi
         lea esi, [byte eax+08h]
@@ -633,9 +652,10 @@ sub_137E04:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_137E28                                                          137E28  
+; AllocDosDmaBuffer                              137E28  97 PC, low confidence
+; Allocates a DMA buffer in DOS memory
 ;-----------------------------------------------------------------------------
-sub_137E28:
+AllocDosDmaBuffer:
         push esi
         push edi
         push ebp
@@ -670,7 +690,7 @@ sub_137E28:
         mov eax, dword [byte esp+014h]
         push str_RMHandler
         mov dword [edx], eax
-        call sub_FAAB4
+        call AllocMemData
         mov ebp, eax
         add esp, byte 0Ch
         test eax, eax
@@ -717,9 +737,10 @@ sub_137E28:
         pop esi
         ret 8
 ;-----------------------------------------------------------------------------
-; sub_137EF8                                                          137EF8  
+; FreeDosDmaBuffer                               137EF8  97 PC, low confidence
+; Frees a DMA buffer in DOS memory
 ;-----------------------------------------------------------------------------
-sub_137EF8:
+FreeDosDmaBuffer:
         push esi
         push edi
         sub esp, byte 1Ch
@@ -760,9 +781,10 @@ unk_137F48:
 unk_137F4A:
         db 00h,00h
 ;-----------------------------------------------------------------------------
-; sub_137F4C                                                          137F4C  
+; SbTimeConstant                                 137F4C  97 PC, low confidence
+; Works out the Sound Blaster time constant for a rate
 ;-----------------------------------------------------------------------------
-sub_137F4C:
+SbTimeConstant:
         pusha
         push ds
         db 066h,02Eh,08Bh,015h                  ; insn: mov dx,[cs:127F48h]
@@ -813,9 +835,10 @@ sub_137F4C:
         popa
         iret
 ;-----------------------------------------------------------------------------
-; sub_137FB8                                                          137FB8  
+; SbRateFromConstant                             137FB8  97 PC, low confidence
+; Works out the rate from a Sound Blaster time constant
 ;-----------------------------------------------------------------------------
-sub_137FB8:
+SbRateFromConstant:
         push eax
         push edx
         db 066h,02Eh,08Bh,015h                  ; insn: mov dx,[cs:127F48h]
@@ -863,9 +886,10 @@ unk_137FE1_2:
         pop eax
         iret
 ;-----------------------------------------------------------------------------
-; sub_13800A                                                          13800A  
+; StrToLong                                      13800A  97 PC, low confidence
+; Converts a string to a number (strtol)
 ;-----------------------------------------------------------------------------
-sub_13800A:
+StrToLong:
         push esi
         push edi
         push ebp
@@ -957,7 +981,7 @@ sub_13800A:
 .14:
         xor eax, eax
         mov al, byte [edx]
-        call sub_13817F
+        call DigitValue
         mov dword [byte esp+0Ch], eax
         cmp eax, esi
         jge short .17
@@ -1029,21 +1053,23 @@ sub_13800A:
         ret
         push ecx
         xor ecx, ecx
-sub_13800A_166:
-        call sub_13800A
+StrToLong_166:
+        call StrToLong
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_138177                                                          138177  
+; ReturnArg                                      138177  97 PC, low confidence
+; Returns its argument
 ;-----------------------------------------------------------------------------
-sub_138177:
+ReturnArg:
         push ecx
         mov ecx, 1
-        jmp short sub_13800A_166
+        jmp short StrToLong_166
 ;-----------------------------------------------------------------------------
-; sub_13817F                                                          13817F  
+; DigitValue                                     13817F  97 PC, low confidence
+; Returns the value of a digit character
 ;-----------------------------------------------------------------------------
-sub_13817F:
+DigitValue:
         push edx
         xor edx, edx
         mov dl, al
@@ -1089,9 +1115,10 @@ sub_13817F:
         ret
         db 00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_1381E0                                                          1381E0  
+; InitFloatFormat                                1381E0  97 PC, low confidence
+; Sets up the number formatting tables
 ;-----------------------------------------------------------------------------
-sub_1381E0:
+InitFloatFormat:
         push ebp
         LD mov, ebp, esp
         pusha
@@ -1160,9 +1187,10 @@ sub_1381E0:
         mov edx, 0FFFF8000h
         jmp short .4
 ;-----------------------------------------------------------------------------
-; sub_138288                                                          138288  
+; FormatFloat                                    138288  97 PC, low confidence
+; Formats a floating-point number
 ;-----------------------------------------------------------------------------
-sub_138288:
+FormatFloat:
         push ebp
         LD mov, ebp, esp
         pusha
@@ -1348,7 +1376,7 @@ jpt_138417_94:
         mov ebx, dword [byte ebp+018h]
         mov edx, dword [byte ebp+014h]
         mov eax, dword [byte ebp-014h]
-        call sub_1388B1
+        call RoundDigits
         mov ebx, dword [byte ebp-018h]
         imul ebx, dword [byte ebp-04h]
         mov edx, eax
@@ -1454,7 +1482,7 @@ jpt_138417_94:
         mov ebx, dword [byte ebp+018h]
         mov edx, dword [byte ebp+014h]
         mov eax, dword [byte ebp-054h]
-        call sub_1388B1
+        call RoundDigits
         mov ebx, eax
         mov eax, dword [byte ebp-020h]
         imul eax, dword [byte ebp-04h]
@@ -1536,14 +1564,15 @@ jpt_138417_94:
         pop esi
         ret 0Ch
 jpt_1386D1:
-        dd sub_1386E1_24
-        dd sub_1386E1_34
-        dd sub_1386E1_44
-        dd sub_1386E1_54
+        dd ScanFloat_24
+        dd ScanFloat_34
+        dd ScanFloat_44
+        dd ScanFloat_54
 ;-----------------------------------------------------------------------------
-; sub_1386E1                                                          1386E1  
+; ScanFloat                                      1386E1  97 PC, low confidence
+; Reads a floating-point number
 ;-----------------------------------------------------------------------------
-sub_1386E1:
+ScanFloat:
         push esi
         push edi
         enter 1Ch, 0
@@ -1555,21 +1584,21 @@ sub_1386E1:
         sar eax, 4
         and eax, byte 0Fh
         cmp eax, byte 3
-        ja short sub_1386E1_54.1
+        ja short ScanFloat_54.1
         jmp dword [nosplit cs:eax*4+jpt_1386D1]
-sub_1386E1_24:
+ScanFloat_24:
         mov dword [byte ebp-04h], 0
         mov dword [byte ebp-0Ch], 0
-        jmp short sub_1386E1_54.2
-sub_1386E1_34:
+        jmp short ScanFloat_54.2
+ScanFloat_34:
         mov dword [byte ebp-04h], 0
         mov dword [byte ebp-0Ch], 0F0h
-        jmp short sub_1386E1_54.2
-sub_1386E1_44:
+        jmp short ScanFloat_54.2
+ScanFloat_44:
         mov dword [byte ebp-04h], 0FFFFFF30h
         mov dword [byte ebp-0Ch], 1CCh
-        jmp short sub_1386E1_54.2
-sub_1386E1_54:
+        jmp short ScanFloat_54.2
+ScanFloat_54:
         mov dword [byte ebp-04h], 0FFFFFF24h
         mov dword [byte ebp-0Ch], 188h
         jmp short .2
@@ -1710,9 +1739,10 @@ jpt_138859:
         mov eax, 1
         ret
 ;-----------------------------------------------------------------------------
-; sub_1388B1                                                          1388B1  
+; RoundDigits                                    1388B1  97 PC, low confidence
+; Rounds the digits of a formatted number
 ;-----------------------------------------------------------------------------
-sub_1388B1:
+RoundDigits:
         push ecx
         mov ecx, edx
         lea edx, [byte eax+01h]
@@ -1754,9 +1784,10 @@ sub_1388B1:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_138910                                                          138910  
+; DrawCharMono                                   138910  97 PC, low confidence
+; Draws a character in one colour
 ;-----------------------------------------------------------------------------
-sub_138910:
+DrawCharMono:
         push ebx
         push esi
         push edi
@@ -1835,9 +1866,10 @@ sub_138910:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1389B0                                                          1389B0  
+; DrawCharShadow                                 1389B0  97 PC, low confidence
+; Draws a character with a shadow
 ;-----------------------------------------------------------------------------
-sub_1389B0:
+DrawCharShadow:
         push ebx
         push esi
         push edi
@@ -1916,9 +1948,10 @@ sub_1389B0:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_138A50                                                          138A50  
+; DrawCharOutline                                138A50  97 PC, low confidence
+; Draws a character with an outline
 ;-----------------------------------------------------------------------------
-sub_138A50:
+DrawCharOutline:
         push ebx
         push esi
         push edi
@@ -1981,9 +2014,10 @@ sub_138A50:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_138AE0                                                          138AE0  
+; DrawCharBold                                   138AE0  97 PC, low confidence
+; Draws a character in bold
 ;-----------------------------------------------------------------------------
-sub_138AE0:
+DrawCharBold:
         push ebx
         push esi
         push edi
@@ -2045,9 +2079,10 @@ sub_138AE0:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_138B6F                                                          138B6F  
+; NoDbcsTable                                    138B6F  97 PC, low confidence
+; Returns no double-byte lead table
 ;-----------------------------------------------------------------------------
-sub_138B6F:
+NoDbcsTable:
         jmp near _DoINTR_
 ;-----------------------------------------------------------------------------
 ; init_                                                        138B74  library

@@ -23,7 +23,7 @@ extern qword_16078B, qword_160793, qword_16079F, qword_1607A7, qword_1607AF, qwo
 extern qword_1607D7, qword_1607DF, qword_1607E7, qword_1607EF, qword_1607F7, qword_1607FF, qword_160807, qword_16080F
 extern qword_160817, qword_16081F, qword_160827, qword_16082F, qword_160837, qword_16083F, qword_160847, qword_16084F
 extern qword_160857, qword_16085F, qword_160867, qword_16086F, qword_16087B, qword_160883, qword_16088B, qword_16089B
-extern qword_1608A7, randomd0, regd1, slotteam, sub_100700, sub_1008CC, StartCrowdMusic, RestartGameMusic
+extern qword_1608A7, randomd0, regd1, slotteam, AngleOfVector, GetPaletteRange, StartCrowdMusic, RestartGameMusic
 extern forcepldata, ClearPlayerFlags, ResetBench, setplayer, ReplaceFaceoffPlayers, setpersonel, ReleaseBoxPlayers, SpeedScale
 extern ReachScale, RemoveOverlayPanel, QueueOverlayPanel, StartCameraPath, SelectCameraView, PenaltyCameraScene, PenaltyShotCameraScene, FaceoffDropCameraScene
 extern CrowdForPuckZone, LineChangeCommentary, assreplace, assexit, AimAtPuckTarget, ChkPokeOrCheck, check4bench, ChkForwardSwap
@@ -38,7 +38,7 @@ extern SetFaceExpression, SetFaceBlink, CupFaceTextures, SetModelSlotValue, Setu
 extern ClearObjectHidden, SetSPA, ResetAnimTimer, PickSkateAnim, FaceoffPuckDrop, SetSkateSpeedFromRating, StartWhistleStop, ObjectFramePos
 extern PuckBounceOffPlayer, GoalLinePuckTest, UpdatePuckCarrier, GoalJudgeTest, RandomPuckSpin, StopObject, StartOneTimerAnim, StartPuckReceiveAnim
 extern RefAtDotAnim, RefFaceoffAnim, RefGoalPaAnim, RefWhistleAnim, RefSignalAnim, RefGoalLineAnim, PuckDeflect, CupCelebration
-extern FadePalette, FadeOut, AllocMemBlock, FreeMemBlock, sub_FBE5D, unk_19E060, vtoa, word_168A4C
+extern FadePalette, FadeOut, AllocMemBlock, FreeMemBlock, KbdIdleCall, unk_19E060, vtoa, word_168A4C
 extern word_168A4E, word_168A68, word_168A6A, word_19CB60, word_19CB64, word_19CB68, word_19CB82, word_19CB84
 extern word_19CB8C, word_19CB8E, word_19CB90, word_19CB92, word_19CB94, word_19CB96, word_19CB98, word_19CB9A
 extern word_19CB9C, word_19CB9E, gameover, word_19CBAC, word_19CBAE, word_19CBB4, word_19CBB6, gsp
@@ -2630,7 +2630,7 @@ assbench:
         mov eax, dword [dword ebx+0EEh]
         push byte 0FFFFFF9Ch
         mov dword [byte eax+0Ch], 0
-        call sub_100700
+        call AngleOfVector
         mov dword [byte esp+010h], eax
         add esp, byte 8
         mov eax, dword [dword ebx+0EEh]
@@ -2961,7 +2961,7 @@ assleavebox:
         and ch, 7Fh
         push byte 0FFFFFF9Ch
         mov byte [byte eax+028h], ch
-        call sub_100700
+        call AngleOfVector
         mov dword [byte esp+0Ch], eax
         add esp, byte 8
         mov eax, dword [dword ebx+0EEh]
@@ -3138,7 +3138,7 @@ asspsclear:
         mov eax, dword [dword ebx+0EEh]
         push byte 0FFFFFF9Ch
         mov dword [byte eax+0Ch], 0
-        call sub_100700
+        call AngleOfVector
         mov dword [byte esp+010h], eax
         add esp, byte 8
         mov eax, dword [dword ebx+0EEh]
@@ -3681,7 +3681,7 @@ assleaveice:
         mov eax, dword [dword ebx+0EEh]
         push byte 0FFFFFF9Ch
         mov dword [byte eax+0Ch], 0
-        call sub_100700
+        call AngleOfVector
         mov dword [byte esp+08h], eax
         add esp, byte 8
         mov eax, dword [dword ebx+0EEh]
@@ -3896,7 +3896,7 @@ asspenalty:
         and dh, 7Fh
         push byte 64h
         mov byte [byte eax+028h], dh
-        call sub_100700
+        call AngleOfVector
         mov dword [byte esp+08h], eax
         add esp, byte 8
         mov eax, dword [dword ebx+0EEh]
@@ -4603,7 +4603,7 @@ assrefsignal:
         push byte 0
         neg eax
         push eax
-        call sub_100700
+        call AngleOfVector
         mov dword [byte esp+08h], eax
         add esp, byte 8
         mov eax, dword [dword ebx+0EEh]
@@ -4851,7 +4851,7 @@ assrefwhistle:
         mov eax, dword [dword ebx+0EEh]
         push dword 7F8h
         mov dword [byte eax+0Ch], 0
-        call sub_100700
+        call AngleOfVector
         mov dword [byte esp+0Ch], eax
         add esp, byte 8
         mov eax, dword [dword ebx+0EEh]
@@ -5361,7 +5361,7 @@ assreffollow:
         sar edx, 10h
         sub eax, edx
         push eax
-        call sub_100700
+        call AngleOfVector
         mov dword [byte esp+08h], eax
         add esp, byte 8
         mov eax, dword [dword ebx+0EEh]
@@ -5764,7 +5764,7 @@ assintroline:
         sar eax, 10h
         sub edx, eax
         push edx
-        call sub_100700
+        call AngleOfVector
         mov dword [byte esp+010h], eax
         add esp, byte 8
         mov eax, dword [dword esi+0EEh]
@@ -5780,7 +5780,7 @@ assintroline:
         sar eax, 10h
         sub edx, eax
         push edx
-        call sub_100700
+        call AngleOfVector
         mov dword [byte esp+010h], eax
         add esp, byte 8
         mov eax, dword [dword esi+0EEh]
@@ -5911,7 +5911,7 @@ asstakeposition:
         sar eax, 10h
         sub edx, eax
         push edx
-        call sub_100700
+        call AngleOfVector
         mov dword [byte esp+010h], eax
         add esp, byte 8
         mov eax, dword [dword esi+0EEh]
@@ -5927,7 +5927,7 @@ asstakeposition:
         sar eax, 10h
         sub edx, eax
         push edx
-        call sub_100700
+        call AngleOfVector
         mov dword [byte esp+010h], eax
         add esp, byte 8
         mov eax, dword [dword esi+0EEh]
@@ -6028,7 +6028,7 @@ assstanley:
         push dword 100h
         push byte 0
         mov dword [dword_19D39C], eax
-        call sub_1008CC
+        call GetPaletteRange
         add esp, byte 0Ch
         mov eax, 3
         call FadeOut
@@ -6184,7 +6184,7 @@ assstanley:
         je short .8
         call QueueMusicRestart
 .8:
-        call sub_FBE5D
+        call KbdIdleCall
         cmp eax, byte 1Bh
         jne short .9
         mov edx, dword [esp]

@@ -2,8 +2,11 @@
 bits 32
 %include "hockey.inc"
 section s_106EC0 progbits alloc exec nowrite align=1
-extern sub_126A04, sub_126B80, sub_127DB4, sub_127FD0
-global sub_106F64, sub_106F7C, sub_106F94, unpack
+extern RefPackSize, RefPackUnpack, UnpackBytePairs, PrepareBankSampleData
+global UnpackShared, UnpackPlain, UnpackedSize, unpack
+;-----------------------------------------------------------------------------
+; unpack                                      106EC0  96 PC, medium confidence
+;-----------------------------------------------------------------------------
 unpack:
         push ebx
         push esi
@@ -53,7 +56,7 @@ unpack:
         push byte 1
         push esi
         push ebx
-        call sub_126A04
+        call RefPackSize
         mov edx, eax
         add esp, byte 0Ch
         jmp short .8
@@ -61,21 +64,21 @@ unpack:
         push byte 1
         push esi
         push ebx
-        call sub_126B80
+        call RefPackUnpack
         mov edx, eax
         add esp, byte 0Ch
         jmp short .8
 .6:
         push esi
         push ebx
-        call sub_127DB4
+        call UnpackBytePairs
         mov edx, eax
         add esp, byte 8
         jmp short .8
 .7:
         push esi
         push ebx
-        call sub_127FD0
+        call PrepareBankSampleData
         add esp, byte 8
         mov edx, ebp
 .8:
@@ -86,7 +89,11 @@ unpack:
         pop ebx
         ret
         db 090h
-sub_106F64:
+;-----------------------------------------------------------------------------
+; UnpackShared                                   106F64  97 PC, low confidence
+; Unpacks compressed data in shared mode
+;-----------------------------------------------------------------------------
+UnpackShared:
         push ebx
         push byte 1
         mov edx, dword [byte esp+010h]
@@ -98,7 +105,11 @@ sub_106F64:
         pop ebx
         ret
         db 090h
-sub_106F7C:
+;-----------------------------------------------------------------------------
+; UnpackPlain                                    106F7C  97 PC, low confidence
+; Unpacks compressed data
+;-----------------------------------------------------------------------------
+UnpackPlain:
         push ebx
         push byte 0
         mov edx, dword [byte esp+010h]
@@ -110,7 +121,11 @@ sub_106F7C:
         pop ebx
         ret
         db 090h
-sub_106F94:
+;-----------------------------------------------------------------------------
+; UnpackedSize                                   106F94  97 PC, low confidence
+; Returns the unpacked size from a compressed data header
+;-----------------------------------------------------------------------------
+UnpackedSize:
         push ebx
         push esi
         mov ebx, dword [byte esp+0Ch]

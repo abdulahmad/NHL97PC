@@ -16,23 +16,24 @@ extern dword_1DD434, dword_1DD438, dword_1DD43C, dword_1DD440, dword_1DD444, dwo
 extern dword_1DD454, dword_1DD458, dword_1DD45C, dword_1DD460, dword_1DD464, dword_1DD468, dword_1DD474, dword_1DD478
 extern dword_1DD47C, dword_1DD480, dword_1DD484, dword_1DD488, dword_1DD48C, dword_1DD490, dword_1DD494, dword_1DD498
 extern fclose_, fgets_, fopen_, fseek_, getenv_, unk_137FE1_2, str_WSSDMA, strcmp_
-extern strstr_, strupr_, sub_107798, sub_1077D0, sub_107988, sub_109210, RestoreDS, sub_12AB6C
-extern sub_12AD27, sub_12C78C, sub_12C7DC, sub_12C814, sub_12C84C, sub_12C884, sub_12C8BC, sub_12C8F4
-extern sub_12C970, sub_12CD1C, sub_137C20, sub_137C50, sub_137D50, sub_137D7C, sub_137D90, sub_137DD0
-extern sub_137E04, sub_137E28, sub_137EF8, sub_137F4C, sub_137FB8, sub_138177, sub_FAAB4, FreeMemBlock
+extern strstr_, strupr_, AudioDriverUpdate, ApplyChannelVolume, PickSampleRate, StopChannel, RestoreDS, MixerInit
+extern MixerFillBuffer, SbReadData, SbWriteDsp, SbMixerWrite, SbMixerRead, SbResetDsp, SbDetectDsp, SbSetRate
+extern StartChannel, SetChannelCount, DmaMaskChannel, DmaProgram, IrqAck, IrqVector, IrqUnmask, IrqMask
+extern IrqSetHandler, AllocDosDmaBuffer, FreeDosDmaBuffer, SbTimeConstant, SbRateFromConstant, ReturnArg, AllocMemData, FreeMemBlock
 extern unk_128990, unk_1289A0, unk_137F46, unk_137F48, unk_137F4A, unk_137FDF, unk_137FE1, unk_140000
 extern unk_14000D, unk_14001A, unk_14002B, unk_168088, unk_1680D4, unk_172C44, unk_1DD3C4, unk_1DD40C
 extern word_172C42, word_172C48, word_172C4C, word_1DD3E0, word_1DD3E8, word_1DD430, word_1DD46C, word_1DD470
 extern word_1DD472
-global sub_12AB04_6, sub_128CEC, sub_128D84, sub_128E00, sub_128E08, sub_128F80, sub_129000, sub_129044
-global sub_1291F0, sub_1291F8, sub_129428, sub_129460, sub_1294A4, sub_1296BC, sub_129740, sub_129748
-global sub_1299BC, sub_129A48, sub_129A8C, sub_129ACC, sub_129C44, sub_129CB0, sub_129CB8, sub_129F00
-global sub_129F3C, sub_129F80, sub_12A274, sub_12A2F8, sub_12A4B4, sub_12A55C, sub_12A5A8, sub_12A6B0
-global sub_12A788, sub_12A8E0, sub_12A97C, sub_12AB04, sub_12AB0C, sub_12AB40
+global AudioEnter_6, ReadBlasterPort, ProbeDspReset, SbDriverId, SbDriverInit, SbDriverShutdown, SbDriverStart, SbSetupDma
+global SbProDriverId, SbProDriverInit, SbProDriverShutdown, SbProDriverStart, SbProSetupDma, SbProStopDma, Sb16DriverId, Sb16DriverInit
+global Sb16DriverShutdown, Sb16DriverStart, Sb16AckIrq, Sb16SetupDma, Sb16StopDma, SoundscapeDriverId, SoundscapeDriverInit, SoundscapeDriverShutdown
+global SoundscapeDriverStart, ReadSoundscapeIni, SoundscapeCodecReady, SoundscapeSetupCodec, SoundscapeSetupDma, SoundscapeWriteReg, SoundscapeStopCodec, SoundscapeRateCode
+global IniFindKey, AudioLeave, AudioDeferredWork, AudioEnter, AudioLeaveCheck, SampleFormatSize
 ;-----------------------------------------------------------------------------
-; sub_128CEC                                                          128CEC  
+; ReadBlasterPort                                128CEC  97 PC, low confidence
+; Reads the sound card port from the BLASTER setting
 ;-----------------------------------------------------------------------------
-sub_128CEC:
+ReadBlasterPort:
         push ebx
         push ecx
         push edx
@@ -56,7 +57,7 @@ sub_128CEC:
         movsd
 .1:
         mov eax, dword [esp+edx]
-        call sub_128D84
+        call ProbeDspReset
         test eax, eax
         jne short .2
         mov ecx, dword [esp+edx]
@@ -109,9 +110,10 @@ sub_128CEC:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_128D84                                                          128D84  
+; ProbeDspReset                                  128D84  97 PC, low confidence
+; Probes a Sound Blaster port by resetting its DSP
 ;-----------------------------------------------------------------------------
-sub_128D84:
+ProbeDspReset:
         push ebx
         push ecx
         push edx
@@ -182,16 +184,18 @@ sub_128D84:
         ret
         db 00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_128E00                                                          128E00  
+; SbDriverId                                     128E00  97 PC, low confidence
+; Sound Blaster driver: returns its id
 ;-----------------------------------------------------------------------------
-sub_128E00:
+SbDriverId:
         mov eax, 0F01h
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_128E08                                                          128E08  
+; SbDriverInit                                   128E08  97 PC, low confidence
+; Sound Blaster driver: finds the card and sets it up
 ;-----------------------------------------------------------------------------
-sub_128E08:
+SbDriverInit:
         push ebx
         push ecx
         push edx
@@ -200,14 +204,14 @@ sub_128E08:
         mov ebx, eax
         mov edx, eax
         and edx, 0FF00h
-        call sub_128E00
+        call SbDriverId
         and eax, edx
         test bl, 1
         jne short .1
         mov eax, 0FFFFFFF4h
         jmp near .9
 .1:
-        call sub_107988
+        call PickSampleRate
         mov dword [dword_1DD3C0], eax
         cmp eax, 157Ch
         ja short .2
@@ -246,7 +250,7 @@ sub_128E08:
         mov ax, word [word_1DD3E0]
         add eax, 0Ch
         mov word [unk_137F4A], ax
-        call sub_12C8BC
+        call SbDetectDsp
         mov dword [dword_1DD3DC], eax
         test eax, eax
         jge short .5
@@ -263,7 +267,7 @@ sub_128E08:
         add eax, eax
         push eax
         push str_DMABUFFER3
-        call sub_FAAB4
+        call AllocMemData
         add esp, byte 0Ch
         mov dword [dword_1DD3D8], eax
         test eax, eax
@@ -289,7 +293,7 @@ sub_128E08:
         add eax, 10000h
         mov dword [dword_1DD3D8], eax
 .7:
-        call sub_129044
+        call SbSetupDma
         test eax, eax
         jge short .8
         mov eax, 0FFFFFFFBh
@@ -300,13 +304,13 @@ sub_128E08:
         pop ebx
         ret
 .8:
-        push sub_12CD1C
+        push SetChannelCount
         mov edi, dword [dword_1DD3C0]
         push edi
         mov esi, 1
         push byte 4
         mov dword [dword_172C00], esi
-        call sub_12AB6C
+        call MixerInit
         add esp, byte 0Ch
         shl eax, 10h
 .9:
@@ -317,9 +321,10 @@ sub_128E08:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_128F80                                                          128F80  
+; SbDriverShutdown                               128F80  97 PC, low confidence
+; Sound Blaster driver: stops the card and frees the buffers
 ;-----------------------------------------------------------------------------
-sub_128F80:
+SbDriverShutdown:
         push ebx
         push ecx
         push edx
@@ -330,18 +335,18 @@ sub_128F80:
         cmp dword [dword_1DD3DC], 200h
         jl short .1
         mov eax, 0DAh
-        call sub_12C7DC
+        call SbWriteDsp
 .1:
         mov eax, dword [dword_1DD3CC]
-        call sub_137C20
+        call DmaMaskChannel
         mov eax, 0D3h
-        call sub_12C7DC
+        call SbWriteDsp
         mov eax, dword [dword_1DD3D4]
-        call sub_137DD0
+        call IrqMask
         mov cx, word [word_1DD3E8]
         mov ebx, dword [dword_1DD3E4]
         mov eax, dword [dword_1DD3D4]
-        call sub_137E04
+        call IrqSetHandler
         mov ecx, dword [dword_172C04]
         push ecx
         xor esi, esi
@@ -359,15 +364,16 @@ sub_128F80:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_129000                                                          129000  
+; SbDriverStart                                  129000  97 PC, low confidence
+; Sound Blaster driver: starts playback
 ;-----------------------------------------------------------------------------
-sub_129000:
+SbDriverStart:
         push ebx
         push ecx
         push edx
         mov edx, dword [dword_1DD3CC]
         mov eax, dword [dword_1DD3C8]
-        call sub_137D50
+        call IrqAck
         mov dword [dword_1DD3EC], eax
         test eax, eax
         jl short .1
@@ -378,7 +384,7 @@ sub_129000:
         push ebx
         add eax, edx
         push eax
-        call sub_12AD27
+        call MixerFillBuffer
         add esp, byte 8
 .1:
         pop edx
@@ -387,13 +393,14 @@ sub_129000:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_129044                                                          129044  
+; SbSetupDma                                     129044  97 PC, low confidence
+; Sound Blaster driver: sets up the DMA buffer and interrupt
 ;-----------------------------------------------------------------------------
-sub_129044:
+SbSetupDma:
         push ebx
         push ecx
         push edx
-        call sub_12C884
+        call SbResetDsp
         test eax, eax
         jge short .1
         mov eax, 0FFFFFFFBh
@@ -404,7 +411,7 @@ sub_129044:
 .1:
         mov edx, 1
         mov eax, dword [dword_1DD3C0]
-        call sub_12C8F4
+        call SbSetRate
         test eax, eax
         jge short .2
         mov eax, 0FFFFFFFBh
@@ -414,7 +421,7 @@ sub_129044:
         ret
 .2:
         mov eax, 0D1h
-        call sub_12C7DC
+        call SbWriteDsp
         test eax, eax
         jge short .3
         mov eax, 0FFFFFFFBh
@@ -436,31 +443,31 @@ sub_129044:
         jb short .4
 .5:
         mov eax, dword [dword_1DD3D4]
-        call sub_137DD0
+        call IrqMask
         cmp dword [dword_1DD3DC], 200h
         jge short .6
-        mov ebx, sub_137F4C
+        mov ebx, SbTimeConstant
         jmp short .7
 .6:
-        mov ebx, sub_137FB8
+        mov ebx, SbRateFromConstant
 .7:
         mov eax, dword [dword_1DD3D4]
         mov ecx, cs
-        call sub_137E04
+        call IrqSetHandler
         mov word [word_1DD3E8], dx
         mov dword [dword_1DD3E4], eax
-        call sub_137D7C
+        call IrqVector
         mov eax, dword [dword_1DD3D4]
         mov ecx, 58h
-        call sub_137D90
+        call IrqUnmask
         mov ebx, dword [dword_1DD3D0]
         mov edx, dword [dword_1DD3D8]
         mov eax, dword [dword_1DD3CC]
-        call sub_137C50
+        call DmaProgram
         cmp dword [dword_1DD3DC], 200h
         jge short .8
         mov eax, 14h
-        call sub_12C7DC
+        call SbWriteDsp
         test eax, eax
         jge short .9
         mov eax, 0FFFFFFFBh
@@ -470,7 +477,7 @@ sub_129044:
         ret
 .8:
         mov eax, 48h
-        call sub_12C7DC
+        call SbWriteDsp
         test eax, eax
         jge short .9
         mov eax, 0FFFFFFFBh
@@ -480,7 +487,7 @@ sub_129044:
         ret
 .9:
         mov eax, 0FFh
-        call sub_12C7DC
+        call SbWriteDsp
         test eax, eax
         jge short .10
         mov eax, 0FFFFFFFBh
@@ -490,7 +497,7 @@ sub_129044:
         ret
 .10:
         mov eax, 0FFh
-        call sub_12C7DC
+        call SbWriteDsp
         test eax, eax
         jge short .11
         mov eax, 0FFFFFFFBh
@@ -502,7 +509,7 @@ sub_129044:
         cmp dword [dword_1DD3DC], 200h
         jl short .12
         mov eax, 1Ch
-        call sub_12C7DC
+        call SbWriteDsp
 .12:
         xor eax, eax
         pop edx
@@ -516,34 +523,36 @@ sub_129044:
         cmp dword [dword_1DD3DC], 200h
         jl short .13
         mov eax, 0DAh
-        call sub_12C7DC
+        call SbWriteDsp
 .13:
         mov eax, dword [dword_1DD3CC]
-        call sub_137C20
+        call DmaMaskChannel
         mov eax, 0D3h
-        call sub_12C7DC
+        call SbWriteDsp
         mov eax, dword [dword_1DD3D4]
-        call sub_137DD0
+        call IrqMask
         mov cx, word [word_1DD3E8]
         mov ebx, dword [dword_1DD3E4]
         mov eax, dword [dword_1DD3D4]
-        call sub_137E04
+        call IrqSetHandler
         pop edx
         pop ecx
         pop ebx
         ret
         db 00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_1291F0                                                          1291F0  
+; SbProDriverId                                  1291F0  97 PC, low confidence
+; Sound Blaster Pro driver: returns its id
 ;-----------------------------------------------------------------------------
-sub_1291F0:
+SbProDriverId:
         mov eax, 0F03h
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1291F8                                                          1291F8  
+; SbProDriverInit                                1291F8  97 PC, low confidence
+; Sound Blaster Pro driver: finds the card and sets it up
 ;-----------------------------------------------------------------------------
-sub_1291F8:
+SbProDriverInit:
         push ebx
         push ecx
         push edx
@@ -553,7 +562,7 @@ sub_1291F8:
         mov ebx, eax
         mov edx, eax
         and edx, 0FF00h
-        call sub_1291F0
+        call SbProDriverId
         and eax, edx
         test bl, 1
         je short .1
@@ -566,7 +575,7 @@ sub_1291F8:
         mov eax, 0FFFFFFF4h
         jmp near .14
 .2:
-        call sub_107988
+        call PickSampleRate
         mov dword [dword_1DD408], eax
         cmp eax, 157Ch
         ja short .3
@@ -608,7 +617,7 @@ sub_1291F8:
         mov ax, word [dword_1DD428]
         add eax, 0Eh
         mov word [unk_137FE1], ax
-        call sub_12C884
+        call SbResetDsp
         test eax, eax
         jge short .6
         mov eax, 0FFFFFFFBh
@@ -620,7 +629,7 @@ sub_1291F8:
         pop ebx
         ret
 .6:
-        call sub_12C8BC
+        call SbDetectDsp
         mov dword [dword_1DD424], eax
         cmp eax, 300h
         jge short .7
@@ -638,7 +647,7 @@ sub_1291F8:
         add eax, eax
         push eax
         push str_DMABUF
-        call sub_FAAB4
+        call AllocMemData
         add esp, byte 0Ch
         mov dword [dword_1DD41C], eax
         test eax, eax
@@ -665,21 +674,21 @@ sub_1291F8:
         add eax, 10000h
         mov dword [dword_1DD41C], eax
 .9:
-        push sub_12CD1C
+        push SetChannelCount
         mov esi, dword [dword_1DD408]
         mov eax, dword [dword_172C10]
         push esi
         mov al, byte [nosplit eax*2+byte_172C14]
         and eax, 0FFh
         push eax
-        call sub_12AB6C
+        call MixerInit
         mov ebx, eax
         add esp, byte 0Ch
         test eax, eax
         jge short .11
         cmp dword [dword_172C0C], byte 0
         je short .10
-        call sub_1296BC
+        call SbProStopDma
         mov esi, dword [dword_172C0C]
         push esi
         xor edi, edi
@@ -698,12 +707,12 @@ sub_1291F8:
         pop ebx
         ret
 .11:
-        call sub_1294A4
+        call SbProSetupDma
         test eax, eax
         jge short .13
         cmp dword [dword_172C0C], byte 0
         je short .12
-        call sub_1296BC
+        call SbProStopDma
         mov eax, dword [dword_172C0C]
         push eax
         call FreeMemBlock
@@ -737,16 +746,17 @@ sub_1291F8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_129428                                                          129428  
+; SbProDriverShutdown                            129428  97 PC, low confidence
+; Sound Blaster Pro driver: stops the card and frees the buffers
 ;-----------------------------------------------------------------------------
-sub_129428:
+SbProDriverShutdown:
         push ebx
         push ecx
         push edx
         push esi
         cmp dword [dword_172C0C], byte 0
         je short .1
-        call sub_1296BC
+        call SbProStopDma
         mov ebx, dword [dword_172C0C]
         push ebx
         call FreeMemBlock
@@ -763,15 +773,16 @@ sub_129428:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_129460                                                          129460  
+; SbProDriverStart                               129460  97 PC, low confidence
+; Sound Blaster Pro driver: starts playback
 ;-----------------------------------------------------------------------------
-sub_129460:
+SbProDriverStart:
         push ebx
         push ecx
         push edx
         mov edx, dword [dword_1DD410]
         mov eax, dword [dword_1DD3FC]
-        call sub_137D50
+        call IrqAck
         mov dword [dword_1DD434], eax
         test eax, eax
         jl short .1
@@ -782,7 +793,7 @@ sub_129460:
         push ebx
         add eax, edx
         push eax
-        call sub_12AD27
+        call MixerFillBuffer
         add esp, byte 8
 .1:
         pop edx
@@ -791,9 +802,10 @@ sub_129460:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1294A4                                                          1294A4  
+; SbProSetupDma                                  1294A4  97 PC, low confidence
+; Sound Blaster Pro driver: sets up the DMA buffer and interrupt
 ;-----------------------------------------------------------------------------
-sub_1294A4:
+SbProSetupDma:
         push ebx
         push ecx
         push edx
@@ -803,7 +815,7 @@ sub_1294A4:
         push edx
         mov ebx, dword [dword_1DD41C]
         push ebx
-        call sub_12AD27
+        call MixerFillBuffer
         mov ecx, dword [dword_1DD3F0]
         add esp, byte 8
         mov eax, dword [dword_1DD41C]
@@ -811,14 +823,14 @@ sub_1294A4:
         push ecx
         add eax, esi
         push eax
-        call sub_12AD27
+        call MixerFillBuffer
         add esp, byte 8
         mov eax, dword [dword_1DD418]
         mov ebx, unk_137FE1_2
-        call sub_137DD0
+        call IrqMask
         mov ecx, cs
         mov eax, dword [dword_1DD418]
-        call sub_137E04
+        call IrqSetHandler
         mov edi, dword [dword_1DD418]
         mov word [word_1DD430], dx
         mov dword [dword_1DD42C], eax
@@ -850,13 +862,13 @@ sub_1294A4:
         push dword_1DD3F4
         mov eax, edi
         mov ecx, cs
-        call sub_137E28
+        call AllocDosDmaBuffer
         mov dword [dword_1DD400], eax
-        call sub_137D7C
+        call IrqVector
         mov eax, dword [dword_1DD418]
-        call sub_137D90
+        call IrqUnmask
         mov eax, 0D1h
-        call sub_12C7DC
+        call SbWriteDsp
         test eax, eax
         jge short .5
         mov eax, 0FFFFFFFBh
@@ -867,23 +879,23 @@ sub_1294A4:
         mov eax, 2
         mov ecx, 48h
         mov ebx, 1
-        call sub_12C814
+        call SbMixerWrite
         mov edx, dword [dword_1DD41C]
         mov dword [dword_1DD420], eax
         mov eax, dword [dword_1DD410]
-        call sub_137C50
+        call DmaProgram
         mov eax, 14h
-        call sub_12C7DC
+        call SbWriteDsp
         xor eax, eax
-        call sub_12C7DC
+        call SbWriteDsp
         xor eax, eax
-        call sub_12C7DC
+        call SbWriteDsp
         mov eax, 91h
         xor edx, edx
-        call sub_12C7DC
+        call SbWriteDsp
 .6:
         inc edx
-        call sub_12C78C
+        call SbReadData
         cmp edx, 3E8h
         jl short .6
 .7:
@@ -891,11 +903,11 @@ sub_1294A4:
         mov ebx, dword [dword_1DD404]
         mov edx, dword [dword_1DD41C]
         mov eax, dword [dword_1DD410]
-        call sub_137C50
+        call DmaProgram
         mov edx, dword [dword_172C10]
         mov eax, dword [dword_1DD408]
         inc edx
-        call sub_12C8F4
+        call SbSetRate
         test eax, eax
         jge short .8
         mov eax, 0FFFFFFFBh
@@ -909,11 +921,11 @@ sub_1294A4:
         cmp dword [dword_172C10], byte 1
         jne short .9
         mov eax, 20h
-        call sub_12C84C
+        call SbMixerRead
         mov dword [dword_1DD414], eax
 .9:
         mov eax, 48h
-        call sub_12C7DC
+        call SbWriteDsp
         test eax, eax
         jge short .10
         mov eax, 0FFFFFFFBh
@@ -925,7 +937,7 @@ sub_1294A4:
         ret
 .10:
         mov eax, 0FFh
-        call sub_12C7DC
+        call SbWriteDsp
         test eax, eax
         jge short .11
         mov eax, 0FFFFFFFBh
@@ -937,7 +949,7 @@ sub_1294A4:
         ret
 .11:
         mov eax, 0FFh
-        call sub_12C7DC
+        call SbWriteDsp
         test eax, eax
         jge short .12
         mov eax, 0FFFFFFFBh
@@ -949,7 +961,7 @@ sub_1294A4:
         ret
 .12:
         mov eax, 90h
-        call sub_12C7DC
+        call SbWriteDsp
         test eax, eax
         jge short .13
         mov eax, 0FFFFFFFBh
@@ -970,28 +982,29 @@ sub_1294A4:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1296BC                                                          1296BC  
+; SbProStopDma                                   1296BC  97 PC, low confidence
+; Sound Blaster Pro driver: stops the DMA and restores the interrupt
 ;-----------------------------------------------------------------------------
-sub_1296BC:
+SbProStopDma:
         push ebx
         push ecx
         push edx
         mov eax, dword [dword_1DD410]
-        call sub_137C20
-        call sub_12C884
+        call DmaMaskChannel
+        call SbResetDsp
         mov eax, 0D3h
-        call sub_12C7DC
+        call SbWriteDsp
         cmp dword [dword_172C10], byte 1
         jne short .1
         mov eax, dword [dword_1DD420]
-        call sub_12C814
+        call SbMixerWrite
         mov eax, dword [dword_1DD414]
-        call sub_12C84C
+        call SbMixerRead
 .1:
         mov cx, word [word_1DD430]
         mov ebx, dword [dword_1DD42C]
         mov eax, dword [dword_1DD418]
-        call sub_137E04
+        call IrqSetHandler
         mov ebx, dword [dword_1DD400]
         test ebx, ebx
         je short .2
@@ -999,26 +1012,28 @@ sub_1296BC:
         mov eax, dword [dword_1DD418]
         mov ecx, ebx
         mov ebx, dword [dword_1DD3F4]
-        call sub_137EF8
+        call FreeDosDmaBuffer
 .2:
         mov eax, dword [dword_1DD418]
-        call sub_137DD0
+        call IrqMask
         pop edx
         pop ecx
         pop ebx
         ret
         db 00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_129740                                                          129740  
+; Sb16DriverId                                   129740  97 PC, low confidence
+; Sound Blaster 16 driver: returns its id (probably)
 ;-----------------------------------------------------------------------------
-sub_129740:
+Sb16DriverId:
         mov eax, 3F0Bh
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_129748                                                          129748  
+; Sb16DriverInit                                 129748  97 PC, low confidence
+; Sound Blaster 16 driver: finds the card and sets it up (probably)
 ;-----------------------------------------------------------------------------
-sub_129748:
+Sb16DriverInit:
         push ebx
         push ecx
         push edx
@@ -1027,7 +1042,7 @@ sub_129748:
         push ebp
         mov ebx, eax
         mov edx, eax
-        call sub_129740
+        call Sb16DriverId
         and edx, 0FF00h
         mov dword [dword_172C28], ebx
         and eax, edx
@@ -1049,7 +1064,7 @@ sub_129748:
 .3:
         mov dword [dword_172C28], 3
 .4:
-        call sub_107988
+        call PickSampleRate
         mov dword [dword_1DD444], eax
         cmp eax, 157Ch
         ja short .5
@@ -1107,7 +1122,7 @@ sub_129748:
         mov word [word_1DD470], ax
         mov ax, word [dword_1DD460]
         mov word [word_1DD472], ax
-        call sub_12C8BC
+        call SbDetectDsp
         mov dword [dword_1DD468], eax
         cmp eax, 400h
         jge short .11
@@ -1125,7 +1140,7 @@ sub_129748:
         add eax, eax
         push eax
         push str_DMABUF2
-        call sub_FAAB4
+        call AllocMemData
         add esp, byte 0Ch
         mov dword [dword_1DD464], eax
         test eax, eax
@@ -1152,21 +1167,21 @@ sub_129748:
         add eax, 10000h
         mov dword [dword_1DD464], eax
 .13:
-        push sub_12CD1C
+        push SetChannelCount
         mov edi, dword [dword_1DD444]
         mov eax, dword [dword_172C28]
         push edi
         mov al, byte [nosplit eax*4+byte_172C2E]
         and eax, 0FFh
         push eax
-        call sub_12AB6C
+        call MixerInit
         mov ebx, eax
         add esp, byte 0Ch
         test eax, eax
         jge short .15
         cmp dword [dword_172C24], byte 0
         je short .14
-        call sub_129C44
+        call Sb16StopDma
         mov edi, dword [dword_172C24]
         push edi
         xor ebp, ebp
@@ -1185,12 +1200,12 @@ sub_129748:
         pop ebx
         ret
 .15:
-        call sub_129ACC
+        call Sb16SetupDma
         test eax, eax
         jge short .17
         cmp dword [dword_172C24], byte 0
         je short .16
-        call sub_129C44
+        call Sb16StopDma
         mov edx, dword [dword_172C24]
         push edx
         xor ebx, ebx
@@ -1224,9 +1239,10 @@ sub_129748:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1299BC                                                          1299BC  
+; Sb16DriverShutdown                             1299BC  97 PC, low confidence
+; Sound Blaster 16 driver: stops the card and frees the buffers
 ;-----------------------------------------------------------------------------
-sub_1299BC:
+Sb16DriverShutdown:
         push ebx
         push ecx
         push edx
@@ -1235,13 +1251,13 @@ sub_1299BC:
         cmp dword [dword_172C24], byte 0
         je short .2
         mov eax, dword [dword_1DD450]
-        call sub_137C20
+        call DmaMaskChannel
         mov eax, dword [dword_1DD460]
-        call sub_137DD0
+        call IrqMask
         mov cx, word [word_172C42]
         mov ebx, dword [dword_172C3E]
         mov eax, dword [dword_1DD460]
-        call sub_137E04
+        call IrqSetHandler
         mov ebx, dword [dword_1DD440]
         test ebx, ebx
         je short .1
@@ -1249,10 +1265,10 @@ sub_1299BC:
         mov eax, dword [dword_1DD460]
         mov ecx, ebx
         mov ebx, dword [dword_1DD438]
-        call sub_137EF8
+        call FreeDosDmaBuffer
 .1:
         mov eax, 0D9h
-        call sub_12C7DC
+        call SbWriteDsp
         mov ecx, dword [dword_172C24]
         push ecx
         xor esi, esi
@@ -1270,15 +1286,16 @@ sub_1299BC:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_129A48                                                          129A48  
+; Sb16DriverStart                                129A48  97 PC, low confidence
+; Sound Blaster 16 driver: starts playback
 ;-----------------------------------------------------------------------------
-sub_129A48:
+Sb16DriverStart:
         push ebx
         push ecx
         push edx
         mov edx, dword [dword_1DD450]
         mov eax, dword [dword_1DD45C]
-        call sub_137D50
+        call IrqAck
         mov dword [dword_1DD474], eax
         test eax, eax
         jl short .1
@@ -1289,7 +1306,7 @@ sub_129A48:
         push ebx
         add eax, edx
         push eax
-        call sub_12AD27
+        call MixerFillBuffer
         add esp, byte 8
 .1:
         pop edx
@@ -1298,9 +1315,10 @@ sub_129A48:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_129A8C                                                          129A8C  
+; Sb16AckIrq                                     129A8C  97 PC, low confidence
+; Sound Blaster 16 driver: acknowledges the interrupt
 ;-----------------------------------------------------------------------------
-sub_129A8C:
+Sb16AckIrq:
         pusha
         push ds
         push es
@@ -1330,9 +1348,10 @@ sub_129A8C:
         iret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_129ACC                                                          129ACC  
+; Sb16SetupDma                                   129ACC  97 PC, low confidence
+; Sound Blaster 16 driver: sets up the DMA buffer and interrupt
 ;-----------------------------------------------------------------------------
-sub_129ACC:
+Sb16SetupDma:
         push ebx
         push ecx
         push edx
@@ -1341,7 +1360,7 @@ sub_129ACC:
         push edx
         mov ebx, dword [dword_1DD464]
         push ebx
-        call sub_12AD27
+        call MixerFillBuffer
         mov ecx, dword [dword_1DD44C]
         add esp, byte 8
         mov eax, dword [dword_1DD464]
@@ -1349,14 +1368,14 @@ sub_129ACC:
         push ecx
         add eax, esi
         push eax
-        call sub_12AD27
+        call MixerFillBuffer
         add esp, byte 8
         mov eax, dword [dword_1DD460]
-        mov ebx, sub_129A8C
-        call sub_137DD0
+        mov ebx, Sb16AckIrq
+        call IrqMask
         mov ecx, cs
         mov eax, dword [dword_1DD460]
-        call sub_137E04
+        call IrqSetHandler
         push byte 20h
         mov ebx, unk_172C44
         mov word [word_172C42], dx
@@ -1369,18 +1388,18 @@ sub_129ACC:
         mov edx, dword_1DD43C
         mov word [word_172C4C], ax
         mov eax, dword [dword_1DD460]
-        call sub_137E28
+        call AllocDosDmaBuffer
         mov dword [dword_1DD440], eax
-        call sub_137D7C
+        call IrqVector
         mov eax, dword [dword_1DD460]
         mov ecx, 18h
-        call sub_137D90
+        call IrqUnmask
         mov ebx, dword [dword_1DD454]
         mov edx, dword [dword_1DD464]
         mov eax, dword [dword_1DD450]
-        call sub_137C50
+        call DmaProgram
         mov eax, 41h
-        call sub_12C7DC
+        call SbWriteDsp
         test eax, eax
         jge short .1
         mov eax, 0FFFFFFFBh
@@ -1392,14 +1411,14 @@ sub_129ACC:
 .1:
         mov eax, dword [dword_1DD444]
         shr eax, 8
-        call sub_12C7DC
+        call SbWriteDsp
         mov eax, dword [dword_1DD444]
         and eax, 0FFh
-        call sub_12C7DC
+        call SbWriteDsp
         mov eax, dword [dword_172C28]
         mov al, byte [nosplit eax*4+byte_172C2C]
         and eax, 0FFh
-        call sub_12C7DC
+        call SbWriteDsp
         test eax, eax
         jge short .2
         mov eax, 0FFFFFFFBh
@@ -1412,7 +1431,7 @@ sub_129ACC:
         mov eax, dword [dword_172C28]
         mov al, byte [nosplit eax*4+byte_172C2D]
         and eax, 0FFh
-        call sub_12C7DC
+        call SbWriteDsp
         test eax, eax
         jge short .3
         mov eax, 0FFFFFFFBh
@@ -1423,7 +1442,7 @@ sub_129ACC:
         ret
 .3:
         mov eax, 0FFh
-        call sub_12C7DC
+        call SbWriteDsp
         test eax, eax
         jge short .4
         mov eax, 0FFFFFFFBh
@@ -1434,7 +1453,7 @@ sub_129ACC:
         ret
 .4:
         mov eax, 0FFh
-        call sub_12C7DC
+        call SbWriteDsp
         test eax, eax
         jge short .5
         mov eax, 0FFFFFFFBh
@@ -1452,20 +1471,21 @@ sub_129ACC:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_129C44                                                          129C44  
+; Sb16StopDma                                    129C44  97 PC, low confidence
+; Sound Blaster 16 driver: stops the DMA and restores the interrupt
 ;-----------------------------------------------------------------------------
-sub_129C44:
+Sb16StopDma:
         push ebx
         push ecx
         push edx
         mov eax, dword [dword_1DD450]
-        call sub_137C20
+        call DmaMaskChannel
         mov eax, dword [dword_1DD460]
-        call sub_137DD0
+        call IrqMask
         mov cx, word [word_172C42]
         mov ebx, dword [dword_172C3E]
         mov eax, dword [dword_1DD460]
-        call sub_137E04
+        call IrqSetHandler
         mov edx, dword [dword_1DD440]
         test edx, edx
         je short .1
@@ -1473,26 +1493,28 @@ sub_129C44:
         mov eax, dword [dword_1DD460]
         mov ecx, edx
         mov edx, dword [dword_1DD43C]
-        call sub_137EF8
+        call FreeDosDmaBuffer
 .1:
         mov eax, 0D9h
-        call sub_12C7DC
+        call SbWriteDsp
         pop edx
         pop ecx
         pop ebx
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_129CB0                                                          129CB0  
+; SoundscapeDriverId                             129CB0  97 PC, low confidence
+; Soundscape driver: returns its id
 ;-----------------------------------------------------------------------------
-sub_129CB0:
+SoundscapeDriverId:
         mov eax, 3F0Bh
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_129CB8                                                          129CB8  
+; SoundscapeDriverInit                           129CB8  97 PC, low confidence
+; Soundscape driver: reads SNDSCAPE.INI and sets up the card
 ;-----------------------------------------------------------------------------
-sub_129CB8:
+SoundscapeDriverInit:
         push ebx
         push ecx
         push edx
@@ -1502,7 +1524,7 @@ sub_129CB8:
         mov edx, eax
         mov ebx, 1
         mov ecx, eax
-        call sub_129CB0
+        call SoundscapeDriverId
         xor ebp, ebp
         and ecx, 0FF00h
         xor edi, edi
@@ -1532,7 +1554,7 @@ sub_129CB8:
         je short .6
         mov ebp, 1
 .6:
-        call sub_107988
+        call PickSampleRate
         mov dword [dword_1DD484], eax
         cmp eax, 3E80h
         jb short .8
@@ -1591,7 +1613,7 @@ sub_129CB8:
         add eax, eax
         push eax
         push str_DMABUFFER4
-        call sub_FAAB4
+        call AllocMemData
         add esp, byte 0Ch
         mov dword [dword_1DD490], eax
         test eax, eax
@@ -1618,7 +1640,7 @@ sub_129CB8:
         add eax, 10000h
         mov dword [dword_1DD490], eax
 .15:
-        call sub_129F80
+        call ReadSoundscapeIni
         test eax, eax
         jge short .16
         mov edi, dword [dword_172C80]
@@ -1636,7 +1658,7 @@ sub_129CB8:
         pop ebx
         ret
 .16:
-        call sub_12A274
+        call SoundscapeCodecReady
         test eax, eax
         jge short .17
         mov ecx, dword [dword_172C80]
@@ -1654,20 +1676,20 @@ sub_129CB8:
         pop ebx
         ret
 .17:
-        push sub_12CD1C
+        push SetChannelCount
         mov eax, dword [dword_1DD484]
         push eax
         mov al, byte [nosplit esi*2+byte_172C88]
         and eax, 0FFh
         push eax
-        call sub_12AB6C
+        call MixerInit
         add esp, byte 0Ch
         mov edx, dword [dword_1DD488]
         push edx
         mov ebx, dword [dword_1DD490]
         push ebx
         mov esi, eax
-        call sub_12AD27
+        call MixerFillBuffer
         mov ecx, dword [dword_1DD488]
         add esp, byte 8
         mov eax, dword [dword_1DD490]
@@ -1675,14 +1697,14 @@ sub_129CB8:
         push ecx
         add eax, edx
         push eax
-        call sub_12AD27
+        call MixerFillBuffer
         add esp, byte 8
         mov ebx, edi
-        call sub_12A2F8
+        call SoundscapeSetupCodec
         mov edx, ebp
         mov ecx, dword [dword_1DD488]
         mov eax, dword [dword_1DD484]
-        call sub_12A4B4
+        call SoundscapeSetupDma
         mov eax, esi
         mov ebx, 1
         shl eax, 10h
@@ -1698,17 +1720,18 @@ sub_129CB8:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_129F00                                                          129F00  
+; SoundscapeDriverShutdown                       129F00  97 PC, low confidence
+; Soundscape driver: stops the card and frees the buffers
 ;-----------------------------------------------------------------------------
-sub_129F00:
+SoundscapeDriverShutdown:
         push ebx
         push ecx
         push edx
         push esi
         cmp dword [dword_172C80], byte 0
         je short .1
-        call sub_12A55C
-        call sub_12A5A8
+        call SoundscapeWriteReg
+        call SoundscapeStopCodec
         mov ebx, dword [dword_172C80]
         push ebx
         call FreeMemBlock
@@ -1725,15 +1748,16 @@ sub_129F00:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_129F3C                                                          129F3C  
+; SoundscapeDriverStart                          129F3C  97 PC, low confidence
+; Soundscape driver: starts playback
 ;-----------------------------------------------------------------------------
-sub_129F3C:
+SoundscapeDriverStart:
         push ebx
         push ecx
         push edx
         mov edx, dword [dword_1DD494]
         mov eax, dword [dword_1DD48C]
-        call sub_137D50
+        call IrqAck
         mov dword [dword_1DD498], eax
         test eax, eax
         jl short .1
@@ -1744,7 +1768,7 @@ sub_129F3C:
         push ebx
         add eax, edx
         push eax
-        call sub_12AD27
+        call MixerFillBuffer
         add esp, byte 8
 .1:
         pop edx
@@ -1753,9 +1777,10 @@ sub_129F3C:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_129F80                                                          129F80  
+; ReadSoundscapeIni                              129F80  97 PC, low confidence
+; Reads the Soundscape settings file
 ;-----------------------------------------------------------------------------
-sub_129F80:
+ReadSoundscapeIni:
         push ebx
         push ecx
         push edx
@@ -1827,7 +1852,7 @@ sub_129F80:
 .6:
         mov ebx, str_Product
         mov edx, esp
-        call sub_12A788
+        call IniFindKey
         test eax, eax
         je short .7
         mov ebp, 0FFFFFFFFh
@@ -1843,7 +1868,7 @@ sub_129F80:
         mov edx, esp
         mov dword [dword_172C7C], eax
         mov eax, ecx
-        call sub_12A788
+        call IniFindKey
         test eax, eax
         je short .8
         mov ebp, 0FFFFFFFFh
@@ -1852,12 +1877,12 @@ sub_129F80:
         mov ebx, 10h
         mov eax, esp
         xor edx, edx
-        call sub_138177
+        call ReturnArg
         mov ebx, str_DMA
         mov edx, esp
         mov dword [dword_172C64], eax
         mov eax, ecx
-        call sub_12A788
+        call IniFindKey
         test eax, eax
         je short .9
         mov ebp, 0FFFFFFFFh
@@ -1866,12 +1891,12 @@ sub_129F80:
         mov ebx, 10h
         mov eax, esp
         xor edx, edx
-        call sub_138177
+        call ReturnArg
         mov ebx, str_IRQ
         mov edx, esp
         mov dword [dword_1DD494], eax
         mov eax, ecx
-        call sub_12A788
+        call IniFindKey
         test eax, eax
         je short .10
         mov ebp, 0FFFFFFFFh
@@ -1880,7 +1905,7 @@ sub_129F80:
         mov ebx, 10h
         mov eax, esp
         xor edx, edx
-        call sub_138177
+        call ReturnArg
         mov dword [dword_172C68], eax
         cmp eax, byte 2
         jne short .11
@@ -1889,7 +1914,7 @@ sub_129F80:
         mov ebx, str_SBIRQ
         mov edx, esp
         mov eax, ecx
-        call sub_12A788
+        call IniFindKey
         test eax, eax
         je short .12
         mov ebp, 0FFFFFFFFh
@@ -1898,7 +1923,7 @@ sub_129F80:
         mov ebx, 10h
         mov eax, esp
         xor edx, edx
-        call sub_138177
+        call ReturnArg
         mov dword [dword_1DD480], eax
         cmp eax, byte 2
         jne short .13
@@ -1907,7 +1932,7 @@ sub_129F80:
         mov ebx, str_SBEnable
         mov edx, esp
         mov eax, ecx
-        call sub_12A788
+        call IniFindKey
         test eax, eax
         je short .14
         mov ebp, 0FFFFFFFFh
@@ -1942,7 +1967,7 @@ sub_129F80:
         mov ebx, str_WavePort
         mov edx, esp
         mov eax, ecx
-        call sub_12A788
+        call IniFindKey
         test eax, eax
         je short .18
         mov ebp, 0FFFFFFFFh
@@ -1951,7 +1976,7 @@ sub_129F80:
         mov ebx, 10h
         mov eax, esp
         xor edx, edx
-        call sub_138177
+        call ReturnArg
         jmp short .20
 .19:
         mov eax, dword [dword_172C64]
@@ -2022,9 +2047,10 @@ sub_129F80:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_12A274                                                          12A274  
+; SoundscapeCodecReady                           12A274  97 PC, low confidence
+; Soundscape driver: waits for the codec
 ;-----------------------------------------------------------------------------
-sub_12A274:
+SoundscapeCodecReady:
         push edx
         mov edx, dword [dword_172C64]
         add edx, byte 2
@@ -2078,13 +2104,14 @@ sub_12A274:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_12A2F8                                                          12A2F8  
+; SoundscapeSetupCodec                           12A2F8  97 PC, low confidence
+; Soundscape driver: sets up the codec
 ;-----------------------------------------------------------------------------
-sub_12A2F8:
+SoundscapeSetupCodec:
         push ebx
         push edx
         push esi
-        call sub_12A55C
+        call SoundscapeWriteReg
         cmp dword [dword_172C70], byte 0
         je short .1
         mov edx, 22Eh
@@ -2233,16 +2260,17 @@ sub_12A2F8:
         add edx, byte 2
         out dx, al
         mov eax, dword [dword_1DD480]
-        call sub_137DD0
+        call IrqMask
         pop esi
         pop edx
         pop ebx
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_12A4B4                                                          12A4B4  
+; SoundscapeSetupDma                             12A4B4  97 PC, low confidence
+; Soundscape driver: sets up the DMA
 ;-----------------------------------------------------------------------------
-sub_12A4B4:
+SoundscapeSetupDma:
         push esi
         push edi
         push ebp
@@ -2255,11 +2283,11 @@ sub_12A4B4:
         mov ebx, dword [dword_1DD478]
         mov edx, dword [dword_1DD490]
         mov eax, dword [dword_1DD494]
-        call sub_137C50
+        call DmaProgram
         mov ebx, edi
         mov edx, esi
         mov eax, ebp
-        call sub_12A6B0
+        call SoundscapeRateCode
         mov ebx, dword [esp]
         mov al, 0Fh
         mov edx, dword [dword_1DD47C]
@@ -2307,9 +2335,10 @@ sub_12A4B4:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_12A55C                                                          12A55C  
+; SoundscapeWriteReg                             12A55C  97 PC, low confidence
+; Soundscape driver: writes a codec register
 ;-----------------------------------------------------------------------------
-sub_12A55C:
+SoundscapeWriteReg:
         push ebx
         push edx
         mov al, 9
@@ -2331,7 +2360,7 @@ sub_12A55C:
 .1:
         mov eax, dword [dword_1DD494]
         mov edx, 21h
-        call sub_137C20
+        call DmaMaskChannel
         xor ebx, ebx
 .2:
         inc ebx
@@ -2343,12 +2372,13 @@ sub_12A55C:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_12A5A8                                                          12A5A8  
+; SoundscapeStopCodec                            12A5A8  97 PC, low confidence
+; Soundscape driver: stops the codec
 ;-----------------------------------------------------------------------------
-sub_12A5A8:
+SoundscapeStopCodec:
         push ebx
         push edx
-        call sub_12A55C
+        call SoundscapeWriteReg
         mov al, 0Ah
         mov edx, dword [dword_1DD47C]
         out dx, al
@@ -2429,15 +2459,16 @@ sub_12A5A8:
         out dx, al
 .4:
         mov eax, dword [dword_1DD480]
-        call sub_137D90
+        call IrqUnmask
         pop edx
         pop ebx
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_12A6B0                                                          12A6B0  
+; SoundscapeRateCode                             12A6B0  97 PC, low confidence
+; Soundscape driver: returns the code for a sample rate
 ;-----------------------------------------------------------------------------
-sub_12A6B0:
+SoundscapeRateCode:
         push ecx
         mov ecx, ebx
         mov ebx, 7
@@ -2532,9 +2563,10 @@ sub_12A6B0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_12A788                                                          12A788  
+; IniFindKey                                     12A788  97 PC, low confidence
+; Finds a key in a settings file
 ;-----------------------------------------------------------------------------
-sub_12A788:
+IniFindKey:
         push ecx
         push esi
         push edi
@@ -2679,9 +2711,10 @@ sub_12A788:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_12A8E0                                                          12A8E0  
+; AudioLeave                                     12A8E0  97 PC, low confidence
+; Leaves the audio critical section and runs deferred work
 ;-----------------------------------------------------------------------------
-sub_12A8E0:
+AudioLeave:
         push ebx
         push ecx
         push edx
@@ -2722,7 +2755,7 @@ sub_12A8E0:
         cmp eax, ecx
         jb short .4
 .3:
-        call sub_12A97C
+        call AudioDeferredWork
         cmp edx, dword [dword_1DD37C]
         jae short .3
 .4:
@@ -2736,9 +2769,10 @@ sub_12A8E0:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_12A97C                                                          12A97C  
+; AudioDeferredWork                              12A97C  97 PC, low confidence
+; Runs the audio work deferred during the critical section
 ;-----------------------------------------------------------------------------
-sub_12A97C:
+AudioDeferredWork:
         push ebx
         push ecx
         push edx
@@ -2751,7 +2785,7 @@ sub_12A97C:
         inc ebx
         mov dword [dword_1DD37C], edx
         mov dword [dword_172CA0], ebx
-        call sub_107798
+        call AudioDriverUpdate
         cmp dword [dword_172BD4], byte 0
         je short .1
         call dword [dword_172BD4]
@@ -2812,7 +2846,7 @@ sub_12A97C:
         cmp dword [byte ebx+01Ch], byte 0
         jge short .8
         mov eax, dword [ebx]
-        call sub_109210
+        call StopChannel
 .8:
         mov edx, dword [byte ebx+020h]
         test edx, edx
@@ -2832,7 +2866,7 @@ sub_12A97C:
         cmp eax, edx
         jl short .10
         mov eax, dword [ebx]
-        call sub_109210
+        call StopChannel
         jmp short .11
 .10:
         mov edx, dword [byte ebx+034h]
@@ -2858,13 +2892,13 @@ sub_12A97C:
         test edi, edi
         je short .12
         mov eax, esi
-        call sub_12C970
+        call StartChannel
         cmp dword [ebx], byte 0
         jl short .12
         mov edx, dword [byte ebx+02Ah]
         mov eax, esi
         sar edx, 18h
-        call sub_1077D0
+        call ApplyChannelVolume
 .12:
         inc esi
         add ecx, byte 44h
@@ -2880,31 +2914,34 @@ sub_12A97C:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_12AB04                                                          12AB04  
+; AudioEnter                                     12AB04  97 PC, low confidence
+; Enters the audio critical section
 ;-----------------------------------------------------------------------------
-sub_12AB04:
+AudioEnter:
         inc dword [dword_172C9C]
-sub_12AB04_6:
+AudioEnter_6:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_12AB0C                                                          12AB0C  
+; AudioLeaveCheck                                12AB0C  97 PC, low confidence
+; Leaves the audio critical section
 ;-----------------------------------------------------------------------------
-sub_12AB0C:
+AudioLeaveCheck:
         dec dword [dword_172C9C]
         cmp dword [dword_172C9C], byte 0
-        jne short sub_12AB04_6
+        jne short AudioEnter_6
 .1:
         cmp dword [dword_172C98], byte 0
-        je short sub_12AB04_6
+        je short AudioEnter_6
         dec dword [dword_172C98]
-        call sub_12A8E0
+        call AudioLeave
         jmp short .1
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_12AB40                                                          12AB40  
+; SampleFormatSize                               12AB40  97 PC, low confidence
+; Returns the size of a sample format
 ;-----------------------------------------------------------------------------
-sub_12AB40:
+SampleFormatSize:
         push ecx
         mov ecx, eax
         lea eax, [nosplit edx*4+00h]

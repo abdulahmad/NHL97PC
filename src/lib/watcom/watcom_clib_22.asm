@@ -5,24 +5,29 @@ section s_12AB6C progbits alloc exec nowrite align=1
 extern dword_172BD8, dword_172CA4, dword_173F64, dword_19469C, dword_1946A0, dword_1946A4, dword_1946A8, dword_1996A4
 extern dword_1996A8, dword_1996AC, dword_1996B0, dword_1996B4, dword_1996B8, dword_1996BC, dword_1996C0, dword_1996C4
 extern dword_1996C8, dword_1996D0, dword_1996D4, dword_1996D8, dword_1996DC, dword_1996E0, dword_1996E4, dword_1996E8
-extern dword_1DCF38, dword_1DD49C, off_1996EC, sub_1074E8, sub_10770C, sub_12AB04, sub_12AB0C, sub_12C78C
-extern sub_12C7A8, sub_12C970, sub_12C9D0, sub_12CAD8, sub_12CD1C, sub_1381E0, sub_138288, unk_1956A4
+extern dword_1DCF38, dword_1DD49C, off_1996EC, StartPatchSample, ParsePatchTags, AudioEnter, AudioLeaveCheck, SbReadData
+extern SbWaitRead, StartChannel, MixNoise, UpdateChannels, SetChannelCount, InitFloatFormat, FormatFloat, unk_1956A4
 extern unk_19972C, word_1DD4A0, word_1DD4A2, word_1DD4A4, word_1DD4A6, word_1DD4A8, word_1DD4AA, word_1DD4AC
-global jpt_12C300, sub_12B216_4A, sub_12B216_8F, sub_12B216_10C, sub_12B216_21B, sub_12B216_341, sub_12B769_7B, sub_12B769_102
-global sub_12B769_184, sub_12B769_20B, sub_12B769_291, sub_12B769_2B4, sub_12B769_330, sub_12B769_3AD, sub_12BC22_46, sub_12BC22_8A
-global jpt_12C300_24, sub_12AB6C, sub_12AD27, sub_12AD6A, sub_12AE02, sub_12AF0F, sub_12AFAB, sub_12B03D
-global sub_12B061, sub_12B0B1, sub_12B0F2, sub_12B110, sub_12B216, sub_12B611, sub_12B68A, sub_12B6EC
-global sub_12B769, sub_12BBA1, sub_12BC22, sub_12BCF7, sub_12BCF8, sub_12BCF9, sub_12BD46, sub_12BD47
-global sub_12BD48, sub_12BD70, sub_12BDA0, sub_12BE3C
-sub_12AB6C:
+global jpt_12C300, MixerChunkLength_4A, MixerChunkLength_8F, MixerChunkLength_10C, MixerChunkLength_21B, MixerChunkLength_341, MixSample16_7B, MixSample16_102
+global MixSample16_184, MixSample16_20B, MixSample16_291, MixSample16_2B4, MixSample16_330, MixSample16_3AD, MixOutStereo16_46, MixOutStereo16_8A
+global jpt_12C300_24, MixerInit, MixerFillBuffer, MixerMixChunk, MixerStartSample, MixerFadeChannel, MixerSetPanVolume, MixerSetPitch
+global MixerSamplesLeft, MixerSamplePosition, MixerStopChannel, MixerPickMixRoutine, MixerChunkLength, MixerCalcStep, MixerBuildVolumeTables, MixMono8
+global MixSample16, MixFadeOut8, MixOutStereo16, MixOutStereo16Unsigned, MixOutStereo8Signed, MixOutMono16, MixOutMono16Unsigned, MixOutMono8Signed
+global MixerClearAccumulator, ReadLittleEndian, InitPatchParams, PlayPatchNote
+;-----------------------------------------------------------------------------
+; MixerInit                                      12AB6C  97 PC, low confidence
+; Builds the volume tables, clears the 16 channels and picks the output
+; routine for the requested sample format
+;-----------------------------------------------------------------------------
+MixerInit:
         push ebp
         LD mov, ebp, esp
         push esi
-        call sub_12B68A
+        call MixerBuildVolumeTables
         cmp dword [dword_1996A4], byte 0
         jne short .2
         mov dword [dword_1996A4], 1
-        call sub_12BD48
+        call MixerClearAccumulator
         mov eax, 10h
 .1:
         dec eax
@@ -53,7 +58,7 @@ sub_12AB6C:
         cmp eax, byte 1
         je near .9
         mov dword [dword_1996A8], 1
-        lea eax, [sub_12BD47]
+        lea eax, [MixOutMono8Signed]
         mov dword [dword_1996E4], eax
         mov dword [dword_1996B4], 0
         mov eax, 10h
@@ -62,7 +67,7 @@ sub_12AB6C:
         ret
 .3:
         mov dword [dword_1996A8], 0
-        lea eax, [sub_12BCF7]
+        lea eax, [MixOutStereo16Unsigned]
         mov dword [dword_1996E4], eax
         mov dword [dword_1996B4], 2
         mov eax, 10h
@@ -71,7 +76,7 @@ sub_12AB6C:
         ret
 .4:
         mov dword [dword_1996A8], 1
-        lea eax, [sub_12BC22_46]
+        lea eax, [MixOutStereo16_46]
         mov dword [dword_1996E4], eax
         mov dword [dword_1996B4], 1
         mov eax, 10h
@@ -80,7 +85,7 @@ sub_12AB6C:
         ret
 .5:
         mov dword [dword_1996A8], 0
-        lea eax, [sub_12BCF8]
+        lea eax, [MixOutStereo8Signed]
         mov dword [dword_1996E4], eax
         mov dword [dword_1996B4], 1
         mov eax, 10h
@@ -89,7 +94,7 @@ sub_12AB6C:
         ret
 .6:
         mov dword [dword_1996A8], 1
-        lea eax, [sub_12BC22_8A]
+        lea eax, [MixOutStereo16_8A]
         mov dword [dword_1996E4], eax
         mov dword [dword_1996B4], 0
         mov eax, 10h
@@ -98,7 +103,7 @@ sub_12AB6C:
         ret
 .7:
         mov dword [dword_1996A8], 0
-        lea eax, [sub_12BC22]
+        lea eax, [MixOutStereo16]
         mov dword [dword_1996E4], eax
         mov dword [dword_1996B4], 2
         mov eax, 10h
@@ -107,7 +112,7 @@ sub_12AB6C:
         ret
 .8:
         mov dword [dword_1996A8], 1
-        lea eax, [sub_12BD46]
+        lea eax, [MixOutMono16Unsigned]
         mov dword [dword_1996E4], eax
         mov dword [dword_1996B4], 1
         mov eax, 10h
@@ -116,14 +121,18 @@ sub_12AB6C:
         ret
 .9:
         mov dword [dword_1996A8], 0
-        lea eax, [sub_12BCF9]
+        lea eax, [MixOutMono16]
         mov dword [dword_1996E4], eax
         mov dword [dword_1996B4], 1
         mov eax, 10h
         pop esi
         leave
         ret
-sub_12AD27:
+;-----------------------------------------------------------------------------
+; MixerFillBuffer                                12AD27  97 PC, low confidence
+; Mixes all channels into an output buffer, 512 samples at a time
+;-----------------------------------------------------------------------------
+MixerFillBuffer:
         push ebp
         LD mov, ebp, esp
         push ebx
@@ -139,7 +148,7 @@ sub_12AD27:
 .2:
         push eax
         push ebx
-        call sub_12AD6A
+        call MixerMixChunk
         add esp, byte 8
         sub edx, 200h
         mov eax, 200h
@@ -153,7 +162,12 @@ sub_12AD27:
         pop ebx
         leave
         ret
-sub_12AD6A:
+;-----------------------------------------------------------------------------
+; MixerMixChunk                                  12AD6A  97 PC, low confidence
+; Mixes up to 512 samples of every playing channel into the accumulator and
+; converts it to output
+;-----------------------------------------------------------------------------
+MixerMixChunk:
         push ebp
         LD mov, ebp, esp
         push esi
@@ -193,7 +207,7 @@ sub_12AD6A:
         jmp short .1
 .3:
         call dword [dword_1996E4]
-        call sub_12BD48
+        call MixerClearAccumulator
         pop edx
         pop ecx
         pop ebx
@@ -202,7 +216,12 @@ sub_12AD6A:
         pop esi
         leave
         ret
-sub_12AE02:
+;-----------------------------------------------------------------------------
+; MixerStartSample                               12AE02  97 PC, low confidence
+; Sets up a channel for a sample: format, length, loop, pitch and volume, and
+; marks it playing
+;-----------------------------------------------------------------------------
+MixerStartSample:
         push ebp
         LD mov, ebp, esp
         push ebx
@@ -270,14 +289,14 @@ sub_12AE02:
         mov eax, dword [byte ebp+01Ch]
         mov dword [byte esi+0Ch], eax
         mov ebx, dword [byte ebp+02Ch]
-        call sub_12B611
+        call MixerCalcStep
         push dword [byte ebp+08h]
-        call sub_12B110
+        call MixerPickMixRoutine
         add esp, byte 4
         push dword [byte ebp+024h]
         push dword [byte ebp+020h]
         push dword [byte ebp+08h]
-        call sub_12AFAB
+        call MixerSetPanVolume
         add esp, byte 0Ch
         mov byte [esi], 1
         pop esi
@@ -285,7 +304,11 @@ sub_12AE02:
         pop ebx
         leave
         ret
-sub_12AF0F:
+;-----------------------------------------------------------------------------
+; MixerFadeChannel                               12AF0F  97 PC, low confidence
+; Mixes the rest of a channel's current chunk with a fade-out and stops it
+;-----------------------------------------------------------------------------
+MixerFadeChannel:
         push ebp
         LD mov, ebp, esp
         push esi
@@ -316,16 +339,16 @@ sub_12AF0F:
         je short .2
         cmp eax, byte 1
         je short .3
-        lea eax, [sub_12BBA1]
+        lea eax, [MixFadeOut8]
         jmp short .4
 .1:
-        lea eax, [sub_12B769_2B4]
+        lea eax, [MixSample16_2B4]
         jmp short .4
 .2:
-        lea eax, [sub_12B769_3AD]
+        lea eax, [MixSample16_3AD]
         jmp short .4
 .3:
-        lea eax, [sub_12B769_330]
+        lea eax, [MixSample16_330]
 .4:
         call eax
         mov eax, dword [dword_1996BC]
@@ -342,7 +365,12 @@ sub_12AF0F:
         pop esi
         leave
         ret
-sub_12AFAB:
+;-----------------------------------------------------------------------------
+; MixerSetPanVolume                              12AFAB  97 PC, low confidence
+; Sets a channel's left and right volume from a pan position (0..127) and a
+; volume
+;-----------------------------------------------------------------------------
+MixerSetPanVolume:
         push ebp
         LD mov, ebp, esp
         push eax
@@ -390,7 +418,7 @@ sub_12AFAB:
         or eax, dword [byte esi+06Ch]
         cmp eax, byte 0
         jne short .4
-        lea eax, [sub_12B769_291]
+        lea eax, [MixSample16_291]
         mov dword [byte esi+060h], eax
 .4:
         pop esi
@@ -400,7 +428,11 @@ sub_12AFAB:
         pop eax
         leave
         ret
-sub_12B03D:
+;-----------------------------------------------------------------------------
+; MixerSetPitch                                  12B03D  97 PC, low confidence
+; Sets a channel's playback rate
+;-----------------------------------------------------------------------------
+MixerSetPitch:
         push ebp
         LD mov, ebp, esp
         push ebx
@@ -412,7 +444,7 @@ sub_12B03D:
         mov esi, dword [nosplit esi*4+off_1996EC]
         mov eax, dword [byte esi+0Ch]
         mov ebx, dword [byte ebp+0Ch]
-        call sub_12B611
+        call MixerCalcStep
         pop esi
         pop edi
         pop edx
@@ -420,7 +452,12 @@ sub_12B03D:
         pop ebx
         leave
         ret
-sub_12B061:
+;-----------------------------------------------------------------------------
+; MixerSamplesLeft                               12B061  97 PC, low confidence
+; Returns how many samples a playing channel has left, or -1 for looping or
+; streamed channels
+;-----------------------------------------------------------------------------
+MixerSamplesLeft:
         push ebp
         LD mov, ebp, esp
         push esi
@@ -457,7 +494,12 @@ sub_12B061:
         pop esi
         leave
         ret
-sub_12B0B1:
+;-----------------------------------------------------------------------------
+; MixerSamplePosition                            12B0B1  97 PC, low confidence
+; Returns how far a playing channel is into its sample, or -1 for streamed
+; channels
+;-----------------------------------------------------------------------------
+MixerSamplePosition:
         push ebp
         LD mov, ebp, esp
         push esi
@@ -486,7 +528,11 @@ sub_12B0B1:
         pop esi
         leave
         ret
-sub_12B0F2:
+;-----------------------------------------------------------------------------
+; MixerStopChannel                               12B0F2  97 PC, low confidence
+; Marks a channel stopped and calls the end-of-sample callback
+;-----------------------------------------------------------------------------
+MixerStopChannel:
         push ebp
         LD mov, ebp, esp
         push esi
@@ -499,7 +545,12 @@ sub_12B0F2:
         pop esi
         leave
         ret
-sub_12B110:
+;-----------------------------------------------------------------------------
+; MixerPickMixRoutine                            12B110  97 PC, low confidence
+; Selects the mix loop for a channel from its sample format and the output
+; format
+;-----------------------------------------------------------------------------
+MixerPickMixRoutine:
         push ebp
         LD mov, ebp, esp
         push esi
@@ -513,33 +564,33 @@ sub_12B110:
         je short .4
         cmp eax, byte 1
         je short .5
-        lea eax, [sub_12B6EC]
+        lea eax, [MixMono8]
         mov dword [byte esi+060h], eax
         mov dword [byte esi+064h], eax
         jmp short .8
 .1:
         cmp dword [dword_1996A8], byte 1
         je short .2
-        lea eax, [sub_12B769_102]
+        lea eax, [MixSample16_102]
         jmp short .3
 .2:
-        lea eax, [sub_12B769_20B]
+        lea eax, [MixSample16_20B]
 .3:
         mov dword [byte esi+060h], eax
         mov dword [byte esi+064h], eax
         jmp short .8
 .4:
-        lea eax, [sub_12B769_7B]
+        lea eax, [MixSample16_7B]
         mov dword [byte esi+060h], eax
         mov dword [byte esi+064h], eax
         jmp short .8
 .5:
         cmp dword [dword_1996A8], byte 1
         je short .6
-        lea eax, [sub_12B769]
+        lea eax, [MixSample16]
         jmp short .7
 .6:
-        lea eax, [sub_12B769_184]
+        lea eax, [MixSample16_184]
 .7:
         mov dword [byte esi+060h], eax
         mov dword [byte esi+064h], eax
@@ -548,11 +599,11 @@ sub_12B110:
         je short .10
         test dword [byte esi+04h], 2
         je short .9
-        lea eax, [sub_138288]
+        lea eax, [FormatFloat]
         mov dword [byte esi+05Ch], eax
         jmp short .10
 .9:
-        lea eax, [sub_1381E0]
+        lea eax, [InitFloatFormat]
         mov dword [byte esi+05Ch], eax
 .10:
         mov eax, dword [byte esi+04h]
@@ -561,7 +612,7 @@ sub_12B110:
         je short .11
         cmp eax, byte 10h
         je short .12
-        lea eax, [sub_12B216_4A]
+        lea eax, [MixerChunkLength_4A]
         mov dword [byte esi+068h], eax
         pop esi
         leave
@@ -573,36 +624,41 @@ sub_12B110:
         je short .14
         cmp eax, byte 8
         je short .15
-        lea eax, [sub_12B216]
+        lea eax, [MixerChunkLength]
         mov dword [byte esi+068h], eax
         pop esi
         leave
         ret
 .12:
-        lea eax, [sub_12B216_10C]
+        lea eax, [MixerChunkLength_10C]
         mov dword [byte esi+068h], eax
         pop esi
         leave
         ret
 .13:
-        lea eax, [sub_12B216_21B]
+        lea eax, [MixerChunkLength_21B]
         mov dword [byte esi+068h], eax
         pop esi
         leave
         ret
 .14:
-        lea eax, [sub_12B216_341]
+        lea eax, [MixerChunkLength_341]
         mov dword [byte esi+068h], eax
         pop esi
         leave
         ret
 .15:
-        lea eax, [sub_12B216_8F]
+        lea eax, [MixerChunkLength_8F]
         mov dword [byte esi+068h], eax
         pop esi
         leave
         ret
-sub_12B216:
+;-----------------------------------------------------------------------------
+; MixerChunkLength                               12B216  97 PC, low confidence
+; Returns how many output samples a channel can mix before its end or loop
+; point; followed by the loop and stream variants
+;-----------------------------------------------------------------------------
+MixerChunkLength:
         mov edx, dword [byte esi+014h]
         sub edx, dword [byte esi+018h]
         test edx, 0FFFFFFFFh
@@ -616,7 +672,7 @@ sub_12B216:
         cmp eax, byte 0
         jne short .2
         push dword [dword_1996BC]
-        call sub_12B0F2
+        call MixerStopChannel
         add esp, byte 4
         mov eax, 0
         ret
@@ -627,7 +683,7 @@ sub_12B216:
 .3:
         mov eax, dword [dword_1996C0]
         ret
-sub_12B216_4A:
+MixerChunkLength_4A:
         mov edx, dword [byte esi+024h]
         sub edx, dword [byte esi+018h]
         test edx, 0FFFFFFFFh
@@ -643,7 +699,7 @@ sub_12B216_4A:
         mov eax, dword [byte esi+020h]
         mov dword [byte esi+018h], eax
         mov dword [byte esi+01Ch], 0
-        jmp short sub_12B216_4A
+        jmp short MixerChunkLength_4A
 .5:
         cmp eax, dword [dword_1996C0]
         jge short .6
@@ -651,7 +707,7 @@ sub_12B216_4A:
 .6:
         mov eax, dword [dword_1996C0]
         ret
-sub_12B216_8F:
+MixerChunkLength_8F:
         mov edx, dword [byte esi+014h]
         sub edx, dword [byte esi+018h]
         test edx, 0FFFFFFFFh
@@ -677,12 +733,12 @@ sub_12B216_8F:
         shr dword [byte esi+018h], cl
         mov eax, dword [byte esi+018h]
         add dword [byte esi+014h], eax
-        jmp short sub_12B216_8F
+        jmp short MixerChunkLength_8F
 .8:
         cmp dword [dword_1996D0], byte 0
         jne short .9
         push dword [dword_1996BC]
-        call sub_12B0F2
+        call MixerStopChannel
         add esp, byte 4
         mov eax, 0
         ret
@@ -693,7 +749,7 @@ sub_12B216_8F:
 .10:
         mov eax, dword [dword_1996C0]
         ret
-sub_12B216_10C:
+MixerChunkLength_10C:
         mov dword [dword_1996D4], 0FFFFh
         mov edx, dword [byte esi+048h]
         sub edx, dword [byte esi+03Ch]
@@ -782,7 +838,7 @@ sub_12B216_10C:
         mov dword [byte esi+018h], ebx
         pop eax
         ret
-sub_12B216_21B:
+MixerChunkLength_21B:
         mov edx, dword [byte esi+050h]
         sub edx, dword [byte esi+03Ch]
         test edx, 0FFFFFFFFh
@@ -825,12 +881,12 @@ sub_12B216_21B:
         mov dword [byte esi+038h], eax
         pop ebx
         pop edi
-        jmp near sub_12B216_21B
+        jmp near MixerChunkLength_21B
 .20:
         cmp dword [dword_1996D0], byte 0
         jne short .21
         push dword [dword_1996BC]
-        call sub_12B0F2
+        call MixerStopChannel
         add esp, byte 4
         mov eax, 0
         ret
@@ -879,7 +935,7 @@ sub_12B216_21B:
         mov dword [byte esi+018h], ebx
         pop eax
         ret
-sub_12B216_341:
+MixerChunkLength_341:
         mov edx, dword [byte esi+050h]
         sub edx, dword [byte esi+03Ch]
         test edx, 0FFFFFFFFh
@@ -894,7 +950,7 @@ sub_12B216_341:
         cmp eax, byte 0
         jne short .26
         push dword [dword_1996BC]
-        call sub_12B0F2
+        call MixerStopChannel
         add esp, byte 4
         mov eax, 0
         ret
@@ -942,7 +998,11 @@ sub_12B216_341:
         mov dword [byte esi+018h], ebx
         pop eax
         ret
-sub_12B611:
+;-----------------------------------------------------------------------------
+; MixerCalcStep                                  12B611  97 PC, low confidence
+; Converts a pitch to the channel's fixed-point step through the sample
+;-----------------------------------------------------------------------------
+MixerCalcStep:
         pusha
         add ebx, 2000h
         mov edx, 40D0h
@@ -981,7 +1041,11 @@ sub_12B611:
         mov dword [byte esi+030h], eax
         popa
         ret
-sub_12B68A:
+;-----------------------------------------------------------------------------
+; MixerBuildVolumeTables                         12B68A  97 PC, low confidence
+; Builds the 128 volume tables that scale each 8-bit sample value
+;-----------------------------------------------------------------------------
+MixerBuildVolumeTables:
         push eax
         push ecx
         push edx
@@ -1022,7 +1086,11 @@ sub_12B68A:
         pop ecx
         pop eax
         ret
-sub_12B6EC:
+;-----------------------------------------------------------------------------
+; MixMono8                                       12B6EC  97 PC, low confidence
+; Mixes an 8-bit mono sample into both accumulator channels
+;-----------------------------------------------------------------------------
+MixMono8:
         mov ebp, dword [dword_1996C4]
         lea ebp, [nosplit ebp*8+00h]
         mov ecx, dword [dword_1996C8]
@@ -1055,7 +1123,12 @@ sub_12B6EC:
         mov dword [byte esi+018h], edi
         mov dword [byte esi+01Ch], ebx
         ret
-sub_12B769:
+;-----------------------------------------------------------------------------
+; MixSample16                                    12B769  97 PC, low confidence
+; Mixes a 16-bit sample into the accumulator; followed by the other sample
+; format loops
+;-----------------------------------------------------------------------------
+MixSample16:
         mov ebp, dword [dword_1996C4]
         lea ebp, [nosplit ebp*8+00h]
         mov ecx, dword [dword_1996C8]
@@ -1088,7 +1161,7 @@ sub_12B769:
         mov dword [byte esi+018h], edi
         mov dword [byte esi+01Ch], ebx
         ret
-sub_12B769_7B:
+MixSample16_7B:
         mov ebp, dword [dword_1996C4]
         lea ebp, [nosplit ebp*8+00h]
         mov ecx, dword [dword_1996C8]
@@ -1121,7 +1194,7 @@ sub_12B769_7B:
         mov dword [byte esi+018h], edi
         mov dword [byte esi+01Ch], ebx
         ret
-sub_12B769_102:
+MixSample16_102:
         mov ebp, dword [dword_1996C4]
         lea ebp, [nosplit ebp*8+00h]
         mov ecx, dword [dword_1996C8]
@@ -1157,7 +1230,7 @@ sub_12B769_102:
         mov dword [byte esi+018h], edi
         mov dword [byte esi+01Ch], ebx
         ret
-sub_12B769_184:
+MixSample16_184:
         mov ebp, dword [dword_1996C4]
         lea ebp, [nosplit ebp*8+00h]
         mov ecx, dword [dword_1996C8]
@@ -1190,7 +1263,7 @@ sub_12B769_184:
         mov dword [byte esi+018h], edi
         mov dword [byte esi+01Ch], ebx
         ret
-sub_12B769_20B:
+MixSample16_20B:
         mov ebp, dword [dword_1996C4]
         lea ebp, [nosplit ebp*8+00h]
         mov ecx, dword [dword_1996C8]
@@ -1223,7 +1296,7 @@ sub_12B769_20B:
         mov dword [byte esi+018h], edi
         mov dword [byte esi+01Ch], ebx
         ret
-sub_12B769_291:
+MixSample16_291:
         mov ecx, dword [dword_1996C8]
         mov edi, dword [byte esi+018h]
         mov ebx, dword [byte esi+01Ch]
@@ -1238,7 +1311,7 @@ sub_12B769_291:
         mov dword [byte esi+018h], edi
         mov dword [byte esi+01Ch], ebx
         ret
-sub_12B769_2B4:
+MixSample16_2B4:
         mov ebp, dword [dword_1996C4]
         lea ebp, [nosplit ebp*8+00h]
         mov ecx, dword [dword_1996C8]
@@ -1274,7 +1347,7 @@ sub_12B769_2B4:
         test ecx, 0FFFFFFFFh
         jne short .7
         ret
-sub_12B769_330:
+MixSample16_330:
         mov ebp, dword [dword_1996C4]
         lea ebp, [nosplit ebp*8+00h]
         mov ecx, dword [dword_1996C8]
@@ -1310,7 +1383,7 @@ sub_12B769_330:
         test ecx, 0FFFFFFFFh
         jne short .10
         ret
-sub_12B769_3AD:
+MixSample16_3AD:
         mov ebp, dword [dword_1996C4]
         lea ebp, [nosplit ebp*8+00h]
         mov ecx, dword [dword_1996C8]
@@ -1346,7 +1419,11 @@ sub_12B769_3AD:
         test ecx, 0FFFFFFFFh
         jne short .13
         ret
-sub_12BBA1:
+;-----------------------------------------------------------------------------
+; MixFadeOut8                                    12BBA1  97 PC, low confidence
+; Mixes an 8-bit sample while ramping both volumes down to silence
+;-----------------------------------------------------------------------------
+MixFadeOut8:
         mov ebp, dword [dword_1996C4]
         lea ebp, [nosplit ebp*8+00h]
         mov ecx, dword [dword_1996C8]
@@ -1382,7 +1459,12 @@ sub_12BBA1:
         test ecx, 0FFFFFFFFh
         jne short .1
         ret
-sub_12BC22:
+;-----------------------------------------------------------------------------
+; MixOutStereo16                                 12BC22  97 PC, low confidence
+; Clips the accumulator to 16-bit stereo output; followed by the 8-bit and
+; mono variants
+;-----------------------------------------------------------------------------
+MixOutStereo16:
         mov edi, dword [dword_1996B8]
         mov ecx, dword [dword_1996B0]
         LD add, ecx, ecx
@@ -1406,7 +1488,7 @@ sub_12BC22:
         mov word [byte edi+ecx*2-02h], 8000h
         loop .1
         ret
-sub_12BC22_46:
+MixOutStereo16_46:
         mov edi, dword [dword_1996B8]
         mov ecx, dword [dword_1996B0]
         LD add, ecx, ecx
@@ -1431,7 +1513,7 @@ sub_12BC22_46:
         mov byte [byte ecx+edi-01h], 0
         loop .4
         ret
-sub_12BC22_8A:
+MixOutStereo16_8A:
         mov edi, dword [dword_1996B8]
         mov ecx, dword [dword_1996B0]
         mov ebx, 3FFF80h
@@ -1457,11 +1539,23 @@ sub_12BC22_8A:
         mov byte [byte ecx+edi-01h], 0
         loop .7
         ret
-sub_12BCF7:
+;-----------------------------------------------------------------------------
+; MixOutStereo16Unsigned                         12BCF7  97 PC, low confidence
+; Unsupported output format: does nothing
+;-----------------------------------------------------------------------------
+MixOutStereo16Unsigned:
         ret
-sub_12BCF8:
+;-----------------------------------------------------------------------------
+; MixOutStereo8Signed                            12BCF8  97 PC, low confidence
+; Unsupported output format: does nothing
+;-----------------------------------------------------------------------------
+MixOutStereo8Signed:
         ret
-sub_12BCF9:
+;-----------------------------------------------------------------------------
+; MixOutMono16                                   12BCF9  97 PC, low confidence
+; Averages the two accumulator channels and clips them to 16-bit mono output
+;-----------------------------------------------------------------------------
+MixOutMono16:
         mov edi, dword [dword_1996B8]
         mov ecx, dword [dword_1996B0]
         mov ebx, 3FFF80h
@@ -1486,11 +1580,23 @@ sub_12BCF9:
         mov word [byte edi+ecx*2-02h], 8000h
         loop .1
         ret
-sub_12BD46:
+;-----------------------------------------------------------------------------
+; MixOutMono16Unsigned                           12BD46  97 PC, low confidence
+; Unsupported output format: does nothing
+;-----------------------------------------------------------------------------
+MixOutMono16Unsigned:
         ret
-sub_12BD47:
+;-----------------------------------------------------------------------------
+; MixOutMono8Signed                              12BD47  97 PC, low confidence
+; Unsupported output format: does nothing
+;-----------------------------------------------------------------------------
+MixOutMono8Signed:
         ret
-sub_12BD48:
+;-----------------------------------------------------------------------------
+; MixerClearAccumulator                          12BD48  97 PC, low confidence
+; Clears the 32-bit stereo mix accumulator
+;-----------------------------------------------------------------------------
+MixerClearAccumulator:
         push es
         mov ax, ds
         mov es, ax
@@ -1503,7 +1609,11 @@ sub_12BD48:
         pop es
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-sub_12BD70:
+;-----------------------------------------------------------------------------
+; ReadLittleEndian                               12BD70  97 PC, low confidence
+; Reads an unsigned little-endian value of the given number of bytes
+;-----------------------------------------------------------------------------
+ReadLittleEndian:
         push ebx
         push ecx
         push esi
@@ -1533,7 +1643,12 @@ sub_12BD70:
         mov dword [eax], 1
         ret
         db 090h
-sub_12BDA0:
+;-----------------------------------------------------------------------------
+; InitPatchParams                                12BDA0  97 PC, low confidence
+; Sets the default patch parameters (full key and velocity range, centre pan,
+; middle C)
+;-----------------------------------------------------------------------------
+InitPatchParams:
         mov dword [byte eax+04h], 0
         mov dword [byte eax+08h], 7Fh
         mov dword [byte eax+0Ch], 0
@@ -1558,7 +1673,12 @@ sub_12BDA0:
         mov dword [byte eax+068h], unk_19972C
         ret
         db 090h
-sub_12BE3C:
+;-----------------------------------------------------------------------------
+; PlayPatchNote                                  12BE3C  97 PC, low confidence
+; Parses a PT patch header's tag list for the region that covers the key and
+; velocity, then starts the sample
+;-----------------------------------------------------------------------------
+PlayPatchNote:
         push esi
         push edi
         push ebp
@@ -1619,7 +1739,7 @@ sub_12BE3C:
         mov ebx, dword [byte esp+074h]
         mov eax, esp
         mov dword [esp], ecx
-        call sub_12BDA0
+        call InitPatchParams
         mov ah, byte [byte ebx+04h]
         add ebx, byte 4
         cmp ah, 0FFh
@@ -1646,7 +1766,7 @@ sub_12BE3C:
         jle near .20
 .11:
         mov eax, esp
-        call sub_12BDA0
+        call InitPatchParams
 .12:
         xor ecx, ecx
         mov cl, byte [byte ebx+01h]
@@ -1688,7 +1808,7 @@ sub_12BE3C:
         jg short .16
         mov edx, ecx
         mov eax, ebx
-        call sub_12BD70
+        call ReadLittleEndian
         mov dword [esp+edi*4], eax
 .16:
         add ebx, ecx
@@ -1755,7 +1875,7 @@ sub_12BE3C:
         je short .27
         mov eax, edi
         mov ebp, dword [byte esp+078h]
-        call sub_12C9D0
+        call MixNoise
         add ebp, eax
         mov dword [byte esp+078h], ebp
 .27:
@@ -1798,7 +1918,7 @@ sub_12BE3C:
         test edi, edi
         je short .33
         mov eax, edi
-        call sub_12C9D0
+        call MixNoise
         add esi, eax
 .33:
         cmp dword [dword esp+09Ch], byte 0FFFFFFFFh
@@ -1812,16 +1932,16 @@ sub_12BE3C:
         mov edi, dword [byte esp+014h]
         mov ebx, dword [byte esp+018h]
 .35:
-        call sub_12AB04
+        call AudioEnter
         mov ecx, dword_1DD49C
         mov edx, dword [byte esp+02Ch]
         mov eax, edi
-        call sub_12CAD8
+        call UpdateChannels
         mov edx, eax
         mov edi, eax
         test eax, eax
         jge short .36
-        call sub_12AB0C
+        call AudioLeaveCheck
         mov eax, edx
         add esp, 8Ch
         pop ebp
@@ -1865,7 +1985,7 @@ sub_12BE3C:
         mov edx, dword [byte esp+038h]
         test eax, eax
         je short .39
-        call sub_12C9D0
+        call MixNoise
         add edx, eax
 .39:
         cmp edx, byte 7Fh
@@ -1913,7 +2033,7 @@ sub_12BE3C:
         mov byte [byte ebx+0Ah], al
         mov eax, edi
         mov ebp, dword [dword esp+0A0h]
-        call sub_12C970
+        call StartChannel
         xor eax, eax
         push esi
         mov al, byte [byte ebx+030h]
@@ -1930,16 +2050,16 @@ sub_12BE3C:
         push ebp
         mov al, byte [byte edx+02h]
         mov edx, dword [dword esp+098h]
-        call sub_1074E8
+        call StartPatchSample
         test eax, eax
         jge short .42
         push edi
-        call sub_12CD1C
+        call SetChannelCount
         mov eax, 0FFFFFFFFh
         add esp, byte 4
         mov dword [dword_1DD49C], eax
 .42:
-        call sub_12AB0C
+        call AudioLeaveCheck
         mov eax, dword [dword_1DD49C]
 .43:
         add esp, 8Ch
@@ -1958,6 +2078,9 @@ jpt_12C300:
         dd jpt_12C300_24.23
         dd jpt_12C300_24.24
         dd jpt_12C300_24.27
+;-----------------------------------------------------------------------------
+; jpt_12C300_24                                                       12C324  
+;-----------------------------------------------------------------------------
 jpt_12C300_24:
         push ecx
         push esi
@@ -1994,7 +2117,7 @@ jpt_12C300_24:
         inc ebp
         mov edx, dword [byte esp+08h]
         mov eax, ebp
-        call sub_10770C
+        call ParsePatchTags
         jmp near .8
 .3:
         cmp eax, 0FEh
@@ -2227,12 +2350,12 @@ jpt_12C300_24:
         mov al, 1
         mov dx, word [word_1DD4A8]
         out dx, al
-        call sub_12C78C
+        call SbReadData
         xor edx, edx
         xor al, al
         mov dx, word [word_1DD4A8]
         out dx, al
-        call sub_12C7A8
+        call SbWaitRead
         pop edx
         ret
         db 08Bh,0C0h

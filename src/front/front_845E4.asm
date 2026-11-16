@@ -15,9 +15,9 @@ extern dword_1C82A4, dword_1C82A8, dword_1C82AC, dword_1C82B0, dword_1C82C0, dwo
 extern dword_1C82D0, dword_1C82D4, dword_1C82D8, dword_1C82DC, dword_1C82E0, dword_1C82E4, dword_1C82F4, dword_1C8318
 extern dword_1C831C, dword_1C8320, dword_1C8324, dword_1C8328, dword_1C832C, dword_1C8330, dword_1C8334, dword_1C94E8
 extern fclose_, fopen_, fputc_, jpt_845CC, memcpy_, memset_, rand_, sprintf_
-extern str_NAMEINDEX, str_backslash3, strcat_, strcmp_, strcpy_, strlen_, bcopy, sub_101324
-extern BlitShape2, BlitArt, BlitShape, sub_1013FC, FindShape, sub_101584, sub_102B94, Random32
-extern sub_106DA0, sub_10AED0, sub_110D70, ConvertArtXY, FindShapeList, sub_11B104, SetScreenTarget, SecondsToSamples
+extern str_NAMEINDEX, str_backslash3, strcat_, strcmp_, strcpy_, strlen_, bcopy, BlitConverted
+extern BlitShape2, BlitArt, BlitShape, PresentScreen, FindShape, OpenArtArchiveErr, ConvertArtNew, Random32
+extern LoadFileAllocQuiet, DosFileInfo, ProjectModelBounds, ConvertArtXY, FindShapeList, SaveDataFile, SetScreenTarget, SecondsToSamples
 extern WaitSoundTime, ChkMenuMusic, PauseMusic, RequestMusicStop, WaitMusicEnd, ArenaFileName, PlayMenuSfx, StopAllSfx
 extern PlaySfx, MakeDataPath, LoadDataFile, OpenDataLibrary, ShadeShape, DrawShadowBox, DrawScreenBackground, FadeInScreen
 extern ShowScreen, ExitScreen, SetRegionRect, ShowMessageBox, WipeScreen, DrawEntryRow, DrawStatTable, ShowPopupScreen
@@ -26,7 +26,7 @@ extern FindSeasonReplay, RunNewPlayoffs, RunPlayoffMenus, EditLinesScreen, TeamS
 extern GameStatsScreen, PlayMenuGame, FinishLeagueGame, TeamStatsScreen, StatsTablesScreen, RunUserRecords, PlayerStatsScreen, PlayerRatingsScreen
 extern RunVideoOptions, HistoryScreen, RosterScreen, PreGameMatchupScreen, PreGameRostersScreen, FreeDbBlock, OpenLeagueFile, FindGameRecord
 extern ClearLinkAbort, ServiceIdle, NetDisconnect, LinkSendBlock, LinkReceiveBlock, AllocMemBlock, FreeMemBlock, ZeroMem
-extern sub_FC330, FreeBitmap, sub_FCEEC, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, tickcount
+extern OpenResourceArchive, FreeBitmap, DrawShapeCore, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, tickcount
 extern unk_165320, unk_165323, unk_16CCC8, unk_16D804, unk_1AC95D, unk_1AC962, unk_1ACB44, unk_1ACB49
 extern unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C8300, unk_1C830C, unk_845C0
 global jpt_84AF5, jpt_84B15, jpt_84B25, jpt_84B3D, jpt_85CFD, MainMenuAnim_32E, MainMenuAnim_344, MainMenuAnim_35A
@@ -370,7 +370,7 @@ MainMenuAnim_370:
         mov eax, dword [dword_1C82C4]
         push unk_16CCC8
         push dword [byte eax+02Ch]
-        call sub_110D70
+        call ProjectModelBounds
         add esp, byte 8
         push byte 46h
         mov eax, dword [dword_1C8324]
@@ -464,21 +464,21 @@ MainMenuScreen:
         push str_DATAEXHIBITNDX
         mov dword [byte ebp+07Eh], 0FFFFFFFFh
         mov edi, eax
-        call sub_10AED0
+        call DosFileInfo
         add esp, byte 4
         test eax, eax
         je short .1
         mov dword [byte ebp+066h], 1
 .1:
         push str_DATASEASONNDX
-        call sub_10AED0
+        call DosFileInfo
         add esp, byte 4
         test eax, eax
         je short .2
         mov dword [byte ebp+072h], 1
 .2:
         push str_DATAPLAYOFFNDX
-        call sub_10AED0
+        call DosFileInfo
         add esp, byte 4
         test eax, eax
         je short .3
@@ -608,7 +608,7 @@ MainMenuScreen:
         lea eax, [byte ebp+022h]
         push eax
         inc ebx
-        call sub_101584
+        call OpenArtArchiveErr
         add esp, byte 8
         mov dword [nosplit ebx*4+dword_1C8268], eax
 .17:
@@ -619,11 +619,11 @@ MainMenuScreen:
         call WaitSoundTime
         push byte 0
         push str_PIC2CFsh
-        call sub_101584
+        call OpenArtArchiveErr
         add esp, byte 8
         push byte 0
         mov dword [dword_1C82AC], eax
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         mov eax, 3
         call SecondsToSamples
@@ -746,7 +746,7 @@ MainMenuScreen:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_102B94
+        call ConvertArtNew
         add esp, byte 8
         mov dword [dword_1C8324], eax
         push str_GMT1
@@ -882,7 +882,7 @@ MainMenuScreen:
         push dword [dword_1C82C0]
         call BlitShape2
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [dword_16CCC4]
         mov edx, dword [dword_1C8320]
         mov eax, dword [byte ebp+eax*4-076h]
@@ -951,7 +951,7 @@ MainMenuScreen:
         push byte 0
         push dword [byte ebp+07Ah]
         xor ebx, ebx
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
 .22:
         lea eax, [byte ebx+02h]
@@ -993,7 +993,7 @@ MainMenuScreen:
         push dword [byte edi+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [tickcount]
         mov ebx, eax
         jmp near .21
@@ -1023,7 +1023,7 @@ MainMenuScreen:
         push byte 0
         push dword [byte ebp+07Ah]
         xor ebx, ebx
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
 .24:
         lea eax, [byte ebx+02h]
@@ -1065,7 +1065,7 @@ MainMenuScreen:
         push dword [byte edi+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         call StopAllSfx
         mov eax, 203h
         call PlaySfx
@@ -1881,7 +1881,7 @@ StatsMenuScreen:
         push dword [byte ebx+02Ch]
         call ConvertArtXY
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         mov edx, 1E0h
         movsx eax, word [byte esi+06h]
         sub edx, eax
@@ -2031,7 +2031,7 @@ StatsMenuScreen:
         push byte 0
         mov eax, dword [byte ebp+066h]
         push dword [byte eax+02Ch]
-        call sub_101324
+        call BlitConverted
         add esp, byte 0Ch
         push str_GL00
         push dword [byte ebp+06Eh]
@@ -2047,7 +2047,7 @@ StatsMenuScreen:
         push eax
         call BlitShape2
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         push dword [byte ebp+066h]
         call FreeBitmap
         add esp, byte 4
@@ -2095,7 +2095,7 @@ StatsMenuScreen:
         mov dword [byte ebp+076h], eax
 .7:
         push str_DATAREPLAYNDX
-        call sub_10AED0
+        call DosFileInfo
         add esp, byte 4
         test eax, eax
         je short .8
@@ -2257,7 +2257,7 @@ NameIndexLoad:
         push byte 20h
         lea eax, [byte esp+04h]
         push eax
-        call sub_106DA0
+        call LoadFileAllocQuiet
         add esp, byte 8
         mov edx, eax
         mov edi, eax
@@ -2371,7 +2371,7 @@ NameIndexSave:
         push ebx
         lea eax, [byte esp+08h]
         push eax
-        call sub_11B104
+        call SaveDataFile
         add esp, byte 0Ch
 .6:
         add esp, byte 64h

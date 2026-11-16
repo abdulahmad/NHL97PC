@@ -2,8 +2,12 @@
 bits 32
 %include "hockey.inc"
 section s_138F20 progbits alloc exec nowrite align=1
-global __FDFS, sub_138F20, sub_138F5A
-sub_138F20:
+global __FDFS, SaveVideoState, RestoreVideoState
+;-----------------------------------------------------------------------------
+; SaveVideoState                                 138F20  97 PC, low confidence
+; Saves the BIOS video mode, rows, columns and cursor
+;-----------------------------------------------------------------------------
+SaveVideoState:
         push esi
         push edi
         push ebp
@@ -28,7 +32,11 @@ sub_138F20:
         pop edi
         pop esi
         ret
-sub_138F5A:
+;-----------------------------------------------------------------------------
+; RestoreVideoState                              138F5A  97 PC, low confidence
+; Restores the saved BIOS video state
+;-----------------------------------------------------------------------------
+RestoreVideoState:
         push esi
         push edi
         push ebp
@@ -48,6 +56,9 @@ sub_138F5A:
         pop esi
         ret
         db 00h
+;-----------------------------------------------------------------------------
+; __FDFS                                                       138F82  library
+;-----------------------------------------------------------------------------
 __FDFS:
         push ebx
         test edx, 7FF00000h

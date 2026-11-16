@@ -6,18 +6,20 @@ extern str_DMABUFFER, str_DMABUFFER2, byte_172BF4, byte_172BF5, byte_172BF6, byt
 extern dword_172BDC, dword_172BE0, dword_172BE4, dword_172BE8, dword_172BEC, dword_172BF0, dword_19A75C, dword_1DCF24
 extern dword_1DCF28, dword_1DCF2C, dword_1DCF30, dword_1DCF34, dword_1DCF38, dword_1DD384, dword_1DD390, dword_1DD394
 extern dword_1DD398, dword_1DD39C, dword_1DD3A0, dword_1DD3A4, dword_1DD3A8, dword_1DD3AC, dword_1DD3B0, dword_1DD3B4
-extern jpt_12C300_24, memset_, sub_1073B0, sub_1073BC, sub_1073C0, sub_107988, sub_128CEC, sub_12AB04
-extern sub_12AB0C, sub_12AB6C, sub_12AD27, sub_12BE3C, sub_12C970, sub_12C9D0, sub_12CAD8, sub_12CD1C
-extern sub_136100, sub_136210, sub_1365EC, sub_1366D8, sub_136D2C, sub_13701C, sub_137022, sub_1371FB
-extern sub_137247, sub_13794C, sub_137966, sub_137981, sub_137D50, sub_FAAB4, FreeMemBlock, word_1DD388
+extern jpt_12C300_24, memset_, AdvanceStreamOffset, AudioNullFunc, StartTmplSample, PickSampleRate, ReadBlasterPort, AudioEnter
+extern AudioLeaveCheck, MixerInit, MixerFillBuffer, PlayPatchNote, StartChannel, MixNoise, UpdateChannels, SetChannelCount
+extern GusGetEnvConfig, GusProbePort, GusOpen, GusClose, GusMemAlloc, GusStopStream, GusStreamBusy, GusServiceStream
+extern GusStartStream, TimerCalibrate, TimerRestore, TimerSetRate, IrqAck, AllocMemData, FreeMemBlock, word_1DD388
 extern word_1DD38A
-global jpt_127FC0, sub_127FD0_B3, sub_127FD0_F0, sub_127FD0_FD, sub_127FD0_124, sub_127FD0_1B0, sub_127D70, sub_127DB4
-global sub_127FD0, sub_128280, sub_1282A0, sub_128680, sub_1286F0, sub_128734, sub_128878, sub_128880
-global sub_1288F8, sub_128948, sub_1289B0, sub_1289B8, sub_128C70, sub_128CA8, unk_128990, unk_1289A0
+global jpt_127FC0, PrepareBankSampleData_B3, PrepareBankSampleData_F0, PrepareBankSampleData_FD, PrepareBankSampleData_124, PrepareBankSampleData_1B0, ExpandBytePair, UnpackBytePairs
+global PrepareBankSampleData, LoadSampleHeader, PlayPatlSample, PlaySoundEntry, GusDetect, GusDriverStartStream, GusDriverCaps, GusDriverOpen
+global GusDriverClose, GusDriverUpdate, DacDriverCaps, DacDriverOpen, DacDriverClose, DacDriverUpdate, unk_128990, unk_1289A0
 ;-----------------------------------------------------------------------------
-; sub_127D70                                                          127D70  
+; ExpandBytePair                                 127D70  97 PC, low confidence
+; Expands one byte of byte-pair coded data through the pair tables
+; (recursive)
 ;-----------------------------------------------------------------------------
-sub_127D70:
+ExpandBytePair:
         push ebx
         push edx
 .1:
@@ -29,7 +31,7 @@ sub_127D70:
         mov eax, dword [dword_1DCF28]
         mov al, byte [edx+eax]
         and eax, 0FFh
-        call sub_127D70
+        call ExpandBytePair
         mov eax, dword [dword_1DCF30]
         mov al, byte [edx+eax]
         jmp short .1
@@ -43,9 +45,11 @@ sub_127D70:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_127DB4                                                          127DB4  
+; UnpackBytePairs                                127DB4  97 PC, low confidence
+; Decompresses byte-pair coded data: reads the pair tables and expands each
+; byte
 ;-----------------------------------------------------------------------------
-sub_127DB4:
+UnpackBytePairs:
         push ebx
         push esi
         push edi
@@ -161,7 +165,7 @@ sub_127DB4:
         mov eax, dword [dword_1DCF28]
         mov al, byte [esi+eax]
         and eax, 0FFh
-        call sub_127D70
+        call ExpandBytePair
         mov eax, dword [dword_1DCF30]
         mov al, byte [esi+eax]
         jmp short .6
@@ -181,7 +185,7 @@ sub_127DB4:
         mov eax, dword [dword_1DCF28]
         mov al, byte [edx+eax]
         and eax, 0FFh
-        call sub_127D70
+        call ExpandBytePair
         mov eax, dword [dword_1DCF30]
         jmp short .8
 .9:
@@ -211,14 +215,15 @@ sub_127DB4:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 jpt_127FC0:
-        dd sub_127FD0_B3
-        dd sub_127FD0_F0
-        dd sub_127FD0_FD
-        dd sub_127FD0_124
+        dd PrepareBankSampleData_B3
+        dd PrepareBankSampleData_F0
+        dd PrepareBankSampleData_FD
+        dd PrepareBankSampleData_124
 ;-----------------------------------------------------------------------------
-; sub_127FD0                                                          127FD0  
+; PrepareBankSampleData                          127FD0  97 PC, low confidence
+; Reads a sample's header and points the stream functions at its data
 ;-----------------------------------------------------------------------------
-sub_127FD0:
+PrepareBankSampleData:
         push ebx
         push esi
         push edi
@@ -262,7 +267,7 @@ sub_127FD0:
         mov eax, dword [byte esp+08h]
         mov dword [esp], eax
         test eax, eax
-        jle near sub_127FD0_124.7
+        jle near PrepareBankSampleData_124.7
 .3:
         mov eax, dword [byte esp+0Ch]
         mov al, byte [eax]
@@ -275,9 +280,9 @@ sub_127FD0:
         sar eax, 6
         mov dword [byte esp+0Ch], ecx
         cmp eax, byte 3
-        ja near sub_127FD0_124.6
+        ja near PrepareBankSampleData_124.6
         jmp dword [nosplit cs:eax*4+jpt_127FC0]
-sub_127FD0_B3:
+PrepareBankSampleData_B3:
         mov esi, dword [byte esp+0Ch]
         mov edi, dword [byte esp+04h]
         mov ecx, ebp
@@ -298,13 +303,13 @@ sub_127FD0_B3:
         add eax, ebp
         mov dword [byte esp+0Ch], edi
         mov dword [byte esp+04h], eax
-        jmp near sub_127FD0_124.6
-sub_127FD0_F0:
+        jmp near PrepareBankSampleData_124.6
+PrepareBankSampleData_F0:
         mov al, byte [ecx]
         lea ebx, [byte ecx+01h]
         mov byte [byte esp+010h], al
         mov dword [byte esp+0Ch], ebx
-sub_127FD0_FD:
+PrepareBankSampleData_FD:
         mov eax, dword [byte esp+04h]
         mov ecx, dword [byte esp+04h]
         xor edx, edx
@@ -316,8 +321,8 @@ sub_127FD0_FD:
         sub esi, ebp
         mov dword [byte esp+04h], ecx
         mov dword [byte esp+08h], esi
-        jmp short sub_127FD0_124.6
-sub_127FD0_124:
+        jmp short PrepareBankSampleData_124.6
+PrepareBankSampleData_124:
         mov edx, dword [byte esp+04h]
         lea esi, [byte ecx+01h]
         mov ah, byte [ecx]
@@ -363,7 +368,7 @@ sub_127FD0_124:
         jg short .4
 .6:
         cmp dword [byte esp+08h], byte 0
-        jg near sub_127FD0.3
+        jg near PrepareBankSampleData.3
 .7:
         mov eax, dword [esp]
         add esp, byte 14h
@@ -373,7 +378,7 @@ sub_127FD0_124:
         pop ebx
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-sub_127FD0_1B0:
+PrepareBankSampleData_1B0:
         push ecx
         push esi
         push edi
@@ -436,7 +441,7 @@ sub_127FD0_1B0:
         add eax, esi
         mov edx, dword [byte esp+04h]
         add eax, byte 28h
-        call sub_1073B0
+        call AdvanceStreamOffset
         mov dword [byte esp+08h], eax
         test eax, eax
         jge short .13
@@ -468,7 +473,7 @@ sub_127FD0_1B0:
         add eax, esi
         add eax, byte 28h
         add esi, byte 44h
-        call sub_1073BC
+        call AudioNullFunc
         cmp esi, edx
         jg short .18
         jmp short .16
@@ -485,20 +490,23 @@ sub_127FD0_1B0:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_128280                                                          128280  
+; LoadSampleHeader                               128280  97 PC, low confidence
+; Loads a sample of a PATl bank or a PT patch into the sound driver
 ;-----------------------------------------------------------------------------
-sub_128280:
+LoadSampleHeader:
         cmp dword [eax], 6C544150h
-        je near sub_127FD0_1B0
+        je near PrepareBankSampleData_1B0
         cmp word [eax], 5450h
         je near jpt_12C300_24
         mov eax, 0FFFFFFFFh
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1282A0                                                          1282A0  
+; PlayPatlSample                                 1282A0  97 PC, low confidence
+; Checks a PATl sample header and starts it on a channel with its pitch,
+; volume and pan
 ;-----------------------------------------------------------------------------
-sub_1282A0:
+PlayPatlSample:
         push esi
         push edi
         push ebp
@@ -651,7 +659,7 @@ sub_1282A0:
         mov eax, dword [byte esi+0Eh]
         sar eax, 18h
         mov ecx, dword [byte esp+010h]
-        call sub_12C9D0
+        call MixNoise
         add ecx, eax
         mov dword [byte esp+010h], ecx
 .21:
@@ -712,7 +720,7 @@ sub_1282A0:
         mov eax, dword [byte esi+014h]
         sar eax, 10h
         mov ebx, dword [byte esp+0Ch]
-        call sub_12C9D0
+        call MixNoise
         add ebx, eax
         mov dword [byte esp+0Ch], ebx
 .28:
@@ -738,17 +746,17 @@ sub_1282A0:
         mov dword [byte esp+04h], eax
         mov bl, byte [byte esi+08h]
 .31:
-        call sub_12AB04
+        call AudioEnter
         mov ecx, dword_1DD384
         xor edx, edx
         mov eax, dword [byte esp+04h]
         mov dl, byte [byte esi+0Fh]
-        call sub_12CAD8
+        call UpdateChannels
         mov edx, eax
         mov dword [byte esp+08h], eax
         test eax, eax
         jge short .32
-        call sub_12AB0C
+        call AudioLeaveCheck
         mov eax, edx
         add esp, byte 14h
         pop ebp
@@ -785,7 +793,7 @@ sub_1282A0:
         mov edx, eax
         mov eax, dword [byte esi+010h]
         sar eax, 18h
-        call sub_12C9D0
+        call MixNoise
         add edx, eax
         cmp edx, ecx
         jle short .33
@@ -833,7 +841,7 @@ sub_1282A0:
         mov byte [byte ebx+0Ah], al
         mov eax, dword [byte esp+08h]
         xor edx, edx
-        call sub_12C970
+        call StartChannel
         mov eax, dword [dword_172BC1]
         mov dl, byte [byte esi+0Eh]
         sar eax, 18h
@@ -857,17 +865,17 @@ sub_1282A0:
         push eax
         mov ebx, dword [byte esp+01Ch]
         lea eax, [byte esi+028h]
-        call sub_1073C0
+        call StartTmplSample
         mov ebx, eax
         test eax, eax
         jge short .35
         mov eax, dword [byte esp+08h]
         push eax
-        call sub_12CD1C
+        call SetChannelCount
         add esp, byte 4
         mov dword [dword_1DD384], ebx
 .35:
-        call sub_12AB0C
+        call AudioLeaveCheck
         mov eax, dword [dword_1DD384]
 .36:
         add esp, byte 14h
@@ -876,9 +884,10 @@ sub_1282A0:
         pop esi
         ret 10h
 ;-----------------------------------------------------------------------------
-; sub_128680                                                          128680  
+; PlaySoundEntry                                 128680  97 PC, low confidence
+; Plays a PATl sample or a PT patch note, by its header type
 ;-----------------------------------------------------------------------------
-sub_128680:
+PlaySoundEntry:
         push esi
         push edi
         push ebp
@@ -897,7 +906,7 @@ sub_128680:
         push edi
         mov ebp, dword [byte esp+01Ch]
         push ebp
-        call sub_1282A0
+        call PlayPatlSample
         pop ebp
         pop edi
         pop esi
@@ -913,7 +922,7 @@ sub_128680:
         push esi
         mov edi, dword [byte esp+01Ch]
         push edi
-        call sub_12BE3C
+        call PlayPatchNote
         pop ebp
         pop edi
         pop esi
@@ -927,12 +936,13 @@ sub_128680:
         ret 10h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_1286F0                                                          1286F0  
+; GusDetect                                      1286F0  97 PC, low confidence
+; Reads the card settings from the environment and probes for the card
 ;-----------------------------------------------------------------------------
-sub_1286F0:
+GusDetect:
         push edx
         mov eax, word_1DD388
-        call sub_136100
+        call GusGetEnvConfig
         test eax, eax
         jne short .1
         mov eax, 0FFFFFFFDh
@@ -943,7 +953,7 @@ sub_1286F0:
         mov edx, 1
         mov ax, word [word_1DD38A]
         mov dword [dword_172BE4], edx
-        call sub_136210
+        call GusProbePort
         test eax, eax
         jne short .2
         mov eax, 0FFFFFFFEh
@@ -956,9 +966,11 @@ sub_1286F0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_128734                                                          128734  
+; GusDriverStartStream                           128734  97 PC, low confidence
+; Allocates the DMA buffer, opens the card, allocates card memory and starts
+; the stream
 ;-----------------------------------------------------------------------------
-sub_128734:
+GusDriverStartStream:
         push ecx
         push edx
         push ebp
@@ -967,7 +979,7 @@ sub_128734:
         push dword 200h
         push dword 2000h
         push str_DMABUFFER
-        call sub_FAAB4
+        call AllocMemData
         add esp, byte 0Ch
         mov dword [dword_1DD394], eax
         test eax, eax
@@ -995,7 +1007,7 @@ sub_128734:
         cmp dword [dword_172BE4], byte 0
         jne short .4
         mov eax, word_1DD388
-        call sub_136100
+        call GusGetEnvConfig
         test eax, eax
         jne short .3
         mov eax, 0FFFFFFFDh
@@ -1008,7 +1020,7 @@ sub_128734:
 .4:
         xor eax, eax
         mov ax, word [word_1DD38A]
-        call sub_136210
+        call GusProbePort
         test eax, eax
         jne short .5
         mov eax, 0FFFFFFFEh
@@ -1034,7 +1046,7 @@ sub_128734:
         mov byte [byte_1DD38C], 5
 .8:
         mov eax, word_1DD388
-        call sub_1365EC
+        call GusOpen
         test eax, eax
         je short .9
         mov eax, 0FFFFFFFBh
@@ -1046,13 +1058,13 @@ sub_128734:
         mov ebp, 1
         mov eax, 1004h
         mov dword [dword_172BDC], ebp
-        call sub_136D2C
+        call GusMemAlloc
         push dword 1000h
         push eax
         mov dword [dword_1DD390], eax
         mov eax, dword [dword_1DD394]
         push eax
-        call sub_137247
+        call GusStartStream
         add esp, byte 0Ch
 .10:
         xor eax, eax
@@ -1063,16 +1075,19 @@ sub_128734:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_128878                                                          128878  
+; GusDriverCaps                                  128878  97 PC, low confidence
+; Returns the format flags the Gravis driver supports
 ;-----------------------------------------------------------------------------
-sub_128878:
+GusDriverCaps:
         mov eax, 808h
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_128880                                                          128880  
+; GusDriverOpen                                  128880  97 PC, low confidence
+; Checks the requested format, detects the card, starts the stream and
+; initialises the mixer
 ;-----------------------------------------------------------------------------
-sub_128880:
+GusDriverOpen:
         push ecx
         push edx
         test al, 8
@@ -1083,7 +1098,7 @@ sub_128880:
         ret
 .1:
         mov eax, word_1DD388
-        call sub_136100
+        call GusGetEnvConfig
         test eax, eax
         jne short .2
         mov eax, 0FFFFFFFDh
@@ -1093,7 +1108,7 @@ sub_128880:
         mov edx, 1
         mov ax, word [word_1DD38A]
         mov dword [dword_172BE4], edx
-        call sub_136210
+        call GusProbePort
         test eax, eax
         jne short .3
         mov eax, 0FFFFFFFEh
@@ -1104,13 +1119,13 @@ sub_128880:
 .4:
         test eax, eax
         jle short .5
-        call sub_128734
+        call GusDriverStartStream
         test eax, eax
         jl short .5
-        push sub_12CD1C
+        push SetChannelCount
         push dword 5622h
         push byte 3
-        call sub_12AB6C
+        call MixerInit
         mov eax, 3
         add esp, byte 0Ch
 .5:
@@ -1119,9 +1134,10 @@ sub_128880:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1288F8                                                          1288F8  
+; GusDriverClose                                 1288F8  97 PC, low confidence
+; Closes the card, stops the stream and frees the DMA buffer
 ;-----------------------------------------------------------------------------
-sub_1288F8:
+GusDriverClose:
         push ebx
         push ecx
         push edx
@@ -1129,14 +1145,14 @@ sub_1288F8:
         cmp dword [dword_172BDC], byte 0
         je short .1
         xor ebx, ebx
-        call sub_1366D8
+        call GusClose
         mov dword [dword_172BE4], ebx
         mov dword [dword_172BE8], ebx
         mov dword [dword_172BDC], ebx
 .1:
         cmp dword [dword_172BE0], byte 0
         je short .2
-        call sub_13701C
+        call GusStopStream
         mov ebp, dword [dword_172BE0]
         push ebp
         call FreeMemBlock
@@ -1151,14 +1167,15 @@ sub_1288F8:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_128948                                                          128948  
+; GusDriverUpdate                                128948  97 PC, low confidence
+; Mixes the next half buffer and copies it to the card while the stream runs
 ;-----------------------------------------------------------------------------
-sub_128948:
+GusDriverUpdate:
         push ecx
         push edx
         cmp dword [dword_172BDC], byte 0
         je short .1
-        call sub_137022
+        call GusStreamBusy
         test eax, eax
         je short .1
         mov edx, dword [dword_19A75C]
@@ -1167,9 +1184,9 @@ sub_128948:
         push dword 200h
         add eax, edx
         push eax
-        call sub_12AD27
+        call MixerFillBuffer
         add esp, byte 8
-        call sub_1371FB
+        call GusServiceStream
 .1:
         pop edx
         pop ecx
@@ -1180,16 +1197,19 @@ unk_128990:
 unk_1289A0:
         db 011h,00h,00h,00h,012h,00h,00h,00h,0FFh,0FFh,0FFh,0FFh,013h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_1289B0                                                          1289B0  
+; DacDriverCaps                                  1289B0  97 PC, low confidence
+; Returns the format flags the timer-driven DAC driver supports
 ;-----------------------------------------------------------------------------
-sub_1289B0:
+DacDriverCaps:
         mov eax, 3F0Bh
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1289B8                                                          1289B8  
+; DacDriverOpen                                  1289B8  97 PC, low confidence
+; Sets up timer-driven DAC output: picks the rate, allocates the buffer,
+; starts the mixer and timer
 ;-----------------------------------------------------------------------------
-sub_1289B8:
+DacDriverOpen:
         push ebx
         push ecx
         push edx
@@ -1200,7 +1220,7 @@ sub_1289B8:
         mov ecx, eax
         mov ebx, 1
         and ecx, 0FF00h
-        call sub_1289B0
+        call DacDriverCaps
         and eax, ecx
         test dl, 1
         je short .1
@@ -1219,7 +1239,7 @@ sub_1289B8:
 .3:
         mov esi, 3
 .4:
-        call sub_107988
+        call PickSampleRate
         mov dword [dword_1DD3B0], eax
         cmp eax, 3E80h
         jb short .6
@@ -1304,7 +1324,7 @@ sub_1289B8:
         push eax
         push str_DMABUFFER2
         mov dword [dword_1DD398], edi
-        call sub_FAAB4
+        call AllocMemData
         add esp, byte 0Ch
         mov dword [dword_1DD3AC], eax
         test eax, eax
@@ -1331,7 +1351,7 @@ sub_1289B8:
         add eax, 10000h
         mov dword [dword_1DD3AC], eax
 .17:
-        call sub_128CEC
+        call ReadBlasterPort
         mov ebx, eax
         test eax, eax
         jge short .18
@@ -1351,7 +1371,7 @@ sub_1289B8:
         ret
 .18:
         sar eax, 10h
-        push sub_12CD1C
+        push SetChannelCount
         mov dword [dword_1DD3A0], eax
         mov eax, dword [dword_1DD3B0]
         push eax
@@ -1360,14 +1380,14 @@ sub_1289B8:
         mov al, byte [dword eax+byte_172BF5]
         and eax, 0FFh
         push eax
-        call sub_12AB6C
+        call MixerInit
         add esp, byte 0Ch
         mov edx, dword [dword_1DD39C]
         push edx
         mov ecx, dword [dword_1DD3AC]
         push ecx
         mov esi, eax
-        call sub_12AD27
+        call MixerFillBuffer
         mov edi, dword [dword_1DD39C]
         add esp, byte 8
         mov eax, dword [dword_1DD3AC]
@@ -1375,12 +1395,12 @@ sub_1289B8:
         push edi
         add eax, ebp
         push eax
-        call sub_12AD27
+        call MixerFillBuffer
         add esp, byte 8
         mov eax, dword [dword_1DD3AC]
         push eax
         push ebx
-        call sub_13794C
+        call TimerCalibrate
         mov ebx, eax
         add esp, byte 8
         test eax, eax
@@ -1402,7 +1422,7 @@ sub_1289B8:
 .19:
         push byte 7Fh
         mov edi, 1
-        call sub_137981
+        call TimerSetRate
         mov eax, esi
         add esp, byte 4
         shl eax, 10h
@@ -1417,16 +1437,17 @@ sub_1289B8:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_128C70                                                          128C70  
+; DacDriverClose                                 128C70  97 PC, low confidence
+; Restores the timer and frees the DAC buffer
 ;-----------------------------------------------------------------------------
-sub_128C70:
+DacDriverClose:
         push ebx
         push ecx
         push edx
         push esi
         cmp dword [dword_172BEC], byte 0
         je short .1
-        call sub_137966
+        call TimerRestore
         mov ebx, dword [dword_172BEC]
         push ebx
         call FreeMemBlock
@@ -1443,15 +1464,16 @@ sub_128C70:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_128CA8                                                          128CA8  
+; DacDriverUpdate                                128CA8  97 PC, low confidence
+; Acknowledges the interrupt and mixes the next block of DAC output
 ;-----------------------------------------------------------------------------
-sub_128CA8:
+DacDriverUpdate:
         push ebx
         push ecx
         push edx
         mov edx, dword [dword_1DD3A0]
         mov eax, dword [dword_1DD3A4]
-        call sub_137D50
+        call IrqAck
         mov dword [dword_1DD3B4], eax
         test eax, eax
         jl short .1
@@ -1462,7 +1484,7 @@ sub_128CA8:
         push ebx
         add eax, edx
         push eax
-        call sub_12AD27
+        call MixerFillBuffer
         add esp, byte 8
 .1:
         pop edx

@@ -2,10 +2,10 @@
 bits 32
 %include "hockey.inc"
 section s_16FFC8 progbits alloc noexec write align=1
-extern sub_1073BC, sub_1079C4, sub_128878, sub_128880, sub_1288F8, sub_128948, sub_1289B0, sub_1289B8
-extern sub_128C70, sub_128CA8, sub_128E00, sub_128E08, sub_128F80, sub_129000, sub_1291F0, sub_1291F8
-extern sub_129428, sub_129460, sub_129740, sub_129748, sub_1299BC, sub_129A48, sub_129CB0, sub_129CB8
-extern sub_129F00, sub_129F3C
+extern AudioNullFunc, SampleRateResults, GusDriverCaps, GusDriverOpen, GusDriverClose, GusDriverUpdate, DacDriverCaps, DacDriverOpen
+extern DacDriverClose, DacDriverUpdate, SbDriverId, SbDriverInit, SbDriverShutdown, SbDriverStart, SbProDriverId, SbProDriverInit
+extern SbProDriverShutdown, SbProDriverStart, Sb16DriverId, Sb16DriverInit, Sb16DriverShutdown, Sb16DriverStart, SoundscapeDriverId, SoundscapeDriverInit
+extern SoundscapeDriverShutdown, SoundscapeDriverStart
 global byte_170044, byte_170045, byte_170046, byte_170047, byte_170048, byte_1700A0, byte_1700A1, byte_1700A4
 global byte_1700A5, byte_1700A6, byte_1700A7, byte_1700A8, byte_170124, dword_170038, dword_17003C, dword_170040
 global dword_170042, dword_170043, dword_170050, dword_170054, dword_170058, dword_170060, dword_170080, dword_170084
@@ -13,37 +13,37 @@ global dword_170088, dword_17008C, dword_170090, dword_170094, dword_170098, dwo
 global dword_1700FD, dword_170101, dword_17014C, dword_170150, dword_170154, dword_170158, off_16FFC8, off_16FFCC
 global off_16FFD0, off_16FFD4, word_17004A, word_17004C, word_17004E, word_17005C, word_17005E
 off_16FFC8:
-        dd sub_1073BC
+        dd AudioNullFunc
 off_16FFCC:
-        dd sub_1079C4
+        dd SampleRateResults
 off_16FFD0:
-        dd sub_1079C4
+        dd SampleRateResults
 off_16FFD4:
-        dd sub_1073BC
-        dd sub_128880
-        dd sub_1288F8
-        dd sub_128948
-        dd sub_128878
-        dd sub_1289B8
-        dd sub_128C70
-        dd sub_128CA8
-        dd sub_1289B0
-        dd sub_128E08
-        dd sub_128F80
-        dd sub_129000
-        dd sub_128E00
-        dd sub_1291F8
-        dd sub_129428
-        dd sub_129460
-        dd sub_1291F0
-        dd sub_129748
-        dd sub_1299BC
-        dd sub_129A48
-        dd sub_129740
-        dd sub_129CB8
-        dd sub_129F00
-        dd sub_129F3C
-        dd sub_129CB0
+        dd AudioNullFunc
+        dd GusDriverOpen
+        dd GusDriverClose
+        dd GusDriverUpdate
+        dd GusDriverCaps
+        dd DacDriverOpen
+        dd DacDriverClose
+        dd DacDriverUpdate
+        dd DacDriverCaps
+        dd SbDriverInit
+        dd SbDriverShutdown
+        dd SbDriverStart
+        dd SbDriverId
+        dd SbProDriverInit
+        dd SbProDriverShutdown
+        dd SbProDriverStart
+        dd SbProDriverId
+        dd Sb16DriverInit
+        dd Sb16DriverShutdown
+        dd Sb16DriverStart
+        dd Sb16DriverId
+        dd SoundscapeDriverInit
+        dd SoundscapeDriverShutdown
+        dd SoundscapeDriverStart
+        dd SoundscapeDriverId
 dword_170038:
         db 00h,00h,00h,00h
 dword_17003C:

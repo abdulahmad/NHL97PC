@@ -3,15 +3,17 @@ bits 32
 %include "hockey.inc"
 section s_11FAAC progbits alloc exec nowrite align=1
 extern dword_16E478, dword_16E678, dword_16E67C, dword_16E680, dword_16E684, dword_16F8AC, dword_16F8B0, dword_16F8B4
-extern dword_16F8B8, dword_199C38, dword_199C3C, dword_1CF53C, sub_103024, sub_103298, sub_1049D0, sub_123414
-extern sub_123423, sub_123D38, sub_132400, ZeroMem, sub_FDC68, PrepareTextDraw
-global jpt_11FDFD, jpt_11FF3D, jpt_120116, sub_11FAD6_10, sub_11FB11_10, sub_11FB11_27, jpt_11FDFD_38, jpt_11FF3D_3B
-global jpt_120116_22F, sub_11FAAC, sub_11FAD6, sub_11FB11, sub_11FD1E, sub_11FDDC, sub_11FF0E, sub_120650
-global sub_120680, sub_12071C
+extern dword_16F8B8, dword_199C38, dword_199C3C, dword_1CF53C, VesaQueryMode, SetGraphicsMode, BytesPerPixelForDepth, SetupRectFillShaded
+extern SetupRectFill, FillRectSpans, FillRectList, ZeroMem, FillRectColor, PrepareTextDraw
+global jpt_11FDFD, jpt_11FF3D, jpt_120116, FillShadowRect_10, DrawTitleBand_10, DrawTitleBand_27, jpt_11FDFD_38, jpt_11FF3D_3B
+global jpt_120116_22F, SetTextFont, FillShadowRect, DrawTitleBand, FillBandEdges, FillBandRows, FillBandRowsBlend, CountVesaModes
+global FindModeByResolution, SetModeByResolution
 ;-----------------------------------------------------------------------------
-; sub_11FAAC                                                          11FAAC  
+; SetTextFont                                    11FAAC  97 PC, low confidence
+; Sets the current text font and prepares text drawing; followed by the
+; getter
 ;-----------------------------------------------------------------------------
-sub_11FAAC:
+SetTextFont:
         mov eax, dword [byte esp+04h]
         mov dword [dword_1CF53C], eax
         jmp near PrepareTextDraw
@@ -26,11 +28,12 @@ sub_11FAAC:
         push esi
         push edi
         mov byte [byte ebp-011h], 1
-        jmp short sub_11FAD6_10
+        jmp short FillShadowRect_10
 ;-----------------------------------------------------------------------------
-; sub_11FAD6                                                          11FAD6  
+; FillShadowRect                                 11FAD6  97 PC, low confidence
+; Entry that sets the rectangle fill callbacks and draws a shadowed rectangle
 ;-----------------------------------------------------------------------------
-sub_11FAD6:
+FillShadowRect:
         push ebp
         LD mov, ebp, esp
         add esp, 0FFFFD6F4h
@@ -38,13 +41,13 @@ sub_11FAD6:
         push esi
         push edi
         mov byte [byte ebp-011h], 0
-sub_11FAD6_10:
-        mov eax, sub_132400
+FillShadowRect_10:
+        mov eax, FillRectList
         mov dword [dword_199C38], eax
-        mov eax, sub_FDC68
+        mov eax, FillRectColor
         mov dword [dword_199C3C], eax
         mov esi, dword [byte ebp+010h]
-        jmp short sub_11FB11_27
+        jmp short DrawTitleBand_27
         push ebp
         LD mov, ebp, esp
         add esp, 0FFFFD6F4h
@@ -52,11 +55,12 @@ sub_11FAD6_10:
         push esi
         push edi
         mov byte [byte ebp-011h], 1
-        jmp short sub_11FB11_10
+        jmp short DrawTitleBand_10
 ;-----------------------------------------------------------------------------
-; sub_11FB11                                                          11FB11  
+; DrawTitleBand                                  11FB11  97 PC, low confidence
+; Entry that sets the fill callbacks and draws a shaded title band
 ;-----------------------------------------------------------------------------
-sub_11FB11:
+DrawTitleBand:
         db 055h                                 ; insn: push ebp
         LD mov, ebp, esp
         add esp, 0FFFFD6F4h
@@ -64,13 +68,13 @@ sub_11FB11:
         push esi
         push edi
         mov byte [byte ebp-011h], 0
-sub_11FB11_10:
-        mov eax, sub_132400
+DrawTitleBand_10:
+        mov eax, FillRectList
         mov dword [dword_199C38], eax
-        mov eax, sub_FDC68
+        mov eax, FillRectColor
         mov dword [dword_199C3C], eax
         lea esi, [byte ebp+010h]
-sub_11FB11_27:
+DrawTitleBand_27:
         mov dword [byte ebp-0Ch], esi
         mov ecx, dword [byte ebp+0Ch]
         LD mov, eax, ecx
@@ -198,14 +202,14 @@ sub_11FB11_27:
         push ecx
         cmp byte [byte ebp-012h], 0
         je short .13
-        call sub_123423
+        call SetupRectFill
         mov dword [byte ebp-028h], edi
-        call sub_11FD1E
+        call FillBandEdges
         jmp short .14
 .13:
-        call sub_123414
+        call SetupRectFillShaded
         mov dword [byte ebp-028h], edi
-        call sub_11FDDC
+        call FillBandRows
 .14:
         mov edi, dword [byte ebp-028h]
         add esp, byte 14h
@@ -231,13 +235,13 @@ sub_11FB11_27:
         push ecx
         cmp byte [byte ebp-012h], 0
         je short .18
-        call sub_123423
+        call SetupRectFill
         jmp short .19
 .18:
-        call sub_123414
+        call SetupRectFillShaded
 .19:
         mov dword [byte ebp-028h], edi
-        call sub_11FF0E
+        call FillBandRowsBlend
         mov edi, dword [byte ebp-028h]
         add esp, byte 14h
 .20:
@@ -276,9 +280,10 @@ sub_11FB11_27:
         leave
         ret
 ;-----------------------------------------------------------------------------
-; sub_11FD1E                                                          11FD1E  
+; FillBandEdges                                  11FD1E  97 PC, low confidence
+; Fills the soft edge columns of a shaded band
 ;-----------------------------------------------------------------------------
-sub_11FD1E:
+FillBandEdges:
         mov ecx, dword [byte esi+020h]
         LD or, ecx, ecx
         jle short .1
@@ -338,7 +343,7 @@ sub_11FD1E:
 .3:
         mov ecx, dword [byte esi+02Ch]
         LD or, ecx, ecx
-        jle short sub_11FDDC
+        jle short FillBandRows
         mov edi, dword [byte esi+014h]
         inc edi
         lea edi, [nosplit edi*4+00h]
@@ -352,7 +357,11 @@ sub_11FD1E:
         add edi, 1400h
         dec eax
         rep stosd
-sub_11FDDC:
+;-----------------------------------------------------------------------------
+; FillBandRows                                   11FDDC  97 PC, low confidence
+; Fills the rows of a shaded band with its colour
+;-----------------------------------------------------------------------------
+FillBandRows:
         mov ecx, dword [byte esi+018h]
         LD or, ecx, ecx
         jle short jpt_11FDFD_38
@@ -487,9 +496,10 @@ jpt_11FDFD_38:
         mov dword [dword edi+01400h], eax
         ret
 ;-----------------------------------------------------------------------------
-; sub_11FF0E                                                          11FF0E  
+; FillBandRowsBlend                              11FF0E  97 PC, low confidence
+; Fills the rows of a shaded band, blending with what is under it
 ;-----------------------------------------------------------------------------
-sub_11FF0E:
+FillBandRowsBlend:
         mov ecx, dword [byte esi+018h]
         LD or, ecx, ecx
         jle short jpt_11FF3D_3B
@@ -1025,9 +1035,9 @@ jpt_120116_22F:
         push esi
         push edi
         mov byte [byte ebp-011h], 1
-        mov eax, sub_132400
+        mov eax, FillRectList
         mov dword [dword_199C38], eax
-        mov eax, sub_123D38
+        mov eax, FillRectSpans
         mov dword [dword_199C3C], eax
         jmp short .51
         push ebp
@@ -1037,9 +1047,9 @@ jpt_120116_22F:
         push esi
         push edi
         mov byte [byte ebp-011h], 0
-        mov eax, sub_132400
+        mov eax, FillRectList
         mov dword [dword_199C38], eax
-        mov eax, sub_123D38
+        mov eax, FillRectSpans
         mov dword [dword_199C3C], eax
 .51:
         lea esi, [byte ebp+010h]
@@ -1191,10 +1201,10 @@ jpt_120116_22F:
         mov dword [byte ebp-028h], edi
         cmp byte [byte ebp-012h], 0
         je short .70
-        call sub_11FD1E
+        call FillBandEdges
         jmp short .71
 .70:
-        call sub_11FDDC
+        call FillBandRows
 .71:
         mov edi, dword [byte ebp-028h]
 .72:
@@ -1219,7 +1229,7 @@ jpt_120116_22F:
         cmp byte [byte esi+034h], 2
         jl short .74
         mov dword [byte ebp-028h], edi
-        call sub_11FF0E
+        call FillBandRowsBlend
         mov edi, dword [byte ebp-028h]
         jmp short .74
 .76:
@@ -1256,9 +1266,10 @@ jpt_120116_22F:
         leave
         ret
 ;-----------------------------------------------------------------------------
-; sub_120650                                                          120650  
+; CountVesaModes                                 120650  97 PC, low confidence
+; Counts the listed VESA modes the card answers for
 ;-----------------------------------------------------------------------------
-sub_120650:
+CountVesaModes:
         push ebx
         xor ebx, ebx
         xor edx, edx
@@ -1267,7 +1278,7 @@ sub_120650:
         lea ecx, [byte ebx+01h]
         cmp eax, 100h
         jl short .2
-        call sub_103024
+        call VesaQueryMode
         test eax, eax
         je short .3
 .2:
@@ -1281,9 +1292,10 @@ sub_120650:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_120680                                                          120680  
+; FindModeByResolution                           120680  97 PC, low confidence
+; Finds the listed video mode with the given resolution and depth
 ;-----------------------------------------------------------------------------
-sub_120680:
+FindModeByResolution:
         push ebx
         push esi
         push edi
@@ -1300,7 +1312,7 @@ sub_120680:
         lea ecx, [byte edx+01h]
         cmp eax, 100h
         jl short .2
-        call sub_103024
+        call VesaQueryMode
         test eax, eax
         je short .3
 .2:
@@ -1327,7 +1339,7 @@ sub_120680:
         mov eax, dword [dword esi+dword_16F8B4]
         push eax
         mov dword [byte ebp+08h], eax
-        call sub_1049D0
+        call BytesPerPixelForDepth
         mov dword [byte ebp+0Ch], eax
         mov esi, 1
         mov ah, byte [byte ebp+010h]
@@ -1345,9 +1357,10 @@ sub_120680:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_12071C                                                          12071C  
+; SetModeByResolution                            12071C  97 PC, low confidence
+; Finds the video mode with the given resolution and switches to it
 ;-----------------------------------------------------------------------------
-sub_12071C:
+SetModeByResolution:
         push ebx
         push esi
         sub esp, byte 14h
@@ -1355,7 +1368,7 @@ sub_12071C:
         push eax
         mov edx, dword [byte esp+024h]
         push edx
-        call sub_120680
+        call FindModeByResolution
         add esp, byte 8
         mov ebx, dword [byte esp+08h]
         push ebx
@@ -1363,7 +1376,7 @@ sub_12071C:
         push ecx
         mov esi, dword [byte esp+08h]
         push esi
-        call sub_103298
+        call SetGraphicsMode
         add esp, byte 0Ch
         mov eax, dword [byte esp+020h]
         mov dword [dword_16E478], eax

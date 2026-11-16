@@ -4,7 +4,7 @@ bits 32
 section s_102BB8 progbits alloc exec nowrite align=1
 extern byte_16F794, dword_16E670, dword_16E674, dword_16E678, dword_16E67C, dword_16E680, dword_16E684, dword_16F77C
 extern dword_16F780, dword_16F784, dword_16F788, dword_16F78C, dword_16F790
-global SetClipWindow, sub_102C10, Random32, sub_102C96, sub_102CDC, sub_102CF4
+global SetClipWindow, ResetClipWindow, Random32, SeedRandom, SetRemapTable, GetRemapTable
 ;-----------------------------------------------------------------------------
 ; SetClipWindow                               102BB8  96 PC, medium confidence
 ;-----------------------------------------------------------------------------
@@ -38,9 +38,10 @@ SetClipWindow:
         ret
         db 00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_102C10                                                          102C10  
+; ResetClipWindow                                102C10  97 PC, low confidence
+; Sets the clip window back to the whole screen
 ;-----------------------------------------------------------------------------
-sub_102C10:
+ResetClipWindow:
         push ebx
         mov edx, dword [dword_16E674]
         push edx
@@ -84,9 +85,10 @@ Random32:
         mov dword [dword_16F77C], eax
         ret
 ;-----------------------------------------------------------------------------
-; sub_102C96                                                          102C96  
+; SeedRandom                                     102C96  97 PC, low confidence
+; Seeds the random generator state from a value
 ;-----------------------------------------------------------------------------
-sub_102C96:
+SeedRandom:
         push ebp
         LD mov, ebp, esp
         mov eax, dword [byte ebp+08h]
@@ -106,9 +108,10 @@ sub_102C96:
         ret
         db 00h,00h
 ;-----------------------------------------------------------------------------
-; sub_102CDC                                                          102CDC  
+; SetRemapTable                                  102CDC  97 PC, low confidence
+; Copies a 256-entry colour remap table into the current one
 ;-----------------------------------------------------------------------------
-sub_102CDC:
+SetRemapTable:
         push ebp
         LD mov, ebp, esp
         push esi
@@ -122,9 +125,10 @@ sub_102CDC:
         leave
         ret
 ;-----------------------------------------------------------------------------
-; sub_102CF4                                                          102CF4  
+; GetRemapTable                                  102CF4  97 PC, low confidence
+; Copies the current 256-entry colour remap table out
 ;-----------------------------------------------------------------------------
-sub_102CF4:
+GetRemapTable:
         push ebp
         LD mov, ebp, esp
         push esi

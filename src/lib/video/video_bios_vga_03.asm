@@ -3,8 +3,12 @@ bits 32
 %include "hockey.inc"
 section s_11313C progbits alloc exec nowrite align=1
 extern byte_199784
-global sub_11313C, unk_113189
-sub_11313C:
+global AngleFromDelta, unk_113189
+;-----------------------------------------------------------------------------
+; AngleFromDelta                                 11313C  97 PC, low confidence
+; Returns the angle of a 2D vector from the ratio of its components
+;-----------------------------------------------------------------------------
+AngleFromDelta:
         push ebp
         LD mov, ebp, esp
         push ebx

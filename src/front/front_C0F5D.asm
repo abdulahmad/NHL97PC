@@ -14,14 +14,14 @@ extern dword_1CB0A0, dword_1CB0A4, dword_1CB0A8, dword_1CB0AC, dword_1CB0B0, dwo
 extern dword_1CB0C0, dword_1CB0C4, dword_1CB0C8, dword_1CB0CC, dword_1CB0D0, dword_1CB0D4, dword_1CB0D8, dword_1CB0DC
 extern dword_1CB0E0, dword_1CB0E4, dword_1CB0E8, dword_1CB0EC, dword_1CB0F0, dword_1CB0F4, dword_1CB0F8, dword_1CB0FC
 extern dword_1CB100, dword_1CB104, dword_1CBB88, off_16D5F7, sprintf_, strcat_, strcpy_, strlen_
-extern BlitShape2, BlitArt, BlitShape, sub_1013FC, FindShape, sub_101EAC, sub_102C10, Random32
-extern sub_106D80, sub_106F64, sub_106F94, ConvertArtXY, ConvertArtKeepPos, sub_11BDC0, SetScreenTarget, MusicEnabled
+extern BlitShape2, BlitArt, BlitShape, PresentScreen, FindShape, DrawShapeBlended, ResetClipWindow, Random32
+extern LoadFileAlloc, UnpackShared, UnpackedSize, ConvertArtXY, ConvertArtKeepPos, DrawShadowRect, SetScreenTarget, MusicEnabled
 extern LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx, LoadDataFile, OpenDataLibrary, ShadeShape
 extern DrawShadedLogo, DrawShadowBox, DrawScreenBackground, FadeInScreen, ShowScreen, ExitScreen, SetRegionRect, SetTextColor
 extern DrawTextAligned, DrawFrameBox, LoadTeamLogo, FreeLogoArt, WipeScreen, SetHighlightText, SetNormalText, ShowPopupScreen
 extern InitMenuItems, RunMenu, InitScrollList, ScrollUp, DrawScrollBar, ScrollDown, FreeScrollList, ScrollToMouse
 extern RunScrollList, GetLangText, OptionsScreen, InitListBox, InitShapeListBox, ServiceIdle, LinkSyncMenu, LinkSyncScreen
-extern OptionsAnimScreen, ControlSetupScreen, AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, sub_FCEEC, DrawArt
+extern OptionsAnimScreen, ControlSetupScreen, AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, DrawShapeCore, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, tickcount, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C
 global jpt_C36A2, HistoryScreen_60E, DrawHistoryScreen_73D, DrawHistoryScreen_73E, HistoryLineWidth_42, DetailLevelScreen_A25, DetailLevelScreen_A36, DetailLevelScreen_A93
 global DetailLevelScreen_B18, DetailLevelScreen_B7E, DetailLevelScreen_C26, DetailLevelScreen_C86, DetailLevelScreen_CE6, DetailLevelScreen_D46, HistoryScreen, DrawHistoryScreen
@@ -172,9 +172,9 @@ HistoryScreen:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_102C10
+        call ResetClipWindow
 .8:
-        call sub_1013FC
+        call PresentScreen
 .9:
         test esi, esi
         jne near .25
@@ -442,7 +442,7 @@ DrawHistoryScreen:
         push byte 0
         push ebx
         push eax
-        call sub_101EAC
+        call DrawShapeBlended
         add esp, byte 10h
         inc dword [byte ebp-04h]
         call FreeLogoArt
@@ -876,7 +876,7 @@ DrawHistoryScreen:
         push dword [byte eax+0Ch]
         call BlitShape
         add esp, byte 4
-        call sub_102C10
+        call ResetClipWindow
         mov eax, dword [dword_1CB074]
         push dword [byte eax+018h]
         call BlitShape
@@ -1681,7 +1681,7 @@ ShowHistoryArt:
         add esp, byte 0Ch
         test ebx, ebx
         je short .2
-        call sub_1013FC
+        call PresentScreen
 .2:
         pop ecx
         pop ebx
@@ -1711,11 +1711,11 @@ ExportHistoryCsv:
         push byte 0
         lea eax, [byte ebp-050h]
         push eax
-        call sub_106D80
+        call LoadFileAlloc
         add esp, byte 8
         push eax
         mov ebx, eax
-        call sub_106F94
+        call UnpackedSize
         add esp, byte 4
         push byte 0
         push eax
@@ -1726,7 +1726,7 @@ ExportHistoryCsv:
         push eax
         push ebx
         mov dword [dword_1CB08C], eax
-        call sub_106F64
+        call UnpackShared
         add esp, byte 8
         push ebx
         call FreeMemBlock
@@ -2198,7 +2198,7 @@ DrawHistoryText:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         cmp dword [dword_1CB0F8], byte 0
         je near DrawHistoryScreen_73D
         mov eax, dword [dword_1CB0F0]
@@ -2300,7 +2300,7 @@ DrawHistoryPopup:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
 .2:
         mov eax, dword [tickcount]
         cmp eax, dword [byte ebp-0Ch]
@@ -2421,7 +2421,7 @@ DrawHistoryList:
         push dword [byte eax+02Ch]
         call DrawArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
 .2:
         mov eax, dword [tickcount]
         cmp eax, dword [byte ebp-0Ch]
@@ -2545,7 +2545,7 @@ DrawHistoryTrophy:
         call BlitShape
         add esp, byte 4
 .5:
-        call sub_102C10
+        call ResetClipWindow
 .6:
         mov eax, dword [dword_1CB080]
         mov dword [dword_1CB0A8], eax
@@ -2577,7 +2577,7 @@ DrawHistoryTrophy:
         push dword [byte eax+02Ch]
         call BlitShape
         add esp, byte 4
-        call sub_102C10
+        call ResetClipWindow
 .9:
         mov eax, dword [tickcount]
         mov esi, eax
@@ -2840,7 +2840,7 @@ DrawTrophySparkle:
         push dword [edx+eax*4]
         call BlitShape
         add esp, byte 4
-        call sub_102C10
+        call ResetClipWindow
         call Random32
         mov ecx, 0C8h
         xor edx, edx
@@ -3297,7 +3297,7 @@ DetailLevelScreen:
         call ConvertArtKeepPos
         add esp, byte 4
         xor esi, esi
-        call sub_1013FC
+        call PresentScreen
         jmp near .4
 .1:
         push byte 0
@@ -3608,7 +3608,7 @@ DetailLevelScreen:
         push dword 0C8h
         push byte 5Ah
         push dword 0D7h
-        call sub_11BDC0
+        call DrawShadowRect
         add esp, byte 18h
         push byte 3
         push byte 0FFFFFFFFh
@@ -3619,7 +3619,7 @@ DetailLevelScreen:
         push dword 0CAh
         push byte 5Ah
         push dword 0CAh
-        call sub_11BDC0
+        call DrawShadowRect
         add esp, byte 18h
         push byte 3
         push byte 0FFFFFFFFh
@@ -3630,7 +3630,7 @@ DetailLevelScreen:
         push dword 0C8h
         push byte 73h
         push dword 0D7h
-        call sub_11BDC0
+        call DrawShadowRect
         add esp, byte 18h
         push byte 0FFFFFFFFh
         call MakeColor
@@ -3759,7 +3759,7 @@ DetailLevelScreen:
         sub ebx, edx
         push ebx
         push dword [dword eax+ebp-059Ah]
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
 .22:
         inc esi
@@ -3895,7 +3895,7 @@ DetailLevelScreen:
 .25:
         cmp si, byte 14h
         jle near .24
-        call sub_1013FC
+        call PresentScreen
         call StopAllSfx
         mov eax, 201h
         call PlaySfx
@@ -3998,7 +3998,7 @@ DetailLevelScreen_A93:
         call BlitShape2
         add esp, byte 4
 .31:
-        call sub_1013FC
+        call PresentScreen
 DetailLevelScreen_B18:
         cmp word [byte ebp-08h], byte 0
         jne near DetailLevelScreen_D46.43
@@ -4193,7 +4193,7 @@ DetailLevelScreen_D46:
         sub ebx, edx
         push ebx
         push dword [dword eax+ebp-059Ah]
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
 .45:
         inc esi
@@ -4270,7 +4270,7 @@ DetailLevelScreen_D46:
 .48:
         test si, si
         jge near .47
-        call sub_1013FC
+        call PresentScreen
         call StopAllSfx
         mov eax, 201h
         call PlaySfx

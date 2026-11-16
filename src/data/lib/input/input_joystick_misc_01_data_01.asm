@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_16E374 progbits alloc noexec write align=1
-extern sub_121A43
+extern PollHotkeys
 global __8087, byte_16E378, byte_16E394, byte_16E395, byte_16E396, byte_16E3D7, byte_16E415, byte_16E460
 global dword_16E374, dword_16E37C, dword_16E380, dword_16E384, dword_16E388, dword_16E38C, dword_16E390, dword_16E397
 global dword_16E39B, dword_16E39F, dword_16E3A3, dword_16E3A7, dword_16E3AB, dword_16E3AF, dword_16E3B3, dword_16E3B7
@@ -71,7 +71,7 @@ byte_16E3D7:
 unk_16E3E8:
         db 01h,00h,00h,00h
 dword_16E3EC:
-        dd sub_121A43
+        dd PollHotkeys
 tickcount:
         db 00h,00h,00h,00h
 dword_16E3F4:

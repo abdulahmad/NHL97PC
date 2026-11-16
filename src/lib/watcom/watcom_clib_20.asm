@@ -7,8 +7,8 @@ extern dword_16F5B4, dword_16F5B8, dword_1702CC, dword_19C734, dword_19C738, dwo
 extern dword_1CF52C, dword_1CF548, dword_1CF5B8, dword_1CF5BC, dword_1CF5C0, dword_1CF5F2, dword_1DA4D0, dword_1DC518
 extern dword_1DC51C, dword_1DC520, dword_1DC524, dword_1DC528, dword_1DC5A8, int386x_, itoa_, ltoa_
 extern memlist1, off_16F5BC, off_171C7C, off_199C50, off_19C740, qword_172690, qword_172698, segread_
-extern strncpy_, bcopy, sub_11FA98, sub_121470, sub_121494, sub_1214D0, sub_FABB8, findmemblock
-extern sub_FB214, sub_FB370, sub_FB5F4, DrawTextRun, tbyte_172680, toupper_, ultoa_, word_1CF5F4
+extern strncpy_, bcopy, SetTextOrigin, MemLock, MemUnlock, SetBlockGuard, AllocMemBlockEx, findmemblock
+extern CompactMemListDown, CompactMemListUp, PushMemDescriptor, DrawTextRun, tbyte_172680, toupper_, ultoa_, word_1CF5F4
 global FixedPoint_Format_, IF@DACOS, IF@EXP, IF@SQRT, _Full_at_exit_rtn_, __@DEXP, __@DEXP1, __@DSQRT
 global __fdiv_chk, __fdiv_fpr, __fdiv_m64, __fdivp_sti_st, __fdivrp_sti_st, __fpatan_wrap, __pow87_err_, __prtf_
 global atexit_, evalflags_, far_other_strlen_, far_strlen_, fdiv_main_routine, float_format_, fmt4hex_, formstring_
@@ -20,10 +20,10 @@ global __fdiv_fpr_1A7, __fdiv_fpr_1AC, __fdiv_fpr_1CC, __fdiv_fpr_1E0, __fdiv_fp
 global __fdiv_fpr_24B, __fdiv_fpr_250, __fdiv_fpr_270, __fdiv_fpr_284, __fdiv_fpr_29C, __fdiv_fpr_2B0, __fdiv_fpr_2D0, __fdiv_fpr_2D5
 global __fdiv_fpr_2EF, __fdiv_fpr_2F4, __fdiv_fpr_314, __fdiv_fpr_328, __fdiv_fpr_340, __fdiv_fpr_354, __fdiv_fpr_374, __fdiv_fpr_379
 global __fdiv_fpr_393, __fdiv_fpr_398, __fdiv_fpr_3B8, __fdiv_fpr_3CC, __fdiv_fpr_3E4, __fdiv_fpr_3F8, __fdiv_fpr_418, __fdiv_fpr_41D
-global __fdiv_fpr_437, __fdiv_fpr_43C, __fdiv_fpr_45C, __fdiv_fpr_470, __fdiv_fpr_488, sqrt_, strrchr_, sub_124C30
-global sub_124D78, sub_124DB0, sub_124E1C, sub_124FB9, sub_1258A4, sub_1258FC, sub_125914, sub_125AE0
-global sub_125B02, sub_125B3C, sub_125C56, sub_125D0C, sub_125D61, sub_125DBC, sub_125DDE, sub_125E68
-global sub_125EED, sub_125FE1, sub_126052, sub_1260C2, sub_1261A4, sub_126264, sub_126364, zupstr_
+global __fdiv_fpr_437, __fdiv_fpr_43C, __fdiv_fpr_45C, __fdiv_fpr_470, __fdiv_fpr_488, sqrt_, strrchr_, DrawTextLimited
+global DrawTextString, ConvertColor555, DrawGlyphScaled, SetTextScale, CreateBitmapFromBlock, CreateBitmapForMem, CreateBitmapCore, SinLookup
+global CosLookup, Div64By32, Shl64, Convert565To555, Convert555To565, ConvertIndexedTo32, Convert32To565Keyed, Convert32To555Keyed
+global ConvertIndexedTo16, SwapRedBlue555, Convert32To565, ConvertNibbleTo16, FindPaletteChunk, ExpandPalette6To8, CopyPaletteRGB, zupstr_
 ;-----------------------------------------------------------------------------
 ; __prtf_                                                      123FEA  library
 ;-----------------------------------------------------------------------------
@@ -1278,9 +1278,11 @@ zupstr__20:
         ret 10h
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_124C30                                                          124C30  
+; DrawTextLimited                                124C30  97 PC, low confidence
+; Copies up to the given number of characters of a string and draws them at
+; the current text origin
 ;-----------------------------------------------------------------------------
-sub_124C30:
+DrawTextLimited:
         push ebx
         push esi
         push edi
@@ -1361,7 +1363,7 @@ sub_124C30:
         sub eax, ebx
         push edi
         mov dword [edx], eax
-        call sub_11FA98
+        call SetTextOrigin
         add esp, byte 8
         mov eax, dword [dword esp+0108h]
         mov dword [dword_1CF5B8], eax
@@ -1375,9 +1377,10 @@ sub_124C30:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_124D78                                                          124D78  
+; DrawTextString                                 124D78  97 PC, low confidence
+; Draws a string of up to 256 characters at the current text origin
 ;-----------------------------------------------------------------------------
-sub_124D78:
+DrawTextString:
         push ebx
         push esi
         push edi
@@ -1392,7 +1395,7 @@ sub_124D78:
         push dword 100h
         mov edi, dword [byte esp+024h]
         push edi
-        call sub_124C30
+        call DrawTextLimited
         add esp, byte 18h
         pop edi
         pop esi
@@ -1400,9 +1403,10 @@ sub_124D78:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_124DB0                                                          124DB0  
+; ConvertColor555                                124DB0  97 PC, low confidence
+; Converts a 15-bit RGB colour to the pixel format of the current screen
 ;-----------------------------------------------------------------------------
-sub_124DB0:
+ConvertColor555:
         push ebx
         mov edx, dword [byte esp+08h]
         mov al, byte [byte_16E688]
@@ -1456,9 +1460,10 @@ sub_124DB0:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_124E1C                                                          124E1C  
+; DrawGlyphScaled                                124E1C  97 PC, low confidence
+; Draws one font glyph scaled by the current text scale
 ;-----------------------------------------------------------------------------
-sub_124E1C:
+DrawGlyphScaled:
         push ebx
         push esi
         push edi
@@ -1631,9 +1636,10 @@ IF@DACOS:
         leave
         ret
 ;-----------------------------------------------------------------------------
-; sub_124FB9                                                          124FB9  
+; SetTextScale                                   124FB9  97 PC, low confidence
+; Sets the scale used to draw text glyphs
 ;-----------------------------------------------------------------------------
-sub_124FB9:
+SetTextScale:
         push ebp
         LD mov, ebp, esp
         mov eax, dword [byte ebp+08h]
@@ -2584,15 +2590,17 @@ __fdiv_m64:
         call findmemblock
         add esp, byte 4
         push eax
-        call sub_125914
+        call CreateBitmapCore
         add esp, byte 0Ch
         pop ebx
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1258A4                                                          1258A4  
+; CreateBitmapFromBlock                          1258A4  97 PC, low confidence
+; Finds a memory block and creates a bitmap header for it; followed by the
+; variant that does not mark it shared
 ;-----------------------------------------------------------------------------
-sub_1258A4:
+CreateBitmapFromBlock:
         push ebx
         push byte 1
         mov edx, dword [byte esp+010h]
@@ -2602,7 +2610,7 @@ sub_1258A4:
         call findmemblock
         add esp, byte 4
         push eax
-        call sub_125914
+        call CreateBitmapCore
         add esp, byte 0Ch
         pop ebx
         ret
@@ -2615,7 +2623,7 @@ sub_1258A4:
         call findmemblock
         add esp, byte 4
         push eax
-        call sub_125914
+        call CreateBitmapCore
         add esp, byte 0Ch
         pop ebx
         ret
@@ -2625,30 +2633,33 @@ sub_1258A4:
         push edx
         mov ebx, dword [byte esp+010h]
         push ebx
-        call sub_125914
+        call CreateBitmapCore
         add esp, byte 0Ch
         pop ebx
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1258FC                                                          1258FC  
+; CreateBitmapForMem                             1258FC  97 PC, low confidence
+; Creates a bitmap header for memory the caller already holds
 ;-----------------------------------------------------------------------------
-sub_1258FC:
+CreateBitmapForMem:
         push ebx
         push byte 0
         mov edx, dword [byte esp+010h]
         push edx
         mov ebx, dword [byte esp+010h]
         push ebx
-        call sub_125914
+        call CreateBitmapCore
         add esp, byte 0Ch
         pop ebx
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_125914                                                          125914  
+; CreateBitmapCore                               125914  97 PC, low confidence
+; Allocates the bitmap descriptor in its memory list and fills in size, depth
+; and pixel pointer
 ;-----------------------------------------------------------------------------
-sub_125914:
+CreateBitmapCore:
         push ebx
         push esi
         push edi
@@ -2668,7 +2679,7 @@ sub_125914:
         shl eax, 3
         mov ebx, edi
         add esi, eax
-        call sub_121470
+        call MemLock
         add esp, byte 4
         mov eax, dword [byte edi+020h]
         mov ecx, dword [edi]
@@ -2692,7 +2703,7 @@ sub_125914:
         je short .1
         mov esi, dword [dword_1CF260]
         push esi
-        call sub_121494
+        call MemUnlock
         add esp, byte 4
         jmp near .9
 .1:
@@ -2709,12 +2720,12 @@ sub_125914:
         cmp dword [byte esi+014h], byte 0
         je short .3
         push ebx
-        call sub_1214D0
+        call SetBlockGuard
         add esp, byte 4
 .3:
         mov esi, dword [dword_1CF260]
         push esi
-        call sub_121494
+        call MemUnlock
         add esp, byte 4
         mov eax, dword [byte esp+020h]
         jmp near .10
@@ -2727,7 +2738,7 @@ sub_125914:
         push ebx
         mov ecx, dword [byte esi+04h]
         push ecx
-        call sub_FB214
+        call CompactMemListDown
         add esp, byte 8
         test eax, eax
         je short .6
@@ -2750,7 +2761,7 @@ sub_125914:
         push edx
         mov ecx, dword [esi]
         push ecx
-        call sub_FB370
+        call CompactMemListUp
         add esp, byte 8
         test eax, eax
         jne short .5
@@ -2760,7 +2771,7 @@ sub_125914:
         mov ebp, dword [byte esp+028h]
         push ebp
         push str_RESIZE
-        call sub_FABB8
+        call AllocMemBlockEx
         mov esi, eax
         add esp, byte 10h
         test eax, eax
@@ -2793,11 +2804,11 @@ sub_125914:
         mov eax, dword [byte esi+010h]
         push esi
         mov dword [byte ebx+010h], eax
-        call sub_FB5F4
+        call PushMemDescriptor
         add esp, byte 4
         mov eax, dword [dword_1CF260]
         push eax
-        call sub_121494
+        call MemUnlock
         add esp, byte 4
         mov eax, dword [byte esp+020h]
         add esp, byte 8
@@ -2809,7 +2820,7 @@ sub_125914:
 .8:
         mov eax, dword [dword_1CF260]
         push eax
-        call sub_121494
+        call MemUnlock
         add esp, byte 4
         cmp dword [byte esp+020h], byte 0
         jge short .9
@@ -2830,9 +2841,10 @@ sub_125914:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_125AE0                                                          125AE0  
+; SinLookup                                      125AE0  97 PC, low confidence
+; Returns the sine of a 10-bit angle from the quarter-wave table
 ;-----------------------------------------------------------------------------
-sub_125AE0:
+SinLookup:
         mov eax, dword [byte esp+04h]
         shl ah, 7
         LD sbb, edx, edx
@@ -2846,9 +2858,10 @@ sub_125AE0:
         LD sub, eax, edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_125B02                                                          125B02  
+; CosLookup                                      125B02  97 PC, low confidence
+; Returns the cosine of a 10-bit angle from the quarter-wave table
 ;-----------------------------------------------------------------------------
-sub_125B02:
+CosLookup:
         mov eax, dword [byte esp+04h]
         lea ecx, [dword eax+0100h]
         shl ch, 7
@@ -2872,9 +2885,11 @@ sub_125B02:
         mov dword [byte esi+04h], edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_125B3C                                                          125B3C  
+; Div64By32                                      125B3C  97 PC, low confidence
+; Divides a 64-bit value by a 32-bit one; followed by the signed and
+; remainder variants
 ;-----------------------------------------------------------------------------
-sub_125B3C:
+Div64By32:
         push edx
         mov eax, dword [byte esp+08h]
         mov edx, dword [byte esp+0Ch]
@@ -2992,9 +3007,10 @@ sub_125B3C:
         pop edx
         ret 8
 ;-----------------------------------------------------------------------------
-; sub_125C56                                                          125C56  
+; Shl64                                          125C56  97 PC, low confidence
+; Shifts a 64-bit value left
 ;-----------------------------------------------------------------------------
-sub_125C56:
+Shl64:
         push ecx
         LD mov, ecx, edx
         cmp ecx, byte 20h
@@ -3093,9 +3109,10 @@ strrchr_:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_125D0C                                                          125D0C  
+; Convert565To555                                125D0C  97 PC, low confidence
+; Converts a run of 16-bit 5:6:5 pixels to 5:5:5
 ;-----------------------------------------------------------------------------
-sub_125D0C:
+Convert565To555:
         push ecx
         push esi
         sub ebx, byte 2
@@ -3133,9 +3150,10 @@ sub_125D0C:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_125D61                                                          125D61  
+; Convert555To565                                125D61  97 PC, low confidence
+; Converts a run of 16-bit 5:5:5 pixels to 5:6:5
 ;-----------------------------------------------------------------------------
-sub_125D61:
+Convert555To565:
         push ecx
         push esi
         sub ebx, byte 2
@@ -3175,9 +3193,10 @@ sub_125D61:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_125DBC                                                          125DBC  
+; ConvertIndexedTo32                             125DBC  97 PC, low confidence
+; Converts a run of 8-bit pixels to 32-bit through the current palette
 ;-----------------------------------------------------------------------------
-sub_125DBC:
+ConvertIndexedTo32:
         push ecx
         push esi
         push edi
@@ -3196,9 +3215,11 @@ sub_125DBC:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_125DDE                                                          125DDE  
+; Convert32To565Keyed                            125DDE  97 PC, low confidence
+; Converts a run of 32-bit pixels to 5:6:5, keeping transparent pixels
+; transparent
 ;-----------------------------------------------------------------------------
-sub_125DDE:
+Convert32To565Keyed:
         push ecx
         LD xor, ecx, ecx
 .1:
@@ -3255,9 +3276,11 @@ sub_125DDE:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_125E68                                                          125E68  
+; Convert32To555Keyed                            125E68  97 PC, low confidence
+; Converts a run of 32-bit pixels to 5:5:5, keeping transparent pixels
+; transparent
 ;-----------------------------------------------------------------------------
-sub_125E68:
+Convert32To555Keyed:
         push ecx
         LD xor, ecx, ecx
 .1:
@@ -3312,9 +3335,10 @@ sub_125E68:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_125EED                                                          125EED  
+; ConvertIndexedTo16                             125EED  97 PC, low confidence
+; Converts a run of 8-bit pixels to 16-bit through the palette lookup table
 ;-----------------------------------------------------------------------------
-sub_125EED:
+ConvertIndexedTo16:
         push ecx
         push esi
         push edi
@@ -3412,9 +3436,10 @@ sub_125EED:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_125FE1                                                          125FE1  
+; SwapRedBlue555                                 125FE1  97 PC, low confidence
+; Swaps the red and blue fields of a run of 5:5:5 pixels
 ;-----------------------------------------------------------------------------
-sub_125FE1:
+SwapRedBlue555:
         push ecx
         push esi
         push edi
@@ -3461,9 +3486,10 @@ sub_125FE1:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_126052                                                          126052  
+; Convert32To565                                 126052  97 PC, low confidence
+; Converts a run of 32-bit pixels to 5:6:5, two at a time
 ;-----------------------------------------------------------------------------
-sub_126052:
+Convert32To565:
         push ecx
         push esi
         LD xor, ecx, ecx
@@ -3512,9 +3538,10 @@ sub_126052:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1260C2                                                          1260C2  
+; ConvertNibbleTo16                              1260C2  97 PC, low confidence
+; Converts a run of 4-bit pixels to 16-bit through the palette lookup table
 ;-----------------------------------------------------------------------------
-sub_1260C2:
+ConvertNibbleTo16:
         push ecx
         push esi
         push edi
@@ -3606,9 +3633,10 @@ sub_1260C2:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1261A4                                                          1261A4  
+; FindPaletteChunk                               1261A4  97 PC, low confidence
+; Walks a shape's attached chunks and returns the first palette chunk
 ;-----------------------------------------------------------------------------
-sub_1261A4:
+FindPaletteChunk:
         mov edx, dword [byte esp+04h]
         test edx, edx
         je short .5
@@ -3691,9 +3719,10 @@ sub_1261A4:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_126264                                                          126264  
+; ExpandPalette6To8                              126264  97 PC, low confidence
+; Expands a 6-bit-per-component palette to 8-bit RGBA entries
 ;-----------------------------------------------------------------------------
-sub_126264:
+ExpandPalette6To8:
         push ebx
         push esi
         push edi
@@ -3799,9 +3828,10 @@ sub_126264:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_126364                                                          126364  
+; CopyPaletteRGB                                 126364  97 PC, low confidence
+; Copies an 8-bit-per-component palette into RGBA entries
 ;-----------------------------------------------------------------------------
-sub_126364:
+CopyPaletteRGB:
         push ebx
         push esi
         push edi

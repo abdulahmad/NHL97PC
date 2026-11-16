@@ -14,8 +14,8 @@ extern dword_1C1244, dword_1C1248, dword_1C124C, dword_1C1250, dword_1C1254, dwo
 extern dword_1C5DA8, dword_1C5DAC, dword_1C5DE4, dword_1C5DE8, dword_1C5E78, dword_1C5E9C, dword_1C5EA0, dword_1C5EF4
 extern memcpy_, off_16C9B8, off_16C9C0, rand_, sprintf_, srand_, str_ATA, str_ATD
 extern str_ATH0, str_ATM0, str_ATS01, str_ATZS760S1155, strcat_, strcpy_, strlen_, strncmp_
-extern strstr_, bcopy, BlitShape, sub_1013FC, FindShape, sub_103234, sub_1047D0, sub_108900
-extern sub_108A60, sub_108BA0, sub_108D78, sub_108DC4, sub_108E74, sub_1091E0, sub_109210, InitVideoDecoder
+extern strstr_, bcopy, BlitShape, PresentScreen, FindShape, CloseVideoWindow, BlitFrameToScreen, OpenAudioStreamChannel
+extern CloseAudioStreamChannel, FeedAudioStream, AudioStreamDone, StartAudioStream, FlushAudioStream, ChannelPlaying, StopChannel, InitVideoDecoder
 extern BuildVideoGammaTable, DecodeVideoChunk, CreateBitmapDefault, ResetFrameRate, DecodeVideoFrame, DecodeTgvChunk, SerialRaiseDtr, SerialWrite
 extern SerialFlushTx, SerialWaitTxEmpty, LoadNameFile, SetScreenTarget, OpenStreamBuffer, delstream, CdStreamStart, CdStreamOpenSecondary
 extern CdStreamService, CdStreamNextPacket, CdStreamFreePacket, StreamReady, SecondsToSamples, WaitSoundTime, ChkMenuMusic, PauseMusic
@@ -23,8 +23,8 @@ extern RequestMusicStop, WaitMusicEnd, ArenaFileName, PaEvent, MakeDataPath, Loa
 extern ShowMessageBox, WipeScreen, SetNormalText, MainMenuScreen, RunGameScreens, RunStatsMenu, RunNetworkConnect, RunModemConnect
 extern CreateMenuBitmap, FreeMenuBitmap, SetMenuSelection, LoadLangText, GetLangText, FreeLangText, SortRosterByRating, BuildAutoLines
 extern RunOptionsScreens, GoalieMaskScreen, CreditsScreen, KeysEqual, OpenGameDatabase, CloseGameDatabase, FindPlayerRecord, FindGameRecord
-extern UpdateGameRecord, AddPlayerStat, AddPlayerStatAt, FindPlayerStat, UpdatePlayerStat, ClearLinkAbort, ServiceIdle, sub_F9650
-extern AllocMemBlock, sub_FAAB4, FreeMemBlock, sub_FBE40, WaitTicks, sub_FC330, MakeColor, FreeBitmap
+extern UpdateGameRecord, AddPlayerStat, AddPlayerStatAt, FindPlayerStat, UpdatePlayerStat, ClearLinkAbort, ServiceIdle, InitVideoModeList
+extern AllocMemBlock, AllocMemData, FreeMemBlock, KbdGetKey, WaitTicks, OpenResourceArchive, MakeColor, FreeBitmap
 extern CreateBitmap, SetDrawTarget, ClearScreen, tickcount, unk_164138, unk_16413C, unk_164150, unk_164158
 extern unk_1C0F00, unk_1C135C, unk_1C347F, word_1C1344
 global BuildSeasonSchedule_77E, FreeTempArt_45, putchar, BuildSeasonSchedule, UpdateTeamLines, BuildRosterLines, PlayerInjuryDays, FindInjuryEntry
@@ -1533,15 +1533,15 @@ ClearTeamInjuries:
 ;-----------------------------------------------------------------------------
 FadeMovieOut:
         mov eax, dword [dword_1C1240]
-        call sub_1091E0
+        call ChannelPlaying
         test eax, eax
-        je near sub_108D78
+        je near AudioStreamDone
         xor eax, eax
         ret
         db 08Dh,040h,00h
         push ecx
         push edx
-        call sub_109210
+        call StopChannel
         push byte 1
         call WaitTicks
         add esp, byte 4
@@ -1557,7 +1557,7 @@ FadeMovieOut:
         push eax
         call ClearScreen
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         pop edx
         pop ecx
         ret
@@ -1568,7 +1568,7 @@ FadeMovieOut:
         add eax, eax
         push eax
         push dword_16E6A8
-        call sub_103234
+        call CloseVideoWindow
         mov eax, dword [dword_16E6BC]
         mov edx, eax
         sar edx, 1Fh
@@ -1591,7 +1591,7 @@ MovieKeyPressed:
         jne short .1
         cmp dword [dword_1C1224], byte 0
         je short .1
-        call sub_FBE40
+        call KbdGetKey
         cmp eax, byte 1Bh
         sete al
         and eax, 0FFh
@@ -1621,7 +1621,7 @@ OpenMovieStream:
         je short .1
         mov eax, dword [tickcount]
         mov dword [dword_16C9B0], eax
-        call sub_108DC4
+        call StartAudioStream
         mov dword [dword_16C9AC], eax
         pop esi
         pop edx
@@ -1681,7 +1681,7 @@ OpenVideoStream:
         push dword 4E290h
         push str_VIDEO
         mov dword [dword_1C1248], eax
-        call sub_FAAB4
+        call AllocMemData
         add esp, byte 0Ch
         mov dword [dword_1C1208], eax
         test eax, eax
@@ -1715,7 +1715,7 @@ OpenVideoStream:
         mov eax, dword [dword_1C1260]
         mov ecx, ebx
         mov ebx, 64h
-        call sub_108900
+        call OpenAudioStreamChannel
 .1:
         xor esi, esi
         mov dword [dword_1C124C], esi
@@ -1765,7 +1765,7 @@ CloseMovie:
         je short .2
 .1:
         mov eax, dword [dword_1C1240]
-        call sub_109210
+        call StopChannel
         push byte 1
         call WaitTicks
         add esp, byte 4
@@ -1786,13 +1786,13 @@ CloseMovie:
         mov ebx, eax
         mov eax, dword [dword_1C1240]
         and ebx, 0FFh
-        call sub_1091E0
+        call ChannelPlaying
         test eax, eax
         je short .4
         mov eax, ecx
         jmp short .5
 .4:
-        call sub_108D78
+        call AudioStreamDone
 .5:
         test eax, eax
         je short .6
@@ -1807,7 +1807,7 @@ CloseMovie:
         or byte [dword_1C1214], 4
 .7:
         mov eax, dword [dword_1C1240]
-        call sub_109210
+        call StopChannel
         push byte 1
         call WaitTicks
         add esp, byte 4
@@ -1817,7 +1817,7 @@ CloseMovie:
 .8:
         cmp dword [dword_1C1250], byte 0
         je short .9
-        call sub_108E74
+        call FlushAudioStream
 .9:
         push byte 5
         call WaitTicks
@@ -1843,7 +1843,7 @@ CloseMovie:
         shr eax, 1
         push eax
         push dword_16E6A8
-        call sub_103234
+        call CloseVideoWindow
         mov ebp, dword [dword_16E6BC]
         add ebp, ebp
         add esp, byte 8
@@ -2039,7 +2039,7 @@ PlayMovieFrames:
         je short .9
         cmp edi, dword [dword_1C121C]
         jne short .9
-        call sub_108D78
+        call AudioStreamDone
         cmp eax, byte 8
         jge short .9
         mov edx, ebp
@@ -2102,14 +2102,14 @@ PlayMovieFrames:
         cmp edi, ecx
         je short .15
         mov eax, dword [dword_1C1258]
-        call sub_108BA0
+        call FeedAudioStream
         cmp edi, dword [dword_1C1228]
         jne short .17
-        call sub_108D78
+        call AudioStreamDone
         cmp eax, byte 0Fh
         jle short .17
         mov eax, 0Fh
-        call sub_108A60
+        call CloseAudioStreamChannel
         mov dword [dword_1C1240], eax
         mov dword [dword_1C1228], ebp
         jmp short .16
@@ -2230,9 +2230,9 @@ PlayMovieFrames:
         push byte 10h
         push byte 10h
         push ebx
-        call sub_1047D0
+        call BlitFrameToScreen
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         pop edx
         pop ecx
         pop ebx
@@ -2282,12 +2282,12 @@ PlayMovie:
         push eax
         call ClearScreen
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [dword_16E6C8]
         add eax, eax
         push eax
         push dword_16E6A8
-        call sub_103234
+        call CloseVideoWindow
         mov eax, dword [dword_16E6BC]
         mov edx, eax
         sar edx, 1Fh
@@ -2304,7 +2304,7 @@ PlayMovie:
         jne short .4
         cmp dword [dword_1C1224], byte 0
         je short .4
-        call sub_FBE40
+        call KbdGetKey
         cmp eax, byte 1Bh
         sete al
         and eax, 0FFh
@@ -2315,7 +2315,7 @@ PlayMovie:
         je short .5
         mov esi, 0FFFFFFFFh
 .5:
-        call sub_FBE40
+        call KbdGetKey
         test eax, eax
         je short .6
         call ServiceIdle
@@ -2336,16 +2336,16 @@ PlayMovie:
         push byte 10h
         push byte 10h
         push ebx
-        call sub_1047D0
+        call BlitFrameToScreen
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         xor byte [dword_1C123C], 1
         mov eax, dword [dword_1C122C]
         cmp ebp, eax
         jne short .8
         cmp eax, dword [dword_1C1224]
         je short .8
-        call sub_FBE40
+        call KbdGetKey
         cmp eax, byte 1Bh
         sete al
         and eax, 0FFh
@@ -2372,7 +2372,7 @@ PlayMovie:
         jne short .13
         cmp dword [dword_1C1224], byte 0
         je short .13
-        call sub_FBE40
+        call KbdGetKey
         cmp eax, byte 1Bh
         sete al
         and eax, 0FFh
@@ -2390,7 +2390,7 @@ PlayMovie:
         push eax
         call ClearScreen
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         cmp dword [esp], byte 0
         je short .15
         push edi
@@ -3003,7 +3003,7 @@ LoadLogoNames:
         call MakeDataPath
         lea eax, [byte ebp-03Ch]
         push eax
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         push byte 20h
         push dword_1C5DE8
@@ -3013,7 +3013,7 @@ LoadLogoNames:
         call LoadNameFile
         add esp, byte 10h
         push byte 0
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         push ebx
         call FreeMemBlock
@@ -3066,7 +3066,7 @@ InitFrontEnd:
         push ebx
         push ecx
         push edx
-        call sub_F9650
+        call InitVideoModeList
         call OpenGameDatabase
         mov eax, 3
         call SecondsToSamples

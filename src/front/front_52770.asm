@@ -42,13 +42,13 @@ extern str_FatBlueLines, str_FatRedLines, str_Flatboards, str_Glass, str_Glassli
 extern str_Gt004, str_Gt007, str_Gt302, str_IceLine, str_Lites, str_Maxx, str_Maxz, str_Minx
 extern str_Minz, str_Pbench0D, str_Pbench1D, str_Penback, str_Penbox0D, str_Penbox1D, str_Penboxt0, str_Penboxt1
 extern str_Penboxz0, str_Penboxz1, str_R02d, str_Redlite, str_Rink, str_Rlite0, str_Rlite1, str_STAND
-extern str_STAND2ND, str_Score, str_Stands2, str_Strobe, str_ThinRedLines, str_Topboards, str_WALL, sub_1007C0
-extern bcopy, FindShape, sub_101584, Random32, sub_102C96, sub_102CDC, sub_102CF4, sub_103648
-extern sub_104940, sub_104948, sub_10495F, sub_1049D0, sub_10B000, sub_10B040, sub_10B060, sub_10B084
-extern sub_10B0EC, sub_10B4E0, sub_10B580, BuildAntiAliasTable, sub_10C8E8, sub_10DDE0, sub_10E284, sub_10E4B0
-extern sub_10E62C, sub_10E6AC, sub_10E7AC, sub_10E8F8, sub_10EE50, sub_10FB98, sub_10FBB0, sub_10FD58
-extern sub_10FE58, sub_10FEA8, sub_10FFBC, sub_11002C, sub_1100B4, sub_110414, sub_110538, sub_1105E4
-extern sub_110634, sub_112BCC, sub_112DE4, sub_11313C, BuildRangePalette, BlendRangePalette, AddBankToRange, RemapArtBank
+extern str_STAND2ND, str_Score, str_Stands2, str_Strobe, str_ThinRedLines, str_Topboards, str_WALL, SinInterp
+extern bcopy, FindShape, OpenArtArchiveErr, Random32, SeedRandom, SetRemapTable, GetRemapTable, WritePaletteRegs
+extern ArtBankCount, ArtBankEntry, ArtBankEntryInfo, BytesPerPixelForDepth, BuildReciprocalTable, SetRinkMatrix, SetRinkTranslation, ProjectRinkObjectPoints
+extern DrawRinkObjectPolys, DrawModelInstance, DrawModel, BuildAntiAliasTable, SubVec3, DrawSurfacePolys, DrawOverlayModels, ProjectOverlayPoint
+extern FreeOverlaySlots, TransformRinkPoints, DrawRinkPolyStrip, DrawRinkPolys, DrawIceSpans, FindInstanceShape, BindModelShapes, UpdateModelInstance
+extern SetModelShape, SetModelPartName, LoadModelByName, FreeModelFile, CreateModelInstance, FreeModelInstance, FindInstancePart, FindInstanceGroup
+extern GetInstanceGroupEntry, ClipPolyToNear, DrawRinkPolyList, AngleFromDelta, BuildRangePalette, BlendRangePalette, AddBankToRange, RemapArtBank
 extern SetRangeColors, RemapRangeColors, CopyRangePalette, BuildRangePaletteBuf, FadeGamePalette, SetArtArchive, AddModelName, FindModelName
 extern DrawModelList, DrawFlashSprite, DrawCameraFlashes, LoadRinkTextures, LoadArenaArt, DrawRinkLine, DrawHomeBlueLine, DrawAwayBlueLine
 extern DrawCenterSpots, DrawEndSpots, DrawNeutralSpots, DrawCenterCircle, DrawCreaseArc, BuildRinkGeometry, DrawIceSurface, DrawCreases
@@ -56,7 +56,7 @@ extern DrawRinkMarkings, DrawBoardsLines, DrawGoalLines, StartCrowdReaction, Cle
 extern DrawBoardsTop, DrawStandsSides, DrawBenchDoors, DrawGlass, DrawBenchPlayers, DrawBenchArea, DrawPenaltyBox, DrawBenches
 extern UpdateScoreboardPos, UpdateScoreboardSpin, LoadNetArt, BuildRinkSides, LoadBoardLogo, LoadTeamLogoShape, LoadTeamLogoCopy, UpdateViewMatrix
 extern DrawPlayersSorted, RenderModelPortrait, RestoreSavedPalette, ReplayRegisterStates, ReplayRegisterObjects, ServiceIdle, AllocMemBlock, FreeMemBlock
-extern sub_FC330, sub_FC4BC, ClearScreen, sub_FD954, FillRect, IntsToFloats, VecMulMat, VecSub
+extern OpenResourceArchive, MatchColor, ClearScreen, FillPolygon, FillRect, IntsToFloats, VecMulMat, VecSub
 extern VecDistance, ProjectCoord, ProjectPointsWithZ, tickcount, unk_16175C, unk_161760, unk_161764, unk_161768
 extern unk_16176C, unk_161770, unk_161774, unk_161778, unk_1617BC, unk_16B51C, unk_16B534, unk_1A8D48
 extern unk_1AEDD8, unk_1AEDF0, unk_1AFB38, unk_1B0078, unk_1B0410, unk_1B0510, unk_1B0610, unk_1B0710
@@ -94,11 +94,11 @@ LoadLogos:
         call ServiceIdle
         push byte 0
         push str_LogosFsh
-        call sub_101584
+        call OpenArtArchiveErr
         add esp, byte 8
         push eax
         mov ebp, eax
-        call sub_104940
+        call ArtBankCount
         mov edx, eax
         mov ecx, 3
         sar edx, 1Fh
@@ -107,7 +107,7 @@ LoadLogos:
         mov esi, eax
         call ServiceIdle
         push ebx
-        call sub_102C96
+        call SeedRandom
         add esp, byte 4
         cmp esi, byte 28h
         jle short .3
@@ -250,14 +250,14 @@ LoadLogos:
         push ebx
         mov ecx, dword [dword_1B0F38]
         push ecx
-        call sub_104948
+        call ArtBankEntry
         add esp, byte 8
         lea eax, [dword esp+0C8h]
         push eax
         push ebx
         mov edi, dword [dword_1B0F38]
         push edi
-        call sub_10495F
+        call ArtBankEntryInfo
         inc ebx
         add esp, byte 0Ch
         cmp ebx, esi
@@ -443,7 +443,7 @@ BuildIcePalette:
         or edx, ecx
         or eax, edx
         push eax
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         mov edx, dword [byte esp+08h]
         mov ecx, dword [byte esp+0Ch]
@@ -548,7 +548,7 @@ BlendRangeColours:
         add esi, edi
         add eax, esi
         push eax
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         pop edi
         pop esi
@@ -716,7 +716,7 @@ SetRinkPalette:
         push ecx
         push edx
         push unk_1B0610
-        call sub_102CDC
+        call SetRemapTable
         add esp, byte 4
         pop edx
         pop ecx
@@ -779,37 +779,37 @@ LoadRinkLines:
         call BuildRinkPalette
         mov edx, dword [dword_1B1108]
         push edx
-        call sub_10FD58
+        call UpdateModelInstance
         add esp, byte 4
         mov ebx, dword [dword_1B10E8]
         push ebx
-        call sub_10FD58
+        call UpdateModelInstance
         add esp, byte 4
         mov ecx, dword [dword_1B10CC]
         push ecx
-        call sub_10FD58
+        call UpdateModelInstance
         add esp, byte 4
         mov esi, dword [dword_1B0FA0]
         push esi
         xor ebx, ebx
-        call sub_10FD58
+        call UpdateModelInstance
         add esp, byte 4
 .1:
         mov edi, dword [dword ebx+dword_1B0408]
         push edi
-        call sub_10FD58
+        call UpdateModelInstance
         add esp, byte 4
         mov ebp, dword [dword ebx+dword_1B0400]
         push ebp
         add ebx, byte 4
-        call sub_10FD58
+        call UpdateModelInstance
         add esp, byte 4
         cmp ebx, byte 8
         jne short .1
         push str_Boardback
         mov eax, dword [dword_1B1108]
         push eax
-        call sub_10FB98
+        call FindInstanceShape
         mov dword [dword_1B0FD8], eax
         mov edx, eax
         shl eax, 2
@@ -831,7 +831,7 @@ LoadRinkLines:
         push str_Crease
         mov edx, dword [dword_1B1108]
         push edx
-        call sub_10FB98
+        call FindInstanceShape
         mov ebx, dword [dword_1B1108]
         mov edx, eax
         shl eax, 2
@@ -843,7 +843,7 @@ LoadRinkLines:
         mov eax, dword [byte edx+eax+04h]
         push ebx
         mov dword [dword_1B0F40], eax
-        call sub_10FB98
+        call FindInstanceShape
         mov edx, eax
         shl eax, 2
         mov ebx, dword [dword_1B1108]
@@ -853,13 +853,13 @@ LoadRinkLines:
         mov eax, dword [byte edx+eax*4+04h]
         push dword 0FF000000h
         mov dword [dword_1B0FE4], eax
-        call sub_FC4BC
+        call MatchColor
         add esp, byte 4
         push str_FatRedLines
         mov ebx, dword [dword_1B1108]
         push ebx
         mov dword [dword_1B0F24], eax
-        call sub_10FB98
+        call FindInstanceShape
         mov edx, eax
         shl eax, 2
         mov ebx, dword [dword_1B1108]
@@ -881,7 +881,7 @@ LoadRinkLines:
         push str_FatBlueLines
         mov ecx, dword [dword_1B1108]
         push ecx
-        call sub_10FB98
+        call FindInstanceShape
         mov edx, eax
         shl eax, 2
         mov ebx, dword [dword_1B1108]
@@ -903,19 +903,19 @@ LoadRinkLines:
         mov esi, dword [dword_1B1108]
         push esi
         mov dword [dword_1B1000], eax
-        call sub_10FB98
+        call FindInstanceShape
         add esp, byte 8
         push str_Glassline
         mov edi, dword [dword_1B1108]
         push edi
-        call sub_10FB98
+        call FindInstanceShape
         add esp, byte 8
         push DrawCenterCircle
         push eax
         mov ebp, dword [dword_1B1108]
         push ebp
         mov ebx, eax
-        call sub_10FEA8
+        call SetModelPartName
         mov eax, ebx
         mov edx, dword [dword_1B1108]
         shl eax, 2
@@ -944,7 +944,7 @@ LoadRinkLines:
         mov dword [dword_1B0FF8], eax
         mov eax, dword [dword_1B1108]
         push eax
-        call sub_10FB98
+        call FindInstanceShape
         add esp, byte 8
         mov edx, eax
         shl eax, 2
@@ -966,7 +966,7 @@ LoadRinkLines:
         mov edx, dword [dword_1B1108]
         push edx
         mov dword [dword_1B102C], eax
-        call sub_10FB98
+        call FindInstanceShape
         mov edx, eax
         shl eax, 2
         mov ebx, dword [dword_1B1108]
@@ -1005,12 +1005,12 @@ LoadRinkLines:
         push ebp
         mov edi, dword [dword_1B0FB0]
         push edi
-        call sub_104948
+        call ArtBankEntry
         add esp, byte 8
         push byte 8
         mov ebx, eax
         mov esi, eax
-        call sub_1049D0
+        call BytesPerPixelForDepth
         mov edx, dword [ebx]
         and edx, 0FFh
         add esp, byte 4
@@ -1056,7 +1056,7 @@ LoadRinkLines:
 .9:
         mov esi, dword [dword_1B0FB0]
         push esi
-        call sub_104940
+        call ArtBankCount
         add esp, byte 4
         cmp ebp, eax
         jl near .3
@@ -1150,7 +1150,7 @@ LoadRinkModel:
         mov eax, str_ArenaViv2
         call SetArtArchive
         mov dword [dword_1B108C], edx
-        call sub_10B000
+        call BuildReciprocalTable
         mov edx, 4CCCCh
         mov eax, 4
         imul edx
@@ -1231,12 +1231,12 @@ LoadRinkModel:
         call ServiceIdle
         xor edx, edx
         mov eax, str_Rink
-        call sub_10FFBC
+        call LoadModelByName
         push byte 0
         mov dword [dword_1B10F4], eax
         add eax, byte 2Ch
         push eax
-        call sub_101584
+        call OpenArtArchiveErr
         mov ecx, 1
         mov edx, dword [dword_1ADC88]
         add esp, byte 8
@@ -1247,12 +1247,12 @@ LoadRinkModel:
         mov ebx, 4
         mov eax, dword [dword_1B10F4]
         xor edx, edx
-        call sub_1100B4
+        call CreateModelInstance
         mov edx, dword [dword_1B110C]
         push edx
         push eax
         mov dword [dword_1B1108], eax
-        call sub_10FBB0
+        call BindModelShapes
         mov eax, dword [dword_1B1108]
         mov dl, byte [byte eax+010h]
         or dl, 2
@@ -1262,32 +1262,32 @@ LoadRinkModel:
         mov eax, str_Stands2
         xor edx, edx
         mov ebx, 4
-        call sub_10FFBC
+        call LoadModelByName
         xor edx, edx
         mov dword [dword_1B10D0], eax
-        call sub_1100B4
+        call CreateModelInstance
         mov dword [dword_1B10E8], eax
         or byte [byte eax+010h], 2
         push str_Floor
         mov ebx, dword [dword_1B10E8]
         push ebx
-        call sub_10FB98
+        call FindInstanceShape
         add esp, byte 8
         push DrawCreaseArc
         push eax
         mov ecx, dword [dword_1B10E8]
         push ecx
-        call sub_10FEA8
+        call SetModelPartName
         add esp, byte 0Ch
         call ServiceIdle
         xor edx, edx
         mov eax, str_Score
-        call sub_10FFBC
+        call LoadModelByName
         push byte 0
         mov dword [dword_1B10D8], eax
         add eax, byte 2Ch
         push eax
-        call sub_101584
+        call OpenArtArchiveErr
         mov edx, dword [dword_1ADC88]
         add esp, byte 8
         mov dword [dword_1B10D4], eax
@@ -1298,12 +1298,12 @@ LoadRinkModel:
         mov ebx, 4
         mov eax, dword [dword_1B10D8]
         xor edx, edx
-        call sub_1100B4
+        call CreateModelInstance
         mov esi, dword [dword_1B10D4]
         push esi
         push eax
         mov dword [dword_1B10CC], eax
-        call sub_10FBB0
+        call BindModelShapes
         mov eax, dword [dword_1B10CC]
         mov bl, byte [byte eax+010h]
         or bl, 2
@@ -1314,7 +1314,7 @@ LoadRinkModel:
         push str_Puck2
         xor edi, edi
         xor esi, esi
-        call sub_101584
+        call OpenArtArchiveErr
         add esp, byte 8
         mov dword [dword_1B0FB8], eax
 .1:
@@ -1338,17 +1338,17 @@ LoadRinkModel:
         call ServiceIdle
         mov eax, str_Lonet
         xor edx, edx
-        call sub_10FFBC
+        call LoadModelByName
         mov dword [dword_1B0F98], eax
         xor edx, edx
         mov eax, str_Hinet
-        call sub_10FFBC
+        call LoadModelByName
         push byte 0
         mov dword [dword_1B0F34], eax
         add eax, byte 2Ch
         push eax
         mov edi, 8
-        call sub_101584
+        call OpenArtArchiveErr
         mov edx, dword [dword_1ADC88]
         add esp, byte 8
         mov dword [dword_1B0F20], eax
@@ -1362,23 +1362,23 @@ LoadRinkModel:
         mov eax, dword [dword_1B0F98]
         mov ebx, edi
         mov edx, ebp
-        call sub_1100B4
+        call CreateModelInstance
         mov dword [dword esi+dword_1B0408], eax
         mov eax, dword [dword_1B0F20]
         push eax
         mov edx, dword [dword esi+dword_1B0408]
         push edx
         mov ebx, edi
-        call sub_10FBB0
+        call BindModelShapes
         add esp, byte 8
         mov eax, dword [dword_1B0F34]
         mov edx, ebp
-        call sub_1100B4
+        call CreateModelInstance
         mov ebx, dword [dword_1B0F20]
         push ebx
         push eax
         mov dword [dword esi+dword_1B0400], eax
-        call sub_10FBB0
+        call BindModelShapes
         mov eax, dword [dword esi+dword_1B0400]
         mov bh, byte [byte eax+010h]
         add esi, byte 4
@@ -1390,7 +1390,7 @@ LoadRinkModel:
         push str_Goal0
         mov esi, dword [dword_1B1108]
         push esi
-        call sub_110538
+        call FindInstancePart
         mov edx, eax
         shl eax, 2
         sub eax, edx
@@ -1407,7 +1407,7 @@ LoadRinkModel:
         push str_Goal1
         mov edi, dword [dword_1B1108]
         push edi
-        call sub_110538
+        call FindInstancePart
         mov edx, eax
         shl eax, 2
         sub eax, edx
@@ -1431,7 +1431,7 @@ LoadRinkModel:
         mov edx, dword [byte eax+07Ch]
         mov esi, dword [byte eax+074h]
         mov dword [byte esp+068h], edx
-        call sub_110538
+        call FindInstancePart
         mov edx, eax
         shl eax, 2
         add esp, byte 8
@@ -1441,7 +1441,7 @@ LoadRinkModel:
         mov eax, dword [esi+eax*4]
         push ebp
         mov dword [dword_1B0EF0], eax
-        call sub_110538
+        call FindInstancePart
         mov edx, eax
         shl eax, 2
         sub eax, edx
@@ -1451,7 +1451,7 @@ LoadRinkModel:
         mov dword [dword_1B0EE8], eax
         mov eax, dword [dword_1B1108]
         push eax
-        call sub_110538
+        call FindInstancePart
         mov edx, eax
         shl eax, 2
         sub eax, edx
@@ -1461,7 +1461,7 @@ LoadRinkModel:
         push str_Maxz
         mov edx, dword [dword_1B1108]
         push edx
-        call sub_110538
+        call FindInstancePart
         mov edx, eax
         shl eax, 2
         add esp, byte 8
@@ -1471,7 +1471,7 @@ LoadRinkModel:
         mov eax, dword [byte esi+eax*4+08h]
         push ebx
         mov dword [dword_1B0E84], eax
-        call sub_110538
+        call FindInstancePart
         add esp, byte 8
         mov edx, eax
         push str_Gt304
@@ -1480,7 +1480,7 @@ LoadRinkModel:
         sub eax, edx
         push ecx
         mov edi, dword [byte esi+eax*4+04h]
-        call sub_110538
+        call FindInstancePart
         mov edx, eax
         shl eax, 2
         sub eax, edx
@@ -1495,7 +1495,7 @@ LoadRinkModel:
         mov edi, dword [dword_1B1108]
         push edi
         mov dword [dword_1B0B84], eax
-        call sub_10FB98
+        call FindInstanceShape
         mov edx, dword [dword_1B1108]
         mov ebx, eax
         shl eax, 2
@@ -1506,18 +1506,18 @@ LoadRinkModel:
         mov eax, dword [byte ebx+eax*4+0Ch]
         push edx
         mov dword [dword_1B0B80], eax
-        call sub_10FB98
+        call FindInstanceShape
         add esp, byte 8
         push DrawCenterCircle_30
         push eax
         mov ebp, dword [dword_1B1108]
         push ebp
-        call sub_10FEA8
+        call SetModelPartName
         add esp, byte 0Ch
         push str_Boardback
         mov eax, dword [dword_1B1108]
         push eax
-        call sub_10FB98
+        call FindInstanceShape
         mov ebx, dword [dword_1B1108]
         mov dword [dword_1B0FD8], eax
         mov edx, eax
@@ -1529,7 +1529,7 @@ LoadRinkModel:
         mov eax, dword [byte edx+eax*4+04h]
         push ebx
         mov dword [dword_1B1018], eax
-        call sub_10FB98
+        call FindInstanceShape
         mov edx, eax
         shl eax, 2
         add edx, eax
@@ -1542,67 +1542,67 @@ LoadRinkModel:
         push str_STAND
         mov edx, dword [dword_1B10E8]
         push edx
-        call sub_1105E4
+        call FindInstanceGroup
         add esp, byte 8
         push dword_1B0F10
         push dword_1B0F04
         push eax
         mov ebx, dword [dword_1B10E8]
         push ebx
-        call sub_110634
+        call GetInstanceGroupEntry
         add esp, byte 10h
         push str_FLOOR
         mov ecx, dword [dword_1B10E8]
         push ecx
-        call sub_1105E4
+        call FindInstanceGroup
         add esp, byte 8
         push dword_1B0EBC
         push dword_1B0F08
         push eax
         mov edi, dword [dword_1B10E8]
         push edi
-        call sub_110634
+        call GetInstanceGroupEntry
         add esp, byte 10h
         push str_STAND2ND
         mov ebp, dword [dword_1B10E8]
         push ebp
-        call sub_1105E4
+        call FindInstanceGroup
         add esp, byte 8
         push dword_1B0EEC
         push dword_1B0EE0
         push eax
         mov eax, dword [dword_1B10E8]
         push eax
-        call sub_110634
+        call GetInstanceGroupEntry
         add esp, byte 10h
         push str_WALL
         mov edx, dword [dword_1B10E8]
         push edx
-        call sub_1105E4
+        call FindInstanceGroup
         add esp, byte 8
         push dword_1B0ED4
         push dword_1B0ED8
         push eax
         mov ebx, dword [dword_1B10E8]
         push ebx
-        call sub_110634
+        call GetInstanceGroupEntry
         add esp, byte 10h
         push str_Rlite0
         mov ecx, dword [dword_1B1108]
         push ecx
-        call sub_110538
+        call FindInstancePart
         add esp, byte 8
         push str_Rlite1
         mov edi, dword [dword_1B1108]
         push edi
         mov dword [dword_1B0FE0], eax
-        call sub_110538
+        call FindInstancePart
         add esp, byte 8
         push str_Redlite
         mov ebp, dword [dword_1B1108]
         push ebp
         mov dword [dword_1B0FDC], eax
-        call sub_10FB98
+        call FindInstanceShape
         lea ebx, [nosplit eax*4+00h]
         add ebx, eax
         mov eax, dword [dword_1B1108]
@@ -1613,19 +1613,19 @@ LoadRinkModel:
         mov dword [dword_1B0FD4], edx
         push str_Glite0
         push eax
-        call sub_110538
+        call FindInstancePart
         add esp, byte 8
         push str_Glite1
         mov dword [dword_1B100C], eax
         mov eax, dword [dword_1B1108]
         push eax
-        call sub_110538
+        call FindInstancePart
         add esp, byte 8
         push str_Grnlite
         mov edx, dword [dword_1B1108]
         push edx
         mov dword [dword_1B1008], eax
-        call sub_10FB98
+        call FindInstanceShape
         mov edx, eax
         shl eax, 2
         add edx, eax
@@ -1637,72 +1637,72 @@ LoadRinkModel:
         mov edx, dword [byte edx+ebx+0Ch]
         push eax
         mov dword [dword_1B1014], edx
-        call sub_1105E4
+        call FindInstanceGroup
         add esp, byte 8
         push str_Penboxz0
         mov ebx, dword [dword_1B1108]
         push ebx
-        call sub_1105E4
+        call FindInstanceGroup
         add esp, byte 8
         push dword_1B0E58
         push dword_1B0E9C
         push eax
         mov ecx, dword [dword_1B1108]
         push ecx
-        call sub_110634
+        call GetInstanceGroupEntry
         add esp, byte 10h
         push str_Penboxz1
         mov edi, dword [dword_1B1108]
         push edi
-        call sub_1105E4
+        call FindInstanceGroup
         add esp, byte 8
         push dword_1B0E54
         push dword_1B0EA0
         push eax
         mov ebp, dword [dword_1B1108]
         push ebp
-        call sub_110634
+        call GetInstanceGroupEntry
         add esp, byte 10h
         push str_Penboxt0
         mov eax, dword [dword_1B1108]
         push eax
-        call sub_1105E4
+        call FindInstanceGroup
         add esp, byte 8
         push dword_1B0E64
         push dword_1B0EAC
         push eax
         mov edx, dword [dword_1B1108]
         push edx
-        call sub_110634
+        call GetInstanceGroupEntry
         add esp, byte 10h
         push str_Penboxt1
         mov ebx, dword [dword_1B1108]
         push ebx
-        call sub_1105E4
+        call FindInstanceGroup
         add esp, byte 8
         push dword_1B0E34
         push dword_1B0EB0
         push eax
         mov ecx, dword [dword_1B1108]
         push ecx
-        call sub_110634
+        call GetInstanceGroupEntry
         add esp, byte 10h
         push str_Penback
         mov edi, dword [dword_1B1108]
         push edi
-        call sub_1105E4
+        call FindInstanceGroup
         add esp, byte 8
         push dword_1B0E4C
         push dword_1B0E5C
         push eax
         mov ebp, dword [dword_1B1108]
         push ebp
-        call sub_110634
+        call GetInstanceGroupEntry
         add esp, byte 10h
         push str_Penboxt0
         mov eax, dword [dword_1B1108]
         push eax
-        call sub_110538
+        call FindInstancePart
         mov edx, eax
         shl eax, 2
         add esp, byte 8
@@ -1712,7 +1712,7 @@ LoadRinkModel:
         mov eax, dword [esi+eax*4]
         push edx
         mov dword [dword_1B0EB4], eax
-        call sub_110538
+        call FindInstancePart
         mov edx, eax
         shl eax, 2
         add esp, byte 8
@@ -1722,7 +1722,7 @@ LoadRinkModel:
         mov eax, dword [byte esi+eax*4+08h]
         push ebx
         mov dword [dword_1B0E70], eax
-        call sub_110538
+        call FindInstancePart
         mov edx, eax
         shl eax, 2
         add esp, byte 8
@@ -1732,7 +1732,7 @@ LoadRinkModel:
         mov eax, dword [byte esi+eax*4+08h]
         push ecx
         mov dword [dword_1B0E6C], eax
-        call sub_110538
+        call FindInstancePart
         mov edx, eax
         shl eax, 2
         add esp, byte 8
@@ -1742,7 +1742,7 @@ LoadRinkModel:
         mov eax, dword [byte esi+eax*4+08h]
         push edi
         mov dword [dword_1B0E8C], eax
-        call sub_110538
+        call FindInstancePart
         mov edx, eax
         shl eax, 2
         sub eax, edx
@@ -1763,7 +1763,7 @@ LoadRinkModel:
         push eax
         mov edx, dword [dword_1B1108]
         push edx
-        call sub_110538
+        call FindInstancePart
         add esp, byte 8
         test eax, eax
         jl short .4
@@ -1779,7 +1779,7 @@ LoadRinkModel:
         push eax
         mov ecx, dword [dword_1B1108]
         push ecx
-        call sub_110538
+        call FindInstancePart
         add esp, byte 8
         test eax, eax
         jl short .4
@@ -1793,103 +1793,103 @@ LoadRinkModel:
         push str_DoorZ0
         mov eax, dword [dword_1B1108]
         push eax
-        call sub_110538
+        call FindInstancePart
         add esp, byte 8
         push str_DoorZ1
         mov edx, dword [dword_1B1108]
         push edx
         mov dword [dword_1B0254], eax
-        call sub_110538
+        call FindInstancePart
         add esp, byte 8
         push str_Door00
         mov ebx, dword [dword_1B1108]
         push ebx
         mov dword [dword_1B0264], eax
-        call sub_110538
+        call FindInstancePart
         add esp, byte 8
         push str_Door01
         mov ecx, dword [dword_1B1108]
         push ecx
         mov dword [dword_1B0DF4], eax
-        call sub_110538
+        call FindInstancePart
         add esp, byte 8
         push str_Door02
         mov edi, dword [dword_1B1108]
         push edi
         mov dword [dword_1B0DF8], eax
-        call sub_110538
+        call FindInstancePart
         add esp, byte 8
         push str_Door10
         mov ebp, dword [dword_1B1108]
         push ebp
         mov dword [dword_1B0DFC], eax
-        call sub_110538
+        call FindInstancePart
         add esp, byte 8
         push str_Door11
         mov dword [dword_1B0E04], eax
         mov eax, dword [dword_1B1108]
         push eax
-        call sub_110538
+        call FindInstancePart
         add esp, byte 8
         push str_Door12
         mov edx, dword [dword_1B1108]
         push edx
         mov dword [dword_1B0E08], eax
-        call sub_110538
+        call FindInstancePart
         add esp, byte 8
         push str_Benchz0
         mov ebx, dword [dword_1B1108]
         push ebx
         mov dword [dword_1B0E0C], eax
-        call sub_1105E4
+        call FindInstanceGroup
         add esp, byte 8
         push dword_1B0EA4
         push dword_1B0E94
         push eax
         mov ecx, dword [dword_1B1108]
         push ecx
-        call sub_110634
+        call GetInstanceGroupEntry
         add esp, byte 10h
         push str_Benchz1
         mov edi, dword [dword_1B1108]
         push edi
-        call sub_1105E4
+        call FindInstanceGroup
         add esp, byte 8
         push dword_1B0EA8
         push dword_1B0E98
         push eax
         mov ebp, dword [dword_1B1108]
         push ebp
-        call sub_110634
+        call GetInstanceGroupEntry
         add esp, byte 10h
         push str_Benchdiv
         mov eax, dword [dword_1B1108]
         push eax
-        call sub_1105E4
+        call FindInstanceGroup
         add esp, byte 8
         push dword_1B0E60
         push dword_1B0E90
         push eax
         mov edx, dword [dword_1B1108]
         push edx
-        call sub_110634
+        call GetInstanceGroupEntry
         add esp, byte 10h
         push str_Benchbk
         mov ebx, dword [dword_1B1108]
         push ebx
-        call sub_1105E4
+        call FindInstanceGroup
         add esp, byte 8
         push dword_1B0E74
         push dword_1B0E68
         push eax
         mov ecx, dword [dword_1B1108]
         push ecx
-        call sub_110634
+        call GetInstanceGroupEntry
         add esp, byte 10h
         push str_Benchx
         mov edi, dword [dword_1B1108]
         push edi
-        call sub_110538
+        call FindInstancePart
         mov edx, eax
         shl eax, 2
         add esp, byte 8
@@ -1899,7 +1899,7 @@ LoadRinkModel:
         mov eax, dword [esi+eax*4]
         push ebp
         mov dword [dword_1B0E78], eax
-        call sub_110538
+        call FindInstancePart
         mov edx, eax
         shl eax, 2
         sub eax, edx
@@ -1909,7 +1909,7 @@ LoadRinkModel:
         mov dword [dword_1B0E80], eax
         mov eax, dword [dword_1B1108]
         push eax
-        call sub_110538
+        call FindInstancePart
         mov edx, eax
         shl eax, 2
         add esp, byte 8
@@ -1919,13 +1919,13 @@ LoadRinkModel:
         mov eax, dword [byte esi+eax*4+08h]
         push edx
         mov dword [dword_1B0E7C], eax
-        call sub_10FB98
+        call FindInstanceShape
         add esp, byte 8
         push DrawCreaseArc
         push eax
         mov ebx, dword [dword_1B1108]
         push ebx
-        call sub_10FEA8
+        call SetModelPartName
         xor ecx, ecx
         add esp, byte 0Ch
         mov dword [dword_1B0E38], ecx
@@ -1941,7 +1941,7 @@ LoadRinkModel:
         push eax
         mov ebp, dword [dword_1B1108]
         push ebp
-        call sub_110538
+        call FindInstancePart
         add esp, byte 8
         test eax, eax
         jl short .6
@@ -1957,7 +1957,7 @@ LoadRinkModel:
         push eax
         mov edx, dword [dword_1B1108]
         push edx
-        call sub_110538
+        call FindInstancePart
         add esp, byte 8
         test eax, eax
         jl short .6
@@ -1971,7 +1971,7 @@ LoadRinkModel:
         push str_B00
         mov edi, dword [dword_1B1108]
         push edi
-        call sub_110538
+        call FindInstancePart
         mov edx, eax
         shl eax, 2
         sub eax, edx
@@ -1982,7 +1982,7 @@ LoadRinkModel:
         sar eax, 2
         push ebp
         mov dword [dword_1B0FF0], eax
-        call sub_110538
+        call FindInstancePart
         mov edx, eax
         shl eax, 2
         sub eax, edx
@@ -1993,7 +1993,7 @@ LoadRinkModel:
         mov dword [dword_1B0FCC], eax
         mov eax, dword [dword_1B1108]
         push eax
-        call sub_110538
+        call FindInstancePart
         mov edx, eax
         shl eax, 2
         add esp, byte 8
@@ -2004,7 +2004,7 @@ LoadRinkModel:
         sar eax, 2
         push edx
         mov dword [dword_1B1010], eax
-        call sub_110538
+        call FindInstancePart
         mov edx, eax
         shl eax, 2
         sub eax, edx
@@ -2015,7 +2015,7 @@ LoadRinkModel:
         sar eax, 2
         push ebx
         mov dword [dword_1B1028], eax
-        call sub_110538
+        call FindInstancePart
         mov edx, eax
         shl eax, 2
         sub eax, edx
@@ -2028,7 +2028,7 @@ LoadRinkModel:
         push str_Crease
         mov ecx, dword [dword_1B1108]
         push ecx
-        call sub_10FB98
+        call FindInstanceShape
         mov edx, eax
         shl eax, 2
         mov ebx, dword [dword_1B1108]
@@ -2051,7 +2051,7 @@ LoadRinkModel:
         push eax
         mov ebp, dword [dword_1B1108]
         push ebp
-        call sub_110538
+        call FindInstancePart
         add esp, byte 8
         test eax, eax
         jl short .8
@@ -2076,7 +2076,7 @@ LoadRinkModel:
         push eax
         mov esi, dword [dword_1B10E8]
         push esi
-        call sub_110538
+        call FindInstancePart
         add esp, byte 8
         test eax, eax
         jl short .10
@@ -2090,56 +2090,56 @@ LoadRinkModel:
         push unk_16175C
         mov eax, dword [dword_1B0FA0]
         push eax
-        call sub_110538
+        call FindInstancePart
         add esp, byte 8
         push unk_161760
         mov edx, dword [dword_1B0FA0]
         push edx
         mov dword [dword_1B0960], eax
-        call sub_110538
+        call FindInstancePart
         add esp, byte 8
         push unk_161764
         mov ebx, dword [dword_1B0FA0]
         push ebx
         mov dword [dword_1B0964], eax
-        call sub_110538
+        call FindInstancePart
         add esp, byte 8
         push unk_161768
         mov ecx, dword [dword_1B0FA0]
         push ecx
         mov dword [dword_1B0968], eax
-        call sub_110538
+        call FindInstancePart
         add esp, byte 8
         push unk_16176C
         mov esi, dword [dword_1B0FA0]
         push esi
         mov dword [dword_1B096C], eax
-        call sub_110538
+        call FindInstancePart
         add esp, byte 8
         push unk_161770
         mov edi, dword [dword_1B0FA0]
         push edi
         mov dword [dword_1B0950], eax
-        call sub_110538
+        call FindInstancePart
         add esp, byte 8
         push unk_161774
         mov ebp, dword [dword_1B0FA0]
         push ebp
         mov dword [dword_1B0954], eax
-        call sub_110538
+        call FindInstancePart
         add esp, byte 8
         push unk_161778
         mov dword [dword_1B0958], eax
         mov eax, dword [dword_1B0FA0]
         push eax
-        call sub_110538
+        call FindInstancePart
         add esp, byte 8
         mov dword [dword_1B095C], eax
         call BuildRinkGeometry
         push str_Goal0
         mov edx, dword [dword_1B1108]
         push edx
-        call sub_110538
+        call FindInstancePart
         mov edx, eax
         shl eax, 2
         sub eax, edx
@@ -2153,7 +2153,7 @@ LoadRinkModel:
         push str_Center
         mov ebx, dword [dword_1B1108]
         push ebx
-        call sub_110538
+        call FindInstancePart
         add esp, byte 8
         mov edx, eax
         shl eax, 2
@@ -2184,7 +2184,7 @@ LoadRinkModel:
         push eax
         mov ecx, dword [dword_1B1108]
         push ecx
-        call sub_110538
+        call FindInstancePart
         imul eax, byte 0Ch
         add esp, byte 8
         mov edx, dword [byte esp+060h]
@@ -2215,7 +2215,7 @@ LoadRinkModel:
         push eax
         mov eax, dword [dword_1B1108]
         push eax
-        call sub_110538
+        call FindInstancePart
         imul edx, eax, byte 0Ch
         add esp, byte 8
         mov eax, dword [byte esp+060h]
@@ -2235,7 +2235,7 @@ LoadRinkModel:
         push str_Goal0
         mov edx, dword [dword_1B1108]
         push edx
-        call sub_110538
+        call FindInstancePart
         add esp, byte 8
         mov edx, eax
         shl eax, 2
@@ -2247,7 +2247,7 @@ LoadRinkModel:
         add edx, eax
         push ebx
         mov dword [dword_1B0C78], edx
-        call sub_110538
+        call FindInstancePart
         add esp, byte 8
         mov edx, eax
         shl eax, 2
@@ -2259,7 +2259,7 @@ LoadRinkModel:
         add edx, eax
         push ecx
         mov dword [dword_1B0C7C], edx
-        call sub_110538
+        call FindInstancePart
         add esp, byte 8
         mov edx, eax
         shl eax, 2
@@ -2271,80 +2271,80 @@ LoadRinkModel:
         add edx, eax
         push esi
         mov dword [dword_1B0C80], edx
-        call sub_1105E4
+        call FindInstanceGroup
         add esp, byte 8
         push dword_1B0EC0
         push dword_1B0ECC
         push eax
         mov edi, dword [dword_1B1108]
         push edi
-        call sub_110634
+        call GetInstanceGroupEntry
         add esp, byte 10h
         push str_FatRedLines
         mov ebp, dword [dword_1B1108]
         push ebp
-        call sub_10FB98
+        call FindInstanceShape
         add esp, byte 8
         push DrawCenterSpots
         push eax
         mov eax, dword [dword_1B1108]
         push eax
-        call sub_10FEA8
+        call SetModelPartName
         add esp, byte 0Ch
         push str_FatBlueLines
         mov edx, dword [dword_1B1108]
         push edx
-        call sub_10FB98
+        call FindInstanceShape
         add esp, byte 8
         push DrawEndSpots
         push eax
         mov ebx, dword [dword_1B1108]
         push ebx
-        call sub_10FEA8
+        call SetModelPartName
         add esp, byte 0Ch
         push str_Glassline
         mov ecx, dword [dword_1B1108]
         push ecx
-        call sub_10FB98
+        call FindInstanceShape
         add esp, byte 8
         push DrawCenterCircle
         push eax
         mov esi, dword [dword_1B1108]
         push esi
-        call sub_10FEA8
+        call SetModelPartName
         add esp, byte 0Ch
         push str_Topboards
         mov edi, dword [dword_1B1108]
         push edi
-        call sub_10FB98
+        call FindInstanceShape
         add esp, byte 8
         push DrawHomeBlueLine
         push eax
         mov ebp, dword [dword_1B1108]
         push ebp
-        call sub_10FEA8
+        call SetModelPartName
         add esp, byte 0Ch
         push str_Botboards
         mov eax, dword [dword_1B1108]
         push eax
-        call sub_10FB98
+        call FindInstanceShape
         add esp, byte 8
         push DrawAwayBlueLine
         push eax
         mov edx, dword [dword_1B1108]
         push edx
-        call sub_10FEA8
+        call SetModelPartName
         add esp, byte 0Ch
         push str_ThinRedLines
         mov ebx, dword [dword_1B1108]
         push ebx
-        call sub_10FB98
+        call FindInstanceShape
         add esp, byte 8
         push DrawNeutralSpots
         push eax
         mov ecx, dword [dword_1B1108]
         push ecx
-        call sub_10FEA8
+        call SetModelPartName
         add esp, byte 0Ch
         xor esi, esi
         mov edi, 1
@@ -2358,7 +2358,7 @@ LoadRinkModel:
         jne short .13
         push byte 0
         push str_Flash
-        call sub_101584
+        call OpenArtArchiveErr
         add esp, byte 8
         push str_Fla0
         push eax
@@ -2402,7 +2402,7 @@ LoadRinkModel:
         xor esi, esi
         call ReplayRegisterObjects
         push esi
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         add esp, byte 64h
         pop ebp
@@ -2484,22 +2484,22 @@ FreeRinkModel:
 .2:
         mov ecx, dword [dword ebx+dword_1B0400]
         push ecx
-        call sub_110414
+        call FreeModelInstance
         add esp, byte 4
         mov esi, dword [dword ebx+dword_1B0408]
         push esi
         add ebx, byte 4
-        call sub_110414
+        call FreeModelInstance
         add esp, byte 4
         cmp ebx, byte 8
         jne short .2
         mov edi, dword [dword_1B0F34]
         push edi
-        call sub_11002C
+        call FreeModelFile
         add esp, byte 4
         mov ebp, dword [dword_1B0F98]
         push ebp
-        call sub_11002C
+        call FreeModelFile
         add esp, byte 4
         mov eax, dword [dword_1B0F20]
         push eax
@@ -2507,11 +2507,11 @@ FreeRinkModel:
         add esp, byte 4
         mov edx, dword [dword_1B0FA0]
         push edx
-        call sub_110414
+        call FreeModelInstance
         add esp, byte 4
         mov ebx, dword [dword_1B0F3C]
         push ebx
-        call sub_11002C
+        call FreeModelFile
         add esp, byte 4
         mov ecx, dword [dword_1B0FB0]
         push ecx
@@ -2540,7 +2540,7 @@ FreeRinkModel:
         call FreeMemBlock
         add esp, byte 4
 .4:
-        call sub_10E62C
+        call FreeOverlaySlots
         mov ecx, dword [dword_1B0FFC]
         push ecx
         call FreeMemBlock
@@ -2592,10 +2592,10 @@ SetRinkTransform:
         mov esi, edx
         push eax
         rep movsd
-        call sub_10B060
+        call SetRinkTranslation
         add esp, byte 4
         push ebx
-        call sub_10B040
+        call SetRinkMatrix
         add esp, byte 4
         pop edi
         pop esi
@@ -2662,7 +2662,7 @@ DrawRinkBackground:
         push eax
         mov edi, dword [dword_16AF60]
         push edi
-        call sub_112BCC
+        call ClipPolyToNear
         add esp, byte 10h
         mov dword [dword esp+0240h], eax
         test eax, eax
@@ -2787,7 +2787,7 @@ DrawRinkBackground:
         push edx
         mov ecx, dword [dword_1B0F24]
         push ecx
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
         xor edx, edx
         mov esi, dword [dword esp+0240h]
@@ -2831,7 +2831,7 @@ DrawRinkBackground:
         push edx
         mov eax, dword [dword_1B0F24]
         push eax
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .18:
         add esp, 248h
@@ -2869,11 +2869,11 @@ DrawRinkSurface:
         mov eax, 1
         push edx
         mov dword [dword_1B111C], eax
-        call sub_10B0EC
+        call DrawRinkObjectPolys
         add esp, byte 4
         mov ebx, dword [dword_1B0FA0]
         push ebx
-        call sub_10B084
+        call ProjectRinkObjectPoints
         add esp, byte 4
         xor edx, edx
         xor ebx, ebx
@@ -2905,7 +2905,7 @@ DrawRinkSurface:
         lea eax, [dword esp+0284h]
         push eax
         push byte 4
-        call sub_10EE50
+        call DrawIceSpans
         add esp, byte 0Ch
         mov esi, dword [dword_1B0F0C]
         push esi
@@ -2913,7 +2913,7 @@ DrawRinkSurface:
         push edi
         mov ebp, dword [dword_1B0FA0]
         push ebp
-        call sub_10B4E0
+        call DrawModelInstance
         add esp, byte 0Ch
         jmp near .8
 .3:
@@ -2933,7 +2933,7 @@ DrawRinkSurface:
         push dword_1B02C0
         mov ebx, dword [dword_16AF60]
         push ebx
-        call sub_112DE4
+        call DrawRinkPolyList
         add esp, byte 18h
         cmp eax, byte 2
         jle short .4
@@ -2944,7 +2944,7 @@ DrawRinkSurface:
         push eax
         mov ecx, dword [dword_1B0FB4]
         push ecx
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .4:
         cmp dword [dword_1B111C], byte 0
@@ -2957,11 +2957,11 @@ DrawRinkSurface:
         xor edi, edi
         push ebp
         mov dword [dword_1B111C], edi
-        call sub_10B0EC
+        call DrawRinkObjectPolys
         add esp, byte 4
         mov eax, dword [dword_1B0FA0]
         push eax
-        call sub_10B084
+        call ProjectRinkObjectPoints
         mov eax, dword [dword_1B0FA0]
         add esp, byte 4
         mov edx, dword [dword eax+080h]
@@ -2969,7 +2969,7 @@ DrawRinkSurface:
         mov ebx, dword [byte eax+07Ch]
         push ebx
         push byte 0Ch
-        call sub_10EE50
+        call DrawIceSpans
         add esp, byte 0Ch
         mov ecx, dword [dword_1B0F00]
         push ecx
@@ -2977,7 +2977,7 @@ DrawRinkSurface:
         push esi
         mov edi, dword [dword_1B0FA0]
         push edi
-        call sub_10B4E0
+        call DrawModelInstance
         add esp, byte 0Ch
         jmp short .8
 .6:
@@ -2993,7 +2993,7 @@ DrawRinkSurface:
         push dword_1B02C0
         mov eax, dword [dword_16AF60]
         push eax
-        call sub_112DE4
+        call DrawRinkPolyList
         mov edx, dword [dword_1B111C]
         add esp, byte 18h
         mov ebx, eax
@@ -3014,7 +3014,7 @@ DrawRinkSurface:
         push ebx
         mov esi, dword [dword_1B0FB4]
         push esi
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .8:
         call DrawIceSurface
@@ -3064,7 +3064,7 @@ DrawRinkSurface:
         push esi
         mov edi, dword [dword_1B1108]
         push edi
-        call sub_10B4E0
+        call DrawModelInstance
         mov eax, dword [dword_1B1108]
         mov dh, byte [byte eax+010h]
         or dh, 2
@@ -3107,7 +3107,7 @@ DrawRinkSurface:
         mov eax, dword_1AF2B8
         push unk_1B0850
         mov dword [dword esp+0328h], eax
-        call sub_102CDC
+        call SetRemapTable
         add esp, byte 4
         xor edx, edx
         mov dword [dword esp+0320h], edx
@@ -3130,7 +3130,7 @@ DrawRinkSurface:
         mov ecx, dword [byte eax+08h]
         push ecx
         push byte 4
-        call sub_10E6AC
+        call TransformRinkPoints
         add esp, byte 8
         test eax, eax
         jne near .20
@@ -3189,7 +3189,7 @@ DrawRinkSurface:
         push eax
         push byte 4
         push dword 270Fh
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .20:
         mov eax, dword [dword esp+0328h]
@@ -3213,7 +3213,7 @@ DrawRinkSurface:
         cmp dword [dword_1B0E2C], byte 0
         je short .24
         push unk_1B0710
-        call sub_102CDC
+        call SetRemapTable
         xor esi, esi
         add esp, byte 4
 .23:
@@ -3232,7 +3232,7 @@ DrawRinkSurface:
         lea eax, [byte esp+08h]
         push eax
         push byte 10h
-        call sub_112BCC
+        call ClipPolyToNear
         lea ecx, [byte esp+010h]
         add esp, byte 10h
         mov ebx, eax
@@ -3240,7 +3240,7 @@ DrawRinkSurface:
         mov edx, dword [dword esi+dword_1B0008]
         mov eax, ebp
         add esi, byte 4
-        call sub_10DDE0
+        call DrawSurfacePolys
         cmp esi, byte 10h
         jne short .23
 .24:
@@ -3308,30 +3308,30 @@ LoadOpeningArt:
         push byte 20h
         lea eax, [byte esp+04h]
         push eax
-        call sub_101584
+        call OpenArtArchiveErr
         add esp, byte 8
         mov dword [dword_1B0E28], eax
         call ServiceIdle
         push byte 20h
         push str_Light6
-        call sub_101584
+        call OpenArtArchiveErr
         add esp, byte 8
         mov dword [dword_1B0E24], eax
         call ServiceIdle
         push byte 0
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         push byte 0
         mov eax, dword [dword_1B0E28]
         push eax
-        call sub_104948
+        call ArtBankEntry
         add esp, byte 8
         push byte 0
         mov edx, dword [dword_1B0E24]
         push edx
         mov dword [dword_1B0020], eax
         mov dword [dword_1B0018], eax
-        call sub_104948
+        call ArtBankEntry
         add esp, byte 8
         mov dword [dword_1B0024], eax
         mov dword [dword_1B001C], eax
@@ -3356,33 +3356,33 @@ DrawRinkOverlay:
         push ebp
         mov edx, dword [dword_1B1108]
         push edx
-        call sub_10B0EC
+        call DrawRinkObjectPolys
         add esp, byte 4
         mov ebx, dword [dword_1B1108]
         push ebx
-        call sub_10B084
+        call ProjectRinkObjectPoints
         mov ecx, dword [dword_16AF50]
         add esp, byte 4
         test ecx, ecx
         je short .1
         mov esi, dword [dword_1B10E8]
         push esi
-        call sub_10B0EC
+        call DrawRinkObjectPolys
         add esp, byte 4
         mov edi, dword [dword_1B10E8]
         push edi
-        call sub_10B084
+        call ProjectRinkObjectPoints
         add esp, byte 4
 .1:
         cmp dword [dword_16AF5C], byte 0
         je short .2
         mov eax, dword [dword_1B10CC]
         push eax
-        call sub_10B0EC
+        call DrawRinkObjectPolys
         add esp, byte 4
         mov edx, dword [dword_1B10CC]
         push edx
-        call sub_10B084
+        call ProjectRinkObjectPoints
         add esp, byte 4
 .2:
         cmp dword [dword_1B0E2C], byte 0
@@ -3395,7 +3395,7 @@ DrawRinkOverlay:
         imul edx, dword [dword esi+dword_16AFAC]
         push edx
         mov ebx, dword [dword esi+dword_1B0038]
-        call sub_1007C0
+        call SinInterp
         mov edx, eax
         sar edx, 1Fh
         shl edx, 4
@@ -3408,7 +3408,7 @@ DrawRinkOverlay:
         add ebx, 1999h
         push edx
         add ebx, eax
-        call sub_1007C0
+        call SinInterp
         mov edx, eax
         mov ecx, 6
         sar edx, 1Fh
@@ -3418,14 +3418,14 @@ DrawRinkOverlay:
         add edx, eax
         mov eax, dword [dword esi+dword_1B0068]
         add esi, byte 4
-        call sub_10E4B0
+        call ProjectOverlayPoint
         cmp esi, byte 10h
         jne short .3
         inc dword [dword_16B174]
 .4:
         mov edx, unk_1B1068
         mov eax, dword_1B105C
-        call sub_10E284
+        call DrawOverlayModels
 .5:
         pop ebp
         pop edi
@@ -3477,7 +3477,7 @@ DrawBenchModels:
         add eax, edx
         push eax
         add ebx, edx
-        call sub_10C8E8
+        call SubVec3
         add esp, byte 0Ch
         mov ecx, ebp
         mov edx, eax
@@ -3527,10 +3527,10 @@ DrawBenchSide:
         sub esp, 100h
         mov edx, esp
         push edx
-        call sub_102CF4
+        call GetRemapTable
         add esp, byte 4
         push unk_1B0410
-        call sub_102CDC
+        call SetRemapTable
         mov edx, dword [dword_1B0FF8]
         mov ebx, dword [dword_1B0E78]
         mov dword [dword_1B0F9C], edx
@@ -3546,7 +3546,7 @@ DrawBenchSide:
         push esi
         mov edi, dword [dword_1B1108]
         push edi
-        call sub_10B4E0
+        call DrawModelInstance
         mov edx, dword [dword_1B1108]
         mov bl, byte [byte edx+010h]
         or bl, 2
@@ -3562,7 +3562,7 @@ DrawBenchSide:
         push ebp
         mov eax, dword [dword_1B1108]
         push eax
-        call sub_10B4E0
+        call DrawModelInstance
         add esp, byte 0Ch
         mov edx, 0FFFFFFFFh
         mov eax, 1
@@ -3580,7 +3580,7 @@ DrawBenchSide:
         push ebx
         mov ecx, dword [dword_1B1108]
         push ecx
-        call sub_10B4E0
+        call DrawModelInstance
         mov edx, dword [dword_1B1064]
         mov esi, dword [dword_1B0E80]
         add esp, byte 0Ch
@@ -3596,7 +3596,7 @@ DrawBenchSide:
         lea edx, [dword ebx-01F4h]
         call DrawModelList
         push unk_1B0510
-        call sub_102CDC
+        call SetRemapTable
         mov edx, dword [dword_1B0FFC]
         add esp, byte 4
         mov dword [dword_1B0F9C], edx
@@ -3607,7 +3607,7 @@ DrawBenchSide:
         push ebp
         mov eax, dword [dword_1B1108]
         push eax
-        call sub_10B4E0
+        call DrawModelInstance
         mov edx, dword [dword_1B1064]
         mov ebx, dword [dword_1B0E80]
         add esp, byte 0Ch
@@ -3628,7 +3628,7 @@ DrawBenchSide:
         push ebx
         mov ecx, dword [dword_1B1108]
         push ecx
-        call sub_10B4E0
+        call DrawModelInstance
         add esp, byte 0Ch
         mov edx, 0FFFFFFFFh
         xor eax, eax
@@ -3645,7 +3645,7 @@ DrawBenchSide:
         push edi
         mov ebp, dword [dword_1B1108]
         push ebp
-        call sub_10B4E0
+        call DrawModelInstance
         mov edx, dword [dword_1B1064]
         mov eax, dword [dword_1B0E7C]
         add esp, byte 0Ch
@@ -3662,7 +3662,7 @@ DrawBenchSide:
         lea edx, [dword ebx-01F4h]
         call DrawModelList
         push unk_1B0510
-        call sub_102CDC
+        call SetRemapTable
         mov edx, dword [dword_1B0FFC]
         add esp, byte 4
         mov dword [dword_1B0F9C], edx
@@ -3673,7 +3673,7 @@ DrawBenchSide:
         push ebx
         mov ecx, dword [dword_1B1108]
         push ecx
-        call sub_10B4E0
+        call DrawModelInstance
         mov edx, dword [dword_1B1064]
         mov esi, dword [dword_1B0E7C]
         add esp, byte 0Ch
@@ -3695,7 +3695,7 @@ DrawBenchSide:
         cmp ecx, dword [dword_1B105C]
         jl short .7
         push unk_1B0510
-        call sub_102CDC
+        call SetRemapTable
         mov edx, dword [dword_1B0FFC]
         mov ebx, dword [dword_1B1108]
         mov dword [dword_1B0F9C], edx
@@ -3707,7 +3707,7 @@ DrawBenchSide:
         push edi
         mov ebp, dword [dword_1B1108]
         push ebp
-        call sub_10B4E0
+        call DrawModelInstance
         mov edx, dword [dword_1B1108]
         mov ch, byte [byte edx+010h]
         or ch, 2
@@ -3716,7 +3716,7 @@ DrawBenchSide:
 .7:
         mov edx, esp
         push edx
-        call sub_102CDC
+        call SetRemapTable
         add esp, byte 4
         add esp, 100h
         pop ebp
@@ -3978,7 +3978,7 @@ DrawBenchRow:
         push eax
         add esi, unk_1AFB38
         mov edi, dword [byte edi+07Ch]
-        call sub_102CF4
+        call GetRemapTable
         mov edx, dword [esi]
         add esp, byte 4
         test edx, edx
@@ -3992,19 +3992,19 @@ DrawBenchRow:
         mov ecx, dword [byte eax+08h]
         push ecx
         push byte 4
-        call sub_10E6AC
+        call TransformRinkPoints
         add esp, byte 8
         test eax, eax
         jne short .4
         cmp dword [byte esi+04h], byte 0
         je short .1
         push unk_1B0410
-        call sub_102CDC
+        call SetRemapTable
         mov eax, dword [dword_1B0FF8]
         jmp short .2
 .1:
         push unk_1B0510
-        call sub_102CDC
+        call SetRemapTable
         mov eax, dword [dword_1B0FFC]
 .2:
         add esp, byte 4
@@ -4018,7 +4018,7 @@ DrawBenchRow:
         mov ebx, dword [byte eax+08h]
         push ebx
         push byte 4
-        call sub_10E8F8
+        call DrawRinkPolys
         add esp, byte 8
 .4:
         mov ebx, dword [byte esi+018h]
@@ -4028,7 +4028,7 @@ DrawBenchRow:
         mov ecx, dword [byte eax+08h]
         push ecx
         push byte 4
-        call sub_10E6AC
+        call TransformRinkPoints
         add esp, byte 8
         test eax, eax
         jne short .6
@@ -4040,18 +4040,18 @@ DrawBenchRow:
         push byte 4
         mov ecx, dword [dword_1B0FE4]
         push ecx
-        call sub_10E7AC
+        call DrawRinkPolyStrip
         add esp, byte 0Ch
         jmp short .6
 .5:
         push unk_1B0970
-        call sub_102CDC
+        call SetRemapTable
         mov eax, dword [ebx]
         add esp, byte 4
         mov edx, dword [byte eax+08h]
         push edx
         push byte 4
-        call sub_10E8F8
+        call DrawRinkPolys
         add esp, byte 8
 .6:
         mov eax, dword [dword_1B1058]
@@ -4073,7 +4073,7 @@ DrawBenchRow:
 .7:
         mov eax, esp
         push eax
-        call sub_102CDC
+        call SetRemapTable
         add esp, byte 4
         add esp, 100h
         pop ebp
@@ -4093,7 +4093,7 @@ DrawBenchRow:
         push ebx
         mov ecx, dword [dword_1B1108]
         push ecx
-        call sub_10B4E0
+        call DrawModelInstance
         add esp, byte 0Ch
         pop edx
         pop ecx
@@ -4108,7 +4108,7 @@ DrawBenchRow:
         push ebx
         mov ecx, dword [dword_1B1108]
         push ecx
-        call sub_10B4E0
+        call DrawModelInstance
         add esp, byte 0Ch
         pop edx
         pop ecx
@@ -4134,7 +4134,7 @@ DrawBenchRow:
         push esi
         mov edi, dword [dword_1B1108]
         push edi
-        call sub_10B4E0
+        call DrawModelInstance
         mov ebp, dword [dword_1B0A84]
         add esp, byte 0Ch
         test ebp, ebp
@@ -4173,7 +4173,7 @@ DrawBenchRow:
         push esi
         mov edi, dword [dword_1B1108]
         push edi
-        call sub_10B4E0
+        call DrawModelInstance
         mov ebp, dword [dword_1B0A80]
         add esp, byte 0Ch
         test ebp, ebp
@@ -4227,7 +4227,7 @@ DrawBenchSection:
         push eax
         mov edx, dword [dword_1B1108]
         push edx
-        call sub_10B4E0
+        call DrawModelInstance
         mov edx, dword [dword_1B1108]
         mov bl, byte [byte edx+010h]
         or bl, 2
@@ -4242,7 +4242,7 @@ DrawBenchSection:
         push ebx
         mov ecx, dword [dword_1B1108]
         push ecx
-        call sub_10B4E0
+        call DrawModelInstance
         mov ecx, 12Ch
         add esp, byte 0Ch
         mov ebx, dword [dword_1B0EE8]
@@ -4265,7 +4265,7 @@ DrawBenchSection:
         push eax
         mov edx, dword [dword_1B1108]
         push edx
-        call sub_10B4E0
+        call DrawModelInstance
         mov ebx, dword [dword_1B0A84]
         add esp, byte 0Ch
         test ebx, ebx
@@ -4293,7 +4293,7 @@ DrawBenchSection:
         push edx
         mov ebx, dword [dword_1B1108]
         push ebx
-        call sub_10B4E0
+        call DrawModelInstance
         mov ecx, dword [dword_1B0A80]
         add esp, byte 0Ch
         test ecx, ecx
@@ -4321,7 +4321,7 @@ DrawBenchSection:
         push eax
         mov edx, dword [dword_1B1108]
         push edx
-        call sub_10B4E0
+        call DrawModelInstance
         mov edx, dword [dword_1B1064]
         mov ebx, dword [dword_1B0E70]
         add esp, byte 0Ch
@@ -4352,7 +4352,7 @@ DrawBenchSection:
         push eax
         mov edx, dword [dword_1B1108]
         push edx
-        call sub_10B4E0
+        call DrawModelInstance
         mov ebx, dword [dword_1B0A80]
         add esp, byte 0Ch
         test ebx, ebx
@@ -4369,7 +4369,7 @@ DrawBenchSection:
         push esi
         mov edi, dword [dword_1B1108]
         push edi
-        call sub_10B4E0
+        call DrawModelInstance
         mov ecx, 0FFFFFC7Ch
         add esp, byte 0Ch
         mov ebx, dword [dword_1B0EE8]
@@ -4392,7 +4392,7 @@ DrawBenchSection:
         push ebx
         mov ecx, dword [dword_1B1108]
         push ecx
-        call sub_10B4E0
+        call DrawModelInstance
         mov esi, dword [dword_1B0A80]
         add esp, byte 0Ch
         test esi, esi
@@ -4420,7 +4420,7 @@ DrawBenchSection:
         push esi
         mov edi, dword [dword_1B1108]
         push edi
-        call sub_10B4E0
+        call DrawModelInstance
         mov ebp, dword [dword_1B0A84]
         add esp, byte 0Ch
         test ebp, ebp
@@ -4448,7 +4448,7 @@ DrawBenchSection:
         push esi
         mov edi, dword [dword_1B1108]
         push edi
-        call sub_10B4E0
+        call DrawModelInstance
         mov edx, dword [dword_1B1064]
         mov ebp, dword [dword_1B0E6C]
         add esp, byte 0Ch
@@ -4478,7 +4478,7 @@ DrawBenchSection:
         push esi
         mov edi, dword [dword_1B1108]
         push edi
-        call sub_10B4E0
+        call DrawModelInstance
         mov ebp, dword [dword_1B0A84]
         add esp, byte 0Ch
         test ebp, ebp
@@ -4514,7 +4514,7 @@ DrawBenchSection:
         push ebx
         mov ecx, dword [dword_1B1108]
         push ecx
-        call sub_10B4E0
+        call DrawModelInstance
         mov edx, dword [dword_1B1108]
         mov cl, byte [byte edx+010h]
         or cl, 2
@@ -4582,7 +4582,7 @@ DrawRinkPass:
         push eax
         mov ebp, dword [dword_16AF64]
         push ebp
-        call sub_112BCC
+        call ClipPolyToNear
         add esp, byte 10h
         push byte 0
         push byte 0FFFFFFFFh
@@ -4591,7 +4591,7 @@ DrawRinkPass:
         push eax
         mov eax, dword [dword_1B0F24]
         push eax
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
         add esp, 280h
         pop ebp
@@ -4624,7 +4624,7 @@ DrawNearSide:
         push ecx
         mov esi, dword [dword_1B10E8]
         push esi
-        call sub_10B4E0
+        call DrawModelInstance
         add esp, byte 0Ch
 .1:
         cmp dword [dword_16AF50], byte 0
@@ -4632,7 +4632,7 @@ DrawNearSide:
         cmp dword [dword_1B0E2C], byte 0
         je short .2
         push unk_1B0710
-        call sub_102CDC
+        call SetRemapTable
         add esp, byte 4
 .2:
         xor eax, eax
@@ -4836,7 +4836,7 @@ DrawNearSide:
         cmp dword [dword_16AF48], byte 0
         je short .14
         push unk_1B0410
-        call sub_102CDC
+        call SetRemapTable
         mov eax, dword [dword_1B0FF8]
         add esp, byte 4
         mov dword [dword_1B0F9C], eax
@@ -5058,7 +5058,7 @@ DrawFarSide:
         je short .9
         mov edx, dword [dword_1B10CC]
         push edx
-        call sub_10B580
+        call DrawModel
         add esp, byte 4
 .9:
         add esp, byte 18h
@@ -5135,7 +5135,7 @@ DrawShadowShape:
         add ebx, edx
         push ebx
         push eax
-        call sub_11313C
+        call AngleFromDelta
         add esp, byte 8
         mov ebx, eax
         lea ecx, [dword eax+0100h]
@@ -5215,7 +5215,7 @@ DrawShadowShape:
         push esi
         mov dword [byte esp+01Ch], edi
         mov dword [byte esp+028h], ebp
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
         add esp, byte 20h
         pop ebp
@@ -5483,7 +5483,7 @@ SetTeamColours:
         push eax
         push byte 1
         push edx
-        call sub_103648
+        call WritePaletteRegs
         mov ch, 1
         jmp short .2
 .1:
@@ -5493,7 +5493,7 @@ SetTeamColours:
         push eax
         push byte 1
         push edx
-        call sub_103648
+        call WritePaletteRegs
         xor ch, ch
 .2:
         add esp, byte 0Ch
@@ -5787,13 +5787,13 @@ BuildFaceTextures:
         push str_Front
         mov eax, dword [dword ebx+06D8h]
         push eax
-        call sub_10FB98
+        call FindInstanceShape
         add esp, byte 8
         push eax
         mov edx, dword [dword ebx+06D8h]
         push edx
         add ebx, byte 4
-        call sub_10FE58
+        call SetModelShape
         mov ecx, dword [byte ebp-04h]
         add esp, byte 0Ch
         cmp ebx, ecx

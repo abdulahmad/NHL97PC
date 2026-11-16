@@ -27,8 +27,8 @@ extern dword_1C9568, dword_1C956C, dword_1C9570, dword_1C9574, dword_1C9578, dwo
 extern dword_1C9588, dword_1C958C, dword_1C9590, dword_1C9594, dword_1C9598, dword_1C959C, dword_1C95A0, dword_1C95A4
 extern dword_1C95A8, dword_1C95AA, dword_1C95B0, dword_1C95B4, dword_1C95B8, dword_1C95BC, dword_1C95C0, dword_1C95C4
 extern dword_1CF548, memcmp_, memmove_, memset_, qsort_, sprintf_, str_DD, strcpy_
-extern bcopy, BlitArt, BlitShape, sub_1013FC, FindShape, FindShapeQuiet, sub_101560, sub_101EAC
-extern sub_102B94, sub_102C10, Random32, sub_106D80, sub_106F64, sub_106F94, sub_110D70, CreateBitmapDefault
+extern bcopy, BlitArt, BlitShape, PresentScreen, FindShape, FindShapeQuiet, OpenArtArchive, DrawShapeBlended
+extern ConvertArtNew, ResetClipWindow, Random32, LoadFileAlloc, UnpackShared, UnpackedSize, ProjectModelBounds, CreateBitmapDefault
 extern ConvertArtXY, ConvertArtKeepPos, LinkSideFlags, ClearLinkCounters, SetScreenTarget, PlayGame, SetPlayedTeams, IsAllStarDay
 extern InitGameAudio, MusicEnabled, LoadFrontEndSfx, InitGameSounds, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx
 extern PaEvent, ResetStreamAudio, LoadDataFileLib, LoadDataFile, OpenDataLibrary, InitFrontEnd, FreeFrontEnd, ShadeShape
@@ -39,7 +39,7 @@ extern DrawScrollBar, ScrollDown, FreeScrollList, ScrollToMouse, LoadLangTextB, 
 extern DrawLinkStatusText, ResetLinkSetup, AllocStatTable, FreeStatTable, SetStatCell, SetStatCellFlag, SetStatColumn, SetStatRowWidth
 extern SortStatTable, DrawStatTableRows, DrawStatTableArt, UserLogScreen, InitListBox, InitShapeListBox, InitSlotTable, InitLinkSettings
 extern ClearLinkAbort, ServiceIdle, LinkSyncMenu, LinkSyncScreen, LinkSendBlock, LinkReceiveBlock, CopyControlSettings, AllocMemBlock
-extern FreeMemBlock, ZeroMem, sub_FC330, MakeColor, sub_FCC40, FreeBitmap, sub_FCEEC, sub_FCF84
+extern FreeMemBlock, ZeroMem, OpenResourceArchive, MakeColor, SelectFont, FreeBitmap, DrawShapeCore, DrawShapeAtOwnPos
 extern DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, MeasureText, tickcount, unk_165EA0, unk_166010
 extern unk_16609C, unk_16D262, unk_16D26A, unk_1AC8E4, unk_1C135C, unk_1C347F, unk_1C5EF8, unk_1C5F4A
 extern unk_1C5F9C, unk_1C94F4, word_1684BE, word_16D25C, word_16D25E, word_16D260, word_16D27E, word_16D28C
@@ -94,7 +94,7 @@ LinkGameSetup:
         push dword [byte eax+02Ch]
         call BlitShape
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         push str_LOG6
         push dword [dword_1C94E0]
         call FindShape
@@ -253,7 +253,7 @@ LinkGameSetup:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         push dword [byte ebp-044h]
         mov dword [byte ebp-018h], edi
         call FreeBitmap
@@ -377,7 +377,7 @@ LinkGameSetup:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         push dword [byte ebp-044h]
         mov dword [byte ebp-018h], edi
         call FreeBitmap
@@ -779,7 +779,7 @@ LinkGameSetup:
         push dword [byte esi+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         push esi
         call FreeBitmap
         add esp, byte 4
@@ -3649,7 +3649,7 @@ RunLinkGameScreens_112:
         lea eax, [byte ebp-02Ch]
         call InitSlotTable
 .92:
-        call sub_1013FC
+        call PresentScreen
         push dword [byte ebp-08h]
         call FreeBitmap
         xor esi, esi
@@ -4178,7 +4178,7 @@ PostGameScreen:
         call WaitSoundTime
         push byte 0
         push ebx
-        call sub_101560
+        call OpenArtArchive
         add esp, byte 8
         mov dword [dword esp+056Ch], eax
         test eax, eax
@@ -4267,7 +4267,7 @@ PostGameScreen:
         mov eax, dword [dword esp+0574h]
         mov ecx, dword [byte eax+02Ch]
         push ecx
-        call sub_110D70
+        call ProjectModelBounds
         add esp, byte 8
         mov eax, dword [dword esp+0570h]
         push eax
@@ -4357,7 +4357,7 @@ PostGameScreen:
         add esp, byte 8
         push eax
         mov esi, eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         mov edx, dword [dword_1C9558]
         add esp, byte 4
         mov eax, esi
@@ -4375,7 +4375,7 @@ PostGameScreen:
         add esp, byte 8
         push eax
         mov esi, eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         mov edx, dword [dword_1C9558]
         add esp, byte 4
         mov eax, esi
@@ -4388,7 +4388,7 @@ PostGameScreen:
         mov ebx, dword [dword esp+0568h]
         call ServiceIdle
         push ebx
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         mov edx, dword [dword_1C9558]
         add esp, byte 4
         mov ecx, dword [byte ebx+0Ch]
@@ -4411,7 +4411,7 @@ PostGameScreen:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
         mov esi, dword [dword esp+0110h]
         test esi, esi
@@ -4421,7 +4421,7 @@ PostGameScreen:
         mov ebp, dword [dword esp+0120h]
         push ebp
         push esi
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
 .21:
         cmp dword [dword_1C9594], byte 0
@@ -4438,7 +4438,7 @@ PostGameScreen:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
         mov ecx, dword [dword esp+0162h]
         test ecx, ecx
@@ -4448,7 +4448,7 @@ PostGameScreen:
         mov edi, dword [dword esp+0172h]
         push edi
         push ecx
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
 .22:
         mov eax, 0DCh
@@ -4499,7 +4499,7 @@ PostGameScreen:
         add esp, byte 0Ch
         xor ebp, ebp
         xor esi, esi
-        call sub_1013FC
+        call PresentScreen
         xor edi, edi
         mov dword [dword esp+0564h], ebp
         mov ebp, 0C8h
@@ -4648,7 +4648,7 @@ PostGameScreen_B71:
         call FreeMemBlock
         add esp, byte 4
         push byte 0
-        call sub_FC330
+        call OpenResourceArchive
         add esp, byte 4
         mov eax, dword [dword esp+0578h]
         add esp, 584h
@@ -5804,7 +5804,7 @@ GameStatsScreen_19A:
         push ecx
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         cmp dword [dword_1C955C], byte 1
         jne near GameStatsScreen_39D.16
         jmp near GameStatsScreen_39D.13
@@ -5964,7 +5964,7 @@ GameStatsScreen_39D:
         mov eax, dword [dword_1C9548]
         call DrawStatTableArt
 .15:
-        call sub_1013FC
+        call PresentScreen
 .16:
         test ebp, ebp
         je near GameStatsScreen.1
@@ -6034,7 +6034,7 @@ InitGameStatsScreen:
         mov edx, dword [dword_1C5E74]
         push edx
         push dword 0B333h
-        call sub_101EAC
+        call DrawShapeBlended
         add esp, byte 10h
         call FreeLogoArt
         mov eax, dword [dword_1AC944]
@@ -6068,7 +6068,7 @@ InitGameStatsScreen:
         mov ecx, dword [dword_1C5E74]
         push ecx
         push dword 0B333h
-        call sub_101EAC
+        call DrawShapeBlended
         add esp, byte 10h
         call FreeLogoArt
         mov eax, 5Dh
@@ -7665,8 +7665,8 @@ ShowGameStatsPage:
         push esi
         call BlitArt
         add esp, byte 0Ch
-        call sub_102C10
-        call sub_1013FC
+        call ResetClipWindow
+        call PresentScreen
 .10:
         pop ebp
         pop edi
@@ -9759,7 +9759,7 @@ LoadGameLogos:
 .1:
         push dword [dword_1C95BC]
 .2:
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         mov eax, 32h
         call OpenDataLibrary
@@ -9779,12 +9779,12 @@ LoadGameLogos:
         push byte 0
         lea eax, [byte ebp-020h]
         push eax
-        call sub_106D80
+        call LoadFileAlloc
         add esp, byte 8
         push byte 0
         push eax
         mov esi, eax
-        call sub_106F94
+        call UnpackedSize
         add esp, byte 4
         push eax
         push str_UnpackLogo
@@ -9793,7 +9793,7 @@ LoadGameLogos:
         push eax
         push esi
         mov ebx, eax
-        call sub_106F64
+        call UnpackShared
         add esp, byte 8
         push byte 0
         push str_LOGO5
@@ -9827,7 +9827,7 @@ LoadGameLogos:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_102B94
+        call ConvertArtNew
         mov edi, eax
         add esp, byte 8
         push dword [dword_1C95B8]
@@ -9840,7 +9840,7 @@ LoadGameLogos:
         push byte 0
         push edi
         push dword 8000h
-        call sub_101EAC
+        call DrawShapeBlended
         mov eax, dword [dword_1C95B8]
         add esp, byte 10h
         mov eax, dword [byte eax+02Ch]
@@ -9870,12 +9870,12 @@ LoadGameLogos:
         push byte 0
         lea eax, [byte ebp-020h]
         push eax
-        call sub_106D80
+        call LoadFileAlloc
         add esp, byte 8
         push byte 0
         push eax
         mov esi, eax
-        call sub_106F94
+        call UnpackedSize
         add esp, byte 4
         push eax
         push str_UnpackLogo
@@ -9884,7 +9884,7 @@ LoadGameLogos:
         push eax
         push esi
         mov ebx, eax
-        call sub_106F64
+        call UnpackShared
         add esp, byte 8
         push byte 0
         push str_LOGO5
@@ -9918,7 +9918,7 @@ LoadGameLogos:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_102B94
+        call ConvertArtNew
         add esp, byte 8
         push dword [dword_1C95C0]
         mov edi, eax
@@ -9931,7 +9931,7 @@ LoadGameLogos:
         push byte 0
         push edi
         push dword 8000h
-        call sub_101EAC
+        call DrawShapeBlended
         mov eax, dword [dword_1C95C0]
         add esp, byte 10h
         mov eax, dword [byte eax+02Ch]

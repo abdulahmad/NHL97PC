@@ -4,20 +4,22 @@ bits 32
 section s_107000 progbits alloc exec nowrite align=1
 extern byte_172BC5, byte_1CFBF2, byte_1CFBF3, byte_1DCF44, byte_1DCF67, byte_1DCF68, dword_16E4D0, dword_170038
 extern dword_17003C, dword_170040, dword_172AC0, dword_172AC4, dword_1CFBF4, dword_1DCF38, dword_1DCF3E, dword_1DCF3F
-extern dword_1DCF62, off_16FFC8, off_16FFCC, off_16FFD0, off_16FFD4, bcopy, sub_101220, sub_107A2C
-extern sub_107A9C, sub_107B70, sub_109210, sub_109401, sub_109545, sub_10955B, sub_10A930, sub_121888
-extern sub_128280, sub_1286F0, sub_129F80, sub_12A274, sub_12A8E0, sub_12AB40, sub_12AE02, sub_12AF0F
-extern sub_12AFAB, sub_12B03D, sub_12B061, sub_12BD70, FreeMemBlock, sub_FB618, addtimer, sub_FC008
+extern dword_1DCF62, off_16FFC8, off_16FFCC, off_16FFD0, off_16FFD4, bcopy, AddExitHandler, DetectSoundCard
+extern ProbeSoundPorts, CloseDigitalAudio, StopChannel, DosOpenFile, DosCloseFile, DosReadFile, ReleaseBankSample, FindCachedFileData
+extern LoadSampleHeader, GusDetect, ReadSoundscapeIni, SoundscapeCodecReady, AudioLeave, SampleFormatSize, MixerStartSample, MixerFadeChannel
+extern MixerSetPanVolume, MixerSetPitch, MixerSamplesLeft, ReadLittleEndian, FreeMemBlock, MemPtrSize, addtimer, RemoveTimerCallback
 extern word_1CFBF0
-global jpt_1074C0, sub_1074E8_B1, sub_1074E8_C2, sub_1074E8_D3, sub_1074E8_E7, sub_1074E8_FB, sub_1074E8_10F, sub_1074E8_123
-global sub_1074E8_135, sub_1074E8_140, sub_1079C4_1, sub_1079C4_7, sub_1079C4_D, sub_1079C4_13, sub_1079C4_19, sub_107000
-global sub_107098, sub_1070B0, sub_1070D0, sub_107154, sub_1071F4, sub_1072B4, sub_1072F0, sub_107308
-global sub_107370, sub_1073B0, sub_1073BC, sub_1073C0, sub_1074E8, sub_10770C, sub_107798, sub_1077D0
-global sub_1077F8, sub_107808, sub_1078AC, sub_1078E4, sub_107988, sub_1079C4, sub_1079E4, unk_1072E0
+global jpt_1074C0, StartPatchSample_B1, StartPatchSample_C2, StartPatchSample_D3, StartPatchSample_E7, StartPatchSample_FB, StartPatchSample_10F, StartPatchSample_123
+global StartPatchSample_135, StartPatchSample_140, SampleRateResults_1, SampleRateResults_7, SampleRateResults_D, SampleRateResults_13, SampleRateResults_19, LoadFileToBlock
+global LoadFileToBlockShared, LoadFileToBlockPlain, RegisterSoundBank, UnregisterSoundBank, PrepareBankSamples, CheckBankIndex, DetectAudioDriver, OpenAudioDriver
+global CloseAudioDriver, AdvanceStreamOffset, AudioNullFunc, StartTmplSample, StartPatchSample, ParsePatchTags, AudioDriverUpdate, ApplyChannelVolume
+global FadeOutChannel, ChannelTimeLeft, SetChannelPitch, InitStreamHeader, PickSampleRate, SampleRateResults, DetectAudioHardware, unk_1072E0
 ;-----------------------------------------------------------------------------
-; sub_107000                                                          107000  
+; LoadFileToBlock                                107000  97 PC, low confidence
+; Returns a file already held in a named memory block, or loads it from disk
+; into a new block
 ;-----------------------------------------------------------------------------
-sub_107000:
+LoadFileToBlock:
         push ebx
         push esi
         push edi
@@ -25,13 +27,13 @@ sub_107000:
         mov esi, dword [byte esp+020h]
         mov edx, dword [byte esp+01Ch]
         push edx
-        call sub_121888
+        call FindCachedFileData
         mov ebx, eax
         add esp, byte 4
         test eax, eax
         je short .1
         push eax
-        call sub_FB618
+        call MemPtrSize
         add esp, byte 4
         push eax
         push esi
@@ -52,7 +54,7 @@ sub_107000:
         push eax
         mov ecx, dword [byte esp+02Ch]
         push ecx
-        call sub_109401
+        call DosOpenFile
         add esp, byte 14h
         mov edi, dword [byte esp+08h]
         test edi, edi
@@ -64,14 +66,14 @@ sub_107000:
         push esi
         mov eax, dword [byte esp+08h]
         push eax
-        call sub_10955B
+        call DosReadFile
         add esp, byte 0Ch
         mov edx, dword [esp]
         mov eax, dword [byte esp+08h]
         push edx
         mov ebx, esi
         mov dword [dword_16E4D0], eax
-        call sub_109545
+        call DosCloseFile
 .3:
         add esp, byte 4
 .4:
@@ -83,39 +85,43 @@ sub_107000:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_107098                                                          107098  
+; LoadFileToBlockShared                          107098  97 PC, low confidence
+; Loads a file into a memory block in shared mode
 ;-----------------------------------------------------------------------------
-sub_107098:
+LoadFileToBlockShared:
         push ebx
         push byte 1
         mov edx, dword [byte esp+010h]
         push edx
         mov ebx, dword [byte esp+010h]
         push ebx
-        call sub_107000
+        call LoadFileToBlock
         add esp, byte 0Ch
         pop ebx
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1070B0                                                          1070B0  
+; LoadFileToBlockPlain                           1070B0  97 PC, low confidence
+; Loads a file into a memory block
 ;-----------------------------------------------------------------------------
-sub_1070B0:
+LoadFileToBlockPlain:
         push ebx
         push byte 0
         mov edx, dword [byte esp+010h]
         push edx
         mov ebx, dword [byte esp+010h]
         push ebx
-        call sub_107000
+        call LoadFileToBlock
         add esp, byte 0Ch
         pop ebx
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_1070D0                                                          1070D0  
+; RegisterSoundBank                              1070D0  97 PC, low confidence
+; Checks a BNKl sound bank header, stores it in a free bank slot and prepares
+; its samples
 ;-----------------------------------------------------------------------------
-sub_1070D0:
+RegisterSoundBank:
         push ecx
         push esi
         push edi
@@ -146,7 +152,7 @@ sub_1070D0:
         mov dword [dword eax+dword_172AC0], ecx
         mov dword [dword eax+dword_172AC4], ebx
         mov eax, edx
-        call sub_1071F4
+        call PrepareBankSamples
         test eax, eax
         jge short .4
         mov eax, 0FFFFFFFFh
@@ -177,9 +183,11 @@ sub_1070D0:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_107154                                                          107154  
+; UnregisterSoundBank                            107154  97 PC, low confidence
+; Stops every channel playing from a bank (or from all banks) and frees its
+; slot
 ;-----------------------------------------------------------------------------
-sub_107154:
+UnregisterSoundBank:
         push ebx
         push ecx
         push edx
@@ -198,7 +206,7 @@ sub_107154:
 .2:
         mov eax, edx
         inc edx
-        call sub_107154
+        call UnregisterSoundBank
         cmp edx, byte 20h
         jl short .2
         xor eax, eax
@@ -243,7 +251,7 @@ sub_107154:
         cmp eax, ebx
         jne short .10
         mov eax, dword [dword edx+dword_1DCF38]
-        call sub_109210
+        call StopChannel
 .10:
         add edx, byte 44h
         cmp edx, 440h
@@ -256,9 +264,11 @@ sub_107154:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1071F4                                                          1071F4  
+; PrepareBankSamples                             1071F4  97 PC, low confidence
+; Relocates each sample offset of a bank and loads the samples into the sound
+; driver
 ;-----------------------------------------------------------------------------
-sub_1071F4:
+PrepareBankSamples:
         push ebx
         push ecx
         push edx
@@ -288,7 +298,7 @@ sub_1071F4:
         mov ebx, esp
         mov edx, dword [dword esi+dword_172AC4]
         mov eax, dword [byte ecx+eax+08h]
-        call sub_128280
+        call LoadSampleHeader
         mov dword [dword esp+0C00h], eax
         test eax, eax
         jge short .2
@@ -312,7 +322,7 @@ sub_1071F4:
         mov edx, ecx
         mov eax, edi
         inc ecx
-        call sub_10A930
+        call ReleaseBankSample
         cmp ecx, ebp
         jle short .4
 .5:
@@ -326,9 +336,10 @@ sub_1071F4:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1072B4                                                          1072B4  
+; CheckBankIndex                                 1072B4  97 PC, low confidence
+; Returns 0 when a bank index is valid and in use, otherwise an error
 ;-----------------------------------------------------------------------------
-sub_1072B4:
+CheckBankIndex:
         test eax, eax
         jl short .1
         cmp eax, byte 20h
@@ -348,9 +359,10 @@ sub_1072B4:
 unk_1072E0:
         db 030h,05h,00h,00h,04h,06h,00h,00h,080h,0Eh,00h,00h,040h,0Fh,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_1072F0                                                          1072F0  
+; DetectAudioDriver                              1072F0  97 PC, low confidence
+; Calls the detect function of an audio driver (1..6)
 ;-----------------------------------------------------------------------------
-sub_1072F0:
+DetectAudioDriver:
         cmp eax, byte 1
         jl short .1
         cmp eax, byte 6
@@ -364,9 +376,11 @@ sub_1072F0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_107308                                                          107308  
+; OpenAudioDriver                                107308  97 PC, low confidence
+; Opens an audio driver, starts the audio timer and registers the close at
+; exit
 ;-----------------------------------------------------------------------------
-sub_107308:
+OpenAudioDriver:
         push ebx
         push ecx
         push esi
@@ -383,16 +397,16 @@ sub_107308:
         cmp dword [dword_170038], byte 0
         jne short .2
         mov esi, 1
-        push sub_12A8E0
+        push AudioLeave
         mov dword [dword_170038], esi
         call addtimer
         add esp, byte 4
 .2:
         cmp dword [dword_170040], byte 0
         jne short .3
-        push sub_107B70
+        push CloseDigitalAudio
         mov ebp, 1
-        call sub_101220
+        call AddExitHandler
         add esp, byte 4
         mov dword [dword_170040], ebp
 .3:
@@ -404,16 +418,17 @@ sub_107308:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_107370                                                          107370  
+; CloseAudioDriver                               107370  97 PC, low confidence
+; Stops the audio timer and closes the current audio driver
 ;-----------------------------------------------------------------------------
-sub_107370:
+CloseAudioDriver:
         push ebx
         push ecx
         push edx
         cmp dword [dword_170038], byte 0
         je short .1
-        push sub_12A8E0
-        call sub_FC008
+        push AudioLeave
+        call RemoveTimerCallback
         xor ebx, ebx
         add esp, byte 4
         mov dword [dword_170038], ebx
@@ -430,23 +445,30 @@ sub_107370:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1073B0                                                          1073B0  
+; AdvanceStreamOffset                            1073B0  97 PC, low confidence
+; Adds a byte count to a stream's read offset
 ;-----------------------------------------------------------------------------
-sub_1073B0:
+AdvanceStreamOffset:
         test edx, edx
         jne short .1
         lea edx, [byte eax+018h]
 .1:
         add dword [byte eax+018h], edx
         LD mov, eax, eax
-sub_1073BC:
+;-----------------------------------------------------------------------------
+; AudioNullFunc                                  1073BC  97 PC, low confidence
+; Empty audio driver entry: returns 0
+;-----------------------------------------------------------------------------
+AudioNullFunc:
         xor eax, eax
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1073C0                                                          1073C0  
+; StartTmplSample                                1073C0  97 PC, low confidence
+; Checks a TMpl sample header, records its format and starts it on a mixer
+; channel
 ;-----------------------------------------------------------------------------
-sub_1073C0:
+StartTmplSample:
         push esi
         push edi
         push ebp
@@ -511,7 +533,7 @@ sub_1073C0:
         mov eax, dword [byte esp+020h]
         mov dword [nosplit edi*8+dword_1CFBF4], edx
         mov edx, dword [byte esp+024h]
-        call sub_12AB40
+        call SampleFormatSize
         push eax
         mov edx, dword [byte esp+0Ch]
         push edx
@@ -530,7 +552,7 @@ sub_1073C0:
         mov ebx, dword [byte ecx+018h]
         push ebx
         push edi
-        call sub_12AE02
+        call MixerStartSample
         add esp, byte 28h
         xor eax, eax
 .8:
@@ -541,20 +563,21 @@ sub_1073C0:
         ret 14h
         db 08Dh,040h,00h
 jpt_1074C0:
-        dd sub_1074E8_D3
-        dd sub_1074E8_E7
-        dd sub_1074E8_10F
-        dd sub_1074E8_FB
-        dd sub_1074E8_C2
-        dd sub_1074E8_123
-        dd sub_1074E8_135
-        dd sub_1074E8_140
-        dd sub_1074E8_140
-        dd sub_1074E8_B1
+        dd StartPatchSample_D3
+        dd StartPatchSample_E7
+        dd StartPatchSample_10F
+        dd StartPatchSample_FB
+        dd StartPatchSample_C2
+        dd StartPatchSample_123
+        dd StartPatchSample_135
+        dd StartPatchSample_140
+        dd StartPatchSample_140
+        dd StartPatchSample_B1
 ;-----------------------------------------------------------------------------
-; sub_1074E8                                                          1074E8  
+; StartPatchSample                               1074E8  97 PC, low confidence
+; Reads the tag list of a patch sample and starts it on a mixer channel
 ;-----------------------------------------------------------------------------
-sub_1074E8:
+StartPatchSample:
         push esi
         push edi
         push ebp
@@ -579,13 +602,13 @@ sub_1074E8:
         test eax, eax
         je short .1
         mov eax, 0FFFFFFF9h
-        jmp near sub_1074E8_140.11
+        jmp near StartPatchSample_140.11
 .1:
         mov ah, byte [esi]
         cmp ah, 0FFh
-        je near sub_1074E8_140.3
+        je near StartPatchSample_140.3
         cmp esi, 0FEh
-        je near sub_1074E8_140.3
+        je near StartPatchSample_140.3
         inc esi
         xor ebx, ebx
         xor ecx, ecx
@@ -596,74 +619,74 @@ sub_1074E8:
         inc esi
         mov edx, 4
         mov eax, esi
-        call sub_12BD70
+        call ReadLittleEndian
         mov ebx, eax
         add esi, byte 3
 .2:
         inc esi
         cmp ecx, 80h
-        jl near sub_1074E8_140
+        jl near StartPatchSample_140
         sub ecx, 81h
         cmp ecx, byte 9
-        ja near sub_1074E8_140
+        ja near StartPatchSample_140
         jmp dword [nosplit cs:ecx*4+jpt_1074C0]
-sub_1074E8_B1:
+StartPatchSample_B1:
         mov edx, ebx
         mov eax, esi
-        call sub_12BD70
+        call ReadLittleEndian
         mov dword [byte esp+0Ch], eax
         add esi, ebx
-        jmp short sub_1074E8.1
-sub_1074E8_C2:
+        jmp short StartPatchSample.1
+StartPatchSample_C2:
         mov edx, ebx
         mov eax, esi
-        call sub_12BD70
+        call ReadLittleEndian
         mov dword [byte esp+018h], eax
         add esi, ebx
-        jmp short sub_1074E8.1
-sub_1074E8_D3:
+        jmp short StartPatchSample.1
+StartPatchSample_D3:
         mov edx, ebx
         mov eax, esi
-        call sub_12BD70
+        call ReadLittleEndian
         mov dword [byte esp+01Ch], eax
         add esi, ebx
-        jmp near sub_1074E8.1
-sub_1074E8_E7:
+        jmp near StartPatchSample.1
+StartPatchSample_E7:
         mov edx, ebx
         mov eax, esi
-        call sub_12BD70
+        call ReadLittleEndian
         mov dword [byte esp+020h], eax
         add esi, ebx
-        jmp near sub_1074E8.1
-sub_1074E8_FB:
+        jmp near StartPatchSample.1
+StartPatchSample_FB:
         mov edx, ebx
         mov eax, esi
-        call sub_12BD70
+        call ReadLittleEndian
         mov dword [byte esp+014h], eax
         add esi, ebx
-        jmp near sub_1074E8.1
-sub_1074E8_10F:
+        jmp near StartPatchSample.1
+StartPatchSample_10F:
         mov edx, ebx
         mov eax, esi
-        call sub_12BD70
+        call ReadLittleEndian
         mov dword [byte esp+010h], eax
         add esi, ebx
-        jmp near sub_1074E8.1
-sub_1074E8_123:
+        jmp near StartPatchSample.1
+StartPatchSample_123:
         mov edx, ebx
         mov eax, esi
-        call sub_12BD70
+        call ReadLittleEndian
         mov edi, eax
         add esi, ebx
-        jmp near sub_1074E8.1
-sub_1074E8_135:
+        jmp near StartPatchSample.1
+StartPatchSample_135:
         mov edx, ebx
         mov eax, esi
-        call sub_12BD70
+        call ReadLittleEndian
         mov ebp, eax
-sub_1074E8_140:
+StartPatchSample_140:
         add esi, ebx
-        jmp near sub_1074E8.1
+        jmp near StartPatchSample.1
 .3:
         cmp dword [byte esp+01Ch], byte 10h
         jne short .4
@@ -711,7 +734,7 @@ sub_1074E8_140:
         mov dword [nosplit eax*8+dword_1CFBF4], ebx
         mov ebx, dword [byte esp+044h]
         mov eax, dword [byte esp+03Ch]
-        call sub_12AB40
+        call SampleFormatSize
         push eax
         mov ecx, dword [byte esp+04h]
         push ecx
@@ -730,7 +753,7 @@ sub_1074E8_140:
         push ecx
         mov esi, dword [byte esp+02Ch]
         push esi
-        call sub_12AE02
+        call MixerStartSample
         add esp, byte 28h
         xor eax, eax
 .11:
@@ -741,9 +764,10 @@ sub_1074E8_140:
         ret 14h
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_10770C                                                          10770C  
+; ParsePatchTags                                 10770C  97 PC, low confidence
+; Walks a patch tag list and reads the values of the known tags
 ;-----------------------------------------------------------------------------
-sub_10770C:
+ParsePatchTags:
         push ecx
         push esi
         push edi
@@ -768,7 +792,7 @@ sub_10770C:
         inc ecx
         mov edx, 4
         mov eax, ecx
-        call sub_12BD70
+        call ReadLittleEndian
         mov ebx, eax
         add ecx, byte 3
 .2:
@@ -784,7 +808,7 @@ sub_10770C:
 .3:
         mov edx, ebx
         mov eax, ecx
-        call sub_12BD70
+        call ReadLittleEndian
         mov ebp, eax
         jmp short .5
 .4:
@@ -806,9 +830,11 @@ sub_10770C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_107798                                                          107798  
+; AudioDriverUpdate                              107798  97 PC, low confidence
+; Calls the update function of the current audio driver; followed by the
+; channel pan update
 ;-----------------------------------------------------------------------------
-sub_107798:
+AudioDriverUpdate:
         mov eax, dword [dword_17003C]
         shl eax, 4
         call dword [dword eax+off_16FFD0]
@@ -825,7 +851,7 @@ sub_107798:
         push eax
         push edx
         push ebx
-        call sub_12AFAB
+        call MixerSetPanVolume
         add esp, byte 0Ch
         xor eax, eax
         pop ecx
@@ -833,9 +859,10 @@ sub_107798:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1077D0                                                          1077D0  
+; ApplyChannelVolume                             1077D0  97 PC, low confidence
+; Sets a mixer channel's volume and pan from the channel table
 ;-----------------------------------------------------------------------------
-sub_1077D0:
+ApplyChannelVolume:
         push ebx
         push ecx
         mov ebx, eax
@@ -846,7 +873,7 @@ sub_1077D0:
         and eax, 0FFh
         push eax
         push ebx
-        call sub_12AFAB
+        call MixerSetPanVolume
         add esp, byte 0Ch
         xor eax, eax
         pop ecx
@@ -854,28 +881,31 @@ sub_1077D0:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1077F8                                                          1077F8  
+; FadeOutChannel                                 1077F8  97 PC, low confidence
+; Fades out and stops a mixer channel
 ;-----------------------------------------------------------------------------
-sub_1077F8:
+FadeOutChannel:
         push ecx
         push edx
         push eax
-        call sub_12AF0F
+        call MixerFadeChannel
         add esp, byte 4
         xor eax, eax
         pop edx
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_107808                                                          107808  
+; ChannelTimeLeft                                107808  97 PC, low confidence
+; Returns how long a channel has left to play, from its remaining samples and
+; rate
 ;-----------------------------------------------------------------------------
-sub_107808:
+ChannelTimeLeft:
         push ebx
         push ecx
         push edx
         mov ebx, eax
         push eax
-        call sub_12B061
+        call MixerSamplesLeft
         add esp, byte 4
         test eax, eax
         jl near .3
@@ -900,7 +930,7 @@ sub_107808:
         sar ebx, 10h
         mov al, byte [nosplit eax*4+byte_1DCF67]
         and eax, 0FFh
-        call sub_12AB40
+        call SampleFormatSize
         mov ebx, eax
         test eax, eax
         jl short .1
@@ -929,9 +959,10 @@ sub_107808:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_1078AC                                                          1078AC  
+; SetChannelPitch                                1078AC  97 PC, low confidence
+; Sets a mixer channel's playback rate from its sample format and pitch
 ;-----------------------------------------------------------------------------
-sub_1078AC:
+SetChannelPitch:
         push ebx
         push ecx
         push esi
@@ -945,10 +976,10 @@ sub_1078AC:
         mov dl, byte [nosplit eax*4+byte_1DCF68]
         sar ebx, 10h
         mov eax, esi
-        call sub_12AB40
+        call SampleFormatSize
         push eax
         push ecx
-        call sub_12B03D
+        call MixerSetPitch
         add esp, byte 8
         xor eax, eax
         pop esi
@@ -956,9 +987,10 @@ sub_1078AC:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_1078E4                                                          1078E4  
+; InitStreamHeader                               1078E4  97 PC, low confidence
+; Clears or fills the header of an audio stream block from the channel format
 ;-----------------------------------------------------------------------------
-sub_1078E4:
+InitStreamHeader:
         push ecx
         push esi
         mov ecx, edx
@@ -1035,89 +1067,82 @@ sub_1078E4:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_107988                                                          107988  
+; PickSampleRate                                 107988  97 PC, low confidence
+; Picks an output sample rate from the requested DMA buffer size
 ;-----------------------------------------------------------------------------
-sub_107988:
+PickSampleRate:
         cmp eax, 400h
         jb short .2
-        jbe short sub_1079C4_7
+        jbe short SampleRateResults_7
         cmp eax, 1000h
         jb short .1
-        jbe short sub_1079C4_D
+        jbe short SampleRateResults_D
         cmp eax, 2000h
-        je short sub_1079C4_13
-        jmp short sub_1079C4_19
+        je short SampleRateResults_13
+        jmp short SampleRateResults_19
 .1:
         cmp eax, 800h
-        jmp short sub_1079C4_19
+        jmp short SampleRateResults_19
 .2:
         cmp eax, 100h
-        jb short sub_1079C4_19
+        jb short SampleRateResults_19
         jbe short .3
         cmp eax, 200h
-        je short sub_1079C4_1
-        jmp short sub_1079C4_19
+        je short SampleRateResults_1
+        jmp short SampleRateResults_19
 .3:
         mov eax, 1F40h
         lea eax, [byte eax+00h]
-sub_1079C4:
+;-----------------------------------------------------------------------------
+; SampleRateResults                              1079C4  97 PC, low confidence
+; The return points of the sample rate picker: 11025, 16000, 32000, 44100 or
+; 22050 Hz
+;-----------------------------------------------------------------------------
+SampleRateResults:
         ret
-;-----------------------------------------------------------------------------
-; sub_1079C4_1                                                        1079C5  
-;-----------------------------------------------------------------------------
-sub_1079C4_1:
+SampleRateResults_1:
         mov eax, 2B11h
         ret
-;-----------------------------------------------------------------------------
-; sub_1079C4_7                                                        1079CB  
-;-----------------------------------------------------------------------------
-sub_1079C4_7:
+SampleRateResults_7:
         mov eax, 3E80h
         ret
-;-----------------------------------------------------------------------------
-; sub_1079C4_D                                                        1079D1  
-;-----------------------------------------------------------------------------
-sub_1079C4_D:
+SampleRateResults_D:
         mov eax, 7D00h
         ret
-;-----------------------------------------------------------------------------
-; sub_1079C4_13                                                       1079D7  
-;-----------------------------------------------------------------------------
-sub_1079C4_13:
+SampleRateResults_13:
         mov eax, 0AC44h
         ret
-;-----------------------------------------------------------------------------
-; sub_1079C4_19                                                       1079DD  
-;-----------------------------------------------------------------------------
-sub_1079C4_19:
+SampleRateResults_19:
         mov eax, 5622h
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_1079E4                                                          1079E4  
+; DetectAudioHardware                            1079E4  97 PC, low confidence
+; Tries each sound card detector in turn and returns the driver number that
+; answers
 ;-----------------------------------------------------------------------------
-sub_1079E4:
-        call sub_1286F0
+DetectAudioHardware:
+        call GusDetect
         test eax, eax
         jl short .1
         mov eax, 1
         ret
 .1:
-        call sub_129F80
+        call ReadSoundscapeIni
         test eax, eax
         jl short .2
-        call sub_12A274
+        call SoundscapeCodecReady
         test eax, eax
         jl short .2
         mov eax, 6
         ret
 .2:
-        call sub_107A2C
+        call DetectSoundCard
         test eax, eax
         jl short .3
         ret
 .3:
-        call sub_107A9C
+        call ProbeSoundPorts
         test eax, eax
         jl short .4
         mov eax, 2

@@ -7,12 +7,12 @@ extern byte_1AD458, byte_1AD72B, byte_1AD739, byte_1AD742, dword_168F58, dword_1
 extern dword_16D34C, dword_16D350, dword_16D360, dword_16DA9C, dword_16E464, dword_1AC814, dword_1AC940, dword_1ACF42
 extern dword_1ACF46, dword_1ACF65, dword_1AD226, dword_1AD22A, dword_1AD437, dword_1AD45A, dword_1AD62F, dword_1AD6AB
 extern dword_1AD6AF, dword_1AD727, dword_1AD743, dword_1C1334, dword_1C1338, dword_1C5DA8, dword_1CEFB0, dword_1CEFB4
-extern memcpy_, sprintf_, sub_10AED0, MakeDirPath, SaveReplayHeader, SimulateGame, UpdateTeamLines, CheckLeagueInjuries
+extern memcpy_, sprintf_, DosFileInfo, MakeDirPath, SaveReplayHeader, SimulateGame, UpdateTeamLines, CheckLeagueInjuries
 extern EditFileName, ShowWorkingBox, UpdateWorkingBox, HideWorkingBox, NameIndexNew, NameIndexLoad, NameIndexFree, LoadNameIndex
 extern GetLangText, SortStandings, SeasonSettingsPath, PlayoffSettingsPath, AllocCrusherBuffers, FreeTransferBuffers, CopyToTransfer, LinkSendData
 extern LinkReceiveData, AppendToTransfer, KeysEqual, OpenGameDatabase, CloseGameDatabase, DaysToYear, CreateExhibitionFile, WriteLeagueHeader
 extern StartSeasonGame, SaveExhibitionResult, SaveSeasonResult, FindGameRecord, UpdateGameRecord, AddReplayIndexEntry, FindReplayIndexEntry, OpenReplayFile
-extern ClearLinkAbort, LinkSendBlock, LinkReceiveBlock, AllocMemBlock, FreeMemBlock, ZeroMem, sub_FCC40, unk_16D7F4
+extern ClearLinkAbort, LinkSendBlock, LinkReceiveBlock, AllocMemBlock, FreeMemBlock, ZeroMem, SelectFont, unk_16D7F4
 extern unk_1ACF4E, unk_1AD236, unk_1AD443, word_1C1344
 global SendGameResult_32D, SaveGameResults_B2F, SaveGameResults_B30, SendGameResult, SaveGameResults, AdvanceSeasonDate, FinishLeagueGame, SaveReplayFile
 global WriteReplayFile, ReplayNameToKey, ClearReplayEntry
@@ -1480,7 +1480,7 @@ SaveReplayFile:
 .11:
         push dword [dword_1CEFB4]
 .12:
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         cmp dword [dword_16DA9C], byte 0
         je short .13
@@ -1527,7 +1527,7 @@ SaveReplayFile:
         add esp, byte 0Ch
         lea eax, [byte ebp-01Ah]
         push eax
-        call sub_10AED0
+        call DosFileInfo
         add esp, byte 4
         test eax, eax
         jne short .16

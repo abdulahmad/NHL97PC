@@ -3,8 +3,12 @@ bits 32
 %include "hockey.inc"
 section s_102D3C progbits alloc exec nowrite align=1
 extern byte_16F89C, dword_16E46C, dword_16F894, dword_16F898, dword_16F8A0, dword_1DA4D0
-global jpt_102D5C, jpt_102D5C_27, sub_102D3C, sub_102DB2, sub_102DC5, sub_102E0C, sub_102EBC
-sub_102D3C:
+global jpt_102D5C, jpt_102D5C_27, VesaSetBank, VesaSetModeCall, VgaSetModeNoClear, CopyMemFpu, GetPaletteEntries
+;-----------------------------------------------------------------------------
+; VesaSetBank                                    102D3C  97 PC, low confidence
+; Switches the VESA bank window when the wanted bank differs
+;-----------------------------------------------------------------------------
+VesaSetBank:
         cmp al, byte [byte_16F89C]
         je short jpt_102D5C_27
         mov byte [byte_16F89C], al
@@ -60,7 +64,11 @@ jpt_102D5C_27:
         pop ebx
         pop edx
         ret
-sub_102DB2:
+;-----------------------------------------------------------------------------
+; VesaSetModeCall                                102DB2  97 PC, low confidence
+; Calls the VESA BIOS to set a mode
+;-----------------------------------------------------------------------------
+VesaSetModeCall:
         push ebx
         mov ebx, dword [byte esp+08h]
         mov ax, 4F02h
@@ -73,7 +81,11 @@ sub_102DB2:
         pop ebp
         pop ebx
         ret
-sub_102DC5:
+;-----------------------------------------------------------------------------
+; VgaSetModeNoClear                              102DC5  97 PC, low confidence
+; Sets a VGA BIOS mode without clearing video memory
+;-----------------------------------------------------------------------------
+VgaSetModeNoClear:
         push ebp
         push esi
         push edi
@@ -116,7 +128,11 @@ sub_102DC5:
         pop ebx
         ret
         db 00h,00h
-sub_102E0C:
+;-----------------------------------------------------------------------------
+; CopyMemFpu                                     102E0C  97 PC, low confidence
+; Copies memory in 32-byte chunks with 64-bit FPU loads and stores
+;-----------------------------------------------------------------------------
+CopyMemFpu:
         push esi
         push edi
         push edx
@@ -199,7 +215,11 @@ sub_102E0C:
 .14:
         jmp near .1
         db 00h,00h,00h
-sub_102EBC:
+;-----------------------------------------------------------------------------
+; GetPaletteEntries                              102EBC  97 PC, low confidence
+; Reads palette entries through the installed hook, or from the VGA DAC
+;-----------------------------------------------------------------------------
+GetPaletteEntries:
         cmp dword [dword_16F8A0], byte 0
         je short .1
         jmp dword [dword_16F8A0]

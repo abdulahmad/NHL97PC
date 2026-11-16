@@ -21,17 +21,17 @@ extern qword_1608C4, qword_1608CC, qword_1608D4, qword_1608DC, qword_1608EC, qwo
 extern qword_16090C, qword_160914, qword_16091C, qword_160924, qword_16092C, qword_160934, qword_16093C, qword_160944
 extern qword_16094C, qword_160954, qword_16095C, qword_160964, qword_16096C, qword_160974, qword_16097C, qword_160984
 extern qword_16098C, qword_160994, qword_16099C, qword_1609A4, qword_1609AC, qword_1609B4, qword_1609BC, randomd0
-extern regd1, slotteam, SortIndices, bcopy, sub_100B88, sub_100BC8, sub_100BCC, sub_100C50
-extern sub_100D04, sub_100D8C, sub_100DC4, sub_100E54, sub_100F70, sub_1010E8, sub_101154, sub_1011E8
-extern sub_101220, sub_101230, forcepldata, setplayer, setpersonel, SpeedScale, StickReachX, RemoveOverlayPanel
+extern regd1, slotteam, SortIndices, bcopy, QueueInit, QueueNoOp, QueuePeek, QueueTakeHead
+extern QueueInsert, QueueFreeAll, QueueCount, QueueFindPacket, QueueRemoveEntry, QueuePrepend, QueuePostBuffer, QueueRepost
+extern AddExitHandler, PacketChecksum, forcepldata, setplayer, setpersonel, SpeedScale, StickReachX, RemoveOverlayPanel
 extern QueueOverlayPanel, ClearOverlayWindows, FightCameraScene, SetFightCameraReady, FaceoffCameraScene, FaceoffCameraScene2, EndPenShotScene, PenaltyCallCameraScene
 extern LineChangeCommentary, assreplace, assinsert, assexit, ChkPokeOrCheck, Setplass, Goal, CreditPass
 extern CarrierInShotArea, CanReceivePass, StartPass, checkob, AssignControlSlots, ResetFaceoffAssigns, CompLine, StartFaceoffLineChange
 extern FaceoffSwipeAnim, FaceoffDrawAnim, ReachForPuckAnim, DoCheckButton, PlaySfxOr, PlaySfxVolume, SetCrowdMood, CommentaryEvent
 extern PaEvent, ResetRenderTimers, SetFaceMouth, SetFaceExpression, SetFaceBlink, PickSkateAnim, SetSkateSpeedFromRating, StartWhistleStop
 extern ShotAnimFrames, ObjectFramePos, StopObject, StartShotAnim, StartOneTimerAnim, StartWristShotAnim, StartFightPunch, StartFightBlock
-extern StartFightGrab, StartFightPull, StartFightAnim, SetAnimFrame, RequestPauseMenu, clockcont_0, LogPenalty, sub_F9A88
-extern sub_FAAB4, FreeMemBlock, FillMem, addtimer, sub_FC008, WaitTicks, unk_19CA98, unk_19D474
+extern StartFightGrab, StartFightPull, StartFightAnim, SetAnimFrame, RequestPauseMenu, clockcont_0, LogPenalty, RunIdleHandlers
+extern AllocMemData, FreeMemBlock, FillMem, addtimer, RemoveTimerCallback, WaitTicks, unk_19CA98, unk_19D474
 extern unk_19D4A6, unk_19D4D8, unk_19D50A, unk_19D56E, unk_19D5A0, unk_19D5D2, unk_19D668, unk_19E060
 extern unk_19ECC8, unk_19ECE4, unk_1C135C, unk_1C347F, vecdist, vtoa, word_1686D6, word_168E2C
 extern word_168E2E, word_168E34, word_168E60, word_19C3EC, word_19C3EE, word_19C628, word_19C62A, word_19CA90
@@ -10980,7 +10980,7 @@ VerifyPacketChecksum:
         mov ebx, eax
         add eax, 88h
         push eax
-        call sub_100E54
+        call QueueFindPacket
         add esp, byte 4
         cmp eax, byte 0FFFFFFFFh
         jne short .4
@@ -11073,7 +11073,7 @@ SendPacket:
         mov ebx, esi
         lea eax, [dword esi+088h]
         push eax
-        call sub_100E54
+        call QueueFindPacket
         add esp, byte 4
         cmp eax, byte 0FFFFFFFFh
         jne short .1
@@ -11163,7 +11163,7 @@ SendAckPacket:
         mov ebx, esi
         lea eax, [dword esi+088h]
         push eax
-        call sub_100E54
+        call QueueFindPacket
         add esp, byte 4
         cmp eax, byte 0FFFFFFFFh
         jne short .1
@@ -11266,19 +11266,19 @@ AckPackets:
         lea ebx, [byte esi+064h]
 .3:
         push ebx
-        call sub_100E54
+        call QueueFindPacket
         mov ecx, dword [byte esi+044h]
         add esp, byte 4
         cmp eax, ecx
         ja near SendPacket_DE
         push ebx
-        call sub_100C50
+        call QueueTakeHead
         add esp, byte 4
         test eax, eax
         je near SendPacket_DE
         push eax
         push edi
-        call sub_100BCC
+        call QueuePeek
         add esp, byte 8
         jmp short .3
         db 08Bh,0C0h
@@ -11294,7 +11294,7 @@ MarkPacketAcked:
         mov byte [esp], dl
         add eax, byte 64h
         push eax
-        call sub_100E54
+        call QueueFindPacket
         mov edx, eax
         add esp, byte 4
         xor eax, eax
@@ -11309,7 +11309,7 @@ MarkPacketAcked:
         push eax
         add ebx, byte 64h
         push ebx
-        call sub_100F70
+        call QueueRemoveEntry
         add esp, byte 8
         test eax, eax
         je short .2
@@ -11331,7 +11331,7 @@ FreeLinkChannel:
         mov ebx, eax
         push eax
         push unk_19ECE4
-        call sub_100D8C
+        call QueueFreeAll
         add esp, byte 8
         test eax, eax
         je short .1
@@ -11348,7 +11348,7 @@ FreeLinkChannel:
         add esp, byte 4
         push ebx
         push unk_19ECC8
-        call sub_100BCC
+        call QueuePeek
         add esp, byte 8
 .1:
         pop edx
@@ -11450,7 +11450,7 @@ ParsePacket:
         push eax
         lea eax, [dword edi+088h]
         push eax
-        call sub_1010E8
+        call QueuePrepend
         mov ebx, eax
         add esp, byte 8
         mov byte [byte edi+0Fh], 0
@@ -11466,7 +11466,7 @@ ParsePacket:
         push ebx
         lea eax, [dword edi+0A4h]
         push eax
-        call sub_100D04
+        call QueueInsert
         add esp, byte 8
         mov eax, dword [esp]
         inc dword [eax]
@@ -11747,7 +11747,7 @@ LinkPoll:
         push eax
         mov edx, dword [byte esp+010h]
         push edx
-        call sub_1010E8
+        call QueuePrepend
         add esp, byte 8
         mov ebx, eax
         test eax, eax
@@ -11784,13 +11784,13 @@ LinkPoll:
         mov dword [byte ebx+08h], 0
         mov ebx, dword [byte esp+0Ch]
         push ebx
-        call sub_100D04
+        call QueueInsert
         add esp, byte 8
         mov ecx, dword [dword esi+080h]
         push ecx
         mov eax, dword [byte esp+010h]
         push eax
-        call sub_1010E8
+        call QueuePrepend
         add esp, byte 8
         mov ebx, eax
         jmp short .9
@@ -11798,7 +11798,7 @@ LinkPoll:
         push ebx
         mov edi, dword [byte esp+010h]
         push edi
-        call sub_100D04
+        call QueueInsert
         add esp, byte 8
         xor edi, edi
 .9:
@@ -11828,7 +11828,7 @@ LinkPoll:
         jne short .16
         lea eax, [dword esi+0A4h]
         push eax
-        call sub_100E54
+        call QueueFindPacket
         add esp, byte 4
         cmp eax, byte 0FFFFFFFFh
         je short .14
@@ -11869,12 +11869,12 @@ LinkPoll:
         push LinkCountdown
         lea ebx, [byte esi+064h]
         push ebx
-        call sub_1011E8
+        call QueueRepost
         add esp, byte 0Ch
         push esi
         push LinkResendIfDue
         push ebx
-        call sub_101154
+        call QueuePostBuffer
         mov eax, dword [byte esi+03Ch]
         lea edx, [byte eax-01h]
         add esp, byte 0Ch
@@ -11901,7 +11901,7 @@ LinkPoll_24C:
         push byte 1
         push LinkPoll
         push unk_19ECE4
-        call sub_101154
+        call QueuePostBuffer
         add esp, byte 0Ch
         pop edx
         pop ecx
@@ -11920,19 +11920,19 @@ InitPacketLink:
         push edx
         push edx
         push unk_19ECE4
-        call sub_100B88
+        call QueueInit
         add esp, byte 0Ch
         push byte 0
         push byte 0
         push unk_19ECC8
-        call sub_100B88
+        call QueueInit
         add esp, byte 0Ch
         push LinkPoll_24C
         call addtimer
         add esp, byte 4
         push ShutdownPacketLink
         mov ebx, 1
-        call sub_101220
+        call AddExitHandler
         add esp, byte 4
         mov dword [dword_168E70], ebx
 .1:
@@ -11945,7 +11945,7 @@ InitPacketLink:
         mov ebx, dword [byte esp+0Ch]
         push ebx
         push unk_19ECE4
-        call sub_101154
+        call QueuePostBuffer
         add esp, byte 0Ch
         pop ebx
         ret
@@ -11963,7 +11963,7 @@ ShutdownPacketLink:
         je near .4
 .1:
         push unk_19ECE4
-        call sub_100DC4
+        call QueueCount
         add esp, byte 4
         test eax, eax
         jbe short .2
@@ -11975,7 +11975,7 @@ ShutdownPacketLink:
         jmp short .1
 .2:
         push unk_19ECC8
-        call sub_100DC4
+        call QueueCount
         add esp, byte 4
         test eax, eax
         jbe short .3
@@ -11987,16 +11987,16 @@ ShutdownPacketLink:
         jmp short .2
 .3:
         push LinkPoll_24C
-        call sub_FC008
+        call RemoveTimerCallback
         add esp, byte 4
         push unk_19ECE4
-        call sub_100BC8
+        call QueueNoOp
         add esp, byte 4
         push unk_19ECC8
-        call sub_100BC8
+        call QueueNoOp
         add esp, byte 4
         push byte 0
-        call sub_F9A88
+        call RunIdleHandlers
         xor ecx, ecx
         add esp, byte 4
         mov dword [dword_168E70], ecx
@@ -12073,13 +12073,13 @@ OpenPacketLink:
 .7:
         cmp dword [dword esp+0104h], byte 0
         je short .8
-        mov edi, sub_101230
+        mov edi, PacketChecksum
         mov ecx, 2
         mov dword [dword esp+0C0h], edi
         mov dword [byte esp+028h], ecx
         jmp short .9
 .8:
-        mov ebx, sub_101230
+        mov ebx, PacketChecksum
         mov edx, 2
         mov dword [dword esp+0C0h], ebx
         mov dword [byte esp+028h], edx
@@ -12117,7 +12117,7 @@ OpenPacketLink:
         push eax
         push str_Pktbuffer
         mov edi, 1
-        call sub_FAAB4
+        call AllocMemData
         add esp, byte 0Ch
         mov ebx, eax
         mov dword [dword esp+0CCh], edi
@@ -12186,13 +12186,13 @@ OpenPacketLink:
         push eax
         mov dword [byte ebx+044h], 0
         mov dword [dword esp+0D0h], eax
-        call sub_100B88
+        call QueueInit
         add esp, byte 0Ch
         push ebx
         push LinkGetDevice
         lea eax, [byte ebx+064h]
         push eax
-        call sub_100B88
+        call QueueInit
         add esp, byte 0Ch
         push ebx
         push LinkGetDevice
@@ -12200,13 +12200,13 @@ OpenPacketLink:
         mov dword [dword ebx+080h], 1
         push eax
         mov dword [dword ebx+084h], 1
-        call sub_100B88
+        call QueueInit
         add esp, byte 0Ch
         push ebx
         push LinkGetDevice
         lea eax, [dword ebx+0A4h]
         push eax
-        call sub_100B88
+        call QueueInit
         add esp, byte 0Ch
         mov eax, dword [dword esp+0C4h]
         mov dword [dword esp+0D4h], eax
@@ -12230,7 +12230,7 @@ OpenPacketLink:
         and dl, 0FCh
         push eax
         add edi, edx
-        call sub_100BCC
+        call QueuePeek
         add esp, byte 8
         jmp short .19
 .20:
@@ -12257,7 +12257,7 @@ OpenPacketLink:
         mov dword [byte eax+04h], edx
         mov eax, dword [dword esp+0DCh]
         push eax
-        call sub_100D04
+        call QueueInsert
         add esp, byte 8
         jmp short .21
 .22:
@@ -12282,12 +12282,12 @@ OpenPacketLink:
         push ebx
         push unk_19ECE4
         mov dword [esi], 3B9ACA00h
-        call sub_100BCC
+        call QueuePeek
         add esp, byte 8
         xor edi, edi
 .23:
         push edi
-        call sub_F9A88
+        call RunIdleHandlers
         add esp, byte 4
         push esi
         call dword [byte esi+014h]
@@ -12330,7 +12330,7 @@ OpenPacketLink:
 .28:
         push ebx
         push unk_19ECE4
-        call sub_100D8C
+        call QueueFreeAll
         add esp, byte 8
         cmp dword [dword esp+0CCh], byte 0
         je short .29
@@ -12342,7 +12342,7 @@ OpenPacketLink:
         xor ebx, ebx
 .30:
         push byte 0
-        call sub_F9A88
+        call RunIdleHandlers
         add esp, byte 4
         test ebx, ebx
         setne al
@@ -12379,7 +12379,7 @@ PacketLinkSend:
         mov edi, dword [byte edi+024h]
         lea eax, [byte edi+048h]
         push eax
-        call sub_100C50
+        call QueueTakeHead
         mov esi, eax
         add esp, byte 4
         test eax, eax
@@ -12394,7 +12394,7 @@ PacketLinkSend:
         push esi
         add edi, byte 64h
         push edi
-        call sub_100D04
+        call QueueInsert
         mov eax, 1
         add esp, byte 8
 .3:
@@ -12441,7 +12441,7 @@ ClosePacketLink:
         push unk_19ECE4
         mov edi, edx
         mov dword [byte esp+08h], eax
-        call sub_100D8C
+        call QueueFreeAll
         add esp, byte 8
         test eax, eax
         je near .5
@@ -12483,30 +12483,30 @@ ClosePacketLink:
 .4:
         push edi
         push unk_19ECC8
-        call sub_100BCC
+        call QueuePeek
         add esp, byte 8
 .5:
         push edi
         push unk_19ECC8
-        call sub_100D8C
+        call QueueFreeAll
         add esp, byte 8
         test eax, eax
         je short .7
         lea eax, [byte edi+048h]
         push eax
-        call sub_100BC8
+        call QueueNoOp
         add esp, byte 4
         lea eax, [byte edi+064h]
         push eax
-        call sub_100BC8
+        call QueueNoOp
         add esp, byte 4
         lea eax, [dword edi+088h]
         push eax
-        call sub_100BC8
+        call QueueNoOp
         add esp, byte 4
         lea eax, [dword edi+0A4h]
         push eax
-        call sub_100BC8
+        call QueueNoOp
         mov ah, byte [byte edi+0Dh]
         add esp, byte 4
         test ah, ah

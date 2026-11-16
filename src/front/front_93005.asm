@@ -19,8 +19,8 @@ extern dword_1C89EC, dword_1C8A34, dword_1C8A54, dword_1C8A74, dword_1C8A78, dwo
 extern dword_1C8A88, dword_1C8A90, dword_1C8A94, dword_1C8A98, dword_1C8A9C, dword_1C8AA0, dword_1C94E8, EditLinesScreen_17F
 extern EditLinesScreen_18C, EditLinesScreen_2C7, EditLinesScreen_49D, EditLinesScreen_4C4, EditLinesScreen_5BA, EditLinesScreen_5EF, EditLinesScreen_61B, EditLinesScreen_69D
 extern memcpy_, memset_, rand_, sprintf_, srand_, strcat_, strcpy_, strlen_
-extern sub_101324, BlitShape2, BlitArt, BlitShape, sub_1013CC, sub_1013FC, FindShape, sub_10AED0
-extern ConvertArtXY, FindShapeList, sub_11B0D0, SetScreenTarget, SeasonGameScreen, MusicEnabled, LoadFrontEndSfx, SecondsToSamples
+extern BlitConverted, BlitShape2, BlitArt, BlitShape, BlitClippedY, PresentScreen, FindShape, DosFileInfo
+extern ConvertArtXY, FindShapeList, SaveDataFileNew, SetScreenTarget, SeasonGameScreen, MusicEnabled, LoadFrontEndSfx, SecondsToSamples
 extern WaitSoundTime, StopAllSfx, PlaySfx, MakeDirPath, LoadDataFileLib, LoadDataFile, DrawScreenBackground, FadeInScreen
 extern ShowScreen, ExitScreen, SetRegionRect, SetTextColor, DrawTextAligned, ShowMessageBox, EditTextField, DrawProgressBar
 extern WipeScreen, SetHighlightText, SetNormalText, DrawStatTable, ShowPopupScreen, RunStatsMenu, NameIndexNew, NameIndexLoad
@@ -28,7 +28,7 @@ extern NameIndexFree, LoadNameIndex, NameIndexLimit, InitMenuItems, RunMenu, Run
 extern FindSeasonReplay, LinkTransferSetup, SetPlayoffFormat, SeasonSetupScreen, RosterScreen, FreeDbBlock, DaysToYear, FindTeamRecord
 extern MakeLeagueKeyBase, CreatePlayoffFile, CreatePlayoffSchedule, OpenLeagueFile, WriteLeagueHeader, FindGameRecord, UpdateGameRecord, MakeStandingsKey
 extern LoadExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, ClearLinkAbort, LinkSendBlock, LinkReceiveBlock, SeasonIntroScreen, AllocMemBlock
-extern FreeMemBlock, MakeColor, sub_FCC40, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen
+extern FreeMemBlock, MakeColor, SelectFont, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen
 extern unk_165A5B, unk_16CE20, unk_16D7FC, unk_1ACB44, unk_1ACD2B, unk_1ACF4E, unk_1AD250, unk_1AD443
 extern unk_1AD603, unk_1AD73A, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C89F8, unk_1C8A04, unk_1C8A10
 extern unk_1C8A1C, unk_1C8A28
@@ -309,7 +309,7 @@ DrawPlayoffSetup:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         push dword [byte ebp+07Ah]
         call FreeBitmap
         add esp, byte 4
@@ -1128,7 +1128,7 @@ PlayoffSetupScreen:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         jmp near .4
 .19:
         mov eax, dword [dword_1C8A9C]
@@ -1525,7 +1525,7 @@ CreatePlayoffs:
         add esp, byte 0Ch
         lea eax, [byte ebp+0Eh]
         push eax
-        call sub_10AED0
+        call DosFileInfo
         add esp, byte 4
         test eax, eax
         jne short .21
@@ -1564,7 +1564,7 @@ CreatePlayoffs:
         lea eax, [byte ebp+0Eh]
         push eax
         mov ebx, unk_1AD603
-        call sub_11B0D0
+        call SaveDataFileNew
         add esp, byte 0Ch
         lea edx, [byte ebp-042h]
         mov eax, esi
@@ -1689,7 +1689,7 @@ DrawPlayoffTeam:
         push ebx
         push byte 0FFFFFFCCh
         push eax
-        call sub_1013CC
+        call BlitClippedY
         add esp, byte 0Ch
         test esi, esi
         je short .4
@@ -1772,7 +1772,7 @@ DrawPlayoffTeam:
         push ebx
         push dword 0FFFFFE54h
         push eax
-        call sub_1013CC
+        call BlitClippedY
         add esp, byte 0Ch
         cmp esi, byte 8
         je short .11
@@ -1838,7 +1838,7 @@ DrawPlayoffTeam:
         push dword [byte edi+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         push edi
         call FreeBitmap
         add esp, byte 4
@@ -2513,7 +2513,7 @@ PlayoffTreeScreen:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_101324
+        call BlitConverted
         add esp, byte 0Ch
         push byte 0
         push str_BG022
@@ -2527,7 +2527,7 @@ PlayoffTreeScreen:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_101324
+        call BlitConverted
         add esp, byte 0Ch
         push byte 0
         push str_BG03
@@ -2541,7 +2541,7 @@ PlayoffTreeScreen:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_101324
+        call BlitConverted
         add esp, byte 0Ch
         push str_NHL0
         push dword [byte ebp+07Ah]
@@ -2564,7 +2564,7 @@ PlayoffTreeScreen:
         add esp, byte 8
         push eax
         mov esi, 1Dh
-        call sub_101324
+        call BlitConverted
         add esp, byte 0Ch
         jmp near .34
 .15:
@@ -2625,7 +2625,7 @@ PlayoffTreeScreen:
         add esp, byte 4
         call SetTextColor
         push dword [dword_1C8A84]
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         cmp dword [nosplit esi*4+dword_16CF18], byte 0
         je short .20
@@ -2710,7 +2710,7 @@ PlayoffTreeScreen:
         call DrawArt
         add esp, byte 0Ch
         push dword [dword_1C8A84]
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         cmp dword [nosplit esi*4+dword_16CF18], byte 0
         je short .28
@@ -2983,7 +2983,7 @@ PlayoffTreeScreen:
         push eax
         push byte 0
         push dword [byte ebp+062h]
-        call sub_101324
+        call BlitConverted
         mov eax, dword [byte ebp+05Eh]
         add esp, byte 0Ch
         mov edx, 0FFFFFFFFh
@@ -3136,7 +3136,7 @@ PlayoffTreeScreen:
         add esp, byte 4
         call SetTextColor
         push dword [dword_1C8A84]
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         push dword [nosplit esi*4+dword_1AD62F]
         add edi, unk_1AD443
@@ -3526,7 +3526,7 @@ PlayoffSettingsPath:
         push unk_1AD250
         lea eax, [byte ebp-078h]
         push eax
-        call sub_11B0D0
+        call SaveDataFileNew
         add esp, byte 0Ch
         leave
         pop edx
@@ -3617,7 +3617,7 @@ DrawPlayoffTitle:
         push dword [byte ebx+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         push ebx
         call FreeBitmap
         add esp, byte 4

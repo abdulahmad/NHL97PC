@@ -3,14 +3,16 @@ bits 32
 %include "hockey.inc"
 section s_1216B0 progbits alloc exec nowrite align=1
 extern GetTicks, TicksSince, byte_172518, dword_16E324, dword_16E338, dword_1724D4, dword_17251B, dword_1CF260
-extern memlist1, off_16E4E0, strncmp_, bcopy, sub_121470, sub_121494, sub_1214A0, sub_1307BC
-extern sub_FABB8, sub_FAF70, sub_FAFB0, sub_FB0BC, sub_FB9D8, sub_FBE40, word_172514, word_172516
+extern memlist1, off_16E4E0, strncmp_, bcopy, MemLock, MemUnlock, PathBaseName, DispatchHotkey
+extern AllocMemBlockEx, UnlinkMemBlockLocked, UnlinkMemBlock, MergeFreeSpace, ReadJoystickPorts, KbdGetKey, word_172514, word_172516
 extern word_172519
-global sub_1216B0, sub_12175C, sub_121888, sub_12189C
+global FindMemBlockNamed, FindFreeSpace, FindCachedFileData, FindCachedFile
 ;-----------------------------------------------------------------------------
-; sub_1216B0                                                          1216B0  
+; FindMemBlockNamed                              1216B0  97 PC, low confidence
+; Returns the block in a memory list whose name matches the file name of a
+; path
 ;-----------------------------------------------------------------------------
-sub_1216B0:
+FindMemBlockNamed:
         push ebx
         push esi
         push edi
@@ -24,7 +26,7 @@ sub_1216B0:
         shl eax, 3
         push edx
         add edi, eax
-        call sub_1214A0
+        call PathBaseName
         add esp, byte 4
         mov ecx, dword [edi]
         mov ebx, dword [byte edi+04h]
@@ -58,31 +60,32 @@ sub_1216B0:
         push byte 0
         mov edx, dword [byte esp+08h]
         push edx
-        call sub_1216B0
+        call FindMemBlockNamed
         add esp, byte 8
         ret
         push ebx
         mov edx, dword [dword_1CF260]
         push edx
-        call sub_121470
+        call MemLock
         add esp, byte 4
         mov ebx, dword [byte esp+08h]
         push ebx
-        call sub_12175C
+        call FindFreeSpace
         add esp, byte 4
         mov ecx, dword [dword_1CF260]
         push ecx
         mov ebx, eax
-        call sub_121494
+        call MemUnlock
         add esp, byte 4
         mov eax, ebx
         pop ebx
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_12175C                                                          12175C  
+; FindFreeSpace                                  12175C  97 PC, low confidence
+; Finds room for a block in a memory list, from the bottom or the top
 ;-----------------------------------------------------------------------------
-sub_12175C:
+FindFreeSpace:
         push ebx
         push esi
         push edi
@@ -101,7 +104,7 @@ sub_12175C:
         cmp dword [byte ecx+010h], byte 0
         jne short .1
         push ebx
-        call sub_FB0BC
+        call MergeFreeSpace
         add esp, byte 4
         mov edi, eax
         jmp near .9
@@ -160,13 +163,13 @@ sub_12175C:
         push edx
         lea eax, [byte esp+0Ch]
         push eax
-        call sub_FABB8
+        call AllocMemBlockEx
         add esp, byte 10h
         mov dword [byte esp+010h], eax
         test eax, eax
         jne short .7
         push esi
-        call sub_12175C
+        call FindFreeSpace
         add esp, byte 4
         test eax, eax
         jne short .6
@@ -183,7 +186,7 @@ sub_12175C:
         call bcopy
         add esp, byte 0Ch
         push edi
-        call sub_FAFB0
+        call UnlinkMemBlock
         mov edi, 1
         add esp, byte 4
         mov ebp, dword [dword_16E338]
@@ -207,12 +210,13 @@ sub_12175C:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_121888                                                          121888  
+; FindCachedFileData                             121888  97 PC, low confidence
+; Returns the data pointer of a file already held in memory
 ;-----------------------------------------------------------------------------
-sub_121888:
+FindCachedFileData:
         mov edx, dword [byte esp+04h]
         push edx
-        call sub_12189C
+        call FindCachedFile
         add esp, byte 4
         test eax, eax
         je short .1
@@ -220,9 +224,10 @@ sub_121888:
 .1:
         ret
 ;-----------------------------------------------------------------------------
-; sub_12189C                                                          12189C  
+; FindCachedFile                                 12189C  97 PC, low confidence
+; Returns the memory block that already holds a file, revalidating it
 ;-----------------------------------------------------------------------------
-sub_12189C:
+FindCachedFile:
         push ebx
         push esi
         push edi
@@ -230,7 +235,7 @@ sub_12189C:
         mov edi, dword [byte esp+014h]
         push byte 0
         push edi
-        call sub_1216B0
+        call FindMemBlockNamed
         mov ebx, eax
         add esp, byte 8
         test eax, eax
@@ -246,7 +251,7 @@ sub_12189C:
         mov ecx, dword [byte ebx+014h]
         push ecx
         push edi
-        call sub_FABB8
+        call AllocMemBlockEx
         mov esi, eax
         add esp, byte 10h
         test eax, eax
@@ -260,7 +265,7 @@ sub_12189C:
         call bcopy
         add esp, byte 0Ch
         push ebx
-        call sub_FAF70
+        call UnlinkMemBlockLocked
         add esp, byte 4
         mov ebx, esi
         jmp short .4
@@ -270,7 +275,7 @@ sub_12189C:
 .2:
         push ebx
         push edi
-        call sub_1216B0
+        call FindMemBlockNamed
         mov esi, eax
         add esp, byte 8
         test eax, eax
@@ -282,7 +287,7 @@ sub_12189C:
         mov ebx, dword [byte eax+014h]
         push ebx
         push edi
-        call sub_FABB8
+        call AllocMemBlockEx
         add esp, byte 10h
         mov ecx, dword [byte esi+014h]
         push ecx
@@ -315,22 +320,22 @@ sub_12189C:
         pop ebx
         ret
         db 00h,00h
-        call sub_FBE40
+        call KbdGetKey
         LD or, ax, ax
         je short .6
         ret
-        call sub_FBE40
+        call KbdGetKey
         LD or, ax, ax
         je short .6
         push eax
-        call sub_1307BC
+        call DispatchHotkey
         add esp, byte 4
         ret
-        call sub_FBE40
+        call KbdGetKey
         LD or, ax, ax
         je short .5
         push eax
-        call sub_1307BC
+        call DispatchHotkey
         add esp, byte 4
         ret
 .5:
@@ -338,7 +343,7 @@ sub_12189C:
         shl ax, 4
         jne short .7
 .6:
-        call sub_FB9D8
+        call ReadJoystickPorts
 .7:
         LD mov, dx, ax
         test ax, 30h

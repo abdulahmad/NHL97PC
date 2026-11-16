@@ -4,14 +4,15 @@ bits 32
 section s_12FB20 progbits alloc exec nowrite align=1
 extern str_ExitYN, dword_16E464, dword_16E468, dword_16E46C, dword_16E4C8, dword_16E6A8, dword_16F184, dword_199990
 extern dword_199994, dword_199998, dword_19999C, dword_1999A0, dword_1999A4, off_16E4D4, off_16E4D8, off_16E4DC
-extern off_16E4E0, str_PAUSEPRESSANYKEY, sub_101324, sub_1013FC, SaveDrawContext, RestoreDrawContext, CreateBitmapDefault, ConvertArtAt
-extern SaveTextState, RestoreTextState, sub_138D04, sub_138E00, sub_138EB0, sub_138F00, SetScreenTarget, sub_FBE40
-extern MakeColor, sub_FCC40, FreeBitmap, SetDrawTarget, FillRect, SetTextColors, FillRectCorners, unk_16E8A0
-global sub_12FB20, sub_12FDC8, sub_12FF9C, sub_12FFD8, sub_12FFF0, sub_13000C
+extern off_16E4E0, str_PAUSEPRESSANYKEY, BlitConverted, PresentScreen, SaveDrawContext, RestoreDrawContext, CreateBitmapDefault, ConvertArtAt
+extern SaveTextState, RestoreTextState, DebugPrintf, DebugPrintAt, DebugPrintLine, DebugLineCount, SetScreenTarget, KbdGetKey
+extern MakeColor, SelectFont, FreeBitmap, SetDrawTarget, FillRect, SetTextColors, FillRectCorners, unk_16E8A0
+global ShowKeyMessageBox, AskExitGame, ShowPauseMessage, DosGetVector, DosSetVector, CallPreservingRegs
 ;-----------------------------------------------------------------------------
-; sub_12FB20                                                          12FB20  
+; ShowKeyMessageBox                              12FB20  97 PC, low confidence
+; Draws a message box, waits for a key and restores the screen
 ;-----------------------------------------------------------------------------
-sub_12FB20:
+ShowKeyMessageBox:
         push esi
         push edi
         push ebp
@@ -22,11 +23,11 @@ sub_12FB20:
         mov dword [dword esp+0130h], ebx
         mov dword [dword esp+0128h], ecx
         push byte 0FFFFFFFFh
-        call sub_1013FC
+        call PresentScreen
         add esp, byte 4
         push byte 0
         mov dword [dword esp+0120h], eax
-        call sub_1013FC
+        call PresentScreen
         add esp, byte 4
         mov edx, dword [dword_16E4C8]
         push edx
@@ -49,7 +50,7 @@ sub_12FB20:
         call SaveTextState
         add esp, byte 4
         push unk_16E8A0
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         mov eax, dword [dword esp+0130h]
         add eax, dword [dword esp+0144h]
@@ -64,7 +65,7 @@ sub_12FB20:
         mov edx, dword [dword esp+0138h]
         push edx
         push dword_16E6A8
-        call sub_138D04
+        call DebugPrintf
         add esp, byte 14h
         call dword [off_16E4D8]
         push ebx
@@ -122,18 +123,18 @@ sub_12FB20:
         add eax, byte 9
         push eax
         push ebp
-        call sub_138E00
+        call DebugPrintAt
         add esp, byte 8
         call dword [off_16E4DC]
         push dword_16E6A8
-        call sub_138EB0
+        call DebugPrintLine
         add esp, byte 4
 .1:
         call dword [off_16E4E0]
         test eax, edi
         jne short .1
 .2:
-        call sub_FBE40
+        call KbdGetKey
         mov ebx, eax
         mov ebp, eax
         call dword [off_16E4E0]
@@ -162,7 +163,7 @@ sub_12FB20:
         mov ebp, dword [dword esp+0138h]
         push ebp
         push dword_16E6A8
-        call sub_138D04
+        call DebugPrintf
         add esp, byte 14h
         call dword [off_16E4D4]
         call SetScreenTarget
@@ -172,7 +173,7 @@ sub_12FB20:
         push ebp
         mov ebx, dword [byte eax+02Ch]
         push ebx
-        call sub_101324
+        call BlitConverted
         add esp, byte 0Ch
         call dword [off_16E4DC]
         mov eax, esp
@@ -189,7 +190,7 @@ sub_12FB20:
         add esp, byte 4
         mov edi, dword [dword esp+011Ch]
         push edi
-        call sub_1013FC
+        call PresentScreen
         add esp, byte 4
         mov eax, esi
         add esp, 134h
@@ -199,9 +200,10 @@ sub_12FB20:
         ret 8
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_12FDC8                                                          12FDC8  
+; AskExitGame                                    12FDC8  97 PC, low confidence
+; Asks Exit Y/N and quits when the player confirms
 ;-----------------------------------------------------------------------------
-sub_12FDC8:
+AskExitGame:
         push ebx
         mov eax, dword [dword_16E468]
         mov edx, eax
@@ -219,7 +221,7 @@ sub_12FDC8:
         lea edx, [byte eax-050h]
         mov ecx, 0A0h
         mov eax, str_ExitYN
-        call sub_12FB20
+        call ShowKeyMessageBox
         test eax, eax
         je short .1
         call dword [dword_16F184]
@@ -233,11 +235,11 @@ sub_12FDC8:
         push ebp
         sub esp, 11Ch
         push byte 0FFFFFFFFh
-        call sub_1013FC
+        call PresentScreen
         add esp, byte 4
         push byte 0
         mov esi, eax
-        call sub_1013FC
+        call PresentScreen
         add esp, byte 4
         mov edx, dword [dword_16E4C8]
         push edx
@@ -258,7 +260,7 @@ sub_12FDC8:
         call SaveTextState
         add esp, byte 4
         push unk_16E8A0
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         push ebx
         call SetDrawTarget
@@ -271,7 +273,7 @@ sub_12FDC8:
         push ebp
         push byte 0
         push dword_16E6A8
-        call sub_138D04
+        call DebugPrintf
         add esp, byte 14h
         call dword [off_16E4D8]
         mov edi, dword [dword_16E468]
@@ -309,13 +311,13 @@ sub_12FDC8:
         push eax
         mov ecx, dword [dword esp+0134h]
         push ecx
-        call sub_138E00
+        call DebugPrintAt
         add esp, byte 8
         call dword [off_16E4DC]
         mov edi, dword [dword esp+0134h]
-        call sub_1013FC
+        call PresentScreen
         push edi
-        call sub_138F00
+        call DebugLineCount
         add esp, byte 4
         call dword [off_16E4D4]
         mov edi, dword [dword_16E468]
@@ -325,7 +327,7 @@ sub_12FDC8:
         push byte 0
         mov ebp, dword [byte ebx+02Ch]
         push ebp
-        call sub_101324
+        call BlitConverted
         add esp, byte 0Ch
         call dword [off_16E4DC]
         mov eax, esp
@@ -340,7 +342,7 @@ sub_12FDC8:
         call FreeBitmap
         add esp, byte 4
         push esi
-        call sub_1013FC
+        call PresentScreen
         add esp, byte 4
         add esp, 11Ch
         pop ebp
@@ -350,9 +352,10 @@ sub_12FDC8:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_12FF9C                                                          12FF9C  
+; ShowPauseMessage                               12FF9C  97 PC, low confidence
+; Shows PAUSE - PRESS ANY KEY and waits
 ;-----------------------------------------------------------------------------
-sub_12FF9C:
+ShowPauseMessage:
         push ebx
         mov eax, dword [dword_16E468]
         mov edx, eax
@@ -370,14 +373,15 @@ sub_12FF9C:
         lea edx, [dword eax-090h]
         mov ecx, 120h
         mov eax, str_PAUSEPRESSANYKEY
-        call sub_12FB20
+        call ShowKeyMessageBox
         pop ebx
         ret
         db 00h
 ;-----------------------------------------------------------------------------
-; sub_12FFD8                                                          12FFD8  
+; DosGetVector                                   12FFD8  97 PC, low confidence
+; Reads an interrupt vector through DOS
 ;-----------------------------------------------------------------------------
-sub_12FFD8:
+DosGetVector:
         push ebx
         push es
         push ds
@@ -397,9 +401,10 @@ sub_12FFD8:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_12FFF0                                                          12FFF0  
+; DosSetVector                                   12FFF0  97 PC, low confidence
+; Sets an interrupt vector through DOS
 ;-----------------------------------------------------------------------------
-sub_12FFF0:
+DosSetVector:
         push es
         push ds
         push esi
@@ -422,16 +427,17 @@ sub_12FFF0:
         ret
         db 00h,00h
 ;-----------------------------------------------------------------------------
-; sub_13000C                                                          13000C  
+; CallPreservingRegs                             13000C  97 PC, low confidence
+; Saves the registers, calls the routine and restores them
 ;-----------------------------------------------------------------------------
-sub_13000C:
+CallPreservingRegs:
         mov dword [dword_199990], ebx
         mov dword [dword_199994], ecx
         mov dword [dword_199998], edx
         mov dword [dword_19999C], esi
         mov dword [dword_1999A0], edi
         pop dword [dword_1999A4]
-        call sub_13000C
+        call CallPreservingRegs
         push dword [dword_1999A4]
         mov ebx, dword [dword_199990]
         mov ecx, dword [dword_199994]

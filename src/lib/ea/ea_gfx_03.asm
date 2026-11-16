@@ -3,13 +3,14 @@ bits 32
 %include "hockey.inc"
 section s_100700 progbits alloc exec nowrite align=1
 extern __fprem_chk, byte_17268C, dword_16E46C, dword_16F14C, dword_16F150, dword_1702CC, dword_1726A0, dword_1726A4
-extern dword_1DA4D0, jpt_1006E0, sub_125B3C, sub_125C56
-global IF@DFMOD, sub_100700_91, sub_100700_93, sub_100700_9A, sub_100700_A3, sub_100700_A7, sub_100700_AE, sub_100700_B0
-global sub_100700_B5, sub_100700, sub_1007C0, sub_100830, sub_1008CC, SortIndices
+extern dword_1DA4D0, jpt_1006E0, Div64By32, Shl64
+global IF@DFMOD, AngleOfVector_91, AngleOfVector_93, AngleOfVector_9A, AngleOfVector_A3, AngleOfVector_A7, AngleOfVector_AE, AngleOfVector_B0
+global AngleOfVector_B5, AngleOfVector, SinInterp, CosInterp, GetPaletteRange, SortIndices
 ;-----------------------------------------------------------------------------
-; sub_100700                                                          100700  
+; AngleOfVector                                  100700  97 PC, low confidence
+; Returns the angle of a 2D vector in 1024ths of a turn, by octant
 ;-----------------------------------------------------------------------------
-sub_100700:
+AngleOfVector:
         push ebx
         push esi
         sub esp, byte 8
@@ -41,12 +42,12 @@ sub_100700:
         push edx
         lea esi, [byte esp+04h]
         mov edx, 20h
-        call sub_125C56
+        call Shl64
         mov edx, dword [byte esp+08h]
         push edx
         mov ecx, dword [byte esp+08h]
         push ecx
-        call sub_125B3C
+        call Div64By32
         mov esi, eax
         shr eax, 18h
         lea edx, [nosplit eax*4+00h]
@@ -60,37 +61,38 @@ sub_100700:
         add eax, edx
 .5:
         cmp ebx, byte 7
-        ja short sub_100700_B5
+        ja short AngleOfVector_B5
         jmp dword [nosplit cs:ebx*4+jpt_1006E0]
-sub_100700_91:
+AngleOfVector_91:
         neg eax
-sub_100700_93:
+AngleOfVector_93:
         add eax, 4000h
-        jmp short sub_100700_B5
-sub_100700_9A:
+        jmp short AngleOfVector_B5
+AngleOfVector_9A:
         neg eax
         add eax, 8000h
-        jmp short sub_100700_B5
-sub_100700_A3:
+        jmp short AngleOfVector_B5
+AngleOfVector_A3:
         neg eax
-        jmp short sub_100700_B5
-sub_100700_A7:
+        jmp short AngleOfVector_B5
+AngleOfVector_A7:
         add eax, 0FFFF8000h
-        jmp short sub_100700_B5
-sub_100700_AE:
+        jmp short AngleOfVector_B5
+AngleOfVector_AE:
         neg eax
-sub_100700_B0:
+AngleOfVector_B0:
         sub eax, 4000h
-sub_100700_B5:
+AngleOfVector_B5:
         add esp, byte 8
         pop esi
         pop ebx
         ret
         db 00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_1007C0                                                          1007C0  
+; SinInterp                                      1007C0  97 PC, low confidence
+; Returns the sine of a fine angle, interpolating between table entries
 ;-----------------------------------------------------------------------------
-sub_1007C0:
+SinInterp:
         push ebx
         push esi
         mov ebx, dword [byte esp+0Ch]
@@ -132,9 +134,10 @@ sub_1007C0:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_100830                                                          100830  
+; CosInterp                                      100830  97 PC, low confidence
+; Returns the cosine of a fine angle, interpolating between table entries
 ;-----------------------------------------------------------------------------
-sub_100830:
+CosInterp:
         push ebx
         push esi
         mov ebx, dword [byte esp+0Ch]
@@ -198,9 +201,10 @@ IF@DFMOD:
         call IF@DFMOD
         ret 10h
 ;-----------------------------------------------------------------------------
-; sub_1008CC                                                          1008CC  
+; GetPaletteRange                                1008CC  97 PC, low confidence
+; Reads a range of palette entries from the VGA DAC into a buffer
 ;-----------------------------------------------------------------------------
-sub_1008CC:
+GetPaletteRange:
         push ebp
         LD mov, ebp, esp
         push ebx

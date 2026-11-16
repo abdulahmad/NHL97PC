@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_16E274 progbits alloc noexec write align=1
-extern memlist1, sub_1013FC
+extern memlist1, PresentScreen
 global byte_16E274, byte_16E275, byte_16E28E, byte_16E354, byte_16E358, byte_16E35C, dword_16E2B2, dword_16E2F4
 global dword_16E2F8, dword_16E2FC, dword_16E300, dword_16E304, dword_16E308, dword_16E30C, dword_16E310, dword_16E314
 global dword_16E318, dword_16E31C, dword_16E320, dword_16E324, dword_16E32C, dword_16E330, dword_16E334, dword_16E338
@@ -68,7 +68,7 @@ dword_16E338:
 dword_16E33C:
         db 01h,00h,00h,00h
 dword_16E340:
-        dd sub_1013FC
+        dd PresentScreen
 dword_16E344:
         db 00h,00h,00h,00h
 dword_16E348:

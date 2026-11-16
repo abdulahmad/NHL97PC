@@ -26,15 +26,15 @@ extern dword_1C8DDC, dword_1C8DE0, dword_1C8DE4, dword_1C8DE8, dword_1C8DEC, dwo
 extern dword_1C8DFC, dword_1C8E00, dword_1C8E04, dword_1C8E08, dword_1C8E0C, dword_1C8E10, dword_1C8E14, dword_1C8E18
 extern dword_1C8E1C, dword_1C8E20, dword_1C8E24, dword_1C8E28, dword_1C8E2C, dword_1C8E30, dword_1C8E34, dword_1C8E38
 extern dword_1C8E3C, dword_1C8E40, dword_1C8E44, dword_1C8E48, dword_1CC2AC, dword_1CF548, jpt_9621A, memset_
-extern qsort_, sprintf_, strcat_, strcpy_, BlitArt, BlitShape, sub_1013FC, FindShape
-extern FindShapeQuiet, sub_101560, sub_102B94, sub_102C10, Random32, sub_106F64, sub_106F94, ConvertArtXY
+extern qsort_, sprintf_, strcat_, strcpy_, BlitArt, BlitShape, PresentScreen, FindShape
+extern FindShapeQuiet, OpenArtArchive, ConvertArtNew, ResetClipWindow, Random32, UnpackShared, UnpackedSize, ConvertArtXY
 extern SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, PlayMenuSfx, StopAllSfx, PlaySfx
 extern LoadDataFile, LoadDataFileFlag0, OpenDataLibrary, PlayerInjuryDays, LoadLogoNames, FreeTempArt, DrawShadedLogo, DrawShadowBox
 extern DrawScreenBackground, FadeInScreen, ShowScreen, ExitScreen, SetTextColor, DrawTextAligned, DrawFrameBox, ShowMessageBox
 extern WipeScreen, SetNormalText, DrawPortrait, DrawStatHeader, InitMenuItems, RunMenu, InitScrollList, ScrollUp
 extern ScrollDown, FreeScrollList, SetScrollBarPos, ScrollToMouse, RunScrollList, GetLangText, PositionAbbrev, SetRosterMode
 extern SkaterOverall, GoalieOverall, InitListBox, InitShapeListBox, KeysEqual, FindGameRecord, FindPlayerStat, ServiceIdle
-extern AllocMemBlock, FreeMemBlock, sub_FBE5D, MakeColor, FreeBitmap, DrawArt, DrawShape, CreateBitmap
+extern AllocMemBlock, FreeMemBlock, KbdIdleCall, MakeColor, FreeBitmap, DrawArt, DrawShape, CreateBitmap
 extern SetDrawTarget, ClearScreen, FillRect, MeasureText, tickcount, unk_165BAB, unk_165BAE, unk_16D7F4
 extern unk_1C134A, unk_1C1352, unk_1C135C, unk_1C347F, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, word_1C1344
 extern word_1C8CD4, word_1C8CEC
@@ -502,7 +502,7 @@ EditLinesScreen_61B:
         mov edx, DrawLinesCardDetails_517
         mov eax, DrawLinesCardDetails_41B
         call DrawRatingMeters
-        call sub_1013FC
+        call PresentScreen
         jmp near EditLinesScreen_2C7.23
 EditLinesScreen_69D:
         cmp dword [dword_1C8E48], byte 3
@@ -563,7 +563,7 @@ EditLinesScreen_69D:
         push dword [byte eax+02Ch]
         call ConvertArtXY
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
 .36:
         mov edx, dword [byte ebp+066h]
         mov eax, esi
@@ -1218,7 +1218,7 @@ DrawLinesCardLogo:
         jl short .3
         cmp byte [byte_1C6040], 0
         je short .4
-        call sub_1013FC
+        call PresentScreen
 .4:
         inc esi
         call ServiceIdle
@@ -1237,7 +1237,7 @@ DrawLinesCardLogo:
         push ebx
         call BlitShape
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         jmp near DrawPlayerLines_23B
 .6:
         push eax
@@ -1367,7 +1367,7 @@ EditLinesSetup:
         push byte 0
         mov eax, dword [dword_1C8DB0]
         push dword [nosplit eax*4+dword_1C5DE8]
-        call sub_106F94
+        call UnpackedSize
         add esp, byte 4
         push eax
         push str_UNPACKLOGOa
@@ -1377,7 +1377,7 @@ EditLinesSetup:
         mov esi, eax
         mov eax, dword [dword_1C8DB0]
         push dword [nosplit eax*4+dword_1C5DE8]
-        call sub_106F64
+        call UnpackShared
         add esp, byte 8
         push str_LOGO3
         push esi
@@ -1427,7 +1427,7 @@ EditLinesSetup:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_102B94
+        call ConvertArtNew
         add esp, byte 8
         push ebx
         mov esi, eax
@@ -1486,7 +1486,7 @@ EditLinesSetup:
         call ConvertArtXY
         add esp, byte 0Ch
         inc ebx
-        call sub_1013FC
+        call PresentScreen
         cmp ebx, byte 3
         jl short .13
         mov eax, dword [byte ebp+06Eh]
@@ -1549,7 +1549,7 @@ EditLinesSetup:
         mov dword [byte ebp+05Ah], ebx
         mov dword [byte ebp+04Ah], eax
 .14:
-        call sub_FBE5D
+        call KbdIdleCall
         test eax, eax
         jne near .44
         cmp edi, byte 0Ah
@@ -1895,7 +1895,7 @@ EditLinesSetup:
         push dword [byte eax+02Ch]
         call BlitShape
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         jmp near .14
 .44:
         call StopAllSfx
@@ -3612,7 +3612,7 @@ EditLinesGridScreen:
         add esp, byte 0Ch
         mov dword [byte ebp+062h], 8
         mov dword [byte ebp+052h], 6
-        call sub_1013FC
+        call PresentScreen
         jmp near .20
 .19:
         call SetScreenTarget
@@ -3673,7 +3673,7 @@ EditLinesGridScreen:
         call BlitArt
         add esp, byte 0Ch
         mov dword [byte ebp+066h], esi
-        call sub_1013FC
+        call PresentScreen
         call ServiceIdle
         mov eax, dword [byte ebp+052h]
         mov dword [byte ebp+05Eh], ebx
@@ -3700,7 +3700,7 @@ EditLinesGridScreen:
         mov eax, dword [byte ebp+07Eh]
         call DrawPlayerHealth
 .22:
-        call sub_1013FC
+        call PresentScreen
         mov dword [byte ebp+05Ah], 0
         jmp near EditLinesGridScreen_1010
 EditLinesGridScreen_A49:
@@ -4152,7 +4152,7 @@ EditLinesGridScreen_FA7:
 .69:
         call DrawLinesLabel
 .70:
-        call sub_1013FC
+        call PresentScreen
 EditLinesGridScreen_1010:
         cmp dword [byte ebp+05Ah], byte 0
         jne near EditLinesGridScreen_10DB.79
@@ -4358,7 +4358,7 @@ EditLinesGridScreen_10DB:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         call ServiceIdle
         mov eax, dword [byte ebp+062h]
         add dword [byte ebp+066h], eax
@@ -4395,8 +4395,8 @@ EditLinesGridScreen_10DB:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_102C10
-        call sub_1013FC
+        call ResetClipWindow
+        call PresentScreen
         jmp near EditLinesScreen_8E8
 ;-----------------------------------------------------------------------------
 ; DrawScoringLines                                99992  97 PC, low confidence
@@ -4705,7 +4705,7 @@ DrawLinesCell:
         push dword [byte edi+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_102C10
+        call ResetClipWindow
         push dword 0FF000000h
         call MakeColor
         add esp, byte 4
@@ -5303,8 +5303,8 @@ DrawForwardLines:
         push dword [byte eax+02Ch]
         call BlitShape
         add esp, byte 4
-        call sub_102C10
-        call sub_1013FC
+        call ResetClipWindow
+        call PresentScreen
 DrawForwardLines_28A:
         push byte 0FFFFFFFFh
         call MakeColor
@@ -5505,7 +5505,7 @@ DrawDefenceLines:
         push dword [byte eax+02Ch]
         call BlitShape
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         push dword 1E0h
         push byte 0
         push dword 280h
@@ -5716,7 +5716,7 @@ DrawSpecialLines:
         push byte 0
         call SetClipWindow
         add esp, byte 10h
-        call sub_1013FC
+        call PresentScreen
 .10:
         push byte 0FFFFFFFFh
         call MakeColor
@@ -6097,7 +6097,7 @@ DrawLinesScreen:
         add esp, byte 4
         cmp byte [byte_1C6040], 0
         je near .5
-        call sub_1013FC
+        call PresentScreen
         xor esi, esi
 .3:
         push byte 0
@@ -6437,7 +6437,7 @@ DrawLinesScreen_32B:
         jl short .17
         cmp byte [byte_1C6040], 0
         je short .19
-        call sub_1013FC
+        call PresentScreen
 .19:
         mov dword [dword_1C8E08], 0
         mov dword [dword_1C8E0C], 0
@@ -6450,7 +6450,7 @@ DrawLinesScreen_32B:
         push dword [byte eax+02Ch]
         call BlitShape
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         jmp near CopyTeamRoster_203
 ;-----------------------------------------------------------------------------
 ; SetLinesListPos                                 9B25A  97 PC, low confidence
@@ -6679,7 +6679,7 @@ DrawLinesPlayerCard:
         call DrawRatingMeters
         cmp byte [byte_1C6040], 0
         je short .2
-        call sub_1013FC
+        call PresentScreen
 .2:
         call DrawCardRatings
         pop edx
@@ -6788,7 +6788,7 @@ DrawLinesCardDetails:
         add esp, byte 14h
         cmp byte [byte_1C6040], 0
         je short .4
-        call sub_1013FC
+        call PresentScreen
 .4:
         mov eax, esi
         add edi, edi
@@ -6973,7 +6973,7 @@ DrawLinesCardDetails_16C:
         mov eax, dword [byte eax+02Ch]
         call DrawPortrait
 .10:
-        call sub_102C10
+        call ResetClipWindow
 .11:
         cmp dword [byte ebp-028h], byte 0
         jne short .12
@@ -7012,7 +7012,7 @@ DrawLinesCardDetails_16C:
         add esp, byte 14h
         cmp byte [byte_1C6040], 0
         je short .14
-        call sub_1013FC
+        call PresentScreen
 .14:
         mov eax, dword [byte ebp-028h]
         mov ecx, dword [byte ebp-024h]
@@ -7087,7 +7087,7 @@ DrawLinesCardDetails_41B:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_102C10
+        call ResetClipWindow
         jmp short .17
 .16:
         xor esi, esi
@@ -7149,7 +7149,7 @@ DrawLinesCardDetails_517:
         cdq
         idiv ebx
         mov esi, eax
-        call sub_102C10
+        call ResetClipWindow
         push dword 0FF00h
         call MakeColor
         add esp, byte 4
@@ -8001,7 +8001,7 @@ DrawCardRatings:
 .15:
         cmp byte [byte_1C6040], 0
         je near LayoutLinesCard_39D
-        call sub_1013FC
+        call PresentScreen
         jmp near LayoutLinesCard_39D
 ;-----------------------------------------------------------------------------
 ; LoadLinesArt                                    9C3BF  97 PC, low confidence
@@ -8170,7 +8170,7 @@ LoadEditLinesArt:
         call WaitSoundTime
         push byte 0
         push ebx
-        call sub_101560
+        call OpenArtArchive
         add esp, byte 8
         mov dword [byte ebp-04h], eax
         test eax, eax
@@ -8274,7 +8274,7 @@ LoadEditLinesArt:
         call WaitSoundTime
         push byte 0
         push ebx
-        call sub_101560
+        call OpenArtArchive
         add esp, byte 8
         mov dword [byte ebp-04h], eax
         test eax, eax
@@ -8572,7 +8572,7 @@ DrawLinesIntroText:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_102C10
+        call ResetClipWindow
 .16:
         mov eax, dword [dword_1C8E08]
         mov dword [dword_1C8E0C], eax
@@ -8918,7 +8918,7 @@ ShowLinesPopup:
         push dword [byte esi+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
 .3:
         mov eax, dword [byte ebp-0Ch]
         cmp eax, dword [byte ebp-08h]
@@ -8960,7 +8960,7 @@ ShowLinesPopup:
         push dword [byte esi+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         push esi
         call FreeBitmap
         add esp, byte 4

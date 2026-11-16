@@ -2,8 +2,11 @@
 bits 32
 %include "hockey.inc"
 section s_126480 progbits alloc exec nowrite align=1
-extern byte_172AB0, byte_172AB1, byte_172AB4, sub_101220, sub_122D90, word_172AB2
-global RestoreTextMode, SaveTextMode, sub_1265D0, sub_126624, sub_12664C
+extern byte_172AB0, byte_172AB1, byte_172AB4, AddExitHandler, ShapeRowBytes, word_172AB2
+global RestoreTextMode, SaveTextMode, PrefetchMemory, PrefetchShape, CopyMemFast
+;-----------------------------------------------------------------------------
+; SaveTextMode                                126480  96 PC, medium confidence
+;-----------------------------------------------------------------------------
 SaveTextMode:
         push ebx
         cmp byte [byte_172AB0], 0
@@ -18,11 +21,14 @@ SaveTextMode:
         mov al, byte [0484h]
         mov byte [byte_172AB4], al
         push RestoreTextMode
-        call sub_101220
+        call AddExitHandler
         add esp, byte 4
 .1:
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; RestoreTextMode                             1264C2  96 PC, medium confidence
+;-----------------------------------------------------------------------------
 RestoreTextMode:
         pusha
         cmp byte [byte_172AB0], 0
@@ -87,7 +93,11 @@ RestoreTextMode:
         popa
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-sub_1265D0:
+;-----------------------------------------------------------------------------
+; PrefetchMemory                                 1265D0  97 PC, low confidence
+; Touches a range of memory every cache line to bring it into the cache
+;-----------------------------------------------------------------------------
+PrefetchMemory:
         push ebx
         mov ecx, dword [byte esp+08h]
         mov edx, dword [byte esp+0Ch]
@@ -120,25 +130,33 @@ sub_1265D0:
         pop ebx
         ret
         db 08Bh,0C0h
-sub_126624:
+;-----------------------------------------------------------------------------
+; PrefetchShape                                  126624  97 PC, low confidence
+; Touches the pixels of a shape to bring them into the cache
+;-----------------------------------------------------------------------------
+PrefetchShape:
         push ebx
         push esi
         mov esi, dword [byte esp+0Ch]
         mov ebx, dword [byte esi+04h]
         push esi
         sar ebx, 10h
-        call sub_122D90
+        call ShapeRowBytes
         imul eax, ebx
         add esp, byte 4
         push eax
         lea eax, [byte esi+010h]
         push eax
-        call sub_1265D0
+        call PrefetchMemory
         add esp, byte 8
         pop esi
         pop ebx
         ret
-sub_12664C:
+;-----------------------------------------------------------------------------
+; CopyMemFast                                    12664C  97 PC, low confidence
+; Copies memory with 64-bit FPU loads and stores
+;-----------------------------------------------------------------------------
+CopyMemFast:
         test eax, 7
         jne short .8
 .1:

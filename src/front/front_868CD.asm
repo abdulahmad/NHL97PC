@@ -20,14 +20,14 @@ extern byte_1C833C, byte_1C83B4, dword_16CCFA, dword_16CCFE, dword_16CD14, dword
 extern dword_16E468, dword_16E46C, dword_1AC814, dword_1AC8AD, dword_1C5DE4, dword_1C5F12, dword_1C5F1E, dword_1C5F22
 extern dword_1C5F64, dword_1C5F70, dword_1C5F74, dword_1C83B0, dword_1C8440, dword_1C8444, dword_1C8448, dword_1C844C
 extern dword_1C8450, dword_1C8454, fclose_, fgets_, fread_, fseek_, fwrite_, memcpy_
-extern memset_, sprintf_, strcmp_, strcpy_, strlen_, strstr_, bcopy, sub_101324
-extern BlitShape2, BlitArt, sub_1013FC, FindShape, sub_102B94, ConvertArtXY, SetScreenTarget, SecondsToSamples
+extern memset_, sprintf_, strcmp_, strcpy_, strlen_, strstr_, bcopy, BlitConverted
+extern BlitShape2, BlitArt, PresentScreen, FindShape, ConvertArtNew, ConvertArtXY, SetScreenTarget, SecondsToSamples
 extern WaitSoundTime, StopAllSfx, PlaySfx, LoadDataFileLib, LoadDataFile, DrawScreenBackground, FadeInScreen, ShowScreen
 extern SetRegionRect, DrawEditBox, SetTextColor, DrawTextAligned, DrawFrameBox, ShowMessageBoxNoWait, EditTextField, WipeScreen
 extern DrawEntryList, SetNormalText, ShowLinkMessage, HideLinkBox, WritePhonebookFile, OpenPhonebookFile, RunMenu, InitScrollList
 extern ScrollUp, DrawScrollBar, ScrollDown, FreeScrollList, ScrollToMouse, GetLangText, InitLinkSettings, ClearLinkAbort
 extern ServiceIdle, StartNetworkLink, LinkSendBlock, LinkReceiveBlock, DefaultModemName, LoadServerList, AllocMemBlock, FreeMemBlock
-extern MakeColor, FreeBitmap, sub_FCF84, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, FillRect
+extern MakeColor, FreeBitmap, DrawShapeAtOwnPos, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, FillRect
 extern MeasureText, unk_165330, unk_1AC839, unk_1AC95D, unk_1AC962, unk_1ACB44, unk_1ACB49, unk_1C5EF8
 extern unk_1C5F4A, unk_1C834C, unk_1C8360, unk_1C8388, unk_1C83BA, word_16CCF8, word_16DACC, word_16DAD0
 extern word_1AC8B1, word_1C8340, word_1C8342, word_1C8344, word_1C8346, word_1C8348, word_1C834A, word_1C83B8
@@ -421,7 +421,7 @@ DrawPhonebookField:
 .5:
         cmp esi, dword [byte ebp-04h]
         jl short .3
-        call sub_1013FC
+        call PresentScreen
         leave
         pop edi
         pop esi
@@ -490,7 +490,7 @@ PhonebookEntryScreen:
         add esp, byte 0Ch
         mov dword [byte ebp-04h], 0
         mov dword [byte ebp-01Ch], 0FFFFFFFFh
-        call sub_1013FC
+        call PresentScreen
         xor esi, esi
 .1:
         push byte 0
@@ -532,7 +532,7 @@ PhonebookEntryScreen:
         add esp, byte 10h
         cmp esi, byte 3
         jl short .1
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [byte ebp-02Ch]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword ebp-0F94h], eax
@@ -612,7 +612,7 @@ PhonebookEntryScreen:
         add ebx, 9Bh
         inc esi
         call SetRegionRect
-        call sub_1013FC
+        call PresentScreen
         cmp esi, byte 10h
         jl short .4
         mov esi, 10h
@@ -634,7 +634,7 @@ PhonebookEntryScreen:
         mov eax, edi
         inc esi
         call SetRegionRect
-        call sub_1013FC
+        call PresentScreen
         cmp esi, byte 1Ah
         jl short .5
         push dword [byte ebp-08h]
@@ -679,7 +679,7 @@ PhonebookEntryScreen:
         mov eax, dword [byte eax+02Ch]
         add esp, byte 0Ch
         mov word [byte eax+0Eh], 8Ch
-        call sub_1013FC
+        call PresentScreen
         push byte 0
         push byte 0
         push dword 96h
@@ -703,7 +703,7 @@ PhonebookEntryScreen:
         push dword [byte eax+02Ch]
         call ConvertArtXY
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         mov ecx, dword [dword ebp-01008h]
         movsx ebx, word [byte ebp-04h]
         mov edx, dword [dword ebp-0108h]
@@ -721,7 +721,7 @@ PhonebookEntryScreen:
         xor edx, edx
         lea edi, [dword ebp-01000h]
         call DrawScrollBar
-        call sub_1013FC
+        call PresentScreen
         push byte 10h
         mov ebx, 1F4h
         mov eax, dword [byte ebp-08h]
@@ -799,7 +799,7 @@ PhonebookEntryScreen_4C9:
         call BlitArt
         add esp, byte 0Ch
         xor ebx, ebx
-        call sub_1013FC
+        call PresentScreen
         mov ecx, dword [dword ebp-01008h]
         mov edx, dword [dword ebp-0108h]
         mov eax, dword [byte ebp-08h]
@@ -812,7 +812,7 @@ PhonebookEntryScreen_4C9:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         lea eax, [dword ebp-012Ch]
         xor edx, edx
         call DrawScrollBar
@@ -849,7 +849,7 @@ PhonebookEntryScreen_60C:
         call BlitArt
         add esp, byte 0Ch
         movsx ebx, word [byte ebp-04h]
-        call sub_1013FC
+        call PresentScreen
         mov ecx, dword [dword ebp-01008h]
         mov edx, dword [dword ebp-0108h]
         mov eax, dword [byte ebp-08h]
@@ -862,7 +862,7 @@ PhonebookEntryScreen_60C:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         lea eax, [dword ebp-012Ch]
         xor edx, edx
         call DrawScrollBar
@@ -900,7 +900,7 @@ PhonebookEntryScreen_6C5:
         call BlitArt
         add esp, byte 0Ch
         movsx ebx, word [byte ebp-04h]
-        call sub_1013FC
+        call PresentScreen
         mov ecx, dword [dword ebp-01008h]
         mov edx, dword [dword ebp-0108h]
         mov eax, dword [byte ebp-08h]
@@ -913,7 +913,7 @@ PhonebookEntryScreen_6C5:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         lea eax, [dword ebp-012Ch]
         xor edx, edx
         call DrawScrollBar
@@ -973,7 +973,7 @@ PhonebookEntryScreen_752:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         push dword [byte ebp-08h]
         call FreeBitmap
         add esp, byte 4
@@ -1482,7 +1482,7 @@ DrawModemField:
         call DrawTextAligned
         add esp, byte 14h
 .7:
-        call sub_1013FC
+        call PresentScreen
         leave
         pop edi
         pop esi
@@ -1703,7 +1703,7 @@ ModemSettingsScreen:
         push byte 0
         call FillRect
         add esp, byte 14h
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [byte ebx+02Ch]
         mov word [byte eax+0Ch], 78h
         mov eax, dword [byte ebx+02Ch]
@@ -1762,7 +1762,7 @@ ModemSettingsScreen:
         push byte 0
         call FillRect
         add esp, byte 14h
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [byte ebx+02Ch]
         mov word [byte eax+0Ch], 11Dh
         mov eax, dword [byte ebx+02Ch]
@@ -1810,7 +1810,7 @@ ModemSettingsScreen:
         push byte 0
         call DrawTextAligned
         add esp, byte 14h
-        call sub_1013FC
+        call PresentScreen
         push byte 19h
         mov ecx, 0AFh
         mov ebx, 124h
@@ -1845,7 +1845,7 @@ ModemSettingsScreen:
         push byte 0
         call FillRect
         add esp, byte 14h
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [byte ebx+02Ch]
         mov word [byte eax+0Ch], 11Dh
         mov eax, dword [byte ebx+02Ch]
@@ -1863,7 +1863,7 @@ ModemSettingsScreen:
         call DrawTextAligned
         add esp, byte 14h
         mov ebx, 145h
-        call sub_1013FC
+        call PresentScreen
         push byte 19h
         mov ecx, 0AFh
         mov edx, 35h
@@ -1897,7 +1897,7 @@ ModemSettingsScreen:
         push byte 0
         call FillRect
         add esp, byte 14h
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [byte ebx+02Ch]
         mov word [byte eax+0Ch], 11Dh
         mov eax, dword [byte ebx+02Ch]
@@ -1915,7 +1915,7 @@ ModemSettingsScreen:
         call DrawTextAligned
         add esp, byte 14h
         mov ebx, 169h
-        call sub_1013FC
+        call PresentScreen
         push byte 19h
         mov ecx, 0AFh
         mov edx, 35h
@@ -1949,7 +1949,7 @@ ModemSettingsScreen:
         push byte 0
         call FillRect
         add esp, byte 14h
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [byte ebx+02Ch]
         mov word [byte eax+0Ch], 11Dh
         mov eax, dword [byte ebx+02Ch]
@@ -1973,7 +1973,7 @@ ModemSettingsScreen:
         push byte 0
         call DrawTextAligned
         add esp, byte 10h
-        call sub_1013FC
+        call PresentScreen
         cmp word [word_1C8346], byte 0
         je short .8
         lea eax, [dword ebp-02E8h]
@@ -2412,7 +2412,7 @@ ModemSettingsScreen_D5E:
         push eax
         call BlitShape2
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [byte esi+02Ch]
         mov ebx, eax
         mov edx, eax
@@ -2531,7 +2531,7 @@ ModemSettingsScreen_E6E:
         call DrawTextAligned
         add esp, byte 14h
 .42:
-        call sub_1013FC
+        call PresentScreen
         jmp near ModemSettingsScreen_11E3
 ModemSettingsScreen_F7C:
         push byte 0
@@ -2895,7 +2895,7 @@ DrawNoNetworkServices:
         cmp ebx, dword [byte ebp-04h]
         jl short .4
 .7:
-        call sub_1013FC
+        call PresentScreen
 DrawNoNetworkServices_F6:
         leave
         pop edi
@@ -2945,7 +2945,7 @@ DrawNetworkStatus:
         push byte 1
         call DrawTextAligned
         add esp, byte 14h
-        call sub_1013FC
+        call PresentScreen
         pop edi
         pop esi
         pop ecx
@@ -3157,7 +3157,7 @@ NetworkGamesScreen:
         mov eax, dword [byte ebx+02Ch]
         add esp, byte 0Ch
         mov word [byte eax+0Eh], 0DCh
-        call sub_1013FC
+        call PresentScreen
         call SetNormalText
         mov eax, dword [byte ebp-08h]
         cmp eax, dword [byte ebp-03Ch]
@@ -3187,7 +3187,7 @@ NetworkGamesScreen:
         add esp, byte 4
         lea edi, [dword ebp-0D64h]
         mov esi, unk_1C5EF8
-        call sub_1013FC
+        call PresentScreen
         mov ecx, 52h
         rep movsb
         mov ecx, 52h
@@ -3548,7 +3548,7 @@ NetworkGamesScreen_880:
         mov eax, dword [byte ebp-010h]
         call DrawNetworkStatus
 .21:
-        call sub_1013FC
+        call PresentScreen
 NetworkGamesScreen_8F6:
         movsx eax, word [byte ebp-04h]
         cmp eax, byte 0FFFFFFFFh
@@ -3648,7 +3648,7 @@ NetworkGamesScreen_A1E:
         push dword [byte eax+02Ch]
         call BlitShape2
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
 .24:
         lea eax, [dword ebp-0168h]
         xor edx, edx
@@ -3681,7 +3681,7 @@ NetworkGamesScreen_A96:
         push dword [byte eax+02Ch]
         call BlitShape2
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         lea eax, [dword ebp-0168h]
         xor edx, edx
         call DrawScrollBar
@@ -4691,7 +4691,7 @@ DrawConnectScreen:
         push byte 0
         call DrawTextAligned
         add esp, byte 10h
-        call sub_1013FC
+        call PresentScreen
         push dword [byte ebp-0Ch]
         call FreeBitmap
         add esp, byte 4
@@ -4822,28 +4822,28 @@ ModemConnectScreen:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
         push str_LB002
         push esi
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
         push str_RB00
         push esi
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
         push str_RT00
         push esi
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
         push str_NET0
         push edi
@@ -4877,7 +4877,7 @@ ModemConnectScreen:
         push dword [dword_1C5F64]
         call DrawArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [byte ebp-0Ch]
         mov edx, 1
         mov eax, dword [byte eax+02Ch]
@@ -5041,7 +5041,7 @@ ModemConnect:
         push byte 0
         call FillRect
         add esp, byte 14h
-        call sub_1013FC
+        call PresentScreen
         push dword [byte ebp+02Ah]
         mov edx, dword [byte ebp+036h]
         mov eax, esi
@@ -5361,7 +5361,7 @@ ModemConnect:
         call BlitArt
         add esp, byte 0Ch
         inc dword [byte ebp+07Ah]
-        call sub_1013FC
+        call PresentScreen
         cmp dword [byte ebp+07Ah], byte 5
         jne short .5
         mov dword [byte ebp+07Ah], 0
@@ -5551,7 +5551,7 @@ NetworkConnect:
         push byte 0
         call FillRect
         add esp, byte 14h
-        call sub_1013FC
+        call PresentScreen
         push dword [byte ebp+02Ah]
         mov edx, dword [byte ebp+03Eh]
         mov eax, edi
@@ -5879,7 +5879,7 @@ NetworkConnect:
         call BlitArt
         add esp, byte 0Ch
         inc dword [byte ebp+07Ah]
-        call sub_1013FC
+        call PresentScreen
         cmp dword [byte ebp+07Ah], byte 5
         jne short .6
         mov dword [byte ebp+07Ah], 0
@@ -6066,7 +6066,7 @@ NetworkConnect:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         push dword [byte ebp+06Ah]
         call FreeBitmap
         add esp, byte 4
@@ -6186,7 +6186,7 @@ NetworkConnectScreen:
         call FillRect
         add esp, byte 14h
         xor ebx, ebx
-        call sub_1013FC
+        call PresentScreen
         push dword [byte ebp-028h]
         mov edx, dword [byte ebp-020h]
         mov eax, dword [byte ebp-024h]
@@ -6207,28 +6207,28 @@ NetworkConnectScreen:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
         push str_BOT0
         push dword [byte ebp-04h]
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
         push str_LFT0
         push dword [byte ebp-04h]
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
         push str_RIT0
         push dword [byte ebp-04h]
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
         test byte [byte_1C83B4], 1
         jne short .1
@@ -6261,7 +6261,7 @@ NetworkConnectScreen:
         mov eax, dword [byte ebp-010h]
         push byte 78h
         push dword [byte eax+02Ch]
-        call sub_101324
+        call BlitConverted
         add esp, byte 0Ch
         push byte 0FFFFFFFFh
         call MakeColor
@@ -6320,7 +6320,7 @@ NetworkConnectScreen:
         push dword [dword_1C5F12]
         call DrawArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         mov edx, 1
         mov eax, dword [byte edi+02Ch]
         call WipeScreen
@@ -6418,7 +6418,7 @@ CreateMenuBitmap:
         mov ecx, dword [dword_16E46C]
         push ecx
         push eax
-        call sub_102B94
+        call ConvertArtNew
         mov dword [dword_1C844C], eax
         add esp, byte 8
         mov edx, dword [byte eax+04h]
@@ -6436,7 +6436,7 @@ CreateMenuBitmap:
         mov eax, dword [byte eax+02Ch]
         push ebx
         mov dword [dword_1C8454], eax
-        call sub_102B94
+        call ConvertArtNew
         mov dword [dword_1C8448], eax
         add esp, byte 8
         mov edx, dword [byte eax+04h]

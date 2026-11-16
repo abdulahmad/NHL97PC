@@ -3,8 +3,8 @@ bits 32
 %include "hockey.inc"
 section s_12F9E3 progbits alloc exec nowrite align=1
 extern __CommonInit_, dword_17258C, dword_172590, dword_19C690, dword_1DE784, dword_1DE788, exit_, main_
-extern sub_101324, ConvertArtAt, sub_138C90, SetScreenTarget, unk_19C648, unk_19C67E
-global __CMain, __FiniRtns, __InitRtns, sub_12FACC
+extern BlitConverted, ConvertArtAt, CMainHook, SetScreenTarget, unk_19C648, unk_19C67E
+global __CMain, __FiniRtns, __InitRtns, PrintScreen
 ;-----------------------------------------------------------------------------
 ; __CMain                                                      12F9E3  library
 ;-----------------------------------------------------------------------------
@@ -15,7 +15,7 @@ __CMain:
         mov edx, dword [dword_17258C]
         add edx, byte 3
         and dl, 0FCh
-        call sub_138C90
+        call CMainHook
         cmp edx, eax
         jae short .1
         mov eax, edx
@@ -136,9 +136,10 @@ __FiniRtns:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_12FACC                                                          12FACC  
+; PrintScreen                                    12FACC  97 PC, low confidence
+; Calls the BIOS print-screen interrupt; followed by small screen helpers
 ;-----------------------------------------------------------------------------
-sub_12FACC:
+PrintScreen:
         push ebx
         int 5
         pop ebx
@@ -171,7 +172,7 @@ sub_12FACC:
         push edi
         mov edx, dword [byte esi+02Ch]
         push edx
-        call sub_101324
+        call BlitConverted
         add esp, byte 0Ch
         pop edi
         pop esi

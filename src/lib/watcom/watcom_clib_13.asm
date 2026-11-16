@@ -26,16 +26,16 @@ extern dword_1D990C, dword_1D9910, dword_1D9B0C, dword_1D9B10, dword_1D9B2C, dwo
 extern dword_1DA390, dword_1DA4D0, int386_, isatty_, memcpy_, off_1706E0, off_1706E4, off_170B14
 extern off_170B18, off_170B1C, off_171C7C, off_171C80, off_171C84, off_171D10, off_19C6C4, off_19C6E2
 extern off_19C6E3, qword_167EC8, qword_167ED0, qword_167EE0, sprintf_, strcat_, strcpy_, strlen_
-extern strncpy_, sub_1004B8, bcopy, sub_101220, sub_1013FC, sub_1025DC, Random32, sub_102D3C
-extern sub_103298, sub_103648, sub_10374C, sub_10376C, sub_1049D0, sub_106CD0, sub_106F64, sub_109401
-extern sub_109545, sub_10955B, sub_1095AD, sub_10CFB4, sub_10CFF7, sub_1128F8, sub_121460, sub_121470
-extern sub_121494, sub_12189C, sub_121A43, sub_12200C, sub_12233C, sub_123FCB, sub_124DB0, sub_1258A4
-extern sub_125DDE, sub_12D520, sub_12F270, sub_12FACC, sub_12FDC8, sub_12FF9C, sub_12FFD8, sub_12FFF0
-extern sub_13005A, sub_1300A8, sub_13014C, sub_13059C, sub_13061C, sub_1306A0, sub_130709, sub_13073E
-extern sub_130815, SetScreenTarget, NoOpPlatformHook, sub_FA5B8, sub_FA6A0, sub_FA734, sub_FA8AC, sub_FA954
-extern sub_FAA14, AllocMemBlock, sub_FAB68, FreeMemBlock, sub_FB5C8, sub_FB62C, ZeroMem, sub_FBE78
-extern sub_FC0F0, sub_FC410, MakeColor, sub_FC73E, sub_FC88C, sub_FCC40, sub_FD0DC, ClearScreen
-extern sub_FD954, sub_FDC68, SetTextColors, DrawTextBoxedAt, RefreshTextColors, MatTranspose, TransformVecs, VecAdd
+extern strncpy_, LoadResourceData, bcopy, AddExitHandler, PresentScreen, ConvertArtPalette, Random32, VesaSetBank
+extern SetGraphicsMode, WritePaletteRegs, FreeRowTable, FillRowTable, BytesPerPixelForDepth, FileExistsPath, UnpackShared, DosOpenFile
+extern DosCloseFile, DosReadFile, DosSeekFile, SetViewScreenOrigin, SetCameraAngles, DrawPolyArray, ResetMemLock, MemLock
+extern MemUnlock, FindCachedFile, PollHotkeys, ArchiveEntryOffset, BlitCore, StoreLittleEndian, ConvertColor555, CreateBitmapFromBlock
+extern Convert32To565Keyed, PlotPixelClipped, SinCosLookup, PrintScreen, AskExitGame, ShowPauseMessage, DosGetVector, DosSetVector
+extern AssertPreserveRegs, TgvCopyBlock, TgvFillBlock, SaveTextScreen, RestoreTextScreen, InitTextOutput, ClearNumLock, InstallBreakHandler
+extern RegisterHotkey, SetScreenTarget, NoOpPlatformHook, AddMemRegion, AddMemRegions, AddHighMemRegion, TrimMemList, MemListEnd
+extern AllocMemBlockMovable, AllocMemBlock, AllocMemBlockFull, FreeMemBlock, InitMemDescriptors, MemDescPtr, ZeroMem, SetKbdIdleHook
+extern InstallTimer, CurrentArchiveName, MakeColor, MouseInit, DebugSetLine, SelectFont, LoadDrawContext, ClearScreen
+extern FillPolygon, FillRectColor, SetTextColors, DrawTextBoxedAt, RefreshTextColors, MatTranspose, TransformVecs, VecAdd
 extern VecSub, AddVecs, VecCross, VecScale, VecNormalize, VecCrossUnit, unk_10003, unk_16E8A0
 extern unk_170B26, unk_170B30, unk_170F72, unk_170F7C, unk_1713BE, unk_1713C8, unk_17180A, unk_171814
 extern unk_171E38, unk_19CCB0, unk_1D91D0, unk_1D9B50, unk_1D9B70, unk_1D9B90, unk_1D9BB0, unk_1D9BD0
@@ -133,7 +133,7 @@ PrimRect:
         push esi
         mov edi, dword [eax]
         push edi
-        call sub_FDC68
+        call FillRectColor
         add esp, byte 14h
         pop edi
         pop esi
@@ -165,7 +165,7 @@ PrimRectDebug:
         push esi
         mov edi, dword [eax]
         push edi
-        call sub_FDC68
+        call FillRectColor
         add esp, byte 14h
         pop edi
         pop esi
@@ -198,7 +198,7 @@ PrimRectDebug_30:
         push byte 3
         mov edx, dword [byte eax+028h]
         push edx
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
         pop edi
         pop esi
@@ -258,7 +258,7 @@ PrimTriFlat:
         push byte 3
         mov ecx, dword [byte ebp+028h]
         push ecx
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .1:
         pop ebp
@@ -322,7 +322,7 @@ PrimTriLitCcw:
         push byte 3
         mov ecx, dword [byte ebp+028h]
         push ecx
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .1:
         pop ebp
@@ -360,7 +360,7 @@ PrimTriShade:
         push byte 3
         mov edx, dword [byte eax+028h]
         push edx
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
         pop edi
         pop esi
@@ -420,7 +420,7 @@ PrimTriShadeBlend:
         push byte 3
         mov ecx, dword [byte ebp+028h]
         push ecx
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .1:
         pop ebp
@@ -483,7 +483,7 @@ PrimTriShadeCcw:
         push byte 3
         mov ecx, dword [byte ebp+028h]
         push ecx
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .1:
         pop ebp
@@ -522,7 +522,7 @@ PrimTriDebug:
         movsd
         call Random32
         push eax
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
         pop edi
         pop esi
@@ -949,7 +949,7 @@ PrimTriTex:
         push byte 3
         mov edx, dword [byte eax+040h]
         push edx
-        call sub_1128F8
+        call DrawPolyArray
         add esp, byte 18h
         pop edx
         pop ecx
@@ -997,7 +997,7 @@ PrimTriTexCw:
         push byte 3
         mov esi, dword [byte edi+040h]
         push esi
-        call sub_1128F8
+        call DrawPolyArray
         add esp, byte 18h
 .1:
         pop edi
@@ -1048,7 +1048,7 @@ PrimTriTexCcw:
         push byte 3
         mov esi, dword [byte edi+040h]
         push esi
-        call sub_1128F8
+        call DrawPolyArray
         add esp, byte 18h
 .1:
         pop edi
@@ -1070,7 +1070,7 @@ PrimTriTexCcw_6C:
         push byte 3
         mov edx, dword [byte eax+040h]
         push edx
-        call sub_1128F8
+        call DrawPolyArray
         add esp, byte 18h
         pop edx
         pop ecx
@@ -1119,7 +1119,7 @@ PrimTriTexClearCw:
         push byte 3
         mov esi, dword [byte edi+040h]
         push esi
-        call sub_1128F8
+        call DrawPolyArray
         add esp, byte 18h
 .1:
         pop edi
@@ -1171,7 +1171,7 @@ PrimTriTexClearCcw:
         push byte 3
         mov esi, dword [byte edi+040h]
         push esi
-        call sub_1128F8
+        call DrawPolyArray
         add esp, byte 18h
 .1:
         pop edi
@@ -1196,7 +1196,7 @@ PrimTriTexShade:
         push byte 3
         mov edx, dword [byte eax+040h]
         push edx
-        call sub_1128F8
+        call DrawPolyArray
         add esp, byte 18h
         pop edx
         pop ecx
@@ -1244,7 +1244,7 @@ PrimTriTexShadeCw:
         push byte 3
         mov esi, dword [byte edi+040h]
         push esi
-        call sub_1128F8
+        call DrawPolyArray
         add esp, byte 18h
 .1:
         pop edi
@@ -1296,7 +1296,7 @@ PrimTriTexShadeCcw:
         push byte 3
         mov esi, dword [byte edi+040h]
         push esi
-        call sub_1128F8
+        call DrawPolyArray
         add esp, byte 18h
 .1:
         pop edi
@@ -1333,7 +1333,7 @@ PrimQuadDebug:
         movsd
         call Random32
         push eax
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
         pop edi
         pop esi
@@ -1393,7 +1393,7 @@ PrimQuadDebugCw:
         movsd
         call Random32
         push eax
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .1:
         pop ebp
@@ -1456,7 +1456,7 @@ PrimQuadDebugCcw:
         movsd
         call Random32
         push eax
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .1:
         pop ebp
@@ -1495,7 +1495,7 @@ PrimQuadDebugCcw_80:
         push byte 4
         mov edx, dword [byte eax+034h]
         push edx
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
         pop edi
         pop esi
@@ -1559,7 +1559,7 @@ PrimQuadFlat:
         push byte 4
         mov ecx, dword [byte ebp+034h]
         push ecx
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .1:
         pop ebp
@@ -1626,7 +1626,7 @@ PrimQuadLitCcw:
         push byte 4
         mov ecx, dword [byte ebp+034h]
         push ecx
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .1:
         pop ebp
@@ -1668,7 +1668,7 @@ PrimQuadShade:
         push byte 4
         mov edx, dword [byte eax+034h]
         push edx
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
         pop edi
         pop esi
@@ -1732,7 +1732,7 @@ PrimQuadShadeCw:
         push byte 4
         mov ecx, dword [byte ebp+034h]
         push ecx
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .1:
         pop ebp
@@ -1799,7 +1799,7 @@ PrimQuadShadeBlendCcw:
         push byte 4
         mov ecx, dword [byte ebp+034h]
         push ecx
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
 .1:
         pop ebp
@@ -1842,7 +1842,7 @@ PrimQuadSplit:
         movsd
         call Random32
         push eax
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
         pop edi
         pop esi
@@ -1934,7 +1934,7 @@ PrimQuadSplit_EC:
         push byte 4
         mov edx, dword [byte eax+054h]
         push edx
-        call sub_1128F8
+        call DrawPolyArray
         add esp, byte 18h
         pop edx
         pop ecx
@@ -1982,7 +1982,7 @@ PrimQuadTexCw:
         push byte 4
         mov esi, dword [byte edi+054h]
         push esi
-        call sub_1128F8
+        call DrawPolyArray
         add esp, byte 18h
 .1:
         pop edi
@@ -2033,7 +2033,7 @@ PrimQuadTexCcw:
         push byte 4
         mov esi, dword [byte edi+054h]
         push esi
-        call sub_1128F8
+        call DrawPolyArray
         add esp, byte 18h
 .1:
         pop edi
@@ -2055,7 +2055,7 @@ PrimQuadTexCcw_6C:
         push byte 4
         mov edx, dword [byte eax+054h]
         push edx
-        call sub_1128F8
+        call DrawPolyArray
         add esp, byte 18h
         pop edx
         pop ecx
@@ -2103,7 +2103,7 @@ PrimQuadTexShadeCw:
         push byte 4
         mov esi, dword [byte edi+054h]
         push esi
-        call sub_1128F8
+        call DrawPolyArray
         add esp, byte 18h
 .1:
         pop edi
@@ -2154,7 +2154,7 @@ PrimQuadTexShadeCcw:
         push byte 4
         mov esi, dword [byte edi+054h]
         push esi
-        call sub_1128F8
+        call DrawPolyArray
         add esp, byte 18h
 .1:
         pop edi
@@ -2180,7 +2180,7 @@ PrimQuadTexClear:
         push byte 4
         mov edx, dword [byte eax+054h]
         push edx
-        call sub_1128F8
+        call DrawPolyArray
         add esp, byte 18h
         pop edx
         pop ecx
@@ -2229,7 +2229,7 @@ PrimQuadTexClearCw:
         push byte 4
         mov esi, dword [byte edi+054h]
         push esi
-        call sub_1128F8
+        call DrawPolyArray
         add esp, byte 18h
 .1:
         pop edi
@@ -2281,7 +2281,7 @@ PrimQuadTexClearCcw:
         push byte 4
         mov esi, dword [byte edi+054h]
         push esi
-        call sub_1128F8
+        call DrawPolyArray
         add esp, byte 18h
 .1:
         pop edi
@@ -2322,7 +2322,7 @@ PrimQuadRandomFill:
         movsd
         call Random32
         push eax
-        call sub_FD954
+        call FillPolygon
         add esp, byte 14h
         pop edi
         pop esi
@@ -3048,7 +3048,7 @@ DrawPrimList_6FD:
         sub eax, ebx
         push eax
         push ebx
-        call sub_1258A4
+        call CreateBitmapFromBlock
         add esp, byte 8
         mov eax, ebx
         add esp, byte 1Ch
@@ -3937,7 +3937,7 @@ LoadModelFile:
         push ecx
         lea eax, [byte esp+04h]
         push eax
-        call sub_1004B8
+        call LoadResourceData
         add esp, byte 8
         mov edx, eax
         test eax, eax
@@ -4341,10 +4341,10 @@ PlotPixelRGB:
         sub eax, ebx
         mov dword [byte esp+014h], ecx
         mov ebx, eax
-        call sub_12D520
+        call PlotPixelClipped
         add esp, byte 8
         push eax
-        call sub_124DB0
+        call ConvertColor555
         mov ecx, eax
         sar ecx, 10h
         add esp, byte 4
@@ -4483,7 +4483,7 @@ CreateBitmapForArt:
         push eax
         mov ebx, eax
         mov dword [byte eax+02Ch], esi
-        call sub_1258A4
+        call CreateBitmapFromBlock
         add esp, byte 8
         mov eax, ebx
         pop esi
@@ -4533,7 +4533,7 @@ FixedSinCos:
         mov eax, dword [byte esp+018h]
         sar eax, 6
         push eax
-        call sub_12F270
+        call SinCosLookup
         add esp, byte 0Ch
         mov edx, dword [byte esp+010h]
         and edx, byte 3Fh
@@ -4773,16 +4773,16 @@ BlitShapeKeyed:
         mov edx, esp
         mov eax, esi
         mov ebx, 100h
-        call sub_1025DC
+        call ConvertArtPalette
         mov edx, word_1D91FC
-        call sub_125DDE
+        call Convert32To565Keyed
         mov dword [dword_1706F8], BlitRowKey32_1C
 .3:
         mov ecx, off_1706E0
         mov ebx, dword [dword esp+041Ch]
         mov edx, dword [dword esp+0418h]
         mov eax, esi
-        call sub_12233C
+        call BlitCore
         mov dword [nosplit edi*4+dword_1DA4D0], ebp
         add esp, 400h
         pop ebp
@@ -4895,7 +4895,7 @@ RestoreDrawContext:
         mov esi, dword [byte esp+0Ch]
         push esi
         mov edi, dword_16E6A8
-        call sub_FD0DC
+        call LoadDrawContext
         mov ecx, 0Eh
         lea esi, [byte esi+038h]
         add esp, byte 4
@@ -5828,22 +5828,22 @@ InstallKeyboardHandler:
         or al, 3
         out 21h, al
         mov ebx, 9
-        call sub_12FFD8
+        call DosGetVector
         mov dword [dword_1707E4], eax
         mov word [word_1707E8], dx
         mov ebx, 16h
-        call sub_12FFD8
+        call DosGetVector
         mov dword [dword_1707EA], eax
         mov word [word_1707EE], dx
         mov ebx, 23h
-        call sub_12FFD8
+        call DosGetVector
         mov dword [dword_1707F0], eax
         mov word [word_1707F4], dx
         mov dx, cs
         mov ebx, 9
         db 0B8h                                 ; insn: mov eax,106559h
         dd KeyboardISR
-        call sub_12FFF0
+        call DosSetVector
         mov dx, cs
         mov ebx, 16h
         db 0B8h                                 ; insn: mov eax,1066F0h
@@ -5852,7 +5852,7 @@ InstallKeyboardHandler:
         mov ebx, 23h
         db 0B8h                                 ; insn: mov eax,1066EFh
         dd unk_1166EF
-        call sub_12FFF0
+        call DosSetVector
         pop eax
         out 21h, al
         db 0BBh                                 ; insn: mov ebx,10673Ah
@@ -5860,7 +5860,7 @@ InstallKeyboardHandler:
         mov dword [dword_17070C], ebx
         db 068h                                 ; insn: push 1064E8h
         dd RemoveKeyboardHandler
-        call sub_101220
+        call AddExitHandler
         add esp, byte 4
 .1:
         pop ebx
@@ -5882,14 +5882,14 @@ RemoveKeyboardHandler:
         mov ebx, 9
         mov eax, dword [dword_1707E4]
         mov dx, word [word_1707E8]
-        call sub_12FFF0
+        call DosSetVector
         mov ebx, 16h
         mov eax, dword [dword_1707EA]
         mov dx, word [word_1707EE]
         mov ebx, 23h
         mov eax, dword [dword_1707F0]
         mov dx, word [word_1707F4]
-        call sub_12FFF0
+        call DosSetVector
         and byte [0417h], 0F0h
         pop eax
         out 21h, al
@@ -6014,7 +6014,7 @@ KeyboardISR:
         cmp dword [dword_170710], byte 0
         je short .7
         mov byte [dword ebx+byte_170764], 0
-        call sub_12FACC
+        call PrintScreen
         jmp short .7
 .14:
         mov al, byte [dword ebx+byte_170921]
@@ -6176,13 +6176,13 @@ AssertFail:
         mov dword [esp], eax
 .1:
         call ExitGraphics
-        call sub_13005A
+        call AssertPreserveRegs
         cmp dword [dword_1709ED], byte 0
         je short .2
         push dword [dword_1709F1]
         push dword [dword_1709ED]
         push str_FILESLINED
-        call sub_13005A
+        call AssertPreserveRegs
         add esp, byte 0Ch
 .2:
         call dword [dword_16F184]
@@ -6237,7 +6237,7 @@ PlotPixel:
         mov edi, 10000h
         mov eax, ebp
         and esi, 0FFFFh
-        call sub_102D3C
+        call VesaSetBank
         sub edi, esi
         xor eax, eax
         lea ebx, [nosplit edi*8+00h]
@@ -6253,7 +6253,7 @@ PlotPixel:
         call bcopy
         add esp, byte 0Ch
         lea eax, [byte ebp+01h]
-        call sub_102D3C
+        call VesaSetBank
         mov eax, 4
         sub eax, edi
         push eax
@@ -6318,7 +6318,7 @@ PlotPixel:
         mov edx, dword [byte esp+024h]
         push edx
         push ebx
-        call sub_123FCB
+        call StoreLittleEndian
         add esp, byte 0Ch
         jmp short .10
 .9:
@@ -6329,7 +6329,7 @@ PlotPixel:
         cmp ebx, eax
         jne short .11
         mov eax, ebp
-        call sub_102D3C
+        call VesaSetBank
         mov eax, dword [dword_16E69C]
         push edi
         add eax, esi
@@ -6341,7 +6341,7 @@ PlotPixel:
         add esp, byte 0Ch
         lea eax, [byte ebp+01h]
         sub ebx, edi
-        call sub_102D3C
+        call VesaSetBank
         push ebx
         mov eax, dword [dword_16E69C]
         push eax
@@ -7185,7 +7185,7 @@ CreateBitmapEx:
         push edx
         lea eax, [byte esp+08h]
         push eax
-        call sub_FAA14
+        call AllocMemBlockMovable
         mov dword [byte esp+01Ch], eax
         add esp, byte 0Ch
         test eax, eax
@@ -7208,7 +7208,7 @@ CreateBitmapEx:
         mov eax, dword [byte esp+034h]
         push eax
         lea ebx, [byte esi+038h]
-        call sub_1049D0
+        call BytesPerPixelForDepth
         add esp, byte 4
         mov byte [ebx], 0
         and eax, 0FFh
@@ -7233,13 +7233,13 @@ CreateBitmapEx:
         mov ebx, dword [byte esp+030h]
         mov byte [byte esi+019h], al
         mov eax, 10h
-        call sub_10376C
+        call FillRowTable
         mov edx, dword [byte esp+014h]
         mov ebx, edi
         mov dword [byte esi+028h], eax
         sar edx, 3
         xor eax, eax
-        call sub_10376C
+        call FillRowTable
         mov ebx, dword [byte esi+028h]
         mov dword [byte esi+030h], eax
         test ebx, ebx
@@ -7497,11 +7497,11 @@ UpdateFrameRate:
         cmp dword [dword_16E628], byte 3
         jge short .10
         push byte 0
-        push sub_1013FC
+        push PresentScreen
         jmp short .11
 .10:
         push byte 0
-        push sub_FC88C
+        push DebugSetLine
 .11:
         push byte 0
         push byte 0
@@ -7510,7 +7510,7 @@ UpdateFrameRate:
         ret
         db 08Bh,0C0h
         push byte 0
-        push sub_1013FC
+        push PresentScreen
         push byte 0
         push byte 0
         call UpdateFrameRate
@@ -8788,7 +8788,7 @@ DecodeTgvFrame:
         push ebx
         mov ecx, dword [byte esi+030h]
         push ecx
-        call sub_1300A8
+        call TgvCopyBlock
         add esp, byte 10h
 .9:
         mov eax, dword [byte esi+04h]
@@ -8813,7 +8813,7 @@ DecodeTgvFrame:
         push eax
         mov ebx, dword [byte esi+030h]
         push ebx
-        call sub_13014C
+        call TgvFillBlock
         add esp, byte 24h
 .10:
         mov eax, dword [byte esp+018h]
@@ -9000,7 +9000,7 @@ DecodeTgvKeyFrame:
         xor edx, edx
         call memset_
         push byte 8
-        call sub_1049D0
+        call BytesPerPixelForDepth
         mov edx, eax
         mov eax, dword [byte esi+028h]
         mov byte [eax], 0
@@ -9018,7 +9018,7 @@ DecodeTgvKeyFrame:
         xor edx, edx
         call memset_
         push byte 8
-        call sub_1049D0
+        call BytesPerPixelForDepth
         mov edx, eax
         mov eax, dword [byte esi+02Ch]
         mov byte [eax], 0
@@ -9068,7 +9068,7 @@ DecodeTgvKeyFrame:
         add edx, byte 10h
         push edx
         push eax
-        call sub_106F64
+        call UnpackShared
         add esp, byte 8
 .12:
         mov dword [byte esp+0Ch], 1
@@ -9336,7 +9336,7 @@ SerialOpen:
         LD xor, eax, eax
         mov ax, word [byte ebx+04h]
         LD mov, ebx, eax
-        call sub_12FFD8
+        call DosGetVector
         mov ebx, dword [byte ebp-04h]
         mov dword [byte ebx+0Ah], eax
         mov word [byte ebx+0Eh], dx
@@ -9345,7 +9345,7 @@ SerialOpen:
         LD xor, ecx, ecx
         mov cx, word [byte ebx+04h]
         LD mov, ebx, ecx
-        call sub_12FFF0
+        call DosSetVector
         mov ebx, dword [byte ebp-04h]
         mov dword [byte ebx+010h], 1
         mov dx, word [byte ebx+08h]
@@ -9367,7 +9367,7 @@ SerialOpen:
         popf
         db 068h                                 ; insn: push 108F67h
         dd SerialCloseAll
-        call sub_101220
+        call AddExitHandler
         add esp, byte 4
 .1:
         pop esi
@@ -9396,7 +9396,7 @@ SerialClose:
         LD xor, ecx, ecx
         mov cx, word [byte ebx+04h]
         LD mov, ebx, ecx
-        call sub_12FFF0
+        call DosSetVector
         mov eax, dword [byte ebp+08h]
         mov ebx, dword [nosplit eax*4+off_170B14]
         push dword [byte ebx+018h]
@@ -10183,7 +10183,7 @@ LoadNamedResource:
         push edi
         push ebp
         sub esp, byte 18h
-        call sub_FC410
+        call CurrentArchiveName
         mov edx, dword [byte esp+03Ch]
         push edx
         lea ebx, [byte esp+0Ch]
@@ -10193,7 +10193,7 @@ LoadNamedResource:
         lea ebx, [byte esp+0Ch]
         push ebx
         push eax
-        call sub_109401
+        call DosOpenFile
         add esp, byte 14h
         cmp dword [byte esp+08h], byte 0
         jne short .3
@@ -10220,7 +10220,7 @@ LoadNamedResource:
         mov edi, dword [byte esp+08h]
         push edi
         mov ebp, 1
-        call sub_10955B
+        call DosReadFile
         add esp, byte 0Ch
         mov edi, dword [dword_170158]
         mov eax, dword [byte esp+02Ch]
@@ -10235,7 +10235,7 @@ LoadNamedResource:
         mov eax, dword [ebx]
         push eax
         lea esi, [nosplit ebp*4+00h]
-        call sub_12189C
+        call FindCachedFile
         add esp, byte 4
         test eax, eax
         je short .5
@@ -10249,7 +10249,7 @@ LoadNamedResource:
         push ecx
         mov esi, dword [dword_17014C]
         push esi
-        call sub_12200C
+        call ArchiveEntryOffset
         mov esi, eax
         add esp, byte 0Ch
         test eax, eax
@@ -10265,7 +10265,7 @@ LoadNamedResource:
         push esi
         mov edi, dword [byte esp+04h]
         push edi
-        call sub_1095AD
+        call DosSeekFile
         add esp, byte 8
         mov edi, esi
 .7:
@@ -10278,7 +10278,7 @@ LoadNamedResource:
         add edi, eax
         mov eax, dword [ebx]
         push eax
-        call sub_FAB68
+        call AllocMemBlockFull
         add esp, byte 10h
         mov esi, eax
         test eax, eax
@@ -10289,7 +10289,7 @@ LoadNamedResource:
         push ecx
         mov eax, dword [byte esp+08h]
         push eax
-        call sub_10955B
+        call DosReadFile
         add esp, byte 0Ch
 .8:
         cmp dword [dword_172ABC], byte 0
@@ -10323,7 +10323,7 @@ LoadNamedResource:
 .12:
         mov edi, dword [esp]
         push edi
-        call sub_109545
+        call DosCloseFile
         add esp, byte 4
         mov eax, dword [byte esp+0Ch]
 .13:
@@ -10397,7 +10397,7 @@ LoadNamedResourceEx:
         test eax, eax
         je short .2
         push eax
-        call sub_FB62C
+        call MemDescPtr
         add esp, byte 4
         mov dword [ebx], eax
 .2:
@@ -10528,11 +10528,11 @@ InitMemoryPool:
         push ebp
         sub esp, byte 44h
         mov esi, dword [byte esp+060h]
-        call sub_121460
+        call ResetMemLock
         push eax
         mov ebx, 40h
         mov dword [dword_1CF260], eax
-        call sub_121470
+        call MemLock
         add esp, byte 4
         mov eax, dword_1DA350
         xor edx, edx
@@ -10594,7 +10594,7 @@ InitMemoryPool:
         push ebx
         mov dword [dword_16E32C], eax
         add edi, edx
-        call sub_FB5C8
+        call InitMemDescriptors
         add esp, byte 8
         push byte 0
         push byte 0
@@ -10608,7 +10608,7 @@ InitMemoryPool:
         push eax
         push byte 0
         push str_MBRAM2
-        call sub_FA5B8
+        call AddMemRegion
         mov edi, dword [dword_16E32C]
         mov edx, dword [dword_16E330]
         add esp, byte 20h
@@ -10720,7 +10720,7 @@ InitMemoryPool:
         push str_MBRAM2
         add ebx, byte 4
         mov dword [byte esp+050h], ecx
-        call sub_FA734
+        call AddHighMemRegion
         add esp, byte 10h
         jmp short .13
 .14:
@@ -10740,13 +10740,13 @@ InitMemoryPool:
         jle short .17
 .16:
         push byte 0
-        call sub_FA954
+        call MemListEnd
         add esp, byte 4
         test eax, eax
         je short .17
         call _nfree_
         push byte 0
-        call sub_FA8AC
+        call TrimMemList
         sub esi, eax
         add esp, byte 4
         test esi, esi
@@ -10763,7 +10763,7 @@ InitMemoryPool:
         push byte 0
         push str_MBRAM2
         mov dword [nosplit ebp*4+dword_1DA350], eax
-        call sub_FA734
+        call AddHighMemRegion
         add esp, byte 10h
 .18:
         mov ecx, dword [dword_16E334]
@@ -10782,7 +10782,7 @@ InitMemoryPool:
         push byte 0
         push str_MBDOS
         add edi, ecx
-        call sub_FA6A0
+        call AddMemRegions
         add esp, byte 24h
 .19:
         cmp dword [byte esp+068h], byte 0
@@ -10801,7 +10801,7 @@ InitMemoryPool:
         push ecx
         mov dword [dword_1CF268], edi
         mov dword [dword_1CF264], ebx
-        call sub_121494
+        call MemUnlock
         add esp, byte 4
         mov eax, edi
         add esp, byte 44h
@@ -11189,11 +11189,11 @@ ExitGraphics:
         je short .1
         mov eax, edx
         xor ebx, ebx
-        call sub_13061C
+        call RestoreTextScreen
         mov dword [dword_171C88], ebx
 .1:
         xor ecx, ecx
-        call sub_10374C
+        call FreeRowTable
         mov dword [dword_16E444], ecx
         pop edx
         pop ecx
@@ -11227,7 +11227,7 @@ FindDos4gw:
 .1:
         mov eax, esp
         push eax
-        call sub_106CD0
+        call FileExistsPath
         add esp, byte 4
         cmp eax, 40CB4h
         je short .2
@@ -11277,16 +11277,16 @@ InitPlatform:
 .2:
         mov ecx, dword [dword_16E4B0]
         push ecx
-        call sub_FC0F0
+        call InstallTimer
         mov esi, dword [dword_16E444]
         add esp, byte 4
         test esi, esi
         jne short .3
-        call sub_13059C
+        call SaveTextScreen
         db 068h                                 ; insn: push 109F20h
         dd ExitGraphics
         mov dword [dword_171C88], eax
-        call sub_101220
+        call AddExitHandler
         add esp, byte 4
         mov edi, dword [dword_16E46C]
         push edi
@@ -11294,17 +11294,17 @@ InitPlatform:
         push ebp
         mov eax, dword [dword_16E464]
         push eax
-        call sub_103298
+        call SetGraphicsMode
         add esp, byte 0Ch
 .3:
-        call sub_1306A0
+        call InitTextOutput
         push unk_171E38
         push dword 100h
         push byte 0
-        call sub_103648
+        call WritePaletteRegs
         add esp, byte 0Ch
         push unk_16E8A0
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         push dword 0FF000000h
         call MakeColor
@@ -11323,15 +11323,15 @@ InitPlatform:
         add esp, byte 4
         test edx, edx
         jne short .4
-        call sub_FC73E
+        call MouseInit
 .4:
-        call sub_130709
+        call ClearNumLock
         call InstallKeyboardHandler
-        push sub_1013FC
-        call sub_13073E
+        push PresentScreen
+        call InstallBreakHandler
         add esp, byte 4
-        push sub_121A43
-        call sub_FBE78
+        push PollHotkeys
+        call SetKbdIdleHook
         add esp, byte 4
         call InstallErrorHandlers
         mov ebx, dword [dword_16E468]
@@ -11340,11 +11340,11 @@ InitPlatform:
         push ecx
         push byte 14h
         push byte 1Eh
-        call sub_10CFF7
+        call SetCameraAngles
         add esp, byte 10h
         push byte 0
         push byte 0
-        call sub_10CFB4
+        call SetViewScreenOrigin
         add esp, byte 8
         call NoOpPlatformHook
         pop ebp
@@ -11358,13 +11358,13 @@ InitPlatform:
 ; Installs the handlers of the error interrupts
 ;-----------------------------------------------------------------------------
 InstallErrorHandlers:
-        push sub_12FF9C
+        push ShowPauseMessage
         push byte 10h
-        call sub_130815
+        call RegisterHotkey
         add esp, byte 8
-        push sub_12FDC8
+        push AskExitGame
         push byte 18h
-        call sub_130815
+        call RegisterHotkey
         add esp, byte 8
         ret
 ;-----------------------------------------------------------------------------
@@ -11552,7 +11552,7 @@ ConvertArtAt:
         mov edx, dword [byte esp+014h]
         mov ebx, edi
         mov eax, esi
-        call sub_12233C
+        call BlitCore
         mov eax, dword [byte esp+014h]
         mov word [byte esi+0Eh], di
         mov word [byte esi+0Ch], ax
@@ -11579,7 +11579,7 @@ ConvertArtInPlace:
         sar ebx, 10h
         mov dword [esp], edx
         mov edi, ebx
-        call sub_12233C
+        call BlitCore
         mov edx, dword [esp]
         mov word [byte esi+0Eh], di
         mov word [byte esi+0Ch], dx
@@ -11607,7 +11607,7 @@ ConvertArtInPlace:
         mov eax, esi
         mov ebx, edi
         mov dword [esp], edx
-        call sub_12233C
+        call BlitCore
         mov edx, dword [esp]
         mov word [byte esi+0Eh], di
         mov word [byte esi+0Ch], dx
@@ -11634,7 +11634,7 @@ ConvertArtXY:
         mov dword [esp], edx
         mov eax, esi
         mov edi, ebx
-        call sub_12233C
+        call BlitCore
         mov edx, dword [esp]
         mov word [byte esi+0Eh], di
         mov word [byte esi+0Ch], dx
@@ -11662,7 +11662,7 @@ ConvertArtKeepPos:
         sar ebx, 10h
         mov dword [esp], edx
         mov edi, ebx
-        call sub_12233C
+        call BlitCore
         mov edx, dword [esp]
         mov word [byte esi+0Eh], di
         mov word [byte esi+0Ch], dx
@@ -11690,7 +11690,7 @@ ConvertArtKeepPos:
         mov eax, esi
         mov ebx, edi
         mov dword [esp], edx
-        call sub_12233C
+        call BlitCore
         mov edx, dword [esp]
         mov word [byte esi+0Eh], di
         mov word [byte esi+0Ch], dx

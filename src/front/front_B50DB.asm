@@ -23,9 +23,9 @@ extern dword_1CAE24, dword_1CAE28, dword_1CAE2C, dword_1CAE34, dword_1CAE6C, dwo
 extern dword_1CAE7C, dword_1CAE80, dword_1CAE84, dword_1CAE88, dword_1CAE8C, dword_1CAE90, dword_1CAE94, dword_1CAE98
 extern dword_1CAE9C, dword_1CAEA0, dword_1CAEA4, dword_1CAEA8, dword_1CAEAC, dword_1CAEB0, dword_1CAEB4, dword_1CAEB8
 extern dword_1CAEBC, dword_1CAEC0, dword_1CAEC4, dword_1CAFF4, fclose_, fopen_, fprintf_, qsort_
-extern qword_16695B, rand_, sprintf_, strcat_, strcpy_, sub_101324, BlitShape2, BlitArt
-extern sub_1013FC, FindShape, sub_101560, sub_101584, sub_101EAC, sub_102B94, sub_102C10, sub_10CD98
-extern ConvertArtInPlace, ConvertArtXY, FindShapeList, sub_11BD90, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples
+extern qword_16695B, rand_, sprintf_, strcat_, strcpy_, BlitConverted, BlitShape2, BlitArt
+extern PresentScreen, FindShape, OpenArtArchive, OpenArtArchiveErr, DrawShapeBlended, ConvertArtNew, ResetClipWindow, DrawSpriteScaledBy
+extern ConvertArtInPlace, ConvertArtXY, FindShapeList, SetFullClip, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples
 extern WaitSoundTime, PlayMenuSfx, StopAllSfx, PlaySfx, PlayScreenMovie, LoadDataFile, OpenDataLibrary, DrawScreenBackground
 extern FadeInScreen, ExitScreen, SetRegionRect, DrawEditBox, SetTextColor, DrawTextAligned, ShowMessageBox, DrawTeamLogoBanner
 extern DrawProgressBar, WipeScreen, FindColorRange, SetHighlightText, SetNormalText, PoundsToKg, InchesToCm, DrawStatTable
@@ -34,7 +34,7 @@ extern InitMenuItems, RunMenu, InitScrollList, ScrollUp, DrawScrollBar, ScrollDo
 extern ScrollToMouse, RunScrollList, SetListSelection, GetLangText, WriteCsvLine, AskExportFile, CompareStatColumn, CompareRatingColumn
 extern VideoOptionsScreen, KeysEqual, FreeDbBlock, AgeFromBirthDate, FindTeamRecord, FindPlayerRecord, OpenLeagueFile, FindGameRecord
 extern FindPlayerStat, FindTeamStat, ServiceIdle, LinkSyncMenu, LinkSyncScreen, AllocMemBlock, FreeMemBlock, MakeColor
-extern FreeBitmap, sub_FCEEC, sub_FCF84, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, tickcount
+extern FreeBitmap, DrawShapeCore, DrawShapeAtOwnPos, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, tickcount
 extern unk_1667A4, unk_1667A7, unk_1668C2, unk_1668C5, unk_1668F8, unk_166915, unk_166946, unk_166948
 extern unk_16D7FC, unk_16D804, unk_1AD22E, unk_1AD236, unk_1AD73A, unk_1C5F4A, unk_1C5F9C, unk_1C5FEE
 extern unk_1CA9DC, unk_1CAADC, unk_1CABDC, unk_1CACE8, unk_1CACF4, unk_1CAD00, unk_1CAD24
@@ -133,7 +133,7 @@ DrawStatsCardPage:
         push dword [dword_1CAD28]
         mov eax, dword [dword_1CAD38]
         push dword [byte eax+02Ch]
-        call sub_101324
+        call BlitConverted
         mov eax, dword [dword_1CAE28]
         add eax, byte 0Fh
         add esp, byte 0Ch
@@ -227,9 +227,9 @@ DrawStatsCardPage:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [tickcount]
         mov edi, eax
         lea edx, [byte edi+02h]
@@ -283,7 +283,7 @@ DrawStatsCardPage:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_101324
+        call BlitConverted
         add esp, byte 0Ch
         call SetScreenTarget
         push str_MTR1
@@ -299,9 +299,9 @@ DrawStatsCardPage:
         movsx eax, word [byte eax+0Ch]
         push eax
         push dword [byte ebx+02Ch]
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         push ebx
         call FreeBitmap
         add esp, byte 4
@@ -342,14 +342,14 @@ DrawStatsCardPage:
         push byte 0
         add eax, byte 27h
         push eax
-        call sub_101560
+        call OpenArtArchive
         add esp, byte 8
         mov dword [dword_1CAE78], eax
         test eax, eax
         jne short .15
         push eax
         push str_NOFACEFSH3
-        call sub_101584
+        call OpenArtArchiveErr
         add esp, byte 8
         mov dword [dword_1CAE78], eax
 .15:
@@ -365,11 +365,11 @@ DrawStatsCardPage:
         call SetScreenTarget
         push dword [dword_16E46C]
         push ebx
-        call sub_102B94
+        call ConvertArtNew
         add esp, byte 8
         mov ebx, eax
         mov dword [byte ebp-0Ch], eax
-        call sub_1013FC
+        call PresentScreen
         movsx eax, word [byte ebx+06h]
         push byte 0
         sub eax, byte 32h
@@ -449,7 +449,7 @@ DrawStatsCardPage:
         push byte 0
         push ebx
         push dword 10000h
-        call sub_101EAC
+        call DrawShapeBlended
         mov eax, dword [byte ebp-04h]
         add esp, byte 10h
         mov edx, dword [byte edi+02Ch]
@@ -476,9 +476,9 @@ DrawStatsCardPage:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [tickcount]
         mov edi, eax
         lea edx, [byte edi+02h]
@@ -516,7 +516,7 @@ DrawStatsCardPage:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_101324
+        call BlitConverted
         add esp, byte 0Ch
         push str_SPHL
         push dword [dword_1CAE6C]
@@ -547,7 +547,7 @@ DrawStatsCardPage:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_101324
+        call BlitConverted
         add esp, byte 0Ch
         push byte 28h
         mov eax, dword [byte ebp-08h]
@@ -600,9 +600,9 @@ DrawStatsCardPage:
         movsx eax, word [byte eax+0Ch]
         push eax
         push dword [byte esi+02Ch]
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         push dword [byte ebp-0Ch]
         call FreeMemBlock
         add esp, byte 4
@@ -1088,7 +1088,7 @@ PlayerStatsScreen:
         push dword [byte eax+02Ah]
         push dword [byte eax+026h]
         push dword [byte eax+01Ah]
-        call sub_101324
+        call BlitConverted
         add esp, byte 0Ch
 .20:
         inc ebx
@@ -1103,7 +1103,7 @@ PlayerStatsScreen:
         push dword [byte eax+02Ch]
         call BlitShape2
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         call HideLinkBox
         cmp dword [dword_16CCF1], byte 0
         je short .22
@@ -1139,7 +1139,7 @@ PlayerStatsScreen:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
 .25:
         lea eax, [byte ebx+01h]
         push eax
@@ -1167,7 +1167,7 @@ PlayerStatsScreen:
         push esi
         call BlitShape2
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         cmp ebx, byte 3
         jne short .26
         call SetScreenTarget
@@ -1178,7 +1178,7 @@ PlayerStatsScreen:
         push eax
         call BlitShape2
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
 .26:
         lea edx, [byte edi+019h]
 .27:
@@ -1236,7 +1236,7 @@ PlayerStatsScreen:
         push dword [byte eax+02Ch]
         call ConvertArtXY
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [byte ebp+ebx*4+012h]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword esi+dword_1CAE2C], eax
@@ -1287,7 +1287,7 @@ PlayerStatsScreen:
         mov eax, unk_1CAD24
         xor edx, edx
         call DrawScrollBar
-        call sub_1013FC
+        call PresentScreen
         cmp byte [byte_1C8338], 0
         jne short .33
         mov edx, dword [dword_1CAEAC]
@@ -1761,7 +1761,7 @@ PlayerStatsScreen_DC7:
         push dword [byte eax+02Ch]
         call BlitShape2
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
 .71:
         push str_PWRB
         push dword [dword_1CAE6C]
@@ -1865,7 +1865,7 @@ PlayerStatsScreen_1114:
         call BlitShape2
         add esp, byte 4
         mov dword [dword_1CAEBC], 1
-        call sub_1013FC
+        call PresentScreen
         jmp near PlayerStatsScreen_DC7.64
 .79:
         push dword [dword_1CAE6C]
@@ -4145,9 +4145,9 @@ DrawPlayerRatingsPage:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [tickcount]
         mov dword [byte ebp-04h], eax
 .10:
@@ -4165,7 +4165,7 @@ DrawPlayerRatingsPage:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
 .11:
         mov eax, dword [dword_1CAB00]
@@ -4205,9 +4205,9 @@ DrawPlayerRatingsPage:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [tickcount]
         mov dword [byte ebp-04h], eax
 .14:
@@ -4226,9 +4226,9 @@ DrawPlayerRatingsPage:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
 .15:
         mov eax, dword [dword_1CAC00]
         mov edx, dword [dword_1CAE80]
@@ -4268,14 +4268,14 @@ DrawPlayerRatingsPage:
         push byte 0
         add eax, byte 27h
         push eax
-        call sub_101560
+        call OpenArtArchive
         add esp, byte 8
         mov dword [dword_1CAE88], eax
         test eax, eax
         jne short .20
         push eax
         push str_NOFACEFSH3
-        call sub_101584
+        call OpenArtArchiveErr
         add esp, byte 8
         mov dword [dword_1CAE88], eax
 .20:
@@ -4292,7 +4292,7 @@ DrawPlayerRatingsPage:
         jne short .21
         push dword [dword_16E46C]
         push edi
-        call sub_102B94
+        call ConvertArtNew
         add esp, byte 8
         mov edi, eax
 .21:
@@ -4364,7 +4364,7 @@ DrawPlayerRatingsPage:
         push byte 0
         push edi
         push dword 0E666h
-        call sub_101EAC
+        call DrawShapeBlended
         mov edx, dword [byte ebp-08h]
         mov eax, dword [byte ebp-0Ch]
         add esp, byte 10h
@@ -4393,9 +4393,9 @@ DrawPlayerRatingsPage:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [tickcount]
         mov dword [byte ebp-04h], eax
 .25:
@@ -4421,7 +4421,7 @@ DrawPlayerRatingsPage:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
         cmp byte [byte_1C6040], 0
         je short .26
@@ -4429,15 +4429,15 @@ DrawPlayerRatingsPage:
         push dword 12Fh
         push byte 0Ch
         push byte 0Ah
-        call sub_11BD90
+        call SetFullClip
         add esp, byte 10h
         push byte 1
         push byte 4Bh
         push edi
         push dword 0E666h
-        call sub_10CD98
+        call DrawSpriteScaledBy
         add esp, byte 10h
-        call sub_102C10
+        call ResetClipWindow
         jmp short .27
 .26:
         push byte 0Bh
@@ -4494,9 +4494,9 @@ DrawPlayerRatingsPage:
         movsx eax, word [byte eax+0Ch]
         push eax
         push dword [byte esi+02Ch]
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         cmp byte [byte_1C6040], 0
         jne short .30
         push edi
@@ -4544,7 +4544,7 @@ DrawPlayerRatingsPage:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCEEC
+        call DrawShapeCore
         mov eax, dword [dword_1AC814]
         and eax, byte 70h
         add esp, byte 0Ch
@@ -4588,9 +4588,9 @@ DrawPlayerRatingsPage:
         movsx eax, word [byte eax+0Ch]
         push eax
         push dword [byte esi+02Ch]
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         push esi
         call FreeBitmap
         add esp, byte 4
@@ -4623,14 +4623,14 @@ DrawPlayerRatingsPage:
         push byte 0
         add eax, byte 27h
         push eax
-        call sub_101560
+        call OpenArtArchive
         add esp, byte 8
         mov dword [dword_1CAE8C], eax
         test eax, eax
         jne short .36
         push eax
         push str_NOFACEFSH3
-        call sub_101584
+        call OpenArtArchiveErr
         add esp, byte 8
         mov dword [dword_1CAE8C], eax
 .36:
@@ -4647,7 +4647,7 @@ DrawPlayerRatingsPage:
         jne short .37
         push dword [dword_16E46C]
         push edi
-        call sub_102B94
+        call ConvertArtNew
         add esp, byte 8
         mov edi, eax
 .37:
@@ -4719,7 +4719,7 @@ DrawPlayerRatingsPage:
         push byte 0
         push edi
         push dword 0E666h
-        call sub_101EAC
+        call DrawShapeBlended
         mov edx, dword [byte ebp-08h]
         mov eax, dword [byte ebp-0Ch]
         add esp, byte 10h
@@ -4748,9 +4748,9 @@ DrawPlayerRatingsPage:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [tickcount]
         mov dword [byte ebp-04h], eax
 .41:
@@ -4769,9 +4769,9 @@ DrawPlayerRatingsPage:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
-        call sub_1013FC
+        call PresentScreen
         push esi
         call SetDrawTarget
         add esp, byte 4
@@ -4801,15 +4801,15 @@ DrawPlayerRatingsPage:
         push dword 14Ah
         push byte 0Ch
         push byte 0Ah
-        call sub_11BD90
+        call SetFullClip
         add esp, byte 10h
         push byte 2
         push byte 0Ah
         push edi
         push dword 0E666h
-        call sub_10CD98
+        call DrawSpriteScaledBy
         add esp, byte 10h
-        call sub_102C10
+        call ResetClipWindow
 .43:
         mov eax, dword [dword_1AC814]
         and eax, byte 70h
@@ -4860,7 +4860,7 @@ DrawPlayerRatingsPage:
         push dword [byte esi+02Ch]
         call DrawArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         cmp byte [byte_1C6040], 0
         jne short .46
         push edi
@@ -4952,9 +4952,9 @@ DrawPlayerRatingsPage:
         movsx eax, word [byte eax+0Ch]
         push eax
         push dword [byte esi+02Ch]
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         jmp near DrawStatsCardPage_76D
 jpt_B8F8B:
         dd PlayerRatingsScreen_D1D
@@ -5704,7 +5704,7 @@ PlayerRatingsScreen:
         push byte 0
         push byte 0Ah
         push dword [byte ebp+05Eh]
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
         push dword [byte ebp+02Eh]
         call SetDrawTarget
@@ -5726,7 +5726,7 @@ PlayerRatingsScreen:
         push byte 0
         push byte 0
         push dword [byte ebp+05Ah]
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
         call SetScreenTarget
         mov eax, dword [byte ebp+05Eh]
@@ -5752,7 +5752,7 @@ PlayerRatingsScreen:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         lea edx, [byte esi+02h]
 .43:
         mov eax, dword [tickcount]
@@ -5814,7 +5814,7 @@ PlayerRatingsScreen:
         push dword [byte eax+02Ch]
         call ConvertArtXY
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         mov eax, dword [byte esi+ebp-012h]
         mov eax, dword [byte eax+02Ch]
         inc ebx
@@ -5826,14 +5826,14 @@ PlayerRatingsScreen:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
         push str_MN04
         push dword [dword_1CAE6C]
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCF84
+        call DrawShapeAtOwnPos
         add esp, byte 4
         mov eax, unk_1CAADC
         xor edx, edx
@@ -5844,7 +5844,7 @@ PlayerRatingsScreen:
         mov eax, unk_1CA9DC
         xor edx, edx
         call DrawScrollBar
-        call sub_1013FC
+        call PresentScreen
         mov eax, 37h
         call OpenDataLibrary
         push byte 0
@@ -7323,7 +7323,7 @@ PlayerRatingsScreen_2040:
         push dword [byte esi+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         cmp dword [dword_1CAEA0], byte 0
         je short .187
         call SetScreenTarget
@@ -7333,7 +7333,7 @@ PlayerRatingsScreen_2040:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
 .187:
         cmp dword [dword_16D404], byte 0
         je short .188
@@ -10170,7 +10170,7 @@ DrawPlayerRatings_1713:
         push dword [byte eax+02Ch]
         call BlitArt
         add esp, byte 0Ch
-        call sub_1013FC
+        call PresentScreen
         cmp dword [dword_1CAEA0], byte 0
         je short .230
         push dword [byte ebp-018h]

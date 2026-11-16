@@ -2,8 +2,11 @@
 bits 32
 %include "hockey.inc"
 section s_F9B40 progbits alloc exec nowrite align=1
-extern __set_errno_, access_, getcwd_, getenv_, strcat_, strcpy_, strlen_, sub_120763
+extern __set_errno_, access_, getcwd_, getenv_, strcat_, strcpy_, strlen_, ErrnoPtr
 global _searchenv_
+;-----------------------------------------------------------------------------
+; _searchenv_                                                   F9B40  library
+;-----------------------------------------------------------------------------
 _searchenv_:
         push ecx
         push esi
@@ -12,7 +15,7 @@ _searchenv_:
         mov ecx, eax
         mov edi, edx
         mov esi, ebx
-        call sub_120763
+        call ErrnoPtr
         mov eax, dword [eax]
         xor edx, edx
         mov dword [byte ebp-04h], eax
