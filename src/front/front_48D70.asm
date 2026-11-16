@@ -75,9 +75,9 @@ extern StartCameraPath, SelectCameraView, InitCamera, DrawCameraDebugMarks, RunC
 extern InitDisplayViews, FreeDisplayViews, AddDisplayView, SetViewDrawTarget, SetViewSize, SetViewInterlaced, HideView, SetViewOrigin
 extern PresentGameView, InitPaletteManager, ShutdownPaletteManager, AddPaletteRange, AddArtToRange, RemapArtBank, SetRangeColors, RemapBankToRange
 extern QuantizeAllRanges, BuildGamePalette, OpenStreamBuffer, delstream, CdStreamQueue, CdStreamService, CdStreamNextPacket, StreamBufferFree
-extern MusicStreamTick, WaitMusicEnd, ServiceSpeechQueue, sub_480CC, sub_4880C, sub_48864, RecordStreakClips, sub_52E14
-extern LoadRinkLines, LoadRinkModel, FreeRinkModel, sub_5475C, sub_55110, sub_55FE4, sub_560AC, sub_56464
-extern sub_56740, LoadGoalieMask, LoadGameModels, SetupTeamModels, FreeGameModels, UpdateViewMatrix, ScaleModelLods, SetModelExtraFlags
+extern MusicStreamTick, WaitMusicEnd, ServiceSpeechQueue, sub_480CC, sub_4880C, sub_48864, RecordStreakClips, SetRinkPalette
+extern LoadRinkLines, LoadRinkModel, FreeRinkModel, SetRinkTransform, DrawRinkOverlay, DrawRinkPass, DrawNearSide, DrawFarSide
+extern SaveViewOrigin, LoadGoalieMask, LoadGameModels, SetupTeamModels, FreeGameModels, UpdateViewMatrix, ScaleModelLods, SetModelExtraFlags
 extern DrawPlayersSorted, DrawIceMarkers, DrawPlayerNames, DrawPuckArrow, NoOpDraw, ReplaySoundAllowed, ProjectRinkPoints, LoadAiIcons
 extern FreeCameraDebug, PlayMovie, ShowLoadingBar, ClearLinkAbort, ServiceIdle, AllocMemBlock, FreeMemBlock, ZeroMem
 extern WaitTicks, sub_FC330, sub_FC410, sub_FC4BC, sub_FCC40, sub_FD954, DrawTextAt, SetTextColors
@@ -3726,7 +3726,7 @@ InitGameGraphics:
         push eax
         call SetTextColors
         add esp, byte 8
-        call sub_56740
+        call SaveViewOrigin
         mov ebx, dword [byte ebp+034h]
         mov edx, dword [byte ebp+030h]
         mov eax, dword [byte ebp+02Ch]
@@ -4062,7 +4062,7 @@ DrawGameFrame:
         call DrawTextAt
         add esp, byte 0Ch
 .4:
-        call sub_56740
+        call SaveViewOrigin
         mov ebx, esp
         mov edx, unk_1B92AB
         mov eax, 9
@@ -4073,7 +4073,7 @@ DrawGameFrame:
         call FloatsToInts
         mov edx, esp
         lea eax, [byte esp+024h]
-        call sub_5475C
+        call SetRinkTransform
         mov eax, esi
         call UpdateBenchCheer
         mov eax, esi
@@ -4082,7 +4082,7 @@ DrawGameFrame:
         call UpdateGoalLight
         mov eax, esi
         call DrawScoreboard
-        call sub_55110
+        call DrawRinkOverlay
         call ScaleModelLods
         mov ebp, dword [dword_1ADC84]
         xor ebx, ebx
@@ -4106,8 +4106,8 @@ DrawGameFrame:
         push edx
         call SortIndices
         add esp, byte 0Ch
-        call sub_55FE4
-        call sub_52E14
+        call DrawRinkPass
+        call SetRinkPalette
         call DrawNetsHook
         call NoOpDraw
         xor edx, edx
@@ -4126,7 +4126,7 @@ DrawGameFrame:
         add edx, 760h
         cmp edx, 5FE0h
         jne short .7
-        call sub_560AC
+        call DrawNearSide
         call DrawFrameNoop
         call DrawCameraDebug
         call DrawCameraDebugMarks
@@ -4176,7 +4176,7 @@ DrawGameFrame:
         mov edx, 0FFFFF808h
         mov eax, 1
         call DrawModelList
-        call sub_56464
+        call DrawFarSide
         call DrawPlayerNames
         xor edx, edx
 .12:

@@ -53,11 +53,11 @@ extern UpdateCoachModes, ChkShoot, ForceShoot, AddPenalty, AddPenalty2, PenGoalS
 extern doplayeracc, ChkOneTimerSpot, ClearLastPasser, OneTimerShot, PickBenchSeat, FaceoffMoveResult, FaceoffSwipeAnim, FaceoffDrawAnim
 extern PokeCheckAnim, AIBodyCheck, SetVideoMode, SetViewSize, SetViewInterlaced, ClearViewInterlaced, HideView, ShowView
 extern SetViewOrigin, AddOverlayWindow, RemoveOverlayWindow, RefreshOverlayWindow, FadeGamePalette, SetCrowdMood, CommentaryEvent, SetArtArchive
-extern ResetRenderTimers, TriggerCameraFlashes, SetCameraMode, GoalCrowdCheer, sub_55000, sub_56CD0, sub_56CE4, sub_56CF8
+extern ResetRenderTimers, TriggerCameraFlashes, SetCameraMode, GoalCrowdCheer, LoadOpeningArt, SetFaceMouth, SetFaceExpression, SetFaceBlink
 extern SetCameraTarget, SetCameraPathTarget, SetCameraSplineTarget, UpdateCameraMotion, SnapCamera, BuildCameraMatrix, UpdateCameraProjection, InitCameraParams
 extern SetSPA, ResetAnimTimer, PickSkateAnim, SetSkateSpeedFromRating, StickReach, ObjectFramePos, TryStickTouch, StopObject
 extern StartPassAnim, StartDropPassAnim, StartGoalieSave, StartGoalieStance, GoalieMoves, DrawCameraPath, SetTextColor, DrawTextAligned
-extern GetLangText, sub_AA4BC, sub_F2AA0, NextVideoMode, PrevVideoMode, FreeMemBlock, sub_FC4BC, sub_FCC40
+extern GetLangText, LogGoal, sub_F2AA0, NextVideoMode, PrevVideoMode, FreeMemBlock, sub_FC4BC, sub_FCC40
 extern FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, sub_FD528, sub_FD954, sub_FDC68
 extern FillRect, MeasureText, DrawTextAt, SetTextColors, DrawTextBoxedAt, FillRectCorners, MatRotY, MatTranspose
 extern VecMulMat, VecAdd, VecSub, VecDistance, VecLength, VecScale, VecNormalizeTo, ProjectPointInt
@@ -8251,7 +8251,7 @@ EndOpeningCamera:
         add esp, byte 4
         xor eax, eax
         xor ecx, ecx
-        call sub_55000
+        call LoadOpeningArt
         mov dword [dword_19D384], ecx
         mov dword [dword_19D070], ecx
 .1:
@@ -8293,7 +8293,7 @@ OpeningCameraStep:
         add esp, byte 4
         xor eax, eax
         xor edx, edx
-        call sub_55000
+        call LoadOpeningArt
         mov dword [dword_19D384], edx
         mov dword [dword_19D070], edx
         jmp near .7
@@ -8441,7 +8441,7 @@ LoadOpeningCamera:
         mov edx, 8
         mov eax, 1
         mov dword [dword_19D388], edx
-        call sub_55000
+        call LoadOpeningArt
         push byte 1
         push str_IntroD3cp
         lea eax, [byte esp+08h]
@@ -15567,15 +15567,15 @@ Goal:
 .70:
         mov edx, 2
         mov eax, dword [dword ebx+0F2h]
-        call sub_56CE4
+        call SetFaceExpression
         mov edx, ebp
         mov eax, dword [dword ebx+0F2h]
         inc edi
-        call sub_56CD0
+        call SetFaceMouth
         mov eax, dword [dword ebx+0F2h]
         xor edx, edx
         add ebx, 108h
-        call sub_56CF8
+        call SetFaceBlink
         cmp di, byte 6
         jl short .70
         mov ebx, dword [dword ecx+0104h]
@@ -15679,7 +15679,7 @@ Goal:
         mov eax, dword [gsp]
         sar edx, 10h
         sar eax, 10h
-        call sub_AA4BC
+        call LogGoal
 .79:
         mov edx, 7
         mov eax, dword [dword esi+0104h]

@@ -14,9 +14,9 @@ extern off_168CE0, off_168CE8, off_168CF0, off_168CFC, off_168D04, qword_160018,
 extern randomd0, regd1, str_CGRIP, str_GRIP, str_GRIPGLL, strcat_, strcpy_, sub_13AF0
 extern ShowCameraView, ClearOverlayWindows, ResetSceneCamera, assreplace, assinsert, Setplass, FaceoffSpotPosition, asspsclear
 extern ResetCoachModes, UpdateCoachModes, EndPenaltyShot, SetPlayerTarget, PickBenchSeat, ChkMenuMusic, StartMusicTrack, QueueMusicRestart
-extern RequestMusicStop, MusicFileName, StopAllSfx, SetCrowdMood, CommentaryEvent, PaEvent, SetCameraMode, sub_52E28
-extern sub_57298, sub_57304, SetupPlayerModel, DrawJerseyLettering, LoadGoalieMask, UpdateFaceTextures, ResetAnimTimer, UpdateGameDisplay
-extern InitPlayerAnims, DoGameFrame, sub_AA650, AllocMemBlock, ZeroMem, sub_FB8AE, sub_FBCD8, unk_16000C
+extern RequestMusicStop, MusicFileName, StopAllSfx, SetCrowdMood, CommentaryEvent, PaEvent, SetCameraMode, UpdateRinkPalette
+extern RefreshFaceTextures, SetModelSlotValue, SetupPlayerModel, DrawJerseyLettering, LoadGoalieMask, UpdateFaceTextures, ResetAnimTimer, UpdateGameDisplay
+extern InitPlayerAnims, DoGameFrame, LogPeriodEnd, AllocMemBlock, ZeroMem, sub_FB8AE, sub_FBCD8, unk_16000C
 extern unk_168574, unk_168C38, unk_19CCB8, unk_19D5D2, unk_19D668, unk_19D6A0, unk_19DC40, unk_19E060
 extern unk_19E270, unk_1B9520, unk_1C135C, unk_1C347F, word_1684BE, word_1684CA, word_1684E8, word_1684EC
 extern word_1686D8, word_1686DA, word_168D18, word_19CB28, word_19CB2A, word_19CB5C, word_19CB60, word_19CB64
@@ -2257,7 +2257,7 @@ sub_119A8:
         xor eax, eax
         mov edx, 1
         mov al, byte [dword ecx+0A4h]
-        call sub_57298
+        call RefreshFaceTextures
         cmp byte [dword ecx+0D0h], 0
         sete al
         xor edx, edx
@@ -2284,7 +2284,7 @@ sub_119A8:
         xor eax, eax
         xor edx, edx
         mov al, byte [dword ecx+0A4h]
-        call sub_57298
+        call RefreshFaceTextures
         xor edx, edx
         xor eax, eax
         mov dl, byte [dword ecx+0D0h]
@@ -2352,7 +2352,7 @@ sub_119A8:
         xor eax, eax
         mov al, byte [dword ecx+0A4h]
         push dword [esp]
-        call sub_57304
+        call SetModelSlotValue
 .9:
         mov esp, ebp
         pop ebp
@@ -3657,7 +3657,7 @@ sub_12A10:
         shl ecx, 10h
         add eax, ecx
         mov edx, esi
-        call sub_52E28
+        call UpdateRinkPalette
         pop esi
         pop edx
         pop ecx
@@ -3752,7 +3752,7 @@ ClockTick:
         shl ecx, 10h
         add eax, ecx
         xor edx, edx
-        call sub_52E28
+        call UpdateRinkPalette
         mov edx, dword [gsp]
         sar edx, 10h
         mov ebx, 3Ch
@@ -3861,7 +3861,7 @@ sub_12C2C:
         mov eax, dword [word_19CBAE]
         xor edx, edx
         sar eax, 10h
-        call sub_AA650
+        call LogPeriodEnd
         cmp word [word_19CC24], byte 0
         je short .5
         mov eax, dword [word_19CC26]

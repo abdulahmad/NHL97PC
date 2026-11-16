@@ -34,7 +34,7 @@ extern LoadTeamLogo, FreeLogoArt, WipeScreen, SetHighlightText, SetNormalText, P
 extern DrawHighlightBar, ShowPopupScreen, DrawStatsBackground, FreeStatsBitmap, ShowStatsScreen, ChangeMenuMusic, InitMenuItems, sub_8BFAC
 extern sub_8D956, sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E, SetScrollBarPos, sub_8DEAC, sub_8DF1F
 extern sub_8E6AF, GetLangText, sub_8E870, LoadFakeExhibition, SaveAgents, sub_92EE2, sub_92F25, EditLinesScreen
-extern sub_9D333, PlayerRatingsScreen, KeysEqual, DaysToYear, AgeFromBirthDate, FindTeamRecord, FindPlayerRecord, FindGameRecord
+extern BuildAutoLines, PlayerRatingsScreen, KeysEqual, DaysToYear, AgeFromBirthDate, FindTeamRecord, FindPlayerRecord, FindGameRecord
 extern UpdateGameRecord, FindPlayerStat, FindTeamStat, FreeExhibitionFile, ResetExhibitionStats, AllocMemBlock, FreeMemBlock, MakeColor
 extern FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, FillRect, MeasureText, tickcount
 extern unk_166E9D, unk_166F30, unk_16D7F4, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C5FEE, word_16D6C4
@@ -5406,11 +5406,11 @@ RosterTradeScreen:
         imul eax, dword [dword_1CC1C4], dword 32C6h
         mov edx, dword [dword_1CC2AC]
         mov eax, dword [edx+eax]
-        call sub_9D333
+        call BuildAutoLines
         imul edx, dword [dword_1CC1C8], dword 32C6h
         mov eax, dword [dword_1CC2AC]
         mov eax, dword [edx+eax]
-        call sub_9D333
+        call BuildAutoLines
         imul edx, dword [dword_1CC1C4], dword 32C6h
         mov eax, dword [dword_1CC2AC]
         mov eax, dword [edx+eax]
@@ -7656,7 +7656,7 @@ RosterEditScreen_AD:
         mov eax, dword [dword_1CC2AC]
         add eax, dword [byte ebp+07Ah]
         mov eax, dword [eax]
-        call sub_9D333
+        call BuildAutoLines
         imul eax, dword [dword edx+dword_1CC1C4], dword 32C6h
         mov ecx, dword [dword_1CC2AC]
         add eax, ecx
@@ -7717,7 +7717,7 @@ RosterEditScreen_1BD:
         imul ebx, dword [dword edx+dword_1CC1C4], dword 32C6h
         mov eax, dword [dword_1CC2AC]
         mov eax, dword [ebx+eax]
-        call sub_9D333
+        call BuildAutoLines
         imul ebx, dword [dword edx+dword_1CC1C4], dword 32C6h
         mov eax, dword [dword_1CC2AC]
         mov eax, dword [ebx+eax]
@@ -7831,7 +7831,7 @@ RosterEditScreen_25B:
         imul eax, dword [nosplit esi*4+dword_1CC1C4], dword 32C6h
         mov edx, dword [dword_1CC2AC]
         mov eax, dword [edx+eax]
-        call sub_9D333
+        call BuildAutoLines
         imul eax, dword [nosplit esi*4+dword_1CC1C4], dword 32C6h
         mov edx, dword [dword_1CC2AC]
         mov eax, dword [edx+eax]
@@ -8808,7 +8808,7 @@ ReleasePlayer:
         imul edx, dword [dword edi+dword_1CC1C4], dword 32C6h
         mov eax, dword [dword_1CC2AC]
         mov eax, dword [edx+eax]
-        call sub_9D333
+        call BuildAutoLines
         imul edx, dword [dword edi+dword_1CC1C4], dword 32C6h
         mov eax, dword [dword_1CC2AC]
         mov eax, dword [edx+eax]

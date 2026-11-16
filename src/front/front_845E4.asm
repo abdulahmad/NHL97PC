@@ -22,7 +22,7 @@ extern WaitSoundTime, ChkMenuMusic, PauseMusic, RequestMusicStop, WaitMusicEnd, 
 extern PlaySfx, MakeDataPath, LoadDataFile, OpenDataLibrary, ShadeShape, DrawShadowBox, DrawScreenBackground, FadeInScreen
 extern ShowScreen, ExitScreen, SetRegionRect, ShowMessageBox, WipeScreen, DrawEntryRow, DrawStatTable, ShowPopupScreen
 extern InitMenuItems, sub_8BFAC, sub_8D6E8, sub_8D910, sub_8E2EE, GetLangText, RunNewSeason, RunSeasonMenus
-extern sub_9279A, RunNewPlayoffs, RunPlayoffMenus, EditLinesScreen, TeamSelectScreen, PickIndexEntryScreen, sub_A4B7D, PostGameScreen
+extern sub_9279A, RunNewPlayoffs, RunPlayoffMenus, EditLinesScreen, TeamSelectScreen, PickIndexEntryScreen, RunLinkGameScreens, PostGameScreen
 extern GameStatsScreen, PlayMenuGame, sub_AC369, TeamStatsScreen, sub_AF074, sub_B418C, PlayerStatsScreen, PlayerRatingsScreen
 extern sub_BD621, sub_C0F5D, RosterScreen, PreGameMatchupScreen, PreGameRostersScreen, FreeDbBlock, OpenLeagueFile, FindGameRecord
 extern ClearLinkAbort, ServiceIdle, NetDisconnect, LinkSendBlock, LinkReceiveBlock, AllocMemBlock, FreeMemBlock, ZeroMem
@@ -1553,7 +1553,7 @@ RunGameScreens:
         call RunPlayoffMenus
         jmp short .7
 .15:
-        call sub_A4B7D
+        call RunLinkGameScreens
         mov ebx, eax
         cmp eax, byte 1Ah
         jne short .19

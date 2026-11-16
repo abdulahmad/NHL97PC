@@ -26,7 +26,7 @@ extern PlaySfx, PlayScreenMovie, LoadDataFile, DrawShadedLogo, DrawScreenBackgro
 extern SetTextColor, DrawTextAligned, ShowMessageBox, LoadTeamLogo, FreeLogoArt, WipeScreen, SetHighlightText, SetNormalText
 extern ShowWorkingBox, UpdateWorkingBox, HideWorkingBox, DrawHighlightBar, ShowPopupScreen, DrawStatsBackground, FreeStatsBitmap, ShowStatsScreen
 extern ChangeMenuMusic, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E
-extern SetScrollBarPos, sub_8DEAC, sub_8DF1F, sub_8E6AF, GetLangText, sub_8E870, sub_9D2D0, sub_AF074
+extern SetScrollBarPos, sub_8DEAC, sub_8DF1F, sub_8E6AF, GetLangText, sub_8E870, ClearAndBuildLines, sub_AF074
 extern PlayerStatsScreen, InitListBox, InitShapeListBox, KeysEqual, SetMatchupTeams, BuildAllStarRecords, FindPlayerRecord, FindGameRecord
 extern FindPlayerStat, FindTeamStat, ServiceIdle, AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, MeasureText, tickcount, unk_167806, unk_167809
@@ -50,12 +50,12 @@ extern unk_1CEDF0, unk_1CEDFF, unk_1CEE0E, unk_1CEE1D, unk_1CEE2C, unk_1CEE3B, u
 extern unk_1CEE68, unk_1CEE77, unk_1CEE86, unk_1CEE95, unk_1CEEA4, unk_1CEEB3, unk_1CEEC2, unk_1CEED1
 extern unk_1CEEE0, unk_1CEEEF, unk_1CEEFE, unk_1CEF0D, unk_1CEF1C, unk_1CEF2B, unk_1CEF3A, unk_1CEF49
 extern unk_1CEF58, unk_1CEF67, word_16E2EA, word_1C1344, word_1C1348, word_1C13C2, word_1C34E5, word_1C55A2
-global BuildAllStarTeams_4B, sub_E9CB5_1E0, sub_EA7CF_68E, sub_EA7CF_6C5, sub_EBD8C_31, PickAllStarPlayers_4C2, PickAllStarPlayers_4C3, BuildAllStarTeams
-global AllStarScreen, sub_E9CB5, InitAllStarScreen, sub_EA52D, DrawAllStarConference, sub_EA64E, sub_EA6EB, sub_EA7CF
-global sub_EAE9A, sub_EAF08, DrawAllStarList, sub_EB840, sub_EB8DA, sub_EBA9B, sub_EBB68, sub_EBC19
-global sub_EBC45, sub_EBC70, sub_EBCFA, sub_EBD54, sub_EBD8C, sub_EBDC3, sub_EBEDA, sub_EBFCE
-global sub_EC19E, sub_EC34D, sub_EC4DB, sub_EC588, sub_EC60D, sub_EC671, sub_EC82C, PickAllStarPlayers
-global InitAllStarTeams, AllocAllStarRosters, sub_ED3C1, sub_ED6C8, sub_ED8E8, sub_EDDAC, GetKeyName, unk_EDDEF
+global BuildAllStarTeams_4B, AllStarSound_1E0, DrawAllStarTeam_68E, DrawAllStarTeam_6C5, FindFreeAllStarSlot_31, PickAllStarPlayers_4C2, PickAllStarPlayers_4C3, BuildAllStarTeams
+global AllStarScreen, AllStarSound, InitAllStarScreen, FreeAllStarScreen, DrawAllStarConference, ShowAllStarArt, DrawAllStarHighlight, DrawAllStarTeam
+global DrawAllStarSlot, DrawAllStarSelection, DrawAllStarList, LoadAllStarLogo, LoadAllStarArt, AllStarNextTeam, AllStarPrevTeam, AllStarNextSlot
+global AllStarPrevSlot, ClearAllStarPicks, AllStarPicksDone, FindAllStarPick, FindFreeAllStarSlot, AllStarPickTaken, AllStarPickPlayer, AllStarAddPick
+global AllStarRemovePick, AllStarTogglePick, AllStarSlotPosition, CompareAllStarGoalie, CompareAllStarKey, AddAllStarCandidate, PickAllStarCandidates, PickAllStarPlayers
+global InitAllStarTeams, AllocAllStarRosters, DrawAllStarPickList, LinkReceiveChunk, LinkSendChunk, LinkSendFile, GetKeyName, unk_EDDEF
 global unk_EDE3F, unk_EDE53, unk_EE053, unk_EE093, unk_EE0E3
 ;-----------------------------------------------------------------------------
 ; BuildAllStarTeams                               E9429  97 PC, low confidence
@@ -174,7 +174,7 @@ AllStarScreen:
         cmp dword [byte ebp+072h], byte 0
         jne near .40
         call ShowScreen
-        call sub_EBCFA
+        call AllStarPicksDone
         test eax, eax
         jne short .6
         push byte 1
@@ -190,14 +190,14 @@ AllStarScreen:
         call PickAllStarPlayers
         jmp short .7
 .6:
-        call sub_9D2D0
+        call ClearAndBuildLines
         inc esi
 .7:
         mov edi, 1Ch
         jmp near .35
 .8:
         call FadeInScreen
-        call sub_EBCFA
+        call AllStarPicksDone
         test eax, eax
         jne short .9
         push byte 1
@@ -213,7 +213,7 @@ AllStarScreen:
         call PickAllStarPlayers
         jmp short .10
 .9:
-        call sub_9D2D0
+        call ClearAndBuildLines
         inc esi
 .10:
         mov edi, 0Eh
@@ -333,12 +333,12 @@ AllStarScreen:
 .16:
         mov eax, 1
         mov edx, 0FFFFFFFFh
-        call sub_EA6EB
+        call DrawAllStarHighlight
         mov eax, ebx
-        call sub_EAF08
+        call DrawAllStarSelection
         jmp near .35
 .17:
-        call sub_EBC70
+        call ClearAllStarPicks
 .18:
         mov edx, 0FFFFFFFFh
 .19:
@@ -352,7 +352,7 @@ AllStarScreen:
         mov dword [nosplit eax*4+dword_1CE0F4], esi
         call PickAllStarPlayers
         mov eax, 1
-        call sub_EA7CF
+        call DrawAllStarTeam
         jmp short .18
 .21:
         mov eax, dword [dword_1CE1FC]
@@ -369,14 +369,14 @@ AllStarScreen:
         mov eax, dword [dword_1CE1FC]
         cmp ebx, dword [nosplit eax*4+dword_1CE104]
         jle short .22
-        call sub_EC34D
+        call AllStarTogglePick
         mov edx, eax
         mov eax, dword [dword_1CE1FC]
         mov dword [nosplit eax*4+dword_1CE0F4], edx
         mov edx, dword [nosplit eax*4+dword_1CE104]
         mov dword [nosplit eax*4+dword_1CE104], 0FFFFFFFFh
         mov eax, 1
-        call sub_EA7CF
+        call DrawAllStarTeam
         mov eax, dword [dword_1CE1FC]
         mov edx, dword [nosplit eax*4+dword_1CE0F4]
         jmp near .19
@@ -387,11 +387,11 @@ AllStarScreen:
         jl near .34
         cmp dword [dword eax+dword_1CE0F4], byte 16h
         jge near .34
-        call sub_EC4DB
+        call AllStarSlotPosition
         mov edx, dword [dword_1CE1FC]
         mov edx, dword [nosplit edx*4+dword_1CE0F4]
         lea eax, [byte edx+01h]
-        call sub_EBEDA
+        call AllStarPickPlayer
         mov ebx, eax
         mov eax, dword [dword_1CE1FC]
         mov dword [nosplit eax*4+dword_1CE0F4], ebx
@@ -406,7 +406,7 @@ AllStarScreen:
 .23:
         lea eax, [dword ebp-01CC4h]
         call ShowPopupScreen
-        call sub_EA52D
+        call FreeAllStarScreen
         mov byte [byte_16CCF0], 0
         call PlayerStatsScreen
 .24:
@@ -430,7 +430,7 @@ AllStarScreen:
 .27:
         lea eax, [dword ebp-01C72h]
         call ShowPopupScreen
-        call sub_EA52D
+        call FreeAllStarScreen
         call sub_AF074
         jmp short .24
 .28:
@@ -440,7 +440,7 @@ AllStarScreen:
 .29:
         mov edx, 0FFFFFFFEh
         mov eax, 1
-        call sub_EA7CF
+        call DrawAllStarTeam
         jmp near .35
 .30:
         mov ebx, eax
@@ -452,12 +452,12 @@ AllStarScreen:
         je near .35
         mov edx, 0FFFFFFFEh
         mov eax, 1
-        call sub_EA7CF
+        call DrawAllStarTeam
         mov eax, dword [dword ebp-026Ah]
         mov dword [byte ebp+07Ah], eax
         jmp short .35
 .31:
-        call sub_EBC45
+        call AllStarPrevSlot
 .32:
         mov edx, eax
         mov eax, dword [dword_1CE1FC]
@@ -477,17 +477,17 @@ AllStarScreen:
 .33:
         mov eax, 1
         mov edx, 0FFFFFFFFh
-        call sub_EA64E
+        call ShowAllStarArt
         mov eax, 1
-        call sub_EA7CF
+        call DrawAllStarTeam
 .34:
-        call sub_ED3C1
+        call DrawAllStarPickList
 .35:
         test esi, esi
         jne near .42
         lea eax, [byte ebp+072h]
         push esi
-        mov ecx, sub_E9CB5
+        mov ecx, AllStarSound
         mov ebx, 0FFFFFFFFh
         push eax
         lea edx, [dword ebp-01FA6h]
@@ -511,7 +511,7 @@ AllStarScreen:
         je short .39
         jmp near .40
 .36:
-        call sub_EBC19
+        call AllStarNextSlot
         jmp near .32
 .37:
         cmp dword [dword eax+dword_1CE0E4], byte 0
@@ -529,7 +529,7 @@ AllStarScreen:
         jmp near .16
 .39:
         call ShowStatsScreen
-        call sub_EA52D
+        call FreeAllStarScreen
         cmp dword [dword_16DA9C], byte 0
         sete al
         movzx edx, al
@@ -557,7 +557,7 @@ AllStarScreen:
         mov eax, dword [byte ebp+072h]
         sub eax, byte 12h
         add eax, dword [dword ebp-026Ah]
-        call sub_EBA9B
+        call AllStarNextTeam
         jmp near .34
 .41:
         cmp dword [byte ebp+072h], byte 1Ch
@@ -566,11 +566,11 @@ AllStarScreen:
         jge near .34
         mov eax, dword [byte ebp+072h]
         sub eax, byte 1Ch
-        call sub_EBB68
+        call AllStarPrevTeam
         jmp near .34
 .42:
         call SetNormalText
-        call sub_EA52D
+        call FreeAllStarScreen
         push dword [dword_1CE1E8]
         call FreeMemBlock
         add esp, byte 4
@@ -592,9 +592,10 @@ AllStarScreen:
         pop ebp
         jmp near PickAllStarPlayers_4C3
 ;-----------------------------------------------------------------------------
-; sub_E9CB5                                                       E9CB5  97 PC
+; AllStarSound                                    E9CB5  97 PC, low confidence
+; Plays an all-star screen sound
 ;-----------------------------------------------------------------------------
-sub_E9CB5:
+AllStarSound:
         push ebx
         push ecx
         push edx
@@ -604,7 +605,7 @@ sub_E9CB5:
         mov esi, eax
         xor ebx, ebx
         cmp eax, dword [dword_1CE1D0]
-        jle near sub_E9CB5_1E0
+        jle near AllStarSound_1E0
         call Random32
         mov ecx, 3
         xor edx, edx
@@ -724,12 +725,12 @@ sub_E9CB5:
         mov word [word_16E2EA], 1
 .10:
         test bx, bx
-        jne short sub_E9CB5_1E0
+        jne short AllStarSound_1E0
         cmp word [word_16E2EA], byte 0
-        je short sub_E9CB5_1E0
+        je short AllStarSound_1E0
         call StopAllSfx
         mov word [word_16E2EA], bx
-sub_E9CB5_1E0:
+AllStarSound_1E0:
         leave
         pop esi
         pop edx
@@ -850,7 +851,7 @@ InitAllStarScreen:
         mov ecx, str_WC012
         mov eax, dword [dword_1CE214]
         call InitShapeListBox
-        call sub_EB840
+        call LoadAllStarLogo
         push str_LB005
         mov edx, dword [byte ebp-0Ch]
         mov ecx, str_LH00
@@ -862,8 +863,8 @@ InitAllStarScreen:
         mov ecx, str_AT00
         xor eax, eax
         mov ebx, str_AR00
-        call sub_EA64E
-        call sub_EB8DA
+        call ShowAllStarArt
+        call LoadAllStarArt
         push str_AR00
         mov eax, dword [dword_1CE214]
         add edx, 19Ah
@@ -871,7 +872,7 @@ InitAllStarScreen:
         mov edx, dword [byte ebp-0Ch]
         xor eax, eax
         mov ecx, str_MB082
-        call sub_EA6EB
+        call DrawAllStarHighlight
         push str_MB082
         mov eax, dword [dword_1CE214]
         add edx, 1ECh
@@ -1169,11 +1170,12 @@ InitAllStarScreen:
 .9:
         cmp esi, edi
         jl short .8
-        jmp near sub_EA7CF_6C5
+        jmp near DrawAllStarTeam_6C5
 ;-----------------------------------------------------------------------------
-; sub_EA52D                                                       EA52D  97 PC
+; FreeAllStarScreen                               EA52D  97 PC, low confidence
+; Frees the all-star screen
 ;-----------------------------------------------------------------------------
-sub_EA52D:
+FreeAllStarScreen:
         push ecx
         push edx
         mov eax, dword [dword_1CE1F4]
@@ -1236,9 +1238,9 @@ DrawAllStarConference:
         add edx, 0F6h
         call InitShapeListBox
         xor eax, eax
-        call sub_EA64E
+        call ShowAllStarArt
         xor eax, eax
-        call sub_EA6EB
+        call DrawAllStarHighlight
         mov eax, dword [dword_1CE1EC]
         push dword [dword eax+0120h]
         push dword [dword eax+011Ch]
@@ -1250,16 +1252,17 @@ DrawAllStarConference:
         call DrawAllStarList
         mov edx, 0FFFFFFFFh
         mov eax, esi
-        call sub_EA7CF
+        call DrawAllStarTeam
         pop esi
         pop edx
         pop ecx
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_EA64E                                                       EA64E  97 PC
+; ShowAllStarArt                                  EA64E  97 PC, low confidence
+; Shows the all-star art
 ;-----------------------------------------------------------------------------
-sub_EA64E:
+ShowAllStarArt:
         push ebx
         push ecx
         push edx
@@ -1302,9 +1305,10 @@ sub_EA64E:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_EA6EB                                                       EA6EB  97 PC
+; DrawAllStarHighlight                            EA6EB  97 PC, low confidence
+; Draws the all-star highlight
 ;-----------------------------------------------------------------------------
-sub_EA6EB:
+DrawAllStarHighlight:
         push ebx
         push ecx
         push edx
@@ -1374,9 +1378,10 @@ sub_EA6EB:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_EA7CF                                                       EA7CF  97 PC
+; DrawAllStarTeam                                 EA7CF  97 PC, low confidence
+; Draws an all-star team
 ;-----------------------------------------------------------------------------
-sub_EA7CF:
+DrawAllStarTeam:
         push ebx
         push ecx
         push esi
@@ -1784,9 +1789,9 @@ sub_EA7CF:
         mov edx, edi
         xor ebx, ebx
         xor eax, eax
-        call sub_EAF08
+        call DrawAllStarSelection
         cmp dword [byte ebp-02Ch], byte 0
-        je near sub_EA7CF_6C5
+        je near DrawAllStarTeam_6C5
         call SetScreenTarget
         test edi, edi
         jl short .17
@@ -1818,7 +1823,7 @@ sub_EA7CF:
         push dword 280h
 .19:
         push dword 14Ah
-sub_EA7CF_68E:
+DrawAllStarTeam_68E:
         call SetClipWindow
         add esp, byte 10h
         push byte 0
@@ -1834,7 +1839,7 @@ sub_EA7CF_68E:
         call SetClipWindow
         add esp, byte 10h
         call sub_1013FC
-sub_EA7CF_6C5:
+DrawAllStarTeam_6C5:
         leave
         pop edi
         pop esi
@@ -1842,9 +1847,10 @@ sub_EA7CF_6C5:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_EAE9A                                                       EAE9A  97 PC
+; DrawAllStarSlot                                 EAE9A  97 PC, low confidence
+; Draws an all-star slot
 ;-----------------------------------------------------------------------------
-sub_EAE9A:
+DrawAllStarSlot:
         push esi
         push edi
         enter 4, 0
@@ -1887,9 +1893,10 @@ sub_EAE9A:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_EAF08                                                       EAF08  97 PC
+; DrawAllStarSelection                            EAF08  97 PC, low confidence
+; Draws the all-star selection
 ;-----------------------------------------------------------------------------
-sub_EAF08:
+DrawAllStarSelection:
         push ecx
         push esi
         push edi
@@ -2026,7 +2033,7 @@ sub_EAF08:
         mov ebx, eax
         mov eax, dword [byte ebp-0Ch]
         add edx, byte 3
-        call sub_EAE9A
+        call DrawAllStarSlot
 .10:
         add dword [byte ebp-04h], byte 12h
         inc esi
@@ -2551,7 +2558,7 @@ DrawAllStarList:
         jl near .16
         call sub_102C10
         cmp dword [byte ebp-010h], byte 0
-        je near sub_EA7CF_6C5
+        je near DrawAllStarTeam_6C5
         call SetScreenTarget
         cmp dword [byte ebp-014h], byte 0
         jge short .21
@@ -2566,13 +2573,13 @@ DrawAllStarList:
         push eax
         push dword 140h
         push byte 0
-        jmp near sub_EA7CF_68E
+        jmp near DrawAllStarTeam_68E
 .20:
         push dword 16Ah
         push dword 80h
         push dword 140h
         push byte 0Ah
-        jmp near sub_EA7CF_68E
+        jmp near DrawAllStarTeam_68E
 .21:
         mov edi, dword [byte ebp-014h]
         add edi, byte 1Ch
@@ -2589,11 +2596,12 @@ DrawAllStarList:
         add eax, 96h
         push eax
         push dword [byte ebp-04h]
-        jmp near sub_EA7CF_68E
+        jmp near DrawAllStarTeam_68E
 ;-----------------------------------------------------------------------------
-; sub_EB840                                                       EB840  97 PC
+; LoadAllStarLogo                                 EB840  97 PC, low confidence
+; Loads the all-star logo
 ;-----------------------------------------------------------------------------
-sub_EB840:
+LoadAllStarLogo:
         push ebx
         push ecx
         push edx
@@ -2647,9 +2655,10 @@ sub_EB840:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_EB8DA                                                       EB8DA  97 PC
+; LoadAllStarArt                                  EB8DA  97 PC, low confidence
+; Loads the all-star art
 ;-----------------------------------------------------------------------------
-sub_EB8DA:
+LoadAllStarArt:
         push ebx
         push ecx
         push edx
@@ -2782,11 +2791,12 @@ sub_EB8DA:
 .8:
         cmp ebx, dword [dword_1CE1B0]
         jl short .7
-        jmp near sub_E9CB5_1E0
+        jmp near AllStarSound_1E0
 ;-----------------------------------------------------------------------------
-; sub_EBA9B                                                       EBA9B  97 PC
+; AllStarNextTeam                                 EBA9B  97 PC, low confidence
+; Switches to the next all-star team
 ;-----------------------------------------------------------------------------
-sub_EBA9B:
+AllStarNextTeam:
         push ebx
         push ecx
         push edx
@@ -2810,12 +2820,12 @@ sub_EBA9B:
         test edx, edx
         jl short .2
         mov eax, 1
-        call sub_EA7CF
+        call DrawAllStarTeam
 .2:
         mov eax, dword [dword_1CE1FC]
         mov edx, dword [nosplit eax*4+dword_1CE104]
         mov eax, 1
-        call sub_EA7CF
+        call DrawAllStarTeam
         mov eax, dword [dword_1CE1FC]
         imul ebx, dword [nosplit eax*4+dword_1CE0FC], dword 194Fh
         mov edx, dword [dword_1CE220]
@@ -2829,18 +2839,19 @@ sub_EBA9B:
         mov eax, 1
         mov ebx, 1
         mov edx, 0FFFFFFFFh
-        call sub_EA6EB
+        call DrawAllStarHighlight
         mov eax, ebx
-        call sub_EAF08
+        call DrawAllStarSelection
 .3:
         pop edx
         pop ecx
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_EBB68                                                       EBB68  97 PC
+; AllStarPrevTeam                                 EBB68  97 PC, low confidence
+; Switches to the previous all-star team
 ;-----------------------------------------------------------------------------
-sub_EBB68:
+AllStarPrevTeam:
         push ebx
         push ecx
         push edx
@@ -2853,7 +2864,7 @@ sub_EBB68:
         mov edx, dword [dword eax+dword_1CE104]
         mov dword [dword eax+dword_1CE104], 0FFFFFFFFh
         mov eax, 1
-        call sub_EA7CF
+        call DrawAllStarTeam
 .1:
         mov eax, dword [dword_1CE1FC]
         shl eax, 2
@@ -2880,18 +2891,19 @@ sub_EBB68:
         mov eax, 1
         mov ebx, 1
         mov edx, 0FFFFFFFFh
-        call sub_EA6EB
+        call DrawAllStarHighlight
         mov eax, ebx
-        call sub_EAF08
+        call DrawAllStarSelection
 .3:
         pop edx
         pop ecx
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_EBC19                                                       EBC19  97 PC
+; AllStarNextSlot                                 EBC19  97 PC, low confidence
+; Moves to the next all-star slot
 ;-----------------------------------------------------------------------------
-sub_EBC19:
+AllStarNextSlot:
         push ebx
         push edx
         mov eax, dword [dword_1CE1FC]
@@ -2911,9 +2923,10 @@ sub_EBC19:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_EBC45                                                       EBC45  97 PC
+; AllStarPrevSlot                                 EBC45  97 PC, low confidence
+; Moves to the previous all-star slot
 ;-----------------------------------------------------------------------------
-sub_EBC45:
+AllStarPrevSlot:
         push ebx
         push edx
         mov eax, dword [dword_1CE1FC]
@@ -2933,9 +2946,10 @@ sub_EBC45:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_EBC70                                                       EBC70  97 PC
+; ClearAllStarPicks                               EBC70  97 PC, low confidence
+; Clears the all-star picks
 ;-----------------------------------------------------------------------------
-sub_EBC70:
+ClearAllStarPicks:
         push ebx
         push edx
         xor eax, eax
@@ -2969,9 +2983,10 @@ sub_EBC70:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_EBCFA                                                       EBCFA  97 PC
+; AllStarPicksDone                                EBCFA  97 PC, low confidence
+; Returns whether the all-star picks are complete
 ;-----------------------------------------------------------------------------
-sub_EBCFA:
+AllStarPicksDone:
         push ebx
         push ecx
         push edx
@@ -3011,9 +3026,10 @@ sub_EBCFA:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_EBD54                                                       EBD54  97 PC
+; FindAllStarPick                                 EBD54  97 PC, low confidence
+; Finds an all-star pick
 ;-----------------------------------------------------------------------------
-sub_EBD54:
+FindAllStarPick:
         push ebx
         push ecx
         push esi
@@ -3040,9 +3056,10 @@ sub_EBD54:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_EBD8C                                                       EBD8C  97 PC
+; FindFreeAllStarSlot                             EBD8C  97 PC, low confidence
+; Finds a free all-star slot
 ;-----------------------------------------------------------------------------
-sub_EBD8C:
+FindFreeAllStarSlot:
         push ebx
         push ecx
         push edx
@@ -3055,21 +3072,22 @@ sub_EBD8C:
         cmp byte [dword ecx+ebx+01D5Ah], 0
         jne short .2
         mov edx, eax
-        jmp short sub_EBD8C_31
+        jmp short FindFreeAllStarSlot_31
 .2:
         inc eax
         cmp eax, byte 3
         jl short .1
-sub_EBD8C_31:
+FindFreeAllStarSlot_31:
         mov eax, edx
         pop edx
         pop ecx
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_EBDC3                                                       EBDC3  97 PC
+; AllStarPickTaken                                EBDC3  97 PC, low confidence
+; Returns whether a player is already picked
 ;-----------------------------------------------------------------------------
-sub_EBDC3:
+AllStarPickTaken:
         push ebx
         push ecx
         push esi
@@ -3154,11 +3172,12 @@ sub_EBDC3:
         jl short .5
 .7:
         mov eax, esi
-        jmp near sub_EA7CF_6C5
+        jmp near DrawAllStarTeam_6C5
 ;-----------------------------------------------------------------------------
-; sub_EBEDA                                                       EBEDA  97 PC
+; AllStarPickPlayer                               EBEDA  97 PC, low confidence
+; Picks a player for the all-star team
 ;-----------------------------------------------------------------------------
-sub_EBEDA:
+AllStarPickPlayer:
         push ebx
         push ecx
         push edx
@@ -3257,9 +3276,10 @@ sub_EBEDA:
         mov eax, edx
         jmp near PickAllStarPlayers_4C3
 ;-----------------------------------------------------------------------------
-; sub_EBFCE                                                       EBFCE  97 PC
+; AllStarAddPick                                  EBFCE  97 PC, low confidence
+; Adds an all-star pick
 ;-----------------------------------------------------------------------------
-sub_EBFCE:
+AllStarAddPick:
         push ebx
         push ecx
         push esi
@@ -3368,11 +3388,12 @@ sub_EBFCE:
         mov eax, dword [nosplit eax*4+dword_1CE1B4]
         add eax, dword [byte ebp-04h]
         mov byte [dword eax+01C7h], 0
-        jmp near sub_EA7CF_6C5
+        jmp near DrawAllStarTeam_6C5
 ;-----------------------------------------------------------------------------
-; sub_EC19E                                                       EC19E  97 PC
+; AllStarRemovePick                               EC19E  97 PC, low confidence
+; Removes an all-star pick
 ;-----------------------------------------------------------------------------
-sub_EC19E:
+AllStarRemovePick:
         push ebx
         push ecx
         push esi
@@ -3477,11 +3498,12 @@ sub_EC19E:
         mov eax, dword [nosplit eax*4+dword_1CE1B4]
         add eax, dword [byte ebp-04h]
         mov byte [dword eax+01E66h], 0
-        jmp near sub_EA7CF_6C5
+        jmp near DrawAllStarTeam_6C5
 ;-----------------------------------------------------------------------------
-; sub_EC34D                                                       EC34D  97 PC
+; AllStarTogglePick                               EC34D  97 PC, low confidence
+; Picks or removes an all-star player
 ;-----------------------------------------------------------------------------
-sub_EC34D:
+AllStarTogglePick:
         push ebx
         push ecx
         push edx
@@ -3522,19 +3544,19 @@ sub_EC34D:
         jne short .6
         lea edx, [byte ebp+07Eh]
         mov eax, dword [dword eax+dword_1CE104]
-        call sub_EBDC3
+        call AllStarPickTaken
         test eax, eax
         jne near .9
         mov edx, 13h
         mov eax, 0Dh
-        call sub_EBD54
+        call FindAllStarPick
         mov esi, eax
         test eax, eax
         jl short .3
 .2:
         mov ebx, dword [dword_1CE1FC]
         mov edx, dword [nosplit ebx*4+dword_1CE104]
-        call sub_EBFCE
+        call AllStarAddPick
         jmp near .10
 .3:
         push byte 1
@@ -3550,11 +3572,11 @@ sub_EC34D:
 .6:
         lea edx, [byte ebp+07Eh]
         mov eax, dword [dword eax+dword_1CE104]
-        call sub_EBDC3
+        call AllStarPickTaken
         test eax, eax
         jne near .9
         mov edx, 0Dh
-        call sub_EBD54
+        call FindAllStarPick
         mov esi, eax
         test eax, eax
         jge short .2
@@ -3564,10 +3586,10 @@ sub_EC34D:
 .7:
         lea edx, [byte ebp+07Eh]
         mov eax, dword [dword eax+dword_1CE104]
-        call sub_EBDC3
+        call AllStarPickTaken
         test eax, eax
         jne short .9
-        call sub_EBD8C
+        call FindFreeAllStarSlot
         mov ebx, eax
         mov esi, eax
         test eax, eax
@@ -3580,7 +3602,7 @@ sub_EC34D:
         sub eax, edx
         mov edx, eax
         mov eax, ebx
-        call sub_EC19E
+        call AllStarRemovePick
         lea esi, [byte ebx+013h]
         jmp short .10
 .8:
@@ -3599,9 +3621,10 @@ sub_EC34D:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_EC4DB                                                       EC4DB  97 PC
+; AllStarSlotPosition                             EC4DB  97 PC, low confidence
+; Returns the position of an all-star slot
 ;-----------------------------------------------------------------------------
-sub_EC4DB:
+AllStarSlotPosition:
         push edx
         mov eax, dword [dword_1CE1FC]
         shl eax, 2
@@ -3635,9 +3658,10 @@ sub_EC4DB:
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_EC588                                                       EC588  97 PC
+; CompareAllStarGoalie                            EC588  97 PC, low confidence
+; Sort helper: goalies first for the all-star picks
 ;-----------------------------------------------------------------------------
-sub_EC588:
+CompareAllStarGoalie:
         push ebx
         push ecx
         mov ebx, eax
@@ -3701,9 +3725,10 @@ sub_EC588:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_EC60D                                                       EC60D  97 PC
+; CompareAllStarKey                               EC60D  97 PC, low confidence
+; Sort helper: compares all-star picks by key
 ;-----------------------------------------------------------------------------
-sub_EC60D:
+CompareAllStarKey:
         push ebx
         mov bl, byte [byte eax+0Ah]
         cmp bl, byte [byte edx+0Ah]
@@ -3751,9 +3776,10 @@ sub_EC60D:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_EC671                                                       EC671  97 PC
+; AddAllStarCandidate                             EC671  97 PC, low confidence
+; Adds an all-star candidate
 ;-----------------------------------------------------------------------------
-sub_EC671:
+AddAllStarCandidate:
         push esi
         push edi
         enter 14h, 0
@@ -3888,9 +3914,10 @@ sub_EC671:
         pop esi
         ret 4
 ;-----------------------------------------------------------------------------
-; sub_EC82C                                                       EC82C  97 PC
+; PickAllStarCandidates                           EC82C  97 PC, low confidence
+; Picks the all-star candidates
 ;-----------------------------------------------------------------------------
-sub_EC82C:
+PickAllStarCandidates:
         push ebx
         push ecx
         push esi
@@ -3956,7 +3983,7 @@ sub_EC82C:
         jmp short .5
 .6:
         cmp ebx, byte 3
-        je near sub_EA7CF_6C5
+        je near DrawAllStarTeam_6C5
         mov edx, dword [byte ebp-04h]
         mov eax, dword [dword_1CE200]
         mov esi, dword [eax+edx*4]
@@ -4024,7 +4051,7 @@ sub_EC82C:
 .9:
         cmp ebx, byte 3
         jl near .1
-        jmp near sub_EA7CF_6C5
+        jmp near DrawAllStarTeam_6C5
         push ebx
         push ecx
         push edx
@@ -4040,7 +4067,7 @@ sub_EC82C:
         inc eax
         cmp eax, byte 0Dh
         jl short .10
-        jmp near sub_EBD8C_31
+        jmp near FindFreeAllStarSlot_31
         push ebx
         push ecx
         push edx
@@ -4056,7 +4083,7 @@ sub_EC82C:
         inc eax
         cmp eax, byte 13h
         jl short .12
-        jmp near sub_EBD8C_31
+        jmp near FindFreeAllStarSlot_31
         push ebx
         push ecx
         mov ebx, eax
@@ -4313,12 +4340,12 @@ PickAllStarPlayers:
         mov dword [byte ebp-010h], 0
 .12:
         mov esi, dword [byte ebp-010h]
-        mov ecx, sub_EC588
+        mov ecx, CompareAllStarGoalie
         mov ebx, 0Bh
         mov edx, dword [byte ebp+esi*4-030h]
         mov eax, dword [byte ebp+esi*4-040h]
         call qsort_
-        mov ecx, sub_EC60D
+        mov ecx, CompareAllStarKey
         mov ebx, 0Bh
         mov edx, dword [byte ebp+esi*4-038h]
         mov eax, dword [byte ebp+esi*4-028h]
@@ -4356,7 +4383,7 @@ PickAllStarPlayers:
         sub ecx, edx
         mov eax, esi
         xor edx, edx
-        call sub_EC671
+        call AddAllStarCandidate
         mov eax, 0Dh
         mov ecx, esi
         xor edx, edx
@@ -4391,11 +4418,11 @@ PickAllStarPlayers:
         mov eax, esi
         push dword [byte ebp+edi*4-040h]
         sub ecx, dword [byte ebp-018h]
-        call sub_EC671
+        call AddAllStarCandidate
         mov eax, esi
         mov edx, dword [byte ebp+edi*4-028h]
         mov dword [byte ebp-0Ch], 0
-        call sub_EC82C
+        call PickAllStarCandidates
         or byte [dword esi+0204Ah], 2
         jmp short .24
 .23:
@@ -4415,7 +4442,7 @@ PickAllStarPlayers:
         inc dword [byte ebp-010h]
         cmp dword [byte ebp-010h], byte 2
         jl near .13
-        call sub_9D2D0
+        call ClearAndBuildLines
         mov dword [byte ebp-010h], 0
 .25:
         mov esi, dword [byte ebp-010h]
@@ -4547,7 +4574,7 @@ AllocAllStarRosters:
 .4:
         mov dword [dword_1CE1FC], ebx
         mov dword [nosplit ebx*4+dword_1CE0FC], 0FFFFFFFFh
-        call sub_EBC19
+        call AllStarNextSlot
         dec ebx
         mov edx, eax
         mov eax, dword [dword_1CE1FC]
@@ -4770,9 +4797,10 @@ AllocAllStarRosters:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_ED3C1                                                       ED3C1  97 PC
+; DrawAllStarPickList                             ED3C1  97 PC, low confidence
+; Draws the list of all-star picks
 ;-----------------------------------------------------------------------------
-sub_ED3C1:
+DrawAllStarPickList:
         push ebx
         push ecx
         push edx
@@ -4980,9 +5008,10 @@ sub_ED3C1:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_ED6C8                                                       ED6C8  97 PC
+; LinkReceiveChunk                                ED6C8  97 PC, low confidence
+; Receives a data chunk over the link
 ;-----------------------------------------------------------------------------
-sub_ED6C8:
+LinkReceiveChunk:
         push ecx
         push esi
         push edi
@@ -5243,9 +5272,10 @@ sub_ED6C8:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_ED8E8                                                       ED8E8  97 PC
+; LinkSendChunk                                   ED8E8  97 PC, low confidence
+; Sends a data chunk over the link
 ;-----------------------------------------------------------------------------
-sub_ED8E8:
+LinkSendChunk:
         push esi
         push edi
         push ebp
@@ -5675,9 +5705,10 @@ sub_ED8E8:
         ret 4
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_EDDAC                                                       EDDAC  97 PC
+; LinkSendFile                                    EDDAC  97 PC, low confidence
+; Sends a file over the link
 ;-----------------------------------------------------------------------------
-sub_EDDAC:
+LinkSendFile:
         push esi
         push edi
         push ebp
@@ -5697,7 +5728,7 @@ sub_EDDAC:
         lea ebx, [byte esi+05h]
         mov edx, edi
         mov eax, ebp
-        call sub_ED8E8
+        call LinkSendChunk
         add eax, byte 5
         pop ebp
         pop edi

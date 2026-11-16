@@ -62,13 +62,13 @@ extern unk_16176C, unk_161770, unk_161774, unk_161778, unk_1617BC, unk_16B51C, u
 extern unk_1AEDD8, unk_1AEDF0, unk_1AFB38, unk_1B0078, unk_1B0410, unk_1B0510, unk_1B0610, unk_1B0710
 extern unk_1B0850, unk_1B0970, unk_1B0AA8, unk_1B0AE8, unk_1B1068, unk_1B1090, unk_1B1120, unk_1B73F0
 extern unk_1B8583, unk_1B92AB, unk_4BCCC
-global jpt_56DCC, sub_55670_105, sub_55670_115, sub_55670_11A, sub_56DDC_C8, sub_56DDC_E3, sub_56DDC_114, sub_56DDC_18F
-global LoadLogos, sub_52A44, sub_52BEC, sub_52CA0, sub_52CE0, sub_52D4C, sub_52E14, sub_52E28
-global LoadRinkLines, sub_53260, LoadRinkModel, FreeRinkModel, sub_5475C, sub_54794, sub_54A8C, sub_55000
-global sub_55110, sub_55228, DrawBenchSide, sub_55648, sub_55670, SetPenaltyBoxDoor, sub_5586C, sub_55894
-global sub_55B14, sub_55FE4, sub_560AC, sub_56464, sub_56740, sub_56798, sub_567B0, sub_568CC
-global sub_56908, sub_5696C, sub_56A08, sub_56A84, sub_56AE4, sub_56B98, sub_56CD0, sub_56CE4
-global sub_56CF8, sub_56D0C, sub_56DDC, sub_57298, sub_572D4, sub_57304, unk_56790, unk_56794
+global jpt_56DCC, SetBoxDoor_105, SetBoxDoor_115, SetBoxDoor_11A, BuildFaceTextures_C8, BuildFaceTextures_E3, BuildFaceTextures_114, BuildFaceTextures_18F
+global LoadLogos, BuildIcePalette, BlendRangeColours, DimRangeColours, BrightenRangeColours, BuildRinkPalette, SetRinkPalette, UpdateRinkPalette
+global LoadRinkLines, SetupRinkModel, LoadRinkModel, FreeRinkModel, SetRinkTransform, DrawRinkBackground, DrawRinkSurface, LoadOpeningArt
+global DrawRinkOverlay, DrawBenchModels, DrawBenchSide, GetSeatPos, SetBoxDoor, SetPenaltyBoxDoor, SetBoxDoorState, DrawBenchRow
+global DrawBenchSection, DrawRinkPass, DrawNearSide, DrawFarSide, SaveViewOrigin, ShapePixelSize, DrawShadowShape, ModelViewDepth
+global DrawPortraitModels, AddSeatModel, FindSeatModel, PickMarkerShape, SetTeamColours, FaceDistance, SetFaceMouth, SetFaceExpression
+global SetFaceBlink, SetModelHeading, BuildFaceTextures, RefreshFaceTextures, CupFaceTextures, SetModelSlotValue, unk_56790, unk_56794
 ;-----------------------------------------------------------------------------
 ; LoadLogos                                       52770  97 PC, low confidence
 ; Game graphics: loads "logos.fsh" (LOGOS, blogos) and the ice / board logo
@@ -305,9 +305,10 @@ LoadLogos:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_52A44                                                       52A44  97 PC
+; BuildIcePalette                                 52A44  97 PC, low confidence
+; Builds the ice colour palette
 ;-----------------------------------------------------------------------------
-sub_52A44:
+BuildIcePalette:
         push esi
         push edi
         push ebp
@@ -470,9 +471,10 @@ sub_52A44:
         ret 4
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_52BEC                                                       52BEC  97 PC
+; BlendRangeColours                               52BEC  97 PC, low confidence
+; Blends the colours of a palette range
 ;-----------------------------------------------------------------------------
-sub_52BEC:
+BlendRangeColours:
         push ebx
         push ecx
         push esi
@@ -555,9 +557,10 @@ sub_52BEC:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_52CA0                                                       52CA0  97 PC
+; DimRangeColours                                 52CA0  97 PC, low confidence
+; Dims a palette range
 ;-----------------------------------------------------------------------------
-sub_52CA0:
+DimRangeColours:
         push ecx
         push esi
         push edi
@@ -570,7 +573,7 @@ sub_52CA0:
         mov edx, ecx
         mov eax, esi
         inc ebx
-        call sub_52BEC
+        call BlendRangeColours
         add ecx, byte 3
         mov byte [byte ebx-01h], al
         cmp ebx, edi
@@ -590,9 +593,10 @@ sub_52CA0:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_52CE0                                                       52CE0  97 PC
+; BrightenRangeColours                            52CE0  97 PC, low confidence
+; Brightens a palette range
 ;-----------------------------------------------------------------------------
-sub_52CE0:
+BrightenRangeColours:
         push ecx
         push esi
         push edi
@@ -607,7 +611,7 @@ sub_52CE0:
         je short .2
         mov edx, ecx
         mov eax, esi
-        call sub_52BEC
+        call BlendRangeColours
         mov byte [edi], al
         jmp short .3
 .2:
@@ -626,7 +630,7 @@ sub_52CE0:
         jge short .7
         mov edx, ecx
         mov eax, esi
-        call sub_52BEC
+        call BlendRangeColours
         inc edi
         inc ebx
         add ecx, byte 3
@@ -649,9 +653,10 @@ sub_52CE0:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_52D4C                                                       52D4C  97 PC
+; BuildRinkPalette                                52D4C  97 PC, low confidence
+; Builds the rink palette
 ;-----------------------------------------------------------------------------
-sub_52D4C:
+BuildRinkPalette:
         push ebx
         push ecx
         push edx
@@ -670,33 +675,33 @@ sub_52D4C:
         push dword 9999h
         mov edx, unk_1B0410
         lea eax, [byte esp+04h]
-        call sub_52A44
+        call BuildIcePalette
         push dword 9999h
         mov ecx, 1999h
         mov ebx, 19999h
         mov edx, unk_1B0710
         lea eax, [byte esp+04h]
-        call sub_52A44
+        call BuildIcePalette
         mov ebx, unk_1B0850
         mov edx, esp
         mov eax, 11999h
-        call sub_52CA0
+        call DimRangeColours
         mov ebx, unk_1B0970
         mov edx, esp
         mov eax, 9999h
-        call sub_52CA0
+        call DimRangeColours
         mov ebx, unk_1B0510
         mov edx, esp
         mov eax, 0E666h
-        call sub_52CA0
+        call DimRangeColours
         mov ebx, unk_1B0610
         mov edx, esp
         mov eax, 0E666h
-        call sub_52CE0
+        call BrightenRangeColours
         mov ebx, unk_1A8D48
         mov edx, esp
         mov eax, dword [dword_1A8E60]
-        call sub_52CA0
+        call DimRangeColours
         add esp, 300h
         pop edx
         pop ecx
@@ -704,9 +709,10 @@ sub_52D4C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_52E14                                                       52E14  97 PC
+; SetRinkPalette                                  52E14  97 PC, low confidence
+; Sets the rink palette
 ;-----------------------------------------------------------------------------
-sub_52E14:
+SetRinkPalette:
         push ecx
         push edx
         push unk_1B0610
@@ -717,9 +723,10 @@ sub_52E14:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_52E28                                                       52E28  97 PC
+; UpdateRinkPalette                               52E28  97 PC, low confidence
+; Updates the rink palette (lighting)
 ;-----------------------------------------------------------------------------
-sub_52E28:
+UpdateRinkPalette:
         push ebx
         push ecx
         push esi
@@ -748,7 +755,7 @@ sub_52E28:
 .2:
         test edi, edi
         je short .3
-        call sub_52D4C
+        call BuildRinkPalette
 .3:
         pop edi
         pop esi
@@ -769,7 +776,7 @@ LoadRinkLines:
         push edi
         push ebp
         sub esp, 300h
-        call sub_52D4C
+        call BuildRinkPalette
         mov edx, dword [dword_1B1108]
         push edx
         call sub_10FD58
@@ -1063,9 +1070,10 @@ LoadRinkLines:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_53260                                                       53260  97 PC
+; SetupRinkModel                                  53260  97 PC, low confidence
+; Sets up the rink model and crowd
 ;-----------------------------------------------------------------------------
-sub_53260:
+SetupRinkModel:
         push ebx
         push ecx
         push edx
@@ -1075,20 +1083,20 @@ sub_53260:
         test eax, eax
         je short .1
         xor eax, eax
-        call sub_55670
+        call SetBoxDoor
         jmp short .2
 .1:
-        call sub_5586C
+        call SetBoxDoorState
 .2:
         mov eax, dword [dword_1B0A84]
         test eax, eax
         je short .3
         mov eax, 1
-        call sub_55670
+        call SetBoxDoor
         jmp short .4
 .3:
         mov eax, 1
-        call sub_5586C
+        call SetBoxDoorState
 .4:
         mov edx, 0FFFFFFFFh
         xor eax, eax
@@ -2390,7 +2398,7 @@ LoadRinkModel:
         mov eax, dword_1B0A70
         mov edx, ebx
         call ReplayRegisterStates
-        mov eax, sub_53260
+        mov eax, SetupRinkModel
         xor esi, esi
         call ReplayRegisterObjects
         push esi
@@ -2565,9 +2573,10 @@ FreeRinkModel:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_5475C                                                       5475C  97 PC
+; SetRinkTransform                                5475C  97 PC, low confidence
+; Sets the rink transform
 ;-----------------------------------------------------------------------------
-sub_5475C:
+SetRinkTransform:
         push ebx
         push ecx
         push esi
@@ -2595,9 +2604,10 @@ sub_5475C:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_54794                                                       54794  97 PC
+; DrawRinkBackground                              54794  97 PC, low confidence
+; Draws the rink background
 ;-----------------------------------------------------------------------------
-sub_54794:
+DrawRinkBackground:
         push ebx
         push ecx
         push edx
@@ -2834,9 +2844,10 @@ sub_54794:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_54A8C                                                       54A8C  97 PC
+; DrawRinkSurface                                 54A8C  97 PC, low confidence
+; Draws the rink surface and markings
 ;-----------------------------------------------------------------------------
-sub_54A8C:
+DrawRinkSurface:
         push ebx
         push ecx
         push edx
@@ -2852,7 +2863,7 @@ sub_54A8C:
         jne short .1
         mov edx, 1
         mov eax, dword [dword_1B1020]
-        call sub_52E28
+        call UpdateRinkPalette
 .1:
         mov edx, dword [dword_1B0FA0]
         mov eax, 1
@@ -2940,7 +2951,7 @@ sub_54A8C:
         je short .5
         mov edx, 1
         mov eax, dword [dword_1B1020]
-        call sub_52E28
+        call UpdateRinkPalette
 .5:
         mov ebp, dword [dword_1B0FA0]
         xor edi, edi
@@ -2990,7 +3001,7 @@ sub_54A8C:
         je short .7
         mov edx, 1
         mov eax, dword [dword_1B1020]
-        call sub_52E28
+        call UpdateRinkPalette
 .7:
         xor ecx, ecx
         mov dword [dword_1B111C], ecx
@@ -3243,9 +3254,10 @@ sub_54A8C:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_55000                                                       55000  97 PC
+; LoadOpeningArt                                  55000  97 PC, low confidence
+; Loads the opening sequence art
 ;-----------------------------------------------------------------------------
-sub_55000:
+LoadOpeningArt:
         push ebx
         push ecx
         push edx
@@ -3332,9 +3344,10 @@ sub_55000:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_55110                                                       55110  97 PC
+; DrawRinkOverlay                                 55110  97 PC, low confidence
+; Draws the rink overlay
 ;-----------------------------------------------------------------------------
-sub_55110:
+DrawRinkOverlay:
         push ebx
         push ecx
         push edx
@@ -3423,9 +3436,10 @@ sub_55110:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_55228                                                       55228  97 PC
+; DrawBenchModels                                 55228  97 PC, low confidence
+; Draws the players on the bench
 ;-----------------------------------------------------------------------------
-sub_55228:
+DrawBenchModels:
         push ebx
         push ecx
         push esi
@@ -3552,7 +3566,7 @@ DrawBenchSide:
         add esp, byte 0Ch
         mov edx, 0FFFFFFFFh
         mov eax, 1
-        call sub_55228
+        call DrawBenchModels
         xor ecx, ecx
         mov edx, dword [dword_1B0E7C]
         mov ebx, dword [dword_1B0EF0]
@@ -3574,7 +3588,7 @@ DrawBenchSide:
         jge short .2
         mov edx, 1
         xor eax, eax
-        call sub_55228
+        call DrawBenchModels
         push byte 0
         mov ecx, dword [dword_1B0E80]
         mov ebx, dword [dword_1B0EF0]
@@ -3601,7 +3615,7 @@ DrawBenchSide:
         jl near .6
         mov edx, 1
         xor eax, eax
-        call sub_55228
+        call DrawBenchModels
         push byte 0
         mov ecx, dword [dword_1B0E80]
         mov ebx, dword [dword_1B0EF0]
@@ -3618,7 +3632,7 @@ DrawBenchSide:
         add esp, byte 0Ch
         mov edx, 0FFFFFFFFh
         xor eax, eax
-        call sub_55228
+        call DrawBenchModels
         push byte 0
         mov ecx, dword [dword_1B0E80]
         mov ebx, dword [dword_1B0EF0]
@@ -3640,7 +3654,7 @@ DrawBenchSide:
         mov edx, 1
         mov eax, edx
         xor ecx, ecx
-        call sub_55228
+        call DrawBenchModels
         mov edx, dword [dword_1B0E7C]
         mov ebx, dword [dword_1B0EF0]
         push edx
@@ -3668,7 +3682,7 @@ DrawBenchSide:
         mov edx, 1
         mov eax, edx
         xor ecx, ecx
-        call sub_55228
+        call DrawBenchModels
         mov edx, dword [dword_1B0E7C]
         mov ebx, dword [dword_1B0EF0]
         push edx
@@ -3748,9 +3762,10 @@ DrawBenchSide:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_55648                                                       55648  97 PC
+; GetSeatPos                                      55648  97 PC, low confidence
+; Returns the position of a seat
 ;-----------------------------------------------------------------------------
-sub_55648:
+GetSeatPos:
         shl eax, 4
         mov edx, dword [dword eax+edx*4+dword_1B0248]
         lea eax, [nosplit edx*4+00h]
@@ -3762,9 +3777,10 @@ sub_55648:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_55670                                                       55670  97 PC
+; SetBoxDoor                                      55670  97 PC, low confidence
+; Opens or closes a penalty box door
 ;-----------------------------------------------------------------------------
-sub_55670:
+SetBoxDoor:
         push ebx
         push ecx
         push edx
@@ -3844,15 +3860,15 @@ sub_55670:
         pop ecx
         pop ebx
         ret
-sub_55670_105:
+SetBoxDoor_105:
         mov eax, dword_1B0DF4
         test edx, edx
-        je short sub_55670_115
+        je short SetBoxDoor_115
         mov edx, 1
-        jmp short sub_55670_11A
-sub_55670_115:
+        jmp short SetBoxDoor_11A
+SetBoxDoor_115:
         mov edx, 0FFFFFFFFh
-sub_55670_11A:
+SetBoxDoor_11A:
         mov ecx, dword [eax]
         lea ebx, [nosplit ecx*4+00h]
         sub ebx, ecx
@@ -3920,26 +3936,31 @@ sub_55670_11A:
 SetPenaltyBoxDoor:
         mov dword [nosplit eax*4+dword_1B0A80], edx
         test edx, edx
-        jne near sub_55670
+        jne near SetBoxDoor
         nop
-sub_5586C:
+;-----------------------------------------------------------------------------
+; SetBoxDoorState                                 5586C  97 PC, low confidence
+; Sets the state of the penalty box door
+;-----------------------------------------------------------------------------
+SetBoxDoorState:
         push ebx
         push ecx
         push edx
         push esi
         mov edx, eax
         test eax, eax
-        je near sub_55670_105
+        je near SetBoxDoor_105
         mov eax, dword_1B0E04
         test edx, edx
-        je near sub_55670_115
+        je near SetBoxDoor_115
         mov edx, 1
-        jmp near sub_55670_11A
+        jmp near SetBoxDoor_11A
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_55894                                                       55894  97 PC
+; DrawBenchRow                                    55894  97 PC, low confidence
+; Draws a row of the bench
 ;-----------------------------------------------------------------------------
-sub_55894:
+DrawBenchRow:
         push ebx
         push ecx
         push edx
@@ -4105,7 +4126,7 @@ sub_55894:
         cmp ebx, dword [dword_1B1064]
         jle short .8
         mov eax, 1
-        call sub_55894
+        call DrawBenchRow
 .8:
         mov ecx, dword [dword_1B0E34]
         push ecx
@@ -4122,7 +4143,7 @@ sub_55894:
         cmp edx, dword [dword_1B1064]
         jg short .9
         mov eax, 1
-        call sub_55894
+        call DrawBenchRow
 .9:
         pop ebp
         pop edi
@@ -4144,7 +4165,7 @@ sub_55894:
         cmp ebx, dword [dword_1B1064]
         jg short .10
         xor eax, eax
-        call sub_55894
+        call DrawBenchRow
 .10:
         mov ecx, dword [dword_1B0E64]
         push ecx
@@ -4161,7 +4182,7 @@ sub_55894:
         cmp edx, dword [dword_1B1064]
         jle short .11
         xor eax, eax
-        call sub_55894
+        call DrawBenchRow
 .11:
         pop ebp
         pop edi
@@ -4172,9 +4193,10 @@ sub_55894:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_55B14                                                       55B14  97 PC
+; DrawBenchSection                                55B14  97 PC, low confidence
+; Draws a section of the bench
 ;-----------------------------------------------------------------------------
-sub_55B14:
+DrawBenchSection:
         push ebx
         push ecx
         push edx
@@ -4187,12 +4209,12 @@ sub_55B14:
         cmp dword [dword_1B0A84], byte 0
         jne short .1
         mov eax, 1
-        call sub_55894
+        call DrawBenchRow
 .1:
         cmp dword [dword_1B0A80], byte 0
         jne short .2
         xor eax, eax
-        call sub_55894
+        call DrawBenchRow
 .2:
         mov edi, dword [dword_1B0EB4]
         cmp edi, dword [dword_1B105C]
@@ -4235,7 +4257,7 @@ sub_55B14:
         cmp edi, dword [dword_1B1064]
         jle short .4
         mov eax, 1
-        call sub_55894
+        call DrawBenchRow
 .4:
         mov ebp, dword [dword_1B0E34]
         push ebp
@@ -4252,7 +4274,7 @@ sub_55B14:
         cmp ecx, dword [dword_1B1064]
         jg short .5
         mov eax, 1
-        call sub_55894
+        call DrawBenchRow
 .5:
         mov esi, dword [dword_1B0E8C]
         mov edx, dword [dword_1B1064]
@@ -4263,7 +4285,7 @@ sub_55B14:
         cmp edx, esi
         jl short .6
         xor eax, eax
-        call sub_55894
+        call DrawBenchRow
 .6:
         mov eax, dword [dword_1B0E64]
         push eax
@@ -4280,7 +4302,7 @@ sub_55B14:
         cmp esi, dword [dword_1B1064]
         jle short .7
         xor eax, eax
-        call sub_55894
+        call DrawBenchRow
 .7:
         mov edi, dword [dword_1B0E70]
         cmp edi, dword [dword_1B1064]
@@ -4322,7 +4344,7 @@ sub_55B14:
         cmp edx, ecx
         jl short .10
         xor eax, eax
-        call sub_55894
+        call DrawBenchRow
 .10:
         mov ebp, dword [dword_1B0E64]
         push ebp
@@ -4362,7 +4384,7 @@ sub_55B14:
         cmp eax, dword [dword_1B1064]
         jg short .12
         xor eax, eax
-        call sub_55894
+        call DrawBenchRow
 .12:
         mov edx, dword [dword_1B0E64]
         push edx
@@ -4379,7 +4401,7 @@ sub_55B14:
         cmp edi, dword [dword_1B1064]
         jle short .13
         xor eax, eax
-        call sub_55894
+        call DrawBenchRow
 .13:
         mov ebp, dword [dword_1B0E88]
         mov edx, dword [dword_1B1064]
@@ -4390,7 +4412,7 @@ sub_55B14:
         cmp edx, ebp
         jge short .14
         mov eax, 1
-        call sub_55894
+        call DrawBenchRow
 .14:
         mov ecx, dword [dword_1B0E34]
         push ecx
@@ -4407,7 +4429,7 @@ sub_55B14:
         cmp eax, dword [dword_1B1064]
         jg short .15
         mov eax, 1
-        call sub_55894
+        call DrawBenchRow
 .15:
         mov ebx, dword [dword_1B0E6C]
         cmp ebx, dword [dword_1B1064]
@@ -4448,7 +4470,7 @@ sub_55B14:
         cmp eax, dword [dword_1B1064]
         jle short .18
         mov eax, 1
-        call sub_55894
+        call DrawBenchRow
 .18:
         mov ecx, dword [dword_1B0E34]
         push ecx
@@ -4466,7 +4488,7 @@ sub_55B14:
         jg short .20
         mov eax, 1
 .19:
-        call sub_55894
+        call DrawBenchRow
 .20:
         mov esi, dword [dword_1B0EE8]
         cmp esi, dword [dword_1B105C]
@@ -4474,12 +4496,12 @@ sub_55B14:
         cmp dword [dword_1B0A84], byte 0
         jne short .21
         mov eax, 1
-        call sub_55894
+        call DrawBenchRow
 .21:
         cmp dword [dword_1B0A80], byte 0
         jne short .22
         xor eax, eax
-        call sub_55894
+        call DrawBenchRow
 .22:
         mov eax, dword [dword_1B0EB4]
         cmp eax, dword [dword_1B105C]
@@ -4507,12 +4529,13 @@ sub_55B14:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_55FE4                                                       55FE4  97 PC
+; DrawRinkPass                                    55FE4  97 PC, low confidence
+; Draws the rink for the frame
 ;-----------------------------------------------------------------------------
-sub_55FE4:
-        call sub_54A8C
+DrawRinkPass:
+        call DrawRinkSurface
         cmp dword [dword_16AF50], byte 0
-        je near sub_54794
+        je near DrawRinkBackground
         LD mov, eax, eax
         push ebx
         push ecx
@@ -4579,9 +4602,10 @@ sub_55FE4:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_560AC                                                       560AC  97 PC
+; DrawNearSide                                    560AC  97 PC, low confidence
+; Draws the near side of the rink
 ;-----------------------------------------------------------------------------
-sub_560AC:
+DrawNearSide:
         push ebx
         push ecx
         push edx
@@ -4632,7 +4656,7 @@ sub_560AC:
         mov eax, dword [dword_1B105C]
         cmp eax, dword [dword_1B0EE8]
         jg short .6
-        call sub_55B14
+        call DrawBenchSection
 .6:
         mov ebx, dword [dword_1B0EF0]
         cmp ebx, dword [dword_1B105C]
@@ -4840,9 +4864,10 @@ sub_560AC:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_56464                                                       56464  97 PC
+; DrawFarSide                                     56464  97 PC, low confidence
+; Draws the far side of the rink
 ;-----------------------------------------------------------------------------
-sub_56464:
+DrawFarSide:
         push ebx
         push ecx
         push edx
@@ -4854,7 +4879,7 @@ sub_56464:
         mov eax, dword [dword_1B105C]
         cmp eax, dword [dword_1B0EE8]
         jle short .1
-        call sub_55B14
+        call DrawBenchSection
 .1:
         mov ebx, dword [dword_1B0EF0]
         cmp ebx, dword [dword_1B105C]
@@ -5046,9 +5071,10 @@ sub_56464:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_56740                                                       56740  97 PC
+; SaveViewOrigin                                  56740  97 PC, low confidence
+; Saves the view origin
 ;-----------------------------------------------------------------------------
-sub_56740:
+SaveViewOrigin:
         mov eax, dword [dword_16E676]
         sar eax, 10h
         shl eax, 10h
@@ -5072,9 +5098,10 @@ unk_56790:
 unk_56794:
         db 0FFh,0FFh,0FFh,0FFh
 ;-----------------------------------------------------------------------------
-; sub_56798                                                       56798  97 PC
+; ShapePixelSize                                  56798  97 PC, low confidence
+; Returns the pixel size of a shape
 ;-----------------------------------------------------------------------------
-sub_56798:
+ShapePixelSize:
         push edx
         mov edx, dword [byte eax+02h]
         mov eax, dword [byte eax+04h]
@@ -5086,9 +5113,10 @@ sub_56798:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_567B0                                                       567B0  97 PC
+; DrawShadowShape                                 567B0  97 PC, low confidence
+; Draws a shadow shape
 ;-----------------------------------------------------------------------------
-sub_567B0:
+DrawShadowShape:
         push ebx
         push esi
         push edi
@@ -5197,9 +5225,10 @@ sub_567B0:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_568CC                                                       568CC  97 PC
+; ModelViewDepth                                  568CC  97 PC, low confidence
+; Works out the view depth of a model
 ;-----------------------------------------------------------------------------
-sub_568CC:
+ModelViewDepth:
         push ebx
         push edx
         sub esp, byte 1Ch
@@ -5221,9 +5250,10 @@ sub_568CC:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_56908                                                       56908  97 PC
+; DrawPortraitModels                              56908  97 PC, low confidence
+; Draws the models for a portrait
 ;-----------------------------------------------------------------------------
-sub_56908:
+DrawPortraitModels:
         push ebx
         push edx
         push esi
@@ -5265,9 +5295,10 @@ sub_56908:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_5696C                                                       5696C  97 PC
+; AddSeatModel                                    5696C  97 PC, low confidence
+; Adds a seat model
 ;-----------------------------------------------------------------------------
-sub_5696C:
+AddSeatModel:
         push ebx
         push ecx
         push esi
@@ -5298,7 +5329,7 @@ sub_5696C:
         shl eax, 4
         mov edx, byte_1B8580
         sub eax, ebp
-        mov ecx, sub_56908
+        mov ecx, DrawPortraitModels
         mov dword [esp], eax
         add edx, eax
         mov edi, eax
@@ -5309,7 +5340,7 @@ sub_5696C:
         mov byte [dword eax+byte_1B8580], bl
         add edx, byte 3
         lea edi, [dword edi+unk_1B8583]
-        mov ebx, sub_568CC
+        mov ebx, ModelViewDepth
         mov eax, str_BOGIE
         movsd
         movsd
@@ -5330,9 +5361,10 @@ sub_5696C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_56A08                                                       56A08  97 PC
+; FindSeatModel                                   56A08  97 PC, low confidence
+; Finds a seat model
 ;-----------------------------------------------------------------------------
-sub_56A08:
+FindSeatModel:
         push ebx
         push ecx
         push edx
@@ -5376,9 +5408,10 @@ sub_56A08:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_56A84                                                       56A84  97 PC
+; PickMarkerShape                                 56A84  97 PC, low confidence
+; Picks the marker shape
 ;-----------------------------------------------------------------------------
-sub_56A84:
+PickMarkerShape:
         push ebx
         push ecx
         push esi
@@ -5425,9 +5458,10 @@ sub_56A84:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_56AE4                                                       56AE4  97 PC
+; SetTeamColours                                  56AE4  97 PC, low confidence
+; Sets the team colours in the palette
 ;-----------------------------------------------------------------------------
-sub_56AE4:
+SetTeamColours:
         push ecx
         push esi
         push edi
@@ -5493,9 +5527,10 @@ sub_56AE4:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_56B98                                                       56B98  97 PC
+; FaceDistance                                    56B98  97 PC, low confidence
+; Works out the distance for a face texture
 ;-----------------------------------------------------------------------------
-sub_56B98:
+FaceDistance:
         push esi
         push edi
         push ebp
@@ -5594,9 +5629,10 @@ sub_56B98:
         ret 4
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_56CD0                                                       56CD0  97 PC
+; SetFaceMouth                                    56CD0  97 PC, low confidence
+; Sets the face mouth morph and marks the model dirty
 ;-----------------------------------------------------------------------------
-sub_56CD0:
+SetFaceMouth:
         cmp edx, dword [byte eax+040h]
         je short .1
         mov dword [dword eax+0758h], 1
@@ -5605,9 +5641,10 @@ sub_56CD0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_56CE4                                                       56CE4  97 PC
+; SetFaceExpression                               56CE4  97 PC, low confidence
+; Sets the face expression morph and marks the model dirty
 ;-----------------------------------------------------------------------------
-sub_56CE4:
+SetFaceExpression:
         cmp edx, dword [byte eax+044h]
         je short .1
         mov dword [dword eax+0758h], 1
@@ -5616,9 +5653,10 @@ sub_56CE4:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_56CF8                                                       56CF8  97 PC
+; SetFaceBlink                                    56CF8  97 PC, low confidence
+; Sets the face blink morph and marks the model dirty
 ;-----------------------------------------------------------------------------
-sub_56CF8:
+SetFaceBlink:
         cmp edx, dword [byte eax+048h]
         je short .1
         mov dword [dword eax+0758h], 1
@@ -5627,9 +5665,10 @@ sub_56CF8:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_56D0C                                                       56D0C  97 PC
+; SetModelHeading                                 56D0C  97 PC, low confidence
+; Sets the heading of a model
 ;-----------------------------------------------------------------------------
-sub_56D0C:
+SetModelHeading:
         push ecx
         push esi
         push edi
@@ -5700,14 +5739,15 @@ sub_56D0C:
         pop ecx
         ret
 jpt_56DCC:
-        dd sub_56DDC_E3
-        dd sub_56DDC_114
-        dd sub_56DDC_18F
-        dd sub_56DDC_C8
+        dd BuildFaceTextures_E3
+        dd BuildFaceTextures_114
+        dd BuildFaceTextures_18F
+        dd BuildFaceTextures_C8
 ;-----------------------------------------------------------------------------
-; sub_56DDC                                                       56DDC  97 PC
+; BuildFaceTextures                               56DDC  97 PC, low confidence
+; Builds the face textures
 ;-----------------------------------------------------------------------------
-sub_56DDC:
+BuildFaceTextures:
         push ecx
         push esi
         push edi
@@ -5766,13 +5806,13 @@ sub_56DDC:
         mov dword [dword esi+0700h], eax
         mov eax, dword [byte ebp-0Ch]
         cmp eax, byte 3
-        ja near sub_56DDC_18F.9
+        ja near BuildFaceTextures_18F.9
         jmp dword [nosplit cs:eax*4+jpt_56DCC]
-sub_56DDC_C8:
+BuildFaceTextures_C8:
         mov dword [dword esi+073Ch], 0
         mov dword [byte esi+0Ch], 3FC90FDBh
         mov dword [dword esi+0750h], 1
-sub_56DDC_E3:
+BuildFaceTextures_E3:
         cmp dword [byte esi+028h], byte 0
         je short .2
         mov eax, dword_1B8368
@@ -5786,8 +5826,8 @@ sub_56DDC_E3:
         sub eax, ebx
         mov edx, dword_1B83A4
         shl eax, 2
-        jmp near sub_56DDC_18F.8
-sub_56DDC_114:
+        jmp near BuildFaceTextures_18F.8
+BuildFaceTextures_114:
         mov eax, dword [dword edi+dword_1B833C]
         mov dword [dword esi+06C4h], eax
         mov eax, dword [dword edi+dword_1B841C]
@@ -5819,8 +5859,8 @@ sub_56DDC_114:
         mov dword [dword esi+06C0h], dword_1B8398
         shl eax, 2
         mov dword [byte esi+034h], 1
-        jmp short sub_56DDC_18F.8
-sub_56DDC_18F:
+        jmp short BuildFaceTextures_18F.8
+BuildFaceTextures_18F:
         mov ebx, dword [byte ebp-08h]
         lea eax, [nosplit ebx*4+00h]
         mov edx, dword_1B83A4
@@ -5848,7 +5888,7 @@ sub_56DDC_18F:
         shl edi, 2
         mov eax, esi
         mov ebx, dword [dword edi+dword_1B83E0]
-        call sub_56B98
+        call FaceDistance
         push byte 0
         push byte 1Fh
         push byte 7
@@ -5863,7 +5903,7 @@ sub_56DDC_18F:
         push ebx
         mov edx, 4
         mov ebx, dword [dword edi+dword_1B83E0]
-        call sub_56B98
+        call FaceDistance
         push byte 1
         push byte 12h
         push byte 5
@@ -5878,7 +5918,7 @@ sub_56DDC_18F:
         push eax
         mov ecx, 782Fh
         mov eax, esi
-        call sub_56B98
+        call FaceDistance
         push byte 0
         push byte 12h
         push byte 8
@@ -5893,7 +5933,7 @@ sub_56DDC_18F:
         push ebx
         mov edx, 5
         mov ebx, dword [dword edi+dword_1B83C8]
-        call sub_56B98
+        call FaceDistance
         push byte 1
         push byte 34h
         push byte 0Dh
@@ -5908,7 +5948,7 @@ sub_56DDC_18F:
         push eax
         mov ecx, 0FFFFF448h
         mov eax, esi
-        call sub_56B98
+        call FaceDistance
         push byte 0
         push byte 34h
         push byte 0Ah
@@ -5923,7 +5963,7 @@ sub_56DDC_18F:
         push ebx
         mov edx, 7
         mov ebx, dword [dword edi+dword_1B834C]
-        call sub_56B98
+        call FaceDistance
         push byte 1
         push byte 19h
         push byte 0Eh
@@ -5938,7 +5978,7 @@ sub_56DDC_18F:
         push eax
         xor ecx, ecx
         mov eax, esi
-        call sub_56B98
+        call FaceDistance
         push byte 0
         push byte 19h
         push byte 0Bh
@@ -5953,7 +5993,7 @@ sub_56DDC_18F:
         push ebx
         mov edx, 1
         mov ebx, dword [dword edi+dword_1B8330]
-        call sub_56B98
+        call FaceDistance
         mov eax, dword [dword edi+dword_1B8318]
         mov ecx, dword [dword esi+074Ch]
         mov dword [dword esi+06F8h], eax
@@ -6016,7 +6056,7 @@ sub_56DDC_18F:
         push ecx
         mov ecx, 782Fh
         mov ebx, dword [nosplit ebx*4+dword_1B8318]
-        call sub_56B98
+        call FaceDistance
         mov edi, dword [dword esi+074Ch]
         test edi, edi
         setne al
@@ -6077,7 +6117,7 @@ sub_56DDC_18F:
         push edi
         mov ebx, dword [nosplit ebx*4+dword_1B8318]
         mov ecx, 782Fh
-        call sub_56B98
+        call FaceDistance
         mov esp, ebp
         pop ebp
         pop edi
@@ -6086,9 +6126,10 @@ sub_56DDC_18F:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_57298                                                       57298  97 PC
+; RefreshFaceTextures                             57298  97 PC, low confidence
+; Refreshes the face textures
 ;-----------------------------------------------------------------------------
-sub_57298:
+RefreshFaceTextures:
         push ebx
         push ecx
         mov ecx, eax
@@ -6110,15 +6151,16 @@ sub_57298:
         xor edx, ecx
         mov dl, al
         mov eax, ecx
-        call sub_56DDC
+        call BuildFaceTextures
         pop ecx
         pop ebx
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_572D4                                                       572D4  97 PC
+; CupFaceTextures                                 572D4  97 PC, low confidence
+; Builds the face textures for the cup celebration
 ;-----------------------------------------------------------------------------
-sub_572D4:
+CupFaceTextures:
         push ecx
         push esi
         mov ecx, eax
@@ -6135,15 +6177,16 @@ sub_572D4:
         xor ebx, ebx
         mov bl, al
         mov eax, ecx
-        call sub_56DDC
+        call BuildFaceTextures
         pop esi
         pop ecx
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_57304                                                       57304  97 PC
+; SetModelSlotValue                               57304  97 PC, low confidence
+; Sets a model slot value
 ;-----------------------------------------------------------------------------
-sub_57304:
+SetModelSlotValue:
         push edx
         mov edx, eax
         shl eax, 4

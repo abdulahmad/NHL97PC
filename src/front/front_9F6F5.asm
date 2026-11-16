@@ -22,7 +22,7 @@ extern NameIndexRemove, NameIndexPath, sub_867D4, InitMenuItems, sub_8BFAC, sub_
 extern sub_8DE68, sub_8DE7E, sub_8DEAC, sub_8E6AF, GetLangText, sub_9F671, sub_AB240, sub_AC6EB
 extern sub_AC73E, KeysEqual, FindPlayerRecord, UpdatePlayerRecord, OpenLeagueFile, WriteLeagueHeader, FindGameRecord, UpdateGameRecord
 extern AddPlayerStatAt, FindPlayerStat, UpdatePlayerStat, FindTeamStat, UpdateTeamStat, AddReplayIndexEntry, FindReplayIndexEntry, OpenReplayFile
-extern RenameReplayIndexEntry, ClearLinkAbort, ServiceIdle, LinkSyncMenu, LinkSendBlock, LinkReceiveBlock, sub_ED6C8, sub_EDDAC
+extern RenameReplayIndexEntry, ClearLinkAbort, ServiceIdle, LinkSyncMenu, LinkSendBlock, LinkReceiveBlock, LinkReceiveChunk, LinkSendFile
 extern AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, sub_FCF84, DrawShape, CreateBitmap, SetDrawTarget
 extern sub_FDC68, DrawTextAt, SetTextColors, tickcount, unk_165E4A, unk_16D7F4, unk_1ACB44, unk_1ACB49
 extern unk_1ACD2B, unk_1ACD30, unk_1ACE38, unk_1AD22E, unk_1AD236, unk_1AD250, unk_1AD255, unk_1AD35D
@@ -4218,7 +4218,7 @@ LinkSendData:
         mov ebx, dword [dword_1C93C8]
         mov edx, dword [dword_1C93C4]
         mov eax, dword [dword_1C93CC]
-        call sub_EDDAC
+        call LinkSendFile
         mov ecx, eax
         call HideLinkBox
         push ecx
@@ -4334,7 +4334,7 @@ LinkReceiveData:
         call ShowLinkMessage
         mov ebx, dword [dword_1C93CC]
         mov eax, dword [dword_1C93C8]
-        call sub_ED6C8
+        call LinkReceiveChunk
         jmp near LinkSendData_BB
 ;-----------------------------------------------------------------------------
 ; sub_A3116                                                       A3116  97 PC

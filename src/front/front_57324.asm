@@ -169,8 +169,8 @@ extern doinput, checkfight, AddBankToRange, RemapArtBank, SetRangeColors, AddCol
 extern StartMusicTrack, StopAllSfx, PlaySfxOr, PlaySfxVolume, PlaySfxAt, SetCrowdNoise, SetCrowdMood, CommentaryEvent
 extern ResetStreamAudio, SetArtArchive, RefreshViewDistance, AddModelName, FindModelName, ResetRenderTimers, DrawGameFrame, RedrawGameView
 extern TriggerCameraFlashes, DrawNetShadows, PeriodOver, IsCameraOnPuck, SetCameraMode, StartCrowdReaction, StartBenchCheer, UpdateScoreboardPos
-extern UpdateScoreboardSpin, sub_56798, sub_567B0, sub_568CC, sub_56908, sub_56A84, sub_56AE4, sub_56CD0
-extern sub_56CE4, sub_56CF8, sub_56D0C, sub_56DDC, sub_AA650, sub_BD61B, ServiceIdle, AllocMemBlock
+extern UpdateScoreboardSpin, ShapePixelSize, DrawShadowShape, ModelViewDepth, DrawPortraitModels, PickMarkerShape, SetTeamColours, SetFaceMouth
+extern SetFaceExpression, SetFaceBlink, SetModelHeading, BuildFaceTextures, LogPeriodEnd, sub_BD61B, ServiceIdle, AllocMemBlock
 extern sub_FAAB4, FreeMemBlock, sub_FB4A4, ZeroMem, FillMem, sub_FC330, sub_FC4BC, sub_FCC40
 extern FreeBitmap, SetDrawTarget, sub_FD954, sub_FDC0C, sub_FDC68, FillRect, MeasureText, DrawTextAt
 extern SetTextColors, ClearIfNaN, FloatsToInts, MatRotX, MatRotY, MatTranspose, MatMul, VecMulMat
@@ -657,7 +657,7 @@ DrawJerseyLettering:
         jne near .1
         mov eax, dword [dword esi+0700h]
         mov eax, dword [nosplit eax*4+dword_1B8478]
-        call sub_56798
+        call ShapePixelSize
         push eax
         mov ebx, dword [dword esi+06E4h]
         mov eax, dword [dword esi+0700h]
@@ -1880,13 +1880,13 @@ InitPlayerModelSlots:
         mov eax, esi
         mov ebx, dword [byte esi+02Ch]
         xor edx, edx
-        call sub_56D0C
+        call SetModelHeading
         mov edx, ebp
         mov eax, esi
         mov ebx, dword [byte esi+030h]
         add esi, 760h
         inc edi
-        call sub_56D0C
+        call SetModelHeading
         mov dword [byte esi-08h], ebp
         cmp edi, byte 0Dh
         jl short .1
@@ -1911,8 +1911,8 @@ InitPlayerModelSlots:
         mov eax, edi
         add eax, byte_1B8580
         push eax
-        mov ecx, sub_56908
-        mov ebx, sub_568CC
+        mov ecx, DrawPortraitModels
+        mov ebx, ModelViewDepth
         push byte 3
         mov edx, esi
         mov eax, str_BOGIE
@@ -2147,14 +2147,14 @@ LoadGameModels:
         mov edx, esi
         mov eax, ecx
         inc ecx
-        call sub_56DDC
+        call BuildFaceTextures
         cmp ecx, byte 5
         jl short .13
         mov ebx, 1
         mov eax, 5
         xor edx, edx
         mov ecx, 6
-        call sub_56DDC
+        call BuildFaceTextures
         mov esi, 1
         xor ebp, ebp
 .14:
@@ -2162,26 +2162,26 @@ LoadGameModels:
         mov edx, esi
         mov eax, ecx
         inc ecx
-        call sub_56DDC
+        call BuildFaceTextures
         cmp ecx, byte 0Bh
         jl short .14
         mov ebx, 1
         mov eax, 0Bh
         mov edx, ebx
-        call sub_56DDC
+        call BuildFaceTextures
         mov ebx, 2
         mov eax, 0Ch
         mov edx, ebx
-        call sub_56DDC
+        call BuildFaceTextures
         mov ebx, 3
         mov eax, 0Dh
         xor edx, edx
-        call sub_56DDC
+        call BuildFaceTextures
         mov ebx, 3
         mov edx, 1
         mov eax, 0Eh
         xor edi, edi
-        call sub_56DDC
+        call BuildFaceTextures
         push edi
         mov dword [dword_1D91CC], edi
         call sub_FC330
@@ -3658,7 +3658,7 @@ DrawObjectShadow:
         push ebx
         add edx, ebp
         push edx
-        call sub_567B0
+        call DrawShadowShape
         add esp, byte 18h
 .1:
         add esp, byte 28h
@@ -5111,7 +5111,7 @@ DrawPlayerMarkers:
         call ProjectPoints
         lea edx, [byte esp+030h]
         mov eax, 4
-        call sub_56A84
+        call PickMarkerShape
         cmp eax, byte 2
         jle short .7
         push byte 1
@@ -5621,7 +5621,7 @@ UpdateFaceTextures:
         mov ebx, 1
         mov edx, dword [dword eax+0700h]
         mov eax, ecx
-        call sub_56DDC
+        call BuildFaceTextures
         pop ecx
         pop ebx
         ret
@@ -6923,7 +6923,7 @@ ReplayDrawFrame:
         sar edx, 10h
         mov eax, dword [dword ecx+0F2h]
         add ecx, 108h
-        call sub_56AE4
+        call SetTeamColours
         cmp esi, byte 0Ch
         jl short .1
         test edi, edi
@@ -7467,7 +7467,7 @@ ReplayRestoreObjects:
         sar edx, 10h
         mov eax, dword [dword ecx+0F2h]
         add ecx, 108h
-        call sub_56AE4
+        call SetTeamColours
         cmp esi, byte 0Ch
         jl near .6
         pop edi
@@ -16101,7 +16101,7 @@ GlideForwardMove_260:
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
 .16:
-        call sub_56CD0
+        call SetFaceMouth
 .17:
         test byte [byte esi+01Ch], 80h
         je short .19
@@ -16111,7 +16111,7 @@ GlideForwardMove_260:
         je short .18
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
-        call sub_56CD0
+        call SetFaceMouth
 .18:
         mov eax, esi
         call EndMove
@@ -26916,13 +26916,13 @@ StartWristShotAnim:
 .2:
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
-        call sub_56CE4
+        call SetFaceExpression
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CD0
+        call SetFaceMouth
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CF8
+        call SetFaceBlink
 .3:
         add esp, byte 0Ch
         pop ebp
@@ -27772,13 +27772,13 @@ ShotMove:
         je short .1
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CE4
+        call SetFaceExpression
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
-        call sub_56CD0
+        call SetFaceMouth
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CF8
+        call SetFaceBlink
         mov eax, esi
         call EndMove
         jmp near .40
@@ -28128,13 +28128,13 @@ ShotMove:
 .38:
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CE4
+        call SetFaceExpression
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
-        call sub_56CD0
+        call SetFaceMouth
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CF8
+        call SetFaceBlink
         mov eax, ecx
         call PickSkateAnim
         mov esp, ebp
@@ -31625,13 +31625,13 @@ ResolveBodyCheck:
         fstp dword [esp]
         mov eax, dword [dword ecx+0F2h]
         fstp dword [byte esp+04h]
-        call sub_56CE4
+        call SetFaceExpression
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CD0
+        call SetFaceMouth
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
-        call sub_56CF8
+        call SetFaceBlink
         mov eax, dword [dword ecx+0EEh]
         mov dl, byte [byte eax+031h]
         or dl, 1
@@ -32153,13 +32153,13 @@ StartFallAnim:
         mov esi, edx
         mov edx, 2
         mov eax, dword [dword eax+0F2h]
-        call sub_56CE4
+        call SetFaceExpression
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CD0
+        call SetFaceMouth
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CF8
+        call SetFaceBlink
         mov eax, dword [dword ecx+0FAh]
         mov dword [byte eax+038h], 3F800000h
         mov eax, dword [dword ecx+0FAh]
@@ -33166,14 +33166,14 @@ ResolvePlayerContact:
         or byte [byte eax+031h], 1
         mov edx, 2
         mov eax, dword [dword edi+0F2h]
-        call sub_56CE4
+        call SetFaceExpression
         mov eax, dword [dword edi+0F2h]
         xor edx, edx
-        call sub_56CD0
+        call SetFaceMouth
         mov eax, dword [dword edi+0F2h]
         xor edx, edx
         xor ebx, ebx
-        call sub_56CF8
+        call SetFaceBlink
         mov eax, dword [off_168CF0]
         mov bl, byte [dword edi+0A4h]
         movsx edx, byte [eax]
@@ -33310,13 +33310,13 @@ ResolvePlayerContact:
         or byte [byte eax+031h], 1
         mov edx, 2
         mov eax, dword [dword esi+0F2h]
-        call sub_56CE4
+        call SetFaceExpression
         mov eax, dword [dword esi+0F2h]
         xor edx, edx
-        call sub_56CD0
+        call SetFaceMouth
         mov eax, dword [dword esi+0F2h]
         xor edx, edx
-        call sub_56CF8
+        call SetFaceBlink
         xor edx, edx
         mov eax, dword [off_168CF0]
         mov dl, byte [dword esi+0A4h]
@@ -35100,22 +35100,22 @@ FightPunchMove:
         call PlaySfxVolume
         mov edx, 1
         mov eax, dword [dword esi+0F2h]
-        call sub_56CE4
+        call SetFaceExpression
         mov eax, dword [dword esi+0F2h]
         xor edx, edx
-        call sub_56CD0
+        call SetFaceMouth
         mov eax, dword [dword esi+0F2h]
         xor edx, edx
-        call sub_56CF8
+        call SetFaceBlink
         mov edx, 2
         mov eax, dword [dword ecx+0F2h]
-        call sub_56CE4
+        call SetFaceExpression
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CD0
+        call SetFaceMouth
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CF8
+        call SetFaceBlink
         xor edx, edx
         mov eax, ecx
         jmp dword [dword cs:edx+unk_704AC]
@@ -35170,13 +35170,13 @@ FightPunchMove_1C4:
         call PlaySfxVolume
         mov edx, 1
         mov eax, dword [dword esi+0F2h]
-        call sub_56CE4
+        call SetFaceExpression
         mov eax, dword [dword esi+0F2h]
         xor edx, edx
-        call sub_56CD0
+        call SetFaceMouth
         mov eax, dword [dword esi+0F2h]
         xor edx, edx
-        call sub_56CF8
+        call SetFaceBlink
         mov edx, 4
         mov eax, ecx
         jmp dword [dword cs:edx+unk_704C0]
@@ -35206,13 +35206,13 @@ FightPunchMove_299:
         call SetCrowdMood
         mov edx, 2
         mov eax, dword [dword ecx+0F2h]
-        call sub_56CE4
+        call SetFaceExpression
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CD0
+        call SetFaceMouth
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
-        call sub_56CF8
+        call SetFaceBlink
         mov eax, dword [dword ecx+0EEh]
         mov dh, byte [byte eax+031h]
         or dh, 1
@@ -35222,14 +35222,14 @@ FightPunchMove_299:
 .15:
         mov edx, 2
         mov eax, dword [dword ecx+0F2h]
-        call sub_56CE4
+        call SetFaceExpression
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CD0
+        call SetFaceMouth
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
         mov edi, 15Eh
-        call sub_56CF8
+        call SetFaceBlink
 .16:
         mov eax, dword [dword ecx+0FAh]
         call ResetAnimTimer
@@ -35351,11 +35351,11 @@ FightEndMove:
         mov ebx, 1
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56D0C
+        call SetModelHeading
         mov ebx, 1
         mov eax, dword [dword ecx+0F2h]
         mov edx, ebx
-        call sub_56D0C
+        call SetModelHeading
 .1:
         test byte [byte esi+01Ch], 80h
         je short .3
@@ -35503,13 +35503,13 @@ FightHitMove:
         call PlaySfxVolume
         mov edx, 2
         mov eax, dword [dword ecx+0F2h]
-        call sub_56CE4
+        call SetFaceExpression
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CD0
+        call SetFaceMouth
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CF8
+        call SetFaceBlink
 .3:
         test byte [byte ebx+01Ch], 80h
         je short .4
@@ -35525,13 +35525,13 @@ FightHitMove:
         call SetSPA
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
-        call sub_56CE4
+        call SetFaceExpression
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CD0
+        call SetFaceMouth
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CF8
+        call SetFaceBlink
         jmp short .5
 .4:
         mov edx, esp
@@ -35619,13 +35619,13 @@ FightJerseyMove:
         call SetSPA
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
-        call sub_56CE4
+        call SetFaceExpression
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CD0
+        call SetFaceMouth
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CF8
+        call SetFaceBlink
         jmp short .5
 .4:
         mov edx, esp
@@ -36108,22 +36108,22 @@ FightUppercutMove:
         call PlaySfxVolume
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
-        call sub_56CE4
+        call SetFaceExpression
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CD0
+        call SetFaceMouth
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CF8
+        call SetFaceBlink
         mov edx, 2
         mov eax, dword [dword edi+0F2h]
-        call sub_56CE4
+        call SetFaceExpression
         mov eax, dword [dword edi+0F2h]
         xor edx, edx
-        call sub_56CD0
+        call SetFaceMouth
         mov eax, dword [dword edi+0F2h]
         xor edx, edx
-        call sub_56CF8
+        call SetFaceBlink
 .3:
         test byte [byte ebx+01Ch], 80h
         je near .5
@@ -36141,13 +36141,13 @@ FightUppercutMove:
         call SetSPA
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CE4
+        call SetFaceExpression
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CD0
+        call SetFaceMouth
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CF8
+        call SetFaceBlink
         jmp short .6
 .4:
         mov dl, byte [dword ecx+0BFh]
@@ -36231,13 +36231,13 @@ FightStaggerMove:
         call SetSPA
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
-        call sub_56CE4
+        call SetFaceExpression
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
-        call sub_56CD0
+        call SetFaceMouth
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CF8
+        call SetFaceBlink
         mov eax, dword [dword ecx+0F6h]
         mov eax, dword [eax]
         mov edx, dword [eax]
@@ -36289,13 +36289,13 @@ FightFaceMove:
         je short .1
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
-        call sub_56CE4
+        call SetFaceExpression
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
-        call sub_56CD0
+        call SetFaceMouth
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CF8
+        call SetFaceBlink
         mov eax, ecx
         call StartFightAnimMove
         jmp short .2
@@ -36508,22 +36508,22 @@ FightThrowMove:
         call PlaySfxVolume
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
-        call sub_56CE4
+        call SetFaceExpression
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CD0
+        call SetFaceMouth
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CF8
+        call SetFaceBlink
         mov edx, 2
         mov eax, dword [dword edi+0F2h]
-        call sub_56CE4
+        call SetFaceExpression
         mov eax, dword [dword edi+0F2h]
         xor edx, edx
-        call sub_56CD0
+        call SetFaceMouth
         mov eax, dword [dword edi+0F2h]
         xor edx, edx
-        call sub_56CF8
+        call SetFaceBlink
 .3:
         test byte [byte ebx+01Ch], 80h
         je near .5
@@ -36533,13 +36533,13 @@ FightThrowMove:
         jne short .4
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CE4
+        call SetFaceExpression
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CD0
+        call SetFaceMouth
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CF8
+        call SetFaceBlink
         mov al, byte [dword ecx+0BFh]
         xor ebx, ebx
         or al, 20h
@@ -36632,13 +36632,13 @@ FightFallMove:
         call SetSPA
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
-        call sub_56CE4
+        call SetFaceExpression
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
-        call sub_56CD0
+        call SetFaceMouth
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CF8
+        call SetFaceBlink
         mov eax, dword [dword ecx+0F6h]
         mov eax, dword [eax]
         mov edx, dword [eax]
@@ -37298,13 +37298,13 @@ StartFightAnim:
         call SetSPA
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
-        call sub_56CE4
+        call SetFaceExpression
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
-        call sub_56CD0
+        call SetFaceMouth
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CF8
+        call SetFaceBlink
         mov eax, dword [dword ecx+0F2h]
         call ClearObjectHidden
         pop edx
@@ -37560,13 +37560,13 @@ CelebrationJumpMove:
         call SetSPA
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
-        call sub_56CE4
+        call SetFaceExpression
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CD0
+        call SetFaceMouth
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CF8
+        call SetFaceBlink
         or byte [byte esi+031h], 1
         or byte [dword ecx+0BFh], 20h
         mov esp, ebp
@@ -37665,13 +37665,13 @@ CelebrationEndMove:
         call SetSPA
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
-        call sub_56CE4
+        call SetFaceExpression
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CD0
+        call SetFaceMouth
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CF8
+        call SetFaceBlink
         mov eax, dword [dword ecx+0FAh]
         or byte [byte eax+031h], 1
         or byte [dword ecx+0BFh], 20h
@@ -37726,13 +37726,13 @@ DejectedMove:
 .1:
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CE4
+        call SetFaceExpression
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
-        call sub_56CD0
+        call SetFaceMouth
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CF8
+        call SetFaceBlink
         mov eax, dword [dword ecx+0EEh]
         and byte [byte eax+031h], 0FEh
         mov eax, ebx
@@ -37784,13 +37784,13 @@ DejectedSkateMove:
 .1:
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CE4
+        call SetFaceExpression
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
-        call sub_56CD0
+        call SetFaceMouth
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CF8
+        call SetFaceBlink
         mov eax, dword [dword ecx+0EEh]
         and byte [byte eax+031h], 0FEh
         mov eax, ebx
@@ -37865,13 +37865,13 @@ CheerMove:
 .3:
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CE4
+        call SetFaceExpression
         mov edx, 1
         mov eax, dword [dword ecx+0F2h]
-        call sub_56CD0
+        call SetFaceMouth
         mov eax, dword [dword ecx+0F2h]
         xor edx, edx
-        call sub_56CF8
+        call SetFaceBlink
         mov eax, dword [dword ecx+0EEh]
         and byte [byte eax+031h], 0FEh
         mov eax, ebx
@@ -37961,13 +37961,13 @@ BenchCheerMove:
 .3:
         mov eax, dword [dword esi+0F2h]
         xor edx, edx
-        call sub_56CE4
+        call SetFaceExpression
         mov edx, 1
         mov eax, dword [dword esi+0F2h]
-        call sub_56CD0
+        call SetFaceMouth
         mov eax, dword [dword esi+0F2h]
         xor edx, edx
-        call sub_56CF8
+        call SetFaceBlink
         mov eax, dword [dword esi+0EEh]
         and byte [byte eax+031h], 0FEh
         mov eax, ecx
@@ -38407,7 +38407,7 @@ SkateToSpotMove:
         mov eax, dword [dword esi+0F2h]
         xor ebx, ebx
 .2:
-        call sub_56D0C
+        call SetModelHeading
 .3:
         test byte [byte ecx+01Ch], 80h
         je short .4
@@ -38450,7 +38450,7 @@ PuckRetrieveMove:
         mov edx, 1
         mov eax, dword [dword esi+0F2h]
         xor ebx, ebx
-        call sub_56D0C
+        call SetModelHeading
         cmp dword [byte esi+064h], byte 1Eh
         jge short .1
         mov dword [byte esi+064h], 1Eh
@@ -38518,7 +38518,7 @@ PeriodEndMove:
         call assreplace
         mov eax, dword [dword esi+0F2h]
         xor edx, edx
-        call sub_56D0C
+        call SetModelHeading
         call PeriodOver
         cmp word [word_19CBBE], byte 0
         jg short .2
@@ -38595,7 +38595,7 @@ PeriodEndSkateMove:
         call assreplace
         mov eax, dword [dword esi+0F2h]
         xor edx, edx
-        call sub_56D0C
+        call SetModelHeading
         call PeriodOver
         cmp word [word_19CBBE], byte 0
         jg short .1
@@ -38666,7 +38666,7 @@ RefAtDotAnim:
 ;-----------------------------------------------------------------------------
 ; RefFaceoffAnim                                  72E94  97 PC, low confidence
 ; Puckfaceoff2's referee move: SPA 143h, with the referee's two sprite flags
-; (sub_56D0C)
+; (SetModelHeading)
 ;-----------------------------------------------------------------------------
 RefFaceoffAnim:
         push ebx
@@ -38686,11 +38686,11 @@ RefFaceoffAnim:
         mov eax, dword [dword ecx+0F2h]
         xor ebx, ebx
         xor edx, edx
-        call sub_56D0C
+        call SetModelHeading
         mov ebx, 1
         mov eax, dword [dword ecx+0F2h]
         mov edx, ebx
-        call sub_56D0C
+        call SetModelHeading
         or byte [dword ecx+0BFh], 20h
         pop edx
         pop ecx
@@ -46200,7 +46200,7 @@ clockcont_0:
         mov eax, dword [word_19CBAE]
         mov edx, 1
         sar eax, 10h
-        call sub_AA650
+        call LogPeriodEnd
 .1:
         mov edx, 1
         mov eax, dword [off_168CFC]
@@ -46278,7 +46278,7 @@ clockcont_0:
         mov eax, dword [word_19CBAE]
         mov edx, 1
         sar eax, 10h
-        call sub_AA650
+        call LogPeriodEnd
         pop ebp
         pop edi
         pop esi
@@ -46501,7 +46501,7 @@ clockcont_0:
         mov eax, dword [word_19CBAE]
         mov edx, 1
         sar eax, 10h
-        call sub_AA650
+        call LogPeriodEnd
 .32:
         cmp word [gsp], byte 3
         jne short .34
@@ -46773,7 +46773,7 @@ DoGameFrame:
         sar edx, 10h
         mov eax, dword [dword ecx+0F2h]
         add ecx, 108h
-        call sub_56AE4
+        call SetTeamColours
         cmp esi, byte 0Ch
         jl short .4
 .5:
