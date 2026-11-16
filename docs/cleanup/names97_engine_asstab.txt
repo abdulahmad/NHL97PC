@@ -41,3 +41,6 @@ sub_363EC CheckFightOdds {confidence=low} (player, other) from checkfight: both 
 sub_36524 StartFight {confidence=medium} (player, other): marks both fighters, gives each a fighting penalty (AddPenalty2 1Ch) and assfight (1Ch), user control, commentary
 sub_36AB0 assfight {source=93G,confidence=medium} NHLPA 93 assfight: assignment 1Ch (StartFight gives it to both fighters), the fighting logic
 sub_36E34 assfwatch {source=93G,confidence=medium} NHLPA 93 assfwatch: assignment 1Dh (checkfight gives it to the others), players watching the fight
+sub_6E290 checkcx {source=94G,confidence=low} 94G checkcx: (player a3, player a2, ...) a collision between two players (x87): bounces, checking animations, interference (checkint), checkfight
+sub_6F604 checkplcoll {source=94G,confidence=low} 94G checkplcoll: a player's collisions with the other players (checkcx, sub_6E9A4) and the rest
+sub_2FED8 checkint {source=94G,confidence=low} 94G checkint: interference: the hit player has no puck and is not the goalie; AddPenalty 14h by chance

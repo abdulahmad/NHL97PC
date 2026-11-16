@@ -50,7 +50,7 @@ global jpt_32328, jpt_380E6, jpt_38102, jpt_3811A, sub_2FB40_229, sub_2FB40_2CE,
 global sub_2FB40_32D, sub_2FB40_370, sub_308AC_1D, sub_308AC_21, sub_308AC_25, sub_308AC_29, sub_308AC_2D, sub_308AC_31
 global sub_308AC_35, sub_32340_2BD, sub_32340_2CB, sub_32340_2D2, sub_32340_308, sub_32340_32E, sub_32340_354, InProgress_8B2
 global InProgress_96E, sub_3509C_E0, sub_36E34_1EC, sub_37198_DE, sub_37744_24C, puckfaceoff, restorepl, sub_2F4B8
-global sub_2F744, sub_2F818, sub_2F8D8, sub_2FA00, sub_2FB40, sub_2FED8, sub_2FFB8, sub_30300
+global sub_2F744, sub_2F818, sub_2F8D8, sub_2FA00, sub_2FB40, checkint, sub_2FFB8, sub_30300
 global sub_305D8, sub_30674, sub_30778, sub_3085C, sub_308AC, sub_308F4, sub_30998, sub_30A34
 global sub_30BD8, sub_31070, sub_313F4, sub_31540, sub_31A2C, sub_31A5C, sub_31B6C, sub_31C14
 global sub_31F88, sub_32184, AddPenalty, AddPenalty2, sub_32888, sub_32B68, sub_32C04, sub_32CEC
@@ -1038,7 +1038,7 @@ sub_2FB40:
         jmp near sub_2FB40_370.25
 .4:
         mov eax, ebx
-        call sub_2FED8
+        call checkint
         test byte [dword ecx+0C0h], 10h
         jne near sub_2FB40_370.26
         mov eax, esi
@@ -1300,9 +1300,11 @@ sub_2FB40_370:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_2FED8                                                       2FED8  97 PC
+; checkint                                          2FED8  94G, low confidence
+; 94G checkint: interference: the hit player has no puck and is not the
+; goalie; AddPenalty 14h by chance
 ;-----------------------------------------------------------------------------
-sub_2FED8:
+checkint:
         push ebx
         push ecx
         push edx

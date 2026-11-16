@@ -95,6 +95,7 @@ address,name,auto_name,source,confidence,evidence,file
 2E8F0,UpdateCoachModes,sub_2E8F0,96PC,medium,96 PC UpdateCoachModes: from ClockTick at the same minutes of periods 2 and 3,src/engine/engine_2DE3C.asm
 2EDB8,StartFaceoffLineChange,sub_2EDB8,94G,low,94G StartFaceoffLineChange: starts a team's faceoff line change (once per stoppage: team flag +16h bit 1) when line changes are on,src/engine/engine_2DE3C.asm
 2EEE8,puckfaceoff,,96PC,medium,NHL96PC 3AEBA (sem): C:306; D:19CC04; D:19EBBC; D:19EAB0,
+2FED8,checkint,sub_2FED8,94G,low,94G checkint: interference: the hit player has no puck and is not the goalie; AddPenalty 14h by chance,src/engine/faceoff/faceoff_2.asm
 32260,AddPenalty,sub_32260,94G,medium,"94G AddPenalty: (player, penalty, ...) adds a penalty unless the clock is stopped, a penalty shot is live or the rule is off in the options (offsides 5, two-line pass 6 ...); falls through to AddPenalty2",src/engine/faceoff/faceoff_2.asm
 32340,AddPenalty2,sub_32340,94G,low,"94G AddPenalty2: (player, penalty, ...) a forced penalty: penalty table dword_168D20, the penalty panel (QueueOverlayPanel)",src/engine/faceoff/faceoff_2.asm
 332C0,updatepentime,sub_332C0,94G,medium,"94G updatepentime (96 PC body): counts the penalty times down, from chkprogress",src/engine/faceoff/faceoff_2.asm
@@ -175,6 +176,8 @@ address,name,auto_name,source,confidence,evidence,file
 5ED80,SetSPA,sub_5ED80,94G,medium,"94G SetSPA: (player, animation 0-17Ch, flags, speed) sets the player's animation; restarts it unless it is already playing",src/front/front_57324.asm
 6590A,CamShot23D,sub_6590A,96PC,medium,NHL96PC 603FF (similar 0.81): mnemonic similarity 0.81 over 16 instructions,src/front/front_57324.asm
 65CED,InitAnimPoints,sub_65CED,new,low,"looks up the animation attachment points (puck, stickheel, origin, chin, rhand, lshldr, rshldr) and loads ANIMS.VIV",src/front/front_57324.asm
+6E290,checkcx,sub_6E290,94G,low,"94G checkcx: (player a3, player a2, ...) a collision between two players (x87): bounces, checking animations, interference (checkint), checkfight",src/front/front_57324.asm
+6F604,checkplcoll,sub_6F604,94G,low,"94G checkplcoll: a player's collisions with the other players (checkcx, sub_6E9A4) and the rest",src/front/front_57324.asm
 77630,AllocAnimStates,sub_77630,new,low,"(count): allocates the ""ANIMSTAT"" block (count x 358h) and clears it",src/front/front_57324.asm
 779C8,LoadAiIcons,sub_779C8,new,low,"loads the ""cross"" icon shapes from aicons.viv",src/front/front_57324.asm
 77F88,GameOver,sub_77F88,96PC,medium,sets gameover (word_19CBA0); 96 PC GameOver without its already-over check,src/front/front_57324.asm

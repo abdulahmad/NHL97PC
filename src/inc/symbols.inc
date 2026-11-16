@@ -215,7 +215,7 @@
 ;  2F8D8  sub_2F8D8                                engine/faceoff/faceoff_2.asm                 1
 ;  2FA00  sub_2FA00                                engine/faceoff/faceoff_2.asm                 1
 ;  2FB40  sub_2FB40                                engine/faceoff/faceoff_2.asm                 1
-;  2FED8  sub_2FED8                                engine/faceoff/faceoff_2.asm                 1
+;  2FED8  checkint                                 engine/faceoff/faceoff_2.asm                 1
 ;  30674  sub_30674                                engine/faceoff/faceoff_2.asm                 1
 ;  30778  sub_30778                                engine/faceoff/faceoff_2.asm                 2
 ;  3085C  sub_3085C                                engine/faceoff/faceoff_2.asm                 2
