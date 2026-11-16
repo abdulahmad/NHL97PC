@@ -4,8 +4,8 @@ bits 32
 section s_107000 progbits alloc exec nowrite align=1
 extern byte_172BC5, byte_1CFBF2, byte_1CFBF3, byte_1DCF44, byte_1DCF67, byte_1DCF68, dword_16E4D0, dword_170038
 extern dword_17003C, dword_170040, dword_172AC0, dword_172AC4, dword_1CFBF4, dword_1DCF38, dword_1DCF3E, dword_1DCF3F
-extern dword_1DCF62, off_16FFC8, off_16FFCC, off_16FFD0, off_16FFD4, bcopy, AddExitHandler, sub_107A2C
-extern sub_107A9C, sub_107B70, sub_109210, sub_109401, sub_109545, sub_10955B, sub_10A930, sub_121888
+extern dword_1DCF62, off_16FFC8, off_16FFCC, off_16FFD0, off_16FFD4, bcopy, AddExitHandler, DetectSoundCard
+extern ProbeSoundPorts, CloseDigitalAudio, StopChannel, sub_109401, sub_109545, sub_10955B, sub_10A930, sub_121888
 extern sub_128280, sub_1286F0, sub_129F80, sub_12A274, sub_12A8E0, sub_12AB40, sub_12AE02, sub_12AF0F
 extern sub_12AFAB, sub_12B03D, sub_12B061, sub_12BD70, FreeMemBlock, sub_FB618, addtimer, sub_FC008
 extern word_1CFBF0
@@ -243,7 +243,7 @@ sub_107154:
         cmp eax, ebx
         jne short .10
         mov eax, dword [dword edx+dword_1DCF38]
-        call sub_109210
+        call StopChannel
 .10:
         add edx, byte 44h
         cmp edx, 440h
@@ -390,7 +390,7 @@ sub_107308:
 .2:
         cmp dword [dword_170040], byte 0
         jne short .3
-        push sub_107B70
+        push CloseDigitalAudio
         mov ebp, 1
         call AddExitHandler
         add esp, byte 4
@@ -1112,12 +1112,12 @@ sub_1079E4:
         mov eax, 6
         ret
 .2:
-        call sub_107A2C
+        call DetectSoundCard
         test eax, eax
         jl short .3
         ret
 .3:
-        call sub_107A9C
+        call ProbeSoundPorts
         test eax, eax
         jl short .4
         mov eax, 2

@@ -8,8 +8,8 @@ extern dword_1CFC80, dword_1CFC84, dword_1CFC88, dword_1CFC8C, dword_1CFC90, dwo
 extern dword_1CFCA4, dword_1CFCA8, dword_1CFCAC, dword_1CFCB0, dword_1CFCB4, dword_1CFCB8, dword_1CFCC0, dword_1CFCC4
 extern dword_1CFCC8, dword_1CFCCC, dword_1CFCD0, dword_1CFCD4, dword_1CFCD8, dword_1CFCDC, dword_1CFCE0, dword_1CFCE4
 extern dword_1CFCE8, dword_1DCF38, str_ASYNCFILE, strcmp_, strncpy_, CdOpenStream, CdHandleEntry, CdCloseFile
-extern CdRead, CdSeek, CdFindFile, DriveLetterIndex, IsCdDrive, sub_1072B4, sub_108640, sub_1091E0
-extern sub_109210, sub_109250, sub_128280, sub_12AB04, sub_12AB0C, sub_12CD34, sub_12D1C0, sub_12D210
+extern CdRead, CdSeek, CdFindFile, DriveLetterIndex, IsCdDrive, sub_1072B4, SetMusicStreamVolume, ChannelPlaying
+extern StopChannel, PlaySample, sub_128280, sub_12AB04, sub_12AB0C, sub_12CD34, sub_12D1C0, sub_12D210
 extern sub_FA9C4, AllocMemBlock, FreeMemBlock, sub_FAF70, addtimer, sub_FC008, unk_1CFCBC, word_170162
 global jpt_109E64, sub_109E74_2E, sub_109E74_57B, sub_109E74_613, sub_109E74_78F, AsyncInit, AsyncClose, AsyncRequestOpen
 global AsyncRequestSection, sub_109E54, sub_109E74, sub_10A788, sub_10A7D0, sub_10A844, sub_10A860, sub_10A868
@@ -1222,7 +1222,7 @@ sub_10A980:
         mov ebx, dword [dword_170214]
         mov edx, eax
         mov eax, ebx
-        call sub_108640
+        call SetMusicStreamVolume
 .7:
         xor eax, eax
         pop edx
@@ -1296,7 +1296,7 @@ sub_10AA38:
         ret
 .6:
         mov eax, edx
-        call sub_1091E0
+        call ChannelPlaying
         cmp eax, byte 1
         jne short .7
         mov eax, 7
@@ -1346,9 +1346,9 @@ sub_10AB2C:
         xor ebx, ebx
         mov eax, dword [dword_170210]
         mov dword [dword_170208], ebx
-        call sub_109210
+        call StopChannel
         mov eax, dword [dword_170214]
-        call sub_109210
+        call StopChannel
         call sub_12AB04
         mov dword [dword_170208], ebx
         mov dword [dword_170200], ebx
@@ -1410,9 +1410,9 @@ sub_10ABC8:
         xor ecx, ecx
         mov eax, dword [dword_170210]
         mov dword [dword_170208], ecx
-        call sub_109210
+        call StopChannel
         mov eax, dword [dword_170214]
-        call sub_109210
+        call StopChannel
         call sub_10ACF0
         call sub_12AB0C
 .3:
@@ -1463,13 +1463,13 @@ sub_10AC48:
         movzx esi, byte [byte edx+01h]
         mov al, byte [edx]
         mov edx, esi
-        call sub_109250
+        call PlaySample
         mov dword [dword_170214], eax
         mov dword [nosplit ecx*8+dword_170164], eax
         jmp short .3
 .2:
         mov eax, dword [dword_170214]
-        call sub_1091E0
+        call ChannelPlaying
         test eax, eax
         je short .3
         xor ecx, ebx

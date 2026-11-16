@@ -4,8 +4,8 @@ bits 32
 section s_10CFB4 progbits alloc exec nowrite align=1
 extern byte_1D1D8C, byte_1D1FBC, dword_16E464, dword_16E468, dword_16E4A8, dword_17024C, dword_170250, dword_170254
 extern dword_170258, dword_17025C, dword_170260, dword_170264, dword_170268, dword_17026C, dword_170270, dword_170274
-extern dword_1D204C, dword_1D2050, memcpy_, sub_100700, sub_10C8E8, sub_10CF34, sub_112190, sub_1125EC
-extern sub_112950, sub_1129B8, sub_11313C, sub_125AE0, sub_125B02, sub_12D300, sub_12D4B8, sub_12D6C4
+extern dword_1D204C, dword_1D2050, memcpy_, sub_100700, sub_10C8E8, sub_10CF34, FixedLerp, DrawClippedPoly
+extern RotatePoint2D, RotateModelPoint, sub_11313C, sub_125AE0, sub_125B02, sub_12D300, sub_12D4B8, sub_12D6C4
 extern FreeMemBlock, MakeColor, sub_FDC68, unk_1D1D20, vecdist
 global sub_10CFF7_2E, sub_10D348_292, sub_10D5E8_2A6, sub_10CFB4, sub_10CFF7, sub_10D140, sub_10D244, sub_10D348
 global sub_10D5E8, sub_10D89C, sub_10DB34, sub_10DDE0, sub_10E284, sub_10E42C, sub_10E47C, sub_10E4B0
@@ -179,7 +179,7 @@ sub_10D140:
         push edx
         mov ecx, dword [byte esi+04h]
         push ecx
-        call sub_112190
+        call FixedLerp
         add esp, byte 0Ch
         mov edx, dword [byte esp+030h]
         mov dword [byte edx+04h], eax
@@ -208,7 +208,7 @@ sub_10D140:
         push esi
         mov edx, dword [eax]
         push edx
-        call sub_112190
+        call FixedLerp
         add esp, byte 0Ch
         mov esi, dword [byte esp+034h]
         mov dword [esi], eax
@@ -219,7 +219,7 @@ sub_10D140:
         push ecx
         mov esi, dword [byte eax+04h]
         push esi
-        call sub_112190
+        call FixedLerp
         add esp, byte 0Ch
         mov esi, dword [byte esp+034h]
         mov dword [byte esi+04h], eax
@@ -228,7 +228,7 @@ sub_10D140:
         push eax
         mov edx, dword [byte ebp+00h]
         push edx
-        call sub_112190
+        call FixedLerp
         add esp, byte 0Ch
         mov esi, dword [byte esp+02Ch]
         mov dword [esi], eax
@@ -237,7 +237,7 @@ sub_10D140:
         push ecx
         mov esi, dword [byte ebp+04h]
         push esi
-        call sub_112190
+        call FixedLerp
         add esp, byte 0Ch
         mov esi, dword [byte esp+02Ch]
         mov dword [byte esi+04h], eax
@@ -246,7 +246,7 @@ sub_10D140:
         push eax
         mov edx, dword [byte ebp+08h]
         push edx
-        call sub_112190
+        call FixedLerp
         add esp, byte 0Ch
         mov dword [byte esi+08h], eax
         mov eax, 1
@@ -289,7 +289,7 @@ sub_10D244:
         push edx
         mov ecx, dword [esi]
         push ecx
-        call sub_112190
+        call FixedLerp
         add esp, byte 0Ch
         mov edx, dword [byte esp+030h]
         mov dword [edx], eax
@@ -318,7 +318,7 @@ sub_10D244:
         push esi
         mov edx, dword [eax]
         push edx
-        call sub_112190
+        call FixedLerp
         add esp, byte 0Ch
         mov esi, dword [byte esp+034h]
         mov dword [esi], eax
@@ -329,7 +329,7 @@ sub_10D244:
         push ecx
         mov esi, dword [byte eax+04h]
         push esi
-        call sub_112190
+        call FixedLerp
         add esp, byte 0Ch
         mov esi, dword [byte esp+034h]
         mov dword [byte esi+04h], eax
@@ -338,7 +338,7 @@ sub_10D244:
         push eax
         mov edx, dword [byte ebp+00h]
         push edx
-        call sub_112190
+        call FixedLerp
         add esp, byte 0Ch
         mov esi, dword [byte esp+02Ch]
         mov dword [esi], eax
@@ -347,7 +347,7 @@ sub_10D244:
         push ecx
         mov esi, dword [byte ebp+04h]
         push esi
-        call sub_112190
+        call FixedLerp
         add esp, byte 0Ch
         mov esi, dword [byte esp+02Ch]
         mov dword [byte esi+04h], eax
@@ -356,7 +356,7 @@ sub_10D244:
         push eax
         mov edx, dword [byte ebp+08h]
         push edx
-        call sub_112190
+        call FixedLerp
         add esp, byte 0Ch
         mov dword [byte esi+08h], eax
         mov eax, 1
@@ -1408,7 +1408,7 @@ sub_10DDE0:
         push edx
         mov ecx, dword [dword esp+025Ch]
         push ecx
-        call sub_1125EC
+        call DrawClippedPoly
         add esp, byte 18h
         mov esi, dword [dword esp+0264h]
         test esi, esi
@@ -1661,13 +1661,13 @@ sub_10E4B0:
         lea edx, [byte esp+028h]
         push edx
         mov dword [byte eax+020h], ebx
-        call sub_112950
+        call RotatePoint2D
         add esp, byte 8
         mov ebx, dword [byte esi+01Ch]
         push ebx
         lea edx, [byte esp+04h]
         push edx
-        call sub_1129B8
+        call RotateModelPoint
         add esp, byte 8
         add esi, byte 24h
         push esi
@@ -1722,13 +1722,13 @@ sub_10E4F8:
         mov edx, dword [byte esp+04Ch]
         push eax
         mov dword [byte ebx+01Ch], edx
-        call sub_112950
+        call RotatePoint2D
         add esp, byte 8
         mov edi, dword [byte ebx+01Ch]
         push edi
         lea eax, [byte esp+028h]
         push eax
-        call sub_1129B8
+        call RotateModelPoint
         add esp, byte 8
         add ebx, byte 24h
         push ebx
@@ -1793,13 +1793,13 @@ sub_10E59C:
         lea eax, [byte esp+04h]
         push eax
         mov dword [byte ebx+01Ch], 0
-        call sub_112950
+        call RotatePoint2D
         add esp, byte 8
         mov ecx, dword [byte ebx+01Ch]
         push ecx
         lea eax, [byte esp+028h]
         push eax
-        call sub_1129B8
+        call RotateModelPoint
         add esp, byte 8
         lea eax, [byte ebx+024h]
         push eax

@@ -16,7 +16,7 @@ extern dword_1DD434, dword_1DD438, dword_1DD43C, dword_1DD440, dword_1DD444, dwo
 extern dword_1DD454, dword_1DD458, dword_1DD45C, dword_1DD460, dword_1DD464, dword_1DD468, dword_1DD474, dword_1DD478
 extern dword_1DD47C, dword_1DD480, dword_1DD484, dword_1DD488, dword_1DD48C, dword_1DD490, dword_1DD494, dword_1DD498
 extern fclose_, fgets_, fopen_, fseek_, getenv_, unk_137FE1_2, str_WSSDMA, strcmp_
-extern strstr_, strupr_, sub_107798, sub_1077D0, sub_107988, sub_109210, RestoreDS, sub_12AB6C
+extern strstr_, strupr_, sub_107798, sub_1077D0, sub_107988, StopChannel, RestoreDS, sub_12AB6C
 extern sub_12AD27, sub_12C78C, sub_12C7DC, sub_12C814, sub_12C84C, sub_12C884, sub_12C8BC, sub_12C8F4
 extern sub_12C970, sub_12CD1C, sub_137C20, sub_137C50, sub_137D50, sub_137D7C, sub_137D90, sub_137DD0
 extern sub_137E04, sub_137E28, sub_137EF8, sub_137F4C, sub_137FB8, sub_138177, sub_FAAB4, FreeMemBlock
@@ -2812,7 +2812,7 @@ sub_12A97C:
         cmp dword [byte ebx+01Ch], byte 0
         jge short .8
         mov eax, dword [ebx]
-        call sub_109210
+        call StopChannel
 .8:
         mov edx, dword [byte ebx+020h]
         test edx, edx
@@ -2832,7 +2832,7 @@ sub_12A97C:
         cmp eax, edx
         jl short .10
         mov eax, dword [ebx]
-        call sub_109210
+        call StopChannel
         jmp short .11
 .10:
         mov edx, dword [byte ebx+034h]

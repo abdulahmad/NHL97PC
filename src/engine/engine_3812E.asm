@@ -45,10 +45,10 @@ extern FindShapeQuiet, OpenArtArchive, DrawShapeBlended, ConvertArtNew, sub_102C
 extern sub_102E0C, sub_102EBC, sub_103298, sub_103648, sub_1047D0, sub_10483C, sub_1048BC, sub_10491C
 extern sub_104940, sub_104948, sub_104980, sub_1049D0, BuildInverseTable, CdOpenStream, CdCloseFile, CdRead
 extern CdSeek, DriveLetterIndex, IsCdDrive, AllocCdBuffer, DetectMscdex, RequestSpeechEvent, FileSizePath, LoadFileAllocQuiet
-extern sub_106F7C, sub_106F94, sub_1070B0, sub_1070D0, sub_107154, sub_1072F0, sub_1079E4, sub_107AE0
-extern sub_107B70, sub_107CB0, sub_107D30, sub_107D70, sub_107E74, sub_107F48, sub_108040, sub_108144
-extern sub_10815C, sub_1081B0, sub_108640, sub_1086BF, sub_108CE8, sub_1091E0, sub_109210, sub_109250
-extern sub_1092B0, sub_109352, sub_109384, sub_109417, sub_109545, sub_10955B, SetScreenTarget, TryPokePuck
+extern sub_106F7C, sub_106F94, sub_1070B0, sub_1070D0, sub_107154, sub_1072F0, sub_1079E4, OpenDigitalAudio
+extern CloseDigitalAudio, StartDigitalAudio, DetectWindows, InitSoundMixer, SetMixerVolumes, SetMasterVolume, SetChannelVolume, SetSpeechVolume
+extern StopAllChannels, ResetSoundChannels, SetMusicStreamVolume, CloseSpeechChannels, AudioStreamPosition, ChannelPlaying, StopChannel, PlaySample
+extern PlaySampleVolume, PushSpeechRing, SpeechRingCount, sub_109417, sub_109545, sub_10955B, SetScreenTarget, TryPokePuck
 extern NetCollide, NetCollide2, ChkBodyContact, InitSpeechBanks, OpenSpeechFile, FreeSpeechBuffers, InitSpeechStream, ShutdownSound
 extern ServiceBackgroundAudio, MakeDataPath, LoadDataFile, OpenDataLibrary, BuildRinkPalette, GetSeatPos, AddSeatModel, FindSeatModel
 extern SetFaceMouth, SetFaceExpression, SetFaceBlink, SetModelHeading, SetObjectHidden, ClearModelSlots, ReplaySoundAllowed, MarkPaletteDirty
@@ -13690,13 +13690,13 @@ OpenAudioStream_D8:
         mov eax, 0FFFFFFFFh
 .9:
         mov edx, dword [dword esp+0F0h]
-        call sub_107AE0
+        call OpenDigitalAudio
         test eax, eax
         setge al
         and eax, 0FFh
         je near .20
         mov eax, 7Fh
-        call sub_107CB0
+        call StartDigitalAudio
         push byte 0
         push dword 25B7Eh
         mov ecx, 1
@@ -13829,7 +13829,7 @@ OpenAudioStream_D8:
 .19:
         xor esi, esi
         mov dword [dword_169224], esi
-        call sub_107D30
+        call DetectWindows
         test eax, eax
         jne short .21
         push esi
@@ -13967,7 +13967,7 @@ InitGameAudio:
         mov ebx, dword [dword_1AC604]
         mov edx, eax
         mov eax, ebx
-        call sub_107D70
+        call InitSoundMixer
         test eax, eax
         jge short .8
         mov ecx, dword [dword_169224]
@@ -13985,9 +13985,9 @@ InitGameAudio:
         xor eax, eax
         mov dword [dword_16922C], edx
         mov dword [dword_169228], edx
-        call sub_107E74
+        call SetMixerVolumes
         mov eax, 3Ch
-        call sub_108040
+        call SetChannelVolume
         jmp short .11
 .9:
         mov eax, 5
@@ -14087,7 +14087,7 @@ SetMusicVolume:
         mov edx, dword [dword_169230]
         mov eax, dword [dword_1691C4]
         sar edx, 10h
-        call sub_108640
+        call SetMusicStreamVolume
 .4:
         pop edx
         pop ebx
@@ -14263,8 +14263,8 @@ InitGameSounds:
         call ServiceIdle
         jmp short .2
 .3:
-        call sub_10815C
-        call sub_1081B0
+        call StopAllChannels
+        call ResetSoundChannels
         mov ebp, dword [dword_169224]
         push ebp
         call FreeMemBlock
@@ -14294,7 +14294,7 @@ InitGameSounds:
         add esp, byte 4
         mov dword [dword_16923C], ebp
 .5:
-        call sub_1086BF
+        call CloseSpeechChannels
 .6:
         xor eax, eax
         mov dword [dword_169250], eax
@@ -14386,7 +14386,7 @@ ShutdownGameAudio:
         push ebp
         cmp word [word_1691A4], byte 0
         je near .10
-        call sub_107D30
+        call DetectWindows
         test eax, eax
         jne short .1
         push ServiceBackgroundAudio
@@ -14430,8 +14430,8 @@ ShutdownGameAudio:
         call ServiceIdle
         jmp short .3
 .4:
-        call sub_10815C
-        call sub_1081B0
+        call StopAllChannels
+        call ResetSoundChannels
         mov edi, dword [dword_169224]
         push edi
         xor ebp, ebp
@@ -14457,7 +14457,7 @@ ShutdownGameAudio:
         add esp, byte 4
         mov dword [dword_16923C], edi
 .6:
-        call sub_1086BF
+        call CloseSpeechChannels
 .7:
         xor ebp, ebp
         mov dword [dword_169250], ebp
@@ -14471,7 +14471,7 @@ ShutdownGameAudio:
         cmp edx, byte 6
         jl short .9
         xor ecx, ecx
-        call sub_107B70
+        call CloseDigitalAudio
         mov word [word_1691A4], cx
 .10:
         pop ebp
@@ -14524,10 +14524,10 @@ WaitSoundTime:
         call ServiceIdle
         cmp bx, word [word_1691B6]
         jge short .3
-        call sub_108CE8
+        call AudioStreamPosition
         test eax, eax
         jl short .3
-        call sub_108CE8
+        call AudioStreamPosition
         cmp eax, edx
         jl short .2
 .3:
@@ -14795,7 +14795,7 @@ MusicPlaying:
         cmp dword [dword_1691A8], byte 4
         jne short .2
         mov eax, dword [dword_1691C4]
-        call sub_1091E0
+        call ChannelPlaying
         test eax, eax
         jne short .1
         mov eax, 1
@@ -14979,7 +14979,7 @@ StopBankSounds:
         cmp ebx, dword [dword edx+dword_1AC508]
         jne short .2
         mov eax, dword [dword edx+dword_1AC510]
-        call sub_109210
+        call StopChannel
         mov dword [dword edx+dword_1AC508], esi
 .2:
         add edx, byte 0Ch
@@ -15024,7 +15024,7 @@ PlayMenuSfx:
         cmp ebx, dword [dword edx+dword_1AC50C]
         jne short .2
         mov eax, dword [dword edx+dword_1AC510]
-        call sub_109210
+        call StopChannel
         mov dword [dword edx+dword_1AC508], ebp
 .2:
         add edx, byte 0Ch
@@ -15052,7 +15052,7 @@ StopAllSfx:
         cmp dword [dword edx+dword_1AC508], byte 0FFFFFFFFh
         je short .2
         mov eax, dword [dword edx+dword_1AC510]
-        call sub_109210
+        call StopChannel
         mov dword [dword edx+dword_1AC508], ecx
 .2:
         add edx, byte 0Ch
@@ -15102,7 +15102,7 @@ PlaySfx:
         and ecx, 0FFh
         sar ebx, 10h
         mov edx, ecx
-        call sub_109250
+        call PlaySample
         mov edx, dword [dword_169238]
         mov ebx, eax
         lea eax, [nosplit edx*4+00h]
@@ -15348,7 +15348,7 @@ PlaySfxVolume:
         mov ecx, dword [byte esp+04h]
         mov edx, esi
         mov eax, dword [nosplit edi*4+dword_1AC5EC]
-        call sub_1092B0
+        call PlaySampleVolume
         mov edx, dword [dword_169238]
         mov ebx, eax
         lea eax, [nosplit edx*4+00h]
@@ -15495,7 +15495,7 @@ SetCrowdNoise:
         mov dword [dword_16922C], eax
 .1:
         mov eax, dword [dword_169228]
-        call sub_108144
+        call SetSpeechVolume
 .2:
         pop edx
         pop ebx
@@ -15513,7 +15513,7 @@ SetCrowdNoise:
         test byte [byte_1AC81B], 4
         je short .3
         mov eax, 32h
-        jmp near sub_108040
+        jmp near SetChannelVolume
 ;-----------------------------------------------------------------------------
 ; SetCrowdMood                                    424CC  97 PC, low confidence
 ; Sets the crowd mood (0 to 13) when crowd sound is on
@@ -15536,7 +15536,7 @@ SetCrowdMood:
         cmp edx, byte 0Dh
         jg short .1
         mov eax, edx
-        call sub_107F48
+        call SetMasterVolume
 .1:
         pop edx
         ret
@@ -15558,7 +15558,7 @@ SetCrowdMood:
         cmp edx, 80h
         jge short .2
         mov eax, edx
-        call sub_108040
+        call SetChannelVolume
 .2:
         pop edx
         ret
@@ -15775,7 +15775,7 @@ ServiceSpeechQueue:
         sub eax, edx
         mov edx, dword [nosplit eax*4+dword_1AC434]
         mov eax, dword [nosplit eax*4+dword_1AC438]
-        call sub_109352
+        call PushSpeechRing
         mov edx, dword [dword_1AC7D4]
         sar edx, 10h
         inc edx
@@ -15793,7 +15793,7 @@ ServiceSpeechQueue:
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
         mov eax, dword [nosplit eax*4+dword_1AC438]
-        call sub_109384
+        call SpeechRingCount
         test eax, eax
         jne near .10
         mov edx, dword [dword_1AC7D6]

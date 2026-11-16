@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_12D6C4 progbits alloc exec nowrite align=1
 extern byte_16E688, byte_16F794, byte_171C90, dword_16E678, dword_16E67C, dword_16E680, dword_16E684, BlendShapeRows
-extern ConvertArtNew, sub_112190, sub_12F270, sub_138910, sub_1389B0, sub_138A50, sub_138AE0, FreeMemBlock
+extern ConvertArtNew, FixedLerp, sub_12F270, sub_138910, sub_1389B0, sub_138A50, sub_138AE0, FreeMemBlock
 extern unk_1DD4B8, unk_1DD5B8, unk_1DD738, unk_1DD838, unk_1DD938, unk_1DDA38, unk_1DDBB8, unk_1DDD38
 extern unk_1DDEB8, unk_1DDFB8, unk_1DE0B8, unk_1DE1B8, unk_1DE2B8, unk_1DE3B8, unk_1DE4B8, unk_1DE5B8
 global sub_12DD3C_13C, sub_12ED68_137, sub_12D6C4, sub_12D740, sub_12D784, sub_12DAC4, sub_12DC04, sub_12DD3C
@@ -2011,7 +2011,7 @@ sub_12EBD0:
         push ecx
         mov eax, dword [byte edi+04h]
         push eax
-        call sub_112190
+        call FixedLerp
         add esp, byte 0Ch
         mov edx, dword [byte esp+024h]
         mov dword [byte edx+04h], eax
@@ -2041,7 +2041,7 @@ sub_12EBD0:
         push ebx
         push edi
         push eax
-        call sub_112190
+        call FixedLerp
         add esp, byte 0Ch
         jmp short .3
 .2:
@@ -2056,7 +2056,7 @@ sub_12EBD0:
         push ebx
         push edi
         push eax
-        call sub_112190
+        call FixedLerp
         add esp, byte 0Ch
         jmp short .5
 .4:
@@ -2106,7 +2106,7 @@ sub_12EC9C:
         push ecx
         mov eax, dword [edi]
         push eax
-        call sub_112190
+        call FixedLerp
         add esp, byte 0Ch
         mov edx, dword [byte esp+024h]
         mov dword [edx], eax
@@ -2136,7 +2136,7 @@ sub_12EC9C:
         push ebx
         push edi
         push eax
-        call sub_112190
+        call FixedLerp
         add esp, byte 0Ch
         jmp short .3
 .2:
@@ -2151,7 +2151,7 @@ sub_12EC9C:
         push ebx
         push edi
         push eax
-        call sub_112190
+        call FixedLerp
         add esp, byte 0Ch
         jmp short .5
 .4:

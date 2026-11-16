@@ -6,7 +6,7 @@ extern SetClipWindow, byte_1D1D88, dword_16E670, dword_16E676, dword_16E67A, dwo
 extern dword_16E69C, dword_1D1D30, dword_1D1D34, dword_1D1D38, dword_1D1D3C, dword_1D1D40, dword_1D1D44, dword_1D1D48
 extern dword_1D1D4C, dword_1D1D50, dword_1D1D54, dword_1D1D58, dword_1D1D5C, dword_1D1D60, dword_1D1D64, dword_1D1D68
 extern dword_1D1D6C, dword_1D1D70, dword_1D1D74, dword_1D1D78, dword_1D1D7C, dword_1D1D80, dword_1D1D84, str_AALIAS
-extern sub_112190, PlotPixel, sub_12D520, AllocMemBlock, sub_FC4BC, FillRect
+extern FixedLerp, PlotPixel, sub_12D520, AllocMemBlock, sub_FC4BC, FillRect
 global BuildAntiAliasTable, ClipLineY, ClipLineX, DrawLineYPlot, DrawLineY, DrawLineXPlot, DrawLineX, DrawFixedLine
 global sub_10C434
 ;-----------------------------------------------------------------------------
@@ -74,7 +74,7 @@ BuildAntiAliasTable:
         push ebp
         mov al, byte [ebx]
         push eax
-        call sub_112190
+        call FixedLerp
         add esp, byte 0Ch
         push esi
         mov ebp, eax
@@ -84,7 +84,7 @@ BuildAntiAliasTable:
         mov al, byte [byte ebx+01h]
         push eax
         shl ebp, 10h
-        call sub_112190
+        call FixedLerp
         add esp, byte 0Ch
         shl eax, 8
         mov edx, dword [byte esp+01Ch]
@@ -94,7 +94,7 @@ BuildAntiAliasTable:
         push edx
         mov al, byte [byte ebx+02h]
         push eax
-        call sub_112190
+        call FixedLerp
         add esp, byte 0Ch
         or eax, ebp
         push eax

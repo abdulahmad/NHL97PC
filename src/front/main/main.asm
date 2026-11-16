@@ -26,7 +26,7 @@ extern dword_1CF5B0, dword_1CF5B4, dword_1CF5B8, exit_, getcwd_, MainMenuAnim_32
 extern MainMenuAnim_370, memcpy_, open_, printf_, sprintf_, srand_, strcat_, strcpy_
 extern strlen_, sub_1008CC, bcopy, BlitConverted, BlitShape2, BlitArt, BlitShape, PresentScreen
 extern FindShape, DrawShapeBlended, ConvertArtNew, sub_102C10, Random32, LoadGripLibrary, InitGripDriver, LoadJoystickConfig
-extern IsCdDrive, sub_106F64, sub_106F94, sub_107D30, InstallKeyboardHandler, RemoveKeyboardHandler, IsKeyDown, PlotPixelAt
+extern IsCdDrive, sub_106F64, sub_106F94, DetectWindows, InstallKeyboardHandler, RemoveKeyboardHandler, IsKeyDown, PlotPixelAt
 extern InitMemoryPoolArgs, InitPlatform, InstallErrorHandlers, ConvertArtXY, FormatString, SaveTextState, RestoreTextState, sub_11B008
 extern SetScreenTarget, LoadMainSfxBank, OpenAudioStream, ShutdownGameAudio, ChkMenuMusic, PauseMusic, RequestMusicStop, ArenaFileName
 extern StopAllSfx, PlaySfx, MakeDirPath, LoadDataFile, LoadStartupData, RunFrontEnd, InitMenuItems, RunMenu
@@ -58,7 +58,7 @@ main_:
         push ecx
         push edx
         enter 4, 0
-        call sub_107D30
+        call DetectWindows
         test eax, eax
         je near .1
         push str_Punct5

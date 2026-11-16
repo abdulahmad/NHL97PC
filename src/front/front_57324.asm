@@ -155,9 +155,9 @@ extern qword_163D2C, qword_163D34, qword_163D44, qword_163D54, qword_163D64, qwo
 extern qword_163EF8, rand_, randomd0, regd1, sprintf_, str_Back, str_Uarm, strcpy_
 extern strncmp_, strncpy_, strnicmp_, strupr_, sub_100498, sub_100700, SortIndices, bcopy
 extern BlitShape2, FindShape, OpenArtArchive, OpenArtArchiveErr, Random32, sub_1038B0, sub_103E14, sub_1043A4
-extern sub_1049D0, LoadFileAlloc, sub_10B0D4, sub_10B580, sub_10CDE0, sub_10FB50, sub_10FB98, sub_10FBB0
-extern sub_10FD58, sub_10FE10, sub_10FE58, sub_10FE88, sub_10FFBC, sub_11002C, sub_11004C, sub_1100B4
-extern sub_110414, sub_1104F0, StartCrowdMusic, RestartGameMusic, TransformBoneVerts, SkinModelVerts, AttachModelFrame, AttachModel
+extern sub_1049D0, LoadFileAlloc, sub_10B0D4, sub_10B580, sub_10CDE0, FindModelShapeByName, FindInstanceShape, BindModelShapes
+extern UpdateModelInstance, UpdateModelPart, SetModelShape, SetModelShapeWith, LoadModelByName, FreeModelFile, InitModelInstance, CreateModelInstance
+extern FreeModelInstance, FindModelPartByName, StartCrowdMusic, RestartGameMusic, TransformBoneVerts, SkinModelVerts, AttachModelFrame, AttachModel
 extern UpdateModelFrame, SkinModel, ScaleModelVerts, LoadModelFile, FindModelPart, ResetMorphVerts, ApplyMorphTarget, PlotPixelRGBAt
 extern CreateBitmapForArt, FixedSinCos, BlitShapeAt, SaveDrawContext, RestoreDrawContext, SetBitReader, ReadBits, IsPlayoffGame
 extern RefreshPlayerModel, setplayer, RefreshRinkPalette, Intermission, SpeedScale, ReachScale, StickReachX, StickReachY
@@ -787,13 +787,13 @@ FreeGoalieMask:
 .1:
         mov ecx, dword [dword ebx+dword_1B83EC]
         push ecx
-        call sub_110414
+        call FreeModelInstance
         add esp, byte 4
         mov ebp, dword [dword ebx+dword_1B84FC]
         xor edi, edi
         push ebp
         mov dword [dword ebx+dword_1B83EC], edi
-        call sub_11002C
+        call FreeModelFile
         add esp, byte 4
         mov edx, dword [dword ebx+dword_1B848C]
         add ebx, byte 4
@@ -835,10 +835,10 @@ LoadCupArt:
         xor edx, edx
         call SetArtArchive
         mov eax, str_Cup
-        call sub_10FFBC
+        call LoadModelByName
         push eax
         mov dword [dword_1B84F8], eax
-        call sub_11004C
+        call InitModelInstance
         add esp, byte 4
         mov edx, dword [dword_1B8540]
         mov eax, dword [dword_1B84F8]
@@ -858,18 +858,18 @@ LoadCupArt:
         mov ebx, 0Ah
         mov eax, dword [dword_1B84F8]
         xor edx, edx
-        call sub_1100B4
+        call CreateModelInstance
         mov dword [dword_1B8458], eax
         push eax
         mov dword [dword_1B8454], eax
         mov dword [dword_1B8450], eax
-        call sub_10FD58
+        call UpdateModelInstance
         add esp, byte 4
         mov edx, dword [dword_1B84D8]
         push edx
         mov ebx, dword [dword_1B8450]
         push ebx
-        call sub_10FBB0
+        call BindModelShapes
         add esp, byte 8
         push byte 0
         mov dword [dword esi+06C0h], dword_1B8450
@@ -918,7 +918,7 @@ LoadGoalieMask:
         add esp, byte 0Ch
         xor edx, edx
         mov eax, esp
-        call sub_10FFBC
+        call LoadModelByName
         mov edx, eax
         lea eax, [nosplit ebx*4+00h]
         sub eax, ebx
@@ -932,7 +932,7 @@ LoadGoalieMask:
         add esp, byte 0Ch
         xor edx, edx
         mov eax, esp
-        call sub_10FFBC
+        call LoadModelByName
         push esi
         mov dword [dword ebx+dword_1B8500], eax
         push str_MASK02dc
@@ -945,13 +945,13 @@ LoadGoalieMask:
         add esp, byte 0Ch
         mov eax, esp
         add ebx, byte 0Ch
-        call sub_10FFBC
+        call LoadModelByName
         mov dword [byte esp+020h], ebx
         mov dword [dword ebx+dword_1B84F8], eax
 .3:
         mov eax, dword [dword esi+dword_1B84FC]
         push eax
-        call sub_11004C
+        call InitModelInstance
         add esp, byte 4
         mov edx, dword [dword_1B8540]
         mov eax, dword [dword esi+dword_1B84FC]
@@ -983,15 +983,15 @@ LoadGoalieMask:
         mov ebx, 0Ah
         mov eax, dword [dword edi+dword_1B84FC]
         xor edx, edx
-        call sub_1100B4
+        call CreateModelInstance
         push eax
         mov ebx, eax
         mov dword [dword edi+dword_1B83EC], eax
-        call sub_10FD58
+        call UpdateModelInstance
         add esp, byte 4
         push ebp
         push ebx
-        call sub_10FBB0
+        call BindModelShapes
         add esp, byte 8
         add edi, byte 4
         mov ecx, dword [byte esp+020h]
@@ -1053,21 +1053,21 @@ LoadPlayerCommonArt:
         call ServiceIdle
         mov eax, str_Torso0
         xor edx, edx
-        call sub_10FFBC
+        call LoadModelByName
         mov dword [dword_1B8560], eax
         xor edx, edx
         mov eax, str_Torso1
-        call sub_10FFBC
+        call LoadModelByName
         mov dword [dword_1B8564], eax
         xor edx, edx
         mov eax, str_Torso2
         xor esi, esi
-        call sub_10FFBC
+        call LoadModelByName
         mov dword [dword_1B8568], eax
 .1:
         mov edx, dword [dword esi+dword_1B8560]
         push edx
-        call sub_11004C
+        call InitModelInstance
         mov edx, dword [dword_1B8540]
         add esp, byte 4
         mov eax, dword [dword esi+dword_1B8560]
@@ -1090,7 +1090,7 @@ LoadPlayerCommonArt:
         push ecx
         add ebx, byte 4
         inc esi
-        call sub_1104F0
+        call FindModelPartByName
         add esp, byte 8
         mov dword [dword ebx+dword_1B13E4], eax
         cmp esi, byte 0Ah
@@ -1098,36 +1098,36 @@ LoadPlayerCommonArt:
         call ServiceIdle
         mov eax, str_Helmet0
         xor edx, edx
-        call sub_10FFBC
+        call LoadModelByName
         push str_Face
         push eax
         mov dword [dword_1B8530], eax
-        call sub_10FB50
+        call FindModelShapeByName
         add esp, byte 8
         mov dword [dword_1B856C], eax
         xor edx, edx
         mov eax, str_Helmet1
-        call sub_10FFBC
+        call LoadModelByName
         push str_Face
         push eax
         mov dword [dword_1B8534], eax
-        call sub_10FB50
+        call FindModelShapeByName
         add esp, byte 8
         mov dword [dword_1B8570], eax
         xor edx, edx
         mov eax, str_Helmet2
-        call sub_10FFBC
+        call LoadModelByName
         push str_Face
         push eax
         xor esi, esi
         mov dword [dword_1B8538], eax
-        call sub_10FB50
+        call FindModelShapeByName
         add esp, byte 8
         mov dword [dword_1B8574], eax
 .3:
         mov edi, dword [dword esi+dword_1B8530]
         push edi
-        call sub_11004C
+        call InitModelInstance
         mov edx, dword [dword_1B8540]
         add esp, byte 4
         mov eax, dword [dword esi+dword_1B8530]
@@ -1138,25 +1138,25 @@ LoadPlayerCommonArt:
         call ServiceIdle
         mov eax, str_Stick0
         xor edx, edx
-        call sub_10FFBC
+        call LoadModelByName
         mov dword [dword_1B13B0], eax
         xor edx, edx
         mov eax, str_Stick1
-        call sub_10FFBC
+        call LoadModelByName
         mov dword [dword_1B13B4], eax
         xor edx, edx
         mov eax, str_Stick2
-        call sub_10FFBC
+        call LoadModelByName
         mov dword [dword_1B13B8], eax
         xor edx, edx
         mov eax, str_Lstick2
         xor esi, esi
-        call sub_10FFBC
+        call LoadModelByName
         mov dword [dword_1B13BC], eax
 .4:
         mov eax, dword [dword esi+dword_1B13B0]
         push eax
-        call sub_11004C
+        call InitModelInstance
         mov edx, dword [dword_1B8540]
         add esp, byte 4
         mov eax, dword [dword esi+dword_1B13B0]
@@ -1181,12 +1181,12 @@ LoadPlayerCommonArt:
         mov ebx, 0Ah
         mov eax, dword [dword esi+dword_1B13B0]
         xor edx, edx
-        call sub_1100B4
+        call CreateModelInstance
         push edi
         add esi, byte 4
         push eax
         mov dword [dword esi+dword_1B82FC], eax
-        call sub_10FBB0
+        call BindModelShapes
         add esp, byte 8
         cmp esi, byte 0Ch
         jne short .5
@@ -1197,29 +1197,29 @@ LoadPlayerCommonArt:
         xor edx, edx
         mov dword [dword_1B836C], eax
         mov eax, dword [dword_1B13BC]
-        call sub_1100B4
+        call CreateModelInstance
         push edi
         push eax
         mov dword [dword_1B8370], eax
-        call sub_10FBB0
+        call BindModelShapes
         add esp, byte 8
         mov eax, str_Gstick0
         xor edx, edx
-        call sub_10FFBC
+        call LoadModelByName
         mov dword [dword_1B8554], eax
         xor edx, edx
         mov eax, str_Gstick1
-        call sub_10FFBC
+        call LoadModelByName
         mov dword [dword_1B8558], eax
         xor edx, edx
         mov eax, str_Gstick2
         xor esi, esi
-        call sub_10FFBC
+        call LoadModelByName
         mov dword [dword_1B855C], eax
 .6:
         mov edx, dword [dword esi+dword_1B8554]
         push edx
-        call sub_11004C
+        call InitModelInstance
         mov edx, dword [dword_1B8540]
         add esp, byte 4
         mov eax, dword [dword esi+dword_1B8554]
@@ -1244,21 +1244,21 @@ LoadPlayerCommonArt:
         mov ebx, 0Ah
         mov eax, dword [dword esi+dword_1B8554]
         xor edx, edx
-        call sub_1100B4
+        call CreateModelInstance
         push edi
         add esi, byte 4
         push eax
         mov dword [dword esi+dword_1B8394], eax
-        call sub_10FBB0
+        call BindModelShapes
         add esp, byte 8
         cmp esi, byte 0Ch
         jne short .7
         mov eax, str_Glleg
         xor edx, edx
-        call sub_10FFBC
+        call LoadModelByName
         push eax
         mov dword [dword_1B8548], eax
-        call sub_11004C
+        call InitModelInstance
         add esp, byte 4
         mov edx, dword [dword_1B8540]
         mov eax, dword [dword_1B8548]
@@ -1266,30 +1266,30 @@ LoadPlayerCommonArt:
         call ServiceIdle
         mov eax, str_Grleg
         xor edx, edx
-        call sub_10FFBC
+        call LoadModelByName
         push eax
         mov dword [dword_1B84B0], eax
-        call sub_11004C
+        call InitModelInstance
         add esp, byte 4
         mov edx, dword [dword_1B8540]
         mov eax, dword [dword_1B84B0]
         call AttachModel
         mov eax, str_Rblkr
         xor edx, edx
-        call sub_10FFBC
+        call LoadModelByName
         push eax
         mov dword [dword_1B8488], eax
-        call sub_11004C
+        call InitModelInstance
         add esp, byte 4
         mov edx, dword [dword_1B8540]
         mov eax, dword [dword_1B8488]
         call AttachModel
         mov eax, str_Lblkr
         xor edx, edx
-        call sub_10FFBC
+        call LoadModelByName
         push eax
         mov dword [dword_1B8484], eax
-        call sub_11004C
+        call InitModelInstance
         add esp, byte 4
         mov edx, dword [dword_1B8540]
         mov eax, dword [dword_1B8484]
@@ -1297,20 +1297,20 @@ LoadPlayerCommonArt:
         call ServiceIdle
         mov eax, str_Ltrap2
         xor edx, edx
-        call sub_10FFBC
+        call LoadModelByName
         push eax
         mov dword [dword_1B84C0], eax
-        call sub_11004C
+        call InitModelInstance
         add esp, byte 4
         mov edx, dword [dword_1B8540]
         mov eax, dword [dword_1B84C0]
         call AttachModel
         mov eax, str_Rtrap2
         xor edx, edx
-        call sub_10FFBC
+        call LoadModelByName
         push eax
         mov dword [dword_1B8440], eax
-        call sub_11004C
+        call InitModelInstance
         add esp, byte 4
         mov edx, dword [dword_1B8540]
         mov eax, dword [dword_1B8440]
@@ -1318,11 +1318,11 @@ LoadPlayerCommonArt:
         call ServiceIdle
         mov eax, str_Lskate0
         xor edx, edx
-        call sub_10FFBC
+        call LoadModelByName
         mov dword [dword_1B13E0], eax
         xor edx, edx
         mov eax, str_Lskate1
-        call sub_10FFBC
+        call LoadModelByName
         push byte 0
         push str_Lskate1Fsh
         mov dword [dword_1B13E4], eax
@@ -1339,7 +1339,7 @@ LoadPlayerCommonArt:
 .8:
         mov ebx, dword [dword esi+dword_1B13E0]
         push ebx
-        call sub_11004C
+        call InitModelInstance
         mov edx, dword [dword_1B8540]
         add esp, byte 4
         mov eax, dword [dword esi+dword_1B13E0]
@@ -1347,29 +1347,29 @@ LoadPlayerCommonArt:
         call AttachModel
         mov eax, dword [dword esi+dword_1B13E0]
         xor edx, edx
-        call sub_1100B4
+        call CreateModelInstance
         push edi
         add esi, byte 4
         push eax
         mov dword [dword esi+dword_1B137C], eax
-        call sub_10FBB0
+        call BindModelShapes
         add esp, byte 8
         cmp esi, byte 8
         jne short .8
         call ServiceIdle
         mov eax, str_Rskate0
         xor edx, edx
-        call sub_10FFBC
+        call LoadModelByName
         mov dword [dword_1B13C0], eax
         xor edx, edx
         mov eax, str_Rskate1
         xor esi, esi
-        call sub_10FFBC
+        call LoadModelByName
         mov dword [dword_1B13C4], eax
 .9:
         mov ecx, dword [dword esi+dword_1B13C0]
         push ecx
-        call sub_11004C
+        call InitModelInstance
         mov edx, dword [dword_1B8540]
         add esp, byte 4
         mov eax, dword [dword esi+dword_1B13C0]
@@ -1377,12 +1377,12 @@ LoadPlayerCommonArt:
         call AttachModel
         mov eax, dword [dword esi+dword_1B13C0]
         xor edx, edx
-        call sub_1100B4
+        call CreateModelInstance
         push edi
         add esi, byte 4
         push eax
         mov dword [dword esi+dword_1B1384], eax
-        call sub_10FBB0
+        call BindModelShapes
         add esp, byte 8
         cmp esi, byte 8
         jne short .9
@@ -1509,7 +1509,7 @@ LoadUniformArt:
         mov ebx, 0Ah
         mov eax, dword [dword_1B8530]
         xor edx, edx
-        call sub_1100B4
+        call CreateModelInstance
         mov ebx, eax
         lea eax, [nosplit esi*4+00h]
         sub eax, esi
@@ -1519,7 +1519,7 @@ LoadUniformArt:
         mov dword [dword eax+dword_1B83A4], ebx
         mov eax, ebx
         push eax
-        call sub_10FBB0
+        call BindModelShapes
         add esp, byte 8
         push byte 0
         push str_Helmet2Fsh
@@ -1539,13 +1539,13 @@ LoadUniformArt:
         mov ebx, 0Ah
         mov eax, dword [nosplit edi*4+dword_1B8530]
         xor edx, edx
-        call sub_1100B4
+        call CreateModelInstance
         push ebp
         add esi, byte 4
         push eax
         inc edi
         mov dword [dword esi+dword_1B83A0], eax
-        call sub_10FBB0
+        call BindModelShapes
         add esp, byte 8
         cmp edi, byte 3
         jl short .3
@@ -1569,11 +1569,11 @@ LoadUniformArt:
         mov ebx, 0Ah
         mov eax, dword [dword_1B8548]
         xor edx, edx
-        call sub_1100B4
+        call CreateModelInstance
         push edi
         push eax
         mov dword [dword esi+dword_1B833C], eax
-        call sub_10FBB0
+        call BindModelShapes
         add esp, byte 8
         push byte 0
         push str_GrlegFsh
@@ -1589,11 +1589,11 @@ LoadUniformArt:
         mov ebx, 0Ah
         mov eax, dword [dword_1B84B0]
         xor edx, edx
-        call sub_1100B4
+        call CreateModelInstance
         push edi
         push eax
         mov dword [dword esi+dword_1B841C], eax
-        call sub_10FBB0
+        call BindModelShapes
         add esp, byte 8
         push byte 0
         push str_LblkrFsh
@@ -1610,20 +1610,20 @@ LoadUniformArt:
         mov ebx, 0Ah
         mov eax, dword [dword_1B8488]
         xor edx, edx
-        call sub_1100B4
+        call CreateModelInstance
         push edi
         push eax
         mov ebx, 0Ah
         mov dword [dword esi+dword_1B83D4], eax
-        call sub_10FBB0
+        call BindModelShapes
         add esp, byte 8
         mov eax, dword [dword_1B8484]
         xor edx, edx
-        call sub_1100B4
+        call CreateModelInstance
         push edi
         push eax
         mov dword [dword esi+dword_1B838C], eax
-        call sub_10FBB0
+        call BindModelShapes
         add esp, byte 8
         push byte 0
         push str_Rtrap2Fsh
@@ -1639,20 +1639,20 @@ LoadUniformArt:
         mov ebx, 0Ah
         mov eax, dword [dword_1B8440]
         xor edx, edx
-        call sub_1100B4
+        call CreateModelInstance
         push edi
         push eax
         mov ebx, 0Ah
         mov dword [dword esi+dword_1B8358], eax
-        call sub_10FBB0
+        call BindModelShapes
         add esp, byte 8
         mov eax, dword [dword_1B84C0]
         xor edx, edx
-        call sub_1100B4
+        call CreateModelInstance
         push edi
         push eax
         mov dword [dword esi+dword_1B8374], eax
-        call sub_10FBB0
+        call BindModelShapes
         add esp, byte 8
 .4:
         call ServiceIdle
@@ -1832,26 +1832,26 @@ SetupJerseyBackTexture:
         mov ebx, 0Ah
         mov eax, dword [nosplit edi*4+dword_1B8560]
         xor edx, edx
-        call sub_1100B4
+        call CreateModelInstance
         mov ebx, eax
         mov dword [dword esi+06D8h], eax
         mov eax, dword [esp]
         mov edx, dword [dword eax+dword_1B8520]
         push edx
         push ebx
-        call sub_10FBB0
+        call BindModelShapes
         add esp, byte 8
         mov ecx, dword [dword ebp+06E4h]
         push ecx
         push str_Back
         push ebx
-        call sub_10FB98
+        call FindInstanceShape
         add esp, byte 8
         push eax
         push ebx
         add esi, byte 4
         inc edi
-        call sub_10FE58
+        call SetModelShape
         add esp, byte 0Ch
         cmp edi, byte 3
         jl short .3
@@ -2212,14 +2212,14 @@ SetupTeamModels:
         push edx
         add ebx, byte 4
         inc esi
-        call sub_10FD58
+        call UpdateModelInstance
         add esp, byte 4
         cmp esi, byte 3
         jl short .1
         mov ebx, dword [dword_1B8370]
         push ebx
         mov esi, dword_1B8398
-        call sub_10FD58
+        call UpdateModelInstance
         add esp, byte 4
         xor ebx, ebx
 .2:
@@ -2227,7 +2227,7 @@ SetupTeamModels:
         push ecx
         add esi, byte 4
         inc ebx
-        call sub_10FD58
+        call UpdateModelInstance
         add esp, byte 4
         cmp ebx, byte 3
         jl short .2
@@ -2238,7 +2238,7 @@ SetupTeamModels:
         push edi
         add ebx, byte 4
         inc esi
-        call sub_10FD58
+        call UpdateModelInstance
         add esp, byte 4
         cmp esi, byte 2
         jl short .3
@@ -2249,7 +2249,7 @@ SetupTeamModels:
         push ebp
         add ebx, byte 4
         inc esi
-        call sub_10FD58
+        call UpdateModelInstance
         add esp, byte 4
         cmp esi, byte 2
         jl short .4
@@ -2260,7 +2260,7 @@ SetupTeamModels:
         push eax
         add ebx, byte 4
         inc esi
-        call sub_10FD58
+        call UpdateModelInstance
         add esp, byte 4
         cmp esi, byte 6
         jl short .5
@@ -2344,7 +2344,7 @@ FreeGameModels:
         mov edi, dword [dword ebx+dword_1B83A4]
         push edi
         add ebx, byte 4
-        call sub_110414
+        call FreeModelInstance
         add esp, byte 4
         cmp ebx, byte 24h
         jne short .2
@@ -2353,20 +2353,20 @@ FreeGameModels:
         mov ebp, dword [dword ebx+dword_1B8300]
         push ebp
         add ebx, byte 4
-        call sub_110414
+        call FreeModelInstance
         add esp, byte 4
         cmp ebx, byte 0Ch
         jne short .3
         mov eax, dword [dword_1B8370]
         push eax
         xor ebx, ebx
-        call sub_110414
+        call FreeModelInstance
         add esp, byte 4
 .4:
         mov edx, dword [dword ebx+dword_1B8398]
         push edx
         add ebx, byte 4
-        call sub_110414
+        call FreeModelInstance
         add esp, byte 4
         cmp ebx, byte 0Ch
         jne short .4
@@ -2375,7 +2375,7 @@ FreeGameModels:
         mov ecx, dword [dword ebx+dword_1B833C]
         push ecx
         add ebx, byte 4
-        call sub_110414
+        call FreeModelInstance
         add esp, byte 4
         cmp ebx, byte 8
         jne short .5
@@ -2384,7 +2384,7 @@ FreeGameModels:
         mov esi, dword [dword ebx+dword_1B841C]
         push esi
         add ebx, byte 4
-        call sub_110414
+        call FreeModelInstance
         add esp, byte 4
         cmp ebx, byte 8
         jne short .6
@@ -2393,7 +2393,7 @@ FreeGameModels:
         mov edi, dword [dword ebx+dword_1B83D4]
         push edi
         add ebx, byte 4
-        call sub_110414
+        call FreeModelInstance
         add esp, byte 4
         cmp ebx, byte 8
         jne short .7
@@ -2402,7 +2402,7 @@ FreeGameModels:
         mov ebp, dword [dword ebx+dword_1B838C]
         push ebp
         add ebx, byte 4
-        call sub_110414
+        call FreeModelInstance
         add esp, byte 4
         cmp ebx, byte 8
         jne short .8
@@ -2411,7 +2411,7 @@ FreeGameModels:
         mov eax, dword [dword ebx+dword_1B8358]
         push eax
         add ebx, byte 4
-        call sub_110414
+        call FreeModelInstance
         add esp, byte 4
         cmp ebx, byte 8
         jne short .9
@@ -2420,7 +2420,7 @@ FreeGameModels:
         mov edx, dword [dword ebx+dword_1B8374]
         push edx
         add ebx, byte 4
-        call sub_110414
+        call FreeModelInstance
         add esp, byte 4
         cmp ebx, byte 8
         jne short .10
@@ -2429,7 +2429,7 @@ FreeGameModels:
         mov ecx, dword [dword ebx+dword_1B1380]
         push ecx
         add ebx, byte 4
-        call sub_110414
+        call FreeModelInstance
         add esp, byte 4
         cmp ebx, byte 8
         jne short .11
@@ -2438,7 +2438,7 @@ FreeGameModels:
         mov esi, dword [dword ebx+dword_1B1388]
         push esi
         add ebx, byte 4
-        call sub_110414
+        call FreeModelInstance
         add esp, byte 4
         cmp ebx, byte 8
         jne short .12
@@ -2446,11 +2446,11 @@ FreeGameModels:
         je short .13
         mov ebp, dword [dword_1B8450]
         push ebp
-        call sub_110414
+        call FreeModelInstance
         add esp, byte 4
         mov eax, dword [dword_1B84F8]
         push eax
-        call sub_11002C
+        call FreeModelFile
         add esp, byte 4
         mov edx, dword [dword_1B84D8]
         push edx
@@ -2462,40 +2462,40 @@ FreeGameModels:
         mov ecx, dword [dword ebx+dword_1B8560]
         push ecx
         add ebx, byte 4
-        call sub_11002C
+        call FreeModelFile
         add esp, byte 4
         cmp ebx, byte 0Ch
         jne short .14
         mov esi, dword [dword_1B8548]
         push esi
-        call sub_11002C
+        call FreeModelFile
         add esp, byte 4
         mov edi, dword [dword_1B84B0]
         push edi
-        call sub_11002C
+        call FreeModelFile
         add esp, byte 4
         mov ebp, dword [dword_1B8488]
         push ebp
-        call sub_11002C
+        call FreeModelFile
         add esp, byte 4
         mov eax, dword [dword_1B8484]
         push eax
-        call sub_11002C
+        call FreeModelFile
         add esp, byte 4
         mov edx, dword [dword_1B8440]
         push edx
-        call sub_11002C
+        call FreeModelFile
         add esp, byte 4
         mov ebx, dword [dword_1B84C0]
         push ebx
-        call sub_11002C
+        call FreeModelFile
         add esp, byte 4
         xor ebx, ebx
 .15:
         mov ecx, dword [dword ebx+dword_1B8530]
         push ecx
         add ebx, byte 4
-        call sub_11002C
+        call FreeModelFile
         add esp, byte 4
         cmp ebx, byte 0Ch
         jne short .15
@@ -2504,7 +2504,7 @@ FreeGameModels:
         mov esi, dword [dword ebx+dword_1B13B0]
         push esi
         add ebx, byte 4
-        call sub_11002C
+        call FreeModelFile
         add esp, byte 4
         cmp ebx, byte 10h
         jne short .16
@@ -2513,7 +2513,7 @@ FreeGameModels:
         mov edi, dword [dword ebx+dword_1B8554]
         push edi
         add ebx, byte 4
-        call sub_11002C
+        call FreeModelFile
         add esp, byte 4
         cmp ebx, byte 0Ch
         jne short .17
@@ -2522,7 +2522,7 @@ FreeGameModels:
         mov ebp, dword [dword ebx+dword_1B13E0]
         push ebp
         add ebx, byte 4
-        call sub_11002C
+        call FreeModelFile
         add esp, byte 4
         cmp ebx, byte 8
         jne short .18
@@ -2531,7 +2531,7 @@ FreeGameModels:
         mov eax, dword [dword ebx+dword_1B13C0]
         push eax
         add ebx, byte 4
-        call sub_11002C
+        call FreeModelFile
         add esp, byte 4
         cmp ebx, byte 8
         jne short .19
@@ -2552,7 +2552,7 @@ FreeGameModels:
         mov ecx, dword [dword ebx+06D8h]
         push ecx
         add ebx, byte 4
-        call sub_110414
+        call FreeModelInstance
         add esp, byte 4
         cmp ebx, esi
         jne short .22
@@ -5704,7 +5704,7 @@ LoadFaceTexture:
         push eax
         add edi, byte 4
         inc esi
-        call sub_10FE88
+        call SetModelShapeWith
         mov edx, dword [byte ebp-08h]
         add esp, byte 10h
         cmp esi, edx
@@ -5771,12 +5771,12 @@ LoadFaceArt:
         add esp, byte 4
         mov eax, str_Face2
         xor edx, edx
-        call sub_10FFBC
+        call LoadModelByName
         mov dword [dword_1B89AC], eax
         call ServiceIdle
         mov ebx, dword [dword_1B89AC]
         push ebx
-        call sub_11004C
+        call InitModelInstance
         add esp, byte 4
         test esi, esi
         je short .1
@@ -5792,7 +5792,7 @@ LoadFaceArt:
         mov ebx, esi
         mov edx, edi
         add ecx, byte 4
-        call sub_1100B4
+        call CreateModelInstance
         mov dword [dword ecx+dword_1B88D8], eax
         cmp ecx, byte 34h
         jne short .2
@@ -5822,7 +5822,7 @@ FreeFaceTextures:
 .1:
         mov edx, dword [dword ebx+dword_1B88DC]
         push edx
-        call sub_110414
+        call FreeModelInstance
         add esp, byte 4
         xor ecx, ecx
         mov esi, dword [dword ebx+dword_1B8910]
@@ -5840,7 +5840,7 @@ FreeFaceTextures:
         jne short .1
         mov eax, dword [dword_1B89AC]
         push eax
-        call sub_11002C
+        call FreeModelFile
         add esp, byte 4
         pop ebp
         pop esi
@@ -5875,7 +5875,7 @@ SwapFaceTexture:
         push ebx
         push edi
         push esi
-        call sub_10FE58
+        call SetModelShape
         add esp, byte 0Ch
         mov ebx, dword [esp]
         mov dword [byte esi+08h], ebx
@@ -5947,14 +5947,14 @@ LoadPlayerFace:
         mov eax, dword [byte esp+024h]
         mov dword [byte esp+01Ch], edx
         mov dword [dword edx+dword_1B8910], eax
-        call sub_10FB98
+        call FindInstanceShape
         mov dword [byte esp+018h], eax
         add esp, byte 8
         push edi
         push eax
         push esi
         mov ebx, ebp
-        call sub_10FE58
+        call SetModelShape
         add esp, byte 0Ch
         mov edx, 2
         mov eax, edi
@@ -45351,18 +45351,18 @@ AllocAnimStates:
         mov esi, edx
         mov edi, ebx
         xor edx, edx
-        call sub_10FFBC
+        call LoadModelByName
         push eax
         mov ebx, 8
         mov dword [esi], eax
-        call sub_11004C
+        call InitModelInstance
         add esp, byte 4
         mov eax, dword [esi]
         xor edx, edx
-        call sub_1100B4
+        call CreateModelInstance
         push eax
         mov dword [edi], eax
-        call sub_10FD58
+        call UpdateModelInstance
         add esp, byte 4
         pop edi
         pop esi
@@ -45409,7 +45409,7 @@ BuildCameraDebugView:
         push byte 0
         push esi
         lea ebx, [dword esp+02D4h]
-        call sub_10FE10
+        call UpdateModelPart
         add esp, byte 0Ch
         mov edx, dword_1B905F
         mov eax, dword [dword esp+02FCh]
@@ -45618,18 +45618,18 @@ LoadAiIcons:
         call SetArtArchive
         xor edx, edx
         mov eax, str_Cross
-        call sub_10FFBC
+        call LoadModelByName
         push eax
         mov ebx, 8
         mov dword [dword_1C0EF8], eax
-        call sub_11004C
+        call InitModelInstance
         add esp, byte 4
         mov eax, dword [dword_1C0EF8]
         xor edx, edx
-        call sub_1100B4
+        call CreateModelInstance
         push eax
         mov dword [dword_1C0EEC], eax
-        call sub_10FD58
+        call UpdateModelInstance
         add esp, byte 4
         mov eax, dword [dword_1C0EEC]
         push byte 0
@@ -45652,11 +45652,11 @@ FreeCameraDebug:
         push edx
         mov edx, dword [dword_1C0EF8]
         push edx
-        call sub_11002C
+        call FreeModelFile
         add esp, byte 4
         mov ebx, dword [dword_1C0EEC]
         push ebx
-        call sub_110414
+        call FreeModelInstance
         add esp, byte 4
         pop edx
         pop ecx

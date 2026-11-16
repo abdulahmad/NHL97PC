@@ -23,7 +23,7 @@ extern CommentaryEvent_1871, CommentaryEvent_189C, CommentaryEvent_18A1, Comment
 extern CommentaryEvent_1A44, CommentaryEvent_1B16, CommentaryEvent_1B57, CommentaryEvent_1B97, CommentaryEvent_1BF5, CommentaryEvent_1C3D, CommentaryEvent_1CB2, CommentaryEvent_1DD1
 extern CommentaryEvent_1E49, CommentaryEvent_1ECB, CommentaryEvent_1F28, CommentaryEvent_1F56, CommentaryEvent_1FE8, off_169780, off_1697BC, off_169814
 extern qword_161173, qword_16117B, qword_161183, qword_16118B, rand_, sprintf_, strcmp_, strcpy_
-extern SortIndices, bcopy, FindShape, InitSpeechBank, FileSizePath, sub_1070B0, sub_1086BF, sub_10884C
+extern SortIndices, bcopy, FindShape, InitSpeechBank, FileSizePath, sub_1070B0, CloseSpeechChannels, InitSpeechChannels
 extern sub_109775, sub_1097F0, QueueSpeechRequest, ResetSpeechQueue, FindSpeechClip, LoadSpeechBlock, LoadClipIfMissing, SpeechFileHeader
 extern OpenSpeechBanks, ResolveSpeechClips, LoadTeamSpeech, MakeDataPath, MakeDirPath, LoadDataFileLib, LoadDataFile, CheckDiskSpace
 extern SetTextColor, ShowMessageBoxNoWait, SetNormalText, ShowWorkingBox, UpdateWorkingBox, HideWorkingBox, ShowLoadingBar, CreateMenuBitmap
@@ -1198,7 +1198,7 @@ InitSpeechBanks:
         mov eax, 30h
         call ShowLoadingBar
         mov eax, QueueSpeechChain_9C
-        call sub_10884C
+        call InitSpeechChannels
         test eax, eax
         jl near .79
         mov edx, 56h
@@ -1215,7 +1215,7 @@ InitSpeechBanks:
         add esp, byte 8
         test eax, eax
         jne short .59
-        call sub_1086BF
+        call CloseSpeechChannels
         jmp near .80
 .59:
         call ServiceIdle
@@ -1223,7 +1223,7 @@ InitSpeechBanks:
         call InitSpeechBank
         test eax, eax
         jne short .60
-        call sub_1086BF
+        call CloseSpeechChannels
         jmp near .80
 .60:
         xor ebx, ebx
@@ -1419,7 +1419,7 @@ InitSpeechBanks:
         call ShowLoadingBar
         jmp short .79
 .78:
-        call sub_1086BF
+        call CloseSpeechChannels
 .79:
         call ServiceIdle
 .80:
@@ -1484,7 +1484,7 @@ CloseSpeechFile:
         add esp, byte 4
         mov dword [dword_16923C], esi
 .1:
-        call sub_1086BF
+        call CloseSpeechChannels
 .2:
         xor edi, edi
         mov dword [dword_169250], edi

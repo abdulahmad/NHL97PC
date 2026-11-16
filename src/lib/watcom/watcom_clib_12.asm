@@ -2,9 +2,12 @@
 bits 32
 %include "hockey.inc"
 section s_112B84 progbits alloc exec nowrite align=1
-extern dword_17025C, dword_170260, dword_170264, dword_170268, dword_170274, memcpy_, sub_112A90, unk_1D8AC8
+extern dword_17025C, dword_170260, dword_170264, dword_170268, dword_170274, memcpy_, FillSpanRow, unk_1D8AC8
 extern unk_1D8CC8, unk_1D8EC8
 global sub_112B84, sub_112BCC, sub_112DE4, sub_112E80, sub_112F3C
+;-----------------------------------------------------------------------------
+; sub_112B84                                                          112B84  
+;-----------------------------------------------------------------------------
 sub_112B84:
         push ecx
         push esi
@@ -43,6 +46,9 @@ sub_112B84:
         pop ecx
         ret
         db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; sub_112BCC                                                          112BCC  
+;-----------------------------------------------------------------------------
 sub_112BCC:
         push ebx
         push esi
@@ -109,7 +115,7 @@ sub_112BCC:
         lea ecx, [byte edi+08h]
         push ebx
         mov dword [byte esp+038h], ecx
-        call sub_112A90
+        call FillSpanRow
         add esp, byte 10h
         mov esi, ebp
         cmp dword [byte esi+08h], byte 0
@@ -159,7 +165,7 @@ sub_112BCC:
         push eax
         lea eax, [byte edx+08h]
         mov dword [byte esp+038h], eax
-        call sub_112A90
+        call FillSpanRow
         add esp, byte 10h
         mov esi, ebp
         cmp dword [byte esi+08h], byte 0
@@ -220,6 +226,9 @@ sub_112BCC:
         pop ebx
         ret
         db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; sub_112DE4                                                          112DE4  
+;-----------------------------------------------------------------------------
 sub_112DE4:
         push ebx
         push esi
@@ -273,6 +282,9 @@ sub_112DE4:
         pop ebx
         ret
         db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; sub_112E80                                                          112E80  
+;-----------------------------------------------------------------------------
 sub_112E80:
         push ebx
         push esi
@@ -287,7 +299,7 @@ sub_112E80:
         push ebx
         mov ecx, dword [byte esp+020h]
         push ecx
-        call sub_112A90
+        call FillSpanRow
         add esp, byte 10h
         mov ebx, eax
         mov eax, dword [byte esp+028h]
@@ -343,6 +355,9 @@ sub_112E80:
         pop ebx
         ret
         db 090h
+;-----------------------------------------------------------------------------
+; sub_112F3C                                                          112F3C  
+;-----------------------------------------------------------------------------
 sub_112F3C:
         push ebx
         push esi

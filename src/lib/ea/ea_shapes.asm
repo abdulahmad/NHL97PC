@@ -5,7 +5,7 @@ section s_10376C progbits alloc exec nowrite align=1
 extern IF@ATAN2, str_Tube3, dword_167E08, dword_167E1C, dword_16E46C, dword_16E4A8, dword_16E4BC, dword_16FA04
 extern dword_16FA08, dword_16FA10, dword_16FA14, dword_1CF9F8, dword_1CF9FC, dword_1CFA04, dword_1DA4D0, hypot_
 extern off_16FA1C, qword_167DF0, qword_167DF8, qword_167E00, qword_167E0C, qword_167E14, qword_167E20, SortIndices
-extern sub_104940, sub_104948, sub_10495F, sub_1049D0, sub_112894, sub_12233C, sub_1265D0, sub_126624
+extern sub_104940, sub_104948, sub_10495F, sub_1049D0, DrawPolyList, sub_12233C, sub_1265D0, sub_126624
 extern sub_12664C, AllocMemBlock, FloatsToInts, VecSub, VecAngle, ProjectCoord
 global bcopy_, sub_1043A4_3CC, removewindow, sub_10376C, sub_1038B0, sub_103E14, sub_1042D0, sub_104330
 global sub_1043A4, sub_104790, sub_1047A0, sub_1047BC, sub_1047D0, sub_10483C
@@ -644,7 +644,7 @@ sub_1038B0:
         push eax
         mov eax, dword [esi]
         push eax
-        call sub_112894
+        call DrawPolyList
         mov eax, 1
         add esp, byte 10h
 .12:
@@ -1076,7 +1076,7 @@ sub_103E14:
         push eax
         mov edi, dword [esi]
         push edi
-        call sub_112894
+        call DrawPolyList
         mov eax, 1
         add esp, byte 10h
 .10:

@@ -28,7 +28,7 @@ extern off_170B18, off_170B1C, off_171C7C, off_171C80, off_171C84, off_171D10, o
 extern off_19C6E3, qword_167EC8, qword_167ED0, qword_167EE0, sprintf_, strcat_, strcpy_, strlen_
 extern strncpy_, sub_1004B8, bcopy, AddExitHandler, PresentScreen, ConvertArtPalette, Random32, sub_102D3C
 extern sub_103298, sub_103648, sub_10374C, sub_10376C, sub_1049D0, FileExistsPath, sub_106F64, sub_109401
-extern sub_109545, sub_10955B, sub_1095AD, sub_10CFB4, sub_10CFF7, sub_1128F8, sub_121460, sub_121470
+extern sub_109545, sub_10955B, sub_1095AD, sub_10CFB4, sub_10CFF7, DrawPolyArray, sub_121460, sub_121470
 extern sub_121494, sub_12189C, sub_121A43, sub_12200C, sub_12233C, sub_123FCB, sub_124DB0, sub_1258A4
 extern sub_125DDE, sub_12D520, sub_12F270, sub_12FACC, sub_12FDC8, sub_12FF9C, sub_12FFD8, sub_12FFF0
 extern sub_13005A, sub_1300A8, sub_13014C, sub_13059C, sub_13061C, sub_1306A0, sub_130709, sub_13073E
@@ -949,7 +949,7 @@ PrimTriTex:
         push byte 3
         mov edx, dword [byte eax+040h]
         push edx
-        call sub_1128F8
+        call DrawPolyArray
         add esp, byte 18h
         pop edx
         pop ecx
@@ -997,7 +997,7 @@ PrimTriTexCw:
         push byte 3
         mov esi, dword [byte edi+040h]
         push esi
-        call sub_1128F8
+        call DrawPolyArray
         add esp, byte 18h
 .1:
         pop edi
@@ -1048,7 +1048,7 @@ PrimTriTexCcw:
         push byte 3
         mov esi, dword [byte edi+040h]
         push esi
-        call sub_1128F8
+        call DrawPolyArray
         add esp, byte 18h
 .1:
         pop edi
@@ -1070,7 +1070,7 @@ PrimTriTexCcw_6C:
         push byte 3
         mov edx, dword [byte eax+040h]
         push edx
-        call sub_1128F8
+        call DrawPolyArray
         add esp, byte 18h
         pop edx
         pop ecx
@@ -1119,7 +1119,7 @@ PrimTriTexClearCw:
         push byte 3
         mov esi, dword [byte edi+040h]
         push esi
-        call sub_1128F8
+        call DrawPolyArray
         add esp, byte 18h
 .1:
         pop edi
@@ -1171,7 +1171,7 @@ PrimTriTexClearCcw:
         push byte 3
         mov esi, dword [byte edi+040h]
         push esi
-        call sub_1128F8
+        call DrawPolyArray
         add esp, byte 18h
 .1:
         pop edi
@@ -1196,7 +1196,7 @@ PrimTriTexShade:
         push byte 3
         mov edx, dword [byte eax+040h]
         push edx
-        call sub_1128F8
+        call DrawPolyArray
         add esp, byte 18h
         pop edx
         pop ecx
@@ -1244,7 +1244,7 @@ PrimTriTexShadeCw:
         push byte 3
         mov esi, dword [byte edi+040h]
         push esi
-        call sub_1128F8
+        call DrawPolyArray
         add esp, byte 18h
 .1:
         pop edi
@@ -1296,7 +1296,7 @@ PrimTriTexShadeCcw:
         push byte 3
         mov esi, dword [byte edi+040h]
         push esi
-        call sub_1128F8
+        call DrawPolyArray
         add esp, byte 18h
 .1:
         pop edi
@@ -1934,7 +1934,7 @@ PrimQuadSplit_EC:
         push byte 4
         mov edx, dword [byte eax+054h]
         push edx
-        call sub_1128F8
+        call DrawPolyArray
         add esp, byte 18h
         pop edx
         pop ecx
@@ -1982,7 +1982,7 @@ PrimQuadTexCw:
         push byte 4
         mov esi, dword [byte edi+054h]
         push esi
-        call sub_1128F8
+        call DrawPolyArray
         add esp, byte 18h
 .1:
         pop edi
@@ -2033,7 +2033,7 @@ PrimQuadTexCcw:
         push byte 4
         mov esi, dword [byte edi+054h]
         push esi
-        call sub_1128F8
+        call DrawPolyArray
         add esp, byte 18h
 .1:
         pop edi
@@ -2055,7 +2055,7 @@ PrimQuadTexCcw_6C:
         push byte 4
         mov edx, dword [byte eax+054h]
         push edx
-        call sub_1128F8
+        call DrawPolyArray
         add esp, byte 18h
         pop edx
         pop ecx
@@ -2103,7 +2103,7 @@ PrimQuadTexShadeCw:
         push byte 4
         mov esi, dword [byte edi+054h]
         push esi
-        call sub_1128F8
+        call DrawPolyArray
         add esp, byte 18h
 .1:
         pop edi
@@ -2154,7 +2154,7 @@ PrimQuadTexShadeCcw:
         push byte 4
         mov esi, dword [byte edi+054h]
         push esi
-        call sub_1128F8
+        call DrawPolyArray
         add esp, byte 18h
 .1:
         pop edi
@@ -2180,7 +2180,7 @@ PrimQuadTexClear:
         push byte 4
         mov edx, dword [byte eax+054h]
         push edx
-        call sub_1128F8
+        call DrawPolyArray
         add esp, byte 18h
         pop edx
         pop ecx
@@ -2229,7 +2229,7 @@ PrimQuadTexClearCw:
         push byte 4
         mov esi, dword [byte edi+054h]
         push esi
-        call sub_1128F8
+        call DrawPolyArray
         add esp, byte 18h
 .1:
         pop edi
@@ -2281,7 +2281,7 @@ PrimQuadTexClearCcw:
         push byte 4
         mov esi, dword [byte edi+054h]
         push esi
-        call sub_1128F8
+        call DrawPolyArray
         add esp, byte 18h
 .1:
         pop edi

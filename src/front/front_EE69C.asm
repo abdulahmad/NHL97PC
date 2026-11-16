@@ -15,7 +15,7 @@ extern dword_1CE48E, dword_1CE492, dword_1CE496, dword_1CE4D6, dword_1CE4DA, dwo
 extern dword_1CE4EC, dword_1CE4F0, dword_1CE528, dword_1CE52C, dword_1CE532, dword_1CE536, dword_1CE53A, dword_1CE53E
 extern dword_1CE542, dword_1CEF9C, dword_1CEFA0, dword_1CEFB0, dword_1CEFB4, dword_1CEFB8, rand_, sprintf_
 extern str_TR0D, strlen_, bcopy, BlitConverted, BlitShape2, BlitArt, BlitShape, PresentScreen
-extern FindShape, sub_10FE58, CreateBitmapForArt, IsKeyDown, ConvertArtXY, ConvertArtKeepPos, DrawShadowRect, sub_11FAAC
+extern FindShape, SetModelShape, CreateBitmapForArt, IsKeyDown, ConvertArtXY, ConvertArtKeepPos, DrawShadowRect, sub_11FAAC
 extern SetScreenTarget, CameraNoop, SecondsToSamples, WaitSoundTime, PlayMenuSfx, StopAllSfx, PlaySfx, LoadDataFileLib
 extern DrawScreenBackground, FadeInScreen, ExitScreen, SetRegionRect, SetTextColor, DrawTextAligned, ShowMessageBoxNoWait, WipeScreen
 extern SetModemButton, InitMenuItems, RunMenu, GetLangText, ServiceIdle, WaitForOtherComputer, GetKeyName, LoadPauseArt
@@ -4447,7 +4447,7 @@ SetupPauseArt:
         push dword [byte eax+02Ch]
         push byte 0
         push dword [dword_1B10CC]
-        call sub_10FE58
+        call SetModelShape
         add esp, byte 0Ch
         push dword 0FFFFFFh
         call sub_FC4BC

@@ -4,7 +4,7 @@ bits 32
 section s_12C604 progbits alloc exec nowrite align=1
 extern byte_172BC5, byte_1DCF3B, byte_1DCF45, byte_1DCF47, byte_1DCF67, byte_1DD4AF, byte_1DD4B0, dword_199734
 extern dword_1DCF38, dword_1DCF48, dword_1DCF78, dword_1DD37C, dword_1DD37E, dword_1DD4AD, dword_1DD4B4, getenv_
-extern str_BLASTER, Random32, sub_1078AC, sub_109210, sub_12AB04, sub_12AB0C, sub_138177, word_1DD4A0
+extern str_BLASTER, Random32, sub_1078AC, StopChannel, sub_12AB04, sub_12AB0C, sub_138177, word_1DD4A0
 extern word_1DD4A2, word_1DD4A4, word_1DD4A6, word_1DD4A8, word_1DD4AA, word_1DD4AC
 global ParseBlasterEnv, sub_12C604, sub_12C78C, sub_12C7A8, sub_12C7DC, sub_12C814, sub_12C84C, sub_12C884
 global sub_12C8BC, sub_12C8F4, sub_12C950, sub_12C970, sub_12C9D0, sub_12CA20, sub_12CAA0, sub_12CAD8
@@ -426,7 +426,7 @@ sub_12C950:
 .1:
         mov eax, dword [dword edx+dword_1DCF38]
         add edx, byte 44h
-        call sub_109210
+        call StopChannel
         cmp edx, 440h
         jne short .1
         pop edx
@@ -752,7 +752,7 @@ sub_12CAD8:
         cmp byte [dword eax+byte_1DCF45], 1
         jne short .14
         mov eax, dword [dword eax+dword_1DCF38]
-        call sub_109210
+        call StopChannel
 .14:
         mov eax, dword [dword edx+dword_1DD4AD]
         sar eax, 18h

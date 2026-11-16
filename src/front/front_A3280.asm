@@ -28,7 +28,7 @@ extern dword_1C9588, dword_1C958C, dword_1C9590, dword_1C9594, dword_1C9598, dwo
 extern dword_1C95A8, dword_1C95AA, dword_1C95B0, dword_1C95B4, dword_1C95B8, dword_1C95BC, dword_1C95C0, dword_1C95C4
 extern dword_1CF548, memcmp_, memmove_, memset_, qsort_, sprintf_, str_DD, strcpy_
 extern bcopy, BlitArt, BlitShape, PresentScreen, FindShape, FindShapeQuiet, OpenArtArchive, DrawShapeBlended
-extern ConvertArtNew, sub_102C10, Random32, LoadFileAlloc, sub_106F64, sub_106F94, sub_110D70, CreateBitmapDefault
+extern ConvertArtNew, sub_102C10, Random32, LoadFileAlloc, sub_106F64, sub_106F94, ProjectModelBounds, CreateBitmapDefault
 extern ConvertArtXY, ConvertArtKeepPos, LinkSideFlags, ClearLinkCounters, SetScreenTarget, PlayGame, SetPlayedTeams, IsAllStarDay
 extern InitGameAudio, MusicEnabled, LoadFrontEndSfx, InitGameSounds, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx
 extern PaEvent, ResetStreamAudio, LoadDataFileLib, LoadDataFile, OpenDataLibrary, InitFrontEnd, FreeFrontEnd, ShadeShape
@@ -4267,7 +4267,7 @@ PostGameScreen:
         mov eax, dword [dword esp+0574h]
         mov ecx, dword [byte eax+02Ch]
         push ecx
-        call sub_110D70
+        call ProjectModelBounds
         add esp, byte 8
         mov eax, dword [dword esp+0570h]
         push eax

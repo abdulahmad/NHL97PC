@@ -17,7 +17,7 @@ extern dword_1C831C, dword_1C8320, dword_1C8324, dword_1C8328, dword_1C832C, dwo
 extern fclose_, fopen_, fputc_, jpt_845CC, memcpy_, memset_, rand_, sprintf_
 extern str_NAMEINDEX, str_backslash3, strcat_, strcmp_, strcpy_, strlen_, bcopy, BlitConverted
 extern BlitShape2, BlitArt, BlitShape, PresentScreen, FindShape, OpenArtArchiveErr, ConvertArtNew, Random32
-extern LoadFileAllocQuiet, sub_10AED0, sub_110D70, ConvertArtXY, FindShapeList, sub_11B104, SetScreenTarget, SecondsToSamples
+extern LoadFileAllocQuiet, sub_10AED0, ProjectModelBounds, ConvertArtXY, FindShapeList, sub_11B104, SetScreenTarget, SecondsToSamples
 extern WaitSoundTime, ChkMenuMusic, PauseMusic, RequestMusicStop, WaitMusicEnd, ArenaFileName, PlayMenuSfx, StopAllSfx
 extern PlaySfx, MakeDataPath, LoadDataFile, OpenDataLibrary, ShadeShape, DrawShadowBox, DrawScreenBackground, FadeInScreen
 extern ShowScreen, ExitScreen, SetRegionRect, ShowMessageBox, WipeScreen, DrawEntryRow, DrawStatTable, ShowPopupScreen
@@ -370,7 +370,7 @@ MainMenuAnim_370:
         mov eax, dword [dword_1C82C4]
         push unk_16CCC8
         push dword [byte eax+02Ch]
-        call sub_110D70
+        call ProjectModelBounds
         add esp, byte 8
         push byte 46h
         mov eax, dword [dword_1C8324]

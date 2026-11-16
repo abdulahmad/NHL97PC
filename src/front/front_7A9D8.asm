@@ -14,8 +14,8 @@ extern dword_1C1244, dword_1C1248, dword_1C124C, dword_1C1250, dword_1C1254, dwo
 extern dword_1C5DA8, dword_1C5DAC, dword_1C5DE4, dword_1C5DE8, dword_1C5E78, dword_1C5E9C, dword_1C5EA0, dword_1C5EF4
 extern memcpy_, off_16C9B8, off_16C9C0, rand_, sprintf_, srand_, str_ATA, str_ATD
 extern str_ATH0, str_ATM0, str_ATS01, str_ATZS760S1155, strcat_, strcpy_, strlen_, strncmp_
-extern strstr_, bcopy, BlitShape, PresentScreen, FindShape, sub_103234, sub_1047D0, sub_108900
-extern sub_108A60, sub_108BA0, sub_108D78, sub_108DC4, sub_108E74, sub_1091E0, sub_109210, InitVideoDecoder
+extern strstr_, bcopy, BlitShape, PresentScreen, FindShape, sub_103234, sub_1047D0, OpenAudioStreamChannel
+extern CloseAudioStreamChannel, FeedAudioStream, AudioStreamDone, StartAudioStream, FlushAudioStream, ChannelPlaying, StopChannel, InitVideoDecoder
 extern BuildVideoGammaTable, DecodeVideoChunk, CreateBitmapDefault, ResetFrameRate, DecodeVideoFrame, DecodeTgvChunk, SerialRaiseDtr, SerialWrite
 extern SerialFlushTx, SerialWaitTxEmpty, LoadNameFile, SetScreenTarget, OpenStreamBuffer, delstream, CdStreamStart, CdStreamOpenSecondary
 extern CdStreamService, CdStreamNextPacket, CdStreamFreePacket, StreamReady, SecondsToSamples, WaitSoundTime, ChkMenuMusic, PauseMusic
@@ -1533,15 +1533,15 @@ ClearTeamInjuries:
 ;-----------------------------------------------------------------------------
 FadeMovieOut:
         mov eax, dword [dword_1C1240]
-        call sub_1091E0
+        call ChannelPlaying
         test eax, eax
-        je near sub_108D78
+        je near AudioStreamDone
         xor eax, eax
         ret
         db 08Dh,040h,00h
         push ecx
         push edx
-        call sub_109210
+        call StopChannel
         push byte 1
         call WaitTicks
         add esp, byte 4
@@ -1621,7 +1621,7 @@ OpenMovieStream:
         je short .1
         mov eax, dword [tickcount]
         mov dword [dword_16C9B0], eax
-        call sub_108DC4
+        call StartAudioStream
         mov dword [dword_16C9AC], eax
         pop esi
         pop edx
@@ -1715,7 +1715,7 @@ OpenVideoStream:
         mov eax, dword [dword_1C1260]
         mov ecx, ebx
         mov ebx, 64h
-        call sub_108900
+        call OpenAudioStreamChannel
 .1:
         xor esi, esi
         mov dword [dword_1C124C], esi
@@ -1765,7 +1765,7 @@ CloseMovie:
         je short .2
 .1:
         mov eax, dword [dword_1C1240]
-        call sub_109210
+        call StopChannel
         push byte 1
         call WaitTicks
         add esp, byte 4
@@ -1786,13 +1786,13 @@ CloseMovie:
         mov ebx, eax
         mov eax, dword [dword_1C1240]
         and ebx, 0FFh
-        call sub_1091E0
+        call ChannelPlaying
         test eax, eax
         je short .4
         mov eax, ecx
         jmp short .5
 .4:
-        call sub_108D78
+        call AudioStreamDone
 .5:
         test eax, eax
         je short .6
@@ -1807,7 +1807,7 @@ CloseMovie:
         or byte [dword_1C1214], 4
 .7:
         mov eax, dword [dword_1C1240]
-        call sub_109210
+        call StopChannel
         push byte 1
         call WaitTicks
         add esp, byte 4
@@ -1817,7 +1817,7 @@ CloseMovie:
 .8:
         cmp dword [dword_1C1250], byte 0
         je short .9
-        call sub_108E74
+        call FlushAudioStream
 .9:
         push byte 5
         call WaitTicks
@@ -2039,7 +2039,7 @@ PlayMovieFrames:
         je short .9
         cmp edi, dword [dword_1C121C]
         jne short .9
-        call sub_108D78
+        call AudioStreamDone
         cmp eax, byte 8
         jge short .9
         mov edx, ebp
@@ -2102,14 +2102,14 @@ PlayMovieFrames:
         cmp edi, ecx
         je short .15
         mov eax, dword [dword_1C1258]
-        call sub_108BA0
+        call FeedAudioStream
         cmp edi, dword [dword_1C1228]
         jne short .17
-        call sub_108D78
+        call AudioStreamDone
         cmp eax, byte 0Fh
         jle short .17
         mov eax, 0Fh
-        call sub_108A60
+        call CloseAudioStreamChannel
         mov dword [dword_1C1240], eax
         mov dword [dword_1C1228], ebp
         jmp short .16

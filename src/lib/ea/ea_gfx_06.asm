@@ -4,8 +4,8 @@ bits 32
 section s_10B040 progbits alloc exec nowrite align=1
 extern dword_16E4A8, dword_170218, dword_1D1CF8, dword_1D1CFC, dword_1D1D00, dword_1D1D04, dword_1D1D08, dword_1D1D0C
 extern dword_1D1D10, dword_1D1D14, dword_1D1D2C, off_170278, off_170284, off_170290, off_17029C, off_1702A8
-extern SortIndices, sub_10C8E8, sub_10CF34, sub_10E690, sub_10E6AC, sub_10E6E4, sub_10E794, sub_10E7AC
-extern sub_112010, sub_1120F0, CallModelPartFuncs, CallAllPartFuncs, sub_12D300, sub_12D4B8, ProjectPoints, unk_17021C
+extern SortIndices, sub_10C8E8, sub_10CF34, SetRinkView, TransformRinkPoints, TransformRinkObject, ProjectRinkObject, DrawRinkPolyStrip
+extern DrawFlatPoly, DrawPolyOutline, CallModelPartFuncs, CallAllPartFuncs, sub_12D300, sub_12D4B8, ProjectPoints, unk_17021C
 extern unk_170240
 global sub_10B0EC_9B, sub_10B20C_B8, sub_10B348_190, sub_10B040, sub_10B060, sub_10B074, sub_10B084, sub_10B0D4
 global sub_10B0EC, sub_10B18C, sub_10B20C, sub_10B2CC, sub_10B348, sub_10B4E0, sub_10B580, sub_10B59C
@@ -145,7 +145,7 @@ sub_10B0EC:
         push esi
         mov edi, dword [byte ebx+04h]
         push edi
-        call sub_112010
+        call DrawFlatPoly
         add esp, byte 10h
         mov ebp, dword [byte ebx+07Ch]
         push ebp
@@ -154,7 +154,7 @@ sub_10B0EC:
         push ebp
         mov edx, dword [byte ebx+04h]
         push edx
-        call sub_1120F0
+        call DrawPolyOutline
         add esp, byte 10h
         mov eax, dword [byte esp+08h]
         mov dword [byte ebx+018h], eax
@@ -316,7 +316,7 @@ sub_10B2CC:
         push ecx
         mov ebx, dword [byte esi+028h]
         mov esi, dword [byte esi+024h]
-        call sub_10E690
+        call SetRinkView
         add esp, byte 0Ch
 .1:
         dec esi
@@ -330,7 +330,7 @@ sub_10B2CC:
         je short .2
         mov edi, dword [byte ebx+08h]
         push edi
-        call sub_10E6E4
+        call TransformRinkObject
         mov dl, byte [byte ebx+01h]
         and dl, 0DFh
         and eax, byte 1
@@ -370,7 +370,7 @@ sub_10B348:
         je short .2
         push ebx
         push esi
-        call sub_10E6AC
+        call TransformRinkPoints
         add esp, byte 8
         test eax, eax
         jne near .14
@@ -381,7 +381,7 @@ sub_10B348:
         test ah, 4
         jne short .3
         push ebx
-        call sub_10E794
+        call ProjectRinkObject
         add esp, byte 4
         test eax, eax
         setg al
@@ -482,7 +482,7 @@ sub_10B348:
         push esi
         mov edx, dword [byte ecx+04h]
         push edx
-        call sub_10E7AC
+        call DrawRinkPolyStrip
 .12:
         add esp, byte 0Ch
 .13:
@@ -543,7 +543,7 @@ sub_10B4E0:
         push ecx
         mov edi, dword [byte eax+07Ch]
         push edi
-        call sub_10E690
+        call SetRinkView
         add esp, byte 0Ch
 .2:
         mov eax, esi

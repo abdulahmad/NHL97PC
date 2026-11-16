@@ -2321,7 +2321,45 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 106DF8,LoadFileIntoQuiet,sub_106DF8,new,low,loads a file into a buffer without the error message,src/lib/watcom/watcom_clib_08.asm
 106E10,LoadFileCore,sub_106E10,new,low,loads a file,src/lib/watcom/watcom_clib_08.asm
 106EC0,unpack,,96PC,medium,NHL96PC AFB88 (sem): C:3143; C:3144; C:3146; R:2562,
+107A2C,DetectSoundCard,sub_107A2C,new,low,detects the sound card from the BLASTER setting,src/lib/watcom/watcom_clib_09.asm
+107A9C,ProbeSoundPorts,sub_107A9C,new,low,probes the sound card ports,src/lib/watcom/watcom_clib_09.asm
+107AE0,OpenDigitalAudio,sub_107AE0,new,low,opens the digital audio driver,src/lib/watcom/watcom_clib_09.asm
+107B70,CloseDigitalAudio,sub_107B70,new,low,closes the digital audio driver,src/lib/watcom/watcom_clib_09.asm
+107BD8,SetAudioDmaChannel,sub_107BD8,new,low,sets the audio DMA channel,src/lib/watcom/watcom_clib_09.asm
+107CB0,StartDigitalAudio,sub_107CB0,new,low,starts the digital audio output,src/lib/watcom/watcom_clib_09.asm
+107D30,DetectWindows,sub_107D30,new,low,asks DOS whether Windows is running (int 2Fh 1600h),src/lib/watcom/watcom_clib_09.asm
+107D70,InitSoundMixer,sub_107D70,new,low,sets up the sound mixer,src/lib/watcom/watcom_clib_09.asm
+107E74,SetMixerVolumes,sub_107E74,new,low,sets the mixer volumes,src/lib/watcom/watcom_clib_09.asm
+107F48,SetMasterVolume,sub_107F48,new,low,sets the master volume,src/lib/watcom/watcom_clib_09.asm
+108040,SetChannelVolume,sub_108040,new,low,sets the volume of a sound channel,src/lib/watcom/watcom_clib_09.asm
+108144,SetSpeechVolume,sub_108144,new,low,sets the speech volume,src/lib/watcom/watcom_clib_09.asm
+10815C,StopAllChannels,sub_10815C,new,low,stops all the sound channels,src/lib/watcom/watcom_clib_09.asm
+1081B0,ResetSoundChannels,sub_1081B0,new,low,resets the sound channels,src/lib/watcom/watcom_clib_09.asm
+1081E4,MixAudioBlock,sub_1081E4,new,low,mixes one audio block,src/lib/watcom/watcom_clib_09.asm
+108250,MixChannelFormat,sub_108250,new,low,mixes a channel by its sample format,src/lib/watcom/watcom_clib_09.asm
+108584,MixVolumeRamp,sub_108584,new,low,ramps a channel's volume while mixing,src/lib/watcom/watcom_clib_09.asm
+108640,SetMusicStreamVolume,sub_108640,new,low,sets the music stream volume,src/lib/watcom/watcom_clib_09.asm
+1086BF,CloseSpeechChannels,sub_1086BF,new,low,closes the speech channels,src/lib/watcom/watcom_clib_09.asm
+108725,AllocSpeechBuffers,sub_108725,new,low,allocates the speech playback buffers,src/lib/watcom/watcom_clib_09.asm
+10884C,InitSpeechChannels,sub_10884C,new,low,sets up the speech channels,src/lib/watcom/watcom_clib_09.asm
+108900,OpenAudioStreamChannel,sub_108900,new,low,opens an audio stream channel,src/lib/watcom/watcom_clib_09.asm
+108A60,CloseAudioStreamChannel,sub_108A60,new,low,closes an audio stream channel,src/lib/watcom/watcom_clib_09.asm
+108BA0,FeedAudioStream,sub_108BA0,new,low,feeds a packet to an audio stream,src/lib/watcom/watcom_clib_09.asm
+108CE8,AudioStreamPosition,sub_108CE8,new,low,returns the play position of an audio stream,src/lib/watcom/watcom_clib_09.asm
+108D78,AudioStreamDone,sub_108D78,new,low,returns whether an audio stream has finished,src/lib/watcom/watcom_clib_09.asm
+108DC4,StartAudioStream,sub_108DC4,new,low,starts an audio stream,src/lib/watcom/watcom_clib_09.asm
+108E74,FlushAudioStream,sub_108E74,new,low,frees the played packets of an audio stream,src/lib/watcom/watcom_clib_09.asm
+108EF0,QueueStreamPacket,sub_108EF0,new,low,queues a packet on an audio stream,src/lib/watcom/watcom_clib_09.asm
+10901C,AudioStreamCallback,sub_10901C,new,low,refills an audio stream from its packets,src/lib/watcom/watcom_clib_09.asm
 10911D,strstr_,,96PC,medium,NHL96PC B16C9 (similar): mnemonic similarity 0.99 over 102 instructions,
+1091E0,ChannelPlaying,sub_1091E0,new,low,returns whether a sound channel is playing,src/lib/watcom/watcom_clib_09.asm
+109210,StopChannel,sub_109210,new,low,stops a sound channel,src/lib/watcom/watcom_clib_09.asm
+109250,PlaySample,sub_109250,new,low,plays a sample on a free channel,src/lib/watcom/watcom_clib_09.asm
+1092B0,PlaySampleVolume,sub_1092B0,new,low,plays a sample at a volume,src/lib/watcom/watcom_clib_09.asm
+109309,ClearSpeechRing,sub_109309,new,low,clears the speech ring,src/lib/watcom/watcom_clib_09.asm
+109352,PushSpeechRing,sub_109352,new,low,adds an entry to the speech ring,src/lib/watcom/watcom_clib_09.asm
+109384,SpeechRingCount,sub_109384,new,low,returns the entries in the speech ring,src/lib/watcom/watcom_clib_09.asm
+1093CF,SpeechBusy,sub_1093CF,new,low,returns whether speech is playing,src/lib/watcom/watcom_clib_09.asm
 10942E,openhandle,,96PC,medium,NHL96PC E06B2 (similar): mnemonic similarity 0.91 over 87 instructions,
 109A74,AsyncInit,sub_109A74,96PC,medium,NHL96PC 1BA4D (sem 0.89): S:ASYNC FILE; D:167E78; K:FFFF800,src/lib/lib_109A74.asm
 109B50,AsyncClose,sub_109B50,96PC,medium,NHL96PC 1BB20 (sem 1.00): C:1905; C:2113,src/lib/lib_109A74.asm
@@ -2342,6 +2380,76 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 10BEC0,DrawLineXPlot,sub_10BEC0,96PC,medium,96 PC DrawLineXPlot,src/lib/lib_10B660.asm
 10C07C,DrawLineX,sub_10C07C,96PC,medium,96 PC DrawLineX,src/lib/lib_10B660.asm
 10C1C0,DrawFixedLine,sub_10C1C0,96PC,medium,NHL96PC 87DD6 (similar 0.80): mnemonic similarity 0.80 over 173 instructions,src/lib/lib_10B660.asm
+10E690,SetRinkView,sub_10E690,new,low,sets the rink view parameters,src/lib/ea/ea_shpi_03.asm
+10E6AC,TransformRinkPoints,sub_10E6AC,new,low,transforms rink points,src/lib/ea/ea_shpi_03.asm
+10E6E4,TransformRinkObject,sub_10E6E4,new,low,transforms a rink object,src/lib/ea/ea_shpi_03.asm
+10E794,ProjectRinkObject,sub_10E794,new,low,projects a rink object,src/lib/ea/ea_shpi_03.asm
+10E7AC,DrawRinkPolyStrip,sub_10E7AC,new,low,draws a strip of rink polygons,src/lib/ea/ea_shpi_03.asm
+10E848,DrawRinkFan,sub_10E848,new,low,draws a fan of rink polygons,src/lib/ea/ea_shpi_03.asm
+10E8F8,DrawRinkPolys,sub_10E8F8,new,low,draws rink polygons,src/lib/ea/ea_shpi_03.asm
+10E960,DrawRinkRing,sub_10E960,new,low,draws a ring of rink polygons,src/lib/ea/ea_shpi_03.asm
+10EA08,RinkNoOpA,sub_10EA08,new,low,does nothing (empty rink draw hook),src/lib/ea/ea_shpi_03.asm
+10EA0C,DrawRinkPrimFlat,sub_10EA0C,new,low,rink primitive: flat polygon,src/lib/ea/ea_shpi_03.asm
+10EB0C,DrawRinkPrimShaded,sub_10EB0C,new,low,rink primitive: shaded polygon,src/lib/ea/ea_shpi_03.asm
+10EC0C,DrawRinkPrimTextured,sub_10EC0C,new,low,rink primitive: textured polygon,src/lib/ea/ea_shpi_03.asm
+10ED0C,RinkNoOpB,sub_10ED0C,new,low,does nothing (empty rink draw hook),src/lib/ea/ea_shpi_03.asm
+10ED10,DrawRinkLineFlat,sub_10ED10,new,low,rink line primitive: flat,src/lib/ea/ea_shpi_03.asm
+10ED78,DrawRinkLineShaded,sub_10ED78,new,low,rink line primitive: shaded,src/lib/ea/ea_shpi_03.asm
+10EDE0,DrawRinkLineTextured,sub_10EDE0,new,low,rink line primitive: textured,src/lib/ea/ea_shpi_03.asm
+10EE50,DrawIceSpans,sub_10EE50,new,low,draws the ice spans,src/lib/ea/ea_shpi_03.asm
+10F038,SetupTileSpans,sub_10F038,new,low,sets up the spans of a texture tile,src/lib/ea/ea_shpi_03.asm
+10F2A0,DrawTileSpan,sub_10F2A0,new,low,draws one span of a texture tile,src/lib/ea/ea_shpi_03.asm
+10F374,DrawTileEdgeLeft,sub_10F374,new,low,draws the left edge of a texture tile,src/lib/ea/ea_shpi_03.asm
+10F5CC,DrawTileEdgeRight,sub_10F5CC,new,low,draws the right edge of a texture tile,src/lib/ea/ea_shpi_03.asm
+10F814,DrawTileTexture,sub_10F814,new,low,draws a texture tile,src/lib/ea/ea_shpi_03.asm
+10FAE4,DrawTilePage,sub_10FAE4,new,low,draws a texture page of tiles,src/lib/ea/ea_shpi_03.asm
+10FB50,FindModelShapeByName,sub_10FB50,new,low,model library: finds a shape of a model by name,src/lib/ea/ea_shpi_03.asm
+10FB98,FindInstanceShape,sub_10FB98,new,low,model library: finds a shape of a model instance by name,src/lib/ea/ea_shpi_03.asm
+10FBB0,BindModelShapes,sub_10FBB0,new,low,model library: binds the shapes of a model to its art,src/lib/ea/ea_shpi_03.asm
+10FD58,UpdateModelInstance,sub_10FD58,new,low,model library: updates a model instance,src/lib/ea/ea_shpi_03.asm
+10FE10,UpdateModelPart,sub_10FE10,new,low,model library: updates one part of a model,src/lib/ea/ea_shpi_03.asm
+10FE58,SetModelShape,sub_10FE58,new,low,model library: sets a model part's shape,src/lib/ea/ea_shpi_03.asm
+10FE88,SetModelShapeWith,sub_10FE88,new,low,model library: sets a model part's shape with a transform,src/lib/ea/ea_shpi_03.asm
+10FEA8,SetModelPartName,sub_10FEA8,new,low,model library: sets a model part's name,src/lib/ea/ea_shpi_03.asm
+10FEE8,AllocModelHeader,sub_10FEE8,new,low,model library: allocates a model header with its tables,src/lib/ea/ea_gfx_08.asm
+10FFBC,LoadModelByName,sub_10FFBC,new,low,model library: loads a model file by name,src/lib/ea/ea_gfx_08.asm
+11002C,FreeModelFile,sub_11002C,new,low,model library: frees a loaded model file,src/lib/ea/ea_gfx_08.asm
+11004C,InitModelInstance,sub_11004C,new,low,model library: sets up a model instance,src/lib/ea/ea_gfx_08.asm
+1100B4,CreateModelInstance,sub_1100B4,new,low,model library: creates a model instance and its vertex buffers,src/lib/ea/ea_gfx_08.asm
+110414,FreeModelInstance,sub_110414,new,low,model library: frees a model instance,src/lib/ea/ea_gfx_08.asm
+110440,SetModelMatrix,sub_110440,new,low,model library: sets a model instance's matrix,src/lib/ea/ea_gfx_08.asm
+1104CC,SetModelPosition,sub_1104CC,new,low,model library: sets a model instance's position,src/lib/ea/ea_gfx_08.asm
+1104F0,FindModelPartByName,sub_1104F0,new,low,model library: finds a model part by name,src/lib/ea/ea_gfx_08.asm
+110538,FindInstancePart,sub_110538,new,low,model library: finds a part of a model instance by name,src/lib/ea/ea_gfx_08.asm
+11059C,FindModelGroupByName,sub_11059C,new,low,model library: finds a model group by name,src/lib/ea/ea_gfx_08.asm
+1105E4,FindInstanceGroup,sub_1105E4,new,low,model library: finds a group of a model instance by name,src/lib/ea/ea_gfx_08.asm
+1105FC,GetModelGroupEntry,sub_1105FC,new,low,model library: returns an entry of a model group,src/lib/ea/ea_gfx_08.asm
+110634,GetInstanceGroupEntry,sub_110634,new,low,model library: returns a group entry of a model instance,src/lib/ea/ea_gfx_08.asm
+110658,GetModelPartEntry,sub_110658,new,low,model library: returns a part entry of a model,src/lib/ea/ea_gfx_08.asm
+11066C,GetModelMatrixEntry,sub_11066C,new,low,model library: returns a matrix entry of a model,src/lib/ea/ea_gfx_08.asm
+110680,BuildNetGeometry,sub_110680,new,low,builds the net geometry,src/lib/ea/ea_gfx_08.asm
+110D70,ProjectModelBounds,sub_110D70,new,low,projects the bounds of a model,src/lib/ea/ea_gfx_08.asm
+110DD0,TexelStep,sub_110DD0,new,low,works out a texture step for a span,src/lib/ea/ea_gfx_08.asm
+110E00,SetupTextureSpans,sub_110E00,new,low,sets up the texture spans of a polygon,src/lib/ea/ea_gfx_08.asm
+110FB0,DrawTextureSpans,sub_110FB0,new,low,draws the texture spans of a polygon,src/lib/ea/ea_gfx_08.asm
+111308,DrawTexturedSpan,sub_111308,new,low,draws one textured span,src/lib/ea/ea_gfx_08.asm
+1115CC,DrawTexturedEdgeLeft,sub_1115CC,new,low,draws the left edge of a textured polygon,src/lib/ea/ea_gfx_08.asm
+1118F0,DrawTexturedEdgeRight,sub_1118F0,new,low,draws the right edge of a textured polygon,src/lib/ea/ea_gfx_08.asm
+111C08,DrawTexturedPoly,sub_111C08,new,low,draws a textured polygon,src/lib/ea/ea_gfx_08.asm
+111FA0,DrawTexturedQuad,sub_111FA0,new,low,draws a textured quad,src/lib/ea/ea_gfx_08.asm
+112010,DrawFlatPoly,sub_112010,new,low,draws a flat polygon,src/lib/ea/ea_gfx_08.asm
+1120F0,DrawPolyOutline,sub_1120F0,new,low,draws a polygon outline,src/lib/ea/ea_gfx_08.asm
+112190,FixedLerp,sub_112190,new,low,interpolates two fixed-point values,src/lib/ea/ea_gfx_08.asm
+1121B0,ClipEdgeTop,sub_1121B0,new,low,clips a polygon edge at the top,src/lib/ea/ea_gfx_08.asm
+11223C,ClipEdgeSide,sub_11223C,new,low,clips a polygon edge at the sides,src/lib/ea/ea_gfx_08.asm
+112364,ClipPolygon,sub_112364,new,low,clips a polygon to the view,src/lib/ea/ea_gfx_08.asm
+1125EC,DrawClippedPoly,sub_1125EC,new,low,clips and draws a polygon,src/lib/ea/ea_gfx_08.asm
+112894,DrawPolyList,sub_112894,new,low,draws a list of polygons,src/lib/ea/ea_gfx_08.asm
+1128F8,DrawPolyArray,sub_1128F8,new,low,draws an array of polygons,src/lib/ea/ea_gfx_08.asm
+112950,RotatePoint2D,sub_112950,new,low,rotates a point in two dimensions,src/lib/ea/ea_gfx_08.asm
+1129B8,RotateModelPoint,sub_1129B8,new,low,rotates a model point,src/lib/ea/ea_gfx_08.asm
+112A90,FillSpanRow,sub_112A90,new,low,fills a row of a span,src/lib/ea/ea_gfx_08.asm
+112B18,FillSpanRows,sub_112B18,new,low,fills the rows of a span,src/lib/ea/ea_gfx_08.asm
 1131E4,strncmp_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 113210,PrimRect,sub_113210,new,low,model renderer: draws a filled rectangle primitive,src/lib/watcom/watcom_clib_13.asm
 11323C,PrimRectDebug,sub_11323C,new,low,model renderer: draws a rectangle primitive in a random colour (debug view),src/lib/watcom/watcom_clib_13.asm
