@@ -20,7 +20,7 @@ extern dword_1CE1C0, dword_1CE1C4, dword_1CE1C8, dword_1CE1CC, dword_1CE1D0, dwo
 extern dword_1CE1E0, dword_1CE1E4, dword_1CE1E8, dword_1CE1EC, dword_1CE1F0, dword_1CE1F4, dword_1CE1F8, dword_1CE1FC
 extern dword_1CE200, dword_1CE204, dword_1CE208, dword_1CE20C, dword_1CE210, dword_1CE214, dword_1CE218, dword_1CE21C
 extern dword_1CE220, memcpy_, memset_, qsort_, sprintf_, strcpy_, BlitArt, BlitShape
-extern sub_1013FC, FindShape, sub_101EAC, sub_102C10, Random32, sub_11A318, sub_11F8E0, sub_11F94C
+extern sub_1013FC, FindShape, sub_101EAC, sub_102C10, Random32, ConvertArtXY, sub_11F8E0, sub_11F94C
 extern sub_11F9F0, sub_11FA34, SetScreenTarget, GetAllStarDate, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, StopAllSfx
 extern PlaySfx, PlayScreenMovie, LoadDataFile, sub_7DFC0, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70
 extern SetTextColor, DrawTextAligned, sub_7F5A4, LoadTeamLogo, sub_80808, sub_80BBC, sub_81650, sub_81678
@@ -29,7 +29,7 @@ extern sub_84570, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, DrawScrollBar,
 extern SetScrollBarPos, sub_8DEAC, sub_8DF1F, sub_8E6AF, GetLangText, sub_8E870, sub_9D2D0, sub_AF074
 extern PlayerStatsScreen, sub_CA44C, sub_D0098, sub_DA7D6, sub_DAC1E, sub_DC71D, sub_DCBB0, sub_E036F
 extern sub_E0841, sub_E0D0F, sub_E341C, AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, DrawArt
-extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, sub_FDE44, tickcount, unk_167806, unk_167809
+extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, MeasureText, tickcount, unk_167806, unk_167809
 extern unk_167814, unk_1678E0, unk_1678E2, unk_1678E4, unk_1678E6, unk_1678E8, unk_1678EA, unk_1678EC
 extern unk_1678EE, unk_1678F0, unk_1678F2, unk_1678F4, unk_1678F6, unk_1678F8, unk_1678FA, unk_1678FC
 extern unk_1678FE, unk_167900, unk_167902, unk_167904, unk_167906, unk_167908, unk_16790A, unk_16790C
@@ -1041,25 +1041,25 @@ InitAllStarScreen:
         mov eax, dword [dword_1CE208]
         push byte 0
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         push dword 80h
         mov eax, dword [dword_1CE20C]
         push dword 0AAh
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         push dword 11Eh
         mov eax, dword [dword_1CE204]
         push dword 0AAh
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         push dword 80h
         mov eax, dword [dword_1CE1F8]
         push dword 14Ah
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         mov dword [byte ebp-04h], 0Ah
         mov edi, 80h
@@ -1616,7 +1616,7 @@ sub_EA7CF:
         movsx edx, word [byte eax+0Ch]
         push edx
         push eax
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
 .5:
         push dword [dword_1CE1F0]
@@ -2219,7 +2219,7 @@ DrawAllStarList:
         movsx edx, word [byte eax+0Ch]
         push edx
         push eax
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
 .4:
         cmp dword [byte ebp-014h], byte 0
@@ -2275,7 +2275,7 @@ DrawAllStarList:
         push eax
         push byte 2
         push esi
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         push eax
         push byte 7Eh
@@ -2370,7 +2370,7 @@ DrawAllStarList:
         push eax
         push byte 2
         push ebx
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         push eax
         push byte 7Eh
@@ -2466,7 +2466,7 @@ DrawAllStarList:
         push eax
         push byte 2
         push ebx
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         push eax
         push dword 11Ch

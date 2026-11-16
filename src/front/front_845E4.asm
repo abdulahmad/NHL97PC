@@ -17,7 +17,7 @@ extern dword_1C831C, dword_1C8320, dword_1C8324, dword_1C8328, dword_1C832C, dwo
 extern fclose_, fopen_, fputc_, jpt_845CC, memcpy_, memset_, rand_, sprintf_
 extern str_NAMEINDEX, str_backslash3, strcat_, strcmp_, strcpy_, strlen_, bcopy, sub_101324
 extern BlitShape2, BlitArt, BlitShape, sub_1013FC, FindShape, sub_101584, sub_102B94, Random32
-extern sub_106DA0, sub_10AED0, sub_110D70, sub_11A318, FindShapeList, sub_11B104, SetScreenTarget, SecondsToSamples
+extern sub_106DA0, sub_10AED0, sub_110D70, ConvertArtXY, FindShapeList, sub_11B104, SetScreenTarget, SecondsToSamples
 extern WaitSoundTime, ChkMenuMusic, PauseMusic, RequestMusicStop, WaitMusicEnd, ArenaFileName, PlayMenuSfx, StopAllSfx
 extern PlaySfx, MakeDataPath, LoadDataFile, OpenDataLibrary, sub_7DA28, sub_7E52C, sub_7E860, sub_7EDF0
 extern sub_7EEB0, sub_7EF70, SetRegionRect, sub_7F5A4, sub_80BBC, sub_81468, sub_81D1C, sub_83C08
@@ -1877,7 +1877,7 @@ sub_85E1E:
         push eax
         push byte 0
         push dword [byte ebx+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         call sub_1013FC
         mov edx, 1E0h
@@ -1939,7 +1939,7 @@ sub_85E1E:
         push edx
         push dword [byte eax+02Ch]
         inc ebx
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         cmp ebx, byte 7
         jl short .3

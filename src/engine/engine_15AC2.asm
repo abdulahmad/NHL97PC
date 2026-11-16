@@ -37,7 +37,7 @@ extern dword_1A8E80, dword_1AC814, dword_1AC944, dword_1B10DC, dword_1B1410, dwo
 extern dword_1B9063, dword_1B9067, dword_1B906B, dword_1B906F, dword_1B9077, dword_1B907B, dword_1B907F, dword_1B9083
 extern dword_1B9087, dword_1B908B, dword_1B908F, dword_1B9093, dword_1B9CA4, dword_1B9CAC, dword_1C95B0, dword_1C95B4
 extern dword_1C95BC, dword_1C95C4, dword_1CF538, dword_1CF554, dword_1CF5A4, dword_1CF5B8, dword_1CF5E4, dword_1CF5E8
-extern hmtmstruct, hypot_, sub_FE470_494, off_168772, off_16877E, off_168CD8, off_168CE0, off_168CE8
+extern hmtmstruct, hypot_, DrawGlyph_494, off_168772, off_16877E, off_168CD8, off_168CE0, off_168CE8
 extern off_168CF0, off_168CFC, off_168D04, off_168D08, off_168D0C, qword_1602E6, qword_1602F6, qword_1602FE
 extern qword_16030A, qword_160336, qword_16033E, qword_16034E, qword_160356, qword_16035E, qword_160366, qword_16036E
 extern qword_160376, qword_16037E, qword_16038A, qword_160392, qword_1603BA, qword_1603CE, qword_1603DE, qword_1603E6
@@ -59,8 +59,8 @@ extern SetSPA, sub_60D6C, sub_60F48, sub_650A4, sub_65F50, sub_6619C, sub_66224,
 extern sub_69BA0, sub_69DF4, sub_74BA8, sub_74C64, sub_75500, sub_77838, SetTextColor, DrawTextAligned
 extern GetLangText, sub_AA4BC, sub_F2AA0, NextVideoMode, PrevVideoMode, FreeMemBlock, sub_FC4BC, sub_FCC40
 extern FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, sub_FD528, sub_FD954, sub_FDC68
-extern FillRect, sub_FDE44, sub_FE150, sub_FE180, sub_FE3AC, sub_FE3D0, sub_FF1FC, sub_FF320
-extern sub_FF444, sub_FF5E0, sub_FF600, sub_FF798, sub_FF7DC, sub_FF7F4, sub_FF818, sub_FFE8C
+extern FillRect, MeasureText, DrawTextAt, SetTextColors, DrawTextBoxedAt, FillRectCorners, MatRotY, MatTranspose
+extern VecMulMat, VecAdd, VecSub, VecDistance, VecLength, VecScale, VecNormalizeTo, ProjectPointInt
 extern tickcount, unk_158E2, unk_15932, unk_15982, unk_159D2, unk_15A22, unk_15A72, unk_160193
 extern unk_1601EF, unk_1601F1, unk_1601F4, unk_1687BC, unk_1687C8, unk_1687D4, unk_1687E0, unk_1687EC
 extern unk_1687F8, unk_168810, unk_16881C, unk_168828, unk_168834, unk_168840, unk_16884C, unk_168858
@@ -1149,7 +1149,7 @@ DrawPanelPlayerCard:
         mov ebx, eax
         lea eax, [byte ebp-018h]
         push eax
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         sub ebx, eax
         push ebx
@@ -1175,13 +1175,13 @@ DrawPanelPlayerCard:
         mov ebx, eax
         lea eax, [byte ebp-018h]
         push eax
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         sub ebx, eax
         push ebx
         lea eax, [byte ebp-018h]
         push eax
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
 .58:
         imul eax, dword [dword_16E468], byte 0Ah
@@ -1233,7 +1233,7 @@ DrawPanelPlayerCard:
         idiv ebx
         push eax
         push dword [byte ebp-08h]
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
 .62:
         cmp dword [dword_16E468], 12Ch
@@ -1329,7 +1329,7 @@ DrawPanelPlayerCard:
         idiv ebx
         push eax
         push dword [byte ebp-0Ch]
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
 .76:
         cmp dword [dword_16E468], 12Ch
@@ -1427,7 +1427,7 @@ DrawPanelPlayerCard:
         idiv ebx
         push eax
         push dword [byte ebp+010h]
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
 .90:
         leave
@@ -1569,7 +1569,7 @@ DrawMessagePanel:
         mov ebx, eax
         lea eax, [byte ebp-024h]
         push eax
-        call sub_FDE44
+        call MeasureText
         lea ecx, [eax+ebx]
         mov eax, ecx
         mov ebx, 4
@@ -1633,7 +1633,7 @@ DrawMessagePanel:
         push ecx
         lea eax, [byte ebp-024h]
         push eax
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
 .6:
         cmp dword [dword_19CD30], byte 0
@@ -1711,7 +1711,7 @@ DrawVideoModePanel:
         mov ebx, eax
         lea eax, [byte ebp-038h]
         push eax
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         lea ecx, [eax+ebx]
         cmp dword [dword_16E468], 12Ch
@@ -1767,7 +1767,7 @@ DrawVideoModePanel:
         push ecx
         lea eax, [byte ebp-038h]
         push eax
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
 .9:
         cmp dword [dword_19CD30], byte 0
@@ -2818,7 +2818,7 @@ DrawGameClock:
         call sub_FC4BC
         add esp, byte 4
         push eax
-        call sub_FE180
+        call SetTextColors
         movsx ecx, word [gameclock]
         mov eax, ecx
         mov esi, 3Ch
@@ -2873,7 +2873,7 @@ DrawGameClock:
         push ecx
         lea eax, [byte ebp-014h]
         push eax
-        call sub_FE3AC
+        call DrawTextBoxedAt
         add esp, byte 0Ch
         mov eax, dword [byte ebx+02Ch]
         call RefreshOverlayWindow
@@ -2939,7 +2939,7 @@ DrawPowerPlayClock:
         call sub_FC4BC
         add esp, byte 4
         push eax
-        call sub_FE180
+        call SetTextColors
         mov eax, esi
         mov ecx, 3Ch
         cdq
@@ -2967,7 +2967,7 @@ DrawPowerPlayClock:
         push eax
         lea eax, [byte ebp-014h]
         push eax
-        call sub_FE3AC
+        call DrawTextBoxedAt
         add esp, byte 0Ch
         call SetOverlayFont
         cmp dword [dword_16E468], 12Ch
@@ -3001,7 +3001,7 @@ DrawPowerPlayClock:
         mov eax, 36h
         call GetLangText
         push eax
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
 .5:
         mov eax, dword [byte ebx+02Ch]
@@ -3621,7 +3621,7 @@ UpdateScoreboardPanel:
         idiv ecx
 .37:
         push eax
-        call sub_FE3D0
+        call FillRectCorners
         add esp, byte 14h
 .38:
         lea eax, [byte esi+01h]
@@ -3736,7 +3736,7 @@ UpdateScoreboardPanel:
         mov edi, eax
         lea eax, [byte ebp-028h]
         push eax
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         sub edi, eax
         push edi
@@ -3770,14 +3770,14 @@ UpdateScoreboardPanel:
         mov edi, eax
         lea eax, [byte ebp-028h]
         push eax
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         sub edi, eax
         push edi
 .54:
         lea eax, [byte ebp-028h]
         push eax
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
 .55:
         inc dword [byte ebp-0Ch]
@@ -4110,7 +4110,7 @@ HomeStatPanel:
         push eax
         push ecx
         push eax
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         sub edi, eax
         push edi
@@ -4122,13 +4122,13 @@ HomeStatPanel:
         push ecx
         lea eax, [byte ebp-028h]
         push eax
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         sub edi, eax
         push edi
         lea eax, [byte ebp-028h]
         push eax
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
 .11:
         imul eax, dword [dword_16E464], byte 1Eh
@@ -4301,7 +4301,7 @@ AwayStatPanel:
         push byte 0
         lea eax, [byte ebp-01Ch]
         push eax
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
 .11:
         imul eax, dword [dword_16E464], dword 82h
@@ -4613,7 +4613,7 @@ SetOverlayFont:
         add esp, byte 4
         push eax
         xor ebx, ebx
-        call sub_FE180
+        call SetTextColors
         add esp, byte 8
 .5:
         lea eax, [byte ebx+030h]
@@ -4632,7 +4632,7 @@ SetOverlayFont:
         mov dword [nosplit ebx*4+dword_1CF554], eax
         cmp ebx, byte 10h
         jl short .5
-        mov dword [dword_1CF5B8], sub_FE470_494
+        mov dword [dword_1CF5B8], DrawGlyph_494
         pop edx
         pop ecx
         pop ebx
@@ -4833,16 +4833,16 @@ GetCameraTarget:
         movsd
         mov eax, esp
         push dword [byte ebx+0Ch]
-        call sub_FF1FC
+        call MatRotY
         lea eax, [byte ebx+070h]
         mov edx, esp
         lea ebx, [byte esp+030h]
-        call sub_FF444
+        call VecMulMat
         mov ebx, dword_19D390
         mov edx, dword_1B905F
         lea eax, [byte esp+03Ch]
-        call sub_FF600
-        call sub_FF7DC
+        call VecSub
+        call VecLength
         fst dword [byte esp+060h]
         fcomp dword [dword_1602DA]
         fnstsw ax
@@ -4870,10 +4870,10 @@ GetCameraTarget:
         push eax
         push dword [byte esp+060h]
         mov ebx, dword_19D390
-        call sub_FF7F4
+        call VecScale
         mov edx, eax
         lea eax, [byte esp+03Ch]
-        call sub_FF5E0
+        call VecAdd
         mov eax, dword_19D390
         add esp, byte 68h
         pop ebp
@@ -5081,11 +5081,11 @@ GetCameraTarget:
         lea ebx, [byte esp+024h]
         push ebx
         push dword [dword ecx+dword_19D138]
-        call sub_FF7F4
+        call VecScale
         lea ebx, [byte esp+048h]
         mov edx, eax
         lea eax, [byte esp+048h]
-        call sub_FF5E0
+        call VecAdd
         fld dword [byte esp+064h]
         fadd dword [dword ecx+dword_19D138]
         fstp dword [byte esp+064h]
@@ -5102,7 +5102,7 @@ GetCameraTarget:
         sub esp, byte 4
         lea eax, [byte esp+050h]
         fstp dword [esp]
-        call sub_FF7F4
+        call VecScale
         add esp, byte 68h
         pop ebp
         pop edi
@@ -5255,7 +5255,7 @@ UpdateCameraView_28:
         lea ebx, [dword ecx+0FCh]
         lea edx, [dword ecx+0108h]
         lea eax, [dword ecx+0E4h]
-        call sub_FF5E0
+        call VecAdd
         mov esp, ebp
         pop ebp
         pop edi
@@ -5269,15 +5269,15 @@ UpdateCameraView_54:
         lea edx, [dword ecx+0E4h]
         lea ebx, [dword esp+0CCh]
         lea eax, [dword ecx+0F0h]
-        call sub_FF600
+        call VecSub
         lea eax, [dword esp+0CCh]
         push eax
         lea edx, [dword esp+0D0h]
         push dword [dword ecx+0114h]
         lea ebx, [dword ecx+0FCh]
-        call sub_FF818
+        call VecNormalizeTo
         lea eax, [dword ecx+0E4h]
-        call sub_FF5E0
+        call VecAdd
         mov esp, ebp
         pop ebp
         pop edi
@@ -5291,19 +5291,19 @@ UpdateCameraView_AC:
         lea ebx, [dword ecx+0FCh]
         lea edx, [dword ecx+0108h]
         lea eax, [dword ecx+0E4h]
-        call sub_FF5E0
+        call VecAdd
         lea edx, [dword ecx+0E4h]
         lea ebx, [dword esp+0B4h]
         lea eax, [dword ecx+0FCh]
-        call sub_FF600
+        call VecSub
         lea eax, [dword esp+0B4h]
         push eax
         lea edx, [dword esp+0B8h]
         push dword [dword ecx+0114h]
         lea ebx, [dword ecx+0FCh]
-        call sub_FF818
+        call VecNormalizeTo
         lea eax, [dword ecx+0E4h]
-        call sub_FF5E0
+        call VecAdd
         mov esp, ebp
         pop ebp
         pop edi
@@ -5379,13 +5379,13 @@ UpdateCameraView_1AC:
         fstp dword [dword esp+0150h]
         push dword [dword esp+0150h]
         lea edx, [byte esp+04h]
-        call sub_FF1FC
+        call MatRotY
         lea eax, [dword esp+0138h]
-        call sub_FF444
+        call VecMulMat
         lea ebx, [dword esp+012Ch]
         lea eax, [dword esp+012Ch]
         lea edx, [dword ecx+0E4h]
-        call sub_FF5E0
+        call VecAdd
         mov eax, dword [dword esp+012Ch]
         mov dword [dword ecx+0FCh], eax
         mov eax, dword [dword_1B9063]
@@ -5417,13 +5417,13 @@ UpdateCameraView_272:
         push dword [dword esp+014Ch]
         lea eax, [byte esp+028h]
         mov dword [dword esp+0A0h], esi
-        call sub_FF1FC
+        call MatRotY
         lea eax, [dword esp+09Ch]
-        call sub_FF444
+        call VecMulMat
         lea ebx, [dword esp+0F0h]
         mov edx, dword_19D188
         lea eax, [dword esp+0F0h]
-        call sub_FF5E0
+        call VecAdd
         mov eax, dword [dword esp+0F0h]
         fld dword [dword_1B9063]
         mov dword [dword_19D1A0], eax
@@ -5459,7 +5459,7 @@ UpdateCameraView_326:
         movsd
         movsd
         movsd
-        call sub_FF600
+        call VecSub
         fld dword [dword esp+0E0h]
         fld dword [dword esp+0D8h]
         call IF@ATAN2
@@ -5467,7 +5467,7 @@ UpdateCameraView_326:
         fadd dword [dword_19D1BC]
         lea eax, [byte esp+070h]
         fstp dword [esp]
-        call sub_FF1FC
+        call MatRotY
         fld dword [dword esp+0E0h]
         fld dword [dword_19D1B8]
         xor eax, eax
@@ -5489,11 +5489,11 @@ UpdateCameraView_326:
         lea ebx, [dword esp+0114h]
         lea edx, [byte esp+06Ch]
         lea eax, [dword esp+0120h]
-        call sub_FF444
+        call VecMulMat
         lea ebx, [dword esp+0114h]
         mov edx, dword_19D188
         lea eax, [dword esp+0114h]
-        call sub_FF5E0
+        call VecAdd
         mov eax, dword [dword esp+0114h]
         fld dword [dword_1B9063]
         mov dword [dword_19D1A0], eax
@@ -5529,7 +5529,7 @@ UpdateCameraView_461:
         movsd
         movsd
         movsd
-        call sub_FF600
+        call VecSub
         fld dword [dword esp+0B0h]
         fld dword [dword esp+0A8h]
         call IF@ATAN2
@@ -5568,14 +5568,14 @@ UpdateCameraView_461:
         jbe short .8
         lea eax, [byte esp+048h]
         push dword [dword esp+0160h]
-        call sub_FF1FC
+        call MatRotY
         mov eax, dword [dword esp+0160h]
         mov dword [dword_1687B8], eax
         jmp short .9
 .8:
         lea eax, [byte esp+048h]
         push dword [dword_1687B8]
-        call sub_FF1FC
+        call MatRotY
 .9:
         lea edx, [byte esp+048h]
         xor ebx, ebx
@@ -5585,11 +5585,11 @@ UpdateCameraView_461:
         mov dword [dword esp+098h], eax
         lea ebx, [dword esp+0E4h]
         lea eax, [dword esp+090h]
-        call sub_FF444
+        call VecMulMat
         lea ebx, [dword esp+0E4h]
         mov edx, dword_19D188
         lea eax, [dword esp+0E4h]
-        call sub_FF5E0
+        call VecAdd
         mov eax, dword [dword esp+0E4h]
         fld dword [dword_1B9063]
         mov dword [dword_19D1A0], eax
@@ -5620,7 +5620,7 @@ UpdateCameraView_5F0:
         fadd qword [qword_1602F6]
         mov eax, esi
         fstp dword [esp]
-        call sub_FF7F4
+        call VecScale
         mov dword [dword ecx+02ACh], 3EDF66F3h
         jmp near .14
 .10:
@@ -5636,7 +5636,7 @@ UpdateCameraView_5F0:
         fsubrp
         mov eax, esi
         fstp dword [esp]
-        call sub_FF7F4
+        call VecScale
         mov dword [dword ecx+02ACh], 3DB2B8C3h
         jmp near .14
 .11:
@@ -5654,7 +5654,7 @@ UpdateCameraView_5F0:
         fadd qword [qword_1602F6]
         mov eax, esi
         fstp dword [esp]
-        call sub_FF7F4
+        call VecScale
         mov dword [dword ecx+02ACh], 3EDF66F3h
         jmp short .14
 .12:
@@ -5673,7 +5673,7 @@ UpdateCameraView_5F0:
         fsubrp
         mov eax, esi
         fstp dword [esp]
-        call sub_FF7F4
+        call VecScale
         mov dword [dword ecx+02ACh], 3DB2B8C3h
         jmp short .14
 .13:
@@ -5688,7 +5688,7 @@ UpdateCameraView_5F0:
         lea ebx, [dword ecx+0FCh]
         lea edx, [dword esp+0C0h]
         lea eax, [dword ecx+0E4h]
-        call sub_FF5E0
+        call VecAdd
 .15:
         fld dword [dword ecx+0F0h]
         fsub dword [dword ecx+0E4h]
@@ -5757,7 +5757,7 @@ UpdateCameraView_7F5:
         faddp
         lea eax, [dword ecx+0108h]
         fstp dword [esp]
-        call sub_FF7F4
+        call VecScale
         jmp short .21
 .19:
         fld dword [dword ecx+0ECh]
@@ -5781,7 +5781,7 @@ UpdateCameraView_7F5:
         faddp
         lea eax, [dword ecx+0108h]
         fstp dword [esp]
-        call sub_FF7F4
+        call VecScale
         jmp short .21
 .20:
         lea edi, [dword esp+0C0h]
@@ -5795,7 +5795,7 @@ UpdateCameraView_7F5:
         lea ebx, [dword ecx+0FCh]
         lea edx, [dword esp+0C0h]
         lea eax, [dword ecx+0E4h]
-        call sub_FF5E0
+        call VecAdd
 UpdateCameraView_8D3:
         mov esp, ebp
         pop ebp
@@ -6127,7 +6127,7 @@ UpdateCameraTrack_30:
         mov ebx, esp
         mov edx, dword_1B905F
         lea eax, [dword ecx+0E4h]
-        call sub_FF600
+        call VecSub
         fld dword [byte esp+08h]
         fld dword [esp]
         call IF@ATAN2
@@ -6156,7 +6156,7 @@ UpdateCameraTrack_8E:
         mov ebx, esp
         mov edx, dword_1B905F
         lea eax, [dword ecx+0E4h]
-        call sub_FF600
+        call VecSub
         fld dword [byte esp+08h]
         fld dword [esp]
         call IF@ATAN2
@@ -6244,7 +6244,7 @@ UpdateCameraTrack_19B:
         mov ebx, esp
         mov edx, dword_1B905F
         lea eax, [dword ecx+0E4h]
-        call sub_FF600
+        call VecSub
         fld dword [byte esp+08h]
         fld dword [byte esp+04h]
         fstp qword [byte esp+0Ch]
@@ -6282,7 +6282,7 @@ UpdateCameraTrack_22F:
         mov ebx, esp
         mov edx, dword_1B905F
         lea eax, [dword ecx+0E4h]
-        call sub_FF600
+        call VecSub
         fld dword [byte esp+08h]
         fld dword [byte esp+04h]
         fstp qword [byte esp+0Ch]
@@ -6799,7 +6799,7 @@ SetCameraView_5A5:
         mov edx, dword_19D188
         mov eax, dword_1B905F
         mov dword [byte ebx+024h], 1
-        call sub_FF798
+        call VecDistance
         mov dword [byte ebx+028h], 4
         fstp dword [dword ebx+0114h]
         fld dword [dword_1B9063]
@@ -6845,13 +6845,13 @@ BuildSplinePath:
         mov ebx, edi
         sub edx, byte 0Ch
         mov eax, ecx
-        call sub_FF600
+        call VecSub
         jmp short .2
 .1:
         mov edx, dword_1B905F
         mov ebx, edi
         mov eax, ecx
-        call sub_FF600
+        call VecSub
 .2:
         mov eax, dword [esp]
         fild dword [eax]
@@ -6863,7 +6863,7 @@ BuildSplinePath:
         mov eax, edi
         fstp dword [esp]
         mov ecx, dword [byte esp+08h]
-        call sub_FF7F4
+        call VecScale
         mov eax, dword [byte esp+04h]
         add edi, byte 0Ch
         sub eax, esi
@@ -6875,7 +6875,7 @@ BuildSplinePath:
         lea edx, [byte eax-0Ch]
         mov ebx, edi
         add eax, byte 0Ch
-        call sub_FF600
+        call VecSub
         fild dword [ecx]
         fld1
         fdivrp
@@ -6886,7 +6886,7 @@ BuildSplinePath:
         mov eax, edi
         fstp dword [esp]
         add edi, byte 0Ch
-        call sub_FF7F4
+        call VecScale
 .4:
         imul eax, esi, byte 0Ch
         cmp esi, dword [byte esp+08h]
@@ -6902,7 +6902,7 @@ BuildSplinePath:
         lea edx, [byte eax-018h]
         mov ebx, edi
         mov eax, esi
-        call sub_FF600
+        call VecSub
         fild dword [ecx]
         fld1
         fdivrp
@@ -6910,7 +6910,7 @@ BuildSplinePath:
         sub esp, byte 4
         mov eax, edi
         fstp dword [esp]
-        call sub_FF7F4
+        call VecScale
         jmp short .6
 .5:
         mov esi, unk_16F110
@@ -7819,7 +7819,7 @@ DrawCameraDebugMarks:
         call sub_FC4BC
         add esp, byte 4
         push eax
-        call sub_FE180
+        call SetTextColors
         add esp, byte 8
         pop edx
         pop ecx
@@ -10162,11 +10162,11 @@ DrawCameraDebug:
         lea eax, [byte esp+028h]
         mov dword [byte esp+02Ch], ebx
         lea ebx, [byte esp+034h]
-        call sub_FF600
+        call VecSub
         lea ebx, [byte esp+040h]
         mov edx, unk_1B92AB
         lea eax, [byte esp+034h]
-        call sub_FF444
+        call VecMulMat
         cmp dword [byte esp+048h], 42C80000h
         jl near .4
         cmp dword [dword_19D380], byte 12h
@@ -10191,7 +10191,7 @@ DrawCameraDebug:
         je near .4
         lea edx, [byte esp+04Ch]
         lea eax, [byte esp+040h]
-        call sub_FFE8C
+        call ProjectPointInt
         fld dword [byte esp+030h]
         fld dword [byte esp+02Ch]
         fld dword [byte esp+028h]
@@ -10226,7 +10226,7 @@ DrawCameraDebug:
         call sub_FC4BC
         add esp, byte 4
         push eax
-        call sub_FE180
+        call SetTextColors
         add esp, byte 8
         mov ecx, dword [byte esp+050h]
         add ecx, byte 2
@@ -10236,7 +10236,7 @@ DrawCameraDebug:
         lea eax, [byte esp+08h]
         push eax
         mov dword [byte esp+05Ch], ecx
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
         push dword 0FF000000h
         mov ebp, dword [byte esp+050h]
@@ -10252,7 +10252,7 @@ DrawCameraDebug:
         call sub_FC4BC
         add esp, byte 4
         push eax
-        call sub_FE180
+        call SetTextColors
         add esp, byte 8
         mov edx, dword [byte esp+050h]
         push edx
@@ -10260,7 +10260,7 @@ DrawCameraDebug:
         push ebx
         lea eax, [byte esp+08h]
         push eax
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
 .4:
         add esp, byte 5Ch
@@ -10647,8 +10647,8 @@ ReplayCamOrbitMode:
         mov ebx, esp
         mov edx, eax
         mov eax, dword_1B905F
-        call sub_FF600
-        call sub_FF7DC
+        call VecSub
+        call VecLength
         fstp dword [dword_19D1B8]
         jmp short .3
 .2:
@@ -10687,7 +10687,7 @@ ReplayCamOrbit:
         mov ebx, edx
         mov edx, dword_19D188
         mov eax, dword_19D194
-        call sub_FF798
+        call VecDistance
         fld dword [dword_19D198]
         fsub dword [dword_19D18C]
         fdiv st1
@@ -10840,26 +10840,26 @@ ReplayCamOrbit:
         mov dword [byte esp+034h], eax
         mov eax, unk_1B92AB
         mov dword [byte esp+038h], esi
-        call sub_FF320
+        call MatTranspose
         mov edx, esp
         lea eax, [byte esp+030h]
-        call sub_FF444
+        call VecMulMat
         lea ebx, [byte esp+030h]
         lea edx, [byte esp+024h]
         mov eax, dword_1B905F
-        call sub_FF5E0
+        call VecAdd
         lea ebx, [byte esp+030h]
         mov edx, dword_19D188
         lea eax, [byte esp+030h]
-        call sub_FF600
+        call VecSub
         lea eax, [byte esp+030h]
         push eax
         mov ebx, dword_19D1A0
         push dword [dword_19D1B8]
         lea edx, [byte esp+038h]
-        call sub_FF818
+        call VecNormalizeTo
         mov eax, dword_19D188
-        call sub_FF5E0
+        call VecAdd
         mov eax, dword [dword_19D380]
         xor edx, edx
         call StartCameraPath
@@ -10900,11 +10900,11 @@ ReplayCamFreeMode:
         mov dword [dword_19D0D4], edx
         mov dword [dword_19D0C8], edx
         mov edx, dword_1B905F
-        call sub_FF600
+        call VecSub
         mov ebx, unk_19D028
         mov edx, unk_1B92AB
         mov eax, esp
-        call sub_FF444
+        call VecMulMat
         add esp, byte 0Ch
         pop edx
         pop ebx
@@ -10950,7 +10950,7 @@ ReplayCamTurn:
         fstp dword [esp]
         lea eax, [byte esp+04h]
         xor ebx, ebx
-        call sub_FF1FC
+        call MatRotY
         mov dword [byte esp+034h], ebx
         mov dword [byte esp+030h], ebx
         mov ebx, edx
@@ -10964,11 +10964,11 @@ ReplayCamTurn:
         fild dword [byte esp+044h]
         lea eax, [byte esp+030h]
         fstp dword [byte esp+038h]
-        call sub_FF444
+        call VecMulMat
         mov ebx, dword_19D1A0
         lea edx, [byte esp+024h]
         mov eax, ebx
-        call sub_FF5E0
+        call VecAdd
         mov esp, ebp
         pop ebp
         pop ebx
@@ -10985,14 +10985,14 @@ ReplayCamMove:
         mov edx, esp
         mov eax, unk_1B92AB
         lea ebx, [byte esp+024h]
-        call sub_FF320
+        call MatTranspose
         mov edx, esp
         mov eax, unk_19D028
-        call sub_FF444
+        call VecMulMat
         mov ebx, dword_19D374
         mov edx, dword_1B905F
         lea eax, [byte esp+024h]
-        call sub_FF5E0
+        call VecAdd
         xor edx, edx
         mov ebx, dword [dword_19D374]
         mov dword [dword_19D378], edx
@@ -11053,8 +11053,8 @@ ReplayCamZoomMode:
         mov edx, eax
         mov eax, dword_1B905F
         mov edi, 1
-        call sub_FF600
-        call sub_FF7DC
+        call VecSub
+        call VecLength
         mov eax, dword [dword_19D380]
         fstp dword [dword_19D1B8]
         call GetCameraTarget
@@ -11105,13 +11105,13 @@ ReplayCamZoom:
         lea ebx, [byte esp+024h]
         mov edx, dword_19D188
         mov eax, dword_1B905F
-        call sub_FF600
+        call VecSub
         lea eax, [byte esp+024h]
         push eax
         mov ebx, dword_19D1A0
         push dword [dword_19D1B8]
         lea edx, [byte esp+02Ch]
-        call sub_FF818
+        call VecNormalizeTo
         mov eax, dword_19D188
         jmp short .4
 .3:
@@ -11122,15 +11122,15 @@ ReplayCamZoom:
         mov dword [byte esp+024h], edx
         mov edx, esp
         fstp dword [byte esp+02Ch]
-        call sub_FF320
+        call MatTranspose
         mov edx, esp
         lea eax, [byte esp+024h]
-        call sub_FF444
+        call VecMulMat
         mov ebx, dword_19D1A0
         lea edx, [byte esp+030h]
         mov eax, dword_1B905F
 .4:
-        call sub_FF5E0
+        call VecAdd
         add esp, byte 40h
         pop esi
         pop ebx

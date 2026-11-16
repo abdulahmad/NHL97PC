@@ -22,7 +22,7 @@ extern dword_1CA9B8, dword_1CA9BC, dword_1CA9C0, dword_1CA9C4, dword_1CA9C8, dwo
 extern dword_1CAEA8, dword_1CAEB8, rand_, sprintf_, sscanf_, str_D02d2, str_Logbook, str_Logname
 extern str_Ulstreak, str_Uname, str_Uopp, str_Upts, str_Urate, str_Usort, str_Ustreak, str_Uteam
 extern strcmp_, strcpy_, strlen_, BlitShape2, BlitArt, BlitShape, sub_1013FC, FindShape
-extern sub_102B94, sub_11A318, SetScreenTarget, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx, MakeDirPath
+extern sub_102B94, ConvertArtXY, SetScreenTarget, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx, MakeDirPath
 extern LoadDataFile, sub_7DFC0, sub_7E860, sub_7EDF0, sub_7EF70, SetRegionRect, SetTextColor, DrawTextAligned
 extern sub_7F5B8, sub_7FE38, sub_80BBC, sub_81650, sub_81678, sub_823F0, sub_82FB8, sub_83C08
 extern NameIndexNew, NameIndexLoad, NameIndexSave, NameIndexFree, sub_86500, NameIndexRemove, sub_86718, NameIndexPath
@@ -30,7 +30,7 @@ extern sub_867D4, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, DrawScrollBar,
 extern SetScrollBarPos, sub_8DEAC, GetLangText, AllocStatTable, sub_ACA49, sub_ACAE5, sub_ACAF2, sub_ACB0E
 extern sub_ACDAE, sub_AD151, sub_AD62E, sub_AD79F, sub_DA7EB, sub_DB6AC, LoadExhibitionFile, FreeExhibitionFile
 extern sub_E2041, sub_E2141, sub_E21C6, sub_E341C, sub_E4218, sub_E4230, WaitForOtherComputer, AllocMemBlock
-extern FreeMemBlock, MakeColor, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, sub_FDE44, tickcount
+extern FreeMemBlock, MakeColor, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, MeasureText, tickcount
 extern unk_1665C8, unk_1665CB, unk_16661B, unk_166648, unk_1C5F4A, unk_1C9704, unk_1C9756, unk_1C989E
 extern unk_B1DF1, unk_B1DFD, unk_B1E09, unk_B1E11, word_16D450, word_1AD68F, word_1AD693, word_1C3413
 extern word_1C5536, word_1C55A2
@@ -522,7 +522,7 @@ sub_B228A:
 .4:
         lea eax, [byte ebp-02Ch]
         push eax
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         cmp eax, byte 6Bh
         jl short .5
@@ -593,7 +593,7 @@ UserLogScreen:
         push dword 0B5h
         push dword 0A8h
         push dword [byte ebx+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         call sub_1013FC
         push byte 0
@@ -612,7 +612,7 @@ UserLogScreen:
         mov dword [byte ebp+06Eh], 0A8h
         push dword [byte ebx+02Ch]
         mov dword [byte ebp+072h], 0B4h
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         mov dword [byte ebp+07Eh], 0
         mov dword [byte ebp+072h], 0B5h
@@ -687,7 +687,7 @@ UserLogScreen:
         movsx edx, word [byte eax+0Ch]
         push edx
         push eax
-        call sub_11A318
+        call ConvertArtXY
         mov eax, dword [byte ebx+ebp-03Ah]
         mov eax, dword [byte eax+02Ch]
         add esp, byte 0Ch
@@ -696,7 +696,7 @@ UserLogScreen:
         movsx edx, word [byte eax+0Ch]
         push edx
         push eax
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         push dword [byte ebx+ebp-05Eh]
         call SetDrawTarget
@@ -3084,13 +3084,13 @@ UserRecordsScreen:
         mov eax, dword [byte ebp-0Ch]
         push byte 0Ah
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         push byte 0
         mov eax, dword [byte ebp-010h]
         push byte 0
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         call SetScreenTarget
         cmp dword [dword_16CCF1], byte 0

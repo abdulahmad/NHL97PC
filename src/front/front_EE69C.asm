@@ -15,7 +15,7 @@ extern dword_1CE48E, dword_1CE492, dword_1CE496, dword_1CE4D6, dword_1CE4DA, dwo
 extern dword_1CE4EC, dword_1CE4F0, dword_1CE528, dword_1CE52C, dword_1CE532, dword_1CE536, dword_1CE53A, dword_1CE53E
 extern dword_1CE542, dword_1CEF9C, dword_1CEFA0, dword_1CEFB0, dword_1CEFB4, dword_1CEFB8, rand_, sprintf_
 extern str_TR0D, strlen_, bcopy, sub_101324, BlitShape2, BlitArt, BlitShape, sub_1013FC
-extern FindShape, sub_10FE58, sub_115830, sub_1167AE, sub_11A318, sub_11A350, sub_11BDC0, sub_11FAAC
+extern FindShape, sub_10FE58, CreateBitmapForArt, IsKeyDown, ConvertArtXY, ConvertArtKeepPos, sub_11BDC0, sub_11FAAC
 extern SetScreenTarget, CameraNoop, SecondsToSamples, WaitSoundTime, PlayMenuSfx, StopAllSfx, PlaySfx, LoadDataFileLib
 extern sub_7E860, sub_7EDF0, sub_7EF70, SetRegionRect, SetTextColor, DrawTextAligned, sub_7F5B8, sub_80BBC
 extern sub_86AFA, InitMenuItems, sub_8BFAC, GetLangText, sub_E341C, WaitForOtherComputer, GetKeyName, sub_F20A1
@@ -93,7 +93,7 @@ ShowReservedKey:
         push eax
         mov eax, dword [byte ebp-014h]
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         call sub_1013FC
 .2:
@@ -105,7 +105,7 @@ ShowReservedKey:
         call sub_1013FC
         movsx eax, bx
         push eax
-        call sub_1167AE
+        call IsKeyDown
         add esp, byte 4
         test eax, eax
         je short .4
@@ -1162,7 +1162,7 @@ sub_EECBC:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_115830
+        call CreateBitmapForArt
         add esp, byte 8
         mov ebx, eax
         call StopAllSfx
@@ -1369,7 +1369,7 @@ sub_EF5B3:
         add esp, byte 8
         push eax
         mov dword [byte ebp-04h], 0
-        call sub_115830
+        call CreateBitmapForArt
         add esp, byte 8
         mov dword [byte ebp-020h], eax
         jmp short .4
@@ -3024,7 +3024,7 @@ ControlSetupScreen:
         push dword 17Ch
         push dword 21Ch
         push dword [byte ebx+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         call sub_1013FC
         mov eax, dword [byte ebx+02Ch]
@@ -3805,7 +3805,7 @@ sub_F174F:
         add esp, byte 4
         push dword [byte ebx+02Ch]
         mov dword [byte ebp-08h], 5
-        call sub_11A350
+        call ConvertArtKeepPos
         add esp, byte 4
         jmp short .2
 .1:
@@ -4430,7 +4430,7 @@ sub_F1FF8:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_115830
+        call CreateBitmapForArt
         add esp, byte 8
         mov dword [dword_1CEF9C], eax
         call DrawPauseClock

@@ -8,7 +8,7 @@ extern dword_1CF52C, dword_1CF548, dword_1CF5B8, dword_1CF5BC, dword_1CF5C0, dwo
 extern dword_1DC51C, dword_1DC520, dword_1DC524, dword_1DC528, dword_1DC5A8, int386x_, itoa_, ltoa_
 extern memlist1, off_16F5BC, off_171C7C, off_199C50, off_19C740, qword_172690, qword_172698, segread_
 extern strncpy_, bcopy, sub_11FA98, sub_121470, sub_121494, sub_1214D0, sub_FABB8, findmemblock
-extern sub_FB214, sub_FB370, sub_FB5F4, sub_FDF64, tbyte_172680, toupper_, ultoa_, word_1CF5F4
+extern sub_FB214, sub_FB370, sub_FB5F4, DrawTextRun, tbyte_172680, toupper_, ultoa_, word_1CF5F4
 global FixedPoint_Format_, IF@DACOS, IF@EXP, IF@SQRT, _Full_at_exit_rtn_, __@DEXP, __@DEXP1, __@DSQRT
 global __fdiv_chk, __fdiv_fpr, __fdiv_m64, __fdivp_sti_st, __fdivrp_sti_st, __fpatan_wrap, __pow87_err_, __prtf_
 global atexit_, evalflags_, far_other_strlen_, far_strlen_, fdiv_main_routine, float_format_, fmt4hex_, formstring_
@@ -1317,7 +1317,7 @@ sub_124C30:
         je short .2
         mov eax, esp
         push eax
-        call sub_FDF64
+        call DrawTextRun
         add esp, byte 4
 .2:
         mov eax, dword [dword_1DC524]

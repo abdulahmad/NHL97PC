@@ -21,14 +21,14 @@ extern dword_16E468, dword_16E46C, dword_1AC814, dword_1AC8AD, dword_1C5DE4, dwo
 extern dword_1C5F64, dword_1C5F70, dword_1C5F74, dword_1C83B0, dword_1C8440, dword_1C8444, dword_1C8448, dword_1C844C
 extern dword_1C8450, dword_1C8454, fclose_, fgets_, fread_, fseek_, fwrite_, memcpy_
 extern memset_, sprintf_, strcmp_, strcpy_, strlen_, strstr_, bcopy, sub_101324
-extern BlitShape2, BlitArt, sub_1013FC, FindShape, sub_102B94, sub_11A318, SetScreenTarget, SecondsToSamples
+extern BlitShape2, BlitArt, sub_1013FC, FindShape, sub_102B94, ConvertArtXY, SetScreenTarget, SecondsToSamples
 extern WaitSoundTime, StopAllSfx, PlaySfx, LoadDataFileLib, LoadDataFile, sub_7E860, sub_7EDF0, sub_7EEB0
 extern SetRegionRect, sub_7F04C, SetTextColor, DrawTextAligned, sub_7F29C, sub_7F5B8, sub_7FE38, sub_80BBC
 extern sub_81114, sub_81678, sub_835BC, sub_83850, sub_867F0, sub_86878, sub_8BFAC, sub_8D956
 extern sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E, sub_8DEAC, GetLangText, sub_E32B4, sub_E3410
 extern sub_E341C, sub_E3AFC, LinkSendBlock, LinkReceiveBlock, DefaultModemName, LoadServerList, AllocMemBlock, FreeMemBlock
 extern MakeColor, FreeBitmap, sub_FCF84, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, FillRect
-extern sub_FDE44, unk_165330, unk_1AC839, unk_1AC95D, unk_1AC962, unk_1ACB44, unk_1ACB49, unk_1C5EF8
+extern MeasureText, unk_165330, unk_1AC839, unk_1AC95D, unk_1AC962, unk_1ACB44, unk_1ACB49, unk_1C5EF8
 extern unk_1C5F4A, unk_1C834C, unk_1C8360, unk_1C8388, unk_1C83BA, word_16CCF8, word_16DACC, word_16DAD0
 extern word_1AC8B1, word_1C8340, word_1C8342, word_1C8344, word_1C8346, word_1C8348, word_1C834A, word_1C83B8
 global jpt_86C99, jpt_87AF7, jpt_89053, sub_868CD_5F, PhonebookEntryScreen_4B8, PhonebookEntryScreen_4C9, PhonebookEntryScreen_5DB, PhonebookEntryScreen_60C
@@ -473,13 +473,13 @@ PhonebookEntryScreen:
         push byte 6Eh
         push byte 46h
         push dword [byte ebx+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         push byte 6Eh
         push byte 46h
         push dword [byte esi+02Ch]
         mov dword [byte ebp-014h], 0
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         mov dword [byte ebp-04h], 0
         mov dword [byte ebp-01Ch], 0FFFFFFFFh
@@ -664,7 +664,7 @@ PhonebookEntryScreen:
         mov eax, dword [byte ebp-010h]
         push byte 0Ah
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         mov eax, dword [byte ebp-010h]
         mov eax, dword [byte eax+02Ch]
         mov word [byte eax+0Ch], 50h
@@ -694,7 +694,7 @@ PhonebookEntryScreen:
         mov eax, dword [byte ebp-0Ch]
         push byte 28h
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         call sub_1013FC
         mov ecx, dword [dword ebp-01008h]
@@ -1342,7 +1342,7 @@ sub_8793E:
         movsx eax, word [byte eax+04h]
         mov dword [byte ebp-08h], 0
         mov dword [byte ebp-0Ch], eax
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         cmp eax, dword [byte ebp-0Ch]
         jle near .6
@@ -1365,7 +1365,7 @@ sub_8793E:
         mov dword [byte ebp-0Ch], eax
         lea eax, [byte ebp-020h]
         push eax
-        call sub_FDE44
+        call MeasureText
         mov edx, dword [byte ebp-0Ch]
         add edx, byte 5
         add esp, byte 4
@@ -2389,7 +2389,7 @@ ModemSettingsScreen_D5E:
         push byte 0
         push byte 0
         push dword [byte esi+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         push esi
         call SetDrawTarget
@@ -2417,13 +2417,13 @@ ModemSettingsScreen_D5E:
         mov eax, dword [byte ebp-04h]
         push byte 0
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         push byte 0
         mov eax, dword [byte ebp-0Ch]
         push byte 0
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         call SetScreenTarget
         mov eax, dword [byte ebp-024h]
@@ -3139,7 +3139,7 @@ NetworkGamesScreen:
         mov ebx, eax
         push dword [byte eax+02Ch]
         mov dword [byte ebp-024h], eax
-        call sub_11A318
+        call ConvertArtXY
         mov eax, dword [byte ebx+02Ch]
         mov word [byte eax+0Ch], 69h
         mov eax, dword [byte ebx+02Ch]
@@ -3518,13 +3518,13 @@ NetworkGamesScreen_880:
         mov eax, dword [byte ebp-010h]
         push byte 0
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         push byte 0
         mov eax, dword [byte ebp-018h]
         push byte 0
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         call SetScreenTarget
         mov eax, dword [byte ebp-020h]
@@ -3837,7 +3837,7 @@ sub_89CD6:
         push edx
         push byte 78h
         push dword [byte ebx+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         test byte [byte_1C833C], 1
         je near .2

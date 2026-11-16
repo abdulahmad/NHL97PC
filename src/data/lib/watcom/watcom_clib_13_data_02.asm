@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_19C694 progbits alloc noexec write align=1
-extern sub_117598_5B, sub_117598_6B, sub_117598_7D, sub_117598_8A, sub_117598_D4, sub_117598_E6, sub_117598_115, __fdiv_fpr_A
+extern ReadVideoCodes_5B, ReadVideoCodes_6B, ReadVideoCodes_7D, ReadVideoCodes_8A, ReadVideoCodes_D4, ReadVideoCodes_E6, ReadVideoCodes_115, __fdiv_fpr_A
 extern __fdiv_fpr_10, __fdiv_fpr_15, __fdiv_fpr_1B, __fdiv_fpr_20, __fdiv_fpr_26, __fdiv_fpr_2C, __fdiv_fpr_32, __fdiv_fpr_38
 extern __fdiv_fpr_54, __fdiv_fpr_59, __fdiv_fpr_6F, __fdiv_fpr_74, __fdiv_fpr_90, __fdiv_fpr_A0, __fdiv_fpr_B4, __fdiv_fpr_C4
 extern __fdiv_fpr_E4, __fdiv_fpr_E9, __fdiv_fpr_103, __fdiv_fpr_108, __fdiv_fpr_128, __fdiv_fpr_13C, __fdiv_fpr_154, __fdiv_fpr_168
@@ -39,16 +39,16 @@ dword_19C6BC:
 dword_19C6C0:
         db 00h,00h,0C0h,059h
 off_19C6C4:
-        dd sub_117598_7D
-        dd sub_117598_E6
-        dd sub_117598_5B
-        dd sub_117598_115
-        dd sub_117598_8A
-        dd sub_117598_D4
-        dd sub_117598_6B
+        dd ReadVideoCodes_7D
+        dd ReadVideoCodes_E6
+        dd ReadVideoCodes_5B
+        dd ReadVideoCodes_115
+        dd ReadVideoCodes_8A
+        dd ReadVideoCodes_D4
+        dd ReadVideoCodes_6B
 off_19C6E2 equ $+2
 off_19C6E3 equ $+3
-        dd sub_117598_115
+        dd ReadVideoCodes_115
 byte_19C6E4:
         db 00h,03Fh,037h,03Eh,03Dh,036h,02Fh,027h,02Eh,035h,03Ch,03Bh,034h,02Dh,026h,01Fh
         db 017h,01Eh,025h,02Ch,033h,03Ah,039h,032h,02Bh,024h,01Dh,016h,0Fh,07h,0Eh,015h

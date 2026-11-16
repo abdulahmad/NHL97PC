@@ -5,7 +5,7 @@ section s_100A68 progbits alloc exec nowrite align=1
 extern str_DtoD, atexit_, byte_16E688, byte_16F748, byte_16FA40, byte_171C90, dword_16E4C8, dword_16E500
 extern dword_16E678, dword_16E67C, dword_16E680, dword_16E684, dword_16E698, dword_16E69C, dword_16E6A0, dword_16F188
 extern dword_16F5AC, dword_16F5B4, dword_1CF5F0, dword_1DA4D0, exit_, off_16F588, off_16F5BC, off_16F5C0
-extern off_16F684, sprintf_, strrchr_, sub_100528, sub_1049D0, sub_1155B0, sub_12189C, sub_12233C
+extern off_16F684, sprintf_, strrchr_, sub_100528, sub_1049D0, PlotPixelRGB, sub_12189C, sub_12233C
 extern sub_122D90, sub_123FA8, sub_125DDE, sub_125E68, sub_125FE1, sub_126052, sub_1261A4, sub_126264
 extern sub_126364, AllocMemBlock, FreeMemBlock, MakeColor, word_1CF5F4
 global _os_handle, jpt_1015B0, jpt_101980, sub_101230_90, FindShapeQuiet_2, sub_1015F0_30, sub_1015F0_54, sub_1015F0_6E
@@ -2042,7 +2042,7 @@ sub_101A7C:
         push ecx
         mov eax, dword [byte esp+048h]
         push eax
-        call sub_1155B0
+        call PlotPixelRGB
         add esp, byte 0Ch
         add esi, byte 2
         mov edx, dword [byte esp+040h]
@@ -2226,7 +2226,7 @@ sub_101A7C:
         push ecx
         mov eax, dword [byte esp+04Ch]
         push eax
-        call sub_1155B0
+        call PlotPixelRGB
         add esp, byte 0Ch
         add esi, byte 2
         mov edx, dword [byte esp+044h]

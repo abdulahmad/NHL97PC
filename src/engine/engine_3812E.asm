@@ -61,7 +61,7 @@ extern OpenLeagueFile, sub_DE740, sub_E036F, sub_E0415, FileExists, FileCreate, 
 extern FileWriteRecord, FileClose, sub_E341C, BuildAllStarTeams, sub_F9496, sub_F94BC, sub_F99C0, sub_F9A28
 extern AllocMemBlock, FreeMemBlock, sub_FB4D4, ZeroMem, FillMem, addtimer, sub_FC008, sub_FC290
 extern WaitTicks, sub_FC330, sub_FC410, MakeColor, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget
-extern ClearScreen, sub_FDC68, sub_FE180, sub_FFA44, sub_FFA9C, tickcount, unk_160A56, unk_160B68
+extern ClearScreen, sub_FDC68, SetTextColors, SetFocalLength, SetProjectionCenter, tickcount, unk_160A56, unk_160B68
 extern unk_160C94, unk_160C98, unk_19ED78, unk_19F548, unk_1A0CB8, unk_1A8D48, unk_1A8E8C, unk_1A9C8C
 extern unk_1AD22E, unk_1B93E0, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, word_169054, word_169066, word_1690AE
 extern word_16914E, word_1691A4, word_1691B2, word_1691B6, word_169232, word_169234, word_169236, word_19ED74
@@ -6402,7 +6402,7 @@ SetVideoMode:
         call MakeColor
         add esp, byte 4
         push eax
-        call sub_FE180
+        call SetTextColors
         add esp, byte 8
         push dword 0FF111111h
         call MakeColor
@@ -6599,13 +6599,13 @@ SetViewDrawTarget:
 .1:
         push dword [dword_1A8E54]
 .2:
-        call sub_FFA44
+        call SetFocalLength
         mov ecx, dword [byte ebx+01Ch]
         push ecx
         mov esi, dword [byte ebx+018h]
         push esi
         push dword [dword_16B72C]
-        call sub_FFA9C
+        call SetProjectionCenter
         pop esi
         pop edx
         pop ecx

@@ -25,7 +25,7 @@ extern dword_1CAE9C, dword_1CAEA0, dword_1CAEA4, dword_1CAEA8, dword_1CAEAC, dwo
 extern dword_1CAEBC, dword_1CAEC0, dword_1CAEC4, dword_1CAFF4, fclose_, fopen_, fprintf_, qsort_
 extern qword_16695B, rand_, sprintf_, strcat_, strcpy_, sub_101324, BlitShape2, BlitArt
 extern sub_1013FC, FindShape, sub_101560, sub_101584, sub_101EAC, sub_102B94, sub_102C10, sub_10CD98
-extern sub_11A294, sub_11A318, FindShapeList, sub_11BD90, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples
+extern ConvertArtInPlace, ConvertArtXY, FindShapeList, sub_11BD90, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples
 extern WaitSoundTime, PlayMenuSfx, StopAllSfx, PlaySfx, PlayScreenMovie, LoadDataFile, OpenDataLibrary, sub_7E860
 extern sub_7EDF0, sub_7EF70, SetRegionRect, sub_7F04C, SetTextColor, DrawTextAligned, sub_7F5A4, sub_80AB8
 extern sub_80B28, sub_80BBC, sub_815F8, sub_81650, sub_81678, sub_816A4, sub_816BC, sub_81D1C
@@ -439,7 +439,7 @@ sub_B50DB:
         call BlitArt
         add esp, byte 0Ch
         push dword [byte edi+02Ch]
-        call sub_11A294
+        call ConvertArtInPlace
         add esp, byte 4
         push edi
         call SetDrawTarget
@@ -1161,7 +1161,7 @@ PlayerStatsScreen:
         push eax
         mov eax, dword [byte ebp+04Ah]
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         push esi
         call BlitShape2
@@ -1233,7 +1233,7 @@ PlayerStatsScreen:
         push eax
         mov eax, dword [byte ebp+ebx*4+012h]
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         call sub_1013FC
         mov eax, dword [byte ebp+ebx*4+012h]
@@ -4352,7 +4352,7 @@ sub_B829B:
         mov eax, dword [byte ebp-08h]
         add esp, byte 0Ch
         push dword [byte eax+02Ch]
-        call sub_11A294
+        call ConvertArtInPlace
         add esp, byte 4
         push dword [byte ebp-08h]
         call SetDrawTarget
@@ -4707,7 +4707,7 @@ sub_B829B:
         mov eax, dword [byte ebp-08h]
         add esp, byte 0Ch
         push dword [byte eax+02Ch]
-        call sub_11A294
+        call ConvertArtInPlace
         add esp, byte 4
         push dword [byte ebp-08h]
         call SetDrawTarget
@@ -5809,7 +5809,7 @@ PlayerRatingsScreen:
         push eax
         mov eax, dword [byte esi+ebp-012h]
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         call sub_1013FC
         mov eax, dword [byte esi+ebp-012h]

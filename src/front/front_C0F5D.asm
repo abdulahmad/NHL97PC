@@ -15,7 +15,7 @@ extern dword_1CB0C0, dword_1CB0C4, dword_1CB0C8, dword_1CB0CC, dword_1CB0D0, dwo
 extern dword_1CB0E0, dword_1CB0E4, dword_1CB0E8, dword_1CB0EC, dword_1CB0F0, dword_1CB0F4, dword_1CB0F8, dword_1CB0FC
 extern dword_1CB100, dword_1CB104, dword_1CBB88, off_16D5F7, sprintf_, strcat_, strcpy_, strlen_
 extern BlitShape2, BlitArt, BlitShape, sub_1013FC, FindShape, sub_101EAC, sub_102C10, Random32
-extern sub_106D80, sub_106F64, sub_106F94, sub_11A318, sub_11A350, sub_11BDC0, SetScreenTarget, MusicEnabled
+extern sub_106D80, sub_106F64, sub_106F94, ConvertArtXY, ConvertArtKeepPos, sub_11BDC0, SetScreenTarget, MusicEnabled
 extern LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx, LoadDataFile, OpenDataLibrary, sub_7DA28
 extern sub_7DFC0, sub_7E52C, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, SetRegionRect, SetTextColor
 extern DrawTextAligned, sub_7F29C, LoadTeamLogo, sub_80808, sub_80BBC, sub_81650, sub_81678, sub_83C08
@@ -3269,14 +3269,14 @@ DetailLevelScreen:
         mov word [byte edx+0Eh], ax
         call SetScreenTarget
         push dword [byte ebx+02Ch]
-        call sub_11A350
+        call ConvertArtKeepPos
         add esp, byte 4
         push dword [byte esi+02Ch]
-        call sub_11A350
+        call ConvertArtKeepPos
         mov eax, dword [byte ebp-018h]
         add esp, byte 4
         push dword [byte eax+02Ch]
-        call sub_11A350
+        call ConvertArtKeepPos
         add esp, byte 4
         xor esi, esi
         call sub_1013FC
@@ -3913,7 +3913,7 @@ DetailLevelScreen:
         push byte 78h
         push dword 12Ch
         push dword [byte ebx+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         jmp near DetailLevelScreen_A93.31
 DetailLevelScreen_A25:

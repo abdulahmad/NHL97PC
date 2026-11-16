@@ -12,9 +12,9 @@ extern dword_1D8054, dword_1D8058, dword_1D805C, dword_1D8068, dword_1D806C, dwo
 extern dword_1D8090, dword_1D8094, dword_1D8098, dword_1D809C, dword_1D80A0, dword_1D80A4, dword_1D80B0, dword_1D8334
 extern dword_1D8AB4, dword_1D8AB8, dword_1D8ABC, dword_1D8AC0, dword_1D8AC4, memcpy_, off_1706D0, qword_167E9D
 extern qword_167EA5, str_ORIINST, strcat_, strcpy_, strlen_, strnicmp_, sub_1004B8, sub_10B18C
-extern sub_10CF34, sub_10FD58, sub_112F3C, sub_1143D4, sub_1153AC, sub_1158A0, sub_12D784, sub_12DD3C
+extern sub_10CF34, sub_10FD58, sub_112F3C, DrawPrimList, ResetMorphVerts, FixedSinCos, sub_12D784, sub_12DD3C
 extern sub_12DE84, sub_12DFC4, sub_12E108, sub_12E2B8, sub_12E390, sub_12ED68, sub_12EEAC, sub_12EFE8
-extern sub_12F12C, AllocMemBlock, FreeMemBlock, FillMem, sub_FF7F4, unk_199738, unk_1D1D20, unk_1D3D6C
+extern sub_12F12C, AllocMemBlock, FreeMemBlock, FillMem, VecScale, unk_199738, unk_1D1D20, unk_1D3D6C
 extern unk_1D3D94, unk_1D5B94, unk_1D7994, unk_1D80B4
 global sub_1115CC_31B, sub_10FEE8, sub_10FFBC, sub_11002C, sub_11004C, sub_1100B4, sub_110414, sub_110440
 global sub_1104CC, sub_1104F0, sub_110538, sub_11059C, sub_1105E4, sub_1105FC, sub_110634, sub_110658
@@ -443,14 +443,14 @@ sub_1100B4:
         or ch, 10h
         push ebp
         mov byte [byte ebp+010h], ch
-        call sub_1153AC
+        call ResetMorphVerts
         add esp, byte 4
 .15:
         test byte [byte esp+010h], 8
         je short .16
         mov edx, dword [byte esp+04h]
         mov eax, ebp
-        call sub_1143D4
+        call DrawPrimList
         mov dl, byte [byte esp+015h]
         or dl, 1
         mov dword [dword ebp+090h], eax
@@ -565,7 +565,7 @@ sub_110440:
         mov eax, ebx
         push dword [byte esp+014h]
         inc ecx
-        call sub_FF7F4
+        call VecScale
         add edx, byte 0Ch
         add ebx, byte 0Ch
 .2:
@@ -573,7 +573,7 @@ sub_110440:
         cmp ecx, dword [byte eax+010h]
         jl short .1
         push esi
-        call sub_1153AC
+        call ResetMorphVerts
         add esp, byte 4
         pop esi
         pop ebx
@@ -4053,7 +4053,7 @@ sub_112950:
         push eax
         mov edx, dword [byte esp+01Ch]
         push edx
-        call sub_1158A0
+        call FixedSinCos
         mov dword [ebx], 10000h
         mov dword [byte ebx+04h], 0
         mov dword [byte ebx+08h], 0
@@ -4088,7 +4088,7 @@ sub_1129B8:
         push eax
         mov edx, dword [byte esp+01Ch]
         push edx
-        call sub_1158A0
+        call FixedSinCos
         add esp, byte 0Ch
         mov eax, dword [byte esp+04h]
         mov dword [byte ebx+04h], 0
@@ -4119,7 +4119,7 @@ sub_1129B8:
         push eax
         mov edx, dword [byte esp+01Ch]
         push edx
-        call sub_1158A0
+        call FixedSinCos
         add esp, byte 0Ch
         mov eax, dword [byte esp+04h]
         mov dword [ebx], eax

@@ -35,7 +35,7 @@ extern memcpy_, memset_, off_16D7AC, off_16D7B4, off_16D7DC, off_16D7E0, off_16D
 extern off_16E0FC, off_16E4E0, rand_, segread_, slotteam, sprintf_, strcat_, strcmp_
 extern strcpy_, stricmp_, strlen_, strncpy_, bcopy, BlitShape2, BlitArt, BlitShape
 extern sub_1013FC, FindShape, sub_102B94, sub_106D08, sub_1070B0, sub_107D30, sub_10A68, sub_10AED0
-extern sub_10FAC, sub_1167AE, sub_11A318, sub_11A350, sub_11B104, sub_11B98E, sub_11BFC5, sub_11C134
+extern sub_10FAC, IsKeyDown, ConvertArtXY, ConvertArtKeepPos, sub_11B104, sub_11B98E, sub_11BFC5, sub_11C134
 extern sub_11C41C, sub_11D2D0, sub_11D364, sub_11D508, sub_11D5C0, sub_11D690, sub_11D780, sub_11D8D8
 extern sub_11DA0C, sub_11DE04, sub_11F850, sub_11F8D0, SetScreenTarget, sub_14140, InitPacketLink, ShutdownPacketLink
 extern PacketLinkSend, ClosePacketLink, SecondsToSamples, WaitSoundTime, ChkMenuMusic, PauseMusic, RequestMusicStop, WaitMusicEnd
@@ -46,8 +46,8 @@ extern sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, GetLangText, AllocPageSta
 extern CloseDbFile, sub_D8B20, sub_D9960, sub_D9D74, sub_DA020, sub_DA02C, sub_DA48C, sub_DA498
 extern sub_DA544, sub_DA57C, sub_DA654, sub_E7D6D, sub_E8660, sub_E8923, sub_F9A88, AllocMemBlock
 extern sub_FAAB4, FreeMemBlock, ZeroMem, sub_FBE40, addtimer, sub_FC008, WaitTicks, MakeColor
-extern FreeBitmap, sub_FCF84, DrawArt, CreateBitmap, SetDrawTarget, sub_FDC68, FillRect, sub_FDE44
-extern sub_FE150, sub_FE3D0, tickcount, unk_167540, unk_16D7F4, unk_16D7FC, unk_16E110, unk_1C5F4A
+extern FreeBitmap, sub_FCF84, DrawArt, CreateBitmap, SetDrawTarget, sub_FDC68, FillRect, MeasureText
+extern DrawTextAt, FillRectCorners, tickcount, unk_167540, unk_16D7F4, unk_16D7FC, unk_16E110, unk_1C5F4A
 extern unk_1CD19C, InputRecordRing, unk_1CD2BA, unk_1CD2FC, unk_1CD33E, unk_1CD380, unk_1CD408, unk_1CD480
 extern unk_1CD570, unk_1CD59C, unk_1CD5D8, unk_1CD636, unk_1CD6AC, word_1684BE, word_16D7EC, word_16D7EE
 extern word_16D80C, word_16D80E, word_16D85E, word_16D860, word_16D8A4, SlotWords, word_16D920, word_16D922
@@ -11112,7 +11112,7 @@ sub_E2590:
         mov eax, dword [dword eax+dword_16D93A]
         sar eax, 10h
         push eax
-        call sub_1167AE
+        call IsKeyDown
         add esp, byte 4
         test eax, eax
         je short .4
@@ -11125,7 +11125,7 @@ sub_E2590:
         mov eax, dword [dword eax+dword_16D93A]
         sar eax, 10h
         push eax
-        call sub_1167AE
+        call IsKeyDown
         add esp, byte 4
         test eax, eax
         je short .4
@@ -11138,7 +11138,7 @@ sub_E2590:
         mov eax, dword [dword eax+dword_16D93A]
         sar eax, 10h
         push eax
-        call sub_1167AE
+        call IsKeyDown
         add esp, byte 4
         test eax, eax
         je short .4
@@ -11606,12 +11606,12 @@ PollControllers:
         xor edx, edx
         push byte 1Dh
         mov word [HotKeyFlags], dx
-        call sub_1167AE
+        call IsKeyDown
         add esp, byte 4
         push byte 38h
         mov ebx, HotKeyFlags
         mov dword [dword_1CD248], eax
-        call sub_1167AE
+        call IsKeyDown
         mov edx, 1
         add esp, byte 4
         mov dword [dword_1CD244], eax
@@ -12396,7 +12396,7 @@ sub_E341C_34:
         mov dword [dword_16DAC4], eax
 .2:
         push byte 1
-        call sub_1167AE
+        call IsKeyDown
         add esp, byte 4
         ret
         push ecx
@@ -14196,7 +14196,7 @@ WaitForOtherComputer:
         mov eax, dword [dword esp+0160h]
         mov ecx, dword [byte eax+02Ch]
         push ecx
-        call sub_11A350
+        call ConvertArtKeepPos
         add esp, byte 4
         call sub_1013FC
         jmp short .2
@@ -14233,7 +14233,7 @@ WaitForOtherComputer:
         mov eax, dword [dword esp+017Ch]
         push eax
         push ebx
-        call sub_FE3D0
+        call FillRectCorners
         add esp, byte 14h
         push byte 0FFFFFFFFh
         call MakeColor
@@ -14257,7 +14257,7 @@ WaitForOtherComputer:
         mov eax, 23Ch
         call GetLangText
         push eax
-        call sub_FDE44
+        call MeasureText
         mov edx, dword [dword_16E464]
         sar eax, 1
         sar edx, 1
@@ -14271,7 +14271,7 @@ WaitForOtherComputer:
         mov eax, 77h
         call GetLangText
         push eax
-        call sub_FDE44
+        call MeasureText
         mov edx, dword [dword_16E464]
         sar eax, 1
         sar edx, 1
@@ -14282,7 +14282,7 @@ WaitForOtherComputer:
 .4:
         call GetLangText
         push eax
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
         push byte 0FFFFFFFFh
         call MakeColor
@@ -14309,7 +14309,7 @@ WaitForOtherComputer:
         mov eax, 23Ch
         call GetLangText
         push eax
-        call sub_FDE44
+        call MeasureText
         mov edx, dword [dword_16E464]
         sar eax, 1
         sar edx, 1
@@ -14323,7 +14323,7 @@ WaitForOtherComputer:
         mov eax, 75h
         call GetLangText
         push eax
-        call sub_FDE44
+        call MeasureText
         mov edx, dword [dword_16E464]
         sar eax, 1
         sar edx, 1
@@ -14334,7 +14334,7 @@ WaitForOtherComputer:
 .6:
         call GetLangText
         push eax
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
         push byte 0FFFFFFFFh
         call MakeColor
@@ -14367,7 +14367,7 @@ WaitForOtherComputer:
         xor ebx, ebx
 .7:
         push byte 1
-        call sub_1167AE
+        call IsKeyDown
         add esp, byte 4
         test eax, eax
         jne short .8
@@ -14436,7 +14436,7 @@ WaitForOtherComputer:
         sub eax, byte 2
         push eax
         push unk_167540
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         sub eax, byte 2
         push eax
@@ -14457,7 +14457,7 @@ WaitForOtherComputer:
         sub eax, byte 2
         push eax
         push unk_167540
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         sub eax, byte 2
         push eax
@@ -14531,7 +14531,7 @@ WaitForOtherComputer:
         sub eax, byte 2
         push eax
         push unk_167540
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         sub eax, byte 2
         push eax
@@ -14566,11 +14566,11 @@ WaitForOtherComputer:
         mov byte [dword esp+01A4h], al
         lea eax, [dword esp+01A4h]
         push eax
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
         lea eax, [dword esp+019Ch]
         push eax
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         lea edx, [edi+eax]
         mov dword [dword esp+0184h], edx
@@ -14584,7 +14584,7 @@ WaitForOtherComputer:
         mov byte [dword esp+019Ch], al
         lea eax, [dword esp+019Ch]
         push eax
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         mov ecx, dword [dword esp+0184h]
         sub ecx, eax
@@ -14597,7 +14597,7 @@ WaitForOtherComputer:
         push edi
         lea eax, [dword esp+01A4h]
         push eax
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         push eax
         mov eax, dword [dword esp+018Ch]
@@ -14613,7 +14613,7 @@ WaitForOtherComputer:
         cmp dword [dword esp+0188h], byte 0Dh
         je short .19
         push unk_167540
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         mov edi, dword [dword esp+0184h]
         mov edx, dword [dword esp+0150h]
@@ -14683,7 +14683,7 @@ WaitForOtherComputer:
         sub eax, byte 2
         push eax
         push unk_167540
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         sub eax, byte 2
         push eax
@@ -14890,7 +14890,7 @@ WaitForOtherComputer:
         sub eax, byte 2
         push eax
         push unk_167540
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         sub eax, byte 2
         push eax
@@ -14921,11 +14921,11 @@ WaitForOtherComputer:
         mov byte [dword esp+01A4h], al
         lea eax, [dword esp+01A4h]
         push eax
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
         lea eax, [dword esp+019Ch]
         push eax
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         add ebx, eax
         jmp short .41
@@ -14938,7 +14938,7 @@ WaitForOtherComputer:
         mov byte [dword esp+019Ch], al
         lea eax, [dword esp+019Ch]
         push eax
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         push dword 0FF000000h
         sub ebx, eax
@@ -14949,7 +14949,7 @@ WaitForOtherComputer:
         push edi
         lea eax, [dword esp+01A4h]
         push eax
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         push eax
         push esi
@@ -14963,7 +14963,7 @@ WaitForOtherComputer:
         cmp dword [dword esp+0164h], byte 0Dh
         je short .42
         push unk_167540
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         lea edi, [ebx+eax]
         mov eax, dword [dword esp+0154h]
@@ -15024,7 +15024,7 @@ WaitForOtherComputer:
         sub eax, byte 2
         push eax
         push unk_167540
-        call sub_FDE44
+        call MeasureText
         add esp, byte 4
         sub eax, byte 2
         push eax
@@ -16362,7 +16362,7 @@ ChooseNetworkGameScreen:
         push eax
         mov ebp, dword [byte ebx+02Ch]
         push ebp
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         call sub_1013FC
         mov eax, dword [dword_1CD540]
@@ -16492,7 +16492,7 @@ ChooseNetworkGameScreen:
         sub edx, ecx
         push edx
         push eax
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         mov eax, dword [dword esi+dword_1CD5B4]
         mov eax, dword [byte eax+02Ch]
@@ -16507,7 +16507,7 @@ ChooseNetworkGameScreen:
         sub edx, ecx
         push edx
         push eax
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         mov eax, dword [esp+esi]
         mov eax, dword [byte eax+02Ch]
@@ -16818,7 +16818,7 @@ ChooseNetworkGameScreen:
         push dword 16Eh
         mov ecx, dword [byte eax+02Ch]
         push ecx
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         mov eax, dword [dword ebx+dword_1CD564]
         push eax
@@ -16866,7 +16866,7 @@ ChooseNetworkGameScreen:
         push dword 16Eh
         mov edx, dword [byte eax+02Ch]
         push edx
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         mov ecx, dword [dword ebx+dword_1CD550]
         push ecx
@@ -17810,7 +17810,7 @@ sub_E77B1:
         movsx eax, word [byte eax+0Ch]
         push eax
         push dword [byte edi+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         mov eax, dword [dword esi+dword_1CD650]
         mov edx, dword [byte edi+02Ch]
         mov ax, word [byte eax+0Ch]

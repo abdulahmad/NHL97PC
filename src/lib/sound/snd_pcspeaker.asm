@@ -3,13 +3,19 @@ bits 32
 %include "hockey.inc"
 section s_138C90 progbits alloc exec nowrite align=1
 extern _Extender, _STACKLOW, __DPMI_hosted_, dword_16E3F8, dword_16E464, dword_16E678, dword_16E67C, dword_16E680
-extern dword_16E684, dword_16E69C, dword_199C4C, dword_19C008, dword_1CF528, dword_1CF52C, sub_11641C, sub_11FA98
-extern sub_FDE44, sub_FDF64, unk_116427, vsprintf_
+extern dword_16E684, dword_16E69C, dword_199C4C, dword_19C008, dword_1CF528, dword_1CF52C, RestoreDS, sub_11FA98
+extern MeasureText, DrawTextRun, unk_116427, vsprintf_
 global __CommonInit_, sub_138C90, sub_138D04, sub_138E00, sub_138EB0, sub_138F00
+;-----------------------------------------------------------------------------
+; sub_138C90                                                          138C90  
+;-----------------------------------------------------------------------------
 sub_138C90:
         mov eax, esp
         sub eax, dword [_STACKLOW]
         ret
+;-----------------------------------------------------------------------------
+; __CommonInit_                                                138C99  library
+;-----------------------------------------------------------------------------
 __CommonInit_:
         push ebx
         push ecx
@@ -36,8 +42,8 @@ __CommonInit_:
         cmp eax, byte 1
         jne short .4
         mov edx, unk_116427
-        mov eax, sub_11641C
-        sub edx, sub_11641C
+        mov eax, RestoreDS
+        sub edx, RestoreDS
         mov di, dx
         shr edx, 10h
         mov si, dx
@@ -55,6 +61,9 @@ __CommonInit_:
         pop ebx
         ret
         db 00h,00h
+;-----------------------------------------------------------------------------
+; sub_138D04                                                          138D04  
+;-----------------------------------------------------------------------------
 sub_138D04:
         push ebp
         LD mov, ebp, esp
@@ -109,7 +118,7 @@ sub_138D04:
         call vsprintf_
         mov eax, esp
         push eax
-        call sub_FDE44
+        call MeasureText
         mov edx, dword [dword_16E464]
         sub edx, eax
         mov eax, edx
@@ -126,7 +135,7 @@ sub_138D04:
         add esp, byte 8
         mov eax, esp
         push eax
-        call sub_FDF64
+        call DrawTextRun
         add esp, byte 4
         mov dword [dword_1CF528], ebx
         xor ebx, ebx
@@ -137,13 +146,16 @@ sub_138D04:
         pop ebx
         ret
         db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; sub_138E00                                                          138E00  
+;-----------------------------------------------------------------------------
 sub_138E00:
         push ebx
         push esi
         push edi
         mov edx, dword [byte esp+010h]
         push edx
-        call sub_FDE44
+        call MeasureText
         mov edx, dword [dword_16E464]
         sub edx, eax
         mov eax, edx
@@ -160,7 +172,7 @@ sub_138E00:
         add esp, byte 8
         mov edi, dword [byte esp+010h]
         push edi
-        call sub_FDF64
+        call DrawTextRun
         add esp, byte 4
         mov dword [dword_1CF528], ebx
         mov dword [dword_1CF52C], esi
@@ -173,7 +185,7 @@ sub_138E00:
         push edi
         mov edx, dword [byte esp+010h]
         push edx
-        call sub_FDE44
+        call MeasureText
         mov edx, dword [dword_16E464]
         sub edx, eax
         mov eax, edx
@@ -190,7 +202,7 @@ sub_138E00:
         add esp, byte 8
         mov edi, dword [byte esp+010h]
         push edi
-        call sub_FDF64
+        call DrawTextRun
         add esp, byte 4
         mov dword [dword_1CF528], ebx
         mov dword [dword_1CF52C], esi
@@ -198,6 +210,9 @@ sub_138E00:
         pop esi
         pop ebx
         ret
+;-----------------------------------------------------------------------------
+; sub_138EB0                                                          138EB0  
+;-----------------------------------------------------------------------------
 sub_138EB0:
         push ebx
         mov eax, dword [byte esp+08h]
@@ -229,6 +244,9 @@ sub_138EB0:
         LD sbb, eax, eax
         inc eax
         ret
+;-----------------------------------------------------------------------------
+; sub_138F00                                                          138F00  
+;-----------------------------------------------------------------------------
 sub_138F00:
         push ebp
         LD mov, ebp, esp

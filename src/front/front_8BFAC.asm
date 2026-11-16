@@ -13,7 +13,7 @@ extern dword_1C8400, dword_1C8404, dword_1C8408, dword_1C840C, dword_1C8410, dwo
 extern dword_1C8420, dword_1C8424, dword_1C8428, dword_1C842C, dword_1C8430, dword_1C8434, dword_1C8438, dword_1C843C
 extern dword_1C8444, dword_1C8448, dword_1C844C, dword_1C8454, RunNewSeason_DD, RunNewSeason_E6, RunNewSeason_EF, RunNewSeason_F8
 extern RunNewSeason_16F, RunNewSeason_17B, RunNewSeason_187, RunNewSeason_193, off_16E4E0, qword_165550, qword_165558, qword_165568
-extern BlitArt, sub_1013CC, sub_1013FC, FindShape, sub_1097F0, sub_11A318, SetScreenTarget, PlaySfx
+extern BlitArt, sub_1013CC, sub_1013FC, FindShape, sub_1097F0, ConvertArtXY, SetScreenTarget, PlaySfx
 extern LoadDataFileHandle, SetRegionRect, sub_835AC, sub_835BC, sub_83850, InitMenuItems, sub_E3410, sub_E341C
 extern sub_E375C, sub_E3798, FreeMemBlock, MakeColor, SetViewRect, FreeBitmap, DrawArt, CreateBitmap
 extern SetDrawTarget, ClearScreen, sub_FDC68, tickcount, word_16CD04, word_16CD20, word_16CD22
@@ -1639,7 +1639,7 @@ sub_8BFAC:
         push eax
         mov edx, dword [dword_1C8454]
         push edx
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         mov ecx, dword [byte esp+020h]
         push ecx
@@ -1694,7 +1694,7 @@ sub_8BFAC:
         push ecx
         mov eax, dword [dword_1C8444]
         push eax
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         push ebx
         mov ecx, dword [byte esp+020h]
@@ -2141,7 +2141,7 @@ sub_8D956:
         mov eax, dword [byte esi+018h]
         push dword [byte ebp+018h]
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         call sub_1013FC
         push dword [byte esi+018h]
@@ -2672,7 +2672,7 @@ sub_8DF1F:
         push eax
         mov eax, dword [byte ebp-010h]
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         call sub_1013FC
         lea edx, [dword ebp-0F64h]
@@ -2776,7 +2776,7 @@ sub_8DF1F:
         push dword [byte ebp-0Ch]
         push dword [byte ebp-08h]
         push dword [byte ebx+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         call sub_1013FC
         lea eax, [byte esi-01h]
@@ -2982,7 +2982,7 @@ sub_8E2EE:
         push eax
         mov eax, dword [byte ebp-010h]
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         call sub_1013FC
         lea edx, [dword ebp-0F68h]
@@ -3089,7 +3089,7 @@ sub_8E2EE:
         push dword [byte ebp-08h]
         push dword [byte ebp-04h]
         push dword [byte edi+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         call sub_1013FC
         lea edi, [byte esi-01h]

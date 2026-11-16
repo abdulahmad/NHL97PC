@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_123414 progbits alloc exec nowrite align=1
-extern dword_16E678, dword_16E67C, dword_16E680, dword_16E684, dword_199CE8, off_199CEC, sub_116830, FillRect
+extern dword_16E678, dword_16E67C, dword_16E680, dword_16E684, dword_199CE8, off_199CEC, PlotPixel, FillRect
 global jpt_123595, jpt_1235F5, jpt_1236E1, jpt_1237CB, jpt_1239B2, jpt_123D10, sub_123423_D, sub_123423_5B
 global sub_123423_165, jpt_123595_40, jpt_1235F5_D2, jpt_1236E1_DF, jpt_1237CB_14A, jpt_1237CB_1DB, jpt_1239B2_145, jpt_1239B2_153
 global jpt_1239B2_1AC, jpt_1239B2_1BF, jpt_1239B2_27F, sub_123D38_7C, sub_123D38_A2, sub_123D38_C7, sub_123D38_E7, sub_123D38_107
@@ -990,7 +990,7 @@ sub_123D38_C7:
         push edi
         push esi
         inc edi
-        call sub_116830
+        call PlotPixel
         dec esi
         add esp, byte 0Ch
         jmp short .1
@@ -1005,7 +1005,7 @@ sub_123D38_E7:
         push edi
         push esi
         inc edi
-        call sub_116830
+        call PlotPixel
         inc esi
         add esp, byte 0Ch
         jmp short .2
@@ -1024,7 +1024,7 @@ sub_123D38_107:
         push ecx
         push edi
         push esi
-        call sub_116830
+        call PlotPixel
         add esp, byte 0Ch
         add ebp, dword [esp]
         inc edi
@@ -1048,7 +1048,7 @@ sub_123D38_14C:
         push eax
         push edi
         push esi
-        call sub_116830
+        call PlotPixel
         add esp, byte 0Ch
         add ebp, dword [byte esp+04h]
         inc edi
@@ -1072,7 +1072,7 @@ sub_123D38_193:
         push edx
         push esi
         add edi, ebp
-        call sub_116830
+        call PlotPixel
         add esp, byte 0Ch
         dec esi
         test edi, 0FFFF0000h
@@ -1097,7 +1097,7 @@ sub_123D38_1DE:
         push edx
         push esi
         add edi, ebp
-        call sub_116830
+        call PlotPixel
         add esp, byte 0Ch
         inc esi
         test edi, 0FFFF0000h
@@ -1113,7 +1113,7 @@ sub_123D38_225:
         mov ebx, dword [byte esp+010h]
         push ebx
         push esi
-        call sub_116830
+        call PlotPixel
         add esp, byte 0Ch
 .7:
         add esp, byte 10h

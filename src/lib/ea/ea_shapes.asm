@@ -6,7 +6,7 @@ extern IF@ATAN2, str_Tube3, dword_167E08, dword_167E1C, dword_16E46C, dword_16E4
 extern dword_16FA08, dword_16FA10, dword_16FA14, dword_1CF9F8, dword_1CF9FC, dword_1CFA04, dword_1DA4D0, hypot_
 extern off_16FA1C, qword_167DF0, qword_167DF8, qword_167E00, qword_167E0C, qword_167E14, qword_167E20, SortIndices
 extern sub_104940, sub_104948, sub_10495F, sub_1049D0, sub_112894, sub_12233C, sub_1265D0, sub_126624
-extern sub_12664C, AllocMemBlock, sub_FF128, sub_FF600, sub_FF958, sub_FFBB4
+extern sub_12664C, AllocMemBlock, FloatsToInts, VecSub, VecAngle, ProjectCoord
 global bcopy_, sub_1043A4_3CC, removewindow, sub_10376C, sub_1038B0, sub_103E14, sub_1042D0, sub_104330
 global sub_1043A4, sub_104790, sub_1047A0, sub_1047BC, sub_1047D0, sub_10483C
 ;-----------------------------------------------------------------------------
@@ -241,11 +241,11 @@ sub_1038B0:
         mov edx, dword [byte edx+08h]
         mov eax, dword [byte eax+0Ch]
         fstp qword [byte ebp+01Eh]
-        call sub_FF600
+        call VecSub
         mov edx, dword [byte ebp+07Eh]
         lea eax, [byte ebp+012h]
         mov edx, dword [byte edx+08h]
-        call sub_FF958
+        call VecAngle
         fmul qword [qword_167DF0]
         fmul qword [qword_167DF8]
         mov edi, dword [byte ebp+07Eh]
@@ -260,7 +260,7 @@ sub_1038B0:
         lea ebx, [byte ebp+012h]
         mov edx, dword [byte edx+08h]
         mov eax, dword [byte eax+0Ch]
-        call sub_FF600
+        call VecSub
         fld dword [byte ebp+016h]
         mov eax, dword [byte ebp+012h]
         xor edx, edx
@@ -273,7 +273,7 @@ sub_1038B0:
         mov dword [byte ebp+016h], eax
         lea eax, [byte ebp+012h]
         mov edx, dword [byte edx+010h]
-        call sub_FF958
+        call VecAngle
         fmul qword [qword_167DF0]
         fmul qword [qword_167E00]
         fmul qword [qword_167DF8]
@@ -325,7 +325,7 @@ sub_1038B0:
         push dword [byte eax+014h]
         mov eax, dword [byte eax+08h]
         push dword [byte eax+08h]
-        call sub_FFBB4
+        call ProjectCoord
         fmul dword [byte esi+04h]
         fld st0
         fmul dword [byte ebp+032h]
@@ -473,7 +473,7 @@ sub_1038B0:
         push dword [byte eax+018h]
         mov eax, dword [byte eax+0Ch]
         push dword [byte eax+08h]
-        call sub_FFBB4
+        call ProjectCoord
         fmul dword [byte esi+04h]
         fld st0
         fmul dword [byte ebp+032h]
@@ -621,7 +621,7 @@ sub_1038B0:
         lea ebx, [byte ebp-05Eh]
         lea edx, [byte ebp-0Eh]
         mov eax, 8
-        call sub_FF128
+        call FloatsToInts
         cmp dword [dword_16FA10], byte 0
         je short .9
         mov ecx, dword [esi]
@@ -728,11 +728,11 @@ sub_103E14:
         mov edx, dword [byte edx+08h]
         mov eax, dword [byte eax+0Ch]
         fstp qword [byte ebp+022h]
-        call sub_FF600
+        call VecSub
         mov edx, dword [byte ebp+07Eh]
         lea eax, [byte ebp+016h]
         mov edx, dword [byte edx+08h]
-        call sub_FF958
+        call VecAngle
         fmul qword [qword_167E0C]
         fmul qword [qword_167E14]
         mov edx, dword [byte ebp+07Eh]
@@ -752,7 +752,7 @@ sub_103E14:
         mov eax, dword [byte edx+08h]
         push dword [byte edx+014h]
         push dword [byte eax+08h]
-        call sub_FFBB4
+        call ProjectCoord
         fmul dword [byte esi+04h]
         fld st0
         fmul dword [byte ebp+04Eh]
@@ -898,7 +898,7 @@ sub_103E14:
         push dword [byte eax+018h]
         mov eax, dword [byte eax+0Ch]
         push dword [byte eax+08h]
-        call sub_FFBB4
+        call ProjectCoord
         fmul dword [byte esi+04h]
         fld st0
         fmul dword [byte ebp+04Eh]
@@ -1046,7 +1046,7 @@ sub_103E14:
         lea ebx, [byte ebp-05Ah]
         lea edx, [byte ebp-0Ah]
         mov eax, 8
-        call sub_FF128
+        call FloatsToInts
         cmp dword [dword_16FA10], byte 0
         je short .7
         mov eax, dword [esi]

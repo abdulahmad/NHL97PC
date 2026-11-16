@@ -11,17 +11,17 @@ extern dword_1CF544, dword_1CF550, dword_1CF554, dword_1CF558, dword_1CF598, dwo
 extern dword_1CF5B0, dword_1CF5B4, dword_1CF5B8, dword_1CF5BC, dword_1CF5C0, dword_1CF5C4, dword_1CF5C8, dword_1CF5CC
 extern dword_1CF5D0, dword_1CF5D4, dword_1CF5D8, dword_1CF5DC, dword_1CF5E0, dword_1CF5E4, dword_1CF5E8, dword_1CF5EC
 extern dword_1CF5F0, dword_1DA4D0, mem_putc_, qword_167DA1, qword_167DA9, qword_167DB1, qword_167DB9, strcmp_
-extern Random32, sub_1155B0, sub_116830, sub_11ADD0, sub_11ADE8, sub_11F8E0, sub_11F94C, sub_11FA98
+extern Random32, PlotPixelRGB, PlotPixel, SaveTextState, RestoreTextState, sub_11F8E0, sub_11F94C, sub_11FA98
 extern sub_11FAAC, sub_124C30, sub_124D78, sub_124DB0, sub_124E1C, sub_124FB9, MakeColor, FillRect
-global IF@ATAN, IF@ATAN2, IF@DPOW, hypot_, sub_FE470_494, sub_FE470_590, sub_FEDEC_72, sub_FF128_47
-global sub_FFCC4_DF, sprintf_, sub_1001F8, sub_1003CD, sub_FDE44, sub_FDE80, sub_FDED0, sub_FDF28
-global sub_FDF64, sub_FE150, sub_FE180, sub_FE2F0, sub_FE3AC, sub_FE3D0, sub_FE470, sub_FEBFC
-global sub_FEDEC, sub_FEE60, sub_FEE78, sub_FEF68, sub_FEFA0, sub_FEFC4, sub_FF044, sub_FF128
-global sub_FF174, sub_FF198, sub_FF1FC, sub_FF260, sub_FF320, sub_FF368, sub_FF444, sub_FF48C
-global sub_FF580, sub_FF5E0, sub_FF600, sub_FF620, sub_FF690, sub_FF6D0, sub_FF710, sub_FF798
-global sub_FF7DC, sub_FF7F4, sub_FF818, sub_FF874, sub_FF8CC, sub_FF940, sub_FF958, sub_FFA14
-global sub_FFA44, sub_FFA9C, sub_FFBA4, sub_FFBB4, sub_FFBC8, sub_FFBE0, sub_FFCC4, sub_FFDAC
-global sub_FFE8C, sub_FFED8
+global IF@ATAN, IF@ATAN2, IF@DPOW, hypot_, DrawGlyph_494, DrawGlyph_590, PrepareTextDraw_72, FloatsToInts_47
+global ProjectPointsWithZ_DF, sprintf_, ProjectPointFloat, PowIntLoop, MeasureText, FindGlyph, GetGlyph, GetKerning
+global DrawTextRun, DrawTextAt, SetTextColors, DrawTextBoxed, DrawTextBoxedAt, FillRectCorners, DrawGlyph, BuildTextColorTable
+global PrepareTextDraw, RefreshTextColors, BuildColorRamp, FreeTextBuffers, ClearIfNaN, matherr, IntsToFloats, FloatsToInts
+global ScaleFloatsToInts, MatRotX, MatRotY, MatRotZ, MatTranspose, MatMul, VecMulMat, TransformVecs
+global TransformTranslateVecs, VecAdd, VecSub, OffsetVecs, AddVecs, SubVecs, VecCross, VecDistance
+global VecLength, VecScale, VecNormalizeTo, VecNormalize, VecCrossUnit, VecDot, VecAngle, SetViewScale
+global SetFocalLength, SetProjectionCenter, PerspectiveScale, ProjectCoord, ProjectCoordInt, ProjectPoints, ProjectPointsWithZ, ProjectPointsToScreen
+global ProjectPointInt, ClipProjectPoints
 ;-----------------------------------------------------------------------------
 ; sprintf_                                                      FDDD4  library
 ;-----------------------------------------------------------------------------
@@ -67,9 +67,10 @@ sprintf_:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_FDE44                                                            FDE44  
+; MeasureText                                     FDE44  97 PC, low confidence
+; Font library: returns the width in pixels of a string in the current font
 ;-----------------------------------------------------------------------------
-sub_FDE44:
+MeasureText:
         sub esp, byte 10h
         mov eax, esp
         push eax
@@ -89,9 +90,11 @@ sub_FDE44:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_FDE80                                                            FDE80  
+; FindGlyph                                       FDE80  97 PC, low confidence
+; Font library: binary search of a character code in a glyph table; returns
+; the entry or 0
 ;-----------------------------------------------------------------------------
-sub_FDE80:
+FindGlyph:
         push esi
         push edi
         push ebp
@@ -137,9 +140,11 @@ sub_FDE80:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_FDED0                                                            FDED0  
+; GetGlyph                                        FDED0  97 PC, low confidence
+; Font library: returns the glyph of a character (direct index, else a
+; search)
 ;-----------------------------------------------------------------------------
-sub_FDED0:
+GetGlyph:
         push ebx
         push ecx
         push edx
@@ -170,16 +175,18 @@ sub_FDED0:
         mov ecx, 0Bh
         mov ebx, dword [dword_1CF598]
         mov eax, esi
-        call sub_FDE80
+        call FindGlyph
         pop esi
         pop edx
         pop ecx
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_FDF28                                                            FDF28  
+; GetKerning                                      FDF28  97 PC, low confidence
+; Font library: returns the kerning between two characters from the font's
+; pair list, 0 if none
 ;-----------------------------------------------------------------------------
-sub_FDF28:
+GetKerning:
         push ebx
         push ecx
         push esi
@@ -214,9 +221,11 @@ sub_FDF28:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_FDF64                                                            FDF64  
+; DrawTextRun                                     FDF64  97 PC, low confidence
+; Font library: draws a string at the text position with the current font,
+; colours and kerning
 ;-----------------------------------------------------------------------------
-sub_FDF64:
+DrawTextRun:
         push ebx
         push esi
         push edi
@@ -249,7 +258,7 @@ sub_FDF64:
         call dword [dword_1CF5BC]
 .1:
         mov eax, 20h
-        call sub_FDED0
+        call GetGlyph
         test eax, eax
         je short .2
         mov eax, dword [byte eax+05h]
@@ -265,7 +274,7 @@ sub_FDF64:
         mov dword [byte esp+034h], eax
         cmp eax, byte 20h
         jle near .5
-        call sub_FDED0
+        call GetGlyph
         mov edx, eax
         mov edi, eax
         test eax, eax
@@ -292,7 +301,7 @@ sub_FDF64:
         je short .3
         mov edx, dword [byte esp+02Ch]
         mov eax, ebx
-        call sub_FDF28
+        call GetKerning
         add esi, eax
 .3:
         mov eax, dword [byte edi+06h]
@@ -372,9 +381,10 @@ sub_FDF64:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_FE150                                                            FE150  
+; DrawTextAt                                      FE150  97 PC, low confidence
+; Font library: (x, y, string) moves the text position and draws the string
 ;-----------------------------------------------------------------------------
-sub_FE150:
+DrawTextAt:
         push ebx
         mov edx, dword [byte esp+010h]
         push edx
@@ -384,15 +394,17 @@ sub_FE150:
         add esp, byte 8
         mov ecx, dword [byte esp+08h]
         push ecx
-        call sub_FDF64
+        call DrawTextRun
         add esp, byte 4
         pop ebx
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_FE180                                                            FE180  
+; SetTextColors                                   FE180  97 PC, low confidence
+; Font library: sets the text and background colours, rebuilding the colour
+; tables when they change
 ;-----------------------------------------------------------------------------
-sub_FE180:
+SetTextColors:
         push ebx
         push esi
         push edi
@@ -497,7 +509,7 @@ sub_FE180:
         mov byte [byte esp+027h], ah
         cmp ebx, byte 40h
         jne near .2
-        call sub_FEE60
+        call RefreshTextColors
 .3:
         add esp, byte 30h
         pop ebp
@@ -507,9 +519,10 @@ sub_FE180:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_FE2F0                                                            FE2F0  
+; DrawTextBoxed                                   FE2F0  97 PC, low confidence
+; Font library: draws a string on a filled background box
 ;-----------------------------------------------------------------------------
-sub_FE2F0:
+DrawTextBoxed:
         push ebx
         push esi
         push edi
@@ -517,7 +530,7 @@ sub_FE2F0:
         sub esp, 0BCh
         mov eax, esp
         push eax
-        call sub_11ADD0
+        call SaveTextState
         add esp, byte 4
         push byte 0
         call sub_11FAAC
@@ -526,7 +539,7 @@ sub_FE2F0:
         push edx
         mov ebx, dword [dword_1CF550]
         push ebx
-        call sub_FE180
+        call SetTextColors
         add esp, byte 8
         lea eax, [dword esp+0ACh]
         push eax
@@ -554,11 +567,11 @@ sub_FE2F0:
         add esp, byte 14h
         mov ebx, dword [dword esp+0D0h]
         push ebx
-        call sub_FDF64
+        call DrawTextRun
         add esp, byte 4
         mov eax, esp
         push eax
-        call sub_11ADE8
+        call RestoreTextState
         add esp, byte 4
         add esp, 0BCh
         pop ebp
@@ -568,9 +581,11 @@ sub_FE2F0:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_FE3AC                                                            FE3AC  
+; DrawTextBoxedAt                                 FE3AC  97 PC, low confidence
+; Font library: (x, y, string) moves the text position and draws the string
+; on its box
 ;-----------------------------------------------------------------------------
-sub_FE3AC:
+DrawTextBoxedAt:
         push ebx
         mov edx, dword [byte esp+010h]
         push edx
@@ -580,15 +595,16 @@ sub_FE3AC:
         add esp, byte 8
         mov ecx, dword [byte esp+08h]
         push ecx
-        call sub_FE2F0
+        call DrawTextBoxed
         add esp, byte 4
         pop ebx
         ret
         db 00h,00h
 ;-----------------------------------------------------------------------------
-; sub_FE3D0                                                            FE3D0  
+; FillRectCorners                                 FE3D0  97 PC, low confidence
+; Fills the rectangle between two corners given in any order
 ;-----------------------------------------------------------------------------
-sub_FE3D0:
+FillRectCorners:
         push ebx
         push esi
         push edi
@@ -662,9 +678,11 @@ sub_FE3D0:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_FE470                                                            FE470  
+; DrawGlyph                                       FE470  97 PC, low confidence
+; Font library: draws one glyph bitmap with the text colour table, clipped to
+; the window
 ;-----------------------------------------------------------------------------
-sub_FE470:
+DrawGlyph:
         push esi
         push edi
         push ebp
@@ -1008,7 +1026,7 @@ sub_FE470:
         push ecx
         add eax, ebx
         push eax
-        call sub_1155B0
+        call PlotPixelRGB
         add esp, byte 0Ch
 .18:
         mov eax, dword [byte esp+020h]
@@ -1019,7 +1037,7 @@ sub_FE470:
         mov ecx, dword [byte esp+020h]
         push ecx
         push esi
-        call sub_1155B0
+        call PlotPixelRGB
         add esp, byte 0Ch
 .19:
         mov ecx, dword [byte esp+040h]
@@ -1043,7 +1061,7 @@ sub_FE470:
         pop esi
         ret 10h
         db 090h
-sub_FE470_494:
+DrawGlyph_494:
         push esi
         push edi
         push ebp
@@ -1101,7 +1119,7 @@ sub_FE470_494:
         mov eax, dword [byte esp+01Ch]
         add eax, ebx
         push eax
-        call sub_116830
+        call PlotPixel
         add esp, byte 0Ch
 .24:
         test ebp, ebp
@@ -1113,7 +1131,7 @@ sub_FE470_494:
         mov ecx, dword [byte esp+01Ch]
         push ecx
         push esi
-        call sub_116830
+        call PlotPixel
         add esp, byte 0Ch
 .25:
         mov ebp, dword [byte esp+030h]
@@ -1139,7 +1157,7 @@ sub_FE470_494:
         pop esi
         ret 10h
         db 090h
-sub_FE470_590:
+DrawGlyph_590:
         push esi
         push edi
         push ebp
@@ -1213,7 +1231,7 @@ sub_FE470_590:
         push esi
         add eax, ebp
         push eax
-        call sub_116830
+        call PlotPixel
         add esp, byte 0Ch
 .30:
         test bl, 40h
@@ -1222,7 +1240,7 @@ sub_FE470_590:
         push esi
         mov edx, dword [byte esp+02Ch]
         push edx
-        call sub_116830
+        call PlotPixel
         add esp, byte 0Ch
 .31:
         test bl, 20h
@@ -1231,7 +1249,7 @@ sub_FE470_590:
         push esi
         mov ecx, dword [byte esp+034h]
         push ecx
-        call sub_116830
+        call PlotPixel
         add esp, byte 0Ch
 .32:
         test bl, 10h
@@ -1240,7 +1258,7 @@ sub_FE470_590:
         push esi
         mov eax, dword [byte esp+028h]
         push eax
-        call sub_116830
+        call PlotPixel
         add esp, byte 0Ch
 .33:
         test bl, 8
@@ -1249,7 +1267,7 @@ sub_FE470_590:
         push esi
         mov edx, dword [byte esp+03Ch]
         push edx
-        call sub_116830
+        call PlotPixel
         add esp, byte 0Ch
 .34:
         test bl, 4
@@ -1258,7 +1276,7 @@ sub_FE470_590:
         push esi
         mov ecx, dword [byte esp+020h]
         push ecx
-        call sub_116830
+        call PlotPixel
         add esp, byte 0Ch
 .35:
         test bl, 2
@@ -1267,7 +1285,7 @@ sub_FE470_590:
         push esi
         mov eax, dword [byte esp+030h]
         push eax
-        call sub_116830
+        call PlotPixel
         add esp, byte 0Ch
 .36:
         test bl, 1
@@ -1276,7 +1294,7 @@ sub_FE470_590:
         push esi
         mov edx, dword [byte esp+038h]
         push edx
-        call sub_116830
+        call PlotPixel
         add esp, byte 0Ch
 .37:
         mov ecx, dword [byte esp+024h]
@@ -1323,9 +1341,11 @@ sub_FE470_590:
         ret 10h
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_FEBFC                                                            FEBFC  
+; BuildTextColorTable                             FEBFC  97 PC, low confidence
+; Font library: finds the palette colours nearest to the anti-aliasing shades
+; of the text colour
 ;-----------------------------------------------------------------------------
-sub_FEBFC:
+BuildTextColorTable:
         push ebx
         push ecx
         push esi
@@ -1457,9 +1477,11 @@ sub_FEBFC:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_FEDEC                                                            FEDEC  
+; PrepareTextDraw                                 FEDEC  97 PC, low confidence
+; Font library: allocates the glyph work buffer and refreshes the colour
+; tables before drawing
 ;-----------------------------------------------------------------------------
-sub_FEDEC:
+PrepareTextDraw:
         push ebx
         cmp dword [dword_1CF5B0], byte 0
         jne short .1
@@ -1474,36 +1496,43 @@ sub_FEDEC:
         cmp dword [dword_1CF538], byte 4
         jne short .2
         mov eax, dword [dword_1CF550]
-        call sub_FEE78
+        call BuildColorRamp
 .2:
         cmp dword [dword_1CF538], byte 1
         jne short .3
-        mov dword [dword_1CF5B8], sub_FE470_590
+        mov dword [dword_1CF5B8], DrawGlyph_590
         pop ebx
         ret
 .3:
         cmp dword [dword_1CF53C], byte 0
         je short .4
-        mov dword [dword_1CF5B8], sub_FE470
+        mov dword [dword_1CF5B8], DrawGlyph
         pop ebx
         ret
 .4:
-        mov dword [dword_1CF5B8], sub_FE470_494
+        mov dword [dword_1CF5B8], DrawGlyph_494
         pop ebx
-sub_FEDEC_72:
+PrepareTextDraw_72:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_FEE60                                                            FEE60  
+; RefreshTextColors                               FEE60  97 PC, low confidence
+; Font library: entry that rebuilds the text colour ramp when anti-aliased
+; text is on
 ;-----------------------------------------------------------------------------
-sub_FEE60:
+RefreshTextColors:
         cmp dword [dword_1CF53C], byte 0
-        je short sub_FEDEC_72
+        je short PrepareTextDraw_72
         cmp dword [dword_1CF538], byte 4
-        jne short sub_FEDEC_72
+        jne short PrepareTextDraw_72
         mov eax, dword [dword_1CF550]
         nop
-sub_FEE78:
+;-----------------------------------------------------------------------------
+; BuildColorRamp                                  FEE78  97 PC, low confidence
+; Font library: builds the ramp of colours from the background to the text
+; colour
+;-----------------------------------------------------------------------------
+BuildColorRamp:
         push ebx
         push ecx
         push edx
@@ -1572,7 +1601,7 @@ sub_FEE78:
         mov edx, dword [dword_1CF5B0]
         mov eax, dword [byte esp+08h]
         add edx, byte 40h
-        call sub_FEBFC
+        call BuildTextColorTable
         add esp, byte 18h
         pop ebp
         pop edi
@@ -1583,9 +1612,10 @@ sub_FEE78:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_FEF68                                                            FEF68  
+; FreeTextBuffers                                 FEF68  97 PC, low confidence
+; Font library: frees the glyph work buffer
 ;-----------------------------------------------------------------------------
-sub_FEF68:
+FreeTextBuffers:
         push ebx
         push edx
         push esi
@@ -1606,9 +1636,11 @@ sub_FEF68:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_FEFA0                                                            FEFA0  
+; ClearIfNaN                                      FEFA0  97 PC, low confidence
+; 3D library: sets a float to 0 when it is NaN or infinite; returns 1 if it
+; did
 ;-----------------------------------------------------------------------------
-sub_FEFA0:
+ClearIfNaN:
         push edx
         mov edx, dword [eax]
         and edx, 7F800000h
@@ -1624,9 +1656,11 @@ sub_FEFA0:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_FEFC4                                                            FEFC4  
+; matherr                                         FEFC4  97 PC, low confidence
+; The game's math error handler: for an acos domain error returns 0 instead
+; of an error
 ;-----------------------------------------------------------------------------
-sub_FEFC4:
+matherr:
         push ebx
         push ecx
         push edx
@@ -1680,9 +1714,10 @@ sub_FEFC4:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_FF044                                                            FF044  
+; IntsToFloats                                    FF044  97 PC, low confidence
+; 3D library: converts a list of integers to floats
 ;-----------------------------------------------------------------------------
-sub_FF044:
+IntsToFloats:
         push ecx
         cmp eax, byte 8
         jle short .2
@@ -1766,9 +1801,10 @@ sub_FF044:
         fstp dword [byte ebx-04h]
         jmp short .5
 ;-----------------------------------------------------------------------------
-; sub_FF128                                                            FF128  
+; FloatsToInts                                    FF128  97 PC, low confidence
+; 3D library: converts a list of floats to integers
 ;-----------------------------------------------------------------------------
-sub_FF128:
+FloatsToInts:
         push ecx
         push esi
         push edi
@@ -1804,21 +1840,23 @@ sub_FF128:
         nop
         pop edi
         pop esi
-sub_FF128_47:
+FloatsToInts_47:
         pop ecx
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_FF174                                                            FF174  
+; ScaleFloatsToInts                               FF174  97 PC, low confidence
+; 3D library: scales a list of floats by the fixed-point factor and stores
+; them as integers
 ;-----------------------------------------------------------------------------
-sub_FF174:
+ScaleFloatsToInts:
         push ecx
         mov ecx, eax
 .1:
         mov eax, ecx
         dec ecx
         test eax, eax
-        jle short sub_FF128_47
+        jle short FloatsToInts_47
         mov eax, edx
         fld dword [eax]
         fmul dword [dword_167D9D]
@@ -1830,9 +1868,10 @@ sub_FF174:
         mov dword [byte ebx-04h], eax
         jmp short .1
 ;-----------------------------------------------------------------------------
-; sub_FF198                                                            FF198  
+; MatRotX                                         FF198  97 PC, low confidence
+; 3D library: builds the matrix of a rotation about the X axis
 ;-----------------------------------------------------------------------------
-sub_FF198:
+MatRotX:
         push edx
         push esi
         push edi
@@ -1866,9 +1905,10 @@ sub_FF198:
         ret 4
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_FF1FC                                                            FF1FC  
+; MatRotY                                         FF1FC  97 PC, low confidence
+; 3D library: builds the matrix of a rotation about the Y axis
 ;-----------------------------------------------------------------------------
-sub_FF1FC:
+MatRotY:
         push edx
         push esi
         push edi
@@ -1902,9 +1942,10 @@ sub_FF1FC:
         ret 4
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_FF260                                                            FF260  
+; MatRotZ                                         FF260  97 PC, low confidence
+; 3D library: builds the matrix of a rotation about the Z axis
 ;-----------------------------------------------------------------------------
-sub_FF260:
+MatRotZ:
         push edx
         push esi
         push edi
@@ -1945,29 +1986,30 @@ sub_FF260:
         push dword [byte esp+07Ch]
         lea eax, [byte esp+04h]
         lea ebx, [byte esp+028h]
-        call sub_FF198
+        call MatRotX
         push dword [dword esp+080h]
         lea eax, [byte esp+04Ch]
         lea edx, [byte esp+04Ch]
-        call sub_FF1FC
+        call MatRotY
         mov eax, esp
-        call sub_FF368
+        call MatMul
         push dword [dword esp+084h]
         lea eax, [byte esp+04h]
         lea edx, [byte esp+04h]
-        call sub_FF260
+        call MatRotZ
         mov ebx, ecx
         lea eax, [byte esp+024h]
-        call sub_FF368
+        call MatMul
         add esp, byte 6Ch
         pop edx
         pop ecx
         pop ebx
         ret 0Ch
 ;-----------------------------------------------------------------------------
-; sub_FF320                                                            FF320  
+; MatTranspose                                    FF320  97 PC, low confidence
+; 3D library: copies a 3x3 matrix transposed
 ;-----------------------------------------------------------------------------
-sub_FF320:
+MatTranspose:
         push ebx
         sub esp, byte 4
         mov ebx, dword [eax]
@@ -1996,9 +2038,10 @@ sub_FF320:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_FF368                                                            FF368  
+; MatMul                                          FF368  97 PC, low confidence
+; 3D library: multiplies two 3x3 matrices
 ;-----------------------------------------------------------------------------
-sub_FF368:
+MatMul:
         fld dword [byte eax+04h]
         fmul dword [byte edx+0Ch]
         fld dword [eax]
@@ -2083,9 +2126,10 @@ sub_FF368:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_FF444                                                            FF444  
+; VecMulMat                                       FF444  97 PC, low confidence
+; 3D library: multiplies a vector by a 3x3 matrix
 ;-----------------------------------------------------------------------------
-sub_FF444:
+VecMulMat:
         fld dword [byte eax+04h]
         fmul dword [byte edx+0Ch]
         fld dword [eax]
@@ -2116,9 +2160,10 @@ sub_FF444:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_FF48C                                                            FF48C  
+; TransformVecs                                   FF48C  97 PC, low confidence
+; 3D library: multiplies a list of vectors by a matrix
 ;-----------------------------------------------------------------------------
-sub_FF48C:
+TransformVecs:
         push esi
         push edi
         sub esp, byte 0Ch
@@ -2220,9 +2265,10 @@ sub_FF48C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_FF580                                                            FF580  
+; TransformTranslateVecs                          FF580  97 PC, low confidence
+; 3D library: multiplies a list of vectors by a matrix and adds an offset
 ;-----------------------------------------------------------------------------
-sub_FF580:
+TransformTranslateVecs:
         push esi
         push edi
         push ebp
@@ -2230,7 +2276,7 @@ sub_FF580:
         mov esi, eax
         mov ebp, ecx
         mov ecx, edi
-        call sub_FF48C
+        call TransformVecs
         mov edx, ebp
         test esi, esi
         je short .2
@@ -2257,16 +2303,17 @@ sub_FF580:
         mov ebx, dword [byte esp+014h]
         mov edx, edi
         mov eax, esi
-        call sub_FFED8
+        call ClipProjectPoints
         pop ebp
         pop edi
         pop esi
         ret 8
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_FF5E0                                                            FF5E0  
+; VecAdd                                          FF5E0  97 PC, low confidence
+; 3D library: adds two vectors
 ;-----------------------------------------------------------------------------
-sub_FF5E0:
+VecAdd:
         push ecx
         mov ecx, eax
         mov eax, ebx
@@ -2283,9 +2330,10 @@ sub_FF5E0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_FF600                                                            FF600  
+; VecSub                                          FF600  97 PC, low confidence
+; 3D library: subtracts one vector from another
 ;-----------------------------------------------------------------------------
-sub_FF600:
+VecSub:
         push ecx
         mov ecx, eax
         mov eax, ebx
@@ -2302,9 +2350,10 @@ sub_FF600:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_FF620                                                            FF620  
+; OffsetVecs                                      FF620  97 PC, low confidence
+; 3D library: adds a vector to every vector of a list in place
 ;-----------------------------------------------------------------------------
-sub_FF620:
+OffsetVecs:
         push ecx
         mov ecx, eax
         test eax, eax
@@ -2358,9 +2407,10 @@ sub_FF620:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_FF690                                                            FF690  
+; AddVecs                                         FF690  97 PC, low confidence
+; 3D library: writes a list of vectors plus an offset to another list
 ;-----------------------------------------------------------------------------
-sub_FF690:
+AddVecs:
         push esi
         push edi
         mov esi, eax
@@ -2393,9 +2443,10 @@ sub_FF690:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_FF6D0                                                            FF6D0  
+; SubVecs                                         FF6D0  97 PC, low confidence
+; 3D library: writes a list of vectors minus an offset to another list
 ;-----------------------------------------------------------------------------
-sub_FF6D0:
+SubVecs:
         push esi
         push edi
         mov esi, eax
@@ -2428,9 +2479,10 @@ sub_FF6D0:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_FF710                                                            FF710  
+; VecCross                                        FF710  97 PC, low confidence
+; 3D library: cross product of two vectors
 ;-----------------------------------------------------------------------------
-sub_FF710:
+VecCross:
         push ecx
         mov ecx, eax
         fld dword [byte ecx+04h]
@@ -2489,9 +2541,10 @@ sub_FF710:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_FF798                                                            FF798  
+; VecDistance                                     FF798  97 PC, low confidence
+; 3D library: distance between two points
 ;-----------------------------------------------------------------------------
-sub_FF798:
+VecDistance:
         push esi
         push edi
         sub esp, byte 0Ch
@@ -2522,9 +2575,10 @@ sub_FF798:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_FF7DC                                                            FF7DC  
+; VecLength                                       FF7DC  97 PC, low confidence
+; 3D library: length of a vector
 ;-----------------------------------------------------------------------------
-sub_FF7DC:
+VecLength:
         fld dword [eax]
         fmul st0
         fld dword [byte eax+04h]
@@ -2537,9 +2591,10 @@ sub_FF7DC:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_FF7F4                                                            FF7F4  
+; VecScale                                        FF7F4  97 PC, low confidence
+; 3D library: multiplies a vector by a number
 ;-----------------------------------------------------------------------------
-sub_FF7F4:
+VecScale:
         push edx
         mov edx, dword [byte esp+0Ch]
         fld dword [byte esp+08h]
@@ -2556,9 +2611,10 @@ sub_FF7F4:
         ret 8
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_FF818                                                            FF818  
+; VecNormalizeTo                                  FF818  97 PC, low confidence
+; 3D library: writes a vector scaled to length 1; returns the old length
 ;-----------------------------------------------------------------------------
-sub_FF818:
+VecNormalizeTo:
         push ebx
         push edx
         sub esp, byte 8
@@ -2598,9 +2654,10 @@ sub_FF818:
         ret 8
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_FF874                                                            FF874  
+; VecNormalize                                    FF874  97 PC, low confidence
+; 3D library: scales a vector to length 1 in place
 ;-----------------------------------------------------------------------------
-sub_FF874:
+VecNormalize:
         push ebx
         sub esp, byte 8
         mov ebx, eax
@@ -2639,9 +2696,10 @@ sub_FF874:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_FF8CC                                                            FF8CC  
+; VecCrossUnit                                    FF8CC  97 PC, low confidence
+; 3D library: cross product of two vectors scaled to length 1
 ;-----------------------------------------------------------------------------
-sub_FF8CC:
+VecCrossUnit:
         push ecx
         sub esp, byte 4
         mov ecx, eax
@@ -2683,7 +2741,7 @@ sub_FF8CC:
         sub esp, byte 4
         mov eax, ebx
         fstp dword [esp]
-        call sub_FF7F4
+        call VecScale
 .1:
         mov eax, ebx
         add esp, byte 4
@@ -2691,9 +2749,10 @@ sub_FF8CC:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_FF940                                                            FF940  
+; VecDot                                          FF940  97 PC, low confidence
+; 3D library: dot product of two vectors
 ;-----------------------------------------------------------------------------
-sub_FF940:
+VecDot:
         fld dword [byte eax+04h]
         fmul dword [byte edx+04h]
         fld dword [eax]
@@ -2705,9 +2764,10 @@ sub_FF940:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_FF958                                                            FF958  
+; VecAngle                                        FF958  97 PC, low confidence
+; 3D library: angle between two vectors (acos of the normalized dot product)
 ;-----------------------------------------------------------------------------
-sub_FF958:
+VecAngle:
         sub esp, byte 0Ch
         fld dword [byte eax+04h]
         fmul dword [byte edx+04h]
@@ -2781,9 +2841,10 @@ sub_FF958:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_FFA14                                                            FFA14  
+; SetViewScale                                    FFA14  97 PC, low confidence
+; 3D library: sets the projection scale of the view
 ;-----------------------------------------------------------------------------
-sub_FFA14:
+SetViewScale:
         push ecx
         push edx
         sub esp, byte 4
@@ -2802,9 +2863,10 @@ sub_FFA14:
         ret 4
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_FFA44                                                            FFA44  
+; SetFocalLength                                  FFA44  97 PC, low confidence
+; 3D library: sets the focal length of the projection, kept in range
 ;-----------------------------------------------------------------------------
-sub_FFA44:
+SetFocalLength:
         push edx
         push ebp
         mov ebp, esp
@@ -2837,9 +2899,11 @@ sub_FFA44:
         mov dword [dword_170254], eax
         ret
 ;-----------------------------------------------------------------------------
-; sub_FFA9C                                                            FFA9C  
+; SetProjectionCenter                             FFA9C  97 PC, low confidence
+; 3D library: sets the screen centre of the projection from the view size and
+; origin
 ;-----------------------------------------------------------------------------
-sub_FFA9C:
+SetProjectionCenter:
         push edx
         push esi
         push edi
@@ -2911,26 +2975,29 @@ sub_FFA9C:
         pop edx
         ret 0Ch
 ;-----------------------------------------------------------------------------
-; sub_FFBA4                                                            FFBA4  
+; PerspectiveScale                                FFBA4  97 PC, low confidence
+; 3D library: focal length divided by depth
 ;-----------------------------------------------------------------------------
-sub_FFBA4:
+PerspectiveScale:
         fld dword [dword_1CF5EC]
         fdiv dword [byte esp+04h]
         ret 4
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_FFBB4                                                            FFBB4  
+; ProjectCoord                                    FFBB4  97 PC, low confidence
+; 3D library: projects one coordinate: value times focal length over depth
 ;-----------------------------------------------------------------------------
-sub_FFBB4:
+ProjectCoord:
         fld dword [byte esp+08h]
         fmul dword [dword_1CF5EC]
         fdiv dword [byte esp+04h]
         ret 8
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_FFBC8                                                            FFBC8  
+; ProjectCoordInt                                 FFBC8  97 PC, low confidence
+; 3D library: projects one coordinate to an integer screen position
 ;-----------------------------------------------------------------------------
-sub_FFBC8:
+ProjectCoordInt:
         fld dword [byte esp+08h]
         fmul dword [dword_1CF5E0]
         fdiv dword [byte esp+04h]
@@ -2940,9 +3007,10 @@ sub_FFBC8:
         ret 8
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_FFBE0                                                            FFBE0  
+; ProjectPoints                                   FFBE0  97 PC, low confidence
+; 3D library: projects a list of view-space points to the screen
 ;-----------------------------------------------------------------------------
-sub_FFBE0:
+ProjectPoints:
         push ecx
         push esi
         push edi
@@ -3024,9 +3092,10 @@ sub_FFBE0:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_FFCC4                                                            FFCC4  
+; ProjectPointsWithZ                              FFCC4  97 PC, low confidence
+; 3D library: projects a list of points to the screen and keeps their depth
 ;-----------------------------------------------------------------------------
-sub_FFCC4:
+ProjectPointsWithZ:
         push ecx
         push esi
         push edi
@@ -3051,7 +3120,7 @@ sub_FFCC4:
         xor edi, edi
 .1:
         test ecx, ecx
-        je near sub_FFCC4_DF
+        je near ProjectPointsWithZ_DF
         sub ebx, byte 8
         dec ecx
         mov eax, dword [byte edx-04h]
@@ -3079,7 +3148,7 @@ sub_FFCC4:
         xor edi, edi
 .3:
         test ecx, ecx
-        je short sub_FFCC4_DF
+        je short ProjectPointsWithZ_DF
         sub ebx, byte 8
         dec ecx
         mov eax, dword [byte edx-04h]
@@ -3105,7 +3174,7 @@ sub_FFCC4:
         mov eax, ebx
         fistp dword [eax]
         jmp short .3
-sub_FFCC4_DF:
+ProjectPointsWithZ_DF:
         mov esp, ebp
         pop ebp
         pop edi
@@ -3114,9 +3183,10 @@ sub_FFCC4_DF:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_FFDAC                                                            FFDAC  
+; ProjectPointsToScreen                           FFDAC  97 PC, low confidence
+; 3D library: projects a list of points to integer screen positions
 ;-----------------------------------------------------------------------------
-sub_FFDAC:
+ProjectPointsToScreen:
         push ecx
         push esi
         push edi
@@ -3141,7 +3211,7 @@ sub_FFDAC:
         xor edi, edi
 .1:
         test ecx, ecx
-        je short sub_FFCC4_DF
+        je short ProjectPointsWithZ_DF
         sub ebx, byte 8
         dec ecx
         mov eax, dword [byte edx-04h]
@@ -3169,7 +3239,7 @@ sub_FFDAC:
         xor edi, edi
 .3:
         test ecx, ecx
-        je near sub_FFCC4_DF
+        je near ProjectPointsWithZ_DF
         sub ebx, byte 8
         dec ecx
         mov eax, dword [byte edx-04h]
@@ -3197,9 +3267,10 @@ sub_FFDAC:
         jmp short .3
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_FFE8C                                                            FFE8C  
+; ProjectPointInt                                 FFE8C  97 PC, low confidence
+; 3D library: projects one point to integer screen coordinates
 ;-----------------------------------------------------------------------------
-sub_FFE8C:
+ProjectPointInt:
         push ebx
         sub esp, byte 4
         mov ebx, eax
@@ -3227,9 +3298,10 @@ sub_FFE8C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_FFED8                                                            FFED8  
+; ClipProjectPoints                               FFED8  97 PC, low confidence
+; 3D library: clips a list of points against the near plane and projects them
 ;-----------------------------------------------------------------------------
-sub_FFED8:
+ClipProjectPoints:
         push ecx
         push esi
         push edi
@@ -3480,9 +3552,11 @@ sub_FFED8:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_1001F8                                                          1001F8  
+; ProjectPointFloat                              1001F8  97 PC, low confidence
+; 3D library: projects one point to float screen coordinates when it is in
+; front of the camera
 ;-----------------------------------------------------------------------------
-sub_1001F8:
+ProjectPointFloat:
         push ebx
         sub esp, byte 4
         mov ebx, eax
@@ -3636,7 +3710,7 @@ IF@DPOW:
         or ax, ax
         jne short .6
         mov ax, word [byte ebp-04h]
-        call sub_1003CD
+        call PowIntLoop
         jmp short .8
 .6:
         inc ax
@@ -3644,7 +3718,7 @@ IF@DPOW:
         or ax, word [byte ebp-04h]
         je short .11
         neg ax
-        call sub_1003CD
+        call PowIntLoop
         fld1
         test byte [byte_17268C], 1
         jne short .7
@@ -3694,13 +3768,15 @@ IF@DPOW:
         pop ebp
         ret
 ;-----------------------------------------------------------------------------
-; sub_1003CD                                                          1003CD  
+; PowIntLoop                                     1003CD  97 PC, low confidence
+; Math library: raises st(0) to an integer power by repeated squaring (used
+; by pow)
 ;-----------------------------------------------------------------------------
-sub_1003CD:
+PowIntLoop:
         shr ax, 1
         jbe short .1
         fmul st0
-        jmp short sub_1003CD
+        jmp short PowIntLoop
 .1:
         jae short .5
         fld st0

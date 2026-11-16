@@ -14,7 +14,7 @@ extern dword_1C8F58, dword_1C8F5C, dword_1C8F62, dword_1C8F66, dword_1C8F6A, dwo
 extern dword_1C93C8, dword_1C93CC, dword_1C93D8, dword_1C93DC, dword_1C93E0, dword_1C94B8, jpt_9F6DD, memcpy_
 extern off_16D254, off_16D258, rand_, sprintf_, strcat_, strcmp_, strcpy_, strlen_
 extern sub_101324, BlitShape2, BlitArt, BlitShape, sub_1013FC, FindShape, sub_106D80, sub_107098
-extern sub_11A318, sub_11B0D0, sub_11B98E, sub_11B9A0, sub_11BA08, sub_11BA50, SetScreenTarget, SecondsToSamples
+extern ConvertArtXY, sub_11B0D0, sub_11B98E, sub_11B9A0, sub_11BA08, sub_11BA50, SetScreenTarget, SecondsToSamples
 extern WaitSoundTime, StopAllSfx, PlaySfx, MakeDirPath, LoadDataFile, sub_7EDF0, sub_7EEB0, SetRegionRect
 extern sub_7F04C, SetTextColor, DrawTextAligned, sub_7F5A4, sub_81114, sub_81650, sub_83314, sub_834EC
 extern sub_83558, sub_835BC, sub_83850, NameIndexNew, NameIndexLoad, NameIndexSave, NameIndexFree, sub_86500
@@ -24,7 +24,7 @@ extern sub_AC73E, sub_DA7D6, sub_DCBB0, sub_DCC75, OpenLeagueFile, sub_DE5A3, su
 extern sub_E076B, sub_E0841, sub_E08E9, sub_E0D0F, sub_E0F85, sub_E19D5, sub_E1C19, OpenReplayFile
 extern sub_E1D45, sub_E3410, sub_E341C, sub_E4218, LinkSendBlock, LinkReceiveBlock, sub_ED6C8, sub_EDDAC
 extern AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, sub_FCF84, DrawShape, CreateBitmap, SetDrawTarget
-extern sub_FDC68, sub_FE150, sub_FE180, tickcount, unk_165E4A, unk_16D7F4, unk_1ACB44, unk_1ACB49
+extern sub_FDC68, DrawTextAt, SetTextColors, tickcount, unk_165E4A, unk_16D7F4, unk_1ACB44, unk_1ACB49
 extern unk_1ACD2B, unk_1ACD30, unk_1ACE38, unk_1AD22E, unk_1AD236, unk_1AD250, unk_1AD255, unk_1AD35D
 extern unk_1AD73A, unk_1C5EF8, unk_1C5F4A, unk_1C8F9A, unk_1C93D0, unk_9F5F1, unk_9F611, unk_9F631
 extern unk_9F651, word_1ACB47, word_1AD240, word_1AD242, word_1C13C2, word_1C34E5, word_1C9450, word_1C94EE
@@ -1845,7 +1845,7 @@ sub_A0C74:
         push byte 0
         push byte 0
         push dword [byte ebx+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         call sub_1013FC
         mov eax, dword [tickcount]
@@ -4366,31 +4366,31 @@ sub_A3136:
         call MakeColor
         add esp, byte 4
         push eax
-        call sub_FE180
+        call SetTextColors
         add esp, byte 8
         push ebx
         lea eax, [byte esi-01h]
         push eax
         push edi
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
         push ebx
         lea eax, [byte esi+01h]
         push eax
         push edi
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
         lea eax, [byte ebx-01h]
         push eax
         push esi
         push edi
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
         lea eax, [byte ebx+01h]
         push eax
         push esi
         push edi
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
         cmp dword [byte ebp-04h], byte 0
         je short .1
@@ -4404,12 +4404,12 @@ sub_A3136:
         call MakeColor
         add esp, byte 4
         push eax
-        call sub_FE180
+        call SetTextColors
         add esp, byte 8
         push ebx
         push esi
         push edi
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
         leave
         pop edi

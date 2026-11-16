@@ -157,9 +157,9 @@ extern strncmp_, strncpy_, strnicmp_, strupr_, sub_100498, sub_100700, SortIndic
 extern BlitShape2, FindShape, sub_101560, sub_101584, Random32, sub_1038B0, sub_103E14, sub_1043A4
 extern sub_1049D0, sub_106D80, sub_10B0D4, sub_10B580, sub_10CDE0, sub_10FB50, sub_10FB98, sub_10FBB0
 extern sub_10FD58, sub_10FE10, sub_10FE58, sub_10FE88, sub_10FFBC, sub_11002C, sub_11004C, sub_1100B4
-extern sub_110414, sub_1104F0, sub_11328, sub_114C4, sub_114FD0, sub_115020, sub_1150FC, sub_115150
-extern sub_115170, sub_1151A4, sub_115220, sub_1152B0, sub_115318, sub_1153AC, sub_1153DC, sub_115810
-extern sub_115830, sub_1158A0, sub_115B78, sub_115BB0, sub_115BD8, sub_115F98, sub_116050, IsPlayoffGame
+extern sub_110414, sub_1104F0, sub_11328, sub_114C4, TransformBoneVerts, SkinModelVerts, AttachModelFrame, AttachModel
+extern UpdateModelFrame, SkinModel, ScaleModelVerts, LoadModelFile, FindModelPart, ResetMorphVerts, ApplyMorphTarget, PlotPixelRGBAt
+extern CreateBitmapForArt, FixedSinCos, BlitShapeAt, SaveDrawContext, RestoreDrawContext, SetBitReader, ReadBits, IsPlayoffGame
 extern sub_119A8, setplayer, sub_12A10, Intermission, sub_13D50, sub_13DA4, sub_13EB4, sub_13EF0
 extern sub_13F28, RunSimFrames, ChangeViewSize, SetViewWindow, OpenFreeOverlay, ClearOverlayWindows, DrawGameOverlays, StartCameraPath
 extern SelectCameraView, CrowdForPlayer, ShotChanceCommentary, assreplace, assinsert, SetZoneFlags, GoaliePosTarget, Goal
@@ -172,10 +172,10 @@ extern sub_4C0C4, sub_4DA84, PeriodOver, sub_4DD9C, sub_4DDB0, sub_4FC50, sub_50
 extern sub_51BD8, sub_56798, sub_567B0, sub_568CC, sub_56908, sub_56A84, sub_56AE4, sub_56CD0
 extern sub_56CE4, sub_56CF8, sub_56D0C, sub_56DDC, sub_AA650, sub_BD61B, sub_E341C, AllocMemBlock
 extern sub_FAAB4, FreeMemBlock, sub_FB4A4, ZeroMem, FillMem, sub_FC330, sub_FC4BC, sub_FCC40
-extern FreeBitmap, SetDrawTarget, sub_FD954, sub_FDC0C, sub_FDC68, FillRect, sub_FDE44, sub_FE150
-extern sub_FE180, sub_FEFA0, sub_FF128, sub_FF198, sub_FF1FC, sub_FF320, sub_FF368, sub_FF444
-extern sub_FF48C, sub_FF580, sub_FF5E0, sub_FF600, sub_FF620, sub_FF6D0, sub_FF710, sub_FF798
-extern sub_FF7DC, sub_FF7F4, sub_FF940, sub_FFBA4, sub_FFBB4, sub_FFBE0, sub_FFE8C, sub_FFED8
+extern FreeBitmap, SetDrawTarget, sub_FD954, sub_FDC0C, sub_FDC68, FillRect, MeasureText, DrawTextAt
+extern SetTextColors, ClearIfNaN, FloatsToInts, MatRotX, MatRotY, MatTranspose, MatMul, VecMulMat
+extern TransformVecs, TransformTranslateVecs, VecAdd, VecSub, OffsetVecs, SubVecs, VecCross, VecDistance
+extern VecLength, VecScale, VecDot, PerspectiveScale, ProjectCoord, ProjectPoints, ProjectPointInt, ClipProjectPoints
 extern tickcount, unk_16B534, unk_16B718, unk_16B728, unk_16C338, unk_16E8A0, unk_19D6A0, unk_19E060
 extern unk_1ACB44, unk_1B1120, unk_1B13E8, unk_1B73F0, unk_1B7448, unk_1B7BA8, unk_1B85DC, unk_1B8BD0
 extern unk_1B8D88, unk_1B8FA8, unk_1B91AF, unk_1B92AB, unk_1B94E0, unk_1B9520, unk_1B9A58, unk_1B9CF8
@@ -297,7 +297,7 @@ sub_57324:
         mov edx, dword [byte edi+054h]
         mov ebx, dword [byte ebx+070h]
         xor esi, esi
-        call sub_115020
+        call SkinModelVerts
 .1:
         mov ebx, esi
         mov ecx, dword [dword edi+06F0h]
@@ -305,12 +305,12 @@ sub_57324:
         mov eax, dword [dword edi+06D4h]
         mov ecx, dword [byte ecx+070h]
         inc esi
-        call sub_114FD0
+        call TransformBoneVerts
         cmp esi, byte 5
         jl short .1
         mov ebx, dword [dword edi+06F0h]
         push ebx
-        call sub_1153AC
+        call ResetMorphVerts
         xor ecx, ecx
         add esp, byte 4
         mov dword [dword_1D91CC], ecx
@@ -383,7 +383,7 @@ sub_57324_D8:
         mov eax, dword [byte esp+01Ch]
         add eax, ebx
         push eax
-        call sub_115810
+        call PlotPixelRGBAt
         add esp, byte 0Ch
 .4:
         test ebp, ebp
@@ -395,7 +395,7 @@ sub_57324_D8:
         mov ecx, dword [byte esp+01Ch]
         push ecx
         push edi
-        call sub_115810
+        call PlotPixelRGBAt
         add esp, byte 0Ch
 .5:
         mov ebp, dword [byte esp+030h]
@@ -608,7 +608,7 @@ sub_576EC:
         push byte 20h
         mov edx, dword [nosplit eax*4+dword_1B8444]
         push edx
-        call sub_115830
+        call CreateBitmapForArt
         add esp, byte 8
         push eax
         mov ebx, eax
@@ -664,7 +664,7 @@ sub_57738:
         push byte 20h
         mov eax, dword [dword esi+06E4h]
         push eax
-        call sub_115830
+        call CreateBitmapForArt
         add esp, byte 8
         push eax
         mov dword [byte esp+08h], eax
@@ -684,7 +684,7 @@ sub_57738:
         mov byte [byte esi+027h], 0
         call strupr_
         push ecx
-        call sub_FDE44
+        call MeasureText
         mov edi, dword [dword esi+0700h]
         add esp, byte 4
         mov edi, dword [nosplit edi*4+dword_1B8428]
@@ -695,7 +695,7 @@ sub_57738:
         call sub_FC4BC
         add esp, byte 4
         push eax
-        call sub_FE180
+        call SetTextColors
         add esp, byte 8
         cmp edi, byte 1Fh
         sete al
@@ -713,7 +713,7 @@ sub_57738:
         push edx
         lea eax, [byte esi+014h]
         push eax
-        call sub_FE150
+        call DrawTextAt
         mov eax, dword [dword esi+0700h]
         add esp, byte 0Ch
         mov edx, dword [nosplit eax*4+dword_1B846C]
@@ -734,7 +734,7 @@ sub_57738:
         add esp, byte 0Ch
         mov eax, esp
         push eax
-        call sub_FDE44
+        call MeasureText
         mov edx, eax
         sar edx, 1Fh
         LD sub, eax, edx
@@ -746,7 +746,7 @@ sub_57738:
         push edx
         lea eax, [byte esp+08h]
         push eax
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
         mov ecx, dword [byte esp+04h]
         push ecx
@@ -836,7 +836,7 @@ LoadCupArt:
         add esp, byte 4
         mov edx, dword [dword_1B8540]
         mov eax, dword [dword_1B84F8]
-        call sub_115150
+        call AttachModel
         mov eax, dword [dword_1B84F8]
         push byte 0
         add eax, byte 2Ch
@@ -949,7 +949,7 @@ LoadGoalieMask:
         add esp, byte 4
         mov edx, dword [dword_1B8540]
         mov eax, dword [dword esi+dword_1B84FC]
-        call sub_115150
+        call AttachModel
         mov eax, dword [dword esi+dword_1B84FC]
         push byte 0
         add eax, byte 2Ch
@@ -1066,7 +1066,7 @@ LoadPlayerCommonArt:
         add esp, byte 4
         mov eax, dword [dword esi+dword_1B8560]
         add esi, byte 4
-        call sub_115150
+        call AttachModel
         cmp esi, byte 0Ch
         jne short .1
         xor ebx, ebx
@@ -1126,7 +1126,7 @@ LoadPlayerCommonArt:
         add esp, byte 4
         mov eax, dword [dword esi+dword_1B8530]
         add esi, byte 4
-        call sub_115150
+        call AttachModel
         cmp esi, byte 0Ch
         jne short .3
         call sub_E341C
@@ -1155,7 +1155,7 @@ LoadPlayerCommonArt:
         add esp, byte 4
         mov eax, dword [dword esi+dword_1B13B0]
         add esi, byte 4
-        call sub_115150
+        call AttachModel
         cmp esi, byte 10h
         jne short .4
         call sub_E341C
@@ -1218,7 +1218,7 @@ LoadPlayerCommonArt:
         add esp, byte 4
         mov eax, dword [dword esi+dword_1B8554]
         add esi, byte 4
-        call sub_115150
+        call AttachModel
         cmp esi, byte 0Ch
         jne short .6
         call sub_E341C
@@ -1256,7 +1256,7 @@ LoadPlayerCommonArt:
         add esp, byte 4
         mov edx, dword [dword_1B8540]
         mov eax, dword [dword_1B8548]
-        call sub_115150
+        call AttachModel
         call sub_E341C
         mov eax, str_Grleg
         xor edx, edx
@@ -1267,7 +1267,7 @@ LoadPlayerCommonArt:
         add esp, byte 4
         mov edx, dword [dword_1B8540]
         mov eax, dword [dword_1B84B0]
-        call sub_115150
+        call AttachModel
         mov eax, str_Rblkr
         xor edx, edx
         call sub_10FFBC
@@ -1277,7 +1277,7 @@ LoadPlayerCommonArt:
         add esp, byte 4
         mov edx, dword [dword_1B8540]
         mov eax, dword [dword_1B8488]
-        call sub_115150
+        call AttachModel
         mov eax, str_Lblkr
         xor edx, edx
         call sub_10FFBC
@@ -1287,7 +1287,7 @@ LoadPlayerCommonArt:
         add esp, byte 4
         mov edx, dword [dword_1B8540]
         mov eax, dword [dword_1B8484]
-        call sub_115150
+        call AttachModel
         call sub_E341C
         mov eax, str_Ltrap2
         xor edx, edx
@@ -1298,7 +1298,7 @@ LoadPlayerCommonArt:
         add esp, byte 4
         mov edx, dword [dword_1B8540]
         mov eax, dword [dword_1B84C0]
-        call sub_115150
+        call AttachModel
         mov eax, str_Rtrap2
         xor edx, edx
         call sub_10FFBC
@@ -1308,7 +1308,7 @@ LoadPlayerCommonArt:
         add esp, byte 4
         mov edx, dword [dword_1B8540]
         mov eax, dword [dword_1B8440]
-        call sub_115150
+        call AttachModel
         call sub_E341C
         mov eax, str_Lskate0
         xor edx, edx
@@ -1338,7 +1338,7 @@ LoadPlayerCommonArt:
         add esp, byte 4
         mov eax, dword [dword esi+dword_1B13E0]
         mov ebx, 0Ah
-        call sub_115150
+        call AttachModel
         mov eax, dword [dword esi+dword_1B13E0]
         xor edx, edx
         call sub_1100B4
@@ -1368,7 +1368,7 @@ LoadPlayerCommonArt:
         add esp, byte 4
         mov eax, dword [dword esi+dword_1B13C0]
         mov ebx, 0Ah
-        call sub_115150
+        call AttachModel
         mov eax, dword [dword esi+dword_1B13C0]
         xor edx, edx
         call sub_1100B4
@@ -1983,9 +1983,9 @@ sub_5881C:
         mov eax, str_Player2
         xor edx, edx
         mov ecx, unk_1B85DC
-        call sub_1152B0
+        call LoadModelFile
         mov dword [dword_1B8540], eax
-        call sub_115220
+        call ScaleModelVerts
         call sub_E341C
         mov eax, dword [dword_1B8540]
         mov ebx, 100h
@@ -2696,15 +2696,15 @@ sub_58CA0:
         mov esi, edx
         mov edi, ebx
         lea ebx, [byte esp+0Ch]
-        call sub_FF600
+        call VecSub
         mov ebx, esp
         mov edx, esi
         mov eax, edi
-        call sub_FF600
+        call VecSub
         mov edx, esp
         lea eax, [byte esp+0Ch]
         mov ebx, ecx
-        call sub_FF710
+        call VecCross
         add esp, byte 18h
         pop edi
         pop esi
@@ -2725,12 +2725,12 @@ sub_59174:
         mov dword [dword esp+0148h], eax
         lea ebx, [byte esp+060h]
         mov edx, dword_1B905F
-        call sub_FF600
+        call VecSub
         mov ebx, dword [dword esp+0148h]
         mov edx, unk_1B92AB
         lea eax, [byte esp+060h]
         add ebx, 41Ch
-        call sub_FF444
+        call VecMulMat
         mov eax, dword [dword esp+0148h]
         cmp dword [dword eax+0424h], 43AF0000h
         setg al
@@ -2750,10 +2750,10 @@ sub_59174:
         lea ebx, [dword edx+0698h]
         lea eax, [byte esp+04h]
         fstp dword [byte edx+050h]
-        call sub_FF1FC
+        call MatRotY
         mov edx, unk_1B92AB
         mov eax, esp
-        call sub_FF368
+        call MatMul
         mov eax, dword [dword esp+0148h]
         cmp dword [byte eax+038h], byte 0
         jne short .2
@@ -2791,7 +2791,7 @@ sub_59174:
         push eax
         add edx, byte 58h
         mov eax, 1Ah
-        call sub_FF580
+        call TransformTranslateVecs
         mov eax, dword [dword esp+0148h]
         cmp dword [byte eax+038h], byte 0
         jne short .3
@@ -2973,17 +2973,17 @@ sub_59174:
         add edx, 208h
         add edi, 214h
         mov dword [dword esp+013Ch], edx
-        call sub_FF600
+        call VecSub
         lea ebx, [dword esp+09Ch]
         mov edx, dword [dword esp+013Ch]
         mov eax, edi
         add ecx, 2C8h
-        call sub_FF600
+        call VecSub
         lea edx, [dword esp+09Ch]
         lea eax, [dword esp+0108h]
         mov ebx, ecx
         add esi, 238h
-        call sub_FF710
+        call VecCross
         mov eax, dword [dword esp+0148h]
         mov edx, dword [dword esp+0148h]
         mov ecx, dword [dword esp+0148h]
@@ -2991,16 +2991,16 @@ sub_59174:
         add edx, 22Ch
         add eax, 220h
         mov dword [dword esp+0134h], edx
-        call sub_FF600
+        call VecSub
         lea ebx, [byte esp+048h]
         mov edx, dword [dword esp+0134h]
         mov eax, esi
         add ecx, 2D4h
-        call sub_FF600
+        call VecSub
         lea edx, [byte esp+048h]
         lea eax, [byte esp+054h]
         mov ebx, ecx
-        call sub_FF710
+        call VecCross
         mov edx, dword [dword esp+0148h]
         mov eax, dword [dword esp+0148h]
         add edx, 1E4h
@@ -3013,15 +3013,15 @@ sub_59174:
         mov dword [dword esp+0118h], edx
         mov edx, dword [dword esp+011Ch]
         add ecx, 1F0h
-        call sub_FF600
+        call VecSub
         lea ebx, [byte esp+06Ch]
         mov edx, dword [dword esp+011Ch]
         mov eax, ecx
-        call sub_FF600
+        call VecSub
         mov ebx, dword [dword esp+0118h]
         lea edx, [byte esp+06Ch]
         lea eax, [byte esp+078h]
-        call sub_FF710
+        call VecCross
         mov edx, dword [dword esp+0148h]
         add edx, 1C0h
         mov dword [dword esp+0120h], edx
@@ -3035,15 +3035,15 @@ sub_59174:
         add eax, 1B4h
         mov dword [dword esp+0124h], edx
         mov edx, dword [dword esp+0120h]
-        call sub_FF600
+        call VecSub
         lea ebx, [dword esp+0F0h]
         mov edx, dword [dword esp+0120h]
         mov eax, dword [dword esp+0138h]
-        call sub_FF600
+        call VecSub
         mov ebx, dword [dword esp+0124h]
         lea edx, [dword esp+0F0h]
         lea eax, [dword esp+0B4h]
-        call sub_FF710
+        call VecCross
         mov eax, dword [dword esp+0148h]
         add eax, 250h
         mov dword [dword esp+012Ch], eax
@@ -3053,16 +3053,16 @@ sub_59174:
         lea ebx, [dword esp+0CCh]
         mov eax, dword [dword esp+013Ch]
         mov edx, edi
-        call sub_FF600
+        call VecSub
         lea ebx, [dword esp+0C0h]
         mov eax, dword [dword esp+012Ch]
         mov edx, edi
-        call sub_FF600
+        call VecSub
         mov ebx, dword [dword esp+0128h]
         lea edx, [dword esp+0C0h]
         lea eax, [dword esp+0CCh]
         mov edi, dword [dword esp+0148h]
-        call sub_FF710
+        call VecCross
         mov eax, dword [dword esp+0148h]
         lea ebx, [dword esp+0A8h]
         add eax, 304h
@@ -3070,15 +3070,15 @@ sub_59174:
         mov dword [dword esp+0120h], eax
         mov eax, dword [dword esp+0134h]
         add edi, 244h
-        call sub_FF600
+        call VecSub
         lea ebx, [dword esp+0D8h]
         mov edx, esi
         mov eax, edi
-        call sub_FF600
+        call VecSub
         mov ebx, dword [dword esp+0120h]
         lea edx, [dword esp+0D8h]
         lea eax, [dword esp+0A8h]
-        call sub_FF710
+        call VecCross
         mov eax, dword [dword esp+0148h]
         cmp dword [dword eax+074Ch], byte 0
         je near .17
@@ -3087,34 +3087,34 @@ sub_59174:
         mov edx, dword [dword esp+0138h]
         add eax, 268h
         mov esi, dword [dword esp+0148h]
-        call sub_FF600
+        call VecSub
         lea ebx, [dword esp+084h]
         add edi, 25Ch
         mov edx, dword [dword esp+0138h]
         mov eax, edi
         add esi, 31Ch
-        call sub_FF600
+        call VecSub
         lea edx, [dword esp+084h]
         lea eax, [dword esp+090h]
         mov ebx, esi
         mov edi, dword [dword esp+0148h]
-        call sub_FF710
+        call VecCross
         mov eax, dword [dword esp+0148h]
         mov esi, dword [dword esp+0148h]
         lea ebx, [dword esp+0E4h]
         mov edx, ecx
         add eax, 274h
         add esi, 298h
-        call sub_FF600
+        call VecSub
         lea ebx, [dword esp+0FCh]
         mov edx, ecx
         mov eax, esi
         add edi, 310h
-        call sub_FF600
+        call VecSub
         lea edx, [dword esp+0FCh]
         lea eax, [dword esp+0E4h]
         mov ebx, edi
-        call sub_FF710
+        call VecCross
 .17:
         mov eax, dword [dword esp+0148h]
         fld dword [dword eax+01A4h]
@@ -3145,12 +3145,12 @@ sub_59174:
         mov eax, edx
         lea ebx, [byte esp+06Ch]
         mov edx, dword_1B905F
-        call sub_FF600
+        call VecSub
         lea ecx, [dword esi+041Ch]
         mov edx, unk_1B92AB
         lea eax, [byte esp+06Ch]
         mov ebx, ecx
-        call sub_FF444
+        call VecMulMat
         cmp dword [dword esi+0424h], 43AF0000h
         setg al
         and eax, 0FFh
@@ -3164,9 +3164,9 @@ sub_59174:
         mov edx, unk_1B92AB
         lea eax, [byte esp+04h]
         fstp dword [byte esi+050h]
-        call sub_FF1FC
+        call MatRotY
         mov eax, esp
-        call sub_FF368
+        call MatMul
         lea eax, [dword esi+0328h]
         push eax
         lea eax, [dword esi+0190h]
@@ -3174,7 +3174,7 @@ sub_59174:
         push eax
         mov edx, edi
         mov eax, 1Ah
-        call sub_FF580
+        call TransformTranslateVecs
         fld dword [dword esi+0328h]
         fld dword [dword esi+032Ch]
         fld dword [dword esi+0198h]
@@ -3292,16 +3292,16 @@ sub_59174:
         lea ebx, [dword esp+0C0h]
         mov dword [dword esp+0104h], edx
         mov edx, dword [dword esp+0100h]
-        call sub_FF600
+        call VecSub
         lea ebx, [dword esp+0D8h]
         mov edx, dword [dword esp+0100h]
         mov eax, dword [dword esp+0104h]
         lea ecx, [dword esi+02C8h]
-        call sub_FF600
+        call VecSub
         lea edx, [dword esp+0D8h]
         lea eax, [dword esp+0C0h]
         mov ebx, ecx
-        call sub_FF710
+        call VecCross
         lea eax, [dword esi+0220h]
         lea edi, [dword esi+022Ch]
         lea ecx, [dword esi+0238h]
@@ -3309,15 +3309,15 @@ sub_59174:
         lea ebx, [byte esp+048h]
         mov dword [dword esp+0E8h], edx
         mov edx, edi
-        call sub_FF600
+        call VecSub
         lea ebx, [dword esp+090h]
         mov edx, edi
         mov eax, ecx
-        call sub_FF600
+        call VecSub
         mov ebx, dword [dword esp+0E8h]
         lea edx, [dword esp+090h]
         lea eax, [byte esp+048h]
-        call sub_FF710
+        call VecCross
         lea eax, [dword esi+01D8h]
         lea edx, [dword esi+01E4h]
         mov dword [dword esp+0ECh], edx
@@ -3327,15 +3327,15 @@ sub_59174:
         lea ebx, [byte esp+054h]
         mov dword [dword esp+0E4h], edx
         mov edx, dword [dword esp+0ECh]
-        call sub_FF600
+        call VecSub
         lea ebx, [dword esp+0CCh]
         mov edx, dword [dword esp+0ECh]
         mov eax, dword [dword esp+0F0h]
-        call sub_FF600
+        call VecSub
         mov ebx, dword [dword esp+0E4h]
         lea edx, [dword esp+0CCh]
         lea eax, [byte esp+054h]
-        call sub_FF710
+        call VecCross
         lea eax, [dword esi+01B4h]
         lea edx, [dword esi+01C0h]
         mov dword [dword esp+0E8h], edx
@@ -3345,15 +3345,15 @@ sub_59174:
         lea ebx, [dword esp+09Ch]
         mov dword [dword esp+0118h], edx
         mov edx, dword [dword esp+0E8h]
-        call sub_FF600
+        call VecSub
         lea ebx, [byte esp+060h]
         mov edx, dword [dword esp+0E8h]
         mov eax, dword [dword esp+0F4h]
-        call sub_FF600
+        call VecSub
         mov ebx, dword [dword esp+0118h]
         lea edx, [byte esp+060h]
         lea eax, [dword esp+09Ch]
-        call sub_FF710
+        call VecCross
         lea eax, [dword esi+0250h]
         mov dword [dword esp+0FCh], eax
         lea eax, [dword esi+02F8h]
@@ -3361,15 +3361,15 @@ sub_59174:
         lea ebx, [dword esp+084h]
         mov edx, dword [dword esp+0104h]
         mov eax, dword [dword esp+0100h]
-        call sub_FF600
+        call VecSub
         lea ebx, [byte esp+078h]
         mov edx, dword [dword esp+0104h]
         mov eax, dword [dword esp+0FCh]
-        call sub_FF600
+        call VecSub
         mov ebx, dword [dword esp+0F8h]
         lea edx, [byte esp+078h]
         lea eax, [dword esp+084h]
-        call sub_FF710
+        call VecCross
         lea eax, [dword esi+0244h]
         lea ebx, [dword esp+0B4h]
         mov dword [dword esp+0118h], eax
@@ -3377,15 +3377,15 @@ sub_59174:
         mov edx, ecx
         mov dword [dword esp+0F4h], eax
         mov eax, edi
-        call sub_FF600
+        call VecSub
         lea ebx, [dword esp+0A8h]
         mov eax, dword [dword esp+0118h]
         mov edx, ecx
-        call sub_FF600
+        call VecSub
         mov ebx, dword [dword esp+0F4h]
         lea edx, [dword esp+0A8h]
         lea eax, [dword esp+0B4h]
-        call sub_FF710
+        call VecCross
 .28:
         fld dword [dword esi+0424h]
         call __CHP
@@ -3407,10 +3407,10 @@ sub_59DB8:
         push ecx
         mov ebx, eax
         mov ecx, edx
-        call sub_115170
+        call UpdateModelFrame
         mov edx, ecx
         mov eax, ebx
-        call sub_1151A4
+        call SkinModel
         push ebx
         call sub_10B0D4
         add esp, byte 4
@@ -3463,10 +3463,10 @@ sub_59DE4:
         lea ecx, [dword edx+0190h]
         mov eax, ebx
         mov edx, ecx
-        call sub_115170
+        call UpdateModelFrame
         mov edx, ecx
         mov eax, ebx
-        call sub_1151A4
+        call SkinModel
         push ebx
         call sub_10B0D4
         add esp, byte 4
@@ -3525,10 +3525,10 @@ sub_59E74:
         lea ecx, [dword ebx+0190h]
         mov eax, esi
         mov edx, ecx
-        call sub_115170
+        call UpdateModelFrame
         mov edx, ecx
         mov eax, esi
-        call sub_1151A4
+        call SkinModel
         push esi
         call sub_10B0D4
         add esp, byte 4
@@ -3585,19 +3585,19 @@ sub_59F44:
         mov ebx, esp
         mov eax, 2
         lea edx, [dword ecx+0330h]
-        call sub_FF128
+        call FloatsToInts
         lea ebx, [byte esp+08h]
         mov eax, 2
         lea edx, [dword ecx+0338h]
-        call sub_FF128
+        call FloatsToInts
         lea ebx, [byte esp+010h]
         mov eax, 2
         lea edx, [dword ecx+03C8h]
-        call sub_FF128
+        call FloatsToInts
         lea ebx, [byte esp+018h]
         mov eax, 2
         lea edx, [dword ecx+03D0h]
-        call sub_FF128
+        call FloatsToInts
         mov edx, dword [byte esp+08h]
         mov ebx, dword [byte esp+010h]
         sub edx, ebx
@@ -3624,7 +3624,7 @@ sub_59F44:
         mov ebx, dword [byte esp+020h]
         push dword [byte esp+028h]
         sub ebx, eax
-        call sub_FFBB4
+        call ProjectCoord
         call __CHP
         fistp dword [byte esp+020h]
         mov eax, dword [byte esp+020h]
@@ -3707,10 +3707,10 @@ sub_5A048:
         lea ebx, [dword esi+0190h]
         mov eax, edi
         mov edx, ebx
-        call sub_115170
+        call UpdateModelFrame
         mov edx, ebx
         mov eax, edi
-        call sub_1151A4
+        call SkinModel
         push edi
         call sub_10B0D4
         add esp, byte 4
@@ -3760,7 +3760,7 @@ sub_5A048:
         je near .14
 .6:
         push ebx
-        call sub_1153AC
+        call ResetMorphVerts
         mov ebp, dword [byte esi+044h]
         add esp, byte 4
         cmp ebp, byte 1
@@ -3781,7 +3781,7 @@ sub_5A048:
         push byte 4
 .9:
         push ebx
-        call sub_1153DC
+        call ApplyMorphTarget
         add esp, byte 0Ch
 .10:
         cmp dword [byte esi+048h], byte 0
@@ -3792,7 +3792,7 @@ sub_5A048:
         push dword 3F800000h
         push byte 0
         push ebx
-        call sub_1153DC
+        call ApplyMorphTarget
         add esp, byte 0Ch
 .12:
         cmp dword [byte esi+040h], byte 0
@@ -3800,7 +3800,7 @@ sub_5A048:
         push dword 3F800000h
         push byte 2
         push ebx
-        call sub_1153DC
+        call ApplyMorphTarget
         add esp, byte 0Ch
 .13:
         mov dword [dword esi+0758h], edi
@@ -3808,10 +3808,10 @@ sub_5A048:
         add esi, 190h
         mov eax, ebx
         mov edx, esi
-        call sub_115170
+        call UpdateModelFrame
         mov edx, esi
         mov eax, ebx
-        call sub_1151A4
+        call SkinModel
         push ebx
         call sub_10B0D4
         add esp, byte 4
@@ -3843,10 +3843,10 @@ sub_5A238:
         mov ebx, dword [dword eax+06C8h]
         mov edx, ecx
         mov eax, ebx
-        call sub_115170
+        call UpdateModelFrame
         mov edx, ecx
         mov eax, ebx
-        call sub_1151A4
+        call SkinModel
         push ebx
         call sub_10B0D4
         add esp, byte 4
@@ -3924,10 +3924,10 @@ sub_5A2F8:
         mov ebx, dword [dword eax+06C4h]
         mov edx, ecx
         mov eax, ebx
-        call sub_115170
+        call UpdateModelFrame
         mov edx, ecx
         mov eax, ebx
-        call sub_1151A4
+        call SkinModel
         push ebx
         call sub_10B0D4
         add esp, byte 4
@@ -4099,10 +4099,10 @@ sub_5A484:
         add ecx, 190h
         mov eax, ebx
         mov edx, ecx
-        call sub_115170
+        call UpdateModelFrame
         mov edx, ecx
         mov eax, ebx
-        call sub_1151A4
+        call SkinModel
         push ebx
         call sub_10B0D4
         add esp, byte 4
@@ -4142,10 +4142,10 @@ sub_5A4E8:
         add ecx, 190h
         mov eax, ebx
         mov edx, ecx
-        call sub_115170
+        call UpdateModelFrame
         mov edx, ecx
         mov eax, ebx
-        call sub_1151A4
+        call SkinModel
         push ebx
         call sub_10B0D4
         add esp, byte 4
@@ -4165,10 +4165,10 @@ sub_5A4E8:
         mov ebx, dword [dword eax+06CCh]
         mov edx, ecx
         mov eax, ebx
-        call sub_115170
+        call UpdateModelFrame
         mov edx, ecx
         mov eax, ebx
-        call sub_1151A4
+        call SkinModel
         push ebx
         call sub_10B0D4
         add esp, byte 4
@@ -4187,10 +4187,10 @@ sub_5A4E8:
         mov ebx, dword [dword eax+06D0h]
         mov edx, ecx
         mov eax, ebx
-        call sub_115170
+        call UpdateModelFrame
         mov edx, ecx
         mov eax, ebx
-        call sub_1151A4
+        call SkinModel
         push ebx
         call sub_10B0D4
         add esp, byte 4
@@ -4615,7 +4615,7 @@ sub_5AAB8:
         add edi, eax
         lea edx, [dword edi+041Ch]
         lea eax, [dword esi+041Ch]
-        call sub_FF798
+        call VecDistance
         fcomp dword [dword_161ABA]
         fnstsw ax
         sahf
@@ -4695,13 +4695,13 @@ sub_5AAB8:
         lea edx, [dword eax+0714h]
         mov ebx, dword_1B905F
         mov eax, 3
-        call sub_FF6D0
+        call SubVecs
         mov ecx, esp
         mov ebx, unk_1B92AB
         mov edx, esp
         mov eax, 3
         mov esi, esp
-        call sub_FF48C
+        call TransformVecs
         lea edi, [dword ebp+025Ch]
         movsd
         movsd
@@ -4777,7 +4777,7 @@ sub_5AC38:
         sub esp, byte 4
         fild dword [byte ebp+08h]
         fstp dword [esp]
-        call sub_FFBA4
+        call PerspectiveScale
         sub esp, byte 4
         mov eax, edi
         mov ebx, dword [byte esp+08h]
@@ -4941,15 +4941,15 @@ sub_5AD54:
         fsubp
         mov edx, dword_1B1258
         fstp dword [dword_1B1284]
-        call sub_FF48C
+        call TransformVecs
         mov edx, esp
         mov eax, 4
         lea ebx, [dword esi+041Ch]
-        call sub_FF620
+        call OffsetVecs
         lea ebx, [byte esp+030h]
         mov edx, esp
         mov eax, 4
-        call sub_FFBE0
+        call ProjectPoints
         push byte 1
         push byte 0FFFFFFFFh
         lea eax, [byte esp+038h]
@@ -5064,15 +5064,15 @@ sub_5AEB8:
         mov edx, dword_1B1258
         mov eax, 4
         lea ebx, [dword edi+0698h]
-        call sub_FF48C
+        call TransformVecs
         mov edx, esp
         mov eax, 4
         lea ebx, [dword edi+041Ch]
-        call sub_FF620
+        call OffsetVecs
         lea ebx, [byte esp+030h]
         mov edx, esp
         mov eax, 4
-        call sub_FFBE0
+        call ProjectPoints
         lea edx, [byte esp+030h]
         mov eax, 4
         call sub_56A84
@@ -5247,11 +5247,11 @@ sub_5B1C0:
         add esp, byte 4
         mov edx, esp
         add eax, 41Ch
-        call sub_FFE8C
+        call ProjectPointInt
         mov eax, dword [dword_1B8550]
         add eax, byte 14h
         push eax
-        call sub_FDE44
+        call MeasureText
         mov edx, eax
         sar edx, 1Fh
         LD sub, eax, edx
@@ -5265,7 +5265,7 @@ sub_5B1C0:
         call sub_FC4BC
         add esp, byte 4
         push eax
-        call sub_FE180
+        call SetTextColors
         add esp, byte 8
         mov eax, dword [byte esp+04h]
         add eax, byte 6
@@ -5275,14 +5275,14 @@ sub_5B1C0:
         push edi
         add eax, byte 14h
         push eax
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
         push dword 0FFh
         push dword 0FFAAAAAAh
         call sub_FC4BC
         add esp, byte 4
         push eax
-        call sub_FE180
+        call SetTextColors
         add esp, byte 8
         mov eax, dword [byte esp+04h]
         add eax, byte 5
@@ -5293,7 +5293,7 @@ sub_5B1C0:
         mov eax, dword [dword_1B8550]
         add eax, byte 14h
         push eax
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
 .2:
         add esp, byte 8
@@ -5347,7 +5347,7 @@ sub_5B2D4:
         push eax
         mov ebp, dword [dword_170260]
         mov ebx, eax
-        call sub_1158A0
+        call FixedSinCos
         add esp, byte 0Ch
         mov edx, 3E8h
         mov eax, dword [byte esp+04h]
@@ -5417,7 +5417,7 @@ sub_5B2D4:
         push eax
         mov ecx, dword [nosplit ebx*4+dword_1B1390]
         push ecx
-        call sub_115B78
+        call BlitShapeAt
         add esp, byte 0Ch
         mov al, byte [byte esp+010h]
         mov byte [byte_16FA40], al
@@ -5451,7 +5451,7 @@ sub_5B454:
         ret
         push ebx
         mov ebx, eax
-        call sub_FF5E0
+        call VecAdd
         pop ebx
         ret
         db 08Bh,0C0h
@@ -5730,7 +5730,7 @@ LoadFaceArt:
         je short .1
         mov eax, dword [dword_1B89AC]
         mov edx, esi
-        call sub_1150FC
+        call AttachModelFrame
 .1:
         xor ecx, ecx
         mov esi, 0Bh
@@ -8060,13 +8060,13 @@ sub_5CD90:
         fxch
         fistp dword [byte esp+0Ch]
         fistp dword [byte esp+010h]
-        call sub_FFBA4
+        call PerspectiveScale
         fstp dword [esi]
         mov dword [byte esi+04h], 4B18967Fh
         jmp short .14
 .13:
         push dword [byte esp+048h]
-        call sub_FFBA4
+        call PerspectiveScale
         fst dword [esi]
         fmul qword [qword_161B2C]
         fstp dword [byte esi+04h]
@@ -8074,11 +8074,11 @@ sub_5CD90:
         push byte 20h
         mov edi, dword [byte esi+01Ch]
         push edi
-        call sub_115830
+        call CreateBitmapForArt
         add esp, byte 8
         push unk_1B8FA8
         mov dword [dword_1B9034], eax
-        call sub_115BB0
+        call SaveDrawContext
         add esp, byte 4
         mov ebp, dword [dword_1B9034]
         push ebp
@@ -8290,7 +8290,7 @@ sub_5D23C:
         call FreeBitmap
         add esp, byte 4
         push unk_1B8FA8
-        call sub_115BD8
+        call RestoreDrawContext
         add esp, byte 4
         pop edx
         pop ecx
@@ -8308,10 +8308,10 @@ sub_5D294:
         sub esp, byte 4
         mov ebx, eax
         push dword [byte esp+01Ch]
-        call sub_FFBA4
+        call PerspectiveScale
         push dword [byte esp+01Ch]
         fstp dword [byte esp+04h]
-        call sub_FFBA4
+        call PerspectiveScale
         fdiv dword [ebx]
         fmul dword [dword_161B3C]
         push eax
@@ -8711,11 +8711,11 @@ sub_5D6A8:
         shl eax, 2
         add ebx, eax
         lea eax, [byte ebp+010h]
-        call sub_FEFA0
+        call ClearIfNaN
         test eax, eax
         jne near .1
         lea eax, [byte ebp+014h]
-        call sub_FEFA0
+        call ClearIfNaN
         test eax, eax
         jne near .1
         fild dword [byte esp+010h]
@@ -8827,11 +8827,11 @@ sub_5D7A4:
         push edx
         mov ebx, eax
         lea eax, [byte esp+0Ch]
-        call sub_FEFA0
+        call ClearIfNaN
         test eax, eax
         jne short .1
         lea eax, [byte esp+010h]
-        call sub_FEFA0
+        call ClearIfNaN
         test eax, eax
         jne short .1
         mov eax, dword [byte esp+0Ch]
@@ -8916,7 +8916,7 @@ sub_5D900:
         mov dword [byte esp+010h], eax
         mov esi, edx
         lea eax, [byte esp+030h]
-        call sub_FEFA0
+        call ClearIfNaN
         test eax, eax
         je short .1
         mov eax, dword [nosplit edx*4+dword_1B907B]
@@ -9212,13 +9212,13 @@ sub_5DC50:
         push dword [dword_1B906B]
         lea eax, [byte esp+04h]
         mov ebx, unk_1B92AB
-        call sub_FF198
+        call MatRotX
         push dword [dword_1B906F]
         lea eax, [byte esp+028h]
         lea edx, [byte esp+04h]
-        call sub_FF1FC
+        call MatRotY
         lea eax, [byte esp+024h]
-        call sub_FF368
+        call MatMul
         add esp, byte 48h
         pop edx
         pop ecx
@@ -9246,13 +9246,13 @@ sub_5DCBC:
         push dword [dword_1B906B]
         lea eax, [byte esp+028h]
         mov ebx, unk_1B92AB
-        call sub_FF198
+        call MatRotX
         push dword [dword_1B906F]
         lea eax, [byte esp+04h]
         lea edx, [byte esp+028h]
-        call sub_FF1FC
+        call MatRotY
         mov eax, esp
-        call sub_FF368
+        call MatMul
         mov eax, dword [dword_1B9077]
         mov dword [dword_16B72C], eax
         add esp, byte 48h
@@ -9267,17 +9267,17 @@ sub_5DCBC:
         mov esi, ebx
         mov ebx, esp
         mov edx, dword_1B905F
-        call sub_FF600
+        call VecSub
         mov edx, unk_1B92AB
         mov eax, esp
         mov ebx, ecx
-        call sub_FF444
+        call VecMulMat
         test esi, esi
         je short .1
         mov eax, 1
         mov ebx, esi
         mov edx, ecx
-        call sub_FFBE0
+        call ProjectPoints
 .1:
         fld dword [byte ecx+08h]
         fcomp dword [dword_16F140]
@@ -9301,17 +9301,17 @@ sub_5DD74:
         mov esi, ebx
         mov ebx, esp
         mov edx, dword_1B905F
-        call sub_FF600
+        call VecSub
         mov edx, unk_1B92AB
         mov eax, esp
         mov ebx, ecx
-        call sub_FF444
+        call VecMulMat
         test esi, esi
         je short .1
         mov eax, 1
         mov ebx, esi
         mov edx, ecx
-        call sub_FFED8
+        call ClipProjectPoints
 .1:
         fld dword [byte ecx+08h]
         fcomp dword [dword_16F140]
@@ -9338,21 +9338,21 @@ sub_5DD74:
         fild dword [byte eax+08h]
         lea eax, [byte esp+018h]
         fstp dword [byte esp+020h]
-        call sub_FF600
+        call VecSub
         mov ebx, esp
         mov edx, unk_1B92AB
         lea eax, [byte esp+0Ch]
-        call sub_FF444
+        call VecMulMat
         mov edx, esp
         mov eax, 3
         mov ebx, esi
-        call sub_FF128
+        call FloatsToInts
         test ecx, ecx
         je short .2
         mov edx, esp
         mov eax, 1
         mov ebx, ecx
-        call sub_FFBE0
+        call ProjectPoints
 .2:
         mov edx, dword [dword_16E4A8]
         mov eax, dword [byte esi+08h]
@@ -9371,15 +9371,15 @@ sub_5DD74:
         mov ecx, edx
         mov edx, esp
         mov eax, unk_1B92AB
-        call sub_FF320
+        call MatTranspose
         mov ebx, ecx
         mov edx, esp
         mov eax, esi
-        call sub_FF444
+        call VecMulMat
         mov edx, dword_1B905F
         mov ebx, ecx
         mov eax, ecx
-        call sub_FF5E0
+        call VecAdd
         add esp, byte 24h
         pop esi
         pop ecx
@@ -20522,38 +20522,38 @@ InitAnimPoints:
         mov edx, str_Puck3
         mov eax, ebx
         rep movsd
-        call sub_115318
+        call FindModelPart
         mov edx, str_Stickheel
         mov dword [dword_1BF06C], eax
         mov eax, ebx
-        call sub_115318
+        call FindModelPart
         mov edx, str_Origin
         mov dword [dword_1BF060], eax
         mov eax, ebx
-        call sub_115318
+        call FindModelPart
         mov edx, str_Chin
         mov dword [dword_16C55C], eax
         mov eax, ebx
-        call sub_115318
+        call FindModelPart
         mov edx, str_Rhand
         mov dword [dword_1BF068], eax
         mov eax, ebx
-        call sub_115318
+        call FindModelPart
         mov edx, str_Lshldr
         mov dword [dword_1BF078], eax
         mov eax, ebx
-        call sub_115318
+        call FindModelPart
         mov edx, str_Rshldr
         mov dword [dword_1BF074], eax
         mov eax, ebx
         xor esi, esi
-        call sub_115318
+        call FindModelPart
         mov dword [dword_1BF064], eax
 .1:
         mov eax, ebx
         mov edx, dword [nosplit esi*4+off_16C3B4]
         inc esi
-        call sub_115318
+        call FindModelPart
         mov dword [nosplit esi*4+dword_1B9C8C], eax
         cmp esi, byte 0Fh
         jl short .1
@@ -33471,7 +33471,7 @@ sub_6F55C:
         mov edi, eax
         mov esi, edx
         mov eax, edx
-        call sub_FF940
+        call VecDot
         fstp dword [byte esp+04h]
         cmp dword [byte esp+04h], 3F800000h
         jge short .1
@@ -33496,7 +33496,7 @@ sub_6F55C:
 .1:
         mov edx, esi
         mov eax, edi
-        call sub_FF940
+        call VecDot
         fdiv dword [byte esp+04h]
         fld dword [esi]
         fxch
@@ -41323,7 +41323,7 @@ sub_74FA4:
         mov edi, eax
         mov esi, edx
         mov eax, edx
-        call sub_FF940
+        call VecDot
         fstp dword [byte esp+04h]
         cmp dword [byte esp+04h], 3F800000h
         jge short .1
@@ -41345,7 +41345,7 @@ sub_74FA4:
 .1:
         mov edx, esi
         mov eax, edi
-        call sub_FF940
+        call VecDot
         fdiv dword [byte esp+04h]
         fldz
         fxch
@@ -42290,7 +42290,7 @@ sub_75AE8:
 .1:
         mov edx, ebx
         mov eax, ecx
-        call sub_FF940
+        call VecDot
         fdiv dword [byte ebp+014h]
         fldz
         fxch
@@ -42325,7 +42325,7 @@ sub_75AE8:
         mov eax, esp
         fstp dword [byte esp+08h]
 .4:
-        call sub_FF7DC
+        call VecLength
         fstp dword [byte esp+010h]
 .5:
         fld dword [byte esp+010h]
@@ -42395,7 +42395,7 @@ sub_75B94:
         fxch
         fstp dword [byte esp+04h]
         fstp dword [byte esp+08h]
-        call sub_FF940
+        call VecDot
         mov dx, word [dword ebp+0A9h]
         fstp dword [byte esp+034h]
         test dx, dx
@@ -42959,7 +42959,7 @@ sub_76148:
         mov eax, dword [byte eax+018h]
         add eax, edx
         mov edx, esi
-        call sub_115F98
+        call SetBitReader
         fild word [ebx]
         fstp dword [byte ebp+00h]
         mov ah, byte [ecx]
@@ -42969,7 +42969,7 @@ sub_76148:
         xor eax, eax
         mov al, byte [ecx]
         movsx edx, word [ebx]
-        call sub_116050
+        call ReadBits
         imul edx, eax
         xor eax, eax
         mov dword [esp], edx
@@ -42990,7 +42990,7 @@ sub_76148:
         xor eax, eax
         mov al, byte [ecx]
         movsx edx, word [ebx]
-        call sub_116050
+        call ReadBits
         imul edx, eax
         xor eax, eax
         mov dword [esp], edx
@@ -43011,7 +43011,7 @@ sub_76148:
         xor eax, eax
         mov al, byte [ecx]
         movsx edx, word [ebx]
-        call sub_116050
+        call ReadBits
         imul edx, eax
         xor eax, eax
         mov dword [esp], edx
@@ -43135,7 +43135,7 @@ sub_762E4:
         mov eax, dword [byte eax+018h]
         add eax, edx
         xor edx, edx
-        call sub_115F98
+        call SetBitReader
         mov eax, dword [ebx]
         mov eax, dword [byte eax+010h]
         mov dword [dword_1BF8A4], eax
@@ -43159,7 +43159,7 @@ sub_76380:
         test al, al
         je short .1
         and eax, 0FFh
-        call sub_116050
+        call ReadBits
         mov dword [esp], eax
         fild dword [esp]
         fmul dword [byte ebp+0Ch]
@@ -43249,7 +43249,7 @@ sub_763BC:
         sar ebx, 3
         and edx, byte 7
         add eax, ebx
-        call sub_115F98
+        call SetBitReader
 .4:
         mov edx, dword [byte esp+030h]
         mov edi, dword [byte esp+0Ch]
@@ -43283,7 +43283,7 @@ sub_763BC:
         mov eax, dword [byte esp+010h]
         and edx, byte 7
         add eax, dword [esp]
-        call sub_115F98
+        call SetBitReader
         jmp short .7
 .6:
         mov ebx, dword [byte esp+018h]
@@ -43488,7 +43488,7 @@ sub_76698:
         sar esi, 3
         and edx, byte 7
         add eax, esi
-        call sub_115F98
+        call SetBitReader
 .4:
         mov ebp, dword [byte esp+02Ch]
         mov esi, ecx
@@ -43522,7 +43522,7 @@ sub_76698:
         mov eax, dword [byte esp+08h]
         and edx, byte 7
         add eax, dword [esp]
-        call sub_115F98
+        call SetBitReader
         jmp short .7
 .6:
         mov ecx, dword [byte esp+014h]
@@ -43667,7 +43667,7 @@ sub_76954:
         mov edx, dword [byte edx+018h]
         add eax, edx
         xor edx, edx
-        call sub_115F98
+        call SetBitReader
         mov eax, dword [esi]
         mov eax, dword [byte eax+010h]
         mov dword [dword_1BF8A4], eax
@@ -43698,7 +43698,7 @@ sub_76954:
         mov eax, dword [byte eax+018h]
         add eax, edx
         xor edx, edx
-        call sub_115F98
+        call SetBitReader
         mov eax, dword [esi]
         mov ebx, dword [esp]
         mov eax, dword [byte eax+010h]
@@ -43739,7 +43739,7 @@ sub_76A1C:
         mov eax, dword [byte eax+018h]
         add eax, edx
         xor edx, edx
-        call sub_115F98
+        call SetBitReader
         mov eax, dword [esi]
         mov eax, dword [byte eax+010h]
         mov dword [dword_1BF8A4], eax
@@ -43798,7 +43798,7 @@ sub_76A1C:
         mov eax, dword [byte eax+018h]
         xor edx, edx
         add eax, ebx
-        call sub_115F98
+        call SetBitReader
         mov eax, dword [byte esp+034h]
         mov eax, dword [eax]
         mov eax, dword [byte eax+010h]
@@ -43885,7 +43885,7 @@ sub_76A1C:
         mov eax, dword [byte eax+018h]
         xor edx, edx
         add eax, ebx
-        call sub_115F98
+        call SetBitReader
         mov eax, dword [byte esp+034h]
         mov eax, dword [eax]
         mov eax, dword [byte eax+010h]
@@ -44005,7 +44005,7 @@ sub_76D3C:
         mov eax, dword [byte eax+018h]
         add eax, edx
         xor edx, edx
-        call sub_115F98
+        call SetBitReader
         mov eax, dword [esi]
         mov eax, dword [byte eax+010h]
         mov dword [dword_1BF8A4], eax
@@ -44039,7 +44039,7 @@ sub_76D3C:
         mov eax, dword [byte eax+018h]
         add eax, edx
         xor edx, edx
-        call sub_115F98
+        call SetBitReader
         mov eax, dword [esi]
         mov eax, dword [byte eax+010h]
         mov dword [dword_1BF8A4], eax
@@ -45046,7 +45046,7 @@ sub_776F8:
         mov eax, edx
         push dword [dword esp+0304h]
         inc ebx
-        call sub_FF7F4
+        call VecScale
         mov ecx, dword [byte esi+04h]
         add edx, byte 0Ch
         cmp ebx, ecx
@@ -45061,20 +45061,20 @@ sub_776F8:
         add esp, byte 0Ch
         mov edx, dword_1B905F
         mov eax, dword [dword esp+02FCh]
-        call sub_FF600
+        call VecSub
         lea ebx, [dword esp+02D4h]
         mov edx, unk_1B92AB
         lea eax, [dword esp+02C8h]
-        call sub_FF444
+        call VecMulMat
         cmp dword [dword esp+02DCh], 43480000h
         jl near .3
         push dword [dword esp+02F8h]
         lea eax, [dword esp+02A8h]
         lea ebx, [dword esp+0284h]
         mov edx, unk_1B92AB
-        call sub_FF1FC
+        call MatRotY
         lea eax, [dword esp+02A4h]
-        call sub_FF368
+        call MatMul
         lea eax, [dword esp+01E0h]
         lea ecx, [dword esp+02D4h]
         push eax
@@ -45083,19 +45083,19 @@ sub_776F8:
         push eax
         lea edx, [byte esp+08h]
         mov eax, dword [byte esi+04h]
-        call sub_FF580
+        call TransformTranslateVecs
         mov eax, dword [byte esi+04h]
         lea edx, [nosplit eax*4+00h]
         sub edx, eax
         mov ebx, dword [byte esi+07Ch]
         mov eax, edx
         lea edx, [dword esp+0F0h]
-        call sub_FF128
+        call FloatsToInts
         lea edx, [dword esp+01E0h]
         mov eax, dword [byte esi+04h]
         mov ebx, dword [dword esi+080h]
         add eax, eax
-        call sub_FF128
+        call FloatsToInts
         push esi
         call sub_10B580
         add esp, byte 4
@@ -45177,19 +45177,19 @@ sub_77838:
         mov esi, ebx
         mov ebx, esp
         mov edx, dword_1B905F
-        call sub_FF600
+        call VecSub
         lea ebx, [byte esp+0Ch]
         mov edx, unk_1B92AB
         mov eax, esp
-        call sub_FF444
+        call VecMulMat
         mov ebx, esp
         mov edx, dword_1B905F
         mov eax, ecx
-        call sub_FF600
+        call VecSub
         lea ebx, [byte esp+018h]
         mov edx, unk_1B92AB
         mov eax, esp
-        call sub_FF444
+        call VecMulMat
         cmp dword [byte esp+014h], 42C80000h
         jl short .1
         cmp dword [byte esp+020h], 42C80000h
@@ -45197,11 +45197,11 @@ sub_77838:
         lea ebx, [byte esp+024h]
         lea edx, [byte esp+0Ch]
         mov eax, 1
-        call sub_FFBE0
+        call ProjectPoints
         lea ebx, [byte esp+02Ch]
         lea edx, [byte esp+018h]
         mov eax, 1
-        call sub_FFBE0
+        call ProjectPoints
         push esi
         mov ecx, dword [byte esp+034h]
         push ecx
@@ -45228,23 +45228,23 @@ sub_77838:
         mov ecx, edx
         mov ebx, esp
         mov edx, dword_1B905F
-        call sub_FF600
+        call VecSub
         lea ebx, [byte esp+0Ch]
         mov edx, unk_1B92AB
         mov eax, esp
-        call sub_FF444
+        call VecMulMat
         cmp dword [byte esp+014h], 42C80000h
         jl short .2
         lea ebx, [byte esp+018h]
         lea edx, [byte esp+0Ch]
         mov eax, 1
-        call sub_FFBE0
+        call ProjectPoints
         mov ebx, dword [byte esp+01Ch]
         push ebx
         mov esi, dword [byte esp+01Ch]
         push esi
         push ecx
-        call sub_FE150
+        call DrawTextAt
         add esp, byte 0Ch
 .2:
         add esp, byte 20h

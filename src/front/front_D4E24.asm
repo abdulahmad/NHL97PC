@@ -13,7 +13,7 @@ extern dword_1CCEF0, dword_1CCEF8, dword_1CCEFC, dword_1CCF12, dword_1CCF16, dwo
 extern dword_1CD0F8, dword_1CD0FE, dword_1CD102, dword_1CD106, dword_1CD10A, dword_1CD10E, fclose_, fgets_
 extern fopen_, memcpy_, memset_, off_16E4E0, rand_, sprintf_, sscanf_, str_CRD1
 extern str_CRD2, str_Nhll, str_Nhlp, str_Pl0, str_Pl1, strlen_, sub_1008CC, BlitShape2
-extern BlitArt, BlitShape, sub_1013FC, FindShape, sub_101584, sub_103298, sub_1167AE, sub_11A318
+extern BlitArt, BlitShape, sub_1013FC, FindShape, sub_101584, sub_103298, IsKeyDown, ConvertArtXY
 extern sub_11BED4, SetScreenTarget, WaitRetraceEdges, RunDemoGame, SecondsToSamples, WaitSoundTime, ChkMenuMusic, PauseMusic
 extern MusicPlaying, RequestMusicStop, WaitMusicEnd, ArenaFileName, StopAllSfx, PlaySfx, PlayScreenMovie, MakeDataPath
 extern LoadDataFile, sub_7E860, sub_7EDF0, SetRegionRect, SetTextColor, DrawTextAligned, sub_80BBC, sub_81650
@@ -2564,7 +2564,7 @@ sub_D6D38:
         push dword 127h
         mov edx, dword [byte eax+02Ch]
         push edx
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         mov ebx, 140h
         call sub_1013FC
@@ -2658,7 +2658,7 @@ sub_D6E20:
         mov eax, dword [dword_1CCEF0]
         mov ecx, dword [byte eax+02Ch]
         push ecx
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         mov eax, dword [esp]
         push eax
@@ -2734,13 +2734,13 @@ sub_D6FD8:
         push edx
         push esi
         push byte 1
-        call sub_1167AE
+        call IsKeyDown
         xor ebx, ebx
         add esp, byte 4
         test eax, eax
         jne short .1
         push byte 39h
-        call sub_1167AE
+        call IsKeyDown
         add esp, byte 4
         test eax, eax
         je short .2
@@ -3050,7 +3050,7 @@ CreditsScreen:
         push dword 127h
         mov edx, dword [byte eax+02Ch]
         push edx
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         mov ebx, 140h
         xor esi, esi
@@ -3175,7 +3175,7 @@ CreditsScreen:
         mov ebp, dword [byte eax+02Ch]
         push ebp
         mov esi, ebx
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         xor esi, ebx
         call sub_1013FC

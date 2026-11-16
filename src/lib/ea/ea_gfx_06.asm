@@ -5,7 +5,7 @@ section s_10B040 progbits alloc exec nowrite align=1
 extern dword_16E4A8, dword_170218, dword_1D1CF8, dword_1D1CFC, dword_1D1D00, dword_1D1D04, dword_1D1D08, dword_1D1D0C
 extern dword_1D1D10, dword_1D1D14, dword_1D1D2C, off_170278, off_170284, off_170290, off_17029C, off_1702A8
 extern SortIndices, sub_10C8E8, sub_10CF34, sub_10E690, sub_10E6AC, sub_10E6E4, sub_10E794, sub_10E7AC
-extern sub_112010, sub_1120F0, sub_114E54, sub_114E7C, sub_12D300, sub_12D4B8, sub_FFBE0, unk_17021C
+extern sub_112010, sub_1120F0, CallModelPartFuncs, CallAllPartFuncs, sub_12D300, sub_12D4B8, ProjectPoints, unk_17021C
 extern unk_170240
 global sub_10B0EC_9B, sub_10B20C_B8, sub_10B348_190, sub_10B040, sub_10B060, sub_10B074, sub_10B084, sub_10B0D4
 global sub_10B0EC, sub_10B18C, sub_10B20C, sub_10B2CC, sub_10B348, sub_10B4E0, sub_10B580, sub_10B59C
@@ -94,7 +94,7 @@ sub_10B0D4:
         mov ebx, dword [dword eax+080h]
         mov edx, dword [byte eax+07Ch]
         mov eax, dword [byte eax+04h]
-        call sub_FFBE0
+        call ProjectPoints
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
@@ -513,7 +513,7 @@ sub_10B4E0:
         test byte [byte eax+011h], 1
         je short .1
         mov edx, esi
-        call sub_114E54
+        call CallModelPartFuncs
         pop ebp
         pop edi
         pop esi
@@ -582,19 +582,19 @@ sub_10B59C:
         mov edx, 1
         xor ebx, ebx
         mov dword [dword_1D1D10], edx
-        call sub_114E7C
+        call CallAllPartFuncs
         mov dword [dword_1D1D10], ebx
         pop ebx
         ret
         db 090h
         mov eax, dword [byte esp+04h]
-        jmp near sub_114E7C
+        jmp near CallAllPartFuncs
         db 08Dh,040h,00h
         push ebx
         mov eax, dword [byte esp+08h]
         test byte [byte eax+011h], 1
         je short .1
-        call sub_114E7C
+        call CallAllPartFuncs
         pop ebx
         ret
 .1:

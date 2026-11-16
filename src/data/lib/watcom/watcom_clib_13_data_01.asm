@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_1706E0 progbits alloc noexec write align=1
-extern __null_int23_exit_, sub_1158A0_70, sub_119349_9, sub_119349_12, sub_119349_1B, _dos_getdiskfree__38, sub_11599C, sub_1159B8
-extern sub_1159D0, sub_115A10, sub_1167BD, sub_119349, sub_11A210, sub_11A220, sub_11A230, sub_11A250
+extern __null_int23_exit_, FixedSinCos_70, SerialISR_9, SerialISR_12, SerialISR_1B, _dos_getdiskfree__38, BlitRowRemap8, BlitRowKey16
+extern BlitRowKey24, BlitRowKey32, BiosKeyCall, SerialISR, CopyPixels8, CopyPixels16, CopyPixels24, CopyPixels32
 global str_FILESLINED, byte_17075C, byte_170764, byte_170781, byte_17078E, byte_17079A, byte_17079C, byte_1707B7
 global byte_1707FC, byte_170800, byte_170804, byte_170810, byte_17086B, byte_1708C6, byte_170921, byte_17097C
 global byte_171C90, byte_171D33, byte_171D34, dword_1706F8, dword_170704, dword_17070C, dword_170710, dword_170714
@@ -14,13 +14,13 @@ global off_170B14, off_170B18, off_170B1C, off_171C7C, off_171C80, off_171C84, o
 global unk_170B30, unk_170F72, unk_170F7C, unk_1713BE, unk_1713C8, unk_17180A, unk_171814, unk_171E38
 global word_170708, word_17070A, word_1707E8, word_1707EE, word_1707F4, word_1707F6, word_170B24, word_171C56
 off_1706E0:
-        dd sub_1158A0_70
+        dd FixedSinCos_70
 off_1706E4:
-        dd sub_11599C
-        dd sub_1159B8
-        dd sub_1159B8
-        dd sub_1159D0
-        dd sub_115A10
+        dd BlitRowRemap8
+        dd BlitRowKey16
+        dd BlitRowKey16
+        dd BlitRowKey24
+        dd BlitRowKey32
 dword_1706F8:
         db 00h,00h,00h,00h,01h,00h,00h,00h,00h,00h,00h,00h
 dword_170704:
@@ -30,7 +30,7 @@ word_170708:
 word_17070A:
         db 00h,00h
 dword_17070C:
-        dd sub_1167BD
+        dd BiosKeyCall
 dword_170710:
         db 00h,00h,00h,00h
 dword_170714:
@@ -172,7 +172,7 @@ unk_170B26:
         db 02h,00h,00h,03h,0Ch,00h,010h,00h,0F8h,03h
 unk_170B30:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-        dd sub_119349
+        dd SerialISR
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -245,7 +245,7 @@ unk_170F72:
         db 02h,00h,00h,03h,0Bh,00h,08h,00h,0F8h,02h
 unk_170F7C:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-        dd sub_119349_9
+        dd SerialISR_9
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -320,7 +320,7 @@ unk_1713BE:
         db 02h,00h,00h,03h,0Ch,00h,010h,00h,0E8h,03h
 unk_1713C8:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-        dd sub_119349_12
+        dd SerialISR_12
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -393,7 +393,7 @@ unk_17180A:
         db 02h,00h,00h,03h,0Bh,00h,08h,00h,0E8h,02h
 unk_171814:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
-        dd sub_119349_1B
+        dd SerialISR_1B
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
@@ -487,11 +487,11 @@ byte_171C90:
         db 00h,00h,00h,00h,00h,00h,00h,00h,010h,01h,04h,08h,00h,020h,0Fh,018h
 off_171D10:
         dd _dos_getdiskfree__38
-        dd sub_11A210
-        dd sub_11A220
-        dd sub_11A220
-        dd sub_11A230
-        dd sub_11A250
+        dd CopyPixels8
+        dd CopyPixels16
+        dd CopyPixels16
+        dd CopyPixels24
+        dd CopyPixels32
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 byte_171D33:
         db 00h

@@ -943,10 +943,66 @@ FD110,ClearScreen,sub_FD110,95PC,medium,graphics library: fills the whole curren
 FDD1C,FillRect,sub_FDD1C,95PC,medium,"graphics library: fill a rectangle (x, y, w, h, colour) on the current draw target, by pixel depth",src/lib/ea/ea_gfx_02.asm
 FDDC1,mem_putc_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 FDDD4,sprintf_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+FDE44,MeasureText,sub_FDE44,new,low,font library: returns the width in pixels of a string in the current font,src/lib/watcom/watcom_clib_06.asm
+FDE80,FindGlyph,sub_FDE80,new,low,font library: binary search of a character code in a glyph table; returns the entry or 0,src/lib/watcom/watcom_clib_06.asm
+FDED0,GetGlyph,sub_FDED0,new,low,"font library: returns the glyph of a character (direct index, else a search)",src/lib/watcom/watcom_clib_06.asm
+FDF28,GetKerning,sub_FDF28,new,low,"font library: returns the kerning between two characters from the font's pair list, 0 if none",src/lib/watcom/watcom_clib_06.asm
+FDF64,DrawTextRun,sub_FDF64,new,low,"font library: draws a string at the text position with the current font, colours and kerning",src/lib/watcom/watcom_clib_06.asm
+FE150,DrawTextAt,sub_FE150,new,low,"font library: (x, y, string) moves the text position and draws the string",src/lib/watcom/watcom_clib_06.asm
+FE180,SetTextColors,sub_FE180,new,low,"font library: sets the text and background colours, rebuilding the colour tables when they change",src/lib/watcom/watcom_clib_06.asm
+FE2F0,DrawTextBoxed,sub_FE2F0,new,low,font library: draws a string on a filled background box,src/lib/watcom/watcom_clib_06.asm
+FE3AC,DrawTextBoxedAt,sub_FE3AC,new,low,"font library: (x, y, string) moves the text position and draws the string on its box",src/lib/watcom/watcom_clib_06.asm
+FE3D0,FillRectCorners,sub_FE3D0,new,low,fills the rectangle between two corners given in any order,src/lib/watcom/watcom_clib_06.asm
+FE470,DrawGlyph,sub_FE470,new,low,"font library: draws one glyph bitmap with the text colour table, clipped to the window",src/lib/watcom/watcom_clib_06.asm
+FEBFC,BuildTextColorTable,sub_FEBFC,new,low,font library: finds the palette colours nearest to the anti-aliasing shades of the text colour,src/lib/watcom/watcom_clib_06.asm
+FEDEC,PrepareTextDraw,sub_FEDEC,new,low,font library: allocates the glyph work buffer and refreshes the colour tables before drawing,src/lib/watcom/watcom_clib_06.asm
+FEE60,RefreshTextColors,sub_FEE60,new,low,font library: entry that rebuilds the text colour ramp when anti-aliased text is on,src/lib/watcom/watcom_clib_06.asm
+FEE78,BuildColorRamp,sub_FEE78,new,low,font library: builds the ramp of colours from the background to the text colour,src/lib/watcom/watcom_clib_06.asm
+FEF68,FreeTextBuffers,sub_FEF68,new,low,font library: frees the glyph work buffer,src/lib/watcom/watcom_clib_06.asm
+FEFA0,ClearIfNaN,sub_FEFA0,new,low,3D library: sets a float to 0 when it is NaN or infinite; returns 1 if it did,src/lib/watcom/watcom_clib_06.asm
+FEFC4,matherr,sub_FEFC4,new,low,the game's math error handler: for an acos domain error returns 0 instead of an error,src/lib/watcom/watcom_clib_06.asm
+FF044,IntsToFloats,sub_FF044,new,low,3D library: converts a list of integers to floats,src/lib/watcom/watcom_clib_06.asm
+FF128,FloatsToInts,sub_FF128,new,low,3D library: converts a list of floats to integers,src/lib/watcom/watcom_clib_06.asm
+FF174,ScaleFloatsToInts,sub_FF174,new,low,3D library: scales a list of floats by the fixed-point factor and stores them as integers,src/lib/watcom/watcom_clib_06.asm
+FF198,MatRotX,sub_FF198,new,low,3D library: builds the matrix of a rotation about the X axis,src/lib/watcom/watcom_clib_06.asm
+FF1FC,MatRotY,sub_FF1FC,new,low,3D library: builds the matrix of a rotation about the Y axis,src/lib/watcom/watcom_clib_06.asm
+FF260,MatRotZ,sub_FF260,new,low,3D library: builds the matrix of a rotation about the Z axis,src/lib/watcom/watcom_clib_06.asm
+FF320,MatTranspose,sub_FF320,new,low,3D library: copies a 3x3 matrix transposed,src/lib/watcom/watcom_clib_06.asm
+FF368,MatMul,sub_FF368,new,low,3D library: multiplies two 3x3 matrices,src/lib/watcom/watcom_clib_06.asm
+FF444,VecMulMat,sub_FF444,new,low,3D library: multiplies a vector by a 3x3 matrix,src/lib/watcom/watcom_clib_06.asm
+FF48C,TransformVecs,sub_FF48C,new,low,3D library: multiplies a list of vectors by a matrix,src/lib/watcom/watcom_clib_06.asm
+FF580,TransformTranslateVecs,sub_FF580,new,low,3D library: multiplies a list of vectors by a matrix and adds an offset,src/lib/watcom/watcom_clib_06.asm
+FF5E0,VecAdd,sub_FF5E0,new,low,3D library: adds two vectors,src/lib/watcom/watcom_clib_06.asm
+FF600,VecSub,sub_FF600,new,low,3D library: subtracts one vector from another,src/lib/watcom/watcom_clib_06.asm
+FF620,OffsetVecs,sub_FF620,new,low,3D library: adds a vector to every vector of a list in place,src/lib/watcom/watcom_clib_06.asm
+FF690,AddVecs,sub_FF690,new,low,3D library: writes a list of vectors plus an offset to another list,src/lib/watcom/watcom_clib_06.asm
+FF6D0,SubVecs,sub_FF6D0,new,low,3D library: writes a list of vectors minus an offset to another list,src/lib/watcom/watcom_clib_06.asm
+FF710,VecCross,sub_FF710,new,low,3D library: cross product of two vectors,src/lib/watcom/watcom_clib_06.asm
+FF798,VecDistance,sub_FF798,new,low,3D library: distance between two points,src/lib/watcom/watcom_clib_06.asm
+FF7DC,VecLength,sub_FF7DC,new,low,3D library: length of a vector,src/lib/watcom/watcom_clib_06.asm
+FF7F4,VecScale,sub_FF7F4,new,low,3D library: multiplies a vector by a number,src/lib/watcom/watcom_clib_06.asm
+FF818,VecNormalizeTo,sub_FF818,new,low,3D library: writes a vector scaled to length 1; returns the old length,src/lib/watcom/watcom_clib_06.asm
+FF874,VecNormalize,sub_FF874,new,low,3D library: scales a vector to length 1 in place,src/lib/watcom/watcom_clib_06.asm
+FF8CC,VecCrossUnit,sub_FF8CC,new,low,3D library: cross product of two vectors scaled to length 1,src/lib/watcom/watcom_clib_06.asm
+FF940,VecDot,sub_FF940,new,low,3D library: dot product of two vectors,src/lib/watcom/watcom_clib_06.asm
+FF958,VecAngle,sub_FF958,new,low,3D library: angle between two vectors (acos of the normalized dot product),src/lib/watcom/watcom_clib_06.asm
+FFA14,SetViewScale,sub_FFA14,new,low,3D library: sets the projection scale of the view,src/lib/watcom/watcom_clib_06.asm
+FFA44,SetFocalLength,sub_FFA44,new,low,"3D library: sets the focal length of the projection, kept in range",src/lib/watcom/watcom_clib_06.asm
+FFA9C,SetProjectionCenter,sub_FFA9C,new,low,3D library: sets the screen centre of the projection from the view size and origin,src/lib/watcom/watcom_clib_06.asm
+FFBA4,PerspectiveScale,sub_FFBA4,new,low,3D library: focal length divided by depth,src/lib/watcom/watcom_clib_06.asm
+FFBB4,ProjectCoord,sub_FFBB4,new,low,3D library: projects one coordinate: value times focal length over depth,src/lib/watcom/watcom_clib_06.asm
+FFBC8,ProjectCoordInt,sub_FFBC8,new,low,3D library: projects one coordinate to an integer screen position,src/lib/watcom/watcom_clib_06.asm
+FFBE0,ProjectPoints,sub_FFBE0,new,low,3D library: projects a list of view-space points to the screen,src/lib/watcom/watcom_clib_06.asm
+FFCC4,ProjectPointsWithZ,sub_FFCC4,new,low,3D library: projects a list of points to the screen and keeps their depth,src/lib/watcom/watcom_clib_06.asm
+FFDAC,ProjectPointsToScreen,sub_FFDAC,new,low,3D library: projects a list of points to integer screen positions,src/lib/watcom/watcom_clib_06.asm
+FFE8C,ProjectPointInt,sub_FFE8C,new,low,3D library: projects one point to integer screen coordinates,src/lib/watcom/watcom_clib_06.asm
+FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points against the near plane and projects them,src/lib/watcom/watcom_clib_06.asm
+1001F8,ProjectPointFloat,sub_1001F8,new,low,3D library: projects one point to float screen coordinates when it is in front of the camera,src/lib/watcom/watcom_clib_06.asm
 10023C,IF@ATAN,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 100251,IF@ATAN2,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 100282,hypot_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 10029A,IF@DPOW,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+1003CD,PowIntLoop,sub_1003CD,new,low,math library: raises st(0) to an integer power by repeated squaring (used by pow),src/lib/watcom/watcom_clib_06.asm
 100674,vecdist,,96PC,medium,NHL96PC E14C8 (similar): mnemonic similarity 0.94 over 42 instructions,
 1008A2,IF@DFMOD,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 100940,SortIndices,sub_100940,95PC,medium,"sort library: sort n indices by their keys (n, keys, indices)",src/lib/ea/ea_gfx_03.asm
@@ -986,24 +1042,176 @@ FDDD4,sprintf_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 10C07C,DrawLineX,sub_10C07C,96PC,medium,96 PC DrawLineX,src/lib/lib_10B660.asm
 10C1C0,DrawFixedLine,sub_10C1C0,96PC,medium,NHL96PC 87DD6 (similar 0.80): mnemonic similarity 0.80 over 173 instructions,src/lib/lib_10B660.asm
 1131E4,strncmp_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+113210,PrimRect,sub_113210,new,low,model renderer: draws a filled rectangle primitive,src/lib/watcom/watcom_clib_13.asm
+11323C,PrimRectDebug,sub_11323C,new,low,model renderer: draws a rectangle primitive in a random colour (debug view),src/lib/watcom/watcom_clib_13.asm
+1132A4,PrimTriFlat,sub_1132A4,new,low,model renderer: draws a flat triangle when it faces the camera,src/lib/watcom/watcom_clib_13.asm
+113324,PrimTriLitCcw,sub_113324,new,low,model renderer: draws a lit triangle when it is wound the other way (mirrored model),src/lib/watcom/watcom_clib_13.asm
+1133A0,PrimTriShade,sub_1133A0,new,low,model renderer: draws a shaded triangle from both sides,src/lib/watcom/watcom_clib_13.asm
+1133D8,PrimTriShadeBlend,sub_1133D8,new,low,"model renderer: draws a shaded, blended triangle when it faces the camera",src/lib/watcom/watcom_clib_13.asm
+113458,PrimTriShadeCcw,sub_113458,new,low,model renderer: draws a shaded triangle when it is wound the other way,src/lib/watcom/watcom_clib_13.asm
+1134D8,PrimTriDebug,sub_1134D8,new,low,model renderer: draws a triangle in a random colour (debug view),src/lib/watcom/watcom_clib_13.asm
+113514,PrimTriDebugCw,sub_113514,new,low,model renderer: random-colour triangle when it faces the camera,src/lib/watcom/watcom_clib_13.asm
+113568,PrimTriDebugCcw,sub_113568,new,low,model renderer: random-colour triangle when it is wound the other way,src/lib/watcom/watcom_clib_13.asm
+1135BC,CopyTriScreenVerts,sub_1135BC,new,low,model renderer: copies the three projected vertices of a triangle primitive,src/lib/watcom/watcom_clib_13.asm
+1135DC,TriVertsIfCw,sub_1135DC,new,low,model renderer: copies a triangle's projected vertices when it faces the camera,src/lib/watcom/watcom_clib_13.asm
+113630,TriVertsIfCcw,sub_113630,new,low,model renderer: copies a triangle's projected vertices when it is wound the other way,src/lib/watcom/watcom_clib_13.asm
+113684,CopyTriTexVerts,sub_113684,new,low,model renderer: copies the three textured vertices of a triangle primitive,src/lib/watcom/watcom_clib_13.asm
+1136A4,TriTexVertsIfCw,sub_1136A4,new,low,model renderer: copies a triangle's textured vertices when it faces the camera,src/lib/watcom/watcom_clib_13.asm
+1136F8,TriTexVertsIfCcw,sub_1136F8,new,low,model renderer: copies a triangle's textured vertices when it is wound the other way,src/lib/watcom/watcom_clib_13.asm
+11374C,CopyTriShadeVerts,sub_11374C,new,low,model renderer: copies the three shaded vertices of a triangle primitive,src/lib/watcom/watcom_clib_13.asm
+11376C,TriShadeVertsIfCw,sub_11376C,new,low,model renderer: copies a triangle's shaded vertices when it faces the camera,src/lib/watcom/watcom_clib_13.asm
+1137C0,TriShadeVertsIfCcw,sub_1137C0,new,low,model renderer: copies a triangle's shaded vertices when it is wound the other way,src/lib/watcom/watcom_clib_13.asm
+113814,PrimTriTex,sub_113814,new,low,model renderer: draws a textured triangle from both sides,src/lib/watcom/watcom_clib_13.asm
+113834,PrimTriTexCw,sub_113834,new,low,model renderer: draws a textured triangle when it faces the camera,src/lib/watcom/watcom_clib_13.asm
+1138A0,PrimTriTexCcw,sub_1138A0,new,low,model renderer: draws a textured triangle when it is wound the other way,src/lib/watcom/watcom_clib_13.asm
+11392C,PrimTriTexClearCw,sub_11392C,new,low,model renderer: draws a textured triangle with transparent texels when it faces the camera,src/lib/watcom/watcom_clib_13.asm
+113998,PrimTriTexClearCcw,sub_113998,new,low,model renderer: draws a textured triangle with transparent texels when it is wound the other way,src/lib/watcom/watcom_clib_13.asm
+113A04,PrimTriTexShade,sub_113A04,new,low,model renderer: draws a shaded textured triangle from both sides,src/lib/watcom/watcom_clib_13.asm
+113A24,PrimTriTexShadeCw,sub_113A24,new,low,model renderer: draws a shaded textured triangle when it faces the camera,src/lib/watcom/watcom_clib_13.asm
+113A90,PrimTriTexShadeCcw,sub_113A90,new,low,model renderer: draws a shaded textured triangle when it is wound the other way,src/lib/watcom/watcom_clib_13.asm
+113AFC,PrimQuadDebug,sub_113AFC,new,low,model renderer: draws a quad in a random colour (debug view),src/lib/watcom/watcom_clib_13.asm
+113B38,PrimQuadDebugCw,sub_113B38,new,low,model renderer: random-colour quad when it faces the camera,src/lib/watcom/watcom_clib_13.asm
+113BB8,PrimQuadDebugCcw,sub_113BB8,new,low,model renderer: random-colour quad when it is wound the other way,src/lib/watcom/watcom_clib_13.asm
+113C78,PrimQuadFlat,sub_113C78,new,low,model renderer: draws a flat quad when it faces the camera,src/lib/watcom/watcom_clib_13.asm
+113D00,PrimQuadLitCcw,sub_113D00,new,low,model renderer: draws a lit quad when it is wound the other way,src/lib/watcom/watcom_clib_13.asm
+113D84,PrimQuadShade,sub_113D84,new,low,model renderer: draws a shaded quad from both sides,src/lib/watcom/watcom_clib_13.asm
+113DC4,PrimQuadShadeCw,sub_113DC4,new,low,model renderer: draws a shaded quad when it faces the camera,src/lib/watcom/watcom_clib_13.asm
+113E4C,PrimQuadShadeBlendCcw,sub_113E4C,new,low,"model renderer: draws a shaded, blended quad when it is wound the other way",src/lib/watcom/watcom_clib_13.asm
+113ED4,PrimQuadSplit,sub_113ED4,new,low,model renderer: draws a quad as two random-colour triangles (debug view),src/lib/watcom/watcom_clib_13.asm
+113FE0,PrimQuadTexCw,sub_113FE0,new,low,model renderer: draws a textured quad when it faces the camera,src/lib/watcom/watcom_clib_13.asm
+11404C,PrimQuadTexCcw,sub_11404C,new,low,model renderer: draws a textured quad when it is wound the other way,src/lib/watcom/watcom_clib_13.asm
+1140D8,PrimQuadTexShadeCw,sub_1140D8,new,low,model renderer: draws a shaded textured quad when it faces the camera,src/lib/watcom/watcom_clib_13.asm
+114144,PrimQuadTexShadeCcw,sub_114144,new,low,model renderer: draws a shaded textured quad when it is wound the other way,src/lib/watcom/watcom_clib_13.asm
+1141B0,PrimQuadTexClear,sub_1141B0,new,low,model renderer: draws a textured quad with transparent texels from both sides,src/lib/watcom/watcom_clib_13.asm
+1141D0,PrimQuadTexClearCw,sub_1141D0,new,low,model renderer: draws a textured quad with transparent texels when it faces the camera,src/lib/watcom/watcom_clib_13.asm
+11423C,PrimQuadTexClearCcw,sub_11423C,new,low,model renderer: draws a textured quad with transparent texels when it is wound the other way,src/lib/watcom/watcom_clib_13.asm
+1142A8,PrimQuadRandomFill,sub_1142A8,new,low,model renderer: fills a quad in a random colour (debug view),src/lib/watcom/watcom_clib_13.asm
+1142EC,PrimQuadRandomFillCw,sub_1142EC,new,low,model renderer: random-colour quad fill when it faces the camera,src/lib/watcom/watcom_clib_13.asm
+114340,PrimQuadRandomFillCcw,sub_114340,new,low,model renderer: random-colour quad fill when it is wound the other way,src/lib/watcom/watcom_clib_13.asm
+1143D4,DrawPrimList,sub_1143D4,new,low,"model renderer: builds the primitive list of a model (""PRIMLIST""), sorts it by depth and draws each primitive by type",src/lib/watcom/watcom_clib_13.asm
+114AF8,GetModelVertex,sub_114AF8,new,low,model library: copies one vertex of a model part,src/lib/watcom/watcom_clib_13.asm
+114BC0,TransformModelParts,sub_114BC0,new,low,model library: transforms the vertices of every part of a model,src/lib/watcom/watcom_clib_13.asm
+114CE4,TransformModelPartsWith,sub_114CE4,new,low,model library: transforms the vertices of every part of a model by a given matrix and offset,src/lib/watcom/watcom_clib_13.asm
+114DDC,UpdateModelParts,sub_114DDC,new,low,model library: runs the per-frame update of every part of a model,src/lib/watcom/watcom_clib_13.asm
+114E54,CallModelPartFuncs,sub_114E54,new,low,model library: calls the function of each listed model part,src/lib/watcom/watcom_clib_13.asm
+114E7C,CallAllPartFuncs,sub_114E7C,new,low,model library: calls the function of every model part,src/lib/watcom/watcom_clib_13.asm
+114EB8,BuildFrameFromPoints,sub_114EB8,new,low,model library: builds an orientation matrix from three points of a model,src/lib/watcom/watcom_clib_13.asm
+114FD0,TransformBoneVerts,sub_114FD0,new,low,model library: transforms the vertices attached to a bone,src/lib/watcom/watcom_clib_13.asm
+115020,SkinModelVerts,sub_115020,new,low,model library: moves the vertices attached to each anchor point with it,src/lib/watcom/watcom_clib_13.asm
+1150FC,AttachModelFrame,sub_1150FC,new,low,model library: sets a model's frame from its anchor points; returns 0 when it has none,src/lib/watcom/watcom_clib_13.asm
+115150,AttachModel,sub_115150,new,low,model library: attaches a model to its anchor points and moves its vertices,src/lib/watcom/watcom_clib_13.asm
+115170,UpdateModelFrame,sub_115170,new,low,model library: rebuilds the frames of a model's anchor points,src/lib/watcom/watcom_clib_13.asm
+1151A4,SkinModel,sub_1151A4,new,low,model library: moves the vertices of a model with its anchor points,src/lib/watcom/watcom_clib_13.asm
+115220,ScaleModelVerts,sub_115220,new,low,model library: converts a model's fixed-point vertices to floats,src/lib/watcom/watcom_clib_13.asm
+115288,FixupModelOffsets,sub_115288,new,low,model library: turns the offsets of a loaded model file into pointers,src/lib/watcom/watcom_clib_13.asm
+1152B0,LoadModelFile,sub_1152B0,new,low,"model library: builds the path of a model file ("".4db""), loads it and fixes its offsets",src/lib/watcom/watcom_clib_13.asm
+115318,FindModelPart,sub_115318,new,low,"model library: returns the index of a model part by its 8-character name, -1 if none",src/lib/watcom/watcom_clib_13.asm
+1153AC,ResetMorphVerts,sub_1153AC,new,low,model library: copies a model's base vertices back before the morph targets are added,src/lib/watcom/watcom_clib_13.asm
+1153DC,ApplyMorphTarget,sub_1153DC,new,low,model library: adds a weighted morph target (face expression) to a model's vertices,src/lib/watcom/watcom_clib_13.asm
+1155B0,PlotPixelRGB,sub_1155B0,new,low,"graphics library: plots a pixel of an RGB colour, clipped to the window",src/lib/watcom/watcom_clib_13.asm
+115810,PlotPixelRGBAt,sub_115810,new,low,"graphics library: (x, y, colour) entry of PlotPixelRGB",src/lib/watcom/watcom_clib_13.asm
+115830,CreateBitmapForArt,sub_115830,new,low,graphics library: creates a bitmap the size and depth of an art,src/lib/watcom/watcom_clib_13.asm
 115874,strupr_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+1158A0,FixedSinCos,sub_1158A0,new,low,graphics library: sine and cosine of a fixed-point angle from the table,src/lib/watcom/watcom_clib_13.asm
+11599C,BlitRowRemap8,sub_11599C,new,low,"graphics library: copies a row of 8-bit pixels through the remap table, skipping transparent ones",src/lib/watcom/watcom_clib_13.asm
+1159B8,BlitRowKey16,sub_1159B8,new,low,"graphics library: copies a row of 16-bit pixels, skipping transparent ones",src/lib/watcom/watcom_clib_13.asm
+1159D0,BlitRowKey24,sub_1159D0,new,low,"graphics library: copies a row of 24-bit pixels, skipping transparent ones",src/lib/watcom/watcom_clib_13.asm
+115A10,BlitRowKey32,sub_115A10,new,low,"graphics library: copies a row of 32-bit pixels, skipping transparent ones",src/lib/watcom/watcom_clib_13.asm
+115A58,BlitShapeKeyed,sub_115A58,new,low,"graphics library: draws a shape with transparency, row by row, for its pixel depth",src/lib/watcom/watcom_clib_13.asm
+115B78,BlitShapeAt,sub_115B78,new,low,"graphics library: draws a shape with transparency at x, y less its hot spot",src/lib/watcom/watcom_clib_13.asm
+115BB0,SaveDrawContext,sub_115BB0,new,low,graphics library: saves the draw target and clip window,src/lib/watcom/watcom_clib_13.asm
+115BD8,RestoreDrawContext,sub_115BD8,new,low,graphics library: restores the saved draw target and clip window,src/lib/watcom/watcom_clib_13.asm
 115BF9,copypart_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 115C2F,_splitpath_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 115D08,pickup_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 115D1C,_makepath_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 115F07,strnicmp_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+115F98,SetBitReader,sub_115F98,new,low,bit reader: sets the buffer and bit position to read from,src/lib/watcom/watcom_clib_13.asm
+116050,ReadBits,sub_116050,new,low,bit reader: reads the given number of bits,src/lib/watcom/watcom_clib_13.asm
 116150,start,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+1163E1,WriteConsoleMessage,sub_1163E1,new,low,writes a message to the console through DOS before exit,src/lib/watcom/watcom_clib_13.asm
+11641C,RestoreDS,sub_11641C,new,low,loads the saved data segment (for interrupt handlers),src/lib/watcom/watcom_clib_13.asm
+116428,InstallKeyboardHandler,sub_116428,new,low,keyboard: hooks the keyboard interrupt and clears the key table,src/lib/watcom/watcom_clib_13.asm
+1164E8,RemoveKeyboardHandler,sub_1164E8,new,low,keyboard: restores the original keyboard interrupt,src/lib/watcom/watcom_clib_13.asm
+116559,KeyboardISR,sub_116559,new,low,"keyboard: interrupt handler, reads the scan code and updates the key table and buffer",src/lib/watcom/watcom_clib_13.asm
+1166F0,Int16Handler,sub_1166F0,new,low,keyboard: BIOS keyboard service replacement that reads from the game's key buffer,src/lib/watcom/watcom_clib_13.asm
+11673A,Int16Service,sub_11673A,new,low,keyboard: handles the BIOS keyboard read and status calls,src/lib/watcom/watcom_clib_13.asm
+1167AE,IsKeyDown,sub_1167AE,new,low,keyboard: returns whether the key of a scan code is held,src/lib/watcom/watcom_clib_13.asm
+1167BD,BiosKeyCall,sub_1167BD,new,low,keyboard: calls the BIOS keyboard service,src/lib/watcom/watcom_clib_13.asm
+1167CC,AssertFail,sub_1167CC,new,low,"stops the program with the ""FILE %s LINE %d."" message after restoring the screen",src/lib/watcom/watcom_clib_13.asm
+116820,AssertFailEntry,sub_116820,new,low,jumps to AssertFail,src/lib/watcom/watcom_clib_13.asm
+116830,PlotPixel,sub_116830,new,low,"graphics library: plots a pixel, clipped to the window",src/lib/watcom/watcom_clib_13.asm
+1169D4,PlotPixelAt,sub_1169D4,new,low,"graphics library: (x, y, colour) entry of PlotPixel",src/lib/watcom/watcom_clib_13.asm
+1169F0,PrintBoxedText,sub_1169F0,new,low,"formats text like printf and draws it on a box at x, y",src/lib/watcom/watcom_clib_13.asm
 116A50,memset_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+116A70,BuildDecodeTable,sub_116A70,new,low,video player: builds the decoding table of the video stream,src/lib/watcom/watcom_clib_13.asm
+116D38,InitVideoDecoder,sub_116D38,new,low,video player: sets up the decoder tables for a video stream,src/lib/watcom/watcom_clib_13.asm
+116E84,BuildVideoGammaTable,sub_116E84,new,low,video player: builds the brightness table of the video palette,src/lib/watcom/watcom_clib_13.asm
+116F78,DecodeVideoChunk,sub_116F78,new,low,video player: decodes a chunk of the video stream,src/lib/watcom/watcom_clib_13.asm
+117140,CreateBitmapEx,sub_117140,new,low,"graphics library: creates a bitmap of a width, height and depth (""%dx%dx%d"")",src/lib/watcom/watcom_clib_13.asm
+117338,CreateBitmapDefault,sub_117338,new,low,graphics library: creates a bitmap in the screen's depth,src/lib/watcom/watcom_clib_13.asm
+117390,UpdateFrameRate,sub_117390,new,low,"counts frames and works out the frame rate (""framerate - TIMERHZ NOT SET"")",src/lib/watcom/watcom_clib_13.asm
+11756C,ResetFrameRate,sub_11756C,new,low,clears the frame rate counters,src/lib/watcom/watcom_clib_13.asm
+117598,ReadVideoCodes,sub_117598,new,low,video player: reads the block codes of a frame,src/lib/watcom/watcom_clib_13.asm
+117733,VideoBlockFill,sub_117733,new,low,video player: fills a block with one colour,src/lib/watcom/watcom_clib_13.asm
+117896,VideoBlockDelta,sub_117896,new,low,video player: draws a block as a change from the last frame,src/lib/watcom/watcom_clib_13.asm
+1179A0,VideoBlockPattern,sub_1179A0,new,low,video player: draws a block from a two-colour pattern,src/lib/watcom/watcom_clib_13.asm
+117C26,DecodeVideoFrame,sub_117C26,new,low,video player: decodes one frame block by block,src/lib/watcom/watcom_clib_13.asm
+118520,BuildHuffTable,sub_118520,new,low,TGV video: builds a Huffman decoding table,src/lib/watcom/watcom_clib_13.asm
+1185B0,DecodeHuffRuns,sub_1185B0,new,low,TGV video: decodes Huffman coded runs,src/lib/watcom/watcom_clib_13.asm
+1186C0,DecodeTgvFrame,sub_1186C0,new,low,"TGV video: decodes a delta frame (""TGV"")",src/lib/watcom/watcom_clib_13.asm
+118954,DecodeTgvKeyFrame,sub_118954,new,low,"TGV video: decodes a key frame (""TGV"")",src/lib/watcom/watcom_clib_13.asm
+118C88,DecodeTgvChunk,sub_118C88,new,low,TGV video: decodes a chunk by its tag (key frame or delta frame),src/lib/watcom/watcom_clib_13.asm
+118D54,SerialConfigure,sub_118D54,new,low,"serial port: sets the port's address, interrupt and buffers",src/lib/watcom/watcom_clib_13.asm
+118E3F,SerialOpen,sub_118E3F,new,low,serial port: installs the port's interrupt handler and enables it,src/lib/watcom/watcom_clib_13.asm
+118F1C,SerialClose,sub_118F1C,new,low,serial port: disables the port and restores its interrupt,src/lib/watcom/watcom_clib_13.asm
+118F67,SerialCloseAll,sub_118F67,new,low,serial port: closes both ports,src/lib/watcom/watcom_clib_13.asm
+118F7B,SerialIsOpen,sub_118F7B,new,low,serial port: returns whether the port is open,src/lib/watcom/watcom_clib_13.asm
+118F91,SerialSetBaud,sub_118F91,new,low,serial port: sets the baud rate,src/lib/watcom/watcom_clib_13.asm
+118FB7,SerialProgramUart,sub_118FB7,new,low,serial port: programs the UART's divisor and line settings,src/lib/watcom/watcom_clib_13.asm
+119054,SerialRaiseDtr,sub_119054,new,low,serial port: raises DTR,src/lib/watcom/watcom_clib_13.asm
+11908E,SerialCarrier,sub_11908E,new,low,serial port: returns the carrier detect bit,src/lib/watcom/watcom_clib_13.asm
+1190E8,SerialWriteIfRoom,sub_1190E8,new,low,serial port: writes the bytes when the send buffer has room,src/lib/watcom/watcom_clib_13.asm
+11910D,SerialWrite,sub_11910D,new,low,serial port: puts bytes in the send buffer and starts sending,src/lib/watcom/watcom_clib_13.asm
+1191A4,SerialRxCount,sub_1191A4,new,low,serial port: number of bytes received and not read,src/lib/watcom/watcom_clib_13.asm
+1191B8,SerialTxFree,sub_1191B8,new,low,serial port: free room in the send buffer,src/lib/watcom/watcom_clib_13.asm
+1191D1,SerialFlushTx,sub_1191D1,new,low,serial port: empties the send buffer,src/lib/watcom/watcom_clib_13.asm
+1191F2,SerialWaitTxEmpty,sub_1191F2,new,low,serial port: waits until the send buffer is empty or the time runs out,src/lib/watcom/watcom_clib_13.asm
+119255,SerialRead,sub_119255,new,low,serial port: reads received bytes,src/lib/watcom/watcom_clib_13.asm
+119328,SerialFlushRx,sub_119328,new,low,serial port: empties the receive buffer,src/lib/watcom/watcom_clib_13.asm
+119349,SerialISR,sub_119349,new,low,serial port: interrupt handler entries of the ports,src/lib/watcom/watcom_clib_13.asm
 1194D5,atoi_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+119550,LoadNamedResource,sub_119550,new,low,loads a named resource from the data folder,src/lib/watcom/watcom_clib_13.asm
+119730,LoadNamedResourceEx,sub_119730,new,low,calls LoadNamedResource with its options,src/lib/watcom/watcom_clib_13.asm
+119780,LoadNameFile,sub_119780,new,low,loads a list of names (logo names) from the data folder,src/lib/watcom/watcom_clib_13.asm
 1197C7,__null_int23_exit_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 1197C8,exit_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 1197E0,_exit_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+119800,GrabLargestBlock,sub_119800,new,low,"allocates the largest block the memory manager gives, trying smaller sizes",src/lib/watcom/watcom_clib_13.asm
+119850,InitMemoryPool,sub_119850,new,low,sets up the game's memory pool from DOS extender memory,src/lib/watcom/watcom_clib_13.asm
+119BC8,InitMemoryPoolDefault,sub_119BC8,new,low,sets up the memory pool with the default size,src/lib/watcom/watcom_clib_13.asm
+119BE4,InitMemoryPoolArgs,sub_119BE4,new,low,sets up the memory pool with the given sizes,src/lib/watcom/watcom_clib_13.asm
 119C8D,open_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 119CB1,sopen_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 119E9A,__set_binary_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 119EFF,close_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+119F20,ExitGraphics,sub_119F20,new,low,restores text mode and frees the screen,src/lib/watcom/watcom_clib_13.asm
+119F54,FindDos4gw,sub_119F54,new,low,looks for DOS4GW.EXE on the PATH,src/lib/watcom/watcom_clib_13.asm
+119FDC,InitPlatform,sub_119FDC,new,low,"start-up: DOS extender check, memory pool, timer, screen",src/lib/watcom/watcom_clib_13.asm
+11A120,InstallErrorHandlers,sub_11A120,new,low,installs the handlers of the error interrupts,src/lib/watcom/watcom_clib_13.asm
 11A13F,getcwd_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 11A1C8,_dos_getdiskfree_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+11A210,CopyPixels8,sub_11A210,new,low,copies a row of 8-bit pixels,src/lib/watcom/watcom_clib_13.asm
+11A220,CopyPixels16,sub_11A220,new,low,copies a row of 16-bit pixels,src/lib/watcom/watcom_clib_13.asm
+11A230,CopyPixels24,sub_11A230,new,low,copies a row of 24-bit pixels,src/lib/watcom/watcom_clib_13.asm
+11A250,CopyPixels32,sub_11A250,new,low,copies a row of 32-bit pixels,src/lib/watcom/watcom_clib_13.asm
+11A264,ConvertArtAt,sub_11A264,new,low,converts an art to the screen's pixel format and sets its position,src/lib/watcom/watcom_clib_13.asm
+11A294,ConvertArtInPlace,sub_11A294,new,low,converts an art to the screen's pixel format at its own position,src/lib/watcom/watcom_clib_13.asm
+11A318,ConvertArtXY,sub_11A318,new,low,"(art, x, y) converts an art to the screen's pixel format and sets its position",src/lib/watcom/watcom_clib_13.asm
+11A350,ConvertArtKeepPos,sub_11A350,new,low,"converts an art to the screen's pixel format, keeping its position",src/lib/watcom/watcom_clib_13.asm
+11A3E0,FormatString,sub_11A3E0,new,low,"formats a string like printf (numbers, strings, padding) for the text drawing routines",src/lib/watcom/watcom_clib_13.asm
+11ADD0,SaveTextState,sub_11ADD0,new,low,"saves the text drawing state (font, colours, position)",src/lib/watcom/watcom_clib_13.asm
+11ADE8,RestoreTextState,sub_11ADE8,new,low,restores the text drawing state and its colour tables,src/lib/watcom/watcom_clib_13.asm
 11B094,FindShapeList,sub_11B094,new,medium,"(bank, names, out): FindShape for each 4-character name of a list, storing the pointers",src/lib/ea/ea_debug.asm
 11B1A0,savefileblocka,,96PC,medium,NHL96PC B2374 (similar): mnemonic similarity 0.88 over 55 instructions,
 11B20A,fputc_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),

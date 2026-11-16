@@ -13,8 +13,8 @@ extern dword_1DA3EC, dword_1DA3F0, dword_1DA3F4, dword_1DA3F8, dword_1DA3FC, dwo
 extern dword_1DA40C, dword_1DA410, dword_1DA414, dword_1DA4D0, fgetc_, int386_, off_172140, off_17216C
 extern off_1721B8, putchar, sprintf_, strncmp_, strncpy_, bcopy, sub_100B88, sub_100BC8
 extern sub_100BCC, sub_100C08, sub_100C50, sub_100D8C, sub_100DC4, sub_100DCC, sub_100FCC, sub_101154
-extern sub_101220, sub_102B78, sub_11313C, sub_118D54, sub_118E3F, sub_118F7B, sub_118F91, sub_118FB7
-extern sub_11908E, sub_1190E8, sub_11910D, sub_1191A4, sub_1191B8, sub_1191D1, sub_119255, sub_119328
+extern sub_101220, sub_102B78, sub_11313C, SerialConfigure, SerialOpen, SerialIsOpen, SerialSetBaud, SerialProgramUart
+extern SerialCarrier, SerialWriteIfRoom, SerialWrite, SerialRxCount, SerialTxFree, SerialFlushTx, SerialRead, SerialFlushRx
 extern sub_11FAD6, sub_120763, sub_123FA8, sub_12F270, sub_13130C, sub_1313FD, OpenPacketLink, ModemReset
 extern ModemHangup, ModemDial, ModemAutoAnswer, ModemWaitConnect, ModemSpeakerOff, sub_F99C0, sub_F9A28, sub_F9A88
 extern AllocMemBlock, sub_FAAB4, FreeMemBlock, ZeroMem, FillMem, addtimer, sub_FC008, WaitTicks
@@ -1561,21 +1561,21 @@ sub_11C010:
 .1:
         mov ecx, dword [byte esi+02Ch]
         push ecx
-        call sub_118FB7
+        call SerialProgramUart
         add esp, byte 4
         push eax
         mov edi, dword [byte esi+02Ch]
         push edi
 .2:
-        call sub_118F91
+        call SerialSetBaud
         add esp, byte 8
         mov edx, dword [byte ebx+02Ch]
         push edx
-        call sub_118E3F
+        call SerialOpen
         add esp, byte 4
         mov ecx, dword [byte ebx+02Ch]
         push ecx
-        call sub_118F7B
+        call SerialIsOpen
         add esp, byte 4
         test eax, eax
         je short .3
@@ -1589,15 +1589,15 @@ sub_11C010:
         push eax
         mov edx, dword [byte ebx+02Ch]
         push edx
-        call sub_118D54
+        call SerialConfigure
         add esp, byte 14h
         mov ecx, dword [byte ebx+02Ch]
         push ecx
-        call sub_119328
+        call SerialFlushRx
         add esp, byte 4
         mov esi, dword [byte ebx+02Ch]
         push esi
-        call sub_1191D1
+        call SerialFlushTx
         add esp, byte 4
         mov dword [byte ebx+028h], 1
         jmp short .4
@@ -1634,7 +1634,7 @@ sub_11C0C4:
         mov eax, dword [byte esp+04h]
         mov edx, dword [byte eax+02Ch]
         push edx
-        call sub_1191B8
+        call SerialTxFree
         add esp, byte 4
         ret
         db 08Dh,040h,00h
@@ -1645,7 +1645,7 @@ sub_11C0D8:
         mov eax, dword [byte esp+04h]
         mov edx, dword [byte eax+02Ch]
         push edx
-        call sub_1191A4
+        call SerialRxCount
         add esp, byte 4
         ret
         db 08Dh,040h,00h
@@ -1661,7 +1661,7 @@ sub_11C0EC:
         push ebx
         mov ecx, dword [byte eax+02Ch]
         push ecx
-        call sub_119255
+        call SerialRead
         add esp, byte 0Ch
         mov edx, eax
         test eax, eax
@@ -1684,7 +1684,7 @@ sub_11C114:
         push ebx
         mov ecx, dword [byte eax+02Ch]
         push ecx
-        call sub_1190E8
+        call SerialWriteIfRoom
         add esp, byte 0Ch
         pop ebx
         ret
@@ -1779,21 +1779,21 @@ sub_11C1CC:
 .1:
         mov ecx, dword [byte esi+02Ch]
         push ecx
-        call sub_118FB7
+        call SerialProgramUart
         add esp, byte 4
         push eax
         mov edi, dword [byte esi+02Ch]
         push edi
 .2:
-        call sub_118F91
+        call SerialSetBaud
         add esp, byte 8
         mov edx, dword [byte ebx+02Ch]
         push edx
-        call sub_118E3F
+        call SerialOpen
         add esp, byte 4
         mov ecx, dword [byte ebx+02Ch]
         push ecx
-        call sub_118F7B
+        call SerialIsOpen
         add esp, byte 4
         test eax, eax
         je near .13
@@ -1807,12 +1807,12 @@ sub_11C1CC:
         push edx
         mov ecx, dword [byte ebx+02Ch]
         push ecx
-        call sub_118D54
+        call SerialConfigure
         add esp, byte 14h
         mov edi, dword [byte ebx+02Ch]
         push edi
         xor esi, esi
-        call sub_119328
+        call SerialFlushRx
         mov ebp, dword [byte ebx+04Ch]
         add esp, byte 4
         test ebp, ebp
@@ -1907,7 +1907,7 @@ sub_11C1CC:
         push byte 1
         mov ecx, dword [byte ebx+02Ch]
         push ecx
-        call sub_11910D
+        call SerialWrite
         add esp, byte 0Ch
         mov esi, dword [byte ebx+02Ch]
         push esi
@@ -1957,7 +1957,7 @@ sub_11C384:
         je short .1
         mov ebx, dword [byte eax+02Ch]
         push ebx
-        call sub_11908E
+        call SerialCarrier
         add esp, byte 4
         test eax, eax
         je short .1
@@ -1976,7 +1976,7 @@ sub_11C3AC:
         mov eax, dword [byte esp+04h]
         mov edx, dword [byte eax+02Ch]
         push edx
-        call sub_1191B8
+        call SerialTxFree
         add esp, byte 4
         ret
         db 08Dh,040h,00h
@@ -1987,7 +1987,7 @@ sub_11C3C0:
         mov eax, dword [byte esp+04h]
         mov edx, dword [byte eax+02Ch]
         push edx
-        call sub_1191A4
+        call SerialRxCount
         add esp, byte 4
         ret
         db 08Dh,040h,00h
@@ -2003,7 +2003,7 @@ sub_11C3D4:
         push ebx
         mov ecx, dword [byte eax+02Ch]
         push ecx
-        call sub_119255
+        call SerialRead
         add esp, byte 0Ch
         mov edx, eax
         test eax, eax
@@ -2026,7 +2026,7 @@ sub_11C3FC:
         push ebx
         mov ecx, dword [byte eax+02Ch]
         push ecx
-        call sub_1190E8
+        call SerialWriteIfRoom
         add esp, byte 0Ch
         pop ebx
         ret

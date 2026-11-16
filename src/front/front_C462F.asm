@@ -23,11 +23,11 @@ extern dword_1CB720, dword_1CB76E, dword_1CB772, dword_1CB7C0, dword_1CB7C4, dwo
 extern dword_1CB868, dword_1CB8B6, dword_1CB8BA, dword_1CB908, dword_1CB90C, dword_1CB95A, dword_1CB95E, dword_1CB9AC
 extern dword_1CB9B0, dword_1CB9FE, dword_1CBA02, dword_1CBA50, dword_1CBA54, dword_1CBAA2, dword_1CBAA6, dword_1CBAF4
 extern dword_1CBAF8, dword_1CBB46, dword_1CBB4A, dword_1CBB88, dword_1CBB8D, rand_, sprintf_, BlitShape2
-extern sub_1013FC, FindShape, sub_10FAC, sub_11A318, SetScreenTarget, SetMusicVolume, SetSfxVolume, SecondsToSamples
+extern sub_1013FC, FindShape, sub_10FAC, ConvertArtXY, SetScreenTarget, SetMusicVolume, SetSfxVolume, SecondsToSamples
 extern WaitSoundTime, ChkMenuMusic, PauseMusic, RequestMusicStop, WaitMusicEnd, ArenaFileName, PlayMenuSfx, PlaySfx
 extern LoadDataFile, sub_7E860, sub_7EDF0, SetRegionRect, SetTextColor, DrawTextAligned, sub_80BBC, sub_83C08
 extern InitMenuItems, sub_8BFAC, DetailLevelScreen, FreeMemBlock, sub_FB4D4, MakeColor, FreeBitmap, sub_FCEEC
-extern DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, sub_FE3D0, unk_166C97, unk_1C5F4A, unk_1CB148
+extern DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, FillRectCorners, unk_166C97, unk_1C5F4A, unk_1CB148
 extern unk_1CB1EC, unk_1CB23E, word_1684BE
 global jpt_C4822, OptionsScreen_F0A, OptionsScreen_F22, OptionsScreen_10AA, OptionsScreen_10D0, OptionsScreen_1125, OptionsScreen_117A, OptionsScreen_11CF
 global OptionsScreen_1285, OptionsScreen_12DA, OptionsScreen_1359, OptionsScreen_136C, OptionsScreen_137F, OptionsScreen_13A6, OptionsScreen_140D, OptionsScreen_1431
@@ -403,7 +403,7 @@ OptionsScreen:
         push byte 46h
         push byte 0
         push byte 0
-        call sub_FE3D0
+        call FillRectCorners
         add esp, byte 14h
         push dword [byte ebp+052h]
         call SetDrawTarget
@@ -423,7 +423,7 @@ OptionsScreen:
         push byte 0
         push byte 0
         mov ebx, dword [byte ebp+06Ah]
-        call sub_FE3D0
+        call FillRectCorners
         add esp, byte 14h
         mov edi, dword_1CB19A
         mov esi, unk_1C5F4A
@@ -1080,13 +1080,13 @@ OptionsScreen:
         push dword 0FAh
         push dword 0BEh
         push dword [byte ebx+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         add esp, byte 0Ch
         push byte 46h
         mov eax, esi
         push dword 0BEh
         push dword [byte eax+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         mov ecx, 10Dh
         mov eax, dword [dword_1AC819]
         mov edx, dword [byte ebp+072h]
@@ -1126,7 +1126,7 @@ OptionsScreen:
         push dword 136h
         push dword 226h
         push dword [byte ebx+02Ch]
-        call sub_11A318
+        call ConvertArtXY
         mov eax, dword [byte ebx+02Ch]
         mov word [byte eax+0Ch], 226h
         add esp, byte 0Ch
