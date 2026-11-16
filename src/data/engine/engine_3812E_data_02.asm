@@ -4,7 +4,7 @@ bits 32
 section s_1690D2 progbits alloc noexec write align=1
 extern str_GLOBAL, str_FRONT1, str_FRONT2, str_GAME, str_AUXI, str_CROWD
 global AudioStreamChannel, SeasonPanelText, MatchupLogoIds, str_G_DrawLockedGame, MatchupLogoPos, str_Punct_DrawLockedGame, str_O_FaceoffStanceMove, str_C_FaceoffSwipeAnim
-global str_U_FaceoffDrawAnim, ViewBorderColor, ViewBorderRows, StreamBlockCount, StreamBlockSize, StreamTimeout, dword_169198, dword_16919C
+global str_U_FaceoffDrawAnim, ViewBorderColor, ViewBorderRows, StreamBlockCount, StreamBlockSize, StreamTimeout, CdStreamFilled, CdStreamUsed
 global StreamState, AudioStreamFlags, MusicState, MusicTrack, MusicNextTrack, MusicRestart, MusicPaused, MusicTime
 global MusicStreamPos, MusicVolumeLevel, BackgroundAudioTick, MusicFeedCount, MusicStartTime, MusicLength, MusicHandle, MusicBuffer
 global SfxBankRecords, AudioInitDone, SfxBankHandle, CrowdBankHandle, AmbientHandle, SfxReady, MusicReady, CrowdNoiseLevel
@@ -44,9 +44,9 @@ StreamBlockSize:
         db 0DAh,00h,00h,00h
 StreamTimeout:
         db 02Ch,01h,00h,00h
-dword_169198:
+CdStreamFilled:
         db 00h,00h,00h,00h
-dword_16919C:
+CdStreamUsed:
         db 00h,00h,00h,00h
 StreamState:
         db 00h,00h

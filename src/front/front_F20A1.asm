@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_F20A1 progbits alloc exec nowrite align=1
 extern SortCords, __CHP, str_Mous6, str_Remo4, str_D02dD, str_D02dD2, str_CB0D, str_CB002
-extern str_Chat, str_SS15, str_D4, IntermissionActive, byte_19CBC2, MusicOptions, DetailLevel, byte_1AD23E
+extern str_Chat, str_SS15, str_D4, IntermissionActive, gmode, MusicOptions, DetailLevel, byte_1AD23E
 extern byte_1C135A, byte_1C135B, F32_3_DrawPauseButton, F32_4_DrawPauseButton, F32_3_DrawMenuItem, F32_4_DrawMenuItem, F32_12_DrawPauseButtons, F32_100_DrawPauseButtons
 extern F32_155, F32_10_DrawPauseButtons, F32_165, F32_129, F32_117, F32_105, F32_141, F32_153
 extern F32_178, F32_40_PickEditLinesTeam, F32_130, F32_0p5_PickEditLinesTeam, F32_55, F32_150, F32_50_PickEditLinesTeam, F32_10_PickEditLinesTeam
@@ -41,8 +41,8 @@ extern LoadLangTextB, GetLangText, FreeLangText, EditLinesScreen, GameStatsScree
 extern FadePalette, FadeOut, OpenGameDatabase, CloseGameDatabase, ServiceIdle, SyncLinkGame, LinkSyncMenu, LinkSyncScreen
 extern WaitForOtherComputer, SetupPauseArt, FreeMemBlock, OpenResourceArchive, MatchColor, SelectFont, FreeBitmap, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, MeasureText, DrawTextAt, SetTextColors, DrawTextBoxedAt
-extern FillRectCorners, tickcount, str_D_DrawPauseClock, PeriodLengths, word_19CBB0, word_19CBB2, gsp, gameclock
-extern word_19CBBC, word_1C3413, word_1C5536, word_1CEFC0
+extern FillRectCorners, tickcount, str_D_DrawPauseClock, PeriodLengths, Period, SimFrames, gsp, gameclock
+extern StatsPanelOn, word_1C3413, word_1C5536, word_1CEFC0
 global jpt_F4167, jpt_F56E5, jpt_F7BB6, PickEditLinesTeam_5B2, PickEditLinesTeam_5B5, PauseMenu_16C, PauseMenu_26F, PauseMenu_29A
 global PauseMenu_4BB, PauseMenu_4EF, PauseMenu_60A, PauseMenu_62A, PauseMenu_640, PauseMenu_66D, PauseMenu_726, PauseMenu_72C
 global PauseMenu_72D, RulesMenu_1583, RulesMenu_176B, RulesMenu_19CD, RulesMenu_1C04, RulesMenu_1D78, RulesMenu_1F1F, RulesMenu_2056
@@ -726,29 +726,29 @@ DrawPauseClock:
         push dword 0F8h
         call SetTextColors
         add esp, byte 8
-        cmp word [word_19CBB2], byte 0
+        cmp word [SimFrames], byte 0
         je short .1
-        cmp word [word_19CBB0], byte 8
+        cmp word [Period], byte 8
         jl short .2
 .1:
-        cmp word [word_19CBB2], byte 0
+        cmp word [SimFrames], byte 0
         jne short .5
-        cmp word [word_19CBB0], byte 9
+        cmp word [Period], byte 9
         jge short .5
 .2:
-        cmp word [word_19CBB2], byte 0
+        cmp word [SimFrames], byte 0
         je short .3
-        test byte [byte_19CBC2], 40h
+        test byte [gmode], 40h
         sete al
         movzx eax, al
         test eax, eax
         je short .3
-        movsx eax, word [word_19CBB0]
+        movsx eax, word [Period]
         inc eax
         inc eax
         jmp short .4
 .3:
-        movsx eax, word [word_19CBB0]
+        movsx eax, word [Period]
         inc eax
 .4:
         push eax
@@ -773,9 +773,9 @@ DrawPauseClock:
         push eax
         call DrawTextBoxedAt
         add esp, byte 0Ch
-        cmp word [word_19CBB2], byte 0
+        cmp word [SimFrames], byte 0
         je near .11
-        test byte [byte_19CBC2], 40h
+        test byte [gmode], 40h
         sete al
         movzx eax, al
         test eax, eax
@@ -825,7 +825,7 @@ DrawPauseClock:
         mov ecx, edx
         cmp ebx, byte 0Ah
         jge short .12
-        movsx eax, word [word_19CBBC]
+        movsx eax, word [StatsPanelOn]
         imul eax, byte 0Ah
         cdq
         shl edx, 4
@@ -836,7 +836,7 @@ DrawPauseClock:
         push ebx
         jmp short .9
 .12:
-        movsx eax, word [word_19CBBC]
+        movsx eax, word [StatsPanelOn]
         imul eax, byte 0Ah
         cdq
         shl edx, 4
@@ -2712,7 +2712,7 @@ PauseMenu:
         xor ebx, ebx
         mov dword [byte ebp+07Ah], 0FFFFFFFFh
         call FadeGamePalette
-        test byte [byte_19CBC2], 40h
+        test byte [gmode], 40h
         je short .1
         call RunIntermission
         xor eax, eax
@@ -3360,7 +3360,7 @@ RestartGameAudio:
         push edx
         shr eax, 1Ah
         push eax
-        movsx eax, word [word_19CBB0]
+        movsx eax, word [Period]
         push eax
         push dword 0B0000004h
         call PaEvent
@@ -4117,7 +4117,7 @@ CloseIntermission:
 .1:
         cmp esi, byte 2
         je short .2
-        test byte [byte_19CBC2], 40h
+        test byte [gmode], 40h
         sete al
         movzx eax, al
         test eax, eax

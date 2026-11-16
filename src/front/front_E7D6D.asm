@@ -16,7 +16,7 @@ extern FindPlayerRecord, OpenLeagueFile, FindGameRecord, FindTeamStat, ServiceId
 extern DrawArt, SetDrawTarget, str_D_DrawSeasonIntro, unk_16E1E4, str_Punct_BuildSeasonIntro, unk_1AD22E, unk_1AD443, unk_1C5F4A
 extern unk_1C5F9C, unk_1CD78C, unk_1CD7FA, unk_1CD833, unk_1CD8DE, unk_1CD989, unk_1CDA34, unk_1CDADF
 extern unk_1CDB8A, unk_1CDC35, unk_1CDCE0, unk_1CDD8F, unk_1CDDFD, unk_1CDE36, unk_1CE03B, unk_1CE0A9
-extern word_19CBC6, word_1CD788, word_1CD78A, word_1CD7CD, word_1CD7CF, word_1CD7D1, word_1CD7D3, word_1CD7D5
+extern seed, word_1CD788, word_1CD78A, word_1CD7CD, word_1CD7CF, word_1CD7D1, word_1CD7D3, word_1CD7D5
 extern word_1CD7D7, word_1CD7D9, word_1CD7DB, word_1CD7DD, word_1CD7E5, word_1CD7E7, word_1CD7E9, word_1CD7EB
 extern word_1CD878, word_1CD87E, word_1CDA7B, word_1CDA95, word_1CDC7A, word_1CDC7C, word_1CDD8B, word_1CDD8D
 extern word_1CDE7B, word_1CDE81, word_1CE037, word_1CE039
@@ -1740,7 +1740,7 @@ randomd0:
         push ecx
         push edx
         push ax
-        mov ax, word [word_19CBC6]
+        mov ax, word [seed+2]
         mov dx, 0E62Dh
         mul dx
         LD mov, bx, ax
@@ -1756,7 +1756,7 @@ randomd0:
         add ax, byte 1
         adc dx, byte 0
         mov word [seed], ax
-        mov word [word_19CBC6], dx
+        mov word [seed+2], dx
         LD mov, al, ah
         LD mov, ah, dl
         pop dx

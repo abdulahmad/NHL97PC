@@ -4,7 +4,7 @@ bits 32
 section s_BD62C progbits alloc exec nowrite align=1
 extern SortCords, __CHP, __STOSD, str_Mous4, str_Remo3, str_Replload, str_RPEVENT, str_Replmenu
 extern str_Replregs, str_REPLAYNDX, str_DATAREPLAYNDX2, str_DONTHAVEIT2, str_Replay, str_SS10, str_Replbuff, str_SREPLAYNDX
-extern str_S12, str_NOIS, str_ARWD, byte_19CBC2, byte_1C6040, byte_1CB004, F32_0p005_ReplayScreen, F32_0p003125_ReplayScreen
+extern str_S12, str_NOIS, str_ARWD, gmode, byte_1C6040, byte_1CB004, F32_0p005_ReplayScreen, F32_0p003125_ReplayScreen
 extern F32_0p005_DrawReplayTimeline, F32_0p003125_DrawReplayTimeline, F32_0p003125_PickReplayScreen, F32_0p005_PickReplayScreen, F32_0p003125_DrawReplayEntry, F32_0p005_DrawReplayEntry, F32_0p003125_ReplayMenuScreen, F32_0p005_ReplayMenuScreen
 extern ClockShown, InGameMenuRequest, dword_16CCF1, dword_16D500, dword_16DA9C, dword_16E464, dword_16E468, MenuScreenBitmap
 extern VideoModeCount, QuantizePalette, dword_19CD10, dword_19CD14, dword_19CD20, dword_19CD24, dword_19CD28, dword_19CD2C
@@ -2231,7 +2231,7 @@ ReplayStatusText:
         mov eax, 7Eh
         call GetLangText
         mov dword [dword_1CAFE0], eax
-        test byte [byte_19CBC2], 2
+        test byte [gmode], 2
         jne short .1
         mov eax, 80h
         call GetLangText

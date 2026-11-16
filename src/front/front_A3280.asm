@@ -43,7 +43,7 @@ extern FreeMemBlock, ZeroMem, OpenResourceArchive, MakeColor, SelectFont, FreeBi
 extern DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, MeasureText, tickcount, str_D_RunLinkGameScreens, str_D_DrawTeamStatLine
 extern str_Punct_GoalTypeSuffix, unk_16D262, str_S_RunLinkGameScreens, ControlSetup, unk_1C135C, unk_1C347F, unk_1C5EF8, unk_1C5F4A
 extern unk_1C5F9C, unk_1C94F4, GripPortWord, word_16D25C, word_16D25E, word_16D260, word_16D27E, word_16D28C
-extern word_16D29C, word_16D2A6, word_16D2AC, word_16D2B0, word_16D2B2, word_16D2B4, word_19CB96, gameover
+extern word_16D29C, word_16D2A6, word_16D2AC, word_16D2B0, word_16D2B2, word_16D2B4, PassState, gameover
 extern word_1C1348, word_1C55A2, word_1C9448, word_1C9450, word_1C9470, word_1C94EC, word_1C94EE, word_1C94F0
 extern word_1C94F6, word_1C94F8, word_1C94FA, word_1C95AC, word_1C95AE
 global jpt_A3B51, jpt_A4B35, jpt_A4B4D, jpt_A4B65, jpt_A6680, jpt_A7D7C, LinkGameSetup_8CA, LinkGameSetup_8CB
@@ -8794,7 +8794,7 @@ LogGoal:
         mov esi, 1
         cmp cx, 100h
         jge near .1
-        mov edx, dword [word_19CB96]
+        mov edx, dword [PassState]
         movsx ebx, ax
         sar edx, 10h
         sub edx, ebx
@@ -8853,7 +8853,7 @@ LogPenalty:
         mov ecx, 1
         cmp si, 100h
         jge near .1
-        mov edx, dword [word_19CB96]
+        mov edx, dword [PassState]
         movsx ebx, ax
         sar edx, 10h
         sub edx, ebx
@@ -8912,7 +8912,7 @@ LogPeriodEnd:
         mov ebx, 1
         cmp cx, 100h
         jge near .3
-        mov edx, dword [word_19CB96]
+        mov edx, dword [PassState]
         sar edx, 10h
         mov edi, 3Ch
         mov eax, edx

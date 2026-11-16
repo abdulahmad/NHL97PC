@@ -4,16 +4,16 @@ bits 32
 section s_1303C progbits alloc exec nowrite align=1
 extern CountTeamSlots, SetupTeamForIntermission, SortCords, __CHK, __CHP, __STOSB, __STOSD, _dos_gettime_
 extern str_RPEVENT2, str_WaitingForOtherComputer2, str_WarteAufAnderenComputer, str_BREAKIN, str_BREAKOUT, awtmstruct, LinePlayersHome, PenaltyBoxCount
-extern byte_19CB71, byte_19CB74, byte_19CB75, byte_19CB7E, byte_19CB7F, byte_19CB8A, byte_19CB8B, byte_19CBC2
-extern byte_19CBC8, byte_19CBCA, byte_19CBCC, byte_19CBFC, byte_19CCC6, byte_19CD05, byte_19CD8C, byte_19CD9D
+extern ShotFlagsReset, NearestPlayer, NearestTeam, GoalieOut, OneTimerFlag, iflags, IcingTeam, gmode
+extern PuckFlags, PlayFlags, holdreset, RefSignal, byte_19CCC6, byte_19CD05, byte_19CD8C, byte_19CD9D
 extern PlayerControlRest, MusicOptions, DetailLevel, DisplayOptions, byte_1C135A, byte_1C135B, byte_1C6040, clearteams
 extern F32_10, F32_neg8, F32_neg8_StickReachZ, GameEventTable, GameEventFlags, SavedCameraView, ClockShown, F32_62
 extern F32_54, F32_0p8, F32_ReachFactor, OpeningFrames, InGameMenuRequest, BrightnessLevel, dword_16AF3C, dword_16AF40
 extern dword_16AF44, dword_16AF48, dword_16AF4C, dword_16AF50, dword_16AF54, dword_16AF58, dword_16AF5C, dword_16C6BC
 extern InputRecordStamp, dword_16DA9C, dword_16E464, dword_16E468, QuantizePalette, ProgressCount, RefState, InputState
-extern InputDir, ShotState, LastTouchPlayer, PassFrom, PassTo, GameRunning, dword_19CBAA, seed
-extern dword_19CBD0, penshottimer, dword_19CBE8, dword_19CBF8, dword_19CC00, dword_19CC54, dword_19CC58, dword_19CC78
-extern dword_19CC9C, dword_19CCA0, dword_19CCA4, dword_19CCA8, dword_19CD08, dword_19CD0C, dword_19CD10, dword_19CD14
+extern InputDir, ShotState, LastTouchPlayer, PassFrom, PassTo, GameRunning, FaceoffWinner, seed
+extern GameFrame, penshottimer, PuckX, RefTarget, RefPlayer, bholdtimer, InputActive, InputSlotState
+extern PuckChasers, FaceoffCenter, ChangePlayer, LastChangePlayer, dword_19CD08, dword_19CD0C, dword_19CD10, dword_19CD14
 extern dword_19CD18, dword_19CD1C, dword_19CD20, dword_19CD24, dword_19CD28, dword_19CD2C, dword_19CD30, dword_19CD34
 extern dword_19CD40, dword_19CD44, dword_19CD48, dword_19CD4C, dword_19CD50, dword_19CD54, dword_19CD88, dword_19CDA0
 extern dword_19CDA5, PlayerPointsTable, ViewSizeIndex, GameSettings, AudioOptions, Brightness, GameOptionFlags, dword_1B1404
@@ -40,14 +40,14 @@ extern HomeTeamRecord, AwayTeamRecord, DisplaySettings, CrowdChantTable, CameraV
 extern DebugModelRefresh, DebugModelIndex, str_D_ChangeViewSize, SpareGameWord, SpareGameFlag, HomeSpareCount, HomeSpareFlag, FaceoffHomePlayer
 extern FaceoffAwayPlayer, AwaySpareCount, AwaySpareFlag, FaceoffX, FaceoffDropX, FaceoffY, FaceoffDropY, GameVarClear
 extern LineChangeHome, LineChangeAway, LineChangeHomeLine, LineChangeAwayLine, HomeSkaters, AwaySkaters, DefendFlags, ShootSpotY
-extern GoalieTarget, ZoneTargetY, word_19CB72, word_19CB76, word_19CB78, word_19CB7A, word_19CB7C, word_19CB80
-extern word_19CB82, word_19CB84, word_19CB86, word_19CB88, word_19CB8C, word_19CB8E, word_19CB90, word_19CB92
-extern word_19CB96, word_19CB9A, word_19CB9C, word_19CB9E, gameover, word_19CBA2, word_19CBA4, word_19CBA6
-extern word_19CBA8, word_19CBAC, word_19CBAE, word_19CBB0, word_19CBB2, word_19CBB4, word_19CBB6, gsp
-extern gameclock, word_19CBBC, word_19CBBE, word_19CBC0, word_19CBD4, word_19CBD6, word_19CBD8, word_19CBDA
-extern word_19CBDC, penshotmode, word_19CBE0, penshotlive, word_19CBE6, word_19CBEA, word_19CBEC, word_19CBEE
-extern word_19CBF0, word_19CBF2, word_19CBF4, word_19CC04, word_19CC24, word_19CC26, word_19CC28, word_19CC2A
-extern word_19CC2C, word_19CC50, word_19CC52, word_19CCC4, word_19CD9C, word_19CDA7, PlayerAssignWords, HomeTeamRecord
+extern GoalieTarget, ZoneTargetY, ProgressTimer, ShotTarget, ShotTimer, ShotType, ShotSpeed, ShotPending
+extern PassPlayer, PassPending, PassTarget, ShootButtonTime, LastTouchTeam, PassDistX, PassDistY, PassReceiver
+extern PassState, AssistOne, AssistTwo, GoalScorer, gameover, GoalState, HomeGoalsPeriod, AwayGoalsPeriod
+extern fofdata2, PuckOwner, PuckOwnerTeam, Period, SimFrames, StoppageFlag, LastPlayerTouch, gsp
+extern gameclock, StatsPanelOn, FaceoffSpot, FaceoffZone, PeriodLength, OneTimerReady, OneTimerPasser, OneTimerTarget
+extern PuckZone, penshotmode, BenchRequest, penshotlive, FaceoffRequest, PuckY, DelayedPen, MessagePanel
+extern PenCntDwn, GoalLineFlag, BreakawayFlag, SlotAssign, HomeGoalieOff, AwayGoalieOff, HomeControlSlot, AwayControlSlot
+extern HomeEbenPlayer, FaceoffTakers, FaceoffTakerAway, word_19CCC4, word_19CD9C, word_19CDA7, PlayerAssignWords, HomeTeamRecord
 extern AwayTeamRecord, word_1C3415, word_1C3417, word_1C5538, word_1C553A
 global AllInPlace, Intermission, StartGame, InitGameVars, RunOpeningFrames, PlaceOpeningPlayers, OpeningSequence, BeginGame
 global EndGameCleanup, GetPlayerJerseyNumber, LinkSideFlags, ClearLinkCounters, PickGameEvents, SpeedScaleAligned, SpeedScale, ReachScale
@@ -137,12 +137,12 @@ StartGame:
         mov dword [regd1], edx
         mov dword [ZoneTargetY], edx
         xor edx, edx
-        mov byte [byte_19CBC2], ah
-        mov word [word_19CBBE], dx
-        mov word [word_19CBC0], dx
-        mov word [byte_19CBCC], dx
-        mov word [byte_19CBCA], dx
-        mov word [byte_19CBC8], dx
+        mov byte [gmode], ah
+        mov word [FaceoffSpot], dx
+        mov word [FaceoffZone], dx
+        mov word [holdreset], dx
+        mov word [PlayFlags], dx
+        mov word [PuckFlags], dx
         call ClearPlayerFlags
         mov eax, byte_19CCC6
         xor edx, edx
@@ -159,8 +159,8 @@ StartGame:
         mov word [word_19CCC4], ax
         call ResetPlayerCounters
         call clearteams
-        mov word [word_19CB82], bx
-        mov word [word_19CBB0], dx
+        mov word [PassPlayer], bx
+        mov word [Period], dx
         mov word [gsp], bx
         call ResetTeamStats
         call SetupAutoLines
@@ -206,62 +206,62 @@ InitGameVars:
         xor ecx, ecx
         xor ebx, ebx
         xor esi, esi
-        mov dword [dword_19CC58], edx
-        mov dword [dword_19CC54], edx
+        mov dword [InputActive], edx
+        mov dword [bholdtimer], edx
         mov dword [InputState], edx
         mov dword [InputDir], edx
         call StartGame
         xor esi, ecx
         mov dword [ShotState], ecx
-        mov word [word_19CB96], bx
-        mov word [word_19CB8E], bx
-        mov word [word_19CB86], bx
-        mov word [word_19CB88], bx
-        mov dword [dword_19CC00], ebp
-        mov word [word_19CBB2], bx
+        mov word [PassState], bx
+        mov word [PassDistX], bx
+        mov word [PassTarget], bx
+        mov word [ShootButtonTime], bx
+        mov dword [RefPlayer], ebp
+        mov word [SimFrames], bx
         mov word [gameover], bx
-        mov dword [dword_19CBD0], ecx
-        mov word [word_19CBF2], bx
-        mov word [word_19CBF4], bx
+        mov dword [GameFrame], ecx
+        mov word [GoalLineFlag], bx
+        mov word [BreakawayFlag], bx
         mov dword [ProgressCount], ecx
-        mov word [word_19CBF0], di
-        mov dword [dword_19CBF8], ebp
-        mov word [word_19CBB6], bx
-        mov word [word_19CBAE], bx
-        mov word [word_19CB90], bx
-        mov word [word_19CB8C], bx
-        mov word [word_19CBE0], bx
-        mov word [word_19CBDC], si
-        mov word [word_19CBDA], bx
+        mov word [PenCntDwn], di
+        mov dword [RefTarget], ebp
+        mov word [LastPlayerTouch], bx
+        mov word [PuckOwnerTeam], bx
+        mov word [PassDistY], bx
+        mov word [LastTouchTeam], bx
+        mov word [BenchRequest], bx
+        mov word [PuckZone], si
+        mov word [OneTimerTarget], bx
         mov word [penshottimer], bx
         mov dword [LastTouchPlayer], ecx
         mov dword [PassTo], ecx
         mov dword [PassFrom], ecx
-        mov word [word_19CBEC], bx
-        mov word [word_19CBEA], si
-        mov word [dword_19CBE8], bx
-        mov word [word_19CBE6], di
-        mov word [word_19CBEE], di
-        mov word [word_19CB72], di
+        mov word [DelayedPen], bx
+        mov word [PuckY], si
+        mov word [PuckX], bx
+        mov word [FaceoffRequest], di
+        mov word [MessagePanel], di
+        mov word [ProgressTimer], di
         mov word [AwaySkaters], si
         mov word [FaceoffAwayPlayer], si
         xor ah, ah
         xor dl, dl
         mov cl, 0FFh
-        mov byte [byte_19CB8B], ah
-        mov byte [byte_19CB8A], dl
+        mov byte [IcingTeam], ah
+        mov byte [iflags], dl
         xor ebp, ebp
         xor edi, edi
-        mov byte [byte_19CB75], cl
-        mov byte [byte_19CB74], cl
+        mov byte [NearestTeam], cl
+        mov byte [NearestPlayer], cl
         mov word [HomeSkaters], di
         mov word [FaceoffHomePlayer], di
         mov dword [RefState], ebp
-        mov dword [dword_19CCA0], ebp
+        mov dword [FaceoffCenter], ebp
         xor dh, dh
         xor al, al
-        mov word [word_19CB84], dx
-        mov word [word_19CB92], ax
+        mov word [PassPending], dx
+        mov word [PassReceiver], ax
         xor ecx, ecx
         mov eax, 1
         mov word [HomeSpareCount], cx
@@ -273,27 +273,27 @@ InitGameVars:
         mov dword [InGameMenuRequest], edx
         xor eax, eax
         xor edx, edx
-        mov word [word_19CBD4], ax
+        mov word [PeriodLength], ax
         mov word [penshotmode], ax
-        mov word [word_19CBD6], ax
-        mov word [word_19CC52], ax
+        mov word [OneTimerReady], ax
+        mov word [FaceoffTakerAway], ax
         xor dh, bh
         mov word [SpareGameFlag], ax
-        mov byte [byte_19CBFC], dh
+        mov byte [RefSignal], dh
         xor dl, bl
         mov word [LineChangeAway], ax
-        mov word [word_19CBB4], dx
+        mov word [StoppageFlag], dx
         xor bl, bl
         mov word [penshotlive], dx
-        mov byte [byte_19CB71], bl
+        mov byte [ShotFlagsReset], bl
         xor edx, edx
         xor bh, bh
-        mov word [word_19CBD8], dx
+        mov word [OneTimerPasser], dx
         mov byte [PenaltyBoxCount], bh
         mov word [HomeSpareFlag], bx
         mov word [AwaySpareFlag], bx
         mov ebx, 0FFFFFFFFh
-        mov word [word_19CC50], dx
+        mov word [FaceoffTakers], dx
         mov word [FaceoffDropX], bx
         mov word [FaceoffX], bx
         mov word [FaceoffDropY], bx
@@ -303,38 +303,38 @@ InitGameVars:
         mov word [LineChangeAwayLine], bx
         xor ebx, ebx
         mov word [LineChangeHome], dx
-        mov dword [dword_19CC9C], ebx
+        mov dword [PuckChasers], ebx
         mov edi, 0FFFFFFFFh
         mov al, 0FFh
         mov esi, 0FFFFFFFFh
-        mov word [dword_19CBAA], cx
-        mov word [word_19CBA8], cx
-        mov word [word_19CBA4], cx
-        mov word [word_19CBA6], cx
-        mov word [word_19CB7C], cx
-        mov word [word_19CB76], cx
-        mov word [word_19CB78], cx
-        mov word [word_19CB7A], cx
-        mov word [word_19CB80], cx
+        mov word [FaceoffWinner], cx
+        mov word [fofdata2], cx
+        mov word [HomeGoalsPeriod], cx
+        mov word [AwayGoalsPeriod], cx
+        mov word [ShotSpeed], cx
+        mov word [ShotTarget], cx
+        mov word [ShotTimer], cx
+        mov word [ShotType], cx
+        mov word [ShotPending], cx
         xor edx, edx
-        mov dword [dword_19CCA4], edi
-        mov byte [byte_19CB7F], al
-        mov byte [byte_19CB7E], al
-        mov word [word_19CB9E], si
-        mov word [word_19CB9C], si
-        mov word [word_19CB9A], si
-        mov word [word_19CBAC], si
-        mov word [word_19CBA2], si
-        mov dword [dword_19CCA8], edi
+        mov dword [ChangePlayer], edi
+        mov byte [OneTimerFlag], al
+        mov byte [GoalieOut], al
+        mov word [GoalScorer], si
+        mov word [AssistTwo], si
+        mov word [AssistOne], si
+        mov word [PuckOwner], si
+        mov word [GoalState], si
+        mov dword [LastChangePlayer], edi
         xor eax, eax
 .1:
         add eax, byte 4
         xor ebx, ebx
         add edx, byte 2
-        mov dword [dword eax+dword_19CC78], ebx
-        mov dword [dword eax+dword_19CC58], ebx
+        mov dword [dword eax+InputSlotState], ebx
+        mov dword [dword eax+InputActive], ebx
         mov word [dword edx+GameVarClear], bx
-        mov dword [dword eax+word_19CC2C], ebx
+        mov dword [dword eax+HomeEbenPlayer], ebx
         cmp edx, byte 10h
         jne short .1
         call InitPadSlots
@@ -458,7 +458,7 @@ RunOpeningFrames:
         mov eax, 64h
         call SetAmbientVolume
         mov dword [esp], 1
-        mov eax, dword [word_19CBB6]
+        mov eax, dword [LastPlayerTouch]
         sar eax, 10h
         inc eax
         push eax
@@ -471,7 +471,7 @@ RunOpeningFrames:
 .13:
         cmp dword [esp], byte 0
         jne short .14
-        mov eax, dword [word_19CBB6]
+        mov eax, dword [LastPlayerTouch]
         sar eax, 10h
         inc eax
         push eax
@@ -658,15 +658,15 @@ PlaceOpeningPlayers:
         mov eax, dword [PtrPuckFlags]
         call assreplace
         call PeriodOver
-        mov bl, byte [byte_19CBCA]
+        mov bl, byte [PlayFlags]
         or bl, 4
         xor edx, edx
-        mov byte [byte_19CBCA], bl
+        mov byte [PlayFlags], bl
         call DoGameFrame
         call DoGameFrame
         mov eax, 64h
         mov ebx, 1
-        mov dword [dword_19CBD0], edx
+        mov dword [GameFrame], edx
         call SetAmbientVolume
         mov dword [dword_19CD88], ebx
         pop edx
@@ -695,7 +695,7 @@ OpeningSequence:
         call FadeGamePalette
         mov eax, 9
         call SetCrowdMood
-        mov eax, dword [word_19CBB6]
+        mov eax, dword [LastPlayerTouch]
         sar eax, 10h
         inc eax
         push eax
@@ -718,7 +718,7 @@ OpeningSequence:
         mov ebx, eax
         test eax, eax
         jne short .2
-        mov dword [dword_19CC58], 1
+        mov dword [InputActive], 1
 .2:
         cmp byte [byte_19CD05], 0
         je short .3
@@ -731,28 +731,28 @@ OpeningSequence:
         call TriggerCameraFlashes
         xor eax, eax
         call LoadOpeningArt
-        cmp word [word_19CC24], byte 0
+        cmp word [HomeGoalieOff], byte 0
         je short .4
-        mov eax, dword [word_19CC26]
+        mov eax, dword [AwayGoalieOff]
         mov ecx, 2
         sar eax, 10h
         mov edx, 0FFFFFFFFh
-        mov word [nosplit eax*2+word_19CC04], cx
+        mov word [nosplit eax*2+SlotAssign], cx
         mov eax, HomeTeamRecord
         call SetPlayerTarget
-        mov ax, word [word_19CC28]
+        mov ax, word [HomeControlSlot]
         mov word [HomeTeamRecord+0BAh], ax
 .4:
-        cmp word [word_19CC26], byte 0
+        cmp word [AwayGoalieOff], byte 0
         je short .5
-        mov eax, dword [word_19CC28]
+        mov eax, dword [HomeControlSlot]
         mov edi, 8
         sar eax, 10h
         mov edx, 0FFFFFFFFh
-        mov word [nosplit eax*2+word_19CC04], di
+        mov word [nosplit eax*2+SlotAssign], di
         mov eax, AwayTeamRecord
         call SetPlayerTarget
-        mov ax, word [word_19CC2A]
+        mov ax, word [AwayControlSlot]
         mov word [AwayTeamRecord+0BAh], ax
 .5:
         mov eax, ebx
@@ -777,18 +777,18 @@ BeginGame:
         mov esi, 1
         test dx, dx
         jne short .1
-        cmp word [word_19CBBC], byte 0
+        cmp word [StatsPanelOn], byte 0
         jne short .1
         xor eax, eax
         jmp short .2
 .1:
         mov ebx, dword [gsp]
-        mov eax, dword [word_19CB96]
+        mov eax, dword [PassState]
         sar ebx, 10h
         sar eax, 10h
         sub eax, ebx
 .2:
-        mov ebx, dword [word_19CB96]
+        mov ebx, dword [PassState]
         sar ebx, 10h
         cdq
         idiv ebx
@@ -825,7 +825,7 @@ BeginGame:
 EndGameCleanup:
         push edx
         call GameOver
-        and byte [byte_19CBC2], 7Fh
+        and byte [gmode], 7Fh
         xor edx, edx
 .1:
         imul eax, edx, dword 108h
@@ -1387,14 +1387,14 @@ RunSimFrames:
         push ecx
         push edx
         push esi
-        test byte [byte_19CBC2], 1
+        test byte [gmode], 1
         jne short .1
         call ClockTick
 .1:
         call DoGameFrame
         cmp dword [InGameMenuRequest], byte 0
         jne near .5
-        cmp word [word_19CBB2], byte 0
+        cmp word [SimFrames], byte 0
         jne near .5
         cmp word [gameover], byte 0
         jne near .5
@@ -1708,7 +1708,7 @@ DebugKeys:
         pop ebx
         ret
 .10:
-        test byte [byte_19CBC2], 2
+        test byte [gmode], 2
         jne short .13
 .11:
         mov eax, dword [PtrPuckOwner]
@@ -1717,7 +1717,7 @@ DebugKeys:
         call Goal
         jmp near .32
 .12:
-        test byte [byte_19CBC2], 2
+        test byte [gmode], 2
         jne short .11
 .13:
         mov eax, dword [PtrPuckOwner]
@@ -1748,14 +1748,14 @@ DebugKeys:
         mov word [word_1C553A], cx
         mov al, dl
         mov edx, 2
-        mov word [word_19CBBC], si
-        mov word [word_19CBB0], dx
+        mov word [StatsPanelOn], si
+        mov word [Period], dx
         mov word [gsp], dx
-        mov dh, byte [byte_19CBC2]
+        mov dh, byte [gmode]
         mov word [gameclock], si
         or dh, 40h
         mov word [awtmstruct], ax
-        mov byte [byte_19CBC2], dh
+        mov byte [gmode], dh
         mov eax, 1
         pop edi
         pop esi
@@ -1774,17 +1774,17 @@ DebugKeys:
         mov word [word_1C3415], ax
         mov word [word_1C5538], di
         mov word [word_1C3417], di
-        mov word [word_19CBBC], ax
+        mov word [StatsPanelOn], ax
         mov word [gameclock], ax
         mov ch, 1
         mov esi, 2
-        mov al, byte [byte_19CBC2]
+        mov al, byte [gmode]
         mov byte [byte_1C135B], ch
-        mov word [word_19CBB0], si
+        mov word [Period], si
         mov word [gsp], si
         or al, 40h
         xor ch, ch
-        mov byte [byte_19CBC2], al
+        mov byte [gmode], al
         mov word [word_1C553A], cx
         mov eax, 1
         pop edi
@@ -1803,12 +1803,12 @@ DebugKeys:
         mov word [word_1C3415], si
         mov word [word_1C3417], si
         mov word [word_1C553A], si
-        mov word [word_19CBBC], ax
+        mov word [StatsPanelOn], ax
         xor dh, dh
         mov esi, 2
         mov byte [byte_1C135B], dh
         mov word [word_1C5538], dx
-        mov word [word_19CBB0], si
+        mov word [Period], si
         mov word [gsp], si
         mov word [gameclock], dx
         mov eax, 1
@@ -1822,7 +1822,7 @@ DebugKeys:
         xor ecx, ecx
         xor ebx, ebx
         mov word [gameclock], cx
-        mov word [word_19CBBC], bx
+        mov word [StatsPanelOn], bx
         mov eax, 1
         pop edi
         pop esi
@@ -1836,19 +1836,19 @@ DebugKeys:
         xor esi, esi
         xor ecx, ecx
         mov word [gameclock], si
-        mov word [word_19CBBC], cx
+        mov word [StatsPanelOn], cx
         cmp ax, di
         jne short .19
         mov ebx, 3
         mov word [gsp], bx
-        mov word [word_19CBB0], bx
+        mov word [Period], bx
         jmp short .20
 .19:
         mov eax, 2
         mov word [gsp], ax
-        mov word [word_19CBB0], ax
+        mov word [Period], ax
 .20:
-        or byte [byte_19CBC2], 40h
+        or byte [gmode], 40h
         mov eax, 1
         pop edi
         pop esi
@@ -1956,9 +1956,9 @@ DebugKeys:
         xor edx, edx
         call RandomDiceRoll
         mov dl, byte [dword eax+0A4h]
-        mov word [word_19CBE6], dx
+        mov word [FaceoffRequest], dx
         mov ax, word [dword eax+0BAh]
-        mov word [word_19CBEC], ax
+        mov word [DelayedPen], ax
         mov eax, dword [PtrPuckZone]
         xor ebx, ebx
         mov cl, byte [eax]
@@ -2371,7 +2371,7 @@ GameLoop:
         cmp dword [GameRunning], byte 0
         jne near .21
         call FreeReplayBuffer
-        cmp word [word_19CBB2], byte 0
+        cmp word [SimFrames], byte 0
         jne near .16
 .3:
         mov esi, dword [GameRunning]
@@ -2387,7 +2387,7 @@ GameLoop:
         jne near .9
         mov eax, byte_19CD8C
         call TakeInputRecord
-        test byte [byte_19CBCA], 4
+        test byte [PlayFlags], 4
         jne short .5
         cmp edi, dword [dword_1B8FA4]
         je short .5
@@ -2411,17 +2411,17 @@ GameLoop:
 .5:
         mov eax, dword [word_19CD9C]
         sar eax, 10h
-        mov edx, dword [dword_19CC00]
+        mov edx, dword [RefPlayer]
         add esi, eax
         cmp edi, edx
         jg short .6
         mov ebx, edx
         sub ebx, eax
-        mov dword [dword_19CC00], ebx
+        mov dword [RefPlayer], ebx
 .6:
         mov eax, 1
         call RunSimFrames
-        test byte [byte_19CBCA], 4
+        test byte [PlayFlags], 4
         jne short .7
         mov ecx, dword [dword_1B8FA4]
         cmp edi, ecx
@@ -2431,7 +2431,7 @@ GameLoop:
         call ReplayPauseRecording
         jmp short .8
 .7:
-        test byte [byte_19CBCA], 4
+        test byte [PlayFlags], 4
         je short .8
         cmp edi, dword [dword_1B8FA4]
         je short .8
@@ -2496,7 +2496,7 @@ GameLoop:
 .14:
         cmp dword [InGameMenuRequest], byte 0
         je short .15
-        cmp word [word_19CBB2], byte 0
+        cmp word [SimFrames], byte 0
         jne short .15
         mov eax, dword [GameSettings]
         and eax, byte 70h
@@ -2504,7 +2504,7 @@ GameLoop:
         je short .15
         call RunInGameMenu
 .15:
-        cmp word [word_19CBB2], byte 0
+        cmp word [SimFrames], byte 0
         je near .3
 .16:
         call IsInputRecording
@@ -2520,7 +2520,7 @@ GameLoop:
         cmp eax, byte 40h
         je short .20
         call PeriodOver
-        test byte [byte_19CBC2], 40h
+        test byte [gmode], 40h
         je short .18
         mov dword [GameRunning], 1
         jmp near .2
@@ -2534,8 +2534,8 @@ GameLoop:
         call CheckIntermission
         mov dword [dword_19CD88], esi
         xor esi, esi
-        mov dword [dword_19CBD0], edi
-        mov word [word_19CBB2], si
+        mov dword [GameFrame], edi
+        mov word [SimFrames], si
 .19:
         call IsInputRecording
         test eax, eax

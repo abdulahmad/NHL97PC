@@ -8,13 +8,13 @@ extern str_AB04, str_AB03, str_SIM0, str_BT02d, str_FAN0, str_LT00, str_Logo02dF
 extern str_ALST, str_CDD, str_SDSD, str_LOCK, str_PANL, str_DMAN, str_HIST, str_MEGAHIST
 extern str_BKH, str_BKD, str_SFX4S, str_AUDSTREAM, str_CROWDCRD, str_GAMEDATAAUDPBP3TSF, str_MENU, str_S02dASF
 extern str_TEMP, str_SAUDPBP3TSF, str_KTSF, str_SAUDPBP2VIV, str_CBANK03dDAT, str_TEAM04dDAT, AudioStreamChannel, QuantizeByte
-extern QuantizeTable, RemapTable, IdentityRemap, byte_19CBC2, OverlayMask, FadePalCurrent, FadePalBytes, FadePalTarget
+extern QuantizeTable, RemapTable, IdentityRemap, gmode, OverlayMask, FadePalCurrent, FadePalBytes, FadePalTarget
 extern FadePalTargetG, FadePalTargetBytes, MusicTrackTable, SfxOptions, MusicOptions, byte_1ACF62, byte_1ACF63, byte_1AD457
 extern byte_1AD458, byte_1AD742, BoxSeatSlot, BoxSeatFlags, byte_1BF670, byte_1C135A, byte_1C135B, byte_1C6040
 extern F32_10_RefDodgePuck, F32_3_RefDodgePuck, F32_15, F32_0p0666667, F32_0p5_RefDodgePuck, F32_144_PokeCheckAnim, F32_336, F32_192_TryBodyCheck
 extern F32_144_TryBodyCheck, F32_98, F32_42, dword_16908A, SeasonPanelText, MatchupLogoIds, str_G_DrawLockedGame, MatchupLogoPos
 extern str_Punct_DrawLockedGame, str_O_FaceoffStanceMove, str_C_FaceoffSwipeAnim, str_U_FaceoffDrawAnim, ViewBorderColor, ViewBorderRows, StreamBlockCount, StreamBlockSize
-extern StreamTimeout, dword_169198, dword_16919C, StreamState, AudioStreamFlags, MusicState, MusicTrack, MusicRestart
+extern StreamTimeout, CdStreamFilled, CdStreamUsed, StreamState, AudioStreamFlags, MusicState, MusicTrack, MusicRestart
 extern MusicPaused, MusicTime, MusicStreamPos, MusicVolumeLevel, MusicFeedCount, MusicStartTime, MusicLength, MusicHandle
 extern SfxBankRecords, AudioInitDone, SfxBankHandle, CrowdBankHandle, AmbientHandle, SfxReady, MusicReady, CrowdNoiseLevel
 extern AmbientVolume, SfxVolumeLevel, MusicVolumeWord, LastSfxPlayed, SpeechBankBuffer, dword_169250, dword_169254, F32_9600
@@ -3909,7 +3909,7 @@ RefDodgePuck:
         sub esp, byte 3Ch
         and esp, byte 0FFFFFFF8h
         mov esi, eax
-        test byte [byte_19CBC2], 1
+        test byte [gmode], 1
         jne near .4
         test byte [dword esi+0BFh], 20h
         jne near .4
@@ -10792,13 +10792,13 @@ CdStreamService_1E3:
         push ecx
         call CdRead
         mov eax, dword [StreamState]
-        mov edx, dword [dword_169198]
-        mov ecx, dword [dword_16919C]
+        mov edx, dword [CdStreamFilled]
+        mov ecx, dword [CdStreamUsed]
         add edx, eax
         add ecx, ebx
         mov eax, dword [StreamHandle]
-        mov dword [dword_169198], edx
-        mov dword [dword_16919C], ecx
+        mov dword [CdStreamFilled], edx
+        mov dword [CdStreamUsed], ecx
         mov dword [dword eax+080h], esi
         mov ecx, dword [StreamHandle]
         add esp, byte 0Ch
@@ -11159,11 +11159,11 @@ CdStreamService_81D:
         push edx
         call CdRead
         mov eax, dword [StreamState]
-        mov ecx, dword [dword_169198]
+        mov ecx, dword [CdStreamFilled]
         add ecx, eax
-        add dword [dword_16919C], ebx
+        add dword [CdStreamUsed], ebx
         mov eax, dword [StreamHandle]
-        mov dword [dword_169198], ecx
+        mov dword [CdStreamFilled], ecx
         mov dword [dword eax+080h], esi
         mov ecx, dword [StreamHandle]
         add esp, byte 0Ch

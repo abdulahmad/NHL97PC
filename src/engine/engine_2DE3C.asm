@@ -2,12 +2,12 @@
 bits 32
 %include "hockey.inc"
 section s_2DE3C progbits alloc exec nowrite align=1
-extern SortCords, __CHP, awtmstruct, byte_19CB7E, byte_19CBC2, byte_19CBC8, HmCoachOffense, HmCoachDefense
+extern SortCords, __CHP, awtmstruct, GoalieOut, gmode, PuckFlags, HmCoachOffense, HmCoachDefense
 extern HmCoachGoalie, HmCoachLines, AwCoachOffense, AwCoachDefense, AwCoachGoalie, AwCoachLines, F32_40_ChkTiredPlayer, F32_0p01
 extern FaceoffSlots, LastTouchPlayer, HmCoachTimer, AwCoachTimer, GameOptionFlags, hmtmstruct, CompLineTable, randomd0
 extern setpersonel, RemoveOverlayPanel, QueueOverlayPanel, CPgoalie, CommentaryEvent, FaceoffX, FaceoffDropX, FaceoffY
-extern FaceoffDropY, HomeSkaters, word_19CB98, gsp, gameclock, word_19CBBE, word_19CBEC, word_19CBEE
-extern word_19CC24, word_19CC26, HmLineState
+extern FaceoffDropY, HomeSkaters, StatsPanelPlayer, gsp, gameclock, FaceoffSpot, DelayedPen, MessagePanel
+extern HomeGoalieOff, AwayGoalieOff, HmLineState
 global ReturnGoalies, CoachLineChange_1A5, CoachLineChange_259, LineSlotsPtr_33, CoachLineChange, TeamLineSlots, LineSlotsPtr, RestoreBenchEnergy
 global ChkTiredPlayer, AvgLineEnergy, CompLine, SetCoachMode, ResetCoachModes, UpdateCoachModes, StartFaceoffLineChange
 ;-----------------------------------------------------------------------------
@@ -27,14 +27,14 @@ ReturnGoalies:
         mov byte [byte eax+011h], 0
         test cx, cx
         je short .2
-        mov bx, word [word_19CC26]
+        mov bx, word [AwayGoalieOff]
         jmp short .3
 .2:
-        mov bx, word [word_19CC24]
+        mov bx, word [HomeGoalieOff]
 .3:
         test bx, bx
         jne short .4
-        mov ebx, dword [word_19CBBE]
+        mov ebx, dword [FaceoffSpot]
         sar ebx, 10h
         call CPgoalie
 .4:
@@ -70,10 +70,10 @@ CoachLineChange:
         mov si, word [nosplit eax*4+HmLineState]
         test bx, bx
         je short .1
-        mov ax, word [word_19CC26]
+        mov ax, word [AwayGoalieOff]
         jmp short .2
 .1:
-        mov ax, word [word_19CC24]
+        mov ax, word [HomeGoalieOff]
 .2:
         test ax, ax
         je near .7
@@ -84,14 +84,14 @@ CoachLineChange:
         test si, si
         setge al
         xor edx, edx
-        mov cx, word [word_19CBEE]
+        mov cx, word [MessagePanel]
         mov dl, al
         cmp dx, cx
         jg short .3
         cmp cx, byte 1
         jg short .4
 .3:
-        mov eax, dword [word_19CBEC]
+        mov eax, dword [DelayedPen]
         sar eax, 10h
         call RemoveOverlayPanel
         movsx eax, dx
@@ -140,7 +140,7 @@ CoachLineChange:
         shl eax, 3
         add eax, SortCords
         mov cl, byte [dword eax+0A6h]
-        mov byte [dword edi+byte_19CB7E], cl
+        mov byte [dword edi+GoalieOut], cl
         mov eax, dword [dword eax+0A3h]
         sar eax, 18h
         sub eax, byte 19h
@@ -392,7 +392,7 @@ ChkTiredPlayer:
         push edx
         sub esp, byte 8
         mov edx, eax
-        test byte [byte_19CBC2], 1
+        test byte [gmode], 1
         jne near .7
         cmp word [dword edx+0A9h], byte 0
         je near .7
@@ -532,7 +532,7 @@ CompLine:
         mov ebx, edx
         cmp word [gsp], byte 0
         jg short .1
-        mov di, word [word_19CB98]
+        mov di, word [StatsPanelPlayer]
         cmp di, word [gameclock]
         jle near .37
 .1:
@@ -547,7 +547,7 @@ CompLine:
 .2:
         mov ecx, 4
 .3:
-        test byte [byte_19CBC2], 1
+        test byte [gmode], 1
         je short .4
         mov ebp, 190h
         jmp short .5
@@ -580,7 +580,7 @@ CompLine:
         mov ah, byte [dword ebx+0A6h]
         test ah, 1
         je near .15
-        mov dl, byte [byte_19CBC2]
+        mov dl, byte [gmode]
         mov cx, word [byte ebx+02h]
         test dl, 1
         je short .12
@@ -600,7 +600,7 @@ CompLine:
         mov eax, 0F33h
 .9:
         mov edx, eax
-        test byte [byte_19CBC2], 1
+        test byte [gmode], 1
         je short .10
         mov eax, 190h
         jmp short .11
@@ -629,7 +629,7 @@ CompLine:
 .15:
         cmp word [gsp], byte 0
         jg short .16
-        mov dx, word [word_19CB98]
+        mov dx, word [StatsPanelPlayer]
         cmp dx, word [gameclock]
         jle short .18
 .16:
@@ -670,7 +670,7 @@ CompLine:
         test cx, cx
         jl short .24
         movsx eax, cx
-        mov dh, byte [byte_19CBC2]
+        mov dh, byte [gmode]
         movsx cx, byte [dword ebx+eax+0ACh]
         test dh, 1
         je short .21
@@ -717,7 +717,7 @@ CompLine:
 .26:
         test dx, dx
         jne short .27
-        test byte [byte_19CBC2], 1
+        test byte [gmode], 1
         je near .37
 .27:
         mov ax, word [byte ebx+04h]
@@ -741,7 +741,7 @@ CompLine:
         sar edx, 1Fh
         LD sub, eax, edx
         sar eax, 1
-        mov dh, byte [byte_19CBC2]
+        mov dh, byte [gmode]
         mov edi, eax
         test dh, 1
         je short .28
@@ -781,7 +781,7 @@ CompLine:
         sar edx, 1Fh
         LD sub, eax, edx
         sar eax, 1
-        test byte [byte_19CBC2], 1
+        test byte [gmode], 1
         je short .32
         mov edx, 190h
         jmp short .33
@@ -976,7 +976,7 @@ ResetCoachModes:
         je short .5
         cmp word [gsp], byte 0
         jle short .5
-        cmp word [word_19CC26], byte 0
+        cmp word [AwayGoalieOff], byte 0
         je short .4
         mov eax, dword [byte eax+01h]
         and eax, 0C0h
@@ -1345,7 +1345,7 @@ StartFaceoffLineChange:
         mov cl, bh
         or cl, 2
         mov byte [byte edx+016h], cl
-        and byte [byte_19CBC8], 0F3h
+        and byte [PuckFlags], 0F3h
         or byte [dword eax+0C0h], 8
         mov ecx, dword [dword eax+0102h]
         mov bh, byte [dword eax+0BFh]
