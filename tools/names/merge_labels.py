@@ -28,6 +28,13 @@ def fixg(m):
     names = [rep[x] if x == first else x for x in names if x not in rep or x == first]
     return 'global ' + ', '.join(names) if names else ''
 txt = re.sub(r'^global (.*)$', fixg, txt, flags=re.M)
+# NASM encodes [r1+r2+label+const] with the registers' base/index roles swapped, so such a merge cannot match
+inner = [lb for a, lb, i in labs if a != s]
+if inner:
+    inner_pat = re.compile(r'\[(?:dword |byte )?e(?:[abcd]x|[sd]i|bp|sp)\+e(?:[abcd]x|[sd]i|bp)\+(%s)\b' % '|'.join(map(re.escape, inner)))
+    for q in glob.glob('src/**/*.asm', recursive=True):
+        m = inner_pat.search(open(q, encoding='latin1').read())
+        if m: sys.exit('not merged: %s is used as [reg+reg+label] in %s; name it on its own' % (m.group(1), q))
 open(f, 'w').write(txt)
 pat = re.compile(r'\b(' + '|'.join(re.escape(k) for k in rep) + r')\b')
 for p in glob.glob('src/**/*.asm', recursive=True) + glob.glob('src/**/*.inc', recursive=True):
