@@ -33,7 +33,7 @@ extern StopAllSfx, PlaySfx, MakeDirPath, LoadDataFile, LoadStartupData, RunFront
 extern InitScrollList, ScrollUp, ScrollDown, FreeScrollList, SetScrollBarPos, ScrollToMouse, GetLangText, FreeLangText
 extern RunIntro, AllocStaticBuffer, InitDbState, ServiceIdle, NetInit, NetShutdown, LinkSendBlock, LinkReceiveBlock
 extern WaitForOtherComputer, FillBox, InitVideoModeList, AllocMemBlock, FreeMemBlock, MemFreeSize, ZeroMem, FillMemPattern
-extern sub_FBE40, sub_FBE94, MakeColor, sub_FC73E, sub_FCC40, FreeBitmap, DrawShapeAtOwnPos, DrawArt
+extern sub_FBE40, sub_FBE94, MakeColor, sub_FC73E, SelectFont, FreeBitmap, DrawShapeAtOwnPos, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRectColor, FillRect, MeasureText, DrawTextAt, SetTextColors
 extern FillRectCorners, DrawGlyph, tickcount, unk_1643C2, unk_16445A, unk_1644A0, unk_1644EF, unk_1645E7
 extern unk_164636, unk_164686, unk_1646D4, unk_164724, unk_16480B, unk_1648DA, unk_16491D, unk_1649E0
@@ -3317,7 +3317,7 @@ MessageBox:
         push ebx
         lea edi, [dword esp+06B4h]
         mov esi, dword_16E670
-        call sub_FCC40
+        call SelectFont
         mov ecx, DrawGlyph
         mov eax, dword [dword_1C8268]
         add esp, byte 4
@@ -3989,7 +3989,7 @@ EditText:
         mov esi, dword [dword_1C5EF4]
         push esi
         mov edi, DrawGlyph
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         mov eax, dword [dword_1C8268]
         mov dword [dword_1CF5B8], edi
@@ -5904,7 +5904,7 @@ SetHighlightText:
         mov edx, dword [dword_1C5E78]
         push edx
         xor ebx, ebx
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         mov eax, dword [dword_1C8268]
         mov dword [dword_16CB78], ebx
@@ -5924,7 +5924,7 @@ SetNormalText:
         mov edx, dword [dword_1C5EF4]
         push edx
         mov ebx, DrawGlyph
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         mov eax, dword [dword_1C8268]
         mov dword [dword_1CF5B8], ebx
@@ -8451,7 +8451,7 @@ DrawLinkBox:
         test eax, eax
         jg short .1
         push unk_16E8A0
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         push unk_16518C
         call MeasureText
@@ -9578,7 +9578,7 @@ ShowLoadingScreen:
         push ecx
         mov edi, DrawGlyph
         mov ebx, eax
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         mov eax, dword [dword_1C8268]
         mov dword [dword_1CF5B8], edi

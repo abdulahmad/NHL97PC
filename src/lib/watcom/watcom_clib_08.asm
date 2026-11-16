@@ -12,9 +12,9 @@ extern dword_1CFA84, dword_1CFA88, dword_1CFA8C, dword_1CFA90, dword_1CFA94, dwo
 extern dword_1CFAA8, dword_1CFAAC, dword_1CFAB0, dword_1CFAB4, dword_1CFABC, dword_1CFAC0, dword_1CFACC, dword_1CFAD0
 extern dword_1CFAD4, dword_1CFAD8, dword_1DC5AC, dword_1DC994, dword_1DC998, dword_1DC99C, dword_1DCAFC, dword_1DCB00
 extern dword_1DCB04, dword_1DCB08, dword_1DCEC0, dword_1DCF20, int386_, int386x_, memset_, segread_
-extern str_Inversetmp, bcopy, Random32, sub_1048BC, SpeechBusy, DosOpenFile, DosCloseFile, DosReadFile
-extern DosSeekFile, FindSpeechBank, sub_12189C, ExpandPalette6To8, CopyPaletteRGB, sub_1266FC, AllocMemBlock, sub_FAAB4
-extern sub_FAB68, FreeMemBlock, WaitTicks, tickcount, toupper_, unk_16FB44, unk_1CFAF0, word_1CFA98
+extern str_Inversetmp, bcopy, Random32, ReadPaletteRange, SpeechBusy, DosOpenFile, DosCloseFile, DosReadFile
+extern DosSeekFile, FindSpeechBank, sub_12189C, ExpandPalette6To8, CopyPaletteRGB, sub_1266FC, AllocMemBlock, AllocMemData
+extern AllocMemBlockFull, FreeMemBlock, WaitTicks, tickcount, toupper_, unk_16FB44, unk_1CFAF0, word_1CFA98
 extern word_1CFAB8, word_1CFADE, word_1CFAE0
 global DetectMscdex_1FC, ParseSpeechEvents_86, QueueSpeechEvent_AD, QueueSpeechEvent_AE, strcmp_, strncpy_, InverseTableSlice, InverseTablePass
 global InverseTableScan, InverseTableFill, BuildInverseTable, FreeInverseTable, CdOpenFile, CdOpenStream, CdHandleEntry, CdCloseFile
@@ -701,7 +701,7 @@ BuildInverseTable:
         push edx
         push dword 8000h
         push str_Inversetbl
-        call sub_FAAB4
+        call AllocMemData
         mov ebx, eax
         add esp, byte 0Ch
         mov edi, eax
@@ -711,7 +711,7 @@ BuildInverseTable:
         push ecx
         push dword 20000h
         push str_Inversetmp
-        call sub_FAAB4
+        call AllocMemData
         mov esi, eax
         add esp, byte 0Ch
         test eax, eax
@@ -782,7 +782,7 @@ FreeInverseTable:
         push eax
         push dword 100h
         push byte 0
-        call sub_1048BC
+        call ReadPaletteRange
         add esp, byte 0Ch
         mov eax, esp
         push eax
@@ -3421,7 +3421,7 @@ LoadFileCore:
         push ebx
         push edx
         push esi
-        call sub_FAB68
+        call AllocMemBlockFull
         add esp, byte 10h
         mov ebx, eax
         test eax, eax

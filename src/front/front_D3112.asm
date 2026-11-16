@@ -9,7 +9,7 @@ extern byte_1AD742, byte_1C6040, byte_1CC8B4, dword_168F58, dword_16D744, dword_
 extern dword_16E46C, dword_1AC814, dword_1AC940, dword_1AC944, dword_1ACF46, dword_1ACF65, dword_1AD226, dword_1AD437
 extern dword_1AD62F, dword_1AD6AB, dword_1CC7D8, dword_1CC828, dword_1CC860, dword_1CC864, dword_1CC8A0, jpt_D3102
 extern memset_, rand_, sprintf_, str_EASports, str_TXTD, strcpy_, BlitConverted, BlitArt
-extern BlitShape, PresentScreen, FindShape, OpenArtArchiveErr, DrawShapeBlended, ConvertArtNew, sub_10CD98, SetScreenTarget
+extern BlitShape, PresentScreen, FindShape, OpenArtArchiveErr, DrawShapeBlended, ConvertArtNew, DrawSpriteScaledBy, SetScreenTarget
 extern IsAllStarDay, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx, PaEvent, ResetStreamAudio, LoadDataFile
 extern OpenDataLibrary, PlayerInjuryDays, DrawScreenBackground, FadeInScreen, ShowScreen, ExitScreen, SetTextColor, DrawTextAligned
 extern WipeScreen, DrawRosterPanelBox, WaitShortDelay, InitMenuItems, RunMenu, GetLangText, RostersSparkle, KeysEqual
@@ -568,7 +568,7 @@ PreGameRostersScreen:
         push byte 32h
         push eax
         push dword 0C000h
-        call sub_10CD98
+        call DrawSpriteScaledBy
 .19:
         add esp, byte 10h
         mov eax, 3
@@ -629,7 +629,7 @@ PreGameRostersScreen:
         push dword 190h
         push eax
         push dword 0C000h
-        call sub_10CD98
+        call DrawSpriteScaledBy
 .22:
         add esp, byte 10h
         mov eax, 3

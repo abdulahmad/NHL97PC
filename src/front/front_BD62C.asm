@@ -31,7 +31,7 @@ extern FreeMenuBitmap, InitMenuItems, RunMenu, ScrollPosToValue, ResetMouseInput
 extern GetLangText, FreeLangText, LoadIndexFile, WriteReplayFile, ReplayNameToKey, ClearReplayEntry, OpenGameDatabase, CloseGameDatabase
 extern AddReplayIndexEntry, FindReplayIndexEntry, OpenReplayFile, IsInputRecording, StopInputRecording, ClearLinkAbort, LinkSyncMenu, LinkSendBlock
 extern LinkReceiveBlock, WaitForOtherComputer, DrawMenuFrame, FreeVideoBuffer, AllocGfxFixBuffer, GetVideoModeList, PickVideoMode, AllocMemBlock
-extern FreeMemBlock, ZeroMem, sub_FC330, MakeColor, sub_FCC40, FreeBitmap, DrawArt, CreateBitmap
+extern FreeMemBlock, ZeroMem, sub_FC330, MakeColor, SelectFont, FreeBitmap, DrawArt, CreateBitmap
 extern SetDrawTarget, ClearScreen, FillPolygon, FillRectColor, FillRect, SetTextColors, FillRectCorners, unk_166A8A
 extern unk_171E38, unk_1ACB44, unk_1CAEFC, unk_1CAF3C, word_1686E4
 global jpt_BE037, jpt_BE213, jpt_BE25A, jpt_BE296, jpt_BEC7D, RunReplay_358, RunReplay_359, LoadReplay_194
@@ -544,7 +544,7 @@ VideoOptionsScreen:
         call SetTextColors
         add esp, byte 8
         push dword [dword_1CAFA4]
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         push str_Remo3
         push dword [dword_1C5DE4]
@@ -996,7 +996,7 @@ ReplayScreen_E8:
         jmp short ReplayScreen.2
 ReplayScreen_EF:
         push dword [dword_1CAFA4]
-        call sub_FCC40
+        call SelectFont
         mov eax, dword [dword_1CAFF4]
         add esp, byte 4
         test eax, eax
@@ -1103,7 +1103,7 @@ ReplayScreen_294:
         jne near ReplayScreen.2
 .7:
         push dword [dword_1CAFA4]
-        call sub_FCC40
+        call SelectFont
         inc dword [dword_1CAFF0]
         add esp, byte 4
         cmp dword [dword_1CAFF0], byte 0Fh
@@ -1128,7 +1128,7 @@ ReplayScreen_294:
         call FillRect
         add esp, byte 14h
         push dword [dword_1CAFA4]
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         push dword 0FFFFFF50h
         call MakeColor
@@ -1346,7 +1346,7 @@ ReplayScreen_4D2:
         call FillRect
         add esp, byte 14h
         push dword [dword_1CAFA4]
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         push dword 0FFFFFF50h
         call MakeColor
@@ -1506,7 +1506,7 @@ ReplayScreen_771:
         call FillRect
         add esp, byte 14h
         push dword [dword_1CAFA4]
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         push dword 0FFFFFF50h
         call MakeColor
@@ -1820,7 +1820,7 @@ DrawReplayMenu_271:
         cmp dword [byte ebp-04h], byte 0
         je near .17
         push dword [dword_1CAFA4]
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         push byte 0FFFFFFFFh
         call MakeColor
@@ -2325,7 +2325,7 @@ PickReplayScreen:
         call ClearScreen
         add esp, byte 4
         push dword [dword_1CAFA4]
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         push byte 0FFFFFFFFh
         call MakeColor
@@ -3654,7 +3654,7 @@ ReplayMenuScreen:
         jl near .9
         call PresentScreen
         push dword [dword_1CAFA4]
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         push dword 0FFFFFF50h
         call MakeColor

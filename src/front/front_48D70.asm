@@ -60,12 +60,12 @@ extern str_Glassline, str_Gt002d, str_Gt102d, str_Gt202d, str_Gt302d, str_HALFFS
 extern str_SideD, str_Stands2, str_Topboards, str_WALL, str_Zamboni, str_Zambpath, strcat_, stricmp_
 extern strlen_, strncpy_, ProjectPointFloat, sub_100498, sub_1004B8, sub_1004F8, sub_100510, sub_100700
 extern sub_1007C0, sub_100830, SortIndices, FindShape, LoadDataFileNoErr, LoadDataFileErr, OpenArtArchive, OpenArtArchiveErr
-extern Random32, sub_102CDC, sub_102CF4, WritePaletteRegs, sub_104948, PlayQueuedSpeech, LoadFileAlloc, LoadFileAllocQuiet
+extern Random32, sub_102CDC, sub_102CF4, WritePaletteRegs, ArtBankEntry, PlayQueuedSpeech, LoadFileAlloc, LoadFileAllocQuiet
 extern LoadFileInto, LoadFileIntoQuiet, LoadFileToBlockShared, LoadFileToBlockPlain, SetSpeechVolume, SetMusicStreamVolume, OpenAudioStreamChannel, CloseAudioStreamChannel
 extern FeedAudioStream, FlushAudioStream, ChannelPlaying, StopChannel, DosCloseFile, DosWriteFile, AsyncResetRequest, AsyncStreamStep
 extern AsyncFreeRequest, ReleaseBankSample, StopSpeechQueue, SpeechQueueState, SetChannelVolumeChecked, sub_10AE10, sub_10AED0, sub_10B000
 extern SetScreenScale, ProjectRinkObjectPoints, DrawRinkObjectPolys, DrawModelSorted, DrawModel, InitModelParts, DrawFixedLine, sub_10C434
-extern sub_10C8B0, sub_10C8E8, sub_10C920, sub_10CE9C, sub_10CF34, DrawSurfacePolys, AllocOverlaySlot, SetOverlayCentre
+extern AddVec3, SubVec3, ScaleVec3, DrawSpriteScaled, sub_10CF34, DrawSurfacePolys, AllocOverlaySlot, SetOverlayCentre
 extern AimOverlayModel, SetOverlayPosition, AllocOverlayModel, SetRinkView, TransformRinkPoints, ProjectRinkObject, DrawRinkPolyStrip, DrawRinkFan
 extern DrawRinkPolys, DrawRinkRing, DrawRinkLineFlat, DrawTileTexture, DrawTilePage, FindInstanceShape, BindModelShapes, UpdateModelInstance
 extern SetModelShape, SetModelPartName, LoadModelByName, FreeModelFile, CreateModelInstance, FreeModelInstance, SetModelMatrix, SetModelPosition
@@ -80,7 +80,7 @@ extern LoadRinkLines, LoadRinkModel, FreeRinkModel, SetRinkTransform, DrawRinkOv
 extern SaveViewOrigin, LoadGoalieMask, LoadGameModels, SetupTeamModels, FreeGameModels, UpdateViewMatrix, ScaleModelLods, SetModelExtraFlags
 extern DrawPlayersSorted, DrawIceMarkers, DrawPlayerNames, DrawPuckArrow, NoOpDraw, ReplaySoundAllowed, ProjectRinkPoints, LoadAiIcons
 extern FreeCameraDebug, PlayMovie, ShowLoadingBar, ClearLinkAbort, ServiceIdle, AllocMemBlock, FreeMemBlock, ZeroMem
-extern WaitTicks, sub_FC330, sub_FC410, sub_FC4BC, sub_FCC40, FillPolygon, DrawTextAt, SetTextColors
+extern WaitTicks, sub_FC330, sub_FC410, sub_FC4BC, SelectFont, FillPolygon, DrawTextAt, SetTextColors
 extern IntsToFloats, FloatsToInts, ScaleFloatsToInts, VecMulMat, TransformVecs, VecAdd, AddVecs, VecDistance
 extern SetViewScale, ProjectCoord, ProjectCoordInt, ProjectPoints, ProjectPointsWithZ, ProjectPointsToScreen, tickcount, unk_1611B4
 extern unk_169848, unk_1698A2, unk_169989, unk_16AF14, unk_16AF6C, unk_16B084, unk_16B0E4, unk_16B144
@@ -4036,7 +4036,7 @@ DrawGameFrame:
         cmp dword [dword_1ADC74], byte 0
         je short .4
         push unk_16E8A0
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         push byte 0
         call Random32
@@ -4417,15 +4417,15 @@ StartCameraFlash:
         push eax
         lea eax, [byte esp+020h]
         push eax
-        call sub_10C8E8
+        call SubVec3
         add esp, byte 0Ch
         push eax
-        call sub_10C920
+        call ScaleVec3
         add esp, byte 0Ch
         push eax
         lea eax, [byte esp+08h]
         push eax
-        call sub_10C8B0
+        call AddVec3
         add esp, byte 0Ch
         lea eax, [byte esp+030h]
         push eax
@@ -4437,15 +4437,15 @@ StartCameraFlash:
         push eax
         lea eax, [byte esp+02Ch]
         push eax
-        call sub_10C8E8
+        call SubVec3
         add esp, byte 0Ch
         push eax
-        call sub_10C920
+        call ScaleVec3
         add esp, byte 0Ch
         push eax
         lea eax, [byte esp+02Ch]
         push eax
-        call sub_10C8B0
+        call AddVec3
         add esp, byte 0Ch
         mov ebx, 9999h
         call Random32
@@ -4461,15 +4461,15 @@ StartCameraFlash:
         push eax
         lea eax, [byte esp+044h]
         push eax
-        call sub_10C8E8
+        call SubVec3
         add esp, byte 0Ch
         push eax
-        call sub_10C920
+        call ScaleVec3
         add esp, byte 0Ch
         push eax
         lea eax, [byte esp+044h]
         push eax
-        call sub_10C8B0
+        call AddVec3
         add esp, byte 0Ch
         add esp, byte 54h
         pop ebp
@@ -4538,7 +4538,7 @@ DrawFlashSprite:
         fistp dword [esp]
         pop eax
         push eax
-        call sub_10CE9C
+        call DrawSpriteScaled
         add esp, byte 14h
         pop edx
         pop ecx
@@ -4560,7 +4560,7 @@ DrawCameraFlashes:
         push eax
         push dword_1B105C
         push ebx
-        call sub_10C8E8
+        call SubVec3
         add esp, byte 0Ch
         lea eax, [byte esp+0Ch]
         push eax
@@ -4627,7 +4627,7 @@ DrawCameraFlashes:
         fistp dword [esp]
         pop eax
         push eax
-        call sub_10CE9C
+        call DrawSpriteScaled
         add esp, byte 14h
 .4:
         add esp, byte 24h
@@ -8004,7 +8004,7 @@ DrawStandsSide:
         push eax
         push edi
         push ebp
-        call sub_10C8E8
+        call SubVec3
         mov eax, dword [byte ebp+00h]
         add eax, dword [edi]
         add esp, byte 0Ch
@@ -8781,7 +8781,7 @@ BuildRinkGeometry:
         push ebx
         push dword 4CCCCh
         push ebx
-        call sub_10C920
+        call ScaleVec3
         mov ecx, 1
         add esp, byte 0Ch
         add ebx, byte 0Ch
@@ -9225,7 +9225,7 @@ DrawGoalLines:
         push ebp
         inc edi
         add ebx, byte 0Ch
-        call sub_10C8E8
+        call SubVec3
         add esi, byte 0Ch
         add esp, byte 0Ch
         cmp edi, byte 9
@@ -9238,7 +9238,7 @@ DrawGoalLines:
         push ebp
         inc edi
         add ebx, byte 0Ch
-        call sub_10C8E8
+        call SubVec3
         add esi, byte 0Ch
         add esp, byte 0Ch
         cmp edi, byte 8
@@ -11011,7 +11011,7 @@ UpdateGoalLight:
         fistp dword [esp]
         pop eax
         push eax
-        call sub_10CE9C
+        call DrawSpriteScaled
         add esp, byte 14h
         add esp, byte 4
         pop esi
@@ -11053,7 +11053,7 @@ DrawGoalLight:
         lea eax, [byte esp+054h]
         push eax
         push esi
-        call sub_10C8E8
+        call SubVec3
         add esp, byte 0Ch
         mov ecx, dword [dword_16E4A8]
         cmp ecx, dword [byte esp+edi+08h]
@@ -11861,7 +11861,7 @@ DrawBenchPlayers:
         push edx
         push edx
         push unk_1D1D20
-        call sub_10C8E8
+        call SubVec3
         add esp, byte 0Ch
         mov ecx, dword [dword_1B0B9C]
         push ecx
@@ -12613,7 +12613,7 @@ DrawScoreboard:
         lea eax, [byte esp+04h]
         push eax
         push dword_1B0B20
-        call sub_10C8B0
+        call AddVec3
         mov eax, dword [dword_1B0B20]
         mov edx, dword [dword_1B0B2C]
         mov ebx, dword [dword_1B0B38]
@@ -13715,7 +13715,7 @@ LoadBoardLogo:
         push ebx
         mov ebx, dword [dword_1B0F38]
         push ebx
-        call sub_104948
+        call ArtBankEntry
         add esp, byte 8
         push eax
         push esi

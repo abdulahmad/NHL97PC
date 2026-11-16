@@ -24,7 +24,7 @@ extern ShowMessageBox, WipeScreen, SetNormalText, MainMenuScreen, RunGameScreens
 extern CreateMenuBitmap, FreeMenuBitmap, SetMenuSelection, LoadLangText, GetLangText, FreeLangText, SortRosterByRating, BuildAutoLines
 extern RunOptionsScreens, GoalieMaskScreen, CreditsScreen, KeysEqual, OpenGameDatabase, CloseGameDatabase, FindPlayerRecord, FindGameRecord
 extern UpdateGameRecord, AddPlayerStat, AddPlayerStatAt, FindPlayerStat, UpdatePlayerStat, ClearLinkAbort, ServiceIdle, InitVideoModeList
-extern AllocMemBlock, sub_FAAB4, FreeMemBlock, sub_FBE40, WaitTicks, sub_FC330, MakeColor, FreeBitmap
+extern AllocMemBlock, AllocMemData, FreeMemBlock, sub_FBE40, WaitTicks, sub_FC330, MakeColor, FreeBitmap
 extern CreateBitmap, SetDrawTarget, ClearScreen, tickcount, unk_164138, unk_16413C, unk_164150, unk_164158
 extern unk_1C0F00, unk_1C135C, unk_1C347F, word_1C1344
 global BuildSeasonSchedule_77E, FreeTempArt_45, putchar, BuildSeasonSchedule, UpdateTeamLines, BuildRosterLines, PlayerInjuryDays, FindInjuryEntry
@@ -1681,7 +1681,7 @@ OpenVideoStream:
         push dword 4E290h
         push str_VIDEO
         mov dword [dword_1C1248], eax
-        call sub_FAAB4
+        call AllocMemData
         add esp, byte 0Ch
         mov dword [dword_1C1208], eax
         test eax, eax

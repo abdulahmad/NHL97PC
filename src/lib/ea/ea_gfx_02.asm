@@ -6,7 +6,7 @@ extern byte_16E688, byte_16E689, dword_16E46C, dword_16E670, dword_16E678, dword
 extern dword_16E690, dword_16E694, dword_16E698, dword_16E69C, dword_16E6A0, dword_1CF29C, dword_1CF2A0, dword_1CF524
 extern dword_1CFCF0, dword_1DA8D8, off_16E87C, ConvertArtSame, sub_102D3C, CreateBitmapEx, BlitCore, SetBlitSource
 extern CopyScaledSpan, ShapeRowBytes, BuildSpanOffsets, FillMemFast, RemapPixels, ClipPolyLeft, ClipPolyRight, ClipPolyTop
-extern ClipPolyBottom, sub_123423, sub_123D38, sub_123FCB, FreeMemBlock, FillMemPattern, sub_FCEEC, unk_1CF2A4
+extern ClipPolyBottom, sub_123423, sub_123D38, sub_123FCB, FreeMemBlock, FillMemPattern, DrawShapeCore, unk_1CF2A4
 global FillRectColor_48, FillRectColor_5C, FillRectColor_6C, FillRectColor_80, mem_putc_, DrawShapeAtOwnPos, DrawArt, DrawShape
 global CreateBitmap, LoadDrawContext, SetDrawTarget, ClearScreen, DrawScaledRow, DrawShapeScaledCore, DrawShapeScaledFit, DrawShapeScaledBy
 global DrawShapeScaledFlip, BuildPolyEdge, FillPolySpans, FillPolygon, FillPolygonPoints, FillRectColor, FillRowColor, FillRect
@@ -24,7 +24,7 @@ DrawShapeAtOwnPos:
         sar eax, 10h
         push eax
         push edx
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
         ret
         push ebx
@@ -40,14 +40,14 @@ DrawShapeAtOwnPos:
         sub ebx, eax
         push ebx
         push edx
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
         pop ebx
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; DrawArt                                         FCFCC  95 PC, low confidence
-; Graphics library: draw art at x, y (art, x, y) through sub_FCEEC, which
+; Graphics library: draw art at x, y (art, x, y) through DrawShapeCore, which
 ; converts 8-bit art to the 16-bit screen; the module order matches the
 ; NHL95PC DrawArt
 ;-----------------------------------------------------------------------------
@@ -59,7 +59,7 @@ DrawArt:
         push ebx
         mov ecx, dword [byte esp+010h]
         push ecx
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
         pop ebx
         ret
@@ -78,7 +78,7 @@ DrawShape:
         sar eax, 10h
         push eax
         push edx
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
         ret
         push ebx
@@ -94,7 +94,7 @@ DrawShape:
         sub ebx, eax
         push ebx
         push edx
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
         pop ebx
         ret

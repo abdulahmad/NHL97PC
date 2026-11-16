@@ -21,7 +21,7 @@ extern DrawShadedLogo, DrawShadowBox, DrawScreenBackground, FadeInScreen, ShowSc
 extern DrawTextAligned, DrawFrameBox, LoadTeamLogo, FreeLogoArt, WipeScreen, SetHighlightText, SetNormalText, ShowPopupScreen
 extern InitMenuItems, RunMenu, InitScrollList, ScrollUp, DrawScrollBar, ScrollDown, FreeScrollList, ScrollToMouse
 extern RunScrollList, GetLangText, OptionsScreen, InitListBox, InitShapeListBox, ServiceIdle, LinkSyncMenu, LinkSyncScreen
-extern OptionsAnimScreen, ControlSetupScreen, AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, sub_FCEEC, DrawArt
+extern OptionsAnimScreen, ControlSetupScreen, AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, DrawShapeCore, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, tickcount, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C
 global jpt_C36A2, HistoryScreen_60E, DrawHistoryScreen_73D, DrawHistoryScreen_73E, HistoryLineWidth_42, DetailLevelScreen_A25, DetailLevelScreen_A36, DetailLevelScreen_A93
 global DetailLevelScreen_B18, DetailLevelScreen_B7E, DetailLevelScreen_C26, DetailLevelScreen_C86, DetailLevelScreen_CE6, DetailLevelScreen_D46, HistoryScreen, DrawHistoryScreen
@@ -3759,7 +3759,7 @@ DetailLevelScreen:
         sub ebx, edx
         push ebx
         push dword [dword eax+ebp-059Ah]
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
 .22:
         inc esi
@@ -4193,7 +4193,7 @@ DetailLevelScreen_D46:
         sub ebx, edx
         push ebx
         push dword [dword eax+ebp-059Ah]
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
 .45:
         inc esi

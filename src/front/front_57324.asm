@@ -155,7 +155,7 @@ extern qword_163D2C, qword_163D34, qword_163D44, qword_163D54, qword_163D64, qwo
 extern qword_163EF8, rand_, randomd0, regd1, sprintf_, str_Back, str_Uarm, strcpy_
 extern strncmp_, strncpy_, strnicmp_, strupr_, sub_100498, sub_100700, SortIndices, bcopy
 extern BlitShape2, FindShape, OpenArtArchive, OpenArtArchiveErr, Random32, DrawLimbSegment, DrawLimbSegmentFlat, BuildUniformArt
-extern sub_1049D0, LoadFileAlloc, ProjectModelPoints, DrawModel, sub_10CDE0, FindModelShapeByName, FindInstanceShape, BindModelShapes
+extern BytesPerPixelForDepth, LoadFileAlloc, ProjectModelPoints, DrawModel, DrawSpriteScaledFlip, FindModelShapeByName, FindInstanceShape, BindModelShapes
 extern UpdateModelInstance, UpdateModelPart, SetModelShape, SetModelShapeWith, LoadModelByName, FreeModelFile, InitModelInstance, CreateModelInstance
 extern FreeModelInstance, FindModelPartByName, StartCrowdMusic, RestartGameMusic, TransformBoneVerts, SkinModelVerts, AttachModelFrame, AttachModel
 extern UpdateModelFrame, SkinModel, ScaleModelVerts, LoadModelFile, FindModelPart, ResetMorphVerts, ApplyMorphTarget, PlotPixelRGBAt
@@ -171,7 +171,7 @@ extern ResetStreamAudio, SetArtArchive, RefreshViewDistance, AddModelName, FindM
 extern TriggerCameraFlashes, DrawNetShadows, PeriodOver, IsCameraOnPuck, SetCameraMode, StartCrowdReaction, StartBenchCheer, UpdateScoreboardPos
 extern UpdateScoreboardSpin, ShapePixelSize, DrawShadowShape, ModelViewDepth, DrawPortraitModels, PickMarkerShape, SetTeamColours, SetFaceMouth
 extern SetFaceExpression, SetFaceBlink, SetModelHeading, BuildFaceTextures, LogPeriodEnd, IsReplayRecordingOn, ServiceIdle, AllocMemBlock
-extern sub_FAAB4, FreeMemBlock, MemFreeSizeAny, ZeroMem, FillMem, sub_FC330, sub_FC4BC, sub_FCC40
+extern AllocMemData, FreeMemBlock, MemFreeSizeAny, ZeroMem, FillMem, sub_FC330, sub_FC4BC, SelectFont
 extern FreeBitmap, SetDrawTarget, FillPolygon, FillPolygonPoints, FillRectColor, FillRect, MeasureText, DrawTextAt
 extern SetTextColors, ClearIfNaN, FloatsToInts, MatRotX, MatRotY, MatTranspose, MatMul, VecMulMat
 extern TransformVecs, TransformTranslateVecs, VecAdd, VecSub, OffsetVecs, SubVecs, VecCross, VecDistance
@@ -679,7 +679,7 @@ DrawJerseyLettering:
         mov edx, dword [nosplit eax*4+dword_1B830C]
         push edx
         mov ebx, 14h
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         lea ecx, [byte esi+014h]
         mov edx, edi
@@ -723,7 +723,7 @@ DrawJerseyLettering:
         add esp, byte 0Ch
         mov edx, dword [nosplit eax*4+dword_1B846C]
         push edx
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         mov edx, dword [nosplit edi*8+dword_16B1A4]
         mov eax, dword [nosplit edi*8+dword_16B1A8]
@@ -1447,7 +1447,7 @@ LoadUniformArt:
         push eax
         mov esi, dword [unk_56794]
         mov dword [dword ebx+dword_1B846C], eax
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         mov edx, esi
         mov eax, edi
@@ -5280,7 +5280,7 @@ DrawPlayerNames:
         sahf
         jb near .2
         push unk_16E8A0
-        call sub_FCC40
+        call SelectFont
         mov eax, dword [dword_1B8550]
         add esp, byte 4
         mov edx, esp
@@ -6486,7 +6486,7 @@ InitReplayBuffer:
         push ecx
         push str_REPLAY
         xor edi, edi
-        call sub_FAAB4
+        call AllocMemData
         mov esi, dword [dword_1B8F80]
         mov dword [dword_1B8F88], eax
         mov dword [dword_1B8F7C], eax
@@ -7872,7 +7872,7 @@ AllocSpriteBuffers:
         and edx, 0FFh
         push byte 8
         mov dword [edi], edx
-        call sub_1049D0
+        call BytesPerPixelForDepth
         mov edx, eax
         mov eax, dword [byte esi+ebx+01Ch]
         mov byte [eax], 0
@@ -8426,7 +8426,7 @@ SetPortraitProjection:
         mov ebp, dword [byte ebx+01Ch]
         push ebp
         push eax
-        call sub_10CDE0
+        call DrawSpriteScaledFlip
         add esp, byte 10h
 .1:
         add esp, byte 4

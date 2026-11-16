@@ -35,7 +35,7 @@ extern ResetScoringLog, LoadGameLogos, FreeGameText, UpdateUserRecords, RunRepla
 extern LoadExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, PickDemoTeams, StartInputRecording, ResetInputState, IsInputRecording, StopInputRecording
 extern InputRecordAvail, TakeInputRecord, ServiceIdle, LinkSyncGame, SetupPauseArt, CleanupPauseArt, OpenInGameMenu, LoadGameMenuText
 extern PauseMenu, InitVideoModeList, GetVideoModeList, PickVideoMode, AllocMemBlock, FreeMemBlock, sub_FBE40, sub_FC290
-extern sub_FC330, sub_FC4BC, SetViewRect, sub_FC88C, tickcount, unk_1600A4, unk_16AED4, unk_19CDA4
+extern sub_FC330, sub_FC4BC, SetViewRect, DebugSetLine, tickcount, unk_1600A4, unk_16AED4, unk_19CDA4
 extern unk_19DC40, unk_19E270, unk_19E588, unk_1AC821, word_1684EC, word_1686BC, word_1686D4, word_1686D6
 extern word_1686D8, word_1686DA, word_1686E4, word_19C3D8, word_19C3DA, word_19C3DC, word_19C3DE, word_19C3EC
 extern word_19C3EE, word_19C3F0, word_19C3F2, word_19CA90, word_19CA92, word_19CA94, word_19CA96, word_19CB16
@@ -3331,7 +3331,7 @@ RunInGameMenu:
         push byte 4Fh
         mov ebx, dword [InGameMenuRequest]
         mov dword [InGameMenuRequest], 0
-        call sub_FC88C
+        call DebugSetLine
         add esp, byte 0Ch
         call IsInputRecording
         mov edx, eax
@@ -3373,7 +3373,7 @@ RunInGameMenu:
         push str_BREAKOUT
         push byte 18h
         push byte 4Fh
-        call sub_FC88C
+        call DebugSetLine
         add esp, byte 0Ch
         pop edx
         pop ecx

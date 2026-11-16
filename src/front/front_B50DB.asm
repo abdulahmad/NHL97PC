@@ -24,7 +24,7 @@ extern dword_1CAE7C, dword_1CAE80, dword_1CAE84, dword_1CAE88, dword_1CAE8C, dwo
 extern dword_1CAE9C, dword_1CAEA0, dword_1CAEA4, dword_1CAEA8, dword_1CAEAC, dword_1CAEB0, dword_1CAEB4, dword_1CAEB8
 extern dword_1CAEBC, dword_1CAEC0, dword_1CAEC4, dword_1CAFF4, fclose_, fopen_, fprintf_, qsort_
 extern qword_16695B, rand_, sprintf_, strcat_, strcpy_, BlitConverted, BlitShape2, BlitArt
-extern PresentScreen, FindShape, OpenArtArchive, OpenArtArchiveErr, DrawShapeBlended, ConvertArtNew, sub_102C10, sub_10CD98
+extern PresentScreen, FindShape, OpenArtArchive, OpenArtArchiveErr, DrawShapeBlended, ConvertArtNew, sub_102C10, DrawSpriteScaledBy
 extern ConvertArtInPlace, ConvertArtXY, FindShapeList, SetFullClip, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples
 extern WaitSoundTime, PlayMenuSfx, StopAllSfx, PlaySfx, PlayScreenMovie, LoadDataFile, OpenDataLibrary, DrawScreenBackground
 extern FadeInScreen, ExitScreen, SetRegionRect, DrawEditBox, SetTextColor, DrawTextAligned, ShowMessageBox, DrawTeamLogoBanner
@@ -34,7 +34,7 @@ extern InitMenuItems, RunMenu, InitScrollList, ScrollUp, DrawScrollBar, ScrollDo
 extern ScrollToMouse, RunScrollList, SetListSelection, GetLangText, WriteCsvLine, AskExportFile, CompareStatColumn, CompareRatingColumn
 extern VideoOptionsScreen, KeysEqual, FreeDbBlock, AgeFromBirthDate, FindTeamRecord, FindPlayerRecord, OpenLeagueFile, FindGameRecord
 extern FindPlayerStat, FindTeamStat, ServiceIdle, LinkSyncMenu, LinkSyncScreen, AllocMemBlock, FreeMemBlock, MakeColor
-extern FreeBitmap, sub_FCEEC, DrawShapeAtOwnPos, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, tickcount
+extern FreeBitmap, DrawShapeCore, DrawShapeAtOwnPos, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, tickcount
 extern unk_1667A4, unk_1667A7, unk_1668C2, unk_1668C5, unk_1668F8, unk_166915, unk_166946, unk_166948
 extern unk_16D7FC, unk_16D804, unk_1AD22E, unk_1AD236, unk_1AD73A, unk_1C5F4A, unk_1C5F9C, unk_1C5FEE
 extern unk_1CA9DC, unk_1CAADC, unk_1CABDC, unk_1CACE8, unk_1CACF4, unk_1CAD00, unk_1CAD24
@@ -299,7 +299,7 @@ DrawStatsCardPage:
         movsx eax, word [byte eax+0Ch]
         push eax
         push dword [byte ebx+02Ch]
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
         call PresentScreen
         push ebx
@@ -600,7 +600,7 @@ DrawStatsCardPage:
         movsx eax, word [byte eax+0Ch]
         push eax
         push dword [byte esi+02Ch]
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
         call PresentScreen
         push dword [byte ebp-0Ch]
@@ -4421,7 +4421,7 @@ DrawPlayerRatingsPage:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
         cmp byte [byte_1C6040], 0
         je short .26
@@ -4435,7 +4435,7 @@ DrawPlayerRatingsPage:
         push byte 4Bh
         push edi
         push dword 0E666h
-        call sub_10CD98
+        call DrawSpriteScaledBy
         add esp, byte 10h
         call sub_102C10
         jmp short .27
@@ -4494,7 +4494,7 @@ DrawPlayerRatingsPage:
         movsx eax, word [byte eax+0Ch]
         push eax
         push dword [byte esi+02Ch]
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
         call PresentScreen
         cmp byte [byte_1C6040], 0
@@ -4544,7 +4544,7 @@ DrawPlayerRatingsPage:
         call FindShape
         add esp, byte 8
         push eax
-        call sub_FCEEC
+        call DrawShapeCore
         mov eax, dword [dword_1AC814]
         and eax, byte 70h
         add esp, byte 0Ch
@@ -4588,7 +4588,7 @@ DrawPlayerRatingsPage:
         movsx eax, word [byte eax+0Ch]
         push eax
         push dword [byte esi+02Ch]
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
         call PresentScreen
         push esi
@@ -4807,7 +4807,7 @@ DrawPlayerRatingsPage:
         push byte 0Ah
         push edi
         push dword 0E666h
-        call sub_10CD98
+        call DrawSpriteScaledBy
         add esp, byte 10h
         call sub_102C10
 .43:
@@ -4952,7 +4952,7 @@ DrawPlayerRatingsPage:
         movsx eax, word [byte eax+0Ch]
         push eax
         push dword [byte esi+02Ch]
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
         call PresentScreen
         jmp near DrawStatsCardPage_76D
@@ -5704,7 +5704,7 @@ PlayerRatingsScreen:
         push byte 0
         push byte 0Ah
         push dword [byte ebp+05Eh]
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
         push dword [byte ebp+02Eh]
         call SetDrawTarget
@@ -5726,7 +5726,7 @@ PlayerRatingsScreen:
         push byte 0
         push byte 0
         push dword [byte ebp+05Ah]
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
         call SetScreenTarget
         mov eax, dword [byte ebp+05Eh]

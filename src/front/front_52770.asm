@@ -44,8 +44,8 @@ extern str_Minz, str_Pbench0D, str_Pbench1D, str_Penback, str_Penbox0D, str_Penb
 extern str_Penboxz0, str_Penboxz1, str_R02d, str_Redlite, str_Rink, str_Rlite0, str_Rlite1, str_STAND
 extern str_STAND2ND, str_Score, str_Stands2, str_Strobe, str_ThinRedLines, str_Topboards, str_WALL, sub_1007C0
 extern bcopy, FindShape, OpenArtArchiveErr, Random32, sub_102C96, sub_102CDC, sub_102CF4, WritePaletteRegs
-extern sub_104940, sub_104948, sub_10495F, sub_1049D0, sub_10B000, SetRinkMatrix, SetRinkTranslation, ProjectRinkObjectPoints
-extern DrawRinkObjectPolys, DrawModelInstance, DrawModel, BuildAntiAliasTable, sub_10C8E8, DrawSurfacePolys, DrawOverlayModels, ProjectOverlayPoint
+extern ArtBankCount, ArtBankEntry, ArtBankEntryInfo, BytesPerPixelForDepth, sub_10B000, SetRinkMatrix, SetRinkTranslation, ProjectRinkObjectPoints
+extern DrawRinkObjectPolys, DrawModelInstance, DrawModel, BuildAntiAliasTable, SubVec3, DrawSurfacePolys, DrawOverlayModels, ProjectOverlayPoint
 extern FreeOverlaySlots, TransformRinkPoints, DrawRinkPolyStrip, DrawRinkPolys, DrawIceSpans, FindInstanceShape, BindModelShapes, UpdateModelInstance
 extern SetModelShape, SetModelPartName, LoadModelByName, FreeModelFile, CreateModelInstance, FreeModelInstance, FindInstancePart, FindInstanceGroup
 extern GetInstanceGroupEntry, sub_112BCC, sub_112DE4, sub_11313C, BuildRangePalette, BlendRangePalette, AddBankToRange, RemapArtBank
@@ -98,7 +98,7 @@ LoadLogos:
         add esp, byte 8
         push eax
         mov ebp, eax
-        call sub_104940
+        call ArtBankCount
         mov edx, eax
         mov ecx, 3
         sar edx, 1Fh
@@ -250,14 +250,14 @@ LoadLogos:
         push ebx
         mov ecx, dword [dword_1B0F38]
         push ecx
-        call sub_104948
+        call ArtBankEntry
         add esp, byte 8
         lea eax, [dword esp+0C8h]
         push eax
         push ebx
         mov edi, dword [dword_1B0F38]
         push edi
-        call sub_10495F
+        call ArtBankEntryInfo
         inc ebx
         add esp, byte 0Ch
         cmp ebx, esi
@@ -1005,12 +1005,12 @@ LoadRinkLines:
         push ebp
         mov edi, dword [dword_1B0FB0]
         push edi
-        call sub_104948
+        call ArtBankEntry
         add esp, byte 8
         push byte 8
         mov ebx, eax
         mov esi, eax
-        call sub_1049D0
+        call BytesPerPixelForDepth
         mov edx, dword [ebx]
         and edx, 0FFh
         add esp, byte 4
@@ -1056,7 +1056,7 @@ LoadRinkLines:
 .9:
         mov esi, dword [dword_1B0FB0]
         push esi
-        call sub_104940
+        call ArtBankCount
         add esp, byte 4
         cmp ebp, eax
         jl near .3
@@ -3324,14 +3324,14 @@ LoadOpeningArt:
         push byte 0
         mov eax, dword [dword_1B0E28]
         push eax
-        call sub_104948
+        call ArtBankEntry
         add esp, byte 8
         push byte 0
         mov edx, dword [dword_1B0E24]
         push edx
         mov dword [dword_1B0020], eax
         mov dword [dword_1B0018], eax
-        call sub_104948
+        call ArtBankEntry
         add esp, byte 8
         mov dword [dword_1B0024], eax
         mov dword [dword_1B001C], eax
@@ -3477,7 +3477,7 @@ DrawBenchModels:
         add eax, edx
         push eax
         add ebx, edx
-        call sub_10C8E8
+        call SubVec3
         add esp, byte 0Ch
         mov ecx, ebp
         mov edx, eax

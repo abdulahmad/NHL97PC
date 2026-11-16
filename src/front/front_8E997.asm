@@ -31,7 +31,7 @@ extern FindTeamRecord, AddTradeRecord, FindPlayerRecord, MakeLeagueKeyBase, Crea
 extern FindGameRecord, UpdateGameRecord, MakeGoalieStatKey, AddPlayerStat, AddPlayerStatAt, FindPlayerStat, MakeStandingsKey, FindTeamStat
 extern LoadExhibitionFile, SaveExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, ImportTradedPlayers, ImportNewPlayers, AllocImportBuffer, FindReplayIndexEntry
 extern AllocClearBlock, ClearLinkAbort, LinkSendBlock, LinkReceiveBlock, SeasonIntroScreen, AllStarScreen, AllocMemBlock, FreeMemBlock
-extern MakeColor, FreeBitmap, sub_FCEEC, DrawShapeAtOwnPos, DrawArt, CreateBitmap, SetDrawTarget, unk_165779
+extern MakeColor, FreeBitmap, DrawShapeCore, DrawShapeAtOwnPos, DrawArt, CreateBitmap, SetDrawTarget, unk_165779
 extern unk_1657CD, unk_1657CF, unk_16D7F4, unk_16D7FC, unk_1ACB44, unk_1ACD2B, unk_1ACF12, unk_1ACF4E
 extern unk_1AD22E, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C85DC, unk_1C85E8, unk_1C85F4, unk_1C8600
 extern unk_1C860C, word_1AD240, word_1AD242
@@ -2363,7 +2363,7 @@ SeasonMenuScreen:
         push dword [byte edx+eax+026h]
         push dword [byte edx+eax+01Ah]
         inc esi
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
         cmp esi, byte 6
         jl short .32
@@ -2810,7 +2810,7 @@ SeasonMenuScreen:
         push dword [byte edx+eax+026h]
         push dword [byte edx+eax+01Ah]
         inc esi
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
         cmp esi, byte 6
         jl short .71

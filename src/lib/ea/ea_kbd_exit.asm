@@ -6,7 +6,7 @@ extern str_ExitYN, dword_16E464, dword_16E468, dword_16E46C, dword_16E4C8, dword
 extern dword_199994, dword_199998, dword_19999C, dword_1999A0, dword_1999A4, off_16E4D4, off_16E4D8, off_16E4DC
 extern off_16E4E0, str_PAUSEPRESSANYKEY, BlitConverted, PresentScreen, SaveDrawContext, RestoreDrawContext, CreateBitmapDefault, ConvertArtAt
 extern SaveTextState, RestoreTextState, DebugPrintf, DebugPrintAt, DebugPrintLine, DebugLineCount, SetScreenTarget, sub_FBE40
-extern MakeColor, sub_FCC40, FreeBitmap, SetDrawTarget, FillRect, SetTextColors, FillRectCorners, unk_16E8A0
+extern MakeColor, SelectFont, FreeBitmap, SetDrawTarget, FillRect, SetTextColors, FillRectCorners, unk_16E8A0
 global sub_12FB20, sub_12FDC8, sub_12FF9C, sub_12FFD8, sub_12FFF0, sub_13000C
 ;-----------------------------------------------------------------------------
 ; sub_12FB20                                                          12FB20  
@@ -49,7 +49,7 @@ sub_12FB20:
         call SaveTextState
         add esp, byte 4
         push unk_16E8A0
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         mov eax, dword [dword esp+0130h]
         add eax, dword [dword esp+0144h]
@@ -258,7 +258,7 @@ sub_12FDC8:
         call SaveTextState
         add esp, byte 4
         push unk_16E8A0
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         push ebx
         call SetDrawTarget

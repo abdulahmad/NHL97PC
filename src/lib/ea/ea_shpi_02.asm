@@ -5,12 +5,13 @@ section s_10C8B0 progbits alloc exec nowrite align=1
 extern byte_16E688, byte_16E689, dword_16E678, dword_16E67C, dword_16E680, dword_16E684, dword_16E690, dword_16E694
 extern dword_16E698, dword_16E6A0, dword_1DA8D8, ConvertArtSame, sub_102D3C, SetBlitSource, CopyMappedSpan, ShapeRowBytes
 extern BuildSpanOffsets, sub_12D6A0, FreeMemBlock
-global sub_10C8B0, sub_10C8E8, sub_10C920, sub_10C9B0, sub_10CA48, sub_10CCB0, sub_10CD98, sub_10CDE0
-global sub_10CE9C
+global AddVec3, SubVec3, ScaleVec3, DrawSpriteRow, DrawSpriteScaledCore, DrawSpriteScaledFit, DrawSpriteScaledBy, DrawSpriteScaledFlip
+global DrawSpriteScaled
 ;-----------------------------------------------------------------------------
-; sub_10C8B0                                                          10C8B0  
+; AddVec3                                        10C8B0  97 PC, low confidence
+; Adds two 3-component vectors
 ;-----------------------------------------------------------------------------
-sub_10C8B0:
+AddVec3:
         push ebx
         push esi
         push edi
@@ -38,9 +39,10 @@ sub_10C8B0:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_10C8E8                                                          10C8E8  
+; SubVec3                                        10C8E8  97 PC, low confidence
+; Subtracts one 3-component vector from another
 ;-----------------------------------------------------------------------------
-sub_10C8E8:
+SubVec3:
         push ebx
         push esi
         push edi
@@ -68,9 +70,10 @@ sub_10C8E8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_10C920                                                          10C920  
+; ScaleVec3                                      10C920  97 PC, low confidence
+; Multiplies a 3-component vector by a 16.16 factor
 ;-----------------------------------------------------------------------------
-sub_10C920:
+ScaleVec3:
         push ebx
         push esi
         mov esi, dword [byte esp+0Ch]
@@ -127,9 +130,10 @@ sub_10C920:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_10C9B0                                                          10C9B0  
+; DrawSpriteRow                                  10C9B0  97 PC, low confidence
+; Draws one row of a scaled sprite through the span offsets
 ;-----------------------------------------------------------------------------
-sub_10C9B0:
+DrawSpriteRow:
         push ebx
         push esi
         push edi
@@ -193,9 +197,11 @@ sub_10C9B0:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_10CA48                                                          10CA48  
+; DrawSpriteScaledCore                           10CA48  97 PC, low confidence
+; Scales a sprite to a width and height: builds the span offsets and draws
+; each visible row
 ;-----------------------------------------------------------------------------
-sub_10CA48:
+DrawSpriteScaledCore:
         push ebx
         push esi
         push edi
@@ -361,7 +367,7 @@ sub_10CA48:
         mov edx, dword [dword_16E694]
         test edx, edx
         je short .13
-        mov dword [byte esp+0Ch], sub_10C9B0
+        mov dword [byte esp+0Ch], DrawSpriteRow
 .13:
         test ecx, ecx
         push ebp
@@ -414,9 +420,10 @@ sub_10CA48:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_10CCB0                                                          10CCB0  
+; DrawSpriteScaledFit                            10CCB0  97 PC, low confidence
+; Scales a sprite to fit a box, keeping its aspect
 ;-----------------------------------------------------------------------------
-sub_10CCB0:
+DrawSpriteScaledFit:
         push ebx
         push esi
         push edi
@@ -491,7 +498,7 @@ sub_10CCB0:
         push ebx
         mov ecx, dword [byte esp+020h]
         push ecx
-        call sub_10CA48
+        call DrawSpriteScaledCore
         add esp, byte 14h
         pop edi
         pop esi
@@ -510,14 +517,15 @@ sub_10CCB0:
         push edx
         mov ebx, dword [byte esp+018h]
         push ebx
-        call sub_10CA48
+        call DrawSpriteScaledCore
         add esp, byte 14h
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_10CD98                                                          10CD98  
+; DrawSpriteScaledBy                             10CD98  97 PC, low confidence
+; Scales a sprite by a factor and draws it
 ;-----------------------------------------------------------------------------
-sub_10CD98:
+DrawSpriteScaledBy:
         push ebx
         push esi
         mov eax, dword [byte esp+0Ch]
@@ -545,16 +553,17 @@ sub_10CD98:
         push eax
         sar ebx, 10h
         push ebx
-        call sub_10CA48
+        call DrawSpriteScaledCore
         add esp, byte 14h
         pop esi
         pop ebx
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_10CDE0                                                          10CDE0  
+; DrawSpriteScaledFlip                           10CDE0  97 PC, low confidence
+; Scales a sprite by a factor, mirroring it for negative factors
 ;-----------------------------------------------------------------------------
-sub_10CDE0:
+DrawSpriteScaledFlip:
         push ebx
         push esi
         push edi
@@ -613,7 +622,7 @@ sub_10CDE0:
         push ebx
         push ebp
         push edi
-        call sub_10CA48
+        call DrawSpriteScaledCore
         add esp, byte 14h
         pop ebp
         pop edi
@@ -634,16 +643,17 @@ sub_10CDE0:
         push esi
         mov edi, dword [byte esp+020h]
         push edi
-        call sub_10CA48
+        call DrawSpriteScaledCore
         add esp, byte 14h
         pop edi
         pop esi
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_10CE9C                                                          10CE9C  
+; DrawSpriteScaled                               10CE9C  97 PC, low confidence
+; Draws a scaled sprite, picking the fit, factor or mirrored path
 ;-----------------------------------------------------------------------------
-sub_10CE9C:
+DrawSpriteScaled:
         push ebx
         push esi
         push edi
@@ -657,7 +667,7 @@ sub_10CE9C:
         push esi
         mov edi, dword [byte esp+020h]
         push edi
-        call sub_10CCB0
+        call DrawSpriteScaledFit
         add esp, byte 14h
         pop edi
         pop esi
@@ -676,7 +686,7 @@ sub_10CE9C:
         push edx
         mov ebx, dword [byte esp+018h]
         push ebx
-        call sub_10CA48
+        call DrawSpriteScaledCore
         add esp, byte 14h
         pop ebx
         ret
@@ -690,7 +700,7 @@ sub_10CE9C:
         push ecx
         mov esi, dword [byte esp+018h]
         push esi
-        call sub_10CD98
+        call DrawSpriteScaledBy
         add esp, byte 10h
         pop esi
         pop ebx
@@ -706,7 +716,7 @@ sub_10CE9C:
         push ecx
         mov esi, dword [byte esp+018h]
         push esi
-        call sub_10CDE0
+        call DrawSpriteScaledFlip
         add esp, byte 10h
         pop esi
         pop ebx

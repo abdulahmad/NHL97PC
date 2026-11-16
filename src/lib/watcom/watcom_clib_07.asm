@@ -8,7 +8,7 @@ extern dword_16E4C8, dword_16E670, dword_16E6A8, dword_16E6AC, dword_16E6B0, dwo
 extern dword_16E6CC, dword_16E6D0, dword_16E6D4, dword_16E6D8, dword_16E714, dword_16F894, dword_16F898, dword_16F8A8
 extern dword_16F8AC, dword_16F8B0, dword_16F8B4, dword_16F8B8, dword_16F9FC, dword_16FA00, dword_16FA04, dword_16FA08
 extern dword_172AAC, dword_1CF9F4, dword_1CF9F8, dword_1DA4D0, int386_, int386x_, memset_, removewindow
-extern segread_, sub_102D3C, sub_102DB2, sub_102DC5, FillRowTable, sub_1049D0, SetScreenTarget, AllocMemBlock
+extern segread_, sub_102D3C, sub_102DB2, sub_102DC5, FillRowTable, BytesPerPixelForDepth, SetScreenTarget, AllocMemBlock
 extern FreeMemBlock, FreeBitmap
 global VesaGetModeInfo, VesaQueryMode, FindClosestMode, VesaSetMode, VesaSetWindow, CloseVideoWindow, SetGraphicsMode, WritePaletteRegs
 global AllocRowTable, FreeRowTable
@@ -573,7 +573,7 @@ SetGraphicsMode:
         push edx
         mov dword [dword_16E6BC], ecx
         mov byte [byte_16E6C0], al
-        call sub_1049D0
+        call BytesPerPixelForDepth
         add esp, byte 4
         mov edx, esi
         mov byte [byte_16E6C1], al

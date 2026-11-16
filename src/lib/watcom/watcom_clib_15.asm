@@ -15,9 +15,9 @@ extern off_1721B8, putchar, sprintf_, strncmp_, strncpy_, bcopy, QueueInit, Queu
 extern QueuePeek, QueueTakeTail, QueueTakeHead, QueueFreeAll, QueueCount, QueueFind, QueueAppend, QueuePostBuffer
 extern AddExitHandler, ConvertArtSame, sub_11313C, SerialConfigure, SerialOpen, SerialIsOpen, SerialSetBaud, SerialProgramUart
 extern SerialCarrier, SerialWriteIfRoom, SerialWrite, SerialRxCount, SerialTxFree, SerialFlushTx, SerialRead, SerialFlushRx
-extern sub_11FAD6, sub_120763, sub_123FA8, sub_12F270, DrawShapeTriangleMapped, ScanFormat, OpenPacketLink, ModemReset
+extern FillShadowRect, sub_120763, sub_123FA8, sub_12F270, DrawShapeTriangleMapped, ScanFormat, OpenPacketLink, ModemReset
 extern ModemHangup, ModemDial, ModemAutoAnswer, ModemWaitConnect, ModemSpeakerOff, AddIdleHandler, RemoveIdleHandler, RunIdleHandlers
-extern AllocMemBlock, sub_FAAB4, FreeMemBlock, ZeroMem, FillMem, addtimer, sub_FC008, WaitTicks
+extern AllocMemBlock, AllocMemData, FreeMemBlock, ZeroMem, FillMem, addtimer, sub_FC008, WaitTicks
 extern unk_167FA4, unk_172264, unk_17226C, unk_172274, unk_1DA3C4, unk_1DA418, unk_1DA448, unk_1DA464
 extern unk_1DA466, unk_1DA468, unk_1DA498, unk_1DA4A4, unlink_, word_1DA4A6, word_1DA4A8, word_1DA4AA
 extern word_1DA4AC, word_1DA4AE, word_1DA4B0, word_1DA4B2
@@ -1389,7 +1389,7 @@ DrawShadowRect:
         push esi
         mov dword [byte esp+014h], edi
         mov dword [byte esp+020h], ebp
-        call sub_11FAD6
+        call FillShadowRect
         add esp, byte 0Ch
         add esp, byte 20h
         pop ebp
@@ -3909,7 +3909,7 @@ NetLeaveGame:
         add eax, 0F8h
         push eax
         push str_Netserv
-        call sub_FAAB4
+        call AllocMemData
         add esp, byte 0Ch
         mov dword [byte ebp+0Ch], eax
         test eax, eax
@@ -5812,7 +5812,7 @@ IpxHookCheck:
         push eax
         push dword 9E0h
         push str_IPXINTF
-        call sub_FAAB4
+        call AllocMemData
         add esp, byte 0Ch
         mov dword [dword_17224C], eax
         test eax, eax
@@ -6048,7 +6048,7 @@ IpxSetupLayer:
         push eax
         push dword 8628h
         push str_IPXSOCK
-        call sub_FAAB4
+        call AllocMemData
         add esp, byte 0Ch
         mov esi, eax
         test eax, eax

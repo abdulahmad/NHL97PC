@@ -42,8 +42,8 @@ extern qword_160B14, qword_160B1C, qword_160B28, qword_160B35, qword_160CF7, qwo
 extern randomd0, removewindow, sprintf_, str_CDSTREAM, str_SECCDSTREAM, str_STREAM, strcat_, strcmp_
 extern strcpy_, strncpy_, strstr_, bcopy, BlitArt, BlitShape, PresentScreen, FindShape
 extern FindShapeQuiet, OpenArtArchive, DrawShapeBlended, ConvertArtNew, sub_102C10, Random32, sub_102CDC, sub_102D3C
-extern sub_102E0C, sub_102EBC, SetGraphicsMode, WritePaletteRegs, BlitFrameToScreen, WritePaletteRange, sub_1048BC, sub_10491C
-extern sub_104940, sub_104948, sub_104980, sub_1049D0, BuildInverseTable, CdOpenStream, CdCloseFile, CdRead
+extern sub_102E0C, sub_102EBC, SetGraphicsMode, WritePaletteRegs, BlitFrameToScreen, WritePaletteRange, ReadPaletteRange, TranslatePixels
+extern ArtBankCount, ArtBankEntry, RemapPixelRange, BytesPerPixelForDepth, BuildInverseTable, CdOpenStream, CdCloseFile, CdRead
 extern CdSeek, DriveLetterIndex, IsCdDrive, AllocCdBuffer, DetectMscdex, RequestSpeechEvent, FileSizePath, LoadFileAllocQuiet
 extern sub_106F7C, sub_106F94, LoadFileToBlockPlain, RegisterSoundBank, UnregisterSoundBank, DetectAudioDriver, DetectAudioHardware, OpenDigitalAudio
 extern CloseDigitalAudio, StartDigitalAudio, DetectWindows, InitSoundMixer, SetMixerVolumes, SetMasterVolume, SetChannelVolume, SetSpeechVolume
@@ -7417,7 +7417,7 @@ StartPaletteFade:
         push eax
         push edi
         push ebp
-        call sub_1048BC
+        call ReadPaletteRange
         add esp, byte 0Ch
         test edi, edi
         jle short .3
@@ -7722,7 +7722,7 @@ CountArtPixels:
         push byte_16FA40
         add eax, byte 10h
         push eax
-        call sub_10491C
+        call TranslatePixels
         add esp, byte 0Ch
         pop edx
         pop ecx
@@ -7734,7 +7734,7 @@ CountArtPixels:
         push esi
         mov esi, eax
         push eax
-        call sub_104940
+        call ArtBankCount
         add esp, byte 4
         mov ebx, eax
 .1:
@@ -7743,7 +7743,7 @@ CountArtPixels:
         je near FadePaletteStep_FC
         push ebx
         push esi
-        call sub_104948
+        call ArtBankEntry
         mov edx, dword [eax]
         mov ecx, dword [dword_1AC358]
         and edx, 0FFh
@@ -7759,7 +7759,7 @@ CountArtPixels:
         push byte_16FA40
         add eax, byte 10h
         push eax
-        call sub_10491C
+        call TranslatePixels
         add esp, byte 0Ch
         jmp short .1
         db 08Bh,0C0h
@@ -7801,7 +7801,7 @@ RemapArtColors:
         jl short .2
 .3:
         push ebp
-        call sub_104940
+        call ArtBankCount
         mov edi, ebp
         add esp, byte 4
         mov ebx, eax
@@ -7811,7 +7811,7 @@ RemapArtColors:
         je short .5
         push ebx
         push edi
-        call sub_104948
+        call ArtBankEntry
         mov edx, dword [eax]
         mov ecx, dword [dword_1AC358]
         and edx, 0FFh
@@ -7854,12 +7854,12 @@ RemapArtToRange:
         push ecx
         push esi
         push byte 0
-        call sub_104980
+        call RemapPixelRange
         add esp, byte 0Ch
         push edi
         mov ebp, esi
         mov esi, edi
-        call sub_104940
+        call ArtBankCount
         add esp, byte 4
         mov ebx, eax
 .1:
@@ -7868,7 +7868,7 @@ RemapArtToRange:
         je near RemapArtPixels_70
         push ebx
         push esi
-        call sub_104948
+        call ArtBankEntry
         mov edx, dword [eax]
         mov ecx, dword [dword_1AC358]
         and edx, 0FFh
@@ -7939,11 +7939,11 @@ RemapArtRange:
         push eax
         push edi
         push ebp
-        call sub_104980
+        call RemapPixelRange
         add esp, byte 0Ch
         mov esi, dword [dword esp+0400h]
         push esi
-        call sub_104940
+        call ArtBankCount
         add esp, byte 4
         mov ebx, eax
 .6:
@@ -7952,7 +7952,7 @@ RemapArtRange:
         je short .7
         push ebx
         push esi
-        call sub_104948
+        call ArtBankEntry
         mov edx, dword [eax]
         mov edi, dword [dword_1AC358]
         and edx, 0FFh
@@ -8099,7 +8099,7 @@ ArtBankHistogram:
         mov ebp, ebx
         mov ebx, ecx
         push eax
-        call sub_104940
+        call ArtBankCount
         mov ecx, eax
         add esp, byte 4
         mov edx, ebp
@@ -8114,7 +8114,7 @@ ArtBankHistogram:
 .1:
         push esi
         push edi
-        call sub_104948
+        call ArtBankEntry
         mov edx, eax
         mov eax, dword [eax]
         mov ebx, dword [dword_1AC358]
@@ -8163,7 +8163,7 @@ InitPaletteManager:
         xor edx, edx
         push byte 8
         mov dword [dword_1AC35C], edx
-        call sub_1049D0
+        call BytesPerPixelForDepth
         add esp, byte 4
         push PaletteFadeTick
         mov dword [dword_1AC358], eax
@@ -8338,7 +8338,7 @@ RemapArtBank:
         mov ebp, ebx
         mov dword [dword esp+0300h], ecx
         push ebx
-        call sub_104940
+        call ArtBankCount
         add esp, byte 4
         mov ebx, eax
 .1:
@@ -8347,7 +8347,7 @@ RemapArtBank:
         je near .9
         push ebx
         push ebp
-        call sub_104948
+        call ArtBankEntry
         mov edi, eax
         mov eax, dword [eax]
         and eax, 0FFh
@@ -8544,7 +8544,7 @@ RemapBankToRange:
         mov dword [dword esp+0300h], ebx
         push edx
         mov ebp, 0FFh
-        call sub_104940
+        call ArtBankCount
         add esp, byte 4
         mov ebx, eax
         dec ebx
@@ -8555,7 +8555,7 @@ RemapBankToRange:
 .1:
         push ebx
         push esi
-        call sub_104948
+        call ArtBankEntry
         mov edx, eax
         mov eax, dword [eax]
         and eax, ebp
@@ -8634,7 +8634,7 @@ RemapBankToRange:
         inc ebx
 .10:
         push esi
-        call sub_104940
+        call ArtBankCount
         add esp, byte 4
         cmp ebx, eax
         jl near .1
@@ -8704,7 +8704,7 @@ RemapArtPixels:
         push ecx
         push byte 0
         mov ebp, ecx
-        call sub_104980
+        call RemapPixelRange
         mov eax, dword [esi]
         mov edx, dword [dword_1AC358]
         and eax, 0FFh
@@ -8720,7 +8720,7 @@ RemapArtPixels:
         push byte_16FA40
         add esi, byte 10h
         push esi
-        call sub_10491C
+        call TranslatePixels
         add esp, byte 0Ch
 RemapArtPixels_70:
         mov edx, esp

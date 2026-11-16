@@ -12,7 +12,7 @@ extern dword_1CF5B0, dword_1CF5B4, dword_1CF5B8, dword_1CF5BC, dword_1CF5C0, dwo
 extern dword_1CF5D0, dword_1CF5D4, dword_1CF5D8, dword_1CF5DC, dword_1CF5E0, dword_1CF5E4, dword_1CF5E8, dword_1CF5EC
 extern dword_1CF5F0, dword_1DA4D0, mem_putc_, qword_167DA1, qword_167DA9, qword_167DB1, qword_167DB9, strcmp_
 extern Random32, PlotPixelRGB, PlotPixel, SaveTextState, RestoreTextState, AllocNetBuffer, FreeNetBuffer, SetTextOrigin
-extern sub_11FAAC, DrawTextLimited, DrawTextString, ConvertColor555, DrawGlyphScaled, SetTextScale, MakeColor, FillRect
+extern SetTextFont, DrawTextLimited, DrawTextString, ConvertColor555, DrawGlyphScaled, SetTextScale, MakeColor, FillRect
 global IF@ATAN, IF@ATAN2, IF@DPOW, hypot_, DrawGlyph_494, DrawGlyph_590, PrepareTextDraw_72, FloatsToInts_47
 global ProjectPointsWithZ_DF, sprintf_, ProjectPointFloat, PowIntLoop, MeasureText, FindGlyph, GetGlyph, GetKerning
 global DrawTextRun, DrawTextAt, SetTextColors, DrawTextBoxed, DrawTextBoxedAt, FillRectCorners, DrawGlyph, BuildTextColorTable
@@ -533,7 +533,7 @@ DrawTextBoxed:
         call SaveTextState
         add esp, byte 4
         push byte 0
-        call sub_11FAAC
+        call SetTextFont
         add esp, byte 4
         mov edx, dword [dword_1CF554]
         push edx

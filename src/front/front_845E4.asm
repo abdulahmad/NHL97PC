@@ -26,7 +26,7 @@ extern FindSeasonReplay, RunNewPlayoffs, RunPlayoffMenus, EditLinesScreen, TeamS
 extern GameStatsScreen, PlayMenuGame, FinishLeagueGame, TeamStatsScreen, StatsTablesScreen, RunUserRecords, PlayerStatsScreen, PlayerRatingsScreen
 extern RunVideoOptions, HistoryScreen, RosterScreen, PreGameMatchupScreen, PreGameRostersScreen, FreeDbBlock, OpenLeagueFile, FindGameRecord
 extern ClearLinkAbort, ServiceIdle, NetDisconnect, LinkSendBlock, LinkReceiveBlock, AllocMemBlock, FreeMemBlock, ZeroMem
-extern sub_FC330, FreeBitmap, sub_FCEEC, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, tickcount
+extern sub_FC330, FreeBitmap, DrawShapeCore, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, tickcount
 extern unk_165320, unk_165323, unk_16CCC8, unk_16D804, unk_1AC95D, unk_1AC962, unk_1ACB44, unk_1ACB49
 extern unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C8300, unk_1C830C, unk_845C0
 global jpt_84AF5, jpt_84B15, jpt_84B25, jpt_84B3D, jpt_85CFD, MainMenuAnim_32E, MainMenuAnim_344, MainMenuAnim_35A
@@ -951,7 +951,7 @@ MainMenuScreen:
         push byte 0
         push dword [byte ebp+07Ah]
         xor ebx, ebx
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
 .22:
         lea eax, [byte ebx+02h]
@@ -1023,7 +1023,7 @@ MainMenuScreen:
         push byte 0
         push dword [byte ebp+07Ah]
         xor ebx, ebx
-        call sub_FCEEC
+        call DrawShapeCore
         add esp, byte 0Ch
 .24:
         lea eax, [byte ebx+02h]

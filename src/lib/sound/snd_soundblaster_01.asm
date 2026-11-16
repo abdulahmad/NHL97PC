@@ -19,7 +19,7 @@ extern fclose_, fgets_, fopen_, fseek_, getenv_, unk_137FE1_2, str_WSSDMA, strcm
 extern strstr_, strupr_, AudioDriverUpdate, ApplyChannelVolume, PickSampleRate, StopChannel, RestoreDS, MixerInit
 extern MixerFillBuffer, SbReadData, SbWriteDsp, SbMixerWrite, SbMixerRead, SbResetDsp, SbDetectDsp, SbSetRate
 extern StartChannel, SetChannelCount, DmaMaskChannel, DmaProgram, IrqAck, IrqVector, IrqUnmask, IrqMask
-extern IrqSetHandler, AllocDosDmaBuffer, FreeDosDmaBuffer, SbTimeConstant, SbRateFromConstant, ReturnArg, sub_FAAB4, FreeMemBlock
+extern IrqSetHandler, AllocDosDmaBuffer, FreeDosDmaBuffer, SbTimeConstant, SbRateFromConstant, ReturnArg, AllocMemData, FreeMemBlock
 extern unk_128990, unk_1289A0, unk_137F46, unk_137F48, unk_137F4A, unk_137FDF, unk_137FE1, unk_140000
 extern unk_14000D, unk_14001A, unk_14002B, unk_168088, unk_1680D4, unk_172C44, unk_1DD3C4, unk_1DD40C
 extern word_172C42, word_172C48, word_172C4C, word_1DD3E0, word_1DD3E8, word_1DD430, word_1DD46C, word_1DD470
@@ -267,7 +267,7 @@ SbDriverInit:
         add eax, eax
         push eax
         push str_DMABUFFER3
-        call sub_FAAB4
+        call AllocMemData
         add esp, byte 0Ch
         mov dword [dword_1DD3D8], eax
         test eax, eax
@@ -647,7 +647,7 @@ SbProDriverInit:
         add eax, eax
         push eax
         push str_DMABUF
-        call sub_FAAB4
+        call AllocMemData
         add esp, byte 0Ch
         mov dword [dword_1DD41C], eax
         test eax, eax
@@ -1140,7 +1140,7 @@ Sb16DriverInit:
         add eax, eax
         push eax
         push str_DMABUF2
-        call sub_FAAB4
+        call AllocMemData
         add esp, byte 0Ch
         mov dword [dword_1DD464], eax
         test eax, eax
@@ -1613,7 +1613,7 @@ SoundscapeDriverInit:
         add eax, eax
         push eax
         push str_DMABUFFER4
-        call sub_FAAB4
+        call AllocMemData
         add esp, byte 0Ch
         mov dword [dword_1DD490], eax
         test eax, eax

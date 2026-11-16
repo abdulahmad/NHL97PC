@@ -2,8 +2,11 @@
 bits 32
 %include "hockey.inc"
 section s_FC804 progbits alloc exec nowrite align=1
-extern dword_16E628, sub_FC924, vsprintf_
+extern dword_16E628, DebugShowLines, vsprintf_
 global _dos_getdate_, _dos_gettime_
+;-----------------------------------------------------------------------------
+; _dos_getdate_                                                 FC804  library
+;-----------------------------------------------------------------------------
 _dos_getdate_:
         push edx
         push ecx
@@ -20,6 +23,9 @@ _dos_getdate_:
         pop ecx
         pop edx
         ret
+;-----------------------------------------------------------------------------
+; _dos_gettime_                                                 FC81F  library
+;-----------------------------------------------------------------------------
 _dos_gettime_:
         push edx
         push ecx
@@ -50,7 +56,7 @@ _dos_gettime_:
         xor ebx, ebx
         mov eax, esp
         mov dword [dword esp+0100h], ebx
-        call sub_FC924
+        call DebugShowLines
 .1:
         add esp, 104h
         pop ebx

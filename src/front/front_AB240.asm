@@ -12,7 +12,7 @@ extern EditFileName, ShowWorkingBox, UpdateWorkingBox, HideWorkingBox, NameIndex
 extern GetLangText, SortStandings, SeasonSettingsPath, PlayoffSettingsPath, AllocCrusherBuffers, FreeTransferBuffers, CopyToTransfer, LinkSendData
 extern LinkReceiveData, AppendToTransfer, KeysEqual, OpenGameDatabase, CloseGameDatabase, DaysToYear, CreateExhibitionFile, WriteLeagueHeader
 extern StartSeasonGame, SaveExhibitionResult, SaveSeasonResult, FindGameRecord, UpdateGameRecord, AddReplayIndexEntry, FindReplayIndexEntry, OpenReplayFile
-extern ClearLinkAbort, LinkSendBlock, LinkReceiveBlock, AllocMemBlock, FreeMemBlock, ZeroMem, sub_FCC40, unk_16D7F4
+extern ClearLinkAbort, LinkSendBlock, LinkReceiveBlock, AllocMemBlock, FreeMemBlock, ZeroMem, SelectFont, unk_16D7F4
 extern unk_1ACF4E, unk_1AD236, unk_1AD443, word_1C1344
 global SendGameResult_32D, SaveGameResults_B2F, SaveGameResults_B30, SendGameResult, SaveGameResults, AdvanceSeasonDate, FinishLeagueGame, SaveReplayFile
 global WriteReplayFile, ReplayNameToKey, ClearReplayEntry
@@ -1480,7 +1480,7 @@ SaveReplayFile:
 .11:
         push dword [dword_1CEFB4]
 .12:
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         cmp dword [dword_16DA9C], byte 0
         je short .13

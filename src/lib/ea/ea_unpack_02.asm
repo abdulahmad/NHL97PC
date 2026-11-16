@@ -9,7 +9,7 @@ extern dword_1DD398, dword_1DD39C, dword_1DD3A0, dword_1DD3A4, dword_1DD3A8, dwo
 extern jpt_12C300_24, memset_, AdvanceStreamOffset, AudioNullFunc, StartTmplSample, PickSampleRate, ReadBlasterPort, AudioEnter
 extern AudioLeaveCheck, MixerInit, MixerFillBuffer, PlayPatchNote, StartChannel, MixNoise, UpdateChannels, SetChannelCount
 extern GusGetEnvConfig, GusProbePort, GusOpen, GusClose, GusMemAlloc, GusStopStream, GusStreamBusy, GusServiceStream
-extern GusStartStream, TimerCalibrate, TimerRestore, TimerSetRate, IrqAck, sub_FAAB4, FreeMemBlock, word_1DD388
+extern GusStartStream, TimerCalibrate, TimerRestore, TimerSetRate, IrqAck, AllocMemData, FreeMemBlock, word_1DD388
 extern word_1DD38A
 global jpt_127FC0, PrepareBankSampleData_B3, PrepareBankSampleData_F0, PrepareBankSampleData_FD, PrepareBankSampleData_124, PrepareBankSampleData_1B0, ExpandBytePair, UnpackBytePairs
 global PrepareBankSampleData, LoadSampleHeader, PlayPatlSample, PlaySoundEntry, GusDetect, GusDriverStartStream, GusDriverCaps, GusDriverOpen
@@ -979,7 +979,7 @@ GusDriverStartStream:
         push dword 200h
         push dword 2000h
         push str_DMABUFFER
-        call sub_FAAB4
+        call AllocMemData
         add esp, byte 0Ch
         mov dword [dword_1DD394], eax
         test eax, eax
@@ -1324,7 +1324,7 @@ DacDriverOpen:
         push eax
         push str_DMABUFFER2
         mov dword [dword_1DD398], edi
-        call sub_FAAB4
+        call AllocMemData
         add esp, byte 0Ch
         mov dword [dword_1DD3AC], eax
         test eax, eax

@@ -28,9 +28,9 @@ extern dword_1CEFA4, dword_1CEFA8, dword_1CEFB0, dword_1CEFB4, dword_1CEFB8, dwo
 extern qword_167A75, qword_167A7D, qword_167AB1, qword_167AB9, qword_167AC1, qword_167AC9, qword_167AD1, qword_167AD9
 extern qword_167B1D, qword_167B25, qword_167B69, qword_167B79, qword_167B8F, qword_167B9F, qword_167BB3, qword_167BBB
 extern qword_167C27, qword_167C4F, qword_167C57, qword_167CCB, rand_, sprintf_, sscanf_, sub_1008CC
-extern BlitArt, PresentScreen, FindShape, DrawShapeBlended, ConvertArtNew, sub_10491C, PrintBoxedText, IsPlayoffGame
-extern RefreshPlayerModel, ConvertArtXY, SaveTextState, RestoreTextState, DrawShadowRect, ResetForIntermission, GetCurrentFont, sub_11FAAC
-extern sub_11FB11, RefreshRinkPalette, SetScreenTarget, ChangeViewSize, ApplyDisplayFlags, RemoveOverlayPanel, DrawPanelArtScaled, RefreshOverlayWindows
+extern BlitArt, PresentScreen, FindShape, DrawShapeBlended, ConvertArtNew, TranslatePixels, PrintBoxedText, IsPlayoffGame
+extern RefreshPlayerModel, ConvertArtXY, SaveTextState, RestoreTextState, DrawShadowRect, ResetForIntermission, GetCurrentFont, SetTextFont
+extern DrawTitleBand, RefreshRinkPalette, SetScreenTarget, ChangeViewSize, ApplyDisplayFlags, RemoveOverlayPanel, DrawPanelArtScaled, RefreshOverlayWindows
 extern SetOverlayFont, IntermissionCameraScene, MenuCameraScene, MenuOrbitScene, RestoreGameCamera, AddOverlayWindow, RemoveOverlayWindow, UpdateScreenRegion
 extern RefreshOverlayWindow, SetRinkDetail, SetRangePalette, FadeGamePalette, InitGameAudio, InitGameSounds, SecondsToSamples, WaitSoundTime
 extern ChkMenuMusic, QueueMusicRestart, PauseMusic, ResumeMusic, RequestMusicStop, WaitMusicEnd, ArenaFileName, SetAmbientVolume
@@ -39,7 +39,7 @@ extern TriggerCameraFlashes, RestoreSavedPalette, ReplayHasFrames, UpdateGameDis
 extern SetTextColor, DrawTextAligned, CreateMenuBitmap, FreeMenuBitmap, InitMenuItems, SetMenuSelection, RunMenu, SetMenuMode
 extern LoadLangTextB, GetLangText, FreeLangText, EditLinesScreen, GameStatsScreen, LoadGameLogos, FreeGameText, RunReplay
 extern FadePalette, FadeOut, OpenGameDatabase, CloseGameDatabase, ServiceIdle, SyncLinkGame, LinkSyncMenu, LinkSyncScreen
-extern WaitForOtherComputer, SetupPauseArt, FreeMemBlock, sub_FC330, sub_FC4BC, sub_FCC40, FreeBitmap, DrawArt
+extern WaitForOtherComputer, SetupPauseArt, FreeMemBlock, sub_FC330, sub_FC4BC, SelectFont, FreeBitmap, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, MeasureText, DrawTextAt, SetTextColors, DrawTextBoxedAt
 extern FillRectCorners, tickcount, unk_167A4B, word_168D18, word_19CBB0, word_19CBB2, gsp, gameclock
 extern word_19CBBC, word_1C3413, word_1C5536, word_1CEFC0
@@ -503,7 +503,7 @@ DrawMenuItem:
 .2:
         push dword [dword_1CEFB4]
 .3:
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         test bx, bx
         jne short .4
@@ -707,7 +707,7 @@ DrawPauseClock:
         call SaveTextState
         add esp, byte 4
         push dword [dword_1686C0]
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         push esi
         call SetDrawTarget
@@ -998,7 +998,7 @@ DrawPauseButtons:
 .1:
         push dword [dword_1CEFB4]
 .2:
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         cmp dword [esi], byte 0
         jne near .11
@@ -1593,7 +1593,7 @@ PickEditLinesTeam:
         call ClearScreen
         add esp, byte 4
         push dword [dword_1CEFB0]
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         mov eax, dword [dword_1CEFA0]
         call SetTextColor
@@ -1603,7 +1603,7 @@ PickEditLinesTeam:
         cmp word [word_1CEFC0], byte 2
         je short .9
         push dword [dword_1CEFB0]
-        call sub_FCC40
+        call SelectFont
         fld dword [byte ebp-018h]
         fmul dword [dword_167AF5]
         fld dword [byte ebp-02Ch]
@@ -1628,7 +1628,7 @@ PickEditLinesTeam:
         jmp short .10
 .9:
         push dword [dword_1CEFB4]
-        call sub_FCC40
+        call SelectFont
         fld dword [byte ebp-018h]
         fmul dword [dword_167AED]
         fld dword [byte ebp-02Ch]
@@ -2006,7 +2006,7 @@ ConfirmQuitGame:
         call ClearScreen
         add esp, byte 4
         push dword [dword_1CEFB0]
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         mov eax, dword [dword_1CEFA0]
         call SetTextColor
@@ -2037,7 +2037,7 @@ ConfirmQuitGame:
         mov ebx, dword [byte ebp-03Ch]
         call DrawMenuFrame
         push dword [dword_1CEFB0]
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         mov eax, 71h
         call GetLangText
@@ -2046,7 +2046,7 @@ ConfirmQuitGame:
         jmp short .9
 .8:
         push dword [dword_1CEFB4]
-        call sub_FCC40
+        call SelectFont
         fld dword [byte ebp-02Ch]
         fmul dword [dword_167B39]
         fld dword [byte ebp-018h]
@@ -2424,7 +2424,7 @@ RunIntermission:
         mov ebx, eax
         push dword [dword_1CEFB0]
         mov esi, eax
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         push ebx
         call SetDrawTarget
@@ -3143,7 +3143,7 @@ PauseMenu_66D:
 .33:
         push dword [dword_1CEFB4]
 .34:
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         cmp ebx, byte 2
         jne short .35
@@ -3214,7 +3214,7 @@ LeaveGameForMenu:
 .1:
         call FreePauseArt
         push byte 1
-        call sub_11FAAC
+        call SetTextFont
         add esp, byte 4
         push dword [dword_1CEF9C]
         call FreeBitmap
@@ -3411,7 +3411,7 @@ DrawIntermissionTitle:
         jge short .2
 .1:
         push dword [dword_1CEFB4]
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
 .2:
         imul eax, dword [dword_16E468], byte 6Eh
@@ -3478,7 +3478,7 @@ DrawIntermissionTitle:
         push byte 0
         push byte 4
         push dword 0FEh
-        call sub_11FB11
+        call DrawTitleBand
         add esp, byte 28h
         push dword 0FF0000AAh
         call sub_FC4BC
@@ -3548,11 +3548,11 @@ DrawIntermissionTitle:
         push byte 0
         push byte 4
         push dword 0FEh
-        call sub_11FB11
+        call DrawTitleBand
         add esp, byte 28h
         push dword [dword_1CEFB4]
 .4:
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         mov eax, dword [dword_1CEFA0]
         call SetTextColor
@@ -4197,7 +4197,7 @@ FillBox:
         push dword [byte ebp-014h]
         push ecx
         mov dword [byte ebp-04h], ecx
-        call sub_10491C
+        call TranslatePixels
         add esp, byte 0Ch
         jmp short .7
 .5:
@@ -4217,7 +4217,7 @@ FillBox:
         push eax
         push dword [byte ebp-014h]
         push dword [byte ebp-04h]
-        call sub_10491C
+        call TranslatePixels
         mov eax, dword [byte ebp-0Ch]
         add esp, byte 0Ch
         add dword [byte ebp-04h], eax
@@ -5720,7 +5720,7 @@ RulesMenu:
 .40:
         push dword [dword_1CEFB4]
 .41:
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         mov eax, dword [dword_1CEFB8]
         mov dword [byte ebp+07Eh], 1
@@ -7776,7 +7776,7 @@ DetailLevelMenu:
 .20:
         push dword [dword_1CEFB4]
 .21:
-        call sub_FCC40
+        call SelectFont
         add esp, byte 4
         mov eax, dword [dword_1CEFB8]
         mov dword [dword ebp+082h], 1

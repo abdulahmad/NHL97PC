@@ -15,7 +15,7 @@ extern dword_1CE48E, dword_1CE492, dword_1CE496, dword_1CE4D6, dword_1CE4DA, dwo
 extern dword_1CE4EC, dword_1CE4F0, dword_1CE528, dword_1CE52C, dword_1CE532, dword_1CE536, dword_1CE53A, dword_1CE53E
 extern dword_1CE542, dword_1CEF9C, dword_1CEFA0, dword_1CEFB0, dword_1CEFB4, dword_1CEFB8, rand_, sprintf_
 extern str_TR0D, strlen_, bcopy, BlitConverted, BlitShape2, BlitArt, BlitShape, PresentScreen
-extern FindShape, SetModelShape, CreateBitmapForArt, IsKeyDown, ConvertArtXY, ConvertArtKeepPos, DrawShadowRect, sub_11FAAC
+extern FindShape, SetModelShape, CreateBitmapForArt, IsKeyDown, ConvertArtXY, ConvertArtKeepPos, DrawShadowRect, SetTextFont
 extern SetScreenTarget, CameraNoop, SecondsToSamples, WaitSoundTime, PlayMenuSfx, StopAllSfx, PlaySfx, LoadDataFileLib
 extern DrawScreenBackground, FadeInScreen, ExitScreen, SetRegionRect, SetTextColor, DrawTextAligned, ShowMessageBoxNoWait, WipeScreen
 extern SetModemButton, InitMenuItems, RunMenu, GetLangText, ServiceIdle, WaitForOtherComputer, GetKeyName, LoadPauseArt
@@ -4469,7 +4469,7 @@ CleanupPauseArt:
         push edx
         call FreePauseArt
         push byte 1
-        call sub_11FAAC
+        call SetTextFont
         add esp, byte 4
         push dword [dword_1CEF9C]
         call FreeBitmap
