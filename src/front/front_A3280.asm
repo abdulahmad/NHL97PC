@@ -36,7 +36,7 @@ extern sub_7DFC0, sub_7E52C, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, sub_7F0
 extern sub_7F29C, sub_80758, sub_80808, sub_80A38, sub_80AB8, sub_80BBC, sub_81650, sub_81678
 extern sub_823F0, sub_83C08, ShowLoadingScreen, sub_842F4, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10
 extern DrawScrollBar, sub_8DE68, sub_8DE7E, sub_8DEAC, LoadLangTextB, GetLangText, FreeLangText, sub_8E870
-extern sub_A3136, sub_A31DE, sub_AC799, sub_ACA49, sub_ACAE5, sub_ACAF2, sub_ACB0E, sub_ACB21
+extern sub_A3136, sub_A31DE, AllocStatTable, sub_ACA49, sub_ACAE5, sub_ACAF2, sub_ACB0E, sub_ACB21
 extern sub_ACDAE, sub_AD151, sub_AD62E, UserLogScreen, sub_CA44C, sub_D0098, InitSlotTable, sub_E32B4
 extern sub_E3410, sub_E341C, sub_E4218, sub_E4230, LinkSendBlock, LinkReceiveBlock, sub_EE8AC, sub_FAA64
 extern sub_FAF34, sub_FB704, sub_FC330, sub_FC510, sub_FCC40, sub_FCD90, sub_FCEEC, sub_FCF84
@@ -52,10 +52,10 @@ global PostGameScreen_B39, PostGameScreen_B4E, PostGameScreen_B55, PostGameScree
 global GameStatsScreen_143, GameStatsScreen_14E, GameStatsScreen_19A, GameStatsScreen_205, GameStatsScreen_24A, GameStatsScreen_294, GameStatsScreen_2D9, GameStatsScreen_39D
 global sub_A3280, sub_A3B69, sub_A3E2B, sub_A405E, sub_A4164, sub_A4A5C, sub_A4B7D, sub_A64FC
 global PostGameScreen, sub_A728C, sub_A72C8, sub_A7380, DrawThreeStarStats, sub_A79EC, sub_A7AD0, sub_A7C40
-global sub_A7C90, GameStatsScreen, sub_A8204, sub_A8480, sub_A8524, sub_A8694, DrawTeamGameStats, sub_A8E84
+global sub_A7C90, GameStatsScreen, sub_A8204, sub_A8480, sub_A8524, GameStatsPlayersPage, DrawTeamGameStats, sub_A8E84
 global sub_A91AC, DrawScoringSummary, sub_A9504, sub_A9640, sub_A9800, sub_A9A10, sub_AA170, sub_AA274
 global sub_AA498, sub_AA4BC, sub_AA588, sub_AA650, sub_AA710, sub_AA774, sub_AA7EC, sub_AA850
-global sub_AA8B4, sub_AA92C, sub_AAA51, GoalTypeSuffix, sub_AAC7C, sub_AADEF, sub_AB0A6, PlayMenuGame
+global sub_AA8B4, sub_AA92C, sub_AAA51, GoalTypeSuffix, FormatGoalLine, LoadGameLogos, sub_AB0A6, PlayMenuGame
 ;-----------------------------------------------------------------------------
 ; sub_A3280                                                       A3280  97 PC
 ;-----------------------------------------------------------------------------
@@ -5693,7 +5693,7 @@ GameStatsScreen:
         mov dword [dword esp+0400h], eax
         mov dword [dword_1C9544], edx
         call sub_A8204
-        call sub_A8694
+        call GameStatsPlayersPage
         mov eax, dword [dword_1C9568]
         xor edi, edi
         mov edx, 0FFFFFFFFh
@@ -5779,7 +5779,7 @@ GameStatsScreen_19A:
         xor ebx, ebx
         mov dword [dword_1C955C], ebx
 .6:
-        call sub_A8694
+        call GameStatsPlayersPage
         xor edi, edi
         call sub_13C164
         push edi
@@ -6324,9 +6324,11 @@ sub_A8524:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_A8694                                                       A8694  97 PC
+; GameStatsPlayersPage                            A8694  97 PC, low confidence
+; From GameStatsScreen: the "player stats" page (GS buttons, the three stars'
+; tops 1TOP-3BOT)
 ;-----------------------------------------------------------------------------
-sub_A8694:
+GameStatsPlayersPage:
         push ebx
         push ecx
         push edx
@@ -7480,7 +7482,7 @@ DrawScoringSummary:
         mov edx, dword [dword_1C956C]
         mov eax, ebx
         add edx, esi
-        call sub_AAC7C
+        call FormatGoalLine
         movsx eax, di
         call sub_AA774
         add esi, 80h
@@ -8027,7 +8029,7 @@ sub_A9A10:
         push byte 6
         mov edx, eax
         mov eax, esi
-        call sub_AC799
+        call AllocStatTable
         mov eax, dword [byte esp+04h]
         xor ebp, ebp
         add eax, 1A0h
@@ -8305,7 +8307,7 @@ sub_A9A10:
         mov cl, byte [dword edx+01D40h]
         mov edx, eax
         mov eax, esi
-        call sub_AC799
+        call AllocStatTable
         xor eax, eax
         mov dword [byte esp+010h], eax
         mov eax, dword [byte esp+04h]
@@ -9553,9 +9555,10 @@ GoalTypeSuffix:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_AAC7C                                                       AAC7C  97 PC
+; FormatGoalLine                                  AAC7C  97 PC, low confidence
+; Scoring summary: one goal line "%s %s (%s%s%s%s%s) %d:%02d"
 ;-----------------------------------------------------------------------------
-sub_AAC7C:
+FormatGoalLine:
         push ebx
         push ecx
         push esi
@@ -9688,9 +9691,11 @@ sub_AAC7C:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_AADEF                                                       AADEF  97 PC
+; LoadGameLogos                                   AADEF  97 PC, low confidence
+; From PlayGame: the in-game language text (LoadLangTextB) and the team logos
+; "logo%02d.qfs"
 ;-----------------------------------------------------------------------------
-sub_AADEF:
+LoadGameLogos:
         push ebx
         push ecx
         push edx

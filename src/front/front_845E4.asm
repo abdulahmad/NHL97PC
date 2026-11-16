@@ -23,7 +23,7 @@ extern PlaySfx, MakeDataPath, LoadDataFile, OpenDataLibrary, sub_7DA28, sub_7E52
 extern sub_7EEB0, sub_7EF70, SetRegionRect, sub_7F5A4, sub_80BBC, sub_81468, sub_81D1C, sub_83C08
 extern InitMenuItems, sub_8BFAC, sub_8D6E8, sub_8D910, sub_8E2EE, GetLangText, RunNewSeason, RunSeasonMenus
 extern sub_9279A, RunNewPlayoffs, RunPlayoffMenus, EditLinesScreen, TeamSelectScreen, PickIndexEntryScreen, sub_A4B7D, PostGameScreen
-extern GameStatsScreen, PlayMenuGame, sub_AC369, sub_ADBE6, sub_AF074, sub_B418C, PlayerStatsScreen, PlayerRatingsScreen
+extern GameStatsScreen, PlayMenuGame, sub_AC369, TeamStatsScreen, sub_AF074, sub_B418C, PlayerStatsScreen, PlayerRatingsScreen
 extern sub_BD621, sub_C0F5D, RosterScreen, PreGameMatchupScreen, PreGameRostersScreen, sub_DB75E, OpenLeagueFile, sub_E036F
 extern sub_E3410, sub_E341C, NetDisconnect, LinkSendBlock, LinkReceiveBlock, sub_FAA64, sub_FAF34, sub_FB704
 extern sub_FC330, sub_FCD90, sub_FCEEC, sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FD110, tickcount
@@ -1778,7 +1778,7 @@ RunStatsMenu_6E:
         mov esi, eax
         jmp short RunStatsMenu_82.4
 RunStatsMenu_82:
-        call sub_ADBE6
+        call TeamStatsScreen
 .3:
         mov ebx, eax
 .4:

@@ -37,7 +37,7 @@ extern sub_41A28, sub_41CF0, sub_41D18, sub_41D30, sub_41DB8, WaitMusicEnd, Aren
 extern PaEvent, sub_4A280, LoadDataFile, InitGameGraphics, InitGameVideo, FreeGameGraphics, DrawGameFrame, sub_4BCB4
 extern sub_4C0C4, sub_5B4D4, sub_5BE74, sub_6539C, sub_76D3C, InitFrontEnd, FreeFrontEnd, SetRegionRect
 extern sub_7F0D8, DrawTextAligned, sub_8BE60, sub_8BEF8, InitMenuItems, sub_8BFA0, sub_8BFAC, sub_8D6E0
-extern LoadLangTextB, GetLangText, FreeLangText, EditLinesScreen, GameStatsScreen, sub_AADEF, sub_AB0A6, RunReplay
+extern LoadLangTextB, GetLangText, FreeLangText, EditLinesScreen, GameStatsScreen, LoadGameLogos, sub_AB0A6, RunReplay
 extern FadePalette, FadeOut, sub_DA7EB, sub_DB6AC, sub_E341C, sub_E3798, sub_E4218, sub_E4230
 extern WaitForOtherComputer, sub_F1FF8, sub_FAF34, sub_FC330, sub_FC4BC, sub_FCC40, sub_FCD90, sub_FCFCC
 extern sub_FD08C, sub_FD0F8, sub_FD110, sub_FDD1C, sub_FDE44, sub_FE150, sub_FE180, sub_FE3AC
@@ -3260,7 +3260,7 @@ sub_F4978:
         call ApplyDisplayFlags
         xor eax, eax
         call ChangeViewSize
-        call sub_AADEF
+        call LoadGameLogos
         call sub_F1FF8
         mov eax, dword [dword_1ADC88]
         call sub_3E480

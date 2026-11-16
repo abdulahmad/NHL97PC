@@ -26,7 +26,7 @@ extern word_19CBE6, word_19CBF4, word_19CC04, word_19CC24, word_19CC26, word_19C
 extern word_19CCB6, word_19CCBC, word_19CCBE, word_19CCC0, word_19CCC4, word_19DAD9, word_19DAEA, word_19DCFA
 extern word_19E32A, word_19E949, word_19EA51, word_19EAB6, word_19EAC0, word_19EBC2, word_19EBCC
 global SetupTeamForIntermission, clearteams, jpt_11318, loc_10000, sub_11328_26, sub_11328_4F, sub_11328_78, sub_11328_A6
-global forcepldata_E, sub_123A0_62, sub_123A0_81, GripLinkLibrary, sub_102F4, LoadGripLibrary, sub_1046C, sub_104A8
+global forcepldata_E, sub_123A0_62, sub_123A0_81, GripLinkLibrary, sub_102F4, LoadGripLibrary, sub_1046C, LoadJoystickConfig
 global sub_10A68, sub_10CC8, sub_10FAC, sub_1120C, sub_11328, sub_114C4, forcepldata, sub_11574
 global sub_116B0, sub_11808, ResetBench, sub_11984, sub_119A8, setplayer, reenergizeteam, sub_11F74
 global sub_11FB4, sub_12024, sub_12334, sub_123A0, sub_12440, sub_124A4, setpersonel, sub_12970
@@ -533,9 +533,10 @@ sub_1046C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_104A8                                                       104A8  97 PC
+; LoadJoystickConfig                              104A8  97 PC, low confidence
+; From main_: the "JSTICKS" settings ("DOS-Joystick")
 ;-----------------------------------------------------------------------------
-sub_104A8:
+LoadJoystickConfig:
         push ebx
         push ecx
         push edx

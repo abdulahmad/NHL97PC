@@ -1,6 +1,7 @@
 address,name,auto_name,source,confidence,evidence,file
 10010,GripLinkLibrary,sub_10010,96PC,medium,NHL96PC 10D66 (sem 0.87): K:8490; K:101; K:100,src/front/front_10010.asm
 10354,LoadGripLibrary,sub_10354,96PC,medium,NHL96PC 1124D (sem 1.00): S:GRIP; D:1684D5; S:GRIP.GLL; D:1684CC,src/front/front_10010.asm
+104A8,LoadJoystickConfig,sub_104A8,new,low,"from main_: the ""JSTICKS"" settings (""DOS-Joystick"")",src/front/front_10010.asm
 11504,forcepldata,sub_11504,94G,medium,"94G forcepldata: (team) faceoffs only: puts each player straight into his requested position (+0A8h -> +0A9h), assnearest for the centre, setplayer",src/front/front_10010.asm
 11744,clearteams,,96PC,medium,NHL96PC 4875E (similar): mnemonic similarity 0.80 over 60 instructions,
 11908,ResetBench,sub_11908,94G,medium,94G ResetBench (96 PC body): the bench and penalty box state of both teams' rosters,src/front/front_10010.asm
@@ -267,10 +268,13 @@ address,name,auto_name,source,confidence,evidence,file
 864C4,NameIndexFree,sub_864C4,96PC,medium,NHL96PC 19522 (similar 0.82): mnemonic similarity 0.82 over 25 instructions,src/front/front_845E4.asm
 86644,NameIndexRemove,sub_86644,96PC,medium,NHL96PC 19659 (sem 1.00): S:NAMEINDEX; D:165310; K:2C093; C:1858,src/front/front_845E4.asm
 86754,NameIndexPath,sub_86754,96PC,medium,NHL96PC 19731 (sem 0.94): D:16531C; C:1834; C:2265; C:1833,src/front/front_845E4.asm
+869BB,LoadPhonebook,sub_869BB,new,low,"modem settings: reads the ""phonebook"" file",src/front/front_868CD.asm
 86CB1,PhonebookEntryScreen,sub_86CB1,new,low,"modem settings: names a phone book entry (""Please enter a name for this phone book entry""), from ModemSettingsScreen",src/front/front_868CD.asm
 87B57,ModemSettingsScreen,sub_87B57,96PC,low,"96 PC ModemSettingsScreen: the modem settings screen (CP00-CP10 buttons, ""Generic Hayes-Compatible"" default)",src/front/front_868CD.asm
 88EDC,DrawNoNetworkServices,sub_88EDC,new,low,"network games screen: draws ""No Network Services Are Available""",src/front/front_868CD.asm
 8907B,NetworkGamesScreen,sub_8907B,new,low,"the network game list screen (TPB0-TPB5, SERVLIST)",src/front/front_868CD.asm
+8A81B,ModemConnectScreen,sub_8A81B,new,low,"from RunModemConnect: the modem connect screen (MOD2, BG00 / BG01)",src/front/front_868CD.asm
+8BA36,NetworkConnectScreen,sub_8BA36,new,low,"from RunNetworkConnect: the network connect screen (NET2, LoadServerList, DrawNoNetworkServices)",src/front/front_868CD.asm
 8BDCF,RunNetworkConnect,sub_8BDCF,new,low,"from RunFrontEnd (18h): the network (IPX) game list first, then the modem settings screen, until connected or back",src/front/front_868CD.asm
 8BE23,RunModemConnect,sub_8BE23,new,low,"from RunFrontEnd: the modem settings screen first, then the network game list, until connected or back",src/front/front_868CD.asm
 8BF54,InitMenuItems,sub_8BF54,96PC,medium,NHL96PC 64721 (similar 0.81): mnemonic similarity 0.81 over 32 instructions,src/front/front_868CD.asm
@@ -310,10 +314,15 @@ A3048,LinkReceiveData,sub_A3048,new,low,"link games: ""Please wait... / Transfer
 A6690,PostGameScreen,sub_A6690,new,low,"the post-game screen (NHL0 / NHLP, FLR1/2, T3S2, GS00/GS01, RM00/RM01), alternating with GameStatsScreen",src/front/front_A3280.asm
 A74F4,DrawThreeStarStats,sub_A74F4,new,low,"post-game: one star's stat lines (goals, assists, shots, +/-, hits, penalty minutes; goalie saves and save percentage; three star points)",src/front/front_A3280.asm
 A7D9C,GameStatsScreen,sub_A7D9C,96PC,medium,"96 PC GameStatsScreen: the game statistics screen (""gameStatMenu"" / ""gameStatRegn"")",src/front/front_A3280.asm
+A8694,GameStatsPlayersPage,sub_A8694,new,low,"from GameStatsScreen: the ""player stats"" page (GS buttons, the three stars' tops 1TOP-3BOT)",src/front/front_A3280.asm
 A8C5C,DrawTeamGameStats,sub_A8C5C,new,low,"game stats: the team comparison rows (score, shots, power play, breakaways, one timers, faceoffs, body checks, passing...)",src/front/front_A3280.asm
 A9240,DrawScoringSummary,sub_A9240,new,low,"game stats: the scoring and penalty summary by period (""No scoring."", ""Penalties - none"")",src/front/front_A3280.asm
 AAA58,GoalTypeSuffix,sub_AAA58,new,low,"the scoring summary goal suffix: "" (en/pp)"", "" (pp)"", "" (en/sh)"", "" (sh)"", "" (en)""",src/front/front_A3280.asm
+AAC7C,FormatGoalLine,sub_AAC7C,new,low,"scoring summary: one goal line ""%s %s (%s%s%s%s%s) %d:%02d""",src/front/front_A3280.asm
+AADEF,LoadGameLogos,sub_AADEF,new,low,"from PlayGame: the in-game language text (LoadLangTextB) and the team logos ""logo%02d.qfs""",src/front/front_A3280.asm
 AB0E8,PlayMenuGame,sub_AB0E8,96PC,medium,"96 PC PlayMenuGame: plays a game started from the menus: frees the front end, InitGameAudio, PlayGame, then back to the front end",src/front/front_A3280.asm
+AC799,AllocStatTable,sub_AC799,new,low,"allocates the ""statthingy"" list tables (flags, columns, sort, names, alpha, string sort) for a stats list",src/front/front_AC799.asm
+ADBE6,TeamStatsScreen,sub_ADBE6,96PC,low,"from RunStatsMenu: the team stats screen (""pts"", ""pppct"", ""pkpct"", ""avgt"", ""high""; ""menu"" / ""reg""; SetTeamStatColumns), as 96 PC TeamStatsScreen",src/front/front_AC799.asm
 B0C05,SetSkaterStatColumns,sub_B0C05,new,low,"stats lists: the skater column titles (Team, #, Height, Weight, GP, G, A, P, +/-, PIM, PPG, SHG, Shots...)",src/front/front_AC799.asm
 B1248,SetGoalieStatColumns,sub_B1248,new,low,"stats lists: the goalie column titles (GP, Minutes, G.A.A., Shots, S%, GA, SO, ENG...)",src/front/front_AC799.asm
 B1922,SetTeamStatColumns,sub_B1922,new,low,"stats lists: the team column titles (GP, W, L, T, points, GF, GA, PPG, PP%, PK%, streaks...)",src/front/front_AC799.asm

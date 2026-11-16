@@ -4,7 +4,7 @@
 ;  10003  unk_10003                                front/front_10010.asm                        1
 ;  10354  LoadGripLibrary                          front/front_10010.asm                        1
 ;  1046C  sub_1046C                                front/front_10010.asm                        1
-;  104A8  sub_104A8                                front/front_10010.asm                        1
+;  104A8  LoadJoystickConfig                       front/front_10010.asm                        1
 ;  10A68  sub_10A68                                front/front_10010.asm                        1
 ;  10FAC  sub_10FAC                                front/front_10010.asm                        2
 ;  11328  sub_11328                                front/front_10010.asm                        4
@@ -1046,7 +1046,7 @@
 ;  AA4BC  sub_AA4BC                                front/front_A3280.asm                        1
 ;  AA588  sub_AA588                                front/front_A3280.asm                        1
 ;  AA650  sub_AA650                                front/front_A3280.asm                        2
-;  AADEF  sub_AADEF                                front/front_A3280.asm                        2
+;  AADEF  LoadGameLogos                            front/front_A3280.asm                        2
 ;  AB0A6  sub_AB0A6                                front/front_A3280.asm                        2
 ;  AB0E8  PlayMenuGame                             front/front_A3280.asm                        1
 ;  AB240  sub_AB240                                front/front_AB240.asm                        1
@@ -1054,7 +1054,7 @@
 ;  AC69C  sub_AC69C                                front/front_AB240.asm                        1
 ;  AC6EB  sub_AC6EB                                front/front_AB240.asm                        2
 ;  AC73E  sub_AC73E                                front/front_AB240.asm                        2
-;  AC799  sub_AC799                                front/front_AC799.asm                        2
+;  AC799  AllocStatTable                           front/front_AC799.asm                        2
 ;  ACA49  sub_ACA49                                front/front_AC799.asm                        2
 ;  ACAE5  sub_ACAE5                                front/front_AC799.asm                        2
 ;  ACAF2  sub_ACAF2                                front/front_AC799.asm                        2
@@ -1066,7 +1066,7 @@
 ;  AD678  sub_AD678                                front/front_AC799.asm                        1
 ;  AD6D6  sub_AD6D6                                front/front_AC799.asm                        1
 ;  AD79F  sub_AD79F                                front/front_AC799.asm                        1
-;  ADBE6  sub_ADBE6                                front/front_AC799.asm                        1
+;  ADBE6  TeamStatsScreen                          front/front_AC799.asm                        1
 ;  AF074  sub_AF074                                front/front_AC799.asm                        2
 ;  B1DF1  unk_B1DF1                                front/front_AC799.asm                        1
 ;  B1DFD  unk_B1DFD                                front/front_AC799.asm                        1
