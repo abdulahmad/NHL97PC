@@ -82,10 +82,13 @@ address,name,auto_name,source,confidence,evidence,file
 23F44,assfaceoffpl,sub_23F44,94G,medium,"94G assfaceoffpl: assignment 8, the faceoff player (puckfaceoff2 gives it to the centre, as 94G afaceoffpl)",src/engine/engine_15AC2.asm
 25F64,asspuckc,sub_25F64,94G,low,"assignment 9, the computer puck carrier: steps out when its team does not have the puck (off_168CF0), runs its checks on a reaction timer (+56h), and goes to 1Bh when skating in close on the goal",src/engine/engine_25894.asm
 265FC,assnearest,sub_265FC,94G,medium,"94G assnearest: assignment 0Ah (off_19C3F4), the main skater AI (forcepldata gives it to the centre, as in 94G)",src/engine/engine_25894.asm
+27274,assscore,sub_27274,94G,low,"assignment 18h (set by sub_20CB0): goal celebration: stops the puck (41h to 40h), a random celebration time, the scorer (word_19CB84) gets one of 5 celebrations (sub_27210)",src/engine/engine_25894.asm
 27500,ChkPullGoalieLate,sub_27500,96PC,medium,"96 PC ChkPullGoalieLate: (team) third period, last 60 seconds, losing by 1-2 and no goalie pulled yet: pull the goalie (from assbench)",src/engine/engine_25894.asm
 275C0,assbench,sub_275C0,94G,medium,"94G assbench: assignment 17h, skating off to the bench (check4bench gives it); setplayer for the replacement",src/engine/engine_25894.asm
+27AD8,assleavebox,sub_27AD8,96PC,medium,"assignment 15h (inserted by sub_12E50): check4bench, skates from the penalty box spot by the side boards (as asspsclear) and brings the released player back on (assreplace 15h, setplayer), as 96 PC assleavebox",src/engine/engine_25894.asm
 27D10,asspsclear,sub_27D10,96PC,medium,"assignment 19h (from setpersonel): skaters clear to a spot by the side boards (x -1898, y +-2B8h plus a random multiple of 90h) and stop facing the play; 96 PC asspsclear's spot scaled to 97 units",src/engine/engine_25894.asm
 282B8,asseben,sub_282B8,94G,medium,"94G asseben: assignment 16h, coming on from the bench (setplayer gives it for a player from the bench, as in 94G)",src/engine/engine_25894.asm
+2842C,assleaveice,sub_2842C,96PC,medium,"assignment 1Ah (set by InProgress, as in 96 PC): skates to the bench gate by the side boards, changeplayer, then assignment 1 (assbenchwait)",src/engine/engine_25894.asm
 28698,asspenalty,sub_28698,94G,medium,"94G asspenalty: assignment 12h, the penalised player skates to the penalty box (InProgress gives it, as in 94G)",src/engine/engine_25894.asm
 289AC,assdopen,sub_289AC,96PC,low,"96 PC assdopen: assignment 13h, opens the penalty box door (SetPenaltyBoxDoor, sound)",src/engine/engine_25894.asm
 28A08,assepen,sub_28A08,94G,medium,"94G assepen: assignment 14h, leaving the penalty box (setplayer gives it for a player from the box, as in 94G)",src/engine/engine_25894.asm

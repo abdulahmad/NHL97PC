@@ -169,14 +169,14 @@
 ;  25AEC  sub_25AEC                                engine/engine_25894.asm                      1
 ;  25F64  asspuckc                                 engine/engine_25894.asm                      1
 ;  265FC  assnearest                               engine/engine_25894.asm                      1
-;  27274  sub_27274                                engine/engine_25894.asm                      1
+;  27274  assscore                                 engine/engine_25894.asm                      1
 ;  275C0  assbench                                 engine/engine_25894.asm                      1
-;  27AD8  sub_27AD8                                engine/engine_25894.asm                      1
+;  27AD8  assleavebox                              engine/engine_25894.asm                      1
 ;  27D10  asspsclear                               engine/engine_25894.asm                      2
 ;  27F80  sub_27F80                                engine/engine_25894.asm                      1
 ;  28110  sub_28110                                engine/engine_25894.asm                      1
 ;  282B8  asseben                                  engine/engine_25894.asm                      1
-;  2842C  sub_2842C                                engine/engine_25894.asm                      1
+;  2842C  assleaveice                              engine/engine_25894.asm                      1
 ;  28698  asspenalty                               engine/engine_25894.asm                      1
 ;  289AC  assdopen                                 engine/engine_25894.asm                      1
 ;  28A08  assepen                                  engine/engine_25894.asm                      1

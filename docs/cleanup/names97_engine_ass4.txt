@@ -1,0 +1,3 @@
+sub_27AD8 assleavebox {source=96PC,confidence=medium} assignment 15h (inserted by sub_12E50): check4bench, skates from the penalty box spot by the side boards (as asspsclear) and brings the released player back on (assreplace 15h, setplayer), as 96 PC assleavebox
+sub_2842C assleaveice {source=96PC,confidence=medium} assignment 1Ah (set by InProgress, as in 96 PC): skates to the bench gate by the side boards, changeplayer, then assignment 1 (assbenchwait)
+sub_27274 assscore {source=94G,confidence=low} assignment 18h (set by sub_20CB0): goal celebration: stops the puck (41h to 40h), a random celebration time, the scorer (word_19CB84) gets one of 5 celebrations (sub_27210)

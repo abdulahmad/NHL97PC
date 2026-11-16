@@ -48,8 +48,8 @@ extern word_19CBF4, word_19CC04, word_19CC24, word_19CC26, word_19CC2C, word_19C
 extern word_19EBCA
 global jpt_2B4B4, sub_25894_D1, sub_2B4D4_424, sub_2B4D4_43B, sub_2B4D4_452, sub_2B4D4_469, sub_25894, sub_2596C
 global sub_25AEC, sub_25BD0, sub_25D40, sub_25E24, asspuckc, sub_2625C, sub_264CC, assnearest
-global sub_27210, sub_27274, ChkPullGoalieLate, assbench, sub_27A00, sub_27A78, sub_27AD8, asspsclear
-global sub_27F80, sub_27FF0, sub_28110, asseben, sub_2842C, asspenalty, assdopen, assepen
+global sub_27210, assscore, ChkPullGoalieLate, assbench, sub_27A00, sub_27A78, assleavebox, asspsclear
+global sub_27F80, sub_27FF0, sub_28110, asseben, assleaveice, asspenalty, assdopen, assepen
 global sub_28C0C, assrefpenshot, assrefsignal, assrefwhistle, assrefgoalpa, assrefgoalline, assreffollow, assrefdrop
 global assrefatdot, assintrostand, assintroline, asstakeposition, sub_2A3A0, assstanley, sub_2A6B8, sub_2AA50
 global sub_2AC40, sub_2AD18, sub_2AFD8, sub_2B4D4, sub_2B9EC, sub_2BAC0, sub_2BE2C, a2offsides
@@ -2184,9 +2184,12 @@ sub_27210:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_27274                                                       27274  97 PC
+; assscore                                          27274  94G, low confidence
+; Assignment 18h (set by sub_20CB0): goal celebration: stops the puck (41h to
+; 40h), a random celebration time, the scorer (word_19CB84) gets one of 5
+; celebrations (sub_27210)
 ;-----------------------------------------------------------------------------
-sub_27274:
+assscore:
         push ebx
         push ecx
         push edx
@@ -2880,9 +2883,12 @@ sub_27A78:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_27AD8                                                       27AD8  97 PC
+; assleavebox                                  27AD8  95 PC, medium confidence
+; Assignment 15h (inserted by sub_12E50): check4bench, skates from the
+; penalty box spot by the side boards (as asspsclear) and brings the released
+; player back on (assreplace 15h, setplayer), as 96 PC assleavebox
 ;-----------------------------------------------------------------------------
-sub_27AD8:
+assleavebox:
         push ebx
         push ecx
         push edx
@@ -3590,9 +3596,11 @@ asseben:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_2842C                                                       2842C  97 PC
+; assleaveice                                  2842C  95 PC, medium confidence
+; Assignment 1Ah (set by InProgress, as in 96 PC): skates to the bench gate
+; by the side boards, changeplayer, then assignment 1 (assbenchwait)
 ;-----------------------------------------------------------------------------
-sub_2842C:
+assleaveice:
         push ebx
         push ecx
         push edx
