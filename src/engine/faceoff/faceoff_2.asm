@@ -53,7 +53,7 @@ global InProgress_96E, sub_3509C_E0, sub_36E34_1EC, sub_37198_DE, sub_37744_24C,
 global sub_2F744, sub_2F818, sub_2F8D8, sub_2FA00, sub_2FB40, sub_2FED8, sub_2FFB8, sub_30300
 global sub_305D8, sub_30674, sub_30778, sub_3085C, sub_308AC, sub_308F4, sub_30998, sub_30A34
 global sub_30BD8, sub_31070, sub_313F4, sub_31540, sub_31A2C, sub_31A5C, sub_31B6C, sub_31C14
-global sub_31F88, sub_32184, sub_32260, AddPenalty2, sub_32888, sub_32B68, sub_32C04, sub_32CEC
+global sub_31F88, sub_32184, AddPenalty, AddPenalty2, sub_32888, sub_32B68, sub_32C04, sub_32CEC
 global sub_32D88, sub_32FF8, sub_3319C, updatepentime, checkfornewpen, sub_335CC, sub_336E4, EndPenaltyShot
 global sub_33904, InProgress, sub_34330, sub_343F8, sub_34500, sub_348DC, sub_34950, sub_34A48
 global sub_34B04, sub_34B78, sub_34C18, sub_34CF4, doplayeracc, sub_34F58, sub_34FD0, sub_3505C
@@ -843,7 +843,7 @@ sub_2F8D8:
         xor ebx, ebx
         mov word [word_19CBEC], ax
         mov eax, esi
-        call sub_32260
+        call AddPenalty
         mov eax, dword [off_168CF0]
         mov byte [eax], 0FFh
         mov dword [byte ecx+064h], 20h
@@ -871,7 +871,7 @@ sub_2F8D8:
 .7:
         movsx edx, ax
         mov eax, esi
-        call sub_32260
+        call AddPenalty
 .8:
         pop esi
         pop edx
@@ -941,7 +941,7 @@ sub_2FA00:
         xor ebx, ebx
         mov word [word_19CBEC], ax
         mov eax, esi
-        call sub_32260
+        call AddPenalty
         mov eax, dword [off_168CF0]
         mov byte [eax], 0FFh
         mov dword [byte ecx+064h], 20h
@@ -964,7 +964,7 @@ sub_2FA00:
         mov ebx, 1
         mov edx, 12h
         mov eax, esi
-        call sub_32260
+        call AddPenalty
 .6:
         pop esi
         pop edx
@@ -1065,7 +1065,7 @@ sub_2FB40:
         xor ebx, ebx
         mov word [word_19CBEC], ax
         mov eax, ecx
-        call sub_32260
+        call AddPenalty
         mov eax, dword [off_168CF0]
         mov byte [eax], 0FFh
         mov dword [byte esi+064h], 20h
@@ -1177,7 +1177,7 @@ sub_2FB40_229:
         movsx ebx, si
         movsx edx, ax
         mov eax, ecx
-        call sub_32260
+        call AddPenalty
         pop edi
         pop esi
         pop edx
@@ -1189,7 +1189,7 @@ sub_2FB40_229:
         movsx ebx, si
         movsx edx, ax
         mov eax, ecx
-        call sub_32260
+        call AddPenalty
         pop edi
         pop esi
         pop edx
@@ -1201,7 +1201,7 @@ sub_2FB40_229:
         movsx ebx, si
         movsx edx, ax
         mov eax, ecx
-        call sub_32260
+        call AddPenalty
         pop edi
         pop esi
         pop edx
@@ -1214,7 +1214,7 @@ sub_2FB40_2CE:
         movsx ebx, si
         movsx edx, ax
         mov eax, ecx
-        call sub_32260
+        call AddPenalty
         pop edi
         pop esi
         pop edx
@@ -1229,7 +1229,7 @@ sub_2FB40_2EB:
         movsx ebx, si
         movsx edx, ax
         mov eax, ecx
-        call sub_32260
+        call AddPenalty
         pop edi
         pop esi
         pop edx
@@ -1244,7 +1244,7 @@ sub_2FB40_30C:
         movsx ebx, si
         movsx edx, ax
         mov eax, ecx
-        call sub_32260
+        call AddPenalty
         pop edi
         pop esi
         pop edx
@@ -1259,7 +1259,7 @@ sub_2FB40_32D:
         movsx ebx, si
         movsx edx, ax
         mov eax, ecx
-        call sub_32260
+        call AddPenalty
         pop edi
         pop esi
         pop edx
@@ -1273,7 +1273,7 @@ sub_2FB40_32D:
         movsx ebx, si
         movsx edx, ax
         mov eax, ecx
-        call sub_32260
+        call AddPenalty
         pop edi
         pop esi
         pop edx
@@ -1290,7 +1290,7 @@ sub_2FB40_370:
         movsx edx, ax
 .25:
         mov eax, ecx
-        call sub_32260
+        call AddPenalty
 .26:
         pop edi
         pop esi
@@ -1345,7 +1345,7 @@ sub_2FED8:
         mov ebx, 1
         mov edx, 14h
         mov eax, ecx
-        call sub_32260
+        call AddPenalty
 .1:
         pop edx
         pop ecx
@@ -4300,9 +4300,12 @@ sub_32184:
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_32260                                                       32260  97 PC
+; AddPenalty                                     32260  94G, medium confidence
+; 94G AddPenalty: (player, penalty, ...) adds a penalty unless the clock is
+; stopped, a penalty shot is live or the rule is off in the options (offsides
+; 5, two-line pass 6 ...); falls through to AddPenalty2
 ;-----------------------------------------------------------------------------
-sub_32260:
+AddPenalty:
         push ecx
         push esi
         mov ecx, eax

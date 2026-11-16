@@ -24,7 +24,7 @@ extern qword_16005C, qword_160064, qword_16006C, qword_160074, rand_, randomd0, 
 extern sub_11574, sub_116B0, sub_11808, sub_11984, sub_11F74, sub_12A10, ClockTick, sub_12C2C
 extern sub_12DE8, ChangeViewSize, sub_15C30, sub_15E4D, QueueOverlayPanel, sub_18E35, DrawGameOverlays, StartCameraPath
 extern sub_1B3D8, SelectCameraView, sub_1B67C, sub_1BCA8, LoadOpeningCamera, assreplace, sub_20CB0, sub_2DE94
-extern sub_30BD8, sub_31F88, sub_32260, sub_34330, sub_34950, sub_36370, sub_36754, sub_3CA28
+extern sub_30BD8, sub_31F88, AddPenalty, sub_34330, sub_34950, sub_36370, sub_36754, sub_3CA28
 extern sub_3CB70, sub_3D020, sub_3E5F0, InitGameAudio, sub_41670, sub_41CF0, sub_41DD8, sub_423B4
 extern sub_424CC, sub_45BEC, LoadDataFileLib, LoadDataFile, sub_4B5C4, sub_4B80C, sub_4B8DC, sub_4B928
 extern sub_4BA00, sub_4BCB4, sub_4C0C4, PeriodOver, sub_52E28, sub_55000, sub_5BD3C, sub_5BD94
@@ -1953,7 +1953,7 @@ DebugKeys:
         xor ah, ah
         cwde
         call sub_141E8
-        call sub_32260
+        call AddPenalty
 .32:
         mov eax, 1
 .33:

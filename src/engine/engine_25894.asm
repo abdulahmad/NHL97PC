@@ -30,7 +30,7 @@ extern sub_1DEE4, sub_1E184, assreplace, assexit, sub_1E284, sub_1E8B0, check4be
 extern sub_1F4EC, sub_1F538, Setplass, sub_1FF5C, sub_20508, sub_20A80, assgoalie, sub_21E98
 extern sub_22050, assextra4, sub_22FF0, assextra3, sub_240D0, sub_24220, sub_2471C, sub_248E8
 extern sub_25010, sub_251F0, sub_25730, sub_2E310, CompLine, sub_30778, sub_3085C, sub_31C14
-extern sub_32260, AddPenalty2, EndPenaltyShot, sub_34330, sub_343F8, doplayeracc, sub_39DA4, sub_39EC0
+extern AddPenalty, AddPenalty2, EndPenaltyShot, sub_34330, sub_343F8, doplayeracc, sub_39DA4, sub_39EC0
 extern sub_3A164, sub_3AB68, sub_3ABD8, sub_3AC3C, sub_3AD34, sub_3AD9C, sub_41CF0, sub_41D48
 extern PlaySfxOr, PlaySfxVolume, sub_424CC, sub_45BEC, PaEvent, sub_4C0C4, PeriodOver, sub_4DD9C
 extern sub_4DDB0, sub_4FD24, sub_51B5C, sub_51BD8, sub_55648, SetPenaltyBoxDoor, sub_56AE4, sub_56CD0
@@ -52,7 +52,7 @@ global sub_27210, sub_27274, ChkPullGoalieLate, assbench, sub_27A00, sub_27A78, 
 global sub_27F80, sub_27FF0, sub_28110, asseben, sub_2842C, asspenalty, assdopen, assepen
 global sub_28C0C, assrefpenshot, sub_29064, sub_293A8, sub_295CC, sub_298E8, sub_29A90, sub_29BFC
 global sub_29E2C, sub_29F30, sub_2A000, sub_2A1C8, sub_2A3A0, assstanley, sub_2A6B8, sub_2AA50
-global sub_2AC40, sub_2AD18, sub_2AFD8, sub_2B4D4, sub_2B9EC, sub_2BAC0, sub_2BE2C, sub_2BEF0
+global sub_2AC40, sub_2AD18, sub_2AFD8, sub_2B4D4, sub_2B9EC, sub_2BAC0, sub_2BE2C, a2offsides
 global sub_2BFC4, a2touchpuck, sub_2C42C, sub_2C4E8, sub_2C5C8, sub_2C900, pucknorm_body, pucknorm
 global puckfaceoff2, CPgoalie, sub_2DD54
 ;-----------------------------------------------------------------------------
@@ -7928,9 +7928,11 @@ sub_2BE2C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_2BEF0                                                       2BEF0  97 PC
+; a2offsides                                        2BEF0  94G, low confidence
+; 94G a2offsides: (player) from a2touchpuck: offsides when the rule is on and
+; the touching player's team is past the line
 ;-----------------------------------------------------------------------------
-sub_2BEF0:
+a2offsides:
         push ebx
         push ecx
         push edx
@@ -8087,7 +8089,7 @@ sub_2BFC4:
         mov edx, 5
         mov eax, ecx
         xor ebx, ebx
-        call sub_32260
+        call AddPenalty
         mov eax, 1
         pop esi
         pop edx
@@ -8120,7 +8122,7 @@ a2touchpuck:
         cmp word [word_19CBF4], byte 0
         jne short .1
         mov eax, ecx
-        call sub_2BEF0
+        call a2offsides
         mov edx, eax
         test ax, ax
         jne short .1
@@ -8188,7 +8190,7 @@ a2touchpuck:
         shl eax, 3
         mov edx, 6
         add eax, SortCords
-        call sub_32260
+        call AddPenalty
 .7:
         cmp word [dword ecx+0A9h], byte 0
         je near .8
@@ -8251,7 +8253,7 @@ a2touchpuck:
         shl eax, 3
         xor ebx, ebx
         add eax, SortCords
-        call sub_32260
+        call AddPenalty
         pop edi
         pop esi
         pop edx

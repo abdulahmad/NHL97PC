@@ -80,6 +80,7 @@ address,name,auto_name,source,confidence,evidence,file
 28A08,assepen,sub_28A08,94G,medium,"94G assepen: assignment 14h, leaving the penalty box (setplayer gives it for a player from the box, as in 94G)",src/engine/engine_25894.asm
 28D88,assrefpenshot,sub_28D88,96PC,low,"96 PC assrefpenshot: assignment 29h (last referee handler): waits for AllInPlace before the penalty shot, with a sound",src/engine/engine_25894.asm
 2A3F4,assstanley,sub_2A3F4,96PC,low,"96 PC assstanley: player handler 46, the Stanley Cup presentation (cuppal, LoadCupArt, fade, camera path)",src/engine/engine_25894.asm
+2BEF0,a2offsides,sub_2BEF0,94G,low,94G a2offsides: (player) from a2touchpuck: offsides when the rule is on and the touching player's team is past the line,src/engine/engine_25894.asm
 2C064,a2touchpuck,sub_2C064,94G,medium,"94G a2touchpuck: (player) the player touches the puck: records the last touch (player word_19CBAE, position), then checks offsides and the other rules",src/engine/engine_25894.asm
 2CA40,pucknorm_body,sub_2CA40,96PC,medium,"96 PC pucknorm_body: the puck's handler body: the puck carrier (off_168CF0), goals and the puck physics",src/engine/engine_25894.asm
 2D308,pucknorm,sub_2D308,96PC,medium,"96 PC pucknorm: player handler 43 (off_19C3F4), the puck's normal handler: clears the new-assignment flag (+0BFh bit 1) and its counter, then pucknorm_body",src/engine/engine_25894.asm
@@ -91,6 +92,7 @@ address,name,auto_name,source,confidence,evidence,file
 2E8F0,UpdateCoachModes,sub_2E8F0,96PC,medium,96 PC UpdateCoachModes: from ClockTick at the same minutes of periods 2 and 3,src/engine/engine_2DE3C.asm
 2EDB8,StartFaceoffLineChange,sub_2EDB8,94G,low,94G StartFaceoffLineChange: starts a team's faceoff line change (once per stoppage: team flag +16h bit 1) when line changes are on,src/engine/engine_2DE3C.asm
 2EEE8,puckfaceoff,,96PC,medium,NHL96PC 3AEBA (sem): C:306; D:19CC04; D:19EBBC; D:19EAB0,
+32260,AddPenalty,sub_32260,94G,medium,"94G AddPenalty: (player, penalty, ...) adds a penalty unless the clock is stopped, a penalty shot is live or the rule is off in the options (offsides 5, two-line pass 6 ...); falls through to AddPenalty2",src/engine/faceoff/faceoff_2.asm
 32340,AddPenalty2,sub_32340,94G,low,"94G AddPenalty2: (player, penalty, ...) a forced penalty: penalty table dword_168D20, the penalty panel (QueueOverlayPanel)",src/engine/faceoff/faceoff_2.asm
 332C0,updatepentime,sub_332C0,94G,medium,"94G updatepentime (96 PC body): counts the penalty times down, from chkprogress",src/engine/faceoff/faceoff_2.asm
 33368,checkfornewpen,sub_33368,94G,medium,"94G checkfornewpen (96 PC body), from chkprogress",src/engine/faceoff/faceoff_2.asm

@@ -222,7 +222,7 @@
 ;  30BD8  sub_30BD8                                engine/faceoff/faceoff_2.asm                 1
 ;  31C14  sub_31C14                                engine/faceoff/faceoff_2.asm                 1
 ;  31F88  sub_31F88                                engine/faceoff/faceoff_2.asm                 1
-;  32260  sub_32260                                engine/faceoff/faceoff_2.asm                 4
+;  32260  AddPenalty                               engine/faceoff/faceoff_2.asm                 4
 ;  32340  AddPenalty2                              engine/faceoff/faceoff_2.asm                 3
 ;  32D88  sub_32D88                                engine/faceoff/faceoff_2.asm                 1
 ;  33880  EndPenaltyShot                           engine/faceoff/faceoff_2.asm                 4
