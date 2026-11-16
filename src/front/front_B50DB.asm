@@ -78,8 +78,8 @@ global sub_BBE01_68C, sub_BBE01_6BB, sub_BBE01_6EA, sub_BBE01_719, sub_BBE01_741
 global sub_BBE01_AD5, sub_BBE01_B72, sub_BBE01_BFC, sub_BBE01_C99, sub_BBE01_D42, sub_BBE01_DE5, sub_BBE01_E68, sub_BBE01_EEB
 global sub_BBE01_F6E, sub_BBE01_111B, sub_BBE01_11B8, sub_BBE01_1255, sub_BBE01_12F2, sub_BBE01_138F, sub_BBE01_1426, sub_BBE01_14A9
 global sub_BBE01_152C, sub_BBE01_15AF, sub_BBE01_1713, sub_BBE01_17C0, sub_BBE01_17C9, sub_BBE01_17D2, sub_BBE01_17DB, sub_BBE01_17E4
-global sub_BBE01_17ED, sub_BBE01_17F6, sub_BBE01_17FF, sub_BBE01_1808, sub_BBE01_1811, sub_B50DB, sub_B5891, sub_B6C67
-global sub_B7270, sub_B78F4, sub_B829B, sub_B8FDF, sub_BB365, sub_BBC3A, sub_BBE01, sub_BD61B
+global sub_BBE01_17ED, sub_BBE01_17F6, sub_BBE01_17FF, sub_BBE01_1808, sub_BBE01_1811, sub_B50DB, PlayerStatsScreen, sub_B6C67
+global sub_B7270, sub_B78F4, sub_B829B, PlayerRatingsScreen, sub_BB365, sub_BBC3A, sub_BBE01, sub_BD61B
 global sub_BD621
 ;-----------------------------------------------------------------------------
 ; sub_B50DB                                                       B50DB  97 PC
@@ -640,9 +640,11 @@ jpt_B585D:
         dd sub_B5891_986
         dd sub_B5891_1114
 ;-----------------------------------------------------------------------------
-; sub_B5891                                                       B5891  97 PC
+; PlayerStatsScreen                               B5891  96 PC, low confidence
+; The player stats screen (StatDBPTRs, "Player #", "+/-", FName, LName,
+; DonRuss): sortable columns, filters, scroll bar, export
 ;-----------------------------------------------------------------------------
-sub_B5891:
+PlayerStatsScreen:
         push ebx
         push ecx
         push edx
@@ -1307,34 +1309,55 @@ sub_B5891:
         ja near sub_B5891_DC7.64
         mov ebx, dword [byte ebp+036h]
         jmp dword [nosplit cs:ebx*4+jpt_B585D]
+;-----------------------------------------------------------------------------
+; sub_B5891_975                                                   B6206  97 PC
+;-----------------------------------------------------------------------------
 sub_B5891_975:
         call sub_7EDF0
         mov dword [byte ebp+056h], 1Ah
         jmp near sub_B5891_DC7.64
+;-----------------------------------------------------------------------------
+; sub_B5891_986                                                   B6217  97 PC
+;-----------------------------------------------------------------------------
 sub_B5891_986:
         call sub_81678
         call sub_7EF70
         call sub_81650
         jmp near sub_B5891_DC7.64
+;-----------------------------------------------------------------------------
+; sub_B5891_99A                                                   B622B  97 PC
+;-----------------------------------------------------------------------------
 sub_B5891_99A:
         mov dword [byte ebp+056h], 64h
         jmp near sub_B5891_DC7.64
+;-----------------------------------------------------------------------------
+; sub_B5891_9A6                                                   B6237  97 PC
+;-----------------------------------------------------------------------------
 sub_B5891_9A6:
         mov eax, unk_1CAD24
         xor edx, edx
         call sub_8DE10
         jmp near sub_B5891_DC7.64
+;-----------------------------------------------------------------------------
+; sub_B5891_9B7                                                   B6248  97 PC
+;-----------------------------------------------------------------------------
 sub_B5891_9B7:
         mov ebx, eax
         xor edx, edx
         mov eax, unk_1CAD24
         call sub_8DEAC
         jmp near sub_B5891_DC7.64
+;-----------------------------------------------------------------------------
+; sub_B5891_9CA                                                   B625B  97 PC
+;-----------------------------------------------------------------------------
 sub_B5891_9CA:
         mov eax, unk_1CAD24
         xor edx, edx
         call sub_8DE68
         jmp near sub_B5891_DC7.64
+;-----------------------------------------------------------------------------
+; sub_B5891_9DB                                                   B626C  97 PC
+;-----------------------------------------------------------------------------
 sub_B5891_9DB:
         xor ebx, ebx
         jmp near .39
@@ -1465,6 +1488,9 @@ sub_B5891_9DB:
         xor edx, edx
         call SetScrollBarPos
         jmp near sub_B5891_DC7.64
+;-----------------------------------------------------------------------------
+; sub_B5891_B94                                                   B6425  97 PC
+;-----------------------------------------------------------------------------
 sub_B5891_B94:
         cmp dword [byte ebp+02Eh], byte 0
         je short .45
@@ -1510,6 +1536,9 @@ sub_B5891_B94:
         push unk_1CACE8
         push asc_166810
         jmp short .47
+;-----------------------------------------------------------------------------
+; sub_B5891_C43                                                   B64D4  97 PC
+;-----------------------------------------------------------------------------
 sub_B5891_C43:
         mov eax, dword [byte ebp+06Eh]
         xor byte [byte ebp+066h], 1
@@ -1539,6 +1568,9 @@ sub_B5891_C43:
         push unk_1CACF4
         push asc_1668B5
         jmp near sub_B5891_B94.47
+;-----------------------------------------------------------------------------
+; sub_B5891_CB4                                                   B6545  97 PC
+;-----------------------------------------------------------------------------
 sub_B5891_CB4:
         mov ebx, dword [dword_1CAD48]
         shl ebx, 2
@@ -1627,6 +1659,9 @@ sub_B5891_CB4:
         call GetLangText
         call sub_E4230
         jmp near sub_B5891_DC7.64
+;-----------------------------------------------------------------------------
+; sub_B5891_DC7                                                   B6658  97 PC
+;-----------------------------------------------------------------------------
 sub_B5891_DC7:
         dec dword [dword_16D400]
         cmp dword [dword_16D400], byte 0FFFFFFFEh
@@ -1785,7 +1820,7 @@ sub_B5891_DC7:
         mov eax, dword [dword_1CAD48]
         shl eax, 2
         cmp dword [dword_16D404], byte 0
-        jne near sub_B5891.31
+        jne near PlayerStatsScreen.31
         mov edx, dword [dword_1CAE84]
         add eax, edx
         imul ecx, dword [eax], byte 3Dh
@@ -1798,7 +1833,7 @@ sub_B5891_DC7:
         mov edx, dword [byte ebp+076h]
         mov eax, dword [dword_1CAEB8]
         add ecx, dword [byte ebp+05Eh]
-        jmp near sub_B5891.32
+        jmp near PlayerStatsScreen.32
 .72:
         push asc_1667E9
         lea eax, [byte ebp+026h]
@@ -1813,6 +1848,9 @@ sub_B5891_DC7:
         call sprintf_
         add esp, byte 8
         jmp near .63
+;-----------------------------------------------------------------------------
+; sub_B5891_10AA                                                  B693B  97 PC
+;-----------------------------------------------------------------------------
 sub_B5891_10AA:
         mov eax, dword [byte ebp+032h]
         inc dword [dword_16D400]
@@ -1846,6 +1884,9 @@ sub_B5891_10AA:
         cmp ebx, dword [byte ebp+07Eh]
         jl short .76
         jmp near sub_B5891_DC7.61
+;-----------------------------------------------------------------------------
+; sub_B5891_1114                                                  B69A5  97 PC
+;-----------------------------------------------------------------------------
 sub_B5891_1114:
         call sub_84068
         cmp dword [dword_16DA9C], byte 0
@@ -4971,9 +5012,12 @@ jpt_B8F8B:
         dd sub_B8FDF_21FD
         dd sub_B8FDF_D2E
 ;-----------------------------------------------------------------------------
-; sub_B8FDF                                                       B8FDF  97 PC
+; PlayerRatingsScreen                             B8FDF  96 PC, low confidence
+; The player ratings screen (X-tbl, RAT0, HD01 / HD02, ban2, BALL list): a
+; player's picture and rating bars, from the stats menu and the roster
+; screens
 ;-----------------------------------------------------------------------------
-sub_B8FDF:
+PlayerRatingsScreen:
         push ecx
         push esi
         push edi
@@ -5881,18 +5925,30 @@ sub_B8FDF:
         ja near sub_B8FDF_2040.186
         mov ebx, dword [byte ebp+01Eh]
         jmp dword [nosplit cs:ebx*4+jpt_B8F8B]
+;-----------------------------------------------------------------------------
+; sub_B8FDF_D1D                                                   B9CFC  97 PC
+;-----------------------------------------------------------------------------
 sub_B8FDF_D1D:
         call sub_7EDF0
         mov dword [byte ebp+052h], 1Ah
         jmp near sub_B8FDF_2040.186
+;-----------------------------------------------------------------------------
+; sub_B8FDF_D2E                                                   B9D0D  97 PC
+;-----------------------------------------------------------------------------
 sub_B8FDF_D2E:
         call sub_81678
         call sub_7EF70
         call sub_81650
         jmp near sub_B8FDF_2040.186
+;-----------------------------------------------------------------------------
+; sub_B8FDF_D42                                                   B9D21  97 PC
+;-----------------------------------------------------------------------------
 sub_B8FDF_D42:
         mov dword [byte ebp+052h], 64h
         jmp near sub_B8FDF_2040.186
+;-----------------------------------------------------------------------------
+; sub_B8FDF_D4E                                                   B9D2D  97 PC
+;-----------------------------------------------------------------------------
 sub_B8FDF_D4E:
         cmp byte [byte_1C6040], 0
         je short .51
@@ -6187,6 +6243,9 @@ sub_B8FDF_D4E:
         cmp ebx, byte 6
         jl short .66
         jmp near sub_B8FDF_2040.186
+;-----------------------------------------------------------------------------
+; sub_B8FDF_11E4                                                  BA1C3  97 PC
+;-----------------------------------------------------------------------------
 sub_B8FDF_11E4:
         inc dword [byte ebp+066h]
         cmp dword [byte ebp+066h], byte 3
@@ -6317,6 +6376,9 @@ sub_B8FDF_11E4:
         mov eax, unk_1CA9DC
         xor ebx, ebx
         jmp near sub_B8FDF_2040.185
+;-----------------------------------------------------------------------------
+; sub_B8FDF_13C2                                                  BA3A1  97 PC
+;-----------------------------------------------------------------------------
 sub_B8FDF_13C2:
         cmp dword [dword ebp-01CBEh], byte 0
         jne short .85
@@ -6329,6 +6391,9 @@ sub_B8FDF_13C2:
 .85:
         xor byte [dword_16D404], 1
         jmp near sub_B8FDF_2040.186
+;-----------------------------------------------------------------------------
+; sub_B8FDF_13F5                                                  BA3D4  97 PC
+;-----------------------------------------------------------------------------
 sub_B8FDF_13F5:
         dec dword [dword_16D400]
         cmp dword [dword_16D400], byte 0FFFFFFFEh
@@ -6463,6 +6528,9 @@ sub_B8FDF_13F5:
 .101:
         mov edx, 9
         jmp short .99
+;-----------------------------------------------------------------------------
+; sub_B8FDF_15C2                                                  BA5A1  97 PC
+;-----------------------------------------------------------------------------
 sub_B8FDF_15C2:
         xor ebx, ebx
         jmp near .107
@@ -6628,6 +6696,9 @@ sub_B8FDF_15C2:
         mov eax, dword [dword_1CAB00]
         mov edx, dword [dword_1CAE84]
         jmp near sub_B8FDF_1964.144
+;-----------------------------------------------------------------------------
+; sub_B8FDF_180D                                                  BA7EC  97 PC
+;-----------------------------------------------------------------------------
 sub_B8FDF_180D:
         mov eax, dword [byte ebp+01Ah]
         inc dword [dword_16D400]
@@ -6730,6 +6801,9 @@ sub_B8FDF_180D:
         mov eax, dword [dword_1CAEAC]
         mov edx, ebx
         jmp near sub_B8FDF_13F5.98
+;-----------------------------------------------------------------------------
+; sub_B8FDF_1964                                                  BA943  97 PC
+;-----------------------------------------------------------------------------
 sub_B8FDF_1964:
         dec dword [dword_16D454]
         cmp dword [dword_16D454], byte 0FFFFFFFEh
@@ -6866,6 +6940,9 @@ sub_B8FDF_1964:
 .145:
         mov edx, 9
         jmp short .142
+;-----------------------------------------------------------------------------
+; sub_B8FDF_1B34                                                  BAB13  97 PC
+;-----------------------------------------------------------------------------
 sub_B8FDF_1B34:
         xor ebx, ebx
         jmp near .151
@@ -7003,6 +7080,9 @@ sub_B8FDF_1B34:
         xor edx, edx
         call SetScrollBarPos
         jmp near sub_B8FDF_1964.141
+;-----------------------------------------------------------------------------
+; sub_B8FDF_1D11                                                  BACF0  97 PC
+;-----------------------------------------------------------------------------
 sub_B8FDF_1D11:
         mov eax, dword [byte ebp+01Ah]
         inc dword [dword_16D454]
@@ -7114,22 +7194,34 @@ sub_B8FDF_1D11:
 .169:
         mov edx, 9
         jmp near sub_B8FDF_2040.181
+;-----------------------------------------------------------------------------
+; sub_B8FDF_1E94                                                  BAE73  97 PC
+;-----------------------------------------------------------------------------
 sub_B8FDF_1E94:
         xor edx, eax
         mov eax, unk_1CA9DC
         call sub_8DE10
         jmp near sub_B8FDF_2040.186
+;-----------------------------------------------------------------------------
+; sub_B8FDF_1EA5                                                  BAE84  97 PC
+;-----------------------------------------------------------------------------
 sub_B8FDF_1EA5:
         mov ebx, eax
         xor edx, eax
         mov eax, unk_1CA9DC
         call sub_8DEAC
         jmp near sub_B8FDF_2040.186
+;-----------------------------------------------------------------------------
+; sub_B8FDF_1EB8                                                  BAE97  97 PC
+;-----------------------------------------------------------------------------
 sub_B8FDF_1EB8:
         xor edx, eax
         mov eax, unk_1CA9DC
         call sub_8DE68
         jmp near sub_B8FDF_2040.186
+;-----------------------------------------------------------------------------
+; sub_B8FDF_1EC9                                                  BAEA8  97 PC
+;-----------------------------------------------------------------------------
 sub_B8FDF_1EC9:
         xor edx, eax
         mov eax, unk_1CAADC
@@ -7182,6 +7274,9 @@ sub_B8FDF_1EC9:
 .175:
         mov edx, 9
         jmp short .171
+;-----------------------------------------------------------------------------
+; sub_B8FDF_1F8C                                                  BAF6B  97 PC
+;-----------------------------------------------------------------------------
 sub_B8FDF_1F8C:
         mov ebx, eax
         xor edx, eax
@@ -7218,6 +7313,9 @@ sub_B8FDF_1F8C:
         mov edx, dword [dword_1CAE84]
         shl eax, 2
         jmp near sub_B8FDF_1EC9.173
+;-----------------------------------------------------------------------------
+; sub_B8FDF_2014                                                  BAFF3  97 PC
+;-----------------------------------------------------------------------------
 sub_B8FDF_2014:
         xor edx, eax
         mov eax, unk_1CAADC
@@ -7228,6 +7326,9 @@ sub_B8FDF_2014:
         mov edx, dword [dword_1CAE84]
         shl eax, 2
         jmp near sub_B8FDF_1EC9.170
+;-----------------------------------------------------------------------------
+; sub_B8FDF_2040                                                  BB01F  97 PC
+;-----------------------------------------------------------------------------
 sub_B8FDF_2040:
         xor edx, eax
         mov eax, unk_1CABDC
@@ -7329,9 +7430,9 @@ sub_B8FDF_2040:
         mov eax, dword [dword_1AC814]
         and eax, byte 70h
         cmp eax, byte 20h
-        jne near sub_B8FDF.48
+        jne near PlayerRatingsScreen.48
         cmp byte [byte_1AD739], 0
-        je near sub_B8FDF.48
+        je near PlayerRatingsScreen.48
 .188:
         push dword [dword ebp-01CBEh]
         push dword [byte ebp+01Ah]
@@ -7339,13 +7440,19 @@ sub_B8FDF_2040:
         push dword [dword_1CAEB8]
         mov edx, dword [byte ebp+06Ah]
         push dword [byte ebp+04Ah]
-        jmp near sub_B8FDF.49
+        jmp near PlayerRatingsScreen.49
+;-----------------------------------------------------------------------------
+; sub_B8FDF_21EA                                                  BB1C9  97 PC
+;-----------------------------------------------------------------------------
 sub_B8FDF_21EA:
         mov ebx, eax
         xor edx, eax
         mov eax, unk_1CABDC
         call sub_8DEAC
         jmp near sub_B8FDF_1964.141
+;-----------------------------------------------------------------------------
+; sub_B8FDF_21FD                                                  BB1DC  97 PC
+;-----------------------------------------------------------------------------
 sub_B8FDF_21FD:
         xor edx, eax
         mov eax, unk_1CABDC

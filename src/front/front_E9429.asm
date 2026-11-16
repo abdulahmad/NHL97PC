@@ -27,7 +27,7 @@ extern sub_7F0D8, DrawTextAligned, sub_7F5A4, sub_80758, sub_80808, sub_80BBC, s
 extern sub_83314, sub_834EC, sub_83558, sub_838A8, sub_83C08, sub_83D4C, sub_84024, sub_84068
 extern sub_84570, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E
 extern SetScrollBarPos, sub_8DEAC, sub_8DF1F, sub_8E6AF, GetLangText, sub_8E870, sub_9D2D0, sub_AF074
-extern sub_B5891, sub_CA44C, sub_D0098, sub_DA7D6, sub_DAC1E, sub_DC71D, sub_DCBB0, sub_E036F
+extern PlayerStatsScreen, sub_CA44C, sub_D0098, sub_DA7D6, sub_DAC1E, sub_DC71D, sub_DCBB0, sub_E036F
 extern sub_E0841, sub_E0D0F, sub_E341C, sub_FAA64, sub_FAF34, sub_FC510, sub_FCD90, sub_FCFCC
 extern sub_FD08C, sub_FD0F8, sub_FD110, sub_FDD1C, sub_FDE44, tickcount, unk_167806, unk_167809
 extern unk_167814, unk_1678E0, unk_1678E2, unk_1678E4, unk_1678E6, unk_1678E8, unk_1678EA, unk_1678EC
@@ -404,7 +404,7 @@ sub_E947A:
         call sub_83C08
         call sub_EA52D
         mov byte [byte_16CCF0], 0
-        call sub_B5891
+        call PlayerStatsScreen
 .24:
         call sub_81650
         push byte 0FFFFFFFFh

@@ -23,7 +23,7 @@ extern PlaySfx, MakeDataPath, LoadDataFile, OpenDataLibrary, sub_7DA28, sub_7E52
 extern sub_7EEB0, sub_7EF70, SetRegionRect, sub_7F5A4, sub_80BBC, sub_81468, sub_81D1C, sub_83C08
 extern InitMenuItems, sub_8BFAC, sub_8D6E8, sub_8D910, sub_8E2EE, GetLangText, RunNewSeason, RunSeasonMenus
 extern sub_9279A, RunNewPlayoffs, RunPlayoffMenus, EditLinesScreen, TeamSelectScreen, PickIndexEntryScreen, sub_A4B7D, PostGameScreen
-extern GameStatsScreen, PlayMenuGame, sub_AC369, sub_ADBE6, sub_AF074, sub_B418C, sub_B5891, sub_B8FDF
+extern GameStatsScreen, PlayMenuGame, sub_AC369, sub_ADBE6, sub_AF074, sub_B418C, PlayerStatsScreen, PlayerRatingsScreen
 extern sub_BD621, sub_C0F5D, RosterScreen, PreGameMatchupScreen, PreGameRostersScreen, sub_DB75E, sub_DE3CF, sub_E036F
 extern sub_E3410, sub_E341C, NetDisconnect, LinkSendBlock, LinkReceiveBlock, sub_FAA64, sub_FAF34, sub_FB704
 extern sub_FC330, sub_FCD90, sub_FCEEC, sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FD110, tickcount
@@ -1882,7 +1882,7 @@ sub_85D1D_A5:
 ; sub_85D1D_AC                                                    85DC9  97 PC
 ;-----------------------------------------------------------------------------
 sub_85D1D_AC:
-        call sub_B5891
+        call PlayerStatsScreen
         jmp short sub_85D1D_82.3
 ;-----------------------------------------------------------------------------
 ; sub_85D1D_B3                                                    85DD0  97 PC
@@ -1903,7 +1903,7 @@ sub_85D1D_C1:
         movzx ebx, byte [byte_16CCF0]
         xor edx, edx
         xor eax, eax
-        call sub_B8FDF
+        call PlayerRatingsScreen
         jmp short sub_85D1D_82.3
 .5:
         cmp dword [dword_16CCF1], byte 0

@@ -1077,8 +1077,8 @@
 ;  B418C  sub_B418C                                front/front_B1E1D.asm                        1
 ;  B4F87  sub_B4F87                                front/front_B1E1D.asm                        1
 ;  B5031  sub_B5031                                front/front_B1E1D.asm                        1
-;  B5891  sub_B5891                                front/front_B50DB.asm                        2
-;  B8FDF  sub_B8FDF                                front/front_B50DB.asm                        2
+;  B5891  PlayerStatsScreen                        front/front_B50DB.asm                        2
+;  B8FDF  PlayerRatingsScreen                      front/front_B50DB.asm                        2
 ;  BD61B  sub_BD61B                                front/front_B50DB.asm                        1
 ;  BD621  sub_BD621                                front/front_B50DB.asm                        1
 ;  BD62C  RunReplay                                front/front_BD62C.asm                        2

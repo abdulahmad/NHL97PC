@@ -34,3 +34,5 @@ sub_8BE23 RunModemConnect {confidence=low} from RunFrontEnd: the modem settings 
 sub_8BDCF RunNetworkConnect {confidence=low} from RunFrontEnd (18h): the network (IPX) game list first, then the modem settings screen, until connected or back
 sub_87B57 ModemSettingsScreen {source=96PC,confidence=low} 96 PC ModemSettingsScreen: the modem settings screen (CP00-CP10 buttons, "Generic Hayes-Compatible" default)
 sub_8907B NetworkGamesScreen {confidence=low} the network game list screen (TPB0-TPB5, SERVLIST)
+sub_B5891 PlayerStatsScreen {source=96PC,confidence=low} 96 PC PlayerStatsScreen: the player stats screen ("pl menu" / "pl reg", sortable "pl sort" columns, cursor, team filter), from RunStatsMenu
+sub_B8FDF PlayerRatingsScreen {source=96PC,confidence=low} 96 PC PlayerRatingsScreen: the player ratings screen, from RunStatsMenu and RosterScreen (as in 96 PC), same list tables as PlayerStatsScreen

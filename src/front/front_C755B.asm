@@ -34,7 +34,7 @@ extern sub_80758, sub_80808, sub_80BBC, sub_81650, sub_81678, sub_816A4, sub_816
 extern sub_838A8, sub_83C08, sub_83D4C, sub_84024, sub_84068, sub_84570, InitMenuItems, sub_8BFAC
 extern sub_8D956, sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E, SetScrollBarPos, sub_8DEAC, sub_8DF1F
 extern sub_8E6AF, GetLangText, sub_8E870, sub_92DB7, sub_92E37, sub_92EE2, sub_92F25, EditLinesScreen
-extern sub_9D333, sub_B8FDF, sub_DA7D6, sub_DB763, sub_DB7B1, sub_DC653, sub_DCBB0, sub_E036F
+extern sub_9D333, PlayerRatingsScreen, sub_DA7D6, sub_DB763, sub_DB7B1, sub_DC653, sub_DCBB0, sub_E036F
 extern sub_E0415, sub_E0841, sub_E0D0F, FreeExhibitionFile, sub_E12EF, sub_FAA64, sub_FAF34, sub_FC510
 extern sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FD110, sub_FDD1C, sub_FDE44, tickcount
 extern unk_166E9D, unk_166F30, unk_16D7F4, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C5FEE, word_16D6C4
@@ -341,7 +341,7 @@ sub_C755B_3B9:
         lea edx, [byte ebp+06Ah]
         lea eax, [byte ebp+062h]
         xor ebx, ebx
-        call sub_B8FDF
+        call PlayerRatingsScreen
         cmp byte [byte_1C6040], 0
         je short .9
         call sub_C7F31
