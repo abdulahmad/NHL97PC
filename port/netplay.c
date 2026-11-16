@@ -163,7 +163,7 @@ static int nh_frame(void *user)
     return r;
 }
 
-/* what the desync check compares: both random states, the clock, the steps, the record ring */
+/* what the desync check compares: both random states, the clock, the steps, the record ring, the players' positions */
 static uint64_t sim_hash(void)
 {
     uint64_t h = 1469598103934665603ULL;
@@ -171,9 +171,12 @@ static uint64_t sim_hash(void)
     uint32_t v[4];
     const uint8_t *q;
     size_t k;
+    int i;
     v[0] = G32(D_EASEED); v[1] = cs ? *cs : 0; v[2] = *nh_tick_ptr; v[3] = nh_steps;
     for (q = (const uint8_t *)v, k = 0; k < sizeof v; k++) { h ^= q[k]; h *= 1099511628211ULL; }
     for (q = GAME_ADDR(D_QRING), k = 0; k < 5 * REC_N; k++) { h ^= q[k]; h *= 1099511628211ULL; }
+    for (i = 0; i < 16; i++)                        /* where everyone is: SortCords' positions and speeds (+1Ch..+38h of each 108h) */
+        for (q = GAME_ADDR(SYM_SortCords) + i * 0x108 + 0x1C, k = 0; k < 0x1C; k++) { h ^= q[k]; h *= 1099511628211ULL; }
     return h;
 }
 
