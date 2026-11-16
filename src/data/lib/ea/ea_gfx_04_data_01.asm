@@ -2,8 +2,8 @@
 bits 32
 %include "hockey.inc"
 section s_16FFC8 progbits alloc noexec write align=1
-extern AudioNullFunc, SampleRateResults, sub_128878, sub_128880, sub_1288F8, sub_128948, sub_1289B0, sub_1289B8
-extern sub_128C70, sub_128CA8, SbDriverId, SbDriverInit, SbDriverShutdown, SbDriverStart, SbProDriverId, SbProDriverInit
+extern AudioNullFunc, SampleRateResults, GusDriverCaps, GusDriverOpen, GusDriverClose, GusDriverUpdate, DacDriverCaps, DacDriverOpen
+extern DacDriverClose, DacDriverUpdate, SbDriverId, SbDriverInit, SbDriverShutdown, SbDriverStart, SbProDriverId, SbProDriverInit
 extern SbProDriverShutdown, SbProDriverStart, Sb16DriverId, Sb16DriverInit, Sb16DriverShutdown, Sb16DriverStart, SoundscapeDriverId, SoundscapeDriverInit
 extern SoundscapeDriverShutdown, SoundscapeDriverStart
 global byte_170044, byte_170045, byte_170046, byte_170047, byte_170048, byte_1700A0, byte_1700A1, byte_1700A4
@@ -20,14 +20,14 @@ off_16FFD0:
         dd SampleRateResults
 off_16FFD4:
         dd AudioNullFunc
-        dd sub_128880
-        dd sub_1288F8
-        dd sub_128948
-        dd sub_128878
-        dd sub_1289B8
-        dd sub_128C70
-        dd sub_128CA8
-        dd sub_1289B0
+        dd GusDriverOpen
+        dd GusDriverClose
+        dd GusDriverUpdate
+        dd GusDriverCaps
+        dd DacDriverOpen
+        dd DacDriverClose
+        dd DacDriverUpdate
+        dd DacDriverCaps
         dd SbDriverInit
         dd SbDriverShutdown
         dd SbDriverStart

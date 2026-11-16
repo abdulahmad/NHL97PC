@@ -45,8 +45,8 @@ extern str_Penboxz0, str_Penboxz1, str_R02d, str_Redlite, str_Rink, str_Rlite0, 
 extern str_STAND2ND, str_Score, str_Stands2, str_Strobe, str_ThinRedLines, str_Topboards, str_WALL, sub_1007C0
 extern bcopy, FindShape, OpenArtArchiveErr, Random32, sub_102C96, sub_102CDC, sub_102CF4, sub_103648
 extern sub_104940, sub_104948, sub_10495F, sub_1049D0, sub_10B000, sub_10B040, sub_10B060, sub_10B084
-extern sub_10B0EC, sub_10B4E0, sub_10B580, BuildAntiAliasTable, sub_10C8E8, sub_10DDE0, sub_10E284, sub_10E4B0
-extern sub_10E62C, TransformRinkPoints, DrawRinkPolyStrip, DrawRinkPolys, DrawIceSpans, FindInstanceShape, BindModelShapes, UpdateModelInstance
+extern sub_10B0EC, sub_10B4E0, sub_10B580, BuildAntiAliasTable, sub_10C8E8, DrawSurfacePolys, DrawOverlayModels, ProjectOverlayPoint
+extern FreeOverlaySlots, TransformRinkPoints, DrawRinkPolyStrip, DrawRinkPolys, DrawIceSpans, FindInstanceShape, BindModelShapes, UpdateModelInstance
 extern SetModelShape, SetModelPartName, LoadModelByName, FreeModelFile, CreateModelInstance, FreeModelInstance, FindInstancePart, FindInstanceGroup
 extern GetInstanceGroupEntry, sub_112BCC, sub_112DE4, sub_11313C, BuildRangePalette, BlendRangePalette, AddBankToRange, RemapArtBank
 extern SetRangeColors, RemapRangeColors, CopyRangePalette, BuildRangePaletteBuf, FadeGamePalette, SetArtArchive, AddModelName, FindModelName
@@ -2540,7 +2540,7 @@ FreeRinkModel:
         call FreeMemBlock
         add esp, byte 4
 .4:
-        call sub_10E62C
+        call FreeOverlaySlots
         mov ecx, dword [dword_1B0FFC]
         push ecx
         call FreeMemBlock
@@ -3240,7 +3240,7 @@ DrawRinkSurface:
         mov edx, dword [dword esi+dword_1B0008]
         mov eax, ebp
         add esi, byte 4
-        call sub_10DDE0
+        call DrawSurfacePolys
         cmp esi, byte 10h
         jne short .23
 .24:
@@ -3418,14 +3418,14 @@ DrawRinkOverlay:
         add edx, eax
         mov eax, dword [dword esi+dword_1B0068]
         add esi, byte 4
-        call sub_10E4B0
+        call ProjectOverlayPoint
         cmp esi, byte 10h
         jne short .3
         inc dword [dword_16B174]
 .4:
         mov edx, unk_1B1068
         mov eax, dword_1B105C
-        call sub_10E284
+        call DrawOverlayModels
 .5:
         pop ebp
         pop edi

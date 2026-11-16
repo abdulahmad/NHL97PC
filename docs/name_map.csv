@@ -2411,6 +2411,24 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 109B50,AsyncClose,sub_109B50,96PC,medium,NHL96PC 1BB20 (sem 1.00): C:1905; C:2113,src/lib/lib_109A74.asm
 109C94,AsyncRequestOpen,sub_109C94,96PC,medium,NHL96PC 1BC7A (similar 0.91): mnemonic similarity 0.91 over 54 instructions,src/lib/lib_109A74.asm
 109D70,AsyncRequestSection,sub_109D70,96PC,medium,NHL96PC 1BD67 (similar 0.89): mnemonic similarity 0.88 over 52 instructions,src/lib/lib_109A74.asm
+109E54,AsyncResetRequest,sub_109E54,new,low,marks an async file request as having no open handle,src/lib/lib_109A74.asm
+109E74,AsyncStreamStep,sub_109E74,new,low,"steps the async CD file state machine: opens, seeks and reads the queued request a little at a time",src/lib/lib_109A74.asm
+10A788,AsyncTick,sub_10A788,new,low,counts down the async wait timer and counts the tick; followed by the request free-list helpers,src/lib/lib_109A74.asm
+10A7D0,AsyncFreeRequest,sub_10A7D0,new,low,returns a finished async request to the free list; followed by the free-list initialiser,src/lib/lib_109A74.asm
+10A844,AsyncPopRequest,sub_10A844,new,low,takes the next request off the async free list,src/lib/lib_109A74.asm
+10A860,SpeechBufferSize,sub_10A860,new,low,returns the size of one speech buffer header (208h),src/lib/lib_109A74.asm
+10A868,RegisterStreamBank,sub_10A868,new,low,stores a streamed sample bank in a free bank slot and clears its sample table,src/lib/lib_109A74.asm
+10A8C4,AddStreamSample,sub_10A8C4,new,low,adds a streamed sample to a free entry of a bank and loads it into the sound driver,src/lib/lib_109A74.asm
+10A930,ReleaseBankSample,sub_10A930,new,low,checks a bank and sample index and clears that sample entry,src/lib/lib_109A74.asm
+10A980,StartSpeechQueue,sub_10A980,new,low,resets the speech queue and sets its volume,src/lib/lib_109A74.asm
+10AA38,QueueSpeechClip,sub_10AA38,new,low,"adds a sample to the speech queue, or plays it at once when the queue is idle",src/lib/lib_109A74.asm
+10AB1C,SpeechQueueGo,sub_10AB1C,new,low,marks the speech queue as running,src/lib/lib_109A74.asm
+10AB2C,StopSpeechQueue,sub_10AB2C,new,low,stops both speech channels and halts the queue,src/lib/lib_109A74.asm
+10AB94,SpeechQueueState,sub_10AB94,new,low,"returns 3 while the speech queue runs, 2 when idle, or an error",src/lib/lib_109A74.asm
+10ABC8,ShutdownSpeechQueue,sub_10ABC8,new,low,stops the speech channels and clears the queue,src/lib/lib_109A74.asm
+10AC48,AdvanceSpeechQueue,sub_10AC48,new,low,starts the next queued speech clip when the current one is close to its end,src/lib/lib_109A74.asm
+10ACF0,ResetSpeechQueueState,sub_10ACF0,new,low,clears the speech queue state inside the audio critical section,src/lib/lib_109A74.asm
+10AD20,SetChannelVolumeChecked,sub_10AD20,new,low,checks a volume (-1..127) and sets it on an active channel inside the audio critical section,src/lib/lib_109A74.asm
 10ADAA,strlen_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 10ADC3,stricmp_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
 10AF13,printf_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
@@ -2426,6 +2444,23 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 10BEC0,DrawLineXPlot,sub_10BEC0,96PC,medium,96 PC DrawLineXPlot,src/lib/lib_10B660.asm
 10C07C,DrawLineX,sub_10C07C,96PC,medium,96 PC DrawLineX,src/lib/lib_10B660.asm
 10C1C0,DrawFixedLine,sub_10C1C0,96PC,medium,NHL96PC 87DD6 (similar 0.80): mnemonic similarity 0.80 over 173 instructions,src/lib/lib_10B660.asm
+10CFB4,SetViewScreenOrigin,sub_10CFB4,new,low,sets the view's screen origin and works out its far corner from the view size,src/lib/input/input_joystick_misc_06.asm
+10CFF7,SetCameraAngles,sub_10CFF7,new,low,converts the camera angles from degrees to 1024ths of a turn and builds the camera rotation,src/lib/input/input_joystick_misc_06.asm
+10D140,ClipSurfEdgeAtX,sub_10D140,new,low,"clips a rink surface polygon edge at a vertical line, interpolating its vertex values",src/lib/input/input_joystick_misc_06.asm
+10D244,ClipSurfEdgeAtY,sub_10D244,new,low,"clips a rink surface polygon edge at a horizontal line, interpolating its vertex values",src/lib/input/input_joystick_misc_06.asm
+10D348,ClipSurfPolyLeft,sub_10D348,new,low,clips a rink surface polygon against the left edge of the view,src/lib/input/input_joystick_misc_06.asm
+10D5E8,ClipSurfPolyRight,sub_10D5E8,new,low,clips a rink surface polygon against the right edge of the view,src/lib/input/input_joystick_misc_06.asm
+10D89C,ClipSurfPolyTop,sub_10D89C,new,low,clips a rink surface polygon against the top edge of the view,src/lib/input/input_joystick_misc_06.asm
+10DB34,ClipSurfPolyBottom,sub_10DB34,new,low,clips a rink surface polygon against the bottom edge of the view,src/lib/input/input_joystick_misc_06.asm
+10DDE0,DrawSurfacePolys,sub_10DDE0,new,low,"projects a list of rink surface polygons, clips them to the view and draws them",src/lib/input/input_joystick_misc_06.asm
+10E284,DrawOverlayModels,sub_10E284,new,low,sets up the overlay camera from the view matrix and draws each overlay model in use,src/lib/input/input_joystick_misc_06.asm
+10E42C,AllocOverlaySlot,sub_10E42C,new,low,claims one of the four overlay sprite slots,src/lib/input/input_joystick_misc_06.asm
+10E47C,SetOverlayCentre,sub_10E47C,new,low,sets an overlay's position and its offset from the screen centre,src/lib/input/input_joystick_misc_06.asm
+10E4B0,ProjectOverlayPoint,sub_10E4B0,new,low,rotates and projects an overlay's point into the view,src/lib/input/input_joystick_misc_06.asm
+10E4F8,AimOverlayModel,sub_10E4F8,new,low,points an overlay model at a target and projects it,src/lib/input/input_joystick_misc_06.asm
+10E58C,SetOverlayPosition,sub_10E58C,new,low,copies a 3-component vector into an overlay record,src/lib/input/input_joystick_misc_06.asm
+10E59C,AllocOverlayModel,sub_10E59C,new,low,claims one of the four overlay model slots and projects its position,src/lib/input/input_joystick_misc_06.asm
+10E62C,FreeOverlaySlots,sub_10E62C,new,low,releases every overlay sprite and model slot and frees their memory,src/lib/input/input_joystick_misc_06.asm
 10E690,SetRinkView,sub_10E690,new,low,sets the rink view parameters,src/lib/ea/ea_shpi_03.asm
 10E6AC,TransformRinkPoints,sub_10E6AC,new,low,transforms rink points,src/lib/ea/ea_shpi_03.asm
 10E6E4,TransformRinkObject,sub_10E6E4,new,low,transforms a rink object,src/lib/ea/ea_shpi_03.asm
@@ -2903,6 +2938,22 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 126480,SaveTextMode,,96PC,medium,NHL96PC E2484 (similar): mnemonic similarity 0.94 over 15 instructions,
 1264C2,RestoreTextMode,,96PC,medium,NHL96PC E24C4 (similar): mnemonic similarity 0.91 over 68 instructions,
 1269F5,toupper_,,WATCOM,high,IDA FLIRT library signature (wa32rtd/wa32rt_),
+127D70,ExpandBytePair,sub_127D70,new,low,expands one byte of byte-pair coded data through the pair tables (recursive),src/lib/ea/ea_unpack_02.asm
+127DB4,UnpackBytePairs,sub_127DB4,new,low,decompresses byte-pair coded data: reads the pair tables and expands each byte,src/lib/ea/ea_unpack_02.asm
+127FD0,PrepareBankSampleData,sub_127FD0,new,low,reads a sample's header and points the stream functions at its data,src/lib/ea/ea_unpack_02.asm
+128280,LoadSampleHeader,sub_128280,new,low,loads a sample of a PATl bank or a PT patch into the sound driver,src/lib/ea/ea_unpack_02.asm
+1282A0,PlayPatlSample,sub_1282A0,new,low,"checks a PATl sample header and starts it on a channel with its pitch, volume and pan",src/lib/ea/ea_unpack_02.asm
+128680,PlaySoundEntry,sub_128680,new,low,"plays a PATl sample or a PT patch note, by its header type",src/lib/ea/ea_unpack_02.asm
+1286F0,GusDetect,sub_1286F0,new,low,reads the card settings from the environment and probes for the card,src/lib/ea/ea_unpack_02.asm
+128734,GusDriverStartStream,sub_128734,new,low,"allocates the DMA buffer, opens the card, allocates card memory and starts the stream",src/lib/ea/ea_unpack_02.asm
+128878,GusDriverCaps,sub_128878,new,low,returns the format flags the Gravis driver supports,src/lib/ea/ea_unpack_02.asm
+128880,GusDriverOpen,sub_128880,new,low,"checks the requested format, detects the card, starts the stream and initialises the mixer",src/lib/ea/ea_unpack_02.asm
+1288F8,GusDriverClose,sub_1288F8,new,low,"closes the card, stops the stream and frees the DMA buffer",src/lib/ea/ea_unpack_02.asm
+128948,GusDriverUpdate,sub_128948,new,low,mixes the next half buffer and copies it to the card while the stream runs,src/lib/ea/ea_unpack_02.asm
+1289B0,DacDriverCaps,sub_1289B0,new,low,returns the format flags the timer-driven DAC driver supports,src/lib/ea/ea_unpack_02.asm
+1289B8,DacDriverOpen,sub_1289B8,new,low,"sets up timer-driven DAC output: picks the rate, allocates the buffer, starts the mixer and timer",src/lib/ea/ea_unpack_02.asm
+128C70,DacDriverClose,sub_128C70,new,low,restores the timer and frees the DAC buffer,src/lib/ea/ea_unpack_02.asm
+128CA8,DacDriverUpdate,sub_128CA8,new,low,acknowledges the interrupt and mixes the next block of DAC output,src/lib/ea/ea_unpack_02.asm
 128CEC,ReadBlasterPort,sub_128CEC,new,low,reads the sound card port from the BLASTER setting,src/lib/sound/snd_soundblaster_01.asm
 128D84,ProbeDspReset,sub_128D84,new,low,probes a Sound Blaster port by resetting its DSP,src/lib/sound/snd_soundblaster_01.asm
 128E00,SbDriverId,sub_128E00,new,low,Sound Blaster driver: returns its id,src/lib/sound/snd_soundblaster_01.asm

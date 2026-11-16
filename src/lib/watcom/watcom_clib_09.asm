@@ -12,7 +12,7 @@ extern dword_1DC9A0, dword_1DC9A4, dword_1DC9A8, dword_1DC9AC, dword_1DC9B0, dwo
 extern dword_1DCAD4, dword_1DCAD8, dword_1DCADC, dword_1DCAE0, dword_1DCAE4, dword_1DCAE8, dword_1DCAEC, dword_1DCAF0
 extern dword_1DCEC0, dword_1DCEC4, dword_1DCF38, dword_1DCF62, dword_1DD378, dword_1DD37C, int386_, ClearSpeechQueue
 extern UnregisterSoundBank, CheckBankIndex, DetectAudioDriver, OpenAudioDriver, CloseAudioDriver, ApplyChannelVolume, FadeOutChannel, InitStreamHeader
-extern sub_1095C4, sub_10A860, sub_10A868, sub_10A8C4, sub_10AD20, sub_128280, sub_128680, ProbeDspReset
+extern sub_1095C4, SpeechBufferSize, RegisterStreamBank, AddStreamSample, SetChannelVolumeChecked, LoadSampleHeader, PlaySoundEntry, ProbeDspReset
 extern AudioEnter, AudioLeaveCheck, SbDetectDsp, StopAllSoundChannels, StartChannel, MixNoise, RampChannelVolume, IsChannelActive
 extern sub_12CEE1, sub_12D13B, sub_12D141, sub_12D150, RequestStreamRead, CdStreamService, CdStreamNextPacket, CdStreamFreePacket
 extern AllocMemBlock, FreeMemBlock, unk_1072E0, word_17004A, word_17004C, word_17004E, word_17005C, word_17005E
@@ -751,7 +751,7 @@ SetChannelVolume:
         mov edx, esi
         mov eax, dword [dword ecx+dword_170060]
         add ecx, byte 4
-        call sub_10AD20
+        call SetChannelVolumeChecked
         cmp ecx, byte 20h
         jne short .6
         mov byte [byte_170044], 3
@@ -1334,7 +1334,7 @@ AllocSpeechBuffers:
         push edx
         call ResetGameVars
         mov dword [dword_1DCAD4], dword_1DCEC4
-        call sub_10A860
+        call SpeechBufferSize
         push byte 0
         add eax, 3480h
         push eax
@@ -1359,14 +1359,14 @@ AllocSpeechBuffers:
         add edx, eax
         mov eax, edx
         mov dword [dword_1DCADC], edx
-        call sub_10A868
+        call RegisterStreamBank
         mov dword [dword_1DCAE0], eax
         test eax, eax
         jl near .3
         mov edx, dword_1DCAE4
         mov ecx, dword [dword_1DCAD8]
         mov ebx, dword [dword_1DCAD4]
-        call sub_10A8C4
+        call AddStreamSample
         mov eax, dword [dword_1DCAD4]
         mov eax, dword [byte eax+0Ch]
         mov byte [byte eax+08h], 64h
@@ -1626,7 +1626,7 @@ CloseAudioStreamChannel:
         push byte 0FFFFFFFFh
         mov ebx, ecx
         mov edx, ecx
-        call sub_128680
+        call PlaySoundEntry
         mov dword [dword_170088], eax
 .4:
         cmp dword [dword_170088], byte 0
@@ -2075,7 +2075,7 @@ QueueStreamPacket:
         mov ebx, esp
         mov dword [dword_17009C], eax
         mov dword [esp], esi
-        call sub_128280
+        call LoadSampleHeader
         mov edi, dword [ecx]
         mov eax, ecx
         cmp edi, esi
@@ -2483,7 +2483,7 @@ PlaySample:
         push byte 0FFFFFFFFh
         mov ebx, ecx
         mov edx, esi
-        call sub_128680
+        call PlaySoundEntry
         pop esi
         pop ecx
         ret
@@ -2527,7 +2527,7 @@ PlaySampleVolume:
         push byte 0FFFFFFFFh
         mov edx, esi
         mov ebx, ecx
-        call sub_128680
+        call PlaySoundEntry
         pop esi
         ret
 ;-----------------------------------------------------------------------------

@@ -62,11 +62,11 @@ extern strlen_, strncpy_, ProjectPointFloat, sub_100498, sub_1004B8, sub_1004F8,
 extern sub_1007C0, sub_100830, SortIndices, FindShape, LoadDataFileNoErr, LoadDataFileErr, OpenArtArchive, OpenArtArchiveErr
 extern Random32, sub_102CDC, sub_102CF4, sub_103648, sub_104948, PlayQueuedSpeech, LoadFileAlloc, LoadFileAllocQuiet
 extern LoadFileInto, LoadFileIntoQuiet, LoadFileToBlockShared, LoadFileToBlockPlain, SetSpeechVolume, SetMusicStreamVolume, OpenAudioStreamChannel, CloseAudioStreamChannel
-extern FeedAudioStream, FlushAudioStream, ChannelPlaying, StopChannel, sub_109545, sub_109557, sub_109E54, sub_109E74
-extern sub_10A7D0, sub_10A930, sub_10AB2C, sub_10AB94, sub_10AD20, sub_10AE10, sub_10AED0, sub_10B000
+extern FeedAudioStream, FlushAudioStream, ChannelPlaying, StopChannel, sub_109545, sub_109557, AsyncResetRequest, AsyncStreamStep
+extern AsyncFreeRequest, ReleaseBankSample, StopSpeechQueue, SpeechQueueState, SetChannelVolumeChecked, sub_10AE10, sub_10AED0, sub_10B000
 extern sub_10B074, sub_10B084, sub_10B0EC, sub_10B2CC, sub_10B580, sub_10B59C, DrawFixedLine, sub_10C434
-extern sub_10C8B0, sub_10C8E8, sub_10C920, sub_10CE9C, sub_10CF34, sub_10DDE0, sub_10E42C, sub_10E47C
-extern sub_10E4F8, sub_10E58C, sub_10E59C, SetRinkView, TransformRinkPoints, ProjectRinkObject, DrawRinkPolyStrip, DrawRinkFan
+extern sub_10C8B0, sub_10C8E8, sub_10C920, sub_10CE9C, sub_10CF34, DrawSurfacePolys, AllocOverlaySlot, SetOverlayCentre
+extern AimOverlayModel, SetOverlayPosition, AllocOverlayModel, SetRinkView, TransformRinkPoints, ProjectRinkObject, DrawRinkPolyStrip, DrawRinkFan
 extern DrawRinkPolys, DrawRinkRing, DrawRinkLineFlat, DrawTileTexture, DrawTilePage, FindInstanceShape, BindModelShapes, UpdateModelInstance
 extern SetModelShape, SetModelPartName, LoadModelByName, FreeModelFile, CreateModelInstance, FreeModelInstance, SetModelMatrix, SetModelPosition
 extern FindInstancePart, FindModelGroupByName, FindInstanceGroup, GetModelGroupEntry, GetInstanceGroupEntry, GetModelPartEntry, GetModelMatrixEntry, BuildNetGeometry
@@ -1914,7 +1914,7 @@ StopStreamTimer:
         call __CHK
         cmp dword [dword_169254], byte 1
         jl short .2
-        call sub_10AB94
+        call SpeechQueueState
         cmp eax, byte 3
         jne short .1
         mov eax, 1
@@ -1943,10 +1943,10 @@ ResetStreamAudio:
         push ebp
         cmp dword [dword_169254], byte 1
         jl near .15
-        call sub_10AB94
+        call SpeechQueueState
         cmp eax, byte 3
         jne short .1
-        call sub_10AB2C
+        call StopSpeechQueue
 .1:
         xor esi, esi
 .2:
@@ -1959,7 +1959,7 @@ ResetStreamAudio:
         mov edx, dword [dword_169278]
         mov edx, dword [byte edx+eax+01Eh]
         mov eax, dword [dword_169264]
-        call sub_10A930
+        call ReleaseBankSample
         mov eax, dword [dword_16927A]
         sar eax, 10h
         imul eax, byte 22h
@@ -1998,7 +1998,7 @@ ResetStreamAudio:
         cmp esi, ebp
         je short .6
         push ebp
-        call sub_10A7D0
+        call AsyncFreeRequest
         mov eax, dword [dword_16927A]
         sar eax, 10h
         imul eax, byte 22h
@@ -2033,9 +2033,9 @@ ResetStreamAudio:
         cmp esi, ebx
         je short .9
         push ebx
-        call sub_109E54
+        call AsyncResetRequest
         add esp, byte 4
-        call sub_109E74
+        call AsyncStreamStep
 .9:
         mov eax, dword [dword_16927C]
         sar eax, 10h
@@ -2048,9 +2048,9 @@ ResetStreamAudio:
         cmp esi, ebp
         je short .10
         push ebp
-        call sub_109E54
+        call AsyncResetRequest
         add esp, byte 4
-        call sub_109E74
+        call AsyncStreamStep
 .10:
         mov eax, dword [dword_16927C]
         sar eax, 10h
@@ -2539,7 +2539,7 @@ FeedMusicStream_277:
         mov ebx, 0FFFFFFFFh
         mov edx, 32h
         mov eax, dword [dword_1691C4]
-        call sub_10AD20
+        call SetChannelVolumeChecked
         mov dword [dword_1691D4], 1
 .14:
         pop ebp
@@ -4675,13 +4675,13 @@ LoadRinkTextures:
         xor ecx, ecx
 .1:
         xor eax, eax
-        call sub_10E59C
+        call AllocOverlayModel
         mov edx, esi
         mov dword [dword ecx+dword_1B0068], eax
-        call sub_10E58C
+        call SetOverlayPosition
         mov edx, unk_1D1D20
         mov eax, dword [dword ecx+dword_1B0068]
-        call sub_10E4F8
+        call AimOverlayModel
         mov eax, dword [dword ecx+dword_1B0068]
         add dword [byte eax+020h], 200h
         mov eax, dword [dword ecx+dword_1B0068]
@@ -4689,7 +4689,7 @@ LoadRinkTextures:
         mov dword [dword ecx+dword_1B0028], edi
         mov edi, dword [byte eax+020h]
         mov dword [dword ecx+dword_1B0038], edi
-        call sub_10E42C
+        call AllocOverlaySlot
         mov dword [dword ecx+dword_1B0008], eax
         mov eax, dword [dword_16E464]
         mov edx, eax
@@ -4703,7 +4703,7 @@ LoadRinkTextures:
         mov edx, eax
         mov eax, edi
         add esi, byte 0Ch
-        call sub_10E47C
+        call SetOverlayCentre
         cmp ecx, byte 10h
         jne near .1
         pop edi
@@ -7822,7 +7822,7 @@ DrawStandsRow:
         mov edx, dword [dword ebp+dword_1B0008]
         mov eax, dword [dword ebp+dword_1B0018]
         add ebp, byte 4
-        call sub_10DDE0
+        call DrawSurfacePolys
         cmp ebp, byte 10h
         jne short .2
 .4:
@@ -7935,7 +7935,7 @@ DrawStandsSection:
         mov edx, dword [dword ebp+dword_1B0008]
         mov eax, dword [dword ebp+dword_1B0018]
         add ebp, byte 4
-        call sub_10DDE0
+        call DrawSurfacePolys
         cmp ebp, byte 10h
         jne short .2
 .4:

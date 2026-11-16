@@ -7,13 +7,15 @@ extern dword_170258, dword_17025C, dword_170260, dword_170264, dword_170268, dwo
 extern dword_1D204C, dword_1D2050, memcpy_, sub_100700, sub_10C8E8, sub_10CF34, FixedLerp, DrawClippedPoly
 extern RotatePoint2D, RotateModelPoint, sub_11313C, SinLookup, CosLookup, sub_12D300, sub_12D4B8, TransposeMatrix
 extern FreeMemBlock, MakeColor, sub_FDC68, unk_1D1D20, vecdist
-global sub_10CFF7_2E, sub_10D348_292, sub_10D5E8_2A6, sub_10CFB4, sub_10CFF7, sub_10D140, sub_10D244, sub_10D348
-global sub_10D5E8, sub_10D89C, sub_10DB34, sub_10DDE0, sub_10E284, sub_10E42C, sub_10E47C, sub_10E4B0
-global sub_10E4F8, sub_10E58C, sub_10E59C, sub_10E62C
+global SetCameraAngles_2E, ClipSurfPolyLeft_292, ClipSurfPolyRight_2A6, SetViewScreenOrigin, SetCameraAngles, ClipSurfEdgeAtX, ClipSurfEdgeAtY, ClipSurfPolyLeft
+global ClipSurfPolyRight, ClipSurfPolyTop, ClipSurfPolyBottom, DrawSurfacePolys, DrawOverlayModels, AllocOverlaySlot, SetOverlayCentre, ProjectOverlayPoint
+global AimOverlayModel, SetOverlayPosition, AllocOverlayModel, FreeOverlaySlots
 ;-----------------------------------------------------------------------------
-; sub_10CFB4                                                          10CFB4  
+; SetViewScreenOrigin                            10CFB4  97 PC, low confidence
+; Sets the view's screen origin and works out its far corner from the view
+; size
 ;-----------------------------------------------------------------------------
-sub_10CFB4:
+SetViewScreenOrigin:
         push ebp
         LD mov, ebp, esp
         mov eax, dword [byte ebp+08h]
@@ -35,11 +37,13 @@ sub_10CFB4:
         mov dword [dword_17026C], eax
         mov eax, dword [byte ebp+0Ch]
         mov dword [dword_170270], eax
-        jmp short sub_10CFF7_2E
+        jmp short SetCameraAngles_2E
 ;-----------------------------------------------------------------------------
-; sub_10CFF7                                                          10CFF7  
+; SetCameraAngles                                10CFF7  97 PC, low confidence
+; Converts the camera angles from degrees to 1024ths of a turn and builds the
+; camera rotation
 ;-----------------------------------------------------------------------------
-sub_10CFF7:
+SetCameraAngles:
         push ebp
         LD mov, ebp, esp
         push ebx
@@ -57,7 +61,7 @@ sub_10CFF7:
         mov ecx, 168h
         div ecx
         mov dword [dword_170270], eax
-sub_10CFF7_2E:
+SetCameraAngles_2E:
         mov eax, dword [byte ebp+010h]
         shr eax, 1
         mov dword [dword_17024C], eax
@@ -147,9 +151,11 @@ sub_10CFF7_2E:
         ret
         db 00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_10D140                                                          10D140  
+; ClipSurfEdgeAtX                                10D140  97 PC, low confidence
+; Clips a rink surface polygon edge at a vertical line, interpolating its
+; vertex values
 ;-----------------------------------------------------------------------------
-sub_10D140:
+ClipSurfEdgeAtX:
         push ebx
         push esi
         push edi
@@ -257,9 +263,11 @@ sub_10D140:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_10D244                                                          10D244  
+; ClipSurfEdgeAtY                                10D244  97 PC, low confidence
+; Clips a rink surface polygon edge at a horizontal line, interpolating its
+; vertex values
 ;-----------------------------------------------------------------------------
-sub_10D244:
+ClipSurfEdgeAtY:
         push ebx
         push esi
         push edi
@@ -367,9 +375,10 @@ sub_10D244:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_10D348                                                          10D348  
+; ClipSurfPolyLeft                               10D348  97 PC, low confidence
+; Clips a rink surface polygon against the left edge of the view
 ;-----------------------------------------------------------------------------
-sub_10D348:
+ClipSurfPolyLeft:
         push ebx
         push esi
         push edi
@@ -425,7 +434,7 @@ sub_10D348:
         dec esi
         mov dword [dword esp+0288h], esi
         cmp esi, byte 0FFFFFFFFh
-        je near sub_10D348_292
+        je near ClipSurfPolyLeft_292
         mov edi, dword [dword esp+02B4h]
         cmp edi, dword [eax]
         jle short .2
@@ -447,7 +456,7 @@ sub_10D348:
         push edx
         mov edx, dword [dword esp+02B0h]
         push edx
-        call sub_10D140
+        call ClipSurfEdgeAtX
         add esp, byte 28h
         test eax, eax
         je near .5
@@ -498,7 +507,7 @@ sub_10D348:
         mov esi, dword [dword esp+02ACh]
         push esi
         push edx
-        call sub_10D140
+        call ClipSurfEdgeAtX
         add esp, byte 28h
         test eax, eax
         je short .3
@@ -548,7 +557,7 @@ sub_10D348:
         mov dword [dword esp+0284h], esi
         mov dword [dword esp+0280h], edi
         jmp near .1
-sub_10D348_292:
+ClipSurfPolyLeft_292:
         mov eax, ebx
         add esp, 290h
         pop ebp
@@ -558,9 +567,10 @@ sub_10D348_292:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_10D5E8                                                          10D5E8  
+; ClipSurfPolyRight                              10D5E8  97 PC, low confidence
+; Clips a rink surface polygon against the right edge of the view
 ;-----------------------------------------------------------------------------
-sub_10D5E8:
+ClipSurfPolyRight:
         push ebx
         push esi
         push edi
@@ -619,7 +629,7 @@ sub_10D5E8:
         dec esi
         mov dword [dword esp+028Ch], esi
         cmp esi, byte 0FFFFFFFFh
-        je near sub_10D5E8_2A6
+        je near ClipSurfPolyRight_2A6
         mov edi, dword [dword esp+02B8h]
         cmp edi, dword [eax]
         jg short .2
@@ -642,7 +652,7 @@ sub_10D5E8:
         push ecx
         mov edx, dword [dword esp+02B4h]
         push edx
-        call sub_10D140
+        call ClipSurfEdgeAtX
         add esp, byte 28h
         test eax, eax
         je near .5
@@ -692,7 +702,7 @@ sub_10D5E8:
         mov esi, dword [dword esp+02B0h]
         push esi
         push ecx
-        call sub_10D140
+        call ClipSurfEdgeAtX
         add esp, byte 28h
         test eax, eax
         je short .3
@@ -742,7 +752,7 @@ sub_10D5E8:
         mov dword [dword esp+0284h], esi
         mov dword [dword esp+0280h], edi
         jmp near .1
-sub_10D5E8_2A6:
+ClipSurfPolyRight_2A6:
         mov eax, ebx
         add esp, 294h
         pop ebp
@@ -752,9 +762,10 @@ sub_10D5E8_2A6:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_10D89C                                                          10D89C  
+; ClipSurfPolyTop                                10D89C  97 PC, low confidence
+; Clips a rink surface polygon against the top edge of the view
 ;-----------------------------------------------------------------------------
-sub_10D89C:
+ClipSurfPolyTop:
         push ebx
         push esi
         push edi
@@ -810,7 +821,7 @@ sub_10D89C:
         dec esi
         mov dword [dword esp+0288h], esi
         cmp esi, byte 0FFFFFFFFh
-        je near sub_10D348_292
+        je near ClipSurfPolyLeft_292
         mov edi, dword [dword esp+02B4h]
         cmp edi, dword [byte eax+04h]
         jle short .2
@@ -832,7 +843,7 @@ sub_10D89C:
         push edx
         mov edx, dword [dword esp+02B0h]
         push edx
-        call sub_10D244
+        call ClipSurfEdgeAtY
         add esp, byte 28h
         test eax, eax
         je near .5
@@ -883,7 +894,7 @@ sub_10D89C:
         mov esi, dword [dword esp+02ACh]
         push esi
         push edx
-        call sub_10D244
+        call ClipSurfEdgeAtY
         add esp, byte 28h
         test eax, eax
         je short .3
@@ -935,9 +946,10 @@ sub_10D89C:
         jmp near .1
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_10DB34                                                          10DB34  
+; ClipSurfPolyBottom                             10DB34  97 PC, low confidence
+; Clips a rink surface polygon against the bottom edge of the view
 ;-----------------------------------------------------------------------------
-sub_10DB34:
+ClipSurfPolyBottom:
         push ebx
         push esi
         push edi
@@ -996,7 +1008,7 @@ sub_10DB34:
         dec esi
         mov dword [dword esp+028Ch], esi
         cmp esi, byte 0FFFFFFFFh
-        je near sub_10D5E8_2A6
+        je near ClipSurfPolyRight_2A6
         mov edi, dword [dword esp+02B8h]
         cmp edi, dword [byte eax+04h]
         jg short .2
@@ -1019,7 +1031,7 @@ sub_10DB34:
         push ecx
         mov edx, dword [dword esp+02B4h]
         push edx
-        call sub_10D244
+        call ClipSurfEdgeAtY
         add esp, byte 28h
         test eax, eax
         je near .5
@@ -1069,7 +1081,7 @@ sub_10DB34:
         mov esi, dword [dword esp+02B0h]
         push esi
         push ecx
-        call sub_10D244
+        call ClipSurfEdgeAtY
         add esp, byte 28h
         test eax, eax
         je short .3
@@ -1121,9 +1133,11 @@ sub_10DB34:
         jmp near .1
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_10DDE0                                                          10DDE0  
+; DrawSurfacePolys                               10DDE0  97 PC, low confidence
+; Projects a list of rink surface polygons, clips them to the view and draws
+; them
 ;-----------------------------------------------------------------------------
-sub_10DDE0:
+DrawSurfacePolys:
         push esi
         push edi
         push ebp
@@ -1320,7 +1334,7 @@ sub_10DDE0:
         push eax
         mov edx, dword [dword esp+0274h]
         push edx
-        call sub_10D348
+        call ClipSurfPolyLeft
         add esp, byte 14h
         mov dword [dword esp+0264h], eax
         cmp eax, byte 3
@@ -1343,7 +1357,7 @@ sub_10DDE0:
         push eax
         mov edx, dword [dword esp+0274h]
         push edx
-        call sub_10D5E8
+        call ClipSurfPolyRight
         add esp, byte 14h
         mov dword [dword esp+0264h], eax
         cmp eax, byte 3
@@ -1362,7 +1376,7 @@ sub_10DDE0:
         push ebp
         mov eax, dword [dword esp+0274h]
         push eax
-        call sub_10D89C
+        call ClipSurfPolyTop
         add esp, byte 14h
         mov dword [dword esp+0264h], eax
         cmp eax, byte 3
@@ -1384,7 +1398,7 @@ sub_10DDE0:
         push esi
         mov edi, dword [dword esp+0274h]
         push edi
-        call sub_10DB34
+        call ClipSurfPolyBottom
         add esp, byte 14h
         mov dword [dword esp+0264h], eax
         cmp eax, byte 3
@@ -1443,9 +1457,11 @@ sub_10DDE0:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_10E284                                                          10E284  
+; DrawOverlayModels                              10E284  97 PC, low confidence
+; Sets up the overlay camera from the view matrix and draws each overlay
+; model in use
 ;-----------------------------------------------------------------------------
-sub_10E284:
+DrawOverlayModels:
         push ebx
         push ecx
         push esi
@@ -1589,9 +1605,10 @@ sub_10E284:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_10E42C                                                          10E42C  
+; AllocOverlaySlot                               10E42C  97 PC, low confidence
+; Claims one of the four overlay sprite slots
 ;-----------------------------------------------------------------------------
-sub_10E42C:
+AllocOverlaySlot:
         push ebx
         push ecx
         push edx
@@ -1624,9 +1641,10 @@ sub_10E42C:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_10E47C                                                          10E47C  
+; SetOverlayCentre                               10E47C  97 PC, low confidence
+; Sets an overlay's position and its offset from the screen centre
 ;-----------------------------------------------------------------------------
-sub_10E47C:
+SetOverlayCentre:
         push ecx
         mov ecx, eax
         mov dword [byte eax+020h], ebx
@@ -1649,9 +1667,10 @@ sub_10E47C:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_10E4B0                                                          10E4B0  
+; ProjectOverlayPoint                            10E4B0  97 PC, low confidence
+; Rotates and projects an overlay's point into the view
 ;-----------------------------------------------------------------------------
-sub_10E4B0:
+ProjectOverlayPoint:
         push ecx
         push esi
         sub esp, byte 48h
@@ -1682,9 +1701,10 @@ sub_10E4B0:
         pop ecx
         ret
 ;-----------------------------------------------------------------------------
-; sub_10E4F8                                                          10E4F8  
+; AimOverlayModel                                10E4F8  97 PC, low confidence
+; Points an overlay model at a target and projects it
 ;-----------------------------------------------------------------------------
-sub_10E4F8:
+AimOverlayModel:
         push ebx
         push ecx
         push esi
@@ -1747,9 +1767,10 @@ sub_10E4F8:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_10E58C                                                          10E58C  
+; SetOverlayPosition                             10E58C  97 PC, low confidence
+; Copies a 3-component vector into an overlay record
 ;-----------------------------------------------------------------------------
-sub_10E58C:
+SetOverlayPosition:
         push esi
         push edi
         mov esi, edx
@@ -1762,9 +1783,10 @@ sub_10E58C:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_10E59C                                                          10E59C  
+; AllocOverlayModel                              10E59C  97 PC, low confidence
+; Claims one of the four overlay model slots and projects its position
 ;-----------------------------------------------------------------------------
-sub_10E59C:
+AllocOverlayModel:
         push ebx
         push ecx
         push edx
@@ -1824,9 +1846,10 @@ sub_10E59C:
         ret
         db 090h
 ;-----------------------------------------------------------------------------
-; sub_10E62C                                                          10E62C  
+; FreeOverlaySlots                               10E62C  97 PC, low confidence
+; Releases every overlay sprite and model slot and frees their memory
 ;-----------------------------------------------------------------------------
-sub_10E62C:
+FreeOverlaySlots:
         push ebx
         push ecx
         push edx

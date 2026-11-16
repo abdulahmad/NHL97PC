@@ -5,8 +5,8 @@ section s_107000 progbits alloc exec nowrite align=1
 extern byte_172BC5, byte_1CFBF2, byte_1CFBF3, byte_1DCF44, byte_1DCF67, byte_1DCF68, dword_16E4D0, dword_170038
 extern dword_17003C, dword_170040, dword_172AC0, dword_172AC4, dword_1CFBF4, dword_1DCF38, dword_1DCF3E, dword_1DCF3F
 extern dword_1DCF62, off_16FFC8, off_16FFCC, off_16FFD0, off_16FFD4, bcopy, AddExitHandler, DetectSoundCard
-extern ProbeSoundPorts, CloseDigitalAudio, StopChannel, sub_109401, sub_109545, sub_10955B, sub_10A930, sub_121888
-extern sub_128280, sub_1286F0, ReadSoundscapeIni, SoundscapeCodecReady, AudioLeave, SampleFormatSize, MixerStartSample, MixerFadeChannel
+extern ProbeSoundPorts, CloseDigitalAudio, StopChannel, sub_109401, sub_109545, sub_10955B, ReleaseBankSample, sub_121888
+extern LoadSampleHeader, GusDetect, ReadSoundscapeIni, SoundscapeCodecReady, AudioLeave, SampleFormatSize, MixerStartSample, MixerFadeChannel
 extern MixerSetPanVolume, MixerSetPitch, MixerSamplesLeft, ReadLittleEndian, FreeMemBlock, MemPtrSize, addtimer, sub_FC008
 extern word_1CFBF0
 global jpt_1074C0, StartPatchSample_B1, StartPatchSample_C2, StartPatchSample_D3, StartPatchSample_E7, StartPatchSample_FB, StartPatchSample_10F, StartPatchSample_123
@@ -298,7 +298,7 @@ PrepareBankSamples:
         mov ebx, esp
         mov edx, dword [dword esi+dword_172AC4]
         mov eax, dword [byte ecx+eax+08h]
-        call sub_128280
+        call LoadSampleHeader
         mov dword [dword esp+0C00h], eax
         test eax, eax
         jge short .2
@@ -322,7 +322,7 @@ PrepareBankSamples:
         mov edx, ecx
         mov eax, edi
         inc ecx
-        call sub_10A930
+        call ReleaseBankSample
         cmp ecx, ebp
         jle short .4
 .5:
@@ -1122,7 +1122,7 @@ SampleRateResults_19:
 ; answers
 ;-----------------------------------------------------------------------------
 DetectAudioHardware:
-        call sub_1286F0
+        call GusDetect
         test eax, eax
         jl short .1
         mov eax, 1

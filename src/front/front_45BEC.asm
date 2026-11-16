@@ -13,8 +13,8 @@ extern PaEvent_536, PaEvent_572, PaEvent_5AE, PaEvent_5D6, PaEvent_5FE, PaEvent_
 extern PaEvent_7FF, PaEvent_87E, PaEvent_8CF, PaEvent_8F5, PaEvent_91B, PaEvent_941, PaEvent_967, PaEvent_14CD
 extern rand_, sprintf_, strcat_, RequestSpeechEvent, PlayQueuedSpeech, SetSpeechEnabled, UnregisterSoundBank, sub_109417
 extern sub_109545, sub_10955B, sub_1095AD, sub_109870, AsyncInit, AsyncClose, AsyncRequestOpen, AsyncRequestSection
-extern sub_109E74, sub_10A7D0, sub_10A860, sub_10A868, sub_10A8C4, sub_10A930, sub_10A980, sub_10AA38
-extern sub_10AB1C, sub_10ABC8, RingBufferSpace, QueuePassSpeech, QueueShotSpeech, QueuePositionSpeech, QueueHitSpeech, QueuePenaltySpeech
+extern AsyncStreamStep, AsyncFreeRequest, SpeechBufferSize, RegisterStreamBank, AddStreamSample, ReleaseBankSample, StartSpeechQueue, QueueSpeechClip
+extern SpeechQueueGo, ShutdownSpeechQueue, RingBufferSpace, QueuePassSpeech, QueueShotSpeech, QueuePositionSpeech, QueueHitSpeech, QueuePenaltySpeech
 extern QueueReceiveSpeech, QueueLoosePuckSpeech, QueueCarrySpeech, QueueTeamSpeech, QueueDeflectSpeech, QueuePickupSpeech, QueueFaceoffSpeech, QueuePenaltyEndSpeech
 extern QueueFinalSpeech, QueueTouchPuckSpeech, QueuePenaltyCallSpeech, QueueStoppageSpeech, QueuePowerPlaySpeech, SayShotCall, SaySaveCall, SpeechTableEntry
 extern SayPlayerCall, SayRandomFiller, SpeechClipExists, MakeDataPath, ServiceIdle, AllocMemBlock, FreeMemBlock, ZeroMem
@@ -2989,8 +2989,8 @@ InitSpeechStream:
         push byte 18h
         call AsyncInit
         add esp, byte 0Ch
-        call sub_109E74
-        call sub_10A860
+        call AsyncStreamStep
+        call SpeechBufferSize
         push byte 0
         lea ebx, [dword eax+03A0D4h]
         push ebx
@@ -3013,18 +3013,18 @@ InitSpeechStream:
         add eax, ebx
         mov dword [dword_1AC79C], ecx
         mov dword [dword_16925C], eax
-        call sub_10A860
+        call SpeechBufferSize
         mov ebx, eax
         mov eax, dword [dword_16925C]
         lea edx, [eax+ebx]
         mov dword [dword_169278], edx
         lea ebx, [dword edx+0330h]
         mov dword [dword_1AC78C], ebx
-        call sub_10A868
+        call RegisterStreamBank
         mov dword [dword_169264], eax
         mov eax, dword [dword_16922E]
         sar eax, 10h
-        call sub_10A980
+        call StartSpeechQueue
         cmp word [word_169268], byte 0
         jne short .1
         call OpenSpeechData
@@ -3052,11 +3052,11 @@ ShutdownSound:
         push esi
         cmp dword [dword_169254], byte 0FFFFFFFFh
         je near .1
-        call sub_109E74
+        call AsyncStreamStep
         mov ebx, 0FFFFFFFFh
         call AsyncClose
         mov dword [dword_169288], ebx
-        call sub_10ABC8
+        call ShutdownSpeechQueue
         xor eax, eax
         call FreeSpeechBuffers
         mov eax, 1
@@ -3312,7 +3312,7 @@ ServiceSpeechStream:
         idiv ebx
         mov word [dword_169280], dx
 .7:
-        call sub_109E74
+        call AsyncStreamStep
         mov edx, dword [dword_16927C]
         sar edx, 10h
         mov eax, edx
@@ -3325,7 +3325,7 @@ ServiceSpeechStream:
         test edx, edx
         je near .10
         push edx
-        call sub_10A7D0
+        call AsyncFreeRequest
         add esp, byte 4
         test eax, eax
         je near .10
@@ -3351,7 +3351,7 @@ ServiceSpeechStream:
         lea ebx, [byte eax+04h]
         add edx, byte 1Eh
         mov eax, dword [dword_169264]
-        call sub_10A8C4
+        call AddStreamSample
         mov edx, dword [dword_16927C]
         sar edx, 10h
         mov eax, edx
@@ -3373,8 +3373,8 @@ ServiceSpeechStream:
         mov edx, dword [dword_169278]
         mov edx, dword [byte edx+eax*2+01Eh]
         mov eax, dword [dword_169264]
-        call sub_10AA38
-        call sub_10AB1C
+        call QueueSpeechClip
+        call SpeechQueueGo
         mov eax, dword [tickcount]
         mov edx, dword [dword_16927C]
         sar edx, 10h
@@ -3393,7 +3393,7 @@ ServiceSpeechStream:
         idiv ebx
         mov word [dword_16927E], dx
 .10:
-        call sub_109E74
+        call AsyncStreamStep
         mov ax, word [dword_16927C]
         cmp ax, word [dword_16927E]
         je near .23
@@ -3453,7 +3453,7 @@ ServiceSpeechStream:
         jl short .14
         mov eax, dword [dword_169264]
         mov edx, edi
-        call sub_10A930
+        call ReleaseBankSample
         mov edx, dword [dword_16927A]
         sar edx, 10h
         mov eax, edx
@@ -3544,7 +3544,7 @@ ServiceSpeechStream:
         test ebp, ebp
         je short .20
         push ebp
-        call sub_10A7D0
+        call AsyncFreeRequest
         mov edx, dword [dword_16927A]
         sar edx, 10h
         mov eax, edx

@@ -28,7 +28,7 @@ extern off_170B18, off_170B1C, off_171C7C, off_171C80, off_171C84, off_171D10, o
 extern off_19C6E3, qword_167EC8, qword_167ED0, qword_167EE0, sprintf_, strcat_, strcpy_, strlen_
 extern strncpy_, sub_1004B8, bcopy, AddExitHandler, PresentScreen, ConvertArtPalette, Random32, sub_102D3C
 extern sub_103298, sub_103648, sub_10374C, sub_10376C, sub_1049D0, FileExistsPath, sub_106F64, sub_109401
-extern sub_109545, sub_10955B, sub_1095AD, sub_10CFB4, sub_10CFF7, DrawPolyArray, sub_121460, sub_121470
+extern sub_109545, sub_10955B, sub_1095AD, SetViewScreenOrigin, SetCameraAngles, DrawPolyArray, sub_121460, sub_121470
 extern sub_121494, sub_12189C, sub_121A43, ArchiveEntryOffset, BlitCore, sub_123FCB, ConvertColor555, CreateBitmapFromBlock
 extern Convert32To565Keyed, sub_12D520, sub_12F270, sub_12FACC, sub_12FDC8, sub_12FF9C, sub_12FFD8, sub_12FFF0
 extern sub_13005A, TgvCopyBlock, TgvFillBlock, SaveTextScreen, RestoreTextScreen, InitTextOutput, ClearNumLock, InstallBreakHandler
@@ -11340,11 +11340,11 @@ InitPlatform:
         push ecx
         push byte 14h
         push byte 1Eh
-        call sub_10CFF7
+        call SetCameraAngles
         add esp, byte 10h
         push byte 0
         push byte 0
-        call sub_10CFB4
+        call SetViewScreenOrigin
         add esp, byte 8
         call NoOpPlatformHook
         pop ebp

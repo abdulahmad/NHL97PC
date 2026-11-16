@@ -2,8 +2,11 @@
 bits 32
 %include "hockey.inc"
 section s_106EC0 progbits alloc exec nowrite align=1
-extern sub_126A04, sub_126B80, sub_127DB4, sub_127FD0
+extern sub_126A04, sub_126B80, UnpackBytePairs, PrepareBankSampleData
 global sub_106F64, sub_106F7C, sub_106F94, unpack
+;-----------------------------------------------------------------------------
+; unpack                                      106EC0  96 PC, medium confidence
+;-----------------------------------------------------------------------------
 unpack:
         push ebx
         push esi
@@ -68,14 +71,14 @@ unpack:
 .6:
         push esi
         push ebx
-        call sub_127DB4
+        call UnpackBytePairs
         mov edx, eax
         add esp, byte 8
         jmp short .8
 .7:
         push esi
         push ebx
-        call sub_127FD0
+        call PrepareBankSampleData
         add esp, byte 8
         mov edx, ebp
 .8:
@@ -86,6 +89,9 @@ unpack:
         pop ebx
         ret
         db 090h
+;-----------------------------------------------------------------------------
+; sub_106F64                                                          106F64  
+;-----------------------------------------------------------------------------
 sub_106F64:
         push ebx
         push byte 1
@@ -98,6 +104,9 @@ sub_106F64:
         pop ebx
         ret
         db 090h
+;-----------------------------------------------------------------------------
+; sub_106F7C                                                          106F7C  
+;-----------------------------------------------------------------------------
 sub_106F7C:
         push ebx
         push byte 0
@@ -110,6 +119,9 @@ sub_106F7C:
         pop ebx
         ret
         db 090h
+;-----------------------------------------------------------------------------
+; sub_106F94                                                          106F94  
+;-----------------------------------------------------------------------------
 sub_106F94:
         push ebx
         push esi
