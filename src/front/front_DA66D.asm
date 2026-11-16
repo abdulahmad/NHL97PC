@@ -22,7 +22,7 @@ extern DbGameFile, DbTeamStatFile, DbPlayerStatFile, DbReplayFile, DbUserFile, D
 extern DosCallRegs, KeyboardPadHomeOn, KeyboardPadAwayOn, LinkInputSent, LinkInputTickCount, LinkInputChanged, LinkRemoteFlags, LinkInputAck
 extern LinkInputResend, LinkPacketBuffer, LinkSentPackets, LinkRecvPackets, LinkSendBuffer, LinkSentBytes, LinkSentErrors, LinkRecvBytes
 extern LinkRecvErrors, LinkRecvOffset, LinkRecvSize, LinkHandle, NetConnected, LinkInputWordPad, LinkInputHigh, LinkRemoteInput
-extern LinkInputState, LinkPacketQueues, NetSessionState
+extern LinkInputState, LinkPacketQueues, LinkQueueCounters, NetSessionState
 extern NetSessionState
 extern NetSessionState, NetListArt, NetListBitmap, NetListLayer
 extern NetScreenItems, NetGameBitmaps, NetJoinShape, NetHostShape, NetListTop, NetListRows, NetPlayerBitmaps, NetScrollUpShape
@@ -48,14 +48,14 @@ extern BuildKeyFromLong, BuildKeyFromString, KeyToLong, BuildSeasonIntro, SetupS
 extern AllocMemData, FreeMemBlock, ZeroMem, KbdGetKey, addtimer, RemoveTimerCallback, WaitTicks, MakeColor
 extern FreeBitmap, DrawShapeAtOwnPos, DrawArt, CreateBitmap, SetDrawTarget, FillRectColor, FillRect, MeasureText
 extern DrawTextAt, FillRectCorners, tickcount, str_X_WaitForOtherComputer, DbKeyBuffer, PlayoffDbKey, unk_16E110, unk_1C5F4A
-extern DosCallRegs, InputRecordRing, LinkPacketQueues, NetSessionState, NetSocket
+extern DosCallRegs, InputRecordRing, LinkPacketQueues, LinkQueueCounters, NetSessionState, NetSocket
 extern NetJoinRequest, NetJoinedGame, NetJoinedInfo, NetHostName, OptionsAnimItems, GripPortWord, StaticBufferReady, DbOpen
 extern str_Punct_SetMatchupTeams, MatchupTeamCodes, str_Punct_DaysToYear, MonthStartDays, word_16D8A4, SlotWords, word_16D920, str_Punct_ReadJoystickPads
 extern word_16D924, word_16D926, word_16D928, word_16D92A, word_16D92C, word_16DAB8, word_16DACC, word_16DACE
 extern word_16DAD0, word_16E0F8, word_16E0FA, word_16E108, word_16E10A, word_16E10C, word_16E120, word_16E12C
 extern word_16E148, word_16E15E, word_16E16E, word_16E170, DosCallRegs, PadLastButtons, PadButtonState, HotKeyFlags
-extern KeyboardLastKey, LinkInputPacket, LinkLocalInput, LinkPacketQueues
-extern LinkPacketQueues, LinkWaitCount
+extern KeyboardLastKey, LinkInputPacket, LinkLocalInput, LinkPacketQueues, LinkQueueCounters
+extern LinkPacketQueues, LinkQueueCounters, LinkWaitCount
 extern LinkWaitTimer, NetGameCount
 global IpxCloseSocket, jpt_DADC0, jpt_DAFD8, jpt_DAFE8, jpt_DB8CE, jpt_E329C, jpt_E6554, jpt_E7B1F
 global MakeRecordKey_16, MakeRecordKey_24, OpenGameDatabase_13, OpenGameDatabase_18, WriteDbRecord_5C, WriteDbRecord_102, WriteDbRecord_152, WriteDbRecord_1AA
@@ -12556,7 +12556,7 @@ QueueLinkPacket:
         mov ebx, esi
         shl ebx, 5
         add ebx, esi
-        inc word [nosplit ebx*2+LinkPacketQueues+40h]
+        inc word [nosplit ebx*2+LinkQueueCounters]
         pop esi
         pop ecx
         pop ebx

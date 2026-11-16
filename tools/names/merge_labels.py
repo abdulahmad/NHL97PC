@@ -35,6 +35,11 @@ if inner:
     for q in glob.glob('src/**/*.asm', recursive=True):
         m = inner_pat.search(open(q, encoding='latin1').read())
         if m: sys.exit('not merged: %s is used as [reg+reg+label] in %s; name it on its own' % (m.group(1), q))
+    # NASM 2.16 also turns [nosplit reg*2+label+const] into [reg+reg+label+const], so an inner label scaled by 2 must stay on its own
+    scaled_pat = re.compile(r'\[(?:dword |byte )?(?:nosplit )?e(?:[abcd]x|[sd]i|bp)\*2\+(%s)\b' % '|'.join(map(re.escape, inner)))
+    for q in glob.glob('src/**/*.asm', recursive=True):
+        m = scaled_pat.search(open(q, encoding='latin1').read())
+        if m: sys.exit('not merged: %s is used as [reg*2+label] in %s; name it on its own' % (m.group(1), q))
 open(f, 'w').write(txt)
 pat = re.compile(r'\b(' + '|'.join(re.escape(k) for k in rep) + r')\b')
 for p in glob.glob('src/**/*.asm', recursive=True) + glob.glob('src/**/*.inc', recursive=True):

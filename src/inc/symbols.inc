@@ -9531,6 +9531,7 @@
 ;  1CD2B4  LinkLocalInput                           data/front/front_DA66D_bss_01.asm            1
 ;  1CD2B6  LinkInputState                           data/front/front_DA66D_bss_01.asm            1
 ;  1CD2BA  LinkPacketQueues                         data/front/front_DA66D_bss_01.asm            1
+;  1CD2FA  LinkQueueCounters                        data/front/front_DA66D_bss_01.asm            1
 ;  1CD404  LinkWaitCount                            data/front/front_DA66D_bss_01.asm            1
 ;  1CD406  LinkWaitTimer                            data/front/front_DA66D_bss_01.asm            1
 ;  1CD408  NetSessionState                          data/front/front_DA66D_bss_01.asm            1

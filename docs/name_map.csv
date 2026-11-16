@@ -10437,6 +10437,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1CD2B4,LinkLocalInput,word_1CD2B4,new,low,link local input,src/data/front/front_DA66D_bss_01.asm
 1CD2B6,LinkInputState,dword_1CD2B6,new,low,link input state,src/data/front/front_DA66D_bss_01.asm
 1CD2BA,LinkPacketQueues,unk_1CD2BA,97PC,low,"link packet queues (66 bytes each, head and tail words at the end)",src/data/front/front_DA66D_bss_01.asm
+1CD2FA,LinkQueueCounters,word_1CD2FA,97PC,low,"link queue packet counters, indexed by queue (inside the link packet queues)",src/data/front/front_DA66D_bss_01.asm
 1CD404,LinkWaitCount,word_1CD404,new,low,link wait count,src/data/front/front_DA66D_bss_01.asm
 1CD406,LinkWaitTimer,word_1CD406,new,low,link wait timer,src/data/front/front_DA66D_bss_01.asm
 1CD408,NetSessionState,unk_1CD408,97PC,low,network session state,src/data/front/front_DA66D_bss_01.asm

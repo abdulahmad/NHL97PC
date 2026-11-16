@@ -14,7 +14,7 @@ global NetListBitmap, NetListLayer, NetScreenItems, NetGameBitmaps, NetJoinShape
 global NetPlayerBitmaps, NetScrollUpShape, NetScrollDownShape
 global NetJoinSocket, NetTitleShape, NetFrameShape, NetButtonShape, NetGameCountPad, OptionsAnimShapeLists
 global OptionsAnimShapes, OptionsAnimArt, OptionsAnimFrames, OptionsAnimTitle
-global OptionsAnimBack, SeasonIntroList, SeasonIntroLayer, DosCallRegs, InputRecordRing, LinkPacketQueues
+global OptionsAnimBack, SeasonIntroList, SeasonIntroLayer, DosCallRegs, InputRecordRing, LinkPacketQueues, LinkQueueCounters
 global NetSessionState, NetSocket, NetJoinRequest, NetJoinedGame, NetJoinedInfo, NetHostName, OptionsAnimItems
 global PadLastButtons, PadButtonState, HotKeyFlags, KeyboardLastKey, LinkInputPacket, LinkLocalInput
 
@@ -119,6 +119,7 @@ LinkPacketQueues:
         resb 2
         resb 2
         resb 2
+LinkQueueCounters:
         resb 2
         resb 60
         resb 2
