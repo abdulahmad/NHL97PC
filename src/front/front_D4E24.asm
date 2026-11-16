@@ -3714,9 +3714,8 @@ WriteDbPage:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; GetDbPage                                       D7CD4  97 PC, low confidence
-; Database page cache: finds a db file's page in the cache slots
-; (DbPageEnd) or reads it in (ReadDbPage), bumps its use counter, returns
-; the slot
+; Database page cache: finds a db file's page in the cache slots (DbPageEnd) or reads it in (ReadDbPage),
+; bumps its use counter, returns the slot
 ;-----------------------------------------------------------------------------
 GetDbPage:
         push ecx

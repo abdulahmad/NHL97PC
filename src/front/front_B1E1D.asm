@@ -2854,10 +2854,10 @@ UserRecordsScreenJumpTable:                     ; jump table for the switch case
         dd UserRecordsScreen_AA5
 ;-----------------------------------------------------------------------------
 ; UserRecordsScreen                            B41EF  96 PC, medium confidence
-; The user records screen: allocates the column tables (uname, urate, upts,
-; ugf, uga, upp, upk, uso, ustreak, ulstreak, uteam, uopp, usort),
-; LoadUserRecords, sorts by the picked column (qsort), DrawUserRecords,
-; export
+;
+; The user records screen: allocates the column tables (uname, urate, upts, ugf, uga, upp, upk, uso,
+; ustreak, ulstreak, uteam, uopp, usort), LoadUserRecords, sorts by the picked column (qsort),
+; DrawUserRecords, export
 ;-----------------------------------------------------------------------------
 UserRecordsScreen:
         push ebx

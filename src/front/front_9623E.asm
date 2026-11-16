@@ -55,9 +55,8 @@ global ClearAndBuildLines, BuildAutoLines, SortLinesCandidates, ClearLineSlots, 
 global FindBestDefence, FillLineSlots, FillAllLines
 ;-----------------------------------------------------------------------------
 ; EditLinesScreen                              9623E  96 PC, medium confidence
-; The edit lines screen (bt09 / bh09, slid / slup / sldw scroll, power play
-; bkpp and penalty kill bkpk boxes, jerseys): who plays on each line; returns
-; 2 for a player card
+; The edit lines screen (bt09 / bh09, slid / slup / sldw scroll, power play bkpp and penalty kill bkpk
+; boxes, jerseys): who plays on each line; returns 2 for a player card
 ;-----------------------------------------------------------------------------
 EditLinesScreen:
         push ebx

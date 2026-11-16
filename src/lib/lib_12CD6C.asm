@@ -18,10 +18,10 @@ global ResetGameVars, ResetSpeechStreamState, FillSpeechSamples, FillSpeechBuffe
 global ChannelPosition, ChannelTimeLeftLocked
 ;-----------------------------------------------------------------------------
 ; ResetGameVars                               12CD6C  95 PC, medium confidence
-; Clears the per-game state (penalty / referee / line-change / penalty-shot
-; vars, pass state, crowd excitement, input counters, exitgame / gameover,
-; frameaccum), calls StartGame, centres the mouse when a pad uses it,
-; joyq_flush
+;
+; Clears the per-game state (penalty / referee / line-change / penalty-shot vars, pass state, crowd
+; excitement, input counters, exitgame / gameover, frameaccum), calls StartGame, centres the mouse when a
+; pad uses it, joyq_flush
 ;-----------------------------------------------------------------------------
 ResetGameVars:
         mov byte [SpeechPatchOn], 1

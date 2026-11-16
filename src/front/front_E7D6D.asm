@@ -1772,9 +1772,8 @@ randomd0:
         db 00h,00h
 ;-----------------------------------------------------------------------------
 ; vtoa                                                  E93D0  94G logic94.asm
-; : (x,y) vector -> direction 0-7 via vtoa_dt.
-; .dir/.0-.3 follow the x sign -> bit0, y sign -> bit1,
-; |x| vs |y| (and 2x) comparisons -> bits 2/3, then the table lookup.
+; : (x,y) vector -> direction 0-7 via vtoa_dt. .dir/.0-.3 follow the x sign -> bit0, y sign -> bit1, |x| vs
+; |y| (and 2x) comparisons -> bits 2/3, then the table lookup.
 ;-----------------------------------------------------------------------------
 vtoa:
         push ebp

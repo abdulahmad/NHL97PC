@@ -49,9 +49,8 @@ DrawShapeAtOwnPos:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; DrawArt                                         FCFCC  95 PC, low confidence
-; Graphics library: draw art at x, y (art, x, y) through DrawShapeCore, which
-; converts 8-bit art to the 16-bit screen; the module order matches the
-; NHL95PC DrawArt
+; Graphics library: draw art at x, y (art, x, y) through DrawShapeCore, which converts 8-bit art to the
+; 16-bit screen; the module order matches the NHL95PC DrawArt
 ;-----------------------------------------------------------------------------
 DrawArt:
         push ebx

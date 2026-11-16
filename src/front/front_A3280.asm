@@ -5669,9 +5669,8 @@ GameStatsScreenJumpTable:                       ; jump table for the switch case
         dd GameStatsScreen_39D
 ;-----------------------------------------------------------------------------
 ; GameStatsScreen                              A7D9C  96 PC, medium confidence
-; The game statistics screen (BKGD, BANNER, SBACK, page arrows AR00-AR11,
-; puck cursor BALL): pages of DrawGameStats, mouse and pad, the modem chat
-; box and sync on a modem game
+; The game statistics screen (BKGD, BANNER, SBACK, page arrows AR00-AR11, puck cursor BALL): pages of
+; DrawGameStats, mouse and pad, the modem chat box and sync on a modem game
 ;-----------------------------------------------------------------------------
 GameStatsScreen:
         push ebx
@@ -9979,11 +9978,10 @@ FreeGameText:
         ret
 ;-----------------------------------------------------------------------------
 ; PlayMenuGame                                 AB0E8  96 PC, medium confidence
-; Plays a game started from the menus: by game mode (optflags bits 4-6:
-; exhibition, season, playoffs, modem) picks the game options block, loads
-; the goal sprites (GloL/GloR or GhiL/GhiR), PlayGame, then saves the result
-; for the mode (season / playoff update, modem end) and runs PostGameScreens;
-; 12h on a modem game
+;
+; Plays a game started from the menus: by game mode (optflags bits 4-6: exhibition, season, playoffs, modem)
+; picks the game options block, loads the goal sprites (GloL/GloR or GhiL/GhiR), PlayGame, then saves the
+; result for the mode (season / playoff update, modem end) and runs PostGameScreens; 12h on a modem game
 ;-----------------------------------------------------------------------------
 PlayMenuGame:
         push ebx

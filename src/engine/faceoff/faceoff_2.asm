@@ -66,10 +66,10 @@ global FreeLinkChannel, ParsePacket, ReceivePackets, LinkGetDevice, LinkCountdow
 global ShutdownPacketLink, OpenPacketLink, PacketLinkSend, ClosePacketLink
 ;-----------------------------------------------------------------------------
 ; puckfaceoff                        2EEE8  94G logic94.asm, medium confidence
-; (asstab 1Bh, puck assignment at a stoppage, 'this is where the action
-; starts'): end of period (clockcont_0), penalties (Stop4Pen), computer line choice (CompLine, setpersonel),
-; ReturnGoalies, restorepl, then the faceoff set-up. Then the penalty shot
-; (PenShotStart) and ForceStartLineup.
+;
+; (asstab 1Bh, puck assignment at a stoppage, 'this is where the action starts'): end of period
+; (clockcont_0), penalties (Stop4Pen), computer line choice (CompLine, setpersonel), ReturnGoalies,
+; restorepl, then the faceoff set-up. Then the penalty shot (PenShotStart) and ForceStartLineup.
 ;-----------------------------------------------------------------------------
 puckfaceoff:
         push ebx
@@ -468,9 +468,8 @@ puckfaceoff:
         db 090h
 ;-----------------------------------------------------------------------------
 ; ChkPenaltyCall                                  2F4B8  97 PC, low confidence
-; From a body check (ResolveBodyCheck): whether the referee calls a penalty on the
-; hit (skill and energy chance), AddPenalty2, penalty camera (priority 4),
-; overlay, line update
+; From a body check (ResolveBodyCheck): whether the referee calls a penalty on the hit (skill and energy
+; chance), AddPenalty2, penalty camera (priority 4), overlay, line update
 ;-----------------------------------------------------------------------------
 ChkPenaltyCall:
         push ebx
@@ -4352,9 +4351,8 @@ ChkTwoInBox:
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
 ; AddPenalty                                     32260  94G, medium confidence
-; 94G AddPenalty: (player, penalty, ...) adds a penalty unless the clock is
-; stopped, a penalty shot is live or the rule is off in the options (offsides
-; 5, two-line pass 6 ...); falls through to AddPenalty2
+; 94G AddPenalty: (player, penalty, ...) adds a penalty unless the clock is stopped, a penalty shot is live
+; or the rule is off in the options (offsides 5, two-line pass 6 ...); falls through to AddPenalty2
 ;-----------------------------------------------------------------------------
 AddPenalty:
         push ecx
@@ -4841,9 +4839,8 @@ AddPenalty2_354:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; Stop4Pen                                       32888  94G, medium confidence
-; 94G Stop4Pen (from checkfornewpen and puckfaceoff): stops the clock
-; (gmode bit 0), sets the faceoff spot from the penalty type, clears
-; the overlays, whistle sound and PA event
+; 94G Stop4Pen (from checkfornewpen and puckfaceoff): stops the clock (gmode bit 0), sets the faceoff spot
+; from the penalty type, clears the overlays, whistle sound and PA event
 ;-----------------------------------------------------------------------------
 Stop4Pen:
         push ebx
@@ -5052,10 +5049,10 @@ Stop4Pen:
         db 090h
 ;-----------------------------------------------------------------------------
 ; updatepwrplay                                  32B68  94G, medium confidence
-; The 94G updatepwrplay state part (called from updatepentime here): players
-; on ice home minus away; sets / clears the power play flag (PlayFlags 20h,
-; 40h visitors) and counts a power play (+20CBh) and a shorthanded situation
-; (+20BDh) when it starts; no display
+;
+; The 94G updatepwrplay state part (called from updatepentime here): players on ice home minus away; sets /
+; clears the power play flag (PlayFlags 20h, 40h visitors) and counts a power play (+20CBh) and a
+; shorthanded situation (+20BDh) when it starts; no display
 ;-----------------------------------------------------------------------------
 updatepwrplay:
         push ebx
@@ -5184,9 +5181,8 @@ chkatop:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; releasepl                                                         32CEC  94G
-; 94G releasepl (player's penalty time is up, let him out): first sort object
-; off the ice, one more on the ice (+0Eh), line-change flags, position from
-; the priority list (LinePickOrderFrom1), Setplass, setplayer
+; 94G releasepl (player's penalty time is up, let him out): first sort object off the ice, one more on the
+; ice (+0Eh), line-change flags, position from the priority list (LinePickOrderFrom1), Setplass, setplayer
 ;-----------------------------------------------------------------------------
 releasepl:
         push ebx
@@ -5230,9 +5226,8 @@ releasepl:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; PenGoalStuff                                   32D88  94G, medium confidence
-; 94G PenGoalStuff (after a goal): when the scoring team had more players on
-; the ice, releases the first scored-on player in the box without a
-; coincidental penalty (releasepl)
+; 94G PenGoalStuff (after a goal): when the scoring team had more players on the ice, releases the first
+; scored-on player in the box without a coincidental penalty (releasepl)
 ;-----------------------------------------------------------------------------
 PenGoalStuff:
         push ebx
@@ -5437,9 +5432,8 @@ PenGoalStuff:
         db 090h
 ;-----------------------------------------------------------------------------
 ; updatepentime_ut_chk                32FF8  94G penalty94.asm, low confidence
-; The updatepentime_ut check for one box entry (team, player): when the time
-; is up, the PA event 1Bh and releasepl when the team is short (the NHL95PC
-; updatepentime_ut_chk part)
+; The updatepentime_ut check for one box entry (team, player): when the time is up, the PA event 1Bh and
+; releasepl when the team is short (the NHL95PC updatepentime_ut_chk part)
 ;-----------------------------------------------------------------------------
 updatepentime_ut_chk:
         push ebx
@@ -6940,10 +6934,10 @@ InProgress_96E:
         ret
 ;-----------------------------------------------------------------------------
 ; chkprogress                    342C4  93G penalty93_1.asm, medium confidence
-; 93G chkprogress (fall-through from PenaltyManager): with gmpen (gmode bit
-; 2): Pencntdwn >= 0 -> chkprogress_go, else InProgress; PC first (clock
-; stopped) calls UpdateTextOverlay and counts Pencntdwn2 down to set gmode2
-; bit 2
+;
+; 93G chkprogress (fall-through from PenaltyManager): with gmpen (gmode bit 2): Pencntdwn >= 0 ->
+; chkprogress_go, else InProgress; PC first (clock stopped) calls UpdateTextOverlay and counts Pencntdwn2
+; down to set gmode2 bit 2
 ;-----------------------------------------------------------------------------
 chkprogress:
         call updatepentime
@@ -9979,9 +9973,8 @@ StartFight:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; checkfight                                     365FC  93G, medium confidence
-; NHLPA 93 checkfight: (player a3, player a2) after a hit, with fighting on
-; in the options: counts the hits and may start a fight (StartFight); the
-; others get assfwatch (1Dh)
+; NHLPA 93 checkfight: (player a3, player a2) after a hit, with fighting on in the options: counts the hits
+; and may start a fight (StartFight); the others get assfwatch (1Dh)
 ;-----------------------------------------------------------------------------
 checkfight:
         push ebx

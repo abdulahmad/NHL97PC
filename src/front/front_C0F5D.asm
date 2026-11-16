@@ -3062,9 +3062,8 @@ ShowHistoryDetails:
         jmp near DrawHistoryScreen_73E
 ;-----------------------------------------------------------------------------
 ; RunOptionsScreens                               C3594  97 PC, low confidence
-; From RunFrontEnd (0Ah): runs the options screen and its control set-up
-; screens (screen numbers 22h-24h) until it returns 1Ah; in a network session
-; only one side may change them
+; From RunFrontEnd (0Ah): runs the options screen and its control set-up screens (screen numbers 22h-24h)
+; until it returns 1Ah; in a network session only one side may change them
 ;-----------------------------------------------------------------------------
 RunOptionsScreens:
         push edx

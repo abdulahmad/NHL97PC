@@ -59,9 +59,8 @@ global a2offsides, a2touchpuck, PuckIChk, PuckEntersZone, ChkOffsides, MarkTwoLi
 global puckfaceoff2, CPgoalie, ChkGoalies
 ;-----------------------------------------------------------------------------
 ; PlayerPastLine                                  25894  97 PC, low confidence
-; (player, line y 0 / +-56Bh): whether both of the player's tracked points
-; are past the line in his attacking direction (red line +-18h, blue line
-; +-30h)
+; (player, line y 0 / +-56Bh): whether both of the player's tracked points are past the line in his
+; attacking direction (red line +-18h, blue line +-30h)
 ;-----------------------------------------------------------------------------
 PlayerPastLine:
         push ebx
@@ -148,9 +147,8 @@ PlayerPastLine_D1:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; checkob                                        2596C  94G, medium confidence
-; 94G checkob (warning ref when a player on your team is over the blue line):
-; offsides option, a teammate past the blue line as the carrier comes up sets
-; PlayFlags 80h and shows overlay 5
+; 94G checkob (warning ref when a player on your team is over the blue line): offsides option, a teammate
+; past the blue line as the carrier comes up sets PlayFlags 80h and shows overlay 5
 ;-----------------------------------------------------------------------------
 checkob:
         push ebx
@@ -392,9 +390,8 @@ GetLowestPen:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; chk4lc                                            25BD0  94G, low confidence
-; 94G chk4lc (see if the computer should call a line change): line option
-; 40h, puck in its own half, 1 in 4, enough clock and power play time, tired
-; line (AvgLineEnergy > 800h) -> CompLine, setpersonel
+; 94G chk4lc (see if the computer should call a line change): line option 40h, puck in its own half, 1 in 4,
+; enough clock and power play time, tired line (AvgLineEnergy > 800h) -> CompLine, setpersonel
 ;-----------------------------------------------------------------------------
 chk4lc:
         push ebx
@@ -701,9 +698,8 @@ SkateToEndBoards:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; asspuckc                                          25F64  94G, low confidence
-; Assignment 9, the computer puck carrier: steps out when its team does not
-; have the puck (PtrPuckZone), runs its checks on a reaction timer (+56h), and
-; goes to 1Bh when skating in close on the goal
+; Assignment 9, the computer puck carrier: steps out when its team does not have the puck (PtrPuckZone),
+; runs its checks on a reaction timer (+56h), and goes to 1Bh when skating in close on the goal
 ;-----------------------------------------------------------------------------
 asspuckc:
         push ebx
@@ -936,9 +932,8 @@ asspuckc:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; ChkDefenseSwitch                                2625C  97 PC, low confidence
-; From assnearest: decides when a defenceman switches sides with his partner
-; (SwapPosition helpers ChkSwapWithPartner / GetDefensePartner) by puck carrier, zone (0B10h,
-; 0FC0h) and side
+; From assnearest: decides when a defenceman switches sides with his partner (SwapPosition helpers
+; ChkSwapWithPartner / GetDefensePartner) by puck carrier, zone (0B10h, 0FC0h) and side
 ;-----------------------------------------------------------------------------
 ChkDefenseSwitch:
         push ecx
@@ -2209,9 +2204,8 @@ StartScoreCelebration:
         db 090h
 ;-----------------------------------------------------------------------------
 ; assscore                                          27274  94G, low confidence
-; Assignment 18h (set by Goal): goal celebration: stops the puck (41h to
-; 40h), a random celebration time, the scorer (PassPending) gets one of 5
-; celebrations (StartScoreCelebration)
+; Assignment 18h (set by Goal): goal celebration: stops the puck (41h to 40h), a random celebration time,
+; the scorer (PassPending) gets one of 5 celebrations (StartScoreCelebration)
 ;-----------------------------------------------------------------------------
 assscore:
         push ebx
@@ -2427,9 +2421,8 @@ assscore:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; ChkPullGoalieLate                            27500  95 PC, medium confidence
-; Player logic caller: 0 unless 3rd period (gsp 2) with at most 60 s left and
-; the team is not human-controlled; then a team-struct check (likely the
-; score: pull the goalie late, not fully traced)
+; Player logic caller: 0 unless 3rd period (gsp 2) with at most 60 s left and the team is not
+; human-controlled; then a team-struct check (likely the score: pull the goalie late, not fully traced)
 ;-----------------------------------------------------------------------------
 ChkPullGoalieLate:
         push ebx
@@ -2912,9 +2905,10 @@ ReleaseBoxToBench:
         ret
 ;-----------------------------------------------------------------------------
 ; assleavebox                                  27AD8  95 PC, medium confidence
-; Assignment 15h (inserted by ReleaseBoxPlayers): check4bench, skates from the
-; penalty box spot by the side boards (as asspsclear) and brings the released
-; player back on (assreplace 15h, setplayer), as 96 PC assleavebox
+;
+; Assignment 15h (inserted by ReleaseBoxPlayers): check4bench, skates from the penalty box spot by the side
+; boards (as asspsclear) and brings the released player back on (assreplace 15h, setplayer), as 96 PC
+; assleavebox
 ;-----------------------------------------------------------------------------
 assleavebox:
         push ebx
@@ -3076,9 +3070,8 @@ assleavebox:
         ret
 ;-----------------------------------------------------------------------------
 ; asspsclear                                   27D10  95 PC, medium confidence
-; Assignment 19h (from setpersonel): skaters clear to a spot by the side
-; boards (x -1898, y +-2B8h plus a random multiple of 90h) and stop facing
-; the play; 96 PC asspsclear's spot scaled to 97 units
+; Assignment 19h (from setpersonel): skaters clear to a spot by the side boards (x -1898, y +-2B8h plus a
+; random multiple of 90h) and stop facing the play; 96 PC asspsclear's spot scaled to 97 units
 ;-----------------------------------------------------------------------------
 asspsclear:
         push ebx
@@ -4542,9 +4535,8 @@ assrefpenshot:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; assrefsignal                                    29064  95 PC, low confidence
-; Referee assignment 37h: plays move 0A3Dh, skates to the signalling spot,
-; queues the overlay panel, then moves on to assignment 34h and calls the
-; goal PA (PaEvent 0C0000001h) with the scorer's jersey
+; Referee assignment 37h: plays move 0A3Dh, skates to the signalling spot, queues the overlay panel, then
+; moves on to assignment 34h and calls the goal PA (PaEvent 0C0000001h) with the scorer's jersey
 ;-----------------------------------------------------------------------------
 assrefsignal:
         push ebx
@@ -4789,10 +4781,10 @@ assrefsignal:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; assrefwhistle                                293A8  95 PC, medium confidence
-; Referee assignment 35h: on a stoppage (clock 0, or a tie broken in the last
-; period) sets RefStep (RefTarget) -1, the puck to assignment 42h
-; (puckfaceoff) and the referee to 33h (assrefatdot); otherwise skates the
-; referee along
+;
+; Referee assignment 35h: on a stoppage (clock 0, or a tie broken in the last period) sets RefStep
+; (RefTarget) -1, the puck to assignment 42h (puckfaceoff) and the referee to 33h (assrefatdot); otherwise
+; skates the referee along
 ;-----------------------------------------------------------------------------
 assrefwhistle:
         push ebx
@@ -4941,9 +4933,8 @@ assrefwhistle:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; assrefgoalpa                                 295CC  95 PC, medium confidence
-; Referee assignment 34h: set by assrefsignal, assrefpenshot and
-; EndPenaltyShot as in 96 PC; after the goal call sends the referee on (32h /
-; 33h / 35h) and the puck to 42h (puckfaceoff)
+; Referee assignment 34h: set by assrefsignal, assrefpenshot and EndPenaltyShot as in 96 PC; after the goal
+; call sends the referee on (32h / 33h / 35h) and the puck to 42h (puckfaceoff)
 ;-----------------------------------------------------------------------------
 assrefgoalpa:
         push ebx
@@ -5622,9 +5613,8 @@ assrefatdot:
         db 090h
 ;-----------------------------------------------------------------------------
 ; assintrostand                                29F30  95 PC, medium confidence
-; Asstab 25h (PreGameIntro): stands with a countdown in temp5, small random x
-; jitter and random fidget animation (introstandanims_m2); when done
-; assinsert 27h
+; Asstab 25h (PreGameIntro): stands with a countdown in temp5, small random x jitter and random fidget
+; animation (introstandanims_m2); when done assinsert 27h
 ;-----------------------------------------------------------------------------
 assintrostand:
         push ebx
@@ -5688,9 +5678,8 @@ assintrostand:
         db 090h
 ;-----------------------------------------------------------------------------
 ; assintroline                                    2A000  95 PC, low confidence
-; Asstab 26h (PreGameIntro): skates to the line-up spot (temp3 -0Fh,temp4),
-; turns to face centre, marks temp5 -64h; when all 12 skaters are done sets
-; seqtimer 0Ah; crowdlevel 320h
+; Asstab 26h (PreGameIntro): skates to the line-up spot (temp3 -0Fh,temp4), turns to face centre, marks
+; temp5 -64h; when all 12 skaters are done sets seqtimer 0Ah; crowdlevel 320h
 ;-----------------------------------------------------------------------------
 assintroline:
         push ebx
@@ -5817,9 +5806,8 @@ assintroline:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; asstakeposition                                 2A1C8  95 PC, low confidence
-; Asstab 27h (assintrostand, assbench, PenShotStart/Assign): goalie -> 0Dh;
-; else skates to the position slot from apl by position and team tmap, exits
-; when done
+; Asstab 27h (assintrostand, assbench, PenShotStart/Assign): goalie -> 0Dh; else skates to the position slot
+; from apl by position and team tmap, exits when done
 ;-----------------------------------------------------------------------------
 asstakeposition:
         push ebx
@@ -6002,9 +5990,8 @@ TakeBenchPlayer:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; assstanley                            2A3F4  94G logic94.asm, low confidence
-; Asstab slot 8; field alignment 70% of 10 known-field accesses; content rank
-; 1/34 vs other slot routines; 2 known Genesis callees present, 0 missing, 0
-; extra
+; Asstab slot 8; field alignment 70% of 10 known-field accesses; content rank 1/34 vs other slot routines; 2
+; known Genesis callees present, 0 missing, 0 extra
 ;-----------------------------------------------------------------------------
 assstanley:
         push ebx
@@ -8197,9 +8184,8 @@ a2offsides:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; a2touchpuck                                    2C064  94G, medium confidence
-; 94G a2touchpuck: (player) the player touches the puck: records the last
-; touch (player PuckOwnerTeam, position), then checks offsides and the other
-; rules
+; 94G a2touchpuck: (player) the player touches the puck: records the last touch (player PuckOwnerTeam,
+; position), then checks offsides and the other rules
 ;-----------------------------------------------------------------------------
 a2touchpuck:
         push ebx
@@ -8601,9 +8587,8 @@ PuckEntersZone:
         db 090h
 ;-----------------------------------------------------------------------------
 ; ChkOffsides                                                       2C5C8  94G
-; 94G ChkOffsides (from pucknorm): drops a team's offsides flag (tmflags bit
-; 4) when no one is past the line, flags the team when the puck crosses the
-; blue line with a skater ahead (overlay 5)
+; 94G ChkOffsides (from pucknorm): drops a team's offsides flag (tmflags bit 4) when no one is past the
+; line, flags the team when the puck crosses the blue line with a skater ahead (overlay 5)
 ;-----------------------------------------------------------------------------
 ChkOffsides:
         push ebx
@@ -8971,22 +8956,25 @@ MarkTwoLinePlayers:
         ret
 ;-----------------------------------------------------------------------------
 ; pucknorm_body                      2CA40  94G logic94.asm, medium confidence
-; pucknorm_body (4D6B4; 93G logic93 / 94G pucknorm after the new-assignment
-; part, PC version; ends in ass_popx): the puck's normal assignment. Count
-; down the two line-crossing timers (puckcross) and every 5 ticks recompute
-; them (temp1, findpc). A carried puck is pulled a quarter of the way toward
-; its carrier's hot spot (a2touchpuck, GetHot into regd0 / regd1) and takes
-; his velocity. Then the ice / offside / two-line checks (PuckIChk,
-; ChkOffsides, MarkTwoLinePlayers). While the clock runs: a carried puck
-; resets temp2 (78h) and the penalty-shot send count (psendcount); a loose
-; one on a live penalty shot moving back toward the shooter's own end (puckvy
-; by penshotteam and the gmode bit 1 rink flip) for 1Eh ticks ends the shot
-; (EndPenaltyShot). A puck that has stopped (same position as last tick),
-; outside the middle (x A3h, y 10Eh) or with hmtmnear / awtmnear at 14h or
-; less, counts temp2 down and at 0 calls a delay of game (AddPenalty2 3); a
-; moving one resets temp2. A puck almost still on the ice (z speed below
-; 100h, z 0) is put flat (puckunflip); then the collisions (checkpuckcoll).
-; p: the puck. No result.
+;
+; pucknorm_body (4D6B4; 93G logic93 / 94G pucknorm after the new-assignment part, PC version; ends in
+; ass_popx): the puck's normal assignment. Count down the two line-crossing timers (puckcross) and every 5
+; ticks recompute them (temp1, findpc).
+;
+; A carried puck is pulled a quarter of the way toward its carrier's hot spot (a2touchpuck, GetHot into
+; regd0 / regd1) and takes his velocity. Then the ice / offside / two-line checks (PuckIChk, ChkOffsides,
+; MarkTwoLinePlayers).
+;
+; While the clock runs: a carried puck resets temp2 (78h) and the penalty-shot send count (psendcount); a
+; loose one on a live penalty shot moving back toward the shooter's own end (puckvy by penshotteam and the
+; gmode bit 1 rink flip) for 1Eh ticks ends the shot (EndPenaltyShot).
+;
+; A puck that has stopped (same position as last tick), outside the middle (x A3h, y 10Eh) or with hmtmnear
+; / awtmnear at 14h or less, counts temp2 down and at 0 calls a delay of game (AddPenalty2 3); a moving one
+; resets temp2.
+;
+; A puck almost still on the ice (z speed below 100h, z 0) is put flat (puckunflip); then the collisions
+; (checkpuckcoll). p: the puck. No result.
 ;-----------------------------------------------------------------------------
 pucknorm_body:
         push ebx
@@ -9683,9 +9671,8 @@ pucknorm:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; puckfaceoff2                          2D330  94G logic94.asm, low confidence
-; Asstab slot 28; field alignment 69% of 29 known-field accesses; content
-; rank 1/34 vs other slot routines; 3 known Genesis callees present, 0
-; missing, 0 extra
+; Asstab slot 28; field alignment 69% of 29 known-field accesses; content rank 1/34 vs other slot routines;
+; 3 known Genesis callees present, 0 missing, 0 extra
 ;-----------------------------------------------------------------------------
 puckfaceoff2:
         push ebx
@@ -10379,9 +10366,9 @@ CPgoalie:
         db 090h
 ;-----------------------------------------------------------------------------
 ; ChkGoalies                                                        2DD54  94G
-; 94G ChkGoalies (computer pulls goalie on delayed penalty): from
-; periodicevents; per team, no goalie pull when the team has the puck; on a
-; delayed penalty sets no goalie (setpersonel) and calls the PA event, else
+;
+; 94G ChkGoalies (computer pulls goalie on delayed penalty): from periodicevents; per team, no goalie pull
+; when the team has the puck; on a delayed penalty sets no goalie (setpersonel) and calls the PA event, else
 ; CPgoalie for a computer team
 ;-----------------------------------------------------------------------------
 ChkGoalies:

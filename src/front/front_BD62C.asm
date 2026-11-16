@@ -924,9 +924,8 @@ ReplayCameraJumpTable:                          ; jump table for the switch case
         dd ReplayScreen_929
 ;-----------------------------------------------------------------------------
 ; ReplayScreen                                    BE2A6  96 PC, low confidence
-; The instant replay screen (TRANSIT; puk, rew, bak ... buttons): play,
-; rewind, frame steps, cameras, save as highlight; kept in step in a link
-; game
+; The instant replay screen (TRANSIT; puk, rew, bak ... buttons): play, rewind, frame steps, cameras, save
+; as highlight; kept in step in a link game
 ;-----------------------------------------------------------------------------
 ReplayScreen:
         push ebx

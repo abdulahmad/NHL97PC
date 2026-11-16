@@ -43,9 +43,8 @@ CodeStartPad:                                   ; used by start
         db 090h,090h,090h,090h,090h,090h,090h,090h,090h,090h,090h,090h,090h
 ;-----------------------------------------------------------------------------
 ; GripLinkLibrary                              10010  96 PC, medium confidence
-; (image, size): checks the GrIP GLL image ("DB" header, sizes, xor
-; checksum), copies it to DOS memory (DPMI 100h) and calls its init (8490h);
-; 0 on failure
+; (image, size): checks the GrIP GLL image ("DB" header, sizes, xor checksum), copies it to DOS memory (DPMI
+; 100h) and calls its init (8490h); 0 on failure
 ;-----------------------------------------------------------------------------
 GripLinkLibrary:
         push ebx
@@ -416,9 +415,8 @@ CallGripDriver:
         db 090h
 ;-----------------------------------------------------------------------------
 ; LoadGripLibrary                              10354  96 PC, medium confidence
-; Finds GRIP.GLL on the GRIP and PATH environment variables or in C:\GRIP\,
-; reads it (at most 32 KB) and links it with GripLinkLibrary; the result is kept
-; in GripFlags
+; Finds GRIP.GLL on the GRIP and PATH environment variables or in C:\GRIP\, reads it (at most 32 KB) and
+; links it with GripLinkLibrary; the result is kept in GripFlags
 ;-----------------------------------------------------------------------------
 LoadGripLibrary:
         push ebx
@@ -3689,9 +3687,8 @@ RefreshRinkPalette:
         db 090h
 ;-----------------------------------------------------------------------------
 ; ClockTick                                    12A70  95 PC, medium confidence
-; run from the main loop. Counts clockticks (18h per second) and gameclock down; horn sfx 97h at
-; 60 s (unless music plays), UpdateCoachModes each second.
-; Debug playback (penshotlive) ends via EndPenaltyShot.
+; run from the main loop. Counts clockticks (18h per second) and gameclock down; horn sfx 97h at 60 s
+; (unless music plays), UpdateCoachModes each second. Debug playback (penshotlive) ends via EndPenaltyShot.
 ;-----------------------------------------------------------------------------
 ClockTick:
         push ebx

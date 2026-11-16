@@ -1477,10 +1477,10 @@ MainMenuScreen_DF1:
         jmp near MainMenuAnim_50B
 ;-----------------------------------------------------------------------------
 ; RunGameScreens                                  85A15  97 PC, low confidence
-; (screen): from RunFrontEnd, runs the game set-up screens by number (team
-; select 4, pick saves 5/7/9, new season 6, new play-offs 8, season 0Ch,
-; play-offs 0Dh, edit lines 0Fh/10h, play 15h, post-game 16h/17h, roster 19h)
-; until one returns to the main menu
+;
+; (screen): from RunFrontEnd, runs the game set-up screens by number (team select 4, pick saves 5/7/9, new
+; season 6, new play-offs 8, season 0Ch, play-offs 0Dh, edit lines 0Fh/10h, play 15h, post-game 16h/17h,
+; roster 19h) until one returns to the main menu
 ;-----------------------------------------------------------------------------
 RunGameScreens:
         push ebx

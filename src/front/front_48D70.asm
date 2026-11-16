@@ -121,10 +121,10 @@ global UpdateScoreboardPos, UpdateScoreboardSpin, LoadNetArt, BuildRinkSides, Op
 global MakeArtPathJumpTable, MakeDataPathKindJumpTable, GameGfxInitVector, ScoreboardZeroVector, str_Light
 ;-----------------------------------------------------------------------------
 ; PaEvent                                         48D70  96 PC, low confidence
-; The arena PA announcer: B events (0B000001h-0B000006h) from the front end
-; and pre-game screens, C events (0C000001h-0C000004h) in game; ClockTick
-; posts 0C0000004h at one minute left in a period. The play-by-play is
-; CommentaryEvent
+;
+; The arena PA announcer: B events (0B000001h-0B000006h) from the front end and pre-game screens, C events
+; (0C000001h-0C000004h) in game; ClockTick posts 0C0000004h at one minute left in a period. The play-by-play
+; is CommentaryEvent
 ;-----------------------------------------------------------------------------
 PaEvent:
         push dword 5Ch
@@ -2655,9 +2655,8 @@ MakeDataPathKindJumpTable:                      ; jump table for the switch case
         dd MakeDataPath_11F
 ;-----------------------------------------------------------------------------
 ; MakeDataPath                                 4AB90  96 PC, medium confidence
-; (out, file id): the path of a game data file: the language prefix (optflags
-; & 3) where the file has one, its directory (DirPathTable) and name
-; (the name table at str_X_SetArtArchive, 15h-byte entries)
+; (out, file id): the path of a game data file: the language prefix (optflags & 3) where the file has one,
+; its directory (DirPathTable) and name (the name table at str_X_SetArtArchive, 15h-byte entries)
 ;-----------------------------------------------------------------------------
 MakeDataPath:
         push ebx

@@ -4982,9 +4982,8 @@ PlayerRatingsScreenJumpTable:                   ; jump table for the switch case
         dd PlayerRatingsScreen_D2E
 ;-----------------------------------------------------------------------------
 ; PlayerRatingsScreen                             B8FDF  96 PC, low confidence
-; The player ratings screen (X-tbl, RAT0, HD01 / HD02, ban2, BALL list): a
-; player's picture and rating bars, from the stats menu and the roster
-; screens
+; The player ratings screen (X-tbl, RAT0, HD01 / HD02, ban2, BALL list): a player's picture and rating bars,
+; from the stats menu and the roster screens
 ;-----------------------------------------------------------------------------
 PlayerRatingsScreen:
         push ecx

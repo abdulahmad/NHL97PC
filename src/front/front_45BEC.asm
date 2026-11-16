@@ -38,10 +38,10 @@ global InitSpeechStream, ShutdownSound, OpenPlayByPlay, OpenArenaSpeech, Service
 global CountRecordGame, RecordPctClip, RecordStreakClips
 ;-----------------------------------------------------------------------------
 ; CommentaryEvent                                 45BEC  97 PC, low confidence
-; The play-by-play commentary: (event 0A0000001h-0A000002Fh, args...) with
-; speech on, not in a replay (ReplayPlaying); jump table CommentaryEventJumpTable by event,
-; each case queues commentary clips. The arena PA announcer is PaEvent (B/C
-; events)
+;
+; The play-by-play commentary: (event 0A0000001h-0A000002Fh, args...) with speech on, not in a replay
+; (ReplayPlaying); jump table CommentaryEventJumpTable by event, each case queues commentary clips. The
+; arena PA announcer is PaEvent (B/C events)
 ;-----------------------------------------------------------------------------
 CommentaryEvent:
         push dword 66Ch

@@ -1314,9 +1314,8 @@ str_Locateshape44sSHAPENOTFOUND:                ; string "locateshape - '%-4.4s'
         db 020h,046h,04Fh,055h,04Eh,044h,0Dh,0Ah,00h
 ;-----------------------------------------------------------------------------
 ; FindShape                                                      101429  95 PC
-; Graphics library: find the named art in a bank (bank, name), returns its
-; pointer; error text "locateshape - '%-4.4s' SHAPE NOT FOUND" (str_Locateshape44sSHAPENOTFOUND);
-; 1500+ calls
+; Graphics library: find the named art in a bank (bank, name), returns its pointer; error text "locateshape
+; - '%-4.4s' SHAPE NOT FOUND" (str_Locateshape44sSHAPENOTFOUND); 1500+ calls
 ;-----------------------------------------------------------------------------
 FindShape:
         mov edx, str_Locateshape44sSHAPENOTFOUND

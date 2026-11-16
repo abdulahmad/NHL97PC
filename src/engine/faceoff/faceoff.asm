@@ -677,9 +677,8 @@ PlaceOpeningPlayers:
         ret
 ;-----------------------------------------------------------------------------
 ; OpeningSequence                                 13920  97 PC, low confidence
-; The game's opening: in a simulated game posts event 29h and returns, else
-; places the players (PlaceOpeningPlayers) and runs the intro frames
-; (RunOpeningFrames)
+; The game's opening: in a simulated game posts event 29h and returns, else places the players
+; (PlaceOpeningPlayers) and runs the intro frames (RunOpeningFrames)
 ;-----------------------------------------------------------------------------
 OpeningSequence:
         push ebx
@@ -2923,12 +2922,12 @@ SetGameBrightness:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; PlayGame                                                        152C4  95 PC
-; (&savefile): without an open saved game runs the pre-game screens
-; (LoadRockMusic, LoadGameGfx, SetupGame; gameresult 2 on cancel), otherwise
-; LoadGameState from the file, rebuilds lines (SetupTeamLines) and resumes;
-; then GameLoop; in league / Play-Off mode a completed game (gameresult 1)
-; deletes <league>\game.sav; called from temp_files, import_export and
-; PlayoffModeLoop
+;
+; (&savefile): without an open saved game runs the pre-game screens (LoadRockMusic, LoadGameGfx, SetupGame;
+; gameresult 2 on cancel), otherwise LoadGameState from the file, rebuilds lines (SetupTeamLines) and
+; resumes; then GameLoop; in league / Play-Off mode a completed game (gameresult 1) deletes
+;
+; <league>\game.sav; called from temp_files, import_export and PlayoffModeLoop
 ;-----------------------------------------------------------------------------
 PlayGame:
         push dword 28h
@@ -3124,9 +3123,8 @@ PlayGame:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; RunDemoGame                                  15578  96 PC, medium confidence
-; Attract-mode demo game: seeds rand from the time, InitSlotTable, loads the
-; game, starts InputRecordTimer, SetupDemoGame, GameLoop, then stops the
-; timer and restores the screen; same job as 95 PC RunDemoGame
+; Attract-mode demo game: seeds rand from the time, InitSlotTable, loads the game, starts InputRecordTimer,
+; SetupDemoGame, GameLoop, then stops the timer and restores the screen; same job as 95 PC RunDemoGame
 ;-----------------------------------------------------------------------------
 RunDemoGame:
         push dword 28h

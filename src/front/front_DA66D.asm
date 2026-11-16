@@ -5472,9 +5472,8 @@ FindNextSeasonGame:
         jmp short .17
 ;-----------------------------------------------------------------------------
 ; OpenLeagueFile                                  DE3CF  97 PC, low confidence
-; (league id, ...): opens a season / playoff file ("%s%s.SEA", "%s%s.PLY" or
-; "%s%08x.%03x") and reads its header; from the season, playoff and stats
-; screens
+; (league id, ...): opens a season / playoff file ("%s%s.SEA", "%s%s.PLY" or "%s%08x.%03x") and reads its
+; header; from the season, playoff and stats screens
 ;-----------------------------------------------------------------------------
 OpenLeagueFile:
         push ebx

@@ -103,9 +103,8 @@ global ResetSpeechQueue, ServiceSpeechQueue, FindSpeechClip, LoadSpeechBlock, Is
 global OpenSpeechBanks, ResolveSpeechClips, LoadTeamSpeech
 ;-----------------------------------------------------------------------------
 ; SeasonGameScreen                                3812E  97 PC, low confidence
-; From RunSeasonMenus / RunPlayoffMenus: the next-game screen (HOME / AWAY
-; teams; play, simulate or continue, with the "team not present", "unplayed
-; games" and "no games left" messages)
+; From RunSeasonMenus / RunPlayoffMenus: the next-game screen (HOME / AWAY teams; play, simulate or
+; continue, with the "team not present", "unplayed games" and "no games left" messages)
 ;-----------------------------------------------------------------------------
 SeasonGameScreen:
         push ebx
@@ -4025,9 +4024,8 @@ RefDodgePuck:
         db 00h,00h
 ;-----------------------------------------------------------------------------
 ; checkgoal                                         3AF30  94G, low confidence
-; From the MoveFuncTable handler table: the puck against a net; the two net
-; checks (NetCollide / NetCollide2) call Goal, as 93G/94G checkgoal does for the
-; puck
+; From the MoveFuncTable handler table: the puck against a net; the two net checks (NetCollide /
+; NetCollide2) call Goal, as 93G/94G checkgoal does for the puck
 ;-----------------------------------------------------------------------------
 checkgoal:
         push ebx
@@ -6967,9 +6965,8 @@ PresentGameView:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; AddOverlayWindow                                3CD70  97 PC, low confidence
-; (id, ...): adds an entry to the 32-byte overlay window list (ScreenRegion,
-; count OverlayWindowsOpen) and draws it; from every overlay panel and the pause
-; menu
+; (id, ...): adds an entry to the 32-byte overlay window list (ScreenRegion, count OverlayWindowsOpen) and
+; draws it; from every overlay panel and the pause menu
 ;-----------------------------------------------------------------------------
 AddOverlayWindow:
         push esi
@@ -15067,9 +15064,8 @@ StopAllSfx:
         db 090h
 ;-----------------------------------------------------------------------------
 ; PlaySfx                                      41FDC  96 PC, medium confidence
-; (id 1-48h): plays a digital sound effect from the loaded banks on a free
-; voice at the globalset volume; called from checkcheck, FallDown, CompPass,
-; the faceoff and the menus
+; (id 1-48h): plays a digital sound effect from the loaded banks on a free voice at the globalset volume;
+; called from checkcheck, FallDown, CompPass, the faceoff and the menus
 ;-----------------------------------------------------------------------------
 PlaySfx:
         push ebx

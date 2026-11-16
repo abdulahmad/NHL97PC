@@ -7858,9 +7858,8 @@ CameraNoop:
         LD mov, eax, eax
 ;-----------------------------------------------------------------------------
 ; CanStartCameraScene                             1B890  97 PC, low confidence
-; (priority 1-7): whether a scripted camera scene of this priority may start
-; now (none running, or a higher priority than the running one; 0 ends the
-; scene)
+; (priority 1-7): whether a scripted camera scene of this priority may start now (none running, or a higher
+; priority than the running one; 0 ends the scene)
 ;-----------------------------------------------------------------------------
 CanStartCameraScene:
         push ebx
@@ -11157,9 +11156,8 @@ ReplayCamClearFlag:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; CrowdForPuckZone                                1DEE4  97 PC, low confidence
-; Sets the crowd mood from where the player touching the puck is: own zone,
-; neutral zone, deep, or near the net on a fast puck; nothing while the puck
-; is in its faceoff state
+; Sets the crowd mood from where the player touching the puck is: own zone, neutral zone, deep, or near the
+; net on a fast puck; nothing while the puck is in its faceoff state
 ;-----------------------------------------------------------------------------
 CrowdForPuckZone:
         push ebx
@@ -11714,9 +11712,8 @@ SetZoneFlags:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; CanReachPuck                                    1E4E4  97 PC, low confidence
-; Whether a player can play the loose or carried puck: not his own team's
-; carrier, play running, puck speed in range and moving his way; returns
-; nonzero if so
+; Whether a player can play the loose or carried puck: not his own team's carrier, play running, puck speed
+; in range and moving his way; returns nonzero if so
 ;-----------------------------------------------------------------------------
 CanReachPuck:
         push ebx
@@ -12414,9 +12411,8 @@ ChkPokeOrCheck:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; check4bench                                    1EC5C  94G, medium confidence
-; 94G check4bench: whether player a3 should go to the bench; if so assreplace
-; with assbench (17h); 0 when he stays (joystick-controlled, penalty shot,
-; ...)
+; 94G check4bench: whether player a3 should go to the bench; if so assreplace with assbench (17h); 0 when he
+; stays (joystick-controlled, penalty shot, ...)
 ;-----------------------------------------------------------------------------
 check4bench:
         push ebx
@@ -13374,9 +13370,8 @@ asscoverdefd:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; asscoverdefo                                    1F7D0  96 PC, low confidence
-; Assignment 0Fh (given from the Setplass jump table): a forward covering a
-; defence spot; uses SwapPosition and moves on to 10h (asscoverdefd), as 96
-; PC asscoverdefo / asscoverdefd
+; Assignment 0Fh (given from the Setplass jump table): a forward covering a defence spot; uses SwapPosition
+; and moves on to 10h (asscoverdefd), as 96 PC asscoverdefo / asscoverdefd
 ;-----------------------------------------------------------------------------
 asscoverdefo:
         push ebx
@@ -13637,9 +13632,8 @@ asscoverdefo:
         ret
 ;-----------------------------------------------------------------------------
 ; Setplass                                       1FB6C  94G, medium confidence
-; 94G Setplass: sets the player's starting assignment by position from the
-; list PlayerAssignOrder (goalie 2, defence 3, wings 4, centre 5), after
-; SwapPosition
+; 94G Setplass: sets the player's starting assignment by position from the list PlayerAssignOrder (goalie 2,
+; defence 3, wings 4, centre 5), after SwapPosition
 ;-----------------------------------------------------------------------------
 Setplass:
         push ebx
@@ -14949,10 +14943,10 @@ ChkTeamPlayerFlag:
         ret
 ;-----------------------------------------------------------------------------
 ; Goal                                         20CB0  95 PC, medium confidence
-; The puck is in a goal: offside goals become AddPenalty / AddPenalty2, the
-; goal and its bookkeeping, the goal commentary (CommentaryEvent), the
-; scorer's team to assscore (18h), the puck to 40h and the referee to 31h;
-; also from DebugKeys
+;
+; The puck is in a goal: offside goals become AddPenalty / AddPenalty2, the goal and its bookkeeping, the
+; goal commentary (CommentaryEvent), the scorer's team to assscore (18h), the puck to 40h and the referee to
+; 31h; also from DebugKeys
 ;-----------------------------------------------------------------------------
 Goal:
         push ebx

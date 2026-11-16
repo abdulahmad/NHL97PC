@@ -2668,9 +2668,8 @@ ModemWaitConnect:
         db 090h
 ;-----------------------------------------------------------------------------
 ; ModemReadResult                              7C834  96 PC, medium confidence
-; (port, timeout): reads a line from the modem (at most 41 characters) and
-; matches it against ModemResultTextTable; returns its code, -1
-; for none
+; (port, timeout): reads a line from the modem (at most 41 characters) and matches it against
+; ModemResultTextTable; returns its code, -1 for none
 ;-----------------------------------------------------------------------------
 ModemReadResult:
         push ebx
@@ -3255,9 +3254,8 @@ FreeFrontEnd:
         ret
 ;-----------------------------------------------------------------------------
 ; RunFrontEnd                                  7CE9E  96 PC, medium confidence
-; The front end: runs the screen with the current number (each screen returns
-; the next: main menu, exhibition, season, playoffs, options, modem, ...)
-; until quit; main_ calls it
+; The front end: runs the screen with the current number (each screen returns the next: main menu,
+; exhibition, season, playoffs, options, modem, ...) until quit; main_ calls it
 ;-----------------------------------------------------------------------------
 RunFrontEnd:
         push ebx

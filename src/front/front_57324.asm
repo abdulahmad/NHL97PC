@@ -45686,9 +45686,8 @@ FreeCameraDebug:
         ret
 ;-----------------------------------------------------------------------------
 ; updateplayers                                  77A88  94G, medium confidence
-; The per-frame player update: reads the joypads (ReadJoy1), runs each
-; object's assignment from AssignFuncTable, collisions and animation, as 94G
-; updateplayers
+; The per-frame player update: reads the joypads (ReadJoy1), runs each object's assignment from
+; AssignFuncTable, collisions and animation, as 94G updateplayers
 ;-----------------------------------------------------------------------------
 updateplayers:
         push ebx
@@ -46180,9 +46179,8 @@ CupCelebration:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; clockcont_0                                    780F0  94G, medium confidence
-; 94G clockcont_0 (end of period; also entered from puckfaceoff): puck
-; assinsert 41h, periods 1-2 AddPenalty2 end of period (PA event), later
-; periods score / overtime / cup checks
+; 94G clockcont_0 (end of period; also entered from puckfaceoff): puck assinsert 41h, periods 1-2
+; AddPenalty2 end of period (PA event), later periods score / overtime / cup checks
 ;-----------------------------------------------------------------------------
 clockcont_0:
         push ebx
@@ -46698,9 +46696,8 @@ PlayCrowdAmbience:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; DoGameFrame                       78810  94G hockey94.asm, medium confidence
-; One frame of game logic, from RunSimFrames, RunOpeningFrames and
-; PlaceOpeningPlayers: periodicevents, updateplayers, then the crowd sounds
-; and commentary
+; One frame of game logic, from RunSimFrames, RunOpeningFrames and PlaceOpeningPlayers: periodicevents,
+; updateplayers, then the crowd sounds and commentary
 ;-----------------------------------------------------------------------------
 DoGameFrame:
         push ebx
