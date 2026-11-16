@@ -197,6 +197,9 @@ address,name,auto_name,source,confidence,evidence,file
 51CB8,BuildRinkSides,sub_51CB8,96PC,medium,NHL96PC 2583F (sem 0.80): S:side%d; D:1614B4; S:gt0%02d; D:1614BC,src/front/front_48D70.asm
 52494,OpenArenaArchive,sub_52494,new,medium,"SetArtArchive ""arena.viv"", from the game graphics set-up (sub_4B5C4)",src/front/front_48D70.asm
 525E0,LoadBoardLogo,sub_525E0,new,low,"loads a board logo shape ""blogo%d%c""",src/front/front_48D70.asm
+52770,LoadLogos,sub_52770,new,low,"game graphics: loads ""logos.fsh"" (LOGOS, blogos) and the ice / board logo shapes (LoadBoardLogo, L%02d...)",src/front/front_52770.asm
+52E8C,LoadRinkLines,sub_52E8C,new,low,"from InitGameGraphics: the rink line and board shapes (boardback, crease, flatboards, fat red / blue lines, glassline, top / bottom boards)",src/front/front_52770.asm
+53314,LoadRinkModel,sub_53314,new,low,"from InitGameGraphics: the rink model from arena.viv (rink, stands, floor, score, puck, nets, goals, extents, lights, glass, boards)",src/front/front_52770.asm
 5454C,FreeRinkModel,sub_5454C,96PC,medium,NHL96PC 2751C (sem 1.00): D:1B10E8; C:1863,src/front/front_52770.asm
 552E0,DrawBenchSide,sub_552E0,96PC,medium,NHL96PC 27F20 (sem 0.71): C:2080; C:2285; D:1B105C; C:2079,src/front/front_52770.asm
 5585C,SetPenaltyBoxDoor,sub_5585C,96PC,medium,"96 PC SetPenaltyBoxDoor: (team, open) sets a penalty box door's state (dword_1B0A80) and starts its animation when it opens",src/front/front_52770.asm
@@ -345,10 +348,13 @@ D0F07,BuildTradePlayerLists,sub_D0F07,new,low,"from the roster screen (sub_CE73B
 D1927,PreGameMatchupScreen,sub_D1927,96PC,low,"96 PC PreGameMatchupScreen: game screen 14h before play: the matchup with the left / right team pictures (%03dL.FSH / %03dR.FSH), PANL, team and player stats",src/front/front_D15FB.asm
 D3112,PreGameRostersScreen,sub_D3112,new,low,"game screen 13h before play: the home and visitor rosters (""hros"" / ""vros""), the ""blurb"" and the star players (STAR, FIR1, F%dP%d)",src/front/front_D3112.asm
 D4225,DrawMatchupNotes,sub_D4225,new,low,"pre-game: the playoff race notes, season series and ""last time they met"" lines",src/front/front_D3112.asm
+D4E24,GoalieMaskIntro,sub_D4E24,new,low,"from GoalieMaskScreen: the opening of the mask gallery (DOR0 / DOR1 doors, PANL, LADR, BB / AB buttons)",src/front/front_D4E24.asm
+D547C,GoalieMaskScreen,sub_D547C,new,medium,"from RunFrontEnd: the goalie mask gallery (MASK00%02d.FSH, ""%s - %s - %s"" goalie - team - season captions, LEFT / RIGH / FRNT buttons)",src/front/front_D4E24.asm
 D67D4,FadePalette,sub_D67D4,96PC,medium,96 PC FadePalette: fades the 300h-byte palette,src/front/front_D4E24.asm
 D68AC,FadeOut,sub_D68AC,96PC,medium,NHL96PC 63A5B (similar 0.91): mnemonic similarity 0.90 over 22 instructions,src/front/front_D4E24.asm
 D6930,RunIntro,sub_D6930,96PC,medium,"96 PC RunIntro: from main_, the intro screens (scr1, scr2, !pl0, !pl1, nhll, nhlp, bkgd) with music",src/front/front_D4E24.asm
 D70C4,CreditsScreen,sub_D70C4,new,low,"from RunFrontEnd: the credits (reads the credits text file, EAC1/EAC2, CRD1/CRD2, QCRD) with the arena music",src/front/front_D4E24.asm
+D7A70,AllocPageStack,sub_D7A70,new,low,"allocates the front end's ""PAGESTACK"" block",src/front/front_D4E24.asm
 DA66D,AllocMediaBuffer,sub_DA66D,new,medium,"allocates the ""MEDIA BUFFER"" (200h paragraphs of DOS memory)",src/front/front_DA66D.asm
 DA713,AllocStaticBuffer,sub_DA713,new,medium,"allocates the ""STATIC BUF"" once (flag word_16D7EC)",src/front/front_DA66D.asm
 DE3CF,OpenLeagueFile,sub_DE3CF,new,low,"(league id, ...): opens a season / playoff file (""%s%s.SEA"", ""%s%s.PLY"" or ""%s%08x.%03x"") and reads its header; from the season, playoff and stats screens",src/front/front_DA66D.asm

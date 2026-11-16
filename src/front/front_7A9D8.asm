@@ -22,7 +22,7 @@ extern CdStreamService, CdStreamNextPacket, CdStreamFreePacket, sub_3FD0C, sub_4
 extern sub_41DB8, WaitMusicEnd, ArenaFileName, PaEvent, MakeDataPath, LoadDataFileLib, LoadDataFile, WriteGlobalSet
 extern sub_7F5A4, sub_80BBC, sub_81678, MainMenuScreen, RunGameScreens, RunStatsMenu, RunNetworkConnect, RunModemConnect
 extern sub_8BE60, sub_8BEF8, sub_8BFA0, LoadLangText, GetLangText, FreeLangText, sub_9CFD3, sub_9D333
-extern RunOptionsScreens, sub_D547C, CreditsScreen, sub_DA7D6, sub_DA7EB, sub_DB6AC, sub_DCBB0, sub_E036F
+extern RunOptionsScreens, GoalieMaskScreen, CreditsScreen, sub_DA7D6, sub_DA7EB, sub_DB6AC, sub_DCBB0, sub_E036F
 extern sub_E0415, sub_E069E, sub_E076B, sub_E0841, sub_E08E9, sub_E3410, sub_E341C, sub_F9650
 extern sub_FAA64, sub_FAAB4, sub_FAF34, sub_FBE40, WaitTicks, sub_FC330, sub_FC510, sub_FCD90
 extern sub_FD08C, sub_FD0F8, sub_FD110, tickcount, unk_164138, unk_16413C, unk_164150, unk_164158
@@ -3321,7 +3321,7 @@ RunFrontEnd:
         call CreditsScreen
         jmp short .6
 .12:
-        call sub_D547C
+        call GoalieMaskScreen
         jmp short .6
 .13:
         call WaitMusicEnd

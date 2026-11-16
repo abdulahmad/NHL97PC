@@ -628,8 +628,8 @@
 ;  52D4C  sub_52D4C                                front/front_52770.asm                        1
 ;  52E14  sub_52E14                                front/front_52770.asm                        1
 ;  52E28  sub_52E28                                front/front_52770.asm                        2
-;  52E8C  sub_52E8C                                front/front_52770.asm                        1
-;  53314  sub_53314                                front/front_52770.asm                        1
+;  52E8C  LoadRinkLines                            front/front_52770.asm                        1
+;  53314  LoadRinkModel                            front/front_52770.asm                        1
 ;  5454C  FreeRinkModel                            front/front_52770.asm                        1
 ;  5475C  sub_5475C                                front/front_52770.asm                        1
 ;  55000  sub_55000                                front/front_52770.asm                        2
@@ -1132,12 +1132,12 @@
 ;  D3CD5  PreGameRostersScreen_BC3                 front/front_D3112.asm                        1
 ;  D49BE  sub_D49BE                                front/front_D3112.asm                        1
 ;  D4CB0  unk_D4CB0                                front/front_D3112.asm                        1
-;  D547C  sub_D547C                                front/front_D4E24.asm                        1
+;  D547C  GoalieMaskScreen                         front/front_D4E24.asm                        1
 ;  D67D4  FadePalette                              front/front_D4E24.asm                        2
 ;  D68AC  FadeOut                                  front/front_D4E24.asm                        3
 ;  D6930  RunIntro                                 front/front_D4E24.asm                        1
 ;  D70C4  CreditsScreen                            front/front_D4E24.asm                        1
-;  D7A70  sub_D7A70                                front/front_D4E24.asm                        1
+;  D7A70  AllocPageStack                           front/front_D4E24.asm                        1
 ;  D7B64  sub_D7B64                                front/front_D4E24.asm                        1
 ;  D8130  sub_D8130                                front/front_D4E24.asm                        1
 ;  D81D8  sub_D81D8                                front/front_D4E24.asm                        1

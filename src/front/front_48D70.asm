@@ -76,7 +76,7 @@ extern sub_3C880, sub_3C8DC, sub_3C944, sub_3C9C8, sub_3CA28, sub_3CAB8, sub_3CB
 extern sub_3CCA8, sub_3D930, sub_3D95C, sub_3D988, sub_3DA18, sub_3DAC4, sub_3DBCC, sub_3DCBC
 extern sub_3E458, sub_3E590, sub_3E818, delstream, CdStreamQueue, CdStreamService, CdStreamNextPacket, sub_3FC88
 extern sub_41D94, WaitMusicEnd, sub_42650, sub_480CC, sub_4880C, sub_48864, RecordStreakClips, sub_52E14
-extern sub_52E8C, sub_53314, FreeRinkModel, sub_5475C, sub_55110, sub_55FE4, sub_560AC, sub_56464
+extern LoadRinkLines, LoadRinkModel, FreeRinkModel, sub_5475C, sub_55110, sub_55FE4, sub_560AC, sub_56464
 extern sub_56740, LoadGoalieMask, sub_5881C, sub_58B80, sub_58CA0, sub_59174, sub_5A6B4, sub_5A6E0
 extern sub_5AAB8, sub_5B090, sub_5B1C0, sub_5B2D4, sub_5B450, sub_5C1CC, sub_5DD74, LoadAiIcons
 extern sub_77A30, sub_7C3EC, sub_842F4, sub_E3410, sub_E341C, sub_FAA64, sub_FAF34, sub_FB704
@@ -3692,7 +3692,7 @@ InitGameGraphics:
         call sub_842F4
         mov edx, dword [byte ebp+03Ch]
         mov eax, dword [byte ebp+038h]
-        call sub_53314
+        call LoadRinkModel
         mov eax, 0FFFFFFFFh
         call OpenArenaArchive
         mov eax, 46h
@@ -3771,7 +3771,7 @@ InitGameGraphics:
         mov eax, 0FFh
         call sub_3E590
         call sub_58B80
-        call sub_52E8C
+        call LoadRinkLines
         mov eax, 5Ah
         xor edx, edx
         call sub_842F4

@@ -42,7 +42,7 @@ extern sub_37F4C, sub_37FC8, sub_419B0, sub_419B8, sub_41A28, sub_41D18, sub_41D
 extern ArenaFileName, StopAllSfx, PlaySfx, sub_4AA78, LoadDataFile, sub_7DFC0, sub_7E860, sub_7EDF0
 extern sub_7EF70, SetRegionRect, sub_7F04C, sub_7F0D8, DrawTextAligned, sub_7F29C, sub_7F5A4, sub_7F5B8
 extern sub_80BBC, sub_81D1C, sub_83314, sub_834EC, sub_83558, sub_835AC, sub_835BC, sub_83850
-extern sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, GetLangText, sub_D7A70, sub_D7B64, sub_D8130
+extern sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, GetLangText, AllocPageStack, sub_D7B64, sub_D8130
 extern sub_D81D8, sub_D8B20, sub_D9960, sub_D9D74, sub_DA020, sub_DA02C, sub_DA48C, sub_DA498
 extern sub_DA544, sub_DA57C, sub_DA654, sub_E7D6D, sub_E8660, sub_E8923, sub_F9A88, sub_FAA64
 extern sub_FAAB4, sub_FAF34, sub_FB704, sub_FBE40, addtimer, sub_FC008, WaitTicks, sub_FC510
@@ -250,7 +250,7 @@ sub_DA7EB_18:
         jmp near sub_DCC75_1AD
 .1:
         mov eax, 14h
-        call sub_D7A70
+        call AllocPageStack
         test eax, eax
         je short sub_DA7EB_18
         mov esi, dword_1CD158
