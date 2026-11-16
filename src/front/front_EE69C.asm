@@ -18,18 +18,20 @@ extern str_TR0D, strlen_, sub_100A68, sub_101324, sub_101340, sub_101390, sub_10
 extern sub_101429, sub_10FE58, sub_115830, sub_1167AE, sub_11A318, sub_11A350, sub_11BDC0, sub_11FAAC
 extern sub_13C164, sub_1B88C, sub_419B0, sub_419B8, sub_41F2C, StopAllSfx, PlaySfx, LoadDataFileLib
 extern sub_7E860, sub_7EDF0, sub_7EF70, SetRegionRect, sub_7F0D8, DrawTextAligned, sub_7F5B8, sub_80BBC
-extern sub_86AFA, InitMenuItems, sub_8BFAC, GetLangText, sub_E341C, WaitForOtherComputer, sub_EE0F7, sub_F20A1
+extern sub_86AFA, InitMenuItems, sub_8BFAC, GetLangText, sub_E341C, WaitForOtherComputer, GetKeyName, sub_F20A1
 extern sub_F22AF, sub_F27A4, sub_FAF34, sub_FC4BC, sub_FC510, sub_FCD90, sub_FCF84, sub_FCFCC
 extern sub_FD08C, sub_FD0F8, sub_FD110, sub_FDD1C, tickcount, unk_167A1A, unk_16D992, unk_1AC8E4
 extern unk_1C5F4A, unk_1CE3D0, unk_1CE422, unk_1CE474, unk_1CEA8A, unk_EDDEF, unk_EDE3F, unk_EDE53
 extern unk_EE053, unk_EE093, unk_EE0E3, word_16E2EC, word_16E2EE, word_16E2F0
-global jpt_F031D, sub_EE69C_20A, sub_EE8BB_3F3, sub_EE8BB_3FB, sub_F0339_B8D, sub_F0339_BB1, sub_F0339_BC0, sub_F0339_BF3
-global sub_F0339_C3A, sub_F0339_F11, sub_F0339_1064, sub_EE69C, sub_EE8AC, sub_EE8BB, sub_EECBC, sub_EF5B3
+global jpt_F031D, ShowReservedKey_20A, sub_EE8BB_3F3, sub_EE8BB_3FB, ControlSetupScreen_B8D, ControlSetupScreen_BB1, ControlSetupScreen_BC0, ControlSetupScreen_BF3
+global ControlSetupScreen_C3A, ControlSetupScreen_F11, ControlSetupScreen_1064, ShowReservedKey, sub_EE8AC, sub_EE8BB, sub_EECBC, sub_EF5B3
 global sub_EFD08, sub_F0004, sub_F01C5, ControlSetupScreen, sub_F174F, sub_F1FF8, sub_F207F
 ;-----------------------------------------------------------------------------
-; sub_EE69C                                                       EE69C  97 PC
+; ShowReservedKey                                 EE69C  97 PC, low confidence
+; Control setup: "The %s key is reserved for a system function. Please choose
+; another."
 ;-----------------------------------------------------------------------------
-sub_EE69C:
+ShowReservedKey:
         push ebx
         push ecx
         push edx
@@ -207,7 +209,7 @@ sub_EE69C:
         call PlaySfx
         mov eax, esi
         leave
-sub_EE69C_20A:
+ShowReservedKey_20A:
         pop edi
         pop esi
         pop edx
@@ -2040,15 +2042,15 @@ sub_EFD08:
         mov eax, 206h
         call PlaySfx
         mov dword [dword_1CE318], 1
-        jmp near sub_EE69C_20A
+        jmp near ShowReservedKey_20A
 .17:
         test esi, esi
-        jne near sub_EE69C_20A
+        jne near ShowReservedKey_20A
         cmp dword [dword_1CE318], byte 0
-        je near sub_EE69C_20A
+        je near ShowReservedKey_20A
         call StopAllSfx
         mov dword [dword_1CE318], esi
-        jmp near sub_EE69C_20A
+        jmp near ShowReservedKey_20A
 ;-----------------------------------------------------------------------------
 ; sub_F0004                                                       F0004  97 PC
 ;-----------------------------------------------------------------------------
@@ -2312,13 +2314,13 @@ sub_F01C5:
         pop esi
         ret 8
 jpt_F031D:
-        dd sub_F0339_B8D
-        dd sub_F0339_BB1
-        dd sub_F0339_BC0
-        dd sub_F0339_BF3
-        dd sub_F0339_C3A
-        dd sub_F0339_F11
-        dd sub_F0339_1064
+        dd ControlSetupScreen_B8D
+        dd ControlSetupScreen_BB1
+        dd ControlSetupScreen_BC0
+        dd ControlSetupScreen_BF3
+        dd ControlSetupScreen_C3A
+        dd ControlSetupScreen_F11
+        dd ControlSetupScreen_1064
 ;-----------------------------------------------------------------------------
 ; ControlSetupScreen                              F0339  96 PC, low confidence
 ; The control setup screen: mouse, keyboard, joystick 1 and 2 pictures,
@@ -2359,7 +2361,7 @@ ControlSetupScreen:
         call sub_100A68
         add esp, byte 0Ch
         mov edx, dword_1CE32C
-        call sub_EE0F7
+        call GetKeyName
         mov eax, 17h
         mov dword [byte ebp+072h], 0
         call InitMenuItems
@@ -3119,7 +3121,7 @@ ControlSetupScreen:
 .22:
         cmp si, byte 0Fh
         jl short .21
-        jmp near sub_F0339_F11.42
+        jmp near ControlSetupScreen_F11.42
 .23:
         push byte 2
         lea eax, [byte ebp+066h]
@@ -3128,18 +3130,15 @@ ControlSetupScreen:
         push eax
         mov edx, dword_1CE32C
         mov eax, 5
-        jmp near sub_F0339_F11.43
+        jmp near ControlSetupScreen_F11.43
 .24:
         mov dword [byte ebp+066h], 3
 .25:
         cmp dword [byte ebp+066h], byte 6
-        ja near sub_F0339_1064.44
+        ja near ControlSetupScreen_1064.44
         mov eax, dword [byte ebp+066h]
         jmp dword [nosplit cs:eax*4+jpt_F031D]
-;-----------------------------------------------------------------------------
-; sub_F0339_B8D                                                   F0EC6  97 PC
-;-----------------------------------------------------------------------------
-sub_F0339_B8D:
+ControlSetupScreen_B8D:
         call sub_7EDF0
         push byte 58h
         push unk_1AC8E4
@@ -3147,20 +3146,14 @@ sub_F0339_B8D:
         push eax
         mov dword [byte ebp+072h], 64h
         call sub_100A68
-        jmp near sub_F0339_C3A.38
-;-----------------------------------------------------------------------------
-; sub_F0339_BB1                                                   F0EEA  97 PC
-;-----------------------------------------------------------------------------
-sub_F0339_BB1:
+        jmp near ControlSetupScreen_C3A.38
+ControlSetupScreen_BB1:
         call sub_7EF70
         call WaitForOtherComputer
-        jmp near sub_F0339_F11.42
-;-----------------------------------------------------------------------------
-; sub_F0339_BC0                                                   F0EF9  97 PC
-;-----------------------------------------------------------------------------
-sub_F0339_BC0:
+        jmp near ControlSetupScreen_F11.42
+ControlSetupScreen_BC0:
         cmp word [byte ebp+07Eh], byte 0
-        je near sub_F0339_F11.42
+        je near ControlSetupScreen_F11.42
         mov eax, dword [byte ebp+05Eh]
         push dword [byte eax+02Ch]
         mov eax, dword [byte ebp+056h]
@@ -3170,13 +3163,10 @@ sub_F0339_BC0:
         mov eax, dword [dword_1CE328]
         mov dword [byte ebp+07Eh], 0
         call sub_EF5B3
-        jmp near sub_F0339_F11.42
-;-----------------------------------------------------------------------------
-; sub_F0339_BF3                                                   F0F2C  97 PC
-;-----------------------------------------------------------------------------
-sub_F0339_BF3:
+        jmp near ControlSetupScreen_F11.42
+ControlSetupScreen_BF3:
         cmp word [byte ebp+07Eh], byte 0
-        jne near sub_F0339_F11.42
+        jne near ControlSetupScreen_F11.42
         cmp word [dword ebp-063Ah], byte 0
         jne short .26
         mov eax, dword [byte ebp+05Eh]
@@ -3190,11 +3180,8 @@ sub_F0339_BF3:
 .26:
         mov dword [byte ebp+07Eh], 1
         mov dword [dword ebp-063Ah], 0
-        jmp near sub_F0339_F11.42
-;-----------------------------------------------------------------------------
-; sub_F0339_C3A                                                   F0F73  97 PC
-;-----------------------------------------------------------------------------
-sub_F0339_C3A:
+        jmp near ControlSetupScreen_F11.42
+ControlSetupScreen_C3A:
         cmp word [byte ebp+07Eh], byte 0
         jne near .35
         push byte 58h
@@ -3296,7 +3283,7 @@ sub_F0339_C3A:
 .34:
         cmp si, byte 8
         jl short .33
-        jmp near sub_F0339_F11.41
+        jmp near ControlSetupScreen_F11.41
 .35:
         mov eax, dword [byte_1AC93C]
         and eax, byte 1
@@ -3384,7 +3371,7 @@ sub_F0339_C3A:
         call sub_101324
 .38:
         add esp, byte 0Ch
-        jmp near sub_F0339_F11.42
+        jmp near ControlSetupScreen_F11.42
 .39:
         push dword 154h
         push dword 0B9h
@@ -3399,10 +3386,7 @@ sub_F0339_C3A:
         push dword 15Eh
         push asc_1679E4
         jmp short .37
-;-----------------------------------------------------------------------------
-; sub_F0339_F11                                                   F124A  97 PC
-;-----------------------------------------------------------------------------
-sub_F0339_F11:
+ControlSetupScreen_F11:
         push dword [byte ebp+05Eh]
         call sub_FD0F8
         add esp, byte 4
@@ -3441,7 +3425,7 @@ sub_F0339_F11:
         call sub_FCF84
         add esp, byte 4
         mov eax, 0FFFFFFFFh
-        call sub_EE69C
+        call ShowReservedKey
         mov edx, eax
         movsx eax, word [byte ebp+044h]
         mov word [dword ebp+eax*4-0B4h], dx
@@ -3474,7 +3458,7 @@ sub_F0339_F11:
         call sub_1013FC
 .42:
         cmp dword [byte ebp+072h], byte 0
-        jne near sub_F0339_1064.46
+        jne near ControlSetupScreen_1064.46
         cmp word [dword ebp-063Ah], byte 0
         jne near ControlSetupScreen.24
         cmp word [byte ebp+07Eh], byte 0
@@ -3489,10 +3473,7 @@ sub_F0339_F11:
 .43:
         call sub_8BFAC
         jmp near ControlSetupScreen.25
-;-----------------------------------------------------------------------------
-; sub_F0339_1064                                                  F139D  97 PC
-;-----------------------------------------------------------------------------
-sub_F0339_1064:
+ControlSetupScreen_1064:
         push dword [byte ebp+056h]
         call sub_FD0F8
         add esp, byte 4
@@ -3531,7 +3512,7 @@ sub_F0339_1064:
         call sub_FCF84
         add esp, byte 4
         mov eax, 0FFFFFFFFh
-        call sub_EE69C
+        call ShowReservedKey
         mov edx, eax
         movsx eax, word [byte ebp+042h]
         mov word [dword ebp+eax*4-0B4h], dx
@@ -3558,7 +3539,7 @@ sub_F0339_1064:
         lea ebx, [byte ebp+05Eh]
         lea edx, [dword ebp-0B6h]
         mov eax, 8
-        jmp near sub_F0339_F11.40
+        jmp near ControlSetupScreen_F11.40
 .44:
         cmp dword [byte ebp+066h], byte 0Fh
         jl short .45
@@ -3567,9 +3548,9 @@ sub_F0339_1064:
         sub dword [byte ebp+066h], byte 8
 .45:
         cmp dword [byte ebp+066h], byte 6
-        jle near sub_F0339_F11.42
+        jle near ControlSetupScreen_F11.42
         cmp dword [byte ebp+066h], byte 0Fh
-        jge near sub_F0339_F11.42
+        jge near ControlSetupScreen_F11.42
         sub dword [byte ebp+066h], byte 7
         mov eax, dword [byte ebp+066h]
         push dword [nosplit eax*8+dword_1CE2DC]
@@ -3599,7 +3580,7 @@ sub_F0339_1064:
         call sub_101390
         add esp, byte 0Ch
         movsx eax, word [byte ebp+066h]
-        call sub_EE69C
+        call ShowReservedKey
         mov edx, eax
         mov eax, dword [byte ebp+066h]
         movsx eax, word [byte ebp+eax*2+032h]
@@ -3687,7 +3668,7 @@ sub_F0339_1064:
         push dword [byte eax+02Ch]
         call sub_101340
         add esp, byte 4
-        jmp near sub_F0339_F11.41
+        jmp near ControlSetupScreen_F11.41
 .46:
         push dword [dword_1CE328]
         call sub_FAF34
@@ -3754,7 +3735,7 @@ sub_F0339_1064:
         mov eax, 64h
         lea esp, [dword ebp+082h]
         pop ebp
-        jmp near sub_EE69C_20A
+        jmp near ShowReservedKey_20A
 ;-----------------------------------------------------------------------------
 ; sub_F174F                                                       F174F  97 PC
 ;-----------------------------------------------------------------------------

@@ -77,16 +77,16 @@ extern word_19CBD6, word_19CBD8, word_19CBDA, word_19CBDC, penshotmode, word_19C
 extern word_19CBEA, word_19CBEE, word_19CBF4, word_19CC24, word_19CC26, word_19CC50, word_19DAD9, word_19E109
 extern word_19EABE, word_19EAC0, word_19EBCA, word_19EBCC
 global jpt_19604, jpt_19F18, jpt_1A304, jpt_1A680, jpt_1A708, jpt_1B9C4, jpt_1F03C, sub_15C30_20A
-global sub_15C30_20E, sub_15C30_216, sub_15C30_217, sub_16BF9_15D, sub_16BF9_15F, DrawGoalScorerPanel_26F, DrawPlayerNamePanel_16F, DrawPlayerNamePanel_48E
-global DrawPlayerNamePanel_49A, DrawPlayerNamePanel_4D7, sub_17C2C_18E, UpdateCameraView_28, UpdateCameraView_54, UpdateCameraView_AC, UpdateCameraView_11B, UpdateCameraView_1AC
+global sub_15C30_20E, sub_15C30_216, sub_15C30_217, sub_16BF9_15D, sub_16BF9_15F, DrawPenaltyPanel_26F, DrawSpecialTeamsPanel, DrawPenaltyShotPanel_48E
+global DrawPenaltyShotPanel_49A, DrawPenaltyShotPanel_4D7, DrawPowerPlayClock_18E, UpdateCameraView_28, UpdateCameraView_54, UpdateCameraView_AC, UpdateCameraView_11B, UpdateCameraView_1AC
 global UpdateCameraView_272, UpdateCameraView_326, UpdateCameraView_461, UpdateCameraView_5F0, UpdateCameraView_7F5, UpdateCameraView_8D3, UpdateCameraZoom_21, UpdateCameraZoom_169
 global UpdateCameraZoom_221, UpdateCameraZoom_232, UpdateCameraZoom_3CB, UpdateCameraTrack_30, UpdateCameraTrack_8E, UpdateCameraTrack_19B, UpdateCameraTrack_22F, UpdateCameraTrack_2D2
 global sub_1A690_15, sub_1A690_29, sub_1A690_40, sub_1A690_57, SetCameraView_16, SetCameraView_AF, SetCameraView_14F, SetCameraView_1EF
 global SetCameraView_25A, SetCameraView_2CE, SetCameraView_36E, SetCameraView_40E, SetCameraView_4AE, SetCameraView_532, SetCameraView_5A5, SetCameraView_608
 global sub_1B9D4_1C, sub_1B9D4_73, sub_1B9D4_C6, sub_1B9D4_108, ChangeViewSize, SetViewWindow, sub_15C30, sub_15E4D
 global ApplyDisplayFlags, RemoveOverlayPanel, sub_160E2, sub_161F0, sub_16AD0, sub_16B17, sub_16BAD, sub_16BF5
-global sub_16BF9, DrawVideoModePanel, DrawGoalScorerPanel, DrawPlayerNamePanel, sub_17639, sub_1771B, sub_17818, DrawGameClock
-global sub_17C2C, DrawClockPanel, sub_17EB6, sub_18025, sub_1870B, sub_1882A, sub_18958, sub_18B81
+global sub_16BF9, DrawVideoModePanel, DrawPenaltyPanel, DrawPenaltyShotPanel, DrawInjuryPanel, DrawPeriodPanel, DrawGoalScorerPanel, DrawGameClock
+global DrawPowerPlayClock, DrawClockPanel, sub_17EB6, sub_18025, sub_1870B, sub_1882A, sub_18958, sub_18B81
 global QueueOverlayPanel, sub_18DF7, sub_18E35, sub_18E76, sub_18E9A, sub_18EEE, sub_18F67, DrawGameOverlays
 global sub_19133, GetCameraTarget, sub_19540, UpdateCameraView, UpdateCameraZoom, UpdateCameraTrack, sub_1A5F8, sub_1A690
 global SetCameraView, sub_1AD4C, sub_1AE58, SetCameraHeight, SetCameraFocus, SetCameraPathPoint, StartCameraPath, sub_1B1CC
@@ -1765,10 +1765,11 @@ DrawVideoModePanel:
         mov ebx, dword [byte eax+02Ch]
         jmp near sub_16BF9_15D
 ;-----------------------------------------------------------------------------
-; DrawGoalScorerPanel                             16ED0  97 PC, low confidence
-; The "%s - #%d %s %s" panel with "%s %s" assist lines (team, number, name)
+; DrawPenaltyPanel                             16ED0  97 PC, medium confidence
+; Overlay panel kind 1: the penalty call (game text "Penalty", "for", the
+; infraction, "2 Minutes" / "5 Minute Major", "and a Game Misconduct")
 ;-----------------------------------------------------------------------------
-DrawGoalScorerPanel:
+DrawPenaltyPanel:
         push esi
         push edi
         enter 0F4h, 0
@@ -1955,7 +1956,7 @@ DrawGoalScorerPanel:
         mov esi, 190h
         cdq
         idiv esi
-DrawGoalScorerPanel_26F:
+DrawPenaltyPanel_26F:
         shl ecx, 4
         or cl, 8
         mov edx, eax
@@ -1967,10 +1968,11 @@ DrawGoalScorerPanel_26F:
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; DrawPlayerNamePanel                             17158  96 PC, low confidence
-; (queued kind 3): a player's name panel (FormatPlayerName)
+; DrawPenaltyShotPanel                         17158  97 PC, medium confidence
+; Overlay panel kind 8: "Penalty Shot", the shooter "against" the goalie (was
+; the 96 PC carry DrawPlayerNamePanel)
 ;-----------------------------------------------------------------------------
-DrawPlayerNamePanel:
+DrawPenaltyShotPanel:
         push esi
         push edi
         enter 0F0h, 0
@@ -1996,7 +1998,7 @@ DrawPlayerNamePanel:
         mov eax, dword [dword ebx+0102h]
         mov ax, word [dword eax+0FCh]
         test ax, ax
-        jl near DrawPlayerNamePanel_4D7
+        jl near DrawPenaltyShotPanel_4D7
         cwde
         imul eax, dword 108h
         mov esi, SortCords
@@ -2080,8 +2082,13 @@ DrawPlayerNamePanel:
         imul eax, dword [dword_16E468], dword 140h
         cdq
         idiv edi
-        jmp near DrawPlayerNamePanel_49A.30
-DrawPlayerNamePanel_16F:
+        jmp near DrawPenaltyShotPanel_49A.30
+;-----------------------------------------------------------------------------
+; DrawSpecialTeamsPanel                        172C7  97 PC, medium confidence
+; Overlay panel kind 9: specialty teams tonight / this season, power play and
+; penalty killing (game text 33h-37h)
+;-----------------------------------------------------------------------------
+DrawSpecialTeamsPanel:
         push esi
         push edi
         enter 0F0h, 0
@@ -2096,7 +2103,7 @@ DrawPlayerNamePanel_16F:
         movsx ebx, word [word_19EBCA]
         sub eax, ebx
         mov ebx, eax
-        je near DrawPlayerNamePanel_4D7
+        je near DrawPenaltyShotPanel_4D7
         mov eax, 100h
         call RemoveOverlayPanel
         mov eax, dword [byte ebp-026h]
@@ -2340,13 +2347,13 @@ DrawPlayerNamePanel_16F:
         push eax
         test ebx, ebx
         setg al
-DrawPlayerNamePanel_48E:
+DrawPenaltyShotPanel_48E:
         movzx esi, al
         mov eax, dword [byte ebp-026h]
         mov ebx, edx
         mov edx, esi
         mov eax, dword [eax]
-DrawPlayerNamePanel_49A:
+DrawPenaltyShotPanel_49A:
         call sub_161F0
         cmp dword [dword_19CD30], byte 0
         sete al
@@ -2365,16 +2372,17 @@ DrawPlayerNamePanel_49A:
         mov edx, eax
         xor eax, eax
         call sub_3CD70
-DrawPlayerNamePanel_4D7:
+DrawPenaltyShotPanel_4D7:
         lea esp, [dword ebp+0CEh]
         pop ebp
         pop edi
         pop esi
         ret
 ;-----------------------------------------------------------------------------
-; sub_17639                                                       17639  97 PC
+; DrawInjuryPanel                              17639  97 PC, medium confidence
+; Overlay panel kind 10: "Injury" with "#%d %s %s"
 ;-----------------------------------------------------------------------------
-sub_17639:
+DrawInjuryPanel:
         push esi
         push edi
         enter 0F0h, 0
@@ -2443,11 +2451,12 @@ sub_17639:
         push eax
         test byte [dword ebx+0BFh], 40h
         sete al
-        jmp near DrawPlayerNamePanel_48E
+        jmp near DrawPenaltyShotPanel_48E
 ;-----------------------------------------------------------------------------
-; sub_1771B                                                       1771B  97 PC
+; DrawPeriodPanel                              1771B  97 PC, medium confidence
+; Overlay panel kind 11: "Period" with "%s %s" / "%s   %d"
 ;-----------------------------------------------------------------------------
-sub_1771B:
+DrawPeriodPanel:
         push esi
         push edi
         enter 0F0h, 0
@@ -2461,7 +2470,7 @@ sub_1771B:
         rep movsd
         call sub_19133
         test eax, eax
-        jne near DrawPlayerNamePanel_4D7
+        jne near DrawPenaltyShotPanel_4D7
         mov eax, dword [byte ebp-026h]
         mov dword [byte eax+04h], 100h
         imul eax, dword [dword_16E464], dword 1F4h
@@ -2520,11 +2529,13 @@ sub_1771B:
         push eax
         mov eax, dword [ebx]
         lea ebx, [byte ebp+07Eh]
-        jmp near DrawPlayerNamePanel_49A
+        jmp near DrawPenaltyShotPanel_49A
 ;-----------------------------------------------------------------------------
-; sub_17818                                                       17818  97 PC
+; DrawGoalScorerPanel                          17818  97 PC, medium confidence
+; Overlay panel kind 2: the goal scorer ("Goal", "Shorthanded", "Empty Net",
+; "Unassisted"; "%s - #%d %c. %s")
 ;-----------------------------------------------------------------------------
-sub_17818:
+DrawGoalScorerPanel:
         push esi
         push edi
         enter 0F8h, 0
@@ -2740,7 +2751,7 @@ sub_17818:
         mov edi, 190h
         cdq
         idiv edi
-        jmp near DrawGoalScorerPanel_26F
+        jmp near DrawPenaltyPanel_26F
 ;-----------------------------------------------------------------------------
 ; DrawGameClock                                17AD1  96 PC, medium confidence
 ; Draws the game clock "%2d:%02d" (or "%2d.%01d" under a minute)
@@ -2853,9 +2864,10 @@ DrawGameClock:
         call sub_3CFB0
         jmp near sub_15C30_216
 ;-----------------------------------------------------------------------------
-; sub_17C2C                                                       17C2C  97 PC
+; DrawPowerPlayClock                              17C2C  97 PC, low confidence
+; Draws the "Power Play" countdown next to the game clock ("%2d:%02d")
 ;-----------------------------------------------------------------------------
-sub_17C2C:
+DrawPowerPlayClock:
         push ebx
         push ecx
         push edx
@@ -2864,7 +2876,7 @@ sub_17C2C:
         mov ebx, eax
         movsx eax, word [gameclock]
         cmp eax, dword [dword_19D018]
-        je near sub_17C2C_18E
+        je near DrawPowerPlayClock_18E
         mov dword [dword_19D018], eax
         call sub_25AEC
         movsx esi, ax
@@ -2872,7 +2884,7 @@ sub_17C2C:
         jne short .1
         mov eax, 700h
         call RemoveOverlayPanel
-        jmp near sub_17C2C_18E
+        jmp near DrawPowerPlayClock_18E
 .1:
         push ebx
         call sub_FD0F8
@@ -2979,7 +2991,7 @@ sub_17C2C:
 .5:
         mov eax, dword [byte ebx+02Ch]
         call sub_3CFB0
-sub_17C2C_18E:
+DrawPowerPlayClock_18E:
         leave
         pop esi
         pop edx
@@ -3152,7 +3164,7 @@ sub_17EB6:
         mov eax, dword [byte ebp-08h]
         mov dword [byte esi+08h], eax
         mov eax, dword [esi]
-        call sub_17C2C
+        call DrawPowerPlayClock
         cmp dword [dword_19CD30], byte 0
         sete al
         movzx eax, al
@@ -4326,7 +4338,7 @@ QueueOverlayPanel:
         push esi
         enter 4, 0
         cmp dword [dword_1B8FA0], byte 0
-        jne near sub_17C2C_18E
+        jne near DrawPowerPlayClock_18E
         mov eax, unk_19CF8C
         xor edx, edx
 .1:
@@ -4339,7 +4351,7 @@ QueueOverlayPanel:
         xor eax, eax
 .2:
         test eax, eax
-        je near sub_17C2C_18E
+        je near DrawPowerPlayClock_18E
         lea edx, [byte ebp+020h]
         mov dword [byte eax+04h], 0FFFFFFFFh
         mov dword [byte ebp-04h], edx
@@ -4354,7 +4366,7 @@ QueueOverlayPanel:
         call dword [dword esi+off_168772]
 .3:
         mov dword [byte ebp-04h], 0
-        jmp near sub_17C2C_18E
+        jmp near DrawPowerPlayClock_18E
 ;-----------------------------------------------------------------------------
 ; sub_18DF7                                                       18DF7  97 PC
 ;-----------------------------------------------------------------------------
@@ -4648,7 +4660,7 @@ DrawGameOverlays:
         jne short .5
         mov eax, dword [ebx]
         mov dword [byte ebp-04h], 1
-        call sub_17C2C
+        call DrawPowerPlayClock
         jmp short .8
 .5:
         cmp dword [ebx], byte 0

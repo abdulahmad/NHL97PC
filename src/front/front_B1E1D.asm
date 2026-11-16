@@ -35,8 +35,8 @@ extern unk_1665C8, unk_1665CB, unk_16661B, unk_166648, unk_1C5F4A, unk_1C9704, u
 extern unk_B1DF1, unk_B1DFD, unk_B1E09, unk_B1E11, word_16D450, word_1AD68F, word_1AD693, word_1C3413
 extern word_1C5536, word_1C55A2
 global jpt_B234C, jpt_B41D3, sub_B211C_C7, sub_B211C_C8, sub_B2364_71B, sub_B2364_77D, sub_B2364_884, sub_B2364_89E
-global sub_B2364_8BB, sub_B2364_8CA, sub_B41EF_95C, sub_B41EF_96D, sub_B41EF_9B4, sub_B41EF_A7F, sub_B41EF_A92, sub_B41EF_A9E
-global sub_B41EF_AA5, sub_B1E1D, sub_B1E9C, sub_B1F4D, DeleteUser, sub_B211C, sub_B21EA, ScrollUserList
+global sub_B2364_8BB, sub_B2364_8CA, UserRecordsScreen_95C, UserRecordsScreen_96D, UserRecordsScreen_9B4, UserRecordsScreen_A7F, UserRecordsScreen_A92, UserRecordsScreen_A9E
+global UserRecordsScreen_AA5, sub_B1E1D, sub_B1E9C, sub_B1F4D, DeleteUser, sub_B211C, sub_B21EA, ScrollUserList
 global sub_B228A, sub_B2364, LoadUserList, sub_B2F49, LoadUserRecords, sub_B3A9C, sub_B3B5D, sub_B3F21
 global sub_B418C, UserRecordsScreen, sub_B4F87, sub_B5031
 ;-----------------------------------------------------------------------------
@@ -2831,13 +2831,13 @@ sub_B418C:
         pop edx
         ret
 jpt_B41D3:
-        dd sub_B41EF_95C
-        dd sub_B41EF_96D
-        dd sub_B41EF_9B4
-        dd sub_B41EF_A7F
-        dd sub_B41EF_A92
-        dd sub_B41EF_A9E
-        dd sub_B41EF_AA5
+        dd UserRecordsScreen_95C
+        dd UserRecordsScreen_96D
+        dd UserRecordsScreen_9B4
+        dd UserRecordsScreen_A7F
+        dd UserRecordsScreen_A92
+        dd UserRecordsScreen_A9E
+        dd UserRecordsScreen_AA5
 ;-----------------------------------------------------------------------------
 ; UserRecordsScreen                            B41EF  96 PC, medium confidence
 ; The user records screen: allocates the column tables (uname, urate, upts,
@@ -3417,7 +3417,7 @@ UserRecordsScreen:
         mov dword [byte ebp-03Ch], 0FFFFFFFFh
 .7:
         cmp dword [byte ebp-014h], byte 0
-        jne near sub_B41EF_AA5.16
+        jne near UserRecordsScreen_AA5.16
         push byte 2
         lea eax, [byte ebp-038h]
         mov ecx, sub_B3A9C
@@ -3428,42 +3428,33 @@ UserRecordsScreen:
         call sub_8BFAC
         mov edx, eax
         cmp dword [byte ebp-038h], byte 6
-        ja near sub_B41EF_AA5.14
+        ja near UserRecordsScreen_AA5.14
         mov ebx, dword [byte ebp-038h]
         jmp dword [nosplit cs:ebx*4+jpt_B41D3]
-;-----------------------------------------------------------------------------
-; sub_B41EF_95C                                                   B4B4B  97 PC
-;-----------------------------------------------------------------------------
-sub_B41EF_95C:
+UserRecordsScreen_95C:
         call sub_7EDF0
 .8:
         mov dword [byte ebp-014h], 1Ah
-        jmp near sub_B41EF_AA5.15
-;-----------------------------------------------------------------------------
-; sub_B41EF_96D                                                   B4B5C  97 PC
-;-----------------------------------------------------------------------------
-sub_B41EF_96D:
+        jmp near UserRecordsScreen_AA5.15
+UserRecordsScreen_96D:
         cmp dword [dword_16DA9C], byte 0
         jne short .9
         lea eax, [dword ebp-02A0h]
         call sub_AD79F
-        jmp near sub_B41EF_AA5.15
+        jmp near UserRecordsScreen_AA5.15
 .9:
         cmp eax, byte 2
         jne short .10
         lea eax, [dword ebp-02A0h]
         call sub_AD79F
         call sub_E4218
-        jmp near sub_B41EF_AA5.15
+        jmp near UserRecordsScreen_AA5.15
 .10:
         mov eax, 237h
         call GetLangText
         call sub_E4230
-        jmp near sub_B41EF_AA5.15
-;-----------------------------------------------------------------------------
-; sub_B41EF_9B4                                                   B4BA3  97 PC
-;-----------------------------------------------------------------------------
-sub_B41EF_9B4:
+        jmp near UserRecordsScreen_AA5.15
+UserRecordsScreen_9B4:
         mov eax, unk_1C9704
         call sub_83C08
         cmp dword [byte ebp-040h], byte 0FFFFFFFFh
@@ -3478,7 +3469,7 @@ sub_B41EF_9B4:
         call DeleteUser
         mov eax, dword [dword_16D440]
         cmp dword [byte eax+066h], byte 2
-        jle near sub_B41EF_95C.8
+        jle near UserRecordsScreen_95C.8
         xor ebx, ebx
 .13:
         imul edx, ebx, dword 176h
@@ -3516,28 +3507,19 @@ sub_B41EF_9B4:
         call sub_AD62E
         call sub_1013FC
         mov dword [byte ebp-040h], 0FFFFFFFFh
-        jmp short sub_B41EF_AA5.15
-;-----------------------------------------------------------------------------
-; sub_B41EF_A7F                                                   B4C6E  97 PC
-;-----------------------------------------------------------------------------
-sub_B41EF_A7F:
+        jmp short UserRecordsScreen_AA5.15
+UserRecordsScreen_A7F:
         mov eax, unk_1C9756
         mov dword [byte ebp-014h], 64h
         call sub_83C08
-        jmp short sub_B41EF_AA5.15
-;-----------------------------------------------------------------------------
-; sub_B41EF_A92                                                   B4C81  97 PC
-;-----------------------------------------------------------------------------
-sub_B41EF_A92:
+        jmp short UserRecordsScreen_AA5.15
+UserRecordsScreen_A92:
         call sub_7EF70
         call WaitForOtherComputer
-        jmp short sub_B41EF_AA5.15
-;-----------------------------------------------------------------------------
-; sub_B41EF_A9E                                                   B4C8D  97 PC
-;-----------------------------------------------------------------------------
-sub_B41EF_A9E:
+        jmp short UserRecordsScreen_AA5.15
+UserRecordsScreen_A9E:
         mov dword [byte ebp-038h], 33h
-sub_B41EF_AA5:
+UserRecordsScreen_AA5:
         cmp dword [byte ebp-038h], byte 33h
         je short .14
         mov dword [byte ebp-038h], 35h

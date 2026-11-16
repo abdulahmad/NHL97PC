@@ -65,7 +65,7 @@ global sub_DB8E6_30C, sub_DBBFC_1BC, sub_DC11A_21E, sub_DC11A_52F, sub_DCC75_19F
 global sub_DCC75_229, sub_DCFA4_5, sub_DCFB0_2F7, sub_DCFB0_30F, sub_DCFB0_319, sub_DCFB0_31E, sub_DCFB0_325, sub_DDC4A_2F0
 global sub_DE88E_15A, sub_DEE3A_55, sub_DFAF6_797, sub_E0297_C0, sub_E0297_C5, sub_E0297_CC, sub_E036F_9B, sub_E036F_A0
 global sub_E076B_BE, sub_E076B_C3, sub_E076B_CA, sub_E32B4_D6, sub_E32B4_E8, sub_E32B4_FF, sub_E32B4_10D, sub_E32B4_11D
-global sub_E341C_34, sub_E657C_A51, sub_E657C_A99, sub_E657C_AE5, sub_E657C_B21, sub_E657C_BA2, sub_E759F_20C, sub_E7B33_C6
+global sub_E341C_34, ChooseNetworkGameScreen_A51, ChooseNetworkGameScreen_A99, ChooseNetworkGameScreen_AE5, ChooseNetworkGameScreen_B21, ChooseNetworkGameScreen_BA2, sub_E759F_20C, sub_E7B33_C6
 global sub_E7B33_D1, sub_E7B33_DB, sub_E7B33_186, sub_E7B33_19C, AllocMediaBuffer, AllocStaticBuffer, sub_DA76A, sub_DA797
 global sub_DA7D6, sub_DA7EB, sub_DAA82, sub_DAB51, sub_DAC1E, sub_DAC72, sub_DAD7E, sub_DADD0
 global sub_DAFF8, sub_DB508, sub_DB5B7, sub_DB6AC, sub_DB747, sub_DB75E, sub_DB763, sub_DB7B1
@@ -86,7 +86,7 @@ global sub_E3640, sub_E3700, sub_E3738, sub_E375C, sub_E3798, NetInit, NetShutdo
 global NetDisconnect, sub_E3F04, sub_E4218, sub_E4230, sub_E4248, sub_E4264, sub_E4288, LinkSendBlock
 global LinkReceiveBlock, WaitForOtherComputer, sub_E5730, sub_E57EC, sub_E5808, sub_E59A8, sub_E59D8, sub_E5A20
 global IpxInit, sub_E5BF8, sub_E5CD8, sub_E5D6C, sub_E5D98, sub_E5EE0, sub_E5FD8, sub_E61AC
-global sub_E657C, sub_E728C, sub_E72B0, sub_E7570, sub_E759F, sub_E77B1, sub_E7B33
+global ChooseNetworkGameScreen, sub_E728C, sub_E72B0, sub_E7570, sub_E759F, sub_E77B1, sub_E7B33
 ;-----------------------------------------------------------------------------
 ; AllocMediaBuffer                             DA66D  97 PC, medium confidence
 ; Allocates the "MEDIA BUFFER" (200h paragraphs of DOS memory)
@@ -16268,20 +16268,21 @@ sub_E61AC:
         pop ebx
         ret
 jpt_E6554:
-        dd sub_E657C_A51
-        dd sub_E657C_A99
-        dd sub_E657C_BA2
-        dd sub_E657C_BA2
-        dd sub_E657C_BA2
-        dd sub_E657C_BA2
-        dd sub_E657C_BA2
-        dd sub_E657C_BA2
-        dd sub_E657C_AE5
-        dd sub_E657C_B21
+        dd ChooseNetworkGameScreen_A51
+        dd ChooseNetworkGameScreen_A99
+        dd ChooseNetworkGameScreen_BA2
+        dd ChooseNetworkGameScreen_BA2
+        dd ChooseNetworkGameScreen_BA2
+        dd ChooseNetworkGameScreen_BA2
+        dd ChooseNetworkGameScreen_BA2
+        dd ChooseNetworkGameScreen_BA2
+        dd ChooseNetworkGameScreen_AE5
+        dd ChooseNetworkGameScreen_B21
 ;-----------------------------------------------------------------------------
-; sub_E657C                                                       E657C  97 PC
+; ChooseNetworkGameScreen                         E657C  97 PC, low confidence
+; Network play: the "Choose a game:" list of open games
 ;-----------------------------------------------------------------------------
-sub_E657C:
+ChooseNetworkGameScreen:
         push ebx
         push ecx
         push edx
@@ -16994,14 +16995,14 @@ sub_E657C:
         cmp ebp, eax
         jg short .9
         cmp eax, byte 7
-        jle near sub_E657C_B21.20
+        jle near ChooseNetworkGameScreen_B21.20
 .9:
         mov ecx, dword [byte esp+02Ch]
         cmp edi, ecx
-        jb near sub_E657C_BA2
+        jb near ChooseNetworkGameScreen_BA2
         mov eax, ecx
         jmp dword [nosplit cs:eax*4+jpt_E6554]
-sub_E657C_A51:
+ChooseNetworkGameScreen_A51:
         mov ebx, 1
 .10:
         cmp ebx, byte 2
@@ -17027,8 +17028,8 @@ sub_E657C_A51:
         inc ebx
         cmp ebx, byte 9
         jl short .10
-        jmp near sub_E657C_BA2
-sub_E657C_A99:
+        jmp near ChooseNetworkGameScreen_BA2
+ChooseNetworkGameScreen_A99:
         mov ebx, 1
 .14:
         cmp ebx, byte 2
@@ -17054,11 +17055,11 @@ sub_E657C_A99:
         inc ebx
         cmp ebx, byte 9
         jl short .14
-        jmp near sub_E657C_BA2
-sub_E657C_AE5:
+        jmp near ChooseNetworkGameScreen_BA2
+ChooseNetworkGameScreen_AE5:
         mov eax, dword [dword_16E13C]
         test eax, eax
-        jle near sub_E657C_BA2
+        jle near ChooseNetworkGameScreen_BA2
         lea edx, [byte eax-01h]
         mov ebx, dword [dword_16E138]
         mov dword [dword_16E13C], edx
@@ -17070,14 +17071,14 @@ sub_E657C_AE5:
         call sub_13C164
         call sub_E5FD8
         call sub_1013FC
-        jmp near sub_E657C_BA2
-sub_E657C_B21:
+        jmp near ChooseNetworkGameScreen_BA2
+ChooseNetworkGameScreen_B21:
         mov eax, dword [dword_1CD632]
         sar eax, 10h
         mov edx, dword [dword_16E13C]
         sub eax, byte 6
         cmp eax, edx
-        jle short sub_E657C_BA2
+        jle short ChooseNetworkGameScreen_BA2
         lea ebx, [byte edx+01h]
         mov eax, dword [dword_16E138]
         mov dword [dword_16E13C], ebx
@@ -17088,7 +17089,7 @@ sub_E657C_B21:
         call sub_13C164
         call sub_E5FD8
         call sub_1013FC
-        jmp short sub_E657C_BA2
+        jmp short ChooseNetworkGameScreen_BA2
 .20:
         lea ebx, [byte eax-02h]
         mov eax, dword [dword_16E13C]
@@ -17108,12 +17109,12 @@ sub_E657C_B21:
         mov ebx, 0FFFFFFFFh
         call sub_1013FC
         mov dword [byte esp+02Ch], ebx
-sub_E657C_BA2:
+ChooseNetworkGameScreen_BA2:
         mov ebx, dword [byte esp+02Ch]
         test ebx, ebx
-        jl near sub_E657C.8
+        jl near ChooseNetworkGameScreen.8
         cmp ebx, byte 1
-        jg near sub_E657C.8
+        jg near ChooseNetworkGameScreen.8
         call sub_13C164
         mov esi, dword [dword_1CD55C]
         push esi
@@ -17391,7 +17392,7 @@ sub_E72B0:
         xor edi, edi
 .7:
         lea eax, [byte esp+044h]
-        call sub_E657C
+        call ChooseNetworkGameScreen
         test eax, eax
         je near .11
         push asc_167614

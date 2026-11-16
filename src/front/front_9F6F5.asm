@@ -28,7 +28,7 @@ extern sub_FDC68, sub_FE150, sub_FE180, tickcount, unk_165E4A, unk_16D7F4, unk_1
 extern unk_1ACD2B, unk_1ACD30, unk_1ACE38, unk_1AD22E, unk_1AD236, unk_1AD250, unk_1AD255, unk_1AD35D
 extern unk_1AD73A, unk_1C5EF8, unk_1C5F4A, unk_1C8F9A, unk_1C93D0, unk_9F5F1, unk_9F611, unk_9F631
 extern unk_9F651, word_1ACB47, word_1AD240, word_1AD242, word_1C13C2, word_1C34E5, word_1C9450, word_1C94EE
-global jpt_A31C6, sub_9F6F5_393, sub_9F6F5_3A4, sub_9F6F5_3B5, sub_9F6F5_470, sub_9F6F5_4D9, sub_9F6F5_4EE, sub_9F6F5_1080
+global jpt_A31C6, PickIndexEntryScreen_393, PickIndexEntryScreen_3A4, PickIndexEntryScreen_3B5, PickIndexEntryScreen_470, PickIndexEntryScreen_4D9, PickIndexEntryScreen_4EE, PickIndexEntryScreen_1080
 global sub_A219A_6F3, sub_A219A_6FD, sub_A219A_6FE, sub_A2F78_BB, sub_A31DE_20, sub_A31DE_45, sub_A31DE_50, sub_A31DE_57
 global sub_A31DE_5E, PickIndexEntryScreen, sub_A0784, sub_A0867, sub_A0C74, sub_A12CD, sub_A1961, sub_A219A
 global sub_A289E, AllocCrusherBuffers, sub_A2F31, sub_A2F52, sub_A2F78, sub_A3048, sub_A3116, sub_A3136
@@ -283,26 +283,17 @@ PickIndexEntryScreen:
         call DrawScrollBar
 .12:
         call sub_1013FC
-        jmp near sub_9F6F5_470.21
-;-----------------------------------------------------------------------------
-; sub_9F6F5_393                                                   9FA88  97 PC
-;-----------------------------------------------------------------------------
-sub_9F6F5_393:
+        jmp near PickIndexEntryScreen_470.21
+PickIndexEntryScreen_393:
         call sub_7EEB0
 .13:
         mov dword [byte ebp+072h], 1
-        jmp near sub_9F6F5_470.21
-;-----------------------------------------------------------------------------
-; sub_9F6F5_3A4                                                   9FA99  97 PC
-;-----------------------------------------------------------------------------
-sub_9F6F5_3A4:
+        jmp near PickIndexEntryScreen_470.21
+PickIndexEntryScreen_3A4:
         call sub_7EDF0
         mov dword [byte ebp+072h], 1Bh
-        jmp near sub_9F6F5_470.21
-;-----------------------------------------------------------------------------
-; sub_9F6F5_3B5                                                   9FAAA  97 PC
-;-----------------------------------------------------------------------------
-sub_9F6F5_3B5:
+        jmp near PickIndexEntryScreen_470.21
+PickIndexEntryScreen_3B5:
         lea ebx, [byte ebp+02h]
         mov eax, dword [byte ebp+07Eh]
         mov edx, edi
@@ -337,16 +328,16 @@ sub_9F6F5_3B5:
         call sub_A0784
         mov eax, dword [byte ebp+07Eh]
         cmp dword [byte eax+066h], byte 0
-        jne short sub_9F6F5_470.21
+        jne short PickIndexEntryScreen_470.21
         cmp dword [dword ebp-042Ah], byte 7
         jb short .16
         jbe short .17
         cmp dword [dword ebp-042Ah], byte 9
         je short .18
-        jmp near sub_9F6F5_393.13
+        jmp near PickIndexEntryScreen_393.13
 .16:
         cmp dword [dword ebp-042Ah], byte 5
-        jne near sub_9F6F5_393.13
+        jne near PickIndexEntryScreen_393.13
         mov eax, asc_165D53
         jmp short .19
 .17:
@@ -356,11 +347,8 @@ sub_9F6F5_3B5:
         mov eax, asc_165D74
 .19:
         call sub_11B98E
-        jmp near sub_9F6F5_393.13
-;-----------------------------------------------------------------------------
-; sub_9F6F5_470                                                   9FB65  97 PC
-;-----------------------------------------------------------------------------
-sub_9F6F5_470:
+        jmp near PickIndexEntryScreen_393.13
+PickIndexEntryScreen_470:
         lea eax, [dword ebp-0166h]
         mov ebx, dword [byte ebp+076h]
         xor edx, edx
@@ -375,7 +363,7 @@ sub_9F6F5_470:
         mov edi, dword [byte ebp+06Eh]
         add edi, 3E8h
         cmp dword [byte ebp+072h], byte 0FFFFFFFFh
-        jne near sub_9F6F5_4EE.24
+        jne near PickIndexEntryScreen_4EE.24
         push byte 3
         lea eax, [byte ebp+056h]
         mov ecx, sub_9F671
@@ -386,29 +374,23 @@ sub_9F6F5_470:
         call sub_8BFAC
         mov ebx, eax
         cmp dword [byte ebp+056h], byte 5
-        ja short sub_9F6F5_4EE.22
+        ja short PickIndexEntryScreen_4EE.22
         mov eax, dword [byte ebp+056h]
         jmp dword [nosplit cs:eax*4+jpt_9F6DD]
-;-----------------------------------------------------------------------------
-; sub_9F6F5_4D9                                                   9FBCE  97 PC
-;-----------------------------------------------------------------------------
-sub_9F6F5_4D9:
+PickIndexEntryScreen_4D9:
         lea eax, [dword ebp-0166h]
         xor edx, edx
         mov ecx, dword [byte ebp+06Eh]
         call sub_8DEAC
         mov ebx, dword [byte ebp+076h]
-        jmp short sub_9F6F5_470.20
-;-----------------------------------------------------------------------------
-; sub_9F6F5_4EE                                                   9FBE3  97 PC
-;-----------------------------------------------------------------------------
-sub_9F6F5_4EE:
+        jmp short PickIndexEntryScreen_470.20
+PickIndexEntryScreen_4EE:
         lea eax, [dword ebp-0166h]
         mov ebx, dword [byte ebp+076h]
         xor edx, edx
         mov ecx, dword [byte ebp+06Eh]
         call sub_8DE68
-        jmp short sub_9F6F5_470.20
+        jmp short PickIndexEntryScreen_470.20
 .22:
         mov eax, dword [byte ebp+056h]
         sub eax, byte 6
@@ -420,7 +402,7 @@ sub_9F6F5_4EE:
 .23:
         mov ebx, dword [byte ebp+076h]
         mov ecx, dword [byte ebp+06Eh]
-        jmp near sub_9F6F5_470.20
+        jmp near PickIndexEntryScreen_470.20
 .24:
         cmp dword [byte ebp+072h], byte 1Bh
         jne near .87
@@ -1238,7 +1220,7 @@ sub_9F6F5_4EE:
         push dword [byte ebp+05Ah]
         call sub_FAF34
         mov eax, dword [byte ebp+072h]
-sub_9F6F5_1080:
+PickIndexEntryScreen_1080:
         add esp, byte 4
         lea esp, [dword ebp+082h]
         pop ebp
@@ -3127,7 +3109,7 @@ sub_A1961:
         add esp, byte 4
         push dword [byte ebp+06Ah]
         call sub_FAF34
-        jmp near sub_9F6F5_1080
+        jmp near PickIndexEntryScreen_1080
 ;-----------------------------------------------------------------------------
 ; sub_A219A                                                       A219A  97 PC
 ;-----------------------------------------------------------------------------

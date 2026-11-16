@@ -1,0 +1,12 @@
+DrawGoalScorerPanel_26F DrawPenaltyPanel_26F {no_record}
+DrawGoalScorerPanel DrawPenaltyPanel {source=new,confidence=medium} overlay panel kind 1: the penalty call (game text "Penalty", "for", the infraction, "2 Minutes" / "5 Minute Major", "and a Game Misconduct")
+sub_17818 DrawGoalScorerPanel {source=new,confidence=medium} overlay panel kind 2: the goal scorer ("Goal", "Shorthanded", "Empty Net", "Unassisted"; "%s - #%d %c. %s")
+DrawPlayerNamePanel_16F DrawSpecialTeamsPanel {source=new,confidence=medium} overlay panel kind 9: specialty teams tonight / this season, power play and penalty killing (game text 33h-37h)
+DrawPlayerNamePanel_48E DrawPenaltyShotPanel_48E {no_record}
+DrawPlayerNamePanel_49A DrawPenaltyShotPanel_49A {no_record}
+DrawPlayerNamePanel_4D7 DrawPenaltyShotPanel_4D7 {no_record}
+DrawPlayerNamePanel DrawPenaltyShotPanel {source=new,confidence=medium} overlay panel kind 8: "Penalty Shot", the shooter "against" the goalie (was the 96 PC carry DrawPlayerNamePanel)
+sub_17639 DrawInjuryPanel {source=new,confidence=medium} overlay panel kind 10: "Injury" with "#%d %s %s"
+sub_1771B DrawPeriodPanel {source=new,confidence=medium} overlay panel kind 11: "Period" with "%s %s" / "%s   %d"
+sub_17C2C_18E DrawPowerPlayClock_18E {no_record}
+sub_17C2C DrawPowerPlayClock {source=new,confidence=low} draws the "Power Play" countdown next to the game clock ("%2d:%02d")

@@ -39,9 +39,9 @@ extern sub_E0415, sub_E0841, sub_E0D0F, FreeExhibitionFile, sub_E12EF, sub_FAA64
 extern sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FD110, sub_FDD1C, sub_FDE44, tickcount
 extern unk_166E9D, unk_166F30, unk_16D7F4, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C5FEE, word_16D6C4
 extern word_16D6D2, word_16D6E4
-global jpt_CBFAA, jpt_CD7E3, sub_C755B_11C, sub_C755B_157, sub_C755B_172, sub_C755B_246, sub_C755B_2EC, sub_C755B_3B9
-global sub_C755B_42C, sub_C755B_49B, sub_C755B_4ED, sub_C755B_53E, sub_C755B_596, sub_C755B_5AB, sub_C755B_5AF, sub_C755B_5CF
-global sub_C755B_5D3, sub_C755B_604, sub_C755B_615, sub_C755B_624, sub_C755B_65B, sub_C755B_66C, sub_C7FBC_4A, sub_C8EDC_86F
+global jpt_CBFAA, jpt_CD7E3, RosterScreen_11C, RosterScreen_157, RosterScreen_172, RosterScreen_246, RosterScreen_2EC, RosterScreen_3B9
+global RosterScreen_42C, RosterScreen_49B, RosterScreen_4ED, RosterScreen_53E, RosterScreen_596, RosterScreen_5AB, RosterScreen_5AF, RosterScreen_5CF
+global RosterScreen_5D3, RosterScreen_604, RosterScreen_615, RosterScreen_624, RosterScreen_65B, RosterScreen_66C, sub_C7FBC_4A, sub_C8EDC_86F
 global sub_CA49A_2B8, sub_CB216_F7, sub_CB216_100, sub_CB216_102, sub_CB216_108, sub_CB9C9_306, sub_CBCD9_EE, sub_CBFBA_59
 global sub_CBFBA_D9, sub_CBFBA_133, sub_CBFBA_17B, sub_CD7F3_24, sub_CD7F3_AD, sub_CD7F3_1BD, sub_CD7F3_25B, sub_CE111_61
 global sub_CEC58_D4, sub_CEC58_110, sub_CEC58_12B, sub_CED89_83, sub_CED89_8D, sub_CEE20_B1, sub_CF255_152, sub_CF255_157
@@ -49,7 +49,7 @@ global sub_CF255_158, sub_CF70F_20, sub_D096D_146, RosterScreen, sub_C7CA4, sub_
 global sub_C7FBC, sub_C800C, sub_C80C8, sub_C8127, sub_C817F, sub_C885D, sub_C8BEE, sub_C8C90
 global sub_C8EDC, sub_C9757, sub_C97FF, sub_C98B1, sub_C9A45, sub_C9AEE, sub_C9B24, sub_C9D84
 global sub_C9DDF, sub_C9F18, sub_CA206, sub_CA2A7, sub_CA44C, sub_CA49A, sub_CA758, sub_CAA0F
-global sub_CABF2, sub_CACE0, sub_CB041, sub_CB192, sub_CB216, sub_CB324, sub_CB6D5, sub_CB9C9
+global sub_CABF2, sub_CACE0, CheckRosterInjuries, sub_CB192, sub_CB216, CheckRosterLimits, CheckRegularRosterLimits, sub_CB9C9
 global sub_CBCD9, sub_CBDD0, sub_CBECB, sub_CBFBA, sub_CC1CA, sub_CC3AD, sub_CCB24, sub_CCC30
 global sub_CCF2E, sub_CD037, sub_CD13A, JerseyScreen, sub_CD7B7, sub_CD7F3, sub_CDBE5, sub_CDC8B
 global sub_CDD99, sub_CDEEA, sub_CDF39, sub_CE111, sub_CE178, sub_CE3F2, sub_CE53C, sub_CE730
@@ -145,11 +145,8 @@ RosterScreen:
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte eax+02Ch]
         call sub_80BBC
-        jmp near sub_C755B_66C.29
-;-----------------------------------------------------------------------------
-; sub_C755B_11C                                                   C7677  97 PC
-;-----------------------------------------------------------------------------
-sub_C755B_11C:
+        jmp near RosterScreen_66C.29
+RosterScreen_11C:
         call sub_7EEB0
         cmp dword [dword_1CC2BC], byte 0
         je short .4
@@ -161,23 +158,17 @@ sub_C755B_11C:
         call GetLangText
         call sub_7F5A4
         mov dword [byte ebp+07Eh], eax
-        jmp near sub_C755B_66C.29
+        jmp near RosterScreen_66C.29
 .4:
         inc dword [byte ebp+07Eh]
-        jmp near sub_C755B_66C.29
-;-----------------------------------------------------------------------------
-; sub_C755B_157                                                   C76B2  97 PC
-;-----------------------------------------------------------------------------
-sub_C755B_157:
+        jmp near RosterScreen_66C.29
+RosterScreen_157:
         call sub_7EDF0
         call sub_C9D84
         call sub_CE73B
         mov dword [byte ebp+07Eh], 1
-        jmp near sub_C755B_66C.29
-;-----------------------------------------------------------------------------
-; sub_C755B_172                                                   C76CD  97 PC
-;-----------------------------------------------------------------------------
-sub_C755B_172:
+        jmp near RosterScreen_66C.29
+RosterScreen_172:
         call sub_C9AEE
         push dword [dword_1CC2C4]
         call sub_FAF34
@@ -232,24 +223,21 @@ sub_C755B_172:
         inc ebx
         cmp ebx, byte 14h
         jl short .5
-        jmp near sub_C755B_66C.29
-;-----------------------------------------------------------------------------
-; sub_C755B_246                                                   C77A1  97 PC
-;-----------------------------------------------------------------------------
-sub_C755B_246:
+        jmp near RosterScreen_66C.29
+RosterScreen_246:
         cmp dword [dword_1CC2B0], byte 0
-        je near sub_C755B_66C.29
+        je near RosterScreen_66C.29
         cmp dword [dword_1CC22C], byte 0
-        je near sub_C755B_66C.29
-        call sub_CB041
+        je near RosterScreen_66C.29
+        call CheckRosterInjuries
         test eax, eax
-        jne near sub_C755B_66C.29
+        jne near RosterScreen_66C.29
         call sub_CB216
         test eax, eax
-        jne near sub_C755B_66C.29
-        call sub_CB324
+        jne near RosterScreen_66C.29
+        call CheckRosterLimits
         test eax, eax
-        jne near sub_C755B_66C.29
+        jne near RosterScreen_66C.29
         call sub_CB9C9
         mov edx, 1
         xor eax, eax
@@ -269,13 +257,10 @@ sub_C755B_246:
         movsx edx, word [byte edx+eax+072h]
         lea eax, [dword ebp-018Eh]
         call SetScrollBarPos
-        jmp near sub_C755B_66C.28
-;-----------------------------------------------------------------------------
-; sub_C755B_2EC                                                   C7847  97 PC
-;-----------------------------------------------------------------------------
-sub_C755B_2EC:
+        jmp near RosterScreen_66C.28
+RosterScreen_2EC:
         cmp dword [dword_1CC208], byte 0
-        jne near sub_C755B_66C.29
+        jne near RosterScreen_66C.29
         push byte 1
         mov eax, 0D5h
         mov ecx, 1
@@ -284,7 +269,7 @@ sub_C755B_2EC:
         call GetLangText
         call sub_7F5A4
         cmp eax, byte 1
-        jne near sub_C755B_66C.29
+        jne near RosterScreen_66C.29
         call sub_CEBC0
         mov ebx, 1
         mov edx, esi
@@ -316,11 +301,8 @@ sub_C755B_2EC:
         mov eax, 1
         call sub_CAA0F
         mov dword [dword_1CC2BC], 1
-        jmp near sub_C755B_66C.29
-;-----------------------------------------------------------------------------
-; sub_C755B_3B9                                                   C7914  97 PC
-;-----------------------------------------------------------------------------
-sub_C755B_3B9:
+        jmp near RosterScreen_66C.29
+RosterScreen_3B9:
         call sub_83C08
         lea edx, [byte ebp+062h]
         xor eax, eax
@@ -332,7 +314,7 @@ sub_C755B_3B9:
         je short .7
         call sub_C7FBC
         test eax, eax
-        je near sub_C755B_66C.29
+        je near RosterScreen_66C.29
 .7:
         cmp dword [dword_16D668], byte 0
         je short .8
@@ -352,14 +334,11 @@ sub_C755B_3B9:
 .10:
         mov eax, dword [dword_1CC214]
         jmp near RosterScreen.3
-;-----------------------------------------------------------------------------
-; sub_C755B_42C                                                   C7987  97 PC
-;-----------------------------------------------------------------------------
-sub_C755B_42C:
+RosterScreen_42C:
         xor eax, eax
         call sub_CA2A7
         test eax, eax
-        je near sub_C755B_66C.29
+        je near RosterScreen_66C.29
         imul eax, dword [byte ebp+072h], byte 52h
         mov edx, dword [byte edi+eax+01Ah]
         movsx edx, word [byte edx+04h]
@@ -386,15 +365,12 @@ sub_C755B_42C:
         mov dword [byte ebp+07Ah], eax
 .12:
         call sub_CABF2
-        jmp near sub_C755B_66C.29
-;-----------------------------------------------------------------------------
-; sub_C755B_49B                                                   C79F6  97 PC
-;-----------------------------------------------------------------------------
-sub_C755B_49B:
+        jmp near RosterScreen_66C.29
+RosterScreen_49B:
         mov eax, 1
         call sub_CA2A7
         test eax, eax
-        je near sub_C755B_66C.29
+        je near RosterScreen_66C.29
         imul eax, dword [byte ebp+072h], byte 52h
         mov edx, dword [byte edi+eax+026h]
         push dword [byte edi+eax+02Ah]
@@ -410,11 +386,8 @@ sub_C755B_49B:
         mov eax, edx
         call sub_8DF1F
         mov edx, 1
-        jmp short sub_C755B_42C.11
-;-----------------------------------------------------------------------------
-; sub_C755B_4ED                                                   C7A48  97 PC
-;-----------------------------------------------------------------------------
-sub_C755B_4ED:
+        jmp short RosterScreen_42C.11
+RosterScreen_4ED:
         mov ebx, dword [byte eax+01Ah]
         movsx ecx, word [byte ebx+06h]
         movsx ebx, word [byte ebx+04h]
@@ -440,11 +413,8 @@ sub_C755B_4ED:
         jl short .13
         push byte 0
         mov ebx, dword [byte ebp+072h]
-        jmp short sub_C755B_596.18
-;-----------------------------------------------------------------------------
-; sub_C755B_53E                                                   C7A99  97 PC
-;-----------------------------------------------------------------------------
-sub_C755B_53E:
+        jmp short RosterScreen_596.18
+RosterScreen_53E:
         mov ebx, dword [byte eax+01Ah]
         mov edx, dword [byte eax+026h]
         movsx ecx, word [byte ebx+06h]
@@ -472,11 +442,8 @@ sub_C755B_53E:
         push byte 0
         mov ebx, dword [byte ebp+072h]
         mov edx, 1
-        jmp short sub_C755B_5AF.20
-;-----------------------------------------------------------------------------
-; sub_C755B_596                                                   C7AF1  97 PC
-;-----------------------------------------------------------------------------
-sub_C755B_596:
+        jmp short RosterScreen_5AF.20
+RosterScreen_596:
         push byte 0FFFFFFFFh
 .17:
         mov ebx, 8
@@ -485,17 +452,11 @@ sub_C755B_596:
         mov ecx, esi
         push dword [byte ebp+07Ah]
         xor edx, edx
-        jmp short sub_C755B_5AF.21
-;-----------------------------------------------------------------------------
-; sub_C755B_5AB                                                   C7B06  97 PC
-;-----------------------------------------------------------------------------
-sub_C755B_5AB:
+        jmp short RosterScreen_5AF.21
+RosterScreen_5AB:
         push byte 1
-        jmp short sub_C755B_596.17
-;-----------------------------------------------------------------------------
-; sub_C755B_5AF                                                   C7B0A  97 PC
-;-----------------------------------------------------------------------------
-sub_C755B_5AF:
+        jmp short RosterScreen_596.17
+RosterScreen_5AF:
         push byte 0FFFFFFFFh
 .19:
         mov ebx, 9
@@ -506,17 +467,11 @@ sub_C755B_5AF:
         mov ecx, esi
 .21:
         call sub_CACE0
-        jmp near sub_C755B_66C.29
-;-----------------------------------------------------------------------------
-; sub_C755B_5CF                                                   C7B2A  97 PC
-;-----------------------------------------------------------------------------
-sub_C755B_5CF:
+        jmp near RosterScreen_66C.29
+RosterScreen_5CF:
         push byte 1
-        jmp short sub_C755B_5AF.19
-;-----------------------------------------------------------------------------
-; sub_C755B_5D3                                                   C7B2E  97 PC
-;-----------------------------------------------------------------------------
-sub_C755B_5D3:
+        jmp short RosterScreen_5AF.19
+RosterScreen_5D3:
         lea eax, [dword ebp-028Eh]
         xor edx, edx
         call sub_8DE10
@@ -528,28 +483,19 @@ sub_C755B_5D3:
         mov word [byte edx+072h], ax
         mov edx, 1
         xor eax, eax
-        jmp short sub_C755B_624.25
-;-----------------------------------------------------------------------------
-; sub_C755B_604                                                   C7B5F  97 PC
-;-----------------------------------------------------------------------------
-sub_C755B_604:
+        jmp short RosterScreen_624.25
+RosterScreen_604:
         lea eax, [dword ebp-028Eh]
         mov ebx, edx
         xor edx, edx
         call sub_8DEAC
-        jmp short sub_C755B_5D3.22
-;-----------------------------------------------------------------------------
-; sub_C755B_615                                                   C7B70  97 PC
-;-----------------------------------------------------------------------------
-sub_C755B_615:
+        jmp short RosterScreen_5D3.22
+RosterScreen_615:
         lea eax, [dword ebp-028Eh]
         xor edx, edx
         call sub_8DE68
-        jmp short sub_C755B_5D3.22
-;-----------------------------------------------------------------------------
-; sub_C755B_624                                                   C7B7F  97 PC
-;-----------------------------------------------------------------------------
-sub_C755B_624:
+        jmp short RosterScreen_5D3.22
+RosterScreen_624:
         lea eax, [dword ebp-018Eh]
         xor edx, edx
         call sub_8DE10
@@ -564,26 +510,20 @@ sub_C755B_624:
         mov eax, edx
 .25:
         call sub_C8EDC
-        jmp short sub_C755B_66C.29
-;-----------------------------------------------------------------------------
-; sub_C755B_65B                                                   C7BB6  97 PC
-;-----------------------------------------------------------------------------
-sub_C755B_65B:
+        jmp short RosterScreen_66C.29
+RosterScreen_65B:
         lea eax, [dword ebp-018Eh]
         mov ebx, edx
         xor edx, edx
         call sub_8DEAC
-        jmp short sub_C755B_624.23
-;-----------------------------------------------------------------------------
-; sub_C755B_66C                                                   C7BC7  97 PC
-;-----------------------------------------------------------------------------
-sub_C755B_66C:
+        jmp short RosterScreen_624.23
+RosterScreen_66C:
         lea eax, [dword ebp-018Eh]
         xor edx, edx
         call sub_8DE68
         imul edx, dword [dword_1CC1C8], dword 32C6h
         mov eax, dword [dword_1CC2AC]
-        jmp short sub_C755B_624.24
+        jmp short RosterScreen_624.24
 .26:
         cmp dword [byte ebp+072h], byte 14h
         jl short .30
@@ -4458,9 +4398,10 @@ sub_CACE0:
         pop esi
         ret 8
 ;-----------------------------------------------------------------------------
-; sub_CB041                                                       CB041  97 PC
+; CheckRosterInjuries                             CB041  97 PC, low confidence
+; Roster: the "Roster Violation: %c. %s is injured." check
 ;-----------------------------------------------------------------------------
-sub_CB041:
+CheckRosterInjuries:
         push ebx
         push ecx
         push edx
@@ -4705,9 +4646,11 @@ sub_CB216_108:
         pop ebp
         jmp near sub_CF255_158
 ;-----------------------------------------------------------------------------
-; sub_CB324                                                       CB324  97 PC
+; CheckRosterLimits                               CB324  97 PC, low confidence
+; Roster: the minimum / maximum roster and goalie count checks ("Roster
+; Violation: %s must have...")
 ;-----------------------------------------------------------------------------
-sub_CB324:
+CheckRosterLimits:
         push ebx
         push ecx
         push edx
@@ -4993,9 +4936,11 @@ sub_CB324:
         mov eax, dword [byte ebp+07Eh]
         jmp near sub_CB216_102
 ;-----------------------------------------------------------------------------
-; sub_CB6D5                                                       CB6D5  97 PC
+; CheckRegularRosterLimits                        CB6D5  97 PC, low confidence
+; Roster: the non-injured minimum and regular / additional roster maximum
+; checks
 ;-----------------------------------------------------------------------------
-sub_CB6D5:
+CheckRegularRosterLimits:
         push ebx
         push ecx
         push edx
@@ -7716,7 +7661,7 @@ sub_CD7F3_1BD:
         test byte [byte ebx+eax+06Ah], 8
         je near sub_C8EDC_86F
         mov eax, esi
-        call sub_CB6D5
+        call CheckRegularRosterLimits
         test eax, eax
         jne near sub_C8EDC_86F
         mov eax, esi

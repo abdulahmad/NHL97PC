@@ -47,7 +47,7 @@ global sub_ADBE6_FC4, sub_ADBE6_1027, sub_ADBE6_108A, sub_ADBE6_10ED, sub_ADBE6_
 global sub_AF074_C68, sub_AF074_D0E, sub_AC799, sub_ACA49, sub_ACAE5, sub_ACAF2, sub_ACB0E, sub_ACB21
 global sub_ACB2B, sub_ACB8E, sub_ACBF9, sub_ACC7F, sub_ACD03, sub_ACDAE, sub_AD151, sub_AD62E
 global sub_AD64A, sub_AD678, sub_AD6D6, sub_AD79F, sub_ADB4F, sub_ADBE6, sub_AEFAF, sub_AF074
-global sub_B0906, sub_B0C05, sub_B1248, sub_B1922, unk_AD76B, unk_B1DF1, unk_B1DFD, unk_B1E09
+global sub_B0906, SetSkaterStatColumns, SetGoalieStatColumns, SetTeamStatColumns, unk_AD76B, unk_B1DF1, unk_B1DFD, unk_B1E09
 global unk_B1E11
 ;-----------------------------------------------------------------------------
 ; sub_AC799                                                       AC799  97 PC
@@ -2302,7 +2302,7 @@ sub_ADBE6:
         push eax
         add ecx, 1ECh
         lea eax, [dword ebp-0276h]
-        call sub_B1922
+        call SetTeamStatColumns
         mov eax, dword [byte ebp+0Eh]
         jmp short .21
 .20:
@@ -2324,7 +2324,7 @@ sub_ADBE6:
         push eax
         add ecx, 1ECh
         lea eax, [dword ebp-0276h]
-        call sub_B1922
+        call SetTeamStatColumns
         mov eax, dword [byte ebp+012h]
 .21:
         mov dword [byte ebp+05Ah], eax
@@ -2722,7 +2722,7 @@ sub_ADBE6:
         push eax
         add ecx, 1ECh
         lea eax, [dword ebp-0276h]
-        call sub_B1922
+        call SetTeamStatColumns
         mov eax, dword [byte ebp+012h]
         jmp near .46
 .45:
@@ -2785,7 +2785,7 @@ sub_ADBE6:
         push eax
         add ecx, 1ECh
         lea eax, [dword ebp-0276h]
-        call sub_B1922
+        call SetTeamStatColumns
         mov eax, dword [byte ebp+0Eh]
 .46:
         movsx edx, si
@@ -3827,7 +3827,7 @@ sub_AF074:
         add edx, 2E2h
         push dword [byte ebp+06h]
         mov ecx, dword [byte ecx+02Ch]
-        call sub_B0C05
+        call SetSkaterStatColumns
         cmp dword [dword_16D400], byte 0FFFFFFFFh
         je short .19
         mov eax, dword [dword_16D400]
@@ -4246,7 +4246,7 @@ sub_AF074_B17:
         mov ecx, dword [byte ecx+02Ch]
         push dword [byte ebp+06h]
         add edx, 2E2h
-        call sub_B0C05
+        call SetSkaterStatColumns
         cmp dword [dword_16D400], byte 0FFFFFFFFh
         je short .49
         mov eax, dword [dword_16D400]
@@ -4295,7 +4295,7 @@ sub_AF074_BC9:
         mov ecx, dword [byte ecx+02Ch]
         push dword [byte ebp+06h]
         add edx, 2E2h
-        call sub_B1248
+        call SetGoalieStatColumns
 .50:
         cmp dword [byte ebp+0Ah], byte 4
         jne near sub_AF074_D0E.54
@@ -4334,7 +4334,7 @@ sub_AF074_C68:
         mov ecx, dword [byte ecx+02Ch]
         push dword [byte ebp+06h]
         add edx, 2E2h
-        call sub_B0C05
+        call SetSkaterStatColumns
         cmp dword [dword_16D400], byte 0FFFFFFFFh
         je short .51
         mov eax, dword [dword_16D400]
@@ -4376,7 +4376,7 @@ sub_AF074_D0E:
         mov ecx, dword [byte ecx+02Ch]
         push dword [byte ebp+06h]
         add edx, 2E2h
-        call sub_B0C05
+        call SetSkaterStatColumns
         cmp dword [dword_16D400], byte 0FFFFFFFFh
         je short .52
         mov eax, dword [dword_16D400]
@@ -5448,9 +5448,11 @@ sub_B0906:
         pop esi
         ret 1Ch
 ;-----------------------------------------------------------------------------
-; sub_B0C05                                                       B0C05  97 PC
+; SetSkaterStatColumns                            B0C05  97 PC, low confidence
+; Stats lists: the skater column titles (Team, #, Height, Weight, GP, G, A,
+; P, +/-, PIM, PPG, SHG, Shots...)
 ;-----------------------------------------------------------------------------
-sub_B0C05:
+SetSkaterStatColumns:
         push esi
         push edi
         enter 28h, 0
@@ -6014,9 +6016,11 @@ sub_B0C05:
         jl near .19
         jmp near sub_AC799_2AA
 ;-----------------------------------------------------------------------------
-; sub_B1248                                                       B1248  97 PC
+; SetGoalieStatColumns                            B1248  97 PC, low confidence
+; Stats lists: the goalie column titles (GP, Minutes, G.A.A., Shots, S%, GA,
+; SO, ENG...)
 ;-----------------------------------------------------------------------------
-sub_B1248:
+SetGoalieStatColumns:
         push esi
         push edi
         enter 2Ch, 0
@@ -6640,9 +6644,11 @@ sub_B1248:
         pop esi
         ret 28h
 ;-----------------------------------------------------------------------------
-; sub_B1922                                                       B1922  97 PC
+; SetTeamStatColumns                              B1922  97 PC, low confidence
+; Stats lists: the team column titles (GP, W, L, T, points, GF, GA, PPG, PP%,
+; PK%, streaks...)
 ;-----------------------------------------------------------------------------
-sub_B1922:
+SetTeamStatColumns:
         push esi
         push edi
         enter 18h, 0

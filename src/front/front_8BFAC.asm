@@ -11,8 +11,8 @@ extern dword_16E468, dword_16E46C, dword_1AC814, dword_1C5DE4, dword_1C83D0, dwo
 extern dword_1C83E0, dword_1C83E4, dword_1C83E8, dword_1C83EC, dword_1C83F0, dword_1C83F4, dword_1C83F8, dword_1C83FC
 extern dword_1C8400, dword_1C8404, dword_1C8408, dword_1C840C, dword_1C8410, dword_1C8414, dword_1C8418, dword_1C841C
 extern dword_1C8420, dword_1C8424, dword_1C8428, dword_1C842C, dword_1C8430, dword_1C8434, dword_1C8438, dword_1C843C
-extern dword_1C8444, dword_1C8448, dword_1C844C, dword_1C8454, sub_8E997_DD, sub_8E997_E6, sub_8E997_EF, sub_8E997_F8
-extern sub_8E997_16F, sub_8E997_17B, sub_8E997_187, sub_8E997_193, off_16E4E0, qword_165550, qword_165558, qword_165568
+extern dword_1C8444, dword_1C8448, dword_1C844C, dword_1C8454, RunNewSeason_DD, RunNewSeason_E6, RunNewSeason_EF, RunNewSeason_F8
+extern RunNewSeason_16F, RunNewSeason_17B, RunNewSeason_187, RunNewSeason_193, off_16E4E0, qword_165550, qword_165558, qword_165568
 extern sub_101390, sub_1013CC, sub_1013FC, sub_101429, sub_1097F0, sub_11A318, sub_13C164, PlaySfx
 extern LoadDataFileHandle, SetRegionRect, sub_835AC, sub_835BC, sub_83850, InitMenuItems, sub_E3410, sub_E341C
 extern sub_E375C, sub_E3798, sub_FAF34, sub_FC510, SetViewRect, sub_FCD90, sub_FCFCC, sub_FD08C
@@ -3547,12 +3547,12 @@ sub_8E870:
         pop ebx
         ret
 jpt_8E977:
-        dd sub_8E997_F8
-        dd sub_8E997_DD
-        dd sub_8E997_E6
-        dd sub_8E997_EF
+        dd RunNewSeason_F8
+        dd RunNewSeason_DD
+        dd RunNewSeason_E6
+        dd RunNewSeason_EF
 jpt_8E987:
-        dd sub_8E997_16F
-        dd sub_8E997_17B
-        dd sub_8E997_187
-        dd sub_8E997_193
+        dd RunNewSeason_16F
+        dd RunNewSeason_17B
+        dd RunNewSeason_187
+        dd RunNewSeason_193
