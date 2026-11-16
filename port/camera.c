@@ -60,24 +60,51 @@ static void load(const uint32_t *from)
     for (i = 0; i < NREG; i++) { uint32_t n = cam_regions[i].hi - cam_regions[i].lo; memcpy(GAME_ADDR(cam_regions[i].lo), s, n); s += n; }
 }
 
-static int is_float(uint32_t w, float *f)
+/* the floats a blended frame mixes (field-aligned: CameraStateRecords starts with 7 bytes of flags); everything else in the
+ * regions is the newer state as it is */
+static const struct { uint32_t lo, hi; } blend_ranges[] = {
+    { 0x1B905Fu, 0x1B907Bu },           /* CameraStateRecords +7 .. +23h: the current position and angles */
+    { 0x1B92ABu, 0x1B92CFu },           /*   +253h: the view matrix (3x3) */
+    { 0x19D188u, 0x19D1B8u },           /* CameraPos .. CameraFocusVec */
+    { 0x19D31Cu, 0x19D348u },           /* CameraEye .. CameraFovTarget */
+    { 0x170254u, 0x17025Cu },           /* CameraYaw, CameraPitch */
+    { 0x170264u, 0x170274u },           /* CameraSinYaw, CameraCosYaw, CameraOriginX, CameraOriginY */
+    { 0x16B72Cu, 0x16B730u },           /* F32_ViewAngle */
+};
+static int blend_word[CAM_BYTES / 4];   /* the byte offset in the state of each float to mix, -1 ends */
+
+static void blend_init(void)
 {
-    memcpy(f, &w, 4);
-    if (w == 0) return 1;
-    if (!isfinite(*f)) return 0;
-    return fabsf(*f) >= 1e-6f && fabsf(*f) <= 1e7f;    /* small integers, pointers and flags are denormals or tiny */
+    unsigned k, n = 0;
+    for (k = 0; k < sizeof blend_ranges / sizeof *blend_ranges; k++) {
+        uint32_t a;
+        for (a = blend_ranges[k].lo; a + 4 <= blend_ranges[k].hi; a += 4) {
+            uint32_t off = 0;
+            int r;
+            for (r = 0; r < NREG; r++) {
+                if (a >= cam_regions[r].lo && a + 4 <= cam_regions[r].hi) { blend_word[n++] = (int)(off + (a - cam_regions[r].lo)); break; }
+                off += cam_regions[r].hi - cam_regions[r].lo;
+            }
+        }
+    }
+    blend_word[n] = -1;
 }
 
 static void blend(float frac)
 {
-    unsigned i;
-    for (i = 0; i < CAM_BYTES / 4; i++) {
+    const uint8_t *pb = (const uint8_t *)prev, *cb = (const uint8_t *)cur;
+    uint8_t *mb = (uint8_t *)mix;
+    int i;
+    memcpy(mix, cur, sizeof mix);
+    for (i = 0; blend_word[i] >= 0; i++) {
         float a, b, m;
-        if (prev[i] == cur[i] || !is_float(prev[i], &a) || !is_float(cur[i], &b)) { mix[i] = cur[i]; continue; }
+        int o = blend_word[i];
+        memcpy(&a, pb + o, 4); memcpy(&b, cb + o, 4);
+        if (!isfinite(a) || !isfinite(b) || a == b) continue;
         m = fabsf(a) > fabsf(b) ? fabsf(a) : fabsf(b);
-        if (fabsf(b - a) > (m * 0.5f > 1.0f ? m * 0.5f : 1.0f)) { mix[i] = cur[i]; continue; }   /* a cut or a wrap */
+        if (fabsf(b - a) > (m * 0.5f > 1.0f ? m * 0.5f : 1.0f)) continue;    /* a cut or an angle wrapping round */
         m = a + (b - a) * frac;
-        memcpy(&mix[i], &m, 4);
+        memcpy(mb + o, &m, 4);
     }
     load(mix);
     blended = 1;
@@ -162,7 +189,17 @@ void cam_ran(void)
 /* after the frame: the game goes on with the camera's true state */
 void cam_end(void)
 {
-    if (blended) load(cur);
+    if (blended) {                       /* only the floats the blend wrote, and only where the game has not written since */
+        uint8_t now[CAM_BYTES];
+        const uint8_t *cb = (const uint8_t *)cur, *mb = (const uint8_t *)mix;
+        int i;
+        save((uint32_t *)now);
+        for (i = 0; blend_word[i] >= 0; i++) {
+            int o = blend_word[i];
+            if (!memcmp(now + o, mb + o, 4)) memcpy(now + o, cb + o, 4);
+        }
+        load((const uint32_t *)now);
+    }
     blended = 0;
 }
 
@@ -214,5 +251,6 @@ void camera_install(void)
         int32_t rel = (int32_t)((uintptr_t)cam_run_stub - ((uintptr_t)call + 5));
         patch_bytes(call + 1, &rel, 4);
     }
+    blend_init();
     patch_jmp(d, (void *)draw_entry);
 }
