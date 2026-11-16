@@ -205,6 +205,48 @@ static void install_x87_stack_fix(void)
     memset(p, 0x90, 8);
 }
 
+/* WaitTicks (FC2D9) runs the task list (sub_F9A88) until tickcount has moved on by the ticks asked for. Online the clock only
+ * moves with the steps (netplay.c), so a WaitTicks inside a step (the sound code's, with the game's sound on) spun for ever. In a
+ * session the clock is moved on by those ticks at once and the task list runs once (the same on both machines); otherwise the
+ * original runs (its first 10 bytes replayed here). */
+uint32_t wt_tick_addr, wt_task, wt_back;   /* read by the stub */
+int host_wait_ticks_online(uint32_t ticks)
+{
+    volatile uint32_t *count = (volatile uint32_t *)GAME_ADDR(ORIG_TICKCOUNT);
+    return netplay_vtime_wait(*count + ticks, 0);
+}
+__attribute__((naked)) static void wait_ticks_online_entry(void)
+{
+    __asm__ volatile(
+        "movl 4(%esp), %eax\n\t"
+        "pushal\n\t"
+        "push %eax\n\t"
+        "call " SYM("host_wait_ticks_online") "\n\t"
+        "addl $4, %esp\n\t"
+        "testl %eax, %eax\n\t"
+        "popal\n\t"
+        "je 1f\n\t"
+        "pushal\n\t"
+        "call *" SYM("wt_task") "\n\t"
+        "popal\n\t"
+        "ret\n"
+        "1:\n\t"
+        "movl 4(%esp), %eax\n\t"
+        "movl " SYM("wt_tick_addr") ", %edx\n\t"
+        "movl (%edx), %edx\n\t"
+        "jmp *" SYM("wt_back"));
+}
+static void install_wait_ticks_online(void)
+{
+    uint8_t *p = GAME_ADDR(ORIG_WAITTICKS);
+    if (p[0] != 0x8B || p[1] != 0x44 || p[2] != 0x24 || p[3] != 0x04 || p[4] != 0x8B || p[5] != 0x15 || p[15] != 0xE8) {
+        fprintf(stderr, "overrides: WaitTicks starts %02X %02X, not patched\n", p[0], p[1]); return; }
+    wt_tick_addr = (uint32_t)(uintptr_t)GAME_ADDR(ORIG_TICKCOUNT);
+    wt_task = (uint32_t)(uintptr_t)(p + 20 + *(int32_t *)(p + 16));
+    wt_back = (uint32_t)(uintptr_t)(p + 10);
+    patch_jmp(p, wait_ticks_online_entry);
+}
+
 /* The streamed EA audio (SCHl..SCEl chunks; sub_4A6F8 and sub_4A74C's two copies of it) hands the next chunk of the stream to sub_108BA0 when
  * sub_3FBE4 returns neither 0 nor -1. sub_3FBE4 also returns -2 (FFFFFFFEh) when the stream has stopped (state 0Eh, set by the
  * stream service sub_3EF68), and sub_108BA0 then reads the chunk header at address -2. The library's own callers skip every small
@@ -249,4 +291,5 @@ void install_overrides(void)
     install_rdtsc_traps();
     install_x87_stack_fix();
     install_stream_guard();
+    install_wait_ticks_online();
 }
