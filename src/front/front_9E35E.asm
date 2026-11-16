@@ -14,7 +14,7 @@ extern sub_9F6F5_4EE, rand_, sprintf_, sub_101340, sub_101390, sub_1013FC, sub_1
 extern sub_13C164, sub_419B0, sub_419B8, sub_41F2C, sub_41FA0, sub_41FDC, LoadDataFile, sub_7E860
 extern sub_7EDF0, sub_7EEB0, sub_7EF70, SetRegionRect, sub_80AB8, sub_80B28, sub_80BBC, sub_835BC
 extern sub_83850, sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, GetLangText, sub_9281C, sub_C6064
-extern sub_E117B, sub_E12D1, sub_E13BF, sub_E1744, sub_E3410, sub_E341C, LinkSendBlock, LinkReceiveBlock
+extern LoadExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, sub_E1744, sub_E3410, sub_E341C, LinkSendBlock, LinkReceiveBlock
 extern sub_FAA64, sub_FAF34, sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8, tickcount, unk_16CFFC
 extern unk_1ACB44, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, word_1ACB47, word_1C8EA0, word_1C8EA2
 global jpt_9E8E8, jpt_9F6DD, sub_9E35E_1C9, sub_9E35E_1EC, sub_9E91C_7BE, sub_9E91C_7CF, sub_9E91C_7E0, sub_9E91C_7FC
@@ -482,15 +482,15 @@ TeamSelectScreen:
         cmp dword [dword_1C86FC], byte 0
         je short .2
         mov eax, dword_1C86FC
-        call sub_E12D1
+        call FreeExhibitionFile
 .2:
         mov eax, dword_1C86FC
-        call sub_E117B
+        call LoadExhibitionFile
         test eax, eax
         jne short .3
-        call sub_E13BF
+        call ResetExhibitionFile
         mov eax, dword_1C86FC
-        call sub_E117B
+        call LoadExhibitionFile
 .3:
         cmp dword [dword_16D76C], byte 0
         jne short .4
@@ -1315,7 +1315,7 @@ sub_9E91C_B61:
         jne short .41
 .40:
         mov eax, dword_1C86FC
-        call sub_E12D1
+        call FreeExhibitionFile
 .41:
         mov eax, dword [byte ebp+072h]
         lea esp, [dword ebp+082h]

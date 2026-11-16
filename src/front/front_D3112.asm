@@ -13,7 +13,7 @@ extern sub_1013AC, sub_1013FC, sub_101429, sub_101584, sub_101EAC, sub_102B94, s
 extern sub_39824, sub_419B0, sub_419B8, sub_41FA0, sub_41FDC, PaEvent, sub_4A280, LoadDataFile
 extern OpenDataLibrary, sub_7B84B, sub_7E860, sub_7EDF0, sub_7EEB0, sub_7EF70, sub_7F0D8, DrawTextAligned
 extern sub_80BBC, sub_80F48, sub_83BF4, InitMenuItems, sub_8BFAC, GetLangText, sub_D306F, sub_DA7D6
-extern sub_DB75E, sub_DB7B1, sub_DC653, sub_DCBB0, sub_DE3CF, sub_E036F, sub_E117B, sub_E12D1
+extern sub_DB75E, sub_DB7B1, sub_DC653, sub_DCBB0, sub_DE3CF, sub_E036F, LoadExhibitionFile, FreeExhibitionFile
 extern sub_FAA64, sub_FAF34, sub_FC510, sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8, tickcount
 extern unk_1670CF, unk_16711C, unk_167124, unk_167128, unk_167130, unk_167138, unk_16713C, unk_167144
 extern unk_167148, unk_167150, unk_167154, unk_16715C, unk_167160, unk_167168, unk_16716C, unk_167178
@@ -127,7 +127,7 @@ sub_D3112:
         test byte [dword_1AC814], 70h
         jne short .4
         lea eax, [byte ebp+042h]
-        call sub_E117B
+        call LoadExhibitionFile
         mov eax, dword [dword_1AC944]
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
@@ -966,7 +966,7 @@ sub_D3112_BC3:
         test byte [dword_1AC814], 70h
         jne short .35
         lea eax, [byte ebp+042h]
-        call sub_E12D1
+        call FreeExhibitionFile
 .35:
         mov eax, dword [byte ebp+056h]
 sub_D3112_C3F:

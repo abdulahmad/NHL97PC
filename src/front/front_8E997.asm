@@ -29,8 +29,8 @@ extern sub_8DE7E, sub_8DEAC, GetLangText, PlayoffTreeScreen, AllocCrusherBuffers
 extern sub_A3048, sub_A3116, sub_C6064, RosterScreen, sub_D49BE, sub_DA7D6, sub_DB75E, sub_DB763
 extern sub_DC653, sub_DCA6C, sub_DCBB0, sub_DCFA4, sub_DD970, sub_DDC4A, sub_DE3CF, sub_DE5A3
 extern sub_E036F, sub_E0415, sub_E0691, sub_E069E, sub_E076B, sub_E0841, sub_E0B75, sub_E0D0F
-extern sub_E117B, sub_E1245, sub_E12D1, sub_E13BF, sub_E13FE, sub_E1563, sub_E167A, sub_E1C19
-extern sub_E2270, sub_E3410, LinkSendBlock, LinkReceiveBlock, sub_E7B33, sub_E947A, sub_FAA64, sub_FAF34
+extern LoadExhibitionFile, SaveExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, sub_E13FE, sub_E1563, sub_E167A, sub_E1C19
+extern AllocClearBlock, sub_E3410, LinkSendBlock, LinkReceiveBlock, sub_E7B33, sub_E947A, sub_FAA64, sub_FAF34
 extern sub_FC510, sub_FCD90, sub_FCEEC, sub_FCF84, sub_FCFCC, sub_FD08C, sub_FD0F8, unk_165779
 extern unk_1657CD, unk_1657CF, unk_16D7F4, unk_16D7FC, unk_1ACB44, unk_1ACD2B, unk_1ACF12, unk_1ACF4E
 extern unk_1AD22E, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C85DC, unk_1C85E8, unk_1C85F4, unk_1C8600
@@ -188,12 +188,12 @@ sub_8E997_193:
         mov dword [dword_16CB7C], 3
 .7:
         mov eax, dword_1C86FC
-        call sub_E117B
+        call LoadExhibitionFile
         test eax, eax
         jne short .8
-        call sub_E13BF
+        call ResetExhibitionFile
         mov eax, dword_1C86FC
-        call sub_E117B
+        call LoadExhibitionFile
 .8:
         cmp dword [dword_16CD58], byte 0
         jne short .9
@@ -223,13 +223,13 @@ sub_8E997_193:
         cmp dword [dword_16DA9C], byte 0
         jne short .9
         mov eax, dword_1C86FC
-        call sub_E12D1
+        call FreeExhibitionFile
         mov eax, dword_1C86FC
-        call sub_E117B
+        call LoadExhibitionFile
         jmp short .9
 .12:
         mov eax, dword_1C86FC
-        call sub_E12D1
+        call FreeExhibitionFile
         mov eax, esi
         jmp near sub_8EC93_DCE
 ;-----------------------------------------------------------------------------
@@ -5186,7 +5186,7 @@ sub_92DB7:
         mov ecx, eax
         cmp dword [dword_16DA9C], byte 0
         jne short .1
-        call sub_E117B
+        call LoadExhibitionFile
         pop edx
         pop ecx
         pop ebx
@@ -5195,7 +5195,7 @@ sub_92DB7:
         mov edx, 383C5h
         mov ebx, eax
         mov eax, asc_165858
-        call sub_E2270
+        call AllocClearBlock
         mov ebx, 383C5h
         mov edx, dword [dword_1C86FC]
         mov eax, dword [ecx]
@@ -5207,7 +5207,7 @@ sub_92DB7:
         imul edx, byte 38h
         lea ebx, [dword eax+0383C1h]
         mov eax, asc_165864
-        call sub_E2270
+        call AllocClearBlock
         mov eax, dword [ecx]
         movsx ebx, word [eax]
         imul ebx, byte 38h
@@ -5233,7 +5233,7 @@ sub_92E37:
         cmp dword [dword_16DA9C], byte 0
         jne short .2
 .1:
-        call sub_E1245
+        call SaveExhibitionFile
         pop esi
         pop edx
         pop ecx

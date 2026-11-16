@@ -28,7 +28,7 @@ extern sub_7F5B8, sub_7FE38, sub_80BBC, sub_81650, sub_81678, sub_823F0, sub_82F
 extern NameIndexNew, NameIndexLoad, NameIndexSave, NameIndexFree, sub_86500, NameIndexRemove, sub_86718, NameIndexPath
 extern sub_867D4, InitMenuItems, sub_8BFAC, sub_8D956, sub_8DE10, DrawScrollBar, sub_8DE68, sub_8DE7E
 extern SetScrollBarPos, sub_8DEAC, GetLangText, sub_AC799, sub_ACA49, sub_ACAE5, sub_ACAF2, sub_ACB0E
-extern sub_ACDAE, sub_AD151, sub_AD62E, sub_AD79F, sub_DA7EB, sub_DB6AC, sub_E117B, sub_E12D1
+extern sub_ACDAE, sub_AD151, sub_AD62E, sub_AD79F, sub_DA7EB, sub_DB6AC, LoadExhibitionFile, FreeExhibitionFile
 extern sub_E2041, sub_E2141, sub_E21C6, sub_E341C, sub_E4218, sub_E4230, WaitForOtherComputer, sub_FAA64
 extern sub_FAF34, sub_FC510, sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FDE44, tickcount
 extern unk_1665C8, unk_1665CB, unk_16661B, unk_166648, unk_1C5F4A, unk_1C9704, unk_1C9756, unk_1C989E
@@ -2991,7 +2991,7 @@ UserRecordsScreen:
         call __STOSB
         lea eax, [byte ebp-034h]
         mov edx, dword_1C9660
-        call sub_E117B
+        call LoadExhibitionFile
         mov eax, 3Ch
         call InitMenuItems
         mov eax, 3
@@ -3358,7 +3358,7 @@ UserRecordsScreen:
         call sub_FAF34
         add esp, byte 4
         lea eax, [byte ebp-034h]
-        call sub_E12D1
+        call FreeExhibitionFile
         push dword [byte ebp-08h]
         call sub_FAF34
         add esp, byte 4
@@ -3629,7 +3629,7 @@ sub_B41EF_AA5:
         call sub_FAF34
         add esp, byte 4
         lea eax, [byte ebp-034h]
-        call sub_E12D1
+        call FreeExhibitionFile
         push dword [byte ebp-08h]
         call sub_FAF34
         add esp, byte 4

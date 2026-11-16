@@ -17,7 +17,7 @@ extern sub_101390, sub_1013AC, sub_1013FC, sub_101429, sub_101584, sub_103298, s
 extern sub_11BED4, sub_13C164, WaitRetraceEdges, RunDemoGame, sub_419B0, sub_419B8, sub_41A28, sub_41D18
 extern sub_41D48, sub_41DB8, sub_41DD8, ArenaFileName, sub_41FA0, sub_41FDC, sub_4A4F4, MakeDataPath
 extern LoadDataFile, sub_7E860, sub_7EDF0, SetRegionRect, sub_7F0D8, DrawTextAligned, sub_80BBC, sub_81650
-extern sub_81678, sub_81D1C, sub_823F0, sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, sub_E2270
+extern sub_81678, sub_81D1C, sub_823F0, sub_83C08, InitMenuItems, sub_8BFAC, sub_8DF1F, AllocClearBlock
 extern FreePtr, sub_E22FC, sub_E2310, sub_E2334, sub_E2348, FileCreate, FileOpen, FileSeek
 extern FileReadRecord, FileWriteRecord, FileClose, sub_E341C, sub_F9496, sub_F94BC, sub_FAA64, sub_FAF34
 extern sub_FBE40, sub_FBE5D, sub_FC330, sub_FC510, sub_FCD90, sub_FCEEC, sub_FCF84, sub_FCFCC
@@ -3461,7 +3461,7 @@ sub_D7A70:
         sub edx, ebx
         mov ebx, dword_16D774
         shl edx, 2
-        call sub_E2270
+        call AllocClearBlock
         test eax, eax
         je near .5
         mov ebx, dword [dword_16D770]
@@ -3999,7 +3999,7 @@ sub_D7EC8:
         mov ecx, eax
         lea ebx, [byte esp+08h]
         mov edx, 1FEh
-        call sub_E2270
+        call AllocClearBlock
         test eax, eax
         je near .11
         mov edx, 1FEh
@@ -4090,7 +4090,7 @@ sub_D8130:
         mov edx, 1FEh
         mov ebx, ecx
         mov eax, esi
-        call sub_E2270
+        call AllocClearBlock
         test eax, eax
         jne short .1
         mov eax, esp

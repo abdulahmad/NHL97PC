@@ -194,15 +194,24 @@ D6930,RunIntro,sub_D6930,96PC,medium,"96 PC RunIntro: from main_, the intro scre
 D70C4,CreditsScreen,sub_D70C4,new,low,"from RunFrontEnd: the credits (reads the credits text file, EAC1/EAC2, CRD1/CRD2, QCRD) with the arena music",src/front/front_D4E24.asm
 DA66D,AllocMediaBuffer,sub_DA66D,new,medium,"allocates the ""MEDIA BUFFER"" (200h paragraphs of DOS memory)",src/front/front_DA66D.asm
 DA713,AllocStaticBuffer,sub_DA713,new,medium,"allocates the ""STATIC BUF"" once (flag word_16D7EC)",src/front/front_DA66D.asm
+E117B,LoadExhibitionFile,sub_E117B,new,medium,"(&block): reads the exhibition file %s%s.EXH into a new ""EXHIBIT"" block (383C1h bytes) with its ""AGENTS"" part",src/front/front_DA66D.asm
+E1245,SaveExhibitionFile,sub_E1245,new,medium,(block): writes the exhibition file %s%s.EXH,src/front/front_DA66D.asm
+E12D1,FreeExhibitionFile,sub_E12D1,new,medium,(&block): frees the exhibition block and its agents part (+383C1h),src/front/front_DA66D.asm
+E13BF,ResetExhibitionFile,sub_E13BF,new,low,"builds the original exhibition data (sub_E12EF, ""ORIGEXH"") and saves it as the exhibition file",src/front/front_DA66D.asm
+E2270,AllocClearBlock,sub_E2270,new,low,"(tag, size, &ptr): allocates a block (flag 0), clears it and stores it; returns 1, or 0 when out of memory",src/front/front_DA66D.asm
+E22A0,AllocClearBlock20,sub_E22A0,new,low,AllocClearBlock with allocation flag 20h,src/front/front_DA66D.asm
 E22D0,FreePtr,sub_E22D0,new,medium,"(&ptr): frees the block and clears the pointer; returns 1, or 0 when it was already null",src/front/front_DA66D.asm
+E2378,FileExists,sub_E2378,new,low,(path): 1 when the file exists (sub_10AED0),src/front/front_DA66D.asm
 E2388,FileDelete,sub_E2388,new,medium,"deletes a file; returns 1, or 0 with the error text ""FILEdelete"" in eax",src/front/front_DA66D.asm
 E23BC,FileCreate,sub_E23BC,new,medium,"fopen ""w+b""; returns 1, or 0 with the error text ""FILEcreate""",src/front/front_DA66D.asm
 E23E0,FileOpen,sub_E23E0,new,medium,"fopen ""r+b""; returns 1, or 0 with the error text ""FILEopen""",src/front/front_DA66D.asm
 E2404,FileSeek,sub_E2404,new,medium,"fseek from the start; returns 1, or 0 with the error text ""FILEseek""",src/front/front_DA66D.asm
 E2420,FileSeekEnd,sub_E2420,new,medium,"fseek to the end of the file; returns 1, or 0 with the error text ""FILEseekend""",src/front/front_DA66D.asm
+E2444,FileTell,sub_E2444,new,medium,"(file, &pos): ftell; returns 0 on error",src/front/front_DA66D.asm
 E2458,FileReadRecord,sub_E2458,new,medium,"freads one record; returns 1, or 0 with the error text ""FILEread""",src/front/front_DA66D.asm
 E2494,FileWriteRecord,sub_E2494,new,medium,"fwrites one record; returns 1, or 0 with the error text ""FILEread"" (the game reuses the read message)",src/front/front_DA66D.asm
 E24D0,FileClose,sub_E24D0,new,medium,"fclose; returns 1, or 0 with the error text ""FILEclose""",src/front/front_DA66D.asm
+E24F0,FileLength,sub_E24F0,new,medium,"(file): the file's length (ftell at the end), keeping the position",src/front/front_DA66D.asm
 E2AF4,PollControllers,sub_E2AF4,96PC,high,96 PC PollControllers: controllers and hot keys into the slot words,src/front/front_DA66D.asm
 E2E28,InputRecordTimer,sub_E2E28,96PC,high,96 PC InputRecordTimer: timer callback pushing input records into the ring of 5,src/front/front_DA66D.asm
 E2F98,InitSlotTable,sub_E2F98,96PC,medium,slot words and teams from the 8 controller set-up bytes,src/front/front_DA66D.asm
@@ -215,7 +224,7 @@ E4638,LinkSendBlock,sub_E4638,96PC,low,"96 PC LinkSendBlock: (data, length, prog
 E4838,LinkReceiveBlock,sub_E4838,96PC,low,"96 PC LinkReceiveBlock: (dest, length, progress) waits (idling) for the next block from the other computer",src/front/front_DA66D.asm
 E4908,WaitForOtherComputer,sub_E4908,new,low,"the ""Waiting for other computer"" box: shows it and syncs with the other side",src/front/front_DA66D.asm
 E5A98,IpxInit,sub_E5A98,new,low,"looks for the IPX driver and allocates the ""IPXMEM"" / ""NETWORK"" blocks",src/front/front_DA66D.asm
-E5C78,IpxCloseSocket,,95PC,low,closes the open IPX socket (sub_11D508) and frees its buffer (dword_16E128); the earlier 95 PC FreeRinkGfx match was wrong (only a mnemonic similarity),src/front/front_DA66D.asm
+E5C78,IpxCloseSocket,,new,low,closes the open IPX socket (sub_11D508) and frees its buffer (dword_16E128); the earlier 95 PC FreeRinkGfx match was wrong (only a mnemonic similarity),src/front/front_DA66D.asm
 E9370,randomd0,,96PC,medium,NHL96PC 61A18 (similar): mnemonic similarity 0.97 over 34 instructions,
 E93D0,vtoa,,96PC,high,NHL96PC 61A78 (exact): 39 instructions,
 F5601,FillBox,sub_F5601,96PC,medium,NHL96PC 64103 (similar 0.92): mnemonic similarity 0.92 over 78 instructions,src/front/front_F20A1.asm

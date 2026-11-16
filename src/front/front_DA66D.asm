@@ -75,11 +75,11 @@ global sub_DD61F, sub_DD970, sub_DDC4A, sub_DE20B, sub_DE25F, sub_DE3CF, sub_DE5
 global sub_DE88E, sub_DE9F5, sub_DEBA2, sub_DEE3A, sub_DEE95, sub_DEF96, sub_DF1CF, sub_DF274
 global sub_DFAF6, sub_E0297, sub_E036F, sub_E0415, sub_E0617, sub_E0691, sub_E069E, sub_E076B
 global sub_E0841, sub_E08E9, sub_E0AD0, sub_E0B75, sub_E0B82, sub_E0C4F, sub_E0D0F, sub_E0DB7
-global sub_E0F85, sub_E117B, sub_E1245, sub_E12D1, sub_E12EF, sub_E13BF, sub_E13FE, sub_E1563
+global sub_E0F85, LoadExhibitionFile, SaveExhibitionFile, FreeExhibitionFile, sub_E12EF, ResetExhibitionFile, sub_E13FE, sub_E1563
 global sub_E167A, sub_E1744, sub_E19D5, sub_E1C19, sub_E1CC0, sub_E1D45, sub_E1EC9, sub_E2041
-global sub_E2141, sub_E21C6, sub_E2270, sub_E22A0, FreePtr, sub_E22FC, sub_E2310, sub_E2334
-global sub_E2348, sub_E2378, FileDelete, FileCreate, FileOpen, FileSeek, FileSeekEnd, sub_E2444
-global FileReadRecord, FileWriteRecord, FileClose, sub_E24F0, sub_E2590, sub_E2620, sub_E2790, sub_E2838
+global sub_E2141, sub_E21C6, AllocClearBlock, AllocClearBlock20, FreePtr, sub_E22FC, sub_E2310, sub_E2334
+global sub_E2348, FileExists, FileDelete, FileCreate, FileOpen, FileSeek, FileSeekEnd, FileTell
+global FileReadRecord, FileWriteRecord, FileClose, FileLength, sub_E2590, sub_E2620, sub_E2790, sub_E2838
 global PollControllers, InputRecordTimer, InitSlotTable, sub_E304C, sub_E30BC, sub_E30D8, sub_E30F4, sub_E3174
 global sub_E3190, InputRecordAvail, TakeInputRecord, sub_E32B4, sub_E3410, sub_E341C, sub_E34A0, sub_E3530
 global sub_E3640, sub_E3700, sub_E3738, sub_E375C, sub_E3798, NetInit, NetShutdown, sub_E3AFC
@@ -149,7 +149,7 @@ AllocStaticBuffer:
         mov ebx, dword_1CD17C
         mov edx, 67h
         mov eax, asc_167472
-        call sub_E22A0
+        call AllocClearBlock20
         test eax, eax
         je short .2
         mov word [word_16D7EC], 1
@@ -1339,7 +1339,7 @@ sub_DB508:
         lea ebx, [byte ebp-0Ch]
         mov eax, asc_16747D
         mov edx, edi
-        call sub_E22A0
+        call AllocClearBlock20
         test eax, eax
         je short .3
         mov esi, dword [byte ebp-010h]
@@ -1455,7 +1455,7 @@ sub_DB5B7:
         mov eax, dword [byte ebp-08h]
         mov edx, esi
         mov eax, dword [nosplit eax*4+dword_1CD180]
-        call sub_E2444
+        call FileTell
         test eax, eax
         je short .4
         mov eax, dword [esi]
@@ -2145,7 +2145,7 @@ sub_DBDC1:
         lea ebx, [byte ebp-010h]
         mov eax, asc_16747D
         shl edx, 3
-        call sub_E2270
+        call AllocClearBlock
         test eax, eax
         je near sub_E036F_A0
         push dword [byte ebp-010h]
@@ -2229,7 +2229,7 @@ sub_DBEB3:
         lea ebx, [byte ebp-08h]
         mov eax, asc_16747D
         shl edx, 3
-        call sub_E2270
+        call AllocClearBlock
         test eax, eax
         je near .9
         push dword [byte ebp-08h]
@@ -2460,7 +2460,7 @@ sub_DC11A:
         lea ebx, [byte ebp+076h]
         mov eax, asc_16747D
         shl edx, 3
-        call sub_E2270
+        call AllocClearBlock
         test eax, eax
         je near sub_DCC75_1A6
         push dword [byte ebp+076h]
@@ -3617,7 +3617,7 @@ sub_DCFB0:
         mov ebx, dword [dword ebp+08Eh]
         add edx, eax
         mov eax, asc_167482
-        call sub_E22A0
+        call AllocClearBlock20
         test eax, eax
         je near sub_DCFB0_325
         mov eax, dword [dword ebp+08Eh]
@@ -3909,7 +3909,7 @@ sub_DD2DE:
         mov ebx, dword [dword ebp+08Eh]
         add edx, eax
         mov eax, asc_167482
-        call sub_E22A0
+        call AllocClearBlock20
         test eax, eax
         jne short .4
 .1:
@@ -4194,7 +4194,7 @@ sub_DD61F:
         mov ebx, dword [dword ebp+086h]
         add edx, eax
         mov eax, asc_167482
-        call sub_E22A0
+        call AllocClearBlock20
         test eax, eax
         jne short .1
         lea eax, [byte ebp+062h]
@@ -4486,7 +4486,7 @@ sub_DD970:
         add edx, byte 24h
         add edx, eax
         mov eax, asc_167482
-        call sub_E22A0
+        call AllocClearBlock20
         test eax, eax
         jne short .3
         lea eax, [byte ebp+076h]
@@ -4735,7 +4735,7 @@ sub_DDC4A:
         add edx, byte 24h
         add edx, eax
         mov eax, asc_167482
-        call sub_E22A0
+        call AllocClearBlock20
         test eax, eax
         jne short .3
         lea eax, [byte ebp+072h]
@@ -4996,7 +4996,7 @@ sub_DDC4A_2F0:
         shl eax, 4
         add edx, eax
         mov eax, asc_167482
-        call sub_E22A0
+        call AllocClearBlock20
         test eax, eax
         je short sub_DDC4A_2F0
         mov eax, dword [byte ebp+076h]
@@ -5472,7 +5472,7 @@ sub_DE3CF:
         add esp, byte 14h
 .4:
         lea eax, [byte ebp-05Ch]
-        call sub_E2378
+        call FileExists
         test eax, eax
         je near .13
         lea edx, [byte ebp-0Ch]
@@ -5517,7 +5517,7 @@ sub_DE3CF:
         mov ebx, esi
         add edx, eax
         mov eax, asc_167482
-        call sub_E22A0
+        call AllocClearBlock20
         test eax, eax
         je near .13
         mov ecx, dword [esi]
@@ -5620,7 +5620,7 @@ sub_DE5A3:
         add esp, byte 14h
         call sub_E341C
         lea eax, [byte ebp-054h]
-        call sub_E2378
+        call FileExists
         test eax, eax
         jne near .7
         mov eax, dword [byte ecx+04h]
@@ -5816,7 +5816,7 @@ sub_DE740:
         call sub_E2334
         mov edx, 329Eh
         mov eax, asc_16747D
-        call sub_E22A0
+        call AllocClearBlock20
         test eax, eax
         je short .5
         movsx eax, byte [ecx]
@@ -6385,7 +6385,7 @@ sub_DEE95:
         lea ebx, [byte ebp-08h]
         mov edx, 7D16h
         mov eax, asc_16747D
-        call sub_E22A0
+        call AllocClearBlock20
         test eax, eax
         je near sub_E036F_A0
         mov eax, dword [byte ebp-08h]
@@ -6484,7 +6484,7 @@ sub_DEF96:
         lea ebx, [byte ebp-0Ch]
         mov edx, 329Eh
         mov eax, asc_16747D
-        call sub_E22A0
+        call AllocClearBlock20
         test eax, eax
         je short .5
         movsx eax, byte [ecx]
@@ -9167,9 +9167,11 @@ sub_E0F85:
         mov eax, 3
         jmp near sub_DCC75_19F
 ;-----------------------------------------------------------------------------
-; sub_E117B                                                       E117B  97 PC
+; LoadExhibitionFile                           E117B  97 PC, medium confidence
+; (&block): reads the exhibition file %s%s.EXH into a new "EXHIBIT" block
+; (383C1h bytes) with its "AGENTS" part
 ;-----------------------------------------------------------------------------
-sub_E117B:
+LoadExhibitionFile:
         push ebx
         push ecx
         push edx
@@ -9190,7 +9192,7 @@ sub_E117B:
         mov edx, 383C5h
         mov eax, asc_1674AF
         mov ebx, ecx
-        call sub_E2270
+        call AllocClearBlock
         test eax, eax
         je short .2
         mov ebx, 383C1h
@@ -9219,7 +9221,7 @@ sub_E117B:
         imul edx, byte 38h
         lea ebx, [dword eax+0383C1h]
         mov eax, asc_1674B7
-        call sub_E2270
+        call AllocClearBlock
         test eax, eax
         je short .1
         call sub_E341C
@@ -9242,9 +9244,10 @@ sub_E117B:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_E1245                                                       E1245  97 PC
+; SaveExhibitionFile                           E1245  97 PC, medium confidence
+; (block): writes the exhibition file %s%s.EXH
 ;-----------------------------------------------------------------------------
-sub_E1245:
+SaveExhibitionFile:
         push ebx
         push ecx
         push edx
@@ -9299,9 +9302,10 @@ sub_E1245:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_E12D1                                                       E12D1  97 PC
+; FreeExhibitionFile                           E12D1  97 PC, medium confidence
+; (&block): frees the exhibition block and its agents part (+383C1h)
 ;-----------------------------------------------------------------------------
-sub_E12D1:
+FreeExhibitionFile:
         push edx
         mov edx, eax
         mov eax, dword [eax]
@@ -9328,7 +9332,7 @@ sub_E12EF:
         mov edx, 383C5h
         mov ebx, eax
         mov eax, asc_1674BE
-        call sub_E2270
+        call AllocClearBlock
         test eax, eax
         je near sub_DA7EB_18
         mov eax, dword [ecx]
@@ -9382,9 +9386,11 @@ sub_E12EF:
         jl near .1
         jmp near sub_DA7EB_13
 ;-----------------------------------------------------------------------------
-; sub_E13BF                                                       E13BF  97 PC
+; ResetExhibitionFile                             E13BF  97 PC, low confidence
+; Builds the original exhibition data (sub_E12EF, "ORIGEXH") and saves it as
+; the exhibition file
 ;-----------------------------------------------------------------------------
-sub_E13BF:
+ResetExhibitionFile:
         push ebx
         push edx
         enter 4, 0
@@ -9393,7 +9399,7 @@ sub_E13BF:
         test eax, eax
         je short .2
         mov eax, dword [byte ebp-04h]
-        call sub_E1245
+        call SaveExhibitionFile
         mov ebx, eax
         mov eax, dword [byte ebp-04h]
         lea edx, [byte ebp-04h]
@@ -9446,7 +9452,7 @@ sub_E13FE:
         imul edx, eax, byte 38h
         lea ebx, [byte ebp-08h]
         mov eax, asc_1674B7
-        call sub_E2270
+        call AllocClearBlock
         test eax, eax
         je near .4
         mov eax, dword [byte ebp-044h]
@@ -9552,7 +9558,7 @@ sub_E1563:
         imul edx, eax, byte 38h
         lea ebx, [byte ebp-04h]
         mov eax, asc_1674B7
-        call sub_E2270
+        call AllocClearBlock
         test eax, eax
         je near .3
         mov eax, dword [byte ebp-044h]
@@ -9663,7 +9669,7 @@ sub_E167A:
         imul edx, eax, byte 38h
         lea ebx, [byte ebp-010h]
         mov eax, asc_1674B7
-        call sub_E2270
+        call AllocClearBlock
         test eax, eax
         je near sub_E036F_A0
         xor edi, edi
@@ -10184,7 +10190,7 @@ sub_E1CC0:
         cmp dword [dword ebx+04A70h], byte 0
         je short .2
         lea eax, [byte ebp-050h]
-        call sub_E2378
+        call FileExists
         test eax, eax
         je short .3
         lea eax, [byte ebp-050h]
@@ -10399,7 +10405,7 @@ sub_E1EC9:
         call sprintf_
         add esp, byte 14h
         lea eax, [byte ebp-06h]
-        call sub_E2378
+        call FileExists
         test eax, eax
         je short .1
         lea eax, [byte ebp-06h]
@@ -10614,9 +10620,11 @@ sub_E21C6:
         jmp near sub_DCC75_221
         db 00h,00h,00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
-; sub_E2270                                                       E2270  97 PC
+; AllocClearBlock                                 E2270  97 PC, low confidence
+; (tag, size, &ptr): allocates a block (flag 0), clears it and stores it;
+; returns 1, or 0 when out of memory
 ;-----------------------------------------------------------------------------
-sub_E2270:
+AllocClearBlock:
         push ecx
         push esi
         mov esi, edx
@@ -10640,9 +10648,10 @@ sub_E2270:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_E22A0                                                       E22A0  97 PC
+; AllocClearBlock20                               E22A0  97 PC, low confidence
+; AllocClearBlock with allocation flag 20h
 ;-----------------------------------------------------------------------------
-sub_E22A0:
+AllocClearBlock20:
         push ecx
         push esi
         mov esi, edx
@@ -10779,9 +10788,10 @@ sub_E2348:
         ret
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
-; sub_E2378                                                       E2378  97 PC
+; FileExists                                      E2378  97 PC, low confidence
+; (path): 1 when the file exists (sub_10AED0)
 ;-----------------------------------------------------------------------------
-sub_E2378:
+FileExists:
         push ecx
         push edx
         push eax
@@ -10907,9 +10917,10 @@ FileSeekEnd:
         pop ebx
         ret
 ;-----------------------------------------------------------------------------
-; sub_E2444                                                       E2444  97 PC
+; FileTell                                     E2444  97 PC, medium confidence
+; (file, &pos): ftell; returns 0 on error
 ;-----------------------------------------------------------------------------
-sub_E2444:
+FileTell:
         call ftell_
         mov dword [edx], eax
         cmp eax, byte 0FFFFFFFFh
@@ -11007,9 +11018,10 @@ FileClose:
         pop edx
         ret
 ;-----------------------------------------------------------------------------
-; sub_E24F0                                                       E24F0  97 PC
+; FileLength                                   E24F0  97 PC, medium confidence
+; (file): the file's length (ftell at the end), keeping the position
 ;-----------------------------------------------------------------------------
-sub_E24F0:
+FileLength:
         push ebx
         push ecx
         push edx

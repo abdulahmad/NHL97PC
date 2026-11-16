@@ -27,7 +27,7 @@ extern sub_80BBC, sub_81650, sub_81678, sub_81D1C, sub_83C08, sub_85D1D, NameInd
 extern NameIndexFree, sub_86500, sub_867D4, InitMenuItems, sub_8BFAC, sub_8DF1F, GetLangText, StandingsScreen
 extern sub_9279A, sub_9281C, sub_92FE9, sub_C6064, RosterScreen, sub_DB75E, sub_DB763, sub_DC653
 extern sub_DCFA4, sub_DD2DE, sub_DD61F, sub_DE3CF, sub_DE5A3, sub_E036F, sub_E0415, sub_E0B75
-extern sub_E117B, sub_E12D1, sub_E13BF, sub_E3410, LinkSendBlock, LinkReceiveBlock, sub_E7B33, sub_FAA64
+extern LoadExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, sub_E3410, LinkSendBlock, LinkReceiveBlock, sub_E7B33, sub_FAA64
 extern sub_FAF34, sub_FC510, sub_FCC40, sub_FCD90, sub_FCFCC, sub_FD08C, sub_FD0F8, sub_FD110
 extern unk_165A5B, unk_16CE20, unk_16D7FC, unk_1ACB44, unk_1ACD2B, unk_1ACF4E, unk_1AD250, unk_1AD443
 extern unk_1AD603, unk_1AD73A, unk_1C5EF8, unk_1C5F4A, unk_1C5F9C, unk_1C89F8, unk_1C8A04, unk_1C8A10
@@ -533,12 +533,12 @@ sub_93512_108:
         mov dword [dword_1AD437], eax
 .6:
         mov eax, dword_1C86FC
-        call sub_E117B
+        call LoadExhibitionFile
         test eax, eax
         jne short .7
-        call sub_E13BF
+        call ResetExhibitionFile
         mov eax, dword_1C86FC
-        call sub_E117B
+        call LoadExhibitionFile
 .7:
         cmp dword [dword_16CD58], byte 0
         jne short .8
@@ -567,15 +567,15 @@ sub_93512_108:
         cmp dword [dword_16DA9C], byte 0
         jne short .11
         mov eax, dword_1C86FC
-        call sub_E12D1
+        call FreeExhibitionFile
         mov eax, dword_1C86FC
-        call sub_E117B
+        call LoadExhibitionFile
 .11:
         mov esi, 8
         jmp short .8
 .12:
         mov eax, dword_1C86FC
-        call sub_E12D1
+        call FreeExhibitionFile
         mov eax, esi
 sub_93512_1A6:
         leave

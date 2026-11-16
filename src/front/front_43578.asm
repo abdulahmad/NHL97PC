@@ -27,7 +27,7 @@ extern sub_100940, sub_100A68, sub_101429, sub_106036, sub_106D08, sub_1070B0, s
 extern sub_109775, sub_1097F0, sub_42550, sub_425CC, sub_42910, sub_42960, sub_42C38, sub_42D38
 extern OpenSpeechBanks, sub_431E8, LoadTeamSpeech, MakeDataPath, MakeDirPath, LoadDataFileLib, LoadDataFile, sub_7D539
 extern sub_7F0D8, sub_7F5B8, sub_81678, sub_83314, sub_834EC, sub_83558, sub_842F4, sub_8BE60
-extern sub_8BEF8, sub_E2378, FileOpen, FileSeek, FileReadRecord, FileWriteRecord, FileClose, sub_E24F0
+extern sub_8BEF8, FileExists, FileOpen, FileSeek, FileReadRecord, FileWriteRecord, FileClose, FileLength
 extern sub_E341C, sub_FAA64, sub_FAAB4, sub_FAF34, sub_FC330, sub_FC410, sub_FC510, tickcount
 extern unk_160DD4, unk_160E8C, unk_160FD4, unk_161068, vecdist
 global jpt_45A64, jpt_45B20, jpt_45B38, jpt_45B60, jpt_45B70, jpt_45B84, jpt_45BC0, jpt_45BD8
@@ -904,7 +904,7 @@ sub_43944:
         mov dword [dword_1AC7CC], ebx
         call sub_842F4
         mov eax, asc_160CCC
-        call sub_E2378
+        call FileExists
         test eax, eax
         jne short .40
         mov ecx, 1
@@ -918,7 +918,7 @@ sub_43944:
         test eax, eax
         je near .43
         mov eax, dword [dword_1AC7AC]
-        call sub_E24F0
+        call FileLength
         mov edx, eax
         lea eax, [dword esp+0164h]
         call sub_42D38
