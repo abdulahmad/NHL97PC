@@ -50,7 +50,7 @@ extern VideoIdctOut
 extern VideoIdctOut, StartupStack, vsprintf_, str_Punct_InitFpuFlags, SavedKbdVecSelector, SavedInt16Selector, SavedRealKbdSegment, KbdDataSelector
 extern SerialIrqMask, SerialBaudDivisors, KeyRowTable
 global __null_int23_exit_, __set_binary_, _dos_getdiskfree_, _exit_, _makepath_, _splitpath_, atoi_, close_
-global copypart_, exit_, getcwd_, jpt_114394, jpt_114B90, jpt_114CB4, PrimRectDebug_30, PrimTriTexCcw_6C
+global copypart_, exit_, getcwd_, DrawPrimListJumpTable, TransformModelPartsJumpTable, TransformModelPartsWithJumpTable, PrimRectDebug_30, PrimTriTexCcw_6C
 global PrimQuadDebugCcw_80, PrimQuadSplit_EC, PrimQuadTexCcw_6C, DrawPrimList_A3, DrawPrimList_D6, DrawPrimList_10C, DrawPrimList_1A6, DrawPrimList_39E
 global DrawPrimList_401, DrawPrimList_48F, DrawPrimList_53A, DrawPrimList_607, DrawPrimList_65B, DrawPrimList_6FD, TransformModelParts_5F, TransformModelParts_6C
 global TransformModelParts_D3, TransformModelParts_DF, TransformModelParts_EA, TransformModelParts_EF, TransformModelPartsWith_9F, TransformModelPartsWith_BF, TransformModelPartsWith_DD, AttachModelFrame_4C
@@ -2412,7 +2412,7 @@ PrimQuadRandomFillCcw:
         pop ecx
         pop ebx
         ret
-jpt_114394:
+DrawPrimListJumpTable:
         dd DrawPrimList_A3
         dd DrawPrimList_D6
         dd DrawPrimList_10C
@@ -2486,7 +2486,7 @@ DrawPrimList:
         mov dword [byte esp+0Ch], esi
         cmp edx, byte 0Fh
         ja near DrawPrimList_6FD
-        jmp dword [nosplit cs:edx*4+jpt_114394]
+        jmp dword [nosplit cs:edx*4+DrawPrimListJumpTable]
 DrawPrimList_A3:
         mov edx, dword [byte esp+014h]
         lea ecx, [byte edx+020h]
@@ -3120,7 +3120,7 @@ GetModelVertex:
         pop ecx
         ret
         db 08Bh,0C0h
-jpt_114B90:
+TransformModelPartsJumpTable:
         dd TransformModelParts_5F
         dd TransformModelParts_DF
         dd TransformModelParts_DF
@@ -3169,7 +3169,7 @@ TransformModelParts:
         sub eax, byte 5
         cmp eax, byte 0Bh
         ja near TransformModelParts_DF
-        jmp dword [nosplit cs:eax*4+jpt_114B90]
+        jmp dword [nosplit cs:eax*4+TransformModelPartsJumpTable]
 TransformModelParts_5F:
         mov eax, dword [edx]
         mov dword [byte eax+040h], ebx
@@ -3228,7 +3228,7 @@ TransformModelParts_EF:
         pop ecx
         ret
         db 08Bh,0C0h
-jpt_114CB4:
+TransformModelPartsWithJumpTable:
         dd TransformModelPartsWith_9F
         dd TransformModelPartsWith_DD
         dd TransformModelPartsWith_DD
@@ -3303,7 +3303,7 @@ TransformModelPartsWith:
         sub edx, byte 5
         cmp edx, byte 0Bh
         ja short TransformModelPartsWith_DD
-        jmp dword [nosplit cs:edx*4+jpt_114CB4]
+        jmp dword [nosplit cs:edx*4+TransformModelPartsWithJumpTable]
 TransformModelPartsWith_9F:
         mov edx, dword [byte esp+010h]
         shl eax, 3

@@ -45,8 +45,8 @@ extern DelayedPen, MessagePanel, PenCntDwn, GoalLineFlag, BreakawayFlag, SlotAss
 extern HomeControlSlot, AwayControlSlot, HomeEbenPlayer, AwayEbenPlayer, FaceoffTakers, FaceoffTakerAway, LineBuildLine, LineBuildSlot
 extern LineBuildPlayer, PlayerControlWords, HmFaceoffCenter, HmFaceoffWinger, HmPlayersInBox, HmLineState, AwFaceoffCenter, AwFaceoffWinger
 extern AwPlayersInBox, AwLineState
-global CountTeamSlots, GiveControl, ReadJoy1, SlotToJoy, changeplayer, chkprogress, jpt_2FB20, jpt_30890
-global jpt_32328, jpt_380E6, jpt_38102, jpt_3811A, ChkBodyContact_229, ChkBodyContact_2CE, ChkBodyContact_2EB, ChkBodyContact_30C
+global CountTeamSlots, GiveControl, ReadJoy1, SlotToJoy, changeplayer, chkprogress, ChkBodyContactJumpTable, PositionSlotJumpTable
+global AddPenalty2JumpTable, SeasonGameMenuJumpTable, SeasonOpponentJumpTable, SeasonOpponentTextJumpTable, ChkBodyContact_229, ChkBodyContact_2CE, ChkBodyContact_2EB, ChkBodyContact_30C
 global ChkBodyContact_32D, ChkBodyContact_370, PositionSlot_1D, PositionSlot_21, PositionSlot_25, PositionSlot_29, PositionSlot_2D, PositionSlot_31
 global PositionSlot_35, AddPenalty2_2BD, AddPenalty2_2CB, AddPenalty2_2D2, AddPenalty2_308, AddPenalty2_32E, AddPenalty2_354, InProgress_8B2
 global InProgress_96E, FindPassTarget_E0, assfwatch_1EC, SendPacket_DE, LinkPoll_24C, puckfaceoff, restorepl, ChkPenaltyCall
@@ -982,7 +982,7 @@ NetCollide2:
         pop ebx
         ret
         db 08Bh,0C0h
-jpt_2FB20:
+ChkBodyContactJumpTable:
         dd ChkBodyContact_229
         dd ChkBodyContact_229
         dd ChkBodyContact_229
@@ -1149,7 +1149,7 @@ ChkBodyContact:
         lea eax, [dword edi-08Ch]
         cmp eax, byte 7
         ja near ChkBodyContact_370.26
-        jmp dword [nosplit cs:eax*4+jpt_2FB20]
+        jmp dword [nosplit cs:eax*4+ChkBodyContactJumpTable]
 ChkBodyContact_229:
         mov eax, dword [dword esi+0F6h]
         mov eax, dword [eax]
@@ -2064,7 +2064,7 @@ ForceShoot:
         pop edx
         ret
         db 00h
-jpt_30890:
+PositionSlotJumpTable:
         dd PositionSlot_2D
         dd PositionSlot_29
         dd PositionSlot_31
@@ -2083,7 +2083,7 @@ PositionSlot:
         cmp dx, byte 6
         ja short PositionSlot_35.1
         and edx, 0FFFFh
-        jmp dword [nosplit cs:edx*4+jpt_30890]
+        jmp dword [nosplit cs:edx*4+PositionSlotJumpTable]
 PositionSlot_1D:
         xor al, al
         pop edx
@@ -4416,7 +4416,7 @@ AddPenalty:
         pop ecx
         ret
         db 08Bh,0C0h
-jpt_32328:
+AddPenalty2JumpTable:
         dd AddPenalty2_2D2
         dd AddPenalty2_2BD
         dd AddPenalty2_2CB
@@ -4616,7 +4616,7 @@ AddPenalty2:
         cmp dx, byte 5
         ja near AddPenalty2_2CB
         and edx, 0FFFFh
-        jmp dword [nosplit cs:edx*4+jpt_32328]
+        jmp dword [nosplit cs:edx*4+AddPenalty2JumpTable]
 AddPenalty2_2BD:
         push eax
         push dword 0A0000028h
@@ -12527,7 +12527,7 @@ ClosePacketLink:
         pop esi
         pop ebx
         ret
-jpt_380E6:
+SeasonGameMenuJumpTable:
         dd SeasonGameScreen_13F
         dd SeasonGameScreen_14D
         dd SeasonGameScreen_1EC
@@ -12535,14 +12535,14 @@ jpt_380E6:
         dd SeasonGameScreen_238
         dd SeasonGameScreen_2B1
         dd SeasonGameScreen_2CF
-jpt_38102:
+SeasonOpponentJumpTable:
         dd SeasonGameScreen_17B
         dd SeasonGameScreen_182
         dd SeasonGameScreen_1DA
         dd SeasonGameScreen_182
         dd SeasonGameScreen_1DA
         dd SeasonGameScreen_1E3
-jpt_3811A:
+SeasonOpponentTextJumpTable:
         dd SeasonGameScreen_3D3
         dd SeasonGameScreen_3DF
         dd SeasonGameScreen_3D3

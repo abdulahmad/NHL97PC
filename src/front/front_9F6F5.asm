@@ -11,7 +11,7 @@ extern SeasonUserHuman, SeasonUserActive, PlayoffUserHuman, PlayoffUserActive, S
 extern GameOptionFlags, TeamSelectFlags, SeasonSlot, SeasonActive, SeasonScheduleData, SeasonScheduleOffset, SeasonScheduleSize, PlayoffFileHandle
 extern SeasonFileName, ReplayIndexHandle, ReplayBufferSize, PlayMenuGameFlag, IndexPickChoice, IndexItemType, IndexItemValue, IndexItemTemplate
 extern IndexDialogType, IndexDialogText, IndexDialogShape, IndexDialogFrame, IndexDialogBack, IndexDialogWidth, IndexDialogHeight, TransferOffset
-extern TransferPackBuffer, TransferBuffer, IndexDialogShapeMid, IndexDialogShapeEnd, IndexDialogShapeTop, LinkSetupBuffer, jpt_9F6DD, memcpy_
+extern TransferPackBuffer, TransferBuffer, IndexDialogShapeMid, IndexDialogShapeEnd, IndexDialogShapeTop, LinkSetupBuffer, PickIndexEntryScreenJumpTable, memcpy_
 extern ReplayIndexSendBuf, ReplayIndexRecvBuf, rand_, sprintf_, strcat_, strcmp_, strcpy_, strlen_
 extern BlitConverted, BlitShape2, BlitArt, BlitShape, PresentScreen, FindShape, LoadFileAlloc, LoadFileToBlockShared
 extern ConvertArtXY, SaveDataFileNew, UnlinkJump, GetFileTimes, FileDateText, FreeArtArchive, SetScreenTarget, SecondsToSamples
@@ -28,7 +28,7 @@ extern FillRectColor, DrawTextAt, SetTextColors, tickcount, str_D_LinkSendData, 
 extern SeasonName, SeasonPath, SeasonIndexPath, SeasonFilePath, SeasonStatsPath, PlayoffSettings, PlayoffIndexSettings, PlayoffIndexFlags
 extern PlayoffStatsPath, ScreenTitleItem, BlankMenuItem, IndexListBox, LinkMessageText, str_Punct_PickIndexEntry, PickIndexTopBar, PickIndexLeftBar
 extern PickIndexRightBar, TeamSelectMode, SeasonLastHome, SeasonLastAway, IndexEntryList, HomeTeamCode, LinkSetupValues, LinkSetupItemCount
-global jpt_A31C6, PickIndexEntryScreen_393, PickIndexEntryScreen_3A4, PickIndexEntryScreen_3B5, PickIndexEntryScreen_470, PickIndexEntryScreen_4D9, PickIndexEntryScreen_4EE, PickIndexEntryScreen_1080
+global ResetLinkSetupJumpTable, PickIndexEntryScreen_393, PickIndexEntryScreen_3A4, PickIndexEntryScreen_3B5, PickIndexEntryScreen_470, PickIndexEntryScreen_4D9, PickIndexEntryScreen_4EE, PickIndexEntryScreen_1080
 global SendLeagueFile_6F3, SendLeagueFile_6FD, SendLeagueFile_6FE, LinkSendData_BB, ResetLinkSetup_20, ResetLinkSetup_45, ResetLinkSetup_50, ResetLinkSetup_57
 global ResetLinkSetup_5E, PickIndexEntryScreen, DrawIndexEntry, LoadIndexFile, PickIndexEntry, SendLeagueData, ReceiveLeagueData, SendLeagueFile
 global ReceiveLeagueFile, AllocCrusherBuffers, FreeTransferBuffers, CopyToTransfer, LinkSendData, LinkReceiveData, AppendToTransfer, DrawLinkStatusText
@@ -376,7 +376,7 @@ PickIndexEntryScreen_470:
         cmp dword [byte ebp+056h], byte 5
         ja short PickIndexEntryScreen_4EE.22
         mov eax, dword [byte ebp+056h]
-        jmp dword [nosplit cs:eax*4+jpt_9F6DD]
+        jmp dword [nosplit cs:eax*4+PickIndexEntryScreenJumpTable]
 PickIndexEntryScreen_4D9:
         lea eax, [dword ebp-0166h]
         xor edx, edx
@@ -4426,7 +4426,7 @@ DrawLinkStatusText:
         pop edi
         pop esi
         ret
-jpt_A31C6:
+ResetLinkSetupJumpTable:
         dd ResetLinkSetup_20
         dd ResetLinkSetup_45
         dd ResetLinkSetup_50
@@ -4448,7 +4448,7 @@ ResetLinkSetup:
         cmp al, 5
         ja near ResetLinkSetup_5E.5
         movzx eax, al
-        jmp dword [nosplit cs:eax*4+jpt_A31C6]
+        jmp dword [nosplit cs:eax*4+ResetLinkSetupJumpTable]
 ResetLinkSetup_20:
         cmp dword [LinkGameActive], byte 0
         je short ResetLinkSetup_45.2

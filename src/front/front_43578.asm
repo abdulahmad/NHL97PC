@@ -30,7 +30,7 @@ extern SetTextColor, ShowMessageBoxNoWait, SetNormalText, ShowWorkingBox, Update
 extern FreeMenuBitmap, FileExists, FileOpen, FileSeek, FileReadRecord, FileWriteRecord, FileClose, FileLength
 extern ServiceIdle, AllocMemBlock, AllocMemData, FreeMemBlock, OpenResourceArchive, CurrentArchiveName, MakeColor, tickcount
 extern str_DerHome, str_PlayHome, str_DerAway, str_PlayAway, vecdist
-global jpt_45A64, jpt_45B20, jpt_45B38, jpt_45B60, jpt_45B70, jpt_45B84, jpt_45BC0, jpt_45BD8
+global CommentaryEventJumpTable, Commentary3000JumpTable, Commentary4000JumpTable, Commentary5000JumpTable, Commentary6000JumpTable, Commentary7000JumpTable, CommentaryA000JumpTable, CommentaryD000JumpTable
 global QueueSpeechChain_9C, LoadSpeechBank, QueueSpeechChain, InitSpeechBanks, CloseSpeechFile, SpeechClipLength, SayShotCall, SaySaveCall
 global SayPassCall, SpeechTableEntry, SayPlayerCall, SayRandomFiller, SpeechClipExists, SpeechEventKind
 ;-----------------------------------------------------------------------------
@@ -3022,7 +3022,7 @@ SpeechEventKind:
         xor eax, eax
         ret
         db 090h
-jpt_45A64:
+CommentaryEventJumpTable:
         dd CommentaryEvent_135
         dd CommentaryEvent_135
         dd CommentaryEvent_2DE
@@ -3070,14 +3070,14 @@ jpt_45A64:
         dd CommentaryEvent_1F28
         dd CommentaryEvent_1F56
         dd CommentaryEvent_1FE8
-jpt_45B20:
+Commentary3000JumpTable:
         dd CommentaryEvent_423
         dd CommentaryEvent_3F6
         dd CommentaryEvent_3FF
         dd CommentaryEvent_408
         dd CommentaryEvent_411
         dd CommentaryEvent_41A
-jpt_45B38:
+Commentary4000JumpTable:
         dd CommentaryEvent_4E4
         dd CommentaryEvent_4ED
         dd CommentaryEvent_4F6
@@ -3088,18 +3088,18 @@ jpt_45B38:
         dd CommentaryEvent_523
         dd CommentaryEvent_52C
         dd CommentaryEvent_535
-jpt_45B60:
+Commentary5000JumpTable:
         dd CommentaryEvent_5E2
         dd CommentaryEvent_5EB
         dd CommentaryEvent_5F4
         dd CommentaryEvent_5FD
-jpt_45B70:
+Commentary6000JumpTable:
         dd CommentaryEvent_6D5
         dd CommentaryEvent_6E7
         dd CommentaryEvent_6F0
         dd CommentaryEvent_6F9
         dd CommentaryEvent_702
-jpt_45B84:
+Commentary7000JumpTable:
         dd CommentaryEvent_831
         dd CommentaryEvent_83B
         dd CommentaryEvent_847
@@ -3115,14 +3115,14 @@ jpt_45B84:
         dd CommentaryEvent_8A7
         dd CommentaryEvent_8B0
         dd CommentaryEvent_8B9
-jpt_45BC0:
+CommentaryA000JumpTable:
         dd CommentaryEvent_F80
         dd CommentaryEvent_F89
         dd CommentaryEvent_F92
         dd CommentaryEvent_F9B
         dd CommentaryEvent_FB0
         dd CommentaryEvent_FB9
-jpt_45BD8:
+CommentaryD000JumpTable:
         dd CommentaryEvent_189C
         dd CommentaryEvent_18A1
         dd CommentaryEvent_18AA

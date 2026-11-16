@@ -2,12 +2,12 @@
 bits 32
 %include "hockey.inc"
 section s_132C84 progbits alloc exec nowrite align=1
-extern _dos_setvect_, Hook387Flag, Hook387Saved, WVideoActive, FpuInitHook, jpt_1329F0, jpt_132AF0, jpt_132AF0_170
+extern _dos_setvect_, Hook387Flag, Hook387Saved, WVideoActive, FpuInitHook, EmuOpcodeJumpTable, EmuModRmJumpTable, jpt_132AF0_170
 extern str_RATIONALDOS4G, RestoreDS, unk_132878, unk_13287C, unk_132880, str_Punct_jpt, str_F, unk_132886
 extern unk_1328D2, unk_1328D4, unk_1328D8, unk_1328DA, unk_132922, unk_132926, unk_132930, unk_132990
 extern EmuTrapFrame, Hook387Save
-global __EnterWVIDEO_, __hook387, __init_80x87, __unhook387, jpt_1337C5, jpt_133904, jpt_133985, jpt_133BA0
-global jpt_133CAA, jpt_133DC2, jpt_133E4B, jpt_134054, jpt_134209, RoundToDouble_32, RoundToDouble_49, RoundToDouble_84
+global __EnterWVIDEO_, __hook387, __init_80x87, __unhook387, EmuDispatchD9RegJumpTable, EmuFtstFxamJumpTable, EmuSignOpsJumpTable, EmuLogOpsJumpTable
+global EmuRemOpsJumpTable, EmuFucomppJumpTable, EmuDispatchDBRegJumpTable, EmuFcomppJumpTable, EmuDispatchDFRegJumpTable, RoundToDouble_32, RoundToDouble_49, RoundToDouble_84
 global jpt_133E4B_2C, jpt_134209_20, jpt_134209_69, jpt_134209_CE, jpt_134209_F8, jpt_134209_110, EmuAdd_7, StoreIntBits_3
 global LoadM64Int_8, EmuTan_E, strchr_, EmuTrapExit, RoundToSingle, RoundToDouble, RaiseFpuError, EaEax
 global EaEcx, EaEdx, EaEbx, EaEsp, EaDisp32, EaEsi, EaEdi, EaEaxDisp8
@@ -74,7 +74,7 @@ EmuTrapExit:
         shr edi, 0Bh
         lea edi, [edi+edi*4]
         LD add, edi, edi
-        jmp dword [nosplit cs:ebx*4+jpt_1329F0]
+        jmp dword [nosplit cs:ebx*4+EmuOpcodeJumpTable]
 .2:
         mov al, byte [esi]
         cmp al, 9Bh
@@ -153,7 +153,7 @@ EmuTrapExit:
         LD add, edi, edi
         lea esi, [esi+esi*4]
         LD add, esi, esi
-        jmp dword [nosplit cs:edx*4+jpt_132AF0]
+        jmp dword [nosplit cs:edx*4+EmuModRmJumpTable]
 .13:
         ret
 ;-----------------------------------------------------------------------------
@@ -1317,8 +1317,8 @@ EmuReservedOp:
 ; X87 emulator: dispatches the register forms of the D9 group
 ;-----------------------------------------------------------------------------
 EmuDispatchD9Reg:
-        jmp dword [nosplit cs:ebx*4+jpt_1337C5]
-jpt_1337C5:
+        jmp dword [nosplit cs:ebx*4+EmuDispatchD9RegJumpTable]
+EmuDispatchD9RegJumpTable:
         dd .1
         dd EmuReservedOp
         dd EmuReservedOp
@@ -1447,8 +1447,8 @@ EmuFxch:
 ; X87 emulator: FTST and FXAM
 ;-----------------------------------------------------------------------------
 EmuFtstFxam:
-        jmp dword [nosplit cs:ebx*4+jpt_133904]
-jpt_133904:
+        jmp dword [nosplit cs:ebx*4+EmuFtstFxamJumpTable]
+EmuFtstFxamJumpTable:
         dd .1
         dd .2
         dd EmuReservedOp
@@ -1485,8 +1485,8 @@ jpt_133904:
 ; X87 emulator: FCHS, FABS and the load-constant group
 ;-----------------------------------------------------------------------------
 EmuSignOps:
-        jmp dword [nosplit cs:ebx*4+jpt_133985]
-jpt_133985:
+        jmp dword [nosplit cs:ebx*4+EmuSignOpsJumpTable]
+EmuSignOpsJumpTable:
         dd .1
         dd .2
         dd .3
@@ -1590,8 +1590,8 @@ jpt_133985:
 ; X87 emulator: F2XM1, FYL2X, FPTAN, FPATAN group
 ;-----------------------------------------------------------------------------
 EmuLogOps:
-        jmp dword [nosplit cs:ebx*4+jpt_133BA0]
-jpt_133BA0:
+        jmp dword [nosplit cs:ebx*4+EmuLogOpsJumpTable]
+EmuLogOpsJumpTable:
         dd .1
         dd .2
         dd .3
@@ -1649,8 +1649,8 @@ jpt_133BA0:
 ; X87 emulator: FPREM, FSQRT, FRNDINT, FSCALE, FSIN, FCOS group
 ;-----------------------------------------------------------------------------
 EmuRemOps:
-        jmp dword [nosplit cs:ebx*4+jpt_133CAA]
-jpt_133CAA:
+        jmp dword [nosplit cs:ebx*4+EmuRemOpsJumpTable]
+EmuRemOpsJumpTable:
         dd .1
         dd .2
         dd .3
@@ -1719,8 +1719,8 @@ jpt_133CAA:
 ; X87 emulator: FUCOMPP
 ;-----------------------------------------------------------------------------
 EmuFucompp:
-        jmp dword [nosplit cs:ebx*4+jpt_133DC2]
-jpt_133DC2:
+        jmp dword [nosplit cs:ebx*4+EmuFucomppJumpTable]
+EmuFucomppJumpTable:
         dd EmuReservedOp
         dd .1
         dd EmuReservedOp
@@ -1753,8 +1753,8 @@ jpt_133DC2:
 ; X87 emulator: dispatches FCLEX, FINIT and the DB register group
 ;-----------------------------------------------------------------------------
 EmuDispatchDBReg:
-        jmp dword [nosplit cs:ebx*4+jpt_133E4B]
-jpt_133E4B:
+        jmp dword [nosplit cs:ebx*4+EmuDispatchDBRegJumpTable]
+EmuDispatchDBRegJumpTable:
         dd EmuReservedOp
         dd EmuReservedOp
         dd .1
@@ -1934,8 +1934,8 @@ EmuFmulp:
 ; X87 emulator: FCOMPP
 ;-----------------------------------------------------------------------------
 EmuFcompp:
-        jmp dword [nosplit cs:ebx*4+jpt_134054]
-jpt_134054:
+        jmp dword [nosplit cs:ebx*4+EmuFcomppJumpTable]
+EmuFcomppJumpTable:
         dd EmuReservedOp
         dd .1
         dd EmuReservedOp
@@ -2040,8 +2040,8 @@ EmuFdivp:
 ; X87 emulator: dispatches the DF register group (FSTSW AX)
 ;-----------------------------------------------------------------------------
 EmuDispatchDFReg:
-        jmp dword [nosplit cs:ebx*4+jpt_134209]
-jpt_134209:
+        jmp dword [nosplit cs:ebx*4+EmuDispatchDFRegJumpTable]
+EmuDispatchDFRegJumpTable:
         dd jpt_134209_110.6
         dd EmuReservedOp
         dd EmuReservedOp

@@ -23,7 +23,7 @@ extern InitMenuItems, RunMenu, InitScrollList, ScrollUp, DrawScrollBar, ScrollDo
 extern RunScrollList, GetLangText, OptionsScreen, InitListBox, InitShapeListBox, ServiceIdle, LinkSyncMenu, LinkSyncScreen
 extern OptionsAnimScreen, ControlSetupScreen, AllocMemBlock, FreeMemBlock, MakeColor, FreeBitmap, DrawShapeCore, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, tickcount, ScreenTitleItem, BlankMenuItem, ScreenFrameItem
-global jpt_C36A2, HistoryScreen_60E, DrawHistoryScreen_73D, DrawHistoryScreen_73E, HistoryLineWidth_42, DetailLevelScreen_A25, DetailLevelScreen_A36, DetailLevelScreen_A93
+global DetailLevelScreenJumpTable, HistoryScreen_60E, DrawHistoryScreen_73D, DrawHistoryScreen_73E, HistoryLineWidth_42, DetailLevelScreen_A25, DetailLevelScreen_A36, DetailLevelScreen_A93
 global DetailLevelScreen_B18, DetailLevelScreen_B7E, DetailLevelScreen_C26, DetailLevelScreen_C86, DetailLevelScreen_CE6, DetailLevelScreen_D46, HistoryScreen, DrawHistoryScreen
 global FindHistoryTeam, BuildHistoryList, HistoryEntryText, ShowHistoryArt, ExportHistoryCsv, HistoryLineWidth, WrapHistoryText, HistoryLabel
 global DrawHistoryText, DrawHistoryPopup, DrawHistoryList, DrawHistoryTrophy, HistoryTrophySound, AnimateHistoryTrophy, DrawTrophyShine, DrawTrophySparkle
@@ -3155,7 +3155,7 @@ RunOptionsScreens:
         or dword [byte eax+09h], edx
         pop ebx
         ret
-jpt_C36A2:
+DetailLevelScreenJumpTable:
         dd DetailLevelScreen_A25
         dd DetailLevelScreen_A36
         dd DetailLevelScreen_A93
@@ -4013,7 +4013,7 @@ DetailLevelScreen_B18:
         cmp dword [byte ebp-030h], byte 9
         ja short DetailLevelScreen_B18
         mov eax, dword [byte ebp-030h]
-        jmp dword [nosplit cs:eax*4+jpt_C36A2]
+        jmp dword [nosplit cs:eax*4+DetailLevelScreenJumpTable]
 .32:
         mov eax, dword [byte ebp-040h]
         mov eax, dword [byte eax+02Ch]

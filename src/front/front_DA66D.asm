@@ -57,7 +57,7 @@ extern OptionsAnimItemFrames, OptionsAnimItemState, OptionsAnimItem, OptionsAnim
 extern KeyboardLastKey, LinkInputPacket, LinkLocalInput, LinkPacketQueues, LinkQueueCounters
 extern LinkPacketQueues, LinkQueueCounters, LinkWaitCount
 extern LinkWaitTimer, NetGameCount
-global IpxCloseSocket, jpt_DADC0, jpt_DAFD8, jpt_DAFE8, jpt_DB8CE, jpt_E329C, jpt_E6554, jpt_E7B1F
+global IpxCloseSocket, WriteDbRecordJumpTable, DbGameRecordJumpTable, DbPlayerRecordJumpTable, LookupRecordJumpTable, InitLinkSettingsJumpTable, ChooseNetworkGameScreenJumpTable, SeasonIntroScreenJumpTable
 global MakeRecordKey_16, MakeRecordKey_24, OpenGameDatabase_13, OpenGameDatabase_18, WriteDbRecord_5C, WriteDbRecord_102, WriteDbRecord_152, WriteDbRecord_1AA
 global ReadDbRecord_62, ReadDbRecord_16E, ReadDbRecord_200, ReadDbRecord_296, ReadDbRecord_33C, ReadDbRecord_3BF, ReadDbRecord_42C, ReadDbRecord_495
 global LookupRecord_2D, LookupRecord_49, LookupRecord_AC, LookupRecord_FD, LookupRecord_236, LookupRecord_244, LookupRecord_249, LookupRecord_307
@@ -741,7 +741,7 @@ LoadGameRosters:
         pop esi
         pop ecx
         ret
-jpt_DADC0:
+WriteDbRecordJumpTable:
         dd WriteDbRecord_5C
         dd WriteDbRecord_1AA
         dd WriteDbRecord_152
@@ -782,7 +782,7 @@ WriteDbRecord:
         dec eax
         cmp eax, byte 3
         ja near WriteDbRecord_5C.6
-        jmp dword [nosplit cs:eax*4+jpt_DADC0]
+        jmp dword [nosplit cs:eax*4+WriteDbRecordJumpTable]
 WriteDbRecord_5C:
         cmp esi, dword [DbGameRecordCount]
         jge near .6
@@ -928,12 +928,12 @@ WriteDbRecord_1AA:
 .14:
         inc eax
         jmp short .13
-jpt_DAFD8:
+DbGameRecordJumpTable:
         dd ReadDbRecord_62
         dd ReadDbRecord_296
         dd ReadDbRecord_200
         dd ReadDbRecord_16E
-jpt_DAFE8:
+DbPlayerRecordJumpTable:
         dd ReadDbRecord_33C
         dd ReadDbRecord_495
         dd ReadDbRecord_42C
@@ -976,7 +976,7 @@ ReadDbRecord:
         dec eax
         cmp eax, byte 3
         ja near ReadDbRecord_62.8
-        jmp dword [nosplit cs:eax*4+jpt_DAFD8]
+        jmp dword [nosplit cs:eax*4+DbGameRecordJumpTable]
 ReadDbRecord_62:
         cmp edi, dword [DbGameRecordCount]
         jge near .8
@@ -1053,7 +1053,7 @@ ReadDbRecord_62:
         dec eax
         cmp eax, byte 3
         ja near ReadDbRecord_33C.23
-        jmp dword [nosplit cs:eax*4+jpt_DAFE8]
+        jmp dword [nosplit cs:eax*4+DbPlayerRecordJumpTable]
 ReadDbRecord_16E:
         cmp edi, dword [DbPlayerRecordCount]
         jge short ReadDbRecord_62.8
@@ -1708,7 +1708,7 @@ NewRecordKey:
         pop ecx
         pop ebx
         ret
-jpt_DB8CE:
+LookupRecordJumpTable:
         dd LookupRecord_2D
         dd LookupRecord_49
         dd LookupRecord_2D
@@ -1734,7 +1734,7 @@ LookupRecord:
         lea ebx, [byte esi+08h]
         add eax, byte 4
         mov dword [byte ebp-08h], ebx
-        jmp dword [nosplit cs:edx*4+jpt_DB8CE]
+        jmp dword [nosplit cs:edx*4+LookupRecordJumpTable]
 LookupRecord_2D:
         mov ebx, ecx
         mov edx, eax
@@ -12302,7 +12302,7 @@ TakeInputRecord:
         pop ebx
         ret
         db 090h
-jpt_E329C:
+InitLinkSettingsJumpTable:
         dd InitLinkSettings_E8
         dd InitLinkSettings_D6
         dd InitLinkSettings_FF
@@ -12395,7 +12395,7 @@ InitLinkSettings:
         cmp al, 5
         ja near InitLinkSettings_E8
         and eax, 0FFh
-        jmp dword [nosplit cs:eax*4+jpt_E329C]
+        jmp dword [nosplit cs:eax*4+InitLinkSettingsJumpTable]
 InitLinkSettings_D6:
         cmp ebp, dword [LinkGameActive]
         jne near InitLinkSettings_E8
@@ -16399,7 +16399,7 @@ ChooseNetGame:
         pop ecx
         pop ebx
         ret
-jpt_E6554:
+ChooseNetworkGameScreenJumpTable:
         dd ChooseNetworkGameScreen_A51
         dd ChooseNetworkGameScreen_A99
         dd ChooseNetworkGameScreen_BA2
@@ -17133,7 +17133,7 @@ ChooseNetworkGameScreen:
         cmp edi, ecx
         jb near ChooseNetworkGameScreen_BA2
         mov eax, ecx
-        jmp dword [nosplit cs:eax*4+jpt_E6554]
+        jmp dword [nosplit cs:eax*4+ChooseNetworkGameScreenJumpTable]
 ChooseNetworkGameScreen_A51:
         mov ebx, 1
 .10:
@@ -18027,7 +18027,7 @@ OptionsAnimScreen:
         lea esp, [dword ebp+082h]
         pop ebp
         jmp near OptionsAnimFrame_20C
-jpt_E7B1F:
+SeasonIntroScreenJumpTable:
         dd SeasonIntroScreen_C6
         dd SeasonIntroScreen_D1
         dd SeasonIntroScreen_DB
@@ -18137,7 +18137,7 @@ SeasonIntroScreen_DB:
         cmp dword [byte ebp+07Eh], byte 4
         ja short .2
         mov eax, dword [byte ebp+07Eh]
-        jmp dword [nosplit cs:eax*4+jpt_E7B1F]
+        jmp dword [nosplit cs:eax*4+SeasonIntroScreenJumpTable]
 SeasonIntroScreen_186:
         cmp dword [SeasonIntroPageShown], byte 0
         jle short SeasonIntroScreen_DB.2

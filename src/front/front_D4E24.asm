@@ -23,7 +23,7 @@ extern FileReadRecord, FileWriteRecord, FileClose, ServiceIdle, FreeVideoBuffer,
 extern KbdGetKey, KbdIdleCall, OpenResourceArchive, MakeColor, FreeBitmap, DrawShapeCore, DrawShapeAtOwnPos, DrawArt
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, tickcount, str_Rt_CreditsScreen, BlankMenuItem, FadePaletteBuffer
 extern IntroPalette, GoalieMaskItems, DbPageSlots, GoalieMaskList
-global jpt_D5460, GoalieMaskScreen_715, GoalieMaskScreen_72B, GoalieMaskScreen_89F, GoalieMaskScreen_A13, GoalieMaskScreen_B89, GoalieMaskScreen_DBB, GoalieMaskScreen_FF0
+global GoalieMaskScreenJumpTable, GoalieMaskScreen_715, GoalieMaskScreen_72B, GoalieMaskScreen_89F, GoalieMaskScreen_A13, GoalieMaskScreen_B89, GoalieMaskScreen_DBB, GoalieMaskScreen_FF0
 global GoalieMaskIntro, GoalieMaskAnim, GoalieMaskScreen, FadePalette, FadeOut, RunIntroMovie, RunIntro, DrawCreditsPage
 global ScrollCredits, CreditsKeyPressed, PlayCreditsMusic, CreditsScreen, AllocPageStack, FreeDbPages, OldestDbPageSlot, ReadDbPage
 global WriteDbPage, GetDbPage, InitDbFileHeader, CreateDbFile, OpenDbFile, CloseDbFile, CopyIndexNode, FlushDbPage
@@ -578,7 +578,7 @@ GoalieMaskAnim:
         pop ecx
         pop ebx
         ret
-jpt_D5460:
+GoalieMaskScreenJumpTable:
         dd GoalieMaskScreen_715
         dd GoalieMaskScreen_72B
         dd GoalieMaskScreen_89F
@@ -1094,7 +1094,7 @@ GoalieMaskScreen:
         cmp edx, byte 6
         ja near GoalieMaskScreen_FF0.13
         mov eax, edx
-        jmp dword [nosplit cs:eax*4+jpt_D5460]
+        jmp dword [nosplit cs:eax*4+GoalieMaskScreenJumpTable]
 GoalieMaskScreen_715:
         mov ecx, 1
         call FadeInScreen

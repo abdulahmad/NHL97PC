@@ -17,7 +17,7 @@ extern BlitArt, BlitClippedY, PresentScreen, FindShape, SumRingRange, ConvertArt
 extern LoadDataFileHandle, SetRegionRect, ShowLinkWait, ShowLinkMessage, HideLinkBox, InitMenuItems, ClearLinkAbort, ServiceIdle
 extern ResetLinkStats, SyncLinkGame, FreeMemBlock, MakeColor, SetViewRect, FreeBitmap, DrawArt, CreateBitmap
 extern SetDrawTarget, ClearScreen, FillRectColor, tickcount, MenuLinkActive, MenuViewSaved, MenuClipActive
-global jpt_8E977, jpt_8E987, InitScrollList_223, InitScrollTable_1F5, InitScrollTable_220, RunMenu, ScrollPosToValue, ResetMouseInput
+global SeasonLengthJumpTable, PlayoffRoundsJumpTable, InitScrollList_223, InitScrollTable_1F5, InitScrollTable_220, RunMenu, ScrollPosToValue, ResetMouseInput
 global SetMenuMode, SetupMenuView, RestoreMenuView, InitScrollList, InitScrollTable, NoOpReturn, ScrollUp, DrawScrollBar
 global ScrollDown, FreeScrollList, SetScrollBarPos, ScrollToMouse, RunScrollList, RunScrollMenu, SetListSelection, LoadLangText
 global LoadLangTextB, GetLangText, FreeLangText, PositionAbbrev
@@ -3566,12 +3566,12 @@ PositionAbbrev:
         pop ecx
         pop ebx
         ret
-jpt_8E977:
+SeasonLengthJumpTable:
         dd RunNewSeason_F8
         dd RunNewSeason_DD
         dd RunNewSeason_E6
         dd RunNewSeason_EF
-jpt_8E987:
+PlayoffRoundsJumpTable:
         dd RunNewSeason_16F
         dd RunNewSeason_17B
         dd RunNewSeason_187

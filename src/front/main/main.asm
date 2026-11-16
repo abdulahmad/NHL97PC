@@ -40,7 +40,7 @@ extern str_Win95ProblemsSwedish, str_Win95DosWindowSwedish, str_Win95EnterSwedis
 extern str_NoMouseSwedish, str_RunSetupGerman, str_RunSetupSwedish, str_ConfigureSwedish, str_MemoryGerman, str_MemorySwedish, str_NeedCdSwedish, str_Punct_main_
 extern str_InsertCdSwedish, str_X, str_S_EditText, LinkFrameTitle, DebugTagStr, MainArgFlag, MainPathBuffer, ScreenTitleItem
 extern BlankMenuItem, ScreenFrameItem, StatsBackItem, StatsBackMenuItems, TextColourTable, TextShadowTable, SavedTextState
-global jpt_816D8, jpt_845CC, PlayerBioScreen_425, PlayerBioScreen_438, PlayerBioScreen_44A, PlayerBioScreen_45A, main_, CheckDiskSpace
+global PlayerBioScreenJumpTable, MainMenuAnimJumpTable, PlayerBioScreen_425, PlayerBioScreen_438, PlayerBioScreen_44A, PlayerBioScreen_45A, main_, CheckDiskSpace
 global DrawShadedButton, DrawShadedField, ShadeShape, DrawShadedLogo, DrawShadowBox, DrawScreenBackground, FadeInScreen, ShowScreen
 global ExitScreen, SetRegionRect, DrawEditBox, SetTextColor, DrawTextAligned, DrawFrameBox, ShowMessageBox, ShowMessageBoxNoWait
 global MessageBox, EditTextField, EditFileName, InitKeyCharMap, EditText, LoadTeamLogo, FreeLogoArt, DrawTeamBanner
@@ -5969,7 +5969,7 @@ InchesToCm:
         pop ebx
         ret
         db 08Bh,0C0h
-jpt_816D8:
+PlayerBioScreenJumpTable:
         dd PlayerBioScreen_425
         dd PlayerBioScreen_438
         dd PlayerBioScreen_44A
@@ -6247,7 +6247,7 @@ PlayerBioScreen:
         cmp ecx, byte 3
         ja near PlayerBioScreen_45A.9
         mov edx, ecx
-        jmp dword [nosplit cs:edx*4+jpt_816D8]
+        jmp dword [nosplit cs:edx*4+PlayerBioScreenJumpTable]
 PlayerBioScreen_425:
         lea eax, [dword esp+0148h]
         mov edx, edi
@@ -9892,7 +9892,7 @@ ChangeMenuMusic:
         ret
 MainMenuItemMetrics:
         db 0Eh,00h,00h,00h,0Ah,00h,00h,00h,018h,00h,00h,00h
-jpt_845CC:
+MainMenuAnimJumpTable:
         dd MainMenuAnim_32E
         dd MainMenuAnim_344
         dd MainMenuAnim_35A

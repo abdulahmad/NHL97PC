@@ -5,7 +5,7 @@ section s_11FAAC progbits alloc exec nowrite align=1
 extern SelectedVideoMode, ClipTopRow, ClipLeftCol, ClipRight, ScreenHeight, ModeTableWidth, ModeTableHeight, ModeTableBpp
 extern ModeTableNumber, ShadowFillFunc, TitleBandFunc, CurrentFont, VesaQueryMode, SetGraphicsMode, BytesPerPixelForDepth, SetupRectFillShaded
 extern SetupRectFill, FillRectSpans, FillRectList, ZeroMem, FillRectColor, PrepareTextDraw
-global jpt_11FDFD, jpt_11FF3D, jpt_120116, FillShadowRect_10, DrawTitleBand_10, DrawTitleBand_27, jpt_11FDFD_38, jpt_11FF3D_3B
+global FillBandRowsJumpTable, FillBandRowsBlendJumpTable, FillBandRowsPlainJumpTable, FillShadowRect_10, DrawTitleBand_10, DrawTitleBand_27, jpt_11FDFD_38, jpt_11FF3D_3B
 global jpt_120116_22F, SetTextFont, FillShadowRect, DrawTitleBand, FillBandEdges, FillBandRows, FillBandRowsBlend, CountVesaModes
 global FindModeByResolution, SetModeByResolution
 ;-----------------------------------------------------------------------------
@@ -370,8 +370,8 @@ FillBandRows:
         add edi, dword [byte ebp-02Ch]
         LD xor, ebx, ebx
         mov bl, byte [byte esi+034h]
-        jmp dword [nosplit cs:ebx*4+jpt_11FDFD]
-jpt_11FDFD:
+        jmp dword [nosplit cs:ebx*4+FillBandRowsJumpTable]
+FillBandRowsJumpTable:
         dd jpt_11FDFD_38
         dd jpt_11FDFD_38
         dd .1
@@ -510,10 +510,10 @@ FillBandRowsBlend:
         mov bl, byte [byte esi+034h]
         cmp byte [byte ebp-011h], 0
         jne short .1
-        jmp dword [nosplit cs:ebx*4+jpt_120116]
+        jmp dword [nosplit cs:ebx*4+FillBandRowsPlainJumpTable]
 .1:
-        jmp dword [nosplit cs:ebx*4+jpt_11FF3D]
-jpt_11FF3D:
+        jmp dword [nosplit cs:ebx*4+FillBandRowsBlendJumpTable]
+FillBandRowsBlendJumpTable:
         dd jpt_11FDFD_38
         dd jpt_11FDFD_38
         dd .1
@@ -541,7 +541,7 @@ jpt_11FF3D_3B:
 .4:
         add edi, byte 4
         dec ecx
-        jne short jpt_11FF3D.2
+        jne short FillBandRowsBlendJumpTable.2
         jmp near jpt_120116_22F
 .5:
         mov ecx, dword [byte esi+018h]
@@ -708,7 +708,7 @@ jpt_11FF3D_3B:
         jge short .26
         mov dword [dword edi+01400h], eax
         jmp near jpt_120116_22F
-jpt_120116:
+FillBandRowsPlainJumpTable:
         dd jpt_11FDFD_38
         dd jpt_11FDFD_38
         dd .1

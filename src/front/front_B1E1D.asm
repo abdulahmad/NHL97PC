@@ -34,7 +34,7 @@ extern FreeMemBlock, MakeColor, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget
 extern str_D_ParseUserName, str_S_DrawUserName, UserListFileSeason, UserListFilePlayoff, BlankMenuItem, UserGamesPopup, UserCupsPopup, UserGamesListBox
 extern UserRecordScaleSteps, UserRecordScaleHalf, UserRecordScalePair, UserRecordScaleQuarter, UserRecordsSoundOn, PlayoffRecordWins, PlayoffRecordLosses, HomePeriodShots
 extern AwayPeriodShots, GameLogCount
-global jpt_B234C, jpt_B41D3, NewUser_C7, NewUser_C8, UserLogScreen_71B, UserLogScreen_77D, UserLogScreen_884, UserLogScreen_89E
+global UserLogScreenJumpTable, UserRecordsScreenJumpTable, NewUser_C7, NewUser_C8, UserLogScreen_71B, UserLogScreen_77D, UserLogScreen_884, UserLogScreen_89E
 global UserLogScreen_8BB, UserLogScreen_8CA, UserRecordsScreen_95C, UserRecordsScreen_96D, UserRecordsScreen_9B4, UserRecordsScreen_A7F, UserRecordsScreen_A92, UserRecordsScreen_A9E
 global UserRecordsScreen_AA5, ParseUserName, AddUserGame, UserRecordTotals, DeleteUser, NewUser, CopyUserName, ScrollUserList
 global DrawUserName, UserLogScreen, LoadUserList, UpdateUserRecords, LoadUserRecords, UserRecordsSound, BuildUserRecordsTable, BuildUserGamesTable
@@ -566,7 +566,7 @@ DrawUserName:
         pop edi
         pop esi
         ret 4
-jpt_B234C:
+UserLogScreenJumpTable:
         dd UserLogScreen_77D
         dd UserLogScreen_71B
         dd UserLogScreen_8CA
@@ -1061,7 +1061,7 @@ UserLogScreen:
         cmp dword [byte ebp+046h], byte 5
         ja near UserLogScreen_8CA
         mov eax, dword [byte ebp+046h]
-        jmp dword [nosplit cs:eax*4+jpt_B234C]
+        jmp dword [nosplit cs:eax*4+UserLogScreenJumpTable]
 UserLogScreen_71B:
         mov dword [byte ebp+07Ah], 1
         mov dword [byte ebp+06Ah], 1
@@ -2842,7 +2842,7 @@ RunUserRecords:
         mov eax, edx
         pop edx
         ret
-jpt_B41D3:
+UserRecordsScreenJumpTable:
         dd UserRecordsScreen_95C
         dd UserRecordsScreen_96D
         dd UserRecordsScreen_9B4
@@ -3442,7 +3442,7 @@ UserRecordsScreen:
         cmp dword [byte ebp-038h], byte 6
         ja near UserRecordsScreen_AA5.14
         mov ebx, dword [byte ebp-038h]
-        jmp dword [nosplit cs:ebx*4+jpt_B41D3]
+        jmp dword [nosplit cs:ebx*4+UserRecordsScreenJumpTable]
 UserRecordsScreen_95C:
         call FadeInScreen
 .8:

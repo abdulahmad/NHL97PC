@@ -34,7 +34,7 @@ extern LinkReceiveBlock, WaitForOtherComputer, DrawMenuFrame, FreeVideoBuffer, A
 extern FreeMemBlock, ZeroMem, OpenResourceArchive, MakeColor, SelectFont, FreeBitmap, DrawArt, CreateBitmap
 extern SetDrawTarget, ClearScreen, FillPolygon, FillRectColor, FillRect, SetTextColors, FillRectCorners, str_S_ReplayScreen
 extern VideoOptionsText, GlobalSetVersion, ReplaySavedPanelModes, ReplayIndexData, str_D_ChangeViewSize
-global jpt_BE037, jpt_BE213, jpt_BE25A, jpt_BE296, jpt_BEC7D, RunReplay_358, RunReplay_359, LoadReplay_194
+global PlayReplayFromMenuJumpTable, DrawReplayControlsJumpTable, ReplayCommandJumpTable, ReplayCameraJumpTable, DrawReplayMenuJumpTable, RunReplay_358, RunReplay_359, LoadReplay_194
 global PlayReplayFromMenu_45, PlayReplayFromMenu_4C, PlayReplayFromMenu_53, PlayReplayFromMenu_5A, ReplayScreen_C7, ReplayScreen_D3, ReplayScreen_DA, ReplayScreen_E1
 global ReplayScreen_E8, ReplayScreen_EF, ReplayScreen_294, ReplayScreen_37D, ReplayScreen_399, ReplayScreen_3D5, ReplayScreen_4D2, ReplayScreen_6A2
 global ReplayScreen_771, ReplayScreen_8F5, ReplayScreen_8FF, ReplayScreen_914, ReplayScreen_91B, ReplayScreen_922, ReplayScreen_929, DrawReplayMenu_13F
@@ -714,7 +714,7 @@ VideoOptionsScreen:
         pop ecx
         pop ebx
         ret
-jpt_BE037:
+PlayReplayFromMenuJumpTable:
         dd PlayReplayFromMenu_45
         dd PlayReplayFromMenu_4C
         dd PlayReplayFromMenu_53
@@ -742,7 +742,7 @@ PlayReplayFromMenu:
         mov edx, ReplayListTop
         cmp eax, byte 3
         ja short PlayReplayFromMenu_5A.1
-        jmp dword [nosplit cs:eax*4+jpt_BE037]
+        jmp dword [nosplit cs:eax*4+PlayReplayFromMenuJumpTable]
 PlayReplayFromMenu_45:
         call ReplayCamStop
         jmp short PlayReplayFromMenu_5A.1
@@ -872,7 +872,7 @@ DrawReplayControls:
         pop ecx
         pop ebx
         ret
-jpt_BE213:
+DrawReplayControlsJumpTable:
         dd .1
         dd .2
         dd .3
@@ -883,7 +883,7 @@ jpt_BE213:
         sub eax, byte 0Ah
         cmp eax, byte 3
         ja short .5
-        jmp dword [nosplit cs:eax*4+jpt_BE213]
+        jmp dword [nosplit cs:eax*4+DrawReplayControlsJumpTable]
 .1:
         call ReplayCamStop
         jmp short .5
@@ -899,7 +899,7 @@ jpt_BE213:
         mov dword [edx], 0FFFFFFFFh
         pop edx
         ret
-jpt_BE25A:
+ReplayCommandJumpTable:
         dd ReplayScreen_C7
         dd ReplayScreen_D3
         dd ReplayScreen_DA
@@ -915,7 +915,7 @@ jpt_BE25A:
         dd ReplayScreen_6A2
         dd ReplayScreen_771
         dd ReplayScreen_8F5
-jpt_BE296:
+ReplayCameraJumpTable:
         dd ReplayScreen_914
         dd ReplayScreen_91B
         dd ReplayScreen_922
@@ -976,7 +976,7 @@ ReplayScreen:
         cmp dword [byte ebp-08h], byte 0Eh
         ja near ReplayScreen_8FF
         mov eax, dword [byte ebp-08h]
-        jmp dword [nosplit cs:eax*4+jpt_BE25A]
+        jmp dword [nosplit cs:eax*4+ReplayCommandJumpTable]
 ReplayScreen_C7:
         mov eax, dword [ReplayStartFrame]
 .4:
@@ -1536,7 +1536,7 @@ ReplayScreen_8FF:
         sub eax, byte 0Ah
         cmp eax, byte 3
         ja short ReplayScreen_929.32
-        jmp dword [nosplit cs:eax*4+jpt_BE296]
+        jmp dword [nosplit cs:eax*4+ReplayCameraJumpTable]
 ReplayScreen_914:
         call ReplayCamStop
         jmp short ReplayScreen_929.32
@@ -1588,7 +1588,7 @@ ReplayScreen_929:
         jne near LoadReplay_194
         call EndInstantReplay
         jmp near LoadReplay_194
-jpt_BEC7D:
+DrawReplayMenuJumpTable:
         dd DrawReplayMenu_13F
         dd DrawReplayMenu_15A
         dd DrawReplayMenu_17A
@@ -1698,7 +1698,7 @@ DrawReplayMenu:
         cmp dword [byte ebp+010h], byte 0Eh
         ja near DrawReplayMenu_271
         mov eax, dword [byte ebp+010h]
-        jmp dword [nosplit cs:eax*4+jpt_BEC7D]
+        jmp dword [nosplit cs:eax*4+DrawReplayMenuJumpTable]
 DrawReplayMenu_13F:
         push edi
         push byte 0FFFFFFFFh

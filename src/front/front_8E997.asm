@@ -17,7 +17,7 @@ extern ScreenWipeMode, LangTextLoaded, LangTextHandle, LinkTransferReady, str_F_
 extern SeasonUserTeam, GameOptionFlags, SeasonSlot, SeasonPhase, PlayoffRounds, SeasonActive, NewSeasonUserCount, SeasonDefaultUser
 extern SeasonRandomSeed, SeasonScheduleData, SeasonFileName, PlayMenuGameFlag, SeasonMenuExit, StandingsGoalsFor, SeasonSparkleShapes, StandingsTies
 extern SeasonMenuShapeLists, StandingsWins, StandingsGoalsAgainst, StandingsSortKey, SeasonSparkleSoundOn, SeasonMenuItems, StandingsBuffer, NewSeasonItems
-extern ExhibitionData, PlayoffTeamCount, PlayoffFormat, LinkScreensDone, jpt_8E977, jpt_8E987, memcpy_, memset_
+extern ExhibitionData, PlayoffTeamCount, PlayoffFormat, LinkScreensDone, SeasonLengthJumpTable, PlayoffRoundsJumpTable, memcpy_, memset_
 extern qsort_, rand_, sprintf_, srand_, strcat_, strcpy_, strlen_, BlitShape2
 extern BlitArt, BlitShape, BlitClippedY, PresentScreen, FindShape, Random32, DosFileInfo, FindShapeList
 extern SaveDataFileNew, SetScreenTarget, SeasonGameScreen, MusicEnabled, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx
@@ -35,7 +35,7 @@ extern MakeColor, FreeBitmap, DrawShapeCore, DrawShapeAtOwnPos, DrawArt, CreateB
 extern str_Punct_StandingsScreen, str_D_StandingsScreen, DbKeyBuffer, PlayoffDbKey, GlobalSetVersion, SeasonName, MatchupNote, SeasonUserRecords
 extern SeasonFilePath, ScreenTitleItem, BlankMenuItem, ScreenFrameItem, NewSeasonShapes, SeasonNameShapes, SeasonRecordShapes, SeasonGameShapes
 extern SeasonDateShapes, SeasonLastHome, SeasonLastAway
-global jpt_912BF, RunNewSeason_DD, RunNewSeason_E6, RunNewSeason_EF, RunNewSeason_F8, RunNewSeason_16F, RunNewSeason_17B, RunNewSeason_187
+global StandingsScreenJumpTable, RunNewSeason_DD, RunNewSeason_E6, RunNewSeason_EF, RunNewSeason_F8, RunNewSeason_16F, RunNewSeason_17B, RunNewSeason_187
 global RunNewSeason_193, NewSeasonScreen_DCB, NewSeasonScreen_DCE, CreateSeason_55B, CreateSeason_561, CreateSeason_562, StandingsScreen_65C, StandingsScreen_685
 global StandingsScreen_699, StandingsScreen_6AD, StandingsScreen_6C1, StandingsScreen_6DD, StandingsScreen_6F4, StandingsScreen_70B, StandingsScreen_718, SortStandings_1EA
 global RunNewSeason, NewSeasonSound, NewSeasonScreen, CreateSeason, RunSeasonMenus, SeasonMenuSparkle, SeasonMenuScreen, StandingsSparkle
@@ -103,7 +103,7 @@ RunNewSeason:
         mov dword [SeasonPhase], ebx
         cmp eax, byte 3
         ja short RunNewSeason_F8.3
-        jmp dword [nosplit cs:eax*4+jpt_8E977]
+        jmp dword [nosplit cs:eax*4+SeasonLengthJumpTable]
 RunNewSeason_DD:
         mov byte [SeasonTypeCode], 52h
         jmp short RunNewSeason_F8.3
@@ -146,7 +146,7 @@ RunNewSeason_F8:
         lea eax, [byte edi-01h]
         cmp eax, byte 3
         ja short RunNewSeason_193.6
-        jmp dword [nosplit cs:eax*4+jpt_8E987]
+        jmp dword [nosplit cs:eax*4+PlayoffRoundsJumpTable]
 RunNewSeason_16F:
         mov dword [PlayoffRounds], 7
         jmp short RunNewSeason_193.6
@@ -3022,7 +3022,7 @@ StandingsSparkle:
         pop ecx
         pop ebx
         ret
-jpt_912BF:
+StandingsScreenJumpTable:
         dd StandingsScreen_65C
         dd StandingsScreen_685
         dd StandingsScreen_699
@@ -3508,7 +3508,7 @@ StandingsScreen:
         add eax, ebx
         cmp eax, byte 8
         ja near StandingsScreen_718.33
-        jmp dword [nosplit cs:eax*4+jpt_912BF]
+        jmp dword [nosplit cs:eax*4+StandingsScreenJumpTable]
 StandingsScreen_65C:
         movzx eax, byte [byte esi+ebp-026h]
         imul eax, dword 194Fh

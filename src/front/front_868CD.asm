@@ -31,7 +31,7 @@ extern MakeColor, FreeBitmap, DrawShapeAtOwnPos, DrawArt, CreateBitmap, SetDrawT
 extern MeasureText, str_S_ModemSettingsScreen, ModemSettings, LinkSettings, LinkSettingsData, GlobalSetVersion, IndexEntrySettings, ScreenTitleItem
 extern BlankMenuItem, ModemInitString, ModemPhoneNumber, ModemDialCommand, NetworkGameName, ConnectRetry, ModemPortIrqs, ModemPortBases
 extern NetworkSettings, ModemPort, ModemIrq, ModemBaudRate, ModemDialMode, ModemAnswer, ModemSpeed, NetworkGameNumber
-global jpt_86C99, jpt_87AF7, jpt_89053, SavePhonebook_5F, PhonebookEntryScreen_4B8, PhonebookEntryScreen_4C9, PhonebookEntryScreen_5DB, PhonebookEntryScreen_60C
+global PhonebookEntryScreenJumpTable, ModemSettingsScreenJumpTable, NetworkGamesScreenJumpTable, SavePhonebook_5F, PhonebookEntryScreen_4B8, PhonebookEntryScreen_4C9, PhonebookEntryScreen_5DB, PhonebookEntryScreen_60C
 global PhonebookEntryScreen_6C5, PhonebookEntryScreen_752, ModemSettingsScreen_AE3, ModemSettingsScreen_AF4, ModemSettingsScreen_CC6, ModemSettingsScreen_D31, ModemSettingsScreen_D5E, ModemSettingsScreen_E4D
 global ModemSettingsScreen_E6E, ModemSettingsScreen_F7C, ModemSettingsScreen_FCE, ModemSettingsScreen_1020, ModemSettingsScreen_112C, ModemSettingsScreen_1184, ModemSettingsScreen_11E3, ModemSettingsScreen_121D
 global ModemSettingsScreen_126A, ModemSettingsScreen_1292, ModemSettingsScreen_12BA, ModemSettingsScreen_12E2, DrawNoNetworkServices_F6, NetworkGamesScreen_646, NetworkGamesScreen_657, NetworkGamesScreen_880
@@ -426,7 +426,7 @@ DrawPhonebookField:
         pop edi
         pop esi
         ret
-jpt_86C99:
+PhonebookEntryScreenJumpTable:
         dd PhonebookEntryScreen_4B8
         dd PhonebookEntryScreen_4C9
         dd PhonebookEntryScreen_5DB
@@ -881,7 +881,7 @@ PhonebookEntryScreen_60C:
         cmp dword [byte ebp-020h], byte 5
         ja near PhonebookEntryScreen_752.12
         mov ebx, dword [byte ebp-020h]
-        jmp dword [nosplit cs:ebx*4+jpt_86C99]
+        jmp dword [nosplit cs:ebx*4+PhonebookEntryScreenJumpTable]
 PhonebookEntryScreen_6C5:
         mov ebx, eax
         xor edx, edx
@@ -1488,7 +1488,7 @@ DrawModemField:
         pop esi
         pop ecx
         ret
-jpt_87AF7:
+ModemSettingsScreenJumpTable:
         dd ModemSettingsScreen_AE3
         dd ModemSettingsScreen_AF4
         dd ModemSettingsScreen_CC6
@@ -2711,7 +2711,7 @@ ModemSettingsScreen_11E3:
         cmp dword [byte ebp-038h], byte 17h
         ja short ModemSettingsScreen_11E3
         mov eax, dword [byte ebp-038h]
-        jmp dword [nosplit cs:eax*4+jpt_87AF7]
+        jmp dword [nosplit cs:eax*4+ModemSettingsScreenJumpTable]
 ModemSettingsScreen_121D:
         push str_CM00
         push dword [byte ebp-018h]
@@ -2950,7 +2950,7 @@ DrawNetworkStatus:
         pop esi
         pop ecx
         ret
-jpt_89053:
+NetworkGamesScreenJumpTable:
         dd NetworkGamesScreen_646
         dd NetworkGamesScreen_657
         dd NetworkGamesScreen_880
@@ -3359,7 +3359,7 @@ NetworkGamesScreen:
         cmp dword [byte ebp-038h], byte 9
         ja near NetworkGamesScreen_B3D.25
         mov eax, dword [byte ebp-038h]
-        jmp dword [nosplit cs:eax*4+jpt_89053]
+        jmp dword [nosplit cs:eax*4+NetworkGamesScreenJumpTable]
 NetworkGamesScreen_646:
         call ShowScreen
 .9:

@@ -27,7 +27,7 @@ extern ReadTeamStats, ServiceIdle, AllocMemBlock, FreeMemBlock, OpenResourceArch
 extern DrawShape, CreateBitmap, SetDrawTarget, ClearScreen, tickcount, str_D_DrawMatchupStats, PlayoffDbKey, SeasonDbKey
 extern SeasonFilePath, SeasonStatsPath, PlayoffStatsPath, ScreenTitleItem, BlankMenuItem, ScreenFrameItem, str_Xx00xx01xx02xx03xx10xx11xx12, str_G0LWC0RWLDRD
 extern HomeSlotRatings, AwaySlotRatings
-global jpt_D1917, jpt_D3102, LayoutMatchupLeft_1E9, PreGameMatchupScreen_4E0, PreGameMatchupScreen_4EC, PreGameMatchupScreen_516, PreGameMatchupScreen_522, PreGameMatchupScreen_658
+global PreGameMatchupScreenJumpTable, PreGameRostersScreenJumpTable, LayoutMatchupLeft_1E9, PreGameMatchupScreen_4E0, PreGameMatchupScreen_4EC, PreGameMatchupScreen_516, PreGameMatchupScreen_522, PreGameMatchupScreen_658
 global PreGameStatsPanel_4DF, PreGameStatsPanel_4E0, LayoutMatchupLeft, LayoutMatchupRight, PreGameMatchupScreen, DrawMatchupStats, DrawPlayerPortrait, DrawMatchupPlayer
 global PreGameStatsPanel, FreeMatchupScreen, ReadMatchupStats, MatchupBarLength, LoadMatchupArt, MatchupSparkle, AnimateMatchup, RostersSparkle
 global MatchupNotesBlankRect, MatchupNotesBlankPos, MatchupNotesBlankSize
@@ -253,7 +253,7 @@ LayoutMatchupRight:
         jl near .1
         mov dword [MatchupAnimDone], 0
         jmp near LayoutMatchupLeft_1E9
-jpt_D1917:
+PreGameMatchupScreenJumpTable:
         dd PreGameMatchupScreen_4E0
         dd PreGameMatchupScreen_4EC
         dd PreGameMatchupScreen_522
@@ -569,7 +569,7 @@ PreGameMatchupScreen:
         mov dword [MatchupLayout], eax
         cmp eax, byte 3
         ja short PreGameMatchupScreen_522.12
-        jmp dword [nosplit cs:eax*4+jpt_D1917]
+        jmp dword [nosplit cs:eax*4+PreGameMatchupScreenJumpTable]
 PreGameMatchupScreen_4E0:
         mov dword [MatchupLeftSide], 1
         jmp short PreGameMatchupScreen_522.13
@@ -2033,7 +2033,7 @@ RostersSparkle:
         pop ecx
         pop ebx
         ret
-jpt_D3102:
+PreGameRostersScreenJumpTable:
         dd PreGameRostersScreen_B6A
         dd PreGameRostersScreen_BA7
         dd PreGameRostersScreen_BB5

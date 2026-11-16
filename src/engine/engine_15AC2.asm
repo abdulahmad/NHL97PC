@@ -76,7 +76,7 @@ extern SimFrames, StoppageFlag, LastPlayerTouch, gsp, gameclock, StatsPanelOn, F
 extern OneTimerReady, OneTimerPasser, OneTimerTarget, PuckZone, penshotmode, BenchRequest, penshotlive, FaceoffRequest
 extern PuckY, MessagePanel, BreakawayFlag, HomeGoalieOff, AwayGoalieOff, FaceoffTakers, PlayerAssignWords, HomeTeamRecord
 extern HmPlayersInBox, HmLineState, AwPlayersInBox, AwLineState
-global jpt_19604, jpt_19F18, jpt_1A304, jpt_1A680, jpt_1A708, jpt_1B9C4, jpt_1F03C, PrevVideoModeKey_20A
+global UpdateCameraViewJumpTable, UpdateCameraZoomJumpTable, UpdateCameraTrackJumpTable, EaseCameraAnglesJumpTable, SetCameraViewJumpTable, PenaltySceneStepJumpTable, SwapPositionJumpTable, PrevVideoModeKey_20A
 global PrevVideoModeKey_20E, PrevVideoModeKey_216, PrevVideoModeKey_217, DrawMessagePanel_15D, DrawMessagePanel_15F, DrawPenaltyPanel_26F, DrawSpecialTeamsPanel, DrawPenaltyShotPanel_48E
 global DrawPenaltyShotPanel_49A, DrawPenaltyShotPanel_4D7, DrawPowerPlayClock_18E, UpdateCameraView_28, UpdateCameraView_54, UpdateCameraView_AC, UpdateCameraView_11B, UpdateCameraView_1AC
 global UpdateCameraView_272, UpdateCameraView_326, UpdateCameraView_461, UpdateCameraView_5F0, UpdateCameraView_7F5, UpdateCameraView_8D3, UpdateCameraZoom_21, UpdateCameraZoom_169
@@ -5215,7 +5215,7 @@ GetTargetPoint:
         pop edi
         pop esi
         ret
-jpt_19604:
+UpdateCameraViewJumpTable:
         dd UpdateCameraView_8D3
         dd UpdateCameraView_54
         dd UpdateCameraView_28
@@ -5248,7 +5248,7 @@ UpdateCameraView:
         mov edx, dword [byte ecx+024h]
         cmp edx, byte 0Dh
         ja near UpdateCameraView_8D3
-        jmp dword [nosplit cs:edx*4+jpt_19604]
+        jmp dword [nosplit cs:edx*4+UpdateCameraViewJumpTable]
 UpdateCameraView_28:
         cmp dword [CameraTracking], byte 0
         je near UpdateCameraView_8D3
@@ -5805,7 +5805,7 @@ UpdateCameraView_8D3:
         pop ebx
         ret
         db 090h
-jpt_19F18:
+UpdateCameraZoomJumpTable:
         dd UpdateCameraZoom_3CB
         dd UpdateCameraZoom_169
         dd UpdateCameraZoom_3CB
@@ -5827,7 +5827,7 @@ UpdateCameraZoom:
         mov eax, dword [byte eax+028h]
         cmp eax, byte 5
         ja near UpdateCameraZoom_3CB
-        jmp dword [nosplit cs:eax*4+jpt_19F18]
+        jmp dword [nosplit cs:eax*4+UpdateCameraZoomJumpTable]
 UpdateCameraZoom_21:
         fld dword [dword esi+0FCh]
         fcomp dword [F32_neg1050]
@@ -6096,7 +6096,7 @@ UpdateCameraZoom_3CB:
         pop esi
         ret
         db 08Dh,040h,00h
-jpt_1A304:
+UpdateCameraTrackJumpTable:
         dd UpdateCameraTrack_2D2
         dd UpdateCameraTrack_30
         dd UpdateCameraTrack_2D2
@@ -6122,7 +6122,7 @@ UpdateCameraTrack:
         mov eax, dword [byte eax+02Ch]
         cmp eax, byte 5
         ja near UpdateCameraTrack_2D2
-        jmp dword [nosplit cs:eax*4+jpt_1A304]
+        jmp dword [nosplit cs:eax*4+UpdateCameraTrackJumpTable]
 UpdateCameraTrack_30:
         mov ebx, esp
         mov edx, CameraStateRecords+7
@@ -6391,7 +6391,7 @@ EaseAngle:
         pop ebp
         pop ecx
         ret
-jpt_1A680:
+EaseCameraAnglesJumpTable:
         dd EaseCameraAngles_57
         dd EaseCameraAngles_15
         dd EaseCameraAngles_40
@@ -6408,7 +6408,7 @@ EaseCameraAngles:
         mov eax, dword [byte eax+030h]
         cmp eax, byte 3
         ja short EaseCameraAngles_57
-        jmp dword [nosplit cs:eax*4+jpt_1A680]
+        jmp dword [nosplit cs:eax*4+EaseCameraAnglesJumpTable]
 EaseCameraAngles_15:
         lea ebx, [dword ecx+02ACh]
         lea edx, [dword ecx+02A8h]
@@ -6443,7 +6443,7 @@ EaseCameraAngles_57:
         pop edx
         ret
         db 090h
-jpt_1A708:
+SetCameraViewJumpTable:
         dd SetCameraView_16
         dd SetCameraView_AF
         dd SetCameraView_14F
@@ -6470,7 +6470,7 @@ SetCameraView:
         mov ebx, eax
         cmp edx, byte 0Dh
         ja near SetCameraView_608
-        jmp dword [nosplit cs:edx*4+jpt_1A708]
+        jmp dword [nosplit cs:edx*4+SetCameraViewJumpTable]
 SetCameraView_16:
         mov eax, 86h
         call GetLangText
@@ -7989,7 +7989,7 @@ PenaltyCameraDistance:
         pop eax
         ret
         db 08Dh,040h,00h
-jpt_1B9C4:
+PenaltySceneStepJumpTable:
         dd PenaltySceneStep_1C
         dd PenaltySceneStep_73
         dd PenaltySceneStep_C6
@@ -8008,7 +8008,7 @@ PenaltySceneStep:
         mov eax, dword [CameraSceneStep]
         cmp eax, byte 3
         ja near PenaltySceneStep_108.1
-        jmp dword [nosplit cs:eax*4+jpt_1B9C4]
+        jmp dword [nosplit cs:eax*4+PenaltySceneStepJumpTable]
 PenaltySceneStep_1C:
         call PenaltyCameraDistance
         fcomp dword [F32_2000_PenaltySceneStep]
@@ -12746,7 +12746,7 @@ SwapPosition:
         pop ebx
         ret
         db 090h
-jpt_1F03C:
+SwapPositionJumpTable:
         dd .4
         dd .6
         dd .13
@@ -12810,7 +12810,7 @@ jpt_1F03C:
         cmp cx, byte 4
         ja near .20
         and ecx, 0FFFFh
-        jmp dword [nosplit cs:ecx*4+jpt_1F03C]
+        jmp dword [nosplit cs:ecx*4+SwapPositionJumpTable]
 .4:
         test edx, edx
         je short .5

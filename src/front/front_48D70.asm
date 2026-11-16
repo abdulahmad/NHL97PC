@@ -52,7 +52,7 @@ extern RinkGeometryModel, RinkGeometryParts, CenterSpotModel, CreasePolyModel, B
 extern CameraFlashOn, SpotModelData, BenchSideIndex, LogosLoaded, RinkSidesModel, ScoreboardAngle, ScoreboardFrameNo, ScoreboardHeight
 extern FlashSpots, RinkSidesData, GameGraphicsFlags, CrowdCenter, RinkViewWidth, RinkViewHeight, ObjectPositions, RenderTimersOn
 extern CameraStateRecords, PaEventValue, HomeTeamRating, ProjDetailScale, ViewOriginY, ViewWidth, TextureTileSize
-extern TexturePageBase, TextureDetail, hypot_, jpt_48D20, jpt_48D50, memcpy_, openhandle, printf_
+extern TexturePageBase, TextureDetail, hypot_, PaEventJumpTable, PaEventArgJumpTable, memcpy_, openhandle, printf_
 extern F64_0p5_ScaleLineWidth, F64_1p5708_InitRinkView, F64_0p31831, F64_65536_InitRinkView, F64_0p04, F64_6p28319_DrawCreaseArc, F64_6p28319_BuildRinkGeometry, F64_80
 extern F64_110, F64_40, F64_0p00138889, F64_65536_DrawScoreboard, F64_0p31831_UpdateScoreboardSpin, F64_0p5_UpdateScoreboardSpin, F64_65536_UpdateScoreboardSpin, rand_
 extern sprintf_, str_Botboards, str_Center, str_CrowdD, str_EMPTYFSH, str_FatBlueLines, str_FatRedLines, str_Glass
@@ -94,7 +94,7 @@ extern BenchRemap, BenchPalette, CrowdReactPos, ScoreboardCorners, ScoreboardTex
 extern IceCenterPoly, RinkPartModels, ProjectionNear, NetsHookPos, FlashPolys, ProjectionCenter, CameraStateRecords
 extern ModelSlots, vecdist, SfxBankLoaded, MusicBlock, MusicBlockCount, MusicStopRequest, PaQueuePrev, StreamTimerOn
 extern ScoreboardTick
-global jpt_4A73C, jpt_4AD42, jpt_4AE54, jpt_4B8CC, jpt_52484, PaEvent_4D6, PaEvent_4EC, PaEvent_502
+global FeedMusicStreamJumpTable, MakeDataPathJumpTable, MakeDirPathJumpTable, ResetRenderTimersJumpTable, OpenArenaArchiveJumpTable, PaEvent_4D6, PaEvent_4EC, PaEvent_502
 global PaEvent_518, PaEvent_536, PaEvent_572, PaEvent_5AE, PaEvent_5D6, PaEvent_5FE, PaEvent_64E, PaEvent_69E
 global PaEvent_745, PaEvent_7FF, PaEvent_87E, PaEvent_8CF, PaEvent_8F5, PaEvent_91B, PaEvent_941, PaEvent_967
 global PaEvent_14CD, FeedMusicStream_34, FeedMusicStream_4B, FeedMusicStream_105, FeedMusicStream_277, MakeDataPath_41, MakeDataPath_49, MakeDataPath_4F
@@ -550,7 +550,7 @@ PaEvent:
         cmp ax, 0Bh
         ja near PaEvent_14CD
         and eax, 0FFFFh
-        jmp dword [nosplit cs:eax*4+jpt_48D20]
+        jmp dword [nosplit cs:eax*4+PaEventJumpTable]
 PaEvent_4D6:
         mov edx, 15Bh
         xor eax, eax
@@ -791,7 +791,7 @@ PaEvent_69E:
         dec eax
         cmp eax, byte 7
         ja near PaEvent_14CD
-        jmp dword [nosplit cs:eax*4+jpt_48D50]
+        jmp dword [nosplit cs:eax*4+PaEventArgJumpTable]
 PaEvent_745:
         mov eax, dword [edx]
         add edx, byte 4
@@ -2303,7 +2303,7 @@ PumpMusicStream:
         pop ecx
         ret
         db 090h
-jpt_4A73C:
+FeedMusicStreamJumpTable:
         dd FeedMusicStream_34
         dd FeedMusicStream_4B
         dd FeedMusicStream_105
@@ -2327,7 +2327,7 @@ FeedMusicStream:
         dec eax
         cmp eax, byte 3
         ja near FeedMusicStream_277.14
-        jmp dword [nosplit cs:eax*4+jpt_4A73C]
+        jmp dword [nosplit cs:eax*4+FeedMusicStreamJumpTable]
 FeedMusicStream_34:
         cmp word [MusicStopRequest], byte 0
         jne short FeedMusicStream_4B
@@ -2827,7 +2827,7 @@ MakeDataPath_132:
         pop ecx
         pop ebx
         ret
-jpt_4AD42:
+MakeDataPathJumpTable:
         dd .6
         dd .1
         dd .3
@@ -2843,7 +2843,7 @@ jpt_4AD42:
         add ecx, edx
         cmp eax, byte 3
         ja short .6
-        jmp dword [nosplit cs:eax*4+jpt_4AD42]
+        jmp dword [nosplit cs:eax*4+MakeDataPathJumpTable]
 .1:
         test byte [byte ecx+011h], 1
 .2:
@@ -2936,7 +2936,7 @@ MakeDirPath:
         pop esi
         pop ecx
         ret
-jpt_4AE54:
+MakeDirPathJumpTable:
         dd .7
         dd .2
         dd .4
@@ -2960,7 +2960,7 @@ jpt_4AE54:
         and edx, byte 3
         cmp edx, byte 3
         ja short .7
-        jmp dword [nosplit cs:edx*4+jpt_4AE54]
+        jmp dword [nosplit cs:edx*4+MakeDirPathJumpTable]
 .2:
         test byte [byte ebx+011h], 1
 .3:
@@ -3870,7 +3870,7 @@ InitGameVideo:
         pop ecx
         pop ebx
         ret
-jpt_4B8CC:
+ResetRenderTimersJumpTable:
         dd ResetRenderTimers_27
         dd ResetRenderTimers_47
         dd ResetRenderTimers_3D
@@ -3888,7 +3888,7 @@ ResetRenderTimers:
         mov dword [FlashTimer], edx
         cmp eax, byte 3
         ja short ResetRenderTimers_47
-        jmp dword [nosplit cs:eax*4+jpt_4B8CC]
+        jmp dword [nosplit cs:eax*4+ResetRenderTimersJumpTable]
 ResetRenderTimers_27:
         mov dword [RenderTimersOn], 1
         pop edx
@@ -13565,7 +13565,7 @@ BuildRinkSides:
         pop edx
         pop ecx
         ret
-jpt_52484:
+OpenArenaArchiveJumpTable:
         dd OpenArenaArchive_58
         dd OpenArenaArchive_2C
         dd OpenArenaArchive_42
@@ -13589,7 +13589,7 @@ OpenArenaArchive:
         call ServiceIdle
         cmp edx, byte 3
         ja near OpenArenaArchive_7D.2
-        jmp dword [nosplit cs:edx*4+jpt_52484]
+        jmp dword [nosplit cs:edx*4+OpenArenaArchiveJumpTable]
 OpenArenaArchive_2C:
         mov ecx, dword [ArenaArchiveHandle]
         push ecx

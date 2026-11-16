@@ -24,7 +24,7 @@ extern CreatePlayerSlot, RatingBarBackArt, RatingBarLitArt, CreateGoalieMode, Ra
 extern RatingPointsLeft, JerseyChoice, CreatePlayerItems, RosterLastSpeech, RosterListArea, RosterMode, RosterRow, RosterScrollArea
 extern RosterPanelBitmap, RosterPanelShape, RosterPanelLayers, RosterTitleShape, RosterLogoBitmap, RosterMenuItems, RosterTradeOn, RosterScrollList
 extern RosterMenuArea, RosterInfoLoaded, RosterInfoAnim, DeletionCount, RosterPlayerInfo, RosterTeams, RosterChanged, JerseyHomeArt
-extern JerseyAwayArt, RosterEditOpen, RosterShapeFile, RosterBackFile, jpt_C750B, memmove_, memset_, qsort_
+extern JerseyAwayArt, RosterEditOpen, RosterShapeFile, RosterBackFile, RosterScreenJumpTable, memmove_, memset_, qsort_
 extern F64_2_BuildTradePlayerLists, sprintf_, str_TR00, strcat_, strcpy_, stricmp_, strlen_, BlitArt
 extern BlitShape, PresentScreen, FindShape, DrawShapeBlended, ResetClipWindow, Random32, LoadFileAllocQuiet, ConvertArtXY
 extern FindShapeList, SaveDataFile, UnlinkJump, SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime
@@ -39,7 +39,7 @@ extern UpdateGameRecord, FindPlayerStat, FindTeamStat, FreeExhibitionFile, Reset
 extern FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, FillRect, MeasureText, tickcount
 extern str_D_JerseyScreen, str_S_DrawCreatePlayerLabel, DbKeyBuffer, ScreenTitleItem, BlankMenuItem, ScreenFrameItem, StatsBackItem, CreateSkaterRows
 extern CreateGoalieRows, RosterSoundOn
-global jpt_CBFAA, jpt_CD7E3, RosterScreen_11C, RosterScreen_157, RosterScreen_172, RosterScreen_246, RosterScreen_2EC, RosterScreen_3B9
+global ComparePlayersForTradeJumpTable, RosterEditScreenJumpTable, RosterScreen_11C, RosterScreen_157, RosterScreen_172, RosterScreen_246, RosterScreen_2EC, RosterScreen_3B9
 global RosterScreen_42C, RosterScreen_49B, RosterScreen_4ED, RosterScreen_53E, RosterScreen_596, RosterScreen_5AB, RosterScreen_5AF, RosterScreen_5CF
 global RosterScreen_5D3, RosterScreen_604, RosterScreen_615, RosterScreen_624, RosterScreen_65B, RosterScreen_66C, FreeRosterInfoAnim_4A, DrawRosterList_86F
 global DrawPlayerCard_2B8, ShowTradeRejected_F7, ShowTradeRejected_100, ShowTradeRejected_102, ShowTradeRejected_108, RosterTradeScreen_306, FindFreeRosterSlot_EE, ComparePlayersForTrade_59
@@ -555,7 +555,7 @@ RosterScreen_66C:
         mov ebx, dword [byte ebp+072h]
         imul eax, ebx, byte 52h
         add eax, edi
-        jmp dword [nosplit cs:ebx*4+jpt_C750B]
+        jmp dword [nosplit cs:ebx*4+RosterScreenJumpTable]
 .30:
         cmp dword [byte ebp+072h], byte 1Eh
         jl short .29
@@ -5667,7 +5667,7 @@ SwapRosterPlayers:
         mov eax, esi
         call UpdateRosterCounts
         jmp short .2
-jpt_CBFAA:
+ComparePlayersForTradeJumpTable:
         dd ComparePlayersForTrade_59
         dd ComparePlayersForTrade_D9
         dd ComparePlayersForTrade_133
@@ -5701,7 +5701,7 @@ ComparePlayersForTrade:
         imul ebx, edi, byte 38h
         mov dword [byte ebp-04h], ebx
         imul ebx, dword [byte ebp-034h], dword 32C6h
-        jmp dword [nosplit cs:ecx*4+jpt_CBFAA]
+        jmp dword [nosplit cs:ecx*4+ComparePlayersForTradeJumpTable]
 ComparePlayersForTrade_59:
         mov ecx, dword [RosterTeams]
         add ecx, ebx
@@ -7592,7 +7592,7 @@ ClampRosterScroll:
         mov word [byte eax+072h], dx
         pop ebx
         ret
-jpt_CD7E3:
+RosterEditScreenJumpTable:
         dd RosterEditScreen_24
         dd RosterEditScreen_AD
         dd RosterEditScreen_1BD
@@ -7612,7 +7612,7 @@ RosterEditScreen:
         cmp eax, byte 3
         ja near DrawRosterList_86F
         shl edx, 2
-        jmp dword [nosplit cs:eax*4+jpt_CD7E3]
+        jmp dword [nosplit cs:eax*4+RosterEditScreenJumpTable]
 RosterEditScreen_24:
         imul eax, dword [dword edx+RosterTeam], dword 32C6h
         mov edx, dword [RosterTeams]

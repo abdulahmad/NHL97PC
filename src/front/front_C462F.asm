@@ -29,7 +29,7 @@ extern LoadDataFile, DrawScreenBackground, FadeInScreen, SetRegionRect, SetTextC
 extern InitMenuItems, RunMenu, DetailLevelScreen, FreeMemBlock, MemFreeSize, MakeColor, FreeBitmap, DrawShapeCore
 extern DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, FillRectCorners, str_D_OptionsScreen, BlankMenuItem, OptionsMenuItems
 extern OptionsMenuItems, GripPortWord
-global jpt_C4822, OptionsScreen_F0A, OptionsScreen_F22, OptionsScreen_10AA, OptionsScreen_10D0, OptionsScreen_1125, OptionsScreen_117A, OptionsScreen_11CF
+global OptionsScreenJumpTable, OptionsScreen_F0A, OptionsScreen_F22, OptionsScreen_10AA, OptionsScreen_10D0, OptionsScreen_1125, OptionsScreen_117A, OptionsScreen_11CF
 global OptionsScreen_1285, OptionsScreen_12DA, OptionsScreen_1359, OptionsScreen_136C, OptionsScreen_137F, OptionsScreen_13A6, OptionsScreen_140D, OptionsScreen_1431
 global OptionsScreen_1435, OptionsScreen_1439, OptionsScreen_143D, OptionsScreen_1441, OptionsScreen_1447, OptionsScreen_144D, OptionsScreen_1451, OptionsScreen_147B
 global OptionsScreen_14BA, OptionsScreen_14FE, OptionsScreen_1519, OptionsScreen_1534, OptionsScreen_154F, OptionsScreen_156A, OptionsScreen_1588, OptionsScreen_15A6
@@ -208,7 +208,7 @@ OptionsSound:
         pop ecx
         pop ebx
         ret
-jpt_C4822:
+OptionsScreenJumpTable:
         dd OptionsScreen_14BA
         dd OptionsScreen_F0A
         dd OptionsScreen_F22
@@ -1546,7 +1546,7 @@ OptionsScreen_14BA:
         mov eax, dword [AudioOptions]
         mov ebx, dword [byte ebp+056h]
         and ax, 0FE03h
-        jmp dword [nosplit cs:ebx*4+jpt_C4822]
+        jmp dword [nosplit cs:ebx*4+OptionsScreenJumpTable]
 OptionsScreen_14FE:
         call SetScreenTarget
         and dword [AudioOptions], 0FFFE03FFh

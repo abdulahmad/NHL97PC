@@ -17,7 +17,7 @@ extern HideLinkBox, ShowPopupScreen, InitMenuItems, RunMenu, RunScrollList, GetL
 extern LoadExhibitionFile, FreeExhibitionFile, ResetExhibitionFile, PickDemoTeams, ClearLinkAbort, ServiceIdle, LinkSendBlock, LinkReceiveBlock
 extern AllocMemBlock, FreeMemBlock, FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, tickcount, TeamSelectArtBase
 extern GlobalSetVersion, ScreenTitleItem, BlankMenuItem, ScreenFrameItem, TeamSelectMode, AwayPanelTeam, HomePanelTeam
-global jpt_9E8E8, jpt_9F6DD, DrawHomeTeamPanel_1C9, DrawHomeTeamPanel_1EC, TeamSelectScreen_7BE, TeamSelectScreen_7CF, TeamSelectScreen_7E0, TeamSelectScreen_7FC
+global TeamSelectScreenJumpTable, PickIndexEntryScreenJumpTable, DrawHomeTeamPanel_1C9, DrawHomeTeamPanel_1EC, TeamSelectScreen_7BE, TeamSelectScreen_7CF, TeamSelectScreen_7E0, TeamSelectScreen_7FC
 global TeamSelectScreen_815, TeamSelectScreen_8C4, TeamSelectScreen_918, TeamSelectScreen_94F, TeamSelectScreen_A05, TeamSelectScreen_A43, TeamSelectScreen_ACB, TeamSelectScreen_B55
 global TeamSelectScreen_B61, DrawHomeTeamPanel, DrawAwayTeamPanel, TeamSelectSparkle, TeamSelectScreen, IndexScreenSound, str_Punct_PickIndexEntry, PickIndexTopBar
 global PickIndexLeftBar, PickIndexRightBar
@@ -441,7 +441,7 @@ TeamSelectSparkle:
         pop ecx
         pop ebx
         ret
-jpt_9E8E8:
+TeamSelectScreenJumpTable:
         dd TeamSelectScreen_7BE
         dd TeamSelectScreen_7CF
         dd TeamSelectScreen_7E0
@@ -1096,7 +1096,7 @@ TeamSelectScreen_94F:
         cmp dword [byte ebp+066h], byte 0Ch
         ja short .23
         mov eax, dword [byte ebp+066h]
-        jmp dword [nosplit cs:eax*4+jpt_9E8E8]
+        jmp dword [nosplit cs:eax*4+TeamSelectScreenJumpTable]
 TeamSelectScreen_A05:
         inc dword [byte ebp+076h]
         cmp dword [CreditsKeyFlag], byte 0
@@ -1335,7 +1335,7 @@ IndexScreenSound:
         pop ecx
         pop ebx
         ret
-jpt_9F6DD:
+PickIndexEntryScreenJumpTable:
         dd PickIndexEntryScreen_393
         dd PickIndexEntryScreen_3A4
         dd PickIndexEntryScreen_3B5

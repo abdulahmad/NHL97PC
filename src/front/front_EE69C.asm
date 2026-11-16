@@ -23,7 +23,7 @@ extern FreePauseArt, DrawPauseClock, FreeMemBlock, MatchColor, MakeColor, FreeBi
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, tickcount, str_S_DrawControlKey, DefaultControls, ControlSetup
 extern BlankMenuItem, ControlSetupItems, KeyNames, str_Punct_DrawControlLabel, ControlLabelOrder, ControlSetupLabelPos
 extern ControlSetupButtonRects, str_Punct_ControlSetupScreen, ControlSetupKeyOrder, ControlSetupDelay, ControlSetupItem, ControlSetupSoundOn
-global jpt_F031D, ShowReservedKey_20A, ControlSetupMain_3F3, ControlSetupMain_3FB, ControlSetupScreen_B8D, ControlSetupScreen_BB1, ControlSetupScreen_BC0, ControlSetupScreen_BF3
+global ControlSetupScreenJumpTable, ShowReservedKey_20A, ControlSetupMain_3F3, ControlSetupMain_3FB, ControlSetupScreen_B8D, ControlSetupScreen_BB1, ControlSetupScreen_BC0, ControlSetupScreen_BF3
 global ControlSetupScreen_C3A, ControlSetupScreen_F11, ControlSetupScreen_1064, ShowReservedKey, CopyControlSettings, ControlSetupMain, ControlSetupKeys, ControlSetupPads
 global ControlSetupSound, DrawControlLabel, DrawControlKey, ControlSetupScreen, ControlSetupPlayers, SetupPauseArt, CleanupPauseArt
 ;-----------------------------------------------------------------------------
@@ -2320,7 +2320,7 @@ DrawControlKey:
         pop edi
         pop esi
         ret 8
-jpt_F031D:
+ControlSetupScreenJumpTable:
         dd ControlSetupScreen_B8D
         dd ControlSetupScreen_BB1
         dd ControlSetupScreen_BC0
@@ -3144,7 +3144,7 @@ ControlSetupScreen:
         cmp dword [byte ebp+066h], byte 6
         ja near ControlSetupScreen_1064.44
         mov eax, dword [byte ebp+066h]
-        jmp dword [nosplit cs:eax*4+jpt_F031D]
+        jmp dword [nosplit cs:eax*4+ControlSetupScreenJumpTable]
 ControlSetupScreen_B8D:
         call FadeInScreen
         push byte 58h

@@ -25,7 +25,7 @@ extern FaceoffSpot, FaceoffZone, PeriodLength, OneTimerTarget, PuckZone, penshot
 extern FaceoffRequest, BreakawayFlag, SlotAssign, HomeGoalieOff, AwayGoalieOff, HomeControlSlot, AwayControlSlot, GripDriverSeg
 extern GripDriverSel, GripCodeSel, GripDataSeg, GripResult, ChantIndex, PlayerAssignWords, PlayerControlWords, HomeTeamRecord
 extern AwayTeamRecord, HomeIceSlots, AwayIceSlots, HmCounters, HmLineState, AwCounters, AwLineState
-global SetupTeamForIntermission, clearteams, jpt_11318, loc_10000, StartCrowdMusic_26, StartCrowdMusic_4F, StartCrowdMusic_78, StartCrowdMusic_A6
+global SetupTeamForIntermission, clearteams, StartCrowdMusicJumpTable, loc_10000, StartCrowdMusic_26, StartCrowdMusic_4F, StartCrowdMusic_78, StartCrowdMusic_A6
 global forcepldata_E, ReplaceFaceoffPlayers_62, ReplaceFaceoffPlayers_81, GripLinkLibrary, CallGripDriver, LoadGripLibrary, InitGripDriver, LoadJoystickConfig
 global SetupOptionsAnim, DrawOptionsAnimFrame, UpdateOptionsAnim, PickCrowdChant, StartCrowdMusic, RestartGameMusic, forcepldata, SetupFaceoffPlayers
 global ClearPlayerFlags, ResetTeamStats, ResetBench, IsPlayoffGame, RefreshPlayerModel, setplayer, reenergizeteam, ResetForIntermission
@@ -1653,7 +1653,7 @@ PickCrowdChant:
         pop ebx
         ret
         db 090h
-jpt_11318:
+StartCrowdMusicJumpTable:
         dd StartCrowdMusic_26
         dd StartCrowdMusic_4F
         dd StartCrowdMusic_78
@@ -1673,7 +1673,7 @@ StartCrowdMusic:
         cmp ax, 3
         ja near StartCrowdMusic_A6.1
         and eax, 0FFFFh
-        jmp dword [nosplit cs:eax*4+jpt_11318]
+        jmp dword [nosplit cs:eax*4+StartCrowdMusicJumpTable]
 StartCrowdMusic_26:
         mov eax, 0Dh
         call SetCrowdMood

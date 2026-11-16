@@ -14,7 +14,7 @@ extern SeasonDefaultUser, GameRecordIds, PlayMenuGameFlag, FrontShapeFile, TextF
 extern MainMenuAnimStart, MainMenuAnimRate, MainMenuAnimShape, MainMenuAnimMode, MainMenuAnimX, MainMenuAnimY, MainMenuAnimArt, MainMenuAnimBack
 extern MainMenuAnimLogo, MainMenuAnimTitle, MainMenuAnimCursor, MainMenuAnimItems, MainMenuAnimPanel, MainMenuAnimSprites, MainMenuButtons, MainMenuChoice
 extern MainMenuAnimTick, MainMenuCursor, MainMenuWindow, MainMenuAnimRunning, MainMenuResult, MainMenuScreenArt, SeasonMenuExit, LinkScreensDone
-extern fclose_, fopen_, fputc_, jpt_845CC, memcpy_, memset_, rand_, sprintf_
+extern fclose_, fopen_, fputc_, MainMenuAnimJumpTable, memcpy_, memset_, rand_, sprintf_
 extern str_NAMEINDEX, str_backslash3, strcat_, strcmp_, strcpy_, strlen_, bcopy, BlitConverted
 extern BlitShape2, BlitArt, BlitShape, PresentScreen, FindShape, OpenArtArchiveErr, ConvertArtNew, Random32
 extern LoadFileAllocQuiet, DosFileInfo, ProjectModelBounds, ConvertArtXY, FindShapeList, SaveDataFile, SetScreenTarget, SecondsToSamples
@@ -29,7 +29,7 @@ extern ClearLinkAbort, ServiceIdle, NetDisconnect, LinkSendBlock, LinkReceiveBlo
 extern OpenResourceArchive, FreeBitmap, DrawShapeCore, DrawArt, CreateBitmap, SetDrawTarget, ClearScreen, tickcount
 extern str_Rb_WritePhonebookFile, str_Wb, MainMenuAnimName, SeasonDbKey, LinkSettings, LinkSettingsData, GlobalSetVersion, IndexEntrySettings
 extern ScreenTitleItem, BlankMenuItem, ScreenFrameItem, MainMenuButtonRect, MainMenuTextRect, MainMenuItemMetrics
-global jpt_84AF5, jpt_84B15, jpt_84B25, jpt_84B3D, jpt_85CFD, MainMenuAnim_32E, MainMenuAnim_344, MainMenuAnim_35A
+global MainMenuOptionsJumpTable, MainMenuMessageJumpTable, MainMenuSelectionJumpTable, jpt_84B3D, RunStatsMenuJumpTable, MainMenuAnim_32E, MainMenuAnim_344, MainMenuAnim_35A
 global MainMenuAnim_370, MainMenuAnim_50B, MainMenuScreen_911, MainMenuScreen_999, MainMenuScreen_A17, MainMenuScreen_A23, MainMenuScreen_A2F, MainMenuScreen_A3B
 global MainMenuScreen_A68, MainMenuScreen_A79, MainMenuScreen_A82, MainMenuScreen_A94, MainMenuScreen_A9D, MainMenuScreen_AAF, MainMenuScreen_AB8, MainMenuScreen_BA5
 global MainMenuScreen_BBD, MainMenuScreen_BC6, MainMenuScreen_BD5, MainMenuScreen_BDE, MainMenuScreen_BED, MainMenuScreen_BF6, MainMenuScreen_C76, MainMenuScreen_CFF
@@ -259,7 +259,7 @@ MainMenuAnim:
         mov dword [MainMenuAnimTick], eax
         cmp eax, byte 5
         ja short MainMenuAnim_370.19
-        jmp dword [nosplit cs:eax*4+jpt_845CC]
+        jmp dword [nosplit cs:eax*4+MainMenuAnimJumpTable]
 MainMenuAnim_32E:
         push dword [MainMenuAnimArt]
         call BlitShape2
@@ -400,7 +400,7 @@ MainMenuAnim_50B:
         pop ecx
         pop ebx
         ret
-jpt_84AF5:
+MainMenuOptionsJumpTable:
         dd MainMenuScreen_911
         dd MainMenuScreen_A3B
         dd MainMenuScreen_AB8
@@ -409,12 +409,12 @@ jpt_84AF5:
         dd MainMenuScreen_CFF
         dd MainMenuScreen_DDB
         dd MainMenuScreen_DF1
-jpt_84B15:
+MainMenuMessageJumpTable:
         dd MainMenuScreen_A17
         dd MainMenuScreen_A23
         dd MainMenuScreen_A2F
         dd MainMenuScreen_999
-jpt_84B25:
+MainMenuSelectionJumpTable:
         dd MainMenuScreen_A68
         dd MainMenuScreen_A79
         dd MainMenuScreen_A82
@@ -1141,7 +1141,7 @@ MainMenuScreen_999:
         cmp ax, 3
         ja near MainMenuScreen_CFF.48
         movzx eax, ax
-        jmp dword [nosplit cs:eax*4+jpt_84B15]
+        jmp dword [nosplit cs:eax*4+MainMenuMessageJumpTable]
 MainMenuScreen_A17:
         mov dword [byte ebp+07Eh], 20h
         jmp near MainMenuScreen_CFF.48
@@ -1162,7 +1162,7 @@ MainMenuScreen_A3B:
         mov ecx, eax
         or bl, 10h
         or cl, 20h
-        jmp dword [nosplit cs:edx*4+jpt_84B25]
+        jmp dword [nosplit cs:edx*4+MainMenuSelectionJumpTable]
 MainMenuScreen_A68:
         mov dword [byte ebp+07Eh], 4
 .29:
@@ -1414,7 +1414,7 @@ MainMenuScreen_CFF:
         cmp dword [byte ebp+04Eh], byte 7
         ja near .48
         mov eax, dword [byte ebp+04Eh]
-        jmp dword [nosplit cs:eax*4+jpt_84AF5]
+        jmp dword [nosplit cs:eax*4+MainMenuOptionsJumpTable]
 MainMenuScreen_DDB:
         mov eax, dword [MainMenuCursor]
         add eax, 1ECh
@@ -1722,7 +1722,7 @@ RunGameScreens:
         pop ecx
         pop ebx
         ret
-jpt_85CFD:
+RunStatsMenuJumpTable:
         dd RunStatsMenu_6E
         dd RunStatsMenu_82
         dd RunStatsMenu_A5
@@ -1788,7 +1788,7 @@ RunStatsMenu_82:
         lea eax, [byte ebx-064h]
         cmp eax, byte 7
         ja short .4
-        jmp dword [nosplit cs:eax*4+jpt_85CFD]
+        jmp dword [nosplit cs:eax*4+RunStatsMenuJumpTable]
 RunStatsMenu_9E:
         call StatsTablesScreen
         jmp short RunStatsMenu_82.3

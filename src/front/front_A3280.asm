@@ -46,7 +46,7 @@ extern ScreenFrameItem, ThreeStarsData, GripPortWord, LinkSetupItemX, LinkSetupS
 extern LinkSetupTitleY, LinkSetupSoundIndex, LinkSetupSoundOn, ThreeStarsSoundOn, GameStatsSoundOn, GameStatsAnimSoundOn, PassState, gameover
 extern AllStarArena, GameLogCount, LinkSetupOrder, LinkSetupValues, LinkSetupItemType, LinkHomeChoice, LinkSetupItemCount, LinkAwayChoice
 extern ThreeStarsPlayer, ThreeStarsTeam, ThreeStarsPoints, ScoringLogCount, PenaltyLogCount
-global jpt_A3B51, jpt_A4B35, jpt_A4B4D, jpt_A4B65, jpt_A6680, jpt_A7D7C, LinkGameSetup_8CA, LinkGameSetup_8CB
+global LinkSetupCursorJumpTable, LinkControlSetupJumpTable, LinkControlLocalJumpTable, LinkControlRestoreJumpTable, PostGameScreenJumpTable, GameStatsScreenJumpTable, LinkGameSetup_8CA, LinkGameSetup_8CB
 global LinkSetupCursor_29, LinkSetupCursor_CC, LinkSetupCursor_166, LinkSetupCursor_1EE, LinkSetupCursor_2BB, RunLinkGameScreens_30, RunLinkGameScreens_112, RunLinkGameScreens_1971
 global PostGameScreen_B39, PostGameScreen_B4E, PostGameScreen_B55, PostGameScreen_B71, StarBonus_AC, DrawThreeStarStats_4A8, ThreeStarsFlash_E4, ThreeStarsFlash_14E
 global GameStatsScreen_143, GameStatsScreen_14E, GameStatsScreen_19A, GameStatsScreen_205, GameStatsScreen_24A, GameStatsScreen_294, GameStatsScreen_2D9, GameStatsScreen_39D
@@ -802,7 +802,7 @@ LinkGameSetup_8CB:
         pop ecx
         pop ebx
         ret
-jpt_A3B51:
+LinkSetupCursorJumpTable:
         dd LinkSetupCursor_29
         dd LinkSetupCursor_2BB
         dd LinkSetupCursor_CC
@@ -827,7 +827,7 @@ LinkSetupCursor:
         cmp al, 5
         ja near LinkSetupCursor_2BB
         movzx eax, al
-        jmp dword [nosplit cs:eax*4+jpt_A3B51]
+        jmp dword [nosplit cs:eax*4+LinkSetupCursorJumpTable]
 LinkSetupCursor_29:
         test byte [LinkSetupCursorFlags], 1
         jne short .2
@@ -1976,21 +1976,21 @@ LinkSetupSound:
         call StopAllSfx
         mov word [LinkSetupSoundOn], dx
         jmp near LinkGameSetup_8CB
-jpt_A4B35:
+LinkControlSetupJumpTable:
         dd RunLinkGameScreens_30
         dd RunLinkGameScreens_30
         dd RunLinkGameScreens_30
         dd RunLinkGameScreens_30
         dd RunLinkGameScreens_30
         dd RunLinkGameScreens_30
-jpt_A4B4D:
+LinkControlLocalJumpTable:
         dd RunLinkGameScreens_112
         dd RunLinkGameScreens_112
         dd RunLinkGameScreens_112
         dd RunLinkGameScreens_112
         dd RunLinkGameScreens_112
         dd RunLinkGameScreens_112
-jpt_A4B65:
+LinkControlRestoreJumpTable:
         dd RunLinkGameScreens_1971
         dd RunLinkGameScreens_1971
         dd RunLinkGameScreens_1971
@@ -2017,7 +2017,7 @@ RunLinkGameScreens:
         movzx edi, al
         cmp edi, byte 5
         ja short RunLinkGameScreens_30
-        jmp dword [nosplit cs:edi*4+jpt_A4B35]
+        jmp dword [nosplit cs:edi*4+LinkControlSetupJumpTable]
 RunLinkGameScreens_30:
         inc esi
         cmp esi, byte 8
@@ -2077,7 +2077,7 @@ RunLinkGameScreens_30:
         movzx edi, al
         cmp edi, byte 5
         ja short RunLinkGameScreens_112
-        jmp dword [nosplit cs:edi*4+jpt_A4B4D]
+        jmp dword [nosplit cs:edi*4+LinkControlLocalJumpTable]
 RunLinkGameScreens_112:
         inc esi
         cmp esi, byte 8
@@ -3718,7 +3718,7 @@ RunLinkGameScreens_112:
         movzx edi, al
         cmp edi, byte 5
         ja short RunLinkGameScreens_1971
-        jmp dword [nosplit cs:edi*4+jpt_A4B65]
+        jmp dword [nosplit cs:edi*4+LinkControlRestoreJumpTable]
 RunLinkGameScreens_1971:
         inc esi
         cmp esi, byte 8
@@ -3873,7 +3873,7 @@ PlayArenaAnnouncement:
         call PaEvent
         add esp, byte 18h
         jmp near LinkGameSetup_8CB
-jpt_A6680:
+PostGameScreenJumpTable:
         dd PostGameScreen_B39
         dd PostGameScreen_B4E
         dd PostGameScreen_B55
@@ -4599,7 +4599,7 @@ PostGameScreen:
         dec eax
         cmp eax, byte 3
         ja short PostGameScreen_B71.27
-        jmp dword [nosplit cs:eax*4+jpt_A6680]
+        jmp dword [nosplit cs:eax*4+PostGameScreenJumpTable]
 PostGameScreen_B39:
         call FadeInScreen
         mov ebx, 1Ah
@@ -5656,7 +5656,7 @@ ClearThreeStars:
         pop ecx
         pop ebx
         ret
-jpt_A7D7C:
+GameStatsScreenJumpTable:
         dd GameStatsScreen_143
         dd GameStatsScreen_14E
         dd GameStatsScreen_19A
@@ -5751,7 +5751,7 @@ GameStatsScreen:
         cmp ecx, byte 7
         ja near GameStatsScreen_39D.12
         mov edx, ecx
-        jmp dword [nosplit cs:edx*4+jpt_A7D7C]
+        jmp dword [nosplit cs:edx*4+GameStatsScreenJumpTable]
 GameStatsScreen_143:
         call ShowScreen
         inc ebp

@@ -7,7 +7,7 @@ extern str_DOOR, str_TXT1, str_TRM1, str_TITL13, str_LOGO02dFSH2, str_LOGO7, str
 extern str_SDD, str_SDDD, str_SSS2, str_SS13, str_SSS3, str_Roster4, str_SVsSDDD, str_SDSD2
 extern PlayoffUserIndex, FrontMusicOn, RostersSparkleCount, PlayoffColumns, MatchupNoteCount, MatchupNoteLength, RostersSparkleTick, RostersSparkleFrame
 extern MenuScreenBitmap, GameSettings, SeasonUserTeam, GameOptionFlags, SeasonActive, SeasonUserReplay, SeasonDefaultUser, PlayoffRoundBits
-extern PlayoffTeamNames, PlayoffTeams, RostersShapeLists, MatchupNotes, RosterInfoLines, MatchupNoteFormats, RostersSparkleShapes, jpt_D3102
+extern PlayoffTeamNames, PlayoffTeams, RostersShapeLists, MatchupNotes, RosterInfoLines, MatchupNoteFormats, RostersSparkleShapes, PreGameRostersScreenJumpTable
 extern memset_, rand_, sprintf_, str_EASports, str_TXTD, strcpy_, BlitConverted, BlitArt
 extern BlitShape, PresentScreen, FindShape, OpenArtArchiveErr, DrawShapeBlended, ConvertArtNew, DrawSpriteScaledBy, SetScreenTarget
 extern IsAllStarDay, SecondsToSamples, WaitSoundTime, StopAllSfx, PlaySfx, PaEvent, ResetStreamAudio, LoadDataFile
@@ -24,7 +24,7 @@ extern str_Lacher, str_BOS, str_Moog, str_DAL, str_Richter, str_NYR_GoalieMaskLi
 extern str_MTL, str_Thibault, str_Vanbiesbrouck, str_FLA, str_Vernon, str_DET, str_EA, PlayoffDbKey
 extern MatchupNote, AutoLineData, MatchupNoteText, MatchupNoteLine, HomeLines, HomeCityName, ScreenTitleItem, BlankMenuItem
 extern ScreenFrameItem, MatchupNotesBlankRect, MatchupNotesBlankPos, MatchupNotesBlankSize, AllStarDay
-global jpt_D4215, PreGameRostersScreen_B6A, PreGameRostersScreen_BA7, PreGameRostersScreen_BB5, PreGameRostersScreen_BC3, PreGameRostersScreen_C3F, DrawMatchupHistory_FB, DrawMatchupHistory_FC
+global DrawMatchupNotesJumpTable, PreGameRostersScreen_B6A, PreGameRostersScreen_BA7, PreGameRostersScreen_BB5, PreGameRostersScreen_BC3, PreGameRostersScreen_C3F, DrawMatchupHistory_FB, DrawMatchupHistory_FC
 global DrawMatchupNotes_86, DrawMatchupNotes_C5, DrawMatchupNotes_10F, DrawMatchupNotes_14B, PreGameRostersScreen, FormatMatchupNote, DrawRosterPlayerInfo, DrawMatchupHistory
 global DrawRosterLabel, DrawMatchupNotes, FindMatchupNotes, CountTeamResults, MatchupAnnouncement, GoalieMaskList
 ;-----------------------------------------------------------------------------
@@ -923,7 +923,7 @@ PreGameRostersScreen_B6A:
         cmp dword [byte ebp+046h], byte 3
         ja short PreGameRostersScreen_B6A
         mov eax, dword [byte ebp+046h]
-        jmp dword [nosplit cs:eax*4+jpt_D3102]
+        jmp dword [nosplit cs:eax*4+PreGameRostersScreenJumpTable]
 PreGameRostersScreen_BA7:
         call FadeInScreen
         mov dword [byte ebp+056h], 14h
@@ -1364,7 +1364,7 @@ DrawRosterLabel:
         pop ecx
         pop ebx
         ret
-jpt_D4215:
+DrawMatchupNotesJumpTable:
         dd DrawMatchupNotes_86
         dd DrawMatchupNotes_C5
         dd DrawMatchupNotes_10F
@@ -1418,7 +1418,7 @@ DrawMatchupNotes:
         dec eax
         cmp eax, byte 3
         ja near DrawMatchupNotes_14B.5
-        jmp dword [nosplit cs:eax*4+jpt_D4215]
+        jmp dword [nosplit cs:eax*4+DrawMatchupNotesJumpTable]
 DrawMatchupNotes_86:
         push byte 0FFFFFFFFh
         call MakeColor

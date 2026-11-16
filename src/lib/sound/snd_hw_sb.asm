@@ -9,7 +9,7 @@ extern DmaCountPorts, TimerIrqMask, TimerChainFlag, TimerPitMode, TimerInstalled
 extern IrqAckLast, FloatPow10Table, FloatPow10Exponents, FloatFormatDigits, FloatFormatExponent, FloatFormatMantissaLo, FloatFormatMantissaHi, DacTimerRate
 extern DacTimerDivisor, TimerOldHandler, TimerOldRealHandler, TimerDivisor, TimerChainCount, int386_, str_RMHandler, AllocMemData
 extern FreeMemBlock, tolower_, SavedEsSelector, TimerOldOffsetLo, TimerOldSelector, DbcsLeadTable
-global fini_, init_, jpt_138417, jpt_1386D1, jpt_138859, unk_137FE1_2, StrToLong_166, jpt_138417_64
+global fini_, init_, jpt_138417, ScanFloatClassJumpTable, ScanFloatResultJumpTable, unk_137FE1_2, StrToLong_166, jpt_138417_64
 global jpt_138417_74, jpt_138417_84, jpt_138417_94, ScanFloat_24, ScanFloat_34, ScanFloat_44, ScanFloat_54, TimerCalibrate
 global TimerRestore, TimerSetRate, TimerWritePit, TimerReadCount, TimerTicksForRate, TimerMeasure, TimerSetDivisor, TimerReset
 global TimerInstall, TimerChainOld, DmaMaskChannel, DmaProgram, IrqEoi, IrqAck, IrqVector, IrqUnmask
@@ -1563,7 +1563,7 @@ jpt_138417_94:
         pop edi
         pop esi
         ret 0Ch
-jpt_1386D1:
+ScanFloatClassJumpTable:
         dd ScanFloat_24
         dd ScanFloat_34
         dd ScanFloat_44
@@ -1585,7 +1585,7 @@ ScanFloat:
         and eax, byte 0Fh
         cmp eax, byte 3
         ja short ScanFloat_54.1
-        jmp dword [nosplit cs:eax*4+jpt_1386D1]
+        jmp dword [nosplit cs:eax*4+ScanFloatClassJumpTable]
 ScanFloat_24:
         mov dword [byte ebp-04h], 0
         mov dword [byte ebp-0Ch], 0
@@ -1708,14 +1708,14 @@ ScanFloat_54:
         pop edi
         pop esi
         ret 8
-jpt_138859:
+ScanFloatResultJumpTable:
         dd .1
         dd .3
         dd .4
         dd .5
         cmp eax, byte 3
         ja short .6
-        jmp dword [nosplit cs:eax*4+jpt_138859]
+        jmp dword [nosplit cs:eax*4+ScanFloatResultJumpTable]
 .1:
         mov dword [edx], 0
 .2:

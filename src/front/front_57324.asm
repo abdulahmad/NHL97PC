@@ -187,8 +187,8 @@ extern PassPending, PassReceiver, OneTimerPlayer, StatsPanelPlayer, gameover, Pu
 extern SimFrames, gsp, gameclock, StatsPanelOn, FaceoffSpot, FaceoffZone, OneTimerReady, OneTimerPasser
 extern OneTimerTarget, PenCntDwn, GoalLineFlag, BreakawayFlag, SlotAssign, HomeGoalieOff, AwayGoalieOff, HomeControlSlot
 extern HmActiveCount, HmLineCount, AwActiveCount, AwLineCount
-global jpt_628A8, jpt_62EF8, jpt_633C8, jpt_63A88, jpt_649C0, jpt_64AC0, jpt_657A3, jpt_700A0
-global jpt_73FAC, SetupPlayerModel_CD, SetupPlayerModel_D8, DrawPlayerModel_BC, DrawLeftArmModel_80, DrawRightArmModel_80, DrawRightArmModel_C0, DrawRightArmModel_100
+global GlideForwardMoveJumpTable, SkateForwardMoveJumpTable, SkateBackwardMoveJumpTable, TurnForwardMoveJumpTable, GlideBackwardMoveJumpTable, TurnBackwardMoveJumpTable, ShotAnimFramesJumpTable, SortPlayersByDepthJumpTable
+global BlockShotMoveJumpTable, SetupPlayerModel_CD, SetupPlayerModel_D8, DrawPlayerModel_BC, DrawLeftArmModel_80, DrawRightArmModel_80, DrawRightArmModel_C0, DrawRightArmModel_100
 global DrawRightArmModel_140, DrawRightArmModel_180, ReplayRecordTick_29, ReplayRecordFinal_C, GlideForwardMove_220, GlideForwardMove_230, GlideForwardMove_240, GlideForwardMove_250
 global GlideForwardMove_260, SkateForwardMove_89, SkateForwardMove_99, SkateForwardMove_A9, SkateForwardMove_3AE, SkateForwardMove_3E0, SkateForwardMove_41B, SkateBackwardMove_31
 global SkateBackwardMove_41, SkateBackwardMove_51, SkateBackwardMove_345, SkateBackwardMove_377, SkateBackwardMove_3B2, TurnForwardMove_31, TurnForwardMove_41, TurnForwardMove_51
@@ -15847,7 +15847,7 @@ PickBackwardTurn:
         pop ebx
         ret
         db 08Dh,040h,00h
-jpt_628A8:
+GlideForwardMoveJumpTable:
         dd GlideForwardMove_240
         dd GlideForwardMove_260
         dd GlideForwardMove_250
@@ -16037,7 +16037,7 @@ GlideForwardMove:
         dec eax
         cmp eax, byte 6
         ja short GlideForwardMove_260
-        jmp dword [nosplit cs:eax*4+jpt_628A8]
+        jmp dword [nosplit cs:eax*4+GlideForwardMoveJumpTable]
 GlideForwardMove_220:
         mov eax, ecx
         call PickStrideAnim
@@ -16420,7 +16420,7 @@ LimitSkateSpeed:
         pop ecx
         pop ebx
         ret
-jpt_62EF8:
+SkateForwardMoveJumpTable:
         dd SkateForwardMove_3E0
         dd SkateForwardMove_A9
         dd SkateForwardMove_3AE
@@ -16474,7 +16474,7 @@ SkateForwardMove:
         dec edx
         cmp edx, byte 6
         ja near SkateForwardMove_41B
-        jmp dword [nosplit cs:edx*4+jpt_62EF8]
+        jmp dword [nosplit cs:edx*4+SkateForwardMoveJumpTable]
 SkateForwardMove_89:
         mov eax, ecx
         call PickForwardTurn
@@ -16842,7 +16842,7 @@ SkateForwardMove_41B:
         pop ebx
         ret
         db 090h
-jpt_633C8:
+SkateBackwardMoveJumpTable:
         dd SkateBackwardMove_377
         dd SkateBackwardMove_51
         dd SkateBackwardMove_345
@@ -16872,7 +16872,7 @@ SkateBackwardMove:
         dec eax
         cmp eax, byte 7
         ja near SkateBackwardMove_3B2
-        jmp dword [nosplit cs:eax*4+jpt_633C8]
+        jmp dword [nosplit cs:eax*4+SkateBackwardMoveJumpTable]
 SkateBackwardMove_31:
         mov eax, ecx
         call PickBackwardTurn
@@ -17450,7 +17450,7 @@ TurnStickPos:
         pop ecx
         pop ebx
         ret
-jpt_63A88:
+TurnForwardMoveJumpTable:
         dd TurnForwardMove_51
         dd TurnForwardMove_61
         dd TurnForwardMove_71
@@ -17478,7 +17478,7 @@ TurnForwardMove:
         and edi, 0FFFFh
         cmp eax, byte 6
         ja near TurnForwardMove_BC
-        jmp dword [nosplit cs:eax*4+jpt_63A88]
+        jmp dword [nosplit cs:eax*4+TurnForwardMoveJumpTable]
 TurnForwardMove_31:
         mov eax, ecx
         call PickForwardTurn
@@ -18903,7 +18903,7 @@ SlowSkateMove:
         pop ebx
         ret
         db 08Dh,040h,00h
-jpt_649C0:
+GlideBackwardMoveJumpTable:
         dd GlideBackwardMove_3B
         dd GlideBackwardMove_53
         dd GlideBackwardMove_47
@@ -18929,7 +18929,7 @@ GlideBackwardMove:
         dec edx
         cmp edx, byte 7
         ja short GlideBackwardMove_53
-        jmp dword [nosplit cs:edx*4+jpt_649C0]
+        jmp dword [nosplit cs:edx*4+GlideBackwardMoveJumpTable]
 GlideBackwardMove_23:
         mov eax, esi
         call PickStrideAnim
@@ -19000,7 +19000,7 @@ GlideBackwardMove_53:
         pop ecx
         pop ebx
         ret
-jpt_64AC0:
+TurnBackwardMoveJumpTable:
         dd TurnBackwardMove_51
         dd TurnBackwardMove_61
         dd TurnBackwardMove_71
@@ -19029,7 +19029,7 @@ TurnBackwardMove:
         and edi, 0FFFFh
         cmp eax, byte 7
         ja near TurnBackwardMove_BC
-        jmp dword [nosplit cs:eax*4+jpt_64AC0]
+        jmp dword [nosplit cs:eax*4+TurnBackwardMoveJumpTable]
 TurnBackwardMove_31:
         mov eax, esi
         call PickBackwardTurn
@@ -20215,7 +20215,7 @@ LoadAnimByName:
         pop edi
         pop esi
         ret 4
-jpt_657A3:
+ShotAnimFramesJumpTable:
         dd ShotAnimFrames_10
         dd ShotAnimFrames_1D
         dd ShotAnimFrames_25
@@ -20231,7 +20231,7 @@ ShotAnimFrames:
         sub eax, byte 29h
         cmp eax, byte 6
         ja short ShotAnimFrames_59.2
-        jmp dword [nosplit cs:eax*4+jpt_657A3]
+        jmp dword [nosplit cs:eax*4+ShotAnimFramesJumpTable]
 ShotAnimFrames_10:
         mov dword [edx], 15h
 .1:
@@ -34573,7 +34573,7 @@ SortPlayersByDepth:
         and eax, 0FFh
         ret
         db 08Dh,040h,00h
-jpt_700A0:
+SortPlayersByDepthJumpTable:
         dd .1
         dd .2
         dd .2
@@ -34582,7 +34582,7 @@ jpt_700A0:
         lea eax, [byte ebx-01h]
         cmp eax, byte 4
         ja short .5
-        jmp dword [nosplit cs:eax*4+jpt_700A0]
+        jmp dword [nosplit cs:eax*4+SortPlayersByDepthJumpTable]
 .1:
         dec dword [byte edx+056h]
         ret
@@ -40210,7 +40210,7 @@ KneelMove:
         pop ebx
         ret
         db 090h
-jpt_73FAC:
+BlockShotMoveJumpTable:
         dd BlockShotMove_671
         dd BlockShotMove_481
         dd BlockShotMove_63F
@@ -40579,7 +40579,7 @@ BlockShotMove:
         dec eax
         cmp eax, byte 3
         ja near BlockShotMove_671.34
-        jmp dword [nosplit cs:eax*4+jpt_73FAC]
+        jmp dword [nosplit cs:eax*4+BlockShotMoveJumpTable]
 BlockShotMove_471:
         mov eax, ecx
         call PickStrideAnim

@@ -8,7 +8,7 @@ extern FontDescent, TextAlign, CurrentFont, FontHeight, FontWidth, LinkTextFont,
 extern FontGlyphTable, FontFlags, TextColor, FontGlyphCount, FontKernTable, TextNextCharFn, FontSpacing, PaletteWords
 extern ShapeRowFuncTable, removewindow, sprintf_, bcopy, ConvertArtPalette16, NextTextByte, NextTextChar, BlitCore
 extern FreeMemBlock, ZeroMem, PrepareTextDraw, vsprintf_
-global jpt_FC910, DebugShowLines_BA, DebugShowLines_CB, DebugShowLines_11F, DebugShowLines_149, DebugShowLines_153, FreeBitmap_30, CopyRowKeyed32_1C
+global DebugShowLinesJumpTable, DebugShowLines_BA, DebugShowLines_CB, DebugShowLines_11F, DebugShowLines_149, DebugShowLines_153, FreeBitmap_30, CopyRowKeyed32_1C
 global DebugSetLine, DebugShowLines, DebugStatusLine, SelectFont, FreeBitmap, CopyRowKeyed8, CopyRowKeyed16, CopyRowKeyed24
 global CopyRowKeyed32, DrawShapeCore
 ;-----------------------------------------------------------------------------
@@ -54,7 +54,7 @@ DebugSetLine:
         pop ebx
         ret
         db 08Bh,0C0h
-jpt_FC910:
+DebugShowLinesJumpTable:
         dd DebugShowLines_BA
         dd DebugShowLines_CB
         dd DebugShowLines_11F
@@ -125,7 +125,7 @@ DebugShowLines:
         cmp al, 4
         ja near DebugShowLines_153.7
         and eax, 0FFh
-        jmp dword [nosplit cs:eax*4+jpt_FC910]
+        jmp dword [nosplit cs:eax*4+DebugShowLinesJumpTable]
 DebugShowLines_BA:
         cmp ebx, byte 2
         jl near DebugShowLines_153.7

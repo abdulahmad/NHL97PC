@@ -43,7 +43,7 @@ extern WaitForOtherComputer, SetupPauseArt, FreeMemBlock, OpenResourceArchive, M
 extern CreateBitmap, SetDrawTarget, ClearScreen, FillRect, MeasureText, DrawTextAt, SetTextColors, DrawTextBoxedAt
 extern FillRectCorners, tickcount, str_D_DrawPauseClock, PeriodLengths, Period, SimFrames, gsp, gameclock
 extern StatsPanelOn, HomePeriodShots, AwayPeriodShots, PauseMenuMode
-global jpt_F4167, jpt_F56E5, jpt_F7BB6, PickEditLinesTeam_5B2, PickEditLinesTeam_5B5, PauseMenu_16C, PauseMenu_26F, PauseMenu_29A
+global PauseMenuJumpTable, RulesMenuJumpTable, DetailLevelMenuJumpTable, PickEditLinesTeam_5B2, PickEditLinesTeam_5B5, PauseMenu_16C, PauseMenu_26F, PauseMenu_29A
 global PauseMenu_4BB, PauseMenu_4EF, PauseMenu_60A, PauseMenu_62A, PauseMenu_640, PauseMenu_66D, PauseMenu_726, PauseMenu_72C
 global PauseMenu_72D, RulesMenu_1583, RulesMenu_176B, RulesMenu_19CD, RulesMenu_1C04, RulesMenu_1D78, RulesMenu_1F1F, RulesMenu_2056
 global RulesMenu_218D, RulesMenu_22F1, RulesMenu_2464, DetailLevelMenu_C81, DetailLevelMenu_E31, DetailLevelMenu_10E6, DetailLevelMenu_12B8, DetailLevelMenu_13D7
@@ -2682,7 +2682,7 @@ SetupPauseButtons:
         pop esi
         pop ecx
         ret
-jpt_F4167:
+PauseMenuJumpTable:
         dd PauseMenu_4BB
         dd PauseMenu_16C
         dd PauseMenu_26F
@@ -2793,7 +2793,7 @@ PauseMenu:
         cmp dword [byte ebp+06Eh], byte 9
         ja near PauseMenu_4BB
         mov eax, dword [byte ebp+06Eh]
-        jmp dword [nosplit cs:eax*4+jpt_F4167]
+        jmp dword [nosplit cs:eax*4+PauseMenuJumpTable]
 PauseMenu_16C:
         call ReplayHasFrames
         test eax, eax
@@ -4227,7 +4227,7 @@ FillBox:
         pop edi
         pop esi
         ret 4
-jpt_F56E5:
+RulesMenuJumpTable:
         dd RulesMenu_1583
         dd RulesMenu_176B
         dd RulesMenu_19CD
@@ -5903,7 +5903,7 @@ RulesMenu:
         fstp dword [byte ebp-046h]
         fstp dword [byte ebp+06Eh]
         fstp dword [byte ebp-042h]
-        jmp dword [nosplit cs:eax*4+jpt_F56E5]
+        jmp dword [nosplit cs:eax*4+RulesMenuJumpTable]
 RulesMenu_1583:
         call SetScreenTarget
         movsx eax, si
@@ -6978,7 +6978,7 @@ RulesMenu_2464:
         cmp si, byte 0Ah
         jl short .78
         jmp near PauseMenu_726
-jpt_F7BB6:
+DetailLevelMenuJumpTable:
         dd DetailLevelMenu_C81
         dd DetailLevelMenu_E31
         dd DetailLevelMenu_10E6
@@ -8251,7 +8251,7 @@ DetailLevelMenu_E31:
         fstp dword [byte ebp+06Ah]
         fstp dword [byte ebp+026h]
         fstp dword [byte ebp+02Ah]
-        jmp dword [nosplit cs:eax*4+jpt_F7BB6]
+        jmp dword [nosplit cs:eax*4+DetailLevelMenuJumpTable]
 DetailLevelMenu_10E6:
         call SetScreenTarget
         mov eax, dword [byte ebp-07Eh]

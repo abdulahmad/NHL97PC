@@ -34,7 +34,7 @@ extern SpeechClipIndex, SpeechBankHandle, SpeechClipTable, SpeechQueueClipId, Sp
 extern SpeechBanksLoaded, SpeechRequestId, SpeechRequestA, SpeechRequestB, GameSettings, AudioOptions, SeasonUserTeam, GameOptionFlags
 extern SeasonPhase, SeasonActive, SeasonUserReplay, SeasonDefaultUser, PlayoffUserReplay, PlayoffTeams, ReplayPlaying, CameraStateRecords
 extern CameraStateRecords, BoxSeatPlayer, BoxSeatTeam, BenchSeats, SeatTable, StrideSpeeds, BoxAnimFrames
-extern DodgeScale, BoxAnimIndex, SeasonFileName, ShadowShape, hypot_, jpt_380E6, jpt_38102, jpt_3811A
+extern DodgeScale, BoxAnimIndex, SeasonFileName, ShadowShape, hypot_, SeasonGameMenuJumpTable, SeasonOpponentJumpTable, SeasonOpponentTextJumpTable
 extern memcpy_, PtrPuckZone, PtrPuckFlags, SfxBankNameTable, SfxGroupTable, F64_neg3p14159_GoToBoxAnim, F64_0p2_RefDodgePuck, F64_6p28319_ReachForPuckAnim
 extern F64_3p14159_ReachForPuckAnim, F64_neg6p28319_ReachForPuckAnim, F64_neg3p14159_ReachForPuckAnim, F64_0p785398_ReachForPuckAnim, F64_0p0001, F64_0p6, F64_96, F64_0p00347222
 extern F64_0p8, F64_1p2_PokeCheckAnim, F64_6p28319_TryBodyCheck, F64_3p14159_TryBodyCheck, F64_neg6p28319_TryBodyCheck, F64_neg3p14159_TryBodyCheck, F64_1p0472, F64_1p5708
@@ -67,7 +67,7 @@ extern SeasonFilePath, BoxSeats, ScreenTitleItem, BlankMenuItem, ScreenFrameItem
 extern SparkleTimer, SfxBankLoaded, MusicBlock, MusicStopRequest, SfxVolumeScale, SfxVolumeWord, MusicVolumeScale, SeasonDate
 extern SeasonLastGame, FadePalStepR, FadePalStepG, FadePalSteps, FadeAccumR, FadeAccumG, FadeAccumB, FadeAccumNext
 extern FadeAccumLast, FadeAccums, SpeechQueuePrio, SeasonLastHome, SeasonLastAway, AllStarDay
-global jpt_3EF24, jpt_40D68, jpt_40DCC, jpt_40E30, jpt_40EA4, SeasonGameScreen_13F, SeasonGameScreen_14D, SeasonGameScreen_17B
+global CdStreamServiceJumpTable, AdvanceStreamStateJumpTable, RewindStreamStateJumpTable, DetectedAudioJumpTable, OpenAudioStreamJumpTable, SeasonGameScreen_13F, SeasonGameScreen_14D, SeasonGameScreen_17B
 global SeasonGameScreen_182, SeasonGameScreen_1DA, SeasonGameScreen_1E3, SeasonGameScreen_1EC, SeasonGameScreen_1F3, SeasonGameScreen_238, SeasonGameScreen_2B1, SeasonGameScreen_2CF
 global SeasonGameScreen_3D3, SeasonGameScreen_3DF, SeasonGameScreen_3EB, InitSeasonGameScreen_472, FindUserOpponent_14D, FindUserOpponent_14E, AnimateSparkle_6B, FadePaletteStep_FC
 global RemapArtPixels_70, CdStreamService_20, CdStreamService_5B, CdStreamService_D6, CdStreamService_14C, CdStreamService_1A3, CdStreamService_1E3, CdStreamService_47A
@@ -195,7 +195,7 @@ SeasonGameScreen_14D:
         mov esi, 1Ah
         cmp eax, byte 5
         ja short SeasonGameScreen_182.6
-        jmp dword [nosplit cs:eax*4+jpt_38102]
+        jmp dword [nosplit cs:eax*4+SeasonOpponentJumpTable]
 SeasonGameScreen_17B:
         mov esi, 0Eh
         jmp short SeasonGameScreen_182.6
@@ -224,7 +224,7 @@ SeasonGameScreen_182:
         mov ebx, dword [byte ebp+07Eh]
         lea ecx, [byte edi+01h]
         imul eax, ebx, byte 52h
-        jmp dword [nosplit cs:ebx*4+jpt_380E6]
+        jmp dword [nosplit cs:ebx*4+SeasonGameMenuJumpTable]
 SeasonGameScreen_1DA:
         push byte 1
         mov eax, 24Dh
@@ -354,7 +354,7 @@ SeasonGameScreen_2CF:
         dec eax
         cmp eax, byte 4
         ja near SeasonGameScreen_182.6
-        jmp dword [nosplit cs:eax*4+jpt_3811A]
+        jmp dword [nosplit cs:eax*4+SeasonOpponentTextJumpTable]
 SeasonGameScreen_3D3:
         push byte 1
         mov eax, 1E5h
@@ -10425,7 +10425,7 @@ CdStreamOpenSecondary:
         add esp, byte 10h
         pop ebx
         ret
-jpt_3EF24:
+CdStreamServiceJumpTable:
         dd CdStreamService_D6
         dd CdStreamService_1E3
         dd CdStreamService_47A
@@ -10478,7 +10478,7 @@ CdStreamService_20:
         dec edx
         cmp edx, byte 10h
         ja short CdStreamService_20
-        jmp dword [nosplit cs:edx*4+jpt_3EF24]
+        jmp dword [nosplit cs:edx*4+CdStreamServiceJumpTable]
 CdStreamService_5B:
         mov ecx, dword [byte eax+074h]
         cmp edi, ecx
@@ -13436,7 +13436,7 @@ LoadSfxBank:
         pop ebx
         ret
         db 08Dh,040h,00h
-jpt_40D68:
+AdvanceStreamStateJumpTable:
         dd AdvanceStreamState_11
         dd AdvanceStreamState_19
         dd AdvanceStreamState_21
@@ -13453,7 +13453,7 @@ AdvanceStreamState:
         dec edx
         cmp edx, byte 5
         ja short AdvanceStreamState_39.1
-        jmp dword [nosplit cs:edx*4+jpt_40D68]
+        jmp dword [nosplit cs:edx*4+AdvanceStreamStateJumpTable]
 AdvanceStreamState_11:
         mov dword [eax], 4
         pop edx
@@ -13483,7 +13483,7 @@ AdvanceStreamState_39:
         pop edx
         ret
         db 08Dh,040h,00h
-jpt_40DCC:
+RewindStreamStateJumpTable:
         dd .3
         dd .4
         dd .5
@@ -13495,7 +13495,7 @@ jpt_40DCC:
         dec edx
         cmp edx, byte 5
         ja short .7
-        jmp dword [nosplit cs:edx*4+jpt_40DCC]
+        jmp dword [nosplit cs:edx*4+RewindStreamStateJumpTable]
 .1:
         mov dword [eax], 1
         pop edx
@@ -13525,7 +13525,7 @@ jpt_40DCC:
         pop edx
         ret
         db 08Dh,040h,00h
-jpt_40E30:
+DetectedAudioJumpTable:
         dd .1
         dd .2
         dd .3
@@ -13541,7 +13541,7 @@ jpt_40E30:
         mov ebx, edx
         cmp eax, byte 5
         ja short .7
-        jmp dword [nosplit cs:eax*4+jpt_40E30]
+        jmp dword [nosplit cs:eax*4+DetectedAudioJumpTable]
 .1:
         mov dword [edx], 4
         pop edx
@@ -13578,7 +13578,7 @@ jpt_40E30:
         pop ebx
         ret
         db 08Bh,0C0h
-jpt_40EA4:
+OpenAudioStreamJumpTable:
         dd OpenAudioStream_B1
         dd OpenAudioStream_BE
         dd OpenAudioStream_CB
@@ -13632,7 +13632,7 @@ OpenAudioStream:
         lea edx, [dword esp+0F0h]
         cmp eax, byte 5
         ja short OpenAudioStream_D8.4
-        jmp dword [nosplit cs:eax*4+jpt_40EA4]
+        jmp dword [nosplit cs:eax*4+OpenAudioStreamJumpTable]
 OpenAudioStream_97:
         mov dword [dword esp+0F0h], 1
         jmp short OpenAudioStream_D8.5

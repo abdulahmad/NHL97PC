@@ -62,7 +62,7 @@ extern str_L3, str_L2, str_L1, str_L0, str_Fx, TeamColorTable, TeamColorRanges, 
 extern ArenaPalette, ArenaPaletteRange, RinkSideGeometry, FlashSpotPos, GlassRemap, BenchRemap, RinkPaletteBase, RinkPaletteRemap
 extern StandsPalette, BenchPalette, CrowdReactPos, RinkViewPoints, FlashPolys, RinkCameraPoints, SeatModels, PortraitModels
 extern SeatModelList, CameraStateRecords, str_Light
-global jpt_56DCC, SetBoxDoor_105, SetBoxDoor_115, SetBoxDoor_11A, BuildFaceTextures_C8, BuildFaceTextures_E3, BuildFaceTextures_114, BuildFaceTextures_18F
+global BuildFaceTexturesJumpTable, SetBoxDoor_105, SetBoxDoor_115, SetBoxDoor_11A, BuildFaceTextures_C8, BuildFaceTextures_E3, BuildFaceTextures_114, BuildFaceTextures_18F
 global LoadLogos, BuildIcePalette, BlendRangeColours, DimRangeColours, BrightenRangeColours, BuildRinkPalette, SetRinkPalette, UpdateRinkPalette
 global LoadRinkLines, SetupRinkModel, LoadRinkModel, FreeRinkModel, SetRinkTransform, DrawRinkBackground, DrawRinkSurface, LoadOpeningArt
 global DrawRinkOverlay, DrawBenchModels, DrawBenchSide, GetSeatPos, SetBoxDoor, SetPenaltyBoxDoor, SetBoxDoorState, DrawBenchRow
@@ -5738,7 +5738,7 @@ SetModelHeading:
         pop esi
         pop ecx
         ret
-jpt_56DCC:
+BuildFaceTexturesJumpTable:
         dd BuildFaceTextures_E3
         dd BuildFaceTextures_114
         dd BuildFaceTextures_18F
@@ -5807,7 +5807,7 @@ BuildFaceTextures:
         mov eax, dword [byte ebp-0Ch]
         cmp eax, byte 3
         ja near BuildFaceTextures_18F.9
-        jmp dword [nosplit cs:eax*4+jpt_56DCC]
+        jmp dword [nosplit cs:eax*4+BuildFaceTexturesJumpTable]
 BuildFaceTextures_C8:
         mov dword [dword esi+073Ch], 0
         mov dword [byte esi+0Ch], 3FC90FDBh

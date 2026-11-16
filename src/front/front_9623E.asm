@@ -25,7 +25,7 @@ extern LinesGridRowY, LinesPopupBitmap, LinesLastSpeech, LinesIntroTeam, LinesSp
 extern LinesListTop, LinesIntroDone, LinesTitleText, LinesSparkleTimer, LinesSparkleIndex, LinesTeamText, LinesForwardCount, LinesDefenceCount
 extern LinesGridColumn, LinesTextScroll, LinesTextLine, LinesTextPos, LinesTextLength, LinesGridRow, LinesForwardChoice, LinesSpecialChoice
 extern LinesScreenBitmap, LinesIntroArt, EditLinesTeam, LinesCircleShape, LinesArtFile, LinesCardBitmap, LinesOvalShape, LinesLogoBitmap
-extern LinesSwapShape, LinesFontFile, LinesShapeFile, EditLinesPage, RosterTeams, LinkTextFont, jpt_9621A, memset_
+extern LinesSwapShape, LinesFontFile, LinesShapeFile, EditLinesPage, RosterTeams, LinkTextFont, EditLinesScreenJumpTable, memset_
 extern qsort_, sprintf_, strcat_, strcpy_, BlitArt, BlitShape, PresentScreen, FindShape
 extern FindShapeQuiet, OpenArtArchive, ConvertArtNew, ResetClipWindow, Random32, UnpackShared, UnpackedSize, ConvertArtXY
 extern SetScreenTarget, MusicEnabled, LoadFrontEndSfx, SecondsToSamples, WaitSoundTime, PlayMenuSfx, StopAllSfx, PlaySfx
@@ -38,7 +38,7 @@ extern AllocMemBlock, FreeMemBlock, KbdIdleCall, MakeColor, FreeBitmap, DrawArt,
 extern SetDrawTarget, ClearScreen, FillRect, MeasureText, tickcount, str_D_DrawLinesCardDetails, str_C_DrawForwardLines, DbKeyBuffer
 extern AllStarHomeLines, AllStarAwayLines, AutoLineData, HomeLines, ScreenTitleItem, BlankMenuItem, ScreenFrameItem, AllStarDay
 extern LinesSlotPositions, LinesGridSlotIds
-global jpt_9861E, jpt_9AC47, EditLinesScreen_17F, EditLinesScreen_18C, EditLinesScreen_2C7, EditLinesScreen_49D, EditLinesScreen_4C4, EditLinesScreen_5BA
+global EditLinesGridScreenJumpTable, DrawLinesScreenJumpTable, EditLinesScreen_17F, EditLinesScreen_18C, EditLinesScreen_2C7, EditLinesScreen_49D, EditLinesScreen_4C4, EditLinesScreen_5BA
 global EditLinesScreen_5EF, EditLinesScreen_61B, EditLinesScreen_69D, EditLinesScreen_8E8, LayoutLinesCard_39D, CopyTeamRoster_203, EditLinesGridScreen_A49, EditLinesGridScreen_C5B
 global EditLinesGridScreen_E82, EditLinesGridScreen_FA7, EditLinesGridScreen_1010, EditLinesGridScreen_1087, EditLinesGridScreen_10B1, EditLinesGridScreen_10DB, DrawForwardLines_28A, DrawPlayerLines_214
 global DrawPlayerLines_21E, DrawPlayerLines_234, DrawPlayerLines_23B, DrawLinesScreen_2E6, DrawLinesScreen_309, DrawLinesScreen_31A, DrawLinesScreen_32B, DrawLinesCardDetails_16C
@@ -365,7 +365,7 @@ EditLinesScreen_2C7:
         cmp dword [byte ebp+066h], byte 8
         ja near EditLinesScreen_69D.33
         mov eax, dword [byte ebp+066h]
-        jmp dword [nosplit cs:eax*4+jpt_9621A]
+        jmp dword [nosplit cs:eax*4+EditLinesScreenJumpTable]
 EditLinesScreen_49D:
         inc dword [EditLinesPage]
         cmp dword [EditLinesPage], byte 3
@@ -2971,7 +2971,7 @@ FindPlayerInLines:
         pop ecx
         pop ebx
         ret
-jpt_9861E:
+EditLinesGridScreenJumpTable:
         dd EditLinesGridScreen_C5B
         dd EditLinesGridScreen_A49
         dd EditLinesGridScreen_1010
@@ -4167,7 +4167,7 @@ EditLinesGridScreen_1010:
         cmp dword [byte ebp+046h], byte 8
         ja near EditLinesGridScreen_10DB.77
         mov edx, dword [byte ebp+046h]
-        jmp dword [nosplit cs:edx*4+jpt_9861E]
+        jmp dword [nosplit cs:edx*4+EditLinesGridScreenJumpTable]
 .71:
         mov eax, dword [LinesPopupMenu]
         add eax, dword [byte ebp+07Eh]
@@ -6028,7 +6028,7 @@ DrawPlayerHealth:
         push ebx
         push dword [byte ebp+07Eh]
         jmp near DrawPlayerLines_214
-jpt_9AC47:
+DrawLinesScreenJumpTable:
         dd DrawLinesScreen_2E6
         dd DrawLinesScreen_309
         dd DrawLinesScreen_31A
@@ -6252,7 +6252,7 @@ DrawLinesScreen:
         ja near DrawLinesScreen_32B.8
         mov eax, dword [byte ebp-01Ch]
         add eax, 0F6h
-        jmp dword [nosplit cs:ebx*4+jpt_9AC47]
+        jmp dword [nosplit cs:ebx*4+DrawLinesScreenJumpTable]
 DrawLinesScreen_2E6:
         push str_TB07
         mov ecx, str_TB07

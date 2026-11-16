@@ -18,7 +18,7 @@ extern EmuFdivrSt, EmuFldSt, EmuFxch, EmuFtstFxam, EmuSignOps, EmuLogOps, EmuRem
 extern EmuDispatchDBReg, EmuFaddToSt, EmuFmulToSt, EmuFsubrToSt, EmuFsubToSt, EmuFdivrToSt, EmuFdivToSt, EmuFfree
 extern EmuFstSt, EmuFucom, EmuFucomp, EmuFstpSt, EmuFaddp, EmuFmulp, EmuFcompp, EmuFsubrp
 extern EmuFsubp, EmuFdivrp, EmuFdivp, EmuDispatchDFReg
-global __cnvs2d_, forcedecpt_, jpt_1329F0, jpt_132AF0, jpt_132AF0_100, jpt_132AF0_170, NoFloatSupport, unk_132878
+global __cnvs2d_, forcedecpt_, EmuOpcodeJumpTable, EmuModRmJumpTable, jpt_132AF0_100, jpt_132AF0_170, NoFloatSupport, unk_132878
 global unk_13287C, unk_132880, str_Punct_jpt, str_F, unk_132886, unk_1328D2, unk_1328D4, unk_1328D8
 global unk_1328DA, unk_132922, unk_132926, unk_132930, unk_132990
 ;-----------------------------------------------------------------------------
@@ -179,7 +179,7 @@ unk_132990:
         dd EaEbpDisp32
         dd EaEsiDisp32
         dd EaEdiDisp32
-jpt_1329F0:
+EmuOpcodeJumpTable:
         dd EmuFaddM32
         dd EmuFldM32
         dd EmuFiaddM32
@@ -244,7 +244,7 @@ jpt_1329F0:
         dd EmuFstswM16
         dd EmuFidivrM16
         dd EmuFistpM64
-jpt_132AF0:
+EmuModRmJumpTable:
         dd EmuFaddSt
         dd EmuFldSt
         dd EmuReservedOp

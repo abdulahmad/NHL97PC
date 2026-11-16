@@ -32,7 +32,7 @@ extern FreeMemBlock, MakeColor, SelectFont, FreeBitmap, DrawArt, CreateBitmap, S
 extern str_Punct_PlayoffTreeScreen, PlayoffTreeLayout, PlayoffDbKey, GlobalSetVersion, SeasonName, SeasonUserRecords, PlayoffSettings, PlayoffUserRecords
 extern PlayoffName, PlayoffStatsPath, ScreenTitleItem, BlankMenuItem, ScreenFrameItem, PlayoffRoundShapes, PlayoffStatShapes, PlayoffTeamRecordShapes
 extern PlayoffSeriesShapes, PlayoffScheduleShapes
-global jpt_93502, jpt_9621A, RunNewPlayoffs_F7, RunNewPlayoffs_100, RunNewPlayoffs_104, RunNewPlayoffs_108, RunNewPlayoffs_1A6, PlayoffSetupScreen_952
+global RunNewPlayoffsJumpTable, EditLinesScreenJumpTable, RunNewPlayoffs_F7, RunNewPlayoffs_100, RunNewPlayoffs_104, RunNewPlayoffs_108, RunNewPlayoffs_1A6, PlayoffSetupScreen_952
 global PlayoffSetupScreen_959, EditPlayoffTeamName_96, EditPlayoffTeamName_9B, DrawPlayoffSetup, PlayoffSetupSound, RunNewPlayoffs, PlayoffSetupScreen, CreatePlayoffs
 global EditPlayoffTeamName, DrawPlayoffTeam, DrawPlayoffTree, RunPlayoffMenus, PlayoffTreeScreen, PlayoffSettingsPath, DrawPlayoffTitle, ClearPlayoffTree
 global FillPlayoffTree
@@ -428,7 +428,7 @@ PlayoffSetupSound:
         pop ecx
         pop ebx
         ret
-jpt_93502:
+RunNewPlayoffsJumpTable:
         dd RunNewPlayoffs_F7
         dd RunNewPlayoffs_100
         dd RunNewPlayoffs_104
@@ -507,7 +507,7 @@ RunNewPlayoffs:
         ja short RunNewPlayoffs_108.6
         mov eax, dword [PlayoffRoundBits]
         and al, 0F8h
-        jmp dword [nosplit cs:edx*4+jpt_93502]
+        jmp dword [nosplit cs:edx*4+RunNewPlayoffsJumpTable]
 RunNewPlayoffs_F7:
         or byte [PlayoffRoundBits], 7
         jmp short RunNewPlayoffs_108.6
@@ -3688,7 +3688,7 @@ FillPlayoffTree:
         pop edi
         pop esi
         ret
-jpt_9621A:
+EditLinesScreenJumpTable:
         dd EditLinesScreen_17F
         dd EditLinesScreen_18C
         dd EditLinesScreen_2C7

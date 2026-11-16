@@ -39,7 +39,7 @@ extern LinkSyncMenu, LinkSyncScreen, AllocMemBlock, FreeMemBlock, MakeColor, Fre
 extern SetDrawTarget, ClearScreen, str_D_ExportStatTable, str_S_ExportStatTable, str_Punct_WriteCsvLine, str_Rt, str_Wt, str_Punct_ExportStatTable
 extern StatExportSeparator, str_Punct_StatsTablesScreen, str_Ai, PlayoffDbKey, SeasonDbKey, SeasonFilePath, SeasonStatsPath, PlayoffStatsPath
 extern BlankMenuItem, ScreenFrameItem, StatsBackItem, StatsColumnFields, StatTableSortColumn
-global jpt_ACD96, jpt_AD11D, jpt_ADBD6, jpt_AF064, AllocStatTable_2AA, SortStatTable_301, SortStatTable_303, SortStatTable_310
+global SortStatTableJumpTable, DrawStatTableRowsJumpTable, TeamStatsScreenJumpTable, StatsTablesScreenJumpTable, AllocStatTable_2AA, SortStatTable_301, SortStatTable_303, SortStatTable_310
 global SortStatTable_321, SortStatTable_323, SortStatTable_36B, DrawStatTableRows_2A9, DrawStatTableRows_2C4, DrawStatTableRows_2ED, DrawStatTableRows_34B, DrawStatTableRows_36C
 global DrawStatTableRows_3D1, DrawStatTableRows_3FD, DrawStatTableRows_435, DrawStatTableRows_470, DrawStatTableRows_48D, DrawStatTableRows_4D7, ExportStatTable_19A, ExportStatTable_1BA
 global ExportStatTable_1EB, ExportStatTable_221, ExportStatTable_26D, ExportStatTable_2D9, ExportStatTable_304, ExportStatTable_344, ExportStatTable_36C, ExportStatTable_38A
@@ -648,7 +648,7 @@ CompareStatName:
         pop ecx
         pop ebx
         ret
-jpt_ACD96:
+SortStatTableJumpTable:
         dd SortStatTable_301
         dd SortStatTable_310
         dd SortStatTable_321
@@ -958,7 +958,7 @@ SortStatTable:
         ja short SortStatTable_323.41
         lea edi, [byte esi+03Fh]
         lea eax, [dword esi+013Fh]
-        jmp dword [nosplit cs:edx*4+jpt_ACD96]
+        jmp dword [nosplit cs:edx*4+SortStatTableJumpTable]
 SortStatTable_301:
         mov eax, edi
 SortStatTable_303:
@@ -1004,7 +1004,7 @@ SortStatTable_323:
 SortStatTable_36B:
         mov ebx, ecx
         jmp short SortStatTable_310.40
-jpt_AD11D:
+DrawStatTableRowsJumpTable:
         dd DrawStatTableRows_2A9
         dd DrawStatTableRows_2A9
         dd DrawStatTableRows_2ED
@@ -1246,7 +1246,7 @@ DrawStatTableRows:
         movzx ecx, al
         mov eax, edi
         shl eax, 2
-        jmp dword [nosplit cs:ecx*4+jpt_AD11D]
+        jmp dword [nosplit cs:ecx*4+DrawStatTableRowsJumpTable]
 DrawStatTableRows_2A9:
         mov eax, edi
         mov edx, dword [byte esi+01Ah]
@@ -1995,7 +1995,7 @@ TeamStatsSound:
         pop ecx
         pop ebx
         ret
-jpt_ADBD6:
+TeamStatsScreenJumpTable:
         dd TeamStatsScreen_FC4
         dd TeamStatsScreen_1027
         dd TeamStatsScreen_108A
@@ -3126,7 +3126,7 @@ TeamStatsScreen:
         cmp dword [byte ebp+01Eh], byte 3
         ja near .72
         mov edx, dword [byte ebp+01Eh]
-        jmp dword [nosplit cs:edx*4+jpt_ADBD6]
+        jmp dword [nosplit cs:edx*4+TeamStatsScreenJumpTable]
 TeamStatsScreen_FC4:
         push eax
         mov ecx, str_TS41
@@ -3479,7 +3479,7 @@ StatsScreenSound:
         pop ecx
         pop ebx
         ret
-jpt_AF064:
+StatsTablesScreenJumpTable:
         dd StatsTablesScreen_B17
         dd StatsTablesScreen_BC9
         dd StatsTablesScreen_C68
@@ -4238,7 +4238,7 @@ StatsTablesScreen:
         mov ebx, dword [byte ebp+012h]
         add esi, 200h
         add eax, 80h
-        jmp dword [nosplit cs:ebx*4+jpt_AF064]
+        jmp dword [nosplit cs:ebx*4+StatsTablesScreenJumpTable]
 StatsTablesScreen_B17:
         push eax
         mov ecx, str_RS17

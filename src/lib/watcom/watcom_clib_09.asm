@@ -16,7 +16,7 @@ extern ClearSpeechBankTable, SpeechBufferSize, RegisterStreamBank, AddStreamSamp
 extern AudioEnter, AudioLeaveCheck, SbDetectDsp, StopAllSoundChannels, StartChannel, MixNoise, RampChannelVolume, IsChannelActive
 extern ResetSpeechStreamState, SpeechStreamFlag, ServiceSpeechIfOpen, PlayBankSample, RequestStreamRead, CdStreamService, CdStreamNextPacket, CdStreamFreePacket
 extern AllocMemBlock, FreeMemBlock, WssBasePorts, MixerRampStep, MixerRampTarget, MixerBlockSize, MixerRampLevel, MixerRampCount
-global jpt_108240, MixChannelFormat_20, MixChannelFormat_FC, MixChannelFormat_1C0, MixChannelFormat_27B, strstr_, DetectSoundCard, ProbeSoundPorts
+global MixChannelFormatJumpTable, MixChannelFormat_20, MixChannelFormat_FC, MixChannelFormat_1C0, MixChannelFormat_27B, strstr_, DetectSoundCard, ProbeSoundPorts
 global OpenDigitalAudio, CloseDigitalAudio, SetAudioDmaChannel, StartDigitalAudio, DetectWindows, InitSoundMixer, SetMixerVolumes, SetMasterVolume
 global SetChannelVolume, SetSpeechVolume, StopAllChannels, ResetSoundChannels, MixAudioBlock, MixChannelFormat, MixVolumeRamp, SetMusicStreamVolume
 global CloseSpeechChannels, AllocSpeechBuffers, InitSpeechChannels, OpenAudioStreamChannel, CloseAudioStreamChannel, FeedAudioStream, AudioStreamPosition, AudioStreamDone
@@ -925,7 +925,7 @@ MixAudioBlock:
         pop ecx
         ret
         db 08Dh,040h,00h
-jpt_108240:
+MixChannelFormatJumpTable:
         dd MixChannelFormat_20
         dd MixChannelFormat_FC
         dd MixChannelFormat_1C0
@@ -945,7 +945,7 @@ MixChannelFormat:
         cmp al, 3
         ja near MixChannelFormat_27B.15
         and eax, 0FFh
-        jmp dword [nosplit cs:eax*4+jpt_108240]
+        jmp dword [nosplit cs:eax*4+MixChannelFormatJumpTable]
 MixChannelFormat_20:
         mov eax, dword [MixerVolScale]
         mov edi, dword [MixerVolLeft]

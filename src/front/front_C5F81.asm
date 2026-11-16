@@ -24,7 +24,7 @@ extern ConvertArtNew, ConvertArtXY, SetScreenTarget, MusicEnabled, LoadFrontEndS
 extern PlaySfx, LoadDataFile, DrawShadedLogo, SetRegionRect, InitMenuItems, RunMenu, ServiceIdle, FreeMemBlock
 extern FreeBitmap, DrawArt, CreateBitmap, SetDrawTarget, tickcount, GlobalSetVersion, SeasonName, SeasonSetupItems
 extern SeasonSetupRowY
-global jpt_C6038, jpt_C750B, SeasonMenuSound_B1, SeasonSetupScreen_E65, SeasonSetupScreen_EB8, SeasonSetupScreen_F19, SeasonSetupScreen_1135, SeasonSetupScreen_115B
+global SeasonSetupScreenJumpTable, RosterScreenJumpTable, SeasonMenuSound_B1, SeasonSetupScreen_E65, SeasonSetupScreen_EB8, SeasonSetupScreen_F19, SeasonSetupScreen_1135, SeasonSetupScreen_115B
 global SeasonSetupScreen_1181, SeasonSetupScreen_11A7, SeasonSetupScreen_1264, SeasonSetupScreen_12B6, SeasonSetupScreen_1308, SeasonSetupScreen_139E, SeasonMenuSound, SeasonSetupScreen
 ;-----------------------------------------------------------------------------
 ; SeasonMenuSound                                 C5F81  97 PC, low confidence
@@ -94,7 +94,7 @@ SeasonMenuSound_B1:
         pop ecx
         pop ebx
         ret
-jpt_C6038:
+SeasonSetupScreenJumpTable:
         dd SeasonSetupScreen_F19
         dd SeasonSetupScreen_EB8
         dd SeasonSetupScreen_1135
@@ -1021,7 +1021,7 @@ SeasonSetupScreen_E65:
         mov eax, dword [GameSettings]
         mov edx, dword [dword ebp+02D8h]
         and eax, byte 70h
-        jmp dword [nosplit cs:edx*4+jpt_C6038]
+        jmp dword [nosplit cs:edx*4+SeasonSetupScreenJumpTable]
 SeasonSetupScreen_EB8:
         mov edi, 1
         mov dword [dword ebp+0314h], 1
@@ -1451,7 +1451,7 @@ SeasonSetupScreen_139E:
         lea esp, [dword ebp+0318h]
         pop ebp
         jmp near SeasonMenuSound_B1
-jpt_C750B:
+RosterScreenJumpTable:
         dd RosterScreen_11C
         dd RosterScreen_157
         dd RosterScreen_172

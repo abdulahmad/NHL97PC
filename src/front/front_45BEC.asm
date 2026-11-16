@@ -7,8 +7,8 @@ extern CommentaryClip, SpeechBanksReady, SoundCardType, SoundDriverId, SpeechStr
 extern SpeechFileIds, SpeechDataId, PaQueueHead, PaQueueTail, PaQueueCount, PaQueueClip, PaQueueTime, StreamTimerHandle
 extern CommentaryLast, CommentaryCurrent, CommentaryPrev, CommentaryTime, CommentaryDelay, CommentaryEventId, SpeechPlaying, CommentaryPriority
 extern CommentarySpeaker, SpeechBankHome, SpeechBankAway, SpeechFileHandle, SpeechStreamBuf, SpeechStreamLen, SpeechStreamRead, SpeechStreamEnd
-extern SpeechStreamClip, GameSettings, GameOptionFlags, ReplayPlaying, jpt_45A64, jpt_45B20, jpt_45B38, jpt_45B60
-extern jpt_45B70, jpt_45B84, jpt_45BC0, jpt_45BD8, PaEvent_4D6, PaEvent_4EC, PaEvent_502, PaEvent_518
+extern SpeechStreamClip, GameSettings, GameOptionFlags, ReplayPlaying, CommentaryEventJumpTable, Commentary3000JumpTable, Commentary4000JumpTable, Commentary5000JumpTable
+extern Commentary6000JumpTable, Commentary7000JumpTable, CommentaryA000JumpTable, CommentaryD000JumpTable, PaEvent_4D6, PaEvent_4EC, PaEvent_502, PaEvent_518
 extern PaEvent_536, PaEvent_572, PaEvent_5AE, PaEvent_5D6, PaEvent_5FE, PaEvent_64E, PaEvent_69E, PaEvent_745
 extern PaEvent_7FF, PaEvent_87E, PaEvent_8CF, PaEvent_8F5, PaEvent_91B, PaEvent_941, PaEvent_967, PaEvent_14CD
 extern rand_, sprintf_, strcat_, RequestSpeechEvent, PlayQueuedSpeech, SetSpeechEnabled, UnregisterSoundBank, DosOpenReadOnly
@@ -19,7 +19,7 @@ extern QueueReceiveSpeech, QueueLoosePuckSpeech, QueueCarrySpeech, QueueTeamSpee
 extern QueueFinalSpeech, QueueTouchPuckSpeech, QueuePenaltyCallSpeech, QueueStoppageSpeech, QueuePowerPlaySpeech, SayShotCall, SaySaveCall, SpeechTableEntry
 extern SayPlayerCall, SayRandomFiller, SpeechClipExists, MakeDataPath, ServiceIdle, AllocMemBlock, FreeMemBlock, ZeroMem
 extern tickcount, SfxBankLoaded, SpeechDataOpen, PaQueuePrev, StreamTimerOn, PaNameRanges
-global jpt_48D20, jpt_48D50, CommentaryEvent_66, CommentaryEvent_135, CommentaryEvent_2DE, CommentaryEvent_36D, CommentaryEvent_3F6, CommentaryEvent_3FF
+global PaEventJumpTable, PaEventArgJumpTable, CommentaryEvent_66, CommentaryEvent_135, CommentaryEvent_2DE, CommentaryEvent_36D, CommentaryEvent_3F6, CommentaryEvent_3FF
 global CommentaryEvent_408, CommentaryEvent_411, CommentaryEvent_41A, CommentaryEvent_423, CommentaryEvent_48A, CommentaryEvent_4E4, CommentaryEvent_4ED, CommentaryEvent_4F6
 global CommentaryEvent_4FF, CommentaryEvent_508, CommentaryEvent_511, CommentaryEvent_51A, CommentaryEvent_523, CommentaryEvent_52C, CommentaryEvent_535, CommentaryEvent_58C
 global CommentaryEvent_5E2, CommentaryEvent_5EB, CommentaryEvent_5F4, CommentaryEvent_5FD, CommentaryEvent_654, CommentaryEvent_6D5, CommentaryEvent_6E7, CommentaryEvent_6F0
@@ -37,7 +37,7 @@ global CountRecordGame, RecordPctClip, RecordStreakClips
 ;-----------------------------------------------------------------------------
 ; CommentaryEvent                                 45BEC  97 PC, low confidence
 ; The play-by-play commentary: (event 0A0000001h-0A000002Fh, args...) with
-; speech on, not in a replay (ReplayPlaying); jump table jpt_45A64 by event,
+; speech on, not in a replay (ReplayPlaying); jump table CommentaryEventJumpTable by event,
 ; each case queues commentary clips. The arena PA announcer is PaEvent (B/C
 ; events)
 ;-----------------------------------------------------------------------------
@@ -65,7 +65,7 @@ CommentaryEvent:
         lea ebx, [dword ebp+09Ah]
         cmp eax, byte 2Eh
         ja near CommentaryEvent_1FE8.272
-        jmp dword [nosplit cs:eax*4+jpt_45A64]
+        jmp dword [nosplit cs:eax*4+CommentaryEventJumpTable]
 CommentaryEvent_66:
         add ebx, byte 4
         mov ecx, dword [byte ebx-04h]
@@ -381,7 +381,7 @@ CommentaryEvent_36D:
         add ebx, byte 4
         cmp eax, byte 5
         ja short CommentaryEvent_423.27
-        jmp dword [nosplit cs:eax*4+jpt_45B20]
+        jmp dword [nosplit cs:eax*4+Commentary3000JumpTable]
 CommentaryEvent_3F6:
         mov dword [byte ebp+046h], 1
         jmp short CommentaryEvent_423.28
@@ -464,7 +464,7 @@ CommentaryEvent_48A:
         sub eax, 4001h
         cmp eax, byte 9
         ja near CommentaryEvent_535.35
-        jmp dword [nosplit cs:eax*4+jpt_45B38]
+        jmp dword [nosplit cs:eax*4+Commentary4000JumpTable]
 CommentaryEvent_4E4:
         mov dword [byte ebp+03Eh], 1
         jmp short CommentaryEvent_535.36
@@ -546,7 +546,7 @@ CommentaryEvent_58C:
         sub eax, 5001h
         cmp eax, byte 3
         ja short CommentaryEvent_5FD.41
-        jmp dword [nosplit cs:eax*4+jpt_45B60]
+        jmp dword [nosplit cs:eax*4+Commentary5000JumpTable]
 CommentaryEvent_5E2:
         mov dword [byte ebp+03Eh], 1
         jmp short CommentaryEvent_5FD.42
@@ -624,7 +624,7 @@ CommentaryEvent_654:
         sub eax, 6001h
         cmp eax, byte 4
         ja short CommentaryEvent_702.48
-        jmp dword [nosplit cs:eax*4+jpt_45B70]
+        jmp dword [nosplit cs:eax*4+Commentary6000JumpTable]
 CommentaryEvent_6D5:
         mov eax, dword [byte ebp+062h]
         push dword [eax]
@@ -743,7 +743,7 @@ CommentaryEvent_7BF:
         sub eax, 7000h
         cmp eax, byte 0Eh
         ja near CommentaryEvent_8B9.61
-        jmp dword [nosplit cs:eax*4+jpt_45B84]
+        jmp dword [nosplit cs:eax*4+Commentary7000JumpTable]
 CommentaryEvent_831:
         xor esi, esi
         mov dword [byte ebp+042h], esi
@@ -1367,7 +1367,7 @@ CommentaryEvent_F12:
         sub eax, 0A001h
         cmp eax, byte 5
         ja short CommentaryEvent_FB9.132
-        jmp dword [nosplit cs:eax*4+jpt_45BC0]
+        jmp dword [nosplit cs:eax*4+CommentaryA000JumpTable]
 CommentaryEvent_F80:
         mov dword [byte ebp+03Ah], 1
         jmp short CommentaryEvent_FB9.133
@@ -2117,7 +2117,7 @@ CommentaryEvent_1871:
         add ebx, byte 4
         cmp eax, byte 4
         ja short CommentaryEvent_18BC
-        jmp dword [nosplit cs:eax*4+jpt_45BD8]
+        jmp dword [nosplit cs:eax*4+CommentaryD000JumpTable]
 CommentaryEvent_189C:
         mov dword [byte ebp+03Eh], edx
         jmp short CommentaryEvent_18BC.215
@@ -4235,7 +4235,7 @@ RecordStreakClips:
         pop esi
         ret
         db 08Bh,0C0h
-jpt_48D20:
+PaEventJumpTable:
         dd PaEvent_4D6
         dd PaEvent_4EC
         dd PaEvent_502
@@ -4248,7 +4248,7 @@ jpt_48D20:
         dd PaEvent_5FE
         dd PaEvent_64E
         dd PaEvent_69E
-jpt_48D50:
+PaEventArgJumpTable:
         dd PaEvent_745
         dd PaEvent_7FF
         dd PaEvent_87E
