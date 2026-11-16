@@ -1,0 +1,4 @@
+sub_77F88 GameOver {source=96PC,confidence=medium} sets gameover (word_19CBA0); 96 PC GameOver without its already-over check
+sub_1306C Intermission {source=96PC,confidence=medium} 96 PC Intermission: GameOver when gsp is 4, else SetupTeamForIntermission and resets the players for the next period
+sub_130C8 StartGame {source=96PC,confidence=medium} 96 PC StartGame: CountTeamSlots, clears the game vars and teams, restores the teams and starts the period
+

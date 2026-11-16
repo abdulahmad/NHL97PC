@@ -160,7 +160,7 @@ extern sub_10FD58, sub_10FE10, sub_10FE58, sub_10FE88, sub_10FFBC, sub_11002C, s
 extern sub_110414, sub_1104F0, sub_11328, sub_114C4, sub_114FD0, sub_115020, sub_1150FC, sub_115150
 extern sub_115170, sub_1151A4, sub_115220, sub_1152B0, sub_115318, sub_1153AC, sub_1153DC, sub_115810
 extern sub_115830, sub_1158A0, sub_115B78, sub_115BB0, sub_115BD8, sub_115F98, sub_116050, sub_11984
-extern sub_119A8, sub_11B38, sub_12A10, sub_1306C, sub_13D50, sub_13DA4, sub_13EB4, sub_13EF0
+extern sub_119A8, sub_11B38, sub_12A10, Intermission, sub_13D50, sub_13DA4, sub_13EB4, sub_13EF0
 extern sub_13F28, RunSimFrames, sub_15AC2, sub_15BC5, sub_18DF7, sub_18E35, sub_1900F, sub_1B09C
 extern sub_1B3F4, sub_1DFA0, sub_1E014, sub_1E208, sub_1E224, sub_1E354, sub_1FBF4, sub_20CB0
 extern sub_218B8, sub_21A4C, sub_2A6B8, sub_2BE2C, sub_2C064, sub_2DD54, sub_2E11C, sub_2E168
@@ -246,7 +246,7 @@ global sub_75FA0, sub_75FE4, sub_76010, sub_760C8, sub_7613C, sub_76148, sub_762
 global sub_76380, sub_763BC, sub_76698, sub_76944, sub_76954, sub_76A1C, sub_76D3C, sub_76E04
 global sub_76E20, sub_76E28, sub_76E30, sub_76FB4, sub_76FE8, sub_77014, sub_77018, sub_77048
 global sub_7716C, sub_7724C, sub_772B8, sub_77310, sub_773C0, sub_77590, sub_77610, sub_77630
-global sub_776F8, sub_77838, sub_779C8, sub_77A30, sub_77A88, sub_77F88, sub_77F94, sub_77FA8
+global sub_776F8, sub_77838, sub_779C8, sub_77A30, sub_77A88, GameOver, sub_77F94, sub_77FA8
 global sub_78044, sub_780F0, sub_785E8, sub_78730, sub_78810, sub_78938, unk_65475, unk_704AC
 global unk_704C0, unk_717E0, unk_717F4, unk_71A94, unk_71AA8, unk_78930
 ;-----------------------------------------------------------------------------
@@ -45644,9 +45644,11 @@ sub_77A88:
         ret
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
-; sub_77F88                                                       77F88  97 PC
+; GameOver                       77F88  93G hockey93_06.asm, medium confidence
+; Game over: sets the main-loop request flag CBC48 (IntermissionStart when
+; gsp = 4)
 ;-----------------------------------------------------------------------------
-sub_77F88:
+GameOver:
         mov word [word_19CBA0], 1
         ret
         db 08Bh,0C0h
@@ -45697,7 +45699,7 @@ sub_77FA8:
         je short .3
         mov word [word_19CBB8], 4
 .3:
-        call sub_1306C
+        call Intermission
         pop edx
         pop ebx
         ret
