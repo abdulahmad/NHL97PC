@@ -8,8 +8,8 @@ extern str_WB, str_FILEcreate, str_RB, str_FILEopen, str_FILEseek, str_FILEseeke
 extern str_Pktlayer, str_Disconnecting, str_WaitingForOtherComputer, str_IPXMEM, str_NETWORK, str_SERVLIST, str_NHL97, str_GAMEADDR
 extern str_PICKS2, str_REGS2, str_LX003, str_LC003, str_LX0D3, str_LC0D3, str_DTOP, str_DBOT
 extern str_08x, str_KWKJSK122691, str_BACK13, str_MB014, str_MB023, str_MB03, str_AR02d2, str_LT02d2
-extern str_MB004, str_GenericHayesCompatible, byte_16D8FA, byte_16D8FD, byte_16D93B, byte_16DA42, byte_1CD24D, byte_1CD250
-extern byte_1CD460, byte_1CD75C, GripDriverPtr, PacketSize, DbGameRecordCount, DbPlayerRecordCount, DbStatRecordCount, DbTeamRecordCount
+extern str_MB004, str_GenericHayesCompatible, byte_16D8FA, byte_16D8FD, byte_16D93B, byte_16DA42, JoystickFlags, LinkPlayerReady
+extern NetGameName, OptionsAnimSoundOn, GripDriverPtr, PacketSize, DbGameRecordCount, DbPlayerRecordCount, DbStatRecordCount, DbTeamRecordCount
 extern DbGameRecords, DbPlayerRecords, DbStatRecords, DbTeamRecords, DbRecordsLoaded, DbIndexRoot, DbPlayerIndex, DbGameIndex
 extern StaticBuffer, dword_16D894, dword_16D898, dword_16D89C, dword_16D8A0, dword_16D8A8, dword_16D8AC, dword_16D8B0
 extern dword_16D8B4, dword_16D8B8, dword_16D8BC, dword_16D8D8, dword_16D8DC, InputRecordTail, InputRecordHead, InputRecordCount
@@ -17,19 +17,19 @@ extern dword_16D918, InputRecordStamp, dword_16D93A, dword_16DA9C, dword_16DAA0,
 extern dword_16DAB0, dword_16DAB4, dword_16DAB6, dword_16DABC, str_Punct_ModemSettingsScreen, dword_16DAC4, dword_16DAC8, dword_16DACA
 extern dword_16DAD2, dword_16E124, dword_16E128, dword_16E12A, dword_16E130, dword_16E134, dword_16E138, dword_16E13C
 extern dword_16E140, dword_16E144, mousex, mousey, dword_16E464, dword_16E468, MenuScreenBitmap, IpxPresent
-extern GameSettings, dword_1C5DE4, dword_1CD158, dword_1CD15C, dword_1CD160, dword_1CD17C, dword_1CD180, dword_1CD184
-extern dword_1CD188, dword_1CD18C, dword_1CD190, dword_1CD194, dword_1CD198, dword_1CD1AC, dword_1CD1B0, dword_1CD1B4
-extern dword_1CD1B8, dword_1CD244, dword_1CD248, dword_1CD264, dword_1CD268, dword_1CD26C, dword_1CD270, dword_1CD274
-extern dword_1CD278, dword_1CD27C, dword_1CD280, dword_1CD284, dword_1CD288, dword_1CD28C, dword_1CD290, dword_1CD294
-extern dword_1CD298, dword_1CD29C, dword_1CD2A0, dword_1CD2A4, dword_1CD2A8, dword_1CD2AA, dword_1CD2AE, dword_1CD2B2
-extern dword_1CD2B6, dword_1CD2F4, dword_1CD378, dword_1CD402, dword_1CD40C, dword_1CD410, dword_1CD414, dword_1CD418
-extern dword_1CD41C, dword_1CD428, dword_1CD42C, dword_1CD434, dword_1CD438, dword_1CD43C, dword_1CD440, dword_1CD444
-extern dword_1CD448, dword_1CD450, dword_1CD454, dword_1CD458, dword_1CD45C, dword_1CD540, dword_1CD544, dword_1CD548
-extern dword_1CD54C, dword_1CD550, dword_1CD554, dword_1CD558, dword_1CD55C, dword_1CD560, dword_1CD564, dword_1CD568
-extern dword_1CD56C, dword_1CD574, dword_1CD578, dword_1CD57C, dword_1CD580, dword_1CD584, dword_1CD590, dword_1CD594
-extern dword_1CD598, dword_1CD5B4, dword_1CD5B8, dword_1CD5BC, dword_1CD632, dword_1CD64C, dword_1CD650, dword_1CD654
-extern dword_1CD6B0, dword_1CD6C6, dword_1CD6CA, dword_1CD6FE, dword_1CD750, dword_1CD754, dword_1CD758, dword_1CD760
-extern dword_1CD764, dword_1CD76C, dword_1CD770, dword_1CD774, dword_1CD77C, dword_1CD780, dword_1CD784, LinkTextFont
+extern GameSettings, dword_1C5DE4, DbFileTable, DbKeyIndex, DbRecordSizes, DbStaticBuffer, DbRecordCounts, DbPlayerFile
+extern DbGameFile, DbTeamStatFile, DbPlayerStatFile, DbReplayFile, DbUserFile, DosCallRegs
+extern DosCallRegs, KeyboardPadHomeOn, KeyboardPadAwayOn, LinkInputSent, LinkInputTickCount, LinkInputChanged, LinkRemoteFlags, LinkInputAck
+extern LinkInputResend, LinkPacketBuffer, LinkSentPackets, LinkRecvPackets, LinkSendBuffer, LinkSentBytes, LinkSentErrors, LinkRecvBytes
+extern LinkRecvErrors, LinkRecvOffset, LinkRecvSize, LinkHandle, NetConnected, LinkInputWordPad, LinkInputHigh, LinkRemoteInput
+extern LinkInputState, LinkPacketQueues, NetSessionState
+extern NetSessionState
+extern NetSessionState, NetListArt, NetListBitmap, NetListLayer
+extern NetScreenItems, NetGameBitmaps, NetJoinShape, NetHostShape, NetListTop, NetListRows, NetPlayerBitmaps, NetScrollUpShape
+extern NetScrollDownShape, NetJoinRequest
+extern NetJoinSocket, NetTitleShape, NetFrameShape, NetButtonShape, NetGameCountPad, OptionsAnimShapeLists, OptionsAnimShapes, OptionsAnimArt
+extern OptionsAnimItems, OptionsAnimFrames, OptionsAnimTitle, OptionsAnimBack, SeasonIntroList
+extern SeasonIntroLayer, SeasonIntroDialogType, dword_1CD770, dword_1CD774, dword_1CD77C, dword_1CD780, dword_1CD784, LinkTextFont
 extern fclose_, fopen_, fread_, fseek_, ftell_, fwrite_, int386x_, memcmp_
 extern memcpy_, memset_, DbFileNames, DbFileExtensions, LeagueFileDir, LeagueFilePrefix, DbDirName, DbFileSuffix
 extern off_16E0FC, PresentFuncInput, rand_, segread_, slotteam, sprintf_, strcat_, strcmp_
@@ -48,15 +48,15 @@ extern BuildKeyFromLong, BuildKeyFromString, KeyToLong, BuildSeasonIntro, SetupS
 extern AllocMemData, FreeMemBlock, ZeroMem, KbdGetKey, addtimer, RemoveTimerCallback, WaitTicks, MakeColor
 extern FreeBitmap, DrawShapeAtOwnPos, DrawArt, CreateBitmap, SetDrawTarget, FillRectColor, FillRect, MeasureText
 extern DrawTextAt, FillRectCorners, tickcount, str_X_WaitForOtherComputer, DbKeyBuffer, PlayoffDbKey, unk_16E110, unk_1C5F4A
-extern unk_1CD19C, InputRecordRing, unk_1CD2BA, unk_1CD2FC, unk_1CD33E, unk_1CD380, unk_1CD408, unk_1CD480
-extern unk_1CD570, unk_1CD59C, unk_1CD5D8, unk_1CD636, unk_1CD6AC, GripPortWord, StaticBufferReady, DbOpen
+extern DosCallRegs, InputRecordRing, LinkPacketQueues, NetSessionState, NetSocket
+extern NetJoinRequest, NetJoinedGame, NetJoinedInfo, NetHostName, OptionsAnimItems, GripPortWord, StaticBufferReady, DbOpen
 extern str_Punct_SetMatchupTeams, MatchupTeamCodes, str_Punct_DaysToYear, MonthStartDays, word_16D8A4, SlotWords, word_16D920, str_Punct_ReadJoystickPads
 extern word_16D924, word_16D926, word_16D928, word_16D92A, word_16D92C, word_16DAB8, word_16DACC, word_16DACE
 extern word_16DAD0, word_16E0F8, word_16E0FA, word_16E108, word_16E10A, word_16E10C, word_16E120, word_16E12C
-extern word_16E148, word_16E15E, word_16E16E, word_16E170, word_1CD1C0, word_1CD1CE, word_1CD1D0, HotKeyFlags
-extern word_1CD24E, word_1CD2AC, word_1CD2B4, word_1CD2F6, word_1CD2F8, word_1CD2FA, word_1CD338, word_1CD33A
-extern word_1CD37A, word_1CD37C, word_1CD3BC, word_1CD3BE, word_1CD3C0, word_1CD3FE, word_1CD400, word_1CD404
-extern word_1CD406, word_1CD634
+extern word_16E148, word_16E15E, word_16E16E, word_16E170, DosCallRegs, PadLastButtons, PadButtonState, HotKeyFlags
+extern KeyboardLastKey, LinkInputPacket, LinkLocalInput, LinkPacketQueues
+extern LinkPacketQueues, LinkWaitCount
+extern LinkWaitTimer, NetGameCount
 global IpxCloseSocket, jpt_DADC0, jpt_DAFD8, jpt_DAFE8, jpt_DB8CE, jpt_E329C, jpt_E6554, jpt_E7B1F
 global MakeRecordKey_16, MakeRecordKey_24, OpenGameDatabase_13, OpenGameDatabase_18, WriteDbRecord_5C, WriteDbRecord_102, WriteDbRecord_152, WriteDbRecord_1AA
 global ReadDbRecord_62, ReadDbRecord_16E, ReadDbRecord_200, ReadDbRecord_296, ReadDbRecord_33C, ReadDbRecord_3BF, ReadDbRecord_42C, ReadDbRecord_495
@@ -108,23 +108,23 @@ AllocMediaBuffer:
         mov word [eax], 0
         sar eax, 4
         mov edx, ds
-        mov word [word_1CD1C0], ax
+        mov word [DosCallRegs+24h], ax
         mov eax, esi
-        mov dword [dword_1CD1B8], 440Dh
+        mov dword [DosCallRegs+1Ch], 440Dh
         and eax, byte 0Fh
-        mov dword [dword_1CD1AC], 3
-        mov dword [dword_1CD1B0], eax
+        mov dword [DosCallRegs+10h], 3
+        mov dword [DosCallRegs+14h], eax
         lea eax, [byte ebp-0Ch]
-        mov dword [dword_1CD1B4], 866h
+        mov dword [DosCallRegs+18h], 866h
         call segread_
         mov word [byte ebp-028h], 300h
         mov word [byte ebp-024h], 21h
-        mov eax, unk_1CD19C
+        mov eax, DosCallRegs
         mov word [byte ebp-020h], 0
         mov eax, 31h
         mov word [byte ebp-0Ch], dx
         lea edx, [byte ebp-028h]
-        mov dword [byte ebp-014h], unk_1CD19C
+        mov dword [byte ebp-014h], DosCallRegs
         call int386x_
         push esi
         mov ebx, dword [byte esi+02h]
@@ -146,7 +146,7 @@ AllocStaticBuffer:
         pop ebx
         ret
 .1:
-        mov ebx, dword_1CD17C
+        mov ebx, DbStaticBuffer
         mov edx, 67h
         mov eax, str_STATICBUF
         call AllocClearBlock20
@@ -257,7 +257,7 @@ OpenGameDatabase_18:
         call AllocPageStack
         test eax, eax
         je short OpenGameDatabase_18
-        mov esi, dword_1CD158
+        mov esi, DbFileTable
         xor ecx, ecx
 .2:
         lea eax, [byte ebp-054h]
@@ -276,8 +276,8 @@ OpenGameDatabase_18:
         call OpenDbFile
         mov edx, ebx
         mov edi, ebx
-        add edx, dword_1CD158
-        add edi, dword_1CD180
+        add edx, DbFileTable
+        add edi, DbRecordCounts
         mov dword [byte ebp-04h], edx
         test eax, eax
         jne short .5
@@ -294,7 +294,7 @@ OpenGameDatabase_18:
         jmp short .3
 .4:
         call FreeDbPages
-        mov eax, dword_1CD17C
+        mov eax, DbStaticBuffer
         call FreePtr
         xor eax, eax
         jmp near OpenGameDatabase_18
@@ -329,8 +329,8 @@ OpenGameDatabase_18:
         call FileClose
         jmp short .6
 .7:
-        mov edx, dword_1CD160
-        mov eax, dword [dword ebx+dword_1CD180]
+        mov edx, DbRecordSizes
+        mov eax, dword [dword ebx+DbRecordCounts]
         add edx, ebx
         mov ebx, 4
         call FileReadRecord
@@ -357,7 +357,7 @@ OpenGameDatabase_18:
         jl near .2
         mov esi, ecx
         shl esi, 2
-        add esi, dword_1CD180
+        add esi, DbRecordCounts
 .10:
         cmp ecx, byte 7
         jge near .19
@@ -375,7 +375,7 @@ OpenGameDatabase_18:
         call strcat_
         lea eax, [byte ebp-054h]
         mov edx, esi
-        add edi, dword_1CD180
+        add edi, DbRecordCounts
         call FileOpen
         test eax, eax
         jne short .14
@@ -393,8 +393,8 @@ OpenGameDatabase_18:
         shl eax, 2
         mov edx, eax
         mov ebx, eax
-        add edx, dword_1CD180
-        add ebx, dword_1CD158
+        add edx, DbRecordCounts
+        add ebx, DbFileTable
 .13:
         mov eax, ecx
         sub edx, byte 4
@@ -408,8 +408,8 @@ OpenGameDatabase_18:
         call FileClose
         jmp short .13
 .14:
-        mov edx, dword_1CD160
-        mov eax, dword [dword ebx+dword_1CD180]
+        mov edx, DbRecordSizes
+        mov eax, dword [dword ebx+DbRecordCounts]
         add edx, ebx
         mov ebx, 4
         call FileReadRecord
@@ -430,8 +430,8 @@ OpenGameDatabase_18:
         shl eax, 2
         mov edx, eax
         mov ebx, eax
-        add edx, dword_1CD180
-        add ebx, dword_1CD158
+        add edx, DbRecordCounts
+        add ebx, DbFileTable
 .17:
         sub ebx, byte 4
         dec ecx
@@ -822,13 +822,13 @@ WriteDbRecord_5C:
         imul edx, esi
         mov ebx, dword [byte ebp-018h]
         shl ebx, 2
-        mov eax, dword [dword ebx+dword_1CD180]
+        mov eax, dword [dword ebx+DbRecordCounts]
         add edx, byte 4
         call FileSeek
         test eax, eax
         je short .8
         mov edx, edi
-        mov eax, dword [dword ebx+dword_1CD180]
+        mov eax, dword [dword ebx+DbRecordCounts]
         mov ebx, dword [byte ebp-0Ch]
         call FileWriteRecord
         test eax, eax
@@ -1035,13 +1035,13 @@ ReadDbRecord_62:
         imul edx, edi
         mov ebx, dword [byte ebp-028h]
         shl ebx, 2
-        mov eax, dword [dword ebx+dword_1CD180]
+        mov eax, dword [dword ebx+DbRecordCounts]
         add edx, byte 4
         call FileSeek
         test eax, eax
         je near ReadDbRecord_33C.24
         mov edx, dword [byte ebp-04h]
-        mov eax, dword [dword ebx+dword_1CD180]
+        mov eax, dword [dword ebx+DbRecordCounts]
         mov ebx, dword [byte ebp-01Ch]
         call FileReadRecord
         test eax, eax
@@ -1355,7 +1355,7 @@ AppendDbRecord:
         test eax, eax
         je short .3
         mov esi, dword [byte ebp-010h]
-        mov eax, dword_1CD160
+        mov eax, DbRecordSizes
         shl esi, 2
         mov ebx, 4
         add eax, esi
@@ -1371,15 +1371,15 @@ AppendDbRecord:
         je short .2
         mov eax, dword [byte ebp-014h]
         xor edx, edx
-        mov dword [dword esi+dword_1CD160], eax
-        mov eax, dword [dword esi+dword_1CD180]
+        mov dword [dword esi+DbRecordSizes], eax
+        mov eax, dword [dword esi+DbRecordCounts]
         call FileSeek
         mov dword [byte ebp-04h], eax
         test eax, eax
         je short .2
         mov ebx, 4
         mov edx, dword [byte ebp-08h]
-        mov eax, dword [dword esi+dword_1CD180]
+        mov eax, dword [dword esi+DbRecordCounts]
         call FileWriteRecord
         mov dword [byte ebp-04h], eax
 .2:
@@ -1416,9 +1416,9 @@ AllocRecordSlot:
 .1:
         mov ecx, eax
         shl ecx, 2
-        cmp dword [dword ecx+dword_1CD160], byte 0FFFFFFFFh
+        cmp dword [dword ecx+DbRecordSizes], byte 0FFFFFFFFh
         jne short .2
-        mov eax, dword [dword ecx+dword_1CD180]
+        mov eax, dword [dword ecx+DbRecordCounts]
         call FileSeekEnd
         test eax, eax
         jne near .3
@@ -1428,38 +1428,38 @@ AllocRecordSlot:
         pop ecx
         ret
 .2:
-        mov eax, dword [dword ecx+dword_1CD160]
+        mov eax, dword [dword ecx+DbRecordSizes]
         mov dword [edx], eax
         mov edx, eax
         imul edx, ebx
-        mov eax, dword [dword ecx+dword_1CD180]
+        mov eax, dword [dword ecx+DbRecordCounts]
         add edx, byte 4
         call FileSeek
         test eax, eax
         je near .4
-        mov eax, dword_1CD160
+        mov eax, DbRecordSizes
         add eax, ecx
         mov dword [byte ebp-04h], eax
         mov ebx, 4
         mov edx, dword [byte ebp-04h]
-        mov eax, dword [dword ecx+dword_1CD180]
+        mov eax, dword [dword ecx+DbRecordCounts]
         call FileReadRecord
         test eax, eax
         je short .4
-        mov eax, dword [dword ecx+dword_1CD180]
+        mov eax, dword [dword ecx+DbRecordCounts]
         xor edx, edx
         call FileSeek
         test eax, eax
         je short .4
         mov ebx, 4
         mov edx, dword [byte ebp-04h]
-        mov eax, dword [dword ecx+dword_1CD180]
+        mov eax, dword [dword ecx+DbRecordCounts]
         call FileWriteRecord
         test eax, eax
         je short .4
         mov edx, dword [esi]
         imul edx, edi
-        mov eax, dword [dword ecx+dword_1CD180]
+        mov eax, dword [dword ecx+DbRecordCounts]
         add edx, byte 4
         call FileSeek
         test eax, eax
@@ -1467,7 +1467,7 @@ AllocRecordSlot:
 .3:
         mov eax, dword [byte ebp-08h]
         mov edx, esi
-        mov eax, dword [nosplit eax*4+dword_1CD180]
+        mov eax, dword [nosplit eax*4+DbRecordCounts]
         call FileTell
         test eax, eax
         je short .4
@@ -1500,8 +1500,8 @@ CloseGameDatabase:
         pop ebx
         ret
 .1:
-        mov ebx, dword_1CD180
-        mov edx, dword_1CD180
+        mov ebx, DbRecordCounts
+        mov edx, DbRecordCounts
         add ebx, byte 4
         add edx, byte 18h
 .2:
@@ -1510,9 +1510,9 @@ CloseGameDatabase:
         call FileClose
         cmp edx, ebx
         jne short .2
-        mov edx, dword_1CD158
-        mov ecx, dword_1CD158
-        mov ebx, dword_1CD180
+        mov edx, DbFileTable
+        mov ecx, DbFileTable
+        mov ebx, DbRecordCounts
         add edx, byte 4
         sub ecx, byte 4
         add ebx, byte 4
@@ -1547,7 +1547,7 @@ InitDbState:
         ret
 .1:
         call ServiceIdle
-        mov eax, dword_1CD17C
+        mov eax, DbStaticBuffer
 ;-----------------------------------------------------------------------------
 ; FreeDbBlock                                     DB75E  97 PC, low confidence
 ; Frees a database block
@@ -1674,7 +1674,7 @@ NewRecordKey:
         lea ecx, [byte ebp-04h]
         lea ebx, [byte ebp-030h]
         movsx edx, ax
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         call FindFirstKey
         test eax, eax
         je short .6
@@ -1892,7 +1892,7 @@ LookupRecord_FD:
         mov byte [byte eax+010h], 0
         call LookupRecord
         lea ebx, [byte ebp-038h]
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         xor edx, edx
         call FindIndexKey
         test eax, eax
@@ -1918,14 +1918,14 @@ LookupRecord_FD:
         je near FindGameRecord_A0
         mov ebx, 67h
         mov edx, dword [byte ebp-04h]
-        mov ecx, dword [dword_1CD17C]
+        mov ecx, dword [DbStaticBuffer]
         xor eax, eax
         call ReadDbRecord
         test eax, eax
         je near FindGameRecord_A0
         mov ebx, 2Fh
 LookupRecord_236:
-        mov eax, dword [dword_1CD17C]
+        mov eax, dword [DbStaticBuffer]
         mov edx, dword [byte ebp-040h]
         inc eax
         call CopyBytesOk
@@ -1950,7 +1950,7 @@ LookupRecord_249:
         lea ecx, [byte ebp-04h]
         call LookupRecord
         lea ebx, [byte ebp-038h]
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         xor edx, edx
         call FindIndexKey
         test eax, eax
@@ -1975,13 +1975,13 @@ LookupRecord_249:
         test eax, eax
         je near UpdatePlayerRecord_229
         mov ebx, 2Fh
-        mov edx, dword [dword_1CD17C]
+        mov edx, dword [DbStaticBuffer]
         mov eax, esi
         inc edx
         call CopyBytesOk
         mov ebx, 67h
         mov edx, dword [byte ebp-04h]
-        mov ecx, dword [dword_1CD17C]
+        mov ecx, dword [DbStaticBuffer]
         xor eax, eax
         call WriteDbRecord
         test eax, eax
@@ -2030,7 +2030,7 @@ FindRecordByKey:
         call LookupRecord
         lea ebx, [byte ebp+02Ah]
         mov edx, 1
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         call FindIndexKey
         test eax, eax
         je near FindRecordByKey_1BC
@@ -2075,7 +2075,7 @@ FindRecordByKey:
 .7:
         mov ebx, 67h
         mov edx, dword [byte ebp+05Eh]
-        mov ecx, dword [dword_1CD17C]
+        mov ecx, dword [DbStaticBuffer]
         xor eax, eax
         call ReadDbRecord
         test eax, eax
@@ -2084,7 +2084,7 @@ FindRecordByKey:
         je short .10
         mov edi, dword [byte ebp+06Eh]
         mov eax, dword [byte ebp+06Eh]
-        mov esi, dword [dword_1CD17C]
+        mov esi, dword [DbStaticBuffer]
         shl edi, 3
         inc eax
         add edi, dword [dword ebp+08Eh]
@@ -2102,7 +2102,7 @@ FindRecordByKey:
         cmp dword [byte ebp+062h], byte 0
         je short .12
         imul edx, dword [byte ebp+06Eh], byte 2Fh
-        mov eax, dword [dword_1CD17C]
+        mov eax, dword [DbStaticBuffer]
         mov ebx, 2Fh
         inc eax
         add edx, dword [dword ebp+086h]
@@ -2115,7 +2115,7 @@ FindRecordByKey:
         lea ecx, [byte ebp+05Eh]
         lea ebx, [byte ebp+02Ah]
         mov edx, 1
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         call NextIndexKey
         test eax, eax
         je short FindRecordByKey_1BC
@@ -2411,16 +2411,16 @@ RebuildDbIndex:
         call AllocRecordSlot
         test eax, eax
         je near OpenGameDatabase_18
-        mov eax, dword [dword_1CD17C]
+        mov eax, dword [DbStaticBuffer]
         mov byte [eax], 47h
         mov ebx, 2Fh
-        mov edx, dword [dword_1CD17C]
+        mov edx, dword [DbStaticBuffer]
         mov eax, esi
         inc edx
         call CopyBytesOk
         mov ebx, 67h
-        mov edx, dword [dword_1CD17C]
-        mov eax, dword [dword_1CD180]
+        mov edx, dword [DbStaticBuffer]
+        mov eax, dword [DbRecordCounts]
         call FileWriteRecord
         test eax, eax
         je near OpenGameDatabase_18
@@ -2430,7 +2430,7 @@ RebuildDbIndex:
         call LookupRecord
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-05Ch]
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         xor edx, edx
         call AddIndexKey
         mov edi, eax
@@ -2443,13 +2443,13 @@ RebuildDbIndex:
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-030h]
         mov edx, 1
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         call AddIndexKey
         test eax, eax
         jne near AddGameRecord_CC
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-05Ch]
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         xor edx, edx
         jmp near AddGameRecord_C5
 ;-----------------------------------------------------------------------------
@@ -2527,7 +2527,7 @@ RepairDatabase:
         movsd
         call LookupRecord
         lea ebx, [byte ebp+042h]
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         xor edx, edx
         call FindIndexKey
         test eax, eax
@@ -2553,13 +2553,13 @@ RepairDatabase:
         je near UpdatePlayerRecord_1A6
         mov ebx, 67h
         mov edx, dword [byte ebp+07Ah]
-        mov ecx, dword [dword_1CD17C]
+        mov ecx, dword [DbStaticBuffer]
         xor eax, eax
         call ReadDbRecord
         test eax, eax
         je near UpdatePlayerRecord_1A6
         mov ebx, 2Fh
-        mov eax, dword [dword_1CD17C]
+        mov eax, dword [DbStaticBuffer]
         lea edx, [byte ebp-01Ah]
         inc eax
         call CopyBytesOk
@@ -2570,7 +2570,7 @@ RepairDatabase:
         mov ecx, dword [byte ebp+07Ah]
         lea ebx, [byte ebp+016h]
         mov edx, 1
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         call DeleteIndexKey
         test eax, eax
         je near UpdatePlayerRecord_1A6
@@ -2580,7 +2580,7 @@ RepairDatabase:
         call LookupRecord
         mov ecx, dword [byte ebp+07Ah]
         lea ebx, [byte ebp+042h]
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         xor edx, edx
         call DeleteIndexKey
         test eax, eax
@@ -2588,31 +2588,31 @@ RepairDatabase:
         mov ecx, dword [byte ebp+07Ah]
         lea ebx, [byte ebp+016h]
         mov edx, 1
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         call AddIndexKey
         jmp near .1
 .6:
         mov ebx, 4
-        mov eax, dword_1CD160
-        mov edx, dword [dword_1CD17C]
+        mov eax, DbRecordSizes
+        mov edx, dword [DbStaticBuffer]
         call CopyBytesOk
         mov ebx, 67h
         mov edx, dword [byte ebp+07Ah]
-        mov ecx, dword [dword_1CD17C]
+        mov ecx, dword [DbStaticBuffer]
         xor eax, eax
         call WriteDbRecord
         test eax, eax
         je short .7
         mov eax, dword [byte ebp+07Ah]
         xor edx, edx
-        mov dword [dword_1CD160], eax
-        mov eax, dword [dword_1CD180]
+        mov dword [DbRecordSizes], eax
+        mov eax, dword [DbRecordCounts]
         call FileSeek
         test eax, eax
         je short .7
         mov ebx, 4
-        mov edx, dword_1CD160
-        mov eax, dword [dword_1CD180]
+        mov edx, DbRecordSizes
+        mov eax, dword [DbRecordCounts]
         call FileWriteRecord
 .7:
         call ServiceIdle
@@ -2634,7 +2634,7 @@ RepairDatabase_21E:
         lea ebx, [byte ebp-030h]
         mov dword [eax], 0
         mov edx, 2
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         call FindLastKey
 .9:
         test eax, eax
@@ -2647,7 +2647,7 @@ RepairDatabase_21E:
         lea ebx, [byte ebp-030h]
         inc dword [esi]
         mov edx, 2
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         call NextIndexKey
         jmp short .9
         push ebx
@@ -2665,7 +2665,7 @@ RepairDatabase_21E:
         lea ecx, [byte ebp-04h]
         lea ebx, [byte ebp-030h]
         mov edx, 3
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         mov dword [DbIndexRoot], 0
         call FindLastKey
         test eax, eax
@@ -2677,14 +2677,14 @@ RepairDatabase_21E:
 .12:
         mov ebx, 67h
         mov edx, dword [byte ebp-04h]
-        mov ecx, dword [dword_1CD17C]
+        mov ecx, dword [DbStaticBuffer]
         xor eax, eax
         call ReadDbRecord
         test eax, eax
         je near UpdatePlayerRecord_229
         call ServiceIdle
         mov ebx, 66h
-        mov eax, dword [dword_1CD17C]
+        mov eax, dword [DbStaticBuffer]
         mov edx, esi
         inc eax
         call CopyBytesOk
@@ -2704,20 +2704,20 @@ RepairDatabase_21E:
         lea ecx, [byte ebp-04h]
         lea ebx, [byte ebp-030h]
         mov edx, 3
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         mov dword [DbIndexRoot], 0
         call FindFirstKey
         test eax, eax
         je near UpdatePlayerRecord_229
         mov ebx, 67h
         mov edx, dword [byte ebp-04h]
-        mov ecx, dword [dword_1CD17C]
+        mov ecx, dword [DbStaticBuffer]
         xor eax, eax
         call ReadDbRecord
         test eax, eax
         je near UpdatePlayerRecord_229
         mov ebx, 66h
-        mov eax, dword [dword_1CD17C]
+        mov eax, dword [DbStaticBuffer]
         mov edx, esi
         inc eax
         call CopyBytesOk
@@ -2745,7 +2745,7 @@ RepairDatabase_21E:
         lea ecx, [byte ebp-04h]
         lea ebx, [byte ebp-030h]
         mov edx, 3
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         call NextIndexKey
 .16:
         test eax, eax
@@ -2760,7 +2760,7 @@ RepairDatabase_21E:
         lea ecx, [byte ebp-04h]
         lea ebx, [byte ebp-030h]
         mov edx, 3
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         call PrevIndexKey
         jmp short .16
 .18:
@@ -2771,13 +2771,13 @@ RepairDatabase_21E:
 .19:
         mov ebx, 67h
         mov edx, dword [byte ebp-04h]
-        mov ecx, dword [dword_1CD17C]
+        mov ecx, dword [DbStaticBuffer]
         xor eax, eax
         call ReadDbRecord
         test eax, eax
         je short .20
         mov ebx, 66h
-        mov eax, dword [dword_1CD17C]
+        mov eax, dword [DbStaticBuffer]
         mov edx, esi
         inc eax
         call CopyBytesOk
@@ -2812,16 +2812,16 @@ RepairDatabase_21E:
         call AllocRecordSlot
         test eax, eax
         je near OpenGameDatabase_18
-        mov eax, dword [dword_1CD17C]
+        mov eax, dword [DbStaticBuffer]
         mov byte [eax], 52h
         mov ebx, 66h
-        mov edx, dword [dword_1CD17C]
+        mov edx, dword [DbStaticBuffer]
         mov eax, esi
         inc edx
         call CopyBytesOk
         mov ebx, 67h
-        mov edx, dword [dword_1CD17C]
-        mov eax, dword [dword_1CD180]
+        mov edx, dword [DbStaticBuffer]
+        mov eax, dword [DbRecordCounts]
         call FileWriteRecord
         test eax, eax
         je near OpenGameDatabase_18
@@ -2832,7 +2832,7 @@ RepairDatabase_21E:
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-05Ch]
         mov edx, 2
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         call AddIndexKey
         mov edi, eax
         test eax, eax
@@ -2844,7 +2844,7 @@ RepairDatabase_21E:
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-030h]
         mov edx, 3
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         call AddIndexKey
         test eax, eax
         jne near AddGameRecord_CC
@@ -2852,7 +2852,7 @@ RepairDatabase_21E:
         lea ebx, [byte ebp-05Ch]
         mov edx, 2
 RepairDatabase_52F:
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         jmp near AddGameRecord_C5
 ;-----------------------------------------------------------------------------
 ; FindTeamRecord                                  DC653  97 PC, low confidence
@@ -2885,7 +2885,7 @@ FindTeamRecord:
         call LookupRecord
         lea ebx, [byte ebp-038h]
         mov edx, 2
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         call FindIndexKey
         test eax, eax
         je near FindGameRecord_A0
@@ -2910,7 +2910,7 @@ FindTeamRecord:
         je near FindGameRecord_A0
         mov ebx, 67h
         mov edx, dword [byte ebp-04h]
-        mov ecx, dword [dword_1CD17C]
+        mov ecx, dword [DbStaticBuffer]
         xor eax, eax
         call ReadDbRecord
         test eax, eax
@@ -2941,20 +2941,20 @@ BuildAllStarRecords:
         call LookupRecord
         lea ebx, [byte ebp-030h]
         mov edx, 3
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         call FindIndexKey
         test eax, eax
         je near UpdatePlayerRecord_229
         mov ebx, 67h
         mov edx, dword [byte ebp-04h]
-        mov ecx, dword [dword_1CD17C]
+        mov ecx, dword [DbStaticBuffer]
         xor eax, eax
         mov dword [DbIndexRoot], 1
         call ReadDbRecord
         test eax, eax
         je near UpdatePlayerRecord_229
         mov ebx, 66h
-        mov eax, dword [dword_1CD17C]
+        mov eax, dword [DbStaticBuffer]
         mov edx, esi
         inc eax
         call CopyBytesOk
@@ -2974,7 +2974,7 @@ BuildAllStarRecords:
         lea ebx, [byte ebp-030h]
         mov dword [eax], 0
         mov edx, 4
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         call FindLastKey
         test eax, eax
         je near UpdatePlayerRecord_229
@@ -2988,7 +2988,7 @@ BuildAllStarRecords:
         lea ebx, [byte ebp-030h]
         inc dword [esi]
         mov edx, 4
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         call NextIndexKey
         test eax, eax
         jne short .3
@@ -3008,7 +3008,7 @@ BuildAllStarRecords:
         lea ecx, [byte ebp-04h]
         lea ebx, [byte ebp-030h]
         mov edx, 5
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         mov dword [DbPlayerIndex], 0
         call FindLastKey
         test eax, eax
@@ -3044,7 +3044,7 @@ BuildAllStarRecords:
         lea ecx, [byte ebp-04h]
         lea ebx, [byte ebp-030h]
         mov edx, 5
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         mov dword [DbPlayerIndex], 0
         call FindFirstKey
         test eax, eax
@@ -3080,7 +3080,7 @@ BuildAllStarRecords:
         lea ecx, [byte ebp-04h]
         lea ebx, [byte ebp-030h]
         mov edx, 5
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         call NextIndexKey
 .11:
         test eax, eax
@@ -3095,7 +3095,7 @@ BuildAllStarRecords:
         lea ecx, [byte ebp-04h]
         lea ebx, [byte ebp-030h]
         mov edx, 5
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         call PrevIndexKey
         jmp short .11
 .13:
@@ -3148,7 +3148,7 @@ AddPlayerRecord:
         test eax, eax
         je near OpenGameDatabase_18
         mov ebx, 0BCh
-        mov eax, dword [dword_1CD184]
+        mov eax, dword [DbPlayerFile]
         mov edx, esi
         call FileWriteRecord
         test eax, eax
@@ -3160,7 +3160,7 @@ AddPlayerRecord:
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-05Ch]
         mov edx, 4
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         call AddIndexKey
         mov edi, eax
         test eax, eax
@@ -3172,7 +3172,7 @@ AddPlayerRecord:
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-030h]
         mov edx, 5
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         call AddIndexKey
         test eax, eax
         jne near AddGameRecord_CC
@@ -3213,7 +3213,7 @@ AddTradeRecord:
         call LookupRecord
         lea ebx, [byte ebp-064h]
         mov edx, 4
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         call FindIndexKey
         test eax, eax
         je short .3
@@ -3249,14 +3249,14 @@ AddTradeRecord:
         je near FindGameRecord_A0
         mov ebx, 0BCh
         mov edx, dword [byte ebp-068h]
-        mov eax, dword [dword_1CD184]
+        mov eax, dword [DbPlayerFile]
         call FileWriteRecord
         test eax, eax
         je near FindGameRecord_A0
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-064h]
         mov edx, 4
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         call AddIndexKey
         mov esi, eax
         test eax, eax
@@ -3268,14 +3268,14 @@ AddTradeRecord:
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-038h]
         mov edx, 5
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         call AddIndexKey
         test eax, eax
         jne near AddPlayerStatAt_CA
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-064h]
         mov edx, 4
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         jmp near AddPlayerStatAt_C3
 ;-----------------------------------------------------------------------------
 ; FindPlayerRecord                                DCBB0  97 PC, low confidence
@@ -3308,7 +3308,7 @@ FindPlayerRecord:
         call LookupRecord
         lea ebx, [byte ebp-038h]
         mov edx, 4
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         call FindIndexKey
         test eax, eax
         je near FindGameRecord_A0
@@ -3364,7 +3364,7 @@ UpdatePlayerRecord:
         call LookupRecord
         lea ebx, [byte ebp+01Eh]
         mov edx, 4
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         call FindIndexKey
         test eax, eax
         je near UpdatePlayerRecord_1A6
@@ -3397,7 +3397,7 @@ UpdatePlayerRecord:
         test eax, eax
         je near UpdatePlayerRecord_1A6
         mov ebx, 0BCh
-        mov eax, dword [dword_1CD184]
+        mov eax, dword [DbPlayerFile]
         mov edx, esi
         call FileWriteRecord
         test eax, eax
@@ -3409,7 +3409,7 @@ UpdatePlayerRecord:
         mov ecx, dword [byte ebp+07Eh]
         lea ebx, [byte ebp+04Ah]
         mov edx, 4
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         call AddIndexKey
         mov edi, eax
         test eax, eax
@@ -3421,14 +3421,14 @@ UpdatePlayerRecord:
         mov ecx, dword [byte ebp+07Eh]
         lea ebx, [byte ebp-0Eh]
         mov edx, 5
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         call AddIndexKey
         test eax, eax
         jne short .3
         mov ecx, dword [byte ebp+07Eh]
         lea ebx, [byte ebp+04Ah]
         mov edx, 4
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         call DeleteIndexKey
         xor edi, edi
 .3:
@@ -3489,7 +3489,7 @@ UpdatePlayerRecord_1AD:
         call LookupRecord
         lea ebx, [byte ebp-030h]
         mov edx, 5
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         call FindIndexKey
         test eax, eax
         je short UpdatePlayerRecord_229
@@ -3546,7 +3546,7 @@ MakeLeagueKey:
         lea ecx, [byte ebp-04h]
         lea ebx, [byte ebp-030h]
         movsx edx, ax
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call FindFirstKey
         test eax, eax
         je short .5
@@ -3897,7 +3897,7 @@ CreateExhibitionFile:
         lea ebx, [byte ebp+03Eh]
 CreateExhibitionFile_2F7:
         call MakeKeyPair
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         xor edx, edx
         call AddIndexKey
         mov edx, eax
@@ -4480,7 +4480,7 @@ CreatePlayoffSchedule:
         add eax, byte 0Ch
         lea ebx, [byte ebp+032h]
         call MakeKeyPair
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         xor edx, edx
         call AddIndexKey
         mov edx, eax
@@ -4735,7 +4735,7 @@ CreateSeasonFile:
         add eax, byte 0Ch
         lea ebx, [byte ebp+046h]
         call MakeKeyPair
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         xor edx, edx
         call AddIndexKey
         mov edx, eax
@@ -4992,7 +4992,7 @@ CreateSeasonSchedule:
         add eax, byte 0Ch
         lea ebx, [byte ebp+042h]
         call MakeKeyPair
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         xor edx, edx
         call AddIndexKey
         mov edx, eax
@@ -5249,7 +5249,7 @@ CreateSeasonSchedule_2F0:
         add eax, byte 0Ch
         lea ebx, [byte ebp+046h]
         call MakeKeyPair
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         xor edx, edx
         call AddIndexKey
         mov edx, eax
@@ -5452,7 +5452,7 @@ FindNextSeasonGame:
         lea ebx, [byte ebp-030h]
         mov dword [eax], 0
         xor edx, edx
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call FindLastKey
 .17:
         test eax, eax
@@ -5465,7 +5465,7 @@ FindNextSeasonGame:
         lea ebx, [byte ebp-030h]
         inc dword [esi]
         xor edx, edx
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call NextIndexKey
         jmp short .17
 ;-----------------------------------------------------------------------------
@@ -6642,7 +6642,7 @@ SaveSeasonResult:
         call MakeTeamStatKey
         lea ebx, [byte ebp+042h]
         mov edx, 6
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call FindIndexKey
         test eax, eax
         je near .9
@@ -8044,7 +8044,7 @@ AddGameRecord:
         test eax, eax
         je near OpenGameDatabase_18
         mov ebx, 194Fh
-        mov eax, dword [dword_1CD188]
+        mov eax, dword [DbGameFile]
         mov edx, esi
         call FileWriteRecord
         test eax, eax
@@ -8056,7 +8056,7 @@ AddGameRecord:
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-05Ch]
         mov edx, 3
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call AddIndexKey
         mov edi, eax
         test eax, eax
@@ -8068,7 +8068,7 @@ AddGameRecord:
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-030h]
         mov edx, 4
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call AddIndexKey
         test eax, eax
         jne short AddGameRecord_CC
@@ -8076,7 +8076,7 @@ AddGameRecord:
         lea ebx, [byte ebp-05Ch]
         mov edx, 3
 AddGameRecord_C0:
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
 AddGameRecord_C5:
         call DeleteIndexKey
         xor edi, edi
@@ -8111,7 +8111,7 @@ FindGameRecord:
         call MakeGameKey
         lea ebx, [byte ebp-038h]
         mov edx, 3
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call FindIndexKey
         test eax, eax
         je short FindGameRecord_A0
@@ -8172,7 +8172,7 @@ UpdateGameRecord:
         call MakeGameKey
         lea ebx, [byte ebp+04Ah]
         mov edx, 3
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call FindIndexKey
         test eax, eax
         je near UpdatePlayerRecord_1A6
@@ -8205,7 +8205,7 @@ UpdateGameRecord:
         test eax, eax
         je near UpdatePlayerRecord_1A6
         mov ebx, 194Fh
-        mov eax, dword [dword_1CD188]
+        mov eax, dword [DbGameFile]
         mov edx, esi
         call FileWriteRecord
         test eax, eax
@@ -8217,7 +8217,7 @@ UpdateGameRecord:
         mov ecx, dword [byte ebp+07Eh]
         lea ebx, [byte ebp+04Ah]
         mov edx, 3
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call AddIndexKey
         mov edi, eax
         test eax, eax
@@ -8229,14 +8229,14 @@ UpdateGameRecord:
         mov ecx, dword [byte ebp+07Eh]
         lea ebx, [byte ebp+01Eh]
         mov edx, 4
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call AddIndexKey
         test eax, eax
         jne short .3
         mov ecx, dword [byte ebp+07Eh]
         lea ebx, [byte ebp+04Ah]
         mov edx, 3
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call DeleteIndexKey
         xor edi, edi
 .3:
@@ -8273,7 +8273,7 @@ UpdateGameRecord:
         mov ecx, dword [byte ebp+07Eh]
         lea ebx, [byte ebp-0Eh]
         mov edx, 4
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call DeleteIndexKey
         test eax, eax
         je near UpdatePlayerRecord_1A6
@@ -8284,7 +8284,7 @@ UpdateGameRecord:
         mov ecx, dword [byte ebp+07Eh]
         lea ebx, [byte ebp-0Eh]
         mov edx, 4
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call AddIndexKey
         test eax, eax
         je near UpdatePlayerRecord_1A6
@@ -8388,7 +8388,7 @@ AddPlayerStat:
         test eax, eax
         je near OpenGameDatabase_18
         mov ebx, 27h
-        mov eax, dword [dword_1CD190]
+        mov eax, dword [DbPlayerStatFile]
         mov edx, esi
         call FileWriteRecord
         test eax, eax
@@ -8400,7 +8400,7 @@ AddPlayerStat:
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-05Ch]
         mov edx, 7
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call AddIndexKey
         mov edi, eax
         test eax, eax
@@ -8412,7 +8412,7 @@ AddPlayerStat:
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-030h]
         mov edx, 8
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call AddIndexKey
         test eax, eax
         jne near AddGameRecord_CC
@@ -8452,7 +8452,7 @@ AddPlayerStatAt:
         je near FindGameRecord_A0
         mov ebx, 27h
         mov edx, dword [byte ebp-060h]
-        mov eax, dword [dword_1CD190]
+        mov eax, dword [DbPlayerStatFile]
         call FileWriteRecord
         test eax, eax
         je near FindGameRecord_A0
@@ -8463,7 +8463,7 @@ AddPlayerStatAt:
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-05Ch]
         mov edx, 7
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call AddIndexKey
         mov esi, eax
         test eax, eax
@@ -8475,7 +8475,7 @@ AddPlayerStatAt:
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-030h]
         mov edx, 8
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call AddIndexKey
         test eax, eax
         jne short AddPlayerStatAt_CA
@@ -8483,7 +8483,7 @@ AddPlayerStatAt:
         lea ebx, [byte ebp-05Ch]
         mov edx, 7
 AddPlayerStatAt_BE:
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
 AddPlayerStatAt_C3:
         call DeleteIndexKey
         xor esi, esi
@@ -8518,7 +8518,7 @@ FindPlayerStat:
         call MakePlayerStatKey
         lea ebx, [byte ebp-038h]
         mov edx, 7
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call FindIndexKey
         test eax, eax
         je near FindGameRecord_A0
@@ -8571,7 +8571,7 @@ UpdatePlayerStat:
         call MakePlayerStatKey
         lea ebx, [byte ebp+022h]
         mov edx, 7
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call FindIndexKey
         test eax, eax
         je near UpdatePlayerRecord_1A6
@@ -8604,7 +8604,7 @@ UpdatePlayerStat:
         test eax, eax
         je near UpdatePlayerRecord_1A6
         mov ebx, 27h
-        mov eax, dword [dword_1CD190]
+        mov eax, dword [DbPlayerStatFile]
         mov edx, esi
         call FileWriteRecord
         test eax, eax
@@ -8616,7 +8616,7 @@ UpdatePlayerStat:
         mov ecx, dword [byte ebp+07Eh]
         lea ebx, [byte ebp+022h]
         mov edx, 7
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call AddIndexKey
         mov edi, eax
         test eax, eax
@@ -8628,14 +8628,14 @@ UpdatePlayerStat:
         mov ecx, dword [byte ebp+07Eh]
         lea ebx, [byte ebp-036h]
         mov edx, 8
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call AddIndexKey
         test eax, eax
         jne short .3
         mov ecx, dword [byte ebp+07Eh]
         lea ebx, [byte ebp+022h]
         mov edx, 7
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call DeleteIndexKey
         xor edi, edi
 .3:
@@ -8666,7 +8666,7 @@ UpdatePlayerStat:
         mov ecx, dword [byte ebp+07Eh]
         lea ebx, [byte ebp-0Ah]
         mov edx, 8
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call DeleteIndexKey
         test eax, eax
         je near UpdatePlayerRecord_1A6
@@ -8677,7 +8677,7 @@ UpdatePlayerStat:
         mov ecx, dword [byte ebp+07Eh]
         lea ebx, [byte ebp-0Ah]
         mov edx, 8
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call AddIndexKey
         test eax, eax
         je near UpdatePlayerRecord_1A6
@@ -8792,7 +8792,7 @@ AddTeamStat:
         test eax, eax
         je near OpenGameDatabase_18
         mov ebx, 3Dh
-        mov eax, dword [dword_1CD18C]
+        mov eax, dword [DbTeamStatFile]
         mov edx, esi
         call FileWriteRecord
         test eax, eax
@@ -8804,7 +8804,7 @@ AddTeamStat:
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-05Ch]
         mov edx, 5
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call AddIndexKey
         mov edi, eax
         test eax, eax
@@ -8816,7 +8816,7 @@ AddTeamStat:
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-030h]
         mov edx, 6
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call AddIndexKey
         test eax, eax
         jne near AddGameRecord_CC
@@ -8852,7 +8852,7 @@ AddTeamStatAt:
         je near FindGameRecord_A0
         mov ebx, 3Dh
         mov edx, dword [byte ebp-060h]
-        mov eax, dword [dword_1CD18C]
+        mov eax, dword [DbTeamStatFile]
         call FileWriteRecord
         test eax, eax
         je near FindGameRecord_A0
@@ -8863,7 +8863,7 @@ AddTeamStatAt:
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-05Ch]
         mov edx, 5
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call AddIndexKey
         mov esi, eax
         test eax, eax
@@ -8875,7 +8875,7 @@ AddTeamStatAt:
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-030h]
         mov edx, 6
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call AddIndexKey
         test eax, eax
         jne near AddPlayerStatAt_CA
@@ -8910,7 +8910,7 @@ FindTeamStat:
         call MakeTeamStatKey
         lea ebx, [byte ebp-038h]
         mov edx, 5
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call FindIndexKey
         test eax, eax
         je near FindGameRecord_A0
@@ -8978,7 +8978,7 @@ ReadTeamStats:
         call MakeTeamStatKey
         lea ebx, [byte ebp-054h]
         mov edx, 6
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call FindIndexKey
         test eax, eax
         je near .6
@@ -9035,7 +9035,7 @@ ReadTeamStats:
         lea ebx, [byte ebp-054h]
         mov edx, 6
         mov dword [byte ebp-0Ch], eax
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call NextIndexKey
         test eax, eax
         je near .6
@@ -9117,7 +9117,7 @@ UpdateTeamStat:
         call MakeTeamStatKey
         lea ebx, [byte ebp+04Ah]
         mov edx, 5
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call FindIndexKey
         test eax, eax
         je near UpdatePlayerRecord_1A6
@@ -9150,7 +9150,7 @@ UpdateTeamStat:
         test eax, eax
         je near UpdatePlayerRecord_1A6
         mov ebx, 3Dh
-        mov eax, dword [dword_1CD18C]
+        mov eax, dword [DbTeamStatFile]
         mov edx, esi
         call FileWriteRecord
         test eax, eax
@@ -9162,7 +9162,7 @@ UpdateTeamStat:
         mov ecx, dword [byte ebp+07Eh]
         lea ebx, [byte ebp+04Ah]
         mov edx, 5
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call AddIndexKey
         mov edi, eax
         test eax, eax
@@ -9174,14 +9174,14 @@ UpdateTeamStat:
         mov ecx, dword [byte ebp+07Eh]
         lea ebx, [byte ebp+01Eh]
         mov edx, 6
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call AddIndexKey
         test eax, eax
         jne short .3
         mov ecx, dword [byte ebp+07Eh]
         lea ebx, [byte ebp+04Ah]
         mov edx, 5
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call DeleteIndexKey
         xor edi, edi
 .3:
@@ -9218,7 +9218,7 @@ UpdateTeamStat:
         mov ecx, dword [byte ebp+07Eh]
         lea ebx, [byte ebp-0Eh]
         mov edx, 6
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call DeleteIndexKey
         test eax, eax
         je near UpdatePlayerRecord_1A6
@@ -9229,7 +9229,7 @@ UpdateTeamStat:
         mov ecx, dword [byte ebp+07Eh]
         lea ebx, [byte ebp-0Eh]
         mov edx, 6
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call AddIndexKey
         test eax, eax
         je near UpdatePlayerRecord_1A6
@@ -10087,7 +10087,7 @@ AddReplayIndexEntry:
         test eax, eax
         je near CreateSeasonSchedule_2F0
         mov ebx, 4A78h
-        mov eax, dword [dword_1CD194]
+        mov eax, dword [DbReplayFile]
         mov edx, esi
         call FileWriteRecord
         test eax, eax
@@ -10099,7 +10099,7 @@ AddReplayIndexEntry:
         call ServiceIdle
         mov ecx, dword [byte ebp+07Ah]
         mov edx, 9
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call AddIndexKey
         jmp near CreateSeasonSchedule_2F0
 .4:
@@ -10109,7 +10109,7 @@ AddReplayIndexEntry:
         lea ebx, [byte ebp+046h]
         call MakeRecordKey
         mov edx, 9
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call FindIndexKey
         test eax, eax
         jne short .6
@@ -10217,7 +10217,7 @@ FindReplayIndexEntry:
         movsd
         call MakeRecordKey
         mov edx, 9
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call FindIndexKey
         test eax, eax
         je near FindGameRecord_A0
@@ -10347,7 +10347,7 @@ RenameReplayIndexEntry:
         movsd
         call MakeRecordKey
         mov edx, 9
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call FindIndexKey
         test eax, eax
         je short .3
@@ -10408,7 +10408,7 @@ RenameReplayIndexEntry:
         je near BuildSeasonRecords_797
         mov ebx, 4A78h
         mov edx, dword [byte ebp-0Eh]
-        mov eax, dword [dword_1CD194]
+        mov eax, dword [DbReplayFile]
         call FileWriteRecord
         test eax, eax
         je near BuildSeasonRecords_797
@@ -10419,7 +10419,7 @@ RenameReplayIndexEntry:
         call ServiceIdle
         mov ecx, dword [byte ebp+07Eh]
         mov edx, 9
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call AddIndexKey
         jmp near BuildSeasonRecords_797
 ;-----------------------------------------------------------------------------
@@ -10448,7 +10448,7 @@ DeleteReplayIndexEntry:
         movsd
         call MakeRecordKey
         mov edx, 9
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call FindIndexKey
         test eax, eax
         je near UpdatePlayerRecord_1A6
@@ -10497,7 +10497,7 @@ DeleteReplayIndexEntry:
         mov ecx, dword [byte ebp+07Eh]
         lea ebx, [byte ebp+04Ah]
         mov edx, 9
-        mov eax, dword [dword_1CD15C]
+        mov eax, dword [DbKeyIndex]
         call DeleteIndexKey
         test eax, eax
         je near UpdatePlayerRecord_1A6
@@ -10551,7 +10551,7 @@ SaveUserRecord:
         lea ebx, [byte ebp-04Ch]
         call MakeRecordKey
         mov edx, 6
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         call FindIndexKey
         mov dword [byte ebp-04h], eax
         test eax, eax
@@ -10579,7 +10579,7 @@ SaveUserRecord:
         test eax, eax
         je near FindGameRecord_A0
         mov ebx, 176h
-        mov eax, dword [dword_1CD198]
+        mov eax, dword [DbUserFile]
         mov edx, esi
         call FileWriteRecord
         test eax, eax
@@ -10605,7 +10605,7 @@ SaveUserRecord:
         call MakeRecordKey
         mov ecx, dword [byte ebp-08h]
         mov edx, 6
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         call AddIndexKey
         jmp near RecordHomeStats_15A
 ;-----------------------------------------------------------------------------
@@ -10629,7 +10629,7 @@ LoadUserRecord:
         mov dword [byte ebp-08h], esi
         call MakeRecordKey
         mov edx, 6
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         call FindIndexKey
         test eax, eax
         je near FindGameRecord_A0
@@ -10673,7 +10673,7 @@ DeleteUserRecord:
         mov dword [byte ebp-08h], esi
         call MakeRecordKey
         mov edx, 6
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         call FindIndexKey
         test eax, eax
         je near UpdatePlayerRecord_229
@@ -10695,7 +10695,7 @@ DeleteUserRecord:
         mov ecx, dword [byte ebp-04h]
         lea ebx, [byte ebp-040h]
         mov edx, 6
-        mov eax, dword [dword_1CD158]
+        mov eax, dword [DbFileTable]
         call DeleteIndexKey
         test eax, eax
         je near UpdatePlayerRecord_229
@@ -11193,7 +11193,7 @@ ReadKeyboardPad:
         shl eax, 2
         cmp byte [dword eax+dword_16D93A], 0
         je short .1
-        cmp dword [dword_1CD248], byte 0
+        cmp dword [KeyboardPadAwayOn], byte 0
         je near .4
         mov eax, dword [dword eax+dword_16D93A]
         sar eax, 10h
@@ -11206,7 +11206,7 @@ ReadKeyboardPad:
 .1:
         cmp byte [dword eax+byte_16D93B], 0
         je short .2
-        cmp dword [dword_1CD244], byte 0
+        cmp dword [KeyboardPadHomeOn], byte 0
         je short .4
         mov eax, dword [dword eax+dword_16D93A]
         sar eax, 10h
@@ -11217,9 +11217,9 @@ ReadKeyboardPad:
         je short .4
         jmp short .3
 .2:
-        cmp dword [dword_1CD248], byte 0
+        cmp dword [KeyboardPadAwayOn], byte 0
         jne short .4
-        cmp dword [dword_1CD244], byte 0
+        cmp dword [KeyboardPadHomeOn], byte 0
         jne short .4
         mov eax, dword [dword eax+dword_16D93A]
         sar eax, 10h
@@ -11316,7 +11316,7 @@ ReadKeyboardPlayers:
         test dx, dx
         je short .5
         mov eax, dword [tickcount]
-        cmp dx, word [word_1CD24E]
+        cmp dx, word [KeyboardLastKey]
         jne short .2
         cmp eax, dword [dword_16D8B4]
         jge short .2
@@ -11324,7 +11324,7 @@ ReadKeyboardPlayers:
         mov dword [dword_16D8B4], eax
 .2:
         mov ecx, 1
-        mov word [word_1CD24E], dx
+        mov word [KeyboardLastKey], dx
         mov dword [dword_16D8B8], ecx
         pop edx
         pop ecx
@@ -11343,7 +11343,7 @@ ReadKeyboardPlayers:
         pop ebx
         ret
 .4:
-        mov word [word_1CD24E], dx
+        mov word [KeyboardLastKey], dx
 .5:
         pop edx
         pop ecx
@@ -11512,7 +11512,7 @@ ReadJoystickPads:
         and ebx, eax
         cmp ebx, eax
         jne short .5
-        or byte [byte_1CD24D], 1
+        or byte [JoystickFlags], 1
 .5:
         mov cx, word [word_16D92A]
         test cx, cx
@@ -11524,7 +11524,7 @@ ReadJoystickPads:
         and ebx, eax
         cmp ebx, eax
         jne short .6
-        or byte [byte_1CD24D], 2
+        or byte [JoystickFlags], 2
 .6:
         mov di, word [word_16D92C]
         test di, di
@@ -11536,7 +11536,7 @@ ReadJoystickPads:
         and ebx, eax
         cmp ebx, eax
         jne near .12
-        or byte [byte_1CD24D], 40h
+        or byte [JoystickFlags], 40h
         jmp near .12
 .7:
         cmp word [word_16D924], byte 0
@@ -11548,7 +11548,7 @@ ReadJoystickPads:
         and ebx, eax
         cmp ebx, eax
         jne short .8
-        or byte [byte_1CD24D], 4
+        or byte [JoystickFlags], 4
 .8:
         mov dx, word [word_16D926]
         test dx, dx
@@ -11560,7 +11560,7 @@ ReadJoystickPads:
         and ebx, eax
         cmp ebx, eax
         jne short .9
-        or byte [byte_1CD24D], 8
+        or byte [JoystickFlags], 8
 .9:
         mov bx, word [word_16D928]
         test bx, bx
@@ -11572,7 +11572,7 @@ ReadJoystickPads:
         and ebx, eax
         cmp ebx, eax
         jne short .10
-        or byte [byte_1CD24D], 10h
+        or byte [JoystickFlags], 10h
 .10:
         mov cx, word [word_16D92A]
         test cx, cx
@@ -11584,7 +11584,7 @@ ReadJoystickPads:
         and ebx, eax
         cmp ebx, eax
         jne short .11
-        or byte [byte_1CD24D], 20h
+        or byte [JoystickFlags], 20h
 .11:
         mov di, word [word_16D92C]
         test di, di
@@ -11596,7 +11596,7 @@ ReadJoystickPads:
         and ebx, eax
         cmp ebx, eax
         jne short .12
-        or byte [byte_1CD24D], 80h
+        or byte [JoystickFlags], 80h
 .12:
         mov eax, 7
         xor edx, edx
@@ -11699,11 +11699,11 @@ PollControllers:
         add esp, byte 4
         push byte 38h
         mov ebx, HotKeyFlags
-        mov dword [dword_1CD248], eax
+        mov dword [KeyboardPadAwayOn], eax
         call IsKeyDown
         mov edx, 1
         add esp, byte 4
-        mov dword [dword_1CD244], eax
+        mov dword [KeyboardPadHomeOn], eax
         xor eax, eax
         mov esi, SlotWords
         call ReadKeyboardPad
@@ -11833,7 +11833,7 @@ PollControllers:
         mov eax, dword [tickcount]
         mov ebp, eax
         xor eax, eax
-        mov ax, word [dword edx+word_1CD1D0]
+        mov ax, word [dword edx+PadButtonState]
         cmp ebx, eax
         jne short .5
         cmp ebp, dword [dword ecx+dword_16D8BC]
@@ -11844,7 +11844,7 @@ PollControllers:
         mov byte [dword edx+SlotWords], al
 .5:
         mov edx, 1
-        mov word [nosplit edi*2+word_1CD1D0], bx
+        mov word [nosplit edi*2+PadButtonState], bx
         mov dword [dword ecx+dword_16D8DC], edx
         jmp short .10
 .6:
@@ -11856,7 +11856,7 @@ PollControllers:
         mov dword [dword ecx+dword_16D8BC], eax
         jmp short .10
 .7:
-        mov word [dword edx+word_1CD1D0], bx
+        mov word [dword edx+PadButtonState], bx
         jmp short .10
 .8:
         cmp ebx, byte 2
@@ -12160,7 +12160,7 @@ ResetInputState:
         test dx, dx
         jne short .2
         call LinkSyncMenu
-        mov word [word_1CD24E], dx
+        mov word [KeyboardLastKey], dx
         xor edx, edx
         xor ecx, ecx
         mov dword [dword_16D8B8], edx
@@ -12178,7 +12178,7 @@ ResetInputState:
         xor esi, esi
         mov byte [dword eax+byte_16D8FA], bl
         xor ebx, ebx
-        mov word [dword eax+word_1CD1CE], si
+        mov word [dword eax+PadLastButtons], si
         mov dword [dword edx+dword_16D8D8], ebx
         cmp eax, byte 10h
         jne short .1
@@ -12500,7 +12500,7 @@ ServiceIdle_34:
         push ecx
         push edx
         push dword 14Ah
-        push unk_1CD2BA
+        push LinkPacketQueues
         call ZeroMem
         add esp, byte 8
         pop edx
@@ -12521,11 +12521,11 @@ QueueLinkPacket:
         shl ebx, 5
         add ebx, eax
         add ebx, ebx
-        mov edx, dword [dword ebx+word_1CD2F6]
+        mov edx, dword [dword ebx+LinkPacketQueues+3Ch]
         sar edx, 10h
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
-        mov edx, unk_1CD2BA
+        mov edx, LinkPacketQueues
         add eax, eax
         add edx, ebx
         push byte 6
@@ -12533,7 +12533,7 @@ QueueLinkPacket:
         push eax
         push ecx
         call bcopy
-        mov edx, dword [dword ebx+word_1CD2F6]
+        mov edx, dword [dword ebx+LinkPacketQueues+3Ch]
         sar edx, 10h
         inc edx
         mov ecx, 0Ah
@@ -12541,22 +12541,22 @@ QueueLinkPacket:
         sar edx, 1Fh
         idiv ecx
         add esp, byte 0Ch
-        mov ax, word [dword ebx+word_1CD2F6]
-        mov word [dword ebx+word_1CD2F8], dx
+        mov ax, word [dword ebx+LinkPacketQueues+3Ch]
+        mov word [dword ebx+LinkPacketQueues+3Eh], dx
         cmp ax, dx
         jne short .1
-        mov edx, dword [dword ebx+dword_1CD2F4]
+        mov edx, dword [dword ebx+LinkPacketQueues+3Ah]
         sar edx, 10h
         inc edx
         mov eax, edx
         sar edx, 1Fh
         idiv ecx
-        mov word [dword ebx+word_1CD2F6], dx
+        mov word [dword ebx+LinkPacketQueues+3Ch], dx
 .1:
         mov ebx, esi
         shl ebx, 5
         add ebx, esi
-        inc word [nosplit ebx*2+word_1CD2FA]
+        inc word [nosplit ebx*2+LinkPacketQueues+40h]
         pop esi
         pop ecx
         pop ebx
@@ -12574,19 +12574,19 @@ SendLinkPacket:
         shl eax, 5
         lea ebx, [esi+eax]
         add ebx, ebx
-        mov ax, word [dword ebx+word_1CD2F6]
-        cmp ax, word [dword ebx+word_1CD2F8]
+        mov ax, word [dword ebx+LinkPacketQueues+3Ch]
+        cmp ax, word [dword ebx+LinkPacketQueues+3Eh]
         je short .2
         test edx, edx
         je short .1
         push byte 6
         push edx
-        mov edx, dword [dword ebx+dword_1CD2F4]
+        mov edx, dword [dword ebx+LinkPacketQueues+3Ah]
         sar edx, 10h
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
         lea edx, [eax+eax]
-        mov eax, unk_1CD2BA
+        mov eax, LinkPacketQueues
         add eax, ebx
         add eax, edx
         push eax
@@ -12597,17 +12597,17 @@ SendLinkPacket:
         shl ebx, 5
         add ebx, esi
         add ebx, ebx
-        mov edx, dword [dword ebx+dword_1CD2F4]
+        mov edx, dword [dword ebx+LinkPacketQueues+3Ah]
         sar edx, 10h
         inc edx
         mov esi, 0Ah
         mov eax, edx
         sar edx, 1Fh
         idiv esi
-        mov si, word [dword ebx+word_1CD2FA]
-        mov word [dword ebx+word_1CD2F6], dx
+        mov si, word [dword ebx+LinkPacketQueues+40h]
+        mov word [dword ebx+LinkPacketQueues+3Ch], dx
         dec esi
-        mov word [dword ebx+word_1CD2FA], si
+        mov word [dword ebx+LinkPacketQueues+40h], si
 .2:
         pop esi
         pop ecx
@@ -12634,28 +12634,28 @@ SendLinkPacket:
         push edi
         push ebp
         xor ebx, ebx
-        mov edx, dword [dword_1CD29C]
+        mov edx, dword [LinkRecvOffset]
         mov bl, byte [byte eax+01h]
-        mov ecx, dword [dword_1CD2A0]
+        mov ecx, dword [LinkRecvSize]
         add edx, ebx
         cmp edx, ecx
         jg short .4
         push ebx
-        mov esi, dword [dword_1CD288]
+        mov esi, dword [LinkSendBuffer]
         push esi
         add eax, byte 2
         push eax
         call bcopy
-        mov edi, dword [dword_1CD288]
-        mov ebp, dword [dword_1CD29C]
+        mov edi, dword [LinkSendBuffer]
+        mov ebp, dword [LinkRecvOffset]
         add esp, byte 0Ch
         add edi, ebx
         add ebp, ebx
-        mov dword [dword_1CD288], edi
-        mov dword [dword_1CD29C], ebp
+        mov dword [LinkSendBuffer], edi
+        mov dword [LinkRecvOffset], ebp
 .4:
-        mov edx, dword [dword_1CD2A0]
-        cmp edx, dword [dword_1CD29C]
+        mov edx, dword [LinkRecvSize]
+        cmp edx, dword [LinkRecvOffset]
         jne short .5
         mov dword [dword_16DAB4], 1
 .5:
@@ -12690,28 +12690,28 @@ ResendLinkPacket:
         cmp eax, byte 4
         jne near .4
         xor ebx, ebx
-        mov eax, dword [dword_1CD29C]
+        mov eax, dword [LinkRecvOffset]
         mov bl, byte [byte edx+01h]
-        mov ecx, dword [dword_1CD2A0]
+        mov ecx, dword [LinkRecvSize]
         add eax, ebx
         cmp eax, ecx
         jg short .2
         push ebx
-        mov esi, dword [dword_1CD288]
+        mov esi, dword [LinkSendBuffer]
         push esi
         add edx, byte 2
         push edx
         call bcopy
-        mov edi, dword [dword_1CD288]
-        mov ebp, dword [dword_1CD29C]
+        mov edi, dword [LinkSendBuffer]
+        mov ebp, dword [LinkRecvOffset]
         add esp, byte 0Ch
         add edi, ebx
         add ebp, ebx
-        mov dword [dword_1CD288], edi
-        mov dword [dword_1CD29C], ebp
+        mov dword [LinkSendBuffer], edi
+        mov dword [LinkRecvOffset], ebp
 .2:
-        mov edx, dword [dword_1CD2A0]
-        cmp edx, dword [dword_1CD29C]
+        mov edx, dword [LinkRecvSize]
+        cmp edx, dword [LinkRecvOffset]
         jne short .4
         mov dword [dword_16DAB4], 1
         mov eax, 1
@@ -12784,16 +12784,16 @@ ResetLinkStats:
         call __CHK
         cmp eax, byte 2
         jne short .1
-        mov dword [dword_1CD290], ebx
-        mov dword [dword_1CD280], ecx
-        mov dword [dword_1CD28C], edx
+        mov dword [LinkSentErrors], ebx
+        mov dword [LinkSentPackets], ecx
+        mov dword [LinkSentBytes], edx
         ret
 .1:
         cmp eax, byte 1
         jne short .2
-        mov dword [dword_1CD298], ebx
-        mov dword [dword_1CD284], ecx
-        mov dword [dword_1CD294], edx
+        mov dword [LinkRecvErrors], ebx
+        mov dword [LinkRecvPackets], ecx
+        mov dword [LinkRecvBytes], edx
 .2:
         ret
         db 08Bh,0C0h
@@ -12826,7 +12826,7 @@ SyncLinkGame:
         mov eax, dword [tickcount]
         cmp eax, dword [dword_16DABC]
         jle near .11
-        cmp word [dword_1CD402], byte 1
+        cmp word [LinkPacketQueues+148h], byte 1
         jge near .10
         call PresentScreen
         mov dword [esi], 1
@@ -12848,20 +12848,20 @@ SyncLinkGame:
         mov edx, dword [dword_16DAA8]
         shl edx, 2
         add eax, edx
-        mov dword [dword_1CD27C], eax
+        mov dword [LinkPacketBuffer], eax
         xor esi, esi
 .3:
         push byte 6
         lea eax, [byte esp+04h]
         push eax
-        mov eax, dword [dword_1CD2A4]
+        mov eax, dword [LinkHandle]
         push eax
         call PacketLinkSend
         add esp, byte 0Ch
         test eax, eax
         jne near .9
         mov eax, dword [tickcount]
-        cmp eax, dword [dword_1CD27C]
+        cmp eax, dword [LinkPacketBuffer]
         jle near .8
         mov ecx, dword [dword_16DAC8]
         cmp esi, ecx
@@ -12927,14 +12927,14 @@ SyncLinkGame:
         add eax, edx
         mov dword [dword_16DABC], eax
 .11:
-        mov cx, word [word_1CD2F8]
-        mov ax, word [word_1CD2F6]
+        mov cx, word [LinkPacketQueues+3Eh]
+        mov ax, word [LinkPacketQueues+3Ch]
         cmp ax, cx
         setne al
         and eax, 0FFh
         je near .12
-        mov si, word [word_1CD400]
-        mov ax, word [word_1CD3FE]
+        mov si, word [LinkPacketQueues+146h]
+        mov ax, word [LinkPacketQueues+144h]
         cmp ax, si
         setne al
         and eax, 0FFh
@@ -12945,45 +12945,45 @@ SyncLinkGame:
         mov eax, dword [byte esp+01h]
         and eax, 1FF800h
         sar eax, 0Bh
-        mov dword [dword_1CD294], eax
+        mov dword [LinkRecvBytes], eax
         mov eax, dword [byte esp+01h]
         and eax, 7FEh
         sar eax, 1
-        mov dword [dword_1CD298], eax
+        mov dword [LinkRecvErrors], eax
         mov eax, dword [byte esp+01h]
         and eax, byte 1
         mov edx, esp
-        mov dword [dword_1CD284], eax
+        mov dword [LinkRecvPackets], eax
         mov eax, 4
         call SendLinkPacket
         mov eax, dword [byte esp+01h]
         and eax, 1FF800h
         sar eax, 0Bh
-        mov dword [dword_1CD28C], eax
+        mov dword [LinkSentBytes], eax
         mov eax, dword [byte esp+01h]
         and eax, 7FEh
         sar eax, 1
-        mov dword [dword_1CD290], eax
+        mov dword [LinkSentErrors], eax
         mov eax, dword [byte esp+01h]
         mov ecx, 1
         and eax, byte 1
         mov dword [byte esp+08h], ecx
-        mov dword [dword_1CD280], eax
+        mov dword [LinkSentPackets], eax
 .12:
-        mov eax, dword [dword_1CD28C]
+        mov eax, dword [LinkSentBytes]
         mov dword [byte ebp+00h], eax
-        mov eax, dword [dword_1CD290]
+        mov eax, dword [LinkSentErrors]
         mov dword [ebx], eax
-        mov eax, dword [dword_1CD280]
+        mov eax, dword [LinkSentPackets]
         mov dword [edi], eax
         mov edx, dword [byte esp+01Ch]
-        mov eax, dword [dword_1CD294]
+        mov eax, dword [LinkRecvBytes]
         mov dword [edx], eax
         mov edx, dword [byte esp+020h]
-        mov eax, dword [dword_1CD298]
+        mov eax, dword [LinkRecvErrors]
         mov dword [edx], eax
         mov edx, dword [byte esp+024h]
-        mov eax, dword [dword_1CD284]
+        mov eax, dword [LinkRecvPackets]
         mov dword [edx], eax
         mov eax, dword [byte esp+08h]
 .13:
@@ -13027,7 +13027,7 @@ NetInit:
         add esp, byte 0Ch
         push dword 14Ah
         mov ebx, 0BB8h
-        push unk_1CD2BA
+        push LinkPacketQueues
         mov dword [dword_16DAA4], eax
         mov dword [PacketSize], ebx
         call ZeroMem
@@ -13101,14 +13101,14 @@ StartNetworkLink:
         ret
 .2:
         push dword 14Ah
-        push unk_1CD2BA
+        push LinkPacketQueues
         call ZeroMem
         add esp, byte 8
         call InitPacketLink
         test byte [dword esi+08Dh], 1
         je near .4
         mov ebx, 1
-        mov dword [dword_1CD2A8], ebx
+        mov dword [NetConnected], ebx
         mov eax, dword [byte esi+074h]
         and eax, ebx
         mov word [word_16DAB8], ax
@@ -13123,7 +13123,7 @@ StartNetworkLink:
         mov edx, ServiceIdle_34
         push ecx
         lea eax, [byte esi+074h]
-        mov ecx, dword_1CD2A4
+        mov ecx, LinkHandle
         call JoinNetworkGame
         test eax, eax
         jne near .12
@@ -13157,7 +13157,7 @@ StartNetworkLink:
         pop ebx
         ret
 .4:
-        mov dword [dword_1CD2A8], ebx
+        mov dword [NetConnected], ebx
         mov eax, dword [esi]
         and eax, byte 1
         push dword 0FAh
@@ -13180,12 +13180,12 @@ StartNetworkLink:
         call bcopy
         mov edx, 0FFFFFFFFh
         lea eax, [dword esp+0108h]
-        mov ecx, dword_1CD2A4
+        mov ecx, LinkHandle
         add esp, byte 0Ch
-        mov dword [dword_1CD29C], ebx
-        mov dword [dword_1CD2A0], ebp
+        mov dword [LinkRecvOffset], ebx
+        mov dword [LinkRecvSize], ebp
         mov dword [dword_16DAB4], ebx
-        mov dword [dword_1CD288], eax
+        mov dword [LinkSendBuffer], eax
         mov eax, 239h
         mov dword [dword esp+0FCh], edx
         call GetLangText
@@ -13224,7 +13224,7 @@ StartNetworkLink:
         push byte 4
         lea eax, [byte esp+04h]
         push eax
-        mov edi, dword [dword_1CD2A4]
+        mov edi, dword [LinkHandle]
         push edi
         call PacketLinkSend
         add esp, byte 0Ch
@@ -13298,43 +13298,43 @@ StartNetworkLink:
         call dword [PresentFuncInput]
         mov eax, dword [mousex]
         mov si, word [word_16DAB8]
-        mov dword [dword_1CD280], ebx
-        mov dword [dword_1CD28C], eax
+        mov dword [LinkSentPackets], ebx
+        mov dword [LinkSentBytes], eax
         mov eax, dword [mousey]
-        mov dword [dword_1CD284], ebx
-        mov dword [dword_1CD290], eax
+        mov dword [LinkRecvPackets], ebx
+        mov dword [LinkSentErrors], eax
         test si, si
         je short .13
         mov edx, 4
-        mov eax, dword_1CD28C
+        mov eax, LinkSentBytes
         call LinkSendBlock
         mov edx, 4
-        mov eax, dword_1CD290
+        mov eax, LinkSentErrors
         xor ebx, ebx
         call LinkSendBlock
         mov edx, 4
-        mov eax, dword_1CD294
+        mov eax, LinkRecvBytes
         xor ebx, ebx
         call LinkReceiveBlock
         mov edx, 4
-        mov eax, dword_1CD298
+        mov eax, LinkRecvErrors
         xor ebx, ebx
         call LinkReceiveBlock
         jmp short .14
 .13:
         mov edx, 4
-        mov eax, dword_1CD294
+        mov eax, LinkRecvBytes
         call LinkReceiveBlock
         mov edx, 4
-        mov eax, dword_1CD298
+        mov eax, LinkRecvErrors
         xor ebx, ebx
         call LinkReceiveBlock
         mov edx, 4
-        mov eax, dword_1CD28C
+        mov eax, LinkSentBytes
         xor ebx, ebx
         call LinkSendBlock
         mov edx, 4
-        mov eax, dword_1CD290
+        mov eax, LinkSentErrors
         xor ebx, ebx
         call LinkSendBlock
 .14:
@@ -13366,7 +13366,7 @@ NetDisconnect:
         je short .3
         mov eax, str_Disconnecting
         call ShowLinkMessage
-        cmp dword [dword_1CD2A8], byte 0
+        cmp dword [NetConnected], byte 0
         je short .1
         call CloseNetConnection
         call LeaveNetGame
@@ -13441,7 +13441,7 @@ LinkHandshake:
         mov eax, dword [tickcount]
         add eax, byte 19h
         mov dx, word [word_16DAB8]
-        mov dword [dword_1CD27C], eax
+        mov dword [LinkPacketBuffer], eax
         test dx, dx
         je near .13
         xor esi, esi
@@ -13449,7 +13449,7 @@ LinkHandshake:
         push byte 6
         lea eax, [byte esp+04h]
         push eax
-        mov edx, dword [dword_1CD2A4]
+        mov edx, dword [LinkHandle]
         push edx
         call PacketLinkSend
         add esp, byte 0Ch
@@ -13472,7 +13472,7 @@ LinkHandshake:
         mov dword [dword_16DAC4], eax
 .5:
         mov eax, dword [tickcount]
-        cmp eax, dword [dword_1CD27C]
+        cmp eax, dword [LinkPacketBuffer]
         jle short .4
         test ebx, ebx
         je short .4
@@ -13514,7 +13514,7 @@ LinkHandshake:
         mov dword [dword_16DAC4], eax
 .10:
         mov eax, dword [tickcount]
-        cmp eax, dword [dword_1CD27C]
+        cmp eax, dword [LinkPacketBuffer]
         jle short .9
         test ebx, ebx
         je short .9
@@ -13556,7 +13556,7 @@ LinkHandshake:
         mov dword [dword_16DAC4], eax
 .15:
         mov eax, dword [tickcount]
-        cmp eax, dword [dword_1CD27C]
+        cmp eax, dword [LinkPacketBuffer]
         jle short .14
         test ebx, ebx
         je short .14
@@ -13584,7 +13584,7 @@ LinkHandshake:
         push byte 6
         lea eax, [byte esp+04h]
         push eax
-        mov edi, dword [dword_1CD2A4]
+        mov edi, dword [LinkHandle]
         push edi
         call PacketLinkSend
         add esp, byte 0Ch
@@ -13607,7 +13607,7 @@ LinkHandshake:
         mov dword [dword_16DAC4], eax
 .20:
         mov eax, dword [tickcount]
-        cmp eax, dword [dword_1CD27C]
+        cmp eax, dword [LinkPacketBuffer]
         jle short .19
         test ebx, ebx
         je short .19
@@ -13696,11 +13696,11 @@ ClearLinkInputs:
         push ecx
         push edx
         push byte 42h
-        push unk_1CD2FC
+        push LinkPacketQueues+42h
         call ZeroMem
         add esp, byte 8
         push byte 42h
-        push unk_1CD380
+        push LinkPacketQueues+0C6h
         call ZeroMem
         add esp, byte 8
         pop edx
@@ -13720,7 +13720,7 @@ LinkInputTick:
         push ebp
         mov edx, 1
         mov ebx, dword [dword_16DAA0]
-        mov dword [dword_1CD26C], edx
+        mov dword [LinkInputChanged], edx
         test ebx, ebx
         jne short .1
         xor eax, eax
@@ -13737,20 +13737,20 @@ LinkInputTick:
         pop ebx
         ret
 .2:
-        cmp word [word_1CD3C0], byte 4
+        cmp word [LinkPacketQueues+106h], byte 4
         jge near .6
         test eax, eax
         jne near .6
         mov ebx, 2000h
         mov edi, 8
-        mov dword [dword_1CD268], eax
-        mov dword [dword_1CD264], eax
-        mov dword [dword_1CD274], eax
-        mov dword [dword_1CD2B6], eax
+        mov dword [LinkInputTickCount], eax
+        mov dword [LinkInputSent], eax
+        mov dword [LinkInputAck], eax
+        mov dword [LinkInputState], eax
         xor edx, edx
-        mov word [word_1CD2B4], bx
+        mov word [LinkLocalInput], bx
 .3:
-        mov ecx, dword [dword_1CD268]
+        mov ecx, dword [LinkInputTickCount]
         add ecx, ecx
         mov ax, word [dword ecx+SlotWords]
         xor al, al
@@ -13766,70 +13766,70 @@ LinkInputTick:
         mov ax, word [dword ecx+SlotWords]
         xor ah, ah
         and al, 7Fh
-        mov ebx, dword [dword_1CD2B6]
+        mov ebx, dword [LinkInputState]
         and eax, 0FFFFh
         mov cl, dl
-        mov dword [dword_1CD274], eax
+        mov dword [LinkInputAck], eax
         add edx, byte 7
         shl eax, cl
-        mov ecx, dword [dword_1CD264]
+        mov ecx, dword [LinkInputSent]
         or ebx, eax
         inc ecx
-        mov dword [dword_1CD2B6], ebx
-        mov dword [dword_1CD264], ecx
+        mov dword [LinkInputState], ebx
+        mov dword [LinkInputSent], ecx
         cmp ecx, byte 4
         jne short .4
-        mov dword [dword_1CD268], edi
+        mov dword [LinkInputTickCount], edi
 .4:
-        mov ebp, dword [dword_1CD268]
+        mov ebp, dword [LinkInputTickCount]
         inc ebp
-        mov dword [dword_1CD268], ebp
+        mov dword [LinkInputTickCount], ebp
         cmp ebp, byte 8
         jl near .3
         xor eax, eax
         mov ax, word [HotKeyFlags]
         mov edx, eax
-        mov ebx, dword [dword_1CD2B6]
+        mov ebx, dword [LinkInputState]
         shl edx, 1Ch
         or ebx, edx
         mov edx, eax
-        mov eax, dword [dword_1CD2B2]
+        mov eax, dword [LinkRemoteInput]
         sar edx, 4
         sar eax, 10h
         or eax, edx
-        mov word [word_1CD2B4], ax
-        mov eax, dword [dword_1CD2B2]
+        mov word [LinkLocalInput], ax
+        mov eax, dword [LinkRemoteInput]
         push byte 6
         sar eax, 10h
-        mov ecx, dword [dword_1CD2A4]
+        mov ecx, dword [LinkHandle]
         mov edx, eax
-        push word_1CD2B4
+        push LinkLocalInput
         sar edx, 8
         shl eax, 8
         and edx, 0FFh
         push ecx
         or eax, edx
-        mov dword [dword_1CD2B6], ebx
-        mov word [word_1CD2B4], ax
+        mov dword [LinkInputState], ebx
+        mov word [LinkLocalInput], ax
         call PacketLinkSend
         add esp, byte 0Ch
         test eax, eax
         je short .5
-        mov edx, word_1CD2B4
+        mov edx, LinkLocalInput
         mov eax, 3
         call QueueLinkPacket
         jmp short .6
 .5:
-        mov dword [dword_1CD26C], eax
+        mov dword [LinkInputChanged], eax
 .6:
-        mov cx, word [word_1CD3BE]
-        mov ax, word [word_1CD3BC]
+        mov cx, word [LinkPacketQueues+104h]
+        mov ax, word [LinkPacketQueues+102h]
         cmp ax, cx
         setne al
         and eax, 0FFh
         je near .10
-        mov si, word [word_1CD33A]
-        mov ax, word [word_1CD338]
+        mov si, word [LinkPacketQueues+80h]
+        mov ax, word [LinkPacketQueues+7Eh]
         cmp ax, si
         setne al
         and eax, 0FFh
@@ -13840,21 +13840,21 @@ LinkInputTick:
         test ebp, ebp
         jne near .10
         mov dword [dword_16D918], 1
-        mov edx, word_1CD2B4
+        mov edx, LinkLocalInput
         mov eax, 3
         call SendLinkPacket
-        mov eax, dword [dword_1CD2B2]
+        mov eax, dword [LinkRemoteInput]
         sar eax, 10h
         mov edx, eax
         sar edx, 8
         shl eax, 8
         and edx, 0FFh
         or eax, edx
-        mov edx, word_1CD2AC
-        mov word [word_1CD2B4], ax
+        mov edx, LinkInputPacket
+        mov word [LinkLocalInput], ax
         mov eax, 1
         call SendLinkPacket
-        mov eax, dword [dword_1CD2AA]
+        mov eax, dword [LinkInputWordPad]
         sar eax, 10h
         mov edx, eax
         sar edx, 8
@@ -13862,40 +13862,40 @@ LinkInputTick:
         and edx, 0FFh
         or eax, edx
         mov edx, dword [InputRecordHead]
-        mov word [word_1CD2AC], ax
+        mov word [LinkInputPacket], ax
         lea eax, [nosplit edx*4+00h]
         add eax, edx
         mov edx, InputRecordRing
         shl eax, 2
         add edx, eax
-        mov eax, dword [dword_1CD2B6]
+        mov eax, dword [LinkInputState]
         sar eax, 1Ch
-        mov dword [dword_1CD270], edx
+        mov dword [LinkRemoteFlags], edx
         movsx edx, ax
-        mov eax, dword [dword_1CD2B2]
+        mov eax, dword [LinkRemoteInput]
         sar eax, 10h
         shl eax, 4
         or eax, edx
-        mov edx, dword [dword_1CD2AE]
+        mov edx, dword [LinkInputHigh]
         sar edx, 1Ch
         movsx ecx, dx
-        mov edx, dword [dword_1CD2AA]
+        mov edx, dword [LinkInputWordPad]
         sar edx, 10h
         shl edx, 4
         or edx, ecx
         or eax, edx
-        mov edx, dword [dword_1CD270]
+        mov edx, dword [LinkRemoteFlags]
         mov word [byte edx+010h], ax
-        mov dword [dword_1CD264], ebp
-        mov dword [dword_1CD278], ebp
-        mov dword [dword_1CD268], ebp
+        mov dword [LinkInputSent], ebp
+        mov dword [LinkInputResend], ebp
+        mov dword [LinkInputTickCount], ebp
 .7:
-        mov eax, dword [dword_1CD268]
+        mov eax, dword [LinkInputTickCount]
         mov cx, word [nosplit eax*2+SlotWords]
-        mov edx, dword [dword_1CD270]
+        mov edx, dword [LinkRemoteFlags]
         and cl, 80h
         mov word [edx+eax*2], cx
-        mov ecx, dword [dword_1CD268]
+        mov ecx, dword [LinkInputTickCount]
         add ecx, ecx
         mov ax, word [dword ecx+SlotWords]
         xor al, al
@@ -13906,45 +13906,45 @@ LinkInputTick:
         je near .9
         cmp eax, byte 1
         jne short .8
-        mov eax, dword [dword_1CD270]
-        mov edx, dword [dword_1CD278]
+        mov eax, dword [LinkRemoteFlags]
+        mov edx, dword [LinkInputResend]
         add eax, ecx
         imul ecx, edx, byte 7
-        mov edx, dword [dword_1CD2AE]
+        mov edx, dword [LinkInputHigh]
         sar edx, cl
         mov bx, word [eax]
         and edx, byte 7Fh
         or ebx, edx
         mov word [eax], bx
-        mov ebx, dword [dword_1CD278]
+        mov ebx, dword [LinkInputResend]
         cmp ebx, byte 3
         jge short .9
         lea ecx, [byte ebx+01h]
-        mov dword [dword_1CD278], ecx
+        mov dword [LinkInputResend], ecx
         jmp short .9
 .8:
-        mov eax, dword [dword_1CD270]
-        mov esi, dword [dword_1CD264]
+        mov eax, dword [LinkRemoteFlags]
+        mov esi, dword [LinkInputSent]
         add eax, ecx
         imul ecx, esi, byte 7
-        mov edx, dword [dword_1CD2B6]
+        mov edx, dword [LinkInputState]
         sar edx, cl
         mov di, word [eax]
         and edx, byte 7Fh
         or edi, edx
         mov word [eax], di
-        mov edi, dword [dword_1CD264]
+        mov edi, dword [LinkInputSent]
         cmp edi, byte 3
         jge short .9
         lea ebp, [byte edi+01h]
-        mov dword [dword_1CD264], ebp
+        mov dword [LinkInputSent], ebp
 .9:
-        mov esi, dword [dword_1CD268]
+        mov esi, dword [LinkInputTickCount]
         inc esi
-        mov dword [dword_1CD268], esi
+        mov dword [LinkInputTickCount], esi
         cmp esi, byte 8
         jl near .7
-        mov eax, dword [dword_1CD270]
+        mov eax, dword [LinkRemoteFlags]
         mov dx, word [dword_16DAA8]
         mov word [byte eax+012h], dx
         mov edx, dword [InputRecordHead]
@@ -13960,7 +13960,7 @@ LinkInputTick:
         xor eax, eax
         mov dword [dword_16D918], eax
 .10:
-        mov eax, dword [dword_1CD26C]
+        mov eax, dword [LinkInputChanged]
 .11:
         pop ebp
         pop edi
@@ -14056,7 +14056,7 @@ LinkSendBlock:
         push ebx
         lea eax, [byte esp+04h]
         push eax
-        mov ecx, dword [dword_1CD2A4]
+        mov ecx, dword [LinkHandle]
         push ecx
         call PacketLinkSend
         add esp, byte 0Ch
@@ -14099,7 +14099,7 @@ LinkSendBlock:
         push byte 2
         lea eax, [byte esp+04h]
         push eax
-        mov edx, dword [dword_1CD2A4]
+        mov edx, dword [LinkHandle]
         push edx
         call PacketLinkSend
         add esp, byte 0Ch
@@ -14158,9 +14158,9 @@ LinkReceiveBlock:
         push eax
         call ZeroMem
         add esp, byte 8
-        mov dword [dword_1CD288], esi
-        mov dword [dword_1CD29C], ebx
-        mov dword [dword_1CD2A0], edi
+        mov dword [LinkSendBuffer], esi
+        mov dword [LinkRecvOffset], ebx
+        mov dword [LinkRecvSize], edi
         xor edx, edx
         xor eax, eax
         mov dword [dword_16DAB4], ebx
@@ -14186,7 +14186,7 @@ LinkReceiveBlock:
 .2:
         cmp dword [esp], byte 0
         je short .3
-        mov eax, dword [dword_1CD29C]
+        mov eax, dword [LinkRecvOffset]
         call dword [esp]
 .3:
         mov eax, dword [tickcount]
@@ -14471,9 +14471,9 @@ WaitForOtherComputer:
         call LinkHandshake
         push byte 42h
         xor edx, edx
-        push unk_1CD33E
-        mov word [word_1CD404], dx
-        mov word [word_1CD406], dx
+        push LinkPacketQueues+84h
+        mov word [LinkWaitCount], dx
+        mov word [LinkWaitTimer], dx
         call ZeroMem
         add esp, byte 8
         xor ebx, ebx
@@ -14620,20 +14620,20 @@ WaitForOtherComputer:
         cmp ecx, byte 8
         jne near .24
 .16:
-        mov edi, dword [dword_1CD402]
+        mov edi, dword [LinkPacketQueues+148h]
         sar edi, 10h
         lea edx, [byte edi+01h]
         mov ecx, 14h
         mov eax, edx
         sar edx, 1Fh
         idiv ecx
-        mov eax, dword [word_1CD404]
+        mov eax, dword [LinkWaitCount]
         sar eax, 10h
         cmp edx, eax
         je near .24
         mov al, byte [dword esp+0188h]
-        mov word [word_1CD404], dx
-        mov byte [dword edi+byte_1CD250], al
+        mov word [LinkWaitCount], dx
+        mov byte [dword edi+LinkPlayerReady], al
         call SetScreenTarget
         push dword 0FF000000h
         call MakeColor
@@ -14660,16 +14660,16 @@ WaitForOtherComputer:
         mov eax, esp
         mov edx, dword [dword esp+0188h]
         call strlen_
-        mov dword [dword_1CD268], eax
+        mov dword [LinkInputTickCount], eax
         cmp edx, byte 8
         je short .17
         lea edx, [byte eax+01h]
-        mov dword [dword_1CD268], edx
+        mov dword [LinkInputTickCount], edx
         mov dl, byte [dword esp+0188h]
         mov ecx, dword [dword esp+0180h]
         mov byte [esp+eax], dl
         mov edi, dword [dword esp+0184h]
-        mov eax, dword [dword_1CD268]
+        mov eax, dword [LinkInputTickCount]
         xor dl, dl
         push ecx
         mov byte [byte esp+eax+04h], dl
@@ -14691,7 +14691,7 @@ WaitForOtherComputer:
         test eax, eax
         jle short .18
         dec eax
-        mov dword [dword_1CD268], eax
+        mov dword [LinkInputTickCount], eax
         mov al, byte [esp+eax]
         mov byte [dword esp+019Ch], al
         lea eax, [dword esp+019Ch]
@@ -14717,7 +14717,7 @@ WaitForOtherComputer:
         mov edx, dword [dword esp+0194h]
         push edx
         call FillRect
-        mov eax, dword [dword_1CD268]
+        mov eax, dword [LinkInputTickCount]
         add esp, byte 14h
         xor ch, ch
         mov byte [esp+eax], ch
@@ -14821,7 +14821,7 @@ WaitForOtherComputer:
         je short .26
         cmp dword [dword esp+0188h], byte 1Bh
         je short .26
-        mov edi, dword [dword_1CD402]
+        mov edi, dword [LinkPacketQueues+148h]
         mov ecx, 14h
         sar edi, 10h
         xor eax, eax
@@ -14830,13 +14830,13 @@ WaitForOtherComputer:
         mov eax, edx
         sar edx, 1Fh
         idiv ecx
-        mov eax, dword [word_1CD404]
+        mov eax, dword [LinkWaitCount]
         sar eax, 10h
         cmp edx, eax
         je short .25
         mov cl, 1Bh
-        mov word [word_1CD404], dx
-        mov byte [dword edi+byte_1CD250], cl
+        mov word [LinkWaitCount], dx
+        mov byte [dword edi+LinkPlayerReady], cl
 .25:
         mov dword [dword esp+0188h], 1Bh
 .26:
@@ -14844,8 +14844,8 @@ WaitForOtherComputer:
         mov eax, dword [tickcount]
         cmp eax, ecx
         jle near .37
-        mov cx, word [word_1CD404]
-        mov ax, word [word_1CD406]
+        mov cx, word [LinkWaitCount]
+        mov ax, word [LinkWaitTimer]
         cmp ax, cx
         je near .37
         xor edi, edi
@@ -14856,12 +14856,12 @@ WaitForOtherComputer:
 .27:
         cmp dword [dword esp+0198h], byte 4
         jge short .28
-        mov eax, dword [word_1CD404]
+        mov eax, dword [LinkWaitCount]
         sar eax, 10h
         mov edx, dword [dword esp+0198h]
-        mov al, byte [dword eax+byte_1CD250]
+        mov al, byte [dword eax+LinkPlayerReady]
         mov byte [dword esp+edx+014Ah], al
-        mov edx, dword [word_1CD404]
+        mov edx, dword [LinkWaitCount]
         sar edx, 10h
         inc edx
         mov eax, edx
@@ -14869,10 +14869,10 @@ WaitForOtherComputer:
         idiv edi
         mov eax, dword [dword esp+0198h]
         inc eax
-        mov word [word_1CD406], dx
+        mov word [LinkWaitTimer], dx
         mov dword [dword esp+0198h], eax
         mov eax, edx
-        cmp ax, word [word_1CD404]
+        cmp ax, word [LinkWaitCount]
         jne short .27
 .28:
         mov al, byte [dword esp+0198h]
@@ -14885,13 +14885,13 @@ WaitForOtherComputer:
         mov edx, dword [dword_16DAA8]
         shl edx, 2
         add eax, edx
-        mov dword [dword_1CD27C], eax
+        mov dword [LinkPacketBuffer], eax
         xor edi, edi
 .29:
         push byte 6
         lea eax, [dword esp+014Ch]
         push eax
-        mov ecx, dword [dword_1CD2A4]
+        mov ecx, dword [LinkHandle]
         push ecx
         call PacketLinkSend
         add esp, byte 0Ch
@@ -14959,16 +14959,16 @@ WaitForOtherComputer:
         add edx, eax
         mov dword [dword esp+0178h], edx
 .37:
-        mov cx, word [word_1CD37C]
-        cmp cx, word [word_1CD37A]
+        mov cx, word [LinkPacketQueues+0C2h]
+        cmp cx, word [LinkPacketQueues+0C0h]
         je near .47
-        mov eax, dword [word_1CD37A]
+        mov eax, dword [LinkPacketQueues+0C0h]
         xor ecx, ecx
         sar eax, 10h
         mov dword [dword esp+0164h], ecx
         mov dword [dword esp+018Ch], eax
 .38:
-        mov eax, dword [dword_1CD378]
+        mov eax, dword [LinkPacketQueues+0BEh]
         mov edi, dword [dword esp+018Ch]
         sar eax, 10h
         cmp eax, edi
@@ -15017,14 +15017,14 @@ WaitForOtherComputer:
         je near .41
         lea eax, [dword esp+0A0h]
         call strlen_
-        mov dword [dword_1CD268], eax
+        mov dword [LinkInputTickCount], eax
         cmp edx, byte 8
         je short .40
         lea edx, [byte eax+01h]
-        mov dword [dword_1CD268], edx
+        mov dword [LinkInputTickCount], edx
         mov dl, byte [dword esp+0164h]
         mov byte [dword esp+eax+0A0h], dl
-        mov eax, dword [dword_1CD268]
+        mov eax, dword [LinkInputTickCount]
         xor dl, dl
         push esi
         mov byte [dword esp+eax+0A4h], dl
@@ -15045,7 +15045,7 @@ WaitForOtherComputer:
         test eax, eax
         jle short .41
         dec eax
-        mov dword [dword_1CD268], eax
+        mov dword [LinkInputTickCount], eax
         mov al, byte [dword esp+eax+0A0h]
         mov byte [dword esp+019Ch], al
         lea eax, [dword esp+019Ch]
@@ -15067,7 +15067,7 @@ WaitForOtherComputer:
         push esi
         push ebx
         call FillRect
-        mov eax, dword [dword_1CD268]
+        mov eax, dword [LinkInputTickCount]
         add esp, byte 14h
         xor ch, ch
         mov byte [dword esp+eax+0A0h], ch
@@ -15213,28 +15213,28 @@ InitNetSession:
 .1:
         push byte 58h
         mov ebx, 0Ah
-        push unk_1CD408
+        push NetSessionState
         mov edi, 3
         mov ebp, 1
         call ZeroMem
         mov eax, dword [dword_16DAD2]
         add esp, byte 8
-        mov dword [dword_1CD43C], ebx
-        mov dword [dword_1CD448], edi
+        mov dword [NetSessionState+34h], ebx
+        mov dword [NetSessionState+40h], edi
         xor edx, edx
         push byte 4
-        mov dword [dword_1CD450], ebp
-        mov dword [dword_1CD434], edx
+        mov dword [NetSessionState+48h], ebp
+        mov dword [NetSessionState+2Ch], edx
         push dword 0FAh
         sar eax, 10h
         push edx
-        mov dword [dword_1CD440], edx
+        mov dword [NetSessionState+38h], edx
         mov eax, dword [nosplit eax*2+dword_16DACA]
         push byte 20h
         sar eax, 10h
         push edx
-        mov dword [dword_1CD444], edx
-        mov dword [dword_1CD438], eax
+        mov dword [NetSessionState+3Ch], edx
+        mov dword [NetSessionState+30h], eax
         call OpenSerialPacketLink
         add esp, byte 14h
         push byte 4
@@ -15308,7 +15308,7 @@ OpenNetSession:
 .3:
         mov eax, dword [byte eax+02h]
         sar eax, 10h
-        mov dword [dword_1CD434], eax
+        mov dword [NetSessionState+2Ch], eax
         mov dx, word [word_16DACE]
         mov ax, word [byte esi+06h]
         cmp ax, dx
@@ -15329,7 +15329,7 @@ OpenNetSession:
         mov eax, 1
         sar ecx, 10h
         shl eax, cl
-        mov dword [dword_1CD438], eax
+        mov dword [NetSessionState+30h], eax
         cmp word [byte esi+08h], byte 9
         jge short .5
         xor eax, eax
@@ -15340,52 +15340,52 @@ OpenNetSession:
 .5:
         mov eax, dword [byte esi+06h]
         sar eax, 10h
-        mov dword [dword_1CD43C], eax
+        mov dword [NetSessionState+34h], eax
         mov eax, dword [byte esi+0Ah]
         sar eax, 10h
-        mov dword [dword_1CD450], eax
+        mov dword [NetSessionState+48h], eax
         cmp word [byte esi+0Ah], byte 0
         je short .6
         xor eax, eax
-        mov dword [dword_1CD458], eax
-        mov dword [dword_1CD45C], eax
-        mov dword [dword_1CD454], eax
+        mov dword [NetSessionState+50h], eax
+        mov dword [NetSessionState+54h], eax
+        mov dword [NetSessionState+4Ch], eax
         jmp short .8
 .6:
         lea eax, [byte esi+024h]
-        mov dword [dword_1CD454], eax
+        mov dword [NetSessionState+4Ch], eax
         test byte [esi], 1
         je short .7
         xor edx, edx
-        mov dword [dword_1CD45C], edx
-        mov dword [dword_1CD458], edx
+        mov dword [NetSessionState+54h], edx
+        mov dword [NetSessionState+50h], edx
         jmp short .8
 .7:
         lea eax, [byte esi+04Ch]
-        mov dword [dword_1CD458], eax
+        mov dword [NetSessionState+50h], eax
         lea eax, [byte esi+010h]
-        mov dword [dword_1CD45C], eax
+        mov dword [NetSessionState+54h], eax
 .8:
         push byte 28h
-        push unk_1CD408
+        push NetSessionState
         call ZeroMem
         add esp, byte 8
         xor eax, eax
-        mov dword [dword_1CD428], edi
-        mov dword [dword_1CD40C], eax
-        mov dword [dword_1CD410], eax
-        mov dword [dword_1CD414], eax
-        mov dword [dword_1CD418], eax
+        mov dword [NetSessionState+20h], edi
+        mov dword [NetSessionState+4], eax
+        mov dword [NetSessionState+8], eax
+        mov dword [NetSessionState+0Ch], eax
+        mov dword [NetSessionState+10h], eax
         mov eax, dword [byte esp+010h]
-        mov dword [dword_1CD41C], ebp
-        mov dword [dword_1CD42C], eax
+        mov dword [NetSessionState+14h], ebp
+        mov dword [NetSessionState+24h], eax
         cmp word [byte esi+0Ah], byte 0
         je short .9
         push byte 4
         push dword 0FAh
         push byte 0
         push byte 20h
-        push unk_1CD408
+        push NetSessionState
         call OpenSerialPacketLink
         add esp, byte 14h
         test eax, eax
@@ -15399,7 +15399,7 @@ OpenNetSession:
         push dword 0FAh
         push byte 0
         push byte 20h
-        push unk_1CD408
+        push NetSessionState
         call OpenModemPacketLink
         add esp, byte 14h
         test eax, eax
@@ -15408,11 +15408,11 @@ OpenNetSession:
         mov esi, 1
         xor ecx, ecx
         mov edx, 20h
-        mov dword [dword_1CD41C], ecx
+        mov dword [NetSessionState+14h], ecx
         mov word [word_16E0FA], si
         mov dword [str_Punct_ModemSettingsScreen], edx
         mov eax, 1
-        mov dword [ebx], unk_1CD408
+        mov dword [ebx], NetSessionState
 .11:
         pop ebp
         pop edi
@@ -15430,7 +15430,7 @@ CloseNetSession:
         je short .1
         cmp word [word_16E0FA], byte 0
         je short .1
-        push unk_1CD408
+        push NetSessionState
         call ClosePacketLink
         xor ecx, ecx
         add esp, byte 4
@@ -15459,7 +15459,7 @@ ShutdownNetSession:
         je short .1
         test bx, bx
         je short .1
-        push unk_1CD408
+        push NetSessionState
         call ClosePacketLink
         xor edi, edi
         add esp, byte 4
@@ -15718,7 +15718,7 @@ IpxCloseSocket:
         test bx, bx
         jl short .1
         jl short .1
-        push unk_1CD480
+        push NetSocket
         mov esi, 0FFFFFFFFh
         call NetCloseSession
         add esp, byte 4
@@ -15752,7 +15752,7 @@ HostNetGame:
         push esi
         mov esi, eax
         mov ebx, 12h
-        mov eax, unk_1CD636
+        mov eax, NetHostName
         call strncpy_
         cmp word [word_16E10A], byte 0
         jl short .1
@@ -15773,7 +15773,7 @@ HostNetGame:
         ret
 .2:
         push dword 0C0h
-        push unk_1CD480
+        push NetSocket
         call ZeroMem
         mov edx, esi
         lea eax, [nosplit edx*4+00h]
@@ -15781,13 +15781,13 @@ HostNetGame:
         add eax, edx
         mov edx, dword [dword_16E124]
         shl eax, 4
-        push unk_1CD636
+        push NetHostName
         add eax, edx
-        push unk_1CD636
+        push NetHostName
         add eax, byte 40h
         push eax
         push unk_16E110
-        push unk_1CD480
+        push NetSocket
         call NetOpenSession
         add esp, byte 14h
         test eax, eax
@@ -15810,7 +15810,7 @@ LeaveNetGame:
         push edx
         cmp word [word_16E10A], byte 0
         jl short .1
-        push unk_1CD480
+        push NetSocket
         mov ebx, 0FFFFFFFFh
         call NetCloseSession
         add esp, byte 4
@@ -15832,7 +15832,7 @@ AddFoundGame:
         push ebp
         sub esp, byte 4
         mov ebp, dword [byte esp+01Ch]
-        cmp word [word_1CD634], byte 10h
+        cmp word [NetGameCount], byte 10h
         jl short .1
         xor eax, eax
         jmp near .8
@@ -15843,7 +15843,7 @@ AddFoundGame:
         test eax, eax
         jne near .7
         mov bx, word [word_16E12C]
-        mov ax, word [word_1CD634]
+        mov ax, word [NetGameCount]
         cmp ax, bx
         jge near .7
         cmp dword [dword_16E130], byte 0
@@ -15852,7 +15852,7 @@ AddFoundGame:
         xor ebx, ebx
         xor esi, esi
 .2:
-        mov eax, dword [dword_1CD632]
+        mov eax, dword [NetGameCountPad]
         sar eax, 10h
         cmp esi, eax
         jge short .3
@@ -15869,7 +15869,7 @@ AddFoundGame:
 .3:
         test edx, edx
         je near .7
-        mov eax, dword [dword_1CD632]
+        mov eax, dword [NetGameCountPad]
         sar eax, 10h
         cmp esi, eax
         jge short .5
@@ -15923,7 +15923,7 @@ AddFoundGame:
         movsd
         movsd
         movsd
-        inc word [word_1CD634]
+        inc word [NetGameCount]
         mov eax, 1
         add esp, byte 4
         pop ebp
@@ -15934,7 +15934,7 @@ AddFoundGame:
 .6:
         mov ecx, eax
         inc ecx
-        mov word [word_1CD634], cx
+        mov word [NetGameCount], cx
 .7:
         mov eax, 1
 .8:
@@ -15966,19 +15966,19 @@ FindNetworkGames:
         mov ebx, 3E8h
         xor edx, edx
         mov eax, 2
-        mov word [word_1CD634], dx
+        mov word [NetGameCount], dx
         mov word [word_16E12C], bx
         call SecondsToSamples
         call WaitSoundTime
         push byte 1Eh
         push AddFoundGame
-        push unk_1CD480
+        push NetSocket
         call NetAnnounce
         add esp, byte 0Ch
         mov eax, dword [tickcount]
         lea ebx, [byte eax+05h]
         call ServiceIdle
-        mov cx, word [word_1CD634]
+        mov cx, word [NetGameCount]
         test cx, cx
         jle near .4
         mov word [word_16E12C], cx
@@ -15993,7 +15993,7 @@ FindNetworkGames:
         push eax
         xor esi, esi
         push str_GAMEADDR
-        mov word [word_1CD634], si
+        mov word [NetGameCount], si
         call AllocMemBlock
         add esp, byte 0Ch
         mov dword [dword_16E130], eax
@@ -16009,12 +16009,12 @@ FindNetworkGames:
 .3:
         push byte 1Eh
         push AddFoundGame
-        push unk_1CD480
+        push NetSocket
         call NetAnnounce
         add esp, byte 0Ch
         call ServiceIdle
 .4:
-        mov eax, dword [dword_1CD632]
+        mov eax, dword [NetGameCountPad]
         sar eax, 10h
         pop esi
         pop edx
@@ -16032,22 +16032,22 @@ DrawNetGameList:
         push esi
         push edi
         push ebp
-        mov edx, dword [dword_1CD548]
+        mov edx, dword [NetListLayer]
         push edx
         call SetDrawTarget
         add esp, byte 4
         push byte 0
-        mov eax, dword [dword_1CD540]
+        mov eax, dword [NetListArt]
         push byte 0
         mov ebx, dword [byte eax+02Ch]
         push ebx
         call BlitArt
-        mov edx, dword [dword_1CD54C]
-        mov ecx, dword [dword_1CD55C]
+        mov edx, dword [NetScreenItems]
+        mov ecx, dword [NetListTop]
         mov eax, dword [dword edx+02BAh]
         add esp, byte 0Ch
         sub eax, ecx
-        mov esi, dword [dword_1CD560]
+        mov esi, dword [NetListRows]
         push eax
         mov eax, dword [dword edx+02B6h]
         sub eax, esi
@@ -16055,14 +16055,14 @@ DrawNetGameList:
         mov edi, dword [dword edx+02AAh]
         push edi
         call DrawArt
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov dword [dword eax+029Ch], 1
-        mov edx, dword [dword_1CD54C]
-        mov ebp, dword [dword_1CD55C]
+        mov edx, dword [NetScreenItems]
+        mov ebp, dword [NetListTop]
         mov eax, dword [dword edx+030Ch]
         add esp, byte 0Ch
         sub eax, ebp
-        mov ebx, dword [dword_1CD560]
+        mov ebx, dword [NetListRows]
         push eax
         mov eax, dword [dword edx+0308h]
         sub eax, ebx
@@ -16070,9 +16070,9 @@ DrawNetGameList:
         mov ecx, dword [dword edx+02FCh]
         push ecx
         call DrawArt
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov dword [dword eax+02EEh], 1
-        mov dx, word [word_1CD634]
+        mov dx, word [NetGameCount]
         add esp, byte 0Ch
         test dx, dx
         jle near .3
@@ -16088,7 +16088,7 @@ DrawNetGameList:
         call SetTextColor
         shl edi, 2
 .1:
-        mov eax, dword [dword_1CD632]
+        mov eax, dword [NetGameCountPad]
         sar eax, 10h
         cmp esi, eax
         jge near .4
@@ -16107,7 +16107,7 @@ DrawNetGameList:
         call FillRect
         mov edx, dword [dword_16E130]
         add esp, byte 14h
-        mov eax, byte_1CD460
+        mov eax, NetGameName
         add edx, edi
         call strcpy_
 .2:
@@ -16149,10 +16149,10 @@ DrawNetGameList:
         add esp, byte 10h
 .4:
         call SetScreenTarget
-        mov edx, dword [dword_1CD55C]
+        mov edx, dword [NetListTop]
         push edx
-        mov ebx, dword [dword_1CD560]
-        mov eax, dword [dword_1CD548]
+        mov ebx, dword [NetListRows]
+        mov eax, dword [NetListLayer]
         push ebx
         mov ecx, dword [byte eax+02Ch]
         push ecx
@@ -16180,20 +16180,20 @@ ChooseNetGame:
         jle near .20
         call PresentScreen
         call FindNetworkGames
-        cmp word [word_1CD634], byte 0
+        cmp word [NetGameCount], byte 0
         jle near .13
-        cmp byte [byte_1CD460], 0
+        cmp byte [NetGameName], 0
         je near .11
         xor ebx, ebx
 .1:
-        mov eax, dword [dword_1CD632]
+        mov eax, dword [NetGameCountPad]
         sar eax, 10h
         cmp ebx, eax
         jge short .5
         imul eax, ebx, byte 34h
         mov edx, dword [dword_16E130]
         add eax, edx
-        mov edx, byte_1CD460
+        mov edx, NetGameName
         call strcmp_
         test eax, eax
         jne short .4
@@ -16212,7 +16212,7 @@ ChooseNetGame:
 .2:
         mov dword [dword_16E13C], ebx
 .3:
-        mov ebx, dword [dword_1CD632]
+        mov ebx, dword [NetGameCountPad]
         sar ebx, 10h
 .4:
         inc ebx
@@ -16230,7 +16230,7 @@ ChooseNetGame:
         xor edx, edx
         mov dword [dword_16E13C], edx
 .7:
-        mov eax, dword [dword_1CD632]
+        mov eax, dword [NetGameCountPad]
         mov ebx, dword [dword_16E138]
         sar eax, 10h
         cmp eax, ebx
@@ -16255,9 +16255,9 @@ ChooseNetGame:
         mov dword [dword_16E13C], ebp
         jmp short .12
 .10:
-        cmp word [word_1CD634], byte 6
+        cmp word [NetGameCount], byte 6
         jle short .12
-        mov eax, dword [dword_1CD632]
+        mov eax, dword [NetGameCountPad]
         sar eax, 10h
         sub eax, byte 6
         cmp eax, esi
@@ -16277,21 +16277,21 @@ ChooseNetGame:
         mov edx, dword [dword_16E130]
         shl eax, 2
         add edx, eax
-        mov eax, byte_1CD460
+        mov eax, NetGameName
         call strcpy_
-        mov eax, dword [dword_1CD5B4]
-        mov edx, dword [dword_1CD54C]
+        mov eax, dword [NetTitleShape]
+        mov edx, dword [NetScreenItems]
         mov eax, dword [byte eax+02Ch]
         mov dword [byte edx+06Ch], eax
-        mov eax, dword [dword_1CD5B8]
-        mov edx, dword [dword_1CD54C]
+        mov eax, dword [NetFrameShape]
+        mov edx, dword [NetScreenItems]
         mov eax, dword [byte eax+02Ch]
         mov dword [byte edx+070h], eax
-        mov eax, dword [dword_1CD5BC]
-        mov edx, dword [dword_1CD54C]
+        mov eax, dword [NetButtonShape]
+        mov edx, dword [NetScreenItems]
         mov eax, dword [byte eax+02Ch]
         mov dword [byte edx+074h], eax
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov word [byte eax+06Ah], 0
         jmp short .14
 .13:
@@ -16299,93 +16299,93 @@ ChooseNetGame:
         xor ecx, ecx
         xor ah, ah
         mov dword [dword_16E13C], ecx
-        mov byte [byte_1CD460], ah
-        mov eax, dword [dword_1CD5B4]
+        mov byte [NetGameName], ah
+        mov eax, dword [NetTitleShape]
         mov dword [dword_16E138], ebx
-        mov edx, dword [dword_1CD54C]
+        mov edx, dword [NetScreenItems]
         mov eax, dword [byte eax+02Ch]
         mov dword [byte edx+06Ch], eax
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov dword [byte eax+070h], ecx
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov dword [byte eax+074h], ecx
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov word [byte eax+06Ah], 3
 .14:
         mov ebx, 0A4h
         xor eax, eax
 .15:
-        mov edx, dword [dword_1CD632]
+        mov edx, dword [NetGameCountPad]
         sar edx, 10h
         cmp eax, edx
         jge short .16
-        mov edx, dword [dword_1CD54C]
+        mov edx, dword [NetScreenItems]
         mov word [byte edx+ebx+018h], 0
-        mov edx, dword [dword_1CD54C]
+        mov edx, dword [NetScreenItems]
         mov dword [byte edx+ebx+02Eh], 100h
         jmp short .17
 .16:
-        mov edx, dword [dword_1CD54C]
+        mov edx, dword [NetScreenItems]
         mov word [byte edx+ebx+018h], 3
-        mov edx, dword [dword_1CD54C]
+        mov edx, dword [NetScreenItems]
         mov dword [byte edx+ebx+02Eh], 0
 .17:
         inc eax
         add ebx, byte 52h
         cmp eax, byte 6
         jl short .15
-        cmp word [word_1CD634], byte 6
+        cmp word [NetGameCount], byte 6
         jle near .18
-        mov eax, dword [dword_1CD568]
-        mov edx, dword [dword_1CD54C]
+        mov eax, dword [NetScrollUpShape]
+        mov edx, dword [NetScreenItems]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword edx+02AEh], eax
-        mov eax, dword [dword_1CD56C]
-        mov edx, dword [dword_1CD54C]
+        mov eax, dword [NetScrollDownShape]
+        mov edx, dword [NetScreenItems]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword edx+02B2h], eax
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov word [dword eax+02A8h], 0
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov dword [dword eax+02BEh], 100h
-        mov edx, dword [dword_1CD554]
-        mov eax, dword [dword_1CD54C]
+        mov edx, dword [NetJoinShape]
+        mov eax, dword [NetScreenItems]
         mov edx, dword [byte edx+02Ch]
         mov dword [dword eax+0300h], edx
-        mov eax, dword [dword_1CD558]
-        mov edx, dword [dword_1CD54C]
+        mov eax, dword [NetHostShape]
+        mov edx, dword [NetScreenItems]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword edx+0304h], eax
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov word [dword eax+02FAh], 0
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov dword [dword eax+0310h], 100h
         jmp short .19
 .18:
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov dword [dword eax+02AEh], 0
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov dword [dword eax+02B2h], 0
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov word [dword eax+02A8h], 3
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov dword [dword eax+02BEh], 0
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov dword [dword eax+0300h], 0
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov dword [dword eax+0304h], 0
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov word [dword eax+02FAh], 3
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov dword [dword eax+0310h], 0
 .19:
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov dword [byte eax+0Ch], 1
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov dword [byte eax+05Eh], 1
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov dword [dword eax+029Ch], 1
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov dword [dword eax+02EEh], 1
         call SetScreenTarget
         call DrawNetGameList
@@ -16436,27 +16436,27 @@ ChooseNetworkGameScreen:
         mov dword [byte esp+030h], edx
         sub eax, 0C8h
         mov edx, dword [dword_16E468]
-        mov dword [dword_1CD560], eax
+        mov dword [NetListRows], eax
         mov eax, dword [byte esp+044h]
         sar edx, 1
         sar eax, 1
         push dword 334h
         sub edx, eax
         push str_PICKS2
-        mov dword [dword_1CD55C], edx
+        mov dword [NetListTop], edx
         call AllocMemBlock
         add esp, byte 0Ch
         push byte 20h
         push dword 280h
         push str_REGS2
-        mov dword [dword_1CD54C], eax
+        mov dword [NetScreenItems], eax
         call AllocMemBlock
         add esp, byte 0Ch
         push byte 0
         mov ebx, dword [byte esp+044h]
         push ebx
         push dword 190h
-        mov dword [dword_1CD544], eax
+        mov dword [NetListBitmap], eax
         call CreateBitmap
         add esp, byte 0Ch
         push byte 0
@@ -16471,13 +16471,13 @@ ChooseNetworkGameScreen:
         mov esi, dword [byte esp+044h]
         push esi
         push dword 190h
-        mov dword [dword_1CD540], eax
+        mov dword [NetListArt], eax
         call CreateBitmap
         add esp, byte 0Ch
-        mov dword [dword_1CD548], eax
+        mov dword [NetListLayer], eax
         call SetScreenTarget
         mov eax, dword [dword_16E464]
-        mov edi, dword [dword_1CD55C]
+        mov edi, dword [NetListTop]
         sar eax, 1
         push edi
         sub eax, 0C8h
@@ -16487,7 +16487,7 @@ ChooseNetworkGameScreen:
         call ConvertArtXY
         add esp, byte 0Ch
         call PresentScreen
-        mov eax, dword [dword_1CD540]
+        mov eax, dword [NetListArt]
         push eax
         call SetDrawTarget
         add esp, byte 4
@@ -16575,28 +16575,28 @@ ChooseNetworkGameScreen:
         push eax
         call CreateBitmap
         add esp, byte 0Ch
-        mov dword [dword esi+dword_1CD5B4], eax
+        mov dword [dword esi+NetTitleShape], eax
         mov eax, dword [esp+esi]
-        mov dx, word [dword_1CD560]
+        mov dx, word [NetListRows]
         mov eax, dword [byte eax+02Ch]
         add edx, byte 32h
         mov word [byte eax+0Ch], dx
         mov edx, dword [byte esp+040h]
-        add dx, word [dword_1CD55C]
+        add dx, word [NetListTop]
         mov eax, dword [esp+esi]
         mov eax, dword [byte eax+02Ch]
         sub edx, byte 32h
         mov word [byte eax+0Eh], dx
-        mov eax, dword [dword esi+dword_1CD5B4]
-        mov dx, word [dword_1CD560]
+        mov eax, dword [dword esi+NetTitleShape]
+        mov dx, word [NetListRows]
         mov eax, dword [byte eax+02Ch]
         add edx, 15Eh
         mov bx, word [byte eax+04h]
         sub edx, ebx
         mov word [byte eax+0Ch], dx
         mov ecx, dword [byte esp+040h]
-        mov dx, word [dword_1CD55C]
-        mov eax, dword [dword esi+dword_1CD5B4]
+        mov dx, word [NetListTop]
+        mov eax, dword [dword esi+NetTitleShape]
         add edx, ecx
         mov eax, dword [byte eax+02Ch]
         sub edx, byte 32h
@@ -16604,27 +16604,27 @@ ChooseNetworkGameScreen:
         mov eax, dword [esp+esi]
         mov eax, dword [byte eax+02Ch]
         mov edx, dword [byte eax+0Ch]
-        mov ebx, dword [dword_1CD55C]
+        mov ebx, dword [NetListTop]
         sar edx, 10h
         sub edx, ebx
         push edx
         mov edx, dword [byte eax+0Ah]
-        mov ecx, dword [dword_1CD560]
+        mov ecx, dword [NetListRows]
         sar edx, 10h
         sub edx, ecx
         push edx
         push eax
         call ConvertArtXY
         add esp, byte 0Ch
-        mov eax, dword [dword esi+dword_1CD5B4]
+        mov eax, dword [dword esi+NetTitleShape]
         mov eax, dword [byte eax+02Ch]
         mov edx, dword [byte eax+0Ch]
-        mov ebx, dword [dword_1CD55C]
+        mov ebx, dword [NetListTop]
         sar edx, 10h
         sub edx, ebx
         push edx
         mov edx, dword [byte eax+0Ah]
-        mov ecx, dword [dword_1CD560]
+        mov ecx, dword [NetListRows]
         sar edx, 10h
         sub edx, ecx
         push edx
@@ -16633,19 +16633,19 @@ ChooseNetworkGameScreen:
         add esp, byte 0Ch
         mov eax, dword [esp+esi]
         mov eax, dword [byte eax+02Ch]
-        mov dx, word [dword_1CD560]
+        mov dx, word [NetListRows]
         add word [byte eax+0Ch], dx
         mov eax, dword [esp+esi]
         mov eax, dword [byte eax+02Ch]
-        mov dx, word [dword_1CD55C]
+        mov dx, word [NetListTop]
         add word [byte eax+0Eh], dx
-        mov eax, dword [dword esi+dword_1CD5B4]
+        mov eax, dword [dword esi+NetTitleShape]
         mov eax, dword [byte eax+02Ch]
-        mov dx, word [dword_1CD560]
+        mov dx, word [NetListRows]
         add word [byte eax+0Ch], dx
-        mov eax, dword [dword esi+dword_1CD5B4]
+        mov eax, dword [dword esi+NetTitleShape]
         mov eax, dword [byte eax+02Ch]
-        mov dx, word [dword_1CD55C]
+        mov dx, word [NetListTop]
         add word [byte eax+0Eh], dx
         mov eax, dword [esp+esi]
         push eax
@@ -16698,7 +16698,7 @@ ChooseNetworkGameScreen:
         call DrawArt
         add esp, byte 0Ch
 .3:
-        mov eax, dword [dword esi+dword_1CD5B4]
+        mov eax, dword [dword esi+NetTitleShape]
         push eax
         call SetDrawTarget
         add esp, byte 4
@@ -16723,7 +16723,7 @@ ChooseNetworkGameScreen:
         push edi
         mov ebx, 10h
         push edi
-        mov edx, dword [dword_1CD5B4]
+        mov edx, dword [NetTitleShape]
         xor ecx, ecx
         push edi
         mov edx, dword [byte edx+02Ch]
@@ -16749,7 +16749,7 @@ ChooseNetworkGameScreen:
         call DrawArt
         add esp, byte 0Ch
 .5:
-        mov eax, dword [dword_1CD540]
+        mov eax, dword [NetListArt]
         add esi, byte 4
         push eax
         inc ebp
@@ -16759,38 +16759,38 @@ ChooseNetworkGameScreen:
         cmp edi, byte 9
         jl near .1
         mov eax, 0Ah
-        mov edx, dword [dword_1CD54C]
+        mov edx, dword [NetScreenItems]
         call InitMenuItems
         mov eax, dword [esp]
-        mov edx, dword [dword_1CD54C]
+        mov edx, dword [NetScreenItems]
         mov eax, dword [byte eax+02Ch]
         mov dword [byte edx+01Ah], eax
         mov edx, dword [byte esp+04h]
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov edx, dword [byte edx+02Ch]
         mov dword [byte eax+01Eh], edx
         mov edx, dword [byte esp+08h]
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov edx, dword [byte edx+02Ch]
         mov dword [byte eax+022h], edx
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov dword [byte eax+010h], 4
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov edx, dword [byte eax+01Ah]
         mov edx, dword [byte edx+0Ah]
         sar edx, 10h
         mov dword [byte eax+026h], edx
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov edx, dword [byte eax+01Ah]
         mov edx, dword [byte edx+0Ch]
         sar edx, 10h
         mov dword [byte eax+02Ah], edx
-        mov eax, dword [dword_1CD54C]
-        mov edx, dword [dword_1CD544]
+        mov eax, dword [NetScreenItems]
+        mov edx, dword [NetListBitmap]
         mov dword [byte eax+014h], edx
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov dword [byte eax+02Eh], 101h
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov edx, dword [byte eax+01Ah]
         mov ebx, dword [byte edx+04h]
         mov ecx, dword [byte edx+02h]
@@ -16799,52 +16799,52 @@ ChooseNetworkGameScreen:
         mov edx, dword [byte eax+026h]
         push ebx
         mov ebx, dword [byte eax+02Ah]
-        mov eax, dword [dword_1CD544]
+        mov eax, dword [NetListBitmap]
         call SetRegionRect
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov eax, dword [byte eax+01Ah]
         mov edx, dword [byte eax+0Ch]
-        mov ebx, dword [dword_1CD55C]
+        mov ebx, dword [NetListTop]
         sar edx, 10h
         sub edx, ebx
         push edx
         mov edx, dword [byte eax+0Ah]
-        mov ecx, dword [dword_1CD560]
+        mov ecx, dword [NetListRows]
         sar edx, 10h
         sub edx, ecx
         push edx
         push eax
         call DrawArt
-        mov eax, dword [dword_1CD5B4]
-        mov edx, dword [dword_1CD54C]
+        mov eax, dword [NetTitleShape]
+        mov edx, dword [NetScreenItems]
         mov eax, dword [byte eax+02Ch]
         mov dword [byte edx+06Ch], eax
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov dword [byte eax+070h], 0
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov dword [byte eax+074h], 0
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         add esp, byte 0Ch
         mov dword [byte eax+062h], 4
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov edx, dword [byte eax+06Ch]
         mov edx, dword [byte edx+0Ah]
         sar edx, 10h
         mov dword [byte eax+078h], edx
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov edx, dword [byte eax+06Ch]
         mov edx, dword [byte edx+0Ch]
         sar edx, 10h
         mov dword [byte eax+07Ch], edx
-        mov eax, dword [dword_1CD544]
-        mov edx, dword [dword_1CD54C]
+        mov eax, dword [NetListBitmap]
+        mov edx, dword [NetScreenItems]
         add eax, byte 40h
         mov dword [byte edx+066h], eax
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov dword [dword eax+080h], 101h
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov word [byte eax+06Ah], 3
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov ecx, dword [byte eax+06Ch]
         mov edx, dword [byte ecx+04h]
         mov ebx, dword [byte eax+07Ch]
@@ -16852,19 +16852,19 @@ ChooseNetworkGameScreen:
         mov ecx, dword [byte ecx+02h]
         push edx
         mov edx, dword [byte eax+078h]
-        mov eax, dword [dword_1CD544]
+        mov eax, dword [NetListBitmap]
         sar ecx, 10h
         add eax, byte 40h
         call SetRegionRect
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov eax, dword [byte eax+06Ch]
         mov edx, dword [byte eax+0Ch]
-        mov esi, dword [dword_1CD55C]
+        mov esi, dword [NetListTop]
         sar edx, 10h
         sub edx, esi
         push edx
         mov edx, dword [byte eax+0Ah]
-        mov edi, dword [dword_1CD560]
+        mov edi, dword [NetListRows]
         sar edx, 10h
         sub edx, edi
         push edx
@@ -16875,30 +16875,30 @@ ChooseNetworkGameScreen:
         call DrawArt
         add esp, byte 0Ch
 .6:
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov dword [byte esi+eax+010h], 4
-        mov eax, dword [dword_1CD544]
+        mov eax, dword [NetListBitmap]
         lea edx, [edi+eax]
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov dword [byte esi+eax+014h], edx
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov dword [byte esi+eax+02Eh], 0
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov word [byte esi+eax+018h], 3
         mov eax, dword [LinkTextFont]
         mov ebx, dword [LinkTextFont]
         dec eax
         lea ebx, [ebx+ebx*2]
         push eax
-        add ebx, dword [dword_1CD55C]
+        add ebx, dword [NetListTop]
         mov eax, dword [LinkTextFont]
         imul eax, ebp
         mov ecx, 14Ah
-        mov edx, dword [dword_1CD560]
+        mov edx, dword [NetListRows]
         add esi, byte 52h
         add edx, byte 14h
         add ebx, eax
-        mov eax, dword [dword_1CD544]
+        mov eax, dword [NetListBitmap]
         inc ebp
         add eax, edi
         add edi, byte 40h
@@ -16931,18 +16931,18 @@ ChooseNetworkGameScreen:
         sar eax, 10h
         push eax
         call CreateBitmap
-        mov dword [dword ebx+dword_1CD564], eax
+        mov dword [dword ebx+NetPlayerBitmaps], eax
         mov eax, dword [LinkTextFont]
         add esp, byte 0Ch
         lea eax, [eax+eax*2]
         push eax
-        mov eax, dword [dword ebx+dword_1CD564]
+        mov eax, dword [dword ebx+NetPlayerBitmaps]
         push dword 16Eh
         mov ecx, dword [byte eax+02Ch]
         push ecx
         call ConvertArtXY
         add esp, byte 0Ch
-        mov eax, dword [dword ebx+dword_1CD564]
+        mov eax, dword [dword ebx+NetPlayerBitmaps]
         push eax
         call SetDrawTarget
         add esp, byte 4
@@ -16951,7 +16951,7 @@ ChooseNetworkGameScreen:
         push esi
         call DrawArt
         add esp, byte 0Ch
-        mov edx, dword [dword_1CD540]
+        mov edx, dword [NetListArt]
         push edx
         call SetDrawTarget
         add esp, byte 4
@@ -16976,7 +16976,7 @@ ChooseNetworkGameScreen:
         sar eax, 10h
         push eax
         call CreateBitmap
-        mov dword [dword ebx+dword_1CD550], eax
+        mov dword [dword ebx+NetGameBitmaps], eax
         mov edx, dword [LinkTextFont]
         mov eax, dword [byte esi+04h]
         lea edx, [edx+edx*8]
@@ -16984,13 +16984,13 @@ ChooseNetworkGameScreen:
         add esp, byte 0Ch
         sub edx, eax
         push edx
-        mov eax, dword [dword ebx+dword_1CD550]
+        mov eax, dword [dword ebx+NetGameBitmaps]
         push dword 16Eh
         mov edx, dword [byte eax+02Ch]
         push edx
         call ConvertArtXY
         add esp, byte 0Ch
-        mov ecx, dword [dword ebx+dword_1CD550]
+        mov ecx, dword [dword ebx+NetGameBitmaps]
         push ecx
         call SetDrawTarget
         add esp, byte 4
@@ -16999,7 +16999,7 @@ ChooseNetworkGameScreen:
         push esi
         call DrawArt
         add esp, byte 0Ch
-        mov esi, dword [dword_1CD540]
+        mov esi, dword [NetListArt]
         push esi
         add ebx, byte 4
         call SetDrawTarget
@@ -17007,42 +17007,42 @@ ChooseNetworkGameScreen:
         mov eax, edi
         cmp edi, byte 3
         jl near .7
-        mov eax, dword [dword_1CD564]
-        mov edx, dword [dword_1CD54C]
+        mov eax, dword [NetPlayerBitmaps]
+        mov edx, dword [NetScreenItems]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword edx+02AAh], eax
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov dword [dword eax+02A0h], 4
-        mov eax, dword [dword_1CD544]
-        mov edx, dword [dword_1CD54C]
+        mov eax, dword [NetListBitmap]
+        mov edx, dword [NetScreenItems]
         add eax, 200h
         mov dword [dword edx+02A4h], eax
-        mov eax, dword [dword_1CD560]
-        mov edx, dword [dword_1CD54C]
+        mov eax, dword [NetListRows]
+        mov edx, dword [NetScreenItems]
         add eax, 16Eh
         mov dword [dword edx+02B6h], eax
         mov edx, dword [LinkTextFont]
         lea eax, [nosplit edx*4+00h]
-        mov edi, dword [dword_1CD55C]
+        mov edi, dword [NetListTop]
         sub eax, edx
-        mov edx, dword [dword_1CD54C]
+        mov edx, dword [NetScreenItems]
         add eax, edi
         mov dword [dword edx+02BAh], eax
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov word [dword eax+02A8h], 3
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         push byte 15h
         mov ebx, dword [dword eax+02BAh]
         mov edx, dword [dword eax+02B6h]
-        mov eax, dword [dword_1CD544]
+        mov eax, dword [NetListBitmap]
         mov ecx, 0Eh
         add eax, 200h
         call SetRegionRect
-        mov eax, dword [dword_1CD54C]
-        mov ebp, dword [dword_1CD55C]
+        mov eax, dword [NetScreenItems]
+        mov ebp, dword [NetListTop]
         mov edx, dword [dword eax+02BAh]
         sub edx, ebp
-        mov ebx, dword [dword_1CD560]
+        mov ebx, dword [NetListRows]
         push edx
         mov edx, dword [dword eax+02B6h]
         sub edx, ebx
@@ -17050,47 +17050,47 @@ ChooseNetworkGameScreen:
         mov ecx, dword [dword eax+02AAh]
         push ecx
         call DrawArt
-        mov eax, dword [dword_1CD550]
-        mov edx, dword [dword_1CD54C]
+        mov eax, dword [NetGameBitmaps]
+        mov edx, dword [NetScreenItems]
         mov eax, dword [byte eax+02Ch]
         mov dword [dword edx+02FCh], eax
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov dword [dword eax+02F2h], 4
-        mov edx, dword [dword_1CD544]
-        mov eax, dword [dword_1CD54C]
+        mov edx, dword [NetListBitmap]
+        mov eax, dword [NetScreenItems]
         add edx, 240h
         mov dword [dword eax+02F6h], edx
-        mov eax, dword [dword_1CD560]
-        mov edx, dword [dword_1CD54C]
+        mov eax, dword [NetListRows]
+        mov edx, dword [NetScreenItems]
         add eax, 16Eh
         mov dword [dword edx+0308h], eax
         mov edx, dword [LinkTextFont]
         lea eax, [nosplit edx*8+00h]
         add eax, edx
-        mov edx, dword [dword_1CD55C]
+        mov edx, dword [NetListTop]
         add edx, eax
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov ebx, dword [dword eax+02FCh]
         mov ebx, dword [byte ebx+04h]
         sar ebx, 10h
         sub edx, ebx
         mov dword [dword eax+030Ch], edx
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         mov word [dword eax+02FAh], 3
         add esp, byte 0Ch
-        mov eax, dword [dword_1CD54C]
+        mov eax, dword [NetScreenItems]
         push byte 15h
         mov ebx, dword [dword eax+030Ch]
         mov edx, dword [dword eax+0308h]
-        mov eax, dword [dword_1CD544]
+        mov eax, dword [NetListBitmap]
         mov ecx, 0Eh
         add eax, 240h
         call SetRegionRect
-        mov edx, dword [dword_1CD54C]
-        mov esi, dword [dword_1CD55C]
+        mov edx, dword [NetScreenItems]
+        mov esi, dword [NetListTop]
         mov eax, dword [dword edx+030Ch]
         sub eax, esi
-        mov edi, dword [dword_1CD560]
+        mov edi, dword [NetListRows]
         push eax
         mov eax, dword [dword edx+0308h]
         sub eax, edi
@@ -17105,7 +17105,7 @@ ChooseNetworkGameScreen:
         mov dword [dword_16E13C], eax
         xor ah, ah
         mov dword [dword_16E138], edx
-        mov byte [byte_1CD460], ah
+        mov byte [NetGameName], ah
         call SetScreenTarget
         call ChooseNetGame
         call PresentScreen
@@ -17117,7 +17117,7 @@ ChooseNetworkGameScreen:
         lea eax, [byte esp+02Ch]
         mov ebx, 0FFFFFFFFh
         push esi
-        mov edx, dword [dword_1CD54C]
+        mov edx, dword [NetScreenItems]
         mov dword [byte esp+030h], ecx
         push eax
         mov ecx, ChooseNetGame
@@ -17169,7 +17169,7 @@ ChooseNetworkGameScreen_A99:
         mov ebx, esi
 .15:
         call SetScreenTarget
-        mov eax, dword [nosplit ebx*4+dword_1CD5B4]
+        mov eax, dword [nosplit ebx*4+NetTitleShape]
         mov ecx, dword [byte eax+02Ch]
         push ecx
         call BlitShape
@@ -17205,7 +17205,7 @@ ChooseNetworkGameScreen_AE5:
         call PresentScreen
         jmp near ChooseNetworkGameScreen_BA2
 ChooseNetworkGameScreen_B21:
-        mov eax, dword [dword_1CD632]
+        mov eax, dword [NetGameCountPad]
         sar eax, 10h
         mov edx, dword [dword_16E13C]
         sub eax, byte 6
@@ -17227,7 +17227,7 @@ ChooseNetworkGameScreen_B21:
         mov eax, dword [dword_16E13C]
         add eax, ebx
         mov dword [dword_16E138], eax
-        mov eax, dword [dword_1CD632]
+        mov eax, dword [NetGameCountPad]
         mov edx, dword [dword_16E138]
         sar eax, 10h
         mov dword [byte esp+02Ch], ebx
@@ -17248,9 +17248,9 @@ ChooseNetworkGameScreen_BA2:
         cmp ebx, byte 1
         jg near ChooseNetworkGameScreen.8
         call SetScreenTarget
-        mov esi, dword [dword_1CD55C]
+        mov esi, dword [NetListTop]
         push esi
-        mov edi, dword [dword_1CD560]
+        mov edi, dword [NetListRows]
         mov eax, dword [byte esp+038h]
         push edi
         mov ebp, dword [byte eax+02Ch]
@@ -17258,7 +17258,7 @@ ChooseNetworkGameScreen_BA2:
         call BlitArt
         add esp, byte 0Ch
         call PresentScreen
-        cmp word [word_1CD634], byte 0
+        cmp word [NetGameCount], byte 0
         jle short .22
         mov eax, dword [dword_16E138]
         cmp eax, byte 0FFFFFFFFh
@@ -17296,13 +17296,13 @@ ChooseNetworkGameScreen_BA2:
 .24:
         xor edi, edi
         xor ebx, ebx
-        mov word [word_1CD634], di
+        mov word [NetGameCount], di
 .25:
-        mov eax, dword [dword ebx+dword_1CD564]
+        mov eax, dword [dword ebx+NetPlayerBitmaps]
         push eax
         call FreeBitmap
         add esp, byte 4
-        mov edx, dword [dword ebx+dword_1CD550]
+        mov edx, dword [dword ebx+NetGameBitmaps]
         push edx
         add ebx, byte 4
         call FreeBitmap
@@ -17315,18 +17315,18 @@ ChooseNetworkGameScreen_BA2:
         push ecx
         call FreeBitmap
         add esp, byte 4
-        mov esi, dword [dword ebx+dword_1CD5B4]
+        mov esi, dword [dword ebx+NetTitleShape]
         push esi
         add ebx, byte 4
         call FreeBitmap
         add esp, byte 4
         cmp ebx, byte 24h
         jne short .26
-        mov edi, dword [dword_1CD548]
+        mov edi, dword [NetListLayer]
         push edi
         call FreeBitmap
         add esp, byte 4
-        mov ebp, dword [dword_1CD540]
+        mov ebp, dword [NetListArt]
         push ebp
         call FreeBitmap
         add esp, byte 4
@@ -17334,11 +17334,11 @@ ChooseNetworkGameScreen_BA2:
         push eax
         call FreeBitmap
         add esp, byte 4
-        mov edx, dword [dword_1CD544]
+        mov edx, dword [NetListBitmap]
         push edx
         call FreeMemBlock
         add esp, byte 4
-        mov ebx, dword [dword_1CD54C]
+        mov ebx, dword [NetScreenItems]
         push ebx
         call FreeMemBlock
         add esp, byte 4
@@ -17368,7 +17368,7 @@ CopyJoinedGameInfo:
         push ebx
         mov edx, dword [byte esp+0Ch]
         mov ebx, 5Ch
-        mov eax, unk_1CD5D8
+        mov eax, NetJoinedInfo
         call memcpy_
         mov edx, 1
         mov dword [dword_16E140], edx
@@ -17400,7 +17400,7 @@ JoinNetworkGame:
         add esp, byte 4
         call WaitTickDeadline
         push byte 28h
-        push unk_1CD570
+        push NetJoinRequest
         call ZeroMem
         add esp, byte 8
         push byte 32h
@@ -17409,17 +17409,17 @@ JoinNetworkGame:
         call WaitTickDeadline
         mov edx, 1
         mov eax, dword [byte esp+058h]
-        mov dword [dword_1CD590], ebx
+        mov dword [NetJoinRequest+20h], ebx
         xor ecx, ecx
-        mov dword [dword_1CD574], edx
-        mov dword [dword_1CD578], ecx
-        mov dword [dword_1CD57C], ecx
-        mov dword [dword_1CD580], ecx
-        mov dword [dword_1CD584], eax
+        mov dword [NetJoinRequest+4], edx
+        mov dword [NetJoinRequest+8], ecx
+        mov dword [NetJoinRequest+0Ch], ecx
+        mov dword [NetJoinRequest+10h], ecx
+        mov dword [NetJoinRequest+14h], eax
         mov eax, dword [byte esp+06Ch]
-        mov edx, unk_1CD480
-        mov dword [dword_1CD594], eax
-        mov dword [dword_1CD598], edx
+        mov edx, NetSocket
+        mov dword [NetJoinRequest+24h], eax
+        mov dword [NetJoinSocket], edx
         test byte [esi], 1
         je near .6
         mov ebx, 44h
@@ -17445,7 +17445,7 @@ JoinNetworkGame:
         lea eax, [byte esp+08h]
         push eax
         mov esi, 2
-        push unk_1CD480
+        push NetSocket
         mov dword [byte esp+050h], esi
         call NetLeaveGame
         add esp, byte 10h
@@ -17478,7 +17478,7 @@ JoinNetworkGame:
         add esp, byte 4
         test eax, eax
         je short .4
-        push unk_1CD480
+        push NetSocket
         call NetDisconnectPeer
         add esp, byte 4
         call HideLinkBox
@@ -17493,8 +17493,8 @@ JoinNetworkGame:
         cmp dword [dword_16E140], byte 0
         je short .3
 .5:
-        mov edi, unk_1CD59C
-        mov esi, unk_1CD5D8
+        mov edi, NetJoinedGame
+        mov esi, NetJoinedInfo
         movsd
         movsd
         movsd
@@ -17502,12 +17502,12 @@ JoinNetworkGame:
         movsd
         call HideLinkBox
         push byte 0
-        push unk_1CD480
+        push NetSocket
         call NetListGames
         add esp, byte 8
         test eax, eax
         jne near .9
-        push unk_1CD480
+        push NetSocket
         call NetDisconnectPeer
         add esp, byte 4
         xor ebx, ebx
@@ -17533,7 +17533,7 @@ JoinNetworkGame:
         push str_KWKJSK122691
         lea eax, [byte esp+048h]
         push eax
-        push unk_1CD480
+        push NetSocket
         call NetJoinGame
         add esp, byte 0Ch
         mov esi, eax
@@ -17550,7 +17550,7 @@ JoinNetworkGame:
         test esi, esi
         je short .7
         lea esi, [byte esp+044h]
-        mov edi, unk_1CD59C
+        mov edi, NetJoinedGame
         movsd
         movsd
         movsd
@@ -17561,12 +17561,12 @@ JoinNetworkGame:
         push dword 0FAh
         push byte 0
         push byte 20h
-        push unk_1CD570
+        push NetJoinRequest
         call OpenNetPacketLink
         add esp, byte 14h
         test eax, eax
         jne short .10
-        push unk_1CD480
+        push NetSocket
         call NetDisconnectPeer
         add esp, byte 4
         xor ebx, ebx
@@ -17587,10 +17587,10 @@ JoinNetworkGame:
         xor ecx, ecx
         mov dword [str_Punct_ModemSettingsScreen], ebx
         mov ebx, 1
-        mov dword [dword_1CD584], ecx
+        mov dword [NetJoinRequest+14h], ecx
         mov word [word_16E10C], bx
         mov eax, 1
-        mov dword [byte ebp+00h], unk_1CD570
+        mov dword [byte ebp+00h], NetJoinRequest
 .11:
         add esp, byte 5Ch
         pop ebp
@@ -17607,10 +17607,10 @@ CloseNetConnection:
         push edx
         cmp word [word_16E10C], byte 0
         je short .1
-        push unk_1CD480
+        push NetSocket
         xor edx, edx
         xor ebx, ebx
-        mov dword [dword_1CD590], edx
+        mov dword [NetJoinRequest+20h], edx
         call NetDisconnectPeer
         add esp, byte 4
         mov word [word_16E10C], bx
@@ -17646,27 +17646,27 @@ OptionsAnimFrame:
         cmp ebx, byte 0Ah
         jg near .11
         movsx ebx, word [nosplit ebx*2+word_16E148]
-        cmp dword [dword_1CD6B0], byte 1
+        cmp dword [OptionsAnimItems+4], byte 1
         jne short .2
-        cmp byte [byte_1CD75C], 0
+        cmp byte [OptionsAnimSoundOn], 0
         jne short .1
         mov eax, 309h
         call PlaySfx
-        mov byte [byte_1CD75C], 1
+        mov byte [OptionsAnimSoundOn], 1
 .1:
         call rand_
         mov esi, 3
         cdq
         idiv esi
-        mov eax, dword [nosplit edx*4+dword_1CD750]
-        mov dword [dword_1CD6CA], eax
+        mov eax, dword [nosplit edx*4+OptionsAnimFrames]
+        mov dword [OptionsAnimItems+1Eh], eax
         call SetScreenTarget
-        mov eax, dword [dword_1CD6C6]
+        mov eax, dword [OptionsAnimItems+1Ah]
         movsx edx, word [byte eax+0Eh]
         push edx
         movsx eax, word [byte eax+0Ch]
         push eax
-        push dword [dword_1CD6CA]
+        push dword [OptionsAnimItems+1Eh]
         call DrawArt
         add esp, byte 0Ch
         call PresentScreen
@@ -17674,16 +17674,16 @@ OptionsAnimFrame:
         call SetScreenTarget
         cmp ebx, byte 0FFFFFFFFh
         jne short .4
-        cmp byte [byte_1CD75C], 0
+        cmp byte [OptionsAnimSoundOn], 0
         je short .3
         call StopAllSfx
-        mov byte [byte_1CD75C], 0
+        mov byte [OptionsAnimSoundOn], 0
 .3:
         cmp word [word_16E170], byte 0
         je near .10
         movsx eax, word [word_16E16E]
         imul eax, byte 0Ch
-        push dword [dword eax+dword_1CD64C]
+        push dword [dword eax+OptionsAnimShapeLists]
         call DrawShapeAtOwnPos
         mov word [word_16E170], 0
         movsx eax, word [word_16E16E]
@@ -17693,15 +17693,15 @@ OptionsAnimFrame:
 .4:
         cmp word [nosplit ebx*2+word_16E15E], byte 0
         jne short .6
-        cmp byte [byte_1CD75C], 0
+        cmp byte [OptionsAnimSoundOn], 0
         jne short .5
         mov eax, 309h
         call PlaySfx
-        mov byte [byte_1CD75C], 1
+        mov byte [OptionsAnimSoundOn], 1
 .5:
         movsx eax, word [word_16E16E]
         imul eax, byte 0Ch
-        push dword [dword eax+dword_1CD64C]
+        push dword [dword eax+OptionsAnimShapeLists]
         call BlitShape
         movsx eax, word [word_16E16E]
         mov word [nosplit eax*2+word_16E15E], 0
@@ -17717,11 +17717,11 @@ OptionsAnimFrame:
         add esp, byte 4
         jmp short .9
 .6:
-        cmp byte [byte_1CD75C], 0
+        cmp byte [OptionsAnimSoundOn], 0
         jne short .7
         mov eax, 309h
         call PlaySfx
-        mov byte [byte_1CD75C], 1
+        mov byte [OptionsAnimSoundOn], 1
 .7:
         movsx eax, word [word_16E16E]
         inc word [nosplit eax*2+word_16E15E]
@@ -17740,7 +17740,7 @@ OptionsAnimFrame:
         imul eax, byte 0Ch
 .9:
         shl edx, 2
-        push dword [dword edx+eax+dword_1CD650]
+        push dword [dword edx+eax+OptionsAnimShapes]
         call DrawShapeAtOwnPos
         mov word [word_16E170], 1
         add esp, byte 4
@@ -17822,15 +17822,15 @@ OptionsAnimScreen:
         add esp, byte 8
         push str_MB023
         push ebx
-        mov dword [dword_1CD750], eax
+        mov dword [OptionsAnimFrames], eax
         call FindShape
         add esp, byte 8
         push str_MB03
         push ebx
-        mov dword [dword_1CD754], eax
+        mov dword [OptionsAnimTitle], eax
         call FindShape
         add esp, byte 8
-        mov dword [dword_1CD758], eax
+        mov dword [OptionsAnimBack], eax
         call SetScreenTarget
         push esi
         call BlitShape
@@ -17909,7 +17909,7 @@ OptionsAnimScreen:
         inc edi
         push edi
         push str_LT02d2
-        mov dword [dword esi+dword_1CD650], eax
+        mov dword [dword esi+OptionsAnimShapes], eax
         lea eax, [byte ebp+06Ah]
         push eax
         call sprintf_
@@ -17919,8 +17919,8 @@ OptionsAnimScreen:
         push dword [byte ebp+07Eh]
         call FindShape
         add esp, byte 8
-        mov edi, dword [dword esi+dword_1CD650]
-        mov dword [dword esi+dword_1CD654], eax
+        mov edi, dword [dword esi+OptionsAnimShapes]
+        mov dword [dword esi+OptionsAnimArt], eax
         push byte 0
         movsx eax, word [byte edi+06h]
         push eax
@@ -17929,7 +17929,7 @@ OptionsAnimScreen:
         call CreateBitmap
         mov edi, eax
         mov dword [byte ebp+ebx*4+04Ah], eax
-        mov eax, dword [dword esi+dword_1CD650]
+        mov eax, dword [dword esi+OptionsAnimShapes]
         add esp, byte 0Ch
         movsx edx, word [byte eax+0Eh]
         push edx
@@ -17937,18 +17937,18 @@ OptionsAnimScreen:
         push eax
         push dword [byte edi+02Ch]
         call ConvertArtXY
-        mov eax, dword [dword esi+dword_1CD650]
+        mov eax, dword [dword esi+OptionsAnimShapes]
         mov edx, dword [byte edi+02Ch]
         mov ax, word [byte eax+0Ch]
         mov word [byte edx+0Ch], ax
-        mov eax, dword [dword esi+dword_1CD650]
+        mov eax, dword [dword esi+OptionsAnimShapes]
         mov edx, dword [byte edi+02Ch]
         mov ax, word [byte eax+0Eh]
         mov word [byte edx+0Eh], ax
         inc ebx
         mov eax, dword [byte edi+02Ch]
         add esp, byte 0Ch
-        mov dword [dword esi+dword_1CD64C], eax
+        mov dword [dword esi+OptionsAnimShapeLists], eax
         cmp ebx, byte 8
         jl near .8
         mov ebx, dword [byte ebp+07Ah]
@@ -17956,23 +17956,23 @@ OptionsAnimScreen:
         mov edx, ebx
         mov eax, ebx
         call DrawScreenBackground
-        mov edx, unk_1CD6AC
+        mov edx, OptionsAnimItems
         mov eax, 2
         mov ecx, str_MB014
         call InitMenuItems
         lea eax, [byte ebp-02Eh]
-        mov edi, dword_1CD6FE
+        mov edi, OptionsAnimItems+52h
         push eax
         mov ebx, str_MB004
         mov edx, dword [byte ebp+076h]
         push str_MB023
-        mov eax, unk_1CD6AC
+        mov eax, OptionsAnimItems
         mov esi, unk_1C5F4A
         call DrawStatTable
         mov ecx, 52h
         rep movsb
         mov dword [byte ebp+072h], 0
-        mov dword [dword_1CD6FE], 2
+        mov dword [OptionsAnimItems+52h], 2
         xor esi, esi
 .9:
         test esi, esi
@@ -17982,7 +17982,7 @@ OptionsAnimScreen:
         mov ecx, OptionsAnimFrame
         mov ebx, 0FFFFFFFFh
         push eax
-        mov edx, unk_1CD6AC
+        mov edx, OptionsAnimItems
         mov eax, 2
         call RunMenu
         cmp dword [byte ebp+072h], byte 0
@@ -17991,7 +17991,7 @@ OptionsAnimScreen:
         je short .11
         jmp short .9
 .10:
-        mov eax, unk_1CD6AC
+        mov eax, OptionsAnimItems
         mov edx, 1
         call ShowPopupScreen
         xor ecx, ecx
@@ -18049,7 +18049,7 @@ SeasonIntroScreen:
         lea eax, [byte ebp+0Eh]
         mov dword [dword_1CD77C], eax
         lea eax, [dword ebp-031Eh]
-        mov dword [dword_1CD760], eax
+        mov dword [SeasonIntroList], eax
         call WaitMusicEnd
         push byte 0FFFFFFFFh
         call MakeColor
@@ -18069,7 +18069,7 @@ SeasonIntroScreen:
         call CreateBitmap
         add esp, byte 0Ch
         lea edx, [dword ebp-0182h]
-        mov dword [dword_1CD764], eax
+        mov dword [SeasonIntroLayer], eax
         call BuildSeasonIntro
         lea eax, [dword ebp-031Eh]
         call SetupSeasonIntro
@@ -18080,7 +18080,7 @@ SeasonIntroScreen:
         lea eax, [byte ebp-042h]
         call ChkMenuMusic
         call RequestMusicStop
-        mov eax, dword [dword_1CD764]
+        mov eax, dword [SeasonIntroLayer]
         mov edx, 0FFFFFFFFh
         mov eax, dword [byte eax+02Ch]
         xor esi, esi
@@ -18097,19 +18097,19 @@ SeasonIntroScreen_DB:
         imul eax, byte 52h
         mov ebx, dword [dword eax+ebp-0304h]
         movsx edx, word [byte ebx+06h]
-        imul edx, dword [dword_1CD76C]
+        imul edx, dword [SeasonIntroDialogType]
         mov ecx, dword [dword eax+ebp-02F4h]
         sub ecx, edx
         movsx edx, word [byte ebx+04h]
         add edx, dword [dword eax+ebp-02F8h]
         push ecx
         add edx, byte 0Fh
-        mov ebx, dword [dword_1CD764]
+        mov ebx, dword [SeasonIntroLayer]
         push edx
         push dword [byte ebx+02Ch]
         push dword [dword_1CD77C]
         mov ebx, dword [dword eax+ebp-02F8h]
-        mov eax, dword [dword_1CD76C]
+        mov eax, dword [SeasonIntroDialogType]
         push dword [dword_1CD780]
         mov edx, eax
         call RunScrollList
@@ -18117,7 +18117,7 @@ SeasonIntroScreen_DB:
         je short .2
         test eax, eax
         jl short .2
-        cmp eax, dword [dword_1CD76C]
+        cmp eax, dword [SeasonIntroDialogType]
         jge short .2
         mov dword [dword_1CD770], eax
         mov eax, 1
@@ -18145,7 +18145,7 @@ SeasonIntroScreen_186:
         dec dword [dword_1CD770]
         jmp short SeasonIntroScreen_DB.1
 SeasonIntroScreen_19C:
-        mov eax, dword [dword_1CD76C]
+        mov eax, dword [SeasonIntroDialogType]
         dec eax
         cmp eax, dword [dword_1CD770]
         jle short SeasonIntroScreen_DB.2
@@ -18153,7 +18153,7 @@ SeasonIntroScreen_19C:
         inc dword [dword_1CD770]
         jmp short SeasonIntroScreen_DB.1
 .3:
-        push dword [dword_1CD764]
+        push dword [SeasonIntroLayer]
         call FreeBitmap
         add esp, byte 4
         push dword [dword_1CD774]

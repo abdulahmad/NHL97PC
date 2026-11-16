@@ -3,16 +3,16 @@ bits 32
 %include "hockey.inc"
 section s_1CD768 nobits alloc noexec write align=1
 global byte_1CD7A9, byte_1CD7B3, byte_1CD7B4, byte_1CD7FC, byte_1CD7FD, byte_1CD7FE, byte_1CD85E, byte_1CDA5F
-global byte_1CDC60, byte_1CDDFF, byte_1CDE61, dword_1CD768, dword_1CD76C, dword_1CD770, dword_1CD774, dword_1CD778
+global byte_1CDC60, byte_1CDDFF, byte_1CDE61, SeasonIntroDialogText, SeasonIntroDialogType, dword_1CD770, dword_1CD774, dword_1CD778
 global dword_1CD77C, dword_1CD780, dword_1CD784, dword_1CD7DF, unk_1CD78C, unk_1CD7FA, unk_1CD833, unk_1CD8DE
 global unk_1CD989, unk_1CDA34, unk_1CDADF, unk_1CDB8A, unk_1CDC35, unk_1CDCE0, unk_1CDD8F, unk_1CDDFD
 global unk_1CDE36, unk_1CE03B, unk_1CE0A9, word_1CD788, word_1CD78A, word_1CD7CD, word_1CD7CF, word_1CD7D1
 global word_1CD7D3, word_1CD7D5, word_1CD7D7, word_1CD7D9, word_1CD7DB, word_1CD7DD, word_1CD7E5, word_1CD7E7
 global word_1CD7E9, word_1CD7EB, word_1CD878, word_1CD87E, word_1CDA7B, word_1CDA95, word_1CDC7A, word_1CDC7C
 global word_1CDD8B, word_1CDD8D, word_1CDE7B, word_1CDE81, word_1CE037, word_1CE039
-dword_1CD768:
+SeasonIntroDialogText:
         resb 4
-dword_1CD76C:
+SeasonIntroDialogType:
         resb 4
 dword_1CD770:
         resb 4

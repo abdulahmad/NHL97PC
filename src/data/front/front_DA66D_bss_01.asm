@@ -2,288 +2,237 @@
 bits 32
 %include "hockey.inc"
 section s_1CD158 nobits alloc noexec write align=1
-global byte_1CD24D, byte_1CD250, byte_1CD460, byte_1CD75C, dword_1CD158, dword_1CD15C, dword_1CD160, dword_1CD17C
-global dword_1CD180, dword_1CD184, dword_1CD188, dword_1CD18C, dword_1CD190, dword_1CD194, dword_1CD198, dword_1CD1AC
-global dword_1CD1B0, dword_1CD1B4, dword_1CD1B8, dword_1CD244, dword_1CD248, dword_1CD264, dword_1CD268, dword_1CD26C
-global dword_1CD270, dword_1CD274, dword_1CD278, dword_1CD27C, dword_1CD280, dword_1CD284, dword_1CD288, dword_1CD28C
-global dword_1CD290, dword_1CD294, dword_1CD298, dword_1CD29C, dword_1CD2A0, dword_1CD2A4, dword_1CD2A8, dword_1CD2AA
-global dword_1CD2AE, dword_1CD2B2, dword_1CD2B6, dword_1CD2F4, dword_1CD378, dword_1CD402, dword_1CD40C, dword_1CD410
-global dword_1CD414, dword_1CD418, dword_1CD41C, dword_1CD428, dword_1CD42C, dword_1CD434, dword_1CD438, dword_1CD43C
-global dword_1CD440, dword_1CD444, dword_1CD448, dword_1CD450, dword_1CD454, dword_1CD458, dword_1CD45C, dword_1CD540
-global dword_1CD544, dword_1CD548, dword_1CD54C, dword_1CD550, dword_1CD554, dword_1CD558, dword_1CD55C, dword_1CD560
-global dword_1CD564, dword_1CD568, dword_1CD56C, dword_1CD574, dword_1CD578, dword_1CD57C, dword_1CD580, dword_1CD584
-global dword_1CD590, dword_1CD594, dword_1CD598, dword_1CD5B4, dword_1CD5B8, dword_1CD5BC, dword_1CD632, dword_1CD64C
-global dword_1CD650, dword_1CD654, dword_1CD6B0, dword_1CD6C6, dword_1CD6CA, dword_1CD6FE, dword_1CD750, dword_1CD754
-global dword_1CD758, dword_1CD760, dword_1CD764, unk_1CD19C, InputRecordRing, unk_1CD2BA, unk_1CD2FC, unk_1CD33E
-global unk_1CD380, unk_1CD408, unk_1CD480, unk_1CD570, unk_1CD59C, unk_1CD5D8, unk_1CD636, unk_1CD6AC
-global word_1CD1C0, word_1CD1CE, word_1CD1D0, HotKeyFlags, word_1CD24E, word_1CD2AC, word_1CD2B4, word_1CD2F6
-global word_1CD2F8, word_1CD2FA, word_1CD338, word_1CD33A, word_1CD37A, word_1CD37C, word_1CD3BC, word_1CD3BE
-global word_1CD3C0, word_1CD3FE, word_1CD400, word_1CD404, word_1CD406, word_1CD634
-dword_1CD158:
+global JoystickFlags, LinkPlayerReady, NetGameName, OptionsAnimSoundOn, DbFileTable, DbKeyIndex, DbRecordSizes, DbStaticBuffer
+global DbRecordCounts, DbPlayerFile, DbGameFile, DbTeamStatFile, DbPlayerStatFile, DbReplayFile, DbUserFile
+global KeyboardPadHomeOn, KeyboardPadAwayOn, LinkInputSent, LinkInputTickCount, LinkInputChanged
+global LinkRemoteFlags, LinkInputAck, LinkInputResend, LinkPacketBuffer, LinkSentPackets, LinkRecvPackets, LinkSendBuffer, LinkSentBytes
+global LinkSentErrors, LinkRecvBytes, LinkRecvErrors, LinkRecvOffset, LinkRecvSize, LinkHandle, NetConnected, LinkInputWordPad
+global LinkInputHigh, LinkRemoteInput, LinkInputState
+
+global NetListArt
+global NetListBitmap, NetListLayer, NetScreenItems, NetGameBitmaps, NetJoinShape, NetHostShape, NetListTop, NetListRows
+global NetPlayerBitmaps, NetScrollUpShape, NetScrollDownShape
+global NetJoinSocket, NetTitleShape, NetFrameShape, NetButtonShape, NetGameCountPad, OptionsAnimShapeLists
+global OptionsAnimShapes, OptionsAnimArt, OptionsAnimFrames, OptionsAnimTitle
+global OptionsAnimBack, SeasonIntroList, SeasonIntroLayer, DosCallRegs, InputRecordRing, LinkPacketQueues
+global NetSessionState, NetSocket, NetJoinRequest, NetJoinedGame, NetJoinedInfo, NetHostName, OptionsAnimItems
+global PadLastButtons, PadButtonState, HotKeyFlags, KeyboardLastKey, LinkInputPacket, LinkLocalInput
+
+global LinkWaitCount, LinkWaitTimer, NetGameCount
+DbFileTable:
         resb 4
-dword_1CD15C:
+DbKeyIndex:
         resb 4
-dword_1CD160:
+DbRecordSizes:
         resb 28
-dword_1CD17C:
+DbStaticBuffer:
         resb 4
-dword_1CD180:
+DbRecordCounts:
         resb 4
-dword_1CD184:
+DbPlayerFile:
         resb 4
-dword_1CD188:
+DbGameFile:
         resb 4
-dword_1CD18C:
+DbTeamStatFile:
         resb 4
-dword_1CD190:
+DbPlayerStatFile:
         resb 4
-dword_1CD194:
+DbReplayFile:
         resb 4
-dword_1CD198:
+DbUserFile:
         resb 4
-unk_1CD19C:
+DosCallRegs:
         resb 16
-dword_1CD1AC:
         resb 4
-dword_1CD1B0:
         resb 4
-dword_1CD1B4:
         resb 4
-dword_1CD1B8:
         resb 8
-word_1CD1C0:
         resb 14
-word_1CD1CE:
+PadLastButtons:
         resb 2
-word_1CD1D0:
+PadButtonState:
         resb 16
 InputRecordRing:
         resb 100
-dword_1CD244:
+KeyboardPadHomeOn:
         resb 4
-dword_1CD248:
+KeyboardPadAwayOn:
         resb 4
 HotKeyFlags:
         resb 1
-byte_1CD24D:
+JoystickFlags:
         resb 1
-word_1CD24E:
+KeyboardLastKey:
         resb 2
-byte_1CD250:
+LinkPlayerReady:
         resb 20
-dword_1CD264:
+LinkInputSent:
         resb 4
-dword_1CD268:
+LinkInputTickCount:
         resb 4
-dword_1CD26C:
+LinkInputChanged:
         resb 4
-dword_1CD270:
+LinkRemoteFlags:
         resb 4
-dword_1CD274:
+LinkInputAck:
         resb 4
-dword_1CD278:
+LinkInputResend:
         resb 4
-dword_1CD27C:
+LinkPacketBuffer:
         resb 4
-dword_1CD280:
+LinkSentPackets:
         resb 4
-dword_1CD284:
+LinkRecvPackets:
         resb 4
-dword_1CD288:
+LinkSendBuffer:
         resb 4
-dword_1CD28C:
+LinkSentBytes:
         resb 4
-dword_1CD290:
+LinkSentErrors:
         resb 4
-dword_1CD294:
+LinkRecvBytes:
         resb 4
-dword_1CD298:
+LinkRecvErrors:
         resb 4
-dword_1CD29C:
+LinkRecvOffset:
         resb 4
-dword_1CD2A0:
+LinkRecvSize:
         resb 4
-dword_1CD2A4:
+LinkHandle:
         resb 4
-dword_1CD2A8:
+NetConnected:
         resb 2
-dword_1CD2AA:
+LinkInputWordPad:
         resb 2
-word_1CD2AC:
+LinkInputPacket:
         resb 2
-dword_1CD2AE:
+LinkInputHigh:
         resb 4
-dword_1CD2B2:
+LinkRemoteInput:
         resb 2
-word_1CD2B4:
+LinkLocalInput:
         resb 2
-dword_1CD2B6:
+LinkInputState:
         resb 4
-unk_1CD2BA:
+LinkPacketQueues:
         resb 58
-dword_1CD2F4:
         resb 2
-word_1CD2F6:
         resb 2
-word_1CD2F8:
         resb 2
-word_1CD2FA:
         resb 2
-unk_1CD2FC:
         resb 60
-word_1CD338:
         resb 2
-word_1CD33A:
         resb 4
-unk_1CD33E:
         resb 58
-dword_1CD378:
         resb 2
-word_1CD37A:
         resb 2
-word_1CD37C:
         resb 4
-unk_1CD380:
         resb 60
-word_1CD3BC:
         resb 2
-word_1CD3BE:
         resb 2
-word_1CD3C0:
         resb 62
-word_1CD3FE:
         resb 2
-word_1CD400:
         resb 2
-dword_1CD402:
         resb 2
-word_1CD404:
+LinkWaitCount:
         resb 2
-word_1CD406:
+LinkWaitTimer:
         resb 2
-unk_1CD408:
+NetSessionState:
         resb 4
-dword_1CD40C:
         resb 4
-dword_1CD410:
         resb 4
-dword_1CD414:
         resb 4
-dword_1CD418:
         resb 4
-dword_1CD41C:
         resb 12
-dword_1CD428:
         resb 4
-dword_1CD42C:
         resb 8
-dword_1CD434:
         resb 4
-dword_1CD438:
         resb 4
-dword_1CD43C:
         resb 4
-dword_1CD440:
         resb 4
-dword_1CD444:
         resb 4
-dword_1CD448:
         resb 8
-dword_1CD450:
         resb 4
-dword_1CD454:
         resb 4
-dword_1CD458:
         resb 4
-dword_1CD45C:
         resb 4
-byte_1CD460:
+NetGameName:
         resb 32
-unk_1CD480:
+NetSocket:
         resb 192
-dword_1CD540:
+NetListArt:
         resb 4
-dword_1CD544:
+NetListBitmap:
         resb 4
-dword_1CD548:
+NetListLayer:
         resb 4
-dword_1CD54C:
+NetScreenItems:
         resb 4
-dword_1CD550:
+NetGameBitmaps:
         resb 4
-dword_1CD554:
+NetJoinShape:
         resb 4
-dword_1CD558:
+NetHostShape:
         resb 4
-dword_1CD55C:
+NetListTop:
         resb 4
-dword_1CD560:
+NetListRows:
         resb 4
-dword_1CD564:
+NetPlayerBitmaps:
         resb 4
-dword_1CD568:
+NetScrollUpShape:
         resb 4
-dword_1CD56C:
+NetScrollDownShape:
         resb 4
-unk_1CD570:
+NetJoinRequest:
         resb 4
-dword_1CD574:
         resb 4
-dword_1CD578:
         resb 4
-dword_1CD57C:
         resb 4
-dword_1CD580:
         resb 4
-dword_1CD584:
         resb 12
-dword_1CD590:
         resb 4
-dword_1CD594:
         resb 4
-dword_1CD598:
+NetJoinSocket:
         resb 4
-unk_1CD59C:
+NetJoinedGame:
         resb 24
-dword_1CD5B4:
+NetTitleShape:
         resb 4
-dword_1CD5B8:
+NetFrameShape:
         resb 4
-dword_1CD5BC:
+NetButtonShape:
         resb 28
-unk_1CD5D8:
+NetJoinedInfo:
         resb 90
-dword_1CD632:
+NetGameCountPad:
         resb 2
-word_1CD634:
+NetGameCount:
         resb 2
-unk_1CD636:
+NetHostName:
         resb 22
-dword_1CD64C:
+OptionsAnimShapeLists:
         resb 4
-dword_1CD650:
+OptionsAnimShapes:
         resb 4
-dword_1CD654:
+OptionsAnimArt:
         resb 88
-unk_1CD6AC:
+OptionsAnimItems:
         resb 4
-dword_1CD6B0:
         resb 22
-dword_1CD6C6:
         resb 4
-dword_1CD6CA:
         resb 52
-dword_1CD6FE:
         resb 82
-dword_1CD750:
+OptionsAnimFrames:
         resb 4
-dword_1CD754:
+OptionsAnimTitle:
         resb 4
-dword_1CD758:
+OptionsAnimBack:
         resb 4
-byte_1CD75C:
+OptionsAnimSoundOn:
         resb 4
-dword_1CD760:
+SeasonIntroList:
         resb 4
-dword_1CD764:
+SeasonIntroLayer:
         resb 4
