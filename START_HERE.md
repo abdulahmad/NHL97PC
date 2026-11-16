@@ -11,8 +11,8 @@ share code.
 - Never commit game files: no HOCKEY.EXE, no IDA listing, no data, no patches. Supply your own EXE (see below).
 - Never force-push, never rewrite pushed history, never push a commit that does not MATCH. Small commits.
 - No macros except `LD`. No address where a label works.
-- Names: a name from NHL 94 Genesis / SNES or an earlier game wins; then NHL 95 PC / 96 PC names; a 97-only name only when
-  no earlier game has the routine. Skip the Watcom runtime and the sound driver internals.
+- Names: a name from NHL 94 Genesis / SNES or an earlier game wins; then 95 Genesis, NHL 95 PC / 96 PC names; a 97-only name
+  only when no earlier game has the routine. Every symbol gets a real name, libraries included. Comments: CONTRIBUTING.md.
 
 ## 1. Setup
 
