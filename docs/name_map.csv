@@ -36,590 +36,590 @@ address,name,auto_name,source,confidence,evidence,file
 12DE8,FindStartingGoalies,sub_12DE8,new,low,finds the starting goalies,src/engine/period/period.asm
 12E50,ReleaseBoxPlayers,sub_12E50,new,low,"at a stoppage (assrefwhistle, assrefgoalpa): players whose penalty is over get assignment 15h (assleavebox) inserted",src/engine/period/period.asm
 1303C,AllInPlace,,96PC,medium,NHL96PC 3ABAE (similar): mnemonic similarity 0.87 over 21 instructions,
-1306C,Intermission,sub_1306C,96PC,medium,"96 PC Intermission: GameOver when gsp is 4, else SetupTeamForIntermission and resets the players for the next period",src/engine/faceoff/faceoff.asm
-130C8,StartGame,sub_130C8,96PC,medium,"96 PC StartGame: CountTeamSlots, clears the game vars and teams, restores the teams and starts the period",src/engine/faceoff/faceoff.asm
-131E0,InitGameVars,sub_131E0,new,medium,"clears the per-game state (clock, period, gameover, penalties, counters), then StartGame",src/engine/faceoff/faceoff.asm
-134F0,RunOpeningFrames,sub_134F0,new,low,runs the input records and frames of the opening until a button or 5DCh frames,src/engine/faceoff/faceoff.asm
-136C0,PlaceOpeningPlayers,sub_136C0,new,low,puts the players at their opening places (random spread by team and arena),src/engine/faceoff/faceoff.asm
-13920,OpeningSequence,sub_13920,new,low,"the game's opening: in a simulated game posts event 29h and returns, else places the players (PlaceOpeningPlayers) and runs the intro frames (RunOpeningFrames)",src/engine/faceoff/faceoff.asm
-13A4C,BeginGame,sub_13A4C,new,low,"from PlayGame: InitGameVars, the period fraction, then the opening sequence (OpeningSequence); 2 when it was aborted",src/engine/faceoff/faceoff.asm
-13ACB,EndGameCleanup,sub_13ACB,new,low,ends the game and clears the player flags,src/engine/faceoff/faceoff.asm
-13AF0,GetPlayerJerseyNumber,sub_13AF0,new,low,returns a player's jersey number,src/engine/faceoff/faceoff.asm
-13B50,LinkSideFlags,sub_13B50,new,low,returns the link side flags,src/engine/faceoff/faceoff.asm
-13B98,ClearLinkCounters,sub_13B98,new,low,clears the link counters,src/engine/faceoff/faceoff.asm
-13BAC,PickGameEvents,sub_13BAC,new,low,picks the random events for a game,src/engine/faceoff/faceoff.asm
-13D00,SpeedScaleAligned,sub_13D00,new,low,returns the speed scale for the skill setting (aligned stack),src/engine/faceoff/faceoff.asm
-13D50,SpeedScale,sub_13D50,new,low,returns the speed scale for the skill setting,src/engine/faceoff/faceoff.asm
-13DA4,ReachScale,sub_13DA4,new,low,returns the reach scale for the skill setting,src/engine/faceoff/faceoff.asm
-13DF8,GoalieReachFactor,sub_13DF8,new,low,returns the reach factor of a goalie or skater,src/engine/faceoff/faceoff.asm
-13E4C,PlayerReachFactor,sub_13E4C,new,low,returns the reach factor of a player,src/engine/faceoff/faceoff.asm
-13EB4,StickReachX,sub_13EB4,new,low,returns the stick reach along X,src/engine/faceoff/faceoff.asm
-13EF0,StickReachY,sub_13EF0,new,low,returns the stick reach along Y,src/engine/faceoff/faceoff.asm
-13F28,StickReachZ,sub_13F28,new,low,returns the stick reach along Z,src/engine/faceoff/faceoff.asm
-13F7C,CheckLineChangeKeys,sub_13F7C,new,low,checks the line change keys,src/engine/faceoff/faceoff.asm
-14078,RunSimFrames,sub_14078,96PC,medium,96 PC RunSimFrames: runs the simulation for one input record,src/engine/faceoff/faceoff.asm
-14140,JoystickAxisScale,sub_14140,new,low,scales a joystick axis,src/engine/faceoff/faceoff.asm
-14184,ToggleFKeyFlag,sub_14184,new,low,(key 5E00h-6600h): toggles the flag of a Ctrl+F key (dword_16AF3C),src/engine/faceoff/faceoff.asm
-141AC,ShowCameraView,sub_141AC,new,low,(view 0-7): from the camera keys and the attract game: SelectCameraView and the camera name panel,src/engine/faceoff/faceoff.asm
-141E8,RandomDiceRoll,sub_141E8,new,low,rolls random dice (debug),src/engine/faceoff/faceoff.asm
-14238,CountDebugUnlock,sub_14238,new,low,counts one step of the debug key unlock (sound 10h at 4),src/engine/faceoff/faceoff.asm
-1426C,ResetDebugUnlock,sub_1426C,new,low,clears the debug key unlock count,src/engine/faceoff/faceoff.asm
-14294,DebugKeys,sub_14294,new,low,"(key): the debug keys, active once the unlock count (word_1686D4) reaches 4",src/engine/faceoff/faceoff.asm
-14710,GameFunctionKeys,sub_14710,new,low,"(key): Ctrl+F1-F9 toggles (dword_16AF3C), +, - and =",src/engine/faceoff/faceoff.asm
-14880,HandleGameKeys,sub_14880,new,medium,"from GameLoop: the in-game keyboard: the unlocked debug keys (DebugKeys), the function keys (GameFunctionKeys)",src/engine/faceoff/faceoff.asm
-14AC8,Gameloop,sub_14AC8,94G,medium,the game's main loop (94G hockey94 Gameloop),src/engine/faceoff/faceoff.asm
-14E60,InitGameDisplay,sub_14E60,new,low,from PlayGame: copies the display options (unk_16AED4) and sets the 640x480 game screen,src/engine/faceoff/faceoff.asm
-14FE0,SaveGameDisplay,sub_14FE0,new,low,writes the game's display options back (dword_1AC835) after the game,src/engine/faceoff/faceoff.asm
-151A8,SetGameBrightness,sub_151A8,new,low,the brightness (28h-64h) from the display options,src/engine/faceoff/faceoff.asm
-152C4,PlayGame,sub_152C4,96PC,high,"96 PC PlayGame: seeds, then calls GameLoop",src/engine/faceoff/faceoff.asm
-15578,RunDemoGame,sub_15578,96PC,medium,"96 PC RunDemoGame: the attract mode game (gameopts 40h, a seed from the DOS time)",src/engine/faceoff/faceoff.asm
-1583F,RunInGameMenu,sub_1583F,96PC,high,96 PC RunInGameMenu: called when InGameMenuRequest is set,src/engine/faceoff/faceoff.asm
-15AC2,ChangeViewSize,sub_15AC2,new,medium,"(+1 / -1): the game view size in steps of 10 between 28h and 64h percent (word_1686E4), then the view window",src/engine/engine_15AC2.asm
-15BC5,SetViewWindow,sub_15BC5,new,low,the game view window from the view size and the screen size (dword_16E464 x dword_16E468),src/engine/engine_15AC2.asm
-15C30,PrevVideoModeKey,sub_15C30,new,low,"from GameFunctionKeys (F11 range): clears the overlays, PrevVideoMode, SetVideoMode and rebuilds the overlay windows",src/engine/engine_15AC2.asm
-15E4D,NextVideoModeKey,sub_15E4D,new,low,"from GameFunctionKeys (F12): clears the overlays, NextVideoMode, SetVideoMode and rebuilds the overlay windows",src/engine/engine_15AC2.asm
-1603A,ApplyDisplayFlags,sub_1603A,new,low,"sets the doubled / interlaced display flags (dword_19CD30, dword_19CD34) in the screen record",src/engine/engine_15AC2.asm
-16090,RemoveOverlayPanel,sub_16090,new,medium,(kind): takes the queued panels of a kind out of the panel queue,src/engine/engine_15AC2.asm
-160E2,DrawPanelArtScaled,sub_160E2,new,low,draws a piece of overlay panel art scaled to the panel size; takes the art and the panel rectangle,src/engine/engine_15AC2.asm
-161F0,DrawPanelPlayerCard,sub_161F0,new,low,"draws a player card on an overlay panel: picture, number, name and stats of the given player",src/engine/engine_15AC2.asm
-16AD0,GetPlayerNumber,sub_16AD0,new,low,returns the jersey number of a player from the team roster record,src/engine/engine_15AC2.asm
-16B17,GetPlayerPanelName,sub_16B17,new,low,builds the short name of a player shown on an overlay panel (initial and last name),src/engine/engine_15AC2.asm
-16BAD,GetPlayerName,sub_16BAD,new,low,copies the full name of a player from the team roster record into a buffer,src/engine/engine_15AC2.asm
-16BF5,TeamNameField,sub_16BF5,new,low,returns the team name field of a team record,src/engine/engine_15AC2.asm
-16BF9,DrawMessagePanel,sub_16BF9,new,low,"draws the in-game message overlay: frame, title and text lines picked by the message type",src/engine/engine_15AC2.asm
-16D61,DrawVideoModePanel,sub_16D61,new,medium,"the screen mode panel (""%d x %d"", Doubled / Interlaced / Normal)",src/engine/engine_15AC2.asm
-16ED0,DrawPenaltyPanel,sub_16ED0,new,medium,"overlay panel kind 1: the penalty call (game text ""Penalty"", ""for"", the infraction, ""2 Minutes"" / ""5 Minute Major"", ""and a Game Misconduct"")",src/engine/engine_15AC2.asm
-17158,DrawPenaltyShotPanel,sub_17158,new,medium,"overlay panel kind 8: ""Penalty Shot"", the shooter ""against"" the goalie (was the 96 PC carry DrawPlayerNamePanel)",src/engine/engine_15AC2.asm
-172C7,DrawSpecialTeamsPanel,,new,medium,"overlay panel kind 9: specialty teams tonight / this season, power play and penalty killing (game text 33h-37h)",src/engine/engine_15AC2.asm
-17639,DrawInjuryPanel,sub_17639,new,medium,"overlay panel kind 10: ""Injury"" with ""#%d %s %s""",src/engine/engine_15AC2.asm
-1771B,DrawPeriodPanel,sub_1771B,new,medium,"overlay panel kind 11: ""Period"" with ""%s %s"" / ""%s   %d""",src/engine/engine_15AC2.asm
-17818,DrawGoalScorerPanel,sub_17818,new,medium,"overlay panel kind 2: the goal scorer (""Goal"", ""Shorthanded"", ""Empty Net"", ""Unassisted""; ""%s - #%d %c. %s"")",src/engine/engine_15AC2.asm
-17AD1,DrawGameClock,sub_17AD1,96PC,medium,"96 PC DrawGameClock: the game clock ""%2d:%02d"", or ""%2d.%01d"" under a minute",src/engine/engine_15AC2.asm
-17C2C,DrawPowerPlayClock,sub_17C2C,new,low,"draws the ""Power Play"" countdown next to the game clock (""%2d:%02d"")",src/engine/engine_15AC2.asm
-17DC0,DrawClockPanel,sub_17DC0,96PC,low,the clock panel (overlay kind table off_16877E entry 0): removes panels 300h / 700h and draws the clock (DrawGameClock),src/engine/engine_15AC2.asm
-17EB6,PowerPlayPanel,sub_17EB6,new,low,"draws the power play overlay: team, time left on the penalty and players in the box",src/engine/engine_15AC2.asm
-18025,UpdateScoreboardPanel,sub_18025,new,low,"redraws the score and clock overlay when the score, period or time changes",src/engine/engine_15AC2.asm
-1870B,HomeTeamPanel,sub_1870B,new,low,"draws the home team overlay panel (name, logo, score)",src/engine/engine_15AC2.asm
-1882A,AwayTeamPanel,sub_1882A,new,low,"draws the away team overlay panel (name, logo, score)",src/engine/engine_15AC2.asm
-18958,HomeStatPanel,sub_18958,new,low,"draws the home team statistics overlay (shots, goals, power play)",src/engine/engine_15AC2.asm
-18B81,AwayStatPanel,sub_18B81,new,low,"draws the away team statistics overlay (shots, goals, power play)",src/engine/engine_15AC2.asm
-18D8A,QueueOverlayPanel,sub_18D8A,96PC,medium,"96 PC QueueOverlayPanel (kind, ticks, ...): puts a panel in a free slot of the 10-panel queue (unk_19CF8C, 0Ch each)",src/engine/engine_15AC2.asm
-18DF7,OpenFreeOverlay,sub_18DF7,new,low,"finds a free overlay window slot, allocates its bitmap and adds it to the overlay list; returns the slot",src/engine/engine_15AC2.asm
-18E35,ClearOverlayWindows,sub_18E35,new,medium,"removes and frees all ten game overlay windows (unk_19CF8C), RemoveOverlayWindow on each",src/engine/engine_15AC2.asm
-18E76,RefreshOverlayWindows,sub_18E76,new,medium,asks every open overlay window to be drawn again,src/engine/engine_15AC2.asm
-18E9A,ChkShowStatsPanel,sub_18E9A,new,low,opens the statistics overlay at a stoppage when the option is on and none is shown,src/engine/engine_15AC2.asm
-18EEE,ChkPowerPlayPanel,sub_18EEE,new,low,opens or closes the power play overlay as penalties start and end,src/engine/engine_15AC2.asm
-18F67,SetOverlayFont,sub_18F67,new,low,selects the font and colours used to draw text on the overlay panels,src/engine/engine_15AC2.asm
-1900F,DrawGameOverlays,sub_1900F,96PC,medium,"96 PC DrawGameOverlays: from GameLoop, the overlay panels of the frame (clock, queued panels)",src/engine/engine_15AC2.asm
-19133,IsOverlayShown,sub_19133,new,medium,returns nonzero when the given overlay window is open,src/engine/engine_15AC2.asm
-191F8,GetCameraTarget,sub_191F8,new,low,"(target 4-10h and up): the position record of a camera target (player records at dword_1B1410, then fixed targets); 0 when none",src/engine/engine_15AC2.asm
-19540,GetTargetPoint,sub_19540,new,low,"returns the point the game camera looks at: the puck, its carrier or the object the scene follows",src/engine/engine_15AC2.asm
-1963C,UpdateCameraView,sub_1963C,new,low,"(camera, ...): per frame, the camera by its view kind (+24h, 0-0Dh)",src/engine/engine_15AC2.asm
-19F30,UpdateCameraZoom,sub_19F30,new,low,"(camera): the camera distance by its zoom mode (+28h, 0-5)",src/engine/engine_15AC2.asm
-1A31C,UpdateCameraTrack,sub_1A31C,new,low,"(camera): follows the camera path target by its track mode (+2Ch, 0-5)",src/engine/engine_15AC2.asm
-1A5F8,EaseAngle,sub_1A5F8,new,low,"moves an angle toward a target angle by a fraction of the difference, taking the short way round",src/engine/engine_15AC2.asm
-1A690,EaseCameraAngles,sub_1A690,new,low,"eases the camera's heading, pitch and roll toward their targets each frame",src/engine/engine_15AC2.asm
-1A740,SetCameraView,sub_1A740,new,medium,"(camera, view 0-0Dh): fills a camera record (unk_19D0A4) with the view's name (GetLangText) and settings",src/engine/engine_15AC2.asm
-1AD4C,BuildSplinePath,sub_1AD4C,new,low,builds the spline coefficients of a camera path through its control points,src/engine/engine_15AC2.asm
-1AE58,SetCameraSpline,sub_1AE58,new,low,"starts the camera along a spline path: control points, length and speed",src/engine/engine_15AC2.asm
-1AF4C,SetCameraHeight,sub_1AF4C,new,low,"sets the camera height (dword_19D1A4), at once or eased over frames",src/engine/engine_15AC2.asm
-1AF90,SetCameraFocus,sub_1AF90,new,low,"sets the camera focus x / z (dword_19D1A0, dword_19D1A8), at once or eased",src/engine/engine_15AC2.asm
-1B034,SetCameraPathPoint,sub_1B034,new,low,"sets the camera path point (dword_19D340, dword_19D344), at once or eased",src/engine/engine_15AC2.asm
-1B09C,StartCameraPath,sub_1B09C,new,low,"(path, ticks): starts a camera path (dword_19D380) for the game camera",src/engine/engine_15AC2.asm
-1B1CC,SetCameraPathPoints,sub_1B1CC,new,low,fills the control points of the camera path from the current camera and the target view,src/engine/engine_15AC2.asm
-1B340,FightCameraStart,sub_1B340,new,low,moves the camera to the fight view around the two fighting players,src/engine/engine_15AC2.asm
-1B3D8,ResetSceneCamera,sub_1B3D8,new,low,ends a camera scene: clears the scene function and puts the camera back on the game view,src/engine/engine_15AC2.asm
-1B3F4,SelectCameraView,sub_1B3F4,new,medium,"(view, ticks): picks the game camera view (mod 10) with SetCameraView and moves the camera to it",src/engine/engine_15AC2.asm
-1B4E4,UpdateGameCamera,sub_1B4E4,new,low,per-frame game camera: runs the scene function or follows the target with the chosen camera view,src/engine/engine_15AC2.asm
-1B5B0,DampCameraMotion,sub_1B5B0,new,low,smooths the camera position toward its goal so the view does not jump,src/engine/engine_15AC2.asm
-1B67C,ToggleCameraFollow,sub_1B67C,new,low,switches the camera between following the puck and following the controlled player,src/engine/engine_15AC2.asm
-1B6E8,InitCamera,sub_1B6E8,new,low,sets the camera to its start view and clears the scene state at the start of a game,src/engine/engine_15AC2.asm
-1B71C,DrawCameraDebugMarks,sub_1B71C,new,low,debug: draws markers at the camera target and path points,src/engine/engine_15AC2.asm
-1B85C,RunCameraScene,sub_1B85C,new,low,calls the current camera scene step function when one is set,src/engine/engine_15AC2.asm
-1B88C,CameraNoop,sub_1B88C,new,low,empty camera scene step,src/engine/engine_15AC2.asm
-1B890,CanStartCameraScene,sub_1B890,new,low,"(priority 1-7): whether a scripted camera scene of this priority may start now (none running, or a higher priority than the running one; 0 ends the scene)",src/engine/engine_15AC2.asm
-1B90C,SetCameraSceneFunc,sub_1B90C,new,low,sets the function that drives the camera each frame for the current scene,src/engine/engine_15AC2.asm
-1B930,PenaltyCameraDistance,sub_1B930,new,low,returns how far the camera stays from the penalized player in the penalty scene,src/engine/engine_15AC2.asm
-1B9D4,PenaltySceneStep,sub_1B9D4,new,low,camera step of the penalty scene: follows the penalized player to the box,src/engine/engine_15AC2.asm
-1BB18,PenaltyCameraScene,sub_1BB18,new,low,"from asspenalty: scripted camera scene, priority 6 (SetCameraView 8, StartCameraPath, sub_1B9D4 per frame)",src/engine/engine_15AC2.asm
-1BB94,IntermissionSceneStep,sub_1BB94,new,low,camera step of the intermission scene: slow move over the rink,src/engine/engine_15AC2.asm
-1BC18,IntermissionCameraScene,sub_1BC18,new,low,starts the intermission camera scene,src/engine/engine_15AC2.asm
-1BCA8,EndOpeningCamera,sub_1BCA8,new,low,ends the opening camera move and hands the camera to the game view,src/engine/engine_15AC2.asm
-1BCDC,OpeningCameraStep,sub_1BCDC,new,low,camera step of the opening scene: the fly-in over the arena before the first faceoff,src/engine/engine_15AC2.asm
-1BEA4,LoadOpeningCamera,sub_1BEA4,new,low,from OpeningSequence: loads the opening camera path intro%d.3cp from arena.viv,src/engine/engine_15AC2.asm
-1BFC0,FightSceneStep,sub_1BFC0,new,low,camera step of the fight scene: circles the fighters,src/engine/engine_15AC2.asm
-1C108,FightCameraScene,sub_1C108,new,low,"from StartFight: scripted camera scene, priority 2 (follows the two fighters, sub_1BFC0 per frame)",src/engine/engine_15AC2.asm
-1C210,SetFightCameraReady,sub_1C210,new,low,marks the fight camera as in place,src/engine/engine_15AC2.asm
-1C21C,SceneReturnToView,sub_1C21C,new,low,moves the camera from a scene back to the normal game view,src/engine/engine_15AC2.asm
-1C29C,FaceoffCameraScene,sub_1C29C,new,low,"from puckfaceoff: scripted camera scene, priority 7 (path 18h)",src/engine/engine_15AC2.asm
-1C2EC,FaceoffSceneStep,sub_1C2EC,new,low,camera step of the faceoff scene,src/engine/engine_15AC2.asm
-1C360,FaceoffCloseupScene,sub_1C360,new,low,starts the close-up camera on the faceoff circle,src/engine/engine_15AC2.asm
-1C4F4,FaceoffSweepStep,sub_1C4F4,new,low,camera step of the sweep down to the faceoff circle,src/engine/engine_15AC2.asm
-1C70C,FaceoffSweepScene,sub_1C70C,new,low,starts the camera sweep down to the faceoff circle,src/engine/engine_15AC2.asm
-1C7B4,FaceoffCameraScene2,sub_1C7B4,new,low,"from puckfaceoff: scripted camera scene, priority 7, one of two random camera moves",src/engine/engine_15AC2.asm
-1C854,MenuCameraScene,sub_1C854,new,low,starts the camera scene shown behind the in-game menus,src/engine/engine_15AC2.asm
-1C8DC,MenuOrbitStep,sub_1C8DC,new,low,camera step of the slow orbit behind the in-game menus,src/engine/engine_15AC2.asm
-1C9F0,MenuOrbitScene,sub_1C9F0,new,low,starts the slow orbit behind the in-game menus,src/engine/engine_15AC2.asm
-1CB9C,PenShotSceneStep,sub_1CB9C,new,low,camera step of the penalty shot scene: follows the shooter in on the goalie,src/engine/engine_15AC2.asm
-1CBD8,PenaltyShotCameraScene,sub_1CBD8,new,low,"from assrefpenshot: scripted camera scene, priority 3 (penshottimer)",src/engine/engine_15AC2.asm
-1CCBC,EndPenShotScene,sub_1CCBC,new,low,ends the penalty shot camera scene,src/engine/engine_15AC2.asm
-1CCF8,GoalSceneStep,sub_1CCF8,new,low,camera step of the goal scene: follows the scorer's celebration,src/engine/engine_15AC2.asm
-1CD80,GoalCameraScene,sub_1CD80,new,low,"from Goal: scripted camera scene, priority 5 (sub_1CCF8 per frame)",src/engine/engine_15AC2.asm
-1CE98,FaceoffDropSceneStep,sub_1CE98,new,low,camera step while the referee drops the puck,src/engine/engine_15AC2.asm
-1D008,FaceoffDropCameraScene,sub_1D008,new,low,"from puckfaceoff2: scripted camera scene, priority 1 (sub_1CE98 per frame)",src/engine/engine_15AC2.asm
-1D09C,RestoreGameCamera,sub_1D09C,new,low,restores the camera view saved before a scene,src/engine/engine_15AC2.asm
-1D0BC,PenaltyCallSceneStep,sub_1D0BC,new,low,camera step while the referee signals a penalty,src/engine/engine_15AC2.asm
-1D16C,PenaltyCallCameraScene,sub_1D16C,new,low,starts the camera scene of a penalty call,src/engine/engine_15AC2.asm
-1D1D4,SetFaceoffEndFlag,sub_1D1D4,new,low,sets the flag that ends the faceoff camera scene,src/engine/engine_15AC2.asm
-1D1DC,ReplayCameraOn,sub_1D1DC,new,low,hands the camera to the instant replay controls,src/engine/engine_15AC2.asm
-1D208,ReplayCameraOff,sub_1D208,new,low,gives the camera back to the game after the instant replay,src/engine/engine_15AC2.asm
-1D2A8,DrawCameraDebug,sub_1D2A8,new,low,"from DrawGameFrame when dword_19D094 is set: draws the camera target and prints its ""(%d,%d,%d)"" position",src/engine/engine_15AC2.asm
-1D480,ReplayCamFollowMode,sub_1D480,new,low,"replay camera: follow mode, keeps the target in view",src/engine/engine_15AC2.asm
-1D4FC,ReplayCamDrag,sub_1D4FC,new,low,replay camera: moves the camera with the mouse or pad while a button is held,src/engine/engine_15AC2.asm
-1D828,ReplayCamRestorePath,sub_1D828,new,low,replay camera: puts the saved camera path back,src/engine/engine_15AC2.asm
-1D858,ReplayCamOrbitMode,sub_1D858,new,low,replay camera: starts orbit mode around the target,src/engine/engine_15AC2.asm
-1D914,ReplayCamOrbit,sub_1D914,new,low,replay camera: orbits and zooms around the target from the input,src/engine/engine_15AC2.asm
-1DB8C,ReplayCamStop,sub_1DB8C,new,low,replay camera: stops the current camera move,src/engine/engine_15AC2.asm
-1DBA0,ReplayCamFreeMode,sub_1DBA0,new,low,replay camera: starts free mode,src/engine/engine_15AC2.asm
-1DBF0,ReplayCamTurn,sub_1DBF0,new,low,replay camera: turns the free camera from the input,src/engine/engine_15AC2.asm
-1DCB0,ReplayCamMove,sub_1DCB0,new,low,replay camera: moves the free camera from the input,src/engine/engine_15AC2.asm
-1DD5C,ReplayCamZoomMode,sub_1DD5C,new,low,replay camera: starts zoom mode,src/engine/engine_15AC2.asm
-1DDE4,ReplayCamZoom,sub_1DDE4,new,low,replay camera: zooms in or out from the input,src/engine/engine_15AC2.asm
-1DEB8,ReplayCamClearFlag,sub_1DEB8,new,low,replay camera: clears the camera mode flag,src/engine/engine_15AC2.asm
-1DEE4,CrowdForPuckZone,sub_1DEE4,new,low,"sets the crowd mood from where the player touching the puck is: own zone, neutral zone, deep, or near the net on a fast puck; nothing while the puck is in its faceoff state",src/engine/engine_15AC2.asm
-1DFA0,CrowdForPlayer,sub_1DFA0,new,low,sets the crowd mood when a player gets the puck: by which team and whether he is past the blue line,src/engine/engine_15AC2.asm
-1E014,ShotChanceCommentary,sub_1E014,new,low,each frame: rates how close the carrier is to a scoring chance (distance to the goal) and sets the crowd mood and the play-by-play excitement level,src/engine/engine_15AC2.asm
-1E184,LineChangeCommentary,sub_1E184,new,low,play-by-play call for a line change of the given player's team (more often while play is stopped),src/engine/engine_15AC2.asm
-1E208,assreplace,sub_1E208,94G,high,"94G assreplace: (player, assignment) replaces the current assignment (+0B2h list at index +0B1h) and sets the new-assignment flag (+0BFh bit 1)",src/engine/engine_15AC2.asm
-1E224,assinsert,sub_1E224,94G,medium,"94G assinsert: (player, assignment) pushes a new assignment (index - 1) unless it is already the current one, then as assreplace",src/engine/engine_15AC2.asm
-1E268,assexit,sub_1E268,94G,high,94G assexit: ends the current assignment (index + 1) and sets the new-assignment flag,src/engine/engine_15AC2.asm
-1E284,AimAtPuckTarget,sub_1E284,new,low,"turns a player toward the puck carrier, or toward the goal he attacks when he carries the puck himself; sets the motion heading",src/engine/engine_15AC2.asm
-1E354,SetZoneFlags,sub_1E354,new,low,"sets a player's rink zone flags from his position seen from his attacking end: side (left, middle, right) and depth (own end to deep offensive zone)",src/engine/engine_15AC2.asm
-1E4E4,CanReachPuck,sub_1E4E4,new,low,"whether a player can play the loose or carried puck: not his own team's carrier, play running, puck speed in range and moving his way; returns nonzero if so",src/engine/engine_15AC2.asm
-1E7C4,TryPokePuck,sub_1E7C4,new,low,starts a poke check when the player can reach the puck; keeps the puck's motion as it was; returns nonzero when started,src/engine/engine_15AC2.asm
-1E810,RandomPokeCheck,sub_1E810,new,low,"computer players poke at the puck now and then, more often against the other team and with higher checking skill",src/engine/engine_15AC2.asm
-1E8B0,ChkPokeOrCheck,sub_1E8B0,new,low,"defender decides to poke check, hook or body check the carrier from distance, angle, skill and difficulty",src/engine/engine_15AC2.asm
-1EC5C,check4bench,sub_1EC5C,94G,medium,"94G check4bench: whether player a3 should go to the bench; if so assreplace with assbench (17h); 0 when he stays (joystick-controlled, penalty shot, ...)",src/engine/engine_15AC2.asm
-1EF88,SwapPosition,sub_1EF88,96PC,medium,"96 PC SwapPosition: (player, position) gives the player the position and hands his old one to the teammate who held it; returns the player number",src/engine/engine_15AC2.asm
-1F32C,ChkForwardSwap,sub_1F32C,new,low,"a defenseman caught deep in the offensive zone swaps position with a forward (left wing, center or right wing by side)",src/engine/engine_15AC2.asm
-1F4EC,GetDefensePartner,sub_1F4EC,new,low,"returns the object of the other defenseman of a defenseman's line, 0 for a forward",src/engine/engine_15AC2.asm
-1F538,ChkSwapWithPartner,sub_1F538,new,low,two defensemen on the wrong sides swap positions; returns 1 when they swapped,src/engine/engine_15AC2.asm
-1F5B4,asscoverdefd,sub_1F5B4,96PC,low,"assignment 10h (set by asscoverdefo): the defending half of the cover, SwapPosition back when it ends",src/engine/engine_15AC2.asm
-1F7D0,asscoverdefo,sub_1F7D0,96PC,low,"assignment 0Fh (given from the Setplass jump table): a forward covering a defence spot; uses SwapPosition and moves on to 10h (asscoverdefd), as 96 PC asscoverdefo / asscoverdefd",src/engine/engine_15AC2.asm
-1FB6C,Setplass,sub_1FB6C,94G,medium,"94G Setplass: sets the player's starting assignment by position from the list byte_1689C0 (goalie 2, defence 3, wings 4, centre 5), after SwapPosition",src/engine/engine_15AC2.asm
-1FBF4,GoaliePosTarget,sub_1FBF4,new,low,"works out where the goalie stands: on the line between the puck and the middle of the goal, kept inside the crease",src/engine/engine_15AC2.asm
-1FF5C,FaceoffSpotPosition,sub_1FF5C,new,low,sets the spot a player takes at a faceoff from his position and the faceoff dot (table of offsets per position),src/engine/engine_15AC2.asm
-20508,Endfaceoff,sub_20508,96PC,medium,"from puckfaceoff2: decides the faceoff (randomd0 21h / 0Ah as in 96 PC), gives the puck assignment 41h (pucknorm) and the referee 31h (assreffollow)",src/engine/engine_15AC2.asm
-209CC,AssNoop,sub_209CC,new,low,empty assignment: does nothing,src/engine/engine_15AC2.asm
-209D0,assnull,sub_209D0,new,low,"assignment 0 (and the first referee and puck slots): stops the animation of object 13, otherwise nothing",src/engine/engine_15AC2.asm
-209E0,assbenchwait,sub_209E0,96PC,low,"assignment 1 (set by setpersonel, AddPenalty2): an off-ice player waits at the bench (x -2232 / -4440), check4bench, flags +0C1h",src/engine/engine_15AC2.asm
-20A80,DelayedPenaltyEnd,sub_20A80,new,low,"ends a delayed penalty when the penalized team touches the puck or a goal is scored: stops play, crowd reaction; keeps the right players in the box",src/engine/engine_15AC2.asm
-20C50,ChkTeamPlayerFlag,sub_20C50,new,low,on a goal: whether the given team has a player on the ice with the goal-check flag set; returns 1 if so,src/engine/engine_15AC2.asm
-20CB0,Goal,sub_20CB0,95PC,medium,"the puck is in a goal: offside goals become AddPenalty / AddPenalty2, the goal and its bookkeeping, the goal commentary (CommentaryEvent), the scorer's team to assscore (18h), the puck to 40h and the referee to 31h; also from DebugKeys",src/engine/engine_15AC2.asm
-218B8,InCrease,sub_218B8,new,low,whether a player stands in the goal crease at the given end (distance from the goal mouth); returns 1 if so,src/engine/engine_15AC2.asm
-21A4C,UpdateCreaseFlag,sub_21A4C,new,low,each frame: sets or clears a player's in-crease flag at the goal he attacks,src/engine/engine_15AC2.asm
-21AB4,FindCreasePlayer,sub_21AB4,new,low,"on a goal with the crease rule on: returns the number of the first attacker standing in the crease, -1 if none",src/engine/engine_15AC2.asm
-21B20,assgoalie,sub_21B20,94G,medium,"94G assgoalie: assignment 2 (Setplass list for the goalie), the goalie AI",src/engine/engine_15AC2.asm
-21E98,KeepInsideRink,sub_21E98,new,low,pulls a player's skating target back inside the boards when it lies past the rink edge,src/engine/engine_15AC2.asm
-22050,DefendPuck,sub_22050,new,low,defensive play of a computer player: picks the attacker or lane to cover and skates there,src/engine/engine_15AC2.asm
-22828,assextra4,sub_22828,96PC,low,96 PC assextra4 (placeholder name): called from the offence assignments,src/engine/engine_15AC2.asm
-22B8C,assdefo,sub_22B8C,94G,low,"94G assdefo: assignment 0Bh, defenceman on offence (SwapPosition, assextra4, as 96 PC assdefo)",src/engine/engine_15AC2.asm
-22CEC,asswingo,sub_22CEC,94G,low,"94G asswingo: assignment 0Ch, winger on offence",src/engine/engine_15AC2.asm
-22E70,asscentero,sub_22E70,94G,low,"94G asscentero: assignment 0Dh, centre on offence",src/engine/engine_15AC2.asm
-22FF0,FindManToCover,sub_22FF0,new,low,"picks the opposing skater a defending player covers, by side and distance",src/engine/engine_15AC2.asm
-23284,assextra3,sub_23284,96PC,low,96 PC assextra3 (placeholder name): called from asswingd and asscenterd,src/engine/engine_15AC2.asm
-238E8,assdefd,sub_238E8,94G,medium,"94G assdefd: assignment 3 (Setplass list for defence), defenceman on defence",src/engine/engine_15AC2.asm
-23A78,asswingd,sub_23A78,94G,medium,"94G asswingd: assignment 4 (Setplass list for wings), winger on defence",src/engine/engine_15AC2.asm
-23B88,asscenterd,sub_23B88,94G,medium,"94G asscenterd: assignment 5 (Setplass list for the centre), centre on defence",src/engine/engine_15AC2.asm
-23C98,asstofaceoff,sub_23C98,new,low,"assignment 6: a player skates to his faceoff spot (or to the bench, or to the side for a penalty shot)",src/engine/engine_15AC2.asm
-23E90,assfaceoff,sub_23E90,94G,medium,"94G assfaceoff: assignment 7, players idle until the faceoff is over (puckfaceoff2 gives it to everyone but the centre, as 94G afaceoff)",src/engine/engine_15AC2.asm
-23F44,assfaceoffpl,sub_23F44,94G,medium,"94G assfaceoffpl: assignment 8, the faceoff player (puckfaceoff2 gives it to the centre, as 94G afaceoffpl)",src/engine/engine_15AC2.asm
-240D0,BuildPassTargets,sub_240D0,new,low,"fills a player's table of passing targets: each teammate's distance and lane, best target first",src/engine/engine_15AC2.asm
-24220,CreditPass,sub_24220,new,low,a teammate takes a pass: counts the completed pass for the team and calls the play-by-play,src/engine/engine_15AC2.asm
-244BC,assonetimer,sub_244BC,new,low,"asstab 0Eh: the one-timer: waits for the pass, then shoots (OneTimerShot)",src/engine/engine_15AC2.asm
-2471C,CarrierInShotArea,sub_2471C,new,low,whether the puck carrier is in the area in front of the net he attacks (play running); returns nonzero if so,src/engine/engine_15AC2.asm
-248E8,CanReceivePass,sub_248E8,new,low,"whether a teammate can take a pass: on the ice, open, close enough and ahead of the passer",src/engine/engine_15AC2.asm
-249F8,MakePass,sub_249F8,new,low,"the passer lets the puck go: clears the carrier, sets the puck speed from the pass power, counts the pass and calls the play-by-play",src/engine/engine_15AC2.asm
-24C00,RimPuck,sub_24C00,new,low,pass type 8: shoots the puck around the boards to a teammate,src/engine/engine_15AC2.asm
-25010,StartPass,sub_25010,new,low,"starts a pass by its type (normal, flip, rim, drop) to the chosen teammate",src/engine/engine_15AC2.asm
-25188,TargetInAngle,sub_25188,new,low,whether a teammate lies within the given angle of the passer's heading and farther than him; returns 1 if so,src/engine/engine_15AC2.asm
-251F0,AIPassDecision,sub_251F0,new,low,"computer puck carrier decides to pass, shoot or keep skating; picks the receiver",src/engine/engine_15AC2.asm
-25730,ChkAIShoot,sub_25730,new,low,computer carrier decides to shoot from range and angle (always late in a period when behind),src/engine/engine_15AC2.asm
-25894,PlayerPastLine,sub_25894,new,low,"(player, line y 0 / +-56Bh): whether both of the player's tracked points are past the line in his attacking direction (red line +-18h, blue line +-30h)",src/engine/engine_25894.asm
-2596C,checkob,sub_2596C,94G,medium,"94G checkob (warning ref when a player on your team is over the blue line): offsides option, a teammate past the blue line as the carrier comes up sets byte_19CBCA 80h and shows overlay 5",src/engine/engine_25894.asm
-25AEC,GetLowestPen,sub_25AEC,94G,high,94G GetLowestPen: power play time left from the two teams' penalty box lists (coincidental entries skipped); 0 when the teams are even,src/engine/engine_25894.asm
-25BD0,chk4lc,sub_25BD0,94G,low,"94G chk4lc (see if the computer should call a line change): line option 40h, puck in its own half, 1 in 4, enough clock and power play time, tired line (sub_2E310 > 800h) -> CompLine, setpersonel",src/engine/engine_25894.asm
-25D40,SkateOnside,sub_25D40,new,low,"offside warning on (byte_19CBCA 80h): send the player to his onside spot (word_168A4C table by formation, mirrored by team), speed 25",src/engine/engine_25894.asm
-25E24,SkateToEndBoards,sub_25E24,new,low,"sends the player toward the end boards (y +-0F30h) when his slot neighbour is free, random approach angle",src/engine/engine_25894.asm
-25F64,asspuckc,sub_25F64,94G,low,"assignment 9, the computer puck carrier: steps out when its team does not have the puck (off_168CF0), runs its checks on a reaction timer (+56h), and goes to 1Bh when skating in close on the goal",src/engine/engine_25894.asm
-2625C,ChkDefenseSwitch,sub_2625C,new,low,"from assnearest: decides when a defenceman switches sides with his partner (SwapPosition helpers sub_1F538 / sub_1F4EC) by puck carrier, zone (0B10h, 0FC0h) and side",src/engine/engine_25894.asm
-264CC,ChasePuck,sub_264CC,new,low,"from assnearest: aims the player at the puck (or its carrier) plus its velocity lead, speed by skill level (dword_1AC814 bits 7-8)",src/engine/engine_25894.asm
-265FC,assnearest,sub_265FC,94G,medium,"94G assnearest: assignment 0Ah (off_19C3F4), the main skater AI (forcepldata gives it to the centre, as in 94G)",src/engine/engine_25894.asm
-27210,StartScoreCelebration,sub_27210,new,low,"from assscore: resets the motion and starts the celebration animation (SetSPA +48h), clears the stick sounds",src/engine/engine_25894.asm
-27274,assscore,sub_27274,94G,low,"assignment 18h (set by sub_20CB0): goal celebration: stops the puck (41h to 40h), a random celebration time, the scorer (word_19CB84) gets one of 5 celebrations (sub_27210)",src/engine/engine_25894.asm
-27500,ChkPullGoalieLate,sub_27500,96PC,medium,"96 PC ChkPullGoalieLate: (team) third period, last 60 seconds, losing by 1-2 and no goalie pulled yet: pull the goalie (from assbench)",src/engine/engine_25894.asm
-275C0,assbench,sub_275C0,94G,medium,"94G assbench: assignment 17h, skating off to the bench (check4bench gives it); setplayer for the replacement",src/engine/engine_25894.asm
-27A00,PutBoxPlayerOnBench,sub_27A00,new,low,"from assleavebox: the first roster entry flagged 8 goes to the bench spot (position 8002h, sub_3A164), heading set",src/engine/engine_25894.asm
-27A78,ReleaseBoxToBench,sub_27A78,new,low,"from puckfaceoff2: every player flagged in the box (flag 8) on both teams goes to the bench (position 8002h), box counts byte_19CB70 down",src/engine/engine_25894.asm
-27AD8,assleavebox,sub_27AD8,96PC,medium,"assignment 15h (inserted by sub_12E50): check4bench, skates from the penalty box spot by the side boards (as asspsclear) and brings the released player back on (assreplace 15h, setplayer), as 96 PC assleavebox",src/engine/engine_25894.asm
-27D10,asspsclear,sub_27D10,96PC,medium,"assignment 19h (from setpersonel): skaters clear to a spot by the side boards (x -1898, y +-2B8h plus a random multiple of 90h) and stop facing the play; 96 PC asspsclear's spot scaled to 97 units",src/engine/engine_25894.asm
-27F80,AssignControlSlots,sub_27F80,new,low,"from puckfaceoff: for each of the 8 control slots, the team's first free skater becomes the controlled player (restorepl via sub_343F8)",src/engine/engine_25894.asm
-27FF0,PenShotStart,sub_27FF0,96PC,medium,"from puckfaceoff2: penalty shot start: shooter faces the goal, assignment 1Bh, puck to him, penshottimer 3E8h, penshotlive on",src/engine/engine_25894.asm
-28110,asspenshot,sub_28110,new,medium,asstab 1Bh (given by PenShotStart): the penalty shot shooter skates in on goal (y +-0F30h) and shoots,src/engine/engine_25894.asm
-282B8,asseben,sub_282B8,94G,medium,"94G asseben: assignment 16h, coming on from the bench (setplayer gives it for a player from the bench, as in 94G)",src/engine/engine_25894.asm
-2842C,assleaveice,sub_2842C,96PC,medium,"assignment 1Ah (set by InProgress, as in 96 PC): skates to the bench gate by the side boards, changeplayer, then assignment 1 (assbenchwait)",src/engine/engine_25894.asm
-28698,asspenalty,sub_28698,94G,medium,"94G asspenalty: assignment 12h, the penalised player skates to the penalty box (InProgress gives it, as in 94G)",src/engine/engine_25894.asm
-289AC,assdopen,sub_289AC,96PC,low,"96 PC assdopen: assignment 13h, opens the penalty box door (SetPenaltyBoxDoor, sound)",src/engine/engine_25894.asm
-28A08,assepen,sub_28A08,94G,medium,"94G assepen: assignment 14h, leaving the penalty box (setplayer gives it for a player from the box, as in 94G)",src/engine/engine_25894.asm
-28C0C,ResetFaceoffAssigns,sub_28C0C,new,low,from puckfaceoff: each idle skater of a team goes back to assignment 6; in a penalty shot the shooter keeps assignment 19h,src/engine/engine_25894.asm
-28D88,assrefpenshot,sub_28D88,96PC,low,"96 PC assrefpenshot: assignment 38h (last referee handler): waits for AllInPlace before the penalty shot, with a sound",src/engine/engine_25894.asm
-29064,assrefsignal,sub_29064,96PC,low,"referee assignment 37h: plays move 0A3Dh, skates to the signalling spot, queues the overlay panel, then moves on to assignment 34h and calls the goal PA (PaEvent 0C0000001h) with the scorer's jersey",src/engine/engine_25894.asm
-293A8,assrefwhistle,sub_293A8,96PC,medium,"referee assignment 35h: on a stoppage (clock 0, or a tie broken in the last period) sets RefStep (dword_19CBF8) -1, the puck to assignment 42h (puckfaceoff) and the referee to 33h (assrefatdot); otherwise skates the referee along",src/engine/engine_25894.asm
-295CC,assrefgoalpa,sub_295CC,96PC,medium,"referee assignment 34h: set by assrefsignal, assrefpenshot and EndPenaltyShot as in 96 PC; after the goal call sends the referee on (32h / 33h / 35h) and the puck to 42h (puckfaceoff)",src/engine/engine_25894.asm
-298E8,assrefgoalline,sub_298E8,96PC,low,"referee assignment 36h, set by nothing (as in 96 PC): skates the referee to a fixed spot at one end and then to 34h",src/engine/engine_25894.asm
-29A90,assreffollow,sub_29A90,96PC,low,"referee assignment 31h: while the clock runs, picks a spot from the puck's side and position and skates the referee there",src/engine/engine_25894.asm
-29BFC,assrefdrop,sub_29BFC,96PC,low,"referee assignment 32h (after assintrostand and assrefgoalpa): in a penalty shot goes to 38h (assrefpenshot), else to 33h (assrefatdot) for the faceoff",src/engine/engine_25894.asm
-29E2C,assrefatdot,sub_29E2C,96PC,medium,"referee assignment 33h: holds the referee at the faceoff spot while play is stopped, with a random idle timer; assrefwhistle puts the referee here",src/engine/engine_25894.asm
-29F30,assintrostand,sub_29F30,96PC,medium,"96 PC assintrostand: assignment 1Eh (PlaceOpeningPlayers gives it), players stand during the opening, random idle animations; when the puck leaves assignment 40h the referee (type 0Ch) goes to 32h and the skaters to 6",src/engine/engine_25894.asm
-2A000,assintroline,sub_2A000,96PC,low,"96 PC assintroline: assignment 20h, after assintrostand as in 96 PC: the opening line-up",src/engine/engine_25894.asm
-2A1C8,asstakeposition,sub_2A1C8,96PC,low,"96 PC asstakeposition: assignment 21h, after assintroline as in 96 PC: skate to the starting position",src/engine/engine_25894.asm
-2A3A0,TakeBenchPlayer,sub_2A3A0,new,low,from assstanley: the team's first bench player (8002h) is marked on the ice (8001h),src/engine/engine_25894.asm
-2A3F4,assstanley,sub_2A3F4,96PC,low,"96 PC assstanley: assignment 44h, the Stanley Cup presentation (cuppal, LoadCupArt, fade, camera path)",src/engine/engine_25894.asm
-2A6B8,PlayerGetsPuck,sub_2A6B8,new,low,"the player takes the puck: puck carrier set, period / penalty shot end checks, shot and pass stats, play-by-play",src/engine/engine_25894.asm
-2AA50,DeflectPuck,sub_2AA50,new,low,"puck off a player: random new speed and angle (+-7), wrapped",src/engine/engine_25894.asm
-2AC40,KnockPuckAway,sub_2AC40,new,low,"stick knocks the puck loose: slower puck heading away from the player, sound 417h, no carrier, play-by-play 16h",src/engine/engine_25894.asm
-2AD18,PuckHitsPlayer,sub_2AD18,new,low,"from PuckPlayerContact: the puck reaches a player's body / stick: deflect, take it or knock it on",src/engine/engine_25894.asm
-2AFD8,PuckHitsGoalie,sub_2AFD8,new,low,"from PuckPlayerContact: puck against the goalie: save, rebound or catch (sounds, play-by-play, a2touchpuck)",src/engine/engine_25894.asm
-2B4D4,PuckToStick,sub_2B4D4,new,low,"from PuckPlayerContact: puck onto a skater's stick: pass reception / one-timer / take the puck (a2touchpuck, PlayerGetsPuck)",src/engine/engine_25894.asm
-2B9EC,ChkDelayedOffside,sub_2B9EC,95PC,low,offsides option with the warning on: the flagged team touching the puck inside the zone calls offsides (AddPenalty2 5),src/engine/engine_25894.asm
-2BAC0,PuckPlayerContact,sub_2BAC0,new,low,"(puck, player): puck near a player: picks the contact kind (goalie, stick, body) and its handler",src/engine/engine_25894.asm
-2BE2C,ChkPuckContacts,sub_2BE2C,new,low,"from updateplayers: with the puck low (below 384), every one of the 13 objects close enough (1E0h / 0F0h) gets PuckPlayerContact",src/engine/engine_25894.asm
-2BEF0,ChkTwoLinePass,sub_2BEF0,95PC,low,"two-line pass option (bit 10h): a pass from behind the own blue line to a player marked past the red line (+0C0h bit 7, MarkTwoLinePlayers) is a two-line pass; was named a2offsides, which is sub_2BFC4",src/engine/engine_25894.asm
-2BFC4,a2offsides,sub_2BFC4,94G,medium,"94G a2offsides (player touched the puck: offsides if his team is flagged, tmflags bit 4, and the puck is in the zone): AddPenalty 5",src/engine/engine_25894.asm
-2C064,a2touchpuck,sub_2C064,94G,medium,"94G a2touchpuck: (player) the player touches the puck: records the last touch (player word_19CBAE, position), then checks offsides and the other rules",src/engine/engine_25894.asm
-2C42C,PuckIChk,sub_2C42C,94G,medium,"94G PuckIChk (icing check, from pucknorm): loose puck past the goal line within the posts sets the icing flag (byte_19CB8A)",src/engine/engine_25894.asm
-2C4E8,PuckEntersZone,sub_2C4E8,new,low,"puck crossing a blue line: play-by-play 0Eh with the carrier, team zone-entry stat (+20DFh)",src/engine/engine_25894.asm
-2C5C8,ChkOffsides,sub_2C5C8,94G,high,"94G ChkOffsides (from pucknorm): drops a team's offsides flag (tmflags bit 4) when no one is past the line, flags the team when the puck crosses the blue line with a skater ahead (overlay 5)",src/engine/engine_25894.asm
-2C900,MarkTwoLinePlayers,sub_2C900,95PC,medium,two-line pass option (bit 10h): as the puck crosses the red line marks the skaters past it (+0C0h bit 7),src/engine/engine_25894.asm
-2CA40,pucknorm_body,sub_2CA40,96PC,medium,"96 PC pucknorm_body: the puck's handler body: the puck carrier (off_168CF0), goals and the puck physics",src/engine/engine_25894.asm
-2D308,pucknorm,sub_2D308,96PC,medium,"96 PC pucknorm: assignment 41h (off_19C3F4), the puck's normal handler: clears the new-assignment flag (+0BFh bit 1) and its counter, then pucknorm_body",src/engine/engine_25894.asm
-2D330,puckfaceoff2,sub_2D330,96PC,low,"96 PC puckfaceoff2: assignment 43h, after puckfaceoff: waits for AllInPlace, resets the bench and the personnel, then drops the puck",src/engine/engine_25894.asm
-2DCC8,CPgoalie,sub_2DCC8,94G,medium,94G CPgoalie (96 PC body): pulls the computer team's goalie late in the third period,src/engine/engine_25894.asm
-2DD54,ChkGoalies,sub_2DD54,94G,high,"94G ChkGoalies (computer pulls goalie on delayed penalty): from periodicevents; per team, no goalie pull when the team has the puck; on a delayed penalty sets no goalie (setpersonel) and calls the PA event, else CPgoalie for a computer team",src/engine/engine_25894.asm
+1306C,Intermission,sub_1306C,96PC,medium,"96 PC Intermission: GameOver when gsp is 4, else SetupTeamForIntermission and resets the players for the next period",src/engine/game/game.asm
+130C8,StartGame,sub_130C8,96PC,medium,"96 PC StartGame: CountTeamSlots, clears the game vars and teams, restores the teams and starts the period",src/engine/game/game.asm
+131E0,InitGameVars,sub_131E0,new,medium,"clears the per-game state (clock, period, gameover, penalties, counters), then StartGame",src/engine/game/game.asm
+134F0,RunOpeningFrames,sub_134F0,new,low,runs the input records and frames of the opening until a button or 5DCh frames,src/engine/game/game.asm
+136C0,PlaceOpeningPlayers,sub_136C0,new,low,puts the players at their opening places (random spread by team and arena),src/engine/game/game.asm
+13920,OpeningSequence,sub_13920,new,low,"the game's opening: in a simulated game posts event 29h and returns, else places the players (PlaceOpeningPlayers) and runs the intro frames (RunOpeningFrames)",src/engine/game/game.asm
+13A4C,BeginGame,sub_13A4C,new,low,"from PlayGame: InitGameVars, the period fraction, then the opening sequence (OpeningSequence); 2 when it was aborted",src/engine/game/game.asm
+13ACB,EndGameCleanup,sub_13ACB,new,low,ends the game and clears the player flags,src/engine/game/game.asm
+13AF0,GetPlayerJerseyNumber,sub_13AF0,new,low,returns a player's jersey number,src/engine/game/game.asm
+13B50,LinkSideFlags,sub_13B50,new,low,returns the link side flags,src/engine/game/game.asm
+13B98,ClearLinkCounters,sub_13B98,new,low,clears the link counters,src/engine/game/game.asm
+13BAC,PickGameEvents,sub_13BAC,new,low,picks the random events for a game,src/engine/game/game.asm
+13D00,SpeedScaleAligned,sub_13D00,new,low,returns the speed scale for the skill setting (aligned stack),src/engine/game/game.asm
+13D50,SpeedScale,sub_13D50,new,low,returns the speed scale for the skill setting,src/engine/game/game.asm
+13DA4,ReachScale,sub_13DA4,new,low,returns the reach scale for the skill setting,src/engine/game/game.asm
+13DF8,GoalieReachFactor,sub_13DF8,new,low,returns the reach factor of a goalie or skater,src/engine/game/game.asm
+13E4C,PlayerReachFactor,sub_13E4C,new,low,returns the reach factor of a player,src/engine/game/game.asm
+13EB4,StickReachX,sub_13EB4,new,low,returns the stick reach along X,src/engine/game/game.asm
+13EF0,StickReachY,sub_13EF0,new,low,returns the stick reach along Y,src/engine/game/game.asm
+13F28,StickReachZ,sub_13F28,new,low,returns the stick reach along Z,src/engine/game/game.asm
+13F7C,CheckLineChangeKeys,sub_13F7C,new,low,checks the line change keys,src/engine/game/game.asm
+14078,RunSimFrames,sub_14078,96PC,medium,96 PC RunSimFrames: runs the simulation for one input record,src/engine/game/game.asm
+14140,JoystickAxisScale,sub_14140,new,low,scales a joystick axis,src/engine/game/game.asm
+14184,ToggleFKeyFlag,sub_14184,new,low,(key 5E00h-6600h): toggles the flag of a Ctrl+F key (dword_16AF3C),src/engine/game/game.asm
+141AC,ShowCameraView,sub_141AC,new,low,(view 0-7): from the camera keys and the attract game: SelectCameraView and the camera name panel,src/engine/game/game.asm
+141E8,RandomDiceRoll,sub_141E8,new,low,rolls random dice (debug),src/engine/game/game.asm
+14238,CountDebugUnlock,sub_14238,new,low,counts one step of the debug key unlock (sound 10h at 4),src/engine/game/game.asm
+1426C,ResetDebugUnlock,sub_1426C,new,low,clears the debug key unlock count,src/engine/game/game.asm
+14294,DebugKeys,sub_14294,new,low,"(key): the debug keys, active once the unlock count (word_1686D4) reaches 4",src/engine/game/game.asm
+14710,GameFunctionKeys,sub_14710,new,low,"(key): Ctrl+F1-F9 toggles (dword_16AF3C), +, - and =",src/engine/game/game.asm
+14880,HandleGameKeys,sub_14880,new,medium,"from GameLoop: the in-game keyboard: the unlocked debug keys (DebugKeys), the function keys (GameFunctionKeys)",src/engine/game/game.asm
+14AC8,Gameloop,sub_14AC8,94G,medium,the game's main loop (94G hockey94 Gameloop),src/engine/game/game.asm
+14E60,InitGameDisplay,sub_14E60,new,low,from PlayGame: copies the display options (unk_16AED4) and sets the 640x480 game screen,src/engine/game/game.asm
+14FE0,SaveGameDisplay,sub_14FE0,new,low,writes the game's display options back (dword_1AC835) after the game,src/engine/game/game.asm
+151A8,SetGameBrightness,sub_151A8,new,low,the brightness (28h-64h) from the display options,src/engine/game/game.asm
+152C4,PlayGame,sub_152C4,96PC,high,"96 PC PlayGame: seeds, then calls GameLoop",src/engine/game/game.asm
+15578,RunDemoGame,sub_15578,96PC,medium,"96 PC RunDemoGame: the attract mode game (gameopts 40h, a seed from the DOS time)",src/engine/game/game.asm
+1583F,RunInGameMenu,sub_1583F,96PC,high,96 PC RunInGameMenu: called when InGameMenuRequest is set,src/engine/game/game.asm
+15AC2,ChangeViewSize,sub_15AC2,new,medium,"(+1 / -1): the game view size in steps of 10 between 28h and 64h percent (word_1686E4), then the view window",src/front/overlay/overlay.asm
+15BC5,SetViewWindow,sub_15BC5,new,low,the game view window from the view size and the screen size (dword_16E464 x dword_16E468),src/front/overlay/overlay.asm
+15C30,PrevVideoModeKey,sub_15C30,new,low,"from GameFunctionKeys (F11 range): clears the overlays, PrevVideoMode, SetVideoMode and rebuilds the overlay windows",src/front/overlay/overlay.asm
+15E4D,NextVideoModeKey,sub_15E4D,new,low,"from GameFunctionKeys (F12): clears the overlays, NextVideoMode, SetVideoMode and rebuilds the overlay windows",src/front/overlay/overlay.asm
+1603A,ApplyDisplayFlags,sub_1603A,new,low,"sets the doubled / interlaced display flags (dword_19CD30, dword_19CD34) in the screen record",src/front/overlay/overlay.asm
+16090,RemoveOverlayPanel,sub_16090,new,medium,(kind): takes the queued panels of a kind out of the panel queue,src/front/overlay/overlay.asm
+160E2,DrawPanelArtScaled,sub_160E2,new,low,draws a piece of overlay panel art scaled to the panel size; takes the art and the panel rectangle,src/front/overlay/overlay.asm
+161F0,DrawPanelPlayerCard,sub_161F0,new,low,"draws a player card on an overlay panel: picture, number, name and stats of the given player",src/front/overlay/overlay.asm
+16AD0,GetPlayerNumber,sub_16AD0,new,low,returns the jersey number of a player from the team roster record,src/front/overlay/overlay.asm
+16B17,GetPlayerPanelName,sub_16B17,new,low,builds the short name of a player shown on an overlay panel (initial and last name),src/front/overlay/overlay.asm
+16BAD,GetPlayerName,sub_16BAD,new,low,copies the full name of a player from the team roster record into a buffer,src/front/overlay/overlay.asm
+16BF5,TeamNameField,sub_16BF5,new,low,returns the team name field of a team record,src/front/overlay/overlay.asm
+16BF9,DrawMessagePanel,sub_16BF9,new,low,"draws the in-game message overlay: frame, title and text lines picked by the message type",src/front/overlay/overlay.asm
+16D61,DrawVideoModePanel,sub_16D61,new,medium,"the screen mode panel (""%d x %d"", Doubled / Interlaced / Normal)",src/front/overlay/overlay.asm
+16ED0,DrawPenaltyPanel,sub_16ED0,new,medium,"overlay panel kind 1: the penalty call (game text ""Penalty"", ""for"", the infraction, ""2 Minutes"" / ""5 Minute Major"", ""and a Game Misconduct"")",src/front/overlay/overlay.asm
+17158,DrawPenaltyShotPanel,sub_17158,new,medium,"overlay panel kind 8: ""Penalty Shot"", the shooter ""against"" the goalie (was the 96 PC carry DrawPlayerNamePanel)",src/front/overlay/overlay.asm
+172C7,DrawSpecialTeamsPanel,,new,medium,"overlay panel kind 9: specialty teams tonight / this season, power play and penalty killing (game text 33h-37h)",src/front/overlay/overlay.asm
+17639,DrawInjuryPanel,sub_17639,new,medium,"overlay panel kind 10: ""Injury"" with ""#%d %s %s""",src/front/overlay/overlay.asm
+1771B,DrawPeriodPanel,sub_1771B,new,medium,"overlay panel kind 11: ""Period"" with ""%s %s"" / ""%s   %d""",src/front/overlay/overlay.asm
+17818,DrawGoalScorerPanel,sub_17818,new,medium,"overlay panel kind 2: the goal scorer (""Goal"", ""Shorthanded"", ""Empty Net"", ""Unassisted""; ""%s - #%d %c. %s"")",src/front/overlay/overlay.asm
+17AD1,DrawGameClock,sub_17AD1,96PC,medium,"96 PC DrawGameClock: the game clock ""%2d:%02d"", or ""%2d.%01d"" under a minute",src/front/overlay/overlay.asm
+17C2C,DrawPowerPlayClock,sub_17C2C,new,low,"draws the ""Power Play"" countdown next to the game clock (""%2d:%02d"")",src/front/overlay/overlay.asm
+17DC0,DrawClockPanel,sub_17DC0,96PC,low,the clock panel (overlay kind table off_16877E entry 0): removes panels 300h / 700h and draws the clock (DrawGameClock),src/front/overlay/overlay.asm
+17EB6,PowerPlayPanel,sub_17EB6,new,low,"draws the power play overlay: team, time left on the penalty and players in the box",src/front/overlay/overlay.asm
+18025,UpdateScoreboardPanel,sub_18025,new,low,"redraws the score and clock overlay when the score, period or time changes",src/front/overlay/overlay.asm
+1870B,HomeTeamPanel,sub_1870B,new,low,"draws the home team overlay panel (name, logo, score)",src/front/overlay/overlay.asm
+1882A,AwayTeamPanel,sub_1882A,new,low,"draws the away team overlay panel (name, logo, score)",src/front/overlay/overlay.asm
+18958,HomeStatPanel,sub_18958,new,low,"draws the home team statistics overlay (shots, goals, power play)",src/front/overlay/overlay.asm
+18B81,AwayStatPanel,sub_18B81,new,low,"draws the away team statistics overlay (shots, goals, power play)",src/front/overlay/overlay.asm
+18D8A,QueueOverlayPanel,sub_18D8A,96PC,medium,"96 PC QueueOverlayPanel (kind, ticks, ...): puts a panel in a free slot of the 10-panel queue (unk_19CF8C, 0Ch each)",src/front/overlay/overlay.asm
+18DF7,OpenFreeOverlay,sub_18DF7,new,low,"finds a free overlay window slot, allocates its bitmap and adds it to the overlay list; returns the slot",src/front/overlay/overlay.asm
+18E35,ClearOverlayWindows,sub_18E35,new,medium,"removes and frees all ten game overlay windows (unk_19CF8C), RemoveOverlayWindow on each",src/front/overlay/overlay.asm
+18E76,RefreshOverlayWindows,sub_18E76,new,medium,asks every open overlay window to be drawn again,src/front/overlay/overlay.asm
+18E9A,ChkShowStatsPanel,sub_18E9A,new,low,opens the statistics overlay at a stoppage when the option is on and none is shown,src/front/overlay/overlay.asm
+18EEE,ChkPowerPlayPanel,sub_18EEE,new,low,opens or closes the power play overlay as penalties start and end,src/front/overlay/overlay.asm
+18F67,SetOverlayFont,sub_18F67,new,low,selects the font and colours used to draw text on the overlay panels,src/front/overlay/overlay.asm
+1900F,DrawGameOverlays,sub_1900F,96PC,medium,"96 PC DrawGameOverlays: from GameLoop, the overlay panels of the frame (clock, queued panels)",src/front/overlay/overlay.asm
+19133,IsOverlayShown,sub_19133,new,medium,returns nonzero when the given overlay window is open,src/front/overlay/overlay.asm
+191F8,GetCameraTarget,sub_191F8,new,low,"(target 4-10h and up): the position record of a camera target (player records at dword_1B1410, then fixed targets); 0 when none",src/engine/game_camera/game_camera.asm
+19540,GetTargetPoint,sub_19540,new,low,"returns the point the game camera looks at: the puck, its carrier or the object the scene follows",src/engine/game_camera/game_camera.asm
+1963C,UpdateCameraView,sub_1963C,new,low,"(camera, ...): per frame, the camera by its view kind (+24h, 0-0Dh)",src/engine/game_camera/game_camera.asm
+19F30,UpdateCameraZoom,sub_19F30,new,low,"(camera): the camera distance by its zoom mode (+28h, 0-5)",src/engine/game_camera/game_camera.asm
+1A31C,UpdateCameraTrack,sub_1A31C,new,low,"(camera): follows the camera path target by its track mode (+2Ch, 0-5)",src/engine/game_camera/game_camera.asm
+1A5F8,EaseAngle,sub_1A5F8,new,low,"moves an angle toward a target angle by a fraction of the difference, taking the short way round",src/engine/game_camera/game_camera.asm
+1A690,EaseCameraAngles,sub_1A690,new,low,"eases the camera's heading, pitch and roll toward their targets each frame",src/engine/game_camera/game_camera.asm
+1A740,SetCameraView,sub_1A740,new,medium,"(camera, view 0-0Dh): fills a camera record (unk_19D0A4) with the view's name (GetLangText) and settings",src/engine/game_camera/game_camera.asm
+1AD4C,BuildSplinePath,sub_1AD4C,new,low,builds the spline coefficients of a camera path through its control points,src/engine/game_camera/game_camera.asm
+1AE58,SetCameraSpline,sub_1AE58,new,low,"starts the camera along a spline path: control points, length and speed",src/engine/game_camera/game_camera.asm
+1AF4C,SetCameraHeight,sub_1AF4C,new,low,"sets the camera height (dword_19D1A4), at once or eased over frames",src/engine/game_camera/game_camera.asm
+1AF90,SetCameraFocus,sub_1AF90,new,low,"sets the camera focus x / z (dword_19D1A0, dword_19D1A8), at once or eased",src/engine/game_camera/game_camera.asm
+1B034,SetCameraPathPoint,sub_1B034,new,low,"sets the camera path point (dword_19D340, dword_19D344), at once or eased",src/engine/game_camera/game_camera.asm
+1B09C,StartCameraPath,sub_1B09C,new,low,"(path, ticks): starts a camera path (dword_19D380) for the game camera",src/engine/game_camera/game_camera.asm
+1B1CC,SetCameraPathPoints,sub_1B1CC,new,low,fills the control points of the camera path from the current camera and the target view,src/engine/game_camera/game_camera.asm
+1B340,FightCameraStart,sub_1B340,new,low,moves the camera to the fight view around the two fighting players,src/engine/game_camera/game_camera.asm
+1B3D8,ResetSceneCamera,sub_1B3D8,new,low,ends a camera scene: clears the scene function and puts the camera back on the game view,src/engine/game_camera/game_camera.asm
+1B3F4,SelectCameraView,sub_1B3F4,new,medium,"(view, ticks): picks the game camera view (mod 10) with SetCameraView and moves the camera to it",src/engine/game_camera/game_camera.asm
+1B4E4,UpdateGameCamera,sub_1B4E4,new,low,per-frame game camera: runs the scene function or follows the target with the chosen camera view,src/engine/game_camera/game_camera.asm
+1B5B0,DampCameraMotion,sub_1B5B0,new,low,smooths the camera position toward its goal so the view does not jump,src/engine/game_camera/game_camera.asm
+1B67C,ToggleCameraFollow,sub_1B67C,new,low,switches the camera between following the puck and following the controlled player,src/engine/game_camera/game_camera.asm
+1B6E8,InitCamera,sub_1B6E8,new,low,sets the camera to its start view and clears the scene state at the start of a game,src/engine/game_camera/game_camera.asm
+1B71C,DrawCameraDebugMarks,sub_1B71C,new,low,debug: draws markers at the camera target and path points,src/engine/game_camera/game_camera.asm
+1B85C,RunCameraScene,sub_1B85C,new,low,calls the current camera scene step function when one is set,src/engine/camera_scenes/camera_scenes.asm
+1B88C,CameraNoop,sub_1B88C,new,low,empty camera scene step,src/engine/camera_scenes/camera_scenes.asm
+1B890,CanStartCameraScene,sub_1B890,new,low,"(priority 1-7): whether a scripted camera scene of this priority may start now (none running, or a higher priority than the running one; 0 ends the scene)",src/engine/camera_scenes/camera_scenes.asm
+1B90C,SetCameraSceneFunc,sub_1B90C,new,low,sets the function that drives the camera each frame for the current scene,src/engine/camera_scenes/camera_scenes.asm
+1B930,PenaltyCameraDistance,sub_1B930,new,low,returns how far the camera stays from the penalized player in the penalty scene,src/engine/camera_scenes/camera_scenes.asm
+1B9D4,PenaltySceneStep,sub_1B9D4,new,low,camera step of the penalty scene: follows the penalized player to the box,src/engine/camera_scenes/camera_scenes.asm
+1BB18,PenaltyCameraScene,sub_1BB18,new,low,"from asspenalty: scripted camera scene, priority 6 (SetCameraView 8, StartCameraPath, sub_1B9D4 per frame)",src/engine/camera_scenes/camera_scenes.asm
+1BB94,IntermissionSceneStep,sub_1BB94,new,low,camera step of the intermission scene: slow move over the rink,src/engine/camera_scenes/camera_scenes.asm
+1BC18,IntermissionCameraScene,sub_1BC18,new,low,starts the intermission camera scene,src/engine/camera_scenes/camera_scenes.asm
+1BCA8,EndOpeningCamera,sub_1BCA8,new,low,ends the opening camera move and hands the camera to the game view,src/engine/camera_scenes/camera_scenes.asm
+1BCDC,OpeningCameraStep,sub_1BCDC,new,low,camera step of the opening scene: the fly-in over the arena before the first faceoff,src/engine/camera_scenes/camera_scenes.asm
+1BEA4,LoadOpeningCamera,sub_1BEA4,new,low,from OpeningSequence: loads the opening camera path intro%d.3cp from arena.viv,src/engine/camera_scenes/camera_scenes.asm
+1BFC0,FightSceneStep,sub_1BFC0,new,low,camera step of the fight scene: circles the fighters,src/engine/camera_scenes/camera_scenes.asm
+1C108,FightCameraScene,sub_1C108,new,low,"from StartFight: scripted camera scene, priority 2 (follows the two fighters, sub_1BFC0 per frame)",src/engine/camera_scenes/camera_scenes.asm
+1C210,SetFightCameraReady,sub_1C210,new,low,marks the fight camera as in place,src/engine/camera_scenes/camera_scenes.asm
+1C21C,SceneReturnToView,sub_1C21C,new,low,moves the camera from a scene back to the normal game view,src/engine/camera_scenes/camera_scenes.asm
+1C29C,FaceoffCameraScene,sub_1C29C,new,low,"from puckfaceoff: scripted camera scene, priority 7 (path 18h)",src/engine/camera_scenes/camera_scenes.asm
+1C2EC,FaceoffSceneStep,sub_1C2EC,new,low,camera step of the faceoff scene,src/engine/camera_scenes/camera_scenes.asm
+1C360,FaceoffCloseupScene,sub_1C360,new,low,starts the close-up camera on the faceoff circle,src/engine/camera_scenes/camera_scenes.asm
+1C4F4,FaceoffSweepStep,sub_1C4F4,new,low,camera step of the sweep down to the faceoff circle,src/engine/camera_scenes/camera_scenes.asm
+1C70C,FaceoffSweepScene,sub_1C70C,new,low,starts the camera sweep down to the faceoff circle,src/engine/camera_scenes/camera_scenes.asm
+1C7B4,FaceoffCameraScene2,sub_1C7B4,new,low,"from puckfaceoff: scripted camera scene, priority 7, one of two random camera moves",src/engine/camera_scenes/camera_scenes.asm
+1C854,MenuCameraScene,sub_1C854,new,low,starts the camera scene shown behind the in-game menus,src/engine/camera_scenes/camera_scenes.asm
+1C8DC,MenuOrbitStep,sub_1C8DC,new,low,camera step of the slow orbit behind the in-game menus,src/engine/camera_scenes/camera_scenes.asm
+1C9F0,MenuOrbitScene,sub_1C9F0,new,low,starts the slow orbit behind the in-game menus,src/engine/camera_scenes/camera_scenes.asm
+1CB9C,PenShotSceneStep,sub_1CB9C,new,low,camera step of the penalty shot scene: follows the shooter in on the goalie,src/engine/camera_scenes/camera_scenes.asm
+1CBD8,PenaltyShotCameraScene,sub_1CBD8,new,low,"from assrefpenshot: scripted camera scene, priority 3 (penshottimer)",src/engine/camera_scenes/camera_scenes.asm
+1CCBC,EndPenShotScene,sub_1CCBC,new,low,ends the penalty shot camera scene,src/engine/camera_scenes/camera_scenes.asm
+1CCF8,GoalSceneStep,sub_1CCF8,new,low,camera step of the goal scene: follows the scorer's celebration,src/engine/camera_scenes/camera_scenes.asm
+1CD80,GoalCameraScene,sub_1CD80,new,low,"from Goal: scripted camera scene, priority 5 (sub_1CCF8 per frame)",src/engine/camera_scenes/camera_scenes.asm
+1CE98,FaceoffDropSceneStep,sub_1CE98,new,low,camera step while the referee drops the puck,src/engine/camera_scenes/camera_scenes.asm
+1D008,FaceoffDropCameraScene,sub_1D008,new,low,"from puckfaceoff2: scripted camera scene, priority 1 (sub_1CE98 per frame)",src/engine/camera_scenes/camera_scenes.asm
+1D09C,RestoreGameCamera,sub_1D09C,new,low,restores the camera view saved before a scene,src/engine/camera_scenes/camera_scenes.asm
+1D0BC,PenaltyCallSceneStep,sub_1D0BC,new,low,camera step while the referee signals a penalty,src/engine/camera_scenes/camera_scenes.asm
+1D16C,PenaltyCallCameraScene,sub_1D16C,new,low,starts the camera scene of a penalty call,src/engine/camera_scenes/camera_scenes.asm
+1D1D4,SetFaceoffEndFlag,sub_1D1D4,new,low,sets the flag that ends the faceoff camera scene,src/engine/camera_scenes/camera_scenes.asm
+1D1DC,ReplayCameraOn,sub_1D1DC,new,low,hands the camera to the instant replay controls,src/engine/replay_camera/replay_camera.asm
+1D208,ReplayCameraOff,sub_1D208,new,low,gives the camera back to the game after the instant replay,src/engine/replay_camera/replay_camera.asm
+1D2A8,DrawCameraDebug,sub_1D2A8,new,low,"from DrawGameFrame when dword_19D094 is set: draws the camera target and prints its ""(%d,%d,%d)"" position",src/engine/replay_camera/replay_camera.asm
+1D480,ReplayCamFollowMode,sub_1D480,new,low,"replay camera: follow mode, keeps the target in view",src/engine/replay_camera/replay_camera.asm
+1D4FC,ReplayCamDrag,sub_1D4FC,new,low,replay camera: moves the camera with the mouse or pad while a button is held,src/engine/replay_camera/replay_camera.asm
+1D828,ReplayCamRestorePath,sub_1D828,new,low,replay camera: puts the saved camera path back,src/engine/replay_camera/replay_camera.asm
+1D858,ReplayCamOrbitMode,sub_1D858,new,low,replay camera: starts orbit mode around the target,src/engine/replay_camera/replay_camera.asm
+1D914,ReplayCamOrbit,sub_1D914,new,low,replay camera: orbits and zooms around the target from the input,src/engine/replay_camera/replay_camera.asm
+1DB8C,ReplayCamStop,sub_1DB8C,new,low,replay camera: stops the current camera move,src/engine/replay_camera/replay_camera.asm
+1DBA0,ReplayCamFreeMode,sub_1DBA0,new,low,replay camera: starts free mode,src/engine/replay_camera/replay_camera.asm
+1DBF0,ReplayCamTurn,sub_1DBF0,new,low,replay camera: turns the free camera from the input,src/engine/replay_camera/replay_camera.asm
+1DCB0,ReplayCamMove,sub_1DCB0,new,low,replay camera: moves the free camera from the input,src/engine/replay_camera/replay_camera.asm
+1DD5C,ReplayCamZoomMode,sub_1DD5C,new,low,replay camera: starts zoom mode,src/engine/replay_camera/replay_camera.asm
+1DDE4,ReplayCamZoom,sub_1DDE4,new,low,replay camera: zooms in or out from the input,src/engine/replay_camera/replay_camera.asm
+1DEB8,ReplayCamClearFlag,sub_1DEB8,new,low,replay camera: clears the camera mode flag,src/engine/replay_camera/replay_camera.asm
+1DEE4,CrowdForPuckZone,sub_1DEE4,new,low,"sets the crowd mood from where the player touching the puck is: own zone, neutral zone, deep, or near the net on a fast puck; nothing while the puck is in its faceoff state",src/engine/commentary/commentary.asm
+1DFA0,CrowdForPlayer,sub_1DFA0,new,low,sets the crowd mood when a player gets the puck: by which team and whether he is past the blue line,src/engine/commentary/commentary.asm
+1E014,ShotChanceCommentary,sub_1E014,new,low,each frame: rates how close the carrier is to a scoring chance (distance to the goal) and sets the crowd mood and the play-by-play excitement level,src/engine/commentary/commentary.asm
+1E184,LineChangeCommentary,sub_1E184,new,low,play-by-play call for a line change of the given player's team (more often while play is stopped),src/engine/commentary/commentary.asm
+1E208,assreplace,sub_1E208,94G,high,"94G assreplace: (player, assignment) replaces the current assignment (+0B2h list at index +0B1h) and sets the new-assignment flag (+0BFh bit 1)",src/engine/assign/assign.asm
+1E224,assinsert,sub_1E224,94G,medium,"94G assinsert: (player, assignment) pushes a new assignment (index - 1) unless it is already the current one, then as assreplace",src/engine/assign/assign.asm
+1E268,assexit,sub_1E268,94G,high,94G assexit: ends the current assignment (index + 1) and sets the new-assignment flag,src/engine/assign/assign.asm
+1E284,AimAtPuckTarget,sub_1E284,new,low,"turns a player toward the puck carrier, or toward the goal he attacks when he carries the puck himself; sets the motion heading",src/engine/assign/assign.asm
+1E354,SetZoneFlags,sub_1E354,new,low,"sets a player's rink zone flags from his position seen from his attacking end: side (left, middle, right) and depth (own end to deep offensive zone)",src/engine/assign/assign.asm
+1E4E4,CanReachPuck,sub_1E4E4,new,low,"whether a player can play the loose or carried puck: not his own team's carrier, play running, puck speed in range and moving his way; returns nonzero if so",src/engine/assign/assign.asm
+1E7C4,TryPokePuck,sub_1E7C4,new,low,starts a poke check when the player can reach the puck; keeps the puck's motion as it was; returns nonzero when started,src/engine/assign/assign.asm
+1E810,RandomPokeCheck,sub_1E810,new,low,"computer players poke at the puck now and then, more often against the other team and with higher checking skill",src/engine/assign/assign.asm
+1E8B0,ChkPokeOrCheck,sub_1E8B0,new,low,"defender decides to poke check, hook or body check the carrier from distance, angle, skill and difficulty",src/engine/assign/assign.asm
+1EC5C,check4bench,sub_1EC5C,94G,medium,"94G check4bench: whether player a3 should go to the bench; if so assreplace with assbench (17h); 0 when he stays (joystick-controlled, penalty shot, ...)",src/engine/assign/assign.asm
+1EF88,SwapPosition,sub_1EF88,96PC,medium,"96 PC SwapPosition: (player, position) gives the player the position and hands his old one to the teammate who held it; returns the player number",src/engine/assign/assign.asm
+1F32C,ChkForwardSwap,sub_1F32C,new,low,"a defenseman caught deep in the offensive zone swaps position with a forward (left wing, center or right wing by side)",src/engine/assign/assign.asm
+1F4EC,GetDefensePartner,sub_1F4EC,new,low,"returns the object of the other defenseman of a defenseman's line, 0 for a forward",src/engine/assign/assign.asm
+1F538,ChkSwapWithPartner,sub_1F538,new,low,two defensemen on the wrong sides swap positions; returns 1 when they swapped,src/engine/assign/assign.asm
+1F5B4,asscoverdefd,sub_1F5B4,96PC,low,"assignment 10h (set by asscoverdefo): the defending half of the cover, SwapPosition back when it ends",src/engine/assign/assign.asm
+1F7D0,asscoverdefo,sub_1F7D0,96PC,low,"assignment 0Fh (given from the Setplass jump table): a forward covering a defence spot; uses SwapPosition and moves on to 10h (asscoverdefd), as 96 PC asscoverdefo / asscoverdefd",src/engine/assign/assign.asm
+1FB6C,Setplass,sub_1FB6C,94G,medium,"94G Setplass: sets the player's starting assignment by position from the list byte_1689C0 (goalie 2, defence 3, wings 4, centre 5), after SwapPosition",src/engine/assign/assign.asm
+1FBF4,GoaliePosTarget,sub_1FBF4,new,low,"works out where the goalie stands: on the line between the puck and the middle of the goal, kept inside the crease",src/engine/logic/logic.asm
+1FF5C,FaceoffSpotPosition,sub_1FF5C,new,low,sets the spot a player takes at a faceoff from his position and the faceoff dot (table of offsets per position),src/engine/logic/logic.asm
+20508,Endfaceoff,sub_20508,96PC,medium,"from puckfaceoff2: decides the faceoff (randomd0 21h / 0Ah as in 96 PC), gives the puck assignment 41h (pucknorm) and the referee 31h (assreffollow)",src/engine/logic/logic.asm
+209CC,AssNoop,sub_209CC,new,low,empty assignment: does nothing,src/engine/logic/logic.asm
+209D0,assnull,sub_209D0,new,low,"assignment 0 (and the first referee and puck slots): stops the animation of object 13, otherwise nothing",src/engine/logic/logic.asm
+209E0,assbenchwait,sub_209E0,96PC,low,"assignment 1 (set by setpersonel, AddPenalty2): an off-ice player waits at the bench (x -2232 / -4440), check4bench, flags +0C1h",src/engine/logic/logic.asm
+20A80,DelayedPenaltyEnd,sub_20A80,new,low,"ends a delayed penalty when the penalized team touches the puck or a goal is scored: stops play, crowd reaction; keeps the right players in the box",src/engine/logic/logic.asm
+20C50,ChkTeamPlayerFlag,sub_20C50,new,low,on a goal: whether the given team has a player on the ice with the goal-check flag set; returns 1 if so,src/engine/logic/logic.asm
+20CB0,Goal,sub_20CB0,95PC,medium,"the puck is in a goal: offside goals become AddPenalty / AddPenalty2, the goal and its bookkeeping, the goal commentary (CommentaryEvent), the scorer's team to assscore (18h), the puck to 40h and the referee to 31h; also from DebugKeys",src/engine/logic/logic.asm
+218B8,InCrease,sub_218B8,new,low,whether a player stands in the goal crease at the given end (distance from the goal mouth); returns 1 if so,src/engine/logic/logic.asm
+21A4C,UpdateCreaseFlag,sub_21A4C,new,low,each frame: sets or clears a player's in-crease flag at the goal he attacks,src/engine/logic/logic.asm
+21AB4,FindCreasePlayer,sub_21AB4,new,low,"on a goal with the crease rule on: returns the number of the first attacker standing in the crease, -1 if none",src/engine/logic/logic.asm
+21B20,assgoalie,sub_21B20,94G,medium,"94G assgoalie: assignment 2 (Setplass list for the goalie), the goalie AI",src/engine/logic/logic.asm
+21E98,KeepInsideRink,sub_21E98,new,low,pulls a player's skating target back inside the boards when it lies past the rink edge,src/engine/logic/logic.asm
+22050,DefendPuck,sub_22050,new,low,defensive play of a computer player: picks the attacker or lane to cover and skates there,src/engine/logic/logic.asm
+22828,assextra4,sub_22828,96PC,low,96 PC assextra4 (placeholder name): called from the offence assignments,src/engine/logic/logic.asm
+22B8C,assdefo,sub_22B8C,94G,low,"94G assdefo: assignment 0Bh, defenceman on offence (SwapPosition, assextra4, as 96 PC assdefo)",src/engine/logic/logic.asm
+22CEC,asswingo,sub_22CEC,94G,low,"94G asswingo: assignment 0Ch, winger on offence",src/engine/logic/logic.asm
+22E70,asscentero,sub_22E70,94G,low,"94G asscentero: assignment 0Dh, centre on offence",src/engine/logic/logic.asm
+22FF0,FindManToCover,sub_22FF0,new,low,"picks the opposing skater a defending player covers, by side and distance",src/engine/logic/logic.asm
+23284,assextra3,sub_23284,96PC,low,96 PC assextra3 (placeholder name): called from asswingd and asscenterd,src/engine/logic/logic.asm
+238E8,assdefd,sub_238E8,94G,medium,"94G assdefd: assignment 3 (Setplass list for defence), defenceman on defence",src/engine/logic/logic.asm
+23A78,asswingd,sub_23A78,94G,medium,"94G asswingd: assignment 4 (Setplass list for wings), winger on defence",src/engine/logic/logic.asm
+23B88,asscenterd,sub_23B88,94G,medium,"94G asscenterd: assignment 5 (Setplass list for the centre), centre on defence",src/engine/logic/logic.asm
+23C98,asstofaceoff,sub_23C98,new,low,"assignment 6: a player skates to his faceoff spot (or to the bench, or to the side for a penalty shot)",src/engine/logic/logic.asm
+23E90,assfaceoff,sub_23E90,94G,medium,"94G assfaceoff: assignment 7, players idle until the faceoff is over (puckfaceoff2 gives it to everyone but the centre, as 94G afaceoff)",src/engine/logic/logic.asm
+23F44,assfaceoffpl,sub_23F44,94G,medium,"94G assfaceoffpl: assignment 8, the faceoff player (puckfaceoff2 gives it to the centre, as 94G afaceoffpl)",src/engine/logic/logic.asm
+240D0,BuildPassTargets,sub_240D0,new,low,"fills a player's table of passing targets: each teammate's distance and lane, best target first",src/engine/pass_ai/pass_ai.asm
+24220,CreditPass,sub_24220,new,low,a teammate takes a pass: counts the completed pass for the team and calls the play-by-play,src/engine/pass_ai/pass_ai.asm
+244BC,assonetimer,sub_244BC,new,low,"asstab 0Eh: the one-timer: waits for the pass, then shoots (OneTimerShot)",src/engine/pass_ai/pass_ai.asm
+2471C,CarrierInShotArea,sub_2471C,new,low,whether the puck carrier is in the area in front of the net he attacks (play running); returns nonzero if so,src/engine/pass_ai/pass_ai.asm
+248E8,CanReceivePass,sub_248E8,new,low,"whether a teammate can take a pass: on the ice, open, close enough and ahead of the passer",src/engine/pass_ai/pass_ai.asm
+249F8,MakePass,sub_249F8,new,low,"the passer lets the puck go: clears the carrier, sets the puck speed from the pass power, counts the pass and calls the play-by-play",src/engine/pass_ai/pass_ai.asm
+24C00,RimPuck,sub_24C00,new,low,pass type 8: shoots the puck around the boards to a teammate,src/engine/pass_ai/pass_ai.asm
+25010,StartPass,sub_25010,new,low,"starts a pass by its type (normal, flip, rim, drop) to the chosen teammate",src/engine/pass_ai/pass_ai.asm
+25188,TargetInAngle,sub_25188,new,low,whether a teammate lies within the given angle of the passer's heading and farther than him; returns 1 if so,src/engine/pass_ai/pass_ai.asm
+251F0,AIPassDecision,sub_251F0,new,low,"computer puck carrier decides to pass, shoot or keep skating; picks the receiver",src/engine/pass_ai/pass_ai.asm
+25730,ChkAIShoot,sub_25730,new,low,computer carrier decides to shoot from range and angle (always late in a period when behind),src/engine/pass_ai/pass_ai.asm
+25894,PlayerPastLine,sub_25894,new,low,"(player, line y 0 / +-56Bh): whether both of the player's tracked points are past the line in his attacking direction (red line +-18h, blue line +-30h)",src/engine/chase/chase.asm
+2596C,checkob,sub_2596C,94G,medium,"94G checkob (warning ref when a player on your team is over the blue line): offsides option, a teammate past the blue line as the carrier comes up sets byte_19CBCA 80h and shows overlay 5",src/engine/chase/chase.asm
+25AEC,GetLowestPen,sub_25AEC,94G,high,94G GetLowestPen: power play time left from the two teams' penalty box lists (coincidental entries skipped); 0 when the teams are even,src/engine/chase/chase.asm
+25BD0,chk4lc,sub_25BD0,94G,low,"94G chk4lc (see if the computer should call a line change): line option 40h, puck in its own half, 1 in 4, enough clock and power play time, tired line (sub_2E310 > 800h) -> CompLine, setpersonel",src/engine/chase/chase.asm
+25D40,SkateOnside,sub_25D40,new,low,"offside warning on (byte_19CBCA 80h): send the player to his onside spot (word_168A4C table by formation, mirrored by team), speed 25",src/engine/chase/chase.asm
+25E24,SkateToEndBoards,sub_25E24,new,low,"sends the player toward the end boards (y +-0F30h) when his slot neighbour is free, random approach angle",src/engine/chase/chase.asm
+25F64,asspuckc,sub_25F64,94G,low,"assignment 9, the computer puck carrier: steps out when its team does not have the puck (off_168CF0), runs its checks on a reaction timer (+56h), and goes to 1Bh when skating in close on the goal",src/engine/chase/chase.asm
+2625C,ChkDefenseSwitch,sub_2625C,new,low,"from assnearest: decides when a defenceman switches sides with his partner (SwapPosition helpers sub_1F538 / sub_1F4EC) by puck carrier, zone (0B10h, 0FC0h) and side",src/engine/chase/chase.asm
+264CC,ChasePuck,sub_264CC,new,low,"from assnearest: aims the player at the puck (or its carrier) plus its velocity lead, speed by skill level (dword_1AC814 bits 7-8)",src/engine/chase/chase.asm
+265FC,assnearest,sub_265FC,94G,medium,"94G assnearest: assignment 0Ah (off_19C3F4), the main skater AI (forcepldata gives it to the centre, as in 94G)",src/engine/chase/chase.asm
+27210,StartScoreCelebration,sub_27210,new,low,"from assscore: resets the motion and starts the celebration animation (SetSPA +48h), clears the stick sounds",src/engine/assign_events/assign_events.asm
+27274,assscore,sub_27274,94G,low,"assignment 18h (set by sub_20CB0): goal celebration: stops the puck (41h to 40h), a random celebration time, the scorer (word_19CB84) gets one of 5 celebrations (sub_27210)",src/engine/assign_events/assign_events.asm
+27500,ChkPullGoalieLate,sub_27500,96PC,medium,"96 PC ChkPullGoalieLate: (team) third period, last 60 seconds, losing by 1-2 and no goalie pulled yet: pull the goalie (from assbench)",src/engine/assign_events/assign_events.asm
+275C0,assbench,sub_275C0,94G,medium,"94G assbench: assignment 17h, skating off to the bench (check4bench gives it); setplayer for the replacement",src/engine/assign_events/assign_events.asm
+27A00,PutBoxPlayerOnBench,sub_27A00,new,low,"from assleavebox: the first roster entry flagged 8 goes to the bench spot (position 8002h, sub_3A164), heading set",src/engine/assign_events/assign_events.asm
+27A78,ReleaseBoxToBench,sub_27A78,new,low,"from puckfaceoff2: every player flagged in the box (flag 8) on both teams goes to the bench (position 8002h), box counts byte_19CB70 down",src/engine/assign_events/assign_events.asm
+27AD8,assleavebox,sub_27AD8,96PC,medium,"assignment 15h (inserted by sub_12E50): check4bench, skates from the penalty box spot by the side boards (as asspsclear) and brings the released player back on (assreplace 15h, setplayer), as 96 PC assleavebox",src/engine/assign_events/assign_events.asm
+27D10,asspsclear,sub_27D10,96PC,medium,"assignment 19h (from setpersonel): skaters clear to a spot by the side boards (x -1898, y +-2B8h plus a random multiple of 90h) and stop facing the play; 96 PC asspsclear's spot scaled to 97 units",src/engine/assign_events/assign_events.asm
+27F80,AssignControlSlots,sub_27F80,new,low,"from puckfaceoff: for each of the 8 control slots, the team's first free skater becomes the controlled player (restorepl via sub_343F8)",src/engine/assign_events/assign_events.asm
+27FF0,PenShotStart,sub_27FF0,96PC,medium,"from puckfaceoff2: penalty shot start: shooter faces the goal, assignment 1Bh, puck to him, penshottimer 3E8h, penshotlive on",src/engine/assign_events/assign_events.asm
+28110,asspenshot,sub_28110,new,medium,asstab 1Bh (given by PenShotStart): the penalty shot shooter skates in on goal (y +-0F30h) and shoots,src/engine/assign_events/assign_events.asm
+282B8,asseben,sub_282B8,94G,medium,"94G asseben: assignment 16h, coming on from the bench (setplayer gives it for a player from the bench, as in 94G)",src/engine/assign_events/assign_events.asm
+2842C,assleaveice,sub_2842C,96PC,medium,"assignment 1Ah (set by InProgress, as in 96 PC): skates to the bench gate by the side boards, changeplayer, then assignment 1 (assbenchwait)",src/engine/assign_events/assign_events.asm
+28698,asspenalty,sub_28698,94G,medium,"94G asspenalty: assignment 12h, the penalised player skates to the penalty box (InProgress gives it, as in 94G)",src/engine/assign_events/assign_events.asm
+289AC,assdopen,sub_289AC,96PC,low,"96 PC assdopen: assignment 13h, opens the penalty box door (SetPenaltyBoxDoor, sound)",src/engine/assign_events/assign_events.asm
+28A08,assepen,sub_28A08,94G,medium,"94G assepen: assignment 14h, leaving the penalty box (setplayer gives it for a player from the box, as in 94G)",src/engine/assign_events/assign_events.asm
+28C0C,ResetFaceoffAssigns,sub_28C0C,new,low,from puckfaceoff: each idle skater of a team goes back to assignment 6; in a penalty shot the shooter keeps assignment 19h,src/engine/assign_events/assign_events.asm
+28D88,assrefpenshot,sub_28D88,96PC,low,"96 PC assrefpenshot: assignment 38h (last referee handler): waits for AllInPlace before the penalty shot, with a sound",src/engine/referee_assign/referee_assign.asm
+29064,assrefsignal,sub_29064,96PC,low,"referee assignment 37h: plays move 0A3Dh, skates to the signalling spot, queues the overlay panel, then moves on to assignment 34h and calls the goal PA (PaEvent 0C0000001h) with the scorer's jersey",src/engine/referee_assign/referee_assign.asm
+293A8,assrefwhistle,sub_293A8,96PC,medium,"referee assignment 35h: on a stoppage (clock 0, or a tie broken in the last period) sets RefStep (dword_19CBF8) -1, the puck to assignment 42h (puckfaceoff) and the referee to 33h (assrefatdot); otherwise skates the referee along",src/engine/referee_assign/referee_assign.asm
+295CC,assrefgoalpa,sub_295CC,96PC,medium,"referee assignment 34h: set by assrefsignal, assrefpenshot and EndPenaltyShot as in 96 PC; after the goal call sends the referee on (32h / 33h / 35h) and the puck to 42h (puckfaceoff)",src/engine/referee_assign/referee_assign.asm
+298E8,assrefgoalline,sub_298E8,96PC,low,"referee assignment 36h, set by nothing (as in 96 PC): skates the referee to a fixed spot at one end and then to 34h",src/engine/referee_assign/referee_assign.asm
+29A90,assreffollow,sub_29A90,96PC,low,"referee assignment 31h: while the clock runs, picks a spot from the puck's side and position and skates the referee there",src/engine/referee_assign/referee_assign.asm
+29BFC,assrefdrop,sub_29BFC,96PC,low,"referee assignment 32h (after assintrostand and assrefgoalpa): in a penalty shot goes to 38h (assrefpenshot), else to 33h (assrefatdot) for the faceoff",src/engine/referee_assign/referee_assign.asm
+29E2C,assrefatdot,sub_29E2C,96PC,medium,"referee assignment 33h: holds the referee at the faceoff spot while play is stopped, with a random idle timer; assrefwhistle puts the referee here",src/engine/referee_assign/referee_assign.asm
+29F30,assintrostand,sub_29F30,96PC,medium,"96 PC assintrostand: assignment 1Eh (PlaceOpeningPlayers gives it), players stand during the opening, random idle animations; when the puck leaves assignment 40h the referee (type 0Ch) goes to 32h and the skaters to 6",src/engine/intro_assign/intro_assign.asm
+2A000,assintroline,sub_2A000,96PC,low,"96 PC assintroline: assignment 20h, after assintrostand as in 96 PC: the opening line-up",src/engine/intro_assign/intro_assign.asm
+2A1C8,asstakeposition,sub_2A1C8,96PC,low,"96 PC asstakeposition: assignment 21h, after assintroline as in 96 PC: skate to the starting position",src/engine/intro_assign/intro_assign.asm
+2A3A0,TakeBenchPlayer,sub_2A3A0,new,low,from assstanley: the team's first bench player (8002h) is marked on the ice (8001h),src/engine/intro_assign/intro_assign.asm
+2A3F4,assstanley,sub_2A3F4,96PC,low,"96 PC assstanley: assignment 44h, the Stanley Cup presentation (cuppal, LoadCupArt, fade, camera path)",src/engine/intro_assign/intro_assign.asm
+2A6B8,PlayerGetsPuck,sub_2A6B8,new,low,"the player takes the puck: puck carrier set, period / penalty shot end checks, shot and pass stats, play-by-play",src/engine/puck_contact/puck_contact.asm
+2AA50,DeflectPuck,sub_2AA50,new,low,"puck off a player: random new speed and angle (+-7), wrapped",src/engine/puck_contact/puck_contact.asm
+2AC40,KnockPuckAway,sub_2AC40,new,low,"stick knocks the puck loose: slower puck heading away from the player, sound 417h, no carrier, play-by-play 16h",src/engine/puck_contact/puck_contact.asm
+2AD18,PuckHitsPlayer,sub_2AD18,new,low,"from PuckPlayerContact: the puck reaches a player's body / stick: deflect, take it or knock it on",src/engine/puck_contact/puck_contact.asm
+2AFD8,PuckHitsGoalie,sub_2AFD8,new,low,"from PuckPlayerContact: puck against the goalie: save, rebound or catch (sounds, play-by-play, a2touchpuck)",src/engine/puck_contact/puck_contact.asm
+2B4D4,PuckToStick,sub_2B4D4,new,low,"from PuckPlayerContact: puck onto a skater's stick: pass reception / one-timer / take the puck (a2touchpuck, PlayerGetsPuck)",src/engine/puck_contact/puck_contact.asm
+2B9EC,ChkDelayedOffside,sub_2B9EC,95PC,low,offsides option with the warning on: the flagged team touching the puck inside the zone calls offsides (AddPenalty2 5),src/engine/puck_contact/puck_contact.asm
+2BAC0,PuckPlayerContact,sub_2BAC0,new,low,"(puck, player): puck near a player: picks the contact kind (goalie, stick, body) and its handler",src/engine/puck_contact/puck_contact.asm
+2BE2C,ChkPuckContacts,sub_2BE2C,new,low,"from updateplayers: with the puck low (below 384), every one of the 13 objects close enough (1E0h / 0F0h) gets PuckPlayerContact",src/engine/puck_contact/puck_contact.asm
+2BEF0,ChkTwoLinePass,sub_2BEF0,95PC,low,"two-line pass option (bit 10h): a pass from behind the own blue line to a player marked past the red line (+0C0h bit 7, MarkTwoLinePlayers) is a two-line pass; was named a2offsides, which is sub_2BFC4",src/engine/puck_contact/puck_contact.asm
+2BFC4,a2offsides,sub_2BFC4,94G,medium,"94G a2offsides (player touched the puck: offsides if his team is flagged, tmflags bit 4, and the puck is in the zone): AddPenalty 5",src/engine/puck_contact/puck_contact.asm
+2C064,a2touchpuck,sub_2C064,94G,medium,"94G a2touchpuck: (player) the player touches the puck: records the last touch (player word_19CBAE, position), then checks offsides and the other rules",src/engine/puck_contact/puck_contact.asm
+2C42C,PuckIChk,sub_2C42C,94G,medium,"94G PuckIChk (icing check, from pucknorm): loose puck past the goal line within the posts sets the icing flag (byte_19CB8A)",src/engine/puck_contact/puck_contact.asm
+2C4E8,PuckEntersZone,sub_2C4E8,new,low,"puck crossing a blue line: play-by-play 0Eh with the carrier, team zone-entry stat (+20DFh)",src/engine/puck_contact/puck_contact.asm
+2C5C8,ChkOffsides,sub_2C5C8,94G,high,"94G ChkOffsides (from pucknorm): drops a team's offsides flag (tmflags bit 4) when no one is past the line, flags the team when the puck crosses the blue line with a skater ahead (overlay 5)",src/engine/puck_contact/puck_contact.asm
+2C900,MarkTwoLinePlayers,sub_2C900,95PC,medium,two-line pass option (bit 10h): as the puck crosses the red line marks the skaters past it (+0C0h bit 7),src/engine/puck_contact/puck_contact.asm
+2CA40,pucknorm_body,sub_2CA40,96PC,medium,"96 PC pucknorm_body: the puck's handler body: the puck carrier (off_168CF0), goals and the puck physics",src/engine/puck_contact/puck_contact.asm
+2D308,pucknorm,sub_2D308,96PC,medium,"96 PC pucknorm: assignment 41h (off_19C3F4), the puck's normal handler: clears the new-assignment flag (+0BFh bit 1) and its counter, then pucknorm_body",src/engine/puck_contact/puck_contact.asm
+2D330,puckfaceoff2,sub_2D330,96PC,low,"96 PC puckfaceoff2: assignment 43h, after puckfaceoff: waits for AllInPlace, resets the bench and the personnel, then drops the puck",src/engine/puck_contact/puck_contact.asm
+2DCC8,CPgoalie,sub_2DCC8,94G,medium,94G CPgoalie (96 PC body): pulls the computer team's goalie late in the third period,src/engine/goaliepull/goaliepull.asm
+2DD54,ChkGoalies,sub_2DD54,94G,high,"94G ChkGoalies (computer pulls goalie on delayed penalty): from periodicevents; per team, no goalie pull when the team has the puck; on a delayed penalty sets no goalie (setpersonel) and calls the PA event, else CPgoalie for a computer team",src/engine/goaliepull/goaliepull.asm
 2DE3C,ReturnGoalies,,96PC,medium,NHL96PC 463AE (similar): mnemonic similarity 0.81 over 33 instructions,
-2DE94,CoachLineChange,sub_2DE94,new,low,"computer coach changes a team's line when the line is tired or the situation changes (power play, empty net)",src/engine/engine_2DE3C.asm
-2E11C,TeamLineSlots,sub_2E11C,new,low,"picks the team (away when the argument is positive, else home) and falls into LineSlotsPtr",src/engine/engine_2DE3C.asm
-2E12C,LineSlotsPtr,sub_2E12C,new,low,returns a pointer to the player slots of a team's line,src/engine/engine_2DE3C.asm
-2E168,RestoreBenchEnergy,sub_2E168,94G,medium,"94G RestoreBenchEnergy: from periodicevents; every bench player (position 8002h) gains 5 energy, capped at 1000h",src/engine/engine_2DE3C.asm
-2E208,ChkTiredPlayer,sub_2E208,new,low,with line changes on: now and then a tired skater loses speed,src/engine/engine_2DE3C.asm
-2E310,AvgLineEnergy,sub_2E310,new,low,returns the average energy of a team's skaters on the ice,src/engine/engine_2DE3C.asm
-2E378,CompLine,sub_2E378,94G,medium,"94G CompLine: (team, other team) picks the line for the computer team to change to (0F33h threshold, as 96 PC)",src/engine/engine_2DE3C.asm
-2E6D4,SetCoachMode,sub_2E6D4,96PC,medium,96 PC SetCoachMode: the coach mode from the score difference,src/engine/engine_2DE3C.asm
-2E7D8,ResetCoachModes,sub_2E7D8,new,low,sets the coach modes of both teams to their defaults for the game type,src/engine/engine_2DE3C.asm
-2E8F0,UpdateCoachModes,sub_2E8F0,96PC,medium,96 PC UpdateCoachModes: from ClockTick at the same minutes of periods 2 and 3,src/engine/engine_2DE3C.asm
-2EDB8,StartFaceoffLineChange,sub_2EDB8,94G,low,94G StartFaceoffLineChange: starts a team's faceoff line change (once per stoppage: team flag +16h bit 1) when line changes are on,src/engine/engine_2DE3C.asm
+2DE94,CoachLineChange,sub_2DE94,new,low,"computer coach changes a team's line when the line is tired or the situation changes (power play, empty net)",src/engine/coach/coach.asm
+2E11C,TeamLineSlots,sub_2E11C,new,low,"picks the team (away when the argument is positive, else home) and falls into LineSlotsPtr",src/engine/coach/coach.asm
+2E12C,LineSlotsPtr,sub_2E12C,new,low,returns a pointer to the player slots of a team's line,src/engine/coach/coach.asm
+2E168,RestoreBenchEnergy,sub_2E168,94G,medium,"94G RestoreBenchEnergy: from periodicevents; every bench player (position 8002h) gains 5 energy, capped at 1000h",src/engine/coach/coach.asm
+2E208,ChkTiredPlayer,sub_2E208,new,low,with line changes on: now and then a tired skater loses speed,src/engine/coach/coach.asm
+2E310,AvgLineEnergy,sub_2E310,new,low,returns the average energy of a team's skaters on the ice,src/engine/coach/coach.asm
+2E378,CompLine,sub_2E378,94G,medium,"94G CompLine: (team, other team) picks the line for the computer team to change to (0F33h threshold, as 96 PC)",src/engine/coach/coach.asm
+2E6D4,SetCoachMode,sub_2E6D4,96PC,medium,96 PC SetCoachMode: the coach mode from the score difference,src/engine/coach/coach.asm
+2E7D8,ResetCoachModes,sub_2E7D8,new,low,sets the coach modes of both teams to their defaults for the game type,src/engine/coach/coach.asm
+2E8F0,UpdateCoachModes,sub_2E8F0,96PC,medium,96 PC UpdateCoachModes: from ClockTick at the same minutes of periods 2 and 3,src/engine/coach/coach.asm
+2EDB8,StartFaceoffLineChange,sub_2EDB8,94G,low,94G StartFaceoffLineChange: starts a team's faceoff line change (once per stoppage: team flag +16h bit 1) when line changes are on,src/engine/coach/coach.asm
 2EEE8,puckfaceoff,,96PC,medium,NHL96PC 3AEBA (sem): C:306; D:19CC04; D:19EBBC; D:19EAB0,
-2F4B8,ChkPenaltyCall,sub_2F4B8,new,low,"from a body check (sub_6DAB0): whether the referee calls a penalty on the hit (skill and energy chance), AddPenalty2, penalty camera (priority 4), overlay, line update",src/engine/faceoff/faceoff_2.asm
-2F744,PenaltyChance,sub_2F744,new,low,"chance a referee sees an infraction: by the player's discipline (+0CDh), distance to the puck, period, score difference and play state",src/engine/faceoff/faceoff_2.asm
-2F818,ChkNetCrash,sub_2F818,new,low,"puck carrier driving into the net: 63h when the net is empty (goal awarded), 1 when the goalie is hit",src/engine/faceoff/faceoff_2.asm
-2F8D8,NetCollide,sub_2F8D8,96PC,low,from checkgoal: an object hits a net: goal awarded on an empty net (Goal) or goalie interference (AddPenalty 22h),src/engine/faceoff/faceoff_2.asm
-2FA00,NetCollide2,sub_2FA00,new,low,from checkgoal: the same check for the other net,src/engine/faceoff/faceoff_2.asm
-2FB40,ChkBodyContact,sub_2FB40,new,low,"from an animation event: body contact between two players: goalie contact by strength, checkint, Goal / AddPenalty outcomes",src/engine/faceoff/faceoff_2.asm
-2FED8,checkint,sub_2FED8,94G,low,94G checkint: interference: the hit player has no puck and is not the goalie; AddPenalty 14h by chance,src/engine/faceoff/faceoff_2.asm
-2FFB8,PickShotTarget,sub_2FFB8,new,low,"picks where a shot aims (word_19CB92 corner 0-8, random unless a set play) and the target point at the goal (+-7F8h, +-10B0h)",src/engine/faceoff/faceoff_2.asm
-30300,UpdateShot,sub_30300,new,low,"shot animation (frames 29h-2Fh): winds up, aims (PickShotTarget), releases or gives up (assexit)",src/engine/faceoff/faceoff_2.asm
-305D8,StartShot,sub_305D8,new,low,"starts a shot: shot flag (byte_19CBC8 8), aim reset, goal line target (+-10B0h), shot animation",src/engine/faceoff/faceoff_2.asm
-30674,assshoot,sub_30674,new,low,"asstab 11h: the shooting assignment (StartShot, UpdateShot, slap shot hold timer)",src/engine/faceoff/faceoff_2.asm
-30778,ChkShoot,sub_30778,new,low,"computer player decides to shoot from the distance to the goal line (10B0h - y < 3C0h) and chance, then assignment 11h",src/engine/faceoff/faceoff_2.asm
-3085C,ForceShoot,sub_3085C,new,low,immediate shot: shot settings and assignment 11h unless a shot is already on,src/engine/faceoff/faceoff_2.asm
-308AC,PositionSlot,sub_308AC,new,low,(position word 8001h-8007h): the line slot number of a roster position code,src/engine/faceoff/faceoff_2.asm
-308F4,SortByPosition,sub_308F4,new,low,sorts the team's dressed players of one position letter by rating (SortIndices),src/engine/faceoff/faceoff_2.asm
-30998,SortForwards,sub_30998,new,low,sorts the team's dressed non-defencemen by rating (SortIndices),src/engine/faceoff/faceoff_2.asm
-30A34,BuildTeamLines,sub_30A34,new,low,builds a team's line table (+20EDh) from the sorted player lists,src/engine/faceoff/faceoff_2.asm
-30BD8,SetupAutoLines,sub_30BD8,new,low,"from StartGame: rates both rosters and builds their lines (SortByPosition, SortForwards, BuildTeamLines)",src/engine/faceoff/faceoff_2.asm
-31070,CanPlayLineSlot,sub_31070,new,low,"whether a player may take a line slot (position class table byte_168B60, availability byte_19D53C)",src/engine/faceoff/faceoff_2.asm
-313F4,FindLinePlayer,sub_313F4,new,low,first player of a list who can play a slot (CanPlayLineSlot),src/engine/faceoff/faceoff_2.asm
-31540,PickLineReplacement,sub_31540,new,low,"picks a replacement for a line slot from the position order lists (byte_168B69, byte_168C04)",src/engine/faceoff/faceoff_2.asm
-31A2C,CopyGoalieSlot,sub_31A2C,new,low,copies the starting / backup goalie line byte (+34h / +35h) over the other,src/engine/faceoff/faceoff_2.asm
-31A5C,FixLineSlot,sub_31A5C,new,low,"repairs a line slot after a change (slot 24h special case), PositionSlot checks",src/engine/faceoff/faceoff_2.asm
-31B6C,RebuildLines,sub_31B6C,new,low,"refills a team's line slots from a start index (PickLineReplacement), availability table byte_19D53C",src/engine/faceoff/faceoff_2.asm
-31C14,UpdateLinesForAbsent,sub_31C14,new,low,"recounts the available players and rebuilds the lines when a player leaves (penalty, injury, ice exit)",src/engine/faceoff/faceoff_2.asm
-31F88,InitGameLines,sub_31F88,new,low,from StartGame: counts the available players per team and fills the lines,src/engine/faceoff/faceoff_2.asm
-32184,ChkTwoInBox,sub_32184,new,low,whether the player's team already has players serving in the box (counts 8001h / 8002h entries of the box list),src/engine/faceoff/faceoff_2.asm
-32260,AddPenalty,sub_32260,94G,medium,"94G AddPenalty: (player, penalty, ...) adds a penalty unless the clock is stopped, a penalty shot is live or the rule is off in the options (offsides 5, two-line pass 6 ...); falls through to AddPenalty2",src/engine/faceoff/faceoff_2.asm
-32340,AddPenalty2,sub_32340,94G,low,"94G AddPenalty2: (player, penalty, ...) a forced penalty: penalty table dword_168D20, the penalty panel (QueueOverlayPanel)",src/engine/faceoff/faceoff_2.asm
-32888,Stop4Pen,sub_32888,94G,medium,"94G Stop4Pen (from checkfornewpen and puckfaceoff): stops the clock (byte_19CBC2 bit 0), sets the faceoff spot from the penalty type, clears the overlays, whistle sound and PA event",src/engine/faceoff/faceoff_2.asm
-32B68,updatepwrplay,sub_32B68,94G,medium,"the 94G updatepwrplay state part (called from updatepentime here): players on ice home minus away; sets / clears the power play flag (byte_19CBCA 20h, 40h visitors) and counts a power play (+20CBh) and a shorthanded situation (+20BDh) when it starts; no display",src/engine/faceoff/faceoff_2.asm
-32C04,chkatop,sub_32C04,94G,medium,"94G chkatop (attack time stat, once a second from updatepentime): puck y beyond +/-570h credits the attacking team's attack time (+20D7h)",src/engine/faceoff/faceoff_2.asm
-32CEC,releasepl,sub_32CEC,94G,high,"94G releasepl (player's penalty time is up, let him out): first sort object off the ice, one more on the ice (+0Eh), line-change flags, position from the priority list (off_19C61F), Setplass, setplayer",src/engine/faceoff/faceoff_2.asm
-32D88,PenGoalStuff,sub_32D88,94G,medium,"94G PenGoalStuff (after a goal): when the scoring team had more players on the ice, releases the first scored-on player in the box without a coincidental penalty (releasepl)",src/engine/faceoff/faceoff_2.asm
-32FF8,updatepentime_ut_chk,sub_32FF8,95PC,low,"the updatepentime_ut check for one box entry (team, player): when the time is up, the PA event 1Bh and releasepl when the team is short (the NHL95PC updatepentime_ut_chk part)",src/engine/faceoff/faceoff_2.asm
-3319C,updatepentime_ut,sub_3319C,94G,medium,"94G updatepentime_ut (team): walks the team's penalty box list, the first two entries serving, and counts their time down (updatepentime_ut_chk)",src/engine/faceoff/faceoff_2.asm
-332C0,updatepentime,sub_332C0,94G,medium,"94G updatepentime (96 PC body): counts the penalty times down, from chkprogress",src/engine/faceoff/faceoff_2.asm
-33368,checkfornewpen,sub_33368,94G,medium,"94G checkfornewpen (96 PC body), from chkprogress",src/engine/faceoff/faceoff_2.asm
-335CC,SumOnIceRatings,sub_335CC,new,low,from InProgress: adds up the ratings of the team's skaters on the ice,src/engine/faceoff/faceoff_2.asm
-336E4,SetupPenaltyShot,sub_336E4,96PC,medium,"from InProgress: penalty shot setup (penshotmode on, stat +20E3h, one skater a side, shooter and goalie)",src/engine/faceoff/faceoff_2.asm
-33880,EndPenaltyShot,sub_33880,96PC,medium,96 PC EndPenaltyShot: from ClockTick when the penalty shot time runs out,src/engine/faceoff/faceoff_2.asm
-33904,PenaltyPaCode,sub_33904,new,low,arena PA event code for a penalty (table dword_168DA4) with its minor / major / misconduct bits,src/engine/faceoff/faceoff_2.asm
-33950,InProgress,sub_33950,94G,medium,"94G InProgress: the penalty in progress (whistle, box, power play), from chkprogress after checkfornewpen",src/engine/faceoff/faceoff_2.asm
+2F4B8,ChkPenaltyCall,sub_2F4B8,new,low,"from a body check (sub_6DAB0): whether the referee calls a penalty on the hit (skill and energy chance), AddPenalty2, penalty camera (priority 4), overlay, line update",src/engine/contact_calls/contact_calls.asm
+2F744,PenaltyChance,sub_2F744,new,low,"chance a referee sees an infraction: by the player's discipline (+0CDh), distance to the puck, period, score difference and play state",src/engine/contact_calls/contact_calls.asm
+2F818,ChkNetCrash,sub_2F818,new,low,"puck carrier driving into the net: 63h when the net is empty (goal awarded), 1 when the goalie is hit",src/engine/contact_calls/contact_calls.asm
+2F8D8,NetCollide,sub_2F8D8,96PC,low,from checkgoal: an object hits a net: goal awarded on an empty net (Goal) or goalie interference (AddPenalty 22h),src/engine/contact_calls/contact_calls.asm
+2FA00,NetCollide2,sub_2FA00,new,low,from checkgoal: the same check for the other net,src/engine/contact_calls/contact_calls.asm
+2FB40,ChkBodyContact,sub_2FB40,new,low,"from an animation event: body contact between two players: goalie contact by strength, checkint, Goal / AddPenalty outcomes",src/engine/contact_calls/contact_calls.asm
+2FED8,checkint,sub_2FED8,94G,low,94G checkint: interference: the hit player has no puck and is not the goalie; AddPenalty 14h by chance,src/engine/contact_calls/contact_calls.asm
+2FFB8,PickShotTarget,sub_2FFB8,new,low,"picks where a shot aims (word_19CB92 corner 0-8, random unless a set play) and the target point at the goal (+-7F8h, +-10B0h)",src/engine/shot_ai/shot_ai.asm
+30300,UpdateShot,sub_30300,new,low,"shot animation (frames 29h-2Fh): winds up, aims (PickShotTarget), releases or gives up (assexit)",src/engine/shot_ai/shot_ai.asm
+305D8,StartShot,sub_305D8,new,low,"starts a shot: shot flag (byte_19CBC8 8), aim reset, goal line target (+-10B0h), shot animation",src/engine/shot_ai/shot_ai.asm
+30674,assshoot,sub_30674,new,low,"asstab 11h: the shooting assignment (StartShot, UpdateShot, slap shot hold timer)",src/engine/shot_ai/shot_ai.asm
+30778,ChkShoot,sub_30778,new,low,"computer player decides to shoot from the distance to the goal line (10B0h - y < 3C0h) and chance, then assignment 11h",src/engine/shot_ai/shot_ai.asm
+3085C,ForceShoot,sub_3085C,new,low,immediate shot: shot settings and assignment 11h unless a shot is already on,src/engine/shot_ai/shot_ai.asm
+308AC,PositionSlot,sub_308AC,new,low,(position word 8001h-8007h): the line slot number of a roster position code,src/engine/lines/lines.asm
+308F4,SortByPosition,sub_308F4,new,low,sorts the team's dressed players of one position letter by rating (SortIndices),src/engine/lines/lines.asm
+30998,SortForwards,sub_30998,new,low,sorts the team's dressed non-defencemen by rating (SortIndices),src/engine/lines/lines.asm
+30A34,BuildTeamLines,sub_30A34,new,low,builds a team's line table (+20EDh) from the sorted player lists,src/engine/lines/lines.asm
+30BD8,SetupAutoLines,sub_30BD8,new,low,"from StartGame: rates both rosters and builds their lines (SortByPosition, SortForwards, BuildTeamLines)",src/engine/lines/lines.asm
+31070,CanPlayLineSlot,sub_31070,new,low,"whether a player may take a line slot (position class table byte_168B60, availability byte_19D53C)",src/engine/lines/lines.asm
+313F4,FindLinePlayer,sub_313F4,new,low,first player of a list who can play a slot (CanPlayLineSlot),src/engine/lines/lines.asm
+31540,PickLineReplacement,sub_31540,new,low,"picks a replacement for a line slot from the position order lists (byte_168B69, byte_168C04)",src/engine/lines/lines.asm
+31A2C,CopyGoalieSlot,sub_31A2C,new,low,copies the starting / backup goalie line byte (+34h / +35h) over the other,src/engine/lines/lines.asm
+31A5C,FixLineSlot,sub_31A5C,new,low,"repairs a line slot after a change (slot 24h special case), PositionSlot checks",src/engine/lines/lines.asm
+31B6C,RebuildLines,sub_31B6C,new,low,"refills a team's line slots from a start index (PickLineReplacement), availability table byte_19D53C",src/engine/lines/lines.asm
+31C14,UpdateLinesForAbsent,sub_31C14,new,low,"recounts the available players and rebuilds the lines when a player leaves (penalty, injury, ice exit)",src/engine/lines/lines.asm
+31F88,InitGameLines,sub_31F88,new,low,from StartGame: counts the available players per team and fills the lines,src/engine/lines/lines.asm
+32184,ChkTwoInBox,sub_32184,new,low,whether the player's team already has players serving in the box (counts 8001h / 8002h entries of the box list),src/engine/penalty/penalty.asm
+32260,AddPenalty,sub_32260,94G,medium,"94G AddPenalty: (player, penalty, ...) adds a penalty unless the clock is stopped, a penalty shot is live or the rule is off in the options (offsides 5, two-line pass 6 ...); falls through to AddPenalty2",src/engine/penalty/penalty.asm
+32340,AddPenalty2,sub_32340,94G,low,"94G AddPenalty2: (player, penalty, ...) a forced penalty: penalty table dword_168D20, the penalty panel (QueueOverlayPanel)",src/engine/penalty/penalty.asm
+32888,Stop4Pen,sub_32888,94G,medium,"94G Stop4Pen (from checkfornewpen and puckfaceoff): stops the clock (byte_19CBC2 bit 0), sets the faceoff spot from the penalty type, clears the overlays, whistle sound and PA event",src/engine/penalty/penalty.asm
+32B68,updatepwrplay,sub_32B68,94G,medium,"the 94G updatepwrplay state part (called from updatepentime here): players on ice home minus away; sets / clears the power play flag (byte_19CBCA 20h, 40h visitors) and counts a power play (+20CBh) and a shorthanded situation (+20BDh) when it starts; no display",src/engine/penalty/penalty.asm
+32C04,chkatop,sub_32C04,94G,medium,"94G chkatop (attack time stat, once a second from updatepentime): puck y beyond +/-570h credits the attacking team's attack time (+20D7h)",src/engine/penalty/penalty.asm
+32CEC,releasepl,sub_32CEC,94G,high,"94G releasepl (player's penalty time is up, let him out): first sort object off the ice, one more on the ice (+0Eh), line-change flags, position from the priority list (off_19C61F), Setplass, setplayer",src/engine/penalty/penalty.asm
+32D88,PenGoalStuff,sub_32D88,94G,medium,"94G PenGoalStuff (after a goal): when the scoring team had more players on the ice, releases the first scored-on player in the box without a coincidental penalty (releasepl)",src/engine/penalty/penalty.asm
+32FF8,updatepentime_ut_chk,sub_32FF8,95PC,low,"the updatepentime_ut check for one box entry (team, player): when the time is up, the PA event 1Bh and releasepl when the team is short (the NHL95PC updatepentime_ut_chk part)",src/engine/penalty/penalty.asm
+3319C,updatepentime_ut,sub_3319C,94G,medium,"94G updatepentime_ut (team): walks the team's penalty box list, the first two entries serving, and counts their time down (updatepentime_ut_chk)",src/engine/penalty/penalty.asm
+332C0,updatepentime,sub_332C0,94G,medium,"94G updatepentime (96 PC body): counts the penalty times down, from chkprogress",src/engine/penalty/penalty.asm
+33368,checkfornewpen,sub_33368,94G,medium,"94G checkfornewpen (96 PC body), from chkprogress",src/engine/penalty/penalty.asm
+335CC,SumOnIceRatings,sub_335CC,new,low,from InProgress: adds up the ratings of the team's skaters on the ice,src/engine/penalty/penalty.asm
+336E4,SetupPenaltyShot,sub_336E4,96PC,medium,"from InProgress: penalty shot setup (penshotmode on, stat +20E3h, one skater a side, shooter and goalie)",src/engine/penalty/penalty.asm
+33880,EndPenaltyShot,sub_33880,96PC,medium,96 PC EndPenaltyShot: from ClockTick when the penalty shot time runs out,src/engine/penalty/penalty.asm
+33904,PenaltyPaCode,sub_33904,new,low,arena PA event code for a penalty (table dword_168DA4) with its minor / major / misconduct bits,src/engine/penalty/penalty.asm
+33950,InProgress,sub_33950,94G,medium,"94G InProgress: the penalty in progress (whistle, box, power play), from chkprogress after checkfornewpen",src/engine/penalty/penalty.asm
 342C4,chkprogress,,95PC,medium,NHL95PC 63C0C (similar): mnemonic similarity 0.83 over 28 instructions,
-34330,SetPlayerTarget,sub_34330,new,low,"(player, object): sets the player's target object (+0BAh) and its flag (+0BFh bit 3)",src/engine/faceoff/faceoff_2.asm
+34330,SetPlayerTarget,sub_34330,new,low,"(player, object): sets the player's target object (+0BAh) and its flag (+0BFh bit 3)",src/engine/control/control.asm
 3434C,restorepl,,96PC,medium,NHL96PC 46988 (sem): R:366; R:365,
-343F8,SetSlotPlayer,sub_343F8,new,low,"(slot, player): gives a control slot a new player (restorepl) when it changes",src/engine/faceoff/faceoff_2.asm
+343F8,SetSlotPlayer,sub_343F8,new,low,"(slot, player): gives a control slot a new player (restorepl) when it changes",src/engine/control/control.asm
 34428,GiveControl,,96PC,medium,NHL96PC 4806A (similar): mnemonic similarity 0.84 over 59 instructions,
-34500,ChkGrabPuckOnSwitch,sub_34500,new,low,from changeplayer: the new controlled player close enough to the puck takes it (sub_3B09C),src/engine/faceoff/faceoff_2.asm
+34500,ChkGrabPuckOnSwitch,sub_34500,new,low,from changeplayer: the new controlled player close enough to the puck takes it (sub_3B09C),src/engine/control/control.asm
 34560,changeplayer,,96PC,medium,NHL96PC 4666C (sem): C:364; D:19CC04; D:19DA30,
-348DC,AutoSwitchToCarrier,sub_348DC,new,low,auto-switch option (gameopts +2 bit 1): the control slot moves to the team's puck carrier,src/engine/faceoff/faceoff_2.asm
-34950,InitPadSlots,sub_34950,new,low,from InitGameVars: resets the 8 joystick slot records,src/engine/faceoff/faceoff_2.asm
+348DC,AutoSwitchToCarrier,sub_348DC,new,low,auto-switch option (gameopts +2 bit 1): the control slot moves to the team's puck carrier,src/engine/control/control.asm
+34950,InitPadSlots,sub_34950,new,low,from InitGameVars: resets the 8 joystick slot records,src/engine/control/control.asm
 34980,SlotToJoy,,96PC,medium,NHL96PC 3987A (similar): mnemonic similarity 0.92 over 36 instructions,
 349E4,ReadJoy1,,96PC,medium,NHL96PC 398DB (sem): C:371,
-34A48,RequestLineChange,sub_34A48,95PC,low,"(player, line): sets the team's next line (+2), cycles the line count, PA / play-by-play event, setpersonel",src/engine/faceoff/faceoff_2.asm
-34B04,LineChangeKey,sub_34B04,new,low,"from doinput: line change key: picks the line (power play +6, penalty kill +4) or StartFaceoffLineChange",src/engine/faceoff/faceoff_2.asm
-34B78,DoLineChangeInput,sub_34B78,new,low,from doinput: line change buttons and the line select table (word_168E60),src/engine/faceoff/faceoff_2.asm
-34C18,faceoffinput,sub_34C18,94G,medium,controller processing for the faceoff (94G logic94 faceoffinput),src/engine/faceoff/faceoff_2.asm
-34CF4,FaceDirFromMotion,sub_34CF4,new,low,the 8-way facing direction from the player's heading (+40h),src/engine/faceoff/faceoff_2.asm
-34EF8,doplayeracc,sub_34EF8,94G,medium,"94G doplayeracc: (player, direction 0-7, 8+ = none) the player accelerates toward the direction (x87 heading, sub_34CF4)",src/engine/faceoff/faceoff_2.asm
-34F58,SetSkateDir,sub_34F58,new,low,"(player, dir 0-7): heading and speed toward a joystick direction, limited by the top speed",src/engine/faceoff/faceoff_2.asm
-34FD0,JoySkate,sub_34FD0,new,low,"from doinput: skating from the joystick direction (SetSkateDir, doplayeracc)",src/engine/faceoff/faceoff_2.asm
-3505C,JoyDirSkate,sub_3505C,new,low,from doinput: skating from a slot's pad direction (unk_19CA98),src/engine/faceoff/faceoff_2.asm
-3509C,FindPassTarget,sub_3509C,new,low,"nearest open teammate in the pass direction from the puck (skips the passer, off-ice and busy players)",src/engine/faceoff/faceoff_2.asm
-35188,ChkPassTo,sub_35188,new,low,pass target found and lane open (sub_248E8): pass direction,src/engine/faceoff/faceoff_2.asm
-35234,DoPassButton,sub_35234,new,low,"from doinput: pass button: target, pass kind (word_19CB96), sub_25010",src/engine/faceoff/faceoff_2.asm
-353B4,ShotAimDir,sub_353B4,new,low,shot direction from the joystick and the shooter's hand (word_19CB92),src/engine/faceoff/faceoff_2.asm
-35464,DoShootButton,sub_35464,new,low,"from doinput: shoot button: aim, power, target point, sub_25010",src/engine/faceoff/faceoff_2.asm
-35588,ChkOneTimerSpot,sub_35588,new,low,in the attacking zone (570h-1050h) with a teammate ready: one-timer chance,src/engine/faceoff/faceoff_2.asm
-35690,ClearLastPasser,sub_35690,new,low,clears word_19CBD8,src/engine/faceoff/faceoff_2.asm
-356A8,onetimershot,sub_356A8,94G,medium,the one-timer shot (94G onetimer94 onetimershot),src/engine/faceoff/faceoff_2.asm
-358E4,doinput,sub_358E4,94G,medium,"94G doinput (from updateplayers): a human player's pad: line changes, skating, pass / shoot / check buttons, control switch",src/engine/faceoff/faceoff_2.asm
+34A48,RequestLineChange,sub_34A48,95PC,low,"(player, line): sets the team's next line (+2), cycles the line count, PA / play-by-play event, setpersonel",src/engine/control/control.asm
+34B04,LineChangeKey,sub_34B04,new,low,"from doinput: line change key: picks the line (power play +6, penalty kill +4) or StartFaceoffLineChange",src/engine/control/control.asm
+34B78,DoLineChangeInput,sub_34B78,new,low,from doinput: line change buttons and the line select table (word_168E60),src/engine/control/control.asm
+34C18,faceoffinput,sub_34C18,94G,medium,controller processing for the faceoff (94G logic94 faceoffinput),src/engine/control/control.asm
+34CF4,FaceDirFromMotion,sub_34CF4,new,low,the 8-way facing direction from the player's heading (+40h),src/engine/control/control.asm
+34EF8,doplayeracc,sub_34EF8,94G,medium,"94G doplayeracc: (player, direction 0-7, 8+ = none) the player accelerates toward the direction (x87 heading, sub_34CF4)",src/engine/control/control.asm
+34F58,SetSkateDir,sub_34F58,new,low,"(player, dir 0-7): heading and speed toward a joystick direction, limited by the top speed",src/engine/control/control.asm
+34FD0,JoySkate,sub_34FD0,new,low,"from doinput: skating from the joystick direction (SetSkateDir, doplayeracc)",src/engine/control/control.asm
+3505C,JoyDirSkate,sub_3505C,new,low,from doinput: skating from a slot's pad direction (unk_19CA98),src/engine/control/control.asm
+3509C,FindPassTarget,sub_3509C,new,low,"nearest open teammate in the pass direction from the puck (skips the passer, off-ice and busy players)",src/engine/control/control.asm
+35188,ChkPassTo,sub_35188,new,low,pass target found and lane open (sub_248E8): pass direction,src/engine/control/control.asm
+35234,DoPassButton,sub_35234,new,low,"from doinput: pass button: target, pass kind (word_19CB96), sub_25010",src/engine/control/control.asm
+353B4,ShotAimDir,sub_353B4,new,low,shot direction from the joystick and the shooter's hand (word_19CB92),src/engine/control/control.asm
+35464,DoShootButton,sub_35464,new,low,"from doinput: shoot button: aim, power, target point, sub_25010",src/engine/control/control.asm
+35588,ChkOneTimerSpot,sub_35588,new,low,in the attacking zone (570h-1050h) with a teammate ready: one-timer chance,src/engine/control/control.asm
+35690,ClearLastPasser,sub_35690,new,low,clears word_19CBD8,src/engine/control/control.asm
+356A8,onetimershot,sub_356A8,94G,medium,the one-timer shot (94G onetimer94 onetimershot),src/engine/control/control.asm
+358E4,doinput,sub_358E4,94G,medium,"94G doinput (from updateplayers): a human player's pad: line changes, skating, pass / shoot / check buttons, control switch",src/engine/control/control.asm
 362E0,CountTeamSlots,,96PC,medium,NHL96PC 3A2F6 (similar): mnemonic similarity 0.82 over 32 instructions,
-36370,DebugRestoreEnergy,sub_36370,new,low,"from DebugKeys: every player back to full energy (100), counter word_19CB82 3E8h",src/engine/faceoff/faceoff_2.asm
-363EC,CheckFightOdds,sub_363EC,new,low,"(player, other) from checkfight: both skaters on the ice, play live, enough hits (word_19CB82 >= 50h): rolls the fight chance",src/engine/faceoff/faceoff_2.asm
-36524,StartFight,sub_36524,new,medium,"(player, other): marks both fighters, gives each a fighting penalty (AddPenalty2 1Ch) and assfight (1Ch), user control, commentary",src/engine/faceoff/faceoff_2.asm
-365FC,checkfight,sub_365FC,93G,medium,"NHLPA 93 checkfight: (player a3, player a2) after a hit, with fighting on in the options: counts the hits and may start a fight (StartFight); the others get assfwatch (1Dh)",src/engine/faceoff/faceoff_2.asm
-36754,ResetPlayerCounters,sub_36754,new,low,from StartGame: clears the per-player bytes byte_19EB7F / byte_19EC8B and word_19CB82,src/engine/faceoff/faceoff_2.asm
-36778,HumanStickAction,sub_36778,new,low,"from doinput: the controlled player's stick / check move against his target (puck flag, partner object +6Ch)",src/engine/faceoff/faceoff_2.asm
-36AB0,assfight,sub_36AB0,93G,medium,"NHLPA 93 assfight: assignment 1Ch (StartFight gives it to both fighters), the fighting logic",src/engine/faceoff/faceoff_2.asm
-36E34,assfwatch,sub_36E34,93G,medium,"NHLPA 93 assfwatch: assignment 1Dh (checkfight gives it to the others), players watching the fight",src/engine/faceoff/faceoff_2.asm
-37044,PutChecksum,sub_37044,new,low,packet link: computes a checksum with the given function and stores it big-endian at the end of a buffer,src/engine/faceoff/faceoff_2.asm
-3708C,VerifyPacketChecksum,sub_3708C,new,low,packet link: recomputes a received packet's checksum and compares it,src/engine/faceoff/faceoff_2.asm
-37134,BuildPacketHeader,sub_37134,new,low,"packet link: packet header (sequence number, 0FEh marker, kind) and payload copy, interrupts off around the counter",src/engine/faceoff/faceoff_2.asm
-37198,SendPacket,sub_37198,new,low,packet link: sends a queued packet when the device has room,src/engine/faceoff/faceoff_2.asm
-3727C,SendAckPacket,sub_3727C,new,low,packet link: sends an acknowledgement packet,src/engine/faceoff/faceoff_2.asm
-37374,AckPackets,sub_37374,new,low,packet link: moves the acknowledged window and frees acknowledged packets,src/engine/faceoff/faceoff_2.asm
-373D8,MarkPacketAcked,sub_373D8,new,low,packet link: marks one sent packet acknowledged,src/engine/faceoff/faceoff_2.asm
-37424,FreeLinkChannel,sub_37424,new,low,packet link: removes a channel from the open list and closes its device,src/engine/faceoff/faceoff_2.asm
-37470,ParsePacket,sub_37470,new,low,"packet link: finds a 0FEh-framed packet in received bytes, checks it and handles its kind",src/engine/faceoff/faceoff_2.asm
-375F0,ReceivePackets,sub_375F0,new,low,packet link: reads the device's bytes and parses the packets,src/engine/faceoff/faceoff_2.asm
-376FC,LinkGetDevice,sub_376FC,new,low,packet link: returns a channel's device (+4),src/engine/faceoff/faceoff_2.asm
-37704,LinkCountdown,sub_37704,new,low,"packet link: counts a channel's resend counter down, true at zero",src/engine/faceoff/faceoff_2.asm
-3772C,LinkResendIfDue,sub_3772C,new,low,packet link: resends when the counter has run out,src/engine/faceoff/faceoff_2.asm
-37744,LinkPoll,sub_37744,new,low,"packet link timer task: per channel resends, receives and acknowledges",src/engine/faceoff/faceoff_2.asm
-379AC,InitPacketLink,sub_379AC,new,low,"packet link: once, sets up the channel lists, the timer task (addtimer) and the exit handler",src/engine/faceoff/faceoff_2.asm
-37A1C,ShutdownPacketLink,sub_37A1C,new,low,packet link: closes every channel and removes the timer task,src/engine/faceoff/faceoff_2.asm
-37AB4,OpenPacketLink,sub_37AB4,new,low,"packet link: opens a channel (""pktbuffer"" block, window 2-7, packet size >= 6)",src/engine/faceoff/faceoff_2.asm
-37F4C,PacketLinkSend,sub_37F4C,new,low,"packet link: queues and sends a block on a channel (LinkSendBlock, WaitForOtherComputer)",src/engine/faceoff/faceoff_2.asm
-37FC8,ClosePacketLink,sub_37FC8,new,low,packet link: flushes and closes a channel,src/engine/faceoff/faceoff_2.asm
-3812E,SeasonGameScreen,sub_3812E,new,low,"from RunSeasonMenus / RunPlayoffMenus: the next-game screen (HOME / AWAY teams; play, simulate or continue, with the ""team not present"", ""unplayed games"" and ""no games left"" messages)",src/engine/engine_3812E.asm
-385C3,SetSeasonUserTeam,sub_385C3,new,low,season schedule screen: works out which team the user follows (playoff pick or the season's user team),src/engine/engine_3812E.asm
-38675,InitSeasonGameScreen,sub_38675,new,low,"from SeasonGameScreen: sets up its menu items and art (BACK, TITL, AB00-AB05, BH00, BT00) and the HOME / AWAY labels",src/engine/engine_3812E.asm
-38B1A,TeamHasGamesLeft,sub_38B1A,new,low,whether a team still has a game in the schedule list; returns 1 if so,src/engine/engine_3812E.asm
-38B77,FindTeamGame,sub_38B77,new,low,"returns the index of the last scheduled game that involves the given team, -1 if none",src/engine/engine_3812E.asm
-38BAB,DrawMatchupLogo,sub_38BAB,new,low,draws a team logo in a slot of the season game panel,src/engine/engine_3812E.asm
-38BFC,DrawAllStarLogo,sub_38BFC,new,low,draws the All-Star logo in a slot of the season game panel,src/engine/engine_3812E.asm
-38C79,DrawGameScore,sub_38C79,new,low,"draws a game result in a slot of the season game panel (""W 3-2"" style)",src/engine/engine_3812E.asm
-38D84,DrawGameScoreLine,sub_38D84,new,low,draws a game result with both team names in a slot of the season game panel,src/engine/engine_3812E.asm
-38E26,FindUserOpponent,sub_38E26,new,low,finds the opponent of the user's team in the current scheduled game,src/engine/engine_3812E.asm
-38F7A,DrawLockedGame,sub_38F7A,new,low,draws the lock symbol over a game slot that cannot be played yet,src/engine/engine_3812E.asm
-39052,DrawSeasonGamePanel,sub_39052,new,low,"from SeasonGameScreen: draws the team panel (PANL) from the league file: records (""%c %d-%d"" W / L / T), scores (""%s %d-%s %d""), LOCK marks",src/engine/engine_3812E.asm
-397FD,SetPlayedTeams,sub_397FD,new,low,copies the two teams of the game just played into the season state,src/engine/engine_3812E.asm
-39824,IsAllStarDay,sub_39824,new,low,in a season: whether today is the All-Star game day; returns 1 if so,src/engine/engine_3812E.asm
-39851,GetAllStarDate,sub_39851,new,low,returns the day number of the All-Star game (earlier in a short season),src/engine/engine_3812E.asm
-39882,StartNextSeasonGame,sub_39882,new,low,"season: finds the next game to play, builds the All-Star teams on that day and sets up the matchup",src/engine/engine_3812E.asm
-39B20,AnimateWaitIcon,sub_39B20,new,low,draws the next frame of the waiting animation on the season screen every few ticks,src/engine/engine_3812E.asm
-39BB6,AnimateSparkle,sub_39BB6,new,low,draws a random sparkle shape on the screen every few ticks,src/engine/engine_3812E.asm
-39CE0,FindBenchSlot,sub_39CE0,new,low,"returns the bench or penalty box seat a player has on his team's list, -1 if none",src/engine/engine_3812E.asm
-39D1C,GetSeatPosition,sub_39D1C,new,low,fills a vector with the rink position of a bench or box seat,src/engine/engine_3812E.asm
-39DA4,PickBoxSeat,sub_39DA4,new,low,a penalized player takes the first free seat in his team's penalty box,src/engine/engine_3812E.asm
-39EC0,FreeBoxSeat,sub_39EC0,new,low,a player leaving the penalty box gives up his seat and gets the gate position,src/engine/engine_3812E.asm
-3A06C,PickBenchSeat,sub_3A06C,new,low,a player going to the bench takes a free seat on his team's bench,src/engine/engine_3812E.asm
-3A164,MoveBoxToBenchSeat,sub_3A164,new,low,moves a player from his penalty box seat to a bench seat,src/engine/engine_3812E.asm
-3A2E8,FaceoffStanceMove,sub_3A2E8,new,low,"move handler for the faceoff stance moves: stick down, random stance animation, face morphs",src/engine/engine_3812E.asm
-3A3C8,RunSimpleMove,sub_3A3C8,new,low,move handler for plain moves: plays the animation and picks the next move when it ends,src/engine/engine_3812E.asm
-3A404,FaceoffMoveResult,sub_3A404,new,low,"returns the faceoff result code of a faceoff move (win forward, win back, tie), -1 for others",src/engine/engine_3812E.asm
-3A440,FaceoffMove,sub_3A440,new,low,move handler for the faceoff draw moves; at the end starts the follow animation,src/engine/engine_3812E.asm
-3A564,MoveWithSfx,sub_3A564,new,low,move handler for moves that play a sound at a set frame (stick and body sounds),src/engine/engine_3812E.asm
-3A65C,RandomFollowMove,sub_3A65C,new,low,move handler that starts a random follow-up animation when the move ends,src/engine/engine_3812E.asm
-3A75C,ShoutMove,sub_3A75C,new,low,"move handler for moves with face morphs (open mouth, expression) chosen at random",src/engine/engine_3812E.asm
-3A814,BodyMove,sub_3A814,new,low,move handler for body moves that clear the busy flags when they end,src/engine/engine_3812E.asm
-3A884,TakePositionMove,sub_3A884,new,low,move handler that ends in the stand animation when the player is taking his position,src/engine/engine_3812E.asm
-3A920,SkateStrideMove,sub_3A920,new,low,move handler for forward skating strides: alternates the two stride animations,src/engine/engine_3812E.asm
-3A9D0,CoastMove,sub_3A9D0,new,low,move handler for coasting: steers and keeps the speed under the coasting limit,src/engine/engine_3812E.asm
-3AA48,BackStrideMove,sub_3AA48,new,low,move handler for backward skating strides: alternates the two backward stride animations,src/engine/engine_3812E.asm
-3AAE8,FaceoffSwipeAnim,sub_3AAE8,new,low,starts the faceoff swipe animation in the given direction,src/engine/engine_3812E.asm
-3AB28,FaceoffDrawAnim,sub_3AB28,new,low,starts the slower faceoff draw animation in the given direction,src/engine/engine_3812E.asm
-3AB68,SitDownAnim,sub_3AB68,new,low,stops the player and starts the sit-down animation on the bench or in the box,src/engine/engine_3812E.asm
-3ABD8,StandUpAnim,sub_3ABD8,new,low,starts the stand-up animation of a player leaving the bench,src/engine/engine_3812E.asm
-3AC3C,GoToBoxAnim,sub_3AC3C,new,low,starts the skate-to-penalty-box animation with a turn rate from the box distance,src/engine/engine_3812E.asm
-3AD34,LeaveBoxAnim,sub_3AD34,new,low,starts the animation of a player stepping out of the penalty box,src/engine/engine_3812E.asm
-3AD9C,RefDodgePuck,sub_3AD9C,new,low,the referee steps out of the way of a slow loose puck heading at him,src/engine/engine_3812E.asm
-3AF30,checkgoal,sub_3AF30,94G,low,"from the off_16BD2C handler table: the puck against a net; the two net checks (sub_2F8D8 / sub_2FA00) call Goal, as 93G/94G checkgoal does for the puck",src/engine/engine_3812E.asm
-3AFDC,CheckMove,sub_3AFDC,new,low,"move handler for a body check: tests contact each frame, ends when the hit is done",src/engine/engine_3812E.asm
-3B05C,SteerMove,sub_3B05C,new,low,move handler that steers the player until the move ends,src/engine/engine_3812E.asm
-3B09C,ReachForPuckAnim,sub_3B09C,new,low,turns a player toward the puck and starts the reach animation when the control switches to him,src/engine/engine_3812E.asm
-3B1EC,PokeCheckAnim,sub_3B1EC,new,low,"starts the poke check animation (left, right or straight) toward the puck",src/engine/engine_3812E.asm
-3B334,TryBodyCheck,sub_3B334,new,low,"one player tries to body check another: range, angle and speed checks, then the check animation; returns nonzero if started",src/engine/engine_3812E.asm
-3B690,DoCheckButton,sub_3B690,new,low,"the human player presses check: poke check, or body check the carrier, or the nearest opponent",src/engine/engine_3812E.asm
-3B738,AIBodyCheck,sub_3B738,new,low,a computer player body checks the given opponent,src/engine/engine_3812E.asm
-3B75B,DrawFrameNoop,sub_3B75B,new,low,empty step of the game frame drawing,src/engine/engine_3812E.asm
-3B760,AddDirtySpans,sub_3B760,new,low,adds the row spans of an overlay window to the list of screen spans to redraw,src/engine/engine_3812E.asm
-3B8AC,InsertSpanSlot,sub_3B8AC,new,low,opens a slot in the span list by moving the later entries up,src/engine/engine_3812E.asm
-3B900,RemoveSpanSlot,sub_3B900,new,low,closes a slot in the span list by moving the later entries down,src/engine/engine_3812E.asm
-3B954,MergeDirtySpans,sub_3B954,new,low,"merges a row's spans into the dirty span list, splitting and joining runs",src/engine/engine_3812E.asm
-3C0B4,RebuildOverlayMask,sub_3C0B4,new,low,rebuilds the list of screen areas covered by overlay windows after one closes,src/engine/engine_3812E.asm
-3C544,BlendOverlayRow,sub_3C544,new,low,"copies a row of an overlay window: transparent pixels show the screen, shade pixels darken it",src/engine/engine_3812E.asm
-3C580,ShadeOverlayRow,sub_3C580,new,low,"copies a row of an overlay window, darkening the shade pixels through the shade table",src/engine/engine_3812E.asm
-3C5D4,DrawOverlayRows,sub_3C5D4,new,low,draws the rows of an overlay window onto the screen,src/engine/engine_3812E.asm
-3C75C,SetVideoMode,sub_3C75C,new,medium,"(width, height): switches the screen mode when it differs from the current one (dword_1A8E84 x dword_1A8E88)",src/engine/engine_3812E.asm
-3C880,InitDisplayViews,sub_3C880,new,low,"allocates the display view table (""DMAN"") for the given number of views",src/engine/engine_3812E.asm
-3C8DC,FreeDisplayViews,sub_3C8DC,new,low,frees the bitmaps of the display views and the view table,src/engine/engine_3812E.asm
-3C944,AddDisplayView,sub_3C944,new,low,takes a free display view and creates its bitmap of the given size,src/engine/engine_3812E.asm
-3C9C8,SetViewDrawTarget,sub_3C9C8,new,low,makes a display view the drawing target and sets its projection,src/engine/engine_3812E.asm
-3CA28,SetViewSize,sub_3CA28,new,low,sets the width and height of a display view's bitmap,src/engine/engine_3812E.asm
-3CAB8,SetViewInterlaced,sub_3CAB8,new,low,switches a display view to half height (interlaced display),src/engine/engine_3812E.asm
-3CB00,ClearViewInterlaced,sub_3CB00,new,low,switches a display view back to full height,src/engine/engine_3812E.asm
-3CB38,HideView,sub_3CB38,new,low,marks a display view hidden and asks for a redraw,src/engine/engine_3812E.asm
-3CB48,ShowView,sub_3CB48,new,low,marks a display view shown and asks for a redraw,src/engine/engine_3812E.asm
-3CB70,SetViewOrigin,sub_3CB70,new,low,sets where a display view sits on the screen,src/engine/engine_3812E.asm
-3CB98,ClearViewBorders,sub_3CB98,new,low,clears the screen rows around the game view,src/engine/engine_3812E.asm
-3CCA8,PresentGameView,sub_3CCA8,new,low,copies the game view and the overlay windows to the screen,src/engine/engine_3812E.asm
-3CD70,AddOverlayWindow,sub_3CD70,new,low,"(id, ...): adds an entry to the 32-byte overlay window list (dword_1A8B48, count dword_1A8E7C) and draws it; from every overlay panel and the pause menu",src/engine/engine_3812E.asm
-3CE58,RemoveOverlayWindow,sub_3CE58,new,low,"(id): takes the overlay window out of the list and restores what was under it; from RemoveOverlayPanel, DrawGameOverlays, the pause menu",src/engine/engine_3812E.asm
-3CF68,UpdateScreenRegion,sub_3CF68,new,low,sets the size of a screen region by its id and asks for a redraw,src/engine/engine_3812E.asm
-3CFB0,RefreshOverlayWindow,sub_3CFB0,new,low,"(id): marks the overlay window's cells for redraw (byte_1A0CC2 bit 4); from DrawGameClock, DrawPowerPlayClock, the pause menu",src/engine/engine_3812E.asm
-3D020,SetRinkDetail,sub_3D020,new,low,stores the rink detail level and reloads the rink palette,src/engine/engine_3812E.asm
-3D030,FadePaletteStep,sub_3D030,new,low,one step of a palette fade: moves each colour toward its target,src/engine/engine_3812E.asm
-3D134,PaletteFadeTick,sub_3D134,new,low,timer routine: runs a palette fade step every few ticks,src/engine/engine_3812E.asm
-3D180,StartPaletteFade,sub_3D180,new,low,starts a fade from the current palette to the given one over a number of steps,src/engine/engine_3812E.asm
-3D2C0,BuildRangePalette,sub_3D2C0,new,low,fills a palette range from its colour table,src/engine/engine_3812E.asm
-3D3D0,BlendRangePalette,sub_3D3D0,new,low,fills a palette range blended toward a colour,src/engine/engine_3812E.asm
-3D4C4,CountArtPixels,sub_3D4C4,new,low,adds the pixels of an art to the colour use table,src/engine/engine_3812E.asm
-3D548,RemapArtColors,sub_3D548,new,low,remaps the pixels of a bank's art through a colour table,src/engine/engine_3812E.asm
-3D5EC,RemapArtToRange,sub_3D5EC,new,low,remaps an art bank into a palette range,src/engine/engine_3812E.asm
-3D660,RemapArtRange,sub_3D660,new,low,"remaps an art bank to the colours of a palette range, keeping the reserved colours",src/engine/engine_3812E.asm
-3D764,NewColorHistogram,sub_3D764,new,low,"allocates and clears a colour histogram (""HIST"")",src/engine/engine_3812E.asm
-3D898,ArtBankHistogram,sub_3D898,new,low,builds the colour histogram of an art bank,src/engine/engine_3812E.asm
-3D930,InitPaletteManager,sub_3D930,new,low,sets up the palette ranges and installs the palette fade timer,src/engine/engine_3812E.asm
-3D95C,ShutdownPaletteManager,sub_3D95C,new,low,removes the palette fade timer,src/engine/engine_3812E.asm
-3D988,AddPaletteRange,sub_3D988,new,low,adds a named palette range of the given first and last colour,src/engine/engine_3812E.asm
-3D9E4,LinkRangeHistogram,sub_3D9E4,new,low,attaches a colour histogram to a palette range,src/engine/engine_3812E.asm
-3DA18,AddArtToRange,sub_3DA18,new,low,adds an art bank's colours to a palette range,src/engine/engine_3812E.asm
-3DA80,AddBankToRange,sub_3DA80,new,low,adds a whole art bank's colours to a palette range,src/engine/engine_3812E.asm
-3DAC4,RemapArtBank,sub_3DAC4,new,low,after the palette is built: remaps each art of a bank to its palette range,src/engine/engine_3812E.asm
-3DBCC,SetRangeColors,sub_3DBCC,new,low,copies a colour list into a palette range,src/engine/engine_3812E.asm
-3DC2C,AddColorTable,sub_3DC2C,new,low,adds a colour table (no art) to a palette range,src/engine/engine_3812E.asm
-3DCBC,RemapBankToRange,sub_3DCBC,new,low,remaps the arts of a bank into a palette range,src/engine/engine_3812E.asm
-3DDD8,RemapRangeColors,sub_3DDD8,new,low,remaps an art through the colour table of a palette range,src/engine/engine_3812E.asm
-3DE08,RemapArtPixels,sub_3DE08,new,low,remaps the pixels of an art into a palette range,src/engine/engine_3812E.asm
-3DE94,FillQuantBoxes,sub_3DE94,new,low,colour quantizer: sorts the histogram colours into boxes,src/engine/engine_3812E.asm
-3DF14,ColorMomentTables,sub_3DF14,new,low,colour quantizer: builds the running sum tables of a box,src/engine/engine_3812E.asm
-3DF54,SplitColorBox,sub_3DF54,new,low,colour quantizer: splits a colour box where the variance drops most,src/engine/engine_3812E.asm
-3E064,MergeColorBoxes,sub_3E064,new,low,colour quantizer: joins two colour boxes,src/engine/engine_3812E.asm
-3E140,FindSmallestBox,sub_3E140,new,low,colour quantizer: returns the box with the smallest error,src/engine/engine_3812E.asm
-3E198,CopyRangePalette,sub_3E198,new,low,copies a palette range's colours into a palette buffer,src/engine/engine_3812E.asm
-3E1F8,BuildRangePaletteBuf,sub_3E1F8,new,low,clears a palette buffer and copies a range's colours into it,src/engine/engine_3812E.asm
-3E21C,QuantizeRange,sub_3E21C,new,low,"builds the colours of a palette range from its histograms (""MEGAHIST"")",src/engine/engine_3812E.asm
-3E458,QuantizeAllRanges,sub_3E458,new,low,builds the colours of every palette range,src/engine/engine_3812E.asm
-3E480,SetRangePalette,sub_3E480,new,low,loads a palette range's colours into the VGA palette,src/engine/engine_3812E.asm
-3E4B8,MergeRangePalettes,sub_3E4B8,new,low,joins the palette ranges into one 256-colour palette,src/engine/engine_3812E.asm
-3E590,BuildGamePalette,sub_3E590,new,low,builds the game palette from all ranges and loads it,src/engine/engine_3812E.asm
-3E5F0,FadeGamePalette,sub_3E5F0,new,low,"fades the screen to the game palette (camera scenes, replays, pause menu)",src/engine/engine_3812E.asm
-3E6D0,InitStreamBuffer,sub_3E6D0,new,low,sets up a CD stream buffer and its timer,src/engine/engine_3812E.asm
-3E818,OpenStreamBuffer,sub_3E818,new,low,opens a CD stream buffer for reading,src/engine/engine_3812E.asm
-3E850,CdStreamOpen,sub_3E850,96PC,medium,"96 PC CdStreamOpen: allocates and opens a CD stream (""CDSTREAM"" block)",src/engine/engine_3812E.asm
-3E904,setstreamspeed,sub_3E904,96PC,medium,"96 PC setstreamspeed (""STREAM"" block), measures the stream's read speed",src/engine/engine_3812E.asm
-3EB40,delstream,sub_3EB40,96PC,low,closes a CD stream: removes its timer callback and frees its buffer,src/engine/engine_3812E.asm
-3EBE0,CdStreamRequest,sub_3EBE0,new,low,the common body of the stream start / queue calls: copies the file name (8Fh) and sets the request flags,src/engine/engine_3812E.asm
-3EC58,CdStreamStart,sub_3EC58,96PC,low,"CdStreamRequest with flags (1, 0, 1, 1)",src/engine/engine_3812E.asm
-3EC78,CdStreamQueue,sub_3EC78,96PC,low,"CdStreamRequest with flags (1, 0, 1, 0)",src/engine/engine_3812E.asm
-3ED60,RequestStreamRead,sub_3ED60,new,low,asks the CD stream for the next block,src/engine/engine_3812E.asm
-3EE4C,UpdateMusicStream,sub_3EE4C,new,low,feeds the music stream position to the sound driver,src/engine/engine_3812E.asm
-3EE74,CdStreamOpenSecondary,sub_3EE74,96PC,medium,"96 PC CdStreamOpenSecondary (""SECCDSTREAM"")",src/engine/engine_3812E.asm
-3EF68,CdStreamService,sub_3EF68,96PC,medium,NHL96PC 1CB54 (sem 0.87): C:460; C:458; C:2029,src/engine/engine_3812E.asm
-3FB34,CdStreamSkipMarks,sub_3FB34,96PC,high,NHL96PC 1D54E (callsite 0.90): called at the same place of CdStreamSpaceLeft,src/engine/engine_3812E.asm
-3FB7C,CdStreamContigData,sub_3FB7C,96PC,high,"96 PC CdStreamContigData, same body",src/engine/engine_3812E.asm
-3FBBC,CdStreamSpaceLeft,sub_3FBBC,96PC,high,NHL96PC 1D5A9 (exact 1.00): 19 instructions,src/engine/engine_3812E.asm
-3FBE4,CdStreamNextPacket,sub_3FBE4,96PC,medium,"96 PC CdStreamNextPacket: the next packet of the stream; 0 while waiting, -2 at the end",src/engine/engine_3812E.asm
-3FC7C,CdStreamFreePacket,sub_3FC7C,96PC,high,"96 PC CdStreamFreePacket, same body",src/engine/engine_3812E.asm
-3FC88,StreamBufferFree,sub_3FC88,new,low,counts the free blocks of a stream buffer,src/engine/engine_3812E.asm
-3FD0C,StreamReady,sub_3FD0C,new,low,whether the CD stream can take a request; returns 1 if so,src/engine/engine_3812E.asm
-3FDCC,StreamQueueBlock,sub_3FDCC,new,low,queues a block on the CD stream,src/engine/engine_3812E.asm
-3FE54,RingBufferSpace,sub_3FE54,new,low,returns how much of a ring buffer is free from the write position,src/engine/engine_3812E.asm
-3FEE8,QueuePassSpeech,sub_3FEE8,new,low,play-by-play: queues the phrase for a pass made or completed,src/engine/engine_3812E.asm
-3FF4C,QueueShotSpeech,sub_3FF4C,new,low,play-by-play: queues the phrase for a shot,src/engine/engine_3812E.asm
-3FF9C,QueuePositionSpeech,sub_3FF9C,new,low,play-by-play: queues a phrase about where the play is on the rink,src/engine/engine_3812E.asm
-4006C,QueueHitSpeech,sub_4006C,new,low,play-by-play: queues the phrase for a collision,src/engine/engine_3812E.asm
-400E8,QueuePenaltySpeech,sub_400E8,new,low,play-by-play: queues the phrase for a penalty,src/engine/engine_3812E.asm
-401A0,QueueReceiveSpeech,sub_401A0,new,low,play-by-play: queues the phrase for a pass taken,src/engine/engine_3812E.asm
-40258,QueueLoosePuckSpeech,sub_40258,new,low,play-by-play: queues the phrase for a loose puck,src/engine/engine_3812E.asm
-40298,QueueCarrySpeech,sub_40298,new,low,play-by-play: queues the phrase for a player carrying the puck,src/engine/engine_3812E.asm
-40380,QueueTeamSpeech,sub_40380,new,low,play-by-play: queues a phrase naming a team,src/engine/engine_3812E.asm
-403C0,QueueDeflectSpeech,sub_403C0,new,low,play-by-play: queues the phrase for a deflection or a save,src/engine/engine_3812E.asm
-40400,QueuePickupSpeech,sub_40400,new,low,play-by-play: queues the phrase for a player picking up the puck,src/engine/engine_3812E.asm
-40440,QueueFaceoffSpeech,sub_40440,new,low,play-by-play: queues the phrase for a faceoff,src/engine/engine_3812E.asm
-404C4,QueuePenaltyEndSpeech,sub_404C4,new,low,play-by-play: queues the phrase for a penalty that ends,src/engine/engine_3812E.asm
-40574,QueueFinalSpeech,sub_40574,new,low,play-by-play: queues the phrase at the end of the game,src/engine/engine_3812E.asm
-405F8,QueueTouchPuckSpeech,sub_405F8,new,low,"play-by-play: queues the phrase for a touch that stops play (icing, offside)",src/engine/engine_3812E.asm
-40640,QueuePenaltyCallSpeech,sub_40640,new,low,play-by-play: queues the phrase for a called penalty,src/engine/engine_3812E.asm
-40680,QueueStoppageSpeech,sub_40680,new,low,"play-by-play: queues the phrases at a stoppage (new penalty, goalies, line change)",src/engine/engine_3812E.asm
-40850,QueuePowerPlaySpeech,sub_40850,new,low,play-by-play: queues the phrase for a power play,src/engine/engine_3812E.asm
-4095C,LoadMainSfxBank,sub_4095C,new,low,at start-up: builds the path of the main sound effect bank and loads it,src/engine/engine_3812E.asm
-409EC,LoadSfxBank,sub_409EC,new,low,"(bank): with sound on, loads a sound effect bank (SFX4%s .BKH / .BKD)",src/engine/engine_3812E.asm
-40D80,AdvanceStreamState,sub_40D80,new,low,moves an audio stream to its next state,src/engine/engine_3812E.asm
-40EBC,OpenAudioStream,sub_40EBC,new,low,"opens the audio stream (""AUDSTREAM"" block)",src/engine/engine_3812E.asm
-4123C,InitGameAudio,sub_4123C,new,low,with sound on: the crowd (CROWD.CRD) and the play-by-play table (GAMEDATA\AUDPBP3.TSF),src/engine/engine_3812E.asm
-414B8,SetMusicVolume,sub_414B8,new,low,sets the music volume (0 to 100) and passes it to the driver,src/engine/engine_3812E.asm
-41550,SetSfxVolume,sub_41550,new,low,sets the sound effect volume (0 to 100),src/engine/engine_3812E.asm
-415A0,MusicEnabled,sub_415A0,new,low,returns 1: music may play on this screen,src/engine/engine_3812E.asm
-415A8,FreeSfxBank,sub_415A8,new,low,stops the sounds of a sound effect bank and frees it,src/engine/engine_3812E.asm
-415F8,LoadFrontEndSfx,sub_415F8,new,low,loads the sound effect bank of the front-end screens,src/engine/engine_3812E.asm
-41670,InitGameSounds,sub_41670,new,low,"before a game: loads the game sound banks and the speech, starts the crowd",src/engine/engine_3812E.asm
-41870,ShutdownGameAudio,sub_41870,new,low,"at exit: stops the music, frees the sound banks and shuts the sound driver down",src/engine/engine_3812E.asm
-419B0,SecondsToSamples,sub_419B0,new,low,converts seconds to samples at 22050 Hz,src/engine/engine_3812E.asm
-419B8,WaitSoundTime,sub_419B8,new,low,"waits while the given amount of sound plays, keeping the sound serviced",src/engine/engine_3812E.asm
-41A28,ChkMenuMusic,sub_41A28,new,low,starts the menu music when the screen asks for it and music is on,src/engine/engine_3812E.asm
-41ACC,StartMusicTrack,sub_41ACC,new,low,builds the path of a music track and starts it,src/engine/engine_3812E.asm
-41CF0,QueueMusicRestart,sub_41CF0,new,low,asks for the current music track to start again,src/engine/engine_3812E.asm
-41D18,PauseMusic,sub_41D18,new,low,asks the music to pause,src/engine/engine_3812E.asm
-41D30,ResumeMusic,sub_41D30,new,low,lets the paused music play on,src/engine/engine_3812E.asm
-41D48,MusicPlaying,sub_41D48,new,low,"1 while the music stream (dword_1691C4) is still playing, with music on",src/engine/engine_3812E.asm
-41D94,MusicStreamTick,sub_41D94,new,low,keeps the music stream fed when one is open,src/engine/engine_3812E.asm
-41DB8,RequestMusicStop,sub_41DB8,new,low,asks the music to stop,src/engine/engine_3812E.asm
-41DD8,WaitMusicEnd,sub_41DD8,new,low,"with music on, restarts the current track request and idles (sub_E341C) until MusicPlaying is 0",src/engine/engine_3812E.asm
-41E64,MusicFileName,sub_41E64,new,medium,"(track 0-43h, buf): the music file path ""%s%02d.ASF"" in data folder 58h",src/engine/engine_3812E.asm
-41EA4,ArenaFileName,sub_41EA4,new,low,"(clip 0-8, buf): the ""%s%02d.ASF"" path of data folder 59h (clip + 1)",src/engine/engine_3812E.asm
-41EE4,StopBankSounds,sub_41EE4,new,low,stops every sound playing from a sound bank,src/engine/engine_3812E.asm
-41F2C,PlayMenuSfx,sub_41F2C,new,low,plays a sound effect by number (bank in the high byte),src/engine/engine_3812E.asm
-41FA0,StopAllSfx,sub_41FA0,new,low,stops every voice in PlaySfx's list (dword_1AC508),src/engine/engine_3812E.asm
-41FDC,PlaySfx,sub_41FDC,96PC,medium,96 PC PlaySfx: (id) plays a sound effect from the loaded banks (id high byte = bank 1-6) at the globalset volume; keeps the voice in a 16-entry list (dword_1AC508),src/engine/engine_3812E.asm
-42098,PlaySfxOr,sub_42098,96PC,medium,"96 PC PlaySfxOr: (id, other) plays other instead of id when id's bank is not loaded",src/engine/engine_3812E.asm
-420E4,PositionSfx,sub_420E4,new,low,works out a sound's volume and pan from its rink position and the camera,src/engine/engine_3812E.asm
-42220,PlaySfxVolume,sub_42220,new,low,"(id, volume 0-64h, ...): PlaySfx with a volume (scaled by the globalset sound volume) and position",src/engine/engine_3812E.asm
-42354,PlaySfxAt,sub_42354,new,low,plays a sound effect at an object's position,src/engine/engine_3812E.asm
-423B4,SetAmbientVolume,sub_423B4,new,low,sets the arena ambience volume in percent of the effect volume,src/engine/engine_3812E.asm
-4241C,SetCrowdNoise,sub_4241C,new,low,sets the crowd noise level in percent,src/engine/engine_3812E.asm
-424CC,SetCrowdMood,sub_424CC,new,low,sets the crowd mood (0 to 13) when crowd sound is on,src/engine/engine_3812E.asm
-42550,QueueSpeechRequest,sub_42550,new,low,adds a speech clip request to the 16-entry speech queue,src/engine/engine_3812E.asm
-425CC,ResetSpeechQueue,sub_425CC,new,low,clears the speech queue and the speech buffers,src/engine/engine_3812E.asm
-42650,ServiceSpeechQueue,sub_42650,new,low,reads the next queued speech clip from the speech file and plays it,src/engine/engine_3812E.asm
-42910,FindSpeechClip,sub_42910,new,low,"binary search of a clip number in the speech directory; returns its index, -1 if missing",src/engine/engine_3812E.asm
-42960,LoadSpeechBlock,sub_42960,new,low,"reads a block of speech clips into a work buffer (""TEMP"")",src/engine/engine_3812E.asm
-42A98,IsClipLoaded,sub_42A98,new,low,whether a speech clip is in memory; returns 1 if so,src/engine/engine_3812E.asm
-42AD0,LoadSpeechClips,sub_42AD0,new,low,loads the speech clips of a bank into memory,src/engine/engine_3812E.asm
-42C38,LoadClipIfMissing,sub_42C38,new,low,loads a speech clip unless it is already in memory,src/engine/engine_3812E.asm
-42D38,SpeechFileHeader,sub_42D38,new,low,returns the speech file's header size and id,src/engine/engine_3812E.asm
-42D50,OpenSpeechBanks,sub_42D50,96PC,low,"opens the play-by-play speech files (%sAUDPBP3.TSF, KTSF, %sAUDPBP2.VIV, CBANK%03d.DAT), like 96 PC OpenSpeechBanks",src/engine/engine_3812E.asm
-431E8,ResolveSpeechClips,sub_431E8,new,low,looks up the directory entry of each clip a bank uses,src/engine/engine_3812E.asm
-4329C,LoadTeamSpeech,sub_4329C,new,low,"(team, other): loads the team name speech file TEAM%04d.DAT when it is not loaded",src/engine/engine_3812E.asm
+36370,DebugRestoreEnergy,sub_36370,new,low,"from DebugKeys: every player back to full energy (100), counter word_19CB82 3E8h",src/engine/control/control.asm
+363EC,CheckFightOdds,sub_363EC,new,low,"(player, other) from checkfight: both skaters on the ice, play live, enough hits (word_19CB82 >= 50h): rolls the fight chance",src/engine/fight_start/fight_start.asm
+36524,StartFight,sub_36524,new,medium,"(player, other): marks both fighters, gives each a fighting penalty (AddPenalty2 1Ch) and assfight (1Ch), user control, commentary",src/engine/fight_start/fight_start.asm
+365FC,checkfight,sub_365FC,93G,medium,"NHLPA 93 checkfight: (player a3, player a2) after a hit, with fighting on in the options: counts the hits and may start a fight (StartFight); the others get assfwatch (1Dh)",src/engine/fight_start/fight_start.asm
+36754,ResetPlayerCounters,sub_36754,new,low,from StartGame: clears the per-player bytes byte_19EB7F / byte_19EC8B and word_19CB82,src/engine/fight_start/fight_start.asm
+36778,HumanStickAction,sub_36778,new,low,"from doinput: the controlled player's stick / check move against his target (puck flag, partner object +6Ch)",src/engine/fight_start/fight_start.asm
+36AB0,assfight,sub_36AB0,93G,medium,"NHLPA 93 assfight: assignment 1Ch (StartFight gives it to both fighters), the fighting logic",src/engine/fight_start/fight_start.asm
+36E34,assfwatch,sub_36E34,93G,medium,"NHLPA 93 assfwatch: assignment 1Dh (checkfight gives it to the others), players watching the fight",src/engine/fight_start/fight_start.asm
+37044,PutChecksum,sub_37044,new,low,packet link: computes a checksum with the given function and stores it big-endian at the end of a buffer,src/pc/packet_link/packet_link.asm
+3708C,VerifyPacketChecksum,sub_3708C,new,low,packet link: recomputes a received packet's checksum and compares it,src/pc/packet_link/packet_link.asm
+37134,BuildPacketHeader,sub_37134,new,low,"packet link: packet header (sequence number, 0FEh marker, kind) and payload copy, interrupts off around the counter",src/pc/packet_link/packet_link.asm
+37198,SendPacket,sub_37198,new,low,packet link: sends a queued packet when the device has room,src/pc/packet_link/packet_link.asm
+3727C,SendAckPacket,sub_3727C,new,low,packet link: sends an acknowledgement packet,src/pc/packet_link/packet_link.asm
+37374,AckPackets,sub_37374,new,low,packet link: moves the acknowledged window and frees acknowledged packets,src/pc/packet_link/packet_link.asm
+373D8,MarkPacketAcked,sub_373D8,new,low,packet link: marks one sent packet acknowledged,src/pc/packet_link/packet_link.asm
+37424,FreeLinkChannel,sub_37424,new,low,packet link: removes a channel from the open list and closes its device,src/pc/packet_link/packet_link.asm
+37470,ParsePacket,sub_37470,new,low,"packet link: finds a 0FEh-framed packet in received bytes, checks it and handles its kind",src/pc/packet_link/packet_link.asm
+375F0,ReceivePackets,sub_375F0,new,low,packet link: reads the device's bytes and parses the packets,src/pc/packet_link/packet_link.asm
+376FC,LinkGetDevice,sub_376FC,new,low,packet link: returns a channel's device (+4),src/pc/packet_link/packet_link.asm
+37704,LinkCountdown,sub_37704,new,low,"packet link: counts a channel's resend counter down, true at zero",src/pc/packet_link/packet_link.asm
+3772C,LinkResendIfDue,sub_3772C,new,low,packet link: resends when the counter has run out,src/pc/packet_link/packet_link.asm
+37744,LinkPoll,sub_37744,new,low,"packet link timer task: per channel resends, receives and acknowledges",src/pc/packet_link/packet_link.asm
+379AC,InitPacketLink,sub_379AC,new,low,"packet link: once, sets up the channel lists, the timer task (addtimer) and the exit handler",src/pc/packet_link/packet_link.asm
+37A1C,ShutdownPacketLink,sub_37A1C,new,low,packet link: closes every channel and removes the timer task,src/pc/packet_link/packet_link.asm
+37AB4,OpenPacketLink,sub_37AB4,new,low,"packet link: opens a channel (""pktbuffer"" block, window 2-7, packet size >= 6)",src/pc/packet_link/packet_link.asm
+37F4C,PacketLinkSend,sub_37F4C,new,low,"packet link: queues and sends a block on a channel (LinkSendBlock, WaitForOtherComputer)",src/pc/packet_link/packet_link.asm
+37FC8,ClosePacketLink,sub_37FC8,new,low,packet link: flushes and closes a channel,src/pc/packet_link/packet_link.asm
+3812E,SeasonGameScreen,sub_3812E,new,low,"from RunSeasonMenus / RunPlayoffMenus: the next-game screen (HOME / AWAY teams; play, simulate or continue, with the ""team not present"", ""unplayed games"" and ""no games left"" messages)",src/front/season_game/season_game.asm
+385C3,SetSeasonUserTeam,sub_385C3,new,low,season schedule screen: works out which team the user follows (playoff pick or the season's user team),src/front/season_game/season_game.asm
+38675,InitSeasonGameScreen,sub_38675,new,low,"from SeasonGameScreen: sets up its menu items and art (BACK, TITL, AB00-AB05, BH00, BT00) and the HOME / AWAY labels",src/front/season_game/season_game.asm
+38B1A,TeamHasGamesLeft,sub_38B1A,new,low,whether a team still has a game in the schedule list; returns 1 if so,src/front/season_game/season_game.asm
+38B77,FindTeamGame,sub_38B77,new,low,"returns the index of the last scheduled game that involves the given team, -1 if none",src/front/season_game/season_game.asm
+38BAB,DrawMatchupLogo,sub_38BAB,new,low,draws a team logo in a slot of the season game panel,src/front/season_game/season_game.asm
+38BFC,DrawAllStarLogo,sub_38BFC,new,low,draws the All-Star logo in a slot of the season game panel,src/front/season_game/season_game.asm
+38C79,DrawGameScore,sub_38C79,new,low,"draws a game result in a slot of the season game panel (""W 3-2"" style)",src/front/season_game/season_game.asm
+38D84,DrawGameScoreLine,sub_38D84,new,low,draws a game result with both team names in a slot of the season game panel,src/front/season_game/season_game.asm
+38E26,FindUserOpponent,sub_38E26,new,low,finds the opponent of the user's team in the current scheduled game,src/front/season_game/season_game.asm
+38F7A,DrawLockedGame,sub_38F7A,new,low,draws the lock symbol over a game slot that cannot be played yet,src/front/season_game/season_game.asm
+39052,DrawSeasonGamePanel,sub_39052,new,low,"from SeasonGameScreen: draws the team panel (PANL) from the league file: records (""%c %d-%d"" W / L / T), scores (""%s %d-%s %d""), LOCK marks",src/front/season_game/season_game.asm
+397FD,SetPlayedTeams,sub_397FD,new,low,copies the two teams of the game just played into the season state,src/front/season_game/season_game.asm
+39824,IsAllStarDay,sub_39824,new,low,in a season: whether today is the All-Star game day; returns 1 if so,src/front/season_game/season_game.asm
+39851,GetAllStarDate,sub_39851,new,low,returns the day number of the All-Star game (earlier in a short season),src/front/season_game/season_game.asm
+39882,StartNextSeasonGame,sub_39882,new,low,"season: finds the next game to play, builds the All-Star teams on that day and sets up the matchup",src/front/season_game/season_game.asm
+39B20,AnimateWaitIcon,sub_39B20,new,low,draws the next frame of the waiting animation on the season screen every few ticks,src/front/season_game/season_game.asm
+39BB6,AnimateSparkle,sub_39BB6,new,low,draws a random sparkle shape on the screen every few ticks,src/front/season_game/season_game.asm
+39CE0,FindBenchSlot,sub_39CE0,new,low,"returns the bench or penalty box seat a player has on his team's list, -1 if none",src/engine/bench_seats/bench_seats.asm
+39D1C,GetSeatPosition,sub_39D1C,new,low,fills a vector with the rink position of a bench or box seat,src/engine/bench_seats/bench_seats.asm
+39DA4,PickBoxSeat,sub_39DA4,new,low,a penalized player takes the first free seat in his team's penalty box,src/engine/bench_seats/bench_seats.asm
+39EC0,FreeBoxSeat,sub_39EC0,new,low,a player leaving the penalty box gives up his seat and gets the gate position,src/engine/bench_seats/bench_seats.asm
+3A06C,PickBenchSeat,sub_3A06C,new,low,a player going to the bench takes a free seat on his team's bench,src/engine/bench_seats/bench_seats.asm
+3A164,MoveBoxToBenchSeat,sub_3A164,new,low,moves a player from his penalty box seat to a bench seat,src/engine/bench_seats/bench_seats.asm
+3A2E8,FaceoffStanceMove,sub_3A2E8,new,low,"move handler for the faceoff stance moves: stick down, random stance animation, face morphs",src/engine/moves/moves.asm
+3A3C8,RunSimpleMove,sub_3A3C8,new,low,move handler for plain moves: plays the animation and picks the next move when it ends,src/engine/moves/moves.asm
+3A404,FaceoffMoveResult,sub_3A404,new,low,"returns the faceoff result code of a faceoff move (win forward, win back, tie), -1 for others",src/engine/moves/moves.asm
+3A440,FaceoffMove,sub_3A440,new,low,move handler for the faceoff draw moves; at the end starts the follow animation,src/engine/moves/moves.asm
+3A564,MoveWithSfx,sub_3A564,new,low,move handler for moves that play a sound at a set frame (stick and body sounds),src/engine/moves/moves.asm
+3A65C,RandomFollowMove,sub_3A65C,new,low,move handler that starts a random follow-up animation when the move ends,src/engine/moves/moves.asm
+3A75C,ShoutMove,sub_3A75C,new,low,"move handler for moves with face morphs (open mouth, expression) chosen at random",src/engine/moves/moves.asm
+3A814,BodyMove,sub_3A814,new,low,move handler for body moves that clear the busy flags when they end,src/engine/moves/moves.asm
+3A884,TakePositionMove,sub_3A884,new,low,move handler that ends in the stand animation when the player is taking his position,src/engine/moves/moves.asm
+3A920,SkateStrideMove,sub_3A920,new,low,move handler for forward skating strides: alternates the two stride animations,src/engine/moves/moves.asm
+3A9D0,CoastMove,sub_3A9D0,new,low,move handler for coasting: steers and keeps the speed under the coasting limit,src/engine/moves/moves.asm
+3AA48,BackStrideMove,sub_3AA48,new,low,move handler for backward skating strides: alternates the two backward stride animations,src/engine/moves/moves.asm
+3AAE8,FaceoffSwipeAnim,sub_3AAE8,new,low,starts the faceoff swipe animation in the given direction,src/engine/moves/moves.asm
+3AB28,FaceoffDrawAnim,sub_3AB28,new,low,starts the slower faceoff draw animation in the given direction,src/engine/moves/moves.asm
+3AB68,SitDownAnim,sub_3AB68,new,low,stops the player and starts the sit-down animation on the bench or in the box,src/engine/moves/moves.asm
+3ABD8,StandUpAnim,sub_3ABD8,new,low,starts the stand-up animation of a player leaving the bench,src/engine/moves/moves.asm
+3AC3C,GoToBoxAnim,sub_3AC3C,new,low,starts the skate-to-penalty-box animation with a turn rate from the box distance,src/engine/moves/moves.asm
+3AD34,LeaveBoxAnim,sub_3AD34,new,low,starts the animation of a player stepping out of the penalty box,src/engine/moves/moves.asm
+3AD9C,RefDodgePuck,sub_3AD9C,new,low,the referee steps out of the way of a slow loose puck heading at him,src/engine/moves/moves.asm
+3AF30,checkgoal,sub_3AF30,94G,low,"from the off_16BD2C handler table: the puck against a net; the two net checks (sub_2F8D8 / sub_2FA00) call Goal, as 93G/94G checkgoal does for the puck",src/engine/moves/moves.asm
+3AFDC,CheckMove,sub_3AFDC,new,low,"move handler for a body check: tests contact each frame, ends when the hit is done",src/engine/moves/moves.asm
+3B05C,SteerMove,sub_3B05C,new,low,move handler that steers the player until the move ends,src/engine/moves/moves.asm
+3B09C,ReachForPuckAnim,sub_3B09C,new,low,turns a player toward the puck and starts the reach animation when the control switches to him,src/engine/moves/moves.asm
+3B1EC,PokeCheckAnim,sub_3B1EC,new,low,"starts the poke check animation (left, right or straight) toward the puck",src/engine/moves/moves.asm
+3B334,TryBodyCheck,sub_3B334,new,low,"one player tries to body check another: range, angle and speed checks, then the check animation; returns nonzero if started",src/engine/moves/moves.asm
+3B690,DoCheckButton,sub_3B690,new,low,"the human player presses check: poke check, or body check the carrier, or the nearest opponent",src/engine/moves/moves.asm
+3B738,AIBodyCheck,sub_3B738,new,low,a computer player body checks the given opponent,src/engine/moves/moves.asm
+3B75B,DrawFrameNoop,sub_3B75B,new,low,empty step of the game frame drawing,src/front/display/display.asm
+3B760,AddDirtySpans,sub_3B760,new,low,adds the row spans of an overlay window to the list of screen spans to redraw,src/front/display/display.asm
+3B8AC,InsertSpanSlot,sub_3B8AC,new,low,opens a slot in the span list by moving the later entries up,src/front/display/display.asm
+3B900,RemoveSpanSlot,sub_3B900,new,low,closes a slot in the span list by moving the later entries down,src/front/display/display.asm
+3B954,MergeDirtySpans,sub_3B954,new,low,"merges a row's spans into the dirty span list, splitting and joining runs",src/front/display/display.asm
+3C0B4,RebuildOverlayMask,sub_3C0B4,new,low,rebuilds the list of screen areas covered by overlay windows after one closes,src/front/display/display.asm
+3C544,BlendOverlayRow,sub_3C544,new,low,"copies a row of an overlay window: transparent pixels show the screen, shade pixels darken it",src/front/display/display.asm
+3C580,ShadeOverlayRow,sub_3C580,new,low,"copies a row of an overlay window, darkening the shade pixels through the shade table",src/front/display/display.asm
+3C5D4,DrawOverlayRows,sub_3C5D4,new,low,draws the rows of an overlay window onto the screen,src/front/display/display.asm
+3C75C,SetVideoMode,sub_3C75C,new,medium,"(width, height): switches the screen mode when it differs from the current one (dword_1A8E84 x dword_1A8E88)",src/front/display/display.asm
+3C880,InitDisplayViews,sub_3C880,new,low,"allocates the display view table (""DMAN"") for the given number of views",src/front/display/display.asm
+3C8DC,FreeDisplayViews,sub_3C8DC,new,low,frees the bitmaps of the display views and the view table,src/front/display/display.asm
+3C944,AddDisplayView,sub_3C944,new,low,takes a free display view and creates its bitmap of the given size,src/front/display/display.asm
+3C9C8,SetViewDrawTarget,sub_3C9C8,new,low,makes a display view the drawing target and sets its projection,src/front/display/display.asm
+3CA28,SetViewSize,sub_3CA28,new,low,sets the width and height of a display view's bitmap,src/front/display/display.asm
+3CAB8,SetViewInterlaced,sub_3CAB8,new,low,switches a display view to half height (interlaced display),src/front/display/display.asm
+3CB00,ClearViewInterlaced,sub_3CB00,new,low,switches a display view back to full height,src/front/display/display.asm
+3CB38,HideView,sub_3CB38,new,low,marks a display view hidden and asks for a redraw,src/front/display/display.asm
+3CB48,ShowView,sub_3CB48,new,low,marks a display view shown and asks for a redraw,src/front/display/display.asm
+3CB70,SetViewOrigin,sub_3CB70,new,low,sets where a display view sits on the screen,src/front/display/display.asm
+3CB98,ClearViewBorders,sub_3CB98,new,low,clears the screen rows around the game view,src/front/display/display.asm
+3CCA8,PresentGameView,sub_3CCA8,new,low,copies the game view and the overlay windows to the screen,src/front/display/display.asm
+3CD70,AddOverlayWindow,sub_3CD70,new,low,"(id, ...): adds an entry to the 32-byte overlay window list (dword_1A8B48, count dword_1A8E7C) and draws it; from every overlay panel and the pause menu",src/front/display/display.asm
+3CE58,RemoveOverlayWindow,sub_3CE58,new,low,"(id): takes the overlay window out of the list and restores what was under it; from RemoveOverlayPanel, DrawGameOverlays, the pause menu",src/front/display/display.asm
+3CF68,UpdateScreenRegion,sub_3CF68,new,low,sets the size of a screen region by its id and asks for a redraw,src/front/display/display.asm
+3CFB0,RefreshOverlayWindow,sub_3CFB0,new,low,"(id): marks the overlay window's cells for redraw (byte_1A0CC2 bit 4); from DrawGameClock, DrawPowerPlayClock, the pause menu",src/front/display/display.asm
+3D020,SetRinkDetail,sub_3D020,new,low,stores the rink detail level and reloads the rink palette,src/front/display/display.asm
+3D030,FadePaletteStep,sub_3D030,new,low,one step of a palette fade: moves each colour toward its target,src/front/palette/palette.asm
+3D134,PaletteFadeTick,sub_3D134,new,low,timer routine: runs a palette fade step every few ticks,src/front/palette/palette.asm
+3D180,StartPaletteFade,sub_3D180,new,low,starts a fade from the current palette to the given one over a number of steps,src/front/palette/palette.asm
+3D2C0,BuildRangePalette,sub_3D2C0,new,low,fills a palette range from its colour table,src/front/palette/palette.asm
+3D3D0,BlendRangePalette,sub_3D3D0,new,low,fills a palette range blended toward a colour,src/front/palette/palette.asm
+3D4C4,CountArtPixels,sub_3D4C4,new,low,adds the pixels of an art to the colour use table,src/front/palette/palette.asm
+3D548,RemapArtColors,sub_3D548,new,low,remaps the pixels of a bank's art through a colour table,src/front/palette/palette.asm
+3D5EC,RemapArtToRange,sub_3D5EC,new,low,remaps an art bank into a palette range,src/front/palette/palette.asm
+3D660,RemapArtRange,sub_3D660,new,low,"remaps an art bank to the colours of a palette range, keeping the reserved colours",src/front/palette/palette.asm
+3D764,NewColorHistogram,sub_3D764,new,low,"allocates and clears a colour histogram (""HIST"")",src/front/palette/palette.asm
+3D898,ArtBankHistogram,sub_3D898,new,low,builds the colour histogram of an art bank,src/front/palette/palette.asm
+3D930,InitPaletteManager,sub_3D930,new,low,sets up the palette ranges and installs the palette fade timer,src/front/palette/palette.asm
+3D95C,ShutdownPaletteManager,sub_3D95C,new,low,removes the palette fade timer,src/front/palette/palette.asm
+3D988,AddPaletteRange,sub_3D988,new,low,adds a named palette range of the given first and last colour,src/front/palette/palette.asm
+3D9E4,LinkRangeHistogram,sub_3D9E4,new,low,attaches a colour histogram to a palette range,src/front/palette/palette.asm
+3DA18,AddArtToRange,sub_3DA18,new,low,adds an art bank's colours to a palette range,src/front/palette/palette.asm
+3DA80,AddBankToRange,sub_3DA80,new,low,adds a whole art bank's colours to a palette range,src/front/palette/palette.asm
+3DAC4,RemapArtBank,sub_3DAC4,new,low,after the palette is built: remaps each art of a bank to its palette range,src/front/palette/palette.asm
+3DBCC,SetRangeColors,sub_3DBCC,new,low,copies a colour list into a palette range,src/front/palette/palette.asm
+3DC2C,AddColorTable,sub_3DC2C,new,low,adds a colour table (no art) to a palette range,src/front/palette/palette.asm
+3DCBC,RemapBankToRange,sub_3DCBC,new,low,remaps the arts of a bank into a palette range,src/front/palette/palette.asm
+3DDD8,RemapRangeColors,sub_3DDD8,new,low,remaps an art through the colour table of a palette range,src/front/palette/palette.asm
+3DE08,RemapArtPixels,sub_3DE08,new,low,remaps the pixels of an art into a palette range,src/front/palette/palette.asm
+3DE94,FillQuantBoxes,sub_3DE94,new,low,colour quantizer: sorts the histogram colours into boxes,src/front/palette/palette.asm
+3DF14,ColorMomentTables,sub_3DF14,new,low,colour quantizer: builds the running sum tables of a box,src/front/palette/palette.asm
+3DF54,SplitColorBox,sub_3DF54,new,low,colour quantizer: splits a colour box where the variance drops most,src/front/palette/palette.asm
+3E064,MergeColorBoxes,sub_3E064,new,low,colour quantizer: joins two colour boxes,src/front/palette/palette.asm
+3E140,FindSmallestBox,sub_3E140,new,low,colour quantizer: returns the box with the smallest error,src/front/palette/palette.asm
+3E198,CopyRangePalette,sub_3E198,new,low,copies a palette range's colours into a palette buffer,src/front/palette/palette.asm
+3E1F8,BuildRangePaletteBuf,sub_3E1F8,new,low,clears a palette buffer and copies a range's colours into it,src/front/palette/palette.asm
+3E21C,QuantizeRange,sub_3E21C,new,low,"builds the colours of a palette range from its histograms (""MEGAHIST"")",src/front/palette/palette.asm
+3E458,QuantizeAllRanges,sub_3E458,new,low,builds the colours of every palette range,src/front/palette/palette.asm
+3E480,SetRangePalette,sub_3E480,new,low,loads a palette range's colours into the VGA palette,src/front/palette/palette.asm
+3E4B8,MergeRangePalettes,sub_3E4B8,new,low,joins the palette ranges into one 256-colour palette,src/front/palette/palette.asm
+3E590,BuildGamePalette,sub_3E590,new,low,builds the game palette from all ranges and loads it,src/front/palette/palette.asm
+3E5F0,FadeGamePalette,sub_3E5F0,new,low,"fades the screen to the game palette (camera scenes, replays, pause menu)",src/front/palette/palette.asm
+3E6D0,InitStreamBuffer,sub_3E6D0,new,low,sets up a CD stream buffer and its timer,src/pc/cdstream/cdstream.asm
+3E818,OpenStreamBuffer,sub_3E818,new,low,opens a CD stream buffer for reading,src/pc/cdstream/cdstream.asm
+3E850,CdStreamOpen,sub_3E850,96PC,medium,"96 PC CdStreamOpen: allocates and opens a CD stream (""CDSTREAM"" block)",src/pc/cdstream/cdstream.asm
+3E904,setstreamspeed,sub_3E904,96PC,medium,"96 PC setstreamspeed (""STREAM"" block), measures the stream's read speed",src/pc/cdstream/cdstream.asm
+3EB40,delstream,sub_3EB40,96PC,low,closes a CD stream: removes its timer callback and frees its buffer,src/pc/cdstream/cdstream.asm
+3EBE0,CdStreamRequest,sub_3EBE0,new,low,the common body of the stream start / queue calls: copies the file name (8Fh) and sets the request flags,src/pc/cdstream/cdstream.asm
+3EC58,CdStreamStart,sub_3EC58,96PC,low,"CdStreamRequest with flags (1, 0, 1, 1)",src/pc/cdstream/cdstream.asm
+3EC78,CdStreamQueue,sub_3EC78,96PC,low,"CdStreamRequest with flags (1, 0, 1, 0)",src/pc/cdstream/cdstream.asm
+3ED60,RequestStreamRead,sub_3ED60,new,low,asks the CD stream for the next block,src/pc/cdstream/cdstream.asm
+3EE4C,UpdateMusicStream,sub_3EE4C,new,low,feeds the music stream position to the sound driver,src/pc/cdstream/cdstream.asm
+3EE74,CdStreamOpenSecondary,sub_3EE74,96PC,medium,"96 PC CdStreamOpenSecondary (""SECCDSTREAM"")",src/pc/cdstream/cdstream.asm
+3EF68,CdStreamService,sub_3EF68,96PC,medium,NHL96PC 1CB54 (sem 0.87): C:460; C:458; C:2029,src/pc/cdstream/cdstream.asm
+3FB34,CdStreamSkipMarks,sub_3FB34,96PC,high,NHL96PC 1D54E (callsite 0.90): called at the same place of CdStreamSpaceLeft,src/pc/cdstream/cdstream.asm
+3FB7C,CdStreamContigData,sub_3FB7C,96PC,high,"96 PC CdStreamContigData, same body",src/pc/cdstream/cdstream.asm
+3FBBC,CdStreamSpaceLeft,sub_3FBBC,96PC,high,NHL96PC 1D5A9 (exact 1.00): 19 instructions,src/pc/cdstream/cdstream.asm
+3FBE4,CdStreamNextPacket,sub_3FBE4,96PC,medium,"96 PC CdStreamNextPacket: the next packet of the stream; 0 while waiting, -2 at the end",src/pc/cdstream/cdstream.asm
+3FC7C,CdStreamFreePacket,sub_3FC7C,96PC,high,"96 PC CdStreamFreePacket, same body",src/pc/cdstream/cdstream.asm
+3FC88,StreamBufferFree,sub_3FC88,new,low,counts the free blocks of a stream buffer,src/pc/cdstream/cdstream.asm
+3FD0C,StreamReady,sub_3FD0C,new,low,whether the CD stream can take a request; returns 1 if so,src/pc/cdstream/cdstream.asm
+3FDCC,StreamQueueBlock,sub_3FDCC,new,low,queues a block on the CD stream,src/pc/cdstream/cdstream.asm
+3FE54,RingBufferSpace,sub_3FE54,new,low,returns how much of a ring buffer is free from the write position,src/pc/cdstream/cdstream.asm
+3FEE8,QueuePassSpeech,sub_3FEE8,new,low,play-by-play: queues the phrase for a pass made or completed,src/engine/speech_events/speech_events.asm
+3FF4C,QueueShotSpeech,sub_3FF4C,new,low,play-by-play: queues the phrase for a shot,src/engine/speech_events/speech_events.asm
+3FF9C,QueuePositionSpeech,sub_3FF9C,new,low,play-by-play: queues a phrase about where the play is on the rink,src/engine/speech_events/speech_events.asm
+4006C,QueueHitSpeech,sub_4006C,new,low,play-by-play: queues the phrase for a collision,src/engine/speech_events/speech_events.asm
+400E8,QueuePenaltySpeech,sub_400E8,new,low,play-by-play: queues the phrase for a penalty,src/engine/speech_events/speech_events.asm
+401A0,QueueReceiveSpeech,sub_401A0,new,low,play-by-play: queues the phrase for a pass taken,src/engine/speech_events/speech_events.asm
+40258,QueueLoosePuckSpeech,sub_40258,new,low,play-by-play: queues the phrase for a loose puck,src/engine/speech_events/speech_events.asm
+40298,QueueCarrySpeech,sub_40298,new,low,play-by-play: queues the phrase for a player carrying the puck,src/engine/speech_events/speech_events.asm
+40380,QueueTeamSpeech,sub_40380,new,low,play-by-play: queues a phrase naming a team,src/engine/speech_events/speech_events.asm
+403C0,QueueDeflectSpeech,sub_403C0,new,low,play-by-play: queues the phrase for a deflection or a save,src/engine/speech_events/speech_events.asm
+40400,QueuePickupSpeech,sub_40400,new,low,play-by-play: queues the phrase for a player picking up the puck,src/engine/speech_events/speech_events.asm
+40440,QueueFaceoffSpeech,sub_40440,new,low,play-by-play: queues the phrase for a faceoff,src/engine/speech_events/speech_events.asm
+404C4,QueuePenaltyEndSpeech,sub_404C4,new,low,play-by-play: queues the phrase for a penalty that ends,src/engine/speech_events/speech_events.asm
+40574,QueueFinalSpeech,sub_40574,new,low,play-by-play: queues the phrase at the end of the game,src/engine/speech_events/speech_events.asm
+405F8,QueueTouchPuckSpeech,sub_405F8,new,low,"play-by-play: queues the phrase for a touch that stops play (icing, offside)",src/engine/speech_events/speech_events.asm
+40640,QueuePenaltyCallSpeech,sub_40640,new,low,play-by-play: queues the phrase for a called penalty,src/engine/speech_events/speech_events.asm
+40680,QueueStoppageSpeech,sub_40680,new,low,"play-by-play: queues the phrases at a stoppage (new penalty, goalies, line change)",src/engine/speech_events/speech_events.asm
+40850,QueuePowerPlaySpeech,sub_40850,new,low,play-by-play: queues the phrase for a power play,src/engine/speech_events/speech_events.asm
+4095C,LoadMainSfxBank,sub_4095C,new,low,at start-up: builds the path of the main sound effect bank and loads it,src/front/sound/sound.asm
+409EC,LoadSfxBank,sub_409EC,new,low,"(bank): with sound on, loads a sound effect bank (SFX4%s .BKH / .BKD)",src/front/sound/sound.asm
+40D80,AdvanceStreamState,sub_40D80,new,low,moves an audio stream to its next state,src/front/sound/sound.asm
+40EBC,OpenAudioStream,sub_40EBC,new,low,"opens the audio stream (""AUDSTREAM"" block)",src/front/sound/sound.asm
+4123C,InitGameAudio,sub_4123C,new,low,with sound on: the crowd (CROWD.CRD) and the play-by-play table (GAMEDATA\AUDPBP3.TSF),src/front/sound/sound.asm
+414B8,SetMusicVolume,sub_414B8,new,low,sets the music volume (0 to 100) and passes it to the driver,src/front/sound/sound.asm
+41550,SetSfxVolume,sub_41550,new,low,sets the sound effect volume (0 to 100),src/front/sound/sound.asm
+415A0,MusicEnabled,sub_415A0,new,low,returns 1: music may play on this screen,src/front/sound/sound.asm
+415A8,FreeSfxBank,sub_415A8,new,low,stops the sounds of a sound effect bank and frees it,src/front/sound/sound.asm
+415F8,LoadFrontEndSfx,sub_415F8,new,low,loads the sound effect bank of the front-end screens,src/front/sound/sound.asm
+41670,InitGameSounds,sub_41670,new,low,"before a game: loads the game sound banks and the speech, starts the crowd",src/front/sound/sound.asm
+41870,ShutdownGameAudio,sub_41870,new,low,"at exit: stops the music, frees the sound banks and shuts the sound driver down",src/front/sound/sound.asm
+419B0,SecondsToSamples,sub_419B0,new,low,converts seconds to samples at 22050 Hz,src/front/sound/sound.asm
+419B8,WaitSoundTime,sub_419B8,new,low,"waits while the given amount of sound plays, keeping the sound serviced",src/front/sound/sound.asm
+41A28,ChkMenuMusic,sub_41A28,new,low,starts the menu music when the screen asks for it and music is on,src/front/sound/sound.asm
+41ACC,StartMusicTrack,sub_41ACC,new,low,builds the path of a music track and starts it,src/front/sound/sound.asm
+41CF0,QueueMusicRestart,sub_41CF0,new,low,asks for the current music track to start again,src/front/sound/sound.asm
+41D18,PauseMusic,sub_41D18,new,low,asks the music to pause,src/front/sound/sound.asm
+41D30,ResumeMusic,sub_41D30,new,low,lets the paused music play on,src/front/sound/sound.asm
+41D48,MusicPlaying,sub_41D48,new,low,"1 while the music stream (dword_1691C4) is still playing, with music on",src/front/sound/sound.asm
+41D94,MusicStreamTick,sub_41D94,new,low,keeps the music stream fed when one is open,src/front/sound/sound.asm
+41DB8,RequestMusicStop,sub_41DB8,new,low,asks the music to stop,src/front/sound/sound.asm
+41DD8,WaitMusicEnd,sub_41DD8,new,low,"with music on, restarts the current track request and idles (sub_E341C) until MusicPlaying is 0",src/front/sound/sound.asm
+41E64,MusicFileName,sub_41E64,new,medium,"(track 0-43h, buf): the music file path ""%s%02d.ASF"" in data folder 58h",src/front/sound/sound.asm
+41EA4,ArenaFileName,sub_41EA4,new,low,"(clip 0-8, buf): the ""%s%02d.ASF"" path of data folder 59h (clip + 1)",src/front/sound/sound.asm
+41EE4,StopBankSounds,sub_41EE4,new,low,stops every sound playing from a sound bank,src/front/sound/sound.asm
+41F2C,PlayMenuSfx,sub_41F2C,new,low,plays a sound effect by number (bank in the high byte),src/front/sound/sound.asm
+41FA0,StopAllSfx,sub_41FA0,new,low,stops every voice in PlaySfx's list (dword_1AC508),src/front/sound/sound.asm
+41FDC,PlaySfx,sub_41FDC,96PC,medium,96 PC PlaySfx: (id) plays a sound effect from the loaded banks (id high byte = bank 1-6) at the globalset volume; keeps the voice in a 16-entry list (dword_1AC508),src/front/sound/sound.asm
+42098,PlaySfxOr,sub_42098,96PC,medium,"96 PC PlaySfxOr: (id, other) plays other instead of id when id's bank is not loaded",src/front/sound/sound.asm
+420E4,PositionSfx,sub_420E4,new,low,works out a sound's volume and pan from its rink position and the camera,src/front/sound/sound.asm
+42220,PlaySfxVolume,sub_42220,new,low,"(id, volume 0-64h, ...): PlaySfx with a volume (scaled by the globalset sound volume) and position",src/front/sound/sound.asm
+42354,PlaySfxAt,sub_42354,new,low,plays a sound effect at an object's position,src/front/sound/sound.asm
+423B4,SetAmbientVolume,sub_423B4,new,low,sets the arena ambience volume in percent of the effect volume,src/front/sound/sound.asm
+4241C,SetCrowdNoise,sub_4241C,new,low,sets the crowd noise level in percent,src/front/sound/sound.asm
+424CC,SetCrowdMood,sub_424CC,new,low,sets the crowd mood (0 to 13) when crowd sound is on,src/front/sound/sound.asm
+42550,QueueSpeechRequest,sub_42550,new,low,adds a speech clip request to the 16-entry speech queue,src/front/speech_queue/speech_queue.asm
+425CC,ResetSpeechQueue,sub_425CC,new,low,clears the speech queue and the speech buffers,src/front/speech_queue/speech_queue.asm
+42650,ServiceSpeechQueue,sub_42650,new,low,reads the next queued speech clip from the speech file and plays it,src/front/speech_queue/speech_queue.asm
+42910,FindSpeechClip,sub_42910,new,low,"binary search of a clip number in the speech directory; returns its index, -1 if missing",src/front/speech_queue/speech_queue.asm
+42960,LoadSpeechBlock,sub_42960,new,low,"reads a block of speech clips into a work buffer (""TEMP"")",src/front/speech_queue/speech_queue.asm
+42A98,IsClipLoaded,sub_42A98,new,low,whether a speech clip is in memory; returns 1 if so,src/front/speech_queue/speech_queue.asm
+42AD0,LoadSpeechClips,sub_42AD0,new,low,loads the speech clips of a bank into memory,src/front/speech_queue/speech_queue.asm
+42C38,LoadClipIfMissing,sub_42C38,new,low,loads a speech clip unless it is already in memory,src/front/speech_queue/speech_queue.asm
+42D38,SpeechFileHeader,sub_42D38,new,low,returns the speech file's header size and id,src/front/speech_queue/speech_queue.asm
+42D50,OpenSpeechBanks,sub_42D50,96PC,low,"opens the play-by-play speech files (%sAUDPBP3.TSF, KTSF, %sAUDPBP2.VIV, CBANK%03d.DAT), like 96 PC OpenSpeechBanks",src/front/speech_queue/speech_queue.asm
+431E8,ResolveSpeechClips,sub_431E8,new,low,looks up the directory entry of each clip a bank uses,src/front/speech_queue/speech_queue.asm
+4329C,LoadTeamSpeech,sub_4329C,new,low,"(team, other): loads the team name speech file TEAM%04d.DAT when it is not loaded",src/front/speech_queue/speech_queue.asm
 43578,LoadSpeechBank,sub_43578,new,low,"from InitSpeechBanks: opens a speech bank's ""%03d.DAT"" / ""%03d.HDR"" pair (MakeDataPath) and reads its header",src/front/speech/speech.asm
 43884,QueueSpeechChain,sub_43884,new,low,queues a chain of speech clips,src/front/speech/speech.asm
 43944,InitSpeechBanks,sub_43944,new,low,"from InitGameAudio: sets up the speech banks (TEMPBANK, EVENT.DAT, CBANK%03d.HDR, TEAM%04d.HDR, PBP, AUDPBP3.TSF, KTSF)",src/front/speech/speech.asm

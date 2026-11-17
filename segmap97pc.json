@@ -51,48 +51,310 @@
    "end": 88770,
    "module": "faceoff",
    "obj": 1,
-   "file": "engine/faceoff/faceoff.asm",
+   "file": "engine/game/game.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
    "start": 88770,
-   "end": 153748,
+   "end": 102902,
    "module": "engine_15AC2",
    "obj": 1,
-   "file": "engine/engine_15AC2.asm",
+   "file": "front/overlay/overlay.asm",
    "note": "placeholder"
+  },
+  {
+   "obj": 1,
+   "start": 102902,
+   "end": 112731,
+   "module": "engine_game_camera",
+   "file": "engine/game_camera/game_camera.asm",
+   "desc": "Game camera: targets, zoom, tracking, spline paths and views.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 112731,
+   "end": 119260,
+   "module": "engine_camera_scenes",
+   "file": "engine/camera_scenes/camera_scenes.asm",
+   "desc": "Camera scenes: penalties, intermission, opening, fights, faceoffs, menus, goals and penalty shots.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 119260,
+   "end": 122593,
+   "module": "engine_replay_camera",
+   "file": "engine/replay_camera/replay_camera.asm",
+   "desc": "Replay camera modes: follow, drag, orbit, free, turn, move and zoom.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 122593,
+   "end": 123399,
+   "module": "engine_commentary",
+   "file": "engine/commentary/commentary.asm",
+   "desc": "Crowd and commentary cues for the puck zone, shot chances and line changes.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 123399,
+   "end": 130035,
+   "module": "engine_assign",
+   "file": "engine/assign/assign.asm",
+   "desc": "Assignments: replace, insert and exit, poke checks, bench checks, position swaps and coverage.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 130035,
+   "end": 147662,
+   "module": "engine_logic",
+   "file": "engine/logic/logic.asm",
+   "desc": "Assignment logic: goalie position, faceoff spots, waits, the crease, goalie, defence and forward roles.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 147662,
+   "end": 153748,
+   "module": "engine_pass_ai",
+   "file": "engine/pass_ai/pass_ai.asm",
+   "desc": "Pass and shot decisions: pass targets, credit, one-timers, rimming, AI passing and shooting.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
   },
   {
    "start": 153748,
-   "end": 187964,
+   "end": 160271,
    "module": "engine_25894",
    "obj": 1,
-   "file": "engine/engine_25894.asm",
+   "file": "engine/chase/chase.asm",
    "note": "placeholder"
   },
   {
-   "start": 187964,
-   "end": 192232,
-   "module": "engine_2DE3C",
    "obj": 1,
-   "file": "engine/engine_2DE3C.asm",
-   "note": "placeholder"
+   "start": 160271,
+   "end": 167303,
+   "module": "engine_assign_events",
+   "file": "engine/assign_events/assign_events.asm",
+   "desc": "Event assignments: scoring, goalie pulls, benches and boxes, penalty shots, leaving the ice, penalties.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 167303,
+   "end": 171823,
+   "module": "engine_referee_assign",
+   "file": "engine/referee_assign/referee_assign.asm",
+   "desc": "Referee assignments: penalty shot, signals, whistle, goal, follow, drop and at the dot.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 171823,
+   "end": 173751,
+   "module": "engine_intro_assign",
+   "file": "engine/intro_assign/intro_assign.asm",
+   "desc": "Intro and Stanley Cup assignments: standing, lines, positions and bench players.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 173751,
+   "end": 187589,
+   "module": "engine_puck_contact",
+   "file": "engine/puck_contact/puck_contact.asm",
+   "desc": "Puck contacts: pick-ups, deflections, knocks, goalie and stick contact, offsides and zones, puck states.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 187589,
+   "end": 188050,
+   "module": "engine_goaliepull",
+   "file": "engine/goaliepull/goaliepull.asm",
+   "desc": "Goalie pull: pulling and returning goalies.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 188050,
+   "end": 192232,
+   "module": "engine_coach",
+   "file": "engine/coach/coach.asm",
+   "desc": "Coach: line changes, line slots, energy and coach modes.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
   },
   {
    "start": 192232,
-   "end": 229678,
+   "end": 196536,
    "module": "faceoff_2",
    "obj": 1,
-   "file": "engine/faceoff/faceoff_2.asm",
+   "file": "engine/contact_calls/contact_calls.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
+   "obj": 1,
+   "start": 196536,
+   "end": 198799,
+   "module": "engine_shot_ai",
+   "file": "engine/shot_ai/shot_ai.asm",
+   "desc": "Shots: picking the target, updating and starting shots, shot assignments.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 198799,
+   "end": 205185,
+   "module": "engine_lines",
+   "file": "engine/lines/lines.asm",
+   "desc": "Lines: sorting by position, building team lines, auto lines and replacements.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 205185,
+   "end": 213796,
+   "module": "engine_penalty",
+   "file": "engine/penalty/penalty.asm",
+   "desc": "Penalties: adding penalties, power plays, penalty time and penalty shots.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 213796,
+   "end": 222186,
+   "module": "engine_control",
+   "file": "engine/control/control.asm",
+   "desc": "Player control: switching, pad slots, joysticks, line change input, skating, pass and shot buttons.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 222186,
+   "end": 225346,
+   "module": "engine_fight_start",
+   "file": "engine/fight_start/fight_start.asm",
+   "desc": "Fight starts: fight odds, starting fights and fight assignments.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 225346,
+   "end": 229678,
+   "module": "pc_packet_link",
+   "file": "pc/packet_link/packet_link.asm",
+   "desc": "Packet link: checksums, packets, acks, polling and the link channel.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "pc"
+  },
+  {
    "start": 229678,
-   "end": 275832,
+   "end": 236767,
    "module": "engine_3812E",
    "obj": 1,
-   "file": "engine/engine_3812E.asm",
+   "file": "front/season_game/season_game.asm",
    "note": "placeholder"
+  },
+  {
+   "obj": 1,
+   "start": 236767,
+   "end": 238311,
+   "module": "engine_bench_seats",
+   "file": "engine/bench_seats/bench_seats.asm",
+   "desc": "Bench and penalty box seats.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 238311,
+   "end": 243547,
+   "module": "engine_moves",
+   "file": "engine/moves/moves.asm",
+   "desc": "Moves: faceoff stance, shouts, strides, box animations, ref dodging, checks and steering.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 243547,
+   "end": 249898,
+   "module": "front_display",
+   "file": "front/display/display.asm",
+   "desc": "Display: dirty spans, overlay rows, video modes, display views and overlay windows.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 249898,
+   "end": 255694,
+   "module": "front_palette",
+   "file": "front/palette/palette.asm",
+   "desc": "Palette: fades, range palettes, art remapping and colour quantizing.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 255694,
+   "end": 261863,
+   "module": "pc_cdstream",
+   "file": "pc/cdstream/cdstream.asm",
+   "desc": "CD streams: stream buffers, requests, packets and the music stream.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "pc"
+  },
+  {
+   "obj": 1,
+   "start": 261863,
+   "end": 264540,
+   "module": "engine_speech_events",
+   "file": "engine/speech_events/speech_events.asm",
+   "desc": "Speech events: queued pass, shot, hit, penalty and other calls.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 264540,
+   "end": 271694,
+   "module": "front_sound",
+   "file": "front/sound/sound.asm",
+   "desc": "Sound: sfx banks, game audio, music tracks, sfx and crowd noise.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 271694,
+   "end": 275832,
+   "module": "front_speech_queue",
+   "file": "front/speech_queue/speech_queue.asm",
+   "desc": "Speech queue: requests, clips and banks.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
   },
   {
    "start": 275832,

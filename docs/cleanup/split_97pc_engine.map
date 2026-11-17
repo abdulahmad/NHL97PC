@@ -1,0 +1,33 @@
+rename engine/faceoff engine/game Game flow: starting and ending games, the opening sequence, reach scales, game keys and the game loop.
+rename engine/engine_15AC2 front/overlay Game overlays: view size, video mode keys, scoreboard, clock, penalty and message panels.
+cut GetCameraTarget engine/game_camera Game camera: targets, zoom, tracking, spline paths and views.
+cut RunCameraScene engine/camera_scenes Camera scenes: penalties, intermission, opening, fights, faceoffs, menus, goals and penalty shots.
+cut ReplayCameraOn engine/replay_camera Replay camera modes: follow, drag, orbit, free, turn, move and zoom.
+cut CrowdForPuckZone engine/commentary Crowd and commentary cues for the puck zone, shot chances and line changes.
+cut assreplace engine/assign Assignments: replace, insert and exit, poke checks, bench checks, position swaps and coverage.
+cut GoaliePosTarget engine/logic Assignment logic: goalie position, faceoff spots, waits, the crease, goalie, defence and forward roles.
+cut BuildPassTargets engine/pass_ai Pass and shot decisions: pass targets, credit, one-timers, rimming, AI passing and shooting.
+rename engine/engine_25894 engine/chase Puck chasing: offside checks, onside skating, the puck carrier and nearest player assignments.
+cut StartScoreCelebration engine/assign_events Event assignments: scoring, goalie pulls, benches and boxes, penalty shots, leaving the ice, penalties.
+cut assrefpenshot engine/referee_assign Referee assignments: penalty shot, signals, whistle, goal, follow, drop and at the dot.
+cut assintrostand engine/intro_assign Intro and Stanley Cup assignments: standing, lines, positions and bench players.
+cut PlayerGetsPuck engine/puck_contact Puck contacts: pick-ups, deflections, knocks, goalie and stick contact, offsides and zones, puck states.
+cut CPgoalie engine/goaliepull Goalie pull: pulling and returning goalies.
+rename engine/engine_2DE3C engine/goaliepull
+cut CoachLineChange engine/coach Coach: line changes, line slots, energy and coach modes.
+rename engine/faceoff/faceoff_2 engine/contact_calls Faceoff puck, penalty calls and chances, net crashes and body contact.
+cut PickShotTarget engine/shot_ai Shots: picking the target, updating and starting shots, shot assignments.
+cut PositionSlot engine/lines Lines: sorting by position, building team lines, auto lines and replacements.
+cut ChkTwoInBox engine/penalty Penalties: adding penalties, power plays, penalty time and penalty shots.
+cut SetPlayerTarget engine/control Player control: switching, pad slots, joysticks, line change input, skating, pass and shot buttons.
+cut CheckFightOdds engine/fight_start Fight starts: fight odds, starting fights and fight assignments.
+cut PutChecksum pc/packet_link Packet link: checksums, packets, acks, polling and the link channel.
+rename engine/engine_3812E front/season_game Season game screen: game panels, all-star day and starting the next season game.
+cut FindBenchSlot engine/bench_seats Bench and penalty box seats.
+cut FaceoffStanceMove engine/moves Moves: faceoff stance, shouts, strides, box animations, ref dodging, checks and steering.
+cut DrawFrameNoop front/display Display: dirty spans, overlay rows, video modes, display views and overlay windows.
+cut FadePaletteStep front/palette Palette: fades, range palettes, art remapping and colour quantizing.
+cut InitStreamBuffer pc/cdstream CD streams: stream buffers, requests, packets and the music stream.
+cut QueuePassSpeech engine/speech_events Speech events: queued pass, shot, hit, penalty and other calls.
+cut LoadMainSfxBank front/sound Sound: sfx banks, game audio, music tracks, sfx and crowd noise.
+cut QueueSpeechRequest front/speech_queue Speech queue: requests, clips and banks.
