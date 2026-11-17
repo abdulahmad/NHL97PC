@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "host.h"
 #include <string.h>
+#include <stdlib.h>
 #include <SDL.h>
 
 #ifdef _WIN32
@@ -282,8 +283,43 @@ static void install_stream_guard(void)
     }
 }
 
+/* A whole game frame on the screen at a time. The game copies each finished frame to the banked screen (BlitFrameToScreen, 1047D0,
+ * 640x480 is five 64 KB banks), while the main thread turns the screen memory into a picture whenever it presents. A present that
+ * came between two banks showed the top of the new frame over the bottom of the old one: a frame that jumped for a moment now and
+ * then, most visible while the camera moves. The copy now holds the video lock (it is recursive: the bank switches inside take it
+ * too), so a present waits the fraction of a millisecond the copy takes. The routine is rebuilt here from its own bytes. */
+volatile uint32_t blit_funcs, blit_core;
+__attribute__((naked)) static void blit_frame_entry(void)
+{
+    __asm__ volatile(
+        "pushal\n\tcall " SYM("video_palette_lock") "\n\tpopal\n\t"
+        "pushl %ebx\n\t"
+        "movl 8(%esp), %eax\n\tmovl 12(%esp), %edx\n\tmovl " SYM("blit_funcs") ", %ecx\n\tmovl 16(%esp), %ebx\n\t"
+        "call *" SYM("blit_core") "\n\t"
+        "popl %ebx\n\t"
+        "pushal\n\tcall " SYM("video_palette_unlock") "\n\tpopal\n\t"
+        "ret");
+}
+static void install_whole_frames(void)
+{
+    static const uint8_t head[] = { 0x53, 0x8B, 0x44, 0x24, 0x08, 0x8B, 0x54, 0x24, 0x0C, 0xB9 };
+    static const uint8_t mid[] = { 0x8B, 0x5C, 0x24, 0x10, 0xE8 };
+    uint8_t *f = GAME_ADDR(0x1047D0u);
+    int32_t rel;
+    if (getenv("NHL97_TORN")) return;                          /* a test aid: the old way */
+    if (memcmp(f, head, sizeof head) || memcmp(f + 14, mid, sizeof mid) || f[23] != 0x5B || f[24] != 0xC3) {
+        fprintf(stderr, "BlitFrameToScreen is not as expected, frames are not kept whole\n");
+        return;
+    }
+    memcpy((void *)&blit_funcs, f + 10, 4);
+    memcpy(&rel, f + 19, 4);
+    blit_core = (uint32_t)(uintptr_t)(f + 23 + rel);
+    patch_jmp(f, (void *)blit_frame_entry);
+}
+
 void install_overrides(void)
 {
+    install_whole_frames();
     osk_hook_install();
 #ifdef _WIN32
     patch_jmp(GAME_ADDR(ORIG_SETENVP), setenvp_entry);
