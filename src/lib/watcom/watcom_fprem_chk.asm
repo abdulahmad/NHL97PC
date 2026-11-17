@@ -1,0 +1,253 @@
+; Watcom C runtime: __fprem_chk, fprem1_common.
+bits 32
+%include "hockey.inc"
+section s_13C42E progbits alloc exec nowrite align=1
+extern F64_0p5_fprem_common, F64_5p42101eneg20, fprem_common, FpremScale, FpremShiftTable, FpremTwoPi
+global __fprem_chk, fprem1_common
+;-----------------------------------------------------------------------------
+; __fprem_chk                                                  13C42E  library
+; Run-time library: x87 partial remainder that avoids the Pentium FDIV bug
+;-----------------------------------------------------------------------------
+__fprem_chk:
+        push edx
+        sub esp, byte 30h
+        fstp tword [byte esp+018h]
+        fstp tword [esp]
+        xor edx, edx
+        mov eax, dword [byte esp+06h]
+        test eax, 7FFF0000h
+        je short .1
+        call fprem_common
+        add esp, byte 30h
+        pop edx
+        ret
+.1:
+        fld tword [esp]
+        fld tword [byte esp+018h]
+        mov eax, dword [esp]
+        or eax, dword [byte esp+04h]
+        je short .4
+        fxch
+        fstp tword [byte esp+0Ch]
+        fld tword [esp]
+        fxch
+        or edx, byte 2
+        fnstcw word [byte esp+024h]
+        mov eax, dword [byte esp+024h]
+        or eax, 33Fh
+        mov dword [byte esp+028h], eax
+        fldcw word [byte esp+028h]
+        mov eax, dword [byte esp+020h]
+        and eax, 7FFFh
+        cmp eax, 7FBEh
+        ja short .2
+        or edx, byte 1
+        fmul qword [FpremScale]
+        fstp tword [byte esp+018h]
+        fmul qword [FpremScale]
+        fstp tword [esp]
+        jmp short .3
+.2:
+        fnstcw word [byte esp+024h]
+        mov eax, dword [byte esp+024h]
+        or eax, 300h
+        mov dword [byte esp+028h], eax
+        fldcw word [byte esp+028h]
+        fstp st0
+        fmul qword [FpremScale]
+        fstp tword [esp]
+.3:
+        fldcw word [byte esp+024h]
+        call fprem_common
+        add esp, byte 30h
+        pop edx
+        ret
+.4:
+        fprem
+        add esp, byte 30h
+        pop edx
+        ret
+;-----------------------------------------------------------------------------
+; fprem1_common                                                13C4E0  library
+; Run-time library: shared part of the checked IEEE partial remainder
+;-----------------------------------------------------------------------------
+fprem1_common:
+        push eax
+        push ebx
+        push ecx
+        mov eax, dword [byte esp+016h]
+        xor eax, 700h
+        test eax, 700h
+        jne near .6
+        shr eax, 0Bh
+        and eax, byte 0Fh
+        cmp byte [dword eax+FpremShiftTable], 0
+        je near .6
+        mov eax, dword [byte esp+016h]
+        and eax, 7FFF0000h
+        cmp eax, 7FFF0000h
+        je near .6
+        mov eax, dword [byte esp+02Eh]
+        and eax, 7FFF0000h
+        je near .6
+        cmp eax, 7FFF0000h
+        je near .6
+        mov eax, dword [byte esp+02Ch]
+        add eax, eax
+        jne near .6
+        mov eax, dword [byte esp+014h]
+        add eax, eax
+        jne near .6
+        mov eax, dword [byte esp+018h]
+        and eax, 7FFFh
+        add eax, byte 3Fh
+        mov ebx, dword [byte esp+030h]
+        and ebx, 7FFFh
+        sub ebx, eax
+        ja short .2
+.1:
+        mov eax, dword [byte esp+018h]
+        and eax, 7FFFh
+        add eax, byte 0Ah
+        mov ebx, dword [byte esp+030h]
+        and ebx, 7FFFh
+        sub ebx, eax
+        js near .6
+        fld tword [byte esp+028h]
+        mov eax, dword [byte esp+018h]
+        mov ebx, dword [byte esp+030h]
+        and ebx, 7FFFh
+        mov ecx, ebx
+        sub ebx, eax
+        and ebx, byte 7
+        or ebx, byte 4
+        sub ecx, ebx
+        mov ebx, eax
+        and ebx, 8000h
+        or ecx, ebx
+        mov dword [byte esp+018h], ecx
+        fld tword [byte esp+010h]
+        mov dword [byte esp+018h], eax
+        fxch
+        fprem
+        fstp tword [byte esp+028h]
+        fstp st0
+        jmp short .1
+.2:
+        test ebx, 2
+        jne short .3
+        fld tword [byte esp+010h]
+        fstp tword [byte esp+01Ch]
+.3:
+        fnstcw word [byte esp+034h]
+        mov eax, dword [byte esp+034h]
+        or eax, 33Fh
+        mov dword [byte esp+038h], eax
+        fldcw word [byte esp+038h]
+        mov eax, dword [byte esp+018h]
+        and eax, 7FFFh
+        mov ebx, dword [byte esp+030h]
+        and ebx, 7FFFh
+        sub ebx, eax
+        and ebx, byte 3Fh
+        or ebx, byte 20h
+        add ebx, byte 1
+        mov ecx, ebx
+        mov eax, dword [byte esp+018h]
+        mov ebx, dword [byte esp+030h]
+        and ebx, 7FFFh
+        and eax, 8000h
+        or ebx, eax
+        mov dword [byte esp+018h], ebx
+        fld tword [byte esp+010h]
+        fabs
+        fld tword [byte esp+028h]
+        fabs
+.4:
+        fcom
+        fnstsw ax
+        and eax, 100h
+        jne short .5
+        fsub st1
+.5:
+        fxch
+        fmul qword [F64_0p5_fprem_common]
+        fxch
+        sub ecx, byte 1
+        jne short .4
+        mov ebx, dword [byte esp+030h]
+        fstp tword [byte esp+028h]
+        fstp st0
+        fld tword [byte esp+01Ch]
+        fld tword [FpremTwoPi]
+        fprem1
+        fstp st0
+        fld tword [byte esp+028h]
+        fldcw word [byte esp+034h]
+        and ebx, 8000h
+        je short .7
+        fchs
+        jmp short .7
+.6:
+        fld tword [byte esp+010h]
+        fld tword [byte esp+028h]
+        fprem1
+.7:
+        test edx, 3
+        je short .9
+        fnstsw word [byte esp+03Ch]
+        test edx, 1
+        je short .8
+        fnstcw word [byte esp+034h]
+        mov eax, dword [byte esp+034h]
+        or eax, 300h
+        mov dword [byte esp+038h], eax
+        fldcw word [byte esp+038h]
+        fmul qword [F64_5p42101eneg20]
+        fldcw word [byte esp+034h]
+.8:
+        mov eax, dword [byte esp+03Ch]
+        fxch
+        fstp st0
+        fld tword [byte esp+01Ch]
+        fxch
+        and eax, 4300h
+        sub esp, byte 1Ch
+        fnstenv [esp]
+        and dword [byte esp+04h], 0BCFFh
+        or dword [byte esp+04h], eax
+        fldenv [esp]
+        add esp, byte 1Ch
+.9:
+        pop ecx
+        pop ebx
+        pop eax
+        ret
+        db 052h,083h,0ECh,030h,0DBh,07Ch,024h,018h,0DBh,03Ch,024h,0BAh,00h,00h,00h,00h
+        db 08Bh,044h,024h,06h,0A9h,00h,00h,0FFh,07Fh,074h,0Ah,0E8h,0DAh,0FDh,0FFh,0FFh
+        db 083h,0C4h,030h,05Ah,0C3h,0DBh,02Ch,024h,0DBh,06Ch,024h,018h,08Bh,04h,024h,0Bh
+        db 044h,024h,04h,074h,079h,0D9h,0C9h,0DBh,07Ch,024h,0Ch,0DBh,02Ch,024h,0D9h,0C9h
+        db 083h,0CAh,02h,0D9h,07Ch,024h,024h,08Bh,044h,024h,024h,0Dh,03Fh,03h,00h,00h
+        db 089h,044h,024h,028h,0D9h,06Ch,024h,028h,08Bh,044h,024h,020h,025h,0FFh,07Fh,00h
+        db 00h,03Dh,0BEh,07Fh,00h,00h,077h,018h,083h,0CAh
+        add esp, ebx
+        or eax, FpremScale
+        fstp tword [byte esp+018h]
+        fmul qword [FpremScale]
+        fstp tword [esp]
+        jmp short .10
+        fnstcw word [byte esp+024h]
+        mov eax, dword [byte esp+024h]
+        or eax, 300h
+        mov dword [byte esp+028h], eax
+        fldcw word [byte esp+028h]
+        fstp st0
+        fmul qword [FpremScale]
+        fstp tword [esp]
+.10:
+        fldcw word [byte esp+024h]
+        call fprem1_common
+        add esp, byte 30h
+        pop edx
+        ret
+        db 0D9h,0F8h,083h,0C4h,030h,05Ah,0C3h

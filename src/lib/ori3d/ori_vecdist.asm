@@ -1,0 +1,71 @@
+; 3D library: vecdist.
+bits 32
+%include "hockey.inc"
+section s_100674 progbits alloc exec nowrite align=1
+extern AngleFromDelta, AngleOfVector_91, AngleOfVector_93, AngleOfVector_9A, AngleOfVector_A3, AngleOfVector_A7, AngleOfVector_AE, AngleOfVector_B0
+extern AngleOfVector_B5, CosLookup, SinLookup
+global vecdist, AngleOfVectorJumpTable
+;-----------------------------------------------------------------------------
+; vecdist                                     100674  96 PC, medium confidence
+; (dx, dy): approximate length of a vector from its angle
+;-----------------------------------------------------------------------------
+vecdist:
+        push ebp
+        LD mov, ebp, esp
+        push ebx
+        push dword [byte ebp+08h]
+        push dword [byte ebp+0Ch]
+        call AngleFromDelta
+        add esp, byte 8
+        LD or, eax, eax
+        jge short .1
+        neg eax
+.1:
+        cmp eax, 100h
+        jle short .2
+        neg eax
+        add eax, 200h
+.2:
+        cmp eax, 80h
+        jg short .4
+        push eax
+        call CosLookup
+        add esp, byte 4
+        LD mov, ebx, eax
+        mov eax, dword [byte ebp+08h]
+        LD or, eax, eax
+        jge short .3
+        neg eax
+.3:
+        LD xor, edx, edx
+        shl eax, 10h
+        div ebx
+        pop ebx
+        leave
+        ret
+.4:
+        push eax
+        call SinLookup
+        add esp, byte 4
+        LD mov, ebx, eax
+        mov eax, dword [byte ebp+0Ch]
+        LD or, eax, eax
+        jge short .5
+        neg eax
+.5:
+        LD xor, edx, edx
+        shl eax, 10h
+        div ebx
+        pop ebx
+        leave
+        ret
+        db 00h,00h,00h
+AngleOfVectorJumpTable:                         ; jump table for the switch cases of AngleOfVector
+        dd AngleOfVector_B5
+        dd AngleOfVector_91
+        dd AngleOfVector_9A
+        dd AngleOfVector_93
+        dd AngleOfVector_A3
+        dd AngleOfVector_B0
+        dd AngleOfVector_A7
+        dd AngleOfVector_AE

@@ -1,0 +1,3286 @@
+; EA library: QueueFind, QueueFindPacket, QueueRemoveEntry, QueueAppend, QueuePrepend and 49 more.
+bits 32
+%include "hockey.inc"
+section s_100DCB progbits alloc exec nowrite align=1
+extern AllocMemBlock, ArtFormatCodes, ArtRowFuncs16, ArtRowFuncs8, atexit_, bcopy, BlitCore, BlitRowFuncTable
+extern BytesPerPixelForDepth, ClipLeftCol, ClipRight, ClipTopRow, Convert32To555Keyed, Convert32To565, Convert32To565Keyed, ConvertDestBuffer
+extern ConvertPalette, CopyPaletteRGB, DrawDestBuffer, DrawDestOffset, DrawDestPitch, exit_, ExpandPalette6To8, FindCachedFile
+extern FindPaletteChunk, FreeMemBlock, FshExtension, IdentityRemap, IndexTo16Entries, LoadResourceFile, MakeColor, MessageBoxActive
+extern PacketCrcTable, PaletteWords, PlotPixelRGB, ProjAspect, QuantizePalette, QueueFreeChain, ScreenBitsPerPixel, ScreenHeight
+extern ShadeTable, ShapeRowBytes, sprintf_, StoreBigEndian, str_DtoD, strrchr_, SwapRedBlue555
+global QueueFind, QueueFindPacket, QueueRemoveEntry, QueueAppend, QueuePrepend, QueuePostBuffer, QueueRepost, AddExitHandler
+global ExitProgram, PacketChecksum, PacketChecksum_90, CopyRow8, CopyRow16, CopyRow24, CopyRow32, BlitConverted
+global BlitShape2, BlitArt, BlitShape, BlitClippedY, PresentScreen, str_Locateshape44sSHAPENOTFOUND, FindShape, FindShapeQuiet
+global FindShapeQuiet_2, LoadDataFileExt, LoadDataFileNoErr, LoadDataFileErr, OpenArtArchive, OpenArtArchiveErr, BlendPixelModeJumpTable, BlendPixelMode
+global BlendPixelMode_30, BlendPixelMode_54, BlendPixelMode_6E, BlendPixelMode_94, BlendPixelMode_B9, BlendPixelMode_10C, BlendPixelMode_153, BlendPixelMode_1A6
+global BlendPixelMode_1BC, BlendPixelMode_204, BlendPixelMode_232, BlendPixelMode_27B, BlendPixelMode_2A1, BlendPixelMode_2F4, BlendPixelMode_33A, BlendPixelMode_38A
+global BlendPixelsJumpTable, BlendPixels, BlendPixels_14, BlendPixels_2D, BlendPixels_46, BlendPixels_6F, BlendPixels_81, BlendPixels_AC
+global BlendPixels_C4, BlendPixels_DB, BlendShapeRows, DrawShapeBlended, DrawShapeBlended_1F4, ConvertRow4To8, ConvertRow4To16, ConvertRow8To8
+global ConvertRow8To16, ConvertRow16To16, ConvertRow16To8, ConvertRow16To15, ConvertRow15To15, ConvertRow15To16, ConvertRow15To8, ConvertRow24To24
+global ConvertRow32To16, ConvertRow24To16, ConvertRow32To32, ConvertRowPalTo16, MapArtType, ConvertArtPalette, ConvertArtPalette16, ConvertArtRows
+global ConvertArtShape, ConvertArtSame, ConvertArtNew
+        db 090h
+;-----------------------------------------------------------------------------
+; QueueFind                                      100DCC  97 PC, low confidence
+; Finds an entry in a queue
+;-----------------------------------------------------------------------------
+QueueFind:
+        push ebx
+        push esi
+        push edi
+        push ebp
+        sub esp, byte 0Ch
+        mov edi, dword [byte esp+020h]
+        mov ebp, dword [byte esp+024h]
+        pushf
+        pop eax
+        and eax, 200h
+        cli
+        mov dword [esp], eax
+        xor esi, esi
+        test ebp, ebp
+        je short .5
+        mov eax, dword [byte edi+010h]
+        mov ebx, dword [byte edi+08h]
+        mov dword [byte esp+08h], eax
+        test eax, eax
+        je short .1
+        mov ecx, dword [byte edi+014h]
+        push ecx
+        push ebp
+        call dword [byte esp+010h]
+        add esp, byte 8
+.1:
+        mov dword [byte esp+04h], eax
+        test ebx, ebx
+        je short .4
+.2:
+        cmp ebx, ebp
+        je short .4
+        cmp dword [byte esp+08h], byte 0
+        je short .3
+        mov edx, dword [byte edi+014h]
+        push edx
+        push ebx
+        call dword [byte esp+010h]
+        add esp, byte 8
+        cmp eax, dword [byte esp+04h]
+        ja short .4
+.3:
+        mov ebx, dword [ebx]
+        inc esi
+        test ebx, ebx
+        jne short .2
+.4:
+        cmp ebx, ebp
+        je short .6
+.5:
+        mov esi, 0FFFFFFFFh
+.6:
+        mov eax, dword [esp]
+        pushf
+        and dword [esp], 0FFFFFDFFh
+        or dword [esp], eax
+        popf
+        mov eax, esi
+        add esp, byte 0Ch
+        pop ebp
+        pop edi
+        pop esi
+        pop ebx
+        ret
+;-----------------------------------------------------------------------------
+; QueueFindPacket                                100E54  97 PC, low confidence
+; Finds a packet in a queue by number
+;-----------------------------------------------------------------------------
+QueueFindPacket:
+        push ebx
+        push esi
+        push edi
+        mov ecx, dword [byte esp+010h]
+        pushf
+        pop eax
+        and eax, 200h
+        cli
+        mov edx, 0FFFFFFFFh
+        mov esi, dword [byte ecx+08h]
+        mov ebx, eax
+        test esi, esi
+        je short .1
+        mov edi, dword [byte ecx+014h]
+        push edi
+        push esi
+        call dword [byte ecx+010h]
+        mov edx, eax
+        add esp, byte 8
+.1:
+        mov eax, ebx
+        pushf
+        and dword [esp], 0FFFFFDFFh
+        or dword [esp], eax
+        popf
+        mov eax, edx
+        pop edi
+        pop esi
+        pop ebx
+        ret
+        db 08Bh,0C0h
+        push ebx
+        push esi
+        push edi
+        mov ecx, dword [byte esp+010h]
+        pushf
+        pop eax
+        and eax, 200h
+        cli
+        mov ebx, eax
+        mov esi, dword [byte ecx+08h]
+        xor edx, edx
+        test esi, esi
+        je short .2
+        mov edi, dword [byte ecx+014h]
+        push edi
+        push esi
+        call dword [byte ecx+010h]
+        mov edx, eax
+        add esp, byte 8
+.2:
+        mov eax, ebx
+        pushf
+        and dword [esp], 0FFFFFDFFh
+        or dword [esp], eax
+        popf
+        mov eax, edx
+        pop edi
+        pop esi
+        pop ebx
+        ret
+        db 090h
+        push ebx
+        push esi
+        push edi
+        mov esi, dword [byte esp+018h]
+        mov ebx, dword [byte esp+010h]
+        pushf
+        pop eax
+        and eax, 200h
+        cli
+        mov ebx, dword [byte ebx+08h]
+        mov edi, eax
+        test ebx, ebx
+        je short .4
+.3:
+        cmp dword [byte esp+014h], byte 0
+        je short .4
+        push esi
+        push ebx
+        call dword [byte esp+01Ch]
+        add esp, byte 8
+        test eax, eax
+        jne short .4
+        mov ebx, dword [ebx]
+        test ebx, ebx
+        jne short .3
+.4:
+        mov eax, edi
+        pushf
+        and dword [esp], 0FFFFFDFFh
+        or dword [esp], eax
+        popf
+        mov eax, ebx
+        pop edi
+        pop esi
+        pop ebx
+        ret
+        db 08Bh,0C0h
+        push ebx
+        push esi
+        mov edx, dword [byte esp+0Ch]
+        mov ecx, dword [byte esp+010h]
+        pushf
+        pop eax
+        and eax, 200h
+        cli
+        mov esi, dword [byte edx+08h]
+        mov ebx, eax
+        test esi, esi
+        je short .8
+        test ecx, ecx
+        jbe short .7
+        mov eax, dword [esi]
+        lea edx, [byte ecx-01h]
+        test eax, eax
+        je short .6
+.5:
+        dec edx
+        cmp edx, byte 0FFFFFFFFh
+        je short .6
+        mov eax, dword [eax]
+        test eax, eax
+        jne short .5
+.6:
+        mov edx, eax
+        jmp short .9
+.7:
+        mov edx, esi
+        jmp short .9
+.8:
+        xor edx, edx
+.9:
+        mov eax, ebx
+        pushf
+        and dword [esp], 0FFFFFDFFh
+        or dword [esp], eax
+        popf
+        mov eax, edx
+        pop esi
+        pop ebx
+        ret
+        db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; QueueRemoveEntry                               100F70  97 PC, low confidence
+; Removes an entry from a queue
+;-----------------------------------------------------------------------------
+QueueRemoveEntry:
+        push ebx
+        push esi
+        push edi
+        push ebp
+        mov esi, dword [byte esp+014h]
+        mov edi, dword [byte esp+018h]
+        pushf
+        pop eax
+        and eax, 200h
+        cli
+        mov ebx, dword [byte esi+08h]
+        mov ebp, eax
+        test ebx, ebx
+        je short .2
+.1:
+        mov edx, dword [byte esi+014h]
+        push edx
+        push ebx
+        call dword [byte esi+010h]
+        add esp, byte 8
+        cmp eax, edi
+        jae short .2
+        mov ebx, dword [ebx]
+        test ebx, ebx
+        jne short .1
+.2:
+        test ebx, ebx
+        je short .3
+        mov ecx, dword [byte esi+014h]
+        push ecx
+        push ebx
+        call dword [byte esi+010h]
+        add esp, byte 8
+        cmp eax, edi
+        je short .3
+        xor ebx, ebx
+.3:
+        mov eax, ebp
+        pushf
+        and dword [esp], 0FFFFFDFFh
+        or dword [esp], eax
+        popf
+        mov eax, ebx
+        pop ebp
+        pop edi
+        pop esi
+        pop ebx
+        ret
+;-----------------------------------------------------------------------------
+; QueueAppend                                    100FCC  97 PC, low confidence
+; Appends an entry to a queue
+;-----------------------------------------------------------------------------
+QueueAppend:
+        push ebx
+        push esi
+        push edi
+        mov esi, dword [byte esp+018h]
+        mov ebx, dword [byte esp+010h]
+        pushf
+        pop eax
+        and eax, 200h
+        cli
+        mov ebx, dword [byte ebx+08h]
+        mov edi, eax
+        test ebx, ebx
+        je short .2
+.1:
+        cmp dword [byte esp+014h], byte 0
+        je short .2
+        push esi
+        push ebx
+        call dword [byte esp+01Ch]
+        add esp, byte 8
+        test eax, eax
+        jne short .2
+        mov ebx, dword [ebx]
+        test ebx, ebx
+        jne short .1
+.2:
+        test ebx, ebx
+        je short .3
+        push ebx
+        mov ecx, dword [byte esp+014h]
+        push ecx
+        call QueueFreeChain
+        add esp, byte 8
+        test eax, eax
+        jne short .3
+        xor ebx, ebx
+.3:
+        mov eax, edi
+        pushf
+        and dword [esp], 0FFFFFDFFh
+        or dword [esp], eax
+        popf
+        mov eax, ebx
+        pop edi
+        pop esi
+        pop ebx
+        ret
+        db 08Bh,0C0h
+        push ebx
+        push esi
+        mov ecx, dword [byte esp+0Ch]
+        mov ebx, dword [byte esp+010h]
+        pushf
+        pop eax
+        and eax, 200h
+        cli
+        mov edx, dword [byte ecx+08h]
+        mov esi, eax
+        test edx, edx
+        je short .8
+        test ebx, ebx
+        jbe short .6
+        mov eax, edx
+        mov eax, dword [eax]
+        lea edx, [byte ebx-01h]
+        test eax, eax
+        je short .5
+.4:
+        dec edx
+        cmp edx, byte 0FFFFFFFFh
+        je short .5
+        mov eax, dword [eax]
+        test eax, eax
+        jne short .4
+.5:
+        mov ebx, eax
+        jmp short .7
+.6:
+        mov ebx, edx
+.7:
+        test ebx, ebx
+        je short .9
+        push ebx
+        push ecx
+        call QueueFreeChain
+        add esp, byte 8
+        test eax, eax
+        jne short .9
+.8:
+        xor ebx, ebx
+.9:
+        mov eax, esi
+        pushf
+        and dword [esp], 0FFFFFDFFh
+        or dword [esp], eax
+        popf
+        mov eax, ebx
+        pop esi
+        pop ebx
+        ret
+        db 090h
+        push ebx
+        push esi
+        pushf
+        pop eax
+        and eax, 200h
+        cli
+        mov esi, eax
+        mov eax, dword [byte esp+010h]
+        mov eax, dword [eax]
+        mov edx, dword [byte esp+014h]
+        test eax, eax
+        je short .11
+.10:
+        dec edx
+        cmp edx, byte 0FFFFFFFFh
+        je short .11
+        mov eax, dword [eax]
+        test eax, eax
+        jne short .10
+.11:
+        mov ebx, eax
+        test eax, eax
+        je short .12
+        push eax
+        mov edx, dword [byte esp+010h]
+        push edx
+        call QueueFreeChain
+        add esp, byte 8
+        test eax, eax
+        jne short .12
+        xor ebx, ebx
+.12:
+        mov eax, esi
+        pushf
+        and dword [esp], 0FFFFFDFFh
+        or dword [esp], eax
+        popf
+        mov eax, ebx
+        pop esi
+        pop ebx
+        ret
+        db 090h
+;-----------------------------------------------------------------------------
+; QueuePrepend                                   1010E8  97 PC, low confidence
+; Puts an entry at the front of a queue
+;-----------------------------------------------------------------------------
+QueuePrepend:
+        push ebx
+        push esi
+        push edi
+        push ebp
+        mov esi, dword [byte esp+014h]
+        mov edi, dword [byte esp+018h]
+        pushf
+        pop eax
+        and eax, 200h
+        cli
+        mov ebx, dword [byte esi+08h]
+        mov ebp, eax
+        test ebx, ebx
+        je short .2
+.1:
+        mov edx, dword [byte esi+014h]
+        push edx
+        push ebx
+        call dword [byte esi+010h]
+        add esp, byte 8
+        cmp eax, edi
+        jae short .2
+        mov ebx, dword [ebx]
+        test ebx, ebx
+        jne short .1
+.2:
+        test ebx, ebx
+        je short .3
+        mov ecx, dword [byte esi+014h]
+        push ecx
+        push ebx
+        call dword [byte esi+010h]
+        add esp, byte 8
+        cmp eax, edi
+        jne short .3
+        push ebx
+        push esi
+        call QueueFreeChain
+        add esp, byte 8
+        test eax, eax
+        jne short .4
+.3:
+        xor ebx, ebx
+.4:
+        mov eax, ebp
+        pushf
+        and dword [esp], 0FFFFFDFFh
+        or dword [esp], eax
+        popf
+        mov eax, ebx
+        pop ebp
+        pop edi
+        pop esi
+        pop ebx
+        ret
+        db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; QueuePostBuffer                                101154  97 PC, low confidence
+; Posts a buffer to a queue
+;-----------------------------------------------------------------------------
+QueuePostBuffer:
+        push ebx
+        push esi
+        push edi
+        push ebp
+        sub esp, byte 4
+        mov ebx, dword [byte esp+018h]
+        mov ebp, dword [byte esp+020h]
+        pushf
+        pop eax
+        and eax, 200h
+        cli
+        mov esi, dword [byte ebx+04h]
+        mov dl, byte [byte ebx+04h]
+        and esi, byte 1
+        and dl, 0FEh
+        mov dword [esp], esi
+        mov byte [byte ebx+04h], dl
+        pushf
+        and dword [esp], 0FFFFFDFFh
+        or dword [esp], eax
+        popf
+        mov esi, dword [byte ebx+08h]
+        xor edi, edi
+        test esi, esi
+        je short .4
+.1:
+        mov dh, byte [byte ebx+04h]
+        test dh, 1
+        jne short .4
+        test dh, 1
+        jne short .3
+        push ebp
+        push esi
+        call dword [byte esp+024h]
+        add esp, byte 8
+        test eax, eax
+        jne short .2
+        or byte [byte ebx+04h], 1
+.2:
+        inc edi
+.3:
+        mov esi, dword [esi]
+        test esi, esi
+        jne short .1
+.4:
+        pushf
+        pop eax
+        and eax, 200h
+        cli
+        test byte [byte ebx+04h], 1
+        jne short .5
+        mov edi, 0FFFFFFFFh
+.5:
+        mov esi, dword [esp]
+        or dword [byte ebx+04h], esi
+        pushf
+        and dword [esp], 0FFFFFDFFh
+        or dword [esp], eax
+        popf
+        mov eax, edi
+        add esp, byte 4
+        pop ebp
+        pop edi
+        pop esi
+        pop ebx
+        ret
+        db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; QueueRepost                                    1011E8  97 PC, low confidence
+; Reposts a buffer to a queue
+;-----------------------------------------------------------------------------
+QueueRepost:
+        push ebx
+        push esi
+        mov edx, dword [byte esp+014h]
+        pushf
+        pop eax
+        and eax, 200h
+        cli
+        push edx
+        mov ecx, dword [byte esp+014h]
+        push ecx
+        mov esi, dword [byte esp+014h]
+        push esi
+        mov ebx, eax
+        call QueuePostBuffer
+        add esp, byte 0Ch
+        mov edx, eax
+        mov eax, ebx
+        pushf
+        and dword [esp], 0FFFFFDFFh
+        or dword [esp], eax
+        popf
+        mov eax, edx
+        pop esi
+        pop ebx
+        ret
+;-----------------------------------------------------------------------------
+; AddExitHandler                                 101220  97 PC, low confidence
+; Registers an exit handler
+;-----------------------------------------------------------------------------
+AddExitHandler:
+        mov eax, dword [byte esp+04h]
+        jmp near atexit_
+;-----------------------------------------------------------------------------
+; ExitProgram                                    101229  97 PC, low confidence
+; Exits the program
+;-----------------------------------------------------------------------------
+ExitProgram:
+        LD xor, eax, eax
+        call exit_
+;-----------------------------------------------------------------------------
+; PacketChecksum                                 101230  97 PC, low confidence
+; Works out the checksum of a packet
+;-----------------------------------------------------------------------------
+PacketChecksum:
+        push ebp
+        LD mov, ebp, esp
+        push ebx
+        push esi
+        push edi
+        mov esi, dword [byte ebp+08h]
+        mov edi, dword [byte ebp+0Ch]
+        mov eax, 0FBEAh
+        mov ebx, 0
+        mov ecx, 0
+        cmp edi, byte 0
+        jle short .4
+        sub edi, byte 4
+        js short .2
+.1:
+        mov edx, dword [esi]
+        LD mov, bl, dl
+        LD xor, bl, al
+        mov ecx, dword [nosplit ebx*4+PacketCrcTable]
+        LD mov, bl, dh
+        shr edx, 10h
+        LD xor, cl, ah
+        LD xor, bl, cl
+        mov eax, dword [nosplit ebx*4+PacketCrcTable]
+        LD mov, bl, dl
+        LD xor, al, ch
+        LD xor, bl, al
+        mov ecx, dword [nosplit ebx*4+PacketCrcTable]
+        LD mov, bl, dh
+        LD xor, cl, ah
+        LD xor, bl, cl
+        mov eax, dword [nosplit ebx*4+PacketCrcTable]
+        lea esi, [byte esi+04h]
+        LD xor, al, ch
+        sub edi, byte 4
+        jns short .1
+.2:
+        add edi, byte 3
+        js short .4
+.3:
+        mov bl, byte [esi]
+        LD xor, bl, al
+        shr eax, 8
+        xor eax, dword [nosplit ebx*4+PacketCrcTable]
+        lea esi, [byte esi+01h]
+        sub edi, byte 1
+        jns short .3
+.4:
+        pop edi
+        pop esi
+        pop ebx
+        leave
+        ret
+        db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
+;-----------------------------------------------------------------------------
+; PacketChecksum_90                                       1012C0  97 PC, low confidence
+; Entry inside PacketChecksum, reached from outside it
+;-----------------------------------------------------------------------------
+PacketChecksum_90:
+        push ecx
+        sar ebx, 1
+        push ebx
+        push edx
+        push eax
+        call bcopy
+        add esp, byte 0Ch
+        pop ecx
+        ret
+;-----------------------------------------------------------------------------
+; CopyRow8                                       1012D0  97 PC, low confidence
+; Copies a row of 8-bit pixels
+;-----------------------------------------------------------------------------
+CopyRow8:
+        push ecx
+        push ebx
+        push edx
+        push eax
+        call bcopy
+        add esp, byte 0Ch
+        pop ecx
+        ret
+        db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; CopyRow16                                      1012E0  97 PC, low confidence
+; Copies a row of 16-bit pixels
+;-----------------------------------------------------------------------------
+CopyRow16:
+        push ecx
+        add ebx, ebx
+        push ebx
+        push edx
+        push eax
+        call bcopy
+        add esp, byte 0Ch
+        pop ecx
+        ret
+;-----------------------------------------------------------------------------
+; CopyRow24                                      1012F0  97 PC, low confidence
+; Copies a row of 24-bit pixels
+;-----------------------------------------------------------------------------
+CopyRow24:
+        push ecx
+        push esi
+        mov ecx, eax
+        mov esi, edx
+        mov edx, ebx
+        lea eax, [nosplit ebx*4+00h]
+        sub eax, ebx
+        push eax
+        push esi
+        push ecx
+        call bcopy
+        add esp, byte 0Ch
+        pop esi
+        pop ecx
+        ret
+        db 090h
+;-----------------------------------------------------------------------------
+; CopyRow32                                      101310  97 PC, low confidence
+; Copies a row of 32-bit pixels
+;-----------------------------------------------------------------------------
+CopyRow32:
+        push ecx
+        shl ebx, 2
+        push ebx
+        push edx
+        push eax
+        call bcopy
+        add esp, byte 0Ch
+        pop ecx
+        ret
+        db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; BlitConverted                                  101324  97 PC, low confidence
+; Blits a shape through the pixel converter
+;-----------------------------------------------------------------------------
+BlitConverted:
+        push ebx
+        mov eax, dword [byte esp+08h]
+        mov edx, dword [byte esp+0Ch]
+        mov ecx, BlitRowFuncTable
+        mov ebx, dword [byte esp+010h]
+        call BlitCore
+        pop ebx
+        ret
+        db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; BlitShape2                                     101340  97 PC, low confidence
+; Same body as BlitShape (a second copy in the library)
+;-----------------------------------------------------------------------------
+BlitShape2:
+        push ebx
+        mov eax, dword [byte esp+08h]
+        mov ecx, BlitRowFuncTable
+        mov edx, dword [byte eax+0Ah]
+        mov ebx, dword [byte eax+0Ch]
+        sar edx, 10h
+        sar ebx, 10h
+        call BlitCore
+        pop ebx
+        ret
+        db 08Dh,040h,00h
+        push ebx
+        mov eax, dword [byte esp+08h]
+        mov edx, dword [byte eax+06h]
+        mov ebx, dword [byte esp+0Ch]
+        sar edx, 10h
+        sub ebx, edx
+        mov edx, ebx
+        mov ebx, dword [byte eax+08h]
+        mov ecx, dword [byte esp+010h]
+        sar ebx, 10h
+        sub ecx, ebx
+        mov ebx, ecx
+        mov ecx, BlitRowFuncTable
+        call BlitCore
+        pop ebx
+        ret
+        db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; BlitArt                                        101390  97 PC, low confidence
+; Graphics library: draws art at x, y (art, x, y) straight through the
+; blitter table BlitRowFuncTable, no colour conversion (next to FindShape)
+;-----------------------------------------------------------------------------
+BlitArt:
+        push ebx
+        mov eax, dword [byte esp+08h]
+        mov edx, dword [byte esp+0Ch]
+        mov ecx, BlitRowFuncTable
+        mov ebx, dword [byte esp+010h]
+        call BlitCore
+        pop ebx
+        ret
+        db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; BlitShape                                      1013AC  97 PC, low confidence
+; Graphics library: BlitArt at the art's own position (+0Ah / +0Ch)
+;-----------------------------------------------------------------------------
+BlitShape:
+        push ebx
+        mov eax, dword [byte esp+08h]
+        mov ecx, BlitRowFuncTable
+        mov edx, dword [byte eax+0Ah]
+        mov ebx, dword [byte eax+0Ch]
+        sar edx, 10h
+        sar ebx, 10h
+        call BlitCore
+        pop ebx
+        ret
+        db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; BlitClippedY                                   1013CC  97 PC, low confidence
+; Blits a shape clipped vertically
+;-----------------------------------------------------------------------------
+BlitClippedY:
+        push ebx
+        mov eax, dword [byte esp+08h]
+        mov edx, dword [byte eax+06h]
+        mov ebx, dword [byte esp+0Ch]
+        sar edx, 10h
+        sub ebx, edx
+        mov edx, ebx
+        mov ebx, dword [byte eax+08h]
+        mov ecx, dword [byte esp+010h]
+        sar ebx, 10h
+        sub ecx, ebx
+        mov ebx, ecx
+        mov ecx, BlitRowFuncTable
+        call BlitCore
+        pop ebx
+        ret
+        db 00h,00h,00h
+;-----------------------------------------------------------------------------
+; PresentScreen                                  1013FC  97 PC, low confidence
+; Presents the screen (returns 0 here)
+;-----------------------------------------------------------------------------
+PresentScreen:
+        LD xor, eax, eax
+        ret
+        db 00h
+str_Locateshape44sSHAPENOTFOUND:                ; string "locateshape - '%-4.4s' SHAPE NOT FOUND "; used by
+                                                ; FindShape
+        db 06Ch,06Fh,063h,061h,074h,065h,073h,068h,061h,070h,065h,020h,02Dh,020h,027h,025h
+        db 02Dh,034h,02Eh,034h,073h,027h,020h,053h,048h,041h,050h,045h,020h,04Eh,04Fh,054h
+        db 020h,046h,04Fh,055h,04Eh,044h,0Dh,0Ah,00h
+;-----------------------------------------------------------------------------
+; FindShape                                                      101429  95 PC
+; Graphics library: find the named art in a bank (bank, name), returns its pointer; error text "locateshape
+; - '%-4.4s' SHAPE NOT FOUND" (str_Locateshape44sSHAPENOTFOUND); 1500+ calls
+;-----------------------------------------------------------------------------
+FindShape:
+        mov edx, str_Locateshape44sSHAPENOTFOUND
+        jmp short FindShapeQuiet_2
+;-----------------------------------------------------------------------------
+; FindShapeQuiet                              101430  97 PC, medium confidence
+; FindShape without the not-found message: 0 when the art is missing
+;-----------------------------------------------------------------------------
+FindShapeQuiet:
+        LD xor, edx, edx
+FindShapeQuiet_2:
+        push ebx
+        mov ebx, dword [byte esp+08h]
+        mov eax, dword [byte esp+0Ch]
+        mov eax, dword [eax]
+        mov ecx, dword [byte ebx+08h]
+        add ebx, byte 10h
+        LD or, ecx, ecx
+        jle short .2
+.1:
+        add ebx, byte 8
+        cmp eax, dword [byte ebx-08h]
+        loopne .1
+        jne short .2
+        mov eax, dword [byte ebx-04h]
+        pop ebx
+        add eax, dword [byte esp+04h]
+        ret
+.2:
+        LD or, edx, edx
+        je short .3
+        push dword [byte esp+0Ch]
+        push edx
+.3:
+        LD xor, eax, eax
+        pop ebx
+        ret
+        db 00h,00h,00h,00h,00h,00h,00h,00h,00h
+;-----------------------------------------------------------------------------
+; LoadDataFileExt                                101470  97 PC, low confidence
+; Loads a data file, trying its extension
+;-----------------------------------------------------------------------------
+LoadDataFileExt:
+        push ebx
+        push esi
+        push edi
+        sub esp, 80h
+        mov esi, dword [dword esp+090h]
+        mov edi, esp
+        mov edx, 2Eh
+        push edi
+.1:
+        mov al, byte [esi]
+        mov byte [edi], al
+        cmp al, 0
+        je short .2
+        mov al, byte [byte esi+01h]
+        add esi, byte 2
+        mov byte [byte edi+01h], al
+        add edi, byte 2
+        cmp al, 0
+        jne short .1
+.2:
+        pop edi
+        mov eax, esp
+        call strrchr_
+        test eax, eax
+        jne short .5
+        mov edi, esp
+        mov esi, dword [FshExtension]
+        push edi
+        LD sub, ecx, ecx
+        dec ecx
+        mov al, 0
+        repne scasb
+        dec edi
+.3:
+        mov al, byte [esi]
+        mov byte [edi], al
+        cmp al, 0
+        je short .4
+        mov al, byte [byte esi+01h]
+        add esi, byte 2
+        mov byte [byte edi+01h], al
+        add edi, byte 2
+        cmp al, 0
+        jne short .3
+.4:
+        pop edi
+.5:
+        mov eax, esp
+        push eax
+        call FindCachedFile
+        add esp, byte 4
+        test eax, eax
+        jne short .6
+        mov edx, dword [dword esp+098h]
+        push edx
+        mov ebx, dword [dword esp+098h]
+        push ebx
+        lea eax, [byte esp+08h]
+        push eax
+        call LoadResourceFile
+        add esp, byte 0Ch
+.6:
+        add esp, 80h
+        pop edi
+        pop esi
+        pop ebx
+        ret
+;-----------------------------------------------------------------------------
+; LoadDataFileNoErr                              10150C  97 PC, low confidence
+; Loads a data file without the error message
+;-----------------------------------------------------------------------------
+LoadDataFileNoErr:
+        push ebx
+        push byte 0
+        mov edx, dword [byte esp+010h]
+        push edx
+        mov ebx, dword [byte esp+010h]
+        push ebx
+        call LoadDataFileExt
+        add esp, byte 0Ch
+        pop ebx
+        ret
+        db 090h
+;-----------------------------------------------------------------------------
+; LoadDataFileErr                                101524  97 PC, low confidence
+; Loads a data file with the error message
+;-----------------------------------------------------------------------------
+LoadDataFileErr:
+        push ebx
+        push byte 1
+        mov edx, dword [byte esp+010h]
+        push edx
+        mov ebx, dword [byte esp+010h]
+        push ebx
+        call LoadDataFileExt
+        add esp, byte 0Ch
+        pop ebx
+        ret
+        db 090h
+        push ebx
+        mov edx, dword [byte esp+010h]
+        push edx
+        mov ebx, dword [byte esp+010h]
+        push ebx
+        mov ecx, dword [byte esp+010h]
+        push ecx
+        call LoadDataFileExt
+        add esp, byte 0Ch
+        xor edx, edx
+        test eax, eax
+        je short .1
+        mov edx, dword [eax]
+.1:
+        mov eax, edx
+        pop ebx
+        ret
+;-----------------------------------------------------------------------------
+; OpenArtArchive                                 101560  97 PC, low confidence
+; Opens an art archive file
+;-----------------------------------------------------------------------------
+OpenArtArchive:
+        push ebx
+        push byte 0
+        mov edx, dword [byte esp+010h]
+        push edx
+        mov ebx, dword [byte esp+010h]
+        push ebx
+        call LoadDataFileExt
+        mov edx, eax
+        add esp, byte 0Ch
+        xor eax, eax
+        test edx, edx
+        je short .1
+        mov eax, dword [edx]
+.1:
+        pop ebx
+        ret
+        db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; OpenArtArchiveErr                              101584  97 PC, low confidence
+; Opens an art archive file with the error message
+;-----------------------------------------------------------------------------
+OpenArtArchiveErr:
+        push ebx
+        push byte 1
+        mov edx, dword [byte esp+010h]
+        push edx
+        mov ebx, dword [byte esp+010h]
+        push ebx
+        call LoadDataFileExt
+        mov edx, eax
+        add esp, byte 0Ch
+        xor eax, eax
+        test edx, edx
+        je short .1
+        mov eax, dword [edx]
+.1:
+        pop ebx
+        ret
+        db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
+BlendPixelModeJumpTable:                        ; jump table for the switch cases of BlendPixelMode
+        dd BlendPixelMode_38A
+        dd BlendPixelMode_30
+        dd BlendPixelMode_54
+        dd BlendPixelMode_6E
+        dd BlendPixelMode_94
+        dd BlendPixelMode_B9
+        dd BlendPixelMode_10C
+        dd BlendPixelMode_153
+        dd BlendPixelMode_1A6
+        dd BlendPixelMode_1BC
+        dd BlendPixelMode_204
+        dd BlendPixelMode_232
+        dd BlendPixelMode_27B
+        dd BlendPixelMode_2A1
+        dd BlendPixelMode_2F4
+        dd BlendPixelMode_33A
+;-----------------------------------------------------------------------------
+; BlendPixelMode                                 1015F0  97 PC, low confidence
+; Picks the blend mode for a pixel
+;-----------------------------------------------------------------------------
+BlendPixelMode:
+        push esi
+        push edi
+        mov esi, dword [byte esp+010h]
+        sar esi, 0Eh
+        and esi, byte 3
+        lea edi, [nosplit esi*4+00h]
+        mov esi, dword [byte esp+0Ch]
+        sar esi, 0Eh
+        and esi, byte 3
+        add esi, edi
+        cmp esi, byte 0Fh
+        ja near BlendPixelMode_38A
+        jmp dword [nosplit cs:esi*4+BlendPixelModeJumpTable]
+BlendPixelMode_30:
+        mov ebx, eax
+        shr edx, 2
+        shr ebx, 1
+        shr eax, 2
+        and ebx, 7F7F7F7Fh
+        and eax, 3F3F3F3Fh
+        and edx, 3F3F3F3Fh
+        add eax, ebx
+        add eax, edx
+        pop edi
+        pop esi
+        ret 8
+BlendPixelMode_54:
+        mov ebx, eax
+        mov eax, edx
+        shr ebx, 1
+        shr eax, 1
+        and ebx, 7F7F7F7Fh
+        and eax, 7F7F7F7Fh
+        add eax, ebx
+        pop edi
+        pop esi
+        ret 8
+BlendPixelMode_6E:
+        mov ebx, eax
+        shr ebx, 2
+        mov eax, edx
+        and ebx, 3F3F3F3Fh
+        shr eax, 1
+        shr edx, 2
+        and eax, 7F7F7F7Fh
+        and edx, 3F3F3F3Fh
+        add eax, ebx
+        add eax, edx
+        pop edi
+        pop esi
+        ret 8
+BlendPixelMode_94:
+        mov edx, eax
+        shr edx, 1
+        shr eax, 2
+        and edx, 7F7F7F7Fh
+        and eax, 3F3F3F3Fh
+        add edx, eax
+        mov eax, ebx
+        shr eax, 2
+        and eax, 3F3F3F3Fh
+        add eax, edx
+        pop edi
+        pop esi
+        ret 8
+BlendPixelMode_B9:
+        mov esi, eax
+        shr esi, 1
+        shr eax, 4
+        and esi, 7F7F7F7Fh
+        and eax, 0F0F0F0Fh
+        add esi, eax
+        mov eax, edx
+        shr eax, 3
+        shr edx, 4
+        and eax, 1F1F1F1Fh
+        and edx, 0F0F0F0Fh
+        add eax, esi
+        add edx, eax
+        mov eax, ebx
+        shr eax, 3
+        shr ebx, 4
+        and eax, 1F1F1F1Fh
+        and ebx, 0F0F0F0Fh
+        add eax, edx
+        add ebx, eax
+        mov eax, ecx
+        shr eax, 4
+        and eax, 0F0F0F0Fh
+        add eax, ebx
+        pop edi
+        pop esi
+        ret 8
+BlendPixelMode_10C:
+        mov esi, eax
+        shr esi, 2
+        shr eax, 3
+        and esi, 3F3F3F3Fh
+        and eax, 1F1F1F1Fh
+        shr ebx, 3
+        add esi, eax
+        mov eax, edx
+        shr ecx, 3
+        shr eax, 2
+        shr edx, 3
+        and eax, 3F3F3F3Fh
+        and edx, 1F1F1F1Fh
+        add eax, esi
+        and ebx, 1F1F1F1Fh
+        add eax, edx
+        and ecx, 1F1F1F1Fh
+        add eax, ebx
+        add eax, ecx
+        pop edi
+        pop esi
+        ret 8
+BlendPixelMode_153:
+        mov esi, eax
+        shr esi, 3
+        shr eax, 4
+        and esi, 1F1F1F1Fh
+        and eax, 0F0F0F0Fh
+        add esi, eax
+        mov eax, edx
+        shr ebx, 4
+        shr eax, 1
+        shr edx, 4
+        and eax, 7F7F7F7Fh
+        and edx, 0F0F0F0Fh
+        add eax, esi
+        and ebx, 0F0F0F0Fh
+        add eax, edx
+        add ebx, eax
+        mov eax, ecx
+        shr eax, 3
+        and eax, 1F1F1F1Fh
+        add ebx, eax
+        mov eax, ecx
+        shr eax, 4
+        and eax, 0F0F0F0Fh
+        add eax, ebx
+        pop edi
+        pop esi
+        ret 8
+BlendPixelMode_1A6:
+        shr eax, 1
+        shr ebx, 1
+        and eax, 7F7F7F7Fh
+        and ebx, 7F7F7F7Fh
+        add eax, ebx
+        pop edi
+        pop esi
+        ret 8
+BlendPixelMode_1BC:
+        mov esi, eax
+        shr edx, 3
+        shr esi, 2
+        shr eax, 3
+        and esi, 3F3F3F3Fh
+        and eax, 1F1F1F1Fh
+        and edx, 1F1F1F1Fh
+        add eax, esi
+        add edx, eax
+        mov eax, ebx
+        shr eax, 2
+        shr ebx, 3
+        and eax, 3F3F3F3Fh
+        and ebx, 1F1F1F1Fh
+        add eax, edx
+        add ebx, eax
+        mov eax, ecx
+        shr eax, 3
+        and eax, 1F1F1F1Fh
+        add eax, ebx
+        pop edi
+        pop esi
+        ret 8
+BlendPixelMode_204:
+        shr eax, 2
+        shr edx, 2
+        shr ebx, 2
+        shr ecx, 2
+        and eax, 3F3F3F3Fh
+        and edx, 3F3F3F3Fh
+        and ebx, 3F3F3F3Fh
+        add eax, edx
+        and ecx, 3F3F3F3Fh
+        add eax, ebx
+        add eax, ecx
+        pop edi
+        pop esi
+        ret 8
+BlendPixelMode_232:
+        mov esi, eax
+        shr ebx, 3
+        shr esi, 3
+        mov eax, edx
+        and esi, 1F1F1F1Fh
+        shr eax, 2
+        shr edx, 3
+        and eax, 3F3F3F3Fh
+        and edx, 1F1F1F1Fh
+        add eax, esi
+        and ebx, 1F1F1F1Fh
+        add eax, edx
+        add ebx, eax
+        mov eax, ecx
+        shr eax, 2
+        shr ecx, 3
+        and eax, 3F3F3F3Fh
+        and ecx, 1F1F1F1Fh
+        add eax, ebx
+        add eax, ecx
+        pop edi
+        pop esi
+        ret 8
+BlendPixelMode_27B:
+        mov edx, eax
+        shr edx, 2
+        mov eax, ebx
+        and edx, 3F3F3F3Fh
+        shr eax, 1
+        shr ebx, 2
+        and eax, 7F7F7F7Fh
+        and ebx, 3F3F3F3Fh
+        add eax, edx
+        add eax, ebx
+        pop edi
+        pop esi
+        ret 8
+BlendPixelMode_2A1:
+        mov esi, eax
+        shr edx, 4
+        shr esi, 3
+        shr eax, 4
+        and esi, 1F1F1F1Fh
+        and eax, 0F0F0F0Fh
+        and edx, 0F0F0F0Fh
+        add eax, esi
+        add edx, eax
+        mov eax, ebx
+        shr eax, 1
+        shr ebx, 4
+        and eax, 7F7F7F7Fh
+        and ebx, 0F0F0F0Fh
+        add eax, edx
+        add ebx, eax
+        mov eax, ecx
+        shr eax, 3
+        and eax, 1F1F1F1Fh
+        add ebx, eax
+        mov eax, ecx
+        shr eax, 4
+        and eax, 0F0F0F0Fh
+        add eax, ebx
+        pop edi
+        pop esi
+        ret 8
+BlendPixelMode_2F4:
+        shr eax, 3
+        shr edx, 3
+        and eax, 1F1F1F1Fh
+        and edx, 1F1F1F1Fh
+        add edx, eax
+        mov eax, ebx
+        shr eax, 2
+        shr ebx, 3
+        and eax, 3F3F3F3Fh
+        and ebx, 1F1F1F1Fh
+        add eax, edx
+        add ebx, eax
+        mov eax, ecx
+        shr eax, 2
+        shr ecx, 3
+        and eax, 3F3F3F3Fh
+        and ecx, 1F1F1F1Fh
+        add eax, ebx
+        add eax, ecx
+        pop edi
+        pop esi
+        ret 8
+BlendPixelMode_33A:
+        mov esi, eax
+        shr esi, 4
+        mov eax, edx
+        and esi, 0F0F0F0Fh
+        shr eax, 3
+        shr edx, 4
+        and eax, 1F1F1F1Fh
+        and edx, 0F0F0F0Fh
+        add eax, esi
+        add edx, eax
+        mov eax, ebx
+        shr eax, 3
+        shr ebx, 4
+        and eax, 1F1F1F1Fh
+        and ebx, 0F0F0F0Fh
+        add eax, edx
+        add ebx, eax
+        mov eax, ecx
+        shr eax, 1
+        and eax, 7F7F7F7Fh
+        add ebx, eax
+        mov eax, ecx
+        shr eax, 4
+        and eax, 0F0F0F0Fh
+        add eax, ebx
+BlendPixelMode_38A:
+        pop edi
+        pop esi
+        ret 8
+        db 090h
+BlendPixelsJumpTable:                           ; jump table for the switch cases of BlendPixels
+        dd BlendPixels_DB
+        dd BlendPixels_14
+        dd BlendPixels_2D
+        dd BlendPixels_46
+        dd BlendPixels_6F
+        dd BlendPixels_81
+        dd BlendPixels_AC
+        dd BlendPixels_C4
+;-----------------------------------------------------------------------------
+; BlendPixels                                    1019A0  97 PC, low confidence
+; Blends two packed pixels by mode
+;-----------------------------------------------------------------------------
+BlendPixels:
+        sar ebx, 0Dh
+        cmp ebx, byte 7
+        ja near BlendPixels_DB
+        jmp dword [nosplit cs:ebx*4+BlendPixelsJumpTable]
+BlendPixels_14:
+        mov ebx, eax
+        shr ebx, 3
+        shr edx, 3
+        and ebx, 1F1F1F1Fh
+        and edx, 1F1F1F1Fh
+        sub eax, ebx
+        add eax, edx
+        ret
+BlendPixels_2D:
+        mov ebx, eax
+        shr ebx, 2
+        shr edx, 2
+        and ebx, 3F3F3F3Fh
+        and edx, 3F3F3F3Fh
+        sub eax, ebx
+        add eax, edx
+        ret
+BlendPixels_46:
+        mov ebx, eax
+        shr ebx, 3
+        and ebx, 1F1F1F1Fh
+        shr edx, 3
+        lea eax, [nosplit ebx*4+00h]
+        and edx, 1F1F1F1Fh
+        add ebx, eax
+        lea eax, [nosplit edx*4+00h]
+        sub eax, edx
+        add eax, ebx
+        ret
+BlendPixels_6F:
+        shr eax, 1
+        shr edx, 1
+        and eax, 7F7F7F7Fh
+        and edx, 7F7F7F7Fh
+        add eax, edx
+        ret
+BlendPixels_81:
+        mov ebx, eax
+        shr ebx, 3
+        and ebx, 1F1F1F1Fh
+        lea eax, [nosplit ebx*4+00h]
+        shr edx, 3
+        sub eax, ebx
+        and edx, 1F1F1F1Fh
+        mov ebx, eax
+        lea eax, [nosplit edx*4+00h]
+        add eax, edx
+        add eax, ebx
+        ret
+BlendPixels_AC:
+        shr eax, 2
+        shr edx, 2
+        and eax, 3F3F3F3Fh
+        and edx, 3F3F3F3Fh
+        add eax, edx
+        add eax, edx
+        add eax, edx
+        ret
+BlendPixels_C4:
+        mov ebx, edx
+        shr ebx, 3
+        shr eax, 3
+        and ebx, 1F1F1F1Fh
+        and eax, 1F1F1F1Fh
+        sub edx, ebx
+        add eax, edx
+BlendPixels_DB:
+        ret
+;-----------------------------------------------------------------------------
+; BlendShapeRows                                 101A7C  97 PC, low confidence
+; Blends the rows of a shape
+;-----------------------------------------------------------------------------
+BlendShapeRows:
+        push ebx
+        push esi
+        push edi
+        push ebp
+        sub esp, byte 18h
+        mov ebp, dword [byte esp+030h]
+        mov edi, dword [byte esp+034h]
+        cmp dword [byte esp+048h], byte 0
+        jle near .6
+        mov ebx, dword [byte esp+044h]
+        xor ecx, ecx
+        mov eax, dword [byte esp+040h]
+        mov cl, byte [ScreenBitsPerPixel]
+        mov edx, dword [DrawDestOffset]
+        mov eax, dword [edx+eax*4]
+        mov edx, dword [DrawDestBuffer]
+        add eax, dword [edx+ebx*4]
+        add eax, dword [DrawDestPitch]
+        mov esi, eax
+        mov eax, dword [byte esp+02Ch]
+        mov eax, dword [byte eax+02h]
+        sar eax, 10h
+        shl eax, 2
+        mov dword [byte esp+014h], eax
+        mov eax, dword [byte esp+02Ch]
+        add eax, byte 10h
+        cmp ecx, byte 10h
+        jne near .4
+        mov dword [byte esp+0Ch], eax
+.1:
+        mov eax, edi
+        mov ebx, dword [byte esp+014h]
+        sar eax, 10h
+        imul eax, ebx
+        mov edx, ebp
+        sar edx, 10h
+        mov ecx, dword [byte esp+0Ch]
+        shl edx, 2
+        add ecx, eax
+        add ecx, edx
+        push edi
+        mov eax, dword [ecx]
+        mov edx, dword [byte ecx+04h]
+        add ecx, ebx
+        push ebp
+        mov ebx, dword [ecx]
+        mov ecx, dword [byte ecx+04h]
+        call BlendPixelMode
+        mov ebx, eax
+        cmp ebx, 10000000h
+        jb short .3
+        cmp ebx, 0F0000000h
+        jae short .2
+        mov ax, word [esi]
+        mov ecx, ebx
+        mov edx, eax
+        xor ecx, byte 0FFFFFFFFh
+        shl eax, 10h
+        mov al, dl
+        and edx, 7E0h
+        shl edx, 8
+        and eax, 0F800001Fh
+        shr ecx, 18h
+        add eax, edx
+        mul ecx
+        shl edx, 10h
+        mov ecx, eax
+        shr ecx, 5
+        add ebx, edx
+        shr eax, 0Bh
+        and ecx, 0FFh
+        and eax, 0FF00h
+        add ebx, ecx
+        add ebx, eax
+.2:
+        mov eax, ebx
+        and ebx, 0F80000h
+        shr ebx, 8
+        mov edx, eax
+        shr eax, 3
+        and edx, 0FC00h
+        shr edx, 5
+        and eax, byte 1Fh
+        add ebx, eax
+        add ebx, edx
+        mov word [esi], bx
+.3:
+        lea esi, [byte esi+02h]
+        mov ecx, dword [byte esp+038h]
+        mov eax, dword [byte esp+03Ch]
+        mov edx, dword [byte esp+048h]
+        add ebp, ecx
+        add edi, eax
+        dec edx
+        mov dword [byte esp+048h], edx
+        je near .6
+        jmp near .1
+.4:
+        mov dword [byte esp+010h], eax
+.5:
+        mov eax, edi
+        mov ebx, dword [byte esp+014h]
+        sar eax, 10h
+        imul eax, ebx
+        mov edx, ebp
+        sar edx, 10h
+        mov ecx, dword [byte esp+010h]
+        shl edx, 2
+        add ecx, eax
+        add ecx, edx
+        mov eax, dword [ecx]
+        mov edx, dword [byte ecx+04h]
+        add ecx, ebx
+        mov ebx, dword [ecx]
+        mov dword [byte esp+04h], ebx
+        mov ebx, dword [byte ecx+04h]
+        mov ecx, ebp
+        and ecx, 0FFFFh
+        mov dword [esp], ebx
+        mov ebx, ecx
+        call BlendPixels
+        mov edx, dword [esp]
+        mov dword [byte esp+08h], eax
+        mov ebx, ecx
+        mov eax, dword [byte esp+04h]
+        call BlendPixels
+        mov ebx, edi
+        mov edx, eax
+        mov eax, dword [byte esp+08h]
+        and ebx, 0FFFFh
+        call BlendPixels
+        push eax
+        mov ecx, dword [byte esp+048h]
+        push ecx
+        mov eax, dword [byte esp+048h]
+        push eax
+        call PlotPixelRGB
+        add esp, byte 0Ch
+        add esi, byte 2
+        mov edx, dword [byte esp+040h]
+        mov ebx, dword [byte esp+038h]
+        mov ecx, dword [byte esp+03Ch]
+        mov eax, dword [byte esp+048h]
+        inc edx
+        add ebp, ebx
+        add edi, ecx
+        mov dword [byte esp+040h], edx
+        dec eax
+        mov dword [byte esp+048h], eax
+        jne near .5
+.6:
+        add esp, byte 18h
+        pop ebp
+        pop edi
+        pop esi
+        pop ebx
+        ret
+        db 08Dh,040h,00h
+        push ebx
+        push esi
+        push edi
+        push ebp
+        sub esp, byte 1Ch
+        mov edi, dword [byte esp+034h]
+        mov ebp, dword [byte esp+038h]
+        cmp dword [byte esp+04Ch], byte 0
+        jle near .12
+        mov ebx, dword [byte esp+048h]
+        xor ecx, ecx
+        mov eax, dword [byte esp+044h]
+        mov cl, byte [ScreenBitsPerPixel]
+        mov edx, dword [DrawDestOffset]
+        mov eax, dword [edx+eax*4]
+        mov edx, dword [DrawDestBuffer]
+        add eax, dword [edx+ebx*4]
+        add eax, dword [DrawDestPitch]
+        mov esi, eax
+        mov eax, dword [byte esp+030h]
+        mov eax, dword [byte eax+02h]
+        sar eax, 10h
+        mov dword [byte esp+018h], eax
+        mov eax, dword [byte esp+030h]
+        add eax, byte 10h
+        cmp ecx, byte 10h
+        jne near .10
+        mov dword [byte esp+014h], eax
+.7:
+        mov eax, ebp
+        mov ebx, dword [byte esp+018h]
+        sar eax, 10h
+        imul eax, ebx
+        mov edx, edi
+        mov ecx, dword [byte esp+014h]
+        sar edx, 10h
+        add eax, ecx
+        add eax, edx
+        xor edx, edx
+        mov dl, byte [eax]
+        mov edx, dword [nosplit edx*4+PaletteWords]
+        mov dword [byte esp+08h], edx
+        xor edx, edx
+        mov ecx, edi
+        mov dl, byte [byte eax+01h]
+        add eax, ebx
+        and ecx, 0FFFFh
+        mov ebx, dword [eax]
+        mov eax, dword [byte eax+04h]
+        mov edx, dword [nosplit edx*4+PaletteWords]
+        mov ebx, dword [nosplit ebx*4+PaletteWords]
+        mov eax, dword [nosplit eax*4+PaletteWords]
+        mov dword [byte esp+04h], ebx
+        mov dword [esp], eax
+        mov ebx, ecx
+        mov eax, dword [byte esp+08h]
+        call BlendPixels
+        mov edx, dword [esp]
+        mov dword [byte esp+0Ch], eax
+        mov ebx, ecx
+        mov eax, dword [byte esp+04h]
+        call BlendPixels
+        mov ebx, ebp
+        mov edx, eax
+        mov eax, dword [byte esp+0Ch]
+        and ebx, 0FFFFh
+        call BlendPixels
+        mov ebx, eax
+        cmp ebx, 10000000h
+        jb short .9
+        cmp ebx, 0F0000000h
+        jae short .8
+        mov ax, word [esi]
+        mov ecx, ebx
+        mov edx, eax
+        xor ecx, byte 0FFFFFFFFh
+        shl eax, 10h
+        mov al, dl
+        and edx, 7E0h
+        shl edx, 8
+        and eax, 0F800001Fh
+        shr ecx, 18h
+        add eax, edx
+        mul ecx
+        shl edx, 10h
+        mov ecx, eax
+        shr ecx, 5
+        add ebx, edx
+        shr eax, 0Bh
+        and ecx, 0FFh
+        and eax, 0FF00h
+        add ebx, ecx
+        add ebx, eax
+.8:
+        mov eax, ebx
+        and ebx, 0F80000h
+        shr ebx, 8
+        mov edx, eax
+        shr eax, 3
+        and edx, 0FC00h
+        shr edx, 5
+        and eax, byte 1Fh
+        add ebx, eax
+        add ebx, edx
+        mov word [esi], bx
+.9:
+        lea esi, [byte esi+02h]
+        mov ecx, dword [byte esp+03Ch]
+        mov eax, dword [byte esp+040h]
+        mov edx, dword [byte esp+04Ch]
+        add edi, ecx
+        add ebp, eax
+        dec edx
+        mov dword [byte esp+04Ch], edx
+        je near .12
+        jmp near .7
+.10:
+        mov dword [byte esp+010h], eax
+.11:
+        mov eax, ebp
+        mov ebx, dword [byte esp+018h]
+        sar eax, 10h
+        imul eax, ebx
+        mov edx, edi
+        mov ecx, dword [byte esp+010h]
+        sar edx, 10h
+        add eax, ecx
+        add eax, edx
+        xor edx, edx
+        mov dl, byte [eax]
+        mov edx, dword [nosplit edx*4+PaletteWords]
+        mov dword [byte esp+08h], edx
+        xor edx, edx
+        mov ecx, edi
+        mov dl, byte [byte eax+01h]
+        add eax, ebx
+        and ecx, 0FFFFh
+        mov ebx, dword [eax]
+        mov eax, dword [byte eax+04h]
+        mov edx, dword [nosplit edx*4+PaletteWords]
+        mov ebx, dword [nosplit ebx*4+PaletteWords]
+        mov eax, dword [nosplit eax*4+PaletteWords]
+        mov dword [byte esp+04h], ebx
+        mov dword [esp], eax
+        mov ebx, ecx
+        mov eax, dword [byte esp+08h]
+        call BlendPixels
+        mov edx, dword [esp]
+        mov dword [byte esp+0Ch], eax
+        mov ebx, ecx
+        mov eax, dword [byte esp+04h]
+        call BlendPixels
+        mov ebx, ebp
+        mov edx, eax
+        mov eax, dword [byte esp+0Ch]
+        and ebx, 0FFFFh
+        call BlendPixels
+        push eax
+        mov ecx, dword [byte esp+04Ch]
+        push ecx
+        mov eax, dword [byte esp+04Ch]
+        push eax
+        call PlotPixelRGB
+        add esp, byte 0Ch
+        add esi, byte 2
+        mov edx, dword [byte esp+044h]
+        mov ebx, dword [byte esp+03Ch]
+        mov ecx, dword [byte esp+040h]
+        mov eax, dword [byte esp+04Ch]
+        inc edx
+        add edi, ebx
+        add ebp, ecx
+        mov dword [byte esp+044h], edx
+        dec eax
+        mov dword [byte esp+04Ch], eax
+        jne near .11
+.12:
+        add esp, byte 1Ch
+        pop ebp
+        pop edi
+        pop esi
+        pop ebx
+        ret
+;-----------------------------------------------------------------------------
+; DrawShapeBlended                               101EAC  97 PC, low confidence
+; Draws a shape blended with the screen
+;-----------------------------------------------------------------------------
+DrawShapeBlended:
+        push ebx
+        push esi
+        push edi
+        push ebp
+        sub esp, byte 1Ch
+        mov esi, dword [byte esp+03Ch]
+        mov eax, dword [byte esp+034h]
+        xor edx, edx
+        mov eax, dword [eax]
+        and eax, byte 7Fh
+        mov al, byte [dword eax+ShadeTable]
+        mov dword [byte esp+08h], edx
+        cmp eax, byte 20h
+        je short .1
+        push byte 20h
+        mov ebx, dword [byte esp+038h]
+        push ebx
+        call ConvertArtNew
+        add esp, byte 8
+        mov dword [byte esp+08h], eax
+        mov dword [byte esp+034h], eax
+.1:
+        mov ebx, dword [byte esp+030h]
+        test ebx, ebx
+        jge short .2
+        neg ebx
+.2:
+        mov eax, dword [byte esp+034h]
+        mov ecx, dword [byte esp+034h]
+        mov edx, ebx
+        mov eax, dword [byte eax+04h]
+        mov ecx, dword [byte ecx+02h]
+        sar eax, 10h
+        sar ecx, 10h
+        mov dword [esp], eax
+        mov eax, ecx
+        imul edx
+        shl edx, 10h
+        shr eax, 10h
+        adc eax, edx
+        mov edi, eax
+        mov dword [byte esp+018h], eax
+        mov edx, ebx
+        mov eax, dword [esp]
+        imul edx
+        shl edx, 10h
+        shr eax, 10h
+        adc eax, edx
+        mov ebp, eax
+        cmp edi, byte 2
+        jge short .3
+        mov dword [byte esp+018h], 2
+.3:
+        cmp ebp, byte 2
+        jge short .4
+        mov ebp, 2
+.4:
+        cmp ebx, 28Fh
+        jle near .12
+        mov edx, 1
+        mov eax, 0
+        idiv ebx
+        mov edx, eax
+        sar edx, 1Fh
+        LD sub, eax, edx
+        sar eax, 1
+        lea ebx, [dword eax-08000h]
+        test ebx, ebx
+        jge short .5
+        xor ebx, ebx
+.5:
+        mov eax, dword [esp]
+        mov edi, ebx
+        dec eax
+        lea edx, [byte ecx-01h]
+        shl eax, 10h
+        shl edx, 10h
+        sub eax, ebx
+        mov ecx, ebx
+        mov dword [byte esp+04h], eax
+        mov eax, dword [byte esp+030h]
+        sub edx, ebx
+        test eax, eax
+        jge short .6
+        mov ecx, dword [byte esp+04h]
+        mov edi, edx
+        mov edx, ebx
+        mov dword [byte esp+04h], ebx
+.6:
+        mov ebx, dword [byte esp+018h]
+        sub edx, edi
+        dec ebx
+        mov eax, edx
+        sar edx, 1Fh
+        idiv ebx
+        mov edx, dword [byte esp+04h]
+        mov dword [byte esp+0Ch], eax
+        sub edx, ecx
+        lea ebx, [byte ebp-01h]
+        mov eax, edx
+        sar edx, 1Fh
+        idiv ebx
+        mov edx, dword [ClipTopRow]
+        mov ebx, ecx
+        mov ecx, dword [byte esp+038h]
+        mov dword [byte esp+014h], edi
+        sub edx, ecx
+        mov dword [byte esp+010h], eax
+        test edx, edx
+        jle short .7
+        lea eax, [ecx+edx]
+        mov dword [byte esp+038h], eax
+        mov eax, dword [byte esp+0Ch]
+        imul eax, edx
+        mov ecx, dword [byte esp+018h]
+        sub ecx, edx
+        add edi, eax
+        mov dword [byte esp+018h], ecx
+        mov dword [byte esp+014h], edi
+.7:
+        mov eax, dword [byte esp+038h]
+        mov edi, dword [byte esp+018h]
+        mov edx, dword [ClipRight]
+        add eax, edi
+        sub eax, edx
+        test eax, eax
+        jle short .8
+        mov ecx, edi
+        sub ecx, eax
+        mov dword [byte esp+018h], ecx
+.8:
+        mov edx, dword [ClipLeftCol]
+        sub edx, esi
+        test edx, edx
+        jle short .9
+        mov eax, dword [byte esp+010h]
+        imul eax, edx
+        add esi, edx
+        sub ebp, edx
+        add ebx, eax
+.9:
+        mov edi, dword [ScreenHeight]
+        lea eax, [esi+ebp]
+        sub eax, edi
+        test eax, eax
+        jle short .10
+        sub ebp, eax
+.10:
+        xor edi, edi
+        test ebp, ebp
+        jle short .12
+.11:
+        mov eax, dword [byte esp+018h]
+        push eax
+        push esi
+        mov edx, dword [byte esp+040h]
+        push edx
+        push byte 0
+        mov ecx, dword [byte esp+01Ch]
+        push ecx
+        push ebx
+        mov eax, dword [byte esp+02Ch]
+        push eax
+        mov edx, dword [byte esp+050h]
+        push edx
+        call BlendShapeRows
+        add esp, byte 20h
+        inc edi
+        mov ecx, dword [byte esp+010h]
+        inc esi
+        add ebx, ecx
+        cmp edi, ebp
+        jl short .11
+.12:
+        mov esi, dword [byte esp+08h]
+        test esi, esi
+        je short .13
+        push esi
+        call FreeMemBlock
+        add esp, byte 4
+.13:
+        add esp, byte 1Ch
+        pop ebp
+        pop edi
+        pop esi
+        pop ebx
+        ret
+        db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
+DrawShapeBlended_1F4:
+        push ecx
+        inc ebx
+        sar ebx, 1
+        push ebx
+        push edx
+        push eax
+        call bcopy
+        add esp, byte 0Ch
+        pop ecx
+        ret
+        db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; ConvertRow4To8                                 1020B4  97 PC, low confidence
+; Converts a row of 4-bit pixels to 8-bit
+;-----------------------------------------------------------------------------
+ConvertRow4To8:
+        push esi
+        push edi
+        mov edi, eax
+        mov esi, ebx
+        xor eax, eax
+        test ebx, ebx
+        jle short .4
+.1:
+        mov ebx, eax
+        sar ebx, 1
+        add ebx, edi
+        test al, 1
+        je short .2
+        mov bl, byte [ebx]
+        and ebx, 0FFh
+        sar ebx, 4
+        jmp short .3
+.2:
+        mov bl, byte [ebx]
+        and bl, 0Fh
+        and ebx, 0FFh
+.3:
+        inc edx
+        inc eax
+        mov byte [byte edx-01h], bl
+        cmp eax, esi
+        jl short .1
+.4:
+        pop edi
+        pop esi
+        ret
+        db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; ConvertRow4To16                                1020F0  97 PC, low confidence
+; Converts a row of 4-bit pixels to 16-bit
+;-----------------------------------------------------------------------------
+ConvertRow4To16:
+        push ecx
+        push esi
+        push edi
+        mov ecx, eax
+        mov esi, edx
+        mov edi, ebx
+        xor eax, eax
+        test ebx, ebx
+        jle short .4
+        mov edx, ecx
+.1:
+        mov ebx, eax
+        sar ebx, 1
+        add ebx, esi
+        test al, 1
+        je short .2
+        mov bl, byte [ebx]
+        xor ecx, ecx
+        and bl, 0Fh
+        mov cl, bl
+        xor ebx, ebx
+        mov bl, byte [edx]
+        shl ebx, 4
+        jmp short .3
+.2:
+        mov bl, byte [ebx]
+        xor ecx, ecx
+        and bl, 0F0h
+        mov cl, bl
+        mov bl, byte [edx]
+        and bl, 0Fh
+        and ebx, 0FFh
+.3:
+        or ebx, ecx
+        mov cl, bl
+        mov ebx, eax
+        inc edx
+        sar ebx, 1
+        inc eax
+        mov byte [esi+ebx], cl
+        cmp eax, edi
+        jl short .1
+.4:
+        pop edi
+        pop esi
+        pop ecx
+        ret
+        db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; ConvertRow8To8                                 102148  97 PC, low confidence
+; Copies a row of 8-bit pixels
+;-----------------------------------------------------------------------------
+ConvertRow8To8:
+        push ecx
+        push ebx
+        push edx
+        push eax
+        call bcopy
+        add esp, byte 0Ch
+        pop ecx
+        ret
+        db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; ConvertRow8To16                                102158  97 PC, low confidence
+; Converts a row of 8-bit pixels to 16-bit
+;-----------------------------------------------------------------------------
+ConvertRow8To16:
+        push ecx
+        push esi
+        push edi
+        push ebp
+        mov ebp, dword [ConvertDestBuffer]
+        mov ecx, eax
+        mov edi, ebx
+        xor esi, esi
+        test ebx, ebx
+        jle short .2
+.1:
+        xor eax, eax
+        mov al, byte [ecx]
+        lea ebx, [nosplit eax*4+00h]
+        lea eax, [ebx+ebp]
+        mov bl, byte [byte eax+02h]
+        mov byte [byte edx+02h], bl
+        mov bl, byte [byte eax+01h]
+        inc ecx
+        mov byte [byte edx+01h], bl
+        add edx, byte 3
+        mov al, byte [eax]
+        inc esi
+        mov byte [byte edx-03h], al
+        cmp esi, edi
+        jl short .1
+.2:
+        mov dword [ConvertDestBuffer], ebp
+        pop ebp
+        pop edi
+        pop esi
+        pop ecx
+        ret
+        db 090h
+;-----------------------------------------------------------------------------
+; ConvertRow16To16                               1021A0  97 PC, low confidence
+; Copies a row of 16-bit pixels
+;-----------------------------------------------------------------------------
+ConvertRow16To16:
+        push ecx
+        add ebx, ebx
+        push ebx
+        push edx
+        push eax
+        call bcopy
+        add esp, byte 0Ch
+        pop ecx
+        ret
+;-----------------------------------------------------------------------------
+; ConvertRow16To8                                1021B0  97 PC, low confidence
+; Converts a row of 16-bit pixels to 8-bit
+;-----------------------------------------------------------------------------
+ConvertRow16To8:
+        push ecx
+        push esi
+        push edi
+        push ebp
+        sub esp, byte 4
+        mov ecx, eax
+        mov dword [esp], ebx
+        mov esi, dword [esp]
+        xor ebx, ebx
+        test esi, esi
+        jle short .4
+.1:
+        mov ax, word [ecx]
+        mov ebp, dword [ConvertPalette]
+        and eax, 0FFFFh
+        cmp eax, ebp
+        jne short .2
+        mov dword [edx], 0
+        jmp short .3
+.2:
+        mov edi, eax
+        mov esi, eax
+        sar edi, 0Ah
+        sar esi, 5
+        and eax, byte 1Fh
+        and edi, byte 1Fh
+        and esi, byte 1Fh
+        shl edi, 13h
+        shl esi, 0Bh
+        or edi, 0FF000000h
+        shl eax, 3
+        or esi, edi
+        or esi, eax
+        mov dword [edx], esi
+.3:
+        mov edi, dword [esp]
+        add ecx, byte 2
+        inc ebx
+        add edx, byte 4
+        cmp ebx, edi
+        jl short .1
+.4:
+        add esp, byte 4
+        pop ebp
+        pop edi
+        pop esi
+        pop ecx
+        ret
+        db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; ConvertRow16To15                               102220  97 PC, low confidence
+; Converts a row of 16-bit pixels to 15-bit
+;-----------------------------------------------------------------------------
+ConvertRow16To15:
+        push ecx
+        push esi
+        push edi
+        push ebp
+        sub esp, byte 10h
+        mov esi, eax
+        mov edi, edx
+        mov ebp, ebx
+        cmp dword [QuantizePalette], byte 0
+        jne short .2
+        xor ebx, ebx
+        test ebp, ebp
+        jle near .4
+.1:
+        mov ax, word [esi]
+        and eax, 0FFFFh
+        mov edx, eax
+        sar edx, 0Bh
+        and edx, byte 1Fh
+        mov dword [byte esp+08h], edx
+        mov edx, eax
+        sar edx, 5
+        and edx, byte 3Fh
+        and eax, byte 1Fh
+        mov dword [byte esp+0Ch], edx
+        mov edx, dword [byte esp+08h]
+        mov ecx, dword [byte esp+0Ch]
+        shl edx, 13h
+        shl ecx, 0Ah
+        or edx, 0FF000000h
+        shl eax, 3
+        or edx, ecx
+        inc edi
+        or eax, edx
+        add esi, byte 2
+        push eax
+        inc ebx
+        call MakeColor
+        add esp, byte 4
+        mov byte [byte edi-01h], al
+        cmp ebx, ebp
+        jge short .4
+        jmp short .1
+.2:
+        xor ebx, ebx
+        test ebp, ebp
+        jle short .4
+.3:
+        mov ax, word [esi]
+        and eax, 0FFFFh
+        mov edx, eax
+        sar edx, 0Bh
+        and edx, byte 1Fh
+        mov dword [byte esp+04h], edx
+        mov edx, eax
+        sar edx, 5
+        and eax, byte 1Fh
+        and edx, byte 3Fh
+        mov dword [esp], eax
+        mov eax, dword [byte esp+04h]
+        sar edx, 1
+        shl eax, 0Ah
+        shl edx, 5
+        mov ecx, dword [esp]
+        or eax, edx
+        mov edx, dword [QuantizePalette]
+        or eax, ecx
+        inc edi
+        add esi, byte 2
+        mov al, byte [edx+eax]
+        inc ebx
+        mov byte [byte edi-01h], al
+        cmp ebx, ebp
+        jl short .3
+.4:
+        add esp, byte 10h
+        pop ebp
+        pop edi
+        pop esi
+        pop ecx
+        ret
+        db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; ConvertRow15To15                               1022F0  97 PC, low confidence
+; Copies a row of 15-bit pixels
+;-----------------------------------------------------------------------------
+ConvertRow15To15:
+        push ecx
+        add ebx, ebx
+        push ebx
+        push edx
+        push eax
+        call bcopy
+        add esp, byte 0Ch
+        pop ecx
+        ret
+;-----------------------------------------------------------------------------
+; ConvertRow15To16                               102300  97 PC, low confidence
+; Converts a row of 15-bit pixels to 16-bit
+;-----------------------------------------------------------------------------
+ConvertRow15To16:
+        push ecx
+        push esi
+        push edi
+        sub esp, byte 0Ch
+        mov ecx, eax
+        mov edi, ebx
+        xor ebx, ebx
+        test edi, edi
+        jle short .2
+.1:
+        mov ax, word [ecx]
+        and eax, 0FFFFh
+        mov esi, eax
+        sar esi, 0Bh
+        and esi, byte 1Fh
+        shl esi, 3
+        add edx, byte 3
+        mov dword [byte esp+08h], esi
+        mov esi, eax
+        and eax, byte 1Fh
+        sar esi, 5
+        shl eax, 3
+        and esi, byte 3Fh
+        mov dword [esp], eax
+        shl esi, 2
+        mov al, byte [esp]
+        mov dword [byte esp+04h], esi
+        mov byte [byte edx-03h], al
+        mov al, byte [byte esp+04h]
+        add ecx, byte 2
+        mov byte [byte edx-02h], al
+        mov al, byte [byte esp+08h]
+        inc ebx
+        mov byte [byte edx-01h], al
+        cmp ebx, edi
+        jl short .1
+.2:
+        add esp, byte 0Ch
+        pop edi
+        pop esi
+        pop ecx
+        ret
+        db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; ConvertRow15To8                                102368  97 PC, low confidence
+; Converts a row of 15-bit pixels to 8-bit
+;-----------------------------------------------------------------------------
+ConvertRow15To8:
+        push ecx
+        push esi
+        push edi
+        push ebp
+        sub esp, byte 8
+        mov ecx, eax
+        mov dword [byte esp+04h], ebx
+        mov esi, dword [byte esp+04h]
+        xor ebx, ebx
+        test esi, esi
+        jle short .4
+.1:
+        mov ax, word [ecx]
+        mov ebp, dword [ConvertPalette]
+        and eax, 0FFFFh
+        cmp eax, ebp
+        jne short .2
+        mov dword [edx], 0
+        jmp short .3
+.2:
+        mov edi, eax
+        mov esi, eax
+        sar edi, 0Bh
+        and eax, byte 1Fh
+        sar esi, 5
+        shl eax, 3
+        and edi, byte 1Fh
+        mov dword [esp], eax
+        mov eax, edi
+        and esi, byte 3Fh
+        shl eax, 13h
+        shl esi, 0Ah
+        or eax, 0FF000000h
+        or eax, esi
+        mov esi, dword [esp]
+        or esi, eax
+        mov dword [edx], esi
+.3:
+        mov edi, dword [byte esp+04h]
+        add ecx, byte 2
+        inc ebx
+        add edx, byte 4
+        cmp ebx, edi
+        jl short .1
+.4:
+        add esp, byte 8
+        pop ebp
+        pop edi
+        pop esi
+        pop ecx
+        ret
+        db 090h
+;-----------------------------------------------------------------------------
+; ConvertRow24To24                               1023E0  97 PC, low confidence
+; Copies a row of 24-bit pixels
+;-----------------------------------------------------------------------------
+ConvertRow24To24:
+        push ecx
+        push esi
+        mov ecx, eax
+        mov esi, edx
+        mov edx, ebx
+        lea eax, [nosplit ebx*4+00h]
+        sub eax, ebx
+        push eax
+        push esi
+        push ecx
+        call bcopy
+        add esp, byte 0Ch
+        pop esi
+        pop ecx
+        ret
+        db 090h
+;-----------------------------------------------------------------------------
+; ConvertRow32To16                               102400  97 PC, low confidence
+; Converts a row of 32-bit pixels to 16-bit
+;-----------------------------------------------------------------------------
+ConvertRow32To16:
+        push ecx
+        push esi
+        push edi
+        push ebp
+        sub esp, byte 4
+        mov dword [esp], ebx
+        mov ecx, dword [esp]
+        xor ebx, ebx
+        test ecx, ecx
+        jle short .2
+.1:
+        xor ecx, ecx
+        add edx, byte 4
+        mov cl, byte [byte eax+02h]
+        movzx esi, byte [byte eax+01h]
+        mov edi, ecx
+        movzx ebp, byte [eax]
+        shl edi, 10h
+        mov ecx, esi
+        or edi, 0FF000000h
+        shl ecx, 8
+        add eax, byte 3
+        or ecx, edi
+        inc ebx
+        or ecx, ebp
+        mov esi, dword [esp]
+        mov dword [byte edx-04h], ecx
+        cmp ebx, esi
+        jl short .1
+.2:
+        add esp, byte 4
+        pop ebp
+        pop edi
+        pop esi
+        pop ecx
+        ret
+;-----------------------------------------------------------------------------
+; ConvertRow24To16                               10244C  97 PC, low confidence
+; Converts a row of 24-bit pixels to 16-bit
+;-----------------------------------------------------------------------------
+ConvertRow24To16:
+        push ecx
+        push esi
+        sub esp, byte 0Ch
+        mov esi, ebx
+        xor ebx, ebx
+        test esi, esi
+        jle short .2
+.1:
+        xor ecx, ecx
+        mov cl, byte [byte eax+02h]
+        mov dword [byte esp+08h], ecx
+        xor ecx, ecx
+        mov cl, byte [byte eax+01h]
+        mov dword [byte esp+04h], ecx
+        xor ecx, ecx
+        mov cl, byte [eax]
+        mov dword [esp], ecx
+        add edx, byte 3
+        mov cl, byte [esp]
+        mov byte [byte edx-03h], cl
+        mov cl, byte [byte esp+04h]
+        add eax, byte 4
+        mov byte [byte edx-02h], cl
+        mov cl, byte [byte esp+08h]
+        inc ebx
+        mov byte [byte edx-01h], cl
+        cmp ebx, esi
+        jl short .1
+.2:
+        add esp, byte 0Ch
+        pop esi
+        pop ecx
+        ret
+        db 090h
+;-----------------------------------------------------------------------------
+; ConvertRow32To32                               102498  97 PC, low confidence
+; Copies a row of 32-bit pixels
+;-----------------------------------------------------------------------------
+ConvertRow32To32:
+        push ecx
+        shl ebx, 2
+        push ebx
+        push edx
+        push eax
+        call bcopy
+        add esp, byte 0Ch
+        pop ecx
+        ret
+        db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; ConvertRowPalTo16                              1024AC  97 PC, low confidence
+; Converts a row of palette pixels to 16-bit
+;-----------------------------------------------------------------------------
+ConvertRowPalTo16:
+        push ecx
+        push esi
+        push edi
+        sub esp, byte 0Ch
+        mov dword [byte esp+04h], ebx
+        mov ecx, dword [byte esp+04h]
+        xor ebx, ebx
+        test ecx, ecx
+        jle short .2
+.1:
+        add eax, byte 4
+        add edx, byte 2
+        movzx esi, byte [byte eax-03h]
+        xor ecx, ecx
+        movzx edi, byte [byte eax-04h]
+        mov cl, byte [byte eax-02h]
+        sar esi, 3
+        sar ecx, 3
+        sar edi, 3
+        shl ecx, 0Ah
+        mov dword [esp], edi
+        mov dword [byte esp+08h], ecx
+        mov ecx, esi
+        mov esi, dword [byte esp+08h]
+        shl ecx, 5
+        mov edi, dword [esp]
+        or ecx, esi
+        inc ebx
+        or ecx, edi
+        mov esi, dword [byte esp+04h]
+        mov word [byte edx-02h], cx
+        cmp ebx, esi
+        jl short .1
+.2:
+        add esp, byte 0Ch
+        pop edi
+        pop esi
+        pop ecx
+        ret
+        db 08Bh,0C0h
+        cmp eax, byte 0Fh
+        jb short .4
+        jbe short .5
+        cmp eax, byte 18h
+        jb short .3
+        jbe short .7
+        cmp eax, byte 20h
+        je short .8
+        xor eax, eax
+        ret
+.3:
+        cmp eax, byte 10h
+        je short .6
+        xor eax, eax
+        ret
+.4:
+        cmp eax, byte 4
+        jb short .9
+        jbe short .9
+        cmp eax, byte 8
+        jne short .9
+        mov eax, 1
+        ret
+.5:
+        mov eax, 2
+        ret
+.6:
+        mov eax, 3
+        ret
+.7:
+        mov eax, 4
+        ret
+.8:
+        mov eax, 5
+        ret
+.9:
+        xor eax, eax
+        ret
+        db 090h
+;-----------------------------------------------------------------------------
+; MapArtType                                     102558  97 PC, low confidence
+; Maps an art type to its pixel format
+;-----------------------------------------------------------------------------
+MapArtType:
+        cmp eax, byte 68h
+        jl short .1
+        cmp eax, byte 70h
+        jge short .1
+        add eax, byte 10h
+.1:
+        cmp eax, byte 78h
+        jb short .3
+        jbe near .8
+        cmp eax, byte 7Dh
+        jb short .2
+        jbe near .10
+        cmp eax, byte 7Eh
+        jbe short .7
+        cmp eax, byte 7Fh
+        je short .9
+        jmp short .12
+.2:
+        cmp eax, byte 7Ah
+        jb short .12
+        jbe short .5
+        cmp eax, byte 7Bh
+        je short .6
+        jmp short .12
+.3:
+        cmp eax, byte 41h
+        jb short .4
+        jbe short .6
+        cmp eax, byte 42h
+        jbe short .11
+        cmp eax, byte 43h
+        je short .9
+        jmp short .12
+.4:
+        cmp eax, byte 40h
+        jne short .12
+.5:
+        xor eax, eax
+        ret
+.6:
+        mov eax, 1
+        ret
+.7:
+        mov eax, 2
+        ret
+.8:
+        mov eax, 3
+        ret
+.9:
+        mov eax, 4
+        ret
+.10:
+        mov eax, 5
+        ret
+.11:
+        mov eax, 6
+        ret
+.12:
+        mov eax, 0FFFFFFFFh
+        ret
+        db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; ConvertArtPalette                              1025DC  97 PC, low confidence
+; Converts a shape's palette for the screen
+;-----------------------------------------------------------------------------
+ConvertArtPalette:
+        push ebx
+        push ecx
+        push esi
+        sub esp, 200h
+        mov esi, edx
+        push eax
+        mov ebx, PaletteWords
+        call FindPaletteChunk
+        add esp, byte 4
+        test eax, eax
+        je near .6
+        mov edx, dword [eax]
+        and edx, 0FFh
+        add eax, byte 10h
+        cmp edx, byte 2Ah
+        jne short .1
+        mov ebx, eax
+        jmp near .6
+.1:
+        cmp edx, byte 24h
+        jne short .2
+        push esi
+        push eax
+        push dword 100h
+        mov ebx, esi
+        call CopyPaletteRGB
+        add esp, byte 0Ch
+        mov eax, ebx
+        add esp, 200h
+        pop esi
+        pop ecx
+        pop ebx
+        ret
+.2:
+        cmp edx, byte 29h
+        jne short .3
+        mov ebx, 100h
+        mov edx, esi
+        call ConvertRow15To8
+        jmp short .5
+.3:
+        cmp edx, byte 22h
+        jne short .4
+        push esi
+        push eax
+        push dword 100h
+        mov ebx, esi
+        call ExpandPalette6To8
+        add esp, byte 0Ch
+        mov eax, ebx
+        add esp, 200h
+        pop esi
+        pop ecx
+        pop ebx
+        ret
+.4:
+        cmp edx, byte 23h
+        jne short .6
+        mov ebx, 100h
+        mov edx, esp
+        call SwapRedBlue555
+        mov ebx, 100h
+        mov eax, esp
+        mov edx, esi
+        call ConvertRow16To8
+.5:
+        mov ebx, esi
+.6:
+        mov eax, ebx
+        add esp, 200h
+        pop esi
+        pop ecx
+        pop ebx
+        ret
+;-----------------------------------------------------------------------------
+; ConvertArtPalette16                            102698  97 PC, low confidence
+; Converts a shape's palette for a 16-bit screen
+;-----------------------------------------------------------------------------
+ConvertArtPalette16:
+        push ebx
+        push ecx
+        push esi
+        sub esp, 400h
+        mov esi, edx
+        push eax
+        call FindPaletteChunk
+        add esp, byte 4
+        test eax, eax
+        je near .5
+        mov edx, dword [eax]
+        and edx, 0FFh
+        add eax, byte 10h
+        cmp edx, byte 29h
+        jne short .1
+        mov ebx, eax
+        jmp near .8
+.1:
+        cmp edx, byte 24h
+        jne short .2
+        mov edx, esp
+        push edx
+        push eax
+        push dword 100h
+        mov ebx, 100h
+        call CopyPaletteRGB
+        add esp, byte 0Ch
+        mov eax, esp
+        jmp short .6
+.2:
+        cmp edx, byte 2Ah
+        jne short .3
+        mov ebx, 100h
+        jmp short .6
+.3:
+        cmp edx, byte 22h
+        jne short .4
+        mov edx, esp
+        push edx
+        push eax
+        push dword 100h
+        mov ebx, 100h
+        call ExpandPalette6To8
+        add esp, byte 0Ch
+        mov eax, esp
+        jmp short .6
+.4:
+        cmp edx, byte 23h
+        jne short .8
+        mov ebx, 100h
+        mov edx, esi
+        call SwapRedBlue555
+        jmp short .7
+.5:
+        mov ebx, 100h
+        mov eax, PaletteWords
+.6:
+        mov edx, esi
+        call Convert32To565Keyed
+.7:
+        mov ebx, esi
+.8:
+        mov eax, ebx
+        add esp, 400h
+        pop esi
+        pop ecx
+        pop ebx
+        ret
+        db 090h
+;-----------------------------------------------------------------------------
+; ConvertArtRows                                 102748  97 PC, low confidence
+; Converts the rows of a shape
+;-----------------------------------------------------------------------------
+ConvertArtRows:
+        push ecx
+        push esi
+        push edi
+        push ebp
+        sub esp, byte 8
+        mov esi, eax
+        mov dword [byte esp+04h], ebx
+        mov ebx, dword [eax]
+        and ebx, 0FFh
+        mov eax, ebx
+        call MapArtType
+        mov ecx, eax
+        shl eax, 3
+        sub eax, ecx
+        mov ecx, eax
+        mov eax, edx
+        call MapArtType
+        add ecx, eax
+        xor eax, eax
+        mov al, byte [dword ecx+ArtFormatCodes]
+        xor ebp, ebp
+        mov dword [esp], eax
+        cmp edx, eax
+        jne near .6
+        cmp dword [byte esp+04h], byte 0
+        je short .1
+        mov eax, ebx
+        call MapArtType
+        mov ebx, eax
+        shl eax, 3
+        sub eax, ebx
+        mov ebx, eax
+        mov eax, edx
+        call MapArtType
+        add eax, ebx
+        mov ebp, dword [nosplit eax*4+ArtRowFuncs8]
+        jmp short .2
+.1:
+        mov eax, ebx
+        call MapArtType
+        mov ebx, eax
+        shl eax, 3
+        sub eax, ebx
+        mov ebx, eax
+        mov eax, edx
+        call MapArtType
+        add eax, ebx
+        mov ebp, dword [nosplit eax*4+ArtRowFuncs16]
+.2:
+        mov eax, esi
+        mov eax, dword [eax]
+        and eax, byte 7Fh
+        mov al, byte [dword eax+ShadeTable]
+        mov ecx, eax
+        mov eax, esp
+        mov eax, dword [eax]
+        and eax, byte 7Fh
+        mov al, byte [dword eax+ShadeTable]
+        mov edi, eax
+        cmp ecx, byte 8
+        jg near .6
+        cmp eax, byte 8
+        jle near .6
+        mov edx, IndexTo16Entries
+        mov eax, esi
+        mov ebx, 1
+        call ConvertArtPalette
+        mov edx, dword [byte esp+04h]
+        mov dword [ConvertDestBuffer], eax
+        shl ebx, cl
+        test edx, edx
+        je short .4
+        cmp edi, byte 0Fh
+        jne short .3
+        mov edx, IndexTo16Entries
+        call Convert32To555Keyed
+        jmp short .6
+.3:
+        cmp edi, byte 10h
+        jne short .6
+        mov edx, IndexTo16Entries
+        call Convert32To565Keyed
+        jmp short .6
+.4:
+        cmp edi, byte 0Fh
+        jne short .5
+        mov edx, IndexTo16Entries
+        call ConvertRowPalTo16
+        mov eax, ebp
+        add esp, byte 8
+        pop ebp
+        pop edi
+        pop esi
+        pop ecx
+        ret
+.5:
+        cmp edi, byte 10h
+        jne short .6
+        mov edx, IndexTo16Entries
+        call Convert32To565
+.6:
+        mov eax, ebp
+        add esp, byte 8
+        pop ebp
+        pop edi
+        pop esi
+        pop ecx
+        ret
+;-----------------------------------------------------------------------------
+; ConvertArtShape                                102878  97 PC, low confidence
+; Converts a shape to the screen format
+;-----------------------------------------------------------------------------
+ConvertArtShape:
+        push ebx
+        push esi
+        push edi
+        push ebp
+        sub esp, byte 4Ch
+        mov edi, dword [byte esp+060h]
+        mov ebx, 0Ah
+        xor edx, edx
+        push edi
+        mov dword [byte esp+030h], edx
+        mov dword [byte esp+034h], ebx
+        call FindPaletteChunk
+        add esp, byte 4
+        mov dword [byte esp+024h], eax
+.1:
+        cmp dword [byte esp+06Ch], byte 0
+        je short .2
+        mov eax, dword [edi]
+        and eax, 0FFh
+        call MapArtType
+        imul ebx, eax, byte 7
+        mov eax, dword [byte esp+064h]
+        call MapArtType
+        add eax, ebx
+        mov eax, dword [nosplit eax*4+ArtRowFuncs8]
+        jmp short .3
+.2:
+        mov eax, dword [edi]
+        and eax, 0FFh
+        call MapArtType
+        imul ebx, eax, byte 7
+        mov eax, dword [byte esp+064h]
+        call MapArtType
+        add eax, ebx
+        mov eax, dword [nosplit eax*4+ArtRowFuncs16]
+.3:
+        mov dword [byte esp+040h], eax
+        mov eax, dword [edi]
+        and eax, 0FFh
+        call MapArtType
+        imul ebx, eax, byte 7
+        mov eax, dword [byte esp+064h]
+        call MapArtType
+        add ebx, eax
+        xor eax, eax
+        mov al, byte [dword ebx+ArtFormatCodes]
+        mov dword [byte esp+020h], eax
+        mov eax, edi
+        mov eax, dword [eax]
+        and eax, byte 7Fh
+        mov al, byte [dword eax+ShadeTable]
+        mov ebx, eax
+        mov dword [byte esp+028h], eax
+        lea eax, [byte esp+020h]
+        mov eax, dword [eax]
+        and eax, byte 7Fh
+        mov al, byte [dword eax+ShadeTable]
+        mov esi, eax
+        mov dword [byte esp+038h], eax
+        inc eax
+        and al, 0FEh
+        mov ebp, eax
+        mov eax, dword [byte edi+02h]
+        sar eax, 10h
+        mov dword [byte esp+044h], eax
+        mov eax, dword [byte edi+04h]
+        sar eax, 10h
+        push edi
+        mov dword [byte esp+04Ch], eax
+        call ShapeRowBytes
+        add esp, byte 4
+        mov dword [byte esp+03Ch], eax
+        mov eax, dword [byte esp+044h]
+        imul eax, ebp
+        add eax, byte 7
+        and al, 0F8h
+        mov ebp, eax
+        sar ebp, 3
+        cmp ebx, byte 8
+        jg near .12
+        cmp esi, byte 8
+        jle near .12
+        mov cl, bl
+        mov ebx, 1
+        mov esi, dword [byte esp+068h]
+        shl ebx, cl
+        test esi, esi
+        je short .6
+        xor eax, eax
+        test ebx, ebx
+        jle short .5
+        xor ecx, ecx
+.4:
+        movzx esi, byte [dword eax+IdentityRemap]
+        add ecx, byte 4
+        mov esi, dword [nosplit esi*4+PaletteWords]
+        inc eax
+        mov dword [dword ecx+ProjAspect], esi
+        cmp eax, ebx
+        jl short .4
+.5:
+        mov dword [ConvertDestBuffer], IndexTo16Entries
+        jmp short .7
+.6:
+        mov edx, IndexTo16Entries
+        mov eax, dword [byte esp+024h]
+        call ConvertArtPalette
+        mov dword [ConvertDestBuffer], eax
+.7:
+        cmp dword [byte esp+06Ch], byte 0
+        je short .9
+        mov eax, dword [byte esp+038h]
+        cmp eax, byte 0Fh
+        jne short .8
+        mov edx, IndexTo16Entries
+        mov eax, dword [ConvertDestBuffer]
+        call Convert32To555Keyed
+        jmp short .11
+.8:
+        cmp eax, byte 10h
+        jne short .11
+        mov edx, IndexTo16Entries
+        mov eax, dword [ConvertDestBuffer]
+        call Convert32To565Keyed
+        jmp short .11
+.9:
+        mov ecx, dword [byte esp+038h]
+        cmp ecx, byte 0Fh
+        jne short .10
+        mov edx, IndexTo16Entries
+        mov eax, dword [ConvertDestBuffer]
+        call ConvertRowPalTo16
+        jmp short .11
+.10:
+        cmp ecx, byte 10h
+        jne short .11
+        mov edx, IndexTo16Entries
+        mov eax, dword [ConvertDestBuffer]
+        call Convert32To565
+.11:
+        xor ebx, ebx
+        mov dword [byte esp+068h], ebx
+.12:
+        mov ecx, dword [byte esp+038h]
+        push ecx
+        mov esi, dword [byte esp+02Ch]
+        push esi
+        push str_DtoD
+        lea eax, [byte esp+0Ch]
+        push eax
+        call sprintf_
+        add esp, byte 10h
+        mov esi, dword [byte esp+048h]
+        imul esi, ebp
+        mov eax, dword [MessageBoxActive]
+        push eax
+        lea eax, [byte esi+014h]
+        push eax
+        lea eax, [byte esp+08h]
+        push eax
+        call AllocMemBlock
+        add esp, byte 0Ch
+        push byte 4
+        add esi, eax
+        push dword 43534850h
+        add esi, byte 10h
+        push esi
+        mov ebx, eax
+        mov dword [byte esp+040h], eax
+        call StoreBigEndian
+        add esp, byte 0Ch
+        mov eax, dword [byte esp+020h]
+        mov byte [ebx], 0
+        and eax, 0FFh
+        mov edx, dword [ebx]
+        or edx, eax
+        mov eax, dword [byte esp+044h]
+        mov ecx, edx
+        mov dword [ebx], edx
+        and ecx, 0FFh
+        mov word [byte ebx+04h], ax
+        mov eax, dword [byte esp+048h]
+        mov dword [ebx], ecx
+        mov word [byte ebx+06h], ax
+        mov ax, word [byte edi+08h]
+        mov word [byte ebx+08h], ax
+        mov ax, word [byte edi+0Ah]
+        mov word [byte ebx+0Ah], ax
+        mov ax, word [byte edi+0Ch]
+        mov word [byte ebx+0Ch], ax
+        lea esi, [byte edi+010h]
+        mov ax, word [byte edi+0Eh]
+        lea ecx, [byte ebx+010h]
+        mov word [byte ebx+0Eh], ax
+        mov eax, dword [byte esp+048h]
+        xor edi, edi
+        test eax, eax
+        jle short .14
+.13:
+        mov ebx, dword [byte esp+044h]
+        mov edx, ecx
+        mov eax, esi
+        call dword [byte esp+040h]
+        inc edi
+        mov edx, dword [byte esp+03Ch]
+        mov ebx, dword [byte esp+048h]
+        add ecx, ebp
+        add esi, edx
+        cmp edi, ebx
+        jl short .13
+.14:
+        imul ebp, dword [byte esp+048h]
+        mov eax, dword [byte esp+034h]
+        add eax, ebp
+        mov ecx, 4
+        add eax, byte 10h
+        mov esi, dword [byte esp+02Ch]
+        mov eax, dword [eax]
+        bswap eax
+        neg ecx
+        lea ecx, [nosplit ecx*8+020h]
+        shr eax, cl
+        test esi, esi
+        je short .15
+        push esi
+        call FreeMemBlock
+        add esp, byte 4
+.15:
+        mov eax, dword [byte esp+034h]
+        mov dword [byte esp+02Ch], eax
+        mov edi, eax
+        mov eax, dword [eax]
+        mov ebp, dword [byte esp+064h]
+        and eax, 0FFh
+        cmp eax, ebp
+        je short .16
+        mov eax, dword [byte esp+030h]
+        dec eax
+        mov dword [byte esp+030h], eax
+        jne near .1
+.16:
+        mov eax, edi
+        add esp, byte 4Ch
+        pop ebp
+        pop edi
+        pop esi
+        pop ebx
+        ret
+        db 090h
+;-----------------------------------------------------------------------------
+; ConvertArtSame                                 102B78  97 PC, low confidence
+; Converts a shape in place
+;-----------------------------------------------------------------------------
+ConvertArtSame:
+        push ebx
+        push byte 1
+        push byte 0
+        mov edx, dword [byte esp+014h]
+        push edx
+        mov ebx, dword [byte esp+014h]
+        push ebx
+        call ConvertArtShape
+        add esp, byte 10h
+        pop ebx
+        ret
+        db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; ConvertArtNew                                  102B94  97 PC, low confidence
+; Converts a shape into a new block
+;-----------------------------------------------------------------------------
+ConvertArtNew:
+        push ebx
+        push byte 1
+        push byte 0
+        mov edx, dword [byte esp+014h]
+        push edx
+        call BytesPerPixelForDepth
+        add esp, byte 4
+        push eax
+        mov ebx, dword [byte esp+014h]
+        push ebx
+        call ConvertArtShape
+        add esp, byte 10h
+        pop ebx
+        ret
+        db 00h,00h

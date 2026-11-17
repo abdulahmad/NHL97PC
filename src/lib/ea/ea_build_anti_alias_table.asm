@@ -1,0 +1,1244 @@
+; EA library: BuildAntiAliasTable, ClipLineY, ClipLineX, DrawLineYPlot, DrawLineY and 3 more.
+bits 32
+%include "hockey.inc"
+section s_10B660 progbits alloc exec nowrite align=1
+extern AllocMemBlock, ClipBottomEdge, ClipLeft, ClipRightEdge, ClipTop, DrawDestBuffer, DrawDestPitch, FillRect
+extern FixedLerp, LineClipMaxX, LineClipMaxY, LineColor, LineDeltaX, LineDeltaY, LineEndX, LineEndY
+extern LineErrStepX, LineErrStepY, LineErrX, LineErrY, LinePattern, LineSteep, LineStepX, LineStepY
+extern LineX, LineY, MatchColor, PlotPixel, PlotPixelClipped, ScreenWidth, str_AALIAS, ViewHeight
+extern ViewOriginX, ViewOriginY, ViewWidth
+global BuildAntiAliasTable, ClipLineY, ClipLineX, DrawLineYPlot, DrawLineY, DrawLineXPlot, DrawLineX, DrawFixedLine
+;-----------------------------------------------------------------------------
+; BuildAntiAliasTable                         10B660  96 PC, medium confidence
+; The AALIAS table (1004h bytes) of blended colours for the 3D view's lines
+;-----------------------------------------------------------------------------
+BuildAntiAliasTable:
+        push esi
+        push edi
+        push ebp
+        sub esp, byte 20h
+        mov dword [byte esp+018h], eax
+        mov dword [byte esp+014h], edx
+        mov dword [byte esp+01Ch], ebx
+        mov dword [byte esp+0Ch], ecx
+        mov edx, dword [byte esp+030h]
+        push edx
+        push dword 1004h
+        push str_AALIAS
+        call AllocMemBlock
+        add esp, byte 0Ch
+        mov edi, eax
+        mov ebx, dword [byte esp+018h]
+        mov dword [byte esp+04h], eax
+        mov eax, dword [byte esp+014h]
+        shl ebx, 10h
+        shl eax, 8
+        inc edi
+        or eax, ebx
+        mov ebx, dword [byte esp+01Ch]
+        inc edi
+        or eax, ebx
+        inc edi
+        push eax
+        inc edi
+        call MatchColor
+        add esp, byte 4
+        mov byte [byte edi-04h], al
+        mov al, byte [byte esp+018h]
+        mov byte [byte edi-03h], al
+        mov al, byte [byte esp+014h]
+        mov byte [byte edi-02h], al
+        mov al, byte [byte esp+01Ch]
+        mov byte [byte edi-01h], al
+        mov eax, dword [byte esp+0Ch]
+        mov ecx, 10000h
+        add eax, 300h
+        mov dword [byte esp+010h], ecx
+        mov dword [byte esp+08h], eax
+.1:
+        mov eax, dword [byte esp+010h]
+        mov edx, eax
+        sar edx, 1Fh
+        shl edx, 4
+        LD sbb, eax, edx
+        sar eax, 4
+        mov esi, eax
+        mov eax, dword [byte esp+08h]
+        mov ebx, dword [byte esp+0Ch]
+        mov dword [esp], eax
+.2:
+        push esi
+        mov ebp, dword [byte esp+01Ch]
+        xor eax, eax
+        push ebp
+        mov al, byte [ebx]
+        push eax
+        call FixedLerp
+        add esp, byte 0Ch
+        push esi
+        mov ebp, eax
+        mov eax, dword [byte esp+018h]
+        push eax
+        xor eax, eax
+        mov al, byte [byte ebx+01h]
+        push eax
+        shl ebp, 10h
+        call FixedLerp
+        add esp, byte 0Ch
+        shl eax, 8
+        mov edx, dword [byte esp+01Ch]
+        push esi
+        or ebp, eax
+        xor eax, eax
+        push edx
+        mov al, byte [byte ebx+02h]
+        push eax
+        call FixedLerp
+        add esp, byte 0Ch
+        or eax, ebp
+        push eax
+        inc edi
+        call MatchColor
+        add esp, byte 4
+        add ebx, byte 3
+        mov ecx, dword [esp]
+        mov byte [byte edi-01h], al
+        cmp ebx, ecx
+        jne short .2
+        inc word [byte esp+012h]
+        cmp dword [byte esp+010h], 110000h
+        jne near .1
+        mov eax, dword [byte esp+04h]
+        add esp, byte 20h
+        pop ebp
+        pop edi
+        pop esi
+        ret 4
+;-----------------------------------------------------------------------------
+; ClipLineY                                   10B780  96 PC, medium confidence
+; Clips the current line to the view's top and bottom (ViewOriginY, ViewHeight, LineClipMaxY)
+;-----------------------------------------------------------------------------
+ClipLineY:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        push ebp
+        mov edx, dword [ViewWidth]
+        cmp edx, dword [LineClipMaxY]
+        jle short .1
+        xor eax, eax
+        jmp near .16
+.1:
+        mov ebx, dword [ViewOriginY]
+        mov eax, dword [LineStepY]
+        cmp eax, ebx
+        jl short .2
+        xor eax, eax
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.2:
+        cmp eax, edx
+        jge short .3
+        mov ebx, edx
+        sub ebx, eax
+        mov eax, dword [LineErrY]
+        mov edx, ebx
+        imul edx
+        shl edx, 10h
+        shr eax, 10h
+        adc eax, edx
+        mov edi, dword [LineEndY]
+        mov edx, ebx
+        add edi, eax
+        mov eax, dword [LineErrStepY]
+        mov dword [LineEndY], edi
+        imul edx
+        shl edx, 10h
+        shr eax, 10h
+        adc eax, edx
+        mov ebp, dword [LineY]
+        add ebp, eax
+        mov eax, dword [ViewWidth]
+        mov dword [LineY], ebp
+        mov dword [LineStepY], eax
+.3:
+        mov edx, dword [ViewOriginY]
+        cmp edx, dword [LineClipMaxY]
+        jge short .4
+        mov dword [LineClipMaxY], edx
+.4:
+        mov ebx, dword [ViewHeight]
+        cmp ebx, dword [LineEndY]
+        jg short .5
+        mov ecx, dword [ViewOriginX]
+        cmp ecx, dword [LineY]
+        jg short .6
+.5:
+        mov eax, 1
+        jmp short .7
+.6:
+        xor eax, eax
+.7:
+        mov esi, dword [ViewHeight]
+        mov dword [LineSteep], eax
+        cmp esi, dword [LineY]
+        jle near .11
+        mov edi, dword [LineErrStepY]
+        test edi, edi
+        jle short .9
+        mov ebp, dword [LineY]
+        mov eax, esi
+        mov ebx, edi
+        sub eax, ebp
+        cdq
+        idiv ebx
+        mov ecx, eax
+        xor eax, eax
+        shrd eax, edx, 10h
+        sar edx, 10h
+        idiv ebx
+        shl ecx, 10h
+        add eax, ecx
+        mov edx, dword [LineStepY]
+        add edx, eax
+        mov ecx, dword [ViewOriginY]
+        mov dword [LineStepY], edx
+        cmp edx, ecx
+        jl short .8
+        xor eax, eax
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.8:
+        cmp edx, dword [ViewWidth]
+        jge short .10
+.9:
+        xor eax, eax
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.10:
+        mov ebx, dword [ViewHeight]
+        mov dword [LineY], ebx
+        mov ebx, dword [LineErrY]
+        mov edx, eax
+        mov eax, ebx
+        imul edx
+        shl edx, 10h
+        shr eax, 10h
+        adc eax, edx
+        mov edi, dword [LineEndY]
+        mov ebp, 1
+        add edi, eax
+        mov dword [LineSteep], ebp
+        mov dword [LineEndY], edi
+.11:
+        mov edx, dword [ViewOriginX]
+        cmp edx, dword [LineEndY]
+        jg near .15
+        mov ebx, dword [LineErrY]
+        test ebx, ebx
+        jge short .13
+        mov ecx, dword [LineEndY]
+        mov eax, edx
+        sub eax, ecx
+        inc eax
+        cdq
+        idiv ebx
+        mov ecx, eax
+        xor eax, eax
+        shrd eax, edx, 10h
+        sar edx, 10h
+        idiv ebx
+        shl ecx, 10h
+        add eax, ecx
+        mov esi, dword [LineStepY]
+        add esi, eax
+        mov edi, dword [ViewOriginY]
+        mov dword [LineStepY], esi
+        cmp esi, edi
+        jl short .12
+        xor eax, eax
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.12:
+        cmp esi, dword [ViewWidth]
+        jge short .14
+.13:
+        xor eax, eax
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.14:
+        mov ebx, dword [LineErrStepY]
+        mov edx, eax
+        mov eax, ebx
+        imul edx
+        shl edx, 10h
+        shr eax, 10h
+        adc eax, edx
+        mov edx, dword [LineY]
+        mov ebx, 1
+        add edx, eax
+        mov eax, dword [ViewOriginX]
+        mov dword [LineSteep], ebx
+        dec eax
+        mov dword [LineY], edx
+        mov dword [LineEndY], eax
+.15:
+        mov eax, 1
+.16:
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+        db 090h
+;-----------------------------------------------------------------------------
+; ClipLineX                                   10B99C  96 PC, medium confidence
+; Clips the current line to the view's left and right (ViewOriginX, ViewWidth, LineClipMaxX)
+;-----------------------------------------------------------------------------
+ClipLineX:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        push ebp
+        mov edx, dword [ViewHeight]
+        cmp edx, dword [LineClipMaxX]
+        jle short .1
+        xor eax, eax
+        jmp near .16
+.1:
+        mov ebx, dword [ViewOriginX]
+        mov eax, dword [LineX]
+        cmp eax, ebx
+        jl short .2
+        xor eax, eax
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.2:
+        cmp eax, edx
+        jge short .3
+        mov ebx, edx
+        sub ebx, eax
+        mov eax, dword [LineErrStepX]
+        mov edx, ebx
+        imul edx
+        shl edx, 10h
+        shr eax, 10h
+        adc eax, edx
+        mov edi, dword [LineStepX]
+        mov edx, ebx
+        add edi, eax
+        mov eax, dword [LineErrX]
+        mov dword [LineStepX], edi
+        imul edx
+        shl edx, 10h
+        shr eax, 10h
+        adc eax, edx
+        mov ebp, dword [LineEndX]
+        add ebp, eax
+        mov eax, dword [ViewHeight]
+        mov dword [LineEndX], ebp
+        mov dword [LineX], eax
+.3:
+        mov edx, dword [ViewOriginX]
+        cmp edx, dword [LineClipMaxX]
+        jge short .4
+        mov dword [LineClipMaxX], edx
+.4:
+        mov ebx, dword [ViewWidth]
+        cmp ebx, dword [LineStepX]
+        jg short .5
+        mov ecx, dword [ViewOriginY]
+        cmp ecx, dword [LineEndX]
+        jg short .6
+.5:
+        mov eax, 1
+        jmp short .7
+.6:
+        xor eax, eax
+.7:
+        mov esi, dword [ViewWidth]
+        mov dword [LineSteep], eax
+        cmp esi, dword [LineEndX]
+        jle near .11
+        mov edi, dword [LineErrX]
+        test edi, edi
+        jle short .9
+        mov ebp, dword [LineEndX]
+        mov eax, esi
+        mov ebx, edi
+        sub eax, ebp
+        cdq
+        idiv ebx
+        mov ecx, eax
+        xor eax, eax
+        shrd eax, edx, 10h
+        sar edx, 10h
+        idiv ebx
+        shl ecx, 10h
+        add eax, ecx
+        mov edx, dword [LineX]
+        add edx, eax
+        mov ecx, dword [ViewOriginX]
+        mov dword [LineX], edx
+        cmp edx, ecx
+        jl short .8
+        xor eax, eax
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.8:
+        cmp edx, dword [ViewHeight]
+        jge short .10
+.9:
+        xor eax, eax
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.10:
+        mov ebx, dword [ViewWidth]
+        mov dword [LineEndX], ebx
+        mov ebx, dword [LineErrStepX]
+        mov edx, eax
+        mov eax, ebx
+        imul edx
+        shl edx, 10h
+        shr eax, 10h
+        adc eax, edx
+        mov edi, dword [LineStepX]
+        mov ebp, 1
+        add edi, eax
+        mov dword [LineSteep], ebp
+        mov dword [LineStepX], edi
+.11:
+        mov edx, dword [ViewOriginY]
+        cmp edx, dword [LineStepX]
+        jg near .15
+        mov ebx, dword [LineErrStepX]
+        test ebx, ebx
+        jge short .13
+        mov ecx, dword [LineStepX]
+        mov eax, edx
+        sub eax, ecx
+        inc eax
+        cdq
+        idiv ebx
+        mov ecx, eax
+        xor eax, eax
+        shrd eax, edx, 10h
+        sar edx, 10h
+        idiv ebx
+        shl ecx, 10h
+        add eax, ecx
+        mov esi, dword [LineX]
+        add esi, eax
+        mov edi, dword [ViewOriginX]
+        mov dword [LineX], esi
+        cmp esi, edi
+        jl short .12
+        xor eax, eax
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.12:
+        cmp esi, dword [ViewHeight]
+        jge short .14
+.13:
+        xor eax, eax
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.14:
+        mov ebx, dword [LineErrX]
+        mov edx, eax
+        mov eax, ebx
+        imul edx
+        shl edx, 10h
+        shr eax, 10h
+        adc eax, edx
+        mov edx, dword [LineEndX]
+        mov ebx, 1
+        add edx, eax
+        mov eax, dword [ViewOriginY]
+        mov dword [LineSteep], ebx
+        dec eax
+        mov dword [LineEndX], edx
+        mov dword [LineStepX], eax
+.15:
+        mov eax, 1
+.16:
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+        db 090h
+;-----------------------------------------------------------------------------
+; DrawLineYPlot                               10BBB8  96 PC, medium confidence
+; Draws a mostly vertical line pixel by pixel (PlotPixel)
+;-----------------------------------------------------------------------------
+DrawLineYPlot:
+        push ebx
+        push esi
+        push edi
+        push ebp
+        sub esp, byte 4
+        mov edi, dword [LineStepY]
+        mov eax, dword [LineStepY]
+        mov edx, dword [LineClipMaxY]
+        sar edi, 10h
+        cmp eax, edx
+        jge near .10
+.1:
+        mov ebx, dword [LineEndY]
+        mov eax, dword [ClipLeft]
+        mov esi, dword [LineY]
+        sar ebx, 10h
+        sar eax, 10h
+        sar esi, 10h
+        cmp ebx, eax
+        jl short .2
+        mov eax, dword [ClipRightEdge]
+        sar eax, 10h
+        cmp esi, eax
+        jl near .10
+.2:
+        mov eax, dword [ClipLeft]
+        sar eax, 10h
+        cmp ebx, eax
+        jge short .3
+        cmp esi, eax
+        jl near .10
+.3:
+        mov eax, dword [ClipRightEdge]
+        sar eax, 10h
+        cmp ebx, eax
+        jl short .4
+        cmp esi, eax
+        jge near .10
+.4:
+        mov eax, dword [LineEndY]
+        mov edx, 10000h
+        and eax, 0FFFFh
+        sub edx, eax
+        mov ebp, dword [LineY]
+        mov eax, edx
+        and ebp, 0FFFFh
+        sar eax, 0Ch
+        sar ebp, 0Ch
+        mov dword [esp], eax
+        cmp esi, ebx
+        jg short .5
+        add ebp, eax
+        sub ebp, byte 10h
+        test ebp, ebp
+        jle near .9
+        push edi
+        push esi
+        shl ebp, 8
+        call PlotPixelClipped
+        add ebp, eax
+        mov eax, dword [LineColor]
+        add esp, byte 8
+        mov al, byte [dword eax+ebp-0100h]
+        jmp near .8
+.5:
+        test eax, eax
+        je short .6
+        mov eax, dword [ClipLeft]
+        sar eax, 10h
+        cmp ebx, eax
+        jle short .6
+        push edi
+        push ebx
+        call PlotPixelClipped
+        add esp, byte 8
+        mov edx, dword [esp]
+        shl edx, 8
+        add eax, edx
+        mov edx, dword [LineColor]
+        mov al, byte [dword edx+eax-0100h]
+        and eax, 0FFh
+        push eax
+        push edi
+        push ebx
+        call PlotPixel
+        add esp, byte 0Ch
+.6:
+        inc ebx
+        cmp ebx, esi
+        jge short .7
+        xor eax, eax
+        mov al, byte [LinePattern]
+        push eax
+        mov eax, esi
+        push byte 1
+        sub eax, ebx
+        push eax
+        push edi
+        push ebx
+        call FillRect
+        add esp, byte 14h
+.7:
+        test ebp, ebp
+        je short .9
+        mov eax, dword [ClipRightEdge]
+        sar eax, 10h
+        cmp esi, eax
+        jge short .9
+        push edi
+        push esi
+        shl ebp, 8
+        call PlotPixelClipped
+        mov ebx, dword [LineColor]
+        add eax, ebp
+        add esp, byte 8
+        mov al, byte [dword ebx+eax-0100h]
+.8:
+        and eax, 0FFh
+        push eax
+        push edi
+        push esi
+        call PlotPixel
+        add esp, byte 0Ch
+.9:
+        mov eax, dword [LineErrY]
+        mov ebx, dword [LineEndY]
+        mov ecx, dword [LineY]
+        mov esi, dword [LineStepY]
+        mov ebp, dword [LineClipMaxY]
+        add ebx, eax
+        mov eax, dword [LineErrStepY]
+        inc edi
+        add ecx, eax
+        mov eax, dword [LineDeltaY]
+        mov dword [LineEndY], ebx
+        add esi, eax
+        mov dword [LineY], ecx
+        mov dword [LineStepY], esi
+        cmp esi, ebp
+        jl near .1
+.10:
+        add esp, byte 4
+        pop ebp
+        pop edi
+        pop esi
+        pop ebx
+        ret
+        db 090h
+;-----------------------------------------------------------------------------
+; DrawLineY                                   10BD74  96 PC, medium confidence
+; Draws a mostly vertical line straight into the bitmap
+;-----------------------------------------------------------------------------
+DrawLineY:
+        push ebx
+        push esi
+        push edi
+        push ebp
+        sub esp, byte 4
+        mov eax, dword [LineStepY]
+        sar eax, 10h
+        mov edx, dword [LineClipMaxY]
+        mov dword [esp], eax
+        cmp edx, dword [LineStepY]
+        jle near .8
+        mov edi, dword [esp]
+        shl edi, 2
+.1:
+        mov ebx, dword [ViewOriginX]
+        mov eax, dword [LineY]
+        cmp eax, ebx
+        jge near .8
+        mov ecx, eax
+        mov esi, dword [ViewHeight]
+        and ecx, 0FFFFh
+        mov eax, dword [LineEndY]
+        sar ecx, 0Ch
+        cmp eax, esi
+        jl near .8
+        mov esi, 10000h
+        mov edx, dword [LineY]
+        mov ebx, dword [LineEndY]
+        mov ebp, dword [DrawDestPitch]
+        sar eax, 10h
+        and ebx, 0FFFFh
+        sar edx, 10h
+        sub esi, ebx
+        mov ebx, dword [DrawDestBuffer]
+        sub edx, eax
+        add ebp, dword [edi+ebx]
+        sar esi, 0Ch
+        add eax, ebp
+        test edx, edx
+        jg short .2
+        add ecx, esi
+        xor edx, edx
+        sub ecx, byte 10h
+        mov dl, byte [eax]
+        shl ecx, 8
+        mov ebx, dword [LineColor]
+        add edx, ecx
+        mov dl, byte [dword edx+ebx-0100h]
+        jmp short .6
+.2:
+        test esi, esi
+        je short .4
+        xor ebx, ebx
+        shl esi, 8
+        mov bl, byte [eax]
+        add ebx, esi
+        mov esi, dword [LineColor]
+        mov bl, byte [dword esi+ebx-0100h]
+.3:
+        mov byte [eax], bl
+.4:
+        inc eax
+        dec edx
+        je short .5
+        mov bl, byte [LinePattern]
+        jmp short .3
+.5:
+        test ecx, ecx
+        je short .7
+        shl ecx, 8
+        mov dl, byte [eax]
+        add edx, ecx
+        mov ecx, dword [LineColor]
+        mov dl, byte [dword ecx+edx-0100h]
+.6:
+        mov byte [eax], dl
+.7:
+        mov ebp, dword [esp]
+        mov eax, dword [LineErrY]
+        mov ebx, dword [LineEndY]
+        mov ecx, dword [LineY]
+        mov esi, dword [LineStepY]
+        mov edx, dword [LineClipMaxY]
+        add edi, byte 4
+        inc ebp
+        add ebx, eax
+        mov eax, dword [LineErrStepY]
+        mov dword [LineEndY], ebx
+        add ecx, eax
+        mov eax, dword [LineDeltaY]
+        mov dword [esp], ebp
+        add esi, eax
+        mov dword [LineY], ecx
+        mov dword [LineStepY], esi
+        cmp esi, edx
+        jl near .1
+.8:
+        add esp, byte 4
+        pop ebp
+        pop edi
+        pop esi
+        pop ebx
+        ret
+;-----------------------------------------------------------------------------
+; DrawLineXPlot                               10BEC0  96 PC, medium confidence
+; Draws a mostly horizontal line pixel by pixel (PlotPixel)
+;-----------------------------------------------------------------------------
+DrawLineXPlot:
+        push ebx
+        push esi
+        push edi
+        push ebp
+        sub esp, byte 4
+        mov edi, dword [LineX]
+        mov eax, dword [LineX]
+        mov edx, dword [LineClipMaxX]
+        sar edi, 10h
+        cmp eax, edx
+        jge near .10
+.1:
+        mov eax, dword [ClipTop]
+        mov ebx, dword [LineStepX]
+        mov esi, dword [LineEndX]
+        sar eax, 10h
+        sar ebx, 10h
+        sar esi, 10h
+        cmp ebx, eax
+        jl short .2
+        mov eax, dword [ClipBottomEdge]
+        sar eax, 10h
+        cmp esi, eax
+        jl near .10
+.2:
+        mov eax, dword [ClipTop]
+        sar eax, 10h
+        cmp ebx, eax
+        jge short .3
+        cmp esi, eax
+        jl near .10
+.3:
+        mov eax, dword [ClipBottomEdge]
+        sar eax, 10h
+        cmp ebx, eax
+        jl short .4
+        cmp esi, eax
+        jge near .10
+.4:
+        mov eax, dword [LineStepX]
+        mov ebp, 10000h
+        and eax, 0FFFFh
+        sub ebp, eax
+        mov eax, dword [LineEndX]
+        and eax, 0FFFFh
+        sar eax, 0Ch
+        sar ebp, 0Ch
+        mov dword [esp], eax
+        cmp ebx, esi
+        jne short .5
+        add ebp, eax
+        sub ebp, byte 10h
+        test ebp, ebp
+        jle near .9
+        push esi
+        push edi
+        shl ebp, 8
+        call PlotPixelClipped
+        add ebp, eax
+        mov eax, dword [LineColor]
+        add esp, byte 8
+        mov al, byte [dword eax+ebp-0100h]
+        jmp near .8
+.5:
+        test ebp, ebp
+        je short .6
+        mov eax, dword [ClipTop]
+        sar eax, 10h
+        cmp ebx, eax
+        jle short .6
+        push ebx
+        push edi
+        shl ebp, 8
+        call PlotPixelClipped
+        add eax, ebp
+        mov ebp, dword [LineColor]
+        add esp, byte 8
+        mov al, byte [dword eax+ebp-0100h]
+        and eax, 0FFh
+        push eax
+        push ebx
+        push edi
+        call PlotPixel
+        add esp, byte 0Ch
+.6:
+        inc ebx
+        cmp ebx, esi
+        jge short .7
+        xor eax, eax
+        mov al, byte [LinePattern]
+        push eax
+        mov eax, esi
+        sub eax, ebx
+        push eax
+        push byte 1
+        push ebx
+        push edi
+        call FillRect
+        add esp, byte 14h
+.7:
+        cmp dword [esp], byte 0
+        je short .9
+        mov eax, dword [ClipBottomEdge]
+        sar eax, 10h
+        cmp esi, eax
+        jge short .9
+        push esi
+        push edi
+        call PlotPixelClipped
+        add esp, byte 8
+        mov ebx, dword [esp]
+        shl ebx, 8
+        add eax, ebx
+        mov ebx, dword [LineColor]
+        mov al, byte [dword ebx+eax-0100h]
+.8:
+        and eax, 0FFh
+        push eax
+        push esi
+        push edi
+        call PlotPixel
+        add esp, byte 0Ch
+.9:
+        mov eax, dword [LineErrStepX]
+        mov ebx, dword [LineStepX]
+        mov ecx, dword [LineEndX]
+        mov esi, dword [LineX]
+        mov ebp, dword [LineClipMaxX]
+        add ebx, eax
+        mov eax, dword [LineErrX]
+        inc edi
+        add ecx, eax
+        mov eax, dword [LineDeltaX]
+        mov dword [LineStepX], ebx
+        add esi, eax
+        mov dword [LineEndX], ecx
+        mov dword [LineX], esi
+        cmp esi, ebp
+        jl near .1
+.10:
+        add esp, byte 4
+        pop ebp
+        pop edi
+        pop esi
+        pop ebx
+        ret
+        db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; DrawLineX                                   10C07C  96 PC, medium confidence
+; Draws a mostly horizontal line straight into the bitmap
+;-----------------------------------------------------------------------------
+DrawLineX:
+        push ebx
+        push esi
+        push edi
+        push ebp
+        mov esi, dword [LineX]
+        mov eax, dword [LineX]
+        mov edx, dword [LineClipMaxX]
+        sar esi, 10h
+        cmp eax, edx
+        jge near .8
+.1:
+        mov edx, dword [ViewOriginY]
+        mov eax, dword [LineEndX]
+        cmp eax, edx
+        jge near .8
+        mov ecx, eax
+        mov ebx, dword [ViewWidth]
+        and ecx, 0FFFFh
+        mov eax, dword [LineStepX]
+        sar ecx, 0Ch
+        cmp eax, ebx
+        jl near .8
+        mov edi, 10000h
+        mov edx, dword [LineEndX]
+        mov ebx, dword [LineStepX]
+        sar eax, 10h
+        and ebx, 0FFFFh
+        sar edx, 10h
+        sub edi, ebx
+        sub edx, eax
+        mov ebx, edi
+        shl eax, 2
+        mov edi, dword [DrawDestBuffer]
+        add edi, eax
+        mov eax, dword [DrawDestPitch]
+        add eax, dword [edi]
+        sar ebx, 0Ch
+        add eax, esi
+        test edx, edx
+        jg short .2
+        add ebx, ecx
+        sub ebx, byte 10h
+        test ebx, ebx
+        jle short .7
+        xor edx, edx
+        shl ebx, 8
+        mov dl, byte [eax]
+        add edx, ebx
+        mov ebx, dword [LineColor]
+        mov dl, byte [dword edx+ebx-0100h]
+        jmp short .6
+.2:
+        test ebx, ebx
+        je short .4
+        shl ebx, 8
+        movzx edi, byte [eax]
+        add edi, ebx
+        mov ebx, dword [LineColor]
+        mov bl, byte [dword edi+ebx-0100h]
+.3:
+        mov byte [eax], bl
+.4:
+        add eax, dword [ScreenWidth]
+        dec edx
+        je short .5
+        mov bl, byte [LinePattern]
+        jmp short .3
+.5:
+        test ecx, ecx
+        je short .7
+        shl ecx, 8
+        mov dl, byte [eax]
+        add ecx, edx
+        mov edx, dword [LineColor]
+        mov dl, byte [dword ecx+edx-0100h]
+.6:
+        mov byte [eax], dl
+.7:
+        mov eax, dword [LineErrStepX]
+        mov ebx, dword [LineStepX]
+        mov ecx, dword [LineEndX]
+        mov edi, dword [LineX]
+        mov ebp, dword [LineClipMaxX]
+        add ebx, eax
+        mov eax, dword [LineErrX]
+        inc esi
+        add ecx, eax
+        mov eax, dword [LineDeltaX]
+        mov dword [LineStepX], ebx
+        add edi, eax
+        mov dword [LineEndX], ecx
+        mov dword [LineX], edi
+        cmp edi, ebp
+        jl near .1
+.8:
+        pop ebp
+        pop edi
+        pop esi
+        pop ebx
+        ret
+        db 090h
+;-----------------------------------------------------------------------------
+; DrawFixedLine                               10C1C0  96 PC, medium confidence
+; (x0, y0, x1, y1 in 16.16, colour): a line of the 3D rink model (rink_model
+; calls)
+;-----------------------------------------------------------------------------
+DrawFixedLine:
+        push ebx
+        push esi
+        push edi
+        push ebp
+        sub esp, byte 4
+        mov ebp, dword [byte esp+020h]
+        mov edi, dword [byte esp+024h]
+        mov edx, dword [byte esp+028h]
+        mov ecx, dword [byte esp+030h]
+        mov ebx, dword [byte esp+018h]
+        mov eax, ebp
+        sub eax, ebx
+        mov esi, dword [byte esp+01Ch]
+        mov dword [LineDeltaX], eax
+        mov eax, edi
+        sub eax, esi
+        mov dword [LineDeltaY], eax
+        mov eax, dword [LineDeltaX]
+        test eax, eax
+        jg short .1
+        neg eax
+.1:
+        cmp eax, 10000h
+        jge short .4
+        mov ebx, dword [LineDeltaY]
+        test ebx, ebx
+        jle short .2
+        mov eax, ebx
+        jmp short .3
+.2:
+        mov eax, ebx
+        neg eax
+.3:
+        cmp eax, 10000h
+        jl near .14
+.4:
+        mov esi, dword [LineDeltaY]
+        mov al, byte [edx]
+        add edx, byte 4
+        mov byte [LinePattern], al
+        mov dword [LineColor], edx
+        test esi, esi
+        jg short .5
+        neg esi
+.5:
+        mov eax, dword [LineDeltaX]
+        test eax, eax
+        jg short .6
+        neg eax
+.6:
+        mov ebx, dword [byte esp+02Ch]
+        mov edx, ecx
+        sar ecx, 1
+        sub edx, ebx
+        sar ebx, 1
+        cmp esi, eax
+        jle near .10
+        mov eax, dword [LineDeltaY]
+        sar eax, 10h
+        add eax, eax
+        mov dword [esp], eax
+        mov esi, dword [esp]
+        mov eax, edx
+        sar edx, 1Fh
+        idiv esi
+        mov esi, eax
+        cmp dword [LineDeltaY], byte 0
+        jge short .7
+        mov eax, dword [byte esp+01Ch]
+        mov dword [LineClipMaxY], eax
+        mov eax, ebp
+        mov dword [LineStepY], edi
+        sub eax, ecx
+        add ebp, ecx
+        mov dword [LineEndY], eax
+        mov dword [LineY], ebp
+        jmp short .8
+.7:
+        mov eax, dword [byte esp+01Ch]
+        mov dword [LineStepY], eax
+        mov eax, dword [byte esp+018h]
+        sub eax, ebx
+        mov dword [LineEndY], eax
+        mov eax, dword [byte esp+018h]
+        add eax, ebx
+        mov dword [LineClipMaxY], edi
+        mov dword [LineY], eax
+.8:
+        mov eax, dword [LineDeltaX]
+        mov ebx, dword [LineDeltaY]
+        mov edx, eax
+        sar ebx, 10h
+        sar edx, 1Fh
+        idiv ebx
+        mov dword [LineDeltaX], eax
+        sub eax, esi
+        mov dword [LineErrY], eax
+        mov eax, dword [LineDeltaX]
+        mov edx, 10000h
+        add eax, esi
+        mov dword [LineDeltaY], edx
+        mov dword [LineErrStepY], eax
+        call ClipLineY
+        test eax, eax
+        jle near .14
+        cmp dword [LineSteep], byte 0
+        je short .9
+        call DrawLineYPlot
+.9:
+        mov ecx, dword [LineClipMaxY]
+        cmp ecx, dword [LineStepY]
+        jle near .14
+        call DrawLineY
+        mov eax, dword [LineStepY]
+        cmp eax, dword [LineClipMaxY]
+        jge near .14
+        call DrawLineYPlot
+        add esp, byte 4
+        pop ebp
+        pop edi
+        pop esi
+        pop ebx
+        ret
+.10:
+        mov eax, dword [LineDeltaX]
+        sar eax, 10h
+        add eax, eax
+        mov dword [esp], eax
+        mov esi, dword [esp]
+        mov eax, edx
+        sar edx, 1Fh
+        idiv esi
+        mov esi, eax
+        cmp dword [LineDeltaX], byte 0
+        jge short .11
+        mov eax, dword [byte esp+018h]
+        mov dword [LineClipMaxX], eax
+        mov eax, edi
+        mov dword [LineX], ebp
+        sub eax, ecx
+        add edi, ecx
+        mov dword [LineStepX], eax
+        mov dword [LineEndX], edi
+        jmp short .12
+.11:
+        mov eax, dword [byte esp+018h]
+        mov dword [LineX], eax
+        mov eax, dword [byte esp+01Ch]
+        sub eax, ebx
+        mov dword [LineStepX], eax
+        mov eax, dword [byte esp+01Ch]
+        add eax, ebx
+        mov dword [LineClipMaxX], ebp
+        mov dword [LineEndX], eax
+.12:
+        mov eax, dword [LineDeltaY]
+        mov ebx, dword [LineDeltaX]
+        mov edx, eax
+        sar ebx, 10h
+        sar edx, 1Fh
+        idiv ebx
+        mov dword [LineDeltaY], eax
+        sub eax, esi
+        mov dword [LineErrStepX], eax
+        mov eax, dword [LineDeltaY]
+        mov edx, 10000h
+        add esi, eax
+        mov dword [LineDeltaX], edx
+        mov dword [LineErrX], esi
+        call ClipLineX
+        test eax, eax
+        jle short .14
+        cmp dword [LineSteep], byte 0
+        je short .13
+        call DrawLineXPlot
+.13:
+        mov ecx, dword [LineClipMaxX]
+        cmp ecx, dword [LineX]
+        jle short .14
+        call DrawLineX
+        mov eax, dword [LineX]
+        cmp eax, dword [LineClipMaxX]
+        jge short .14
+        call DrawLineXPlot
+.14:
+        add esp, byte 4
+        pop ebp
+        pop edi
+        pop esi
+        pop ebx
+        ret

@@ -1,0 +1,66 @@
+; Watcom C runtime: _dos_getdate_, _dos_gettime_.
+bits 32
+%include "hockey.inc"
+section s_FC804 progbits alloc exec nowrite align=1
+extern DebugMode, DebugShowLines, vsprintf_
+global _dos_getdate_, _dos_gettime_
+;-----------------------------------------------------------------------------
+; _dos_getdate_                                                 FC804  library
+; Run-time library _dos_getdate: the DOS date
+;-----------------------------------------------------------------------------
+_dos_getdate_:
+        push edx
+        push ecx
+        push ebx
+        mov ebx, eax
+        mov ah, 2Ah
+        int 21h
+        mov word [byte ebx+02h], cx
+        mov byte [byte ebx+01h], dh
+        mov byte [ebx], dl
+        mov byte [byte ebx+04h], al
+        sub eax, eax
+        pop ebx
+        pop ecx
+        pop edx
+        ret
+;-----------------------------------------------------------------------------
+; _dos_gettime_                                                 FC81F  library
+; Run-time library _dos_gettime: the DOS time
+;-----------------------------------------------------------------------------
+_dos_gettime_:
+        push edx
+        push ecx
+        push ebx
+        mov ebx, eax
+        mov ah, 2Ch
+        int 21h
+        mov byte [ebx], ch
+        mov byte [byte ebx+01h], cl
+        mov byte [byte ebx+02h], dh
+        mov byte [byte ebx+03h], dl
+        sub eax, eax
+        pop ebx
+        pop ecx
+        pop edx
+        ret
+        db 00h,00h,00h,00h,00h,00h,00h
+        push ebx
+        sub esp, 104h
+        cmp dword [DebugMode], byte 2
+        jl short .1
+        lea eax, [dword esp+0110h]
+        lea ebx, [dword esp+0100h]
+        mov edx, dword [dword esp+010Ch]
+        mov dword [dword esp+0100h], eax
+        mov eax, esp
+        call vsprintf_
+        xor ebx, ebx
+        mov eax, esp
+        mov dword [dword esp+0100h], ebx
+        call DebugShowLines
+.1:
+        add esp, 104h
+        pop ebx
+        ret
+        db 090h

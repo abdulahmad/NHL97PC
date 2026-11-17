@@ -1,0 +1,2853 @@
+; EA library: MeasureText, FindGlyph, GetGlyph, GetKerning, DrawTextRun and 40 more.
+bits 32
+%include "hockey.inc"
+section s_FDE41 progbits alloc exec nowrite align=1
+extern __CHP, AllocNetBuffer, CameraPitch, CameraYaw, ClipLeftCol, ClipProjectPoints, ClipRight, ClipTopRow
+extern ConvertColor555, CurrentFont, DrawDestBuffer, DrawDestOffset, DrawDestPitch, DrawGlyphFn, DrawGlyphScaled, DrawTextLimited
+extern DrawTextString, F32_1p0_View, F32_1p52588eneg05, F32_50p0_View, F32_65536_ScaleFloatsToInts, F64_0p9_SetFocalLength, F64_1p1_SetFocalLength, F64_1p5259eneg05
+extern FillRect, FontAscent, FontDescent, FontGlyphColors, FontGlyphCount, FontGlyphTable, FontHeight, FontKernCount
+extern FontKernPairs, FontKernTable, FontLastChar, FontSpacing, FontWidth, FreeNetBuffer, IF@DACOS, MakeColor
+extern PaletteWords, PlotPixel, PlotPixelRGB, Random32, RestoreTextState, RinkLineWidth, SaveTextState, ScreenBitsPerPixel
+extern ScreenBuffer, ScreenHeight, ScreenPitch, SetTextFont, SetTextOrigin, SetTextScale, str_Acos, strcmp_
+extern TextAlign, TextBuffer, TextCharFn, TextColorIndex, TextColorTable, TextEndFn, TextNextCharFn, TextOriginX
+extern TextOriginY, TextShadowColor
+global MeasureText, FindGlyph, GetGlyph, GetKerning, DrawTextRun, DrawTextAt, SetTextColors, DrawTextBoxed
+global DrawTextBoxedAt, FillRectCorners, DrawGlyph, DrawGlyph_494, DrawGlyph_590, BuildTextColorTable, PrepareTextDraw, PrepareTextDraw_72
+global RefreshTextColors, BuildColorRamp, FreeTextBuffers, ClearIfNaN, matherr, IntsToFloats, FloatsToInts, FloatsToInts_47
+global ScaleFloatsToInts, MatRotX, MatRotY, MatRotZ, MatTranspose, MatMul, VecMulMat, TransformVecs
+global TransformTranslateVecs, VecAdd, VecSub, OffsetVecs, AddVecs, SubVecs, VecCross, VecDistance
+global VecLength, VecScale, VecNormalizeTo, VecNormalize, VecCrossUnit, VecDot, VecAngle, SetViewScale
+global SetFocalLength
+        db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; MeasureText                                     FDE44  97 PC, low confidence
+; Font library: returns the width in pixels of a string in the current font
+;-----------------------------------------------------------------------------
+MeasureText:
+        sub esp, byte 10h
+        mov eax, esp
+        push eax
+        lea eax, [byte esp+08h]
+        push eax
+        lea eax, [byte esp+010h]
+        push eax
+        lea eax, [byte esp+018h]
+        push eax
+        push dword 100h
+        mov edx, dword [byte esp+028h]
+        push edx
+        call DrawTextLimited
+        add esp, byte 18h
+        mov eax, dword [byte esp+04h]
+        add esp, byte 10h
+        ret
+        db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
+;-----------------------------------------------------------------------------
+; FindGlyph                                       FDE80  97 PC, low confidence
+; Font library: binary search of a character code in a glyph table; returns
+; the entry or 0
+;-----------------------------------------------------------------------------
+FindGlyph:
+        push esi
+        push edi
+        push ebp
+        mov ebp, eax
+        mov edi, edx
+        mov esi, ecx
+        mov edx, ebx
+        test ebx, ebx
+        je short .4
+.1:
+        mov ebx, edx
+        sar ebx, 1
+        imul ebx, esi
+        add ebx, edi
+        mov ecx, 2
+        mov eax, ebx
+        mov eax, dword [byte ecx+eax-04h]
+        neg ecx
+        lea ecx, [nosplit ecx*8+020h]
+        shr eax, cl
+        mov ecx, ebp
+        sub ecx, eax
+        mov eax, ecx
+        jne short .2
+        mov eax, ebx
+        pop ebp
+        pop edi
+        pop esi
+        ret
+.2:
+        test ecx, ecx
+        jle short .3
+        dec edx
+        lea edi, [ebx+esi]
+.3:
+        sar edx, 1
+        test edx, edx
+        jne short .1
+.4:
+        xor eax, eax
+        pop ebp
+        pop edi
+        pop esi
+        ret
+;-----------------------------------------------------------------------------
+; GetGlyph                                        FDED0  97 PC, low confidence
+; Font library: returns the glyph of a character (direct index, else a
+; search)
+;-----------------------------------------------------------------------------
+GetGlyph:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        mov esi, eax
+        lea ebx, [byte eax-020h]
+        lea eax, [nosplit ebx*4+00h]
+        sub eax, ebx
+        shl eax, 2
+        mov edx, dword [FontGlyphCount]
+        sub eax, ebx
+        lea ebx, [edx+eax]
+        mov ecx, 2
+        mov eax, ebx
+        mov eax, dword [byte ecx+eax-04h]
+        neg ecx
+        lea ecx, [nosplit ecx*8+020h]
+        shr eax, cl
+        cmp eax, esi
+        jne short .1
+        mov eax, ebx
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.1:
+        mov ecx, 0Bh
+        mov ebx, dword [FontLastChar]
+        mov eax, esi
+        call FindGlyph
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+;-----------------------------------------------------------------------------
+; GetKerning                                      FDF28  97 PC, low confidence
+; Font library: returns the kerning between two characters from the font's
+; pair list, 0 if none
+;-----------------------------------------------------------------------------
+GetKerning:
+        push ebx
+        push ecx
+        push esi
+        mov ebx, dword [FontKernCount]
+        mov esi, eax
+        mov ecx, edx
+        mov eax, dword [FontKernPairs]
+        xor edx, edx
+        test ebx, ebx
+        jle short .3
+.1:
+        cmp si, word [byte eax+02h]
+        jne short .2
+        cmp cx, word [eax]
+        jne short .2
+        mov eax, dword [byte eax+01h]
+        sar eax, 18h
+        pop esi
+        pop ecx
+        pop ebx
+        ret
+.2:
+        inc edx
+        add eax, byte 5
+        cmp edx, ebx
+        jl short .1
+.3:
+        xor eax, eax
+        pop esi
+        pop ecx
+        pop ebx
+        ret
+        db 090h
+;-----------------------------------------------------------------------------
+; DrawTextRun                                     FDF64  97 PC, low confidence
+; Font library: draws a string at the text position with the current font,
+; colours and kerning
+;-----------------------------------------------------------------------------
+DrawTextRun:
+        push ebx
+        push esi
+        push edi
+        push ebp
+        sub esp, byte 3Ch
+        mov eax, dword [byte esp+050h]
+        mov ebp, 0FFFFFFFFh
+        mov dword [esp], eax
+        mov eax, dword [DrawGlyphFn]
+        mov esi, dword [TextOriginX]
+        mov dword [byte esp+0Ch], eax
+        mov eax, dword [TextNextCharFn]
+        mov edx, dword [FontAscent]
+        mov dword [byte esp+014h], eax
+        mov eax, dword [FontSpacing]
+        mov ebx, dword [FontDescent]
+        mov dword [byte esp+030h], eax
+        mov eax, dword [FontKernPairs]
+        xor ecx, ecx
+        mov dword [byte esp+010h], eax
+        mov eax, dword [TextOriginY]
+        mov dword [byte esp+018h], ecx
+        add eax, ebx
+        mov dword [byte esp+034h], ecx
+        mov dword [byte esp+038h], eax
+        mov eax, dword [TextCharFn]
+        add esi, edx
+        test eax, eax
+        je short .1
+        call dword [TextCharFn]
+.1:
+        mov eax, 20h
+        call GetGlyph
+        test eax, eax
+        je short .2
+        mov eax, dword [byte eax+05h]
+        sar eax, 18h
+        mov dword [byte esp+018h], eax
+.2:
+        mov eax, dword [byte esp+034h]
+        mov dword [byte esp+02Ch], eax
+        mov eax, esp
+        inc ebp
+        call dword [byte esp+014h]
+        mov ebx, eax
+        mov dword [byte esp+034h], eax
+        cmp eax, byte 20h
+        jle near .5
+        call GetGlyph
+        mov edx, eax
+        mov edi, eax
+        test eax, eax
+        je short .2
+        mov ecx, 2
+        add eax, byte 4
+        mov eax, dword [byte ecx+eax-04h]
+        neg ecx
+        lea ecx, [nosplit ecx*8+020h]
+        shr eax, cl
+        mov ecx, 2
+        mov dword [byte esp+020h], eax
+        lea eax, [byte edx+06h]
+        mov eax, dword [byte ecx+eax-04h]
+        neg ecx
+        lea ecx, [nosplit ecx*8+020h]
+        shr eax, cl
+        mov dword [byte esp+028h], eax
+        xor eax, eax
+        mov ecx, dword [byte esp+010h]
+        mov dword [byte esp+08h], eax
+        mov dword [byte esp+04h], eax
+        test ecx, ecx
+        je short .3
+        mov edx, dword [byte esp+02Ch]
+        mov eax, ebx
+        call GetKerning
+        add esi, eax
+.3:
+        mov eax, dword [byte edi+06h]
+        sar eax, 18h
+        lea edx, [esi+eax]
+        mov dword [byte esp+01Ch], edx
+        mov eax, dword [byte edi+07h]
+        mov edx, dword [byte esp+038h]
+        sar eax, 18h
+        add edx, eax
+        mov eax, dword [byte esp+030h]
+        mov dword [byte esp+024h], edx
+        test eax, eax
+        je short .4
+        mov ebx, dword [byte esp+050h]
+        lea edx, [byte esp+04h]
+        lea eax, [byte esp+08h]
+        mov ecx, ebp
+        call dword [byte esp+030h]
+.4:
+        mov ebx, dword [byte esp+028h]
+        mov edx, dword [FontGlyphTable]
+        xor eax, eax
+        push edx
+        mov al, byte [byte edi+03h]
+        mov ecx, dword [byte esp+08h]
+        push eax
+        xor eax, eax
+        mov edx, dword [byte esp+02Ch]
+        mov al, byte [byte edi+02h]
+        add edx, ecx
+        push eax
+        mov ecx, dword [byte esp+014h]
+        mov eax, dword [byte esp+028h]
+        push ebx
+        mov ebx, dword [FontKernTable]
+        add eax, ecx
+        mov ecx, dword [byte esp+030h]
+        call dword [byte esp+01Ch]
+        mov eax, dword [byte edi+05h]
+        sar eax, 18h
+        add esi, eax
+        jmp near .2
+.5:
+        test eax, eax
+        je short .7
+        cmp eax, byte 0Ah
+        jne short .6
+        mov edx, dword [FontHeight]
+        mov ebx, dword [FontWidth]
+        mov ecx, dword [byte esp+038h]
+        add edx, ebx
+        add ecx, edx
+        xor esi, esi
+        mov dword [byte esp+038h], ecx
+        jmp near .2
+.6:
+        add esi, dword [byte esp+018h]
+        jmp near .2
+.7:
+        cmp dword [TextEndFn], byte 0
+        je short .8
+        call dword [TextEndFn]
+.8:
+        mov eax, dword [FontAscent]
+        mov edx, dword [byte esp+038h]
+        sub esi, eax
+        mov eax, dword [FontDescent]
+        sub edx, eax
+        mov dword [TextOriginX], esi
+        mov dword [TextOriginY], edx
+        add esp, byte 3Ch
+        pop ebp
+        pop edi
+        pop esi
+        pop ebx
+        ret
+        db 090h
+;-----------------------------------------------------------------------------
+; DrawTextAt                                      FE150  97 PC, low confidence
+; Font library: (x, y, string) moves the text position and draws the string
+;-----------------------------------------------------------------------------
+DrawTextAt:
+        push ebx
+        mov edx, dword [byte esp+010h]
+        push edx
+        mov ebx, dword [byte esp+010h]
+        push ebx
+        call SetTextOrigin
+        add esp, byte 8
+        mov ecx, dword [byte esp+08h]
+        push ecx
+        call DrawTextRun
+        add esp, byte 4
+        pop ebx
+        ret
+        db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
+;-----------------------------------------------------------------------------
+; SetTextColors                                   FE180  97 PC, low confidence
+; Font library: sets the text and background colours, rebuilding the colour
+; tables when they change
+;-----------------------------------------------------------------------------
+SetTextColors:
+        push ebx
+        push esi
+        push edi
+        push ebp
+        sub esp, byte 30h
+        mov eax, dword [byte esp+044h]
+        mov ebx, dword [byte esp+048h]
+        cmp eax, dword [TextColorIndex]
+        jne short .1
+        cmp ebx, dword [TextColorTable]
+        je near .3
+.1:
+        push eax
+        mov dword [TextColorIndex], eax
+        mov dword [TextColorTable], ebx
+        call ConvertColor555
+        mov edx, eax
+        shr edx, 10h
+        add esp, byte 4
+        and edx, 0FFh
+        mov dword [byte esp+08h], edx
+        mov edx, eax
+        push ebx
+        shr edx, 8
+        and eax, 0FFh
+        and edx, 0FFh
+        mov dword [byte esp+014h], eax
+        mov dword [byte esp+010h], edx
+        call ConvertColor555
+        mov edx, eax
+        xor esi, esi
+        shr edx, 10h
+        add esp, byte 4
+        and edx, 0FFh
+        mov dword [byte esp+02Ch], esi
+        mov dword [byte esp+014h], edx
+        mov edx, eax
+        mov dword [byte esp+028h], esi
+        shr edx, 8
+        and eax, 0FFh
+        and edx, 0FFh
+        mov dword [byte esp+01Ch], eax
+        mov eax, dword [byte esp+014h]
+        mov dword [byte esp+018h], edx
+        mov ebp, edx
+        mov esi, eax
+        shl ebp, 4
+        shl esi, 4
+        sub ebp, edx
+        mov edx, dword [byte esp+01Ch]
+        sub esi, eax
+        mov eax, edx
+        xor edi, edi
+        shl eax, 4
+        xor ebx, ebx
+        sub eax, edx
+        mov dword [byte esp+024h], ebx
+        mov dword [byte esp+020h], eax
+.2:
+        mov eax, dword [byte esp+028h]
+        add eax, ebp
+        shr eax, 4
+        mov dword [byte esp+04h], eax
+        mov eax, dword [byte esp+020h]
+        add eax, edi
+        mov edx, dword [byte esp+02Ch]
+        shr eax, 4
+        mov ecx, dword [byte esp+02Ch]
+        mov dword [esp], eax
+        mov eax, dword [byte esp+08h]
+        add edx, esi
+        add ecx, eax
+        mov eax, dword [byte esp+0Ch]
+        mov dword [byte esp+02Ch], ecx
+        mov ecx, dword [byte esp+028h]
+        shr edx, 4
+        add ecx, eax
+        mov eax, dword [byte esp+010h]
+        mov dword [byte esp+028h], ecx
+        mov ecx, dword [byte esp+014h]
+        add edi, eax
+        mov eax, dword [byte esp+018h]
+        sub esi, ecx
+        mov ecx, dword [byte esp+020h]
+        sub ebp, eax
+        mov eax, dword [byte esp+01Ch]
+        shl edx, 10h
+        sub ecx, eax
+        or edx, dword [byte esp+024h]
+        mov eax, dword [byte esp+04h]
+        shl eax, 8
+        or eax, edx
+        or eax, dword [esp]
+        push eax
+        mov dword [byte esp+024h], ecx
+        call MakeColor
+        add esp, byte 4
+        mov dword [dword ebx+FontGlyphColors], eax
+        mov ah, byte [byte esp+027h]
+        add ah, 10h
+        add ebx, byte 4
+        mov byte [byte esp+027h], ah
+        cmp ebx, byte 40h
+        jne near .2
+        call RefreshTextColors
+.3:
+        add esp, byte 30h
+        pop ebp
+        pop edi
+        pop esi
+        pop ebx
+        ret
+        db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
+;-----------------------------------------------------------------------------
+; DrawTextBoxed                                   FE2F0  97 PC, low confidence
+; Font library: draws a string on a filled background box
+;-----------------------------------------------------------------------------
+DrawTextBoxed:
+        push ebx
+        push esi
+        push edi
+        push ebp
+        sub esp, 0BCh
+        mov eax, esp
+        push eax
+        call SaveTextState
+        add esp, byte 4
+        push byte 0
+        call SetTextFont
+        add esp, byte 4
+        mov edx, dword [TextColorTable]
+        push edx
+        mov ebx, dword [TextColorIndex]
+        push ebx
+        call SetTextColors
+        add esp, byte 8
+        lea eax, [dword esp+0ACh]
+        push eax
+        lea eax, [dword esp+0B4h]
+        push eax
+        lea eax, [dword esp+0BCh]
+        push eax
+        lea eax, [dword esp+0C4h]
+        push eax
+        mov ecx, dword [dword esp+0E0h]
+        push ecx
+        call DrawTextString
+        add esp, byte 14h
+        mov esi, dword [TextColorTable]
+        push esi
+        mov edi, dword [dword esp+0B0h]
+        push edi
+        mov ebp, dword [dword esp+0B8h]
+        push ebp
+        mov eax, dword [dword esp+0C0h]
+        push eax
+        mov edx, dword [dword esp+0C8h]
+        push edx
+        call FillRect
+        add esp, byte 14h
+        mov ebx, dword [dword esp+0D0h]
+        push ebx
+        call DrawTextRun
+        add esp, byte 4
+        mov eax, esp
+        push eax
+        call RestoreTextState
+        add esp, byte 4
+        add esp, 0BCh
+        pop ebp
+        pop edi
+        pop esi
+        pop ebx
+        ret
+        db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; DrawTextBoxedAt                                 FE3AC  97 PC, low confidence
+; Font library: (x, y, string) moves the text position and draws the string
+; on its box
+;-----------------------------------------------------------------------------
+DrawTextBoxedAt:
+        push ebx
+        mov edx, dword [byte esp+010h]
+        push edx
+        mov ebx, dword [byte esp+010h]
+        push ebx
+        call SetTextOrigin
+        add esp, byte 8
+        mov ecx, dword [byte esp+08h]
+        push ecx
+        call DrawTextBoxed
+        add esp, byte 4
+        pop ebx
+        ret
+        db 00h,00h
+;-----------------------------------------------------------------------------
+; FillRectCorners                                 FE3D0  97 PC, low confidence
+; Fills the rectangle between two corners given in any order
+;-----------------------------------------------------------------------------
+FillRectCorners:
+        push ebx
+        push esi
+        push edi
+        push ebp
+        sub esp, byte 8
+        mov ebx, dword [byte esp+01Ch]
+        mov esi, dword [byte esp+020h]
+        mov edi, dword [byte esp+024h]
+        mov ebp, dword [byte esp+028h]
+        cmp edi, ebx
+        jge short .1
+        mov eax, ebx
+        mov ebx, edi
+        mov edi, eax
+.1:
+        mov eax, edi
+        sub eax, ebx
+        inc eax
+        mov dword [byte esp+04h], eax
+        cmp ebp, esi
+        jge short .2
+        mov dword [esp], esi
+        mov esi, ebp
+        mov ebp, dword [esp]
+.2:
+        mov edx, dword [byte esp+02Ch]
+        push edx
+        push byte 1
+        mov ecx, dword [byte esp+0Ch]
+        mov eax, ebp
+        push ecx
+        sub eax, esi
+        push esi
+        dec eax
+        push ebx
+        mov dword [byte esp+014h], eax
+        call FillRect
+        add esp, byte 14h
+        mov eax, dword [byte esp+02Ch]
+        push eax
+        mov edx, dword [byte esp+04h]
+        push edx
+        push byte 1
+        inc esi
+        push esi
+        push edi
+        call FillRect
+        add esp, byte 14h
+        mov ecx, dword [byte esp+02Ch]
+        push ecx
+        mov edi, dword [byte esp+04h]
+        push edi
+        push byte 1
+        push esi
+        push ebx
+        call FillRect
+        add esp, byte 14h
+        mov eax, dword [byte esp+02Ch]
+        push eax
+        push byte 1
+        mov edx, dword [byte esp+0Ch]
+        push edx
+        push ebp
+        push ebx
+        call FillRect
+        add esp, byte 14h
+        add esp, byte 8
+        pop ebp
+        pop edi
+        pop esi
+        pop ebx
+        ret
+;-----------------------------------------------------------------------------
+; DrawGlyph                                       FE470  97 PC, low confidence
+; Font library: draws one glyph bitmap with the text colour table, clipped to
+; the window
+;-----------------------------------------------------------------------------
+DrawGlyph:
+        push esi
+        push edi
+        push ebp
+        sub esp, byte 2Ch
+        mov esi, dword [byte esp+048h]
+        mov dword [byte esp+018h], eax
+        mov dword [byte esp+014h], edx
+        mov edx, ecx
+        mov eax, dword [byte esp+03Ch]
+        imul eax, esi
+        add ebx, byte 10h
+        sar edx, 1Fh
+        add ebx, eax
+        mov eax, ecx
+        LD sub, eax, edx
+        sar eax, 1
+        lea edi, [ebx+eax]
+        mov eax, dword [byte esp+040h]
+        inc eax
+        mov ebp, dword [TextShadowColor]
+        sar eax, 1
+        mov edx, dword [ScreenBuffer]
+        mov dword [byte esp+0Ch], eax
+        test edx, edx
+        jne near .15
+        mov eax, dword [byte esp+018h]
+        cmp eax, dword [ClipTopRow]
+        jl near .15
+        cmp eax, dword [ClipRight]
+        jge near .15
+        mov eax, dword [byte esp+014h]
+        cmp eax, dword [ClipLeftCol]
+        jl near .15
+        cmp eax, dword [ScreenHeight]
+        jge near .15
+        mov eax, dword [byte esp+018h]
+        mov ecx, dword [byte esp+040h]
+        mov edx, dword [ClipTopRow]
+        add eax, ecx
+        cmp eax, edx
+        jl near .15
+        cmp eax, dword [ClipRight]
+        jge near .15
+        mov eax, dword [byte esp+014h]
+        mov ecx, dword [byte esp+044h]
+        mov edx, dword [ClipLeftCol]
+        add eax, ecx
+        cmp eax, edx
+        jl near .15
+        cmp eax, dword [ScreenHeight]
+        jge near .15
+        mov ecx, dword [byte esp+0Ch]
+        mov eax, esi
+        mov dl, byte [ScreenBitsPerPixel]
+        sub eax, ecx
+        cmp dl, 10h
+        jne near .7
+        mov dword [byte esp+08h], eax
+.1:
+        mov ebx, dword [byte esp+014h]
+        mov eax, dword [byte esp+018h]
+        mov edx, dword [DrawDestOffset]
+        mov eax, dword [edx+eax*4]
+        mov edx, dword [DrawDestBuffer]
+        add eax, dword [edx+ebx*4]
+        add eax, dword [DrawDestPitch]
+        mov esi, eax
+        mov eax, dword [byte esp+0Ch]
+        mov dword [byte esp+024h], eax
+.2:
+        xor eax, eax
+        mov al, byte [edi]
+        shr eax, 4
+        mov ebx, dword [byte ebp+eax*4+00h]
+        cmp ebx, 1000000h
+        jb short .4
+        cmp ebx, 0FF000000h
+        jae short .3
+        mov ax, word [esi]
+        mov ecx, ebx
+        mov edx, eax
+        xor ecx, byte 0FFFFFFFFh
+        shl eax, 10h
+        mov al, dl
+        and edx, 7E0h
+        shl edx, 8
+        and eax, 0F800001Fh
+        shr ecx, 18h
+        add eax, edx
+        mul ecx
+        shl edx, 10h
+        mov ecx, eax
+        shr ecx, 5
+        add ebx, edx
+        shr eax, 0Bh
+        and ecx, 0FFh
+        and eax, 0FF00h
+        add ebx, ecx
+        add ebx, eax
+.3:
+        mov eax, ebx
+        and ebx, 0F80000h
+        shr ebx, 8
+        mov edx, eax
+        shr eax, 3
+        and edx, 0FC00h
+        shr edx, 5
+        and eax, byte 1Fh
+        add ebx, eax
+        add ebx, edx
+        mov word [esi], bx
+.4:
+        lea esi, [byte esi+02h]
+        xor eax, eax
+        mov al, byte [edi]
+        and eax, byte 0Fh
+        mov ebx, dword [byte ebp+eax*4+00h]
+        cmp ebx, 1000000h
+        jb short .6
+        cmp ebx, 0FF000000h
+        jae short .5
+        mov ax, word [esi]
+        mov ecx, ebx
+        mov edx, eax
+        xor ecx, byte 0FFFFFFFFh
+        shl eax, 10h
+        mov al, dl
+        and edx, 7E0h
+        shl edx, 8
+        and eax, 0F800001Fh
+        shr ecx, 18h
+        add eax, edx
+        mul ecx
+        shl edx, 10h
+        mov ecx, eax
+        shr ecx, 5
+        add ebx, edx
+        shr eax, 0Bh
+        and ecx, 0FFh
+        and eax, 0FF00h
+        add ebx, ecx
+        add ebx, eax
+.5:
+        mov eax, ebx
+        and ebx, 0F80000h
+        shr ebx, 8
+        mov edx, eax
+        shr eax, 3
+        and edx, 0FC00h
+        shr edx, 5
+        and eax, byte 1Fh
+        add ebx, eax
+        add ebx, edx
+        mov word [esi], bx
+.6:
+        lea esi, [byte esi+02h]
+        mov edx, dword [byte esp+024h]
+        inc edi
+        dec edx
+        mov dword [byte esp+024h], edx
+        jne near .2
+        mov ecx, dword [byte esp+08h]
+        mov esi, dword [byte esp+014h]
+        mov eax, dword [byte esp+044h]
+        inc esi
+        add edi, ecx
+        mov dword [byte esp+014h], esi
+        dec eax
+        mov dword [byte esp+044h], eax
+        je near .21
+        jmp near .1
+.7:
+        cmp dl, 0Fh
+        jne near .14
+        mov dword [byte esp+04h], eax
+.8:
+        mov ebx, dword [byte esp+014h]
+        mov eax, dword [byte esp+018h]
+        mov edx, dword [DrawDestOffset]
+        mov eax, dword [edx+eax*4]
+        mov edx, dword [DrawDestBuffer]
+        add eax, dword [edx+ebx*4]
+        add eax, dword [DrawDestPitch]
+        mov esi, eax
+        mov eax, dword [byte esp+0Ch]
+        mov dword [byte esp+028h], eax
+.9:
+        xor eax, eax
+        mov al, byte [edi]
+        shr eax, 4
+        mov ebx, dword [byte ebp+eax*4+00h]
+        cmp ebx, 1000000h
+        jb short .11
+        cmp ebx, 0FF000000h
+        jae short .10
+        mov ax, word [esi]
+        mov ecx, eax
+        and eax, 7C00h
+        shl eax, 11h
+        mov edx, ecx
+        and edx, 3E0h
+        shl edx, 9
+        add eax, edx
+        and ecx, byte 1Fh
+        add eax, ecx
+        mov ecx, ebx
+        shr ecx, 18h
+        xor ecx, 0FFh
+        mul ecx
+        shl edx, 10h
+        add ebx, edx
+        mov edx, eax
+        shr edx, 5
+        and edx, 0FFh
+        add ebx, edx
+        shr eax, 0Bh
+        and eax, 0FF00h
+        add ebx, eax
+.10:
+        shr ebx, 3
+        shl bl, 3
+        shl bx, 3
+        shr ebx, 6
+        mov word [esi], bx
+.11:
+        lea esi, [byte esi+02h]
+        xor eax, eax
+        mov al, byte [edi]
+        and eax, byte 0Fh
+        mov ebx, dword [byte ebp+eax*4+00h]
+        cmp ebx, 1000000h
+        jb short .13
+        cmp ebx, 0FF000000h
+        jae short .12
+        mov ax, word [esi]
+        mov ecx, eax
+        and eax, 7C00h
+        shl eax, 11h
+        mov edx, ecx
+        and edx, 3E0h
+        shl edx, 9
+        add eax, edx
+        and ecx, byte 1Fh
+        add eax, ecx
+        mov ecx, ebx
+        shr ecx, 18h
+        xor ecx, 0FFh
+        mul ecx
+        shl edx, 10h
+        add ebx, edx
+        mov edx, eax
+        shr edx, 5
+        and edx, 0FFh
+        add ebx, edx
+        shr eax, 0Bh
+        and eax, 0FF00h
+        add ebx, eax
+.12:
+        shr ebx, 3
+        shl bl, 3
+        shl bx, 3
+        shr ebx, 6
+        mov word [esi], bx
+.13:
+        lea esi, [byte esi+02h]
+        mov eax, dword [byte esp+028h]
+        inc edi
+        dec eax
+        mov dword [byte esp+028h], eax
+        jne near .9
+        mov ebx, dword [byte esp+04h]
+        mov ecx, dword [byte esp+014h]
+        mov esi, dword [byte esp+044h]
+        inc ecx
+        add edi, ebx
+        mov dword [byte esp+014h], ecx
+        dec esi
+        mov dword [byte esp+044h], esi
+        je near .21
+        jmp near .8
+.14:
+        cmp dl, 8
+        jne short .15
+        mov ebx, dword [ScreenPitch]
+        lea edx, [ecx+ecx]
+        sub ebx, edx
+        push ebx
+        mov edx, dword [byte esp+018h]
+        push eax
+        shl edx, 2
+        mov eax, dword [DrawDestBuffer]
+        mov ebx, dword [byte esp+04Ch]
+        add edx, eax
+        push ebx
+        mov eax, dword [DrawDestPitch]
+        mov esi, dword [edx]
+        mov edx, dword [byte esp+024h]
+        add eax, esi
+        push ecx
+        add eax, edx
+        push eax
+        push edi
+        add ebp, byte 40h
+        push ebp
+        call DrawGlyphScaled
+        add esp, byte 1Ch
+        jmp near .21
+.15:
+        xor eax, eax
+        mov edx, dword [byte esp+044h]
+        mov dword [byte esp+010h], eax
+        test edx, edx
+        jle near .21
+        mov eax, dword [byte esp+0Ch]
+        sub esi, eax
+        mov dword [esp], esi
+.16:
+        mov edx, dword [byte esp+040h]
+        xor ebx, ebx
+        test edx, edx
+        jle short .20
+        mov eax, dword [byte esp+014h]
+        add eax, dword [byte esp+010h]
+        mov esi, dword [byte esp+018h]
+        mov dword [byte esp+01Ch], eax
+        inc esi
+.17:
+        xor edx, edx
+        mov dl, byte [edi]
+        inc edi
+        mov eax, edx
+        and edx, byte 0Fh
+        sar eax, 4
+        mov dword [byte esp+020h], edx
+        test eax, eax
+        je short .18
+        mov edx, dword [byte ebp+eax*4+00h]
+        push edx
+        mov ecx, dword [byte esp+020h]
+        mov eax, dword [byte esp+01Ch]
+        push ecx
+        add eax, ebx
+        push eax
+        call PlotPixelRGB
+        add esp, byte 0Ch
+.18:
+        mov eax, dword [byte esp+020h]
+        test eax, eax
+        je short .19
+        mov edx, dword [byte ebp+eax*4+00h]
+        push edx
+        mov ecx, dword [byte esp+020h]
+        push ecx
+        push esi
+        call PlotPixelRGB
+        add esp, byte 0Ch
+.19:
+        mov ecx, dword [byte esp+040h]
+        add ebx, byte 2
+        add esi, byte 2
+        cmp ebx, ecx
+        jl short .17
+.20:
+        mov ebx, dword [esp]
+        mov ecx, dword [byte esp+010h]
+        mov esi, dword [byte esp+044h]
+        inc ecx
+        add edi, ebx
+        mov dword [byte esp+010h], ecx
+        cmp ecx, esi
+        jl near .16
+.21:
+        add esp, byte 2Ch
+        pop ebp
+        pop edi
+        pop esi
+        ret 10h
+        db 090h
+DrawGlyph_494:
+        push esi
+        push edi
+        push ebp
+        sub esp, byte 1Ch
+        mov esi, dword [byte esp+038h]
+        mov dword [byte esp+014h], eax
+        mov dword [esp], edx
+        mov edx, ecx
+        xor ecx, ecx
+        mov edi, dword [byte esp+034h]
+        mov dword [byte esp+010h], ecx
+        test edi, edi
+        jle near .27
+        mov eax, edx
+        sar edx, 1Fh
+        LD sub, eax, edx
+        sar eax, 1
+        mov dword [byte esp+04h], esi
+        mov dword [byte esp+08h], eax
+        imul eax, esi, byte 0
+        mov edx, dword [byte esp+02Ch]
+        imul edx, esi
+        add ebx, byte 10h
+        add eax, ebx
+        add eax, edx
+        mov dword [byte esp+0Ch], eax
+.22:
+        mov edi, dword [byte esp+0Ch]
+        mov ebx, dword [byte esp+08h]
+        mov ecx, dword [byte esp+030h]
+        add edi, ebx
+        xor ebx, ebx
+        test ecx, ecx
+        jle short .26
+        mov eax, dword [esp]
+        mov edx, dword [byte esp+010h]
+        mov esi, dword [byte esp+014h]
+        add eax, edx
+        inc esi
+        mov dword [byte esp+018h], eax
+.23:
+        movzx ebp, byte [edi]
+        mov eax, ebp
+        inc edi
+        sar eax, 4
+        and ebp, byte 0Fh
+        test eax, eax
+        je short .24
+        shl eax, 2
+        add eax, FontGlyphColors
+        mov ecx, dword [eax]
+        push ecx
+        mov eax, dword [byte esp+01Ch]
+        push eax
+        mov eax, dword [byte esp+01Ch]
+        add eax, ebx
+        push eax
+        call PlotPixel
+        add esp, byte 0Ch
+.24:
+        test ebp, ebp
+        je short .25
+        lea eax, [nosplit ebp*4+00h]
+        add eax, FontGlyphColors
+        mov edx, dword [eax]
+        push edx
+        mov ecx, dword [byte esp+01Ch]
+        push ecx
+        push esi
+        call PlotPixel
+        add esp, byte 0Ch
+.25:
+        mov ebp, dword [byte esp+030h]
+        add ebx, byte 2
+        add esi, byte 2
+        cmp ebx, ebp
+        jl short .23
+.26:
+        mov eax, dword [byte esp+04h]
+        mov ebp, dword [byte esp+0Ch]
+        add ebp, eax
+        mov eax, dword [byte esp+010h]
+        mov edx, dword [byte esp+034h]
+        inc eax
+        mov dword [byte esp+0Ch], ebp
+        mov dword [byte esp+010h], eax
+        cmp eax, edx
+        jl near .22
+.27:
+        add esp, byte 1Ch
+        pop ebp
+        pop edi
+        pop esi
+        ret 10h
+        db 090h
+DrawGlyph_590:
+        push esi
+        push edi
+        push ebp
+        sub esp, byte 38h
+        mov esi, dword [byte esp+054h]
+        mov dword [byte esp+014h], eax
+        mov dword [byte esp+04h], edx
+        mov edx, ecx
+        mov ebp, dword [byte esp+050h]
+        xor ecx, ecx
+        mov edi, dword [TextColorIndex]
+        mov dword [byte esp+010h], ecx
+        test ebp, ebp
+        jle near .39
+        mov eax, edx
+        sar edx, 1Fh
+        shl edx, 3
+        LD sbb, eax, edx
+        sar eax, 3
+        mov dword [byte esp+08h], esi
+        mov dword [esp], eax
+        imul eax, esi, byte 0
+        imul esi, dword [byte esp+048h]
+        add ebx, byte 10h
+        add eax, ebx
+        add eax, esi
+        mov dword [byte esp+0Ch], eax
+.28:
+        mov eax, dword [byte esp+0Ch]
+        mov edx, dword [esp]
+        mov ebx, dword [byte esp+04Ch]
+        add eax, edx
+        xor ebp, ebp
+        mov dword [byte esp+01Ch], eax
+        test ebx, ebx
+        jle near .38
+        mov eax, dword [byte esp+014h]
+        inc eax
+        mov dword [byte esp+024h], eax
+        mov eax, dword [byte esp+014h]
+        add eax, byte 2
+        mov dword [byte esp+02Ch], eax
+        mov eax, dword [byte esp+014h]
+        add eax, byte 3
+        mov dword [byte esp+020h], eax
+        mov eax, dword [byte esp+014h]
+        add eax, byte 4
+        mov dword [byte esp+034h], eax
+        mov eax, dword [byte esp+014h]
+        add eax, byte 5
+        mov dword [byte esp+018h], eax
+        mov eax, dword [byte esp+014h]
+        add eax, byte 6
+        mov esi, dword [byte esp+04h]
+        mov dword [byte esp+028h], eax
+        mov eax, dword [byte esp+014h]
+        mov ecx, dword [byte esp+010h]
+        add eax, byte 7
+        add esi, ecx
+        mov dword [byte esp+030h], eax
+.29:
+        mov eax, dword [byte esp+01Ch]
+        inc eax
+        xor ebx, ebx
+        mov bl, byte [byte eax-01h]
+        mov dword [byte esp+01Ch], eax
+        test bl, 80h
+        je short .30
+        push edi
+        mov eax, dword [byte esp+018h]
+        push esi
+        add eax, ebp
+        push eax
+        call PlotPixel
+        add esp, byte 0Ch
+.30:
+        test bl, 40h
+        je short .31
+        push edi
+        push esi
+        mov edx, dword [byte esp+02Ch]
+        push edx
+        call PlotPixel
+        add esp, byte 0Ch
+.31:
+        test bl, 20h
+        je short .32
+        push edi
+        push esi
+        mov ecx, dword [byte esp+034h]
+        push ecx
+        call PlotPixel
+        add esp, byte 0Ch
+.32:
+        test bl, 10h
+        je short .33
+        push edi
+        push esi
+        mov eax, dword [byte esp+028h]
+        push eax
+        call PlotPixel
+        add esp, byte 0Ch
+.33:
+        test bl, 8
+        je short .34
+        push edi
+        push esi
+        mov edx, dword [byte esp+03Ch]
+        push edx
+        call PlotPixel
+        add esp, byte 0Ch
+.34:
+        test bl, 4
+        je short .35
+        push edi
+        push esi
+        mov ecx, dword [byte esp+020h]
+        push ecx
+        call PlotPixel
+        add esp, byte 0Ch
+.35:
+        test bl, 2
+        je short .36
+        push edi
+        push esi
+        mov eax, dword [byte esp+030h]
+        push eax
+        call PlotPixel
+        add esp, byte 0Ch
+.36:
+        test bl, 1
+        je short .37
+        push edi
+        push esi
+        mov edx, dword [byte esp+038h]
+        push edx
+        call PlotPixel
+        add esp, byte 0Ch
+.37:
+        mov ecx, dword [byte esp+024h]
+        mov eax, dword [byte esp+02Ch]
+        mov edx, dword [byte esp+020h]
+        mov ebx, dword [byte esp+034h]
+        add ebp, byte 8
+        add ecx, byte 8
+        add eax, byte 8
+        add edx, byte 8
+        add ebx, byte 8
+        mov dword [byte esp+024h], ecx
+        mov dword [byte esp+02Ch], eax
+        mov dword [byte esp+020h], edx
+        mov dword [byte esp+034h], ebx
+        mov ecx, dword [byte esp+018h]
+        mov eax, dword [byte esp+028h]
+        mov edx, dword [byte esp+030h]
+        mov ebx, dword [byte esp+04Ch]
+        add ecx, byte 8
+        add eax, byte 8
+        add edx, byte 8
+        mov dword [byte esp+018h], ecx
+        mov dword [byte esp+028h], eax
+        mov dword [byte esp+030h], edx
+        cmp ebp, ebx
+        jl near .29
+.38:
+        mov eax, dword [byte esp+08h]
+        mov edx, dword [byte esp+0Ch]
+        mov ebx, dword [byte esp+010h]
+        mov ecx, dword [byte esp+050h]
+        add edx, eax
+        inc ebx
+        mov dword [byte esp+0Ch], edx
+        mov dword [byte esp+010h], ebx
+        cmp ebx, ecx
+        jl near .28
+.39:
+        add esp, byte 38h
+        pop ebp
+        pop edi
+        pop esi
+        ret 10h
+        db 090h
+;-----------------------------------------------------------------------------
+; BuildTextColorTable                             FEBFC  97 PC, low confidence
+; Font library: finds the palette colours nearest to the anti-aliasing shades
+; of the text colour
+;-----------------------------------------------------------------------------
+BuildTextColorTable:
+        push ebx
+        push ecx
+        push esi
+        push edi
+        push ebp
+        sub esp, 334h
+        mov dword [dword esp+0300h], eax
+        mov dword [dword esp+0308h], edx
+        xor edx, edx
+        xor eax, eax
+.1:
+        mov ebx, dword [dword eax+PaletteWords]
+        shr ebx, 10h
+        mov byte [esp+edx], bl
+        mov ebx, dword [dword eax+PaletteWords]
+        add edx, byte 3
+        shr ebx, 8
+        mov byte [byte esp+edx-02h], bl
+        mov bl, byte [dword eax+PaletteWords]
+        add eax, byte 4
+        mov byte [byte esp+edx-01h], bl
+        cmp eax, 400h
+        jne short .1
+        mov eax, dword [dword esp+0300h]
+        xor edi, edi
+        add eax, byte 40h
+        mov dword [dword esp+0304h], edi
+        mov dword [dword esp+030Ch], eax
+.2:
+        mov edx, dword [dword esp+0304h]
+        xor eax, eax
+        mov al, byte [esp+edx]
+        mov dword [dword esp+0314h], eax
+        xor eax, eax
+        mov al, byte [byte esp+edx+01h]
+        mov dword [dword esp+0310h], eax
+        xor eax, eax
+        mov ebx, dword [dword esp+0300h]
+        mov al, byte [byte esp+edx+02h]
+        xor esi, esi
+        mov dword [dword esp+0318h], eax
+.3:
+        xor edx, edx
+        mov dl, byte [byte ebx+03h]
+        test edx, edx
+        jne short .4
+        mov eax, edi
+        jmp near .8
+.4:
+        mov ecx, 0FFh
+        mov dword [dword esp+031Ch], edx
+        sub ecx, edx
+        mov edx, dword [dword esp+0314h]
+        imul edx, ecx
+        xor eax, eax
+        mov al, byte [byte ebx+02h]
+        mov dword [dword esp+0320h], eax
+        xor eax, eax
+        mov al, byte [ebx]
+        mov dword [dword esp+0330h], 0FFh
+        mov dword [dword esp+032Ch], eax
+        mov eax, edx
+        sar edx, 1Fh
+        idiv dword [dword esp+0330h]
+        add eax, dword [dword esp+0320h]
+        movzx ebp, byte [byte ebx+01h]
+        cmp eax, 0FFh
+        jle short .5
+        mov eax, 0FFh
+.5:
+        mov edx, dword [dword esp+0310h]
+        imul edx, ecx
+        mov dword [dword esp+0330h], 0FFh
+        mov dword [dword esp+0328h], eax
+        mov eax, edx
+        sar edx, 1Fh
+        idiv dword [dword esp+0330h]
+        lea edx, [eax+ebp]
+        cmp edx, 0FFh
+        jle short .6
+        mov edx, 0FFh
+.6:
+        mov dword [dword esp+0324h], edx
+        mov edx, dword [dword esp+0318h]
+        imul edx, ecx
+        mov ecx, 0FFh
+        mov eax, edx
+        sar edx, 1Fh
+        idiv ecx
+        add eax, dword [dword esp+032Ch]
+        cmp eax, 0FFh
+        jle short .7
+        mov eax, 0FFh
+.7:
+        mov ecx, dword [dword esp+031Ch]
+        mov edx, dword [dword esp+0328h]
+        shl ecx, 18h
+        shl edx, 10h
+        or ecx, edx
+        mov edx, dword [dword esp+0324h]
+        shl edx, 8
+        or edx, ecx
+        or eax, edx
+        push eax
+        call MakeColor
+        add esp, byte 4
+.8:
+        mov edx, esi
+        mov ebp, dword [dword esp+0308h]
+        or edx, edi
+        add edx, ebp
+        add ebx, byte 4
+        mov byte [edx], al
+        mov eax, dword [dword esp+030Ch]
+        add esi, 100h
+        cmp ebx, eax
+        jne near .3
+        mov edx, dword [dword esp+0304h]
+        add edx, byte 3
+        inc edi
+        mov dword [dword esp+0304h], edx
+        cmp edi, 100h
+        jl near .2
+        add esp, 334h
+        pop ebp
+        pop edi
+        pop esi
+        pop ecx
+        pop ebx
+        ret
+;-----------------------------------------------------------------------------
+; PrepareTextDraw                                 FEDEC  97 PC, low confidence
+; Font library: allocates the glyph work buffer and refreshes the colour
+; tables before drawing
+;-----------------------------------------------------------------------------
+PrepareTextDraw:
+        push ebx
+        cmp dword [TextShadowColor], byte 0
+        jne short .1
+        mov ebx, 1040h
+        mov eax, ebx
+        mov dword [TextBuffer], ebx
+        call AllocNetBuffer
+        mov dword [TextShadowColor], eax
+.1:
+        cmp dword [CurrentFont], byte 0
+        je short .2
+        cmp dword [TextAlign], byte 4
+        jne short .2
+        mov eax, dword [TextColorIndex]
+        call BuildColorRamp
+.2:
+        cmp dword [TextAlign], byte 1
+        jne short .3
+        mov dword [DrawGlyphFn], DrawGlyph_590
+        pop ebx
+        ret
+.3:
+        cmp dword [CurrentFont], byte 0
+        je short .4
+        mov dword [DrawGlyphFn], DrawGlyph
+        pop ebx
+        ret
+.4:
+        mov dword [DrawGlyphFn], DrawGlyph_494
+        pop ebx
+PrepareTextDraw_72:
+        ret
+        db 090h
+;-----------------------------------------------------------------------------
+; RefreshTextColors                               FEE60  97 PC, low confidence
+; Font library: entry that rebuilds the text colour ramp when anti-aliased
+; text is on
+;-----------------------------------------------------------------------------
+RefreshTextColors:
+        cmp dword [CurrentFont], byte 0
+        je short PrepareTextDraw_72
+        cmp dword [TextAlign], byte 4
+        jne short PrepareTextDraw_72
+        mov eax, dword [TextColorIndex]
+        nop
+;-----------------------------------------------------------------------------
+; BuildColorRamp                                  FEE78  97 PC, low confidence
+; Font library: builds the ramp of colours from the background to the text
+; colour
+;-----------------------------------------------------------------------------
+BuildColorRamp:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        push ebp
+        sub esp, byte 18h
+        mov edx, dword [TextShadowColor]
+        push eax
+        mov dword [byte esp+0Ch], edx
+        call ConvertColor555
+        add esp, byte 4
+        mov edi, eax
+        mov ecx, eax
+        and eax, 0FFh
+        mov dword [esp], eax
+        imul ebp, eax, byte 0
+        shr ecx, 8
+        and ecx, 0FFh
+        mov dword [byte esp+010h], ecx
+        imul ecx, byte 0
+        shr edi, 10h
+        and edi, 0FFh
+        mov dword [byte esp+0Ch], edi
+        imul edi, byte 0
+        mov ebx, dword [byte esp+08h]
+        lea eax, [byte ebx+040h]
+        xor esi, esi
+        mov dword [byte esp+04h], eax
+.1:
+        mov dword [byte esp+014h], 0Fh
+        mov edx, esi
+        mov eax, esi
+        sar edx, 1Fh
+        idiv dword [byte esp+014h]
+        mov dword [byte esp+014h], 0Fh
+        mov edx, edi
+        mov byte [byte ebx+03h], al
+        mov eax, edi
+        sar edx, 1Fh
+        idiv dword [byte esp+014h]
+        mov dword [byte esp+014h], 0Fh
+        mov edx, ecx
+        mov byte [byte ebx+02h], al
+        mov eax, ecx
+        sar edx, 1Fh
+        idiv dword [byte esp+014h]
+        mov dword [byte esp+014h], 0Fh
+        mov edx, ebp
+        mov byte [byte ebx+01h], al
+        mov eax, ebp
+        sar edx, 1Fh
+        idiv dword [byte esp+014h]
+        add ebx, byte 4
+        add esi, 0FFh
+        mov edx, dword [esp]
+        mov byte [byte ebx-04h], al
+        mov eax, dword [byte esp+010h]
+        add ebp, edx
+        mov edx, dword [byte esp+0Ch]
+        add ecx, eax
+        mov eax, dword [byte esp+04h]
+        add edi, edx
+        cmp ebx, eax
+        jne short .1
+        mov edx, dword [TextShadowColor]
+        mov eax, dword [byte esp+08h]
+        add edx, byte 40h
+        call BuildTextColorTable
+        add esp, byte 18h
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+        db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; FreeTextBuffers                                 FEF68  97 PC, low confidence
+; Font library: frees the glyph work buffer
+;-----------------------------------------------------------------------------
+FreeTextBuffers:
+        push ebx
+        push edx
+        push esi
+        mov edx, dword [TextShadowColor]
+        test edx, edx
+        je short .1
+        mov eax, edx
+        xor ebx, ebx
+        call FreeNetBuffer
+        mov dword [TextShadowColor], ebx
+        mov dword [TextBuffer], ebx
+.1:
+        xor esi, esi
+        mov dword [DrawGlyphFn], esi
+        pop esi
+        pop edx
+        pop ebx
+        ret
+        db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
+;-----------------------------------------------------------------------------
+; ClearIfNaN                                      FEFA0  97 PC, low confidence
+; 3D library: sets a float to 0 when it is NaN or infinite; returns 1 if it
+; did
+;-----------------------------------------------------------------------------
+ClearIfNaN:
+        push edx
+        mov edx, dword [eax]
+        and edx, 7F800000h
+        cmp edx, 7F800000h
+        jne short .1
+        mov dword [eax], 0
+        mov eax, 1
+        pop edx
+        ret
+.1:
+        xor eax, eax
+        pop edx
+        ret
+        db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; matherr                                         FEFC4  97 PC, low confidence
+; The game's math error handler: for an acos domain error returns 0 instead
+; of an error
+;-----------------------------------------------------------------------------
+matherr:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        push ebp
+        mov ebp, esp
+        sub esp, byte 8
+        and esp, byte 0FFFFFFF8h
+        mov ebx, eax
+        cmp dword [eax], byte 1
+        jne short .4
+        mov edx, str_Acos
+        mov eax, dword [byte eax+04h]
+        call strcmp_
+        test eax, eax
+        jne short .3
+        fldz
+        fcomp qword [byte ebx+08h]
+        fnstsw ax
+        sahf
+        jae short .1
+        mov edi, 5A7ED197h
+        mov eax, 400921FBh
+        mov dword [esp], edi
+        mov dword [byte esp+04h], eax
+        jmp short .2
+.1:
+        mov ecx, 5A7ED197h
+        mov esi, 0C00921FBh
+        mov dword [esp], ecx
+        mov dword [byte esp+04h], esi
+.2:
+        mov eax, dword [esp]
+        mov dword [byte ebx+018h], eax
+        mov eax, dword [byte esp+04h]
+        mov dword [byte ebx+01Ch], eax
+        jmp short .4
+.3:
+        mov dword [byte ebx+018h], 0
+        mov dword [byte ebx+01Ch], 0
+.4:
+        mov eax, 64F9h
+        mov esp, ebp
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+        db 090h
+;-----------------------------------------------------------------------------
+; IntsToFloats                                    FF044  97 PC, low confidence
+; 3D library: converts a list of integers to floats
+;-----------------------------------------------------------------------------
+IntsToFloats:
+        push ecx
+        cmp eax, byte 8
+        jle short .2
+.1:
+        fild dword [edx]
+        sub eax, byte 8
+        add edx, byte 20h
+        fstp dword [ebx]
+        add ebx, byte 20h
+        fild dword [byte edx-01Ch]
+        fstp dword [byte ebx-01Ch]
+        fild dword [byte edx-018h]
+        fstp dword [byte ebx-018h]
+        fild dword [byte edx-014h]
+        fstp dword [byte ebx-014h]
+        fild dword [byte edx-010h]
+        fstp dword [byte ebx-010h]
+        fild dword [byte edx-0Ch]
+        fstp dword [byte ebx-0Ch]
+        fild dword [byte edx-08h]
+        fstp dword [byte ebx-08h]
+        fild dword [byte edx-04h]
+        fstp dword [byte ebx-04h]
+        cmp eax, byte 8
+        jg short .1
+.2:
+        mov ecx, eax
+        dec eax
+        test ecx, ecx
+        jle short .3
+        add ebx, byte 4
+        fild dword [edx]
+        add edx, byte 4
+        fstp dword [byte ebx-04h]
+        jmp short .2
+.3:
+        pop ecx
+        ret
+        push ecx
+        cmp eax, byte 8
+        jle short .5
+.4:
+        fild dword [edx]
+        fmul dword [F32_1p52588eneg05]
+        fstp dword [ebx]
+        fild dword [byte edx+04h]
+        fmul dword [F32_1p52588eneg05]
+        fstp dword [byte ebx+04h]
+        fild dword [byte edx+08h]
+        fmul dword [F32_1p52588eneg05]
+        fstp dword [byte ebx+08h]
+        fild dword [byte edx+0Ch]
+        fmul dword [F32_1p52588eneg05]
+        fstp dword [byte ebx+0Ch]
+        fild dword [byte edx+010h]
+        fmul dword [F32_1p52588eneg05]
+        fstp dword [byte ebx+010h]
+        fild dword [byte edx+014h]
+        fmul dword [F32_1p52588eneg05]
+        fstp dword [byte ebx+014h]
+        fild dword [byte edx+018h]
+        fmul dword [F32_1p52588eneg05]
+        fstp dword [byte ebx+018h]
+        fild dword [byte edx+01Ch]
+        fmul dword [F32_1p52588eneg05]
+        add ebx, byte 20h
+        sub eax, byte 8
+        add edx, byte 20h
+        fstp dword [byte ebx-04h]
+        cmp eax, byte 8
+        jg short .4
+.5:
+        mov ecx, eax
+        dec eax
+        test ecx, ecx
+        jle short .3
+        fild dword [edx]
+        fmul dword [F32_1p52588eneg05]
+        add ebx, byte 4
+        add edx, byte 4
+        fstp dword [byte ebx-04h]
+        jmp short .5
+;-----------------------------------------------------------------------------
+; FloatsToInts                                    FF128  97 PC, low confidence
+; 3D library: converts a list of floats to integers
+;-----------------------------------------------------------------------------
+FloatsToInts:
+        push ecx
+        push esi
+        push edi
+        mov edi, ebx
+        mov esi, edx
+        mov ecx, eax
+        cmp ecx, byte 4
+        jl short .2
+.1:
+        fld dword [esi]
+        fistp dword [edi]
+        sub ecx, byte 4
+        fld dword [byte esi+04h]
+        fistp dword [byte edi+04h]
+        fld dword [byte esi+08h]
+        fistp dword [byte edi+08h]
+        fld dword [byte esi+0Ch]
+        cmp ecx, byte 4
+        fistp dword [byte edi+0Ch]
+        lea esi, [byte esi+010h]
+        lea edi, [byte edi+010h]
+        jge short .1
+        cmp ecx, byte 0
+        jle short .3
+.2:
+        fld dword [esi]
+        fistp dword [edi]
+        add esi, byte 4
+        add edi, byte 4
+        dec ecx
+        jg short .2
+.3:
+        nop
+        pop edi
+        pop esi
+FloatsToInts_47:
+        pop ecx
+        ret
+        db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; ScaleFloatsToInts                               FF174  97 PC, low confidence
+; 3D library: scales a list of floats by the fixed-point factor and stores
+; them as integers
+;-----------------------------------------------------------------------------
+ScaleFloatsToInts:
+        push ecx
+        mov ecx, eax
+.1:
+        mov eax, ecx
+        dec ecx
+        test eax, eax
+        jle short FloatsToInts_47
+        mov eax, edx
+        fld dword [eax]
+        fmul dword [F32_65536_ScaleFloatsToInts]
+        add ebx, byte 4
+        add edx, byte 4
+        push eax
+        fistp dword [esp]
+        pop eax
+        mov dword [byte ebx-04h], eax
+        jmp short .1
+;-----------------------------------------------------------------------------
+; MatRotX                                         FF198  97 PC, low confidence
+; 3D library: builds the matrix of a rotation about the X axis
+;-----------------------------------------------------------------------------
+MatRotX:
+        push edx
+        push esi
+        push edi
+        sub esp, byte 8
+        mov edx, eax
+        mov edi, esp
+        lea esi, [byte esp+04h]
+        lea eax, [byte esp+018h]
+        fld dword [eax]
+        fsincos
+        fstp dword [edi]
+        fstp dword [esi]
+        mov dword [edx], 3F800000h
+        mov dword [byte edx+04h], 0
+        mov dword [byte edx+08h], 0
+        mov dword [byte edx+0Ch], 0
+        mov eax, dword [esp]
+        mov dword [byte edx+010h], eax
+        mov eax, dword [byte esp+04h]
+        mov dword [byte edx+018h], 0
+        mov dword [byte edx+014h], eax
+        fld dword [byte esp+04h]
+        fchs
+        fstp dword [byte edx+01Ch]
+        mov eax, dword [esp]
+        mov dword [byte edx+020h], eax
+        add esp, byte 8
+        pop edi
+        pop esi
+        pop edx
+        ret 4
+        db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; MatRotY                                         FF1FC  97 PC, low confidence
+; 3D library: builds the matrix of a rotation about the Y axis
+;-----------------------------------------------------------------------------
+MatRotY:
+        push edx
+        push esi
+        push edi
+        sub esp, byte 8
+        mov edx, eax
+        mov edi, esp
+        lea esi, [byte esp+04h]
+        lea eax, [byte esp+018h]
+        fld dword [eax]
+        fsincos
+        fstp dword [edi]
+        fstp dword [esi]
+        mov eax, dword [esp]
+        mov dword [byte edx+04h], 0
+        mov dword [edx], eax
+        fld dword [byte esp+04h]
+        mov dword [byte edx+0Ch], 0
+        mov dword [byte edx+010h], 3F800000h
+        mov dword [byte edx+014h], 0
+        fchs
+        fstp dword [byte edx+08h]
+        mov eax, dword [byte esp+04h]
+        mov dword [byte edx+01Ch], 0
+        mov dword [byte edx+018h], eax
+        mov eax, dword [esp]
+        mov dword [byte edx+020h], eax
+        add esp, byte 8
+        pop edi
+        pop esi
+        pop edx
+        ret 4
+        db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; MatRotZ                                         FF260  97 PC, low confidence
+; 3D library: builds the matrix of a rotation about the Z axis
+;-----------------------------------------------------------------------------
+MatRotZ:
+        push edx
+        push esi
+        push edi
+        sub esp, byte 8
+        mov edx, eax
+        mov edi, esp
+        lea esi, [byte esp+04h]
+        lea eax, [byte esp+018h]
+        fld dword [eax]
+        fsincos
+        fstp dword [edi]
+        fstp dword [esi]
+        mov eax, dword [esp]
+        mov dword [edx], eax
+        mov eax, dword [byte esp+04h]
+        mov dword [byte edx+08h], 0
+        mov dword [byte edx+04h], eax
+        fld dword [byte esp+04h]
+        fchs
+        fstp dword [byte edx+0Ch]
+        mov eax, dword [esp]
+        mov dword [byte edx+014h], 0
+        mov dword [byte edx+018h], 0
+        mov dword [byte edx+01Ch], 0
+        mov dword [byte edx+020h], 3F800000h
+        mov dword [byte edx+010h], eax
+        add esp, byte 8
+        pop edi
+        pop esi
+        pop edx
+        ret 4
+        db 08Dh,040h,00h
+        push ebx
+        push ecx
+        push edx
+        sub esp, byte 6Ch
+        mov ecx, eax
+        push dword [byte esp+07Ch]
+        lea eax, [byte esp+04h]
+        lea ebx, [byte esp+028h]
+        call MatRotX
+        push dword [dword esp+080h]
+        lea eax, [byte esp+04Ch]
+        lea edx, [byte esp+04Ch]
+        call MatRotY
+        mov eax, esp
+        call MatMul
+        push dword [dword esp+084h]
+        lea eax, [byte esp+04h]
+        lea edx, [byte esp+04h]
+        call MatRotZ
+        mov ebx, ecx
+        lea eax, [byte esp+024h]
+        call MatMul
+        add esp, byte 6Ch
+        pop edx
+        pop ecx
+        pop ebx
+        ret 0Ch
+;-----------------------------------------------------------------------------
+; MatTranspose                                    FF320  97 PC, low confidence
+; 3D library: copies a 3x3 matrix transposed
+;-----------------------------------------------------------------------------
+MatTranspose:
+        push ebx
+        sub esp, byte 4
+        mov ebx, dword [eax]
+        mov dword [edx], ebx
+        mov ebx, dword [byte eax+010h]
+        mov dword [byte edx+010h], ebx
+        mov ebx, dword [byte eax+020h]
+        mov dword [byte edx+020h], ebx
+        fld dword [byte eax+0Ch]
+        mov ebx, dword [byte eax+04h]
+        fstp dword [byte edx+04h]
+        mov dword [byte edx+0Ch], ebx
+        mov dword [esp], ebx
+        fld dword [byte eax+018h]
+        mov ebx, dword [byte eax+08h]
+        fstp dword [byte edx+08h]
+        mov dword [byte edx+018h], ebx
+        mov dword [esp], ebx
+        fld dword [byte eax+01Ch]
+        mov ebx, dword [byte eax+014h]
+        fstp dword [byte edx+014h]
+        mov dword [esp], ebx
+        mov dword [byte edx+01Ch], ebx
+        add esp, byte 4
+        pop ebx
+        ret
+        db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; MatMul                                          FF368  97 PC, low confidence
+; 3D library: multiplies two 3x3 matrices
+;-----------------------------------------------------------------------------
+MatMul:
+        fld dword [byte eax+04h]
+        fmul dword [byte edx+0Ch]
+        fld dword [eax]
+        fmul dword [edx]
+        faddp
+        fld dword [byte eax+08h]
+        fmul dword [byte edx+018h]
+        faddp
+        fstp dword [ebx]
+        fld dword [byte eax+04h]
+        fmul dword [byte edx+010h]
+        fld dword [eax]
+        fmul dword [byte edx+04h]
+        faddp
+        fld dword [byte eax+08h]
+        fmul dword [byte edx+01Ch]
+        faddp
+        fstp dword [byte ebx+04h]
+        fld dword [byte eax+04h]
+        fmul dword [byte edx+014h]
+        fld dword [eax]
+        fmul dword [byte edx+08h]
+        faddp
+        fld dword [byte eax+08h]
+        fmul dword [byte edx+020h]
+        faddp
+        fstp dword [byte ebx+08h]
+        fld dword [byte eax+010h]
+        fmul dword [byte edx+0Ch]
+        fld dword [byte eax+0Ch]
+        fmul dword [edx]
+        faddp
+        fld dword [byte eax+014h]
+        fmul dword [byte edx+018h]
+        faddp
+        fstp dword [byte ebx+0Ch]
+        fld dword [byte eax+0Ch]
+        fmul dword [byte edx+04h]
+        fld dword [byte eax+010h]
+        fmul dword [byte edx+010h]
+        faddp
+        fld dword [byte eax+014h]
+        fmul dword [byte edx+01Ch]
+        faddp
+        fstp dword [byte ebx+010h]
+        fld dword [byte eax+0Ch]
+        fmul dword [byte edx+08h]
+        fld dword [byte eax+010h]
+        fmul dword [byte edx+014h]
+        faddp
+        fld dword [byte eax+014h]
+        fmul dword [byte edx+020h]
+        faddp
+        fstp dword [byte ebx+014h]
+        fld dword [byte eax+01Ch]
+        fmul dword [byte edx+0Ch]
+        fld dword [byte eax+018h]
+        fmul dword [edx]
+        faddp
+        fld dword [byte eax+020h]
+        fmul dword [byte edx+018h]
+        faddp
+        fstp dword [byte ebx+018h]
+        fld dword [byte eax+018h]
+        fmul dword [byte edx+04h]
+        fld dword [byte eax+01Ch]
+        fmul dword [byte edx+010h]
+        faddp
+        fld dword [byte eax+020h]
+        fmul dword [byte edx+01Ch]
+        faddp
+        fstp dword [byte ebx+01Ch]
+        fld dword [byte eax+018h]
+        fmul dword [byte edx+08h]
+        fld dword [byte eax+01Ch]
+        fmul dword [byte edx+014h]
+        faddp
+        fld dword [byte eax+020h]
+        fmul dword [byte edx+020h]
+        faddp
+        fstp dword [byte ebx+020h]
+        ret
+        db 090h
+;-----------------------------------------------------------------------------
+; VecMulMat                                       FF444  97 PC, low confidence
+; 3D library: multiplies a vector by a 3x3 matrix
+;-----------------------------------------------------------------------------
+VecMulMat:
+        fld dword [byte eax+04h]
+        fmul dword [byte edx+0Ch]
+        fld dword [eax]
+        fmul dword [edx]
+        faddp
+        fld dword [byte eax+08h]
+        fmul dword [byte edx+018h]
+        faddp
+        fstp dword [ebx]
+        fld dword [byte eax+04h]
+        fmul dword [byte edx+010h]
+        fld dword [eax]
+        fmul dword [byte edx+04h]
+        faddp
+        fld dword [byte eax+08h]
+        fmul dword [byte edx+01Ch]
+        faddp
+        fstp dword [byte ebx+04h]
+        fld dword [byte eax+04h]
+        fmul dword [byte edx+014h]
+        fld dword [eax]
+        fmul dword [byte edx+08h]
+        faddp
+        fld dword [byte eax+08h]
+        fmul dword [byte edx+020h]
+        faddp
+        fstp dword [byte ebx+08h]
+        ret
+        db 090h
+;-----------------------------------------------------------------------------
+; TransformVecs                                   FF48C  97 PC, low confidence
+; 3D library: multiplies a list of vectors by a matrix
+;-----------------------------------------------------------------------------
+TransformVecs:
+        push esi
+        push edi
+        sub esp, byte 0Ch
+        mov edi, eax
+        mov esi, edx
+        mov eax, ebx
+        mov ebx, edi
+        lea edx, [nosplit ebx*4+00h]
+        sub edx, ebx
+        shl edx, 2
+        lea edi, [edx+esi]
+        lea ebx, [edx+ecx]
+        cmp esi, ecx
+        je short .2
+        mov edx, edi
+        mov ecx, esi
+.1:
+        cmp edx, ecx
+        je near .4
+        fld dword [byte edx-08h]
+        fmul dword [byte eax+0Ch]
+        fld dword [byte edx-0Ch]
+        fmul dword [eax]
+        faddp
+        fld dword [byte edx-04h]
+        fmul dword [byte eax+018h]
+        faddp
+        fstp dword [byte ebx-0Ch]
+        fld dword [byte edx-08h]
+        fmul dword [byte eax+010h]
+        fld dword [byte edx-0Ch]
+        fmul dword [byte eax+04h]
+        faddp
+        fld dword [byte edx-04h]
+        fmul dword [byte eax+01Ch]
+        faddp
+        fstp dword [byte ebx-08h]
+        fld dword [byte edx-08h]
+        fmul dword [byte eax+014h]
+        fld dword [byte edx-0Ch]
+        fmul dword [byte eax+08h]
+        faddp
+        fld dword [byte edx-04h]
+        fmul dword [byte eax+020h]
+        sub ebx, byte 0Ch
+        faddp
+        sub edx, byte 0Ch
+        fstp dword [byte ebx+08h]
+        jmp short .1
+.2:
+        mov edx, edi
+.3:
+        cmp edx, ecx
+        je short .4
+        fld dword [byte edx-08h]
+        fmul dword [byte eax+0Ch]
+        fld dword [byte edx-08h]
+        fmul dword [byte eax+010h]
+        fld dword [byte edx-08h]
+        fmul dword [byte eax+014h]
+        fld dword [byte edx-0Ch]
+        fmul dword [eax]
+        fld dword [byte edx-0Ch]
+        fmul dword [byte eax+04h]
+        fld dword [byte edx-0Ch]
+        fxch st2
+        faddp st5
+        fxch
+        fmul dword [byte eax+08h]
+        fld dword [byte edx-04h]
+        fmul dword [byte eax+018h]
+        fxch st2
+        faddp st4
+        faddp st2
+        fld dword [byte edx-04h]
+        fmul dword [byte eax+01Ch]
+        fld dword [byte edx-04h]
+        fmul dword [byte eax+020h]
+        mov esi, esp
+        sub ebx, byte 0Ch
+        sub edx, byte 0Ch
+        mov edi, ebx
+        fxch st2
+        faddp st5
+        faddp st3
+        faddp
+        fxch st2
+        fstp dword [esp]
+        fstp dword [byte esp+04h]
+        fstp dword [byte esp+08h]
+        movsd
+        movsd
+        movsd
+        jmp short .3
+.4:
+        add esp, byte 0Ch
+        pop edi
+        pop esi
+        ret
+        db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; TransformTranslateVecs                          FF580  97 PC, low confidence
+; 3D library: multiplies a list of vectors by a matrix and adds an offset
+;-----------------------------------------------------------------------------
+TransformTranslateVecs:
+        push esi
+        push edi
+        push ebp
+        mov edi, dword [byte esp+010h]
+        mov esi, eax
+        mov ebp, ecx
+        mov ecx, edi
+        call TransformVecs
+        mov edx, ebp
+        test esi, esi
+        je short .2
+        mov ebx, esi
+        lea eax, [nosplit ebx*4+00h]
+        sub eax, ebx
+        shl eax, 2
+        mov ebx, edi
+        add eax, edi
+.1:
+        fld dword [edx]
+        fadd dword [byte eax-0Ch]
+        fstp dword [byte eax-0Ch]
+        fld dword [byte edx+04h]
+        fadd dword [byte eax-08h]
+        fstp dword [byte eax-08h]
+        fld dword [byte edx+08h]
+        fadd dword [byte eax-04h]
+        sub eax, byte 0Ch
+        fstp dword [byte eax+08h]
+        cmp eax, ebx
+        jne short .1
+.2:
+        mov ebx, dword [byte esp+014h]
+        mov edx, edi
+        mov eax, esi
+        call ClipProjectPoints
+        pop ebp
+        pop edi
+        pop esi
+        ret 8
+        db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; VecAdd                                          FF5E0  97 PC, low confidence
+; 3D library: adds two vectors
+;-----------------------------------------------------------------------------
+VecAdd:
+        push ecx
+        mov ecx, eax
+        mov eax, ebx
+        fld dword [ecx]
+        fadd dword [edx]
+        fstp dword [ebx]
+        fld dword [byte ecx+04h]
+        fadd dword [byte edx+04h]
+        fstp dword [byte ebx+04h]
+        fld dword [byte ecx+08h]
+        fadd dword [byte edx+08h]
+        fstp dword [byte ebx+08h]
+        pop ecx
+        ret
+        db 090h
+;-----------------------------------------------------------------------------
+; VecSub                                          FF600  97 PC, low confidence
+; 3D library: subtracts one vector from another
+;-----------------------------------------------------------------------------
+VecSub:
+        push ecx
+        mov ecx, eax
+        mov eax, ebx
+        fld dword [ecx]
+        fsub dword [edx]
+        fstp dword [ebx]
+        fld dword [byte ecx+04h]
+        fsub dword [byte edx+04h]
+        fstp dword [byte ebx+04h]
+        fld dword [byte ecx+08h]
+        fsub dword [byte edx+08h]
+        fstp dword [byte ebx+08h]
+        pop ecx
+        ret
+        db 090h
+;-----------------------------------------------------------------------------
+; OffsetVecs                                      FF620  97 PC, low confidence
+; 3D library: adds a vector to every vector of a list in place
+;-----------------------------------------------------------------------------
+OffsetVecs:
+        push ecx
+        mov ecx, eax
+        test eax, eax
+        je short .2
+        shl eax, 2
+        sub eax, ecx
+        shl eax, 2
+        add eax, edx
+.1:
+        fld dword [ebx]
+        fadd dword [byte eax-0Ch]
+        fstp dword [byte eax-0Ch]
+        fld dword [byte ebx+04h]
+        fadd dword [byte eax-08h]
+        sub eax, byte 0Ch
+        fstp dword [byte eax+04h]
+        fld dword [byte ebx+08h]
+        fadd dword [byte eax+08h]
+        dec ecx
+        fstp dword [byte eax+08h]
+        cmp eax, edx
+        jne short .1
+.2:
+        pop ecx
+        ret
+        db 08Dh,040h,00h
+        push ecx
+        mov ecx, eax
+        test eax, eax
+        je short .4
+        shl eax, 2
+        sub eax, ecx
+        shl eax, 2
+        add eax, edx
+.3:
+        fld dword [ebx]
+        fsubr dword [byte eax-0Ch]
+        fstp dword [byte eax-0Ch]
+        fld dword [byte ebx+04h]
+        fsubr dword [byte eax-08h]
+        sub eax, byte 0Ch
+        fstp dword [byte eax+04h]
+        fld dword [byte ebx+08h]
+        fsubr dword [byte eax+08h]
+        dec ecx
+        fstp dword [byte eax+08h]
+        cmp eax, edx
+        jne short .3
+.4:
+        pop ecx
+        ret
+        db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; AddVecs                                         FF690  97 PC, low confidence
+; 3D library: writes a list of vectors plus an offset to another list
+;-----------------------------------------------------------------------------
+AddVecs:
+        push esi
+        push edi
+        mov esi, eax
+        mov edi, edx
+        test eax, eax
+        je short .2
+        shl eax, 2
+        sub eax, esi
+        shl eax, 2
+        lea edx, [eax+ecx]
+        mov ecx, edi
+        add eax, edi
+.1:
+        fld dword [byte eax-0Ch]
+        fadd dword [ebx]
+        sub edx, byte 0Ch
+        fstp dword [edx]
+        fld dword [byte eax-08h]
+        fadd dword [byte ebx+04h]
+        sub eax, byte 0Ch
+        fstp dword [byte edx+04h]
+        fld dword [byte eax+08h]
+        fadd dword [byte ebx+08h]
+        dec esi
+        fstp dword [byte edx+08h]
+        cmp eax, ecx
+        jne short .1
+.2:
+        pop edi
+        pop esi
+        ret
+;-----------------------------------------------------------------------------
+; SubVecs                                         FF6D0  97 PC, low confidence
+; 3D library: writes a list of vectors minus an offset to another list
+;-----------------------------------------------------------------------------
+SubVecs:
+        push esi
+        push edi
+        mov esi, eax
+        mov edi, edx
+        test eax, eax
+        je short .2
+        shl eax, 2
+        sub eax, esi
+        shl eax, 2
+        lea edx, [eax+ecx]
+        mov ecx, edi
+        add eax, edi
+.1:
+        fld dword [byte eax-0Ch]
+        fsub dword [ebx]
+        sub edx, byte 0Ch
+        fstp dword [edx]
+        fld dword [byte eax-08h]
+        fsub dword [byte ebx+04h]
+        sub eax, byte 0Ch
+        fstp dword [byte edx+04h]
+        fld dword [byte eax+08h]
+        fsub dword [byte ebx+08h]
+        dec esi
+        fstp dword [byte edx+08h]
+        cmp eax, ecx
+        jne short .1
+.2:
+        pop edi
+        pop esi
+        ret
+;-----------------------------------------------------------------------------
+; VecCross                                        FF710  97 PC, low confidence
+; 3D library: cross product of two vectors
+;-----------------------------------------------------------------------------
+VecCross:
+        push ecx
+        mov ecx, eax
+        fld dword [byte ecx+04h]
+        fmul dword [byte edx+08h]
+        fld dword [byte ecx+08h]
+        fmul dword [byte edx+04h]
+        fsubp
+        fstp dword [ebx]
+        fld dword [eax]
+        fchs
+        fmul dword [byte edx+08h]
+        fld dword [byte ecx+08h]
+        fmul dword [edx]
+        faddp
+        fstp dword [byte ebx+04h]
+        fld dword [ecx]
+        fmul dword [byte edx+04h]
+        fld dword [byte ecx+04h]
+        fmul dword [edx]
+        fsubp
+        mov eax, ebx
+        fstp dword [byte ebx+08h]
+        pop ecx
+        ret
+        db 090h
+        sub esp, byte 4
+        fld dword [byte eax+010h]
+        fmul dword [byte eax+020h]
+        fld dword [byte eax+0Ch]
+        fmul dword [byte eax+020h]
+        fld dword [byte eax+0Ch]
+        fmul dword [byte eax+01Ch]
+        fld dword [byte eax+014h]
+        fmul dword [byte eax+01Ch]
+        fld dword [byte eax+014h]
+        fmul dword [byte eax+018h]
+        fld dword [byte eax+010h]
+        fmul dword [byte eax+018h]
+        fxch st2
+        fsubp st5
+        fsubp st3
+        fxch st3
+        fmul dword [eax]
+        fxch st2
+        fmul dword [byte eax+04h]
+        fxch st3
+        fsubp
+        fxch st2
+        fsubr st1
+        fxch st2
+        fmul dword [byte eax+08h]
+        fxch st2
+        fstp st1
+        faddp
+        add esp, byte 4
+        ret
+        db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; VecDistance                                     FF798  97 PC, low confidence
+; 3D library: distance between two points
+;-----------------------------------------------------------------------------
+VecDistance:
+        push esi
+        push edi
+        sub esp, byte 0Ch
+        fld dword [edx]
+        fsub dword [eax]
+        lea edi, [byte esp+04h]
+        fstp dword [esp]
+        fld dword [byte edx+04h]
+        fsub dword [byte eax+04h]
+        lea esi, [byte esp+08h]
+        fstp dword [byte esp+08h]
+        fld dword [byte edx+08h]
+        fsub dword [byte eax+08h]
+        mov eax, esp
+        fstp dword [byte esp+04h]
+        fld dword [eax]
+        fmul st0
+        fld dword [esi]
+        fmul st0
+        faddp
+        fld dword [edi]
+        fmul st0
+        faddp
+        fsqrt
+        add esp, byte 0Ch
+        pop edi
+        pop esi
+        ret
+        db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; VecLength                                       FF7DC  97 PC, low confidence
+; 3D library: length of a vector
+;-----------------------------------------------------------------------------
+VecLength:
+        fld dword [eax]
+        fmul st0
+        fld dword [byte eax+04h]
+        fmul st0
+        faddp
+        fld dword [byte eax+08h]
+        fmul st0
+        faddp
+        fsqrt
+        ret
+        db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; VecScale                                        FF7F4  97 PC, low confidence
+; 3D library: multiplies a vector by a number
+;-----------------------------------------------------------------------------
+VecScale:
+        push edx
+        mov edx, dword [byte esp+0Ch]
+        fld dword [byte esp+08h]
+        fld dword [eax]
+        fmul st1
+        fstp dword [edx]
+        fld dword [byte eax+04h]
+        fmul st1
+        fstp dword [byte edx+04h]
+        fmul dword [byte eax+08h]
+        mov eax, edx
+        fstp dword [byte edx+08h]
+        pop edx
+        ret 8
+        db 090h
+;-----------------------------------------------------------------------------
+; VecNormalizeTo                                  FF818  97 PC, low confidence
+; 3D library: writes a vector scaled to length 1; returns the old length
+;-----------------------------------------------------------------------------
+VecNormalizeTo:
+        push ebx
+        push edx
+        sub esp, byte 8
+        mov ebx, dword [byte esp+018h]
+        mov edx, eax
+        fld dword [eax]
+        fmul st0
+        fld dword [byte eax+04h]
+        fmul st0
+        faddp
+        fld dword [byte eax+08h]
+        fmul st0
+        faddp
+        fsqrt
+        fstp dword [byte esp+04h]
+        test dword [byte esp+04h], 7FFFFFFFh
+        jne short .1
+        mov eax, ebx
+        jmp short .2
+.1:
+        fld dword [edx]
+        fld dword [byte esp+014h]
+        fdiv dword [byte esp+04h]
+        fxch
+        fmul st1
+        fstp dword [ebx]
+        fld dword [byte edx+04h]
+        fmul st1
+        fstp dword [byte ebx+04h]
+        fmul dword [byte edx+08h]
+        mov eax, ebx
+        fstp dword [byte ebx+08h]
+.2:
+        add esp, byte 8
+        pop edx
+        pop ebx
+        ret 8
+        db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; VecNormalize                                    FF874  97 PC, low confidence
+; 3D library: scales a vector to length 1 in place
+;-----------------------------------------------------------------------------
+VecNormalize:
+        push ebx
+        sub esp, byte 8
+        mov ebx, eax
+        fld dword [eax]
+        fmul st0
+        fld dword [byte eax+04h]
+        fmul st0
+        faddp
+        fld dword [byte eax+08h]
+        fmul st0
+        faddp
+        fsqrt
+        fstp dword [byte esp+04h]
+        test dword [byte esp+04h], 7FFFFFFFh
+        je short .1
+        fld1
+        fld dword [ebx]
+        fxch
+        fdiv dword [byte esp+04h]
+        fxch
+        fmul st1
+        fstp dword [edx]
+        fld dword [byte ebx+04h]
+        fmul st1
+        fstp dword [byte edx+04h]
+        fmul dword [byte ebx+08h]
+        mov eax, 1
+        fstp dword [byte edx+08h]
+        add esp, byte 8
+        pop ebx
+        ret
+.1:
+        xor eax, eax
+        add esp, byte 8
+        pop ebx
+        ret
+        db 090h
+;-----------------------------------------------------------------------------
+; VecCrossUnit                                    FF8CC  97 PC, low confidence
+; 3D library: cross product of two vectors scaled to length 1
+;-----------------------------------------------------------------------------
+VecCrossUnit:
+        push ecx
+        sub esp, byte 4
+        mov ecx, eax
+        fld dword [byte ecx+04h]
+        fmul dword [byte edx+08h]
+        fld dword [byte ecx+08h]
+        fmul dword [byte edx+04h]
+        fsubp
+        fstp dword [ebx]
+        fld dword [eax]
+        fchs
+        fmul dword [byte edx+08h]
+        fld dword [byte ecx+08h]
+        fmul dword [edx]
+        faddp
+        fstp dword [byte ebx+04h]
+        fld dword [ecx]
+        fmul dword [byte edx+04h]
+        fld dword [byte ecx+04h]
+        fmul dword [edx]
+        fsubp
+        mov eax, ebx
+        fstp dword [byte ebx+08h]
+        fld dword [eax]
+        fmul st0
+        fld dword [byte eax+04h]
+        fmul st0
+        faddp
+        fld dword [byte eax+08h]
+        fmul st0
+        faddp
+        fsqrt
+        fstp dword [esp]
+        test dword [esp], 7FFFFFFFh
+        je short .1
+        fld1
+        fdiv dword [esp]
+        push ebx
+        sub esp, byte 4
+        mov eax, ebx
+        fstp dword [esp]
+        call VecScale
+.1:
+        mov eax, ebx
+        add esp, byte 4
+        pop ecx
+        ret
+        db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; VecDot                                          FF940  97 PC, low confidence
+; 3D library: dot product of two vectors
+;-----------------------------------------------------------------------------
+VecDot:
+        fld dword [byte eax+04h]
+        fmul dword [byte edx+04h]
+        fld dword [eax]
+        fmul dword [edx]
+        faddp
+        fld dword [byte eax+08h]
+        fmul dword [byte edx+08h]
+        faddp
+        ret
+        db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; VecAngle                                        FF958  97 PC, low confidence
+; 3D library: angle between two vectors (acos of the normalized dot product)
+;-----------------------------------------------------------------------------
+VecAngle:
+        sub esp, byte 0Ch
+        fld dword [byte eax+04h]
+        fmul dword [byte edx+04h]
+        fld dword [eax]
+        fmul dword [edx]
+        faddp
+        fld dword [byte eax+08h]
+        fmul dword [byte edx+08h]
+        faddp
+        fstp dword [esp]
+        fld dword [eax]
+        fmul st0
+        fld dword [byte eax+04h]
+        fmul st0
+        faddp
+        fld dword [byte eax+08h]
+        fmul st0
+        faddp
+        fsqrt
+        mov eax, edx
+        fstp dword [byte esp+04h]
+        fld dword [eax]
+        fmul st0
+        fld dword [byte eax+04h]
+        fmul st0
+        faddp
+        fld dword [byte eax+08h]
+        fmul st0
+        faddp
+        fsqrt
+        fmul dword [byte esp+04h]
+        fdivr dword [esp]
+        fld st0
+        call IF@DACOS
+        fstp st1
+        add esp, byte 0Ch
+        ret
+        fild dword [eax]
+        fstp dword [edx]
+        fild dword [byte eax+04h]
+        fstp dword [byte edx+04h]
+        fild dword [byte eax+08h]
+        fstp dword [byte edx+08h]
+        ret
+        db 08Dh,040h,00h
+        fld dword [eax]
+        call __CHP
+        fistp dword [edx]
+        fld dword [byte eax+04h]
+        call __CHP
+        fistp dword [byte edx+04h]
+        fld dword [byte eax+08h]
+        call __CHP
+        fistp dword [byte edx+08h]
+        ret
+        push eax
+        push ecx
+        push edx
+        sub esp, byte 8
+        call Random32
+        and eax, 0FFFFh
+        xor edx, edx
+        mov dword [esp], eax
+        mov dword [byte esp+04h], edx
+        fild qword [esp]
+        fmul qword [F64_1p5259eneg05]
+        add esp, byte 8
+        pop edx
+        pop ecx
+        pop eax
+        ret
+        db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; SetViewScale                                    FFA14  97 PC, low confidence
+; 3D library: sets the projection scale of the view
+;-----------------------------------------------------------------------------
+SetViewScale:
+        push ecx
+        push edx
+        sub esp, byte 4
+        fld dword [byte esp+010h]
+        call __CHP
+        fistp dword [esp]
+        mov edx, dword [esp]
+        push edx
+        call SetTextScale
+        add esp, byte 4
+        mov eax, dword [byte esp+010h]
+        mov dword [F32_50p0_View], eax
+        add esp, byte 4
+        pop edx
+        pop ecx
+        ret 4
+        db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; SetFocalLength                                  FFA44  97 PC, low confidence
+; 3D library: sets the focal length of the projection, kept in range
+;-----------------------------------------------------------------------------
+SetFocalLength:
+        push edx
+        push ebp
+        mov ebp, esp
+        sub esp, byte 8
+        and esp, byte 0FFFFFFF8h
+        fld dword [byte ebp+0Ch]
+        mov eax, dword [byte ebp+0Ch]
+        fst qword [esp]
+        mov dword [F32_1p0_View], eax
+        fcomp qword [F64_0p9_SetFocalLength]
+        fnstsw ax
+        sahf
+        jbe short .1
+        fld qword [esp]
+        fcomp qword [F64_1p1_SetFocalLength]
+        fnstsw ax
+        sahf
+        jae short .1
+        mov dword [RinkLineWidth], 1
+        jmp short .2
+.1:
+        xor edx, edx
+        mov dword [RinkLineWidth], edx
+.2:
+        mov esp, ebp
+        pop ebp
+        pop edx
+        ret 4
+        mov dword [CameraPitch], edx
+        mov dword [CameraYaw], eax
+        ret

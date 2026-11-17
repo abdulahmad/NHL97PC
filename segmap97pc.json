@@ -1365,7 +1365,7 @@
    "end": 1022784,
    "module": "lib_F94BC",
    "obj": 1,
-   "file": "lib/lib_F94BC.asm",
+   "file": "lib/ea/ea_alloc_gfx_fix_buffer.asm",
    "note": "placeholder"
   },
   {
@@ -1373,7 +1373,7 @@
    "end": 1023028,
    "module": "lib_F9B40",
    "obj": 1,
-   "file": "lib/lib_F9B40.asm",
+   "file": "lib/watcom/watcom_searchenv.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
@@ -1381,7 +1381,7 @@
    "end": 1025464,
    "module": "watcom_clib_01",
    "obj": 1,
-   "file": "lib/watcom/watcom_clib_01.asm",
+   "file": "lib/watcom/watcom_strcpy.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
@@ -1389,7 +1389,7 @@
    "end": 1027000,
    "module": "ea_gfx_01",
    "obj": 1,
-   "file": "lib/ea/ea_gfx_01.asm",
+   "file": "lib/ea/ea_add_mem_region.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
@@ -1397,7 +1397,7 @@
    "end": 1030318,
    "module": "ea_memman_01",
    "obj": 1,
-   "file": "lib/ea/ea_memman_01.asm",
+   "file": "lib/ea/ea_alloc_mem_block_ex.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
@@ -1405,7 +1405,7 @@
    "end": 1031520,
    "module": "input_joystick_misc_01",
    "obj": 1,
-   "file": "lib/input/input_joystick_misc_01.asm",
+   "file": "lib/input/input_calibrate_joystick.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
@@ -1413,7 +1413,7 @@
    "end": 1031744,
    "module": "watcom_clib_02",
    "obj": 1,
-   "file": "lib/watcom/watcom_clib_02.asm",
+   "file": "lib/watcom/watcom_stosb.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
@@ -1421,7 +1421,7 @@
    "end": 1032200,
    "module": "input_joystick_misc_02",
    "obj": 1,
-   "file": "lib/input/input_joystick_misc_02.asm",
+   "file": "lib/input/input_kbd_get_key.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
@@ -1434,26 +1434,46 @@
   },
   {
    "start": 1032720,
-   "end": 1032832,
+   "end": 1032730,
    "module": "watcom_clib_03",
    "obj": 1,
-   "file": "lib/watcom/watcom_clib_03.asm",
+   "file": "lib/ea/ea_init_fpu_emulator_entry.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
+   "obj": 1,
+   "start": 1032730,
+   "end": 1032832,
+   "module": "lib_watcom_watcom_chp",
+   "file": "lib/watcom/watcom_chp.asm",
+   "desc": "Watcom C runtime: __CHP, SaveStackSegment, __CHK, __GRO, __STK.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
    "start": 1032832,
-   "end": 1033008,
+   "end": 1032957,
    "module": "input_joystick_misc_03",
    "obj": 1,
-   "file": "lib/input/input_joystick_misc_03.asm",
+   "file": "lib/input/input_get_ticks.asm",
    "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "obj": 1,
+   "start": 1032957,
+   "end": 1033008,
+   "module": "lib_watcom_watcom_memcpy",
+   "file": "lib/watcom/watcom_memcpy.asm",
+   "desc": "Watcom C runtime: memcpy_.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
   },
   {
    "start": 1033008,
    "end": 1033616,
    "module": "watcom_clib_04",
    "obj": 1,
-   "file": "lib/watcom/watcom_clib_04.asm",
+   "file": "lib/ea/ea_open_resource_archive.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
@@ -1469,7 +1489,7 @@
    "end": 1034380,
    "module": "watcom_clib_05",
    "obj": 1,
-   "file": "lib/watcom/watcom_clib_05.asm",
+   "file": "lib/watcom/watcom_dos_getdate.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
@@ -1477,31 +1497,91 @@
    "end": 1036164,
    "module": "ea_fileblock_01",
    "obj": 1,
-   "file": "lib/ea/ea_fileblock_01.asm",
+   "file": "lib/ea/ea_debug_set_line.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
    "start": 1036164,
-   "end": 1039828,
+   "end": 1038017,
    "module": "ea_gfx_02",
    "obj": 1,
-   "file": "lib/ea/ea_gfx_02.asm",
+   "file": "lib/ea/ea_draw_shape_at_own_pos.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
+   "obj": 1,
+   "start": 1038017,
+   "end": 1039463,
+   "module": "lib_ori3d_ori_build_poly_edge",
+   "file": "lib/ori3d/ori_build_poly_edge.asm",
+   "desc": "3D library: BuildPolyEdge, FillPolySpans, FillPolygon, FillPolygonPoints.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1039463,
+   "end": 1039809,
+   "module": "lib_ea_ea_fill_rect_color",
+   "file": "lib/ea/ea_fill_rect_color.asm",
+   "desc": "EA library: FillRectColor, FillRowColor, FillRect.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1039809,
+   "end": 1039828,
+   "module": "lib_watcom_watcom_mem_putc",
+   "file": "lib/watcom/watcom_mem_putc.asm",
+   "desc": "Watcom C runtime: mem_putc_.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
    "start": 1039828,
-   "end": 1049600,
+   "end": 1039937,
    "module": "watcom_clib_06",
    "obj": 1,
-   "file": "lib/watcom/watcom_clib_06.asm",
+   "file": "lib/watcom/watcom_sprintf.asm",
    "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "obj": 1,
+   "start": 1039937,
+   "end": 1047196,
+   "module": "lib_ea_ea_measure_text",
+   "file": "lib/ea/ea_measure_text.asm",
+   "desc": "EA library: MeasureText, FindGlyph, GetGlyph, GetKerning, DrawTextRun and 40 more.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1047196,
+   "end": 1049218,
+   "module": "lib_ori3d_ori_set_projection_center",
+   "file": "lib/ori3d/ori_set_projection_center.asm",
+   "desc": "3D library: SetProjectionCenter, PerspectiveScale, ProjectCoord, ProjectCoordInt, ProjectPoints and 7 more.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1049218,
+   "end": 1049600,
+   "module": "lib_watcom_watcom_hypot",
+   "file": "lib/watcom/watcom_hypot.asm",
+   "desc": "Watcom C runtime: hypot_, IF@DPOW, PowIntLoop.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
   },
   {
    "start": 1049600,
    "end": 1050228,
    "module": "ea_shpi_01",
    "obj": 1,
-   "file": "lib/ea/ea_shpi_01.asm",
+   "file": "lib/ea/ea_read_resource_header.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
@@ -1509,48 +1589,138 @@
    "end": 1050368,
    "module": "input_joystick_misc_04",
    "obj": 1,
-   "file": "lib/input/input_joystick_misc_04.asm",
+   "file": "lib/ori3d/ori_vecdist.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
    "start": 1050368,
-   "end": 1051240,
+   "end": 1050828,
    "module": "ea_gfx_03",
    "obj": 1,
-   "file": "lib/ea/ea_gfx_03.asm",
+   "file": "lib/ori3d/ori_angle_of_vector.asm",
    "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "obj": 1,
+   "start": 1050828,
+   "end": 1050932,
+   "module": "lib_video_video_get_palette_range",
+   "file": "lib/video/video_get_palette_range.asm",
+   "desc": "Video: GetPaletteRange.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1050932,
+   "end": 1051240,
+   "module": "lib_ea_ea_sort_indices",
+   "file": "lib/ea/ea_sort_indices.asm",
+   "desc": "EA library: SortIndices.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
   },
   {
    "start": 1051240,
-   "end": 1059768,
+   "end": 1052107,
    "module": "input_joystick_misc_05",
    "obj": 1,
-   "file": "lib/input/input_joystick_misc_05.asm",
+   "file": "lib/watcom/watcom_bcopy.asm",
    "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "obj": 1,
+   "start": 1052107,
+   "end": 1059768,
+   "module": "lib_ea_ea_queue_find",
+   "file": "lib/ea/ea_queue_find.asm",
+   "desc": "EA library: QueueFind, QueueFindPacket, QueueRemoveEntry, QueueAppend, QueuePrepend and 49 more.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
   },
   {
    "start": 1059768,
-   "end": 1060156,
+   "end": 1059885,
    "module": "video_bios_vga_01",
    "obj": 1,
-   "file": "lib/video/video_bios_vga_01.asm",
+   "file": "lib/ea/ea_set_clip_window.asm",
    "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "obj": 1,
+   "start": 1059885,
+   "end": 1060058,
+   "module": "lib_watcom_watcom_random32",
+   "file": "lib/watcom/watcom_random32.asm",
+   "desc": "Watcom C runtime: Random32, SeedRandom.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1060058,
+   "end": 1060156,
+   "module": "lib_ea_ea_set_remap_table",
+   "file": "lib/ea/ea_set_remap_table.asm",
+   "desc": "EA library: SetRemapTable, GetRemapTable.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
   },
   {
    "start": 1060156,
-   "end": 1060672,
+   "end": 1060362,
    "module": "vesa_banked_blit_01",
    "obj": 1,
-   "file": "lib/video/vesa_banked_blit_01.asm",
+   "file": "lib/video/video_vesa_set_bank.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
+   "obj": 1,
+   "start": 1060362,
+   "end": 1060672,
+   "module": "lib_ea_ea_copy_mem_fpu",
+   "file": "lib/ea/ea_copy_mem_fpu.asm",
+   "desc": "EA library: CopyMemFpu, GetPaletteEntries.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
    "start": 1060672,
-   "end": 1062764,
+   "end": 1060966,
    "module": "watcom_clib_07",
    "obj": 1,
-   "file": "lib/watcom/watcom_clib_07.asm",
+   "file": "lib/video/video_vesa_get_mode_info.asm",
    "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "obj": 1,
+   "start": 1060966,
+   "end": 1061167,
+   "module": "lib_ea_ea_find_closest_mode",
+   "file": "lib/ea/ea_find_closest_mode.asm",
+   "desc": "EA library: FindClosestMode.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1061167,
+   "end": 1061426,
+   "module": "lib_video_video_vesa_set_mode",
+   "file": "lib/video/video_vesa_set_mode.asm",
+   "desc": "Video: VesaSetMode, VesaSetWindow.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1061426,
+   "end": 1062764,
+   "module": "lib_ea_ea_close_video_window",
+   "file": "lib/ea/ea_close_video_window.asm",
+   "desc": "EA library: CloseVideoWindow, SetGraphicsMode, WritePaletteRegs, AllocRowTable, FreeRowTable.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
   },
   {
    "start": 1062764,
@@ -1565,40 +1735,180 @@
    "end": 1067564,
    "module": "video_bios_vga_02",
    "obj": 1,
-   "file": "lib/video/video_bios_vga_02.asm",
+   "file": "lib/ea/ea_read_palette_range.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
    "start": 1067564,
-   "end": 1076928,
+   "end": 1067601,
    "module": "watcom_clib_08",
    "obj": 1,
-   "file": "lib/watcom/watcom_clib_08.asm",
+   "file": "lib/watcom/watcom_strncpy.asm",
    "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "obj": 1,
+   "start": 1067601,
+   "end": 1069947,
+   "module": "lib_ea_ea_inverse_table_slice",
+   "file": "lib/ea/ea_inverse_table_slice.asm",
+   "desc": "EA library: InverseTableSlice, InverseTablePass, InverseTableScan, InverseTableFill, BuildInverseTable and 1 more.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1069947,
+   "end": 1070113,
+   "module": "lib_watcom_watcom_strcmp",
+   "file": "lib/watcom/watcom_strcmp.asm",
+   "desc": "Watcom C runtime: strcmp_.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1070113,
+   "end": 1073004,
+   "module": "lib_cd_cd_open_file",
+   "file": "lib/cd/cd_open_file.asm",
+   "desc": "CD-ROM: CdOpenFile, CdOpenStream, CdHandleEntry, CdCloseFile, CdReadSectors and 12 more.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1073004,
+   "end": 1073320,
+   "module": "lib_sound_snd_find_speech_event",
+   "file": "lib/sound/snd_find_speech_event.asm",
+   "desc": "Sound: FindSpeechEvent, ParseSpeechEvents, InitSpeechBank.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1073320,
+   "end": 1073883,
+   "module": "lib_ea_ea_pick_random_clip",
+   "file": "lib/ea/ea_pick_random_clip.asm",
+   "desc": "EA library: PickRandomClip, PickClipVariant, ClipValue, PickEventClip.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1073883,
+   "end": 1076417,
+   "module": "lib_sound_snd_build_speech_phrase",
+   "file": "lib/sound/snd_build_speech_phrase.asm",
+   "desc": "Sound: BuildSpeechPhrase, MatchPhraseRule, CheckRangeCondition, CheckValueCondition, CheckFlagCondition and 9 more.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1076417,
+   "end": 1076928,
+   "module": "lib_ea_ea_file_exists_path",
+   "file": "lib/ea/ea_file_exists_path.asm",
+   "desc": "EA library: FileExistsPath, FileSizePath, LoadFileAlloc, LoadFileAllocQuiet, LoadFileInto and 2 more.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
   },
   {
    "start": 1076928,
    "end": 1077248,
    "module": "ea_unpack_01",
    "obj": 1,
-   "file": "lib/ea/ea_unpack_01.asm",
+   "file": "lib/ea/ea_unpack.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
    "start": 1077248,
-   "end": 1079852,
+   "end": 1077748,
    "module": "ea_gfx_04",
    "obj": 1,
-   "file": "lib/ea/ea_gfx_04.asm",
+   "file": "lib/ea/ea_load_file_to_block.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
+   "obj": 1,
+   "start": 1077748,
+   "end": 1077940,
+   "module": "lib_sound_snd_prepare_bank_samples",
+   "file": "lib/sound/snd_prepare_bank_samples.asm",
+   "desc": "Sound: PrepareBankSamples.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1077940,
+   "end": 1077974,
+   "module": "lib_ea_ea_check_bank_index",
+   "file": "lib/ea/ea_check_bank_index.asm",
+   "desc": "EA library: CheckBankIndex.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1077974,
+   "end": 1079852,
+   "module": "lib_sound_snd_detect_audio_driver",
+   "file": "lib/sound/snd_detect_audio_driver.asm",
+   "desc": "Sound: DetectAudioDriver, OpenAudioDriver, CloseAudioDriver, AdvanceStreamOffset, AudioNullFunc and 17 more.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
    "start": 1079852,
-   "end": 1086440,
+   "end": 1080613,
    "module": "watcom_clib_09",
    "obj": 1,
-   "file": "lib/watcom/watcom_clib_09.asm",
+   "file": "lib/sound/snd_detect_sound_card.asm",
    "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "obj": 1,
+   "start": 1080613,
+   "end": 1080685,
+   "module": "lib_ea_ea_detect_windows",
+   "file": "lib/ea/ea_detect_windows.asm",
+   "desc": "EA library: DetectWindows.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1080685,
+   "end": 1085725,
+   "module": "lib_sound_snd_init_sound_mixer",
+   "file": "lib/sound/snd_init_sound_mixer.asm",
+   "desc": "Sound: InitSoundMixer, SetMixerVolumes, SetMasterVolume, SetChannelVolume, SetSpeechVolume and 18 more.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1085725,
+   "end": 1085915,
+   "module": "lib_watcom_watcom_strstr",
+   "file": "lib/watcom/watcom_strstr.asm",
+   "desc": "Watcom C runtime: strstr_.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1085915,
+   "end": 1086440,
+   "module": "lib_sound_snd_channel_playing",
+   "file": "lib/sound/snd_channel_playing.asm",
+   "desc": "Sound: ChannelPlaying, StopChannel, PlaySample, PlaySampleVolume, ClearSpeechRing and 3 more.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
   },
   {
    "start": 1086440,
@@ -1618,18 +1928,48 @@
   },
   {
    "start": 1088116,
-   "end": 1093034,
+   "end": 1091670,
    "module": "lib_109A74",
    "obj": 1,
-   "file": "lib/lib_109A74.asm",
+   "file": "lib/ea/ea_async_init.asm",
    "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "obj": 1,
+   "start": 1091670,
+   "end": 1091686,
+   "module": "lib_sound_snd_speech_buffer_size",
+   "file": "lib/sound/snd_speech_buffer_size.asm",
+   "desc": "Sound: SpeechBufferSize.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1091686,
+   "end": 1091778,
+   "module": "lib_ea_ea_register_stream_bank",
+   "file": "lib/ea/ea_register_stream_bank.asm",
+   "desc": "EA library: RegisterStreamBank.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1091778,
+   "end": 1093034,
+   "module": "lib_sound_snd_add_stream_sample",
+   "file": "lib/sound/snd_add_stream_sample.asm",
+   "desc": "Sound: AddStreamSample, ReleaseBankSample, StartSpeechQueue, QueueSpeechClip, SpeechQueueGo and 6 more.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
   },
   {
    "start": 1093034,
    "end": 1093136,
    "module": "watcom_clib_10",
    "obj": 1,
-   "file": "lib/watcom/watcom_clib_10.asm",
+   "file": "lib/watcom/watcom_strlen.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
@@ -1637,47 +1977,87 @@
    "end": 1093328,
    "module": "ea_gfx_05",
    "obj": 1,
-   "file": "lib/ea/ea_gfx_05.asm",
+   "file": "lib/ea/ea_read_whole_file.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
    "start": 1093328,
-   "end": 1093696,
+   "end": 1093395,
    "module": "watcom_clib_11",
    "obj": 1,
-   "file": "lib/watcom/watcom_clib_11.asm",
+   "file": "lib/ea/ea_dos_file_info.asm",
    "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "obj": 1,
+   "start": 1093395,
+   "end": 1093624,
+   "module": "lib_watcom_watcom_printf",
+   "file": "lib/watcom/watcom_printf.asm",
+   "desc": "Watcom C runtime: printf_, DetectCPU, _dos_close_, _dos_commit_, _dos_open_.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1093624,
+   "end": 1093696,
+   "module": "lib_ori3d_ori_build_reciprocal_table",
+   "file": "lib/ori3d/ori_build_reciprocal_table.asm",
+   "desc": "3D library: BuildReciprocalTable.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
   },
   {
    "start": 1093696,
    "end": 1095264,
    "module": "ea_gfx_06",
    "obj": 1,
-   "file": "lib/ea/ea_gfx_06.asm",
+   "file": "lib/ori3d/ori_set_rink_matrix.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
    "start": 1095264,
-   "end": 1099952,
+   "end": 1098802,
    "module": "lib_10B660",
    "obj": 1,
-   "file": "lib/lib_10B660.asm",
+   "file": "lib/ea/ea_build_anti_alias_table.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
+   "obj": 1,
+   "start": 1098802,
+   "end": 1099952,
+   "module": "lib_ori3d_ori_draw_ellipse_spans",
+   "file": "lib/ori3d/ori_draw_ellipse_spans.asm",
+   "desc": "3D library: DrawEllipseSpans.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
    "start": 1099952,
-   "end": 1101620,
+   "end": 1100197,
    "module": "ea_shpi_02",
    "obj": 1,
-   "file": "lib/ea/ea_shpi_02.asm",
+   "file": "lib/ori3d/ori_add_vec3.asm",
    "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "obj": 1,
+   "start": 1100197,
+   "end": 1101620,
+   "module": "lib_ea_ea_draw_sprite_row",
+   "file": "lib/ea/ea_draw_sprite_row.asm",
+   "desc": "EA library: DrawSpriteRow, DrawSpriteScaledCore, DrawSpriteScaledFit, DrawSpriteScaledBy, DrawSpriteScaledFlip and 1 more.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
   },
   {
    "start": 1101620,
    "end": 1101748,
    "module": "ea_gfx_07",
    "obj": 1,
-   "file": "lib/ea/ea_gfx_07.asm",
+   "file": "lib/ea/ea_transform_vec_full.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
@@ -1685,23 +2065,43 @@
    "end": 1107600,
    "module": "input_joystick_misc_06",
    "obj": 1,
-   "file": "lib/input/input_joystick_misc_06.asm",
+   "file": "lib/ori3d/ori_set_view_screen_origin.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
    "start": 1107600,
-   "end": 1113832,
+   "end": 1112083,
    "module": "ea_shpi_03",
    "obj": 1,
-   "file": "lib/ea/ea_shpi_03.asm",
+   "file": "lib/ori3d/ori_set_rink_view.asm",
    "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "obj": 1,
+   "start": 1112083,
+   "end": 1112905,
+   "module": "lib_ea_ea_draw_tile_texture",
+   "file": "lib/ea/ea_draw_tile_texture.asm",
+   "desc": "EA library: DrawTileTexture, DrawTilePage.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1112905,
+   "end": 1113832,
+   "module": "lib_ori3d_ori_find_model_shape_by_name",
+   "file": "lib/ori3d/ori_find_model_shape_by_name.asm",
+   "desc": "3D library: FindModelShapeByName, FindInstanceShape, BindModelShapes, UpdateModelInstance, UpdateModelPart and 3 more.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
   },
   {
    "start": 1113832,
    "end": 1125252,
    "module": "ea_gfx_08",
    "obj": 1,
-   "file": "lib/ea/ea_gfx_08.asm",
+   "file": "lib/ori3d/ori_alloc_model_header.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
@@ -1709,7 +2109,7 @@
    "end": 1126716,
    "module": "watcom_clib_12",
    "obj": 1,
-   "file": "lib/watcom/watcom_clib_12.asm",
+   "file": "lib/ori3d/ori_poly_side_test.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
@@ -1717,16 +2117,216 @@
    "end": 1126884,
    "module": "video_bios_vga_03",
    "obj": 1,
-   "file": "lib/video/video_bios_vga_03.asm",
+   "file": "lib/ea/ea_angle_from_delta.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
    "start": 1126884,
-   "end": 1158672,
+   "end": 1126925,
    "module": "watcom_clib_13",
    "obj": 1,
-   "file": "lib/watcom/watcom_clib_13.asm",
+   "file": "lib/watcom/watcom_strncmp.asm",
    "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "obj": 1,
+   "start": 1126925,
+   "end": 1136682,
+   "module": "lib_ori3d_ori_prim_rect",
+   "file": "lib/ori3d/ori_prim_rect.asm",
+   "desc": "3D library: PrimRect, PrimRectDebug, PrimTriFlat, PrimTriLitCcw, PrimTriShade and 63 more.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1136682,
+   "end": 1136756,
+   "module": "lib_ea_ea_create_bitmap_for_art",
+   "file": "lib/ea/ea_create_bitmap_for_art.asm",
+   "desc": "EA library: CreateBitmapForArt.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1136756,
+   "end": 1136793,
+   "module": "lib_watcom_watcom_strupr",
+   "file": "lib/watcom/watcom_strupr.asm",
+   "desc": "Watcom C runtime: strupr_.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1136793,
+   "end": 1137050,
+   "module": "lib_ori3d_ori_fixed_sin_cos",
+   "file": "lib/ori3d/ori_fixed_sin_cos.asm",
+   "desc": "3D library: FixedSinCos.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1137050,
+   "end": 1137657,
+   "module": "lib_ea_ea_blit_row_remap8",
+   "file": "lib/ea/ea_blit_row_remap8.asm",
+   "desc": "EA library: BlitRowRemap8, BlitRowKey16, BlitRowKey24, BlitRowKey32, BlitShapeKeyed and 3 more.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1137657,
+   "end": 1139749,
+   "module": "lib_watcom_watcom_copypart",
+   "file": "lib/watcom/watcom_copypart.asm",
+   "desc": "Watcom C runtime: copypart_, _splitpath_, pickup_, _makepath_, strnicmp_ and 5 more.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1139749,
+   "end": 1141230,
+   "module": "lib_input_input_install_keyboard_handler",
+   "file": "lib/input/input_install_keyboard_handler.asm",
+   "desc": "Input: InstallKeyboardHandler, RemoveKeyboardHandler, KeyboardISR, Int16Handler, Int16Service and 6 more.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1141230,
+   "end": 1141320,
+   "module": "lib_ea_ea_print_boxed_text",
+   "file": "lib/ea/ea_print_boxed_text.asm",
+   "desc": "EA library: PrintBoxedText.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1141320,
+   "end": 1141352,
+   "module": "lib_watcom_watcom_memset",
+   "file": "lib/watcom/watcom_memset.asm",
+   "desc": "Watcom C runtime: memset_.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1141352,
+   "end": 1148191,
+   "module": "lib_ea_ea_build_decode_table",
+   "file": "lib/ea/ea_build_decode_table.asm",
+   "desc": "EA library: BuildDecodeTable, InitVideoDecoder, BuildVideoGammaTable, DecodeVideoChunk, CreateBitmapEx and 8 more.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1148191,
+   "end": 1150292,
+   "module": "lib_ea_ea_tgv_build_huff_table",
+   "file": "lib/ea/ea_tgv_build_huff_table.asm",
+   "desc": "TGV movie decoder: BuildHuffTable, DecodeHuffRuns, DecodeTgvFrame, DecodeTgvKeyFrame, DecodeTgvChunk.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1150292,
+   "end": 1152213,
+   "module": "lib_serial_serial_configure",
+   "file": "lib/serial/serial_configure.asm",
+   "desc": "Serial port: SerialConfigure, SerialOpen, SerialClose, SerialCloseAll, SerialIsOpen and 13 more.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1152213,
+   "end": 1152322,
+   "module": "lib_watcom_watcom_atoi",
+   "file": "lib/watcom/watcom_atoi.asm",
+   "desc": "Watcom C runtime: atoi_.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1152322,
+   "end": 1152967,
+   "module": "lib_ea_ea_load_named_resource",
+   "file": "lib/ea/ea_load_named_resource.asm",
+   "desc": "EA library: LoadNamedResource, LoadNamedResourceEx, LoadNameFile.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1152967,
+   "end": 1153014,
+   "module": "lib_watcom_watcom_null_int23_exit",
+   "file": "lib/watcom/watcom_null_int23_exit.asm",
+   "desc": "Watcom C runtime: __null_int23_exit_, exit_, _exit_.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1153014,
+   "end": 1154189,
+   "module": "lib_ea_ea_grab_largest_block",
+   "file": "lib/ea/ea_grab_largest_block.asm",
+   "desc": "EA library: GrabLargestBlock, InitMemoryPool, InitMemoryPoolDefault, InitMemoryPoolArgs.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1154189,
+   "end": 1154847,
+   "module": "lib_watcom_watcom_open",
+   "file": "lib/watcom/watcom_open.asm",
+   "desc": "Watcom C runtime: open_, sopen_, __set_binary_, close_.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1154847,
+   "end": 1155391,
+   "module": "lib_ea_ea_exit_graphics",
+   "file": "lib/ea/ea_exit_graphics.asm",
+   "desc": "EA library: ExitGraphics, FindDos4gw, InitPlatform, InstallErrorHandlers.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1155391,
+   "end": 1155600,
+   "module": "lib_watcom_watcom_getcwd",
+   "file": "lib/watcom/watcom_getcwd.asm",
+   "desc": "Watcom C runtime: getcwd_, _dos_getdiskfree_.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1155600,
+   "end": 1158672,
+   "module": "lib_ea_ea_copy_pixels8",
+   "file": "lib/ea/ea_copy_pixels8.asm",
+   "desc": "EA library: CopyPixels8, CopyPixels16, CopyPixels24, CopyPixels32, ConvertArtAt and 6 more.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
   },
   {
    "start": 1158672,
@@ -1741,7 +2341,7 @@
    "end": 1159428,
    "module": "watcom_clib_14",
    "obj": 1,
-   "file": "lib/watcom/watcom_clib_14.asm",
+   "file": "lib/ea/ea_save_data_file_new.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
@@ -1749,31 +2349,121 @@
    "end": 1159690,
    "module": "ea_fileblock_02",
    "obj": 1,
-   "file": "lib/ea/ea_fileblock_02.asm",
+   "file": "lib/ea/ea_save_data_file.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
    "start": 1159690,
-   "end": 1178284,
+   "end": 1161619,
    "module": "watcom_clib_15",
    "obj": 1,
-   "file": "lib/watcom/watcom_clib_15.asm",
+   "file": "lib/watcom/watcom_fputc.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
+   "obj": 1,
+   "start": 1161619,
+   "end": 1162368,
+   "module": "lib_ea_ea_get_file_times",
+   "file": "lib/ea/ea_get_file_times.asm",
+   "desc": "EA library: GetFileTimes, FileDateText, FreeArtArchive.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1162368,
+   "end": 1162625,
+   "module": "lib_watcom_watcom_memmove",
+   "file": "lib/watcom/watcom_memmove.asm",
+   "desc": "Watcom C runtime: memmove_, memcmp_, cget_string_, uncget_string_, vsscanf_ and 2 more.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1162625,
+   "end": 1163140,
+   "module": "lib_ea_ea_set_full_clip",
+   "file": "lib/ea/ea_set_full_clip.asm",
+   "desc": "EA library: SetFullClip, DrawShadowRect, CountFrameTick.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1163140,
+   "end": 1163205,
+   "module": "lib_dos4gw_dos4gw_segread",
+   "file": "lib/dos4gw/dos4gw_segread.asm",
+   "desc": "DOS/4GW: segread_, int386x_.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1163205,
+   "end": 1163268,
+   "module": "lib_ea_ea_str_copy_end",
+   "file": "lib/ea/ea_str_copy_end.asm",
+   "desc": "EA library: StrCopyEnd.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1163268,
+   "end": 1163569,
+   "module": "lib_serial_serial_link_open",
+   "file": "lib/serial/serial_link_open.asm",
+   "desc": "Serial port: SerialLinkOpen, SerialLinkClose, SerialLinkIsOpen, SerialLinkTxFree, SerialLinkRxCount and 2 more.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1163569,
+   "end": 1178284,
+   "module": "lib_ea_ea_open_serial_packet_link",
+   "file": "lib/ea/ea_open_serial_packet_link.asm",
+   "desc": "EA library: OpenSerialPacketLink, ModemLinkClose, ModemLinkOpen, ModemLinkHangup, ModemLinkCarrier and 69 more.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
    "start": 1178284,
-   "end": 1181532,
+   "end": 1178910,
    "module": "input_joystick_misc_07",
    "obj": 1,
-   "file": "lib/input/input_joystick_misc_07.asm",
+   "file": "lib/ea/ea_set_text_font.asm",
    "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "obj": 1,
+   "start": 1178910,
+   "end": 1181264,
+   "module": "lib_ori3d_ori_fill_band_edges",
+   "file": "lib/ori3d/ori_fill_band_edges.asm",
+   "desc": "3D library: FillBandEdges, FillBandRows, FillBandRowsBlend.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1181264,
+   "end": 1181532,
+   "module": "lib_ea_ea_count_vesa_modes",
+   "file": "lib/ea/ea_count_vesa_modes.asm",
+   "desc": "EA library: CountVesaModes, FindModeByResolution, SetModeByResolution.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
   },
   {
    "start": 1181532,
    "end": 1182968,
    "module": "watcom_clib_16",
    "obj": 1,
-   "file": "lib/watcom/watcom_clib_16.asm",
+   "file": "lib/watcom/watcom_abs.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
@@ -1781,7 +2471,7 @@
    "end": 1184353,
    "module": "dos4gw_dpmi_glue_01",
    "obj": 1,
-   "file": "lib/dos4gw/dos4gw_dpmi_glue_01.asm",
+   "file": "lib/dos4gw/dos4gw_free_dpmiblocks.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
@@ -1794,18 +2484,38 @@
   },
   {
    "start": 1184356,
-   "end": 1185456,
+   "end": 1184862,
    "module": "watcom_clib_17",
    "obj": 1,
-   "file": "lib/watcom/watcom_clib_17.asm",
+   "file": "lib/watcom/watcom_ioalloc.asm",
    "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "obj": 1,
+   "start": 1184862,
+   "end": 1184927,
+   "module": "lib_ea_ea_reset_mem_lock",
+   "file": "lib/ea/ea_reset_mem_lock.asm",
+   "desc": "EA library: ResetMemLock, MemLock, MemUnlock.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1184927,
+   "end": 1185456,
+   "module": "lib_watcom_watcom_path_base_name",
+   "file": "lib/watcom/watcom_path_base_name.asm",
+   "desc": "Watcom C runtime: PathBaseName, SetBlockGuard, CheckBlockGuards.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
   },
   {
    "start": 1185456,
    "end": 1186371,
    "module": "ea_memman_02",
    "obj": 1,
-   "file": "lib/ea/ea_memman_02.asm",
+   "file": "lib/ea/ea_find_mem_block_named.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
@@ -1813,7 +2523,7 @@
    "end": 1186390,
    "module": "video_bios_vga_04",
    "obj": 1,
-   "file": "lib/video/video_bios_vga_04.asm",
+   "file": "lib/input/input_poll_hotkeys.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
@@ -1821,7 +2531,7 @@
    "end": 1186485,
    "module": "dos4gw_dpmi_glue_02",
    "obj": 1,
-   "file": "lib/dos4gw/dos4gw_dpmi_glue_02.asm",
+   "file": "lib/dos4gw/dos4gw_dos_setvect.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
@@ -1829,7 +2539,7 @@
    "end": 1186560,
    "module": "watcom_clib_18",
    "obj": 1,
-   "file": "lib/watcom/watcom_clib_18.asm",
+   "file": "lib/watcom/watcom_set_efgfmt.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
@@ -1842,66 +2552,306 @@
   },
   {
    "start": 1186901,
-   "end": 1192980,
+   "end": 1187257,
    "module": "watcom_clib_19",
    "obj": 1,
-   "file": "lib/watcom/watcom_clib_19.asm",
+   "file": "lib/watcom/watcom_sys_fini_387_emulator.asm",
    "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "obj": 1,
+   "start": 1187257,
+   "end": 1187258,
+   "module": "lib_ea_ea_emu_no_hook",
+   "file": "lib/ea/ea_emu_no_hook.asm",
+   "desc": "EA library: EmuNoHook.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1187258,
+   "end": 1187292,
+   "module": "lib_watcom_watcom_exit_with_msg",
+   "file": "lib/watcom/watcom_exit_with_msg.asm",
+   "desc": "Watcom C runtime: __exit_with_msg_, __fatal_runtime_error_.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1187292,
+   "end": 1188460,
+   "module": "lib_ea_ea_get_archive_type",
+   "file": "lib/ea/ea_get_archive_type.asm",
+   "desc": "EA library: GetArchiveType, GetArchiveHeaderSize, FindArchiveEntry, ArchiveEntryOffset, ArchiveEntryOffsetAt and 3 more.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1188460,
+   "end": 1188481,
+   "module": "lib_watcom_watcom_vsprintf",
+   "file": "lib/watcom/watcom_vsprintf.asm",
+   "desc": "Watcom C runtime: vsprintf_.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1188481,
+   "end": 1189978,
+   "module": "lib_ea_ea_next_text_byte",
+   "file": "lib/ea/ea_next_text_byte.asm",
+   "desc": "EA library: NextTextByte, NextTextChar, BlitCore, SetBlitSource.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1189978,
+   "end": 1191309,
+   "module": "lib_ori3d_ori_copy_mapped_span",
+   "file": "lib/ori3d/ori_copy_mapped_span.asm",
+   "desc": "3D library: CopyMappedSpan, CopyScaledSpan.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1191309,
+   "end": 1191403,
+   "module": "lib_ea_ea_shape_row_bytes",
+   "file": "lib/ea/ea_shape_row_bytes.asm",
+   "desc": "EA library: ShapeRowBytes.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1191403,
+   "end": 1191627,
+   "module": "lib_ori3d_ori_build_span_offsets",
+   "file": "lib/ori3d/ori_build_span_offsets.asm",
+   "desc": "3D library: BuildSpanOffsets.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1191627,
+   "end": 1191948,
+   "module": "lib_ea_ea_fill_mem_fast",
+   "file": "lib/ea/ea_fill_mem_fast.asm",
+   "desc": "EA library: FillMemFast, RemapPixels.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1191948,
+   "end": 1192980,
+   "module": "lib_ori3d_ori_clip_edge_at_x",
+   "file": "lib/ori3d/ori_clip_edge_at_x.asm",
+   "desc": "3D library: ClipEdgeAtX, ClipEdgeAtY, ClipPolyLeft, ClipPolyRight, ClipPolyTop and 1 more.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
   },
   {
    "start": 1192980,
-   "end": 1196010,
+   "end": 1195268,
    "module": "video_bios_vga_05",
    "obj": 1,
-   "file": "lib/video/video_bios_vga_05.asm",
+   "file": "lib/ea/ea_setup_rect_fill_shaded.asm",
    "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "obj": 1,
+   "start": 1195268,
+   "end": 1195944,
+   "module": "lib_ori3d_ori_fill_rect_spans",
+   "file": "lib/ori3d/ori_fill_rect_spans.asm",
+   "desc": "3D library: FillRectSpans.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1195944,
+   "end": 1196010,
+   "module": "lib_ea_ea_store_big_endian",
+   "file": "lib/ea/ea_store_big_endian.asm",
+   "desc": "EA library: StoreBigEndian, StoreLittleEndian.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
   },
   {
    "start": 1196010,
-   "end": 1205376,
+   "end": 1199151,
    "module": "watcom_clib_20",
    "obj": 1,
-   "file": "lib/watcom/watcom_clib_20.asm",
+   "file": "lib/watcom/watcom_prtf.asm",
    "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "obj": 1,
+   "start": 1199151,
+   "end": 1200070,
+   "module": "lib_ea_ea_draw_text_limited",
+   "file": "lib/ea/ea_draw_text_limited.asm",
+   "desc": "EA library: DrawTextLimited, DrawTextString, ConvertColor555, DrawGlyphScaled, IF@DACOS and 1 more.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1200070,
+   "end": 1202339,
+   "module": "lib_watcom_watcom_fpatan_wrap",
+   "file": "lib/watcom/watcom_fpatan_wrap.asm",
+   "desc": "Watcom C runtime: __fpatan_wrap, sqrt_, IF@SQRT, __@DSQRT, __pow87_err_ and 10 more.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1202339,
+   "end": 1203004,
+   "module": "lib_ea_ea_create_bitmap_from_block",
+   "file": "lib/ea/ea_create_bitmap_from_block.asm",
+   "desc": "EA library: CreateBitmapFromBlock, CreateBitmapForMem, CreateBitmapCore, SinLookup, CosLookup.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1203004,
+   "end": 1204641,
+   "module": "lib_watcom_watcom_div64_by32",
+   "file": "lib/watcom/watcom_div64_by32.asm",
+   "desc": "Watcom C runtime: Div64By32, Shl64, _Full_at_exit_rtn_, atexit_, strrchr_ and 9 more.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1204641,
+   "end": 1205347,
+   "module": "lib_ea_ea_find_palette_chunk",
+   "file": "lib/ea/ea_find_palette_chunk.asm",
+   "desc": "EA library: FindPaletteChunk, ExpandPalette6To8, CopyPaletteRGB.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1205347,
+   "end": 1205376,
+   "module": "lib_dos4gw_dos4gw_int386",
+   "file": "lib/dos4gw/dos4gw_int386.asm",
+   "desc": "DOS/4GW: int386_.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
   },
   {
    "start": 1205376,
-   "end": 1206012,
+   "end": 1205701,
    "module": "video_bios_vga_06",
    "obj": 1,
-   "file": "lib/video/video_bios_vga_06.asm",
+   "file": "lib/video/video_save_text_mode.asm",
    "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "obj": 1,
+   "start": 1205701,
+   "end": 1206012,
+   "module": "lib_ea_ea_prefetch_memory",
+   "file": "lib/ea/ea_prefetch_memory.asm",
+   "desc": "EA library: PrefetchMemory, PrefetchShape, CopyMemFast.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
   },
   {
    "start": 1206012,
-   "end": 1211760,
+   "end": 1206773,
    "module": "watcom_clib_21",
    "obj": 1,
-   "file": "lib/watcom/watcom_clib_21.asm",
+   "file": "lib/cd/cd_dir_search.asm",
    "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "obj": 1,
+   "start": 1206773,
+   "end": 1206787,
+   "module": "lib_watcom_watcom_toupper",
+   "file": "lib/watcom/watcom_toupper.asm",
+   "desc": "Watcom C runtime: toupper_.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1206787,
+   "end": 1211760,
+   "module": "lib_ea_ea_ref_pack_size",
+   "file": "lib/ea/ea_ref_pack_size.asm",
+   "desc": "EA library: RefPackSize, RefPackUnpack.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
   },
   {
    "start": 1211760,
-   "end": 1215724,
+   "end": 1212342,
    "module": "ea_unpack_02",
    "obj": 1,
-   "file": "lib/ea/ea_unpack_02.asm",
+   "file": "lib/ea/ea_expand_byte_pair.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
+   "obj": 1,
+   "start": 1212342,
+   "end": 1215724,
+   "module": "lib_sound_snd_prepare_bank_sample_data",
+   "file": "lib/sound/snd_prepare_bank_sample_data.asm",
+   "desc": "Sound: PrepareBankSampleData, LoadSampleHeader, PlayPatlSample, PlaySoundEntry, GusDetect and 9 more.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
    "start": 1215724,
-   "end": 1223532,
+   "end": 1222535,
    "module": "snd_soundblaster_01",
    "obj": 1,
-   "file": "lib/sound/snd_soundblaster_01.asm",
+   "file": "lib/sound/snd_read_blaster_port.asm",
    "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "obj": 1,
+   "start": 1222535,
+   "end": 1222872,
+   "module": "lib_ea_ea_ini_find_key",
+   "file": "lib/ea/ea_ini_find_key.asm",
+   "desc": "EA library: IniFindKey.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1222872,
+   "end": 1223532,
+   "module": "lib_sound_snd_audio_leave",
+   "file": "lib/sound/snd_audio_leave.asm",
+   "desc": "Sound: AudioLeave, AudioDeferredWork, AudioEnter, AudioLeaveCheck, SampleFormatSize.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
   },
   {
    "start": 1223532,
    "end": 1230340,
    "module": "watcom_clib_22",
    "obj": 1,
-   "file": "lib/watcom/watcom_clib_22.asm",
+   "file": "lib/sound/snd_mixer_init.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
@@ -1909,64 +2859,134 @@
    "end": 1232236,
    "module": "snd_soundblaster_02",
    "obj": 1,
-   "file": "lib/sound/snd_soundblaster_02.asm",
+   "file": "lib/sound/snd_parse_hex_value.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
    "start": 1232236,
-   "end": 1233487,
+   "end": 1232609,
    "module": "lib_12CD6C",
    "obj": 1,
-   "file": "lib/lib_12CD6C.asm",
+   "file": "lib/ea/ea_reset_game_vars.asm",
    "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "obj": 1,
+   "start": 1232609,
+   "end": 1233487,
+   "module": "lib_sound_snd_reset_speech_stream_state",
+   "file": "lib/sound/snd_reset_speech_stream_state.asm",
+   "desc": "Sound: ResetSpeechStreamState, FillSpeechSamples, FillSpeechBuffer, ServiceSpeechBuffers, SpeechStreamFlag and 4 more.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
   },
   {
    "start": 1233487,
-   "end": 1234104,
+   "end": 1233651,
    "module": "watcom_clib_23",
    "obj": 1,
-   "file": "lib/watcom/watcom_clib_23.asm",
+   "file": "lib/watcom/watcom_file_putc.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
+   "obj": 1,
+   "start": 1233651,
+   "end": 1234104,
+   "module": "lib_ori3d_ori_project_points_persp",
+   "file": "lib/ori3d/ori_project_points_persp.asm",
+   "desc": "3D library: ProjectPointsPersp.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
    "start": 1234104,
-   "end": 1234592,
+   "end": 1234195,
    "module": "ea_gfx_09",
    "obj": 1,
-   "file": "lib/ea/ea_gfx_09.asm",
+   "file": "lib/ori3d/ori_multiply_matrix.asm",
    "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "obj": 1,
+   "start": 1234195,
+   "end": 1234592,
+   "module": "lib_ea_ea_plot_pixel_clipped",
+   "file": "lib/ea/ea_plot_pixel_clipped.asm",
+   "desc": "EA library: PlotPixelClipped.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
   },
   {
    "start": 1234592,
    "end": 1234628,
    "module": "watcom_clib_24",
    "obj": 1,
-   "file": "lib/watcom/watcom_clib_24.asm",
+   "file": "lib/watcom/watcom_vec_length_of.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
    "start": 1234628,
-   "end": 1241712,
+   "end": 1237895,
    "module": "input_joystick_misc_08",
    "obj": 1,
-   "file": "lib/input/input_joystick_misc_08.asm",
+   "file": "lib/ori3d/ori_transpose_matrix.asm",
    "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "obj": 1,
+   "start": 1237895,
+   "end": 1239140,
+   "module": "lib_ea_ea_draw_shape_transformed",
+   "file": "lib/ea/ea_draw_shape_transformed.asm",
+   "desc": "EA library: DrawShapeTransformed.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1239140,
+   "end": 1241712,
+   "module": "lib_ori3d_ori_tex_span_keyed",
+   "file": "lib/ori3d/ori_tex_span_keyed.asm",
+   "desc": "3D library: TexSpanKeyed, TexSpanShadow, ClipDrawEdgeAtX, ClipDrawEdgeAtY, ClipDrawPolyLeft and 3 more.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
   },
   {
    "start": 1241712,
-   "end": 1243619,
+   "end": 1241841,
    "module": "video_bios_vga_07",
    "obj": 1,
-   "file": "lib/video/video_bios_vga_07.asm",
+   "file": "lib/ea/ea_sin_cos_lookup.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
+   "obj": 1,
+   "start": 1241841,
+   "end": 1243619,
+   "module": "lib_watcom_watcom_mbsnccnt",
+   "file": "lib/watcom/watcom_mbsnccnt.asm",
+   "desc": "Watcom C runtime: _mbsnccnt_, _mbsnbcnt_, _mbsninc_, __mbsninc_, _mbscat_ and 12 more.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
    "start": 1243619,
-   "end": 1243936,
+   "end": 1243852,
    "module": "watcom_clib_25",
    "obj": 1,
-   "file": "lib/watcom/watcom_clib_25.asm",
+   "file": "lib/watcom/watcom_cmain.asm",
    "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "obj": 1,
+   "start": 1243852,
+   "end": 1243936,
+   "module": "lib_ea_ea_print_screen",
+   "file": "lib/ea/ea_print_screen.asm",
+   "desc": "EA library: PrintScreen.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
   },
   {
    "start": 1243936,
@@ -1981,7 +3001,7 @@
    "end": 1245352,
    "module": "video_bios_vga_08",
    "obj": 1,
-   "file": "lib/video/video_bios_vga_08.asm",
+   "file": "lib/video/video_assert_preserve_regs.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
@@ -1989,23 +3009,103 @@
    "end": 1245695,
    "module": "snd_soundblaster_03",
    "obj": 1,
-   "file": "lib/sound/snd_soundblaster_03.asm",
+   "file": "lib/ea/ea_tgv_copy_block.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
    "start": 1245695,
-   "end": 1254748,
+   "end": 1246533,
    "module": "watcom_clib_26",
    "obj": 1,
-   "file": "lib/watcom/watcom_clib_26.asm",
+   "file": "lib/watcom/watcom_nexpand.asm",
    "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "obj": 1,
+   "start": 1246533,
+   "end": 1246868,
+   "module": "lib_video_video_is_text_mode_width",
+   "file": "lib/video/video_is_text_mode_width.asm",
+   "desc": "Video: IsTextModeWidth, SaveTextScreen, RestoreTextScreen.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1246868,
+   "end": 1247038,
+   "module": "lib_ea_ea_init_text_output",
+   "file": "lib/ea/ea_init_text_output.asm",
+   "desc": "EA library: InitTextOutput, ClearNumLock.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1247038,
+   "end": 1247342,
+   "module": "lib_input_input_install_break_handler",
+   "file": "lib/input/input_install_break_handler.asm",
+   "desc": "Input: InstallBreakHandler, RemoveBreakHandler, DispatchHotkey, RegisterHotkey.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1247342,
+   "end": 1247525,
+   "module": "lib_watcom_watcom_qwrite",
+   "file": "lib/watcom/watcom_qwrite.asm",
+   "desc": "Watcom C runtime: __qwrite_, unlink_.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1247525,
+   "end": 1253407,
+   "module": "lib_ori3d_ori_raster_shape_triangle",
+   "file": "lib/ori3d/ori_raster_shape_triangle.asm",
+   "desc": "3D library: RasterShapeTriangle, DrawShapeTriangleMapped, ScanGetChar, ScanUngetChar, ScanFormat and 11 more.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1253407,
+   "end": 1253633,
+   "module": "lib_dos4gw_dos4gw_int386x",
+   "file": "lib/dos4gw/dos4gw_int386x.asm",
+   "desc": "DOS/4GW: __int386x_, IntrLoadSegRegs, _DoINTR_, IntrLoadRegs.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1253633,
+   "end": 1254472,
+   "module": "lib_ea_ea_fill_rect_list",
+   "file": "lib/ea/ea_fill_rect_list.asm",
+   "desc": "EA library: FillRectList.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1254472,
+   "end": 1254748,
+   "module": "lib_watcom_watcom_init_files",
+   "file": "lib/watcom/watcom_init_files.asm",
+   "desc": "Watcom C runtime: __InitFiles_, __full_io_exit_, docloseall_, flushall_, __flushall_.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
   },
   {
    "start": 1254748,
    "end": 1255151,
    "module": "dos4gw_dpmi_glue_03",
    "obj": 1,
-   "file": "lib/dos4gw/dos4gw_dpmi_glue_03.asm",
+   "file": "lib/dos4gw/dos4gw_sbrk.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
@@ -2013,7 +3113,7 @@
    "end": 1255180,
    "module": "watcom_clib_27",
    "obj": 1,
-   "file": "lib/watcom/watcom_clib_27.asm",
+   "file": "lib/watcom/watcom_getche.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
@@ -2021,7 +3121,7 @@
    "end": 1255414,
    "module": "vesa_banked_blit_02",
    "obj": 1,
-   "file": "lib/video/vesa_banked_blit_02.asm",
+   "file": "lib/watcom/watcom_efg_format.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
@@ -2029,7 +3129,7 @@
    "end": 1256580,
    "module": "watcom_clib_28",
    "obj": 1,
-   "file": "lib/watcom/watcom_clib_28.asm",
+   "file": "lib/watcom/watcom_forcedecpt.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
@@ -2045,7 +3145,7 @@
    "end": 1270016,
    "module": "watcom_clib_29",
    "obj": 1,
-   "file": "lib/watcom/watcom_clib_29.asm",
+   "file": "lib/watcom/watcom_utoa.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
@@ -2053,7 +3153,7 @@
    "end": 1276236,
    "module": "snd_gus_sdk_01",
    "obj": 1,
-   "file": "lib/sound/snd_gus_sdk_01.asm",
+   "file": "lib/sound/snd_gus_get_env_config.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
@@ -2074,59 +3174,189 @@
   },
   {
    "start": 1281824,
-   "end": 1281998,
+   "end": 1281921,
    "module": "vesa_banked_blit_03",
    "obj": 1,
-   "file": "lib/video/vesa_banked_blit_03.asm",
+   "file": "lib/video/video_save_video_state.asm",
    "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "obj": 1,
+   "start": 1281921,
+   "end": 1281998,
+   "module": "lib_watcom_watcom_fdfs",
+   "file": "lib/watcom/watcom_fdfs.asm",
+   "desc": "Watcom C runtime: __FDFS.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
   },
   {
    "start": 1281998,
    "end": 1283808,
    "module": "watcom_clib_30",
    "obj": 1,
-   "file": "lib/watcom/watcom_clib_30.asm",
+   "file": "lib/watcom/watcom_setenvp.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
    "start": 1283808,
-   "end": 1290441,
+   "end": 1286721,
    "module": "snd_gus_sdk_02",
    "obj": 1,
-   "file": "lib/sound/snd_gus_sdk_02.asm",
+   "file": "lib/sound/snd_gus_setup_dma_channel.asm",
    "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "obj": 1,
+   "start": 1286721,
+   "end": 1286730,
+   "module": "lib_watcom_watcom_inpw",
+   "file": "lib/watcom/watcom_inpw.asm",
+   "desc": "Watcom C runtime: inpw_.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1286730,
+   "end": 1286839,
+   "module": "lib_sound_snd_gus_run_init_table",
+   "file": "lib/sound/snd_gus_run_init_table.asm",
+   "desc": "Sound: GusRunInitTable.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1286839,
+   "end": 1286850,
+   "module": "lib_watcom_watcom_outpw",
+   "file": "lib/watcom/watcom_outpw.asm",
+   "desc": "Watcom C runtime: outpw_.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1286850,
+   "end": 1288964,
+   "module": "lib_sound_snd_gus_peek",
+   "file": "lib/sound/snd_gus_peek.asm",
+   "desc": "Sound: GusPeek, GusPoke, GusPokeFill, GusTestDramBank, GusInitPlayDma and 5 more.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1288964,
+   "end": 1289233,
+   "module": "lib_watcom_watcom_int23_handler",
+   "file": "lib/watcom/watcom_int23_handler.asm",
+   "desc": "Watcom C runtime: __int23_handler_, __int_ctrl_break_handler_.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1289233,
+   "end": 1289381,
+   "module": "lib_dos4gw_dos4gw_dpmi_hosted",
+   "file": "lib/dos4gw/dos4gw_dpmi_hosted.asm",
+   "desc": "DOS/4GW: __DPMI_hosted_.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1289381,
+   "end": 1290441,
+   "module": "lib_watcom_watcom_restore_int23",
+   "file": "lib/watcom/watcom_restore_int23.asm",
+   "desc": "Watcom C runtime: __restore_int23_, __restore_int_, __restore_int_ctrl_break_, __grab_int23_, __grab_int_ctrl_break_.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
   },
   {
    "start": 1290441,
    "end": 1292096,
    "module": "watcom_clib_31",
    "obj": 1,
-   "file": "lib/watcom/watcom_clib_31.asm",
+   "file": "lib/watcom/watcom_nan_inf.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
    "start": 1292096,
-   "end": 1292738,
+   "end": 1292213,
    "module": "snd_gus_sdk_03",
    "obj": 1,
-   "file": "lib/sound/snd_gus_sdk_03.asm",
+   "file": "lib/sound/snd_gus_convert_addr16.asm",
    "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "obj": 1,
+   "start": 1292213,
+   "end": 1292738,
+   "module": "lib_watcom_watcom_sigabort",
+   "file": "lib/watcom/watcom_sigabort.asm",
+   "desc": "Watcom C runtime: __sigabort_, __sigfpe_handler_, signal_, raise_, _chain_intr_ and 1 more.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
   },
   {
    "start": 1292738,
-   "end": 1294720,
+   "end": 1294113,
    "module": "watcom_clib_32",
    "obj": 1,
-   "file": "lib/watcom/watcom_clib_32.asm",
+   "file": "lib/watcom/watcom_modf.asm",
    "note": "NHL96PC module (matched functions)"
   },
   {
+   "obj": 1,
+   "start": 1294113,
+   "end": 1294202,
+   "module": "lib_ea_ea_fpu_load_infinity",
+   "file": "lib/ea/ea_fpu_load_infinity.asm",
+   "desc": "EA library: FpuLoadInfinity, FpuRestoreStackTop, FpuStoreResult.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1294202,
+   "end": 1294689,
+   "module": "lib_watcom_watcom_phar_hook_init",
+   "file": "lib/watcom/watcom_phar_hook_init.asm",
+   "desc": "Watcom C runtime: __Phar_hook_init_, __Phar_hook_fini_, __DOS4G_hook_init_, __DOS4G_hook_fini_, __Ergo_hook_init_ and 3 more.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
+   "obj": 1,
+   "start": 1294689,
+   "end": 1294720,
+   "module": "lib_ea_ea_set_screen_target",
+   "file": "lib/ea/ea_set_screen_target.asm",
+   "desc": "EA library: SetScreenTarget.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
+  },
+  {
    "start": 1294720,
-   "end": 1296283,
+   "end": 1295406,
    "module": "video_bios_vga_09",
    "obj": 1,
-   "file": "lib/video/video_bios_vga_09.asm",
+   "file": "lib/video/video_read_port_stable.asm",
    "note": "NHL96PC module (matched functions)"
+  },
+  {
+   "obj": 1,
+   "start": 1295406,
+   "end": 1296283,
+   "module": "lib_watcom_watcom_fprem_chk",
+   "file": "lib/watcom/watcom_fprem_chk.asm",
+   "desc": "Watcom C runtime: __fprem_chk, fprem1_common.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "lib"
   }
  ],
  "cseg02": [

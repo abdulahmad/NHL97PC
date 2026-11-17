@@ -1,0 +1,672 @@
+; 3D library: SetRinkMatrix, SetRinkTranslation, SetScreenScale, ProjectRinkObjectPoints and 9 more.
+bits 32
+%include "hockey.inc"
+section s_10B040 progbits alloc exec nowrite align=1
+extern CallAllPartFuncs, CallModelPartFuncs, DrawFlatPoly, DrawPolyOutline, DrawRinkPolyStrip, ModelFlags, ModelFrame, ModelInstance
+extern ModelPartCount, ModelPartIndex, ModelPartTable, ModelPoints, ModelSetupMode, MultiplyMatrix, ProjectPoints, ProjectPointsPersp
+extern ProjectRinkObject, RinkMatrix, RinkPrimEndFns, RinkPrimFlatFns, RinkPrimLineFns, RinkPrimNoOpFns, RinkPrimSetupFns, RinkTranslation
+extern RinkViewChanged, SetRinkView, SortIndices, str_Punct_DrawRinkSurface, str_Punct_SetScreenScale, SubVec3, TransformRinkObject, TransformRinkPoints
+extern TransformVecFull
+global SetRinkMatrix, SetRinkTranslation, SetScreenScale, ProjectRinkObjectPoints, ProjectModelPoints, DrawRinkObjectPolys, DrawRinkObjectPolys_9B, SetModelFrame
+global DrawSortedModelPolys, DrawSortedModelPolys_B8, DrawModelSorted, DrawModelPartPolys, DrawModelPartPolys_190, DrawModelInstance, DrawModel, InitModelParts
+;-----------------------------------------------------------------------------
+; SetRinkMatrix                                  10B040  97 PC, low confidence
+; Copies the rink view rotation matrix and marks the view as changed
+;-----------------------------------------------------------------------------
+SetRinkMatrix:
+        push esi
+        push edi
+        mov edx, 1
+        mov ecx, 9
+        mov esi, dword [byte esp+0Ch]
+        mov edi, RinkMatrix
+        mov dword [RinkViewChanged], edx
+        rep movsd
+        pop edi
+        pop esi
+        ret
+;-----------------------------------------------------------------------------
+; SetRinkTranslation                             10B060  97 PC, low confidence
+; Copies the rink view translation vector
+;-----------------------------------------------------------------------------
+SetRinkTranslation:
+        push esi
+        push edi
+        mov esi, dword [byte esp+0Ch]
+        mov edi, RinkTranslation
+        movsd
+        movsd
+        movsd
+        pop edi
+        pop esi
+        ret
+        db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; SetScreenScale                                 10B074  97 PC, low confidence
+; Sets the screen scale and the matching text scale
+;-----------------------------------------------------------------------------
+SetScreenScale:
+        mov eax, dword [byte esp+04h]
+        mov dword [str_Punct_SetScreenScale], eax
+        dec eax
+        mov dword [str_Punct_DrawRinkSurface], eax
+        ret
+;-----------------------------------------------------------------------------
+; ProjectRinkObjectPoints                        10B084  97 PC, low confidence
+; Transforms and projects the points of a rink object
+;-----------------------------------------------------------------------------
+ProjectRinkObjectPoints:
+        push ebx
+        push esi
+        mov ebx, dword [byte esp+0Ch]
+        mov edx, dword [dword ebx+080h]
+        push edx
+        mov ecx, dword [byte ebx+07Ch]
+        push ecx
+        mov esi, dword [byte ebx+04h]
+        push esi
+        call ProjectPointsPersp
+        mov ah, byte [byte ebx+010h]
+        add esp, byte 0Ch
+        test ah, 40h
+        je short .2
+        mov eax, dword [byte ebx+04h]
+        mov edx, dword [dword ebx+080h]
+        mov ebx, dword [dword ebx+084h]
+        add eax, eax
+.1:
+        dec eax
+        cmp eax, byte 0FFFFFFFFh
+        je short .2
+        mov ecx, dword [edx]
+        add ebx, byte 4
+        shl ecx, 10h
+        add edx, byte 4
+        mov dword [byte ebx-04h], ecx
+        jmp short .1
+.2:
+        pop esi
+        pop ebx
+        ret
+        db 090h
+;-----------------------------------------------------------------------------
+; ProjectModelPoints                             10B0D4  97 PC, low confidence
+; Projects the points of a model part
+;-----------------------------------------------------------------------------
+ProjectModelPoints:
+        push ebx
+        mov eax, dword [byte esp+08h]
+        mov ebx, dword [dword eax+080h]
+        mov edx, dword [byte eax+07Ch]
+        mov eax, dword [byte eax+04h]
+        call ProjectPoints
+        pop ebx
+        ret
+;-----------------------------------------------------------------------------
+; DrawRinkObjectPolys                            10B0EC  97 PC, low confidence
+; Draws the faces of a rink object as flat polygons, with outlines when asked
+;-----------------------------------------------------------------------------
+DrawRinkObjectPolys:
+        push ebx
+        push esi
+        push edi
+        push ebp
+        sub esp, byte 18h
+        mov ebx, dword [byte esp+02Ch]
+        test byte [byte ebx+010h], 4
+        jne short .1
+        cmp dword [RinkViewChanged], byte 0
+        je short .2
+.1:
+        lea eax, [byte ebx+04Ch]
+        push eax
+        push RinkMatrix
+        lea eax, [byte ebx+028h]
+        push eax
+        call MultiplyMatrix
+        mov dl, byte [byte ebx+010h]
+        and dl, 0FBh
+        add esp, byte 0Ch
+        mov byte [byte ebx+010h], dl
+.2:
+        lea eax, [byte esp+0Ch]
+        push eax
+        push RinkTranslation
+        lea eax, [byte ebx+01Ch]
+        push eax
+        call SubVec3
+        add esp, byte 0Ch
+        mov eax, esp
+        push eax
+        push RinkMatrix
+        lea eax, [byte esp+014h]
+        push eax
+        call TransformVecFull
+        add esp, byte 0Ch
+        mov ecx, dword [byte ebx+07Ch]
+        push ecx
+        lea eax, [byte ebx+04Ch]
+        push eax
+        mov esi, dword [byte ebx+074h]
+        push esi
+        mov edi, dword [byte ebx+04h]
+        push edi
+        call DrawFlatPoly
+        add esp, byte 10h
+        mov ebp, dword [byte ebx+07Ch]
+        push ebp
+        lea eax, [byte esp+04h]
+        push eax
+        push ebp
+        mov edx, dword [byte ebx+04h]
+        push edx
+        call DrawPolyOutline
+        add esp, byte 10h
+        mov eax, dword [byte esp+08h]
+        mov dword [byte ebx+018h], eax
+        add esp, byte 18h
+DrawRinkObjectPolys_9B:
+        pop ebp
+        pop edi
+        pop esi
+        pop ebx
+        ret
+;-----------------------------------------------------------------------------
+; SetModelFrame                                  10B18C  97 PC, low confidence
+; Selects an animation frame of a model instance
+;-----------------------------------------------------------------------------
+SetModelFrame:
+        push ebx
+        push esi
+        push edi
+        push ebp
+        mov ecx, dword [byte esp+014h]
+        mov ebx, dword [byte esp+018h]
+        mov dword [byte ecx+08h], 0
+        mov eax, dword [dword ecx+088h]
+        mov esi, dword [ecx]
+        test ebx, ebx
+        jl short .1
+        cmp ebx, dword [byte esi+048h]
+        jl short .4
+.1:
+        mov ebp, dword [byte esi+024h]
+        mov edi, dword [byte esi+028h]
+        xor ebx, ebx
+        test ebp, ebp
+        jle short DrawRinkObjectPolys_9B
+.2:
+        test byte [byte edi+01h], 4
+        jne short .3
+        mov edx, dword [byte ecx+08h]
+        lea ebp, [byte edx+01h]
+        add eax, byte 4
+        mov dword [byte ecx+08h], ebp
+        mov dword [byte eax-04h], edx
+.3:
+        inc ebx
+        cmp ebx, dword [byte esi+024h]
+        jge short DrawRinkObjectPolys_9B
+        jmp short .2
+.4:
+        mov edx, dword [byte esi+050h]
+        mov edi, dword [byte esi+04Ch]
+        mov esi, ebx
+        shl ebx, 3
+        sub ebx, esi
+        shl ebx, 2
+        add edi, ebx
+        mov ebx, dword [byte edi+010h]
+        shl ebx, 2
+        add edx, ebx
+        mov ebx, dword [byte edi+014h]
+        mov dword [byte ecx+08h], ebx
+.5:
+        dec ebx
+        cmp ebx, byte 0FFFFFFFFh
+        je short DrawRinkObjectPolys_9B
+        add eax, byte 4
+        mov ecx, dword [edx]
+        add edx, byte 4
+        mov dword [byte eax-04h], ecx
+        jmp short .5
+;-----------------------------------------------------------------------------
+; DrawSortedModelPolys                           10B20C  97 PC, low confidence
+; Sorts a model's faces by depth and draws them back to front
+;-----------------------------------------------------------------------------
+DrawSortedModelPolys:
+        push ebx
+        push esi
+        push edi
+        push ebp
+        sub esp, 0FA8h
+        mov esi, dword [dword esp+0FBCh]
+        mov ecx, dword [dword esp+0FC4h]
+        mov edx, dword [dword esp+0FC0h]
+        mov dword [dword esp+0FA0h], ecx
+        mov eax, dword [esi]
+        mov esi, dword [byte esi+07Ch]
+        cmp edx, 3E8h
+        jle short .1
+        mov dword [dword esp+0FC0h], 3E8h
+.1:
+        mov edi, dword [dword esp+0FC0h]
+        mov eax, dword [byte eax+028h]
+        xor ebx, ebx
+        mov dword [dword esp+0FA4h], eax
+        mov eax, esp
+        test edi, edi
+        jle short .3
+.2:
+        mov edx, dword [ecx]
+        mov ebp, dword [dword esp+0FA4h]
+        shl edx, 4
+        add edx, ebp
+        mov edx, dword [byte edx+08h]
+        imul edi, dword [edx], byte 0Ch
+        mov edi, dword [byte edi+esi+08h]
+        add edx, byte 4
+        mov dword [eax], edi
+        imul edx, dword [edx], byte 0Ch
+        add eax, byte 4
+        inc ebx
+        mov ebp, dword [byte eax-04h]
+        mov edx, dword [byte edx+esi+08h]
+        add ecx, byte 4
+        add ebp, edx
+        mov edx, dword [dword esp+0FC0h]
+        mov dword [byte eax-04h], ebp
+        cmp ebx, edx
+        jl short .2
+.3:
+        mov ebx, dword [dword esp+0FA0h]
+        push ebx
+        lea eax, [byte esp+04h]
+        push eax
+        mov ecx, dword [dword esp+0FC8h]
+        push ecx
+        call SortIndices
+        add esp, byte 0Ch
+        add esp, 0FA8h
+DrawSortedModelPolys_B8:
+        pop ebp
+        pop edi
+        pop esi
+        pop ebx
+        ret
+        db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; DrawModelSorted                                10B2CC  97 PC, low confidence
+; Sets the rink view and draws a model's faces depth-sorted
+;-----------------------------------------------------------------------------
+DrawModelSorted:
+        push ebx
+        mov eax, dword [byte esp+08h]
+        mov edx, dword [dword eax+088h]
+        push edx
+        mov ebx, dword [byte eax+08h]
+        push ebx
+        push eax
+        call DrawSortedModelPolys
+        add esp, byte 0Ch
+        pop ebx
+        ret
+        db 090h
+        push ebx
+        push esi
+        push edi
+        push ebp
+        mov eax, dword [byte esp+014h]
+        push byte 0
+        mov edx, dword [dword eax+080h]
+        push edx
+        mov ecx, dword [byte eax+07Ch]
+        mov esi, dword [eax]
+        push ecx
+        mov ebx, dword [byte esi+028h]
+        mov esi, dword [byte esi+024h]
+        call SetRinkView
+        add esp, byte 0Ch
+.1:
+        dec esi
+        cmp esi, byte 0FFFFFFFFh
+        je short DrawSortedModelPolys_B8
+        mov eax, dword [ebx]
+        and eax, byte 7
+        cmp eax, byte 4
+        jne short .2
+        test byte [ebx], 80h
+        je short .2
+        mov edi, dword [byte ebx+08h]
+        push edi
+        call TransformRinkObject
+        mov dl, byte [byte ebx+01h]
+        and dl, 0DFh
+        and eax, byte 1
+        mov byte [byte ebx+01h], dl
+        shl eax, 0Dh
+        mov ebp, dword [ebx]
+        or ebp, eax
+        add esp, byte 4
+        mov dword [ebx], ebp
+.2:
+        add ebx, byte 10h
+        jmp short .1
+;-----------------------------------------------------------------------------
+; DrawModelPartPolys                             10B348  97 PC, low confidence
+; Transforms, projects and draws each part of a model
+;-----------------------------------------------------------------------------
+DrawModelPartPolys:
+        push ebx
+        push esi
+        push edi
+        push ebp
+        sub esp, byte 8
+        mov eax, dword [byte esp+01Ch]
+.1:
+        mov ebp, eax
+        mov eax, dword [ModelPartTable]
+        shl ebp, 4
+        add ebp, eax
+        mov edi, esp
+        mov esi, ebp
+        mov ebx, dword [byte ebp+08h]
+        movsd
+        movsd
+        mov esi, dword [esp]
+        mov edx, dword [ModelPartIndex]
+        and esi, byte 7
+        test edx, edx
+        je short .2
+        push ebx
+        push esi
+        call TransformRinkPoints
+        add esp, byte 8
+        test eax, eax
+        jne near .14
+.2:
+        mov ah, byte [byte esp+01h]
+        test ah, 1
+        jne short .3
+        test ah, 4
+        jne short .3
+        push ebx
+        call ProjectRinkObject
+        add esp, byte 4
+        test eax, eax
+        setg al
+        mov ecx, eax
+        mov dh, byte [byte esp+01h]
+        and ecx, 0FFh
+        test dh, 2
+        sete al
+        and eax, 0FFh
+        xor eax, ecx
+        jne near .14
+.3:
+        mov eax, dword [esp]
+        shl eax, 8
+        shr eax, 18h
+        imul eax, byte 14h
+        mov ecx, dword [ModelPartCount]
+        add ecx, eax
+        cmp dword [byte ecx+010h], byte 0
+        je short .4
+        mov eax, dword [ModelInstance]
+        mov edx, ebp
+        call dword [byte ecx+010h]
+        test eax, eax
+        je near .14
+        jmp near .13
+.4:
+        test byte [esp], 80h
+        je near .11
+        mov eax, dword [byte ecx+0Ch]
+        test eax, eax
+        je near .11
+        mov ecx, dword [esp]
+        shl ecx, 19h
+        shr ecx, 1Ch
+        shl ecx, 2
+        cmp esi, byte 3
+        jne short .5
+        push ebx
+        mov edi, dword [byte ebp+0Ch]
+        push edi
+        push eax
+        call dword [dword ecx+RinkPrimNoOpFns]
+        jmp near .12
+.5:
+        mov dl, byte [byte esp+01h]
+        test dl, 10h
+        je short .8
+        cmp dword [ModelFlags], byte 0
+        jne short .6
+        test byte [byte esp+01h], 20h
+        je short .7
+.6:
+        mov ecx, dword [esp]
+        push ebx
+        mov edx, dword [byte ebp+0Ch]
+        shl ecx, 19h
+        push edx
+        shr ecx, 1Ch
+        push eax
+        call dword [nosplit ecx*4+RinkPrimSetupFns]
+        jmp short .12
+.7:
+        push ebx
+        mov edi, dword [byte ebp+0Ch]
+        push edi
+        push eax
+        call dword [dword ecx+RinkPrimFlatFns]
+        jmp short .12
+.8:
+        cmp dword [ModelFlags], byte 0
+        jne short .9
+        test dl, 20h
+        je short .10
+.9:
+        mov ecx, dword [esp]
+        push ebx
+        shl ecx, 19h
+        push eax
+        shr ecx, 1Ch
+        call dword [nosplit ecx*4+RinkPrimEndFns]
+        add esp, byte 8
+        test byte [byte esp+01h], 8
+        je short .14
+        mov eax, dword [ebx+esi*4]
+        jmp near .1
+.10:
+        push ebx
+        push eax
+        call dword [dword ecx+RinkPrimLineFns]
+        add esp, byte 8
+        test byte [byte esp+01h], 8
+        je short .14
+        mov eax, dword [ebx+esi*4]
+        jmp near .1
+.11:
+        push ebx
+        push esi
+        mov edx, dword [byte ecx+04h]
+        push edx
+        call DrawRinkPolyStrip
+.12:
+        add esp, byte 0Ch
+.13:
+        test byte [byte esp+01h], 8
+        je short .14
+        mov eax, dword [ebx+esi*4]
+        jmp near .1
+.14:
+        add esp, byte 8
+DrawModelPartPolys_190:
+        pop ebp
+        pop edi
+        pop esi
+        pop ebx
+        ret
+        db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; DrawModelInstance                              10B4E0  97 PC, low confidence
+; Runs a model's part functions, sets the rink view and draws its parts
+;-----------------------------------------------------------------------------
+DrawModelInstance:
+        push ebx
+        push esi
+        push edi
+        push ebp
+        mov eax, dword [byte esp+014h]
+        mov esi, dword [byte esp+018h]
+        mov ebx, dword [byte esp+01Ch]
+        test byte [byte eax+011h], 1
+        je short .1
+        mov edx, esi
+        call CallModelPartFuncs
+        pop ebp
+        pop edi
+        pop esi
+        pop ebx
+        ret
+.1:
+        mov edx, dword [eax]
+        mov dword [ModelFrame], edx
+        mov ecx, dword [byte edx+028h]
+        mov dword [ModelPartTable], ecx
+        mov edx, dword [byte edx+020h]
+        mov dword [ModelPoints], edx
+        mov edx, dword [byte eax+014h]
+        mov dword [ModelPartCount], edx
+        mov dword [ModelInstance], eax
+        mov edx, dword [byte eax+010h]
+        shl edx, 1Eh
+        shr edx, 1Fh
+        mov dword [ModelPartIndex], edx
+        mov edx, dword [byte eax+010h]
+        shl edx, 18h
+        shr edx, 1Fh
+        mov dword [ModelFlags], edx
+        mov edx, dword [ModelPoints]
+        push edx
+        mov ecx, dword [dword eax+080h]
+        push ecx
+        mov edi, dword [byte eax+07Ch]
+        push edi
+        call SetRinkView
+        add esp, byte 0Ch
+.2:
+        mov eax, esi
+        dec esi
+        test eax, eax
+        jle near DrawModelPartPolys_190
+        mov ebp, dword [ebx]
+        push ebp
+        add ebx, byte 4
+        call DrawModelPartPolys
+        add esp, byte 4
+        jmp short .2
+        db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; DrawModel                                      10B580  97 PC, low confidence
+; Draws a model instance at its current frame
+;-----------------------------------------------------------------------------
+DrawModel:
+        push ebx
+        mov eax, dword [byte esp+08h]
+        mov edx, dword [dword eax+088h]
+        push edx
+        mov ebx, dword [byte eax+08h]
+        push ebx
+        push eax
+        call DrawModelInstance
+        add esp, byte 0Ch
+        pop ebx
+        ret
+        db 090h
+;-----------------------------------------------------------------------------
+; InitModelParts                                 10B59C  97 PC, low confidence
+; Runs every part function of a model in set-up mode; followed by the plain
+; run
+;-----------------------------------------------------------------------------
+InitModelParts:
+        push ebx
+        mov eax, dword [byte esp+08h]
+        mov edx, 1
+        xor ebx, ebx
+        mov dword [ModelSetupMode], edx
+        call CallAllPartFuncs
+        mov dword [ModelSetupMode], ebx
+        pop ebx
+        ret
+        db 090h
+        mov eax, dword [byte esp+04h]
+        jmp near CallAllPartFuncs
+        db 08Dh,040h,00h
+        push ebx
+        mov eax, dword [byte esp+08h]
+        test byte [byte eax+011h], 1
+        je short .1
+        call CallAllPartFuncs
+        pop ebx
+        ret
+.1:
+        mov edx, dword [dword eax+088h]
+        push edx
+        mov ebx, dword [byte eax+08h]
+        push ebx
+        push eax
+        call DrawModelInstance
+        add esp, byte 0Ch
+        pop ebx
+        ret
+        push ebx
+        push esi
+        push edi
+        push ebp
+        mov eax, dword [byte esp+014h]
+        mov ebp, dword [byte esp+018h]
+        mov ebx, dword [byte esp+01Ch]
+        mov edi, dword [byte esp+020h]
+        mov ecx, dword [byte esp+024h]
+        mov edx, dword [eax]
+        mov edx, dword [byte edx+010h]
+        test edx, edx
+        je near DrawModelPartPolys_190
+        mov eax, dword [dword eax+080h]
+        mov esi, dword [eax]
+        mov dword [ebx], esi
+        mov dword [byte ebp+00h], esi
+        mov esi, dword [byte eax+04h]
+        dec edx
+        mov dword [ecx], esi
+        add eax, byte 8
+        mov dword [edi], esi
+.2:
+        dec edx
+        cmp edx, byte 0FFFFFFFFh
+        je near DrawModelPartPolys_190
+        mov esi, dword [eax]
+        cmp esi, dword [byte ebp+00h]
+        jge short .3
+        mov dword [byte ebp+00h], esi
+        jmp short .4
+.3:
+        cmp esi, dword [ebx]
+        jle short .4
+        mov dword [ebx], esi
+.4:
+        mov esi, dword [byte eax+04h]
+        cmp esi, dword [edi]
+        jge short .5
+        mov dword [edi], esi
+        jmp short .6
+.5:
+        cmp esi, dword [ecx]
+        jle short .6
+        mov dword [ecx], esi
+.6:
+        add eax, byte 8
+        jmp short .2
+        db 00h
