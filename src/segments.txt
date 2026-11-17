@@ -37,8 +37,7 @@
 1 3FEE7 4095C 2677 engine_speech_events engine/speech_events/speech_events.asm
 1 4095C 4254E 7154 front_sound front/sound/sound.asm
 1 4254E 43578 4138 front_speech_queue front/speech_queue/speech_queue.asm
-1 43578 48D70 22520 front_43578 front/speech/speech.asm
-1 48D70 4A247 5335 front_48D70 front/front_48D70.asm
+1 43578 4A247 27855 front_43578 front/speech/speech.asm
 1 4A247 4AB70 2345 front_music_stream front/music_stream/music_stream.asm
 1 4AB70 4B49E 2350 pc_data_files pc/data_files/data_files.asm
 1 4B49E 4BD09 2155 front_game_view front/game_view/game_view.asm
@@ -48,8 +47,7 @@
 1 4F6A9 507E1 4408 front_crowd front/crowd/crowd.asm
 1 507E1 51405 3108 front_rink_benches front/rink_benches/rink_benches.asm
 1 51405 51CB6 2225 front_scoreboard front/scoreboard/scoreboard.asm
-1 51CB6 52770 2746 front_arena_art front/arena_art/arena_art.asm
-1 52770 52A42 722 front_52770 front/front_52770.asm
+1 51CB6 52A42 3468 front_arena_art front/arena_art/arena_art.asm
 1 52A42 52E89 1095 front_rink_palette front/rink_palette/rink_palette.asm
 1 52E89 56AE3 15450 front_rink_model front/rink_model/rink_model.asm
 1 56AE3 5B557 19060 front_player_model front/player_model/player_model.asm

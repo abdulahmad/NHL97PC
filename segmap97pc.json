@@ -358,18 +358,10 @@
   },
   {
    "start": 275832,
-   "end": 298352,
+   "end": 303687,
    "module": "front_43578",
    "obj": 1,
    "file": "front/speech/speech.asm",
-   "note": "placeholder"
-  },
-  {
-   "start": 298352,
-   "end": 303687,
-   "module": "front_48D70",
-   "obj": 1,
-   "file": "front/front_48D70.asm",
    "note": "placeholder"
   },
   {
@@ -465,20 +457,12 @@
   {
    "obj": 1,
    "start": 335030,
-   "end": 337776,
+   "end": 338498,
    "module": "front_arena_art",
    "file": "front/arena_art/arena_art.asm",
    "desc": "Arena art: rink sides, the arena archive, board and team logos.",
    "conf": "subject split (cleanup phase 2)",
    "group": "front"
-  },
-  {
-   "start": 337776,
-   "end": 338498,
-   "module": "front_52770",
-   "obj": 1,
-   "file": "front/front_52770.asm",
-   "note": "placeholder"
   },
   {
    "obj": 1,

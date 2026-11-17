@@ -115,3 +115,5 @@ cut GetKeyName front/control_setup Control set-up: key names, keys, pads and pla
 rename front/front_EE69C front/control_setup
 cut SetupPauseArt front/pause_menu Pause and in-game menus: pause art, buttons, the clock, intermission and rules.
 rename front/front_F20A1 front/pause_menu
+rename front/front_48D70 front/speech
+rename front/front_52770 front/arena_art
