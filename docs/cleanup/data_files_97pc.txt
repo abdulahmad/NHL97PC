@@ -144,3 +144,12 @@ data/lib/input/input_joystick_misc_08_bss_01.asm data/lib/sound/snd_gus_get_env_
 data/lib/sound/snd_gus_sdk_02_bss_01.asm data/lib/watcom/watcom_int23_handler_bss_01.asm
 cseg02/cseg02 lib/sound/snd_sb_real_mode_isr
 dseg03/dseg03 data/lib/sound/snd_sb_dma_ports
+data/engine/faceoff_2_data_01.asm data/engine/control_data_01.asm
+data/engine/faceoff_data_01.asm data/engine/game_data_01.asm
+data/engine/faceoff_2_data_02.asm data/engine/puck_contact_data_02.asm
+data/engine/faceoff_data_02.asm data/engine/period_data_01.asm
+data/engine/faceoff_2_data_03.asm data/engine/logic_data_01.asm
+data/engine/faceoff_data_03.asm data/engine/puck_contact_data_03.asm
+data/engine/faceoff_bss_01.asm data/engine/puck_contact_bss_01.asm
+data/engine/faceoff_2_bss_01.asm data/engine/lines_bss_01.asm
+data/engine/faceoff_2_bss_02.asm data/front/season_game_bss_01.asm
