@@ -649,7 +649,7 @@ address,name,auto_name,source,confidence,evidence,file
 4890C,CountRecordGame,sub_4890C,96PC,medium,96 PC CountRecordGame: counts one game of a W/L/T byte string,src/front/speech/speech.asm
 48950,RecordPctClip,sub_48950,96PC,medium,NHL96PC 67636 (similar 0.91): mnemonic similarity 0.91 over 69 instructions,src/front/speech/speech.asm
 489F4,RecordStreakClips,sub_489F4,96PC,medium,NHL96PC 676D4 (sem 0.91): C:560,src/front/speech/speech.asm
-48D70,PaEvent,sub_48D70,96PC,low,"the arena PA announcer: B events (0B000001h-0B000006h) from the front end and pre-game screens, C events (0C000001h-0C000004h) in game; ClockTick posts 0C0000004h at one minute left in a period. The play-by-play is CommentaryEvent",src/front/front_48D70.asm
+48D70,PaEvent,sub_48D70,96PC,low,"the arena PA announcer: B events (0B000001h-0B000006h) from the front end and pre-game screens, C events (0C000001h-0C000004h) in game; ClockTick posts 0C0000004h at one minute left in a period. The play-by-play is CommentaryEvent",src/front/speech/speech.asm
 4A248,StopStreamTimer,sub_4A248,new,low,stops the stream audio timer,src/front/music_stream/music_stream.asm
 4A280,ResetStreamAudio,sub_4A280,new,low,stops the music stream and clears its state (before replays and intermissions),src/front/music_stream/music_stream.asm
 4A4F4,PlayScreenMovie,sub_4A4F4,new,low,"(id): waits for the music (WaitMusicEnd), makes the movie path and plays it (PlayMovie); from the stats, all-star and create player screens",src/front/music_stream/music_stream.asm
@@ -774,7 +774,7 @@ address,name,auto_name,source,confidence,evidence,file
 525E0,LoadBoardLogo,sub_525E0,new,low,"loads a board logo shape ""blogo%d%c""",src/front/arena_art/arena_art.asm
 52648,LoadTeamLogoShape,sub_52648,new,low,loads a team logo,src/front/arena_art/arena_art.asm
 526EC,LoadTeamLogoCopy,sub_526EC,new,low,loads a copy of a team logo,src/front/arena_art/arena_art.asm
-52770,LoadLogos,sub_52770,new,low,"game graphics: loads ""logos.fsh"" (LOGOS, blogos) and the ice / board logo shapes (LoadBoardLogo, L%02d...)",src/front/front_52770.asm
+52770,LoadLogos,sub_52770,new,low,"game graphics: loads ""logos.fsh"" (LOGOS, blogos) and the ice / board logo shapes (LoadBoardLogo, L%02d...)",src/front/arena_art/arena_art.asm
 52A44,BuildIcePalette,sub_52A44,new,low,builds the ice colour palette,src/front/rink_palette/rink_palette.asm
 52BEC,BlendRangeColours,sub_52BEC,new,low,blends the colours of a palette range,src/front/rink_palette/rink_palette.asm
 52CA0,DimRangeColours,sub_52CA0,new,low,dims a palette range,src/front/rink_palette/rink_palette.asm
