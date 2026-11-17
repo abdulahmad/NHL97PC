@@ -1,0 +1,6497 @@
+; Modem and network set-up: phonebook, modem settings, network games and connecting.
+bits 32
+%include "hockey.inc"
+section s_867F0 progbits alloc exec nowrite align=1
+extern __STOSB, AllocMemBlock, bcopy, BlankMenuItem, BlitArt, BlitConverted, BlitShape2, ClearLinkAbort
+extern ClearScreen, ConnectRetry, ConvertArtXY, CreateBitmap, DefaultModemName, DrawArt, DrawEditBox, DrawEntryList
+extern DrawFrameBox, DrawScreenBackground, DrawScrollBar, DrawShapeAtOwnPos, DrawTextAligned, EditTextField, FadeInScreen, fclose_
+extern fgets_, FillRect, FindShape, fopen_, fputc_, fread_, FreeBitmap, FreeMemBlock
+extern FreeScrollList, FrontShapeFile, fseek_, fwrite_, GameSettings, GetLangText, GlobalSetVersion, HideLinkBox
+extern IndexEntrySettings, IndexFlags, IndexSettingsRest, InitLinkSettings, InitMenuItems, InitScrollList, LinkFlags, LinkReceiveBlock
+extern LinkSendBlock, LinkSettings, LinkSettingsData, LinkSettingsRest, LoadDataFile, LoadDataFileLib, LoadServerList, MakeColor
+extern MakeDataPath, MeasureText, memcpy_, MenuOptionFlags, ModemAnswer, ModemBaudRate, ModemDialCommand, ModemDialMode
+extern ModemFlags, ModemInitString, ModemIrq, ModemPhoneNumber, ModemPort, ModemPortBases, ModemPortIrqs, ModemSettings
+extern ModemSettingsChanged, ModemSpeed, NetworkGameFlags, NetworkGameIndex, NetworkGameName, NetworkGameNumber, NetworkGameReady, NetworkSettings
+extern PhonebookData, PlaySfx, PresentScreen, RunMenu, ScreenTitleItem, ScrollDown, ScrollToMouse, ScrollUp
+extern SecondsToSamples, ServiceIdle, SetDrawTarget, SetNormalText, SetRegionRect, SetScreenTarget, SetTextColor, ShowLinkMessage
+extern ShowMessageBoxNoWait, ShowScreen, sprintf_, StartNetworkLink, StopAllSfx, str_1BOT, str_1TOP, str_2BOT
+extern str_2TOP, str_3BOT, str_3TOP, str_Atdp, str_ATDP, str_Atdt, str_ATDT, str_BACK5
+extern str_BG00, str_BG01, str_BG02, str_BOT0, str_BR00, str_BR01, str_BR02, str_BR03
+extern str_BR04, str_BR05, str_BR06, str_BR07, str_BR08, str_BTTM, str_CM00, str_CM01
+extern str_CM02, str_CM03, str_CM04, str_CM05, str_CP00, str_CP01, str_CP02, str_CP03
+extern str_CP04, str_CP05, str_CP06, str_CP07, str_CP08, str_CP09, str_CP10, str_CP11
+extern str_DC00, str_DC01, str_DC02, str_DC03, str_DC04, str_DC05, str_Delete, str_DS00
+extern str_DS01, str_DS02, str_IR00, str_IR01, str_IR02, str_IR03, str_IR04, str_IR05
+extern str_IR06, str_IR07, str_IR08, str_IR09, str_IR10, str_IR11, str_IS00, str_IS01
+extern str_IS02, str_LB002, str_LB0D, str_LFT0, str_LFTD, str_LT002, str_LT0D, str_MOD0
+extern str_MOD1, str_MOD2, str_MT00, str_MT01, str_MT02, str_NET0, str_NET1, str_NET2
+extern str_PB00, str_PB01, str_PB02, str_Phonebook, str_PT00, str_PT01, str_PT02, str_Punct3
+extern str_Punct_ModemSettingsScreen, str_RB00, str_RB0D, str_Rb_WritePhonebookFile, str_RIT0, str_RITD, str_RT00, str_RT0D
+extern str_S2, str_S_ModemSettingsScreen, str_TITL3, str_TOP0, str_TPB0, str_TPB1, str_TPB2, str_TPB3
+extern str_TPB4, str_TPB5, str_Wb, strcmp_, strcpy_, strlen_, strstr_, WaitSoundTime
+extern WipeScreen
+global WritePhonebookFile, OpenPhonebookFile, SavePhonebook, SavePhonebook_5F, AddPhonebookEntry, LoadPhonebook, ReadPhonebook, CopyModemString
+global SetModemButton, SetModemArrow, DrawPhonebookField, PhonebookEntryScreenJumpTable, PhonebookEntryScreen, PhonebookEntryScreen_4B8, PhonebookEntryScreen_4C9, PhonebookEntryScreen_5DB
+global PhonebookEntryScreen_60C, PhonebookEntryScreen_6C5, PhonebookEntryScreen_752, LayoutModemList, LayoutPortList, LayoutSpeedList, DrawModemField, ModemSettingsScreenJumpTable
+global ModemSettingsScreen, ModemSettingsScreen_AE3, ModemSettingsScreen_AF4, ModemSettingsScreen_CC6, ModemSettingsScreen_D31, ModemSettingsScreen_D5E, ModemSettingsScreen_E4D, ModemSettingsScreen_E6E
+global ModemSettingsScreen_F7C, ModemSettingsScreen_FCE, ModemSettingsScreen_1020, ModemSettingsScreen_112C, ModemSettingsScreen_1184, ModemSettingsScreen_11E3, ModemSettingsScreen_121D, ModemSettingsScreen_126A
+global ModemSettingsScreen_1292, ModemSettingsScreen_12BA, ModemSettingsScreen_12E2, DrawNoNetworkServices, DrawNoNetworkServices_F6, DrawNetworkStatus, NetworkGamesScreenJumpTable, NetworkGamesScreen
+global NetworkGamesScreen_646, NetworkGamesScreen_657, NetworkGamesScreen_880, NetworkGamesScreen_8F6, NetworkGamesScreen_92B, NetworkGamesScreen_9BB, NetworkGamesScreen_A1E, NetworkGamesScreen_A96
+global NetworkGamesScreen_B19, NetworkGamesScreen_B3D, DrawConnectScreen, ModemConnectScreen, ModemConnectScreen_2BB, ModemConnectScreen_2C0, ModemConnectScreen_2C3, ModemConnectScreen_2C4
+global ModemConnect, ModemConnect_64C, ModemConnect_654, NetworkConnect, NetworkConnectScreen, RunNetworkConnect, RunNetworkConnect_35, RunModemConnect
+;-----------------------------------------------------------------------------
+; WritePhonebookFile                              867F0  97 PC, low confidence
+; Writes the phonebook file
+;-----------------------------------------------------------------------------
+WritePhonebookFile:
+        push ebx
+        push ecx
+        push edx
+        enter 34h, 0
+        mov edx, 64h
+        lea eax, [byte ebp-034h]
+        mov dword [byte ebp-04h], 0
+        call MakeDataPath
+        mov edx, str_Rb_WritePhonebookFile
+        lea eax, [byte ebp-034h]
+        call fopen_
+        mov ecx, eax
+        test eax, eax
+        jne short .3
+        mov edx, str_Wb
+        lea eax, [byte ebp-034h]
+        call fopen_
+        mov ecx, eax
+        test eax, eax
+        je short .4
+        mov ebx, 4
+        lea edx, [byte ebp-04h]
+        lea eax, [byte ebp-0Ch]
+        call memcpy_
+        xor ebx, ebx
+        jmp short .2
+.1:
+        mov edx, ecx
+        movzx eax, byte [byte ebx+ebp-0Ch]
+        call fputc_
+        inc ebx
+.2:
+        cmp ebx, byte 4
+        jb short .1
+        mov eax, ecx
+        mov edx, str_Rb_WritePhonebookFile
+        call fclose_
+        lea eax, [byte ebp-034h]
+        call fopen_
+        mov ecx, eax
+        test eax, eax
+        je short .4
+.3:
+        mov eax, ecx
+.4:
+        leave
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+;-----------------------------------------------------------------------------
+; OpenPhonebookFile                               86878  97 PC, low confidence
+; Opens the phonebook file for writing
+;-----------------------------------------------------------------------------
+OpenPhonebookFile:
+        push ebx
+        push ecx
+        push edx
+        enter 30h, 0
+        push eax
+        mov edx, 64h
+        lea eax, [byte ebp-030h]
+        call MakeDataPath
+        mov edx, str_Wb
+        lea eax, [byte ebp-030h]
+        call fopen_
+        mov ecx, eax
+        test eax, eax
+        je short .3
+        mov ebx, 4
+        lea edx, [byte ebp-034h]
+        lea eax, [byte ebp-08h]
+        call memcpy_
+        xor ebx, ebx
+        jmp short .2
+.1:
+        mov edx, ecx
+        movzx eax, byte [byte ebx+ebp-08h]
+        call fputc_
+        inc ebx
+.2:
+        cmp ebx, byte 4
+        jb short .1
+        mov eax, ecx
+.3:
+        leave
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+;-----------------------------------------------------------------------------
+; SavePhonebook                                   868CD  97 PC, low confidence
+; Saves the phonebook
+;-----------------------------------------------------------------------------
+SavePhonebook:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        mov esi, eax
+        call OpenPhonebookFile
+        mov edi, eax
+        test eax, eax
+        jne short .1
+        push byte 1
+        mov eax, 15Dh
+        mov edx, 1
+        xor ecx, ecx
+        xor ebx, ebx
+        call GetLangText
+        call ShowMessageBoxNoWait
+        xor eax, eax
+        jmp near ModemConnectScreen_2C4
+.1:
+        mov edx, 0A0h
+        mov eax, dword [PhonebookData]
+        mov ecx, edi
+        mov ebx, esi
+        call fwrite_
+        mov eax, edi
+        call fclose_
+        test esi, esi
+        jle short SavePhonebook_5F
+        push dword [PhonebookData]
+        call FreeMemBlock
+        add esp, byte 4
+SavePhonebook_5F:
+        mov eax, 1
+        jmp near ModemConnectScreen_2C4
+;-----------------------------------------------------------------------------
+; AddPhonebookEntry                               86936  97 PC, low confidence
+; Adds an entry to the phonebook
+;-----------------------------------------------------------------------------
+AddPhonebookEntry:
+        push ebx
+        push ecx
+        push esi
+        push edi
+        mov ecx, eax
+        mov ebx, edx
+        xor esi, esi
+        xor edi, edi
+        jmp short .3
+.1:
+        imul eax, esi, dword 0A0h
+        mov edx, dword [PhonebookData]
+        add eax, edx
+        add eax, byte 50h
+        mov edx, ecx
+        call strcmp_
+        test eax, eax
+        jne short .2
+        mov edi, 1
+.2:
+        inc esi
+.3:
+        cmp esi, dword [ebx]
+        jl short .1
+        test di, di
+        jne short .4
+        mov eax, 15Eh
+        call GetLangText
+        imul esi, dword [ebx], dword 0A0h
+        mov edx, dword [PhonebookData]
+        add esi, edx
+        mov edx, eax
+        mov eax, esi
+        call strcpy_
+        imul eax, dword [ebx], dword 0A0h
+        mov esi, dword [PhonebookData]
+        add eax, esi
+        mov edx, ecx
+        add eax, byte 50h
+        call strcpy_
+        inc dword [ebx]
+        mov eax, dword [ebx]
+        call SavePhonebook
+        call LoadPhonebook
+.4:
+        pop edi
+        pop esi
+        pop ecx
+        pop ebx
+        ret
+;-----------------------------------------------------------------------------
+; LoadPhonebook                                   869BB  97 PC, low confidence
+; Modem settings: reads the "phonebook" file
+;-----------------------------------------------------------------------------
+LoadPhonebook:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        call ReadPhonebook
+        mov edi, eax
+        inc eax
+        imul eax, dword 0A0h
+        push byte 20h
+        push eax
+        push str_Phonebook
+        call AllocMemBlock
+        add esp, byte 0Ch
+        mov dword [PhonebookData], eax
+        test edi, edi
+        jne short .2
+.1:
+        xor eax, eax
+        jmp near ModemConnectScreen_2C4
+.2:
+        call WritePhonebookFile
+        mov esi, eax
+        test eax, eax
+        jne short .3
+        push byte 1
+        mov eax, 15Dh
+        mov edx, 1
+        xor ecx, ecx
+        xor ebx, ebx
+        call GetLangText
+        call ShowMessageBoxNoWait
+        jmp short .1
+.3:
+        mov edx, 4
+        xor ebx, ebx
+        call fseek_
+        mov ecx, esi
+        mov edx, 0A0h
+        mov eax, dword [PhonebookData]
+        mov ebx, edi
+        call fread_
+        mov eax, esi
+        call fclose_
+        jmp near SavePhonebook_5F
+        jmp near fclose_
+;-----------------------------------------------------------------------------
+; ReadPhonebook                                   86A45  97 PC, low confidence
+; Reads the phonebook
+;-----------------------------------------------------------------------------
+ReadPhonebook:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        enter 4, 0
+        call WritePhonebookFile
+        mov esi, eax
+        test eax, eax
+        jne short .1
+        push byte 1
+        mov eax, 15Dh
+        mov edx, 1
+        xor ecx, ecx
+        xor ebx, ebx
+        call GetLangText
+        call ShowMessageBoxNoWait
+        mov dword [byte ebp-04h], esi
+        jmp short .2
+.1:
+        mov edx, 4
+        mov ebx, eax
+        lea eax, [byte ebp-04h]
+        call fgets_
+.2:
+        mov eax, esi
+        call fclose_
+        mov eax, dword [byte ebp-04h]
+        leave
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+;-----------------------------------------------------------------------------
+; CopyModemString                                 86A96  97 PC, low confidence
+; Copies a modem setting string
+;-----------------------------------------------------------------------------
+CopyModemString:
+        push ebx
+        push ecx
+        mov ebx, eax
+        mov ecx, edx
+        mov eax, dword [edx]
+        and eax, byte 1
+        and byte [ebx], 0FEh
+        or dword [ebx], eax
+        mov ax, word [byte edx+04h]
+        mov word [byte ebx+04h], ax
+        mov ax, word [byte edx+06h]
+        mov word [byte ebx+06h], ax
+        mov ax, word [byte edx+08h]
+        mov word [byte ebx+08h], ax
+        mov ax, word [byte edx+0Ah]
+        mov word [byte ebx+0Ah], ax
+        mov ax, word [byte edx+0Ch]
+        mov word [byte ebx+0Ch], ax
+        mov ax, word [byte edx+0Eh]
+        add edx, byte 10h
+        mov word [byte ebx+0Eh], ax
+        lea eax, [byte ebx+010h]
+        call strcpy_
+        lea edx, [byte ecx+024h]
+        lea eax, [byte ebx+024h]
+        call strcpy_
+        lea edx, [byte ecx+04Ch]
+        lea eax, [byte ebx+04Ch]
+        call strcpy_
+        pop ecx
+        pop ebx
+        ret
+;-----------------------------------------------------------------------------
+; SetModemButton                                  86AFA  97 PC, low confidence
+; Sets up a modem screen button
+;-----------------------------------------------------------------------------
+SetModemButton:
+        push esi
+        push edi
+        enter 4, 0
+        mov esi, eax
+        mov edi, edx
+        mov dword [byte ebp-04h], ecx
+        push ebx
+        push edx
+        call FindShape
+        add esp, byte 8
+        push dword [byte ebp-04h]
+        push edi
+        mov dword [byte esi+01Ah], eax
+        call FindShape
+        add esp, byte 8
+        push dword [byte ebp+010h]
+        push edi
+        mov dword [byte esi+01Eh], eax
+        call FindShape
+        mov dword [byte esi+022h], eax
+        mov eax, dword [byte esi+01Ah]
+        movsx eax, word [byte eax+0Ch]
+        mov dword [byte esi+026h], eax
+        mov eax, dword [byte esi+01Ah]
+        movsx eax, word [byte eax+0Eh]
+        mov dword [byte esi+010h], 4
+        mov dword [byte esi+02Ah], eax
+        mov eax, dword [byte ebp+014h]
+        mov dword [byte esi+014h], eax
+        mov eax, dword [byte esi+01Ah]
+        add esp, byte 8
+        mov ebx, dword [byte esi+02Ah]
+        movsx edx, word [byte eax+06h]
+        movsx ecx, word [byte eax+04h]
+        push edx
+        mov eax, dword [byte ebp+014h]
+        mov edx, dword [byte esi+026h]
+        call SetRegionRect
+        leave
+        pop edi
+        pop esi
+        ret 8
+;-----------------------------------------------------------------------------
+; SetModemArrow                                   86B73  97 PC, low confidence
+; Sets up a modem screen arrow
+;-----------------------------------------------------------------------------
+SetModemArrow:
+        push esi
+        push edi
+        push ebp
+        mov ebp, esp
+        mov esi, eax
+        mov edi, edx
+        mov eax, ebx
+        mov ebx, ecx
+        push eax
+        push edx
+        call FindShape
+        add esp, byte 8
+        push ebx
+        push edi
+        mov dword [byte esi+01Ah], eax
+        call FindShape
+        add esp, byte 8
+        push dword [byte ebp+010h]
+        push edi
+        mov dword [byte esi+01Eh], eax
+        call FindShape
+        mov edi, dword [byte esi+01Ah]
+        mov dword [byte esi+022h], eax
+        movsx eax, word [byte edi+0Ch]
+        mov edi, dword [byte esi+01Ah]
+        mov dword [byte esi+026h], eax
+        movsx eax, word [byte edi+0Eh]
+        mov dword [byte esi+010h], 4
+        mov dword [byte esi+02Ah], eax
+        mov eax, dword [byte ebp+014h]
+        add esp, byte 8
+        mov dword [byte esi+014h], eax
+        pop ebp
+        pop edi
+        pop esi
+        ret 8
+;-----------------------------------------------------------------------------
+; DrawPhonebookField                              86BD0  97 PC, low confidence
+; Draws a phonebook field
+;-----------------------------------------------------------------------------
+DrawPhonebookField:
+        push esi
+        push edi
+        enter 0Ch, 0
+        push eax
+        mov edi, edx
+        mov dword [byte ebp-08h], ebx
+        mov esi, ecx
+        push byte 0FFFFFFFFh
+        call MakeColor
+        add esp, byte 4
+        call SetTextColor
+        cmp esi, byte 0Ah
+        jge short .1
+        mov dword [byte ebp-04h], esi
+        jmp short .2
+.1:
+        mov dword [byte ebp-04h], 0Ah
+.2:
+        push dword [byte ebp-010h]
+        call SetDrawTarget
+        xor esi, esi
+        add esp, byte 4
+        jmp near .5
+.3:
+        lea eax, [esi+edi]
+        cmp eax, dword [byte ebp-08h]
+        jne short .4
+        lea eax, [byte esi+01h]
+        imul eax, byte 0Ch
+        imul ebx, esi, byte 0Ch
+        mov ecx, 1EAh
+        add eax, byte 2Dh
+        mov edx, 28h
+        push eax
+        add ebx, byte 2Dh
+        mov eax, 6
+        call DrawEditBox
+.4:
+        lea ebx, [esi+edi]
+        imul ebx, dword 0A0h
+        mov eax, dword [PhonebookData]
+        add eax, ebx
+        push eax
+        imul eax, esi, byte 0Ch
+        push str_S_ModemSettingsScreen
+        add eax, byte 2Dh
+        push eax
+        push byte 28h
+        push byte 0
+        mov dword [byte ebp-0Ch], eax
+        call DrawTextAligned
+        mov eax, dword [PhonebookData]
+        add eax, ebx
+        add esp, byte 14h
+        add eax, byte 50h
+        push eax
+        push str_S_ModemSettingsScreen
+        push dword [byte ebp-0Ch]
+        push dword 104h
+        push byte 0
+        inc esi
+        call DrawTextAligned
+        add esp, byte 14h
+.5:
+        cmp esi, dword [byte ebp-04h]
+        jl short .3
+        call PresentScreen
+        leave
+        pop edi
+        pop esi
+        ret
+PhonebookEntryScreenJumpTable:                  ; jump table for the switch cases of PhonebookEntryScreen
+        dd PhonebookEntryScreen_4B8
+        dd PhonebookEntryScreen_4C9
+        dd PhonebookEntryScreen_5DB
+        dd PhonebookEntryScreen_60C
+        dd PhonebookEntryScreen_6C5
+        dd PhonebookEntryScreen_752
+;-----------------------------------------------------------------------------
+; PhonebookEntryScreen                            86CB1  97 PC, low confidence
+; Modem settings: names a phone book entry ("Please enter a name for this
+; phone book entry"), from ModemSettingsScreen
+;-----------------------------------------------------------------------------
+PhonebookEntryScreen:
+        push ebx
+        push ecx
+        push esi
+        push edi
+        enter 1000h, 0
+        push eax
+        push edx
+        call SetNormalText
+        lea edx, [dword ebp-01000h]
+        mov eax, 1Ah
+        call InitMenuItems
+        push byte 0
+        push dword 104h
+        push dword 1F4h
+        call CreateBitmap
+        add esp, byte 0Ch
+        push byte 0
+        push dword 104h
+        push dword 1F4h
+        mov esi, eax
+        mov dword [byte ebp-08h], eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        push byte 0
+        push dword 96h
+        push byte 1Eh
+        mov ebx, eax
+        mov dword [byte ebp-018h], eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        push byte 0
+        push dword 82h
+        push dword 1C2h
+        mov dword [byte ebp-010h], eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        mov dword [byte ebp-0Ch], eax
+        call SetScreenTarget
+        push byte 6Eh
+        push byte 46h
+        push dword [byte ebx+02Ch]
+        call ConvertArtXY
+        add esp, byte 0Ch
+        push byte 6Eh
+        push byte 46h
+        push dword [byte esi+02Ch]
+        mov dword [byte ebp-014h], 0
+        call ConvertArtXY
+        add esp, byte 0Ch
+        mov dword [byte ebp-04h], 0
+        mov dword [byte ebp-01Ch], 0FFFFFFFFh
+        call PresentScreen
+        xor esi, esi
+.1:
+        push byte 0
+        push byte 19h
+        push byte 50h
+        call CreateBitmap
+        add esp, byte 0Ch
+        push eax
+        mov dword [byte ebp+esi*4-02Ch], eax
+        call SetDrawTarget
+        add esp, byte 4
+        push dword 10101h
+        call MakeColor
+        add esp, byte 4
+        push eax
+        mov ebx, 50h
+        call ClearScreen
+        mov ecx, 19h
+        add esp, byte 4
+        xor edx, edx
+        xor eax, eax
+        call DrawFrameBox
+        test esi, esi
+        jle short .2
+        push dword 0FFFFFF50h
+        jmp short .3
+.2:
+        push byte 0FFFFFFFFh
+.3:
+        call MakeColor
+        add esp, byte 4
+        call SetTextColor
+        push str_Delete
+        push byte 5
+        push byte 28h
+        push byte 1
+        inc esi
+        call DrawTextAligned
+        add esp, byte 10h
+        cmp esi, byte 3
+        jl short .1
+        call PresentScreen
+        mov eax, dword [byte ebp-02Ch]
+        mov eax, dword [byte eax+02Ch]
+        mov dword [dword ebp-0F94h], eax
+        mov eax, dword [byte ebp-028h]
+        mov eax, dword [byte eax+02Ch]
+        mov dword [dword ebp-0F90h], eax
+        mov eax, dword [byte ebp-024h]
+        mov eax, dword [byte eax+02Ch]
+        mov dword [dword ebp-0F8Ch], eax
+        lea eax, [dword ebp-076Ch]
+        mov dword [dword ebp-0F88h], 118h
+        mov dword [dword ebp-0F9Ah], eax
+        mov eax, dword [dword ebp-0F94h]
+        mov dword [dword ebp-0F84h], 14Ah
+        mov dword [dword ebp-0F9Eh], 4
+        movsx eax, word [byte eax+06h]
+        push eax
+        mov eax, dword [dword ebp-0F94h]
+        mov ebx, 14Ah
+        mov edx, 118h
+        movsx ecx, word [byte eax+04h]
+        lea eax, [dword ebp-076Ch]
+        call SetRegionRect
+        push str_1TOP
+        push dword [FrontShapeFile]
+        call FindShape
+        add esp, byte 8
+        push str_2TOP
+        push dword [FrontShapeFile]
+        mov dword [dword ebp-0EF0h], eax
+        call FindShape
+        add esp, byte 8
+        push str_3TOP
+        push dword [FrontShapeFile]
+        mov dword [dword ebp-0EECh], eax
+        call FindShape
+        add esp, byte 8
+        push str_1BOT
+        mov dword [dword ebp-0EE4h], 50h
+        mov dword [dword ebp-0EE0h], 8Ch
+        push dword [FrontShapeFile]
+        mov dword [dword ebp-0EE8h], eax
+        call FindShape
+        add esp, byte 8
+        push str_2BOT
+        push dword [FrontShapeFile]
+        mov dword [dword ebp-0E4Ch], eax
+        call FindShape
+        add esp, byte 8
+        push str_3BOT
+        push dword [FrontShapeFile]
+        mov dword [dword ebp-0E48h], eax
+        call FindShape
+        mov dword [dword ebp-0E44h], eax
+        mov eax, dword [dword ebp-0E4Ch]
+        mov dword [dword ebp-0E40h], 50h
+        movsx eax, word [byte eax+06h]
+        mov esi, 6
+        add eax, 102h
+        add esp, byte 8
+        mov dword [dword ebp-0E3Ch], eax
+.4:
+        imul eax, esi, byte 52h
+        mov edi, esi
+        lea ebx, [byte esi-06h]
+        imul ebx, byte 0Ch
+        lea edx, [dword ebp-07ACh]
+        shl edi, 6
+        mov dword [dword eax+ebp-0FF0h], 4
+        add edi, edx
+        mov dword [dword eax+ebp-0FECh], edi
+        call SetScreenTarget
+        push byte 0Bh
+        mov ecx, 0C8h
+        mov edx, 6Eh
+        mov eax, edi
+        add ebx, 9Bh
+        inc esi
+        call SetRegionRect
+        call PresentScreen
+        cmp esi, byte 10h
+        jl short .4
+        mov esi, 10h
+.5:
+        imul eax, esi, byte 52h
+        mov edi, esi
+        lea edx, [dword ebp-07ACh]
+        shl edi, 6
+        mov dword [dword eax+ebp-0FF0h], 4
+        add edi, edx
+        mov dword [dword eax+ebp-0FECh], edi
+        call SetScreenTarget
+        lea eax, [byte esi-010h]
+        imul eax, byte 0Ch
+        push byte 0Bh
+        mov ecx, 0C8h
+        lea ebx, [dword eax+09Bh]
+        mov edx, 14Ah
+        mov eax, edi
+        inc esi
+        call SetRegionRect
+        call PresentScreen
+        cmp esi, byte 1Ah
+        jl short .5
+        push dword [byte ebp-08h]
+        call SetDrawTarget
+        add esp, byte 4
+        push dword 384149h
+        call MakeColor
+        add esp, byte 4
+        push eax
+        push dword 104h
+        push dword 1F4h
+        push byte 0
+        push byte 0
+        mov ebx, 1F4h
+        call FillRect
+        mov ecx, 104h
+        add esp, byte 14h
+        xor edx, edx
+        xor eax, eax
+        call DrawFrameBox
+        push byte 0FFFFFFFFh
+        call MakeColor
+        add esp, byte 4
+        call SetTextColor
+        mov eax, 225h
+        call GetLangText
+        push eax
+        push byte 0Ah
+        push dword 0FAh
+        push byte 1
+        call DrawTextAligned
+        add esp, byte 10h
+        push byte 1Eh
+        mov eax, dword [byte ebp-010h]
+        push byte 0Ah
+        push dword [byte eax+02Ch]
+        call ConvertArtXY
+        mov eax, dword [byte ebp-010h]
+        mov eax, dword [byte eax+02Ch]
+        mov word [byte eax+0Ch], 50h
+        mov eax, dword [byte ebp-010h]
+        mov eax, dword [byte eax+02Ch]
+        add esp, byte 0Ch
+        mov word [byte eax+0Eh], 8Ch
+        call PresentScreen
+        push byte 0
+        push byte 0
+        push dword 96h
+        push dword 8Ch
+        mov eax, dword [byte ebp-010h]
+        push byte 50h
+        mov ebx, dword [dword ebp-01008h]
+        mov ecx, 0Ah
+        push dword [byte eax+02Ch]
+        lea edx, [dword ebp-0F0Ah]
+        push byte 0
+        mov ebx, dword [ebx]
+        lea eax, [dword ebp-012Ch]
+        call InitScrollList
+        push dword [byte ebp-08h]
+        call SetDrawTarget
+        add esp, byte 4
+        push byte 2Dh
+        mov eax, dword [byte ebp-0Ch]
+        push byte 28h
+        push dword [byte eax+02Ch]
+        call ConvertArtXY
+        add esp, byte 0Ch
+        call PresentScreen
+        mov ecx, dword [dword ebp-01008h]
+        movsx ebx, word [byte ebp-04h]
+        mov edx, dword [dword ebp-0108h]
+        mov eax, dword [byte ebp-08h]
+        mov ecx, dword [ecx]
+        call DrawPhonebookField
+        call SetScreenTarget
+        push byte 6Eh
+        mov eax, dword [byte ebp-08h]
+        push byte 46h
+        push dword [byte eax+02Ch]
+        call BlitArt
+        lea eax, [dword ebp-012Ch]
+        add esp, byte 0Ch
+        xor edx, edx
+        lea edi, [dword ebp-01000h]
+        call DrawScrollBar
+        call PresentScreen
+        push byte 10h
+        mov ebx, 1F4h
+        mov eax, dword [byte ebp-08h]
+        push dword 122h
+        mov ecx, 12Ch
+        mov eax, dword [byte eax+02Ch]
+        push byte 50h
+        mov edx, eax
+        mov esi, ScreenTitleItem
+        call DrawEntryList
+        mov ecx, 52h
+        rep movsb
+        mov ecx, 52h
+        lea edi, [dword ebp-0F5Ch]
+        mov esi, BlankMenuItem
+        mov dword [dword ebp-01000h], 0
+        rep movsb
+        mov dword [dword ebp-0F5Ch], 2
+        jmp near PhonebookEntryScreen_60C.11
+PhonebookEntryScreen_4B8:
+        call ShowScreen
+.6:
+        mov dword [byte ebp-014h], 1
+        jmp near PhonebookEntryScreen_60C.11
+PhonebookEntryScreen_4C9:
+        mov edx, dword [dword ebp-01008h]
+        movsx eax, word [byte ebp-04h]
+        cmp eax, dword [edx]
+        jne short .8
+        jmp short .9
+.7:
+        lea edi, [byte eax+01h]
+        imul esi, edi, dword 0A0h
+        imul ebx, eax, dword 0A0h
+        mov ecx, dword [PhonebookData]
+        lea edx, [ecx+esi]
+        lea eax, [ecx+ebx]
+        call strcpy_
+        mov eax, dword [PhonebookData]
+        lea edx, [eax+esi]
+        add eax, ebx
+        add edx, byte 50h
+        add eax, byte 50h
+        call strcpy_
+        mov eax, edi
+.8:
+        mov edx, dword [dword ebp-01008h]
+        cmp eax, dword [edx]
+        jl short .7
+.9:
+        dec dword [edx]
+        lea eax, [dword ebp-012Ch]
+        call FreeScrollList
+        push byte 0
+        push byte 0
+        push dword 96h
+        push dword 8Ch
+        mov eax, dword [byte ebp-010h]
+        push byte 50h
+        mov ebx, dword [dword ebp-01008h]
+        mov ecx, 0Ah
+        push dword [byte eax+02Ch]
+        lea edx, [dword ebp-0F0Ah]
+        push byte 0
+        mov ebx, dword [ebx]
+        lea eax, [dword ebp-012Ch]
+        call InitScrollList
+        push dword [byte ebp-08h]
+        call SetDrawTarget
+        add esp, byte 4
+        push byte 2Dh
+        mov eax, dword [byte ebp-0Ch]
+        push byte 28h
+        push dword [byte eax+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        xor ebx, ebx
+        call PresentScreen
+        mov ecx, dword [dword ebp-01008h]
+        mov edx, dword [dword ebp-0108h]
+        mov eax, dword [byte ebp-08h]
+        mov ecx, dword [ecx]
+        call DrawPhonebookField
+        call SetScreenTarget
+        push byte 6Eh
+        mov eax, dword [byte ebp-08h]
+        push byte 46h
+        push dword [byte eax+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        call PresentScreen
+        lea eax, [dword ebp-012Ch]
+        xor edx, edx
+        call DrawScrollBar
+        mov eax, dword [dword ebp-01008h]
+        mov dword [byte ebp-04h], 0
+        cmp dword [eax], byte 0
+        jne near PhonebookEntryScreen_60C.11
+        jmp near PhonebookEntryScreen_4B8.6
+PhonebookEntryScreen_5DB:
+        movsx eax, word [byte ebp-04h]
+        imul eax, dword 0A0h
+        mov edx, dword [PhonebookData]
+        add edx, eax
+        mov eax, dword [dword ebp-01004h]
+        add edx, byte 50h
+        mov dword [byte ebp-014h], 1
+        call strcpy_
+        call FadeInScreen
+        jmp near PhonebookEntryScreen_60C.11
+PhonebookEntryScreen_60C:
+        cmp dword [dword ebp-0108h], byte 0
+        jle short .11
+        lea eax, [dword ebp-012Ch]
+        xor edx, edx
+        call ScrollUp
+.10:
+        push dword [byte ebp-08h]
+        call SetDrawTarget
+        add esp, byte 4
+        push byte 2Dh
+        mov eax, dword [byte ebp-0Ch]
+        push byte 28h
+        push dword [byte eax+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        movsx ebx, word [byte ebp-04h]
+        call PresentScreen
+        mov ecx, dword [dword ebp-01008h]
+        mov edx, dword [dword ebp-0108h]
+        mov eax, dword [byte ebp-08h]
+        mov ecx, dword [ecx]
+        call DrawPhonebookField
+        call SetScreenTarget
+        push byte 6Eh
+        mov eax, dword [byte ebp-08h]
+        push byte 46h
+        push dword [byte eax+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        call PresentScreen
+        lea eax, [dword ebp-012Ch]
+        xor edx, edx
+        call DrawScrollBar
+.11:
+        cmp dword [byte ebp-014h], byte 0
+        jne near PhonebookEntryScreen_752.14
+        push byte 3
+        lea eax, [byte ebp-020h]
+        mov ebx, 0FFFFFFFFh
+        lea edx, [dword ebp-01000h]
+        push eax
+        xor ecx, ecx
+        mov eax, 1Ah
+        call RunMenu
+        mov ecx, eax
+        cmp dword [byte ebp-020h], byte 5
+        ja near PhonebookEntryScreen_752.12
+        mov ebx, dword [byte ebp-020h]
+        jmp dword [nosplit cs:ebx*4+PhonebookEntryScreenJumpTable]
+PhonebookEntryScreen_6C5:
+        mov ebx, eax
+        xor edx, edx
+        lea eax, [dword ebp-012Ch]
+        call ScrollToMouse
+        mov eax, dword [byte ebp-01Ch]
+        cmp eax, dword [dword ebp-0108h]
+        je short PhonebookEntryScreen_60C.11
+        push dword [byte ebp-08h]
+        call SetDrawTarget
+        add esp, byte 4
+        push byte 2Dh
+        mov eax, dword [byte ebp-0Ch]
+        push byte 28h
+        push dword [byte eax+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        movsx ebx, word [byte ebp-04h]
+        call PresentScreen
+        mov ecx, dword [dword ebp-01008h]
+        mov edx, dword [dword ebp-0108h]
+        mov eax, dword [byte ebp-08h]
+        mov ecx, dword [ecx]
+        call DrawPhonebookField
+        call SetScreenTarget
+        push byte 6Eh
+        mov eax, dword [byte ebp-08h]
+        push byte 46h
+        push dword [byte eax+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        call PresentScreen
+        lea eax, [dword ebp-012Ch]
+        xor edx, edx
+        call DrawScrollBar
+        mov eax, dword [dword ebp-0108h]
+        mov dword [byte ebp-01Ch], eax
+        jmp near PhonebookEntryScreen_60C.11
+PhonebookEntryScreen_752:
+        mov eax, dword [dword ebp-01008h]
+        mov eax, dword [eax]
+        sub eax, byte 0Ah
+        cmp eax, dword [dword ebp-0108h]
+        jle near PhonebookEntryScreen_60C.11
+        lea eax, [dword ebp-012Ch]
+        xor edx, edx
+        call ScrollDown
+        jmp near PhonebookEntryScreen_60C.10
+.12:
+        sub dword [byte ebp-020h], byte 6
+        cmp dword [byte ebp-020h], byte 0Ah
+        jge short .13
+        mov eax, dword [byte ebp-020h]
+        mov edx, dword [dword ebp-01008h]
+        add eax, dword [dword ebp-0108h]
+        cmp eax, dword [edx]
+        jge near PhonebookEntryScreen_60C.10
+        mov eax, dword [byte ebp-020h]
+        add eax, dword [dword ebp-0108h]
+        mov dword [byte ebp-04h], eax
+        movsx edx, word [byte ebp-04h]
+        imul edx, dword 0A0h
+        push byte 0
+        mov eax, 15Fh
+        call GetLangText
+        mov esi, dword [PhonebookData]
+        mov ebx, eax
+        add esi, edx
+        mov edx, 14h
+        mov eax, esi
+        call EditTextField
+        jmp near PhonebookEntryScreen_60C.10
+.13:
+        sub dword [byte ebp-020h], byte 0Ah
+        mov eax, dword [byte ebp-020h]
+        mov edx, dword [dword ebp-01008h]
+        add eax, dword [dword ebp-0108h]
+        cmp eax, dword [edx]
+        jge near PhonebookEntryScreen_60C.10
+        mov eax, dword [byte ebp-020h]
+        add eax, dword [dword ebp-0108h]
+        mov dword [byte ebp-04h], eax
+        jmp near PhonebookEntryScreen_60C.10
+.14:
+        call SetScreenTarget
+        push byte 6Eh
+        mov eax, dword [byte ebp-018h]
+        push byte 46h
+        push dword [byte eax+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        call PresentScreen
+        push dword [byte ebp-08h]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [byte ebp-018h]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [byte ebp-010h]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [byte ebp-0Ch]
+        xor esi, esi
+        call FreeBitmap
+        add esp, byte 4
+.15:
+        push dword [byte ebp+esi*4-02Ch]
+        call FreeBitmap
+        inc esi
+        add esp, byte 4
+        cmp esi, byte 3
+        jl short .15
+        lea eax, [dword ebp-012Ch]
+        call FreeScrollList
+        leave
+        pop edi
+        pop esi
+        pop ecx
+        pop ebx
+        ret
+;-----------------------------------------------------------------------------
+; LayoutModemList                                 87523  97 PC, low confidence
+; Lays out the modem list
+;-----------------------------------------------------------------------------
+LayoutModemList:
+        push esi
+        push edi
+        enter 4, 0
+        mov edi, eax
+        mov esi, edx
+        mov dword [byte ebp-04h], ecx
+        test ebx, ebx
+        jne short .1
+        push str_CP00
+        push eax
+        call FindShape
+        add esp, byte 8
+        push str_CP01
+        push edi
+        mov dword [dword esi+0BEh], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [dword esi+0C2h], eax
+.1:
+        cmp ebx, byte 1
+        jne short .2
+        push str_CP03
+        push edi
+        call FindShape
+        add esp, byte 8
+        push str_CP04
+        push edi
+        mov dword [dword esi+0110h], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [dword esi+0114h], eax
+.2:
+        cmp ebx, byte 2
+        jne short .3
+        push str_CP06
+        push edi
+        call FindShape
+        add esp, byte 8
+        push str_CP07
+        push edi
+        mov dword [dword esi+0162h], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [dword esi+0166h], eax
+.3:
+        cmp ebx, byte 3
+        jne short .4
+        push str_CP09
+        push edi
+        call FindShape
+        add esp, byte 8
+        push str_CP10
+        push edi
+        mov dword [dword esi+01B4h], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [dword esi+01B8h], eax
+.4:
+        cmp dword [byte ebp-04h], byte 0
+        jne short .5
+        push str_CP02
+        push edi
+        call FindShape
+        add esp, byte 8
+        push str_CP02
+        push edi
+        mov dword [dword esi+0BEh], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [dword esi+0C2h], eax
+.5:
+        cmp dword [byte ebp-04h], byte 1
+        jne short .6
+        push str_CP05
+        push edi
+        call FindShape
+        add esp, byte 8
+        push str_CP05
+        push edi
+        mov dword [dword esi+0110h], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [dword esi+0114h], eax
+.6:
+        cmp dword [byte ebp-04h], byte 2
+        jne short .7
+        push str_CP08
+        push edi
+        call FindShape
+        add esp, byte 8
+        push str_CP08
+        push edi
+        mov dword [dword esi+0162h], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [dword esi+0166h], eax
+.7:
+        cmp dword [byte ebp-04h], byte 3
+        jne short .8
+        push str_CP11
+        push edi
+        call FindShape
+        add esp, byte 8
+        push str_CP11
+        push edi
+        mov dword [dword esi+01B4h], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [dword esi+01B8h], eax
+.8:
+        leave
+        pop edi
+        pop esi
+        ret
+;-----------------------------------------------------------------------------
+; LayoutPortList                                  8769F  97 PC, low confidence
+; Lays out the port list
+;-----------------------------------------------------------------------------
+LayoutPortList:
+        push esi
+        push edi
+        enter 4, 0
+        mov edi, eax
+        mov esi, edx
+        mov dword [byte ebp-04h], ecx
+        cmp ebx, byte 2
+        jne short .1
+        push str_IR00
+        push eax
+        call FindShape
+        add esp, byte 8
+        push str_IR01
+        push edi
+        mov dword [dword esi+0206h], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [dword esi+020Ah], eax
+.1:
+        cmp ebx, byte 3
+        jne short .2
+        push str_IR03
+        push edi
+        call FindShape
+        add esp, byte 8
+        push str_IR04
+        push edi
+        mov dword [dword esi+0258h], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [dword esi+025Ch], eax
+.2:
+        cmp ebx, byte 4
+        jne short .3
+        push str_IR06
+        push edi
+        call FindShape
+        add esp, byte 8
+        push str_IR07
+        push edi
+        mov dword [dword esi+02AAh], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [dword esi+02AEh], eax
+.3:
+        cmp ebx, byte 7
+        jne short .4
+        push str_IR09
+        push edi
+        call FindShape
+        add esp, byte 8
+        push str_IR10
+        push edi
+        mov dword [dword esi+02FCh], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [dword esi+0300h], eax
+.4:
+        cmp dword [byte ebp-04h], byte 2
+        jne short .5
+        push str_IR02
+        push edi
+        call FindShape
+        add esp, byte 8
+        push str_IR02
+        push edi
+        mov dword [dword esi+0206h], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [dword esi+020Ah], eax
+.5:
+        cmp dword [byte ebp-04h], byte 3
+        jne short .6
+        push str_IR05
+        push edi
+        call FindShape
+        add esp, byte 8
+        push str_IR05
+        push edi
+        mov dword [dword esi+0258h], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [dword esi+025Ch], eax
+.6:
+        cmp dword [byte ebp-04h], byte 4
+        jne short .7
+        push str_IR08
+        push edi
+        call FindShape
+        add esp, byte 8
+        push str_IR08
+        push edi
+        mov dword [dword esi+02AAh], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [dword esi+02AEh], eax
+.7:
+        cmp dword [byte ebp-04h], byte 7
+        jne short .8
+        push str_IR11
+        push edi
+        call FindShape
+        add esp, byte 8
+        push str_IR11
+        push edi
+        mov dword [dword esi+02FCh], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [dword esi+0300h], eax
+.8:
+        leave
+        pop edi
+        pop esi
+        ret
+;-----------------------------------------------------------------------------
+; LayoutSpeedList                                 8781C  97 PC, low confidence
+; Lays out the speed list
+;-----------------------------------------------------------------------------
+LayoutSpeedList:
+        push esi
+        push edi
+        enter 4, 0
+        mov edi, eax
+        mov esi, edx
+        mov dword [byte ebp-04h], ecx
+        cmp ebx, byte 9
+        jne short .1
+        push str_BR00
+        push eax
+        call FindShape
+        add esp, byte 8
+        push str_BR01
+        push edi
+        mov dword [dword esi+0630h], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [dword esi+0634h], eax
+.1:
+        cmp ebx, byte 0Ah
+        jne short .2
+        push str_BR03
+        push edi
+        call FindShape
+        add esp, byte 8
+        push str_BR04
+        push edi
+        mov dword [dword esi+0682h], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [dword esi+0686h], eax
+.2:
+        cmp ebx, byte 0Ch
+        jne short .3
+        push str_BR06
+        push edi
+        call FindShape
+        add esp, byte 8
+        push str_BR07
+        push edi
+        mov dword [dword esi+06D4h], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [dword esi+06D8h], eax
+.3:
+        cmp dword [byte ebp-04h], byte 9
+        jne short .4
+        push str_BR02
+        push edi
+        call FindShape
+        add esp, byte 8
+        push str_BR02
+        push edi
+        mov dword [dword esi+0630h], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [dword esi+0634h], eax
+.4:
+        cmp dword [byte ebp-04h], byte 0Ah
+        jne short .5
+        push str_BR05
+        push edi
+        call FindShape
+        add esp, byte 8
+        push str_BR05
+        push edi
+        mov dword [dword esi+0682h], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [dword esi+0686h], eax
+.5:
+        cmp dword [byte ebp-04h], byte 0Ch
+        jne short .6
+        push str_BR08
+        push edi
+        call FindShape
+        add esp, byte 8
+        push str_BR08
+        push edi
+        mov dword [dword esi+06D4h], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [dword esi+06D8h], eax
+.6:
+        leave
+        pop edi
+        pop esi
+        ret
+;-----------------------------------------------------------------------------
+; DrawModemField                                  8793E  97 PC, low confidence
+; Draws a modem field
+;-----------------------------------------------------------------------------
+DrawModemField:
+        push ecx
+        push esi
+        push edi
+        enter 20h, 0
+        mov esi, eax
+        mov edi, edx
+        mov ecx, 14h
+        lea eax, [byte ebp-020h]
+        xor edx, edx
+        call __STOSB
+        mov eax, dword [byte esi+02Ch]
+        push ebx
+        movsx eax, word [byte eax+04h]
+        mov dword [byte ebp-08h], 0
+        mov dword [byte ebp-0Ch], eax
+        call MeasureText
+        add esp, byte 4
+        cmp eax, dword [byte ebp-0Ch]
+        jle near .6
+        mov eax, ebx
+        call strlen_
+        mov dword [byte ebp-04h], eax
+        jmp short .2
+.1:
+        inc dword [byte ebp-08h]
+        mov eax, ebx
+        mov edx, dword [byte ebp-04h]
+        call strlen_
+        sub eax, edx
+        mov dl, byte [byte edx+ebx-01h]
+        dec dword [byte ebp-04h]
+        mov byte [byte eax+ebp-020h], dl
+.2:
+        mov eax, dword [byte esi+02Ch]
+        movsx eax, word [byte eax+04h]
+        mov dword [byte ebp-0Ch], eax
+        lea eax, [byte ebp-020h]
+        push eax
+        call MeasureText
+        mov edx, dword [byte ebp-0Ch]
+        add edx, byte 5
+        add esp, byte 4
+        cmp eax, edx
+        jge short .3
+        cmp dword [byte ebp-04h], byte 0
+        jg short .1
+.3:
+        mov eax, dword [byte ebp-08h]
+        mov dword [byte ebp-04h], eax
+        jmp short .5
+.4:
+        mov eax, ebx
+        call strlen_
+        sub eax, dword [byte ebp-04h]
+        lea edx, [ebx+eax]
+        mov eax, dword [byte ebp-08h]
+        sub eax, dword [byte ebp-04h]
+        mov dl, byte [edx]
+        dec dword [byte ebp-04h]
+        mov byte [byte eax+ebp-020h], dl
+.5:
+        cmp dword [byte ebp-04h], byte 0
+        jg short .4
+        mov ecx, 2
+        mov edx, 2E2E2E2Eh
+        lea eax, [byte ebp-020h]
+        call __STOSB
+        push esi
+        call SetDrawTarget
+        add esp, byte 4
+        push byte 0FFFFFFFFh
+        call MakeColor
+        add esp, byte 4
+        call SetTextColor
+        lea eax, [byte ebp-020h]
+        push eax
+        mov eax, dword [byte esi+02Ch]
+        push str_S_ModemSettingsScreen
+        movsx eax, word [byte eax+04h]
+        push byte 0
+        sar eax, 1
+        push eax
+        push byte 1
+        call DrawTextAligned
+        add esp, byte 14h
+        test edi, edi
+        je near .7
+        push edi
+        call SetDrawTarget
+        add esp, byte 4
+        push dword 0FFD751h
+        call MakeColor
+        add esp, byte 4
+        call SetTextColor
+        lea eax, [byte ebp-020h]
+        push eax
+        mov eax, dword [byte edi+02Ch]
+        push str_S_ModemSettingsScreen
+        movsx eax, word [byte eax+04h]
+        push byte 0
+        sar eax, 1
+        push eax
+        push byte 1
+        call DrawTextAligned
+        add esp, byte 14h
+        jmp short .7
+.6:
+        push esi
+        call SetDrawTarget
+        add esp, byte 4
+        push byte 0FFFFFFFFh
+        call MakeColor
+        add esp, byte 4
+        call SetTextColor
+        push ebx
+        mov eax, dword [byte esi+02Ch]
+        push str_S_ModemSettingsScreen
+        movsx eax, word [byte eax+04h]
+        push byte 0
+        sar eax, 1
+        push eax
+        push byte 1
+        call DrawTextAligned
+        add esp, byte 14h
+        test edi, edi
+        je short .7
+        push edi
+        call SetDrawTarget
+        add esp, byte 4
+        push dword 0FFD751h
+        call MakeColor
+        add esp, byte 4
+        call SetTextColor
+        push ebx
+        mov eax, dword [byte edi+02Ch]
+        push str_S_ModemSettingsScreen
+        movsx eax, word [byte eax+04h]
+        push byte 0
+        sar eax, 1
+        push eax
+        push byte 1
+        call DrawTextAligned
+        add esp, byte 14h
+.7:
+        call PresentScreen
+        leave
+        pop edi
+        pop esi
+        pop ecx
+        ret
+ModemSettingsScreenJumpTable:                   ; jump table for the switch cases of ModemSettingsScreen
+        dd ModemSettingsScreen_AE3
+        dd ModemSettingsScreen_AF4
+        dd ModemSettingsScreen_CC6
+        dd ModemSettingsScreen_CC6
+        dd ModemSettingsScreen_CC6
+        dd ModemSettingsScreen_CC6
+        dd ModemSettingsScreen_D31
+        dd ModemSettingsScreen_D31
+        dd ModemSettingsScreen_D31
+        dd ModemSettingsScreen_D31
+        dd ModemSettingsScreen_D5E
+        dd ModemSettingsScreen_E4D
+        dd ModemSettingsScreen_E6E
+        dd ModemSettingsScreen_F7C
+        dd ModemSettingsScreen_FCE
+        dd ModemSettingsScreen_1020
+        dd ModemSettingsScreen_112C
+        dd ModemSettingsScreen_1184
+        dd ModemSettingsScreen_121D
+        dd ModemSettingsScreen_126A
+        dd ModemSettingsScreen_1292
+        dd ModemSettingsScreen_12BA
+        dd ModemSettingsScreen_11E3
+        dd ModemSettingsScreen_12E2
+;-----------------------------------------------------------------------------
+; ModemSettingsScreen                             87B57  96 PC, low confidence
+; The modem settings screen (PICKS): modem type ("Generic Hayes-Compatible"
+; ...), COM port and IRQ (01%d0, 02%d0, 0%d00), tone / pulse dialing
+;-----------------------------------------------------------------------------
+ModemSettingsScreen:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        enter 0E18h, 0
+        call ReadPhonebook
+        mov dword [byte ebp-028h], 0FFFFFFFFh
+        mov dword [byte ebp-03Ch], eax
+        call LoadPhonebook
+        cmp dword [ModemSettingsChanged], byte 0
+        jne short .1
+        mov edx, ModemSettings
+        mov eax, ModemFlags
+        call CopyModemString
+        mov dword [ModemSettingsChanged], 1
+.1:
+        lea eax, [byte ebp-044h]
+        lea edx, [dword ebp-0E18h]
+        mov ecx, 52h
+        call DefaultModemName
+        mov dword [byte ebp-010h], eax
+        mov dword [byte ebp-02Ch], eax
+        mov eax, 18h
+        lea edi, [dword ebp-0E18h]
+        call InitMenuItems
+        mov eax, 65h
+        xor edx, edx
+        mov ebx, str_CP00
+        call LoadDataFileLib
+        mov dword [byte ebp-08h], eax
+        mov dword [byte ebp-034h], eax
+        xor edx, edx
+        mov eax, 66h
+        mov esi, ScreenTitleItem
+        call LoadDataFileLib
+        mov dword [byte ebp-020h], eax
+        rep movsb
+        mov dword [byte ebp-018h], eax
+        mov dword [dword ebp-0E18h], 0
+        mov ecx, 52h
+        lea edi, [dword ebp-0DC6h]
+        lea eax, [dword ebp-0668h]
+        mov esi, BlankMenuItem
+        mov edx, dword [byte ebp-020h]
+        push eax
+        rep movsb
+        push str_CP02
+        mov ecx, str_CP01
+        lea eax, [dword ebp-0D74h]
+        mov dword [dword ebp-0DC6h], 1
+        call SetModemButton
+        lea eax, [dword ebp-0628h]
+        push eax
+        mov ecx, str_CP04
+        mov ebx, str_CP03
+        push str_CP05
+        mov edx, dword [byte ebp-020h]
+        lea eax, [dword ebp-0D22h]
+        call SetModemButton
+        lea eax, [dword ebp-05E8h]
+        push eax
+        mov ecx, str_CP07
+        mov ebx, str_CP06
+        push str_CP08
+        mov edx, dword [byte ebp-020h]
+        lea eax, [dword ebp-0CD0h]
+        call SetModemButton
+        lea eax, [dword ebp-05A8h]
+        push eax
+        mov ecx, str_CP10
+        mov ebx, str_CP09
+        push str_CP11
+        mov edx, dword [byte ebp-020h]
+        lea eax, [dword ebp-0C7Eh]
+        call SetModemButton
+        lea eax, [dword ebp-0568h]
+        push eax
+        mov ecx, str_IR01
+        mov ebx, str_IR00
+        push str_IR02
+        mov edx, dword [byte ebp-020h]
+        lea eax, [dword ebp-0C2Ch]
+        call SetModemButton
+        lea eax, [dword ebp-0528h]
+        push eax
+        mov ecx, str_IR04
+        mov ebx, str_IR03
+        push str_IR05
+        mov edx, dword [byte ebp-020h]
+        lea eax, [dword ebp-0BDAh]
+        call SetModemButton
+        lea eax, [dword ebp-04E8h]
+        push eax
+        mov ecx, str_IR07
+        mov ebx, str_IR06
+        push str_IR08
+        mov edx, dword [byte ebp-020h]
+        lea eax, [dword ebp-0B88h]
+        call SetModemButton
+        lea eax, [dword ebp-04A8h]
+        push eax
+        mov ecx, str_IR10
+        mov ebx, str_IR09
+        push str_IR11
+        mov edx, dword [byte ebp-020h]
+        lea eax, [dword ebp-0B36h]
+        call SetModemButton
+        lea eax, [dword ebp-0468h]
+        push eax
+        mov ecx, str_PB01
+        mov ebx, str_PB00
+        push str_PB02
+        mov edx, dword [byte ebp-08h]
+        lea eax, [dword ebp-0AE4h]
+        call SetModemButton
+        mov dword [dword ebp-0A82h], 4
+        lea eax, [dword ebp-0428h]
+        push byte 14h
+        mov ecx, 82h
+        mov ebx, 8Ch
+        mov edx, 78h
+        mov dword [dword ebp-0A7Eh], eax
+        call SetRegionRect
+        push byte 0
+        push byte 0Fh
+        push dword 82h
+        call CreateBitmap
+        add esp, byte 0Ch
+        push byte 0
+        push byte 0Fh
+        push dword 82h
+        mov ebx, eax
+        mov dword [byte ebp-024h], eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        push byte 0
+        push byte 0Fh
+        push dword 82h
+        mov esi, eax
+        mov dword [byte ebp-04h], eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        push ebx
+        mov edi, eax
+        mov dword [byte ebp-0Ch], eax
+        call SetDrawTarget
+        add esp, byte 4
+        push dword 0FF000000h
+        call MakeColor
+        add esp, byte 4
+        push eax
+        push byte 14h
+        push dword 82h
+        push byte 0
+        push byte 0
+        call FillRect
+        add esp, byte 14h
+        push esi
+        call SetDrawTarget
+        add esp, byte 4
+        push dword 0FF000000h
+        call MakeColor
+        add esp, byte 4
+        push eax
+        push byte 14h
+        push dword 82h
+        push byte 0
+        push byte 0
+        call FillRect
+        add esp, byte 14h
+        push edi
+        call SetDrawTarget
+        add esp, byte 4
+        push dword 0FF000000h
+        call MakeColor
+        add esp, byte 4
+        push eax
+        push byte 14h
+        push dword 82h
+        push byte 0
+        push byte 0
+        call FillRect
+        add esp, byte 14h
+        call PresentScreen
+        mov eax, dword [byte ebx+02Ch]
+        mov word [byte eax+0Ch], 78h
+        mov eax, dword [byte ebx+02Ch]
+        mov word [byte eax+0Eh], 8Ch
+        mov eax, dword [byte esi+02Ch]
+        mov word [byte eax+0Ch], 78h
+        mov eax, dword [byte esi+02Ch]
+        mov word [byte eax+0Eh], 8Ch
+        mov eax, dword [byte edi+02Ch]
+        mov word [byte eax+0Ch], 78h
+        mov eax, dword [byte edi+02Ch]
+        mov word [byte eax+0Eh], 8Ch
+        mov eax, dword [byte esi+02Ch]
+        mov edx, edi
+        mov dword [dword ebp-0A78h], eax
+        mov dword [dword ebp-0A70h], eax
+        mov ebx, ModemInitString
+        mov eax, dword [byte edi+02Ch]
+        mov dword [dword ebp-0A6Ch], 78h
+        mov dword [dword ebp-0A68h], 8Ch
+        mov dword [dword ebp-0A74h], eax
+        call SetNormalText
+        mov eax, esi
+        mov ecx, 0AFh
+        call DrawModemField
+        push byte 19h
+        mov ebx, 103h
+        mov edx, 35h
+        lea eax, [dword ebp-03E8h]
+        call SetRegionRect
+        lea eax, [dword ebp-03E8h]
+        push eax
+        mov ecx, str_MT01
+        mov ebx, str_MT00
+        push str_MT02
+        mov edx, dword [byte ebp-020h]
+        lea eax, [dword ebp-0A40h]
+        call SetModemArrow
+        push byte 0
+        push byte 14h
+        push dword 118h
+        call CreateBitmap
+        mov ebx, eax
+        add esp, byte 0Ch
+        mov dword [byte ebp-01Ch], eax
+        push eax
+        call SetDrawTarget
+        add esp, byte 4
+        push dword 0FF000000h
+        call MakeColor
+        add esp, byte 4
+        push eax
+        push byte 14h
+        push dword 118h
+        push byte 0
+        push byte 0
+        call FillRect
+        add esp, byte 14h
+        call PresentScreen
+        mov eax, dword [byte ebx+02Ch]
+        mov word [byte eax+0Ch], 11Dh
+        mov eax, dword [byte ebx+02Ch]
+        mov word [byte eax+0Eh], 106h
+        call SetNormalText
+        call SetScreenTarget
+        push byte 0FFFFFFFFh
+        call MakeColor
+        add esp, byte 4
+        call SetTextColor
+        movsx eax, word [ModemSpeed]
+        imul eax, byte 44h
+        add eax, dword [byte ebp-010h]
+        call strlen_
+        cmp eax, byte 1Eh
+        jbe short .4
+        xor eax, eax
+        jmp short .3
+.2:
+        movsx edx, word [ModemSpeed]
+        imul edx, byte 44h
+        mov ebx, dword [byte ebp-02Ch]
+        add ebx, edx
+        movsx edx, ax
+        mov bl, byte [edx+ebx]
+        inc eax
+        mov byte [byte edx+ebp-068h], bl
+.3:
+        cmp ax, 1Eh
+        jl short .2
+        mov edx, str_Punct3
+        lea eax, [byte ebp-04Ah]
+        call strcpy_
+        lea eax, [byte ebp-068h]
+        jmp short .5
+.4:
+        movsx eax, word [ModemSpeed]
+        imul eax, byte 44h
+        add eax, dword [byte ebp-010h]
+.5:
+        push eax
+        push str_S_ModemSettingsScreen
+        push dword 109h
+        push dword 11Dh
+        push byte 0
+        call DrawTextAligned
+        add esp, byte 14h
+        call PresentScreen
+        push byte 19h
+        mov ecx, 0AFh
+        mov ebx, 124h
+        mov edx, 35h
+        lea eax, [dword ebp-03A8h]
+        call SetRegionRect
+        lea eax, [dword ebp-03A8h]
+        push eax
+        mov ecx, str_DS01
+        mov ebx, str_DS00
+        push str_DS02
+        mov edx, dword [byte ebp-018h]
+        lea eax, [dword ebp-09EEh]
+        call SetModemArrow
+        push byte 0
+        push byte 14h
+        push dword 118h
+        call CreateBitmap
+        add esp, byte 0Ch
+        push eax
+        mov ebx, eax
+        mov dword [byte ebp-030h], eax
+        call SetDrawTarget
+        add esp, byte 4
+        push dword 0FF000000h
+        call MakeColor
+        add esp, byte 4
+        push eax
+        push byte 14h
+        push dword 118h
+        push byte 0
+        push byte 0
+        call FillRect
+        add esp, byte 14h
+        call PresentScreen
+        mov eax, dword [byte ebx+02Ch]
+        mov word [byte eax+0Ch], 11Dh
+        mov eax, dword [byte ebx+02Ch]
+        mov word [byte eax+0Eh], 127h
+        call SetScreenTarget
+        push byte 0FFFFFFFFh
+        call MakeColor
+        add esp, byte 4
+        call SetTextColor
+        push ModemDialCommand
+        push str_S_ModemSettingsScreen
+        push dword 12Ah
+        push dword 11Dh
+        push byte 0
+        call DrawTextAligned
+        add esp, byte 14h
+        mov ebx, 145h
+        call PresentScreen
+        push byte 19h
+        mov ecx, 0AFh
+        mov edx, 35h
+        lea eax, [dword ebp-0368h]
+        call SetRegionRect
+        lea eax, [dword ebp-0368h]
+        push eax
+        mov ecx, str_IS01
+        mov ebx, str_IS00
+        push str_IS02
+        mov edx, dword [byte ebp-018h]
+        lea eax, [dword ebp-099Ch]
+        call SetModemArrow
+        push byte 0
+        push byte 14h
+        push dword 118h
+        call CreateBitmap
+        add esp, byte 0Ch
+        push eax
+        mov ebx, eax
+        mov edi, eax
+        call SetDrawTarget
+        add esp, byte 4
+        push dword 0FF000000h
+        call MakeColor
+        add esp, byte 4
+        push eax
+        push byte 14h
+        push dword 118h
+        push byte 0
+        push byte 0
+        call FillRect
+        add esp, byte 14h
+        call PresentScreen
+        mov eax, dword [byte ebx+02Ch]
+        mov word [byte eax+0Ch], 11Dh
+        mov eax, dword [byte ebx+02Ch]
+        mov word [byte eax+0Eh], 146h
+        call SetScreenTarget
+        push byte 0FFFFFFFFh
+        call MakeColor
+        add esp, byte 4
+        call SetTextColor
+        push ModemPhoneNumber
+        push str_S_ModemSettingsScreen
+        push dword 14Bh
+        push dword 11Dh
+        push byte 0
+        call DrawTextAligned
+        add esp, byte 14h
+        mov ebx, 169h
+        call PresentScreen
+        push byte 19h
+        mov ecx, 0AFh
+        mov edx, 35h
+        lea eax, [dword ebp-0328h]
+        call SetRegionRect
+        lea eax, [dword ebp-0328h]
+        push eax
+        mov ecx, str_PT01
+        mov ebx, str_PT00
+        push str_PT02
+        mov edx, dword [byte ebp-018h]
+        lea eax, [dword ebp-094Ah]
+        call SetModemArrow
+        push byte 0
+        push byte 14h
+        push dword 118h
+        call CreateBitmap
+        add esp, byte 0Ch
+        push eax
+        mov ebx, eax
+        mov dword [byte ebp-014h], eax
+        call SetDrawTarget
+        add esp, byte 4
+        push dword 0FF000000h
+        call MakeColor
+        add esp, byte 4
+        push eax
+        push byte 14h
+        push dword 118h
+        push byte 0
+        push byte 0
+        call FillRect
+        add esp, byte 14h
+        call PresentScreen
+        mov eax, dword [byte ebx+02Ch]
+        mov word [byte eax+0Ch], 11Dh
+        mov eax, dword [byte ebx+02Ch]
+        mov word [byte eax+0Eh], 168h
+        call SetScreenTarget
+        push byte 0FFFFFFFFh
+        call MakeColor
+        add esp, byte 4
+        call SetTextColor
+        cmp word [ModemAnswer], byte 0
+        je short .6
+        mov eax, 167h
+        jmp short .7
+.6:
+        mov eax, 168h
+.7:
+        call GetLangText
+        push eax
+        push dword 16Bh
+        push dword 11Dh
+        push byte 0
+        call DrawTextAligned
+        add esp, byte 10h
+        call PresentScreen
+        cmp word [ModemDialMode], byte 0
+        je short .8
+        lea eax, [dword ebp-02E8h]
+        push eax
+        mov ecx, str_DC01
+        mov ebx, str_DC00
+        push str_DC02
+        jmp short .9
+.8:
+        lea eax, [dword ebp-02E8h]
+        push eax
+        mov ecx, str_DC04
+        mov ebx, str_DC03
+        push str_DC05
+.9:
+        mov edx, dword [byte ebp-018h]
+        lea eax, [dword ebp-08F8h]
+        call SetModemButton
+        test byte [ModemFlags], 1
+        jne short .10
+        lea eax, [dword ebp-02A8h]
+        push eax
+        mov ecx, str_CM02
+        mov edx, dword [byte ebp-018h]
+        push str_CM02
+        mov ebx, ecx
+        lea eax, [dword ebp-08A6h]
+        call SetModemButton
+        lea eax, [dword ebp-0268h]
+        push eax
+        mov ecx, str_CM04
+        mov ebx, str_CM03
+        push str_CM05
+        mov edx, dword [byte ebp-018h]
+        jmp short .11
+.10:
+        lea eax, [dword ebp-02A8h]
+        push eax
+        mov ecx, str_CM01
+        mov ebx, str_CM00
+        push str_CM02
+        mov edx, dword [byte ebp-018h]
+        lea eax, [dword ebp-08A6h]
+        call SetModemButton
+        lea eax, [dword ebp-0268h]
+        push eax
+        mov ecx, str_CM05
+        mov edx, dword [byte ebp-018h]
+        push str_CM05
+        mov ebx, ecx
+.11:
+        lea eax, [dword ebp-0854h]
+        call SetModemButton
+        lea eax, [dword ebp-0228h]
+        push eax
+        mov ecx, str_BR01
+        mov ebx, str_BR00
+        push str_BR02
+        mov edx, dword [byte ebp-018h]
+        lea eax, [dword ebp-0802h]
+        call SetModemButton
+        lea eax, [dword ebp-01E8h]
+        push eax
+        mov ecx, str_BR04
+        mov ebx, str_BR03
+        push str_BR05
+        mov edx, dword [byte ebp-018h]
+        lea eax, [dword ebp-07B0h]
+        call SetModemButton
+        lea eax, [dword ebp-01A8h]
+        push eax
+        mov ecx, str_BR07
+        mov ebx, str_BR06
+        push str_BR08
+        mov edx, dword [byte ebp-018h]
+        lea eax, [dword ebp-075Eh]
+        call SetModemButton
+        lea eax, [dword ebp-0168h]
+        push eax
+        mov ecx, str_MOD2
+        mov edx, dword [byte ebp-018h]
+        push str_MOD2
+        mov ebx, ecx
+        lea eax, [dword ebp-070Ch]
+        call SetModemButton
+        lea eax, [dword ebp-0128h]
+        push eax
+        mov ecx, str_NET1
+        mov ebx, str_NET0
+        push str_NET2
+        mov edx, dword [byte ebp-018h]
+        lea eax, [dword ebp-06BAh]
+        call SetModemButton
+        cmp word [ModemPort], byte 0
+        jne short .12
+        push str_CP02
+        push dword [byte ebp-018h]
+        call FindShape
+        add esp, byte 8
+        push str_CP02
+        push dword [byte ebp-018h]
+        mov dword [dword ebp-0D5Ah], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [dword ebp-0D56h], eax
+.12:
+        cmp word [ModemPort], byte 1
+        jne short .13
+        push str_CP05
+        push dword [byte ebp-018h]
+        call FindShape
+        add esp, byte 8
+        push str_CP05
+        push dword [byte ebp-018h]
+        mov dword [dword ebp-0D08h], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [dword ebp-0D04h], eax
+.13:
+        cmp word [ModemPort], byte 2
+        jne short .14
+        push str_CP08
+        push dword [byte ebp-018h]
+        call FindShape
+        add esp, byte 8
+        push str_CP08
+        push dword [byte ebp-018h]
+        mov dword [dword ebp-0CB6h], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [dword ebp-0CB2h], eax
+.14:
+        cmp word [ModemPort], byte 3
+        jne short .15
+        push str_CP11
+        push dword [byte ebp-018h]
+        call FindShape
+        add esp, byte 8
+        push str_CP11
+        push dword [byte ebp-018h]
+        mov dword [dword ebp-0C64h], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [dword ebp-0C60h], eax
+.15:
+        cmp word [ModemIrq], byte 2
+        jne short .16
+        push str_IR02
+        push dword [byte ebp-018h]
+        call FindShape
+        add esp, byte 8
+        push str_IR02
+        push dword [byte ebp-018h]
+        mov dword [dword ebp-0C12h], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [dword ebp-0C0Eh], eax
+.16:
+        cmp word [ModemIrq], byte 3
+        jne short .17
+        push str_IR05
+        push dword [byte ebp-018h]
+        call FindShape
+        add esp, byte 8
+        push str_IR05
+        push dword [byte ebp-018h]
+        mov dword [dword ebp-0BC0h], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [dword ebp-0BBCh], eax
+.17:
+        cmp word [ModemIrq], byte 4
+        jne short .18
+        push str_IR08
+        push dword [byte ebp-018h]
+        call FindShape
+        add esp, byte 8
+        push str_IR08
+        push dword [byte ebp-018h]
+        mov dword [dword ebp-0B6Eh], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [dword ebp-0B6Ah], eax
+.18:
+        cmp word [ModemIrq], byte 7
+        jne short .19
+        push str_IR11
+        push dword [byte ebp-018h]
+        call FindShape
+        add esp, byte 8
+        push str_IR11
+        push dword [byte ebp-018h]
+        mov dword [dword ebp-0B1Ch], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [dword ebp-0B18h], eax
+.19:
+        cmp word [ModemBaudRate], byte 9
+        jne short .20
+        push str_BR02
+        push dword [byte ebp-018h]
+        call FindShape
+        add esp, byte 8
+        push str_BR02
+        push dword [byte ebp-018h]
+        mov dword [dword ebp-07E8h], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [dword ebp-07E4h], eax
+.20:
+        cmp word [ModemBaudRate], byte 0Ah
+        jne short .21
+        push str_BR05
+        push dword [byte ebp-018h]
+        call FindShape
+        add esp, byte 8
+        push str_BR05
+        push dword [byte ebp-018h]
+        mov dword [dword ebp-0796h], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [dword ebp-0792h], eax
+.21:
+        cmp word [ModemBaudRate], byte 0Ch
+        jne near ModemSettingsScreen_11E3
+        push str_BR08
+        push dword [byte ebp-018h]
+        call FindShape
+        add esp, byte 8
+        push str_BR08
+        push dword [byte ebp-018h]
+        mov dword [dword ebp-0744h], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [dword ebp-0740h], eax
+        jmp near ModemSettingsScreen_11E3
+ModemSettingsScreen_AE3:
+        call ShowScreen
+.22:
+        mov dword [byte ebp-028h], 1
+        jmp near ModemSettingsScreen_11E3
+ModemSettingsScreen_AF4:
+        call FadeInScreen
+        mov edx, ModemFlags
+        mov eax, ModemSettings
+        call CopyModemString
+        lea edx, [byte ebp-03Ch]
+        mov eax, ModemInitString
+        call AddPhonebookEntry
+        mov edx, dword [GameSettings]
+        mov eax, dword [GameSettings]
+        shl edx, 19h
+        shl eax, 17h
+        shr edx, 1Dh
+        shr eax, 1Eh
+        shl edx, 2
+        and byte [MenuOptionFlags], 0FEh
+        or edx, eax
+        mov eax, IndexFlags
+        mov dword [byte ebp-040h], edx
+        call InitLinkSettings
+        mov eax, ModemSettings
+        call StartNetworkLink
+        test eax, eax
+        je near ModemSettingsScreen_11E3
+        mov eax, 235h
+        call GetLangText
+        call ShowLinkMessage
+        call ClearLinkAbort
+        test eax, eax
+        je near .27
+        mov edx, 1E7h
+        mov eax, GlobalSetVersion
+        xor ebx, ebx
+        call LinkSendBlock
+        mov edx, 1E7h
+        mov eax, LinkSettings
+        xor ebx, ebx
+        call LinkReceiveBlock
+        mov ebx, 4
+.23:
+        test byte [dword ebx+LinkFlags], 7
+        je short .25
+        mov al, byte [dword ebx+IndexFlags]
+        and al, 0F8h
+        or al, 1
+        mov byte [dword ebx+IndexFlags], al
+        test byte [dword ebx+LinkFlags], 80h
+        jne short .24
+        and byte [dword ebx+IndexFlags], 7Fh
+        jmp short .26
+.24:
+        or byte [dword ebx+IndexFlags], 80h
+        jmp short .26
+.25:
+        and byte [dword ebx+IndexFlags], 0F8h
+.26:
+        inc ebx
+        cmp ebx, byte 8
+        jl short .23
+        jmp near .30
+.27:
+        mov ebx, 1E7h
+        mov edx, GlobalSetVersion
+        mov eax, LinkSettings
+        call memcpy_
+        mov edx, 1E7h
+        mov eax, GlobalSetVersion
+        xor ebx, ebx
+        call LinkReceiveBlock
+        mov edx, 1E7h
+        mov eax, LinkSettings
+        xor ebx, ebx
+        call LinkSendBlock
+        xor ebx, ebx
+.28:
+        test byte [dword ebx+IndexFlags], 7
+        je short .29
+        mov al, byte [dword ebx+IndexFlags]
+        and al, 0F8h
+        or al, 1
+        mov byte [dword ebx+IndexFlags], al
+.29:
+        mov al, byte [dword ebx+LinkSettingsRest]
+        mov byte [dword ebx+IndexSettingsRest], al
+        lea eax, [byte ebx+04h]
+        imul eax, byte 21h
+        push byte 21h
+        add eax, IndexEntrySettings
+        push eax
+        imul eax, ebx, byte 21h
+        add eax, LinkSettingsData
+        push eax
+        inc ebx
+        call bcopy
+        add esp, byte 0Ch
+        cmp ebx, byte 4
+        jl short .28
+.30:
+        call ClearLinkAbort
+        test eax, eax
+        je short .31
+        mov edx, 4
+        lea eax, [byte ebp-040h]
+        xor ebx, ebx
+        call LinkSendBlock
+        jmp short .32
+.31:
+        mov edx, 4
+        lea eax, [byte ebp-040h]
+        xor ebx, ebx
+        call LinkReceiveBlock
+        mov eax, dword [byte ebp-040h]
+        sar eax, 2
+        and eax, byte 7
+        and byte [GameSettings], 8Fh
+        shl eax, 4
+        or dword [GameSettings], eax
+        mov eax, dword [byte ebp-040h]
+        and eax, byte 3
+        and word [GameSettings], 0FE7Fh
+        shl eax, 7
+        or dword [GameSettings], eax
+.32:
+        call HideLinkBox
+        jmp near ModemSettingsScreen_AE3.22
+ModemSettingsScreen_CC6:
+        mov ecx, dword [byte ebp-038h]
+        lea edx, [dword ebp-0E18h]
+        mov eax, dword [byte ebp-018h]
+        movsx ebx, word [ModemPort]
+        dec ecx
+        dec ecx
+        call LayoutModemList
+        mov eax, dword [byte ebp-038h]
+        dec eax
+        dec eax
+        mov word [ModemPort], ax
+        mov eax, dword [byte ebp-038h]
+        lea edx, [dword ebp-0E18h]
+        movsx eax, word [nosplit eax*2+ModemPortBases]
+        movsx ebx, word [ModemIrq]
+        movsx ecx, word [nosplit eax*2+ModemPortIrqs]
+        mov eax, dword [byte ebp-018h]
+        call LayoutPortList
+        mov eax, dword [byte ebp-038h]
+        movsx eax, word [nosplit eax*2+ModemPortBases]
+        mov ax, word [nosplit eax*2+ModemPortIrqs]
+.33:
+        mov word [ModemIrq], ax
+        jmp near ModemSettingsScreen_11E3
+ModemSettingsScreen_D31:
+        mov eax, dword [byte ebp-038h]
+        lea edx, [dword ebp-0E18h]
+        movsx ebx, word [ModemIrq]
+        movsx ecx, word [nosplit eax*2+str_Punct_ModemSettingsScreen]
+        mov eax, dword [byte ebp-018h]
+        call LayoutPortList
+        mov eax, dword [byte ebp-038h]
+        mov ax, word [nosplit eax*2+str_Punct_ModemSettingsScreen]
+        jmp short ModemSettingsScreen_CC6.33
+ModemSettingsScreen_D5E:
+        cmp dword [byte ebp-03Ch], byte 0
+        jne short .34
+        push byte 1
+        mov eax, 162h
+        mov edx, 1
+        xor ecx, ecx
+        xor ebx, ebx
+        call GetLangText
+        call ShowMessageBoxNoWait
+        jmp near ModemSettingsScreen_11E3
+.34:
+        lea edx, [byte ebp-03Ch]
+        mov eax, ModemInitString
+        call PhonebookEntryScreen
+        push byte 0
+        push dword 1E0h
+        push dword 280h
+        call CreateBitmap
+        add esp, byte 0Ch
+        mov esi, eax
+        call SetScreenTarget
+        push byte 0
+        push byte 0
+        push dword [byte esi+02Ch]
+        call ConvertArtXY
+        add esp, byte 0Ch
+        push esi
+        call SetDrawTarget
+        add esp, byte 4
+        push str_BG02
+        push dword [byte ebp-034h]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitShape2
+        add esp, byte 4
+        call PresentScreen
+        mov eax, dword [byte esi+02Ch]
+        mov ebx, eax
+        mov edx, eax
+        call DrawScreenBackground
+        push esi
+        call FreeBitmap
+        add esp, byte 4
+.35:
+        push dword [byte ebp-024h]
+        call SetDrawTarget
+        add esp, byte 4
+        push byte 0
+        mov eax, dword [byte ebp-04h]
+        push byte 0
+        push dword [byte eax+02Ch]
+        call ConvertArtXY
+        add esp, byte 0Ch
+        push byte 0
+        mov eax, dword [byte ebp-0Ch]
+        push byte 0
+        push dword [byte eax+02Ch]
+        call ConvertArtXY
+        add esp, byte 0Ch
+        call SetScreenTarget
+        mov eax, dword [byte ebp-024h]
+        push dword [byte eax+02Ch]
+        mov ebx, ModemInitString
+        call BlitShape2
+        add esp, byte 4
+        mov edx, dword [byte ebp-0Ch]
+        mov eax, dword [byte ebp-04h]
+        call DrawModemField
+        jmp near ModemSettingsScreen_E6E.42
+ModemSettingsScreen_E4D:
+        push byte 0
+        mov eax, 163h
+        call GetLangText
+        mov ecx, edx
+        mov edx, 14h
+        mov ebx, eax
+        mov eax, ModemInitString
+        call EditTextField
+        jmp short ModemSettingsScreen_D5E.35
+ModemSettingsScreen_E6E:
+        inc word [ModemSpeed]
+        movsx eax, word [ModemSpeed]
+        cmp eax, dword [byte ebp-044h]
+        jl short .36
+        mov word [ModemSpeed], 0
+.36:
+        movsx eax, word [ModemSpeed]
+        imul eax, byte 44h
+        add eax, dword [byte ebp-02Ch]
+        lea edx, [byte eax+026h]
+        mov eax, ModemPhoneNumber
+        call strcpy_
+        call SetScreenTarget
+        push dword [byte edi+02Ch]
+        call BlitShape2
+        add esp, byte 4
+        push byte 0FFFFFFFFh
+        call MakeColor
+        add esp, byte 4
+        call SetTextColor
+        push ModemPhoneNumber
+        push str_S_ModemSettingsScreen
+        push dword 14Bh
+        push dword 11Dh
+        push byte 0
+        call DrawTextAligned
+        mov eax, dword [byte ebp-01Ch]
+        add esp, byte 14h
+        push dword [byte eax+02Ch]
+        call BlitShape2
+        add esp, byte 4
+        push byte 0FFFFFFFFh
+        call MakeColor
+        add esp, byte 4
+        call SetTextColor
+        movsx eax, word [ModemSpeed]
+        imul eax, byte 44h
+        add eax, dword [byte ebp-02Ch]
+        call strlen_
+        cmp eax, byte 1Eh
+        jbe short .39
+        xor eax, eax
+        jmp short .38
+.37:
+        movsx edx, word [ModemSpeed]
+        imul edx, byte 44h
+        mov ebx, dword [byte ebp-02Ch]
+        add ebx, edx
+        movsx edx, ax
+        mov bl, byte [edx+ebx]
+        inc eax
+        mov byte [byte edx+ebp-068h], bl
+.38:
+        cmp ax, 1Bh
+        jl short .37
+        mov edx, str_Punct3
+        lea eax, [byte ebp-04Dh]
+        call strcpy_
+        lea eax, [byte ebp-068h]
+        jmp short .40
+.39:
+        movsx eax, word [ModemSpeed]
+        imul eax, byte 44h
+        add eax, dword [byte ebp-02Ch]
+.40:
+        push eax
+        push str_S_ModemSettingsScreen
+        push dword 109h
+.41:
+        push dword 11Dh
+        push byte 0
+        call DrawTextAligned
+        add esp, byte 14h
+.42:
+        call PresentScreen
+        jmp near ModemSettingsScreen_11E3
+ModemSettingsScreen_F7C:
+        push byte 0
+        mov eax, 164h
+        call GetLangText
+        mov ecx, edx
+        mov edx, 1Eh
+        mov ebx, eax
+        mov eax, ModemDialCommand
+        call EditTextField
+        call SetScreenTarget
+        mov eax, dword [byte ebp-030h]
+        push dword [byte eax+02Ch]
+        call BlitShape2
+        add esp, byte 4
+        push byte 0FFFFFFFFh
+        call MakeColor
+        add esp, byte 4
+        call SetTextColor
+        push ModemDialCommand
+        push str_S_ModemSettingsScreen
+        push dword 12Ah
+        jmp short ModemSettingsScreen_E6E.41
+ModemSettingsScreen_FCE:
+        push byte 0
+        mov eax, 165h
+        call GetLangText
+        mov ecx, edx
+        mov edx, 1Eh
+        mov ebx, eax
+        mov eax, ModemPhoneNumber
+        call EditTextField
+        call SetScreenTarget
+        push dword [byte edi+02Ch]
+        call BlitShape2
+        add esp, byte 4
+        push byte 0FFFFFFFFh
+        call MakeColor
+        add esp, byte 4
+        call SetTextColor
+        push ModemPhoneNumber
+        push str_S_ModemSettingsScreen
+        push dword 14Bh
+        jmp near ModemSettingsScreen_E6E.41
+ModemSettingsScreen_1020:
+        cmp word [ModemAnswer], byte 0
+        je short .44
+        mov edx, str_ATDT
+        mov eax, ModemDialCommand
+        mov word [ModemAnswer], 0
+        call strstr_
+        test eax, eax
+        je short .43
+        mov byte [byte eax+03h], 50h
+.43:
+        mov edx, str_Atdt
+        mov eax, ModemDialCommand
+        call strstr_
+        test eax, eax
+        je short .46
+        mov byte [byte eax+03h], 70h
+        jmp short .46
+.44:
+        mov edx, str_ATDP
+        mov eax, ModemDialCommand
+        mov word [ModemAnswer], 1
+        call strstr_
+        test eax, eax
+        je short .45
+        mov byte [byte eax+03h], 54h
+.45:
+        mov edx, str_Atdp
+        mov eax, ModemDialCommand
+        call strstr_
+        test eax, eax
+        je short .46
+        mov byte [byte eax+03h], 74h
+.46:
+        call SetScreenTarget
+        mov eax, dword [byte ebp-030h]
+        push dword [byte eax+02Ch]
+        call BlitShape2
+        add esp, byte 4
+        push byte 0FFFFFFFFh
+        call MakeColor
+        add esp, byte 4
+        call SetTextColor
+        push ModemDialCommand
+        push str_S_ModemSettingsScreen
+        push dword 12Ah
+        push dword 11Dh
+        push byte 0
+        call DrawTextAligned
+        mov eax, dword [byte ebp-014h]
+        add esp, byte 14h
+        push dword [byte eax+02Ch]
+        call BlitShape2
+        add esp, byte 4
+        push byte 0FFFFFFFFh
+        call MakeColor
+        add esp, byte 4
+        call SetTextColor
+        cmp word [ModemAnswer], byte 0
+        je short .47
+        mov eax, 167h
+        jmp short .48
+.47:
+        mov eax, 168h
+.48:
+        call GetLangText
+        push eax
+        push dword 16Bh
+        push dword 11Dh
+        push byte 0
+        call DrawTextAligned
+        add esp, byte 10h
+        jmp near ModemSettingsScreen_E6E.42
+ModemSettingsScreen_112C:
+        cmp word [ModemDialMode], byte 0
+        sete al
+        movzx ax, al
+        mov word [ModemDialMode], ax
+        test ax, ax
+        je short .50
+        lea eax, [dword ebp-02E8h]
+        push eax
+        mov ecx, str_DC01
+        mov ebx, str_DC00
+        push str_DC02
+.49:
+        mov edx, dword [byte ebp-018h]
+        lea eax, [dword ebp-08F8h]
+        call SetModemButton
+        jmp short ModemSettingsScreen_11E3
+.50:
+        lea eax, [dword ebp-02E8h]
+        push eax
+        mov ecx, str_DC04
+        mov ebx, str_DC03
+        push str_DC05
+        jmp short .49
+ModemSettingsScreen_1184:
+        push str_CM02
+        push dword [byte ebp-018h]
+        and byte [ModemFlags], 0FEh
+        call FindShape
+        add esp, byte 8
+        push str_CM02
+        push dword [byte ebp-018h]
+        mov dword [dword ebp-088Ch], eax
+        call FindShape
+        add esp, byte 8
+        push str_CM03
+        push dword [byte ebp-018h]
+        mov dword [dword ebp-0888h], eax
+        call FindShape
+        add esp, byte 8
+        push str_CM04
+.51:
+        push dword [byte ebp-018h]
+        mov dword [dword ebp-083Ah], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [dword ebp-0836h], eax
+ModemSettingsScreen_11E3:
+        cmp dword [byte ebp-028h], byte 0FFFFFFFFh
+        jne near ModemSettingsScreen_12E2.52
+        push byte 3
+        lea eax, [byte ebp-038h]
+        mov ebx, 0FFFFFFFFh
+        lea edx, [dword ebp-0E18h]
+        push eax
+        xor ecx, ecx
+        mov eax, 18h
+        call RunMenu
+        mov edx, eax
+        cmp dword [byte ebp-038h], byte 17h
+        ja short ModemSettingsScreen_11E3
+        mov eax, dword [byte ebp-038h]
+        jmp dword [nosplit cs:eax*4+ModemSettingsScreenJumpTable]
+ModemSettingsScreen_121D:
+        push str_CM00
+        push dword [byte ebp-018h]
+        or byte [ModemFlags], 1
+        call FindShape
+        add esp, byte 8
+        push str_CM01
+        push dword [byte ebp-018h]
+        mov dword [dword ebp-088Ch], eax
+        call FindShape
+        add esp, byte 8
+        push str_CM05
+        push dword [byte ebp-018h]
+        mov dword [dword ebp-0888h], eax
+        call FindShape
+        add esp, byte 8
+        push str_CM05
+        jmp near ModemSettingsScreen_1184.51
+ModemSettingsScreen_126A:
+        mov ecx, 9
+        lea edx, [dword ebp-0E18h]
+        mov eax, dword [byte ebp-018h]
+        movsx ebx, word [ModemBaudRate]
+        call LayoutSpeedList
+        mov word [ModemBaudRate], 9
+        jmp near ModemSettingsScreen_11E3
+ModemSettingsScreen_1292:
+        mov ecx, 0Ah
+        lea edx, [dword ebp-0E18h]
+        mov eax, dword [byte ebp-018h]
+        movsx ebx, word [ModemBaudRate]
+        call LayoutSpeedList
+        mov word [ModemBaudRate], 0Ah
+        jmp near ModemSettingsScreen_11E3
+ModemSettingsScreen_12BA:
+        mov ecx, 0Ch
+        lea edx, [dword ebp-0E18h]
+        mov eax, dword [byte ebp-018h]
+        movsx ebx, word [ModemBaudRate]
+        call LayoutSpeedList
+        mov word [ModemBaudRate], 0Ch
+        jmp near ModemSettingsScreen_11E3
+ModemSettingsScreen_12E2:
+        mov dword [byte ebp-028h], 0
+        jmp near ModemSettingsScreen_11E3
+.52:
+        push dword [byte ebp-034h]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [byte ebp-018h]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [byte ebp-024h]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [byte ebp-030h]
+        call FreeBitmap
+        add esp, byte 4
+        push edi
+        call FreeBitmap
+        add esp, byte 4
+        push dword [byte ebp-01Ch]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [byte ebp-014h]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [byte ebp-04h]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [byte ebp-0Ch]
+        call FreeBitmap
+        add esp, byte 4
+        mov eax, dword [byte ebp-03Ch]
+        call SavePhonebook
+        mov eax, dword [byte ebp-028h]
+        jmp near ModemConnectScreen_2C3
+        push ebx
+        push ecx
+        mov ebx, eax
+        mov ecx, edx
+        mov ax, word [byte edx+04h]
+        add edx, byte 6
+        mov word [byte ebx+04h], ax
+        lea eax, [byte ebx+06h]
+        call strcpy_
+        mov eax, dword [ecx]
+        and eax, byte 1
+        and byte [ebx], 0FEh
+        or dword [ebx], eax
+        pop ecx
+        pop ebx
+        ret
+;-----------------------------------------------------------------------------
+; DrawNoNetworkServices                           88EDC  97 PC, low confidence
+; Network games screen: draws "No Network Services Are Available"
+;-----------------------------------------------------------------------------
+DrawNoNetworkServices:
+        push esi
+        push edi
+        enter 0Ch, 0
+        mov esi, eax
+        mov dword [byte ebp-08h], edx
+        mov edi, ebx
+        mov dword [byte ebp-0Ch], ecx
+        push byte 0FFFFFFFFh
+        call MakeColor
+        add esp, byte 4
+        call SetTextColor
+        cmp dword [byte ebp+010h], byte 0
+        jne short .1
+        push esi
+        call SetDrawTarget
+        add esp, byte 4
+        push dword 0FF00AA00h
+        call MakeColor
+        add esp, byte 4
+        call SetTextColor
+        mov eax, 1A2h
+        call GetLangText
+        mov ebx, dword [byte esi+02Ch]
+        push eax
+        movsx eax, word [byte ebx+06h]
+        push str_S2
+        sar eax, 1
+        push eax
+        movsx eax, word [byte ebx+04h]
+        sar eax, 1
+        push eax
+        push byte 1
+        call DrawTextAligned
+        add esp, byte 14h
+        jmp near .7
+.1:
+        cmp dword [byte ebp+010h], byte 0Ah
+        jge short .2
+        mov eax, dword [byte ebp+010h]
+        mov dword [byte ebp-04h], eax
+        jmp short .3
+.2:
+        mov dword [byte ebp-04h], 0Ah
+.3:
+        push esi
+        call SetDrawTarget
+        xor ebx, ebx
+        add esp, byte 4
+        jmp short .6
+.4:
+        lea eax, [ebx+edi]
+        cmp eax, dword [byte ebp-0Ch]
+        jne short .5
+        push dword 8E8E8Eh
+        call MakeColor
+        add esp, byte 4
+        push eax
+        imul eax, ebx, byte 0Fh
+        push byte 0Fh
+        push dword 172h
+        push eax
+        push byte 0Fh
+        call FillRect
+        add esp, byte 14h
+.5:
+        push byte 0FFFFFFFFh
+        call MakeColor
+        add esp, byte 4
+        call SetTextColor
+        lea eax, [ebx+edi]
+        shl eax, 6
+        add eax, dword [byte ebp-08h]
+        push eax
+        imul eax, ebx, byte 0Fh
+        push str_S_ModemSettingsScreen
+        push eax
+        push byte 14h
+        push byte 0
+        inc ebx
+        call DrawTextAligned
+        add esp, byte 14h
+.6:
+        cmp ebx, dword [byte ebp-04h]
+        jl short .4
+.7:
+        call PresentScreen
+DrawNoNetworkServices_F6:
+        leave
+        pop edi
+        pop esi
+        ret 4
+;-----------------------------------------------------------------------------
+; DrawNetworkStatus                               88FD8  97 PC, low confidence
+; Draws the network status line
+;-----------------------------------------------------------------------------
+DrawNetworkStatus:
+        push ecx
+        push esi
+        push edi
+        mov esi, eax
+        mov edi, edx
+        push eax
+        call SetDrawTarget
+        add esp, byte 4
+        push byte 0FFFFFFFFh
+        call MakeColor
+        add esp, byte 4
+        call SetTextColor
+        push ebx
+        mov eax, dword [byte esi+02Ch]
+        push str_S_ModemSettingsScreen
+        movsx eax, word [byte eax+04h]
+        push byte 0
+        sar eax, 1
+        push eax
+        push byte 1
+        call DrawTextAligned
+        add esp, byte 14h
+        push edi
+        call SetDrawTarget
+        add esp, byte 4
+        push dword 0FFD751h
+        call MakeColor
+        add esp, byte 4
+        call SetTextColor
+        push ebx
+        mov eax, dword [byte esi+02Ch]
+        push str_S_ModemSettingsScreen
+        movsx eax, word [byte eax+04h]
+        push byte 0
+        sar eax, 1
+        push eax
+        push byte 1
+        call DrawTextAligned
+        add esp, byte 14h
+        call PresentScreen
+        pop edi
+        pop esi
+        pop ecx
+        ret
+NetworkGamesScreenJumpTable:                    ; jump table for the switch cases of NetworkGamesScreen
+        dd NetworkGamesScreen_646
+        dd NetworkGamesScreen_657
+        dd NetworkGamesScreen_880
+        dd NetworkGamesScreen_92B
+        dd NetworkGamesScreen_9BB
+        dd NetworkGamesScreen_A1E
+        dd NetworkGamesScreen_A96
+        dd NetworkGamesScreen_B19
+        dd NetworkGamesScreen_B3D
+        dd NetworkGamesScreen_8F6
+;-----------------------------------------------------------------------------
+; NetworkGamesScreen                              8907B  97 PC, low confidence
+; The network game list screen (TPB0-TPB5, SERVLIST)
+;-----------------------------------------------------------------------------
+NetworkGamesScreen:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        enter 0D64h, 0
+        mov dword [byte ebp-08h], 0
+        mov dword [byte ebp-04h], 0FFFFFFFFh
+        cmp dword [NetworkGameReady], byte 0
+        jne short .1
+        mov ax, word [NetworkSettings]
+        mov edx, NetworkGameIndex
+        mov word [NetworkGameNumber], ax
+        mov eax, NetworkGameFlags
+        add edx, byte 6
+        add eax, byte 6
+        call strcpy_
+        mov eax, dword [NetworkGameIndex]
+        and byte [NetworkGameFlags], 0FEh
+        and eax, byte 1
+        or dword [NetworkGameFlags], eax
+        movsx eax, word [NetworkGameNumber]
+        mov dword [NetworkGameReady], 1
+        mov dword [byte ebp-08h], eax
+.1:
+        lea eax, [byte ebp-03Ch]
+        lea edx, [dword ebp-0D64h]
+        call LoadServerList
+        mov dword [byte ebp-0Ch], eax
+        mov eax, 15h
+        call InitMenuItems
+        mov eax, 3
+        call SecondsToSamples
+        call WaitSoundTime
+        xor edx, edx
+        mov eax, 67h
+        call LoadDataFile
+        mov dword [byte ebp-02Ch], eax
+        mov eax, 3
+        xor edx, edx
+        call SecondsToSamples
+        call WaitSoundTime
+        mov eax, 68h
+        call LoadDataFile
+        mov dword [byte ebp-030h], eax
+        mov eax, 3
+        xor edx, edx
+        call SecondsToSamples
+        call WaitSoundTime
+        mov eax, 66h
+        call LoadDataFile
+        mov dword [byte ebp-01Ch], eax
+        mov eax, 3
+        call SecondsToSamples
+        call WaitSoundTime
+        push byte 0
+        push dword 96h
+        push dword 181h
+        call CreateBitmap
+        add esp, byte 0Ch
+        push byte 0
+        push dword 96h
+        push dword 181h
+        mov esi, eax
+        mov dword [byte ebp-014h], eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        push esi
+        mov ebx, eax
+        mov dword [byte ebp-034h], eax
+        call SetDrawTarget
+        add esp, byte 4
+        push dword 0FF000000h
+        call MakeColor
+        add esp, byte 4
+        push eax
+        push dword 96h
+        push dword 181h
+        push byte 0
+        push byte 0
+        call FillRect
+        add esp, byte 14h
+        push ebx
+        call SetDrawTarget
+        add esp, byte 4
+        push dword 0FF000000h
+        call MakeColor
+        add esp, byte 4
+        push eax
+        push dword 96h
+        push dword 181h
+        push byte 0
+        push byte 0
+        call FillRect
+        mov eax, dword [byte esi+02Ch]
+        mov word [byte eax+0Ch], 78h
+        mov eax, dword [byte esi+02Ch]
+        mov word [byte eax+0Eh], 0DCh
+        add esp, byte 14h
+        mov eax, dword [byte ebx+02Ch]
+        push byte 0
+        mov word [byte eax+0Ch], 78h
+        push byte 0Fh
+        mov eax, dword [byte ebx+02Ch]
+        push dword 118h
+        mov word [byte eax+0Eh], 0DCh
+        call CreateBitmap
+        add esp, byte 0Ch
+        push byte 0
+        push byte 0Fh
+        push dword 118h
+        mov ebx, eax
+        mov dword [byte ebp-020h], eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        push byte 0
+        push byte 0Fh
+        push dword 118h
+        mov edi, eax
+        mov dword [byte ebp-010h], eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        push ebx
+        mov esi, eax
+        mov dword [byte ebp-018h], eax
+        call SetDrawTarget
+        add esp, byte 4
+        push dword 0FF000000h
+        call MakeColor
+        add esp, byte 4
+        push eax
+        push byte 0Fh
+        push dword 118h
+        push byte 0
+        push byte 0
+        call FillRect
+        add esp, byte 14h
+        push edi
+        call SetDrawTarget
+        add esp, byte 4
+        push dword 0FF000000h
+        call MakeColor
+        add esp, byte 4
+        push eax
+        push byte 0Fh
+        push dword 118h
+        push byte 0
+        push byte 0
+        call FillRect
+        add esp, byte 14h
+        push esi
+        call SetDrawTarget
+        add esp, byte 4
+        push dword 0FF000000h
+        call MakeColor
+        add esp, byte 4
+        push eax
+        push byte 0Fh
+        push dword 118h
+        push byte 0
+        push byte 0
+        call FillRect
+        mov eax, dword [byte ebx+02Ch]
+        mov word [byte eax+0Ch], 0B4h
+        mov eax, dword [byte ebx+02Ch]
+        mov word [byte eax+0Eh], 96h
+        mov eax, dword [byte edi+02Ch]
+        mov word [byte eax+0Ch], 0B4h
+        mov eax, dword [byte edi+02Ch]
+        mov word [byte eax+0Eh], 96h
+        add esp, byte 14h
+        mov eax, dword [byte esi+02Ch]
+        push byte 0
+        mov word [byte eax+0Ch], 0B4h
+        push dword 96h
+        mov eax, dword [byte esi+02Ch]
+        push byte 14h
+        mov word [byte eax+0Eh], 96h
+        call CreateBitmap
+        add esp, byte 0Ch
+        push dword 0DCh
+        push byte 69h
+        mov ebx, eax
+        push dword [byte eax+02Ch]
+        mov dword [byte ebp-024h], eax
+        call ConvertArtXY
+        mov eax, dword [byte ebx+02Ch]
+        mov word [byte eax+0Ch], 69h
+        mov eax, dword [byte ebx+02Ch]
+        add esp, byte 0Ch
+        mov word [byte eax+0Eh], 0DCh
+        call PresentScreen
+        call SetNormalText
+        mov eax, dword [byte ebp-08h]
+        cmp eax, dword [byte ebp-03Ch]
+        jl short .2
+        mov dword [byte ebp-08h], 0
+.2:
+        mov eax, dword [byte ebp-08h]
+        push dword [byte ebp-03Ch]
+        mov ecx, dword [byte ebp-08h]
+        mov edx, dword [byte ebp-0Ch]
+        xor ebx, ebx
+        mov word [NetworkGameNumber], ax
+        mov eax, dword [byte ebp-034h]
+        call DrawNoNetworkServices
+        push byte 0FFFFFFFFh
+        call MakeColor
+        add esp, byte 4
+        mov ebx, NetworkGameName
+        mov edx, dword [byte ebp-018h]
+        call SetTextColor
+        mov eax, dword [byte ebp-010h]
+        call DrawNetworkStatus
+        call SetScreenTarget
+        mov eax, dword [byte ebp-034h]
+        push dword [byte eax+02Ch]
+        call BlitShape2
+        add esp, byte 4
+        lea edi, [dword ebp-0D64h]
+        mov esi, ScreenTitleItem
+        call PresentScreen
+        mov ecx, 52h
+        rep movsb
+        mov ecx, 52h
+        lea edi, [dword ebp-0D12h]
+        mov esi, BlankMenuItem
+        mov dword [dword ebp-0D64h], 0
+        lea eax, [dword ebp-06A8h]
+        rep movsb
+        mov dword [dword ebp-0CACh], eax
+        mov eax, dword [byte ebp-010h]
+        mov dword [dword ebp-0D12h], 1
+        mov dword [dword ebp-0CB0h], 4
+        mov eax, dword [byte eax+02Ch]
+        mov dword [dword ebp-0CA6h], eax
+        mov eax, dword [byte ebp-018h]
+        mov ebx, 96h
+        mov eax, dword [byte eax+02Ch]
+        push byte 0Fh
+        mov dword [dword ebp-0CA2h], eax
+        mov eax, dword [byte ebp-010h]
+        mov edx, 0B4h
+        mov ecx, 118h
+        mov eax, dword [byte eax+02Ch]
+        mov dword [dword ebp-0C9Ah], 0B4h
+        mov dword [dword ebp-0C9Eh], eax
+        lea eax, [dword ebp-06A8h]
+        mov dword [dword ebp-0C96h], 96h
+        call SetRegionRect
+        test byte [NetworkGameFlags], 1
+        je short .3
+        lea eax, [dword ebp-0668h]
+        push eax
+        mov ecx, str_TPB5
+        mov edx, dword [byte ebp-030h]
+        push str_TPB5
+        mov ebx, ecx
+        lea eax, [dword ebp-0C6Eh]
+        call SetModemButton
+        lea eax, [dword ebp-0628h]
+        push eax
+        mov ecx, str_TPB1
+        mov ebx, str_TPB0
+        push str_TPB2
+        mov edx, dword [byte ebp-030h]
+        jmp short .4
+.3:
+        lea eax, [dword ebp-0668h]
+        push eax
+        mov ecx, str_TPB4
+        mov ebx, str_TPB3
+        push str_TPB5
+        mov edx, dword [byte ebp-030h]
+        lea eax, [dword ebp-0C6Eh]
+        call SetModemButton
+        lea eax, [dword ebp-0628h]
+        push eax
+        mov ecx, str_TPB2
+        mov edx, dword [byte ebp-030h]
+        push str_TPB2
+        mov ebx, ecx
+.4:
+        lea eax, [dword ebp-0C1Ch]
+        call SetModemButton
+        cmp dword [byte ebp-03Ch], byte 0Ah
+        jle near .5
+        push str_1TOP
+        push dword [FrontShapeFile]
+        call FindShape
+        add esp, byte 8
+        push str_2TOP
+        push dword [FrontShapeFile]
+        mov dword [dword ebp-0BB0h], eax
+        call FindShape
+        add esp, byte 8
+        push str_3TOP
+        push dword [FrontShapeFile]
+        mov dword [dword ebp-0BACh], eax
+        call FindShape
+        add esp, byte 8
+        push str_1BOT
+        mov dword [dword ebp-0BA4h], 69h
+        mov dword [dword ebp-0BA0h], 0DCh
+        push dword [FrontShapeFile]
+        mov dword [dword ebp-0BA8h], eax
+        call FindShape
+        add esp, byte 8
+        push str_2BOT
+        push dword [FrontShapeFile]
+        mov dword [dword ebp-0B0Ch], eax
+        call FindShape
+        add esp, byte 8
+        push str_3BOT
+        push dword [FrontShapeFile]
+        mov dword [dword ebp-0B08h], eax
+        call FindShape
+        mov dword [dword ebp-0B04h], eax
+        mov eax, dword [dword ebp-0B0Ch]
+        mov dword [dword ebp-0B00h], 69h
+        mov edx, 172h
+        movsx eax, word [byte eax+06h]
+        sub edx, eax
+        add esp, byte 8
+        mov dword [dword ebp-0AFCh], edx
+.5:
+        lea eax, [dword ebp-0528h]
+        push eax
+        mov ecx, str_MOD1
+        mov ebx, str_MOD0
+        push str_MOD2
+        mov edx, dword [byte ebp-01Ch]
+        lea eax, [dword ebp-0AD4h]
+        call SetModemButton
+        lea eax, [dword ebp-04E8h]
+        mov ecx, str_NET2
+        push eax
+        mov edx, dword [byte ebp-01Ch]
+        mov ebx, ecx
+        push str_NET2
+        lea eax, [dword ebp-0A82h]
+        mov esi, 0Bh
+        call SetModemButton
+.6:
+        imul eax, esi, byte 52h
+        mov edx, esi
+        shl edx, 6
+        lea edi, [dword ebp-06A8h]
+        sub edx, 80h
+        mov dword [dword eax+ebp-0D54h], 4
+        add edi, edx
+        mov dword [dword eax+ebp-0D50h], edi
+        lea eax, [byte esi-0Bh]
+        imul eax, byte 0Fh
+        push byte 0Fh
+        mov ecx, 181h
+        lea ebx, [dword eax+0DCh]
+        mov edx, 78h
+        mov eax, edi
+        inc esi
+        call SetRegionRect
+        cmp esi, byte 15h
+        jl short .6
+        cmp dword [byte ebp-03Ch], byte 0Ah
+        jle near NetworkGamesScreen_8F6
+        push byte 0
+        push byte 0
+        push dword 96h
+        push dword 0DCh
+        mov eax, dword [byte ebp-024h]
+        push byte 69h
+        mov ecx, 0Ah
+        push dword [byte eax+02Ch]
+        mov ebx, dword [byte ebp-03Ch]
+        push byte 0
+        lea edx, [dword ebp-0BCAh]
+        lea eax, [dword ebp-0168h]
+        call InitScrollList
+        jmp near NetworkGamesScreen_A1E.24
+.7:
+        push byte 3
+        lea eax, [byte ebp-038h]
+        mov ebx, 0FFFFFFFFh
+        lea edx, [dword ebp-0D64h]
+        push eax
+        xor ecx, ecx
+        mov eax, 15h
+.8:
+        call RunMenu
+        mov ebx, eax
+        cmp dword [byte ebp-038h], byte 9
+        ja near NetworkGamesScreen_B3D.25
+        mov eax, dword [byte ebp-038h]
+        jmp dword [nosplit cs:eax*4+NetworkGamesScreenJumpTable]
+NetworkGamesScreen_646:
+        call ShowScreen
+.9:
+        mov dword [byte ebp-04h], 1
+        jmp near NetworkGamesScreen_8F6
+NetworkGamesScreen_657:
+        call FadeInScreen
+        cmp dword [byte ebp-03Ch], byte 0
+        jne short .10
+        mov eax, 1A2h
+        call GetLangText
+        push eax
+        push str_S2
+        lea eax, [byte ebp-068h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        mov edx, 1
+        xor ecx, ecx
+        push byte 1
+        xor ebx, ebx
+        lea eax, [byte ebp-068h]
+        call ShowMessageBoxNoWait
+        jmp near NetworkGamesScreen_8F6
+.10:
+        mov eax, dword [byte ebp-08h]
+        mov edx, NetworkGameFlags
+        mov word [NetworkGameNumber], ax
+        mov word [NetworkSettings], ax
+        mov eax, NetworkGameIndex
+        add edx, byte 6
+        add eax, byte 6
+        call strcpy_
+        mov eax, dword [NetworkGameFlags]
+        and byte [NetworkGameIndex], 0FEh
+        mov edx, dword [GameSettings]
+        and eax, byte 1
+        shl edx, 19h
+        or dword [NetworkGameIndex], eax
+        mov eax, dword [GameSettings]
+        shr edx, 1Dh
+        shl eax, 17h
+        shl edx, 2
+        shr eax, 1Eh
+        or byte [MenuOptionFlags], 1
+        add edx, eax
+        mov eax, IndexFlags
+        mov dword [byte ebp-040h], edx
+        call InitLinkSettings
+        mov eax, ModemSettings
+        call StartNetworkLink
+        test eax, eax
+        je near NetworkGamesScreen_8F6
+        mov eax, 235h
+        call GetLangText
+        call ShowLinkMessage
+        call ClearLinkAbort
+        test eax, eax
+        je near .15
+        mov edx, 1E7h
+        mov eax, GlobalSetVersion
+        xor ebx, ebx
+        call LinkSendBlock
+        mov edx, 1E7h
+        mov eax, LinkSettings
+        xor ebx, ebx
+        call LinkReceiveBlock
+        mov ebx, 4
+.11:
+        test byte [dword ebx+LinkFlags], 7
+        je short .13
+        mov al, byte [dword ebx+IndexFlags]
+        and al, 0F8h
+        or al, 1
+        mov byte [dword ebx+IndexFlags], al
+        test byte [dword ebx+LinkFlags], 80h
+        jne short .12
+        and byte [dword ebx+IndexFlags], 7Fh
+        jmp short .14
+.12:
+        or byte [dword ebx+IndexFlags], 80h
+        jmp short .14
+.13:
+        and byte [dword ebx+IndexFlags], 0F8h
+.14:
+        inc ebx
+        cmp ebx, byte 8
+        jl short .11
+        jmp near .18
+.15:
+        mov ebx, 1E7h
+        mov edx, GlobalSetVersion
+        mov eax, LinkSettings
+        call memcpy_
+        mov edx, 1E7h
+        mov eax, GlobalSetVersion
+        xor ebx, ebx
+        call LinkReceiveBlock
+        mov edx, 1E7h
+        mov eax, LinkSettings
+        xor ebx, ebx
+        call LinkSendBlock
+        xor ebx, ebx
+.16:
+        test byte [dword ebx+IndexFlags], 7
+        je short .17
+        mov al, byte [dword ebx+IndexFlags]
+        and al, 0F8h
+        or al, 1
+        mov byte [dword ebx+IndexFlags], al
+.17:
+        mov al, byte [dword ebx+LinkSettingsRest]
+        mov byte [dword ebx+IndexSettingsRest], al
+        lea eax, [byte ebx+04h]
+        imul eax, byte 21h
+        push byte 21h
+        add eax, IndexEntrySettings
+        push eax
+        imul eax, ebx, byte 21h
+        add eax, LinkSettingsData
+        push eax
+        inc ebx
+        call bcopy
+        add esp, byte 0Ch
+        cmp ebx, byte 4
+        jl short .16
+.18:
+        call ClearLinkAbort
+        test eax, eax
+        je short .19
+        mov edx, 4
+        lea eax, [byte ebp-040h]
+        xor ebx, ebx
+        call LinkSendBlock
+        jmp short .20
+.19:
+        mov edx, 4
+        lea eax, [byte ebp-040h]
+        xor ebx, ebx
+        call LinkReceiveBlock
+        mov eax, dword [byte ebp-040h]
+        sar eax, 2
+        and eax, byte 7
+        and byte [GameSettings], 8Fh
+        shl eax, 4
+        or dword [GameSettings], eax
+        mov eax, dword [byte ebp-040h]
+        and eax, byte 3
+        and word [GameSettings], 0FE7Fh
+        shl eax, 7
+        or dword [GameSettings], eax
+.20:
+        call HideLinkBox
+        jmp near NetworkGamesScreen_646.9
+NetworkGamesScreen_880:
+        push byte 0
+        mov eax, 166h
+        mov edx, 0Ch
+        call GetLangText
+        mov ecx, ebx
+        mov ebx, eax
+        mov eax, NetworkGameName
+        call EditTextField
+        push dword [byte ebp-020h]
+        call SetDrawTarget
+        add esp, byte 4
+        push byte 0
+        mov eax, dword [byte ebp-010h]
+        push byte 0
+        push dword [byte eax+02Ch]
+        call ConvertArtXY
+        add esp, byte 0Ch
+        push byte 0
+        mov eax, dword [byte ebp-018h]
+        push byte 0
+        push dword [byte eax+02Ch]
+        call ConvertArtXY
+        add esp, byte 0Ch
+        call SetScreenTarget
+        mov eax, dword [byte ebp-020h]
+        push dword [byte eax+02Ch]
+        mov ebx, NetworkGameName
+        call BlitShape2
+        add esp, byte 4
+        mov edx, dword [byte ebp-018h]
+        mov eax, dword [byte ebp-010h]
+        call DrawNetworkStatus
+.21:
+        call PresentScreen
+NetworkGamesScreen_8F6:
+        movsx eax, word [byte ebp-04h]
+        cmp eax, byte 0FFFFFFFFh
+        jne near NetworkGamesScreen_B3D.30
+        cmp dword [byte ebp-03Ch], byte 0Ah
+        jge near NetworkGamesScreen.7
+        push byte 3
+        lea eax, [byte ebp-038h]
+        mov ebx, 0FFFFFFFFh
+        lea edx, [dword ebp-0D64h]
+        push eax
+        mov eax, dword [byte ebp-03Ch]
+        xor ecx, ecx
+        add eax, byte 0Bh
+        jmp near NetworkGamesScreen.8
+NetworkGamesScreen_92B:
+        push str_TPB0
+        push dword [byte ebp-030h]
+        or byte [NetworkGameFlags], 1
+        call FindShape
+        add esp, byte 8
+        push str_TPB1
+        push dword [byte ebp-030h]
+        mov dword [dword ebp-0C02h], eax
+        call FindShape
+        add esp, byte 8
+        push str_TPB2
+        push dword [byte ebp-030h]
+        mov dword [dword ebp-0BFEh], eax
+        call FindShape
+        add esp, byte 8
+        push str_TPB5
+        push dword [byte ebp-030h]
+        mov dword [dword ebp-0BFAh], eax
+        call FindShape
+        add esp, byte 8
+        push str_TPB5
+.22:
+        push dword [byte ebp-030h]
+        mov dword [dword ebp-0C54h], eax
+        call FindShape
+        add esp, byte 8
+        push str_TPB5
+        push dword [byte ebp-030h]
+        mov dword [dword ebp-0C50h], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [dword ebp-0C4Ch], eax
+        jmp near NetworkGamesScreen_8F6
+NetworkGamesScreen_9BB:
+        push str_TPB2
+        push dword [byte ebp-030h]
+        and byte [NetworkGameFlags], 0FEh
+        call FindShape
+        add esp, byte 8
+        push str_TPB2
+        push dword [byte ebp-030h]
+        mov dword [dword ebp-0C02h], eax
+        call FindShape
+        add esp, byte 8
+        push str_TPB2
+        push dword [byte ebp-030h]
+        mov dword [dword ebp-0BFEh], eax
+        call FindShape
+        add esp, byte 8
+        push str_TPB3
+        push dword [byte ebp-030h]
+        mov dword [dword ebp-0BFAh], eax
+        call FindShape
+        add esp, byte 8
+        push str_TPB4
+        jmp near NetworkGamesScreen_92B.22
+NetworkGamesScreen_A1E:
+        cmp dword [dword ebp-0144h], byte 0
+        jle near NetworkGamesScreen_8F6
+        lea eax, [dword ebp-0168h]
+        xor edx, edx
+        call ScrollUp
+.23:
+        push dword [byte ebp-034h]
+        call SetDrawTarget
+        add esp, byte 4
+        push byte 0
+        mov eax, dword [byte ebp-014h]
+        push byte 0
+        push dword [byte eax+02Ch]
+        call BlitArt
+        mov ecx, dword [byte ebp-08h]
+        add esp, byte 0Ch
+        mov ebx, dword [dword ebp-0144h]
+        mov edx, dword [byte ebp-0Ch]
+        push dword [byte ebp-03Ch]
+        mov eax, dword [byte ebp-034h]
+        call DrawNoNetworkServices
+        call SetScreenTarget
+        mov eax, dword [byte ebp-034h]
+        push dword [byte eax+02Ch]
+        call BlitShape2
+        add esp, byte 4
+        call PresentScreen
+.24:
+        lea eax, [dword ebp-0168h]
+        xor edx, edx
+        call DrawScrollBar
+        jmp near NetworkGamesScreen_8F6
+NetworkGamesScreen_A96:
+        lea eax, [dword ebp-0168h]
+        xor edx, edx
+        call ScrollToMouse
+        mov eax, dword [byte ebp-028h]
+        cmp eax, dword [dword ebp-0144h]
+        je near NetworkGamesScreen_8F6
+        push dword [byte ebp-034h]
+        call SetDrawTarget
+        add esp, byte 4
+        push byte 0
+        mov eax, dword [byte ebp-014h]
+        push byte 0
+        push dword [byte eax+02Ch]
+        call BlitArt
+        mov ecx, dword [byte ebp-08h]
+        add esp, byte 0Ch
+        mov ebx, dword [dword ebp-0144h]
+        mov edx, dword [byte ebp-0Ch]
+        push dword [byte ebp-03Ch]
+        mov eax, dword [byte ebp-034h]
+        call DrawNoNetworkServices
+        call SetScreenTarget
+        mov eax, dword [byte ebp-034h]
+        push dword [byte eax+02Ch]
+        call BlitShape2
+        add esp, byte 4
+        call PresentScreen
+        lea eax, [dword ebp-0168h]
+        xor edx, edx
+        call DrawScrollBar
+        mov eax, dword [dword ebp-0144h]
+        mov dword [byte ebp-028h], eax
+        jmp near NetworkGamesScreen_8F6
+NetworkGamesScreen_B19:
+        mov eax, dword [byte ebp-03Ch]
+        sub eax, byte 0Ah
+        cmp eax, dword [dword ebp-0144h]
+        jle near NetworkGamesScreen_8F6
+        lea eax, [dword ebp-0168h]
+        xor edx, edx
+        call ScrollDown
+        jmp near NetworkGamesScreen_A1E.23
+NetworkGamesScreen_B3D:
+        mov dword [byte ebp-04h], 0
+        jmp near NetworkGamesScreen_8F6
+.25:
+        mov eax, dword [byte ebp-038h]
+        sub eax, byte 0Bh
+        cmp dword [byte ebp-03Ch], byte 0Ah
+        jle short .26
+        mov edx, dword [dword ebp-0144h]
+        add edx, eax
+        mov dword [byte ebp-08h], edx
+        jmp short .27
+.26:
+        mov dword [byte ebp-08h], eax
+.27:
+        mov eax, dword [byte ebp-08h]
+        push dword [byte ebp-034h]
+        mov word [NetworkGameNumber], ax
+        call SetDrawTarget
+        add esp, byte 4
+        push byte 0
+        mov eax, dword [byte ebp-014h]
+        push byte 0
+        push dword [byte eax+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        cmp dword [byte ebp-03Ch], byte 0Ah
+        jle short .28
+        push dword [byte ebp-03Ch]
+        mov ecx, dword [byte ebp-08h]
+        mov ebx, dword [dword ebp-0144h]
+        mov edx, dword [byte ebp-0Ch]
+        mov eax, dword [byte ebp-034h]
+        jmp short .29
+.28:
+        push dword [byte ebp-03Ch]
+        mov ecx, dword [byte ebp-08h]
+        mov edx, dword [byte ebp-0Ch]
+        mov eax, dword [byte ebp-034h]
+        xor ebx, ebx
+.29:
+        call DrawNoNetworkServices
+        call SetScreenTarget
+        mov eax, dword [byte ebp-034h]
+        push dword [byte eax+02Ch]
+        call BlitShape2
+        add esp, byte 4
+        jmp near NetworkGamesScreen_880.21
+.30:
+        push dword [byte ebp-014h]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [byte ebp-034h]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [byte ebp-020h]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [byte ebp-010h]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [byte ebp-018h]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [byte ebp-024h]
+        call FreeBitmap
+        add esp, byte 4
+        cmp dword [byte ebp-03Ch], byte 0
+        jle short .31
+        push dword [byte ebp-0Ch]
+        call FreeMemBlock
+        add esp, byte 4
+.31:
+        cmp dword [byte ebp-03Ch], byte 0Ah
+        jle short .32
+        lea eax, [dword ebp-0168h]
+        call FreeScrollList
+.32:
+        push dword [byte ebp-02Ch]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [byte ebp-030h]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [byte ebp-01Ch]
+        call FreeMemBlock
+        movsx eax, word [byte ebp-04h]
+        jmp near ModemConnectScreen_2C0
+;-----------------------------------------------------------------------------
+; DrawConnectScreen                               89CD6  97 PC, low confidence
+; Draws the connect screen
+;-----------------------------------------------------------------------------
+DrawConnectScreen:
+        push esi
+        push edi
+        enter 60h, 0
+        mov esi, eax
+        mov dword [byte ebp-04h], edx
+        mov dword [byte ebp-08h], ebx
+        mov edi, ecx
+        cmp dword [ModemSettingsChanged], byte 0
+        jne short .1
+        mov edx, ModemSettings
+        mov eax, ModemFlags
+        call CopyModemString
+        mov dword [ModemSettingsChanged], 1
+.1:
+        push byte 0
+        push byte 14h
+        push dword 82h
+        call CreateBitmap
+        add esp, byte 0Ch
+        mov ebx, eax
+        push str_BG00
+        mov dword [byte ebp-0Ch], eax
+        mov eax, dword [byte esi+02Ch]
+        push edi
+        mov word [byte eax+0Ch], 0
+        call FindShape
+        mov edx, dword [byte esi+02Ch]
+        mov ax, word [byte eax+0Eh]
+        add esp, byte 8
+        mov word [byte edx+0Eh], ax
+        mov eax, dword [byte ebp-04h]
+        push str_BG01
+        mov eax, dword [byte eax+02Ch]
+        push dword [byte ebp-08h]
+        mov word [byte eax+0Ch], 0
+        call FindShape
+        mov edx, dword [byte ebp-04h]
+        add esp, byte 8
+        mov edx, dword [byte edx+02Ch]
+        mov ax, word [byte eax+0Eh]
+        push esi
+        mov word [byte edx+0Eh], ax
+        call SetDrawTarget
+        add esp, byte 4
+        push byte 0
+        push byte 0
+        push str_BG00
+        push edi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitArt
+        mov eax, dword [byte esi+02Ch]
+        mov edx, 8Ch
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 0Ch
+        sub edx, eax
+        push edx
+        push byte 78h
+        push dword [byte ebx+02Ch]
+        call ConvertArtXY
+        add esp, byte 0Ch
+        test byte [ModemFlags], 1
+        je near .2
+        push str_CM00
+        mov eax, dword [byte esi+02Ch]
+        push edi
+        movsx ebx, word [byte eax+0Eh]
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub eax, ebx
+        push eax
+        push str_CM00
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_CM00
+        push edi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitArt
+        add esp, byte 0Ch
+        push str_CM05
+        mov eax, dword [byte esi+02Ch]
+        push edi
+        movsx ebx, word [byte eax+0Eh]
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub eax, ebx
+        push eax
+        push str_CM05
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_CM05
+        jmp short .3
+.2:
+        push str_CM02
+        mov eax, dword [byte esi+02Ch]
+        push edi
+        movsx ebx, word [byte eax+0Eh]
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub eax, ebx
+        push eax
+        push str_CM02
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_CM02
+        push edi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitArt
+        add esp, byte 0Ch
+        push str_CM03
+        mov eax, dword [byte esi+02Ch]
+        push edi
+        movsx ebx, word [byte eax+0Eh]
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub eax, ebx
+        push eax
+        push str_CM03
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_CM03
+.3:
+        push edi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitArt
+        add esp, byte 0Ch
+        push str_PB00
+        mov eax, dword [byte esi+02Ch]
+        push dword [byte ebp-08h]
+        movsx ebx, word [byte eax+0Eh]
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub eax, ebx
+        push eax
+        push str_PB00
+        push dword [byte ebp-08h]
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_PB00
+        push dword [byte ebp-08h]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitArt
+        add esp, byte 0Ch
+        cmp word [ModemDialMode], byte 0
+        je short .4
+        push str_DC00
+        mov eax, dword [byte esi+02Ch]
+        push edi
+        movsx ebx, word [byte eax+0Eh]
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub eax, ebx
+        push eax
+        push str_DC00
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_DC00
+        jmp short .5
+.4:
+        push str_DC03
+        mov eax, dword [byte esi+02Ch]
+        push edi
+        movsx ebx, word [byte eax+0Eh]
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub eax, ebx
+        push eax
+        push str_DC03
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_DC03
+.5:
+        push edi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitArt
+        add esp, byte 0Ch
+        cmp word [ModemBaudRate], byte 9
+        jne short .6
+        push str_BR00
+        mov eax, dword [byte esi+02Ch]
+        push edi
+        movsx ebx, word [byte eax+0Eh]
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub eax, ebx
+        push eax
+        push str_BR00
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_BR02
+        jmp short .7
+.6:
+        push str_BR00
+        mov eax, dword [byte esi+02Ch]
+        push edi
+        movsx ebx, word [byte eax+0Eh]
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub eax, ebx
+        push eax
+        push str_BR00
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_BR00
+.7:
+        push edi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitArt
+        add esp, byte 0Ch
+        cmp word [ModemBaudRate], byte 0Ah
+        jne short .8
+        push str_BR03
+        mov eax, dword [byte esi+02Ch]
+        push edi
+        movsx ebx, word [byte eax+0Eh]
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub eax, ebx
+        push eax
+        push str_BR03
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_BR05
+        jmp short .9
+.8:
+        push str_BR03
+        mov eax, dword [byte esi+02Ch]
+        push edi
+        movsx ebx, word [byte eax+0Eh]
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub eax, ebx
+        push eax
+        push str_BR03
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_BR03
+.9:
+        push edi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitArt
+        add esp, byte 0Ch
+        cmp word [ModemBaudRate], byte 0Ch
+        jne short .10
+        push str_BR06
+        mov eax, dword [byte esi+02Ch]
+        push edi
+        movsx ebx, word [byte eax+0Eh]
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub eax, ebx
+        push eax
+        push str_BR06
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_BR08
+        jmp short .11
+.10:
+        push str_BR06
+        mov eax, dword [byte esi+02Ch]
+        push edi
+        movsx ebx, word [byte eax+0Eh]
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub eax, ebx
+        push eax
+        push str_BR06
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_BR06
+.11:
+        push edi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitArt
+        add esp, byte 0Ch
+        cmp word [ModemPort], byte 0
+        jne short .12
+        push str_CP02
+        mov eax, dword [byte esi+02Ch]
+        push edi
+        movsx ebx, word [byte eax+0Eh]
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub eax, ebx
+        push eax
+        push str_CP02
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_CP02
+        jmp short .13
+.12:
+        push str_CP00
+        mov eax, dword [byte esi+02Ch]
+        push edi
+        movsx ebx, word [byte eax+0Eh]
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub eax, ebx
+        push eax
+        push str_CP00
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_CP00
+.13:
+        push edi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitArt
+        add esp, byte 0Ch
+        cmp word [ModemPort], byte 1
+        jne short .14
+        push str_CP05
+        mov eax, dword [byte esi+02Ch]
+        push edi
+        movsx ebx, word [byte eax+0Eh]
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub eax, ebx
+        push eax
+        push str_CP05
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_CP05
+        jmp short .15
+.14:
+        push str_CP03
+        mov eax, dword [byte esi+02Ch]
+        push edi
+        movsx ebx, word [byte eax+0Eh]
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub eax, ebx
+        push eax
+        push str_CP03
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_CP03
+.15:
+        push edi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitArt
+        add esp, byte 0Ch
+        cmp word [ModemPort], byte 2
+        jne short .16
+        push str_CP08
+        mov eax, dword [byte esi+02Ch]
+        push edi
+        movsx ebx, word [byte eax+0Eh]
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub eax, ebx
+        push eax
+        push str_CP08
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_CP08
+        jmp short .17
+.16:
+        push str_CP06
+        mov eax, dword [byte esi+02Ch]
+        push edi
+        movsx ebx, word [byte eax+0Eh]
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub eax, ebx
+        push eax
+        push str_CP06
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_CP06
+.17:
+        push edi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitArt
+        add esp, byte 0Ch
+        cmp word [ModemPort], byte 3
+        jne short .18
+        push str_CP11
+        mov eax, dword [byte esi+02Ch]
+        push edi
+        movsx ebx, word [byte eax+0Eh]
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub eax, ebx
+        push eax
+        push str_CP11
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_CP11
+        jmp short .19
+.18:
+        push str_CP09
+        mov eax, dword [byte esi+02Ch]
+        push edi
+        movsx ebx, word [byte eax+0Eh]
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub eax, ebx
+        push eax
+        push str_CP09
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_CP09
+.19:
+        push edi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitArt
+        add esp, byte 0Ch
+        cmp word [ModemIrq], byte 2
+        jne short .20
+        push str_IR02
+        mov eax, dword [byte esi+02Ch]
+        push edi
+        movsx ebx, word [byte eax+0Eh]
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub eax, ebx
+        push eax
+        push str_IR02
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_IR02
+        jmp short .21
+.20:
+        push str_IR00
+        mov eax, dword [byte esi+02Ch]
+        push edi
+        movsx ebx, word [byte eax+0Eh]
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub eax, ebx
+        push eax
+        push str_IR00
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_IR00
+.21:
+        push edi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitArt
+        add esp, byte 0Ch
+        cmp word [ModemIrq], byte 3
+        jne short .22
+        push str_IR05
+        mov eax, dword [byte esi+02Ch]
+        push edi
+        movsx ebx, word [byte eax+0Eh]
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub eax, ebx
+        push eax
+        push str_IR05
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_IR05
+        jmp short .23
+.22:
+        push str_IR03
+        mov eax, dword [byte esi+02Ch]
+        push edi
+        movsx ebx, word [byte eax+0Eh]
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub eax, ebx
+        push eax
+        push str_IR03
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_IR03
+.23:
+        push edi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitArt
+        add esp, byte 0Ch
+        cmp word [ModemIrq], byte 4
+        jne short .24
+        push str_IR08
+        mov eax, dword [byte esi+02Ch]
+        push edi
+        movsx ebx, word [byte eax+0Eh]
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub eax, ebx
+        push eax
+        push str_IR08
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_IR08
+        jmp short .25
+.24:
+        push str_IR06
+        mov eax, dword [byte esi+02Ch]
+        push edi
+        movsx ebx, word [byte eax+0Eh]
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub eax, ebx
+        push eax
+        push str_IR06
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_IR06
+.25:
+        push edi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitArt
+        add esp, byte 0Ch
+        cmp word [ModemIrq], byte 7
+        jne short .26
+        push str_IR11
+        mov eax, dword [byte esi+02Ch]
+        push edi
+        movsx ebx, word [byte eax+0Eh]
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub eax, ebx
+        push eax
+        push str_IR11
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_IR11
+        jmp short .27
+.26:
+        push str_IR09
+        mov eax, dword [byte esi+02Ch]
+        push edi
+        movsx ebx, word [byte eax+0Eh]
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub eax, ebx
+        push eax
+        push str_IR09
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_IR09
+.27:
+        push edi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitArt
+        add esp, byte 0Ch
+        mov ebx, ModemInitString
+        mov eax, dword [byte ebp-0Ch]
+        xor edx, edx
+        call DrawModemField
+        push esi
+        call SetDrawTarget
+        mov eax, dword [byte esi+02Ch]
+        mov edx, 8Ch
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 4
+        sub edx, eax
+        push edx
+        mov eax, dword [byte ebp-0Ch]
+        push byte 78h
+        push dword [byte eax+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        push dword [byte ebp-04h]
+        call SetDrawTarget
+        add esp, byte 4
+        push byte 0
+        push byte 0
+        push str_BG01
+        push dword [byte ebp-08h]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitArt
+        add esp, byte 0Ch
+        mov eax, dword [byte ebp-04h]
+        push str_MT00
+        mov eax, dword [byte eax+02Ch]
+        push edi
+        movsx ebx, word [byte eax+0Eh]
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub eax, ebx
+        push eax
+        push str_MT00
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_MT00
+        push edi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitArt
+        add esp, byte 0Ch
+        mov eax, dword [byte ebp-04h]
+        push str_DS00
+        mov eax, dword [byte eax+02Ch]
+        push edi
+        movsx ebx, word [byte eax+0Eh]
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub eax, ebx
+        push eax
+        push str_DS00
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_DS00
+        push edi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitArt
+        add esp, byte 0Ch
+        mov eax, dword [byte ebp-04h]
+        push str_IS00
+        mov eax, dword [byte eax+02Ch]
+        push edi
+        movsx ebx, word [byte eax+0Eh]
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub eax, ebx
+        push eax
+        push str_IS00
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_IS00
+        push edi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitArt
+        add esp, byte 0Ch
+        mov eax, dword [byte ebp-04h]
+        push str_PT00
+        mov eax, dword [byte eax+02Ch]
+        push edi
+        movsx ebx, word [byte eax+0Eh]
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub eax, ebx
+        push eax
+        push str_PT00
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_PT00
+        push edi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitArt
+        add esp, byte 0Ch
+        push byte 0FFFFFFFFh
+        call MakeColor
+        add esp, byte 4
+        call SetTextColor
+        lea eax, [byte ebp-010h]
+        call DefaultModemName
+        mov ebx, eax
+        mov edx, eax
+        movsx eax, word [ModemSpeed]
+        imul eax, byte 44h
+        add eax, ebx
+        call strlen_
+        cmp eax, byte 1Eh
+        jbe short .29
+        xor esi, esi
+.28:
+        movsx eax, word [ModemSpeed]
+        imul eax, byte 44h
+        add eax, edx
+        mov al, byte [esi+eax]
+        inc esi
+        mov byte [byte esi+ebp-061h], al
+        cmp esi, byte 1Eh
+        jl short .28
+        mov edx, str_Punct3
+        lea eax, [byte ebp-042h]
+        call strcpy_
+        lea eax, [byte ebp-060h]
+        push eax
+        mov eax, dword [byte ebp-04h]
+        mov eax, dword [byte eax+02Ch]
+        mov edx, 109h
+        jmp short .30
+.29:
+        movsx eax, word [ModemSpeed]
+        imul eax, byte 44h
+        add ebx, eax
+        mov eax, dword [byte ebp-04h]
+        mov eax, dword [byte eax+02Ch]
+        mov edx, 109h
+        push ebx
+.30:
+        movsx eax, word [byte eax+0Eh]
+        push str_S_ModemSettingsScreen
+        sub edx, eax
+        push edx
+        push dword 11Dh
+        push byte 0
+        call DrawTextAligned
+        add esp, byte 14h
+        mov eax, dword [byte ebp-04h]
+        mov eax, dword [byte eax+02Ch]
+        push ModemDialCommand
+        mov edx, 12Ah
+        movsx eax, word [byte eax+0Eh]
+        push str_S_ModemSettingsScreen
+        sub edx, eax
+        push edx
+        push dword 11Dh
+        push byte 0
+        call DrawTextAligned
+        mov eax, dword [byte ebp-04h]
+        add esp, byte 14h
+        mov eax, dword [byte eax+02Ch]
+        mov edx, 14Bh
+        push ModemPhoneNumber
+        movsx eax, word [byte eax+0Eh]
+        push str_S_ModemSettingsScreen
+        sub edx, eax
+        push edx
+        push dword 11Dh
+        push byte 0
+        call DrawTextAligned
+        add esp, byte 14h
+        cmp word [ModemAnswer], byte 0
+        je short .31
+        mov eax, 167h
+        jmp short .32
+.31:
+        mov eax, 168h
+.32:
+        call GetLangText
+        push eax
+        mov eax, dword [byte ebp-04h]
+        mov eax, dword [byte eax+02Ch]
+        mov edx, 16Bh
+        movsx eax, word [byte eax+0Eh]
+        sub edx, eax
+        push edx
+        push dword 11Dh
+        push byte 0
+        call DrawTextAligned
+        add esp, byte 10h
+        call PresentScreen
+        push dword [byte ebp-0Ch]
+        call FreeBitmap
+        add esp, byte 4
+        jmp near DrawNoNetworkServices_F6
+;-----------------------------------------------------------------------------
+; ModemConnectScreen                              8A81B  97 PC, low confidence
+; From RunModemConnect: the modem connect screen (MOD2, BG00 / BG01)
+;-----------------------------------------------------------------------------
+ModemConnectScreen:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        enter 24h, 0
+        call SetNormalText
+        mov eax, 2
+        call SecondsToSamples
+        call WaitSoundTime
+        mov eax, 3
+        xor edx, edx
+        call SecondsToSamples
+        call WaitSoundTime
+        mov eax, 65h
+        call LoadDataFile
+        mov esi, eax
+        mov dword [byte ebp-010h], eax
+        mov eax, 3
+        xor edx, edx
+        call SecondsToSamples
+        call WaitSoundTime
+        mov eax, 66h
+        call LoadDataFile
+        mov edi, eax
+        mov dword [byte ebp-018h], eax
+        mov eax, 3
+        xor edx, edx
+        call SecondsToSamples
+        call WaitSoundTime
+        mov eax, 67h
+        call LoadDataFile
+        mov dword [byte ebp-04h], eax
+        mov dword [byte ebp-020h], eax
+        mov eax, 3
+        call SecondsToSamples
+        call WaitSoundTime
+        push byte 0
+        push str_BG00
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+06h]
+        push eax
+        push str_BG00
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+04h]
+        push eax
+        call CreateBitmap
+        mov dword [byte ebp-08h], eax
+        add esp, byte 0Ch
+        mov dword [byte ebp-014h], eax
+        push byte 0
+        push str_BG01
+        push esi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+06h]
+        push eax
+        push str_BG01
+        push esi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+04h]
+        push eax
+        mov ebx, esi
+        call CreateBitmap
+        mov dword [byte ebp-024h], eax
+        add esp, byte 0Ch
+        mov dword [byte ebp-01Ch], eax
+        mov ecx, edi
+        mov edx, eax
+        push dword [byte ebp-04h]
+        mov eax, dword [byte ebp-08h]
+        call DrawConnectScreen
+        push byte 0
+        push dword 1E0h
+        push dword 280h
+        call CreateBitmap
+        add esp, byte 0Ch
+        push eax
+        mov ebx, eax
+        mov dword [byte ebp-0Ch], eax
+        call SetDrawTarget
+        add esp, byte 4
+        push str_BACK5
+        push dword [byte ebp-04h]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitShape2
+        add esp, byte 4
+        push str_BG02
+        push esi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitShape2
+        add esp, byte 4
+        push str_TITL3
+        push edi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitShape2
+        mov eax, dword [byte ebp-08h]
+        add esp, byte 4
+        push dword [byte eax+02Ch]
+        call BlitShape2
+        mov eax, dword [byte ebp-024h]
+        add esp, byte 4
+        push dword [byte eax+02Ch]
+        call BlitShape2
+        add esp, byte 4
+        push str_LT002
+        push esi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawShapeAtOwnPos
+        add esp, byte 4
+        push str_LB002
+        push esi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawShapeAtOwnPos
+        add esp, byte 4
+        push str_RB00
+        push esi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawShapeAtOwnPos
+        add esp, byte 4
+        push str_RT00
+        push esi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawShapeAtOwnPos
+        add esp, byte 4
+        push str_NET0
+        push edi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitShape2
+        add esp, byte 4
+        push str_MOD2
+        push edi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitShape2
+        add esp, byte 4
+        cmp word [ConnectRetry], byte 0
+        jne short .1
+        mov eax, dword [byte ebx+02Ch]
+        mov ebx, eax
+        mov edx, eax
+        call DrawScreenBackground
+        mov word [ConnectRetry], 1
+.1:
+        push dword [ScreenTitleItem+2Ah]
+        push dword [ScreenTitleItem+26h]
+        push dword [ScreenTitleItem+1Ah]
+        call DrawArt
+        add esp, byte 0Ch
+        push dword [BlankMenuItem+2Ah]
+        push dword [BlankMenuItem+26h]
+        push dword [BlankMenuItem+1Ah]
+        call DrawArt
+        add esp, byte 0Ch
+        call PresentScreen
+        mov eax, dword [byte ebp-0Ch]
+        mov edx, 1
+        mov eax, dword [byte eax+02Ch]
+        call WipeScreen
+        push dword [byte ebp-0Ch]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [byte ebp-014h]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [byte ebp-01Ch]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [byte ebp-010h]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [byte ebp-018h]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [byte ebp-020h]
+ModemConnectScreen_2BB:
+        call FreeMemBlock
+ModemConnectScreen_2C0:
+        add esp, byte 4
+ModemConnectScreen_2C3:
+        leave
+ModemConnectScreen_2C4:
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+;-----------------------------------------------------------------------------
+; ModemConnect                                    8AAE5  97 PC, low confidence
+; Connects by modem
+;-----------------------------------------------------------------------------
+ModemConnect:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        enter 0DCh, 0
+        sub ebp, 82h
+        call SetNormalText
+        mov eax, 3
+        call SecondsToSamples
+        call WaitSoundTime
+        mov eax, 3
+        xor edx, edx
+        call SecondsToSamples
+        call WaitSoundTime
+        mov eax, 65h
+        call LoadDataFile
+        mov esi, eax
+        mov dword [byte ebp+076h], eax
+        mov eax, 3
+        xor edx, edx
+        call SecondsToSamples
+        call WaitSoundTime
+        mov eax, 66h
+        call LoadDataFile
+        mov ebx, eax
+        mov dword [byte ebp+032h], eax
+        mov eax, 3
+        xor edx, edx
+        call SecondsToSamples
+        call WaitSoundTime
+        mov eax, 67h
+        call LoadDataFile
+        mov dword [byte ebp+042h], eax
+        mov dword [byte ebp+062h], eax
+        mov eax, 3
+        xor edx, edx
+        call SecondsToSamples
+        call WaitSoundTime
+        mov eax, 68h
+        call LoadDataFile
+        mov edi, eax
+        mov eax, 3
+        call SecondsToSamples
+        call WaitSoundTime
+        push byte 0
+        push str_BG00
+        push ebx
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+06h]
+        push eax
+        push str_BG00
+        push ebx
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+04h]
+        push eax
+        mov dword [byte ebp+07Ah], 0
+        call CreateBitmap
+        mov dword [byte ebp+03Eh], eax
+        add esp, byte 0Ch
+        mov dword [byte ebp+056h], eax
+        push byte 0
+        push str_BG01
+        push esi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+06h]
+        push eax
+        push str_BG01
+        push esi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+04h]
+        push eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        mov dword [byte ebp+052h], eax
+        mov ecx, ebx
+        mov edx, eax
+        push dword [byte ebp+042h]
+        mov eax, dword [byte ebp+03Eh]
+        mov ebx, esi
+        call DrawConnectScreen
+        push str_TOP0
+        push edi
+        call FindShape
+        add esp, byte 8
+        push str_BOT0
+        push dword [byte ebp+042h]
+        mov dword [byte ebp+04Ah], eax
+        call FindShape
+        add esp, byte 8
+        push byte 0
+        push dword 166h
+        push dword 280h
+        mov dword [byte ebp+04Eh], eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        push byte 0
+        push dword 96h
+        push dword 181h
+        mov dword [byte ebp+05Eh], eax
+        call CreateBitmap
+        mov esi, eax
+        add esp, byte 0Ch
+        mov dword [byte ebp+03Ah], eax
+        lea eax, [byte ebp+02Ah]
+        call LoadServerList
+        push esi
+        mov dword [byte ebp+036h], eax
+        mov dword [byte ebp+02Eh], eax
+        call SetDrawTarget
+        add esp, byte 4
+        push dword 0FF000000h
+        call MakeColor
+        add esp, byte 4
+        push eax
+        push dword 96h
+        push dword 181h
+        push byte 0
+        push byte 0
+        call FillRect
+        add esp, byte 14h
+        call PresentScreen
+        push dword [byte ebp+02Ah]
+        mov edx, dword [byte ebp+036h]
+        mov eax, esi
+        xor ecx, ecx
+        xor ebx, ebx
+        call DrawNoNetworkServices
+        xor esi, esi
+.1:
+        push esi
+        push str_LFTD
+        lea eax, [byte ebp+01Eh]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea eax, [byte ebp+01Eh]
+        push eax
+        push dword [byte ebp+062h]
+        call FindShape
+        add esp, byte 8
+        push esi
+        push str_RITD
+        mov dword [byte ebp+esi*4-01Eh], eax
+        lea eax, [byte ebp+01Eh]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea eax, [byte ebp+01Eh]
+        push eax
+        push dword [byte ebp+062h]
+        call FindShape
+        add esp, byte 8
+        push esi
+        push str_LT0D
+        mov dword [byte ebp+esi*4-032h], eax
+        lea eax, [byte ebp+01Eh]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea eax, [byte ebp+01Eh]
+        push eax
+        push dword [byte ebp+076h]
+        call FindShape
+        add esp, byte 8
+        push esi
+        push str_LB0D
+        mov dword [byte ebp+esi*4-046h], eax
+        lea eax, [byte ebp+01Eh]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea eax, [byte ebp+01Eh]
+        push eax
+        push dword [byte ebp+076h]
+        call FindShape
+        add esp, byte 8
+        push esi
+        push str_RT0D
+        mov dword [byte ebp+esi*4-0Ah], eax
+        lea eax, [byte ebp+01Eh]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea eax, [byte ebp+01Eh]
+        push eax
+        push dword [byte ebp+076h]
+        call FindShape
+        add esp, byte 8
+        push esi
+        push str_RB0D
+        mov dword [byte ebp+esi*4-05Ah], eax
+        lea eax, [byte ebp+01Eh]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea eax, [byte ebp+01Eh]
+        push eax
+        push dword [byte ebp+076h]
+        inc esi
+        call FindShape
+        add esp, byte 8
+        mov dword [byte ebp+esi*4+06h], eax
+        cmp esi, byte 5
+        jl near .1
+        mov eax, dword [byte ebp+052h]
+        mov eax, dword [byte eax+02Ch]
+        movsx eax, word [byte eax+0Eh]
+        add eax, 88h
+        mov dword [byte ebp+05Ah], eax
+        mov eax, dword [byte ebp+056h]
+        mov eax, dword [byte eax+02Ch]
+        movsx eax, word [byte eax+0Eh]
+        sub eax, 0F4h
+        mov dword [byte ebp+046h], eax
+        mov eax, dword [byte ebp-0Ah]
+        movsx eax, word [byte eax+0Eh]
+        sub eax, 0F4h
+        mov dword [byte ebp+06Ah], eax
+        mov eax, dword [byte ebp-046h]
+        movsx eax, word [byte eax+0Eh]
+        add eax, 88h
+        mov dword [byte ebp+06Eh], eax
+        mov eax, dword [byte ebp+04Ah]
+        movsx eax, word [byte eax+0Eh]
+        sub eax, byte 36h
+        mov dword [byte ebp+07Eh], eax
+        mov eax, dword [byte ebp+04Eh]
+        movsx eax, word [byte eax+0Eh]
+        sub eax, byte 36h
+        mov dword [byte ebp+066h], eax
+        mov eax, dword [byte ebp-01Eh]
+        movsx eax, word [byte eax+0Eh]
+        sub eax, byte 36h
+        mov dword [byte ebp+072h], eax
+        mov eax, 200h
+        mov esi, 0BEh
+        call PlaySfx
+.2:
+        push dword [byte ebp+05Eh]
+        call SetDrawTarget
+        add esp, byte 4
+        push byte 0
+        push byte 0
+        push str_BACK5
+        push dword [byte ebp+062h]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitArt
+        add esp, byte 0Ch
+        sub dword [byte ebp+07Eh], byte 0Ah
+        mov eax, dword [byte ebp+04Ah]
+        push dword [byte ebp+07Eh]
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push dword [byte ebp+04Ah]
+        call DrawArt
+        add esp, byte 0Ch
+        add dword [byte ebp+066h], byte 0Ah
+        mov eax, dword [byte ebp+04Eh]
+        push dword [byte ebp+066h]
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push dword [byte ebp+04Eh]
+        call DrawArt
+        add esp, byte 0Ch
+        push byte 0FFFFFFFFh
+        call MakeColor
+        add esp, byte 4
+        call SetTextColor
+        push NetworkGameName
+        mov eax, dword [byte ebp+07Eh]
+        push str_S_ModemSettingsScreen
+        add eax, byte 6Ah
+        push eax
+        add dword [byte ebp+046h], byte 0Ah
+        push dword 140h
+        add dword [byte ebp+06Ah], byte 0Ah
+        sub dword [byte ebp+05Ah], byte 0Ah
+        push byte 1
+        sub dword [byte ebp+06Eh], byte 0Ah
+        add dword [byte ebp+072h], byte 0Ah
+        call DrawTextAligned
+        add esp, byte 14h
+        test byte [NetworkGameFlags], 1
+        jne short .3
+        push str_TPB3
+        push edi
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add eax, dword [byte ebp+07Eh]
+        add esp, byte 8
+        sub eax, byte 29h
+        push eax
+        push str_TPB3
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_TPB3
+        push edi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitArt
+        add esp, byte 0Ch
+        push str_TPB2
+        push edi
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add eax, dword [byte ebp+07Eh]
+        add esp, byte 8
+        sub eax, byte 29h
+        push eax
+        push str_TPB2
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_TPB2
+        jmp short .4
+.3:
+        push str_TPB0
+        push edi
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add eax, dword [byte ebp+07Eh]
+        add esp, byte 8
+        sub eax, byte 29h
+        push eax
+        push str_TPB0
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_TPB0
+        push edi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitArt
+        add esp, byte 0Ch
+        push str_TPB5
+        push edi
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add eax, dword [byte ebp+07Eh]
+        add esp, byte 8
+        sub eax, byte 29h
+        push eax
+        push str_TPB5
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_TPB5
+.4:
+        push edi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitArt
+        add esp, byte 0Ch
+        mov eax, dword [byte ebp+066h]
+        add eax, byte 0Dh
+        push eax
+        push byte 78h
+        mov eax, dword [byte ebp+03Ah]
+        mov ebx, 4
+        push dword [byte eax+02Ch]
+        sub ebx, dword [byte ebp+07Ah]
+        call BlitArt
+        add esp, byte 0Ch
+        mov eax, dword [byte ebp+ebx*4-01Eh]
+        push dword [byte ebp+072h]
+        movsx edx, word [byte eax+0Ch]
+        push edx
+        push eax
+        call DrawArt
+        add esp, byte 0Ch
+        mov eax, dword [byte ebp+ebx*4-032h]
+        push dword [byte ebp+072h]
+        movsx edx, word [byte eax+0Ch]
+        push edx
+        push eax
+        call DrawArt
+        add esp, byte 0Ch
+        push dword [byte ebp+046h]
+        mov eax, dword [byte ebp+056h]
+        push byte 0
+        push dword [byte eax+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        push dword [byte ebp+05Ah]
+        mov eax, dword [byte ebp+052h]
+        push byte 0
+        push dword [byte eax+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        mov eax, dword [byte ebp+ebx*4-0Ah]
+        push dword [byte ebp+06Ah]
+        movsx edx, word [byte eax+0Ch]
+        push edx
+        push eax
+        call DrawArt
+        add esp, byte 0Ch
+        mov eax, dword [byte ebp+ebx*4+0Ah]
+        push dword [byte ebp+06Ah]
+        movsx edx, word [byte eax+0Ch]
+        push edx
+        push eax
+        mov ebx, dword [byte ebp+07Ah]
+        call DrawArt
+        add esp, byte 0Ch
+        mov eax, dword [byte ebp+ebx*4-046h]
+        push dword [byte ebp+06Eh]
+        movsx edx, word [byte eax+0Ch]
+        push edx
+        push eax
+        call DrawArt
+        add esp, byte 0Ch
+        mov eax, dword [byte ebp+ebx*4-05Ah]
+        push dword [byte ebp+06Eh]
+        movsx edx, word [byte eax+0Ch]
+        push edx
+        push eax
+        call DrawArt
+        add esp, byte 0Ch
+        call SetScreenTarget
+        push byte 36h
+        mov eax, dword [byte ebp+05Eh]
+        push byte 0
+        push dword [byte eax+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        inc dword [byte ebp+07Ah]
+        call PresentScreen
+        cmp dword [byte ebp+07Ah], byte 5
+        jne short .5
+        mov dword [byte ebp+07Ah], 0
+.5:
+        sub esi, byte 0Ah
+        call ServiceIdle
+        test esi, esi
+        jg near .2
+        call StopAllSfx
+        mov eax, 201h
+        call PlaySfx
+        push dword [byte ebp+05Eh]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [byte ebp+056h]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [byte ebp+052h]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [byte ebp+03Ah]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [byte ebp+076h]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [byte ebp+032h]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [byte ebp+062h]
+        call FreeMemBlock
+        add esp, byte 4
+        push edi
+        call FreeMemBlock
+        add esp, byte 4
+        cmp dword [byte ebp+02Ah], byte 0
+        jle short ModemConnect_654
+        push dword [byte ebp+02Eh]
+ModemConnect_64C:
+        call FreeMemBlock
+        add esp, byte 4
+ModemConnect_654:
+        lea esp, [dword ebp+082h]
+        pop ebp
+        jmp near ModemConnectScreen_2C4
+;-----------------------------------------------------------------------------
+; NetworkConnect                                  8B145  97 PC, low confidence
+; Connects by network
+;-----------------------------------------------------------------------------
+NetworkConnect:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        enter 0DCh, 0
+        sub ebp, 82h
+        call SetNormalText
+        mov eax, 3
+        mov dword [byte ebp+07Ah], 0
+        call SecondsToSamples
+        call WaitSoundTime
+        cmp dword [NetworkGameReady], byte 0
+        jne short .1
+        mov ax, word [NetworkSettings]
+        mov edx, NetworkGameIndex
+        mov word [NetworkGameNumber], ax
+        mov eax, NetworkGameFlags
+        add edx, byte 6
+        add eax, byte 6
+        call strcpy_
+        mov eax, dword [NetworkGameIndex]
+        and byte [NetworkGameFlags], 0FEh
+        and eax, byte 1
+        mov dword [NetworkGameReady], 1
+        or dword [NetworkGameFlags], eax
+.1:
+        mov eax, 3
+        call SecondsToSamples
+        call WaitSoundTime
+        xor edx, edx
+        mov eax, 65h
+        call LoadDataFile
+        mov ebx, eax
+        mov dword [byte ebp+06Eh], eax
+        mov eax, 3
+        xor edx, edx
+        call SecondsToSamples
+        call WaitSoundTime
+        mov eax, 66h
+        call LoadDataFile
+        mov edi, eax
+        mov dword [byte ebp+032h], eax
+        mov eax, 3
+        xor edx, edx
+        call SecondsToSamples
+        call WaitSoundTime
+        mov eax, 67h
+        call LoadDataFile
+        mov dword [byte ebp+052h], eax
+        mov dword [byte ebp+07Eh], eax
+        mov eax, 3
+        xor edx, edx
+        call SecondsToSamples
+        call WaitSoundTime
+        mov eax, 68h
+        call LoadDataFile
+        mov esi, eax
+        mov eax, 3
+        call SecondsToSamples
+        call WaitSoundTime
+        push byte 0
+        push str_BG00
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+06h]
+        push eax
+        push str_BG00
+        push edi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+04h]
+        push eax
+        call CreateBitmap
+        mov dword [byte ebp+03Ah], eax
+        add esp, byte 0Ch
+        mov dword [byte ebp+04Eh], eax
+        push byte 0
+        push str_BG01
+        push ebx
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+06h]
+        push eax
+        push str_BG01
+        push ebx
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+04h]
+        push eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        mov dword [byte ebp+042h], eax
+        mov ecx, edi
+        mov edx, eax
+        push dword [byte ebp+052h]
+        mov eax, dword [byte ebp+03Ah]
+        call DrawConnectScreen
+        push str_TOP0
+        push esi
+        call FindShape
+        add esp, byte 8
+        push str_BOT0
+        push dword [byte ebp+052h]
+        mov dword [byte ebp+072h], eax
+        call FindShape
+        add esp, byte 8
+        push byte 0
+        push dword 166h
+        push dword 280h
+        mov dword [byte ebp+076h], eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        push byte 0
+        push dword 96h
+        push dword 181h
+        mov dword [byte ebp+06Ah], eax
+        call CreateBitmap
+        mov edi, eax
+        add esp, byte 0Ch
+        mov dword [byte ebp+04Ah], eax
+        lea eax, [byte ebp+02Ah]
+        call LoadServerList
+        push edi
+        mov dword [byte ebp+03Eh], eax
+        mov dword [byte ebp+036h], eax
+        call SetDrawTarget
+        add esp, byte 4
+        push dword 0FF000000h
+        call MakeColor
+        add esp, byte 4
+        push eax
+        push dword 96h
+        push dword 181h
+        push byte 0
+        push byte 0
+        call FillRect
+        add esp, byte 14h
+        call PresentScreen
+        push dword [byte ebp+02Ah]
+        mov edx, dword [byte ebp+03Eh]
+        mov eax, edi
+        xor ecx, ecx
+        xor ebx, ebx
+        call DrawNoNetworkServices
+        xor edi, edi
+.2:
+        push edi
+        push str_LFTD
+        lea eax, [byte ebp+01Eh]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea eax, [byte ebp+01Eh]
+        push eax
+        push dword [byte ebp+07Eh]
+        call FindShape
+        add esp, byte 8
+        push edi
+        push str_RITD
+        mov dword [byte ebp+edi*4-01Eh], eax
+        lea eax, [byte ebp+01Eh]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea eax, [byte ebp+01Eh]
+        push eax
+        push dword [byte ebp+07Eh]
+        call FindShape
+        add esp, byte 8
+        push edi
+        push str_LT0D
+        mov dword [byte ebp+edi*4-05Ah], eax
+        lea eax, [byte ebp+01Eh]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea eax, [byte ebp+01Eh]
+        push eax
+        push dword [byte ebp+06Eh]
+        call FindShape
+        add esp, byte 8
+        push edi
+        push str_LB0D
+        mov dword [byte ebp+edi*4-032h], eax
+        lea eax, [byte ebp+01Eh]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea eax, [byte ebp+01Eh]
+        push eax
+        push dword [byte ebp+06Eh]
+        call FindShape
+        add esp, byte 8
+        push edi
+        push str_RT0D
+        mov dword [byte ebp+edi*4-0Ah], eax
+        lea eax, [byte ebp+01Eh]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea eax, [byte ebp+01Eh]
+        push eax
+        push dword [byte ebp+06Eh]
+        call FindShape
+        add esp, byte 8
+        push edi
+        push str_RB0D
+        mov dword [byte ebp+edi*4+0Ah], eax
+        lea eax, [byte ebp+01Eh]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea eax, [byte ebp+01Eh]
+        push eax
+        push dword [byte ebp+06Eh]
+        inc edi
+        call FindShape
+        add esp, byte 8
+        mov dword [byte ebp+edi*4-04Ah], eax
+        cmp edi, byte 5
+        jl near .2
+        mov eax, dword [byte ebp+042h]
+        mov eax, dword [byte eax+02Ch]
+        movsx eax, word [byte eax+0Eh]
+        sub eax, byte 36h
+        mov dword [byte ebp+056h], eax
+        mov eax, dword [byte ebp+04Eh]
+        mov eax, dword [byte eax+02Ch]
+        movsx eax, word [byte eax+0Eh]
+        sub eax, byte 36h
+        mov dword [byte ebp+046h], eax
+        mov eax, dword [byte ebp-0Ah]
+        movsx eax, word [byte eax+0Eh]
+        sub eax, byte 36h
+        mov dword [byte ebp+066h], eax
+        mov eax, dword [byte ebp-032h]
+        movsx eax, word [byte eax+0Eh]
+        sub eax, byte 36h
+        mov dword [byte ebp+05Eh], eax
+        mov eax, dword [byte ebp+076h]
+        movsx eax, word [byte eax+0Eh]
+        add eax, 88h
+        mov dword [byte ebp+05Ah], eax
+        mov eax, dword [byte ebp-01Eh]
+        mov ebx, dword [byte ebp+072h]
+        movsx eax, word [byte eax+0Eh]
+        xor edi, edi
+        add eax, 88h
+        movsx ebx, word [byte ebx+0Eh]
+        mov dword [byte ebp+062h], eax
+        mov eax, 200h
+        sub ebx, 0F4h
+        call PlaySfx
+.3:
+        push dword [byte ebp+06Ah]
+        call SetDrawTarget
+        add esp, byte 4
+        push byte 0
+        push byte 0
+        push str_BACK5
+        push dword [byte ebp+07Eh]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitArt
+        add esp, byte 0Ch
+        add ebx, byte 0Ah
+        mov eax, dword [byte ebp+072h]
+        push ebx
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push dword [byte ebp+072h]
+        call DrawArt
+        add esp, byte 0Ch
+        sub dword [byte ebp+05Ah], byte 0Ah
+        mov eax, dword [byte ebp+076h]
+        push dword [byte ebp+05Ah]
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push dword [byte ebp+076h]
+        call DrawArt
+        mov eax, dword [byte ebp+07Ah]
+        sub dword [byte ebp+062h], byte 0Ah
+        shl eax, 2
+        add esp, byte 0Ch
+        mov dword [byte ebp+02Eh], eax
+        mov eax, dword [byte eax+ebp-01Eh]
+        push dword [byte ebp+062h]
+        movsx edx, word [byte eax+0Ch]
+        push edx
+        push eax
+        call DrawArt
+        mov eax, dword [byte ebp+02Eh]
+        add esp, byte 0Ch
+        mov eax, dword [byte eax+ebp-05Ah]
+        push dword [byte ebp+062h]
+        movsx edx, word [byte eax+0Ch]
+        push edx
+        push eax
+        call DrawArt
+        add esp, byte 0Ch
+        push byte 0FFFFFFFFh
+        call MakeColor
+        add esp, byte 4
+        call SetTextColor
+        push NetworkGameName
+        push str_S_ModemSettingsScreen
+        lea eax, [byte ebx+06Ah]
+        push eax
+        push dword 140h
+        sub dword [byte ebp+046h], byte 0Ah
+        sub dword [byte ebp+066h], byte 0Ah
+        push byte 1
+        add dword [byte ebp+056h], byte 0Ah
+        add dword [byte ebp+05Eh], byte 0Ah
+        call DrawTextAligned
+        add esp, byte 14h
+        test byte [NetworkGameFlags], 1
+        jne short .4
+        push str_TPB3
+        push esi
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add eax, ebx
+        add esp, byte 8
+        sub eax, byte 29h
+        push eax
+        push str_TPB3
+        push esi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_TPB3
+        push esi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitArt
+        add esp, byte 0Ch
+        push str_TPB2
+        push esi
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add eax, ebx
+        add esp, byte 8
+        sub eax, byte 29h
+        push eax
+        push str_TPB2
+        push esi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_TPB2
+        jmp short .5
+.4:
+        push str_TPB0
+        push esi
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add eax, ebx
+        add esp, byte 8
+        sub eax, byte 29h
+        push eax
+        push str_TPB0
+        push esi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_TPB0
+        push esi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitArt
+        add esp, byte 0Ch
+        push str_TPB5
+        push esi
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add eax, ebx
+        add esp, byte 8
+        sub eax, byte 29h
+        push eax
+        push str_TPB5
+        push esi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_TPB5
+.5:
+        push esi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitArt
+        add esp, byte 0Ch
+        mov eax, dword [byte ebp+05Ah]
+        add eax, byte 0Dh
+        push eax
+        push byte 78h
+        mov eax, dword [byte ebp+04Ah]
+        push dword [byte eax+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        push dword [byte ebp+046h]
+        mov eax, dword [byte ebp+04Eh]
+        push byte 0
+        push dword [byte eax+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        push dword [byte ebp+056h]
+        mov eax, dword [byte ebp+042h]
+        push byte 0
+        push dword [byte eax+02Ch]
+        call BlitArt
+        mov eax, dword [byte ebp+07Ah]
+        shl eax, 2
+        add esp, byte 0Ch
+        mov dword [byte ebp+02Eh], eax
+        mov eax, dword [byte eax+ebp-0Ah]
+        push dword [byte ebp+066h]
+        movsx edx, word [byte eax+0Ch]
+        push edx
+        push eax
+        call DrawArt
+        mov eax, dword [byte ebp+02Eh]
+        add esp, byte 0Ch
+        mov eax, dword [byte eax+ebp-046h]
+        push dword [byte ebp+066h]
+        movsx edx, word [byte eax+0Ch]
+        push edx
+        push eax
+        call DrawArt
+        mov eax, 4
+        sub eax, dword [byte ebp+07Ah]
+        shl eax, 2
+        add esp, byte 0Ch
+        mov dword [byte ebp+02Eh], eax
+        mov eax, dword [byte eax+ebp-032h]
+        push dword [byte ebp+05Eh]
+        movsx edx, word [byte eax+0Ch]
+        push edx
+        push eax
+        call DrawArt
+        mov eax, dword [byte ebp+02Eh]
+        add esp, byte 0Ch
+        mov eax, dword [byte eax+ebp+0Ah]
+        push dword [byte ebp+05Eh]
+        movsx edx, word [byte eax+0Ch]
+        push edx
+        push eax
+        call DrawArt
+        add esp, byte 0Ch
+        call SetScreenTarget
+        push byte 36h
+        mov eax, dword [byte ebp+06Ah]
+        push byte 0
+        push dword [byte eax+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        inc dword [byte ebp+07Ah]
+        call PresentScreen
+        cmp dword [byte ebp+07Ah], byte 5
+        jne short .6
+        mov dword [byte ebp+07Ah], 0
+.6:
+        add edi, byte 0Ah
+        call ServiceIdle
+        cmp edi, 0B4h
+        jl near .3
+        call StopAllSfx
+        mov eax, 201h
+        call PlaySfx
+        push dword [byte ebp+06Ah]
+        call SetDrawTarget
+        add esp, byte 4
+        push byte 0
+        push byte 0
+        push str_BACK5
+        push dword [byte ebp+07Eh]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitArt
+        mov eax, dword [byte ebp+072h]
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 0Ch
+        sub eax, byte 36h
+        push eax
+        mov eax, dword [byte ebp+072h]
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push dword [byte ebp+072h]
+        call DrawArt
+        mov eax, dword [byte ebp+076h]
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 0Ch
+        sub eax, byte 36h
+        push eax
+        mov eax, dword [byte ebp+076h]
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push dword [byte ebp+076h]
+        call DrawArt
+        add esp, byte 0Ch
+        push str_LFT0
+        push dword [byte ebp+07Eh]
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub eax, byte 36h
+        push eax
+        push str_LFT0
+        push dword [byte ebp+07Eh]
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_LFT0
+        push dword [byte ebp+07Eh]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawArt
+        add esp, byte 0Ch
+        push str_RIT0
+        push dword [byte ebp+07Eh]
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub eax, byte 36h
+        push eax
+        push str_RIT0
+        push dword [byte ebp+07Eh]
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_RIT0
+        push dword [byte ebp+07Eh]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawArt
+        add esp, byte 0Ch
+        test byte [NetworkGameFlags], 1
+        jne short .7
+        push str_TPB3
+        push esi
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub eax, byte 36h
+        push eax
+        push str_TPB3
+        push esi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_TPB3
+        push esi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitArt
+        add esp, byte 0Ch
+        push str_TPB2
+        push esi
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub eax, byte 36h
+        push eax
+        push str_TPB2
+        push esi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_TPB2
+        jmp short .8
+.7:
+        push str_TPB0
+        push esi
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub eax, byte 36h
+        push eax
+        push str_TPB0
+        push esi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_TPB0
+        push esi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitArt
+        add esp, byte 0Ch
+        push str_TPB5
+        push esi
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub eax, byte 36h
+        push eax
+        push str_TPB5
+        push esi
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push str_TPB5
+.8:
+        push esi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitArt
+        add esp, byte 0Ch
+        push dword 0A6h
+        mov eax, dword [byte ebp+04Ah]
+        push byte 78h
+        push dword [byte eax+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        push byte 0FFFFFFFFh
+        call MakeColor
+        add esp, byte 4
+        call SetTextColor
+        push NetworkGameName
+        push str_S_ModemSettingsScreen
+        push byte 60h
+        push dword 140h
+        push byte 1
+        call DrawTextAligned
+        add esp, byte 14h
+        call SetScreenTarget
+        push byte 36h
+        mov eax, dword [byte ebp+06Ah]
+        push byte 0
+        push dword [byte eax+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        call PresentScreen
+        push dword [byte ebp+06Ah]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [byte ebp+04Eh]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [byte ebp+042h]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [byte ebp+04Ah]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [byte ebp+06Eh]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [byte ebp+032h]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [byte ebp+07Eh]
+        call FreeMemBlock
+        add esp, byte 4
+        push esi
+        call FreeMemBlock
+        add esp, byte 4
+        cmp dword [byte ebp+02Ah], byte 0
+        jle near ModemConnect_654
+        push dword [byte ebp+036h]
+        jmp near ModemConnect_64C
+;-----------------------------------------------------------------------------
+; NetworkConnectScreen                            8BA36  97 PC, low confidence
+; From RunNetworkConnect: the network connect screen (NET2, LoadServerList,
+; DrawNoNetworkServices)
+;-----------------------------------------------------------------------------
+NetworkConnectScreen:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        enter 28h, 0
+        call SetNormalText
+        mov eax, 2
+        call SecondsToSamples
+        call WaitSoundTime
+        mov eax, 3
+        xor edx, edx
+        call SecondsToSamples
+        call WaitSoundTime
+        mov eax, 67h
+        call LoadDataFile
+        mov dword [byte ebp-04h], eax
+        mov dword [byte ebp-0Ch], eax
+        mov eax, 3
+        xor edx, edx
+        call SecondsToSamples
+        call WaitSoundTime
+        mov eax, 68h
+        call LoadDataFile
+        mov esi, eax
+        mov dword [byte ebp-014h], eax
+        mov eax, 3
+        xor edx, edx
+        call SecondsToSamples
+        call WaitSoundTime
+        mov eax, 65h
+        call LoadDataFile
+        mov dword [byte ebp-01Ch], eax
+        mov eax, 3
+        xor edx, edx
+        call SecondsToSamples
+        call WaitSoundTime
+        mov eax, 66h
+        call LoadDataFile
+        mov dword [byte ebp-08h], eax
+        mov eax, 3
+        call SecondsToSamples
+        call WaitSoundTime
+        mov ax, word [NetworkSettings]
+        mov edx, NetworkGameIndex
+        mov word [NetworkGameNumber], ax
+        mov eax, NetworkGameFlags
+        add edx, byte 6
+        add eax, byte 6
+        call strcpy_
+        push byte 0
+        mov eax, dword [NetworkGameIndex]
+        push dword 1E0h
+        and byte [NetworkGameFlags], 0FEh
+        and eax, byte 1
+        push dword 280h
+        or dword [NetworkGameFlags], eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        push byte 0
+        push dword 96h
+        push dword 181h
+        mov edi, eax
+        call CreateBitmap
+        mov dword [byte ebp-024h], eax
+        add esp, byte 0Ch
+        mov dword [byte ebp-010h], eax
+        lea eax, [byte ebp-028h]
+        call LoadServerList
+        push dword [byte ebp-024h]
+        mov dword [byte ebp-020h], eax
+        mov dword [byte ebp-018h], eax
+        call SetDrawTarget
+        add esp, byte 4
+        push dword 0FF000000h
+        call MakeColor
+        add esp, byte 4
+        push eax
+        push dword 96h
+        push dword 181h
+        push byte 0
+        push byte 0
+        call FillRect
+        add esp, byte 14h
+        xor ebx, ebx
+        call PresentScreen
+        push dword [byte ebp-028h]
+        mov edx, dword [byte ebp-020h]
+        mov eax, dword [byte ebp-024h]
+        xor ecx, ecx
+        call DrawNoNetworkServices
+        push edi
+        call SetDrawTarget
+        add esp, byte 4
+        push str_BACK5
+        push dword [byte ebp-04h]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitShape2
+        add esp, byte 4
+        push str_TOP0
+        push esi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawShapeAtOwnPos
+        add esp, byte 4
+        push str_BOT0
+        push dword [byte ebp-04h]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawShapeAtOwnPos
+        add esp, byte 4
+        push str_LFT0
+        push dword [byte ebp-04h]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawShapeAtOwnPos
+        add esp, byte 4
+        push str_RIT0
+        push dword [byte ebp-04h]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawShapeAtOwnPos
+        add esp, byte 4
+        test byte [NetworkGameFlags], 1
+        jne short .1
+        push str_TPB3
+        push esi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitShape2
+        add esp, byte 4
+        push str_TPB2
+        jmp short .2
+.1:
+        push str_TPB5
+        push esi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitShape2
+        add esp, byte 4
+        push str_TPB0
+.2:
+        push esi
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitShape2
+        add esp, byte 4
+        push dword 0DCh
+        mov eax, dword [byte ebp-010h]
+        push byte 78h
+        push dword [byte eax+02Ch]
+        call BlitConverted
+        add esp, byte 0Ch
+        push byte 0FFFFFFFFh
+        call MakeColor
+        add esp, byte 4
+        call SetTextColor
+        push NetworkGameName
+        push str_S_ModemSettingsScreen
+        push dword 96h
+        push dword 140h
+        push byte 1
+        call DrawTextAligned
+        add esp, byte 14h
+        push str_TITL3
+        push dword [byte ebp-014h]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitShape2
+        add esp, byte 4
+        push str_BTTM
+        push dword [byte ebp-0Ch]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitShape2
+        add esp, byte 4
+        push str_NET2
+        push dword [byte ebp-08h]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitShape2
+        add esp, byte 4
+        push str_MOD0
+        push dword [byte ebp-08h]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitShape2
+        add esp, byte 4
+        cmp word [ConnectRetry], byte 0
+        jne short .3
+        mov eax, dword [byte edi+02Ch]
+        mov ebx, eax
+        mov edx, eax
+        call DrawScreenBackground
+        mov word [ConnectRetry], 1
+.3:
+        push dword [BlankMenuItem+2Ah]
+        push dword [BlankMenuItem+26h]
+        push dword [BlankMenuItem+1Ah]
+        call DrawArt
+        add esp, byte 0Ch
+        push dword [ScreenTitleItem+2Ah]
+        push dword [ScreenTitleItem+26h]
+        push dword [ScreenTitleItem+1Ah]
+        call DrawArt
+        add esp, byte 0Ch
+        call PresentScreen
+        mov edx, 1
+        mov eax, dword [byte edi+02Ch]
+        call WipeScreen
+        push edi
+        call FreeBitmap
+        add esp, byte 4
+        push dword [byte ebp-010h]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [byte ebp-0Ch]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [byte ebp-08h]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [byte ebp-014h]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [byte ebp-01Ch]
+        call FreeMemBlock
+        add esp, byte 4
+        cmp dword [byte ebp-028h], byte 0
+        jle near ModemConnectScreen_2C3
+        push dword [byte ebp-018h]
+        jmp near ModemConnectScreen_2BB
+;-----------------------------------------------------------------------------
+; RunNetworkConnect                               8BDCF  97 PC, low confidence
+; From RunFrontEnd (18h): the network (IPX) game list first, then the modem
+; settings screen, until connected or back
+;-----------------------------------------------------------------------------
+RunNetworkConnect:
+        push edx
+        call NetworkConnectScreen
+        xor edx, edx
+.1:
+        test edx, edx
+        jne short RunNetworkConnect_35
+        call NetworkGamesScreen
+        mov edx, eax
+        test eax, eax
+        jne short .2
+        call ModemConnect
+        and byte [MenuOptionFlags], 0FEh
+        call ModemSettingsScreen
+        mov edx, eax
+.2:
+        test edx, edx
+        jne short .1
+        call NetworkConnect
+        jmp short .1
+RunNetworkConnect_35:
+        mov dword [ModemSettingsChanged], 0
+        mov dword [NetworkGameReady], 0
+        mov word [ConnectRetry], 0
+        pop edx
+        ret
+;-----------------------------------------------------------------------------
+; RunModemConnect                                 8BE23  97 PC, low confidence
+; From RunFrontEnd: the modem settings screen first, then the network game
+; list, until connected or back
+;-----------------------------------------------------------------------------
+RunModemConnect:
+        push edx
+        call ModemConnectScreen
+        xor edx, edx
+.1:
+        test edx, edx
+        jne short RunNetworkConnect_35
+        call ModemSettingsScreen
+        mov edx, eax
+        test eax, eax
+        jne short .2
+        call NetworkConnect
+        or byte [MenuOptionFlags], 1
+        call NetworkGamesScreen
+        mov edx, eax
+.2:
+        test edx, edx
+        jne short .1
+        call ModemConnect
+        jmp short .1

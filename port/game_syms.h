@@ -9,10 +9,10 @@
 #define SYM_PlayGame           0x152C4u   /* engine/faceoff/faceoff.asm */
 #define SYM_RunInGameMenu      0x1583Fu   /* engine/faceoff/faceoff.asm */
 #define SYM_EditText           0x7FEC4u   /* front/main/main.asm */
-#define SYM_PollControllers    0xE2AF4u   /* front/front_DA66D.asm */
-#define SYM_InputRecordTimer   0xE2E28u   /* front/front_DA66D.asm */
-#define SYM_InitSlotTable      0xE2F98u   /* front/front_DA66D.asm */
-#define SYM_InputRecordAvail   0xE3208u   /* front/front_DA66D.asm */
+#define SYM_PollControllers    0xE2AF4u   /* engine/input/input.asm */
+#define SYM_InputRecordTimer   0xE2E28u   /* engine/input/input.asm */
+#define SYM_InitSlotTable      0xE2F98u   /* engine/input/input.asm */
+#define SYM_InputRecordAvail   0xE3208u   /* engine/input/input.asm */
 #define SYM_GetRandState       0xFBE03u   /* lib/watcom/watcom_clib_02.asm */
 #define SYM_TimerISR           0xFBF24u   /* lib/input/input_joystick_misc_02.asm */
 #define SYM_SetTickDeadline    0xFC2ABu   /* lib/input/input_joystick_misc_03.asm */

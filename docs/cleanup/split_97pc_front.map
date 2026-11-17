@@ -1,0 +1,117 @@
+rename front/front_10010 pc/grip GrIP gamepads: the code start trap, loading and calling the GrIP library and the joystick set-up.
+cut SetupOptionsAnim front/options_anim_frames Options screen animation: set-up, frames and updates.
+cut PickCrowdChant front/crowd_music Crowd chants and game music restarts.
+cut forcepldata engine/period Game and period set-up: teams, benches and penalty boxes, lines on the ice, the clock and starting goalies.
+rename front/front_43578 front/speech Speech: banks, chained clips, play-by-play calls, the speech stream and the public address announcer.
+rename front/front_45BEC front/speech
+cut StopStreamTimer front/music_stream Music and movie streams: the stream timer, stream audio and background audio.
+cut MakeDataPath pc/data_files Data files: paths, loading from files and libraries, start-up data and the global settings file.
+cut NoOpPlatformHook front/game_view Game view: model names, game graphics and video, drawing the game frame.
+cut SetStandsClip front/camera_flashes Stands detail and the camera flashes in the crowd.
+cut LoadRinkTextures front/rink_textures Rink textures: texture pages and tiles, ice textures, board ads and arena art.
+cut ClipLinePoint front/rink_lines Rink lines and stands: clipped line drawing, circles, arcs, dots, nets, the rink view and markings.
+cut CrowdDistanceTo front/crowd Crowd and bench reactions, cheers and the goal light.
+cut TransformRink front/rink_benches Rink sides: boards, glass, benches, bench players and the penalty box.
+cut ScoreboardTransform front/scoreboard The scoreboard and the net art.
+cut BuildRinkSides front/arena_art Arena art: rink sides, the arena archive, board and team logos.
+cut BuildIcePalette front/rink_palette Rink palette: ice palette and colour range blends.
+cut LoadRinkLines front/rink_model Rink model: lines, model, background and surface, benches, seats and portrait models.
+cut SetTeamColours front/player_model Player models: team colours, faces, jerseys and uniforms, model parts, markers and names.
+rename front/front_57324 front/player_model
+cut UpdateFaceTextures front/player_faces Player faces: face textures and face art.
+cut ReplayPackFrame engine/replay Instant replay: recording, playing, saving and loading frames.
+cut AllocSpriteBuffers front/portrait_render Off-screen rendering and the portrait camera.
+cut CameraSplinePoint front/camera Game camera: spline, ease and smoothing, targets, motion and projection.
+cut GetStickBladePos engine/stickhandle Stick handling: blade position, skate sounds, moving players and the puck on the stick.
+cut SetSPA engine/chgplayer Player switching: the controlled player.
+cut GoalieReadShot engine/goalie Goalie AI: reading the shot, angles, covering the post and the goalie tick.
+cut ResetAnimTimer engine/skate Skating moves: idle, stride, glide, turns, stops, crossovers and skate speed.
+cut StartWhistleStop engine/clock Whistle stops and the score clock display.
+cut LoadAnimData engine/anim_load Animation files: skate, shot, action, fall, goalie, referee, fight and cup animations.
+cut StickReach engine/puckphys Puck physics: stick touches, bounces, posts, nets, boards and glass, the puck carrier and the goal judge.
+cut StartPassAnim engine/pass Passing animations and moves.
+cut ShotReach engine/shoot Shot reach and shot moves.
+cut SkateWithPuckMove engine/puckcarrier Skating and gliding with the puck.
+cut CheckBoardsContact engine/collide Collisions: boards contact, body checks, hits, falls, penalties and player contact.
+cut UpdatePlayerMotion engine/player_motion Player motion: depth sort, animation poses and facing.
+cut StartFightAnimMove engine/fight Fights: grabs, punches, blocks, ducks, hits and falls.
+cut PlayCelebrationSound engine/celebrate Celebrations, dejected skating and cheers.
+cut SkateToBenchStep engine/skate_to_spot Skating to the bench or a spot, retrieving the puck and period end moves.
+cut RefAtDotAnim engine/referee Referee animations: at the dot, faceoff, goal, whistle, signals and the goal line.
+cut SkateMoveStep engine/checking Stick checks: poke check, slash, sweep check, hook and dive.
+cut StartBlockAnim engine/block_shot Blocking shots: kneeling and sliding.
+cut GoalieCoverMove engine/goalie_moves Goalie moves: cover, recover, idle, saves, stances and puck deflections.
+cut AllocAnimNode engine/anim Animation engine: nodes, files, frames, poses, clocks, blends and states.
+cut BuildCameraDebugView front/camera_debug Camera debug view and AI icons.
+cut updateplayers engine/hockey Game loop: updating players, game over, intermission, periodic events and crowd ambience.
+rename front/front_789F0 front/sim_game Simulated games: player ratings and team strength.
+rename front/front_7A9D8 front/season_schedule Season schedule, team lines and injuries.
+cut FadeMovieOut front/movie Movies: opening the stream, decoding and playing frames.
+cut putchar pc/modem Modem commands: reset, hang-up, dial, auto answer, connect and results.
+cut LoadLogoNames front/front_end Front end start-up: logo names, front end init and the title screen.
+rename front/front_845E4 front/main_menu The main menu and running the game screens.
+cut RunStatsMenu front/stats_menu The stats menu.
+cut NameIndexNew front/name_index Name index files: new, load, save, remove and count.
+cut WritePhonebookFile pc/modem_setup Modem and network set-up: phonebook, modem settings, network games and connecting.
+rename front/front_868CD pc/modem_setup
+cut CreateMenuBitmap front/menu Menus: menu bitmaps and items, running menus and scroll lists.
+rename front/front_8BFAC front/menu
+cut LoadLangText front/lang_text Language text and position abbreviations.
+rename front/front_8E997 front/season_menu Season menus: new season, season menu screens.
+cut StandingsSparkle front/standings Standings: sorting and factoids.
+cut SeasonSettingsPath front/season_files Season files: settings path, year text and title, replays, link transfer set-up, agents, trades and playoff format.
+rename front/front_93005 front/playoff Playoffs: set-up, team names, the playoff tree and menus.
+rename front/front_9623E front/edit_lines Edit lines screens: lines card, grid, player cards and rating meters.
+cut CompareByRating front/auto_lines Automatic lines: sorting the roster by rating and filling the line slots.
+rename front/front_9E35E front/team_select Team select: home and away panels.
+rename front/front_9F6F5 front/index_pick Picking an index entry.
+cut SendLeagueData pc/link_transfer League data transfer over the link: sending and receiving files and transfer buffers.
+rename front/front_A3280 pc/link_setup Link game set-up screen.
+cut PlayArenaAnnouncement front/postgame Arena announcement and the post-game screen.
+cut StarScore front/threestars Three stars: scoring, picks, stats and art.
+cut GameStatsScreen front/game_stats Game stats screens: team and player pages.
+cut ResetScoringLog front/scoring_log Scoring log: goals, penalties and period ends.
+cut LoadGameLogos front/play_game Playing a menu game: logos, results and finishing a league game.
+rename front/front_AB240 front/play_game
+cut SaveReplayFile front/replay_files Replay files: writing and naming saved replays.
+rename front/front_AC799 front/stat_table Stat tables: cells, columns, sorting, drawing and CSV export.
+cut TeamStatsSound front/stats_tables Team and league stats screens and their columns.
+rename front/front_B1E1D pc/users Users: names, games, records and the user log screen.
+rename front/front_B50DB front/player_cards Player cards: stats, bio, ratings and export.
+cut IsReplayRecordingOn front/replay_menu Replay menus: video options, replay controls, timeline and saved replays.
+rename front/front_BD62C front/replay_menu
+rename front/front_C0F5D front/history History screens: team history lists, text and trophies.
+cut RunOptionsScreens front/options Options screens: detail level and sliders.
+rename front/front_C462F front/options
+rename front/front_C5F81 front/season_setup Season set-up screen.
+rename front/front_C755B front/roster Roster screens: lists, panels, player cards and injuries.
+cut ShowTradeRejected front/trade Trades: roster limits, slots, rating and applying a trade.
+cut DrawJerseyPreview front/jersey The jersey screen.
+cut ClampRosterScroll front/roster_edit Roster edit: trade messages, lines after trades, creating and releasing players.
+cut ShowCreatePlayerHelp front/create_player Create player screen: name, position, hand, size, age and ratings.
+cut CompareFirstDword front/trade_lists Trade lists: team and player comparisons.
+rename front/front_D15FB front/pregame Pre-game screens: matchup, stats panel, rosters and notes.
+rename front/front_D3112 front/pregame
+rename front/front_D4E24 front/goalie_mask Goalie mask intro screen.
+cut FadePalette front/fade Palette fades.
+cut RunIntroMovie front/intro The intro movie.
+cut DrawCreditsPage front/credits Credits screen.
+cut AllocPageStack pc/db_index Database files: pages and B-tree index keys.
+rename front/front_DA66D pc/database Game database: buffers, record keys, rosters and records, repair.
+cut FindTeamRecord front/league_db League records: teams, players, trades, schedules, results, stats, exhibitions and imports.
+cut AddReplayIndexEntry front/replay_index Replay index entries.
+cut SaveUserRecord pc/user_records User records.
+cut AllocClearBlock pc/mem_util Memory helpers: cleared blocks, copies and key compares.
+cut FileExists pc/file_io File I/O: exists, delete, create, open, seek, read, write and close.
+cut ReadKeyboardPad engine/input Game input: keyboard, input driver, joysticks and input recording.
+cut InitLinkSettings pc/link Serial link: packets, timers, handshake and syncing menus and games.
+cut InitNetSession pc/network Network games: IPX sessions, hosting, finding and joining games.
+cut OptionsAnimFrame front/options_anim Options animation screen.
+cut SeasonIntroScreen front/season_intro Season intro: top scorers, team ranks and intro pages.
+rename front/front_E7D6D front/season_intro
+rename front/front_E9429 front/all_star All-star teams: picking and drawing the all-star teams.
+cut LinkReceiveChunk pc/link_chunks Link chunk and file transfers.
+cut GetKeyName front/control_setup Control set-up: key names, keys, pads and players.
+rename front/front_EE69C front/control_setup
+cut SetupPauseArt front/pause_menu Pause and in-game menus: pause art, buttons, the clock, intermission and rules.
+rename front/front_F20A1 front/pause_menu
