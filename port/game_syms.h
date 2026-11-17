@@ -4,10 +4,10 @@
 #ifndef GAME_SYMS_H
 #define GAME_SYMS_H
 
-#define SYM_Gameloop           0x14AC8u   /* engine/faceoff/faceoff.asm */
-#define SYM_InitGameDisplay    0x14E60u   /* engine/faceoff/faceoff.asm */
-#define SYM_PlayGame           0x152C4u   /* engine/faceoff/faceoff.asm */
-#define SYM_RunInGameMenu      0x1583Fu   /* engine/faceoff/faceoff.asm */
+#define SYM_Gameloop           0x14AC8u   /* engine/game/game.asm */
+#define SYM_InitGameDisplay    0x14E60u   /* engine/game/game.asm */
+#define SYM_PlayGame           0x152C4u   /* engine/game/game.asm */
+#define SYM_RunInGameMenu      0x1583Fu   /* engine/game/game.asm */
 #define SYM_EditText           0x7FEC4u   /* front/main/main.asm */
 #define SYM_PollControllers    0xE2AF4u   /* engine/input/input.asm */
 #define SYM_InputRecordTimer   0xE2E28u   /* engine/input/input.asm */
