@@ -31,7 +31,7 @@
 #define SYM_WaitRetrace        0x13C187u   /* lib/video/video_read_port_stable.asm */
 #define SYM_WaitRetraceEdges   0x13C1BFu   /* lib/video/video_read_port_stable.asm */
 #define SYM_WaitDisplayRetrace 0x13C1EAu   /* lib/video/video_read_port_stable.asm */
-#define SYM_InGameMenuRequest  0x1686E0u   /* data/engine/faceoff_data_01.asm */
+#define SYM_InGameMenuRequest  0x1686E0u   /* data/engine/game_data_01.asm */
 #define SYM_SlotWords          0x16D8FCu   /* data/pc/link_data_01.asm */
 #define SYM_InputRecordHead    0x16D910u   /* data/pc/link_data_01.asm */
 #define SYM_InputRecordCount   0x16D914u   /* data/pc/link_data_01.asm */
@@ -62,8 +62,8 @@
 #define SYM__osminor           0x1725ACu   /* data/lib/watcom/watcom_copypart_data_01.asm */
 #define SYM__environ           0x199C40u   /* data/lib/input/input_install_break_handler_data_01.asm */
 #define SYM____env_mask        0x199C44u   /* data/lib/input/input_install_break_handler_data_01.asm */
-#define SYM_seed               0x19CBC4u   /* data/engine/faceoff_data_03.asm */
-#define SYM_SortCords          0x19DA30u   /* data/engine/faceoff_2_bss_01.asm */
+#define SYM_seed               0x19CBC4u   /* data/engine/puck_contact_data_03.asm */
+#define SYM_SortCords          0x19DA30u   /* data/engine/lines_bss_01.asm */
 #define SYM_GlobalSetData      0x1AC810u   /* data/front/speech_bss_02.asm */
 #define SYM_GlobalSetVersion   0x1ACB44u   /* data/front/speech_bss_02.asm */
 #define SYM_InputRecordRing    0x1CD1E0u   /* data/pc/network_bss_01.asm */
